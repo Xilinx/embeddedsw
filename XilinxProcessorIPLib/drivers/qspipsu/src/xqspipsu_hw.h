@@ -29,6 +29,7 @@
 * 1.9  aru 01/17/19 Fixed the violations for  MISRAC-2012
 *                  in safety mode .Done changes such as added U suffix
 * 1.11	akm 11/07/19 Removed LQSPI register access in Versal.
+* 1.15	akm 12/02/21 Fix Doxygen warnings.
 *
 * </pre>
 *
@@ -62,9 +63,6 @@ extern "C" {
 #define XQSPIPS_BASEADDR      0XFF0F0000U
 #endif
 
-/**
- * GQSPI Base Address
- */
 #if defined (versal)
 #define XQSPIPSU_BASEADDR     0XF1030100U
 #else
@@ -72,15 +70,16 @@ extern "C" {
 #endif
 #define XQSPIPSU_OFFSET     0x100U
 /** @} */
+
 /**
  * @name XQSPIPS Enable Register information
+ * QSPIPSU Enable Register
  * @{
  */
 /**
  * Register: XQSPIPS_EN_REG
  */
 #define XQSPIPS_EN_REG    ( ( XQSPIPS_BASEADDR ) + 0X00000014U )
-
 #define XQSPIPS_EN_SHIFT   0U
 #define XQSPIPS_EN_WIDTH   1U
 #define XQSPIPS_EN_MASK    0X00000001U
@@ -88,6 +87,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU configuration Register information
+ * This register contains bits for configuring GQSPI controller
  * @{
  */
 /**
@@ -131,9 +131,15 @@ extern "C" {
 #define XQSPIPSU_CFG_CLK_POL_SHIFT   1U
 #define XQSPIPSU_CFG_CLK_POL_WIDTH   1U
 #define XQSPIPSU_CFG_CLK_POL_MASK    0X00000002U
+/** @} */
 
 /**
- * Register: XQSPIPSU_CFG
+ * @name XQSPIPSU LQSPI Register information
+ * This register contains bits for configuring LQSPI
+ * @{
+ */
+/**
+ * Register: XQSPIPSU_LQSPI
  */
 #if !defined (versal)
 #define XQSPIPSU_LQSPI_CR_OFFSET	0X000000A0U
@@ -152,8 +158,10 @@ extern "C" {
 #define XQSPIPS_LQSPI_CFG_RST_STATE       0x800238C1U /**< Default LQSPI CFG value */
 #endif
 /** @} */
+
 /**
- * @name XQSPIPSU Interrupt Registers information
+ * @name XQSPIPSU Interrupt Status Register information
+ * QSPIPSU Interrupt Status Register
  * @{
  */
 /**
@@ -202,7 +210,13 @@ extern "C" {
 #define XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK    0X00000002U
 
 #define XQSPIPSU_ISR_WR_TO_CLR_MASK 0X00000002U
+/** @} */
 
+/**
+ * @name XQSPIPSU Interrupt Enable Register information
+ * This register bits for enabling interrupts
+ * @{
+ */
 /**
  * Register: XQSPIPSU_IER
  */
@@ -247,7 +261,13 @@ extern "C" {
 #define XQSPIPSU_IER_POLL_TIME_EXPIRE_SHIFT   1U
 #define XQSPIPSU_IER_POLL_TIME_EXPIRE_WIDTH   1U
 #define XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK    0X00000002U
+/** @} */
 
+/**
+ * @name XQSPIPSU Interrupt Disable Register information
+ * This register bits for disabling interrupts
+ * @{
+ */
 /**
  * Register: XQSPIPSU_IDR
  */
@@ -294,7 +314,13 @@ extern "C" {
 #define XQSPIPSU_IDR_POLL_TIME_EXPIRE_MASK    0X00000002U
 
 #define XQSPIPSU_IDR_ALL_MASK    0X0FBEU
+/** @} */
 
+/**
+ * @name XQSPIPSU Interrupt Mask Register information
+ * This register bits for masking interrupts
+ * @{
+ */
 /**
  * Register: XQSPIPSU_IMR
  */
@@ -343,6 +369,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU Enable Register information
+ * This register bits for enabling QSPI controller
  * @{
  */
 /**
@@ -357,6 +384,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU TX Data Register information
+ * This register bits for configuring TXFIFO
  * @{
  */
 /**
@@ -373,6 +401,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU RX Data Register information
+ * This register bits for configuring RXFIFO
  * @{
  */
 /**
@@ -387,6 +416,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU TX/RX Threshold Register information
+ * This register bits for configuring TX/RX Threshold
  * @{
  */
 /**
@@ -399,9 +429,6 @@ extern "C" {
 #define XQSPIPSU_TX_FIFO_THRESHOLD_MASK    0X0000003FU
 #define XQSPIPSU_TX_FIFO_THRESHOLD_RESET_VAL    0X01U
 
-/**
- * Register: XQSPIPSU_RX_THRESHOLD
- */
 #define XQSPIPSU_RX_THRESHOLD_OFFSET    0X0000002CU
 
 #define XQSPIPSU_RX_FIFO_THRESHOLD_SHIFT   0U
@@ -428,6 +455,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU Loopback Master Clock Delay Adjustment Register information
+ * This register contains bits for configuring loopback
  * @{
  */
 /**
@@ -450,6 +478,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU GEN_FIFO Register information
+ * This register contains bits for configuring GENFIFO
  * @{
  */
 /**
@@ -464,6 +493,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU Select Register information
+ * This register contains bits for selection GQSPI/LQSPI controller
  * @{
  */
 /**
@@ -481,6 +511,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU FIFO Control Register information
+ * This register contains bits for controlling TXFIFO and RXFIFO
  * @{
  */
 /**
@@ -502,7 +533,8 @@ extern "C" {
 /** @} */
 
 /**
- * @name XQSPIPSU GEN_FIFO Threshold Register information
+ * @name XQSPIPSU GENFIFO Threshold Register information
+ * This register contains bits for configuring GENFIFO threshold
  * @{
  */
 /**
@@ -518,6 +550,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU Poll configuration Register information
+ * This register contains bits for configuring Poll feature
  * @{
  */
 /**
@@ -540,15 +573,7 @@ extern "C" {
 #define XQSPIPSU_POLL_CFG_DATA_VALUE_SHIFT   0U
 #define XQSPIPSU_POLL_CFG_DATA_VALUE_WIDTH   8U
 #define XQSPIPSU_POLL_CFG_DATA_VALUE_MASK    0X000000FFU
-/** @} */
 
-/**
- * @name XQSPIPSU Poll Time out Register information
- * @{
- */
-/**
- * Register: XQSPIPSU_P_TIMEOUT
- */
 #define XQSPIPSU_P_TO_OFFSET    0X00000058U
 
 #define XQSPIPSU_P_TO_VALUE_SHIFT   0U
@@ -558,6 +583,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU Transfer Status Register information
+ * This register contains bits for transfer status
  * @{
  */
 /**
@@ -572,6 +598,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU GEN_FIFO Snapshot Register information
+ * This register contains bits for configuring GENFIFO
  * @{
  */
 /**
@@ -617,7 +644,8 @@ extern "C" {
 /** @} */
 
 /**
- * @name XQSPIPSU DMA Transfer information
+ * @name XQSPIPSU DMA Transfer Register information
+ * This register contains bits for configuring DMA
  * @{
  */
 /**
@@ -629,18 +657,12 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_DST_ADDR_WIDTH   30U
 #define XQSPIPSU_QSPIDMA_DST_ADDR_MASK    0XFFFFFFFCU
 
-/**
- * Register: XQSPIPSU_QSPIDMA_DST_SIZE
- */
 #define XQSPIPSU_QSPIDMA_DST_SIZE_OFFSET    0X00000704U
 
 #define XQSPIPSU_QSPIDMA_DST_SIZE_SHIFT   2U
 #define XQSPIPSU_QSPIDMA_DST_SIZE_WIDTH   27U
 #define XQSPIPSU_QSPIDMA_DST_SIZE_MASK    0X1FFFFFFCU
 
-/**
- * Register: XQSPIPSU_QSPIDMA_DST_STS
- */
 #define XQSPIPSU_QSPIDMA_DST_STS_OFFSET    0X00000708U
 
 #define XQSPIPSU_QSPIDMA_DST_STS_DONE_CNT_SHIFT   13U
@@ -661,9 +683,6 @@ extern "C" {
 
 #define XQSPIPSU_QSPIDMA_DST_STS_WTC	0xE000U
 
-/**
- * Register: XQSPIPSU_QSPIDMA_DST_CTRL
- */
 #define XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET    0X0000070CU
 
 #define XQSPIPSU_QSPIDMA_DST_CTRL_FIFO_LVL_HIT_THRESHOLD_SHIFT   25U
@@ -700,9 +719,6 @@ extern "C" {
 
 #define XQSPIPSU_QSPIDMA_DST_CTRL_RESET_VAL	0x403FFA00U
 
-/**
- * Register: XQSPIPSU_QSPIDMA_DST_I_STS
- */
 #define XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET    0X00000714U
 
 #define XQSPIPSU_QSPIDMA_DST_I_STS_FIFO_OF_SHIFT   7U
@@ -736,9 +752,6 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_DST_INTR_ERR_MASK    0X000000FCU
 #define XQSPIPSU_QSPIDMA_DST_INTR_ALL_MASK    0X000000FEU
 
-/**
- * Register: XQSPIPSU_QSPIDMA_DST_I_EN
- */
 #define XQSPIPSU_QSPIDMA_DST_I_EN_OFFSET    0X00000718U
 
 #define XQSPIPSU_QSPIDMA_DST_I_EN_FIFO_OF_SHIFT   7U
@@ -769,9 +782,6 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_DST_I_EN_DONE_WIDTH   1U
 #define XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK    0X00000002U
 
-/**
- * Register: XQSPIPSU_QSPIDMA_DST_I_DIS
- */
 #define XQSPIPSU_QSPIDMA_DST_I_DIS_OFFSET    0X0000071CU
 
 #define XQSPIPSU_QSPIDMA_DST_I_DIS_FIFO_OF_SHIFT   7U
@@ -802,9 +812,6 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_DST_I_DIS_DONE_WIDTH   1U
 #define XQSPIPSU_QSPIDMA_DST_I_DIS_DONE_MASK    0X00000002U
 
-/**
- * Register: XQSPIPSU_QSPIDMA_DST_IMR
- */
 #define XQSPIPSU_QSPIDMA_DST_IMR_OFFSET    0X00000720U
 
 #define XQSPIPSU_QSPIDMA_DST_IMR_FIFO_OF_SHIFT   7U
@@ -835,9 +842,6 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_DST_IMR_DONE_WIDTH   1U
 #define XQSPIPSU_QSPIDMA_DST_IMR_DONE_MASK    0X00000002U
 
-/**
- * Register: XQSPIPSU_QSPIDMA_DST_CTRL2
- */
 #define XQSPIPSU_QSPIDMA_DST_CTRL2_OFFSET    0X00000724U
 
 #define XQSPIPSU_QSPIDMA_DST_CTRL2_RAM_EMASA_SHIFT   27U
@@ -868,18 +872,12 @@ extern "C" {
 #define XQSPIPSU_QSPIDMA_DST_CTRL2_MAX_OUTS_CMDS_WIDTH   4U
 #define XQSPIPSU_QSPIDMA_DST_CTRL2_MAX_OUTS_CMDS_MASK    0X0000000FU
 
-/**
- * Register: XQSPIPSU_QSPIDMA_DST_ADDR_MSB
- */
 #define XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET    0X00000728U
 
 #define XQSPIPSU_QSPIDMA_DST_ADDR_MSB_SHIFT   0U
 #define XQSPIPSU_QSPIDMA_DST_ADDR_MSB_WIDTH   12U
 #define XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK    0X00000FFFU
 
-/**
- * Register: XQSPIPSU_QSPIDMA_FUTURE_ECO
- */
 #define XQSPIPSU_QSPIDMA_FUTURE_ECO_OFFSET    0X00000EFCU
 
 #define XQSPIPSU_QSPIDMA_FUTURE_ECO_VAL_SHIFT   0U
@@ -889,6 +887,7 @@ extern "C" {
 
 /**
  * @name XQSPIPSU Generic FIFO masks information
+ * Generic FIFO masks information
  * @{
  */
 /**
@@ -1003,5 +1002,5 @@ extern "C" {
 #endif
 
 
-#endif /* XQSPIPSU_H */
+#endif /**< XQSPIPSU_H */
 /** @} */
