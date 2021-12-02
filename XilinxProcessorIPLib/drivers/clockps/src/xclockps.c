@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xclockps.c
-* @addtogroup xclockps_v1_3
+* @addtogroup xclockps_v1_4
 * @{
 *
 * Contains the implementation of interface functions of the clock driver.
