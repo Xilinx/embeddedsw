@@ -141,6 +141,9 @@ static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
 static int Xbir_KREthInit (void);
 static int Xbir_KVeMMCInit (void);
 static int Xbir_SCEthInit (void);
+#ifndef XPS_BOARD_K26I
+static int Xbir_SCeMMCInit (void);
+#endif
 
 /************************** Variable Definitions *****************************/
 static const u32 Xbir_UtilCrcTable[] = {
@@ -231,6 +234,11 @@ int Xbir_SysInit (void)
 		XBIR_SYS_PRODUCT_NAME_LEN) == 0U) {
 		Status = Xbir_KVeMMCInit();
 	}
+#ifndef XPS_BOARD_K26I
+	else {
+		Status = Xbir_SCeMMCInit();
+	}
+#endif
 
 END:
 	return Status;
@@ -1363,3 +1371,24 @@ static int Xbir_KVeMMCInit (void)
 
 	return Status;
 }
+#ifndef XPS_BOARD_K26I
+/*****************************************************************************/
+/**
+ * @brief
+ * This function does register write and initializations required for eMMC on
+ * VPK120 RevB System Controller.
+ *
+ * @return	XST_SUCCESS on successfully bringing phy out of reset
+ * 		Error code on failure
+ *
+ *****************************************************************************/
+static int Xbir_SCeMMCInit (void)
+{
+	int Status = XST_FAILURE;
+
+	Xbir_MaskWrite(IOU_SLCR_SD_CDN_CTRL_OFFSET, 0x1U, 0x1U);
+	Status = Xbir_SdInit();
+
+	return Status;
+}
+#endif
