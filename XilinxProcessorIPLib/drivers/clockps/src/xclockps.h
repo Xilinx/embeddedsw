@@ -32,6 +32,7 @@
 * 1.1   aru    03/20/19 Fix IAR issue by changing "XCLOCK_ABS_DIFF" to a
 *                       function named "XClock_Absolute_Difference".
 * 1.2   sd     02/13/20 Rename ARRAY_SIZE
+* 1.4   sd     12/02/21 Fix compilation warnings reported with "-Wundef" flag.
 * </pre>
 *
 ******************************************************************************/
@@ -541,7 +542,7 @@ typedef enum {
 ******************************************************************************/
 static inline XStatus XClock_ReadReg(u32 RegAddr, u32 *Value)
 {
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar RegValue;
 
 	RegValue = Xil_Smc(MMIO_READ_SMC_FID, (u64)(RegAddr), 0, 0, 0, 0, 0, 0);
@@ -574,7 +575,7 @@ static inline XStatus XClock_ReadReg(u32 RegAddr, u32 *Value)
 ******************************************************************************/
 static inline XStatus XClock_WriteReg(u32 RegAddr, u32 Value)
 {
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar RegValue;
 	RegValue = Xil_Smc(MMIO_WRITE_SMC_FID,
 			(u64)(RegAddr) | ((u64)(0xFFFFFFFF) << 32),
