@@ -896,7 +896,7 @@ static void PostTopologyHook(void)
 static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 {
 	XStatus Status = XST_FAILURE;
-	u32 i = 0, j = 0, Prealloc = 0, Capability = 0;
+	u32 i = 0, j = 0UL, Prealloc = 0, Capability = 0;
 	const XPm_Requirement *Req = NULL;
 	const u32 DefaultPreallocDevList[][2] = {
 		{PM_DEV_PSM_PROC, (u32)PM_CAP_ACCESS},
@@ -1001,8 +1001,10 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		goto done;
 	}
 	/* Add xGGS Permissions */
-	j = (1U << IOCTL_PERM_READ_SHIFT_NS) | (1U << IOCTL_PERM_WRITE_SHIFT_NS);
-	j |= (1U << IOCTL_PERM_READ_SHIFT_S) | (1U << IOCTL_PERM_WRITE_SHIFT_S);
+	j |= 1UL << IOCTL_PERM_READ_SHIFT_NS;
+	j |= 1UL << IOCTL_PERM_WRITE_SHIFT_NS;
+	j |= 1UL << IOCTL_PERM_READ_SHIFT_S;
+	j |= 1UL << IOCTL_PERM_WRITE_SHIFT_S;
 	for (i = PM_DEV_GGS_0; i <= PM_DEV_GGS_3; i++) {
 		Status = XPm_AddDevRequirement(Subsystem, i, j, NULL, 0);
 		if (XST_SUCCESS != Status) {

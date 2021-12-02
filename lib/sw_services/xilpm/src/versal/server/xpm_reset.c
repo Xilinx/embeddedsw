@@ -747,7 +747,7 @@ XStatus XPmReset_AddPermForGlobalResets(const XPm_Subsystem *Subsystem)
 	XStatus Status = XST_FAILURE;
 	u32 Index, Flags;
 	XPm_ResetNode *Rst = NULL;
-	Flags = (1U << RESET_PERM_SHIFT_NS) | (1U << RESET_PERM_SHIFT_S);
+	Flags = (1UL << RESET_PERM_SHIFT_NS) | (1UL << RESET_PERM_SHIFT_S);
 
 	for (Index = 0U; Index < (ARRAY_SIZE(PermissionResets)); Index++) {
 		Rst = XPmReset_GetById( PermissionResets[Index]  );
