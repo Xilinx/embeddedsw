@@ -76,6 +76,7 @@
 *       dc     11/26/21 Model parameter NumCCPerAntenna workaround
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/30/21 Convert AntennaCfg to structure
+*       dc     12/02/21 Add UpdateAntennaCfg API
 *
 * </pre>
 * @endcond
@@ -431,6 +432,8 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID);
 u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 		     const XDfeCcf_CarrierCfg *CarrierCfg);
 u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
+u32 XDfeCcf_UpdateAntennaCfg(XDfeCcf *InstancePtr,
+			     XDfeCcf_AntennaCfg *AntennaCfg);
 void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 			    XDfeCcf_TriggerCfg *TriggerCfg);
 void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
