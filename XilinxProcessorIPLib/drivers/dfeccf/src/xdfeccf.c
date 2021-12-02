@@ -38,6 +38,7 @@
 *       dc     11/26/21 Set sequence length in GetEmptyCCCfg
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/30/21 Convert AntennaCfg to structure
+*       dc     12/02/21 Add UpdateAntennaCfg API
 *
 * </pre>
 * @addtogroup dfeccf_v1_2
@@ -1603,6 +1604,37 @@ u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 		CCCfg.AntennaCfg.Enable[Ant] = XDFECCF_ANTENNA_DISABLE;
 	}
 
+	/* Update next configuration and trigger update */
+	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
+	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+}
+
+/****************************************************************************/
+/**
+*
+* Updates antenna cofiguration to all antennas.
+*
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    AntennaCfg Array of all antenna configurations.
+*
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
+* @note     Clear event status with XDfeCcf_ClearEventStatus() before
+*           running this API.
+*
+****************************************************************************/
+u32 XDfeCcf_UpdateAntennaCfg(XDfeCcf *InstancePtr,
+			     XDfeCcf_AntennaCfg *AntennaCfg)
+{
+	XDfeCcf_CCCfg CCCfg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(AntennaCfg != NULL);
+
+	XDfeCcf_GetCurrentCCCfg(InstancePtr, &CCCfg);
+	CCCfg.AntennaCfg = *AntennaCfg;
 	/* Update next configuration and trigger update */
 	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
 	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
