@@ -72,6 +72,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *       dc     11/19/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/30/21 Convert AntennaCfg to structure
+*       dc     12/02/21 Add UpdateAntennaCfg API
 *
 * </pre>
 * @endcond
@@ -494,6 +495,8 @@ u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
 		     const XDfeMix_CarrierCfg *CarrierCfg);
 u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 			   u32 AntennaGain);
+u32 XDfeMix_UpdateAntennaCfg(XDfeMix *InstancePtr,
+			     XDfeMix_AntennaCfg *AntennaCfg);
 void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 			    XDfeMix_TriggerCfg *TriggerCfg);
 void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
