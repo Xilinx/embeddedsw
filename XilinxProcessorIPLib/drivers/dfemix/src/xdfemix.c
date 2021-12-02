@@ -39,6 +39,7 @@
 *       dc     11/26/21 Set sequence length in GetEmptyCCCfg
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/30/21 Convert AntennaCfg to structure
+*       dc     12/02/21 Add UpdateAntennaCfg API
 *
 * </pre>
 * @addtogroup xdfemix_v1_2
@@ -1838,7 +1839,7 @@ u32 XDfeMix_SetNextCCCfgAndTrigger(const XDfeMix *InstancePtr,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfeMix_ClearInterruptStatus() before
+* @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -1908,7 +1909,7 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfeMix_ClearInterruptStatus() before
+* @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -1951,7 +1952,7 @@ u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfeMix_ClearInterruptStatus() before
+* @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -2020,7 +2021,7 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfeMix_ClearInterruptStatus() before
+* @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -2067,7 +2068,7 @@ u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
-* @note     Clear event status with XDfeMix_ClearInterruptStatus() before
+* @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
 *
 ****************************************************************************/
@@ -2081,6 +2082,37 @@ u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId, u32 AntennaGain)
 
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 	CCCfg.AntennaCfg.Gain[AntennaId] = AntennaGain;
+	/* Update next configuration and trigger update */
+	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
+	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
+}
+
+/****************************************************************************/
+/**
+*
+* Updates antenna cofiguration to all antennas.
+*
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    AntennaCfg Array of all antenna configurations.
+*
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
+* @note     Clear event status with XDfeMix_ClearEventStatus() before
+*           running this API.
+*
+****************************************************************************/
+u32 XDfeMix_UpdateAntennaCfg(XDfeMix *InstancePtr,
+			     XDfeMix_AntennaCfg *AntennaCfg)
+{
+	XDfeMix_CCCfg CCCfg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(AntennaCfg != NULL);
+
+	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
+	CCCfg.AntennaCfg = *AntennaCfg;
 	/* Update next configuration and trigger update */
 	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
 	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
