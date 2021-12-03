@@ -29,6 +29,7 @@
 *			 status bit and is asserted when the flush is done).
 * 4.10  vv    03/13/19   Added new pixel formats with 12 and 16 bpc.
 * 4.50  kp    13/07/21   Added new 3 planar video format Y_U_V8.
+* 4.60  kp    03/12/21   Added new 3 planar video format Y_U_V10.
 * </pre>
 *
 ******************************************************************************/
@@ -106,7 +107,8 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
   {XVIDC_CSF_MEM_Y_UV16_420, XVIDC_CSF_YCRCB_420, 16},
   {XVIDC_CSF_MEM_Y12,        XVIDC_CSF_YONLY, 12},
   {XVIDC_CSF_MEM_Y16,        XVIDC_CSF_YONLY, 16},
-  {XVIDC_CSF_MEM_Y_U_V8,     XVIDC_CSF_YCRCB_444, 8}
+  {XVIDC_CSF_MEM_Y_U_V8,     XVIDC_CSF_YCRCB_444, 8},
+  {XVIDC_CSF_MEM_Y_U_V10,    XVIDC_CSF_YCRCB_444, 10}
 };
 XV_FrmbufRd_l2     frmbufrd;
 XV_frmbufrd_Config frmbufrd_cfg;
@@ -334,7 +336,8 @@ static u32 CalcStride(XVidC_ColorFormat Cfmt,
     case XVIDC_CSF_MEM_Y_UV10:
     case XVIDC_CSF_MEM_Y_UV10_420:
     case XVIDC_CSF_MEM_Y10:
-      /* 4 bytes per 3 pixels (Y_UV10, Y_UV10_420, Y10) */
+	case XVIDC_CSF_MEM_Y_U_V10:
+      /* 4 bytes per 3 pixels (Y_UV10, Y_UV10_420, Y10, Y_U_V10) */
       bpp_numerator = 4;
       bpp_denominator = 3;
       break;
@@ -420,7 +423,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
   /* Set Chroma Buffer Address for semi-planar color formats */
   if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
       (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420) ||
-      (Cfmt == XVIDC_CSF_MEM_Y_U_V8)) {
+      (Cfmt == XVIDC_CSF_MEM_Y_U_V8) || (Cfmt == XVIDC_CSF_MEM_Y_U_V10)) {
 	  Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
 	  if (Status != XST_SUCCESS) {
 		  xil_printf("ERROR:: Unable to configure Frame Buffer Read buffer address\r\n");
@@ -428,7 +431,7 @@ static int ConfigFrmbuf(u32 StrideInBytes,
 	  }
   }
 
-  if (Cfmt == XVIDC_CSF_MEM_Y_U_V8) {
+  if ((Cfmt == XVIDC_CSF_MEM_Y_U_V8) || (Cfmt == XVIDC_CSF_MEM_Y_U_V10)){
 	  Status = XVFrmbufRd_SetVChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR+V_CHROMA_ADDR_OFFSET);
 	  if (Status != XST_SUCCESS) {
 		  xil_printf("ERROR:: Unable to configure Frame Buffer Read buffer V address\r\n");
