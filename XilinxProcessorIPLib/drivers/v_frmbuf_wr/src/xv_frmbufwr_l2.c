@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_frmbufwr_l2.c
-* @addtogroup v_frmbuf_wr_v4_5
+* @addtogroup v_frmbuf_wr_v4_6
 * @{
 *
 * Frame Buffer Write Layer-2 Driver. The functions in this file provides an
@@ -33,6 +33,7 @@
 *			 status bit and is asserted when the flush is done).
 * 4.10  vv    02/05/19   Added new pixel formats with 12 and 16 bpc.
 * 4.50  kp    12/07/21   Added new 3 planar video format Y_U_V8.
+* 4.60  kp    10/27/21   Added new 3 planar video format Y_U_V10.
 * </pre>
 *
 ******************************************************************************/
@@ -145,6 +146,9 @@ XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt)
             StrmFmt = XVIDC_CSF_YONLY;
             break;
        case XVIDC_CSF_MEM_Y_U_V8 :
+            StrmFmt = XVIDC_CSF_YCRCB_444;
+            break;
+	   case XVIDC_CSF_MEM_Y_U_V10 :
             StrmFmt = XVIDC_CSF_YCRCB_444;
             break;
        default:
@@ -532,6 +536,11 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
+	  case XVIDC_CSF_MEM_Y_U_V10 :
+         if (XVFrmbufWr_IsY_U_V10Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
       default :
          FmtValid = FALSE;
          break;
@@ -799,6 +808,7 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("Y12 Enabled:                %d\r\n", InstancePtr->FrmbufWr.Config.Y12En);
   xil_printf("Y16 Enabled:                %d\r\n", InstancePtr->FrmbufWr.Config.Y16En);
   xil_printf("Y_U_V8 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V8En);
+  xil_printf("Y_U_V10 Enabled:            %d\r\n", InstancePtr->FrmbufWr.Config.Y_U_V10En);
   xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Interlaced);
 
   xil_printf("Control Reg:                0x%x\r\n", ctrl);

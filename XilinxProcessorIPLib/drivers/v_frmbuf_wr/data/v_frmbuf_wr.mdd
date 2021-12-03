@@ -8,11 +8,11 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_frmbuf_wr
 
- OPTION supported_peripherals = (v_frmbuf_wr_v[2]_[0-3] );
+ OPTION supported_peripherals = (v_frmbuf_wr_v[2]_[0-4] );
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION DEPENDS = (video_common);
  OPTION name = v_frmbuf_wr;
- OPTION version = 4.5;
+ OPTION version = 4.6;
 
 END driver

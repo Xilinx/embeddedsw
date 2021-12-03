@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_frmbufwr_l2_intr.c
-* @addtogroup v_frmbuf_wr_v4_5
+* @addtogroup v_frmbuf_wr_v4_6
 * @{
 *
 * The functions in this file provides interrupt handler and associated
