@@ -21,6 +21,7 @@
 * 10.0  cog    11/26/20 Refactor and split files.
 * 11.0  cog    05/31/21 Upversion.
 * 11.1  cog    11/16/21 Upversion.
+*       cog    11/26/21 Reset clock gaters when setting decimation rate.
 *
 * </pre>
 *
@@ -131,14 +132,19 @@ static u32 XRFdc_SetDecimationFactorInt(XRFdc *InstancePtr, u32 Tile_Id, u32 Blo
 	XRFdc_IntResetInternalFIFOWidth(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, Channel);
 
 	if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+		BaseAddr = XRFDC_DRP_BASE(XRFDC_ADC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR;
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_CLK_NETWORK_CTRL1, XRFDC_CLK_NETWORK_CTRL1_EN_SYNC_MASK,
+				XRFDC_CLK_NETWORK_CTRL1_EN_SYNC_MASK);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DIV_OFFSET, XRFDC_FAB_CLK_DIV_SYNC_PULSE_MASK,
+				XRFDC_FAB_CLK_DIV_SYNC_PULSE_MASK);
+
 		switch (DecimationFactor) {
 		case XRFDC_INTERP_DECIM_1X:
 		case XRFDC_INTERP_DECIM_2X:
 		case XRFDC_INTERP_DECIM_4X:
 		case XRFDC_INTERP_DECIM_8X:
-			XRFdc_ClrSetReg(InstancePtr, (XRFDC_DRP_BASE(XRFDC_ADC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR),
-					XRFDC_HSCOM_FIFO_START_TDD_OFFSET(Channel), XRFDC_ADC_FIFO_DELAY_MASK,
-					XRFDC_FIFO_CHANNEL_ACT);
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_FIFO_START_TDD_OFFSET(Channel),
+					XRFDC_ADC_FIFO_DELAY_MASK, XRFDC_FIFO_CHANNEL_ACT);
 			break;
 		case XRFDC_INTERP_DECIM_3X:
 		case XRFDC_INTERP_DECIM_6X:
@@ -149,8 +155,8 @@ static u32 XRFdc_SetDecimationFactorInt(XRFdc *InstancePtr, u32 Tile_Id, u32 Blo
 		case XRFDC_INTERP_DECIM_20X:
 		case XRFDC_INTERP_DECIM_24X:
 		case XRFDC_INTERP_DECIM_40X:
-			XRFdc_ClrSetReg(InstancePtr, (XRFDC_DRP_BASE(XRFDC_ADC_TILE, Tile_Id) + XRFDC_HSCOM_ADDR),
-					XRFDC_HSCOM_FIFO_START_TDD_OFFSET(Channel), XRFDC_ADC_FIFO_DELAY_MASK,
+			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_FIFO_START_TDD_OFFSET(Channel),
+					XRFDC_ADC_FIFO_DELAY_MASK,
 					XRFDC_ADC_CG_WAIT_CYCLES << XRFDC_ADC_FIFO_DELAY_SHIFT);
 			break;
 		default:

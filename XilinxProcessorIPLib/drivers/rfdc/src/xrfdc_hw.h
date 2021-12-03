@@ -104,6 +104,7 @@
 *                       configuration registers.
 *       cog    07/12/21 Simplified clock distribution user interface.
 * 11.1  cog    11/16/21 Upversion.
+*       cog    11/26/21 Reset clock gaters when setting decimation rate.
 *
 *</pre>
 *
@@ -2012,6 +2013,7 @@ extern "C" {
 
 #define XRFDC_FAB_CLK_DIV_MASK 0x0000000FU /**< clk div mask */
 #define XRFDC_FAB_CLK_DIV_CAL_MASK 0x000000F0U /**< clk div cal mask */
+#define XRFDC_FAB_CLK_DIV_SYNC_PULSE_MASK 0x00000400U /**< clk div cal mask */
 
 /* @} */
 
@@ -2070,6 +2072,7 @@ extern "C" {
 #define XRFDC_CLK_NETWORK_CTRL1_USE_PLL_MASK 0x1U /**< PLL clock mask */
 #define XRFDC_CLK_NETWORK_CTRL1_USE_RX_MASK 0x2U /**< PLL clock mask */
 #define XRFDC_CLK_NETWORK_CTRL1_REGS_MASK 0x3U /**< PLL clock mask */
+#define XRFDC_CLK_NETWORK_CTRL1_EN_SYNC_MASK 0x1000U /**< PLL clock mask */
 
 /* @} */
 
