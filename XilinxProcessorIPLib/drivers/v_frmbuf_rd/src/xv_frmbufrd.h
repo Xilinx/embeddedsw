@@ -80,6 +80,7 @@ typedef struct {
   u16 Y_UV16_420En;         /**< Y_UV16_420 support */
   u16 Y16En;                /**< Y16      support */
   u16 Y_U_V8En;             /**< Y_U_V8 support */
+  u16 Y_U_V10En;            /**< Y_U_V10 support */
   u16 Interlaced;           /**< Interlaced support */
 } XV_frmbufrd_Config;
 #endif

@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_frmbufrd_l2.c
-* @addtogroup v_frmbuf_rd_v4_5
+* @addtogroup v_frmbuf_rd_v4_6
 * @{
 *
 * Frame Buffer Read Layer-2 Driver. The functions in this file provides an
@@ -154,9 +154,12 @@ XVidC_ColorFormat RdMemory2Live(XVidC_ColorFormat MemFmt)
 		case XVIDC_CSF_MEM_Y16 :
 			StrmFmt = XVIDC_CSF_YONLY;
 			break;
-                case XVIDC_CSF_MEM_Y_U_V8 :
-                        StrmFmt = XVIDC_CSF_YCRCB_444;
-                        break;
+        case XVIDC_CSF_MEM_Y_U_V8 :
+            StrmFmt = XVIDC_CSF_YCRCB_444;
+            break;
+		case XVIDC_CSF_MEM_Y_U_V10 :
+            StrmFmt = XVIDC_CSF_YCRCB_444;
+            break;
 		default:
 			StrmFmt = (XVidC_ColorFormat)~0;
 			break;
@@ -414,12 +417,17 @@ int XVFrmbufRd_SetMemFormat(XV_FrmbufRd_l2 *InstancePtr,
 		switch(MemFmt) {
 			case XVIDC_CSF_MEM_RGBX8 :
 				if (XVFrmbufRd_IsRGBX8Enabled(InstancePtr)) {
-                                        FmtValid = TRUE;
-                                }
-                                break;
-                        case XVIDC_CSF_MEM_Y_U_V8 :
-                                if (XVFrmbufRd_IsY_U_V8Enabled(InstancePtr)) {
-					FmtValid = TRUE;
+                  FmtValid = TRUE;
+                }
+                break;
+            case XVIDC_CSF_MEM_Y_U_V8 :
+                if (XVFrmbufRd_IsY_U_V8Enabled(InstancePtr)) {
+				   FmtValid = TRUE;
+				}
+				break;
+			case XVIDC_CSF_MEM_Y_U_V10 :
+                if (XVFrmbufRd_IsY_U_V10Enabled(InstancePtr)) {
+				   FmtValid = TRUE;
 				}
 				break;
 			case XVIDC_CSF_MEM_YUVX8 :
@@ -970,6 +978,7 @@ void XVFrmbufRd_DbgReportStatus(XV_FrmbufRd_l2 *InstancePtr)
 	xil_printf("Y12 Enabled:                %d\r\n", InstancePtr->FrmbufRd.Config.Y12En);
 	xil_printf("Y16 Enabled:                %d\r\n", InstancePtr->FrmbufRd.Config.Y16En);
 	xil_printf("Y_U_V8 Enabled:             %d\r\n", InstancePtr->FrmbufRd.Config.Y_U_V8En);
+	xil_printf("Y_U_V10 Enabled:            %d\r\n", InstancePtr->FrmbufRd.Config.Y_U_V10En);
 	xil_printf("Interlaced Enabled:         %d\r\n", InstancePtr->FrmbufRd.Config.Interlaced);
 
 	xil_printf("Control Reg:                0x%x\r\n", ctrl);
