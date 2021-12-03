@@ -1,3 +1,8 @@
+###############################################################################
+# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
 # Steps to create BSP, FSBL application and Test application.
 
 ## Creating the BSP:
