@@ -450,6 +450,7 @@ typedef enum {
 	XVIDC_CSF_MEM_R_G_B8,       // [7:0] R:8, [7:0] G:8, [7:0] B:8
 	XVIDC_CSF_MEM_Y_U_V8_420,   // [15:0] Y:Y 8:8, [7:0] U:8, [7:0] V:8
 	XVIDC_CSF_MEM_Y_U_V8,       // [7:0] Y:8, [7:0] U:8, [7:0] V:8
+	XVIDC_CSF_MEM_Y_U_V10,      // [9:0] Y:10, [9:0] U:10, [9:0] V:10
 	XVIDC_CSF_MEM_END,          // End of memory formats
 
 	/* Streaming formats with components re-ordered */
