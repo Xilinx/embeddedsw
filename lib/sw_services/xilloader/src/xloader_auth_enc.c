@@ -70,6 +70,7 @@
 *       kpt  10/28/21 Fixed PMCDMA1 hang issue in sbi checksum copy to memory
 *                     mode
 * 1.03  skd  11/18/21 Added time stamps in XLoader_ProcessAuthEncPrtn
+*       bsv  12/04/21 Address security review comment
 *
 * </pre>
 *
@@ -517,8 +518,8 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 	/* Metaheader encryption key source for FPDI/PPDI should be same as
 	 * PLM Key source in Bootheader
 	 */
-	if ((SecurePtr->IsEncrypted == (u8)TRUE) &&
-		(SecureTempParams->IsEncrypted == (u8)TRUE) &&
+	if (((SecurePtr->IsEncrypted == (u8)TRUE) ||
+		(SecureTempParams->IsEncrypted == (u8)TRUE)) &&
 		(MetaHeaderKeySrc != XilPdi_GetPlmKeySrc())) {
 			XPlmi_Printf(DEBUG_INFO, "Metaheader Key Source does not"
 			" match PLM Key Source\n\r");
