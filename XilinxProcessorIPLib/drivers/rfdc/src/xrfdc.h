@@ -280,6 +280,7 @@
 *       cog    07/12/21 Simplified clock distribution user interface.
 *       cog    08/18/21 Disallow VOP for DC coupled DACs.
 * 11.1  cog    11/16/21 Upversion.
+*       cog    11/26/21 Header file clean up, this fixes a C++ compilation issue.
 *
 * </pre>
 *
@@ -287,6 +288,8 @@
 
 #ifndef RFDC_H_
 #define RFDC_H_
+
+#include <metal/device.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -303,10 +306,7 @@ extern "C" {
 #include "sleep.h"
 #endif
 #include <metal/sys.h>
-#include <metal/device.h>
 #include <metal/irq.h>
-#include <metal/atomic.h>
-#include <metal/io.h>
 #include <metal/sleep.h>
 #include "metal/alloc.h"
 #include "xrfdc_hw.h"
