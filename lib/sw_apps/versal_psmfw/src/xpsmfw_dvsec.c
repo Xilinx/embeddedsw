@@ -353,7 +353,11 @@ static XStatus XPsmFw_CpmInit(u32 CpmPowerId, u32 CpmSlcrAddr)
 {
 	XStatus Status = XST_FAILURE;
 
-	(void)memset(&CpmParam, 0, sizeof(CpmParam));
+	Status = Xil_SMemSet(&CpmParam, sizeof(CpmParam), 0, sizeof(CpmParam));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	CpmParam.CpmPowerId = CpmPowerId;
 	CpmParam.CpmSlcr = CpmSlcrAddr;
 
@@ -374,6 +378,7 @@ static XStatus XPsmFw_CpmInit(u32 CpmPowerId, u32 CpmSlcrAddr)
 		break;
 	}
 
+done:
 	return Status;
 }
 

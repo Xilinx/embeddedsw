@@ -37,6 +37,7 @@ extern "C" {
 /* BSP Headers */
 #include "xil_io.h"
 #include "xil_types.h"
+#include "xil_util.h"
 #include "mb_interface.h"
 #include "xstatus.h"
 /* REGDB Headers */
