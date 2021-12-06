@@ -282,6 +282,7 @@
 * 11.1  cog    11/16/21 Upversion.
 *       cog    11/26/21 Header file clean up, this fixes a C++ compilation issue.
 *       cog    11/26/21 Pack all structs for RAFT compatibility.
+*       cog    12/06/21 Rearrange XRFdc_Distribution_Settings.
 *
 * </pre>
 *
@@ -388,8 +389,8 @@ typedef struct {
 } XRFdc_Distribution_Info;
 
 typedef struct {
-	u32 SourceTileId;
 	u32 SourceType;
+	u32 SourceTileId;
 	u32 EdgeTileIds[2];
 	u32 EdgeTypes[2];
 	double DistRefClkFreq;
