@@ -60,13 +60,13 @@ extern "C" {
 #define XIICPS_IDR_OFFSET			0x28U  /**< Interrupt Disable */
 /** @} */
 
+/** @cond INTERNAL */
 /** @name Control Register
  *
  * This register contains various control bits that
  * affects the operation of the IIC controller. Read/Write.
  * @{
  */
-
 #define XIICPS_CR_DIV_A_MASK	0x0000C000U /**< Clock Divisor A */
 #define XIICPS_CR_DIV_A_SHIFT			14U /**< Clock Divisor A shift */
 #define XIICPS_DIV_A_MAX				 4U /**< Maximum value of Divisor A */
@@ -119,6 +119,7 @@ extern "C" {
  */
 #define XIICPS_DATA_MASK	0x000000FF  /**< IIC Data Mask */
 /** @} */
+/** @endcond */
 
 /** @name IIC Interrupt Registers
  *
@@ -177,7 +178,7 @@ extern "C" {
 #define XIICPS_IXR_ALL_INTR_MASK  0x000002FFU	 /**< All ISR Mask */
 /** @} */
 
-
+/** @cond INTERNAL */
 /** @name IIC Transfer Size Register
 *
 * The register's meaning varies according to the operating mode as follows:
@@ -242,6 +243,7 @@ extern "C" {
 #define XIicPs_In32 Xil_In32		/**< XIicPs read */
 #define XIicPs_Out32 Xil_Out32		/**< XIicPs write */
 #define XIICPS_POLL_DEFAULT_TIMEOUT_VAL		1000U /**< Timeout in us */
+/** @endcond */
 
 /****************************************************************************/
 /**
@@ -350,7 +352,9 @@ extern "C" {
 /*
  * Perform reset operation to the I2c interface
  */
+/** @cond INTERNAL */
 void XIicPs_ResetHw(UINTPTR BaseAddress);
+/** @endcond */
 #ifdef __cplusplus
 }
 #endif
