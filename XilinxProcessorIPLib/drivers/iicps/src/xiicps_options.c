@@ -7,10 +7,10 @@
 /**
 *
 * @file xiicps_options.c
-* @addtogroup iicps_v3_14
+* @addtogroup Overview
 * @{
 *
-* Contains functions for the configuration of the XIccPs driver.
+* The xiicps_options.c file contains functions for the configuration of the XIccPs driver.
 *
 * <pre>
 * MODIFICATION HISTORY:

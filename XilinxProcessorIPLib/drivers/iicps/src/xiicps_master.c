@@ -7,10 +7,10 @@
 /**
 *
 * @file xiicps_master.c
-* @addtogroup iicps_v3_14
+* @addtogroup Overview
 * @{
 *
-* Handles master mode transfers.
+* The xiicps_master.c file handles master mode transfers.
 *
 * <pre> MODIFICATION HISTORY:
 *

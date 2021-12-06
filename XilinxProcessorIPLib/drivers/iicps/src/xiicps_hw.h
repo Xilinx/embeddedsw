@@ -7,10 +7,10 @@
 /**
 *
 * @file xiicps_hw.h
-* @addtogroup iicps_v3_14
+* @addtogroup Overview
 * @{
 *
-* This header file contains the hardware definition for an IIC device.
+* The xiicps_hw.h header file contains the hardware definition for an IIC device.
 * It includes register definitions and interface functions to read/write
 * the registers.
 *

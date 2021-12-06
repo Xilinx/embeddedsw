@@ -7,11 +7,11 @@
 /**
 *
 * @file xiicps_hw.c
-* @addtogroup iicps_v3_14
+* @addtogroup Overview
 * @{
 *
-* Contains implementation of required functions for providing the reset sequence
-* to the i2c interface
+* The xiicps_hw.c file contains implementation of required functions for
+* providing the reset sequence to the i2c interface
 *
 * <pre> MODIFICATION HISTORY:
 *

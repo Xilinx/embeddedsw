@@ -7,10 +7,10 @@
 /**
 *
 * @file xiicps_selftest.c
-* @addtogroup iicps_v3_14
+* @addtogroup Overview
 * @{
 *
-* This component contains the implementation of selftest functions for the
+* The xiicps_selftest.c file component contains the implementation of selftest functions for the
 * XIicPs driver component.
 *
 * <pre>
