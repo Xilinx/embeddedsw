@@ -119,6 +119,7 @@
 * 1.05  kpt  10/20/2021 Modified temporal checks to use temporal variables from
 *                       data section
 *       bsv  10/26/2021 Code clean up
+*       bsv  12/04/2021 Clear complete PMCRAM in XLoader_ReloadImage
 *
 * </pre>
 *
@@ -1578,7 +1579,7 @@ END:
 	PdiPtr->PdiType = PdiType;
 #ifndef PLM_DEBUG_MODE
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
-			XLOADER_CHUNK_SIZE / XPLMI_WORD_LEN);
+			XLOADER_TOTAL_CHUNK_SIZE / XPLMI_WORD_LEN);
 	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
 		Status = SStatus;
 	}
