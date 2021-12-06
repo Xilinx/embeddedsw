@@ -341,10 +341,12 @@ static void setup_rx_bds(XAxiDma_BdRing *rxring)
 #if !defined (__MICROBLAZE__)
 		dsb();
 #endif
-#if defined(__aarch64__)
-		XCACHE_INVALIDATE_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_FRAME_SIZE);
+#ifdef USE_JUMBO_FRAMES
+		XCACHE_FLUSH_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_JUMBO_FRAME_SIZE);
 #else
-		XCACHE_FLUSH_DCACHE_RANGE(p, sizeof *p);
+		XCACHE_FLUSH_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_FRAME_SIZE);
+#endif
+#if !defined(__aarch64__)
 		XCACHE_FLUSH_DCACHE_RANGE(rxbd, sizeof *rxbd);
 #endif
 
@@ -428,20 +430,12 @@ static void axidma_recv_handler(void *arg)
 			rx_bytes = extract_packet_len(rxbd);
 			pbuf_realloc(p, rx_bytes);
 
+#if defined(__aarch64__)
 #ifdef USE_JUMBO_FRAMES
-#ifdef __aarch64__
 			XCACHE_INVALIDATE_DCACHE_RANGE(p->payload,
 							XAE_MAX_JUMBO_FRAME_SIZE);
 #else
-            XCACHE_FLUSH_DCACHE_RANGE(p, sizeof *p);
-
-#endif
-#else
-#ifdef __aarch64__
 			XCACHE_INVALIDATE_DCACHE_RANGE(p->payload, XAE_MAX_FRAME_SIZE);
-#else
-            XCACHE_FLUSH_DCACHE_RANGE(p, sizeof *p);
-
 #endif
 #endif
 
@@ -756,10 +750,12 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 		XAxiDma_BdSetLength(rxbd, p->len, rxringptr->MaxTransferLen);
 		XAxiDma_BdSetCtrl(rxbd, 0);
 		XAxiDma_BdSetId(rxbd, p);
-#if defined(__aarch64__)
-		XCACHE_INVALIDATE_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_FRAME_SIZE);
+#ifdef USE_JUMBO_FRAMES
+		XCACHE_FLUSH_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_JUMBO_FRAME_SIZE);
 #else
-		XCACHE_FLUSH_DCACHE_RANGE(p, sizeof *p);
+		XCACHE_FLUSH_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_FRAME_SIZE);
+#endif
+#if !defined(__aarch64__)
 		XCACHE_FLUSH_DCACHE_RANGE(rxbd, sizeof *rxbd);
 #endif
 
