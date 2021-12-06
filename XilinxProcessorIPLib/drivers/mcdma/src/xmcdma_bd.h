@@ -19,7 +19,7 @@
 *****************************************************************************/
 
 #ifndef XMCDMA_BD_H_
-#define XMCDMA_BD_H
+#define XMCDMA_BD_H_
 
 #include "xil_types.h"
 
