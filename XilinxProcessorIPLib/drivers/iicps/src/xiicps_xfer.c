@@ -7,10 +7,11 @@
 /**
 *
 * @file xiicps_xfer.c
-* @addtogroup iicps_v3_14
+* @addtogroup Overview
 * @{
 *
-* Contains implementation of required helper functions for the XIicPs driver.
+* The xiicps_xfer.c file contains implementation of required helper functions
+* for the XIicPs driver.
 * See xiicps.h for detailed description of the device and driver.
 *
 * <pre> MODIFICATION HISTORY:

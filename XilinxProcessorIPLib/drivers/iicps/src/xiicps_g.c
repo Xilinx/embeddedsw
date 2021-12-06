@@ -7,11 +7,11 @@
 /**
 *
 * @file xiicps_g.c
-* @addtogroup iicps_v3_14
+* @addtogroup Overview
 * @{
 *
-* This file contains a configuration table that specifies the configuration of
-* IIC devices in the system.
+* The xiicps_g.c file contains a configuration table that specifies the
+* configuration of IIC devices in the system.
 *
 * <pre>
 * MODIFICATION HISTORY:

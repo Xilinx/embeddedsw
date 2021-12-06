@@ -7,14 +7,15 @@
 /**
 *
 * @file xiicps.h
-* @addtogroup iicps_v3_14
+* @addtogroup Overview
 * @{
 * @details
 *
-* This is an implementation of IIC driver in the PS block. The device can
-* be either a master or a slave on the IIC bus. This implementation supports
-* both interrupt mode transfer and polled mode transfer. Only 7-bit address
-* is used in the driver, although the hardware also supports 10-bit address.
+* The xiicps.h header file is an implementation of IIC driver in the PS block.
+* The device can be either a master or a slave on the IIC bus.
+* This implementation supports both interrupt mode transfer and polled mode
+* transfer. Only 7-bit address is used in the driver, although the hardware
+* also supports 10-bit address.
 *
 * IIC is a 2-wire serial interface.  The master controls the clock, so it can
 * regulate when it wants to send or receive data. The slave is under control of
