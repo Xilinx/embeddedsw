@@ -281,6 +281,7 @@
 *       cog    08/18/21 Disallow VOP for DC coupled DACs.
 * 11.1  cog    11/16/21 Upversion.
 *       cog    11/26/21 Header file clean up, this fixes a C++ compilation issue.
+*       cog    11/26/21 Pack all structs for RAFT compatibility.
 *
 * </pre>
 *
@@ -400,9 +401,6 @@ typedef struct {
 typedef struct {
 	XRFdc_Distribution_Settings Distributions[8];
 } XRFdc_Distribution_System_Settings;
-#ifndef __BAREMETAL__
-#pragma pack()
-#endif
 
 /**
  * MTS DTC Settings.
@@ -573,9 +571,6 @@ typedef struct {
 				 1 if all flags asserted, 0 otherwise */
 } XRFdc_BlockStatus;
 
-#ifndef __BAREMETAL__
-#pragma pack(1)
-#endif
 /**
  * DAC block Analog DataPath Config settings.
  */
@@ -672,9 +667,7 @@ typedef struct {
 	XRFdc_DACTile_Config DACTile_Config[4];
 	XRFdc_ADCTile_Config ADCTile_Config[4];
 } XRFdc_Config;
-#ifndef __BAREMETAL__
-#pragma pack()
-#endif
+
 /**
  * DAC Block Analog DataPath Structure.
  */
@@ -775,6 +768,9 @@ typedef struct {
 	void *CallBackRef; /* Callback reference for event handler */
 	u8 UpdateMixerScale; /* Set to 1, if user overwrite mixer scale */
 } XRFdc;
+#ifndef __BAREMETAL__
+#pragma pack()
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
