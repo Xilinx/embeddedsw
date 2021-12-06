@@ -30,6 +30,7 @@
 *       bsv   08/31/2021 Code clean up
 *       ma    09/01/2021 Fix issue in clearing the CFI and CFU errors
 * 1.06  am    11/24/2021 Fixed doxygen warning
+*       bsv   12/04/2021 Addressed security review comment
 *
 * </pre>
 *
@@ -168,7 +169,8 @@ void XLoader_CframeErrorHandler(u32 ImageId)
 	XCfupmc XLoader_CfuIns; /** CFU Driver Instance */
 	u8 CfiErrStatus;
 	u32 CountVal = XPlmi_In32(CFU_APB_CFU_QWORD_CNT);
-	u8 PlHouseClean = (u8)((CountVal != 0U) && (ImageId == PM_DEV_PLD_0));
+	u8 PlHouseClean = (u8)(((CountVal != 0U) &&
+		(ImageId == PM_DEV_PLD_0)) ? TRUE : FALSE);
 #else
 	(void)ImageId;
 #endif
