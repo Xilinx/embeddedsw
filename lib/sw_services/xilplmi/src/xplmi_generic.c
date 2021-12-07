@@ -60,6 +60,7 @@
 *       bsv  08/15/2021 Removed unwanted goto statements
 *       rb   08/19/2021 Fix compilation warning
 * 1.07  bsv  10/26/2021 Code clean up
+*       ma   11/22/2021 Remove hardcoding of Proc addresses
 *
 * </pre>
 *
@@ -1443,10 +1444,40 @@ static XPlmi_ProcList* XPlmi_GetProcList(void)
 {
 	static XPlmi_ProcList ProcList = {0U};
 
-	/* Initialize first ProcData address to PSM RAM Proc data start address */
-	ProcList.ProcData[0U].Addr = XPLMI_PROC_LOCATION_ADDRESS;
-
 	return &ProcList;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets the ProcList address to given Address and Size
+ *
+ * @param	Address is the address of Proc reserved memory
+ * @param	Size is the size of Proc reserved memory in bytes
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_SetProcList(u32 Address, u16 Size)
+{
+	int Status = XST_FAILURE;
+	XPlmi_ProcList *ProcList = XPlmi_GetProcList();
+
+	Status = XPlmi_VerifyAddrRange((u64)Address,
+			(u64)(Address + (u32)Size - 1U));
+	if (Status != XST_SUCCESS) {
+		Status = (int)XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE;
+		goto END;
+	}
+	/*
+	 * Initialize first ProcData address to the given Address
+	 * and ProcMemSize with the given Size
+	 */
+	ProcList->ProcData[0U].Addr = Address;
+	ProcList->ProcMemSize = Size;
+	ProcList->IsProcMemAvailable = (u8)TRUE;
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1467,14 +1498,19 @@ int XPlmi_ExecuteProc(u32 ProcId)
 	u8 ProcIndex = 0U;
 	XPlmi_Printf(DEBUG_GENERAL, "Proc ID received: 0x%x\r\n", ProcId);
 
-	/* If LPD is not initialized, do not execute the proc */
-	if ((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) {
-		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized, "
-				"Proc commands cannot be executed\r\n");
+	ProcList = XPlmi_GetProcList();
+	/*
+	 * If LPD is not initialized or Proc memory is not available,
+	 * do not execute the proc
+	 */
+	if (((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) ||
+		(ProcList->IsProcMemAvailable != (u8)TRUE)) {
+		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory "
+				"is not available, Proc commands cannot be executed\r\n");
 		Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
 		goto END;
 	}
-	ProcList = XPlmi_GetProcList();
+
 	ProcList->ProcData[ProcList->ProcCount].Id = ProcId;
 	while (ProcList->ProcData[ProcIndex].Id != ProcId) {
 		ProcIndex++;
@@ -1529,20 +1565,22 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 	XPlmi_ProcList *ProcList = NULL;
 
 	if (Cmd->ProcessedLen == 0U) {
+		ProcId = Cmd->Payload[0U];
+		/* Get the proc list */
+		ProcList = XPlmi_GetProcList();
+
 		/*
-		 * Check if LPD is initialized as we are using PSM RAM to store
-		 * Proc data
+		 * Check if LPD is initialized and ProcList is initialized
+		 * as we are using PSM RAM to store Proc data
 		 */
-		if ((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) {
-			XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized, "
-					"Proc commands cannot be stored\r\n");
+		if (((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) ||
+			(ProcList->IsProcMemAvailable != (u8)TRUE)) {
+			XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory"
+					" is not available, Proc commands cannot be stored\r\n");
 			Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
 			goto END;
 		}
 
-		ProcId = Cmd->Payload[0U];
-		/* Get the proc list */
-		ProcList = XPlmi_GetProcList();
 		/* Check if received ProcId is already in memory */
 		ProcList->ProcData[ProcList->ProcCount].Id = ProcId;
 		while (ProcList->ProcData[Index].Id != ProcId) {
@@ -1562,7 +1600,7 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 			/* Check if new proc length fits in the proc allocated memory */
 			if ((LenDiff + (ProcList->ProcData[ProcList->ProcCount].Addr -
 					ProcList->ProcData[ProcList->ProcCount - 1U].Addr)) >
-					XPLMI_PROC_LOCATION_LENGTH) {
+					ProcList->ProcMemSize) {
 				Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
 				goto END;
 			}
@@ -1588,8 +1626,8 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 		Cmd->ResumeData[0U] = ProcList->ProcData[ProcList->ProcCount].Addr;
 
 		/* Check if new proc length fits in the proc allocated memory */
-		if ((Cmd->ResumeData[0U] + CmdLenInBytes) > (XPLMI_PROC_LOCATION_ADDRESS +
-				XPLMI_PROC_LOCATION_LENGTH)) {
+		if ((Cmd->ResumeData[0U] + CmdLenInBytes) > (ProcList->ProcData[0U].Addr +
+				ProcList->ProcMemSize)) {
 			Status = (int)XPLMI_UNSUPPORTED_PROC_LENGTH;
 			goto END;
 		}

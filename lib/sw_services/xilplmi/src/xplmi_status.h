@@ -89,6 +89,7 @@
 *       bsv  08/17/2021 Code clean up
 *       ma   08/30/2021 Added error code for SSIT errors
 *       kpt  09/09/2021 Added error code XLOADER_ERR_SECURE_CLEAR_FAIL
+* 1.07  ma   11/25/2021 Added error code XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE
 *
 * </pre>
 *
@@ -264,6 +265,8 @@ typedef enum {
 	XPLMI_ERR_SET_PMC_IRO_FREQ, /**< 0x13A - Error when setting PMC IRO frequency
 						is failed */
 	XPLMI_ERR_FROM_SSIT_SLAVE, /**< 0x13B - Error received from SSIT Slave SLR */
+	XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE, /**< 0x13C - Error when the given address
+	                    range for storing Proc commands is invalid */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

@@ -40,6 +40,7 @@
 * 1.06  ma   06/17/2021 Added readback support for SSIT Slave SLRs
 *       ma   06/28/2021 Added support for proc command
 *       bsv  07/16/2021 Fix doxygen warnings
+* 1.07  ma   11/22/2021 Remove hardcoding of Proc addresses
 *
 * </pre>
 *
@@ -96,6 +97,8 @@ typedef struct {
 
 typedef struct {
 	u8 ProcCount;
+	u8 IsProcMemAvailable;
+	u16 ProcMemSize;
 	XPlmi_ProcData ProcData[XPLMI_MAX_PROCS_SUPPORTED + 1U];
 } XPlmi_ProcList;
 
@@ -138,15 +141,12 @@ typedef struct {
 #define XPLMI_PLM_MODULES_GET_BOARD_VAL		(0x15U)
 #define XPLMI_PLM_LOADER_SET_IMG_INFO_VAL	(0x4U)
 
-/* Defines related to procs */
-#define XPLMI_PROC_LOCATION_ADDRESS			(0xFFC3E000U)
-#define XPLMI_PROC_LOCATION_LENGTH			(0x8000U)
-
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
 int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack);
 int XPlmi_ExecuteProc(u32 ProcId);
+int XPlmi_SetProcList(u32 Address, u16 Size);
 
 /************************** Variable Definitions *****************************/
 
