@@ -58,7 +58,7 @@ extern "C" {
 #include "netif/xpqueue.h"
 #include "xlwipconfig.h"
 
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 #include "xil_smc.h"
 #endif
 

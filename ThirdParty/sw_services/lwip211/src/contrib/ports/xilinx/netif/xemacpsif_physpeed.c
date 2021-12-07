@@ -798,7 +798,7 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 	u32_t CrlApbDiv0 = 0;
 	u32_t CrlApbDiv1 = 0;
 	u32_t CrlApbGemCtrl;
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	u32_t ClkId;
 #endif
 
@@ -947,7 +947,7 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 		}
 
 		if (CrlApbDiv0 != 0 && CrlApbDiv1 != 0) {
-		#if EL1_NONSECURE
+		#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 			XSmc_OutVar RegRead;
 			RegRead = Xil_Smc(MMIO_READ_SMC_FID, (u64)(CrlApbBaseAddr),
 								0, 0, 0, 0, 0, 0);
@@ -959,7 +959,7 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 			CrlApbGemCtrl |= CrlApbDiv0 << CRL_APB_GEM_DIV0_SHIFT;
 			CrlApbGemCtrl &= ~CRL_APB_GEM_DIV1_MASK;
 			CrlApbGemCtrl |= CrlApbDiv1 << CRL_APB_GEM_DIV1_SHIFT;
-		#if EL1_NONSECURE
+		#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(CrlApbBaseAddr) | ((u64)(0xFFFFFFFF) << 32),
 				(u64)CrlApbGemCtrl, 0, 0, 0, 0, 0);
 			do {
@@ -976,12 +976,12 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 		/* Setup divisors in CRL for Versal */
 		if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
 			CrlApbBaseAddr = VERSAL_CRL_GEM0_REF_CTRL;
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 			ClkId = CLK_GEM0_REF;
 #endif
 		} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
 			CrlApbBaseAddr = VERSAL_CRL_GEM1_REF_CTRL;
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 			ClkId = CLK_GEM1_REF;
 #endif
 		}
@@ -1019,7 +1019,7 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 		}
 
 		if (CrlApbDiv0 != 0) {
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)CrlApbDiv0 << 32) | ClkId), 0, 0, 0, 0, 0, 0);
 #else
 			CrlApbGemCtrl = Xil_In32(CrlApbBaseAddr);
