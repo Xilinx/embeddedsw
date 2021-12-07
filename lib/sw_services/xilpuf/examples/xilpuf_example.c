@@ -28,6 +28,8 @@
   *       har  04/21/21 Fixed CPP warnings
   *       har  05/20/21 Added support to program Black IV
   *       kpt  08/27/21 Replaced xilnvm server API's with client API's
+  * 1.3   kpt  12/02/21 Replaced standard library utility functions with
+  *                     xilinx maintained functions
   *
   *@note
   *
@@ -56,6 +58,8 @@
 						/* GCM tag Length in bytes */
 #define XPUF_HD_LEN_IN_WORDS			(386U)
 #define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
+							XPUF_WORD_LENGTH)
+#define XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES	(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * \
 							XPUF_WORD_LENGTH)
 
 #define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U)
@@ -334,8 +338,12 @@ static int XPuf_GenerateKey(void)
 	}
 
 	xil_printf("PUF Helper data Start!!!\r\n");
-	Xil_MemCpy(PUF_HelperData, PufData.SyndromeData,
-		XPUF_4K_PUF_SYN_LEN_IN_WORDS * XPUF_WORD_LENGTH);
+	Status = Xil_SMemCpy(PUF_HelperData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
+			PufData.SyndromeData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
+			XPUF_4K_PUF_SYN_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-2] = PufData.Chash;
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-1] = PufData.Aux;
 	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
@@ -353,9 +361,12 @@ static int XPuf_GenerateKey(void)
 	xil_printf("Formatted syndrome data written in eFuse");
 	XPuf_ShowData((u8*)PufData.EfuseSynData,
 		XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * XPUF_WORD_LENGTH);
-	Xil_MemCpy(PrgmPufHelperData.EfuseSynData,
-		PufData.EfuseSynData,
-		XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * XPUF_WORD_LENGTH);
+	Status = Xil_SMemCpy(PrgmPufHelperData.EfuseSynData, XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES,
+				PufData.EfuseSynData, XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES,
+				XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	PrgmPufHelperData.Chash = PufData.Chash;
 	PrgmPufHelperData.Aux = PufData.Aux;
@@ -544,8 +555,13 @@ static int XPuf_ProgramBlackKeynIV(void)
 
 		case XPUF_EFUSE_AES_KEY_N_IV:
 			WriteAesKeys.PrgmAesKey = TRUE;
-			Xil_MemCpy(WriteAesKeys.AesKey, FlashBlackKey,
+			Status = Xil_SMemCpy(WriteAesKeys.AesKey,
+				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES, FlashBlackKey,
+				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 			Xil_DCacheInvalidateRange((UINTPTR)&WriteAesKeys,
 						sizeof(WriteAesKeys));
 			WriteData.AesKeyAddr= (u64)(UINTPTR)&WriteAesKeys;
@@ -568,8 +584,11 @@ static int XPuf_ProgramBlackKeynIV(void)
 			}
 			else {
 				WriteIvs.PrgmBlkObfusIv = TRUE;
-				Xil_MemCpy(WriteIvs.BlkObfusIv, Iv,
-					XPUF_IV_LEN_IN_BYTES);
+				Status = Xil_SMemCpy(WriteIvs.BlkObfusIv, XPUF_IV_LEN_IN_BYTES,
+					Iv, XPUF_IV_LEN_IN_BYTES, XPUF_IV_LEN_IN_BYTES);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
 				Xil_DCacheInvalidateRange((UINTPTR)&WriteIvs,
 							sizeof(WriteIvs));
 				Status = XNvm_EfuseWriteIVs((u64)(UINTPTR)&WriteIvs,
@@ -595,8 +614,13 @@ static int XPuf_ProgramBlackKeynIV(void)
 
 		case XPUF_EFUSE_USER_0_KEY:
 			WriteAesKeys.PrgmUserKey0 = TRUE;
-			Xil_MemCpy(WriteAesKeys.UserKey0, FlashBlackKey,
+			Status = Xil_SMemCpy(WriteAesKeys.UserKey0,
+				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES, FlashBlackKey,
+				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 			Xil_DCacheInvalidateRange((UINTPTR)&WriteAesKeys,
 						sizeof(WriteAesKeys));
 			WriteData.AesKeyAddr = (u64)(UINTPTR)&WriteAesKeys;
@@ -611,8 +635,13 @@ static int XPuf_ProgramBlackKeynIV(void)
 
 		case XPUF_EFUSE_USER_1_KEY:
 			WriteAesKeys.PrgmUserKey1 = TRUE;
-			Xil_MemCpy(WriteAesKeys.UserKey1, FlashBlackKey,
+			Status = Xil_SMemCpy(WriteAesKeys.UserKey1,
+				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES, FlashBlackKey,
+				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES,
 				XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 			Xil_DCacheInvalidateRange((UINTPTR)&WriteAesKeys,
 						sizeof(WriteAesKeys));
 			WriteData.AesKeyAddr = (u64)(UINTPTR)&WriteAesKeys;

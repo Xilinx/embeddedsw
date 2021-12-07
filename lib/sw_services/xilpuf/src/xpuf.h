@@ -34,6 +34,7 @@
 *       har  03/08/2021 Added error code for IRO frequency mismatch
 *       har  05/03/2021 Renamed error code XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY
 *                       as XPUF_ERROR_PUF_DONE_KEY_NT_RDY
+* 1.4   kpt  12/02/2021 Added macro XPUF_4K_PUF_SYN_LEN_IN_BYTES
 *
 * </pre>
 *
@@ -67,6 +68,9 @@ extern "C" {
 #define XPUF_SHUTTER_VALUE				(0x81000100U)
 #define XPUF_ID_LEN_IN_WORDS				(0x8U)
 #define XPUF_WORD_LENGTH				(0x4U)
+
+#define XPUF_4K_PUF_SYN_LEN_IN_BYTES			(XPUF_4K_PUF_SYN_LEN_IN_WORDS * \
+								XPUF_WORD_LENGTH)
 
 #define XPUF_REGISTRATION				(0x0U)
 #define XPUF_REGEN_ON_DEMAND				(0x1U)
