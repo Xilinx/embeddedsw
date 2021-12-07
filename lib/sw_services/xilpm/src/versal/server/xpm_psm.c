@@ -9,6 +9,7 @@
 #include "xpm_regs.h"
 #include "xpm_psm.h"
 #include "xpm_psm_api.h"
+#include "xplmi_generic.h"
 
 #define GLOBAL_CNTRL(BASE)	((BASE) + PSM_GLOBAL_CNTRL)
 #define PWR_UP_EN(BASE)		((BASE) + PSM_GLOBAL_REQ_PWRUP_EN)
@@ -80,6 +81,13 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	 * wakeup bit to put it into sleep state while idle.
 	 */
 	PmRmw32(CRLBaseAddress + CRL_PSM_RST_MODE_OFFSET, XPM_PSM_WAKEUP_MASK, 0U);
+
+	Status = XPlmi_SetProcList(PsmToPlmEvent->ProcDataAddress,PsmToPlmEvent->ProcDataLen);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
