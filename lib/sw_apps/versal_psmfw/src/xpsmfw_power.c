@@ -43,12 +43,17 @@
 #define PSM_TO_PLM_EVENT_VERSION		(0x2U)
 #define PWR_UP_EVT				(0x1U)
 #define PWR_DWN_EVT				(0x100U)
+#define PROC_DATA_LEN				(32*1024)
+
+static u8 ProcData[PROC_DATA_LEN];
 
 static volatile struct PsmToPlmEvent_t PsmToPlmEvent = {
 	.Version	= PSM_TO_PLM_EVENT_VERSION,
 	.Event		= {0x0},
 	.CpuIdleFlag 	= {0x0},
 	.ResumeAddress 	= {0x0},
+	.ProcDataAddress = (u32)ProcData,
+	.ProcDataLen = PROC_DATA_LEN,
 };
 
 static u32 LocalPwrState;
