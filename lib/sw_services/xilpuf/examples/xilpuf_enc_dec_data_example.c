@@ -28,6 +28,8 @@
  * 1.3   har  01/04/21 Added check and updated comments for
  *                     XPUF_DATA_LEN_IN_BYTES
  *       har  04/14/21 Modified code to use client side APIs of Xilsecure
+ * 1.4   kpt  12/02/21 Replaced standard library utility functions with
+ *                     xilinx maintained functions
  *
  * @note
  *
@@ -238,8 +240,12 @@ static int XPuf_GenerateKey(void)
 	}
 	xil_printf("Provided PUF helper on UART\r\n");
 	xil_printf("PUF Helper data Start\r\n");
-	Xil_MemCpy(PUF_HelperData, PufData.SyndromeData,
-		XPUF_4K_PUF_SYN_LEN_IN_WORDS * XPUF_WORD_LENGTH);
+	Status = Xil_SMemCpy(PUF_HelperData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
+			PufData.SyndromeData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
+			XPUF_4K_PUF_SYN_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-2] = PufData.Chash;
 	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-1] = PufData.Aux;
 	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);

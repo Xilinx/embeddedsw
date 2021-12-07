@@ -40,6 +40,8 @@
 *       am   05/18/2021 Resolved MISRA C violations
 * 1.4   har  07/09/2021 Fixed Doxygen warnings
 *       har  08/12/2021 Added comment related to IRO frequency
+* 1.5   kpt  12/02/2021 Replaced standard library utility functions with
+*                       xilinx maintained functions
 *
 * </pre>
 *
@@ -663,8 +665,12 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 		goto END;
 	}
 
-	Xil_MemCpy(SynData, PufData->SyndromeData,
-		(XPUF_4K_PUF_SYN_LEN_IN_WORDS * XPUF_WORD_LENGTH));
+	Status = Xil_SMemCpy(SynData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
+		PufData->SyndromeData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
+		XPUF_4K_PUF_SYN_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/**
 	 * Trimming logic for PUF Syndrome Data:
