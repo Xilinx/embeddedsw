@@ -267,6 +267,8 @@ struct PsmToPlmEvent_t {
 	u32 Event[PROC_DEV_MAX];
 	u32 CpuIdleFlag[PROC_DEV_MAX];
 	u64 ResumeAddress[PROC_DEV_MAX];
+	u32 ProcDataAddress;
+	u16 ProcDataLen;
 };
 
 XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
