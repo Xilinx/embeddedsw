@@ -118,7 +118,7 @@
 #include "xil_mmu.h"
 #endif
 
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 #include "xil_smc.h"
 #endif
 /*************************** Constant Definitions ***************************/
@@ -377,7 +377,7 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	 */
 	Config = XEmacPs_LookupConfig(EmacPsDeviceId);
 
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	/* Request device to indicate it is in use by this application */
 	if (Config->BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
 		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_0, 1, 0, 100, 1, 0, 0);
@@ -1470,7 +1470,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 #ifdef XPAR_PSV_CRL_0_S_AXI_BASEADDR
 		if (BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
 			/* GEM0 1G clock configuration*/
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM0_REF), 0, 0, 0, 0, 0, 0);
 #else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM0_REF_CTRL);
@@ -1482,7 +1482,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 		if (BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
 
 			/* GEM1 1G clock configuration*/
-#if EL1_NONSECURE
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM1_REF), 0, 0, 0, 0, 0, 0);
 #else
 			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM1_REF_CTRL);
