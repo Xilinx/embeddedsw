@@ -97,7 +97,9 @@ do
 	cp -rf $DRIVERS_DIR/$line/src/*.h $BSP_DIR/include/
 
 	# copy all the HSM generated driver files DRIVER_g.c
-	if [[ -f $WORKING_DIR/tools/x"$line"_g.c ]]; then
+	if [[ -f $WORKING_DIR/tools/$1/x"$line"_g.c ]]; then
+		cp $WORKING_DIR/tools/$1/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
+	elif [[ -f $WORKING_DIR/tools/x"$line"_g.c ]]; then
 		cp $WORKING_DIR/tools/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
 	fi
 	BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/$line/src/Makefile"
@@ -112,7 +114,7 @@ fi
 cp -r $DRIVERS_DIR/$PROC_DIRNAME/src $BSP_DIR/libsrc/$PROC_DIRNAME/src
 
 # copy the xparameters.h
-cp $WORKING_DIR/tools/xparameters*.h $BSP_DIR/include/
+cp $WORKING_DIR/tools/$1/xparameters*.h $BSP_DIR/include/
 
 # other dependencies which are required
 cp $WORKING_DIR/tools/config.make $BSP_DIR/libsrc/standalone/src/
