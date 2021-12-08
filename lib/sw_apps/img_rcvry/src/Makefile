@@ -19,6 +19,7 @@ AS      :=      $(CROSS)aarch64-none-elf-gcc
 LINKER  :=      $(CROSS)aarch64-none-elf-gcc
 ECFLAGS = -march=armv8-a -DARMA53_64 -Os -flto -ffat-lto-objects
 LDFLAGS := -L$(LIBPATH) -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxil,-lgcc,-lc,--end-group
+BOARD ?= .
 all: $(EXEC)
 
 $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
@@ -27,7 +28,7 @@ $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
 
 $(LIBS):
 	echo "Copying BSP files"
-	../misc/copy_bsp.sh
+	../misc/copy_bsp.sh $(BOARD)
 	echo "Compiling bsp"
 	make -C ../misc
 
