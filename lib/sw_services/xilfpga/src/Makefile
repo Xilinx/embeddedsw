@@ -9,6 +9,7 @@ ARCHIVER=
 CP=cp
 COMPILER_FLAGS =
 LIB=libxilfpga.a
+XFPGA_SECURE_MODE_VAL ?= 1
 
 ifeq ($(notdir $(COMPILER)) , iccarm)
 	EXTRA_ARCHIVE_FLAGS=--create
@@ -42,7 +43,7 @@ include $(wildcard $(DEPFILES))
 include $(wildcard ../../../../dep.mk)
 
 $(XILFPGA_DIR)%.o: $(XILFPGA_DIR)%.c
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -o $@ $<
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) -DXFPGA_SECURE_MODE_VAL=$(XFPGA_SECURE_MODE_VAL) -o $@ $<
 
 .PHONY: include
 include: libxilfpga_includes
