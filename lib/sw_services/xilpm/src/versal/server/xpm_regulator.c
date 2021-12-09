@@ -3,6 +3,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#include "xil_util.h"
 #include "xpm_common.h"
 #include "xpm_regulator.h"
 #include "xpm_node.h"
@@ -38,6 +39,7 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 	u32 SlaveAddress, i;
 	u32 NodeIndex = NODEINDEX(Id);
 	u8 Method;
+	const u32 CopySize = 4U;
 
 	if ((u32)XPM_NODEIDX_POWER_REGULATOR_MAX <= NodeIndex) {
 		DbgErr = XPM_INT_ERR_INVALID_NODE_IDX;
@@ -60,8 +62,11 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 		Regulator->ParentId = Args[2];
 		Regulator->Config.CmdLen = (u8)((Args[1] >> 8) & 0xFFU);
 		for (i = 3; i < NumArgs; i++) {
-			(void *)memcpy((void *)&Regulator->Config.CmdArr[(i - 3U) * 4U],
-				       (void *)&Args[i], 4);
+			Status = Xil_SMemCpy((void *)&Regulator->Config.CmdArr[(i - 3U) * 4U],
+					     CopySize, (void *)&Args[i], CopySize, CopySize);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 
 		Status = XST_SUCCESS;

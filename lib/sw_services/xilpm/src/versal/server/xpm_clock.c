@@ -217,17 +217,13 @@ XStatus XPmClock_AddClkName(u32 Id, const char *Name)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(Id);
+	const u32 CopySize = MAX_NAME_BYTES;
 
 	if (NULL == Clk) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	Status = Xil_SecureMemCpy(Clk->Name, MAX_NAME_BYTES, Name, MAX_NAME_BYTES);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XST_SUCCESS;
+	Status = Xil_SMemCpy(Clk->Name, CopySize, Name, CopySize, CopySize);
 
 done:
 	return Status;
@@ -825,6 +821,7 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk;
+	const u32 CopySize = CLK_QUERY_NAME_LEN;
 
 	Status = Xil_SMemSet(Resp, CLK_QUERY_NAME_LEN, 0, CLK_QUERY_NAME_LEN);
 	if (XST_SUCCESS != Status) {
@@ -836,9 +833,8 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 		goto done;
 	}
 
-	(void)memcpy((char *)Resp, &Clk->Name[0], CLK_QUERY_NAME_LEN);
+	Status = Xil_SMemCpy((char *)Resp, CopySize, &Clk->Name[0], CopySize, CopySize);
 
-	Status = XST_SUCCESS;
 done:
 	return Status;
 }
