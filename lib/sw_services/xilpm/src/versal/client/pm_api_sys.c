@@ -183,11 +183,12 @@ XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 		goto done;
 	}
 
-	XPm_SetPrimaryProc();
+	Status = XPm_SetPrimaryProc();
+	if ((s32)XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	PrimaryProc->Ipi = IpiInst;
-
-	Status = (s32)XST_SUCCESS;
 
 done:
 	return Status;
@@ -210,8 +211,12 @@ enum XPmBootStatus XPm_GetBootStatus(void)
 {
 	u32 PwrDwnReq;
 	enum XPmBootStatus Ret;
+	XStatus Status = (s32)XST_FAILURE;
 
-	XPm_SetPrimaryProc();
+	Status = XPm_SetPrimaryProc();
+	if ((s32)XST_SUCCESS != Status) {
+		XPm_Err("%s: Error in setting primary proc: %x\r\n", __func__, Status);
+	}
 
 	/* Error out if primary proc is not defined */
 	if (NULL == PrimaryProc) {

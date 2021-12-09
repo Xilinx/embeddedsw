@@ -6,6 +6,7 @@
 
 #include "pm_client.h"
 #include <xil_cache.h>
+#include "xil_util.h"
 #include "xpm_nodeid.h"
 #if defined (__aarch64__)
 #include <xreg_cortexa53.h>
@@ -81,24 +82,32 @@ static char RPU1[] = "RPU1";
 /**
  *  XPm_SetPrimaryProc() - Set primary processor based on processor ID
  */
-void XPm_SetPrimaryProc(void)
+XStatus XPm_SetPrimaryProc(void)
 {
 	u32 ProcId;
+	XStatus Status = (s32)XST_FAILURE;
 
 #if defined (__aarch64__)
 	ProcId = ((u32)mfcp(MPIDR_EL1) & PM_AFL0_MASK);
+	Status = (s32)XST_SUCCESS;
 #elif defined (__arm__)
 	ProcId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_AFL0_MASK);
 	if (0U == (XPm_Read(XPAR_PSV_RPU_0_S_AXI_BASEADDR + RPU_GLBL_CTRL_OFFSET) &
 	    RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 		ProcId = 0;
-		(void)memcpy(ProcName, RPU_LS, sizeof(RPU_LS));
+		Status = Xil_SMemCpy(ProcName, sizeof(RPU_LS), RPU_LS, sizeof(RPU_LS), sizeof(RPU_LS));
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 		XPm_Dbg("Running in lock-step mode\r\n");
 	} else {
 		if (0U == ProcId) {
-			(void)memcpy(ProcName, RPU0, sizeof(RPU0));
+			Status = Xil_SMemCpy(ProcName, sizeof(RPU0), RPU0, sizeof(RPU0), sizeof(RPU0));
 		} else {
-			(void)memcpy(ProcName, RPU1, sizeof(RPU1));
+			Status = Xil_SMemCpy(ProcName, sizeof(RPU1), RPU1, sizeof(RPU1), sizeof(RPU1));
+		}
+		if (XST_SUCCESS != Status) {
+			goto done;
 		}
 		XPm_Dbg("Running in split mode\r\n");
 	}
@@ -106,6 +115,11 @@ void XPm_SetPrimaryProc(void)
 
 	ProcId &= PM_AFL0_MASK;
 	PrimaryProc = ProcList[ProcId];
+
+#if defined (__arm__)
+done:
+#endif
+	return Status;
 }
 
 struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId)

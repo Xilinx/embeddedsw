@@ -78,7 +78,7 @@ extern char ProcName[5];
 #define pm_read			XPm_Read
 #define pm_write		XPm_Write
 
-void XPm_SetPrimaryProc(void);
+XStatus XPm_SetPrimaryProc(void);
 struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId);
 void XPm_ClientSuspend(const struct XPm_Proc *const Proc);
 void XPm_ClientWakeUp(const struct XPm_Proc *const Proc);
