@@ -34,6 +34,7 @@
 #define XAIE_ERROR_BROADCAST_ID			0x0U
 #define XAIE_ERROR_BROADCAST_MASK		0x1U
 #define XAIE_ERROR_SHIM_INTR_ID			0x10U
+#define XAIE_ERROR_SHIM_INTR_MASK		0x10000U
 #define XAIE_ERROR_NPI_INTR_ID			0x1U
 #define XAIE_ERROR_L2_ENABLE			0x3FU
 
@@ -56,5 +57,8 @@ AieRC XAie_IntrCtrlL2Disable(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u32 ChannelBitMap);
 AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst);
 void XAie_DisableErrorInterrupts();
+
+AieRC XAie_BacktrackErrorInterrupts(XAie_DevInst *DevInst,
+		XAie_ErrorMetaData *MData);
 
 #endif		/* end of protection macro */

@@ -422,6 +422,7 @@ typedef enum{
 	XAIE_FEATURE_NOT_SUPPORTED,
 	XAIE_INVALID_BURST_LENGTH,
 	XAIE_INVALID_BACKEND,
+	XAIE_INSUFFICIENT_BUFFER_SIZE,
 	XAIE_ERR_MAX
 } AieRC;
 
@@ -460,6 +461,38 @@ typedef enum {
 	XAIE_EVENT_SWITCH_A,
 	XAIE_EVENT_SWITCH_B,
 } XAie_BroadcastSw;
+
+/*
+ * Data structure to capture error information.
+ * Loc: Location of tile reporting error event.
+ * Module: Module type of tile reporting error event.
+ * EventId: Event ID of tile reporting error event.
+ */
+typedef struct {
+	XAie_LocType Loc;
+	XAie_ModuleType Module;
+	u8 EventId;
+} XAie_ErrorPayload;
+
+/*
+ * Data structure to capture metadata required for backtracking errors.
+ * IsNextInfoValid: Set when error backtracking was discontinued due to limited
+ *		    size of Payload buffer.
+ * NextTile: Location of tile where backtracking was discontinued.
+ * NextModule: Module of tile where backtracking was discontinued.
+ * Payload: Pointer to buffer capturing array of error payloads.
+ * ArraySize: Array size of payload buffer. Value corresponds to total number of
+ *	      XAie_ErrorPayload structs.
+ * ErrorCount: total number of valid payloads returned.
+ */
+typedef struct {
+	u8 IsNextInfoValid;
+	XAie_LocType NextTile;
+	XAie_ModuleType NextModule;
+	XAie_ErrorPayload *Payload;
+	u32 ArraySize;
+	u32 ErrorCount;
+} XAie_ErrorMetaData;
 
 /**************************** Function prototypes ***************************/
 AieRC XAie_SetupPartitionConfig(XAie_DevInst *DevInst,
@@ -641,6 +674,31 @@ static inline void XAie_SetupConfigPartProp(XAie_Config *ConfigPtr, u32 Nid,
 *
 *******************************************************************************/
 #define XAie_InstDeclare(Inst, ConfigPtr) XAie_DevInst Inst = { 0 }
+
+/*****************************************************************************/
+/**
+*
+* Macro to initialize error metadata.
+*
+* @param	MDataInst: Name of the XAie_ErrorMetaData structure.
+* @param	Buffer: Pointer to a buffer for returning backtracked error
+*			information.
+* @param	Size: Size of buffer in bytes.
+*
+* @return	None.
+*
+* @note		None.
+*
+*******************************************************************************/
+#define XAie_ErrorMetadataInit(Mdata, Buffer, Size)			\
+	XAie_ErrorMetaData Mdata = {					\
+		.IsNextInfoValid = 0,					\
+		.NextTile = {0, 0},					\
+		.NextModule = 0,					\
+		.Payload = (XAie_ErrorPayload *) (Buffer),		\
+		.ArraySize = (Size) / sizeof(XAie_ErrorPayload),	\
+		.ErrorCount = 0U,					\
+	}
 
 #endif	/* end of protection macro */
 
