@@ -25,13 +25,9 @@
 #define XAIE_LITE_NPI_H
 
 /************************** Constant Definitions *****************************/
-#ifndef XAIE_NPI_BASEADDR
-#define XAIE_NPI_BASEADDR		0xF70A0000
-#endif
+#define XAIE_NPI_TIMEOUT_US				40U
 
-#define XAIE_NPI_TIMEOUT_US		40U
-
-#define XAIE_NPI_PCSR_MASK_REG			0x00000000U
+#define XAIE_NPI_PCSR_MASK_REG				0x00000000U
 #define XAIE_NPI_PCSR_MASK_SHIM_RESET_MSK		0x08000000U
 #define XAIE_NPI_PCSR_MASK_SHIM_RESET_LSB		27U
 

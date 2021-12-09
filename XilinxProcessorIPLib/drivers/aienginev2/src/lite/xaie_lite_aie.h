@@ -30,6 +30,10 @@
 #define XAIE_BASE_ADDR			0x20000000000
 #endif
 
+#ifndef XAIE_NPI_BASEADDR
+#define XAIE_NPI_BASEADDR		0xF70A0000
+#endif
+
 #ifndef XAIE_NUM_ROWS
 #define XAIE_NUM_ROWS			9
 #endif
