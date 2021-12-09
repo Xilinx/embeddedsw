@@ -431,7 +431,16 @@ AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 		return RC;
 	}
 
-	return _XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+	/* Enable NPI interrupt to PS GIC */
+	RC = _XAie_NpiIrqEnable(DevInst, XAIE_ERROR_NPI_INTR_ID,
+				XAIE_ERROR_NPI_INTR_ID);
+	if (RC != XAIE_OK) {
+		XAIE_ERROR("Failed to enable NPI interrupt\n");
+		return RC;
+	}
+
+	RC = _XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+	return RC;
 }
 
 /*****************************************************************************/
