@@ -187,7 +187,9 @@ static inline void _XAie_LNpiSetPartProtectedReg(XAie_DevInst *DevInst,
 	RegVal |= _XAie_LSetRegField(EndCol, XAIE_NPI_PROT_REG_CNTR_LASTCOL_LSB,
 				XAIE_NPI_PROT_REG_CNTR_LASTCOL_MSK);
 
+	_XAie_LNpiSetLock(XAIE_DISABLE);
 	_XAie_LNpiWriteCheck32(XAIE_NPI_PROT_REG_CNTR_REG, RegVal);
+	_XAie_LNpiSetLock(XAIE_ENABLE);
 }
 
 #endif		/* end of protection macro */
