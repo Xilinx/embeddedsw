@@ -38,12 +38,12 @@
 #define XAIE_NUM_COLS			50
 #endif
 
-#define XAIE_COL_SHIFT			25
-#define XAIE_ROW_SHIFT			20
+#define XAIE_COL_SHIFT			23
+#define XAIE_ROW_SHIFT			18
 #define XAIE_SHIM_ROW			0
 #define XAIE_MEM_TILE_ROW_START		0
 #define XAIE_MEM_TILE_NUM_ROWS		0
-#define XAIE_AIE_TILE_ROW_START		2
+#define XAIE_AIE_TILE_ROW_START		1
 #define XAIE_AIE_TILE_NUM_ROWS		8
 
 #define UPDT_NEXT_NOC_TILE_LOC(Loc)	\
