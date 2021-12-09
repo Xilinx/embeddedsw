@@ -1394,7 +1394,7 @@ typedef struct {
 						    data passed to the access
 						    lane set callback
 						    function. */
-	XDp_IntrHandler IntrAdapatveSyncSdpHandler[XDP_RX_STREAM_ID4];
+	XDp_IntrHandler IntrAdaptiveSyncSdpHandler[XDP_RX_STREAM_ID4];
 							/**< Array of Callback functions
 							for Adaptive-Sync
 							SDP packet received
