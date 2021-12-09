@@ -550,8 +550,8 @@ static AieRC XAie_BaremetalIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			break;
 		}
 		default:
-			XAIE_ERROR("Linux backend does not support operation "
-					"%d\n", Op);
+			XAIE_ERROR("Baremetal backend doesn't support operation"
+					" %d\n", Op);
 			return XAIE_FEATURE_NOT_SUPPORTED;
 	}
 

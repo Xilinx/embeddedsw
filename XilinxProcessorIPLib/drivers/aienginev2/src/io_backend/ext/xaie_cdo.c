@@ -385,7 +385,8 @@ static AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			break;
 		}
 		default:
-			XAIE_ERROR("Backend doesn't support Op %u.\n", Op);
+			XAIE_ERROR("CDO backend doesn't support operation"
+					" %u.\n", Op);
 			RC = XAIE_FEATURE_NOT_SUPPORTED;
 			break;
 	}
