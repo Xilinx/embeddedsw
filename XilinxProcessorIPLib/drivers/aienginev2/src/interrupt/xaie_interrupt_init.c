@@ -935,14 +935,6 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 		}
 	}
 
-	/* Enable NPI interrupt to PS GIC */
-	RC = _XAie_NpiIrqEnable(DevInst, XAIE_ERROR_NPI_INTR_ID,
-				XAIE_ERROR_NPI_INTR_ID);
-	if (RC != XAIE_OK) {
-		XAIE_ERROR("Failed to enable NPI interrupt\n");
-		return RC;
-	}
-
 	RC =  _XAie_GroupErrorInit(DevInst);
 	if(RC != XAIE_OK) {
 		XAIE_ERROR("Failed to initialize group errors\n");
