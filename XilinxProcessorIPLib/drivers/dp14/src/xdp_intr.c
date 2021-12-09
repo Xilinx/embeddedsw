@@ -548,7 +548,7 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 
 	case XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP:
 		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[0] = CallbackFunc;
+			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[0] = CallbackFunc;
 			InstancePtr->RxInstance.IntrAdapatveSyncSdpCallbackRef[0] = CallbackRef;
 			Status = XST_SUCCESS;
 		} else {
@@ -562,7 +562,7 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		Index = ((HandlerType + 1) -
 			XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_2);
 			InstancePtr->RxInstance.
-			IntrAdapatveSyncSdpHandler[Index] = CallbackFunc;
+			IntrAdaptiveSyncSdpHandler[Index] = CallbackFunc;
 			InstancePtr->RxInstance.
 			IntrAdapatveSyncSdpCallbackRef[Index] = CallbackRef;
 			Status = XST_SUCCESS;
@@ -1442,8 +1442,8 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 		if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_SDP_STREAMX_MASK(
 			XDP_RX_STREAM_ID1)) &&
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[0]) {
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[0](
+			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[0]) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[0](
 				InstancePtr->RxInstance.
 				IntrAdapatveSyncSdpCallbackRef[0]);
 		}
@@ -1451,8 +1451,8 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 		if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_SDP_STREAMX_MASK(
 			XDP_RX_STREAM_ID2)) &&
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[1]) {
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[1](
+			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[1]) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[1](
 				InstancePtr->RxInstance.
 				IntrAdapatveSyncSdpCallbackRef[1]);
 		}
@@ -1460,8 +1460,8 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 		if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_SDP_STREAMX_MASK(
 			XDP_RX_STREAM_ID3)) &&
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[2]) {
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[2](
+			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[2]) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[2](
 				InstancePtr->RxInstance.
 				IntrAdapatveSyncSdpCallbackRef[2]);
 		}
@@ -1469,8 +1469,8 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 		if ((IntrStatus2 &
 			XDP_RX_INTERRUPT_ADAPTIVE_SYNC_SDP_STREAMX_MASK(
 			XDP_RX_STREAM_ID4)) &&
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[3]) {
-			InstancePtr->RxInstance.IntrAdapatveSyncSdpHandler[3](
+			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[3]) {
+			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[3](
 				InstancePtr->RxInstance.
 				IntrAdapatveSyncSdpCallbackRef[3]);
 		}
