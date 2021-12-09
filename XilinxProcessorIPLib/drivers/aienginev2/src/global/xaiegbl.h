@@ -700,6 +700,31 @@ static inline void XAie_SetupConfigPartProp(XAie_Config *ConfigPtr, u32 Nid,
 		.ErrorCount = 0U,					\
 	}
 
+/*****************************************************************************/
+/**
+*
+* Error backtracking can be accomplished using more than one buffer. This macro
+* overrides the error payload buffer while preserving the error metadata.
+*
+* @param	MData: XAie_ErrorMetaData structure instance.
+* @param	Buffer: Pointer to a buffer for returning backtracked error
+*			information.
+* @param	Size: Size of buffer in bytes.
+*
+* @return	None.
+*
+* @note		For the same array partition, for error backtracking algorithm
+*		to continue from the tile module where it previously left off,
+*		error metadata must be preserved. Using this macro,
+*		backtracking could be done using buffers in a ping-pong fashion.
+*
+*******************************************************************************/
+#define XAie_ErrorMetadataOverrideBuffer(Mdata, Buffer, Size)		\
+	({								\
+		(Mdata).Payload = (Buffer);				\
+		(Mdata).ArraySize = (Size) / sizeof(XAie_ErrorPayload);	\
+	})
+
 #endif	/* end of protection macro */
 
 /** @} */
