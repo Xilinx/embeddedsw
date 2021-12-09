@@ -18,7 +18,9 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kal   07/05/2021 Initial release
-* 2.4   bsv  09/09/2021 Added PLM_NVM macro
+* 2.4   bsv   09/09/2021 Added PLM_NVM macro
+* 2.5   kpt   12/06/2021 Avoid using DMA while writing 32bit user data
+*                        in XNvm_BbramUsrDataRead
 *
 * </pre>
 *
@@ -37,6 +39,7 @@
 #include "xnvm_init.h"
 #include "xnvm_utils.h"
 #include "xplmi_dma.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -196,8 +199,9 @@ static int XNvm_BbramUsrDataRead(u32 DstAddrLow, u32 DstAddrHigh)
 
 	UsrData = XNvm_BbramReadUsrData();
 
-	Status = XPlmi_DmaXfr((u64)(UINTPTR)&UsrData, Addr,
-			sizeof(UsrData) / XNVM_WORD_LEN, XPLMI_PMCDMA_0);
+	XPlmi_Out64(Addr, UsrData);
+
+	Status = XST_SUCCESS;
 
 	return Status;
 }
