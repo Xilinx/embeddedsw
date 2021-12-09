@@ -66,7 +66,8 @@ static void _XAie_PrivilegeSetColClkBuf(XAie_DevInst *DevInst,
 			XAIE_PL_MOD_COL_CLKCNTR_CLKBUF_ENABLE_LSB,
 			XAIE_PL_MOD_COL_CLKCNTR_CLKBUF_ENABLE_MASK);
 
-	_XAie_LPartWrite32(DevInst, RegAddr, FldVal);
+	_XAie_LPartMaskWrite32(DevInst, RegAddr,
+		XAIE_PL_MOD_COL_CLKCNTR_CLKBUF_ENABLE_MASK, FldVal);
 }
 
 /*****************************************************************************/
