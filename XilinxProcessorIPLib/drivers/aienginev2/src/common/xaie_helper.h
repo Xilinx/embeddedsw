@@ -63,6 +63,16 @@
 /* Compute a pointer to a structure given a pointer to one of its fields */
 #define XAIE_CONTAINER_OF(ptr, structure, member) \
 	(void*)((uintptr_t)(ptr) - XAIE_OFFSET_OF(structure, member))
+
+/* Loop through the set bits in Value */
+#define for_each_set_bit(Index, Value, Len)				      \
+	for((Index) = first_set_bit((Value)) - 1;			      \
+	    (Index) < (Len);						      \
+	    (Value) &= (Value) - 1, (Index) = first_set_bit((Value)) - 1)
+
+/* Generate value with a set bit at given Index */
+#define BIT(Index)		(1 << (Index))
+
 /**************************** Type Definitions *******************************/
 typedef enum {
 	XAIE_IO_WRITE,
@@ -96,6 +106,33 @@ typedef struct XAie_TxnCmd {
 static inline u64 _XAie_GetTileAddr(XAie_DevInst *DevInst, int R, int C)
 {
 	return (R << DevInst->DevProp.RowShift) | (C << DevInst->DevProp.ColShift);
+}
+
+/*****************************************************************************/
+/**
+*
+* Calculates the index value of first set bit. Indexing starts with a value of
+* 1.
+*
+* @param	Value: Value
+* @return	Index of first set bit.
+*
+* @note		Internal API only.
+*
+******************************************************************************/
+static inline u32 first_set_bit(u64 Value)
+{
+	u32 Index = 1;
+
+	if (Value == 0)
+		return 0;
+
+	while (!(Value & 1)) {
+		Value >>= 1;
+		Index++;
+	}
+
+	return Index;
 }
 
 void XAie_Log(FILE *Fd, const char* prefix, const char *Format, ...);
