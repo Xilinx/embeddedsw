@@ -1,15 +1,15 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 
 /*****************************************************************************/
 /**
-* @file xaie_interrupt.c
+* @file xaie_interrupt_init.c
 * @{
 *
-* This file contains routines for AIE interrupt module.
+* This file implements routines for initializing AIE interrupt network.
 *
 * <pre>
 * MODIFICATION HISTORY:
