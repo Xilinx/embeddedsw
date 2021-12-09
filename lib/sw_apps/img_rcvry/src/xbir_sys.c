@@ -48,9 +48,9 @@
 #define XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET	(4U)
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
 #ifdef XPS_BOARD_K26I
-#define XBIR_CC_PRODUCT_NAME		"SCK"
+#define XBIR_SYS_PRODUCT_NAME		"SCK"
 #else
-#define XBIR_CC_PRODUCT_NAME		"VPK"
+#define XBIR_SYS_PRODUCT_NAME		"VPK"
 #endif
 #endif
 
@@ -1025,12 +1025,13 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	int Status = XST_FAILURE;
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
 	u8 LoopIndex = 0U;
-	Xbir_CCEepromData CCEepromData = {0U};
 	char* UUIDStrPtr = NULL;
 	int Ret = XST_FAILURE;
 	u32 MaxSize = sizeof(SysInfo.UUID);
-#ifdef XPS_BOARD_K26I
 	Xbir_SysBoardEepromData SysBoardEepromData = {0U};
+#ifdef XPS_BOARD_K26I
+	Xbir_CCEepromData CCEepromData = {0U};
+#endif
 
 	Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
 		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS);
@@ -1044,7 +1045,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		sizeof(SysBoardEepromData.SysBoardInfo.BoardPrdName));
 	if ((strncmp((char *)&SysInfo.BoardPrdName, "SM-",
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) &&
-		(strncmp((char *)&SysInfo.BoardPrdName, "SMK",
+		(strncmp((char *)&SysInfo.BoardPrdName, XBIR_SYS_PRODUCT_NAME,
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U)) {
 		Xbir_Printf("Unrecognized SOM Eeprom contents\n\r");
 		Status = XBIR_ERR_SOM_EEPROM_CONTENTS;
@@ -1072,7 +1073,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		UUIDStrPtr += Ret;
 		MaxSize -= Ret;
 	}
-#endif
+#ifdef XPS_BOARD_K26I
 	Status = Xbir_IicEepromReadData((u8 *)&CCEepromData,
 		sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
@@ -1083,7 +1084,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	memcpy(CCInfo.BoardPrdName,
 		CCEepromData.SysBoardInfo.BoardPrdName,
 		sizeof(CCEepromData.SysBoardInfo.BoardPrdName));
-	if (strncmp((char *)&CCInfo.BoardPrdName, XBIR_CC_PRODUCT_NAME,
+	if (strncmp((char *)&CCInfo.BoardPrdName, "SCK",
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) {
 		Xbir_Printf("Unrecognized CC Eeprom contents\n\r");
 		Status = XBIR_ERR_CC_EEPROM_CONTENTS;
@@ -1111,6 +1112,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		UUIDStrPtr += Ret;
 		MaxSize -= Ret;
 	}
+#endif
 
 END:
 #else
