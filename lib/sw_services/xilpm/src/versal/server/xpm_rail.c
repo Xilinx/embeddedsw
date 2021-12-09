@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 #include "sleep.h"
+#include "xil_util.h"
 #include "xplmi.h"
 #include "xpm_common.h"
 #include "xpm_rail.h"
@@ -296,6 +297,7 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 	u32 BaseAddress = 0;
 	u32 Type, i, j, k;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const u32 CopySize = 4U;
 
 	u32 NodeIndex = NODEINDEX(RailId);
 	if ((u32)XPM_NODEIDX_POWER_MAX <= NodeIndex) {
@@ -333,8 +335,8 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 							   0xFFU;
 				k++;
 				for (j = 0; j < Rail->I2cModes[i].CmdLen; j++) {
-					Status = Xil_SecureMemCpy(&Rail->I2cModes[i].CmdArr[j * 4U], 4U,
-							   &Args[k], 4U);
+					Status = Xil_SMemCpy(&Rail->I2cModes[i].CmdArr[j * 4U],
+							     CopySize, &Args[k], CopySize, CopySize);
 					k++;
 					if (XST_SUCCESS != Status) {
 						goto done;

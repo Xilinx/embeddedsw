@@ -5,6 +5,7 @@
 
 
 #include "xil_io.h"
+#include "xil_util.h"
 #include "xpm_regs.h"
 #include "xpm_psm.h"
 #include "xpm_psm_api.h"
@@ -25,6 +26,7 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	XStatus Status = XST_FAILURE;
 	const XPm_Psm *Psm = (XPm_Psm *)Core;
 	u32 CRLBaseAddress = Psm->CrlBaseAddr;
+	const u32 CopySize = sizeof(PsmToPlmEvent_bkp);
 
 	if (1U == Core->isCoreUp) {
 		Status = XPM_ERR_WAKEUP;
@@ -58,8 +60,7 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	if (1U == Is_PsmPoweredDown) {
 		/* Restore the context of reserved PSM RAM memory */
-		Status = Xil_SecureMemCpy((void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp),
-					&PsmToPlmEvent_bkp, sizeof(PsmToPlmEvent_bkp));
+		Status = Xil_SMemCpy((void *)PsmToPlmEvent, CopySize, &PsmToPlmEvent_bkp, CopySize, CopySize);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -89,6 +90,7 @@ static XStatus XPmPsm_PowerDown(XPm_Core *Core)
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
 	(void)Core;
+	const u32 CopySize = sizeof(PsmToPlmEvent_bkp);
 
 	if ((u8)XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
 		Status = XST_SUCCESS;
@@ -96,8 +98,7 @@ static XStatus XPmPsm_PowerDown(XPm_Core *Core)
 	}
 
 	/* Store the context of reserved PSM RAM memory */
-	Status = Xil_SecureMemCpy(&PsmToPlmEvent_bkp, sizeof(PsmToPlmEvent_bkp),
-				(void *)PsmToPlmEvent, sizeof(PsmToPlmEvent_bkp));
+	Status = Xil_SMemCpy(&PsmToPlmEvent_bkp, CopySize, (void *)PsmToPlmEvent, CopySize, CopySize);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}

@@ -1203,6 +1203,7 @@ XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_PinFunc *PinFunc = NULL;
+	const u32 CopySize = FUNC_QUERY_NAME_LEN;
 
 	Status = Xil_SMemSet(FuncName, FUNC_QUERY_NAME_LEN, 0, FUNC_QUERY_NAME_LEN);
 	if (XST_SUCCESS != Status) {
@@ -1214,9 +1215,8 @@ XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 		goto done;
 	}
 
-	(void)memcpy(FuncName, &PinFunc->Name[0], FUNC_QUERY_NAME_LEN);
+	Status = Xil_SMemCpy(FuncName, CopySize, &PinFunc->Name[0], CopySize, CopySize);
 
-	Status = XST_SUCCESS;
 done:
 	return Status;
 }

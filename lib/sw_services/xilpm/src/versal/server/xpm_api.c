@@ -3,6 +3,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#include "xil_util.h"
 #include "xplmi_ipi.h"
 #include "xplmi_util.h"
 #include "xpm_api.h"
@@ -449,6 +450,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	u32 CmdId = Cmd->CmdId & 0xFFU;
 	u32 SetAddress;
 	u64 Address;
+	const u32 CopySize = sizeof(ApiResponse);
 
 	PmDbg("Processing Cmd: 0x%x, SubsysId: 0x%x, IpiMask: 0x%x\r\n",
 					Cmd->CmdId, SubsystemId, Cmd->IpiMask);
@@ -655,8 +657,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 
 	/* First word of the response is status */
 	Cmd->Response[0] = (u32)Status;
-	Status = Xil_SecureMemCpy(&Cmd->Response[1], sizeof(ApiResponse),
-			ApiResponse, sizeof(ApiResponse));
+	Status = Xil_SMemCpy(&Cmd->Response[1], CopySize, ApiResponse, CopySize, CopySize);
 	if (XST_SUCCESS != Status) {
 		PmErr("Error 0x%x while copying the Cmd 0x%x return payload\r\n",
 				Status, Cmd->CmdId);
@@ -3693,6 +3694,7 @@ XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs)
 	u32 NodeId;
 	char Name[MAX_NAME_BYTES] = {0};
 	u32 i=0, j=0;
+	const u32 CopySize = 4U;
 
 	if (NumArgs == 0U) {
 		Status = XST_INVALID_PARAM;
@@ -3701,7 +3703,10 @@ XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs)
 	NodeId = Args[0];
 	if (ISOUTCLK(NodeId) || ISREFCLK(NodeId) || ISPLL(NodeId)) {
 		for (i = 1U; i < NumArgs; i++) {
-			(void)memcpy(&Name[j], (char *)((UINTPTR)&Args[i]), 4U);
+			Status = Xil_SMemCpy(&Name[j], CopySize, (char *)((UINTPTR)&Args[i]), CopySize, CopySize);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 			j += 4U;
 		}
 		Status = XPmClock_AddClkName(NodeId, Name);
