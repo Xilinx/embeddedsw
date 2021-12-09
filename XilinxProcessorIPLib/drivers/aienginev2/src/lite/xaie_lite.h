@@ -45,6 +45,44 @@
 		.NumCols = (_NumCols), \
 	}
 
+/************************** Variable Definitions *****************************/
+/************************** Function Prototypes  *****************************/
+/*****************************************************************************/
+/**
+*
+* This is API returns the tile type for a given device instance and tile
+* location.
+*
+* @param	DevInst: Device Instance
+* @param	Loc: Location of the AIE tile.
+* @return	TileType (AIETILE/MEMTILE/SHIMPL/SHIMNOC on success and MAX on
+*		error)
+*
+* @note		Internal only.
+*
+******************************************************************************/
+static inline u8 _XAie_LGetTTypefromLoc(XAie_DevInst *DevInst, XAie_LocType Loc)
+{
+	XAIE_ERROR_RETURN((Loc.Col >= XAIE_NUM_COLS), XAIEGBL_TILE_TYPE_MAX,
+				"Invalid column: %d\n", Loc.Col);
+
+	if(Loc.Row == 0U) {
+		return _XAie_LGetShimTTypefromLoc(DevInst, Loc);
+	} else if(Loc.Row >= XAIE_MEM_TILE_ROW_START &&
+			(Loc.Row < (XAIE_MEM_TILE_ROW_START +
+				    XAIE_MEM_TILE_NUM_ROWS))) {
+		return XAIEGBL_TILE_TYPE_MEMTILE;
+	} else if (Loc.Row >= XAIE_AIE_TILE_ROW_START &&
+			(Loc.Row < (XAIE_AIE_TILE_ROW_START +
+				    XAIE_AIE_TILE_NUM_ROWS))) {
+		return XAIEGBL_TILE_TYPE_AIETILE;
+	}
+
+	XAIE_ERROR_RETURN(1U, XAIEGBL_TILE_TYPE_MAX, "Cannot find Tile Type\n");
+
+	return XAIEGBL_TILE_TYPE_MAX;
+}
+
 #endif /* XAIE_FEATURE_LITE */
 
 #endif /* XAIE_LITE_H */
