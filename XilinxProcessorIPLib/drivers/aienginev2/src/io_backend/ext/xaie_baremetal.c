@@ -40,6 +40,8 @@
 #include "xaie_io_privilege.h"
 #include "xaie_npi.h"
 
+#ifdef __AIEBAREMETAL__
+
 /****************************** Type Definitions *****************************/
 typedef struct {
 	u64 BaseAddr;
@@ -50,8 +52,6 @@ typedef struct {
 static XAie_BaremetalIO BaremetalIO;
 
 /************************** Function Definitions *****************************/
-#ifdef __AIEBAREMETAL__
-
 /*****************************************************************************/
 /**
 *
