@@ -40,9 +40,6 @@
 
 /************************** Constant Definitions *****************************/
 
-/**< API ID mask in CmdId */
-#define XNVM_API_ID_MASK	(0xFFU)
-
 /************************** Function Prototypes *****************************/
 
 static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh);
