@@ -195,6 +195,7 @@ AieRC XAie_CfgInitialize(XAie_DevInst *InstPtr, XAie_Config *ConfigPtr)
 	return XAIE_OK;
 }
 
+#if !defined(XAIE_FEATURE_LITE) && defined(XAIE_FEATURE_PRIVILEGED_ENABLE)
 /*****************************************************************************/
 /**
 *
@@ -275,6 +276,7 @@ AieRC XAie_PartitionTeardown(XAie_DevInst *DevInst)
 
 	return XAIE_OK;
 }
+#endif /* !XAIE_FEATURE_LITE && XAIE_FEATURE_PRIVILEGED_ENABLE */
 
 /*****************************************************************************/
 /**
