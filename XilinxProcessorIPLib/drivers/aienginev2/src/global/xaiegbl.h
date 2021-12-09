@@ -455,6 +455,12 @@ typedef struct {
 	u8 PktType;
 } XAie_Packet;
 
+/* Enum to capture event switches */
+typedef enum {
+	XAIE_EVENT_SWITCH_A,
+	XAIE_EVENT_SWITCH_B,
+} XAie_BroadcastSw;
+
 /**************************** Function prototypes ***************************/
 AieRC XAie_SetupPartitionConfig(XAie_DevInst *DevInst,
 		u64 PartBaseAddr, u8 PartStartCol, u8 PartNumCols);

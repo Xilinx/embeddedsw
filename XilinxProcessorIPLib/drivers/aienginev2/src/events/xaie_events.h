@@ -713,12 +713,6 @@ typedef enum {
 	XAIE_EVENT_BROADCAST_ALL   = 0b1111,
 } XAie_BroadcastDir;
 
-/* Enum to capture event switches */
-typedef enum {
-	XAIE_EVENT_SWITCH_A,
-	XAIE_EVENT_SWITCH_B,
-} XAie_BroadcastSw;
-
 /************************** Function Prototypes  *****************************/
 AieRC XAie_EventGenerate(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module, XAie_Events Event);
