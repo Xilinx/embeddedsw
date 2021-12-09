@@ -614,6 +614,10 @@ static AieRC _XAie_LBacktrackIntrCtrlL1(XAie_DevInst *DevInst,
 *		  XAie_BacktrackErrorInterrupts().
 *		- Error metadata instance needs to initialized using
 *		  XAie_ErrorMetadataInit() helper.
+*		- If more than one buffers are used to backtrack the same
+*		  partition, error metadata needs to be preserve. To override
+*		  error payload buffer only, use
+*		  XAie_ErrorMetadataOverrideBuffer() helper macro.
 *
 ******************************************************************************/
 AieRC XAie_BacktrackErrorInterrupts(XAie_DevInst *DevInst,
