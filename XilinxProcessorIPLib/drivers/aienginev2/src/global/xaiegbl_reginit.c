@@ -3037,7 +3037,11 @@ static const XAie_L1IntrMod AiePlL1IntrMod =
 	.IrqEventOff = 8U,
 	.NumBroadcastIds = 16U,
 	.MaxErrorBcIdsRvd = 6U,
+#ifdef XAIE_FEATURE_INTR_INIT_ENABLE
 	.IntrCtrlL1IrqId = &_XAie_IntrCtrlL1IrqId,
+#else
+	.IntrCtrlL1IrqId = NULL,
+#endif
 };
 #endif /* XAIE_FEATURE_INTR_L1_ENABLE */
 

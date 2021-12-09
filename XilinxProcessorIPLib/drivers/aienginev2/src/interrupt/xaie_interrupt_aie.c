@@ -14,8 +14,11 @@
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_interrupt_aie.h"
+
+#ifdef XAIE_FEATURE_INTR_INIT_ENABLE
 
 /************************** Constant Definitions *****************************/
 /************************** Function Definitions *****************************/
@@ -52,5 +55,7 @@ u8 _XAie_IntrCtrlL1IrqId(XAie_DevInst *DevInst, XAie_LocType Loc,
 
 	return IrqId;
 }
+
+#endif /* XAIE_FEATURE_INTR_INIT_ENABLE */
 
 /** @} */
