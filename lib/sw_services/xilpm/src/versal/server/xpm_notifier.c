@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 
+#include "xil_util.h"
 #include "xpm_api.h"
 #include "xpm_core.h"
 #include "xpm_ipi.h"
@@ -418,14 +419,16 @@ void XPmNotifier_NotifyTarget(u32 IpiMask, u32 *Payload)
  * @param  NodeId     NodeId related to event
  * @param  Event      Notification event
  *
- * @return None
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
  *
  ****************************************************************************/
-void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
+XStatus XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			    const u32 NodeId,
 			    const u32 Event)
 {
 	u32 Idx;
+	XStatus Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
@@ -437,8 +440,13 @@ void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 				PmNotifiers[Idx].PendEvent &= ~Event;
 			}
 			if (0U == PmNotifiers[Idx].EventMask) {
-				(void)memset(&PmNotifiers[Idx], 0,
-					     sizeof(XPmNotifier));
+				Status = Xil_SMemSet(&PmNotifiers[Idx],
+						     sizeof(XPmNotifier),
+						     0,
+						     sizeof(XPmNotifier));
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			}
 			/*
 			 * Check if Node Class is EVENT and disable error action.
@@ -449,6 +457,10 @@ void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			break;
 		}
 	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 /****************************************************************************/
@@ -457,18 +469,28 @@ void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
  *
  * @param  Subsystem  Subsystem for which notifiers to be unregistered
  *
- * @return None
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
  *
  ****************************************************************************/
-void XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem)
+XStatus XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem)
 {
 	u32 Idx;
+	XStatus Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		if (Subsystem == PmNotifiers[Idx].Subsystem) {
-			(void)memset(&PmNotifiers[Idx], 0, sizeof(XPmNotifier));
+			Status = Xil_SMemSet(&PmNotifiers[Idx], sizeof(XPmNotifier),
+					     0, sizeof(XPmNotifier));
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 		}
 	}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 /****************************************************************************/

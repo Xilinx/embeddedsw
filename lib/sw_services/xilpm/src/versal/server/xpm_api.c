@@ -4878,8 +4878,7 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 	}
 
 	if (0U == Enable) {
-		XPmNotifier_Unregister(Subsystem, NodeId, Event);
-		Status = XST_SUCCESS;
+		Status = XPmNotifier_Unregister(Subsystem, NodeId, Event);
 	} else {
 		Status = XPmNotifier_Register(Subsystem, NodeId, Event, Wake,
 					      IpiMask);

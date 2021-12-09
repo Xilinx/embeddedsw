@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 
+#include "xil_util.h"
 #include "xpm_pll.h"
 #include "xpm_psm.h"
 #include "xpm_regs.h"
@@ -507,7 +508,10 @@ XStatus XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp)
 		goto done;
 	}
 
-	(void)memset(Resp, 0, CLK_PARENTS_PAYLOAD_LEN);
+	Status = Xil_SMemSet(Resp, CLK_PARENTS_PAYLOAD_LEN, 0, CLK_PARENTS_PAYLOAD_LEN);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	if (Index != 0U) {
 		Status = XST_INVALID_PARAM;

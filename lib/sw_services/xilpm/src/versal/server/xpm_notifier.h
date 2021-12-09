@@ -20,11 +20,11 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 			 const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 IpiMask);
 
-void XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
+XStatus XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			    const u32 NodeId,
 			    const u32 Event);
 
-void XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem);
+XStatus XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem);
 
 void XPmNotifier_Event(const u32 NodeId, const u32 Event);
 
