@@ -377,7 +377,8 @@ static AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 		case XAIE_BACKEND_OP_GET_RSC_STAT:
 			return _XAie_GetRscStatCommon(DevInst, Arg);
 		default:
-			XAIE_ERROR("Backend doesn't support Op %u.\n", Op);
+			XAIE_ERROR("CDO backend doesn't support operation"
+					" %u.\n", Op);
 			RC = XAIE_FEATURE_NOT_SUPPORTED;
 			break;
 	}

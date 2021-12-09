@@ -427,7 +427,8 @@ static AieRC XAie_SimIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 	case XAIE_BACKEND_OP_GET_RSC_STAT:
 		return _XAie_GetRscStatCommon(DevInst, Arg);
 	default:
-		XAIE_ERROR("Linux backend does not support operation %d\n", Op);
+		XAIE_ERROR("Simulation backend doesn't support operation %d\n",
+				Op);
 		return XAIE_FEATURE_NOT_SUPPORTED;
 	}
 
