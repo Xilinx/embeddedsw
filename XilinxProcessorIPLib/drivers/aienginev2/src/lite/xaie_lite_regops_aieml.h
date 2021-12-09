@@ -81,7 +81,7 @@ static inline void _XAie_LSetPartIsolationAfterRst(XAie_DevInst *DevInst)
 
 		/* Isolate boundrary of SHIM tiles */
 		RegAddr = _XAie_LGetTileAddr(0, C) +
-			XAIE_PL_MOD_COL_CLKCNTR_REGOFF;
+			XAIE_PL_MOD_TILE_CNTR_REGOFF;
 		_XAie_LPartWrite32(DevInst, RegAddr, RegVal);
 
 		/* Isolate boundrary of MEM tiles */
