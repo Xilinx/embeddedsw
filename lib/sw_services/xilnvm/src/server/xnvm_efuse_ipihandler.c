@@ -21,6 +21,7 @@
 *       kpt   08/27/2021 Added server API's to support puf helper data efuse
 *                        programming
 * 2.4   bsv  09/09/2021 Added PLM_NVM macro
+* 2.5   kpt  12/09/2021 Replaced magic number with XNVM_API_ID_MASK
 *
 * </pre>
 *
@@ -95,7 +96,7 @@ int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	switch (Cmd->CmdId & 0xFFU) {
+	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_EFUSE_WRITE):
 		Status = XNvm_EfuseDataWrite(Pload[0U], Pload[1U]);
 		break;
