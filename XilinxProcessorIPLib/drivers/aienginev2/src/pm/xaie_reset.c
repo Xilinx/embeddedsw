@@ -234,6 +234,8 @@ AieRC XAie_ResetPartition(XAie_DevInst *DevInst)
 
 	_XAie_RstSetAllColumnsReset(DevInst, XAIE_ENABLE);
 
+	_XAie_PmSetPartitionClock(DevInst, XAIE_ENABLE);
+
 	_XAie_RstAllShims(DevInst);
 
 	_XAie_RstSetBlockAllShimsNocAxiMmNsuErr(DevInst, XAIE_ENABLE);
