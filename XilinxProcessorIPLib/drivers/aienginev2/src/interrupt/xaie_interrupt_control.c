@@ -107,6 +107,35 @@ static inline void _XAie_IntrCtrlL2Config(XAie_LocType Loc, u32 ChannelBitMap,
 	_XAie_LWrite32(RegAddr, ChannelBitMap);
 }
 
+/*****************************************************************************/
+/**
+*
+* This API disables all second-level interrupt controllers reporting errors.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XAie_DisableErrorInterrupts()
+{
+	XAie_LocType Loc = XAie_TileLoc(0, XAIE_SHIM_ROW);
+
+	for (UPDT_NEXT_NOC_TILE_LOC(Loc); Loc.Col < XAIE_NUM_COLS;
+			UPDT_NEXT_NOC_TILE_LOC(Loc)) {
+		u32 Status;
+
+		Status = _XAie_IntrCtrlL2Status(Loc);
+
+		/* Only disable L2s that are reporting errors. */
+		if (Status) {
+			_XAie_IntrCtrlL2Config(Loc, XAIE_ERROR_L2_DISABLE,
+					XAIE_DISABLE);
+			_XAie_IntrCtrlL2Ack(Loc, Status);
+		}
+	}
+}
+
 #endif /* XAIE_FEATURE_INTR_CTRL_ENABLE */
 
 /** @} */
