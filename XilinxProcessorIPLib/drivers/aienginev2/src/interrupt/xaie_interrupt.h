@@ -55,5 +55,6 @@ AieRC XAie_IntrCtrlL2Enable(XAie_DevInst *DevInst, XAie_LocType Loc,
 AieRC XAie_IntrCtrlL2Disable(XAie_DevInst *DevInst, XAie_LocType Loc,
 		u32 ChannelBitMap);
 AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst);
+void XAie_DisableErrorInterrupts();
 
 #endif		/* end of protection macro */
