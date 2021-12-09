@@ -53,6 +53,7 @@
 		(Loc).Col += ((Loc).Col % 2) * 2 + 1;})
 
 #include "xaie_lite_regdef_aie.h"
+#include "xaie_lite_regops_aie.h"
 
 /************************** Variable Definitions *****************************/
 /************************** Function Prototypes  *****************************/
