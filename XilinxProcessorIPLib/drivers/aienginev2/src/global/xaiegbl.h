@@ -721,7 +721,7 @@ static inline void XAie_SetupConfigPartProp(XAie_Config *ConfigPtr, u32 Nid,
 *******************************************************************************/
 #define XAie_ErrorMetadataOverrideBuffer(Mdata, Buffer, Size)		\
 	({								\
-		(Mdata).Payload = (Buffer);				\
+		(Mdata).Payload = (XAie_ErrorPayload *) (Buffer);	\
 		(Mdata).ArraySize = (Size) / sizeof(XAie_ErrorPayload);	\
 	})
 
