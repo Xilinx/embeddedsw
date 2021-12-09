@@ -12,7 +12,7 @@
 * compilation to reduce binary size.
 * We have one macro per feature, and for easier to use, we have feature groups
 * macros. Here are the groups macros:
-*  * XAIE_FEATURES_APP_BASIC: basic features commonly needed for runtime on
+*  * XAIE_FEATURE_APP_BASIC: basic features commonly needed for runtime on
 *		target application. It includes the following features:
 *    * XAIE_FEATURE_CORE_ENABLE: AIE tile core module APIs
 *    * XAIE_FEATURE_DMA_ENABLE: AIE DMA APIs
@@ -26,9 +26,9 @@
 *		setting, and memory clearing. It will enable the following
 *		features:
 *      * XAIE_FEATURE_PL_ENABLE: AIE SHIM PL APIs
-*      * XAIE_FEATURE_INTR_L2_ENABLE
-*      * XAIE_FEATURE_INTR_L1_ENABLE
-*    * XAIE_FEATURE_INTR_BT_ENABLE: AIE interrupt back tracking
+*      * XAIE_FEATURE_DATAMEM_ENABLE
+*      * XAIE_FEATURE_INTR_CTRL_ENABLE: AIE interrupt enable/disable APIs
+*    * XAIE_FEATURE_INTR_BTRK_ENABLE: AIE interrupt back tracking
 *  * XAIE_FEATURE_ALL: all AIE APIs
 *    * XAIE_FEATURE_CORE_ENABLE
 *    * XAIE_FEATURE_DMA_ENABLE
@@ -42,9 +42,7 @@
 *    * XAIE_FEATURE_EVENTS_ENABLE: AIE events APIs
 *    * XAIE_FEATURE_ELF_ENABLE: AIE ELF loader APIs
 *    * XAIE_FEATURE_RSC_ENABLE: AIE resource management APIs
-*    * XAIE_FEATURE_INTR_BT_ENABLE
-*    * XAIE_FEATURE_INTR_L1_ENABLE
-*    * XAIE_FEATURE_INTR_L2_ENABLE
+*    * XAIE_FEATURE_INTR_INIT_ENABLE: AIE interrupt network initialization APIs
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -76,7 +74,7 @@
 
 #ifdef XAIE_FEATURE_PRIVILEGED
 #define XAIE_FEATURE_PRIVILEGED_ENABLE
-#define XAIE_FEATURE_INTR_BT_ENABLE
+#define XAIE_FEATURE_INTR_BTRK_ENABLE
 #endif
 
 #ifdef XAIE_FEATURE_ALL
@@ -93,9 +91,7 @@
 #define XAIE_FEATURE_CORE_ENABLE
 #define XAIE_FEATURE_ELF_ENABLE
 #define XAIE_FEATURE_RSC_ENABLE
-#define XAIE_FEATURE_INTR_BT_ENABLE
-#define XAIE_FEATURE_INTR_L1_ENABLE
-#define XAIE_FEATURE_INTR_L2_ENABLE
+#define XAIE_FEATURE_INTR_INIT_ENABLE
 #endif /* XAIE_FEATURE_FULL */
 
 #ifdef XAIE_FEATURE_RSC_ENABLE
@@ -104,7 +100,9 @@
 #endif
 #endif /* XAIE_FEATURE_RSC_ENABLE */
 
-#ifdef XAIE_FEATURE_INTR_BT_ENABLE
+#if defined(XAIE_FEATURE_INTR_INIT_ENABLE) ||	\
+    defined(XAIE_FEATURE_INTR_CTRL_ENABLE) ||	\
+    defined(XAIE_FEATURE_INTR_BTRK_ENABLE)
 #ifndef XAIE_FEATURE_INTR_L1_ENABLE
 #define XAIE_FEATURE_INTR_L1_ENABLE
 #endif
@@ -117,8 +115,8 @@
 #ifndef XAIE_FEATURE_PL_ENABLE
 #define XAIE_FEATURE_PL_ENABLE
 #endif
-#ifndef XAIE_FEATURE_INTR_L2_ENABLE
-#define XAIE_FEATURE_INTR_L2_ENABLE
+#ifndef XAIE_FEATURE_INTR_CTRL_ENABLE
+#define XAIE_FEATURE_INTR_CTRL_ENABLE
 #endif
 #ifndef XAIE_FEATURE_DATAMEM_ENABLE
 #define XAIE_FEATURE_DATAMEM_ENABLE

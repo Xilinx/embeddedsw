@@ -25,13 +25,17 @@
 * </pre>
 *
 ******************************************************************************/
+
 /***************************** Include Files *********************************/
 #include <stdlib.h>
 
 #include "xaie_clock.h"
+#include "xaie_feature_config.h"
 #include "xaie_helper.h"
 #include "xaie_interrupt.h"
 #include "xaie_npi.h"
+
+#ifdef XAIE_FEATURE_INTR_INIT_ENABLE
 
 /************************** Constant Definitions *****************************/
 /************************** Function Definitions *****************************/
@@ -947,5 +951,7 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 
 	return XAIE_OK;
 }
+
+#endif /* XAIE_FEATURE_INTR_INIT_ENABLE */
 
 /** @} */
