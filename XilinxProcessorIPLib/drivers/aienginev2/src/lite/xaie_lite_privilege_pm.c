@@ -126,22 +126,18 @@ static void _XAie_PrivilegeSetColReset(XAie_DevInst *DevInst,
 * This API set the tile columns reset for every column in the partition
 *
 * @param	DevInst: Device Instance
+* @param	RstEnable: XAIE_ENABLE to assert reset, XAIE_DISABLE to
+*			   deassert reset.
 *
 * @note		This function is internal to this file.
 *
 ******************************************************************************/
-static void _XAie_PrivilegeRstPartCol(XAie_DevInst *DevInst)
+static void _XAie_PrivilegeSetPartColRst(XAie_DevInst *DevInst, u8 RstEnable)
 {
 	for(u32 C = 0; C < DevInst->NumCols; C++) {
 		XAie_LocType Loc = XAie_TileLoc(C, 0);
 
-		_XAie_PrivilegeSetColReset(DevInst, Loc, XAIE_ENABLE);
-	}
-
-	for(u32 C = 0; C < DevInst->NumCols; C++) {
-		XAie_LocType Loc = XAie_TileLoc(C, 0);
-
-		_XAie_PrivilegeSetColReset(DevInst, Loc, XAIE_DISABLE);
+		_XAie_PrivilegeSetColReset(DevInst, Loc, RstEnable);
 	}
 }
 
@@ -303,6 +299,8 @@ static void _XAie_PrivilegeSetL2ErrIrq(XAie_DevInst *DevInst)
 *		engine partition:
 *		- Clock gate all columns
 *		- Reset Columns
+*		- Ungate all Columns
+*		- Remove columns reset
 *		- Reset shims
 *		- Setup AXI MM not to return errors for AXI decode or slave
 *		  errors, raise events instead.
@@ -329,7 +327,9 @@ AieRC XAie_PartitionInitialize(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 	if((OptFlags & XAIE_PART_INIT_OPT_COLUMN_RST) != 0) {
 		/* Always gate all tiles before resetting columns */
 		_XAie_PrivilegeSetPartColClkBuf(DevInst, XAIE_DISABLE);
-		_XAie_PrivilegeRstPartCol(DevInst);
+		_XAie_PrivilegeSetPartColRst(DevInst, XAIE_ENABLE);
+		_XAie_PrivilegeSetPartColClkBuf(DevInst, XAIE_ENABLE);
+		_XAie_PrivilegeSetPartColRst(DevInst, XAIE_DISABLE);
 	}
 
 	if((OptFlags & XAIE_PART_INIT_OPT_SHIM_RST) != 0) {
@@ -374,8 +374,10 @@ AieRC XAie_PartitionInitialize(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 *		engine partition:
 *		- Clock gate all columns
 *		- Reset Columns
+*		- Ungate all columns
 *		- Reset shims
-*		- zeroize memories
+*		- Ungate all columns
+*		- Zeroize memories
 *		- Clock gate all columns
 *
 *******************************************************************************/
@@ -390,7 +392,11 @@ AieRC XAie_PartitionTeardown(XAie_DevInst *DevInst)
 
 	_XAie_PrivilegeSetPartColClkBuf(DevInst, XAIE_DISABLE);
 
-	_XAie_PrivilegeRstPartCol(DevInst);
+	_XAie_PrivilegeSetPartColRst(DevInst, XAIE_ENABLE);
+
+	_XAie_PrivilegeSetPartColClkBuf(DevInst, XAIE_ENABLE);
+
+	_XAie_PrivilegeSetPartColRst(DevInst, XAIE_DISABLE);
 
 	_XAie_PrivilegeRstPartShims(DevInst);
 
