@@ -175,8 +175,7 @@ static inline void _XAie_LNpiSetPartProtectedReg(XAie_DevInst *DevInst,
 {
 	u32 StartCol, EndCol, RegVal;
 
-	/* TODO: Will need to use partition start column */
-	StartCol = 0;
+	StartCol = DevInst->StartCol;
 	EndCol = DevInst->NumCols + StartCol - 1;
 
 	RegVal = _XAie_LSetRegField(Enable, XAIE_NPI_PROT_REG_CNTR_EN_LSB,

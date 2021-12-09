@@ -41,6 +41,7 @@
 #define XAie_LDeclareDevInst(DevInst, _BaseAddr, _StartCol, _NumCols) \
 	XAie_DevInst DevInst = { \
 		.BaseAddr = (_BaseAddr), \
+		.StartCol = (_StartCol), \
 		.NumCols = (_NumCols), \
 	}
 

@@ -49,10 +49,9 @@ __FORCE_INLINE__
 static inline XAie_LocType XAie_LPartGetNextNocTile(XAie_DevInst *DevInst,
 		XAie_LocType Loc)
 {
-	/* TODO: should use start column of the DevInst */
-	XAie_LocType lLoc = XAie_TileLoc(Loc.Col, Loc.Row);
+	XAie_LocType lLoc = XAie_TileLoc((Loc.Col + DevInst->StartCol),
+			Loc.Row);
 
-	(void)DevInst;
 	UPDT_NEXT_NOC_TILE_LOC(lLoc);
 	return lLoc;
 }
