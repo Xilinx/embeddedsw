@@ -102,7 +102,7 @@ static inline void _XAie_LNpiWritePcsr(u32 RegVal, u32 Mask)
 {
 	_XAie_LNpiSetLock(XAIE_DISABLE);
 
-	_XAie_LNpiWriteCheck32(XAIE_NPI_PCSR_MASK_REG, (RegVal & Mask));
+	_XAie_LNpiWriteCheck32(XAIE_NPI_PCSR_MASK_REG, Mask);
 	_XAie_LNpiWriteCheck32(XAIE_NPI_PCSR_CONTROL_REG, (RegVal & Mask));
 	_XAie_LNpiWriteCheck32(XAIE_NPI_PCSR_MASK_REG, 0);
 
