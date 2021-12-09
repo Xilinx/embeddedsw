@@ -528,8 +528,8 @@ static AieRC _XAie_LBacktrackIntrCtrlL1(XAie_DevInst *DevInst,
 
 	_XAie_LIntrCtrlL1Ack(DevInst, Loc, Switch, XAIE_ERROR_BROADCAST_MASK);
 
-	for (Loc.Row = DevInst->MemTileRowStart;
-	     Loc.Row < (DevInst->MemTileRowStart + DevInst->MemTileNumRows);
+	for (Loc.Row = XAIE_MEM_TILE_ROW_START;
+	     Loc.Row < (XAIE_MEM_TILE_ROW_START + XAIE_MEM_TILE_NUM_ROWS);
 	     Loc.Row++)
 	{
 		if (_XAie_LPmIsTileRequested(DevInst, Loc) == XAIE_DISABLE)
@@ -549,8 +549,8 @@ static AieRC _XAie_LBacktrackIntrCtrlL1(XAie_DevInst *DevInst,
 					 XAIE_MEM_TILE_EVENT_BROADCAST0);
 	}
 
-	for (Loc.Row = DevInst->AieTileRowStart;
-	     Loc.Row < (DevInst->AieTileRowStart + DevInst->AieTileNumRows);
+	for (Loc.Row = XAIE_AIE_TILE_ROW_START;
+	     Loc.Row < (XAIE_AIE_TILE_ROW_START + XAIE_AIE_TILE_NUM_ROWS);
 	     Loc.Row++)
 	{
 		XAie_ModuleType Module;
@@ -631,8 +631,8 @@ AieRC XAie_BacktrackErrorInterrupts(XAie_DevInst *DevInst,
 			XAIE_INVALID_ARGS,
 			"Invalid error payload buffer or size\n");
 
-	XAie_LocType L2 = XAie_TileLoc(0, DevInst->ShimRow);
-	XAie_LocType L1 = XAie_TileLoc(0, DevInst->ShimRow);
+	XAie_LocType L2 = XAie_TileLoc(0, XAIE_SHIM_ROW);
+	XAie_LocType L1 = XAie_TileLoc(0, XAIE_SHIM_ROW);
 
 	/* Reset the total error count from previous backtrack. */
 	MData->ErrorCount = 0U;
