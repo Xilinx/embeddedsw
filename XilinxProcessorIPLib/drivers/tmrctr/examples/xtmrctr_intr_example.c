@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,15 @@
 *                     being passed instead of interrupt id. It fixes
 *                     CR#1006251.
 * 4.5   mus  07/05/18 Fixed checkpatch errors and warnings.
+* 4.9   mus  11/26/21 Existing example shows incorrect behavior if it
+*                     gets included in peripheral test, and targeted HW
+*                     design has more than one AXI timer instances. This
+*                     is due to TimerExpired variable, which is shared
+*                     between interrupt context and main thread. As it
+*                     is not getting initialized to 0 for subsequent
+*                     TmrCtrIntrExample calls, interrupt example test for 2nd
+*                     and subsequent AXI timer instances would be passed
+*                     without generating interrupts. It fixes CR#1116308.
 *</pre>
 ******************************************************************************/
 
@@ -269,6 +278,8 @@ int TmrCtrIntrExample(INTC *IntcInstancePtr,
 	 * then wait for it to timeout a number of times
 	 */
 	XTmrCtr_Start(TmrCtrInstancePtr, TmrCtrNumber);
+
+	TimerExpired = 0;
 
 	while (1) {
 		/*
