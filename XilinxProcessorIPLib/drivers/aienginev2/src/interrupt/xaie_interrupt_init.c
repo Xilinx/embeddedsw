@@ -890,10 +890,32 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 		 * beyond the L2 interrupt controller tile.
 		 */
 		if(TileType == XAIEGBL_TILE_TYPE_SHIMNOC) {
+			XAie_LocType NextLoc;
+
 			BroadcastDirSwA = XAIE_EVENT_BROADCAST_NORTH |
 					  XAIE_EVENT_BROADCAST_SOUTH |
 					  XAIE_EVENT_BROADCAST_WEST;
 			BroadcastDirSwB = XAIE_EVENT_BROADCAST_ALL;
+
+			/*
+			 * Create bitmask to block broadcast from previous
+			 * columns based on the location NoC tile.
+			 */
+			RC = _XAie_FindNextNoCTile(DevInst, Loc, &NextLoc);
+			if (RC != XAIE_OK) {
+				L1BroadcastIdSwB = XAIE_ERROR_L2_ENABLE;
+			} else {
+				L1BroadcastIdSwB = (1U <<
+						(L1BroadcastIdSwB + 1U)) - 1U;
+			}
+
+			RC = XAie_EventBroadcastBlockMapDir(DevInst, Loc,
+					XAIE_PL_MOD, XAIE_EVENT_SWITCH_B,
+					L1BroadcastIdSwB, BroadcastDirSwB);
+			if(RC != XAIE_OK) {
+				XAIE_ERROR("Failed to block broadcasts in shim tile switch B\n");
+				return RC;
+			}
 
 			RC = XAie_IntrCtrlL2Enable(DevInst, Loc,
 					XAIE_ERROR_L2_ENABLE);
@@ -916,6 +938,14 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 						  XAIE_EVENT_BROADCAST_WEST;
 				BroadcastDirSwB = BroadcastDirSwA;
 			}
+
+			RC = XAie_EventBroadcastBlockDir(DevInst, Loc,
+					XAIE_PL_MOD, XAIE_EVENT_SWITCH_B,
+					L1BroadcastIdSwB, BroadcastDirSwB);
+			if(RC != XAIE_OK) {
+				XAIE_ERROR("Failed to block broadcasts in shim tile switch B\n");
+				return RC;
+			}
 		}
 
 		RC = XAie_EventBroadcastBlockDir(DevInst, Loc, XAIE_PL_MOD,
@@ -923,14 +953,6 @@ AieRC XAie_ErrorHandlingInit(XAie_DevInst *DevInst)
 				BroadcastDirSwA);
 		if(RC != XAIE_OK) {
 			XAIE_ERROR("Failed to block broadcasts in shim tile switch A\n");
-			return RC;
-		}
-
-		RC = XAie_EventBroadcastBlockDir(DevInst, Loc, XAIE_PL_MOD,
-				XAIE_EVENT_SWITCH_B, L1BroadcastIdSwB,
-				BroadcastDirSwB);
-		if(RC != XAIE_OK) {
-			XAIE_ERROR("Failed to block broadcasts in shim tile switch B\n");
 			return RC;
 		}
 	}
