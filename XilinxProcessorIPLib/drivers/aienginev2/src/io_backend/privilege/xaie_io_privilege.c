@@ -30,7 +30,7 @@
 #include "xaie_io_privilege.h"
 #include "xaie_npi.h"
 
-#ifdef XAIE_FEATURE_PRIVILEGED_ENABLE
+#if defined(XAIE_FEATURE_PRIVILEGED_ENABLE) && !defined(XAIE_FEATURE_LITE)
 
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
@@ -574,5 +574,5 @@ AieRC _XAie_PrivilegeRequestTiles(XAie_DevInst *DevInst,
 	(void)Args;
 	return XAIE_FEATURE_NOT_SUPPORTED;
 }
-#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE */
+#endif /* XAIE_FEATURE_PRIVILEGED_ENABLE && !XAIE_FEATURE_LITE */
 /** @} */
