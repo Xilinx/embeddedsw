@@ -49,6 +49,7 @@
 
 /***************************** Include Files *********************************/
 #include "xaie_events.h"
+#include "xaie_io.h"
 #include "xaiegbl.h"
 #include "xaiegbl_defs.h"
 /**************************** Macro Definitions ******************************/
