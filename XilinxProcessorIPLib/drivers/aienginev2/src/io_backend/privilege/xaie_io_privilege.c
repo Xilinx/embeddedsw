@@ -340,6 +340,8 @@ static AieRC _XAie_PrivilegeSetL2ErrIrq(XAie_DevInst *DevInst)
 *		engine partition:
 *		- Clock gate all columns
 *		- Reset Columns
+*		- Ungate all Columns
+*		- Remove columns reset
 *		- Reset shims
 *		- Setup AXI MM not to return errors for AXI decode or slave
 *		  errors, raise events instead.
@@ -366,7 +368,7 @@ AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 	}
 
 	if((OptFlags & XAIE_PART_INIT_OPT_COLUMN_RST) != 0) {
-		/* Always gate all tiles before resetting columns */
+		/* Gate all tiles before resetting columns to quiet traffic*/
 		RC = _XAie_PmSetPartitionClock(DevInst, XAIE_DISABLE);
 		if(RC != XAIE_OK) {
 			_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
@@ -374,6 +376,13 @@ AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 		}
 
 		RC = _XAie_PrivilegeSetPartColReset(DevInst, XAIE_ENABLE);
+		if(RC != XAIE_OK) {
+			_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+			return RC;
+		}
+
+		/* Enable clock buffer before removing column reset */
+		RC = _XAie_PmSetPartitionClock(DevInst, XAIE_ENABLE);
 		if(RC != XAIE_OK) {
 			_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
 			return RC;
@@ -456,8 +465,11 @@ AieRC _XAie_PrivilegeInitPart(XAie_DevInst *DevInst, XAie_PartInitOpts *Opts)
 *		engine partition:
 *		- Clock gate all columns
 *		- Reset Columns
+*		- Ungate all columns
 *		- Reset shims
-*		- zeroize memories
+*		- Remove columns reset
+*		- Ungate all columns
+*		- Zeroize memories
 *		- Clock gate all columns
 *
 *******************************************************************************/
@@ -478,6 +490,12 @@ AieRC _XAie_PrivilegeTeardownPart(XAie_DevInst *DevInst)
 	}
 
 	RC = _XAie_PrivilegeSetPartColReset(DevInst, XAIE_ENABLE);
+	if(RC != XAIE_OK) {
+		_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
+		return RC;
+	}
+
+	RC = _XAie_PmSetPartitionClock(DevInst, XAIE_ENABLE);
 	if(RC != XAIE_OK) {
 		_XAie_PrivilegeSetPartProtectedRegs(DevInst, XAIE_DISABLE);
 		return RC;
