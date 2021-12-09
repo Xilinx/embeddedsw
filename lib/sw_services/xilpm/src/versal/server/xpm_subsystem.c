@@ -195,7 +195,7 @@ XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
 		XPm_WakeUpCancelScheduled(SubSysIdx);*/
 
         /* Unregister all notifiers for this subsystem */
-	XPmNotifier_UnregisterAll(Subsystem);
+	Status = XPmNotifier_UnregisterAll(Subsystem);
 
 done:
         return Status;

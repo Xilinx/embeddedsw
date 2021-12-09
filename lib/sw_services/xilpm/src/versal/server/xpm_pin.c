@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 
+#include "xil_util.h"
 #include "xpm_pin.h"
 
 static XPm_PinNode *PmMioPins[XPM_NODEIDX_STMIC_MAX];
@@ -2405,10 +2406,14 @@ XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 	u32 i;
 	u32 NumRead;
 	const XPm_PinNode *Pin;
+	u32 Size = MAX_GROUPS_PER_RES * sizeof(u16);
 
 	Pin = XPmPin_GetById(PinId);
 
-	(void)memset(Groups, (s32)END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
+	Status = Xil_SMemSet(Groups, Size, (s32)END_OF_GRP, Size);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	if (NULL == Pin) {
 		Status = XST_INVALID_PARAM;

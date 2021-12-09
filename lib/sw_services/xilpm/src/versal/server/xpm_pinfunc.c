@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 
+#include "xil_util.h"
 #include "xpm_pinfunc.h"
 
 #define FUNC_QUERY_NAME_LEN	(FUNC_NAME_SIZE)
@@ -1203,7 +1204,10 @@ XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 	XStatus Status = XST_FAILURE;
 	const XPm_PinFunc *PinFunc = NULL;
 
-	(void)memset(FuncName, 0, FUNC_QUERY_NAME_LEN);
+	Status = Xil_SMemSet(FuncName, FUNC_QUERY_NAME_LEN, 0, FUNC_QUERY_NAME_LEN);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
 	if (NULL == PinFunc) {
@@ -1261,8 +1265,12 @@ XStatus XPmPinFunc_GetFuncGroups(u32 FuncId, u32 Index, u16 *Groups)
 	u32 i;
 	u32 num_read;
 	const XPm_PinFunc *PinFunc = NULL;
+	u32 Size = MAX_GROUPS_PER_RES * sizeof(u16);
 
-	(void)memset(Groups, (s32)END_OF_GRP, (MAX_GROUPS_PER_RES * sizeof(u16)));
+	Status = Xil_SMemSet(Groups, Size, (s32)END_OF_GRP, Size);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	PinFunc = XPmPinFunc_GetById(FuncId);
 	if ((NULL == PinFunc) || (Index > PinFunc->NumGroups)) {

@@ -3,6 +3,7 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#include "xil_util.h"
 #include "xpm_common.h"
 #include "xpm_debug.h"
 #include "xpm_mem.h"
@@ -1146,9 +1147,17 @@ XStatus XPmProt_PpuInit(XPm_ProtPpu *Ppu,
 	Ppu->Ops = &XPmProt_XppuInitCtrl;
 
 	/* Init apertures */
-	(void)memset(&Ppu->A64k, 0, sizeof(Ppu->A64k));
-	(void)memset(&Ppu->A1m, 0, sizeof(Ppu->A1m));
-	(void)memset(&Ppu->A512m, 0, sizeof(Ppu->A512m));
+	Status = Xil_SMemSet(&Ppu->A64k, sizeof(Ppu->A64k), 0, sizeof(Ppu->A64k));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = Xil_SMemSet(&Ppu->A1m, sizeof(Ppu->A1m), 0, sizeof(Ppu->A1m));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = Xil_SMemSet(&Ppu->A512m, sizeof(Ppu->A512m), 0, sizeof(Ppu->A512m));
 
 done:
 	return Status;

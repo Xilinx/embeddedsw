@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 
+#include "xil_util.h"
 #include "xplmi_util.h"
 #include "xpm_clock.h"
 #include "xpm_pll.h"
@@ -824,7 +825,11 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk;
-	(void)memset(Resp, 0, CLK_QUERY_NAME_LEN);
+
+	Status = Xil_SMemSet(Resp, CLK_QUERY_NAME_LEN, 0, CLK_QUERY_NAME_LEN);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	Clk = XPmClock_GetById(ClockId);
 	if (NULL == Clk) {
@@ -850,7 +855,11 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
 
-	(void)memset(Resp, 0, CLK_TOPOLOGY_PAYLOAD_LEN);
+	Status = Xil_SMemSet(Resp, CLK_TOPOLOGY_PAYLOAD_LEN, 0, CLK_TOPOLOGY_PAYLOAD_LEN);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	if (ISOUTCLK(ClockId)) {
 		PtrNodes = *Clk->Topology.Nodes;
 
@@ -943,7 +952,10 @@ XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
 		goto done;
 	}
 
-	(void)memset(Resp, 0, CLK_PARENTS_PAYLOAD_LEN);
+	Status = Xil_SMemSet(Resp, CLK_PARENTS_PAYLOAD_LEN, 0, CLK_PARENTS_PAYLOAD_LEN);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Skip parent till index */
 	for (i = 0; i < 3U; i++) {
