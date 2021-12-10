@@ -57,6 +57,8 @@
 * 4.1   mus  06/12/19 Updated XSCUGIC_MAX_NUM_INTR_INPUTS for Versal.
 * 4.6	sk   06/07/21 Delete the commented macro code to fix the MISRA-C warning.
 * 4.6	sk   08/05/21 Fix Scugic Misrac violations.
+* 4.7	sk   12/10/21 Update XSCUGIC_SPI_INT_ID_START macro from signed to unsigned
+* 		      to fix misrac violation.
 *
 * </pre>
 *
@@ -96,7 +98,7 @@ extern "C" {
 /*
  * First Interrupt Id for SPI interrupts.
  */
-#define XSCUGIC_SPI_INT_ID_START	0x20
+#define XSCUGIC_SPI_INT_ID_START	0x20U
 /*
  * The maximum priority value that can be used in the GIC.
  */
