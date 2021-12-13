@@ -25,6 +25,7 @@
  * 1.3   mn   06/10/21 Modify code to sweep VRef from 0 to 127 values
  *       mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  * 1.4   mn   11/29/21 Updated print information for read/write eye tests
+ *       mn   11/29/21 Usability Enhancements for 2D Read/Write Eye
  *
  * </pre>
  *
@@ -41,7 +42,8 @@
 #define XMT_LANE0LCDLR3_OFFSET	XMT_DDR_PHY_DX0LCDLR3
 #define XMT_LANE0LCDLR4_OFFSET	XMT_DDR_PHY_DX0LCDLR4
 
-#define XMT_READ_VREF_MAX		0x7FU
+#define XMT_READ_VREF_MAX		0x74U
+#define XMT_READ_VREF_MIN		0x30U
 
 #define XMT_PSEC	1000000000000
 
@@ -583,7 +585,7 @@ u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		goto RETURN_PATH;
 	}
 
-	for (VRef = 0U; VRef < XMT_READ_VREF_MAX; VRef++) {
+	for (VRef = XMT_READ_VREF_MAX; VRef >= XMT_READ_VREF_MIN; VRef--) {
 
 		XMt_SetVrefVal(XMtPtr, VRef);
 
@@ -608,7 +610,7 @@ u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		}
 
 		/* Print the Read Eye Test Results */
-		XMt_Print2DEyeResults(XMtPtr, VRef);
+		XMt_Print2DReadEyeResults(XMtPtr, VRef);
 
 		/* Reset the Read Eye Center values to Registers */
 		Status = XMt_ResetRdCenter(XMtPtr);
