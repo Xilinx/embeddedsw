@@ -175,20 +175,8 @@ END:
 int Xbir_SdErase(u32 Offset, u32 Length)
 {
 	int Status = XST_FAILURE;
-	u32 NumBlocks = Length / XBIR_SDPS_BLOCK_SIZE;
-	u32 BlockIndex;
-	u8 WrBuffer[XBIR_SDPS_CHUNK_SIZE] = {0U};
 
-	Offset /= XBIR_SDPS_BLOCK_SIZE;
-	for (BlockIndex = 0U; BlockIndex < NumBlocks;
-		BlockIndex += XBIR_SD_RAW_NUM_SECTORS) {
-		Status = XSdPs_WritePolled(&SdInstance, (Offset + BlockIndex),
-			XBIR_SD_RAW_NUM_SECTORS, WrBuffer);
-		if (Status != XST_SUCCESS) {
-			Status = XBIR_ERROR_SD_ERASE;
-			break;
-		}
-	}
+	Status = XSdPs_Erase(&SdInstance, Offset, (Offset + Length));
 
 	return Status;
 }
