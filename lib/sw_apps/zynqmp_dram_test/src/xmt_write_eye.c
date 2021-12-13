@@ -23,6 +23,7 @@
  *       mn   07/29/20 Modify code to use DRAM VRef for 2D Write Eye Test
  * 1.1   mn   03/10/21 Fixed doxygen warnings
  * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
+ * 1.4   mn   11/29/21 Updated print information for read/write eye tests
  *
  * </pre>
  *
@@ -366,10 +367,10 @@ static void XMt_PrintWrCenter(XMt_CfgData *XMtPtr)
 {
 	s32 Index;
 
-	xil_printf(" AUTO CENTER:\r\n");
+	xil_printf(" AUTO CENTER (Delay Line Taps):\r\n");
 	XMt_PrintLine(XMtPtr, 3);
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++)
-		xil_printf("  %2d,%2d  |", XMtPtr->WrCenter[Index].Wdqsl,
+		xil_printf("   %03d   |", (XMtPtr->WrCenter[Index].Wdqsl * XMtPtr->TapCount[Index]) +
 				XMtPtr->WrCenter[Index].Wdqd);
 }
 
@@ -565,7 +566,7 @@ static void XMt_PrintWriteEyeResults(XMt_CfgData *XMtPtr)
 	xil_printf("\r\n");
 
 	XMt_PrintLine(XMtPtr, 3);
-	xil_printf(" EYE CENTER:\r\n");
+	xil_printf(" EYE CENTER (Delay Line Taps):\r\n");
 	XMt_PrintLine(XMtPtr, 3);
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
@@ -573,8 +574,7 @@ static void XMt_PrintWriteEyeResults(XMt_CfgData *XMtPtr)
 				XMtPtr->WrCenter[Index].Wdqd;
 		RawCenters[Index] = ((RawCenters[Index] + XMtPtr->EyeStart[Index]) +
 				(RawCenters[Index] + XMtPtr->EyeEnd[Index])) / 2;
-		xil_printf("  %2d,%2d  |", RawCenters[Index] / XMtPtr->TapCount[Index],
-				RawCenters[Index] % XMtPtr->TapCount[Index]);
+		xil_printf("   %03d   |", RawCenters[Index]);
 	}
 	xil_printf("\r\n");
 
