@@ -24,6 +24,7 @@
  * 1.1   mn   03/10/21 Fixed doxygen warnings
  * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  * 1.4   mn   11/29/21 Updated print information for read/write eye tests
+ *       mn   11/29/21 Usability Enhancements for 2D Read/Write Eye
  *
  * </pre>
  *
@@ -737,6 +738,7 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 	u32 Status;
 	u32 VRef;
 	u32 VRefStart;
+	u32 MaxWrVRef;
 	u8 Range;
 
 	xil_printf("\r\nRunning 2-D Write Eye Tests\r\n");
@@ -778,17 +780,28 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 
 	XMtPtr->VRefAutoWr = XMt_GetWrVRef(XMtPtr);
 
+	XMt_Print2DEyeResultsHeader(XMtPtr);
+
 	for (Range = 0U; Range < 2U; Range++) {
-		xil_printf("\r\nEntering VRef DQ Range %d\r\n", Range + 1U);
-
-		XMt_Print2DEyeResultsHeader(XMtPtr);
-
 		if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
 			/* For entering VRef Calibration Mode */
 			VRefStart = XMT_DDR_VREF_CALIB_MODE_EN;
+			if (Range == 0U) {
+				MaxWrVRef = XMT_MAX_WR_VREF_DDR4_R1;
+				VRefStart = VRefStart + 0x1CU;
+			} else {
+				MaxWrVRef = XMT_MAX_WR_VREF;
+			}
 		} else {
 			/* For selecting MR14 Address for MRCTRL1 Register */
 			VRefStart = XMT_DDR_MR_ADDR_MR14;
+			Range = 1U - Range;
+			if (Range == 0U) {
+				MaxWrVRef = XMT_MAX_WR_VREF_LPDDR4_R1;
+				VRefStart = VRefStart + 0x16U;
+			} else {
+				MaxWrVRef = XMT_MAX_WR_VREF;
+			}
 		}
 
 		/* Set the Range for VRef Values */
@@ -797,7 +810,7 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		/* Enter Calibration Mode */
 		XMt_SetWrVref(XMtPtr, VRefStart);
 
-		for (VRef = VRefStart; VRef < VRefStart + XMT_MAX_WR_VREF; VRef++) {
+		for (VRef = VRefStart + MaxWrVRef; VRef >= VRefStart; VRef--) {
 
 			XMt_SetWrVref(XMtPtr, VRef);
 
@@ -822,7 +835,11 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 			}
 
 			/* Print the Read Eye Test Results */
-			XMt_Print2DEyeResults(XMtPtr, VRef & 0x3FU);
+			if (Range == 0U) {
+				XMt_Print2DWriteEyeResultsR1(XMtPtr, VRef & 0x3FU);
+			} else {
+				XMt_Print2DWriteEyeResultsR2(XMtPtr, VRef & 0x3FU);
+			}
 
 			/* Reset the Write Eye Center values to Registers */
 			Status = XMt_ResetWrCenter(XMtPtr);
@@ -835,8 +852,9 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		/* Exit the Calibration Mode */
 		XMt_SetWrVref(XMtPtr, XMT_DDR_VREF_CALIB_MODE_DIS);
 
-		XMt_PrintLine(XMtPtr, 5);
 	}
+
+	XMt_PrintLine(XMtPtr, 5);
 
 	/* Reset the initial got VRef Value */
 	XMt_ResetWrVref(XMtPtr);

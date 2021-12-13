@@ -24,6 +24,7 @@
  *       mn   05/24/21 Fixed Eye Test issue with higher rank
  *       mn   05/27/21 Get the PS Ref Clk from design
  * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
+ * 1.4   mn   11/29/21 Usability Enhancements for 2D Read/Write Eye
  *
  * </pre>
  *
@@ -286,6 +287,19 @@ extern "C" {
 #define XMT_DDRC_MRR_DATA_WIDTH		8U
 
 #define XMT_MAX_WR_VREF				0x32U
+#define XMT_MAX_WR_VREF_DDR4_R1		0x16U
+#define XMT_MAX_WR_VREF_LPDDR4_R1	0x1CU
+
+#define XMT_RD_VREF_INTERVAL		0.362913
+#define XMT_RD_MIN_VREF				7.73
+
+#define XMT_WR_VREF_INTERVAL_DDR4	0.65
+#define XMT_WR_MIN_VREF_DDR4_R1		60.0
+#define XMT_WR_MIN_VREF_DDR4_R2		45.0
+
+#define XMT_WR_VREF_INTERVAL_LPDDR4	0.4
+#define XMT_WR_MIN_VREF_LPDDR4_R1	10.0
+#define XMT_WR_MIN_VREF_LPDDR4_R2	22.0
 
 /**************************** Type Definitions *******************************/
 
@@ -410,7 +424,9 @@ void XMt_ResetVrefAuto(XMt_CfgData *XMtPtr);
 u32 XMt_GetWrVRef(XMt_CfgData *XMtPtr);
 void XMt_SetWrVref(XMt_CfgData *XMtPtr, u32 VRef);
 void XMt_ResetWrVref(XMt_CfgData *XMtPtr);
-void XMt_Print2DEyeResults(XMt_CfgData *XMtPtr, u32 VRef);
+void XMt_Print2DReadEyeResults(XMt_CfgData *XMtPtr, u32 VRef);
+void XMt_Print2DWriteEyeResultsR1(XMt_CfgData *XMtPtr, u32 VRef);
+void XMt_Print2DWriteEyeResultsR2(XMt_CfgData *XMtPtr, u32 VRef);
 u32 XMt_GetVRefAutoMin(XMt_CfgData *XMtPtr);
 u32 XMt_GetVRefAutoMax(XMt_CfgData *XMtPtr);
 

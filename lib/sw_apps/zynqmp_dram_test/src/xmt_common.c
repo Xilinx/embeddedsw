@@ -29,6 +29,7 @@
  *       mn   04/30/21 Fixed rank selection logic for multi rank DDR
  *       mn   05/24/21 Fixed Eye Test issue with higher rank
  * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
+ * 1.4   mn   11/29/21 Usability Enhancements for 2D Read/Write Eye
  *
  * </pre>
  *
@@ -875,7 +876,7 @@ void XMt_ResetWrVref(XMt_CfgData *XMtPtr)
 
 /*****************************************************************************/
 /**
- * This function is used to print the 2D Eye Test Results
+ * This function is used to print the 2D Read Eye Test Results
  *
  * @param XMtPtr is the pointer to the Memtest Data Structure
  * @param VRef is the Value selected to be tested
@@ -884,16 +885,171 @@ void XMt_ResetWrVref(XMt_CfgData *XMtPtr)
  *
  * @note none
  *****************************************************************************/
-void XMt_Print2DEyeResults(XMt_CfgData *XMtPtr, u32 VRef)
+void XMt_Print2DReadEyeResults(XMt_CfgData *XMtPtr, u32 VRef)
 {
 	s32 Index;
+	s32 Index1;
+	float VrefPercent;
+	u32 VrefPercentInteger;
+	float VrefPercentDecimalF;
+	u32 VrefPercentDecimal;
 
-	xil_printf(" %3d |", VRef);
+	VrefPercent = 2.0 * ((((float) VRef) * XMT_RD_VREF_INTERVAL) + XMT_RD_MIN_VREF);
+
+	VrefPercentInteger = (int) VrefPercent;
+	VrefPercentDecimalF = (VrefPercent - VrefPercentInteger) * 10;
+	VrefPercentDecimal = (int) VrefPercentDecimalF;
+	VrefPercentDecimalF = (VrefPercentDecimalF - VrefPercentDecimal) * 10;
+	VrefPercentDecimal = (VrefPercentDecimalF >= 5.0) ? VrefPercentDecimal + 1 : VrefPercentDecimal;
+	VrefPercentInteger = (VrefPercentDecimal > 9) ? VrefPercentInteger + 1 : VrefPercentInteger;
+	VrefPercentDecimal = (VrefPercentDecimal > 9) ? 0 : VrefPercentDecimal;
+
+	xil_printf("%2d", VrefPercentInteger );
+	xil_printf(".%1d |", VrefPercentDecimal );
+
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-		xil_printf(" %3d |", 0 - XMtPtr->EyeStart[Index]);
+		for (Index1 = -10; Index1 < 0; Index1++) {
+			if (Index1 < XMtPtr->EyeStart[Index]/((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf(" ");
+			} else {
+				xil_printf("*");
+			}
+		}
+		xil_printf(":");
+		for (Index1 = 0; Index1 < 10; Index1++) {
+			if (Index1 < XMtPtr->EyeEnd[Index]/((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf("*");
+			} else {
+				xil_printf(" ");
+			}
+		}
+		xil_printf("|");
 	}
+	xil_printf("\r\n");
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to print the 2D Write Eye Test Results
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ * @param VRef is the Value selected to be tested
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_Print2DWriteEyeResultsR1(XMt_CfgData *XMtPtr, u32 VRef)
+{
+	s32 Index;
+	s32 Index1;
+	float VrefPercent;
+	u32 VrefPercentInteger;
+	float VrefPercentDecimalF;
+	u32 VrefPercentDecimal;
+	float WrVrefInterval;
+	float WrMinVref;
+
+	if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
+		WrVrefInterval = XMT_WR_VREF_INTERVAL_DDR4;
+		WrMinVref = XMT_WR_MIN_VREF_DDR4_R1;
+	} else {
+		WrVrefInterval = XMT_WR_VREF_INTERVAL_LPDDR4;
+		WrMinVref = XMT_WR_MIN_VREF_LPDDR4_R1;
+	}
+
+	VrefPercent = ( ((float) VRef) * WrVrefInterval ) + WrMinVref;
+	VrefPercentInteger = (int) VrefPercent;
+	VrefPercentDecimalF = (VrefPercent - VrefPercentInteger) * 10;
+	VrefPercentDecimal = (int) VrefPercentDecimalF;
+	VrefPercentDecimalF = (VrefPercentDecimalF - VrefPercentDecimal) * 10;
+	VrefPercentDecimal = (VrefPercentDecimalF >= 5.0) ? VrefPercentDecimal + 1 : VrefPercentDecimal;
+	VrefPercentInteger = (VrefPercentDecimal > 9) ? VrefPercentInteger + 1 : VrefPercentInteger;
+	VrefPercentDecimal = (VrefPercentDecimal > 9) ? 0 : VrefPercentDecimal;
+
+	xil_printf("%2d", VrefPercentInteger );
+	xil_printf(".%1d |", VrefPercentDecimal );
+
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
-		xil_printf(" %3d |", XMtPtr->EyeEnd[Index]);
+		for (Index1 = -10; Index1 < 0; Index1++) {
+			if (Index1 < XMtPtr->EyeStart[Index]/((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf(" ");
+			} else {
+				xil_printf("*");
+			}
+		}
+		xil_printf(":");
+		for (Index1 = 0; Index1 < 10; Index1++) {
+			if (Index1 < XMtPtr->EyeEnd[Index]/((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf("*");
+			} else {
+				xil_printf(" ");
+			}
+		}
+		xil_printf("|");
+	}
+	xil_printf("\r\n");
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to print the 2D Write Eye Test Results
+ *
+ * @param XMtPtr is the pointer to the Memtest Data Structure
+ * @param VRef is the Value selected to be tested
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+void XMt_Print2DWriteEyeResultsR2(XMt_CfgData *XMtPtr, u32 VRef)
+{
+	s32 Index;
+	s32 Index1;
+	float VrefPercent;
+	u32 VrefPercentInteger;
+	float VrefPercentDecimalF;
+	u32 VrefPercentDecimal;
+	float WrVrefInterval;
+	float WrMinVref;
+
+	if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
+		WrVrefInterval = XMT_WR_VREF_INTERVAL_DDR4;
+		WrMinVref = XMT_WR_MIN_VREF_DDR4_R2;
+	} else {
+		WrVrefInterval = XMT_WR_VREF_INTERVAL_LPDDR4;
+		WrMinVref = XMT_WR_MIN_VREF_LPDDR4_R2;
+	}
+
+	VrefPercent = ( ((float) VRef) * WrVrefInterval ) + WrMinVref;
+	VrefPercentInteger = (int) VrefPercent;
+	VrefPercentDecimalF = (VrefPercent - VrefPercentInteger) * 10;
+	VrefPercentDecimal = (int) VrefPercentDecimalF;
+	VrefPercentDecimalF = (VrefPercentDecimalF - VrefPercentDecimal) * 10;
+	VrefPercentDecimal = (VrefPercentDecimalF >= 5.0) ? VrefPercentDecimal + 1 : VrefPercentDecimal;
+	VrefPercentInteger = (VrefPercentDecimal > 9) ? VrefPercentInteger + 1 : VrefPercentInteger;
+	VrefPercentDecimal = (VrefPercentDecimal > 9) ? 0 : VrefPercentDecimal;
+
+	xil_printf("%2d", VrefPercentInteger );
+	xil_printf(".%1d |", VrefPercentDecimal );
+
+	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
+		for (Index1 = -10; Index1 < 0; Index1++) {
+			if (Index1 < XMtPtr->EyeStart[Index]/((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf(" ");
+			} else {
+				xil_printf("*");
+			}
+		}
+		xil_printf(":");
+		for (Index1 = 0; Index1 < 10; Index1++) {
+			if (Index1 < XMtPtr->EyeEnd[Index]/((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf("*");
+			} else {
+				xil_printf(" ");
+			}
+		}
+		xil_printf("|");
 	}
 	xil_printf("\r\n");
 }
@@ -1059,22 +1215,24 @@ void XMt_PrintEyeResultsHeader(XMt_CfgData *XMtPtr)
  *****************************************************************************/
 void XMt_Print2DEyeResultsHeader(XMt_CfgData *XMtPtr)
 {
+	xil_printf("Note: Each asterisk(*) represents %d Taps\n",
+			(XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9);
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
-		xil_printf("-----+-----+-----+-----+-----+\r\n");
-		xil_printf("VREF | LL0 | LL1 | RL0 | RL1 |\r\n");
-		xil_printf("-----+-----+-----+-----+-----+\r\n");
+		xil_printf("-----+---------------------+---------------------+\r\n");
+		xil_printf("VREF%%|        LANE0        |        LANE1        |\r\n");
+		xil_printf("-----+---------------------+---------------------+\r\n");
 	}
 
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
-		xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
-		xil_printf("VREF | LL0 | LL1 | LL2 | LL3 | RL0 | RL1 | RL2 | RL3 |\r\n");
-		xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
+		xil_printf("-----+---------------------+---------------------+---------------------+---------------------+\r\n");
+		xil_printf("VREF%%|        LANE0        |        LANE1        |        LANE2        |        LANE3        |\r\n");
+		xil_printf("-----+---------------------+---------------------+---------------------+---------------------+\r\n");
 	}
 
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_8_LANE) {
-		xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
-		xil_printf("VREF | LL0 | LL1 | LL2 | LL3 | LL4 | LL5 | LL6 | LL7 | RL0 | RL1 | RL2 | RL3 | RL4 | RL5 | RL6 | RL7 |\r\n");
-		xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
+		xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+		xil_printf("VREF%%|        LANE0        |        LANE1        |        LANE2        |        LANE3        |        LANE4        |        LANE5        |        LANE6        |        LANE7        |\r\n");
+		xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
 	}
 }
 /*****************************************************************************/
@@ -1100,7 +1258,7 @@ void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode)
 		} else if (LineCode == 4U) {
 			xil_printf("---------+--------+-------------+-----------\r\n");
 		} else if (LineCode == 5U) {
-			xil_printf("-----+-----+-----+-----+-----+\r\n");
+			xil_printf("-----+---------------------+---------------------+\r\n");
 		} else {
 			xil_printf("\r\n");
 		}
@@ -1115,7 +1273,7 @@ void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode)
 		} else if (LineCode == 4U) {
 			xil_printf("---------+--------+-------------------------+-----------\r\n");
 		} else if (LineCode == 5U) {
-			xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+\r\n");
 		} else {
 			xil_printf("\r\n");
 		}
@@ -1130,7 +1288,7 @@ void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode)
 		} else if (LineCode == 4U) {
 			xil_printf("---------+--------+------------------------------------------------+-----------\r\n");
 		} else if (LineCode == 5U) {
-			xil_printf("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+\r\n");
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
 		} else {
 			xil_printf("\r\n");
 		}
