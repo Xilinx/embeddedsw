@@ -24,6 +24,7 @@
  * 1.2   mn   05/13/21 Fixed issue with mismatching read eye width
  * 1.3   mn   06/10/21 Modify code to sweep VRef from 0 to 127 values
  *       mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
+ * 1.4   mn   11/29/21 Updated print information for read/write eye tests
  *
  * </pre>
  *
@@ -158,7 +159,7 @@ static void XMt_PrintRdCenter(XMt_CfgData *XMtPtr)
 {
 	s32 Index;
 
-	xil_printf(" AUTO CENTER:\r\n");
+	xil_printf(" AUTO CENTER (Delay Line Taps DQS_T, DQS_C):\r\n");
 	XMt_PrintLine(XMtPtr, 3);
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		XMt_CalcPerTapDelay(XMtPtr, Index);
@@ -394,7 +395,7 @@ static void XMt_PrintReadEyeResults(XMt_CfgData *XMtPtr)
 	}
 	xil_printf("\r\n");
 	XMt_PrintLine(XMtPtr, 3);
-	xil_printf(" EYE CENTER:\r\n");
+	xil_printf(" EYE CENTER (Delay Line Taps DQS_T, DQS_C):\r\n");
 	XMt_PrintLine(XMtPtr, 3);
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		xil_printf("   %2d,%2d |", ((XMtPtr->RdCenter[Index].Qsd + XMtPtr->EyeEnd[Index]) +
