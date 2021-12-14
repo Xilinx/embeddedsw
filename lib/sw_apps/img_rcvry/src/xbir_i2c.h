@@ -34,13 +34,12 @@ extern "C" {
 #include "xiicps.h"
 
 /************************** Constant Definitions *****************************/
-/* The values are specific to ZCU102 */
-#define XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS	(0x50U)
 #ifdef XPS_BOARD_K26I
-#define XBIR_IIC_CC_EEPROM_ADDRESS		(0x51U)
+#define XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS	(0x50U)
 #else
-#define XBIR_IIC_CC_EEPROM_ADDRESS		(0x54U)
+#define XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS	(0x54U)
 #endif
+#define XBIR_IIC_CC_EEPROM_ADDRESS		(0x51U)
 
 /************************** Variable Definitions *****************************/
 

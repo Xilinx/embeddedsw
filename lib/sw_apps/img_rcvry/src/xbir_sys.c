@@ -48,7 +48,7 @@
 #define XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET	(4U)
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
 #ifdef XPS_BOARD_K26I
-#define XBIR_SYS_PRODUCT_NAME		"SCK"
+#define XBIR_SYS_PRODUCT_NAME		"SMK"
 #else
 #define XBIR_SYS_PRODUCT_NAME		"VPK"
 #endif
@@ -1036,7 +1036,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
 		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("Unable to access SOM Eeprom\n\r");
+		Xbir_Printf("Unable to access System Board Eeprom\n\r");
 		goto END;
 	}
 
