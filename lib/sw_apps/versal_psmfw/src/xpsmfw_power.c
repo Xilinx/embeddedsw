@@ -353,8 +353,6 @@ XStatus XPsmFw_FpdPreHouseClean(void)
 {
 	XStatus Status = XST_FAILURE;
 
-	/* TODO: Disable PSM interrupts */
-
 	/*
 	 * Capture the current Power State
 	 * Power up all ACPU Cores and reflect their PWR_STATE
@@ -405,8 +403,6 @@ void XPsmFw_FpdPostHouseClean(void)
 		XPsmFw_RMW32(PSM_LOCAL_PWR_STATE, PSM_LOCAL_PWR_STATE_FP_MASK,
 			     PSM_LOCAL_PWR_STATE_FP_MASK);
 	}
-
-	/* TODO: Enable PSM Interrupts */
 }
 
 static XStatus XPsmFwIslandPwrUp(struct XPsmFwPwrCtrl_t *Args)
