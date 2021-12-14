@@ -37,6 +37,8 @@
  *                      IPI request buffer.
  * 6.0  Nava  03/09/21  Added function pointer validation check.
  * 6.0  Nava  05/17/21  Fixed misra-c violations.
+ * 6.2  Nava  12/13/21  Replaced library specific utility functions and standard
+ *			lib functions with Xilinx maintained functions.
  * </pre>
  *
  * @note
@@ -86,7 +88,12 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 
 	/* Validate the input arguments */
 	if (InstancePtr != NULL) {
-		(void)memset(InstancePtr, 0, sizeof(*InstancePtr));
+		Status = Xil_SMemSet(InstancePtr, sizeof(*InstancePtr), 0,
+				      sizeof(*InstancePtr));
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
+
 		InstancePtr->XFpga_WriteToPl = XFpga_WriteToPl;
 
 		/* Check the pointer was assigned correctly. */
@@ -94,7 +101,7 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 			Status = XFPGA_SUCCESS;
 		}
 	}
-
+END:
 	return Status;
 }
 

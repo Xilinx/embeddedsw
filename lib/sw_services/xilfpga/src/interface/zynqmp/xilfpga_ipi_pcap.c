@@ -35,6 +35,8 @@
  * 6.0  Nava  01/21/21  The usage of XMboxInstance variable is limited only
  *                      to this file. So making this variable as static.
  * 6.0  Nava  02/22/21  Fixed doxygen issues.
+ * 6.2  Nava  12/13/21  Replaced library specific utility functions and standard
+ *                      lib functions with Xilinx maintained functions.
  * </pre>
  *
  * @note
@@ -91,7 +93,11 @@ u32 XFpga_Initialize(XFpga *InstancePtr)
 		goto END;
 	}
 
-	(void)memset(InstancePtr, 0U, sizeof(*InstancePtr));
+	Status = Xil_SMemSet(InstancePtr, sizeof(*InstancePtr), 0, sizeof(*InstancePtr));
+        if (Status != (u32)XST_SUCCESS) {
+                goto END;
+        }
+
 	InstancePtr->XFpga_WriteToPl = XFpga_IPI_WriteToPl;
 	InstancePtr->XFpga_GetConfigData = XFpga_IPI_GetPLConfigDataPcap;
 	InstancePtr->XFpga_GetConfigReg = XFpga_IPI_GetPLConfigRegPcap;
@@ -239,8 +245,13 @@ static u32 XFpga_IPI_GetPLConfigRegPcap(const XFpga *InstancePtr)
 		goto END;
 	}
 
-	memcpy((char *)ReadbackAddr, (char *)&ReqBuffer[1U],
-		sizeof(ReqBuffer[1U]));
+	Status = Xil_SMemCpy((char *)ReadbackAddr, sizeof(ReqBuffer[0U]),
+			     (char *)&ReqBuffer[1U], sizeof(ReqBuffer[0U]),
+			     sizeof(ReqBuffer[0U]));
+	if (Status != (u32)XST_SUCCESS) {
+                goto END;
+        }
+
 	Status =  ReqBuffer[0U];
 
 END:
