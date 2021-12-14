@@ -1044,9 +1044,17 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 						CmdType);
 		break;
 	case IOCTL_SET_PLL_FRAC_MODE:
+		Status = XPm_SetPllMode(SubsystemId, Arg1, Arg2);
+		break;
 	case IOCTL_GET_PLL_FRAC_MODE:
+		Status = XPm_GetPllMode(Arg1, Response);
+		break;
 	case IOCTL_SET_PLL_FRAC_DATA:
+		Status = XPm_SetPllParameter(SubsystemId, Arg1, PM_PLL_PARAM_ID_DATA, Arg2);
+		break;
 	case IOCTL_GET_PLL_FRAC_DATA:
+		Status = XPm_GetPllParameter(Arg1, PM_PLL_PARAM_ID_DATA, Response);
+		break;
 	case IOCTL_ULPI_RESET:
 	case IOCTL_AFI:
 	case IOCTL_REGISTER_SGI:
