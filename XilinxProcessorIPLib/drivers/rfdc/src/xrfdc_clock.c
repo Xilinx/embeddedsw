@@ -75,6 +75,7 @@
 *       cog    09/21/21 Fixed rounding error in cast.
 * 11.1  cog    11/16/21 Upversion.
 *       cog    11/17/21 Fixed powerup bit toggle issue.
+*       cog    12/07/21 Added clocking configurations for DFE devices.
 * </pre>
 *
 ******************************************************************************/
@@ -770,8 +771,8 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 		XRFdc_DistTile2TypeTile(InstancePtr, (DistributionSettingsPtr->Info.Source + Delay), &Type, &Tile);
 		Settings.SampleRate = (DistributionSettingsPtr->SampleRates[Type][Tile]);
 		if (Type == XRFDC_ADC_TILE) {
-			if ((Tile == XRFDC_TILE_ID3) && (Settings.PLLEnable != XRFDC_ENABLED) &&
-			    (Settings.RefClkFreq != Settings.SampleRate)) {
+			if ((Tile == ((TileLayout == XRFDC_3ADC_2DAC_TILES) ? XRFDC_TILE_ID2 : XRFDC_TILE_ID3)) &&
+			    (Settings.PLLEnable != XRFDC_ENABLED) && (Settings.RefClkFreq != Settings.SampleRate)) {
 				Settings.DistributedClock = XRFDC_DIST_OUT_OUTDIV;
 			}
 		}
@@ -1703,6 +1704,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	u32 NetCtrlReg = 0x0U;
 	u32 NorthClk = 0x0U;
 	u32 FGDelay = 0x0U;
+	u32 ADCEdgeTileId;
+	u32 TileLayout;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -1845,6 +1848,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 		}
 	} else {
 		if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+			TileLayout = XRFdc_GetTileLayout(InstancePtr);
+			ADCEdgeTileId = (TileLayout == XRFDC_3ADC_2DAC_TILES) ? XRFDC_TILE_ID2 : XRFDC_TILE_ID3;
 			switch (OpDiv) {
 			case 1U:
 				/*This is a special case where we want to totally bypass the entire block.*/
@@ -1855,12 +1860,13 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 				break;
 			case 2U:
 				/*dividers used depend on configuration*/
-				if ((Type == XRFDC_ADC_TILE) && (Tile_Id < XRFDC_TILE_ID3) &&
+				if ((Type == XRFDC_ADC_TILE) && (Tile_Id < ADCEdgeTileId) &&
 				    (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_DISABLED)) {
 					NorthClk = XRFdc_RDReg(
 						InstancePtr, XRFDC_ADC_TILE_DRP_ADDR((Tile_Id + 1U)) + XRFDC_HSCOM_ADDR,
 						XRFDC_HSCOM_CLK_DSTR_OFFSET,
 						(XRFDC_CLK_DISTR_MUX6_SRC_INT | XRFDC_CLK_DISTR_MUX6_SRC_NTH));
+
 					SecondaryDivideValue = XRFdc_RDReg(
 						InstancePtr,
 						XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, (Tile_Id + 1U), XRFDC_BLK_ID0),
@@ -1881,7 +1887,7 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 				break;
 			case 4U:
 				PLLBypVal = XRFDC_PLL_DIVIDER0_BYP_PLL_MASK;
-				if ((Type == XRFDC_ADC_TILE) && (Tile_Id == XRFDC_TILE_ID3) &&
+				if ((Type == XRFDC_ADC_TILE) && (Tile_Id == ADCEdgeTileId) &&
 				    (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_DISABLED)) {
 					DivideMode = XRFDC_PLL_OUTDIV_MODE_2;
 					PrimaryDivideValue = XRFDC_DISABLED;
