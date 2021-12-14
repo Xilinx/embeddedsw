@@ -65,6 +65,8 @@
 # 7.6   mus  06/25/21 Updated tcl logic to access base address/high address
 #                     of specific IP block. This change has been done to
 #                     support SSIT devices.
+# 7.7   adk  14/12/21 Updated xsleep_timer_config proc to use TTC3 for sleep
+#                     routines if present in the HW design.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -976,6 +978,7 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
 			set is_ttc_present 0
 			set periphs [hsi::get_cells -hier -filter {IP_NAME==ps7_ttc || IP_NAME==psu_ttc || IP_NAME==psv_ttc}]
+			set periphs [lsort -decreasing $periphs]
 			foreach periph $periphs {
 				set base_addr [get_base_value $periph]
 				set base_addr [string trimleft $base_addr "0x"]
