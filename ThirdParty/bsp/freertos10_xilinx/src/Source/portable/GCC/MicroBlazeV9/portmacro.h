@@ -1,6 +1,6 @@
 /*
  * FreeRTOS Kernel V10.4.3
- * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Copyright (C) 2020-2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -125,8 +125,11 @@ extern volatile uint32_t ulTaskSwitchRequested;
 	__attribute__( ( always_inline ) ) static inline uint8_t ucPortCountLeadingZeros( uint32_t ulBitmap )
 	{
 	uint8_t ucReturn;
-
+#if( XPAR_MICROBLAZE_USE_PCMP_INSTR != 0 )
 		__asm volatile ( "clz %0, %1" : "=r" ( ucReturn ) : "r" ( ulBitmap ) );
+#else
+		ucReturn = __builtin_clz(ulBitmap);
+#endif
 		return ucReturn;
 	}
 
