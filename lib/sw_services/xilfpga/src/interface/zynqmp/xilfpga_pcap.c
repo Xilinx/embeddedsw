@@ -111,6 +111,8 @@
  * 6.0 Nava  02/22/21  Fixed doxygen issues.
  * 6.0 Nava  05/07/21  Added support to load the authenticated bitstream image
  *                     as non-secure image if RSA_EN is not programmed.
+ * 6.2 Nava  12/13/21  Replaced library specific utility functions and standard
+ *                     lib functions with Xilinx maintained functions.
  *
  * </pre>
  *
@@ -284,7 +286,10 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 		goto END;
 	}
 
-	(void)memset(InstancePtr, 0, sizeof(*InstancePtr));
+	Status = Xil_SMemSet(InstancePtr, sizeof(*InstancePtr), 0, sizeof(*InstancePtr));
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 	InstancePtr->XFpga_ValidateBitstream = XFpga_ValidateBitstreamImage;
 	InstancePtr->XFpga_PreConfig = XFpga_PreConfigPcap;
 	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPlPcap;
@@ -360,9 +365,11 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 			goto END;
 		}
 
-		if((u32)(memcmp((u8 *)(InstancePtr->WriteInfo.BitstreamAddr +
-		   BOOTGEN_DATA_OFFSET + SYNC_BYTE_POSITION),
-		   BootgenBinFormat, ARRAY_LENGTH(BootgenBinFormat)))== 0U) {
+		Status = Xil_SMemCmp((u8 *)(InstancePtr->WriteInfo.BitstreamAddr +
+					    BOOTGEN_DATA_OFFSET + SYNC_BYTE_POSITION),
+					    (u32)InstancePtr->WriteInfo.Size - (BOOTGEN_DATA_OFFSET + SYNC_BYTE_POSITION),
+					    BootgenBinFormat, ARRAY_LENGTH(BootgenBinFormat), ARRAY_LENGTH(BootgenBinFormat));
+		if(Status == (u32)XST_SUCCESS) {
 			BitstreamPos = BOOTGEN_DATA_OFFSET;
 		} else {
 			Status = XFpga_SelectEndianess(
@@ -1133,7 +1140,11 @@ static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
 		XSecure_Sha3_ReadHash(&Secure_Sha3, Sha3Hash);
 
 		/* Copy SHA3 hash into the OCM */
-		(void)memcpy((u8 *)(UINTPTR)OcmChunkAddr, (u8 *)Sha3Hash, HASH_LEN);
+		Status = Xil_SMemCpy((u8 *)(UINTPTR)OcmChunkAddr, ChunkSize,  (u8 *)Sha3Hash, HASH_LEN, HASH_LEN);
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
+
 		OcmChunkAddr = OcmChunkAddr + HASH_LEN;
 		Temp_BitstreamAddr = Temp_BitstreamAddr + ChunkSize;
 		RemainingBytes = RemainingBytes - ChunkSize;
@@ -1243,9 +1254,11 @@ static u32 XFpga_ReAuthPlChunksWriteToPl(XFpgaPs_PlPartition *PlAesInfo,
 		XSecure_Sha3_ReadHash(&Secure_Sha3, Sha3Hash);
 
 		/* Compare SHA3 hash with OCM Stored hash*/
-		if (memcmp((u8 *)((UINTPTR)OcmChunkAddr),
-			(u8 *)Sha3Hash, HASH_LEN)!= 0) {
+		Status = Xil_SMemCmp((u8 *)((UINTPTR)OcmChunkAddr), HASH_LEN,
+				     (u8 *)Sha3Hash, HASH_LEN, HASH_LEN);
+		if (Status != (u32)XST_SUCCESS) {
 			Status = XFPGA_FAILURE;
+			goto END;
 		} else {
 			OcmChunkAddr = OcmChunkAddr + HASH_LEN;
 		}
@@ -1441,9 +1454,13 @@ static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
 			goto END;
 		}
 
-		(void)memcpy((u8 *)(PartitionParams->SecureHdr
-				+ PartitionParams->Hdr), (u8 *)SrcAddr,
-				XFPGA_AES_TAG_SIZE - PartitionParams->Hdr);
+		Status = Xil_SMemCpy((u8 *)(PartitionParams->SecureHdr + PartitionParams->Hdr),
+					    XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE - PartitionParams->Hdr,
+					    (u8 *)SrcAddr, ChunkSize, XFPGA_AES_TAG_SIZE - PartitionParams->Hdr);
+		if (Status != (u32)XST_SUCCESS) {
+			goto END;
+		}
+
 		Status = XFPGA_FAILURE;
 		Status = XFpga_DecrypSecureHdr(
 			PartitionParams->PlEncrypt.SecureAes,
@@ -1665,8 +1682,13 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 						goto END;
 					}
 
-					(void)memcpy(PartitionParams->SecureHdr,
-						(u8 *)(UINTPTR)SrcAddr, Size);
+					Status = Xil_SMemCpy(PartitionParams->SecureHdr,
+							     XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE,
+							     (u8 *)(UINTPTR)SrcAddr, Size, Size);
+					if (Status != (u32)XST_SUCCESS) {
+						goto END;
+					}
+
 					PartitionParams->Hdr = (u8)Size;
 					Size = 0U;
 				}
@@ -2566,15 +2588,20 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 	/* Find the First Dummy Byte */
 		if (Buf[Index] == DUMMY_BYTE) {
 			/* For Bootgen generated Bin files */
-			if ((memcmp(&Buf[Index + SYNC_BYTE_POSITION],
-			    BootgenBinFormat, BitHdrSize)) == 0) {
+			Status = Xil_SMemCmp(&Buf[Index + SYNC_BYTE_POSITION],
+					 Size - (Index + SYNC_BYTE_POSITION),
+					 BootgenBinFormat, BitHdrSize, BitHdrSize);
+			if(Status == (u32)XST_SUCCESS) {
 				EndianType = 0U;
 				Status = XFPGA_SUCCESS;
 				break;
 			}
+
 			/* For Vivado generated Bit files  */
-			if ((memcmp(&Buf[Index + SYNC_BYTE_POSITION],
-				   VivadoBinFormat, BitHdrSize)) == 0) {
+			Status = Xil_SMemCmp(&Buf[Index + SYNC_BYTE_POSITION],
+					 Size - (Index + SYNC_BYTE_POSITION),
+					 VivadoBinFormat, BitHdrSize, BitHdrSize);
+			if(Status == (u32)XST_SUCCESS) {
 				EndianType = 1U;
 				Status = XFPGA_SUCCESS;
 				break;
@@ -2588,7 +2615,7 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 
 	IsBitNonAligned = Index % 4U;
 	if (IsBitNonAligned != 0U) {
-		(void)memcpy(Buf, Buf + IsBitNonAligned, Size - IsBitNonAligned);
+		(void)memmove(Buf, Buf + IsBitNonAligned, Size - IsBitNonAligned);
 		Index -= IsBitNonAligned;
 	}
 
