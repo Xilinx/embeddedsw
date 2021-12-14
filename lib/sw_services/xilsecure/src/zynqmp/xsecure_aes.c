@@ -56,6 +56,8 @@
 * 4.6   kal 08/11/21 Added EXPORT CONTROL eFuse check in AesInitialize
 *       am  09/17/21 Resolved compiler warnings
 * 4.7   am  11/26/21 Resolved doxygen warnings
+*       am  12/14/21 Fixed input validation of InstancePtr in
+*                    XSecure_AesChunkDecrypt function
 *
 * </pre>
 *
@@ -967,17 +969,19 @@ u32 XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
 static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 					u32 Len)
 {
+	s32 Status = XST_FAILURE;
+	u32 NumChunks = 0U;
+	u32 RemainingBytes = 0U;
+	u32 Index;
+	u32 StartAddrByte = 0U;
+
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Len != 0U);
-	Xil_AssertNonvoid((InstancePtr->ChunkSize) != 0U);
+	Xil_AssertNonvoid(InstancePtr->ChunkSize != 0U);
 
-	s32 Status = XST_FAILURE;
-
-	u32 NumChunks = Len / (InstancePtr->ChunkSize);
-	u32 RemainingBytes = Len % (InstancePtr->ChunkSize);
-	u32 Index;
-	u32 StartAddrByte = 0U;
+	NumChunks = Len / InstancePtr->ChunkSize;
+	RemainingBytes = Len % InstancePtr->ChunkSize;
 
 	/*
 	 * Start the chunking process, copy encrypted chunks into OCM and push
@@ -1033,8 +1037,8 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 	u32 Len)
 {
 	s32 Status = XST_FAILURE;
-	u32 NumChunks = Len / (InstancePtr->ChunkSize);
-	u32 RemainingBytes = Len % (InstancePtr->ChunkSize);
+	u32 NumChunks = 0U;
+	u32 RemainingBytes = 0U;
 	u32 Index;
 	u32 StartAddrByte = 0U;
 	u32 TransferredLen;
@@ -1044,7 +1048,10 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 	Xil_AssertNonvoid(Len != 0U);
 	Xil_AssertNonvoid(InstancePtr->ChunkSize != 0U);
 
+	NumChunks = Len / InstancePtr->ChunkSize;
+	RemainingBytes = Len % InstancePtr->ChunkSize;
 	TransferredLen = InstancePtr->ChunkSize;
+
 	/*
 	 * Start the chunking process, copy encrypted chunks into OCM and push
 	 * decrypted data to PCAP
