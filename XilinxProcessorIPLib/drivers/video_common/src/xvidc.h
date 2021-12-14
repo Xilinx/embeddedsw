@@ -7,7 +7,7 @@
 /**
  *
  * @file xvidc.h
- * @addtogroup video_common_v4_12
+ * @addtogroup video_common_v4_13
  * @{
  * @details
  *
