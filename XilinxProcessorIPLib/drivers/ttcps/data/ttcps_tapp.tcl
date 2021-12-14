@@ -12,6 +12,8 @@
 # 3.0   pkp  12/01/15 Initial Release
 # 3.13  mus  02/03/21 Updated to support CIPS3 based HW designs. It fixes
 #                     CR#1087461
+# 3.15  adk  14/12/21 Updated checks to support versal R5 processor. It fixes
+# 		      CR#1117725
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -129,8 +131,12 @@ proc gen_testfunc_call {swproj mhsinst} {
     # exclude ttc3 if present for cortexR5 since R5 uses ttc3 for sleep when present
     set periph_include 1
     set procdrv [hsi::get_sw_processor]
-    if {[string match "*psu_cortexr5_*" $procdrv]} {
-	if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0} {
+    set ip_name [get_property IP_NAME $mhsinst]
+    set ip_name [format %s_%s $ip_name $intsnum]
+    if {[string match "*psu_cortexr5_*" $procdrv] || [string match "*psv_cortexr5_*" $procdrv]} {
+	if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0 } {
+		set periph_include 0
+	} elseif {[string compare -nocase "psv_ttc_3" $ip_name] == 0} {
 		set periph_include 0
 	}
     }
