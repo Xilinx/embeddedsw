@@ -892,7 +892,7 @@ RETURN_PATH:
 ******************************************************************************/
 s32 XSdPs_CheckBusHigh(XSdPs *InstancePtr)
 {
-	u32 Timeout = 10000;
+	u32 Timeout;
 	s32 Status;
 	u32 ReadReg;
 
