@@ -23,6 +23,7 @@
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 * 3.12  sk     01/28/21 Added support for non-blocking write.
 * 3.14  sk     10/22/21 Add support for Erase feature.
+*       mn     11/28/21 Fix MISRA-C violations.
 *
 * </pre>
 *
@@ -50,7 +51,6 @@ s32 XSdPs_Read(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff);
 s32 XSdPs_Write(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff);
 s32 XSdPs_CheckTransferComplete(XSdPs *InstancePtr);
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
-s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 s32 XSdPs_DllReset(XSdPs *InstancePtr);
 s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr);
 void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt);
@@ -96,8 +96,6 @@ s32 XSdPs_Change_MmcBusSpeed(XSdPs *InstancePtr);
 s32 XSdPs_CalcBusSpeed(XSdPs *InstancePtr, u32 *Arg);
 void XSdPs_SetupReadDma(XSdPs *InstancePtr, u16 BlkCnt, u16 BlkSize, u8 *Buff);
 void XSdPs_SetupWriteDma(XSdPs *InstancePtr, u16 BlkCnt, u16 BlkSize, const u8 *Buff);
-s32 XSdPs_DoDmaTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
-s32 XSdPs_DoCmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
 s32 XSdPs_SetVoltage18(XSdPs *InstancePtr);
 s32 XSdPs_SendCmd(XSdPs *InstancePtr, u32 Cmd);
 void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd);
