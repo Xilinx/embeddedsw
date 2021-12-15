@@ -1,7 +1,9 @@
 /*
- * FreeRTOS Kernel V10.4.3
- * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
+ * FreeRTOS Kernel V10.4.6
+ * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
+ *
+ * SPDX-License-Identifier: MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -23,7 +25,6 @@
  * https://www.FreeRTOS.org
  * https://github.com/FreeRTOS
  *
- * 1 tab == 4 spaces!
  */
 
 #ifndef PORTMACRO_H
@@ -246,4 +247,6 @@ number of bits implemented by the interrupt controller. */
 #define portICCRPR_RUNNING_PRIORITY_REGISTER 				( *( ( const volatile uint32_t * ) ( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCRPR_RUNNING_PRIORITY_OFFSET ) ) )
 #define portICCBPR_BINARY_POINT_REGISTER_ADDRESS			( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCBPR_BINARY_POINT_OFFSET )
 #define portICCRPR_RUNNING_PRIORITY_REGISTER_ADDRESS		( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCRPR_RUNNING_PRIORITY_OFFSET )
+#define portMEMORY_BARRIER()    __asm volatile ( "" ::: "memory" )
+
 #endif /* PORTMACRO_H */
