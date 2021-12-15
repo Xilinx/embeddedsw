@@ -1044,7 +1044,7 @@ s32 XSdPs_Change_SdBusSpeed(XSdPs *InstancePtr)
 		/* Set UHS mode in controller */
 		CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 				XSDPS_HOST_CTRL2_OFFSET);
-		CtrlReg &= (u16)(~XSDPS_HC2_UHS_MODE_MASK);
+		CtrlReg &= (~(u16)XSDPS_HC2_UHS_MODE_MASK);
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 						XSDPS_HOST_CTRL2_OFFSET,
 						CtrlReg | (u16)InstancePtr->Mode);
