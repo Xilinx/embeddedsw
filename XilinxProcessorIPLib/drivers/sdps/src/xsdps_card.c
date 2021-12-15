@@ -657,8 +657,8 @@ s32 XSdPs_GetCsd(XSdPs *InstancePtr)
 	}
 
 	if (((CSD[3] & CSD_STRUCT_MASK) >> 22U) == 0U) {
-		BlkLen = 1U << ((u32)(CSD[2] & READ_BLK_LEN_MASK) >> 8U);
-		Mult = 1U << ((u32)((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
+		BlkLen = (u32)1U << ((u32)(CSD[2] & READ_BLK_LEN_MASK) >> 8U);
+		Mult = (u32)1U << ((u32)((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + (u32)2U);
 		DeviceSize = (CSD[1] & C_SIZE_LOWER_MASK) >> 22U;
 		DeviceSize |= (CSD[2] & C_SIZE_UPPER_MASK) << 10U;
 		DeviceSize = (DeviceSize + 1U) * Mult;
