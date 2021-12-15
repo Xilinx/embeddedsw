@@ -40,6 +40,7 @@
 *       mn     05/21/19 Disable DLL Reset code for Versal
 *       mn     07/03/19 Update Input Tap Delays for Versal
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
+* 3.14  mn     11/28/21 Fix MISRA-C violations.
 *
 * </pre>
 *
@@ -1256,7 +1257,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XSdPs_ReadReg(BaseAddress, RegOffset) \
-	XSdPs_In32((BaseAddress) + (RegOffset))
+	XSdPs_In32((UINTPTR)(BaseAddress) + (UINTPTR)(RegOffset))
 
 /***************************************************************************/
 /**
@@ -1275,7 +1276,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XSdPs_WriteReg(BaseAddress, RegOffset, RegisterValue) \
-	XSdPs_Out32((BaseAddress) + (RegOffset), (RegisterValue))
+	XSdPs_Out32((UINTPTR)(BaseAddress) + (UINTPTR)(RegOffset), (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -1300,7 +1301,7 @@ static INLINE u16 XSdPs_ReadReg16(u32 BaseAddress, u8 RegOffset)
 	Reg >>= ((RegOffset & 0x3)*8);
 	return (u16)Reg;
 #else
-	return XSdPs_In16((BaseAddress) + (RegOffset));
+	return XSdPs_In16((UINTPTR)(BaseAddress) + (UINTPTR)(RegOffset));
 #endif
 }
 
@@ -1331,7 +1332,7 @@ static INLINE void XSdPs_WriteReg16(u32 BaseAddress, u8 RegOffset, u16 RegisterV
 	Reg |= RegisterValue <<((RegOffset & 0x3)*8);
 	XSdPs_Out32(BaseAddress, Reg);
 #else
-	XSdPs_Out16((BaseAddress) + (RegOffset), (RegisterValue));
+	XSdPs_Out16((UINTPTR)(BaseAddress) + (UINTPTR)(RegOffset), (RegisterValue));
 #endif
 }
 
@@ -1358,7 +1359,7 @@ static INLINE u8 XSdPs_ReadReg8(u32 BaseAddress, u8 RegOffset)
 	Reg >>= ((RegOffset & 0x3)*8);
 	return (u8)Reg;
 #else
-	return XSdPs_In8((BaseAddress) + (RegOffset));
+	return XSdPs_In8((UINTPTR)(BaseAddress) + (UINTPTR)(RegOffset));
 #endif
 }
 /***************************************************************************/
@@ -1387,7 +1388,7 @@ static INLINE void XSdPs_WriteReg8(u32 BaseAddress, u8 RegOffset, u8 RegisterVal
 	Reg |= RegisterValue <<((RegOffset & 0x3)*8);
 	XSdPs_Out32(BaseAddress, Reg);
 #else
-	XSdPs_Out8((BaseAddress) + (RegOffset), (RegisterValue));
+	XSdPs_Out8((UINTPTR)(BaseAddress) + (UINTPTR)(RegOffset), (RegisterValue));
 #endif
 }
 /***************************************************************************/
