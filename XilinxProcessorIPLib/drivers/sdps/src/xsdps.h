@@ -212,11 +212,6 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * Function pointer for configuring the Tap delays.
- */
-typedef void (*XSdPs_ConfigTap) (u32 Bank, u32 DeviceId, u32 CardType);
-
-/**
  * This typedef contains configuration information for the device.
  */
 typedef struct {
