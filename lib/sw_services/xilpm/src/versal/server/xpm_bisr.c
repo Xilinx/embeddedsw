@@ -701,10 +701,6 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 		goto done;
 	}
 
-	/* Unwrite Trigger Bit */
-	PmRmw64(BaseAddr + ME_BISR_CACHE_CTRL_OFFSET,
-		ME_BISR_CACHE_CTRL_BISR_TRIGGER_MASK, 0U);
-
 done:
 	/* Clear NPI_PRIVILEGED_CTRL bit */
 	PmRmw32(AieDev->Node.BaseAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
