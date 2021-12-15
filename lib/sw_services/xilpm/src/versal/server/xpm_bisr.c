@@ -1337,10 +1337,6 @@ static XStatus XPmBisr_RepairVdu(u32 EfuseTagAddr, u32 TagSize,
 		goto done;
 	}
 
-	/* Unwrite trigger bit */
-	PmOut32(BaseAddr + NPI_PCSR_MASK_OFFSET, VDU_PCSR_BISR_TRIGGER_MASK);
-	PmOut32(BaseAddr + NPI_PCSR_CONTROL_OFFSET, 0U);
-
 done:
 	/* Lock PCSR */
 	XPmPlDomain_LockVduPcsr(BaseAddr);
