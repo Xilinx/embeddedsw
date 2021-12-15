@@ -478,13 +478,6 @@ static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr
 		goto done;
 	}
 
-	/* Unwrite Trigger Bits */
-        PmRmw32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_BISR_CACHE_CTRL_1_OFFSET,
-		(FPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
-		 FPD_SLCR_CACHE_CTRL_1_PGEN1_MASK |
-		 FPD_SLCR_CACHE_CTRL_1_PGEN2_MASK |
-		 FPD_SLCR_CACHE_CTRL_1_PGEN3_MASK), 0U);
-
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
