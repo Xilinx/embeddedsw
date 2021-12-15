@@ -55,6 +55,7 @@
  *       rv   08/25/2021 Check for module ID also along with API ID for xilpm
  *			 force power down command
  *       bsv  10/11/2021 Added redundancy for CheckIpiAccess API
+ * 1.05  ma   12/15/2021 Update function header for XPlmi_IpiDispatchHandler
  *
  * </pre>
  *
@@ -207,8 +208,8 @@ END:
 /**
  * @brief	This is the handler for IPI interrupts.
  *
- * @param	Data is unused and required for compliance with other
- *          interrupt handlers.
+ * @param	Data is the buffer index of the IPI channel interrupt that is
+ *               received
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
