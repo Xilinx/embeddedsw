@@ -1241,7 +1241,7 @@ void XSdPs_ConfigTapDelay(XSdPs *InstancePtr)
 			XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD_ITAPDLY, TapDelay);
 		} else {
 			TapDelay = XSdPs_ReadReg(InstancePtr->SlcrBaseAddr, SD_ITAPDLY);
-			TapDelay &= ~(u32)(SD0_ITAPDLY_SEL_MASK | SD0_ITAPCHGWIN | SD0_ITAPDLYENA);
+			TapDelay &= ~((u32)SD0_ITAPDLY_SEL_MASK | (u32)SD0_ITAPCHGWIN | (u32)SD0_ITAPDLYENA);
 			XSdPs_WriteReg(InstancePtr->SlcrBaseAddr, SD_ITAPDLY, TapDelay);
 		}
 		if (OTapDelay) {

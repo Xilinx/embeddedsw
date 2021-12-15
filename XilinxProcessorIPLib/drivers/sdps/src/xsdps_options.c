@@ -313,7 +313,7 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 	if (InstancePtr->Mode == XSDPS_DDR52_MODE) {
 		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL2_OFFSET);
-		StatusReg &= (u32)(~XSDPS_HC2_UHS_MODE_MASK);
+		StatusReg &= (~(u32)XSDPS_HC2_UHS_MODE_MASK);
 		StatusReg |= InstancePtr->Mode;
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL2_OFFSET, (u16)StatusReg);
