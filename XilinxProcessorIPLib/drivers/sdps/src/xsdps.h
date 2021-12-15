@@ -25,7 +25,7 @@
 * line) can be sent, most often to obtain status.
 * This driver does not support multi card slots at present.
 *
-* Initialization:
+* <b>Initialization & Configuration</b>
 * This includes initialization on the host controller side to select
 * clock frequency, bus power and default transfer related parameters.
 * The default voltage is 3.3V.
@@ -33,7 +33,7 @@
 * implemented. This resets the card, gives it a unique address/ID and
 * identifies key card related specifications.
 *
-* Data transfer:
+* <b>Data transfer</b>
 * The SD card is put in transfer state to read from or write to it.
 * The default block size is 512 bytes and if supported,
 * default bus width is 4-bit and bus speed is High speed.
@@ -46,7 +46,7 @@
 * event one of them is set, driver will clear the interrupt status and
 * communicate failure to the upper layer.
 *
-* File system use:
+* <b>File system use</b>
 * This driver can be used with xilffs library to read and write files to SD.
 * (Please refer to procedure in diskio.c). The file system read/write example
 * in polled mode can used for reference.
@@ -61,7 +61,7 @@
 * Interrupt mode is not supported because it offers no improvement when used
 * with file system.
 *
-* eMMC support:
+* <b>eMMC support</b>
 * SD driver supports SD and eMMC based on the "enable MMC" parameter in SDK.
 * The features of eMMC supported by the driver will depend on those supported
 * by the host controller. The current driver supports read/write on eMMC card
