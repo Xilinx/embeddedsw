@@ -409,10 +409,6 @@ XStatus XPmBisr_TriggerLpd(void)
 		Status = XST_FAILURE;
 	}
 
-	/* Unwrite Trigger Bits */
-	PmRmw32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_BISR_CACHE_CTRL_1_OFFSET,
-		(LPD_SLCR_CACHE_CTRL_1_PGEN0_MASK |
-		 LPD_SLCR_CACHE_CTRL_1_PGEN1_MASK), 0U);
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
