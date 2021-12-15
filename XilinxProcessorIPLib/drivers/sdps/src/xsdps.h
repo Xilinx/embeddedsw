@@ -209,6 +209,16 @@ extern "C" {
 #define XSDPS_VERSAL_SD0_BASE		0xF1040000U	/**< Versal SD0 Baseaddress */
 #define XSDPS_VERSAL_SD1_BASE		0xF1050000U	/**< Versal SD1 Baseaddress */
 
+/** @name Block size mask for 512 bytes
+ *
+ * Block size mask for 512 bytes - This is the default block size.
+ * @{
+ */
+
+#define XSDPS_BLK_SIZE_512_MASK	0x200U	/**< Blk Size 512 */
+
+/** @} */
+
 /**************************** Type Definitions *******************************/
 
 /**

@@ -46,6 +46,7 @@
 *
 ******************************************************************************/
 
+/** @cond INTERNAL */
 #ifndef SD_HW_H_
 #define SD_HW_H_
 
@@ -612,16 +613,6 @@ extern "C" {
 #define XSDPS_HC_SPEC_V3		0x0002U	/**< HC spec version 3 */
 #define XSDPS_HC_SPEC_V2		0x0001U	/**< HC spec version 2 */
 #define XSDPS_HC_SPEC_V1		0x0000U	/**< HC spec version 1 */
-/** @} */
-
-/** @name Block size mask for 512 bytes
- *
- * Block size mask for 512 bytes - This is the default block size.
- * @{
- */
-
-#define XSDPS_BLK_SIZE_512_MASK	0x200U	/**< Blk Size 512 */
-
 /** @} */
 
 /** @name Commands
@@ -1416,4 +1407,5 @@ static INLINE void XSdPs_WriteReg8(u32 BaseAddress, u8 RegOffset, u8 RegisterVal
 #endif
 
 #endif /* SD_HW_H_ */
+/** @endcond */
 /** @} */
