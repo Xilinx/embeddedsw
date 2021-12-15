@@ -32,6 +32,7 @@
 * 0.8   rb   04/07/2021   Doxygen changes
 * 0.9	hv   05/04/2021   Updated Doxygen comments
 * 1.0	hv   10/08/2021   Added user interface to Get SEM configuration
+* 1.1   hb   12/15/2021   Fixed compilation errors when prints are enabled
 * </pre>
 *
 * @note
@@ -431,7 +432,7 @@ XStatus XSem_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with"
-		"ErrCode 0x%x\n\r", _func__, Status);
+		"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
 
@@ -480,14 +481,14 @@ XStatus XSem_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with"
-		"ErrCode 0x%x\n\r", _func__, Status);
+		"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
 
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with"
-		"ErrCode 0x%x\n\r", _func__, Status);
+		"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
 
@@ -541,7 +542,7 @@ XStatus XSem_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with"
-		" ErrCode 0x%x\n\r", _func__, Status);
+		" ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
 
