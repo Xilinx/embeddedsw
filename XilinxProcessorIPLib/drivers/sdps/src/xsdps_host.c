@@ -734,10 +734,11 @@ s32 XSdPs_EnableClock(XSdPs *InstancePtr, u16 ClockReg)
 	u32 Timeout = 150000U;
 	s32 Status;
 	u16 ReadReg;
+	u16 ClkReg = ClockReg;
 
-	ClockReg |= (u16)XSDPS_CC_INT_CLK_EN_MASK;
+	ClkReg |= (u16)XSDPS_CC_INT_CLK_EN_MASK;
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET, ClockReg);
+			XSDPS_CLK_CTRL_OFFSET, ClkReg);
 
 	/* Wait for 150ms for internal clock to stabilize */
 	do {
@@ -754,9 +755,9 @@ s32 XSdPs_EnableClock(XSdPs *InstancePtr, u16 ClockReg)
 	}
 
 	/* Enable SD clock */
-	ClockReg |= XSDPS_CC_SD_CLK_EN_MASK;
+	ClkReg |= XSDPS_CC_SD_CLK_EN_MASK;
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_CLK_CTRL_OFFSET, ClockReg);
+			XSDPS_CLK_CTRL_OFFSET, ClkReg);
 
 	Status = XST_SUCCESS;
 
