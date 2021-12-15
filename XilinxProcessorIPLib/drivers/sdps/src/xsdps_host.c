@@ -7,7 +7,7 @@
 /**
 *
 * @file xsdps_host.c
-* @addtogroup sdps_v3_14
+* @addtogroup Overview
 * @{
 *
 * Contains the interface functions of the XSdPs driver.
