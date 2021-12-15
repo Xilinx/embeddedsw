@@ -209,6 +209,7 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff)
 	Status = XSdps_CheckTransferDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
@@ -376,6 +377,7 @@ s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 	Status = XSdps_CheckTransferDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
@@ -439,6 +441,7 @@ s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg)
 	Status = XSdps_CheckTransferDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
@@ -569,6 +572,7 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 	Status = XSdps_CheckTransferDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
@@ -617,6 +621,7 @@ s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg)
 	Status = XSdps_CheckTransferDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	Status = XST_SUCCESS;
