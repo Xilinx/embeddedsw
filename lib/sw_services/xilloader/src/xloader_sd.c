@@ -37,6 +37,7 @@
 * 1.04  bsv  08/31/2021 Code clean up
 * 1.05  bsv  10/01/2021 Addressed code review comments
 *       bsv  10/26/2021 Code clean up
+* 1.06  kpt  12/13/2021 Replaced Xil_Strcat with Xil_SStrcat
 *
 * </pre>
 *
@@ -61,6 +62,8 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_SD_SRC_FILENAME_SIZE1		(9U)
+#define XLOADER_SD_SRC_FILENAME_SIZE2		(13U)
 
 /************************** Function Prototypes ******************************/
 static int XLoader_MakeSdFileName(u32 MultiBootOffset);
@@ -97,15 +100,15 @@ static int XLoader_MakeSdFileName(u32 MultiBootOffset)
 	}
 
 	if (0x0U == MultiBootOffset) {
-		Status = Xil_Strcat(BootFile, "BOOT.BIN",
-			XLOADER_BASE_FILE_NAME_LEN_SD);
+		Status = Xil_SStrCat((u8*)BootFile, XLOADER_BASE_FILE_NAME_LEN_SD,
+			(u8*)"BOOT.BIN", XLOADER_SD_SRC_FILENAME_SIZE1);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 	else {
-		Status = Xil_Strcat(BootFile, "BOOT0000.BIN",
-			XLOADER_BASE_FILE_NAME_LEN_SD);
+		Status = Xil_SStrCat((u8*)BootFile, XLOADER_BASE_FILE_NAME_LEN_SD,
+			(u8*)"BOOT0000.BIN", XLOADER_SD_SRC_FILENAME_SIZE2);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}

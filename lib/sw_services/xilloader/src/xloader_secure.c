@@ -105,6 +105,8 @@
 *       kpt  10/28/21 Added flags in XLoader_SecureInit to indicate the mode of
 *                     copy
 * 1.08  skd  11/18/21 Added time stamps in XLoader_ProcessChecksumPrtn
+*       kpt  12/13/21 Replaced standard library utility functions with secure
+*                     functions
 *
 * </pre>
 *
@@ -423,8 +425,9 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_MemCmp, ExpHash, BlkHash.Hash,
-			XLOADER_SHA3_LEN);
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT, ExpHash,
+		XLOADER_SHA3_LEN, BlkHash.Hash, XLOADER_SHA3_LEN,
+		XLOADER_SHA3_LEN);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "Hash mismatch error\n\r");
 		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)BlkHash.Hash,
@@ -438,8 +441,8 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/* Update the next expected hash  and data location */
 	if (Last != (u8)TRUE) {
-		Status = Xil_SecureMemCpy(ExpHash, XLOADER_SHA3_LEN,
-					(u8 *)HashAddr, XLOADER_SHA3_LEN);
+		Status = Xil_SMemCpy(ExpHash, XLOADER_SHA3_LEN,
+			(u8 *)HashAddr, XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
 	}
 
 END:

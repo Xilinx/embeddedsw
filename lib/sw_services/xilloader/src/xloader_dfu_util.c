@@ -23,6 +23,7 @@
 *        bsv 10/13/2020 Code clean up
 *        td	 10/19/2020	MISRA C Fixes
 * 1.02   bsv 08/31/2021 Code clean up
+* 1.03   kpt 12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 *
 * </pre>
 *
@@ -201,7 +202,7 @@ static u8 XLoader_Ch9SetupStrDescReply(const struct Usb_DevData* InstancePtr, u8
 		goto END;
 	}
 
-	Status = Xil_SecureMemCpy(BufPtr, DescLen, &StringDesc, DescLen);
+	Status = Xil_SMemCpy(BufPtr, DescLen, &StringDesc, DescLen, DescLen);
 	if (Status != XST_SUCCESS) {
 		DescLen = 0U;
 	}
@@ -278,14 +279,16 @@ static u8 XLoader_Ch9SetupDevDescReply(const struct Usb_DevData* InstancePtr, u8
 	Status = XUsbPsu_IsSuperSpeed((struct XUsbPsu*)InstancePtr->PrivateData);
 	if(Status != XST_SUCCESS) {
 		/* USB 2.0 */
-		Status = Xil_SecureMemCpy(BufPtr, DevDescLength, &DDesc[0U], DevDescLength);
+		Status = Xil_SMemCpy(BufPtr, DevDescLength, &DDesc[0U], DevDescLength,
+				DevDescLength);
 		if (Status != XST_SUCCESS) {
 			DevDescLength = 0U;
 		}
 	}
 	else {
 		/* USB 3.0 */
-		Status = Xil_SecureMemCpy(BufPtr, DevDescLength, &DDesc[1U], DevDescLength);
+		Status = Xil_SMemCpy(BufPtr, DevDescLength, &DDesc[1U], DevDescLength,
+				DevDescLength);
 		if (Status != XST_SUCCESS) {
 			DevDescLength = 0U;
 		}
@@ -484,7 +487,8 @@ static u8 XLoader_Ch9SetupCfgDescReply(const struct Usb_DevData* InstancePtr, u8
 		goto END;
 	}
 
-	Status = Xil_SecureMemCpy(BufPtr, CfgDescLen, Config, CfgDescLen);
+	Status = Xil_SMemCpy(BufPtr, CfgDescLen, Config, CfgDescLen,
+			CfgDescLen);
 	if (Status != XST_SUCCESS) {
 		CfgDescLen = 0U;
 	}
@@ -537,7 +541,8 @@ static u8 XLoader_Ch9SetupBosDescReply(const struct Usb_DevData* InstancePtr, u8
 
 	UsbBosDescLen = sizeof(XLoaderPs_UsbBosDesc);
 
-	Status = Xil_SecureMemCpy(BufPtr, BufferLen, &BosDesc, UsbBosDescLen);
+	Status = Xil_SMemCpy(BufPtr, BufferLen, &BosDesc, UsbBosDescLen,
+			UsbBosDescLen);
 	if (Status != XST_SUCCESS) {
 		UsbBosDescLen = 0U;
 	}
@@ -1068,13 +1073,15 @@ static int XLoader_UsbReqGetStatus(const struct Usb_DevData *InstancePtr,
 
 		case XLOADER_STATUS_DEVICE:
 			ShortVar = XLOADER_ENDPOINT_SELF_PWRD_STATUS;
-			Status = Xil_SecureMemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));/* Self powered */
+			Status = Xil_SMemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16),
+					sizeof(u16));/* Self powered */
 			break;
 		case XLOADER_STATUS_ENDPOINT:
 			ShortVar = (u16)XUsbPsu_IsEpStalled(
 				(struct XUsbPsu*)InstancePtr->PrivateData,
 				EpNum, Direction);
-			Status = Xil_SecureMemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16));
+			Status = Xil_SMemCpy(&Reply[0U], sizeof(u16), &ShortVar, sizeof(u16),
+					 sizeof(u16));
 			break;
 		case XLOADER_STATUS_INTERFACE:
 			Status = XST_SUCCESS;
