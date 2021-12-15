@@ -946,7 +946,7 @@ void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	static XSdPs_Adma2Descriptor32 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
 #endif
 	u32 TotalDescLines;
-	u64 DescNum;
+	u32 DescNum;
 	u32 BlkSize;
 
 	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
@@ -965,14 +965,14 @@ void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 
 	for (DescNum = 0U; DescNum < (TotalDescLines - 1U); DescNum++) {
 		Adma2_DescrTbl[DescNum].Address =
-				(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+				(u32)((UINTPTR)Buff + ((UINTPTR)DescNum*XSDPS_DESC_MAX_LENGTH));
 		Adma2_DescrTbl[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
 		Adma2_DescrTbl[DescNum].Length = 0U;
 	}
 
 	Adma2_DescrTbl[TotalDescLines - 1U].Address =
-			(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+			(u32)((UINTPTR)Buff + ((UINTPTR)DescNum*XSDPS_DESC_MAX_LENGTH));
 
 	Adma2_DescrTbl[TotalDescLines - 1U].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
@@ -1014,7 +1014,7 @@ void XSdPs_Setup64ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
 #endif
 	u32 TotalDescLines;
-	u64 DescNum;
+	u32 DescNum;
 	u32 BlkSize;
 
 	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
@@ -1033,14 +1033,14 @@ void XSdPs_Setup64ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 
 	for (DescNum = 0U; DescNum < (TotalDescLines - 1U); DescNum++) {
 		Adma2_DescrTbl[DescNum].Address =
-				((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+				((UINTPTR)Buff + ((UINTPTR)DescNum*XSDPS_DESC_MAX_LENGTH));
 		Adma2_DescrTbl[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
 		Adma2_DescrTbl[DescNum].Length = 0U;
 	}
 
 	Adma2_DescrTbl[TotalDescLines - 1U].Address =
-			(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+			(u64)((UINTPTR)Buff + ((UINTPTR)DescNum*XSDPS_DESC_MAX_LENGTH));
 
 	Adma2_DescrTbl[TotalDescLines - 1U].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;

@@ -1213,7 +1213,7 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
 #endif
 	u32 TotalDescLines;
-	u64 DescNum;
+	u32 DescNum;
 	u32 BlkSize;
 
 	/* Setup ADMA2 - Write descriptor table and point ADMA SAR to it */
@@ -1237,7 +1237,7 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 	for (DescNum = 0U; DescNum < (TotalDescLines - 1U); DescNum++) {
 		Adma2_DescrTbl[DescNum].Address =
 				InstancePtr->Dma64BitAddr +
-				(DescNum*XSDPS_DESC_MAX_LENGTH);
+				((u64)DescNum*XSDPS_DESC_MAX_LENGTH);
 		Adma2_DescrTbl[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
 		Adma2_DescrTbl[DescNum].Length = 0U;
@@ -1245,7 +1245,7 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 
 	Adma2_DescrTbl[TotalDescLines - 1U].Address =
 				InstancePtr->Dma64BitAddr +
-				(DescNum*XSDPS_DESC_MAX_LENGTH);
+				((u64)DescNum*XSDPS_DESC_MAX_LENGTH);
 
 	Adma2_DescrTbl[TotalDescLines - 1U].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
