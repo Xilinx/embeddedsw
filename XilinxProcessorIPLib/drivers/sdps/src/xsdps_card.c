@@ -714,6 +714,7 @@ s32 XSdPs_CardSetVoltage18(XSdPs *InstancePtr)
 	Status = XSdPs_EnableClock(InstancePtr, ClockReg);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	/* Wait for 1mSec */
@@ -1038,6 +1039,7 @@ s32 XSdPs_Change_SdBusSpeed(XSdPs *InstancePtr)
 	Status = XSdps_CheckTransferDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	if (InstancePtr->Switch1v8 != 0U) {
@@ -1087,6 +1089,7 @@ s32 XSdPs_Change_MmcBusSpeed(XSdPs *InstancePtr)
 	Status = XSdps_CheckTransferDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	Status = XST_SUCCESS;
