@@ -60,6 +60,7 @@
 *       mn     03/16/20 Move XSdPs_Select_Card API to User APIs
 * 3.10  mn     06/05/20 Modified code for SD Non-Blocking Read support
 * 3.12  sk     01/28/21 Added support for non-blocking write.
+* 3.14  mn     11/28/21 Fix MISRA-C violations.
 *
 * </pre>
 *
