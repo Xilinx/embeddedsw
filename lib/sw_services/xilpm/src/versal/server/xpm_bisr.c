@@ -1056,10 +1056,6 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 		goto done;
 	}
 
-	/*  Exit the memory repair operation */
-	PmOut32(BaseAddr + XRAM_SLCR_PCSR_PCR_OFFSET, 0x0U);
-	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, 0x0U);
-
 	Status = XST_SUCCESS;
 
 done:
