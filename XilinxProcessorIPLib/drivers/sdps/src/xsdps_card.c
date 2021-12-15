@@ -864,7 +864,7 @@ s32 XSdPs_SetupVoltageSwitch(XSdPs *InstancePtr)
 	do {
 		ReadReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 				XSDPS_PRES_STATE_OFFSET);
-		Timeout = Timeout - 1;
+		Timeout = Timeout - 1U;
 		usleep(1);
 	} while (((ReadReg & (XSDPS_PSR_CMD_SG_LVL_MASK |
 			XSDPS_PSR_DAT30_SG_LVL_MASK)) != 0U)
@@ -900,7 +900,7 @@ s32 XSdPs_CheckBusHigh(XSdPs *InstancePtr)
 	do {
 		ReadReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 				XSDPS_PRES_STATE_OFFSET);
-		Timeout = Timeout - 1;
+		Timeout = Timeout - 1U;
 		usleep(1);
 	} while (((ReadReg & (XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK))
 			!= (XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK))
@@ -1234,7 +1234,7 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 
 	}
 
-	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
+	for (DescNum = 0U; DescNum < (TotalDescLines - 1U); DescNum++) {
 		Adma2_DescrTbl[DescNum].Address =
 				InstancePtr->Dma64BitAddr +
 				(DescNum*XSDPS_DESC_MAX_LENGTH);
@@ -1243,14 +1243,14 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 		Adma2_DescrTbl[DescNum].Length = 0U;
 	}
 
-	Adma2_DescrTbl[TotalDescLines-1].Address =
+	Adma2_DescrTbl[TotalDescLines - 1U].Address =
 				InstancePtr->Dma64BitAddr +
 				(DescNum*XSDPS_DESC_MAX_LENGTH);
 
-	Adma2_DescrTbl[TotalDescLines-1].Attribute =
+	Adma2_DescrTbl[TotalDescLines - 1U].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
 
-	Adma2_DescrTbl[TotalDescLines-1].Length =
+	Adma2_DescrTbl[TotalDescLines - 1U].Length =
 			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,

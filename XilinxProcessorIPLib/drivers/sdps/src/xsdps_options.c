@@ -213,7 +213,7 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)ReadBuff,
-				(INTPTR)BlkCnt * BlkSize);
+				((INTPTR)BlkCnt * (INTPTR)BlkSize));
 	}
 
 	Status = XST_SUCCESS;
@@ -380,7 +380,7 @@ s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)ReadBuff,
-				(INTPTR)BlkCnt * BlkSize);
+				((INTPTR)BlkCnt * (INTPTR)BlkSize));
 	}
 
 	Status = XST_SUCCESS;
@@ -443,7 +443,7 @@ s32 XSdPs_Get_Status(XSdPs *InstancePtr, u8 *SdStatReg)
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)SdStatReg,
-				(INTPTR)BlkCnt * BlkSize);
+				((INTPTR)BlkCnt * (INTPTR)BlkSize));
 	}
 
 	Status = XST_SUCCESS;
@@ -573,7 +573,7 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)ReadBuff,
-				(INTPTR)BlkCnt * BlkSize);
+				((INTPTR)BlkCnt * (INTPTR)BlkSize));
 	}
 
 	Status = XST_SUCCESS;

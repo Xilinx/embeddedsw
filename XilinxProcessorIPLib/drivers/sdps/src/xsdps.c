@@ -330,7 +330,7 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheInvalidateRange((INTPTR)Buff,
-				(INTPTR)BlkCnt * InstancePtr->BlkSize);
+				((INTPTR)BlkCnt * (INTPTR)InstancePtr->BlkSize));
 	}
 
 RETURN_PATH:
