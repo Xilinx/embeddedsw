@@ -71,6 +71,8 @@
 *                     mode
 * 1.03  skd  11/18/21 Added time stamps in XLoader_ProcessAuthEncPrtn
 *       bsv  12/04/21 Address security review comment
+*       kpt  12/13/21 Replaced standard library utility functions with xilinx
+*                     maintained functions
 *
 * </pre>
 *
@@ -815,8 +817,9 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/* Read IHT and PHT to structures and verify checksum */
 		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
 			MetaHdr->ImgHdrTbl.NoOfImgs);
-		Status = Xil_SecureMemCpy((void *)MetaHdr->ImgHdr, TotalImgHdrLen,
-			(void *)(UINTPTR)SecurePtr->ChunkAddr, TotalImgHdrLen);
+		Status = Xil_SMemCpy((void *)MetaHdr->ImgHdr, TotalImgHdrLen,
+			(void *)(UINTPTR)SecurePtr->ChunkAddr, TotalImgHdrLen,
+			TotalImgHdrLen);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_IH_READ_FAIL, Status);
 			goto END;
@@ -846,9 +849,9 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/* Update buffer address to point to PHs */
 		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Partition Headers\n\r",
 			MetaHdr->ImgHdrTbl.NoOfPrtns);
-		Status = Xil_SecureMemCpy((void *)MetaHdr->PrtnHdr, TotalPrtnHdrLen,
+		Status = Xil_SMemCpy((void *)MetaHdr->PrtnHdr, TotalPrtnHdrLen,
 			(void *)(UINTPTR)(SecurePtr->ChunkAddr + TotalImgHdrLen),
-			TotalPrtnHdrLen);
+			TotalPrtnHdrLen, TotalPrtnHdrLen);
 	}
 	/* If authentication is enabled */
 	else if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
@@ -1240,8 +1243,9 @@ static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
 	volatile int HashStatus = XST_FAILURE;
 	volatile int HashStatusTmp = XST_FAILURE;
 
-	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_MemCmp, PpkHash,
-						  (void *)EfusePpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
+	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_SMemCmp_CT, PpkHash,
+			XLOADER_EFUSE_PPK_HASH_LEN, (void *)EfusePpkOffset,
+			XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
 	if ((HashStatus != XST_SUCCESS) || (HashStatusTmp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "Error: PPK Hash comparison failed\r\n");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PPK_HASH_COMPARE_FAIL, 0x0);
@@ -1311,8 +1315,9 @@ static int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 
 	Status = XST_FAILURE;
 	/* Check if valid PPK hash is all zeros */
-	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_MemCmp, HashZeros,
-						 (void *)PpkOffset, XLOADER_EFUSE_PPK_HASH_LEN);
+	XSECURE_TEMPORAL_IMPL(HashStatus, HashStatusTmp, Xil_SMemCmp_CT, HashZeros,
+			XLOADER_EFUSE_PPK_HASH_LEN, (void *)PpkOffset,
+			XLOADER_EFUSE_PPK_HASH_LEN, XLOADER_EFUSE_PPK_HASH_LEN);
 	if ((HashStatus == XST_SUCCESS) || (HashStatusTmp == XST_SUCCESS)) {
 		Status = XLoader_UpdateMinorErr(
 			XLOADER_SEC_PPK_HASH_ALLZERO_INVLD, 0x0);
@@ -1550,7 +1555,7 @@ static int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 			 */
 			 Size = (OutLen % HashLen);
 		}
-		Status = Xil_SecureMemCpy(OutTmp, Size, HashStore.Hash, Size);
+		Status = Xil_SMemCpy(OutTmp, Size, HashStore.Hash, Size, Size);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1646,8 +1651,9 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	Status = Xil_SecureMemCpy(Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
+	Status = Xil_SMemCpy(Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
 				&XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN],
+				XLOADER_SHA3_LEN,
 				XLOADER_SHA3_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1704,8 +1710,9 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	Status = Xil_SecureMemCpy(Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
+	Status = Xil_SMemCpy(Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
 				&Buffer[XLOADER_RSA_PSS_DB_LEN],
+				XLOADER_RSA_PSS_SALT_LEN,
 				XLOADER_RSA_PSS_SALT_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -3580,8 +3587,9 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		}
 	}
 	else {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_MemCmp, ExpHash,
-			BlkHash.Hash, XLOADER_SHA3_LEN);
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT, ExpHash,
+			XLOADER_SHA3_LEN, BlkHash.Hash, XLOADER_SHA3_LEN,
+			XLOADER_SHA3_LEN);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			XPlmi_Printf(DEBUG_INFO, "Hash mismatch error\n\r");
 			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)BlkHash.Hash,
@@ -3596,9 +3604,9 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/* Update the next expected hash  and data location */
 	if (Last != (u8)TRUE) {
-		Status = Xil_SecureMemCpy(ExpHash, XLOADER_SHA3_LEN,
+		Status = Xil_SMemCpy(ExpHash, XLOADER_SHA3_LEN,
 				&Data[Size - XLOADER_SHA3_LEN],
-				XLOADER_SHA3_LEN);
+				XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -3655,9 +3663,10 @@ static int XLoader_ReadDna(u32 *EfuseDna)
 {
 	volatile int Status = XST_FAILURE;
 
-	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureMemCpy, (void *)EfuseDna,
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)EfuseDna,
 		XLOADER_EFUSE_DNA_LEN_IN_BYTES,
 		(void *)XLOADER_EFUSE_DNA_START_OFFSET,
+		XLOADER_EFUSE_DNA_LEN_IN_BYTES,
 		XLOADER_EFUSE_DNA_LEN_IN_BYTES);
 
 END:
@@ -3687,8 +3696,9 @@ static int XLoader_ReadandCompareDna(const u32 *UserDna)
 	}
 
 	/* Compare DNA with user provided DNA */
-	XSECURE_TEMPORAL_CHECK(END, Status, Xil_MemCmp, (void *)EfuseDna,
-		(void *)UserDna, XLOADER_EFUSE_DNA_LEN_IN_BYTES);
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCmp_CT, (void *)EfuseDna,
+		XLOADER_EFUSE_DNA_LEN_IN_BYTES, (void *)UserDna,
+		XLOADER_EFUSE_DNA_LEN_IN_BYTES, XLOADER_EFUSE_DNA_LEN_IN_BYTES);
 
 END:
 	return Status;

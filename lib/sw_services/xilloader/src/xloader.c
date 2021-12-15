@@ -120,6 +120,7 @@
 *                       data section
 *       bsv  10/26/2021 Code clean up
 *       bsv  12/04/2021 Clear complete PMCRAM in XLoader_ReloadImage
+*       kpt  12/13/2021 Replace Xil_SecureMemCpy with Xil_SMemCpy
 *
 * </pre>
 *
@@ -1083,9 +1084,10 @@ static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount)
 		}
 		if (IsChild == (u32)TRUE) {
 			ImageInfoTbl.Count--;
-			Status = Xil_SecureMemCpy(&ImageInfoTblPtr[Index],
+			Status = Xil_SMemCpy(&ImageInfoTblPtr[Index],
 				sizeof(XLoader_ImageInfo),
 				&ImageInfoTblPtr[ImageInfoTbl.Count],
+				sizeof(XLoader_ImageInfo),
 				sizeof(XLoader_ImageInfo));
 			if (Status != XST_SUCCESS) {
 				goto END;
@@ -1182,8 +1184,8 @@ static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 		ImageInfoTbl.Count++;
 	}
 	ChangeCount++;
-	Status = Xil_SecureMemCpy(ImageEntry, sizeof(XLoader_ImageInfo), ImageInfo,
-			sizeof(XLoader_ImageInfo));
+	Status = Xil_SMemCpy(ImageEntry, sizeof(XLoader_ImageInfo), ImageInfo,
+			sizeof(XLoader_ImageInfo), sizeof(XLoader_ImageInfo));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_IMAGE_INFO, Status);
 		goto END;
