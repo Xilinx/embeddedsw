@@ -65,7 +65,7 @@ s32 XSdPs_Read(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 {
 	s32 Status;
 
-	XSdPs_SetupReadDma(InstancePtr, BlkCnt, InstancePtr->BlkSize, Buff);
+	XSdPs_SetupReadDma(InstancePtr, (u16)BlkCnt, (u16)InstancePtr->BlkSize, Buff);
 
 	if (BlkCnt == 1U) {
 		/* Send single block read command */
@@ -105,7 +105,7 @@ s32 XSdPs_Write(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 {
 	s32 Status;
 
-	XSdPs_SetupWriteDma(InstancePtr, BlkCnt, InstancePtr->BlkSize, Buff);
+	XSdPs_SetupWriteDma(InstancePtr, (u16)BlkCnt, (u16)InstancePtr->BlkSize, Buff);
 
 	if (BlkCnt == 1U) {
 		/* Send single block write command */
@@ -697,7 +697,7 @@ s32 XSdPs_CardSetVoltage18(XSdPs *InstancePtr)
 	/* Stop the clock */
 	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_CLK_CTRL_OFFSET);
-	CtrlReg &= ~(XSDPS_CC_SD_CLK_EN_MASK | XSDPS_CC_INT_CLK_EN_MASK);
+	CtrlReg &= (u16)(~(XSDPS_CC_SD_CLK_EN_MASK | XSDPS_CC_INT_CLK_EN_MASK));
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CLK_CTRL_OFFSET,
 			CtrlReg);
 
@@ -1047,7 +1047,7 @@ s32 XSdPs_Change_SdBusSpeed(XSdPs *InstancePtr)
 		CtrlReg &= (u16)(~XSDPS_HC2_UHS_MODE_MASK);
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 						XSDPS_HOST_CTRL2_OFFSET,
-						CtrlReg | InstancePtr->Mode);
+						CtrlReg | (u16)InstancePtr->Mode);
 	}
 
 	Status = XST_SUCCESS;
@@ -1258,7 +1258,7 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
-			sizeof(XSdPs_Adma2Descriptor64) * 32U);
+			(INTPTR)sizeof(XSdPs_Adma2Descriptor64) * (INTPTR)32U);
 	}
 
 	/* Clear the 64-Bit Address variable */
@@ -1303,7 +1303,7 @@ s32 XSdPs_DllReset(XSdPs *InstancePtr)
 	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 				XSDPS_CLK_CTRL_OFFSET);
 	/* Enable the clock in the controller */
-	Status = XSdPs_EnableClock(InstancePtr, ClockReg);
+	Status = XSdPs_EnableClock(InstancePtr, (u16)ClockReg);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 	}
@@ -1421,7 +1421,7 @@ s32 XSdPs_SetClock(XSdPs *InstancePtr, u32 SelFreq)
 	}
 
 	/* Calculate the clock */
-	ClockReg = XSdPs_CalcClock(InstancePtr, SelFreq);
+	ClockReg = (u16)XSdPs_CalcClock(InstancePtr, SelFreq);
 
 	/* Enable the clock in the controller */
 	Status = XSdPs_EnableClock(InstancePtr, ClockReg);

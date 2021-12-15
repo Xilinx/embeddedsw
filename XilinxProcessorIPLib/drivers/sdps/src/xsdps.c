@@ -84,6 +84,7 @@
 *                       XSdPs_Write APIs
 *       mn     06/05/20 Modified code for SD Non-Blocking Read support
 * 3.14  sk     10/22/21 Add support for Erase feature.
+*       mn     11/28/21 Fix MISRA-C violations.
 *
 * </pre>
 *
@@ -501,7 +502,7 @@ s32 XSdPs_Erase(XSdPs *InstancePtr, u32 StartAddr, u32 EndAddr)
 	}
 
 	/* Check for CCC */
-	CardCC = ((InstancePtr->CardSpecData[2] & CSD_CCC_MASK) >> CSD_CCC_SHIFT);
+	CardCC = (u16)((InstancePtr->CardSpecData[2] & CSD_CCC_MASK) >> CSD_CCC_SHIFT);
 	if ((CardCC & CSD_CCC_CLASS5_MASK) == 0U) {
 		Status = XST_SUCCESS;
 		goto RETURN_PATH;

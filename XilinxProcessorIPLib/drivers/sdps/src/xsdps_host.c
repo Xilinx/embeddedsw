@@ -985,7 +985,7 @@ void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
-			sizeof(XSdPs_Adma2Descriptor32) * 32U);
+			(INTPTR)sizeof(XSdPs_Adma2Descriptor32) * (INTPTR)32U);
 	}
 }
 
@@ -1058,7 +1058,7 @@ void XSdPs_Setup64ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
 		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
-			sizeof(XSdPs_Adma2Descriptor64) * 32U);
+			(INTPTR)sizeof(XSdPs_Adma2Descriptor64) * (INTPTR)32U);
 	}
 }
 
