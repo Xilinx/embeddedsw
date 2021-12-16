@@ -54,6 +54,7 @@
 *                       optimization in XLoader_CheckIpiAccess
 * 1.07  bm   10/21/2021 Updated Extract Metaheader command to return data size as
 *                       response
+*       bm   12/15/2021 Fix error case in Add ImageStore command
 *
 * </pre>
 *
@@ -576,7 +577,7 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 			break;
 		}
 	}
-	if (Index > PdiList->Count) {
+	if (Index < PdiList->Count) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_ADDR_EXISTS, 0);
 		goto END;
 	}
