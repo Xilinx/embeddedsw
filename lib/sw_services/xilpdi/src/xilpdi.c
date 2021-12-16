@@ -38,6 +38,7 @@
 *       ma   03/24/2021 Redirect XilPdi prints to XilLoader
 * 1.05  bm   07/08/2021 Code cleanup
 *       bsv  08/17/2021 Code clean up
+* 1.06  kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 *
 * </pre>
 *
@@ -248,9 +249,9 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 		(SMAP_BUS_WIDTH_32_WORD1 == SmapBusWidthCheck[0U])) {
 		Offset = 0U;
 	} else {
-		Status = Xil_SecureMemCpy((void *)&MetaHdrPtr->ImgHdrTbl,
+		Status = Xil_SMemCpy((void *)&MetaHdrPtr->ImgHdrTbl,
 				SMAP_BUS_WIDTH_LENGTH, (void *)SmapBusWidthCheck,
-				SMAP_BUS_WIDTH_LENGTH);
+				SMAP_BUS_WIDTH_LENGTH, SMAP_BUS_WIDTH_LENGTH);
 		if (XST_SUCCESS != Status) {
 			XilPdi_Printf("Image Header Table memcpy failed\n\r");
 			goto END;
