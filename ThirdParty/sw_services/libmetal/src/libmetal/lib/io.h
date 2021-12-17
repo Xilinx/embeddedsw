@@ -27,7 +27,8 @@ extern "C" {
 #endif
 
 /** \defgroup io IO Interfaces
- *  @{ */
+ *  @{
+ */
 
 #ifdef __MICROBLAZE__
 #define NO_ATOMIC_64_SUPPORT
@@ -47,24 +48,23 @@ struct metal_io_ops {
 				 memory_order order,
 				 int width);
 	int		(*block_read)(struct metal_io_region *io,
-				unsigned long offset,
-				void *restrict dst,
-				memory_order order,
-				int len);
+				      unsigned long offset,
+				      void *restrict dst,
+				      memory_order order,
+				      int len);
 	int		(*block_write)(struct metal_io_region *io,
-				 unsigned long offset,
-				 const void *restrict src,
-				 memory_order order,
-				 int len);
+				       unsigned long offset,
+				       const void *restrict src,
+				       memory_order order,
+				       int len);
 	void		(*block_set)(struct metal_io_region *io,
-				 unsigned long offset,
-				 unsigned char value,
-				 memory_order order,
-				 int len);
+				     unsigned long offset,
+				     unsigned char value,
+				     memory_order order,
+				     int len);
 	void		(*close)(struct metal_io_region *io);
-	metal_phys_addr_t
-			(*offset_to_phys)(struct metal_io_region *io,
-					  unsigned long offset);
+	metal_phys_addr_t (*offset_to_phys)(struct metal_io_region *io,
+					    unsigned long offset);
 	unsigned long	(*phys_to_offset)(struct metal_io_region *io,
 					  metal_phys_addr_t phys);
 };
@@ -73,14 +73,15 @@ struct metal_io_ops {
 struct metal_io_region {
 	void			*virt;      /**< base virtual address */
 	const metal_phys_addr_t	*physmap;   /**< table of base physical address
-                                                 of each of the pages in the I/O
-                                                 region */
+						 of each of the pages in the I/O
+						 region */
 	size_t			size;       /**< size of the I/O region */
 	unsigned long		page_shift; /**< page shift of I/O region */
 	metal_phys_addr_t	page_mask;  /**< page mask of I/O region */
 	unsigned int		mem_flags;  /**< memory attribute of the
 						 I/O region */
 	struct metal_io_ops	ops;        /**< I/O region operations */
+	struct metal_list	list;       /**< linked list */
 };
 
 /**
@@ -97,7 +98,7 @@ struct metal_io_region {
 void
 metal_io_init(struct metal_io_region *io, void *virt,
 	      const metal_phys_addr_t *physmap, size_t size,
-	      unsigned page_shift, unsigned int mem_flags,
+	      unsigned int page_shift, unsigned int mem_flags,
 	      const struct metal_io_ops *ops);
 
 /**
@@ -132,7 +133,7 @@ static inline void *
 metal_io_virt(struct metal_io_region *io, unsigned long offset)
 {
 	return (io->virt != METAL_BAD_VA && offset < io->size
-		? (uint8_t *)io->virt + offset
+		? (void *)((uintptr_t)io->virt + offset)
 		: NULL);
 }
 
@@ -145,7 +146,8 @@ metal_io_virt(struct metal_io_region *io, unsigned long offset)
 static inline unsigned long
 metal_io_virt_to_offset(struct metal_io_region *io, void *virt)
 {
-	size_t offset = (uint8_t *)virt - (uint8_t *)io->virt;
+	size_t offset = (uintptr_t)virt - (uintptr_t)io->virt;
+
 	return (offset < io->size ? offset : METAL_BAD_OFFSET);
 }
 
@@ -163,7 +165,7 @@ metal_io_phys(struct metal_io_region *io, unsigned long offset)
 		unsigned long page = (io->page_shift >=
 				     sizeof(offset) * CHAR_BIT ?
 				     0 : offset >> io->page_shift);
-		return (io->physmap != NULL && offset < io->size
+		return (io->physmap && offset < io->size
 			? io->physmap[page] + (offset & io->page_mask)
 			: METAL_BAD_PHYS);
 	}
@@ -269,22 +271,28 @@ metal_io_write(struct metal_io_region *io, unsigned long offset,
 	       uint64_t value, memory_order order, int width)
 {
 	void *ptr = metal_io_virt(io, offset);
+
 	if (io->ops.write)
 		(*io->ops.write)(io, offset, value, order, width);
 	else if (ptr && sizeof(atomic_uchar) == width)
-		atomic_store_explicit((atomic_uchar *)ptr, value, order);
+		atomic_store_explicit((atomic_uchar *)ptr, (unsigned char)value,
+				      order);
 	else if (ptr && sizeof(atomic_ushort) == width)
-		atomic_store_explicit((atomic_ushort *)ptr, value, order);
+		atomic_store_explicit((atomic_ushort *)ptr,
+				      (unsigned short)value, order);
 	else if (ptr && sizeof(atomic_uint) == width)
-		atomic_store_explicit((atomic_uint *)ptr, value, order);
+		atomic_store_explicit((atomic_uint *)ptr, (unsigned int)value,
+				      order);
 	else if (ptr && sizeof(atomic_ulong) == width)
-		atomic_store_explicit((atomic_ulong *)ptr, value, order);
+		atomic_store_explicit((atomic_ulong *)ptr, (unsigned long)value,
+				      order);
 #ifndef NO_ATOMIC_64_SUPPORT
 	else if (ptr && sizeof(atomic_ullong) == width)
-		atomic_store_explicit((atomic_ullong *)ptr, value, order);
+		atomic_store_explicit((atomic_ullong *)ptr,
+				      (unsigned long long)value, order);
 #endif
 	else
-		metal_assert (0);
+		metal_assert(0);
 }
 
 #define metal_io_read8_explicit(_io, _ofs, _order)			\
@@ -332,7 +340,7 @@ metal_io_write(struct metal_io_region *io, unsigned long offset,
  * @return      On success, number of bytes read. On failure, negative value
  */
 int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
-	       void *restrict dst, int len);
+			void *restrict dst, int len);
 
 /**
  * @brief	Write a block into an I/O region.
@@ -343,7 +351,7 @@ int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
  * @return      On success, number of bytes written. On failure, negative value
  */
 int metal_io_block_write(struct metal_io_region *io, unsigned long offset,
-	       const void *restrict src, int len);
+			 const void *restrict src, int len);
 
 /**
  * @brief	fill a block of an I/O region.
@@ -354,7 +362,7 @@ int metal_io_block_write(struct metal_io_region *io, unsigned long offset,
  * @return      On success, number of bytes filled. On failure, negative value
  */
 int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
-	       unsigned char value, int len);
+		       unsigned char value, int len);
 
 #include <metal/system/@PROJECT_SYSTEM@/io.h>
 

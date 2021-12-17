@@ -1,11 +1,21 @@
-set (PROJECT_VER_MAJOR  0)
-set (PROJECT_VER_MINOR  1)
-set (PROJECT_VER_PATCH  0)
-set (PROJECT_VER        0.1.0)
+file(READ ${LIBMETAL_ROOT_DIR}/VERSION ver)
 
-if (NOT CMAKE_BUILD_TYPE)
+string(REGEX MATCH "VERSION_MAJOR = ([0-9]*)" _ ${ver})
+set(PROJECT_VERSION_MAJOR ${CMAKE_MATCH_1})
+
+string(REGEX MATCH "VERSION_MINOR = ([0-9]*)" _ ${ver})
+set(PROJECT_VERSION_MINOR ${CMAKE_MATCH_1})
+
+string(REGEX MATCH "VERSION_PATCH = ([0-9]*)" _ ${ver})
+set(PROJECT_VERSION_PATCH ${CMAKE_MATCH_1})
+
+set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+
+message(STATUS "libmetal version: ${PROJECT_VERSION} (${CMAKE_SOURCE_DIR})")
+
+if (NOT DEFINED CMAKE_BUILD_TYPE)
   set (CMAKE_BUILD_TYPE Debug)
-endif (NOT CMAKE_BUILD_TYPE)
+endif (NOT DEFINED CMAKE_BUILD_TYPE)
 message ("-- Build type:  ${CMAKE_BUILD_TYPE}")
 
 if (NOT CMAKE_INSTALL_LIBDIR)
@@ -26,6 +36,9 @@ if (NOT DEFINED MACHINE)
   set (MACHINE "Generic")
 endif (NOT DEFINED MACHINE)
 message ("-- Machine: ${MACHINE}")
+
+# handle if '-' in machine name
+string (REPLACE "-" "_" MACHINE ${MACHINE})
 
 if (NOT DEFINED PROJECT_SYSTEM)
   string (TOLOWER ${CMAKE_SYSTEM_NAME}      PROJECT_SYSTEM)
@@ -48,16 +61,15 @@ if (WITH_TESTS AND (${_host} STREQUAL ${_target}))
   option (WITH_TESTS_EXEC "Run test applications during build" ON)
 endif (WITH_TESTS AND (${_host} STREQUAL ${_target}))
 
+if (WITH_ZEPHYR)
+  option (WITH_ZEPHYR_LIB "Build libmetal as a zephyr library" OFF)
+endif (WITH_ZEPHYR)
+
 option (WITH_DEFAULT_LOGGER "Build with default logger" ON)
 
 option (WITH_DOC "Build with documentation" ON)
 
+option (WITH_VFIO "Build with VFIO enabled" OFF)
+
 set_property (GLOBAL PROPERTY "PROJECT_EC_FLAGS" -Wall -Werror -Wextra)
-
-check_include_files(xintc.h HAS_XINTC)
-if (HAS_XINTC STREQUAL "1")
-  get_property(PROJECT_EC_FLAGS DIRECTORY PROPERTY PROJECT_EC_FLAGS)
-  set(PROJECT_EC_FLAGS "${PROJECT_EC_FLAGS} -DHAS_XINTC" )
-endif(HAS_XINTC STREQUAL "1")
-
 # vim: expandtab:ts=2:sw=2:smartindent

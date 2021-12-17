@@ -1,10 +1,11 @@
-find_package (Doxygen)
+if (WITH_DOC)
+  find_package (Doxygen)
+endif (WITH_DOC)
 
 if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 
   check_include_files (stdatomic.h HAVE_STDATOMIC_H)
   check_include_files (linux/futex.h HAVE_FUTEX_H)
-  check_include_files (linux/dma-buf.h HAVE_DMA_BUF_H)
 
   find_package (HugeTLBFS)
   if (HUGETLBFS_FOUND)
@@ -13,15 +14,16 @@ if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
     add_definitions(-DHAVE_HUGETLBFS_H)
   endif(HUGETLBFS_FOUND)
 
-  find_package (LibSysFS REQUIRED)
-  collect (PROJECT_INC_DIRS "${LIBSYSFS_INCLUDE_DIR}")
-  collect (PROJECT_LIB_DEPS "${LIBSYSFS_LIBRARIES}")
+  find_package (LibUdev REQUIRED)
+  collect (PROJECT_INC_DIRS "${LIBUDEV_INCLUDE_DIR}")
+  collect (PROJECT_LIB_DEPS "${LIBUDEV_LIBRARIES}")
 
   find_package(Threads REQUIRED)
   collect (PROJECT_LIB_DEPS "${CMAKE_THREAD_LIBS_INIT}")
 
   find_package(LibRt REQUIRED)
   collect (PROJECT_LIB_DEPS "${LIBRT_LIBRARIES}")
+
 else ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 
   # TODO: fix for find_path() to detect stdatomic.h

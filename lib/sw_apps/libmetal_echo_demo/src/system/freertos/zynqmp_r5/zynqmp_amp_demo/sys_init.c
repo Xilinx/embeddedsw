@@ -1,8 +1,10 @@
-/*
- * Copyright (C) 2010 - 2021 Xilinx, Inc. All rights reserved.
+/******************************************************************************
+ *
+ * Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
- */
+ *
+ ******************************************************************************/
 
 #include <xparameters.h>
 #include <xil_cache.h>

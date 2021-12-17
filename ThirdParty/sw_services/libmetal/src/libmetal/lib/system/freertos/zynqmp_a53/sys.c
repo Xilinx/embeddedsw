@@ -33,7 +33,7 @@ unsigned int sys_irq_save_disable(void)
 {
 	unsigned int state = mfcpsr() & XIL_EXCEPTION_ALL;
 
-	if (XIL_EXCEPTION_ALL != state) {
+	if (state != XIL_EXCEPTION_ALL) {
 		Xil_ExceptionDisableMask(XIL_EXCEPTION_ALL);
 	}
 	return state;
@@ -68,7 +68,7 @@ void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 {
 	unsigned long section_offset;
 	unsigned long ttb_addr;
-#if defined (__aarch64__)
+#if defined(__aarch64__)
 	unsigned long ttb_size = (pa < 4*GB) ? 2*MB : 1*GB;
 #else
 	unsigned long ttb_size = 1*MB;
@@ -80,8 +80,10 @@ void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 	/* Ensure alignement on a section boundary */
 	pa &= ~(ttb_size-1UL);
 
-	/* Loop through entire region of memory (one MMU section at a time).
-	   Each section requires a TTB entry. */
+	/*
+	 * Loop through entire region of memory (one MMU section at a time).
+	 * Each section requires a TTB entry.
+	 */
 	for (section_offset = 0; section_offset < size; ) {
 		/* Calculate translation table entry for this memory section */
 		ttb_addr = (pa + section_offset);
@@ -89,9 +91,12 @@ void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 		/* Write translation table entry value to entry address */
 		Xil_SetTlbAttributes(ttb_addr, flags);
 
-#if defined (__aarch64__)
-		/* recalculate if we started below 4GB and going above in 64bit mode */ 
-		if ( ttb_addr >= 4*GB ) {
+#if defined(__aarch64__)
+		/*
+		 * recalculate if we started below 4GB and going above in
+		 * 64bit mode
+		 */
+		if (ttb_addr >= 4*GB) {
 			ttb_size = 1*GB;
 		}
 #endif

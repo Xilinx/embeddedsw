@@ -17,7 +17,8 @@ extern "C" {
 #endif
 
 /** \defgroup irq Interrupt Handling Interfaces
- *  @{ */
+ *  @{
+ */
 
 #include <metal/irq.h>
 #include <metal/list.h>
@@ -64,12 +65,14 @@ struct metal_irq {
 /** Libmetal interrupt controller structure */
 struct metal_irq_controller {
 	int irq_base; /**< Start of IRQ number of the range managed by
-		           the IRQ controller */
+		 	* the IRQ controller
+		 	*/
 	int irq_num; /**< Number of IRQs managed by the IRQ controller */
 	void *arg; /**< Argument to pass to interrupt controller function */
 	metal_irq_set_enable irq_set_enable; /**< function to set IRQ eanble */
 	metal_cntr_irq_register irq_register; /**< function to register IRQ
-						   handler */
+						* handler
+						*/
 	struct metal_list node; /**< list node */
 	struct metal_irq *irqs; /**< Array of IRQs managed by the controller */
 };
@@ -87,7 +90,7 @@ struct metal_irq_controller {
 		.irq_set_enable = _irq_set_enable, \
 		.irq_register = _irq_register, \
 		.irqs = _irqs,\
-	};
+	}
 
 /**
  * @brief	metal_irq_register_controller
@@ -115,7 +118,7 @@ int metal_irq_register_controller(struct metal_irq_controller *cntr);
 static inline
 int metal_irq_handle(struct metal_irq *irq_data, int irq)
 {
-	if (irq_data != NULL && irq_data->hd != NULL) {
+	if (irq_data && irq_data->hd) {
 		return irq_data->hd(irq, irq_data->arg);
 	} else {
 		return METAL_IRQ_NOT_HANDLED;

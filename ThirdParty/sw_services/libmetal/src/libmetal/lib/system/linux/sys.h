@@ -16,15 +16,16 @@
 #ifndef __METAL_LINUX_SYS__H__
 #define __METAL_LINUX_SYS__H__
 
-#include <errno.h>
 #include <fcntl.h>
 #include <libgen.h>
 #include <limits.h>
+#include <metal/errno.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <syslog.h>
+#include <string.h>
 #include <sys/file.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -34,7 +35,6 @@
 #include <unistd.h>
 
 #include <linux/futex.h>
-#include <sysfs/libsysfs.h>
 #ifdef HAVE_HUGETLBFS_H
 #include <hugetlbfs.h>
 #endif
@@ -77,9 +77,6 @@ struct metal_state {
 
 	/** system page shift. */
 	unsigned long		page_shift;
-
-	/** sysfs mount point. */
-	const char		*sysfs_path;
 
 	/** sysfs mount point. */
 	const char		*tmp_path;

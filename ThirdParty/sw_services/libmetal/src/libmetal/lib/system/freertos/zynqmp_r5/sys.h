@@ -29,12 +29,12 @@ extern "C" {
 
 static inline void sys_irq_enable(unsigned int vector)
 {
-        XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
+	XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
 }
 
 static inline void sys_irq_disable(unsigned int vector)
 {
-        XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
+	XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
 }
 
 #endif /* METAL_INTERNAL */

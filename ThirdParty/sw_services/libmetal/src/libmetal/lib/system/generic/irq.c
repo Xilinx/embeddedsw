@@ -9,7 +9,7 @@
  * @brief	generic libmetal irq definitions.
  */
 
-#include <errno.h>
+#include <metal/errno.h>
 #include <metal/irq.h>
 #include <metal/sys.h>
 #include <metal/log.h>

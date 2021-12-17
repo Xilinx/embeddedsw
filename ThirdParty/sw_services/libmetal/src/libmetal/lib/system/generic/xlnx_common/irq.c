@@ -9,7 +9,7 @@
  * @brief	generic libmetal Xilinx irq controller definitions.
  */
 
-#include <errno.h>
+#include <metal/errno.h>
 #include <metal/irq_controller.h>
 #include <metal/sys.h>
 #include <metal/log.h>
@@ -42,7 +42,7 @@ static METAL_IRQ_CONTROLLER_DECLARE(xlnx_irq_cntr,
 				    0, MAX_IRQS,
 				    NULL,
 				    metal_xlnx_irq_set_enable, NULL,
-				    irqs)
+				    irqs);
 
 /**
  * @brief default handler

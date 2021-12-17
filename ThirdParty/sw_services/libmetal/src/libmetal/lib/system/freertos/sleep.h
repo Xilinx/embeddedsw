@@ -25,8 +25,9 @@ extern "C" {
 
 static inline int __metal_sleep_usec(unsigned int usec)
 {
-	const TickType_t xDelay = usec / portTICK_PERIOD_MS;
-	vTaskDelay(xDelay);
+	const TickType_t xDelay = pdMS_TO_TICKS(usec/1000);
+
+	vTaskDelay(xDelay ? xDelay : 1);
 	return 0;
 }
 

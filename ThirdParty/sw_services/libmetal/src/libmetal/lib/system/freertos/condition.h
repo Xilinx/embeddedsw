@@ -24,10 +24,10 @@ extern "C" {
 
 struct metal_condition {
 	metal_mutex_t *m; /**< mutex.
-	                       The condition variable is attached to
-	                       this mutex when it is waiting.
-	                       It is also used to check correctness
-	                       in case there are multiple waiters. */
+			    * The condition variable is attached to this mutex
+			    * when it is waiting. It is also used to check
+			    * correctness in case there are multiple waiters.
+			    */
 
 	atomic_int v; /**< condition variable value. */
 };
@@ -39,7 +39,6 @@ static inline void metal_condition_init(struct metal_condition *cv)
 {
 	/* TODO: Implement condition variable for FreeRTOS */
 	(void)cv;
-	return;
 }
 
 static inline int metal_condition_signal(struct metal_condition *cv)
@@ -55,7 +54,6 @@ static inline int metal_condition_broadcast(struct metal_condition *cv)
 	(void)cv;
 	return 0;
 }
-
 
 #ifdef __cplusplus
 }

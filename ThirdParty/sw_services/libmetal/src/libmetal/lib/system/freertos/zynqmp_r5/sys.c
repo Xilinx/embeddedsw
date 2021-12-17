@@ -31,7 +31,7 @@ unsigned int sys_irq_save_disable(void)
 {
 	unsigned int state = mfcpsr() & XIL_EXCEPTION_ALL;
 
-	if (XIL_EXCEPTION_ALL != state) {
+	if (state != XIL_EXCEPTION_ALL) {
 		Xil_ExceptionDisableMask(XIL_EXCEPTION_ALL);
 	}
 	return state;
