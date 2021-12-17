@@ -37,6 +37,8 @@
 *       ma   08/30/2021 Added XPlmi_SsitWaitForDmaDone function for SSIT cases
 * 1.06  kpt  10/25/2021 Resolved Divide by Zero exception in XPlmi_MemSet
 *       am   11/24/2021 Fixed doxygen warning
+*       ma   12/17/2021 Do not check for SSIT errors in
+*                       XPlmi_SsitWaitForDmaDone function
 *
 * </pre>
 *
@@ -562,29 +564,11 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
 static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel)
 {
 	int Status = XST_FAILURE;
-	u32 SsitErrStatus;
-	u32 RegOffset = ((u32)(XCSUDMA_I_STS_OFFSET) +
-			((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)));
 
-	/* Wait for DMA done */
-	while ((XCsuDma_ReadReg((DmaPtr->Config.BaseAddress), RegOffset) &
-		(u32)(XCSUDMA_IXR_DONE_MASK)) != (XCSUDMA_IXR_DONE_MASK)) {
-		/* Check if there is an error from SSIT slaves */
-		SsitErrStatus = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
-		if ((SsitErrStatus & PMC_GLOBAL_SSIT_ERR_MASK) != 0x0U) {
-			XPlmi_Printf(DEBUG_GENERAL, "PDI load failed due to error from "
-					"Slave SLR. Error1 Status = 0x%x\r\n", SsitErrStatus);
-			/* Trigger SSIT error to all Slave SLRs */
-			XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR,
-					PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
-					PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
-			Status = (int)XPLMI_ERR_FROM_SSIT_SLAVE;
-			break;
-		}
-	}
-
-	if (Status != (int)XPLMI_ERR_FROM_SSIT_SLAVE) {
-		Status = XST_SUCCESS;
+	Status = XPmcDma_WaitForDoneTimeout(DmaPtr, Channel);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "SSIT Wait for DMA Done Timed Out\r\n");
+		Status = (int)XPLMI_ERR_FROM_SSIT_SLAVE;
 	}
 
 	return Status;
