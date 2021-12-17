@@ -71,6 +71,7 @@
 *       ma   08/30/2021 Modified XPlmi_ErrMgr function to handle errors in
 *                       SSIT Slave SLRs
 *       bsv  10/11/2021 Added boundary check before incrementing NumErrOuts
+* 1.07  ma   12/17/2021 Clear SSIT_ERR register during EM init
 *
 * </pre>
 *
@@ -1421,6 +1422,9 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 
 	/* Register Error module commands */
 	XPlmi_ErrModuleInit();
+
+	/* Clear SSIT_ERR register to stop error propagation to other SLRs */
+	XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, 0x0U);
 
 	/* Save FW_ERR register value to RTCA and clear it */
 	FwErr = XPlmi_In32(PMC_GLOBAL_PMC_FW_ERR);
