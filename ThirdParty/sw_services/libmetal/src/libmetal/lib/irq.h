@@ -17,7 +17,8 @@ extern "C" {
 #endif
 
 /** \defgroup irq Interrupt Handling Interfaces
- *  @{ */
+ *  @{
+ */
 
 #include <metal/list.h>
 #include <stdlib.h>

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <errno.h>
+#include <metal/errno.h>
 #include <metal/irq.h>
 #include <metal/irq_controller.h>
 #include <metal/list.h>
@@ -61,9 +61,11 @@ int metal_irq_register_controller(struct metal_irq_controller *cntr)
 		}
 	}
 
-	/* Allocate IRQ numbers which are not yet used by any IRQ
-	 * controllers.*/
-	irq_base = metal_irq_allocate(cntr->irq_base , cntr->irq_num);
+	/*
+	 * Allocate IRQ numbers which are not yet used by any IRQ
+	 * controllers.
+	 */
+	irq_base = metal_irq_allocate(cntr->irq_base, cntr->irq_num);
 	if (irq_base == METAL_IRQ_ANY) {
 		return -EINVAL;
 	}
@@ -83,11 +85,11 @@ static struct metal_irq_controller *metal_irq_get_controller(int irq)
 
 		cntr = (struct metal_irq_controller *)
 		       metal_container_of(node, struct metal_irq_controller,
-				          node);
+					  node);
 		irq_base = cntr->irq_base;
 		irq_end = irq_base + cntr->irq_num;
 		if (irq >= irq_base && irq < irq_end) {
-		       return cntr;
+			return cntr;
 		}
 	}
 	return NULL;

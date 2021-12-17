@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
  *
@@ -14,55 +13,8 @@
 #include <metal/sys.h>
 #include <metal/utilities.h>
 #include <metal/irq.h>
-
-#define MAX_DRIVERS	64
-
-struct linux_bus;
-struct linux_device;
-
-struct linux_driver {
-	const char		*drv_name;
-	const char		*mod_name;
-	const char		*cls_name;
-	struct sysfs_driver	*sdrv;
-	int			(*dev_open)(struct linux_bus *lbus,
-					    struct linux_device *ldev);
-	void			(*dev_close)(struct linux_bus *lbus,
-					     struct linux_device *ldev);
-	void			(*dev_irq_ack)(struct linux_bus *lbus,
-					     struct linux_device *ldev,
-					     int irq);
-	int			(*dev_dma_map)(struct linux_bus *lbus,
-						struct linux_device *ldev,
-						uint32_t dir,
-						struct metal_sg *sg_in,
-						int nents_in,
-						struct metal_sg *sg_out);
-	void			(*dev_dma_unmap)(struct linux_bus *lbus,
-						struct linux_device *ldev,
-						uint32_t dir,
-						struct metal_sg *sg,
-						int nents);
-};
-
-struct linux_bus {
-	struct metal_bus	bus;
-	const char		*bus_name;
-	struct linux_driver	drivers[MAX_DRIVERS];
-	struct sysfs_bus	*sbus;
-};
-
-struct linux_device {
-	struct metal_device		device;
-	char				dev_name[PATH_MAX];
-	char				dev_path[PATH_MAX];
-	char				cls_path[PATH_MAX];
-	metal_phys_addr_t		region_phys[METAL_MAX_DEVICE_REGIONS];
-	struct linux_driver		*ldrv;
-	struct sysfs_device		*sdev;
-	struct sysfs_attribute		*override;
-	int				fd;
-};
+#include <byteswap.h>
+#include "vfio.h"
 
 static struct linux_bus *to_linux_bus(struct metal_bus *bus)
 {
@@ -74,68 +26,132 @@ static struct linux_device *to_linux_device(struct metal_device *device)
 	return metal_container_of(device, struct linux_device, device);
 }
 
+static int metal_read_attr(char *attr_path, unsigned long *value)
+{
+	int length, fd;
+	char *val;
+	char buf[1024];
+
+	if ((fd = open(attr_path, O_RDONLY)) < 0)
+		return -errno;
+
+	length = read(fd, buf, 1024);
+	if (length <= 0) {
+		int errsv = errno;
+		close(fd);
+		return -errsv;
+	}
+
+	val = (char  *)malloc(length + 1);
+	if (!val)
+		return -ENOMEM;
+
+	memcpy(val, buf, length);
+	val[length] = '\0';
+	*value = strtoul(val, NULL, 0);
+
+	close(fd);
+	free(val);
+
+	return 0;
+}
+
 static int metal_uio_read_map_attr(struct linux_device *ldev, unsigned index,
 				   const char *name, unsigned long *value)
 {
 	const char *cls = ldev->cls_path;
-	struct sysfs_attribute *attr;
-	char path[SYSFS_PATH_MAX];
+	char path[PATH_MAX];
 	int result;
 
-	result = snprintf(path, sizeof(path), "%s/maps/map%u/%s", cls, index, name);
-	if (result >= (int)sizeof(path))
+	result = snprintf(path, sizeof(path),
+			  "%s/maps/map%u/%s", cls, index, name);
+	if (result >= (int)sizeof(path)) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: %d: path exceeding %d bytes\n",
+			   __func__, __LINE__, sizeof(path));
 		return -EOVERFLOW;
-	attr = sysfs_open_attribute(path);
-	if (!attr || sysfs_read_attribute(attr) != 0)
-		return -errno;
+	}
 
-	*value = strtoul(attr->value, NULL, 0);
+	if (access(path, F_OK))
+		return -errno;
+	result = metal_read_attr(path, value);
+	metal_log(METAL_LOG_DEBUG, "%s():%u %s = %#lx\n",
+		  __func__, __LINE__, name, *value);
+	if (result < 0) {
+		metal_log(METAL_LOG_WARNING,
+			  "metal_read_attr( %s ) failed: %d\n",
+			  path, result);
+		return result;
+	}
+
 	return 0;
 }
 
 static int metal_uio_dev_bind(struct linux_device *ldev,
 			      struct linux_driver *ldrv)
 {
-	struct sysfs_attribute *attr;
+	const char *drv_name;
+	char command[PATH_MAX];
+	char path[PATH_MAX];
 	int result;
 
-	if (strcmp(ldev->sdev->driver_name, ldrv->drv_name) == 0)
-		return 0;
+	drv_name = udev_device_get_driver(ldev->udev_device);
+	if (!drv_name || strcmp(drv_name, ldrv->drv_name)) {
 
-	if (strcmp(ldev->sdev->driver_name, SYSFS_UNKNOWN) != 0) {
-		metal_log(METAL_LOG_INFO, "device %s in use by driver %s\n",
-			  ldev->dev_name, ldev->sdev->driver_name);
-		return -EBUSY;
-	}
+		if (drv_name != NULL ) {
+			metal_log(METAL_LOG_ERROR,
+				  "Bound to incompatible driver: %s expected: %s\n",
+				  drv_name, ldrv->drv_name);
 
-	attr = sysfs_get_device_attr(ldev->sdev, "driver_override");
-	if (!attr) {
-		metal_log(METAL_LOG_ERROR, "device %s has no override\n",
-			  ldev->dev_name);
-		return -errno;
-	}
+			result = snprintf(path, sizeof(path),
+					  "/sys/bus/platform/devices/%s/driver",
+					  ldev->dev_name);
+			if (result >= (int)sizeof(path)) {
+				metal_log(METAL_LOG_ERROR,
+					  "%s: %d: path exceeding %d bytes\n",
+					  __func__, __LINE__, sizeof(path));
+				return -EOVERFLOW;
+			}
 
-	result = sysfs_write_attribute(attr, ldrv->drv_name,
-				       strlen(ldrv->drv_name));
-	if (result) {
-		metal_log(METAL_LOG_ERROR, "failed to set override on %s\n",
-			  ldev->dev_name);
-		return -errno;
-	}
-	ldev->override = attr;
+			if (!metal_check_file_available(path)) {
+				result = snprintf(command, sizeof(command),
+						"%s/unbind", path);
+				if (result >= (int)sizeof(command))
+					return -EOVERFLOW;
 
-	attr = sysfs_get_driver_attr(ldrv->sdrv, "bind");
-	if (!attr) {
-		metal_log(METAL_LOG_ERROR, "driver %s has no bind\n", ldrv->drv_name);
-		return -ENOTSUP;
-	}
+				result = metal_linux_exec_cmd(ldev->dev_name,
+							      command);
+				if (result)
+					return result;
+			}
+		}
 
-	result = sysfs_write_attribute(attr, ldev->dev_name,
-				       strlen(ldev->dev_name));
-	if (result) {
-		metal_log(METAL_LOG_ERROR, "failed to bind %s to %s\n",
-			  ldev->dev_name, ldrv->drv_name);
-		return -errno;
+		result = snprintf(command, sizeof(command),
+				  "/sys/bus/platform/devices/%s/driver_override",
+				  ldev->dev_name);
+		if (result >= (int)sizeof(command)) {
+			metal_log(METAL_LOG_ERROR,
+				  "%s: %d: command exceeding %d bytes\n",
+				  __func__, __LINE__, sizeof(command));
+			return -EOVERFLOW;
+		}
+
+		result = metal_linux_exec_cmd(ldrv->drv_name, command);
+		if (result)
+			return result;
+
+		result = snprintf(command, sizeof(command),
+				  "/sys/bus/platform/drivers_probe");
+		if (result >= (int)sizeof(command)) {
+			metal_log(METAL_LOG_ERROR,
+				  "%s: %d: command exceeding %d bytes\n",
+				  __func__, __LINE__, sizeof(command));
+			return -EOVERFLOW;
+		}
+
+		result = metal_linux_exec_cmd(ldev->dev_name, command);
+		if (result)
+			return result;
 	}
 
 	metal_log(METAL_LOG_DEBUG, "bound device %s to driver %s\n",
@@ -146,59 +162,104 @@ static int metal_uio_dev_bind(struct linux_device *ldev,
 
 static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 {
-	char *instance, path[SYSFS_PATH_MAX];
+	char path[PATH_MAX];
 	struct linux_driver *ldrv = ldev->ldrv;
-	unsigned long *phys, offset=0, size=0;
+	unsigned long *phys, offset = 0, size = 0;
 	struct metal_io_region *io;
-	struct dlist *dlist;
+	const char *syspath_ptr;
+	struct udev_enumerate *enumerate;
+	struct udev_list_entry *list_entry;
+	struct udev_device *device;
+	const char *sys_name;
+	const char *dev_name;
+	const char *str;
 	int result, i;
 	void *virt;
 	int irq_info;
 
-
-	ldev->fd = -1;
-	ldev->device.irq_info = (void *)-1;
-
-	ldev->sdev = sysfs_open_device(lbus->bus_name, ldev->dev_name);
-	if (!ldev->sdev) {
-		metal_log(METAL_LOG_ERROR, "device %s:%s not found\n",
-			  lbus->bus_name, ldev->dev_name);
+	ldev->udev = udev_new();
+	if (!ldev->udev) {
+		metal_log(METAL_LOG_ERROR, "%s: failed to allocated udev\n",
+			  __func__);
 		return -ENODEV;
 	}
-	metal_log(METAL_LOG_DEBUG, "opened sysfs device %s:%s\n",
-		  lbus->bus_name, ldev->dev_name);
+
+	ldev->udev_device = udev_device_new_from_subsystem_sysname(ldev->udev,
+				lbus->bus_name, ldev->dev_name);
+	if (!ldev->udev_device) {
+		udev_unref(ldev->udev);
+		metal_log(METAL_LOG_ERROR, "%s: udev_device %s:%s not found\n",
+			  __func__, lbus->bus_name, ldev->dev_name);
+		return -ENODEV;
+	}
+
+	syspath_ptr = udev_device_get_syspath(ldev->udev_device);
+	result = snprintf(ldev->sys_path, sizeof(ldev->sys_path),
+			  "%s", syspath_ptr);
+	if (result >= (int)sizeof(ldev->sys_path)) {
+		udev_device_unref(ldev->udev_device);
+		udev_unref(ldev->udev);
+		ldev->udev_device = NULL;
+		ldev->udev = NULL;
+		metal_log(METAL_LOG_ERROR,
+			  "%s: %d: path exceeding %d bytes\n",
+			  __func__, __LINE__, sizeof(ldev->sys_path));
+		return -EOVERFLOW;
+	}
 
 	result = metal_uio_dev_bind(ldev, ldrv);
-	if (result)
+	if (result) {
+		if (ldev->udev_device) {
+			udev_device_unref(ldev->udev_device);
+			udev_unref(ldev->udev);
+			ldev->udev_device = NULL;
+			ldev->udev = NULL;
+		}
+
 		return result;
+	}
 
-	result = snprintf(path, sizeof(path), "%s/uio", ldev->sdev->path);
-	if (result >= (int)sizeof(path))
+	result = snprintf(path, sizeof(path), "%s/uio", ldev->sys_path);
+	if (result >= (int)sizeof(path)) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: %d: path exceeding %d bytes\n",
+			  __func__, __LINE__, sizeof(path));
 		return -EOVERFLOW;
-	dlist = sysfs_open_directory_list(path);
-	if (!dlist) {
-		metal_log(METAL_LOG_ERROR, "failed to scan class path %s\n",
-			  path);
-		return -errno;
 	}
 
-	dlist_for_each_data(dlist, instance, char) {
-		result = snprintf(ldev->cls_path, sizeof(ldev->cls_path),
-				  "%s/%s", path, instance);
-		if (result >= (int)sizeof(ldev->cls_path))
-			return -EOVERFLOW;
-		result = snprintf(ldev->dev_path, sizeof(ldev->dev_path),
-				  "/dev/%s", instance);
-		if (result >= (int)sizeof(ldev->dev_path))
-			return -EOVERFLOW;
-		break;
-	}
-	sysfs_close_list(dlist);
+	enumerate = udev_enumerate_new(ldev->udev);
+	udev_enumerate_add_match_subsystem(enumerate, "uio");
+	udev_enumerate_scan_devices(enumerate);
 
-	if (sysfs_path_is_dir(ldev->cls_path) != 0) {
-		metal_log(METAL_LOG_ERROR, "invalid device class path %s\n",
-			  ldev->cls_path);
-		return -ENODEV;
+	udev_list_entry_foreach(list_entry, udev_enumerate_get_list_entry(enumerate)) {
+
+		device = udev_device_new_from_syspath(udev_enumerate_get_udev(enumerate),
+				udev_list_entry_get_name(list_entry));
+		str = udev_device_get_syspath(device);
+		if ( strstr(str, path) ) {
+			sys_name = udev_device_get_syspath(device);
+			dev_name = udev_device_get_devnode(device);
+
+			result = snprintf(ldev->cls_path, sizeof(ldev->cls_path),
+					"%s", sys_name);
+			if (result >= (int)sizeof(ldev->cls_path)) {
+				metal_log(METAL_LOG_ERROR,
+					  "%s: %d: path exceeding %d bytes\n",
+					  __func__, __LINE__, sizeof(ldev->cls_path));
+				return -EOVERFLOW;
+			}
+
+			result = snprintf(ldev->dev_path, sizeof(ldev->dev_path),
+					"%s", dev_name);
+			if (result >= (int)sizeof(ldev->dev_path)) {
+			metal_log(METAL_LOG_ERROR,
+				  "%s: %d: path exceeding %d bytes\n",
+				  __func__, __LINE__, sizeof(ldev->dev_path));
+				return -EOVERFLOW;
+			}
+		}
+
+		udev_device_unref(device);
 	}
 
 	i = 0;
@@ -233,7 +294,7 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 		result = (result ? result :
 			 metal_uio_read_map_attr(ldev, i, "size", &size));
 		result = (result ? result :
-			 metal_map(ldev->fd, offset, size, 0, 0, &virt));
+			 metal_map(ldev->fd, i * getpagesize(), size, 0, 0, &virt));
 		if (!result) {
 			io = &ldev->device.regions[ldev->device.num_regions];
 			metal_io_init(io, virt, phys, size, -1, 0, NULL);
@@ -260,19 +321,61 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 static void metal_uio_dev_close(struct linux_bus *lbus,
 				struct linux_device *ldev)
 {
-	(void)lbus;
+	char command[PATH_MAX];
+	char path[PATH_MAX];
+	int result;
 
-	if (ldev->override) {
-		sysfs_write_attribute(ldev->override, "", 1);
-		ldev->override = NULL;
+	(void)lbus;
+	unsigned int i;
+
+	for (i = 0; i < ldev->device.num_regions; i++) {
+		metal_unmap(ldev->device.regions[i].virt,
+			    ldev->device.regions[i].size);
 	}
-	if (ldev->sdev) {
-		sysfs_close_device(ldev->sdev);
-		ldev->sdev = NULL;
+	if (ldev->udev_device) {
+		udev_device_unref(ldev->udev_device);
+		udev_unref(ldev->udev);
+		ldev->udev_device = NULL;
+		ldev->udev = NULL;
 	}
+
 	if (ldev->fd >= 0) {
 		close(ldev->fd);
 	}
+
+	result = snprintf(path, sizeof(path),
+			  "/sys/bus/platform/devices/%s/driver", ldev->dev_name);
+	if (result >= (int)sizeof(path)) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: %d: Path exceeding %d bytes\n",
+			  __func__, __LINE__, sizeof(path));
+		return;
+	}
+
+	if (!metal_check_file_available(path)) {
+		result = snprintf(command, PATH_MAX,
+				  "%s/unbind", path);
+		if (result >= (int)PATH_MAX) {
+			metal_log(METAL_LOG_ERROR,
+				  "%s: %d: command exceeding %d bytes\n",
+				  __func__, __LINE__, PATH_MAX);
+			return;
+		}
+
+		metal_linux_exec_cmd(ldev->dev_name, command);
+	}
+
+	result = snprintf(command, PATH_MAX,
+			  "/sys/bus/platform/devices/%s/driver_override",
+			  ldev->dev_name);
+	if (result >= (int)PATH_MAX) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: %d: command exceeding %d bytes\n",
+			  __func__, __LINE__, PATH_MAX);
+		return;
+	}
+
+	metal_linux_exec_cmd(" ", command);
 }
 
 static void metal_uio_dev_irq_ack(struct linux_bus *lbus,
@@ -338,23 +441,32 @@ static int metal_uio_dev_dma_map(struct linux_bus *lbus,
 }
 
 static void metal_uio_dev_dma_unmap(struct linux_bus *lbus,
-				 struct linux_device *ldev,
-				 uint32_t dir,
-				 struct metal_sg *sg,
-				 int nents)
+				    struct linux_device *ldev,
+				    uint32_t dir,
+				    struct metal_sg *sg,
+				    int nents)
 {
 	(void) lbus;
 	(void) ldev;
 	(void) dir;
 	(void) sg;
 	(void) nents;
-	return;
 }
 
 static struct linux_bus linux_bus[] = {
 	{
 		.bus_name	= "platform",
 		.drivers = {
+			{
+				.drv_name = "vfio-platform",
+				.mod_name = "vfio-platform",
+				.cls_name = "vfio",
+				.dev_open = metal_vfio_dev_open,
+				.dev_close = metal_vfio_dev_close,
+				.dev_irq_ack  = metal_vfio_dev_irq_ack,
+				.dev_dma_map = metal_vfio_dev_dma_map,
+				.dev_dma_unmap = metal_vfio_dev_dma_unmap,
+			},
 			{
 				.drv_name  = "uio_pdrv_genirq",
 				.mod_name  = "uio_pdrv_genirq",
@@ -417,30 +529,83 @@ static int metal_linux_dev_open(struct metal_bus *bus,
 	struct linux_bus *lbus = to_linux_bus(bus);
 	struct linux_device *ldev = NULL;
 	struct linux_driver *ldrv;
+	struct udev_device *udev_device;
+	struct udev *udev;
+	const char *drv_name;
 	int error;
 
 	ldev = malloc(sizeof(*ldev));
 	if (!ldev)
 		return -ENOMEM;
 
+	/* Reset device data. */
+	memset(ldev, 0, sizeof(*ldev));
+	strncpy(ldev->dev_name, dev_name, sizeof(ldev->dev_name) - 1);
+	ldev->fd = -1;
+	ldev->device.irq_info = (void *)-1;
+	ldev->device.bus = bus;
+
+	udev = udev_new();
+	if (!udev) {
+		metal_log(METAL_LOG_ERROR, "%s: failed to allocated udev\n",
+			  __func__);
+		return -ENODEV;
+	}
+
+	udev_device = udev_device_new_from_subsystem_sysname(udev,
+				lbus->bus_name, ldev->dev_name);
+	if (!udev_device) {
+		udev_unref(udev);
+		metal_log(METAL_LOG_ERROR, "%s: udev_device %s:%s not found\n",
+			  __func__, lbus->bus_name, ldev->dev_name);
+		return -ENODEV;
+	}
+
+	drv_name = udev_device_get_driver(udev_device);
+
+	/* Check if device has binded with any allowed drivers */
+	for_each_linux_driver(lbus, ldrv) {
+
+		metal_log(METAL_LOG_INFO, "%s: checking driver %s,%s,%s\n",
+			  __func__, ldrv->drv_name, ldev->dev_name, drv_name);
+
+		/* Break if no driver name is found */
+		if (!drv_name)
+			break;
+
+		if (!strcmp(drv_name, ldrv->drv_name)) {
+			metal_log(METAL_LOG_INFO, "%s: driver %s bound to %s\n",
+				  __func__, drv_name, ldev->dev_name);
+
+			ldev->ldrv = ldrv;
+			error = ldrv->dev_open(lbus, ldev);
+			if (error) {
+				metal_log(METAL_LOG_ERROR,
+					  "%s: failed to open %s\n",
+					  __func__, ldev->dev_name);
+				ldrv->dev_close(lbus, ldev);
+				return -ENODEV;
+			} else {
+				*device = &ldev->device;
+				(*device)->name = ldev->dev_name;
+
+				metal_list_add_tail(&bus->devices,
+						    &(*device)->node);
+				return 0;
+			}
+		}
+	}
+
+	udev_device_unref(udev_device);
+	udev_unref(udev);
+
 	for_each_linux_driver(lbus, ldrv) {
 
 		/* Check if we have a viable driver. */
-		if (!ldrv->sdrv || !ldrv->dev_open)
+		if ((ldrv->is_drv_ready == false) || !ldrv->dev_open)
 			continue;
 
-		/* Allocate a linux device if we haven't already. */
-		if (!ldev)
-			ldev = malloc(sizeof(*ldev));
-		if (!ldev)
-			return -ENOMEM;
-
-		/* Reset device data. */
-		memset(ldev, 0, sizeof(*ldev));
-		strncpy(ldev->dev_name, dev_name, sizeof(ldev->dev_name) - 1);
-		ldev->fd = -1;
 		ldev->ldrv = ldrv;
-		ldev->device.bus = bus;
 
 		/* Try and open the device. */
 		error = ldrv->dev_open(lbus, ldev);
@@ -479,13 +644,8 @@ static void metal_linux_bus_close(struct metal_bus *bus)
 	struct linux_driver *ldrv;
 
 	for_each_linux_driver(lbus, ldrv) {
-		if (ldrv->sdrv)
-			sysfs_close_driver(ldrv->sdrv);
-		ldrv->sdrv = NULL;
+		ldrv->is_drv_ready = false;
 	}
-
-	sysfs_close_bus(lbus->sbus);
-	lbus->sbus = NULL;
 }
 
 static void metal_linux_dev_irq_ack(struct metal_bus *bus,
@@ -513,10 +673,10 @@ static int metal_linux_dev_dma_map(struct metal_bus *bus,
 }
 
 static void metal_linux_dev_dma_unmap(struct metal_bus *bus,
-			        struct metal_device *device,
-			        uint32_t dir,
-			        struct metal_sg *sg,
-			        int nents)
+				      struct metal_device *device,
+				      uint32_t dir,
+				      struct metal_sg *sg,
+				      int nents)
 {
 	struct linux_device *ldev = to_linux_device(device);
 	struct linux_bus *lbus = to_linux_bus(bus);
@@ -544,28 +704,49 @@ static int metal_linux_register_bus(struct linux_bus *lbus)
 static int metal_linux_probe_driver(struct linux_bus *lbus,
 				    struct linux_driver *ldrv)
 {
-	char command[256];
-	int ret;
+	char command[PATH_MAX];
+	int ret, fd;
 
-	ldrv->sdrv = sysfs_open_driver(lbus->bus_name, ldrv->drv_name);
+	/* Check if the required driver is probed */
+	ret = snprintf(command, sizeof(command),
+		       "/sys/bus/%s/drivers/%s", lbus->bus_name, ldrv->mod_name);
+	if (ret >= (int)sizeof(command)) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: %d: command exceeding %d bytes\n",
+			  __func__, __LINE__, sizeof(command));
+		return -EOVERFLOW;
+	}
+
+	fd = open(command, O_RDONLY);
+	if ( fd < 0 ) {
+		ldrv->is_drv_ready = false;
+	} else {
+		close(fd);
+		ldrv->is_drv_ready = true;
+	}
 
 	/* Try probing the module and then open the driver. */
-	if (!ldrv->sdrv) {
+	if (ldrv->is_drv_ready == false) {
 		ret = snprintf(command, sizeof(command),
 			       "modprobe %s > /dev/null 2>&1", ldrv->mod_name);
-		if (ret >= (int)sizeof(command))
+		if (ret >= (int)sizeof(command)) {
+			metal_log(METAL_LOG_ERROR,
+				  "%s: %d: command exceeding %d bytes\n",
+				  __func__, __LINE__, sizeof(command));
 			return -EOVERFLOW;
+		}
+
 		ret = system(command);
 		if (ret < 0) {
 			metal_log(METAL_LOG_WARNING,
 				  "%s: executing system command '%s' failed.\n",
 				  __func__, command);
 		}
-		ldrv->sdrv = sysfs_open_driver(lbus->bus_name, ldrv->drv_name);
+		ldrv->is_drv_ready = true;
 	}
 
 	/* Try sudo probing the module and then open the driver. */
-	if (!ldrv->sdrv) {
+	if (ldrv->is_drv_ready == false) {
 		ret = snprintf(command, sizeof(command),
 			       "sudo modprobe %s > /dev/null 2>&1", ldrv->mod_name);
 		if (ret >= (int)sizeof(command))
@@ -576,11 +757,11 @@ static int metal_linux_probe_driver(struct linux_bus *lbus,
 				  "%s: executing system command '%s' failed.\n",
 				  __func__, command);
 		}
-		ldrv->sdrv = sysfs_open_driver(lbus->bus_name, ldrv->drv_name);
+		ldrv->is_drv_ready = true;
 	}
 
 	/* If all else fails... */
-	return ldrv->sdrv ? 0 : -ENODEV;
+	return (ldrv->is_drv_ready == true)? 0 : -ENODEV;
 }
 
 static void metal_linux_bus_close(struct metal_bus *bus);
@@ -588,11 +769,22 @@ static void metal_linux_bus_close(struct metal_bus *bus);
 static int metal_linux_probe_bus(struct linux_bus *lbus)
 {
 	struct linux_driver *ldrv;
-	int ret, error = -ENODEV;
+	int ret, fd, error = -ENODEV;
+	char path[PATH_MAX];
 
-	lbus->sbus = sysfs_open_bus(lbus->bus_name);
-	if (!lbus->sbus)
+	ret = snprintf(path, sizeof(path), "/sys/bus/%s", lbus->bus_name);
+	if (ret >= (int)sizeof(path)) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: %d: path greater than %d bytes.\n",
+			  __func__, __LINE__, sizeof(path));
+		return -EOVERFLOW;
+	}
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
 		return -ENODEV;
+	else
+		close(fd);
 
 	for_each_linux_driver(lbus, ldrv) {
 		ret = metal_linux_probe_driver(lbus, ldrv);
@@ -641,24 +833,156 @@ int metal_generic_dev_sys_open(struct metal_device *dev)
 	return 0;
 }
 
+int metal_linux_exec_cmd(const char *cmd_str, char *cmd_path)
+{
+	int fd, ret;
+
+	fd = open(cmd_path, O_WRONLY);
+	if (fd < 0) {
+		metal_log(METAL_LOG_ERROR, "%s: %d: open(%s): errno=%d\n",
+			  __func__, __LINE__, cmd_path, errno);
+		return -EINVAL;
+	}
+
+	ret = write(fd, cmd_str, strlen(cmd_str));
+	if (ret < 0) {
+		metal_log(METAL_LOG_WARNING,
+			  "%s: %d: write '%s' to %s: errno=%d\n",
+			  __func__, __LINE__, cmd_str, cmd_path, errno);
+		return -EINVAL;
+	}
+
+	close(fd);
+
+	return 0;
+}
+
+int metal_devname_from_addr(unsigned long addr, char *dev_name)
+{
+	struct udev_enumerate *udev_enumerate;
+	struct udev_list_entry *list_entry;
+	struct udev_device *device;
+	struct udev *udev;
+	const char *sys_path;
+	const char *sys_name;
+	unsigned long value;
+	char path[PATH_MAX];
+	int fd, ret;
+
+	udev = udev_new();
+	udev_enumerate = udev_enumerate_new(udev);
+	udev_enumerate_scan_devices(udev_enumerate);
+	udev_list_entry_foreach(list_entry,
+				udev_enumerate_get_list_entry(udev_enumerate)) {
+		device = udev_device_new_from_syspath(udev_enumerate_get_udev(udev_enumerate),
+				udev_list_entry_get_name(list_entry));
+		if (device != NULL) {
+			sys_path = udev_device_get_syspath(device);
+
+			ret = snprintf(path, sizeof(path), "%s/of_node/%s",
+				       sys_path, "reg");
+			if (ret >= (int)sizeof(path)) {
+				metal_log(METAL_LOG_ERROR,
+					  "%s: %d: path greater than %d bytes.\n",
+					  __func__, __LINE__, sizeof(path));
+				continue;
+			}
+
+			fd = open(path, O_RDONLY);
+			if (fd < 0)
+				continue;
+
+			ret = read(fd, &value, sizeof(unsigned long));
+			if (ret < 0) {
+				return ret;
+			} else {
+				if (ret > 4)
+					value = bswap_64(value);
+				else
+					value = bswap_32(value);
+			}
+
+			if (value == addr) {
+				sys_name = udev_device_get_sysname(device);
+				strcpy(dev_name, sys_name);
+				udev_device_unref(device);
+				udev_unref(udev);
+				return 0;
+			}
+
+			udev_device_unref(device);
+		}
+        }
+
+	udev_unref(udev);
+	dev_name = NULL;
+	return -EINVAL;
+}
+
 int metal_linux_get_device_property(struct metal_device *device,
 				    const char *property_name,
 				    void *output, int len)
 {
-	int fd = 0;
-	int status = 0;
+	int fd = 0 , status = 0, result = 0;
 	const int flags = O_RDONLY;
 	const int mode = S_IRUSR | S_IRGRP | S_IROTH;
 	struct linux_device *ldev = to_linux_device(device);
 	char path[PATH_MAX];
 
-	snprintf(path, sizeof(path), "%s/of_node/%s",
-			 ldev->sdev->path, property_name);
+	result = snprintf(path, sizeof(path), "%s/of_node/%s",
+			  ldev->sys_path, property_name);
+	if (result >= (int)sizeof(path)) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: %d: path greater than %d bytes.\n",
+			  __func__, __LINE__, sizeof(path));
+		return -EOVERFLOW;
+	}
+
 	fd = open(path, flags, mode);
 	if (fd < 0)
 		return -errno;
-	status = read(fd, output, len);
+	if (read(fd, output, len) < 0) {
+		status = -errno;
+		close(fd);
+		return status;
+	}
 
+	status = close(fd);
 	return status < 0 ? -errno : 0;
 }
 
+/* Set the device's private data */
+void metal_device_set_pdata(struct linux_device *device, void *pdata)
+{
+	device->priv_data = pdata;
+}
+
+/* Set the device's DMA addressing capability limit */
+void metal_device_set_dmacap(struct metal_device *device, int val) {
+	struct linux_device *ptr;
+	ptr = metal_container_of(device, struct linux_device, device);
+	ptr->dma_cap = val;
+}
+
+/* Get the device's DMA addressing capability limit */
+int metal_device_get_dmacap(struct metal_device *device) {
+	struct linux_device *ptr;
+	ptr = metal_container_of(device, struct linux_device, device);
+	return ptr->dma_cap;
+}
+
+int metal_check_file_available(char *path)
+{
+	int fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0) {
+		/* File unavailable */
+		return -EINVAL;
+	} else {
+		/* File available */
+		close(fd);
+	}
+
+	return 0;
+}

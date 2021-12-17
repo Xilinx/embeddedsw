@@ -17,7 +17,8 @@ extern "C" {
 #endif
 
 /** \defgroup soft irq Interrupt Handling Interfaces
- *  @{ */
+ *  @{
+ */
 
 #include <metal/irq.h>
 
@@ -28,14 +29,14 @@ extern "C" {
  *
  * @return 0 on success, or negative value for failure
  */
-int metal_softirq_init();
+int metal_softirq_init(void);
 
 /**
  * @brief	metal_softirq_dispatch
  *
  * Dispatch the pending soft IRQs
  */
-void metal_softirq_dispatch();
+void metal_softirq_dispatch(void);
 
 /**
  * @brief	metal_softirq_allocate

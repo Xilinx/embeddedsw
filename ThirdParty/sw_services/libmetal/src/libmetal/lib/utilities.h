@@ -21,7 +21,8 @@ extern "C" {
 #endif
 
 /** \defgroup utilities Simple Utilities
- *  @{ */
+ *  @{
+ */
 
 /** Marker for unused function arguments/variables. */
 #define metal_unused(x)	do { (x) = (x); } while (0)
@@ -64,7 +65,7 @@ extern "C" {
 
 /** Compute offset of a field within a structure. */
 #define metal_offset_of(structure, member)		\
-	((uintptr_t) &(((structure *) 0)->member))
+	((uintptr_t)&(((structure *)0)->member))
 
 /** Compute pointer to a structure given a pointer to one of its fields. */
 #define metal_container_of(ptr, structure, member)	\
@@ -104,9 +105,10 @@ metal_bitmap_next_set_bit(unsigned long *bitmap, unsigned int start,
 			  unsigned int max)
 {
 	unsigned int bit;
+
 	for (bit = start;
 	     bit < max && !metal_bitmap_is_bit_set(bitmap, bit);
-	     bit ++)
+	     bit++)
 		;
 	return bit;
 }
@@ -121,9 +123,10 @@ metal_bitmap_next_clear_bit(unsigned long *bitmap, unsigned int start,
 			    unsigned int max)
 {
 	unsigned int bit;
+
 	for (bit = start;
 	     bit < max && !metal_bitmap_is_bit_clear(bitmap, bit);
-	     bit ++)
+	     bit++)
 		;
 	return bit;
 }
@@ -139,7 +142,7 @@ static inline unsigned long metal_log2(unsigned long in)
 
 	metal_assert((in & (in - 1)) == 0);
 
-	for (result = 0; (1UL << result) < in; result ++)
+	for (result = 0; (1UL << result) < in; result++)
 		;
 	return result;
 }

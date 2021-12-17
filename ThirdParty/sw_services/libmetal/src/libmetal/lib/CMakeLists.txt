@@ -13,6 +13,7 @@ collect (PROJECT_LIB_HEADERS condition.h)
 collect (PROJECT_LIB_HEADERS config.h)
 collect (PROJECT_LIB_HEADERS cpu.h)
 collect (PROJECT_LIB_HEADERS device.h)
+collect (PROJECT_LIB_HEADERS errno.h)
 collect (PROJECT_LIB_HEADERS dma.h)
 collect (PROJECT_LIB_HEADERS io.h)
 collect (PROJECT_LIB_HEADERS irq.h)
@@ -20,9 +21,7 @@ collect (PROJECT_LIB_HEADERS irq_controller.h)
 collect (PROJECT_LIB_HEADERS list.h)
 collect (PROJECT_LIB_HEADERS log.h)
 collect (PROJECT_LIB_HEADERS mutex.h)
-collect (PROJECT_LIB_HEADERS scatterlist.h)
 collect (PROJECT_LIB_HEADERS shmem.h)
-collect (PROJECT_LIB_HEADERS shmem-provider.h)
 collect (PROJECT_LIB_HEADERS sleep.h)
 collect (PROJECT_LIB_HEADERS softirq.h)
 collect (PROJECT_LIB_HEADERS spinlock.h)
@@ -38,7 +37,6 @@ collect (PROJECT_LIB_SOURCES io.c)
 collect (PROJECT_LIB_SOURCES irq.c)
 collect (PROJECT_LIB_SOURCES log.c)
 collect (PROJECT_LIB_SOURCES shmem.c)
-collect (PROJECT_LIB_SOURCES shmem-provider.c)
 collect (PROJECT_LIB_SOURCES softirq.c)
 collect (PROJECT_LIB_SOURCES version.c)
 
@@ -84,8 +82,8 @@ else (WITH_ZEPHYR)
     target_compile_options (${_lib} PUBLIC ${_ec_flags})
     set_target_properties (${_lib} PROPERTIES
       OUTPUT_NAME       "${PROJECT_NAME}"
-      VERSION           "${PROJECT_VER}"
-      SOVERSION         "${PROJECT_VER_MAJOR}"
+      VERSION           "${PROJECT_VERSION}"
+      SOVERSION         "${PROJECT_VERSION_MAJOR}"
     )
   endif (WITH_SHARED_LIB)
 

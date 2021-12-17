@@ -18,7 +18,7 @@ unsigned long long metal_get_timestamp(void)
 	struct timespec tp;
 	int r;
 
-	r = clock_systimespec(&tp);
+	r = clock_systime_timespec(&tp);
 	if (!r) {
 		t = (unsigned long long)tp.tv_sec * NSEC_PER_SEC;
 		t += tp.tv_nsec;

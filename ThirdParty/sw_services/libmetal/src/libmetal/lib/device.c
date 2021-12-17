@@ -5,9 +5,9 @@
  */
 
 #include <string.h>
-#include <errno.h>
 #include <metal/assert.h>
 #include <metal/device.h>
+#include <metal/errno.h>
 #include <metal/list.h>
 #include <metal/log.h>
 #include <metal/sys.h>
@@ -43,13 +43,64 @@ int metal_bus_find(const char *name, struct metal_bus **result)
 
 	metal_list_for_each(&_metal.common.bus_list, node) {
 		bus = metal_container_of(node, struct metal_bus, node);
-		if (strcmp(bus->name, name) != 0)
-			continue;
-		if (result)
+		if (strcmp(bus->name, name) == 0 && result) {
 			*result = bus;
-		return 0;
+			return 0;
+		}
 	}
 	return -ENOENT;
+}
+
+void metal_device_add_dmamem(struct metal_device *device,
+			      struct metal_io_region *region)
+{
+	metal_list_add_tail(&device->dmamem_list, &region->list);
+}
+
+void *metal_device_da2virt(struct metal_device *device, void *phys)
+{
+	struct metal_list *node;
+	struct metal_io_region *io;
+	unsigned long offset;
+
+	metal_list_for_each(&device->dmamem_list, node) {
+		io = metal_container_of(node, struct metal_io_region, list);
+		if (((unsigned long)phys >= (unsigned long)(*io->physmap)) &&
+			((unsigned long)phys < ((unsigned long)(*io->physmap) + io->size)))
+			break;
+		else
+			io = NULL;
+	}
+
+	if (io == NULL)
+		return NULL;
+
+	offset = (unsigned long)phys - (unsigned long)(*io->physmap);
+
+	return (void *)((unsigned long)io->virt + offset);
+}
+
+void *metal_device_virt2da(struct metal_device *device, void *virt)
+{
+	struct metal_list *node;
+	struct metal_io_region *io;
+	unsigned long offset;
+
+	metal_list_for_each(&device->dmamem_list, node) {
+		io = metal_container_of(node, struct metal_io_region, list);
+		if ((virt >= io->virt) &&
+			((unsigned long)virt < ((unsigned long)io->virt + io->size)))
+			break;
+		else
+			io = NULL;
+	}
+
+	if (io == NULL)
+		return NULL;
+
+	offset = virt - io->virt;
+
+	return (void *)(*io->physmap + offset);
 }
 
 int metal_device_open(const char *bus_name, const char *dev_name,
@@ -74,6 +125,8 @@ int metal_device_open(const char *bus_name, const char *dev_name,
 	if (error)
 		return error;
 
+	/* Initialize the metal device memory region list */
+	metal_list_init(&(*device)->dmamem_list);
 	return 0;
 }
 
@@ -82,6 +135,9 @@ void metal_device_close(struct metal_device *device)
 	metal_assert(device && device->bus);
 	if (device->bus->ops.dev_close)
 		device->bus->ops.dev_close(device->bus, device);
+
+	/* Delete the metal device memory region list */
+	metal_list_del(&device->dmamem_list);
 }
 
 int metal_register_generic_device(struct metal_device *device)
@@ -106,10 +162,10 @@ int metal_generic_dev_open(struct metal_bus *bus, const char *dev_name,
 
 	metal_list_for_each(&_metal.common.generic_device_list, node) {
 		dev = metal_container_of(node, struct metal_device, node);
-		if (strcmp(dev->name, dev_name) != 0)
-			continue;
-		*device = dev;
-		return metal_generic_dev_sys_open(dev);
+		if (strcmp(dev->name, dev_name) == 0) {
+			*device = dev;
+			return metal_generic_dev_sys_open(dev);
+		}
 	}
 
 	return -ENODEV;
@@ -122,20 +178,17 @@ int metal_generic_dev_dma_map(struct metal_bus *bus,
 			     int nents_in,
 			     struct metal_sg *sg_out)
 {
+	int i;
 	(void)bus;
 	(void)device;
-	int i;
 
-	if (sg_in == NULL) {
-		return -EINVAL;
-	}
-	if (sg_out != NULL && sg_out != sg_in)
+	if (sg_out != sg_in)
 		memcpy(sg_out, sg_in, nents_in*(sizeof(struct metal_sg)));
 	for (i = 0; i < nents_in; i++) {
 		if (dir == METAL_DMA_DEV_W) {
-			metal_cache_flush(sg_in[i].virt, sg_in[i].len);
+			metal_cache_flush(sg_out[i].virt, sg_out[i].len);
 		}
-		metal_cache_invalidate(sg_in[i].virt, sg_in[i].len);
+		metal_cache_invalidate(sg_out[i].virt, sg_out[i].len);
 	}
 
 	return nents_in;
@@ -147,14 +200,11 @@ void metal_generic_dev_dma_unmap(struct metal_bus *bus,
 				 struct metal_sg *sg,
 				 int nents)
 {
+	int i;
 	(void)bus;
 	(void)device;
 	(void)dir;
-	int i;
 
-	if (sg == NULL) {
-		return;
-	}
 	for (i = 0; i < nents; i++) {
 		metal_cache_invalidate(sg[i].virt, sg[i].len);
 	}
@@ -169,7 +219,5 @@ struct metal_bus metal_weak metal_generic_bus = {
 		.dev_irq_ack = NULL,
 		.dev_dma_map = metal_generic_dev_dma_map,
 		.dev_dma_unmap = metal_generic_dev_dma_unmap,
-		.dev_shm_attach = NULL,
-		.dev_shm_detach = NULL,
 	},
 };

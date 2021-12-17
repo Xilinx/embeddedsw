@@ -4,14 +4,14 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <errno.h>
 #include <limits.h>
+#include <metal/errno.h>
 #include <metal/io.h>
 #include <metal/sys.h>
 
 void metal_io_init(struct metal_io_region *io, void *virt,
 	      const metal_phys_addr_t *physmap, size_t size,
-	      unsigned page_shift, unsigned int mem_flags,
+	      unsigned int page_shift, unsigned int mem_flags,
 	      const struct metal_io_ops *ops)
 {
 	const struct metal_io_ops nops = {
@@ -30,6 +30,9 @@ void metal_io_init(struct metal_io_region *io, void *virt,
 	io->mem_flags = mem_flags;
 	io->ops = ops ? *ops : nops;
 	metal_sys_io_mem_map(io);
+
+	/* Intialize the metal_io_region linked list */
+	metal_list_init(&io->list);
 }
 
 int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
@@ -39,7 +42,7 @@ int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
 	unsigned char *dest = dst;
 	int retlen;
 
-	if (offset >= io->size)
+	if (!ptr)
 		return -ERANGE;
 	if ((offset + len) > io->size)
 		len = io->size - offset;
@@ -76,7 +79,7 @@ int metal_io_block_write(struct metal_io_region *io, unsigned long offset,
 	const unsigned char *source = src;
 	int retlen;
 
-	if (offset >= io->size)
+	if (!ptr)
 		return -ERANGE;
 	if ((offset + len) > io->size)
 		len = io->size - offset;
@@ -112,7 +115,7 @@ int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
 	unsigned char *ptr = metal_io_virt(io, offset);
 	int retlen = len;
 
-	if (offset >= io->size)
+	if (!ptr)
 		return -ERANGE;
 	if ((offset + len) > io->size)
 		len = io->size - offset;

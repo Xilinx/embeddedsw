@@ -23,7 +23,8 @@ extern "C" {
 #endif
 
 /** \defgroup device Bus Abstraction
- *  @{ */
+ *  @{
+ */
 
 #ifndef METAL_MAX_DEVICE_REGIONS
 #define METAL_MAX_DEVICE_REGIONS	32
@@ -31,8 +32,6 @@ extern "C" {
 
 struct metal_bus;
 struct metal_device;
-struct metal_generic_shmem;
-struct metal_shm_ref;
 
 /** Bus operations. */
 struct metal_bus_ops {
@@ -43,8 +42,8 @@ struct metal_bus_ops {
 	void		(*dev_close)(struct metal_bus *bus,
 				     struct metal_device *device);
 	void		(*dev_irq_ack)(struct metal_bus *bus,
-				     struct metal_device *device,
-				     int irq);
+				       struct metal_device *device,
+				       int irq);
 	int		(*dev_dma_map)(struct metal_bus *bus,
 				       struct metal_device *device,
 				       uint32_t dir,
@@ -52,19 +51,10 @@ struct metal_bus_ops {
 				       int nents_in,
 				       struct metal_sg *sg_out);
 	void		(*dev_dma_unmap)(struct metal_bus *bus,
-				       struct metal_device *device,
-				       uint32_t dir,
-				       struct metal_sg *sg,
-				       int nents);
-	int		(*dev_shm_attach)(struct metal_bus *bus,
-					  struct metal_generic_shmem *shm,
-					  struct metal_device *dev,
-					  unsigned int direction,
-					  struct metal_shm_ref *ref);
-	void		(*dev_shm_detach)(struct metal_bus *bus,
-					  struct metal_generic_shmem *shm,
-					  struct metal_device *dev,
-					  struct metal_shm_ref *ref);
+					 struct metal_device *device,
+					 uint32_t dir,
+					 struct metal_sg *sg,
+					 int nents);
 };
 
 /** Libmetal bus structure. */
@@ -82,11 +72,12 @@ extern struct metal_bus metal_generic_bus;
 struct metal_device {
 	const char             *name;       /**< Device name */
 	struct metal_bus       *bus;        /**< Bus that contains device */
-	unsigned               num_regions; /**< Number of I/O regions in
-					      device */
+	unsigned int           num_regions; /**< Number of I/O regions in
+						 device */
 	struct metal_io_region regions[METAL_MAX_DEVICE_REGIONS]; /**< Array of
-                                                        I/O regions in device*/
+							I/O regions in device*/
 	struct metal_list      node;       /**< Node on bus' list of devices */
+	struct metal_list      dmamem_list;    /**< list for device memory regions*/
 	int                    irq_num;    /**< Number of IRQs per device */
 	void                   *irq_info;  /**< IRQ ID */
 };
@@ -147,6 +138,28 @@ extern int metal_device_open(const char *bus_name, const char *dev_name,
 extern void metal_device_close(struct metal_device *device);
 
 /**
+ * @brief	Add metal_io_region to device->dmamem_list.
+ * @param[in]	device		Device handle.
+ * @param[in]	region		metal_io_region handle
+ */
+extern void metal_device_add_dmamem(struct metal_device *device,
+				      struct metal_io_region * region);
+
+/**
+ * @brief	Get device address from virtual address.
+ * @param[in]	device		Device handle.
+ * @param[in]	virt		virtual memory address
+ */
+extern void *metal_device_virt2da(struct metal_device *device, void *virt);
+
+/**
+ * @brief	Get virtual address from device memory address.
+ * @param[in]	device		Device handle.
+ * @param[in]	phys		device memory address
+ */
+extern void *metal_device_da2virt(struct metal_device *device, void *phys);
+
+/**
  * @brief	Get an I/O region accessor for a device region.
  *
  * @param[in]	device		Device handle.
@@ -154,7 +167,7 @@ extern void metal_device_close(struct metal_device *device);
  * @return I/O accessor handle, or NULL on failure.
  */
 static inline struct metal_io_region *
-metal_device_io_region(struct metal_device *device, unsigned index)
+metal_device_io_region(struct metal_device *device, unsigned int index)
 {
 	return (index < device->num_regions
 		? &device->regions[index]
@@ -179,6 +192,8 @@ extern void metal_generic_dev_dma_unmap(struct metal_bus *bus,
 					struct metal_sg *sg,
 					int nents);
 #endif /* METAL_INTERNAL */
+
+#include <metal/system/@PROJECT_SYSTEM@/device.h>
 
 #ifdef __cplusplus
 }

@@ -14,12 +14,10 @@
 
 #define metal_cpu_yield()
 
-#ifdef TEAKLITE4
 /*
  * The dummy implementation is enough here since
- * tl42x don't support the out of order and multi core
+ * ceva dsp don't support the out of order and multi core
  */
 #define __sync_synchronize()
-#endif
 
 #endif /* __METAL_CEVA_CPU__H__ */
