@@ -15,9 +15,10 @@ TEST_GROUP(GroupEvent)
 {
 };
 
-TEST(GroupEvent, Basic)
+TEST(GroupEvent, GroupEventBasic)
 {
 	AieRC RC;
+	uint32_t RscType;
 
 	XAie_SetupConfig(ConfigPtr, HW_GEN, XAIE_BASE_ADDR,
 			XAIE_COL_SHIFT, XAIE_ROW_SHIFT,
@@ -31,10 +32,21 @@ TEST(GroupEvent, Basic)
 	CHECK_EQUAL(RC, XAIE_OK);
 
 	XAieDev Aie(&DevInst, true);
-	auto GroupEventHd = Aie.tile(1,1).core().groupEvent(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
+
+	CHECK_THROWS(std::invalid_argument, Aie.tile(1,3).core().groupEvent(XAIE_EVENT_TRUE_PL));
+
+	auto GroupEventHd = Aie.tile(1,3).core().groupEvent(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
+
+	//RscType = GroupEventHd->getRscType();
 
 	auto gEvent = GroupEventHd->getEvent();
 	CHECK_EQUAL(gEvent, XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
+
+	DevInst.IsReady = 0;
+	RC = GroupEventHd->reserve();
+	CHECK_EQUAL(RC, XAIE_INVALID_ARGS);
+
+	DevInst.IsReady = 1;
 	RC = GroupEventHd->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
 	RC = GroupEventHd->start();
@@ -44,17 +56,17 @@ TEST(GroupEvent, Basic)
 	RC = GroupEventHd->release();
 	CHECK_EQUAL(RC, XAIE_OK);
 
-	auto GroupEventHd0 = Aie.tile(1,1).core().groupEvent(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
+	auto GroupEventHd0 = Aie.tile(1,3).core().groupEvent(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
 	GroupEventHd0->setGroupEvents(0x80);
 	CHECK_EQUAL(GroupEventHd0->getGroupEvents(), 0x80);
 	RC = GroupEventHd0->reserve();
 	CHECK_EQUAL(RC, XAIE_OK);
 	CHECK_EQUAL(GroupEventHd0->getEvent(), XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
-	auto GroupEventHd1 = Aie.tile(1,1).core().groupEvent(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
+	auto GroupEventHd1 = Aie.tile(1,3).core().groupEvent(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
 	GroupEventHd1->setGroupEvents(0x81);
 	RC = GroupEventHd1->reserve();
 	CHECK_EQUAL(RC, XAIE_INVALID_ARGS);
-	auto GroupEventHd2 = Aie.tile(1,1).core().groupEvent(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
+	auto GroupEventHd2 = Aie.tile(1,3).core().groupEvent(XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
 	GroupEventHd2->setGroupEvents(0x81);
 	RC = GroupEventHd2->reserve();
 	CHECK_EQUAL(RC, XAIE_INVALID_ARGS);
@@ -131,7 +143,7 @@ TEST(GroupEvent, Invalid)
 
 	XAieDev Aie(&DevInst, true);
 	auto GroupEvent = std::make_shared<XAieGroupEvent>(Aie.getDevHandle(),
-			XAie_TileLoc(1,1), XAIE_CORE_MOD,
+			XAie_TileLoc(1,3), XAIE_CORE_MOD,
 			XAIE_EVENT_GROUP_CORE_PROGRAM_FLOW_CORE);
 
 	XAieGroupEventHandle GroupEventHd(Aie.getDevHandle(), GroupEvent);
