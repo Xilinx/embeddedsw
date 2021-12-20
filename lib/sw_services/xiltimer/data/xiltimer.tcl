@@ -9,6 +9,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0   adk   24/11/21 First release
+# 	adk   20/12/21 Fix TTC Device ID handling.
 #
 ##############################################################################
 
@@ -92,17 +93,18 @@ proc generate {lib_handle} {
 	set sleep_timer_is_default 0
 	set interval_timer_is_default 0
 
+	# check processor type
+	set proc_instance [hsi::get_sw_processor]
+	set hw_proc_handle [::hsi::get_cells -hier [common::get_property hw_instance $proc_instance]]
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set sleep_timer [common::get_property CONFIG.sleep_timer $lib_handle]
 	set interval_timer [common::get_property CONFIG.interval_timer $lib_handle]
         # for interval functionality interrupt connection is manadatory
-	set ttc_ips [hsi::get_cells -hier -filter {IP_NAME == "psv_ttc"  || IP_NAME == "psu_ttc" || IP_NAME == "ps7_ttc"}]
+	set ttc_ips [::hsi::get_mem_ranges -of_objects $hw_proc_handle [hsi::get_cells -hier -filter {IP_NAME == "psv_ttc"  || IP_NAME == "psu_ttc" || IP_NAME == "ps7_ttc"}]]
 	set axitmr_ips [hsi::get_cells -hier -filter {IP_NAME == "axi_timer"}]
 	set scutmr_ips [hsi::get_cells -hier -filter {IP_NAME == "ps7_scutimer"}]
 	set timer_ips [concat $ttc_ips $axitmr_ips $scutmr_ips]
         set timer_len [llength $timer_ips]
-	# check processor type
-	set proc_instance [hsi::get_sw_processor];
-	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
 	set cortexa53proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa53_0"}]
 	set is_intervaltimer_en [common::get_property CONFIG.en_interval_timer $lib_handle]
@@ -161,13 +163,21 @@ proc generate {lib_handle} {
 	if {[llength $ttc_ips] != 0} {
 		if {[lsearch -exact $ttc_ips $sleep_timer] >= 0} {
 		      puts $fd "\#define XSLEEPTIMER_IS_TTCPS"
-		      set ipname [string toupper $sleep_timer]
+		      set intsnum [string index $sleep_timer end]
+		      set device_id [expr {$intsnum * 3}]
+		      set inst_name [common::get_property NAME [hsi::get_cells -hier $sleep_timer]]
+		      set inst_name [string range $inst_name 0 end-2]
+		      set ipname [string toupper [format %s_%s $inst_name $device_id]]
 		      puts $fd "\#define XSLEEPTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
 		      incr sleep_timer_is_ttc
 		}
 		if {[lsearch -exact $ttc_ips $interval_timer] >= 0} {
 		      puts $fd "\#define XTICKTIMER_IS_TTCPS"
-		      set ipname [string toupper $interval_timer]
+		      set intsnum [string index $interval_timer end]
+		      set device_id [expr {$intsnum * 3}]
+		      set inst_name [common::get_property NAME [hsi::get_cells -hier $interval_timer]]
+		      set inst_name [string range $inst_name 0 end-2]
+		      set ipname [string toupper [format %s_%s $inst_name $device_id]]
 		      puts $fd "\#define XTICKTIMER_DEVICEID XPAR_${ipname}_DEVICE_ID"
 		      incr sleep_timer_is_ttc
 		}
