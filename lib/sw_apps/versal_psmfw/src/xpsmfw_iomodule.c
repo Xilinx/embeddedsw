@@ -26,7 +26,6 @@
 /***************************** Include Files *********************************/
 #include "xpsmfw_iomodule.h"
 #include "xpsmfw_power.h"
-#include "xpsmfw_reset.h"
 #include "xpsmfw_ipi_manager.h"
 #include "xpsmfw_gic.h"
 #include "psm_global.h"
@@ -118,19 +117,6 @@ static void XPsmfw_InterruptPwrCtlHandler(void)
 	}
 }
 
-static void XPsmfw_InterruptSwRstHandler(void)
-{
-	u32 SwRstStatus, SwRstIntMask;
-	XStatus Status = XST_FAILURE;
-
-	SwRstStatus = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_SWRST_STATUS);
-	SwRstIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_SWRST_INT_MASK);
-	Status = XPsmFw_DispatchSwRstHandler(SwRstStatus, SwRstIntMask);
-	if (XST_SUCCESS != Status) {
-		XPsmFw_Printf(DEBUG_ERROR, "Error in handling software reset interrupt\r\n");
-	}
-}
-
 static void XPsmfw_InterruptGicP2Handler(void)
 {
 	XStatus Status = XST_FAILURE;
@@ -190,7 +176,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_MASK, XPsmfw_InterruptPwrDwnHandler},
 	{PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_MASK, XPsmfw_InterruptWakeupHandler},
 	{PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_MASK, XPsmfw_InterruptPwrCtlHandler},
-	{PSM_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK, XPsmfw_InterruptSwRstHandler},
+	{PSM_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK, NULL},
 	{PSM_IOMODULE_IRQ_PENDING_GICP_INT_MASK, XPsmfw_InterruptGicP2Handler},
 };
 
