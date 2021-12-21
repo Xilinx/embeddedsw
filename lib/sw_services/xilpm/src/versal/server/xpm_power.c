@@ -249,7 +249,7 @@ static XStatus PowerDwnXram(const XPm_Node *Node)
 	/* TODO: Clear chip enable bit */
 
 	/* Disable power state for selected bank */
-	PmRmw32(PwrCtlAddress, BitMask, ~BitMask);
+	PmRmw32(PwrCtlAddress, BitMask, BitMask);
 
 	/* Poll for power status to clear */
 	Status = XPm_PollForZero(PwrStatusAddress, BitMask, XPM_POLL_TIMEOUT);
