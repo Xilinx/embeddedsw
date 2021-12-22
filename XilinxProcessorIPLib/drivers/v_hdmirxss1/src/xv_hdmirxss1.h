@@ -117,6 +117,9 @@ typedef enum {
 	XV_HDMIRXSS1_LOG_EVT_FRL_START,
 	XV_HDMIRXSS1_LOG_EVT_VRR_RDY,
 	XV_HDMIRXSS1_LOG_EVT_DYN_HDR,
+	XV_HDMIRXSS1_LOG_EVT_DSC_STRM_EVT,
+	XV_HDMIRXSS1_LOG_EVT_DSC_PKT_ERR,
+	XV_HDMIRXSS1_LOG_EVT_DSC_DDC_STS_UPDT,
 	XV_HDMIRXSS1_LOG_EVT_DUMMY               /**< Dummy Event should be last */
 } XV_HdmiRxSs1_LogEvent;
 
@@ -262,6 +265,11 @@ typedef enum {
 						       ready */
   XV_HDMIRXSS1_HANDLER_DYN_HDR,                      /**< Handler type for
 						       Dynamic HDR*/
+  XV_HDMIRXSS1_HANDLER_DSC_STRM_CH,  /**< Handler type for DSC stream change event */
+  XV_HDMIRXSS1_HANDLER_DSC_PKT_ERR,  /**< Handler type for DSC PPS Packet error event */
+  XV_HDMIRXSS1_HANDLER_DSC_STS_UPDT,  /**< Handler type for SCDC Reg 0x10
+					   bit 0 Status_Update bit set by
+					   HDMI Source */
 } XV_HdmiRxSs1_HandlerType;
 /*@}*/
 
@@ -292,6 +300,7 @@ typedef struct
   u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
   u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
   u32 DynamicHDR;	/**< Dynamic HDR supported */
+  u32 DSC; /**< DSC Supported */
   u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
   u8 VideoInterface; /**< 0 - AXI4S 1 - Native 2 - Native DE video interface */
   XV_HdmiRxSs1_SubCore HdcpTimer;    /**< Sub-core instance configuration */
@@ -439,6 +448,16 @@ typedef struct
   XV_HdmiRxSs1_Callback DynHdrCallback; /**< Callback for Dynamic HDR event */
   void *DynHdrRef;  /**< To be passed to Dynamic HDR event callback */
 
+  XV_HdmiRxSs1_Callback DSCStreamChangeEventCallback; /**< Callback for DSC stream change event */
+  void *DSCStrmChgEvtRef;  /**< To be passed to DSC Stream change event callback */
+
+  XV_HdmiRxSs1_Callback DSCPktErrCallback; /**< Callback for DSC PPS packet error event */
+  void *DSCPktErrRef;  /**< To be passed to DSC PPS packet error event callback */
+
+  XV_HdmiRxSs1_Callback DSCStsUpdtEvtCallback; /**< Callback for SCDC reg 0x10 bit 0 Status_Update bit
+						    set from Source event */
+  void *DSCStsUpdtEvtRef;  /**< To be passed to Status_Update bit set event callback */
+
   /* Scratch pad*/
   u8 IsStreamConnected;         /**< HDMI RX Stream Connected */
   u8 IsStreamUp;                /**< HDMI RX Stream Up */
@@ -569,6 +588,10 @@ void XV_HdmiRxSs1_DynHDR_DM_Disable(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_DynHDR_SetAddr(XV_HdmiRxSs1 *InstancePtr, u64 Addr);
 void XV_HdmiRxSs1_DynHDR_GetInfo(XV_HdmiRxSs1 *InstancePtr,
 				 XV_HdmiRxSs1_DynHDR_Info *RxDynInfoPtr);
+
+u32 XV_HdmiRxSs1_DSC_IsEnableStream(XV_HdmiRxSs1 *InstancePtr);
+int XV_HdmiRxSs1_DSC_SetDecodeFail(XV_HdmiRxSs1 *InstancePtr);
+int XV_HdmiRxSs1_DSC_SetDscFrlMax(XV_HdmiRxSs1 *InstancePtr);
 
 void XV_HdmiRxSs1_ReportCoreInfo(XV_HdmiRxSs1 *InstancePtr);
 void XV_HdmiRxSs1_DebugInfo(XV_HdmiRxSs1 *InstancePtr);

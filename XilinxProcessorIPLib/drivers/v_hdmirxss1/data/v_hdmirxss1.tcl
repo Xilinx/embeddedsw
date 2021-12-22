@@ -19,6 +19,7 @@ proc generate {drv_handle} {
                     "C_MAX_BITS_PER_COMPONENT" \
 		    "C_MAX_FRL_RATE" \
 		    "C_DYNAMIC_HDR" \
+		    "C_DSC_EN" \
                     "AXI_LITE_FREQ_HZ" \
 		    "C_VID_INTERFACE"
 
@@ -30,6 +31,7 @@ proc generate {drv_handle} {
                     "C_MAX_BITS_PER_COMPONENT" \
 		    "C_MAX_FRL_RATE" \
 		    "C_DYNAMIC_HDR" \
+		    "C_DSC_EN" \
                     "AXI_LITE_FREQ_HZ" \
 		    "C_VID_INTERFACE"
 
@@ -42,6 +44,7 @@ proc generate {drv_handle} {
                     "C_MAX_BITS_PER_COMPONENT" \
 		    "C_MAX_FRL_RATE" \
 		    "C_DYNAMIC_HDR" \
+		    "C_DSC_EN" \
                     "AXI_LITE_FREQ_HZ" \
 		    "C_VID_INTERFACE"
 }

@@ -317,6 +317,15 @@ void XV_HdmiRxSs1_LogDisplay(XV_HdmiRxSs1 *InstancePtr)
 	case (XV_HDMIRXSS1_LOG_EVT_VRR_RDY):
 		xil_printf("VRR Ready event)");
 		break;
+	case (XV_HDMIRXSS1_LOG_EVT_DSC_DDC_STS_UPDT):
+		xil_printf("DSC Status Update");
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_DSC_STRM_EVT):
+		xil_printf("DSC Stream Event");
+		break;
+	case (XV_HDMIRXSS1_LOG_EVT_DSC_PKT_ERR):
+		xil_printf("DSC PPS Packet Error");
+		break;
         default:
             xil_printf("Unknown event");
             break;
