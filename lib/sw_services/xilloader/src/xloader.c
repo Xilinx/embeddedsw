@@ -121,6 +121,8 @@
 *       bsv  10/26/2021 Code clean up
 *       bsv  12/04/2021 Clear complete PMCRAM in XLoader_ReloadImage
 *       kpt  12/13/2021 Replace Xil_SecureMemCpy with Xil_SMemCpy
+*       bsv  12/22/2021 Added zeroization of ImageHeaderTable instance in
+*                       case of invalid header
 *
 * </pre>
 *
@@ -522,6 +524,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 					"failed\n\r");
 		PdiPtr->ValidHeader = (u8)FALSE;
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
+		StatusTemp = Xil_SecureZeroize((u8 *)&(PdiPtr->MetaHdr.ImgHdrTbl),
+			sizeof(PdiPtr->MetaHdr.ImgHdrTbl));
 		goto END;
 	}
 	if (PdiPtr->ValidHeader == (u8)FALSE) {
