@@ -10,6 +10,6 @@ BEGIN driver v_hdmirx1
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (video_common v_hdmi_common);
   OPTION copyfiles = all;
-  OPTION VERSION = 1.3;
+  OPTION VERSION = 1.4;
   OPTION NAME = v_hdmirx1;
 END driver

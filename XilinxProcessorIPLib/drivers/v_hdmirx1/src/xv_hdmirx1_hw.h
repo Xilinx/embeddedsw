@@ -94,6 +94,10 @@ extern "C" {
 #define XV_HDMIRX1_PIO_IN_EVT_RE_OFFSET              ((XV_HDMIRX1_PIO_BASE)+(11*4))   /**< PIO In Event Rising Edge Register offset */
 #define XV_HDMIRX1_PIO_IN_EVT_FE_OFFSET              ((XV_HDMIRX1_PIO_BASE)+(12*4))   /**< PIO In Event Falling Edge Register offset */
 
+#define XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT            ((XV_HDMIRX1_PIO_BASE)+(13*4))   /**< DSC original HFront and Hsync values */
+#define XV_HDMIRX1_DSC_CVTEM_HBACK_HCACT             ((XV_HDMIRX1_PIO_BASE)+(14*4))   /**< DSC original HBack and HCActive values */
+#define XV_HDMIRX1_DSC_CVTEM_HACT_VACT               ((XV_HDMIRX1_PIO_BASE)+(15*4))   /**< DSC original HActive and VActive values */
+
 /* PIO peripheral Control register masks*/
 #define XV_HDMIRX1_PIO_CTRL_RUN_MASK                 (1<<0)  /**< PIO Control Run mask */
 #define XV_HDMIRX1_PIO_CTRL_IE_MASK                  (1<<1)  /**< PIO Control Interrupt Enable mask */
@@ -152,6 +156,25 @@ extern "C" {
 #define XV_HDMIRX1_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK (1<<8) /**< PIO In SCDC TMDS clock ratio mask */
 #define XV_HDMIRX1_PIO_IN_ALIGNER_LOCK_MASK          (1<<9) /**< PIO In alinger lock mask */
 #define XV_HDMIRX1_PIO_IN_BRDG_OVERFLOW_MASK         (1<<10) /**< PIO In bridge overflow mask */
+#define XV_HDMIRX1_PIO_IN_DSC_EN_STRM_MASK           (1 << 11) /**< PIO In DSC packets present in stream */
+#define XV_HDMIRX1_PIO_IN_DSC_EN_STRM_CHG_EVT_MASK   (1 << 11) /**< This bit is present in PIO_IN_EVT reg only.
+								    It is set by IP when the DSC packets are present in stream. */
+#define XV_HDMIRX1_PIO_IN_DSC_PPS_PKT_ERR_MASK       (1 << 12) /**< This bit is preset in PIO_IN_EVT reg only.
+								     This bit is set when DSC packet errors are present. */
+
+#define XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT_ORIG_HFRONT_MASK	(0xFFFF)	/**< DSC original HFRONT mask */
+#define XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT_ORIG_HFRONT_SHIFT	(0)		/**< DSC original HFRONT shift */
+#define XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT_ORIG_HSYNC_MASK	(0xFFFF)	/**< DSC original HSYNC mask */
+#define XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT_ORIG_HSYNC_SHIFT	(16)		/**< DSC original HSYNC shift */
+#define XV_HDMIRX1_DSC_CVTEM_HBACK_HCACT_HBACK_MASK		(0xFFFF)	/**< DSC original HBACK mask */
+#define XV_HDMIRX1_DSC_CVTEM_HBACK_HCACT_HBACK_SHIFT		(0)		/**< DSC original HBACK shift */
+#define XV_HDMIRX1_DSC_CVTEM_HBACK_HCACT_HCACT_MASK		(0xFFFF)	/**< DSC original HCACT mask */
+#define XV_HDMIRX1_DSC_CVTEM_HBACK_HCACT_HCACT_SHIFT		(16)		/**< DSC original HCACT shift */
+#define XV_HDMIRX1_DSC_CVTEM_HACT_VACT_HACT_MASK		(0xFFFF)	/**< DSC original HACT mask */
+#define XV_HDMIRX1_DSC_CVTEM_HACT_VACT_HACT_SHIFT		(16)		/**< DSC original HACT shift */
+#define XV_HDMIRX1_DSC_CVTEM_HACT_VACT_VACT_MASK		(0xFFFF)	/**< DSC original VACT mask */
+#define XV_HDMIRX1_DSC_CVTEM_HACT_VACT_VACT_SHIFT		(0)		/**< DSC original VACT shift */
+
 
 /* Timer peripheral register offsets*/
 #define XV_HDMIRX1_TMR_BASE                          (2*64)
@@ -261,6 +284,7 @@ extern "C" {
 #define XV_HDMIRX1_DDC_STA_HDCP_1_PROT_EVT_MASK      (1<<11) /**< DDC Status HDCP 1.4 protocol event flag */
 #define XV_HDMIRX1_DDC_STA_HDCP_2_PROT_EVT_MASK      (1<<12) /**< DDC Status HDCP 2.2 protocol event flag */
 #define XV_HDMIRX1_DDC_STA_SCDC_RD_WR_EVT_MASK       (1<<13) /**< DDC Status SCDC Read Write event flag */
+#define XV_HDMIRX1_DDC_STA_SCDC_DSC_STS_UPDT_EVT_MASK (1<<14) /**< DDC Status 0x10 SCDC reg bit 0 Status_Update set by sink event flag */
 #define XV_HDMIRX1_DDC_STA_EDID_WORDS_SHIFT          0       /**< DDC Status EDID words shift */
 #define XV_HDMIRX1_DDC_STA_EDID_WORDS_MASK           0xFFFF  /**< DDC Status EDID words mask */
 #define XV_HDMIRX1_DDC_STA_HDCP_WMSG_WORDS_MASK      0x7FF   /**< DDC Status HDCP 2.2 write message buffer words mask */

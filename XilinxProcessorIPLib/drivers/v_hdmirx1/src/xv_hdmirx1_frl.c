@@ -95,7 +95,9 @@ const XV_HdmiRx1_FrlScdcField FrlScdcField[XV_HDMIRX1_SCDCFIELD_SIZE] = {
 	{0x57, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH3_ERRCNT_LSB */
 	{0x58, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_CH3_ERRCNT_MSB */
 	{0x59, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_RSCCNT_LSB */
-	{0x5A, 0xFF, 0}		/* XV_HDMIRX1_SCDCFIELD_RSCCNT_MSB */
+	{0x5A, 0xFF, 0},	/* XV_HDMIRX1_SCDCFIELD_RSCCNT_MSB */
+	{0x40, 0x01, 7},	/* XV_HDMIRX1_SCDCFIELD_DSC_DECODE_FAIL */
+	{0x35, 0x01, 6},	/* XV_HDMIRX1_SCDCFIELD_DSC_FRL_MAX */
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

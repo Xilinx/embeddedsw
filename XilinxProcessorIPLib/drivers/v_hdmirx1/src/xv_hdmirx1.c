@@ -174,26 +174,33 @@ int XV_HdmiRx1_CfgInitialize(XV_HdmiRx1 *InstancePtr, XV_HdmiRx1_Config *CfgPtr,
 	*/
 
 	/* PIO: Set event rising edge masks */
+	RegValue = (XV_HDMIRX1_PIO_IN_BRDG_OVERFLOW_MASK) |
+		(XV_HDMIRX1_PIO_IN_DET_MASK) |
+		(XV_HDMIRX1_PIO_IN_LNK_RDY_MASK) |
+		(XV_HDMIRX1_PIO_IN_VID_RDY_MASK) |
+		(XV_HDMIRX1_PIO_IN_MODE_MASK) |
+		(XV_HDMIRX1_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK) |
+		(XV_HDMIRX1_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK);
+
+	if (InstancePtr->Config.DSC)
+		RegValue |= XV_HDMIRX1_PIO_IN_DSC_PPS_PKT_ERR_MASK |
+			XV_HDMIRX1_PIO_IN_DSC_EN_STRM_CHG_EVT_MASK;
+
 	XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
-			    (XV_HDMIRX1_PIO_IN_EVT_RE_OFFSET),
-			    (XV_HDMIRX1_PIO_IN_BRDG_OVERFLOW_MASK) |
-			    (XV_HDMIRX1_PIO_IN_DET_MASK) |
-			    (XV_HDMIRX1_PIO_IN_LNK_RDY_MASK) |
-			    (XV_HDMIRX1_PIO_IN_VID_RDY_MASK) |
-			    (XV_HDMIRX1_PIO_IN_MODE_MASK) |
-			    (XV_HDMIRX1_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK) |
-			    (XV_HDMIRX1_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK)
-			    );
+			    XV_HDMIRX1_PIO_IN_EVT_RE_OFFSET, RegValue);
 
 	/* PIO: Set event falling edge masks */
+	RegValue = (XV_HDMIRX1_PIO_IN_DET_MASK) |
+		(XV_HDMIRX1_PIO_IN_VID_RDY_MASK) |
+		(XV_HDMIRX1_PIO_IN_MODE_MASK) |
+		(XV_HDMIRX1_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK) |
+		(XV_HDMIRX1_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK);
+
+	if (InstancePtr->Config.DSC)
+		RegValue |= XV_HDMIRX1_PIO_IN_DSC_EN_STRM_CHG_EVT_MASK;
+
 	XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
-			    (XV_HDMIRX1_PIO_IN_EVT_FE_OFFSET),
-			    (XV_HDMIRX1_PIO_IN_DET_MASK) |
-			    (XV_HDMIRX1_PIO_IN_VID_RDY_MASK) |
-			    (XV_HDMIRX1_PIO_IN_MODE_MASK) |
-			    (XV_HDMIRX1_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK) |
-			    (XV_HDMIRX1_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK)
-			    );
+			    XV_HDMIRX1_PIO_IN_EVT_FE_OFFSET, RegValue);
 
 	/*
 	Timer
@@ -1212,10 +1219,18 @@ void XV_HdmiRx1_Info(XV_HdmiRx1 *InstancePtr)
 
 	/* Print stream information */
 	XVidC_ReportStreamInfo(&InstancePtr->Stream.Video);
-
-	/* Print timing information */
-	XVidC_ReportTiming(&InstancePtr->Stream.Video.Timing,
-			   InstancePtr->Stream.Video.IsInterlaced);
+	if(InstancePtr->Stream.Video.IsDSCompressed) {
+		xil_printf("\r\n\tCompressed: \r\n");
+		XVidC_ReportTiming(&InstancePtr->Stream.Video.Timing,
+				   InstancePtr->Stream.Video.IsInterlaced);
+		xil_printf("\r\n\tUncompressed: \r\n");
+		XVidC_ReportTiming(&InstancePtr->Stream.Video.UncompressedTiming,
+				   InstancePtr->Stream.Video.IsInterlaced);
+	} else {
+		/* Print timing information */
+		XVidC_ReportTiming(&InstancePtr->Stream.Video.Timing,
+				   InstancePtr->Stream.Video.IsInterlaced);
+	}
 }
 
 /******************************************************************************/
@@ -1880,26 +1895,26 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 	u32 Data;
 
 	/* Local timing parameters*/
-	u16 HActive;
-	u16 HFrontPorch;
-	u16 HSyncWidth;
-	u16 HBackPorch;
-	u16 HTotal;
+	u16 HActive = 0;
+	u16 HFrontPorch = 0;
+	u16 HSyncWidth = 0;
+	u16 HBackPorch = 0;
+	u16 HTotal = 0;
 	/* u16 HSyncPolarity; /\*squash unused variable compiler warning *\/ */
-	u16 VActive;
-	u16 F0PVFrontPorch;
-	u16 F0PVSyncWidth;
-	u16 F0PVBackPorch;
-	u16 F0PVTotal;
-	u16 F1VFrontPorch;
-	u16 F1VSyncWidth;
-	u16 F1VBackPorch;
-	u16 F1VTotal;
+	u16 VActive = 0;
+	u16 F0PVFrontPorch = 0;
+	u16 F0PVSyncWidth = 0;
+	u16 F0PVBackPorch = 0;
+	u16 F0PVTotal = 0;
+	u16 F1VFrontPorch = 0;
+	u16 F1VSyncWidth = 0;
+	u16 F1VBackPorch = 0;
+	u16 F1VTotal = 0;
 	u8 Match;
 	u8 YUV420_Correction;
 	u8 IsInterlaced;
 	u8 VrrActive;
-
+	u32 DscEnabledStream = XV_HdmiRx1_DSC_IsEnableStream(InstancePtr);
 
 	if ((InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) &&
 			(InstancePtr->VrrIF.VidTimingExtMeta.VRREnabled)) {
@@ -1930,61 +1945,53 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 				      (XV_HDMIRX1_VTD_ACT_PIX_OFFSET)) *
 		   YUV420_Correction;
 
-	/* Read Hsync Width */
-	HSyncWidth =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					 (XV_HDMIRX1_VTD_HSW_OFFSET)) *
-		      YUV420_Correction;
+	if (!DscEnabledStream) {
+		/* Read Hsync Width */
+		HSyncWidth =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+						 (XV_HDMIRX1_VTD_HSW_OFFSET)) *
+			YUV420_Correction;
 
-	/* Read HFront Porch */
-	HFrontPorch =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					  (XV_HDMIRX1_VTD_HFP_OFFSET)) *
-		       YUV420_Correction;
+		/* Read HFront Porch */
+		HFrontPorch =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+						  (XV_HDMIRX1_VTD_HFP_OFFSET)) *
+			YUV420_Correction;
 
-	/* Read HBack Porch */
-	HBackPorch =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					 (XV_HDMIRX1_VTD_HBP_OFFSET)) *
-		      YUV420_Correction;
-
-	/* Total lines field 1 */
-	F0PVTotal =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					(XV_HDMIRX1_VTD_TOT_LIN_OFFSET)) &
-		     (0xFFFF);
-
-	/* Total lines field 2 */
-	F1VTotal =  ((XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					(XV_HDMIRX1_VTD_TOT_LIN_OFFSET))) >> 16);
+		/* Read HBack Porch */
+		HBackPorch =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+						 (XV_HDMIRX1_VTD_HBP_OFFSET)) *
+			YUV420_Correction;
+	}
 
 	/* Active lines field 1 */
 	VActive =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-				      (XV_HDMIRX1_VTD_ACT_LIN_OFFSET)) &
-		   (0xFFFF);
-
+				      (XV_HDMIRX1_VTD_ACT_LIN_OFFSET)) & 0xFFFF;
+	/* Total lines field 1 */
+	F0PVTotal =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+					(XV_HDMIRX1_VTD_TOT_LIN_OFFSET)) & 0xFFFF;
 	/* Read VSync Width field 1*/
 	F0PVSyncWidth =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					    (XV_HDMIRX1_VTD_VSW_OFFSET)) &
-			 (0xFFFF);
-
-	/* Read VSync Width field 2*/
-	F1VSyncWidth =  ((XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					     (XV_HDMIRX1_VTD_VSW_OFFSET))) >> 16);
-
+					    (XV_HDMIRX1_VTD_VSW_OFFSET)) & 0xFFFF;
 	/* Read VFront Porch field 1*/
 	F0PVFrontPorch =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					     (XV_HDMIRX1_VTD_VFP_OFFSET)) &
-			 (0xFFFF);
-
-	/* Read VFront Porch field 2*/
-	F1VFrontPorch =  ((XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					      (XV_HDMIRX1_VTD_VFP_OFFSET))) >> 16);
-
+					     (XV_HDMIRX1_VTD_VFP_OFFSET)) & 0xFFFF;
 	/* Read VBack Porch field 1 */
 	F0PVBackPorch =  XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					    (XV_HDMIRX1_VTD_VBP_OFFSET)) &
-			 (0xFFFF);
+					    (XV_HDMIRX1_VTD_VBP_OFFSET)) & 0xFFFF;
 
-	/* Read VBack Porch field 2 */
-	F1VBackPorch =  ((XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
-					     (XV_HDMIRX1_VTD_VBP_OFFSET))) >> 16);
+	if (!DscEnabledStream) {
+		/* Total lines field 2 */
+		F1VTotal =  ((XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+						 (XV_HDMIRX1_VTD_TOT_LIN_OFFSET))) >> 16);
+		/* Read VSync Width field 2*/
+		F1VSyncWidth =  ((XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+						     (XV_HDMIRX1_VTD_VSW_OFFSET))) >> 16);
+		/* Read VFront Porch field 2*/
+		F1VFrontPorch =  ((XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+						      (XV_HDMIRX1_VTD_VFP_OFFSET))) >> 16);
+		/* Read VBack Porch field 2 */
+		F1VBackPorch =  ((XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+						     (XV_HDMIRX1_VTD_VBP_OFFSET))) >> 16);
+	}
 
 	/* Read Status register */
 	Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
@@ -2003,152 +2010,169 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 	/* By default the match is true*/
 	Match = TRUE;
 
-	if (!HActive | !HFrontPorch | !HSyncWidth | !HBackPorch | !HTotal |
-	    !VActive | !F0PVFrontPorch | !F0PVSyncWidth |
-	    !F0PVBackPorch | !F0PVTotal) {
-		Match = FALSE;
-	}
+	if (!DscEnabledStream) {
 
-	if ((IsInterlaced == 1) &
-	    (!F1VFrontPorch | !F1VSyncWidth | !F1VBackPorch | !F1VTotal)) {
-		Match = FALSE;
-	}
-
-	/* Htotal*/
-	if (HTotal != InstancePtr->Stream.Video.Timing.HTotal) {
-		Match = FALSE;
-	}
-
-	/* HActive*/
-	if (HActive != InstancePtr->Stream.Video.Timing.HActive) {
-		Match = FALSE;
-	}
-
-	/* HSyncWidth*/
-	if (HSyncWidth != InstancePtr->Stream.Video.Timing.HSyncWidth) {
-		Match = FALSE;
-	}
-
-	/* HFrontPorch*/
-	if (HFrontPorch != InstancePtr->Stream.Video.Timing.HFrontPorch) {
-		Match = FALSE;
-	}
-
-	/* HBackPorch*/
-	if (HBackPorch != InstancePtr->Stream.Video.Timing.HBackPorch) {
-		Match = FALSE;
-	}
-
-	/* F0PVTotal*/
-	if (F0PVTotal != InstancePtr->Stream.Video.Timing.F0PVTotal) {
-		if (!VrrActive)
-			Match = FALSE;
-	}
-
-	/* F1VTotal*/
-	if (F1VTotal != InstancePtr->Stream.Video.Timing.F1VTotal) {
-		Match = FALSE;
-	}
-
-	/* VActive*/
-	if (VActive != InstancePtr->Stream.Video.Timing.VActive) {
-		Match = FALSE;
-	}
-
-	/* F0PVSyncWidth*/
-	if (F0PVSyncWidth != InstancePtr->Stream.Video.Timing.F0PVSyncWidth) {
-		Match = FALSE;
-	}
-
-	/* F1VSyncWidth*/
-	if (F1VSyncWidth != InstancePtr->Stream.Video.Timing.F1VSyncWidth) {
-		Match = FALSE;
-	}
-
-	/* F0PVFrontPorch*/
-	if (F0PVFrontPorch != InstancePtr->Stream.Video.Timing.F0PVFrontPorch) {
-		if (!VrrActive)
-			Match = FALSE;
-	}
-
-	/* F1VFrontPorch*/
-	if (F1VFrontPorch != InstancePtr->Stream.Video.Timing.F1VFrontPorch) {
-		Match = FALSE;
-	}
-
-	/* F0PVBackPorch*/
-	if (F0PVBackPorch != InstancePtr->Stream.Video.Timing.F0PVBackPorch) {
-		Match = FALSE;
-	}
-
-	/* F1VBackPorch*/
-	if (F1VBackPorch != InstancePtr->Stream.Video.Timing.F1VBackPorch) {
-		Match = FALSE;
-	}
-
-	if (HTotal != (HActive + HFrontPorch + HSyncWidth + HBackPorch)) {
-		Match = FALSE;
-	}
-
-	if (F0PVTotal !=
-	    (VActive + F0PVFrontPorch + F0PVSyncWidth + F0PVBackPorch)) {
-		if (!VrrActive)
-			Match = FALSE;
-	}
-
-	if (IsInterlaced == 1) {
-		if (F1VTotal != (VActive + F1VFrontPorch +
-				F1VSyncWidth + F1VBackPorch)) {
+		if (!HActive | !HFrontPorch | !HSyncWidth | !HBackPorch | !HTotal |
+		    !VActive | !F0PVFrontPorch | !F0PVSyncWidth |
+		    !F0PVBackPorch | !F0PVTotal) {
 			Match = FALSE;
 		}
-	} else {
-		if (F1VFrontPorch | F1VSyncWidth | F1VBackPorch) {
+
+		if ((IsInterlaced == 1) &
+		    (!F1VFrontPorch | !F1VSyncWidth | !F1VBackPorch | !F1VTotal)) {
 			Match = FALSE;
+		}
+
+		/* Htotal*/
+		if (HTotal != InstancePtr->Stream.Video.Timing.HTotal) {
+			Match = FALSE;
+		}
+
+		/* HActive*/
+		if (HActive != InstancePtr->Stream.Video.Timing.HActive) {
+			Match = FALSE;
+		}
+
+		/* HSyncWidth*/
+		if (HSyncWidth != InstancePtr->Stream.Video.Timing.HSyncWidth) {
+			Match = FALSE;
+		}
+
+		/* HFrontPorch*/
+		if (HFrontPorch != InstancePtr->Stream.Video.Timing.HFrontPorch) {
+			Match = FALSE;
+		}
+
+		/* HBackPorch*/
+		if (HBackPorch != InstancePtr->Stream.Video.Timing.HBackPorch) {
+			Match = FALSE;
+		}
+
+		/* F0PVTotal*/
+		if (F0PVTotal != InstancePtr->Stream.Video.Timing.F0PVTotal) {
+			if (!VrrActive)
+				Match = FALSE;
+		}
+
+		/* F1VTotal*/
+		if (F1VTotal != InstancePtr->Stream.Video.Timing.F1VTotal) {
+			Match = FALSE;
+		}
+
+		/* VActive*/
+		if (VActive != InstancePtr->Stream.Video.Timing.VActive) {
+			Match = FALSE;
+		}
+
+		/* F0PVSyncWidth*/
+		if (F0PVSyncWidth != InstancePtr->Stream.Video.Timing.F0PVSyncWidth) {
+			Match = FALSE;
+		}
+
+		/* F1VSyncWidth*/
+		if (F1VSyncWidth != InstancePtr->Stream.Video.Timing.F1VSyncWidth) {
+			Match = FALSE;
+		}
+
+		/* F0PVFrontPorch*/
+		if (F0PVFrontPorch != InstancePtr->Stream.Video.Timing.F0PVFrontPorch) {
+			if (!VrrActive)
+				Match = FALSE;
+		}
+
+		/* F1VFrontPorch*/
+		if (F1VFrontPorch != InstancePtr->Stream.Video.Timing.F1VFrontPorch) {
+			Match = FALSE;
+		}
+
+		/* F0PVBackPorch*/
+		if (F0PVBackPorch != InstancePtr->Stream.Video.Timing.F0PVBackPorch) {
+			Match = FALSE;
+		}
+
+		/* F1VBackPorch*/
+		if (F1VBackPorch != InstancePtr->Stream.Video.Timing.F1VBackPorch) {
+			Match = FALSE;
+		}
+
+		if (HTotal != (HActive + HFrontPorch + HSyncWidth + HBackPorch)) {
+			Match = FALSE;
+		}
+
+		if (F0PVTotal !=
+		    (VActive + F0PVFrontPorch + F0PVSyncWidth + F0PVBackPorch)) {
+			if (!VrrActive)
+				Match = FALSE;
+		}
+
+		if (IsInterlaced == 1) {
+			if (F1VTotal != (VActive + F1VFrontPorch +
+					 F1VSyncWidth + F1VBackPorch)) {
+				Match = FALSE;
+			}
+		} else {
+			if (F1VFrontPorch | F1VSyncWidth | F1VBackPorch) {
+				Match = FALSE;
+			}
+		}
+	} else {
+		/* When DSC is enabled */
+		if (!HActive | !VActive | !HTotal | !F0PVTotal |
+		    !F0PVSyncWidth | !F0PVFrontPorch | !F0PVBackPorch)
+			Match = FALSE;
+
+		if (HTotal != InstancePtr->Stream.Video.Timing.HTotal)
+			Match = FALSE;
+		if (HActive != InstancePtr->Stream.Video.Timing.HActive)
+			Match = FALSE;
+		if (VActive != InstancePtr->Stream.Video.Timing.VActive)
+			Match = FALSE;
+		if (F0PVSyncWidth != InstancePtr->Stream.Video.Timing.F0PVSyncWidth)
+			Match = FALSE;
+		if (F0PVBackPorch != InstancePtr->Stream.Video.Timing.F0PVBackPorch)
+			Match = FALSE;
+		if (!VrrActive) {
+			if (F0PVTotal != InstancePtr->Stream.Video.Timing.F0PVTotal)
+				Match = FALSE;
+			if (F0PVFrontPorch != InstancePtr->Stream.Video.Timing.F0PVFrontPorch)
+				Match = FALSE;
+			if (F0PVTotal != (VActive + F0PVFrontPorch + F0PVSyncWidth + F0PVBackPorch))
+				Match = FALSE;
 		}
 	}
 
 	/* Then we store the timing parameters regardless if there was a match*/
 	/* Read Total Pixels */
 	InstancePtr->Stream.Video.Timing.HTotal =  HTotal;
-
 	/* Read Active Pixels */
 	InstancePtr->Stream.Video.Timing.HActive = HActive;
-
-	/* Read Hsync Width */
-	InstancePtr->Stream.Video.Timing.HSyncWidth = HSyncWidth;
-
-	/* Read HFront Porch */
-	InstancePtr->Stream.Video.Timing.HFrontPorch = HFrontPorch;
-
-	/* Read HBack Porch */
-	InstancePtr->Stream.Video.Timing.HBackPorch = HBackPorch;
-
-	/* Total lines field 1 */
-	InstancePtr->Stream.Video.Timing.F0PVTotal = F0PVTotal;
-
-	/* Total lines field 2 */
-	InstancePtr->Stream.Video.Timing.F1VTotal = F1VTotal;
-
 	/* Active lines field 1 */
 	InstancePtr->Stream.Video.Timing.VActive = VActive;
-
+	/* Total lines field 1 */
+	InstancePtr->Stream.Video.Timing.F0PVTotal = F0PVTotal;
 	/* Read VSync Width field 1*/
 	InstancePtr->Stream.Video.Timing.F0PVSyncWidth = F0PVSyncWidth;
-
-	/* Read VSync Width field 2*/
-	InstancePtr->Stream.Video.Timing.F1VSyncWidth = F1VSyncWidth;
-
 	/* Read VFront Porch field 1*/
 	InstancePtr->Stream.Video.Timing.F0PVFrontPorch = F0PVFrontPorch;
-
-	/* Read VFront Porch field 2*/
-	InstancePtr->Stream.Video.Timing.F1VFrontPorch = F1VFrontPorch;
-
 	/* Read VBack Porch field 1 */
 	InstancePtr->Stream.Video.Timing.F0PVBackPorch =  F0PVBackPorch;
 
-	/* Read VBack Porch field 2 */
-	InstancePtr->Stream.Video.Timing.F1VBackPorch =  F1VBackPorch;
+	if (!DscEnabledStream) {
+		/* Read Hsync Width */
+		InstancePtr->Stream.Video.Timing.HSyncWidth = HSyncWidth;
+		/* Read HFront Porch */
+		InstancePtr->Stream.Video.Timing.HFrontPorch = HFrontPorch;
+		/* Read HBack Porch */
+		InstancePtr->Stream.Video.Timing.HBackPorch = HBackPorch;
+		/* Total lines field 2 */
+		InstancePtr->Stream.Video.Timing.F1VTotal = F1VTotal;
+		/* Read VSync Width field 2*/
+		InstancePtr->Stream.Video.Timing.F1VSyncWidth = F1VSyncWidth;
+		/* Read VFront Porch field 2*/
+		InstancePtr->Stream.Video.Timing.F1VFrontPorch = F1VFrontPorch;
+		/* Read VBack Porch field 2 */
+		InstancePtr->Stream.Video.Timing.F1VBackPorch =  F1VBackPorch;
+	}
 
 	/* Do we have a match?*/
 	/* Yes, then continue processing*/
@@ -2655,4 +2679,43 @@ void XV_HdmiRx1_DynHDR_GetInfo(XV_HdmiRx1 *InstancePtr,
 	RxDynHdrInfoPtr->err = (XV_HdmiRx1_DynHdrErrType)((tmp &
 		XV_HDMIRX1_AUX_DYN_HDR_STS_ERR_MASK) >>
 		XV_HDMIRX1_AUX_DYN_HDR_STS_ERR_MASK);
+}
+
+u32 XV_HdmiRx1_DSC_IsEnableStream(XV_HdmiRx1 *InstancePtr)
+{
+	u32 tmp;
+
+	Xil_AssertNonvoid(InstancePtr);
+
+	if (!InstancePtr->Config.DSC)
+		return 0;
+
+	tmp = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+				 XV_HDMIRX1_PIO_IN_OFFSET);
+
+	return ((tmp & XV_HDMIRX1_PIO_IN_DSC_EN_STRM_MASK) ? 1 : 0);
+}
+
+int XV_HdmiRx1_DSC_SetDecodeFail(XV_HdmiRx1 *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr);
+
+	if (!InstancePtr->Config.DSC)
+		return XST_NO_FEATURE;
+
+	return XV_HdmiRx1_FrlDdcWriteField(InstancePtr,
+					   XV_HDMIRX1_SCDCFIELD_DSC_DECODE_FAIL,
+					   1);
+}
+
+int XV_HdmiRx1_DSC_SetDscFrlMax(XV_HdmiRx1 *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr);
+
+	if (!InstancePtr->Config.DSC)
+		return XST_NO_FEATURE;
+
+	return XV_HdmiRx1_FrlDdcWriteField(InstancePtr,
+					   XV_HDMIRX1_SCDCFIELD_DSC_FRL_MAX,
+					   1);
 }
