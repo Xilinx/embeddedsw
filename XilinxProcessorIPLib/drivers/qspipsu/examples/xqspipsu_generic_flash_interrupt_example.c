@@ -62,6 +62,7 @@
 * 1.13  akm 12/10/20 Set Read command as per the qspi bus width.
 * 1.14  akm 07/16/21 Enable Quad Mode for Winbond flashes.
 * 1.15  akm 11/19/21 Fix read/write failures on Spansion flash parts.
+* 1.15  akm 12/22/21 Initialize variables before use.
 *
 *</pre>
 *
@@ -730,9 +731,11 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		SectMask = (Flash_Config_Table[FCTIndex]).SectMask - (Flash_Config_Table[FCTIndex]).SectSize;
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize * 2;
+		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
 	} else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect * 2;
 		SectMask = (Flash_Config_Table[FCTIndex]).SectMask;
+		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
 	} else {
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
