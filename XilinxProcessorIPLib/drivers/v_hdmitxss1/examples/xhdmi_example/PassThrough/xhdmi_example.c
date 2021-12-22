@@ -124,6 +124,10 @@ void XV_Rx_HdmiTrigCb_VrrVfpEvent(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_VtemEvent(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_DynHdrEvent(void *InstancePtr);
 
+#if defined	(XPAR_V_HDMI_RXSS1_DSC_EN)
+void XV_Rx_HdmiTrigCb_DscDdcEvent(void *InstancePtr);
+#endif
+
 void XV_Rx_Hdcp_SetContentStreamType(void *InstancePtr);
 void XV_Rx_Hdcp_EnforceBlanking(void *InstancePtr);
 #endif /* XPAR_XV_HDMIRXSS1_NUM_INSTANCES */
@@ -207,6 +211,10 @@ XHdmiC_Aux      AuxFifo[AUXFIFOSIZE];
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 /* HDMI RX SS structure */
 XV_HdmiRxSs1     HdmiRxSs;
+#if defined	(XPAR_V_HDMI_RXSS1_DSC_EN) && \
+		defined (XPAR_XAXIS_SWITCH_NUM_INSTANCES)
+XAxis_Switch HdmiRxAxiSwitch;
+#endif
 
 u32 AuxCounter = 0;
 #endif
@@ -671,10 +679,15 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 #endif
 
 #else
+#if defined (XPAR_V_HDMI_RXSS1_DSC_EN)
+	memcpy(&(InstancePtr->Edid), &SampleEdid_4,
+		         sizeof(InstancePtr->Edid));
+	xil_printf("HDMI 2.1 DSC EDID is Initialized !!\r\n");
+#else
 	memcpy(&(InstancePtr->Edid), &SampleEdid,
 		         sizeof(InstancePtr->Edid));
 	 xil_printf("HDMI 2.1 Default EDID is Initialized !!\r\n");
-
+#endif
 #endif
 
 	/* Get User Edid Info */
@@ -787,6 +800,12 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 				(void *)InstancePtr);
 #endif
 
+#if defined (XPAR_V_HDMI_RXSS1_DSC_EN)
+	Status |= XV_Rx_SetTriggerCallbacks(InstancePtr,
+				XV_RX_TRIG_HANDLER_DSCDDCSTSUPDTEVNT,
+				(void *)XV_Rx_HdmiTrigCb_DscDdcEvent,
+				(void *)InstancePtr);
+#endif
 #if defined(USE_HDCP_HDMI_RX)
 	Status |= XV_Rx_SetTriggerCallbacks(InstancePtr,
 				XV_RX_TRIG_HANDLER_HDCP_FORCE_BLANKING,
@@ -3080,7 +3099,12 @@ u32 Exdes_UpdateTxParams(XHdmi_Exdes *ExdesInstance,
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 #else
-	XV_HdmiRxSs1_VRST(&HdmiRxSs, TRUE);
+	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
+	HdmiRxSsVidStreamPtr = XV_HdmiRxSs1_GetVideoStream(&HdmiRxSs);
+	if(HdmiRxSsVidStreamPtr->IsDSCompressed)
+		XV_HdmiRxSs1_VRST(&HdmiRxSs, FALSE);
+	else
+		XV_HdmiRxSs1_VRST(&HdmiRxSs, TRUE);
 #endif
 	EXDES_DBG_PRINT("%s,%d: Rx VRST - true \r\n", __func__, __LINE__);
 #endif
@@ -4648,7 +4672,13 @@ void XV_Tx_HdmiTrigCb_StreamOn(void *InstancePtr)
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFRD_NUM_INSTANCES)
 #else
-		XV_HdmiRxSs1_VRST(&HdmiRxSs, TRUE);
+		XVidC_VideoStream *HdmiRxSsVidStreamPtr;
+		HdmiRxSsVidStreamPtr = XV_HdmiRxSs1_GetVideoStream(&HdmiRxSs);
+		if(HdmiRxSsVidStreamPtr->IsDSCompressed) {
+			XV_HdmiRxSs1_VRST(&HdmiRxSs, FALSE);
+		} else {
+			XV_HdmiRxSs1_VRST(&HdmiRxSs, TRUE);
+		}
 #endif
 		xil_printf("Tx stream is up independently from Rx \r\n");
 		xil_printf("--------\r\nIndependent TX :\r\n");
@@ -4680,16 +4710,16 @@ void XV_Tx_HdmiTrigCb_StreamOn(void *InstancePtr)
 	HdmiTxSsVidStreamPtr = XV_HdmiTxSs1_GetVideoStream(&HdmiTxSs);
 	XVidC_ReportStreamInfo(HdmiTxSsVidStreamPtr);
 	if (HdmiTxSs.HdmiTx1Ptr->Stream.IsFrl == TRUE) {
-		xil_printf("\tTX FRL Rate:      %d lanes @ %d Gbps\r\n",
+		xil_printf("\tTX FRL Rate:              %d lanes @ %d Gbps\r\n",
 				HdmiTxSs.HdmiTx1Ptr->Stream.Frl.Lanes,
 				HdmiTxSs.HdmiTx1Ptr->Stream.Frl.LineRate);
 	} else {
-		xil_printf("\tTX     Mode:      TMDS\r\n");
+		xil_printf("\tTX     Mode:              TMDS\r\n");
 	}
 #if defined(XPAR_XV_HDMIRXSS1_NUM_INSTANCES)
 	if ((HdmiRxSs.HdmiRx1Ptr->Stream.IsFrl == TRUE) &&
 		(IsRx && IsTx) && (xhdmi_exdes_ctrlr.ForceIndependent == FALSE)) {
-		xil_printf("\tRX FRL Rate:      %d lanes @ %d Gbps\r\n",
+		xil_printf("\tRX FRL Rate:              %d lanes @ %d Gbps\r\n",
 				HdmiRxSs.HdmiRx1Ptr->Stream.Frl.Lanes,
 				HdmiRxSs.HdmiRx1Ptr->Stream.Frl.LineRate);
 	}
@@ -5197,6 +5227,25 @@ void XV_Rx_HdmiTrigCb_StreamOn(void *InstancePtr)
 
 	HdmiRxSsVidStreamPtr = XV_HdmiRxSs1_GetVideoStream(&HdmiRxSs);
 
+	/* If incoming stream is DSC then Select M01 AXI else
+	 * Select M00 AXI.
+	 */
+#if defined	(XPAR_V_HDMI_RXSS1_DSC_EN) && \
+		defined (XPAR_XAXIS_SWITCH_NUM_INSTANCES)
+	XAxisScr_RegUpdateDisable(&HdmiRxAxiSwitch);
+	if(HdmiRxSsVidStreamPtr->IsDSCompressed) {
+		XAxisScr_MiPortDisable(&HdmiRxAxiSwitch,0);
+		XAxisScr_MiPortEnable(&HdmiRxAxiSwitch,1,0);
+
+	} else {
+		XAxisScr_MiPortDisable(&HdmiRxAxiSwitch,1);
+		XAxisScr_MiPortEnable(&HdmiRxAxiSwitch,0,0);
+		xil_printf("DSC Disabled \r\n");
+	}
+	XAxisScr_RegUpdateEnable(&HdmiRxAxiSwitch);
+
+#endif
+
 	if (IsRx && !IsTx) {
 		xil_printf("--------\r\nRX Only :\r\n");
 		PrintRxInfo = TRUE;
@@ -5226,7 +5275,7 @@ void XV_Rx_HdmiTrigCb_StreamOn(void *InstancePtr)
 	if (PrintRxInfo == TRUE) {
 		XVidC_ReportStreamInfo(HdmiRxSsVidStreamPtr);
 		if (HdmiRxSs.HdmiRx1Ptr->Stream.IsFrl == TRUE) {
-			xil_printf("\tRX FRL Rate:      %d lanes @ %d Gbps\r\n",
+			xil_printf("\tRX FRL Rate:              %d lanes @ %d Gbps\r\n",
 					HdmiRxSs.HdmiRx1Ptr->Stream.Frl.Lanes,
 					HdmiRxSs.HdmiRx1Ptr->Stream.Frl.LineRate);
 		}
@@ -5255,6 +5304,8 @@ void XV_Rx_HdmiTrigCb_StreamOn(void *InstancePtr)
 	}
 #else
 	xhdmi_exdes_ctrlr.crop = FALSE;
+	if(HdmiRxSsVidStreamPtr->IsDSCompressed)
+		XV_HdmiRxSs1_VRST(&HdmiRxSs, FALSE);
 #endif
 	EXDES_DBG_PRINT("sysEventDebug:%s:%d:::%d\r\n", __func__,
 			__LINE__, xhdmi_exdes_ctrlr.SystemEvent);
@@ -5380,6 +5431,12 @@ void XV_Rx_HdmiTrigCb_DynHdrEvent(void *InstancePtr)
 }
 #endif
 
+#if defined	(XPAR_V_HDMI_RXSS1_DSC_EN)
+void XV_Rx_HdmiTrigCb_DscDdcEvent(void *InstancePtr) {
+  xil_printf(ANSI_COLOR_YELLOW"SCDCS(0x10) Status update is Cleared by Source\r\n");
+  xil_printf("DSC_DecodeFail(bit 7 of 0x40) is cleared by Sink "ANSI_COLOR_RESET"\r\n");
+}
+#endif
 /*****************************************************************************/
 /**
 *
@@ -6210,6 +6267,45 @@ u32 Exdes_TpgInitialize(u32 Gpio_tpg_resetn_deviceid, u32 tpg_deviceid)
 #endif
 #endif
 
+#ifdef XPAR_XAXIS_SWITCH_NUM_INSTANCES
+/*****************************************************************************/
+/**
+*
+* This function initialized the AXI Stream Switch.
+*
+* @param  Gpio_tpg_resetn_deviceid is the GPIO devive id used to reset the TPG.
+* @param  tpg_deviceid is the TPG devive id.
+*
+* @return XST_SUCCESS if the clock source is successfuly set.
+*         XST_FAILURE otherwise.
+*
+* @note   None.
+*
+******************************************************************************/
+u32 Exdes_AxisSwitchInitialize(XAxis_Switch *AxisSwitchPtr,u32 deviceid)
+{
+	u32 Status = XST_SUCCESS;
+	XAxis_Switch_Config *AxisSwitchConfigPtr;
+
+	/* Initialize GPIO for Tpg Reset */
+	AxisSwitchConfigPtr = XAxisScr_LookupConfig(deviceid);
+	if (AxisSwitchConfigPtr == NULL) {
+		AxisSwitchPtr->IsReady = 0;
+		return (XST_DEVICE_NOT_FOUND);
+	}
+
+	Status = XAxisScr_CfgInitialize(AxisSwitchPtr, AxisSwitchConfigPtr,
+					AxisSwitchConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR:: AXIS Stream Switch \r\n "
+				"Initialization failed for Device ID:%d,Status:\r\n",deviceid,Status);
+		return (XST_FAILURE);
+	}
+	return Status;
+}
+#endif
+
+
 /*****************************************************************************/
 /**
 *
@@ -6483,6 +6579,17 @@ int main()
 				"GPIO to reset the Video Frame Buffer !! \r\n");
 	} else {
 		xil_printf("Video Frame Buffer and GPIO to reset the Video Frame Buffer"
+				" successfully initialized\r\n");
+	}
+#endif
+
+#if defined	(XPAR_V_HDMI_RXSS1_DSC_EN) && \
+		defined (XPAR_XAXIS_SWITCH_NUM_INSTANCES)
+	Status = Exdes_AxisSwitchInitialize (&HdmiRxAxiSwitch,XPAR_AXIS_SWITCH_0_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Error in initializing HDMI 2.1 RX AXI Stream Switch !! \r\n");
+	} else {
+		xil_printf("HDMI 2.1 RX AXI Stream Switch"
 				" successfully initialized\r\n");
 	}
 #endif

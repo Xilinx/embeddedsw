@@ -54,6 +54,8 @@
 #define ANSI_COLOR_BG_RED       "\x1b[41m"
 #define ANSI_COLOR_BG_RESET     "\x1b[0m"
 
+#define EDID_SIZE XPAR_V_HDMI_RXSS1_V_HDMI_RX_DDC_EDID_SIZE
+
 #if defined (XPAR_V_HDMI_RX_SS_HDCP_1_4_DEVICE_ID) || \
 	defined (XPAR_XHDCP22_RX_NUM_INSTANCES)
 
@@ -149,6 +151,7 @@ typedef enum {
 	XV_RX_TRIG_HANDLER_VRRVFPEVENT,
 	XV_RX_TRIG_HANDLER_VTEMEVENT,
 	XV_RX_TRIG_HANDLER_DYNHDREVENT,
+	XV_RX_TRIG_HANDLER_DSCDDCSTSUPDTEVNT,
 } XV_Rx_Trigger_CallbackHandler;
 
 typedef struct {
@@ -238,6 +241,8 @@ typedef struct {
 	void *RxVtemCbRef;
 	XV_Rx_SM_Callback RxDynHdrCb;
 	void *RxDynHdrCbRef;
+	XV_Rx_SM_Callback RxDscDdcCb;
+	void *RxDscDdcCbRef;
 #ifdef USE_HDCP_HDMI_RX
 	XV_Rx_SM_Callback HdcpSetContentStreamTypeCb;
 	void *HdcpSetContentStreamTypeCbRef;
@@ -246,7 +251,7 @@ typedef struct {
 	void *HdcpForceBlankCbRef;
 #endif
 
-	u8 Edid[256];
+	u8 Edid[EDID_SIZE];
 
 	u32 AcrNVal;
 	u32 AcrCtsVal;
