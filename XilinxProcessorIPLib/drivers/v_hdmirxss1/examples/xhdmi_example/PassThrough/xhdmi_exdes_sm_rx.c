@@ -81,6 +81,7 @@ static void XV_Rx_HdmiRx_TmdsConfig_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRX_VrrVfp_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRX_VtemPkt_Cb(void *CallbackRef);
 static void XV_Rx_HdmiRX_DynHdrPkt_Cb(void *CallbackRef);
+static void XV_Rx_HdmiRX_DscDdcStsUpdt_Cb(void *CallbackRef);
 
 static void XV_Rx_HdmiRx_StateDisconnected(XV_Rx *InstancePtr,
 					XV_Rx_Hdmi_Events Event,
@@ -601,6 +602,10 @@ u32 XV_Rx_SetTriggerCallbacks(XV_Rx *InstancePtr,
 		InstancePtr->RxDynHdrCbRef = CallbackRef;
 		break;
 
+	case XV_RX_TRIG_HANDLER_DSCDDCSTSUPDTEVNT:
+		InstancePtr->RxDscDdcCb = Callback;
+		InstancePtr->RxDscDdcCbRef = CallbackRef;
+		break;
 #ifdef USE_HDCP_HDMI_RX
 	case XV_RX_TRIG_HANDLER_HDCP_SET_CONTENTSTREAMTYPE:
 		InstancePtr->HdcpSetContentStreamTypeCb = Callback;
@@ -721,6 +726,10 @@ u32 XV_Rx_HdmiRxSs_Setup_Callbacks(XV_Rx *InstancePtr)
 					(void *)XV_Rx_HdmiRX_DynHdrPkt_Cb,
 					(void *)InstancePtr);
 
+	Status |= XV_HdmiRxSs1_SetCallback(InstancePtr->HdmiRxSs,
+					XV_HDMIRXSS1_HANDLER_DSC_STS_UPDT,
+					(void *)XV_Rx_HdmiRX_DscDdcStsUpdt_Cb,
+					(void *)InstancePtr);
 	return Status;
 }
 
@@ -1522,6 +1531,14 @@ static void XV_Rx_HdmiRX_DynHdrPkt_Cb (void *CallbackRef)
 
 }
 
+static void XV_Rx_HdmiRX_DscDdcStsUpdt_Cb (void *CallbackRef)
+{
+	Xil_AssertVoid(CallbackRef);
+	XV_Rx *recvInst = (XV_Rx *)CallbackRef;
+	if (recvInst->RxDscDdcCb != NULL) {
+		recvInst->RxDscDdcCb(recvInst->RxDscDdcCbRef);
+	}
+}
 
 /******************* XV RX STATE MACHINE IMPLEMENTATION **********************/
 
