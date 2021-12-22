@@ -78,6 +78,9 @@ static void XV_HdmiRxSs1_FrlLtsPCallback(void *CallbackRef);
 static void XV_HdmiRxSs1_VfpChanged(void *CallbackRef);
 static void XV_HdmiRxSs1_VrrReady(void *CallbackRef);
 static void XV_HdmiRxSs1_DynHdrEvtCallback(void *CallbackRef);
+static void XV_HdmiRxSs1_DSCStreamChngCallback(void *CallbackRef);
+static void XV_HdmiRxSs1_DSCPktErrCallback(void *CallbackRef);
+static void XV_HdmiRxSs1_DSCStatusUpdateCallback(void *CallbackRef);
 
 static void XV_HdmiRxSs1_ConfigBridgeMode(XV_HdmiRxSs1 *InstancePtr);
 
@@ -429,9 +432,25 @@ static int XV_HdmiRxSs1_RegisterSubsysCallbacks(XV_HdmiRxSs1 *InstancePtr)
 			  XV_HDMIRX1_HANDLER_VRR_RDY,
 			  (void *)XV_HdmiRxSs1_VrrReady,
 			  (void *)InstancePtr);
+
     XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
 			   XV_HDMIRX1_HANDLER_DYN_HDR,
 			  (void *)XV_HdmiRxSs1_DynHdrEvtCallback,
+			  (void *)InstancePtr);
+
+    XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
+			   XV_HDMIRX1_HANDLER_DSC_STRM_CH,
+			  (void *)XV_HdmiRxSs1_DSCStreamChngCallback,
+			  (void *)InstancePtr);
+
+    XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
+			   XV_HDMIRX1_HANDLER_DSC_PKT_ERR,
+			  (void *)XV_HdmiRxSs1_DSCPktErrCallback,
+			  (void *)InstancePtr);
+
+    XV_HdmiRx1_SetCallback(HdmiRxSs1Ptr->HdmiRx1Ptr,
+			   XV_HDMIRX1_HANDLER_DSC_STS_UPDT,
+			  (void *)XV_HdmiRxSs1_DSCStatusUpdateCallback,
 			  (void *)InstancePtr);
   }
 
@@ -514,6 +533,11 @@ int XV_HdmiRxSs1_CfgInitialize(XV_HdmiRxSs1 *InstancePtr,
     }
     XV_HdmiRx1_SetAxiClkFreq(HdmiRxSs1Ptr->HdmiRx1Ptr,
                             HdmiRxSs1Ptr->Config.AxiLiteClkFreq);
+  }
+
+  if(HdmiRxSs1Ptr->Config.DSC) {
+	  /* Enable HDMI-RX DDC interrupts */
+	  XV_HdmiRx1_DdcIntrEnable(HdmiRxSs1Ptr->HdmiRx1Ptr);
   }
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -1731,6 +1755,28 @@ int XV_HdmiRxSs1_SetCallback(XV_HdmiRxSs1 *InstancePtr,
 	    InstancePtr->DynHdrCallback =
 	    (XV_HdmiRxSs1_Callback)CallbackFunc;
 	    InstancePtr->DynHdrRef = CallbackRef;
+	    Status = (XST_SUCCESS);
+	    break;
+
+	/* DSC */
+	case (XV_HDMIRXSS1_HANDLER_DSC_STRM_CH):
+	    InstancePtr->DSCStreamChangeEventCallback =
+	    (XV_HdmiRxSs1_Callback)CallbackFunc;
+	    InstancePtr->DSCStrmChgEvtRef = CallbackRef;
+	    Status = (XST_SUCCESS);
+	    break;
+
+	case (XV_HDMIRXSS1_HANDLER_DSC_PKT_ERR):
+	    InstancePtr->DSCPktErrCallback =
+	    (XV_HdmiRxSs1_Callback)CallbackFunc;
+	    InstancePtr->DSCPktErrCallback = CallbackRef;
+	    Status = (XST_SUCCESS);
+	    break;
+
+	case (XV_HDMIRXSS1_HANDLER_DSC_STS_UPDT):
+	    InstancePtr->DSCStsUpdtEvtCallback =
+	    (XV_HdmiRxSs1_Callback)CallbackFunc;
+	    InstancePtr->DSCStsUpdtEvtRef = CallbackRef;
 	    Status = (XST_SUCCESS);
 	    break;
 
@@ -2970,4 +3016,66 @@ static void XV_HdmiRxSs1_DynHdrEvtCallback(void *CallbackRef)
 
 	if (HdmiRxSs1Ptr->DynHdrCallback)
 		HdmiRxSs1Ptr->DynHdrCallback(HdmiRxSs1Ptr->DynHdrRef);
+}
+
+u32 XV_HdmiRxSs1_DSC_IsEnableStream(XV_HdmiRxSs1 *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr);
+	Xil_AssertNonvoid(InstancePtr->HdmiRx1Ptr);
+
+	if (!(InstancePtr->Config.DSC))
+		return 0;
+
+	return XV_HdmiRx1_DSC_IsEnableStream(InstancePtr->HdmiRx1Ptr);
+}
+
+int XV_HdmiRxSs1_DSC_SetDecodeFail(XV_HdmiRxSs1 *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr);
+	Xil_AssertNonvoid(InstancePtr->HdmiRx1Ptr);
+
+	return XV_HdmiRx1_DSC_SetDecodeFail(InstancePtr->HdmiRx1Ptr);
+}
+
+int XV_HdmiRxSs1_DSC_SetDscFrlMax(XV_HdmiRxSs1 *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr);
+	Xil_AssertNonvoid(InstancePtr->HdmiRx1Ptr);
+
+	return XV_HdmiRx1_DSC_SetDscFrlMax(InstancePtr->HdmiRx1Ptr);
+}
+
+static void XV_HdmiRxSs1_DSCStreamChngCallback(void *CallbackRef)
+{
+	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+
+#ifdef XV_HDMIRXSS1_LOG_ENABLE
+	XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_DSC_STRM_EVT, 0);
+#endif
+	if (HdmiRxSs1Ptr->DSCStreamChangeEventCallback)
+		HdmiRxSs1Ptr->DSCStreamChangeEventCallback(HdmiRxSs1Ptr->DSCStrmChgEvtRef);
+}
+
+static void XV_HdmiRxSs1_DSCPktErrCallback(void *CallbackRef)
+{
+	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+
+#ifdef XV_HDMIRXSS1_LOG_ENABLE
+	XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_DSC_PKT_ERR, 0);
+#endif
+
+	if (HdmiRxSs1Ptr->DSCPktErrCallback)
+		HdmiRxSs1Ptr->DSCPktErrCallback(HdmiRxSs1Ptr->DSCPktErrRef);
+}
+
+static void XV_HdmiRxSs1_DSCStatusUpdateCallback(void *CallbackRef)
+{
+	XV_HdmiRxSs1 *HdmiRxSs1Ptr = (XV_HdmiRxSs1 *)CallbackRef;
+
+#ifdef XV_HDMIRXSS1_LOG_ENABLE
+	XV_HdmiRxSs1_LogWrite(HdmiRxSs1Ptr, XV_HDMIRXSS1_LOG_EVT_DSC_DDC_STS_UPDT, 0);
+#endif
+
+	if (HdmiRxSs1Ptr->DSCStsUpdtEvtCallback)
+		HdmiRxSs1Ptr->DSCStsUpdtEvtCallback(HdmiRxSs1Ptr->DSCStsUpdtEvtRef);
 }
