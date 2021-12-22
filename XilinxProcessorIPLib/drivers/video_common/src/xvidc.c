@@ -1066,35 +1066,50 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream)
 		return;
 	}
 
-	xil_printf("\tColor Format:     %s\r\n",
+	xil_printf("\tColor Format:             %s\r\n",
 			XVidC_GetColorFormatStr(Stream->ColorFormatId));
-	xil_printf("\tColor Depth:      %d\r\n", Stream->ColorDepth);
-	xil_printf("\tPixels Per Clock: %d\r\n", Stream->PixPerClk);
-	xil_printf("\tMode:             %s\r\n",
+	xil_printf("\tColor Depth:              %d\r\n", Stream->ColorDepth);
+	xil_printf("\tPixels Per Clock:         %d\r\n", Stream->PixPerClk);
+	xil_printf("\tMode:                     %s\r\n",
 			Stream->IsInterlaced ? "Interlaced" : "Progressive");
+	xil_printf("\tDSC Status:               %s\r\n",
+			Stream->IsDSCompressed? "Compressed" : "Uncompressed");
 
 	if (Stream->Is3D) {
-		xil_printf("\t3D Format:        %s\r\n",
+		xil_printf("\t3D Format:                %s\r\n",
 		XVidC_Get3DFormatStr(Stream->Info_3D.Format));
 	}
 
 	if (Stream->VmId == XVIDC_VM_CUSTOM) {
-		xil_printf("\tFrame Rate:       %dHz\r\n",
+		xil_printf("\tFrame Rate:               %dHz\r\n",
 				Stream->FrameRate);
-		xil_printf("\tResolution:       %dx%d [Custom Mode]\r\n",
-				Stream->Timing.HActive, Stream->Timing.VActive);
-		xil_printf("\tPixel Clock:      %d kHz\r\n",
-				(u32)XVidC_GetPixelClockHzByHVFr(
-					Stream->Timing.HTotal,
-					Stream->Timing.F0PVTotal,
-					Stream->FrameRate)/1000);
+		if (Stream->IsDSCompressed) {
+			xil_printf("\tResolution[Compressed]:   %dx%d [Custom Mode]\r\n",
+				   Stream->Timing.HActive,
+				   Stream->Timing.VActive);
+			xil_printf("\tResolution[Uncompressed]: %dx%d\r\n",
+				   Stream->UncompressedTiming.HActive,
+				   Stream->UncompressedTiming.VActive);
+			xil_printf("\tPixel Clock[Compressed]:  %u KHz\r\n",
+				   (u32)XVidC_GetPixelClockHzByHVFr(Stream->Timing.HTotal,
+								    Stream->Timing.F0PVTotal,
+								    Stream->FrameRate) / 1000);
+		} else {
+			xil_printf("\tResolution:               %dx%d [Custom Mode]\r\n",
+				   Stream->Timing.HActive, Stream->Timing.VActive);
+			xil_printf("\tPixel Clock:              %d kHz\r\n",
+				   (u32)XVidC_GetPixelClockHzByHVFr(
+								    Stream->Timing.HTotal,
+								    Stream->Timing.F0PVTotal,
+								    Stream->FrameRate)/1000);
+		}
 	}
 	else {
-		xil_printf("\tFrame Rate:       %s\r\n",
+		xil_printf("\tFrame Rate:               %s\r\n",
 				XVidC_GetFrameRateStr(Stream->VmId));
-		xil_printf("\tResolution:       %s\r\n",
+		xil_printf("\tResolution:               %s\r\n",
 				XVidC_GetVideoModeStr(Stream->VmId));
-		xil_printf("\tPixel Clock:      %d kHz\r\n",
+		xil_printf("\tPixel Clock:              %d kHz\r\n",
 				(u32)XVidC_GetPixelClockHzByVmId(Stream->VmId)/1000);
 	}
 }

@@ -590,20 +590,23 @@ typedef enum {
  * Video stream structure.
  */
 typedef struct {
-	XVidC_ColorFormat	  ColorFormatId;
-	XVidC_ColorDepth	  ColorDepth;
-	XVidC_PixelsPerClock  PixPerClk;
-	XVidC_FrameRate		  FrameRate;
-	XVidC_AspectRatio	  AspectRatio;
-	u8			          IsInterlaced;
-	u8			          Is3D;
-	XVidC_3DInfo		  Info_3D;
-	XVidC_VideoMode		  VmId;
-	XVidC_VideoTiming	  Timing;
+	XVidC_ColorFormat	ColorFormatId;
+	XVidC_ColorDepth	ColorDepth;
+	XVidC_PixelsPerClock	PixPerClk;
+	XVidC_FrameRate		FrameRate;
+	XVidC_AspectRatio	AspectRatio;
+	u8			IsInterlaced;
+	u8			Is3D;
+	XVidC_3DInfo		Info_3D;
+	XVidC_VideoMode		VmId;
+	XVidC_VideoTiming	Timing;
 	XVidC_Eotf		Eotf;
 	XVidC_ColorStd		ColorStd;
-	XVidC_FrameRate		  BaseFrameRate;
-	XVidC_VideoTiming	  BaseTiming;
+	XVidC_FrameRate		BaseFrameRate;
+	XVidC_VideoTiming	BaseTiming;
+	/* For DSC streams */
+	u8			IsDSCompressed;
+	XVidC_VideoTiming	UncompressedTiming;
 } XVidC_VideoStream;
 
 /**
