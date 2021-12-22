@@ -178,6 +178,11 @@ typedef enum {
 						  * event */
 	XV_HDMIRX1_HANDLER_VRR_RDY,		/**<Handler for VRR rdy event */
 	XV_HDMIRX1_HANDLER_DYN_HDR,		/**< Handler for Dynamic HDR */
+	XV_HDMIRX1_HANDLER_DSC_STRM_CH,		/**< Handler type for DSC stream change event */
+	XV_HDMIRX1_HANDLER_DSC_PKT_ERR,		/**< Handler type for DSC PPS Packet error event */
+	XV_HDMIRX1_HANDLER_DSC_STS_UPDT,	/**< Handler type for SCDC Reg 0x10
+						     bit 0 Status_Update bit set by
+						     HDMI Source */
 } XV_HdmiRx1_HandlerType;
 /*@}*/
 
@@ -241,6 +246,7 @@ typedef struct {
 	u32 VideoClkFreqkHz;
 	u32 MaxFrlRate; /** < Maximum FRL Rate Supporte */
 	u32 DynamicHDR; /**< Dynamic HDR supported */
+	u32 DSC; /**< DSC supported */
 	XV_HdmiRx1_EdidSize EdidRamSize;
 } XV_HdmiRx1_Config;
 
@@ -421,6 +427,16 @@ typedef struct {
 
 	XV_HdmiRx1_Callback DynHdrCallback;		/**< Callback for Dynamic HDR event */
 	void *DynHdrRef;				/**< To be passed to Dynamic HDR event callback */
+
+	XV_HdmiRx1_Callback DSCStreamChangeEventCallback; /**< Callback for DSC stream change event */
+	void *DSCStrmChgEvtRef;				/**< To be passed to DSC Stream change event callback */
+
+	XV_HdmiRx1_Callback DSCPktErrCallback;		/**< Callback for DSC PPS packet error event */
+	void *DSCPktErrRef;				/**< To be passed to DSC PPS packet error event callback */
+
+	XV_HdmiRx1_Callback DSCStsUpdtEvtCallback;	/**< Callback for SCDC reg 0x10
+							     bit 0 Status_Update bit set from Source event */
+	void *DSCStsUpdtEvtRef;				/**< To be passed to Status_Update bit set event callback */
 
 	/* HDMI RX stream */
 	XV_HdmiRx1_Stream Stream;			/**< HDMI RX stream information */
@@ -2040,6 +2056,10 @@ void XV_HdmiRx1_SetVrrIfType(XV_HdmiRx1 *InstancePtr,
 void XV_HdmiRx1_DynHDR_SetAddr(XV_HdmiRx1 *InstancePtr, u64 Addr);
 void XV_HdmiRx1_DynHDR_GetInfo(XV_HdmiRx1 *InstancePtr,
 			       XV_HdmiRx1_DynHDR_Info *RxDynInfoPtr);
+
+u32 XV_HdmiRx1_DSC_IsEnableStream(XV_HdmiRx1 *InstancePtr);
+int XV_HdmiRx1_DSC_SetDecodeFail(XV_HdmiRx1 *InstancePtr);
+int XV_HdmiRx1_DSC_SetDscFrlMax(XV_HdmiRx1 *InstancePtr);
 
 /************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/

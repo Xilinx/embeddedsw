@@ -453,6 +453,28 @@ int XV_HdmiRx1_SetCallback(XV_HdmiRx1 *InstancePtr,
 		Status = XST_SUCCESS;
 		break;
 
+	/* DSC */
+	case (XV_HDMIRX1_HANDLER_DSC_STRM_CH):
+		InstancePtr->DSCStreamChangeEventCallback =
+		(XV_HdmiRx1_Callback)CallbackFunc;
+		InstancePtr->DSCStrmChgEvtRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case (XV_HDMIRX1_HANDLER_DSC_PKT_ERR):
+		InstancePtr->DSCPktErrCallback =
+		(XV_HdmiRx1_Callback)CallbackFunc;
+		InstancePtr->DSCPktErrRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case (XV_HDMIRX1_HANDLER_DSC_STS_UPDT):
+		InstancePtr->DSCStsUpdtEvtCallback =
+		(XV_HdmiRx1_Callback)CallbackFunc;
+		InstancePtr->DSCStsUpdtEvtRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
 	default:
 		Status = (XST_INVALID_PARAM);
 		break;
@@ -520,11 +542,58 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 
 		/* Check if we are in lock state */
 		if (InstancePtr->Stream.State == XV_HDMIRX1_STATE_STREAM_LOCK) {
+			u32 DscEnabledStream = XV_HdmiRx1_DSC_IsEnableStream(InstancePtr);
+			InstancePtr->Stream.Video.IsDSCompressed = DscEnabledStream;
 
 			/* Read video timing */
 			Status = XV_HdmiRx1_GetVideoTiming(InstancePtr);
 
 			if (Status == XST_SUCCESS) {
+
+				if (DscEnabledStream) {
+					u32 Data;
+					XVidC_VideoTiming *UncompressedTiming;
+
+					Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+								  XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT);
+
+					UncompressedTiming = &(InstancePtr->Stream.Video.UncompressedTiming);
+					UncompressedTiming->HFrontPorch =
+						(Data >> XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT_ORIG_HFRONT_SHIFT) &
+						XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT_ORIG_HFRONT_MASK;
+					UncompressedTiming->HSyncWidth =
+						(Data >> XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT_ORIG_HSYNC_SHIFT) &
+						XV_HDMIRX1_DSC_CVTEM_HSYNC_HFRONT_ORIG_HSYNC_MASK;
+
+					Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+								  XV_HDMIRX1_DSC_CVTEM_HBACK_HCACT);
+
+					UncompressedTiming->HBackPorch =
+						(Data >> XV_HDMIRX1_DSC_CVTEM_HBACK_HCACT_HBACK_SHIFT) &
+						 XV_HDMIRX1_DSC_CVTEM_HBACK_HCACT_HBACK_MASK;
+
+					Data = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+								  XV_HDMIRX1_DSC_CVTEM_HACT_VACT);
+
+					UncompressedTiming->HActive =
+						(Data >> XV_HDMIRX1_DSC_CVTEM_HACT_VACT_HACT_SHIFT) &
+						XV_HDMIRX1_DSC_CVTEM_HACT_VACT_HACT_MASK;
+
+					UncompressedTiming->HTotal =
+						UncompressedTiming->HActive +
+						UncompressedTiming->HFrontPorch +
+						UncompressedTiming->HSyncWidth +
+						UncompressedTiming->HBackPorch;
+
+					UncompressedTiming->VActive = InstancePtr->Stream.Video.Timing.VActive;
+					UncompressedTiming->F0PVTotal = InstancePtr->Stream.Video.Timing.F0PVTotal;
+					UncompressedTiming->F0PVSyncWidth = InstancePtr->Stream.Video.Timing.F0PVSyncWidth;
+					UncompressedTiming->F0PVFrontPorch = InstancePtr->Stream.Video.Timing.F0PVFrontPorch;
+					UncompressedTiming->F0PVBackPorch = InstancePtr->Stream.Video.Timing.F0PVBackPorch;
+					UncompressedTiming->HSyncPolarity = InstancePtr->Stream.Video.Timing.HSyncPolarity;
+					UncompressedTiming->VSyncPolarity = InstancePtr->Stream.Video.Timing.VSyncPolarity;
+				}
+
 				if (InstancePtr->Stream.IsFrl == TRUE) {
 					/*Get the ratio and print */
 					ActivePixFRLRatio = XV_HdmiRx1_Divide(XV_HdmiRx1_GetFrlActivePixRatio(InstancePtr), 1000);
@@ -580,7 +649,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 						 (TRUE));
 
 				if (InstancePtr->Stream.Vic != 0 && !VrrActive
-						&& (FvaFactor < 2)) {
+						&& (FvaFactor < 2) && !DscEnabledStream) {
 					DecodedVmId = XV_HdmiRx1_LookupVmId(InstancePtr->Stream.Vic);
 
 					if (DecodedVmId != InstancePtr->Stream.Video.VmId) {
@@ -618,7 +687,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 					       InstancePtr->SubsysVidIntfc == 1 ||
 					       InstancePtr->SubsysVidIntfc == 2);
 
-				if (InstancePtr->SubsysVidIntfc == 0) {
+				if (InstancePtr->SubsysVidIntfc == 0 && !DscEnabledStream) {
 					/* AXI4 Stream Interface */
 					/* PPC can only be 4 or 8 */
 					Xil_AssertVoid(InstancePtr->SubsysPpc == XVIDC_PPC_4 ||
@@ -990,6 +1059,28 @@ static void HdmiRx1_DdcIntrHandler(XV_HdmiRx1 *InstancePtr)
 		}
 	}
 
+	/*
+	 * Check for interrupt generated when source sets
+	 * SCDC 0x10 register bit 0 Status_Update
+	 */
+	if (Status & XV_HDMIRX1_DDC_STA_SCDC_DSC_STS_UPDT_EVT_MASK) {
+
+		XV_HdmiRx1_WriteReg(InstancePtr->Config.BaseAddress,
+				    XV_HDMIRX1_DDC_STA_OFFSET,
+				    XV_HDMIRX1_DDC_STA_SCDC_DSC_STS_UPDT_EVT_MASK);
+		/*
+		 * Clear the DSC Decode fail bit 7 in 0x40 SCDC register as per
+		 * spec
+		 */
+		XV_HdmiRx1_FrlDdcWriteField(InstancePtr,
+					   XV_HDMIRX1_SCDCFIELD_DSC_DECODE_FAIL,
+					   0);
+
+		if (InstancePtr->DSCStsUpdtEvtCallback) {
+			InstancePtr->DSCStsUpdtEvtCallback(
+					InstancePtr->DSCStsUpdtEvtRef);
+		}
+	}
 }
 
 /*****************************************************************************/
@@ -1345,6 +1436,35 @@ static void HdmiRx1_PioIntrHandler(XV_HdmiRx1 *InstancePtr)
 		}
 	}
 
+	/* DSC Stream Change Event */
+	if (Event & XV_HDMIRX1_PIO_IN_DSC_EN_STRM_CHG_EVT_MASK) {
+
+		u32 val = XV_HdmiRx1_ReadReg(InstancePtr->Config.BaseAddress,
+					     XV_HDMIRX1_PIO_IN_OFFSET);
+
+		if (!(XV_HDMIRX1_PIO_IN_DSC_EN_STRM_MASK & val)) {
+			/*
+			 * When the DSC CVT is not preset, clear bit 7 DSC
+			 * Decode Fail in 0x40 SCDC register as per spec.
+			 */
+			XV_HdmiRx1_FrlDdcWriteField(InstancePtr,
+						    XV_HDMIRX1_SCDCFIELD_DSC_DECODE_FAIL,
+						    0);
+		}
+
+		if (InstancePtr->DSCStreamChangeEventCallback) {
+			InstancePtr->DSCStreamChangeEventCallback(
+					InstancePtr->DSCStrmChgEvtRef);
+		}
+	}
+
+	/* DSC PPS Packet Error event */
+	if (Event & XV_HDMIRX1_PIO_IN_DSC_PPS_PKT_ERR_MASK) {
+		if (InstancePtr->DSCPktErrCallback) {
+			InstancePtr->DSCPktErrCallback(
+					InstancePtr->DSCPktErrCallback);
+		}
+	}
 }
 
 /*****************************************************************************/
