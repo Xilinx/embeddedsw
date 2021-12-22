@@ -8,6 +8,9 @@
 # 1.0	    ssc   04/28/16 First Release.
 # 1.4       mus   11/17/21 Updated to export base and high
 #                          address for psu_ddr instances.
+# 1.5       mus   12/22/21 Updated xdefine_include_file and
+#                          xdefine_canonical_xpars procs to initialize the
+#                          the variables before using them. It fixes CR#1118044
 #
 ###############################################################################
 
@@ -28,6 +31,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Get all peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     set ddr_devid 0
+    set ddrc_periphs ""
 
     # Handle special cases
     set arg "NUM_INSTANCES"
@@ -157,6 +161,11 @@ proc define_addr_params {periph file_name type device_id} {
 }
 
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
+    set ddrc_periphs ""
+    set peripherals ""
+    set indices ""
+    set canonicals ""
+
     # Open include file
     set file_handle [::hsi::utils::open_include_file $file_name]
     set ddr_devid 0
