@@ -42,6 +42,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/15/2021 Removed unwanted goto statements
 * 1.05  skd  11/18/2021 Removed unwanted time stamps in XPlmi_ProcessCdo
+*       kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 *
 * </pre>
 *
@@ -223,6 +224,7 @@ static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, const u32 *BufPtr, u32 *Size)
 {
 	int Status = XST_FAILURE;
 	u8 Index = 0U;
+	u32 RemSize;
 
 	/* Copy the remaining cmd data */
 	if (CdoPtr->CopiedCmdLen == 1U) {
@@ -248,9 +250,9 @@ static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, const u32 *BufPtr, u32 *Size)
 	 * command size is greater than copied length
 	 */
 	if (*Size > CdoPtr->CopiedCmdLen) {
-		Status = Xil_SecureMemCpy(&(CdoPtr->TempCmdBuf[CdoPtr->CopiedCmdLen]),
-			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN, &BufPtr[Index],
-			(*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN);
+		RemSize = (*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN;
+		Status = Xil_SMemCpy(&(CdoPtr->TempCmdBuf[CdoPtr->CopiedCmdLen]),
+				RemSize, &BufPtr[Index], RemSize, RemSize);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_COPY_CMD, Status);
 			goto END;
@@ -329,6 +331,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	int Status = XST_FAILURE;
 	XPlmi_Cmd *CmdPtr = &CdoPtr->Cmd;
 	u32 PrintLen;
+	u32 BufSize;
 
 	/*
 	 * Break if CMD says END of commands,
@@ -357,9 +360,11 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF)
 		&& ((BufPtr[0U] & XPLMI_PLM_CMD_MASK) !=
 		XPLMI_PLM_DMA_KEYHOLE_VAL)) {
+		BufSize = BufLen * XPLMI_WORD_LEN;
 		/* Copy Cmd to temporary buffer */
-		Status = Xil_SecureMemCpy(CdoPtr->TempCmdBuf, BufLen * XPLMI_WORD_LEN,
-				BufPtr, BufLen * XPLMI_WORD_LEN);
+		Status = Xil_SMemCpy(CdoPtr->TempCmdBuf, BufSize,
+				BufPtr, BufSize,
+				BufSize);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_CMD_EXEC, Status);
 			goto END;

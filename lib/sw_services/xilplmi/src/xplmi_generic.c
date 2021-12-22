@@ -61,6 +61,7 @@
 *       rb   08/19/2021 Fix compilation warning
 * 1.07  bsv  10/26/2021 Code clean up
 *       ma   11/22/2021 Remove hardcoding of Proc addresses
+*       kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 *
 * </pre>
 *
@@ -1281,7 +1282,7 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
 static int XPlmi_LogString(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 Len = Cmd->PayloadLen;
+	u32 Len = Cmd->PayloadLen * XPLMI_WORD_LEN;
 	static u8 LogString[XPLMI_MAX_LOG_STR_LEN] __attribute__ ((aligned(4U)));
 	static u32 StringIndex = 0U;
 
@@ -1300,13 +1301,13 @@ static int XPlmi_LogString(XPlmi_Cmd *Cmd)
 	}
 
 	/* Append the payload to local buffer */
-	Status = Xil_SecureMemCpy(&LogString[StringIndex],
+	Status = Xil_SMemCpy(&LogString[StringIndex],
 		(XPLMI_MAX_LOG_STR_LEN - StringIndex), (u8 *)&Cmd->Payload[0U],
-		(Len * XPLMI_WORD_LEN));
+		Len, Len);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	StringIndex += (Len * XPLMI_WORD_LEN);
+	StringIndex += Len;
 	if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
 		/* Print the string only when complete payload is received */
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s\n\r", LogString);
@@ -1783,8 +1784,9 @@ int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
 	int Status = XST_FAILURE;
 	const XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
 
-	Status = Xil_SecureMemCpy(ReadBackVal, sizeof(XPlmi_ReadBackProps),
-			ReadBackPtr, sizeof(XPlmi_ReadBackProps));
+	Status = Xil_SMemCpy(ReadBackVal, sizeof(XPlmi_ReadBackProps),
+			ReadBackPtr, sizeof(XPlmi_ReadBackProps),
+			sizeof(XPlmi_ReadBackProps));
 
 	return Status;
 }
@@ -1804,8 +1806,9 @@ int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack)
 	int Status = XST_FAILURE;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
 
-	Status = Xil_SecureMemCpy(ReadBackPtr, sizeof(XPlmi_ReadBackProps),
-			ReadBack, sizeof(XPlmi_ReadBackProps));
+	Status = Xil_SMemCpy(ReadBackPtr, sizeof(XPlmi_ReadBackProps),
+			ReadBack, sizeof(XPlmi_ReadBackProps),
+			sizeof(XPlmi_ReadBackProps));
 
 	return Status;
 }
