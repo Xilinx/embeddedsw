@@ -46,6 +46,7 @@
 * 1.9   akm 04/03/19 Fixed data alignment warnings on IAR compiler.
 * 1.13  akm 11/30/20 Removed unwanted header files.
 * 1.15  akm 11/19/21 Fix read/write failures on Spansion flash parts.
+* 1.15  akm 12/22/21 Initialize variables before use.
 *
 *</pre>
 *
@@ -715,9 +716,11 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		SectMask = (Flash_Config_Table[FCTIndex]).SectMask - (Flash_Config_Table[FCTIndex]).SectSize;
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize * 2;
+		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
 	} else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect * 2;
 		SectMask = (Flash_Config_Table[FCTIndex]).SectMask;
+		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
 	} else {
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
