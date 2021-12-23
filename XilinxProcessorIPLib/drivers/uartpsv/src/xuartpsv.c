@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv.c
-* @addtogroup uartpsv_v1_5
+* @addtogroup Overview
 * @{
 *
 * This file contains the implementation of the interface functions for

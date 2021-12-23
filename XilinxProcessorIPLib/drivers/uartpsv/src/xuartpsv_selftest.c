@@ -7,10 +7,11 @@
 /**
 *
 * @file xuartpsv_selftest.c
-* @addtogroup uartpsv_v1_5
+* @addtogroup Overview
 * @{
 *
-* This file contains the self-test functions for the XUartPsv driver.
+* The xuartpsv_selftest.c file contains the self-test functions for the
+* XUartPsv driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
