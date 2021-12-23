@@ -15,14 +15,12 @@
 
 #define AIE_POLL_TIMEOUT 0X1000000U
 
-/* TODO: Remove hard coded base addresses and row/col shifts for AIE */
 #define COL_SHIFT 23U
 #define ROW_SHIFT 18U
 #define TILE_BASEADDRESS(col, row) ((u64)VIVADO_ME_BASEADDR +\
 			((u64)(col) << COL_SHIFT)+\
 			((u64)(row) << ROW_SHIFT))
 
-/* TODO: Remove hard coded base addresses and row/col shifts for AIE2 */
 #define AIE2_COL_SHIFT 25U
 #define AIE2_ROW_SHIFT 20U
 #define AIE2_TILE_BASEADDRESS(col, row) ((u64)VIVADO_ME_BASEADDR +\
@@ -94,28 +92,6 @@ static const u32 ProgramMem[] __attribute__ ((aligned(16))) = {
 	0x00010001U,
 	0x00010001U,
 	};
-
-
-
-struct AieArray {
-	u64 NocAddress;
-	u32 NumCols;
-	u32 NumRows;
-	u32 NumMemRows;
-	u32 StartCol;
-	u32 StartRow;
-	u32 StartTileRow;
-};
-
-static struct AieArray Aie2Inst = {
-	.NocAddress = 0x20000000000U,
-	.NumCols = 38U,
-	.NumRows = 10U,
-	.NumMemRows = 2U,
-	.StartCol = 0U,
-	.StartRow = 1U,
-	.StartTileRow = 3U,
-};
 
 /*****************************************************************************/
 /**
@@ -348,42 +324,44 @@ done:
 	return Status;
 }
 
-static void Aie2ClockInit(u32 BaseAddress)
+static void Aie2ClockInit(XPm_AieDomain *AieDomain, u32 BaseAddress)
 {
-	u32 col;
+	u16 StartCol = AieDomain->Array.StartCol;
+	u16 EndCol = StartCol + AieDomain->Array.NumCols;
 
-	/* Enable privelaged write access */
+	/* Enable privileged write access */
 	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK);
 
 	/* Enable all column clocks */
-	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
+	for (u16 col = StartCol; col < EndCol; col++) {
 		AieWrite64(AIE2_TILE_BASEADDRESS(col, 0) +
 				AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 1U);
 	}
 
-	/* Disable privelaged write access */
+	/* Disable privileged write access */
 	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
 }
 
-static void Aie2ClockGate(u32 BaseAddress)
+static void Aie2ClockGate(XPm_AieDomain *AieDomain, u32 BaseAddress)
 {
-	u32 col;
+	u16 StartCol = AieDomain->Array.StartCol;
+	u16 EndCol = StartCol + AieDomain->Array.NumCols;
 
-	/* Enable privelaged write access */
+	/* Enable privileged write access */
 	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK);
 
 	/* Disable all column clocks */
-	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
+	for (u16 col = StartCol; col < EndCol; col++) {
 		AieWrite64(AIE2_TILE_BASEADDRESS(col, 0) +
 				AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 0U);
 	}
 
-	/* Disable privelaged write access */
+	/* Disable privileged write access */
 	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
 
@@ -436,9 +414,12 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto fail;
 	}
 
-	/* TODO: Configure TOP_ROW and ROW_OFFSET by reading from EFUSE */
-	/* Hardcode ME_TOP_ROW value for XCVC1902 device */
-	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), 0x00000008U);
+	/**
+	 * Configure ME_TOP_ROW (TODO: Read from Efuse in future):
+	 *	- ROW_OFFSET = 0
+	 *	- ME_TOP_ROW = Total number of rows in the array
+	 */
+	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), AieDomain->Array.NumRows);
 
 	/* Get houseclean disable mask */
 	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_AIE_SHIFT;
@@ -509,10 +490,12 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto fail;
 	}
 
-	/* TODO: This needs to be data driven to handle multiple devices */
-	/* Change from AIE. Each device has unique ME_TOP_ROW value */
-	/* Configure ME_TOP_ROW and ROW_OFFSET registers */
-	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), Aie2Inst.NumRows);
+	/**
+	 * Configure ME_TOP_ROW (TODO: Read from Efuse in future):
+	 *	- ROW_OFFSET = 0
+	 *	- ME_TOP_ROW = Total number of rows in the array
+	 */
+	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), AieDomain->Array.NumRows);
 
 	/* Change from AIE to AIE2. AIE handles in CDO */
 	/* De-assert INIT_STATE */
@@ -599,9 +582,9 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -615,7 +598,7 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* Change from AIE to AIE2. */
 	/* Clock gate for each column */
-	Aie2ClockGate(BaseAddress);
+	Aie2ClockGate(AieDomain, BaseAddress);
 
 	/* Change from AIE to AIE2. PCOMPLETE should be set at the end of the
 	 * sequence */
@@ -814,6 +797,7 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -831,7 +815,7 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 * has then disabled by default. Clocks must be up from this point to
 	 * continue the sequence */
 	/* Enable all column clocks */
-	Aie2ClockInit(BaseAddress);
+	Aie2ClockInit(AieDomain, BaseAddress);
 
 	/* Remove PMC-NoC domain isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
@@ -1226,13 +1210,16 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus MemTileZeroStatus = XST_FAILURE;
 	u32 AieZeroizationTime = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 BaseAddress;
-	u32 row;
-	u32 col;
-	u32 mrow;
+	u32 BaseAddress, row, col, mrow;
+
+	XPm_AieArray *Array = &((XPm_AieDomain *)PwrDomain)->Array;
+	u16 StartCol = Array->StartCol;
+	u16 EndCol = StartCol + Array->NumCols;
+	u16 StartRow = Array->StartRow;
+	u16 EndRow = StartRow + Array->NumRows;
+	u16 StartTileRow = StartRow + Array->NumMemRows;
 
 	/* This function does not use the args */
-	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
@@ -1244,14 +1231,14 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	/* Enable privelaged write access */
+	/* Enable privileged write access */
 	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK);
 
-	/* Enable memory zeroization for mem tiles. Mem tiles start at row 1. */
-	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
-		for (row = 1U; row <= Aie2Inst.NumMemRows; row++) {
+	/* Enable memory zeroization for mem tiles; stop before tile row begins */
+	for (col = StartCol; col < EndCol; col++) {
+		for (row = StartRow; row < StartTileRow; row++) {
 			AieRMW64(AIE2_TILE_BASEADDRESS(col, row) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
 					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
 					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
@@ -1260,8 +1247,8 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* Enable memory zeroization for all AIE2 tiles.
 	 * Enable for core and memory modules. */
-	for (col = Aie2Inst.StartCol; col < (Aie2Inst.StartCol + Aie2Inst.NumCols); col++) {
-		for (row = Aie2Inst.StartTileRow; row < (Aie2Inst.StartRow + Aie2Inst.NumRows); row++) {
+	for (col = StartCol; col < EndCol; col++) {
+		for (row = StartTileRow; row < EndRow; row++) {
 			AieWrite64(AIE2_TILE_BASEADDRESS(col, row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
 					AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
 			AieWrite64(AIE2_TILE_BASEADDRESS(col, row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
@@ -1269,9 +1256,9 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 	}
 
-	col = Aie2Inst.StartCol + Aie2Inst.NumCols - 1U;
-	row = Aie2Inst.StartRow + Aie2Inst.NumRows - 1U;
-	mrow = Aie2Inst.StartRow + Aie2Inst.NumMemRows - 1U;
+	col = Array->StartCol + Array->NumCols - 1U;
+	row = Array->StartRow + Array->NumRows - 1U;
+	mrow = Array->StartRow + Array->NumMemRows - 1U;
 
 	/* Poll the last cell for each tile type for memory zeroization complete */
 	while ((XST_SUCCESS != MemTileZeroStatus) ||
@@ -1367,16 +1354,6 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		goto done;
 	}
 
-	/* AIE2 Instance for VE2302 (TODO: Remove this when topology support is added) */
-	if (PMC_TAP_IDCODE_DEV_SBFMLY_VE2302 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
-		Aie2Inst.NumCols = 17U;
-		Aie2Inst.NumRows = 3U;
-		Aie2Inst.NumMemRows = 1U;
-		Aie2Inst.StartCol = 0U;
-		Aie2Inst.StartRow = 1U;
-		Aie2Inst.StartTileRow = 2U;
-	}
-
 	/**
 	 * NOTE: This hardcoded AIE NoC Address will later be replaced;
 	 * _if_ it is passed from pm_init_start for AIE PD command.
@@ -1439,6 +1416,8 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			Array->NumCols = 38U;
 			Array->NumRows = 10U;
 			Array->NumMemRows = 2U;
+			Array->NumShimRows = 1U;
+			Array->NumAieRows = Array->NumRows - Array->NumMemRows;
 			Array->StartCol = 0U;
 			Array->StartRow = 1U;
 
@@ -1447,6 +1426,8 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 				Array->NumCols = 17U;
 				Array->NumRows = 3U;
 				Array->NumMemRows = 1U;
+				Array->NumShimRows = 1U;
+				Array->NumAieRows = Array->NumRows - Array->NumMemRows;
 				Array->StartCol = 0U;
 				Array->StartRow = 1U;
 			}
