@@ -10,7 +10,7 @@ BEGIN driver uartpsv
   OPTION supported_peripherals = (psv_sbsauart);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.5;
+  OPTION VERSION = 1.6;
   OPTION NAME = uartpsv;
 
   BEGIN INTERFACE stdin
