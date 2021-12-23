@@ -3873,7 +3873,8 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 			Status = XST_BUFFER_TOO_SMALL;
 			goto done;
 		}
-		Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent);
+		Status = XPmAieDomain_Init(AieDomain, PowerId, BitMask, PowerParent,
+					   &Args[3], (NumArgs - 3U));
 		break;
 	case (u32)XPM_NODETYPE_POWER_RAIL:
 		Rail = (XPm_Rail *)XPmPower_GetById(PowerId);
