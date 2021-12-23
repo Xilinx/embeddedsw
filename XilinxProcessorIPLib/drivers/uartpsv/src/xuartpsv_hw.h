@@ -7,10 +7,11 @@
 /**
 *
 * @file xuartpsv_hw.h
-* @addtogroup uartpsv_v1_5
+* @addtogroup Overview
 * @{
 *
-* This header file contains the hardware interface of an XUartPsv device.
+* The xuartpsv_hw.h header file contains the hardware interface of an XUartPsv
+* device.
 *
 * <pre>
 * MODIFICATION HISTORY:

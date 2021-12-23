@@ -7,11 +7,11 @@
 /**
 *
 * @file xuartpsv.h
-* @addtogroup uartpsv_v1_5
+* @addtogroup Overview
 * @{
 * @details
 *
-* This driver supports the following features:
+* The UartPsv driver supports the following features:
 *
 * - Dynamic data format (baud rate, data bits, stop bits, parity)
 * - Polled mode
