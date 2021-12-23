@@ -17,15 +17,13 @@
 
 #define COL_SHIFT 23U
 #define ROW_SHIFT 18U
-#define TILE_BASEADDRESS(col, row) ((u64)VIVADO_ME_BASEADDR +\
-			((u64)(col) << COL_SHIFT)+\
-			((u64)(row) << ROW_SHIFT))
+#define AIE1_TILE_BADDR(NocAddr, col, row)	\
+	(((u64)(NocAddr)) + ((u64)(col) << COL_SHIFT) + ((u64)(row) << ROW_SHIFT))
 
 #define AIE2_COL_SHIFT 25U
 #define AIE2_ROW_SHIFT 20U
-#define AIE2_TILE_BASEADDRESS(col, row) ((u64)VIVADO_ME_BASEADDR +\
-		            ((u64)(col) << AIE2_COL_SHIFT) +\
-		            ((u64)(row) << AIE2_ROW_SHIFT))
+#define AIE2_TILE_BADDR(NocAddr, col, row)	\
+	(((u64)(NocAddr)) + ((u64)(col) << AIE2_COL_SHIFT) + ((u64)(row) << AIE2_ROW_SHIFT))
 
 #define AIE_CORE_STATUS_DONE_MASK   (1UL<<20U)
 
@@ -155,30 +153,37 @@ static inline void AieWait(u32 MicroSeconds)
 /**
  * This function is used to enable AIE Core
  *
+ * @param AieDomain Handle to AIE domain instance
  * @param Col Column index of the Core
  * @param Row Row index of the Core
- * @return
+ *
+ * @return N/A
  *****************************************************************************/
-static void AieCoreEnable(u32 Col, u32 Row)
+static void AieCoreEnable(const XPm_AieDomain *AieDomain, u32 Col, u32 Row)
 {
-    /* Release reset to the Core */
-	AieWrite64(TILE_BASEADDRESS(Col, Row) + AIE_CORE_CONTROL_OFFSET, 0U);
+	u64 TileBaseAddress = AIE1_TILE_BADDR(AieDomain->Array.NocAddress, Col, Row);
+
+	/* Release reset to the Core */
+	AieWrite64(TileBaseAddress + AIE_CORE_CONTROL_OFFSET, 0U);
 
 	/* Enable the Core */
-	AieWrite64(TILE_BASEADDRESS(Col, Row) + AIE_CORE_CONTROL_OFFSET, 1U);
+	AieWrite64(TileBaseAddress + AIE_CORE_CONTROL_OFFSET, 1U);
 }
 
 /*****************************************************************************/
 /**
  * This function waits for a Core's DONE bit to be set
  *
+ * @param AieDomain Handle to AIE domain instance
  * @param Col Column index of the Core
  * @param Row Row index of the Core
+ *
  * @return Status Code
  *****************************************************************************/
-static XStatus AieWaitForCoreDone(u32 Col, u32 Row)
+static XStatus AieWaitForCoreDone(const XPm_AieDomain *AieDomain, u32 Col, u32 Row)
 {
-	u64 StatusRegAddr = TILE_BASEADDRESS(Col, Row) + AIE_CORE_STATUS_OFFSET;
+	u64 TileBaseAddress = AIE1_TILE_BADDR(AieDomain->Array.NocAddress, Col, Row);
+	u64 StatusRegAddr = TileBaseAddress + AIE_CORE_STATUS_OFFSET;
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -197,13 +202,17 @@ static XStatus AieWaitForCoreDone(u32 Col, u32 Row)
 /**
  * This function loads a core's program memory with zeroization elf
  *
+ * @param AieDomain Handle to AIE domain instance
  * @param Col Column index of the Core
  * @param Row Row index of the Core
+ *
  * @return Status Code
  *****************************************************************************/
-static XStatus ProgramCore(u32 Col, u32 Row, const u32 *PrgData, u32 NumOfWords)
+static XStatus ProgramCore(const XPm_AieDomain *AieDomain, u32 Col, u32 Row,
+			   const u32 *PrgData, u32 NumOfWords)
 {
-	u64 PrgAddr = TILE_BASEADDRESS(Col, Row) + AIE_PROGRAM_MEM_OFFSET;
+	u64 TileBaseAddress = AIE1_TILE_BADDR(AieDomain->Array.NocAddress, Col, Row);
+	u64 PrgAddr = TileBaseAddress + AIE_PROGRAM_MEM_OFFSET;
 
 	return XPlmi_DmaXfr((u64)(0U)|(u32)PrgData, PrgAddr, NumOfWords, XPLMI_PMCDMA_0);
 }
@@ -250,7 +259,7 @@ done:
  *
  * @return
  *****************************************************************************/
-static void TriggerEccScrub(XPm_AieDomain *AieDomain, u32 Action)
+static void TriggerEccScrub(const XPm_AieDomain *AieDomain, u32 Action)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
 	u16 EndCol = StartCol + AieDomain->Array.NumCols;
@@ -259,8 +268,8 @@ static void TriggerEccScrub(XPm_AieDomain *AieDomain, u32 Action)
 
 	for (u16 col = StartCol; col < EndCol; col++) {
 		for (u16 row = StartRow; row < EndRow; row++) {
-			AieWrite64(TILE_BASEADDRESS(col, row) + AIE_CORE_ECC_SCRUB_EVENT_OFFSET,
-					Action);
+			u64 TileBaseAddress = AIE1_TILE_BADDR(AieDomain->Array.NocAddress, col, row);
+			AieWrite64(TileBaseAddress + AIE_CORE_ECC_SCRUB_EVENT_OFFSET, Action);
 		}
 	}
 }
@@ -269,9 +278,11 @@ static void TriggerEccScrub(XPm_AieDomain *AieDomain, u32 Action)
 /**
  * This function clock gates ME tiles clock column-wise
  *
- * @return
+ * @param AieDomain Handle to AIE domain instance
+ *
+ * @return N/A
  *****************************************************************************/
-static void AieClkGateByCol(XPm_AieDomain *AieDomain)
+static void AieClkGateByCol(const XPm_AieDomain *AieDomain)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
 	u16 EndCol = StartCol + AieDomain->Array.NumCols;
@@ -280,14 +291,15 @@ static void AieClkGateByCol(XPm_AieDomain *AieDomain)
 
 	for (u16 row = StartRow; row < EndRow; ++row) {
 		for (u16 col = StartCol; col < EndCol; ++col) {
-			AieRMW64(TILE_BASEADDRESS(col, row) + AIE_TILE_CLOCK_CONTROL_OFFSET,
+			u64 TileBaseAddress = AIE1_TILE_BADDR(AieDomain->Array.NocAddress, col, row);
+			AieRMW64(TileBaseAddress + AIE_TILE_CLOCK_CONTROL_OFFSET,
 				AIE_TILE_CLOCK_CONTROL_CLK_BUFF_EN_MASK,
 				~AIE_TILE_CLOCK_CONTROL_CLK_BUFF_EN_MASK);
 		}
 	}
 }
 
-static XStatus AieCoreMemInit(XPm_AieDomain *AieDomain)
+static XStatus AieCoreMemInit(const XPm_AieDomain *AieDomain)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
 	u16 EndCol = StartCol + AieDomain->Array.NumCols;
@@ -299,13 +311,14 @@ static XStatus AieCoreMemInit(XPm_AieDomain *AieDomain)
 	for (u16 col = StartCol; col < EndCol; col++) {
 		for (u16 row = StartRow; row < EndRow; row++) {
 			PmDbg("---------- (%d, %d)----------\r\n", col, row);
-			Status = ProgramCore(col, row, &ProgramMem[0], ARRAY_SIZE(ProgramMem));
+			Status = ProgramCore(AieDomain, col, row,
+					     &ProgramMem[0], ARRAY_SIZE(ProgramMem));
 			if (XST_SUCCESS != Status) {
 				DbgErr = XPM_INT_ERR_PRGRM_CORE;
 				goto done;
 			}
 
-			AieCoreEnable(col, row);
+			AieCoreEnable(AieDomain, col, row);
 		}
 	}
 
@@ -314,7 +327,7 @@ static XStatus AieCoreMemInit(XPm_AieDomain *AieDomain)
 	 * updated AIE elf generated by latest tools, then the below check for
 	 * core DONE may not work. Latest tools use events instead of DONE bit.
 	 */
-	Status = AieWaitForCoreDone(EndCol - 1U, EndRow - 1U);
+	Status = AieWaitForCoreDone(AieDomain, (u32)EndCol - 1U, (u32)EndRow - 1U);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AIE_CORE_STATUS_TIMEOUT;
 	}
@@ -324,7 +337,7 @@ done:
 	return Status;
 }
 
-static void Aie2ClockInit(XPm_AieDomain *AieDomain, u32 BaseAddress)
+static void Aie2ClockInit(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
 	u16 EndCol = StartCol + AieDomain->Array.NumCols;
@@ -336,7 +349,7 @@ static void Aie2ClockInit(XPm_AieDomain *AieDomain, u32 BaseAddress)
 
 	/* Enable all column clocks */
 	for (u16 col = StartCol; col < EndCol; col++) {
-		AieWrite64(AIE2_TILE_BASEADDRESS(col, 0) +
+	AieWrite64(AIE2_TILE_BADDR(AieDomain->Array.NocAddress, col, 0) +
 				AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 1U);
 	}
 
@@ -345,7 +358,7 @@ static void Aie2ClockInit(XPm_AieDomain *AieDomain, u32 BaseAddress)
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
 }
 
-static void Aie2ClockGate(XPm_AieDomain *AieDomain, u32 BaseAddress)
+static void Aie2ClockGate(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
 	u16 EndCol = StartCol + AieDomain->Array.NumCols;
@@ -357,7 +370,7 @@ static void Aie2ClockGate(XPm_AieDomain *AieDomain, u32 BaseAddress)
 
 	/* Disable all column clocks */
 	for (u16 col = StartCol; col < EndCol; col++) {
-		AieWrite64(AIE2_TILE_BASEADDRESS(col, 0) +
+		AieWrite64(AIE2_TILE_BADDR(AieDomain->Array.NocAddress, col, 0) +
 				AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 0U);
 	}
 
@@ -415,7 +428,7 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/**
-	 * Configure ME_TOP_ROW (TODO: Read from Efuse in future):
+	 * Configure ME_TOP_ROW:
 	 *	- ROW_OFFSET = 0
 	 *	- ME_TOP_ROW = Total number of rows in the array
 	 */
@@ -491,7 +504,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	/**
-	 * Configure ME_TOP_ROW (TODO: Read from Efuse in future):
+	 * Configure ME_TOP_ROW:
 	 *	- ROW_OFFSET = 0
 	 *	- ME_TOP_ROW = Total number of rows in the array
 	 */
@@ -541,7 +554,7 @@ static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
+	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -582,7 +595,7 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
+	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -797,7 +810,7 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
+	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -1152,7 +1165,7 @@ static XStatus AieMemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
+	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -1212,7 +1225,7 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 BaseAddress, row, col, mrow;
 
-	XPm_AieArray *Array = &((XPm_AieDomain *)PwrDomain)->Array;
+	const XPm_AieArray *Array = &((const XPm_AieDomain *)PwrDomain)->Array;
 	u16 StartCol = Array->StartCol;
 	u16 EndCol = StartCol + Array->NumCols;
 	u16 StartRow = Array->StartRow;
@@ -1239,7 +1252,8 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Enable memory zeroization for mem tiles; stop before tile row begins */
 	for (col = StartCol; col < EndCol; col++) {
 		for (row = StartRow; row < StartTileRow; row++) {
-			AieRMW64(AIE2_TILE_BASEADDRESS(col, row) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
+			u64 MemTileBaseAddress = AIE2_TILE_BADDR(Array->NocAddress, col, row);
+			AieRMW64(MemTileBaseAddress + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
 					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
 					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
 		}
@@ -1249,31 +1263,32 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 * Enable for core and memory modules. */
 	for (col = StartCol; col < EndCol; col++) {
 		for (row = StartTileRow; row < EndRow; row++) {
-			AieWrite64(AIE2_TILE_BASEADDRESS(col, row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
+			u64 TileBaseAddress = AIE2_TILE_BADDR(Array->NocAddress, col, row);
+			AieWrite64(TileBaseAddress + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
 					AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
-			AieWrite64(AIE2_TILE_BASEADDRESS(col, row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
+			AieWrite64(TileBaseAddress + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
 					AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
 		}
 	}
 
-	col = Array->StartCol + Array->NumCols - 1U;
-	row = Array->StartRow + Array->NumRows - 1U;
-	mrow = Array->StartRow + Array->NumMemRows - 1U;
+	col = (u32)(Array->StartCol + Array->NumCols - 1U);
+	row = (u32)(Array->StartRow + Array->NumRows - 1U);
+	mrow = (u32)(Array->StartRow + Array->NumMemRows - 1U);
 
 	/* Poll the last cell for each tile type for memory zeroization complete */
 	while ((XST_SUCCESS != MemTileZeroStatus) ||
 	       (XST_SUCCESS != CoreZeroStatus) ||
 	       (XST_SUCCESS != MemZeroStatus)) {
 
-		if (0U == AieRead64(AIE2_TILE_BASEADDRESS(col, mrow) +
+		if (0U == AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, mrow) +
 				AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)) {
 			MemTileZeroStatus = XST_SUCCESS;
 		}
-		if (0U == AieRead64(AIE2_TILE_BASEADDRESS(col, row) +
+		if (0U == AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, row) +
 				AIE2_CORE_MODULE_MEM_CTRL_OFFSET)) {
 			CoreZeroStatus = XST_SUCCESS;
 		}
-		if (0U == AieRead64(AIE2_TILE_BASEADDRESS(col, row) +
+		if (0U == AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, row) +
 				AIE2_MEM_MODULE_MEM_CTRL_OFFSET)) {
 			MemZeroStatus = XST_SUCCESS;
 		}
