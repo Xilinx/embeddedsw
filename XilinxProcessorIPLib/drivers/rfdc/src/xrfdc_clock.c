@@ -76,6 +76,7 @@
 * 11.1  cog    11/16/21 Upversion.
 *       cog    11/17/21 Fixed powerup bit toggle issue.
 *       cog    12/07/21 Added clocking configurations for DFE devices.
+*       cog    12/23/21 Added output divder value in appropriate error messages.
 * </pre>
 *
 ******************************************************************************/
@@ -1893,15 +1894,15 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 					PrimaryDivideValue = XRFDC_DISABLED;
 					SecondaryDivideValue = XRFDC_RX_PR_MC_CFG0_IDIV_MASK;
 				} else {
-					metal_log(METAL_LOG_ERROR, "\n Invalid divider value for %s %u in %s\r\n",
-						  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
+					metal_log(METAL_LOG_ERROR, "\n Invalid divider value (%u) for %s %u in %s\r\n",
+						  OpDiv, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 					Status = XRFDC_FAILURE;
 					goto RETURN_PATH;
 				}
 
 				break;
 			default:
-				metal_log(METAL_LOG_ERROR, "\n Invalid divider value for %s %u in %s\r\n",
+				metal_log(METAL_LOG_ERROR, "\n Invalid divider value (%u) for %s %u in %s\r\n", OpDiv,
 					  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
 				Status = XRFDC_FAILURE;
 				goto RETURN_PATH;
