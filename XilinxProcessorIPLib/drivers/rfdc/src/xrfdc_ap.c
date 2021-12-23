@@ -31,6 +31,8 @@
 *       cog    08/05/21 Fixed issue where VOP initial value was incorrect.
 *       cog    08/18/21 Disallow VOP for DC coupled DACs.
 * 11.1  cog    11/16/21 Upversion.
+*       cog    12/21/21 Read DAC coupling from a register rather than from
+*                       the config structure.
 *
 * </pre>
 *
@@ -2595,6 +2597,7 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 	float uACurrentInt;
 	float uACurrentNext;
 	u32 Code;
+	u32 LinkCoupling;
 
 	/* Tuned optimization values*/
 	u32 BldrOPCBias[64] = { 22542, 26637, 27661, 27661, 28686, 28686, 29710, 29711, 30735, 30735, 31760,
@@ -2623,13 +2626,6 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 		goto RETURN_PATH;
 	}
 
-	if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].LinkCoupling != XRFDC_DAC_LINK_COUPLING_AC) {
-		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested functionality not available DC coupled configuration in %s\r\n", __func__);
-		goto RETURN_PATH;
-	}
-
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
@@ -2648,6 +2644,16 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
+
+	BaseAddr = XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, Tile_Id);
+	LinkCoupling = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_CPL_TYPE_OFFSET);
+	if (LinkCoupling != XRFDC_DAC_LINK_COUPLING_AC) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR,
+			  "\n Requested functionality not available DC coupled configuration in %s\r\n", __func__);
+		goto RETURN_PATH;
+	}
+
 	uACurrentInt = (float)uACurrent;
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
