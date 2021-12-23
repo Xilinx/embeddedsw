@@ -404,6 +404,7 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 DisableMask;
+	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -416,6 +417,14 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
+
+	/* Use AIE NoC Address if available */
+	if (2U <= NumOfArgs) {
+		AieDomain->Array.NocAddress = ((u64)Args[1] << 32U) | (Args[0]);
+		PmDbg("AIE: NoC Address: 0x%x%08x\r\n",
+				(u32)(AieDomain->Array.NocAddress >> 32U),
+				(u32)(AieDomain->Array.NocAddress));
+	}
 
 	/* Check for ME Power Status */
 	if( (XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) &
@@ -468,6 +477,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 DisableMask;
+	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -480,6 +490,14 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = Aie2Dev->Node.BaseAddress;
+
+	/* Use AIE NoC Address if available */
+	if (2U <= NumOfArgs) {
+		AieDomain->Array.NocAddress = ((u64)Args[1] << 32U) | (Args[0]);
+		PmDbg("AIE: NoC Address: 0x%x%08x\r\n",
+				(u32)(AieDomain->Array.NocAddress >> 32U),
+				(u32)(AieDomain->Array.NocAddress));
+	}
 
 	/* Check for AIE2 Power Status */
 	if ((XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) &
@@ -1332,13 +1350,17 @@ static struct XPm_PowerDomainOps AieOps[XPM_AIE_OPS_MAX] = {
 };
 
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent)
+			  XPm_Power *Parent, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Platform = XPm_GetPlatform();
 	u32 IdCode = XPm_GetIdCode();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const struct XPm_PowerDomainOps *Ops = NULL;
+	XPm_AieArray *Array = &AieDomain->Array;
+
+	(void)Args;
+	(void)NumArgs;
 
 	/* Set HC Ops based on AIE version */
 	if (PM_POWER_ME == Id) {
@@ -1377,6 +1399,74 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		AieInst.NumRows = 8U;
 		AieInst.StartCol = 0U;
 		AieInst.StartRow = 1U;
+	}
+
+	/**
+	 * NOTE: This hardcoded AIE NoC Address will later be replaced;
+	 * _if_ it is passed from pm_init_start for AIE PD command.
+	 */
+	Array->NocAddress = (u64)VIVADO_ME_BASEADDR;
+
+	/* Read AIE array geometry info from topology if available */
+	if (3U <= NumArgs) {
+		Array->GenVersion = ARR_GENV(Args[0]);
+		Array->NumRows = ARR_ROWS(Args[1]);
+		Array->NumCols = ARR_COLS(Args[1]);
+		Array->NumAieRows = ARR_AIEROWS(Args[2]);
+		Array->NumMemRows = ARR_MEMROWS(Args[2]);
+		Array->NumShimRows = ARR_SHMROWS(Args[2]);
+	} else {
+		/* TODO: Remove this entire else() logic when topology CDO changes are present */
+
+		/* AIE 1 */
+		if (PM_POWER_ME == Id) {
+			/* Use defaults for AIE1 */
+			Array->GenVersion = AIE_GENV1;
+
+			if (Platform != PLATFORM_VERSION_SILICON) {
+				/* Non-Silicon defaults for AIE1 */
+				Array->NumCols = 7U;
+				Array->NumRows = 5U;
+				Array->StartCol = 6U;
+				Array->StartRow = 1U;
+			} else {
+				/* Silicon defaults for AIE1 */
+				Array->NumCols = 50U;
+				Array->NumRows = 8U;
+				Array->StartCol = 0U;
+				Array->StartRow = 1U;
+			}
+
+			/* AIE Instance for VC1702 */
+			if ((PMC_TAP_IDCODE_DEV_SBFMLY_VC1702 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
+			    (PMC_TAP_IDCODE_DEV_SBFMLY_VE1752 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+				Array->NumCols = 38U;
+				Array->NumRows = 8U;
+				Array->StartCol = 0U;
+				Array->StartRow = 1U;
+			}
+		} else {
+		/* AIE 2 */
+			/* Use defaults for AIE2 */
+			Array->GenVersion = AIE_GENV2;
+
+			/* NOTE: "StartTileRow" is not copied in "Array" and computed at runtime later */
+
+			Array->NumCols = 38U;
+			Array->NumRows = 10U;
+			Array->NumMemRows = 2U;
+			Array->StartCol = 0U;
+			Array->StartRow = 1U;
+
+			/* AIE2 Instance for VE2302 */
+			if (PMC_TAP_IDCODE_DEV_SBFMLY_VE2302 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+				Array->NumCols = 17U;
+				Array->NumRows = 3U;
+				Array->NumMemRows = 1U;
+				Array->StartCol = 0U;
+				Array->StartRow = 1U;
+			}
+		}
 	}
 
 	/* NOP for HC on QEMU */

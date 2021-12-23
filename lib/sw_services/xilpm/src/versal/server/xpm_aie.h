@@ -21,12 +21,41 @@ extern "C" {
 #define ECC_SCRUB_ENABLE	(1U)
 #define ECC_SCRUB_DISABLE	(0U)
 
+#define AIE_GENV1		(1U)
+#define AIE_GENV2		(2U)
+
+typedef struct XPm_AieArray XPm_AieArray;
+typedef struct XPm_AieDomain XPm_AieDomain;
+
+#define ARR_GENV(ArrWord)	((u16)((ArrWord) & 0xFFFFU))
+#define ARR_ROWS(ArrWord)	((u16)((ArrWord) & 0xFFFFU))
+#define ARR_COLS(ArrWord)	((u16)((ArrWord) >> 16U) & 0xFFFFU)
+#define ARR_AIEROWS(ArrWord)	((u16)((ArrWord) >> 16U) & 0xFFFFU)
+#define ARR_MEMROWS(ArrWord)	((u16)((ArrWord) >> 8U) & 0xFFU)
+#define ARR_SHMROWS(ArrWord)	((u16)((ArrWord) & 0xFFU))
+
+/**
+ * AI Engine array.
+ */
+struct XPm_AieArray {
+	u64 NocAddress;
+	u16 GenVersion;
+	u16 NumCols;
+	u16 NumRows;
+	u16 StartCol;
+	u16 StartRow;
+	u16 NumAieRows;
+	u16 NumMemRows;
+	u16 NumShimRows;
+};
+
 /**
  * AI Engine domain node class.
  */
-typedef struct XPm_AieDomain {
+struct XPm_AieDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
-} XPm_AieDomain;
+	XPm_AieArray Array;	/**< AIE device instance */
+};
 
 /*****************************************************************************/
 /**
@@ -52,7 +81,7 @@ static inline void XPmAieDomain_LockPcsr(u32 BaseAddress)
 
 /************************** Function Prototypes ******************************/
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
-			   XPm_Power *Parent);
+			  XPm_Power *Parent, const u32 *Args, u32 NumArgs);
 
 #ifdef __cplusplus
 }
