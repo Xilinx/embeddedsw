@@ -1124,7 +1124,29 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				}
 				break;
 			case XST352_BYTE1_ST2081_10_DL_2160L_6G:
-			/* Dual link 6G */
+			/* Dual link 6G - ST2081-11 mode 1 */
+				switch (FrameRate) {
+				case XVIDC_FR_48HZ:
+					SdiStream->VmId = ((active_luma
+						== 1) ? XVIDC_VM_4096x2160_48_P :
+								XVIDC_VM_3840x2160_48_P);
+					break;
+				case XVIDC_FR_50HZ:
+					SdiStream->VmId = ((active_luma
+						== 1) ? XVIDC_VM_4096x2160_50_P :
+								XVIDC_VM_3840x2160_50_P);
+					break;
+
+				case XVIDC_FR_60HZ:
+					SdiStream->VmId = ((active_luma
+						== 1) ? XVIDC_VM_4096x2160_60_P :
+								XVIDC_VM_3840x2160_60_P);
+					break;
+				default:
+					SdiStream->VmId = XVIDC_VM_3840x2160_60_P;
+					break;
+				};
+				break;
 			case XST352_BYTE1_ST2081_10_2160L_6G:
 			/* Table 3 SMPTE ST 2081-10 */
 				switch (FrameRate) {
