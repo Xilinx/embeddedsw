@@ -105,6 +105,8 @@
 *       cog    07/12/21 Simplified clock distribution user interface.
 * 11.1  cog    11/16/21 Upversion.
 *       cog    11/26/21 Reset clock gaters when setting decimation rate.
+*       cog    12/21/21 Read DAC coupling from a register rather than from
+*                       the config structure.
 *
 *</pre>
 *
@@ -339,6 +341,7 @@ extern "C" {
 #define XRFDC_PLL_FS 0x304U /**< Sampling rate register */
 #define XRFDC_CAL_TMR_MULT_OFFSET 0x30CU /**< Calibration timer register */
 #define XRFDC_CAL_DLY_OFFSET 0x310U /**< Calibration delay register */
+#define XRFDC_CPL_TYPE_OFFSET 0x314U /**< Coupling type register */
 #define XRFDC_FIFO_ENABLE 0x230U /**< FIFO Enable and Disable */
 #define XRFDC_PLL_SDM_CFG0 0x00U /**< PLL Configuration bits for sdm */
 #define XRFDC_PLL_SDM_SEED0 0x18U /**< PLL Bits for sdm LSB */
