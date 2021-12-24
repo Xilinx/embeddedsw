@@ -216,6 +216,8 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/*Lock PCSR Register */
 	XPmNpDomain_LockNpiPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
 
+	Status = XPmPowerDomain_SecureEfuseTransfer(PM_POWER_NOC);
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
