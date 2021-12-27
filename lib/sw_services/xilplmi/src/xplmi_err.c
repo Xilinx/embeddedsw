@@ -72,6 +72,8 @@
 *                       SSIT Slave SLRs
 *       bsv  10/11/2021 Added boundary check before incrementing NumErrOuts
 * 1.07  ma   12/17/2021 Clear SSIT_ERR register during EM init
+*       bsv  12/24/2021 Move common defines from xilplmi and xilpm to common
+*                       folder
 *
 * </pre>
 *
@@ -585,7 +587,7 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 
-	if ((ErrorNodeId == XPLMI_NODETYPE_EVENT_ERROR_SW_ERR) &&
+	if ((ErrorNodeId == XIL_NODETYPE_EVENT_ERROR_SW_ERR) &&
 			(ErrorId < XPLMI_ERROR_SW_ERR_MAX) &&
 			(ErrorId >= XPLMI_ERROR_HB_MON_0)) {
 		switch (ErrorTable[ErrorId].Action) {
@@ -771,7 +773,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 			if (((Err1Status & ErrRegMask) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				XPlmi_HandlePsmError(
-					XPLMI_NODETYPE_EVENT_ERROR_PSM_ERR1, ErrRegMask);
+					XIL_NODETYPE_EVENT_ERROR_PSM_ERR1, ErrRegMask);
 			}
 		}
 	}
@@ -782,7 +784,7 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 			if (((Err2Status & ErrRegMask) != (u32)FALSE)
 				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				XPlmi_HandlePsmError(
-					XPLMI_NODETYPE_EVENT_ERROR_PSM_ERR2, ErrRegMask);
+					XIL_NODETYPE_EVENT_ERROR_PSM_ERR2, ErrRegMask);
 			}
 		}
 	}
@@ -872,13 +874,13 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 					(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				/* PSM errors are handled in PsmErrHandler */
 				if (Index != XPLMI_ERROR_PMC_PSM_NCR) {
-					(void)XPlmi_EmDisable(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR1,
+					(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
 							RegMask);
-					ErrorTable[Index].Handler(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR1,
+					ErrorTable[Index].Handler(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
 							RegMask);
 				}
 				else {
-					XPlmi_ErrPSMIntrHandler(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR1,
+					XPlmi_ErrPSMIntrHandler(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
 							RegMask);
 				}
 				XPlmi_EmClearError((u32)XPLMI_NODETYPE_EVENT_PMC_ERR1, Index);
@@ -893,10 +895,10 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 			if (((Err2Status & RegMask) != (u32)FALSE)
 				&& (ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-				(void)XPlmi_EmDisable(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR2,
+				(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
 						      RegMask);
 				ErrorTable[Index].Handler(
-					XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR2, RegMask);
+					XIL_NODETYPE_EVENT_ERROR_PMC_ERR2, RegMask);
 				XPlmi_EmClearError((u32)XPLMI_NODETYPE_EVENT_PMC_ERR2, Index);
 			}
 		}
@@ -1472,7 +1474,7 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		Index < XPLMI_ERROR_PMCERR1_MAX; Index++) {
 		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (XPlmi_EmSetAction(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR1, RegMask,
+			if (XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1, RegMask,
 						ErrorTable[Index].Action,
 						ErrorTable[Index].Handler) != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
@@ -1486,7 +1488,7 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		Index < XPLMI_ERROR_PMCERR2_MAX; Index++) {
 		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (XPlmi_EmSetAction(XPLMI_NODETYPE_EVENT_ERROR_PMC_ERR2, RegMask,
+			if (XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2, RegMask,
 						ErrorTable[Index].Action,
 						ErrorTable[Index].Handler) != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
@@ -1540,7 +1542,7 @@ int XPlmi_PsEmInit(void)
 		Index < XPLMI_ERROR_PSMERR1_MAX; Index++) {
 		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (XPlmi_EmSetAction(XPLMI_NODETYPE_EVENT_ERROR_PSM_ERR1, RegMask,
+			if (XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PSM_ERR1, RegMask,
 						ErrorTable[Index].Action,
 						ErrorTable[Index].Handler) != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
@@ -1554,7 +1556,7 @@ int XPlmi_PsEmInit(void)
 		Index < XPLMI_ERROR_PSMERR2_MAX; Index++) {
 		if (ErrorTable[Index].Action != XPLMI_EM_ACTION_INVALID) {
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (XPlmi_EmSetAction(XPLMI_NODETYPE_EVENT_ERROR_PSM_ERR2, RegMask,
+			if (XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PSM_ERR2, RegMask,
 						ErrorTable[Index].Action,
 						ErrorTable[Index].Handler) != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,

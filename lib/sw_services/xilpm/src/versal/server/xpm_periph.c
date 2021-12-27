@@ -168,7 +168,7 @@ static XStatus HandleHbMonDeviceState(XPm_Device* const Device, const u32 NextSt
 			 * This is required for subsystem restart action
 			 * configuration in the error node.
 			 */
-			XPlmi_UpdateErrorSubsystemId(XPLMI_NODETYPE_EVENT_ERROR_SW_ERR,
+			XPlmi_UpdateErrorSubsystemId(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 							(u32)1U << HbMon_Id,
 							Device->Requirements->Subsystem->Id);
 			/* Update use count. */
@@ -286,7 +286,7 @@ static int HbMon_Scheduler(void *data)
 			PmErr("Healthy Boot Timer %lu Expired. Triggering recovery\r\n",
 									Idx);
 			HbMon_TimeoutList[Idx] = 0U;
-			XPlmi_HandleSwError(XPLMI_NODETYPE_EVENT_ERROR_SW_ERR,
+			XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 						(u32)1U << Idx);
 		} else {
 			HbMon_TimeoutList[Idx] = HbMon_TimeoutList[Idx] - HbMon_SchedFreq;

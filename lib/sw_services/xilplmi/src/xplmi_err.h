@@ -45,6 +45,8 @@
 *       rv   08/04/2021 Added support to pass subsystem restart handler to
 *			XPlmi_EmInit
 *       rv   08/26/2021 Remove unused macro definitions
+* 1.07  bsv  12/24/2021 Move common defines from xilplmi and xilpm to common
+*                       folder
 *
 * </pre>
 *
@@ -60,6 +62,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_debug.h"
+#include "xil_error_node.h"
 #include "xplmi_error_node.h"
 #include "xplmi_hw.h"
 
