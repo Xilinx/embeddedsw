@@ -300,6 +300,7 @@ proc generate {os_handle} {
     set armsrcdir "./src/arm"
     set clksrcdir "./src/common/clocking"
     set intrsrcdir "./src/common/intr"
+    set versalsrcdir "./src/common/versal"
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
@@ -821,6 +822,9 @@ proc generate {os_handle} {
 
     if { $proctype == "psv_pmc"} {
 	puts $file_handle "#define VERSAL_PLM"
+	foreach entry [glob -nocomplain [file join $versalsrcdir *]] {
+		file copy -force $entry "./src/"
+	}
     }
 
     if {[llength $cortexa72proc] > 0} {
@@ -828,6 +832,9 @@ proc generate {os_handle} {
         puts $file_handle "#define versal"
         puts $file_handle "#endif"
         puts $file_handle ""
+	foreach entry [glob -nocomplain [file join $versalsrcdir *]] {
+		file copy -force $entry "./src/"
+	}
     }
     if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5"} {
 	 set lockstep_debug [common::get_property CONFIG.lockstep_mode_debug $os_handle]
@@ -838,6 +845,9 @@ proc generate {os_handle} {
 	 } else {
 		puts $file_handle "#define LOCKSTEP_MODE_DEBUG 0U"
 	 }
+	 foreach entry [glob -nocomplain [file join $versalsrcdir *]] {
+		file copy -force $entry "./src/"
+	}
      }
      set interrupt_wrap_supported [common::get_property CONFIG.xil_interrupt $os_handle ]
      if {$interrupt_wrap_supported == true} {
