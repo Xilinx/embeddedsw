@@ -150,6 +150,7 @@
 * 1.8   sg     03/18/21    Added validation check for parameter page.
 * 1.9   akm    07/15/21    Initialize NandInstPtr with Data Interface & Timing mode info.
 * 1.10  akm    10/20/21    Fix gcc warnings.
+* 1.10  akm    12/21/21    Validate input parameters before use.
 *
 * </pre>
 *
