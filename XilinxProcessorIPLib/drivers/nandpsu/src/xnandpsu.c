@@ -2748,9 +2748,9 @@ void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 static s32 XNandPsu_Data_ReadWrite(XNandPsu *InstancePtr, u8* Buf, u32 PktCount,
 				u32 PktSize, u32 Operation, u8 DmaMode)
 {
-u32 BufRwCnt = 0U;
-s32 Status = XST_FAILURE;
-u32 Event = XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK;
+	u32 BufRwCnt = 0U;
+	s32 Status = XST_FAILURE;
+	u32 Event = XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK;
 
 	if ((DmaMode != 0U) && (InstancePtr->DmaMode == XNANDPSU_MDMA))
 		goto DmaDone;
@@ -2824,8 +2824,8 @@ Out:
 ******************************************************************************/
 static void XNandPsu_Fifo_Write(XNandPsu *InstancePtr, u8* Buffer, u32 Size)
 {
-u32 *BufPtr = (u32 *)(void *)Buffer;
-u32 Index;
+	u32 *BufPtr = (u32 *)(void *)Buffer;
+	u32 Index;
 
 	for (Index = 0U; Index < Size/4U; Index++)
 		XNandPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -2850,8 +2850,8 @@ u32 Index;
 ******************************************************************************/
 static void XNandPsu_Fifo_Read(XNandPsu *InstancePtr, u8* Buf, u32 Size)
 {
-u32 *BufPtr = (u32 *)(void *)Buf;
-u32 Index;
+	u32 *BufPtr = (u32 *)(void *)Buf;
+	u32 Index;
 
 	for (Index = 0U; Index < Size/4U; Index++)
 		BufPtr[Index] = XNandPsu_ReadReg(InstancePtr->Config.BaseAddress,
@@ -2902,8 +2902,8 @@ static void XNandPsu_Update_DmaAddr(XNandPsu *InstancePtr, u8* Buf)
 ******************************************************************************/
 static s32 XNandPsu_Device_Ready(XNandPsu *InstancePtr, u32 Target)
 {
-s32 Status = XST_SUCCESS;
-u16 OnfiStatus = 0U;
+	s32 Status = XST_SUCCESS;
+	u16 OnfiStatus = 0U;
 
 	do {
 		Status = XNandPsu_OnfiReadStatus(InstancePtr, Target,
