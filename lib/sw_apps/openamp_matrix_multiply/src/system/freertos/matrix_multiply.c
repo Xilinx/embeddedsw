@@ -34,10 +34,6 @@ static TaskHandle_t comm_task;
 static struct rpmsg_endpoint lept;
 static int shutdown_req = 0;
 
-/* External functions */
-extern int init_system(void);
-extern void cleanup_system(void);
-
 /*-----------------------------------------------------------------------------*
  *  Calculate the Matrix
  *-----------------------------------------------------------------------------*/
@@ -136,8 +132,8 @@ static void processing(void *unused_arg)
 		LPERROR("Failed to initialize platform.\r\n");
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
-										VIRTIO_DEV_SLAVE,
-										NULL, NULL);
+						   VIRTIO_DEV_SLAVE,
+						   NULL, NULL);
 		if (!rpdev){
 			ML_ERR("Failed to create rpmsg virtio device.\r\n");
 		} else {
