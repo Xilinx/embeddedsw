@@ -22,11 +22,6 @@ This application echoes back data that was sent to it by the master core. */
 
 static struct rpmsg_endpoint lept;
 static int shutdown_req = 0;
-
-/* External functions */
-extern int init_system(void);
-extern void cleanup_system(void);
-
 static TaskHandle_t comm_task;
 
 /*-----------------------------------------------------------------------------*
@@ -107,8 +102,8 @@ static void processing(void *unused_arg)
 		LPERROR("Failed to initialize platform.\r\n");
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
-										VIRTIO_DEV_SLAVE,
-										NULL, NULL);
+						   VIRTIO_DEV_SLAVE,
+						   NULL, NULL);
 		if (!rpdev){
 			ML_ERR("Failed to create rpmsg virtio device.\r\n");
 		} else {

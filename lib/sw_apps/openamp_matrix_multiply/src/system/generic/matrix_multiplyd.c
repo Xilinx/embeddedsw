@@ -31,10 +31,6 @@ typedef struct _matrix {
 static struct rpmsg_endpoint lept;
 static int shutdown_req = 0;
 
-/* External functions */
-extern int init_system(void);
-extern void cleanup_system(void);
-
 /*-----------------------------------------------------------------------------*
  *  Calculate the Matrix
  *-----------------------------------------------------------------------------*/
@@ -87,7 +83,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
-	ML_ERR("Endpoint is destroyed\\r\n");
+	ML_ERR("Endpoint is destroyed\r\n");
 	shutdown_req = 1;
 }
 
@@ -99,15 +95,15 @@ int app(struct rpmsg_device *rdev, void *priv)
 	int ret;
 
 	ret = rpmsg_create_ept(&lept, rdev, RPMSG_SERVICE_NAME,
-				   RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
-				   rpmsg_endpoint_cb,
-				   rpmsg_service_unbind);
+			       RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
+			       rpmsg_endpoint_cb,
+			       rpmsg_service_unbind);
 	if (ret) {
 		ML_ERR("Failed to create endpoint.\r\n");
 		return -1;
 	}
 
-	LPRINTF("Waiting for events...\r\n");
+	ML_INFO("Waiting for events...\r\n");
 	while(1) {
 		platform_poll(priv);
 		/* we got a shutdown request, exit */
