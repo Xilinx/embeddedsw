@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,6 +60,8 @@
 *       ana 04/24/20 Removed support of boot header RSA with 0x1 and 0x2
 * 4.6   am  09/17/21 Resolved compiler warnings
 * 4.7   am  11/26/21 Resolved doxygen warnings
+*       har 01/03/22 Updated Status as XSECURE_SHA3_INIT_FAIL in case of failure
+*                    in XSecure_Sha3Initialize()
 *
 * </pre>
 *
@@ -227,6 +229,7 @@ u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags)
 
 		Status = (u32)XSecure_Sha3Initialize(&Sha3Instance, &CsuDma);
 		if (Status != (u32)XST_SUCCESS) {
+			Status = XSECURE_SHA3_INIT_FAIL;
 			goto END;
 		}
 		XSecure_Sha3Start(&Sha3Instance);
@@ -1209,6 +1212,7 @@ u32 XSecure_PpkVerify(XCsuDma *CsuDmaInstPtr, u8 *AuthCert)
 	/* Calculate PPK hash */
 	Status = (u32)XSecure_Sha3Initialize(&Sha3Inst, CsuDmaInstPtr);
 	if (Status != (u32)XST_SUCCESS) {
+		Status = XSECURE_SHA3_INIT_FAIL;
 		goto END;
 	}
 	Status = (u32)XSecure_Sha3PadSelection(&Sha3Inst,
@@ -1298,6 +1302,7 @@ u32 XSecure_SpkAuthentication(XCsuDma *CsuDmaInstPtr, u8 *AuthCert, u8 *Ppk)
 	/* Initialize sha3 */
 	Status = (u32)XSecure_Sha3Initialize(&Sha3Instance, CsuDmaInstPtr);
 	if (Status != (u32)XST_SUCCESS) {
+		Status = XSECURE_SHA3_INIT_FAIL;
 		goto END;
 	}
 	if (SpkIdFuseSel == XSECURE_SPKID_EFUSE) {
