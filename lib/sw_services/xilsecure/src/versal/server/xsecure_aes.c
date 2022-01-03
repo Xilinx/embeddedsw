@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,6 +67,8 @@
 *                       XSecure_AesPmcDmaCfgAndXfer
 *       har  08/23/2021 Updated AAD size check
 *       kpt  09/18/2021 Added redundancy in XSecure_AesSetDpaCm
+* 4.7   har  01/03/2022 Updated Status and StatusTmp as volatile in
+*                       XSecure_AesWriteKey()
 *
 * </pre>
 *
@@ -566,8 +568,8 @@ END:
 int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 KeyAddr)
 {
-	int Status = XST_FAILURE;
-	int StatusTmp = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 Offset;
 	u32 Index = 0U;
 	u32 Key[XSECURE_AES_KEY_SIZE_256BIT_WORDS] = {0U};
