@@ -7,11 +7,12 @@
 /**
 *
 * @file xipipsu.c
-* @addtogroup ipipsu_v2_10
+* @addtogroup Overview
 * @{
 *
-* This file contains the implementation of the interface functions for XIpiPsu
-* driver. Refer to the header file xipipsu.h for more detailed information.
+* The xipipsu.c file contains the implementation of the interface functions for
+* XIpiPsu driver.
+* Refer to the header file xipipsu.h for more detailed information.
 *
 * <pre>
 * MODIFICATION HISTORY:

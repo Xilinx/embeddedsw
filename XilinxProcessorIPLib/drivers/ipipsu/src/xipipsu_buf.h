@@ -7,11 +7,12 @@
 /*****************************************************************************/
 /**
  * @file xipipsu_buf.h
-* @addtogroup ipipsu_v2_10
+* @addtogroup Overview
 * @{
 * @details
  *
- * This is the header file for implementation of IPIPSU driver get buffer functions.
+ * The xipipsu_buf.h is the header file for implementation of IPIPSU driver
+ * get buffer functions.
  * Inter Processor Interrupt (IPI) is used for communication between
  * different processors.
  *
