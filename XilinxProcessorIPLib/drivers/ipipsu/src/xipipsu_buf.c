@@ -7,11 +7,12 @@
 /**
 *
 * @file xipipsu_buf.c
-* @addtogroup ipipsu_v2_10
+* @addtogroup Overview
 * @{
 *
-* This file contains the implementation of the buffer access functions for XIpiPsu
-* driver. Refer to the header file xipipsu_buf.h for more detailed information.
+* The xipipsu_buf.c file contains the implementation of the buffer access
+* functions for XIpiPsu driver.
+* Refer to the header file xipipsu_buf.h for more detailed information.
 *
 * <pre>
 * MODIFICATION HISTORY:

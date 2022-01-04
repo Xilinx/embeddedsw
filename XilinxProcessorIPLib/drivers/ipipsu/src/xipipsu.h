@@ -6,11 +6,11 @@
 /*****************************************************************************/
 /**
  * @file xipipsu.h
-* @addtogroup ipipsu_v2_10
+* @addtogroup Overview
 * @{
 * @details
  *
- * This is the header file for implementation of IPIPSU driver.
+ * This section contains the header file for implementation of IPIPSU driver.
  * Inter Processor Interrupt (IPI) is used for communication between
  * different processors on ZynqMP SoC. Each IPI register set has Trigger, Status
  * and Observation registers for communication between processors. Each IPI path

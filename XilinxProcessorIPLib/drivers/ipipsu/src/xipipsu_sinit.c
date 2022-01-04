@@ -6,11 +6,11 @@
 /**
 *
 * @file xipipsu_sinit.c
-* @addtogroup ipipsu_v2_10
+* @addtogroup Overview
 * @{
 *
-* The implementation of the XIpiPsu component's static initialization
-* functionality.
+* The xipipsu_sinit.c file contains the implementation of the XIpiPsu
+* component's static initialization functionality.
 *
 * <pre>
 * MODIFICATION HISTORY:
