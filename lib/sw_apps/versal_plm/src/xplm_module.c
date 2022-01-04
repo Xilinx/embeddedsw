@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *       rb   08/17/2021 Fix compilation warning
 *       rv   08/19/2021 Updated EmInit to pass subsystem restart handler
 *       bsv  09/09/2021 Added PLM_NVM macro
+* 1.06  kpt  01/04/2022 Added PLM_PUF macro
 *
 * </pre>
 *
@@ -52,6 +53,9 @@
 #include "xsecure_init.h"
 #ifdef PLM_NVM
 #include "xnvm_init.h"
+#endif
+#ifdef PLM_PUF
+#include "xpuf_init.h"
 #endif
 #include "xplmi_err.h"
 #include "xplm_loader.h"
@@ -124,6 +128,9 @@ int XPlm_ModuleInit(void *Arg)
 
 #ifdef PLM_NVM
 	XNvm_Init();
+#endif
+#ifdef PLM_PUF
+	XPuf_Init();
 #endif
 #ifdef PLM_ENABLE_STL
 	Status = XPlm_StlInit();

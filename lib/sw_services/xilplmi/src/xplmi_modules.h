@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
 *       kal  07/17/2021 Added XilNvm module ID
 *       bsv  08/02/2021 Removed incorrect comment
+* 1.05  kpt  01/04/2022 Added XilPuf module ID
 *
 * </pre>
 *
@@ -49,7 +50,7 @@ extern "C" {
  */
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_MAX_MODULES			(12U)
+#define XPLMI_MAX_MODULES			(13U)
 #define XPLMI_MODULE_GENERIC_ID			(1U)
 #define XPLMI_MODULE_XILPM_ID			(2U)
 #define XPLMI_MODULE_SEM_ID			(3U)
@@ -59,6 +60,7 @@ extern "C" {
 #define XPLMI_MODULE_ERROR_ID			(8U)
 #define XPLMI_MODULE_STL_ID			(10U)
 #define XPLMI_MODULE_XILNVM_ID			(11U)
+#define XPLMI_MODULE_XILPUF_ID			(12U)
 #define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
 
 /**************************** Type Definitions *******************************/
