@@ -2462,6 +2462,8 @@ XStatus XPmPin_Request(const u32 SubsystemId, const u32 PinId)
 
 	if (Pin->SubsysIdx != (u16)NODEINDEX(INVALID_SUBSYSID)) {
 		if (Pin->SubsysIdx == NODEINDEX(SubsystemId)) {
+			/* Pin requested again by same subsystem */
+			Status = XST_SUCCESS;
 			goto done;
 		}
 		Status = XPM_PM_NO_ACCESS;
