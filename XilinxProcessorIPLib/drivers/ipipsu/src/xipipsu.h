@@ -23,12 +23,27 @@
  * - Enable/Disable IPIs from selected Masters
  * - Read the Status register to get the source of an incoming IPI
  *
- * <b>Initialization</b>
+ * <b>Initialization & Configuration</b>
+ *
+ * The XIpiPsu_Config structure is used by the driver to configure itself.
+ * Fields inside this structure are properties of XIpiPsu based on its
+ * hardware build.
+ *
+ * To support multiple runtime loading and initialization strategies employed
+ * by various operating systems, the driver instance can be initialized in
+ * the following way:
+ *
+ *   - XIpiPsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
+ *	 configuration structure provided by the caller. If running in a
+ *	 system with address translation, the parameter EffectiveAddr should
+ *	 be the virtual address.
+ *
  * The config data for the driver is loaded and is based on the HW build. The
  * XIpiPsu_Config data structure contains all the data related to the
  * IPI driver instance and also the available Target CPUs.
  *
  * <b>Sending an IPI</b>
+ *
  * The following steps can be followed to send an IPI:
  * - Write the Message into Message Buffer using XIpiPsu_WriteMessage()
  * - Trigger IPI using XIpiPsu_TriggerIpi()
@@ -39,6 +54,7 @@
  * previous IPI was serviced by the target
  *
  * <b>Receiving an IPI</b>
+ *
  * To receive an IPI, the following sequence can be followed:
  * - Register an interrupt handler for the IPIs interrupt ID
  * - Enable the required sources using XIpiPsu_InterruptEnable()
