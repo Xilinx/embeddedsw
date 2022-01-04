@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *       kal  07/17/2021 Added PLM_NVM_EXCLUDE macro
 *       bsv  09/09/2021 Added PLM_NVM macro
 *       gm   09/17/2021 Added MJTAG workaround related macros
+* 1.08  kpt  01/04/2022 Added PLM_PUF and PLM_PUF_EXCLUDE macros
 *
 * </pre>
 *
@@ -131,6 +132,7 @@ extern "C" {
 //#define PLM_SEM_EXCLUDE
 //#define PLM_SECURE_EXCLUDE
 #define PLM_NVM_EXCLUDE
+#define PLM_PUF_EXCLUDE
 /**
  * @name PLM DEBUG MODE options
  *
@@ -151,6 +153,10 @@ extern "C" {
 //#define PLM_ENABLE_STL
 #if (!defined(PLM_NVM_EXCLUDE)) && (!defined(PLM_NVM))
 #define PLM_NVM
+#endif
+
+#if (!defined(PLM_PUF_EXCLUDE)) && (!defined(PLM_PUF))
+#define PLM_PUF
 #endif
 
 #define XPLMI_MJTAG_WA_GASKET_TOGGLE_CNT 10U /**< Number of clock cyles required
