@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *                        programming
 * 2.4   bsv  09/09/2021 Added PLM_NVM macro
 * 2.5   kpt  12/09/2021 Replaced magic number with XNVM_API_ID_MASK
+*       har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
 *
 * </pre>
 *
@@ -386,8 +387,8 @@ static int XNvm_EfusePufUserDataWrite(u32 AddrLow, u32 AddrHigh)
 
 	PufUserFuse.EnvMonitorDis = PufFuseAddr.EnvMonitorDis;
 	PufUserFuse.PrgmPufFuse = PufFuseAddr.PrgmPufFuse;
-	PufUserFuse.StartPufFuseNum = PufFuseAddr.StartPufFuseNum;
-	PufUserFuse.NumOfPufFuses = PufFuseAddr.NumOfPufFuses;
+	PufUserFuse.StartPufFuseRow = PufFuseAddr.StartPufFuseRow;
+	PufUserFuse.NumOfPufFusesRows = PufFuseAddr.NumOfPufFusesRows;
 
 	if (PufUserFuse.EnvMonitorDis == TRUE) {
 		 PufUserFuse.SysMonInstPtr = NULL;
@@ -398,7 +399,7 @@ static int XNvm_EfusePufUserDataWrite(u32 AddrLow, u32 AddrHigh)
 
 	Status = XNvm_EfuseMemCopy(PufFuseAddr.PufFuseDataAddr,
 			(u64)(UINTPTR)&PufFusesArr,
-			PufUserFuse.NumOfPufFuses * XNVM_WORD_LEN);
+			PufUserFuse.NumOfPufFusesRows * XNVM_WORD_LEN);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -438,8 +439,8 @@ static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh)
 		goto END;
 	}
 
-	PufUserFuse.StartPufFuseNum = PufFusesAddr.StartPufFuseNum;
-	PufUserFuse.NumOfPufFuses = PufFusesAddr.NumOfPufFuses;
+	PufUserFuse.StartPufFuseRow = PufFusesAddr.StartPufFuseRow;
+	PufUserFuse.NumOfPufFusesRows = PufFusesAddr.NumOfPufFusesRows;
 	PufUserFuse.PufFuseData = PufFusesArr;
 	Status = XNvm_EfuseReadPufAsUserFuses(&PufUserFuse);
 	if (Status != XST_SUCCESS) {
@@ -448,7 +449,7 @@ static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh)
 
 	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)PufUserFuse.PufFuseData,
 			PufFusesAddr.PufFuseDataAddr,
-			PufUserFuse.NumOfPufFuses * XNVM_WORD_LEN);
+			PufUserFuse.NumOfPufFusesRows * XNVM_WORD_LEN);
 
 END:
 	return Status;

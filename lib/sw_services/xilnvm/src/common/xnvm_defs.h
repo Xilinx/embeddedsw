@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +24,7 @@
 *       kpt  08/27/21 Added client-server support for puf helper data efuse
 *                     programming
 * 1.1   kpt  11/29/21 Added macro XNvm_DCacheFlushRange
+*       har  01/03/22 Renamed NumOfPufFuses as NumOfPufFusesRows
 *
 * </pre>
 * @note
@@ -260,8 +261,8 @@ typedef struct {
 typedef struct {
 	u8 EnvMonitorDis;
 	u8 PrgmPufFuse;
-	u32 StartPufFuseNum;
-	u32 NumOfPufFuses;
+	u32 StartPufFuseRow;
+	u32 NumOfPufFusesRows;
 	u64 PufFuseDataAddr;
 } XNvm_EfusePufFuseAddr;
 #else

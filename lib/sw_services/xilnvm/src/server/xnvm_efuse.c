@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -74,6 +74,7 @@
 *                       Protection bit 37
 * 2.5   har  11/17/2021 Fix Blind Write in XNvm_EfuseDisableProgramming and
 *                       XNvm_EfuseResetReadMode
+*       har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
 *
 * </pre>
 *
@@ -5758,8 +5759,8 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 	}
 
 	StartRow = XNVM_EFUSE_PUF_SYN_CACHE_READ_ROW +
-			WritePufFuses->StartPufFuseNum - 1;
-	EndRow = StartRow + WritePufFuses->NumOfPufFuses;
+			WritePufFuses->StartPufFuseRow - 1;
+	EndRow = StartRow + WritePufFuses->NumOfPufFusesRows;
 
 	/* Validate PufFuses before programming */
 	for (Row = StartRow; Row < EndRow; Row++) {
@@ -5793,9 +5794,9 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 	}
 
 	StartRow = XNVM_EFUSE_PUF_SYN_START_ROW +
-				WritePufFuses->StartPufFuseNum - 1;
+				WritePufFuses->StartPufFuseRow - 1;
 	Status = XNvm_EfusePgmAndVerifyRows(StartRow,
-		(u8)WritePufFuses->NumOfPufFuses,
+		(u8)WritePufFuses->NumOfPufFusesRows,
 		XNVM_EFUSE_PAGE_2, PufFusesDataToPrgm);
 END:
 	return Status;
@@ -5839,20 +5840,20 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		goto END;
 	}
 
-	if ((PufFuse->StartPufFuseNum < 1U) ||
-		(PufFuse->StartPufFuseNum  > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
+	if ((PufFuse->StartPufFuseRow < 1U) ||
+		(PufFuse->StartPufFuseRow  > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((PufFuse->NumOfPufFuses < 1U) ||
-		(PufFuse->NumOfPufFuses > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
+	if ((PufFuse->NumOfPufFusesRows < 1U) ||
+		(PufFuse->NumOfPufFusesRows > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((PufFuse->StartPufFuseNum +
-		(PufFuse->NumOfPufFuses - 1U)) > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS) {
+	if ((PufFuse->StartPufFuseRow +
+		(PufFuse->NumOfPufFusesRows - 1U)) > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
@@ -5985,20 +5986,20 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 		goto END;
 	}
 
-	if ((PufFuse->StartPufFuseNum < 1U) ||
-		(PufFuse->StartPufFuseNum  > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
+	if ((PufFuse->StartPufFuseRow < 1U) ||
+		(PufFuse->StartPufFuseRow  > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((PufFuse->NumOfPufFuses < 1U) ||
-		(PufFuse->NumOfPufFuses > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
+	if ((PufFuse->NumOfPufFusesRows < 1U) ||
+		(PufFuse->NumOfPufFusesRows > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	if ((PufFuse->StartPufFuseNum +
-		(PufFuse->NumOfPufFuses - 1U)) > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS) {
+	if ((PufFuse->StartPufFuseRow +
+		(PufFuse->NumOfPufFusesRows - 1U)) > XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
@@ -6055,10 +6056,10 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	}
 
 	Row = XNVM_EFUSE_PUF_SYN_CACHE_READ_ROW +
-		PufFuse->StartPufFuseNum - 1U;
+		PufFuse->StartPufFuseRow - 1U;
 
 	Status = XNvm_EfuseReadCacheRange(Row,
-					(u8)PufFuse->NumOfPufFuses,
+					(u8)PufFuse->NumOfPufFusesRows,
 					PufFuse->PufFuseData);
 	if (Status != XST_SUCCESS) {
 		Status = Status | XNVM_EFUSE_ERR_RD_PUF_FUSES;
