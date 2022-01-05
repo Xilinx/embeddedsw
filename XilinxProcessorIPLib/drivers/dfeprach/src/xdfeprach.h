@@ -10,11 +10,11 @@
 * @addtogroup xdfeprach_v1_2 Overview
 * @{
 *
-* The RFSoC DFE PRACH LogiCORE IP provides a wrapper around the PRACH block
-* (PRACH (R16)). The wrapper provides access to the underlying blocks via
-* TDM AXI-stream data interfaces. Output from the block is arranged as an
+* The RFSoC DFE PRACH LogiCORE IP provides a wrapper around the PRACH primitive
+* (PRACH (R16)). The wrapper provides access to the underlying primitives via
+* TDM AXI-stream data interfaces. Output from the primitive is arranged as an
 * AXI4-Stream, running at fs, per antenna. A memory mapped AXI interface
-* is provided, which enables configuration and control of the block from
+* is provided, which enables configuration and control of the core from
 * a microprocessor. The AXI memory map also provides access to the IP core's
 * status.
 *
@@ -64,6 +64,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
+*       dc     12/17/21 Update after documentation review
 *
 * </pre>
 * @endcond
@@ -443,7 +444,7 @@ typedef struct {
 	u32 RachChannel; /**< [0-15] The physical RACH channel used by this
 		RCID. */
 	s32 CCID; /**< [0-15] The CCID channel, selected from the sequence
-		defined in XDfePrach_CCCfgT, from which this RACH channel
+		defined in XDfePrach_CCCfg, from which this RACH channel
 		takes its input data. */
 	u32 Restart; /**< [0,1] Indicate if this channel must be restarted. */
 } XDfePrach_InternalChannelCfg;
@@ -455,7 +456,7 @@ typedef struct {
 	u32 RachChannel; /**< [0-15] The physical RACH channel used by this
 		RCID. */
 	s32 CCID; /**< [0-15] The CCID channel, selected from the sequence
-		defined in XDfePrach_CCCfgT, from which this RACH channel
+		defined in XDfePrach_CCCfg, from which this RACH channel
 		takes its input data. */
 } XDfePrach_ChannelCfg;
 

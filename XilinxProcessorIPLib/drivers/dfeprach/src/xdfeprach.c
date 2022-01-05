@@ -34,6 +34,7 @@
 *       dc     11/26/21 Set sequence length in GetEmptyCCCfg
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/26/21 Assert RachChan equal RCId
+*       dc     12/17/21 Update after documentation review
 *
 * </pre>
 * @addtogroup xdfeprach_v1_2
@@ -1824,8 +1825,6 @@ XDfePrach_StateId XDfePrach_GetStateID(XDfePrach *InstancePtr)
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CurrCCCfg CC configuration container.
 *
-* @note     For a sequence conversion see XDfePrach_AddCCIDAndTranslateSeq() comment.
-*
 ****************************************************************************/
 void XDfePrach_GetCurrentCCCfg(const XDfePrach *InstancePtr,
 			       XDfePrach_CCCfg *CurrCCCfg)
@@ -1883,7 +1882,9 @@ void XDfePrach_GetCurrentCCCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Returns the empty CC configuration.
+* Returns configuration structure CCCfg with CCCfg->Sequence.Length value set
+* in XDfePrach_Configure(), array CCCfg->Sequence.CCID[] members are set to not
+* used value (-1) and the other CCCfg members are set to 0.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    CCCfg CC configuration container.
