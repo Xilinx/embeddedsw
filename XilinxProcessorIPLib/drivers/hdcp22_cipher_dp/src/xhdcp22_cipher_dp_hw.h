@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xhdcp22_cipher_hw.h
-* @addtogroup hdcp22_cipher_v1_1
+* @file xhdcp22_cipher_dp_hw.h
+* @addtogroup hdcp22_cipher_dp_v2_0
 * @{
 * @details
 *
@@ -20,13 +20,15 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JB     02/19/19 Initial Release.
+* 2.00  JB     12/24/21 File name changed from xhdcp22_cipher_hw.c to
+				xhdcp22_cipher_dp_hw.c
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XHDCP22_CIPHER_HW_H
+#ifndef XHDCP22_CIPHER_DP_HW_H
 /**< Prevent circular inclusions by using protection macros */
-#define XHDCP22_CIPHER_HW_H
+#define XHDCP22_CIPHER_DP_HW_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -118,8 +120,8 @@ extern "C" {
 /** @name Register access macro definition
 * @{
 */
-#define XHdcp22Cipher_In32        Xil_In32        /**< Input Operations */
-#define XHdcp22Cipher_Out32       Xil_Out32       /**< Output Operations */
+#define XHdcp22Cipher_Dp_In32        Xil_In32        /**< Input Operations */
+#define XHdcp22Cipher_Dp_Out32       Xil_Out32       /**< Output Operations */
 
 /*****************************************************************************/
 /**
@@ -140,8 +142,8 @@ extern "C" {
 *         u32 XHdcp22Cipher_ReadReg(u32 BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
-#define XHdcp22Cipher_ReadReg(BaseAddress, RegOffset) \
-        XHdcp22Cipher_In32((BaseAddress) + ((u32)RegOffset))
+#define XHdcp22Cipher_Dp_ReadReg(BaseAddress, RegOffset) \
+        XHdcp22Cipher_Dp_In32((BaseAddress) + ((u32)RegOffset))
 
 /*****************************************************************************/
 /**
@@ -161,8 +163,8 @@ extern "C" {
 *         void XHdcp22Cipher_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 *
 ******************************************************************************/
-#define XHdcp22Cipher_WriteReg(BaseAddress, RegOffset, Data) \
-        XHdcp22Cipher_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
+#define XHdcp22Cipher_Dp_WriteReg(BaseAddress, RegOffset, Data) \
+        XHdcp22Cipher_Dp_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
 /*****************************************************************************/
 /**
 *
@@ -176,8 +178,8 @@ extern "C" {
 *         u32 XHdcp22Cipher_GetStatusReg(u32 BaseAddress)
 *
 ******************************************************************************/
-#define XHdcp22Cipher_GetStatusReg(BaseAddress) \
-        XHdcp22Cipher_ReadReg(BaseAddress, XHDCP22_CIPHER_REG_STA_OFFSET)
+#define XHdcp22Cipher_Dp_GetStatusReg(BaseAddress) \
+        XHdcp22Cipher_Dp_ReadReg(BaseAddress, XHDCP22_CIPHER_REG_STA_OFFSET)
 
 /*****************************************************************************/
 /**
@@ -192,8 +194,8 @@ extern "C" {
 *         u32 XHdcp22Cipher_GetStatusReg(u32 BaseAddress)
 *
 ******************************************************************************/
-#define XHdcp22Cipher_GetControlReg(BaseAddress) \
-        XHdcp22Cipher_ReadReg(BaseAddress, XHDCP22_CIPHER_REG_CTRL_OFFSET)
+#define XHdcp22Cipher_Dp_GetControlReg(BaseAddress) \
+        XHdcp22Cipher_Dp_ReadReg(BaseAddress, XHDCP22_CIPHER_REG_CTRL_OFFSET)
 /*@}*/
 
 /************************** Function Prototypes ******************************/

@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xhdcp22_cipher_selftest.c
-* @addtogroup hdcp22_cipher_v1_1
+* @file xhdcp22_cipher_dp_selftest.c
+* @addtogroup hdcp22_cipher_dp_v2_0
 * @{
 * @details
 *
@@ -20,13 +20,15 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JB     02/19/19 Initial Release.
+* 2.00  JB     12/24/21 File name changed from xhdcp22_cipher_selftest.c to
+				xhdcp22_cipher_dp_selftest.c
 * </pre>
 *
 ******************************************************************************/
 
 
 /***************************** Include Files *********************************/
-#include "xhdcp22_cipher.h"
+#include "xhdcp22_cipher_dp.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -54,7 +56,7 @@
 * @note None.
 *
 ******************************************************************************/
-int XHdcp22Cipher_SelfTest(XHdcp22_Cipher *InstancePtr)
+int XHdcp22Cipher_Dp_SelfTest(XHdcp22_Cipher_Dp *InstancePtr)
 {
 	int Status = (XST_SUCCESS);
 	u32 RegValue;
@@ -63,7 +65,7 @@ int XHdcp22Cipher_SelfTest(XHdcp22_Cipher *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Read PIO ID */
-	RegValue = XHdcp22Cipher_ReadReg(InstancePtr->Config.BaseAddress,
+	RegValue = XHdcp22Cipher_Dp_ReadReg(InstancePtr->Config.BaseAddress,
 					(XHDCP22_CIPHER_VER_ID_OFFSET));
 
 	RegValue = ((RegValue) >> (XHDCP22_CIPHER_SHIFT_16)) & (XHDCP22_CIPHER_MASK_16);

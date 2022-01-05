@@ -4,16 +4,20 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xhdcp22_cipher.h"
+#include "xhdcp22_cipher_dp.h"
 
 /*
 * The configuration table for devices
 */
 
-XHdcp22_Cipher_Config XHdcp22_Cipher_ConfigTable[XPAR_XHDCP22_CIPHER_NUM_INSTANCES] =
+XHdcp22_Cipher_Dp_Config XHdcp22_Cipher_Dp_ConfigTable[XPAR_XHDCP22_CIPHER_DP_NUM_INSTANCES] =
 {
 	{
 		XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_DP_RX_HDCP22_HDCP22_CIPHER_DP_DEVICE_ID,
 		XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_DP_RX_HDCP22_HDCP22_CIPHER_DP_BASEADDR
+	},
+	{
+		XPAR_DP_TX_HIER_0_V_DP_TXSS1_0_DP_TX_HDCP22_HDCP22_CIPHER_DP_DEVICE_ID,
+		XPAR_DP_TX_HIER_0_V_DP_TXSS1_0_DP_TX_HDCP22_HDCP22_CIPHER_DP_BASEADDR
 	}
 };
