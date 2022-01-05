@@ -7,7 +7,7 @@
 /**
 *
 * @file xdprxss_dbg.c
-* @addtogroup dprxss_v7_0
+* @addtogroup dprxss_v7_1
 * @{
 *
 * This file contains functions to report debug information of DisplayPort RX
@@ -69,13 +69,13 @@ void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr)
 	xil_printf("\n\rDisplayPort RX Subsystem info:\n\r");
 
 	/* Report all the included cores in the subsystem instance */
-#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		xil_printf("High-Bandwidth Content protection (HDCP):Yes\n\r");
 	}
 #endif
-#if (((XPAR_DPRXSS_0_HDCP_ENABLE > 0) || \
-	(XPAR_XHDCP22_RX_NUM_INSTANCES > 0)) \
+#if (((XPAR_XHDCP_NUM_INSTANCES > 0) || \
+	(XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)) \
 		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 	if (InstancePtr->TmrCtrPtr) {
 		xil_printf("Timer Counter(0):Yes\n\r");
@@ -262,10 +262,11 @@ void XDpRxSs_ReportHdcpInfo(XDpRxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-#if (XPAR_DPRXSS_0_HDCP_ENABLE > 0)
-	XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
-#else
-	xil_printf("HDCP is not supported in this design.\n\r");
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr)
+		XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
+	else
 #endif
+		xil_printf("HDCP is not supported in this design.\n\r");
 }
 /** @} */

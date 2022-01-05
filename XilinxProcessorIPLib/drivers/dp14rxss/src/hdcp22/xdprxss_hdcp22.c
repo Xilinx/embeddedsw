@@ -23,7 +23,7 @@
 
 /***************************** Include Files *********************************/
 #include "xdprxss_hdcp22.h"
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 #include "xdprxss.h"
 /************************** Constant Definitions *****************************/
 
@@ -77,7 +77,7 @@ static void XHdcp22_PortDpRxProcessAkeInit(void *RefPtr)
 					XDP_RX_SOFT_RESET, 0);
 		}
 
-		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+		XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 				XDPRX_HDCP22_RX_DPCD_FLAG_AKE_INIT_RCVD);
 	}
 }
@@ -102,7 +102,7 @@ static void XHdcp22_PortDpRxProcessAkeNoStoredKm(void *RefPtr)
 
 	/*Set Ake_No_Stored_Km message received event in HDCP22 rx instance*/
 	if (DpRxSsPtr->Hdcp22Ptr) {
-		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+		XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 			XDPRX_HDCP22_RX_DPCD_FLAG_AKE_NO_STORED_KM_RCVD);
 	}
 }
@@ -127,7 +127,7 @@ static void XHdcp22_PortDpRxProcessAkeStoredKm(void *RefPtr)
 
 	/*Set Ake_Stored_Km message received event in HDCP22 rx instance*/
 	if (DpRxSsPtr->Hdcp22Ptr) {
-		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+		XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 				XDPRX_HDCP22_RX_DPCD_FLAG_AKE_STORED_KM_RCVD);
 	}
 }
@@ -152,7 +152,7 @@ static void XHdcp22_PortDpRxProcessLcInit(void *RefPtr)
 
 	/*Set Lc_Init message received event in HDCP22 rx instance*/
 	if (DpRxSsPtr->Hdcp22Ptr) {
-		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+		XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 				XDPRX_HDCP22_RX_DPCD_FLAG_LC_INIT_RCVD);
 	}
 }
@@ -177,7 +177,7 @@ static void XHdcp22_PortDpRxProcessSkeSendEks(void *RefPtr)
 
 	/*Set Ske_Send_Eks message received event in HDCP22 rx instance*/
 	if (DpRxSsPtr->Hdcp22Ptr) {
-		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+		XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 				XDPRX_HDCP22_RX_DPCD_FLAG_SKE_SEND_EKS_RCVD);
 	}
 }
@@ -202,7 +202,7 @@ static void XHdcp22_PortDpRxProcessHprimeReadDone(void *RefPtr)
 
 	/* Set H' Read complete event in HDCP22 rx instance */
 	if (DpRxSsPtr->Hdcp22Ptr) {
-		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+		XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 				XDPRX_HDCP22_RX_DPCD_FLAG_HPRIME_READ_DONE);
 	}
 }
@@ -248,7 +248,7 @@ static void XHdcp22_PortDpRxProcessStreamType(void *RefPtr)
 
 	/* Set Stream Type in HDCP22 rx */
 	if (DpRxSsPtr->Hdcp22Ptr)
-		XHdcp22_RxSetStreamType(DpRxSsPtr->Hdcp22Ptr);
+		XHdcp22_Dp_RxSetStreamType(DpRxSsPtr->Hdcp22Ptr);
 }
 
 /*****************************************************************************/
@@ -271,7 +271,7 @@ static void XHdcp22_PortDpRxProcessRepeaterAuthRcvIdLstDone(void *RefPtr)
 	/* Set Repeater Rceiver ID List Ack Read complete event in HDCP22 rx
 	 * instance */
 	if (DpRxSsPtr->Hdcp22Ptr) {
-		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+		XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 			XDPRX_HDCP22_RX_DPCD_FLAG_RPTR_RCVID_LST_ACK_READ_DONE);
 	}
 }
@@ -296,7 +296,7 @@ static void XHdcp22_PortDpRxProcessRepeaterAuthStreamManageDone(void *RefPtr)
 	/* Set Repeater Rceiver ID List Ack Read complete event in HDCP22 rx
 	 * instance */
 	if (DpRxSsPtr->Hdcp22Ptr) {
-		XHdcp22Rx_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
+		XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(DpRxSsPtr->Hdcp22Ptr,
 			XDPRX_HDCP22_RX_DPCD_FLAG_RPTR_STREAM_MANAGE_READ_DONE);
 	}
 }
@@ -613,7 +613,7 @@ static void XDpRxSs_Hdcp22ProcessEvents(XDpRxSs *InstancePtr)
 int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 {
 	int Status;
-	XHdcp22_Rx_Config *ConfigPtr;
+	XHdcp22_Rx_Dp_Config *ConfigPtr;
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
 
 	/* Verify argument */
@@ -626,7 +626,7 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 		if (DpRxSsPtr->Hdcp22Lc128Ptr && DpRxSsPtr->Hdcp22PrivateKeyPtr) {
 
 			/* Get core configuration */
-			ConfigPtr  = XHdcp22Rx_LookupConfig(
+			ConfigPtr  = XHdcp22Rx_Dp_LookupConfig(
 					DpRxSsPtr->Config.Hdcp22SubCore.
 					Hdcp22Config.DeviceId);
 			if (ConfigPtr == NULL)
@@ -645,7 +645,7 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 			ConfigPtr->BaseAddress += DpRxSsPtr->Config.BaseAddress;
 
 			/* Initialize core */
-			Status = XHdcp22Rx_CfgInitialize(DpRxSsPtr->Hdcp22Ptr,
+			Status = XHdcp22Rx_Dp_CfgInitialize(DpRxSsPtr->Hdcp22Ptr,
 					ConfigPtr,
 					DpRxSsPtr->Config.Hdcp22SubCore.
 					Hdcp22Config.AbsAddr);
@@ -660,26 +660,26 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 			/* Initialize HDCP22 timer instance with
 			 * DP timer instance*/
 			if (DpRxSsPtr->TmrCtrPtr) {
-				XHdcp22_timer_attach(DpRxSsPtr->Hdcp22Ptr,
+				XHdcp22_Dp_timer_attach(DpRxSsPtr->Hdcp22Ptr,
 						DpRxSsPtr->TmrCtrPtr);
 			}
 
 			/* Set-up the AUX read/write Handlers these Handlers
 			 * will be used to read RX's local DPCD registers for
 			 * HDCP port*/
-			XHdcp22Rx_SetCallback(DpRxSsPtr->Hdcp22Ptr,
+			XHdcp22Rx_Dp_SetCallback(DpRxSsPtr->Hdcp22Ptr,
 					XHDCP22_RX_HANDLER_DP_AUX_READ,
 					(void *)XHdcp22_DpRx_AuxReadHandler,
 					(void *)DpRxSsPtr->DpPtr);
-			XHdcp22Rx_SetCallback(DpRxSsPtr->Hdcp22Ptr,
+			XHdcp22Rx_Dp_SetCallback(DpRxSsPtr->Hdcp22Ptr,
 					XHDCP22_RX_HANDLER_DP_AUX_WRITE,
 					(void *)XHdcp22_DpRx_AuxWriteHandler,
 					(void *)DpRxSsPtr->DpPtr);
-			XHdcp22Rx_SetCallback(DpRxSsPtr->Hdcp22Ptr,
+			XHdcp22Rx_Dp_SetCallback(DpRxSsPtr->Hdcp22Ptr,
 					XHDCP22_RX_HANDLER_DP_CP_IRQ_SET,
 					(void *)XHdcp22_DpRx_CpIrqSetHandler,
 					(void *)DpRxSsPtr->DpPtr);
-			XHdcp22Rx_SetCallback(DpRxSsPtr->Hdcp22Ptr,
+			XHdcp22Rx_Dp_SetCallback(DpRxSsPtr->Hdcp22Ptr,
 					XHDCP22_RX_HANDLER_DP_AUX_DEFER_SET_CLR,
 					(void *)XHdcp22_DpRx_AuxDefferSetClrHandler,
 					(void *)DpRxSsPtr->DpPtr);
@@ -727,11 +727,11 @@ int XDpRxSs_SubcoreInitHdcp22(void *InstancePtr)
 					DpRxSsPtr);
 
 			/* Load Production Keys */
-			XHdcp22Rx_LoadLc128(DpRxSsPtr->Hdcp22Ptr,
+			XHdcp22Rx_Dp_LoadLc128(DpRxSsPtr->Hdcp22Ptr,
 					DpRxSsPtr->Hdcp22Lc128Ptr);
-			XHdcp22Rx_LoadPublicCert(DpRxSsPtr->Hdcp22Ptr,
+			XHdcp22Rx_Dp_LoadPublicCert(DpRxSsPtr->Hdcp22Ptr,
 					DpRxSsPtr->Hdcp22PrivateKeyPtr+40);
-			XHdcp22Rx_LoadPrivateKey(DpRxSsPtr->Hdcp22Ptr,
+			XHdcp22Rx_Dp_LoadPrivateKey(DpRxSsPtr->Hdcp22Ptr,
 					DpRxSsPtr->Hdcp22PrivateKeyPtr+562);
 
 			/*Clear the HDCP22 event queue */
@@ -773,11 +773,11 @@ void XDpRxSs_Hdcp22Poll(void *Instance)
 
 		/* HDCP 2.2 */
 		if (InstancePtr->Hdcp22Ptr) {
-			if (XHdcp22Rx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
-				XHdcp22Rx_Poll(InstancePtr->Hdcp22Ptr);
+			if (XHdcp22Rx_Dp_IsEnabled(InstancePtr->Hdcp22Ptr)) {
+				XHdcp22Rx_Dp_Poll(InstancePtr->Hdcp22Ptr);
 			}
 		}
 	}
 }
 
-#endif /*#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)*/
+#endif /*#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)*/

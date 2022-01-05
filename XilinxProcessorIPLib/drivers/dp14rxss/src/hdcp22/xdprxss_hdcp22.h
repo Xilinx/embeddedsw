@@ -30,32 +30,14 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
-#include "xhdcp22_rx.h"
+#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
+#include "xhdcp22_rx_dp.h"
 
 /************************** Constant Definitions *****************************/
 
 #define XDPRXSS_HDCP22_MAX_QUEUE_SIZE 16
 
 /**************************** Type Definitions *******************************/
-/**
-* This typedef contains configuration information for the HDCP22 core.
-*/
-typedef struct {
-	u16 DeviceId;   /**< Device ID of the sub-core */
-	UINTPTR AbsAddr; /**< Absolute Base Address of the Sub-cores*/
-} XDpRxSs_Hdcp22_Config;
-
-/**
- * Sub-Core Configuration Table
- */
-typedef struct
-{
-	u16 IsPresent;  /**< Flag to indicate if sub-core is present in
-			  the design*/
-	XDpRxSs_Hdcp22_Config Hdcp22Config; /**< HDCP22 core configuration */
-} XDpRxSs_Hdcp22SubCore;
-
 /**
 * These constants specify the HDCP22 Events
 */
@@ -84,7 +66,7 @@ typedef struct
 } XDpRxSs_Hdcp22EventQueue;
 
 /* The order of the enums in this should be as same as
- * Xhdcp22_Rx_DpcdFlag in xhdcp22_rx_i.h*/
+ * Xhdcp22_Rx_DpcdFlag in xhdcp22_rx_dp_i.h*/
 typedef enum {
 	XDPRX_HDCP22_XHDCP22_RX_DPCD_FLAG_NONE,		/**< Clear DPCD flag*/
 	XDPRX_HDCP22_RX_DPCD_FLAG_AKE_INIT_RCVD = 0x001,	/**< Ake_Init Msg Rcvd
@@ -121,6 +103,6 @@ void XDpRxSs_Hdcp22Poll(void *Instance);
 }
 #endif
 
-#endif /*#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)*/
+#endif /*#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)*/
 
 #endif /* XDPRXSS_HDCP22_H_ */
