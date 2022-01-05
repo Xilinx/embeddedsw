@@ -7,7 +7,7 @@
 /**
  *
  * @file xdp.c
- * @addtogroup dp_v7_5
+ * @addtogroup dp_v7_6
  * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to
@@ -3908,7 +3908,7 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 	return XST_SUCCESS;
 }
 
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 /******************************************************************************/
 /**
  * This function raises the CP_IRQ interrupt to the Upstream device.
@@ -3962,7 +3962,7 @@ void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable)
 }
 #endif
 
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 /******************************************************************************/
 /**
  * This function Enables Dp Tx video path routes through HDCP22 core.

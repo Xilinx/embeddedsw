@@ -7,7 +7,7 @@
 /**
  *
  * @file xdp_spm.c
- * @addtogroup dp_v7_5
+ * @addtogroup dp_v7_6
  * @{
  *
  * This file contains the stream policy maker functions for the XDp driver.

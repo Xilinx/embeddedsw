@@ -7,7 +7,7 @@
 /**
  *
  * @file xdp_hw.h
- * @addtogroup dp_v7_5
+ * @addtogroup dp_v7_6
  * @{
  *
  * This header file contains the identifiers and low-level driver functions (or
@@ -1333,7 +1333,7 @@
 							(0x100 bytes). */
 /* @} */
 
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 /** @name DPRX core registers: DPCD registers for HDCP22.
  * @{
  */
@@ -1552,7 +1552,7 @@
 					0x01000000 /**< Mask the interrupt
 							for a read of the HDCP
 							BInfo register. */
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 #define XDP_RX_INTERRUPT_MASK_HDCP22_AKE_INIT_MASK \
 	0x00000001 /**< Mask the interrupt for a write of the HDCP22
 		     Ake_Init message*/
