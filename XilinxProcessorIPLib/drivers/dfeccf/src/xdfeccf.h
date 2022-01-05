@@ -11,11 +11,11 @@
 * @{
 *
 * The RFSoC DFE Channel Filter IP provides a wrapper around the Channel
-* filter block (dfe_channel_filter). Each instance of the block can support
-* up to 64 CC, arranged across a maximum of eight antennas. The wrapper
+* filter primitive (dfe_channel_filter). Each instance of the primitive can
+* support up to 64 CC, arranged across a maximum of eight antennas. The wrapper
 * provides access to the underlying blocks via TDMA AXI-Stream data
 * interfaces. A memory mapped AXI interface is provided to enable the
-* configuration and control of the block from a microprocessor.
+* configuration and control of the core from a microprocessor.
 *
 * The features that the channel filter IP and the driver support are:
 *
@@ -24,9 +24,8 @@
 * - Using 18-bit data interface.
 * - Using 16-bit coefficients.
 * - Can independently configure complex and real coefficients.
-* - Enables you to program the coefficient sets via a processor
-*     interface.
-* - Enables you to change the coefficient sets that act on the input data
+* - Enables to program the coefficient sets via a processor interface.
+* - Enables to change the coefficient sets that act on the input data
 *     via a processor interface.
 * - Supports TDD power down via a processor interface and TUSER input.
 * - Supports the flushing of the internal buffers via a processor interface.
@@ -49,8 +48,6 @@
 *    both before and after gain stage.
 * - Software reset.
 * - TUSER and TLAST support on the data interfaces:
-*
-* An API which will read/write registers has been provided for debugging.
 *
 * @cond nocomments
 * <pre>
@@ -77,6 +74,7 @@
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/30/21 Convert AntennaCfg to structure
 *       dc     12/02/21 Add UpdateAntennaCfg API
+*       dc     12/17/21 Update after documentation review
 *
 * </pre>
 * @endcond

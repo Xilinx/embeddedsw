@@ -39,6 +39,7 @@
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/30/21 Convert AntennaCfg to structure
 *       dc     12/02/21 Add UpdateAntennaCfg API
+*       dc     12/17/21 Update after documentation review
 *
 * </pre>
 * @addtogroup dfeccf_v1_2
@@ -692,7 +693,7 @@ static void XDfeCcf_DisableLowPowerTrigger(const XDfeCcf *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* API initialises one instance of a channel filter driver.
+* Initialises one instance of a channel filter driver.
 * Traverses "/sys/bus/platform/device" directory (in Linux), to find registered
 * CCF device with the name DeviceNodeName. The first available slot in
 * the instances array XDfeCcf_ChFilter[] will be taken as a DeviceNodeName
@@ -806,7 +807,7 @@ return_error:
 /*****************************************************************************/
 /**
 *
-* API closes the instances of a channel filter driver and moves the state
+* Closes the instances of a channel filter driver and moves the state
 * machine to a Not Ready state.
 *
 * @param    InstancePtr Pointer to the XDfeCcf instance.
@@ -1146,7 +1147,9 @@ void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Returns the empty CC configuration.
+* Returns configuration structure CCCfg with CCCfg->Sequence.Length value set
+* in XDfeCcf_Configure(), array CCCfg->Sequence.CCID[] members are set to not
+* used value (-1) and the other CCCfg members are set to 0.
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CCCfg CC configuration container.
@@ -1374,7 +1377,7 @@ void XDfeCcf_UpdateCCinCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 * copying from shadow to operational registers.
 *
 * @param    InstancePtr Pointer to the Ccf instance.
-* @param    CurrCCCfg CC configuration container.
+* @param    CCCfg CC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1614,7 +1617,7 @@ u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 *
 * Updates antenna cofiguration to all antennas.
 *
-* @param    InstancePtr Pointer to the Mixer instance.
+* @param    InstancePtr Pointer to the Ccf instance.
 * @param    AntennaCfg Array of all antenna configurations.
 *
 * @return
