@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 3.0	bkm  04/18/18 Added Board specific code w.r.t VADJ
 * 4.0   bsv  11/12/19 Added support for ZCU216 board
 *       bsv  02/05/20 Added support for ZCU208 board
+* 5.0   bsv  01/05/22 Added support for ZCU670 board
 *
 * </pre>
 *
@@ -40,7 +41,8 @@ extern "C" {
 #include "xfsbl_hw.h"
 #if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)		\
 		|| defined(XPS_BOARD_ZCU104) || defined(XPS_BOARD_ZCU111) \
-		|| defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208)
+		|| defined(XPS_BOARD_ZCU216) || defined(XPS_BOARD_ZCU208) \
+		|| defined(XPS_BOARD_ZCU670)
 #include "xiicps.h"
 /************************** Constant Definitions *****************************/
 #define GPIO_MIO31_MASK	0x00000020U
