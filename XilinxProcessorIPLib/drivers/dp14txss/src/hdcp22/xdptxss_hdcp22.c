@@ -22,7 +22,7 @@
 
 /****************************** Include Files ********************************/
 #include "xdptxss_hdcp22.h"
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 #include "xdptxss.h"
 
 
@@ -230,7 +230,7 @@ static void XDpTxSs_HdcpProcessEvents(XDpTxSs *InstancePtr)
 int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr)
 {
 	int Status;
-	XHdcp22_Tx_Config *Hdcp22TxConfig;
+	XHdcp22_Tx_Dp_Config *Hdcp22TxConfig;
 	XDpTxSs *DpTxSsPtr = (XDpTxSs *)InstancePtr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -241,7 +241,7 @@ int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr)
 		if (DpTxSsPtr->Hdcp22Lc128Ptr && DpTxSsPtr->Hdcp22SrmPtr) {
 			/* Get core configuration */
 			/* Initialize HDCP 2.2 TX */
-			Hdcp22TxConfig = XHdcp22Tx_LookupConfig(
+			Hdcp22TxConfig = XHdcp22Tx_Dp_LookupConfig(
 					DpTxSsPtr->Config.Hdcp22SubCore.
 					Hdcp22Config.DeviceId);
 			if (Hdcp22TxConfig == NULL) {
@@ -259,7 +259,7 @@ int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr)
 			Hdcp22TxConfig->BaseAddress +=
 				DpTxSsPtr->Config.BaseAddress;
 
-			Status = XHdcp22Tx_CfgInitialize(DpTxSsPtr->Hdcp22Ptr,
+			Status = XHdcp22Tx_Dp_CfgInitialize(DpTxSsPtr->Hdcp22Ptr,
 					Hdcp22TxConfig,
 					DpTxSsPtr->Config.Hdcp22SubCore.
 					Hdcp22Config.AbsAddr);
@@ -274,7 +274,7 @@ int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr)
 			/* Initialize HDCP22 timer instance
 			 * with DP timer instance*/
 			if (DpTxSsPtr->TmrCtrPtr) {
-				XHdcp22Tx_timer_attach(DpTxSsPtr->Hdcp22Ptr,
+				XHdcp22Tx_Dp_timer_attach(DpTxSsPtr->Hdcp22Ptr,
 						DpTxSsPtr->TmrCtrPtr);
 			} else {
 				xdbg_printf(XDBG_DEBUG_GENERAL,
@@ -285,28 +285,28 @@ int XDpTxSs_SubcoreInitHdcp22(void *InstancePtr)
 
 			/*Register DP AUX read write Handlers*/
 			/* Set-up the DDC Handlers */
-			XHdcp22Tx_SetCallback(DpTxSsPtr->Hdcp22Ptr,
+			XHdcp22Tx_Dp_SetCallback(DpTxSsPtr->Hdcp22Ptr,
 					XHDCP22_TX_HANDLER_DP_AUX_READ,
 					(void *)XHdcp22_PortDpTxRead,
 					(void *)DpTxSsPtr->DpPtr);
-			XHdcp22Tx_SetCallback(DpTxSsPtr->Hdcp22Ptr,
+			XHdcp22Tx_Dp_SetCallback(DpTxSsPtr->Hdcp22Ptr,
 					XHDCP22_TX_HANDLER_DP_AUX_WRITE,
 					(void *)XHdcp22_PortDpTxWrite,
 					(void *)DpTxSsPtr->DpPtr);
 
 			/* Set polling value */
-			XHdcp22Tx_SetMessagePollingValue(
+			XHdcp22Tx_Dp_SetMessagePollingValue(
 					DpTxSsPtr->Hdcp22Ptr, 10);
 
-			XHdcp22Tx_LogReset(DpTxSsPtr->Hdcp22Ptr,
+			XHdcp22Tx_Dp_LogReset(DpTxSsPtr->Hdcp22Ptr,
 					FALSE);
 
 			/* Load key */
-			XHdcp22Tx_LoadLc128(DpTxSsPtr->Hdcp22Ptr,
+			XHdcp22Tx_Dp_LoadLc128(DpTxSsPtr->Hdcp22Ptr,
 					DpTxSsPtr->Hdcp22Lc128Ptr);
 
 			/* Load SRM */
-			Status = XHdcp22Tx_LoadRevocationTable(
+			Status = XHdcp22Tx_Dp_LoadRevocationTable(
 					DpTxSsPtr->Hdcp22Ptr,
 					DpTxSsPtr->Hdcp22SrmPtr);
 			if (Status != XST_SUCCESS) {
@@ -358,8 +358,8 @@ int XDpTxSs_HdcpPoll(void *Instance)
 
 		/* HDCP 2.2 */
 		if (InstancePtr->Hdcp22Ptr) {
-			if (XHdcp22Tx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
-				XHdcp22Tx_Poll(InstancePtr->Hdcp22Ptr);
+			if (XHdcp22Tx_Dp_IsEnabled(InstancePtr->Hdcp22Ptr)) {
+				XHdcp22Tx_Dp_Poll(InstancePtr->Hdcp22Ptr);
 			}
 		}
 	}
@@ -441,11 +441,11 @@ u8 XDpTxSs_IsSinkHdcp22Capable(void *Instance)
 	Xil_AssertNonvoid(Instance != NULL);
 
 	if (InstancePtr->Hdcp22Ptr) {
-		if (XHdcp22Tx_IsDwnstrmCapable(InstancePtr->Hdcp22Ptr)) {
+		if (XHdcp22Tx_Dp_IsDwnstrmCapable(InstancePtr->Hdcp22Ptr)) {
 			return TRUE;
 		}
 	}
 
 	return FALSE;
 }
-#endif /*(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)*/
+#endif /*(XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)*/

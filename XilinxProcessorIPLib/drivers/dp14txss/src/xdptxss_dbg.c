@@ -7,7 +7,7 @@
 /**
 *
 * @file xdptxss_dbg.c
-* @addtogroup dptxss_v6_6
+* @addtogroup dptxss_v6_7
 * @{
 *
 * This file contains functions to report debug information of DisplayPort TX
@@ -250,7 +250,7 @@ void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr)
 	}
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if (InstancePtr->Hdcp1xPtr) {
 		xil_printf("High-Bandwidth Content protection (HDCP):Yes\n\r");
 	}
@@ -537,10 +537,11 @@ void XDpTxSs_ReportHdcpInfo(XDpTxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
-	XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
-#else
-	xil_printf("HDCP is not supported in this design.\n\r");
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	if (InstancePtr->Hdcp1xPtr)
+		XHdcp1x_Info(InstancePtr->Hdcp1xPtr);
+	else
 #endif
+		xil_printf("HDCP is not supported in this design.\n\r");
 }
 /** @} */
