@@ -7,7 +7,7 @@
 /**
 *
 * @file xdptxss_selftest.c
-* @addtogroup dptxss_v6_6
+* @addtogroup dptxss_v6_7
 * @{
 *
 * This file contains self test function for the DisplayPort Transmitter
@@ -89,7 +89,7 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr)
 	}
 #endif
 
-#if (XPAR_DPTXSS_0_HDCP_ENABLE > 0)
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	if ((InstancePtr->Hdcp1xPtr) && (InstancePtr->Config.HdcpEnable)) {
 		Status = XHdcp1x_SelfTest(InstancePtr->Hdcp1xPtr);
 		if (Status != XST_SUCCESS) {

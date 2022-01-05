@@ -30,8 +30,8 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
-#include "xhdcp22_tx.h"
+#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
+#include "xhdcp22_tx_dp.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -41,24 +41,6 @@ extern "C" {
 #define XDPTXSS_HDCP_MAX_QUEUE_SIZE	   16
 
 /**************************** Type Definitions *******************************/
-/**
-* This typedef contains configuration information for the HDCP22 core.
-*/
-typedef struct {
-	u16 DeviceId;   /**< Device ID of the sub-core */
-	UINTPTR AbsAddr; /**< Absolute Base Address of the Sub-cores*/
-} XDpTxSs_Hdcp22_Config;
-
-/**
- * Sub-Core Configuration Table
- */
-typedef struct
-{
-	u16 IsPresent;  /**< Flag to indicate if sub-core is present
-			  in the design*/
-	XDpTxSs_Hdcp22_Config Hdcp22Config; /**< HDCP22 core configuration */
-} XDpTxSs_Hdcp22SubCore;
-
 /**
 * These constants specify the HDCP Events
 */
@@ -97,7 +79,7 @@ int XDpTxSs_HdcpPoll(void *Instance);
 int XDpTxSs_HdcpPushEvent(void *Instance, XDpTxSs_HdcpEvent Event);
 u8 XDpTxSs_IsSinkHdcp22Capable(void *Instance);
 
-#endif /*(XPAR_XHDCP22_TX_NUM_INSTANCES > 0)*/
+#endif /*(XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)*/
 
 #ifdef __cplusplus
 }

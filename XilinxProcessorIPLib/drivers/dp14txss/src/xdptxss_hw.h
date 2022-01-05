@@ -7,7 +7,7 @@
 /**
 *
 * @file xdptxss_hw.h
-* @addtogroup dptxss_v6_6
+* @addtogroup dptxss_v6_7
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
