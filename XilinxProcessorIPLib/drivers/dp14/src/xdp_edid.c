@@ -7,7 +7,7 @@
 /**
  *
  * @file xdp_edid.c
- * @addtogroup dp_v7_5
+ * @addtogroup dp_v7_6
  * @{
  *
  * This file contains functions related to accessing the Extended Display
