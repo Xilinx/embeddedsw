@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 *					 general purpose data
 * 2.4   kal  07/25/2021 Moved common structures between client and server
 *                       to xnvm_defs.h
+* 2.5   har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
 *
 * </pre>
 *
@@ -616,8 +617,8 @@ typedef struct {
 	u8 EnvMonitorDis;
 	u8 PrgmPufFuse;
 	XSysMonPsv *SysMonInstPtr;
-	u32 StartPufFuseNum;
-	u32 NumOfPufFuses;
+	u32 StartPufFuseRow;
+	u32 NumOfPufFusesRows;
 	u32 *PufFuseData;
 }XNvm_EfusePufFuse;
 #endif

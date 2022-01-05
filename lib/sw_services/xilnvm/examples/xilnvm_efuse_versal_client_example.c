@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * ----- ---  -------- -------------------------------------------------------
  * 1.0	 kal   07/30/2021 Initial release of xnvm_efuse_versal_client_example
  * 1.1   kpt   11/28/2021 Fixed typo Ppk1WrLk in XilNvm_EfuseInitSecCtrl
+ *       har   01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
  *
  * </pre>
  *
@@ -2293,8 +2294,8 @@ static int XilNvm_EfuseInitPufFuses(XNvm_EfusePufFuseAddr *PufFuse)
 			goto END;
 		}
 
-		PufFuse->StartPufFuseNum = XNVM_EFUSE_PRGM_PUF_FUSE_NUM;
-		PufFuse->NumOfPufFuses = XNVM_EFUSE_NUM_OF_PUF_FUSES;
+		PufFuse->StartPufFuseRow = XNVM_EFUSE_PRGM_PUF_FUSE_NUM;
+		PufFuse->NumOfPufFusesRows = XNVM_EFUSE_NUM_OF_PUF_FUSES;
 		PufFuse->EnvMonitorDis= XNVM_EFUSE_ENV_MONITOR_DISABLE;
 	}
 	Status = XST_SUCCESS;
@@ -2355,8 +2356,8 @@ static int XilNvm_EfuseReadPufFuses(void)
 
 	/* Init data */
 	PufFuses.PufFuseDataAddr = (UINTPTR)&CacheAlignedArr;
-	PufFuses.StartPufFuseNum = XNVM_EFUSE_READ_PUF_FUSE_NUM;
-	PufFuses.NumOfPufFuses = XNVM_EFUSE_READ_NUM_OF_PUF_FUSES;
+	PufFuses.StartPufFuseRow = XNVM_EFUSE_READ_PUF_FUSE_NUM;
+	PufFuses.NumOfPufFusesRows = XNVM_EFUSE_READ_NUM_OF_PUF_FUSES;
 
 	Xil_DCacheFlushRange((UINTPTR)&CacheAlignedArr,
 		sizeof(CacheAlignedArr));
