@@ -40,6 +40,7 @@
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/30/21 Convert AntennaCfg to structure
 *       dc     12/02/21 Add UpdateAntennaCfg API
+*       dc     12/17/21 Update after documentation review
 *
 * </pre>
 * @addtogroup xdfemix_v1_2
@@ -70,11 +71,11 @@
 #define XDFEMIXER_NEXT true
 #define XDFEMIXER_PHACC_DISABLE false
 #define XDFEMIXER_PHACC_ENABLE true
+#define XDFEMIX_PHASE_OFFSET_ROUNDING_BITS (14U) /**< Number of rounding bits */
+#define XDFEMIX_TAP_MAX (24U) /**< Maximum tap value */
 /**
 * @endcond
 */
-#define XDFEMIX_PHASE_OFFSET_ROUNDING_BITS (14U) /**< Number of rounding bits */
-#define XDFEMIX_TAP_MAX (24U) /**< Maximum tap value */
 #define XDFEMIX_DRIVER_VERSION_MINOR (2U) /**< Driver's minor version number */
 #define XDFEMIX_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
@@ -1019,7 +1020,7 @@ static void XDfeMix_DisableLowPowerTrigger(const XDfeMix *InstancePtr)
 *
 * API initialises one instance of a Mixer driver.
 * Traverses "/sys/bus/platform/device" directory (in Linux), to find registered
-* MIX device with the name DeviceNodeName. The first available slot in
+* XDfeMix device with the name DeviceNodeName. The first available slot in
 * the instances array XDfeMix_Mixer[] will be taken as a DeviceNodeName
 * object. On success it moves the state machine to a Ready state, while on
 * failure stays in a Not Ready state.
@@ -1130,7 +1131,7 @@ return_error:
 /*****************************************************************************/
 /**
 *
-* API closes the instances of a Mixer driver and moves the state machine to
+* API closes the instance of a Mixer driver and moves the state machine to
 * a Not Ready state.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
@@ -1444,8 +1445,6 @@ XDfeMix_StateId XDfeMix_GetStateID(XDfeMix *InstancePtr)
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CurrCCCfg CC configuration container.
 *
-* @note     For a sequence conversion see XDfeMix_AddCCIDAndTranslateSeq() comment.
-*
 ****************************************************************************/
 void XDfeMix_GetCurrentCCCfg(const XDfeMix *InstancePtr,
 			     XDfeMix_CCCfg *CurrCCCfg)
@@ -1549,7 +1548,9 @@ void XDfeMix_GetCurrentCCCfg(const XDfeMix *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Returns the empty CC configuration.
+* Returns configuration structure CCCfg with CCCfg->Sequence.Length value set
+* in XDfeMix_Configure(), array CCCfg->Sequence.CCID[] members are set to not
+* used value (-1) and the other CCCfg members are set to 0.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCCfg CC configuration container.
@@ -1580,7 +1581,8 @@ void XDfeMix_GetEmptyCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg)
 /****************************************************************************/
 /**
 *
-* Returns the current CCID carrier configuration.
+* Returns the current CC sequence bitmap, CCID carrier configuration and
+* NCO configuration.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCCfg Component carrier (CC) configuration container.
@@ -1739,7 +1741,6 @@ void XDfeMix_RemoveCCfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 * @param    CCCfg Component carrier (CC) configuration container.
 * @param    CCID Channel ID.
 * @param    CarrierCfg CC configuration container.
-* @param    NCO NCO configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1771,7 +1772,7 @@ u32 XDfeMix_UpdateCCinCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 * copying from shadow to operational registers.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
-* @param    CurrCCCfg CC configuration container.
+* @param    CCCfg CC configuration container.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1944,7 +1945,7 @@ u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCID Channel ID.
-* @param    Rate NCO rate value.
+* @param    Rate NCO rate value [1,2,4].
 * @param    FromNCO NCO value moving from.
 * @param    ToNCO NCO value moving to.
 *
@@ -2007,13 +2008,12 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 /****************************************************************************/
 /**
 *
-* Updates specified CCID, with specified configuration to a local CC
-* configuration structure.
+* Updates specified CCID, with a configuration defined in CarrierCfg
+* structure.
 * If there is insufficient capacity for the new CC the function will return
 * an error.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
-* @param    CCCfg Component carrier (CC) configuration container.
 * @param    CCID Channel ID.
 * @param    CarrierCfg CC configuration container.
 *
@@ -2062,7 +2062,7 @@ u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    AntennaId Antenna ID.
-* @param    AntennaGain Antenna gain.
+* @param    AntennaGain Antenna gain, 0 for -6dB and 1 for 0dB.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -2286,7 +2286,7 @@ void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Gets DUC/DDC status.
+* Gets DUC/DDC status for a specified CCID.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCID Channel ID.
@@ -2319,11 +2319,11 @@ void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
 /****************************************************************************/
 /**
 *
-* Gets Mixer status.
+* Gets Mixer status  for a specified CCID.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCID Channel ID.
-* @param    DUCDDCStatus DUC/DDC status container.
+* @param    MixerStatus Mixer status container.
 *
 ****************************************************************************/
 void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, s32 CCID,
@@ -2393,8 +2393,7 @@ u32 XDfeMix_GetTUserDelay(const XDfeMix *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Returns CONFIG.DATA_LATENCY.VALUE + tap, where the tap is between 0
-* and 23 in real mode and between 0 and 11 in complex/matrix mode.
+* Returns data latency + tap.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    Tap Tap value.

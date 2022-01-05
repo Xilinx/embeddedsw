@@ -10,22 +10,22 @@
 * @addtogroup xdfemix_v1_2 Overview
 * @{
 *
-* The Channel Mixer IP provides a wrapper around the Channel Mixer and
-* DUC_DDC block (Combined DUC/DDC and Mixer). Each IP instance can
+* The RFSoC DFE DUC-DDC Mixer IP provides a wrapper around the Channel Mixer and
+* DUC_DDC primitives (Combined DUC-DDC and Mixer). Each IP instance can
 * support up to 64 CC, arranged across a maximum of 8 Antennas using
-* four blocks. The wrapper provides access to the underlying blocks via
-* TDMA AXI-Stream data interfaces. Output from the block is arranged as
-* an AXI-Stream, running at fs, per antenna. An AXI memory-mapped interface
-* is provided, enabling configuration and control of the block from a
-* microprocessor.
-* The features that the Mixer IP and driver support are:
-* - Supports ibw of 200MHz and 400MHz.
-* - Supports a maximum sample rate of 491.52MHz.
-* - Supports reallocation of DL TDM slots.
-* - Supports Up conversion rate set on a per-channel basis, programmed
+* four primitives. The wrapper provides access to the underlying primitives via
+* TDMA AXI-Stream data interfaces. Output from the primitive in DL mode is
+* arranged as an AXI-Stream, running at f<SUB>s</SUB>, per antenna. An AXI
+* memory-mapped interface is provided, enabling configuration and control of
+* the block from a microprocessor.
+* The features that the DUC-DDC Mixer IP and driver support are:
+* - Supports ibw of up to 400MHz.
+* - Supports a maximum sample rate of 491.52MSPS for the antenna signals.
+* - Supports CC sequence reconfiguration.
+* - Supports up conversion rate set on a per CC basis, programmed
 *   via processor interface.
 * - UL TDM output pattern programmed via register interface.
-* - Supports down conversion rate set on a per channel basis, programmed via
+* - Supports down conversion rate set on a per CC basis, programmed via
 *   processor interface.
 * - Supports TDD power down via a processor interface and TUSER input.
 * - Supports automatic flushing of the internal buffers.
@@ -73,6 +73,7 @@
 *       dc     11/19/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/30/21 Convert AntennaCfg to structure
 *       dc     12/02/21 Add UpdateAntennaCfg API
+*       dc     12/17/21 Update after documentation review
 *
 * </pre>
 * @endcond
@@ -124,8 +125,14 @@ extern "C" {
 #define XDFEMIX_ANT_NUM_MAX (8U) /**< Maximum anntena number */
 #define XDFEMIX_SEQ_LENGTH_MAX (16U) /**< Maximum sequence length */
 
+/**
+* @cond nocomments
+*/
 #define XDFEMIX_RATE_MAX (7U) /**< Maximum rate Id */
 #define XDFEMIX_NCO_MAX (7U) /**< Maximum NCO number */
+/**
+* @endcond
+*/
 #define XDFEMIX_CC_GAIN_MAX (3U) /**< Maximum CC gain */
 
 /**************************** Type Definitions *******************************/
@@ -252,8 +259,10 @@ typedef struct {
 	u32 Lanes; /**< [1-4] Number of lanes */
 	u32 AntennaInterleave; /**< [1,2,4,8] Number of Antenna slots */
 	u32 MixerCps; /**< [1,2,4] */
-	u32 DataIWidth; /**< [16,24] */
-	u32 DataOWidth; /**< [16,24] */
+	u32 DataIWidth; /**< [16,24] 16 for 16-bit sample data and 24 for
+		18-bit sample data.*/
+	u32 DataOWidth; /**< [16,24] 16 for 16-bit sample data and 24 for
+		18-bit sample data.*/
 	u32 TUserWidth; /**< [0-64] */
 } XDfeMix_ModelParameters;
 
@@ -295,7 +304,7 @@ typedef struct {
  */
 typedef struct {
 	u32 PhaseAcc; /**< [0-2^32-1] Phase accumulator value */
-	u32 DualModCount; /**< [0-2^32-1] Dual modulus count value */
+	u32 DualModCount; /**< [0-2^32-1] Dual modulus count value (T-S)*/
 	u32 DualModSel; /**< [0,1] Dual modulus select value */
 } XDfeMix_Phase;
 
@@ -315,7 +324,7 @@ typedef struct {
 typedef struct {
 	u32 NCOIdx; /**< [0-7] DUC/DDC NCO assignment */
 	u32 Rate; /**< [0-5].Interpolation/decimation rate:
-			- 0: Disabled
+			- 0: This CCID is disabled
 			- 1: 1x interpolation/decimation
 			- 2: 2x interpolation/decimation
 			- 3: 4x interpolation/decimation
@@ -391,8 +400,13 @@ typedef struct {
  * Mixer status.
  */
 typedef struct {
-	u32 AdderStage; /**< [0,1] First adder stage in which overflow in real
-		or imaginary data has occurred. */
+	u32 AdderStage; /**< [0,1] Earliest stage in which overflow occurred.
+		- 0 = COMPLEX_MULT: Complex multiplier output overflowed and
+			has been saturated.
+		- 1 = FIRST_ADDER: First antenna adder output overflowed and
+			has been saturated.
+		- 2 = SECOND_ADDER: Second antenna adder output overflowed
+			 and has been saturated. */
 	u32 AdderAntenna; /**< [0-7] Lowest antenna in which overflow has
 		occurred. */
 	u32 MixCCID; /**< [0-7] Lowest CCID on which overflow has occurred
@@ -425,8 +439,10 @@ typedef struct {
 	u32 Lanes; /**< [1-4] */
 	u32 AntennaInterleave; /**< [1,2,4,8] */
 	u32 MixerCps; /**< [1,2,4] */
-	u32 DataIWidth; /**< [16,24] */
-	u32 DataOWidth; /**< [16,24] */
+	u32 DataIWidth; /**< [16,24] 16 for 16-bit sample data and 24 for
+		18-bit sample data.*/
+	u32 DataOWidth; /**< [16,24] 16 for 16-bit sample data and 24 for
+		18-bit sample data.*/
 	u32 TUserWidth; /**< [0-64] */
 } XDfeMix_Config;
 
@@ -436,7 +452,7 @@ typedef struct {
 typedef struct {
 	XDfeMix_Config Config; /**< Config Structure */
 	XDfeMix_StateId StateId; /**< StateId */
-	s32 NotUsedCCID; /**< Not used CCID */
+	s32 NotUsedCCID; /**< Lowest CCID number not allocated */
 	u32 SequenceLength; /**< Exact sequence length */
 	char NodeName[XDFEMIX_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal IO structure */
