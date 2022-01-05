@@ -187,7 +187,7 @@ AieRC _XAieMl_SetPartIsolationAfterRst(XAie_DevInst *DevInst)
 AieRC _XAieMl_PartMemZeroInit(XAie_DevInst *DevInst)
 {
 	AieRC RC = XAIE_OK;
-	const XAie_MemCtrlMod *MCtrlMod, *MCtrlModLast;
+	const XAie_MemCtrlMod *MCtrlMod;
 	u64 RegAddr;
 	XAie_LocType Loc;
 
@@ -214,17 +214,24 @@ AieRC _XAieMl_PartMemZeroInit(XAie_DevInst *DevInst)
 					XAIE_ERROR("Failed to zeroize partition mems.\n");
 					return RC;
 				}
-				MCtrlModLast = MCtrlMod;
 				MCtrlMod++;
+				if((C == DevInst->NumCols - 1) &&
+						(R == DevInst->NumRows - 1) &&
+						(M == NumMods - 1)) {
+					RegAddr = MCtrlMod->MemCtrlRegOff +
+						_XAie_GetTileAddr(DevInst,
+								Loc.Row,
+								Loc.Col);
+					return XAie_MaskPoll(DevInst, RegAddr,
+							MCtrlMod->MemZeroisation.Mask,
+							0, 0);
+				}
 			}
 		}
 	}
 
-	RegAddr = MCtrlModLast->MemCtrlRegOff +
-		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
-	return XAie_MaskPoll(DevInst, RegAddr,
-			MCtrlModLast->MemZeroisation.Mask, 0, 0);
-
+	/* Code should never reach here. */
+	return XAIE_ERR;
 }
 
 /*****************************************************************************/
