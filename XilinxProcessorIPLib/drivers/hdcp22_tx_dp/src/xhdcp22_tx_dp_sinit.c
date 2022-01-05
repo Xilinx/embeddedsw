@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xhdcp22_tx_sinit.c
-* @addtogroup hdcp22_tx_dp_v2_1
+* @file xhdcp22_tx_dp_sinit.c
+* @addtogroup hdcp22_tx_dp_v3_0
 * @{
 * @details
 *
@@ -20,18 +20,21 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  jb     02/21/19 Initial release
+* 3.00  jb     12/24/21 File name changed from xhdcp22_tx_sinit.c to
+*                       xhdcp22_tx_dp_sinit.c. Also all APIs and structure
+*                       names are added with suffix _dp.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
-#include "xhdcp22_tx.h"
+#include "xhdcp22_tx_dp.h"
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
-#ifndef XPAR_XHDCP22_TX_NUM_INSTANCES
-#define XPAR_XHDCP22_TX_NUM_INSTANCES  0
+#ifndef XPAR_XHDCP22_TX_DP_NUM_INSTANCES
+#define XPAR_XHDCP22_TX_DP_NUM_INSTANCES  0
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -51,33 +54,33 @@
 /*****************************************************************************/
 /**
 *
-* This function returns a reference to an XHdcp22_Tx_Config structure based
+* This function returns a reference to an XHdcp22_Tx_Dp_Config structure based
 * on the core id, <i>DeviceId</i>. The return value will refer to an entry in
 * the device configuration table defined in the xhdcp22_tx_g.c file.
 *
 * @param  DeviceId is the unique core ID of the HDCP2.2 TX core for the
 *         lookup operation.
 *
-* @return XHdcp22Tx_LookupConfig returns a reference to a config record
+* @return XHdcp22Tx_Dp_LookupConfig returns a reference to a config record
 *         in the configuration table (in xhdcp22_tx_g.c) corresponding
 *         to <i>DeviceId</i>, or NULL if no match is found.
 *
 * @note   None.
 *
 ******************************************************************************/
-XHdcp22_Tx_Config *XHdcp22Tx_LookupConfig(u16 DeviceId)
+XHdcp22_Tx_Dp_Config *XHdcp22Tx_Dp_LookupConfig(u16 DeviceId)
 {
-	extern XHdcp22_Tx_Config XHdcp22_Tx_ConfigTable[XPAR_XHDCP22_TX_NUM_INSTANCES];
-	XHdcp22_Tx_Config *CfgPtr = NULL;
+	extern XHdcp22_Tx_Dp_Config XHdcp22_Tx_Dp_ConfigTable[XPAR_XHDCP22_TX_DP_NUM_INSTANCES];
+	XHdcp22_Tx_Dp_Config *CfgPtr = NULL;
 	u32 Index;
 
 	/* Checking for device id for which instance it is matching */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_XHDCP22_TX_NUM_INSTANCES); Index++) {
+	for (Index = (u32)0x0; Index < (u32)(XPAR_XHDCP22_TX_DP_NUM_INSTANCES); Index++) {
 		/* Assigning address of config table if both device ids
 		 * are matched
 		 */
-		if (XHdcp22_Tx_ConfigTable[Index].DeviceId == DeviceId) {
-			CfgPtr = &XHdcp22_Tx_ConfigTable[Index];
+		if (XHdcp22_Tx_Dp_ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &XHdcp22_Tx_Dp_ConfigTable[Index];
 			break;
 		}
 	}

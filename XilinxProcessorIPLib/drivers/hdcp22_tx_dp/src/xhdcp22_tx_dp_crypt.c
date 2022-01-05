@@ -7,7 +7,7 @@
 /**
 *
 * @file xhdcp22_tx_crypt.c
-* @addtogroup hdcp22_tx_dp_v2_1
+* @addtogroup hdcp22_tx_dp_v3_0
 * @{
 * @details
 *
@@ -19,12 +19,14 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------------
 * 1.00  jb     02/21/19 Initial release
+* 3.00  jb     12/24/21 File name changed from xhdcp22_tx_crypt.c to
+*                       xhdcp22_tx_dp_crypt.c
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xhdcp22_tx_i.h"
+#include "xhdcp22_tx_dp_i.h"
 #include "xhdcp22_common.h"
 #include <stdlib.h>
 
@@ -414,7 +416,7 @@ static int XHdcp22Tx_RsaSignatureVerify(const u8 *MessagePtr, int MessageSize,
 * @note   None.
 *
 ******************************************************************************/
-void XHdcp22Tx_GenerateRandom(XHdcp22_Tx *InstancePtr, int NumOctets,
+void XHdcp22Tx_GenerateRandom(XHdcp22_Tx_Dp *InstancePtr, int NumOctets,
                               u8* RandomNumberPtr)
 {
 	/* Verify arguments */
