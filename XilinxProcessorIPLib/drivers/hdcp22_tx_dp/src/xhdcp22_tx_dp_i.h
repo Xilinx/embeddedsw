@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xhdcp22_tx_i.h
-* @addtogroup hdcp22_tx_dp_v2_1
+* @file xhdcp22_tx_dp_i.h
+* @addtogroup hdcp22_tx_dp_v3_0
 * @{
 * @details
 *
@@ -20,6 +20,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  jb     02/21/19 Initial release
+* 3.00	jb     12/24/21 File name changed from xhdcp22_tx_i.c to
+*                       xhdcp22_tx_dp_i.c
 * </pre>
 *
 ******************************************************************************/
@@ -32,7 +34,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xhdcp22_tx.h"
+#include "xhdcp22_tx_dp.h"
 
 /************************** Constant Definitions *****************************/
 /** Maximum allowed re-checking locality, prescribed by LLC. */
@@ -202,7 +204,7 @@ typedef enum {
 	XHDCP22_TX_TESTMODE_DISABLED,       /**< Testmode is disabled. */
 	XHDCP22_TX_TESTMODE_SW_RX,          /**< Actual HDCP2.2 RX component is connected. */
 	XHDCP22_TX_TESTMODE_NO_RX,          /**< HDCP2.2 RX software component is not available and will be emulated. */
-	XHDCP22_TX_TESTMODE_UNIT,           /**< HDCP2.2 RX is emulated, #XHdcp22Tx_LogDisplay shows source code.*/
+	XHDCP22_TX_TESTMODE_UNIT,           /**< HDCP2.2 RX is emulated, #XHdcp22Tx_Dp_LogDisplay shows source code.*/
 	XHDCP22_TX_TESTMODE_USE_TESTKEYS,   /**< Use test keys as defined in Errata to HDCP on HDMI Specification
 	                                         Revision 2.2, February 09, 2015. */
 	XHDCP22_TX_TESTMODE_INVALID         /**< Last value the list, only used for checking. */
@@ -485,12 +487,12 @@ void XHdcp22Tx_ComputeEdkeyKs(const u8* Rn, const u8* Km,
 int XHdcp22Tx_EncryptKm(const XHdcp22_Tx_CertRx* CertificatePtr,
                         const u8* KmPtr, u8 *MaskingSeedPtr,
                         u8* EncryptedKmPtr);
-void XHdcp22Tx_GenerateRandom(XHdcp22_Tx *InstancePtr, int NumOctets,
+void XHdcp22Tx_GenerateRandom(XHdcp22_Tx_Dp *InstancePtr, int NumOctets,
                               u8* RandomNumberPtr);
 
 /* Functions for logging */
 void XHdcp22Tx_Dump(const char *string, const u8 *m, u32 mlen);
-void XHdcp22Tx_LogWrNoInst(XHdcp22_Tx_LogEvt Evt, u16 Data);
+void XHdcp22Tx_LogWrNoInst(XHdcp22_Tx_Dp_LogEvt Evt, u16 Data);
 
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus

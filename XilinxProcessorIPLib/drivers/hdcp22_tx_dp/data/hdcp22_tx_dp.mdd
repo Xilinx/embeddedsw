@@ -11,7 +11,7 @@ BEGIN driver hdcp22_tx_dp
   OPTION supported_peripherals = (hdcp22_tx_dp);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.1;
+  OPTION VERSION = 3.0;
   OPTION DEPENDS = (hdcp22_common hdcp22_cipher_dp hdcp22_rng);
   OPTION NAME = hdcp22_tx_dp;
 
