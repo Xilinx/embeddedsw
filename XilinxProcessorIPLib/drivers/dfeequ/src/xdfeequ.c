@@ -28,6 +28,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/09/21 Add GetStateId API
 *       dc     11/19/21 Update doxygen documentation
+*       dc     12/17/21 Update after documentation review
 *
 * </pre>
 * @addtogroup xdfeequ_v1_2
@@ -513,7 +514,7 @@ static void XDfeEqu_DisableLowPowerTrigger(const XDfeEqu *InstancePtr)
 * API initialises one instance of an Equalizer driver.
 * Traverse "/sys/bus/platform/device" directory (in Linux), to find registered
 * EQU device with the name DeviceNodeName. The first available slot in
-* the instances array XDfeEqu_ChFilter[] will be taken as a DeviceNodeName
+* the instances array XDfeEqu_Equalizer[] will be taken as a DeviceNodeName
 * object. On success it moves the state machine to a Ready state, while on
 * failure stays in a Not Ready state.
 *
@@ -655,7 +656,6 @@ void XDfeEqu_InstanceClose(XDfeEqu *InstancePtr)
 /**
 *
 * Resets Equalizer and puts block into a reset state.
-* Sets bit 0 of the Master Reset register (0x4) high.
 *
 * @param    InstancePtr Pointer to the Equalizer instance.
 *
@@ -878,20 +878,11 @@ XDfeEqu_StateId XDfeEqu_GetStateID(XDfeEqu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* The software first sets bits 7:4 of the Next Control register (0x24) with
-* the values in Config.Real_Datapath_Set, Config.Im_Datapath_Set.
-* In real mode bits, 5:4 are set to the value held in
-* Config.Real_Datapath_Set.
-* Bits 7:6 are set to the value held in Config.Real_Datapath_Set.
-* In complex mode bits, 5:4 are set to the value held in value
-* Config.Real_Datapath_Set. Bits 7:6 are set to the value held in
-* Config.Real_Datapath_Set plus 1.
-* In matrix mode bits 5:4 are set to the value held in
-* Config.Real_Datapath_Set. Bits 7:6 are set to the value held in
-* Config.Im_Datapath_Set.
-* The software sets bit 1 depending on Config.Flush.
-* The software then sets the _Enable bit in the Next Control Trigger
-* Source register (0x28) high.
+* Updates Equalizer mode.
+* Config.DatapathMode defines real or complex Equalizer mode.
+* Config.RealDatapathSet and Config.ImDatapathSet defines which coefficient
+* set to be used in real or complex mode.
+* Config.Flush = 1 instructs to flush the buffers.
 *
 * @param    InstancePtr Pointer to the Equalizer instance.
 * @param    Config configuration container.
@@ -1266,8 +1257,8 @@ u32 XDfeEqu_GetTUserDelay(const XDfeEqu *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Returns CONFIG.DATA_LATENCY.VALUE + tap, where the tap is between 0
-* and 23 in real mode and between 0 and 11 in complex/matrix mode.
+* Returns data latency + tap, where the tap is between 0 and 23 in real mode
+* and between 0 and 11 in complex mode.
 *
 * @param    InstancePtr Pointer to the Equalizer instance.
 * @param    Tap Tap value.
