@@ -10,15 +10,15 @@
 * @addtogroup xdfeequ_v1_2 Overview
 * @{
 *
-* The DFE Equalizer LogiCore builds upon the Complex Equalizer block
+* The RFSoC DFE Equalizer LogiCore builds upon the Complex Equalizer primitive
 * (dfe_complex_eq). Each instance of the LogiCore supports up to 8
-* antennas, each with its instance of the dfe_complex_eq block. The LogiCore
-* provides access to the AXI stream data interfaces on each of the blocks.
+* antennas, each with its instance of the dfe_complex_eq primitive. The LogiCore
+* provides access to the AXI stream data interfaces on each of the primitives.
 * An AXI memory-mapped interface is provided, enabling the Equalizer driver to
-* configure the block from a microprocessor. TUSER and TLAST inputs are present
+* configure the IP from a microprocessor. TUSER and TLAST inputs are present
 * on the AXI stream interfaces and delay matched with the data through the
 * LogiCore. The features that the Equalizer IP and the driver support are:
-* - Can operate in complex (matrix) and real modes.
+* - Can operate in complex and real modes.
 * - Enables the user to program the coefficient sets via a processor interface.
 * - Enables the user to change the coefficient sets that act on the input data
 *   via a processor interface.
@@ -54,6 +54,7 @@
 *       dc     11/09/21 Add GetStateId API
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+*       dc     12/17/21 Update after documentation review
 *
 * </pre>
 * @endcond
@@ -101,20 +102,20 @@ extern "C" {
 
 #define XDFEEQU_NODE_NAME_MAX_LENGTH (50U) /**< Node name maximum length */
 
-#define XDFEEQU_CC_NUM (16U) /**< Maximum CC number */
 #define XDFEEQU_ANT_NUM_MAX (8U) /**< Maximum anntena number */
-#define XDFEEQU_SEQ_LENGTH_MAX (16U) /**< Maximum sequence length */
-
-#define XDFEEQU_RATE_MAX (5U) /**< Maximum rate Id */
-#define XDFEEQU_NCO_MAX (4U) /**< Maximum NCO number */
-
 #define XDFEEQU_CHANNEL_NUM (8U) /**< Maximum channel number */
 #define XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX (0x3U) /**< Complex units number */
 #define XDFEEQU_MAX_NUMBER_OF_UNITS_REAL (0x6U) /**< Real units number */
 
 #define XDFEEQU_DATAPATH_MODE_REAL (0U) /**< Real mode */
 #define XDFEEQU_DATAPATH_MODE_COMPLEX (1U) /**< Complex mode */
-#define XDFEEQU_DATAPATH_MODE_MATRIX (2U) /**< Matrix mode */
+/**
+* @cond nocomments
+*/
+#define XDFEEQU_DATAPATH_MODE_MATRIX (2U) /**< Matrix mode, obsolete for now */
+/**
+* @endcond
+*/
 
 /**************************** Type Definitions *******************************/
 /*********** start - common code to all Logiccores ************/
@@ -244,7 +245,7 @@ typedef struct {
  */
 typedef struct {
 	u32 NUnits; /**< [1-6] Number of active units. 1 - 6 in real mode.
-		1 - 3 in complex and matrix mode. */
+		1 - 3 in complex mode. */
 	u32 Set; /**< [0-3] Coefficient set that the coefficients apply to */
 	s16 Coefficients[24]; /**< Signed real numbers. Array of
 		Coefficients. */
@@ -255,34 +256,29 @@ typedef struct {
  */
 typedef struct {
 	u32 Flush; /**< [0,1] Set high to flush the buffers. */
-	u32 DatapathMode; /**< [real, complex, matrix]
+	u32 DatapathMode; /**< [real, complex]
 		Set depending on whether the equalizer is running in real,
-		complex or matrix mode.
-		EEach of the eight channels consists of 2 sub-channels
-		(shown in the figure below in xDFEEqualizerCoefficientsT
-		description).
-		In complex and matrix modes, the 2 sub-channels form a
-		single filter channel acting on the data's real and
-		imaginary parts.
+		complex mode.
+		Each of the eight channels consists of 2 sub-channels.
+		In complex mode, the 2 sub-channels form a single filter
+		channel acting on the data's real and imaginary parts.
 		In real mode, the two sub-channels act as independent
 		filter channels acting on the two real samples at the input.*/
 	u32 RealDatapathSet; /**< [0-3] Coefficient set to use for real
-		data path (Ha and Hb in complex and matrix mode. Ha, Hb, Hc
-		and Hd in real mode). In complex mode the datapath set is
-		limited to 0 or 2. */
-	u32 ImDatapathSet; /**< [0-3] Matrix mode only. Coefficient set to use
-		for imaginary datapath (Hc and Hd). */
+		data path. In complex mode the datapath set is limited to
+		0 or 2. */
+	u32 ImDatapathSet; /**< [0-1] Coefficient set to use for imaginary
+		datapath. */
 } XDfeEqu_EqConfig;
 
 /**
  * Equalizer Status.
  */
 typedef struct {
-	u32 IStatus[XDFEEQU_CHANNEL_NUM]; /**< Status of the real part of the
-		output. In real mode, both bits can be populated. In complex
-		mode, only bit 0 is relevant. */
-	u32 QStatus[XDFEEQU_CHANNEL_NUM]; /**< Status of the imaginary part of
-		the output. Only valid in complex mode. */
+	u32 IStatus[XDFEEQU_CHANNEL_NUM]; /**< bit0 is overflow of I datapath
+		and bit 1 is overflow of Q datapath in real mode only. */
+	u32 QStatus[XDFEEQU_CHANNEL_NUM]; /**< Overflow of Q datapath in
+		complex mode. */
 } XDfeEqu_Status;
 
 /**
