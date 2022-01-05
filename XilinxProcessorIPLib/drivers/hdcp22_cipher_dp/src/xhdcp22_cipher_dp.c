@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xhdcp22_cipher.c
-* @addtogroup hdcp22_cipher_v1_1
+* @file xhdcp22_cipher_dp.c
+* @addtogroup hdcp22_cipher_dp_v2_0
 * @{
 * @details
 *
@@ -20,13 +20,15 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JB     02/19/19 Initial Release.
+* 2.00  JB     12/24/21 File name changed from xhdcp22_cipher.c to
+				xhdcp22_cipher_dp.c
 * </pre>
 *
 ******************************************************************************/
 
 
 /***************************** Include Files *********************************/
-#include "xhdcp22_cipher.h"
+#include "xhdcp22_cipher_dp.h"
 #include "string.h"
 
 /************************** Constant Definitions *****************************/
@@ -50,7 +52,7 @@
 * setting up the instance data, and ensuring the hardware is in a quiescent
 * state.
 *
-* @param  InstancePtr is a pointer to the XHdcp22_Cipher core instance.
+* @param  InstancePtr is a pointer to the XHdcp22_Cipher_Dp core instance.
 * @param  CfgPtr points to the configuration structure associated with
 *         the HDCP22 Cipher core core.
 * @param  EffectiveAddr is the base address of the device. If address
@@ -65,8 +67,8 @@
 * @note		None.
 *
 ******************************************************************************/
-int XHdcp22Cipher_CfgInitialize(XHdcp22_Cipher *InstancePtr,
-                                XHdcp22_Cipher_Config *CfgPtr,
+int XHdcp22Cipher_Dp_CfgInitialize(XHdcp22_Cipher_Dp *InstancePtr,
+                                XHdcp22_Cipher_Dp_Config *CfgPtr,
                                 UINTPTR EffectiveAddr)
 {
 	u32 RegValue;
@@ -77,12 +79,12 @@ int XHdcp22Cipher_CfgInitialize(XHdcp22_Cipher *InstancePtr,
 	Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)NULL);
 
 	/* Setup the instance */
-	(void)memset((void *)InstancePtr, 0, sizeof(XHdcp22_Cipher));
-	(void)memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr, sizeof(XHdcp22_Cipher_Config));
+	(void)memset((void *)InstancePtr, 0, sizeof(XHdcp22_Cipher_Dp));
+	(void)memcpy((void *)&(InstancePtr->Config), (const void *)CfgPtr, sizeof(XHdcp22_Cipher_Dp_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
 	/* Check ID */
-	RegValue = XHdcp22Cipher_ReadReg(InstancePtr->Config.BaseAddress, (XHDCP22_CIPHER_VER_ID_OFFSET));
+	RegValue = XHdcp22Cipher_Dp_ReadReg(InstancePtr->Config.BaseAddress, (XHDCP22_CIPHER_VER_ID_OFFSET));
 	RegValue = ((RegValue) >> (XHDCP22_CIPHER_SHIFT_16)) & (XHDCP22_CIPHER_MASK_16);
 	if (RegValue != (XHDCP22_CIPHER_VER_ID)) {
 		return (XST_FAILURE);
@@ -107,7 +109,7 @@ int XHdcp22Cipher_CfgInitialize(XHdcp22_Cipher *InstancePtr,
 * @note   The Ks should be in big endian notation.
 *
 ******************************************************************************/
-void XHdcp22Cipher_SetKs(XHdcp22_Cipher *InstancePtr, const u8 *KsPtr, u16 Length)
+void XHdcp22Cipher_Dp_SetKs(XHdcp22_Cipher_Dp *InstancePtr, const u8 *KsPtr, u16 Length)
 {
 	Xil_AssertVoid(KsPtr != NULL);
 	Xil_AssertVoid(Length == 16);
@@ -128,7 +130,7 @@ void XHdcp22Cipher_SetKs(XHdcp22_Cipher *InstancePtr, const u8 *KsPtr, u16 Lengt
 	for (i=0; i<Length; i+=4)
 	{
 		U32Ptr = (u32 *)&Buf[i];
-		XHdcp22Cipher_WriteReg(InstancePtr->Config.BaseAddress, Offset, *U32Ptr);
+		XHdcp22Cipher_Dp_WriteReg(InstancePtr->Config.BaseAddress, Offset, *U32Ptr);
 		/* Increase offset to the next register */
 		Offset+=4;
 	}
@@ -147,7 +149,7 @@ void XHdcp22Cipher_SetKs(XHdcp22_Cipher *InstancePtr, const u8 *KsPtr, u16 Lengt
 * @note   The Lc128 should be in big endian notation.
 *
 ******************************************************************************/
-void XHdcp22Cipher_SetLc128(XHdcp22_Cipher *InstancePtr, const u8 *Lc128Ptr,  u16 Length)
+void XHdcp22Cipher_Dp_SetLc128(XHdcp22_Cipher_Dp *InstancePtr, const u8 *Lc128Ptr,  u16 Length)
 {
 	Xil_AssertVoid(Lc128Ptr != NULL);
 	Xil_AssertVoid(Length == 16);
@@ -167,7 +169,7 @@ void XHdcp22Cipher_SetLc128(XHdcp22_Cipher *InstancePtr, const u8 *Lc128Ptr,  u1
 	for (i=0; i<Length; i+=4)
 	{
 		U32Ptr = (u32 *)&Buf[i];
-		XHdcp22Cipher_WriteReg(InstancePtr->Config.BaseAddress, Offset, *U32Ptr);
+		XHdcp22Cipher_Dp_WriteReg(InstancePtr->Config.BaseAddress, Offset, *U32Ptr);
 		/* Increase offset to the next register */
 		Offset+=4;
 	}
@@ -186,7 +188,7 @@ void XHdcp22Cipher_SetLc128(XHdcp22_Cipher *InstancePtr, const u8 *Lc128Ptr,  u1
 * @note   The Riv should be in big endian notation.
 *
 ******************************************************************************/
-void XHdcp22Cipher_SetRiv(XHdcp22_Cipher *InstancePtr, const u8 *RivPtr,  u16 Length)
+void XHdcp22Cipher_Dp_SetRiv(XHdcp22_Cipher_Dp *InstancePtr, const u8 *RivPtr,  u16 Length)
 {
 	Xil_AssertVoid(RivPtr != NULL);
 	Xil_AssertVoid(Length == 8);
@@ -207,7 +209,7 @@ void XHdcp22Cipher_SetRiv(XHdcp22_Cipher *InstancePtr, const u8 *RivPtr,  u16 Le
 	for (i=0; i<Length; i+=4)
 	{
 		U32Ptr = (u32 *)&Buf[i];
-		XHdcp22Cipher_WriteReg(InstancePtr->Config.BaseAddress, Offset, *U32Ptr);
+		XHdcp22Cipher_Dp_WriteReg(InstancePtr->Config.BaseAddress, Offset, *U32Ptr);
 		/* Increase offset to the next register */
 		Offset+=4;
 	}
@@ -223,16 +225,16 @@ void XHdcp22Cipher_SetRiv(XHdcp22_Cipher *InstancePtr, const u8 *RivPtr,  u16 Le
  * @return None.
  *
  ******************************************************************************/
-void XHdcp22Cipher_SetLanecount(XHdcp22_Cipher *InstancePtr, u8 LaneCount)
+void XHdcp22Cipher_Dp_SetLanecount(XHdcp22_Cipher_Dp *InstancePtr, u8 LaneCount)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/*Clear Lane count bits*/
-	XHdcp22Cipher_WriteReg(InstancePtr->Config.BaseAddress,
+	XHdcp22Cipher_Dp_WriteReg(InstancePtr->Config.BaseAddress,
 			XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET,
 			XHDCP22_CIPHER_REG_CTRL_LANE_CNT_MASK);
 	/*Set new Lane count*/
-	XHdcp22Cipher_WriteReg(InstancePtr->Config.BaseAddress,
+	XHdcp22Cipher_Dp_WriteReg(InstancePtr->Config.BaseAddress,
 			XHDCP22_CIPHER_REG_CTRL_SET_OFFSET,
 			(LaneCount << XHDCP22_CIPHER_REG_CTRL_LANE_CNT_BIT_POS));
 }
