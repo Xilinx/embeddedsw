@@ -5,8 +5,8 @@
 
 /*****************************************************************************/
 /**
-* @file xhdcp22_rx_i.h
-* @addtogroup hdcp22_rx_dp_v2_1
+* @file xhdcp22_rx_dp_i.h
+* @addtogroup hdcp22_rx_dp_v3_0
 * @{
 * @details
 *
@@ -19,6 +19,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  JB   02/19/19 First Release.
+* 3.00  JB   12/24/21 File name changed from xhdcp22_rx_i.c to
+*                     xhdcp22_rx_dp_i.c
 *</pre>
 *
 *****************************************************************************/
@@ -31,7 +33,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files ********************************/
-#include "xhdcp22_rx.h"
+#include "xhdcp22_rx_dp.h"
 #include "xhdcp22_mmult.h"
 
 /************************** Constant Definitions ****************************/
@@ -443,10 +445,10 @@ typedef union
 
 /* Crypto Functions */
 int  XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits);
-void XHdcp22Rx_GenerateRandom(XHdcp22_Rx *InstancePtr, int NumOctets, u8* RandomNumberPtr);
+void XHdcp22Rx_GenerateRandom(XHdcp22_Rx_Dp *InstancePtr, int NumOctets, u8* RandomNumberPtr);
 int  XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Message,
 			const u32 MessageLen, const u8 *MaskingSeed, u8 *EncryptedMessage);
-int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
+int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
 			 u8 *EncryptedMessage, u8 *Message, int *MessageLen);
 void XHdcp22Rx_ComputeHPrime(const u8* Rrx, const u8 *RxCaps, const u8* Rtx,
 	     const u8 *TxCaps, const u8 *Km, u8 *HPrime);
@@ -462,18 +464,18 @@ void XHdcp22Rx_ComputeMPrime(const u8 *StreamIdType, const u8 *SeqNumM,
 
 #ifdef _XHDCP22_RX_TEST_
 /* External functions used for self-testing */
-int  XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode,
+int  XHdcp22Rx_TestSetMode(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_TestMode TestMode,
 			 XHdcp22_Rx_TestFlags TestVectorFlag);
-int  XHdcp22Rx_TestRun(XHdcp22_Rx *InstancePtr);
-u8   XHdcp22Rx_TestIsFinished(XHdcp22_Rx *InstancePtr);
-u8   XHdcp22Rx_TestIsPassed(XHdcp22_Rx *InstancePtr);
-int  XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr);
-void XHdcp22Rx_TestSetVerbose(XHdcp22_Rx *InstancePtr, u8 Verbose);
+int  XHdcp22Rx_TestRun(XHdcp22_Rx_Dp *InstancePtr);
+u8   XHdcp22Rx_TestIsFinished(XHdcp22_Rx_Dp *InstancePtr);
+u8   XHdcp22Rx_TestIsPassed(XHdcp22_Rx_Dp *InstancePtr);
+int  XHdcp22Rx_TestLoadKeys(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22Rx_TestSetVerbose(XHdcp22_Rx_Dp *InstancePtr, u8 Verbose);
 
 /* Internal functions used for self-testing */
-int  XHdcp22Rx_TestDdcWriteReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop);
-int  XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop);
-void XHdcp22Rx_TestGenerateRrx(XHdcp22_Rx *InstancePtr, u8* RrxPtr);
+int  XHdcp22Rx_TestDdcWriteReg(XHdcp22_Rx_Dp *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop);
+int  XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx_Dp *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop);
+void XHdcp22Rx_TestGenerateRrx(XHdcp22_Rx_Dp *InstancePtr, u8* RrxPtr);
 #endif
 
 #ifdef __cplusplus
