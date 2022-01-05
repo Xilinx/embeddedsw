@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx.h
-* @addtogroup hdcp22_rx_dp_v2_1
+* @addtogroup hdcp22_rx_dp_v3_0
 * @{
 * @details
 *
@@ -22,23 +22,23 @@
 * <b>Software Initialization and Configuration</b>
 *
 * The application needs to do the following steps to run the Receiver.
-* - Call XHdcp22Rx_LookupConfig using the device ID to find the
+* - Call XHdcp22Rx_Dp_LookupConfig using the device ID to find the
 *   core configuration instance.
-* - Call XHdcp22Rx_CfgInitialize to intitialize the device instance.
-* - Call XHdcp22Rx_SetCallback to set the pointers to the callback
-*   functions defined by the enumerated type XHdcp22_Rx_HandlerType.
-* - Call XHdcp22Rx_LoadPublicCert to load the DCP public certificate.
-* - Call XHdcp22Rx_LoadPrivateKey to load the RSA private key.
-* - Call XHdcp22Rx_LoadLc128 to load the DCP global constant.
-* - Call XHdcp22Rx_LogReset to reset the log buffer.
+* - Call XHdcp22Rx_Dp_CfgInitialize to intitialize the device instance.
+* - Call XHdcp22Rx_Dp_SetCallback to set the pointers to the callback
+*   functions defined by the enumerated type XHdcp22_Rx_Dp_HandlerType.
+* - Call XHdcp22Rx_Dp_LoadPublicCert to load the DCP public certificate.
+* - Call XHdcp22Rx_Dp_LoadPrivateKey to load the RSA private key.
+* - Call XHdcp22Rx_Dp_LoadLc128 to load the DCP global constant.
+* - Call XHdcp22Rx_Dp_LogReset to reset the log buffer.
 * - The following functions should be called in the interfacing
 *   protocol driver (i.e. HDMI) to set event flags:
-*   - XHdcp22Rx_SetLinkError
-*   - XHdcp22Rx_SetDdcError
-*   - XHdcp22Rx_SetWriteMessageAvailable
-*   - XHdcp22Rx_SetReadMessageComplete
-* - Call XHdcp22Rx_Enable to enable the state machine.
-* - Call XHdcp22Rx_Poll to run the Receiver state machine. The
+*   - XHdcp22Rx_Dp_SetLinkError
+*   - XHdcp22Rx_Dp_SetDdcError
+*   - XHdcp22Rx_Dp_SetWriteMessageAvailable
+*   - XHdcp22Rx_Dp_SetReadMessageComplete
+* - Call XHdcp22Rx_Dp_Enable to enable the state machine.
+* - Call XHdcp22Rx_Dp_Poll to run the Receiver state machine. The
 *   call to this function is non-blocking and should be called
 *   repeatedly in a spin loop as long as the receiver is active.
 *
@@ -69,6 +69,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  JB   02/19/19 First Release.
+* 3.00  JB   12/24/21 File name changed from xhdcp22_rx.h to xhdcp22_rx_dp.h,
+*                     Also all the APIs and sructure names are added with
+*                     suffix _dp.
 *</pre>
 *
 *****************************************************************************/
@@ -88,7 +91,7 @@ extern "C" {
 #include "xtmrctr.h"
 #include "xhdcp22_rng.h"
 #include "xhdcp22_mmult.h"
-#include "xhdcp22_cipher.h"
+#include "xhdcp22_cipher_dp.h"
 
 /************************** Constant Definitions ****************************/
 #define XHDCP22_RX_MAX_MESSAGE_SIZE           534  /**< Maximum message size */
@@ -177,7 +180,7 @@ typedef enum
 {
 	XHDCP22_RX_DP,    /**< HDCP22 over DP*/
 	XHDCP22_RX_HDMI   /**< HDCP22 over HDMI */
-} XHdcp22_Rx_Protocol;
+} XHdcp22_Rx_Dp_Protocol;
 
 /**
  * These constants are used to define the mode.
@@ -187,7 +190,7 @@ typedef enum
 	XHDCP22_RX_RECEIVER,  /**< HDCP22 receiver */
 	XHDCP22_RX_REPEATER,  /**< HDCP22 repeater upstream interface */
 	XHDCP22_RX_CONVERTER  /**< HDCP22 converter upstream interface */
-} XHdcp22_Rx_Mode;
+} XHdcp22_Rx_Dp_Mode;
 
 /**
  * These constants are used to identify callback functions.
@@ -215,7 +218,7 @@ typedef enum
 	XHDCP22_RX_HANDLER_DP_CP_IRQ_SET,	  /**< To raise CP_IRQ from DP Rx*/
 	XHDCP22_RX_HANDLER_DP_AUX_DEFER_SET_CLR, /**< To Set or clear AUX DEFFERS for HDCP22 msgs*/
 	XHDCP22_RX_HANDLER_INVALID                /**< Invalid */
-} XHdcp22_Rx_HandlerType;
+} XHdcp22_Rx_Dp_HandlerType;
 
 /**
  * These constants are the authentication and key exchange states.
@@ -242,7 +245,7 @@ typedef enum
 	XHDCP22_RX_STATE_C7_SEND_STREAM_READY_DONE    = 0xC72,  /**< Content Stream Management: Send RepeaterAuth_Stream_Ready Done */
 	XHDCP22_RX_STATE_C8_AUTHENTICATED             = 0xC80,  /**< Repeater Authenticated */
 	XHDCP22_RX_STATE_INVALID                                /**< Invalid */
-} XHdcp22_Rx_StateType;
+} XHdcp22_Rx_Dp_StateType;
 
 /**
  * These constants define the authentication status.
@@ -253,7 +256,7 @@ typedef enum
 	XHDCP22_RX_AUTHENTICATION_BUSY,     /**< Authentication Busy */
 	XHDCP22_RX_AUTHENTICATED,           /**< Authenticated */
 	XHDCP22_RX_REAUTHENTICATE_REQUESTED /**< Reauthentication requested */
-} XHdcp22_Rx_AuthenticationType;
+} XHdcp22_Rx_Dp_AuthenticationType;
 
 /**
 * These constants are the general logging events.
@@ -267,7 +270,7 @@ typedef enum {
 	XHDCP22_RX_LOG_EVT_ERROR,         /** Log Error Event */
 	XHDCP22_RX_LOG_EVT_USER,          /** User logging */
 	XHDCP22_RX_LOG_EVT_INVALID        /** Last value the list, only used for checking */
-} XHdcp22_Rx_LogEvt;
+} XHdcp22_Rx_Dp_LogEvt;
 
 /**
 * These constants are used to identify fields inside the topology structure
@@ -280,7 +283,7 @@ typedef enum {
 	XHDCP22_RX_TOPOLOGY_HDCP2LEGACYDEVICEDOWNSTREAM,
 	XHDCP22_RX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
 	XHDCP22_RX_TOPOLOGY_INVALID
-} XHdcp22_Rx_TopologyField;
+} XHdcp22_Rx_Dp_TopologyField;
 
 /**
  * This typedef is the test DDC register definition.
@@ -472,7 +475,7 @@ typedef struct
 	void                  *RxDpSetClearAuxDeferCallbackRef;
 	/** This flag is set true when the callback has been registered */
 	u8                    IsRxDpSetClearAuxDeferCallbackSet;
-} XHdcp22_Rx_Handles;
+} XHdcp22_Rx_Dp_Handles;
 
 /**
  * This typedef is used to store temporary parameters for computations
@@ -494,7 +497,7 @@ typedef struct
 	u8 SeqNumM[3];
 	u8 StreamIdType[2];
 	u8 MPrime[32];
-} XHdcp22_Rx_Parameters;
+} XHdcp22_Rx_Dp_Parameters;
 
 /**
  * This typedef is used to store logging events.
@@ -506,21 +509,21 @@ typedef struct {
 	u16 Data;
 	/** Timestamp on when event occured. Only used for time critical events */
 	u32 TimeStamp;
-} XHdcp22_Rx_LogItem;
+} XHdcp22_Rx_Dp_LogItem;
 
 /**
 * This typedef contains the HDCP22 log list.
 */
 typedef struct {
 	/** Data */
-	XHdcp22_Rx_LogItem LogItems[XHDCP22_RX_LOG_BUFFER_SIZE];
+	XHdcp22_Rx_Dp_LogItem LogItems[XHDCP22_RX_LOG_BUFFER_SIZE];
 	/** Tail pointer */
 	u8 Tail;
 	/** Head pointer */
 	u8 Head;
 	/** Logging is extended with debug events. */
 	u8 Verbose;
-} XHdcp22_Rx_Log;
+} XHdcp22_Rx_Dp_Log;
 
 /**
  * This typedef provides information about status of HDCP-RX authentication.
@@ -556,14 +559,14 @@ typedef struct
 	/** Flag indicated that content stream management info messsage has been processed */
 	u8  HasStreamManagementInfo;
 	/** State machine current state */
-	XHdcp22_Rx_StateType CurrentState;
+	XHdcp22_Rx_Dp_StateType CurrentState;
 	/** State machine next state */
-	XHdcp22_Rx_StateType NextState;
+	XHdcp22_Rx_Dp_StateType NextState;
 	/** State machine return state. Used for parallel execution of content stream
 	    management and topology information propagation */
-	XHdcp22_Rx_StateType ReturnState;
+	XHdcp22_Rx_Dp_StateType ReturnState;
 	/** Authentication status */
-	XHdcp22_Rx_AuthenticationType AuthenticationStatus;
+	XHdcp22_Rx_Dp_AuthenticationType AuthenticationStatus;
 	/** Skip read, indicates that message has been read but not yet processed */
 	u8 SkipRead;
 	/** Flag used to indicate topology change. When set to one, indicates
@@ -580,7 +583,7 @@ typedef struct
 	u32 LinkErrorCnt;
 	/** Ddc error count */
 	u32 DdcErrorCnt;
-} XHdcp22_Rx_Info;
+} XHdcp22_Rx_Dp_Info;
 
 /**
  * This typedef is the repeater topology table used to communicate topology
@@ -611,7 +614,7 @@ typedef struct
 	/** Flag used to indicate topology information. When set to one,
 	    indicates precense of an HDCP1.x-compliant device in the topology. */
 	u8 Hdcp1DeviceDownstream;
-} XHdcp22_Rx_Topology;
+} XHdcp22_Rx_Dp_Topology;
 
 /**
  * This typedef contains configuration information for the device.
@@ -632,7 +635,7 @@ typedef struct
 	u32 MontMultDeviceId;
 	/** Random number generator device instance ID */
 	u32 RngDeviceId;
-} XHdcp22_Rx_Config;
+} XHdcp22_Rx_Dp_Config;
 
 /**
  * The XHdcp driver instance data. The user is required to
@@ -643,7 +646,7 @@ typedef struct
 typedef struct
 {
 	/** HDCP-RX config structure */
-	XHdcp22_Rx_Config Config;
+	XHdcp22_Rx_Dp_Config Config;
 	/** Indicates device is initialized and ready */
 	u32 IsReady;
 	/** RxCaps set during initialization */
@@ -657,15 +660,15 @@ typedef struct
 	/** Montgomery NPrimeQ array */
 	u8 NPrimeQ[64];
 	/** HDCP-RX authentication and key exchange info */
-	XHdcp22_Rx_Info Info;
+	XHdcp22_Rx_Dp_Info Info;
 	/** HDCP-RX authentication and key exchange parameters */
-	XHdcp22_Rx_Parameters Params;
+	XHdcp22_Rx_Dp_Parameters Params;
 	/** State function pointer */
 	XHdcp22_Rx_StateFunc StateFunc;
 	/** Message handles */
-	XHdcp22_Rx_Handles Handles;
+	XHdcp22_Rx_Dp_Handles Handles;
 	/** Log instance */
-	XHdcp22_Rx_Log Log;
+	XHdcp22_Rx_Dp_Log Log;
 	/** Montgomery multiplier instance */
 	XHdcp22_mmult MmultInst;
 	/** Timer instance */
@@ -673,77 +676,77 @@ typedef struct
 	/** Random number generator instance */
 	XHdcp22_Rng RngInst;
 	/** Cipher instance */
-	XHdcp22_Cipher CipherInst;
+	XHdcp22_Cipher_Dp CipherInst;
 	/** Message structure */
 	u8 MessageBuffer[XHDCP22_RX_MAX_MESSAGE_SIZE];
 	/** Message size */
 	int MessageSize;
 	/** Repeater topology instance */
-	XHdcp22_Rx_Topology Topology;
+	XHdcp22_Rx_Dp_Topology Topology;
 #ifdef _XHDCP22_RX_TEST_
 	/** Test instance */
 	XHdcp22_Rx_Test Test;
 #endif
-} XHdcp22_Rx;
+} XHdcp22_Rx_Dp;
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Function Prototypes *****************************/
 /* Functions for initializing and running driver */
-XHdcp22_Rx_Config *XHdcp22Rx_LookupConfig(u16 DeviceId);
-int  XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigPtr,
+XHdcp22_Rx_Dp_Config *XHdcp22Rx_Dp_LookupConfig(u16 DeviceId);
+int  XHdcp22Rx_Dp_CfgInitialize(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_Config *ConfigPtr,
        UINTPTR EffectiveAddr);
-int  XHdcp22Rx_Enable(XHdcp22_Rx *InstancePtr);
-int  XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr);
-int  XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr);
-int  XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr);
-int  XHdcp22Rx_SetCallback(XHdcp22_Rx *InstancePtr,
-       XHdcp22_Rx_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef);
-u32  XHdcp22Rx_GetVersion(XHdcp22_Rx *InstancePtr);
-XTmrCtr* XHdcp22Rx_GetTimer(XHdcp22_Rx *InstancePtr);
+int  XHdcp22Rx_Dp_Enable(XHdcp22_Rx_Dp *InstancePtr);
+int  XHdcp22Rx_Dp_Disable(XHdcp22_Rx_Dp *InstancePtr);
+int  XHdcp22Rx_Dp_Reset(XHdcp22_Rx_Dp *InstancePtr);
+int  XHdcp22Rx_Dp_Poll(XHdcp22_Rx_Dp *InstancePtr);
+int  XHdcp22Rx_Dp_SetCallback(XHdcp22_Rx_Dp *InstancePtr,
+       XHdcp22_Rx_Dp_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef);
+u32  XHdcp22Rx_Dp_GetVersion(XHdcp22_Rx_Dp *InstancePtr);
+XTmrCtr* XHdcp22Rx_Dp_GetTimer(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for checking status */
-u8   XHdcp22Rx_IsEnabled(XHdcp22_Rx *InstancePtr);
-u8   XHdcp22Rx_IsEncryptionEnabled(XHdcp22_Rx *InstancePtr);
-u8   XHdcp22Rx_IsInProgress(XHdcp22_Rx *InstancePtr);
-u8   XHdcp22Rx_IsAuthenticated(XHdcp22_Rx *InstancePtr);
-u8   XHdcp22Rx_IsError(XHdcp22_Rx *InstancePtr);
-void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr);
+u8   XHdcp22Rx_Dp_IsEnabled(XHdcp22_Rx_Dp *InstancePtr);
+u8   XHdcp22Rx_Dp_IsEncryptionEnabled(XHdcp22_Rx_Dp *InstancePtr);
+u8   XHdcp22Rx_Dp_IsInProgress(XHdcp22_Rx_Dp *InstancePtr);
+u8   XHdcp22Rx_Dp_IsAuthenticated(XHdcp22_Rx_Dp *InstancePtr);
+u8   XHdcp22Rx_Dp_IsError(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22Rx_Dp_Info(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions used in callback routines */
-void XHdcp22Rx_SetLinkError(XHdcp22_Rx *InstancePtr);
-void XHdcp22Rx_SetDdcError(XHdcp22_Rx *InstancePtr);
-void XHdcp22Rx_SetWriteMessageAvailable(XHdcp22_Rx *InstancePtr);
-void XHdcp22Rx_SetReadMessageComplete(XHdcp22_Rx *InstancePtr);
-void XHdcp22Rx_SetDpcdMsgRdWrtAvailable(XHdcp22_Rx *InstancePtr, u32 type);
-void XHdcp22Rx_SetHdcp22OverProtocol(XHdcp22_Rx *InstancePtr,
-		XHdcp22_Rx_Protocol protocol);
-void XHdcp22_timer_attach(XHdcp22_Rx *InstancePtr, XTmrCtr *TmrCtrPtr);
-void XHdcp22Rx_TimerHandler(void *CallbackRef, u8 TmrCntNumber);
-void XHdcp22_RxSetLaneCount(XHdcp22_Rx *InstancePtr, u8 LaneCount);
-u32 XHdcp22_RxSetRxCaps(XHdcp22_Rx *InstancePtr, u8 enable);
-void XHdcp22_RxSetStreamType(XHdcp22_Rx *InstancePtr);
+void XHdcp22Rx_Dp_SetLinkError(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22Rx_Dp_SetDdcError(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22Rx_Dp_SetWriteMessageAvailable(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22Rx_Dp_SetReadMessageComplete(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(XHdcp22_Rx_Dp *InstancePtr, u32 type);
+void XHdcp22Rx_Dp_SetHdcp22OverProtocol(XHdcp22_Rx_Dp *InstancePtr,
+		XHdcp22_Rx_Dp_Protocol protocol);
+void XHdcp22_Dp_timer_attach(XHdcp22_Rx_Dp *InstancePtr, XTmrCtr *TmrCtrPtr);
+void XHdcp22Rx_Dp_TimerHandler(void *CallbackRef, u8 TmrCntNumber);
+void XHdcp22_Dp_RxSetLaneCount(XHdcp22_Rx_Dp *InstancePtr, u8 LaneCount);
+u32 XHdcp22_Dp_RxSetRxCaps(XHdcp22_Rx_Dp *InstancePtr, u8 enable);
+void XHdcp22_Dp_RxSetStreamType(XHdcp22_Rx_Dp *InstancePtr);
 /* Functions for loading authentication constants */
-void XHdcp22Rx_LoadLc128(XHdcp22_Rx *InstancePtr, const u8 *Lc128Ptr);
-void XHdcp22Rx_LoadPublicCert(XHdcp22_Rx *InstancePtr, const u8 *PublicCertPtr);
-int  XHdcp22Rx_LoadPrivateKey(XHdcp22_Rx *InstancePtr, const u8 *PrivateKeyPtr);
+void XHdcp22Rx_Dp_LoadLc128(XHdcp22_Rx_Dp *InstancePtr, const u8 *Lc128Ptr);
+void XHdcp22Rx_Dp_LoadPublicCert(XHdcp22_Rx_Dp *InstancePtr, const u8 *PublicCertPtr);
+int  XHdcp22Rx_Dp_LoadPrivateKey(XHdcp22_Rx_Dp *InstancePtr, const u8 *PrivateKeyPtr);
 
 /* Functions for logging */
-void XHdcp22Rx_LogReset(XHdcp22_Rx *InstancePtr, u8 Verbose);
-u32  XHdcp22Rx_LogGetTimeUSecs(XHdcp22_Rx *InstancePtr);
-void XHdcp22Rx_LogWr(XHdcp22_Rx *InstancePtr, u16 Evt, u16 Data);
-XHdcp22_Rx_LogItem* XHdcp22Rx_LogRd(XHdcp22_Rx *InstancePtr);
-void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr);
+void XHdcp22Rx_Dp_LogReset(XHdcp22_Rx_Dp *InstancePtr, u8 Verbose);
+u32  XHdcp22Rx_Dp_LogGetTimeUSecs(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22Rx_Dp_LogWr(XHdcp22_Rx_Dp *InstancePtr, u16 Evt, u16 Data);
+XHdcp22_Rx_Dp_LogItem* XHdcp22Rx_Dp_LogRd(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22Rx_Dp_LogDisplay(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for repeater upstream interface */
-void XHdcp22Rx_SetTopology(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_Topology *TopologyPtr);
-void XHdcp22Rx_SetTopologyReceiverIdList(XHdcp22_Rx *InstancePtr, const u8 *ListPtr, u32 ListSize);
-void XHdcp22Rx_SetTopologyField(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TopologyField Field, u8 Value);
-void XHdcp22Rx_SetTopologyUpdate(XHdcp22_Rx *InstancePtr);
-void XHdcp22Rx_SetRepeater(XHdcp22_Rx *InstancePtr, u8 Set);
-u8   XHdcp22Rx_IsRepeater(XHdcp22_Rx *InstancePtr);
-u8   XHdcp22Rx_GetContentStreamType(XHdcp22_Rx *InstancePtr);
-void XHdcp22_RxSetReauthReq(XHdcp22_Rx *InstancePtr);
+void XHdcp22Rx_Dp_SetTopology(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_Dp_Topology *TopologyPtr);
+void XHdcp22Rx_Dp_SetTopologyReceiverIdList(XHdcp22_Rx_Dp *InstancePtr, const u8 *ListPtr, u32 ListSize);
+void XHdcp22Rx_Dp_SetTopologyField(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_TopologyField Field, u8 Value);
+void XHdcp22Rx_Dp_SetTopologyUpdate(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22Rx_Dp_SetRepeater(XHdcp22_Rx_Dp *InstancePtr, u8 Set);
+u8   XHdcp22Rx_Dp_IsRepeater(XHdcp22_Rx_Dp *InstancePtr);
+u8   XHdcp22Rx_Dp_GetContentStreamType(XHdcp22_Rx_Dp *InstancePtr);
+void XHdcp22_Dp_RxSetReauthReq(XHdcp22_Rx_Dp *InstancePtr);
 
 #ifdef __cplusplus
 }

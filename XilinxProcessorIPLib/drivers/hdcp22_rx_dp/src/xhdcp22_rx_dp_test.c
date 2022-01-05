@@ -5,8 +5,8 @@
 
 /*****************************************************************************/
 /**
-* @file xhdcp22_rx_test.c
-* @addtogroup hdcp22_rx_dp_v2_1
+* @file xhdcp22_rx_dp_test.c
+* @addtogroup hdcp22_rx_dp_v3_0
 * @{
 * @details
 *
@@ -22,6 +22,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  JB   02/19/19 First Release.
+* 3.00  JB   12/24/21 File name changed from xhdcp22_rx_test.c to
+*                     xhdcp22_rx_dp_test.c
 *</pre>
 *
 *****************************************************************************/
@@ -33,8 +35,8 @@
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xtmrctr.h"
-#include "xhdcp22_rx.h"
-#include "xhdcp22_rx_i.h"
+#include "xhdcp22_rx_dp.h"
+#include "xhdcp22_rx_dp_i.h"
 
 /************************** Constant Definitions ****************************/
 /** Device address for HDCP */
@@ -630,62 +632,62 @@ static XHdcp22_Rx_TestState TestVector_Repeater_Topology_Timeout[] =
 /************************** Function Prototypes *****************************/
 
 /* Function to execute discrete test event */
-static int  XHdcp22Rx_TestExecute(XHdcp22_Rx *InstancePtr);
+static int  XHdcp22Rx_TestExecute(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for loading test parameters */
-int			XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestLoadVector(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestFlags TestVectorFlag);
-static void XHdcp22Rx_TestLoadRrx(XHdcp22_Rx *InstancePtr, const u8 *RrxPtr);
+int			XHdcp22Rx_TestLoadKeys(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestLoadVector(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_TestFlags TestVectorFlag);
+static void XHdcp22Rx_TestLoadRrx(XHdcp22_Rx_Dp *InstancePtr, const u8 *RrxPtr);
 
 /* Functions for emulating DDC interface */
-static void XHdcp22Rx_TestDdcResetRegisterMap(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestDdcGetRegisterMapIndex(XHdcp22_Rx *InstancePtr, u32 Address);
-static int  XHdcp22Rx_TestDdcSetAddressCallback(XHdcp22_Rx *InstancePtr, u32 Addr);
-static int  XHdcp22Rx_TestDdcSetDataCallback(XHdcp22_Rx *InstancePtr, u32 Data);
-static u32  XHdcp22Rx_TestDdcGetDataCallback(XHdcp22_Rx *InstancePtr);
-static u32  XHdcp22Rx_TestDdcGetWriteBufferSizeCallback(XHdcp22_Rx *InstancePtr);
-static u32  XHdcp22Rx_TestDdcGetReadBufferSizeCallback(XHdcp22_Rx *InstancePtr);
-static u8   XHdcp22Rx_TestDdcIsWriteBufferEmptyCallback(XHdcp22_Rx *InstancePtr);
-static u8   XHdcp22Rx_TestDdcIsReadBufferEmptyCallback(XHdcp22_Rx *InstancePtr);
-static void XHdcp22Rx_TestDdcClearReadBufferCallback(XHdcp22_Rx *InstancePtr);
-static void XHdcp22Rx_TestDdcClearWriteBufferCallback(XHdcp22_Rx *InstancePtr);
+static void XHdcp22Rx_TestDdcResetRegisterMap(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestDdcGetRegisterMapIndex(XHdcp22_Rx_Dp *InstancePtr, u32 Address);
+static int  XHdcp22Rx_TestDdcSetAddressCallback(XHdcp22_Rx_Dp *InstancePtr, u32 Addr);
+static int  XHdcp22Rx_TestDdcSetDataCallback(XHdcp22_Rx_Dp *InstancePtr, u32 Data);
+static u32  XHdcp22Rx_TestDdcGetDataCallback(XHdcp22_Rx_Dp *InstancePtr);
+static u32  XHdcp22Rx_TestDdcGetWriteBufferSizeCallback(XHdcp22_Rx_Dp *InstancePtr);
+static u32  XHdcp22Rx_TestDdcGetReadBufferSizeCallback(XHdcp22_Rx_Dp *InstancePtr);
+static u8   XHdcp22Rx_TestDdcIsWriteBufferEmptyCallback(XHdcp22_Rx_Dp *InstancePtr);
+static u8   XHdcp22Rx_TestDdcIsReadBufferEmptyCallback(XHdcp22_Rx_Dp *InstancePtr);
+static void XHdcp22Rx_TestDdcClearReadBufferCallback(XHdcp22_Rx_Dp *InstancePtr);
+static void XHdcp22Rx_TestDdcClearWriteBufferCallback(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for test user callbacks */
-static void XHdcp22Rx_TestAuthenticatedCallback(XHdcp22_Rx *InstancePtr);
-static void XHdcp22Rx_TestRepeaterAuthRequestCallback(XHdcp22_Rx *InstancePtr);
-static void XHdcp22Rx_TestRepeaterManageRequestCallback(XHdcp22_Rx *InstancePtr);
+static void XHdcp22Rx_TestAuthenticatedCallback(XHdcp22_Rx_Dp *InstancePtr);
+static void XHdcp22Rx_TestRepeaterAuthRequestCallback(XHdcp22_Rx_Dp *InstancePtr);
+static void XHdcp22Rx_TestRepeaterManageRequestCallback(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for getting RxStatus */
-static void XHdcp22Rx_TestGetRxStatus(XHdcp22_Rx *InstancePtr, u16 *Size, u8 *ReauthReq, u8 *Ready);
+static void XHdcp22Rx_TestGetRxStatus(XHdcp22_Rx_Dp *InstancePtr, u16 *Size, u8 *ReauthReq, u8 *Ready);
 
 /* Functions for generating test messages */
-static int  XHdcp22Rx_TestSendAKEInit(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestSendAKENoStoredKm(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestSendAKEStoredKm(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestSendLCInit(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestSendSKESendEks(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestSendReceiverIdListAck(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestSendStreamManagement(XHdcp22_Rx *InstancePtr);
+static int  XHdcp22Rx_TestSendAKEInit(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestSendAKENoStoredKm(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestSendAKEStoredKm(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestSendLCInit(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestSendSKESendEks(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestSendReceiverIdListAck(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestSendStreamManagement(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for processing test messages */
-static int  XHdcp22Rx_TestReceiveAKESendCert(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestReceiveAKESendHPrime(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestReceiveAKESendPairingInfo(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestReceiveLCSendLPrime(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestReceiveReceiverIdList(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestReceiveStreamReady(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestWaitAuthenticated(XHdcp22_Rx *InstancePtr);
+static int  XHdcp22Rx_TestReceiveAKESendCert(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestReceiveAKESendHPrime(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestReceiveAKESendPairingInfo(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestReceiveLCSendLPrime(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestReceiveReceiverIdList(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestReceiveStreamReady(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestWaitAuthenticated(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Function for repeater topology update */
-static int  XHdcp22Rx_TestUpdateTopology(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestWaitReauthReq(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_TestWaitRepeaterReady(XHdcp22_Rx *InstancePtr);
+static int  XHdcp22Rx_TestUpdateTopology(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestWaitReauthReq(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_TestWaitRepeaterReady(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for reporting test results */
 static void XHdcp22Rx_PrintDump(u8 Enable, char *String, const u8 *Data, int Length);
-static int  XHdcp22Rx_TestCompare(XHdcp22_Rx *InstancePtr, char* String, const u8 *Expected,
+static int  XHdcp22Rx_TestCompare(XHdcp22_Rx_Dp *InstancePtr, char* String, const u8 *Expected,
 							const u8 *Actual, u32 Size);
-static void XHdcp22Rx_TestPrintMessage(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Message *Message,
+static void XHdcp22Rx_TestPrintMessage(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Message *Message,
 							XHdcp22_Rx_MessageIds MessageId);
 static void XHdcp22Rx_TestEvent2String(char* String, XHdcp22_Rx_TestState EventId);
 
@@ -696,7 +698,7 @@ static void XHdcp22Rx_TestEvent2String(char* String, XHdcp22_Rx_TestState EventI
 * The DDC handles are set to the stub functions which emulate the
 * DDC interface. The test flag can be set to either XHDCP22_RX_TESTMODE_NO_TX
 *
-* @param    InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param    InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 * @param    TestMode can be the following:
 *           - XHDCP22_RX_TESTMODE_NO_TX:
 *             Transmitter is emulated inside the driver and stimulation
@@ -714,7 +716,7 @@ static void XHdcp22Rx_TestEvent2String(char* String, XHdcp22_Rx_TestState EventI
 *
 * @note     None.
 *****************************************************************************/
-int XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode,
+int XHdcp22Rx_TestSetMode(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_TestMode TestMode,
 	XHdcp22_Rx_TestFlags TestFlag)
 {
 	/* Verify arguments */
@@ -737,29 +739,29 @@ int XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode,
 	InstancePtr->Test.Verbose = FALSE;
 
 	/* Set the callback functions */
-	Status = XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_SETREGADDR,
+	Status = XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_SETREGADDR,
 		(XHdcp22_Rx_SetHandler)XHdcp22Rx_TestDdcSetAddressCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_SETREGDATA,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_SETREGDATA,
 		(XHdcp22_Rx_SetHandler)XHdcp22Rx_TestDdcSetDataCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETREGDATA,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETREGDATA,
 		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcGetDataCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETWBUFSIZE,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETWBUFSIZE,
 		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcGetWriteBufferSizeCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETRBUFSIZE,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_GETRBUFSIZE,
 		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcGetReadBufferSizeCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_ISWBUFEMPTY,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_ISWBUFEMPTY,
 		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcIsWriteBufferEmptyCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY,
 		(XHdcp22_Rx_GetHandler)XHdcp22Rx_TestDdcIsReadBufferEmptyCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_CLEARRBUF,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_CLEARRBUF,
 		(XHdcp22_Rx_RunHandler)XHdcp22Rx_TestDdcClearReadBufferCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_CLEARWBUF,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_DDC_CLEARWBUF,
 		(XHdcp22_Rx_RunHandler)XHdcp22Rx_TestDdcClearWriteBufferCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_AUTHENTICATED,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_AUTHENTICATED,
 		(XHdcp22_Rx_RunHandler)XHdcp22Rx_TestAuthenticatedCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_AUTHENTICATION_REQUEST,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_AUTHENTICATION_REQUEST,
 		(XHdcp22_Rx_RunHandler)XHdcp22Rx_TestRepeaterAuthRequestCallback, InstancePtr);
-	Status |= XHdcp22Rx_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_STREAM_MANAGE_REQUEST,
+	Status |= XHdcp22Rx_Dp_SetCallback(InstancePtr,  XHDCP22_RX_HANDLER_STREAM_MANAGE_REQUEST,
 		(XHdcp22_Rx_RunHandler)XHdcp22Rx_TestRepeaterManageRequestCallback, InstancePtr);
 
 	if(Status != XST_SUCCESS)
@@ -814,7 +816,7 @@ int XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode,
 * This function is used to load the receiver test keys defined in
 * Errata to HDCP on HDMI Specification Revision 2.2, February 09, 2015.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	None.
 *
@@ -823,7 +825,7 @@ int XHdcp22Rx_TestSetMode(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestMode TestMode,
 *			defined in the errata; otherise, authentication is expected to
 *			fail.
 *****************************************************************************/
-int XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr)
+int XHdcp22Rx_TestLoadKeys(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -831,9 +833,9 @@ int XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr)
 	int Status;
 
 	/* Load Keys */
-	XHdcp22Rx_LoadPublicCert(InstancePtr, XHdcp22_Rx_Test_PublicCert[InstancePtr->Test.TestReceiver]);
-	Status = XHdcp22Rx_LoadPrivateKey(InstancePtr, XHdcp22_Rx_Test_PrivateKey[InstancePtr->Test.TestReceiver]);
-	XHdcp22Rx_LoadLc128(InstancePtr, XHdcp22_Rx_Test_Lc128[InstancePtr->Test.TestReceiver]);
+	XHdcp22Rx_Dp_LoadPublicCert(InstancePtr, XHdcp22_Rx_Test_PublicCert[InstancePtr->Test.TestReceiver]);
+	Status = XHdcp22Rx_Dp_LoadPrivateKey(InstancePtr, XHdcp22_Rx_Test_PrivateKey[InstancePtr->Test.TestReceiver]);
+	XHdcp22Rx_Dp_LoadLc128(InstancePtr, XHdcp22_Rx_Test_Lc128[InstancePtr->Test.TestReceiver]);
 	XHdcp22Rx_TestLoadRrx(InstancePtr, XHdcp22_Rx_Test_Rrx[InstancePtr->Test.TestReceiver]);
 
 	return Status;
@@ -843,13 +845,13 @@ int XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to check when the test has completed.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 *****************************************************************************/
-u8 XHdcp22Rx_TestIsFinished(XHdcp22_Rx *InstancePtr)
+u8 XHdcp22Rx_TestIsFinished(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -862,14 +864,14 @@ u8 XHdcp22Rx_TestIsFinished(XHdcp22_Rx *InstancePtr)
 * This function is used to check the pass/fail status after the test has
 * completed.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		Use the XHdcp22Rx_TestIsFinished function to check if test
 * 			has completed.
 *****************************************************************************/
-u8 XHdcp22Rx_TestIsPassed(XHdcp22_Rx *InstancePtr)
+u8 XHdcp22Rx_TestIsPassed(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -882,7 +884,7 @@ u8 XHdcp22Rx_TestIsPassed(XHdcp22_Rx *InstancePtr)
 * This function is used to run the standalone receiver test environment.
 * This function is non-blocking and expected to be run using a loop.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS when the test has completed successfully.
 * 			XST_DEVICE_BUSY when the test is in progress.
@@ -890,7 +892,7 @@ u8 XHdcp22Rx_TestIsPassed(XHdcp22_Rx *InstancePtr)
 *
 * @note		None.
 *****************************************************************************/
-int XHdcp22Rx_TestRun(XHdcp22_Rx *InstancePtr)
+int XHdcp22Rx_TestRun(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -934,7 +936,7 @@ int XHdcp22Rx_TestRun(XHdcp22_Rx *InstancePtr)
 /**
 * This function sets verbose logging mode for standalone driver testing.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 * @param	Verbose is set to TRUE to enable detailed logging.
 *
 * @return	None.
@@ -945,7 +947,7 @@ int XHdcp22Rx_TestRun(XHdcp22_Rx *InstancePtr)
 * 			Verbose logging is useful for debugging functional issues with
 * 			the receiver when running standalone driver tests.
 *****************************************************************************/
-void XHdcp22Rx_TestSetVerbose(XHdcp22_Rx *InstancePtr, u8 Verbose)
+void XHdcp22Rx_TestSetVerbose(XHdcp22_Rx_Dp *InstancePtr, u8 Verbose)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -958,7 +960,7 @@ void XHdcp22Rx_TestSetVerbose(XHdcp22_Rx *InstancePtr, u8 Verbose)
 * This function performs the test DDC write transaction. This function
 * is used for both standalone and loopback driver testing.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 * @param	DeviceAddress is the DDC device address
 * @param	Size is the number of bytes to send
 * @param	Data is a byte array to send of length Size
@@ -968,7 +970,7 @@ void XHdcp22Rx_TestSetVerbose(XHdcp22_Rx *InstancePtr, u8 Verbose)
 *
 * @note		Does not support auto-increment.
 *****************************************************************************/
-int XHdcp22Rx_TestDdcWriteReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop)
+int XHdcp22Rx_TestDdcWriteReg(XHdcp22_Rx_Dp *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1001,7 +1003,7 @@ int XHdcp22Rx_TestDdcWriteReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Siz
 			memcpy(InstancePtr->Test.WriteMessageBuffer, Data+1, Size);
 			InstancePtr->Test.WriteMessageSize = Size;
 			InstancePtr->Test.WriteMessageOffset = 0;
-			XHdcp22Rx_SetWriteMessageAvailable(InstancePtr);
+			XHdcp22Rx_Dp_SetWriteMessageAvailable(InstancePtr);
 			break;
 		default:
 			InstancePtr->Test.DdcRegisterMap[Offset].Value = *(Data+1);
@@ -1019,7 +1021,7 @@ int XHdcp22Rx_TestDdcWriteReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Siz
 * This function performs the test DDC read transaction. This function is
 * used for both standalone and loopback driver testing.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 * @param	DeviceAddress is the DDC device address
 * @param	Size is the number of bytes to send
 * @param	Data is a byte array to send of length Size
@@ -1029,7 +1031,7 @@ int XHdcp22Rx_TestDdcWriteReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Siz
 *
 * @note		Does not support auto-increment.
 *****************************************************************************/
-int XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop)
+int XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx_Dp *InstancePtr, u8 DeviceAddress, int Size, u8 *Data, u8 Stop)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1061,7 +1063,7 @@ int XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size
 			Offset = XHdcp22Rx_TestDdcGetRegisterMapIndex(InstancePtr, XHDCP22_RX_DDC_RXSTATUS1_REG);
 			InstancePtr->Test.DdcRegisterMap[Offset].Value = 0;
 
-			XHdcp22Rx_SetReadMessageComplete(InstancePtr);
+			XHdcp22Rx_Dp_SetReadMessageComplete(InstancePtr);
 			break;
 		case XHDCP22_RX_DDC_RXSTATUS0_REG:
 			if(Size == 2)
@@ -1088,7 +1090,7 @@ int XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size
 * This function replaces Rrx with a test vector if the testmode is
 * #XHDCP22_RX_TESTMODE_NO_TX.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 * @param	RrxPtr is a pointer to Rrx.
 *
 * @return None.
@@ -1096,7 +1098,7 @@ int XHdcp22Rx_TestDdcReadReg(XHdcp22_Rx *InstancePtr, u8 DeviceAddress, int Size
 * @note   None.
 *
 ******************************************************************************/
-void XHdcp22Rx_TestGenerateRrx(XHdcp22_Rx *InstancePtr, u8* RrxPtr)
+void XHdcp22Rx_TestGenerateRrx(XHdcp22_Rx_Dp *InstancePtr, u8* RrxPtr)
 {
 	/* In test mode copy the test vector */
 	if(InstancePtr->Test.TestMode == XHDCP22_RX_TESTMODE_NO_TX)
@@ -1109,14 +1111,14 @@ void XHdcp22Rx_TestGenerateRrx(XHdcp22_Rx *InstancePtr, u8* RrxPtr)
 /**
 * This function is used to execute the next discrete test event.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS when the test step has completed successfully.
 * 			XST_FAILURE when the test step has completed unsuccessfully.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestExecute(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestExecute(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1169,13 +1171,13 @@ static int XHdcp22Rx_TestExecute(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to load a pre-defined directed test vector.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestLoadVector(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestFlags TestFlag)
+static int XHdcp22Rx_TestLoadVector(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_TestFlags TestFlag)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1260,7 +1262,7 @@ static int XHdcp22Rx_TestLoadVector(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TestFlag
 *
 * @note		None.
 ******************************************************************************/
-static void XHdcp22Rx_TestLoadRrx(XHdcp22_Rx *InstancePtr, const u8 *RrxPtr)
+static void XHdcp22Rx_TestLoadRrx(XHdcp22_Rx_Dp *InstancePtr, const u8 *RrxPtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1275,13 +1277,13 @@ static void XHdcp22Rx_TestLoadRrx(XHdcp22_Rx *InstancePtr, const u8 *RrxPtr)
 * map to the defaults. The register map is modeled after the HDCP22
 * port to HDMI.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	None.
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_TestDdcResetRegisterMap(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_TestDdcResetRegisterMap(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1305,7 +1307,7 @@ static void XHdcp22Rx_TestDdcResetRegisterMap(XHdcp22_Rx *InstancePtr)
 * This function is used to get the test DDC register map index for the
 * desired register address.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 * @param	Address is the DDC register address.
 *
 * @return	Returns the test DDC register map index for the specified
@@ -1314,7 +1316,7 @@ static void XHdcp22Rx_TestDdcResetRegisterMap(XHdcp22_Rx *InstancePtr)
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestDdcGetRegisterMapIndex(XHdcp22_Rx *InstancePtr, u32 Address)
+static int XHdcp22Rx_TestDdcGetRegisterMapIndex(XHdcp22_Rx_Dp *InstancePtr, u32 Address)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1348,7 +1350,7 @@ static int XHdcp22Rx_TestDdcGetRegisterMapIndex(XHdcp22_Rx *InstancePtr, u32 Add
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestCompare(XHdcp22_Rx *InstancePtr, char *String, const u8 *Expected,
+static int XHdcp22Rx_TestCompare(XHdcp22_Rx_Dp *InstancePtr, char *String, const u8 *Expected,
 	const u8 *Actual, u32 Size)
 {
 	/* Verify arguments */
@@ -1413,7 +1415,7 @@ static void XHdcp22Rx_PrintDump(u8 Enable, char *String, const u8 *Data, int Len
 * during standalone driver testing. The values printed should
 * match the Errata.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 * @param	Message is a pointer to the actual message.
 * @param	MessageId is the identifier used to determine what
 * 			message to print.
@@ -1423,7 +1425,7 @@ static void XHdcp22Rx_PrintDump(u8 Enable, char *String, const u8 *Data, int Len
 * @note		The messages are only printed when the test logging is set
 * 			to verbose via the function XHdcp22Rx_TestSetVerbose.
 *****************************************************************************/
-static void XHdcp22Rx_TestPrintMessage(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Message* Message,
+static void XHdcp22Rx_TestPrintMessage(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Message* Message,
 	XHdcp22_Rx_MessageIds MessageId)
 {
 	/* Verify arguments */
@@ -1611,13 +1613,13 @@ static void XHdcp22Rx_TestEvent2String(char* String, XHdcp22_Rx_TestState EventI
 /**
 * This function is used to send the AKEInit message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestSendAKEInit(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestSendAKEInit(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1659,13 +1661,13 @@ static int XHdcp22Rx_TestSendAKEInit(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to send the AKENoStoredKm message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestSendAKENoStoredKm(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestSendAKENoStoredKm(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1695,13 +1697,13 @@ static int XHdcp22Rx_TestSendAKENoStoredKm(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to send the AKEStoredKm message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestSendAKEStoredKm(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestSendAKEStoredKm(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1737,13 +1739,13 @@ static int XHdcp22Rx_TestSendAKEStoredKm(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to send the LCInit message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestSendLCInit(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestSendLCInit(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1773,13 +1775,13 @@ static int XHdcp22Rx_TestSendLCInit(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to send the SKESendEks message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestSendSKESendEks(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestSendSKESendEks(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1812,13 +1814,13 @@ static int XHdcp22Rx_TestSendSKESendEks(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to send the RepeaterAuth_Send_Ack message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestSendReceiverIdListAck(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestSendReceiverIdListAck(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1848,13 +1850,13 @@ static int XHdcp22Rx_TestSendReceiverIdListAck(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to send the RepeaterAuth_Stream_Manage message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int  XHdcp22Rx_TestSendStreamManagement(XHdcp22_Rx *InstancePtr)
+static int  XHdcp22Rx_TestSendStreamManagement(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1888,14 +1890,14 @@ static int  XHdcp22Rx_TestSendStreamManagement(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to receive the AKESendCert message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		After waiting XHDCP22_RX_TEST_MAX_ITERATIONS the test
 * 			will timeout and return failure.
 *****************************************************************************/
-static int XHdcp22Rx_TestReceiveAKESendCert(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestReceiveAKESendCert(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1972,14 +1974,14 @@ static int XHdcp22Rx_TestReceiveAKESendCert(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to receive the AKESendHPrime message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		After waiting XHDCP22_RX_TEST_MAX_ITERATIONS the test
 * 			will timeout and return failure.
 *****************************************************************************/
-static int XHdcp22Rx_TestReceiveAKESendHPrime(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestReceiveAKESendHPrime(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2048,14 +2050,14 @@ static int XHdcp22Rx_TestReceiveAKESendHPrime(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to receive the AKESendPairingInfo message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		After waiting XHDCP22_RX_TEST_MAX_ITERATIONS the test
 * 			will timeout and return failure.
 *****************************************************************************/
-static int XHdcp22Rx_TestReceiveAKESendPairingInfo(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestReceiveAKESendPairingInfo(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2124,14 +2126,14 @@ static int XHdcp22Rx_TestReceiveAKESendPairingInfo(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to receive the LCSendLPrime message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		After waiting XHDCP22_RX_TEST_MAX_ITERATIONS the test
 * 			will timeout and return failure.
 *****************************************************************************/
-static int XHdcp22Rx_TestReceiveLCSendLPrime(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestReceiveLCSendLPrime(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2200,14 +2202,14 @@ static int XHdcp22Rx_TestReceiveLCSendLPrime(XHdcp22_Rx *InstancePtr)
 * This function is used to receive the RepeaterAuth_Send_ReceiverID_List
 * message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		After waiting XHDCP22_RX_TEST_MAX_ITERATIONS the test
 * 			will timeout and return failure.
 *****************************************************************************/
-static int XHdcp22Rx_TestReceiveReceiverIdList(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestReceiveReceiverIdList(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2284,14 +2286,14 @@ static int XHdcp22Rx_TestReceiveReceiverIdList(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to receive the RepeaterAuth_Stream_Ready message.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		After waiting XHDCP22_RX_TEST_MAX_ITERATIONS the test
 * 			will timeout and return failure.
 *****************************************************************************/
-static int  XHdcp22Rx_TestReceiveStreamReady(XHdcp22_Rx *InstancePtr)
+static int  XHdcp22Rx_TestReceiveStreamReady(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2360,19 +2362,19 @@ static int  XHdcp22Rx_TestReceiveStreamReady(XHdcp22_Rx *InstancePtr)
 * This function updates the repeater topology table for the repeater
 * upstream interface.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestUpdateTopology(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestUpdateTopology(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Set repeater topology table fields */
-	XHdcp22Rx_SetTopologyReceiverIdList(InstancePtr,
+	XHdcp22Rx_Dp_SetTopologyReceiverIdList(InstancePtr,
 		XHdcp22_Rx_Test_Repeater_ReceiverIdList, 3);
 	XHdcp22Rx_SetTopologyDepth(InstancePtr, 1);
 	XHdcp22Rx_SetTopologyDeviceCnt(InstancePtr, 3);
@@ -2382,7 +2384,7 @@ static int XHdcp22Rx_TestUpdateTopology(XHdcp22_Rx *InstancePtr)
 	XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(InstancePtr, TRUE);
 
 	/* Trigger receiver to propagate topology table upstream */
-	XHdcp22Rx_SetTopologyUpdate(InstancePtr);
+	XHdcp22Rx_Dp_SetTopologyUpdate(InstancePtr);
 
 	return XST_SUCCESS;
 }
@@ -2392,13 +2394,13 @@ static int XHdcp22Rx_TestUpdateTopology(XHdcp22_Rx *InstancePtr)
 * This function checks if the REAUTH_REQ bit in the RxStatus register
 * is asserted.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestWaitReauthReq(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestWaitReauthReq(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2434,13 +2436,13 @@ static int XHdcp22Rx_TestWaitReauthReq(XHdcp22_Rx *InstancePtr)
 * This function checks if the READY bit in the RxStatus register
 * is asserted.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestWaitRepeaterReady(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestWaitRepeaterReady(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2457,14 +2459,14 @@ static int XHdcp22Rx_TestWaitRepeaterReady(XHdcp22_Rx *InstancePtr)
 /**
 * This function checks if the receiver has reached the authenticated state.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		After waiting XHDCP22_RX_TEST_MAX_ITERATIONS the test
 * 			will timeout and return failure.
 *****************************************************************************/
-static int XHdcp22Rx_TestWaitAuthenticated(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_TestWaitAuthenticated(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2481,7 +2483,7 @@ static int XHdcp22Rx_TestWaitAuthenticated(XHdcp22_Rx *InstancePtr)
 	}
 
 	/* Check authentication status */
-	Status = XHdcp22Rx_IsAuthenticated(InstancePtr);
+	Status = XHdcp22Rx_Dp_IsAuthenticated(InstancePtr);
 	if(Status)
 	{
 		Status = XHdcp22Rx_TestCompare(InstancePtr, "Ks",
@@ -2516,14 +2518,14 @@ static int XHdcp22Rx_TestWaitAuthenticated(XHdcp22_Rx *InstancePtr)
 * This function sets the test DDC register map address to be updated. This
 * function should be called before XHdcp22Rx_TestDdcSetDataCallback.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 * @param	Addr is the DDC register map address to be updated.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_TestDdcSetAddressCallback(XHdcp22_Rx *InstancePtr, u32 Addr)
+static int XHdcp22Rx_TestDdcSetAddressCallback(XHdcp22_Rx_Dp *InstancePtr, u32 Addr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2548,14 +2550,14 @@ static int XHdcp22Rx_TestDdcSetAddressCallback(XHdcp22_Rx *InstancePtr, u32 Addr
 * This function sets the test DDC register map data for the address
 * previously defined by XHdcp22Rx_TestDdcSetAddressCallback.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 * @param	Data is the value to update the DDC register map address.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		Does not support auto-increment.
 *****************************************************************************/
-static int XHdcp22Rx_TestDdcSetDataCallback(XHdcp22_Rx *InstancePtr, u32 Data)
+static int XHdcp22Rx_TestDdcSetDataCallback(XHdcp22_Rx_Dp *InstancePtr, u32 Data)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2596,14 +2598,14 @@ static int XHdcp22Rx_TestDdcSetDataCallback(XHdcp22_Rx *InstancePtr, u32 Data)
 * This function gets the test DDC register map data for the address
 * previously defined by XHdcp22Rx_TestDdcSetAddressCallback.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	Register data of type u32. For an undefined address return
 * 			0xDEADBEEF.
 *
 * @note		Does not support auto-increment.
 *****************************************************************************/
-static u32 XHdcp22Rx_TestDdcGetDataCallback(XHdcp22_Rx *InstancePtr)
+static u32 XHdcp22Rx_TestDdcGetDataCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2637,13 +2639,13 @@ static u32 XHdcp22Rx_TestDdcGetDataCallback(XHdcp22_Rx *InstancePtr)
 /**
 * This function returns the current size of the DDC read message buffer.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	Read message buffer size in bytes.
 *
 * @note		None.
 *****************************************************************************/
-static u32 XHdcp22Rx_TestDdcGetReadBufferSizeCallback(XHdcp22_Rx *InstancePtr)
+static u32 XHdcp22Rx_TestDdcGetReadBufferSizeCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2655,13 +2657,13 @@ static u32 XHdcp22Rx_TestDdcGetReadBufferSizeCallback(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to check if the read message buffer is empty.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 *****************************************************************************/
-static u8 XHdcp22Rx_TestDdcIsReadBufferEmptyCallback(XHdcp22_Rx *InstancePtr)
+static u8 XHdcp22Rx_TestDdcIsReadBufferEmptyCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2673,13 +2675,13 @@ static u8 XHdcp22Rx_TestDdcIsReadBufferEmptyCallback(XHdcp22_Rx *InstancePtr)
 /**
 * This function returns the current size of the write message buffer.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	Write message buffer size in bytes.
 *
 * @note		None.
 *****************************************************************************/
-static u32 XHdcp22Rx_TestDdcGetWriteBufferSizeCallback(XHdcp22_Rx *InstancePtr)
+static u32 XHdcp22Rx_TestDdcGetWriteBufferSizeCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2691,13 +2693,13 @@ static u32 XHdcp22Rx_TestDdcGetWriteBufferSizeCallback(XHdcp22_Rx *InstancePtr)
 /**
 * This function is used to check if the write message buffer is emtpy.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 *****************************************************************************/
-static u8  XHdcp22Rx_TestDdcIsWriteBufferEmptyCallback(XHdcp22_Rx *InstancePtr)
+static u8  XHdcp22Rx_TestDdcIsWriteBufferEmptyCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2709,13 +2711,13 @@ static u8  XHdcp22Rx_TestDdcIsWriteBufferEmptyCallback(XHdcp22_Rx *InstancePtr)
 /**
 * This function clears the read message buffer and resets the size.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	None.
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_TestDdcClearReadBufferCallback(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_TestDdcClearReadBufferCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2742,13 +2744,13 @@ static void XHdcp22Rx_TestDdcClearReadBufferCallback(XHdcp22_Rx *InstancePtr)
 /**
 * This function clears the write message buffer and resets the size.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	None.
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_TestDdcClearWriteBufferCallback(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_TestDdcClearWriteBufferCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2770,19 +2772,19 @@ static void XHdcp22Rx_TestDdcClearWriteBufferCallback(XHdcp22_Rx *InstancePtr)
 * This function is a callback that is executed when the receiver
 * state machine has received a repeater authentication request.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	None.
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_TestRepeaterAuthRequestCallback(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_TestRepeaterAuthRequestCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Write a test value to the log */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_USER, 1);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_USER, 1);
 }
 
 /****************************************************************************/
@@ -2790,13 +2792,13 @@ static void XHdcp22Rx_TestRepeaterAuthRequestCallback(XHdcp22_Rx *InstancePtr)
 * This function is a callback that is executed when the receiver
 * state machine has received a repeater manage request.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	None.
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_TestRepeaterManageRequestCallback(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_TestRepeaterManageRequestCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2805,11 +2807,11 @@ static void XHdcp22Rx_TestRepeaterManageRequestCallback(XHdcp22_Rx *InstancePtr)
 	u8 Type;
 
 	/* Check content type */
-	Type = XHdcp22Rx_GetContentStreamType(InstancePtr);
+	Type = XHdcp22Rx_Dp_GetContentStreamType(InstancePtr);
 	XHdcp22Rx_TestCompare(InstancePtr, "Type", &TypeExpected, &Type, 1);
 
 	/* Write a test value to the log */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_USER, 2);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_USER, 2);
 }
 
 /****************************************************************************/
@@ -2817,19 +2819,19 @@ static void XHdcp22Rx_TestRepeaterManageRequestCallback(XHdcp22_Rx *InstancePtr)
 * This function is a callback that is executed when the receiver
 * state machine has transitioned to State B4 or C8.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	None.
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_TestAuthenticatedCallback(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_TestAuthenticatedCallback(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Write a test value to the log */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_USER, 3);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_USER, 3);
 }
 
 /****************************************************************************/
@@ -2837,13 +2839,13 @@ static void XHdcp22Rx_TestAuthenticatedCallback(XHdcp22_Rx *InstancePtr)
 * This function reads the RxStatus register and returns the message
 * Size, REAUTH_REQ bit,  and READY bit.
 *
-* @param	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *
 * @return	None.
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_TestGetRxStatus(XHdcp22_Rx *InstancePtr, u16 *Size, u8 *ReauthReq, u8 *Ready)
+static void XHdcp22Rx_TestGetRxStatus(XHdcp22_Rx_Dp *InstancePtr, u16 *Size, u8 *ReauthReq, u8 *Ready)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);

@@ -5,8 +5,8 @@
 
 /*****************************************************************************/
 /**
-* @file xhdcp22_rx.c
-* @addtogroup hdcp22_rx_dp_v2_1
+* @file xhdcp22_rx_dp.c
+* @addtogroup hdcp22_rx_dp_v3_0
 * @{
 * @details
 *
@@ -19,6 +19,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  JB   02/19/19 First Release.
+* 3.00  JB   12/24/21 File name changed from xhdcp22_rx.c to xhdcp22_rx_dp.c,
+*                     Also all the APIs and sructure names are added with
+*                     suffix _dp.
 *</pre>
 *
 *****************************************************************************/
@@ -29,8 +32,8 @@
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xparameters.h"
-#include "xhdcp22_rx_i.h"
-#include "xhdcp22_rx.h"
+#include "xhdcp22_rx_dp_i.h"
+#include "xhdcp22_rx_dp.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -42,68 +45,68 @@
 
 /************************** Function Prototypes *****************************/
 /* Functions for initializing subcores */
-static int  XHdcp22Rx_InitializeCipher(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_InitializeMmult(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_InitializeRng(XHdcp22_Rx *InstancePtr);
+static int  XHdcp22Rx_InitializeCipher(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_InitializeMmult(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_InitializeRng(XHdcp22_Rx_Dp *InstancePtr);
 static int  XHdcp22Rx_ComputeBaseAddress(UINTPTR BaseAddress, UINTPTR SubcoreOffset, UINTPTR *SubcoreAddressPtr);
 
 /* Functions for generating authentication parameters */
-static int  XHdcp22Rx_GenerateRrx(XHdcp22_Rx *InstancePtr, u8 *RrxPtr);
+static int  XHdcp22Rx_GenerateRrx(XHdcp22_Rx_Dp *InstancePtr, u8 *RrxPtr);
 
 /* Functions for performing various tasks during authentication */
-static u8   XHdcp22Rx_IsWriteMessageAvailable(XHdcp22_Rx *InstancePtr);
-static u8   XHdcp22Rx_IsReadMessageComplete(XHdcp22_Rx *InstancePtr);
-static void XHdcp22Rx_SetRxStatus(XHdcp22_Rx *InstancePtr, u16 MessageSize,
+static u8   XHdcp22Rx_IsWriteMessageAvailable(XHdcp22_Rx_Dp *InstancePtr);
+static u8   XHdcp22Rx_IsReadMessageComplete(XHdcp22_Rx_Dp *InstancePtr);
+static void XHdcp22Rx_SetRxStatus(XHdcp22_Rx_Dp *InstancePtr, u16 MessageSize,
               u8 ReauthReq, u8 TopologyReady);
-static void	XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx *InstancePtr);
-static void XHdcp22Rx_ResetDdc(XHdcp22_Rx *InstancePtr, u8 ClrWrBuffer,
+static void	XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx_Dp *InstancePtr);
+static void XHdcp22Rx_ResetDdc(XHdcp22_Rx_Dp *InstancePtr, u8 ClrWrBuffer,
               u8 ClrRdBuffer, u8 ClrReady, u8 ClrReauthReq);
-static void XHdcp22Rx_ResetAfterError(XHdcp22_Rx *InstancePtr);
-static void XHdcp22Rx_ResetParams(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_PollMessage(XHdcp22_Rx *InstancePtr);
-static void XHdcp22Rx_StartTimer(XHdcp22_Rx *InstancePtr, u32 TimeOut_mSec,
+static void XHdcp22Rx_ResetAfterError(XHdcp22_Rx_Dp *InstancePtr);
+static void XHdcp22Rx_ResetParams(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_PollMessage(XHdcp22_Rx_Dp *InstancePtr);
+static void XHdcp22Rx_StartTimer(XHdcp22_Rx_Dp *InstancePtr, u32 TimeOut_mSec,
               u8 ReasonId);
-static void XHdcp22Rx_StopTimer(XHdcp22_Rx *InstancePtr);
+static void XHdcp22Rx_StopTimer(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for implementing the receiver state machine */
-static void *XHdcp22Rx_StateB0(XHdcp22_Rx *InstancePtr);
-static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr);
-static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr);
-static void *XHdcp22Rx_StateB3(XHdcp22_Rx *InstancePtr);
-static void *XHdcp22Rx_StateB4(XHdcp22_Rx *InstancePtr);
+static void *XHdcp22Rx_StateB0(XHdcp22_Rx_Dp *InstancePtr);
+static void *XHdcp22Rx_StateB1(XHdcp22_Rx_Dp *InstancePtr);
+static void *XHdcp22Rx_StateB2(XHdcp22_Rx_Dp *InstancePtr);
+static void *XHdcp22Rx_StateB3(XHdcp22_Rx_Dp *InstancePtr);
+static void *XHdcp22Rx_StateB4(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for implementing the repeater upstream state machine.
    Repeater states C0-C3 are identical to receiver states B0-B3. */
-static void *XHdcp22Rx_StateC4(XHdcp22_Rx *InstancePtr);
-static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr);
-static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr);
-static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr);
-static void *XHdcp22Rx_StateC8(XHdcp22_Rx *InstancePtr);
+static void *XHdcp22Rx_StateC4(XHdcp22_Rx_Dp *InstancePtr);
+static void *XHdcp22Rx_StateC5(XHdcp22_Rx_Dp *InstancePtr);
+static void *XHdcp22Rx_StateC6(XHdcp22_Rx_Dp *InstancePtr);
+static void *XHdcp22Rx_StateC7(XHdcp22_Rx_Dp *InstancePtr);
+static void *XHdcp22Rx_StateC8(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for processing received messages */
-static int  XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_ProcessMessageAKENoStoredKm(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_ProcessMessageAKEStoredKm(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_ProcessMessageLCInit(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_ProcessMessageRepeaterAuthSendAck(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_ProcessMessageRepeaterAuthStreamManage(XHdcp22_Rx *InstancePtr);
+static int  XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_ProcessMessageAKENoStoredKm(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_ProcessMessageAKEStoredKm(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_ProcessMessageLCInit(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_ProcessMessageRepeaterAuthSendAck(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_ProcessMessageRepeaterAuthStreamManage(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Functions for generating and sending messages */
-static int  XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx *InstancePtr);
+static int  XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx_Dp *InstancePtr);
+static int  XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx_Dp *InstancePtr);
 
 /* Function for setting fields inside the topology structure */
-static void XHdcp22Rx_SetTopologyDepth(XHdcp22_Rx *InstancePtr, u8 Depth);
-static void XHdcp22Rx_SetTopologyDeviceCnt(XHdcp22_Rx *InstancePtr, u8 DeviceCnt);
-static void XHdcp22Rx_SetTopologyMaxDevsExceeded(XHdcp22_Rx *InstancePtr, u8 Value);
-static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx *InstancePtr, u8 Value);
-static void XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value);
-static void XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value);
+static void XHdcp22Rx_SetTopologyDepth(XHdcp22_Rx_Dp *InstancePtr, u8 Depth);
+static void XHdcp22Rx_SetTopologyDeviceCnt(XHdcp22_Rx_Dp *InstancePtr, u8 DeviceCnt);
+static void XHdcp22Rx_SetTopologyMaxDevsExceeded(XHdcp22_Rx_Dp *InstancePtr, u8 Value);
+static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx_Dp *InstancePtr, u8 Value);
+static void XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Rx_Dp *InstancePtr, u8 Value);
+static void XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(XHdcp22_Rx_Dp *InstancePtr, u8 Value);
 
 /* Functions for stub callbacks */
 static void XHdcp22_Rx_StubRunHandler(void *HandlerRef);
@@ -111,14 +114,14 @@ static void XHdcp22_Rx_StubSetHandler(void *HandlerRef, u32 Data);
 static u32  XHdcp22_Rx_StubGetHandler(void *HandlerRef);
 static u32 XHdcp22_Rx_StubRdWrHandler(void *HandlerRef, u32 offset,
 		u8 *buf, u32 size);
-static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr);
-static int XHdcp22Rx_Dp_Write_Dpcd_Msg(XHdcp22_Rx *InstancePtr);
+static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx_Dp *InstancePtr);
+static int XHdcp22Rx_Dp_Write_Dpcd_Msg(XHdcp22_Rx_Dp *InstancePtr);
 /****************************************************************************/
 /**
 * Initialize the instance provided by the caller based on the given
 * configuration data.
 *
-* @param 	InstancePtr is a pointer to an XHdcp22_Rx instance.
+* @param 	InstancePtr is a pointer to an XHdcp22_Rx_Dp instance.
 *			The memory the pointer references must be pre-allocated by
 *			the caller. Further calls to manipulate the driver through
 *			the HDCP22-RX API must be made with this pointer.
@@ -137,7 +140,7 @@ static int XHdcp22Rx_Dp_Write_Dpcd_Msg(XHdcp22_Rx *InstancePtr);
 *
 * @note		None.
 *****************************************************************************/
-int XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigPtr,
+int XHdcp22Rx_Dp_CfgInitialize(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_Config *ConfigPtr,
       UINTPTR EffectiveAddr)
 {
 	/* Verify arguments */
@@ -148,10 +151,10 @@ int XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigPt
 	int Status;
 
 	/* Clear the instance */
-	memset((void *)InstancePtr, 0, sizeof(XHdcp22_Rx));
+	memset((void *)InstancePtr, 0, sizeof(XHdcp22_Rx_Dp));
 
 	/* Copy configuration settings */
-	memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr, sizeof(XHdcp22_Rx_Config));
+	memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr, sizeof(XHdcp22_Rx_Dp_Config));
 
 	/* Set default values */
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
@@ -273,7 +276,7 @@ int XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigPt
 	}
 
 	/* Reset log */
-	XHdcp22Rx_LogReset(InstancePtr, FALSE);
+	XHdcp22Rx_Dp_LogReset(InstancePtr, FALSE);
 
 	/* Indicate component has been initialized */
 	InstancePtr->IsReady = (XIL_COMPONENT_IS_READY);
@@ -287,7 +290,7 @@ int XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigPt
 * The HDCP22-RX DDC registers are set to their default value
 * and the message buffer is reset.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
@@ -295,7 +298,7 @@ int XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigPt
 * 			XHdcp22Rx_SetDdcHandles function prior to calling
 * 			this reset function.
 ******************************************************************************/
-int XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr)
+int XHdcp22Rx_Dp_Reset(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -306,7 +309,7 @@ int XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr)
 	int AuthenticationStatus = InstancePtr->Info.AuthenticationStatus;
 
 	/* Log info event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_RESET);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_RESET);
 
 	/* Clear message buffer */
 	memset(&InstancePtr->MessageBuffer, 0, sizeof(XHdcp22_Rx_Message));
@@ -330,7 +333,7 @@ int XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr)
 	InstancePtr->Info.NextState = XHDCP22_RX_STATE_B0_WAIT_AKEINIT;
 
 	/* Reset repeater values */
-	memset(&InstancePtr->Topology, 0, sizeof(XHdcp22_Rx_Topology));
+	memset(&InstancePtr->Topology, 0, sizeof(XHdcp22_Rx_Dp_Topology));
 	InstancePtr->Info.IsTopologyValid = FALSE;
 	InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
 	InstancePtr->Info.SeqNumV = 0;
@@ -348,7 +351,7 @@ int XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr)
 	XHdcp22Rx_StopTimer(InstancePtr);
 
 	/* Disable cipher */
-	XHdcp22Cipher_Disable(&InstancePtr->CipherInst);
+	XHdcp22Cipher_Dp_Disable(&InstancePtr->CipherInst);
 
 	/* Run callback function type: XHDCP22_RX_HANDLER_UNAUTHENTICATED */
 	if((InstancePtr->Handles.IsUnauthenticatedCallbackSet) &&
@@ -365,7 +368,7 @@ int XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr)
 * This function enables the HDCP22-RX state machine. The HDCP2Version
 * register is set to active.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
@@ -373,7 +376,7 @@ int XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr)
 *			been initialized, DDC message handles have been assigned, and keys
 *			have been loaded.
 ******************************************************************************/
-int XHdcp22Rx_Enable(XHdcp22_Rx *InstancePtr)
+int XHdcp22Rx_Dp_Enable(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -393,11 +396,11 @@ int XHdcp22Rx_Enable(XHdcp22_Rx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Log info event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_ENABLE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_ENABLE);
 
 	/* Enable RNG and Cipher */
 	XHdcp22Rng_Enable(&InstancePtr->RngInst);
-	XHdcp22Cipher_Enable(&InstancePtr->CipherInst);
+	XHdcp22Cipher_Dp_Enable(&InstancePtr->CipherInst);
 
 	/* Assert enabled flag */
 	InstancePtr->Info.IsEnabled = TRUE;
@@ -414,19 +417,19 @@ int XHdcp22Rx_Enable(XHdcp22_Rx *InstancePtr)
 * transmitter will not know that HDCP 2.2 protocol has been disabled
 * by the Receiver after it has already authenticated.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		The HDCP22-RX cipher is disabled.
 ******************************************************************************/
-int XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr)
+int XHdcp22Rx_Dp_Disable(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	/* Log info event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_DISABLE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_DISABLE);
 
 	/* Set ReauthReq for recovery when already authenticated */
 	if (InstancePtr->Info.AuthenticationStatus == XHDCP22_RX_AUTHENTICATED)
@@ -434,7 +437,7 @@ int XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr)
 
 	/* Disable, Rng, Cipher, and Timer */
 	XHdcp22Rng_Disable(&InstancePtr->RngInst);
-	XHdcp22Cipher_Disable(&InstancePtr->CipherInst);
+	XHdcp22Cipher_Dp_Disable(&InstancePtr->CipherInst);
 	XHdcp22Rx_StopTimer(InstancePtr);
 
 	/* Deassert device enable flag */
@@ -482,7 +485,7 @@ int XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr)
 *			installed replaces it with the new handler.
 *
 ******************************************************************************/
-int XHdcp22Rx_SetCallback(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef)
+int XHdcp22Rx_Dp_SetCallback(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -683,13 +686,13 @@ int XHdcp22Rx_SetCallback(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_HandlerType Handle
 /**
 * This function executes the HDCP22-RX state machine.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	None.
 *
 * @note		State transitions are logged.
 ******************************************************************************/
-int XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr)
+int XHdcp22Rx_Dp_Poll(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -703,7 +706,7 @@ int XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr)
 	/* Log state transitions */
 	if(InstancePtr->Info.NextState != InstancePtr->Info.CurrentState)
 	{
-	    XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_STATE, InstancePtr->Info.NextState);
+	    XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_STATE, InstancePtr->Info.NextState);
 	}
 
 	return (int)(InstancePtr->Info.AuthenticationStatus);
@@ -713,13 +716,13 @@ int XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr)
 /**
 * This function checks if the HDCP22-RX state machine is enabled.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 ******************************************************************************/
-u8 XHdcp22Rx_IsEnabled(XHdcp22_Rx *InstancePtr)
+u8 XHdcp22Rx_Dp_IsEnabled(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -731,20 +734,20 @@ u8 XHdcp22Rx_IsEnabled(XHdcp22_Rx *InstancePtr)
 /**
 * This function checks if the HDCP22-RX cipher encryption is enabled.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 ******************************************************************************/
-u8 XHdcp22Rx_IsEncryptionEnabled(XHdcp22_Rx *InstancePtr)
+u8 XHdcp22Rx_Dp_IsEncryptionEnabled(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	u32 Status;
 
-	Status = XHdcp22Cipher_IsEncrypted(&InstancePtr->CipherInst);
+	Status = XHdcp22Cipher_Dp_IsEncrypted(&InstancePtr->CipherInst);
 
 	return (Status) ? TRUE : FALSE;
 }
@@ -754,13 +757,13 @@ u8 XHdcp22Rx_IsEncryptionEnabled(XHdcp22_Rx *InstancePtr)
 * This function checks if the HDCP22-RX state machine is enabled but
 * not yet in the Authenticated state.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 ******************************************************************************/
-u8 XHdcp22Rx_IsInProgress(XHdcp22_Rx *InstancePtr)
+u8 XHdcp22Rx_Dp_IsInProgress(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -773,13 +776,13 @@ u8 XHdcp22Rx_IsInProgress(XHdcp22_Rx *InstancePtr)
 * This function checks if the HDCP22-RX state machine is in the
 * Authenticated state.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 ******************************************************************************/
-u8 XHdcp22Rx_IsAuthenticated(XHdcp22_Rx *InstancePtr)
+u8 XHdcp22Rx_Dp_IsAuthenticated(XHdcp22_Rx_Dp *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -791,13 +794,13 @@ u8 XHdcp22Rx_IsAuthenticated(XHdcp22_Rx *InstancePtr)
 * This function checks if the HDCP22-RX state machine has detected an error
 * condition.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 ******************************************************************************/
-u8 XHdcp22Rx_IsError(XHdcp22_Rx *InstancePtr)
+u8 XHdcp22Rx_Dp_IsError(XHdcp22_Rx_Dp *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -809,14 +812,14 @@ u8 XHdcp22Rx_IsError(XHdcp22_Rx *InstancePtr)
 *
 * This function returns the current repeater mode status.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return
 *   - TRUE if the HDCP 2.2 instance is the upstream port of a repeater
 *   - FALSE if the HDCP 2.2 instance is a receiver
 *
 ******************************************************************************/
-u8 XHdcp22Rx_IsRepeater(XHdcp22_Rx *InstancePtr)
+u8 XHdcp22Rx_Dp_IsRepeater(XHdcp22_Rx_Dp *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -828,13 +831,13 @@ u8 XHdcp22Rx_IsRepeater(XHdcp22_Rx *InstancePtr)
 *
 * This function sets the repeater mode status.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param  Set is TRUE to enable repeater mode and FALSE to disable.
 *
 * @return None.
 *
 ******************************************************************************/
-void XHdcp22Rx_SetRepeater(XHdcp22_Rx *InstancePtr, u8 Set)
+void XHdcp22Rx_Dp_SetRepeater(XHdcp22_Rx_Dp *InstancePtr, u8 Set)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -858,13 +861,13 @@ void XHdcp22Rx_SetRepeater(XHdcp22_Rx *InstancePtr, u8 Set)
 * register be set. Setting this flag only takes effect when the
 * authentication state machine is in the Authenticated state B4.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	None.
 *
 * @note		This function can be registered as an asynchronous callback.
 ******************************************************************************/
-void XHdcp22Rx_SetLinkError(XHdcp22_Rx *InstancePtr)
+void XHdcp22Rx_Dp_SetLinkError(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -876,7 +879,7 @@ void XHdcp22Rx_SetLinkError(XHdcp22_Rx *InstancePtr)
 	InstancePtr->Info.ErrorFlag |= XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY;
 
 	/* Log error event set flag */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY);
 }
 
 /*****************************************************************************/
@@ -885,13 +888,13 @@ void XHdcp22Rx_SetLinkError(XHdcp22_Rx *InstancePtr)
 * the expected message size. This will cause the message buffers to be flushed
 * and state machine reset.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	None.
 *
 * @note		This function can be registered as an asynchronous callback.
 ******************************************************************************/
-void XHdcp22Rx_SetDdcError(XHdcp22_Rx *InstancePtr)
+void XHdcp22Rx_Dp_SetDdcError(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -903,7 +906,7 @@ void XHdcp22Rx_SetDdcError(XHdcp22_Rx *InstancePtr)
 	InstancePtr->Info.ErrorFlag |= XHDCP22_RX_ERROR_FLAG_DDC_BURST;
 
 	/* Log error event and set flag */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_DDC_BURST);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_DDC_BURST);
 }
 
 /*****************************************************************************/
@@ -911,19 +914,19 @@ void XHdcp22Rx_SetDdcError(XHdcp22_Rx *InstancePtr)
 * This function is called when a complete message is available in the
 * write message buffer.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	None.
 *
 * @note		This function can be registered as an asynchronous callback.
 ******************************************************************************/
-void XHdcp22Rx_SetWriteMessageAvailable(XHdcp22_Rx *InstancePtr)
+void XHdcp22Rx_Dp_SetWriteMessageAvailable(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Log info event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_WRITE_MESSAGE_AVAILABLE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_WRITE_MESSAGE_AVAILABLE);
 
 	/* Update DDC flag */
 	InstancePtr->Info.DdcFlag |= XHDCP22_RX_DDC_FLAG_WRITE_MESSAGE_READY;
@@ -934,19 +937,19 @@ void XHdcp22Rx_SetWriteMessageAvailable(XHdcp22_Rx *InstancePtr)
 * This function is called when a message has been read out of the read
 * message buffer.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	None.
 *
 * @note		This function can be registered as an asynchronous callback.
 ******************************************************************************/
-void XHdcp22Rx_SetReadMessageComplete(XHdcp22_Rx *InstancePtr)
+void XHdcp22Rx_Dp_SetReadMessageComplete(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Log info event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_READ_MESSAGE_COMPLETE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_READ_MESSAGE_COMPLETE);
 
 	/* Update DDC flag */
 	InstancePtr->Info.DdcFlag |= XHDCP22_RX_DDC_FLAG_READ_MESSAGE_READY;
@@ -957,34 +960,34 @@ void XHdcp22Rx_SetReadMessageComplete(XHdcp22_Rx *InstancePtr)
 * This function is used to load the Lc128 value by copying the contents
 * of the array referenced by Lc128Ptr into the cipher.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param	Lc128Ptr is a pointer to an array.
 *
 * @return	None.
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_LoadLc128(XHdcp22_Rx *InstancePtr, const u8 *Lc128Ptr)
+void XHdcp22Rx_Dp_LoadLc128(XHdcp22_Rx_Dp *InstancePtr, const u8 *Lc128Ptr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Lc128Ptr != NULL);
 
-	XHdcp22Cipher_SetLc128(&InstancePtr->CipherInst, Lc128Ptr,  XHDCP22_RX_LC128_SIZE);
+	XHdcp22Cipher_Dp_SetLc128(&InstancePtr->CipherInst, Lc128Ptr,  XHDCP22_RX_LC128_SIZE);
 }
 
 /*****************************************************************************/
 /**
 * This function is used to load the public certificate.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param	PublicCertPtr is a pointer to an array.
 *
 * @return	None.
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_LoadPublicCert(XHdcp22_Rx *InstancePtr, const u8 *PublicCertPtr)
+void XHdcp22Rx_Dp_LoadPublicCert(XHdcp22_Rx_Dp *InstancePtr, const u8 *PublicCertPtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -997,7 +1000,7 @@ void XHdcp22Rx_LoadPublicCert(XHdcp22_Rx *InstancePtr, const u8 *PublicCertPtr)
 /**
 * This function is used to load the private key.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param	PrivateKeyPtr is a pointer to an array.
 *
 * @return	- XST_SUCCESS if MMULT keys are calcualted correctly.
@@ -1005,7 +1008,7 @@ void XHdcp22Rx_LoadPublicCert(XHdcp22_Rx *InstancePtr, const u8 *PublicCertPtr)
 *
 * @note		None.
 ******************************************************************************/
-int XHdcp22Rx_LoadPrivateKey(XHdcp22_Rx *InstancePtr, const u8 *PrivateKeyPtr)
+int XHdcp22Rx_Dp_LoadPrivateKey(XHdcp22_Rx_Dp *InstancePtr, const u8 *PrivateKeyPtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(PrivateKeyPtr != NULL);
@@ -1039,18 +1042,18 @@ int XHdcp22Rx_LoadPrivateKey(XHdcp22_Rx *InstancePtr, const u8 *PrivateKeyPtr)
 /**
 * This function reads the version.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Returns the version register of the cipher.
 *
 * @note     None.
 ******************************************************************************/
-u32 XHdcp22Rx_GetVersion(XHdcp22_Rx *InstancePtr)
+u32 XHdcp22Rx_Dp_GetVersion(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	return XHdcp22Cipher_GetVersion(&InstancePtr->CipherInst);
+	return XHdcp22Cipher_Dp_GetVersion(&InstancePtr->CipherInst);
 }
 
 /*****************************************************************************/
@@ -1058,13 +1061,13 @@ u32 XHdcp22Rx_GetVersion(XHdcp22_Rx *InstancePtr)
 * This function returns the pointer to the internal timer control instance
 * needed for connecting the timer interrupt to an interrupt controller.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   A pointer to the internal timer control instance.
 *
 * @note     None.
 ******************************************************************************/
-XTmrCtr* XHdcp22Rx_GetTimer(XHdcp22_Rx *InstancePtr)
+XTmrCtr* XHdcp22Rx_Dp_GetTimer(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1077,20 +1080,20 @@ XTmrCtr* XHdcp22Rx_GetTimer(XHdcp22_Rx *InstancePtr)
 * This function copies a complete repeater topology table into the instance
 * repeater topology table.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    TopologyPtr is a pointer to the repeater topology table.
 *
 * @return   None.
 *
 * @note     None.
 ******************************************************************************/
-void XHdcp22Rx_SetTopology(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_Topology *TopologyPtr)
+void XHdcp22Rx_Dp_SetTopology(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_Dp_Topology *TopologyPtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(TopologyPtr != NULL);
 
-	memcpy(&(InstancePtr->Topology), TopologyPtr, sizeof(XHdcp22_Rx_Topology));
+	memcpy(&(InstancePtr->Topology), TopologyPtr, sizeof(XHdcp22_Rx_Dp_Topology));
 }
 
 /*****************************************************************************/
@@ -1098,7 +1101,7 @@ void XHdcp22Rx_SetTopology(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_Topology *T
 * This function copies the RECEIVER_ID_LIST into the repeater topology table.
 * Receiver ID list is constructed by appending Receiver IDs in big-endian order.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    ListPtr is a pointer to the Receiver ID list. The list consists
 *           of a contiguous set of bytes stored in big-endian order, with
 *           each Receiver ID occuping five bytes with a maximum of 31
@@ -1110,7 +1113,7 @@ void XHdcp22Rx_SetTopology(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_Topology *T
 *
 * @note     None.
 ******************************************************************************/
-void XHdcp22Rx_SetTopologyReceiverIdList(XHdcp22_Rx *InstancePtr, const u8 *ListPtr, u32 ListSize)
+void XHdcp22Rx_Dp_SetTopologyReceiverIdList(XHdcp22_Rx_Dp *InstancePtr, const u8 *ListPtr, u32 ListSize)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1124,7 +1127,7 @@ void XHdcp22Rx_SetTopologyReceiverIdList(XHdcp22_Rx *InstancePtr, const u8 *List
 /**
 * This function is used to set various fields inside the topology structure.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    Field indicates what field of the topology structure to update.
 * @param    Value is the value assigned to the field of the topology structure.
 *
@@ -1132,7 +1135,7 @@ void XHdcp22Rx_SetTopologyReceiverIdList(XHdcp22_Rx *InstancePtr, const u8 *List
 *
 * @note     None.
 ******************************************************************************/
-void XHdcp22Rx_SetTopologyField(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TopologyField Field, u8 Value)
+void XHdcp22Rx_Dp_SetTopologyField(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_TopologyField Field, u8 Value)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1170,20 +1173,20 @@ void XHdcp22Rx_SetTopologyField(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TopologyFiel
 * function ensure that all the fields in the repeater topology table
 * have been updated.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   None.
 *
 * @note     None.
 ******************************************************************************/
-void XHdcp22Rx_SetTopologyUpdate(XHdcp22_Rx *InstancePtr)
+void XHdcp22Rx_Dp_SetTopologyUpdate(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	InstancePtr->Info.IsTopologyValid = TRUE;
 
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_TOPOLOGY_UPDATE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_TOPOLOGY_UPDATE);
 }
 
 /*****************************************************************************/
@@ -1195,7 +1198,7 @@ void XHdcp22Rx_SetTopologyUpdate(XHdcp22_Rx *InstancePtr)
 * and can be called inside the user callback function type
 * XHDCP22_RX_HANDLER_STREAM_MANAGE_REQUEST.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - 0x00: Type 0 Content Stream. May be transmitted by the
 *             HDCP Repeater to all HDCP Devices.
@@ -1208,7 +1211,7 @@ void XHdcp22Rx_SetTopologyUpdate(XHdcp22_Rx *InstancePtr)
 *
 * @note     None.
 ******************************************************************************/
-u8 XHdcp22Rx_GetContentStreamType(XHdcp22_Rx *InstancePtr)
+u8 XHdcp22Rx_Dp_GetContentStreamType(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1220,31 +1223,31 @@ u8 XHdcp22Rx_GetContentStreamType(XHdcp22_Rx *InstancePtr)
 /**
 * This function is called to initialize the cipher.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 ******************************************************************************/
-static int XHdcp22Rx_InitializeCipher(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_InitializeCipher(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	int Status = XST_SUCCESS;
 	UINTPTR SubcoreBaseAddr;
-	XHdcp22_Cipher_Config *CipherConfigPtr = NULL;
+	XHdcp22_Cipher_Dp_Config *CipherConfigPtr = NULL;
 
-	CipherConfigPtr = XHdcp22Cipher_LookupConfig(InstancePtr->Config.CipherDeviceId);
+	CipherConfigPtr = XHdcp22Cipher_Dp_LookupConfig(InstancePtr->Config.CipherDeviceId);
 	if(CipherConfigPtr == NULL)
 	{
 		return XST_FAILURE;
 	}
 
 	Status = XHdcp22Rx_ComputeBaseAddress(InstancePtr->Config.BaseAddress, CipherConfigPtr->BaseAddress, &SubcoreBaseAddr);
-	Status |= XHdcp22Cipher_CfgInitialize(&InstancePtr->CipherInst, CipherConfigPtr, SubcoreBaseAddr);
+	Status |= XHdcp22Cipher_Dp_CfgInitialize(&InstancePtr->CipherInst, CipherConfigPtr, SubcoreBaseAddr);
 
-	XHdcp22Cipher_SetRxMode(&InstancePtr->CipherInst);
+	XHdcp22Cipher_Dp_SetRxMode(&InstancePtr->CipherInst);
 
 	return Status;
 }
@@ -1253,13 +1256,13 @@ static int XHdcp22Rx_InitializeCipher(XHdcp22_Rx *InstancePtr)
 /**
 * This function is called to initialize the modular multiplier.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 ******************************************************************************/
-static int XHdcp22Rx_InitializeMmult(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_InitializeMmult(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1284,13 +1287,13 @@ static int XHdcp22Rx_InitializeMmult(XHdcp22_Rx *InstancePtr)
 /**
 * This function is called to initialize the random number generator.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	XST_SUCCESS or XST_FAILURE.
 *
 * @note		None.
 ******************************************************************************/
-static int XHdcp22Rx_InitializeRng(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_InitializeRng(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1316,7 +1319,7 @@ static int XHdcp22Rx_InitializeRng(XHdcp22_Rx *InstancePtr)
  *
  * This function handles timer interrupts.
  *
- * @param  CallbackRef refers to a XHdcp22_Rx structure
+ * @param  CallbackRef refers to a XHdcp22_Rx_Dp structure
  * @param  TmrCntNumber the number of used timer.
  *
  * @return None.
@@ -1325,9 +1328,9 @@ static int XHdcp22Rx_InitializeRng(XHdcp22_Rx *InstancePtr)
  * 		  interrupt handler so it should be a public function.
  *
  ******************************************************************************/
-void XHdcp22Rx_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
+void XHdcp22Rx_Dp_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 {
-	XHdcp22_Rx *InstancePtr = (XHdcp22_Rx *)CallbackRef;
+	XHdcp22_Rx_Dp *InstancePtr = (XHdcp22_Rx_Dp *)CallbackRef;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1341,7 +1344,7 @@ void XHdcp22Rx_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 	InstancePtr->Info.TimerExpired = (TRUE);
 
 	/* Log error event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_TIMER_EXPIRED);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_TIMER_EXPIRED);
 }
 
 /*****************************************************************************/
@@ -1350,7 +1353,7 @@ void XHdcp22Rx_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 * This function starts the count down timer needed for checking
 * protocol timeouts.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    TimeOut_mSec is the timeout for the next status update.
 *
 * @return   XST_SUCCESS or XST_FAILURE.
@@ -1358,7 +1361,7 @@ void XHdcp22Rx_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 * @note     None.
 *
 ******************************************************************************/
-static void XHdcp22Rx_StartTimer(XHdcp22_Rx *InstancePtr, u32 TimeOut_mSec,
+static void XHdcp22Rx_StartTimer(XHdcp22_Rx_Dp *InstancePtr, u32 TimeOut_mSec,
                                 u8 ReasonId)
 {
 	u32 Ticks = (u32)(InstancePtr->TimerInst.Config.SysClockFreqHz / 1000000) * TimeOut_mSec * 1000;
@@ -1375,7 +1378,7 @@ static void XHdcp22Rx_StartTimer(XHdcp22_Rx *InstancePtr, u32 TimeOut_mSec,
 	XTmrCtr_SetResetValue(&InstancePtr->TimerInst, XHDCP22_RX_TMR_CTR_1, Ticks);
 	XTmrCtr_Start(&InstancePtr->TimerInst, XHDCP22_RX_TMR_CTR_1);
 
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG,
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG,
 	                XHDCP22_RX_LOG_DEBUG_TIMER_START);
 #endif /* _XHDCP22_RX_DISABLE_TIMEOUT_CHECKING_ */
 }
@@ -1385,7 +1388,7 @@ static void XHdcp22Rx_StartTimer(XHdcp22_Rx *InstancePtr, u32 TimeOut_mSec,
 *
 * This function stops the count down timer used for protocol timeouts.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    TimeOut_mSec is the timeout for the next status update.
 *
 * @return   XST_SUCCESS or XST_FAILURE.
@@ -1393,7 +1396,7 @@ static void XHdcp22Rx_StartTimer(XHdcp22_Rx *InstancePtr, u32 TimeOut_mSec,
 * @note     None.
 *
 ******************************************************************************/
-static void XHdcp22Rx_StopTimer(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_StopTimer(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1446,7 +1449,7 @@ static int XHdcp22Rx_ComputeBaseAddress(UINTPTR BaseAddress, UINTPTR SubcoreOffs
 * value is copied into the array with pointer RrxPtr. Otherwise, a
 * random value is generated and copied.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param	RrxPtr is a pointer to an array where the 64bit Rrx is
 * 			to be copied.
 *
@@ -1454,7 +1457,7 @@ static int XHdcp22Rx_ComputeBaseAddress(UINTPTR BaseAddress, UINTPTR SubcoreOffs
 *
 * @note		None.
 ******************************************************************************/
-static int XHdcp22Rx_GenerateRrx(XHdcp22_Rx *InstancePtr, u8 *RrxPtr)
+static int XHdcp22Rx_GenerateRrx(XHdcp22_Rx_Dp *InstancePtr, u8 *RrxPtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1476,13 +1479,13 @@ static int XHdcp22Rx_GenerateRrx(XHdcp22_Rx *InstancePtr, u8 *RrxPtr)
 * the write message buffer. The DDC flag is cleared when a message
 * available is detected.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 ******************************************************************************/
-static u8 XHdcp22Rx_IsWriteMessageAvailable(XHdcp22_Rx *InstancePtr)
+static u8 XHdcp22Rx_IsWriteMessageAvailable(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1506,13 +1509,13 @@ static u8 XHdcp22Rx_IsWriteMessageAvailable(XHdcp22_Rx *InstancePtr)
 * out of the read message buffer, indicating that the buffer is empty.
 * The DDC flag is cleared when a read message complete has been detected.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	TRUE or FALSE.
 *
 * @note		None.
 ******************************************************************************/
-static u8 XHdcp22Rx_IsReadMessageComplete(XHdcp22_Rx *InstancePtr)
+static u8 XHdcp22Rx_IsReadMessageComplete(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1551,7 +1554,7 @@ static u8 XHdcp22Rx_IsReadMessageComplete(XHdcp22_Rx *InstancePtr)
 * a complete message into the read message buffer. The repeater READY bit
 * can also be updated in conjunction to the message size.
 *
-* @param  InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param  InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param  MessageSize indicates the size in bytes of the message
 *         available in the read message buffer.
 * @param  ReauthReq is set to TRUE to assert the REAUTH_REQ bit.
@@ -1561,7 +1564,7 @@ static u8 XHdcp22Rx_IsReadMessageComplete(XHdcp22_Rx *InstancePtr)
 *
 * @note	  None.
 ******************************************************************************/
-static void XHdcp22Rx_SetRxStatus(XHdcp22_Rx *InstancePtr, u16 MessageSize, u8 ReauthReq, u8 TopologyReady)
+static void XHdcp22Rx_SetRxStatus(XHdcp22_Rx_Dp *InstancePtr, u16 MessageSize, u8 ReauthReq, u8 TopologyReady)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1595,20 +1598,20 @@ static void XHdcp22Rx_SetRxStatus(XHdcp22_Rx *InstancePtr, u16 MessageSize, u8 R
 * and clears the link integrity error flag. Setting the ReauthReq bit
 * signals the transmitter to re-initiate authentication.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	None.
 *
 * @note		None.
 ******************************************************************************/
-static void XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 #ifndef _XHDCP22_RX_DISABLE_REAUTH_REQUEST_
 	/* Log info event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_REQAUTH_REQ);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_REQAUTH_REQ);
 
 	/* Increment re-authentication request count */
 	InstancePtr->Info.ReauthRequestCnt++;
@@ -1644,7 +1647,7 @@ static void XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx *InstancePtr)
 * and clears the read/write message buffers. The DDC status flag is set to
 * it's initial state and the DDC error flags are cleared.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param	ClrWrBuffer is TRUE to clear the write message buffer.
 * @param	ClrRdBuffer is TRUE to clear the read message buffer.
 * @param	ClrReady is TRUE to clear the READY bit.
@@ -1654,7 +1657,7 @@ static void XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx *InstancePtr)
 *
 * @note		None.
 ******************************************************************************/
-static void XHdcp22Rx_ResetDdc(XHdcp22_Rx *InstancePtr, u8 ClrWrBuffer,
+static void XHdcp22Rx_ResetDdc(XHdcp22_Rx_Dp *InstancePtr, u8 ClrWrBuffer,
 	u8 ClrRdBuffer, u8 ClrReady, u8 ClrReauthReq)
 {
 	/* Verify arguments */
@@ -1700,13 +1703,13 @@ static void XHdcp22Rx_ResetDdc(XHdcp22_Rx *InstancePtr, u8 ClrWrBuffer,
 * This function resets the HDCP22-RX system after an error event. The
 * driver calls this function when recovering from error conditions.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	None.
 *
 * @note		None.
 ******************************************************************************/
-static void XHdcp22Rx_ResetAfterError(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_ResetAfterError(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1714,11 +1717,11 @@ static void XHdcp22Rx_ResetAfterError(XHdcp22_Rx *InstancePtr)
 	int AuthenticationStatus = InstancePtr->Info.AuthenticationStatus;
 
 	/* Log info event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_FORCE_RESET);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_FORCE_RESET);
 
 	/* Reset cipher */
-	XHdcp22Cipher_Disable(&InstancePtr->CipherInst);
-	XHdcp22Cipher_Enable(&InstancePtr->CipherInst);
+	XHdcp22Cipher_Dp_Disable(&InstancePtr->CipherInst);
+	XHdcp22Cipher_Dp_Enable(&InstancePtr->CipherInst);
 
 	/* Clear message buffer */
 	memset(&InstancePtr->MessageBuffer, 0, sizeof(XHdcp22_Rx_Message));
@@ -1734,7 +1737,7 @@ static void XHdcp22Rx_ResetAfterError(XHdcp22_Rx *InstancePtr)
 	InstancePtr->Info.NextState = XHDCP22_RX_STATE_B0_WAIT_AKEINIT;
 
 	/* Reset repeater values */
-	memset(&InstancePtr->Topology, 0, sizeof(XHdcp22_Rx_Topology));
+	memset(&InstancePtr->Topology, 0, sizeof(XHdcp22_Rx_Dp_Topology));
 	InstancePtr->Info.IsTopologyValid = FALSE;
 	InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
 	InstancePtr->Info.SeqNumV = 0;
@@ -1760,14 +1763,14 @@ static void XHdcp22Rx_ResetAfterError(XHdcp22_Rx *InstancePtr)
 * This function resets the HDCP22-RX parameters stored in memory during the
 * authentication process.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	None.
 *
 * @note		This function is called each time an AKE_Init message is
 *			received.
 ******************************************************************************/
-static void XHdcp22Rx_ResetParams(XHdcp22_Rx *InstancePtr)
+static void XHdcp22Rx_ResetParams(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1795,13 +1798,13 @@ static void XHdcp22Rx_ResetParams(XHdcp22_Rx *InstancePtr)
 * This function uses polling to read a complete message out of the read
 * message buffer.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	Size of message read out of read message buffer.
 *
 * @note		None.
 ******************************************************************************/
-static int XHdcp22Rx_PollMessage(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_PollMessage(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1837,7 +1840,7 @@ static int XHdcp22Rx_PollMessage(XHdcp22_Rx *InstancePtr)
 * state the receiver is awaiting the reception of AKE_Init from the
 * transmitter to trigger the authentication protocol.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -1845,7 +1848,7 @@ static int XHdcp22Rx_PollMessage(XHdcp22_Rx *InstancePtr)
 *           the system is reset to a known state to allow graceful
 *           recovery from error.
 ******************************************************************************/
-static void *XHdcp22Rx_StateB0(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateB0(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1880,7 +1883,7 @@ static void *XHdcp22Rx_StateB0(XHdcp22_Rx *InstancePtr)
 			    InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
 			    return (void *)XHdcp22Rx_StateB1;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
 		default:
@@ -1906,7 +1909,7 @@ static void *XHdcp22Rx_StateB0(XHdcp22_Rx *InstancePtr)
 * is made available to the transmitter for reading after within 200ms after
 * AKESendHPrime message is received by the transmitter.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -1914,7 +1917,7 @@ static void *XHdcp22Rx_StateB0(XHdcp22_Rx *InstancePtr)
 *           system is reset to the default state B0 to allow graceful
 *           recovery from error.
 ******************************************************************************/
-static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateB1(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1949,7 +1952,7 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 			    InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
 			    break;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_AKENOSTOREDKM:
@@ -1963,7 +1966,7 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 					break;
 				}
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKENOSTOREDKM);
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKENOSTOREDKM);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_AKESTOREDKM:
@@ -1977,7 +1980,7 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 					break;
 				}
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKESTOREDKM);
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKESTOREDKM);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
 		default:
@@ -2032,7 +2035,7 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 * receiver computes LPrime required during locality check and makes
 * LCSendLPrime message available for reading by the transmitter.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -2040,7 +2043,7 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 *           the system is reset to the default state B0 to allow
 *           graceful recovery from error.
 ******************************************************************************/
-static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateB2(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2078,7 +2081,7 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
 				return (void *)XHdcp22Rx_StateB1;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_LCINIT:
@@ -2097,10 +2100,10 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 				}
 				else
 				{
-					XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MAX_LCINIT_ATTEMPTS);
+					XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MAX_LCINIT_ATTEMPTS);
 				}
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_LCINIT);
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_LCINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_SKESENDEKS: /* Transition B2->B3 */
@@ -2109,7 +2112,7 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 			InstancePtr->Info.NextState = XHDCP22_RX_STATE_B3_COMPUTE_KS;
 			return (void *)XHdcp22Rx_StateB3;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_SKESENDEKS);
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_SKESENDEKS);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
 		default:
@@ -2142,7 +2145,7 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 * with the session key and enabled within 200ms after the encrypted
 * session key is received.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -2150,7 +2153,7 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 *           system is reset to the default state B0 to allow graceful
 *           recovery from error.
 ******************************************************************************/
-static void *XHdcp22Rx_StateB3(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateB3(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2194,7 +2197,7 @@ static void *XHdcp22Rx_StateB3(XHdcp22_Rx *InstancePtr)
 * 50 consecutive data island CRC errors are detected. Setting the REAUTH_REQ
 * bit signals the transmitter to re-initiate authentication.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -2202,7 +2205,7 @@ static void *XHdcp22Rx_StateB3(XHdcp22_Rx *InstancePtr)
 *           system is reset to the default state B0 to allow graceful
 *           recovery from error.
 ******************************************************************************/
-static void *XHdcp22Rx_StateB4(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateB4(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2225,7 +2228,7 @@ static void *XHdcp22Rx_StateB4(XHdcp22_Rx *InstancePtr)
 	/* Run callback function type: XHDCP22_RX_HANDLER_ENCRYPTION_UPDATE */
 	if(InstancePtr->Info.TimerExpired == TRUE)
 	{
-	  Status = XHdcp22Cipher_IsEncrypted(&InstancePtr->CipherInst);
+	  Status = XHdcp22Cipher_Dp_IsEncrypted(&InstancePtr->CipherInst);
 
 	/* Encryption Enabled */
 	  if((InstancePtr->Info.IsEncrypted != Status)) {
@@ -2274,7 +2277,7 @@ static void *XHdcp22Rx_StateB4(XHdcp22_Rx *InstancePtr)
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
 				return (void *)XHdcp22Rx_StateB1;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
 		default:
@@ -2294,9 +2297,9 @@ static void *XHdcp22Rx_StateB4(XHdcp22_Rx *InstancePtr)
 * Unconnected (State P0), Unauthenticated (State P1), Authenticated (State F5),
 * or ReceiverIdListAck (State F8). This state checks if the topology table
 * is available for upstream propogation based on the flag set in the function
-* XHdcp22Rx_SetTopologyUpdate by the higher level repeater function.
+* XHdcp22Rx_Dp_SetTopologyUpdate by the higher level repeater function.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -2305,7 +2308,7 @@ static void *XHdcp22Rx_StateB4(XHdcp22_Rx *InstancePtr)
 *           If the RepeaterAuth_Stream_Manage message is received then
 *           transition to State C7 then return back to this state.
 ******************************************************************************/
-static void *XHdcp22Rx_StateC4(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateC4(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2353,7 +2356,7 @@ static void *XHdcp22Rx_StateC4(XHdcp22_Rx *InstancePtr)
 			    InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
 			    return (void *)XHdcp22Rx_StateB1;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
@@ -2398,7 +2401,7 @@ static void *XHdcp22Rx_StateC4(XHdcp22_Rx *InstancePtr)
 * Repeaterauth_Send_ReceiverID_List message is read, and the
 * REAUTH_REQ bit is set the in the RxStatus register.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -2407,7 +2410,7 @@ static void *XHdcp22Rx_StateC4(XHdcp22_Rx *InstancePtr)
 *           If the RepeaterAuth_Stream_Manage message is received then
 *           transition to State C7 then return back to this state.
 ******************************************************************************/
-static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateC5(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2447,7 +2450,7 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 			    InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
 			    return (void *)XHdcp22Rx_StateB1;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
@@ -2475,7 +2478,7 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 			}
 			else
 			{
-				XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
+				XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 					XHDCP22_RX_ERROR_FLAG_EMPTY_REPEATER_TOPOLOGY);
 				XHdcp22Rx_ResetAfterError(InstancePtr);
 				XHdcp22Rx_SetDdcReauthReq(InstancePtr);
@@ -2492,7 +2495,7 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 			if(InstancePtr->Topology.MaxDevsExceeded == TRUE ||
 				InstancePtr->Topology.MaxCascadeExceeded == TRUE)
 			{
-				XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
+				XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 					XHDCP22_RX_ERROR_FLAG_MAX_REPEATER_TOPOLOGY);
 				XHdcp22Rx_ResetAfterError(InstancePtr);
 				XHdcp22Rx_SetDdcReauthReq(InstancePtr);
@@ -2526,7 +2529,7 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 * mismatch then the state machine transitions back to the un-authenticated
 * state, and the REAUTH_REQ bit is set in the RxStatus Register.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -2535,7 +2538,7 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 *           If the RepeaterAuth_Stream_Manage message is received then
 *           transition to State C7 then return back to this state.
 ******************************************************************************/
-static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateC6(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2591,7 +2594,7 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 			    InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
 			    return (void *)XHdcp22Rx_StateB1;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
@@ -2630,7 +2633,7 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 					}
 				}
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_REPEATERAUTHSENDACK);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			XHdcp22Rx_SetDdcReauthReq(InstancePtr);
@@ -2657,7 +2660,7 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 * from the upstream transmitter. Also, the transition from State C7 may
 * return to the appropriate state to allow undisrupted operation.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -2666,7 +2669,7 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 *           If the RepeaterAuth_Stream_Manage message is received then
 *           transition to State C7 then return back to this state.
 ******************************************************************************/
-static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateC7(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2713,7 +2716,7 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
 				return (void *)XHdcp22Rx_StateB1;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
@@ -2729,7 +2732,7 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_C7_SEND_STREAM_READY;
 				break;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_REPEATERAUTHSTREAMMANAGE);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			XHdcp22Rx_SetDdcReauthReq(InstancePtr);
@@ -2807,7 +2810,7 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 * 50 consecutive data island CRC errors are detected. Setting the REAUTH_REQ
 * bit signals the transmitter to re-initiate authentication.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   Pointer to the function that implements the next state.
 *
@@ -2815,7 +2818,7 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 *           system is reset to the default state B0 to allow graceful
 *           recovery from error.
 ******************************************************************************/
-static void *XHdcp22Rx_StateC8(XHdcp22_Rx *InstancePtr)
+static void *XHdcp22Rx_StateC8(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2839,7 +2842,7 @@ static void *XHdcp22Rx_StateC8(XHdcp22_Rx *InstancePtr)
 	/* Run callback function type: XHDCP22_RX_HANDLER_ENCRYPTION_UPDATE */
 	if(InstancePtr->Info.TimerExpired == TRUE)
 	{
-	  Status = XHdcp22Cipher_IsEncrypted(&InstancePtr->CipherInst);
+	  Status = XHdcp22Cipher_Dp_IsEncrypted(&InstancePtr->CipherInst);
 
 	/* Encryption Enabled */
 	  if((InstancePtr->Info.IsEncrypted != Status)) {
@@ -2887,7 +2890,7 @@ static void *XHdcp22Rx_StateC8(XHdcp22_Rx *InstancePtr)
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
 				return (void *)XHdcp22Rx_StateB1;
 			}
-			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
+			XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMMANAGE:
@@ -2920,14 +2923,14 @@ static void *XHdcp22Rx_StateC8(XHdcp22_Rx *InstancePtr)
 * registers are reset to their default value including the REAUTH_REQ
 * flag. The cipher is disabled.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - XST_SUCCESS if message processed successfully.
 *           - XST_FAILURE if message size is incorrect.
 *
 * @note     None.
 ******************************************************************************/
-static int XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2935,7 +2938,7 @@ static int XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx *InstancePtr)
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
 	/* Log message read completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKEINIT);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKEINIT);
 
 	if (InstancePtr->Config.Protocol == XHDCP22_RX_DP) {
 		/*Set AUX_DEFERS for Ake_Send_Cert message*/
@@ -2949,15 +2952,15 @@ static int XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx *InstancePtr)
 	InstancePtr->Info.AuthRequestCnt++;
 
 	/* Reset cipher */
-	XHdcp22Cipher_Disable(&InstancePtr->CipherInst);
-	XHdcp22Cipher_Enable(&InstancePtr->CipherInst);
+	XHdcp22Cipher_Dp_Disable(&InstancePtr->CipherInst);
+	XHdcp22Cipher_Dp_Enable(&InstancePtr->CipherInst);
 
 	/* Reset timer counter */
 	XTmrCtr_Reset(&InstancePtr->TimerInst, XHDCP22_RX_TMR_CTR_0);
 	XHdcp22Rx_StopTimer(InstancePtr);
 
 	/* Reset repeater values */
-	memset(&InstancePtr->Topology, 0, sizeof(XHdcp22_Rx_Topology));
+	memset(&InstancePtr->Topology, 0, sizeof(XHdcp22_Rx_Dp_Topology));
 	InstancePtr->Info.ReauthReq = FALSE;
 	InstancePtr->Info.TopologyReady = FALSE;
 	InstancePtr->Info.IsTopologyValid = FALSE;
@@ -2969,7 +2972,7 @@ static int XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx *InstancePtr)
 	/* Check message size */
 	if(InstancePtr->MessageSize != sizeof(XHdcp22_Rx_AKEInit))
 	{
-		XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
+		XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
 		return XST_FAILURE;
 	}
 
@@ -3006,7 +3009,7 @@ static int XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx *InstancePtr)
 * buffer the MessageSize is set in the DDC RxStatus register signaling
 * the transmitter that the message is available for reading.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - XST_SUCCESS if message written successfully.
 *           - XST_FAILURE if generation of random integer Rrx failed.
@@ -3014,7 +3017,7 @@ static int XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx *InstancePtr)
 * @note     This message must be available for the transmitter with 100ms
 *           after receiving AKEInit.
 ******************************************************************************/
-static int XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3063,7 +3066,7 @@ static int XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx *InstancePtr)
 	memcpy(InstancePtr->Params.RxCaps, MsgPtr->AKESendCert.RxCaps, XHDCP22_RX_RXCAPS_SIZE);
 
 	/* Log message write completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKESENDCERT);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKESENDCERT);
 
 	return Status;
 }
@@ -3074,7 +3077,7 @@ static int XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx *InstancePtr)
 * transmitter. The RSAES-OAEP operation decrypts Km with the receiver
 * private key.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - XST_SUCCESS if message processed successfully.
 *           - XST_FAILURE if message size is incorrect or Km
@@ -3082,7 +3085,7 @@ static int XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx *InstancePtr)
 *
 * @note     None.
 ******************************************************************************/
-static int XHdcp22Rx_ProcessMessageAKENoStoredKm(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_ProcessMessageAKENoStoredKm(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3092,7 +3095,7 @@ static int XHdcp22Rx_ProcessMessageAKENoStoredKm(XHdcp22_Rx *InstancePtr)
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
 	/* Log message read completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKENOSTOREDKM);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKENOSTOREDKM);
 
 	if (InstancePtr->Config.Protocol == XHDCP22_RX_DP) {
 		/*Set AUX_DEFERS for H' message*/
@@ -3105,15 +3108,15 @@ static int XHdcp22Rx_ProcessMessageAKENoStoredKm(XHdcp22_Rx *InstancePtr)
 	/* Check message size */
 	if(InstancePtr->MessageSize != sizeof(XHdcp22_Rx_AKENoStoredKm))
 	{
-		XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
+		XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
 		return XST_FAILURE;
 	}
 
 	/* Compute Km, Perform RSA decryption */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM);
 	Status = XHdcp22Rx_RsaesOaepDecrypt(InstancePtr, (XHdcp22_Rx_KprivRx *)(InstancePtr->PrivateKeyPtr),
 										MsgPtr->AKENoStoredKm.EKpubKm, InstancePtr->Params.Km, &Size);
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM_DONE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM_DONE);
 
 	return (Status == XST_SUCCESS && Size == XHDCP22_RX_KM_SIZE) ? XST_SUCCESS : XST_FAILURE;
 }
@@ -3124,14 +3127,14 @@ static int XHdcp22Rx_ProcessMessageAKENoStoredKm(XHdcp22_Rx *InstancePtr)
 * transmitter. Decrypts Ekh(Km) using AES with the received m as
 * input and Kh as key into the AES module.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - XST_SUCCESS if message processed successfully.
 *           - XST_FAILURE if message size is incorrect.
 *
 * @note     None.
 ******************************************************************************/
-static int XHdcp22Rx_ProcessMessageAKEStoredKm(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_ProcessMessageAKEStoredKm(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3140,7 +3143,7 @@ static int XHdcp22Rx_ProcessMessageAKEStoredKm(XHdcp22_Rx *InstancePtr)
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
 	/* Log message read completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKESTOREDKM);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKESTOREDKM);
 
 	if (InstancePtr->Config.Protocol == XHDCP22_RX_DP) {
 		/*Set AUX_DEFERS for H' message*/
@@ -3153,15 +3156,15 @@ static int XHdcp22Rx_ProcessMessageAKEStoredKm(XHdcp22_Rx *InstancePtr)
 	/* Check message size */
 	if(InstancePtr->MessageSize != sizeof(XHdcp22_Rx_AKEStoredKm))
 	{
-		XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
+		XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
 		return XST_FAILURE;
 	}
 
 	/* Compute Km */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM);
 	XHdcp22Rx_ComputeEkh(InstancePtr->PrivateKeyPtr, MsgPtr->AKEStoredKm.EKhKm, MsgPtr->AKEStoredKm.M,
 		InstancePtr->Params.Km);
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM_DONE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KM_DONE);
 
 	return Status;
 }
@@ -3174,7 +3177,7 @@ static int XHdcp22Rx_ProcessMessageAKEStoredKm(XHdcp22_Rx *InstancePtr)
 * register signaling the transmitter that the message is available for
 * reading.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   XST_SUCCESS.
 *
@@ -3182,7 +3185,7 @@ static int XHdcp22Rx_ProcessMessageAKEStoredKm(XHdcp22_Rx *InstancePtr)
 *           1s after receiving AKENoStoredKm or 200ms after receiving
 *           AKEStoredKm.
 ******************************************************************************/
-static int XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3191,11 +3194,11 @@ static int XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx *InstancePtr)
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
 	/* Compute H Prime */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_HPRIME);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_HPRIME);
 	XHdcp22Rx_ComputeHPrime(InstancePtr->Params.Rrx, InstancePtr->Params.RxCaps,
 			InstancePtr->Params.Rtx, InstancePtr->Params.TxCaps, InstancePtr->Params.Km,
 			MsgPtr->AKESendHPrime.HPrime);
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_HPRIME_DONE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_HPRIME_DONE);
 
 	/* Generate AKE_Send_H_prime message */
 	MsgPtr->AKESendHPrime.MsgId = XHDCP22_RX_MSG_ID_AKESENDHPRIME;
@@ -3240,7 +3243,7 @@ static int XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx *InstancePtr)
 	memcpy(InstancePtr->Params.HPrime, MsgPtr->AKESendHPrime.HPrime, XHDCP22_RX_HPRIME_SIZE);
 
 	/* Log message write completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKESENDHPRIME);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKESENDHPRIME);
 
 	return XST_SUCCESS;
 }
@@ -3253,7 +3256,7 @@ static int XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx *InstancePtr)
 * register signaling the transmitter that the message is available for
 * reading.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   XST_SUCCESS.
 *
@@ -3262,7 +3265,7 @@ static int XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx *InstancePtr)
 *           available for the transmitter within 200ms after sending
 *           AKESendHPrime.
 ******************************************************************************/
-static int XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3277,9 +3280,9 @@ static int XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx *InstancePtr)
 	memcpy(M+XHDCP22_RX_RTX_SIZE, InstancePtr->Params.Rrx, XHDCP22_RX_RRX_SIZE);
 
 	/* Compute Ekh */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_EKH);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_EKH);
 	XHdcp22Rx_ComputeEkh(InstancePtr->PrivateKeyPtr, InstancePtr->Params.Km, M, EKhKm);
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_EKH_DONE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_EKH_DONE);
 
 	/* Generate AKE_Send_Pairing_Info message */
 	MsgPtr->AKESendPairingInfo.MsgId = XHDCP22_RX_MSG_ID_AKESENDPAIRINGINFO;
@@ -3325,7 +3328,7 @@ static int XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx *InstancePtr)
 	memcpy(InstancePtr->Params.EKh, EKhKm, XHDCP22_RX_EKH_SIZE);
 
 	/* Log message write completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKESENDPAIRINGINFO);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_AKESENDPAIRINGINFO);
 
 	return XST_SUCCESS;
 }
@@ -3336,14 +3339,14 @@ static int XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx *InstancePtr)
 * transmitter. The locality check attempts is incremented for
 * each LCInit message received. The random nonce Rn is recorded.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - XST_SUCCESS if message processed successfully.
 *           - XST_FAILURE if message size is incorrect.
 *
 * @note     None.
 ******************************************************************************/
-static int XHdcp22Rx_ProcessMessageLCInit(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_ProcessMessageLCInit(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3351,12 +3354,12 @@ static int XHdcp22Rx_ProcessMessageLCInit(XHdcp22_Rx *InstancePtr)
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
 	/* Log message read completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_LCINIT);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_LCINIT);
 
 	/* Check message size */
 	if(InstancePtr->MessageSize != sizeof(XHdcp22_Rx_LCInit))
 	{
-		XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
+		XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
 		return XST_FAILURE;
 	}
 
@@ -3377,14 +3380,14 @@ static int XHdcp22Rx_ProcessMessageLCInit(XHdcp22_Rx *InstancePtr)
 * register signaling the transmitter that the message is available for
 * reading.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   XST_SUCCESS.
 *
 * @note     The LCSendLPrime message must be available for the transmitter
 *           within 20ms after receiving LCInit.
 ******************************************************************************/
-static int XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3393,10 +3396,10 @@ static int XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx *InstancePtr)
 	u32 Offset;
 
 	/* Compute LPrime */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_LPRIME);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_LPRIME);
 	XHdcp22Rx_ComputeLPrime(InstancePtr->Params.Rn, InstancePtr->Params.Km, InstancePtr->Params.Rrx,
 		InstancePtr->Params.Rtx, MsgPtr->LCSendLPrime.LPrime);
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_LPRIME_DONE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_LPRIME_DONE);
 
 	/* Generate LC_Send_L_prime message */
 	MsgPtr->LCSendLPrime.MsgId = XHDCP22_RX_MSG_ID_LCSENDLPRIME;
@@ -3428,7 +3431,7 @@ static int XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx *InstancePtr)
 	memcpy(InstancePtr->Params.LPrime, MsgPtr->LCSendLPrime.LPrime, XHDCP22_RX_LPRIME_SIZE);
 
 	/* Log message write completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_LCSENDLPRIME);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_LCSENDLPRIME);
 
 	return XST_SUCCESS;
 }
@@ -3439,7 +3442,7 @@ static int XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx *InstancePtr)
 * transmitter. The session key Ks is decrypted and written to the
 * cipher.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - XST_SUCCESS if message processed successfully.
 *           - XST_FAILURE if message size is incorrect.
@@ -3447,7 +3450,7 @@ static int XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx *InstancePtr)
 * @note     The cipher must be enabled within 200ms after receiving
 *           SKESendEks.
 ******************************************************************************/
-static int XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3455,30 +3458,30 @@ static int XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx *InstancePtr)
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
 	/* Log message read completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_SKESENDEKS);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_SKESENDEKS);
 
 	/* Check message size */
 	if(InstancePtr->MessageSize != sizeof(XHdcp22_Rx_SKESendEks))
 	{
-		XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
+		XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
 		return XST_FAILURE;
 	}
 
 	/* Compute Ks */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KS);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KS);
 	XHdcp22Rx_ComputeKs(InstancePtr->Params.Rrx, InstancePtr->Params.Rtx, InstancePtr->Params.Km,
 						InstancePtr->Params.Rn, MsgPtr->SKESendEks.EDkeyKs, InstancePtr->Params.Ks);
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KS_DONE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_KS_DONE);
 
 	/* Record Riv parameter */
 	memcpy(InstancePtr->Params.Riv, MsgPtr->SKESendEks.Riv, XHDCP22_RX_RIV_SIZE);
 
 	/* Load cipher Ks and Riv */
-	XHdcp22Cipher_SetKs(&InstancePtr->CipherInst, InstancePtr->Params.Ks, XHDCP22_RX_KS_SIZE);
-	XHdcp22Cipher_SetRiv(&InstancePtr->CipherInst, InstancePtr->Params.Riv, XHDCP22_RX_RIV_SIZE);
+	XHdcp22Cipher_Dp_SetKs(&InstancePtr->CipherInst, InstancePtr->Params.Ks, XHDCP22_RX_KS_SIZE);
+	XHdcp22Cipher_Dp_SetRiv(&InstancePtr->CipherInst, InstancePtr->Params.Riv, XHDCP22_RX_RIV_SIZE);
 
 	/* Log info event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_ENCRYPTION_ENABLE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_ENCRYPTION_ENABLE);
 
 	return XST_SUCCESS;
 }
@@ -3494,7 +3497,7 @@ static int XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx *InstancePtr)
 * each RepeaterAuth_Send_ReceiverID_List message. The READY bit in the
 * RxStatus register is cleared automatically.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - XST_SUCCESS if device count is equal to zero.
 *           - XST_FAILURE if device count is greater than zero.
@@ -3503,7 +3506,7 @@ static int XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx *InstancePtr)
 *           and READY bit asserted in the RxStatus register for
 *           the upstream transmitter within 3 seconds.
 ******************************************************************************/
-static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3548,7 +3551,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 		InstancePtr->Info.SeqNumV = (InstancePtr->Info.SeqNumV + 1) % XHDCP22_RX_MAX_SEQNUMV;
 
 		/* Compute VPrime */
-		XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_VPRIME);
+		XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_VPRIME);
 		XHdcp22Rx_ComputeVPrime((u8 *)InstancePtr->Topology.ReceiverIdList,
 			InstancePtr->Topology.DeviceCnt,
 			MsgPtr->RepeaterAuthSendRxIdList.RxInfo,
@@ -3557,7 +3560,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 			InstancePtr->Params.Rrx,
 			InstancePtr->Params.Rtx,
 			InstancePtr->Params.VPrime);
-		XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_VPRIME_DONE);
+		XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_VPRIME_DONE);
 
 		/* Copy VPrime[0:16], most significant 128-bits */
 		memcpy(MsgPtr->RepeaterAuthSendRxIdList.VPrime, InstancePtr->Params.VPrime, 16);
@@ -3619,7 +3622,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 	XHdcp22Rx_StartTimer(InstancePtr, XHDCP22_RX_REPEATERAUTH_ACK_INTERVAL, 0);
 
 	/* Log message write completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_REPEATERAUTHSENDRXIDLIST);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_REPEATERAUTHSENDRXIDLIST);
 
 	return XST_SUCCESS;
 }
@@ -3630,7 +3633,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 * the upstream transmitter. The least significant 128-bits of the value
 * V are compared against VPrime. The timer is stopped.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - XST_SUCCESS when V and VPrime match.
 *           - XST_FAILURE when V and VPrime do not match.
@@ -3639,7 +3642,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 *           repeater upstream interface within 2 seconds after asserting
 *           the READY bit in the RxStatus register.
 ******************************************************************************/
-static int XHdcp22Rx_ProcessMessageRepeaterAuthSendAck(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_ProcessMessageRepeaterAuthSendAck(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3651,14 +3654,14 @@ static int XHdcp22Rx_ProcessMessageRepeaterAuthSendAck(XHdcp22_Rx *InstancePtr)
 	XHdcp22Rx_StopTimer(InstancePtr);
 
 	/* Log message read completion */
-	XHdcp22Rx_LogWr(InstancePtr,
+	XHdcp22Rx_Dp_LogWr(InstancePtr,
 		XHDCP22_RX_LOG_EVT_INFO_MESSAGE,
 		XHDCP22_RX_MSG_ID_REPEATERAUTHSENDACK);
 
 	/* Check message size */
 	if(InstancePtr->MessageSize != sizeof(XHdcp22_Rx_RepeaterAuthSendAck))
 	{
-		XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
+		XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
 		return XST_FAILURE;
 	}
 
@@ -3675,7 +3678,7 @@ static int XHdcp22Rx_ProcessMessageRepeaterAuthSendAck(XHdcp22_Rx *InstancePtr)
 * later computation of MPrime. The user callback function
 * type XHDCP22_RX_HANDLER_STREAM_MANAGE_REQUEST is executed.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   - XST_SUCCESS if message processed successfully.
 *           - XST_FAILURE if message size is incorrect.
@@ -3685,7 +3688,7 @@ static int XHdcp22Rx_ProcessMessageRepeaterAuthSendAck(XHdcp22_Rx *InstancePtr)
 *           RepeaterAuth_Stream_Ready message. Detection of seq_num_M
 *           roll-over is the responsibility of the upstream transmitter.
 ******************************************************************************/
-static int XHdcp22Rx_ProcessMessageRepeaterAuthStreamManage(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_ProcessMessageRepeaterAuthStreamManage(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3693,14 +3696,14 @@ static int XHdcp22Rx_ProcessMessageRepeaterAuthStreamManage(XHdcp22_Rx *Instance
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
 	/* Log message read completion */
-	XHdcp22Rx_LogWr(InstancePtr,
+	XHdcp22Rx_Dp_LogWr(InstancePtr,
 		XHDCP22_RX_LOG_EVT_INFO_MESSAGE,
 		XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMMANAGE);
 
 	/* Check message size */
 	if(InstancePtr->MessageSize != sizeof(XHdcp22_Rx_RepeaterAuthStreamManage))
 	{
-		XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
+		XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 			XHDCP22_RX_ERROR_FLAG_MESSAGE_SIZE);
 		return XST_FAILURE;
 	}
@@ -3728,13 +3731,13 @@ static int XHdcp22Rx_ProcessMessageRepeaterAuthStreamManage(XHdcp22_Rx *Instance
 * This function computes MPrime and sends the RepeaterAuth_Stream_Ready
 * message.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return   XST_SUCCESS.
 *
 * @note     None.
 ******************************************************************************/
-static int XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3743,11 +3746,11 @@ static int XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx *InstancePtr)
 	u32 Offset;
 
 	/* Compute MPrime */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_MPRIME);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_MPRIME);
 	XHdcp22Rx_ComputeMPrime(InstancePtr->Params.StreamIdType, InstancePtr->Params.SeqNumM,
 		InstancePtr->Params.Km, InstancePtr->Params.Rrx, InstancePtr->Params.Rtx,
 		MsgPtr->RepeaterAuthStreamReady.MPrime);
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_MPRIME_DONE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_MPRIME_DONE);
 
 	/* Generate RepeaterAuth_Stream_Ready message */
 	MsgPtr->RepeaterAuthStreamReady.MsgId = XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMREADY;
@@ -3775,7 +3778,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx *InstancePtr)
 	memcpy(InstancePtr->Params.MPrime, MsgPtr->RepeaterAuthStreamReady.MPrime, XHDCP22_RX_MPRIME_SIZE);
 
 	/* Log message write completion */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMREADY);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_MESSAGE, XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMREADY);
 
 	return XST_SUCCESS;
 }
@@ -3784,7 +3787,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx *InstancePtr)
 /**
 * This function sets DEPTH in the repeater topology table.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    Depth is the Repeater cascade depth. This value gives the
 *           number of attached levels through the connection topology.
 *           The depth cannot cannot exceed 4 levels.
@@ -3793,7 +3796,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx *InstancePtr)
 *
 * @note     None.
 ******************************************************************************/
-static void XHdcp22Rx_SetTopologyDepth(XHdcp22_Rx *InstancePtr, u8 Depth)
+static void XHdcp22Rx_SetTopologyDepth(XHdcp22_Rx_Dp *InstancePtr, u8 Depth)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3806,7 +3809,7 @@ static void XHdcp22Rx_SetTopologyDepth(XHdcp22_Rx *InstancePtr, u8 Depth)
 /**
 * This function sets DEVICE_COUNT in the repeater topology table.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    DeviceCnt is the Total number of connected downstream devices.
 *           Always zero for HDCP Receivers. The device count does not include
 *           the HDCP Repeater itself, but only devices downstream from the
@@ -3816,7 +3819,7 @@ static void XHdcp22Rx_SetTopologyDepth(XHdcp22_Rx *InstancePtr, u8 Depth)
 *
 * @note     None.
 ******************************************************************************/
-static void XHdcp22Rx_SetTopologyDeviceCnt(XHdcp22_Rx *InstancePtr, u8 DeviceCnt)
+static void XHdcp22Rx_SetTopologyDeviceCnt(XHdcp22_Rx_Dp *InstancePtr, u8 DeviceCnt)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3832,14 +3835,14 @@ static void XHdcp22Rx_SetTopologyDeviceCnt(XHdcp22_Rx *InstancePtr, u8 DeviceCnt
 * topology table used to indicate a topology error. Setting the flag
 * indicates that more than 31 downstream devices are attached.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    Value is either TRUE or FALSE.
 *
 * @return   None.
 *
 * @note     None.
 ******************************************************************************/
-static void XHdcp22Rx_SetTopologyMaxDevsExceeded(XHdcp22_Rx *InstancePtr, u8 Value)
+static void XHdcp22Rx_SetTopologyMaxDevsExceeded(XHdcp22_Rx_Dp *InstancePtr, u8 Value)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3855,14 +3858,14 @@ static void XHdcp22Rx_SetTopologyMaxDevsExceeded(XHdcp22_Rx *InstancePtr, u8 Val
 * flag indicates that more than four levels of repeaters have been
 * cascaded together.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    Value is either TRUE or FALSE.
 *
 * @return   None.
 *
 * @note     None.
 ******************************************************************************/
-static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx *InstancePtr, u8 Value)
+static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx_Dp *InstancePtr, u8 Value)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3877,14 +3880,14 @@ static void XHdcp22Rx_SetTopologyMaxCascadeExceeded(XHdcp22_Rx *InstancePtr, u8 
 * topology table used to indicate the presence of an HDCP2.0-compliant
 * Device in the topology.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    Value is either TRUE or FALSE.
 *
 * @return   None.
 *
 * @note     None.
 ******************************************************************************/
-static void XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value)
+static void XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Rx_Dp *InstancePtr, u8 Value)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3899,14 +3902,14 @@ static void XHdcp22Rx_SetTopologyHdcp2LegacyDeviceDownstream(XHdcp22_Rx *Instanc
 * topology table used to indicate the presence of an HDCP1.x-compliant
 * device in the topology.
 *
-* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param    Value is either TRUE or FALSE.
 *
 * @return   None.
 *
 * @note     None.
 ******************************************************************************/
-static void XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(XHdcp22_Rx *InstancePtr, u8 Value)
+static void XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(XHdcp22_Rx_Dp *InstancePtr, u8 Value)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3919,14 +3922,14 @@ static void XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(XHdcp22_Rx *InstancePtr, 
 /**
 * This function clears the log pointers.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param	Verbose allows to add debug logging.
 *
 * @return	None.
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_LogReset(XHdcp22_Rx *InstancePtr, u8 Verbose)
+void XHdcp22Rx_Dp_LogReset(XHdcp22_Rx_Dp *InstancePtr, u8 Verbose)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3948,13 +3951,13 @@ void XHdcp22Rx_LogReset(XHdcp22_Rx *InstancePtr, u8 Verbose)
 /**
 * This function returns the time expired since a log reset was called.
 *
-* @param  InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param  InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return The expired logging time in useconds.
 *
 * @note   None.
 ******************************************************************************/
-u32 XHdcp22Rx_LogGetTimeUSecs(XHdcp22_Rx *InstancePtr)
+u32 XHdcp22Rx_Dp_LogGetTimeUSecs(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -3970,7 +3973,7 @@ u32 XHdcp22Rx_LogGetTimeUSecs(XHdcp22_Rx *InstancePtr)
 * is of type error, the sticky error flag is set. The sticky error flag
 * is used to keep history of error conditions.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 * @param	Evt specifies an action to be carried out.
 * @param	Data specifies the information that gets written into log
 *			buffer.
@@ -3979,7 +3982,7 @@ u32 XHdcp22Rx_LogGetTimeUSecs(XHdcp22_Rx *InstancePtr)
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_LogWr(XHdcp22_Rx *InstancePtr, u16 Evt, u16 Data)
+void XHdcp22Rx_Dp_LogWr(XHdcp22_Rx_Dp *InstancePtr, u16 Evt, u16 Data)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3996,7 +3999,7 @@ void XHdcp22Rx_LogWr(XHdcp22_Rx *InstancePtr, u16 Evt, u16 Data)
 	InstancePtr->Log.LogItems[InstancePtr->Log.Head].Data = Data;
 	InstancePtr->Log.LogItems[InstancePtr->Log.Head].LogEvent = Evt;
 	InstancePtr->Log.LogItems[InstancePtr->Log.Head].TimeStamp =
-			XHdcp22Rx_LogGetTimeUSecs(InstancePtr);
+			XHdcp22Rx_Dp_LogGetTimeUSecs(InstancePtr);
 
 	/* Update head pointer if reached to end of the buffer */
 	if (InstancePtr->Log.Head == XHDCP22_RX_LOG_BUFFER_SIZE - 1) {
@@ -4031,7 +4034,7 @@ void XHdcp22Rx_LogWr(XHdcp22_Rx *InstancePtr, u16 Evt, u16 Data)
 /**
 * This function provides the log information from the log buffer.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return
 *           - Content of log buffer if log pointers are not equal.
@@ -4039,9 +4042,9 @@ void XHdcp22Rx_LogWr(XHdcp22_Rx *InstancePtr, u16 Evt, u16 Data)
 *
 * @note		None.
 ******************************************************************************/
-XHdcp22_Rx_LogItem* XHdcp22Rx_LogRd(XHdcp22_Rx *InstancePtr)
+XHdcp22_Rx_Dp_LogItem* XHdcp22Rx_Dp_LogRd(XHdcp22_Rx_Dp *InstancePtr)
 {
-	XHdcp22_Rx_LogItem* LogPtr;
+	XHdcp22_Rx_Dp_LogItem* LogPtr;
 	u8 Tail = 0;
 	u8 Head = 0;
 
@@ -4077,15 +4080,15 @@ XHdcp22_Rx_LogItem* XHdcp22Rx_LogRd(XHdcp22_Rx *InstancePtr)
 /**
 * This function prints the contents of the log buffer.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return	None.
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr)
+void XHdcp22Rx_Dp_LogDisplay(XHdcp22_Rx_Dp *InstancePtr)
 {
-	XHdcp22_Rx_LogItem* LogPtr;
+	XHdcp22_Rx_Dp_LogItem* LogPtr;
 	char str[255];
 	u32 TimeStampPrev = 0;
 
@@ -4097,7 +4100,7 @@ void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr)
 	strcpy(str, "UNDEFINED");
 	do {
 		/* Read log data */
-		LogPtr = XHdcp22Rx_LogRd(InstancePtr);
+		LogPtr = XHdcp22Rx_Dp_LogRd(InstancePtr);
 
 		/* Print timestamp */
 		if(LogPtr->LogEvent != XHDCP22_RX_LOG_EVT_NONE)
@@ -4314,17 +4317,17 @@ void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr)
 /**
 * This function prints the state machine information.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
 *
 * @return None.
 *
 * @note   None.
 *
 ******************************************************************************/
-void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr)
+void XHdcp22Rx_Dp_Info(XHdcp22_Rx_Dp *InstancePtr)
 {
 	xil_printf("Status: ");
-	if (XHdcp22Rx_IsEnabled(InstancePtr)) {
+	if (XHdcp22Rx_Dp_IsEnabled(InstancePtr)) {
 		switch (InstancePtr->Info.AuthenticationStatus) {
 			case XHDCP22_RX_UNAUTHENTICATED :
 			xil_printf("Not Authenticated.\r\n");
@@ -4351,14 +4354,14 @@ void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr)
 	}
 
 	xil_printf("Encryption: ");
-	if (XHdcp22Rx_IsEncryptionEnabled(InstancePtr)) {
+	if (XHdcp22Rx_Dp_IsEncryptionEnabled(InstancePtr)) {
 		xil_printf("Enabled.\r\n");
 	} else {
 		xil_printf("Disabled.\r\n");
 	}
 
 	xil_printf("Repeater: ");
-	if (XHdcp22Rx_IsRepeater(InstancePtr)) {
+	if (XHdcp22Rx_Dp_IsRepeater(InstancePtr)) {
 		if (InstancePtr->Topology.MaxDevsExceeded)
 			xil_printf("MaxDevsExceeded, ");
 		if (InstancePtr->Topology.MaxCascadeExceeded)
@@ -4369,7 +4372,7 @@ void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr)
 			xil_printf("Hdcp1DeviceDownstream, ");
 		xil_printf("Depth=%d, ", InstancePtr->Topology.Depth);
 		xil_printf("DeviceCnt=%d, ", InstancePtr->Topology.DeviceCnt);
-		xil_printf("StreamType=%d\r\n", XHdcp22Rx_GetContentStreamType(InstancePtr));
+		xil_printf("StreamType=%d\r\n", XHdcp22Rx_Dp_GetContentStreamType(InstancePtr));
 	} else {
 		xil_printf("Disabled.\r\n");
 	}
@@ -4482,7 +4485,7 @@ static u32 XHdcp22_Rx_StubRdWrHandler(void *HandlerRef, u32 offset,
  * This function reads a complete message out of the DPCD registers based on
  * the DPCD flag
  *
- * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+ * @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
  *
  * @return	Size of message read out of read message buffer.
  *
@@ -4491,7 +4494,7 @@ static u32 XHdcp22_Rx_StubRdWrHandler(void *HandlerRef, u32 offset,
  * 		statmachine which is written for HDMI,
  * 		Assigned msg_ids for each msg rcvd.
  ******************************************************************************/
-static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx_Dp *InstancePtr)
 {
 	int size = 0;
 	u8 buf[XHDCP22_RX_MAX_MESSAGE_SIZE] = {0};
@@ -4634,7 +4637,7 @@ static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
 /**
  * This function writes a complete message into the DPCD registers.
  *
- * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+ * @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
  *
  * @return	Size of message read out of read message buffer.
  *
@@ -4643,7 +4646,7 @@ static int XHdcp22Rx_Dp_Read_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
  * 		statmachine which is written for HDMI,
  * 		Assigned msg_ids for each msg rcvd.
  ******************************************************************************/
-static int XHdcp22Rx_Dp_Write_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
+static int XHdcp22Rx_Dp_Write_Dpcd_Msg(XHdcp22_Rx_Dp *InstancePtr)
 {
 	XHdcp22_Rx_Message buffer;
 	int numwritten = 0;
@@ -4718,17 +4721,17 @@ static int XHdcp22Rx_Dp_Write_Dpcd_Msg(XHdcp22_Rx *InstancePtr)
  * This function is to set the DPCD flag if any DPCD read/write
  * interrupts occurred
  *
- * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+ * @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
  * @param	type is the type of interrupt
  *
  *****************************************************************************/
-void XHdcp22Rx_SetDpcdMsgRdWrtAvailable(XHdcp22_Rx *InstancePtr, u32 type)
+void XHdcp22Rx_Dp_SetDpcdMsgRdWrtAvailable(XHdcp22_Rx_Dp *InstancePtr, u32 type)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Log info event */
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG,
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG,
 			XHDCP22_RX_LOG_DEBUG_WRITE_MESSAGE_AVAILABLE);
 
 	/*Update DPCD flag*/
@@ -4742,12 +4745,12 @@ void XHdcp22Rx_SetDpcdMsgRdWrtAvailable(XHdcp22_Rx *InstancePtr, u32 type)
 /**
  * This function is to set the protocol (HDMI/DP) over which HDCP22 is happening.
  *
- * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+ * @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
  * @param	protocol is the protocol HDMI/DP.
  *
  *****************************************************************************/
-void XHdcp22Rx_SetHdcp22OverProtocol(XHdcp22_Rx *InstancePtr,
-		XHdcp22_Rx_Protocol protocol)
+void XHdcp22Rx_Dp_SetHdcp22OverProtocol(XHdcp22_Rx_Dp *InstancePtr,
+		XHdcp22_Rx_Dp_Protocol protocol)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -4761,11 +4764,11 @@ void XHdcp22Rx_SetHdcp22OverProtocol(XHdcp22_Rx *InstancePtr,
  * For the DP design the timer is being used from the DP subsyetem.
  * So the HDCP22 timer instance will be attached in DpSs initialization.
  *
- * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
+ * @param	InstancePtr is a pointer to the XHdcp22_Rx_Dp core instance.
  * @param	TmrCtrPtr is the DpRx susbsystem's timer instance.
  *
  *****************************************************************************/
-void XHdcp22_timer_attach(XHdcp22_Rx *InstancePtr, XTmrCtr *TmrCtrPtr)
+void XHdcp22_Dp_timer_attach(XHdcp22_Rx_Dp *InstancePtr, XTmrCtr *TmrCtrPtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -4792,14 +4795,14 @@ void XHdcp22_timer_attach(XHdcp22_Rx *InstancePtr, XTmrCtr *TmrCtrPtr)
  * @note		None.
  *
  ******************************************************************************/
-void XHdcp22_RxSetLaneCount(XHdcp22_Rx *InstancePtr, u8 LaneCount)
+void XHdcp22_Dp_RxSetLaneCount(XHdcp22_Rx_Dp *InstancePtr, u8 LaneCount)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(LaneCount > 0);
 
 	/* Set it */
-	XHdcp22Cipher_SetLanecount(&InstancePtr->CipherInst, LaneCount);
+	XHdcp22Cipher_Dp_SetLanecount(&InstancePtr->CipherInst, LaneCount);
 }
 
 /*****************************************************************************/
@@ -4814,7 +4817,7 @@ void XHdcp22_RxSetLaneCount(XHdcp22_Rx *InstancePtr, u8 LaneCount)
  * @note		None.
  *
  ******************************************************************************/
-u32 XHdcp22_RxSetRxCaps(XHdcp22_Rx *InstancePtr, u8 enable)
+u32 XHdcp22_Dp_RxSetRxCaps(XHdcp22_Rx_Dp *InstancePtr, u8 enable)
 {
 	u8 rx_caps[RX_CAPS_SIZE] = {0};
 	u8 numwritten = 0;
@@ -4847,7 +4850,7 @@ u32 XHdcp22_RxSetRxCaps(XHdcp22_Rx *InstancePtr, u8 enable)
  * @note	None.
  *
  ******************************************************************************/
-void XHdcp22_RxSetStreamType(XHdcp22_Rx *InstancePtr)
+void XHdcp22_Dp_RxSetStreamType(XHdcp22_Rx_Dp *InstancePtr)
 {
 	u8 buf[R_IV_SIZE] = {0};
 
@@ -4865,7 +4868,7 @@ void XHdcp22_RxSetStreamType(XHdcp22_Rx *InstancePtr)
 	if (InstancePtr->Params.StreamIdType[1]) {
 		memcpy(buf, InstancePtr->Params.Riv, R_IV_SIZE);
 		buf[R_IV_SIZE - 1] ^= 0x01;
-		XHdcp22Cipher_SetRiv(&InstancePtr->CipherInst, buf, R_IV_SIZE);
+		XHdcp22Cipher_Dp_SetRiv(&InstancePtr->CipherInst, buf, R_IV_SIZE);
 	}
 }
 
@@ -4880,7 +4883,7 @@ void XHdcp22_RxSetStreamType(XHdcp22_Rx *InstancePtr)
  * @note	None.
  *
  ******************************************************************************/
-void XHdcp22_RxSetReauthReq(XHdcp22_Rx *InstancePtr)
+void XHdcp22_Dp_RxSetReauthReq(XHdcp22_Rx_Dp *InstancePtr)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);

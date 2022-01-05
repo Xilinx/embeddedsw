@@ -5,7 +5,7 @@
 ################################################################################
 
 proc generate {drv_handle} {
-  ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XHdcp22_Rx" \
+  ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XHdcp22_Rx_Dp" \
 	"NUM_INSTANCES" \
 	"DEVICE_ID" \
 	"C_BASEADDR" \
@@ -13,13 +13,13 @@ proc generate {drv_handle} {
 	"C_PROTOCOL" \
 	"C_MODE"
 
-  hier_ip_define_config_file $drv_handle "xhdcp22_rx_g.c" "XHdcp22_Rx" \
+  hier_ip_define_config_file $drv_handle "xhdcp22_rx_dp_g.c" "XHdcp22_Rx_Dp" \
 	"DEVICE_ID" \
 	"C_BASEADDR" \
 	"C_PROTOCOL" \
 	"C_MODE"
 
-  ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "XHdcp22_Rx" \
+  ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "XHdcp22_Rx_Dp" \
 	"NUM_INSTANCES" \
 	"DEVICE_ID" \
 	"C_BASEADDR" \

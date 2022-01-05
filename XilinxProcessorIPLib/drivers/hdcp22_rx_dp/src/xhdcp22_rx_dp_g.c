@@ -5,13 +5,13 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xhdcp22_rx.h"
+#include "xhdcp22_rx_dp.h"
 
 /*
 * The configuration table for devices
 */
 
-XHdcp22_Rx_Config XHdcp22_Rx_ConfigTable[] =
+XHdcp22_Rx_Dp_Config XHdcp22_Rx_Dp_ConfigTable[] =
 {
 	{
 		XPAR_DP_RX_HIER_0_V_DP_RXSS1_0_DP_RX_HDCP22_DEVICE_ID,

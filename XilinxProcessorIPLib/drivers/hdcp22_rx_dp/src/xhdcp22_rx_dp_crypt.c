@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_crypt.c
-* @addtogroup hdcp22_rx_dp_v2_1
+* @addtogroup hdcp22_rx_dp_v3_0
 * @{
 * @details
 *
@@ -20,6 +20,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  JB   02/19/19 First Release.
+* 3.00  JB   12/24/21 File name changed from xhdcp22_rx_crypt.c to
+*                     xhdcp22_rx_dp_crypt.c.
 *</pre>
 *
 *****************************************************************************/
@@ -30,7 +32,7 @@
 #include "string.h"
 #include "xil_assert.h"
 #include "xstatus.h"
-#include "xhdcp22_rx_i.h"
+#include "xhdcp22_rx_dp_i.h"
 #include "xhdcp22_common.h"
 
 /************************** Constant Definitions ****************************/
@@ -46,23 +48,23 @@
 /* Functions for implementing PCKS1 */
 static int  XHdcp22Rx_Pkcs1Rsaep(const XHdcp22_Rx_KpubRx *KpubRx, u8 *Message,
 	            u8 *EncryptedMessage);
-static int  XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
+static int  XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
 	            u8 *EncryptedMessage, u8 *Message);
 static int  XHdcp22Rx_Pkcs1Mgf1(const u8 *seed, const u32 seedlen, u8  *mask, u32 masklen);
 static int  XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
 	            const u8 *MaskingSeed, u8 *EncodedMessage);
 static int  XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *MessageLen);
-static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, u32 *N,
+static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx_Dp *InstancePtr, u32 *N,
 	            const u32 *NPrime, int NDigits);
 #ifndef _XHDCP22_RX_SW_MMULT_
-static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, u32 *U, u32 *A,
+static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx_Dp *InstancePtr, u32 *U, u32 *A,
 	            u32 *B, int NDigits);
 #else
 static void XHdcp22Rx_Pkcs1MontMultFiosStub(u32 *U, u32 *A, u32 *B, u32 *N,
 	            const u32 *NPrime, int NDigits);
 static void XHdcp22Rx_Pkcs1MontMultAdd(u32 *A, u32 C, int SDigit, int NDigits);
 #endif
-static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, u32 *C, u32 *A, u32 *E,
+static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx_Dp *InstancePtr, u32 *C, u32 *A, u32 *E,
 	            u32 *N, const u32 *NPrime, int NDigits);
 
 /* Functions for implementing other cryptographic tasks */
@@ -226,7 +228,7 @@ int XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Messag
 *
 * @note		None.
 *****************************************************************************/
-int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
+int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
 	u8 *EncryptedMessage, u8 *Message, int *MessageLen)
 {
 	/* Verify arguments */
@@ -238,7 +240,7 @@ int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivR
 	u8  em[XHDCP22_RX_N_SIZE];
 	u32 Status;
 
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_RSA);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_RSA);
 
 	/* Step 1: Length checking, Skip */
 
@@ -254,7 +256,7 @@ int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivR
 		return XST_FAILURE;
 	}
 
-	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_RSA_DONE);
+	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_RSA_DONE);
 
 	return XST_SUCCESS;
 }
@@ -272,7 +274,7 @@ int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivR
 * @note   None.
 *
 ******************************************************************************/
-void XHdcp22Rx_GenerateRandom(XHdcp22_Rx *InstancePtr, int NumOctets,
+void XHdcp22Rx_GenerateRandom(XHdcp22_Rx_Dp *InstancePtr, int NumOctets,
                               u8* RandomNumberPtr)
 {
 	/* Use hardware generator */
@@ -336,7 +338,7 @@ static int XHdcp22Rx_Pkcs1Rsaep(const XHdcp22_Rx_KpubRx *KpubRx, u8 *Message, u8
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
+static int XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx_Dp *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
 	u8 *EncryptedMessage, u8 *Message)
 {
 	/* Verify arguments */
@@ -808,7 +810,7 @@ static void XHdcp22Rx_Pkcs1MontMultFiosStub(u32 *U, u32 *A, u32 *B,
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, u32 *N,
+static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx_Dp *InstancePtr, u32 *N,
 	const u32 *NPrime, int NDigits)
 {
 	/* Verify arguments */
@@ -845,7 +847,7 @@ static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, u32 *N,
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, u32 *U,
+static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx_Dp *InstancePtr, u32 *U,
 	u32 *A, u32 *B, int NDigits)
 {
 	/* Verify arguments */
@@ -894,7 +896,7 @@ static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, u32 *U,
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, u32 *C, u32 *A,
+static int XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx_Dp *InstancePtr, u32 *C, u32 *A,
 	u32 *E, u32 *N, const u32 *NPrime, int NDigits)
 {
 	int Offset;
