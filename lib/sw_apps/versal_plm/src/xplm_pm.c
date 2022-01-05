@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,7 @@
 *       bsv  08/13/2021 Removed unwanted goto statements
 *       kpt  09/09/2021 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 * 1.06  skd  11/18/2021 Added time stamps in XPlm_ProcessPmcCdo
+*       bm   01/05/2022 Fixed ZEROIZE-PRIORITY for XLoader_SecureClear
 *
 * </pre>
 *
@@ -255,6 +256,10 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	Cdo.BufLen = XPLMI_PMCRAM_LEN;
 	Cdo.SubsystemId = PM_SUBSYS_PMC;
 	Status = XPlmi_ProcessCdo(&Cdo);
+	if (Status != XST_SUCCESS) {
+		(void)XLoader_SecureClear();
+		goto END;
+	}
 
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
 	XPlmi_MeasurePerfTime(TaskStartTime, &PerfTime);
@@ -262,21 +267,20 @@ int XPlm_ProcessPmcCdo(void *Arg)
 			(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
 
+	Status = XPlmi_SysMonInit();
+
+END:
 	/* Clear PMC CDO memory irrespective of success or failure */
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_BASEADDR, XPLMI_DATA_INIT_PZM,
 			XPLMI_PMC_CDO_MAX_WORD_LEN);
-	if ((XST_SUCCESS != Status) || (XST_SUCCESS != SStatus)) {
+	if (XST_SUCCESS != SStatus) {
 		SStatus = XLoader_SecureClear();
 		if (Status == XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XPLM_ERR_PMC_RAM_MEMSET,
 					SStatus);
 		}
-		goto END;
 	}
 
-	Status = XPlmi_SysMonInit();
-
-END:
 	return Status;
 }
 
