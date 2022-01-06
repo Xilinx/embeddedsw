@@ -22,6 +22,8 @@
 * 11.0  cog    05/31/21 Upversion.
 * 11.1  cog    11/16/21 Upversion.
 *       cog    11/26/21 Reset clock gaters when setting decimation rate.
+*       cog    01/06/22 Check Nyquist zone compatibility when setting the
+*                       inverse sinc filter.
 *
 * </pre>
 *
@@ -690,6 +692,7 @@ u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 Mode)
 {
 	u32 Status;
 	u32 BaseAddr;
+	u32 NyquistZone;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -697,7 +700,6 @@ u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 Mode)
 	if (Mode > ((InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) ? XRFDC_INV_SYNC_EN_MAX : XRFDC_INV_SYNC_MODE_MAX)) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid mode value (%u) for DAC %u block %u in %s\r\n", Mode, Tile_Id,
 			  Block_Id, __func__);
-		;
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
@@ -705,6 +707,19 @@ u32 XRFdc_SetInvSincFIR(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u16 Mode)
 	if (Status != XRFDC_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n DAC %u block %u not available in %s\r\n", Tile_Id, Block_Id, __func__);
 		goto RETURN_PATH;
+	}
+
+	Status = XRFdc_GetNyquistZone(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, &NyquistZone);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Could not determine Nyquist zone for DAC %u block %u in %s\r\n", Tile_Id,
+			  Block_Id, __func__);
+		goto RETURN_PATH;
+	}
+
+	if ((Mode != XRFDC_DISABLED) && (Mode != NyquistZone)) {
+		metal_log(METAL_LOG_WARNING,
+			  "\n Inverse Sinc mode and Nyquist Zone are incompatible for DAC %u block %u in %s\r\n",
+			  Tile_Id, Block_Id, __func__);
 	}
 
 	BaseAddr = XRFDC_BLOCK_BASE(XRFDC_DAC_TILE, Tile_Id, Block_Id);
