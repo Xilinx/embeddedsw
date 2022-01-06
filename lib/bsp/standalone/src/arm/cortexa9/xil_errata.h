@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +25,10 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a srt  04/18/13 First release
-* 6.6   mus  12/07/17 Removed errata 753970, It fixes CR#989132.
+* 6.6   mus  12/07/17 Removed errata 753970, It fixes CR#989132
+* 7.7   asa  01/06/22 Removed errata 742230 and 743622. These are
+*                     already fixed in Cortex-A9 r3p0, the revision
+*                     that is being used in Zynq platforms.
 * </pre>
 *
 ******************************************************************************/
@@ -53,19 +56,6 @@ extern "C" {
  */
 
 #ifdef ENABLE_ARM_ERRATA
-
-/**
- *  Errata No: 	 742230
- *  Description: DMB operation may be faulty
- */
-#define CONFIG_ARM_ERRATA_742230 1
-
-/**
- *  Errata No: 	 743622
- *  Description: Faulty hazard checking in the Store Buffer may lead
- *	         	 to data corruption.
- */
-#define CONFIG_ARM_ERRATA_743622 1
 
 /**
  *  Errata No: 	 775420

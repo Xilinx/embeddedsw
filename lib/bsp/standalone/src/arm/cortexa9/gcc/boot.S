@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -60,6 +60,10 @@
 *                        zynq-7000s devices
 * 7.6   mus     09/02/21 SCU invalidation should be done only from primary CPU, so
 *                        skipping it when USE_AMP is set to 1. It fixes CR#1109723
+* 7.7   asa     01/06/22 Removed Cortex-A9 errata handling for errata
+* 			 742230 and 743622. These do not apply to
+* 			 Cortex-A9 revision r3p0 being used in Zynq
+* 			 platforms.
 *
 * </pre>
 *
@@ -196,20 +200,6 @@ OKToRun:
 	and     r5, r0, #0x00f00000
 	and     r6, r0, #0x0000000f
 	orr     r6, r6, r5, lsr #20-4
-
-#ifdef CONFIG_ARM_ERRATA_742230
-        cmp     r6, #0x22                       /* only present up to r2p2 */
-        mrcle   p15, 0, r10, c15, c0, 1         /* read diagnostic register */
-        orrle   r10, r10, #1 << 4               /* set bit #4 */
-        mcrle   p15, 0, r10, c15, c0, 1         /* write diagnostic register */
-#endif
-
-#ifdef CONFIG_ARM_ERRATA_743622
-	teq     r5, #0x00200000                 /* only present in r2p* */
-	mrceq   p15, 0, r10, c15, c0, 1         /* read diagnostic register */
-	orreq   r10, r10, #1 << 6               /* set bit #6 */
-	mcreq   p15, 0, r10, c15, c0, 1         /* write diagnostic register */
-#endif
 
 	/* set VBAR to the _vector_table address in linker script */
 	ldr	r0, =vector_base
