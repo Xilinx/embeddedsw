@@ -58,8 +58,8 @@ typedef uint64_t		u64;
 #define XAIEGBL_TILE_TYPE_MEMTILE	3U
 #define XAIEGBL_TILE_TYPE_MAX		4U
 
-#define XAie_SetField(Val, Lsb, Mask)	(((u32)Val << (Lsb)) & Mask)
-#define XAie_GetField(Val, Lsb, Mask)	(((u32)Val & Mask) >> Lsb)
+#define XAie_SetField(Val, Lsb, Mask)	(((u32)(Val) << (Lsb)) & (Mask))
+#define XAie_GetField(Val, Lsb, Mask)	(((u32)(Val) & (Mask)) >> (Lsb))
 
 /************************** Variable Definitions *****************************/
 /************************** Function Prototypes  *****************************/

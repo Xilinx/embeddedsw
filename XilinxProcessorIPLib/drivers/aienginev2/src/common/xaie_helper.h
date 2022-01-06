@@ -37,7 +37,8 @@
 #include "xaiegbl_regdef.h"
 
 /***************************** Macro Definitions *****************************/
-#define CheckBit(bitmap, pos)   (bitmap[ pos / (sizeof(bitmap[0]) * 8U)] & (1U << pos % (sizeof(bitmap[0]) * 8U)))
+#define CheckBit(bitmap, pos)   ((bitmap)[(pos) / (sizeof((bitmap)[0]) * 8U)] & \
+				 (1U << (pos) % (sizeof((bitmap)[0]) * 8U)))
 
 #define XAIE_ERROR(...) \
 	do { XAie_Log(stderr, "[AIE ERROR]: \t", __VA_ARGS__); } while(0)
