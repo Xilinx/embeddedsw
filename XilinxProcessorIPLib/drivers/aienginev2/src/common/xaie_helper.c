@@ -1039,7 +1039,7 @@ AieRC XAie_MaskPoll(XAie_DevInst *DevInst, u64 RegOff, u32 Mask, u32 Value,
 			Value, TimeOutUs);
 }
 
-AieRC XAie_BlockWrite32(XAie_DevInst *DevInst, u64 RegOff, u32 *Data, u32 Size)
+AieRC XAie_BlockWrite32(XAie_DevInst *DevInst, u64 RegOff, const u32 *Data, u32 Size)
 {
 	AieRC RC;
 	u64 Tid;

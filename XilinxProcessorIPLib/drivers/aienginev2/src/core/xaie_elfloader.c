@@ -296,7 +296,7 @@ static AieRC _XAie_WriteProgramSection(XAie_DevInst *DevInst, XAie_LocType Loc,
 		}
 
 		RC = XAie_DataMemBlockWrite(DevInst, TgtLoc, Addr,
-				(void*)ProgSec, BytesToWrite);
+				(const void*)ProgSec, BytesToWrite);
 		if(RC != XAIE_OK) {
 			XAIE_ERROR("Write to data memory failed\n");
 			return RC;
@@ -386,8 +386,8 @@ AieRC XAie_LoadElfMem(XAie_DevInst *DevInst, XAie_LocType Loc,
 		const unsigned char* ElfMem)
 {
 	AieRC RC;
-	Elf32_Ehdr *Ehdr;
-	Elf32_Phdr *Phdr;
+	const Elf32_Ehdr *Ehdr;
+	const Elf32_Phdr *Phdr;
 	const unsigned char *SectionPtr;
 	u8 TileType;
 
@@ -403,7 +403,7 @@ AieRC XAie_LoadElfMem(XAie_DevInst *DevInst, XAie_LocType Loc,
 		return XAIE_INVALID_TILE;
 	}
 
-	Ehdr = (Elf32_Ehdr *) ElfMem;
+	Ehdr = (const Elf32_Ehdr *) ElfMem;
 	_XAie_PrintElfHdr(Ehdr);
 
 	/* For AIE, turn ECC Off before program memory load */
@@ -708,7 +708,7 @@ AieRC XAie_LoadElfSectionBlock(XAie_DevInst *DevInst, XAie_LocType Loc,
 	Addr = CoreMod->ProgMemHostOffset + TgtAddr +
 		_XAie_GetTileAddr(DevInst, Loc.Row, Loc.Col);
 
-	return XAie_BlockWrite32(DevInst, Addr, (u32 *)SectionPtr,
+	return XAie_BlockWrite32(DevInst, Addr, (const u32 *)SectionPtr,
 			(Size + 4U - 1U) / 4U);
 }
 
