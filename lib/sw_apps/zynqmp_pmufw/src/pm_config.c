@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -236,7 +236,7 @@ static s32 PmConfigSlaveSectionHandler(u32* const addr)
 
 		if (0U != (slave->flags & PM_SLAVE_FLAG_IS_CONFIGURED)) {
 			PmErr("Slave already configured #%lu\r\n", nodeId);
-			status = XST_FAILURE;
+			status = XST_PM_ALREADY_CONFIGURED;
 			goto done;
 
 		}
