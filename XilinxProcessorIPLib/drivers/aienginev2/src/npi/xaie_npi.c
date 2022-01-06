@@ -250,7 +250,7 @@ AieRC _XAie_NpiSetProtectedRegEnable(XAie_DevInst *DevInst,
 * @note		None.
 *
 *******************************************************************************/
-AieRC _XAie_NpiIrqConfig(XAie_DevInst *DevInst, u8 Ops, u8 NpiIrqID,
+static AieRC _XAie_NpiIrqConfig(XAie_DevInst *DevInst, u8 Ops, u8 NpiIrqID,
 				u8 AieIrqID)
 {
 	u32 RegOff;
