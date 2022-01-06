@@ -30,6 +30,9 @@
 * 1.0	hv   05/04/2021   Updated Doxygen comments
 * 1.1	hv   08/18/2021   Fix Doxygen warnings
 * 1.2	hv   10/08/2021   Added user interface to Get SEM configuration
+* 1.3	hv   01/06/2022   Replaced library specific utility functions and
+* 			  standard lib functions with Xilinx maintained
+* 			  functions
 *
 * </pre>
 *
@@ -106,9 +109,6 @@ extern "C" {
 
 /** PMC_RAM_SEM_CRAM_COR_BITCNT */
 #define PMC_RAM_SEM_CRAM_COR_BITCNT	(PMC_RAM_BASEADDR + 0X000000C0U)
-
-/** Read 32 bit register */
-#define XSem_In32			Xil_In32
 
 /* CRAM Commands ID */
 /** Command ID for CRAM initialization */
