@@ -228,7 +228,7 @@ static AieRC XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 * @note		Internal only.
 *
 *******************************************************************************/
-static AieRC XAie_SimIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+static AieRC XAie_SimIO_BlockWrite32(void *IOInst, u64 RegOff, const u32 *Data,
 		u32 Size)
 {
 	for(u32 i = 0U; i < Size; i++) {
@@ -501,7 +501,7 @@ static AieRC XAie_SimIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value,
 	return XAIE_ERR;
 }
 
-static AieRC XAie_SimIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
+static AieRC XAie_SimIO_BlockWrite32(void *IOInst, u64 RegOff, const u32 *Data,
 		u32 Size)
 {
 	/* no-op */

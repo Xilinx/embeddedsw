@@ -630,7 +630,7 @@ static inline u64 _XAie_GetMemOffset(XAie_LinuxIO *IOInst, u8 Col, u8 Row,
 * @note		Internal only.
 *
 *******************************************************************************/
-static void _XAie_CopyDataToMem(u32 *Dest, u32 *Src, u32 Size)
+static void _XAie_CopyDataToMem(u32 *Dest, const u32 *Src, u32 Size)
 {
 	u32 StartExtraWrds = 0, EndExtraWrds = 0;
 
@@ -735,8 +735,8 @@ static u32* _XAie_GetVirtAddrFromOffset(XAie_LinuxIO *IOInst, u64 RegOff,
 * @note		Internal only.
 *
 *******************************************************************************/
-static AieRC XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
-		u32 Size)
+static AieRC XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff,
+		const u32 *Data, u32 Size)
 {
 	XAie_LinuxIO *Inst = (XAie_LinuxIO *)IOInst;
 	u32 *VirtAddr;
@@ -1698,8 +1698,8 @@ static AieRC XAie_LinuxIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value
 	return XAIE_ERR;
 }
 
-static AieRC XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
-		u32 Size)
+static AieRC XAie_LinuxIO_BlockWrite32(void *IOInst, u64 RegOff,
+		const u32 *Data, u32 Size)
 {
 	/* no-op */
 	(void)IOInst;

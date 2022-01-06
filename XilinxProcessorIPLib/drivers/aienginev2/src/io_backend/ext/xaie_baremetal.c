@@ -235,8 +235,8 @@ static AieRC XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask,
 * @note		Internal only.
 *
 *******************************************************************************/
-static AieRC XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
-		u32 Size)
+static AieRC XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff,
+		const u32 *Data, u32 Size)
 {
 	for(u32 i = 0U; i < Size; i++) {
 		XAie_BaremetalIO_Write32(IOInst, RegOff + i * 4U, *Data);
@@ -612,8 +612,8 @@ static AieRC XAie_BaremetalIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask,
 	return XAIE_ERR;
 }
 
-static AieRC XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
-		u32 Size)
+static AieRC XAie_BaremetalIO_BlockWrite32(void *IOInst, u64 RegOff,
+		const u32 *Data, u32 Size)
 {
 	/* no-op */
 	(void)IOInst;

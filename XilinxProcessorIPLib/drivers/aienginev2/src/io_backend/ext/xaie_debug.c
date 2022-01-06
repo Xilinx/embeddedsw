@@ -205,8 +205,8 @@ static AieRC XAie_DebugIO_MaskPoll(void *IOInst, u64 RegOff, u32 Mask, u32 Value
 * @note		None.
 *
 *******************************************************************************/
-static AieRC XAie_DebugIO_BlockWrite32(void *IOInst, u64 RegOff, u32 *Data,
-		u32 Size)
+static AieRC XAie_DebugIO_BlockWrite32(void *IOInst, u64 RegOff,
+		const u32 *Data, u32 Size)
 {
 	for(u32 i = 0U; i < Size; i ++) {
 		XAie_DebugIO_Write32(IOInst, RegOff + i * 4U, *Data);
