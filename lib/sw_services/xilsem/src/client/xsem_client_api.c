@@ -33,6 +33,9 @@
 * 0.9	hv   05/04/2021   Updated Doxygen comments
 * 1.0	hv   10/08/2021   Added user interface to Get SEM configuration
 * 1.1   hb   12/15/2021   Fixed compilation errors when prints are enabled
+* 1.2	hv   01/06/2022   Replaced library specific utility functions and
+* 			  standard lib functions with Xilinx maintained
+* 			  functions
 * </pre>
 *
 * @note
@@ -372,14 +375,14 @@ XStatus XSem_CmdCfrGetStatus(XSemCfrStatus *CfrStatusInfo)
 		goto END;
 	}
 
-	CfrStatusInfo->Status = XSem_In32(PMC_RAM_SEM_CRAM_STATUS);
-	CfrStatusInfo->ErrCorCnt = XSem_In32(PMC_RAM_SEM_CRAM_COR_BITCNT);
+	CfrStatusInfo->Status = Xil_In32(PMC_RAM_SEM_CRAM_STATUS);
+	CfrStatusInfo->ErrCorCnt = Xil_In32(PMC_RAM_SEM_CRAM_COR_BITCNT);
 
 	for (Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
 		CfrStatusInfo->ErrAddrL[Index] = \
-			XSem_In32((PMC_RAM_SEM_CRAMERR_ADDRL0 + (Index * 8U)));
+			Xil_In32((PMC_RAM_SEM_CRAMERR_ADDRL0 + (Index * 8U)));
 		CfrStatusInfo->ErrAddrH[Index] = \
-			XSem_In32((PMC_RAM_SEM_CRAMERR_ADDRH0 + (Index * 8U)));
+			Xil_In32((PMC_RAM_SEM_CRAMERR_ADDRH0 + (Index * 8U)));
 	}
 
 	Status = XST_SUCCESS;
@@ -626,18 +629,18 @@ XStatus XSem_CmdNpiGetStatus(XSemNpiStatus *NpiStatusInfo)
 		goto END;
 	}
 
-	NpiStatusInfo->Status = XSem_In32(PMC_RAM_SEM_NPI_STATUS);
-	NpiStatusInfo->ScanCnt = XSem_In32(PMC_RAM_SEM_NPI_SCAN_CNT);
-	NpiStatusInfo->HbCnt = XSem_In32(PMC_RAM_SEM_NPI_HEARTBEAT_CNT);
+	NpiStatusInfo->Status = Xil_In32(PMC_RAM_SEM_NPI_STATUS);
+	NpiStatusInfo->ScanCnt = Xil_In32(PMC_RAM_SEM_NPI_SCAN_CNT);
+	NpiStatusInfo->HbCnt = Xil_In32(PMC_RAM_SEM_NPI_HEARTBEAT_CNT);
 
 	for (Index = 0U; Index < MAX_NPI_SLV_SKIP_CNT; Index++) {
 		NpiStatusInfo->SlvSkipCnt[Index] = \
-			XSem_In32(PMC_RAM_SEM_NPI_SLVSKIP_CNT0 + (Index * 4U));
+			Xil_In32(PMC_RAM_SEM_NPI_SLVSKIP_CNT0 + (Index * 4U));
 	}
 
 	for (Index = 0U; Index < MAX_NPI_ERR_INFO_CNT; Index++) {
 		NpiStatusInfo->ErrInfo[Index] = \
-			XSem_In32(PMC_RAM_SEM_NPIERR_INFO0 + (Index * 4U));
+			Xil_In32(PMC_RAM_SEM_NPIERR_INFO0 + (Index * 4U));
 	}
 
 	Status = XST_SUCCESS;
