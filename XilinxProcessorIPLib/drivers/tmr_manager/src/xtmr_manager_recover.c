@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.3   adk  01/07/22 Fixed Assert check in the XTMR_Manager_BreakHandler API.
 * </pre>
 *
 *****************************************************************************/
@@ -72,7 +73,7 @@ void XTMR_Manager_BreakHandler (XTMR_Manager *InstancePtr)
 	 */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((InstancePtr->Cr & XTM_CR_RIR) != 0);
+	Xil_AssertVoid((InstancePtr->Cr & XTM_CR_RIR_MASK) != 0);
 	Xil_AssertVoid((InstancePtr->Cr & XTM_CR_MAGIC1_MASK) ==
 		       XPAR_TMR_MANAGER_0_MAGIC1);
 

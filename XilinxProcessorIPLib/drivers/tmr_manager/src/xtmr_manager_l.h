@@ -20,6 +20,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.3   adk  01/07/22 Added define XTM_CR_RIR_MASK it is used in the
+* 		      XTMR_Manager_BreakHandler API.
 * </pre>
 *
 *****************************************************************************/
@@ -65,6 +67,7 @@ extern "C" {
 
 #define XTM_CR_MAGIC1_MASK	0x000ff	/* magic byte 1 mask */
 #define XTM_CR_MAGIC2_MASK	0x0ff00	/* magic byte 2 mask */
+#define XTM_CR_RIR_MASK         0x10000 /* recover is reset mask*/
 
 /* First Failing Register bit positions */
 
