@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,9 +40,10 @@
 *       dc     11/30/21 Convert AntennaCfg to structure
 *       dc     12/02/21 Add UpdateAntennaCfg API
 *       dc     12/17/21 Update after documentation review
+* 1.3   dc     01/07/22 Zero-padding coefficients
 *
 * </pre>
-* @addtogroup dfeccf_v1_2
+* @addtogroup dfeccf_v1_3
 * @{
 ******************************************************************************/
 /**
@@ -66,6 +67,7 @@
 #define XDFECCF_SEQUENCE_ENTRY_NULL (-1) /**< Null sequence entry flag */
 #define XDFECCF_NO_EMPTY_CCID_FLAG (0xFFFFU) /**< Not Empty CCID flag */
 #define XDFECCF_COEFF_LOAD_TIMEOUT (100U) /**< Units of 10us */
+#define XDFECCF_COEFF_UNIT_SIZE (4U) /**< Coefficient unit size */
 /**
 * @endcond
 */
@@ -1914,6 +1916,7 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 			      const XDfeCcf_Coefficients *Coeffs)
 {
 	u32 NumValues;
+	u32 NumUnits;
 	u32 IsOdd;
 	u32 LoadActive;
 	u32 Val;
@@ -1943,10 +1946,13 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 		}
 	}
 
+	/* Nuber of units */
+	NumUnits = (NumValues + (XDFECCF_COEFF_UNIT_SIZE - 1)) /
+		   XDFECCF_COEFF_UNIT_SIZE;
+
 	/* When no load is active write filter coefficients and initiate load */
 	Val = XDfeCcf_WrBitField(XDFECCF_NUMBER_UNITS_WIDTH,
-				 XDFECCF_NUMBER_UNITS_OFFSET, 0U,
-				 (NumValues + 3U) / 4U);
+				 XDFECCF_NUMBER_UNITS_OFFSET, 0U, NumUnits);
 	Val = XDfeCcf_WrBitField(XDFECCF_SHIFT_VALUE_WIDTH,
 				 XDFECCF_SHIFT_VALUE_OFFSET, Val, Shift);
 	Val = XDfeCcf_WrBitField(XDFECCF_IS_SYMMETRIC_WIDTH,
@@ -1960,6 +1966,13 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 		XDfeCcf_WriteReg(InstancePtr,
 				 XDFECCF_COEFF_VALUE + (sizeof(u32) * Index),
 				 Coeffs->Value[Index]);
+	}
+	/* Zero-padding of not used coefficients in the last unit */
+	for (Index = NumValues; Index < NumUnits * XDFECCF_COEFF_UNIT_SIZE;
+	     Index++) {
+		XDfeCcf_WriteReg(InstancePtr,
+				 XDFECCF_COEFF_VALUE + (sizeof(u32) * Index),
+				 0);
 	}
 
 	/* Set the coefficient set value */
