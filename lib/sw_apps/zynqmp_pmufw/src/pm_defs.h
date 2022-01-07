@@ -32,6 +32,17 @@ extern "C" {
 
 #define PM_VERSION	((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
 
+/**
+ * @name PM API versions
+ * @{
+ */
+/**
+ * PM API versions
+ */
+#define PM_API_BASE_VERSION	(1U)
+#define PM_API_VERSION_2	(2U)
+/** @} */
+
 /*
  * Capabilities common for all slave nodes (common capabilities should take
  * lower 16 bits, specific capabilities of each slave take higher 16 bits)
@@ -114,12 +125,15 @@ typedef enum {
 	PM_PLL_GET_MODE,		/* 0x33 */
 	PM_REGISTER_ACCESS,		/* 0x34 */
 	PM_EFUSE_ACCESS,		/* 0x35 */
-	PM_API_MAX,			/* 0x36 */
+	PM_FEATURE_CHECK = 0x3F,	/* 0x3F */
+	PM_API_MAX,			/* 0x40 */
 } XPm_ApiId;
 
 #ifdef ENABLE_IOCTL
 /* PM IOCTL IDs */
 typedef enum {
+	/* Invalid IOCTL ID */
+	PM_IOCTL_INVALID = 0,
 #ifdef ENABLE_FEATURE_CONFIG
 	/* Enable or disable feature control */
 	PM_IOCTL_SET_FEATURE_CONFIG = 26,
@@ -133,8 +147,7 @@ typedef enum {
 	/* Set USB config */
 	PM_IOCTL_SET_USB_CONFIG = 32,
 #endif /* ENABLE_DYNAMIC_MIO_CONFIG */
-	/* Invalid IOCTL ID */
-	PM_IOCTL_INVALID = 0,
+	PM_IOCTL_MAX,
 } XPm_IoctlId;
 #endif /* ENABLE_IOCTL */
 

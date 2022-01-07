@@ -2025,7 +2025,139 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 
 	IPI_RESPONSE2(master->ipiMask, (u32)status, value);
 }
+
+/**
+ * PmGetIoctlBitMask() - This function returns bit mask of supported IOCTL IDs
+ * @bitMask	Pointer to store IOCTL bit mask
+ * @len		Length of bitMask array
+ *
+ * @return	Success or failure
+ */
+static XStatus PmGetIoctlBitMask(u32 *bitMask, u32 len)
+{
+	XStatus status = XST_FAILURE;
+	u8 supportedIds[] = {
+#ifdef ENABLE_FEATURE_CONFIG
+		PM_IOCTL_SET_FEATURE_CONFIG,
+		PM_IOCTL_GET_FEATURE_CONFIG,
+#endif
+#ifdef ENABLE_DYNAMIC_MIO_CONFIG
+		PM_IOCTL_SET_SD_CONFIG,
+		PM_IOCTL_SET_GEM_CONFIG,
+		PM_IOCTL_SET_USB_CONFIG,
+#endif
+	};
+	u8 i, id;
+
+	for (i = 0U; i < ARRAYSIZE(supportedIds); i++) {
+		id = supportedIds[i];
+
+		if ((id / 32) >= len) {
+			goto done;
+		}
+
+		bitMask[id / 32] |= BIT(id % 32);
+	}
+
+	status = XST_SUCCESS;
+
+done:
+	return status;
+}
 #endif /* ENABLE_IOCTL */
+
+/**
+ * PmFeatureCheck() - This function returns supported version of API. It
+ *		      also returns bit mask of supproted IOCTL IDs and QUERY
+ *		      IDs
+ * @master	Master that initiated the call
+ * @apiId	API ID to check
+ *
+ * @return	Success if API ID supported, failure otherwise
+ */
+static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
+{
+	s32 status = XST_FAILURE;
+	u32 version;
+	u32 bitMask[2] = {0U};
+
+	PmInfo("%s> PmFeatureCheck(%lu)\r\n", master->name, apiId);
+
+	switch (apiId) {
+	case PM_API(PM_GET_API_VERSION):
+	case PM_API(PM_SET_CONFIGURATION):
+	case PM_API(PM_GET_NODE_STATUS):
+	case PM_API(PM_GET_OP_CHARACTERISTIC):
+	case PM_API(PM_REGISTER_NOTIFIER):
+	case PM_API(PM_REQUEST_SUSPEND):
+	case PM_API(PM_SELF_SUSPEND):
+	case PM_API(PM_FORCE_POWERDOWN):
+	case PM_API(PM_ABORT_SUSPEND):
+	case PM_API(PM_REQUEST_WAKEUP):
+	case PM_API(PM_SET_WAKEUP_SOURCE):
+	case PM_API(PM_SYSTEM_SHUTDOWN):
+	case PM_API(PM_REQUEST_NODE):
+	case PM_API(PM_RELEASE_NODE):
+	case PM_API(PM_SET_REQUIREMENT):
+	case PM_API(PM_SET_MAX_LATENCY):
+	case PM_API(PM_RESET_ASSERT):
+	case PM_API(PM_RESET_GET_STATUS):
+	case PM_API(PM_MMIO_WRITE):
+	case PM_API(PM_MMIO_READ):
+	case PM_API(PM_INIT_FINALIZE):
+	case PM_API(PM_FPGA_LOAD):
+	case PM_API(PM_FPGA_GET_STATUS):
+	case PM_API(PM_GET_CHIPID):
+	case PM_API(PM_API_RESERVED_1):
+	case PM_API(PM_SECURE_SHA):
+	case PM_API(PM_SECURE_RSA):
+	case PM_API(PM_PINCTRL_REQUEST):
+	case PM_API(PM_PINCTRL_RELEASE):
+	case PM_API(PM_PINCTRL_GET_FUNCTION):
+	case PM_API(PM_PINCTRL_SET_FUNCTION):
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
+	case PM_API(PM_CLOCK_ENABLE):
+	case PM_API(PM_CLOCK_DISABLE):
+	case PM_API(PM_CLOCK_GETSTATE):
+	case PM_API(PM_CLOCK_SETDIVIDER):
+	case PM_API(PM_CLOCK_GETDIVIDER):
+	case PM_API(PM_CLOCK_SETRATE):
+	case PM_API(PM_CLOCK_GETRATE):
+	case PM_API(PM_CLOCK_SETPARENT):
+	case PM_API(PM_CLOCK_GETPARENT):
+	case PM_API(PM_SECURE_IMAGE):
+	case PM_API(PM_FPGA_READ):
+	case PM_API(PM_SECURE_AES):
+	case PM_API(PM_PLL_SET_PARAM):
+	case PM_API(PM_PLL_GET_PARAM):
+	case PM_API(PM_PLL_SET_MODE):
+	case PM_API(PM_PLL_GET_MODE):
+	case PM_API(PM_REGISTER_ACCESS):
+	case PM_API(PM_EFUSE_ACCESS):
+	case PM_API(PM_QUERY_DATA):
+		version = PM_API_BASE_VERSION;
+		status = XST_SUCCESS;
+		break;
+#ifdef ENABLE_IOCTL
+	case PM_API(PM_IOCTL):
+		version = PM_API_BASE_VERSION;
+		status = PmGetIoctlBitMask(bitMask, ARRAYSIZE(bitMask));
+		break;
+#endif
+	case PM_API(PM_FEATURE_CHECK):
+		version = PM_API_VERSION_2;
+		status = XST_SUCCESS;
+		break;
+	default:
+		version = 0U;
+		status = XST_NO_FEATURE;
+		break;
+	}
+
+	IPI_RESPONSE4(master->ipiMask, (u32)status, version, bitMask[0],
+		      bitMask[1]);
+}
 
 /**
  * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
@@ -2236,6 +2368,9 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		PmDevIoctl(master, pload[1], (XPm_IoctlId)pload[2], pload[3], pload[4]);
 		break;
 #endif
+	case PM_API(PM_FEATURE_CHECK):
+		PmFeatureCheck(master, pload[1]);
+		break;
 	default:
 		PmWarn("Unsupported EEMI API #%lu\r\n", pload[0]);
 		IPI_RESPONSE1(master->ipiMask, XST_INVALID_VERSION);
