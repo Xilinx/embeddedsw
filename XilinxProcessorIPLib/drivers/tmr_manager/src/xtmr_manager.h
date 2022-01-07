@@ -62,6 +62,9 @@
 * 1.2   mus  08/31/20 Updated makefile to support parallel make and
 *                     incremental builds. It would help to reduce
 *                     compilation time.
+* 1.3   adk  01/07/22 Fixed Assert check in the XTMR_Manager_BreakHandler API,
+* 		      Corrected the break handler handoff offset in the
+* 		      xtmr_manager_recover_l.S file.
 * </pre>
 *
 *****************************************************************************/
