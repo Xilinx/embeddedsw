@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -16,6 +16,7 @@
  * 0.2   hb    07/20/2021  Added event notification and restructured code
  * 0.3   hb    09/20/2021  Added description on error injection &
  *                         correction
+ * 0.4   hb    01/06/2022  Added feature to print golden SHA values
  * </pre>
  *
  *****************************************************************************/
@@ -24,6 +25,7 @@
 #include "xsem_client_api.h"
 #include "xsem_ipi.h"
 #include "xsem_gic_setup.h"
+#include "xil_cache.h"
 
 #define NPI_STATUS_SHA_COMP_SCAN_ERR_SHIFT	(17U)
 #define NPI_STATUS_SHA_COMP_SCAN_ERR_MASK	(0x00020000U)
@@ -39,14 +41,34 @@
 static XIpiPsu IpiInst;
 static XScuGic GicInst;
 XSem_Notifier Notifier = {
-		.Module = XSEM_NOTIFY_NPI,
-		.Event = XSEM_EVENT_NPI_INT_ERR | XSEM_EVENT_NPI_CRC_ERR,
-		.Flag = 1U,
+        .Module = XSEM_NOTIFY_NPI,
+        .Event = XSEM_EVENT_NPI_CRC_ERR | XSEM_EVENT_NPI_DESC_FMT_ERR |
+		XSEM_EVENT_NPI_DESC_ABSNT_ERR | XSEM_EVENT_NPI_SHA_IND_ERR |
+		XSEM_EVENT_NPI_SHA_ENGINE_ERR | XSEM_EVENT_NPI_PSCAN_MISSED_ERR |
+		XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR | XSEM_EVENT_NPI_SFTY_WR_ERR |
+		XSEM_EVENT_NPI_GPIO_ERR,
+	.Flag = 1U,
 };
 
 /* Global variables to hold the event count when notified */
-u8 EventCnt_Crc = 0U;
-u8 EventCnt_IntErr = 0U;
+struct XSem_Npi_Events_t{
+	u32 CrcEventCnt;
+	u32 IntEventCnt;
+	u32 DescFmtEventCnt;
+	u32 DescAbsntEventCnt;
+	u32 ShaIndEventCnt;
+	u32 ShaEngineEventCnt;
+	u32 PscanMissedEventCnt;
+	u32 CryptoExportSetEventCnt;
+	u32 SftyWrEventCnt;
+	u32 GpioEventCnt;
+	u32 GtyArbToutEventCnt;
+	u32 DdrmainArbToutEventCnt;
+} NpiEvents;
+
+XSem_DescriptorData DescData_PreInj = {0};
+XSem_DescriptorData DescData_PostInj = {0};
+u32 TotalDescCnt = 0U;
 
 /*****************************************************************************
  * @brief	Initialize XilSEM IPI instance to process XilSEM
@@ -76,88 +98,6 @@ XStatus XSem_IpiInitApi (void)
 	}
 
 END:
-	return Status;
-}
-
-/*****************************************************************************
- * @brief	Initializes(if previously uninitialized) and starts NPI scan
- * 			using Client IPI interface.
- *
- * @return	XST_SUCCESS : upon successful completion of NPI start scan.
- * 			XST_FAILURE : any failure in NPI start scan.
- *
- *****************************************************************************/
-XStatus XSem_NpiApiStartScan(void)
-{
-	XStatus Status = XST_FAILURE;
-	XSemIpiResp IpiResp = {0};
-
-	/* Start NPI scan */
-	Status = XSem_CmdNpiStartScan(&IpiInst, &IpiResp);
-	if ((XST_SUCCESS == Status) &&
-			(CMD_ACK_NPI_STARTSCAN == IpiResp.RespMsg1) &&
-			(XST_SUCCESS == IpiResp.RespMsg2)) {
-		xil_printf("[%s] Success: Start\n\r", __func__);
-	} else {
-		xil_printf("[%s] Error: Start Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
-				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************
- * @brief	Stops active NPI scan using Client IPI interface.
- *
- * @return	XST_SUCCESS : upon successful completion of NPI stop scan.
- * 			XST_FAILURE : any failure in NPI stop scan.
- *
- *****************************************************************************/
-XStatus XSem_NpiApiStopScan(void)
-{
-	XStatus Status = XST_FAILURE;
-	XSemIpiResp IpiResp = {0};
-
-	/* Stop NPI scan */
-	Status = XSem_CmdNpiStopScan(&IpiInst, &IpiResp);
-	if ((XST_SUCCESS == Status) &&
-			(CMD_ACK_NPI_STOPSCAN == IpiResp.RespMsg1) &&
-			(XST_SUCCESS == IpiResp.RespMsg2)) {
-		xil_printf("[%s] Success: Stop\n\r", __func__);
-	} else {
-		xil_printf("[%s] Error: Stop Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
-				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************
- * @brief	Injects error at golden SHA of first NPI descriptor
- *
- * @return	XST_SUCCESS : upon successful error injection
- * 			XST_FAILURE : any failure in injecting error
- *
- *****************************************************************************/
-XStatus XSem_NpiApiErrNjct(void)
-{
-	XStatus Status = XST_FAILURE;
-	XSemIpiResp IpiResp = {0};
-
-	/* Inject error in first used SHA */
-	Status = XSem_CmdNpiInjectError(&IpiInst, &IpiResp);
-	if ((XST_SUCCESS == Status) &&
-			(CMD_ACK_NPI_ERRINJECT == IpiResp.RespMsg1) &&
-			(XST_SUCCESS == IpiResp.RespMsg2)) {
-		xil_printf("[%s] Success: Inject\n\r", __func__);
-	} else {
-		xil_printf("[%s] Error: Inject Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
-				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
-		Status = XST_FAILURE;
-	}
-
 	return Status;
 }
 
@@ -300,22 +240,48 @@ void XSem_IpiCallback(XIpiPsu *const InstancePtr)
 		return;
 	}
 
-	if ((XSEM_EVENT_ERROR == Payload[0]) && \
-			(XSEM_NOTIFY_NPI == Payload[1])) {
+	if ((XSEM_EVENT_ERROR == Payload[0]) && (XSEM_NOTIFY_NPI == Payload[1])) {
 		if (XSEM_EVENT_NPI_CRC_ERR == Payload[2]) {
-			EventCnt_Crc = 1U;
-		} else if (XSEM_EVENT_NPI_INT_ERR == Payload[2]) {
-			xil_printf("[ALERT] Received internal error event notification"
+			NpiEvents.CrcEventCnt = 1U;
+		} else if (XSEM_EVENT_NPI_DESC_FMT_ERR == Payload[2]) {
+			NpiEvents.DescFmtEventCnt = 1U;
+			xil_printf("[ALERT] Received Descriptor Format error event"
+					" notification from XilSEM\n\r");
+		} else if (XSEM_EVENT_NPI_DESC_ABSNT_ERR == Payload[2]) {
+			NpiEvents.DescAbsntEventCnt = 1U;
+			xil_printf("[ALERT] Received Descriptor Absent error event"
+					"notification from XilSEM\n\r");
+		} else if (XSEM_EVENT_NPI_SHA_IND_ERR == Payload[2]) {
+			NpiEvents.ShaIndEventCnt = 1U;
+			xil_printf("[ALERT] Received SHA indicator error event"
+					"notification from XilSEM\n\r");
+		} else if (XSEM_EVENT_NPI_SHA_ENGINE_ERR == Payload[2]) {
+			NpiEvents.ShaEngineEventCnt = 1U;
+			xil_printf("[ALERT] Received SHA engine error event notification"
 					" from XilSEM\n\r");
-			EventCnt_IntErr = 1U;
+		} else if (XSEM_EVENT_NPI_PSCAN_MISSED_ERR == Payload[2]) {
+			NpiEvents.PscanMissedEventCnt = 1U;
+			xil_printf("[ALERT] Received Periodic Scan missed error event"
+					" notification from XilSEM\n\r");
+		} else if (XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR == Payload[2]) {
+			NpiEvents.CryptoExportSetEventCnt = 1U;
+			xil_printf("[ALERT] Received Cryptographic Accelerator Disabled"
+					" event notification from XilSEM\n\r");
+		} else if (XSEM_EVENT_NPI_SFTY_WR_ERR == Payload[2]) {
+			NpiEvents.SftyWrEventCnt = 1U;
+			xil_printf("[ALERT] Received Safety Write error event"
+					" notification from XilSEM\n\r");
+		} else if (XSEM_EVENT_NPI_GPIO_ERR == Payload[2]) {
+			NpiEvents.GpioEventCnt = 1U;
+			xil_printf("[ALERT] Received GPIO error event notification from"
+					" XilSEM\n\r");
 		} else {
 			xil_printf("%s Some other callback received: %d:%d:%d\n",
-					__func__, Payload[0], \
-					Payload[1], Payload[2]);
+					__func__, Payload[0], Payload[1], Payload[2]);
 		}
 	} else {
-		xil_printf("%s Some other callback received: %d\n", \
-				__func__, Payload[0]);
+		xil_printf("%s Some other callback received: %d\n", __func__,
+				Payload[0]);
 	}
 }
 
@@ -327,6 +293,7 @@ void PrintErrReport(void)
 {
 	XStatus Status = 0U;
 	XSemNpiStatus NpiStatus = {0};
+	u32 DescCnt = 0U;
 
 	xil_printf("-----------------------------------------------------\n\r");
 	xil_printf("-----------------Print Report------------------------\n\r");
@@ -363,12 +330,38 @@ void PrintErrReport(void)
 	}
 
 	/* Check event notification */
-	if ( (EventCnt_Crc == 1U) && (EventCnt_IntErr == 0U) ) {
+	if (NpiEvents.CrcEventCnt == 1U) {
 		xil_printf("[SUCCESS] Received CRC error event notification\n\r");
-		EventCnt_Crc = 0U;
+		NpiEvents.CrcEventCnt = 0U;
 	} else {
 		xil_printf("[FAILURE] No CRC error event notification received\n\r");
 	}
+
+	/* Print total descriptor count */
+	xil_printf("\n\r----------------------------------------------------\n\r");
+	xil_printf("Total Descriptor Count = %u\n\r", TotalDescCnt);
+
+	/* Print golden SHA values before injecting error */
+	xil_printf("----------------------------------------------------\n\r");
+	xil_printf("Descriptor information before injecting error:\n\n\r");
+	for(DescCnt = 0; DescCnt < TotalDescCnt; DescCnt++) {
+		xil_printf("Descriptor %u\n\r Attribute value: 0x%08x Golden SHA: " \
+				"0x%08x\n\r", (DescCnt+1U), \
+				DescData_PreInj.DescriptorInfo[DescCnt].DescriptorAttrib, \
+				DescData_PreInj.DescriptorInfo[DescCnt].DescriptorGldnSha);
+	}
+
+	/* Print golden SHA values after injecting error */
+	xil_printf("----------------------------------------------------\n\r");
+	xil_printf("Descriptor information after injecting error:\n\n\r");
+	for(DescCnt = 0; DescCnt < TotalDescCnt; DescCnt++) {
+		xil_printf("Descriptor %u\n\r Attribute value: 0x%08x Golden SHA:" \
+				" 0x%08x\n\r", (DescCnt+1U), \
+				DescData_PostInj.DescriptorInfo[DescCnt].DescriptorAttrib, \
+				DescData_PostInj.DescriptorInfo[DescCnt].DescriptorGldnSha);
+	}
+	xil_printf("----------------------------------------------------\n\r");
+
 }
 
 /*****************************************************************************/
@@ -395,6 +388,10 @@ int main(void)
 	u32 TempB_32 = 0U;
 	u32 TimeoutCount = 0U;
 	XSemNpiStatus NpiStatus = {0};
+	XSemIpiResp IpiResp = {0};
+
+	/* Disable cache to enable PLM access to OCM registers */
+	Xil_DCacheDisable();
 
 	Status = XSem_IpiInitApi();
 	if (XST_SUCCESS != Status) {
@@ -407,9 +404,11 @@ int main(void)
 
 	/* The following sequence demonstrates how to inject errors in NPI
 	 * 1. Stop NPI scan
-	 * 2. Inject error
-	 * 3. Start NPI scan
-	 * 4. Read for Golden SHA mismatch error
+	 * 2. Read current Golden SHA from descriptors
+	 * 3. Inject error
+	 * 4. Start NPI scan
+	 * 5. Read for Golden SHA mismatch error
+	 * 6. Read current Golden SHA from descriptors
 	 * Note: Execute the sequence again to correct the injected error,
 	 *       but the error status will remain till POR.
 	 */
@@ -431,10 +430,16 @@ int main(void)
 	/* If either Periodic scan is not enabled or is stopped */
 	if ( (TempA_32 == 0U) || (TempB_32 == 1U) ) {
 		/* Start NPI scan */
-		Status = XSem_NpiApiStartScan();
-		if (XST_FAILURE == Status) {
-			xil_printf("[%s] ERROR: NPI scan failed to start\n\r.", __func__);
-			goto END;
+		Status = XSem_CmdNpiStartScan(&IpiInst, &IpiResp);
+		if ((XST_SUCCESS == Status) &&
+				(CMD_ACK_NPI_STARTSCAN == IpiResp.RespMsg1) &&
+				(XST_SUCCESS == IpiResp.RespMsg2)) {
+			xil_printf("[%s] Success: Start\n\r", __func__);
+		} else {
+			xil_printf("[%s] Error: Start Status 0x%x Ack 0x%x, Ret 0x%x" \
+					"\n\r",	__func__, Status, IpiResp.RespMsg1, \
+					IpiResp.RespMsg2);
+			Status = XST_FAILURE;
 		}
 	}
 
@@ -445,24 +450,56 @@ int main(void)
 				__func__, Status);
 	}
 
-	/* Stop NPI scan before injecting error */
-	Status = XSem_NpiApiStopScan();
-	if (XST_FAILURE == Status) {
-		xil_printf("[%s] ERROR: NPI scan failed to stop\n\r.", __func__);
-		goto END;
+	/* Get golden SHA and descriptor information before injecting error */
+	Status = XSem_CmdNpiGetGldnSha(&IpiInst, &IpiResp, &DescData_PreInj);
+	if ((XST_SUCCESS == Status) &&
+			(CMD_ACK_NPI_GET_GLDN_SHA == IpiResp.RespMsg1) &&
+			(XST_SUCCESS == IpiResp.RespMsg2)) {
+		xil_printf("[%s] Success: Get Golden SHA\n\r", __func__);
+	} else {
+		xil_printf("[%s] Error: Get Golden SHA Status 0x%x Ack 0x%x, Ret " \
+				"0x%x\n\r", __func__, Status, IpiResp.RespMsg1, \
+				IpiResp.RespMsg2);
+		Status = XST_FAILURE;
 	}
+
+	/* Store total descriptor count */
+	TotalDescCnt = DescData_PreInj.DescriptorCount;
+
+	/* Stop NPI scan */
+	Status = XSem_CmdNpiStopScan(&IpiInst, &IpiResp);
+	if ((XST_SUCCESS == Status) &&
+			(CMD_ACK_NPI_STOPSCAN == IpiResp.RespMsg1) &&
+			(XST_SUCCESS == IpiResp.RespMsg2)) {
+		xil_printf("[%s] Success: Stop\n\r", __func__);
+	} else {
+		xil_printf("[%s] Error: Stop Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
+				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
+		Status = XST_FAILURE;
+	}
+
 	/* Inject error in Golden SHA of first descriptor */
-	Status = XSem_NpiApiErrNjct();
-	if (XST_FAILURE == Status) {
-		xil_printf("[%s] ERROR: NPI error inject failed\n\r.", __func__);
-		goto END;
+	Status = XSem_CmdNpiInjectError(&IpiInst, &IpiResp);
+	if ((XST_SUCCESS == Status) &&
+			(CMD_ACK_NPI_ERRINJECT == IpiResp.RespMsg1) &&
+			(XST_SUCCESS == IpiResp.RespMsg2)) {
+		xil_printf("[%s] Success: Inject\n\r", __func__);
+	} else {
+		xil_printf("[%s] Error: Inject Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
+				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
+		Status = XST_FAILURE;
 	}
 
 	/* Restart NPI scan after injecting error */
-	Status = XSem_NpiApiStartScan();
-	if (XST_FAILURE == Status) {
-		xil_printf("[%s] ERROR: NPI scan failed to start\n\r.", __func__);
-		goto END;
+	Status = XSem_CmdNpiStartScan(&IpiInst, &IpiResp);
+	if ((XST_SUCCESS == Status) &&
+			(CMD_ACK_NPI_STARTSCAN == IpiResp.RespMsg1) &&
+			(XST_SUCCESS == IpiResp.RespMsg2)) {
+		xil_printf("[%s] Success: Start\n\r", __func__);
+	} else {
+		xil_printf("[%s] Error: Start Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
+				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
+		Status = XST_FAILURE;
 	}
 
 	/* Wait for XilSEM to detect error */
@@ -480,17 +517,38 @@ int main(void)
 						NPI_STATUS_SHA_COMP_SCAN_ERR_SHIFT);
 		if (TempA_32 == 1) {
 			Status = XST_SUCCESS;
+
+			/* Get golden SHA and descriptor information
+			 * after injecting error */
+			Status = XSem_CmdNpiGetGldnSha(&IpiInst, &IpiResp,
+					&DescData_PostInj);
+			if ((XST_SUCCESS == Status) &&
+					(CMD_ACK_NPI_GET_GLDN_SHA == IpiResp.RespMsg1) &&
+					(XST_SUCCESS == IpiResp.RespMsg2)) {
+				xil_printf("[%s] Success: Get Golden SHA\n\r", __func__);
+			} else {
+				xil_printf("[%s] Error: Get Golden SHA Status 0x%x Ack 0x%x,"
+						" Ret 0x%x\n\r", __func__, Status, IpiResp.RespMsg1, \
+						IpiResp.RespMsg2);
+				Status = XST_FAILURE;
+			}
+
 			goto END;
 		}
 		TimeoutCount--;
 		/* Small delay before polling again */
 		usleep(25000);
 	}
-	xil_printf("[%s] ERROR: Timeout occurred waiting for error\n\r", __func__);
+	xil_printf("[%s] ERROR: Timeout occurred waiting for error.\n\r",
+			__func__);
 	Status = XST_FAILURE;
 	goto END;
 
 END:
 	PrintErrReport();
+
+	/* Enable cache to disable PLM access to OCM registers */
+	Xil_DCacheEnable();
+
 	return Status;
 }

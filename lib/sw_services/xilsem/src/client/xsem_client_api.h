@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -33,6 +33,8 @@
 * 1.3	hv   01/06/2022   Replaced library specific utility functions and
 * 			  standard lib functions with Xilinx maintained
 * 			  functions
+* 1.4   hb   01/07/2022   Added defines and struct for NPI error events
+*                         and get golden Sha command
 *
 * </pre>
 *
@@ -66,6 +68,8 @@ extern "C" {
 #define CMD_ACK_NPI_STOPSCAN		(0x00010306U)
 /** NPI Error Injection Acknowledgment ID */
 #define CMD_ACK_NPI_ERRINJECT		(0x00010307U)
+/** NPI Get NPI Golden SHA Acknowledgment ID */
+#define CMD_ACK_NPI_GET_GLDN_SHA	(0x00010310U)
 /** SEM Get configuration Acknowledgment ID */
 #define CMD_ACK_SEM_GET_CONFIG		(0x00030309U)
 
@@ -127,12 +131,17 @@ extern "C" {
 #define CMD_NPI_STOPSCAN		(0x06U)
 /** Command ID for NPI error injection */
 #define CMD_NPI_ERRINJECT		(0x07U)
+/** Command ID for NPI Get Golden SHA */
+#define CMD_NPI_GET_GLDN_SHA	(0x0AU)
 
 /** Event Notification Register Command ID */
 #define CMD_EM_EVENT_REGISTER		(0x08U)
 
 /** Command ID for SEM Get Configuration */
 #define CMD_ID_SEM_GET_CONFIG		(0x09U)
+
+/** Total number of possible descriptors in NPI scan */
+#define NPI_MAX_DESCRIPTORS	(50U)
 
 /**
  * XSemIpiResp - IPI Response Data structure
@@ -201,6 +210,32 @@ typedef struct {
 						mismatch occurs */
 } XSemNpiStatus;
 
+/* Structure to hold each descriptor information
+ * Descriptor Attribute:
+ * Bit[31]: STNN - The descriptor contains Split Tiles/NPS/NCRB registers
+ * Bit[30]: XMPU - The descriptor contains XMPU registers
+ * Bit[29:16]: Reserved
+ * Bit[15:8]: Exclusive Lock Type - Bit[8] signifies that descriptor
+ * contains GT slaves. Bit[9] signifies that descriptor contains DDRMC slaves
+ * bits 10 to 15 are reserved for future use
+ * Bit[7:0]: Slave skip count index - Points the corresponding byte in Sem
+ * NPI slave skip count registers that need to be updated on arbitration
+ * failure
+ * Descriptor Golden SHA:
+ * This word contains the Golden SHA value that is used to compare with
+ * hardware calculated SHA value
+ *  */
+typedef struct {
+	u32 DescriptorAttrib; /**< Descriptor attributes */
+	u32 DescriptorGldnSha; /**< Descriptor Golden SHA value */
+}XSem_DescriptorInfo;
+
+/* Structure contains descriptor information used during SEM NPI scan*/
+typedef struct {
+	u32 DescriptorCount; /**< Current Total Descriptor Count */
+	XSem_DescriptorInfo DescriptorInfo[NPI_MAX_DESCRIPTORS]; /**< Descriptor information */
+}XSem_DescriptorData;
+
 /** SEM CRAM Module Notification ID */
 #define XSEM_NOTIFY_CRAM	(0x0U)
 /** SEM NPI Module Notification ID */
@@ -222,8 +257,22 @@ typedef struct {
 /* NPI Errors Event Type */
 /** SEM NPI Uncorrectable CRC Error Event  */
 #define XSEM_EVENT_NPI_CRC_ERR		(0x1U)
-/** SEM NPI Internal or Fatal Errors */
-#define XSEM_EVENT_NPI_INT_ERR		(0x2U)
+/** NPI Unsupported Descriptor Format */
+#define XSEM_EVENT_NPI_DESC_FMT_ERR	(0x2U)
+/** NPI Descriptors absent for Scan */
+#define XSEM_EVENT_NPI_DESC_ABSNT_ERR	(0x3U)
+/** NPI SHA Indicator mismatch error */
+#define XSEM_EVENT_NPI_SHA_IND_ERR	(0x4U)
+/** NPI SHA engine error */
+#define XSEM_EVENT_NPI_SHA_ENGINE_ERR	(0x5U)
+/** NPI Periodic Scan Missed Error */
+#define XSEM_EVENT_NPI_PSCAN_MISSED_ERR	(0x6U)
+/** NPI Cryptographic Accelerator Disabled error */
+#define XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR	(0x7U)
+/** NPI Safety Write Failure */
+#define XSEM_EVENT_NPI_SFTY_WR_ERR	(0x8U)
+/** NPI GPIO Error event */
+#define XSEM_EVENT_NPI_GPIO_ERR	(0x9U)
 
 /* SEM Event Flags */
 /** SEM Event Notification Enable */
@@ -253,7 +302,14 @@ typedef struct {
 	 *
 	 * For NPI module, events are:
 	 * - Uncorrectable CRC error: use XSEM_EVENT_NPI_CRC_ERR
-	 * - Internal error: use XSEM_EVENT_NPI_INT_ERR
+	 * - Unsupported Descriptor Format: use XSEM_EVENT_NPI_DESC_FMT_ERR
+	 * - Descriptors absent for Scan: use XSEM_EVENT_NPI_DESC_ABSNT_ERR
+	 * - SHA Indicator mismatch: use XSEM_EVENT_NPI_SHA_IND_ERR
+	 * - SHA engine error: use XSEM_EVENT_NPI_SHA_ENGINE_ERR
+	 * - Periodic Scan Missed: use XSEM_EVENT_NPI_PSCAN_MISSED_ERR
+	 * - Cryptographic Accelerator Disabled: use XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR
+	 * - Safety Write Failure: useXSEM_EVENT_NPI_SFTY_WR_ERR
+	 * - GPIO Error event: use XSEM_EVENT_NPI_GPIO_ERR
 	 */
 	u32 Event;
 	/**
@@ -273,9 +329,11 @@ XStatus XSem_CmdCfrNjctErr(XIpiPsu *IpiInst, \
 XStatus XSem_CmdCfrGetStatus(XSemCfrStatus *CfrStatusInfo);
 
 /* NPI functions */
-XStatus XSem_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp);
-XStatus XSem_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp);
-XStatus XSem_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp);
+XStatus XSem_CmdNpiStartScan(XIpiPsu *IpiInst, XSemIpiResp * Resp);
+XStatus XSem_CmdNpiStopScan(XIpiPsu *IpiInst, XSemIpiResp * Resp);
+XStatus XSem_CmdNpiInjectError(XIpiPsu *IpiInst, XSemIpiResp * Resp);
+XStatus XSem_CmdNpiGetGldnSha(XIpiPsu *IpiInst, XSemIpiResp * Resp,
+		XSem_DescriptorData * DescData);
 XStatus XSem_CmdNpiGetStatus(XSemNpiStatus *NpiStatusInfo);
 
 /* Event Notification Management */

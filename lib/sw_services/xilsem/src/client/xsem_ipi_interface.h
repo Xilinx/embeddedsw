@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -23,6 +23,7 @@
 * 0.5   hb   03/15/2021   MISRA fixes, updated IPI macro and formatted code
 * 0.6   rb   04/07/2021   Doxygen changes
 * 0.7	hv   08/18/2021   Fix Doxygen warnings
+* 0.8   hb   01/04/2022   Added macro for IPI payload 2
 *
 * </pre>
 * @note
@@ -83,6 +84,10 @@ extern "C" {
 /* For Payload with just API Id */
 #define PACK_PAYLOAD1(Payload, ApiId) \
 	PACK_PAYLOAD(Payload, HEADER(1UL, ApiId), 0, 0, 0, 0, 0, 0, 0)
+
+/* For Payload with API Id + 1 Args */
+#define PACK_PAYLOAD2(Payload, ApiId, Arg1) \
+	PACK_PAYLOAD(Payload, HEADER(2UL, ApiId), Arg1, 0, 0, 0, 0, 0, 0)
 
 /* For Payload with API Id + 3 Args */
 #define PACK_PAYLOAD4(Payload, ApiId, Arg1, Arg2, Arg3) \
