@@ -33,6 +33,10 @@
 *       gm  07/16/21  Added support for 64-bit address
 *       rb  08/11/21  Fix compilation warnings
 *       har 09/13/21  Fixed signature verification issue for P521 curve
+* 4.7   am  01/07/22  Removed unused labels KEY_ERR and SIG_ERR by replacing
+*                     XSECURE_TEMPORAL_CHECK with XSECURE_TEMPORAL_IMPL macros and
+*                     status variable is reinitialized with XST_FAILURE before using
+*                     it further in the respective functions
 *
 * </pre>
 *
@@ -212,6 +216,7 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	int StatusTemp = XST_FAILURE;
 	volatile int GenStatus = XST_FAILURE;
+	volatile int GenStatusTmp = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
 	u8 D[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
@@ -262,18 +267,21 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 
 	Crv = XSecure_EllipticGetCrvData(CrvType);
 	if(Crv != NULL) {
-		XSECURE_TEMPORAL_CHECK(SIG_ERR, GenStatus, Ecdsa_GenerateSign,
+		XSECURE_TEMPORAL_IMPL(GenStatus, GenStatusTmp, Ecdsa_GenerateSign,
 			Crv, PaddedHash, Crv->Bits, D, K, (EcdsaSign *)&Sign);
 
-SIG_ERR:
 		if ((GenStatus == ELLIPTIC_GEN_SIGN_BAD_R) ||
-				(GenStatus == ELLIPTIC_GEN_SIGN_BAD_S)) {
+			(GenStatusTmp == ELLIPTIC_GEN_SIGN_BAD_R) ||
+			(GenStatus == ELLIPTIC_GEN_SIGN_BAD_S) ||
+			(GenStatusTmp == ELLIPTIC_GEN_SIGN_BAD_S)) {
 			Status = (int)XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM;
 		}
-		else if (GenStatus == ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN) {
+		else if ((GenStatus == ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN) ||
+			(GenStatusTmp == ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN)) {
 			Status = (int)XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN;
 		}
-		else if (GenStatus != ELLIPTIC_SUCCESS) {
+		else if ((GenStatus != ELLIPTIC_SUCCESS) ||
+			(GenStatusTmp != ELLIPTIC_SUCCESS)) {
 			Status = XST_FAILURE;
 		}
 		else {
@@ -368,6 +376,7 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 {
 	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	volatile int ValidateStatus = XST_FAILURE;
+	volatile int ValidateStatusTmp = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	EcdsaKey Key;
 	u8 PubKey[XSECURE_ECC_P521_SIZE_IN_BYTES +
@@ -408,20 +417,23 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 
 	Crv = XSecure_EllipticGetCrvData(CrvType);
 	if(Crv != NULL) {
-		XSECURE_TEMPORAL_CHECK(KEY_ERR, ValidateStatus, Ecdsa_ValidateKey,
-			Crv, (EcdsaKey *)&Key);
+		XSECURE_TEMPORAL_IMPL(ValidateStatus, ValidateStatusTmp,
+			Ecdsa_ValidateKey, Crv, (EcdsaKey *)&Key);
 
-KEY_ERR:
-		if (ValidateStatus == ELLIPTIC_KEY_ZERO) {
+		if ((ValidateStatus == ELLIPTIC_KEY_ZERO) ||
+			(ValidateStatusTmp == ELLIPTIC_KEY_ZERO)) {
 			Status = (int)XSECURE_ELLIPTIC_KEY_ZERO;
 		}
-		else if (ValidateStatus == ELLIPTIC_KEY_WRONG_ORDER) {
+		else if ((ValidateStatus == ELLIPTIC_KEY_WRONG_ORDER) ||
+			(ValidateStatusTmp == ELLIPTIC_KEY_WRONG_ORDER)) {
 			Status = (int)XSECURE_ELLIPTIC_KEY_WRONG_ORDER;
 		}
-		else if (ValidateStatus == ELLIPTIC_KEY_NOT_ON_CRV) {
+		else if ((ValidateStatus == ELLIPTIC_KEY_NOT_ON_CRV) ||
+			(ValidateStatusTmp == ELLIPTIC_KEY_NOT_ON_CRV)) {
 			Status = (int)XSECURE_ELLIPTIC_KEY_NOT_ON_CRV;
 		}
-		else if (ValidateStatus != ELLIPTIC_SUCCESS) {
+		else if ((ValidateStatus != ELLIPTIC_SUCCESS) ||
+			(ValidateStatusTmp != ELLIPTIC_SUCCESS)) {
 			Status = XST_FAILURE;
 		}
 		else {
@@ -490,6 +502,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 {
 	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	volatile int VerifyStatus = XST_FAILURE;
+	volatile int VerifyStatusTmp = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
 	volatile u32 HashLenTmp = 0xFFFFFFFFU;
@@ -551,29 +564,35 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 
 	Crv = XSecure_EllipticGetCrvData(CrvType);
 	if(Crv != NULL) {
-		XSECURE_TEMPORAL_CHECK(SIG_ERR, VerifyStatus, Ecdsa_VerifySign,
+		XSECURE_TEMPORAL_IMPL(VerifyStatus, VerifyStatusTmp, Ecdsa_VerifySign,
 			Crv, PaddedHash, Crv->Bits, (EcdsaKey *)&Key, (EcdsaSign *)&Sign);
 
-SIG_ERR:
-		if ((int)ELLIPTIC_BAD_SIGN == VerifyStatus) {
+		if ((ELLIPTIC_BAD_SIGN == VerifyStatus) ||
+			(ELLIPTIC_BAD_SIGN == VerifyStatusTmp)) {
 			Status = (int)XSECURE_ELLIPTIC_BAD_SIGN;
 		}
-		else if ((int)ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN == VerifyStatus) {
+		else if ((ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN == VerifyStatus) ||
+			(ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN == VerifyStatusTmp)) {
 			Status = (int)XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN;
 		}
-		else if (ELLIPTIC_VER_SIGN_R_ZERO == VerifyStatus) {
+		else if ((ELLIPTIC_VER_SIGN_R_ZERO == VerifyStatus) ||
+			(ELLIPTIC_VER_SIGN_R_ZERO == VerifyStatusTmp)) {
 			Status = (int)XSECURE_ELLIPTIC_VER_SIGN_R_ZERO;
 		}
-		else if (ELLIPTIC_VER_SIGN_S_ZERO == VerifyStatus) {
+		else if ((ELLIPTIC_VER_SIGN_S_ZERO == VerifyStatus) ||
+			(ELLIPTIC_VER_SIGN_S_ZERO == VerifyStatusTmp)) {
 			Status = (int)XSECURE_ELLIPTIC_VER_SIGN_S_ZERO;
 		}
-		else if (ELLIPTIC_VER_SIGN_R_ORDER_ERROR == VerifyStatus) {
+		else if ((ELLIPTIC_VER_SIGN_R_ORDER_ERROR == VerifyStatus) ||
+			(ELLIPTIC_VER_SIGN_R_ORDER_ERROR == VerifyStatusTmp)) {
 			Status = (int)XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR;
 		}
-		else if (ELLIPTIC_VER_SIGN_S_ORDER_ERROR == VerifyStatus) {
+		else if ((ELLIPTIC_VER_SIGN_S_ORDER_ERROR == VerifyStatus) ||
+			(ELLIPTIC_VER_SIGN_S_ORDER_ERROR == VerifyStatusTmp)) {
 			Status = (int)XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR;
 		}
-		else if (ELLIPTIC_SUCCESS != VerifyStatus) {
+		else if ((ELLIPTIC_SUCCESS != VerifyStatus) ||
+			(ELLIPTIC_SUCCESS != VerifyStatusTmp)) {
 			Status = XST_FAILURE;
 		}
 		else {
