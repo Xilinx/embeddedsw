@@ -687,53 +687,55 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
     /* MMCM is dynamically programmed for the respective rate
      * using the M, D, Div values
      */
-	HighTime = (Oval / 4);
-	Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
-	if (Oval % 4 <= 1) {
-		DivEdge = 0;
-	} else {
-		DivEdge = 1;
-	}
-	Reg |= (DivEdge << 8);
-	P5fEdge = Oval % 2;
-	P5Enable = Oval % 2;
-	Reg = Reg | P5Enable << XCLK_WIZ_CLKOUT0_P5EN_SHIFT | P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT;
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG3_OFFSET, Reg);
-	Reg = HighTime | HighTime << 8;
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG4_OFFSET, Reg);
+    if (!DpRxSsInst.Config.IncludeClkWiz) {
+		HighTime = (Oval / 4);
+		Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
+		if (Oval % 4 <= 1) {
+			DivEdge = 0;
+		} else {
+			DivEdge = 1;
+		}
+		Reg |= (DivEdge << 8);
+		P5fEdge = Oval % 2;
+		P5Enable = Oval % 2;
+		Reg = Reg | P5Enable << XCLK_WIZ_CLKOUT0_P5EN_SHIFT | P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT;
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG3_OFFSET, Reg);
+		Reg = HighTime | HighTime << 8;
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG4_OFFSET, Reg);
 
-	/* Implement D */
-	HighTime = (Dval / 2);
-	Reg  = 0;
-	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
-	DivEdge = Dval % 2;
-	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG12_OFFSET, Reg);
-	Reg = HighTime | HighTime << 8;
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
+		/* Implement D */
+		HighTime = (Dval / 2);
+		Reg  = 0;
+		Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
+		DivEdge = Dval % 2;
+		Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG12_OFFSET, Reg);
+		Reg = HighTime | HighTime << 8;
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
 
-	/* Implement M*/
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
+		/* Implement M*/
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
 
-	DivEdge = Mval % 2;
-	HighTime = Mval / 2;
-	Reg = HighTime | HighTime << 8;
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG2_OFFSET, Reg);
-	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
+		DivEdge = Mval % 2;
+		HighTime = Mval / 2;
+		Reg = HighTime | HighTime << 8;
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG2_OFFSET, Reg);
+		Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
 
-	if (DivEdge) {
-		Reg = Reg | (1 << XCLK_WIZ_REG1_EDGE_SHIFT);
-	} else {
-		Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
-	}
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG16_OFFSET, 0x43e9);
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG17_OFFSET, 0x001C);
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG26_OFFSET, 0x0001);
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, 0x3);
+		if (DivEdge) {
+			Reg = Reg | (1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+		} else {
+			Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
+		}
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG16_OFFSET, 0x43e9);
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG17_OFFSET, 0x001C);
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_REG26_OFFSET, 0x0001);
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, 0x3);
+    }
 #endif
 
     rate = bridge << 1;
@@ -748,19 +750,20 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 		xil_printf ("+++ RX GT Configuration failure ++++\r\n");
 	}
 #if (VERSAL_FABRIC_8B10B == 1)
-	retry = 0;
-	/* MMCM issued a reset */
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, 0x0, 0xA);
-	while(!(XClk_Wiz_ReadReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & 1)) {
-		if(retry == 10000) {
-				break;
+    if (!DpRxSsInst.Config.IncludeClkWiz) {
+		retry = 0;
+		/* MMCM issued a reset */
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, 0x0, 0xA);
+		while(!(XClk_Wiz_ReadReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & 1)) {
+			if(retry == 10000) {
+					break;
+			}
+			retry++;
 		}
-//					usleep(100);
-		retry++;
-	}
-	if (retry == 10000) {
-		xil_printf ("Rx Clk_wizard failed to lock\r\n");
-	}
+		if (retry == 10000) {
+			xil_printf ("Rx Clk_wizard failed to lock\r\n");
+		}
+    }
 #endif
 #endif
 
