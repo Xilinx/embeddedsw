@@ -105,7 +105,8 @@ typedef struct XAie_TxnCmd {
 ******************************************************************************/
 static inline u64 _XAie_GetTileAddr(XAie_DevInst *DevInst, int R, int C)
 {
-	return (R << DevInst->DevProp.RowShift) | (C << DevInst->DevProp.ColShift);
+	return (((u64)R & 0xFF) << DevInst->DevProp.RowShift) |
+		(((u64)C & 0xFF) << DevInst->DevProp.ColShift);
 }
 
 /*****************************************************************************/
