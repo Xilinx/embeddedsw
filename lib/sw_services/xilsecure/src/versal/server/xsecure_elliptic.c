@@ -98,7 +98,7 @@ static void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
 int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	const u64 DAddr, XSecure_EllipticKeyAddr *KeyAddr)
 {
-	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PubKey[XSECURE_ECC_P521_SIZE_IN_BYTES +
 	XSECURE_ECDSA_P521_ALIGN_BYTES +
@@ -113,6 +113,7 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 			(CrvType != XSECURE_ECC_NIST_P521)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
@@ -213,7 +214,7 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_EllipticHashData *HashInfo, const u64 DAddr,
 	const u64 KAddr, XSecure_EllipticSignAddr *SignAddr)
 {
-	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	int StatusTemp = XST_FAILURE;
 	volatile int GenStatus = XST_FAILURE;
 	volatile int GenStatusTmp = XST_FAILURE;
@@ -234,6 +235,7 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 			(CrvType != XSECURE_ECC_NIST_P521)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
@@ -374,7 +376,7 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType,
 int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		XSecure_EllipticKeyAddr *KeyAddr)
 {
-	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	volatile int ValidateStatus = XST_FAILURE;
 	volatile int ValidateStatusTmp = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
@@ -390,6 +392,7 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
 		(CrvType != XSECURE_ECC_NIST_P521)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
@@ -500,7 +503,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_EllipticHashData *HashInfo, XSecure_EllipticKeyAddr *KeyAddr,
 	XSecure_EllipticSignAddr *SignAddr)
 {
-	int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 	volatile int VerifyStatus = XST_FAILURE;
 	volatile int VerifyStatusTmp = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
@@ -522,6 +525,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	if ((CrvType != XSECURE_ECC_NIST_P384) && (CrvType != XSECURE_ECC_NIST_P521)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
