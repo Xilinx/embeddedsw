@@ -403,7 +403,7 @@ static void _XAie_PmUngateTiles(XAie_DevInst *DevInst, XAie_LocType FromLoc,
 				ClockMod->ClockRegOff;
 		XAie_MaskWrite32(DevInst, RegAddr,
 				ClockMod->NextTileClockCntrl.Mask,
-				1 << ClockMod->NextTileClockCntrl.Lsb);
+				1U << ClockMod->NextTileClockCntrl.Lsb);
 	}
 }
 

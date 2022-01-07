@@ -37,7 +37,7 @@
 #include "xaiegbl.h"
 
 /***************************** Macro Definitions *****************************/
-#define XAIE_EVENT_INVALID		255
+#define XAIE_EVENT_INVALID		255U
 
 /**************************** Type Definitions *******************************/
 /*
@@ -706,11 +706,11 @@ typedef enum {
 
 /* Enum to capture event broadcast directions */
 typedef enum {
-	XAIE_EVENT_BROADCAST_SOUTH = 0b0001,
-	XAIE_EVENT_BROADCAST_WEST  = 0b0010,
-	XAIE_EVENT_BROADCAST_NORTH = 0b0100,
-	XAIE_EVENT_BROADCAST_EAST  = 0b1000,
-	XAIE_EVENT_BROADCAST_ALL   = 0b1111,
+	XAIE_EVENT_BROADCAST_SOUTH = 0b0001U,
+	XAIE_EVENT_BROADCAST_WEST  = 0b0010U,
+	XAIE_EVENT_BROADCAST_NORTH = 0b0100U,
+	XAIE_EVENT_BROADCAST_EAST  = 0b1000U,
+	XAIE_EVENT_BROADCAST_ALL   = 0b1111U,
 } XAie_BroadcastDir;
 
 /************************** Function Prototypes  *****************************/

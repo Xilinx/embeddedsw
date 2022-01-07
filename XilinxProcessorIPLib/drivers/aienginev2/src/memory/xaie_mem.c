@@ -202,7 +202,7 @@ AieRC XAie_DataMemBlockWrite(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 			UnalignedByte < XAIE_MEM_WORD_ALIGN_SIZE && RemBytes;
 			UnalignedByte++, RemBytes--) {
 			TempWord |= CharSrc[BytePtr++] << (UnalignedByte * 8);
-			Mask |= 0xFF << (UnalignedByte * 8);
+			Mask |= 0xFFU << (UnalignedByte * 8);
 		}
 		RC = XAie_MaskWrite32(DevInst, DmAddrRoundDown, Mask, TempWord);
 		if(RC != XAIE_OK) {
@@ -229,7 +229,7 @@ AieRC XAie_DataMemBlockWrite(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 			 UnalignedByte < RemBytes % XAIE_MEM_WORD_ALIGN_SIZE;
 			 UnalignedByte++) {
 			TempWord |= CharSrc[BytePtr++] << (UnalignedByte * 8);
-			Mask |= 0xFF << (UnalignedByte * 8);
+			Mask |= 0xFFU << (UnalignedByte * 8);
 		}
 		RC = XAie_MaskWrite32(DevInst, DmAddrRoundDown, Mask, TempWord);
 		if(RC != XAIE_OK) {
@@ -336,7 +336,7 @@ AieRC XAie_DataMemBlockRead(XAie_DevInst *DevInst, XAie_LocType Loc, u32 Addr,
 			UnalignedByte < RemBytes % XAIE_MEM_WORD_ALIGN_SIZE;
 			UnalignedByte++)
 			CharDst[BytePtr++] = TempWord >> (UnalignedByte * 8) &
-									0xFF;
+									0xFFU;
 	}
 
 	return XAIE_OK;

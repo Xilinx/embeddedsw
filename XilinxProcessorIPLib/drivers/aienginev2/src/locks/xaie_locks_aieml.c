@@ -31,12 +31,12 @@
 
 #ifdef XAIE_FEATURE_LOCK_ENABLE
 /************************** Constant Definitions *****************************/
-#define XAIEML_LOCK_VALUE_MASK		0x7F
-#define XAIEML_LOCK_VALUE_SHIFT		0x2
+#define XAIEML_LOCK_VALUE_MASK		0x7FU
+#define XAIEML_LOCK_VALUE_SHIFT		0x2U
 
 #define XAIEML_LOCK_RESULT_SUCCESS	1U
-#define XAIEML_LOCK_RESULT_LSB		0x0
-#define XAIEML_LOCK_RESULT_MASK		0x1
+#define XAIEML_LOCK_RESULT_LSB		0x0U
+#define XAIEML_LOCK_RESULT_MASK		0x1U
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/

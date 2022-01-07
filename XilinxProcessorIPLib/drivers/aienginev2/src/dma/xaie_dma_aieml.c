@@ -37,8 +37,8 @@
 #define XAIEML_DMA_ITERWRAP_DEFAULT			1U
 #define XAIEML_DMA_PAD_NUM_DIMS				3U
 
-#define XAIEML_DMA_STATUS_IDLE				0x0
-#define XAIEML_DMA_STATUS_CHNUM_OFFSET			0x4
+#define XAIEML_DMA_STATUS_IDLE				0x0U
+#define XAIEML_DMA_STATUS_CHNUM_OFFSET			0x4U
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
