@@ -286,7 +286,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 	UINTPTR RxBufferPtr;
 	int Index;
 
-	RxRingPtr = XAxiDma_GetRxRing(&AxiDma);
+	RxRingPtr = XAxiDma_GetRxRing(&AxiDmaInstPtr);
 
 	/* Disable all RX interrupts before RxBD space setup */
 
@@ -409,7 +409,7 @@ static int TxSetup(XAxiDma * AxiDmaInstPtr)
 	int Status;
 	u32 BdCount;
 
-	TxRingPtr = XAxiDma_GetTxRing(&AxiDma);
+	TxRingPtr = XAxiDma_GetTxRing(&AxiDmaInstPtr);
 
 	/* Disable all TX interrupts before TxBD space setup */
 
