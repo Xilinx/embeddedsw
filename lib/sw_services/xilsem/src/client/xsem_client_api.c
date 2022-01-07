@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -20,7 +20,7 @@
 * MODIFICATION HISTORY:
 *
 * Ver	Who  Date         Changes
-* ----  ---  ----------   --------------------------------------------------
+* ----  ---  ----------   --------------------------------------------------
 * 0.1   gm   01/04/2021   Initial creation : Cram IPI commands
 * 0.2   hb   01/06/2021   Added Npi IPI commands
 * 0.3   rb   01/18/2021   Added Npi PMC RAM status read API and corrected
@@ -36,6 +36,8 @@
 * 1.2	hv   01/06/2022   Replaced library specific utility functions and
 * 			  standard lib functions with Xilinx maintained
 * 			  functions
+* 1.3   hb   01/07/2022   Added user interface to get golden SHA and descriptor
+*                         information
 * </pre>
 *
 * @note
@@ -541,6 +543,64 @@ XStatus XSem_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	}
 
 	PACK_PAYLOAD1(Payload, CMD_NPI_ERRINJECT);
+
+	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
+	if (XST_SUCCESS != Status) {
+		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with"
+		" ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+
+	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
+	if (XST_SUCCESS != Status) {
+		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with"
+		" ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+
+	Resp->RespMsg1 = Response[1U];
+	Resp->RespMsg2 = Response[2U];
+
+	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to get golden SHA
+ *
+ * @param[in]	IpiInst		Pointer to IPI driver instance
+ * @param[out]	Resp		Structure Pointer of IPI response.
+ *		- Resp->RespMsg1: Acknowledgment ID of NPI get golden SHA
+ *		- Resp->RespMsg2: Status of NPI get golden SHA
+ * @param[out] DescData		Structure pointer to hold total descriptor count,
+ *                          golden SHA and information related to descriptors
+ *
+ * @return	This API returns the success or failure.
+ *		- XST_FAILURE: On NPI golden SHA retrieve failure
+ *		- XST_SUCCESS: On NPI golden SHA retrieve success
+ *
+ *****************************************************************************/
+XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
+		XSem_DescriptorData * DescData)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
+
+	if (NULL == IpiInst) {
+		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
+		goto END;
+	}
+
+	if (NULL == Resp) {
+		XSem_Dbg("[%s] ERROR: RespStruct is NULL\n\r", __func__);
+		goto END;
+	}
+
+	PACK_PAYLOAD2(Payload, CMD_NPI_GET_GLDN_SHA, DescData);
 
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
