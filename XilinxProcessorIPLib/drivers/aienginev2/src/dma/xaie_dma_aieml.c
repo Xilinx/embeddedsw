@@ -297,8 +297,8 @@ AieRC _XAieMl_MemTileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 				BdProp->Buffer->TileDmaBuff.BufferLen.Mask);
 
 	BdWord[1U] = XAie_SetField(DmaDesc->PadDesc[0U].Before,
-			BdProp->ZeroPad->D0_ZeroBefore.Lsb,
-			BdProp->ZeroPad->D0_ZeroBefore.Mask) |
+			BdProp->Pad->D0_PadBefore.Lsb,
+			BdProp->Pad->D0_PadBefore.Mask) |
 		XAie_SetField(DmaDesc->BdEnDesc.NxtBd, BdProp->BdEn->NxtBd.Lsb,
 				BdProp->BdEn->NxtBd.Mask) |
 		XAie_SetField(DmaDesc->BdEnDesc.UseNxtBd,
@@ -319,8 +319,8 @@ AieRC _XAieMl_MemTileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 				BdProp->BdEn->TlastSuppress.Mask);
 
 	BdWord[3U] = XAie_SetField(DmaDesc->PadDesc[1U].Before,
-			BdProp->ZeroPad->D1_ZeroBefore.Lsb,
-			BdProp->ZeroPad->D1_ZeroBefore.Mask) |
+			BdProp->Pad->D1_PadBefore.Lsb,
+			BdProp->Pad->D1_PadBefore.Mask) |
 		XAie_SetField(DmaDesc->MultiDimDesc.AieMlMultiDimDesc.DimDesc[1U].Wrap,
 			BdProp->AddrMode->AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Lsb,
 			BdProp->AddrMode->AieMlMultiDimAddr.DmaDimProp[1U].Wrap.Mask) |
@@ -329,8 +329,8 @@ AieRC _XAieMl_MemTileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 				BdProp->AddrMode->AieMlMultiDimAddr.DmaDimProp[1U].StepSize.Mask);
 
 	BdWord[4U] = XAie_SetField(DmaDesc->PadDesc[2U].Before,
-			BdProp->ZeroPad->D2_ZeroBefore.Lsb,
-			BdProp->ZeroPad->D2_ZeroBefore.Mask) |
+			BdProp->Pad->D2_PadBefore.Lsb,
+			BdProp->Pad->D2_PadBefore.Mask) |
 		XAie_SetField(DmaDesc->MultiDimDesc.AieMlMultiDimDesc.DimDesc[2U].Wrap,
 			BdProp->AddrMode->AieMlMultiDimAddr.DmaDimProp[2U].Wrap.Lsb,
 			BdProp->AddrMode->AieMlMultiDimAddr.DmaDimProp[2U].Wrap.Mask) |
@@ -342,14 +342,14 @@ AieRC _XAieMl_MemTileDmaWriteBd(XAie_DevInst *DevInst , XAie_DmaDesc *DmaDesc,
 				BdProp->Compression->EnCompression.Mask);
 
 	BdWord[5U] = XAie_SetField(DmaDesc->PadDesc[2U].After,
-			BdProp->ZeroPad->D2_ZeroAfter.Lsb,
-			BdProp->ZeroPad->D2_ZeroAfter.Mask) |
+			BdProp->Pad->D2_PadAfter.Lsb,
+			BdProp->Pad->D2_PadAfter.Mask) |
 		XAie_SetField(DmaDesc->PadDesc[1U].After,
-			BdProp->ZeroPad->D1_ZeroAfter.Lsb,
-			BdProp->ZeroPad->D1_ZeroAfter.Mask) |
+			BdProp->Pad->D1_PadAfter.Lsb,
+			BdProp->Pad->D1_PadAfter.Mask) |
 		XAie_SetField(DmaDesc->PadDesc[0U].After,
-			BdProp->ZeroPad->D0_ZeroAfter.Lsb,
-			BdProp->ZeroPad->D0_ZeroAfter.Mask) |
+			BdProp->Pad->D0_PadAfter.Lsb,
+			BdProp->Pad->D0_PadAfter.Mask) |
 		XAie_SetField((DmaDesc->MultiDimDesc.AieMlMultiDimDesc.DimDesc[3U].StepSize - 1U),
 				BdProp->AddrMode->AieMlMultiDimAddr.DmaDimProp[3U].StepSize.Lsb,
 				BdProp->AddrMode->AieMlMultiDimAddr.DmaDimProp[3U].StepSize.Mask);

@@ -385,16 +385,16 @@ typedef union {
 } XAie_DmaBdMultiDimAddr;
 
 /*
- * The typedef captures Zero padding properties of buffer descriptor
+ * The typedef captures padding properties of buffer descriptor
  */
 typedef struct {
-	XAie_RegBdFldAttr D0_ZeroBefore;
-	XAie_RegBdFldAttr D0_ZeroAfter;
-	XAie_RegBdFldAttr D1_ZeroBefore;
-	XAie_RegBdFldAttr D1_ZeroAfter;
-	XAie_RegBdFldAttr D2_ZeroBefore;
-	XAie_RegBdFldAttr D2_ZeroAfter;
-} XAie_DmaBdZeroPad;
+	XAie_RegBdFldAttr D0_PadBefore;
+	XAie_RegBdFldAttr D0_PadAfter;
+	XAie_RegBdFldAttr D1_PadBefore;
+	XAie_RegBdFldAttr D1_PadAfter;
+	XAie_RegBdFldAttr D2_PadBefore;
+	XAie_RegBdFldAttr D2_PadAfter;
+} XAie_DmaBdPad;
 
 /*
  * The typedef captures zero compression properties of aie
@@ -434,7 +434,7 @@ typedef struct {
 	const XAie_DmaBdPkt *Pkt;
 	const XAie_DmaBdEnProp *BdEn;
 	const XAie_DmaBdMultiDimAddr *AddrMode;
-	const XAie_DmaBdZeroPad *ZeroPad;
+	const XAie_DmaBdPad *Pad;
 	const XAie_DmaBdCompression *Compression;
 	const XAie_DmaSysProp *SysProp;
 } XAie_DmaBdProp;
@@ -494,7 +494,7 @@ typedef struct XAie_DmaMod {
 	u8  NumAddrDim;
 	u8  DoubleBuffering;
 	u8  Compression;
-	u8  ZeroPadding;
+	u8  Padding;
 	u8  OutofOrderBdId;
 	u8  InterleaveMode;
 	u8  FifoMode;
