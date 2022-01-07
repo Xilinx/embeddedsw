@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -23,6 +23,9 @@
 *                     EL1 NS BSP.
 * 7.2   sd   02/23/20 Clock Init is called
 * 7.2   sd   02/23/20 Clock code added under XCLOCKING flag
+* 7.7   mus  01/06/22 Added call to Xil_SetTlbAttributes to set correct
+*                     attributes for GIC in case of Xen domU guest application.
+*                     It fixes CR#974078.
 * </pre>
 *
 * @note
@@ -96,6 +99,27 @@ _startup:
 	#if defined (SLEEP_TIMER_BASEADDR)
 	bl XTime_StartTTCTimer
 	#endif
+
+	.if (EL1_NONSECURE == 1 && HYP_GUEST == 1)
+	/*
+	 * Xen domU guest memory map is not same as that of
+	 * native ZynqMP memory map. Currently GIC for Xen
+         * domU guest is being mapped at < 2GB address, which
+	 * is configured as normal cacheable memory (DDR) in
+	 * default translation table. As GIC needs to be
+	 * configured as device memory, updating attributes
+	 * of GIC region as strongly ordered, RW, non executable
+	 * through Xil_SetTlbAttributes API. Below code snippet
+	 * in assemby is equivalent to,
+	 * Xil_SetTlbAttributes(XPAR_SCUGIC_0_DIST_BASEADDR,
+	 * 			STRONG_ORDERED | EXECUTE_NEVER)
+	 */
+	 ldr    x0, =XPAR_SCUGIC_0_DIST_BASEADDR
+         mov    x1, #0x409
+         orr    x1, x1, #(0x1 << 53)
+         orr    x1, x1, #(0x1 << 54)
+         bl     Xil_SetTlbAttributes
+	.endif
 
 	.if (EL1_NONSECURE == 1 && HYP_GUEST == 1 && \
 	     XEN_USE_PV_CONSOLE == 1)
