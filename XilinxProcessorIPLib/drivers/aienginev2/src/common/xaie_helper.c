@@ -40,7 +40,7 @@
 /************************** Constant Definitions *****************************/
 #define XAIE_DEFAULT_NUM_CMDS 1024U
 
-#define XAIE_TXN_INSTANCE_EXPORTED	0b10
+#define XAIE_TXN_INSTANCE_EXPORTED	0b10U
 #define XAIE_TXN_INST_EXPORTED_MASK XAIE_TXN_INSTANCE_EXPORTED
 #define XAIE_TXN_AUTO_FLUSH_MASK XAIE_TRANSACTION_ENABLE_AUTO_FLUSH
 
@@ -285,7 +285,7 @@ AieRC _XAie_GetMstrIdx(const XAie_StrmMod *StrmMod, StrmSwPortType Master,
 	PortPtr = &StrmMod->MstrConfig[Master];
 
 	/* Return error if the Master Port Type is not valid */
-	if((PortPtr->NumPorts == 0) || (PortNum >= PortPtr->NumPorts)) {
+	if((PortPtr->NumPorts == 0U) || (PortNum >= PortPtr->NumPorts)) {
 		XAIE_ERROR("Invalid Master Port\n");
 		return XAIE_ERR_STREAM_PORT;
 	}
@@ -1186,7 +1186,7 @@ AieRC XAie_CmdWrite(XAie_DevInst *DevInst, u8 Col, u8 Row, u8 Command,
 			TxnInst->NumCmds = 0;
 			return Backend->Ops.CmdWrite((void *)(DevInst->IOInst), Col, Row,
 					Command, CmdWd0, CmdWd1, CmdStr);
-		} else if(TxnInst->NumCmds == 0) {
+		} else if(TxnInst->NumCmds == 0U) {
 			return Backend->Ops.CmdWrite((void *)(DevInst->IOInst), Col, Row,
 					Command, CmdWd0, CmdWd1, CmdStr);
 		} else {

@@ -31,7 +31,7 @@
 #include "xaie_rsc_internal.h"
 /*****************************************************************************/
 /***************************** Macro Definitions *****************************/
-#define XAIE_BROADCAST_CHANNEL_MASK     0xFFFF
+#define XAIE_BROADCAST_CHANNEL_MASK     0xFFFFU
 
 /************************** Function Definitions *****************************/
 #ifdef XAIE_FEATURE_RSC_ENABLE

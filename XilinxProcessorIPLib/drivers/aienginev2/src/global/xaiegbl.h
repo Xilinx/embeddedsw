@@ -45,12 +45,12 @@
 
 /************************** Constant Definitions *****************************/
 #define XAIE_LOCK_WITH_NO_VALUE		(-1)
-#define XAIE_PACKET_ID_MAX		0x1F
-#define XAIE_PACKET_TYPE_MAX		0x7
-#define XAIE_TILES_BITMAP_SIZE          32
+#define XAIE_PACKET_ID_MAX		0x1FU
+#define XAIE_PACKET_TYPE_MAX		0x7U
+#define XAIE_TILES_BITMAP_SIZE          32U
 
-#define XAIE_TRANSACTION_ENABLE_AUTO_FLUSH	0b1
-#define XAIE_TRANSACTION_DISABLE_AUTO_FLUSH	0b0
+#define XAIE_TRANSACTION_ENABLE_AUTO_FLUSH	0b1U
+#define XAIE_TRANSACTION_DISABLE_AUTO_FLUSH	0b0U
 
 #define XAIE_PART_INIT_OPT_COLUMN_RST		(1U << 0)
 #define XAIE_PART_INIT_OPT_SHIM_RST		(1U << 1)

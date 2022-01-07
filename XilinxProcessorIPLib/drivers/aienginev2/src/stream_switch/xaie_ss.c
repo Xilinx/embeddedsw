@@ -42,16 +42,16 @@
 
 /************************** Constant Definitions *****************************/
 #define XAIE_SS_MASTER_PORT_ARBITOR_LSB		0U
-#define XAIE_SS_MASTER_PORT_ARBITOR_MASK	0x7
-#define XAIE_SS_MASTER_PORT_MSELEN_LSB		0x3
-#define XAIE_SS_MASTER_PORT_MSELEN_MASK		0x78
+#define XAIE_SS_MASTER_PORT_ARBITOR_MASK	0x7U
+#define XAIE_SS_MASTER_PORT_MSELEN_LSB		0x3U
+#define XAIE_SS_MASTER_PORT_MSELEN_MASK		0x78U
 
-#define XAIE_SS_ARBITOR_MAX			0x7
-#define XAIE_SS_MSEL_MAX			0x3
-#define XAIE_SS_MASK				0x1F
-#define XAIE_SS_MSELEN_MAX			0xF
+#define XAIE_SS_ARBITOR_MAX			0x7U
+#define XAIE_SS_MSEL_MAX			0x3U
+#define XAIE_SS_MASK				0x1FU
+#define XAIE_SS_MSELEN_MAX			0xFU
 
-#define XAIE_SS_DETERMINISTIC_MERGE_MAX_PKT_CNT (64 - 1) /* 6 bits */
+#define XAIE_SS_DETERMINISTIC_MERGE_MAX_PKT_CNT (64U - 1U) /* 6 bits */
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
