@@ -44,6 +44,8 @@
  *       har   09/13/2021 Changed PLM and Data Partition IV formatting to LE
  * 2.4   kpt   11/28/2021 Fixed typo Ppk1WrLk in XilNvm_EfuseInitSecCtrl
  *       har   01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
+ *       kpt   01/07/2022 Added check to program RegInitDis in
+ *                        XilNvm_EfuseInitSecCtrl
  *
  * </pre>
  *
@@ -847,6 +849,7 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *WriteEfuse,
 		(SecCtrlBits->SecDbgDis == TRUE) ||
 		(SecCtrlBits->SecLockDbgDis == TRUE) ||
 		(SecCtrlBits->BootEnvWrLk == TRUE) ||
+		(SecCtrlBits->RegInitDis == TRUE) ||
 		(SecCtrlBits->Ppk0WrLk == TRUE) ||
 		(SecCtrlBits->Ppk1WrLk == TRUE) ||
 		(SecCtrlBits->Ppk2WrLk == TRUE) ||
