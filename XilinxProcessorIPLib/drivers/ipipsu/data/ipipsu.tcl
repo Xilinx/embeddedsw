@@ -22,6 +22,7 @@
 #                         support SSIT devices. Now get_param_value
 #                         proc would be used instead of get_property
 #                         proc to read those parameters.
+# 2.11  sd  01/07/22 Updated tcl to support microblaze
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -62,6 +63,14 @@ proc ipi_find_cpu {ipi_list param hw_proc} {
 		set param_value [common::get_property $param [hsi::get_cells -hier $ipi]]
 		set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $hw_proc]]
 		set index [string index $hw_proc end]
+		if {[string match -nocase $ip_name "microblaze"]} {
+			set is_pl [common::get_property IS_PL [hsi::get_cells -hier $hw_proc]]
+			if {$is_pl == 1} {
+				if { [string match -nocase "*$param_value*" S_AXI_GP4] } {
+					lappend proc_ipi_slave $ipi
+				}
+			}
+		}
 		if {[string match -nocase $ip_name "psv_cortexr5"]} {
 			set ip_name "${ip_name}_$index"
 		}
