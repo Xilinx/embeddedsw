@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xtmr_manager_g.c
-* @addtogroup tmr_manager_v1_2
+* @addtogroup tmr_manager_v1_3
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
