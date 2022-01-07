@@ -298,8 +298,8 @@ _xtmr_manager_initialize:
 	ori r7, r0, _xtmr_manager_break
 	andi r7, r7, 0xffff
 	ori r7, r7, 0xb8080000
-	swi r6, r8, 0x14
-	swi r7, r8, 0x18
+	swi r6, r8, 0x18
+	swi r7, r8, 0x1c
 
 	lwi r6, r1, 0
 	lwi r7, r1, 4
