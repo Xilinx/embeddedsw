@@ -20,6 +20,8 @@
  * 1.0	 kal   07/30/2021 Initial release of xnvm_efuse_versal_client_example
  * 1.1   kpt   11/28/2021 Fixed typo Ppk1WrLk in XilNvm_EfuseInitSecCtrl
  *       har   01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
+ *       kpt   01/07/2022 Added check to program RegInitDis in
+ *                        XilNvm_EfuseInitSecCtrl
  *
  * </pre>
  *
@@ -994,6 +996,7 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseDataAddr *WriteEfuse,
 		(SecCtrlBits->SecDbgDis == TRUE) ||
 		(SecCtrlBits->SecLockDbgDis == TRUE) ||
 		(SecCtrlBits->BootEnvWrLk == TRUE) ||
+		(SecCtrlBits->RegInitDis == TRUE) ||
 		(SecCtrlBits->Ppk0WrLk == TRUE) ||
 		(SecCtrlBits->Ppk1WrLk == TRUE) ||
 		(SecCtrlBits->Ppk2WrLk == TRUE) ||
