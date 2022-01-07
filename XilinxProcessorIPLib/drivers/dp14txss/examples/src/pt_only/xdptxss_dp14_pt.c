@@ -49,6 +49,9 @@
 * 							interrupt event. Added stream parameter XDP_TX_STREAM_ID1
 * 							in XDpRxSs_GetVblank().
 * 							CTS related updates
+* 1.13 KU 12/22/21 2022.1 -	Versal: MMCM that generates the rx_dec_clk is now part of
+* 							RX SS. The application has been modified for this change.
+* 							App will work for both configurations of MMCM.
 * </pre>
 *
 ******************************************************************************/
@@ -501,6 +504,25 @@ u32 DpSs_Main(void)
 		xil_printf("INFO:DPRXSS is SST enabled. DPRXSS works "
 			"only in SST mode.\n\r");
 	}
+
+	if (!DpRxSsInst.Config.IncludeClkWiz) {
+#if (VERSAL_FABRIC_8B10B == 1)
+
+	 CfgPtr_Dynamic_rx = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_1_DEVICE_ID);
+	 if (!CfgPtr_Dynamic_rx) {
+			 return XST_FAILURE;
+	 }
+
+	 /*
+	  * Initialize the CLK_WIZ Dynamic reconfiguration driver
+	  */
+	 Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic_rx, CfgPtr_Dynamic_rx,
+			  CfgPtr_Dynamic_rx->BaseAddr);
+	 if (Status != XST_SUCCESS) {
+			 return XST_FAILURE;
+	 }
+#endif
+	}
 #endif
 
 #ifdef Tx
@@ -636,19 +658,25 @@ u32 DpSs_Main(void)
     }
 
 #if (VERSAL_FABRIC_8B10B == 1)
-	loop = 0;
-	//issue reset
-	XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, 0x0, 0xA);
-	while(!(XClk_Wiz_ReadReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & 1)) {
-		if(loop == 10000) {
-				break;
+
+    if (DpRxSsInst.Config.IncludeClkWiz) {
+	   if (XDpRxSs_Get_Dec_Clk_Lock(&DpRxSsInst) == XST_FAILURE)
+					  xil_printf("Rx Clk_wizard failed to lock\n\r");
+    } else {
+		loop = 0;
+		//issue reset
+		XClk_Wiz_WriteReg(CfgPtr_Dynamic_rx->BaseAddr, 0x0, 0xA);
+		while(!(XClk_Wiz_ReadReg(CfgPtr_Dynamic_rx->BaseAddr, XCLK_WIZ_STATUS_OFFSET) & 1)) {
+			if(loop == 10000) {
+					break;
+			}
+			usleep(100);
+			loop++;
 		}
-		usleep(100);
-		loop++;
-	}
-	if (loop == 10000) {
-		xil_printf ("Rx Clk_wizard failed to lock\r\n");
-	}
+		if (loop == 10000) {
+			xil_printf ("Rx Clk_wizard failed to lock\r\n");
+		}
+    }
 #endif
 #endif
 
@@ -1301,24 +1329,6 @@ u32 DpSs_PlatformInit(void)
 			 return XST_FAILURE;
 	 }
 
-#if (VERSAL_FABRIC_8B10B == 1)
-
-	 CfgPtr_Dynamic_rx = XClk_Wiz_LookupConfig(XPAR_CLK_WIZ_1_DEVICE_ID);
-	 if (!CfgPtr_Dynamic_rx) {
-			 return XST_FAILURE;
-	 }
-
-	 /*
-	  * Initialize the CLK_WIZ Dynamic reconfiguration driver
-	  */
-	 Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic_rx, CfgPtr_Dynamic_rx,
-			  CfgPtr_Dynamic_rx->BaseAddr);
-	 if (Status != XST_SUCCESS) {
-			 return XST_FAILURE;
-	 }
-
-
-#endif
 #endif
 
 	/* Initialize CRC & Set default Pixel Mode to 1. */
