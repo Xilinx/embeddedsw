@@ -82,6 +82,7 @@ typedef enum {
 	XPM_NODECLASS_EVENT,
 	XPM_NODECLASS_MONITOR,
 	XPM_NODECLASS_REGNODE,
+	XPM_NODECLASS_MISC,
 
 	XPM_NODECLASS_MAX
 } XPm_NodeClass;
@@ -158,6 +159,11 @@ typedef enum {
 	XPM_NODESUBCL_REGNODE_PREDEF,
 	XPM_NODESUBCL_REGNODE_USERDEF,
 } XPm_RegnodeSubclass;
+
+typedef enum {
+	/* Miscellaneous subclasses */
+	XPM_NODESUBCL_MISC=0,
+} XPm_MiscSubclass;
 
 /* Node types */
 typedef enum {
@@ -253,6 +259,11 @@ typedef enum {
 	/* Regnode types */
 	XPM_NODETYPE_REGNODE_GENERIC,
 } XPm_RegnodType;
+
+typedef enum {
+	/* Miscellaneous types */
+	XPM_NODETYPE_MISC=0,
+} XPm_MiscType;
 
 /* All node IDs */
 typedef enum {
@@ -1235,6 +1246,11 @@ typedef enum {
 
 	XPM_NODEIDX_MONITOR_MAX,
 } XPm_MonitorId;
+
+typedef enum {
+	/* Miscellaneous indexes */
+	XPM_NODEIDX_MISC_MJTAG_WA_IMG=0,
+} XPm_MiscId;
 
 #ifdef __cplusplus
 }
