@@ -60,6 +60,7 @@
 #define PM_POWER_XRAM_15			(0x4124026U)
 #define PM_POWER_CPM5				(0x4218027U)
 #define PM_POWER_ME2				(0x421c028U)
+/** @endcond */
 #define PM_POWER_VCCINT_PMC			(0x4328029U)
 #define PM_POWER_VCCAUX_PMC			(0x432802aU)
 #define PM_POWER_VCCINT_PSLP			(0x432802bU)
@@ -68,7 +69,6 @@
 #define PM_POWER_VCCINT_RAM			(0x432802eU)
 #define PM_POWER_VCCAUX				(0x432802fU)
 #define PM_POWER_VCCINT_PL			(0x4328030U)
-/** @endcond */
 /** @} */
 
 /**
@@ -621,9 +621,13 @@
 
 /**
  * @cond INTERNAL
+ * @name Versal Isolation Nodes
  * @defgroup xilpmisonodes Isolation Nodes
  * @ingroup xilpmnodeids
  * @{
+ */
+/**
+ * Versal Isolation Nodes
  */
 #define PM_ISO_FPD_PL_TEST			(0x20000000U)
 #define PM_ISO_FPD_PL				(0x20000001U)
@@ -668,5 +672,17 @@
 #define PM_ISO_XRAM_PL_FABRIC			(0x20000028U)
 /** @} */
 /** @endcond */
+
+/**
+ * @name Versal Miscellaneous Nodes
+ * @defgroup xilpmmiscnodes Miscellaneous Nodes
+ * @ingroup xilpmnodeids
+ * @{
+ */
+/**
+ * Versal Miscellaneous Nodes
+ */
+#define PM_MISC_MJTAG_WA_IMG			(0x34000000U)
+/** @} */
 
 #endif /* XPM_NODEID_H_ */
