@@ -55,7 +55,7 @@ typedef struct {
 extern void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 		u8 *Id0, u8 *Id1);
 static const XHdmiphy1_GtHdmiChars *GetGtHdmiPtr(XHdmiphy1 *InstancePtr);
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 static void XHdmiphy1_HdmiSetSystemClockSelection(XHdmiphy1 *InstancePtr,
                 u8 QuadId);
 #endif
@@ -126,7 +126,7 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 			XHDMIPHY1_INTR_HANDLER_TYPE_TXRESET_DONE);
 	XHdmiphy1_IntrDisable(InstancePtr,
 			XHDMIPHY1_INTR_HANDLER_TYPE_RXRESET_DONE);
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_IntrDisable(InstancePtr,
 			XHDMIPHY1_INTR_HANDLER_TYPE_CPLL_LOCK);
 	XHdmiphy1_IntrDisable(InstancePtr,
@@ -171,7 +171,7 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_LogReset(InstancePtr);
 	XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_INIT, 0);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_HdmiSetSystemClockSelection(InstancePtr, QuadId);
 
 	/* Indicate of QPLL is present in design */
@@ -216,7 +216,7 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_DruEnable(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, FALSE);
 	}
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	/* Set to DFE */
 	XHdmiphy1_SetRxLpm(InstancePtr, QuadId, XHDMIPHY1_CHANNEL_ID_CHA,
             XHDMIPHY1_DIR_RX, 0);
@@ -225,7 +225,7 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_Ch2Ids(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
 		XHdmiphy1_SetTxVoltageSwing(InstancePtr, QuadId,
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 			(XHdmiphy1_ChannelId)Id, 0xB);
 #else
 			(XHdmiphy1_ChannelId)Id, 0x1F);
@@ -245,7 +245,7 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 			XHDMIPHY1_INTR_HANDLER_TYPE_TXRESET_DONE);
 	XHdmiphy1_IntrEnable(InstancePtr,
 			XHDMIPHY1_INTR_HANDLER_TYPE_RXRESET_DONE);
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_IntrEnable(InstancePtr,
 			XHDMIPHY1_INTR_HANDLER_TYPE_CPLL_LOCK);
 	XHdmiphy1_IntrEnable(InstancePtr,
@@ -287,7 +287,7 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 	return XST_SUCCESS;
 }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * This function Sets the System Clock Selection
@@ -941,7 +941,7 @@ void XHdmiphy1_DruSetCenterFreqHz(XHdmiphy1 *InstancePtr,
 u64 XHdmiphy1_DruCalcCenterFreqHz(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId)
 {
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_Channel *ChPtr;
 	u64 DruRefClk;
 #endif
@@ -952,7 +952,7 @@ u64 XHdmiphy1_DruCalcCenterFreqHz(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 	ClkDetRefClk = XHdmiphy1_ClkDetGetRefClkFreqHz(InstancePtr,
                         XHDMIPHY1_DIR_RX);
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	DruRefClk = XHdmiphy1_DruGetRefClkFreqHz(InstancePtr);
 
 	/* Take the master channel (channel 1). */
@@ -1291,7 +1291,7 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 						/* Not divisible by 4: repeat loop with a lower
 						 * multiply value. */
 						else {
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 							MmcmPtr->ClkOut2Div = 255;
 #else
 							MmcmPtr->ClkOut2Div = 65535;
@@ -1310,7 +1310,7 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 					/* Not divisible by 4: repeat loop with a lower
 					 * multiply value. */
 					else {
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 						MmcmPtr->ClkOut2Div = 255;
 #else
 						MmcmPtr->ClkOut2Div = 65535;
@@ -1320,14 +1320,14 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 			}
 
 			/* Check values. */
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 			if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
 				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
 				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128)) {
 #else
-			if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 511) &&
-				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 511) &&
-				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 511)) {
+			if ((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
+				(MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
+				(MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512)) {
 #endif
 				Valid = (TRUE);
 			}
@@ -1348,7 +1348,7 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 					Mult -= 1;
 				}
 			}
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
 		} while (!Valid && (Mult > 3) && (Mult < 432));
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4 || \
      XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
@@ -1359,7 +1359,7 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 		/* Increment divider */
 		Div++;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
 	} while (!Valid && (Div > 0) && (Div < 124));
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4 || \
      XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
@@ -1378,7 +1378,7 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	}
 }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * This function calculates the QPLL parameters.
@@ -2062,7 +2062,7 @@ u32 XHdmiphy1_SetHdmiTxParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 			(ColorFormat == (XVIDC_CSF_YCRCB_422)) ||
 			(ColorFormat == (XVIDC_CSF_YCRCB_420)));
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	/* Only calculate the QPLL/CPLL parameters when the GT TX and RX are not
 	 * coupled. */
     if (XHdmiphy1_IsTxUsingCpll(InstancePtr, QuadId, ChId)) {
@@ -2146,7 +2146,7 @@ u32 XHdmiphy1_SetHdmiRxParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	if (XHdmiphy1_IsRxUsingCpll(InstancePtr, QuadId, ChId)) {
 		Status = XHdmiphy1_HdmiCpllParam(InstancePtr, QuadId, ChId,
                     XHDMIPHY1_DIR_RX);
@@ -2303,7 +2303,7 @@ u32 XHdmiphy1_Hdmi20Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 				XHDMIPHY1_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE);
 	}
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	/* Update reference clock election. */
 	XHdmiphy1_CfgPllRefClkSel(InstancePtr, 0,
 		((PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
@@ -2385,7 +2385,7 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 		}
 	}
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	/* Update reference clock election. */
 	XHdmiphy1_CfgPllRefClkSel(InstancePtr, 0,
 		((PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
@@ -2472,7 +2472,7 @@ void XHdmiphy1_HdmiDebugInfo(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId)
 {
 	u32 RegValue;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_Channel *ChPtr;
 	XHdmiphy1_ChannelId CmnId = XHDMIPHY1_CHANNEL_ID_CMN0;
 	u8 CpllDVal;
@@ -2809,7 +2809,7 @@ static const XHdmiphy1_GtHdmiChars Gtye4HdmiChars = {
 	.RxMmcmFvcoMin = XHDMIPHY1_HDMI_GTYE4_RX_MMCM_FVCO_MIN,
 	.RxMmcmFvcoMax = XHDMIPHY1_HDMI_GTYE4_RX_MMCM_FVCO_MAX,
 };
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+#elif ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
 static const XHdmiphy1_GtHdmiChars Gtye5HdmiChars = {
 	.DruLineRate = XHDMIPHY1_HDMI_GTYE5_DRU_LRATE,
 	.PllScale = XHDMIPHY1_HDMI_GTYE5_PLL_SCALE,
@@ -2849,7 +2849,7 @@ static const XHdmiphy1_GtHdmiChars *GetGtHdmiPtr(XHdmiphy1 *InstancePtr)
 	return &Gthe4HdmiChars;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 	return &Gtye4HdmiChars;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+#elif ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
 	return &Gtye5HdmiChars;
 #endif
 

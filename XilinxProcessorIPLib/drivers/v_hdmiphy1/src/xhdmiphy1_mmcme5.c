@@ -23,6 +23,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/12/18 Initial release.
  * 1.1   ssh  07/26/21 Added definitions for registers and masks
+ * 1.2   ku   07/01/22 Added Support for lower clocks
  *
  * </pre>
  *
@@ -34,7 +35,8 @@
 #include "xstatus.h"
 #include "xhdmiphy1.h"
 #include "xhdmiphy1_i.h"
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5) || \
+     (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
 
 #define XHDMIPHY1_MMCM_DRP_CLKFBOUT_1_REG 0x0C
 #define XHDMIPHY1_MMCM_DRP_CLKFBOUT_2_REG 0x0D
@@ -312,9 +314,12 @@ u32 XHdmiphy1_Mmcme5CpResEncoding(u16 Mult)
     case 326 ... 432:
          cp = 15; res = 8;
          break;
-	 default:
+    case 433 ... 512:
+         cp = 15; res = 8;
+         break;
+    default:
          cp = 13; res = 8;
-	     break;
+         break;
 	}
 
     /* Construct the return value */
@@ -488,6 +493,12 @@ u32 XHdmiphy1_Mmcme5LockReg1Reg2Encoding(u16 Mult)
 			lock_fb_dly = 16;
 			lock_cnt = 925;
 			break;
+		case 433 ... 512:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 925;
+			break;
+
 		default:
 			lock_ref_dly = 16;
 			lock_fb_dly = 16;

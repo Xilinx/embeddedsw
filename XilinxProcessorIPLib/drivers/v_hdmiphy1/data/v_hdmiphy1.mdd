@@ -12,6 +12,6 @@ BEGIN driver v_hdmiphy1
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common);
 	OPTION copyfiles = all;
-	OPTION VERSION = 2.3;
+	OPTION VERSION = 2.4;
 	OPTION NAME = v_hdmiphy1;
 END driver

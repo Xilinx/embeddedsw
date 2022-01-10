@@ -66,7 +66,7 @@ void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 		XHdmiphy1_Config *ConfigPtr,
 		UINTPTR EffectiveAddr)
 {
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	u8 Sel;
 #endif
 
@@ -87,9 +87,11 @@ void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 	InstancePtr->GtAdaptor = &XHdmiphy1_Gtye4Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
 	InstancePtr->GtAdaptor = &Gtye5Config;
+#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP)
+	InstancePtr->GtAdaptor = &GtypConfig;
 #endif
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	const XHdmiphy1_SysClkDataSelType SysClkCfg[7][2] = {
 		{(XHdmiphy1_SysClkDataSelType)0,
             XHDMIPHY1_SYSCLKSELDATA_TYPE_CPLL_OUTCLK},
@@ -135,7 +137,7 @@ void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * This function will initialize the PLL selection for a given channel.
@@ -324,7 +326,7 @@ XHdmiphy1_PllType XHdmiphy1_GetPllType(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_DirectionType Dir, XHdmiphy1_ChannelId ChId)
 {
 	XHdmiphy1_PllType PllType;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_SysClkDataSelType SysClkDataSel;
 	XHdmiphy1_SysClkOutSelType SysClkOutSel;
 
@@ -988,14 +990,14 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 	}
 
 	/* Check values if valid */
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
 		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
 		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128))) {
 #else
-	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 432) &&
-		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 432) &&
-		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 432))) {
+	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 512) &&
+		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 512) &&
+		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 512))) {
 #endif
 		return;
 	}
@@ -1032,7 +1034,7 @@ void XHdmiphy1_MmcmStart(XHdmiphy1 *InstancePtr, u8 QuadId,
 void XHdmiphy1_IBufDsEnable(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir, u8 Enable)
 {
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_PllRefClkSelType *TypePtr, *DruTypePtr, DruTypeDummy;
 	DruTypeDummy = XHDMIPHY1_PLL_REFCLKSEL_TYPE_GTGREFCLK;
 	DruTypePtr = &DruTypeDummy;
@@ -1044,7 +1046,7 @@ void XHdmiphy1_IBufDsEnable(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Suppress Warning Messages */
 	QuadId = QuadId;
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	if (Dir == XHDMIPHY1_DIR_TX) {
 		TypePtr = &InstancePtr->Config.TxRefClkSel;
 	}
@@ -1074,13 +1076,13 @@ void XHdmiphy1_IBufDsEnable(XHdmiphy1 *InstancePtr, u8 QuadId,
 			RegAddr = XHDMIPHY1_MISC_RXUSRCLK_REG;
 		}
 		MaskVal = XHDMIPHY1_MISC_XXUSRCLK_REFCLK_CEB_MASK;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	}
 #endif
 
 	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegAddr);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	if (Enable) {
 		RegVal &= ~MaskVal;
 	}
@@ -1304,7 +1306,7 @@ void XHdmiphy1_SetLogCallback(XHdmiphy1 *InstancePtr,
 void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 {
 	u32 RegOffset;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	u16 DrpAddr, MaxDrpAddr;
 	u16 DrpVal, ChId;
 	u8  MaxChannels;
@@ -1320,7 +1322,7 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 		RegOffset += 4;
 	}
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
 	MaxDrpAddr = 0x00B0;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
