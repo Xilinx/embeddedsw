@@ -85,6 +85,7 @@
 *       mn     06/05/20 Modified code for SD Non-Blocking Read support
 * 3.14  sk     10/22/21 Add support for Erase feature.
 *       mn     11/28/21 Fix MISRA-C violations.
+*       sk     01/10/22 Add support to read slot_type parameter.
 *
 * </pre>
 *
@@ -160,6 +161,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
 	InstancePtr->Config.BankNumber = ConfigPtr->BankNumber;
 	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
+	InstancePtr->Config.SlotType = ConfigPtr->SlotType;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 	InstancePtr->SectorCount = 0U;
 	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;

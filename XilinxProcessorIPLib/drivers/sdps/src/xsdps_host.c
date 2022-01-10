@@ -29,6 +29,7 @@
 * 3.13  sk     08/10/21 Limit the SD operating frequency to 19MHz for Versal.
 * 3.14  sk     10/22/21 Add support for Erase feature.
 *       mn     11/28/21 Fix MISRA-C violations.
+*       sk     01/10/22 Add support to read slot_type parameter.
 *
 * </pre>
 *
@@ -276,7 +277,12 @@ s32 XSdPs_SdModeInit(XSdPs *InstancePtr)
 					(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 				InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 				InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
-				InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+				if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
+					InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_HSD;
+				} else {
+					InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+				}
+
 				Status = XSdPs_Change_BusSpeed(InstancePtr);
 				if (Status != XST_SUCCESS) {
 					Status = XST_FAILURE;
