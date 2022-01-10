@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -87,6 +87,7 @@
 * 1.9   akm    07/15/21    Initialize NandInstPtr with Data Interface & Timing mode info.
 * 1.10  akm    10/20/21    Fix gcc warnings.
 * 1.10  akm    12/21/21    Validate input parameters before use.
+* 1.10  akm    01/05/22    Remove assert checks form static and internal APIs.
 *
 * </pre>
 *
@@ -295,9 +296,6 @@ Out:
 ******************************************************************************/
 static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
 	u32 Target;
 	u8 Id[ONFI_SIG_LEN] = {0U};
 	OnfiParamPage Param[ONFI_MND_PRM_PGS] = {0U};
@@ -460,9 +458,6 @@ Out:
 ******************************************************************************/
 static s32 XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Param != NULL);
-
 	s32 Status = XST_FAILURE;
 
 	if (Param->BytesPerPage > XNANDPSU_MAX_PAGE_SIZE) {
@@ -571,9 +566,6 @@ Out:
 ******************************************************************************/
 static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param)
 {
-	/* Assert the input arguments. */
-	Xil_AssertVoid(Param != NULL);
-
 	InstancePtr->Features.NvDdr = ((Param->Features & (1U << 5)) != 0U) ?
 								1U : 0U;
 	InstancePtr->Features.EzNand = ((Param->Features & (1U << 9)) != 0U) ?
@@ -598,9 +590,6 @@ static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param)
 ******************************************************************************/
 static void XNandPsu_InitDataInterface(XNandPsu *InstancePtr, OnfiParamPage *Param)
 {
-	/* Assert the input arguments. */
-	Xil_AssertVoid(Param != NULL);
-
 	if (Param->NVDDRTimingMode)
 		InstancePtr->DataInterface = XNANDPSU_NVDDR;
 	else if (Param->SDRTimingMode)
@@ -623,9 +612,6 @@ static void XNandPsu_InitDataInterface(XNandPsu *InstancePtr, OnfiParamPage *Par
 ******************************************************************************/
 static void XNandPsu_InitTimingMode(XNandPsu *InstancePtr, OnfiParamPage *Param)
 {
-	/* Assert the input arguments. */
-	Xil_AssertVoid(Param != NULL);
-
 	s8 Mode;
 	u8 TimingMode =  (u8)(Param->SDRTimingMode);
 
@@ -658,9 +644,6 @@ static void XNandPsu_InitTimingMode(XNandPsu *InstancePtr, OnfiParamPage *Param)
 ******************************************************************************/
 static s32 XNandPsu_CheckOnDie(XNandPsu *InstancePtr, OnfiParamPage *Param)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Param != NULL);
-
 	s32 Status = XST_FAILURE;
 	u8 JedecId[2] = {0U};
 	u8 EccSetFeature[4] = {0x08U, 0x00U, 0x00U, 0x00U};
@@ -890,10 +873,6 @@ static s32 XNandPsu_PollRegTimeout(XNandPsu *InstancePtr, u32 RegOffset,
 static void XNandPsu_SetPktSzCnt(XNandPsu *InstancePtr, u32 PktSize,
 						u32 PktCount)
 {
-	/* Assert the input arguments. */
-	Xil_AssertVoid(PktSize <= XNANDPSU_MAX_PKT_SIZE);
-	Xil_AssertVoid(PktCount <= XNANDPSU_MAX_PKT_COUNT);
-
 	/* Update Packet Register with pkt size and count */
 	XNandPsu_ReadModifyWrite(InstancePtr, XNANDPSU_PKT_OFFSET,
 				((u32)XNANDPSU_PKT_PKT_SIZE_MASK |
@@ -1144,9 +1123,6 @@ static void XNandPsu_SelectChip(XNandPsu *InstancePtr, u32 Target)
 ******************************************************************************/
 static s32 XNandPsu_OnfiReset(XNandPsu *InstancePtr, u32 Target)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
-
 	s32 Status = XST_FAILURE;
 
 	/* Enable Transfer Complete Interrupt in Interrupt Status Register */
@@ -1187,10 +1163,6 @@ static s32 XNandPsu_OnfiReset(XNandPsu *InstancePtr, u32 Target)
 static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
 							u16 *OnfiStatus)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
-	Xil_AssertNonvoid(OnfiStatus != NULL);
-
 	s32 Status = XST_FAILURE;
 
 	/* Enable Transfer Complete Interrupt in Interrupt Status Register */
@@ -1239,10 +1211,6 @@ static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
 static s32 XNandPsu_OnfiReadId(XNandPsu *InstancePtr, u32 Target, u8 IdAddr,
 							u32 IdLen, u8 *Buf)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
-	Xil_AssertNonvoid(Buf != NULL);
-
 	s32 Status = XST_FAILURE;
 	u32 Index;
 	u32 Rem;
@@ -1344,10 +1312,6 @@ Out:
 static s32 XNandPsu_OnfiReadParamPage(XNandPsu *InstancePtr, u32 Target,
 						u8 *Buf)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
-	Xil_AssertNonvoid(Buf != NULL);
-
 	s32 Status = XST_FAILURE;
 
 	/*
@@ -1561,6 +1525,7 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(DestBuf != NULL);
 	Xil_AssertNonvoid(Length != 0U);
 	Xil_AssertNonvoid((Offset + Length) <=
 				InstancePtr->Geometry.DeviceSize);
@@ -1766,10 +1731,6 @@ Out:
 static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 							u32 Col, u8 *Buf)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Page < InstancePtr->Geometry.NumPages);
-	Xil_AssertNonvoid(Buf != NULL);
-
 	u32 PktSize;
 	u32 PktCount;
 	s32 Status = XST_FAILURE;
@@ -1983,10 +1944,6 @@ Out:
 static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 							u32 Col, u8 *Buf)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Page < InstancePtr->Geometry.NumPages);
-	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
-
 	u32 PktSize;
 	u32 PktCount;
 	s32 Status = XST_FAILURE;
@@ -2237,7 +2194,10 @@ s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 								u8 *Buf)
 {
 	/* Assert the input arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY)
 	Xil_AssertNonvoid(Buf != NULL);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 
 	s32 Status;
 	u32 PktSize = 4;
@@ -2293,7 +2253,10 @@ s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 								u8 *Buf)
 {
 	/* Assert the input arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY)
 	Xil_AssertNonvoid(Buf != NULL);
+	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
 
 	s32 Status;
 	u32 PktSize = 4U;
@@ -2521,10 +2484,6 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 					u32 Col, u32 PktSize, u32 PktCount,
 					u8 *Buf)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
-	Xil_AssertNonvoid(Buf != NULL);
-
 	s32 Status = XST_FAILURE;
 	u32 RegVal;
 	u32 AddrCycles = InstancePtr->Geometry.ColAddrCycles;
@@ -2584,10 +2543,6 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 					u32 Col, u32 PktSize, u32 PktCount,
 					u8 *Buf)
 {
-	/* Assert the input arguments. */
-	Xil_AssertNonvoid(Target < XNANDPSU_MAX_TARGETS);
-	Xil_AssertNonvoid(Buf != NULL);
-
 	s32 Status = XST_FAILURE;
 	OnfiCmdFormat OnfiCommand;
 	u32 RegVal;
