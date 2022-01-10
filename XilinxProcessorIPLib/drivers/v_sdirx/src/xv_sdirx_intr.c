@@ -447,8 +447,8 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		SdiStream->IsInterlaced = FALSE;
 		SdiStream->VmId = XVIDC_VM_NOT_SUPPORTED;
 
-		if ((InstancePtr->Transport.TMode >= XSDIVID_MODE_3GA) && !valid) {
-			xil_printf(" Error::: No valid ST352 payload present even for 3G mode and above\n\r");
+		if ((InstancePtr->Transport.TMode >= XSDIVID_MODE_6G) && !valid) {
+			xil_printf(" Error::: No valid ST352 payload present even for 6G mode and above\n\r");
 			return;
 		}
 
@@ -484,6 +484,21 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			SdiStream->ColorDepth = XVIDC_BPC_12;
 		else
 			SdiStream->ColorDepth = XVIDC_BPC_UNKNOWN;
+
+		/*
+		 * when in 3G scenario there is no ST352 payload, we are setting
+		 * colorformat as YUV 422 10bpc. Resolution will be 1920x1080.
+		 */
+		if (((InstancePtr->Transport.TMode == XSDIVID_MODE_3GA) ||
+		     (InstancePtr->Transport.TMode == XSDIVID_MODE_3GB)) && !valid) {
+
+			byte1 = 0;
+			active_luma = 0;
+			color_format = XST352_BYTE3_COLOR_FORMAT_422;
+			SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
+			bitdepth = XST352_BYTE4_BIT_DEPTH_10;
+			SdiStream->ColorDepth = XVIDC_BPC_10;
+		}
 
 		if (((SdiStream->ColorDepth != XVIDC_BPC_10) ||
 				(SdiStream->ColorDepth != XVIDC_BPC_12)) &&
@@ -1052,10 +1067,46 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				}
 				break;
 			default:
-				xil_printf(" Error::: No ST352 valid payload available for 3G modes\n\r");
+				xil_printf("No ST352 valid payload available for 3G modes\n\r");
+				if (InstancePtr->Transport.IsLevelB3G) {
+					switch (FrameRate) {
+					case XVIDC_FR_24HZ:
+						SdiStream->VmId = XVIDC_VM_1920x1080_48_P;
+						break;
+					case XVIDC_FR_25HZ:
+						SdiStream->VmId = XVIDC_VM_1920x1080_50_P;
+						break;
+					case XVIDC_FR_30HZ:
+						SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+						break;
+					default:
+						SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+					}
+				} else {
+					/* 3GA */
+					switch (FrameRate) {
+					case XVIDC_FR_48HZ:
+						SdiStream->VmId = XVIDC_VM_1920x1080_48_P;
+						break;
+					case XVIDC_FR_50HZ:
+						SdiStream->VmId = XVIDC_VM_1920x1080_50_P;
+						break;
+					case XVIDC_FR_60HZ:
+						SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+						break;
+					default:
+						SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+					}
+				}
 			}
 
-			SdiStream->IsInterlaced = (payload & XST352_BYTE2_PIC_TYPE_MASK) ? 0 : 1;
+			if (byte1) {
+				SdiStream->IsInterlaced =
+					(payload & XST352_BYTE2_PIC_TYPE_MASK) ? 0 : 1;
+			} else {
+				/* In case no payload for 3G level */
+				SdiStream->IsInterlaced = FALSE;
+			}
 
 			break;
 
@@ -1395,6 +1446,17 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			default:
 				SdiStream->ColorStd = XVIDC_BT_UNKNOWN;
 				break;
+			}
+
+			/*
+			 * For 3G streams without payload set EOTF as SDRTV and
+			 * colorimetry as BT709
+			 */
+			if (((InstancePtr->Transport.TMode == XSDIVID_MODE_3GA) ||
+			     (InstancePtr->Transport.TMode == XSDIVID_MODE_3GB)) &&
+			    !valid) {
+				SdiStream->Eotf = XVIDC_EOTF_TG_SDR;
+				SdiStream->ColorStd = XVIDC_BT_709;
 			}
 		} else {
 			SdiStream->Eotf = XVIDC_EOTF_TG_SDR;

@@ -517,6 +517,9 @@ void XV_SdiRx_Start(XV_SdiRx *InstancePtr, XV_SdiRx_SearchMode Mode)
 		Data |= (Mode << XV_SDIRX_MDL_CTRL_FORCED_MODE_SHIFT);
 	}
 
+	/* Ignore VPID / ST352 payload to generate Video lock interrupt */
+	Data &= ~XV_SDIRX_MDL_CTRL_VPID_MASK;
+
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDIRX_MDL_CTRL_OFFSET), (Data));
 
