@@ -104,7 +104,7 @@ void XHdmiphy1_SetIntrHandler(XHdmiphy1 *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_TXRESET_DONE) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_RXRESET_DONE) ||
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_CPLL_LOCK) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_QPLL_LOCK) ||
 		(HandlerType == XHDMIPHY1_INTR_HANDLER_TYPE_TXALIGN_DONE) ||
@@ -135,7 +135,7 @@ void XHdmiphy1_SetIntrHandler(XHdmiphy1 *InstancePtr,
 		InstancePtr->IntrRxResetDoneHandler = CallbackFunc;
 		InstancePtr->IntrRxResetDoneCallbackRef = CallbackRef;
 		break;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	case XHDMIPHY1_INTR_HANDLER_TYPE_CPLL_LOCK:
 		InstancePtr->IntrCpllLockHandler = CallbackFunc;
 		InstancePtr->IntrCpllLockCallbackRef = CallbackRef;
@@ -228,7 +228,7 @@ void XHdmiphy1_InterruptHandler(XHdmiphy1 *InstancePtr)
 	IntrStatus = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
 			XHDMIPHY1_INTR_STS_REG);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	if (IntrStatus & XHDMIPHY1_INTR_CPLL_LOCK_MASK) {
 		InstancePtr->IntrCpllLockHandler(
 				InstancePtr->IntrCpllLockCallbackRef);

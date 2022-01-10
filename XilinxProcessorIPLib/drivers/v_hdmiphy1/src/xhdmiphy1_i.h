@@ -55,7 +55,7 @@ void XHdmiphy1_Ch2Ids(XHdmiphy1 *InstancePtr, XHdmiphy1_ChannelId ChId,
 		u8 *Id0, u8 *Id1);
 u32 XHdmiphy1_DirReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 XHdmiphy1_SysClkDataSelType XHdmiphy1_Pll2SysClkData(XHdmiphy1_PllType PllSelect);
 XHdmiphy1_SysClkOutSelType XHdmiphy1_Pll2SysClkOut(XHdmiphy1_PllType PllSelect);
 u32 XHdmiphy1_PllCalculator(XHdmiphy1 *InstancePtr, u8 QuadId,
@@ -85,7 +85,7 @@ XHdmiphy1_ChannelId XHdmiphy1_GetRcfgChId(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_DirectionType Dir, XHdmiphy1_PllType PllType);
 u32 XHdmiphy1_IsPllLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId);
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 u32 XHdmiphy1_GetQuadRefClkFreq(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_PllRefClkSelType RefClkType);
 XHdmiphy1_SysClkDataSelType XHdmiphy1_GetSysClkDataSel(XHdmiphy1 *InstancePtr,
@@ -123,7 +123,7 @@ u8 XHdmiphy1_MmcmLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir);
 void XHdmiphy1_MmcmSetClkinsel(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_DirectionType Dir, XHdmiphy1_MmcmClkinsel Sel);
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 void XHdmiphy1_SetBufgGtDiv(XHdmiphy1 *InstancePtr,
         XHdmiphy1_DirectionType Dir, u8 Div);
 /* xhdmiphy1.c Miscellaneous control. */
@@ -140,7 +140,7 @@ void XHdmiphy1_IntrEnable(XHdmiphy1 *InstancePtr,
 void XHdmiphy1_IntrDisable(XHdmiphy1 *InstancePtr,
         XHdmiphy1_IntrHandlerType Intr);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 u64 XHdmiphy1_GetPllVcoFreqHz(XHdmiphy1 *InstancePtr, u8 QuadId,
 		XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir);
 u8 XHdmiphy1_GetRefClkSourcesCount(XHdmiphy1 *InstancePtr);

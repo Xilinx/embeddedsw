@@ -159,7 +159,8 @@ u32 XHdmiphy1_DirReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 	return Status;
 }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * This function writes the current software configuration for the reference
@@ -379,7 +380,7 @@ u32 XHdmiphy1_IsPllLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
 {
 	u32 RegVal;
 	u32 MaskVal;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHdmiphy1_PllType TxPllType;
 	XHdmiphy1_PllType RxPllType;
 #endif
@@ -388,14 +389,14 @@ u32 XHdmiphy1_IsPllLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
 	QuadId = QuadId;
 
 	if (ChId == XHDMIPHY1_CHANNEL_ID_CMN0) {
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL0_MASK;
 #else
 		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_LCPLL_MASK;
 #endif
 	}
 	else if (ChId == XHDMIPHY1_CHANNEL_ID_CMN1) {
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL1_MASK;
 #else
 		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_RPLL_MASK;
@@ -405,7 +406,7 @@ u32 XHdmiphy1_IsPllLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
 		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_CPLL_ALL_MASK;
 #endif
 	}
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	else if (ChId == XHDMIPHY1_CHANNEL_ID_CMNA) {
 		MaskVal = XHDMIPHY1_PLL_LOCK_STATUS_QPLL0_MASK |
 			  XHDMIPHY1_PLL_LOCK_STATUS_QPLL1_MASK;
@@ -442,7 +443,7 @@ u32 XHdmiphy1_IsPllLocked(XHdmiphy1 *InstancePtr, u8 QuadId,
 }
 
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * Obtain the current reference clock frequency for the quad based on the
@@ -1112,7 +1113,7 @@ void XHdmiphy1_MmcmSetClkinsel(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * This function obtains the divider value of the BUFG_GT peripheral.

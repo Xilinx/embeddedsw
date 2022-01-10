@@ -70,6 +70,7 @@ extern "C" {
 #define XHDMIPHY1_GTHE4 5
 #define XHDMIPHY1_GTYE4 6
 #define XHDMIPHY1_GTYE5 7
+#define XHDMIPHY1_GTYP 8
 
 /****************************** Type Definitions ******************************/
 
@@ -78,6 +79,7 @@ typedef enum {
     XHDMIPHY1_GT_TYPE_GTHE4 = 5,
     XHDMIPHY1_GT_TYPE_GTYE4 = 6,
     XHDMIPHY1_GT_TYPE_GTYE5 = 7,
+    XHDMIPHY1_GT_TYPE_GTYP = 8,
 } XHdmiphy1_GtType;
 
 /**
@@ -106,7 +108,7 @@ typedef enum {
         XHDMIPHY1_INTR_TXRESETDONE_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_RXRESET_DONE =
         XHDMIPHY1_INTR_RXRESETDONE_MASK,
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     XHDMIPHY1_INTR_HANDLER_TYPE_CPLL_LOCK =
         XHDMIPHY1_INTR_CPLL_LOCK_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_QPLL_LOCK =
@@ -131,7 +133,7 @@ typedef enum {
         XHDMIPHY1_INTR_TXMMCMUSRCLK_LOCK_MASK,
     XHDMIPHY1_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE =
         XHDMIPHY1_INTR_RXMMCMUSRCLK_LOCK_MASK,
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
     XHDMIPHY1_INTR_HANDLER_TYPE_TX_GPO_RISING_EDGE =
 	XHDMIPHY1_INTR_TXGPO_RE_MASK,
 	XHDMIPHY1_INTR_HANDLER_TYPE_RX_GPO_RISING_EDGE =
@@ -710,7 +712,7 @@ typedef struct {
     u8 HdmiIsQpllPresent;           /**< QPLL is present in HW */
     XHdmiphy1_Hdmi21Cfg TxHdmi21Cfg; /**< TX HDMI Config */
     XHdmiphy1_Hdmi21Cfg RxHdmi21Cfg; /**< TX HDMI Config */
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     XHdmiphy1_IntrHandler IntrCpllLockHandler; /**< Callback function for CPLL
                             lock interrupts. */
     void *IntrCpllLockCallbackRef;      /**< A pointer to the user data
@@ -844,7 +846,7 @@ typedef struct {
 void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 		XHdmiphy1_Config *ConfigPtr,
         UINTPTR EffectiveAddr);
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 u32 XHdmiphy1_PllInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId,
         XHdmiphy1_PllRefClkSelType QpllRefClkSel,
@@ -943,7 +945,7 @@ u32 XHdmiphy1_HdmiCfgCalcMmcmParam(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_ChannelId ChId, XHdmiphy1_DirectionType Dir,
         XVidC_PixelsPerClock Ppc, XVidC_ColorDepth Bpc);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 void XHdmiphy1_HdmiUpdateClockSelection(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_SysClkDataSelType TxSysPllClkSel,
         XHdmiphy1_SysClkDataSelType RxSysPllClkSel);
@@ -975,7 +977,7 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr);
 #define XHDMIPHY1_ISTXMMCM(Id)   ((Id) == XHDMIPHY1_CHANNEL_ID_TXMMCM)
 #define XHDMIPHY1_ISRXMMCM(Id)   ((Id) == XHDMIPHY1_CHANNEL_ID_RXMMCM)
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 #define XHdmiphy1_IsTxUsingQpll(InstancePtr, QuadId, ChId) \
         ((XHDMIPHY1_PLL_TYPE_QPLL == \
         XHdmiphy1_GetPllType(InstancePtr, QuadId, XHDMIPHY1_DIR_TX, ChId)) || \

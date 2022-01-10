@@ -106,6 +106,8 @@ extern const XHdmiphy1_GtConfig XHdmiphy1_Gthe4Config;
 extern const XHdmiphy1_GtConfig XHdmiphy1_Gtye4Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
 extern const XHdmiphy1_GtConfig Gtye5Config;
+#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP)
+extern const XHdmiphy1_GtConfig GtypConfig;
 #endif
 
 #ifdef __cplusplus

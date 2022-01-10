@@ -122,7 +122,7 @@ void XHdmiphy1_HdmiIntrHandlerCallbackInit(XHdmiphy1 *InstancePtr)
             XHDMIPHY1_INTR_HANDLER_TYPE_RXRESET_DONE,
             (XHdmiphy1_IntrHandler)XHdmiphy1_HdmiGtHandler, InstancePtr);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     XHdmiphy1_SetIntrHandler(InstancePtr,
             XHDMIPHY1_INTR_HANDLER_TYPE_CPLL_LOCK,
             (XHdmiphy1_IntrHandler)XHdmiphy1_HdmiGtHandler, InstancePtr);
@@ -181,7 +181,7 @@ void XHdmiphy1_HdmiIntrHandlerCallbackInit(XHdmiphy1 *InstancePtr)
             (XHdmiphy1_IntrHandler)XHdmiphy1_ClkDetHandler, InstancePtr);
 }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
 /*****************************************************************************/
 /**
 * This function is the handler for events triggered by TX GPO Rising Edge.
@@ -609,7 +609,7 @@ void XHdmiphy1_HdmiGtTxResetDoneLockHandler(XHdmiphy1 *InstancePtr)
          XHdmiphy1_PatgenEnable(InstancePtr, 0, FALSE);
     }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     if ((InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) ||
         (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4)) {
         XHdmiphy1_TxAlignReset(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, TRUE);
@@ -721,7 +721,7 @@ void XHdmiphy1_HdmiTxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
             XHDMIPHY1_CHANNEL_ID_CH1);
 
 	/* If the TX frequency has changed, the PLL is always disabled. */
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     XHdmiphy1_PowerDownGtPll(InstancePtr, 0,
         (PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
         XHDMIPHY1_CHANNEL_ID_CHA : XHDMIPHY1_CHANNEL_ID_CMNA, TRUE);
@@ -747,7 +747,7 @@ void XHdmiphy1_HdmiTxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     /* Clear TX timer. */
     XHdmiphy1_ClkDetTimerClear(InstancePtr, 0, XHDMIPHY1_DIR_TX);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     /* Clear GT alignment. */
     XHdmiphy1_TxAlignStart(InstancePtr, XHDMIPHY1_CHANNEL_ID_CHA, FALSE);
 #endif
@@ -829,7 +829,7 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     }
 
     /* If the RX frequency has changed, the PLL is always disabled. */
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     XHdmiphy1_PowerDownGtPll(InstancePtr, 0,
         (PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
         XHDMIPHY1_CHANNEL_ID_CHA : XHDMIPHY1_CHANNEL_ID_CMNA, TRUE);
@@ -883,7 +883,7 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
 ******************************************************************************/
 void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
 {
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     XHdmiphy1_ChannelId ChId;
     XHdmiphy1_PllType PllType;
 #else
@@ -895,7 +895,7 @@ void XHdmiphy1_HdmiTxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
         XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_TX_TMR, 1);
     }
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     /* Determine PLL type. */
     PllType = XHdmiphy1_GetPllType(InstancePtr, 0, XHDMIPHY1_DIR_TX,
             XHDMIPHY1_CHANNEL_ID_CH1);
@@ -989,7 +989,7 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_PllType PllType;
     u32 Status;
     u8 Id, Id0, Id1;
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)||(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP))
 	u8 CfgValComp;
 #endif
 
@@ -1035,7 +1035,7 @@ void XHdmiphy1_HdmiRxTimerTimeoutHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_HdmiGtDruModeEnable(InstancePtr,
     		InstancePtr->HdmiRxDruIsEnabled);
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     /* Enable PLL. */
     XHdmiphy1_PowerDownGtPll(InstancePtr, 0,
         (PllType == XHDMIPHY1_PLL_TYPE_CPLL) ?
@@ -1161,7 +1161,7 @@ void XHdmiphy1_HdmiGtHandler(XHdmiphy1 *InstancePtr)
 
 
     EventMask =
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
 	XHDMIPHY1_INTR_QPLL0_LOCK_MASK | XHDMIPHY1_INTR_CPLL_LOCK_MASK |
 		XHDMIPHY1_INTR_QPLL1_LOCK_MASK |
 		XHDMIPHY1_INTR_TXALIGNDONE_MASK |
@@ -1197,7 +1197,7 @@ void XHdmiphy1_HdmiGtHandler(XHdmiphy1 *InstancePtr)
     if (Event & XHDMIPHY1_INTR_RXMMCMUSRCLK_LOCK_MASK) {
         XHdmiphy1_HdmiRxMmcmLockHandler(InstancePtr);
     }
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
     if ((Event & XHDMIPHY1_INTR_QPLL0_LOCK_MASK) ||
         (Event & XHDMIPHY1_INTR_QPLL1_LOCK_MASK)) {
         XHdmiphy1_HdmiQpllLockHandler(InstancePtr);
