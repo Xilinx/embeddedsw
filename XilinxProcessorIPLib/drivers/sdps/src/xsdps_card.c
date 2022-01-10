@@ -28,6 +28,7 @@
 *       sk     02/12/21 Fix the issue in reading CID and CSD.
 * 3.14  sk     10/22/21 Add support for Erase feature.
 *       mn     11/28/21 Fix MISRA-C violations.
+*       sk     01/10/22 Add support to read slot_type parameter.
 *
 * </pre>
 *
@@ -953,12 +954,20 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_DDR50_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_DDR50;
 		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_DDR50;
-		InstancePtr->ITapDelay = SD_ITAPDLYSEL_SD_DDR50;
+		if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
+			InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_DDR50;
+		} else {
+			InstancePtr->ITapDelay = SD_ITAPDLYSEL_SD_DDR50;
+		}
 	} else if (((ReadBuff[13] & UHS_SDR25_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR25_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR25;
 		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
-		InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+		if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
+			InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_SDR25;
+		} else {
+			InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+		}
 	} else {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR12;
 	}

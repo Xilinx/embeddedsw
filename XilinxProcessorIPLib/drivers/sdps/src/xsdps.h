@@ -145,6 +145,7 @@
 * 3.13  sk     08/10/21 Limit the SD operating frequency to 19MHz for Versal.
 * 3.14  sk     10/22/21 Add support for Erase feature.
 *       sk     11/29/21 Fix compilation warnings reported with "-Wundef" flag.
+*       sk     01/10/22 Add support to read slot_type parameter.
 *
 * </pre>
 *
@@ -233,6 +234,7 @@ typedef struct {
 	u32 BusWidth;			/**< Bus Width */
 	u32 BankNumber;			/**< MIO Bank selection for SD */
 	u32 HasEMIO;			/**< If SD is connected to EMIO */
+	u8 SlotType;			/**< Slot type */
 	u8 IsCacheCoherent; 		/**< If SD is Cache Coherent or not */
 #if defined  (XCLOCKING)
 	u32 RefClk;			/**< Input clocks */
