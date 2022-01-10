@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 * 1.1	nsk    11/07/16    Change memcpy to Xil_MemCpy to handle word aligned
 *	                   data access.
 * 1.4	nsk    04/10/18    Added ICCARM compiler support.
+* 1.10	akm    01/05/22    Remove assert checks form static and internal APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -79,9 +80,6 @@ static s32 XNandPsu_UpdateBbt(XNandPsu *InstancePtr, u32 Target);
 void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 {
 	u32 Index;
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Initialize primary Bad Block Table(BBT) */
 	for (Index = 0U; Index < XNANDPSU_MAX_TARGETS; Index++) {
@@ -254,12 +252,12 @@ static void XNandPsu_CreateBbt(XNandPsu *InstancePtr, u32 Target)
 ******************************************************************************/
 s32 XNandPsu_ScanBbt(XNandPsu *InstancePtr)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY)
+
 	s32 Status;
 	u32 Index;
 	u32 BbtLen;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Zero the RAM based Bad Block Table(BBT) entries */
 	BbtLen = InstancePtr->Geometry.NumBlocks >>
@@ -834,15 +832,15 @@ Out:
 ******************************************************************************/
 s32 XNandPsu_IsBlockBad(XNandPsu *InstancePtr, u32 Block)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY)
+	Xil_AssertNonvoid(Block < InstancePtr->Geometry.NumBlocks);
+
 	u8 Data;
 	u8 BlockShift;
 	u8 BlockType;
 	u32 BlockOffset;
 	s32 Status;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Block < InstancePtr->Geometry.NumBlocks);
 
 	BlockOffset = Block >> XNANDPSU_BBT_BLOCK_SHIFT;
 	BlockShift = XNandPsu_BbtBlockShift(Block);
@@ -874,6 +872,10 @@ s32 XNandPsu_IsBlockBad(XNandPsu *InstancePtr, u32 Block)
 ******************************************************************************/
 s32 XNandPsu_MarkBlockBad(XNandPsu *InstancePtr, u32 Block)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY)
+	Xil_AssertNonvoid(Block < InstancePtr->Geometry.NumBlocks);
+
 	u8 Data;
 	u8 BlockShift;
 	u32 BlockOffset;
@@ -881,10 +883,6 @@ s32 XNandPsu_MarkBlockBad(XNandPsu *InstancePtr, u32 Block)
 	u8 NewVal;
 	s32 Status;
 	u32 Target;
-
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Block < InstancePtr->Geometry.NumBlocks);
 
 	Target = Block / InstancePtr->Geometry.NumTargetBlocks;
 
