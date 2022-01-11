@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,6 +73,7 @@
 *       bsv  12/04/21 Address security review comment
 *       kpt  12/13/21 Replaced standard library utility functions with xilinx
 *                     maintained functions
+*       skd  01/11/22 Moved comments to its proper place
 *
 * </pre>
 *
@@ -772,8 +773,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 
 		XPlmi_Printf(DEBUG_INFO, "Headers are in encrypted format\n\r");
 		SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
-		/* Read headers to a buffer */
-		/* Read IHT and PHT to buffers along with encryption overhead */
+
 		if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 			(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 			XPlmi_Printf(DEBUG_INFO, "Authentication is enabled\n\r");
@@ -787,6 +787,8 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 			goto END;
 		}
 
+		/* Read headers to a buffer */
+		/* Read IHT and PHT to buffers along with encryption overhead */
 		Status = MetaHdr->DeviceCopy((MetaHdr->FlashOfstAddr + ImgHdrAddr),
 			SecurePtr->ChunkAddr, TotalSize, 0x0U);
 		if (XST_SUCCESS != Status) {
