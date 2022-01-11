@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 # this script will copy the required bsp directories
@@ -62,9 +62,11 @@ mkdir -p $BSP_DIR/libsrc/xilplmi
 cp -r $SERVICES_DIR/xilplmi/src $BSP_DIR/libsrc/xilplmi/
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilplmi/src/Makefile"
 
-mkdir -p $BSP_DIR/libsrc/xilpuf
-cp -r $SERVICES_DIR/xilpuf/src $BSP_DIR/libsrc/xilpuf/
-cp -r $SERVICES_DIR/xilpuf/src/*.h $BSP_DIR/include/
+mkdir -p $BSP_DIR/libsrc/xilpuf/src
+cp -r $SERVICES_DIR/xilpuf/src/Makefile $BSP_DIR/libsrc/xilpuf/src
+cp -r $SERVICES_DIR/xilpuf/src/common/* $BSP_DIR/libsrc/xilpuf/src
+cp -r $SERVICES_DIR/xilpuf/src/server/* $BSP_DIR/libsrc/xilpuf/src
+cp -r $BSP_DIR/libsrc/xilpuf/src/*.h $BSP_DIR/include/
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpuf/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilloader
