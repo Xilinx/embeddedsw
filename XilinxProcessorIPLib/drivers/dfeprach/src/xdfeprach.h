@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeprach.h
-* @addtogroup xdfeprach_v1_2 Overview
+* @addtogroup xdfeprach_v1_3 Overview
 * @{
 *
 * The RFSoC DFE PRACH LogiCORE IP provides a wrapper around the PRACH primitive
