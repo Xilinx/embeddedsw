@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,9 +35,10 @@
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     11/26/21 Assert RachChan equal RCId
 *       dc     12/17/21 Update after documentation review
+* 1.3   dc     01/11/22 Compilation warrning fix
 *
 * </pre>
-* @addtogroup xdfeprach_v1_2
+* @addtogroup xdfeprach_v1_3
 * @{
 ******************************************************************************/
 /**
@@ -2495,7 +2496,7 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(NcoCfg != NULL);
 	Xil_AssertVoid(StaticSchedule != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-	Xil_AssertNonvoid(RachChan == RCId);
+	Xil_AssertVoid(RachChan == RCId);
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */

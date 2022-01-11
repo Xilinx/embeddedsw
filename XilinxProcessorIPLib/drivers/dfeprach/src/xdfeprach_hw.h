@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeprach_hw.h
-* @addtogroup xdfeprach_v1_2
+* @addtogroup xdfeprach_v1_3
 * @{
 * @cond nocomments
 * Contains the register definitions for xdfeprach. This is
