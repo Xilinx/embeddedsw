@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfemix.h
-* @addtogroup xdfemix_v1_2 Overview
+* @addtogroup xdfemix_v1_3 Overview
 * @{
 *
 * The RFSoC DFE DUC-DDC Mixer IP provides a wrapper around the Channel Mixer and
