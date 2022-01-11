@@ -171,13 +171,41 @@ static void XPsmfw_ExceptionInit(void)
 
 /* Structure for Top level interrupt table */
 static struct HandlerTable g_TopLevelInterruptTable[] = {
-	{PSM_IOMODULE_IRQ_PENDING_IPI_MASK, XPsmFw_InterruptIpiHandler},
-	{PSM_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK, XPsmfw_InterruptPwrUpHandler},
-	{PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_MASK, XPsmfw_InterruptPwrDwnHandler},
-	{PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_MASK, XPsmfw_InterruptWakeupHandler},
-	{PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_MASK, XPsmfw_InterruptPwrCtlHandler},
-	{PSM_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK, NULL},
-	{PSM_IOMODULE_IRQ_PENDING_GICP_INT_MASK, XPsmfw_InterruptGicP2Handler},
+	{
+		PSM_IOMODULE_IRQ_PENDING_IPI_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_IPI_MASK,
+		XPsmFw_InterruptIpiHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_PWR_UP_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK,
+		XPsmfw_InterruptPwrUpHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_MASK,
+		XPsmfw_InterruptPwrDwnHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_MASK,
+		XPsmfw_InterruptWakeupHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_MASK,
+		XPsmfw_InterruptPwrCtlHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_SW_RST_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK,
+		NULL
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_GICP_INT_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_GICP_INT_MASK,
+		XPsmfw_InterruptGicP2Handler
+	},
 };
 
 /**
@@ -240,14 +268,15 @@ END:
 XStatus SetUpInterruptSystem(void)
 {
 	u32 IntrNumber;
+	u32 l_index;
 
 	/*
 	* Connect a device driver handler that will be called when an interrupt
 	* for the device occurs, the device driver handler performs the specific
 	* interrupt processing for the device
 	*/
-	for (IntrNumber = 0; IntrNumber < XPAR_IOMODULE_INTC_MAX_INTR_SIZE;
-	     IntrNumber++) {
+	for(l_index = 0U; l_index < ARRAYSIZE(g_TopLevelInterruptTable); l_index++) {
+		IntrNumber = g_TopLevelInterruptTable[l_index].Shift;
 		if (XST_SUCCESS != XIOModule_Connect(&IOModule, (u8)IntrNumber,
 						     (XInterruptHandler)XPsmFw_IntrHandler,
 						     (void *)IntrNumber)) {
@@ -379,8 +408,10 @@ void XPsmFw_IntrHandler(void *IntrNumber)
 	    l_index++) {
 			if ((l_IrqReg & g_TopLevelInterruptTable[l_index].Mask)
 				    == g_TopLevelInterruptTable[l_index].Mask) {
-				/* Call interrupt handler */
-				g_TopLevelInterruptTable[l_index].Handler();
+				if (NULL != g_TopLevelInterruptTable[l_index].Handler) {
+					/* Call interrupt handler */
+					g_TopLevelInterruptTable[l_index].Handler();
+				}
 
 				/* ACK the interrupt */
 				XPsmFw_Write32(PSM_IOMODULE_IRQ_ACK,
