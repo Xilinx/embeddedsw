@@ -70,6 +70,7 @@ extern "C" {
 /* Handler Table Structure */
 typedef void (*VoidFunction_t)(void);
 struct HandlerTable {
+	u32 Shift;
 	u32 Mask;
 	VoidFunction_t Handler;
 };
