@@ -48,7 +48,8 @@
 *       ma   08/30/2021 Added defines related to SSIT
 *       gm   09/17/2021 Added RunTime Configuration register for MJTAG
 *                       workaround
-*       tnt  11/11/2021 Added RTCA defines for MIO Flush routine.
+*       tnt  11/11/2021 Added RTCA defines for MIO Flush routine
+*       tnt  12/17/2021 Added RTCA define for PL_POR HDIO workaround
 *
 * </pre>
 *
@@ -142,6 +143,7 @@ enum {
 #define XPLMI_RTCFG_MIO_WA_BANK_501_ADDR	(XPLMI_RTCFG_BASEADDR + 0x274U)
 #define XPLMI_RTCFG_MIO_WA_BANK_502_ADDR	(XPLMI_RTCFG_BASEADDR + 0x278U)
 #define XPLMI_MIO_FLUSH_ALL_PINS		0x3FFFFFFU
+#define XPLMI_RTCFG_RST_PL_POR_WA		(XPLMI_RTCFG_BASEADDR + 0x27CU)
 
 #define XPLMI_RTCFG_DBG_LOG_BUF_OFFSET	(0x10U)
 #define XPLMI_RTCFG_LOG_UART_OFFSET		(0x24U)
