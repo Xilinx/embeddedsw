@@ -74,6 +74,7 @@
 *       kpt  12/13/21 Replaced standard library utility functions with xilinx
 *                     maintained functions
 *       skd  01/11/22 Moved comments to its proper place
+*       skd  01/12/22 Updated goto labels for better readability
 *
 * </pre>
 *
@@ -746,7 +747,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
-		goto END;
+		goto ERR_END;
 	}
 
 	/*
@@ -762,13 +763,13 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 			XPlmi_Printf(DEBUG_INFO, "Failed at XSecure_AesInitialize\n\r");
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_AES_OP_FAIL,
 					Status);
-			goto END;
+			goto ERR_END;
 		}
 
 		Status = XLoader_AesKatTest(SecurePtr);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_INFO, "Failed at AES KAT test\n\r");
-			goto END;
+			goto ERR_END;
 		}
 
 		XPlmi_Printf(DEBUG_INFO, "Headers are in encrypted format\n\r");
@@ -784,7 +785,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		if ((TotalSize > XLOADER_CHUNK_SIZE) ||
 			(TotalSizeTmp > XLOADER_CHUNK_SIZE)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_METAHDR_LEN_OVERFLOW, 0);
-			goto END;
+			goto ERR_END;
 		}
 
 		/* Read headers to a buffer */
@@ -793,7 +794,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 			SecurePtr->ChunkAddr, TotalSize, 0x0U);
 		if (XST_SUCCESS != Status) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_COPY_FAIL, Status);
-			goto END;
+			goto ERR_END;
 		}
 
 		Status = XST_FAILURE;
@@ -814,7 +815,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 			if (Clearchunk != XST_SUCCESS) {
 				Status = (int)((u32)Status | XLOADER_SEC_CHUNK_CLEAR_ERR);
 			}
-			goto END;
+			goto ERR_END;
 		}
 		/* Read IHT and PHT to structures and verify checksum */
 		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
@@ -824,12 +825,12 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 			TotalImgHdrLen);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_IH_READ_FAIL, Status);
-			goto END;
+			goto ERR_END;
 		}
 		Status = XilPdi_VerifyImgHdrs(MetaHdr);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_IH_VERIFY_FAIL, Status);
-			goto END;
+			goto ERR_END;
 		}
 		/* Verify Meta header is revoked or not */
 		for (Ihs = 0U; Ihs < MetaHdr->ImgHdrTbl.NoOfImgs; Ihs++) {
@@ -840,12 +841,12 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 				(StatusTmp != XST_SUCCESS)) {
 				XPlmi_Printf(DEBUG_GENERAL, "Meta header is revoked\n\r");
 				Status |= StatusTmp;
-				goto END;
+				goto ERR_END;
 			}
 		}
 		if (Ihs != MetaHdr->ImgHdrTbl.NoOfImgs) {
 			Status = XST_FAILURE;
-			goto END;
+			goto ERR_END;
 		}
 
 		/* Update buffer address to point to PHs */
@@ -864,18 +865,18 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	else {
 		XPlmi_Printf(DEBUG_INFO, "Headers are not secure\n\r");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_SECURE, 0);
-		goto END1;
+		goto END;
 	}
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_READ_FAIL, Status);
-		goto END;
+		goto ERR_END;
 	}
 	Status = XilPdi_VerifyPrtnHdrs(MetaHdr);
 	if(Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SEC_PH_VERIFY_FAIL, Status);
 	}
 
-END:
+ERR_END:
 	if (Status != XST_SUCCESS) {
 		ClearIHs = XPlmi_InitNVerifyMem((UINTPTR)&MetaHdr->ImgHdr[0U],
 			TotalImgHdrLen);
@@ -888,7 +889,7 @@ END:
 			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
 		}
 	}
-END1:
+END:
 	return Status;
 }
 
