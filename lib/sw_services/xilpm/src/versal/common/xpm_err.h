@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -140,6 +140,16 @@ extern "C" {
 /************************** (2110L) - (2119L) ****************************/
 #define XPM_ERR_NEW_DATA_FLAG_TIMEOUT            (2110L) /**< Sysmon new data flag timeout */
 #define XPM_ERR_RAIL_VOLTAGE                     (2111L) /**< Power rail not ramped up */
+
+/**************************** AIE OPERATION ERRORS ******************************/
+/************************** (2120L) - (2129L) ****************************/
+#define XPM_ERR_AIE_OPS_COL_RST			(2120L) /**< Error while Column Reset */
+#define XPM_ERR_AIE_OPS_SHIM_RST		(2121L) /**< Error while Shim Reset */
+#define XPM_ERR_AIE_OPS_ENB_COL_CLK_BUFF	(2122L) /**< Error while Enabling of column clock buffer */
+#define XPM_ERR_AIE_OPS_ZEROIZATION		(2123L) /**< Error while Zeroization */
+#define XPM_ERR_AIE_OPS_DIS_COL_CLK_BUFF	(2124L) /**< Error while Disabling of column clock buffer */
+#define XPM_ERR_AIE_OPS_ENB_AXI_MM_ERR_EVENT	(2125L) /**< Error while Enabling of AXI-MM error events */
+#define XPM_ERR_AIE_OPS_SET_L2_CTRL_NPI_INTR	(2126L) /**< Error while Setting of L2 controller NPI INTR */
 
 /************************** Variable Definitions *****************************/
 
