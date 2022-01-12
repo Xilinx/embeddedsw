@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,8 @@
 * 1.02  bm   10/14/2020 Code clean up
 * 1.03  bm   02/08/2021 Add GetSysmonInst API
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
+*       is   01/10/2022 Updated XPlmi_SysMonOTDetect API to pass wait time arg
+*       is   01/10/2022 Updated Copyright Year to 2022
 *
 * </pre>
 *
@@ -54,7 +56,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_SysMonInit(void);
-void XPlmi_SysMonOTDetect(void);
+void XPlmi_SysMonOTDetect(u32 WaitInMSec);
 XSysMonPsv* XPlmi_GetSysmonInst(void);
 
 /************************** Variable Definitions *****************************/
