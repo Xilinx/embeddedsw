@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,9 @@
  * 1.03  bm   02/08/2021 Add GetSysmonPsv API
  * 1.04  td   07/08/2021 Fix doxygen warnings
  *       rb   08/11/2021 Fix compilation warnings
+ *       is   01/10/2022 Updated XPlmi_SysMonOTDetect to wait additional time
+ *                       after OT event clears up
+ *       is   01/10/2022 Updated Copyright Year to 2022
  *
  * </pre>
  *
@@ -105,10 +108,13 @@ END:
 /**
  * @brief	This function detects if we are still in over-temperature condition.
  *
+ * @param	WaitInMSec is the time in milliseconds for which the firmware must
+ *              wait before proceeding after over temperature event clears up
+ *
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_SysMonOTDetect(void)
+void XPlmi_SysMonOTDetect(u32 WaitInMSec)
 {
 	u32 Val;
 	u32 Count;
@@ -138,6 +144,14 @@ void XPlmi_SysMonOTDetect(void)
 			Count = 1000U;
 		}
 		Val = XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET);
+	}
+
+	/*
+	 * In case of boot after an OT event, wait for this additional time after OT clears
+	 * to allow the temperature across the chip to cool down
+	 */
+	while (WaitInMSec-- > 0U) {
+		usleep(1000U);
 	}
 
 	XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_PCSR_LOCK, 0U);

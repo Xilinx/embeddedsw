@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,6 +62,8 @@
 * 1.07  bsv  10/26/2021 Code clean up
 *       ma   11/22/2021 Remove hardcoding of Proc addresses
 *       kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
+*       is   01/10/2022 Added support for OT_CHECK command (XPlmi_OTCheck)
+*       is   01/10/2022 Updated Copyright Year to 2022
 *
 * </pre>
 *
@@ -84,6 +86,7 @@
 #include "xplmi_cmd.h"
 #include "xil_util.h"
 #include "xplmi_cdo.h"
+#include "xplmi_sysmon.h"
 
 /**@cond xplmi_internal
  * @{
@@ -1661,6 +1664,36 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides Over Temperature Check command execution.
+ *
+ * @param	Cmd is pointer to the command structure
+ *              Command payload parameters are
+ *              - Delay in milliseconds
+ *
+ * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ *
+ *****************************************************************************/
+static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 WaitInMSec = Cmd->Payload[0U];
+
+	XPlmi_Printf(DEBUG_INFO, "%s: Delay post OT Event (mSec): %u\n\r",
+			__func__, WaitInMSec);
+
+	/*
+	 * Check if OT event is present, wait until it clears up,
+	 * then wait additional *WaitInMSec* milliseconds
+	 */
+	XPlmi_SysMonOTDetect(WaitInMSec);
+
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function checks if the IPI command is accessible or not
  *
  * @param	CmdId is the Command ID
@@ -1741,6 +1774,10 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_LogAddress),
 		XPLMI_MODULE_COMMAND(XPlmi_Marker),
 		XPLMI_MODULE_COMMAND(XPlmi_Proc),
+		XPLMI_MODULE_COMMAND(NULL),	/* Reserved for future */
+		XPLMI_MODULE_COMMAND(NULL),	/* Reserved for future */
+		XPLMI_MODULE_COMMAND(NULL),	/* Reserved for future */
+		XPLMI_MODULE_COMMAND(XPlmi_OTCheck),
 	};
 
 	XPlmi_Generic.Id = XPLMI_MODULE_GENERIC_ID;

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,6 +74,8 @@
 * 1.07  ma   12/17/2021 Clear SSIT_ERR register during EM init
 *       bsv  12/24/2021 Move common defines from xilplmi and xilpm to common
 *                       folder
+*       is   01/10/2022 Updated XPlmi_SysMonOTDetect API to pass wait time arg
+*       is   01/10/2022 Updated Copyright Year to 2022
 *
 * </pre>
 *
@@ -1464,7 +1466,7 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, MASK32_ALL_HIGH);
 
 	/* Detect if we are in over-temperature condition */
-	XPlmi_SysMonOTDetect();
+	XPlmi_SysMonOTDetect(0U);
 
 	PmSystemShutdown = SystemShutdown;
 	PmSubsysRestart = SubsystemRestart;
