@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 *  1.0  adk	 24/11/21 Initial release.
+*  	adk	 12/01/22 Fix compilation errors when cortexr5 internal pm
+*  			  counter selected as default timer.
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H
