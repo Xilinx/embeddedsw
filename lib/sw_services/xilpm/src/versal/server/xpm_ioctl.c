@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xpm_defs.h"
@@ -880,6 +880,20 @@ done:
 	return Status;
 }
 
+static XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, u32 Part, u32 Ops)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Aie = NULL;
+	(void)Id;
+	(void)SubsystemId;
+
+	/* To-Do: Add Permission Check */
+
+	Status = Aie_Operations(Aie, Part, Ops);
+
+	return Status;
+}
+
 static XStatus XPm_SetBootHealth(const u32 Value)
 {
 	XStatus Status = XST_FAILURE;
@@ -1032,6 +1046,9 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		break;
 	case IOCTL_AIE_ISR_CLEAR:
 		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
+		break;
+	case IOCTL_AIE_OPS:
+		Status = XPm_AieOperation(SubsystemId, DeviceId, Arg1, Arg2);
 		break;
 	case IOCTL_READ_REG:
 		Status = XPmAccess_ReadReg(SubsystemId, DeviceId, IoctlId,

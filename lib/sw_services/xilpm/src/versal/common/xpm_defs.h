@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -357,6 +357,9 @@ typedef enum {
 	IOCTL_SET_SD_CONFIG,				/**< Set SD config register value */
 	IOCTL_SET_GEM_CONFIG,				/**< Set GEM config register value */
 	IOCTL_SET_USB_CONFIG,				/**< Set USB config register value */
+	/* AIE1/AIEML Run Time Operations */
+	IOCTL_AIE_OPS,                                  /**< AIE1/AIEML Run Time Operations */
+
 } pm_ioctl_id;
 
 /**
