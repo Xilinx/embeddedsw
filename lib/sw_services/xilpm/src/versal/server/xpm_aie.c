@@ -751,6 +751,37 @@ done:
 	return Status;
 }
 
+static XStatus AiePostScanClearHook(const XPm_AieDomain *AieDomain, u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+
+	(void)AieDomain;
+	(void)BaseAddress;
+
+	/* De-assert INIT_STATE */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_INITSTATE_MASK, 0U);
+
+	return Status;
+}
+
+static XStatus AiePreBisrHook(const XPm_AieDomain *AieDomain, u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+
+	(void)AieDomain;
+
+	/* Config AIE SMID: ME_SMID_REG.ME_SMID[4:0]=0x1f */
+	PmOut32((BaseAddress + ME_NPI_ME_SMID_REG), 0x1FU);
+
+	/* Make AIE block non-secure: ME_SECURE_REG.ME_SECURE[0]=0x0 */
+	PmOut32((BaseAddress + ME_NPI_ME_SECURE_REG), 0U);
+
+	/* De-assert AIE array reset */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_ARRAY_RESET_MASK, 0U);
+
+	return Status;
+}
+
 static XStatus AieBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -831,6 +862,29 @@ fail:
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus Aie2PreBisrHook(const XPm_AieDomain *AieDomain, u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+
+	(void)AieDomain;
+
+	/* Assert AIE2 Shim Reset */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK,
+				ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Config AIE SMID: ME_SMID_REG.ME_SMID[4:0]=0x1f */
+	PmOut32((BaseAddress + ME_NPI_ME_SMID_REG), 0x1FU);
+
+	/* Make AIE block non-secure: ME_SECURE_REG.ME_SECURE[0]=0x0 */
+	PmOut32((BaseAddress + ME_NPI_ME_SECURE_REG), 0U);
+
+done:
 	return Status;
 }
 
@@ -1406,14 +1460,14 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		/* AIE1: Ops */
 		Ops = &AieOps[XPM_AIE_OPS];
 		/* AIE1 hooks for Ops */
-		Hooks->PostScanClearHook = NULL;
-		Hooks->PreBisrHook = NULL;
+		Hooks->PostScanClearHook = AiePostScanClearHook;
+		Hooks->PreBisrHook = AiePreBisrHook;
 	} else if (PM_POWER_ME2 == Id) {
 		/* AIE2: Ops */
 		Ops = &AieOps[XPM_AIE2_OPS];
 		/* AIE2: Hooks for Ops */
 		Hooks->PostScanClearHook = NULL;
-		Hooks->PreBisrHook = NULL;
+		Hooks->PreBisrHook = Aie2PreBisrHook;
 	} else {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;
