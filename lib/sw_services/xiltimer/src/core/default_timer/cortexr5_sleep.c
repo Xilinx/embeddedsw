@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -19,6 +19,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
 *  1.0  adk	 24/11/21 Initial release.
+*  	adk	 12/01/22 Fix compilation errors.
  *</pre>
  *
  *@note
@@ -28,7 +29,6 @@
 #include "xpm_counter.h"
 
 #ifdef XTIMER_IS_DEFAULT_TIMER
-#include "xcortexr5_config.h"
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -67,6 +67,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 static void XCortexr5_ModifyInterval(XTimer *InstancePtr, u32 delay,
 				       XTimer_DelayType DelayType)
 {
+	(void) InstancePtr;
 	u64 tEnd = 0U;
 	u64 tCur = 0U;
 	u32 TimeHighVal = 0U;
@@ -75,7 +76,7 @@ static void XCortexr5_ModifyInterval(XTimer *InstancePtr, u32 delay,
 	/* For the CortexR5 PMU cycle counter. As boot code is setting up "D"
 	 * bit in PMCR, cycle counter increments on every 64th bit of processor cycle
 	 */
-	u32 frequency = XGet_CpuFreq()/64;
+	u32 frequency = XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ/64;
 
 #if defined (__GNUC__)
 	TimeLowVal1 = Xpm_ReadCycleCounterVal();
@@ -112,7 +113,6 @@ static void XCortexr5_ModifyInterval(XTimer *InstancePtr, u32 delay,
  *
  ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global) {
-	XTimer *InstancePtr = &TimerInst;
 
 	*Xtime_Global = Xpm_ReadCycleCounterVal();
 }
