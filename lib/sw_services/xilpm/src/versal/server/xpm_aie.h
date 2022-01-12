@@ -26,6 +26,7 @@ extern "C" {
 
 typedef struct XPm_AieArray XPm_AieArray;
 typedef struct XPm_AieDomain XPm_AieDomain;
+typedef struct XPm_AieDomainOpHooks XPm_AieDomainOpHooks;
 
 #define ARR_GENV(ArrWord)	((u16)((ArrWord) & 0xFFFFU))
 #define ARR_ROWS(ArrWord)	((u16)((ArrWord) & 0xFFFFU))
@@ -49,12 +50,18 @@ struct XPm_AieArray {
 	u16 NumShimRows;
 };
 
+struct XPm_AieDomainOpHooks {
+	XStatus (*PostScanClearHook)(const XPm_AieDomain *AieDomain, u32 BaseAddress);
+	XStatus (*PreBisrHook)(const XPm_AieDomain *AieDomain, u32 BaseAddress);
+};
+
 /**
  * AI Engine domain node class.
  */
 struct XPm_AieDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 	XPm_AieArray Array;	/**< AIE device instance */
+	XPm_AieDomainOpHooks Hooks;	/**< Hooks for AIE domain ops */
 };
 
 /*****************************************************************************/
