@@ -43,13 +43,11 @@ static XStatus XPmPlDomain_InitandHouseclean(void);
 static XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	XStatus Status = XST_SUCCESS;
 
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
-
-	Status = XPmPowerDomain_SecureEfuseTransfer(PM_POWER_PLD);
 
 	return Status;
 }
@@ -303,6 +301,33 @@ done:
 	return Status;
 }
 
+static XStatus SecureEfuseTransmission(u32 BaseAddress)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* TODO: Review with Sysmon hardware team for correct sequence */
+
+	/* Unlock PCSR */
+	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+
+	/* Check for VDU efuse enabled */
+	if ((XPm_In32(BaseAddress + NPI_PCSR_STATUS_OFFSET) &
+				VDU_NPI_PCSR_STATUS_VDU_SSC_EFUSE_DISABLE_MASK) == 0U) {
+		DbgErr = XPM_INT_ERR_VDU_EFUSE_DISABLE;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	/* Lock PCSR */
+	XPmPlDomain_LockVduPcsr(BaseAddress);
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus VduHouseClean(void)
 {
 	volatile XStatus Status = XST_FAILURE;
@@ -358,6 +383,13 @@ static XStatus VduHouseClean(void)
 		/* Required for redundancy */
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 			DbgErr = XPM_INT_ERR_VDU_MBIST;
+			goto done;
+		}
+
+		/* Secure Efuse Transmission */
+		Status = SecureEfuseTransmission(VduAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_VDU_SCC;
 			goto done;
 		}
 	}
