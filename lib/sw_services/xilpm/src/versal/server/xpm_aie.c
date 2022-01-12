@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,8 @@
 
 #define AieWrite64(addr, val) swea(addr, val)
 #define AieRead64(addr) lwea(addr)
+
+static XPm_AieDomain *PmAieDomain;
 
 static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
 {
@@ -1564,6 +1566,9 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 	}
+
+	/* Store the Node of Aie Domain */
+	PmAieDomain = AieDomain;
 
 	/* Clear AIE section of PMC RAM register reserved for houseclean disable */
 	XPm_RMW32(PM_HOUSECLEAN_DISABLE_REG_2, PM_HOUSECLEAN_DISABLE_AIE_MASK, 0U);
