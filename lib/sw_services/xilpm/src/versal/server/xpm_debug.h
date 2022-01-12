@@ -442,6 +442,10 @@ extern "C" {
 #define XPM_INT_ERR_AIE_INITSTATE_RELEASE	0x410BU
 /* Error during Memory Zeroization */
 #define XPM_INT_ERR_AIE_MEMORY_ZEROISATION	0x410CU
+/* Error during AIE Post Scan Clear Hook */
+#define XPM_INT_ERR_AIE_POST_SCAN_CLEAR_HOOK	0x410DU
+/* Error during AIE Pre Bisr Hook */
+#define XPM_INT_ERR_AIE_PRE_BISR_HOOK		0x410EU
 
 /************************** PMC specific Errors ******************************/
 /************************** (0x4200) - (0x42FF) ******************************/

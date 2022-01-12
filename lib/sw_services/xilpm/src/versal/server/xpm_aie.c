@@ -638,6 +638,7 @@ static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -720,6 +721,20 @@ static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto fail;
 	}
 
+	/**
+	 * Call post scan clear hook for AIE power domain, if available.
+	 * A couple things to note:
+	 *	- NPI space must already be unlocked before calling the hook (which it is)
+	 *	- If failure occurs within the hook, NPI space must be locked in caller
+	 */
+	if (NULL != AieDomain->Hooks.PostScanClearHook) {
+		Status = AieDomain->Hooks.PostScanClearHook(AieDomain, BaseAddress);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_AIE_POST_SCAN_CLEAR_HOOK;
+			goto fail;
+		}
+	}
+
 	 /*
 	  * To maintain backwards compatibility, skip locking of AIE NPI space. NPI
 	  * space shall remain unlocked for entire housecleaning sequence unless
@@ -742,6 +757,7 @@ static XStatus AieBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
 	(void)Args;
@@ -754,6 +770,20 @@ static XStatus AieBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
+
+	/**
+	 * Call pre bisr hook for AIE power domain, if available.
+	 * A couple things to note:
+	 *	- NPI space must already be unlocked before calling the hook (which it is)
+	 *	- If failure occurs within the hook, NPI space must be locked in caller
+	 */
+	if (NULL != AieDomain->Hooks.PreBisrHook) {
+		Status = AieDomain->Hooks.PreBisrHook(AieDomain, BaseAddress);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_AIE_PRE_BISR_HOOK;
+			goto fail;
+		}
+	}
 
 	/* Remove PMC-NoC domain isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
@@ -823,6 +853,20 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
+
+	/**
+	 * Call pre bisr hook for AIE power domain, if available.
+	 * A couple things to note:
+	 *	- NPI space must already be unlocked before calling the hook (which it is)
+	 *	- If failure occurs within the hook, NPI space must be locked in caller
+	 */
+	if (NULL != AieDomain->Hooks.PreBisrHook) {
+		Status = AieDomain->Hooks.PreBisrHook(AieDomain, BaseAddress);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_AIE_PRE_BISR_HOOK;
+			goto fail;
+		}
+	}
 
 	/* Change from AIE to AIE2. AIE has clocks enabled by default whereas AIE2
 	 * has then disabled by default. Clocks must be up from this point to
@@ -1352,6 +1396,7 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const struct XPm_PowerDomainOps *Ops = NULL;
 	XPm_AieArray *Array = &AieDomain->Array;
+	XPm_AieDomainOpHooks *Hooks = &AieDomain->Hooks;
 
 	(void)Args;
 	(void)NumArgs;
@@ -1360,9 +1405,15 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	if (PM_POWER_ME == Id) {
 		/* AIE1: Ops */
 		Ops = &AieOps[XPM_AIE_OPS];
+		/* AIE1 hooks for Ops */
+		Hooks->PostScanClearHook = NULL;
+		Hooks->PreBisrHook = NULL;
 	} else if (PM_POWER_ME2 == Id) {
 		/* AIE2: Ops */
 		Ops = &AieOps[XPM_AIE2_OPS];
+		/* AIE2: Hooks for Ops */
+		Hooks->PostScanClearHook = NULL;
+		Hooks->PreBisrHook = NULL;
 	} else {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		Status = XPM_INVALID_PWRDOMAIN;
