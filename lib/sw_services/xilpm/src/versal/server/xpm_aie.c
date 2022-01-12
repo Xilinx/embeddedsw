@@ -1577,3 +1577,176 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+static XStatus Aie2_ColRst(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+{
+	(void)Aie2;
+	(void)ColStart;
+	(void)NumCol;
+
+	/* Add this dummy function and return XST_SUCCESS */
+	/* To-Do: Add Sequence as per hardware description */
+	return XST_SUCCESS;
+}
+
+static XStatus Aie2_ShimRst(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+{
+	(void)Aie2;
+	(void)ColStart;
+	(void)NumCol;
+
+	/* Add this dummy function and return XST_SUCCESS */
+	/* To-Do: Add Sequence as per hardware description */
+	return XST_SUCCESS;
+}
+
+static XStatus Aie2_EnbColClkBuff(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+{
+	(void)Aie2;
+	(void)ColStart;
+	(void)NumCol;
+
+	/* Add this dummy function and return XST_SUCCESS */
+	/* To-Do: Add Sequence as per hardware description */
+	return XST_SUCCESS;
+}
+
+static XStatus Aie2_DisColClkBuff(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+{
+	(void)Aie2;
+	(void)ColStart;
+	(void)NumCol;
+
+	/* Add this dummy function and return XST_SUCCESS */
+	/* To-Do: Add Sequence as per hardware description */
+	return XST_SUCCESS;
+}
+
+static XStatus Aie2_Zeroization(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+{
+	(void)Aie2;
+	(void)ColStart;
+	(void)NumCol;
+
+	/* Add this dummy function and return XST_SUCCESS */
+	/* To-Do: Add Sequence as per hardware description */
+	return XST_SUCCESS;
+}
+
+static XStatus Aie2_EnbAxiMmErrEvent(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+{
+	(void)Aie2;
+	(void)ColStart;
+	(void)NumCol;
+
+	/* Add this dummy function and return XST_SUCCESS */
+	/* To-Do: Add Sequence as per hardware description */
+	return XST_SUCCESS;
+}
+
+static XStatus Aie2_SetL2CtrlNpiIntr(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+{
+	(void)Aie2;
+	(void)ColStart;
+	(void)NumCol;
+
+	/* Add this dummy function and return XST_SUCCESS */
+	/* To-Do: Add Sequence as per hardware description */
+	return XST_SUCCESS;
+}
+
+static XStatus Aie2_Operation(const XPm_Device *Aie2, u32 Part, u32 Ops)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const XPm_AieArray *Array = &AieDomain->Array;
+	u32 ColStart = (Part & AIE_START_COL_MASK);
+	u32 NumCol = ((Part & AIE_NUM_COL_MASK) >> 16U);
+
+	/* Check that column and operations are in range */
+	if (((ColStart + NumCol) > Array->NumCols) ||
+	    (ColStart < Array->StartCol) ||
+	    (AIE_OPS_MAX < Ops)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Column Reset */
+	if (0U != (AIE_OPS_COL_RST & Ops)) {
+		Status = Aie2_ColRst(Aie2, ColStart, NumCol);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_COL_RST;
+			goto done;
+		}
+	}
+
+	/* Shim Reset */
+	if (0U != (AIE_OPS_SHIM_RST & Ops)) {
+		Status = Aie2_ShimRst(Aie2, ColStart, NumCol);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_SHIM_RST;
+			goto done;
+		}
+	}
+
+	/* Enable Column Clock Buffer */
+	if (0U != (AIE_OPS_ENB_COL_CLK_BUFF & Ops)) {
+		Status = Aie2_EnbColClkBuff(Aie2, ColStart, NumCol);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_ENB_COL_CLK_BUFF;
+			goto done;
+		}
+	}
+
+	/* Zeroization of Program and data memories */
+	if (0U != (AIE_OPS_ZEROIZATION & Ops)) {
+		Status = Aie2_Zeroization(Aie2, ColStart, NumCol);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_ZEROIZATION;
+			goto done;
+		}
+	}
+
+	/* Disable Column Clock Buffer */
+	if (0U != (AIE_OPS_DIS_COL_CLK_BUFF & Ops)) {
+		Status = Aie2_DisColClkBuff(Aie2, ColStart, NumCol);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_DIS_COL_CLK_BUFF;
+			goto done;
+		}
+	}
+
+	/* Enable AXI-MM error events */
+	if (0U != (AIE_OPS_ENB_AXI_MM_ERR_EVENT & Ops)) {
+		Status = Aie2_EnbAxiMmErrEvent(Aie2, ColStart, NumCol);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_ENB_AXI_MM_ERR_EVENT;
+			goto done;
+		}
+	}
+
+	/* Set L2 controller NPI INTR */
+	if (0U != (AIE_OPS_SET_L2_CTRL_NPI_INTR & Ops)) {
+		Status = Aie2_SetL2CtrlNpiIntr(Aie2, ColStart, NumCol);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_SET_L2_CTRL_NPI_INTR;
+			goto done;
+		}
+	}
+
+done:
+	return Status;
+}
+
+XStatus Aie_Operations(const XPm_Device *Aie, u32 Part, u32 Ops)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const XPm_AieArray *Array = &AieDomain->Array;
+
+	if (AIE_GENV2 == Array->GenVersion) {
+		Status = Aie2_Operation(Aie, Part, Ops);
+	}
+
+	return Status;
+}

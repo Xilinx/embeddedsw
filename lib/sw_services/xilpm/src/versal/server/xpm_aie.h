@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,7 @@
 #include "xpm_psm_api.h"
 #include "xpm_ipi.h"
 #include "xpm_regs.h"
+#include "xpm_device.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,6 +35,21 @@ typedef struct XPm_AieDomainOpHooks XPm_AieDomainOpHooks;
 #define ARR_AIEROWS(ArrWord)	((u16)((ArrWord) >> 16U) & 0xFFFFU)
 #define ARR_MEMROWS(ArrWord)	((u16)((ArrWord) >> 8U) & 0xFFU)
 #define ARR_SHMROWS(ArrWord)	((u16)((ArrWord) & 0xFFU))
+
+#define AIE_START_COL_MASK		(0x0000FFFFU)
+#define AIE_NUM_COL_MASK		(0xFFFF0000U)
+
+/**
+ * AIE Operations.
+ */
+#define AIE_OPS_COL_RST			BIT(0U)
+#define AIE_OPS_SHIM_RST		BIT(1U)
+#define AIE_OPS_ENB_COL_CLK_BUFF	BIT(2U)
+#define AIE_OPS_ZEROIZATION		BIT(3U)
+#define AIE_OPS_DIS_COL_CLK_BUFF	BIT(4U)
+#define AIE_OPS_ENB_AXI_MM_ERR_EVENT	BIT(5U)
+#define AIE_OPS_SET_L2_CTRL_NPI_INTR	BIT(6U)
+#define AIE_OPS_MAX			(0x7FU)
 
 /**
  * AI Engine array.
@@ -89,6 +105,7 @@ static inline void XPmAieDomain_LockPcsr(u32 BaseAddress)
 /************************** Function Prototypes ******************************/
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, const u32 *Args, u32 NumArgs);
+XStatus Aie_Operations(const XPm_Device *Aie, u32 Part, u32 Ops);
 
 #ifdef __cplusplus
 }
