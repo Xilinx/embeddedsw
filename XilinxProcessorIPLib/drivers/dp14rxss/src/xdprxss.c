@@ -7,7 +7,7 @@
 /**
 *
 * @file xdprxss.c
-* @addtogroup dprxss_v7_1
+* @addtogroup dprxss_v8_0
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
@@ -59,6 +59,9 @@
 *                   XDpRxss_GetColorComponent
 *                   XDpRxss_GetColorimetry
 *                   XDpRxss_GetDynamicRange
+* 8.0  jb  01/12/22 Added clk_wizard configuration for rx_dec_clk which is
+*                   required for 8b10b logic.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -69,6 +72,7 @@
 #include "xdprxss_mcdp6000.h"
 #include "string.h"
 #include "xdebug.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -77,6 +81,63 @@ extern u32 MCDP6000_IC_Rev;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #define EDID_IIC_ADDRESS	0x50
+
+/* Clock Wizard registers */
+#define XCLK_WIZ_SWRST_OFFSET	0x00000000
+#define XCLK_WIZ_SWRST_VAL	0x0A
+#define XCLK_WIZ_STATUS_OFFSET	0x00000004
+#define XCLK_WIZ_ISR_OFFSET	0x0000000C
+#define XCLK_WIZ_IER_OFFSET	0x00000010
+#define XCLK_WIZ_RECONFIG_OFFSET	0x00000014
+#define XCLK_WIZ_RECONFIG_VAL	0x03
+#define XCLK_WIZ_REG1_OFFSET	0x00000330
+#define XCLK_WIZ_REG2_OFFSET	0x00000334
+#define XCLK_WIZ_REG3_OFFSET	0x00000338
+#define XCLK_WIZ_REG4_OFFSET	0x0000033C
+#define XCLK_WIZ_REG12_OFFSET	0x00000380
+#define XCLK_WIZ_REG13_OFFSET	0x00000384
+#define XCLK_WIZ_REG11_OFFSET	0x00000378
+#define XCLK_WIZ_REG11_VAL	0x2E
+#define XCLK_WIZ_REG14_OFFSET	0x00000398
+#define XCLK_WIZ_REG14_VAL	0xE80
+#define XCLK_WIZ_REG15_OFFSET	0x0000039C
+#define XCLK_WIZ_REG15_VAL	0x4271
+#define XCLK_WIZ_REG16_OFFSET	0x000003A0
+#define XCLK_WIZ_REG16_VAL	0x43E9
+#define XCLK_WIZ_REG17_OFFSET	0x000003A8
+#define XCLK_WIZ_REG17_VAL	0x1C
+#define XCLK_WIZ_REG19_OFFSET	0x000003CC
+#define XCLK_WIZ_REG25_OFFSET	0x000003F0
+#define XCLK_WIZ_REG26_OFFSET	0x000003FC
+#define XCLK_WIZ_REG26_VAL	0x01
+
+/* Lock */
+#define XCLK_WIZ_LOCK			1
+#define XCLK_WIZ_REG3_PREDIV2		(1 << 11)
+#define XCLK_WIZ_REG3_USED		(1 << 12)
+#define XCLK_WIZ_REG3_MX		(1 << 9)
+#define XCLK_WIZ_REG1_PREDIV2		(1 << 12)
+/* FBout enable */
+#define XCLK_WIZ_REG1_EN		(1 << 9)
+#define XCLK_WIZ_REG1_MX		(1 << 10)
+#define XCLK_WIZ_RECONFIG_LOAD		1
+#define XCLK_WIZ_RECONFIG_SADDR		2
+#define XCLK_WIZ_REG1_EDGE_MASK		(1 << 8)
+
+#define XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT	11
+#define XCLK_WIZ_CLKOUT0_MX_SHIFT	9
+#define XCLK_WIZ_CLKOUT0_P5EN_SHIFT	13
+#define XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT	15
+#define XCLK_WIZ_REG12_EDGE_SHIFT	10
+
+#define M_VAL_405	28
+#define M_VAL_270	44
+#define M_VAL_135	88
+#define M_VAL_81	148
+#define D_VAL_ALL	5
+
+#define XCLK_WIZ_STATUS_RETRY	10000
+#define XCLK_WIZ_STATUS_WAIT	100
 
 /**************************** Type Definitions *******************************/
 
@@ -125,6 +186,8 @@ static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
 #if ((XPAR_XHDCP_NUM_INSTANCES > 0) || (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0))
 static int XDpRxSs_HdcpReset(XDpRxSs *InstancePtr);
 #endif
+
+static void XDpRxSs_Set_Dec_Clk(XDpRxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -207,6 +270,11 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 
 	/* Get included sub-cores in the DisplayPort RX Subsystem */
 	DpRxSs_GetIncludedSubCores(InstancePtr);
+
+	if (InstancePtr->Config.IncludeClkWiz)
+		InstancePtr->clk_wiz_abs_addr =
+			InstancePtr->Config.BaseAddress +
+			InstancePtr->Config.ClkWizSubCore.ClkWizConfig.AbsAddr;
 
 	/* Check for IIC availability */
 #ifdef XPAR_XIIC_NUM_INSTANCES
@@ -1901,7 +1969,14 @@ static void StubTp1Callback(void *InstancePtr)
 
 	/* Link bandwidth callback */
 	if (DpRxSsPtr->LinkBwCallback) {
+		if (DpRxSsPtr->Config.IncludeClkWiz)
+			XDpRxSs_Set_Dec_Clk(DpRxSsPtr);
+
 		DpRxSsPtr->LinkBwCallback(DpRxSsPtr->LinkBwRef);
+
+		if (DpRxSsPtr->Config.IncludeClkWiz)
+			if (XDpRxSs_Get_Dec_Clk_Lock(DpRxSsPtr) == XST_FAILURE)
+				xil_printf("Rx Dec clock failed to lock\n\r");
 	}
 
 	XDpRxSs_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
@@ -2398,6 +2473,126 @@ int XDpRxSs_GetVtotal(XDpRxSs *InstancePtr, u8 Stream)
 	VTotal = VTotal >> XDP_RX_ADAPTIVE_VTOTAL_SHIFT;
 
 	return VTotal;
+}
+
+static void XDpRxSs_Set_Dec_Clk(XDpRxSs *InstancePtr)
+{
+	u32 HighTime, DivEdge, Reg, P5Enable, P5fEdge;
+	u16 Oval, Dval, Mval;
+
+	/*
+	 * For each line rate, the M, D, Div values for MMCM are chosen such that
+	 * MMCM gives a /20 clock output for /16 clk input.
+	 *
+	 * GT ch0outclk (/16) --> MMCM --> /20 clock
+	 *
+	 * Thus:
+	 * 8.1G  : Input MMCM clock is 506.25, output is 405
+	 * 5.4G  : Input MMCM clock is 337.5, output is 270
+	 * 2.7G  : Input MMCM clock is 168.75, output is 135
+	 * 1.62G : Input MMCM clock is 101.25, output is 81
+	 */
+	switch (InstancePtr->UsrOpt.LinkRate) {
+	case XDP_TX_LINK_BW_SET_810GBPS:
+		Mval = M_VAL_405;
+		break;
+	case XDP_TX_LINK_BW_SET_540GBPS:
+		Mval = M_VAL_270;
+		break;
+	case XDP_TX_LINK_BW_SET_270GBPS:
+		Mval = M_VAL_135;
+		break;
+	default:
+		Mval = M_VAL_81;
+	}
+	Dval = D_VAL_ALL;
+	Oval = Mval / 4;
+
+	/*
+	 * MMCM is dynamically programmed for the respective rate
+	 * using the M, D, Div values
+	 */
+	HighTime = (Oval / 4);
+	Reg =  XCLK_WIZ_REG3_PREDIV2 | XCLK_WIZ_REG3_USED | XCLK_WIZ_REG3_MX;
+	if (Oval % 4 <= 1) {
+		DivEdge = 0;
+	} else {
+		DivEdge = 1;
+	}
+	Reg |= (DivEdge << 8);
+	P5fEdge = Oval % 2;
+	P5Enable = Oval % 2;
+	Reg = Reg | P5Enable <<
+		(XCLK_WIZ_CLKOUT0_P5EN_SHIFT |
+		 P5fEdge << XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT);
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
+			XCLK_WIZ_REG3_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
+			XCLK_WIZ_REG4_OFFSET, Reg);
+
+	/* Implement D */
+	HighTime = (Dval / 2);
+	Reg  = 0;
+	Reg = Reg & ~(1 << XCLK_WIZ_REG12_EDGE_SHIFT);
+	DivEdge = Dval % 2;
+	Reg = Reg | DivEdge << XCLK_WIZ_REG12_EDGE_SHIFT;
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
+			XCLK_WIZ_REG12_OFFSET, Reg);
+	Reg = HighTime | HighTime << 8;
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
+			XCLK_WIZ_REG13_OFFSET, Reg);
+
+	/* Implement M*/
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
+			XCLK_WIZ_REG25_OFFSET, 0);
+
+	DivEdge = Mval % 2;
+	HighTime = Mval / 2;
+	Reg = HighTime | HighTime << 8;
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
+			XCLK_WIZ_REG2_OFFSET, Reg);
+	Reg = XCLK_WIZ_REG1_PREDIV2 | XCLK_WIZ_REG1_EN | XCLK_WIZ_REG1_MX;
+
+	if (DivEdge) {
+		Reg = Reg | XCLK_WIZ_REG1_EDGE_MASK;
+	} else {
+		Reg = Reg & ~XCLK_WIZ_REG1_EDGE_MASK;
+	}
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
+			XCLK_WIZ_REG1_OFFSET, Reg);
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG11_OFFSET,
+			XCLK_WIZ_REG11_VAL);
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG14_OFFSET,
+			XCLK_WIZ_REG14_VAL);
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG15_OFFSET,
+			XCLK_WIZ_REG15_VAL);
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG16_OFFSET,
+			XCLK_WIZ_REG16_VAL);
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG17_OFFSET,
+			XCLK_WIZ_REG17_VAL);
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr, XCLK_WIZ_REG26_OFFSET,
+			XCLK_WIZ_REG26_VAL);
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
+			XCLK_WIZ_RECONFIG_OFFSET,
+			(XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
+}
+
+int XDpRxSs_Get_Dec_Clk_Lock(XDpRxSs *InstancePtr)
+{
+	u32 retry = 0;
+	/* MMCM issued a reset */
+	XDpRxSs_WriteReg(InstancePtr->clk_wiz_abs_addr,
+			XCLK_WIZ_SWRST_OFFSET, XCLK_WIZ_SWRST_VAL);
+	while(!(XDpRxSs_ReadReg(InstancePtr->clk_wiz_abs_addr,
+					XCLK_WIZ_STATUS_OFFSET) & 1)) {
+		if(retry == XCLK_WIZ_STATUS_RETRY)
+			return XST_FAILURE;
+		usleep(XCLK_WIZ_STATUS_WAIT);
+		retry++;
+	}
+
+	return XST_SUCCESS;
 }
 
 /** @} */

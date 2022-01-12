@@ -7,7 +7,7 @@
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v7_1
+* @addtogroup dprxss_v8_0
 * @{
 * @details
 *
@@ -92,6 +92,8 @@
 *                   XDpRxss_GetColorComponent
 *                   XDpRxss_GetColorimetry
 *                   XDpRxss_GetDynamicRange
+* 8.0  jb  01/12/22 Added clk_wizard configuration for rx_dec_clk which is
+*                   required for 8b10b logic.
 * </pre>
 *
 ******************************************************************************/
@@ -359,6 +361,12 @@ typedef struct {
 	UINTPTR AbsAddr; /**< Absolute Base Address of the Sub-cores*/
 } XDpRxSs_SubCoreConfig;
 
+typedef struct {
+	u16 IsPresent;	/**< Flag to hold the presence of clocking wizard */
+	XDpRxSs_SubCoreConfig ClkWizConfig;	/**< Clocking Wizard core configuration
+						 *  information */
+} XDpRxSs_ClkWizSubCore;
+
 /**
 * High-Bandwidth Content Protection (HDCP) Sub-core structure.
 */
@@ -417,10 +425,12 @@ typedef struct {
 	u8 ColorFormat;		/**< Type of color format supported by this
 				  *  core instance. */
 	u8 IncludeAxiIic;  	/** < axi i2c support > */
+	u8 IncludeClkWiz;	/** < clocking wizard support for dec_clk > */
 
 	XDpRxSs_IicSubCore IicSubCore;	/**< IIC Configuration */
 	XDpRxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
 						  *  Configuration */
+	XDpRxSs_ClkWizSubCore ClkWizSubCore; /**< Clocking Wizard Configuration*/
 	XDpRxSs_DpSubCore DpSubCore;	/**< DisplayPort Configuration */
 	XDpRxSs_Hdcp1xSubCore Hdcp1xSubCore;	/**< HDCP Configuration */
 	XDpRxSs_Hdcp22SubCore Hdcp22SubCore;
@@ -522,6 +532,7 @@ typedef struct {
 #endif
 	u8 *EdidDataPtr[XDP_MAX_NPORTS];/**< Pointer to EDID Data */
 	u16 EdidSize[XDP_MAX_NPORTS];	/**< Size of EDID Data */
+	UINTPTR clk_wiz_abs_addr;
 } XDpRxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -750,6 +761,7 @@ void XDpRxSs_Hdcp22LicFailHandler(void *InstancePtr);
 void XDpRxSs_Hdcp22SetKey(XDpRxSs *InstancePtr,
 		XDpRxSs_Hdcp22KeyType KeyType, u8 *KeyPtr);
 #endif
+int XDpRxSs_Get_Dec_Clk_Lock(XDpRxSs *InstancePtr);
 /************************** Variable Declarations ****************************/
 
 
