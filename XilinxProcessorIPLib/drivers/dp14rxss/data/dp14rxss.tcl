@@ -12,9 +12,9 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpRxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE" "INCLUDE_AXI_IIC" "LINK_RATE"
-	hier_ip_define_config_file $drv_handle "xdprxss_g.c" "XDpRxSs" "DEVICE_ID" "C_BASEADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "INCLUDE_AXI_IIC"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpRxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE" "INCLUDE_AXI_IIC" "LINK_RATE"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpRxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE" "INCLUDE_AXI_IIC" "LINK_RATE" "INCLUDE_CLK_WIZ"
+	hier_ip_define_config_file $drv_handle "xdprxss_g.c" "XDpRxSs" "DEVICE_ID" "C_BASEADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "INCLUDE_AXI_IIC" "INCLUDE_CLK_WIZ"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpRxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "HDCP22_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE" "INCLUDE_AXI_IIC" "LINK_RATE" "INCLUDE_CLK_WIZ"
 }
 
 ##
@@ -34,6 +34,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 	set sub_core_params(hdcp) "BASEADDR"
 	set sub_core_params(axi_timer) "BASEADDR"
 	set sub_core_params(hdcp22_rx_dp) "BASEADDR"
+	set sub_core_params(clk_wizard) "BASEADDR"
 	set total_subcores [array size sub_core_params]
 
 	set filename [file join "src" $file_name]
@@ -53,6 +54,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 		hdcp 1
 		axi_timer 1
 		hdcp22_rx_dp 1
+		clk_wizard 1
 	}
 
 	foreach periph_g $periphs_g {
