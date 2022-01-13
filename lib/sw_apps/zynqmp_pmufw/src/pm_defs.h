@@ -125,6 +125,8 @@ typedef enum {
 	PM_PLL_GET_MODE,		/* 0x33 */
 	PM_REGISTER_ACCESS,		/* 0x34 */
 	PM_EFUSE_ACCESS,		/* 0x35 */
+	PM_FPGA_GET_VERSION,            /* 0x36 */
+	PM_FPGA_GET_FEATURE_LIST,       /* 0x37 */
 	PM_FEATURE_CHECK = 0x3F,	/* 0x3F */
 	PM_API_MAX,			/* 0x40 */
 } XPm_ApiId;
