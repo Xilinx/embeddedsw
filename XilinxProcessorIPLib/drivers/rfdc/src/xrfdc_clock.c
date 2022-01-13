@@ -77,6 +77,8 @@
 *       cog    11/17/21 Fixed powerup bit toggle issue.
 *       cog    12/07/21 Added clocking configurations for DFE devices.
 *       cog    12/23/21 Added output divder value in appropriate error messages.
+*       cog    01/06/22 Added error checks to disallow invalid sample rate/reference
+*                       clock combinations.
 * </pre>
 *
 ******************************************************************************/
@@ -1751,6 +1753,24 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	PLLFreq = (u32)((RefClkFreq + 0.0005) * XRFDC_MILLI);
 	PLLFS = (u32)((SamplingRate + 0.0005) * XRFDC_MILLI);
 	OpDiv = (u32)((RefClkFreq / SamplingRate) + 0.5);
+	if ((Source == XRFDC_EXTERNAL_CLK) && (PLLFreq != PLLFS)) {
+		if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
+			metal_log(
+				METAL_LOG_ERROR,
+				"\n Sampling rate value (%lf) must match the reference frequency (%lf) for %s %u in %s\r\n",
+				SamplingRate, RefClkFreq, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+		} else if ((PLLFreq % PLLFS) != 0U) {
+			metal_log(
+				METAL_LOG_ERROR,
+				"\n The reference frequency (%lf) must be an integer multiple of the Sampling rate (%lf) for %s %u in %s\r\n",
+				RefClkFreq, SamplingRate, (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
+			Status = XRFDC_FAILURE;
+			goto RETURN_PATH;
+		}
+	}
+
 	if (Source == XRFDC_INTERNAL_PLL_CLK) {
 		if ((RefClkFreq < XRFDC_REFFREQ_MIN) || (RefClkFreq > XRFDC_REFFREQ_MAX)) {
 			metal_log(
