@@ -24,7 +24,7 @@
 * 0.6   rb   04/07/2021   Doxygen changes
 * 0.7	hv   08/18/2021   Fix Doxygen warnings
 * 0.8   hb   01/04/2022   Added macro for IPI payload 2
-*
+* 0.9	hv   01/11/2022   Added interface for reading Frame ECC
 * </pre>
 * @note
 * @endcond
@@ -88,6 +88,10 @@ extern "C" {
 /* For Payload with API Id + 1 Args */
 #define PACK_PAYLOAD2(Payload, ApiId, Arg1) \
 	PACK_PAYLOAD(Payload, HEADER(2UL, ApiId), Arg1, 0, 0, 0, 0, 0, 0)
+
+/* For Payload with API Id + 2 Args */
+#define PACK_PAYLOAD3(Payload, ApiId, Arg1, Arg2) \
+	PACK_PAYLOAD(Payload, HEADER(3UL, ApiId), Arg1, Arg2, 0, 0, 0, 0, 0)
 
 /* For Payload with API Id + 3 Args */
 #define PACK_PAYLOAD4(Payload, ApiId, Arg1, Arg2, Arg3) \

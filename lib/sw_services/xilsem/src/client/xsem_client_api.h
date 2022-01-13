@@ -35,7 +35,7 @@
 * 			  functions
 * 1.4   hb   01/07/2022   Added defines and struct for NPI error events
 *                         and get golden Sha command
-*
+* 1.5	hv   01/11/2022   Added interface for reading Frame ECC
 * </pre>
 *
 * @note
@@ -60,6 +60,8 @@ extern "C" {
 #define CMD_ACK_CFR_STOP_SCAN		(0x00010303U)
 /** CRAM Error Injection Acknowledgment ID */
 #define CMD_ACK_CFR_NJCT_ERR		(0x00010304U)
+/** SEM Read Frame ECC Acknowledgment ID */
+#define CMD_ACK_SEM_READ_FRAME_ECC	(0x0003030AU)
 
 /* NPI Commands Acknowledgment ID */
 /** NPI Start Scan Acknowledgment ID */
@@ -123,6 +125,8 @@ extern "C" {
 #define CMD_ID_CFR_STOP_SCAN		(0x03U)
 /** Command ID for CRAM error injection */
 #define CMD_ID_CFR_NJCT_ERR		(0x04U)
+/** Command ID for CRAM Read Frame ECC */
+#define CMD_ID_CFR_RDFRAME_ECC		(0x0BU)
 
 /* NPI Commands ID */
 /** Command ID for NPI Start scan */
@@ -327,6 +331,8 @@ XStatus XSem_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp);
 XStatus XSem_CmdCfrNjctErr(XIpiPsu *IpiInst, \
 		XSemCfrErrInjData *ErrDetail, XSemIpiResp *Resp);
 XStatus XSem_CmdCfrGetStatus(XSemCfrStatus *CfrStatusInfo);
+XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, \
+		u32 CframeAddr, u32 RowLoc, XSemIpiResp *Resp);
 
 /* NPI functions */
 XStatus XSem_CmdNpiStartScan(XIpiPsu *IpiInst, XSemIpiResp * Resp);
