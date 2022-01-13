@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -911,6 +911,21 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	} else {
 		IsLockStep = 0U;
 		PwrStateMask = Args->PwrStateMask;
+	}
+
+	/* Check for the RPU_0_PWRDWN.EN or RPU_1_PWRDWN.EN */
+	if ((0U != IsLockStep) && (RPU0_1 == Args->Id)) {
+		RegVal = XPsmFw_Read32(RPU_RPU_1_PWRDWN);
+		if (!CHECK_BIT(RegVal, RPU_RPU_1_PWRDWN_EN_MASK)) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	} else {
+		RegVal = XPsmFw_Read32(RPU_RPU_0_PWRDWN);
+		if (!CHECK_BIT(RegVal, RPU_RPU_0_PWRDWN_EN_MASK)) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
 	}
 
 	/* Mark RPU powered down in LOCAL_PWR_STATUS register */
