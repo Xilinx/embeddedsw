@@ -38,6 +38,7 @@
 * 			  functions
 * 1.3   hb   01/07/2022   Added user interface to get golden SHA and descriptor
 *                         information
+* 1.4	hv   01/11/2022   Added interface for reading Frame ECC
 * </pre>
 *
 * @note
@@ -388,6 +389,70 @@ XStatus XSem_CmdCfrGetStatus(XSemCfrStatus *CfrStatusInfo)
 	}
 
 	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to Read frame ECC of a particular Frame.
+ *		Primarily this function sends an IPI request to PLM to invoke SEM
+ *		CRAM SendFrameEcc, waits for PLM to process the request and reads
+ *		the response message.
+ *
+ * @param[in]	IpiInst		Pointer to IPI driver instance
+ * @param[in]	CframeAddr	Frame Address
+ * @param[in]	RowLoc		Row index
+ * @param[out]	Resp		Structure Pointer of IPI response.
+ *		- Resp->RespMsg1: Acknowledgment ID of CRAM Send Frame ECC
+ *		- Resp->RespMsg2: Virtual Frame 0 ECC value
+ *		- Resp->RespMsg3: Virtual Frame 1 ECC value
+ *		- Resp->RespMsg4: Status of CRAM stop scan
+ *
+ * @return	This API returns the success or failure.
+ *		- XST_FAILURE: On CRAM Read Frame ECC failure
+ *		- XST_SUCCESS: On CRAM Read Frame ECC success
+ *****************************************************************************/
+XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, \
+		u32 CframeAddr, u32 RowLoc, XSemIpiResp *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
+
+	if (NULL == IpiInst) {
+		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
+		goto END;
+	}
+
+	if (NULL == Resp) {
+		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
+		goto END;
+	}
+
+	PACK_PAYLOAD3(Payload, CMD_ID_CFR_RDFRAME_ECC, CframeAddr, RowLoc);
+
+	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
+	if (XST_SUCCESS != Status){
+		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
+				"ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+
+	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
+	if (XST_SUCCESS != Status){
+		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
+				"ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+
+	Resp->RespMsg1 = Response[1U];
+	Resp->RespMsg2 = Response[2U];
+	Resp->RespMsg3 = Response[3U];
+	Resp->RespMsg4 = Response[4U];
+
+	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
 END:
 	return Status;

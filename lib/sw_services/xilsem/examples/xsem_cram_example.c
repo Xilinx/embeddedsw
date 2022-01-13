@@ -14,11 +14,11 @@
  * ----  ----  ----------  ---------------------------------------------------
  * 0.1   gm    03/16/2021  Initial Creation
  * 0.2	 hv    07/19/2021  Updated to give more information without debug
- *		   	   prints in XilSEM server
+ *                         prints in XilSEM server
  * 0.3   rama  09/20/2021  Added more description on error injection
  *                         arguments for different types of errors and XilSEM
  *                         behavior after each type of the error
- *
+ * 0.4	 hv    01/11/2022  Added steps to read frame ECC over IPI
  * </pre>
  *
  *****************************************************************************/
@@ -552,7 +552,9 @@ int main(void)
 	u32 IsInitDone = 0U;
 	u32 IsErrorInjected = 0U;
 	u32 IntialCorErrCnt = 0U;
-
+	XSemIpiResp IpiResp={0};
+	u32 CframeAddr = 0xFU;
+	u32 RowLoc = 0U;
 
 	/* Initialize IPI Driver
 	 * This initialization is required to get XilSEM event notifications
@@ -639,6 +641,26 @@ int main(void)
 
 	/*Check and print error report*/
 	PrintErrReport(IntialCorErrCnt);
+
+	/* Read Frame ECC values of a particular frame over IPI */
+	Status = XSem_CmdCfrReadFrameEcc(&IpiInst, \
+				CframeAddr, RowLoc, &IpiResp);
+	if ((XST_SUCCESS == Status) && \
+			(CMD_ACK_SEM_READ_FRAME_ECC == IpiResp.RespMsg1) && \
+			(XST_SUCCESS == IpiResp.RespMsg4)) {
+		xil_printf("[XSem_CmdCfrReadFrameEcc] Success Reading Cfr Frame "
+				"ECC Values of Row = 0x%02x  Frame = 0x%08x  Over IPI\n\r",\
+				RowLoc, CframeAddr);
+		xil_printf("Received Virtual frame 0 ECC "
+				"Value = 0x%08x\n\r", IpiResp.RespMsg2);
+		xil_printf("Received Virtual frame 1 ECC "
+				"Value = 0x%08x\n\r", IpiResp.RespMsg3);
+	} else {
+		xil_printf("[%s] Error: Reading Cfr frame ECC, "
+				"Status 0x%x Ack 0x%x Ret 0x%x\n", \
+				__func__, Status, IpiResp.RespMsg1, \
+						IpiResp.RespMsg4);
+	}
 
 END:
 	return 0;
