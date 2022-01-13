@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2016 - 20222 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -39,6 +39,9 @@
 # 5.3   Nava  06/16/20  Modified the date format from dd/mm to mm/dd.
 # 5.3   Nava  09/16/20  Added user configurable Enable/Disable Options for
 #                       readback operations
+# 6.2   Nava  01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
+#                       to provide the access to the xilfpga library to get the
+#                       xilfpga version and supported feature list info.
 #
 ##############################################################################
 
@@ -172,6 +175,17 @@ proc generate {lib_handle} {
    if {$value == true} {
        puts $conffile "#define XFPGA_READ_CONFIG_DATA"
    }
+
+   set value  [common::get_property CONFIG.get_version_info_en $lib_handle]
+   if {$value == true} {
+       puts $conffile "#define XFPGA_GET_VERSION_INFO"
+   }
+
+   set value  [common::get_property CONFIG.get_feature_list_en $lib_handle]
+   if {$value == true} {
+       puts $conffile "#define XFPGA_GET_FEATURE_LIST"
+   }
+
    set value  [common::get_property CONFIG.debug_mode $lib_handle]
 
    if {$value == true} {

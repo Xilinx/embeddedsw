@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -78,6 +78,9 @@
  * 6.0  Nava  05/17/21  Added platform specific ifdef checks to optimize the code.
  * 6.2  Nava  01/10/22  Removed duplicated legacy API's to reduce the xilfpga
  *                      memory footprint.
+ * 6.2  Nava  01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
+ *                      to provide the access to the xilfpga library to get the
+ *                      xilfpga version and supported feature list info.
  *
  * </pre>
  *
@@ -124,6 +127,7 @@ typedef struct XFpgatag{
 	u32 (*XFpga_PreConfig)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_WriteToPl)(struct XFpgatag *InstancePtr);
 	u32 (*XFpga_PostConfig)(struct XFpgatag *InstancePtr);
+	u32 (*XFpga_GetFeatureList)(struct XFpgatag *InstancePtr);
 #ifndef versal
 	u32 (*XFpga_GetInterfaceStatus)(void);
 	u32 (*XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr);
@@ -134,6 +138,9 @@ typedef struct XFpgatag{
 	XFpga_Read	ReadInfo;
 #endif
 	XFpga_Write	WriteInfo;
+#ifdef XFPGA_GET_FEATURE_LIST
+	u32 FeatureList;
+#endif
 }XFpga;
 /************************** Variable Definitions *****************************/
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -156,9 +163,15 @@ typedef struct XFpgatag{
 #ifndef versal
 #define XFPGA_ENCRYPTION_DEVKEY_EN		(0x00000010U)
 #define XFPGA_ONLY_BIN_EN			(0x00000020U)
+#define XFPGA_READ_BACK_EN			(0x00000040U)
+#define XFPGA_REG_READ_BACK_EN			(0x00000080U)
 
 /* FPGA invalid interface status */
 #define XFPGA_INVALID_INTERFACE_STATUS		(0xFFFFFFFFU)
+
+/* XILFPGA Component version info */
+#define XFPGA_MAJOR_VERSION		6U
+#define XFPGA_MINOR_VERSION		2U
 
 #define XFPGA_SECURE_FLAGS	(				\
 				XFPGA_AUTHENTICATION_DDR_EN	\
@@ -223,6 +236,14 @@ typedef struct XFpgatag{
 
 /** @endcond*/
 /************************** Function Prototypes ******************************/
+#ifdef XFPGA_GET_FEATURE_LIST
+u32 XFpga_GetFeatureList(XFpga *InstancePtr, u32 *FeatureList);
+#endif
+
+#ifdef XFPGA_GET_VERSION_INFO
+u32 XFpga_GetVersion(u32 *Version);
+#endif
+
 u32 XFpga_Initialize(XFpga *InstancePtr);
 u32 XFpga_ValidateImage(XFpga *InstancePtr,
 			UINTPTR BitstreamImageAddr,
@@ -240,6 +261,7 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			 u32 ConfigRegAddr);
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr);
+#pragma message ("rom 2023.1 release onwards the XilFPGA BSP user configuration  flags ‘reg_readback_en’ and  ‘data_readback_en’ will be disabled by default but users can still be able to enable these flags as needed")
 #endif
 
 #ifdef __cplusplus
