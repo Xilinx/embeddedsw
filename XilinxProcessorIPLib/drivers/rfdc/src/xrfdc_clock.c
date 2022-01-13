@@ -79,6 +79,7 @@
 *       cog    12/23/21 Added output divder value in appropriate error messages.
 *       cog    01/06/22 Added error checks to disallow invalid sample rate/reference
 *                       clock combinations.
+*       cog    01/12/22 Fix compiler warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -893,22 +894,22 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_System_Setti
 	u32 Status;
 	u32 ClockDetReg;
 	u32 DistRegCurrent;
-	u32 DistRegSrc;
+	u32 DistRegSrc = 0U;
 	s8 CurrentTile;
 	u8 DelayOutSourceLeft;
 	u8 DelayOutSourceRight;
 	XRFdc_Tile_Clock_Settings *ClockSettingsPtr;
 	u32 Type;
-	u32 SrcType;
+	u32 SrcType = XRFDC_CLK_DST_INVALID;
 	u32 Tile;
-	u32 SrcTile;
+	u32 SrcTile = XRFDC_CLK_DST_INVALID;
 	u8 PkgSrcTile;
 	u8 Distribution;
 	u8 i;
-	u8 PrevSrc;
+	u8 PrevSrc = XRFDC_CLK_DST_INVALID;
 	u8 FirstTile;
 	u8 TileLayout;
-	XRFdc_Distribution_Settings *DistributionSettingsPtr;
+	XRFdc_Distribution_Settings *DistributionSettingsPtr = NULL;
 	XRFdc_PLL_Settings PLLSettings;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -923,7 +924,6 @@ u32 XRFdc_GetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_System_Setti
 	memset(DistributionSystemPtr, 0, sizeof(XRFdc_Distribution_System_Settings));
 	TileLayout = XRFdc_GetTileLayout(InstancePtr);
 	FirstTile = (TileLayout == XRFDC_3ADC_2DAC_TILES) ? XRFDC_CLK_DST_TILE_228 : XRFDC_CLK_DST_TILE_231;
-	PrevSrc = XRFDC_CLK_DST_INVALID;
 
 	for (CurrentTile = FirstTile, Distribution = 0; CurrentTile <= XRFDC_CLK_DST_TILE_224; CurrentTile++) {
 		XRFdc_DistTile2TypeTile(InstancePtr, CurrentTile, &Type, &Tile);
