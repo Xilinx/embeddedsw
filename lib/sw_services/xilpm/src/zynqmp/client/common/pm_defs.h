@@ -166,7 +166,8 @@ enum XPmApiId {
 	PM_PLL_GET_MODE,				/**< 0x33 */
 	PM_REGISTER_ACCESS,				/**< 0x34 */
 	PM_EFUSE_ACCESS,				/**< 0x35 */
-	PM_API_MAX					/**< 0x36 */
+	PM_FEATURE_CHECK = 0x3F,			/**< 0x3F */
+	PM_API_MAX					/**< 0x40 */
 };
 
 /** @cond INTERNAL */
