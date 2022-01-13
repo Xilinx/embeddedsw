@@ -817,6 +817,61 @@ done:
 	return status;
 }
 
+static XStatus XPm_SendFeatureCheckRequest(const enum XPmApiId featureId,
+					   u32 *version)
+{
+	XStatus status = (XStatus)XST_FAILURE;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	if (NULL != primary_master) {
+		/* Send request to the PMU */
+		PACK_PAYLOAD1(payload, PM_FEATURE_CHECK, featureId);
+		status = pm_ipi_send(primary_master, payload);
+
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		/* Read the result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, version, NULL,
+					    NULL);
+	}
+
+done:
+	return status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function queries information about the version of API ID and
+ *	   queries information about supported IOCTL IDs and supported QUERY
+ *	   IDs.
+ *
+ * @param featureId	API ID
+ * @param version	Pointer to store API version.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note	Returns non zero value in version if API is supported or
+ *		returns 0U in version if API is not supported.
+ *
+ ****************************************************************************/
+XStatus XPm_FeatureCheck(const enum XPmApiId featureId, u32 *version)
+{
+	XStatus status = (XStatus)XST_FAILURE;
+
+	if (NULL == version) {
+		pm_dbg("ERROR: Passing NULL pointer to %s\n", __func__);
+		goto done;
+	}
+
+	status = XPm_SendFeatureCheckRequest(featureId, version);
+
+done:
+	return status;
+}
+
 /* Callback API functions */
 struct pm_init_suspend pm_susp = {
 	.received = false,
