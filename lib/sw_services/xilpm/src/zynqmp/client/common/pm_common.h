@@ -46,6 +46,8 @@ extern "C" {
 
 #define IPI_PMU_PM_INT_MASK	XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
 
+#define BIT32(n)				((u32)1U << (n))
+
 /**
  * XPm_Master - Master structure
  */

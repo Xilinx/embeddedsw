@@ -34,6 +34,17 @@ extern "C" {
 /**@}*/
 
 /**
+ * @name PM API versions
+ * @{
+ */
+/**
+ * PM API versions
+ */
+#define PM_API_BASE_VERSION	(1U)
+#define PM_API_VERSION_2	(2U)
+/** @} */
+
+/**
  * @name Capabilities for RAM
  * @{
  */

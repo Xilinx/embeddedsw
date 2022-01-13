@@ -229,6 +229,7 @@ XStatus XPm_PinCtrlGetParameter(const u32 pin,
 XStatus XPm_DevIoctl(const u32 deviceId, const pm_ioctl_id ioctlId,
 		     const u32 arg1, const u32 arg2, u32 *const response);
 XStatus XPm_FeatureCheck(const enum XPmApiId featureId, u32 *version);
+XStatus XPm_IsFunctionSupported(const enum XPmApiId apiId, const u32 functionId);
 
 #ifdef __cplusplus
 }

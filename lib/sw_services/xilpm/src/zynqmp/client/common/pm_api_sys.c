@@ -818,7 +818,7 @@ done:
 }
 
 static XStatus XPm_SendFeatureCheckRequest(const enum XPmApiId featureId,
-					   u32 *version)
+					   u32 *version, u32 *bitMask, u32 len)
 {
 	XStatus status = (XStatus)XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -833,8 +833,18 @@ static XStatus XPm_SendFeatureCheckRequest(const enum XPmApiId featureId,
 		}
 
 		/* Read the result from IPI return buffer */
-		status = pm_ipi_buff_read32(primary_master, version, NULL,
-					    NULL);
+		if (NULL == bitMask) {
+			status = pm_ipi_buff_read32(primary_master, version,
+						    NULL, NULL);
+		} else {
+			if (2U > len) {
+				status = XST_INVALID_PARAM;
+				goto done;
+			}
+
+			status = pm_ipi_buff_read32(primary_master, version,
+						    &bitMask[0], &bitMask[1]);
+		}
 	}
 
 done:
@@ -866,7 +876,47 @@ XStatus XPm_FeatureCheck(const enum XPmApiId featureId, u32 *version)
 		goto done;
 	}
 
-	status = XPm_SendFeatureCheckRequest(featureId, version);
+	status = XPm_SendFeatureCheckRequest(featureId, version, NULL, 0U);
+
+done:
+	return status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function queries information about the IOCTL/QUERY function ID
+ *	   is supported or not.
+ *
+ * @param apiId		API ID
+ * @param functionId	IOCTL/QUERY ID
+ *
+ * @return XST_SUCCESS if IOCTL ID/QUERY ID supported else XST_FAILURE or an
+ * error code or a reason code
+ *
+ ****************************************************************************/
+XStatus XPm_IsFunctionSupported(const enum XPmApiId apiId, const u32 functionId)
+{
+
+	XStatus status = (XStatus)XST_FAILURE;
+	u32 version = 0U;
+	u32 bitMask[2] = {0U};
+
+	status = XPm_FeatureCheck(PM_FEATURE_CHECK, &version);
+	if ((XST_SUCCESS != status) || (PM_API_VERSION_2 != version) ||
+	    (64U <= functionId)) {
+		status = (XStatus)XST_FAILURE;
+		goto done;
+	}
+
+	status = XPm_SendFeatureCheckRequest(apiId, &version, bitMask,
+					     (u32)PM_ARRAY_SIZE(bitMask));
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	if (0U == (bitMask[functionId / 32U] & BIT32(functionId % 32U))) {
+		status = (XStatus)XST_NO_FEATURE;
+	}
 
 done:
 	return status;
