@@ -63,6 +63,9 @@
  * 6.1 Nava   09/13/21  Fixed compilation warning for versal platform.
  * 6.2 Nava   01/10/22  Removed duplicated legacy API's to reduce the xilfpga
  *                      memory footprint.
+ * 6.2 Nava   01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
+ *                      to provide the access to the xilfpga library to get the
+ *                      xilfpga version and supported feature list info.
  *</pre>
  *
  *@note
@@ -529,6 +532,81 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr)
 END:
 	return RegVal;
 }
+
+#ifdef XFPGA_GET_VERSION_INFO
+/****************************************************************************/
+/**This function is used to read xilfpga library version info.
+ *
+ * @Version xilfpga library version to read
+ *
+ * @return
+ *      - XFPGA_SUCCESS if, successful
+ *      - XFPGA_FAILURE if, unsuccessful
+ *      - XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists.
+ * @note
+ *      - This API is not supported for the Versal platform.
+ *
+ ****************************************************************************/
+u32 XFpga_GetVersion(u32 *Version)
+{
+	u32 Status = XFPGA_FAILURE;
+
+	/* Validate the input arguments */
+	if (Version == NULL) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
+
+	*Version = (XFPGA_MAJOR_VERSION << 16) | XFPGA_MINOR_VERSION;
+	Status = XFPGA_SUCCESS;
+END:
+	return Status;
+}
+#endif
+
+#ifdef XFPGA_GET_FEATURE_LIST
+/****************************************************************************/
+/**This function is used to Get xilfpga component supported feature list
+ *
+ * @param InstancePtr Pointer to the XFpga structure
+ *
+ * @FeatureList xilfpga library supported feature list to read
+ *
+ * @return
+ *      - XFPGA_SUCCESS if, successful
+ *      - XFPGA_FAILURE if, unsuccessful
+ *      - XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists.
+ * @note
+ *      - This API is not supported for the Versal platform.
+ *
+ ****************************************************************************/
+u32 XFpga_GetFeatureList(XFpga *InstancePtr, u32 *FeatureList)
+{
+	u32 Status = XFPGA_FAILURE;
+
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = XFPGA_INVALID_PARAM;
+		goto END;
+	}
+
+	if (InstancePtr->XFpga_GetFeatureList == NULL) {
+		Status = XFPGA_OPS_NOT_IMPLEMENTED;
+		Xfpga_Printf(XFPGA_DEBUG,
+			     "XFpga_PL_PostConfig Implementation not exists..\r\n");
+		goto END;
+	}
+
+	Status = InstancePtr->XFpga_GetFeatureList(InstancePtr);
+	if (Status != XFPGA_SUCCESS) {
+		goto END;
+	}
+
+	*FeatureList = InstancePtr->FeatureList;
+END:
+	return Status;
+}
+#endif
 
 /*****************************************************************************/
 /**

@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -52,6 +52,9 @@
 # 6.1 Nava   09/13/21  Fixed compilation warnings.
 # 6.2 Nava   12/13/21  Replaced library specific utility functions and standard
 #                      lib functions with Xilinx maintained functions.
+# 6.2 Nava   01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
+#                      to provide the access to the xilfpga library to get the
+#                      xilfpga version and supported feature list info.
 #
 ##############################################################################
 
@@ -72,6 +75,8 @@ PARAM name = ocm_address, desc = "OCM Address which is used for Bitstream Authen
 PARAM name = base_address, desc = "Bitstream Image Base Address", type = int, default = 0x80000, drc = drc_base_address ;
 PARAM name = secure_readback, desc = "Which is used to Enable the secure PL configuration Read-back support", type = bool, default = false;
 PARAM name = secure_environment, desc = "Which is used to Enable the secure PL configuration", type = bool, default = false";
-PARAM name = reg_readback_en, desc = "Which is used to Enable the FPGA configuration Register Read-back support", type = bool, default = true
-PARAM name = data_readback_en, desc = "Which is used to Enable the FPGA configuration Data Read-back support", type = bool, default = true
+PARAM name = reg_readback_en, desc = "Which is used to Enable the FPGA configuration Register Read-back support.(Note: From 2023.1 release onwards the default state will be changed to false)", type = bool, default = true
+PARAM name = data_readback_en, desc = "Which is used to Enable the FPGA configuration Data Read-back support.(Note: From 2023.1 release onwards the default state will be changed to false)", type = bool, default = true
+PARAM name = get_version_info_en, desc = "Which is used to Get the Xilfpga library version info", type = bool, default = false
+PARAM name = get_feature_list_en, desc = "Which is used to Get the Xilfpga library supported feature list info", type = bool, default = false
 END LIBRARY

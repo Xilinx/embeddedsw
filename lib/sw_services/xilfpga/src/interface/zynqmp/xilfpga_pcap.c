@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -113,6 +113,9 @@
  *                     as non-secure image if RSA_EN is not programmed.
  * 6.2 Nava  12/13/21  Replaced library specific utility functions and standard
  *                     lib functions with Xilinx maintained functions.
+ * 6.2 Nava  01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
+ *                     to provide the access to the xilfpga library to get the
+ *                     xilfpga version and supported feature list info.
  *
  * </pre>
  *
@@ -242,6 +245,10 @@ static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, UINTPTR SrcAddr);
 static u32 XFpga_AesInit(XSecure_Aes *InstancePtr, u32 *AesKupKey,
 			 u32* IvPtr, char *KeyPtr, u32 Flags);
 #endif
+
+#ifdef XFPGA_GET_FEATURE_LIST
+static u32 XFpga_PcapFeatureList(XFpga *InstancePtr);
+#endif
 #ifdef __MICROBLAZE__
 extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
 #endif
@@ -295,6 +302,9 @@ u32 XFpga_Initialize(XFpga *InstancePtr) {
 	InstancePtr->XFpga_WriteToPl = XFpga_WriteToPlPcap;
 	InstancePtr->XFpga_PostConfig = XFpga_PostConfigPcap;
 	InstancePtr->XFpga_GetInterfaceStatus = XFpga_PcapStatus;
+#if defined(XFPGA_GET_FEATURE_LIST)
+	InstancePtr->XFpga_GetFeatureList = XFpga_PcapFeatureList;
+#endif
 #if defined(XFPGA_READ_CONFIG_REG)
 	InstancePtr->XFpga_GetConfigReg = XFpga_GetConfigRegPcap;
 #endif
@@ -2635,5 +2645,38 @@ END:
 
 	return Status;
 }
+
+#if defined(XFPGA_GET_FEATURE_LIST)
+/****************************************************************************/
+/**This function is used to Get pcap interface supported feature list
+ *
+ * @param InstancePtr Pointer to the XFpga structure
+ *
+ * @return
+ *      - XFPGA_SUCCESS if, successful
+ *      - XFPGA_FAILURE if, unsuccessful
+ *      - XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists.
+ *
+ ****************************************************************************/
+static u32 XFpga_PcapFeatureList(XFpga *InstancePtr) {
+	u32 Status = XFPGA_INVALID_PARAM;
+
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		goto END;
+	}
+
+	InstancePtr->FeatureList = XFPGA_FULLBIT_EN | XFPGA_PARTIAL_EN |
+				   XFPGA_AUTHENTICATION_DDR_EN |
+				   XFPGA_AUTHENTICATION_OCM_EN |
+				   XFPGA_ENCRYPTION_USERKEY_EN |
+				   XFPGA_ENCRYPTION_DEVKEY_EN |
+				   XFPGA_READ_BACK_EN | XFPGA_REG_READ_BACK_EN;
+
+	Status = XFPGA_SUCCESS;
+END:
+	return Status;
+}
+#endif
 
 /* @endcond */
