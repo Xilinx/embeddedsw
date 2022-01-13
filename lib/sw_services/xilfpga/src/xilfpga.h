@@ -76,6 +76,8 @@
  *                      function arguments to read KeyAddr and
  *                      Size(Bitstream size).
  * 6.0  Nava  05/17/21  Added platform specific ifdef checks to optimize the code.
+ * 6.2  Nava  01/10/22  Removed duplicated legacy API's to reduce the xilfpga
+ *                      memory footprint.
  *
  * </pre>
  *
@@ -232,17 +234,6 @@ u32 XFpga_PL_Preconfig(XFpga *InstancePtr);
 u32 XFpga_Write_Pl(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
 		   UINTPTR KeyAddr, u32 Size, u32 Flags);
 u32 XFpga_PL_PostConfig(XFpga *InstancePtr);
-#pragma message ("'XFpga_PL_BitStream_Load()' function will be deprecated in the 2022.1 release")
-u32 XFpga_PL_BitStream_Load(XFpga *InstancePtr,
-			    UINTPTR BitstreamImageAddr,
-			    UINTPTR AddrPtr_Size, u32 Flags);
-#pragma message ("'XFpga_PL_ValidateImage()' function will be deprecated in the 2022.1 release")
-u32 XFpga_PL_ValidateImage(XFpga *InstancePtr,
-			   UINTPTR BitstreamImageAddr,
-			   UINTPTR AddrPtr_Size, u32 Flags);
-#pragma message ("'XFpga_PL_Write()' function will be deprecated in the 2022.1 release")
-u32 XFpga_PL_Write(XFpga *InstancePtr,UINTPTR BitstreamImageAddr,
-		   UINTPTR AddrPtr_Size, u32 Flags);
 #ifndef versal
 u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			  u32 NumFrames);
