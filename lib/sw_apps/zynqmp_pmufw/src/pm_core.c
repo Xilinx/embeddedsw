@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -878,6 +878,44 @@ static void PmFpgaLoad(const PmMaster *const master,
   done:
        IPI_RESPONSE1(master->ipiMask, (u32)Status);
 }
+
+#if defined(XFPGA_GET_VERSION_INFO)
+/**
+ * PmFpgaGetVersion() - Get xilfpga component version
+ * @master  Initiator of the request
+ */
+static void PmFpgaGetVersion(const PmMaster *const master)
+{
+	u32 Status;
+	u32 Version = 0;
+
+	Status = XFpga_GetVersion(&Version);
+done:
+	IPI_RESPONSE2(master->ipiMask, (u32)Status, Version);
+}
+#endif
+
+#if defined(XFPGA_GET_FEATURE_LIST)
+/**
+ * PmFpgaGetFeatureList() - Get xilfpga component supported feature list
+ * @master  Initiator of the request
+ */
+static void PmFpgaGetFeatureList(const PmMaster *const master)
+{
+	u32 Status;
+	u32 FeatureList = 0;
+	XFpga XFpgaInstance = {0U};
+
+	Status = XFpga_Initialize(&XFpgaInstance);
+	if (XST_SUCCESS != (s32)Status) {
+		goto done;
+	}
+
+	Status = XFpga_GetFeatureList(&XFpgaInstance, &FeatureList);
+ done:
+	IPI_RESPONSE2(master->ipiMask, (u32)Status, FeatureList);
+}
+#endif
 
 /**
  * PmFpgaGetStatus() - Get status of the PL-block
@@ -2289,6 +2327,16 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 #if defined(ENABLE_FPGA_READ_CONFIG_DATA) || defined(ENABLE_FPGA_READ_CONFIG_REG)
 	case PM_API(PM_FPGA_READ):
 		PmFpgaRead(master, pload[1], pload[2], pload[3], pload[4]);
+		break;
+#endif
+#if defined(XFPGA_GET_VERSION_INFO)
+	case PM_API(PM_FPGA_GET_VERSION):
+		PmFpgaGetVersion(master);
+		break;
+#endif
+#if defined(XFPGA_GET_FEATURE_LIST)
+	case PM_API(PM_FPGA_GET_FEATURE_LIST):
+		PmFpgaGetFeatureList(master);
 		break;
 #endif
 #endif
