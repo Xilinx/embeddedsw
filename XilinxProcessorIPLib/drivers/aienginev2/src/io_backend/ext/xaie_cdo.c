@@ -29,7 +29,6 @@
 
 #ifdef __AIECDO__ /* AIE simulator */
 
-#include "main_rts.h"
 #include "cdo_rts.h"
 
 #endif
