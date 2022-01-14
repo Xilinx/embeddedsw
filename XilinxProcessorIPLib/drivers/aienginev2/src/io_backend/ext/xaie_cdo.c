@@ -138,6 +138,8 @@ static AieRC XAie_CdoIO_Write32(void *IOInst, u64 RegOff, u32 Value)
 static AieRC XAie_CdoIO_Read32(void *IOInst, u64 RegOff, u32 *Data)
 {
 	/* no-op */
+	(void)IOInst;
+	(void)RegOff;
 	*Data = 0U;
 	return XAIE_OK;
 }
