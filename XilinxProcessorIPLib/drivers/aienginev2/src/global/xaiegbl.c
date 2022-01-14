@@ -876,4 +876,15 @@ AieRC XAie_IsDeviceCheckerboard(XAie_DevInst *DevInst, u8 *IsCheckerBoard)
 	return XAIE_OK;
 }
 
+AieRC XAie_UpdateNpiAddr(XAie_DevInst *DevInst, u64 NpiAddr)
+{
+	if((DevInst == NULL) || (DevInst->IsReady != XAIE_COMPONENT_IS_READY)) {
+		XAIE_ERROR("Invalid Device Instance\n");
+		return XAIE_INVALID_ARGS;
+	}
+
+	return XAie_RunOp(DevInst, XAIE_BACKEND_OP_UPDATE_NPI_ADDR,
+			(void *)&NpiAddr);
+}
+
 /** @} */

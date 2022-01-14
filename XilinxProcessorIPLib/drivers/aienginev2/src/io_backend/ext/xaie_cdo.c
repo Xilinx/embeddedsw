@@ -376,6 +376,12 @@ static AieRC XAie_CdoIO_RunOp(void *IOInst, XAie_DevInst *DevInst,
 			return _XAie_PrivilegeTeardownPart(DevInst);
 		case XAIE_BACKEND_OP_GET_RSC_STAT:
 			return _XAie_GetRscStatCommon(DevInst, Arg);
+		case XAIE_BACKEND_OP_UPDATE_NPI_ADDR:
+		{
+			XAie_CdoIO *CdoIOInst = (XAie_CdoIO *)IOInst;
+			CdoIOInst->NpiBaseAddr = *((u64 *)Arg);
+			break;
+		}
 		default:
 			XAIE_ERROR("CDO backend doesn't support operation"
 					" %u.\n", Op);
