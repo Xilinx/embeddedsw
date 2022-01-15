@@ -19,6 +19,7 @@
 #include "xpm_requirement.h"
 #include "xplmi.h"
 #include "xpm_access.h"
+#include "xpm_aiedevice.h"
 
 static u32 PsmGgsValues[GGS_REGS] = {0U};
 
@@ -973,6 +974,34 @@ done:
 	return Status;
 }
 
+static XStatus XPm_GetQos(const u32 DeviceId, u32 *Response)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Device *Device;
+
+	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	if (IS_DEV_AIE(DeviceId)) {
+		XPmAieDevice_QueryDivider(Device, Response);
+		Status = XST_SUCCESS;
+	} else {
+		/* Device not supported */
+		Status = XST_INVALID_PARAM;
+	}
+
+done:
+	return Status;
+}
+
 XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id IoctlId,
 	      const u32 Arg1, const u32 Arg2, const u32 Arg3,
 	      u32 *const Response, const u32 CmdType)
@@ -1071,6 +1100,9 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		break;
 	case IOCTL_GET_PLL_FRAC_DATA:
 		Status = XPm_GetPllParameter(Arg1, PM_PLL_PARAM_ID_DATA, Response);
+		break;
+	case IOCTL_GET_QOS:
+		Status = XPm_GetQos(DeviceId, Response);
 		break;
 	case IOCTL_ULPI_RESET:
 	case IOCTL_AFI:

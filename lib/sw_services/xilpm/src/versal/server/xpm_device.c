@@ -393,6 +393,16 @@ XStatus XPmDevice_BringUp(XPm_Device *Device)
 	XStatus Status = XPM_ERR_DEVICE_BRINGUP;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	/*
+	 * This is a temporary workaround to skip for AIE partitions. Due to the
+	 * the unique design of AIE partitions it doesn't fit in typical request
+	 * device flow
+	 */
+	if ((IS_DEV_AIE(Device->Node.Id)) && (NULL == Device->Power)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	if (NULL == Device->Power) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
@@ -1262,6 +1272,10 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 		Device->PendingReqm->Next.QoS = QoS;
 	} else {
 		XPm_RequiremntUpdate(Device->PendingReqm);
+	}
+
+	if (IS_DEV_AIE(Device->Node.Id)) {
+		Status = XPmAieDevice_UpdateClockDiv(Device, Subsystem, QoS);
 	}
 
 done:
