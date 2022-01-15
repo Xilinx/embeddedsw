@@ -1307,7 +1307,7 @@ static XStatus AieInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArg
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	const XPm_AieDevice *AieDevice;
+	XPm_AieDevice *AieDevice;
 
 	AieDevice = (XPm_AieDevice *)XPmDevice_GetById(NodeId);
 	if (NULL == AieDevice) {
@@ -2449,6 +2449,16 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 	const XPm_Subsystem* Subsystem = NULL;
 	const XPm_Device* Device = NULL;
 	u32 Usage = 0U;
+
+	/*
+	 * This is a temporary workaround to skip for AIE partitions. Due to the
+	 * the unique design of AIE partitions it doesn't fit in typical release
+	 * device flow
+	 */
+	if ((IS_DEV_AIE(DeviceId))) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {

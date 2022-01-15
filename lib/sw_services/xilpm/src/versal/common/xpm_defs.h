@@ -359,7 +359,7 @@ typedef enum {
 	IOCTL_SET_USB_CONFIG,				/**< Set USB config register value */
 	/* AIE1/AIEML Run Time Operations */
 	IOCTL_AIE_OPS,                                  /**< AIE1/AIEML Run Time Operations */
-
+	IOCTL_GET_QOS,					/**< Get Device QoS value */
 } pm_ioctl_id;
 
 /**
