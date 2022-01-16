@@ -36,6 +36,7 @@
 * 1.4   hb   01/07/2022   Added defines and struct for NPI error events
 *                         and get golden Sha command
 * 1.5	hv   01/11/2022   Added interface for reading Frame ECC
+* 1.6   rama 01/14/2022   Added user interface to get golden CRC & total frames
 * </pre>
 *
 * @note
@@ -146,6 +147,54 @@ extern "C" {
 
 /** Total number of possible descriptors in NPI scan */
 #define NPI_MAX_DESCRIPTORS	(50U)
+
+/** Base address for CFRAME Registers  */
+#define CFRAME_BASE_ADDRESS				(0xF12D0000U)
+
+/** Offset address to select CFRAME Row instance */
+#define CFRAME_ROW_OFFSET				(0x2000U)
+
+/** Offset address for Golden CRC */
+#define CFRAME_SEU_CRC_ADDR				(0x1F0U)
+
+/** Offset address for reading Total frames in type 0, 1, 2, 3 */
+#define CFRAME_LAST_BOT_ADDR			(0x220U)
+
+/** Maximum number of frame types  */
+#define CFRAME_MAX_TYPE					(0x07U)
+
+/** MASK for 0 to 19 bits for getting Type_0, Type_4 frames */
+#define CFRAME_BIT_0_19_MASK			(0x000FFFFFU)
+
+/** MASK for 20 to 31 bits for getting Type_1, Type_5 frames */
+#define CFRAME_BIT_20_39_MASK_LOW		(0xFFF00000U)
+
+/** MASK for 32 to 39 bits for getting Type_1, Type_5 frames */
+#define CFRAME_BIT_20_39_MASK_HIGH		(0x000000FFU)
+
+/** Shift for 20 to 31 bits for getting Type_1, Type_5 frames */
+#define CFRAME_BIT_20_39_SHIFT_R		(20U)
+
+/** Shift for 32 to 39 bits for getting Type_1, Type_5 frames */
+#define CFRAME_BIT_20_39_SHIFT_L		(12U)
+
+/** MASK for 40 to 59 bits for getting Type_2, Type_6 frames */
+#define CFRAME_BIT_40_59_MASK			(0x0FFFFF00U)
+
+/** Shift for 40 to 59 bits for getting Type_2, Type_6 frames */
+#define CFRAME_BIT_40_59_SHIFT_R		(8U)
+
+/** MASK for 60 to 63 bits for getting Type_3 */
+#define CFRAME_BIT_60_79_MASK_LOW		(0xF0000000U)
+
+/** MASK for 64 to 79 bits for getting Type_3 */
+#define CFRAME_BIT_60_79_MASK_HIGH		(0x0000FFFFU)
+
+/** Shift for 60 to 63 bits for getting Type_3 */
+#define CFRAME_BIT_60_79_SHIFT_R		(28U)
+
+/** Shift for 64 to 79 bits for getting Type_3 */
+#define CFRAME_BIT_60_79_SHIFT_L		(4U)
 
 /**
  * XSemIpiResp - IPI Response Data structure
@@ -333,6 +382,8 @@ XStatus XSem_CmdCfrNjctErr(XIpiPsu *IpiInst, \
 XStatus XSem_CmdCfrGetStatus(XSemCfrStatus *CfrStatusInfo);
 XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, \
 		u32 CframeAddr, u32 RowLoc, XSemIpiResp *Resp);
+u32 XSem_CmdCfrGetCrc(u32 RowIndex);
+void XSem_CmdCfrGetTotalFrames(u32 RowIndex, u32 *FrameCntPtr);
 
 /* NPI functions */
 XStatus XSem_CmdNpiStartScan(XIpiPsu *IpiInst, XSemIpiResp * Resp);

@@ -19,6 +19,7 @@
  *                         arguments for different types of errors and XilSEM
  *                         behavior after each type of the error
  * 0.4	 hv    01/11/2022  Added steps to read frame ECC over IPI
+ * 0.3   rama  01/14/2022  Added example for reading Total frames & golden CRC
  * </pre>
  *
  *****************************************************************************/
@@ -555,6 +556,9 @@ int main(void)
 	XSemIpiResp IpiResp={0};
 	u32 CframeAddr = 0xFU;
 	u32 RowLoc = 0U;
+	u32 GoldenCrc = 0U;
+	u32 TotalFrames[7];
+	u32 Id;
 
 	/* Initialize IPI Driver
 	 * This initialization is required to get XilSEM event notifications
@@ -662,6 +666,29 @@ int main(void)
 						IpiResp.RespMsg4);
 	}
 
+	/* Stop Scan */
+	Status = XSem_CfrApiStopScan();
+	if (XST_SUCCESS != Status) {
+		xil_printf("Stop Scan Failed\n\r");
+		goto END;
+	}
+
+	/* Read Total number of frames in Row 0 */
+	XSem_CmdCfrGetTotalFrames(RowLoc, &TotalFrames[RowLoc]);
+	for(Id = 0U; Id < CFRAME_MAX_TYPE; Id++) {
+		xil_printf("Type: %x Total Frames : %d \n", Id, TotalFrames[Id]);
+	}
+
+	/* Read Golden ECC for Row 0 */
+	GoldenCrc = XSem_CmdCfrGetCrc(RowLoc);
+	xil_printf("Golden CRC for ROW_0 : %x \n", GoldenCrc);
+
+	/* Start Scan */
+	Status = XSem_CfrApiStartScan();
+	if (XST_SUCCESS != Status) {
+		xil_printf("start Scan Failed\n\r");
+		goto END;
+	}
 END:
 	return 0;
 }
