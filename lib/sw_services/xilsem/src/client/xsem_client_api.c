@@ -39,6 +39,7 @@
 * 1.3   hb   01/07/2022   Added user interface to get golden SHA and descriptor
 *                         information
 * 1.4	hv   01/11/2022   Added interface for reading Frame ECC
+* 1.5   rama 01/14/2022   Added user interface to get golden CRC & total frames
 * </pre>
 *
 * @note
@@ -938,4 +939,89 @@ END:
 	return Status;
 }
 
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to read CFRAME golden CRC for a row
+ *
+ * @param[in]	RowIndex	Row index for which CRC to be read
+ *
+ * @return	This API returns the Golden CRC for a given Row.
+ *
+ *****************************************************************************/
+u32 XSem_CmdCfrGetCrc(u32 RowIndex)
+{
+	u32 GoldenCrc = 0U;
+
+	(void)Xil_In32(CFRAME_BASE_ADDRESS +
+            (RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR);
+	(void)Xil_In32(CFRAME_BASE_ADDRESS +
+		(RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR + 0x04U);
+	GoldenCrc = Xil_In32(CFRAME_BASE_ADDRESS +
+                        (RowIndex * CFRAME_ROW_OFFSET) +
+						CFRAME_SEU_CRC_ADDR + 0x08U);
+	(void)Xil_In32(CFRAME_BASE_ADDRESS +
+            (RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR + 0x0CU);
+
+	return GoldenCrc;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to read total frames in a row
+ *
+ * @param[in]	RowIndex	 Row index for which CRC to be read
+ * @param[out]	FrameCntPtr	 Pointer to store Total frames
+ *		- FrameCntPtr[0] : Type_0 total frames
+ *		- FrameCntPtr[1] : Type_1 total frames
+ *		- FrameCntPtr[2] : Type_2 total frames
+ *		- FrameCntPtr[3] : Type_3 total frames
+ *		- FrameCntPtr[4] : Type_4 total frames
+ *		- FrameCntPtr[5] : Type_5 total frames
+ *		- FrameCntPtr[6] : Type_6 total frames
+ *
+ *****************************************************************************/
+void XSem_CmdCfrGetTotalFrames(u32 RowIndex, u32 *FrameCntPtr)
+{
+	u32 TypeId;
+	u32 Buf[8];
+
+	for (TypeId = 0U; TypeId < 8; TypeId++) {
+		/* Read total frames in each type */
+		Buf[TypeId] = Xil_In32(CFRAME_BASE_ADDRESS + \
+		                        (RowIndex * CFRAME_ROW_OFFSET) + \
+								(CFRAME_LAST_BOT_ADDR + (TypeId * 4U)));
+	}
+	/* Get Type_0 total frames */
+	FrameCntPtr[0] = Buf[0] & CFRAME_BIT_0_19_MASK;
+
+	/* Get Type_1 total frames */
+	FrameCntPtr[1] = (Buf[0] & CFRAME_BIT_20_39_MASK_LOW) >> \
+							   CFRAME_BIT_20_39_SHIFT_R;
+	FrameCntPtr[1] |= (Buf[1] & CFRAME_BIT_20_39_MASK_HIGH) << \
+								CFRAME_BIT_20_39_SHIFT_L;
+
+	/* Get Type_2 total frames */
+	FrameCntPtr[2] = (Buf[1] & CFRAME_BIT_40_59_MASK) >> \
+								CFRAME_BIT_40_59_SHIFT_R;
+
+	/* Get Type_3 total frames */
+	FrameCntPtr[3] = (Buf[1] & CFRAME_BIT_60_79_MASK_LOW) >> \
+								CFRAME_BIT_60_79_SHIFT_R;
+	FrameCntPtr[3] |= (Buf[2] & CFRAME_BIT_60_79_MASK_HIGH) << \
+								CFRAME_BIT_60_79_SHIFT_L;
+
+	/* Get Type_4 total frames */
+	FrameCntPtr[4] = Buf[4] & CFRAME_BIT_0_19_MASK;
+
+	/* Get Type_5 total frames */
+	FrameCntPtr[5] = (Buf[4] & CFRAME_BIT_20_39_MASK_LOW) >> \
+								CFRAME_BIT_20_39_SHIFT_R;
+	FrameCntPtr[5] |= (Buf[5] & CFRAME_BIT_20_39_MASK_HIGH) << \
+								CFRAME_BIT_20_39_SHIFT_L;
+
+	/* Get Type_6 total frames */
+	FrameCntPtr[6] = (Buf[5] & CFRAME_BIT_40_59_MASK) >> \
+									CFRAME_BIT_40_59_SHIFT_R;
+}
 /** @} */
