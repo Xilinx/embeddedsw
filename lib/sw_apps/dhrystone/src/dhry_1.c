@@ -73,6 +73,12 @@ XTime barebones_clock() {
 	return time_val;
 }
 
+void print_time(char *label, float time) {
+  int ms = (int)(time * 10000.0F + 0.5F);
+  xil_printf("%-43s %d.%04d\n", label, ms / 10000, ms % 10000);
+}
+
+
 /* Define target specific global time variables. */
 XTime start_time_val;
 XTime stop_time_val;
@@ -395,15 +401,12 @@ int main ()
 		dmips_per_mhz = dmips_per_second /
 					   ((float)CLOCKS_PER_SEC/Mic_secs_Per_Second);
 
-		printf ("Microseconds for one run through Dhrystone: ");
-		printf ("%f \n", Microseconds_per_Run);
-		printf ("Dhrystones per Second:                      ");
-		printf ("%f \n", Dhrystones_Per_Second);
-		printf ("DMIPS/Sec:                                  ");
-		printf ("%f \n", dmips_per_second);
-		printf ("DMIPS/MHz:                                  ");
-		printf ("%f \n", dmips_per_mhz);
-		printf ("\n");
+		print_time ("Microseconds for one run through Dhrystone:",
+					Microseconds_per_Run);
+		print_time ("Dhrystones per Second:", Dhrystones_Per_Second);
+		print_time ("DMIPS/Sec:", dmips_per_second);
+		print_time ("DMIPS/MHz:", dmips_per_mhz);
+		xil_printf ("\n");
 	}
 
 	cleanup_platform();
