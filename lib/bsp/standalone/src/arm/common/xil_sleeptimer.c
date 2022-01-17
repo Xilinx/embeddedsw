@@ -27,6 +27,8 @@
 * 		      misra_c_2012_rule_12_1 violation.
 * 7.7	sk   01/10/22 Add void argument to XTime_StartTTCTimer function to
 * 		      fix misra_c_2012_rule_8_2 violation.
+* 7.7	sk   01/10/22 Add braces for the if statement to make it a compound
+* 		      statement and fix misra_c_2012_rule_15_6 violation.
 *
 * </pre>
 *****************************************************************************/
@@ -123,8 +125,9 @@ void XTime_StartTTCTimer(void)
 		    TimerPrescalar = XSleep_ReadCounterVal(SLEEP_TIMER_BASEADDR +
 					       XSLEEP_TIMER_TTC_CLK_CNTRL_OFFSET);
 		/* check if Timer is configured with proper functionalty for sleep */
-		   if ((TimerPrescalar & XSLEEP_TIMER_TTC_CLK_CNTRL_PS_EN_MASK) == 0U)
+		   if ((TimerPrescalar & XSLEEP_TIMER_TTC_CLK_CNTRL_PS_EN_MASK) == 0U) {
 						return;
+		   }
 		}
 #if (defined (__aarch64__) && (EL3==1)) || (defined (ARMR5) && (PROCESSOR_ACCESS_VALUE & IOU_SLCR_TZ_MASK))  || defined (ARMA53_32)
 	}
