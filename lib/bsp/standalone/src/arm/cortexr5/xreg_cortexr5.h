@@ -20,6 +20,8 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
+* 7.7	sk   01/10/22 Update PRIV_RW_USER_RW macro from unsigned to unsigned
+* 		      long to fix misra_c_2012_rule_12_2 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -175,7 +177,7 @@ extern "C" {
 #define NO_ACCESS				(0x00000000U<<8U)	/*No access*/
 #define PRIV_RW_USER_NA			(0x00000001U<<8U) /*Privileged access only*/
 #define PRIV_RW_USER_RO			(0x00000002U<<8U) /*Writes in User mode generate permission faults*/
-#define	PRIV_RW_USER_RW			(0x00000003U<<8U)	/*Full Access*/
+#define	PRIV_RW_USER_RW			(0x00000003UL<<8U)	/*Full Access*/
 #define PRIV_RO_USER_NA			(0x00000005U<<8U) /*Privileged eead only*/
 #define PRIV_RO_USER_RO			(0x00000006U<<8U) /*Privileged/User read-only*/
 
