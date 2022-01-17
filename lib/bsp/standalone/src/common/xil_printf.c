@@ -84,7 +84,6 @@ static void outs(const charptr lp, struct params_s *par)
 
     /* Pad on right if needed                        */
     /* CR 439175 - elided next stmt. Seemed bogus.   */
-    /* par->len = strlen( lp)                      */
     padding( par->left_flag, par);
 }
 
