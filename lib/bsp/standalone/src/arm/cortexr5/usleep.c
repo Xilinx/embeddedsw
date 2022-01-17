@@ -35,6 +35,8 @@
 *                         counter for sleep routines, BSP needs to be compiled
 *                         with "DONT_USE_PMU_FOR_SLEEP_ROUTINES" flag. It fixes
 *                         CR#1051591.
+* 7.7	sk	 01/10/22 Modify usleep_R5 functions return type from int to
+* 			  void to fix misra_c_2012_rule_17_7 violation.
 *
 * </pre>
 *
@@ -60,8 +62,6 @@
 *
 * @param	useconds requested
 *
-* @return	0 always
-*
 * @note		By default, usleep is implemented using TTC3. Although user is
 *               given an option to select other instances of TTC. When the user
 *               selects other instances of TTC, usleep is implemented by that
@@ -77,7 +77,7 @@
 *
 ****************************************************************************/
 
-int usleep_R5(unsigned long useconds)
+void usleep_R5(unsigned long useconds)
 {
 #if defined (SLEEP_TIMER_BASEADDR)
 	Xil_SleepTTCCommon(useconds, COUNTS_PER_USECOND);
@@ -104,5 +104,4 @@ int usleep_R5(unsigned long useconds)
 		);
 #endif
 
-return 0;
 }
