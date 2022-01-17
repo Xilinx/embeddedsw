@@ -7,7 +7,11 @@
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) clock_t clock(void);
+#endif
+
+__attribute__((weak)) clock_t clock(void);
+
+#ifdef __cplusplus
 }
 #endif
 /*

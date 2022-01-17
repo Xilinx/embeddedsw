@@ -10,7 +10,12 @@
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) off_t _lseek(s32 fd, off_t offset, s32 whence);
+#endif
+
+__attribute__((weak)) off_t _lseek(s32 fd, off_t offset, s32 whence);
+__attribute__((weak)) off_t lseek(s32 fd, off_t offset, s32 whence);
+
+#ifdef __cplusplus
 }
 #endif
 /*

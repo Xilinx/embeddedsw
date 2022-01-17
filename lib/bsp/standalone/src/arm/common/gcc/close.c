@@ -7,7 +7,11 @@
 #include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) s32 _close(s32 fd);
+#endif
+
+__attribute__((weak)) s32 _close(s32 fd);
+
+#ifdef __cplusplus
 }
 #endif
 

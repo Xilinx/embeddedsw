@@ -12,7 +12,12 @@
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) sint32 _write (sint32 fd, char8* buf, sint32 nbytes);
+#endif
+
+__attribute__((weak)) sint32 _write (sint32 fd, char8* buf, sint32 nbytes);
+__attribute__((weak)) sint32 write (sint32 fd, char8* buf, sint32 nbytes);
+
+#ifdef __cplusplus
 }
 #endif
 

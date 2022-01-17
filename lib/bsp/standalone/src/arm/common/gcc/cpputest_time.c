@@ -11,7 +11,11 @@
 struct tms* tms;
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) clock_t _times(struct tms* tms);
+#endif
+
+__attribute__((weak)) clock_t _times(struct tms* tms);
+
+#ifdef __cplusplus
 }
 #endif
 

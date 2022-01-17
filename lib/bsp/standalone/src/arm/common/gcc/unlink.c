@@ -9,7 +9,11 @@
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) sint32 unlink(char8 *path);
+#endif
+
+__attribute__((weak)) sint32 unlink(char8 *path);
+
+#ifdef __cplusplus
 }
 #endif
 /*

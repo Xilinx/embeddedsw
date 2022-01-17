@@ -8,7 +8,11 @@
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) sint32 _isatty(sint32 fd);
+#endif
+
+__attribute__((weak)) sint32 _isatty(sint32 fd);
+
+#ifdef __cplusplus
 }
 #endif
 
