@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_hdmitxss1_sinit.c
-* @addtogroup v_hdmitxss1_v3_0
+* @addtogroup v_hdmitxss1_v3_1
 * @{
 * @details
 *
