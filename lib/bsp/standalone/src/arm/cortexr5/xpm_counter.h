@@ -30,6 +30,9 @@
 *                     read PMU cycle counter value
 * 7.2   asa  03/18/20 Add prototypes for new APIs. Deprecate older
 *                     APIs. Add new macros being used in the new APIs.
+* 7.7	sk   01/10/22 Modify Xpm_GetEventCounter and Xpm_DisableEvent
+* 		      functions arguments to fix misra_c_2012_rule_8_3
+* 		      violation.
 * </pre>
 *
 ******************************************************************************/
@@ -520,9 +523,9 @@ void Xpm_GetEventCounters(u32 *PmCtrValue) __attribute__ ((deprecated));
 void Xpm_SetEvents(s32 PmcrCfg);
 void Xpm_GetEventCounters(u32 *PmCtrValue);
 #endif
-u32 Xpm_DisableEvent(u32 EventHandlerId);
+u32 Xpm_DisableEvent(u32 EventCntrId);
 u32 Xpm_SetUpAnEvent(u32 EventID);
-u32 Xpm_GetEventCounter(u32 EventHandlerId, u32 *CntVal);
+u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal);
 void Xpm_DisableEventCounters(void);
 void Xpm_EnableEventCounters (void);
 void Xpm_ResetEventCounters (void);

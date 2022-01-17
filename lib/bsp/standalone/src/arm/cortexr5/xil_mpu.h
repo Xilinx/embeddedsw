@@ -49,6 +49,8 @@
 * 					  Xil_InitializeExistingMPURegConfig.
 * 					  Added a new array of structure of type XMpuConfig to
 * 					  represent the MPU configuration table.
+* 7.7	sk   01/10/22 Modify Xil_SetTlbAttributes function argument name to fix
+* 		      misra_c_2012_rule_8_3 violation.
 * </pre>
 *
 
@@ -92,7 +94,7 @@ extern XMpu_Config Mpu_Config;
  *@endcond
  */
 
-void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib);
+void Xil_SetTlbAttributes(INTPTR addr, u32 attrib);
 void Xil_EnableMPU(void);
 void Xil_DisableMPU(void);
 u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib);
