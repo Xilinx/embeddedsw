@@ -37,8 +37,8 @@ read (s32 fd, char8* buf, s32 nbytes)
   if(LocalBuf != NULL) {
 	for (i = 0; i < nbytes; i++) {
 		numbytes++;
-		*(LocalBuf + i) = inbyte();
-		if ((*(LocalBuf + i) == '\n' )|| (*(LocalBuf + i) == '\r')) {
+		LocalBuf[i] = inbyte();
+		if ((LocalBuf[i] == '\n' )|| (LocalBuf[i] == '\r')) {
 			break;
 		}
 	}
@@ -65,8 +65,8 @@ _read (s32 fd, char8* buf, s32 nbytes)
   if(LocalBuf != NULL) {
 	for (i = 0; i < nbytes; i++) {
 		numbytes++;
-		*(LocalBuf + i) = inbyte();
-		if ((*(LocalBuf + i) == '\n' )|| (*(LocalBuf + i) == '\r')) {
+		LocalBuf[i] = inbyte();
+		if ((LocalBuf[i] == '\n' )|| (LocalBuf[i] == '\r')) {
 			break;
 		}
 	}
