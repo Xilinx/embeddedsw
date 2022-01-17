@@ -12,6 +12,34 @@
  *
  * This file illustrates Basic eFuse read/write using rows.
  *
+ * Procedure to link and compile the example for the default ddr less designs
+ * ------------------------------------------------------------------------------------------------------------
+ * By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
+ * placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
+ * contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+ *
+ * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
+ *
+ *		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+ *			be updated to point all the required sections to shared memory(OCM or TCM)
+ *			using a memory region drop down selection
+ *
+ *						OR
+ *
+ *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+ *			sharedmemory (NOLOAD) : {
+ *			= ALIGN(4);
+ *			__bss_start = .;
+ *			*(.bss)
+ *			*(.bss.*)
+ *			*(.gnu.linkonce.b.*)
+ *			*(COMMON)
+ *			. = ALIGN(4);
+ *			__bss_end = .;
+ *			} > Memory(OCM,TCM or DDR)
+ *
+ * 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -22,6 +50,7 @@
  *       har   01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
  *       kpt   01/07/2022 Added check to program RegInitDis in
  *                        XilNvm_EfuseInitSecCtrl
+ *       kpt   01/13/2022 Added support for PL microblaze
  *
  * </pre>
  *
@@ -67,6 +96,9 @@ static XIpiPsu IpiInst;
  */
 u8 CacheAlignedArr[XNVM_CACHE_LINE_LEN * 2U]
 	__attribute__ ((aligned (64U))) = {0U};
+
+/* shared memory allocation */
+static u8 SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
 
 /************************** Function Prototypes ******************************/
 static int XilNvm_EfuseWriteFuses(void);
@@ -138,6 +170,9 @@ int main(void)
 		goto END;
 	}
 
+	/* Set shared memory */
+	XNvm_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
+
 	Status = XilNvm_EfuseWriteFuses();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -160,6 +195,7 @@ int main(void)
 #endif
 
 END:
+	Status |= XNvm_ReleaseSharedMem();
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\nVersal Efuse example failed with err: %08x\n\r",
 									Status);

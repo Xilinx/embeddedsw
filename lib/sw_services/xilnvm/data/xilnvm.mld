@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -17,7 +17,7 @@ BEGIN LIBRARY xilnvm
   OPTION drc = nvm_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilnvm,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx NVM Library provides interface to accessing eFUSE and BBRAM of Versal";
   OPTION VERSION = 2.5;
@@ -25,4 +25,5 @@ BEGIN LIBRARY xilnvm
   PARAM name = use_puf_hd_as_user_efuse, desc = "Enables API's to use PUF Helper data efuses as user efuses ", type = bool, default = false;
   PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilNvm library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
   PARAM name = cache_disable, desc = "Disables cache calls for xilnvm client interface", type = bool, default = false;
+  PARAM name = ipi_channel, desc = " Selects the IPI channel for client-server communication for xilnvm library", type = enum, values = ("0" = 0, "1" = 1, "2" = 2, "3" = 3, "4" = 4, 5 = "5", 6 = "6", 7 = "7"), default = 0
 END LIBRARY

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  07/05/21 Initial release
+* 1.1   kpt  01/13/21 Added API's to set and get the shared memory
 *
 * </pre>
 *
@@ -33,6 +34,7 @@
 
 /************************** Constant Definitions *****************************/
 static XIpiPsu *IpiPtr = NULL;
+static XNvm_IpiSharedMem XNvm_SharedMem;
 
 /**************************** Type Definitions *******************************/
 
@@ -213,7 +215,7 @@ int XNvm_IpiSend(u32 *Payload)
 			"Passing NULL pointer to %s\r\n", __func__);
 		goto END;
 	}
-	Status = XIpiPsu_PollForAck(IpiPtr, TARGET_IPI_INT_MASK,
+	Status = XIpiPsu_PollForAck(IpiPtr, XNVM_TARGET_IPI_INT_MASK,
 				    XNVM_IPI_TIMEOUT);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL,
@@ -221,7 +223,7 @@ int XNvm_IpiSend(u32 *Payload)
 		goto END;
 	}
 
-	Status = XIpiPsu_WriteMessage(IpiPtr, TARGET_IPI_INT_MASK, Payload,
+	Status = XIpiPsu_WriteMessage(IpiPtr, XNVM_TARGET_IPI_INT_MASK, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL,
@@ -229,7 +231,7 @@ int XNvm_IpiSend(u32 *Payload)
 		goto END;
 	}
 
-	Status = XIpiPsu_TriggerIpi(IpiPtr, TARGET_IPI_INT_MASK);
+	Status = XIpiPsu_TriggerIpi(IpiPtr, XNVM_TARGET_IPI_INT_MASK);
 
 END:
 	return Status;
@@ -256,7 +258,7 @@ int XNvm_IpiReadBuff32(void)
 	}
 
 	/* Wait until current IPI interrupt is handled by target module */
-	Status = XIpiPsu_PollForAck(IpiPtr, TARGET_IPI_INT_MASK,
+	Status = XIpiPsu_PollForAck(IpiPtr, XNVM_TARGET_IPI_INT_MASK,
 				    XNVM_IPI_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL,
@@ -264,7 +266,7 @@ int XNvm_IpiReadBuff32(void)
 		goto END;
 	}
 
-	Status = XIpiPsu_ReadMessage(IpiPtr, TARGET_IPI_INT_MASK, Response,
+	Status = XIpiPsu_ReadMessage(IpiPtr, XNVM_TARGET_IPI_INT_MASK, Response,
 				     RESPONSE_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
 	if (XST_SUCCESS != Status) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL,
@@ -324,7 +326,7 @@ int XNvm_InitializeIpi(XIpiPsu* const IpiInstPtr)
 	XIpiPsu_Config *IpiCfgPtr;
 
 	/* Look Up the config data */
-	IpiCfgPtr = XIpiPsu_LookupConfig(0U);
+	IpiCfgPtr = XIpiPsu_LookupConfig(XNVM_IPI_CHANNEL);
 	if (NULL == IpiCfgPtr) {
 		Status = XST_FAILURE;
 		XNvm_Printf(XNVM_DEBUG_GENERAL,
@@ -342,5 +344,68 @@ int XNvm_InitializeIpi(XIpiPsu* const IpiInstPtr)
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the shared memory location for IPI usage
+*
+* @param	Address Address of shared memory location
+*		Size	Size of the memory location
+*
+*
+******************************************************************************/
+void XNvm_SetSharedMem(u64 Address, u32 Size)
+{
+	XNvm_SharedMem.Address = Address;
+	XNvm_SharedMem.Size = Size;
+	XNvm_SharedMem.SharedMemState = XNVM_SHARED_MEM_INITIALIZED;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the shared memory location for IPI usage
+*
+* @param	Address Pointer to the address of a variable for
+*			which memory needs to be assigned
+*
+* @return	Size	Size of the memory location
+*
+******************************************************************************/
+u32 XNvm_GetSharedMem(u64 **Address)
+{
+	u32 Size = 0U;
+
+	if (XNvm_SharedMem.SharedMemState == XNVM_SHARED_MEM_INITIALIZED) {
+		*Address = (u64*)(UINTPTR)XNvm_SharedMem.Address;
+		Size = XNvm_SharedMem.Size;
+	}
+
+	return Size;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function releases the shared memory
+*
+* @return	XST_SUCCESS - if memory is released
+*		XST_FAILURE - if memory is not released
+*
+******************************************************************************/
+int XNvm_ReleaseSharedMem(void)
+{
+	int Status = XST_FAILURE;
+
+	/* User hook to memset the shared memory */
+	XNvm_SharedMem.Address = 0U;
+	XNvm_SharedMem.Size = 0U;
+	XNvm_SharedMem.SharedMemState = XNVM_SHARED_MEM_UNINITIALIZED;
+
+	Status = XST_SUCCESS;
+
 	return Status;
 }

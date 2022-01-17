@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,8 @@
 *                     programming
 * 1.1   kpt  11/29/21 Replaced Xil_DCacheFlushRange with
 *                     XNvm_DCacheFlushRange
+*       kpt  01/13/22 Allocated CDO structure's in shared memory set by the
+*                     user
 *
 * </pre>
 *
@@ -33,6 +35,7 @@
 #include "xnvm_defs.h"
 #include "xnvm_efuseclient.h"
 #include "xnvm_ipi.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 #define XNVM_WORD_LEN		(4U)
@@ -87,18 +90,30 @@ int XNvm_EfuseWrite(const u64 DataAddr)
 int XNvm_EfuseWriteIVs(const u64 IvAddr, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	XNvm_EfuseDataAddr EfuseData __attribute__ ((aligned (64U))) = {0U};
+	XNvm_EfuseDataAddr *EfuseData = NULL;
 	u64 DataAddr;
+	u32 Size = XNvm_GetSharedMem((u64**)(UINTPTR)&EfuseData);
+	u32 TotalSize = sizeof(XNvm_EfuseDataAddr);
 
-	EfuseData.EnvMonDisFlag = EnvDisFlag;
-	EfuseData.IvAddr = (UINTPTR)IvAddr;
-	DataAddr = (u64)(UINTPTR)&EfuseData;
+	if (Size == 0U || EfuseData == NULL || Size < TotalSize) {
+		goto END;
+	}
 
-	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
+	Status = Xil_SMemSet(EfuseData, TotalSize, 0U, TotalSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData->EnvMonDisFlag = EnvDisFlag;
+	EfuseData->IvAddr = (UINTPTR)IvAddr;
+	DataAddr = (u64)(UINTPTR)EfuseData;
+
+	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
 	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
 				(u32)DataAddr, (u32)(DataAddr >> 32U));
 
+END:
 	return Status;
 }
 
@@ -118,29 +133,46 @@ int XNvm_EfuseWriteIVs(const u64 IvAddr, const u32 EnvDisFlag)
 int XNvm_EfuseRevokePpk(const XNvm_PpkType PpkRevoke, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	XNvm_EfuseDataAddr EfuseData __attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseMiscCtrlBits MiscCtrlBits __attribute__ ((aligned (64U))) = {0U};
+	XNvm_EfuseDataAddr *EfuseData = NULL;
+	XNvm_EfuseMiscCtrlBits *MiscCtrlBits = NULL;
 	u64 DataAddr;
+	u32 Size = XNvm_GetSharedMem((u64**)(UINTPTR)&EfuseData);
+	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseMiscCtrlBits);
+
+	if (Size == 0U || EfuseData == NULL || Size < TotalSize) {
+		goto END;
+	}
+
+	MiscCtrlBits = (XNvm_EfuseMiscCtrlBits*)(UINTPTR)(EfuseData + sizeof(XNvm_EfuseDataAddr));
+
+	Status = Xil_SMemSet(EfuseData, sizeof(XNvm_EfuseDataAddr), 0U, sizeof(XNvm_EfuseDataAddr));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SMemSet(MiscCtrlBits, sizeof(XNvm_EfuseMiscCtrlBits), 0U, sizeof(XNvm_EfuseMiscCtrlBits));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	if (PpkRevoke == XNVM_EFUSE_PPK0) {
-		MiscCtrlBits.Ppk0Invalid = TRUE;
+		MiscCtrlBits->Ppk0Invalid = TRUE;
 	}
 	else if (PpkRevoke == XNVM_EFUSE_PPK1) {
-		MiscCtrlBits.Ppk1Invalid = TRUE;
+		MiscCtrlBits->Ppk1Invalid = TRUE;
 	}
 	else if (PpkRevoke == XNVM_EFUSE_PPK2) {
-		MiscCtrlBits.Ppk2Invalid = TRUE;
+		MiscCtrlBits->Ppk2Invalid = TRUE;
 	}
 	else {
 		goto END;
 	}
-	XNvm_DCacheFlushRange((UINTPTR)&MiscCtrlBits, sizeof(MiscCtrlBits));
 
-	EfuseData.EnvMonDisFlag = EnvDisFlag;
-	EfuseData.MiscCtrlAddr = (UINTPTR)&MiscCtrlBits;
-	DataAddr = (u64)(UINTPTR)&EfuseData;
+	EfuseData->EnvMonDisFlag = EnvDisFlag;
+	EfuseData->MiscCtrlAddr = (UINTPTR)MiscCtrlBits;
+	DataAddr = (u64)(UINTPTR)EfuseData;
 
-	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
+	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
 	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
@@ -165,11 +197,29 @@ END:
 int XNvm_EfuseWriteRevocationId(const u32 RevokeId, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	XNvm_EfuseDataAddr EfuseData __attribute__ ((aligned (64U))) = {0U};
+	XNvm_EfuseDataAddr *EfuseData = NULL;
+	XNvm_EfuseRevokeIds *WriteRevokeId = NULL;
 	u32 RevokeIdRow;
 	u32 RevokeIdBit;
-	XNvm_EfuseRevokeIds WriteRevokeId = {0U};
 	u64 DataAddr;
+	u32 Size = XNvm_GetSharedMem((u64**)(UINTPTR)&EfuseData);
+	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseRevokeIds);
+
+	if (Size == 0U || EfuseData == NULL || Size < TotalSize) {
+		goto END;
+	}
+
+	WriteRevokeId = (XNvm_EfuseRevokeIds*)(UINTPTR)(EfuseData + sizeof(XNvm_EfuseDataAddr));
+
+	Status = Xil_SMemSet(EfuseData, sizeof(XNvm_EfuseDataAddr), 0U, sizeof(XNvm_EfuseDataAddr));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SMemSet(WriteRevokeId, sizeof(XNvm_EfuseRevokeIds), 0U, sizeof(XNvm_EfuseRevokeIds));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	RevokeIdRow = RevokeId >> (XNVM_WORD_LEN + 1U);
 	RevokeIdBit = RevokeId & (XNVM_WORD_LEN - 1U);
@@ -178,18 +228,16 @@ int XNvm_EfuseWriteRevocationId(const u32 RevokeId, const u32 EnvDisFlag)
 		goto END;
 	}
 
-	WriteRevokeId.RevokeId[RevokeIdRow] = ((u32)1U << RevokeIdBit);
-	WriteRevokeId.PrgmRevokeId = TRUE;
+	WriteRevokeId->RevokeId[RevokeIdRow] = ((u32)1U << RevokeIdBit);
+	WriteRevokeId->PrgmRevokeId = TRUE;
 
-	XNvm_DCacheFlushRange((UINTPTR)&WriteRevokeId, sizeof(WriteRevokeId));
+	EfuseData->RevokeIdAddr = (UINTPTR)WriteRevokeId;
+	EfuseData->EnvMonDisFlag = EnvDisFlag;
+	DataAddr = (u64)(UINTPTR)EfuseData;
 
-	EfuseData.RevokeIdAddr = (UINTPTR)&WriteRevokeId;
-	EfuseData.EnvMonDisFlag = EnvDisFlag;
-	DataAddr = (u64)(UINTPTR)&EfuseData;
-
-	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
+	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
-                                (u32)DataAddr, (u32)(DataAddr >> 32U));
+			(u32)DataAddr, (u32)(DataAddr >> 32U));
 
 END:
 	return Status;
@@ -212,18 +260,30 @@ END:
 int XNvm_EfuseWriteUserFuses(const u64 UserFuseAddr, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
-	XNvm_EfuseDataAddr EfuseData __attribute__ ((aligned (64U))) = {0U};
+	XNvm_EfuseDataAddr *EfuseData = NULL;
 	u64 DataAddr;
+	u32 Size = XNvm_GetSharedMem((u64**)(UINTPTR)&EfuseData);
+	u32 TotalSize = sizeof(XNvm_EfuseDataAddr);
 
-	EfuseData.EnvMonDisFlag = EnvDisFlag;
-	EfuseData.UserFuseAddr = (UINTPTR)UserFuseAddr;
-	DataAddr = (u64)(UINTPTR)&EfuseData;
+	if (Size == 0U || EfuseData == NULL || Size < TotalSize) {
+		goto END;
+	}
 
-	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(EfuseData));
+	Status = Xil_SMemSet(EfuseData, TotalSize, 0U, TotalSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfuseData->EnvMonDisFlag = EnvDisFlag;
+	EfuseData->UserFuseAddr = (UINTPTR)UserFuseAddr;
+	DataAddr = (u64)(UINTPTR)EfuseData;
+
+	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
 	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
 
+END:
 	return Status;
 }
 
