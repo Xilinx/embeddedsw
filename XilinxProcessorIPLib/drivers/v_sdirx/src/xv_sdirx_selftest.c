@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_sdirx_selftest.c
-* @addtogroup xv_sdirx_v2_2
+* @addtogroup xv_sdirx_v2_3
 * @{
 *
 * Contains diagnostic/self-test functions for the SDI Rx Controller core.
