@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -24,6 +24,7 @@
 *       am   05/22/21 Resolved MISRA C violations
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       kpt  09/27/21 Fixed compilation warnings
+* 4.7   kpt  01/13/21 Added API's to set and get the shared memory
 *
 * </pre>
 *
@@ -40,6 +41,7 @@
 
 /************************** Constant Definitions *****************************/
 static XIpiPsu *IpiPtr;
+static XSecure_IpiSharedMem XSecure_SharedMem;
 
 /**************************** Type Definitions *******************************/
 
@@ -223,7 +225,7 @@ int XSecure_IpiSend(u32 *Payload)
 			"Passing NULL pointer to %s\r\n", __func__);
 		goto END;
 	}
-	Status = XIpiPsu_PollForAck(IpiPtr, TARGET_IPI_INT_MASK,
+	Status = XIpiPsu_PollForAck(IpiPtr, XSECURE_TARGET_IPI_INT_MASK,
 				    XSECURE_IPI_TIMEOUT);
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -231,7 +233,7 @@ int XSecure_IpiSend(u32 *Payload)
 		goto END;
 	}
 
-	Status = XIpiPsu_WriteMessage(IpiPtr, TARGET_IPI_INT_MASK, Payload,
+	Status = XIpiPsu_WriteMessage(IpiPtr, XSECURE_TARGET_IPI_INT_MASK, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -239,7 +241,7 @@ int XSecure_IpiSend(u32 *Payload)
 		goto END;
 	}
 
-	Status = XIpiPsu_TriggerIpi(IpiPtr, TARGET_IPI_INT_MASK);
+	Status = XIpiPsu_TriggerIpi(IpiPtr, XSECURE_TARGET_IPI_INT_MASK);
 
 END:
 	return Status;
@@ -260,7 +262,7 @@ int XSecure_IpiReadBuff32(void)
 	int Status = XST_FAILURE;
 
 	/* Wait until current IPI interrupt is handled by target module */
-	Status = XIpiPsu_PollForAck(IpiPtr, TARGET_IPI_INT_MASK,
+	Status = XIpiPsu_PollForAck(IpiPtr, XSECURE_TARGET_IPI_INT_MASK,
 				    XSECURE_IPI_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -268,7 +270,7 @@ int XSecure_IpiReadBuff32(void)
 		goto END;
 	}
 
-	Status = XIpiPsu_ReadMessage(IpiPtr, TARGET_IPI_INT_MASK, Response,
+	Status = XIpiPsu_ReadMessage(IpiPtr, XSECURE_TARGET_IPI_INT_MASK, Response,
 				     RESPONSE_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
 	if (XST_SUCCESS != Status) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -328,7 +330,7 @@ int XSecure_InitializeIpi(XIpiPsu* const IpiInstPtr)
 	XIpiPsu_Config *IpiCfgPtr;
 
 	/* Look Up the config data */
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+	IpiCfgPtr = XIpiPsu_LookupConfig(XSECURE_IPI_CHANNEL);
 	if (NULL == IpiCfgPtr) {
 		Status = XST_FAILURE;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -346,5 +348,67 @@ int XSecure_InitializeIpi(XIpiPsu* const IpiInstPtr)
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the shared memory location for IPI usage
+*
+* @param	Address	Address of shared memory location
+*		Size	Size of the memory location
+*
+*
+******************************************************************************/
+void XSecure_SetSharedMem(u64 Address, u32 Size)
+{
+	XSecure_SharedMem.Address = Address;
+	XSecure_SharedMem.Size = Size;
+	XSecure_SharedMem.SharedMemState = XSECURE_SHARED_MEM_INITIALIZED;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the shared memory location for IPI usage
+*
+* @param	Address	Pointer to the address of the variable for
+*		which memory needs to be assigned
+*
+* @return	Size	Size of the memory allocated for IPI usage
+*
+******************************************************************************/
+u32 XSecure_GetSharedMem(u64 **Address)
+{
+	u32 Size = 0U;
+
+	if (XSecure_SharedMem.SharedMemState == XSECURE_SHARED_MEM_INITIALIZED) {
+		*Address = (u64*)(UINTPTR)XSecure_SharedMem.Address;
+		Size = XSecure_SharedMem.Size;
+	}
+
+	return Size;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function releases the shared memory
+*
+* @return	XST_SUCCESS - if memory is released
+*		XST_FAILURE - if memory is not released
+*
+******************************************************************************/
+int XSecure_ReleaseSharedMem(void)
+{
+	int Status = XST_FAILURE;
+
+	XSecure_SharedMem.Address = 0U;
+	XSecure_SharedMem.Size = 0U;
+	XSecure_SharedMem.SharedMemState = XSECURE_SHARED_MEM_UNINITIALIZED;
+
+	Status = XST_SUCCESS;
+
 	return Status;
 }

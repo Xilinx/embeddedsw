@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,34 @@
 * - Then signature will be encrypted with public key and generates the actual
 * data also verifies with actual data.
 *
+* Procedure to link and compile the example for the default ddr less designs
+* ------------------------------------------------------------------------------------------------------------
+* By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
+* placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
+* contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+*
+* Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
+*
+*		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+*			be updated to point all the required sections to shared memory(OCM or TCM)
+*			using a memory region drop down selection
+*
+*						OR
+*
+*		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+*			sharedmemory (NOLOAD) : {
+*			= ALIGN(4);
+*			__bss_start = .;
+*			*(.bss)
+*			*(.bss.*)
+*			*(.gnu.linkonce.b.*)
+*			*(COMMON)
+*			. = ALIGN(4);
+*			__bss_end = .;
+*			} > Memory(OCM,TCM or DDR)
+*
+* 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+*
 * MODIFICATION HISTORY:
 * <pre>
 * Ver   Who    Date     Changes
@@ -25,6 +53,7 @@
 *       har    06/02/21 Fixed GCC warnings for R5 compiler
 * 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
 *                       with xilinx maintained functions
+*       kpt    01/13/22 Added support for PL microblaze
 *
 * </pre>
 ******************************************************************************/
@@ -250,6 +279,9 @@ static XIpiPsu IpiInst;
 
 static u32 Size = XSECURE_RSA_SIZE;
 
+/* shared memory allocation */
+static u8 SharedMem[XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
+
 /*****************************************************************************/
 /**
 *
@@ -274,6 +306,9 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/* Set shared memory */
+	XSecure_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
 
 	Status = SecureRsaExample();
 
@@ -400,6 +435,7 @@ static u32 SecureRsaExample(void)
 	}
 
 END:
+	Status |= XSecure_ReleaseSharedMem();
 	return Status;
 }
 /** //! [RSA generic example] */

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +23,8 @@
 *       kpt  09/27/21 Fixed compilation warnings
 * 4.7   kpt  11/29/21 Replaced Xil_DCacheFlushRange with
 *                     XSecure_DCacheFlushRange
+*       kpt  01/13/21 Allocated CDO structure's in shared memory set by the
+*                     user
 *
 * </pre>
 * @note
@@ -76,20 +78,26 @@ int XSecure_AesInitialize(void)
 int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_AesInitOps AesParams __attribute__ ((aligned (64)));
+	XSecure_AesInitOps *AesParams = NULL;
 	u64 Buffer;
+	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&AesParams);
 
-	AesParams.IvAddr = IvAddr;
-	AesParams.OperationId = XSECURE_ENCRYPT;
-	AesParams.KeySrc = KeySrc;
-	AesParams.KeySize = Size;
-	Buffer = (u64)(UINTPTR)&AesParams;
+	if (MemSize == 0U || AesParams == NULL || MemSize < sizeof(XSecure_AesInitOps)) {
+		goto END;
+	}
 
-	XSecure_DCacheFlushRange((INTPTR)Buffer, sizeof(AesParams));
+	AesParams->IvAddr = IvAddr;
+	AesParams->OperationId = XSECURE_ENCRYPT;
+	AesParams->KeySrc = KeySrc;
+	AesParams->KeySize = Size;
+	Buffer = (u64)(UINTPTR)AesParams;
+
+	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesInitOps));
 
 	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_OP_INIT,
 			(u32)Buffer, (u32)(Buffer >> 32));
 
+END:
 	return Status;
 }
 
@@ -108,20 +116,25 @@ int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_AesInitOps AesParams __attribute__ ((aligned (64)));
+	XSecure_AesInitOps *AesParams = NULL;
 	u64 Buffer;
+	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&AesParams);
 
-	AesParams.IvAddr = IvAddr;
-	AesParams.OperationId = XSECURE_DECRYPT;
-	AesParams.KeySrc = KeySrc;
-	AesParams.KeySize = Size;
-	Buffer = (u64)(UINTPTR)&AesParams;
+	if (MemSize == 0U || AesParams == NULL || MemSize < sizeof(XSecure_AesInitOps)) {
+		goto END;
+	}
 
-	XSecure_DCacheFlushRange((INTPTR)Buffer, sizeof(AesParams));
+	AesParams->IvAddr = IvAddr;
+	AesParams->OperationId = XSECURE_DECRYPT;
+	AesParams->KeySrc = KeySrc;
+	AesParams->KeySize = Size;
+	Buffer = (u64)(UINTPTR)AesParams;
+
+	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesInitOps));
 
 	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_OP_INIT,
 			(u32)Buffer, (u32)(Buffer >> 32));
-
+END:
 	return Status;
 }
 
@@ -170,20 +183,26 @@ int XSecure_AesEncryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 				u32 Size, u32 IsLast)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_AesInParams EncInAddr __attribute__ ((aligned (64)));
+	XSecure_AesInParams *EncInAddr = NULL;
 	u64 SrcAddr;
+	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&EncInAddr);
 
-	EncInAddr.InDataAddr = InDataAddr;
-	EncInAddr.Size = Size;
-	EncInAddr.IsLast = IsLast;
-	SrcAddr = (u64)(UINTPTR)&EncInAddr;
+	if (MemSize == 0U || EncInAddr == NULL || MemSize < sizeof(XSecure_AesInParams)) {
+		goto END;
+	}
 
-	XSecure_DCacheFlushRange((INTPTR)SrcAddr, sizeof(EncInAddr));
+	EncInAddr->InDataAddr = InDataAddr;
+	EncInAddr->Size = Size;
+	EncInAddr->IsLast = IsLast;
+	SrcAddr = (u64)(UINTPTR)EncInAddr;
+
+	XSecure_DCacheFlushRange(EncInAddr, sizeof(XSecure_AesInParams));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_ENCRYPT_UPDATE,
 			(u32)SrcAddr, (u32)(SrcAddr >> 32), (u32)OutDataAddr,
 			(u32)(OutDataAddr >> 32));
 
+END:
 	return Status;
 }
 
@@ -235,20 +254,26 @@ int XSecure_AesDecryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 				u32 Size, u32 IsLast)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_AesInParams DecInParams __attribute__ ((aligned (64)));
+	XSecure_AesInParams *DecInParams = NULL;
 	u64 SrcAddr;
+	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&DecInParams);
 
-	DecInParams.InDataAddr = InDataAddr;
-	DecInParams.Size = Size;
-	DecInParams.IsLast = IsLast;
-	SrcAddr = (u64)(UINTPTR)&DecInParams;
+	if (MemSize == 0U || DecInParams == NULL || MemSize < sizeof(XSecure_AesInParams)) {
+		goto END;
+	}
 
-	XSecure_DCacheFlushRange((INTPTR)SrcAddr, sizeof(DecInParams));
+	DecInParams->InDataAddr = InDataAddr;
+	DecInParams->Size = Size;
+	DecInParams->IsLast = IsLast;
+	SrcAddr = (u64)(UINTPTR)DecInParams;
+
+	XSecure_DCacheFlushRange(DecInParams, sizeof(XSecure_AesInParams));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_DECRYPT_UPDATE,
 			(u32)SrcAddr, (u32)(SrcAddr >> 32),
 			(u32)OutDataAddr, (u32)(OutDataAddr >> 32));
 
+END:
 	return Status;
 }
 
