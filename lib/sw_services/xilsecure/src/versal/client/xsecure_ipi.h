@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,7 @@
 *                     Added XSecure_InitializeIpi
 *       am   05/22/21 Resolved MISRA C violation
 * 4.6   har  07/14/21 Fixed doxygen warnings
+* 4.7   kpt  01/13/22 Added macro XSECURE_SHARED_MEM_SIZE
 *
 * </pre>
 * @note
@@ -54,17 +55,31 @@ extern "C" {
 #define XSECURE_IPI_TIMEOUT		(~0U)
 					/**< IPI timeout */
 
-#define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
-					/**< Target IPI interrupt mask */
+#define XSECURE_TARGET_IPI_INT_MASK	(0x00000002U)
+					/**< Target PMC IPI interrupt mask */
 
 #define XSECURE_IPI_UNUSED_PARAM	(0U)
 					/**< Unused param */
+
+/* Maximum size of shared memory used to store the CDO command */
+#define XSECURE_SHARED_MEM_SIZE		(128U) /**< Shared memory size */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
+
+typedef enum {
+	XSECURE_SHARED_MEM_UNINITIALIZED = 0, /**< Shared memory uninitialized */
+	XSECURE_SHARED_MEM_INITIALIZED, /**< Shared memory initialized */
+}XSecure_IpiSharedMemState;
+
+typedef struct {
+	u64 Address;
+	u32 Size;
+	XSecure_IpiSharedMemState SharedMemState;
+}XSecure_IpiSharedMem;
 
 /************************** Function Definitions *****************************/
 int XSecure_ProcessIpi(u32 Arg0, u32 Arg1, u32 Arg2, u32 Arg3, u32 Arg4,
@@ -81,6 +96,9 @@ int XSecure_IpiSend(u32 *Payload);
 int XSecure_IpiReadBuff32(void);
 int XSecure_SetIpi(XIpiPsu* const IpiInst);
 int XSecure_InitializeIpi(XIpiPsu* const IpiInstPtr);
+void XSecure_SetSharedMem(u64 Address, u32 Size);
+u32 XSecure_GetSharedMem(u64 **Address);
+int XSecure_ReleaseSharedMem(void);
 
 #ifdef __cplusplus
 }

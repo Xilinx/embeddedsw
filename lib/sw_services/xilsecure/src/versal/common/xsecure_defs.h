@@ -57,7 +57,11 @@ extern "C" {
 	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}
 				/**< For prints in XilSecure library */
 #ifndef XSECURE_CACHE_DISABLE
-	#define XSecure_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange(SrcAddr, Len)
+	#if defined(__microblaze__)
+		#define XSecure_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((UINTPTR)SrcAddr, Len)
+	#else
+		#define XSecure_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((INTPTR)SrcAddr, Len)
+	#endif
 #else
 	#define XSecure_DCacheFlushRange(SrcAddr, Len) {}
 #endif /**< Cache Invalidate function */

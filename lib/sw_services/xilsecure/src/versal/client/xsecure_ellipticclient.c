@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +21,8 @@
 * 4.6   kpt  09/27/21 Fixed compilation warnings
 * 4.7   kpt  11/29/21 Replaced Xil_DCacheFlushRange with
 *                     XSecure_DCacheFlushRange
+*       kpt  01/13/21 Allocated CDO structure's in shared memory set by the
+*                     user
 *
 * </pre>
 * @note
@@ -58,23 +60,28 @@ int XSecure_EllipticGenerateSign(u32 CurveType, u64 HashAddr, u32 Size,
 			u64 PrivKeyAddr, u64 EPrivKeyAddr, u64 SignAddr)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_EllipticSignGenParams EcdsaParams
-				__attribute__ ((aligned (64)));
+	XSecure_EllipticSignGenParams *EcdsaParams = NULL;
 	u64 Buffer;
+	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&EcdsaParams);
 
-	EcdsaParams.CurveType = CurveType;
-	EcdsaParams.HashAddr = HashAddr;
-	EcdsaParams.Size = Size;
-	EcdsaParams.PrivKeyAddr = PrivKeyAddr;
-	EcdsaParams.EPrivKeyAddr = EPrivKeyAddr;
-	Buffer = (u64)(UINTPTR)&EcdsaParams;
+	if (MemSize == 0U || EcdsaParams == NULL || MemSize < sizeof(XSecure_EllipticSignGenParams)) {
+		goto END;
+	}
 
-	XSecure_DCacheFlushRange((INTPTR)Buffer, sizeof(EcdsaParams));
+	EcdsaParams->CurveType = CurveType;
+	EcdsaParams->HashAddr = HashAddr;
+	EcdsaParams->Size = Size;
+	EcdsaParams->PrivKeyAddr = PrivKeyAddr;
+	EcdsaParams->EPrivKeyAddr = EPrivKeyAddr;
+	Buffer = (u64)(UINTPTR)EcdsaParams;
+
+	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignGenParams));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_ELLIPTIC_GENERATE_SIGN,
 			(u32)Buffer, (u32)(Buffer >> 32),
 			(u32)SignAddr,(u32)(SignAddr >> 32));
 
+END:
 	return Status;
 }
 
@@ -165,23 +172,28 @@ int XSecure_EllipticVerifySign(u32 CurveType, u64 HashAddr, u32 Size,
                         u64 PubKeyAddr, u64 SignAddr)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_EllipticSignVerifyParams EcdsaParams
-				__attribute__ ((aligned (64)));
+	XSecure_EllipticSignVerifyParams *EcdsaParams = NULL;
 	u64 Buffer;
+	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&EcdsaParams);
 
-	EcdsaParams.CurveType = CurveType;
-	EcdsaParams.HashAddr = HashAddr;
-	EcdsaParams.Size = Size;
-	EcdsaParams.PubKeyAddr = PubKeyAddr;
-	EcdsaParams.SignAddr = SignAddr;
-	Buffer = (u64)(UINTPTR)&EcdsaParams;
+	if (MemSize == 0U || EcdsaParams == NULL || MemSize < sizeof(XSecure_EllipticSignVerifyParams)) {
+		goto END;
+	}
 
-	XSecure_DCacheFlushRange((INTPTR)Buffer, sizeof(EcdsaParams));
+	EcdsaParams->CurveType = CurveType;
+	EcdsaParams->HashAddr = HashAddr;
+	EcdsaParams->Size = Size;
+	EcdsaParams->PubKeyAddr = PubKeyAddr;
+	EcdsaParams->SignAddr = SignAddr;
+	Buffer = (u64)(UINTPTR)EcdsaParams;
+
+	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignVerifyParams));
 
 	Status = XSecure_ProcessIpiWithPayload2(
 			XSECURE_API_ELLIPTIC_VERIFY_SIGN,
 			(u32)Buffer, (u32)(Buffer >> 32));
 
+END:
 	return Status;
 }
 

@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -51,8 +51,12 @@ proc secure_drc {libhandle} {
 			}
 	} elseif {$proc_type == "psu_pmc" || $proc_type == "psu_cortexa72" ||
 				$proc_type == "psv_pmc" || $proc_type == "psv_cortexa72" ||
-				$proc_type == "psv_cortexr5" } {
+				$proc_type == "psv_cortexr5" || $proc_type == "microblaze"} {
 
+		if {$proc_type == "microblaze" && $mode == "server"} {
+			error "ERROR: XilSecure server library is not supported for microblaze";
+			return;
+		}
 		if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $mode == "server"} {
 			foreach entry [glob -nocomplain -types f [file join "$versal/server" *]] {
 				file copy -force $entry "./src"
@@ -93,7 +97,7 @@ proc secure_drc {libhandle} {
 			}
 
 		} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-			$proc_type == "psv_cortexr5"} {
+			$proc_type == "psv_cortexr5" || $proc_type == "microblaze"} {
 			foreach entry [glob -nocomplain -types f [file join "$versal/client" *]] {
 				file copy -force $entry "./src"
 			}
@@ -200,7 +204,7 @@ proc xgen_opts_file {libhandle} {
 	if {$value == true} {
 		#Open xparameters.h file
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-			$proc_type == "psv_cortexr5"} {
+			$proc_type == "psv_cortexr5" || $proc_type == "microblaze"} {
 			set file_handle [hsi::utils::open_include_file "xparameters.h"]
 
 			puts $file_handle "\n/* Xilinx Secure library User Settings */"
@@ -208,5 +212,16 @@ proc xgen_opts_file {libhandle} {
 
 			close $file_handle
 		}
+	}
+
+	set mode [common::get_property CONFIG.mode $libhandle]
+	if {$mode == "client" && $proc_type != "psu_pmc" && $proc_type != "psv_pmc"} {
+		# Get IPI channel enabled in design for client-server communication
+		set value [common::get_property CONFIG.ipi_channel $libhandle]
+		#Open xparameters.h file
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+		puts $file_handle "\n/* Xilinx Secure library User Settings */"
+		puts $file_handle [format %s%d%s "#define XSECURE_IPI_CHANNEL " [expr $value]  "U"]
+		close $file_handle
 	}
 }

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,6 +20,8 @@
 * 4.6   kpt  09/27/21 Fixed compilation warnings
 * 4.7   kpt  11/29/21 Replaced Xil_DCacheFlushRange with
 *                      XSecure_DCacheFlushRange
+*       kpt  01/13/21 Allocated CDO structure's in shared memory set by the
+*                     user
 *
 * </pre>
 * @note
@@ -54,20 +56,26 @@ int XSecure_RsaPrivateDecrypt(const u64 KeyAddr, const u64 InDataAddr,
 				const u32 Size, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_RsaInParam RsaParams __attribute__ ((aligned (64)));
+	XSecure_RsaInParam *RsaParams = NULL;
 	u64 BufferAddr;
+	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&RsaParams);
 
-	RsaParams.KeyAddr = KeyAddr;
-	RsaParams.DataAddr = InDataAddr;
-	RsaParams.Size = Size;
-	BufferAddr = (u64)(UINTPTR)&RsaParams;
+	if (MemSize == 0U || RsaParams == NULL || MemSize < sizeof(XSecure_RsaInParam)) {
+		goto END;
+	}
 
-	XSecure_DCacheFlushRange((INTPTR)BufferAddr, sizeof(RsaParams));
+	RsaParams->KeyAddr = KeyAddr;
+	RsaParams->DataAddr = InDataAddr;
+	RsaParams->Size = Size;
+	BufferAddr = (u64)(UINTPTR)RsaParams;
+
+	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_RSA_PRIVATE_DECRYPT,
 			(u32)BufferAddr, (u32)(BufferAddr >> 32),
 			(u32)OutDataAddr, (u32)(OutDataAddr >> 32));
 
+END:
 	return Status;
 }
 
@@ -96,20 +104,26 @@ int XSecure_RsaPublicEncrypt(const u64 KeyAddr, const u64 InDataAddr,
                                 const u32 Size, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_RsaInParam RsaParams __attribute__ ((aligned (64)));
+	XSecure_RsaInParam *RsaParams = NULL;
 	u64 BufferAddr;
+	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&RsaParams);
 
-	RsaParams.KeyAddr = KeyAddr;
-	RsaParams.DataAddr = InDataAddr;
-	RsaParams.Size = Size;
-	BufferAddr = (u64)(UINTPTR)&RsaParams;
+	if (MemSize == 0U || RsaParams == NULL || MemSize < sizeof(XSecure_RsaInParam)) {
+		goto END;
+	}
 
-	XSecure_DCacheFlushRange((INTPTR)BufferAddr, sizeof(RsaParams));
+	RsaParams->KeyAddr = KeyAddr;
+	RsaParams->DataAddr = InDataAddr;
+	RsaParams->Size = Size;
+	BufferAddr = (u64)(UINTPTR)RsaParams;
+
+	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_RSA_PUBLIC_ENCRYPT,
 			(u32)BufferAddr, (u32)(BufferAddr >> 32),
 			(u32)OutDataAddr, (u32)(OutDataAddr >> 32));
 
+END:
 	return Status;
 }
 
@@ -131,19 +145,25 @@ int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
 								const u32 Size)
 {
 	volatile int Status = XST_FAILURE;
-	XSecure_RsaSignParams SignParams __attribute__ ((aligned (64)));
-	u64 BufAddr;
+	XSecure_RsaSignParams *SignParams = NULL;
+	u64 BufferAddr;
+	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&SignParams);
 
-	SignParams.SignAddr = SignAddr;
-	SignParams.HashAddr = HashAddr;
-	SignParams.Size = Size;
-	BufAddr = (u64)(UINTPTR)&SignParams;
+	if (MemSize == 0U || SignParams == NULL || MemSize < sizeof(XSecure_RsaSignParams)) {
+		goto END;
+	}
 
-	XSecure_DCacheFlushRange((INTPTR)BufAddr, sizeof(SignParams));
+	SignParams->SignAddr = SignAddr;
+	SignParams->HashAddr = HashAddr;
+	SignParams->Size = Size;
+	BufferAddr = (u64)(UINTPTR)SignParams;
+
+	XSecure_DCacheFlushRange(SignParams, sizeof(XSecure_RsaSignParams));
 
 	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_RSA_SIGN_VERIFY,
-			(u32)BufAddr, (u32)(BufAddr >> 32));
+			(u32)BufferAddr, (u32)(BufferAddr >> 32));
 
+END:
 	return Status;
 }
 

@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -38,7 +38,7 @@ BEGIN LIBRARY xilsecure
   OPTION drc = secure_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
-  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5);
+  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal";
   OPTION VERSION = 4.7;
@@ -48,4 +48,5 @@ BEGIN LIBRARY xilsecure
   PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilSecure library for \n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
   PARAM name = nonsecure_ipi_access, desc = "Enables non secure access for Xilsecure IPI commands for Versal", type = bool, default = false;
   PARAM name = cache_disable, desc = "Disables cache for Xilsecure client interface", type = bool, default = false;
+  PARAM name = ipi_channel, desc = " Selects the IPI channel for client-server communication for xilsecure library", type = enum, values = ("0" = 0, "1" = 1, "2" = 2, "3" = 3, "4" = 4, 5 = "5", 6 = "6", 7 = "7"), default = 0
 END LIBRARY

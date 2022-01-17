@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +10,35 @@
 *
 * This example tests the Xilsecure client elliptic APIs
 *
+* @note
+* Procedure to link and compile the example for the default ddr less designs
+* ------------------------------------------------------------------------------------------------------------
+* By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
+* placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
+* contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+*
+* Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
+*
+*		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+*			be updated to point all the required sections to shared memory(OCM or TCM)
+*			using a memory region drop down selection
+*
+*						OR
+*
+*		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+*			sharedmemory (NOLOAD) : {
+*			= ALIGN(4);
+*			__bss_start = .;
+*			*(.bss)
+*			*(.bss.*)
+*			*(.gnu.linkonce.b.*)
+*			*(COMMON)
+*			. = ALIGN(4);
+*			__bss_end = .;
+*			} > Memory(OCM,TCM or DDR)
+*
+* 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -19,6 +48,7 @@
 * 4.3   har  08/24/2020 Updated file version to sync with library version
 * 4.5   kal  03/23/2021 Updated file for client support.
 *       har  06/02/2021 Fixed GCC warnings for R5 compiler
+* 4.7   kpt  01/13/2022 Added support for PL microblaze
 *
 * </pre>
 *
@@ -46,6 +76,11 @@
 #define XSECURE_ECC_P521_WORD_ALIGN_BYETS (2U)
 
 static XIpiPsu IpiInst;
+
+/************************** Variable Definitions *****************************/
+/* shared memory allocation */
+static u8 SharedMem[XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
+
 /************************** Function Prototypes ******************************/
 static void XSecure_ShowData(const u8* Data, u32 Len);
 #ifdef TEST_NIST_P384
@@ -80,6 +115,9 @@ int main()
 		goto END;
 	}
 
+	/* Set shared memory */
+	XSecure_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
+
 #ifdef TEST_NIST_P384
 	xil_printf("Test P384 curve started \r\n");
 	Status = XSecure_TestP384();
@@ -98,9 +136,15 @@ int main()
 	}
 #endif
 
-	xil_printf("Successfully ran Ecdsa example \r\n");
-
 END:
+	Status |= XSecure_ReleaseSharedMem();
+	if (Status != XST_SUCCESS) {
+		xil_printf("Ecdsa example failed with Status:%08x\r\n", Status);
+	}
+	else {
+		xil_printf("Successfully ran Ecdsa example \r\n");
+	}
+
 	return Status;
 }
 
