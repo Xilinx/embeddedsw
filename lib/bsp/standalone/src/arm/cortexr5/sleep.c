@@ -36,6 +36,8 @@
 *                         CR#1051591.
 * 7.7	sk	 01/10/22 Update unsigned int to u32 to fix misra_c_2012_directive_4_6
 * 			  violations.
+* 7.7	sk	 01/10/22 Modify sleep_R5 functions return type from unsigned
+* 			  to void to fix misra_c_2012_rule_17_7 violation.
 *
 * </pre>
 *
@@ -55,8 +57,6 @@
 *
 * @param	seconds requested
 *
-* @return	0 always
-*
 * @note		By default, sleep is implemented using TTC3. Although user is
 *               given an option to select other instances of TTC. When the user
 *               selects other instances of TTC, sleep is implemented by that
@@ -72,7 +72,7 @@
 *
 ****************************************************************************/
 
-unsigned sleep_R5(u32 seconds)
+void sleep_R5(u32 seconds)
 {
 #if defined (SLEEP_TIMER_BASEADDR)
 	Xil_SleepTTCCommon(seconds, COUNTS_PER_SECOND);
@@ -100,5 +100,4 @@ unsigned sleep_R5(u32 seconds)
 		);
 #endif
 
-return 0;
 }

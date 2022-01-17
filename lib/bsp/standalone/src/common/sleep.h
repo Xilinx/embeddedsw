@@ -20,6 +20,8 @@
 *								 function prototypes.
 * 7.7	sk   01/10/22 Typecast sleep declaration argument from unsigned int to
 * 		      u32 to fix misra_c_2012_directive_4_6 violation.
+* 7.7	sk   01/10/22 Modify the return type of sleep_R5 and usleep_R5 from
+* 		      unsigned to void to fix misra_c_2012_rule_17_7 violation.
 *
 * </pre>
 *
@@ -79,8 +81,8 @@ extern "C" {
 
 void usleep(unsigned long useconds);
 void sleep(u32 seconds);
-int usleep_R5(unsigned long useconds);
-unsigned sleep_R5(u32 seconds);
+void usleep_R5(unsigned long useconds);
+void sleep_R5(u32 seconds);
 int usleep_MB(unsigned long useconds);
 unsigned sleep_MB(unsigned int seconds);
 int usleep_A53(unsigned long useconds);
