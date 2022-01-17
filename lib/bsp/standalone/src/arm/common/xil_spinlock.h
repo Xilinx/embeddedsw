@@ -21,6 +21,8 @@
 * 7.5 	asa		 02/16/21 First release
 * 7.6	sk	 08/05/21 Add Boolean check and braces for Xil_IsSpinLockEnabled
 * 			  if condition to fix misrac violations.
+* 7.7	sk	 01/10/22 Update XIL_SPINLOCK_ENABLED from signed to unsigned to
+* 			  fix misra_c_2012_rule_10_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -49,7 +51,7 @@ u32 Xil_IsSpinLockEnabled(void);
 #define XIL_SPINLOCK_LOCKVAL	0x10203040
 #define XIL_SPINLOCK_RESETVAL	0x40302010
 #define XIL_SPINLOCK_ENABLE     0x17273747
-#define XIL_SPINLOCK_ENABLED	0x17273747
+#define XIL_SPINLOCK_ENABLED	0x17273747U
 /***************** Macros (Inline Functions) Definitions ********************/
 
 #endif  /* !(__aarch64__) &&  (__GNUC__) && !(__clang__)*/

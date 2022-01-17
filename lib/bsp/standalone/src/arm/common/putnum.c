@@ -27,7 +27,7 @@ void putnum(u32 num);
 void putnum(u32 num)
 {
   char8  buf[9];
-  s32  cnt;
+  s32  cnt, val=7;
   s32 i;
   char8  *ptr;
   u32  digit;
@@ -36,8 +36,8 @@ void putnum(u32 num)
   }
 
   ptr = buf;
-  for (cnt = 7 ; cnt >= 0 ; cnt--) {
-    digit = (num >> (cnt * 4U)) & 0x0000000fU;
+  for (cnt = 0 ; cnt <= 7 ; cnt++) {
+    digit = (num >> (val * 4U)) & 0x0000000fU;
 
     if (digit <= 9U) {
 		digit += (u32)'0';
@@ -48,6 +48,7 @@ void putnum(u32 num)
 		*ptr = ((char8)digit);
 		ptr += 1;
 	}
+	val--;
   }
 
   print (buf);

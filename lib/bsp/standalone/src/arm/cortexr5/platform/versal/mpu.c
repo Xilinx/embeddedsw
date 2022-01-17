@@ -28,6 +28,8 @@
 *                     Add function header to Init_MPU function.
 * 7.7	sk   01/10/22 Update unsigned int to u32 to fix misra_c_2012_directive_4_6
 * 		      violation.
+* 7.7	sk   01/10/22 Update values from signed to unsigned to fix misrac
+* 		      misra_c_2012_rule_10_4 violation.
 * </pre>
 *
 * @note
@@ -325,7 +327,7 @@ static void Xil_DisableMPURegions(void)
 {
 	u32 Temp = 0U;
 	u32 Index = 0U;
-	for (Index = 0; Index <= 15; Index++) {
+	for (Index = 0; Index <= 15U; Index++) {
 		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,Index);
 #if defined (__GNUC__)
 		Temp = mfcp(XREG_CP15_MPU_REG_SIZE_EN);

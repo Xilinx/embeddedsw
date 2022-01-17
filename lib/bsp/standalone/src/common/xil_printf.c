@@ -118,10 +118,10 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
     /* Build number (backwards) in outbuf            */
     i = 0;
     do {
-		outbuf[i] = digits[(num % base)];
+		outbuf[i] = digits[((s32)num % base)];
 		i++;
 		num /= base;
-    } while (num > 0);
+    } while (num > 0U);
 
     if (negative != 0) {
 		outbuf[i] = '-';
