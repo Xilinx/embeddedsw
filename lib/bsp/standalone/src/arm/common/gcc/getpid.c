@@ -10,7 +10,12 @@
  */
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) s32 _getpid(void);
+#endif
+
+__attribute__((weak)) s32 _getpid(void);
+__attribute__((weak)) s32 getpid(void);
+
+#ifdef __cplusplus
 }
 #endif
 

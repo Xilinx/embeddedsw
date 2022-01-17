@@ -20,6 +20,8 @@
 * 7.7	sk	 01/10/22 Update Xil_MemCpy functions variables typecast
 * 			  from int to s32 to fix misra_c_2012_directive_4_6
 * 			  violations.
+* 7.7	sk	 01/10/22 Include xil_mem.h header file to fix Xil_MemCpy
+* 			  prototype misra_c_2012_rule_8_4 violation.
 *
 * </pre>
 *
@@ -28,6 +30,7 @@
 /***************************** Include Files ********************************/
 
 #include "xil_types.h"
+#include "xil_mem.h"
 
 /***************** Inline Functions Definitions ********************/
 /*****************************************************************************/

@@ -8,7 +8,11 @@
 #include "xil_types.h"
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) char8 *sbrk (s32 nbytes);
+#endif
+
+__attribute__((weak)) char8 *sbrk (s32 nbytes);
+
+#ifdef __cplusplus
 }
 #endif
 

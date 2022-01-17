@@ -19,6 +19,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 7.2 sd  12/11/19 First release
 * 7.2 sd  03/20/20 Added checking for isolation case
+* 7.7 sk  01/10/22 Add function prototype for Xil_ClockGetRate to fix
+* 		   misra_c_2012_rule_8_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -54,6 +56,7 @@ XStatus Xil_ClockEnable(XClock_OutputClks ClockId);
 XStatus Xil_ClockInit(void);
 XStatus Xil_ClockGet(void);
 XStatus Xil_ClockSetRate(XClock_OutputClks ClockId, XClockRate Rate, XClockRate *SetRate);
+XStatus Xil_ClockGetRate(XClock_OutputClks ClockId, XClockRate *Rate);
 
 #ifdef __cplusplus
 }

@@ -12,7 +12,12 @@
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) s32 _read (s32 fd, char8* buf, s32 nbytes);
+#endif
+
+__attribute__((weak)) s32 _read (s32 fd, char8* buf, s32 nbytes);
+__attribute__((weak)) s32 read (s32 fd, char8* buf, s32 nbytes);
+
+#ifdef __cplusplus
 }
 #endif
 

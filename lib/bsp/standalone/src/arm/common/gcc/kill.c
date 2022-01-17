@@ -9,7 +9,11 @@
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) s32 _kill(pid_t pid, s32 sig);
+#endif
+
+__attribute__((weak)) s32 _kill(pid_t pid, s32 sig);
+
+#ifdef __cplusplus
 }
 #endif
 

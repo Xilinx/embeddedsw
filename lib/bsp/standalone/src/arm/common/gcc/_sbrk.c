@@ -12,7 +12,11 @@ extern u8 _heap_end[];
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) caddr_t _sbrk ( s32 incr );
+#endif
+
+__attribute__((weak)) caddr_t _sbrk ( s32 incr );
+
+#ifdef __cplusplus
 }
 #endif
 
