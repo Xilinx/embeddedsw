@@ -39,6 +39,7 @@
 * 		      misra_c_2012_rule_10_4 violation.
 * 7.7  sk   01/10/22  Add explicit parentheses for region_size and region_size[0]
 * 		      to fix misra_c_2012_rule_12_1 violation.
+* 7.7  sk   01/10/22  Remove unsigned sign to fix misra_c_2012_rule_10_3 violation.
 * </pre>
 *
 *
@@ -317,7 +318,7 @@ u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
 		Mpu_Config[reg_num].Attribute = attrib;
 	} else {
 		Mpu_Config[reg_num].RegionStatus = 0U;
-		Mpu_Config[reg_num].BaseAddress = 0U;
+		Mpu_Config[reg_num].BaseAddress = 0;
 		Mpu_Config[reg_num].Size = 0U;
 		Mpu_Config[reg_num].Attribute = 0U;
 	}
@@ -426,7 +427,7 @@ u32 Xil_DisableMPURegionByRegNum (u32 reg_num) {
 	mtcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
 	dsb();
 	isb();
-	Xil_UpdateMPUConfig(reg_num, 0U, 0U, 0U);
+	Xil_UpdateMPUConfig(reg_num, 0, 0U, 0U);
 	ReturnVal = XST_SUCCESS;
 
 exit1:

@@ -47,6 +47,8 @@
 * 			  misra_c_2012_rule_10_4 violation.
 * 7.7	sk	 01/10/22 Add explicit parentheses to fix misra_c_2012_rule_12_1
 * 			  violation.
+* 7.7	sk	 01/10/22 Typecast character strings to u8 to fix misra_c_2012_rule_
+* 			  10_3 violation.
 *
 * </pre>
 *
@@ -179,7 +181,7 @@ u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
 
 	while (ConvertedLen < Len) {
 		for (i = 0U; i < MAX_NIBBLES; i++) {
-			Status = Xil_ConvertCharToNibble(Str[ConvertedLen],
+			Status = Xil_ConvertCharToNibble((u8)Str[ConvertedLen],
 			                                &Nibble[i]);
 			ConvertedLen = ConvertedLen +1U;
 			if (Status != XST_SUCCESS) {
@@ -399,9 +401,9 @@ u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
 
 	ConvertedLen = 0U;
 	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
-		if (Xil_ConvertCharToNibble(Str[ConvertedLen],&UpperNibble)
+		if (Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]),&UpperNibble)
 				== (u32)XST_SUCCESS) {
-			if (Xil_ConvertCharToNibble(Str[ConvertedLen+1U],
+			if (Xil_ConvertCharToNibble(((u8)Str[ConvertedLen+1U]),
 					&LowerNibble) == (u32)XST_SUCCESS) {
 				Buf[ConvertedLen/2U] =
 				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
@@ -468,10 +470,10 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len)
 	StrIndex = (Len / XIL_SIZE_OF_BYTE_IN_BITS) - 1U;
 	ConvertedLen = 0U;
 	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
-		Status = Xil_ConvertCharToNibble(Str[ConvertedLen],
+		Status = Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]),
 		                                &UpperNibble);
 		if (XST_SUCCESS == Status) {
-			Status = Xil_ConvertCharToNibble(Str[ConvertedLen + 1U],
+			Status = Xil_ConvertCharToNibble(((u8)Str[ConvertedLen + 1U]),
 			                                &LowerNibble);
 			if (XST_SUCCESS == Status) {
 				Buf[StrIndex] =
