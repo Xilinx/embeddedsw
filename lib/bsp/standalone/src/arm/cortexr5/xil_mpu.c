@@ -40,6 +40,7 @@
 * 7.7  sk   01/10/22  Add explicit parentheses for region_size and region_size[0]
 * 		      to fix misra_c_2012_rule_12_1 violation.
 * 7.7  sk   01/10/22  Remove unsigned sign to fix misra_c_2012_rule_10_3 violation.
+* 7.7  sk   01/10/22  Modify if condition to fix misra_c_2012_rule_10_1 violation.
 * </pre>
 *
 *
@@ -598,7 +599,7 @@ void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 	size_t Regionsize = MPU_REGION_SIZE_MIN;
 	UINTPTR Basephysaddr = 0, end = Physaddr + size;
 
-	if (!flags)
+	if (flags == 0U)
 		return (void *)Physaddr;
 	if (u32overflow(Physaddr, size))
 		return NULL;
