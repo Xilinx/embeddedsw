@@ -45,6 +45,8 @@
 * 		      violation.
 * 7.7  sk   01/10/22  Update conditional expression to fix misra_c_2012_rule_14_4
 * 		      violation.
+* 7.7  sk   01/10/22  Add braces for the if statement to make it a compound
+* 		      statement to fix misra_c_2012_rule_15_6 violation.
 * </pre>
 *
 *
@@ -603,19 +605,23 @@ void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 	size_t Regionsize = MPU_REGION_SIZE_MIN;
 	UINTPTR Basephysaddr = 0, end = Physaddr + size;
 
-	if (flags == 0U)
+	if (flags == 0U) {
 		return (void *)Physaddr;
-	if (u32overflow(Physaddr, size))
+	}
+	if (u32overflow(Physaddr, size)) {
 		return NULL;
+	}
 	for ( ; Regionsize != 0U; Regionsize <<= 1) {
 		if (Regionsize >= size) {
 			Basephysaddr = Physaddr & ~(Regionsize - 1U);
-			if (u32overflow(Basephysaddr, Regionsize))
+			if (u32overflow(Basephysaddr, Regionsize)) {
 				break;
-			if ((Basephysaddr + Regionsize) >= end)
+			}
+			if ((Basephysaddr + Regionsize) >= end) {
 				return ((Xil_SetMPURegion(Basephysaddr,
 					Regionsize, flags) == XST_SUCCESS) ?
 					(void *)Physaddr : NULL);
+			}
 		}
 	}
 	return NULL;

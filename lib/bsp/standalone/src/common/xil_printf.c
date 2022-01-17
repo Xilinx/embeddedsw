@@ -210,8 +210,9 @@ static s32 getnum(charptr* linep)
 
 	while (cptr != NULL) {
 		ResultIsDigit = isdigit(((s32)*cptr));
-		if (ResultIsDigit == 0)
+		if (ResultIsDigit == 0) {
 			break;
+		}
 		n = ((n*10) + (((s32)*cptr) - (s32)'0'));
 		cptr += 1;
 	}
