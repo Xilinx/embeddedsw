@@ -264,7 +264,7 @@ void xil_vprintf(const char8 *ctrl1, va_list argp)
 
     params_t par;
 
-    char8 ch;
+    u8 ch;
     char8 *ctrl = (char8 *)ctrl1;
 
     while ((ctrl != NULL) && (*ctrl != (char8)0)) {
@@ -297,17 +297,17 @@ void xil_vprintf(const char8 *ctrl1, va_list argp)
 			ctrl += 1;
 		}
 		if(ctrl != NULL) {
-			ch = *ctrl;
+			ch = (u8)*ctrl;
 		} else {
 			break;
 		}
 
-        if (isdigit((s32)ch) != 0) {
+        if (isdigit(ch) != 0) {
             if (dot_flag != 0) {
                 par.num2 = getnum(&ctrl);
 			}
             else {
-                if (ch == '0') {
+                if (ch == (u8)'0') {
                     par.pad_character = '0';
 				}
 				if(ctrl != NULL) {
@@ -321,7 +321,7 @@ void xil_vprintf(const char8 *ctrl1, va_list argp)
             goto try_next;
         }
 
-        switch (tolower((s32)ch)) {
+        switch (tolower(ch)) {
             case '%':
 #if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
                 outbyte( '%');
