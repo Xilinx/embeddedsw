@@ -40,6 +40,9 @@
 *                         Xil_SStrCpy functions
 *       kpt      11/25/21 Added strnlen function to fix ARMCC compilation
 *                         failure
+* 7.7	sk	 01/10/22 Update functions return type and update RetVal variable
+* 			  data type to fix misra_c_2012_directive_4_6 misrac
+* 			  violations.
 *
 * </pre>
 *
@@ -93,9 +96,9 @@ static size_t strnlen (const char *StartPtr, size_t StrSize)
 * @return	Returns ceiled value.
 *
 *******************************************************************************/
-int Xil_Ceil(float Value)
+s32 Xil_Ceil(float Value)
 {
-    int Result = Value;
+    s32 Result = Value;
 
 	if (Value > Result) {
         Result = Result + 1;

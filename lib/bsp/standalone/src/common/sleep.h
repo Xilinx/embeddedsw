@@ -18,6 +18,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 6.6   srm  11/02/17 Added processor specific sleep routines
 *								 function prototypes.
+* 7.7	sk   01/10/22 Typecast sleep declaration argument from unsigned int to
+* 		      u32 to fix misra_c_2012_directive_4_6 violation.
 *
 * </pre>
 *
@@ -76,9 +78,9 @@ extern "C" {
  }  )
 
 void usleep(unsigned long useconds);
-void sleep(unsigned int seconds);
+void sleep(u32 seconds);
 int usleep_R5(unsigned long useconds);
-unsigned sleep_R5(unsigned int seconds);
+unsigned sleep_R5(u32 seconds);
 int usleep_MB(unsigned long useconds);
 unsigned sleep_MB(unsigned int seconds);
 int usleep_A53(unsigned long useconds);

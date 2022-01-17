@@ -33,6 +33,8 @@
 *                     Mpu_Config array is populated during boot time, hence
 *                     cannot be placed in .bss or .data section. Putting
 *                     Mpu_Config in a new .bootdata section.
+* 7.7  sk   01/10/22  Update int to u32 to fix misrac misra_c_2012_directive_4_6
+* 		      violations.
 * </pre>
 *
 *
@@ -56,7 +58,7 @@
 
 static const struct {
 	u64 size;
-	unsigned int encoding;
+	u32 encoding;
 }region_size[] = {
 	{ 0x20, REGION_32B },
 	{ 0x40, REGION_64B },
@@ -133,7 +135,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 	u32 Regionsize = 0;
 	INTPTR Localaddr = addr;
 	u32 NextAvailableMemRegion;
-	unsigned int i;
+	u32 i;
 
 	NextAvailableMemRegion = Xil_GetNextMPURegion();
 	if (NextAvailableMemRegion == 0xFF) {
@@ -352,7 +354,7 @@ void Xil_GetMPUConfig (XMpu_Config mpuconfig) {
 ******************************************************************************/
 u32 Xil_GetNumOfFreeRegions (void) {
 	u32 Index = 0U;
-	int NumofFreeRegs = 0U;
+	u32 NumofFreeRegs = 0U;
 
 	while (Index < MAX_POSSIBLE_MPU_REGS) {
 		if (MPU_REG_DISABLED == Mpu_Config[Index].RegionStatus) {

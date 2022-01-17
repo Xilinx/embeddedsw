@@ -48,6 +48,8 @@
 * 7.7  kpt       11/09/21 Added Xil_SMemCmp, Xil_SMemCmp_CT, Xil_SMemCpy,
 *                         Xil_SMemSet, Xil_SStrCat, Xil_SStrCmp, Xil_SStrCmp_CT
 *                         Xil_SStrCpy functions
+* 7.7	sk	 01/10/22 Update functions return type to fix misra_c_2012_
+* 			  directive_4_6 violations.
 *
 * </pre>
 *
@@ -130,7 +132,7 @@ extern "C" {
 
 /*************************** Function Prototypes ******************************/
 /* Ceils the provided float value */
-int Xil_Ceil(float Value);
+s32 Xil_Ceil(float Value);
 
 /* Converts input character to nibble */
 u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num);
