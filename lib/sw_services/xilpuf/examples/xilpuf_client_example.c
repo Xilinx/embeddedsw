@@ -11,12 +11,41 @@
   * This file illustrates encryption of red key using PUF KEY and
   * programming the black key and helper data in a user specified location
   *
+  * Procedure to link and compile the example for the default ddr less designs
+  *------------------------------------------------------------------------------------------------------------
+  * By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
+  * placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
+  * contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+  *
+  * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
+  *
+  *		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+  *			be updated to point all the required sections(stack, heap, data) to shared memory(OCM or TCM)
+  *			using a memory region drop down selection
+  *
+  *						OR
+  *
+  *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+  *			sharedmemory (NOLOAD) : {
+  *			= ALIGN(4);
+  *			__bss_start = .;
+  *			*(.bss)
+  *			*(.bss.*)
+  *			*(.gnu.linkonce.b.*)
+  *			*(COMMON)
+  *			. = ALIGN(4);
+  *			__bss_end = .;
+  *			} > Memory(OCM,TCM or DDR)
+  *
+  * 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+  *
   * <pre>
   * MODIFICATION HISTORY:
   *
   * Ver   Who   Date     Changes
   * ----- ---  -------- -------------------------------------------------------
   * 1.0   kpt  01/04/22 Initial release
+  *       kpt  01/13/22 Added support to run example on PL microblaze
   *
   *@note
   *
@@ -64,8 +93,11 @@ static XPuf_DataAddr PufData __attribute__ ((aligned (64U)));
 static XPuf_PufData PufArr;
 static 	XIpiPsu IpiInst;
 static u8 FormattedBlackKey[XPUF_RED_KEY_LEN_IN_BITS];
-
 static u8 Iv[XPUF_IV_LEN_IN_BYTES];
+
+/* shared memory allocation */
+static u8 SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
+
 #if defined (__GNUC__)
 static u8 RedKey[XPUF_RED_KEY_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.RedKey")));
@@ -117,6 +149,10 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	/* Set shared memory */
+	XNvm_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
+
 	Status = XPuf_ValidateUserInput();
 	if (Status == XST_SUCCESS) {
 		xil_printf("Successfully validated user input %x\r\n", Status);
@@ -170,9 +206,15 @@ int main(void)
 		XPuf_ShowPufSecCtrlBits();
 	}
 
-	xil_printf("Successfully ran xilpuf example\r\n");
-
 END:
+	Status |= XNvm_ReleaseSharedMem();
+	if (Status != XST_SUCCESS) {
+		xil_printf("xilpuf example failed with Status:%08x\r\n",Status);
+	}
+	else {
+		xil_printf("Successfully ran xilpuf example\r\n");
+	}
+
 	return Status;
 }
 
@@ -445,6 +487,8 @@ static int XPuf_GenerateBlackKey(void)
 		goto END;
 	}
 
+	XSecure_SetSharedMem((UINTPTR)&SharedMem, sizeof(SharedMem));
+
 	if (Xil_Strnlen(XPUF_IV, (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 		(XPUF_IV_LEN_IN_BYTES * 2U)) {
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
@@ -512,6 +556,7 @@ static int XPuf_GenerateBlackKey(void)
 	}
 
 END:
+	Status |= XSecure_ReleaseSharedMem();
 	return Status;
 }
 
