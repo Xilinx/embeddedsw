@@ -32,6 +32,8 @@
 * 		      misra_c_2012_rule_10_4 violation.
 * 7.7	sk   01/10/22 Add explicit parentheses for region_size and region_size[0]
 * 		      to fix misra_c_2012_rule_12_1 violation.
+* 7.7	sk   01/10/22 Typecast variables to unsigned to fix misra_c_2012_rule_10_3
+* 		      violation.
 * </pre>
 *
 * @note
@@ -92,13 +94,13 @@ static const struct {
 /************************** Function Prototypes ******************************/
 #if defined (__GNUC__)
 void Init_MPU(void) __attribute__((__section__(".boot")));
-static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
+static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
 static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum, u32 Attrib) __attribute__((__section__(".boot")));
 #elif defined (__ICCARM__)
 #pragma default_function_attributes = @ ".boot"
 void Init_MPU(void);
-static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
+static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
 #endif
 /*****************************************************************************
@@ -298,7 +300,7 @@ void Init_MPU(void)
 *
 *
 ******************************************************************************/
-static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib)
+static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib)
 {
 	u32 Local_reg_size = reg_size;
 
