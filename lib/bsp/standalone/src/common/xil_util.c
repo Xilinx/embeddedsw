@@ -49,6 +49,8 @@
 * 			  violation.
 * 7.7	sk	 01/10/22 Typecast character strings to u8 to fix misra_c_2012_rule_
 * 			  10_3 violation.
+* 7.7	sk	 01/10/22 Modify the code to reduce multiple break statements
+* 			  and fix misra_c_2012_rule_15_4 violation.
 *
 * </pre>
 *
@@ -401,18 +403,12 @@ u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
 
 	ConvertedLen = 0U;
 	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
-		if (Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]),&UpperNibble)
-				== (u32)XST_SUCCESS) {
-			if (Xil_ConvertCharToNibble(((u8)Str[ConvertedLen+1U]),
-					&LowerNibble) == (u32)XST_SUCCESS) {
+		if ((Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]),&UpperNibble)
+			== (u32)XST_SUCCESS) && (Xil_ConvertCharToNibble(((u8)Str[ConvertedLen+1U]),
+				&LowerNibble)) == (u32)XST_SUCCESS) {
 				Buf[ConvertedLen/2U] =
 				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
 								LowerNibble;
-			}
-			else {
-				Status = (u32)XST_INVALID_PARAM;
-				goto END;
-			}
 		}
 		else {
 			Status = (u32)XST_INVALID_PARAM;
@@ -470,21 +466,14 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len)
 	StrIndex = (Len / XIL_SIZE_OF_BYTE_IN_BITS) - 1U;
 	ConvertedLen = 0U;
 	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
-		Status = Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]),
-		                                &UpperNibble);
-		if (XST_SUCCESS == Status) {
-			Status = Xil_ConvertCharToNibble(((u8)Str[ConvertedLen + 1U]),
-			                                &LowerNibble);
-			if (XST_SUCCESS == Status) {
+		if ((Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]),
+						&UpperNibble) == XST_SUCCESS) &&
+			(Xil_ConvertCharToNibble(((u8)Str[ConvertedLen + 1U]),
+						&LowerNibble) == XST_SUCCESS)) {
 				Buf[StrIndex] =
 				   (UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
 				   LowerNibble;
 				StrIndex = StrIndex - 1U;
-			}
-			else {
-				Status = XST_INVALID_PARAM;
-				goto END;
-			}
 		}
 		else {
 			Status = XST_INVALID_PARAM;
