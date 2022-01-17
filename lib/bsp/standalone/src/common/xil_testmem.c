@@ -25,6 +25,8 @@
 *                     It fixes CR#1089129.
 * 7.6   mus  07/29/21 Updated Xil_TestMem8 to fix issues reported by static
 *                     analysis tool. It fixes CR#1105956.
+* 7.7	sk   01/10/22 Remove commented macro to fix misra_c_2012_directive_4_4
+* 		      violation.
 * </pre>
 *
 *****************************************************************************/
@@ -40,7 +42,6 @@
 static u32 RotateLeft(u32 Input, u8 Width);
 
 /* define ROTATE_RIGHT to give access to this functionality */
-/* #define ROTATE_RIGHT */
 #ifdef ROTATE_RIGHT
 static u32 RotateRight(u32 Input, u8 Width);
 #endif /* ROTATE_RIGHT */
@@ -458,7 +459,6 @@ s32 Xil_TestMem16(u32 Addrlow,u32 Addrhigh, u32 Words, u16 Pattern, u8 Subtest)
 
 		for (I = 0U; I < (NUM_OF_BYTES_IN_HW*Words); ) {
 			/* read memory location */
-			//WordMem16 = *(Addr+I);
 			WordMem16 = lhuea(Addr+I);
 			Val = (u16) (~((INTPTR) ((Addr+I))));
 			if ((WordMem16 ^ Val) != 0x0000U) {
