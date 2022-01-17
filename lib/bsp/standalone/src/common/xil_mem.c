@@ -17,6 +17,9 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 6.1   nsk      11/07/16 First release.
+* 7.7	sk	 01/10/22 Update Xil_MemCpy functions variables typecast
+* 			  from int to s32 to fix misra_c_2012_directive_4_6
+* 			  violations.
 *
 * </pre>
 *
@@ -43,11 +46,11 @@ void Xil_MemCpy(void* dst, const void* src, u32 cnt)
 	char *d = (char*)(void *)dst;
 	const char *s = src;
 
-	while (cnt >= sizeof (int)) {
-		*(int*)d = *(int*)s;
-		d += sizeof (int);
-		s += sizeof (int);
-		cnt -= sizeof (int);
+	while (cnt >= sizeof (s32)) {
+		*(s32*)d = *(s32*)s;
+		d += sizeof (s32);
+		s += sizeof (s32);
+		cnt -= sizeof (s32);
 	}
 	while (cnt >= sizeof (u16)) {
 		*(u16*)d = *(u16*)s;

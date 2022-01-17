@@ -34,6 +34,8 @@
 *                         counter for sleep routines, BSP needs to be compiled
 *                         with "DONT_USE_PMU_FOR_SLEEP_ROUTINES" flag. It fixes
 *                         CR#1051591.
+* 7.7	sk	 01/10/22 Update unsigned int to u32 to fix misra_c_2012_directive_4_6
+* 			  violations.
 *
 * </pre>
 *
@@ -70,7 +72,7 @@
 *
 ****************************************************************************/
 
-unsigned sleep_R5(unsigned int seconds)
+unsigned sleep_R5(u32 seconds)
 {
 #if defined (SLEEP_TIMER_BASEADDR)
 	Xil_SleepTTCCommon(seconds, COUNTS_PER_SECOND);

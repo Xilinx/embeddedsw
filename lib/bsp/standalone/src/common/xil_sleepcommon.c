@@ -16,6 +16,9 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 6.6 	srm  	 11/02/17 First release
+* 7.7	sk	 01/10/22 Typecast sleep function argument from unsigned
+* 			  int to u32 to fix misra_c_2012_directive_4_6
+* 			  violation.
 * </pre>
 ******************************************************************************/
 
@@ -39,7 +42,7 @@
 * @note             none
 *
 *****************************************************************************/
- void sleep(unsigned int seconds)
+ void sleep(u32 seconds)
  {
 #if defined (ARMR5)
 	sleep_R5(seconds);

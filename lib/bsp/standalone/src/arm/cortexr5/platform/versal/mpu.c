@@ -26,6 +26,8 @@
 * 7.5   asa  03/07/21 Ensure that Update_MpuConfig_Array stays in .boot section
 *                     as it is used only during bootup.
 *                     Add function header to Init_MPU function.
+* 7.7	sk   01/10/22 Update unsigned int to u32 to fix misra_c_2012_directive_4_6
+* 		      violation.
 * </pre>
 *
 * @note
@@ -51,7 +53,7 @@
 
 static const struct {
 	u64 size;
-	unsigned int encoding;
+	u32 encoding;
 }region_size[] = {
 	{ 0x20, REGION_32B },
 	{ 0x40, REGION_64B },
