@@ -361,48 +361,48 @@
  *
  *  For Cortex-A9/Zynq (CPU Freq: 666666687 Hz):
  *
- *  Microseconds for one run through Dhrystone: 0.366800
- *  Dhrystones per Second:                      2726277.500000
- *  DMIPS/Sec:                                  1551.666138
- *  DMIPS/MHz:                                  2.327499
+ *  Microseconds for one run through Dhrystone: 0.3668
+ *  Dhrystones per Second:                      2726277.5000
+ *  DMIPS/Sec:                                  1551.6661
+ *  DMIPS/MHz:                                  2.3275
  *
  *  For Cortex-R5/Zynq US+ MPSoC (CPU Freq: 499950043 Hz):
  *
- *  Microseconds for one run through Dhrystone: 0.656000
- *  Dhrystones per Second:                      1524389.625000
- *  DMIPS/Sec:                                  867.609375
- *  DMIPS/MHz:                                  1.735392
+ *  Microseconds for one run through Dhrystone: 0.6560
+ *  Dhrystones per Second:                      1524389.6250
+ *  DMIPS/Sec:                                  867.6093
+ *  DMIPS/MHz:                                  1.7354
  *
  *  For Cortex-A53/Zynq US+ MPSoC (CPU Freq: 1199880127 Hz):
  *
- *  Microseconds for one run through Dhrystone: 0.164183
- *  Dhrystones per Second:                      6090758.000000
- *  DMIPS/Sec:                                  3466.566895
- *  DMIPS/MHz:                                  2.889095
+ *  Microseconds for one run through Dhrystone: 0.1641
+ *  Dhrystones per Second:                      6090758.0000
+ *  DMIPS/Sec:                                  3466.5669
+ *  DMIPS/MHz:                                  2.8890
  *
  *  For Cortex-A72/Versal (CPU Freq: 999989990 Hz):
  *
- *  Microseconds for one run through Dhrystone: 0.096001
- *  Dhrystones per Second:                      10416555.000000
- *  DMIPS/Sec:                                  5928.602539
- *  DMIPS/MHz:                                  5.928662
+ *  Microseconds for one run through Dhrystone: 0.0960
+ *  Dhrystones per Second:                      10416555.0000
+ *  DMIPS/Sec:                                  5928.6025
+ *  DMIPS/MHz:                                  5.9287
  *
  *
  *  For Cortex-R5/Versal (CPU Freq: 374996246 Hz):
  *
- *  Microseconds for one run through Dhrystone: 0.845342
- *  Dhrystones per Second:                      1182953.250000
- *  DMIPS/Sec:                                  673.280151
- *  DMIPS/MHz:                                  1.795432
+ *  Microseconds for one run through Dhrystone: 0.8453
+ *  Dhrystones per Second:                      1182953.2500
+ *  DMIPS/Sec:                                  673.2802
+ *  DMIPS/MHz:                                  1.7954
  *
  *
  *  For Microblaze (CPU Freq: 100000000 Hz), with D-Cache and
- *  I_Cache configured for 16KB:
+ *  I_Cache configured for 8KB:
  *
- *  Microseconds for one run through Dhrystone: 173.160339
- *  Dhrystones per Second:                      5774.994141
- *  DMIPS/Sec:                                  3.286849
- *  DMIPS/MHz:                                  0.032868
+ *  Microseconds for one run through Dhrystone: 8.3901
+ *  Dhrystones per Second:                      119188.7104
+ *  DMIPS/Sec:                                  67.8365
+ *  DMIPS/MHz:                                  0.6784
  *  Please note that Microblaze CPU being configurable, the Dhrystone
  *  numbers may vary significantly based on various configurations (e.g.
  *  D-cache and I_cache sizes).
@@ -437,7 +437,7 @@ typedef enum  {Ident_1, Ident_2, Ident_3, Ident_4, Ident_5}
 #if !defined (__MICROBLAZE__)
 #define ITERATIONS				16000000
 #else
-#define ITERATIONS				16000
+#define ITERATIONS				160000
 #endif
 #define Mic_secs_Per_Second		1000000.0
 #define Null 					0
