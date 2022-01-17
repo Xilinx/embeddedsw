@@ -27,6 +27,7 @@
 *                     analysis tool. It fixes CR#1105956.
 * 7.7	sk   01/10/22 Remove commented macro to fix misra_c_2012_directive_4_4
 * 		      violation.
+* 7.7	sk   01/10/22 Modify operands to fix misra_c_2012_rule_10_1 violation.
 * </pre>
 *
 *****************************************************************************/
@@ -949,7 +950,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 		/* Fill the memory with inverse of address */
 		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Val = (u32) (~((INTPTR) (&Addr[I])));
+			Val = ~(u32) (UINTPTR) &Addr[I];
 			*(Addr+I) = Val;
 		}
 
@@ -961,7 +962,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 		for (I = 0U; I < Words; I++) {
 			/* Read the location */
 			WordMem32 = *(Addr+I);
-			Val = (u32) (~((INTPTR) (&Addr[I])));
+			Val = ~(u32) (UINTPTR) &Addr[I];
 
 			if ((WordMem32 ^ Val) != 0x00000000U) {
 				Status = -1;
@@ -1184,7 +1185,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 		/* Fill the memory with inverse of address */
 		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Val = (u16) (~((INTPTR)(&Addr[I])));
+			Val = ~(u16) (UINTPTR) &Addr[I];
 			*(Addr+I) = Val;
 		}
 		/*
@@ -1195,7 +1196,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 		for (I = 0U; I < Words; I++) {
 			/* read memory location */
 			WordMem16 = *(Addr+I);
-			Val = (u16) (~((INTPTR) (&Addr[I])));
+			Val = ~(u16) (UINTPTR) &Addr[I];
 			if ((WordMem16 ^ Val) != 0x0000U) {
 				Status = -1;
 				goto End_Label;
@@ -1410,7 +1411,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 		/* Fill the memory with inverse of address */
 		for (I = 0U; I < Words; I++) {
 			/* write memory location */
-			Val = (u8) (~((INTPTR) (&Addr[I])));
+			Val = ~(u8) (UINTPTR) &Addr[I];
 			*(Addr+I) = Val;
 		}
 
@@ -1422,7 +1423,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 		for (I = 0U; I < Words; I++) {
 			/* read memory location */
 			WordMem8 = *(Addr+I);
-			Val = (u8) (~((INTPTR) (&Addr[I])));
+			Val = ~(u8) (UINTPTR) &Addr[I];
 			if ((WordMem8 ^ Val) != 0x00U) {
 				Status = -1;
 				goto End_Label;
