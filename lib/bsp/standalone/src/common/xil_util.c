@@ -51,6 +51,8 @@
 * 			  10_3 violation.
 * 7.7	sk	 01/10/22 Modify the code to reduce multiple break statements
 * 			  and fix misra_c_2012_rule_15_4 violation.
+* 7.7	sk	 01/10/22 Modify Xil_SMemCmp_CT and Xil_SMemCmp function argument
+* 			  type to fix misra_c_2012_rule_8_3 violation.
 *
 * </pre>
 *
@@ -824,7 +826,7 @@ END:
  *
  *****************************************************************************/
 int Xil_SMemCmp(const void *Src1, const u32 Src1Size,
-	const void *Src2, const u32 Src2Size, u32 CmpLen)
+	const void *Src2, const u32 Src2Size, const u32 CmpLen)
 {
 	int Status = XST_FAILURE;
 
@@ -866,7 +868,7 @@ int Xil_SMemCmp(const void *Src1, const u32 Src1Size,
  *
  *****************************************************************************/
 int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
-	const void *Src2, const u32 Src2Size, u32 CmpLen)
+	const void *Src2, const u32 Src2Size, const u32 CmpLen)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusRedundant = XST_FAILURE;
