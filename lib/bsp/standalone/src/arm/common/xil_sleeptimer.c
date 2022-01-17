@@ -25,6 +25,8 @@
 * 		      misra_c_2012_rule_10_4 violation.
 * 7.7	sk   01/10/22 Add explicit parentheses for EL3==1 to fix
 * 		      misra_c_2012_rule_12_1 violation.
+* 7.7	sk   01/10/22 Add void argument to XTime_StartTTCTimer function to
+* 		      fix misra_c_2012_rule_8_2 violation.
 *
 * </pre>
 *****************************************************************************/
@@ -92,7 +94,7 @@ void Xil_SleepTTCCommon(u32 delay, u64 frequency)
 * @note             none
 *
 *****************************************************************************/
-void XTime_StartTTCTimer()
+void XTime_StartTTCTimer(void)
 {
 	u32 TimerPrescalar;
 	u32 TimerCntrl;

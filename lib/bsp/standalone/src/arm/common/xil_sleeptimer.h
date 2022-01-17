@@ -22,6 +22,8 @@
 * 7.0   mus  01/07/19 Add cpp extern macro
 * 7.7	sk   01/10/22 Add explicit parentheses for EL3==1 to fix
 * 		      misra_c_2012_rule_12_1 violation.
+* 7.7	sk   01/10/22 Add void to XTime_StartTTCTimer function declaration
+* 		      to fix misra_c_2012_rule_8_2 violation.
 *
 * </pre>
 *****************************************************************************/
@@ -102,7 +104,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 void Xil_SleepTTCCommon(u32 delay, u64 frequency);
-void XTime_StartTTCTimer();
+void XTime_StartTTCTimer(void);
 
 #endif
 
