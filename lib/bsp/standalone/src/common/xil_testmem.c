@@ -28,6 +28,8 @@
 * 7.7	sk   01/10/22 Remove commented macro to fix misra_c_2012_directive_4_4
 * 		      violation.
 * 7.7	sk   01/10/22 Modify operands to fix misra_c_2012_rule_10_1 violation.
+* 7.7	sk   01/10/22 Typecast to make the both left and right sides expressions
+* 		      of same type and fix misra_c_2012_rule_10_6 violation.
 * </pre>
 *
 *****************************************************************************/
@@ -862,7 +864,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 			 * to test for bad data bits
 			 */
 
-			Val = (1U << j);
+			Val = (1UL << j);
 
 			/*
 			 * START walking ones test
@@ -879,7 +881,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 			 * Restore the reference 'val' to the
 			 * initial value
 			 */
-			Val = 1U << j;
+			Val = 1UL << j;
 
 			/* Read the values from each location that was
 			 * written */
@@ -911,7 +913,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 			 * to test for bad data bits
 			 */
 
-			Val = ~(1U << j);
+			Val = ~(1UL << j);
 
 			/*
 			 * START walking zeros test
@@ -929,7 +931,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 			 * initial value
 			 */
 
-			Val = ~(1U << j);
+			Val = ~(1UL << j);
 
 			/* Read the values from each location that was
 			 * written */
@@ -1151,7 +1153,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 			 * data bits
 			 */
 
-			Val = ~(1U << j);
+			Val = (u16) (~((u16)1U << j));
 			/*
 			 * START walking zeros test
 			 * Write a one to each data bit indifferent locations
@@ -1160,13 +1162,13 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 			for (I = 0U; I < (u32)16; I++) {
 				/* write memory location */
 				*(Addr+I) = Val;
-				Val = ~((u16)RotateLeft(~Val, 16U));
+				Val = ~((u16)RotateLeft(~((u32)Val), 16U));
 			}
 			/*
 			 * Restore the reference 'Val' to the
 			 * initial value
 			 */
-			Val = ~(1U << j);
+			Val = (u16) (~((u16)1U << j));
 			/* Read the values from each location that was written */
 			for (I = 0U; I < (u32)16; I++) {
 				/* read memory location */
@@ -1175,7 +1177,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 					Status = -1;
 					goto End_Label;
 				}
-				Val = ~((u16)RotateLeft(~Val, 16U));
+				Val = ~((u16)RotateLeft(~((u32)Val), 16U));
 			}
 
 		}
@@ -1386,7 +1388,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 			for (I = 0U; I < (u32)8; I++) {
 				/* write memory location */
 				*(Addr+I) = Val;
-				Val = ~((u8)RotateLeft(~Val, 8U));
+				Val = ~((u8)RotateLeft(~((u32)Val), 8U));
 			}
 			/*
 			 * Restore the reference 'Val' to the
@@ -1402,7 +1404,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 					goto End_Label;
 				}
 
-				Val = ~((u8)RotateLeft(~Val, 8U));
+				Val = ~((u8)RotateLeft(~((u32)Val), 8U));
 			}
 		}
 	}
@@ -1495,7 +1497,7 @@ static u32 RotateLeft(u32 Input, u8 Width)
 	 * set up the WidthMask and the MsbMask
 	 */
 
-	MsbMask = 1U << (Width - 1U);
+	MsbMask = 1UL << (Width - 1U);
 
 	WidthMask = (MsbMask << (u32)1) - (u32)1;
 
