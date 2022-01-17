@@ -23,6 +23,8 @@
 *                     address space is secure. CR#1015725.
 * 7.7	sk   01/10/22 Update values from signed to unsigned to fix
 * 		      misra_c_2012_rule_10_4 violation.
+* 7.7	sk   01/10/22 Add explicit parentheses for EL3==1 to fix
+* 		      misra_c_2012_rule_12_1 violation.
 *
 * </pre>
 *****************************************************************************/
@@ -95,7 +97,7 @@ void XTime_StartTTCTimer()
 	u32 TimerPrescalar;
 	u32 TimerCntrl;
 
-#if (defined (__aarch64__) && EL3==1) || (defined (ARMR5) && (PROCESSOR_ACCESS_VALUE & IOU_SLCR_TZ_MASK)) || defined (ARMA53_32)
+#if (defined (__aarch64__) && (EL3==1)) || (defined (ARMR5) && (PROCESSOR_ACCESS_VALUE & IOU_SLCR_TZ_MASK)) || defined (ARMA53_32)
 	u32 LpdRst;
 
 #if defined (versal)
@@ -122,7 +124,7 @@ void XTime_StartTTCTimer()
 		   if ((TimerPrescalar & XSLEEP_TIMER_TTC_CLK_CNTRL_PS_EN_MASK) == 0U)
 						return;
 		}
-#if (defined (__aarch64__) && EL3==1) || (defined (ARMR5) && (PROCESSOR_ACCESS_VALUE & IOU_SLCR_TZ_MASK))  || defined (ARMA53_32)
+#if (defined (__aarch64__) && (EL3==1)) || (defined (ARMR5) && (PROCESSOR_ACCESS_VALUE & IOU_SLCR_TZ_MASK))  || defined (ARMA53_32)
 	}
 #endif
 	/* Disable the timer to configure */

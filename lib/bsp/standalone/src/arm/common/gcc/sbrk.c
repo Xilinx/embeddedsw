@@ -25,7 +25,7 @@ __attribute__((weak)) char8 *sbrk (s32 nbytes)
   static char8 *heap_ptr = HeapBase;
 
   base = heap_ptr;
-	if((heap_ptr != NULL) && (heap_ptr + nbytes <= (char8 *)&HeapLimit + 1)) {
+	if((heap_ptr != NULL) && ((heap_ptr + nbytes) <= ((char8 *)&HeapLimit + 1))) {
 	heap_ptr += nbytes;
     return base;
   }	else {

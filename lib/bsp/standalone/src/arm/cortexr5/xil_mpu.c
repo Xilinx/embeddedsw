@@ -37,6 +37,8 @@
 * 		      violations.
 * 7.7  sk   01/10/22  Typecast variables from signed to unsigned to fix
 * 		      misra_c_2012_rule_10_4 violation.
+* 7.7  sk   01/10/22  Add explicit parentheses for region_size and region_size[0]
+* 		      to fix misra_c_2012_rule_12_1 violation.
 * </pre>
 *
 *
@@ -152,7 +154,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 	isb();
 
 	/* Lookup the size.  */
-	for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
+	for (i = 0; i < (sizeof (region_size) / sizeof (region_size[0])); i++) {
 		if (size <= region_size[i].size) {
 			Regionsize = region_size[i].encoding;
 			break;
@@ -306,7 +308,7 @@ u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
 		Tempsize >>= 1;
 		/* Lookup the size.  */
 		for (Index = 0; Index <
-				sizeof region_size / sizeof region_size[0]; Index++) {
+				(sizeof (region_size) / sizeof (region_size[0])); Index++) {
 			if (Tempsize <= region_size[Index].encoding) {
 				Mpu_Config[reg_num].Size = region_size[Index].size;
 				break;
@@ -470,7 +472,7 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 
 	/* Lookup the size.  */
 	for (Index = 0; Index <
-			sizeof region_size / sizeof region_size[0]; Index++) {
+			(sizeof (region_size) / sizeof (region_size[0])); Index++) {
 		if (size <= region_size[Index].size) {
 			Regionsize = region_size[Index].encoding;
 			break;
@@ -605,9 +607,9 @@ void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 			if (u32overflow(Basephysaddr, Regionsize))
 				break;
 			if ((Basephysaddr + Regionsize) >= end)
-				return Xil_SetMPURegion(Basephysaddr,
-					Regionsize, flags) == XST_SUCCESS ?
-					(void *)Physaddr : NULL;
+				return ((Xil_SetMPURegion(Basephysaddr,
+					Regionsize, flags) == XST_SUCCESS) ?
+					(void *)Physaddr : NULL);
 		}
 	}
 	return NULL;

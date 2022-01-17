@@ -30,6 +30,8 @@
 * 		      violation.
 * 7.7	sk   01/10/22 Update values from signed to unsigned to fix misrac
 * 		      misra_c_2012_rule_10_4 violation.
+* 7.7	sk   01/10/22 Add explicit parentheses for region_size and region_size[0]
+* 		      to fix misra_c_2012_rule_12_1 violation.
 * </pre>
 *
 * @note
@@ -146,7 +148,7 @@ void Init_MPU(void)
 	size = (XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) + 1;
 	if (size < 0x80000000) {
 		/* Lookup the size.  */
-		for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
+		for (i = 0; i < (sizeof (region_size) / sizeof (region_size[0])); i++) {
 			if (size <= region_size[i].size) {
 				RegSize = region_size[i].encoding;
 				break;

@@ -45,6 +45,8 @@
 * 			  violations.
 * 7.7	sk	 01/10/22 Update values from signed to unsigned to fix
 * 			  misra_c_2012_rule_10_4 violation.
+* 7.7	sk	 01/10/22 Add explicit parentheses to fix misra_c_2012_rule_12_1
+* 			  violation.
 *
 * </pre>
 *
@@ -293,9 +295,9 @@ u32 Xil_IsValidHexChar(const char *Ch)
 	if(NULL == Ch) {
 		goto END;
 	}
-	if ((*Ch >= '0' && *Ch <='9')||
-		(*Ch >= 'a' && *Ch <='f')||
-		(*Ch >= 'A' && *Ch <='F')) {
+	if (((*Ch >= '0') && (*Ch <='9'))||
+		((*Ch >= 'a') && (*Ch <='f'))||
+		((*Ch >= 'A') && (*Ch <='F'))) {
 
 		Status = XST_SUCCESS;
 	}
@@ -630,7 +632,7 @@ int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 		goto END;
 	}
 
-	for (Index = From; Index <= To && Src[Index]!= '\0'; Index++) {
+	for (Index = From; (Index <= To) && (Src[Index]!= '\0'); Index++) {
 		Dest[Index - From] = Src[Index];
 	}
 
@@ -1028,7 +1030,7 @@ int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 	if ((DestSize <= DstLen) || (SrcSize <= SrcLen)) {
 		Status =  XST_INVALID_PARAM;
 	}
-	else if (DestSize <= SrcLen + DstLen) {
+	else if (DestSize <= (SrcLen + DstLen)) {
 		Status =  XST_INVALID_PARAM;
 	}
 	else {
