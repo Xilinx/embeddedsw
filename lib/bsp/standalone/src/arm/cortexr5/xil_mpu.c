@@ -43,6 +43,8 @@
 * 7.7  sk   01/10/22  Modify if condition to fix misra_c_2012_rule_10_1 violation.
 * 7.7  sk   01/10/22  Typecast to fix wider essential type misra_c_2012_rule_10_7
 * 		      violation.
+* 7.7  sk   01/10/22  Update conditional expression to fix misra_c_2012_rule_14_4
+* 		      violation.
 * </pre>
 *
 *
@@ -305,7 +307,7 @@ u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
 		goto exit;
 	}
 
-	if (size & REGION_EN) {
+	if ((size & REGION_EN) != 0) {
 		Mpu_Config[reg_num].RegionStatus = MPU_REG_ENABLED;
 		Mpu_Config[reg_num].BaseAddress = address;
 		Tempsize &= (~REGION_EN);
@@ -527,7 +529,7 @@ void Xil_InitializeExistingMPURegConfig(void)
 		mfcp(XREG_CP15_MPU_REG_BASEADDR, MPURegBA);
 		mfcp(XREG_CP15_MPU_REG_ACCESS_CTRL, MPURegAttrib);
 #endif
-		if (MPURegSize & REGION_EN) {
+		if ((MPURegSize & REGION_EN) != 0) {
 			Mpu_Config[Index].RegionStatus = MPU_REG_ENABLED;
 			Mpu_Config[Index].BaseAddress = MPURegBA;
 			Mpu_Config[Index].Attribute = MPURegAttrib;
