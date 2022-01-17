@@ -41,6 +41,8 @@
 * 		      to fix misra_c_2012_rule_12_1 violation.
 * 7.7  sk   01/10/22  Remove unsigned sign to fix misra_c_2012_rule_10_3 violation.
 * 7.7  sk   01/10/22  Modify if condition to fix misra_c_2012_rule_10_1 violation.
+* 7.7  sk   01/10/22  Typecast to fix wider essential type misra_c_2012_rule_10_7
+* 		      violation.
 * </pre>
 *
 *
@@ -389,7 +391,7 @@ u16 Xil_GetMPUFreeRegMask (void) {
 
 	while (Index < MAX_POSSIBLE_MPU_REGS) {
 		if (MPU_REG_DISABLED == Mpu_Config[Index].RegionStatus) {
-			FreeRegMask |= (1U << Index);
+			FreeRegMask |= ((u16)1U << Index);
 		}
 		Index++;
 	}
