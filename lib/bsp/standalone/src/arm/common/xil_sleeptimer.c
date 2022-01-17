@@ -21,6 +21,8 @@
 * 7.0   mus  03/27/19 Updated XTime_StartTTCTimer to skip IOU slcr address
 *                     space access, if processor is nonsecure and IOU slcr
 *                     address space is secure. CR#1015725.
+* 7.7	sk   01/10/22 Update values from signed to unsigned to fix
+* 		      misra_c_2012_rule_10_4 violation.
 *
 * </pre>
 *****************************************************************************/
@@ -105,7 +107,7 @@ void XTime_StartTTCTimer()
 #endif
 	/* check if the timer is reset */
     LpdRst = XSleep_ReadCounterVal(RstAddr);
-    if ((LpdRst & RstMask) != 0 ) {
+    if ((LpdRst & RstMask) != 0U ) {
     	LpdRst = LpdRst & (~RstMask);
     	Xil_Out32(RstAddr, LpdRst);
 	} else {
@@ -113,11 +115,11 @@ void XTime_StartTTCTimer()
 		TimerCntrl = XSleep_ReadCounterVal(SLEEP_TIMER_BASEADDR +
 					XSLEEP_TIMER_TTC_CNT_CNTRL_OFFSET);
 		/* check if Timer is disabled */
-		if ((TimerCntrl & XSLEEP_TIMER_TTC_CNT_CNTRL_DIS_MASK) == 0) {
+		if ((TimerCntrl & XSLEEP_TIMER_TTC_CNT_CNTRL_DIS_MASK) == 0U) {
 		    TimerPrescalar = XSleep_ReadCounterVal(SLEEP_TIMER_BASEADDR +
 					       XSLEEP_TIMER_TTC_CLK_CNTRL_OFFSET);
 		/* check if Timer is configured with proper functionalty for sleep */
-		   if ((TimerPrescalar & XSLEEP_TIMER_TTC_CLK_CNTRL_PS_EN_MASK) == 0)
+		   if ((TimerPrescalar & XSLEEP_TIMER_TTC_CLK_CNTRL_PS_EN_MASK) == 0U)
 						return;
 		}
 #if (defined (__aarch64__) && EL3==1) || (defined (ARMR5) && (PROCESSOR_ACCESS_VALUE & IOU_SLCR_TZ_MASK))  || defined (ARMA53_32)

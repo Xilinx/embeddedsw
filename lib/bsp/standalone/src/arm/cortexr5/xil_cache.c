@@ -18,6 +18,8 @@
 * 5.00 	pkp  02/20/14 First release
 * 6.2   mus  01/27/17 Updated to support IAR compiler
 * 7.3   dp   06/25/20 Updated to support armclang compiler
+* 7.7	sk   01/10/22 Update IRQ_FIQ_MASK macro from signed to unsigned
+* 		      to fix misra_c_2012_rule_10_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -34,7 +36,7 @@
 
 /************************** Variable Definitions *****************************/
 
-#define IRQ_FIQ_MASK 0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
+#define IRQ_FIQ_MASK 0xC0U	/* Mask IRQ and FIQ interrupts in cpsr */
 
 #if defined (__clang__)
 extern s32  Image$$ARM_LIB_STACK$$Limit;

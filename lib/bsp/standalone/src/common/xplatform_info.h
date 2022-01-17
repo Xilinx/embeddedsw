@@ -31,6 +31,8 @@
 *                      It fixes CR#1108601.
 * 7.6    mus  08/30/21 Updated flag checking to fix compilation warnings
 *                      reported with "-Wundef" flag.
+* 7.7	 sk   01/10/22 Update XPLAT_INFO_MASK from signed to unsigned to fix
+*		       misra_c_2012_rule_10_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -72,7 +74,7 @@ extern "C" {
 
 #define XPS_VERSION_1 0x0
 #define XPS_VERSION_2 0x1
-#define XPLAT_INFO_MASK (0xF)
+#define XPLAT_INFO_MASK (0xFU)
 
 #if defined (versal)
 #define XPS_VERSION_INFO_MASK 0xFF00U

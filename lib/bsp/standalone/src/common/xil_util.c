@@ -43,6 +43,8 @@
 * 7.7	sk	 01/10/22 Update functions return type and update RetVal variable
 * 			  data type to fix misra_c_2012_directive_4_6 misrac
 * 			  violations.
+* 7.7	sk	 01/10/22 Update values from signed to unsigned to fix
+* 			  misra_c_2012_rule_10_4 violation.
 *
 * </pre>
 *
@@ -216,7 +218,7 @@ u32 Xil_WaitForEvent(u32 RegAddr, u32 EventMask, u32 Event, u32 Timeout)
 	u32 PollCount = Timeout;
 	u32 Status = XST_FAILURE;
 
-	while(PollCount > 0) {
+	while(PollCount > 0U) {
 		EventStatus = Xil_In32(RegAddr) & EventMask;
 		if (EventStatus == Event) {
 			Status = XST_SUCCESS;
@@ -266,7 +268,7 @@ u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 		PollCount--;
 		usleep(1U);
 	}
-	while(PollCount > 0);
+	while(PollCount > 0U);
 
 	return Status;
 }
@@ -397,9 +399,9 @@ u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
 	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
 		if (Xil_ConvertCharToNibble(Str[ConvertedLen],&UpperNibble)
 				== (u32)XST_SUCCESS) {
-			if (Xil_ConvertCharToNibble(Str[ConvertedLen+1],
+			if (Xil_ConvertCharToNibble(Str[ConvertedLen+1U],
 					&LowerNibble) == (u32)XST_SUCCESS) {
-				Buf[ConvertedLen/2] =
+				Buf[ConvertedLen/2U] =
 				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
 								LowerNibble;
 			}
@@ -467,7 +469,7 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len)
 		Status = Xil_ConvertCharToNibble(Str[ConvertedLen],
 		                                &UpperNibble);
 		if (XST_SUCCESS == Status) {
-			Status = Xil_ConvertCharToNibble(Str[ConvertedLen + 1],
+			Status = Xil_ConvertCharToNibble(Str[ConvertedLen + 1U],
 			                                &LowerNibble);
 			if (XST_SUCCESS == Status) {
 				Buf[StrIndex] =
@@ -841,7 +843,7 @@ int Xil_SMemCmp(const void *Src1, const u32 Src1Size,
 	}
 	else {
 		Status = memcmp (Src1, Src2, CmpLen);
-		if (Status != 0U) {
+		if (Status != 0) {
 			Status = XST_FAILURE;
 		}
 	}

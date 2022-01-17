@@ -43,6 +43,8 @@
 *                     that is always resulting into complialation
 *                     warning. Removed deprecate attribute from PmcrEventCfg32
 *                     to fix un-necessary warning CR#1110990.
+* 7.7	sk   01/10/22 Update values from signed to unsigned to fix
+* 		      misra_c_2012_rule_10_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -218,7 +220,7 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
         return XPM_NO_COUNTERS_AVAILABLE;
 	} else {
         for(Index = 0U; Index < XPM_CTRCOUNT; Index++) {
-            if ((Counters & 0x1U) == 0x0) {
+	     if ((Counters & 0x1U) == 0x0U) {
 			    break;
             } else {
                 Counters = Counters >> 0x1U;

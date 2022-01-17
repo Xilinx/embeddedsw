@@ -163,6 +163,8 @@
 * 7.5 	asa      02/23/21 First release
 * 7.5   asa      04/28/21 Fixed bug Xil_IsSpinLockEnabled to avoid
 *                         dereferencing to address zero.
+* 7.7	sk	 01/10/22 Update values from signed to unsigned to fix
+* 			  misra_c_2012_rule_10_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -210,7 +212,7 @@ u32 Xil_SpinLock(void)
     UINTPTR lockaddr = Xil_Spinlock_Addr;
     u32 LockTempVar;
 
-    if (Xil_Spinlock_Addr == 0) {
+    if (Xil_Spinlock_Addr == 0U) {
 		return XST_FAILURE;
 	}
 
@@ -245,7 +247,7 @@ u32 Xil_SpinUnlock(void)
 {
     UINTPTR lockaddr = Xil_Spinlock_Addr;
 
-    if (Xil_Spinlock_Addr == 0) {
+    if (Xil_Spinlock_Addr == 0U) {
         return XST_FAILURE;
 	}
     __asm__ __volatile__(
@@ -278,7 +280,7 @@ u32 Xil_SpinUnlock(void)
 u32 Xil_InitializeSpinLock(UINTPTR lockaddr, UINTPTR lockflagaddr,
 		                                                    u32 lockflag)
 {
-	if (Xil_Spinlock_Flag_Addr == 0) {
+	if (Xil_Spinlock_Flag_Addr == 0U) {
 		Xil_Spinlock_Flag_Addr = lockflagaddr;
 		if (*(u32 *)Xil_Spinlock_Flag_Addr == XIL_SPINLOCK_ENABLED) {
 			/*
@@ -292,7 +294,7 @@ u32 Xil_InitializeSpinLock(UINTPTR lockaddr, UINTPTR lockflagaddr,
 			 * if it is zero. A non-zero value may mean that there is something
 			 * wrong.
 			 */
-			if (Xil_Spinlock_Addr == 0) {
+			if (Xil_Spinlock_Addr == 0U) {
 			    Xil_Spinlock_Addr = lockaddr;
 		    } else {
 				/*
@@ -356,7 +358,7 @@ u32 Xil_IsSpinLockEnabled(void)
 {
     u32 retVal = FALSE;
 
-    if (Xil_Spinlock_Flag_Addr != 0) {
+    if (Xil_Spinlock_Flag_Addr != 0U) {
         if (*(u32 *)(Xil_Spinlock_Flag_Addr) == XIL_SPINLOCK_ENABLED) {
             retVal = TRUE;
         }

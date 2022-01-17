@@ -35,6 +35,8 @@
 *                     Mpu_Config in a new .bootdata section.
 * 7.7  sk   01/10/22  Update int to u32 to fix misrac misra_c_2012_directive_4_6
 * 		      violations.
+* 7.7  sk   01/10/22  Typecast variables from signed to unsigned to fix
+* 		      misra_c_2012_rule_10_4 violation.
 * </pre>
 *
 *
@@ -113,7 +115,7 @@ void Xil_InitializeExistingMPURegConfig(void);
 void Xil_SetTlbAttributes(INTPTR addr, u32 attrib)
 {
 	INTPTR Localaddr = addr;
-	Localaddr &= (~(0xFFFFFU));
+	Localaddr &= (INTPTR)(~(0xFFFFFU));
 	/* Setting the MPU region with given attribute with 1MB size */
 	Xil_SetMPURegion(Localaddr, 0x100000, attrib);
 }
@@ -138,7 +140,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 	u32 i;
 
 	NextAvailableMemRegion = Xil_GetNextMPURegion();
-	if (NextAvailableMemRegion == 0xFF) {
+	if (NextAvailableMemRegion == 0xFFU) {
 		xdbg_printf(DEBUG, "No regions available\r\n");
 		return XST_FAILURE;
 	}
@@ -157,7 +159,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 		}
 	}
 
-	Localaddr &= ~(region_size[i].size - 1);
+	Localaddr &= (INTPTR)(~(region_size[i].size - 1U));
 
 	Regionsize <<= 1;
 	Regionsize |= REGION_EN;
@@ -475,7 +477,7 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 		}
 	}
 
-	Localaddr &= ~(region_size[Index].size - 1);
+	Localaddr &= (INTPTR)(~(region_size[Index].size - 1U));
 	Regionsize <<= 1;
 	Regionsize |= REGION_EN;
 	dsb();
@@ -597,9 +599,9 @@ void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 		return (void *)Physaddr;
 	if (u32overflow(Physaddr, size))
 		return NULL;
-	for ( ; Regionsize != 0; Regionsize <<= 1) {
+	for ( ; Regionsize != 0U; Regionsize <<= 1) {
 		if (Regionsize >= size) {
-			Basephysaddr = Physaddr & ~(Regionsize - 1);
+			Basephysaddr = Physaddr & ~(Regionsize - 1U);
 			if (u32overflow(Basephysaddr, Regionsize))
 				break;
 			if ((Basephysaddr + Regionsize) >= end)
