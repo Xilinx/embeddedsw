@@ -53,6 +53,8 @@
 * 			  and fix misra_c_2012_rule_15_4 violation.
 * 7.7	sk	 01/10/22 Modify Xil_SMemCmp_CT and Xil_SMemCmp function argument
 * 			  type to fix misra_c_2012_rule_8_3 violation.
+* 7.7	sk	 01/10/22 Update conditional expression to fix misra_c_2012_rule_14_4
+* 			  violation.
 *
 * </pre>
 *
@@ -268,7 +270,7 @@ u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 	do {
 		EventStatus = Xil_In32(EventsRegAddr);
 		EventStatus &= EventsMask;
-		if(EventStatus & WaitEvents) {
+		if((EventStatus & WaitEvents) != 0) {
 			Status = XST_SUCCESS;
 			*Events = EventStatus;
 			break;
