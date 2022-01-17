@@ -18,6 +18,7 @@
  * Ver   Who   Date     Changes
  * ----- ---  -------- -------------------------------------------------------
  * 1.0   kpt  01/04/22 Initial release
+ *       kpt  01/13/22 Added support to run example on PL microblaze
  *
  * @note
  *
@@ -68,6 +69,34 @@
  * #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
  * It is recommended to always enable this option to ensure entropy. It can
  * be configured as FALSE to disable Global Variation Filter.
+ *
+ * Procedure to link and compile the example for the default ddr less designs
+ *------------------------------------------------------------------------------------------------------------
+ * By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
+ * placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
+ * contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+ *
+ * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
+ *
+ *		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+ *			be updated to point all the required sections to shared memory(OCM or TCM)
+ *			using a memory region drop down selection
+ *
+ *						OR
+ *
+ *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+ *			sharedmemory (NOLOAD) : {
+ *			= ALIGN(4);
+ *			__bss_start = .;
+ *			*(.bss)
+ *			*(.bss.*)
+ *			*(.gnu.linkonce.b.*)
+ *			*(COMMON)
+ *			. = ALIGN(4);
+ *			__bss_end = .;
+ *			} > Memory(OCM,TCM or DDR)
+ *
+ * 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
  *
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -125,9 +154,12 @@
 /************************** Type Definitions *********************************/
 static XPuf_DataAddr PufData __attribute__ ((aligned (64)));
 static XPuf_PufData PufArr;
-static 	XIpiPsu IpiInst;
-
+static XIpiPsu IpiInst;
 static u8 Iv[XPUF_IV_LEN_IN_BYTES];
+
+/* shared memory allocation */
+static u8 SharedMem[XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
+
 #if defined (__GNUC__)
 static u8 Data[XPUF_DATA_LEN_IN_BYTES]__attribute__ ((aligned (64)))
 				__attribute__ ((section (".data.Data")));
@@ -332,6 +364,9 @@ static int XPuf_VerifyDataEncDec(void)
 		goto END;
 	}
 
+	/* Set shared memory */
+	XSecure_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
+
 	if (Xil_Strnlen(XPUF_IV, (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 				(XPUF_IV_LEN_IN_BYTES * 2U)) {
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
@@ -438,6 +473,7 @@ static int XPuf_VerifyDataEncDec(void)
 		}
 	}
 END:
+	Status |= XSecure_ReleaseSharedMem();
 	return Status;
 }
 

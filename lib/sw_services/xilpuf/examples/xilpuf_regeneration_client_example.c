@@ -16,6 +16,7 @@
  * Ver   Who   Date        Changes
  * ----- ---  ----------   -----------------------------------------------------
  * 1.0   kpt  01/04/2022   Initial release of Puf_regeneration example
+ *       kpt  01/13/2022   Added support to run example on PL microblaze
  *
  * @note
  *
@@ -54,6 +55,34 @@
  * It is recommended to always enable this option to ensure entropy. It can
  * be configured as FALSE to disable Global Variation Filter.
  *
+ * Procedure to link and compile the example for the default ddr less designs
+ *------------------------------------------------------------------------------------------------------------
+ * By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
+ * placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
+ * contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+ *
+ * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
+ *
+ *		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+ *			be updated to point all the required sections to shared memory(OCM or TCM)
+ *			using a memory region drop down selection
+ *
+ *						OR
+ *
+ *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+ *			sharedmemory (NOLOAD) : {
+ *			= ALIGN(4);
+ *			__bss_start = .;
+ *			*(.bss)
+ *			*(.bss.*)
+ *			*(.gnu.linkonce.b.*)
+ *			*(COMMON)
+ *			. = ALIGN(4);
+ *			__bss_end = .;
+ *			} > Memory(OCM,TCM or DDR)
+ *
+ * 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+ *
  ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xpuf_client.h"
@@ -76,6 +105,9 @@
 							 XPUF_WORD_LENGTH)
 
 /************************** Type Definitions **********************************/
+static XPuf_DataAddr PufData __attribute__ ((aligned (64)));
+static XPuf_PufData PufArr;
+static XIpiPsu IpiInst;
 
 /************************** Function Prototypes ******************************/
 static void XPuf_ShowData(const u8* Data, u32 Len);
@@ -84,9 +116,6 @@ static void XPuf_ShowData(const u8* Data, u32 Len);
 int main(void)
 {
 	int Status = XST_FAILURE;
-	XPuf_DataAddr PufData __attribute__ ((aligned (64))) = {0U};
-	XPuf_PufData PufArr;
-	XIpiPsu IpiInst;
 
 	Status = XPuf_InitializeIpi(&IpiInst);
 	if  (Status != XST_SUCCESS) {

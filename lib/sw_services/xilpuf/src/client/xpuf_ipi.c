@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/22 Initial release
+*       kpt  01/13/22 Removed hardcoded IPI device id
 *
 * </pre>
 *
@@ -213,7 +214,7 @@ int XPuf_IpiSend(u32 *Payload)
 			"Passing NULL pointer to %s\r\n", __func__);
 		goto END;
 	}
-	Status = XIpiPsu_PollForAck(PufIpiPtr, TARGET_IPI_INT_MASK,
+	Status = XIpiPsu_PollForAck(PufIpiPtr, XPUF_TARGET_IPI_INT_MASK,
 				    XPUF_IPI_TIMEOUT);
 	if (Status != XST_SUCCESS) {
 		XPuf_Printf(XPUF_DEBUG_GENERAL,
@@ -221,7 +222,7 @@ int XPuf_IpiSend(u32 *Payload)
 		goto END;
 	}
 
-	Status = XIpiPsu_WriteMessage(PufIpiPtr, TARGET_IPI_INT_MASK, Payload,
+	Status = XIpiPsu_WriteMessage(PufIpiPtr, XPUF_TARGET_IPI_INT_MASK, Payload,
 				      PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
 	if (Status != XST_SUCCESS) {
 		XPuf_Printf(XPUF_DEBUG_GENERAL,
@@ -229,7 +230,7 @@ int XPuf_IpiSend(u32 *Payload)
 		goto END;
 	}
 
-	Status = XIpiPsu_TriggerIpi(PufIpiPtr, TARGET_IPI_INT_MASK);
+	Status = XIpiPsu_TriggerIpi(PufIpiPtr, XPUF_TARGET_IPI_INT_MASK);
 
 END:
 	return Status;
@@ -256,7 +257,7 @@ int XPuf_IpiReadBuff32(void)
 	}
 
 	/* Wait until current IPI interrupt is handled by target module */
-	Status = XIpiPsu_PollForAck(PufIpiPtr, TARGET_IPI_INT_MASK,
+	Status = XIpiPsu_PollForAck(PufIpiPtr, XPUF_TARGET_IPI_INT_MASK,
 				    XPUF_IPI_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		XPuf_Printf(XPUF_DEBUG_GENERAL,
@@ -264,7 +265,7 @@ int XPuf_IpiReadBuff32(void)
 		goto END;
 	}
 
-	Status = XIpiPsu_ReadMessage(PufIpiPtr, TARGET_IPI_INT_MASK, Response,
+	Status = XIpiPsu_ReadMessage(PufIpiPtr, XPUF_TARGET_IPI_INT_MASK, Response,
 				     RESPONSE_ARG_CNT, XIPIPSU_BUF_TYPE_RESP);
 	if (XST_SUCCESS != Status) {
 		XPuf_Printf(XPUF_DEBUG_GENERAL,
@@ -324,7 +325,7 @@ int XPuf_InitializeIpi(XIpiPsu* const IpiInstPtr)
 	XIpiPsu_Config *IpiCfgPtr;
 
 	/* Look Up the config data */
-	IpiCfgPtr = XIpiPsu_LookupConfig(0U);
+	IpiCfgPtr = XIpiPsu_LookupConfig(XPUF_IPI_CHANNEL);
 	if (NULL == IpiCfgPtr) {
 		Status = XST_FAILURE;
 		XPuf_Printf(XPUF_DEBUG_GENERAL,
