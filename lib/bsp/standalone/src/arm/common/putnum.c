@@ -19,9 +19,9 @@
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xil_printf.h"
 
 /************************** Function Prototypes ******************************/
-extern void print (const char8 *ptr);
 void putnum(u32 num);
 
 void putnum(u32 num)
