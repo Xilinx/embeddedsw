@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   kal     06/28/21 First release
+* 1.1   kpt     01/13/22 Added support for PL microblaze
 *
 * </pre>
 *
@@ -36,6 +37,34 @@
 * #define 		XNVM_BBRAM_AES_KEY_LEN_IN_BITS		(256U)
 * User should replace this value based on length of the AES Key defined
 * by macro XNVM_BBRAM_AES_KEY. Supported values - 256
+*
+* Procedure to link and compile the example for the default ddr less designs
+* ------------------------------------------------------------------------------------------------------------
+* By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
+* placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
+* contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+*
+* Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
+*
+*		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+*			be updated to point all the required sections to shared memory(OCM or TCM)
+*			using a memory region drop down selection
+*
+*						OR
+*
+*		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+*			sharedmemory (NOLOAD) : {
+*			= ALIGN(4);
+*			__bss_start = .;
+*			*(.bss)
+*			*(.bss.*)
+*			*(.gnu.linkonce.b.*)
+*			*(COMMON)
+*			. = ALIGN(4);
+*			__bss_end = .;
+*			} > Memory(OCM,TCM or DDR)
+*
+* 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
 *
 ******************************************************************************/
 

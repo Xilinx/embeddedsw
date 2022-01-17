@@ -77,7 +77,11 @@ extern "C" {
 	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}
 
 #ifndef XNVM_CACHE_DISABLE
-	#define XNvm_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange(SrcAddr, Len)
+	#if defined(__microblaze__)
+		#define XNvm_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((UINTPTR)SrcAddr, Len)
+	#else
+		#define XNvm_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((INTPTR)SrcAddr, Len)
+	#endif
 #else
 	#define XNvm_DCacheFlushRange(SrcAddr, Len) {}
 #endif /**< Cache Invalidate function */
