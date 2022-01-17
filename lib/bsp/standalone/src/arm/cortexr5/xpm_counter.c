@@ -45,6 +45,8 @@
 *                     to fix un-necessary warning CR#1110990.
 * 7.7	sk   01/10/22 Update values from signed to unsigned to fix
 * 		      misra_c_2012_rule_10_4 violation.
+* 7.7	sk   01/10/22 Typecast to fix wider essential type misra_c_2012_rule_10_7
+* 		      violation.
 * </pre>
 *
 ******************************************************************************/
@@ -234,7 +236,7 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
     /* Set the event */
     mtcp(XREG_CP15_EVENT_TYPE_SEL, EventID);
     /* Enable event counter */
-    mtcp(XREG_CP15_COUNT_ENABLE_SET, OriginalCounters | (1U << Index));
+    mtcp(XREG_CP15_COUNT_ENABLE_SET, OriginalCounters | ((u32)1U << Index));
     return Index;
 }
 

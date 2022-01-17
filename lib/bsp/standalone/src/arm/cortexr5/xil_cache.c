@@ -20,6 +20,8 @@
 * 7.3   dp   06/25/20 Updated to support armclang compiler
 * 7.7	sk   01/10/22 Update IRQ_FIQ_MASK macro from signed to unsigned
 * 		      to fix misra_c_2012_rule_10_4 violation.
+* 7.7	sk   01/10/22 Typecast to fix wider essential type misra_c_2012_rule_10_7
+* 		      violation.
 * </pre>
 *
 ******************************************************************************/
@@ -268,7 +270,7 @@ void Xil_DCacheFlush(void)
 	LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
 
 	NumSet = CacheSize/NumWays;
-	NumSet /= (0x00000001U << LineSize);
+	NumSet /= (((u32)0x00000001U) << LineSize);
 
 	Way = 0U;
 	Set = 0U;
@@ -280,7 +282,7 @@ void Xil_DCacheFlush(void)
 			/* Flush by Set/Way */
 			asm_clean_inval_dc_line_sw(C7Reg);
 
-			Set += (0x00000001U << LineSize);
+			Set += (((u32)0x00000001U) << LineSize);
 		}
 		Set = 0U;
 		Way += 0x40000000U;
