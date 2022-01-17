@@ -32,6 +32,8 @@
 * 		      of same type and fix misra_c_2012_rule_10_6 violation.
 * 7.7	sk   01/10/22 Modify varaiable name from I to i to fix misra_c_2012_rule_
 * 		      21_2 violation.
+* 7.7	sk   01/10/22 Remove arithematic operations on pointer varaible to fix
+* 		      misra_c_2012_rule_18_4 violation.
 * </pre>
 *
 *****************************************************************************/
@@ -825,7 +827,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 		 * values starting from 'FirtVal'
 		 */
 		for (i = 0U; i < Words; i++) {
-			*(Addr+i) = Val;
+			Addr[i] = Val;
 			Val++;
 		}
 
@@ -843,7 +845,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 		 */
 
 		for (i = 0U; i < Words; i++) {
-			WordMem32 = *(Addr+i);
+			WordMem32 = Addr[i];
 
 			if (WordMem32 != Val) {
 				Status = -1;
@@ -875,7 +877,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 
 			for (i = 0U; i < (u32)32; i++) {
 				/* write memory location */
-				*(Addr+i) = Val;
+				Addr[i] = Val;
 				Val = (u32) RotateLeft(Val, 32U);
 			}
 
@@ -890,7 +892,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 			for (i = 0U; i < (u32)32; i++) {
 				/* read memory location */
 
-				WordMem32 = *(Addr+i);
+				WordMem32 = Addr[i];
 
 				if (WordMem32 != Val) {
 					Status = -1;
@@ -924,7 +926,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 
 			for (i = 0U; i < (u32)32; i++) {
 				/* write memory location */
-				*(Addr+i) = Val;
+				Addr[i] = Val;
 				Val = ~((u32)RotateLeft(~Val, 32U));
 			}
 
@@ -939,7 +941,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 			 * written */
 			for (i = 0U; i < (u32)32; i++) {
 				/* read memory location */
-				WordMem32 = *(Addr+i);
+				WordMem32 = Addr[i];
 				if (WordMem32 != Val) {
 					Status = -1;
 					goto End_Label;
@@ -955,7 +957,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 		for (i = 0U; i < Words; i++) {
 			/* write memory location */
 			Val = ~(u32) (UINTPTR) &Addr[i];
-			*(Addr+i) = Val;
+			Addr[i] = Val;
 		}
 
 		/*
@@ -965,7 +967,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 
 		for (i = 0U; i < Words; i++) {
 			/* Read the location */
-			WordMem32 = *(Addr+i);
+			WordMem32 = Addr[i];
 			Val = ~(u32) (UINTPTR) &Addr[i];
 
 			if ((WordMem32 ^ Val) != 0x00000000U) {
@@ -994,7 +996,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 
 		for (i = 0U; i < Words; i++) {
 			/* write memory location */
-			*(Addr+i) = Val;
+			Addr[i] = Val;
 		}
 
 		/*
@@ -1007,7 +1009,7 @@ s32 Xil_TestMem32(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)
 
 			/* read memory location */
 
-			WordMem32 = *(Addr+i);
+			WordMem32 = Addr[i];
 			if (WordMem32 != Val) {
 				Status = -1;
 				goto End_Label;
@@ -1075,7 +1077,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 		 */
 		for (i = 0U; i < Words; i++) {
 			/* write memory location */
-			*(Addr+i) = Val;
+			Addr[i] = Val;
 			Val++;
 		}
 		/*
@@ -1092,7 +1094,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 
 		for (i = 0U; i < Words; i++) {
 			/* read memory location */
-			WordMem16 = *(Addr+i);
+			WordMem16 = Addr[i];
 			if (WordMem16 != Val) {
 				Status = -1;
 				goto End_Label;
@@ -1121,7 +1123,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 
 			for (i = 0U; i < (u32)16; i++) {
 				/* write memory location */
-				*(Addr+i) = Val;
+				Addr[i] = Val;
 				Val = (u16)RotateLeft(Val, 16U);
 			}
 			/*
@@ -1132,7 +1134,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 			/* Read the values from each location that was written */
 			for (i = 0U; i < (u32)16; i++) {
 				/* read memory location */
-				WordMem16 = *(Addr+i);
+				WordMem16 = Addr[i];
 				if (WordMem16 != Val) {
 					Status = -1;
 					goto End_Label;
@@ -1163,7 +1165,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 
 			for (i = 0U; i < (u32)16; i++) {
 				/* write memory location */
-				*(Addr+i) = Val;
+				Addr[i] = Val;
 				Val = ~((u16)RotateLeft(~((u32)Val), 16U));
 			}
 			/*
@@ -1174,7 +1176,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 			/* Read the values from each location that was written */
 			for (i = 0U; i < (u32)16; i++) {
 				/* read memory location */
-				WordMem16 = *(Addr+i);
+				WordMem16 = Addr[i];
 				if (WordMem16 != Val) {
 					Status = -1;
 					goto End_Label;
@@ -1190,7 +1192,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 		for (i = 0U; i < Words; i++) {
 			/* write memory location */
 			Val = ~(u16) (UINTPTR) &Addr[i];
-			*(Addr+i) = Val;
+			Addr[i] = Val;
 		}
 		/*
 		 * Check every word within the words
@@ -1199,7 +1201,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 
 		for (i = 0U; i < Words; i++) {
 			/* read memory location */
-			WordMem16 = *(Addr+i);
+			WordMem16 = Addr[i];
 			Val = ~(u16) (UINTPTR) &Addr[i];
 			if ((WordMem16 ^ Val) != 0x0000U) {
 				Status = -1;
@@ -1226,7 +1228,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 
 		for (i = 0U; i < Words; i++) {
 			/* write memory location */
-			*(Addr+i) = Val;
+			Addr[i] = Val;
 		}
 
 		/*
@@ -1237,7 +1239,7 @@ s32 Xil_TestMem16(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)
 
 		for (i = 0U; i < Words; i++) {
 			/* read memory location */
-			WordMem16 = *(Addr+i);
+			WordMem16 = Addr[i];
 			if (WordMem16 != Val) {
 				Status = -1;
 				goto End_Label;
@@ -1306,7 +1308,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 		 */
 		for (i = 0U; i < Words; i++) {
 			/* write memory location */
-			*(Addr+i) = Val;
+			Addr[i] = Val;
 			Val++;
 		}
 		/*
@@ -1323,7 +1325,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 
 		for (i = 0U; i < Words; i++) {
 			/* read memory location */
-			WordMem8 = *(Addr+i);
+			WordMem8 = Addr[i];
 			if (WordMem8 != Val) {
 				Status = -1;
 				goto End_Label;
@@ -1350,7 +1352,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 			 */
 			for (i = 0U; i < (u32)8; i++) {
 				/* write memory location */
-				*(Addr+i) = Val;
+				Addr[i] = Val;
 				Val = (u8)RotateLeft(Val, 8U);
 			}
 			/*
@@ -1361,7 +1363,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 			/* Read the values from each location that was written */
 			for (i = 0U; i < (u32)8; i++) {
 				/* read memory location */
-				WordMem8 = *(Addr+i);
+				WordMem8 = Addr[i];
 				if (WordMem8 != Val) {
 					Status = -1;
 					goto End_Label;
@@ -1389,7 +1391,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 			 */
 			for (i = 0U; i < (u32)8; i++) {
 				/* write memory location */
-				*(Addr+i) = Val;
+				Addr[i] = Val;
 				Val = ~((u8)RotateLeft(~((u32)Val), 8U));
 			}
 			/*
@@ -1400,7 +1402,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 			/* Read the values from each location that was written */
 			for (i = 0U; i < (u32)8; i++) {
 				/* read memory location */
-				WordMem8 = *(Addr+i);
+				WordMem8 = Addr[i];
 				if (WordMem8 != Val) {
 					Status = -1;
 					goto End_Label;
@@ -1416,7 +1418,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 		for (i = 0U; i < Words; i++) {
 			/* write memory location */
 			Val = ~(u8) (UINTPTR) &Addr[i];
-			*(Addr+i) = Val;
+			Addr[i] = Val;
 		}
 
 		/*
@@ -1426,7 +1428,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 
 		for (i = 0U; i < Words; i++) {
 			/* read memory location */
-			WordMem8 = *(Addr+i);
+			WordMem8 = Addr[i];
 			Val = ~(u8) (UINTPTR) &Addr[i];
 			if ((WordMem8 ^ Val) != 0x00U) {
 				Status = -1;
@@ -1452,7 +1454,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 		 */
 		for (i = 0U; i < Words; i++) {
 			/* write memory location */
-			*(Addr+i) = Val;
+			Addr[i] = Val;
 		}
 		/*
 		 * Check every word within the words
@@ -1462,7 +1464,7 @@ s32 Xil_TestMem8(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)
 
 		for (i = 0U; i < Words; i++) {
 			/* read memory location */
-			WordMem8 = *(Addr+i);
+			WordMem8 = Addr[i];
 			if (WordMem8 != Val) {
 				Status = -1;
 				goto End_Label;
