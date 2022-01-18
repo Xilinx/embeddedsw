@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +25,8 @@
 *       bsv  08/13/2021 Removed unnecessary header file
 *       ma   08/30/2021 Trigger FW_NCR error only for master and monolithic
 *                       devices
-*       kpt  09/09/21 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
+*       kpt  09/09/2021 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
+* 1.05  ma   01/17/2022 Trigger SW Error when exception occurs
 *
 * </pre>
 *
@@ -109,6 +110,10 @@ static void XPlm_ExceptionHandler(void *Data)
 		XPlmi_Printf(DEBUG_GENERAL, "Secure clear failed with"
 			"status:0x%08x \r\n", Status);
 	}
+
+	/* Trigger SW error */
+	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+			XIL_EVENT_ERROR_MASK_PLM_EXCEPTION);
 
 	Status = (int)Data;
 	XPlmi_ErrMgr(Status);
