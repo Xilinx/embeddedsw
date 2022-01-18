@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/15/2021 Removed unwanted goto statements
+* 1.06  ma   01/17/2022 Move EFUSE defines to xplmi_hw.h file
 *
 * </pre>
 *
@@ -59,8 +60,6 @@
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
-#define XPLMI_EFUSE_CTRL_UNLOCK_VAL	(0xDF0DU)
-#define XPLMI_EFUSE_CTRL_LOCK_VAL	(1U)
 #define XPLMI_EFUSE_IRO_TRIM_320MHZ	(0U)
 #define XPLMI_EFUSE_IRO_TRIM_400MHZ	(1U)
 
