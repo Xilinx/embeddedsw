@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ****************************************************************************/
 
@@ -21,6 +21,7 @@
 *        skd 07/14/2020 XLoader_UsbCopy prototype changed
 *        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 * 1.02   bsv 08/31/2021 Code clean up
+* 1.03   ma  01/17/2022 Enable SLVERR for USB registes
 *
 * </pre>
 *
@@ -41,6 +42,7 @@
 
 /************************** Constant Definitions ****************************/
 #define XLOADER_USB_DEVICE_ID		(XPAR_XUSBPSU_0_DEVICE_ID)
+#define XLOADER_USB2_REG_CTRL_OFFSET	(0x60U)
 
 /************************** Function Prototypes ******************************/
 
@@ -107,6 +109,10 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_CFG, Status);
 		goto END;
 	}
+
+	/* Enable SLVERR */
+	XPlmi_UtilRMW((VENDOR_BASE_ADDRESS + XLOADER_USB2_REG_CTRL_OFFSET),
+			XPLMI_SLAVE_ERROR_ENABLE_MASK, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 
 	Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
 	if (Status != XST_SUCCESS) {
