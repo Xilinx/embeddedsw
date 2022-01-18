@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -804,6 +804,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_SYSMON_SUPPLY0_ADDR		(0xF1271040U)
 #define XPLMI_SYSMON_SUPPLYX_MASK		(0x0000FFFFU)
 #define XPLMI_VCC_PMC_MP_MIN			(0.775f)
+
+/* Slave error enable mask */
+#define XPLMI_SLAVE_ERROR_ENABLE_MASK	(0x1U)
 
 /************************** Function Prototypes ******************************/
 

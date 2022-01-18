@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 *       am   11/24/2021 Fixed doxygen warning
 *       ma   12/17/2021 Do not check for SSIT errors in
 *                       XPlmi_SsitWaitForDmaDone function
+*       ma   01/17/2022 Enable SLVERR for PMC DMA
 *
 * </pre>
 *
@@ -57,6 +58,7 @@
 #include "xplmi_ssit.h"
 
 /************************** Constant Definitions *****************************/
+#define XPLMI_XCSUDMA_DEST_CTRL_OFFSET		(0x80CU)
 
 /**************************** Type Definitions *******************************/
 
@@ -110,6 +112,12 @@ static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_CFG, Status);
 		goto END;
 	}
+
+	/* Enable SLVERR */
+	XPlmi_UtilRMW((Config->BaseAddress + XCSUDMA_CTRL_OFFSET),
+			XCSUDMA_CTRL_APB_ERR_MASK, XCSUDMA_CTRL_APB_ERR_MASK);
+	XPlmi_UtilRMW((Config->BaseAddress + XPLMI_XCSUDMA_DEST_CTRL_OFFSET),
+			XCSUDMA_CTRL_APB_ERR_MASK, XCSUDMA_CTRL_APB_ERR_MASK);
 
 	/*
 	 * Performs the self-test to check hardware build.

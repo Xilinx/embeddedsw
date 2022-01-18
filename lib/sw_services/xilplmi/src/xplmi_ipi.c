@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,7 @@
  *			 force power down command
  *       bsv  10/11/2021 Added redundancy for CheckIpiAccess API
  * 1.05  ma   12/15/2021 Update function header for XPlmi_IpiDispatchHandler
+ *       ma   01/17/2022 Enable SLVERR for IPI
  *
  * </pre>
  *
@@ -173,6 +174,9 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 			Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
 		}
 	}
+
+	/* Enable SLVERR */
+	XPlmi_Out32(XIPIPSU_BASE_ADDR, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 
 	(void) XPlmi_GetPmSubsystemHandler(SubsystemHandler);
 	/*
