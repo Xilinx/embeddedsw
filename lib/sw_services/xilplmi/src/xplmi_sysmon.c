@@ -29,6 +29,7 @@
  *       is   01/10/2022 Updated XPlmi_SysMonOTDetect to wait additional time
  *                       after OT event clears up
  *       is   01/10/2022 Updated Copyright Year to 2022
+ *       ma   01/17/2022 Enable SLVERR for Sysmon
  *
  * </pre>
  *
@@ -42,6 +43,11 @@
 #include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
+#define XPLMI_SYSMON_SAT0_PCSR_CTRL_OFFSET		(0x10004U)
+#define XPLMI_SYSMON_SAT0_PCSR_LOCK_OFFSET		(0x1000CU)
+#define XPLMI_SYSMON_SAT1_PCSR_CTRL_OFFSET		(0x20004U)
+#define XPLMI_SYSMON_SAT1_PCSR_LOCK_OFFSET		(0x2000CU)
+#define XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK	(0x80000U)
 
 /**************************** Type Definitions *******************************/
 
@@ -95,7 +101,42 @@ int XPlmi_SysMonInit(void)
 		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK,
 			PCSR_UNLOCK_VAL);
 		XSysMonPsv_IntrEnable(SysMonInstPtr, (u32)XSYSMONPSV_IER0_OT_MASK, 0U);
+
+		/* Enable SLVERR for Sysmon */
+		XPlmi_UtilRMW((ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_CONTROL),
+				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK,
+				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
 		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK, 0U);
+
+		/*
+		 * Enable SLVERR for Sysmon SAT0. The registers need to be unlocked
+		 * before enabling SLVERR
+		 */
+		XPlmi_Out32(ConfigPtr->BaseAddress +
+				(u32)XPLMI_SYSMON_SAT0_PCSR_LOCK_OFFSET,
+				PCSR_UNLOCK_VAL);
+		XPlmi_UtilRMW((ConfigPtr->BaseAddress +
+				(u32)XPLMI_SYSMON_SAT0_PCSR_CTRL_OFFSET),
+				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK,
+				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
+		XPlmi_Out32(ConfigPtr->BaseAddress +
+				(u32)XPLMI_SYSMON_SAT0_PCSR_LOCK_OFFSET,
+				0U);
+
+		/*
+		 * Enable SLVERR for Sysmon SAT1. The registers need to be unlocked
+		 * before enabling SLVERR
+		 */
+		XPlmi_Out32(ConfigPtr->BaseAddress +
+				(u32)XPLMI_SYSMON_SAT1_PCSR_LOCK_OFFSET,
+				PCSR_UNLOCK_VAL);
+		XPlmi_UtilRMW((ConfigPtr->BaseAddress +
+				(u32)XPLMI_SYSMON_SAT1_PCSR_CTRL_OFFSET),
+				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK,
+				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
+		XPlmi_Out32(ConfigPtr->BaseAddress +
+				(u32)XPLMI_SYSMON_SAT1_PCSR_LOCK_OFFSET,
+				0U);
 	}
 	XPlmi_Printf(DEBUG_DETAILED,
 		 "%s: SysMon init status: 0x%x\n\r", __func__, Status);

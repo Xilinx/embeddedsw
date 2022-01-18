@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +19,8 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.0   mjr  03/15/15 First release
 * 2.1   kvn  05/05/16 Modified code for MISRA-C:2012 Compliance
- * 2.5  sdd 12/17/18  Add the cpp extern macro.
+* 2.5   sdd  12/17/18 Add the cpp extern macro
+* 2.11  ma   01/17/22 Added XIPIPSU_BASE_ADDR macro
 *
 * </pre>
 *
@@ -58,6 +59,7 @@ extern "C" {
 #define XIPIPSU_IDR_OFFSET 0x1CU  /**< Offset for Interrupt Disable Register */
 
 #if defined (versal)
+#define XIPIPSU_BASE_ADDR	0xFF300000U /**< Versal IPI base address */
 #define XIPIPSU_ISR_BASE	0xFF300010U /**< Versal ISR base address */
 #define XIPIPSU_ECC_UE_MASK	0x40U  /**< Uncorrecteble Error mask */
 #endif
