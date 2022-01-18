@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who 	 Date        Changes
 * ----- -------- -------- -----------------------------------------------------
 * 7.7   bsv      12/22/2021 Initial release
+*       ma       01/17/2022 Add PLM exceptions to SW errors list
 *
 * </pre>
 *
@@ -463,6 +464,7 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_HB_MON_1		(0x00000002U)
 #define XIL_EVENT_ERROR_MASK_HB_MON_2		(0x00000004U)
 #define XIL_EVENT_ERROR_MASK_HB_MON_3		(0x00000008U)
+#define XIL_EVENT_ERROR_MASK_PLM_EXCEPTION	(0x00000010U)
 /**
  * @}
  */

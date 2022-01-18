@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *       ma   08/19/2021 Renamed error related macros and added event ID macros
 * 1.05  bsv  12/24/2021 Move common defines from xilplmi and xilpm to common
 *                       folder
+*       ma   01/17/2022 Add exceptions to SW errors list
 *
 * </pre>
 *
@@ -192,7 +193,8 @@ typedef enum {
 #define XPLMI_ERROR_HB_MON_1		(0x81U)
 #define XPLMI_ERROR_HB_MON_2		(0x82U)
 #define XPLMI_ERROR_HB_MON_3		(0x83U)
-#define XPLMI_ERROR_SW_ERR_MAX		(0x84U)
+#define XPLMI_ERROR_PLM_EXCEPTION	(0x84U)
+#define XPLMI_ERROR_SW_ERR_MAX		(0x85U)
 
 /**************************** Type Definitions *******************************/
 

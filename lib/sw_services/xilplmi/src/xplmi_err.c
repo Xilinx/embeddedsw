@@ -76,6 +76,7 @@
 *                       folder
 *       is   01/10/2022 Updated XPlmi_SysMonOTDetect API to pass wait time arg
 *       is   01/10/2022 Updated Copyright Year to 2022
+*       ma   01/17/2022 Add exceptions to SW Errors list
 *
 * </pre>
 *
@@ -450,6 +451,8 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_HB_MON_3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_PLM_EXCEPTION] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
 /****************************************************************************/
@@ -616,6 +619,10 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 			if (ErrorTable[ErrorId].Handler != NULL) {
 				ErrorTable[ErrorId].Handler(ErrorNodeId, RegMask);
 			}
+			break;
+		case XPLMI_EM_ACTION_NONE:
+			XPlmi_Printf(DEBUG_GENERAL, "No action is enabled for "
+					"Error ID: 0x%x\r\n", ErrorId);
 			break;
 		default:
 			XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
