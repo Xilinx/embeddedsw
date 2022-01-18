@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +61,7 @@ extern "C" {
  * Register: CFU_APB_CFU_CTL
  */
 #define CFU_APB_CFU_CTL	(CFU_APB_BASEADDR + 0X0000001CU)
+#define CFU_APB_CFU_CTL_SLVERR_EN_MASK	(0X00004000U)
 #define CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_MASK	(0X00000080U)
 #define CFU_APB_CFU_CTL_CFRAME_DISABLE_MASK	(0X00000040U)
 #define CFU_APB_CFU_CTL_DECOMPRESS_MASK	(0X00000004U)

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 1.03  ma   03/24/2021 Minor updates to prints in XilLoader
 * 1.04  bsv  07/16/2021 Added Macronix flash support
 *       bsv  08/31/2021 Code clean up
+* 1.05  ma   01/17/2022 Enable SLVERR for OSPI registers
 *
 * </pre>
 *
@@ -251,6 +252,14 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		XLoader_Printf(DEBUG_GENERAL,"XLOADER_ERR_OSPI_CFG\r\n");
 		goto END;
 	}
+
+	/* Enable SLVERR */
+	XPlmi_UtilRMW((OspiConfig->BaseAddress + XOSPIPSV_OSPIDMA_SRC_CTRL),
+			XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK,
+			XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK);
+	XPlmi_UtilRMW((OspiConfig->BaseAddress + XOSPIPSV_OSPIDMA_DST_CTRL),
+			XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK,
+			XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK);
 
 	/*
 	 * Enable IDAC controller in OSPI

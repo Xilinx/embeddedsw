@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 1.04  rb   08/11/2021 Fix compilation warnings
 *       bsv  08/31/2021 Code clean up
 * 1.05  bsv  11/08/2021 Skip SbiRecovery for SMAP and PCIe boot modes
+*       ma   01/17/2022 Enable SLVERR for SLAVE_BOOT registers
 *
 * </pre>
 *
@@ -106,6 +107,11 @@ int XLoader_SbiInit(u32 DeviceFlags)
 	 */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
 		SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
+
+	/* Enable SLVERR */
+	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
+			SLAVE_BOOT_SBI_CTRL_APB_ERR_RES_MASK,
+			SLAVE_BOOT_SBI_CTRL_APB_ERR_RES_MASK);
 
 END:
 	return Status;

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *       ma    09/01/2021 Fix issue in clearing the CFI and CFU errors
 * 1.06  am    11/24/2021 Fixed doxygen warning
 *       bsv   12/04/2021 Addressed security review comment
+* 1.07  ma    01/17/2022 Enable SLVERR for CFU_APB registers
 *
 * </pre>
 *
@@ -95,6 +96,10 @@ int XLoader_CframeInit(void)
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_CFRAME_CFG, Status);
 	}
+
+	/* Enable SLVERR */
+	XPlmi_UtilRMW(CFU_APB_CFU_CTL, CFU_APB_CFU_CTL_SLVERR_EN_MASK,
+			CFU_APB_CFU_CTL_SLVERR_EN_MASK);
 
 END:
 	return Status;
