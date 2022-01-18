@@ -407,6 +407,7 @@ int main ()
 		print_time ("DMIPS/Sec:", dmips_per_second);
 		print_time ("DMIPS/MHz:", dmips_per_mhz);
 		xil_printf ("\n");
+		xil_printf("The Dhrystone App has run successfully\r\n");
 	}
 
 	cleanup_platform();
