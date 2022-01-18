@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -19,7 +19,9 @@
  *                         arguments for different types of errors and XilSEM
  *                         behavior after each type of the error
  * 0.4	 hv    01/11/2022  Added steps to read frame ECC over IPI
- * 0.3   rama  01/14/2022  Added example for reading Total frames & golden CRC
+ * 0.5   rama  01/14/2022  Added example for reading Total frames & golden CRC
+ * 0.6	 hv    01/17/2022  Added example for reading CRAM and NPI
+ *                         configuration over IPI
  * </pre>
  *
  *****************************************************************************/
@@ -689,6 +691,25 @@ int main(void)
 		xil_printf("start Scan Failed\n\r");
 		goto END;
 	}
+
+	/* Read CRAM and NPI configuration over IPI */
+	Status = XSem_CmdGetConfig(&IpiInst, &IpiResp);
+	if ((XST_SUCCESS == Status) && \
+			(CMD_ACK_SEM_GET_CONFIG == IpiResp.RespMsg1) && \
+			(XST_SUCCESS == IpiResp.RespMsg4)) {
+		xil_printf("[XSem_CmdGetConfig] Success Reading CRAM"
+				" and NPI configuration Over IPI\n\r");
+		xil_printf("Received CRAM Configuration ="
+				" 0x%08x\n\r", IpiResp.RespMsg2);
+		xil_printf("Received NPI Configuration ="
+				" 0x%08x\n\r", IpiResp.RespMsg3);
+	} else {
+		xil_printf("[%s] Error: Reading CRAM and NPI Configuration, "
+				"Status 0x%x Ack 0x%x Ret 0x%x\n", \
+				__func__, Status, IpiResp.RespMsg1, \
+						IpiResp.RespMsg4);
+	}
+
 END:
 	return 0;
 }
