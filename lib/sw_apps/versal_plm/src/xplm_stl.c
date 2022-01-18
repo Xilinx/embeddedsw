@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 *                       configuration
 * 1.02  bsv  08/13/2021 Remove unwanted header file
 *       bsv  08/13/2021 Removed unwanted goto statements
+* 1.03  rama 01/18/2022 Included xplmi_status.h to fix compilation failure
 *
 * </pre>
 *
@@ -32,6 +33,7 @@
 #include "xstl_plminterface.h"
 #include "xplm_stl.h"
 #include "xplm_pm.h"
+#include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 
