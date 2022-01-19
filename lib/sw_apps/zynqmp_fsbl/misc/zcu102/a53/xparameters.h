@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -292,6 +292,10 @@
 /* Definitions for driver DDRCPSU */
 #define XPAR_XDDRCPSU_NUM_INSTANCES 1
 
+#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x0
+#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FEFFFFF
+#define XPAR_PSU_DDR_1_S_AXI_BASEADDR 0x800000000
+#define XPAR_PSU_DDR_1_S_AXI_HIGHADDR 0x87FFFFFFF
 /* Definitions for peripheral PSU_DDRC_0 */
 #define XPAR_PSU_DDRC_0_DEVICE_ID 0
 #define XPAR_PSU_DDRC_0_BASEADDR 0xFD070000
@@ -475,16 +479,6 @@
 /* Definitions for peripheral PSU_CTRL_IPI */
 #define XPAR_PSU_CTRL_IPI_S_AXI_BASEADDR 0xFF380000
 #define XPAR_PSU_CTRL_IPI_S_AXI_HIGHADDR 0xFF3FFFFF
-
-
-/* Definitions for peripheral PSU_DDR_0 */
-#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x00000000
-#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF
-
-
-/* Definitions for peripheral PSU_DDR_1 */
-#define XPAR_PSU_DDR_1_S_AXI_BASEADDR 0x800000000
-#define XPAR_PSU_DDR_1_S_AXI_HIGHADDR 0x87FFFFFFF
 
 
 /* Definitions for peripheral PSU_DDR_PHY */
@@ -1104,6 +1098,7 @@
 #define XPAR_PSU_SD_1_BUS_WIDTH 8
 #define XPAR_PSU_SD_1_MIO_BANK 1
 #define XPAR_PSU_SD_1_HAS_EMIO 0
+#define XPAR_PSU_SD_1_SLOT_TYPE 0
 
 
 /******************************************************************/
@@ -1120,6 +1115,7 @@
 #define XPAR_XSDPS_0_BUS_WIDTH 8
 #define XPAR_XSDPS_0_MIO_BANK 1
 #define XPAR_XSDPS_0_HAS_EMIO 0
+#define XPAR_XSDPS_0_SLOT_TYPE 0
 #define XPAR_XSDPS_0_IS_CACHE_COHERENT 0
 
 
