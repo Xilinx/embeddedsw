@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -42,7 +42,7 @@ $(LIBS):
 	echo "Copying BSP files"
 	../misc/copy_bsp.sh $(BOARD)
 	echo "Compiling bsp"
-	make -C ../misc BOARD=zcu102 PROC=a53 A53_STATE=64
+	make -C ../misc BOARD=$(BOARD) PROC=a53 A53_STATE=64
 
 %.o:%.c
 	$(CC) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH)
