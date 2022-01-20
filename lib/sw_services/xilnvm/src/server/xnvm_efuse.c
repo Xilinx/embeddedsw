@@ -75,6 +75,8 @@
 * 2.5   har  11/17/2021 Fix Blind Write in XNvm_EfuseDisableProgramming and
 *                       XNvm_EfuseResetReadMode
 *       har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
+*       har  11/22/2021 Added an error case and full range check case for switch
+*                       in XNvm_EfuseTemparatureCheck and XNvm_EfusePmcVoltageCheck
 *
 * </pre>
 *
@@ -5456,6 +5458,9 @@ static int XNvm_EfuseTemparatureCheck(float Temparature)
 		XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_SHIFT;
 
 	switch (EfuseTempMax) {
+		case XNVM_EFUSE_FULL_RANGE_CHECK:
+			TempMax = XNVM_EFUSE_FULL_RANGE_TEMP_MAX;
+			break;
 		case XNVM_EFUSE_LP_RANGE_CHECK:
 			TempMax = XNVM_EFUSE_TEMP_LP_MAX;
 			break;
@@ -5466,8 +5471,12 @@ static int XNvm_EfuseTemparatureCheck(float Temparature)
 			TempMax = XNVM_EFUSE_TEMP_HP_MAX;
 			break;
 		default:
-			TempMax = XNVM_EFUSE_FULL_RANGE_TEMP_MAX;
+			Status = XST_FAILURE;
 			break;
+	}
+
+	if (Status == XST_FAILURE) {
+		goto END;
 	}
 
 	/* Junction temparature operating range for
@@ -5520,6 +5529,10 @@ static int XNvm_EfusePmcVoltageCheck(float Voltage)
 			XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_SHIFT;
 
 	switch (EfuseVoltVal) {
+		case XNVM_EFUSE_FULL_RANGE_CHECK:
+			VoltMin = XNVM_EFUSE_VCC_PMC_LP_MIN;
+			VoltMax = XNVM_EFUSE_VCC_PMC_HP_MAX;
+			break;
 		case XNVM_EFUSE_LP_RANGE_CHECK:
 			VoltMin = XNVM_EFUSE_VCC_PMC_LP_MIN;
 			VoltMax = XNVM_EFUSE_VCC_PMC_LP_MAX;
@@ -5533,10 +5546,14 @@ static int XNvm_EfusePmcVoltageCheck(float Voltage)
 			VoltMax = XNVM_EFUSE_VCC_PMC_HP_MAX;
 			break;
 		default:
-			VoltMin = XNVM_EFUSE_VCC_PMC_LP_MIN;
-			VoltMax = XNVM_EFUSE_VCC_PMC_HP_MAX;
+			Status = XST_FAILURE;
 			break;
 	}
+
+	if (Status == XST_FAILURE) {
+		goto END;
+	}
+
 	if ((Voltage < VoltMin) || (Voltage > VoltMax)) {
 		Status = XST_FAILURE;
 	}
