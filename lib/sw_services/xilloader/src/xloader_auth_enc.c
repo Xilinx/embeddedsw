@@ -75,6 +75,7 @@
 *                     maintained functions
 *       skd  01/11/22 Moved comments to its proper place
 *       skd  01/12/22 Updated goto labels for better readability
+*       kpt  01/19/22 Fixed compilation warning
 *
 * </pre>
 *
@@ -3665,10 +3666,11 @@ static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
 static int XLoader_ReadDna(u32 *EfuseDna)
 {
 	volatile int Status = XST_FAILURE;
+	u8* const volatile EfuseDnaRdAddr = (u8*)(UINTPTR)XLOADER_EFUSE_DNA_START_OFFSET;
 
 	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)EfuseDna,
 		XLOADER_EFUSE_DNA_LEN_IN_BYTES,
-		(void *)XLOADER_EFUSE_DNA_START_OFFSET,
+		(void *)EfuseDnaRdAddr,
 		XLOADER_EFUSE_DNA_LEN_IN_BYTES,
 		XLOADER_EFUSE_DNA_LEN_IN_BYTES);
 
