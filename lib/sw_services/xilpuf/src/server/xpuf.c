@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 *       har  08/12/2021 Added comment related to IRO frequency
 * 1.5   kpt  12/02/2021 Replaced standard library utility functions with
 *                       xilinx maintained functions
+*       har  01/20/2022 Removed inclusion of xil_mem.h
 *
 * </pre>
 *
@@ -54,7 +55,6 @@
 #include "xpuf.h"
 #include "xpuf_hw.h"
 #include "xil_util.h"
-#include "xil_mem.h"
 #include "xil_io.h"
 #include "xil_printf.h"
 

@@ -19,6 +19,7 @@
  * ----- ---  -------- -------------------------------------------------------
  * 1.0   kpt  01/04/22 Initial release
  *       kpt  01/13/22 Added support to run example on PL microblaze
+ *       har  01/20/22 Removed inclusion of xil_mem.h
  *
  * @note
  *
@@ -106,7 +107,6 @@
 #include "xpuf_ipi.h"
 #include "xsecure_ipi.h"
 #include "xil_util.h"
-#include "xil_mem.h"
 #include "xil_cache.h"
 
 /************************** Constant Definitions ****************************/
