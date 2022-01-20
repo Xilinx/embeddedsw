@@ -77,6 +77,8 @@
 *       har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
 *       har  11/22/2021 Added an error case and full range check case for switch
 *                       in XNvm_EfuseTemparatureCheck and XNvm_EfusePmcVoltageCheck
+*                       Added checks for return value for
+*                       XNvm_EfuseDisableProgramming() and XNvm_EfuseResetReadMode()
 *
 * </pre>
 *
@@ -202,8 +204,8 @@ static inline void XNvm_EfuseDisablePowerDown(void);
 static inline int  XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode);
 static inline void XNvm_EfuseSetRefClk(void);
 static inline void XNvm_EfuseEnableProgramming(void);
-static inline void XNvm_EfuseDisableProgramming(void);
-static inline void XNvm_EfuseResetReadMode(void);
+static inline int XNvm_EfuseDisableProgramming(void);
+static inline int XNvm_EfuseResetReadMode(void);
 static inline void XNvm_EfuseInitTimers(void);
 static int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op, XNvm_EfuseRdMode RdMode);
 static int XNvm_EfuseReadCache(u32 Row, u32* RowData);
@@ -301,6 +303,8 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 {
 	volatile int Status = XST_FAILURE;
 	int LockStatus = XST_FAILURE;
+	int DisableStatus = XST_FAILURE;
+	int ResetStatus = XST_FAILURE;
 
 	if (WriteNvm == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -517,8 +521,14 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 	Status = XST_FAILURE;
 	Status = XNvm_EfusePrgmProtectionEfuse();
 END:
-	XNvm_EfuseResetReadMode();
-	XNvm_EfuseDisableProgramming();
+	ResetStatus = XNvm_EfuseResetReadMode();
+	if (XST_SUCCESS == Status) {
+		Status = ResetStatus;
+	}
+	DisableStatus = XNvm_EfuseDisableProgramming();
+	if (XST_SUCCESS == Status) {
+		Status = DisableStatus;
+	}
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
 		Status = LockStatus;
@@ -964,6 +974,8 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 {
 	volatile int Status = XST_FAILURE;
 	int LockStatus = XST_FAILURE;
+	int DisableStatus = XST_FAILURE;
+	int ResetStatus = XST_FAILURE;
 	u32 PufSecurityCtrlReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 
 	if (PufHelperData == NULL) {
@@ -1054,8 +1066,14 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	Status = XST_FAILURE;
 	Status = XNvm_EfusePrgmProtectionEfuse();
 END :
-	XNvm_EfuseResetReadMode();
-	XNvm_EfuseDisableProgramming();
+	ResetStatus = XNvm_EfuseResetReadMode();
+	if (XST_SUCCESS == Status) {
+		Status = ResetStatus;
+	}
+	DisableStatus = XNvm_EfuseDisableProgramming();
+	if (XST_SUCCESS == Status) {
+		Status = DisableStatus;
+	}
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
 		Status = LockStatus;
@@ -4721,30 +4739,42 @@ static inline void XNvm_EfuseEnableProgramming(void)
 /**
  * @brief	This function disables programming mode of eFUSE controller.
  *
+ * @return      XST_SUCCESS - if eFUSE programming is disabled successfully.
+ *              XST_FAILURE - if there is a failure
+ *
  ******************************************************************************/
-static inline void XNvm_EfuseDisableProgramming(void)
+static inline int XNvm_EfuseDisableProgramming(void)
 {
+	int Status = XST_FAILURE;
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_ENABLE_PGM;
-	Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
+	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
+
+	return Status;
 }
 
 /******************************************************************************/
 /**
  * @brief	This function disables Margin Read mode of eFUSE controller.
  *
+ * @return      XST_SUCCESS - if resetting read mode is successful.
+ *              XST_FAILURE - if there is a failure
+ *
  ******************************************************************************/
-static inline void XNvm_EfuseResetReadMode(void)
+static inline int XNvm_EfuseResetReadMode(void)
 {
+	int Status = XST_FAILURE;
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_MARGIN_RD;
-	Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
+	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
+
+	return Status;
 }
 
 /******************************************************************************/
@@ -5848,6 +5878,8 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 {
 	int Status = XST_FAILURE;
 	int LockStatus = XST_FAILURE;
+	int DisableStatus = XST_FAILURE;
+	int ResetStatus = XST_FAILURE;
 	u32 PufSecurityCtrlReg = 0U;
 	u32 RowDataVal = 0U;
 	u32 IsDecOnly = 0U;
@@ -5956,8 +5988,14 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse)
 	Status = XNvm_EfuseCacheLoad();
 
 END:
-	XNvm_EfuseResetReadMode();
-	XNvm_EfuseDisableProgramming();
+	ResetStatus = XNvm_EfuseResetReadMode();
+	if (XST_SUCCESS == Status) {
+		Status = ResetStatus;
+	}
+	DisableStatus = XNvm_EfuseDisableProgramming();
+	if (XST_SUCCESS == Status) {
+		Status = DisableStatus;
+	}
 	LockStatus = XNvm_EfuseLockController();
 	if (XST_SUCCESS == Status) {
 		Status = LockStatus;
