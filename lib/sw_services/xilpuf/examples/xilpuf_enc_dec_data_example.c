@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -30,6 +30,7 @@
  *       har  04/14/21 Modified code to use client side APIs of Xilsecure
  * 1.4   kpt  12/02/21 Replaced standard library utility functions with
  *                     xilinx maintained functions
+ *       har  01/20/22 Removed inclusion of xil_mem.h
  *
  * @note
  *
@@ -87,7 +88,6 @@
 #include "xsecure_aesclient.h"
 #include "xsecure_ipi.h"
 #include "xil_util.h"
-#include "xil_mem.h"
 #include "xil_cache.h"
 
 /************************** Constant Definitions ****************************/
