@@ -1725,15 +1725,95 @@ static XStatus Aie2_DisColClkBuff(const XPm_Device *AieDev, u32 ColStart, u32 Co
 	return XST_SUCCESS;
 }
 
-static XStatus Aie2_Zeroization(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd)
 {
-	(void)Aie2;
-	(void)ColStart;
-	(void)NumCol;
+	XStatus Status = XST_FAILURE;
+	XStatus CoreZeroStatus = XST_FAILURE;
+	XStatus MemZeroStatus = XST_FAILURE;
+	XStatus MemTileZeroStatus = XST_FAILURE;
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const u64 NocAddress = AieDomain->Array.NocAddress;
+	u32 NodeAddress = AieDev->Node.BaseAddress;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 RowStart = AieDomain->Array.StartRow;
+	u32 RowEnd = RowStart + AieDomain->Array.NumRows - 1U;
+	u32 StartTileRow = RowStart + AieDomain->Array.NumMemRows;
+	u32 AieZeroizationTime = 0U;
+	u32 RegVal = 0;
+	u64 BaseAddress;
+	u32 Col, Row, Mrow;
 
-	/* Add this dummy function and return XST_SUCCESS */
-	/* To-Do: Add Sequence as per hardware description */
-	return XST_SUCCESS;
+	/* Enable privileged write access */
+	RegVal = (ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK |
+		  ((ColStart & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
+		    ME_PROT_REG_CTRL_WE_COL_ID_FIRST_SHIFT) |
+		  ((ColEnd & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
+		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
+	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
+
+	/* Enable memory zeroization for AIE2 tiles.
+	 * Enable for core and memory modules. */
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		for (Row = StartTileRow; Row <= RowEnd; Row++) {
+			BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, Row);
+
+			AieWrite64(BaseAddress + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
+				   AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+			AieWrite64(BaseAddress + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
+				   AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+		}
+	}
+
+	/* Enable memory zeroization for mem tiles; stop before tile row begins */
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		for (Row = RowStart; Row < StartTileRow; Row++) {
+			BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, Row);
+
+			AieRMW64(BaseAddress + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
+				 AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
+				 AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+		}
+	}
+
+	Col = ColEnd;
+	Row = RowEnd;
+	Mrow = (u32)(StartTileRow - 1U);
+
+	/* Poll the last cell for each tile type for memory zeroization complete */
+	while ((XST_SUCCESS != MemTileZeroStatus) ||
+	       (XST_SUCCESS != CoreZeroStatus) ||
+	       (XST_SUCCESS != MemZeroStatus)) {
+
+		if (0U == AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Mrow) +
+				    AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)) {
+			MemTileZeroStatus = XST_SUCCESS;
+		}
+		if (0U == AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) +
+				    AIE2_CORE_MODULE_MEM_CTRL_OFFSET)) {
+			CoreZeroStatus = XST_SUCCESS;
+		}
+		if (0U == AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) +
+				    AIE2_MEM_MODULE_MEM_CTRL_OFFSET)) {
+			MemZeroStatus = XST_SUCCESS;
+		}
+
+		AieZeroizationTime++;
+		if (AieZeroizationTime > XPLMI_TIME_OUT_DEFAULT) {
+			DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	/* Disable privileged write access */
+	XPm_RMW32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }
 
 static XStatus Aie2_EnbAxiMmErrEvent(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
