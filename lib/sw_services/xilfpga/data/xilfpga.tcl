@@ -42,6 +42,7 @@
 # 6.2   Nava  01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
 #                       to provide the access to the xilfpga library to get the
 #                       xilfpga version and supported feature list info.
+# 6.2  Nava   01/19/22  Added build time flag to skip eFUSE checks.
 #
 ##############################################################################
 
@@ -184,6 +185,11 @@ proc generate {lib_handle} {
    set value  [common::get_property CONFIG.get_feature_list_en $lib_handle]
    if {$value == true} {
        puts $conffile "#define XFPGA_GET_FEATURE_LIST"
+   }
+
+   set value  [common::get_property CONFIG.skip_efuse_check_en $lib_handle]
+   if {$value == true} {
+	puts $conffile "#define XFPGA_SKIP_EFUSE_CHECK"
    }
 
    set value  [common::get_property CONFIG.debug_mode $lib_handle]

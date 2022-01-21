@@ -55,6 +55,7 @@
 # 6.2 Nava   01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
 #                      to provide the access to the xilfpga library to get the
 #                      xilfpga version and supported feature list info.
+# 6.2 Nava   01/19/22  Added build time flag to skip eFUSE checks
 #
 ##############################################################################
 
@@ -79,4 +80,5 @@ PARAM name = reg_readback_en, desc = "Which is used to Enable the FPGA configura
 PARAM name = data_readback_en, desc = "Which is used to Enable the FPGA configuration Data Read-back support.(Note: From 2023.1 release onwards the default state will be changed to false)", type = bool, default = true
 PARAM name = get_version_info_en, desc = "Which is used to Get the Xilfpga library version info", type = bool, default = false
 PARAM name = get_feature_list_en, desc = "Which is used to Get the Xilfpga library supported feature list info", type = bool, default = false
+PARAM name = skip_efuse_check_en, desc = "Which is used to skip the eFUSE checks for PL configuration", type = bool, default = false;
 END LIBRARY

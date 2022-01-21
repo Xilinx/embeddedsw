@@ -116,6 +116,7 @@
  * 6.2 Nava  01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
  *                     to provide the access to the xilfpga library to get the
  *                     xilfpga version and supported feature list info.
+ * 6.2 Nava  01/19/22  Added build time flag to skip eFUSE checks.
  *
  * </pre>
  *
@@ -366,7 +367,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 	}
 
 	if ((InstancePtr->WriteInfo.Flags & XFPGA_SECURE_FLAGS) == 0U) {
-
+#ifndef XFPGA_SKIP_EFUSE_CHECK
 		/* eFUSE checks */
 		if ((XSecure_IsRsaEnabled() == XSECURE_ENABLED) ||
 		    (XSecure_IsEncOnlyEnabled() == XSECURE_ENABLED)) {
@@ -374,7 +375,7 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 					(u32)XFPGA_ERROR_EFUSE_CHECK, (u32)0U);
 			goto END;
 		}
-
+#endif
 		Status = Xil_SMemCmp((u8 *)(InstancePtr->WriteInfo.BitstreamAddr +
 					    BOOTGEN_DATA_OFFSET + SYNC_BYTE_POSITION),
 					    (u32)InstancePtr->WriteInfo.Size - (BOOTGEN_DATA_OFFSET + SYNC_BYTE_POSITION),
