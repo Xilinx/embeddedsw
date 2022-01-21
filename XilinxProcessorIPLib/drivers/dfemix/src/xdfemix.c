@@ -42,6 +42,7 @@
 *       dc     12/02/21 Add UpdateAntennaCfg API
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     01/07/22 NCO assignment in arch4 mode
+*       dc     01/19/22 Assert CCUpdate trigger
 *
 * </pre>
 * @addtogroup xdfemix_v1_3
@@ -1888,7 +1889,8 @@ u32 XDfeMix_AddCCtoCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg, s32 CCID,
 						CCSeqBitmap,
 						CarrierCfg->DUCDDCCfg.NCOIdx)) {
 			metal_log(METAL_LOG_ERROR,
-				  "NCO failure in ARCH4 mode in %s\n", __func__);
+				  "NCO failure in ARCH4 mode in %s\n",
+				  __func__);
 			return XST_FAILURE;
 		}
 	}
@@ -1973,7 +1975,8 @@ u32 XDfeMix_UpdateCCinCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 					   InstancePtr, CCCfg, CCID,
 					   CarrierCfg->DUCDDCCfg.NCOIdx)) {
 			metal_log(METAL_LOG_ERROR,
-				  "NCO failure in ARCH4 mode in %s\n", __func__);
+				  "NCO failure in ARCH4 mode in %s\n",
+				  __func__);
 			return XST_FAILURE;
 		}
 	}
@@ -2100,7 +2103,8 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 						CCSeqBitmap,
 						CarrierCfg->DUCDDCCfg.NCOIdx)) {
 			metal_log(METAL_LOG_ERROR,
-				  "NCO failure in ARCH4 mode in %s\n", __func__);
+				  "NCO failure in ARCH4 mode in %s\n",
+				  __func__);
 			return XST_FAILURE;
 		}
 	}
@@ -2223,11 +2227,11 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 	/* Check is Mixer in ARCH4 mode */
 	if (XDFEMIX_IS_ARCH4_MODE) {
-		if (XST_FAILURE ==
-		    XDfeMix_NCOArch4ModeInMoveOrUpdateCC(InstancePtr, &CCCfg,
-							 CCID, ToNCO)) {
+		if (XST_FAILURE == XDfeMix_NCOArch4ModeInMoveOrUpdateCC(
+					   InstancePtr, &CCCfg, CCID, ToNCO)) {
 			metal_log(METAL_LOG_ERROR,
-				  "NCO failure in ARCH4 mode in %s\n", __func__);
+				  "NCO failure in ARCH4 mode in %s\n",
+				  __func__);
 			return XST_FAILURE;
 		}
 	}
@@ -2291,7 +2295,8 @@ u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
 					   InstancePtr, &CCCfg, CCID,
 					   CarrierCfg->DUCDDCCfg.NCOIdx)) {
 			metal_log(METAL_LOG_ERROR,
-				  "NCO failure in ARCH4 mode in %s\n", __func__);
+				  "NCO failure in ARCH4 mode in %s\n",
+				  __func__);
 			return XST_FAILURE;
 		}
 	}
@@ -2464,6 +2469,8 @@ void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_INITIALISED);
 	Xil_AssertVoid(TriggerCfg != NULL);
+	Xil_AssertVoid(TriggerCfg->CCUpdate.Mode !=
+		       XDFEMIX_TRIGGERS_MODE_TUSER_CONTINUOUS);
 
 	/* Write public trigger configuration members and ensure private members
 	  (TriggerEnable & Immediate) are set appropriately */
