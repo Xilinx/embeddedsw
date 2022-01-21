@@ -1655,25 +1655,30 @@ static XStatus Aie2_SetL2CtrlNpiIntr(const XPm_Device *Aie2, u32 ColStart, u32 N
 	return XST_SUCCESS;
 }
 
-static XStatus Aie2_Operation(const XPm_Device *Aie2, u32 Part, u32 Ops)
+static XStatus Aie2_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const XPm_AieArray *Array = &AieDomain->Array;
 	u32 ColStart = (Part & AIE_START_COL_MASK);
 	u32 NumCol = ((Part & AIE_NUM_COL_MASK) >> 16U);
+	u32 ColEnd = ColStart + NumCol - 1U;
+	u32 NodeAddress = AieDev->Node.BaseAddress;
 
 	/* Check that column and operations are in range */
-	if (((ColStart + NumCol) > Array->NumCols) ||
-	    (ColStart < Array->StartCol) ||
+	if (((ColEnd) > (u32)(Array->NumCols + Array->StartCol - 1U)) ||
+	    (ColStart < (u32)Array->StartCol) ||
 	    (AIE_OPS_MAX < Ops)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
+	/* Unlock AIE2 PCSR */
+	XPmAieDomain_UnlockPcsr(NodeAddress);
+
 	/* Column Reset */
 	if (0U != (AIE_OPS_COL_RST & Ops)) {
-		Status = Aie2_ColRst(Aie2, ColStart, NumCol);
+		Status = Aie2_ColRst(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_COL_RST;
 			goto done;
@@ -1682,7 +1687,7 @@ static XStatus Aie2_Operation(const XPm_Device *Aie2, u32 Part, u32 Ops)
 
 	/* Shim Reset */
 	if (0U != (AIE_OPS_SHIM_RST & Ops)) {
-		Status = Aie2_ShimRst(Aie2, ColStart, NumCol);
+		Status = Aie2_ShimRst(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_SHIM_RST;
 			goto done;
@@ -1691,7 +1696,7 @@ static XStatus Aie2_Operation(const XPm_Device *Aie2, u32 Part, u32 Ops)
 
 	/* Enable Column Clock Buffer */
 	if (0U != (AIE_OPS_ENB_COL_CLK_BUFF & Ops)) {
-		Status = Aie2_EnbColClkBuff(Aie2, ColStart, NumCol);
+		Status = Aie2_EnbColClkBuff(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_ENB_COL_CLK_BUFF;
 			goto done;
@@ -1700,7 +1705,7 @@ static XStatus Aie2_Operation(const XPm_Device *Aie2, u32 Part, u32 Ops)
 
 	/* Zeroization of Program and data memories */
 	if (0U != (AIE_OPS_ZEROIZATION & Ops)) {
-		Status = Aie2_Zeroization(Aie2, ColStart, NumCol);
+		Status = Aie2_Zeroization(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_ZEROIZATION;
 			goto done;
@@ -1709,7 +1714,7 @@ static XStatus Aie2_Operation(const XPm_Device *Aie2, u32 Part, u32 Ops)
 
 	/* Disable Column Clock Buffer */
 	if (0U != (AIE_OPS_DIS_COL_CLK_BUFF & Ops)) {
-		Status = Aie2_DisColClkBuff(Aie2, ColStart, NumCol);
+		Status = Aie2_DisColClkBuff(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_DIS_COL_CLK_BUFF;
 			goto done;
@@ -1718,7 +1723,7 @@ static XStatus Aie2_Operation(const XPm_Device *Aie2, u32 Part, u32 Ops)
 
 	/* Enable AXI-MM error events */
 	if (0U != (AIE_OPS_ENB_AXI_MM_ERR_EVENT & Ops)) {
-		Status = Aie2_EnbAxiMmErrEvent(Aie2, ColStart, NumCol);
+		Status = Aie2_EnbAxiMmErrEvent(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_ENB_AXI_MM_ERR_EVENT;
 			goto done;
@@ -1727,7 +1732,7 @@ static XStatus Aie2_Operation(const XPm_Device *Aie2, u32 Part, u32 Ops)
 
 	/* Set L2 controller NPI INTR */
 	if (0U != (AIE_OPS_SET_L2_CTRL_NPI_INTR & Ops)) {
-		Status = Aie2_SetL2CtrlNpiIntr(Aie2, ColStart, NumCol);
+		Status = Aie2_SetL2CtrlNpiIntr(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_SET_L2_CTRL_NPI_INTR;
 			goto done;
@@ -1735,18 +1740,30 @@ static XStatus Aie2_Operation(const XPm_Device *Aie2, u32 Part, u32 Ops)
 	}
 
 done:
+	/* Lock AIE2 PCSR */
+	XPmAieDomain_LockPcsr(NodeAddress);
+
 	return Status;
 }
 
-XStatus Aie_Operations(const XPm_Device *Aie, u32 Part, u32 Ops)
+XStatus Aie_Operations(u32 Part, u32 Ops)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_AieDomain *AieDomain = PmAieDomain;
 	const XPm_AieArray *Array = &AieDomain->Array;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	if (AIE_GENV2 == Array->GenVersion) {
-		Status = Aie2_Operation(Aie, Part, Ops);
+	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
 	}
 
+	if (AIE_GENV2 == Array->GenVersion) {
+		Status = Aie2_Operation(AieDev, Part, Ops);
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
