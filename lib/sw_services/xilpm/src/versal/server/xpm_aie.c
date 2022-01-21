@@ -1619,15 +1619,46 @@ static XStatus Aie2_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u
 	return XST_SUCCESS;
 }
 
-static XStatus Aie2_ShimRst(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+static XStatus Aie2_ShimRst(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
 {
-	(void)Aie2;
-	(void)ColStart;
-	(void)NumCol;
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 NodeAddress = AieDev->Node.BaseAddress;
+	u32 RegVal = 0;
 
-	/* Add this dummy function and return XST_SUCCESS */
-	/* To-Do: Add Sequence as per hardware description */
-	return XST_SUCCESS;
+	/* Enable privileged write access */
+	RegVal = (ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK |
+		  ((ColStart & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
+		    ME_PROT_REG_CTRL_WE_COL_ID_FIRST_SHIFT) |
+		  ((ColEnd & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
+		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
+	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
+
+	/* Enable SHIM reset */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK,
+			      ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_AIE_SHIM_RST_EN;
+	}
+
+	/* Disable privileged write access */
+	XPm_RMW32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
+
+	/* Skip next pcsr write if previous one is failed */
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Disable SHIM reset */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_AIE_SHIM_RST_DIS;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }
 
 static XStatus Aie2_EnbColClkBuff(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
