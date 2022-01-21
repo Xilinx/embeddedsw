@@ -1816,14 +1816,37 @@ done:
 	return Status;
 }
 
-static XStatus Aie2_EnbAxiMmErrEvent(const XPm_Device *Aie2, u32 ColStart, u32 NumCol)
+static XStatus Aie2_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd)
 {
-	(void)Aie2;
-	(void)ColStart;
-	(void)NumCol;
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const u64 NocAddress = AieDomain->Array.NocAddress;
+	u32 NodeAddress = AieDev->Node.BaseAddress;
+	u64 BaseAddress;
+	u32 RegVal = 0;
+	u32 Col;
 
-	/* Add this dummy function and return XST_SUCCESS */
-	/* To-Do: Add Sequence as per hardware description */
+	/* Enable privileged write access */
+	RegVal = (ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK |
+		  ((ColStart & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
+		    ME_PROT_REG_CTRL_WE_COL_ID_FIRST_SHIFT) |
+		  ((ColEnd & ME_PROT_REG_CTRL_WE_COL_ID_MASK) <<
+		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
+	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
+
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* BaseAddress for AIE2 column */
+		BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, 0U);
+
+		/* Eanble AXI-MM decode and slave error events */
+		XPm_RMW64(BaseAddress + AIE2_NOC_MODULE_ME_AXIMM_CONFIG_OFFSET,
+			  ME_AXIMM_CONFIG_DECERR_BLOCK_EN_MASK | ME_AXIMM_CONFIG_SLVERR_BLOCK_EN_MASK,
+			  ME_AXIMM_CONFIG_DECERR_BLOCK_EN_MASK | ME_AXIMM_CONFIG_SLVERR_BLOCK_EN_MASK);
+	}
+
+	/* Disable privileged write access */
+	XPm_RMW32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
+		  ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
+
 	return XST_SUCCESS;
 }
 
