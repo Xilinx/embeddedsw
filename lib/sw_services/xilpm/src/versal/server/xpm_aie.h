@@ -105,7 +105,7 @@ static inline void XPmAieDomain_LockPcsr(u32 BaseAddress)
 /************************** Function Prototypes ******************************/
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, const u32 *Args, u32 NumArgs);
-XStatus Aie_Operations(const XPm_Device *Aie, u32 Part, u32 Ops);
+XStatus Aie_Operations(u32 Part, u32 Ops);
 
 #ifdef __cplusplus
 }

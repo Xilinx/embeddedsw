@@ -884,13 +884,12 @@ done:
 static XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, u32 Part, u32 Ops)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Device *Aie = NULL;
 	(void)Id;
 	(void)SubsystemId;
 
 	/* To-Do: Add Permission Check */
 
-	Status = Aie_Operations(Aie, Part, Ops);
+	Status = Aie_Operations(Part, Ops);
 
 	return Status;
 }
