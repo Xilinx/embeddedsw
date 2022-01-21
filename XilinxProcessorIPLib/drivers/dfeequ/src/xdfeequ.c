@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,9 +29,10 @@
 *       dc     11/09/21 Add GetStateId API
 *       dc     11/19/21 Update doxygen documentation
 *       dc     12/17/21 Update after documentation review
+* 1.3   dc     01/19/22 Assert Update trigger
 *
 * </pre>
-* @addtogroup xdfeequ_v1_2
+* @addtogroup xdfeequ_v1_3
 * @{
 ******************************************************************************/
 /**
@@ -1019,12 +1020,13 @@ void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEEQU_STATE_INITIALISED);
 	Xil_AssertVoid(TriggerCfg != NULL);
+	Xil_AssertVoid(TriggerCfg->Update.Mode !=
+		       XDFEEQU_TRIGGERS_MODE_TUSER_CONTINUOUS);
 
 	/* Write trigger configuration members */
 
 	TUSERWidth =
-		XDfeEqu_RdRegBitField(InstancePtr,
-				      XDFEEQU_NEXT_CONTROL_TRIGGER_OFFSET,
+		XDfeEqu_RdRegBitField(InstancePtr, XDFEEQU_MODEL_PARAM_OFFSET,
 				      XDFEEQU_MODEL_PARAM_TUSER_WIDTH_WIDTH,
 				      XDFEEQU_MODEL_PARAM_TUSER_WIDTH_OFFSET);
 
@@ -1032,13 +1034,6 @@ void XDfeEqu_SetTriggersCfg(const XDfeEqu *InstancePtr,
 		TriggerCfg->Activate.Mode = XDFEEQU_TRIGGERS_MODE_IMMEDIATE;
 		TriggerCfg->LowPower.Mode = XDFEEQU_TRIGGERS_MODE_IMMEDIATE;
 		TriggerCfg->Update.Mode = XDFEEQU_TRIGGERS_MODE_IMMEDIATE;
-	} else {
-		TriggerCfg->Activate.Mode =
-			XDFEEQU_TRIGGERS_MODE_TUSER_SINGLE_SHOT;
-		TriggerCfg->LowPower.Mode =
-			XDFEEQU_TRIGGERS_MODE_TUSER_CONTINUOUS;
-		TriggerCfg->Update.Mode =
-			XDFEEQU_TRIGGERS_MODE_TUSER_SINGLE_SHOT;
 	}
 
 	/* Activate defined as SingleShot (as per the programming model) or
