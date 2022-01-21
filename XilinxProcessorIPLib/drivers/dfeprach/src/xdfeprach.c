@@ -36,6 +36,7 @@
 *       dc     11/26/21 Assert RachChan equal RCId
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     01/11/22 Compilation warrning fix
+*       dc     01/19/22 Assert RachUpdate trigger
 *
 * </pre>
 * @addtogroup xdfeprach_v1_3
@@ -2883,6 +2884,10 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_INITIALISED);
 	Xil_AssertVoid(TriggerCfg != NULL);
+	Xil_AssertVoid(TriggerCfg->RachUpdate.Mode !=
+		       XDFEPRACH_TRIGGERS_MODE_TUSER_CONTINUOUS);
+	Xil_AssertVoid(TriggerCfg->FrameInit.Mode !=
+		       XDFEPRACH_TRIGGERS_MODE_IMMEDIATE);
 
 	/* Write public trigger configuration members and ensure private members
 	  (TriggerEnable & Immediate) are set appropriately */
@@ -2890,7 +2895,6 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	/* Activate defined as Single Shot/Immediate (as per the programming model) */
 	TriggerCfg->Activate.TriggerEnable =
 		XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_DISABLED;
-	TriggerCfg->Activate.Mode = XDFEPRACH_TRIGGERS_MODE_IMMEDIATE;
 	TriggerCfg->Activate.StateOutput =
 		XDFEPRACH_TRIGGERS_STATE_OUTPUT_ENABLED;
 	/* Read/set/write ACTIVATE triggers */
@@ -2939,10 +2943,9 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_LOW_POWER_OFFSET,
 			   Val);
 
-	/* RachUpdate defined as OneShot */
+	/* RachUpdate defined as OneShot or Immediate */
 	TriggerCfg->RachUpdate.TriggerEnable =
 		XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_DISABLED;
-	TriggerCfg->RachUpdate.Mode = XDFEPRACH_TRIGGERS_MODE_IMMEDIATE;
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
@@ -2963,10 +2966,9 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_RACH_UPDATE_OFFSET,
 			   Val);
 
-	/* Frame_Init defined as Continuous */
+	/* Frame_Init defined as OneShot and Continuous */
 	TriggerCfg->FrameInit.TriggerEnable =
 		XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_DISABLED;
-	TriggerCfg->FrameInit.Mode = XDFEPRACH_TRIGGERS_MODE_TUSER_CONTINUOUS;
 	Val = XDfePrach_ReadReg(InstancePtr,
 				XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
