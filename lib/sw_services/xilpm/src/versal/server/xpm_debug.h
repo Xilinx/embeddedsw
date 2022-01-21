@@ -446,6 +446,10 @@ extern "C" {
 #define XPM_INT_ERR_AIE_POST_SCAN_CLEAR_HOOK	0x410DU
 /* Error during AIE Pre Bisr Hook */
 #define XPM_INT_ERR_AIE_PRE_BISR_HOOK		0x410EU
+/* Error during enable of AIE SHIM rest */
+#define XPM_INT_ERR_AIE_SHIM_RST_EN		0x410FU
+/* Error during disable of AIE SHIM rest */
+#define XPM_INT_ERR_AIE_SHIM_RST_DIS		0x4110U
 
 /************************** PMC specific Errors ******************************/
 /************************** (0x4200) - (0x42FF) ******************************/
