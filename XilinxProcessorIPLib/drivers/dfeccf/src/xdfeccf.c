@@ -41,6 +41,7 @@
 *       dc     12/02/21 Add UpdateAntennaCfg API
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     01/07/22 Zero-padding coefficients
+*       dc     01/19/22 Assert CCUpdate trigger
 *
 * </pre>
 * @addtogroup dfeccf_v1_3
@@ -1735,6 +1736,8 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_INITIALISED);
 	Xil_AssertVoid(TriggerCfg != NULL);
+	Xil_AssertVoid(TriggerCfg->CCUpdate.Mode !=
+		       XDFECCF_TRIGGERS_MODE_TUSER_CONTINUOUS);
 
 	/* Write public trigger configuration members and ensure private members
 	  (TriggerEnable & Immediate) are set appropriately */
