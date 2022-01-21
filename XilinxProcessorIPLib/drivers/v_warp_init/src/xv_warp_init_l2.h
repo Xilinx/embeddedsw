@@ -24,32 +24,33 @@ typedef struct {
  * of warp init driver
  */
 typedef struct {
-	u16	width;
-	u16	height;
-	s16	k_pre;
-	s16	k_post;
+	u16 width;
+	u16 height;
+	u16 bytes_per_pixel;
+	u8 reserved_0[2];
+	u64 filter_table_addr_0;
+	u64 filter_table_addr_1;
+	u32 width_Q4;
+	u32 height_Q4;
+	s16 k_pre;
+	s16 k_post;
 	u16 k0_pre;
 	u16 k1_pre;
 	u16 k0_post;
 	u16 k1_post;
-	u32	Q_fact_pre;
-	u32	Q_fact_post;
+	u32 Q_fact_pre;
+	u32 Q_fact_post;
 	s8 k0_pre_Q_bits;
 	s8 k0_post_Q_bits;
 	s8 k1_pre_Q_bits;
 	s8 k1_post_Q_bits;
-	s16	h[6];
+	s16 h[6];
 	s32 h_trans[3];
 	u8 h_Qbits[6];
-	u64	filter_table_addr_0;
-	u64	filter_table_addr_1;
-	u32	normfactor;
-	u16	cenX;
-	u16	cenY;
-	u32 width_Q4;
-	u32 height_Q4;
-	u16 bytes_per_pixel;
-	u8  warp_type;
+	u8 reserved_1[2];
+	u32 normfactor;
+	u16 cenX;
+	u16 cenY;
 	u32 num_ctrl_pts;
 	u64 src_ctrl_x_pts;
 	u64 src_ctrl_y_pts;
@@ -57,6 +58,11 @@ typedef struct {
 	u64 src_tangents_y;
 	u64 interm_x;
 	u64 interm_y;
+	u8 warp_type;
+	u8 reserved_2[3];
+	u32 valid_segs;
+	u32 lblk_count;
+	u32 line_num_seg;
 } XVWarpInitVector_Hw;
 
 /*
