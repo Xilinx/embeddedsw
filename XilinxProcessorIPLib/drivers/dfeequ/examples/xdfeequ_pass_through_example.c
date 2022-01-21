@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,9 +18,10 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/19/21 Update doxygen documentation
+* 1.3   dc     01/19/22 Assert Update trigger
 *
 * </pre>
-* @addtogroup dfeequ_v1_2_examples
+* @addtogroup dfeequ_v1_3_examples
 * @{
 *
 *****************************************************************************/
@@ -101,10 +102,10 @@ int XDfeEqu_PassThroughExample()
 	XDfeEqu_Initialize(InstancePtr, &Config);
 
 	/* Set trigger */
-	TriggerCfg.Activate.Mode = 1U;
+	TriggerCfg.Activate.Mode = 0U;
 	TriggerCfg.Activate.TuserEdgeLevel = 0;
 	TriggerCfg.Activate.TUSERBit = 0;
-	TriggerCfg.Update.Mode = 1U;
+	TriggerCfg.Update.Mode = 0U;
 	TriggerCfg.Update.TuserEdgeLevel = 1U;
 	TriggerCfg.Update.TUSERBit = 0;
 	XDfeEqu_SetTriggersCfg(InstancePtr, &TriggerCfg);
