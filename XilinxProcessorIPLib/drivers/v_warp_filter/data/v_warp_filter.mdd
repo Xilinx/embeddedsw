@@ -6,10 +6,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_warp_filter
 
- OPTION supported_peripherals = (v_warp_filter_v1_0 );
+ OPTION supported_peripherals = (v_warp_filter_v[1]_[0-1]);
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = v_warp_filter;
- OPTION version = 1.0;
+ OPTION version = 1.1;
 
 END driver
