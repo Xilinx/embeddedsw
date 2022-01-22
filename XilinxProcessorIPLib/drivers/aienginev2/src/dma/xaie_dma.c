@@ -47,6 +47,8 @@
 #define XAIE_SHIM_BLEN_SHIFT				0x3
 #define XAIE_DMA_CHCTRL_NUM_WORDS			2U
 #define XAIE_DMA_WAITFORDONE_DEF_WAIT_TIME_US		1000000U
+
+#define XAIE_DMA_PAD_WORDS_MAX				0x3F /* 6 bits */
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -1864,6 +1866,23 @@ AieRC XAie_DmaSetPadding(XAie_DmaDesc *DmaDesc, XAie_DmaPadTensor *PadTensor)
 	if(DmaMod->Padding == XAIE_FEATURE_UNAVAILABLE) {
 		XAIE_ERROR("Feature unavailable\n");
 		return XAIE_FEATURE_NOT_SUPPORTED;
+	}
+
+	/*
+	 * Check for before and after padding values overflow.
+	 * The max number of words that can be padded for dimension 0, 1 and 2
+	 * are 6 bits, 5 bits and 4 bits wide, respectively.
+	 */
+	for(u8 i = 0U; i < PadTensor->NumDim; i++) {
+		u8 Before = PadTensor->PadDesc[i].Before;
+		u8 After = PadTensor->PadDesc[i].After;
+		if((After > (XAIE_DMA_PAD_WORDS_MAX >> i)) ||
+				(Before > (XAIE_DMA_PAD_WORDS_MAX >> i))) {
+			XAIE_ERROR("Padding for dimension %d must be less "
+					"than %d\n", i,
+					XAIE_DMA_PAD_WORDS_MAX >> i);
+			return XAIE_INVALID_ARGS;
+		}
 	}
 
 	for(u8 i = 0U; i < PadTensor->NumDim; i++) {
