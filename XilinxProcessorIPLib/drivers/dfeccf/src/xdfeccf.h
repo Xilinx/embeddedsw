@@ -75,6 +75,7 @@
 *       dc     11/30/21 Convert AntennaCfg to structure
 *       dc     12/02/21 Add UpdateAntennaCfg API
 *       dc     12/17/21 Update after documentation review
+*       dc     01/21/22 Symmetric filter Zero-padding
 *
 * </pre>
 * @endcond
@@ -125,6 +126,7 @@ extern "C" {
 #define XDFECCF_CC_NUM (16) /**< Maximum CC number */
 #define XDFECCF_ANT_NUM_MAX (8U) /**< Maximum anntena number */
 #define XDFECCF_SEQ_LENGTH_MAX (16U) /**< Maximum sequence length */
+#define XDFECCF_NUM_COEFF (128U) /**< Maximum number of coefficents */
 
 /**************************** Type Definitions *******************************/
 /*********** start - common code to all Logiccores ************/
@@ -275,9 +277,9 @@ typedef struct {
 		    when non-symmetric max is 128. */
 	u32 Symmetric; /**< [0,1] Select the use of symetric (1) or
 			  non-symetric (0) filter */
-	s16 Value[128]; /**< [Signed real numbers]. Array of coefficients, when
-			   symmetric only the first (Num+1)/2 coefficients
-			   are provided */
+	s16 Value[XDFECCF_NUM_COEFF]; /**< [Signed real numbers]. Array of
+			  coefficients, when symmetric only the first
+			  (Num+1)/2 coefficients are provided */
 } XDfeCcf_Coefficients;
 
 /**
