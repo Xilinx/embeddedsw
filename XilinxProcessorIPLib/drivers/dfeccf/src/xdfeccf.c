@@ -42,6 +42,7 @@
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     01/07/22 Zero-padding coefficients
 *       dc     01/19/22 Assert CCUpdate trigger
+*       dc     01/21/22 Symmetric filter Zero-padding
 *
 * </pre>
 * @addtogroup dfeccf_v1_3
@@ -1924,6 +1925,7 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 	u32 LoadActive;
 	u32 Val;
 	u32 Index;
+	u32 NumPadding = 0U;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Coeffs != NULL);
@@ -1935,6 +1937,7 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 	} else {
 		NumValues = Coeffs->Num;
 	}
+	Xil_AssertVoid(NumValues <= XDFECCF_NUM_COEFF);
 
 	/* Check is load in progress */
 	for (Index = 0; Index < XDFECCF_COEFF_LOAD_TIMEOUT; Index++) {
@@ -1965,19 +1968,39 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 				 XDFECCF_USE_ODD_TAPS_OFFSET, Val, IsOdd);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_COEFF_CFG, Val);
 
-	for (Index = 0; Index < NumValues; Index++) {
-		XDfeCcf_WriteReg(InstancePtr,
-				 XDFECCF_COEFF_VALUE + (sizeof(u32) * Index),
-				 Coeffs->Value[Index]);
+	if (0U == Coeffs->Symmetric) {
+		for (Index = 0; Index < NumValues; Index++) {
+			XDfeCcf_WriteReg(InstancePtr,
+					 XDFECCF_COEFF_VALUE +
+						 (sizeof(u32) * Index),
+					 Coeffs->Value[Index]);
+		}
+		/* Non-symetric filter: Zero-padding at the end of array */
+		for (Index = NumValues;
+		     Index < NumUnits * XDFECCF_COEFF_UNIT_SIZE; Index++) {
+			XDfeCcf_WriteReg(
+				InstancePtr,
+				XDFECCF_COEFF_VALUE + (sizeof(u32) * Index), 0);
+		}
+	} else {
+		if (NumValues % XDFECCF_COEFF_UNIT_SIZE) {
+			NumPadding = XDFECCF_COEFF_UNIT_SIZE -
+				     (NumValues % XDFECCF_COEFF_UNIT_SIZE);
+		}
+		/* Symetric filter: Zero-padding at the begining of array */
+		for (Index = 0; Index < NumPadding; Index++) {
+			XDfeCcf_WriteReg(
+				InstancePtr,
+				XDFECCF_COEFF_VALUE + (sizeof(u32) * Index), 0);
+		}
+		for (Index = 0; Index < NumValues; Index++) {
+			XDfeCcf_WriteReg(
+				InstancePtr,
+				XDFECCF_COEFF_VALUE +
+					(sizeof(u32) * (Index + NumPadding)),
+				Coeffs->Value[Index]);
+		}
 	}
-	/* Zero-padding of not used coefficients in the last unit */
-	for (Index = NumValues; Index < NumUnits * XDFECCF_COEFF_UNIT_SIZE;
-	     Index++) {
-		XDfeCcf_WriteReg(InstancePtr,
-				 XDFECCF_COEFF_VALUE + (sizeof(u32) * Index),
-				 0);
-	}
-
 	/* Set the coefficient set value */
 	XDfeCcf_WrRegBitField(InstancePtr, XDFECCF_COEFF_LOAD,
 			      XDFECCF_SET_NUM_WIDTH, XDFECCF_SET_NUM_OFFSET,
