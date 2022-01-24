@@ -750,7 +750,7 @@ xil_printf("Please connect a source to the RX input\n\r");
 			TmdsClock = XV_HdmiTxSs_SetStream(HdmiTxSsPtr,
 								VideoMode,
 								ColorFormat,
-								Bpc, NULL);
+								XPAR_HDMI_DISPLAY_PATH_HDMITX_0_MAX_BITS_PER_COMPONENT, NULL);
 
 			/* Set TX reference clock */
 			VphyPtr->HdmiTxRefClkHz = TmdsClock;
@@ -868,7 +868,7 @@ int main(void)
 	Pipeline_Cfg.DSIDisplayPresent = TRUE;
 
 	/* Default Resolution that to be displayed */
-	Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_30_P;
+	Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P;
 
 	Xil_DCacheDisable();
 

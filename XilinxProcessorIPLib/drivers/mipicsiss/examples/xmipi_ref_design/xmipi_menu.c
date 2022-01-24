@@ -222,10 +222,10 @@ xil_printf(TXT_RED "Switch failed as no Camera Sensor connected!\r\n" TXT_RST);
 				if (Pipeline_Cfg.VideoMode == XVIDC_VM_3840x2160_60_P)
 				{
 xil_printf(TXT_RED "\n\rCurrent Resolution: XVIDC_VM_3840x2160_60_P\n\r");
-xil_printf("Current HDMI configuration doesn't support it\n\r");
-xil_printf("Switching to supported maximum resolution:" TXT_RST);
-xil_printf(" XVIDC_VM_3840x2160_30_P\n\r" TXT_RST);
-Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_30_P;
+//xil_printf("Current HDMI configuration doesn't support it\n\r");
+//xil_printf("Switching to supported maximum resolution:" TXT_RST);
+xil_printf(" XVIDC_VM_3840x2160_60_P\n\r" TXT_RST);
+Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P;
 				}
 				New_Cfg.VideoDestn = XVIDDES_HDMI;
 
@@ -361,19 +361,9 @@ static XMipi_MenuType XMipi_ResolutionMenu(XMipi_Menu *InstancePtr, u8 Input) {
 
 			/* 3840 x 2160p @ 60fps */
 		case 5:
-
-			if (Pipeline_Cfg.VideoDestn == XVIDDES_HDMI)
-			{
-xil_printf(TXT_RED "\n\rCurrent Resolution: XVIDC_VM_3840x2160_60_P\n\r");
-xil_printf("Current HDMI configuration doesn't support it\n\r");
-xil_printf("Switching to supported maximum resolution:" TXT_RST);
-xil_printf(" XVIDC_VM_3840x2160_30_P\n\r" TXT_RST);
-				New_Cfg.VideoMode = XVIDC_VM_3840x2160_30_P;
-			} else
-			{
-				New_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P;
-			}
+			New_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P;
 			break;
+
 			/* Exit */
 		case 99:
 			xil_printf("\n\rReturning to main menu.\n\r");
