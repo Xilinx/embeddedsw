@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,8 @@
 *       rv   08/26/2021 Remove unused macro definitions
 * 1.07  bsv  12/24/2021 Move common defines from xilplmi and xilpm to common
 *                       folder
+*       ma   01/24/2022 Add XPLMI_ERROR_ACTION_NOT_DISABLED and
+*                       XPLMI_ERROR_ACTION_NOT_ENABLED minor error codes
 *
 * </pre>
 *
@@ -93,6 +95,8 @@ extern "C" {
 #define XPLMI_LPD_UNINITIALIZED		(5)
 #define XPLMI_CANNOT_CHANGE_ACTION	(6)
 #define XPLMI_INVALID_NODE_ID		(7)
+#define XPLMI_ERROR_ACTION_NOT_DISABLED		(8)
+#define XPLMI_ERROR_ACTION_NOT_ENABLED		(9)
 
 /* Error Register mask */
 #define XPLMI_MAX_ERR_BITS			(32U)

@@ -77,6 +77,8 @@
 *       is   01/10/2022 Updated XPlmi_SysMonOTDetect API to pass wait time arg
 *       is   01/10/2022 Updated Copyright Year to 2022
 *       ma   01/17/2022 Add exceptions to SW Errors list
+*       ma   01/24/2022 Check error mask registers after error action is
+*                       enabled or disabled
 *
 * </pre>
 *
@@ -990,6 +992,106 @@ static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
 
 /*****************************************************************************/
 /**
+ * @brief	This function disables the error action for the given error mask.
+ *
+ * @param	ErrMaskRegAddr is the error action mask register address
+ * @param	RegMask is the register mask of the error to be disabled
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
+{
+	int Status = XPLMI_ERROR_ACTION_NOT_ENABLED;
+
+	/* Disable error action */
+	XPlmi_Out32((ErrMaskRegAddr + PMC_PSM_DIS_REG_OFFSET), RegMask);
+	/* Check if the error action is disabled */
+	if ((XPlmi_In32(ErrMaskRegAddr) & RegMask) == RegMask) {
+		Status = XST_SUCCESS;
+	}
+
+	return (u32)Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function enables the error action for the given error mask.
+ *
+ * @param	ErrMaskRegAddr is the error action mask register address
+ * @param	RegMask is the register mask of the error to be disabled
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int EmEnableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
+{
+	int Status = XPLMI_ERROR_ACTION_NOT_ENABLED;
+
+	/* Enable the error action */
+	XPlmi_Out32((ErrMaskRegAddr + PMC_PSM_EN_REG_OFFSET), RegMask);
+	/* Check if the error action is enabled */
+	if ((XPlmi_In32(ErrMaskRegAddr) & RegMask) == 0x0U) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function disables the PMC error actions for the given mask.
+ *
+ * @param	PmcErrRegOffset is the offset for the PMC ERR1 and ERR2 errors
+ * @param	RegMask is the register mask of the error to be disabled
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
+{
+	u32 Status;
+
+	/* Disable all PMC error actions */
+	Status = EmDisableErrAction((PMC_GLOBAL_PMC_ERR_OUT1_MASK + RegOffset),
+			RegMask);
+	Status |= EmDisableErrAction((PMC_GLOBAL_PMC_POR1_MASK + RegOffset),
+			RegMask);
+	Status |= EmDisableErrAction((PMC_GLOBAL_PMC_IRQ1_MASK + RegOffset),
+			RegMask);
+	Status |= EmDisableErrAction((PMC_GLOBAL_PMC_SRST1_MASK + RegOffset),
+			RegMask);
+
+	return (int)Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function disables the PSM error actions for the given mask.
+ *
+ * @param	PsmErrRegOffset is the offset for the PSM ERR1 and ERR2 errors
+ * @param	RegMask is the register mask of the error to be disabled
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask)
+{
+	u32 Status;
+
+	/* Disable all PSM error actions */
+	Status = EmDisableErrAction((PSM_GLOBAL_REG_PSM_CR_ERR1_MASK + RegOffset),
+			RegMask);
+	Status |= EmDisableErrAction((PSM_GLOBAL_REG_PSM_CR_ERR2_MASK + RegOffset),
+			RegMask);
+	Status |= EmDisableErrAction((PSM_GLOBAL_REG_PSM_IRQ1_MASK + RegOffset),
+			RegMask);
+
+	return (int)Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function disables the responses for the given error.
  *
  * @param	ErrorNodeId is the node Id for the error event
@@ -1000,38 +1102,24 @@ static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
  *****************************************************************************/
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
 {
-	int Status = XST_FAILURE;
+	int Status = XPLMI_ERROR_ACTION_NOT_DISABLED;
 
 	switch ((XPlmi_EventType)XPlmi_EventNodeType(ErrorNodeId)) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
 		/* Disable POR, SRST, Interrupt and PS Error Out */
-		XPlmi_Out32(PMC_GLOBAL_PMC_POR1_DIS, RegMask);
-		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT1_DIS, RegMask);
-		XPlmi_Out32(PMC_GLOBAL_PMC_IRQ1_DIS, RegMask);
-		XPlmi_Out32(PMC_GLOBAL_PMC_SRST1_DIS, RegMask);
-		Status = XST_SUCCESS;
+		Status = XPlmi_EmDisablePmcErrors(0x0U, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
 		/* Disable POR, SRST, Interrupt and PS Error Out */
-		XPlmi_Out32(PMC_GLOBAL_PMC_POR2_DIS, RegMask);
-		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT2_DIS, RegMask);
-		XPlmi_Out32(PMC_GLOBAL_PMC_IRQ2_DIS, RegMask);
-		XPlmi_Out32(PMC_GLOBAL_PMC_SRST2_DIS, RegMask);
-		Status = XST_SUCCESS;
+		Status = XPlmi_EmDisablePmcErrors(PMC_PSM_ERR2_REG_OFFSET, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
 		/* Disable CR / NCR to PMC, Interrupt */
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_DIS, RegMask);
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_DIS, RegMask);
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ1_DIS, RegMask);
-		Status = XST_SUCCESS;
+		Status = XPlmi_EmDisablePsmErrors(0x0U, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
 		/* Disable CR / NCR to PMC, Interrupt */
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_DIS, RegMask);
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_DIS, RegMask);
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_IRQ2_DIS, RegMask);
-		Status = XST_SUCCESS;
+		Status = XPlmi_EmDisablePsmErrors(PMC_PSM_ERR2_REG_OFFSET, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_ERR:
 		/* Do nothing */
@@ -1061,34 +1149,46 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
  *****************************************************************************/
 static int XPlmi_EmEnablePOR(u32 ErrorNodeType, u32 RegMask)
 {
-	int Status = XST_FAILURE;
+	int Status = XPLMI_ERROR_ACTION_NOT_ENABLED;
 
 	switch ((XPlmi_EventType)ErrorNodeType) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
-		XPlmi_Out32(PMC_GLOBAL_PMC_POR1_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable POR error action for given error mask */
+		Status = EmEnableErrAction(PMC_GLOBAL_PMC_POR1_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
-		XPlmi_Out32(PMC_GLOBAL_PMC_POR2_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable POR error action for given error mask */
+		Status = EmEnableErrAction(PMC_GLOBAL_PMC_POR2_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
+		/*
+		 * If PMC PSM CR error action is POR, set the error action for the
+		 * given error as PSM CR to handle the action by HW.
+		 * Otherwise, set it as PSM NCR to handle the action by PLM.
+		 */
 		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_POR) {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
+			/* Enable PSM CR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_CR_ERR1_MASK, RegMask);
 		} else {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+			/* Enable PSM NCR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK, RegMask);
 		}
-		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
+		/*
+		 * If PMC PSM CR error action is POR, set the error action for the
+		 * given error as PSM CR to handle the action by HW.
+		 * Otherwise, set it as PSM NCR to handle the action by PLM.
+		 */
 		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_POR) {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+			/* Enable PSM CR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_CR_ERR2_MASK, RegMask);
 		} else {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+			/* Enable PSM NCR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_NCR_ERR2_MASK, RegMask);
 		}
-		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_ERR:
 		/* Do nothing */
@@ -1117,34 +1217,46 @@ static int XPlmi_EmEnablePOR(u32 ErrorNodeType, u32 RegMask)
  *****************************************************************************/
 static int XPlmi_EmEnableSRST(u32 ErrorNodeType, u32 RegMask)
 {
-	int Status = XST_FAILURE;
+	int Status = XPLMI_ERROR_ACTION_NOT_ENABLED;
 
 	switch ((XPlmi_EventType)ErrorNodeType) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
-		XPlmi_Out32(PMC_GLOBAL_PMC_SRST1_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable SRST error action for given error mask */
+		Status = EmEnableErrAction(PMC_GLOBAL_PMC_SRST1_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
-		XPlmi_Out32(PMC_GLOBAL_PMC_SRST2_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable SRST error action for given error mask */
+		Status = EmEnableErrAction(PMC_GLOBAL_PMC_SRST2_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
+		/*
+		 * If PMC PSM CR error action is SRST, set the error action for the
+		 * given error as PSM CR to handle the action by HW.
+		 * Otherwise, set it as PSM NCR to handle the action by PLM.
+		 */
 		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_SRST) {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
+			/* Enable PSM CR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_CR_ERR1_MASK, RegMask);
 		} else {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+			/* Enable PSM NCR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK, RegMask);
 		}
-		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
+		/*
+		 * If PMC PSM CR error action is SRST, set the error action for the
+		 * given error as PSM CR to handle the action by HW.
+		 * Otherwise, set it as PSM NCR to handle the action by PLM.
+		 */
 		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_SRST) {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+			/* Enable PSM CR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_CR_ERR2_MASK, RegMask);
 		} else {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+			/* Enable PSM NCR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_NCR_ERR2_MASK, RegMask);
 		}
-		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_ERR:
 		/* Do nothing */
@@ -1173,35 +1285,47 @@ static int XPlmi_EmEnableSRST(u32 ErrorNodeType, u32 RegMask)
  *****************************************************************************/
 static int XPlmi_EmEnablePSError(u32 ErrorNodeType, u32 RegMask)
 {
-	int Status = XST_FAILURE;
+	int Status = XPLMI_ERROR_ACTION_NOT_ENABLED;
 
 	/* Enable the specified Error to propagate to ERROUT pin	*/
 	switch ((XPlmi_EventType)ErrorNodeType) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
-		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT1_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable ERROUT error action for given error mask */
+		Status = EmEnableErrAction(PMC_GLOBAL_PMC_ERR_OUT1_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
-		XPlmi_Out32(PMC_GLOBAL_PMC_ERR_OUT2_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable ERROUT error action for given error mask */
+		Status = EmEnableErrAction(PMC_GLOBAL_PMC_ERR_OUT2_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
+		/*
+		 * If PMC PSM CR error action is ERROUT, set the error action for the
+		 * given error as PSM CR to handle the action by HW.
+		 * Otherwise, set it as PSM NCR to handle the action by PLM.
+		 */
 		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_ERROUT) {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR1_EN, RegMask);
+			/* Enable PSM CR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_CR_ERR1_MASK, RegMask);
 		} else {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
+			/* Enable PSM NCR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK, RegMask);
 		}
-		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
+		/*
+		 * If PMC PSM CR error action is ERROUT, set the error action for the
+		 * given error as PSM CR to handle the action by HW.
+		 * Otherwise, set it as PSM NCR to handle the action by PLM.
+		 */
 		if (ErrorTable[XPLMI_ERROR_PMC_PSM_CR].Action ==
 				XPLMI_EM_ACTION_ERROUT) {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_CR_ERR2_EN, RegMask);
+			/* Enable PSM CR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_CR_ERR2_MASK, RegMask);
 		} else {
-			XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
+			/* Enable PSM NCR error action for given error mask */
+			Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_NCR_ERR2_MASK, RegMask);
 		}
-		Status = XST_SUCCESS;
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_ERR:
 		/*
@@ -1235,24 +1359,24 @@ static int XPlmi_EmEnablePSError(u32 ErrorNodeType, u32 RegMask)
  *****************************************************************************/
 static int XPlmi_EmEnableInt(u32 ErrorNodeType, u32 RegMask)
 {
-	int Status = XST_FAILURE;
+	int Status = XPLMI_ERROR_ACTION_NOT_ENABLED;
 
 	switch ((XPlmi_EventType)ErrorNodeType) {
 	case XPLMI_NODETYPE_EVENT_PMC_ERR1:
-		XPlmi_Out32(PMC_GLOBAL_PMC_IRQ1_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable IRQ error action for given error mask */
+		Status = EmEnableErrAction(PMC_GLOBAL_PMC_IRQ1_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PMC_ERR2:
-		XPlmi_Out32(PMC_GLOBAL_PMC_IRQ2_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable IRQ error action for given error mask */
+		Status = EmEnableErrAction(PMC_GLOBAL_PMC_IRQ2_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR1:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR1_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable PSM NCR error action for given error mask */
+		Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_ERR2:
-		XPlmi_Out32(PSM_GLOBAL_REG_PSM_NCR_ERR2_EN, RegMask);
-		Status = XST_SUCCESS;
+		/* Enable PSM NCR error action for given error mask */
+		Status = EmEnableErrAction(PSM_GLOBAL_REG_PSM_NCR_ERR2_MASK, RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_ERR:
 		/* Do nothing */
