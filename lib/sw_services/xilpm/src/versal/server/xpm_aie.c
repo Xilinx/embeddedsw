@@ -1448,8 +1448,8 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 	u32 Platform = XPm_GetPlatform();
-	u32 IdCode = XPm_GetIdCode();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u16 ArrayInfoPresent = 0U;
 	const struct XPm_PowerDomainOps *Ops = NULL;
 	XPm_AieArray *Array = &AieDomain->Array;
 	XPm_AieDomainOpHooks *Hooks = &AieDomain->Hooks;
@@ -1464,6 +1464,19 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		/* AIE1 hooks for Ops */
 		Hooks->PostScanClearHook = AiePostScanClearHook;
 		Hooks->PreBisrHook = AiePreBisrHook;
+
+		/* Non-Silicon defaults for SPP/EMU for AIE1 */
+		if (Platform != PLATFORM_VERSION_SILICON) {
+			Array->NumCols = 7U;
+			Array->NumRows = 5U;
+			Array->StartCol = 6U;
+			Array->StartRow = 1U;
+			Array->NumShimRows = 1U;
+			Array->NumAieRows = Array->NumRows - Array->NumMemRows;
+			Array->GenVersion = AIE_GENV1;
+			/* Skip this info from topology in this case */
+			ArrayInfoPresent = 1U;
+		}
 	} else if (PM_POWER_ME2 == Id) {
 		/* AIE2: Ops */
 		Ops = &AieOps[XPM_AIE2_OPS];
@@ -1483,7 +1496,7 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 	Array->NocAddress = (u64)VIVADO_ME_BASEADDR;
 
 	/* Read AIE array geometry info from topology if available */
-	if (3U <= NumArgs) {
+	if ((3U <= NumArgs) && (1U != ArrayInfoPresent)) {
 		Array->GenVersion = ARR_GENV(Args[0]);
 		Array->NumRows = ARR_ROWS(Args[1]);
 		Array->NumCols = ARR_COLS(Args[1]);
@@ -1492,68 +1505,6 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		Array->NumShimRows = ARR_SHMROWS(Args[2]);
 		Array->StartCol = 0U;			/**< always start from first column */
 		Array->StartRow = Array->NumShimRows;	/**< always start after shim row */
-	} else {
-		/* TODO: Remove this block when topology CDO changes are present */
-
-		/* AIE 1 */
-		if (PM_POWER_ME == Id) {
-			/* Use defaults for AIE1 */
-			Array->GenVersion = AIE_GENV1;
-
-			if (Platform != PLATFORM_VERSION_SILICON) {
-				/* Non-Silicon defaults for SPP/EMU */
-				Array->NumCols = 7U;
-				Array->NumRows = 5U;
-				Array->StartCol = 6U;
-				Array->StartRow = 1U;
-				Array->NumShimRows = 1U;
-				Array->NumAieRows = Array->NumRows - Array->NumMemRows;
-			} else {
-				/* Silicon defaults for AIE1 */
-				Array->NumCols = 50U;
-				Array->NumRows = 8U;
-				Array->StartCol = 0U;
-				Array->StartRow = 1U;
-				Array->NumShimRows = 1U;
-				Array->NumAieRows = Array->NumRows - Array->NumMemRows;
-			}
-
-			/* AIE Instance for VC1702 */
-			if ((PMC_TAP_IDCODE_DEV_SBFMLY_VC1702 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) ||
-			    (PMC_TAP_IDCODE_DEV_SBFMLY_VE1752 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
-				Array->NumCols = 38U;
-				Array->NumRows = 8U;
-				Array->StartCol = 0U;
-				Array->StartRow = 1U;
-				Array->NumShimRows = 1U;
-				Array->NumAieRows = Array->NumRows - Array->NumMemRows;
-			}
-		} else {
-		/* AIE 2 */
-			/* Use defaults for AIE2 */
-			Array->GenVersion = AIE_GENV2;
-
-			/* NOTE: "StartTileRow" is not copied in "Array" and computed at runtime later */
-
-			Array->NumCols = 38U;
-			Array->NumRows = 10U;
-			Array->NumMemRows = 2U;
-			Array->NumShimRows = 1U;
-			Array->NumAieRows = Array->NumRows - Array->NumMemRows;
-			Array->StartCol = 0U;
-			Array->StartRow = 1U;
-
-			/* AIE2 Instance for VE2302 */
-			if (PMC_TAP_IDCODE_DEV_SBFMLY_VE2302 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
-				Array->NumCols = 17U;
-				Array->NumRows = 3U;
-				Array->NumMemRows = 1U;
-				Array->NumShimRows = 1U;
-				Array->NumAieRows = Array->NumRows - Array->NumMemRows;
-				Array->StartCol = 0U;
-				Array->StartRow = 1U;
-			}
-		}
 	}
 
 	/* NOP for HC on QEMU */
