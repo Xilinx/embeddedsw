@@ -79,6 +79,8 @@
 *       ma   01/17/2022 Add exceptions to SW Errors list
 *       ma   01/24/2022 Check error mask registers after error action is
 *                       enabled or disabled
+*       ma   01/24/2022 Check if error action is enabled before executing the
+*                       handler
 *
 * </pre>
 *
@@ -768,6 +770,12 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 Err1Status;
 	u32 Err2Status;
+	u32 Err1CrMask;
+	u32 Err1NcrMask;
+	u32 Err2CrMask;
+	u32 Err2NcrMask;
+	u32 Err1Mask;
+	u32 Err2Mask;
 	u32 Index;
 	u32 ErrRegMask;
 
@@ -776,13 +784,20 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 
 	Err1Status = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR1_STATUS);
 	Err2Status = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR2_STATUS);
+	Err1CrMask = XPlmi_In32(PSM_GLOBAL_REG_PSM_CR_ERR1_MASK);
+	Err2CrMask = XPlmi_In32(PSM_GLOBAL_REG_PSM_CR_ERR2_MASK);
+	Err1NcrMask = XPlmi_In32(PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK);
+	Err2NcrMask = XPlmi_In32(PSM_GLOBAL_REG_PSM_NCR_ERR2_MASK);
+	Err1Mask = Err1CrMask & Err1NcrMask;
+	Err2Mask = Err2CrMask & Err2NcrMask;
 
 	if (Err1Status != 0U) {
 		for (Index = XPLMI_ERROR_PS_SW_CR;
 				Index < XPLMI_ERROR_PSMERR1_MAX; Index++) {
 			ErrRegMask = XPlmi_ErrRegMask(Index);
-			if (((Err1Status & ErrRegMask) != (u32)FALSE)
-				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
+			if (((Err1Status & ErrRegMask) != (u32)FALSE) &&
+				((Err1Mask & ErrRegMask) == 0x0U) &&
+				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				XPlmi_HandlePsmError(
 					XIL_NODETYPE_EVENT_ERROR_PSM_ERR1, ErrRegMask);
 			}
@@ -792,8 +807,9 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 		for (Index = XPLMI_ERROR_LPD_SWDT;
 				Index < XPLMI_ERROR_PSMERR2_MAX; Index++) {
 			ErrRegMask = XPlmi_ErrRegMask(Index);
-			if (((Err2Status & ErrRegMask) != (u32)FALSE)
-				&& (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
+			if (((Err2Status & ErrRegMask) != (u32)FALSE) &&
+				((Err2Mask & ErrRegMask) == 0x0U) &&
+				 (ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				XPlmi_HandlePsmError(
 					XIL_NODETYPE_EVENT_ERROR_PSM_ERR2, ErrRegMask);
 			}
@@ -855,6 +871,8 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 {
 	u32 Err1Status;
 	u32 Err2Status;
+	u32 Err1IrqMask;
+	u32 Err2IrqMask;
 	u32 Index;
 	u32 RegMask;
 
@@ -862,6 +880,8 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 
 	Err1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
 	Err2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+	Err1IrqMask = XPlmi_In32(PMC_GLOBAL_PMC_IRQ1_MASK);
+	Err2IrqMask = XPlmi_In32(PMC_GLOBAL_PMC_IRQ2_MASK);
 
 	XPlmi_Printf(DEBUG_GENERAL,
 		"PMC EAM Interrupt: ERR1: 0x%0x, ERR2: 0x%0x\n\r",
@@ -880,6 +900,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 				Index < XPLMI_ERROR_PMCERR1_MAX; Index++) {
 			RegMask = XPlmi_ErrRegMask(Index);
 			if (((Err1Status & RegMask) != (u32)FALSE) &&
+				((Err1IrqMask & RegMask) == 0x0U) &&
 					((ErrorTable[Index].Handler != NULL) ||
 					(Index == XPLMI_ERROR_PMC_PSM_NCR)) &&
 					(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
@@ -903,8 +924,9 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 		for (Index = XPLMI_ERROR_PMCAPB;
 				Index < XPLMI_ERROR_PMCERR2_MAX; Index++) {
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (((Err2Status & RegMask) != (u32)FALSE)
-				&& (ErrorTable[Index].Handler != NULL) &&
+			if (((Err2Status & RegMask) != (u32)FALSE) &&
+				((Err2IrqMask & RegMask) == 0x0U) &&
+				(ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
 						      RegMask);
