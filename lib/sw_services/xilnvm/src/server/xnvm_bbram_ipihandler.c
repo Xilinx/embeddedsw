@@ -21,6 +21,8 @@
 * 2.4   bsv   09/09/2021 Added PLM_NVM macro
 * 2.5   kpt   12/06/2021 Avoid using DMA while writing 32bit user data
 *                        in XNvm_BbramUsrDataRead
+*       kpt   01/19/2022 Added redundancy for XNvm_ZeroizeAndVerify in
+*                        XNvm_BbramKeyWrite
 *
 * </pre>
 *
@@ -115,15 +117,10 @@ END:
 static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 {
 	int Status = XST_FAILURE;
-	int StatusTmp = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
+	int ClearStatusTmp = XST_FAILURE;
 	u64 Addr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
-	u8 Key[XNVM_BBRAM_AES_KEY_SIZE];
-
-	Status = XPlmi_MemSet((u64)(UINTPTR)&Key, 0U,
-			(XNVM_BBRAM_AES_KEY_SIZE / XNVM_WORD_LEN));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	u8 Key[XNVM_BBRAM_AES_KEY_SIZE] = {0U};
 
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)Key, Size / XNVM_WORD_LEN,
 			XPLMI_PMCDMA_0);
@@ -134,9 +131,10 @@ static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 	Status = XNvm_BbramWriteAesKey(Key, Size);
 
 END:
-	StatusTmp = XNvm_ZeroizeAndVerify((u8 *)Key, Size);
-	if (Status == XST_SUCCESS) {
-		Status = StatusTmp;
+	ClearStatus = XNvm_ZeroizeAndVerify((u8 *)Key, Size);
+	ClearStatusTmp = XNvm_ZeroizeAndVerify((u8 *)Key, Size);
+	if ((ClearStatus != XST_SUCCESS) || (ClearStatusTmp != XST_SUCCESS)) {
+		Status |= (ClearStatus | ClearStatusTmp);
 	}
 
 	return Status;
