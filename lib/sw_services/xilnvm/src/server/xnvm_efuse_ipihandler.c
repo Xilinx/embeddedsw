@@ -23,6 +23,7 @@
 * 2.4   bsv  09/09/2021 Added PLM_NVM macro
 * 2.5   kpt  12/09/2021 Replaced magic number with XNVM_API_ID_MASK
 *       har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
+*       kpt  01/19/2022 Cleared AesKeys structure and added redundancy
 *
 * </pre>
 *
@@ -183,6 +184,8 @@ END:
 static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
 {
 	int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
+	int ClearStatusTmp = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseIvs Ivs __attribute__ ((aligned (32U))) = {0U};
 	XNvm_EfuseGlitchCfgBits GlitchData
@@ -353,6 +356,11 @@ static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
 	}
 
 END:
+	ClearStatus = XNvm_ZeroizeAndVerify((u8 *)&AesKeys, sizeof(AesKeys));
+	ClearStatusTmp = XNvm_ZeroizeAndVerify((u8 *)&AesKeys, sizeof(AesKeys));
+	if ((ClearStatus != XST_SUCCESS) || (ClearStatusTmp != XST_SUCCESS)) {
+		Status |= (ClearStatus | ClearStatusTmp);
+	}
 	return Status;
 }
 
