@@ -25,6 +25,7 @@
  * </pre>
  *
  *****************************************************************************/
+/** @cond INTERNAL */
 #ifndef XIPIPSU_BUF_H_
 #define XIPIPSU_BUF_H_
 
@@ -46,4 +47,5 @@ u32* XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
 #endif
 
 #endif /* XIPIPSU_BUF_H_ */
+/** @endcond */
 /** @} */
