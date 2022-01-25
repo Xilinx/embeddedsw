@@ -19,6 +19,7 @@
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/19/21 Update doxygen documentation
 * 1.3   dc     01/19/22 Assert Update trigger
+*       dc     01/24/22 Auto-compute number of units
 *
 * </pre>
 * @addtogroup dfeequ_v1_3_examples
@@ -64,7 +65,7 @@ int XDfeEqu_PassThroughExample()
 	XDfeEqu *InstancePtr = NULL;
 	XDfeEqu_EqConfig Config;
 	XDfeEqu_TriggerCfg TriggerCfg;
-	XDfeEqu_Coefficients Coeffs = { 1U, 0, { 0, 0, 0, 0, 0, 0, 0, 0,
+	XDfeEqu_Coefficients Coeffs = { 8U, 0, { 0, 0, 0, 0, 0, 0, 0, 0,
 						 0, 0, 0, 0, 0, 0, 0, 0,
 						 0, 0, 0, 0, 0, 0, 0, 0 } };
 	u32 ChannelField = 0xffU;

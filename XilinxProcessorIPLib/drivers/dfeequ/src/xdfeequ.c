@@ -30,6 +30,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     01/19/22 Assert Update trigger
+*       dc     01/24/22 Auto-compute number of units
 *
 * </pre>
 * @addtogroup xdfeequ_v1_3
@@ -58,6 +59,7 @@
 #define XDFEEQU_COEFF_LOAD_TIMEOUT                                             \
 	1000U /* Units of us declared in XDFEEQU_WAIT */
 #define XDFEEQU_WAIT (10U) /* Units of us */
+#define XDFEEQU_COEFF_UNIT_SIZE (4U) /**< Coefficient unit size */
 /**
 * @endcond
 */
@@ -226,17 +228,22 @@ u32 XDfeEqu_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data, u32 Val)
 * @param    InstancePtr Pointer to the Equalizer instance.
 * @param    ChannelField Flag which bits indicate channel is enabled.
 * @param    EqCoeffs Equalizer coefficients container.
-* @param    NumValues Number of taps.
 * @param    Shift Shift value.
 *
 ****************************************************************************/
 static void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr,
 					 u32 ChannelField,
 					 const XDfeEqu_Coefficients *EqCoeffs,
-					 u32 NumValues, u32 Shift)
+					 u32 Shift)
 {
 	u32 Offset;
 	u32 Index;
+	u32 NumValues = EqCoeffs->Num;
+	u32 NumUnits;
+
+	/* Nuber of units */
+	NumUnits = (NumValues + (XDFEEQU_COEFF_UNIT_SIZE - 1U)) /
+		   XDFEEQU_COEFF_UNIT_SIZE;
 
 	/* Write the coefficient set buffer with the following information */
 	Offset = XDFEEQU_COEFFICIENT_SET;
@@ -245,10 +252,17 @@ static void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr,
 				 (u32)(EqCoeffs->Coefficients[Index]));
 		Offset += (u32)sizeof(u32);
 	}
+	/* Zero-padding at the end of array */
+	for (Index = NumValues; Index < NumUnits * XDFEEQU_COEFF_UNIT_SIZE;
+	     Index++) {
+		XDfeEqu_WriteReg(InstancePtr, Offset, 0);
+		Offset += (u32)sizeof(u32);
+	}
+
 	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
 	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set);
 	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
+	XDfeEqu_WriteReg(InstancePtr, Offset, NumUnits);
 	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
 	XDfeEqu_WriteReg(InstancePtr, Offset, Shift);
 
@@ -267,18 +281,22 @@ static void XDfeEqu_LoadRealCoefficients(const XDfeEqu *InstancePtr,
 * @param    ChannelField Flag in which bits indicate the channel is
 *           enabled.
 * @param    EqCoeffs Equalizer coefficients container.
-* @param    NumValues Number of taps.
 * @param    Shift Shift value.
 *
 ****************************************************************************/
 static void
 XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
-				const XDfeEqu_Coefficients *EqCoeffs,
-				u32 NumValues, u32 Shift)
+				const XDfeEqu_Coefficients *EqCoeffs, u32 Shift)
 {
 	u32 Offset;
 	u32 LoadDone;
 	u32 Index;
+	u32 NumValues = EqCoeffs->Num;
+	u32 NumUnits;
+
+	/* Nuber of units */
+	NumUnits = (NumValues + (XDFEEQU_COEFF_UNIT_SIZE - 1U)) /
+		   XDFEEQU_COEFF_UNIT_SIZE;
 
 	/* Write the coefficient set buffer with the following information */
 	Offset = XDFEEQU_COEFFICIENT_SET;
@@ -292,10 +310,21 @@ XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 			(u32)(EqCoeffs->Coefficients[Index + NumValues]));
 		Offset += (u32)sizeof(u32);
 	}
+	/* Zero-padding at the end of array */
+	for (Index = NumValues; Index < NumUnits * XDFEEQU_COEFF_UNIT_SIZE;
+	     Index++) {
+		XDfeEqu_WriteReg(InstancePtr, Offset, 0);
+		XDfeEqu_WriteReg(InstancePtr,
+				 Offset + (XDFEEQU_IM_COEFFICIENT_SET_OFFSET *
+					   sizeof(u32)),
+				 0);
+		Offset += (u32)sizeof(u32);
+	}
+
 	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
 	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set);
 	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
+	XDfeEqu_WriteReg(InstancePtr, Offset, NumUnits);
 	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
 	XDfeEqu_WriteReg(InstancePtr, Offset, Shift);
 
@@ -331,10 +360,21 @@ XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 				 (u32)(EqCoeffs->Coefficients[Index]));
 		Offset += (u32)sizeof(u32);
 	}
+	/* Zero-padding at the end of array */
+	for (Index = NumValues; Index < NumUnits * XDFEEQU_COEFF_UNIT_SIZE;
+	     Index++) {
+		XDfeEqu_WriteReg(InstancePtr, Offset, 0);
+		XDfeEqu_WriteReg(InstancePtr,
+				 Offset + (XDFEEQU_IM_COEFFICIENT_SET_OFFSET *
+					   sizeof(u32)),
+				 0);
+		Offset += (u32)sizeof(u32);
+	}
+
 	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
 	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set + 1U);
 	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
+	XDfeEqu_WriteReg(InstancePtr, Offset, NumUnits);
 	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
 	XDfeEqu_WriteReg(InstancePtr, Offset, Shift);
 
@@ -352,17 +392,22 @@ XDfeEqu_LoadComplexCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 * @param    InstancePtr Pointer to the Equalizer instance.
 * @param    ChannelField Flag in which bits indicate channel is enabled.
 * @param    EqCoeffs Equalizer coefficients container.
-* @param    NumValues Number of taps.
 * @param    Shift Shift value.
 *
 ****************************************************************************/
 static void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
 					   u32 ChannelField,
 					   const XDfeEqu_Coefficients *EqCoeffs,
-					   u32 NumValues, u32 Shift)
+					   u32 Shift)
 {
 	u32 Offset;
 	u32 Index;
+	u32 NumValues = EqCoeffs->Num;
+	u32 NumUnits;
+
+	/* Nuber of units */
+	NumUnits = (NumValues + (XDFEEQU_COEFF_UNIT_SIZE - 1U)) /
+		   XDFEEQU_COEFF_UNIT_SIZE;
 
 	/* Write the coefficient set buffer with the following information */
 	Offset = XDFEEQU_COEFFICIENT_SET;
@@ -376,10 +421,21 @@ static void XDfeEqu_LoadMatrixCoefficients(const XDfeEqu *InstancePtr,
 			(u32)(EqCoeffs->Coefficients[Index + NumValues]));
 		Offset += (u32)sizeof(u32);
 	}
+	/* Zero-padding at the end of array */
+	for (Index = NumValues; Index < NumUnits * XDFEEQU_COEFF_UNIT_SIZE;
+	     Index++) {
+		XDfeEqu_WriteReg(InstancePtr, Offset, 0);
+		XDfeEqu_WriteReg(InstancePtr,
+				 Offset + (XDFEEQU_IM_COEFFICIENT_SET_OFFSET *
+					   sizeof(u32)),
+				 0);
+		Offset += (u32)sizeof(u32);
+	}
+
 	Offset = XDFEEQU_SET_TO_WRITE_OFFSET;
 	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->Set);
 	Offset = XDFEEQU_NUMBER_OF_UNITS_OFFSET;
-	XDfeEqu_WriteReg(InstancePtr, Offset, EqCoeffs->NUnits);
+	XDfeEqu_WriteReg(InstancePtr, Offset, NumUnits);
 	Offset = XDFEEQU_SHIFT_VALUE_OFFSET;
 	XDfeEqu_WriteReg(InstancePtr, Offset, Shift);
 
@@ -1125,7 +1181,6 @@ void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 			      u32 Mode, u32 Shift,
 			      const XDfeEqu_Coefficients *EqCoeffs)
 {
-	u32 NumValues;
 	u32 LoadDone;
 	u32 Index;
 
@@ -1136,9 +1191,8 @@ void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 	Xil_AssertVoid(Mode <= XDFEEQU_DATAPATH_MODE_MATRIX);
 	Xil_AssertVoid(EqCoeffs != NULL);
 	Xil_AssertVoid(EqCoeffs->Set < (1U << XDFEEQU_SET_TO_WRITE_SET_WIDTH));
-	Xil_AssertVoid(EqCoeffs->NUnits > 0U);
-
-	NumValues = EqCoeffs->NUnits * XDFEEQU_TAP_UNIT_SIZE;
+	Xil_AssertVoid(EqCoeffs->Num != 0U);
+	Xil_AssertVoid(EqCoeffs->Num <= XDFEEQU_NUM_COEFF);
 
 	/* Check is load in progress */
 	for (Index = 0; Index < XDFEEQU_COEFF_LOAD_TIMEOUT; Index++) {
@@ -1162,15 +1216,17 @@ void XDfeEqu_LoadCoefficients(const XDfeEqu *InstancePtr, u32 ChannelField,
 	if (Mode == XDFEEQU_DATAPATH_MODE_REAL) {
 		/* Mode == real */
 		XDfeEqu_LoadRealCoefficients(InstancePtr, ChannelField,
-					     EqCoeffs, NumValues, Shift);
+					     EqCoeffs, Shift);
 	} else if (Mode == XDFEEQU_DATAPATH_MODE_COMPLEX) {
 		/* Mode == complex */
+		Xil_AssertVoid(EqCoeffs->Num <= (XDFEEQU_NUM_COEFF / 2U));
 		XDfeEqu_LoadComplexCoefficients(InstancePtr, ChannelField,
-						EqCoeffs, NumValues, Shift);
+						EqCoeffs, Shift);
 	} else {
 		/* Mode == matrix */
+		Xil_AssertVoid(EqCoeffs->Num <= (XDFEEQU_NUM_COEFF / 2U));
 		XDfeEqu_LoadMatrixCoefficients(InstancePtr, ChannelField,
-					       EqCoeffs, NumValues, Shift);
+					       EqCoeffs, Shift);
 	}
 }
 
