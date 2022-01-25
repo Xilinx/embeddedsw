@@ -36,6 +36,7 @@
 *
 ******************************************************************************/
 
+/** @cond INTERNAL */
 #ifndef XWDTTB_L_H		/**< prevent circular inclusions */
 #define XWDTTB_L_H		/**< by using protection macros */
 
@@ -66,4 +67,5 @@ extern "C" {
 #endif
 
 #endif
+/** @endcond */
 /** @} */
