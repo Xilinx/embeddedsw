@@ -1131,6 +1131,7 @@
 #define XPAR_PSU_SD_0_BUS_WIDTH 8
 #define XPAR_PSU_SD_0_MIO_BANK 0
 #define XPAR_PSU_SD_0_HAS_EMIO 0
+#define XPAR_PSU_SD_0_SLOT_TYPE 0
 
 
 /* Definitions for peripheral PSU_SD_1 */
