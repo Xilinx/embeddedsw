@@ -64,6 +64,7 @@
 *       kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 *       is   01/10/2022 Added support for OT_CHECK command (XPlmi_OTCheck)
 *       is   01/10/2022 Updated Copyright Year to 2022
+*       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *
 * </pre>
 *
@@ -1522,7 +1523,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 	/* Execute proc if the received ProcId is valid */
 	if (ProcIndex < ProcList->ProcCount) {
 		/* Pass the Proc CDO to CDO parser */
-		Status = XPlmi_MemSetBytes((const void *)&ProcCdo,
+		Status = XPlmi_MemSetBytes((void *const)&ProcCdo,
 			sizeof(ProcCdo), 0U, sizeof(ProcCdo));
 		if (Status != XST_SUCCESS) {
 			goto END;
