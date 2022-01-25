@@ -323,6 +323,7 @@ static XStatus SendPowerUpReq(XPm_Node *Node)
 			Status = XPm_PowerUpNoC(Node);
 			break;
 		case (u32)XPM_NODEIDX_POWER_ME:
+		case (u32)XPM_NODEIDX_POWER_ME2:
 			Status = XPm_PowerUpME(Node);
 			break;
 		case (u32)XPM_NODEIDX_POWER_PLD:
@@ -406,6 +407,7 @@ static XStatus SendPowerDownReq(const XPm_Node *Node)
 			Status = XPm_PowerDwnNoC();
 			break;
 		case (u32)XPM_NODEIDX_POWER_ME:
+		case (u32)XPM_NODEIDX_POWER_ME2:
 			Status = XPm_PowerDwnME(Node);
 			break;
 		case (u32)XPM_NODEIDX_POWER_PLD:
