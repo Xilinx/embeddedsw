@@ -55,6 +55,7 @@
 * 			  type to fix misra_c_2012_rule_8_3 violation.
 * 7.7	sk	 01/10/22 Update conditional expression to fix misra_c_2012_rule_14_4
 * 			  violation.
+*       bm       01/20/22 Fix compilation warnings in Xil_SMemCpy
 *
 * </pre>
 *
@@ -936,6 +937,8 @@ int Xil_SMemCpy(void *Dest, const u32 DestSize,
 	int Status = XST_FAILURE;
 	const u8 *Src8 = (u8 *) Src;
 	u8 *Dst8 = (u8 *) Dest;
+	void * volatile DestTemp = Dest;
+	const void * volatile SrcTemp = Src;
 
 	if ((Dest == NULL) || (Src == NULL)) {
 		Status =  XST_INVALID_PARAM;
@@ -951,7 +954,7 @@ int Xil_SMemCpy(void *Dest, const u32 DestSize,
 		Status =  XST_INVALID_PARAM;
 	}
 	else {
-		(void)memcpy(Dest, Src, CopyLen);
+		(void)memcpy(DestTemp, SrcTemp, CopyLen);
 		Status = XST_SUCCESS;
 	}
 

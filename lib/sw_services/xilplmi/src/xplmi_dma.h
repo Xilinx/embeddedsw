@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *       bm   10/14/2020 Code clean up
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/13/2021 Code clean up to reduce elf size
+* 1.05  bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *
 * </pre>
 *
@@ -96,7 +97,7 @@ int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags);
 int XPlmi_WaitForNonBlkDma(u32 DmaFlags);
 void XPlmi_SetMaxOutCmds(u8 Val);
 int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len);
-int XPlmi_MemSetBytes(const void * DestPtr, u32 DestLen, u8 Val, u32 Len);
+int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Len);
 int XPlmi_MemCpy64(u64 DestAddr, u64 SrcAddr, u32 Len);
 
 /**

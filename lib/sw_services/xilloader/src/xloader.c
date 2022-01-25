@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -123,6 +123,7 @@
 *       kpt  12/13/2021 Replace Xil_SecureMemCpy with Xil_SMemCpy
 *       bsv  12/22/2021 Added zeroization of ImageHeaderTable instance in
 *                       case of invalid header
+*       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *
 * </pre>
 *
@@ -471,7 +472,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		PdiPtr->ImageNum = 0U;
 		PdiPtr->PrtnNum = 0U;
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiAddr;
-		Status = XPlmi_MemSetBytes(&(PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst),
+		Status = XPlmi_MemSetBytes((void *const)&(PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst),
 			sizeof(XilPdi_BootHdrFwRsvd), 0U, sizeof(XilPdi_BootHdrFwRsvd));
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET,

@@ -40,6 +40,7 @@
 *       ma   12/17/2021 Do not check for SSIT errors in
 *                       XPlmi_SsitWaitForDmaDone function
 *       ma   01/17/2022 Enable SLVERR for PMC DMA
+*       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *
 * </pre>
 *
@@ -899,7 +900,7 @@ void XPlmi_SetMaxOutCmds(u8 Val)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_MemSetBytes(const void * DestPtr, u32 DestLen, u8 Val, u32 Len)
+int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u64 DestAddr = (u64)(UINTPTR)DestPtr;

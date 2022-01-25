@@ -23,6 +23,7 @@
 * 		td   10/19/2020 MISRA C Fixes
 * 1.03  ma   12/17/2021 Do not check for SSIT errors during synchronization
 * 1.04  tnt  01/10/2022 Update ssit_sync* code to wait for each slave mask
+*       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *
 * </pre>
 *
@@ -42,6 +43,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static u32 XPlmi_SsitGetSlaveErrorMask(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -50,12 +52,10 @@
  * @brief	This function checks which Slave SLR this code is running on and
  * 	returns corresponding SSIT mask of PMC GLOBAL PMC_ERROR2_STATUS register
  *
- * @param	None
- *
  * @return	return 0 if error occured. Else return one of the ERR_MASK.
  *
  *****************************************************************************/
-static u32 XPlmi_SsitGetSlaveErrorMask()
+static u32 XPlmi_SsitGetSlaveErrorMask(void)
 {
 	u32 SlrErrMask = 0U;
 	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
