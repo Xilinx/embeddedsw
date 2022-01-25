@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -637,6 +637,8 @@ s32 XPfw_StoreFsblToDDR(void)
 {
 	u32 FsblStatus;
 	s32 Status;
+	void * volatile FsblStoreAddr = (void *)FSBL_STORE_ADDR;
+	const void * volatile FsblLoadAddr = (const void *)FSBL_LOAD_ADDR;
 
 	Status = PmDmaInit();
 	if (XST_SUCCESS != Status) {
@@ -653,8 +655,7 @@ s32 XPfw_StoreFsblToDDR(void)
 				goto END;
 			}
 
-			(void)memcpy((u32 *)FSBL_STORE_ADDR, (u32 *)FSBL_LOAD_ADDR,
-					FSBL_IMAGE_SIZE);
+			(void)memcpy(FsblStoreAddr, FsblLoadAddr, FSBL_IMAGE_SIZE);
 
 			Status = (s32)XSecure_Sha3Digest(&Sha3Instance,
 							(u8 *)FSBL_STORE_ADDR, FSBL_IMAGE_SIZE,
@@ -695,6 +696,9 @@ s32 XPfw_RestoreFsblToOCM(void)
 	u32 Index;
 	u32 HashCalculated[SHA3_HASH_LENGTH_IN_WORDS] = {0U};
 	s32 Status = XST_SUCCESS;
+	void * volatile FsblLoadAddr = (void *)FSBL_LOAD_ADDR;
+	const void * volatile FsblStoreAddr = (const void *)FSBL_STORE_ADDR;
+
 
 	Status = (s32)XSecure_Sha3Digest(&Sha3Instance, (u8 *)FSBL_STORE_ADDR,
 				FSBL_IMAGE_SIZE, (u8 *)HashCalculated);
@@ -715,8 +719,7 @@ s32 XPfw_RestoreFsblToOCM(void)
 	}
 
 	if (XST_SUCCESS == Status) {
-		(void)memcpy((u32 *)FSBL_LOAD_ADDR, (u32 *)FSBL_STORE_ADDR,
-				FSBL_IMAGE_SIZE);
+		(void)memcpy(FsblLoadAddr, FsblStoreAddr, FSBL_IMAGE_SIZE);
 		XPfw_Printf(DEBUG_DETAILED, "FSBL image hash checksum matched\r\n");
 	} else {
 		XPfw_Printf(DEBUG_DETAILED, "FSBL image hash checksum is not matching."
