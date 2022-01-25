@@ -5,7 +5,7 @@
 * Version: 2020.1
 * DO NOT EDIT.
 *
-* Copyright (C) 2010-2020 Xilinx, Inc. All Rights Reserved.
+* Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 
 *
@@ -31,6 +31,7 @@ XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES] =
 		XPAR_PSU_SD_1_BUS_WIDTH,
 		XPAR_PSU_SD_1_MIO_BANK,
 		XPAR_PSU_SD_1_HAS_EMIO,
+		XPAR_PSU_SD_1_SLOT_TYPE,
 		XPAR_PSU_SD_1_IS_CACHE_COHERENT
 	}
 };
