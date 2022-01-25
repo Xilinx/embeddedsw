@@ -11,7 +11,8 @@
 * @{
 * @details
 *
-* The UartPsv driver supports the following features:
+* This section contains the implementation of the interface functions for
+* XUartPsv driver. The UartPsv driver supports the following features:
 *
 * - Dynamic data format (baud rate, data bits, stop bits, parity)
 * - Polled mode
