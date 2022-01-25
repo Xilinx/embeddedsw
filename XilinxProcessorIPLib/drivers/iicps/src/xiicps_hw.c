@@ -52,7 +52,7 @@
 *
 * @param   BaseAddress of the interface
 *
-* @return N/A
+* @return None.
 *
 * @note
 * This function will not modify the slcr registers that are relevant for
