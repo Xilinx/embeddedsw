@@ -11,8 +11,12 @@
 * @{
 * @details
 *
+* This section explains the implementation of functions of USBPSU driver.
 * This driver supports both USB high-speed and super-speed features for USB
 * peripheral mode.
+*
+* The definitions for endpoints is included by the xusbps_endpoint.c, which
+* is implementing the endpoint functions and by xusbps_intr.c.
 *
 * <b>Initialization & Configuration</b>
 *
