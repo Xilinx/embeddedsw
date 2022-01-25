@@ -22,6 +22,7 @@
 * </pre>
 *
 ******************************************************************************/
+/** @cond INTERNAL */
 #ifndef XUARTPSV_XFER_H		/* prevent circular inclusions */
 #define XUARTPSV_XFER_H		/**< by using protection macros */
 
@@ -50,4 +51,5 @@ u32  XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @endcond */
 /** @} */
