@@ -169,13 +169,13 @@ u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex)
 
 /*****************************************************************************/
 /**
- * * Issues core PHY reset.
- * *
- * * @param   InstancePtr is a pointer to the XUsbPsu instance to be worked on.
- * *
- * * @return  None
- * *
- * ****************************************************************************/
+* Issues core PHY reset.
+*
+* @param   InstancePtr is a pointer to the XUsbPsu instance to be worked on.
+*
+* @return  None
+*
+******************************************************************************/
 void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr)
 {
 	u32             RegVal;
