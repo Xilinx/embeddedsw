@@ -2,7 +2,6 @@ canps
 coresightps_dcc
 csudma
 ddrcpsu
-emacps
 gpiops
 iicps
 qspipsu
