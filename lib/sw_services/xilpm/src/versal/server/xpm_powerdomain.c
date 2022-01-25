@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,9 @@
 #include "xpm_api.h"
 #include "xpm_debug.h"
 #include "xpm_pldevice.h"
+#ifdef PLM_ENABLE_STL
+#include "xstl_plminterface.h"
+#endif
 
 #define SYSMON_CHECK_POWER_TIMEOUT	2000000U
 #define NUM_PLD0_PWR_DOMAIN_DEPENDENCY	1U
@@ -1615,6 +1618,9 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 		Status = XST_SUCCESS;
 		break;
 	case (u32)FUNC_INIT_FINISH:
+#ifdef PLM_ENABLE_STL
+		(void)XStl_PlmStartupPreCdoTask(PwrDomain->Power.Node.Id);
+#endif
 		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
 			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
 			Status = XST_FAILURE;
