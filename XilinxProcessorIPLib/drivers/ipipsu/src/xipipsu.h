@@ -10,12 +10,13 @@
 * @{
 * @details
  *
- * This section contains the header file for implementation of IPIPSU driver.
- * Inter Processor Interrupt (IPI) is used for communication between
- * different processors on ZynqMP SoC. Each IPI register set has Trigger, Status
- * and Observation registers for communication between processors. Each IPI path
- * has a 32 byte buffer associated with it and these buffers are located in the
- * XPPU RAM. This driver supports the following operations:
+ * This section explains the implementation of IPIPSU driver. Inter Processor
+ * Interrupt (IPI) is used for communication between different processors on
+ * ZynqMP SoC. Each IPI register set has Trigger, Status and Observation
+ * registers for communication between processors. Each IPI path has a 32 byte
+ * buffer associated with it and these buffers are located in the XPPU RAM.
+ *
+ * This driver supports the following operations:
  *
  * - Trigger IPIs to CPUs on the SoC
  * - Write and Read Message buffers
