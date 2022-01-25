@@ -55,6 +55,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
 *       dc     12/17/21 Update after documentation review
+*       dc     01/24/22 Auto-compute number of units
 *
 * </pre>
 * @endcond
@@ -106,7 +107,7 @@ extern "C" {
 #define XDFEEQU_CHANNEL_NUM (8U) /**< Maximum channel number */
 #define XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX (0x3U) /**< Complex units number */
 #define XDFEEQU_MAX_NUMBER_OF_UNITS_REAL (0x6U) /**< Real units number */
-
+#define XDFEEQU_NUM_COEFF (24U) /**< Maximum number of coefficents */
 #define XDFEEQU_DATAPATH_MODE_REAL (0U) /**< Real mode */
 #define XDFEEQU_DATAPATH_MODE_COMPLEX (1U) /**< Complex mode */
 /**
@@ -244,10 +245,10 @@ typedef struct {
  * Equalizer Coefficients Structure.
  */
 typedef struct {
-	u32 NUnits; /**< [1-6] Number of active units. 1 - 6 in real mode.
-		1 - 3 in complex mode. */
+	u32 Num; /**< [1-12|24] True number of coefficients,
+		[1 - 12] in complex mode. */
 	u32 Set; /**< [0-3] Coefficient set that the coefficients apply to */
-	s16 Coefficients[24]; /**< Signed real numbers. Array of
+	s16 Coefficients[XDFEEQU_NUM_COEFF]; /**< Signed real numbers. Array of
 		Coefficients. */
 } XDfeEqu_Coefficients;
 
