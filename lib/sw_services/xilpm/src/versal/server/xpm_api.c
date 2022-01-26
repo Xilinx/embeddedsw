@@ -44,7 +44,7 @@
 #include "xplmi_scheduler.h"
 #include "xplmi_sysmon.h"
 #include "xpm_access.h"
-
+#include "xpm_noc_config.h"
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
 		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
@@ -846,6 +846,9 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 				goto done;
 			}
 		}
+
+		/* Add repair NoC which is reset by NoC POR above*/
+		Status = XPm_NoCConfig();
 
 		/* For some boards, vccaux workaround is implemented using gpio to control vccram supply.
 		During system reset, when gpio goes low, delay is required for system controller to process

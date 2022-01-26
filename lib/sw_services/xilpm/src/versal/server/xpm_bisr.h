@@ -40,6 +40,7 @@ extern "C" {
 #define PCSR_LOCK_VAL		(0x1U)
 
 XStatus XPmBisr_Repair(u32 TagId);
+XStatus XPmBisr_NidbLeftMostLaneRepair(void);
 XStatus XPmBisr_NidbLaneRepair(void);
 XStatus XPmBisr_TriggerLpd(void);
 

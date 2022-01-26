@@ -129,13 +129,8 @@
 #define MAX_NIDB_EFUSE_GROUPS				(0x5U)
 #define NPI_ROOT_BASEADDR				(NPI_BASEADDR + NPI_NIR_0_OFFSET)
 #define NIDB_OFFSET_DIFF				(0x00010000U)
-#define NIDB_PCSR_LOCK_OFFSET				(0x0000000CU)
-#define NIDB_PCSR_MASK_OFFSET				(0x00000000U)
-#define NIDB_PCSR_MASK_ODISABLE_MASK			(0x00000004U)
-#define NIDB_PCSR_CONTROL_OFFSET			(0x00000004U)
-#define NIDB_LANE_REPAIR_UNLOCK_OFFSET			(0x00000038U)
+
 #define NIDB_LANE_REPAIR_UNLOCK_VAL			(0xE6172839U)
-#define NIDB_REPAIR_OFFSET				(0x00000010U)
 
 //XRAM Repair
 #define XRAM_SLCR_PCSR_BISR_TRIGGER_MASK		(0x08000000U)
@@ -1515,8 +1510,10 @@ done:
 
 static void NidbEfuseGrpInit(XPm_NidbEfuseGrpInfo *EfuseGroup)
 {
-	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
-	u32 BaseAddr = EfuseCache->Node.BaseAddress;
+	/* Note: hardcode EFUSE_CACHE_BASEADDR */
+	/* Since this function is used in early stage of boot sequence */
+	/* prior topology CDOs loaded*/
+	u32 BaseAddr = EFUSE_CACHE_BASEADDR;
 	u32 NidbRegMask;
 	u32 NidbRegShift;
 	u32 RegVal;
@@ -1585,13 +1582,13 @@ static void NidbEfuseGrpInit(XPm_NidbEfuseGrpInfo *EfuseGroup)
 
 }
 
-XStatus XPmBisr_NidbLaneRepair(void)
+static XStatus XPmBisr_NidbRepairLane(u32 RepairLeftMostNIDBOnly)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i;
 	u32 RepairAddr  = 0x0U;
 	u32 NocSwId     = 0x0U;
-	u32 SlvSkipAddr = 0x0U;
+	u32 RomRepairAddr = 0x0U;
 	u32 NidbAddr    = 0x0U;
 	u32 SlrType;
 	struct XPm_NidbEfuseGrpInfo NidbEfuseGrpInfo[MAX_NIDB_EFUSE_GROUPS];
@@ -1609,7 +1606,7 @@ XStatus XPmBisr_NidbLaneRepair(void)
 	NocSwId = XPm_In32(PMC_GLOBAL_BASEADDR + PMC_GLOBAL_SSIT_NOC_ID_OFFSET) &
 	PMC_GLOBAL_SSIT_NOC_ID_SWITCHID_MASK;
 	/* This is partial address of NoC */
-	SlvSkipAddr =  ((NocSwId << 10U) - NIDB_OFFSET_DIFF) >> 16U;
+	RomRepairAddr =  ((NocSwId << 10U) - NIDB_OFFSET_DIFF) >> 16U;
 
 	/* Initialize NIDB Group Info Array */
 	NidbEfuseGrpInit(NidbEfuseGrpInfo);
@@ -1619,13 +1616,14 @@ XStatus XPmBisr_NidbLaneRepair(void)
 		if (0x0U == NidbEfuseGrpInfo[i].RdnCntl) {
 			continue;
 		}
-
-		/* Skip Lane Repair for left most NIDB for Slave SSIT */
-		if ((SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR) &&
-			(NidbEfuseGrpInfo[i].NpiBase == SlvSkipAddr)) {
-			continue;
+		if (SLR_TYPE_SSIT_DEV_MASTER_SLR != SlrType) {
+			if (NidbEfuseGrpInfo[i].NpiBase == RomRepairAddr) {
+				if(0U == RepairLeftMostNIDBOnly) continue;
+			}
+			else {
+				if (0U != RepairLeftMostNIDBOnly) continue;
+			}
 		}
-
 		/* Calculate Absolute Base Address */
 		NidbAddr = NidbEfuseGrpInfo[i].NpiBase;
 		NidbAddr = (NidbAddr << 16U) + NPI_ROOT_BASEADDR;
@@ -1634,11 +1632,11 @@ XStatus XPmBisr_NidbLaneRepair(void)
 		XPm_Out32(NidbAddr + NIDB_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
 
 		/* Unlock Lane Repair Registers */
-		XPm_Out32(NidbAddr + NIDB_LANE_REPAIR_UNLOCK_OFFSET,
+		XPm_Out32(NidbAddr + NIDB_REG_REPAIR_LOCK_OFFSET,
 		NIDB_LANE_REPAIR_UNLOCK_VAL);
 
 		/* Calculate Repair Address */
-		RepairAddr = NidbAddr + NIDB_REPAIR_OFFSET +
+		RepairAddr = NidbAddr + NIDB_REG_RX_REPAIR_LN_0_OFFSET +
 		(NidbEfuseGrpInfo[i].NpiOffset << 2U);
 
 		/* Write Repair Data */
@@ -1652,20 +1650,33 @@ XStatus XPmBisr_NidbLaneRepair(void)
 			continue;
 		}
 
+		if (SLR_TYPE_SSIT_DEV_MASTER_SLR != SlrType) {
+			if (NidbEfuseGrpInfo[i].NpiBase == RomRepairAddr) {
+				if(0U == RepairLeftMostNIDBOnly) continue;
+			} else {
+				if (0U != RepairLeftMostNIDBOnly) continue;
+			}
+		}
 		NidbAddr = NidbEfuseGrpInfo[i].NpiBase;
 		NidbAddr = (NidbAddr << 16U) + NPI_ROOT_BASEADDR;
 
 		/* Lock Lane Repair Registers */
-		XPm_Out32(NidbAddr + NIDB_LANE_REPAIR_UNLOCK_OFFSET, 0x1U);
+		XPm_Out32(NidbAddr + NIDB_REG_REPAIR_LOCK_OFFSET, 0x1U);
 
 		/* Lock PCSR Register */
-		XPm_Out32(NidbAddr + NIDB_PCSR_MASK_OFFSET,
-		NIDB_PCSR_MASK_ODISABLE_MASK);
-		XPm_Out32(NidbAddr + NIDB_PCSR_CONTROL_OFFSET, 0x0U);
-		XPm_Out32(NidbAddr + NIDB_PCSR_LOCK_OFFSET, 0x0U);
+		XPm_Out32(NidbAddr + NIDB_REG_PCSR_MASK_OFFSET,
+			NIDB_REG_PCSR_MASK_ODISABLE_MASK);
+		XPm_Out32(NidbAddr + NIDB_REG_PCSR_CONTROL_OFFSET, 0x0U);
+		XPm_Out32(NidbAddr + NIDB_REG_PCSR_LOCK_OFFSET, 0x0U);
 	}
 	Status = XST_SUCCESS;
 
 done:
 	return Status;
+}
+XStatus XPmBisr_NidbLeftMostLaneRepair(void){
+	return XPmBisr_NidbRepairLane(1U);
+}
+XStatus XPmBisr_NidbLaneRepair(void){
+	return XPmBisr_NidbRepairLane(0U);
 }
