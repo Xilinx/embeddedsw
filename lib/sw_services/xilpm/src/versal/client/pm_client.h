@@ -57,6 +57,8 @@ extern struct XPm_Proc *PrimaryProc;
 #elif defined (__arm__)
 extern char ProcName[5];
 #define XPm_Print(MSG, ...)		xil_printf("%s: "MSG, ProcName, ##__VA_ARGS__)
+#elif defined (__microblaze__)
+#define XPm_Print(MSG, ...)		xil_printf("MicroBlaze: "MSG, ##__VA_ARGS__)
 #endif
 
 /* Conditional debugging prints */

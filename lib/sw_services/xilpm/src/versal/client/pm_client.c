@@ -14,12 +14,14 @@
 #include <xreg_cortexr5.h>
 #endif
 
+#ifndef __microblaze__
 /** @cond xilpm_internal */
 #define XPM_ARRAY_SIZE(x)		(sizeof(x) / sizeof(x[0]))
 
 #define PM_AFL0_MASK			(0xFFU)
 
 #define WFI				__asm__ ("wfi")
+#endif
 
 #if defined (__aarch64__)
 #define APU_PWRCTRL_OFFSET		(0x90U)
@@ -77,11 +79,17 @@ char ProcName[5] = "RPU";
 static char RPU_LS[] = "RPU";
 static char RPU0[] = "RPU0";
 static char RPU1[] = "RPU1";
+#elif defined __microblaze__
+static struct XPm_Proc Proc_MB_PL_0 = {
+	.Ipi = NULL,
+};
+struct XPm_Proc *PrimaryProc = &Proc_MB_PL_0;
 #endif
 
 /**
  *  XPm_SetPrimaryProc() - Set primary processor based on processor ID
  */
+#ifndef __microblaze__
 XStatus XPm_SetPrimaryProc(void)
 {
 	u32 ProcId;
@@ -121,7 +129,15 @@ done:
 #endif
 	return Status;
 }
+#else
+XStatus XPm_SetPrimaryProc(void)
+{
+	PrimaryProc = &Proc_MB_PL_0;
+	return XST_SUCCESS;
+}
+#endif
 
+#ifndef __microblaze__
 struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId)
 {
 	struct XPm_Proc *Proc = NULL;
@@ -136,6 +152,7 @@ struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId)
 
 	return Proc;
 }
+#endif
 
 void XPm_ClientSuspend(const struct XPm_Proc *const Proc)
 {
@@ -161,6 +178,7 @@ void XPm_ClientWakeUp(const struct XPm_Proc *const Proc)
 	}
 }
 
+#ifndef __microblaze__
 void XPm_ClientSuspendFinalize(void)
 {
 	u32 CtrlReg;
@@ -182,6 +200,7 @@ void XPm_ClientSuspendFinalize(void)
 	WFI;
 	XPm_Dbg("WFI exit...\n");
 }
+#endif
 
 void XPm_ClientAbortSuspend(void)
 {
