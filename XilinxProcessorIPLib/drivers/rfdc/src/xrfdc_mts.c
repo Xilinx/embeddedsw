@@ -54,6 +54,7 @@
 * 11.1  cog    11/16/21 Upversion.
 *       cog    01/18/22 Added safety checks.
 *       cog    01/18/22 Add cast in XRFdc_MTS_Dtc_Calc.
+*       cog    01/18/22 Initialize DatapathMode in XRFdc_MTS_Latency.
 *
 * </pre>
 *
@@ -975,7 +976,7 @@ static u32 XRFdc_MTS_Latency(XRFdc *InstancePtr, u32 Type, XRFdc_MultiConverter_
 	XRFdc_Mixer_Settings Mixer_Settings;
 	u32 IQFactor = 1U;
 	u32 DatapathModeFactor = 1U;
-	u32 DatapathMode;
+	u32 DatapathMode = 0U;
 
 	Status = XRFDC_MTS_OK;
 	if (Type == XRFDC_ADC_TILE) {
