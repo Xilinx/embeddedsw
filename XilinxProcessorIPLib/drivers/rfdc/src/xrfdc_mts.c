@@ -52,6 +52,7 @@
 * 11.0  cog    05/31/21 Upversion.
 *       cog    09/21/21 Factor in half bandwidth when using MTS in IMR modes.
 * 11.1  cog    11/16/21 Upversion.
+*       cog    01/18/22 Added safety checks.
 *
 * </pre>
 *
@@ -1421,11 +1422,20 @@ RETURN_PATH:
 *
 * @return
 *           - Return Master Tile for ADC/DAC tiles
+*           - Return XRFDC_TILE_ID_INV if invalid tile
 *
 ******************************************************************************/
 u32 XRFdc_GetMasterTile(XRFdc *InstancePtr, u32 Type)
 {
 	u32 MasterTile;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter type in %s\r\n", __func__);
+		return XRFDC_TILE_ID_INV;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		MasterTile = InstancePtr->RFdc_Config.MasterADCTile;
@@ -1446,11 +1456,20 @@ u32 XRFdc_GetMasterTile(XRFdc *InstancePtr, u32 Type)
 *
 * @return
 *           - Return Sysref source for ADC/DAC tile
+*           - Return XRFDC_TILE_ID_INV if invalid tile
 *
 ******************************************************************************/
 u32 XRFdc_GetSysRefSource(XRFdc *InstancePtr, u32 Type)
 {
 	u32 SysRefSource;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter type in %s\r\n", __func__);
+		return XRFDC_TILE_ID_INV;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		SysRefSource = InstancePtr->RFdc_Config.ADCSysRefSource;

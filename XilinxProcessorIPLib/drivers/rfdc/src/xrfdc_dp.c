@@ -24,6 +24,7 @@
 *       cog    11/26/21 Reset clock gaters when setting decimation rate.
 *       cog    01/06/22 Check Nyquist zone compatibility when setting the
 *                       inverse sinc filter.
+*       cog    01/18/22 Added safety checks.
 *
 * </pre>
 *
@@ -1948,6 +1949,18 @@ double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 {
 	double FabClkFreq;
 
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter type in %s\r\n", __func__);
+		return 0.0;
+	}
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0.0;
+	}
+
 	if (Type == XRFDC_ADC_TILE) {
 		FabClkFreq = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].FabClkFreq;
 	} else {
@@ -1975,6 +1988,22 @@ double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 u32 XRFdc_IsFifoEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
 {
 	u32 FifoEnable;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter type in %s\r\n", __func__);
+		return 0U;
+	}
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0U;
+	}
+	if (Block_Id > XRFDC_BLOCK_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter block number in %s\r\n", __func__);
+		return 0U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		FifoEnable =

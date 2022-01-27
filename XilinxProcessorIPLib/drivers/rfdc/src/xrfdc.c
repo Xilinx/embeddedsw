@@ -207,6 +207,7 @@
 *                       configuration registers.
 * 11.1  cog    11/16/21 Upversion.
 *       cog    01/18/22 Refactor connected data components.
+*       cog    01/18/22 Added safety checks.
 *
 * </pre>
 *
@@ -272,6 +273,11 @@ u32 XRFdc_CfgInitialize(XRFdc *InstancePtr, XRFdc_Config *ConfigPtr)
 			      XRFDC_REGION_SIZE, (unsigned)(-1), 0, NULL);
 	}
 #endif
+	if (InstancePtr->io == NULL) {
+		metal_log(METAL_LOG_ERROR, "\n nstancePtr->io not allocated in %s\r\n", __func__);
+		Status = XRFDC_FAILURE;
+		goto RETURN_PATH;
+	}
 
 	/*
 	 * Set the values read from the device config and the base address.
@@ -281,19 +287,20 @@ u32 XRFdc_CfgInitialize(XRFdc *InstancePtr, XRFdc_Config *ConfigPtr)
 	InstancePtr->ADC4GSPS = ConfigPtr->ADCType;
 	InstancePtr->StatusHandler = StubHandler;
 
+	/*
+	 * Indicate the instance is now ready to use.
+	 */
+	InstancePtr->IsReady = XRFDC_COMPONENT_IS_READY;
+
 	/* Initialize ADC */
 	XRFdc_ADCInitialize(InstancePtr);
 
 	/* Initialize DAC */
 	XRFdc_DACInitialize(InstancePtr);
 
-	/*
-	 * Indicate the instance is now ready to use and
-	 * initialized without error.
-	 */
-	InstancePtr->IsReady = XRFDC_COMPONENT_IS_READY;
-
 	Status = XRFDC_SUCCESS;
+
+RETURN_PATH:
 	return Status;
 }
 
@@ -1995,6 +2002,9 @@ void XRFdc_ClrSetReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask, u1
 {
 	u16 ReadReg;
 
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
 	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, RegAddr);
 	ReadReg = (ReadReg & ~Mask) | (Data & Mask);
 	XRFdc_WriteReg16(InstancePtr, BaseAddr, RegAddr, ReadReg);
@@ -2017,6 +2027,9 @@ void XRFdc_ClrSetReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask, u1
 void XRFdc_ClrReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask)
 {
 	u16 ReadReg;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, RegAddr);
 	ReadReg &= ~Mask;
@@ -2041,6 +2054,9 @@ u16 XRFdc_RDReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask)
 {
 	u16 ReadReg;
 
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
 	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, RegAddr);
 	ReadReg &= Mask;
 
@@ -2055,12 +2071,21 @@ u16 XRFdc_RDReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask)
 * @param    InstancePtr is a pointer to the XRfdc instance.
 *
 * @return
-*           - Return 1 if ADC type is 4GSPS, otherwise 0.
+*           - Return 1 if ADC type is a dual type
+*           - Return 0 if quad or invalid tile.
 *
 ******************************************************************************/
 
-u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
+u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, u32 Tile)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Tile > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0U;
+	}
+
 	if (InstancePtr->RFdc_Config.ADCTile_Config[Tile].NumSlices == 0) {
 		return InstancePtr->ADC4GSPS;
 	} else {
@@ -2081,6 +2106,8 @@ u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile)
 ******************************************************************************/
 u32 XRFdc_Get_IPBaseAddr(XRFdc *InstancePtr)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 	return (u32)InstancePtr->BaseAddr;
 }
 
@@ -2094,12 +2121,33 @@ u32 XRFdc_Get_IPBaseAddr(XRFdc *InstancePtr)
 * @param    Tile_Id Valid values are 0-3.
 *
 * @return
-*           - Return Tile BaseAddress.
+*           - Return Tile BaseAddress if valid tile.
+*           - Return 0U if invalid/unavailable tile.
 *
 ******************************************************************************/
 u32 XRFdc_Get_TileBaseAddr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 {
 	u32 BaseAddr;
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter type in %s\r\n", __func__);
+		return 0U;
+	}
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0U;
+	}
+
+	Status = XRFdc_CheckTileEnabled(InstancePtr, Type, Tile_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Tile not available in %s\r\n", __func__);
+		return 0U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		BaseAddr = InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
@@ -2123,11 +2171,37 @@ u32 XRFdc_Get_TileBaseAddr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 *
 * @return
 *           - Return Block BaseAddress.
+*           - Return 0U if invalid/unavailable block.
 *
 ******************************************************************************/
 u32 XRFdc_Get_BlockBaseAddr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
 {
 	u32 BaseAddr;
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter type in %s\r\n", __func__);
+		return 0U;
+	}
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0U;
+	}
+
+	if (Block_Id > XRFDC_BLOCK_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter block number in %s\r\n", __func__);
+		return 0U;
+	}
+
+	Status = XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
+	if (Status != XRFDC_SUCCESS) {
+		metal_log(METAL_LOG_ERROR, "\n Block not available in %s\r\n", __func__);
+		return 0U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		if (XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == XRFDC_ENABLED) {
@@ -2157,6 +2231,14 @@ u32 XRFdc_Get_BlockBaseAddr(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 ******************************************************************************/
 u32 XRFdc_GetNoOfDACBlock(XRFdc *InstancePtr, u32 Tile_Id)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0U;
+	}
+
 	return InstancePtr->DAC_Tile[Tile_Id].NumOfDACBlocks;
 }
 
@@ -2174,6 +2256,14 @@ u32 XRFdc_GetNoOfDACBlock(XRFdc *InstancePtr, u32 Tile_Id)
 ******************************************************************************/
 u32 XRFdc_GetNoOfADCBlocks(XRFdc *InstancePtr, u32 Tile_Id)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0U;
+	}
+
 	return InstancePtr->ADC_Tile[Tile_Id].NumOfADCBlocks;
 }
 
@@ -2195,6 +2285,24 @@ u32 XRFdc_GetNoOfADCBlocks(XRFdc *InstancePtr, u32 Tile_Id)
 u32 XRFdc_GetDataWidth(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
 {
 	u32 DataWidth;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter type in %s\r\n", __func__);
+		return 0U;
+	}
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0U;
+	}
+
+	if (Block_Id > XRFDC_BLOCK_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter block number in %s\r\n", __func__);
+		return 0U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		DataWidth =
@@ -2226,6 +2334,9 @@ u32 XRFdc_CheckTileEnabled(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 	u32 Status;
 	u32 TileMask;
 	u32 TileEnableReg;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 
 	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		Status = XRFDC_FAILURE;
@@ -2271,6 +2382,10 @@ u32 XRFdc_GetMaxSampleRate(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double *Ma
 {
 	u32 Status;
 
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(MaxSampleRatePtr != NULL);
+
 	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
@@ -2314,6 +2429,10 @@ RETURN_PATH:
 u32 XRFdc_GetMinSampleRate(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, double *MinSampleRatePtr)
 {
 	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(MinSampleRatePtr != NULL);
 
 	if ((Type != XRFDC_ADC_TILE) && (Type != XRFDC_DAC_TILE)) {
 		Status = XRFDC_FAILURE;
