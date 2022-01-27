@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@
 *       cog    02/16/21 Fixed issue with the fine mix auto scale setting.
 * 11.0  cog    05/31/21 Upversion.
 * 11.1  cog    11/16/21 Upversion.
+*       cog    01/18/22 Added safety checks.
 * </pre>
 *
 ******************************************************************************/
@@ -1117,11 +1118,30 @@ RETURN_PATH:
 *
 * @return
 *           - Return MixerInputDataType of ADC/DAC block.
+*           - Return 0 if invalid
 *
 ******************************************************************************/
 u32 XRFdc_GetDataType(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id)
 {
 	u32 MixerInputDataType;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter type in %s\r\n", __func__);
+		return 0U;
+	}
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0U;
+	}
+
+	if (Block_Id > XRFDC_BLOCK_ID_MAX) {
+		metal_log(METAL_LOG_WARNING, "\n Invalid converter block number in %s\r\n", __func__);
+		return 0U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		MixerInputDataType = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id]

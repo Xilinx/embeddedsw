@@ -283,6 +283,7 @@
 *       cog    11/26/21 Header file clean up, this fixes a C++ compilation issue.
 *       cog    11/26/21 Pack all structs for RAFT compatibility.
 *       cog    12/06/21 Rearrange XRFdc_Distribution_Settings.
+*       cog    01/18/22 Added safety checks.
 *
 * </pre>
 *
@@ -1446,7 +1447,7 @@ u32 XRFdc_ResetInternalFIFOWidthObs(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_I
 void XRFdc_ClrSetReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask, u16 Data);
 void XRFdc_ClrReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask);
 u16 XRFdc_RDReg(XRFdc *InstancePtr, u32 BaseAddr, u32 RegAddr, u16 Mask);
-u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, int Tile);
+u32 XRFdc_IsHighSpeedADC(XRFdc *InstancePtr, u32 Tile);
 u32 XRFdc_IsDACBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id);
 u32 XRFdc_IsADCBlockEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id);
 u32 XRFdc_IsDACDigitalPathEnabled(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id);

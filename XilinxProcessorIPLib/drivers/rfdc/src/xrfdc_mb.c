@@ -39,6 +39,7 @@
 * 11.0  cog    05/31/21 Upversion.
 * 11.1  cog    11/16/21 Upversion.
 *       cog    01/18/22 Refactor connected data components.
+*       cog    01/18/22 Added safety checks.
 *
 * </pre>
 *
@@ -1129,6 +1130,25 @@ int XRFdc_GetConnectedIData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 {
 	int ConnectedIData = XRFDC_BLK_ID_NONE;
 	int ConnectedQData = XRFDC_BLK_ID_NONE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter type in %s\r\n", __func__);
+		return XRFDC_BLK_ID_NONE;
+	}
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter tile number in %s\r\n", __func__);
+		return XRFDC_BLK_ID_NONE;
+	}
+
+	if (Block_Id > XRFDC_BLOCK_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter block number in %s\r\n", __func__);
+		return XRFDC_BLK_ID_NONE;
+	}
+
 	(void)XRFdc_GetConnectedIQData(InstancePtr, Type, Tile_Id, Block_Id, &ConnectedIData, &ConnectedQData);
 	return ConnectedIData;
 }
@@ -1151,6 +1171,25 @@ int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 {
 	int ConnectedIData = XRFDC_BLK_ID_NONE;
 	int ConnectedQData = XRFDC_BLK_ID_NONE;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter type in %s\r\n", __func__);
+		return XRFDC_BLK_ID_NONE;
+	}
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter tile number in %s\r\n", __func__);
+		return XRFDC_BLK_ID_NONE;
+	}
+
+	if (Block_Id > XRFDC_BLOCK_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter block number in %s\r\n", __func__);
+		return XRFDC_BLK_ID_NONE;
+	}
+
 	(void)XRFdc_GetConnectedIQData(InstancePtr, Type, Tile_Id, Block_Id, &ConnectedIData, &ConnectedQData);
 	return ConnectedQData;
 }
@@ -1174,6 +1213,24 @@ int XRFdc_GetConnectedQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block
 void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id, int ConnectedIData,
 			      int ConnectedQData)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter type in %s\r\n", __func__);
+		return;
+	}
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter tile number in %s\r\n", __func__);
+		return;
+	}
+
+	if (Block_Id > XRFDC_BLOCK_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter block number in %s\r\n", __func__);
+		return;
+	}
+
 	if (Type == XRFDC_ADC_TILE) {
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedIData = ConnectedIData;
 		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedQData = ConnectedQData;
@@ -1194,10 +1251,24 @@ void XRFdc_SetConnectedIQData(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Blo
 *
 * @return
 *           - Return Multiband Configuration.
+*           - Return 0 if invalid.
 *
 ******************************************************************************/
 u32 XRFdc_GetMultibandConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id)
 {
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	if (Type > XRFDC_DAC_TILE) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter type in %s\r\n", __func__);
+		return 0U;
+	}
+
+	if (Tile_Id > XRFDC_TILE_ID_MAX) {
+		metal_log(METAL_LOG_ERROR, "\n Invalid converter tile number in %s\r\n", __func__);
+		return 0U;
+	}
+
 	return XRFdc_ReadReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_MB_CONFIG_OFFSET);
 }
 
