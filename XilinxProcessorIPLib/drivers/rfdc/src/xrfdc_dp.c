@@ -25,6 +25,7 @@
 *       cog    01/06/22 Check Nyquist zone compatibility when setting the
 *                       inverse sinc filter.
 *       cog    01/18/22 Added safety checks.
+*       cog    01/24/22 Metal log change.
 *
 * </pre>
 *
@@ -930,8 +931,8 @@ u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 FabClkD
 
 	if ((Type == XRFDC_ADC_TILE) && (FabClkDiv == XRFDC_FAB_CLK_DIV1)) {
 		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR, "\n Invalid clock divider (%u) for %s %u in %s\r\n", FabClkDiv,
-			  (Type == XRFDC_ADC_TILE) ? "ADC" : "DAC", Tile_Id, __func__);
+		metal_log(METAL_LOG_ERROR, "\n Invalid clock divider (%u) for ADC %u in %s\r\n", FabClkDiv, Tile_Id,
+			  __func__);
 		goto RETURN_PATH;
 	} else {
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_HSCOM_CLK_DIV_OFFSET, XRFDC_FAB_CLK_DIV_MASK, FabClkDiv);
