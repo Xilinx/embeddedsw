@@ -37,6 +37,7 @@
 *                         and get golden Sha command
 * 1.5	hv   01/11/2022   Added interface for reading Frame ECC
 * 1.6   rama 01/14/2022   Added user interface to get golden CRC & total frames
+* 1.7   hb   01/27/2022   Added define for NPI self-diagnosis event
 * </pre>
 *
 * @note
@@ -326,6 +327,8 @@ typedef struct {
 #define XSEM_EVENT_NPI_SFTY_WR_ERR	(0x8U)
 /** NPI GPIO Error event */
 #define XSEM_EVENT_NPI_GPIO_ERR	(0x9U)
+/** NPI Self Diagnostic event */
+#define XSEM_EVENT_NPI_SELF_DIAG_FAIL	(0xAU)
 
 /* SEM Event Flags */
 /** SEM Event Notification Enable */
