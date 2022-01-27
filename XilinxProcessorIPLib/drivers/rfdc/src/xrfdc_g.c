@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xrfdc_g.c
-* @addtogroup rfdc_v11_1
+* @addtogroup Overview
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
