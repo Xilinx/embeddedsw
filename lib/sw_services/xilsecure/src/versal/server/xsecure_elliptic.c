@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +37,9 @@
 *                     XSECURE_TEMPORAL_CHECK with XSECURE_TEMPORAL_IMPL macros and
 *                     status variable is reinitialized with XST_FAILURE before using
 *                     it further in the respective functions
+*       har  01/20/22 Added glitch checks for clearing keys in
+*                     XSecure_EllipticGenerateKey_64Bit() and
+*                     XSecure_EllipticGenerateSignature_64Bit()
 *
 * </pre>
 *
@@ -99,6 +102,8 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	const u64 DAddr, XSecure_EllipticKeyAddr *KeyAddr)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
+	volatile int ClearStatus = XST_FAILURE;
+	volatile int ClearStatusTmp = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PubKey[XSECURE_ECC_P521_SIZE_IN_BYTES +
 	XSECURE_ECDSA_P521_ALIGN_BYTES +
@@ -153,6 +158,12 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	}
 
 END:
+	ClearStatus = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	ClearStatusTmp = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	if ((ClearStatusTmp != XST_SUCCESS) || (ClearStatus != XST_SUCCESS)) {
+		Status = ClearStatusTmp | ClearStatus;
+	}
+
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 	return Status;
@@ -215,9 +226,10 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	const u64 KAddr, XSecure_EllipticSignAddr *SignAddr)
 {
 	volatile int Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
-	int StatusTemp = XST_FAILURE;
 	volatile int GenStatus = XST_FAILURE;
 	volatile int GenStatusTmp = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
+	volatile int ClearStatusTmp = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
 	u8 D[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
@@ -299,15 +311,18 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 
 END:
 	/* Zeroize local key copy */
-	StatusTemp = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
-	if (Status == XST_SUCCESS) {
-		Status |= StatusTemp;
+	ClearStatus = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	ClearStatusTmp = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	if ((ClearStatusTmp != XST_SUCCESS) || (ClearStatus != XST_SUCCESS)) {
+		Status = ClearStatusTmp | ClearStatus;
 	}
-	StatusTemp = XST_FAILURE;
-	StatusTemp = Xil_SecureZeroize((u8*)K, XSECURE_ECC_P521_SIZE_IN_BYTES);
-	if (Status == XST_SUCCESS) {
-		Status |= StatusTemp;
+
+	ClearStatus = Xil_SecureZeroize((u8*)K, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	ClearStatusTmp = Xil_SecureZeroize((u8*)K, XSECURE_ECC_P521_SIZE_IN_BYTES);
+	if ((ClearStatusTmp != XST_SUCCESS) || (ClearStatus != XST_SUCCESS)) {
+		Status = ClearStatusTmp | ClearStatus;
 	}
+
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 	return Status;

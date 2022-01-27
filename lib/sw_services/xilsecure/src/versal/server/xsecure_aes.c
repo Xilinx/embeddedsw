@@ -69,6 +69,8 @@
 *       kpt  09/18/2021 Added redundancy in XSecure_AesSetDpaCm
 * 4.7   har  01/03/2022 Updated Status and StatusTmp as volatile in
 *                       XSecure_AesWriteKey()
+*       har  01/20/2022 Added glitch checks for clearing keys in
+*                       XSecure_AesWriteKey()
 *
 * </pre>
 *
@@ -569,7 +571,8 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 KeyAddr)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
+	volatile int ClearStatusTmp = XST_FAILURE;
 	u32 Offset;
 	u32 Index = 0U;
 	u32 Key[XSECURE_AES_KEY_SIZE_256BIT_WORDS] = {0U};
@@ -637,9 +640,10 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	Status = XST_SUCCESS;
 
 END:
-	StatusTmp = Xil_SecureZeroize((u8*)Key, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
-	if (Status == XST_SUCCESS) {
-		Status = StatusTmp;
+	ClearStatus = Xil_SecureZeroize((u8*)Key, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
+	ClearStatusTmp = Xil_SecureZeroize((u8*)Key, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
+	if ((ClearStatus != XST_SUCCESS) || (ClearStatusTmp != XST_SUCCESS)) {
+		Status = (ClearStatus | ClearStatusTmp);
 	}
 
 	return Status;
