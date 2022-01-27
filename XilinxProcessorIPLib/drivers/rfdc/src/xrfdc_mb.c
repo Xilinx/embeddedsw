@@ -40,6 +40,8 @@
 * 11.1  cog    11/16/21 Upversion.
 *       cog    01/18/22 Refactor connected data components.
 *       cog    01/18/22 Added safety checks.
+*       cog    01/18/22 Use single read access API rather than using
+*                       XRFdc_GetMultibandConfig in XRFdc_UpdateMBConfig.
 *
 * </pre>
 *
@@ -606,7 +608,7 @@ static u32 XRFdc_UpdateMBConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 No
 	u8 MultibandConfig;
 	u32 Status;
 
-	MultibandConfig = XRFdc_GetMultibandConfig(InstancePtr, Type, Tile_Id);
+	MultibandConfig = XRFdc_ReadReg(InstancePtr, XRFDC_CTRL_STS_BASE(Type, Tile_Id), XRFDC_MB_CONFIG_OFFSET);
 
 	if (NoOfDataPaths == 1U) {
 		*ModePtr = XRFDC_SINGLEBAND_MODE;
