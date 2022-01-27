@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -206,6 +206,7 @@
 *       cog    06/10/21 When setting the powermode, the IP now takes care of the
 *                       configuration registers.
 * 11.1  cog    11/16/21 Upversion.
+*       cog    01/18/22 Refactor connected data components.
 *
 * </pre>
 *
@@ -344,8 +345,10 @@ static void XRFdc_ADCInitialize(XRFdc *InstancePtr)
 			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].Mixer_Settings.MixerType =
 				MixerType;
 
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedIData = -1;
-			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedQData = -1;
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedIData =
+				XRFDC_BLK_ID_NONE;
+			InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Digital_Datapath[Block_Id].ConnectedQData =
+				XRFDC_BLK_ID_NONE;
 			InstancePtr->ADC_Tile[Tile_Id].MultibandConfig =
 				InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].MultibandConfig;
 			if (XRFdc_IsADCDigitalPathEnabled(InstancePtr, Tile_Id, Block_Id) != 0U) {
@@ -409,8 +412,10 @@ static void XRFdc_DACInitialize(XRFdc *InstancePtr)
 			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].Mixer_Settings.MixerType =
 				MixerType;
 
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].ConnectedIData = -1;
-			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].ConnectedQData = -1;
+			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].ConnectedIData =
+				XRFDC_BLK_ID_NONE;
+			InstancePtr->DAC_Tile[Tile_Id].DACBlock_Digital_Datapath[Block_Id].ConnectedQData =
+				XRFDC_BLK_ID_NONE;
 			InstancePtr->DAC_Tile[Tile_Id].MultibandConfig =
 				InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].MultibandConfig;
 			if (XRFdc_IsDACDigitalPathEnabled(InstancePtr, Tile_Id, Block_Id) != 0U) {
@@ -464,7 +469,8 @@ static void XRFdc_DACMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
 							 XRFDC_BLK_ID2);
 			} else {
-				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, -1, -1);
+				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id,
+							 XRFDC_BLK_ID_NONE, XRFDC_BLK_ID_NONE);
 			}
 
 			break;
@@ -488,26 +494,28 @@ static void XRFdc_DACMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 		/* Mixer Mode is C2R */
 		switch (InstancePtr->DAC_Tile[Tile_Id].MultibandConfig) {
 		case XRFDC_MB_MODE_4X:
-			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0, -1);
+			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
+						 XRFDC_BLK_ID_NONE);
 			break;
 		case XRFDC_MB_MODE_2X_BLK01_BLK23:
 		case XRFDC_MB_MODE_2X_BLK01:
 		case XRFDC_MB_MODE_2X_BLK23:
 			if ((Block_Id == XRFDC_BLK_ID0) || (Block_Id == XRFDC_BLK_ID1)) {
 				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
-							 -1);
+							 XRFDC_BLK_ID_NONE);
 			} else {
 				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID2,
-							 -1);
+							 XRFDC_BLK_ID_NONE);
 			}
 			break;
 		default:
-			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, Block_Id, -1);
+			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, Block_Id,
+						 XRFDC_BLK_ID_NONE);
 			break;
 		}
 	} else {
 		/* Mixer Mode is BYPASS */
-		XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, Block_Id, -1);
+		XRFdc_SetConnectedIQData(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, Block_Id, XRFDC_BLK_ID_NONE);
 	}
 }
 
@@ -558,26 +566,28 @@ static void XRFdc_ADCMBConfigInit(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id)
 		/* Mixer mode is R2C */
 		switch (InstancePtr->ADC_Tile[Tile_Id].MultibandConfig) {
 		case XRFDC_MB_MODE_4X:
-			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0, -1);
+			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
+						 XRFDC_BLK_ID_NONE);
 			break;
 		case XRFDC_MB_MODE_2X_BLK01_BLK23:
 		case XRFDC_MB_MODE_2X_BLK01:
 		case XRFDC_MB_MODE_2X_BLK23:
 			if ((Block_Id == XRFDC_BLK_ID0) || (Block_Id == XRFDC_BLK_ID1)) {
 				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID0,
-							 -1);
+							 XRFDC_BLK_ID_NONE);
 			} else {
 				XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, XRFDC_BLK_ID2,
-							 -1);
+							 XRFDC_BLK_ID_NONE);
 			}
 			break;
 		default:
-			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, Block_Id, -1);
+			XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, Block_Id,
+						 XRFDC_BLK_ID_NONE);
 			break;
 		}
 	} else {
 		/* Mixer mode is BYPASS */
-		XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, Block_Id, -1);
+		XRFdc_SetConnectedIQData(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, Block_Id, XRFDC_BLK_ID_NONE);
 	}
 }
 
