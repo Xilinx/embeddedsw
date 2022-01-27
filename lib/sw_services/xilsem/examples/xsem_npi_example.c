@@ -17,6 +17,7 @@
  * 0.3   hb    09/20/2021  Added description on error injection &
  *                         correction
  * 0.4   hb    01/06/2022  Added feature to print golden SHA values
+ * 0.5   hb    01/27/2022  Added event for NPI scan self diagnosis
  * </pre>
  *
  *****************************************************************************/
@@ -46,7 +47,7 @@ XSem_Notifier Notifier = {
 		XSEM_EVENT_NPI_DESC_ABSNT_ERR | XSEM_EVENT_NPI_SHA_IND_ERR |
 		XSEM_EVENT_NPI_SHA_ENGINE_ERR | XSEM_EVENT_NPI_PSCAN_MISSED_ERR |
 		XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR | XSEM_EVENT_NPI_SFTY_WR_ERR |
-		XSEM_EVENT_NPI_GPIO_ERR,
+		XSEM_EVENT_NPI_GPIO_ERR | XSEM_EVENT_NPI_SELF_DIAG_FAIL,
 	.Flag = 1U,
 };
 
@@ -62,8 +63,7 @@ struct XSem_Npi_Events_t{
 	u32 CryptoExportSetEventCnt;
 	u32 SftyWrEventCnt;
 	u32 GpioEventCnt;
-	u32 GtyArbToutEventCnt;
-	u32 DdrmainArbToutEventCnt;
+	u32 SelfDiagFailEventCnt;
 } NpiEvents;
 
 XSem_DescriptorData DescData_PreInj = {0};
@@ -275,6 +275,10 @@ void XSem_IpiCallback(XIpiPsu *const InstancePtr)
 			NpiEvents.GpioEventCnt = 1U;
 			xil_printf("[ALERT] Received GPIO error event notification from"
 					" XilSEM\n\r");
+		} else if (XSEM_EVENT_NPI_SELF_DIAG_FAIL == Payload[2]) {
+			NpiEvents.SelfDiagFailEventCnt = 1U;
+			xil_printf("[ALERT] Received NPI Self-diagnosis fail event"
+					" notification from XilSEM\n\r");
 		} else {
 			xil_printf("%s Some other callback received: %d:%d:%d\n",
 					__func__, Payload[0], Payload[1], Payload[2]);
