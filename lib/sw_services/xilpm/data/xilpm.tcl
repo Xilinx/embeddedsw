@@ -4,6 +4,17 @@
 ##############################################################################
 
 source [file join [file dirname [info script]] cfg_gen.tcl]
+
+proc check_platform { } {
+	set cortexa53proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
+	if {[llength $cortexa53proc] > 0} {
+		set iszynqmp 1
+	} else {
+		set iszynqmp 0
+	}
+	return $iszynqmp
+}
+
 proc generate {libhandle} {
 	# Copy over the right set of files as src based on processor type
 	set sw_proc_handle [hsi::get_sw_processor]
@@ -11,6 +22,7 @@ proc generate {libhandle} {
 	set proctype [common::get_property IP_NAME $hw_proc_handle]
 	set procname [common::get_property NAME    $hw_proc_handle]
 
+	set iszynqmp [check_platform]
 	global rpu0_as_power_management_master
 	global rpu1_as_power_management_master
 	global apu_as_power_management_master
@@ -51,9 +63,14 @@ proc generate {libhandle} {
 		}
 
 		"psv_cortexr5" -
+		"microblaze" -
 		"psv_cortexa72" {
-			copy_files_to_src $versal_client_dir
-			copy_files_to_src $versal_common_dir
+			if {($iszynqmp == 0)} {
+				copy_files_to_src $versal_client_dir
+				copy_files_to_src $versal_common_dir
+			} else {
+				error "Error: Processor type $proctype is not supported in ZynqMP\n"
+			}
 		}
 
 		"psu_pmc" -

@@ -1385,6 +1385,7 @@ done:
 	return Status;
 }
 
+#ifndef __microblaze__
 /****************************************************************************/
 /**
  * @brief  This function is used by a CPU to declare that it is about to
@@ -1553,6 +1554,53 @@ XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
 done:
 	return Status;
 }
+#else
+XStatus XPm_SelfSuspend(const u32 DeviceId, const u32 Latency,
+			const u8 State, const u64 Address)
+{
+	(void)DeviceId;
+	(void)Latency;
+	(void)State;
+	(void)Address;
+
+	XPm_Err("%s is not supported for Microblaze\n", __func__);
+
+	return (s32)XST_NO_FEATURE;
+}
+
+XStatus XPm_RequestWakeUp(const u32 TargetDevId, const u8 SetAddress,
+			  const u64 Address, const u32 Ack)
+{
+	(void)TargetDevId;
+	(void)SetAddress;
+	(void)Address;
+	(void)Ack;
+
+	XPm_Err("%s is not supported for Microblaze\n", __func__);
+
+	return (s32)XST_NO_FEATURE;
+}
+
+void XPm_SuspendFinalize(void)
+{
+	XPm_Err("%s is not supported for Microblaze\n", __func__);
+
+	return;
+}
+
+XStatus XPm_RequestSuspend(const u32 TargetSubsystemId, const u32 Ack,
+			   const u32 Latency, const u32 State)
+{
+	(void)TargetSubsystemId;
+	(void)Ack;
+	(void)Latency;
+	(void)State;
+
+	XPm_Err("%s is not supported for Microblaze\n", __func__);
+
+	return (s32)XST_NO_FEATURE;
+}
+#endif
 
 /****************************************************************************/
 /**
