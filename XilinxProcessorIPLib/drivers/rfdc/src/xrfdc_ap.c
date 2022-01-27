@@ -33,6 +33,7 @@
 * 11.1  cog    11/16/21 Upversion.
 *       cog    12/21/21 Read DAC coupling from a register rather than from
 *                       the config structure.
+*       cog    01/18/22 Refactor connected data components.
 *
 * </pre>
 *
@@ -193,7 +194,7 @@ u32 XRFdc_SetQMCSettings(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id
 		/* Phase Correction factor is applicable to ADC/DAC IQ Pair mode only */
 		if (QMCSettingsPtr->EnablePhase == XRFDC_ENABLED) {
 			if (((u32)XRFdc_GetConnectedIData(InstancePtr, Type, Tile_Id, Block_Id) == Block_Id) &&
-			    (XRFdc_GetConnectedQData(InstancePtr, Type, Tile_Id, Block_Id) != -1)) {
+			    (XRFdc_GetConnectedQData(InstancePtr, Type, Tile_Id, Block_Id) != XRFDC_BLK_ID_NONE)) {
 				PhaseCorrectionFactor =
 					((QMCSettingsPtr->PhaseCorrectionFactor / XRFDC_MAX_PHASE_CORR_FACTOR) *
 					 XRFDC_QMC_PHASE_MULT);
