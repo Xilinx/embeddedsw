@@ -53,6 +53,7 @@
 *       cog    09/21/21 Factor in half bandwidth when using MTS in IMR modes.
 * 11.1  cog    11/16/21 Upversion.
 *       cog    01/18/22 Added safety checks.
+*       cog    01/18/22 Add cast in XRFdc_MTS_Dtc_Calc.
 *
 * </pre>
 *
@@ -383,7 +384,7 @@ static u32 XRFdc_MTS_Dtc_Calc(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 	Last = -1;
 	FlagsPtr[XRFDC_MTS_NUM_DTC] = 1;
 	for (Index = 0U; Index <= XRFDC_MTS_NUM_DTC; Index++) {
-		Current_Gap = Index - Last;
+		Current_Gap = (int)Index - Last;
 		if (FlagsPtr[Index] != 0) {
 			if (Current_Gap > Min_Gap_Allowed) {
 				Codes[Num_Found] = Last + (Current_Gap / 2);
