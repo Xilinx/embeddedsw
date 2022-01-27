@@ -80,6 +80,7 @@
 *       cog    01/06/22 Added error checks to disallow invalid sample rate/reference
 *                       clock combinations.
 *       cog    01/12/22 Fix compiler warnings.
+*       cog    01/24/22 Fix static analysis errors.
 * </pre>
 *
 ******************************************************************************/
@@ -1542,7 +1543,7 @@ u32 XRFdc_GetPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_PLL_Sett
 	u32 FeedbackDivider;
 	u8 OutputDivider;
 	u32 RefClkDivider;
-	u32 Enabled;
+	u32 Enabled = XRFDC_DISABLED;
 	u8 DivideMode;
 	u32 PLLFreq;
 	u32 PLLFS;
@@ -1695,8 +1696,8 @@ u32 XRFdc_DynamicPLLConfig(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u8 Source,
 	u32 BaseAddr;
 	u32 PLLEnable = 0x0U;
 	u32 InitialPowerUpState;
-	double MaxSampleRate;
-	double MinSampleRate;
+	double MaxSampleRate = 0.0;
+	double MinSampleRate = 0.0;
 	u32 OpDiv;
 	u32 PLLFreq;
 	u32 PLLFS;
