@@ -659,13 +659,17 @@ proc get_slave_section { } {
 		# Process nodes of type "SLAVE". if periph_type is NA, sets perm to 0U
 		if { ($periph_type == "slave")} {
 
-			#Increment the slave count
-			incr slave_count
-
 			#set the perms(ipi mask) value for this node
 			dict set pmufw::node_map $node perms [get_slave_perm_mask_txt $periph_name]
 			#print out for debug purpose
 			#puts "$periph_name \t: [dict get [dict get $pmufw::node_map $node] perms] "
+
+			if { [dict get [dict get $pmufw::node_map $node] perms] == "0U" } {
+				continue
+			}
+
+			#Increment the slave count
+			incr slave_count
 
 			#concat to the slave data text
 			#append  slave_text "\t/**********************************************************************/\n"
