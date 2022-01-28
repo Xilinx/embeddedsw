@@ -33,6 +33,7 @@
 * 1.04  ssh    04/20/21 Added support for Dynamic HDR and Versal
 * 1.05	ssh    07/14/21 Added support for Native Video
 * 1.06  KU     30/08/21 RX FRL settings updated for VCU118
+* 1.07  ssh    01/28/22 Updated GT Swing settings for VCK190
 *
 * </pre>
 *
@@ -6413,11 +6414,17 @@ int main()
 #if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 #if defined(USE_HDMI_AUDGEN)
 	xil_printf("Initializing Audio Generator. \r\n");
-
+#if defined (XPS_BOARD_VCK190)
+	XhdmiAudGen_Init(&AudioGen,
+			XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR,
+			XPAR_AUDIO_SS_0_HDMI_ACR_CTRL_BASEADDR,
+			XPAR_AUDIO_SS_0_CLK_WIZARD_BASEADDR);
+#else
 	XhdmiAudGen_Init(&AudioGen,
 			XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR,
 			XPAR_AUDIO_SS_0_HDMI_ACR_CTRL_BASEADDR,
 			XPAR_AUDIO_SS_0_CLK_WIZ_BASEADDR);
+#endif
 #endif
 #endif
 
@@ -6513,7 +6520,13 @@ int main()
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x3);/*1, A */
 			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x3);/*1, B */
-
+#elif defined (XPS_BOARD_VCK190)
+			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId,
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xC : 0xD);/*0xc 0xb */
+			XHdmiphy1_SetTxPreEmphasis(&Hdmiphy1, 0, ChId,
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x5);/*1, A */
+			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x5);/*1, B */
 #else
 /* Place holder for future board support, Below Value just a random value */
 			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, 0xB);
