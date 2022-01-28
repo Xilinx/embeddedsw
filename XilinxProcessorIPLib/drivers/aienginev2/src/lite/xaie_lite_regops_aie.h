@@ -57,8 +57,8 @@ static inline void _XAie_LSetPartColShimReset(XAie_DevInst *DevInst,
 
 	RegAddr = _XAie_LGetTileAddr(0, Loc.Row) +
 		XAIE_PL_MOD_SHIM_RST_ENA_REGOFF;
-	FldVal = _XAie_LSetRegField(Reset,
-		XAIE_PL_MOD_SHIM_RST_ENA_LSB, XAIE_PL_MOD_SHIM_RST_ENA_MASK);
+	FldVal = XAie_SetField(Reset, XAIE_PL_MOD_SHIM_RST_ENA_LSB,
+			XAIE_PL_MOD_SHIM_RST_ENA_MASK);
 	_XAie_LPartWrite32(DevInst, RegAddr, FldVal);
 }
 
@@ -151,7 +151,7 @@ static inline void _XAie_LNpiSetPartProtectedReg(XAie_DevInst *DevInst,
 	u32 RegVal;
 
 	(void)DevInst;
-	RegVal = _XAie_LSetRegField(Enable, XAIE_NPI_PROT_REG_CNTR_EN_LSB,
+	RegVal = XAie_SetField(Enable, XAIE_NPI_PROT_REG_CNTR_EN_LSB,
 			       XAIE_NPI_PROT_REG_CNTR_EN_MSK);
 
 	_XAie_LNpiSetLock(XAIE_DISABLE);

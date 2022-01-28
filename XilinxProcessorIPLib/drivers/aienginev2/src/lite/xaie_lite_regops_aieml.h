@@ -178,12 +178,12 @@ static inline void _XAie_LNpiSetPartProtectedReg(XAie_DevInst *DevInst,
 	StartCol = DevInst->StartCol;
 	EndCol = DevInst->NumCols + StartCol - 1;
 
-	RegVal = _XAie_LSetRegField(Enable, XAIE_NPI_PROT_REG_CNTR_EN_LSB,
+	RegVal = XAie_SetField(Enable, XAIE_NPI_PROT_REG_CNTR_EN_LSB,
 			       XAIE_NPI_PROT_REG_CNTR_EN_MSK);
 
-	RegVal |= _XAie_LSetRegField(StartCol, XAIE_NPI_PROT_REG_CNTR_FIRSTCOL_LSB,
+	RegVal |= XAie_SetField(StartCol, XAIE_NPI_PROT_REG_CNTR_FIRSTCOL_LSB,
 				XAIE_NPI_PROT_REG_CNTR_FIRSTCOL_MSK);
-	RegVal |= _XAie_LSetRegField(EndCol, XAIE_NPI_PROT_REG_CNTR_LASTCOL_LSB,
+	RegVal |= XAie_SetField(EndCol, XAIE_NPI_PROT_REG_CNTR_LASTCOL_LSB,
 				XAIE_NPI_PROT_REG_CNTR_LASTCOL_MSK);
 
 	_XAie_LNpiSetLock(XAIE_DISABLE);

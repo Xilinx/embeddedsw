@@ -62,7 +62,7 @@ static void _XAie_PrivilegeSetColClkBuf(XAie_DevInst *DevInst,
 
 	RegAddr = _XAie_LGetTileAddr(Loc.Row, Loc.Col) +
 		XAIE_PL_MOD_COL_CLKCNTR_REGOFF;
-	FldVal = _XAie_LSetRegField(Enable,
+	FldVal = XAie_SetField(Enable,
 			XAIE_PL_MOD_COL_CLKCNTR_CLKBUF_ENABLE_LSB,
 			XAIE_PL_MOD_COL_CLKCNTR_CLKBUF_ENABLE_MASK);
 
@@ -113,8 +113,7 @@ static void _XAie_PrivilegeSetColReset(XAie_DevInst *DevInst,
 
 	RegAddr = _XAie_LGetTileAddr(Loc.Row, Loc.Col) +
 		XAIE_PL_MOD_COL_RST_REGOFF;
-	FldVal = _XAie_LSetRegField(RstEnable,
-			XAIE_PL_MOD_COL_RST_LSB,
+	FldVal = XAie_SetField(RstEnable, XAIE_PL_MOD_COL_RST_LSB,
 			XAIE_PL_MOD_COL_RST_MASK);
 
 	_XAie_LPartWrite32(DevInst, RegAddr, FldVal);
@@ -197,10 +196,10 @@ static void _XAie_PrivilegeSetBlockAxiMmNsuErr(XAie_DevInst *DevInst,
 
 	RegAddr = XAIE_NOC_AXIMM_CONF_REGOFF +
 		_XAie_LGetTileAddr(Loc.Row, Loc.Col);
-	FldVal = _XAie_LSetRegField(BlockSlvEnable,
+	FldVal = XAie_SetField(BlockSlvEnable,
 			XAIE_NOC_AXIMM_CONF_SLVERR_BLOCK_LSB,
 			XAIE_NOC_AXIMM_CONF_SLVERR_BLOCK_MASK);
-	FldVal |= _XAie_LSetRegField(BlockDecEnable,
+	FldVal |= XAie_SetField(BlockDecEnable,
 			XAIE_NOC_AXIMM_CONF_DECERR_BLOCK_LSB,
 			XAIE_NOC_AXIMM_CONF_DECERR_BLOCK_MASK);
 
