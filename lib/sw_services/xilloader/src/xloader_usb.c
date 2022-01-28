@@ -22,6 +22,7 @@
 *        td  08/19/2020 Fixed MISRA C violations Rule 10.3
 * 1.02   bsv 08/31/2021 Code clean up
 * 1.03   ma  01/17/2022 Enable SLVERR for USB registes
+*        bsv 01/21/2022 Reduce stack usage
 *
 * </pre>
 *
@@ -64,8 +65,10 @@ int XLoader_UsbInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 	Usb_Config *UsbConfigPtr;
-	struct XUsbPsu UsbPrivateData;
-	struct Usb_DevData UsbInstance;
+	struct XUsbPsu *UsbPrivateDataPtr = (struct XUsbPsu *)
+		XPLMI_PMCRAM_CHUNK_MEMORY;
+	struct Usb_DevData *UsbInstancePtr = (struct Usb_DevData *)
+		XPLMI_PMCRAM_CHUNK_MEMORY_1;
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 
 	(void) DeviceFlags;
@@ -75,13 +78,13 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	Status = XPlmi_MemSetBytes(&UsbInstance, sizeof(UsbInstance),
-				0U, sizeof(UsbInstance));
+	Status = XPlmi_MemSetBytes((void *)UsbInstancePtr, sizeof(struct Usb_DevData), 0U,
+		sizeof(struct Usb_DevData));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_USB_INSTANCE);
 		goto END;
 	}
-	Status = XPlmi_MemSetBytes(&UsbPrivateData, sizeof(struct XUsbPsu),
+	Status = XPlmi_MemSetBytes((void *)UsbPrivateDataPtr, sizeof(struct XUsbPsu),
 				0U, sizeof(struct XUsbPsu));
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET, (int)XLOADER_ERR_MEMSET_USB_PRIVATE_DATA);
@@ -99,11 +102,11 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	UsbPrivateData.AppData = &UsbInstance;
-	UsbInstance.PrivateData = (void*)&UsbPrivateData;
+	UsbPrivateDataPtr->AppData = UsbInstancePtr;
+	UsbInstancePtr->PrivateData = (void*)UsbPrivateDataPtr;
 
 	Status = (int) XUsbPsu_CfgInitialize(
-			(struct XUsbPsu*)UsbInstance.PrivateData,
+			(struct XUsbPsu*)UsbInstancePtr->PrivateData,
 			UsbConfigPtr, UsbConfigPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_CFG, Status);
@@ -120,32 +123,32 @@ int XLoader_UsbInit(u32 DeviceFlags)
 	}
 
 	/* Hook up chapter9 handler */
-	XUsbPsu_set_ch9handler((struct XUsbPsu*)UsbInstance.PrivateData,
+	XUsbPsu_set_ch9handler((struct XUsbPsu*)UsbInstancePtr->PrivateData,
 		XLoader_Ch9Handler);
 
 	/* Set the reset event handler */
-	XUsbPsu_set_rsthandler((struct XUsbPsu*)UsbInstance.PrivateData,
+	XUsbPsu_set_rsthandler((struct XUsbPsu*)UsbInstancePtr->PrivateData,
 		XLoader_DfuReset);
 
-	DfuObj.InstancePtr = &UsbInstance;
+	DfuObj.InstancePtr = UsbInstancePtr;
 
 	/* Set DFU state to APP_IDLE */
-	XLoader_DfuSetState(&UsbInstance, XLOADER_STATE_APP_IDLE);
+	XLoader_DfuSetState(UsbInstancePtr, XLOADER_STATE_APP_IDLE);
 
 	/* Assign the data to usb driver */
-	XUsbPsu_set_drvdata((struct XUsbPsu*)UsbInstance.PrivateData, &Dfu_data);
+	XUsbPsu_set_drvdata((struct XUsbPsu*)UsbInstancePtr->PrivateData, &Dfu_data);
 
 	/*
 	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
 	 * Wakeup and Overflow events.
 	 */
-	XUsbPsu_EnableIntr((struct XUsbPsu*)UsbInstance.PrivateData,
+	XUsbPsu_EnableIntr((struct XUsbPsu*)UsbInstancePtr->PrivateData,
 		XUSBPSU_DEVTEN_EVNTOVERFLOWEN | XUSBPSU_DEVTEN_WKUPEVTEN
 		| XUSBPSU_DEVTEN_ULSTCNGEN | XUSBPSU_DEVTEN_CONNECTDONEEN
 		| XUSBPSU_DEVTEN_USBRSTEN | XUSBPSU_DEVTEN_DISCONNEVTEN);
 
 	/* Start the controller so that Host can see our device */
-	Status = XUsbPsu_Start((struct XUsbPsu*)UsbInstance.PrivateData);
+	Status = XUsbPsu_Start((struct XUsbPsu*)UsbInstancePtr->PrivateData);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_START, Status);
 		goto END;
@@ -153,9 +156,9 @@ int XLoader_UsbInit(u32 DeviceFlags)
 
 	while ((DownloadDone < XLOADER_DOWNLOAD_COMPLETE) && \
 		(DfuObj.CurrStatus != XLOADER_STATE_DFU_ERROR)) {
-		XUsbPsu_IntrHandler((struct XUsbPsu*)UsbInstance.PrivateData);
+		XUsbPsu_IntrHandler((struct XUsbPsu*)UsbInstancePtr->PrivateData);
 	}
-	(void)XUsbPsu_Stop((struct XUsbPsu*)UsbInstance.PrivateData);
+	(void)XUsbPsu_Stop((struct XUsbPsu*)UsbInstancePtr->PrivateData);
 
 END:
 	return Status;
