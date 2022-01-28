@@ -43,6 +43,7 @@
 * 1.3   dc     01/07/22 Zero-padding coefficients
 *       dc     01/19/22 Assert CCUpdate trigger
 *       dc     01/21/22 Symmetric filter Zero-padding
+*       dc     01/27/22 Get calculated TDataDelay
 *
 * </pre>
 * @addtogroup dfeccf_v1_3
@@ -264,6 +265,31 @@ static s32 XDfeCcf_GetNotUsedCCID(XDfeCcf_CCSequence *Sequence)
 /****************************************************************************/
 /**
 *
+* Count number of 1 in bitmap.
+*
+* @param    InstancePtr Pointer to the XDfeCcf instance.
+* @param    CCSeqBitmap maps the sequence.
+*
+*
+****************************************************************************/
+static u32 XDfeCcf_CountOnesInBitmap(const XDfeCcf *InstancePtr,
+				     u32 CCSeqBitmap)
+{
+	u32 Mask = 1U;
+	u32 Index;
+	u32 OnesCounter = 0;
+	for (Index = 0U; Index < InstancePtr->SequenceLength; Index++) {
+		if (CCSeqBitmap & Mask) {
+			OnesCounter++;
+		}
+		Mask <<= 1U;
+	}
+	return OnesCounter;
+}
+
+/****************************************************************************/
+/**
+*
 * Adds the specified CCID, to the CC sequence. The sequence is defined with
 * CCSeqBitmap where bit0 coresponds to CC[0], bit1 to CC[1], bit2 to CC[2], and
 * so on.
@@ -290,7 +316,7 @@ static u32 XDfeCcf_AddCCIDAndTranslateSeq(XDfeCcf *InstancePtr, s32 CCID,
 {
 	u32 Index;
 	u32 Mask;
-	s32 OnesCounter = 0U;
+	u32 OnesCounter = 0;
 
 	/* Check does sequence fit in the defined length */
 	Mask = (1U << CCIDSequence->Length) - 1U;
@@ -300,13 +326,7 @@ static u32 XDfeCcf_AddCCIDAndTranslateSeq(XDfeCcf *InstancePtr, s32 CCID,
 	}
 
 	/* Count ones in bitmap */
-	Mask = 1U;
-	for (Index = 0U; Index < InstancePtr->SequenceLength; Index++) {
-		if (CCSeqBitmap & Mask) {
-			OnesCounter++;
-		}
-		Mask <<= 1U;
-	}
+	OnesCounter = XDfeCcf_CountOnesInBitmap(InstancePtr, CCSeqBitmap);
 
 	/* Validate is number of ones a power of 2 */
 	if ((OnesCounter != 0) && (OnesCounter != 1) && (OnesCounter != 2) &&
@@ -1916,7 +1936,7 @@ void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive)
 * @param    Coeffs Array of filter coefficients.
 *
 ****************************************************************************/
-void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
+void XDfeCcf_LoadCoefficients(XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 			      const XDfeCcf_Coefficients *Coeffs)
 {
 	u32 NumValues;
@@ -1968,6 +1988,10 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 				 XDFECCF_USE_ODD_TAPS_OFFSET, Val, IsOdd);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_COEFF_CFG, Val);
 
+	if ((NumValues % XDFECCF_COEFF_UNIT_SIZE) != 0) {
+		NumPadding = XDFECCF_COEFF_UNIT_SIZE -
+			     (NumValues % XDFECCF_COEFF_UNIT_SIZE);
+	}
 	if (0U == Coeffs->Symmetric) {
 		for (Index = 0; Index < NumValues; Index++) {
 			XDfeCcf_WriteReg(InstancePtr,
@@ -1976,24 +2000,20 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 					 Coeffs->Value[Index]);
 		}
 		/* Non-symetric filter: Zero-padding at the end of array */
-		for (Index = NumValues;
-		     Index < NumUnits * XDFECCF_COEFF_UNIT_SIZE; Index++) {
+		for (Index = NumValues; Index < NumValues + NumPadding;
+		     Index++) {
 			XDfeCcf_WriteReg(
 				InstancePtr,
 				XDFECCF_COEFF_VALUE + (sizeof(u32) * Index), 0);
 		}
 	} else {
-		if (NumValues % XDFECCF_COEFF_UNIT_SIZE) {
-			NumPadding = XDFECCF_COEFF_UNIT_SIZE -
-				     (NumValues % XDFECCF_COEFF_UNIT_SIZE);
-		}
 		/* Symetric filter: Zero-padding at the begining of array */
 		for (Index = 0; Index < NumPadding; Index++) {
 			XDfeCcf_WriteReg(
 				InstancePtr,
 				XDFECCF_COEFF_VALUE + (sizeof(u32) * Index), 0);
 		}
-		for (Index = 0; Index < NumValues; Index++) {
+		for (Index = 0; Index < NumValues + NumPadding; Index++) {
 			XDfeCcf_WriteReg(
 				InstancePtr,
 				XDFECCF_COEFF_VALUE +
@@ -2001,6 +2021,7 @@ void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 				Coeffs->Value[Index]);
 		}
 	}
+
 	/* Set the coefficient set value */
 	XDfeCcf_WrRegBitField(InstancePtr, XDFECCF_COEFF_LOAD,
 			      XDFECCF_SET_NUM_WIDTH, XDFECCF_SET_NUM_OFFSET,
@@ -2052,25 +2073,103 @@ u32 XDfeCcf_GetTUserDelay(const XDfeCcf *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Returns CONFIG.DATA_LATENCY.VALUE + tap, where the tap is between 0
-* and 256 in symmetric mode and between 0 and 128 in non-symmetric.
+* Gets calculated TDataDelay value for CCID from current CC configuration.
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    Tap Tap value.
+* @param    CCID CC ID.
+* @param    Symmetric Select symetric (1) or non-symetric (0) filter.
+* @param    Num Number of coefficients values.
+* @param    TDataDelay Data latency value.
 *
-* @return   Data latency value.
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-u32 XDfeCcf_GetTDataDelay(const XDfeCcf *InstancePtr, u32 Tap)
+u32 XDfeCcf_GetTDataDelay(XDfeCcf *InstancePtr, u32 Tap, s32 CCID,
+			  u32 Symmetric, u32 Num, u32 *TDataDelay)
 {
-	u32 Data;
+	XDfeCcf_CCCfg CCCfg;
+
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Tap < XDFECCF_TAP_NUMBER_MAX);
+	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(TDataDelay != NULL);
 
-	Data = XDfeCcf_RdRegBitField(InstancePtr, XDFECCF_DATA_LATENCY_OFFSET,
-				     XDFECCF_DATA_LATENCY_VALUE_WIDTH,
-				     XDFECCF_DATA_LATENCY_VALUE_OFFSET);
-	return (Data + Tap);
+	/* Read current CC configuration */
+	XDfeCcf_GetCurrentCCCfg(InstancePtr, &CCCfg);
+
+	/* Calculate TDataDelay */
+	return XDfeCcf_GetTDataDelayFromCCCfg(InstancePtr, Tap, CCID, &CCCfg,
+					      Symmetric, Num, TDataDelay);
+}
+
+/****************************************************************************/
+/**
+*
+* Gets calculated TDataDelay value for CCID.
+*
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    Tap Tap value.
+* @param    CCID CC ID.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    Symmetric Select symetric (1) or non-symetric (0) filter.
+* @param    Num Number of coefficients values.
+* @param    TDataDelay Data latency value.
+*
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
+****************************************************************************/
+u32 XDfeCcf_GetTDataDelayFromCCCfg(XDfeCcf *InstancePtr, u32 Tap, s32 CCID,
+				   XDfeCcf_CCCfg *CCCfg, u32 Symmetric, u32 Num,
+				   u32 *TDataDelay)
+{
+	u32 DataLatency;
+	u32 CCSeqBitmap;
+	XDfeCcf_CarrierCfg CarrierCfg;
+	u32 OnesCounter;
+	u32 NumPadding = 0U;
+	u32 NumValues;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Tap < XDFECCF_TAP_NUMBER_MAX);
+	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(CCCfg != NULL);
+	Xil_AssertNonvoid(TDataDelay != NULL);
+
+	if (0U != Symmetric) {
+		NumValues = (Num + 1U) / 2U;
+	} else {
+		NumValues = Num;
+	}
+	Xil_AssertNonvoid(NumValues <= XDFECCF_NUM_COEFF);
+	if ((NumValues % XDFECCF_COEFF_UNIT_SIZE) != 0) {
+		NumPadding = XDFECCF_COEFF_UNIT_SIZE -
+			     (NumValues % XDFECCF_COEFF_UNIT_SIZE);
+	}
+	DataLatency =
+		XDfeCcf_RdRegBitField(InstancePtr, XDFECCF_DATA_LATENCY_OFFSET,
+				      XDFECCF_DATA_LATENCY_VALUE_WIDTH,
+				      XDFECCF_DATA_LATENCY_VALUE_OFFSET);
+	XDfeCcf_GetCarrierCfg(InstancePtr, CCCfg, CCID, &CCSeqBitmap,
+			      &CarrierCfg);
+
+	OnesCounter = XDfeCcf_CountOnesInBitmap(InstancePtr, CCSeqBitmap);
+	if (OnesCounter == 0) {
+		metal_log(METAL_LOG_ERROR, "CCID %d is not allocated %s\n",
+			  CCID, __func__);
+		return XST_FAILURE;
+	}
+
+	/* Calculate TDataDelay */
+	*TDataDelay = (NumPadding + Tap) *
+			      (InstancePtr->SequenceLength / OnesCounter) +
+		      DataLatency;
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/

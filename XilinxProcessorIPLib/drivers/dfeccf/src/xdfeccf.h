@@ -76,6 +76,7 @@
 *       dc     12/02/21 Add UpdateAntennaCfg API
 *       dc     12/17/21 Update after documentation review
 *       dc     01/21/22 Symmetric filter Zero-padding
+*       dc     01/27/22 Get calculated TDataDelay
 *
 * </pre>
 * @endcond
@@ -441,7 +442,7 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, s32 CCID,
 		   XDfeCcf_CarrierCfg *CarrierCfg);
 void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive);
-void XDfeCcf_LoadCoefficients(const XDfeCcf *InstancePtr, u32 Set, u32 Shift,
+void XDfeCcf_LoadCoefficients(XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 			      const XDfeCcf_Coefficients *Coeffs);
 void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status);
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr,
@@ -452,7 +453,11 @@ void XDfeCcf_GetInterruptMask(const XDfeCcf *InstancePtr,
 			      XDfeCcf_InterruptMask *Mask);
 void XDfeCcf_SetTUserDelay(const XDfeCcf *InstancePtr, u32 Delay);
 u32 XDfeCcf_GetTUserDelay(const XDfeCcf *InstancePtr);
-u32 XDfeCcf_GetTDataDelay(const XDfeCcf *InstancePtr, u32 Tap);
+u32 XDfeCcf_GetTDataDelay(XDfeCcf *InstancePtr, u32 Tap, s32 CCID,
+			  u32 Symmetric, u32 Num, u32 *TDataDelay);
+u32 XDfeCcf_GetTDataDelayFromCCCfg(XDfeCcf *InstancePtr, u32 Tap, s32 CCID,
+				   XDfeCcf_CCCfg *CCCfg, u32 Symmetric, u32 Num,
+				   u32 *TDataDelay);
 void XDfeCcf_GetVersions(const XDfeCcf *InstancePtr, XDfeCcf_Version *SwVersion,
 			 XDfeCcf_Version *HwVersion);
 
