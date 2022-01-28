@@ -123,9 +123,8 @@ static inline void _XAie_LNpiSetShimReset(u8 RstEnable)
 {
 	u32 RegVal;
 
-	RegVal = _XAie_LSetRegField(RstEnable,
-				XAIE_NPI_PCSR_CONTROL_SHIM_RESET_LSB,
-				XAIE_NPI_PCSR_CONTROL_SHIM_RESET_MSK);
+	RegVal = XAie_SetField(RstEnable, XAIE_NPI_PCSR_CONTROL_SHIM_RESET_LSB,
+			XAIE_NPI_PCSR_CONTROL_SHIM_RESET_MSK);
 
 	_XAie_LNpiWritePcsr(RegVal, XAIE_NPI_PCSR_CONTROL_SHIM_RESET_MSK);
 }

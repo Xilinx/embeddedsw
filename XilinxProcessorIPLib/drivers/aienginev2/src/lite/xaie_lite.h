@@ -28,7 +28,6 @@
 #include "xaiegbl_defs.h"
 
 #define __FORCE_INLINE__			__attribute__((always_inline))
-#define _XAie_LSetRegField(Val, Lsb, Mask)	(((Val) << (Lsb)) & Mask)
 
 #if XAIE_DEV_SINGLE_GEN == XAIE_DEV_GEN_AIE
 #include "xaie_lite_aie.h"
