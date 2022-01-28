@@ -39,6 +39,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/15/2021 Removed unwanted goto statements
 * 1.06  ma   01/17/2022 Move EFUSE defines to xplmi_hw.h file
+*       bm   01/27/2022 Fix setup interrupt system logic
 *
 * </pre>
 *
@@ -377,6 +378,7 @@ int XPlmi_SetUpInterruptSystem(void)
 	u8 Index;
 	u8 Size = (u8)(XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable) - 1U);
 
+	microblaze_disable_interrupts();
 	/*
 	 * Connect a device driver handler that will be called when an interrupt
 	 * for the device occurs, the device driver handler performs the specific
@@ -411,18 +413,18 @@ int XPlmi_SetUpInterruptSystem(void)
 		goto END;
 	}
 
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GIC_IRQ);
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PPU1_MB_RAM);
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_ERR_IRQ);
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GPI);
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_PIT3_IRQ);
-
 	/*
 	 * Register the IO module interrupt handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 		(Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
 		(void*) IOMODULE_DEVICE_ID);
+
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GIC_IRQ);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PPU1_MB_RAM);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_ERR_IRQ);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GPI);
+	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_PIT3_IRQ);
 
 	/*
 	 * Enable interrupts
