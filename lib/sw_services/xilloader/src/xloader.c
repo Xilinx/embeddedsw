@@ -124,6 +124,7 @@
 *       bsv  12/22/2021 Added zeroization of ImageHeaderTable instance in
 *                       case of invalid header
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
+*       bsv  01/29/2022 Added redundancy to Status variable in XLoader_LoadImage
 *
 * </pre>
 *
@@ -1328,7 +1329,7 @@ END:
  *****************************************************************************/
 static int XLoader_LoadImage(XilPdi *PdiPtr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 NodeId = NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 
 #ifdef XPLM_SEM
@@ -1393,6 +1394,7 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	/* Resume the SEM scan after PL load */
 	if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) &&
 		(NodeId == (u32)XPM_NODESUBCL_DEV_PL)) {
+		Status = XST_FAILURE;
 		Status = XSem_InitScan();
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SEM_INIT, Status);
