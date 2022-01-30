@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,6 +76,8 @@
 *       bsv  10/26/2021 Code clean up
 *       kpt  10/28/2021 Fixed checksum issue in case of copy to memory
 * 1.08  skd  11/18/2021 Added time stamps in XLoader_ProcessCdo
+*       ma   01/30/2022 Added support for skipping MJTAG image when bootmode is
+*                       JTAG or Reset Reason is not EPOR
 *
 * </pre>
 *
@@ -799,6 +801,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	u64 CopyToMemAddr = PdiPtr->CopyToMemAddr;
 	/* Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+	u32 RstReason;
 
 	/* Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
@@ -903,6 +906,26 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	 * certificate size when authentication is enabled.
 	 */
 	PrtnParams.DeviceCopy.Len -= SecureParams.ProcessedLen;
+
+	/* MJTAG workaround partition */
+	if (PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID ==
+			PM_MISC_MJTAG_WA_IMG) {
+		RstReason = XPlmi_In32(PMC_GLOBAL_PERS_GEN_STORAGE2);
+		/*
+		 * Skip MJTAG WA2 partitions if boot mode is JTAG and
+		 * Reset Reason is not external POR
+		 */
+		if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
+			(((RstReason & PERS_GEN_STORAGE2_ACC_RR_MASK) >>
+					CRP_RESET_REASON_SHIFT) !=
+				CRP_RESET_REASON_EXT_POR_MASK)) {
+			/* Just copy the partitions to PMC RAM and skip processing */
+			PrtnParams.DeviceCopy.DestAddr = XPLMI_PMCRAM_BASEADDR;
+			Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
+			XPlmi_Printf(DEBUG_GENERAL, "Skipping MJTAG partition\n\r");
+			goto END;
+		}
+	}
 
 	if (PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO) {
 		Status = XLoader_ProcessCdo(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
