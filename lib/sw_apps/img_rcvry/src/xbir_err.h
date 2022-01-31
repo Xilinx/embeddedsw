@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,8 +46,6 @@ extern "C" {
 #define	XBIR_ERROR_QSPI_PRESCALER_CLK	(0x28U)
 #define	XBIR_ERROR_QSPI_CONN_MODE	(0x29U)
 #define XBIR_ERROR_QSPI_VENDOR		(0x2AU)
-#define XBIR_ERR_SOM_EEPROM_CONTENTS	(0x2BU)
-#define XBIR_ERR_CC_EEPROM_CONTENTS	(0x2CU)
 
 #define XBIR_ERROR_BOOT_IMG_ID	(0x30U)
 #define XBIR_ERROR_IMAGE_SIZE	(0x31U)

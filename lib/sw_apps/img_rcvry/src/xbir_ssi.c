@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -899,7 +899,7 @@ static int Xbir_SsiGetImgInfo (Xbir_HttpArg *HttpArg, u8 *HttpReq,
 			HttpArg->Boundary[0U] = '-';
 			HttpArg->Boundary[1U] = '-';
 			strncpy((char *) &HttpArg->Boundary[2U], Line + Size,
-					XBIR_HTTP_MAX_BOUNDARY_LEN);
+					XBIR_HTTP_MAX_BOUNDARY_LEN - 2U);
 			HttpArg->BoundaryLen = strnlen((char *) HttpArg->Boundary,
 					XBIR_HTTP_MAX_BOUNDARY_LEN);
 		}

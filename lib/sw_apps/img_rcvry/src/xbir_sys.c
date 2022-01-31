@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -134,7 +134,7 @@ static u32 Xbir_SysCalcBootImgInfoChecksum (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_SysWrvBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo, u32 Offset);
 static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_EthInit (void);
-static int Xbir_SysReadSysInfoFromEeprom (void);
+static void Xbir_SysReadSysInfoFromEeprom (void);
 static int Xbir_KVEthInit (void);
 static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
 	Xbir_ReadDevice ReadDevice);
@@ -217,11 +217,7 @@ int Xbir_SysInit (void)
 		goto END;
 	}
 
-	Status = Xbir_SysReadSysInfoFromEeprom();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
+	Xbir_SysReadSysInfoFromEeprom();
 	Xbir_SysReadAndCorrectBootImgInfo();
 	Xbir_SysShowBootImgInfo(&BootImgStatus);
 
@@ -1013,14 +1009,10 @@ static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
  * This function reads the system information (SysBoard and carrier card) from
  * EEPROM and stores it into global variable for later access.
  *
- * @param	None
- *
- * @return	XST_SUCCESS on successfully reading system information from
- * 		EEPEOM.
- *		Error code on failure
+ * @return	None
  *
  *****************************************************************************/
-static int Xbir_SysReadSysInfoFromEeprom (void)
+static void Xbir_SysReadSysInfoFromEeprom (void)
 {
 	int Status = XST_FAILURE;
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
@@ -1048,7 +1040,6 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		(strncmp((char *)&SysInfo.BoardPrdName, XBIR_SYS_PRODUCT_NAME,
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U)) {
 		Xbir_Printf("Unrecognized SOM Eeprom contents\n\r");
-		Status = XBIR_ERR_SOM_EEPROM_CONTENTS;
 		goto END;
 	}
 	memcpy(SysInfo.RevNum,
@@ -1067,7 +1058,6 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
 			SysBoardEepromData.SysBoardInfo.UUID[LoopIndex]);
 		if (Ret != XBIR_BYTE_HEX_LEN) {
-			Status = XST_FAILURE;
 			goto END;
 		}
 		UUIDStrPtr += Ret;
@@ -1087,7 +1077,6 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	if (strncmp((char *)&CCInfo.BoardPrdName, "SCK",
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) {
 		Xbir_Printf("Unrecognized CC Eeprom contents\n\r");
-		Status = XBIR_ERR_CC_EEPROM_CONTENTS;
 		goto END;
 	}
 	memcpy(CCInfo.RevNum, CCEepromData.SysBoardInfo.RevNum,
@@ -1106,7 +1095,6 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
 			CCEepromData.SysBoardInfo.UUID[LoopIndex]);
 		if (Ret != XBIR_BYTE_HEX_LEN) {
-			Status = XST_FAILURE;
 			goto END;
 		}
 		UUIDStrPtr += Ret;
@@ -1115,10 +1103,8 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 #endif
 
 END:
-#else
-	Status = XST_SUCCESS;
 #endif
-	return Status;
+	return;
 }
 
 /*****************************************************************************/
