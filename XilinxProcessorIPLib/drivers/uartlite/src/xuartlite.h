@@ -121,6 +121,8 @@
 *                     generation.
 * 3.3   sne 09/09/19  Updated driver tcl file for supporting pl and ps ip's.
 * 3.3	sne 09/13/19  Updated driver tcl file for mdm & tmr_sem ip's.
+* 3.7	adk 31/01/22  Fix interrupt controller name in SMP designs, Changes are
+* 		      made in the interrupt app tcl file.
 *
 * </pre>
 *
