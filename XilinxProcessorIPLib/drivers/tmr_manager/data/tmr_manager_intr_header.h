@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,13 +12,13 @@
 #include "xstatus.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-int TMRManagerIntrExample(XIntc* IntcInstancePtr, \
-                            XTMRManager* TMRManagerInstancePtr, \
+int TMR_ManagerIntrExample(XIntc* IntcInstancePtr, \
+                            XTMR_Manager* TMRManagerInstancePtr, \
                             u16 TMRManagerDeviceId, \
                             u16 TMRManagerIntrId);
 #else
-int TMRManagerIntrExample(XScuGic* IntcInstancePtr, \
-                            XTMRManager* TMRManagerInstancePtr, \
+int TMR_ManagerIntrExample(XScuGic* IntcInstancePtr, \
+                            XTMR_Manager* TMRManagerInstancePtr, \
                             u16 TMRManagerDeviceId, \
                             u16 TMRManagerIntrId);
 
