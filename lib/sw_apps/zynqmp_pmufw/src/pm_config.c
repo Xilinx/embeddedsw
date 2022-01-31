@@ -209,6 +209,39 @@ done:
 }
 
 /**
+ * PmConfigPllPermsWorkaround() - Workaround for configuring PLL permissions
+ *
+ * @note	This is a workaround for PMU-FW not knowing who should be given
+ * permission to control a PLL, and also which PLLs. Currently, the DP driver in
+ * linux requires direct control to VPLL (for video) and RPLL (for audio). This
+ * information should be provided in configuration object. Since that's not
+ * possible, the information has to be hard-coded here. Hopefully this
+ * workaround will be removed in future. Thereby, it is required here to assume
+ * that if APU has permission to use the DP it should be automatically given
+ * permissions to directly control VPLL and RPLL.
+ */
+static void PmConfigPllPermsWorkaround(void)
+{
+	PmMaster* apu = PmMasterGetPlaceholder(NODE_APU);
+	PmSlave* dp = (PmSlave*)PmNodeGetSlave(NODE_DP);
+	PmRequirement* req;
+
+	if ((NULL == apu) || (NULL == dp)) {
+		goto done;
+	}
+
+	req = PmRequirementGet(apu, dp);
+	if (NULL == req) {
+		goto done;
+	}
+	PmPllOpenAccess(&pmVpll_g, apu->ipiMask);
+	PmPllOpenAccess(&pmRpll_g, apu->ipiMask);
+
+done:
+	return;
+}
+
+/**
  * PmConfigSlaveSectionHandler() - Read and process slaves section
  * @addr        Start address of the section in configuration object
  *
@@ -247,6 +280,10 @@ static s32 PmConfigSlaveSectionHandler(u32* const addr)
 		if (XST_SUCCESS != status) {
 			PmErr("%s config failed\r\n", slave->node.name);
 			goto done;
+		}
+
+		if (NODE_DP == nodeId) {
+			PmConfigPllPermsWorkaround();
 		}
 
 		slave->flags |= PM_SLAVE_FLAG_IS_CONFIGURED;
@@ -575,39 +612,6 @@ static PmConfigSection* PmConfigGetSectionById(const u32 sid)
 	}
 
 	return sec;
-}
-
-/**
- * PmConfigPllPermsWorkaround() - Workaround for configuring PLL permissions
- *
- * @note	This is a workaround for PMU-FW not knowing who should be given
- * permission to control a PLL, and also which PLLs. Currently, the DP driver in
- * linux requires direct control to VPLL (for video) and RPLL (for audio). This
- * information should be provided in configuration object. Since that's not
- * possible, the information has to be hard-coded here. Hopefully this
- * workaround will be removed in future. Thereby, it is required here to assume
- * that if APU has permission to use the DP it should be automatically given
- * permissions to directly control VPLL and RPLL.
- */
-static void PmConfigPllPermsWorkaround(void)
-{
-	PmMaster* apu = PmMasterGetPlaceholder(NODE_APU);
-	PmSlave* dp = (PmSlave*)PmNodeGetSlave(NODE_DP);
-	PmRequirement* req;
-
-	if ((NULL == apu) || (NULL == dp)) {
-		goto done;
-	}
-
-	req = PmRequirementGet(apu, dp);
-	if (NULL == req) {
-		goto done;
-	}
-	PmPllOpenAccess(&pmVpll_g, apu->ipiMask);
-	PmPllOpenAccess(&pmRpll_g, apu->ipiMask);
-
-done:
-	return;
 }
 
 /**
