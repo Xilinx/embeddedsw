@@ -40,6 +40,7 @@
 *       bsv  08/15/2021 Removed unwanted goto statements
 * 1.06  ma   01/17/2022 Move EFUSE defines to xplmi_hw.h file
 *       bm   01/27/2022 Fix setup interrupt system logic
+*       rama 01/31/2022 Added STL error interrupt register functionality
 *
 * </pre>
 *
@@ -360,6 +361,7 @@ static XInterruptHandler g_TopLevelInterruptTable[] = {
 	XPlmi_IntrHandler,
 	XPlmi_ErrIntrHandler,
 	NULL,
+	NULL,
 };
 
 /******************************************************************************/
@@ -376,7 +378,7 @@ int XPlmi_SetUpInterruptSystem(void)
 	int Status =  XST_FAILURE;
 	u8 IntrNum = XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR;
 	u8 Index;
-	u8 Size = (u8)(XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable) - 1U);
+	u8 Size = (u8)(XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable) - 2U);
 
 	microblaze_disable_interrupts();
 	/*
@@ -530,9 +532,14 @@ static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
 			XInterruptHandler Handler, void *Data)
 {
 	int Status = XST_FAILURE;
-	u8 InterruptTableSize =
-		(u8)XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable) - 1U;
+	u8 InterruptTableSize = (u8)XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable);
 
+	if (XPLMI_IOMODULE_CFRAME_SEU == IoModIntrNum) {
+		InterruptTableSize -= (u8)2U;
+	}
+	if (XPLMI_IOMODULE_ERR_IRQ == IoModIntrNum) {
+		InterruptTableSize -= (u8)1U;
+	}
 	if (g_TopLevelInterruptTable[InterruptTableSize] != NULL) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_REGISTER_IOMOD_HANDLER, 0);
 		goto END;
@@ -564,11 +571,13 @@ END:
 int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 {
 	int Status = XST_FAILURE;
+	u32 IntrNum = IntrId;
 
 	if (IntrId == 0U) {
-		Status = XPlmi_IoModuleRegisterHandler(XPLMI_IOMODULE_CFRAME_SEU,
-			(XInterruptHandler)(void*)Handler, Data);
+		IntrNum = XPLMI_IOMODULE_CFRAME_SEU;
 	}
+	Status = XPlmi_IoModuleRegisterHandler(IntrNum,
+				(XInterruptHandler)(void*)Handler, Data);
 
 	return Status;
 }
