@@ -65,6 +65,8 @@
 * 1.3   adk  01/07/22 Fixed Assert check in the XTMR_Manager_BreakHandler API,
 * 		      Corrected the break handler handoff offset in the
 * 		      xtmr_manager_recover_l.S file.
+*       adk  01/31/22 Updated the interrupt examples independent of SEM IP
+*       	      hardware configuration.
 * </pre>
 *
 *****************************************************************************/
