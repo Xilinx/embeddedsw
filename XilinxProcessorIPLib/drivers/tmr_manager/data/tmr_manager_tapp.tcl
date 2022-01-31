@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -8,6 +8,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 1.0      sa     04/05/17 First release
+# 1.1	   adk	  31/01/22 Fixed compilation error.
 ##############################################################################
 
 # -----------------------------------------------------------------
@@ -68,6 +69,7 @@ proc gen_init_code {swproj mhsinst} {
     }
     if {$swproj == 1} {
 	set iftmr_managerintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+        set ipname [common::get_property NAME $mhsinst]
 	if {$iftmr_managerintr == 1} {
 	    set decl "   static XTMR_Manager ${ipname}_TMR_Manager;"
 	    set inc_file_lines $decl
@@ -92,6 +94,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 	set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ipname] \
 					 -filter "TYPE==INTERRUPT"]
 	set intcname [::hsi::utils::get_connected_intr_cntrl $ipname $intr_pin_name]
+        set intcname [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier [hsi::get_sw_processor]] $intcname]
     }
 
     append testfunc_call "
@@ -112,6 +115,7 @@ proc gen_testfunc_call {swproj mhsinst} {
     if {$iftmr_managerintr == 1} {
 	set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	set intr_id [string toupper $intr_id]
+        set intcvar intc
 	append testfunc_call "
    {
       int Status;

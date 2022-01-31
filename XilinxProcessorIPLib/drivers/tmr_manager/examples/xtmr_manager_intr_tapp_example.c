@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,8 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.3	adk  31/01/22 Updated the example independent of SEM IP hardware
+* 		      configuration.
 * </pre>
 ******************************************************************************/
 
@@ -56,12 +58,6 @@
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif /* TESTAPP_GEN */
 
-/*
- * The following constant controls the length of the buffers to be sent
- * and received with the TMR_Manager device.
- */
-#define TEST_BUFFER_SIZE		100
-
 
 /**************************** Type Definitions *******************************/
 
@@ -83,9 +79,7 @@ int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
 			u16 TMR_ManagerDeviceId,
 			u16 TMR_ManagerIntrId);
 
-static void TMR_ManagerSendHandler(void *CallBackRef, unsigned int EventData);
-
-static void TMR_ManagerRecvHandler(void *CallBackRef, unsigned int EventData);
+static void TMR_ManagerHandler(void *CallBackRef);
 
 static int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
 				XTMR_Manager *TMR_ManagerInstancePtr,
@@ -112,15 +106,10 @@ static XTMR_Manager TMR_ManagerInst;  /* The instance of the TMR_Manager Device 
  */
 
 /*
- * The following buffer is used in this example to send data  with the TMR_Manager.
+ * The following counter is used to determine when SEM input events have
+ * occurred.
  */
-u8 SendBuffer[TEST_BUFFER_SIZE];
-
-/*
- * The following counter is used to determine when the entire buffer has
- * been sent.
- */
-static volatile int TotalSentCount;
+static volatile int TotalEventCount;
 
 
 /******************************************************************************/
@@ -194,7 +183,6 @@ int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
 
 {
 	int Status;
-	u32 Index;
 
 	/*
 	 * Initialize the TMR_Manager driver so that it's ready to use.
@@ -224,39 +212,17 @@ int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
 	}
 
 	/*
-	 * Setup the handlers for the TMR_Manager that will be called from the
-	 * interrupt context when data has been sent and received,
-	 * specify a pointer to the TMR_Manager driver instance as the callback
-	 * reference so the handlers are able to access the instance data.
-	 */
-	XTMR_Manager_SetSendHandler(TMR_ManagerInstPtr, TMR_ManagerSendHandler,
-							 TMR_ManagerInstPtr);
-	XTMR_Manager_SetRecvHandler(TMR_ManagerInstPtr, TMR_ManagerRecvHandler,
-							 TMR_ManagerInstPtr);
-
-	/*
 	 * Enable the interrupt of the TMR_Manager so that the interrupts
 	 * will occur.
 	 */
-	XTMR_Manager_EnableInterrupt(TMR_ManagerInstPtr);
+	TotalEventCount = 0;
+	XTMR_Manager_EnableInterrupt(TMR_ManagerInstPtr, 0x7ff);
 
 	/*
-	 * Initialize the send buffer bytes with a pattern to send.
-	 */
-	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
-		SendBuffer[Index] = Index;
-	}
-
-	/*
-	 * Send the buffer using the TMR_Manager.
-	 */
-	XTMR_Manager_Send(TMR_ManagerInstPtr, SendBuffer, TEST_BUFFER_SIZE);
-
-	/*
-	 * Wait for the entire buffer to be transmitted,  the function may get
+	 * Wait for a SEM input status event to occur,  the function may get
 	 * locked up in this loop if the interrupts are not working correctly.
 	 */
-	while ((TotalSentCount != TEST_BUFFER_SIZE)) {
+	while ((TotalEventCount == 0)) {
 	}
 
 	TMR_ManagerDisableIntrSystem(IntcInstancePtr, TMR_ManagerIntrId);
@@ -286,7 +252,7 @@ int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
 ****************************************************************************/
 static void TMR_ManagerHandler(void *CallBackRef)
 {
-
+	TotalEventCount++;
 }
 
 /****************************************************************************/
@@ -336,7 +302,7 @@ int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
 	 * interrupt processing for the device.
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, TMR_ManagerIntrId,
-			(XInterruptHandler)XTMR_Manager_InterruptHandler,
+			(Xil_ExceptionHandler)TMR_ManagerHandler,
 			(void *)TMR_ManagerInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -387,7 +353,7 @@ int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
 	 * interrupt occurs for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, TMR_ManagerIntrId,
-		 (Xil_ExceptionHandler)XTMR_Manager_InterruptHandler,
+		 (Xil_ExceptionHandler)TMR_ManagerHandler,
 		 TMR_ManagerInstPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
