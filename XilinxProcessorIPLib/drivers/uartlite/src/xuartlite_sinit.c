@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartlite_sinit.c
-* @addtogroup uartlite_v3_6
+* @addtogroup uartlite_v3_7
 * @{
 *
 * The implementation of the XUartLite component's static initialization
