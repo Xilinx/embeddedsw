@@ -12,7 +12,6 @@
 *
 * This section contains implementation of required functions for
 * the XIicPs driver.
-* See xiicps.h for detailed description of the device and driver.
 *
 * <pre> MODIFICATION HISTORY:
 *

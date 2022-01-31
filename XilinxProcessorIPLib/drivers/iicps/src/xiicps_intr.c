@@ -12,7 +12,6 @@
 *
 * The xiicps_intr.c file contains functions of the XIicPs driver for
 * interrupt-driven transfers.
-* See xiicps.h for a detailed description of the device and driver.
 *
 * <pre> MODIFICATION HISTORY:
 *
