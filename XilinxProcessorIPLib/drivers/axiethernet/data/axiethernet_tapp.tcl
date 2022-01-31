@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -11,6 +11,7 @@
 # 4.1 	   adk    21/4/14  Fixed the CR:780537 Modified the get_dma_info proc
 #		   	   logic as appropriate(In case of multiple dma's in the
 #			   system some connected to ethernet some not).
+#  5.14    adk    31/01/22 Fix interrupt controller name in SMP designs.
 #
 ###############################################################################
 
@@ -167,6 +168,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   if {$ifintr == 1} {
 	set intr_pin_name [get_pins -of_objects [get_cells -hier $ipname] INTERRUPT]
 	set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+	set intcname [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier [hsi::get_sw_processor]] $intcname]
 	set intcvar intc
 	set proc [get_property IP_NAME [get_cells -hier [get_sw_processor]]]
   }

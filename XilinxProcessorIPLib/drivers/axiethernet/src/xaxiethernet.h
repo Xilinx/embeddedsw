@@ -482,6 +482,8 @@
 *                   Instead of #define XAE_MULTI_MAT_ENTRIES derive multicast table
 *                   entries max count from ethernet config structure.
 *          01/11/18 Fixed CR#976392 Use UINTPTR for DMA base address.
+* 5.14 adk 31/01/22 Fix interrupt controller name in SMP designs, Changes are
+* 		    made in the interrupt app tcl file.
 * </pre>
 *
 ******************************************************************************/
