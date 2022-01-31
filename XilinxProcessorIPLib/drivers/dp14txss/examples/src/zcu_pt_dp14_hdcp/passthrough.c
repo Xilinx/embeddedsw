@@ -261,7 +261,7 @@ void DpPt_Main(void){
 #if  ENABLE_HDCP_IN_DESIGN
 
 #if (ENABLE_HDCP22_IN_RX > 0)
-	XHdcp22_RxSetRxCaps(DpRxSsInst.Hdcp22Ptr, TRUE);
+	XHdcp22_Dp_RxSetRxCaps(DpRxSsInst.Hdcp22Ptr, TRUE);
 #endif
 
 #endif
@@ -1132,7 +1132,7 @@ void DpPt_Main(void){
 				||
 
 #if ENABLE_HDCP22_IN_RX
-				XHdcp22Rx_IsEncryptionEnabled(DpRxSsInst.Hdcp22Ptr)
+				XHdcp22Rx_Dp_IsEncryptionEnabled(DpRxSsInst.Hdcp22Ptr)
 #else
 				0
 #endif
@@ -1149,7 +1149,7 @@ void DpPt_Main(void){
 					&& !mon_is_hdcp22_cap) ||
 					(
 #if ENABLE_HDCP22_IN_TX
-							((XHdcp22Tx_IsEncryptionEnabled(DpTxSsInst.Hdcp22Ptr))==0)
+							((XHdcp22Tx_Dp_IsEncryptionEnabled(DpTxSsInst.Hdcp22Ptr))==0)
 #else
 							(0)
 #endif
@@ -1171,7 +1171,7 @@ void DpPt_Main(void){
 					{
 						if(
 #if ENABLE_HDCP22_IN_TX
-								XHdcp22Tx_IsInProgress(DpTxSsInst.Hdcp22Ptr)==0
+								XHdcp22Tx_Dp_IsInProgress(DpTxSsInst.Hdcp22Ptr)==0
 #else
 								0
 #endif
@@ -1546,7 +1546,7 @@ void dprx_tracking(void) {
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 					XDP_TX_INTERRUPT_MASK, 0xFFF);
 #if ENABLE_HDCP22_IN_RX
-			XHdcp22_RxSetLaneCount(DpRxSsInst.Hdcp22Ptr,
+			XHdcp22_Dp_RxSetLaneCount(DpRxSsInst.Hdcp22Ptr,
 					DpRxSsInst.UsrOpt.LaneCount);
 #endif
 			frameBuffer_stop_wr(Msa);

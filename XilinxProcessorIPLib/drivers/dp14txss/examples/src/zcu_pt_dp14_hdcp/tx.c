@@ -657,9 +657,9 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 #if ENABLE_HDCP22_IN_TX
 			 DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 1000000);
 
-		if (XHdcp22Tx_IsInProgress (DpTxSsInst.Hdcp22Ptr)) {
+		if (XHdcp22Tx_Dp_IsInProgress (DpTxSsInst.Hdcp22Ptr)) {
 			/*Handle CP_IRQ*/
-			XHdcp22_Handle_Cp_Irq(DpTxSsInst.Hdcp22Ptr);
+			XHdcp22Tx_Dp_Handle_Cp_Irq(DpTxSsInst.Hdcp22Ptr);
 		}
 #endif
 	 }
