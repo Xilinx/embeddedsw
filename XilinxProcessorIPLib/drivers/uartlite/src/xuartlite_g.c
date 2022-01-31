@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartlite_g.c
-* @addtogroup uartlite_v3_6
+* @addtogroup uartlite_v3_7
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
