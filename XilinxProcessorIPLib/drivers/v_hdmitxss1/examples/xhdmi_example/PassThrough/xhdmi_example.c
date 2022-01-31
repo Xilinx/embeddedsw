@@ -34,6 +34,7 @@
 * 1.05	ssh    07/14/21 Added support for Native Video
 * 1.06  KU     30/08/21 RX FRL settings updated for VCU118
 * 1.07  ssh    01/28/22 Updated GT Swing settings for VCK190
+* 1.08  ssh    02/01/22 Updated Enable CTS Conversion Function
 *
 * </pre>
 *
@@ -2407,6 +2408,11 @@ void Exdes_AcrConvCfg_Passthru()
 					0);
 		} else {
 			/* Enable CTS Conversion */
+			if(HdmiRxSs.TMDSClockRatio) {
+				XhdmiACRCtrl_TMDSClkRatio(&AudioGen, TRUE);
+			} else {
+				XhdmiACRCtrl_TMDSClkRatio(&AudioGen, FALSE);
+			}
 			XhdmiACRCtrl_EnableCtsConv(&AudioGen, TRUE);
 			XhdmiACRCtrl_SetNVal(&AudioGen,
 				XV_Tx_GetNVal(&xhdmi_example_tx_controller,

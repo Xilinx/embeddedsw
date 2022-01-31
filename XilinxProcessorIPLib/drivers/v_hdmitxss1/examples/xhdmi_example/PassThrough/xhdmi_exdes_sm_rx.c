@@ -2417,6 +2417,12 @@ static void XV_Rx_HdmiRx_EnterStateTmdsConfig(XV_Rx *InstancePtr)
 
 	InstancePtr->RxClkSrcConfig(InstancePtr->RxClkSrcConfigCallbackRef);
 
+#ifdef XPS_BOARD_VCU118
+	//Set GT in LPM Mode for TMDS
+	XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
+	XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 1);
+#endif
+
 	XHdmiphy1_Hdmi20Config(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX);
 
 	if (InstancePtr->RxClkSrcSelCb != NULL) {
