@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -16,7 +16,7 @@ BEGIN driver axiethernet
   OPTION supported_peripherals = axi_ethernet_v[3-9]_[0-9];
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 5.13;
+  OPTION VERSION = 5.14;
   OPTION NAME = axiethernet;
 
 END driver
