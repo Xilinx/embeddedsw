@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xaxiethernet.h
-* @addtogroup axiethernet_v5_13
+* @addtogroup axiethernet_v5_14
 * @{
 * @details
 *
