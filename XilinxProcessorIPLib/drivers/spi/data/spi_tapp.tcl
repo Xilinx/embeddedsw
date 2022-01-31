@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -8,6 +8,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 4.0      adk    12/10/13 Updated as per the New Tcl API's
+# 4.9	   adk	  31/01/22 Fix interrupt controller name in SMP designs.
 ##############################################################################
 
 ## BEGIN_CHANGELOG EDK_L_SP4
@@ -123,6 +124,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   if { ${spi_intr} == 1} {
       set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ipname]  -filter "TYPE==INTERRUPT"]
       set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+      set intcname [hsi::get_mem_ranges -of_objects [hsi::get_cells -hier [hsi::get_sw_processor]] $intcname]
       set intcvar intc
       set proc [common::get_property IP_NAME [hsi::get_cells -hier [hsi::get_sw_processor]]]
   }
