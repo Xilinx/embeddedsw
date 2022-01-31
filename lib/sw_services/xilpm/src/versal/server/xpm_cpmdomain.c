@@ -709,13 +709,6 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 		Status = XST_FAILURE;
 	}
 
-	/* Hack because topology is not passing correct info */
-	if (Id == PM_POWER_CPM5) {
-		CpmDomain->CpmSlcrBaseAddr = CPM5_SLCR_BASEADDR;
-		CpmDomain->CpmSlcrSecureBaseAddr = CPM5_SLCR_SECURE_BASEADDR;
-		CpmDomain->CpmCrCpmBaseAddr = CPM5_CRX_BASEADDR;
-	}
-
 	/* Clear CPM section of PMC RAM register reserved for houseclean disable */
 	XPm_RMW32(PM_HOUSECLEAN_DISABLE_REG_1, PM_HOUSECLEAN_DISABLE_CPM_MASK, 0U);
 
