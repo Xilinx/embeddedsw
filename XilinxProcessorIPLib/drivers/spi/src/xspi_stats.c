@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi_stats.c
-* @addtogroup spi_v4_8
+* @addtogroup spi_v4_9
 * @{
 *
 * This component contains the implementation of statistics functions for the
