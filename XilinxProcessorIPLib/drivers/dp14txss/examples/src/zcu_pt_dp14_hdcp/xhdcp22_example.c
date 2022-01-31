@@ -164,12 +164,12 @@ void XHdcp22_Poll(XHdcp22_Repeater *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	if (InstancePtr->IsReady) {
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 
 		/* Call the upstream interface Poll function */
 	    XDpRxSs_Hdcp22Poll(InstancePtr->UpstreamInstancePtr);
 #endif
-#if  (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if  (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 		/* Call the upstream interface Poll function */
 		for (int i = 0; i < InstancePtr->DownstreamInstanceBinded; i++) {
 			XDpTxSs_HdcpPoll(InstancePtr->DownstreamInstancePtr[i]);
@@ -215,7 +215,7 @@ void XV_DpRxSs_Hdcp22SetKey(XDpRxSs *InstancePtr, XV_DpRxSs_Hdcp22KeyType KeyTyp
   Xil_AssertVoid((KeyType == XV_DPRXSS_KEY_HDCP22_LC128)   ||
                    (KeyType == XV_DPRXSS_KEY_HDCP22_PRIVATE))
   switch (KeyType) {
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
     // HDCP 2.2 LC128
     case XV_DPRXSS_KEY_HDCP22_LC128 :
       InstancePtr->Hdcp22Lc128Ptr = KeyPtr;
@@ -381,7 +381,7 @@ void XV_DpTxSs_Hdcp22SetKey(XDpTxSs *InstancePtr, XV_DpTxSs_Hdcp22KeyType KeyTyp
   Xil_AssertVoid((KeyType == XV_DPTXSS_KEY_HDCP22_LC128)   ||
                    (KeyType == XV_DPTXSS_KEY_HDCP22_SRM))
   switch (KeyType) {
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES > 0)
+#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
     // HDCP 2.2 LC128
     case XV_DPTXSS_KEY_HDCP22_LC128 :
       InstancePtr->Hdcp22Lc128Ptr = KeyPtr;

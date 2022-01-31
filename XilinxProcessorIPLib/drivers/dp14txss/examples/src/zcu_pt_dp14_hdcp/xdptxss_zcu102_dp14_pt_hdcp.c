@@ -31,6 +31,8 @@
 * 1.07 ND 09/09/21 Updated the Hdcp22Srm[] in keys.c with SRM keys.
 * 1.08 ND 09/29/21 Updated the color format and stream format for 10 bpc
 * 				   420 format
+* 1.09 ND 01/31/21 Updated the code with new api names corresponding to the changes
+* 				   in hdcp tx and rx drivers. No change in functionality.
 * </pre>
 *
 ******************************************************************************/
