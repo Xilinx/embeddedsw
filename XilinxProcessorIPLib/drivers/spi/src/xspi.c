@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2001 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xspi.c
-* @addtogroup spi_v4_8
+* @addtogroup spi_v4_9
 * @{
 *
 * Contains required functions of the XSpi driver component.  See xspi.h for
