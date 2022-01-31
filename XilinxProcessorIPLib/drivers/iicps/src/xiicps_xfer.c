@@ -12,7 +12,6 @@
 *
 * The xiicps_xfer.c file contains implementation of required helper functions
 * for the XIicPs driver.
-* See xiicps.h for detailed description of the device and driver.
 *
 * <pre> MODIFICATION HISTORY:
 *
