@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +43,8 @@
 *       bsv  08/15/2021 Removed unwanted goto statements
 * 1.05  skd  11/18/2021 Removed unwanted time stamps in XPlmi_ProcessCdo
 *       kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
+*       ma   01/31/2022 Fix DMA Keyhole command issue where the command
+*                       starts at the 32K boundary
 *
 * </pre>
 *
@@ -54,6 +56,7 @@
 #include "xplmi_dma.h"
 #include "xplmi_cdo.h"
 #include "xplmi_proc.h"
+#include "xplmi_hw.h"
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
@@ -210,63 +213,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function will copy the remaining to tempbuf based on the
- * command size.
- *
- * @param	CdoPtr is pointer to the CDO structure
- * @param	BufPtr is pointer to the buffer
- * @param	Size is pointer to the Size of the data copied to tempbuf
- *
- * @return	XST_SUCCESS
- *
- *****************************************************************************/
-static int XPlmi_CdoCopyCmd(XPlmiCdo *CdoPtr, const u32 *BufPtr, u32 *Size)
-{
-	int Status = XST_FAILURE;
-	u8 Index = 0U;
-	u32 RemSize;
-
-	/* Copy the remaining cmd data */
-	if (CdoPtr->CopiedCmdLen == 1U) {
-		/*
-		 * To know the size, we need 2nd argument if
-		 * length is greater than 255.
-		 * Copy the 2nd argument to tempbuf to get the
-		 * size correctly
-		 */
-		CdoPtr->TempCmdBuf[1U] = BufPtr[Index];
-		CdoPtr->CopiedCmdLen++;
-		Index++;
-	}
-
-	/* If size is greater than tempbuf, copy only tempbuf size */
-	*Size = XPlmi_CmdSize(CdoPtr->TempCmdBuf, CdoPtr->CopiedCmdLen);
-	if (*Size > XPLMI_CMD_LEN_TEMPBUF) {
-		*Size = XPLMI_CMD_LEN_TEMPBUF;
-	}
-
-	/*
-	 * Copy the remaining cmd data to TempCmdBuf only if
-	 * command size is greater than copied length
-	 */
-	if (*Size > CdoPtr->CopiedCmdLen) {
-		RemSize = (*Size - CdoPtr->CopiedCmdLen) * XPLMI_WORD_LEN;
-		Status = Xil_SMemCpy(&(CdoPtr->TempCmdBuf[CdoPtr->CopiedCmdLen]),
-				RemSize, &BufPtr[Index], RemSize, RemSize);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_COPY_CMD, Status);
-			goto END;
-		}
-	}
-	CdoPtr->CopiedCmdLen = 0U;
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function will update the command pointer and resume the
  * command from previous state.
  *
@@ -348,19 +294,12 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	CmdPtr->Len = *Size;
 	/*
 	 * Check if Cmd payload is less than buffer size, then copy to
-	 * temporary buffer. This is excluded for Dma KeyHole command
-	 * since the command requires the source data to start at 16 byte
-	 * aligned address and by copying the bitstream data to a temporary
-	 * location, we might violate the condition on alignment. Since
-	 * the data is guaranteed to start at 16 byte aligned address by bootgen,
-	 * skipping copy to temporary buffer works for Dma keyhole but it may
-	 * not work for DMA write command, since there is no guarantee on the
-	 * start address of DMA data.
+	 * the starting of the next chunk address.
 	 */
-	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF)
-		&& ((BufPtr[0U] & XPLMI_PLM_CMD_MASK) !=
-		XPLMI_PLM_DMA_KEYHOLE_VAL)) {
+	if ((*Size > BufLen) && (BufLen < XPLMI_CMD_LEN_TEMPBUF)) {
 		BufSize = BufLen * XPLMI_WORD_LEN;
+		CdoPtr->TempCmdBuf = (u32 *)(CdoPtr->NextChunkAddr - BufSize);
+
 		/* Copy Cmd to temporary buffer */
 		Status = Xil_SMemCpy(CdoPtr->TempCmdBuf, BufSize,
 				BufPtr, BufSize,
@@ -428,7 +367,6 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 {
 	int Status = XST_FAILURE;
 	u32 Size = 0U;
-	u32 CopiedCmdLen = CdoPtr->CopiedCmdLen;
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
 
@@ -472,13 +410,10 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	 * Check if cmd data is copied
 	 * partially during the last iteration
 	 */
-	if (CopiedCmdLen != 0U) {
-		Status = XPlmi_CdoCopyCmd(CdoPtr, BufPtr, &Size);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	if (CdoPtr->CopiedCmdLen != 0U) {
 		BufPtr = CdoPtr->TempCmdBuf;
-		BufLen = Size;
+		BufLen += CdoPtr->CopiedCmdLen;
+		CdoPtr->CopiedCmdLen = 0x0U;
 	}
 
 	/* Execute the commands in the Cdo Buffer */
@@ -502,14 +437,8 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		}
 
 		/* Update the parameters for next iteration */
-		if (CopiedCmdLen != 0U) {
-			BufPtr = &(CdoPtr->BufPtr[Size - CopiedCmdLen]);
-			BufLen = CdoPtr->BufLen - (Size - CopiedCmdLen);
-			CopiedCmdLen = 0U;
-		} else {
-			BufPtr = &BufPtr[Size];
-			BufLen -= Size;
-		}
+		BufPtr = &BufPtr[Size];
+		BufLen -= Size;
 	}
 
 	CdoPtr->ProcessedCdoLen += CdoPtr->BufLen;

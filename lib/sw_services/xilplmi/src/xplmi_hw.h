@@ -66,6 +66,8 @@
 * 1.07  skd  11/23/2021 Fix compilation warnings
 *       ma   01/17/2022 Add HW registers related to SLVERR
 *       ma   01/24/2022 Add missing EAM registers
+*       ma   01/31/2022 Fix DMA Keyhole command issue where the command
+*                       starts at the 32K boundary
 *
 * </pre>
 *
@@ -595,8 +597,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_PMCRAM_LEN			(0x20000U)
 
 /* Loader chunk memory */
-#define XPLMI_PMCRAM_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
-#define XPLMI_PMCRAM_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8100U)
+#define XPLMI_PMCRAM_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR + 0x20U)
+#define XPLMI_PMCRAM_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8120U)
 
 /* Log Buffer default address and length */
 #define XPLMI_DEBUG_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x19000U)

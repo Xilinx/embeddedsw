@@ -78,6 +78,8 @@
 * 1.08  skd  11/18/2021 Added time stamps in XLoader_ProcessCdo
 *       ma   01/30/2022 Added support for skipping MJTAG image when bootmode is
 *                       JTAG or Reset Reason is not EPOR
+*       ma   01/31/2022 Fix DMA Keyhole command issue where the command
+*                       starts at the 32K boundary
 *
 * </pre>
 *
@@ -619,6 +621,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_CDO, Status);
 		goto END;
 	}
+	Cdo.NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	Cdo.SubsystemId = XPm_GetSubsystemId(
 		PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 	SecureParams->IsCdo = (u8)TRUE;
@@ -680,6 +683,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 					ChunkLen = DeviceCopy->Len;
 				}
 				Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted = (u8)TRUE;
+				Cdo.NextChunkAddr = ChunkAddr;
 				/* Initiate the data copy */
 				Status = PdiPtr->MetaHdr.DeviceCopy(
 					DeviceCopy->SrcAddr, ChunkAddr,
@@ -699,6 +703,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 				goto END;
 			}
 
+			Cdo.NextChunkAddr = SecureParams->NextChunkAddr;
 			SecureParams->ChunkAddr = SecureParams->NextChunkAddr;
 			Cdo.BufPtr = (u32 *)SecureParams->SecureData;
 			Cdo.BufLen = SecureParams->SecureDataLen >> XPLMI_WORD_LEN_SHIFT;
