@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Change type of variables to reduce size
 * 1.05  bsv  10/26/2021 Code clean up
+*       ma   01/31/2022 Removed unused defines
 *
 * </pre>
 *
@@ -61,12 +62,10 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_API_ID_MASK			(0xFFU)
 #define XPLMI_CMD_MODULE_ID_MASK		(0xFF00U)
-#define XPLMI_PLM_CMD_MASK			(0xFFFFU)
 #define XPLMI_CMD_LEN_MASK			(0xFF0000U)
 #define XPLMI_CMD_RESP_SIZE			(8U)
 #define XPLMI_CMD_RESUME_DATALEN		(8U)
 #define XPLMI_CMD_MODULE_ID_SHIFT		(8U)
-#define XPLMI_PLM_DMA_KEYHOLE_VAL		(0x10DU)
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;

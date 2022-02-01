@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,8 @@
 *       bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
+* 1.05  ma   01/31/2022 Fix DMA Keyhole command issue where the command
+*                       starts at the 32K boundary
 *
 * </pre>
 *
@@ -85,11 +87,12 @@ extern "C" {
  */
 typedef struct {
 	u32 *BufPtr;		/**< CDO Buffer */
+	u32 NextChunkAddr;	/**< Address of the next chunk */
 	u32 BufLen;		/**< Buffer length */
 	u32 CdoLen;		/**< CDO length */
 	u32 ProcessedCdoLen;	/**< Processed CDO length */
 	u32 CopiedCmdLen;	/**< Copied Command length */
-	u32 TempCmdBuf[8U];	/**< Temporary buffer to store commands
+	u32 *TempCmdBuf;	/**< Temporary buffer to store commands
 				 between iterations */
 	XPlmi_Cmd Cmd;		/**< Cmd instance */
 	u32 SubsystemId;	/**< SubsystemId as derived from XilPM */
