@@ -40,16 +40,25 @@
 #define CheckBit(bitmap, pos)   ((bitmap)[(pos) / (sizeof((bitmap)[0]) * 8U)] & \
 				 (1U << (pos) % (sizeof((bitmap)[0]) * 8U)))
 
-#define XAIE_ERROR(...) \
-	do { XAie_Log(stderr, "[AIE ERROR]: \t", __VA_ARGS__); } while(0)
+#define XAIE_ERROR(...)							      \
+	do {								      \
+		XAie_Log(stderr, "[AIE ERROR]", __func__, __LINE__,	      \
+				__VA_ARGS__);				      \
+	} while(0)
 
-#define XAIE_WARN(...) \
-	do { XAie_Log(stderr, "[AIE WARNING]: \t", __VA_ARGS__); } while(0)
+#define XAIE_WARN(...)							      \
+	do {								      \
+		XAie_Log(stderr, "[AIE WARNING]", __func__, __LINE__,	      \
+				__VA_ARGS__);				      \
+	} while(0)
 
 #ifdef XAIE_DEBUG
 
-#define XAIE_DBG(...) \
-	do { XAie_Log(stdout, "[AIE DEBUG]: \t", __VA_ARGS__); } while(0)
+#define XAIE_DBG(...)							      \
+	do {								      \
+		XAie_Log(stdout, "[AIE DEBUG]", __func__, __LINE__,	      \
+				__VA_ARGS__);				      \
+	} while(0)
 
 #else
 
@@ -137,7 +146,8 @@ static inline u32 first_set_bit(u64 Value)
 	return Index;
 }
 
-void XAie_Log(FILE *Fd, const char* prefix, const char *Format, ...);
+void XAie_Log(FILE *Fd, const char *prefix, const char *func, u32 line,
+		const char *Format, ...);
 u8 _XAie_GetTileTypefromLoc(XAie_DevInst *DevInst, XAie_LocType Loc);
 AieRC _XAie_CheckModule(XAie_DevInst *DevInst, XAie_LocType Loc,
 		XAie_ModuleType Module);
