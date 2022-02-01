@@ -81,6 +81,7 @@
 *                       enabled or disabled
 *       ma   01/24/2022 Check if error action is enabled before executing the
 *                       handler
+*       ma   02/01/2022 Fix SW-BP-INIT-TO-FAILURE warnings
 *
 * </pre>
 *
@@ -1024,7 +1025,7 @@ static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
  *****************************************************************************/
 static u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
 {
-	int Status = XPLMI_ERROR_ACTION_NOT_ENABLED;
+	int Status = XPLMI_ERROR_ACTION_NOT_DISABLED;
 
 	/* Disable error action */
 	XPlmi_Out32((ErrMaskRegAddr + PMC_PSM_DIS_REG_OFFSET), RegMask);
@@ -1072,7 +1073,7 @@ static int EmEnableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
  *****************************************************************************/
 static int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
 {
-	u32 Status;
+	u32 Status = (u32)XPLMI_ERROR_ACTION_NOT_DISABLED;
 
 	/* Disable all PMC error actions */
 	Status = EmDisableErrAction((PMC_GLOBAL_PMC_ERR_OUT1_MASK + RegOffset),
@@ -1099,7 +1100,7 @@ static int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
  *****************************************************************************/
 static int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask)
 {
-	u32 Status;
+	u32 Status = (u32)XPLMI_ERROR_ACTION_NOT_DISABLED;
 
 	/* Disable all PSM error actions */
 	Status = EmDisableErrAction((PSM_GLOBAL_REG_PSM_CR_ERR1_MASK + RegOffset),
