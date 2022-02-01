@@ -140,52 +140,13 @@ static AieRC _XAie_LinuxIO_GetPartition(XAie_DevInst *DevInst,
 		/* Requested by other modules like XRT */
 		IOInst->PartitionFd = DevInst->PartProp.Handle;
 	} else {
+		struct aie_partition_req PartReq = {0};
 		u32 PartitionId;
-		int Ret, Fd;
-		struct aie_partition_query Query;
-		struct aie_range_args *Partitions;
-		struct aie_partition_req PartReq = {0, 0, 0, 0};
-
-		memset(&Query, 0, sizeof(Query));
-		Ret = ioctl(IOInst->DeviceFd, AIE_ENQUIRE_PART_IOCTL, &Query);
-		if((Ret) < 0 || (Query.partition_cnt == 0)) {
-			XAIE_ERROR("Partition query failed\n");
-			return XAIE_ERR;
-		}
-
-		XAIE_DBG("%u partitions are available\n", Query.partition_cnt);
-		/*
-		 * TODO: Remove below check once multiple partitions are
-		 *	 supported on AIE. Since only one partition is
-		 *	 supported currently, any partition id returned by the
-		 *	 kernel is acceptable. Additional checks have to be
-		 *	 performed based on what partition id is passed by the
-		 *	 user.
-		 */
-		if(Query.partition_cnt > 1) {
-			XAIE_ERROR("Multiple partitions are not supported"
-					"currently\n");
-			return XAIE_FEATURE_NOT_SUPPORTED;
-		}
-
-		Partitions = (struct aie_range_args *)
-			malloc(Query.partition_cnt * sizeof(*Partitions));
-		if(Partitions == NULL) {
-			XAIE_ERROR("Failed to alloacte memory for partition"
-					"requests\n");
-			return XAIE_ERR;
-		}
-
-		Query.partitions = Partitions;
-		Ret = ioctl(IOInst->DeviceFd, AIE_ENQUIRE_PART_IOCTL, &Query);
-		if(Ret < 0) {
-			free(Partitions);
-			XAIE_ERROR("Failed to enquire paritions\n");
-			return XAIE_ERR;
-		}
+		int Fd;
 
 		/* Since there is only one partition today pick the first one */
-		PartitionId = Query.partitions[0].partition_id;
+		PartitionId = DevInst->StartCol << AIE_PART_ID_START_COL_SHIFT;
+		PartitionId += DevInst->NumCols << AIE_PART_ID_NUM_COLS_SHIFT;
 
 		/* Setup partition request arguments */
 		PartReq.partition_id = PartitionId;
@@ -194,11 +155,9 @@ static AieRC _XAie_LinuxIO_GetPartition(XAie_DevInst *DevInst,
 		if(Fd < 0) {
 			XAIE_ERROR("Failed to request partition %u.\n",
 					PartitionId);
-			free(Partitions);
 			return XAIE_ERR;
 		}
 
-		free(Partitions);
 		IOInst->PartitionFd = Fd;
 		XAIE_DBG("Partition request successful. Partition id is %u\n",
 				PartitionId);
