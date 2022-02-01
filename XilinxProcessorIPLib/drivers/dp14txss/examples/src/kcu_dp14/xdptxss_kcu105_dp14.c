@@ -22,6 +22,8 @@
  * 1.4   ND   04/03/21 Moved all global variables declaration from .h to .c
  * 				       files due to gcc compiler compilation error.
  * 1.5	 KU   06/17/21 Added support for VCU118
+ * 1.6   ND   02/01/22 Corrected XDP_RX_AUDIO_INFO_DATA to XDP_RX_AUDIO_EXT_DATA
+ * 					   in DpRxSs_ExtPacketHandler()
 *******************************************************************************/
 
 #include "dppt.h"
@@ -4874,7 +4876,7 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 
 	/*Header Information*/
 	ExtFrame[0] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-			XDP_RX_AUDIO_INFO_DATA(1));
+			XDP_RX_AUDIO_EXT_DATA(1));
 	SdpExtFrame.Header[0] =  ExtFrame[0]&0xFF;
 	SdpExtFrame.Header[1] = (ExtFrame[0]&0xFF00)>>8;
 	SdpExtFrame.Header[2] = (ExtFrame[0]&0xFF0000)>>16;
@@ -4884,7 +4886,7 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 	for (i = 0 ; i < 8 ; i++)
 	{
 		ExtFrame[i+1] = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
-				XDP_RX_AUDIO_INFO_DATA(i+2));
+				XDP_RX_AUDIO_EXT_DATA(i+2));
 		SdpExtFrame.Payload[(i*4)]   =  ExtFrame[i+1]&0xFF;
 		SdpExtFrame.Payload[(i*4)+1] = (ExtFrame[i+1]&0xFF00)>>8;
 		SdpExtFrame.Payload[(i*4)+2] = (ExtFrame[i+1]&0xFF0000)>>16;
