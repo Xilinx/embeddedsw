@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 * 1.05  bm   07/08/2021 Code cleanup
 *       bsv  08/17/2021 Code clean up
 * 1.06  kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
+*       kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
 *
 * </pre>
 *
@@ -207,12 +208,12 @@ END:
 /**
 * @brief	This function reads the boot header.
 *
-* @param	MetaHdrPtr is pointer to Meta Header
+* @param	BootHdrPtr is pointer to the address of Boot Header
 *
 *****************************************************************************/
-void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr)
+void XilPdi_ReadBootHdr(const XilPdi_BootHdr **BootHdrPtr)
 {
-	MetaHdrPtr->BootHdrPtr = (XilPdi_BootHdr *)(UINTPTR)XIH_BH_PRAM_ADDR;
+	*BootHdrPtr = (XilPdi_BootHdr *)(UINTPTR)XIH_BH_PRAM_ADDR;
 }
 
 /****************************************************************************/

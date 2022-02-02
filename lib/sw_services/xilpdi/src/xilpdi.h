@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,6 +50,7 @@
 *       bm   08/24/2021 Added Extract Metaheader support
 *       kpt  09/18/2021 Fixed SW-BP-REDUNDANCY in
 *                       XilPdi_IsDpaCmEnable
+* 1.07  kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
 *
 * </pre>
 *
@@ -669,7 +670,7 @@ static inline u32 XilPdi_GetPlmKeySrc(void)
 /************************** Function Prototypes ******************************/
 int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr *PrtnHdr);
 int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl *ImgHdrTbl);
-void XilPdi_ReadBootHdr(XilPdi_MetaHdr *MetaHdrPtr);
+void XilPdi_ReadBootHdr(const XilPdi_BootHdr **BootHdrPtr);
 int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr *MetaHdrPtr);
 int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);

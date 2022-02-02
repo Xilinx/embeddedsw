@@ -125,6 +125,7 @@
 *                       case of invalid header
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *       bsv  01/29/2022 Added redundancy to Status variable in XLoader_LoadImage
+*       kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
 *
 * </pre>
 *
@@ -428,7 +429,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 
 	SecureParams.PdiPtr = PdiPtr;
 	/* Read Boot header */
-	XilPdi_ReadBootHdr(&PdiPtr->MetaHdr);
+	XilPdi_ReadBootHdr(&PdiPtr->MetaHdr.BootHdrPtr);
 	XPlmi_Printf(DEBUG_INFO, "Boot Header Attributes: 0x%x\n\r",
 		PdiPtr->MetaHdr.BootHdrPtr->ImgAttrb);
 
