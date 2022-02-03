@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeccf_hw.h
-* @addtogroup dfeccf_v1_3
+* @addtogroup Overview
 * @{
 * @cond nocomments
 * Contains the register definitions for xdfeccf. This is
@@ -29,6 +29,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/05/21 Align event handlers
 *       dc     11/30/21 Convert AntennaCfg to structure
+* 1.3   dc     01/31/22 CCF IP MODEL_PARAM register change
 *
 * </pre>
 *
@@ -60,10 +61,10 @@ extern "C" {
 #define XDFECCF_MODEL_PARAM_RESERVED_OFFSET 0U
 #define XDFECCF_MODEL_PARAM_NUM_ANTENNA_WIDTH 4U
 #define XDFECCF_MODEL_PARAM_NUM_ANTENNA_OFFSET 4U
-#define XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH 4U
+#define XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH 5U
 #define XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET 8U
-#define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH 3U
-#define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET 12U
+#define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH 4U
+#define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET 16U
 #define XDFECCF_GAIN_STG_EN_OFFSET 0x0CU /**< Register offset */
 #define XDFECCF_GAIN_STG_EN_DISABLED 0x00U
 #define XDFECCF_GAIN_STG_EN_ENABLED 0x01U
