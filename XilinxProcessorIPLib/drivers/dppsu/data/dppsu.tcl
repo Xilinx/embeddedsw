@@ -39,6 +39,7 @@ proc generate_dp_params {drv_handle file_name} {
 			} elseif {[string match -nocase $mode "Dual"]} {
 				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "LANE_COUNT"] 2"
 			} else {
+				puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "LANE_COUNT"] 0"
 				puts "Warning: PSU__DP__LANE_SEL is set to $dp_sel. Please review your PSU settings in Vivado"
 			}
 		}
