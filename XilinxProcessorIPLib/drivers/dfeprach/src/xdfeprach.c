@@ -37,9 +37,10 @@
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     01/11/22 Compilation warrning fix
 *       dc     01/19/22 Assert RachUpdate trigger
+*       dc     01/31/22 Add CORE_SETTINGS register
 *
 * </pre>
-* @addtogroup xdfeprach_v1_3
+* @addtogroup Overview
 * @{
 ******************************************************************************/
 /**
@@ -1690,6 +1691,15 @@ void XDfePrach_Initialize(XDfePrach *InstancePtr, XDfePrach_Init *Init)
 		XDfePrach_WriteReg(InstancePtr,
 				   XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE,
 				   XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE_OFF);
+	}
+
+	/* Set USE_FREQ_OFFSET */
+	if (Init->EnableUseFreqOffset == true) {
+		XDfePrach_WriteReg(InstancePtr, XDFEPRACH_CORE_SETTINGS,
+				   XDFEPRACH_USE_FREQ_OFFSET_ENABLE);
+	} else {
+		XDfePrach_WriteReg(InstancePtr, XDFEPRACH_CORE_SETTINGS,
+				   XDFEPRACH_USE_FREQ_OFFSET_DISABLE);
 	}
 
 	/* Clear RACH data */

@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeprach.h
-* @addtogroup xdfeprach_v1_3 Overview
+* @addtogroup Overview
 * @{
 *
 * The RFSoC DFE PRACH LogiCORE IP provides a wrapper around the PRACH primitive
@@ -65,6 +65,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *       dc     11/26/21 Add SetAntennaCfgInCCCfg API
 *       dc     12/17/21 Update after documentation review
+* 1.3   dc     01/31/22 Add CORE_SETTINGS register
 *
 * </pre>
 * @endcond
@@ -263,6 +264,7 @@ typedef struct {
 typedef struct {
 	XDfePrach_CCSequence Sequence; /**< CCID sequence. */
 	bool EnableStaticSchedule; /**< Static schedule enable flag. */
+	bool EnableUseFreqOffset; /**< Enable the use of frequency offset. */
 } XDfePrach_Init;
 
 /**

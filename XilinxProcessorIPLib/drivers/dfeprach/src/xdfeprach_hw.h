@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeprach_hw.h
-* @addtogroup xdfeprach_v1_3
+* @addtogroup Overview
 * @{
 * @cond nocomments
 * Contains the register definitions for xdfeprach. This is
@@ -26,6 +26,7 @@
 *       dc     07/13/21 Update to common latency requirements
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+* 1.3   dc     01/31/22 Add CORE_SETTINGS register
 *
 * </pre>
 *
@@ -150,6 +151,11 @@ extern "C" {
 #define XDFEPRACH_LATENCY_OFFSET 0x84U /**< Register offset */
 #define XDFEPRACH_LATENCY_VALUE_WIDTH 12U
 #define XDFEPRACH_LATENCY_VALUE_OFFSET 0U
+
+/* Core settings */
+#define XDFEPRACH_CORE_SETTINGS 0x88U /**< Register offset */
+#define XDFEPRACH_USE_FREQ_OFFSET_ENABLE 1U
+#define XDFEPRACH_USE_FREQ_OFFSET_DISABLE 0U
 
 /* RACH configuration */
 
