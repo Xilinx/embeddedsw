@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeccf.h
-* @addtogroup dfeccf_v1_3 Overview
+* @addtogroup Overview
 * @{
 *
 * The RFSoC DFE Channel Filter IP provides a wrapper around the Channel
