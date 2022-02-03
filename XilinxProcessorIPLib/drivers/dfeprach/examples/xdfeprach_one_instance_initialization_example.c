@@ -20,7 +20,7 @@
 * 1.2   dc     11/19/21 Update doxygen documentation
 *
 * </pre>
-* @addtogroup dfeprach_v1_3_examples
+* @addtogroup Overview_examples
 * @{
 *
 *****************************************************************************/
