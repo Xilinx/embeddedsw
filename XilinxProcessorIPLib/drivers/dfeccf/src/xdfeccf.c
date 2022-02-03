@@ -44,9 +44,10 @@
 *       dc     01/19/22 Assert CCUpdate trigger
 *       dc     01/21/22 Symmetric filter Zero-padding
 *       dc     01/27/22 Get calculated TDataDelay
+*       dc     01/31/22 CCF IP MODEL_PARAM register change
 *
 * </pre>
-* @addtogroup dfeccf_v1_3
+* @addtogroup Overview
 * @{
 ******************************************************************************/
 /**
@@ -918,11 +919,6 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 	InstancePtr->Config.NumCCPerAntenna = XDfeCcf_RdBitField(
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH,
 		XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET, ModelParam);
-	/* 0 is converted to 16 as a workaround for NumCCPerAntenna Model
-	   parameter which bitfield is only 4 bits in size. */
-	if (InstancePtr->Config.NumCCPerAntenna == 0U) {
-		InstancePtr->Config.NumCCPerAntenna = XDFECCF_CC_NUM;
-	}
 	InstancePtr->Config.AntennaInterleave = XDfeCcf_RdBitField(
 		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
 		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET, ModelParam);

@@ -21,7 +21,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
-* @addtogroup dfeccf_v1_3_examples
+* @addtogroup Overview_examples
 * @{
 *
 *****************************************************************************/
