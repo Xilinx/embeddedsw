@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -97,7 +97,7 @@ typedef struct {
 
 /* SDK release version */
 #define SDK_RELEASE_YEAR	2022
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)

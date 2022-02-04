@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 extern "C" {
 #endif
 
-#define ZYNQMP_XPFW_VERSION	"2022.1"
+#define ZYNQMP_XPFW_VERSION	"2022.2"
 
 #ifdef __cplusplus
 }

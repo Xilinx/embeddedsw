@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2012 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2012 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -313,7 +313,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2022
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define WORD_LENGTH_SHIFT	2
 

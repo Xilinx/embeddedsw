@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,7 +69,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* SDK release version */
 #define SDK_RELEASE_YEAR	"2022" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
 
 /*
  * Device Copy flag related macros
