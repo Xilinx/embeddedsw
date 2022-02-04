@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 * 1.06  td   07/08/2021 Fix doxygen warnings
 *       ma   07/12/2021 Minor updates to task related code
 *       ma   08/05/2021 Add separate task for each IPI channel
+* 1.07  bm   02/04/2022 Fix race condition in task dispatch loop
 *
 * </pre>
 *
@@ -266,10 +267,7 @@ void XPlmi_TaskDispatchLoop(void)
 		}
 		if (Task != NULL) {
 			Task->State |= (u8)XPLMI_TASK_IN_PROGRESS;
-		}
-		microblaze_enable_interrupts();
-
-		if (Task != NULL) {
+			microblaze_enable_interrupts();
 #ifdef PLM_DEBUG_DETAILED
 			/* Call the task handler */
 			TaskStartTime = XPlmi_GetTimerValue();
@@ -285,7 +283,6 @@ void XPlmi_TaskDispatchLoop(void)
 				/* Delete the task that is handled */
 				microblaze_disable_interrupts();
 				XPlmi_TaskDelete(Task);
-				microblaze_enable_interrupts();
 			}
 			if ((Status != XST_SUCCESS) &&
 				(Status != (int)XPLMI_TASK_INPROGRESS)) {
@@ -299,5 +296,6 @@ void XPlmi_TaskDispatchLoop(void)
 		XPlmi_Printf(DEBUG_DETAILED,
 			"No pending tasks..Going to sleep\n\r");
 		mb_sleep();
+		microblaze_enable_interrupts();
 	}
 }
