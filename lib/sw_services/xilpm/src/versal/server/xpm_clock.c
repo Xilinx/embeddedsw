@@ -991,10 +991,15 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	}
 
 	/*
-	 * Mark CPM related clock as invalid because their registers
-	 * are not accessible from PS DDR SPP.
-	 * TODO: This code under platform version check needs to be
-	 * removed when CPM registers are accessible.
+	 * CPM/CPM5 power domain may be turned off if CPM CDO is not loaded.
+	 * This will break the linux boot as CCF is trying to get clock
+	 * data for CPM/CPM5 clocks and firmware returns an error because clock
+	 * power domain is not up.
+	 * Mark CPM/CPM5 related clocks as invalid to avoid registration with
+	 * CCF until this is handled in a more generic way.
+	 *
+	 * FIXME: This needs to be handled in a more generic way either in
+	 * linux or firmware or both.
 	 */
 	if ((ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_LSBUS_REF) ||
 	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_PLL) ||
@@ -1005,7 +1010,10 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_DBG_REF) ||
 	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX0_REF) ||
 	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX1_REF) ||
-	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF)) {
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_TOPSW_REF) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_DMA_ALT_REF) ||
+	    (ClockIndex == (u32)XPM_NODEIDX_CLK_CPM_AUX2_REF)
+	) {
 		Attr = 0;
 	}
 
