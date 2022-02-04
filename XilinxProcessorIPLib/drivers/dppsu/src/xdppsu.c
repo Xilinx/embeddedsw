@@ -1197,6 +1197,10 @@ static u32 XDpPsu_WaitPhyReady(XDpPsu *InstancePtr)
 			XDPPSU_PHY_STATUS_GT_PLL_LOCK_MASK :
 			XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK;
 
+	if (!XDPPSU_0_LANE_COUNT) {
+		return XST_FAILURE;
+	}
+
 	/* Wait until the PHY is ready. */
 	do {
 		XDpPsu_WaitUs(InstancePtr, 20);
