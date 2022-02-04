@@ -57,6 +57,7 @@
  *       bsv  10/11/2021 Added redundancy for CheckIpiAccess API
  * 1.05  ma   12/15/2021 Update function header for XPlmi_IpiDispatchHandler
  *       ma   01/17/2022 Enable SLVERR for IPI
+ *       ma   02/04/2022 Print Command ID when IPI command execute fails
  *
  * </pre>
  *
@@ -299,7 +300,8 @@ END:
 	}
 
 	if (XST_SUCCESS != Status) {
-		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: Unhandled IPI received\n\r", __func__);
+		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: IPI command failed for "
+				"Command ID: 0x%x\r\n", __func__, Cmd.CmdId);
 	} else {
 		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
 	}
