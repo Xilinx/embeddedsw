@@ -35,6 +35,7 @@
 * 1.06  KU     30/08/21 RX FRL settings updated for VCU118
 * 1.07  ssh    01/28/22 Updated GT Swing settings for VCK190
 * 1.08  ssh    02/01/22 Updated Enable CTS Conversion Function
+* 1.09	ssh    02/04/22 Added param to support Tx to train at the same rate as Rx
 *
 * </pre>
 *
@@ -256,6 +257,9 @@ XV_frmbufwr_Config   *FrameBufWr_ConfigPtr;
 /* Video Frame Buffer Read */
 XV_FrmbufRd_l2	     FrameBufRd;
 XV_frmbufrd_Config   *FrameBufRd_ConfigPtr;
+
+XVidC_VideoStream     HdmiTxSsVidStreamPtrFbRd ;
+XVidC_VideoStream     HdmiRxSsVidStreamPtrFbWr ;
 #ifdef XPAR_XGPIOPS_NUM_INSTANCES
 /* GPIO Reset for Video Frame Buffer */
 XGpioPs              Gpio_VFRB_resetn;
@@ -1358,8 +1362,8 @@ void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr)
 
 	/* Set Value */
 	HdmiTxSsVidStreamPtr = XV_HdmiTxSs1_GetVideoStream(&HdmiTxSs);
-
-	VideoMode = HdmiTxSsVidStreamPtr->VmId;
+	memcpy(&HdmiTxSsVidStreamPtrFbRd, HdmiTxSsVidStreamPtr, sizeof(XVidC_VideoStream));
+	VideoMode = HdmiTxSsVidStreamPtrFbRd.VmId;
 
 	/* If Color bar, the 480i/576i HActive need to be divided by 2 */
 	/* 1440x480i/1440x576i --> 720x480i/720x576i */
@@ -1369,14 +1373,14 @@ void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr)
 		/* NTSC/PAL Support */
 		if ((VideoMode == XVIDC_VM_1440x480_60_I) ||
 		    (VideoMode == XVIDC_VM_1440x576_50_I) ) {
-			width  = HdmiTxSsVidStreamPtr->Timing.HActive/2;
-			height = HdmiTxSsVidStreamPtr->Timing.VActive;
+			width  = HdmiTxSsVidStreamPtrFbRd.Timing.HActive/2;
+			height = HdmiTxSsVidStreamPtrFbRd.Timing.VActive;
 		} else {
 			/* If not NTSC/PAL, the HActive,
 			* and VActive remain as it is
 			*/
-			width  = HdmiTxSsVidStreamPtr->Timing.HActive;
-			height = HdmiTxSsVidStreamPtr->Timing.VActive;
+			width  = HdmiTxSsVidStreamPtrFbRd.Timing.HActive;
+			height = HdmiTxSsVidStreamPtrFbRd.Timing.VActive;
 		}
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	} else {
@@ -1392,13 +1396,13 @@ void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr)
 		*/
 		if (AVIInfoFramePtr->PixelRepetition ==
 		    XHDMIC_PIXEL_REPETITION_FACTOR_2) {
-			width  = HdmiTxSsVidStreamPtr->Timing.HActive/2;
-			height = HdmiTxSsVidStreamPtr->Timing.VActive;
+			width  = HdmiTxSsVidStreamPtrFbRd.Timing.HActive/2;
+			height = HdmiTxSsVidStreamPtrFbRd.Timing.VActive;
 		} else {
 			/* If Pixel Repetition != 2, the HActive, and VActive
 			* remain as it is */
-			width  = HdmiTxSsVidStreamPtr->Timing.HActive;
-			height = HdmiTxSsVidStreamPtr->Timing.VActive;
+			width  = HdmiTxSsVidStreamPtrFbRd.Timing.HActive;
+			height = HdmiTxSsVidStreamPtrFbRd.Timing.VActive;
 		}
 	}
 #endif
@@ -1407,57 +1411,57 @@ void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr)
 	FrameRdCompCnt = 0;
 
 	/* Update the width and height */
-	HdmiTxSsVidStreamPtr->Timing.HActive = width;
-	HdmiTxSsVidStreamPtr->Timing.VActive = height;
+	HdmiTxSsVidStreamPtrFbRd.Timing.HActive = width;
+	HdmiTxSsVidStreamPtrFbRd.Timing.VActive = height;
 
 	ConfigColorDepth = HdmiRxSs.Config.MaxBitsPerPixel ;
 
 	/* Map Stream Color Format with Memory Color Format */
-	switch (HdmiTxSsVidStreamPtr->ColorFormatId) {
+	switch (HdmiTxSsVidStreamPtrFbRd.ColorFormatId) {
 		case XVIDC_CSF_RGB:
-			if ((HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) ||
+			if ((HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_8) ||
 				(ConfigColorDepth == XVIDC_BPC_8)){
 				MemColorFmt = XVIDC_CSF_MEM_RGB8;
-			} else if ((HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10)||
+			} else if ((HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_10)||
 				(ConfigColorDepth == XVIDC_BPC_10)) {
 				MemColorFmt = XVIDC_CSF_MEM_RGBX10;
-			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+			} else if (HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_12) {
 				MemColorFmt = XVIDC_CSF_MEM_RGBX12;
 			}
 			break;
 		case XVIDC_CSF_YCRCB_444:
-			if ((HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) ||
+			if ((HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_8) ||
 				(ConfigColorDepth == XVIDC_BPC_8)){
 				MemColorFmt = XVIDC_CSF_MEM_YUV8;
-			} else if ((HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10)||
+			} else if ((HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_10)||
 				(ConfigColorDepth == XVIDC_BPC_10)) {
 				MemColorFmt = XVIDC_CSF_MEM_YUVX10;
-			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+			} else if (HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_12) {
 				MemColorFmt = XVIDC_CSF_MEM_YUVX12;
 			}
 			break;
 		case XVIDC_CSF_YCRCB_422:
 			//always 12bpc
-			if ((HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) ||
+			if ((HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_8) ||
 				(ConfigColorDepth == XVIDC_BPC_8)){
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV8;
-			} else if ((HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10)||
+			} else if ((HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_10)||
 				(ConfigColorDepth == XVIDC_BPC_10)) {
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV10;
-			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+			} else if (HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_12) {
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV12;
 			}
 			break;
 		case XVIDC_CSF_YCRCB_420:
 
 
-			if ((HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) ||
+			if ((HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_8) ||
 				(ConfigColorDepth == XVIDC_BPC_8)){
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV8_420;
-			} else if ((HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10)||
+			} else if ((HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_10)||
 				(ConfigColorDepth == XVIDC_BPC_10)) {
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV10_420;
-			} else if (HdmiTxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+			} else if (HdmiTxSsVidStreamPtrFbRd.ColorDepth == XVIDC_BPC_12) {
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV12_420;
 			}
 			break;
@@ -1478,7 +1482,7 @@ void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr)
 	/* Calculate the Stride */
 	stride = CalcStride(MemColorFmt,
 			    pFrameBufRd->FrmbufRd.Config.AXIMMDataWidth,
-			    HdmiTxSsVidStreamPtr);
+				&HdmiTxSsVidStreamPtrFbRd);
 
 	/* When crop to TMDS use the stride of Wr FB */
 	if (xhdmi_exdes_ctrlr.crop &&
@@ -1490,7 +1494,7 @@ void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr)
 	Status = XVFrmbufRd_SetMemFormat(pFrameBufRd,
 					 stride,
 					 MemColorFmt,
-					 HdmiTxSsVidStreamPtr);
+					 &HdmiTxSsVidStreamPtrFbRd);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf ("XVFrmbufRd_SetMemFormat Failed: %d\r\n", Status);
@@ -1501,8 +1505,8 @@ void XV_ConfigVidFrameBuf_rd(XV_FrmbufRd_l2 *FrmBufRdPtr)
 	XVFrmbufRd_SetBufferAddr(pFrameBufRd, VidBuff[rd].BaseAddr);
 
 	/* Set Chroma Buffer Base Address */
-	if (HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422 ||
-	    HdmiTxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
+	if (HdmiTxSsVidStreamPtrFbRd.ColorFormatId == XVIDC_CSF_YCRCB_422 ||
+		HdmiTxSsVidStreamPtrFbRd.ColorFormatId == XVIDC_CSF_YCRCB_420) {
 		XVFrmbufRd_SetChromaBufferAddr(pFrameBufRd,
 					       VidBuff[rd].ChromaBaseAddr);
 	}
@@ -1559,7 +1563,8 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 
 	/* Set Value */
 	HdmiRxSsVidStreamPtr = XV_HdmiRxSs1_GetVideoStream(&HdmiRxSs);
-	VideoMode = HdmiRxSsVidStreamPtr->VmId;
+	memcpy (&HdmiRxSsVidStreamPtrFbWr, HdmiRxSsVidStreamPtr, sizeof(XVidC_VideoStream));
+	VideoMode = HdmiRxSsVidStreamPtrFbWr.VmId;
 
 	/* If Color bar, the 480i/576i HActive need to be divided by 2 */
 	/* 1440x480i/1440x576i --> 720x480i/720x576i */
@@ -1569,14 +1574,14 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 		/* NTSC/PAL Support */
 		if ((VideoMode == XVIDC_VM_1440x480_60_I) ||
 		    (VideoMode == XVIDC_VM_1440x576_50_I) ) {
-			width  = HdmiRxSsVidStreamPtr->Timing.HActive/2;
-			height = HdmiRxSsVidStreamPtr->Timing.VActive;
+			width  = HdmiRxSsVidStreamPtrFbWr.Timing.HActive/2;
+			height = HdmiRxSsVidStreamPtrFbWr.Timing.VActive;
 		} else {
 			/* If not NTSC/PAL, the HActive,
 			* and VActive remain as it is
 			*/
-			width  = HdmiRxSsVidStreamPtr->Timing.HActive;
-			height = HdmiRxSsVidStreamPtr->Timing.VActive;
+			width  = HdmiRxSsVidStreamPtrFbWr.Timing.HActive;
+			height = HdmiRxSsVidStreamPtrFbWr.Timing.VActive;
 		}
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	} else {
@@ -1591,13 +1596,13 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 		*/
 		if (AVIInfoFramePtr->PixelRepetition ==
 		    XHDMIC_PIXEL_REPETITION_FACTOR_2) {
-			width  = HdmiRxSsVidStreamPtr->Timing.HActive/2;
-			height = HdmiRxSsVidStreamPtr->Timing.VActive;
+			width  = HdmiRxSsVidStreamPtrFbWr.Timing.HActive/2;
+			height = HdmiRxSsVidStreamPtrFbWr.Timing.VActive;
 		} else {
 			/* If Pixel Repetition != 2, the HActive, and VActive
 			* remain as it is */
-			width  = HdmiRxSsVidStreamPtr->Timing.HActive;
-			height = HdmiRxSsVidStreamPtr->Timing.VActive;
+			width  = HdmiRxSsVidStreamPtrFbWr.Timing.HActive;
+			height = HdmiRxSsVidStreamPtrFbWr.Timing.VActive;
 		}
 	}
 #endif
@@ -1609,21 +1614,21 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 
 
 	/* Update the width and height */
-	HdmiRxSsVidStreamPtr->Timing.HActive = width;
-	HdmiRxSsVidStreamPtr->Timing.VActive = height;
+	HdmiRxSsVidStreamPtrFbWr.Timing.HActive = width;
+	HdmiRxSsVidStreamPtrFbWr.Timing.VActive = height;
 	ConfigColorDepth = HdmiRxSs.Config.MaxBitsPerPixel ;
 	/* Map Stream Color Format with Memory Color Format */
-	switch (HdmiRxSsVidStreamPtr->ColorFormatId) {
+	switch (HdmiRxSsVidStreamPtrFbWr.ColorFormatId) {
 		case XVIDC_CSF_RGB:
 			bits_per_comp = 3;
 			bits_per_comp_div = 1;
-			if ((HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) ||
+			if ((HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_8) ||
 				(ConfigColorDepth == XVIDC_BPC_8)){
 				MemColorFmt = XVIDC_CSF_MEM_RGB8;
-			} else if ((HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10)||
+			} else if ((HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_10)||
 				(ConfigColorDepth == XVIDC_BPC_10)) {
 				MemColorFmt = XVIDC_CSF_MEM_RGBX10;
-			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+			} else if (HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_12) {
 				MemColorFmt = XVIDC_CSF_MEM_RGBX12;
 			}
 			break;
@@ -1631,13 +1636,13 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 			bits_per_comp = 3;
 			bits_per_comp_div = 1;
 
-			if ((HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) ||
+			if ((HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_8) ||
 				(ConfigColorDepth == XVIDC_BPC_8)){
 				MemColorFmt = XVIDC_CSF_MEM_YUV8;
-			} else if ((HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10)||
+			} else if ((HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_10)||
 				(ConfigColorDepth == XVIDC_BPC_10)) {
 				MemColorFmt = XVIDC_CSF_MEM_YUVX10;
-			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+			} else if (HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_12) {
 				MemColorFmt = XVIDC_CSF_MEM_YUVX12;
 			}
 			break;
@@ -1645,26 +1650,26 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 			bits_per_comp = 2;
 			bits_per_comp_div = 1;
 			/* always 12bpc */
-			if ((HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) ||
+			if ((HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_8) ||
 				(ConfigColorDepth == XVIDC_BPC_8)){
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV8;
-			} else if ((HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10)||
+			} else if ((HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_10)||
 				(ConfigColorDepth == XVIDC_BPC_10)) {
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV10;
-			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+			} else if (HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_12) {
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV12;
 			}
 			break;
 		case XVIDC_CSF_YCRCB_420:
 			bits_per_comp = 3;
 			bits_per_comp_div = 2;
-			if ((HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_8) ||
+			if ((HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_8) ||
 				(ConfigColorDepth == XVIDC_BPC_8)){
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV8_420;
-			} else if ((HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_10)||
+			} else if ((HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_10)||
 				(ConfigColorDepth == XVIDC_BPC_10)) {
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV10_420;
-			} else if (HdmiRxSsVidStreamPtr->ColorDepth == XVIDC_BPC_12) {
+			} else if (HdmiRxSsVidStreamPtrFbWr.ColorDepth == XVIDC_BPC_12) {
 				MemColorFmt = XVIDC_CSF_MEM_Y_UV12_420;
 			}
 			break;
@@ -1673,9 +1678,9 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 			break;
 	}
 
-	hdmi20_limit = (HdmiRxSsVidStreamPtr->Timing.HTotal * HdmiRxSsVidStreamPtr->Timing.F0PVTotal *
-			HdmiRxSsVidStreamPtr->FrameRate) / 1000;
-	hdmi20_limit = (hdmi20_limit * HdmiRxSsVidStreamPtr->ColorDepth);
+	hdmi20_limit = (HdmiRxSsVidStreamPtrFbWr.Timing.HTotal * HdmiRxSsVidStreamPtrFbWr.Timing.F0PVTotal *
+			HdmiRxSsVidStreamPtrFbWr.FrameRate) / 1000;
+	hdmi20_limit = (hdmi20_limit * HdmiRxSsVidStreamPtrFbWr.ColorDepth);
 	hdmi20_limit = (hdmi20_limit * bits_per_comp) / bits_per_comp_div;
 	hdmi20_limit = hdmi20_limit * 10 /8;
 
@@ -1696,8 +1701,8 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 
 	XVFrmbufWr_Stop(pFrameBufWr);
 	ResetFrameBuf(0x0);
-	HdmiRxSsVidStreamPtr->Timing.HActive = width;
-	HdmiRxSsVidStreamPtr->Timing.VActive = height;
+	HdmiRxSsVidStreamPtrFbWr.Timing.HActive = width;
+	HdmiRxSsVidStreamPtrFbWr.Timing.VActive = height;
 
 	/* Reset Frame Buffer Write */
 	Status = XVFrmbufWr_WaitForIdle(pFrameBufWr);
@@ -1709,14 +1714,14 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 	/* Calculate the Stride */
 	stride = CalcStride(MemColorFmt,
 			    pFrameBufWr->FrmbufWr.Config.AXIMMDataWidth,
-			    HdmiRxSsVidStreamPtr);
+				&HdmiRxSsVidStreamPtrFbWr);
 	Wr_stride = stride;
 
 	/* Configure Frame Buffer Write */
 	Status = XVFrmbufWr_SetMemFormat(pFrameBufWr,
 					 stride,
 					 MemColorFmt,
-					 HdmiRxSsVidStreamPtr);
+					 &HdmiRxSsVidStreamPtrFbWr);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf ("XVFrmbufWr_SetMemFormat Failed: %d\r\n", Status);
@@ -1727,8 +1732,8 @@ void XV_ConfigVidFrameBuf_wr(XV_FrmbufWr_l2 *FrmBufWrPtr)
 	XVFrmbufWr_SetBufferAddr(pFrameBufWr, VidBuff[0].BaseAddr);
 
 	/* Set Chroma Buffer Base Address */
-	if (HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422 ||
-	    HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_420) {
+	if (HdmiRxSsVidStreamPtrFbWr.ColorFormatId == XVIDC_CSF_YCRCB_422 ||
+		HdmiRxSsVidStreamPtrFbWr.ColorFormatId == XVIDC_CSF_YCRCB_420) {
 		XVFrmbufWr_SetChromaBufferAddr(pFrameBufWr,
 					       VidBuff[0].ChromaBaseAddr);
 	}
@@ -5275,6 +5280,19 @@ void XV_Rx_HdmiTrigCb_StreamOn(void *InstancePtr)
 		xhdmi_exdes_ctrlr.SystemEvent = FALSE;
 		PrintRxInfo = TRUE;
 	} else {
+#if defined TX_RX_RATE
+		if (EdidHdmi_t.EdidCtrlParam.MaxFrlRateSupp >=
+				HdmiRxSs.HdmiRx1Ptr->Stream.Frl.CurFrlRate) {
+		    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+				HdmiRxSs.HdmiRx1Ptr->Stream.Frl.CurFrlRate);
+		} else {
+			xil_printf (ANSI_COLOR_YELLOW"WARNING: "
+					"Tx does not support more than %d rate\r\n"ANSI_COLOR_RESET"\r\n",
+										EdidHdmi_t.EdidCtrlParam.MaxFrlRateSupp);
+			XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
+				    EdidHdmi_t.EdidCtrlParam.MaxFrlRateSupp);
+		}
+#endif
 		xil_printf("RX stream is up.\r\n");
 		PrintRxInfo = FALSE;
 	}

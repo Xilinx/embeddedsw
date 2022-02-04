@@ -361,6 +361,7 @@ XIicPs Ps_Iic0, Iic;
 XIic Iic;
 #endif
 
+#define TX_RX_RATE 0
 
 extern XHdmi_Exdes xhdmi_exdes_ctrlr;
 
