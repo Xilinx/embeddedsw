@@ -12,6 +12,6 @@ BEGIN driver dppsu
         OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common avbuf);
         OPTION copyfiles = all;
-        OPTION VERSION = 1.5;
+        OPTION VERSION = 1.6;
         OPTION NAME = dppsu;
 END driver
