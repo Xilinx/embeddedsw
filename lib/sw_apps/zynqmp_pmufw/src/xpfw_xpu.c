@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -93,7 +93,7 @@ struct XpuReg {
 
 static struct XpuReg XpuRegList[] =
 {
-#ifdef XPAR_DDRCPSU_0_DEVICE_ID
+#if defined(XPAR_DDRCPSU_0_DEVICE_ID) || defined(ENABLE_DDR_XMPU)
 	{
 		.BaseAddress = XMPU_DDR_0_BASE_ADDR,
 		.MaskAll = (u32)0xFU,

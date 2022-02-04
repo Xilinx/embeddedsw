@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,6 +101,7 @@ extern "C" {
  *              to DDR from OCM if FSBL is running on APU. This is to free-up
  *              OCM memory for other uses.
  *  - ENABLE_RPU_RUN_MODE: Enables RPU monitoring module
+ *  - ENABLE_DDR_XMPU: Enable DDR XMPU settings
  *
  * 	These macros are specific to ZCU100 design where it uses GPO1[2] as a
  * 	board power line and
@@ -274,6 +275,10 @@ extern "C" {
 
 #ifndef ENABLE_DYNAMIC_MIO_CONFIG_VAL
 #define ENABLE_DYNAMIC_MIO_CONFIG_VAL			(0U)
+#endif
+
+#ifndef ENABLE_DDR_XMPU_VAL
+#define ENABLE_DDR_XMPU_VAL			(0U)
 #endif
 
 /*
@@ -545,6 +550,9 @@ extern "C" {
 #endif
 #endif
 
+#if ENABLE_DDR_XMPU_VAL
+#define ENABLE_DDR_XMPU
+#endif
 
 #ifdef __cplusplus
 }
