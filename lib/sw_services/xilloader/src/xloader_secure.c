@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -107,6 +107,7 @@
 * 1.08  skd  11/18/21 Added time stamps in XLoader_ProcessChecksumPrtn
 *       kpt  12/13/21 Replaced standard library utility functions with secure
 *                     functions
+*       bsv  01/24/22 Code clean up to reduce size
 *
 * </pre>
 *
@@ -193,6 +194,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 	SecurePtr->PdiPtr = PdiPtr;
 	SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
+	SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	SecurePtr->BlockNum = 0x00U;
 	SecurePtr->ProcessedLen = 0x00U;
 	SecurePtr->PrtnHdr = PrtnHdr;
@@ -488,7 +490,8 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
 			Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(
 					SecurePtr->PdiPtr->CopyToMemAddr,
-					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
+					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
+					SecurePtr->DmaFlags);
 			SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_SHA3_LEN;
 		}
 		else {
@@ -503,7 +506,8 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 			}
 			else {
 				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
-					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
+					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
+					SecurePtr->DmaFlags);
 			}
 		}
 		if (Status != XST_SUCCESS){
@@ -554,7 +558,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	/* 1st block */
 	if (SecurePtr->BlockNum == 0x0U) {
 		SrcAddr = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-				((u64)(SecurePtr->PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
+			((u64)(SecurePtr->PrtnHdr->DataWordOfst) << XPLMI_WORD_LEN_SHIFT);
 	}
 	else {
 		SrcAddr = SecurePtr->NextBlkAddr;
@@ -586,7 +590,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	else {
 		/* Copy to destination address */
 		Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData, DestAddr,
-				SecurePtr->SecureDataLen / XIH_PRTN_WORD_LEN,
+				SecurePtr->SecureDataLen >> XPLMI_WORD_LEN_SHIFT,
 				XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
@@ -655,7 +659,7 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 		goto END;
 	}
 
-	if (Last != (u8)TRUE) {
+	if ((Last != (u8)TRUE) && (SecurePtr->BlockNum != 0U)) {
 		Status = XLoader_StartNextChunkCopy(SecurePtr,
 					(SecurePtr->RemainingDataLen - TotalSize),
 					SrcAddr + TotalSize, BlockSize);
