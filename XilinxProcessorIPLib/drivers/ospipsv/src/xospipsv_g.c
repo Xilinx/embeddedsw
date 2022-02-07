@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_g.c
-* @addtogroup ospipsv_v1_6
+* @addtogroup Overview
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
@@ -19,6 +19,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.0   sk  01/09/19 First release
+* 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
 *
 * </pre>
 *

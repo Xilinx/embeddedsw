@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_hw.h
-* @addtogroup ospipsv_v1_6
+* @addtogroup Overview
 * @{
 *
 * This file contains low level access functions using the base address
@@ -20,10 +20,12 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.0   nsk  02/19/18 First release
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
+* 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 *
 * </pre>
 *
 ******************************************************************************/
+/** @cond INTERNAL */
 #ifndef XOSPIPSV_HW_H_		/**< prevent circular inclusions */
 #define XOSPIPSV_HW_H_		/**< by using protection macros */
 
@@ -2282,4 +2284,5 @@ extern "C" {
 #endif
 
 #endif /* XOSPIPSV_H_ */
+/** @endcond */
 /** @} */
