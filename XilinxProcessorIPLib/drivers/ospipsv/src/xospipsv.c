@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv.c
-* @addtogroup ospipsv_v1_6
+* @addtogroup Overview
 * @{
 *
 * This file implements the functions required to use the OSPIPSV hardware to
@@ -38,6 +38,7 @@
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
 *       sk   05/07/21 Fixed MISRAC violations.
 * 1.5   sk   08/17/21 Added DCache invalidate after non-blocking DMA read.
+* 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 *
 * </pre>
 *

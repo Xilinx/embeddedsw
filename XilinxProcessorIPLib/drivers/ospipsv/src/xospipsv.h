@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,11 +7,41 @@
 /**
 *
 * @file xospipsv.h
-* @addtogroup ospipsv_v1_6
+* @addtogroup Overview
 * @{
 * @details
 *
-* This is the header file for the implementation of OSPIPSV driver.
+* This section contains information about the driver structures, user
+* API prototypes and all the defines required for the user to interact
+* with the driver. OspiPsv driver supports the OSPI controller in Versal
+* SoC platform.
+*
+* <b>Initialization & Configuration</b>
+*
+* The XOspiPsv_Config structure is used by the driver to configure. This
+* configuration structure is typically created by the tool-chain based on HW
+* build properties.
+*
+* To support multiple runtime loading and initialization strategies employed by
+* various operating systems, the driver instance can be initialized in the
+* following way:
+*
+*    - XOspiPsv_LookupConfig(u16 DeviceId) - Use the device identifier to find
+*      the static configuration structure defined in xospipsv_g.c.
+*
+*    - XOspiPsv_CfgInitialize(InstancePtr, ConfigPtr) - Uses a
+*      configuration structure provided by the caller. This will initialize
+*      the XOspiPsv driver structure.
+*
+* <b>Supported features</b>
+*
+* This driver supports following features
+*    - SDR-NON-PHY mode.
+*    - SDR-PHY mode.
+*    - DDR-PHY mode.
+*    - INDAC mode of operations.
+*    - DAC mode of operations.
+*    - Polled and Interrupt mode transfers.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -47,6 +77,8 @@
 *       sk   08/30/21 Limit RX maximum number of taps to 127.
 * 1.6   sk   11/29/21 Configure OSPI MUX while setting the DMA mode.
 *            11/29/21 Fix compilation warnings reported with "-Wundef" flag.
+*       sk   02/07/22 Replaced driver version in addtogroup with Overview.
+*       sk   02/07/22 Added driver details to Overview section.
 *
 * </pre>
 *

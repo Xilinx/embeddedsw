@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_control.h
-* @addtogroup ospipsv_v1_6
+* @addtogroup Overview
 * @{
 *
 * This is the header file for the low-level functions of OSPIPSV driver.
@@ -19,6 +19,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.2   sk  02/20/20 First release
+* 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
 *
 * </pre>
 *
