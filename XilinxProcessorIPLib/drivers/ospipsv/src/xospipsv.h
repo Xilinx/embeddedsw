@@ -79,6 +79,8 @@
 *            11/29/21 Fix compilation warnings reported with "-Wundef" flag.
 *       sk   02/07/22 Replaced driver version in addtogroup with Overview.
 *       sk   02/07/22 Added driver details to Overview section.
+*       sk   02/07/22 Restructured the XOspiPsv_ExecuteRxTuning() API to meet
+*                     safety guidelines for CCM metric.
 *
 * </pre>
 *
