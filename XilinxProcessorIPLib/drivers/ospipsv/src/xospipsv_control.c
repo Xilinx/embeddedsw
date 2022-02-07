@@ -35,7 +35,6 @@
 /************************** Constant Definitions *****************************/
 /**< Maximum delay count */
 #define MAX_DELAY_CNT	10000U
-#define TERA_MACRO	1000000000000U	/**<Macro for 10^12 */
 
 /**************************** Type Definitions *******************************/
 
@@ -307,118 +306,34 @@ ERROR_PATH:
 u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 								u32 TXTap)
 {
-	u8 RXMax_Tap = 0;
-	u8 RXMin_Tap = 0;
-	u8 Avg_RXTap = 0;
-	u8 Index;
-	const u32 *DeviceIdInfo;
-	u8 RXTapFound = 0;
 	u32 Status;
-	u8 MaxTap;
-	u8 WindowSize;
-	u8 Max_WindowSize = 0;
-	u8 Dummy_Incr;
-	u8 Dummy_Flag = 0;
-	u8 Count;
+	u8 AvgRXTap = 0;
+	u8 MaxWindowSize = 0;
+	u8 DummyIncr;
 	u8 Dummy = FlashMsg->Dummy;
-	u8 MaxIndex = 0, MinIndex = 0;
 
-	MaxTap = (u8)((u32)(TERA_MACRO/InstancePtr->Config.InputClockHz) / (u32)160);
-	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
-		MaxTap = (u8)XOSPIPSV_DLL_MAX_TAPS;
-	}
-	for (Dummy_Incr = 0U; Dummy_Incr <= 1U; Dummy_Incr++) {
-		if (Dummy_Incr != 0U) {
+	for (DummyIncr = 0U; DummyIncr <= 1U; DummyIncr++) {
+		if (DummyIncr != 0U) {
 				FlashMsg->Dummy = Dummy + 1U;
 		}
-		for (Index = 0U; Index <= MaxTap; Index++) {
-			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Index |
-				XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK));
-			XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Index |
-					XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK |
-					XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
-			if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
-				Status = XOspiPsv_WaitForLock(InstancePtr,
-						XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
-				if (Status != (u32)XST_SUCCESS) {
-					goto RETURN_PATH;
-				}
-			}
 
-			Count = (u8)0U;
-			do {
-				Count += (u8)1U;
-				Status = XOspiPsv_PollTransfer(InstancePtr, FlashMsg);
-				if (Status != (u32)XST_SUCCESS) {
-					goto RETURN_PATH;
-				}
-				DeviceIdInfo = (u32 *)&(FlashMsg->RxBfrPtr[0]);
-			} while((InstancePtr->DeviceIdData == *DeviceIdInfo) && (Count <= (u8)10U));
-			if (InstancePtr->DeviceIdData == *DeviceIdInfo) {
-				if (RXTapFound == 0U) {
-					if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
-						RXMin_Tap = (u8)XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-							XOSPIPSV_DLL_OBSERVABLE_UPPER_REG) &
-							XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_MASK;
-						RXMax_Tap = RXMin_Tap;
-						MaxIndex = Index;
-						MinIndex = Index;
-					} else {
-						RXMin_Tap = Index;
-						RXMax_Tap = Index;
-					}
-					RXTapFound = 1;
-				} else {
-					if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
-						RXMax_Tap = (u8)XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-							XOSPIPSV_DLL_OBSERVABLE_UPPER_REG) &
-							XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_MASK;
-						MaxIndex = Index;
-					} else {
-						RXMax_Tap = Index;
-					}
-				}
-			}
-			if ((InstancePtr->DeviceIdData != *DeviceIdInfo) || (Index == MaxTap)) {
-				if (RXTapFound != 0U) {
-					WindowSize = RXMax_Tap - RXMin_Tap + 1U;
-					if (WindowSize > Max_WindowSize) {
-						Dummy_Flag = Dummy_Incr;
-						Max_WindowSize = WindowSize;
-						if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
-							Avg_RXTap = (MaxIndex + MinIndex) / 2U;
-						} else {
-							Avg_RXTap = (RXMin_Tap + RXMax_Tap) / 2U;
-						}
-					}
-					RXTapFound = 0U;
-					if (WindowSize >= 3U) {
-						break;
-					}
-				}
-			}
-		}
-		if (Dummy_Incr == 0U) {
-			RXMin_Tap = 0U;
-			RXMax_Tap = 0U;
-			RXTapFound = 0U;
-			WindowSize = 0U;
+		Status = XOspiPsv_CalculateRxTap(InstancePtr, FlashMsg, &AvgRXTap,
+				&MaxWindowSize, DummyIncr, TXTap);
+		if (Status != (u32)XST_SUCCESS) {
+			goto RETURN_PATH;
 		}
 	}
-	InstancePtr->Extra_DummyCycle = Dummy_Flag;
 
-	if (Max_WindowSize < 3U) {
+	if (MaxWindowSize < 3U) {
 		Status = (u32)XST_FAILURE;
 		goto RETURN_PATH;
 	}
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Avg_RXTap |
+		XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)AvgRXTap |
 		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK));
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)Avg_RXTap |
+		XOSPIPSV_PHY_CONFIGURATION_REG, (TXTap | (u32)AvgRXTap |
 		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK |
 		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
 	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
@@ -432,6 +347,41 @@ RETURN_PATH:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+* @brief
+* Configures the Rx and Tx taps in Phy Configuration register.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	RxTap is the Rx tap value.
+* @param	TxTap is the Tx tap value.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fails.
+*
+*
+******************************************************************************/
+u32 XOspiPsv_ConfigureTaps(const XOspiPsv *InstancePtr, u32 RxTap, u32 TxTap)
+{
+	u32 Status;
+
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_PHY_CONFIGURATION_REG, (TxTap | (u32)RxTap |
+		XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK));
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_PHY_CONFIGURATION_REG, (TxTap | (u32)RxTap |
+			XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK |
+			XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));
+	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+		Status = XOspiPsv_WaitForLock(InstancePtr,
+				XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
 /*****************************************************************************/
 /**
 * @brief
