@@ -36,6 +36,7 @@
 #define MAX_STIG_DELAY_CNT	50000U	/**< Max STIG delay count */
 #define MAX_DMA_DELAY_CNT	10000000U	/**< Max DMA delay count */
 #define LOCK_MAX_DELAY_CNT	10000000U	/**< Max LOCK delay count */
+#define TERA_MACRO		1000000000000U	/**<Macro for 10^12 */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -658,6 +659,109 @@ u32 XOspiPsv_WaitForLock(const XOspiPsv *InstancePtr, u32 Mask)
 
 	Status = (u32)XST_SUCCESS;
 ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* Calculate the Max window size and the corresponding Average Rx Tap.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	FlashMsg is a pointer to XOspiPsv_Msg instance.
+* @param	AvgRXTap is a pointer to median Rx Tap.
+* @param	MaxWindowSize is a pointer to maximum window size.
+* @param	DummyIncr is a flag to indicate additional dummy.
+* @param	TXTap is a Tx tap value used while doing Rx tuning.
+*
+* @return
+*		- XST_SUCCESS if lock bit is set.
+*		- XST_FAILURE if fails.
+*
+******************************************************************************/
+u32 XOspiPsv_CalculateRxTap(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
+		u8 *AvgRXTap, u8 *MaxWindowSize, u8 DummyIncr, u32 TXTap)
+{
+	u32 Status;
+	const u32 *DeviceIdInfo;
+	u8 RXMaxTap = 0;
+	u8 RXMinTap = 0;
+	u8 RXTapFound = 0;
+	u8 WindowSize = 0;
+	u8 MaxIndex = 0;
+	u8 MinIndex = 0;
+	u8 Index;
+	u8 Count;
+	u8 MaxTap;
+
+	MaxTap = (u8)((u32)(TERA_MACRO/InstancePtr->Config.InputClockHz) / (u32)160);
+	if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+		MaxTap = (u8)XOSPIPSV_DLL_MAX_TAPS;
+	}
+
+	for (Index = 0U; Index <= MaxTap; Index++) {
+		Status = XOspiPsv_ConfigureTaps(InstancePtr, Index, TXTap);
+		if (Status != (u32)XST_SUCCESS) {
+			goto RETURN_PATH;
+		}
+
+		Count = (u8)0U;
+		do {
+			Count += (u8)1U;
+			Status = XOspiPsv_PollTransfer(InstancePtr, FlashMsg);
+			if (Status != (u32)XST_SUCCESS) {
+				goto RETURN_PATH;
+			}
+			DeviceIdInfo = (u32 *)&(FlashMsg->RxBfrPtr[0]);
+		} while((InstancePtr->DeviceIdData == *DeviceIdInfo) && (Count <= (u8)10U));
+
+		if (InstancePtr->DeviceIdData == *DeviceIdInfo) {
+			if (RXTapFound == 0U) {
+				if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+					RXMinTap = (u8)XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+						XOSPIPSV_DLL_OBSERVABLE_UPPER_REG) &
+						XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_MASK;
+					RXMaxTap = RXMinTap;
+					MaxIndex = Index;
+					MinIndex = Index;
+				} else {
+					RXMinTap = Index;
+					RXMaxTap = Index;
+				}
+				RXTapFound = 1;
+			} else {
+				if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+					RXMaxTap = (u8)XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+						XOSPIPSV_DLL_OBSERVABLE_UPPER_REG) &
+						XOSPIPSV_DLL_OBSERVABLE_UPPER_RX_DECODER_OUTPUT_FLD_MASK;
+					MaxIndex = Index;
+				} else {
+					RXMaxTap = Index;
+				}
+			}
+		}
+		if ((InstancePtr->DeviceIdData != *DeviceIdInfo) || (Index == MaxTap)) {
+			if (RXTapFound != 0U) {
+				WindowSize = RXMaxTap - RXMinTap + 1U;
+				if (WindowSize > *MaxWindowSize) {
+					InstancePtr->Extra_DummyCycle = DummyIncr;
+					*MaxWindowSize = WindowSize;
+					if (InstancePtr->DllMode == XOSPIPSV_DLL_MASTER_MODE) {
+						*AvgRXTap = (MaxIndex + MinIndex) / 2U;
+					} else {
+						*AvgRXTap = (RXMinTap + RXMaxTap) / 2U;
+					}
+				}
+				RXTapFound = 0U;
+				if (WindowSize >= 3U) {
+					break;
+				}
+			}
+		}
+	}
+
+	Status = (u32)XST_SUCCESS;
+RETURN_PATH:
 	return Status;
 }
 
