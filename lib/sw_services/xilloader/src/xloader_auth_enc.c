@@ -76,6 +76,7 @@
 *       skd  01/11/22 Moved comments to its proper place
 *       skd  01/12/22 Updated goto labels for better readability
 *       bsv  01/24/22 Code clean up to reduce size
+*       bsv  02/07/22 Code clean up
 *
 * </pre>
 *
@@ -178,15 +179,12 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
 static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePtr);
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr);
-static void XLoader_ReadIV(u32 *IV, const u32 *EfuseIV);
 static void XLoader_EnableJtag(void);
 static int XLoader_AuthJtag(u32 *TimeOut);
 static int XLoader_CheckAuthJtagIntStatus(void *Arg);
 static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
 static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
-static int XLoader_ReadDna(u32 *EfuseDna);
-static int XLoader_ReadandCompareDna(const u32 *UserDna);
 static void XLoader_DisableJtag(void);
 static void XLoader_SetKatStatus(u32 PlmKatStatus);
 
@@ -399,8 +397,8 @@ END:
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 ReadAuthReg = 0x0U;
-	u32 ReadEncReg = 0x0U;
+	u32 ReadAuthReg;
+	u32 ReadEncReg;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	u32 MetaHeaderKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
@@ -542,10 +540,10 @@ static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePt
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	volatile u32 IsEncKeySrc = 0U;
-	volatile u32 IsEncKeySrcTmp = 0U;
-	volatile u32 PufHdLocation = 0U;
-	volatile u32 PufHdLocationTmp = 0U;
+	volatile u32 IsEncKeySrc;
+	volatile u32 IsEncKeySrcTmp;
+	volatile u32 PufHdLocation;
+	volatile u32 PufHdLocationTmp;
 
 	/*
 	 * When ENC only is set, Meta header should be decrypted
@@ -1197,15 +1195,13 @@ static int XLoader_VerifyRevokeId(u32 RevokeId)
 		goto END;
 	}
 
-	Quo = RevokeId / XLOADER_WORD_IN_BITS;
-	QuoTmp = RevokeId / XLOADER_WORD_IN_BITS;
-	Mod = RevokeId % XLOADER_WORD_IN_BITS;
-	ModTmp = RevokeId % XLOADER_WORD_IN_BITS;
-	Value = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
-		(Quo * XIH_PRTN_WORD_LEN));
+	Quo = RevokeId >> (XLOADER_WORD_IN_BITS_SHIFT - XPLMI_WORD_LEN_SHIFT);
+	QuoTmp = RevokeId >> (XLOADER_WORD_IN_BITS_SHIFT - XPLMI_WORD_LEN_SHIFT);
+	Mod = RevokeId & XLOADER_WORD_IN_BITS_MASK;
+	ModTmp = RevokeId & XLOADER_WORD_IN_BITS_MASK;
+	Value = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET + Quo);
 	Value &= ((u32)1U << Mod);
-	ValueTmp = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
-		(QuoTmp * XIH_PRTN_WORD_LEN));
+	ValueTmp = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET + QuoTmp);
 	ValueTmp &= ((u32)1U << ModTmp);
 	if((Value != 0x00U) || (ValueTmp != 0x00U)) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_ID_REVOKED, 0x0);
@@ -1333,9 +1329,9 @@ END:
 ******************************************************************************/
 static int XLoader_CheckNonZeroIV(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XLoader_UpdateMinorErr(
+		XLOADER_SEC_METAHDR_IV_ZERO_ERR, 0);
 	u32 Index;
-	u8 NonZeroMhiv = (u8)FALSE;
 
 	for (Index = XLOADER_EFUSE_IV_METAHDR_START_OFFSET;
 		Index <= XLOADER_EFUSE_IV_METAHDR_END_OFFSET;
@@ -1344,28 +1340,20 @@ static int XLoader_CheckNonZeroIV(void)
 		 * validate Black IV.
 		 */
 		if (XPlmi_In32(Index) != 0x0U) {
-			NonZeroMhiv = (u8)TRUE;
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_BLACK_IV_ZERO_ERR, 0);
+			for (Index = XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET;
+				Index <= XLOADER_EFUSE_IV_BLACK_OBFUS_END_OFFSET;
+				Index = Index + XIH_PRTN_WORD_LEN) {
+				/* Any bit of Black IV are non-zero break and
+				 * return success
+				 */
+				if (XPlmi_In32(Index) != 0x0U) {
+					Status = XST_SUCCESS;
+					break;
+				}
+			}
 			break;
 		}
-	}
-	/* If Metahdr IV is non-zero then validate Black IV */
-	if (NonZeroMhiv == (u8)TRUE) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_BLACK_IV_ZERO_ERR, 0);
-		for (Index = XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET;
-			Index <= XLOADER_EFUSE_IV_BLACK_OBFUS_END_OFFSET;
-			Index = Index + XIH_PRTN_WORD_LEN) {
-			/* Any bit of Black IV are non-zero break and
-			 * return success
-			 */
-			if (XPlmi_In32(Index) != 0x0U) {
-				Status = XST_SUCCESS;
-				break;
-			}
-		}
-	}
-
-	if (Status == XST_FAILURE) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_METAHDR_IV_ZERO_ERR, 0);
 	}
 
 	return Status;
@@ -1516,7 +1504,7 @@ static int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	int Status = XST_FAILURE;
 	u32 Counter = 0U;
 	u32 HashLen = XLOADER_SHA3_LEN;
-	XSecure_Sha3Hash HashStore = {0U};
+	XSecure_Sha3Hash HashStore;
 	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
 	u32 Size = XLOADER_SHA3_LEN;
 	u8 *OutTmp = Out;
@@ -1580,8 +1568,8 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature)
 {
 	volatile int Status = XST_FAILURE;
-	volatile u32 DbTmp = 0U;
-	XSecure_Sha3Hash MPrimeHash = {0U};
+	volatile u32 DbTmp;
+	XSecure_Sha3Hash MPrimeHash;
 	volatile u8 HashTmp;
 	u8 *XSecure_RsaSha3Array = (u8 *)(XPLMI_PMCRAM_CHUNK_MEMORY_1 +
 		sizeof(XLoader_AuthCertificate));
@@ -1805,14 +1793,14 @@ static int XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u
 	const u8 *YKey = &Key[KeySize];
 	const u8 *RSign = Signature;
 	const u8 *SSign = &Signature[KeySize];
-	u8 Qx[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
-	u8 Qy[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
-	u8 SigR[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
-	u8 SigS[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
-	u8 Hash[XLOADER_SHA3_LEN] = {0U};
+	u8 Qx[XLOADER_ECDSA_MAX_KEYSIZE];
+	u8 Qy[XLOADER_ECDSA_MAX_KEYSIZE];
+	u8 SigR[XLOADER_ECDSA_MAX_KEYSIZE];
+	u8 SigS[XLOADER_ECDSA_MAX_KEYSIZE];
+	u8 Hash[XLOADER_SHA3_LEN];
 	u32 Index;
-	XSecure_EllipticKey PublicKey = {0};
-	XSecure_EllipticSign Sign = {0};
+	XSecure_EllipticKey PublicKey = {Qx, Qy};
+	XSecure_EllipticSign Sign = {SigR, SigS};
 
 	for (Index = 0U; Index < KeySize; Index++) {
 		Qx[Index] = XKey[KeySize - Index - 1U];
@@ -1824,11 +1812,6 @@ static int XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u
 	for (Index = 0U; Index < XLOADER_SHA3_LEN; Index++) {
 		Hash[Index] = DataHash[XLOADER_SHA3_LEN - Index - 1U];
 	}
-
-	PublicKey.Qx = Qx;
-	PublicKey.Qy = Qy;
-	Sign.SignR = SigR;
-	Sign.SignS = SigS;
 
 	/* Validate point on the curve */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_EllipticValidateKey,
@@ -2123,9 +2106,13 @@ END:
 static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		XLoader_AesKekInfo *KeyDetails, XSecure_AesKeySrc *KeySrc)
 {
-	int Status = XST_FAILURE;
+	int Status = XLoader_UpdateMinorErr(XLOADER_SEC_DEC_INVALID_KEYSRC_SEL,
+		0x0);
 	u32 *KekStatus = &SecurePtr->PdiPtr->KekStatus;
 	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr.BootHdrPtr;
+	u32 KekStat = 0U;
+	XSecure_AesKeySrc KeySource = XSECURE_AES_BBRAM_KEY;
+	u8 DecryptBlkKey = (u8)FALSE;
 
 	XPlmi_Printf(DEBUG_INFO, "Key source is %0x\n\r", KeyDetails->PdiKeySrc);
 	switch (KeyDetails->PdiKeySrc) {
@@ -2137,16 +2124,9 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		if (((*KekStatus) & XLOADER_EFUSE_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_RED_KEY;
-
-			Status = XLoader_DecryptBlkKey(SecurePtr->AesInstPtr, KeyDetails);
-			if (Status == XST_SUCCESS) {
-				*KekStatus = (*KekStatus) | XLOADER_EFUSE_RED_KEY;
-				*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
+			KeySource = XSECURE_AES_EFUSE_RED_KEY;
+			KekStat = XLOADER_EFUSE_RED_KEY;
+			DecryptBlkKey = (u8)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2161,16 +2141,9 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		if (((*KekStatus) & XLOADER_BBRAM_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_BBRAM_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_BBRAM_RED_KEY;
-
-			Status = XLoader_DecryptBlkKey(SecurePtr->AesInstPtr, KeyDetails);
-			if (Status == XST_SUCCESS) {
-				*KekStatus = (*KekStatus) | XLOADER_BBRAM_RED_KEY;
-				*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
+			KeySource = XSECURE_AES_BBRAM_RED_KEY;
+			KekStat = XLOADER_BBRAM_RED_KEY;
+			DecryptBlkKey = (u8)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2181,6 +2154,8 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		if (((*KekStatus) & XLOADER_BHDR_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_BH_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_BH_RED_KEY;
+			KeySource = XSECURE_AES_BH_RED_KEY;
+			KekStat = XLOADER_BHDR_RED_KEY;
 
 			/* Write BH key into BH registers */
 			Status = XSecure_AesWriteKey(SecurePtr->AesInstPtr,
@@ -2189,15 +2164,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 			if (Status != XST_SUCCESS) {
 				break;
 			}
-			Status = XLoader_DecryptBlkKey(SecurePtr->AesInstPtr, KeyDetails);
-			if (Status == XST_SUCCESS) {
-				*KekStatus = (*KekStatus) | XLOADER_BHDR_RED_KEY;
-				*KeySrc = XSECURE_AES_BH_RED_KEY;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
+			DecryptBlkKey = (u8)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2212,16 +2179,9 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		if (((*KekStatus) & XLOADER_EFUSE_USR0_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_0;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_0;
-
-			Status = XLoader_DecryptBlkKey(SecurePtr->AesInstPtr, KeyDetails);
-			if (Status == XST_SUCCESS) {
-				*KekStatus = (*KekStatus) | XLOADER_EFUSE_USR0_RED_KEY;
-				*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_0;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
+			KeySource = XSECURE_AES_EFUSE_USER_RED_KEY_0;
+			KekStat = XLOADER_EFUSE_USR0_RED_KEY;
+			DecryptBlkKey = (u8)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2236,16 +2196,9 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		if (((*KekStatus) & XLOADER_EFUSE_USR1_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_1;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_1;
-
-			Status = XLoader_DecryptBlkKey(SecurePtr->AesInstPtr, KeyDetails);
-			if (Status == XST_SUCCESS) {
-				*KekStatus = (*KekStatus) | XLOADER_EFUSE_USR1_RED_KEY;
-				*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
-			}
-			else {
-				Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC,
-									Status);
-			}
+			KeySource = XSECURE_AES_EFUSE_USER_RED_KEY_1;
+			KekStat = XLOADER_EFUSE_USR1_RED_KEY;
+			DecryptBlkKey = (u8)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
@@ -2285,11 +2238,22 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		Status = XST_SUCCESS;
 		break;
 	default:
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_DEC_INVALID_KEYSRC_SEL, 0x0);
 		break;
 	}
+	if (DecryptBlkKey == (u8)FALSE) {
+		goto END;
+	}
 
+	Status = XLoader_DecryptBlkKey(SecurePtr->AesInstPtr, KeyDetails);
+	if (Status == XST_SUCCESS) {
+		*KekStatus = (*KekStatus) | KekStat;
+		*KeySrc = KeySource;
+	}
+	else {
+		Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, Status);
+	}
+
+END:
 	return Status;
 }
 
@@ -2536,7 +2500,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XLoader_AesKekInfo KeyDetails;
 	u32 Offset;
 	u32 RegVal;
-	u32 ReadEncReg = 0x0U;
+	u32 ReadEncReg;
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
@@ -2571,8 +2535,14 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	}
 	else {
 		if ((SecurePtr->PdiPtr->KekStatus & XLOADER_EFUSE_RED_KEY) == 0x0U) {
-			XLoader_ReadIV(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.KekIv,
-				(u32*)XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET);
+			Status = Xil_SMemCpy(SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.KekIv,
+				(XLOADER_SECURE_IV_NUM_ROWS * sizeof(u32)),
+				(u32*)XLOADER_EFUSE_IV_BLACK_OBFUS_START_OFFSET,
+				(XLOADER_SECURE_IV_NUM_ROWS * sizeof(u32)),
+				(XLOADER_SECURE_IV_NUM_ROWS * sizeof(u32)));
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 		}
 	}
 
@@ -2863,26 +2833,6 @@ static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr)
 	return Status;
 }
 
-/*****************************************************************************/
-/**
-* @brief       This function reads IV from eFUSE
-*
-* @param       IV       Pointer to store the IV.
-* @param       EfuseIV  Pointer to read the IV from eFUSE
-*
-* @return      None
-*
-******************************************************************************/
-static void XLoader_ReadIV(u32 *IV, const u32 *EfuseIV)
-{
-	u32 Index;
-
-	/* Read IV from eFUSE */
-	for (Index = 0U; Index < XLOADER_SECURE_IV_NUM_ROWS; Index++) {
-		IV[Index] = EfuseIV[Index];
-	}
-}
-
 /******************************************************************************/
 /**
 * @brief        This function adds periodic checks of the status of Auth
@@ -3158,9 +3108,12 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		UseDnaTmp = (u8)(SecureParams.AuthJtagMessagePtr->Attrb &
 				XLOADER_AC_AH_DNA_MASK);
 		if ((UseDna != FALSE) || (UseDnaTmp != FALSE)) {
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
-				XLoader_ReadandCompareDna,
-				SecureParams.AuthJtagMessagePtr->Dna);
+			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT,
+				SecureParams.AuthJtagMessagePtr->Dna,
+				XLOADER_EFUSE_DNA_LEN_IN_BYTES,
+				(void *)XLOADER_EFUSE_DNA_START_OFFSET,
+				XLOADER_EFUSE_DNA_LEN_IN_BYTES,
+				XLOADER_EFUSE_DNA_LEN_IN_BYTES);
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 				Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_AUTH_JTAG_INVALID_DNA, 0);
@@ -3640,60 +3593,4 @@ static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
 
 	return Status;
 }
-
-/*****************************************************************************/
-/**
-* @brief	This function reads DNA from efuse cache
-*
-* @param	EfuseDna - Pointer to store the DNA read from efuse
-*
-* @return	XST_SUCCESS on successful read
-*               XST_FAILURE on failure
-*
-******************************************************************************/
-static int XLoader_ReadDna(u32 *EfuseDna)
-{
-	volatile int Status = XST_FAILURE;
-
-	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, (void *)EfuseDna,
-		XLOADER_EFUSE_DNA_LEN_IN_BYTES,
-		(void *)XLOADER_EFUSE_DNA_START_OFFSET,
-		XLOADER_EFUSE_DNA_LEN_IN_BYTES,
-		XLOADER_EFUSE_DNA_LEN_IN_BYTES);
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-* @brief	This function reads DNA from efuse cache and compares it with user
-*               provided DNA
-*
-* @param	UserDna - Pointer to the user provided DNA
-*
-* @return	XST_SUCCESS on successful comparison
-*               XST_FAILURE on comparison failure
-*
-******************************************************************************/
-static int XLoader_ReadandCompareDna(const u32 *UserDna)
-{
-	volatile int Status = XST_FAILURE;
-	u32 EfuseDna[XLOADER_EFUSE_DNA_NUM_ROWS] = {0U};
-
-	/* Read DNA from efuse cache */
-	Status = XLoader_ReadDna(EfuseDna);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Compare DNA with user provided DNA */
-	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCmp_CT, (void *)EfuseDna,
-		XLOADER_EFUSE_DNA_LEN_IN_BYTES, (void *)UserDna,
-		XLOADER_EFUSE_DNA_LEN_IN_BYTES, XLOADER_EFUSE_DNA_LEN_IN_BYTES);
-
-END:
-	return Status;
-}
-
 #endif /* END OF PLM_SECURE_EXCLUDE */

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +54,7 @@
 * 1.07  kpt  10/07/21 Removed function prototype XLoader_ProcessSecurePrtn
 *       kpt  10/20/21 Declared temporal variables in XLoader_SecureTempParams
 *       kpt  10/28/21 Added flags in XLoader_SecureInit function prototype
+*       bsv  02/07/22 Code clean up
 *
 * </pre>
 *
@@ -81,6 +82,8 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XLOADER_WORD_IN_BITS					(32U)
 						/**< Word length in bits */
+#define XLOADER_WORD_IN_BITS_SHIFT		(5U)
+#define XLOADER_WORD_IN_BITS_MASK		(0x1FU)
 
 /**
  * @name  Clear buffer error codes
