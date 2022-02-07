@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_hw.c
-* @addtogroup ospipsv_v1_6
+* @addtogroup Overview
 * @{
 *
 * This file implements the hardware functions used by the functions in
@@ -22,6 +22,7 @@
 * 1.3   sk   04/09/20 Added support for 64-bit address read from 32-bit proc.
 *       sk  08/19/20 Reduced the usleep delay while checking transfer done.
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
+* 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
 *
 * </pre>
 *

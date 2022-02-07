@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_options.c
-* @addtogroup ospipsv_v1_6
+* @addtogroup Overview
 * @{
 *
 * This file implements functions to configure the OSPIPSV component,
@@ -24,6 +24,7 @@
 *                     Removed Legacy/STIG mode option in OptionsTable.
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 * 1.1   sk   07/22/19 Added RX Tuning algorithm for SDR and DDR modes.
+* 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 *
 * </pre>
 *
