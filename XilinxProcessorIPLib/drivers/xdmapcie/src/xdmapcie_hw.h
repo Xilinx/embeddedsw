@@ -44,6 +44,10 @@ extern "C" {
 #define QDMA_PCIE_BRIDGE
 #endif
 
+#ifdef XPAR_XDMA_0_DEVICE_ID
+#define XDMA_PCIE_BRIDGE
+#endif
+
 /** @name Registers
  *
  * Register offsets for this device. Some of the registers
@@ -57,7 +61,7 @@ extern "C" {
 						       * register offset
 						       */
 
-#if defined(versal) || defined(QDMA_PCIE_BRIDGE)
+#if (defined(versal) || defined(QDMA_PCIE_BRIDGE)) && !defined(XDMA_PCIE_BRIDGE)
 #define XDMAPCIE_VSECC_OFFSET			0xE00 /**<
 						       * VSEC Capability
 						       * Register

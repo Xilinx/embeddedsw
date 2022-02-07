@@ -102,7 +102,7 @@ typedef  struct {
 	u8  LocalBarsNum;		/* The number of local bus (AXI) BARs
 					 * in hardware
 					 */
-#if !defined(versal) || defined(QDMA_PCIE_BRIDGE)
+#if !defined(versal) || defined(QDMA_PCIE_BRIDGE) || defined(XDMA_PCIE_BRIDGE)
 	u8  IncludeBarOffsetReg;	/**<Are BAR Offset registers built in
 					 * hardware
 					 */
