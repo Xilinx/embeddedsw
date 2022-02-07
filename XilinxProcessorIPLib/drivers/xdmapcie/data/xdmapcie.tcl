@@ -17,11 +17,16 @@
 
 proc generate {drv_handle} {
     set ips [hsi::get_cells -hier "*"]
+    set xparam_gen 0
     foreach ip $ips {
 	set periph [common::get_property IP_NAME $ip]
 	set sw_processor [hsi::get_sw_processor]
 	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
 	set processor_type [common::get_property IP_NAME $processor]
+
+	if {[string compare -nocase $xparam_gen "1"] == 0} {
+		break
+	}
 
         if {[string compare -nocase "xdma" $periph] == 0 || [string compare -nocase "pcie_dma_versal" $periph] == 0 } {
 		if {($processor_type == "psu_cortexr5")} {
@@ -89,6 +94,7 @@ proc generate {drv_handle} {
 			     "C_AXIBAR2PCIEBAR_1"\
 			     "device_port_type"
 		}
+		set xparam_gen 1
 	}
 
         if {[string compare -nocase "psv_pciea_attrib" $periph] == 0} {
@@ -151,6 +157,7 @@ proc generate {drv_handle} {
 			    "C_CPM_PCIE0_PF0_AXIBAR2PCIE_BASEADDR_1"\
 			    "C_CPM_PCIE0_PORT_TYPE"
 		}
+		set xparam_gen 1
         }
 
         if {[string compare -nocase "qdma" $periph] == 0} {
@@ -219,6 +226,7 @@ proc generate {drv_handle} {
 			    "C_AXIBAR_1"\
 			    "device_port_type"
 		}
+		set xparam_gen 1
         }
         if {[string compare -nocase "psv_noc_pcie_0" $periph] == 0 ||
 	    [string compare -nocase "psv_noc_pcie_1" $periph] == 0 ||
@@ -228,6 +236,7 @@ proc generate {drv_handle} {
 		::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XdmaPcie" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
 
 		xdefine_config_file $drv_handle "xdmapcie_g.c" "XDmaPcie" "C_S_AXI_BASEADDR"
+		set xparam_gen 1
 	}
     }
 }
