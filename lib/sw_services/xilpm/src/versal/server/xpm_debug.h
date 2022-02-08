@@ -1,8 +1,7 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 #ifndef XPM_DEBUG_H_
 #define XPM_DEBUG_H_
@@ -531,6 +530,10 @@ extern "C" {
 #define XPM_INT_ERR_I2C_INIT			0x4802U
 /* I2c write error */
 #define XPM_INT_ERR_I2C_WRITE			0x4803U
+/* Failed to set voltage to upper limit*/
+#define XPM_INT_ERR_RAIL_UPPER_VOLT		0x4804U
+/* Failed to set voltage to lower limit*/
+#define XPM_INT_ERR_RAIL_LOWER_VOLT		0x4805U
 
 /*********************** PL Device specific Errors **************************/
 /************************** (0x4900) - (0x497F) ******************************/

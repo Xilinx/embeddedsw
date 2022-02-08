@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@ typedef struct XPm_Regulator {
 	XPm_Node Node; 			/** Node base class */
 	XPm_ControlMethod CtrlMethod; 	/** Control method. Pmbus/I2c:1, no other value supported */
 	u32 ParentId;			/** Parent Node ID */
-	struct XPm_I2cCmd Config;	/** i2c commands to configure this regulator */
+	XPm_I2cCmd Config;		/** i2c commands to configure this regulator */
 } XPm_Regulator;
 
 

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,10 +40,10 @@ typedef struct XPm_Power XPm_Power;
 
 #define MAX_I2C_COMMAND_LEN	16
 
-struct XPm_I2cCmd {
+typedef struct {
 	u8 CmdLen; /** Total no of commands to configure this regulator */
 	u8 CmdArr[MAX_I2C_COMMAND_LEN]; /** Array of i2c command bytes. For example, Len1,bytes, Len2, bytes, Len3,bytes etc */
-};
+} XPm_I2cCmd;
 
 /**
  * The power node class.  This is the base class for all the power island and

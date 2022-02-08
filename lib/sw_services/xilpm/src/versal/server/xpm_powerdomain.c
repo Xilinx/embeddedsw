@@ -1319,7 +1319,8 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 					ParentRail->Power.Node.State = (u8)XPM_POWER_STATE_ON;
 				} else if ((u8)XPM_POWER_STATE_ON != ParentRail->Power.Node.State) {
 					PmDbg("Turning %x rail on now\r\n", ParentRail->Power.Node.Id);
-					Status = XPmRail_Control(ParentRail, (u8)XPM_POWER_STATE_ON);
+					Status = XPmRail_Control(ParentRail,
+								 (u8)XPM_POWER_STATE_ON, 1U);
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
@@ -1331,7 +1332,8 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 				ParentRail->Power.UseCount--;
 				if (ParentRail->Power.UseCount <= 0U) {
 					PmDbg("Turning %x rail off now\r\n", ParentRail->Power.Node.Id);
-					Status = XPmRail_Control(ParentRail, (u8)XPM_POWER_STATE_OFF);
+					Status = XPmRail_Control(ParentRail,
+								 (u8)XPM_POWER_STATE_OFF, 0U);
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}

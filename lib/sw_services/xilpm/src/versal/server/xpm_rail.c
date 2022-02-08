@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +15,8 @@
 #include "xpm_regs.h"
 #include "xpm_power.h"
 #include "xpm_regulator.h"
+#include "xplmi_sysmon.h"
+#include "xplmi_scheduler.h"
 
 #if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
     defined (XPAR_XIICPS_2_DEVICE_ID)
@@ -149,6 +151,7 @@ static XStatus I2CWrite(XIicPs *Iic, u16 SlaveAddr, u8 *Buffer, s32 ByteCount)
 				goto done;
 			}
 		}
+
 		Status = XIicPs_MasterSendPolled(Iic, Buffer, ByteCount, SlaveAddr);
 	} while (XST_IIC_ARB_LOST == Status);
 
@@ -160,17 +163,44 @@ done:
 	return Status;
 }
 
-XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
+XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u8 WriteBuffer[2] = {0};
+	u8 WriteBuffer[3] = {0};
 	u32 NodeIdx = NODEINDEX(Rail->Power.Node.Id);
 	XPm_Regulator *Regulator;
 	u16 RegulatorSlaveAddress, MuxAddress;
-	u32 i = 0, j = 0, k = 0, BytesLen = 0, Mode = 0;
+	u32 i = 0, j = 0, k = 0, BytesLen = 0;
 
-	if (State == Rail->Power.Node.State) {
+	if (Mode >= MAX_MODES) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Power state transition is either to ON or OFF */
+	if (((u8)XPM_POWER_STATE_ON != State) &&
+	    ((u8)XPM_POWER_STATE_OFF != State)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Mode 0 is reserved for turning the power rail OFF and mode 1
+	 * is reserved for turning the power rail ON.  For other modes,
+	 * the power state remains in XPM_POWER_STATE_ON.
+	 */
+	if (((0U == Mode) || (1U == Mode)) &&
+	    (State == Rail->Power.Node.State)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * For any mode greater than 1, only proceed if the current power state
+	 * is in XPM_POWER_STATE_ON.
+	 */
+	if ((Mode > 1U) && ((u8)XPM_POWER_STATE_ON != Rail->Power.Node.State)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -221,8 +251,6 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
 	}
 
 	i = 0; j = 0; k = 0;
-
-	Mode = ((u8)XPM_POWER_STATE_ON == State) ? 1U : 0U;
 	for (i = 0; i < Rail->I2cModes[Mode].CmdLen; i++) {
 		BytesLen = Rail->I2cModes[Mode].CmdArr[j];
 		j++;
@@ -275,6 +303,161 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
 }
 
 #endif
+
+/*
+ * This routine is invoked periodically by the task scheduler and its
+ * task is to determine if a voltage adjustment is needed, based on current
+ * temperature and current voltage level.  The argument passed points to power
+ * rail that needs to be adjusted.
+ */
+static int XPmRail_CyclicTempVoltAdj(void *Arg)
+{
+	int Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_Rail *Rail = (XPm_Rail *)Arg;
+	u32 UpperTempThresh, LowerTempThresh;
+	u8 UpperVoltMode, LowerVoltMode;
+	u32 CurrentTemp;
+	u8 *CurrentVoltMode;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+
+	UpperTempThresh = Rail->TempVoltAdj->UpperTempThresh;
+	LowerTempThresh = Rail->TempVoltAdj->LowerTempThresh;
+	UpperVoltMode = Rail->TempVoltAdj->UpperVoltMode;
+	LowerVoltMode = Rail->TempVoltAdj->LowerVoltMode;
+	CurrentVoltMode = &Rail->TempVoltAdj->CurrentVoltMode;
+
+	/* Validate that the argument passed in is a power rail */
+	if ((u32)XPM_NODETYPE_POWER_RAIL != NODETYPE(Rail->Power.Node.Id)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * On the first cycle, start by setting the power rail to upper voltage
+	 * value.  The voltage will be adjusted on the next cycle based on
+	 * current temperature.
+	 */
+	if (0U == *CurrentVoltMode) {
+		PmDbg("Set voltage to upper mode %d\n\r", UpperVoltMode);
+		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON,
+					 UpperVoltMode);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RAIL_UPPER_VOLT;
+			goto done;
+		}
+
+		*CurrentVoltMode = UpperVoltMode;
+		goto done;
+	}
+
+	/*
+	 * If Root SysMon is not initialized yet, skip the cycle until
+	 * it is initialized.
+	 */
+	if (0U == SysMonInstPtr->Config.BaseAddress) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Read DEVICE_TEMP_MAX register through SysMon driver */
+	CurrentTemp = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL);
+
+	/*
+	 * If the current temperature is at or below lower threshold and
+	 * we are not in upper voltage mode, make an adjustment to higher
+	 * voltage.  Similarly, if the temperature is at or above upper
+	 * threshold and not in lower voltage mode, make an adjustment
+	 * to lower voltage.  If the temperature is between lower and upper
+	 * threshold, no adjustment is needed.
+	 */
+	if ((CurrentTemp <= LowerTempThresh) &&
+	    (*CurrentVoltMode != UpperVoltMode)) {
+		PmDbg("Current temperature is 0x%x, Set voltage to upper mode "
+		      "%d\n\r", CurrentTemp, UpperVoltMode);
+		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON,
+					 UpperVoltMode);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RAIL_UPPER_VOLT;
+			goto done;
+		}
+
+		*CurrentVoltMode = UpperVoltMode;
+	} else if ((CurrentTemp >= UpperTempThresh) &&
+		   (*CurrentVoltMode != LowerVoltMode)) {
+		PmDbg("Current temperature is 0x%x, Set voltage to lower mode "
+		      "%d\n\r", CurrentTemp, LowerVoltMode);
+		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON,
+					 LowerVoltMode);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RAIL_LOWER_VOLT;
+			goto done;
+		}
+
+		*CurrentVoltMode = LowerVoltMode;
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/*
+ * This routine is invoked if the add node command for a power rail indicates
+ * that voltage adjustment for the rail at different temperature is required.
+ * This routine schedules a task to perform that periodic monitoring.
+ */
+static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeId;
+	XPm_Rail *Rail;
+	static XPmRail_TempVoltAdj VCCINT_PL_TempVoltAdj;
+
+	if (NumArgs < 6U) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Current support is for VCCINT_PL power rail only
+	 */
+	NodeId = Args[0];
+	if (PM_POWER_VCCINT_PL != NodeId) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Args[2] holds the lower temperature threshold and Args[4] holds
+	 * the upper temperature threshold.  Validate that value of lower
+	 * threshold is less than value of upper threshold.
+	 */
+	if (Args[2] >= Args[4]) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	VCCINT_PL_TempVoltAdj.LowerTempThresh = Args[2];
+	VCCINT_PL_TempVoltAdj.LowerVoltMode = (u8)Args[5];
+	VCCINT_PL_TempVoltAdj.UpperTempThresh = Args[4];
+	VCCINT_PL_TempVoltAdj.UpperVoltMode = (u8)Args[3];
+
+	/*
+	 * Schedule a task to be run every 100ms to monitor the current
+	 * temperature and make voltage adjustment, if needed.
+	 */
+	Rail = (XPm_Rail *)XPmPower_GetById(NodeId);
+	Rail->TempVoltAdj = &VCCINT_PL_TempVoltAdj;
+	Status = XPlmi_SchedulerAddTask(0x0U, XPmRail_CyclicTempVoltAdj, NULL,
+					100U, XPLM_TASK_PRIORITY_0, Rail,
+					XPLMI_PERIODIC_TASK);
+
+done:
+	return Status;
+}
 
 /****************************************************************************/
 /**
@@ -351,6 +534,9 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 			BaseAddress =  Args[3];
 			Rail->Power.Node.BaseAddress = Args[3];
 			Status = XST_SUCCESS;
+			break;
+		case (u32)XPM_RAILTYPE_TEMPVOLTADJ:
+			Status = XPmRail_InitTempVoltAdj(Args, NumArgs);
 			break;
 		default:
 			DbgErr = XPM_INT_ERR_INVALID_PARAM;
