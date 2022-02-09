@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -107,6 +107,7 @@
 * 1.08  skd  11/18/21 Added time stamps in XLoader_ProcessChecksumPrtn
 *       kpt  12/13/21 Replaced standard library utility functions with secure
 *                     functions
+*       bsv  02/09/22 Code clean up to reduce size
 *
 * </pre>
 *
@@ -193,6 +194,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 	SecurePtr->PdiPtr = PdiPtr;
 	SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
+	SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	SecurePtr->BlockNum = 0x00U;
 	SecurePtr->ProcessedLen = 0x00U;
 	SecurePtr->PrtnHdr = PrtnHdr;
@@ -655,7 +657,7 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 		goto END;
 	}
 
-	if (Last != (u8)TRUE) {
+	if ((Last != (u8)TRUE) && (SecurePtr->BlockNum != 0U)) {
 		Status = XLoader_StartNextChunkCopy(SecurePtr,
 					(SecurePtr->RemainingDataLen - TotalSize),
 					SrcAddr + TotalSize, BlockSize);
