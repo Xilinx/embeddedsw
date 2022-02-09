@@ -108,6 +108,7 @@
 *       kpt  12/13/21 Replaced standard library utility functions with secure
 *                     functions
 *       bsv  02/09/22 Code clean up to reduce size
+*       bsv  02/09/22 Code clean up
 *
 * </pre>
 *
@@ -556,7 +557,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	/* 1st block */
 	if (SecurePtr->BlockNum == 0x0U) {
 		SrcAddr = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-				((u64)(SecurePtr->PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
+			((u64)(SecurePtr->PrtnHdr->DataWordOfst) << XPLMI_WORD_LEN_SHIFT);
 	}
 	else {
 		SrcAddr = SecurePtr->NextBlkAddr;
@@ -588,7 +589,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	else {
 		/* Copy to destination address */
 		Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData, DestAddr,
-				SecurePtr->SecureDataLen / XIH_PRTN_WORD_LEN,
+				SecurePtr->SecureDataLen >> XPLMI_WORD_LEN_SHIFT,
 				XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
