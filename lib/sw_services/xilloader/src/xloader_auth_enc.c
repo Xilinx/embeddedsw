@@ -76,6 +76,7 @@
 *       skd  01/11/22 Moved comments to its proper place
 *       skd  01/12/22 Updated goto labels for better readability
 *       bsv  02/09/22 Code clean up to reduce stack size
+*       bsv  02/09/22 Code clean up
 *
 * </pre>
 *
@@ -641,7 +642,7 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 
 	/* Copy Authentication certificate */
 	AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-			((u64)(ImgHdrTbl->AcOffset) * XIH_PRTN_WORD_LEN);
+			((u64)(ImgHdrTbl->AcOffset) << XPLMI_WORD_LEN_SHIFT);
 
 	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
 		(UINTPTR)SecurePtr->AcPtr, XLOADER_AUTH_CERT_MIN_SIZE, 0U);
@@ -694,7 +695,7 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 		XPlmi_Printf(DEBUG_INFO, "Authentication of image header table "
 					"is failed\n\r");
 		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)Sha3Hash.Hash,
-					XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "IHT Hash");
+					XLOADER_SHA3_LEN >> XPLMI_WORD_LEN_SHIFT, "IHT Hash");
 		goto END;
 	}
 
@@ -1209,15 +1210,13 @@ static int XLoader_VerifyRevokeId(u32 RevokeId)
 		goto END;
 	}
 
-	Quo = RevokeId / XLOADER_WORD_IN_BITS;
-	QuoTmp = RevokeId / XLOADER_WORD_IN_BITS;
-	Mod = RevokeId % XLOADER_WORD_IN_BITS;
-	ModTmp = RevokeId % XLOADER_WORD_IN_BITS;
-	Value = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
-		(Quo * XIH_PRTN_WORD_LEN));
+	Quo = RevokeId >> (XLOADER_WORD_IN_BITS_SHIFT - XPLMI_WORD_LEN_SHIFT);
+	QuoTmp = RevokeId >> (XLOADER_WORD_IN_BITS_SHIFT - XPLMI_WORD_LEN_SHIFT);
+	Mod = RevokeId & XLOADER_WORD_IN_BITS_MASK;
+	ModTmp = RevokeId & XLOADER_WORD_IN_BITS_MASK;
+	Value = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET + Quo);
 	Value &= ((u32)1U << Mod);
-	ValueTmp = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET +
-		(QuoTmp * XIH_PRTN_WORD_LEN));
+	ValueTmp = XPlmi_In32(XLOADER_EFUSE_REVOCATION_ID_0_OFFSET + QuoTmp);
 	ValueTmp &= ((u32)1U << ModTmp);
 	if((Value != 0x00U) || (ValueTmp != 0x00U)) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_ID_REVOKED, 0x0);
@@ -2437,7 +2436,7 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	int ClrStatus = XST_FAILURE;
 	XSecure_Sha3Hash CalHash;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
-	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen * XIH_PRTN_WORD_LEN;
+	u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen << XPLMI_WORD_LEN_SHIFT;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
 	if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
@@ -2501,6 +2500,7 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DecHdrs, SecurePtr,
 			MetaHdr, BufferAddr);
 	Status |= StatusTmp;
+
 END:
 	if (Status != XST_SUCCESS) {
 		/* Clear the buffer */
@@ -3121,7 +3121,6 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
-
 	Status = XSecure_Sha3Start(Sha3InstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
@@ -3386,7 +3385,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	/* 1st block */
 	if (SecurePtr->BlockNum == 0x0U) {
 		SrcAddr = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-				((u64)(SecurePtr->PrtnHdr->DataWordOfst) * XIH_PRTN_WORD_LEN);
+				((u64)(SecurePtr->PrtnHdr->DataWordOfst) << XPLMI_WORD_LEN_SHIFT);
 	}
 	else {
 		SrcAddr = SecurePtr->NextBlkAddr;
@@ -3397,7 +3396,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 
 		if (SecurePtr->BlockNum == 0x0U) {
 			SecurePtr->RemainingEncLen =
-				SecurePtr->PrtnHdr->EncDataWordLen * XIH_PRTN_WORD_LEN;
+				SecurePtr->PrtnHdr->EncDataWordLen << XPLMI_WORD_LEN_SHIFT;
 			/* Verify encrypted partition is revoked or not */
 			XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifyRevokeId,
 					SecurePtr->PrtnHdr->EncRevokeID);
@@ -3442,7 +3441,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 			/* Copy to destination address */
 			Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData,
 					(u64)DestAddr,
-					SecurePtr->SecureDataLen / XIH_PRTN_WORD_LEN,
+					SecurePtr->SecureDataLen >> XPLMI_WORD_LEN_SHIFT,
 					XPLMI_PMCDMA_0);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(
@@ -3508,7 +3507,6 @@ END:
 			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
 		}
 	}
-
 	return Status;
 }
 
