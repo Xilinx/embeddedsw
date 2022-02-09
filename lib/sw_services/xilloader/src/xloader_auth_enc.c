@@ -75,7 +75,6 @@
 *                     maintained functions
 *       skd  01/11/22 Moved comments to its proper place
 *       skd  01/12/22 Updated goto labels for better readability
-*       bsv  01/24/22 Code clean up to reduce size
 *
 * </pre>
 *
@@ -190,7 +189,10 @@ static int XLoader_ReadandCompareDna(const u32 *UserDna);
 static void XLoader_DisableJtag(void);
 static void XLoader_SetKatStatus(u32 PlmKatStatus);
 
+
 /************************** Variable Definitions *****************************/
+static XLoader_AuthCertificate AuthCert; /**< Instance of authentication
+										   certificate */
 
 /************************** Function Definitions *****************************/
 
@@ -213,8 +215,6 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 	volatile u32 AuthCertificateOfstTmp = PrtnHdr->AuthCertificateOfst;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 	u64 AcOffset;
-	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
-		XPLMI_PMCRAM_CHUNK_MEMORY_1;
 
 	/* Check if authentication is enabled */
 	if ((PrtnHdr->AuthCertificateOfst != 0x00U) ||
@@ -229,7 +229,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
 			((u64)SecurePtr->PrtnHdr->AuthCertificateOfst *
 				XIH_PRTN_WORD_LEN);
-		SecurePtr->AcPtr = AuthCert;
+		SecurePtr->AcPtr = &AuthCert;
 
 		/* Copy Authentication certificate */
 		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
@@ -430,12 +430,13 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 				}
 				goto END;
 			}
-
-			if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
-				(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
-				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO, 0);
-				goto END;
+			else {
+				if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
+					(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
+					Status = XPlmi_UpdateStatus(
+						XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO, 0);
+					goto END;
+				}
 			}
 		}
 		else {
@@ -447,13 +448,14 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 				 */
 				XPlmi_Printf(DEBUG_INFO,
 					"Authentication with BH enabled\n\r");
+				Status = XST_SUCCESS;
 			}
 			else {
 				/* Authentication is not compulsory */
 				XPlmi_Printf(DEBUG_DETAILED,
 					"Authentication is not enabled\n\r");
+				Status = XST_SUCCESS;
 			}
-			Status = XST_SUCCESS;
 		}
 	}
 	else {
@@ -467,8 +469,11 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 						XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY, 0);
 			goto END;
 		}
-		Status = XST_SUCCESS;
-		XPlmi_Printf(DEBUG_INFO, "HWROT- Authentication is enabled\n\r");
+		else {
+			Status = XST_SUCCESS;
+			XPlmi_Printf(DEBUG_INFO,
+				"HWROT- Authentication is enabled\n\r");
+		}
 	}
 
 	/* Check Secure State of the device.
@@ -504,11 +509,13 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 						XLOADER_ERR_ENCONLY_ENC_COMPULSORY, 0);
 			goto END;
 		}
-		XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
-		/* Enc only validations */
-		Status = XLoader_SecureEncOnlyValidations(SecurePtr);
-		if (Status != XST_SUCCESS) {
-			goto END;
+		else {
+			XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
+			/* Enc only validations */
+			Status = XLoader_SecureEncOnlyValidations(SecurePtr);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 		}
 	}
 
@@ -617,13 +624,11 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	u64 AcOffset;
 	XilPdi_ImgHdrTbl *ImgHdrTbl =
 		&SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl;
-	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
-		XPLMI_PMCRAM_CHUNK_MEMORY_1;
 
 	XPlmi_Printf(DEBUG_INFO, "Authentication of"
 			" Image header table\n\r");
 
-	SecurePtr->AcPtr = AuthCert;
+	SecurePtr->AcPtr = &AuthCert;
 
 	/* Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
@@ -937,6 +942,7 @@ static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature)
 {
 	int Status = XST_FAILURE;
+	XLoader_AuthCertificate *AcPtr = (XLoader_AuthCertificate *)SecurePtr->AcPtr;
 	volatile u8 IsEfuseAuth = (u8)TRUE;
 	volatile u8 IsEfuseAuthTmp = (u8)TRUE;
 	u32 AuthType;
@@ -944,7 +950,7 @@ static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 ReadAuthReg = 0x0U;
 
-	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+	AuthType = XLoader_GetAuthPubAlgo(&AcPtr->AuthHdr);
 	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
 		AuthKatMask = XLOADER_RSA_KAT_MASK;
 	}
@@ -1032,11 +1038,11 @@ static int XLoader_DataAuth(const XLoader_SecureParams *SecurePtr, u8 *Hash,
 	/* Check for SPK ID revocation */
 	if ((IsEfuseAuth == (u8)TRUE) || (IsEfuseAuthTmp == (u8)TRUE)) {
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyRevokeId,
-			SecurePtr->AcPtr->SpkId);
+			AcPtr->SpkId);
 	}
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, SecurePtr,
-		Hash, &SecurePtr->AcPtr->Spk, Signature);
+		Hash, &AcPtr->Spk, Signature);
 
 END:
 	return Status;
@@ -1110,6 +1116,7 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3Hash SpkHash;
+	XLoader_AuthCertificate *AcPtr = SecurePtr->AcPtr;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 
 	XPlmi_Printf(DEBUG_INFO, "Performing SPK verification\n\r");
@@ -1131,7 +1138,7 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 	/* Hash the AH  and SPK*/
 	/* Update AH */
 	Status = XST_FAILURE;
-	Status = XSecure_Sha3Update(Sha3InstPtr,(UINTPTR)&SecurePtr->AcPtr->AuthHdr,
+	Status = XSecure_Sha3Update(Sha3InstPtr,(UINTPTR)&AcPtr->AuthHdr,
 		XLOADER_AUTH_HEADER_SIZE);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_SPK_HASH_CALCULATION_FAIL,
@@ -1147,7 +1154,7 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 	}
 
 	/* Update SPK */
-	Status = XSecure_Sha3Update(Sha3InstPtr, (UINTPTR)&SecurePtr->AcPtr->Spk,
+	Status = XSecure_Sha3Update(Sha3InstPtr, (UINTPTR)&AcPtr->Spk,
 		XLOADER_SPK_SIZE);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_SPK_HASH_CALCULATION_FAIL,
@@ -1163,8 +1170,7 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 	}
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, SecurePtr,
-		SpkHash.Hash, &SecurePtr->AcPtr->Ppk,
-		(u8 *)&SecurePtr->AcPtr->SPKSignature);
+		SpkHash.Hash, &AcPtr->Ppk, (u8 *)&AcPtr->SPKSignature);
 	XPlmi_Printf(DEBUG_INFO, "SPK verification is successful\n\r");
 
 END:
@@ -1587,8 +1593,7 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	volatile u32 DbTmp = 0U;
 	XSecure_Sha3Hash MPrimeHash = {0U};
 	volatile u8 HashTmp;
-	u8 *XSecure_RsaSha3Array = (u8 *)(XPLMI_PMCRAM_CHUNK_MEMORY_1 +
-		sizeof(XLoader_AuthCertificate));
+	u8 XSecure_RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
 	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32U)));
 	/* Buffer variable used to store HashMgf and DB */
 	u8 Buffer[XLOADER_RSA_PSS_BUFFER_LEN] __attribute__ ((aligned(32U))) = {0U};
@@ -2494,7 +2499,6 @@ static int XLoader_AuthNDecHdrs(XLoader_SecureParams *SecurePtr,
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_DecHdrs, SecurePtr,
 			MetaHdr, BufferAddr);
 	Status |= StatusTmp;
-
 END:
 	if (Status != XST_SUCCESS) {
 		/* Clear the buffer */
@@ -3115,6 +3119,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 		goto END;
 	}
 
+
 	Status = XSecure_Sha3Start(Sha3InstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
@@ -3501,6 +3506,7 @@ END:
 			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
 		}
 	}
+
 	return Status;
 }
 
