@@ -14,6 +14,111 @@
 /* TODO: Remove hardcoded AIE clock address when topology is supported */
 #define ME_CORE_REF_CTRL_OFFSET 0x00000138U
 
+static const XPm_StateCap AieDeviceStates[] = {
+	{
+		.State = (u8)XPM_DEVSTATE_UNUSED,
+		.Cap = (u32)XPM_MIN_CAPABILITY,
+	}, {
+		.State = (u8)XPM_DEVSTATE_RUNNING,
+		.Cap = (u32)PM_CAP_ACCESS,
+	},
+};
+
+static const XPm_StateTran AieDeviceTransitions[] = {
+	{
+		.FromState = (u32)XPM_DEVSTATE_UNUSED,
+		.ToState = (u32)XPM_DEVSTATE_RUNNING,
+		.Latency = XPM_DEF_LATENCY,
+	}, {
+		.FromState = (u32)XPM_DEVSTATE_RUNNING,
+		.ToState = (u32)XPM_DEVSTATE_UNUSED,
+		.Latency = XPM_DEF_LATENCY,
+	},
+};
+
+/****************************************************************************/
+/**
+ * @brief	State machine for AIE Device state management
+ *
+ * @param Device	Device structure whose states need to be managed
+ * @param NextState	Desired next state for the Device in consideration
+ *
+ * @return	XStatus	Returns XST_SUCCESS or appropriate error code
+ *
+ * @note	None
+ *
+ *****************************************************************************/
+static XStatus HandleAieDeviceState(XPm_Device* const Device, const u32 NextState)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_AieDevice *AieDevice;
+	const XPm_PlDevice *Parent = NULL;
+	u8 CurrState;
+
+	if (NULL == Device) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	if (!(IS_DEV_AIE(Device->Node.Id))) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		goto done;
+	}
+
+	AieDevice = (XPm_AieDevice *)Device;
+	Parent = AieDevice->Parent;
+
+	if ((NULL != Parent) &&
+			((u8)XPM_DEVSTATE_RUNNING != Parent->Device.Node.State)) {
+		DbgErr = XPM_INT_ERR_INVALID_AIE_PARENT;
+		goto done;
+	}
+
+	CurrState = Device->Node.State;
+
+	if ((u8)NextState == CurrState) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	PmDbg ("ID=0x%x FromState=0x%x ToState=0x%x\n\r", AieDevice->Device.Node.Id,
+			CurrState, NextState);
+	switch (CurrState) {
+		case (u8)XPM_DEVSTATE_UNUSED:
+			if ((u8)XPM_DEVSTATE_RUNNING == NextState) {
+				Status = XST_SUCCESS;
+			} else {
+				DbgErr = XPM_INT_ERR_INVALID_STATE_TRANS;
+			}
+			break;
+		case (u8)XPM_DEVSTATE_RUNNING:
+			if ((u8)XPM_DEVSTATE_UNUSED == NextState) {
+				Status = XST_SUCCESS;
+			} else {
+				DbgErr = XPM_INT_ERR_INVALID_STATE_TRANS;
+			}
+			break;
+		default:
+			DbgErr = XPM_INT_ERR_INVALID_STATE;
+			break;
+	}
+
+	if (XST_SUCCESS == Status) {
+		Device->Node.State = (u8)NextState;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static const XPm_DeviceFsm XPmAieDeviceFsm = {
+	DEFINE_DEV_STATES(AieDeviceStates),
+	DEFINE_DEV_TRANS(AieDeviceTransitions),
+	.EnterState = HandleAieDeviceState,
+};
+
 /****************************************************************************/
 /**
  * @brief  Start Node initialization for AIE
@@ -136,6 +241,7 @@ XStatus XPmAieDevice_Init(XPm_AieDevice *AieDevice, u32 NodeId,
 
 	AieDevice->Parent = NULL;
 	AieDevice->Ops = &AieDeviceOps;
+	AieDevice->Device.DeviceFsm = &XPmAieDeviceFsm;
 
 done:
 	return Status;

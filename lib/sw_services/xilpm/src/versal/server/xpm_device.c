@@ -393,16 +393,6 @@ XStatus XPmDevice_BringUp(XPm_Device *Device)
 	XStatus Status = XPM_ERR_DEVICE_BRINGUP;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	/*
-	 * This is a temporary workaround to skip for AIE partitions. Due to the
-	 * the unique design of AIE partitions it doesn't fit in typical request
-	 * device flow
-	 */
-	if ((IS_DEV_AIE(Device->Node.Id)) && (NULL == Device->Power)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
 	if (NULL == Device->Power) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
 		goto done;
@@ -1141,7 +1131,7 @@ done:
 	return Status;
 }
 
-static XStatus DevRequest(XPm_Device *Device, const XPm_Subsystem *Subsystem,
+static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		       u32 Capabilities, u32 QoS, u32 CmdType)
 {
 	XStatus Status = XPM_ERR_DEVICE_REQ;
@@ -1156,6 +1146,16 @@ static XStatus DevRequest(XPm_Device *Device, const XPm_Subsystem *Subsystem,
 			goto done;
 	}
 	PrevState = Device->Node.State;
+
+	/*
+	 * AIE device requirement is added implicitly when requested only if it
+	 * has not been previously requested.
+	 */
+	if ((IS_DEV_AIE(Device->Node.Id)) && ((u8)XPM_DEVSTATE_UNUSED == Device->Node.State)) {
+		Status = XPmRequirement_Add(Subsystem, Device,
+				(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U, (u32)REQ_ACCESS_SECURE_NONSECURE,
+				(u32)REQ_NO_RESTRICTION), 0U, 0U, XPM_DEF_QOS);
+	}
 
 	/* Check whether this device assigned to the subsystem */
 	Reqm = FindReqm(Device, Subsystem);

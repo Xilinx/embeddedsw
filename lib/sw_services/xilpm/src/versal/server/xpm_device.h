@@ -64,7 +64,7 @@ typedef struct XPm_DeviceAttr XPm_DeviceAttr;
 
 /* Device Operations */
 struct XPm_DeviceOps {
-	XStatus (*Request)(XPm_Device *Device, const XPm_Subsystem *Subsystem,
+	XStatus (*Request)(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			   u32 Capabilities, u32 QoS, u32 CmdType);
 		/**< Request: Request the device */
 
