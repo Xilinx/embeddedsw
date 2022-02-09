@@ -75,6 +75,7 @@
 *                     maintained functions
 *       skd  01/11/22 Moved comments to its proper place
 *       skd  01/12/22 Updated goto labels for better readability
+*       bsv  02/09/22 Code clean up to reduce stack size
 *
 * </pre>
 *
@@ -189,10 +190,7 @@ static int XLoader_ReadandCompareDna(const u32 *UserDna);
 static void XLoader_DisableJtag(void);
 static void XLoader_SetKatStatus(u32 PlmKatStatus);
 
-
 /************************** Variable Definitions *****************************/
-static XLoader_AuthCertificate AuthCert; /**< Instance of authentication
-										   certificate */
 
 /************************** Function Definitions *****************************/
 
@@ -215,6 +213,8 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 	volatile u32 AuthCertificateOfstTmp = PrtnHdr->AuthCertificateOfst;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 	u64 AcOffset;
+	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
+		XPLMI_PMCRAM_CHUNK_MEMORY_1;
 
 	/* Check if authentication is enabled */
 	if ((PrtnHdr->AuthCertificateOfst != 0x00U) ||
@@ -229,7 +229,7 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		AcOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
 			((u64)SecurePtr->PrtnHdr->AuthCertificateOfst *
 				XIH_PRTN_WORD_LEN);
-		SecurePtr->AcPtr = &AuthCert;
+		SecurePtr->AcPtr = AuthCert;
 
 		/* Copy Authentication certificate */
 		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
@@ -624,11 +624,13 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	u64 AcOffset;
 	XilPdi_ImgHdrTbl *ImgHdrTbl =
 		&SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl;
+	XLoader_AuthCertificate *AuthCert = (XLoader_AuthCertificate *)
+		XPLMI_PMCRAM_CHUNK_MEMORY_1;
 
 	XPlmi_Printf(DEBUG_INFO, "Authentication of"
 			" Image header table\n\r");
 
-	SecurePtr->AcPtr = &AuthCert;
+	SecurePtr->AcPtr = AuthCert;
 
 	/* Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
@@ -782,8 +784,8 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		}
 		TotalSizeTmp = TotalSize;
 		/* Validate Meta header length */
-		if ((TotalSize > XLOADER_CHUNK_SIZE) ||
-			(TotalSizeTmp > XLOADER_CHUNK_SIZE)) {
+		if ((TotalSize > XLOADER_SECURE_CHUNK_SIZE) ||
+			(TotalSizeTmp > XLOADER_SECURE_CHUNK_SIZE)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_METAHDR_LEN_OVERFLOW, 0);
 			goto ERR_END;
 		}
