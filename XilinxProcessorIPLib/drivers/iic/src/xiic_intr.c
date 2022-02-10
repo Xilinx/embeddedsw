@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_intr.c
-* @addtogroup iic_v3_8
+* @addtogroup Overview
 * @{
 *
 * Contains interrupt functions of the XIic driver.  This file is required

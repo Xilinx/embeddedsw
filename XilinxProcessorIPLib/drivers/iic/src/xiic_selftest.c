@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_selftest.c
-* @addtogroup iic_v3_8
+* @addtogroup Overview
 * @{
 *
 * Contains selftest functions for the XIic component.

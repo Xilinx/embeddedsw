@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_options.c
-* @addtogroup iic_v3_8
+* @addtogroup Overview
 * @{
 *
 * Contains options functions for the XIic component. This file is not required

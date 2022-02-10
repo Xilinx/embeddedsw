@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic.h
-* @addtogroup iic_v3_8
+* @addtogroup Overview
 * @{
 * @details
 *
