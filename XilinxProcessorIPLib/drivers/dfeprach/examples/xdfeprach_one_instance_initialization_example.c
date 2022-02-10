@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,9 +18,10 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/19/21 Update doxygen documentation
+* 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
 *
 * </pre>
-* @addtogroup Overview_examples
+* @addtogroup Overview
 * @{
 *
 *****************************************************************************/
@@ -63,7 +64,7 @@ int XDfePrach_SelfTestExample()
 	XDfePrach_Version HwVersion;
 	XDfePrach_Init Init;
 
-	printf("\r\nPrach \"One Instance Initialization\" Example - Start\r\n");
+	printf("\n\rPrach \"One Instance Initialization\" Example - Start\n\n\r");
 
 	/* Initialize libmetal */
 	if (XST_SUCCESS != metal_init(&init_param)) {
@@ -91,7 +92,7 @@ int XDfePrach_SelfTestExample()
 	XDfePrach_Deactivate(InstancePtr);
 	XDfePrach_InstanceClose(InstancePtr);
 
-	printf("Prach \"One Instance Initialization\" Example: Pass\r\n");
+	printf("\n\rPrach \"One Instance Initialization\" Example: Pass\n\n\r");
 
 	return XST_SUCCESS;
 }
