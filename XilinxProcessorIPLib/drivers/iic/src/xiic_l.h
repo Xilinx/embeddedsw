@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_l.h
-* @addtogroup iic_v3_8
+* @addtogroup Overview
 * @{
 *
 * This header file contains identifiers and driver functions (or
