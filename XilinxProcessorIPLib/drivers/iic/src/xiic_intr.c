@@ -40,6 +40,13 @@
 * 2.07a adk   18/04/13 Updated the code to avoid unused variable warnings
 *			  when compiling with the -Wextra -Wall flags.
 *			  In the file xiic.c and xiic_i.h. CR:705001
+* 3.9   gm   08/02/22 Modified handling of XIIC_INTR_RX_FULL_MASK in xiic_intr.c
+*		      to fix CR #1119930 handling RX FULL interrupt before
+*		      TX error interrupt and clearing TX error interrupt while
+*		      handling RX FULL interrupt when receive byte count is one,
+*		      because here the TX error interrupt indicate NACK, not
+*		      actually TX error.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -150,7 +157,23 @@ void XIic_InterruptHandler(void *InstancePtr)
 		XIic_ArbLostFuncPtr(IicPtr);
 
 		Clear = XIIC_INTR_ARB_LOST_MASK;
-	} else if (IntrStatus & XIIC_INTR_TX_ERROR_MASK) {
+	} else if (IntrStatus & XIIC_INTR_RX_FULL_MASK) {
+                /* Receive register/FIFO is full */
+
+		if((IicPtr->RecvByteCount == 1) && (IntrStatus & XIIC_INTR_TX_ERROR_MASK)) {
+			XIic_WriteIisr(IicPtr->BaseAddress, XIIC_INTR_TX_ERROR_MASK);
+		}
+
+                IicPtr->Stats.RecvInterrupts++;
+
+                if (Status & XIIC_SR_ADDR_AS_SLAVE_MASK) {
+                        XIic_RecvSlaveFuncPtr(IicPtr);
+                } else {
+                        XIic_RecvMasterFuncPtr(IicPtr);
+                }
+
+                Clear = XIIC_INTR_RX_FULL_MASK;
+        } else if (IntrStatus & XIIC_INTR_TX_ERROR_MASK) {
 		/* Transmit errors (no acknowledge) received */
 		IicPtr->Stats.TxErrors++;
 		TxErrorHandler(IicPtr);
@@ -161,18 +184,6 @@ void XIic_InterruptHandler(void *InstancePtr)
 
 		XIic_NotAddrAsSlaveFuncPtr(IicPtr);
 		Clear = XIIC_INTR_NAAS_MASK;
-	} else if (IntrStatus & XIIC_INTR_RX_FULL_MASK) {
-		/* Receive register/FIFO is full */
-
-		IicPtr->Stats.RecvInterrupts++;
-
-		if (Status & XIIC_SR_ADDR_AS_SLAVE_MASK) {
-			XIic_RecvSlaveFuncPtr(IicPtr);
-		} else {
-			XIic_RecvMasterFuncPtr(IicPtr);
-		}
-
-		Clear = XIIC_INTR_RX_FULL_MASK;
 	} else if (IntrStatus & XIIC_INTR_AAS_MASK) {
 		/* Addressed As Slave */
 
