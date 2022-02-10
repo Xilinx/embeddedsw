@@ -1,6 +1,6 @@
 ###############################################################################
-# Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
-xdfeprach_examples.c=xdfesi570_mgt.c,xdfeprach_one_instance_initialization_example.c,xdfeprach_examples.h
+xdfeprach_examples.c=xdfesi570_mgt.c,xdfeprach_one_instance_initialization_example.c,xdfeprach_examples.h,xdfeprach_2CC_3RC_example.c,xdfeprach_2CC_3RC_reconfigure_example.c

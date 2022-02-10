@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       dc     04/10/21 Set sequence length only once
 * 1.1   dc     07/13/21 Update to common latency requirements
 *       dc     07/21/21 Add and reorganise examples
+* 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
 *
 * </pre>
 *
@@ -43,7 +44,8 @@
 extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 				      double NewFrequency);
 extern int XDfePrach_SelfTestExample();
-
+extern int XDfePrach_2CC3RCTestExample();
+extern int XDfePrach_2CC3RCReconfigureTestExample();
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 metal_phys_addr_t metal_phys[XDFEPRACH_MAX_NUM_INSTANCES] = {
@@ -87,6 +89,23 @@ int main(void)
 	 */
 	if (XST_SUCCESS != XDfePrach_SelfTestExample()) {
 		printf("Selftest Example failed\r\n");
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Run the DFE Prach example setting 2 CC and 3 RC.
+	 */
+	if (XST_SUCCESS != XDfePrach_2CC3RCTestExample()) {
+		printf("Setting 2 CC and 3 RC Example failed\r\n");
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Run the DFE Prach example setting 2 CC and 3 RC than reconfigure
+	 * one RC.
+	 */
+	if (XST_SUCCESS != XDfePrach_2CC3RCReconfigureTestExample()) {
+		printf("Setting 2 CC and 3 RC Reconfigure Example failed\r\n");
 		return XST_FAILURE;
 	}
 
