@@ -7,7 +7,7 @@
 /**
 *
 * @file xiic_l.c
-* @addtogroup iic_v3_8
+* @addtogroup Overview
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
