@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +53,10 @@
 *                      condition checking. It fixes CR#1080821
 * 3.14  mus  11/25/21 Updated XIntc_DeviceInterruptHandler function to fix
 *                     compilation warning. CR#1116127
+* 3.14  mus  02/01/22 Updated XIntc_DeviceInterruptHandler to replace
+*                     Xil_ExceptionEnable/Xil_ExceptionDisable calls with
+*                     microblaze_enable_interrupts/microblaze_disable_interrupts
+*                     in case of microbalze. It fixes CR#1120158.
 *
 * </pre>
 *
@@ -222,7 +226,11 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 						XIN_ILR_OFFSET);
 
 				/* Enable interrupts */
+#ifdef __MICROBLAZE__
+				microblaze_enable_interrupts();
+#else
 				Xil_ExceptionEnable();
+#endif
 #endif
 				/* If the interrupt has been setup to
 				 * acknowledge it before servicing the
@@ -251,7 +259,11 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 
 #if XPAR_XINTC_HAS_ILR == TRUE
 				/* Disable interrupts */
+#ifdef __MICROBLAZE__
+				microblaze_disable_interrupts();
+#else
 				Xil_ExceptionDisable();
+#endif
 				/* Restore ILR */
 				Xil_Out32(CfgPtr->BaseAddress + XIN_ILR_OFFSET,
 								ILR_reg);
