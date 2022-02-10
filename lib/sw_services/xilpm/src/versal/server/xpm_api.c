@@ -57,6 +57,43 @@
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
 
+#define PM_IOCTL_FEATURE_BITMASK ( \
+	(1ULL << (u64)IOCTL_GET_RPU_OPER_MODE) | \
+	(1ULL << (u64)IOCTL_SET_RPU_OPER_MODE) | \
+	(1ULL << (u64)IOCTL_RPU_BOOT_ADDR_CONFIG) | \
+	(1ULL << (u64)IOCTL_TCM_COMB_CONFIG) | \
+	(1ULL << (u64)IOCTL_SET_TAPDELAY_BYPASS) | \
+	(1ULL << (u64)IOCTL_SET_SGMII_MODE) | \
+	(1ULL << (u64)IOCTL_SD_DLL_RESET) | \
+	(1ULL << (u64)IOCTL_SET_SD_TAPDELAY) | \
+	(1ULL << (u64)IOCTL_SET_PLL_FRAC_MODE) | \
+	(1ULL << (u64)IOCTL_GET_PLL_FRAC_MODE) | \
+	(1ULL << (u64)IOCTL_SET_PLL_FRAC_DATA) | \
+	(1ULL << (u64)IOCTL_GET_PLL_FRAC_DATA) | \
+	(1ULL << (u64)IOCTL_WRITE_GGS) | \
+	(1ULL << (u64)IOCTL_READ_GGS) | \
+	(1ULL << (u64)IOCTL_WRITE_PGGS) | \
+	(1ULL << (u64)IOCTL_READ_PGGS) | \
+	(1ULL << (u64)IOCTL_ULPI_RESET) | \
+	(1ULL << (u64)IOCTL_SET_BOOT_HEALTH_STATUS) | \
+	(1ULL << (u64)IOCTL_AFI) | \
+	(1ULL << (u64)IOCTL_PROBE_COUNTER_READ) | \
+	(1ULL << (u64)IOCTL_PROBE_COUNTER_WRITE) | \
+	(1ULL << (u64)IOCTL_OSPI_MUX_SELECT) | \
+	(1ULL << (u64)IOCTL_USB_SET_STATE) | \
+	(1ULL << (u64)IOCTL_GET_LAST_RESET_REASON) | \
+	(1ULL << (u64)IOCTL_AIE_ISR_CLEAR) | \
+	(1ULL << (u64)IOCTL_REGISTER_SGI) | \
+	(1ULL << (u64)IOCTL_SET_FEATURE_CONFIG) | \
+	(1ULL << (u64)IOCTL_GET_FEATURE_CONFIG) | \
+	(1ULL << (u64)IOCTL_READ_REG) | \
+	(1ULL << (u64)IOCTL_MASK_WRITE_REG) | \
+	(1ULL << (u64)IOCTL_SET_SD_CONFIG) | \
+	(1ULL << (u64)IOCTL_SET_GEM_CONFIG) | \
+	(1ULL << (u64)IOCTL_SET_USB_CONFIG) | \
+	(1ULL << (u64)IOCTL_AIE_OPS) | \
+	(1ULL << (u64)IOCTL_GET_QOS))
+
 u32 ResetReason;
 
 void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
@@ -4991,7 +5028,9 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		Status = XST_SUCCESS;
 		break;
 	case PM_API(PM_IOCTL):
-		*Version = XST_API_PM_IOCTL_VERSION;
+		Version[0] = XST_API_PM_IOCTL_VERSION;
+		Version[1] = (u32)(PM_IOCTL_FEATURE_BITMASK);
+		Version[2] = (u32)(PM_IOCTL_FEATURE_BITMASK >> 32);
 		Status = XST_SUCCESS;
 		break;
 	default:
