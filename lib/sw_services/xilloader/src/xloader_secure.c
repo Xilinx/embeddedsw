@@ -109,6 +109,7 @@
 *                     functions
 *       bsv  02/09/22 Code clean up to reduce size
 *       bsv  02/09/22 Code clean up
+*       bsv  02/10/22 Code clean up by removing unwanted initializations
 *
 * </pre>
 *
@@ -379,7 +380,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
-	XSecure_Sha3Hash BlkHash = {0U};
+	XSecure_Sha3Hash BlkHash;
 	u32 HashAddr = SecurePtr->ChunkAddr + Size;
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
