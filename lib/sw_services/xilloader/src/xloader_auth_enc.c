@@ -77,6 +77,7 @@
 *       skd  01/12/22 Updated goto labels for better readability
 *       bsv  02/09/22 Code clean up to reduce stack size
 *       bsv  02/09/22 Code clean up
+*       bsv  02/10/22 Code clean up by removing unwanted initializations
 *
 * </pre>
 *
@@ -400,8 +401,8 @@ END:
 int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 ReadAuthReg = 0x0U;
-	u32 ReadEncReg = 0x0U;
+	u32 ReadAuthReg;
+	u32 ReadEncReg;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	u32 MetaHeaderKeySrc = SecurePtr->PdiPtr->MetaHdr.ImgHdrTbl.EncKeySrc;
@@ -550,10 +551,10 @@ static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePt
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	volatile u32 IsEncKeySrc = 0U;
-	volatile u32 IsEncKeySrcTmp = 0U;
-	volatile u32 PufHdLocation = 0U;
-	volatile u32 PufHdLocationTmp = 0U;
+	volatile u32 IsEncKeySrc;
+	volatile u32 IsEncKeySrcTmp;
+	volatile u32 PufHdLocation;
+	volatile u32 PufHdLocationTmp;
 
 	/*
 	 * When ENC only is set, Meta header should be decrypted
@@ -1527,7 +1528,7 @@ static int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	int Status = XST_FAILURE;
 	u32 Counter = 0U;
 	u32 HashLen = XLOADER_SHA3_LEN;
-	XSecure_Sha3Hash HashStore = {0U};
+	XSecure_Sha3Hash HashStore;
 	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
 	u32 Size = XLOADER_SHA3_LEN;
 	u8 *OutTmp = Out;
@@ -1591,13 +1592,13 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature)
 {
 	volatile int Status = XST_FAILURE;
-	volatile u32 DbTmp = 0U;
-	XSecure_Sha3Hash MPrimeHash = {0U};
+	volatile u32 DbTmp;
+	XSecure_Sha3Hash MPrimeHash;
 	volatile u8 HashTmp;
 	u8 XSecure_RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
 	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32U)));
 	/* Buffer variable used to store HashMgf and DB */
-	u8 Buffer[XLOADER_RSA_PSS_BUFFER_LEN] __attribute__ ((aligned(32U))) = {0U};
+	u8 Buffer[XLOADER_RSA_PSS_BUFFER_LEN] __attribute__ ((aligned(32U)));
 	u32 Index;
 	u32 IndexTmp;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
@@ -1815,11 +1816,11 @@ static int XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u
 	const u8 *YKey = &Key[KeySize];
 	const u8 *RSign = Signature;
 	const u8 *SSign = &Signature[KeySize];
-	u8 Qx[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
-	u8 Qy[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
-	u8 SigR[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
-	u8 SigS[XLOADER_ECDSA_MAX_KEYSIZE] = {0U};
-	u8 Hash[XLOADER_SHA3_LEN] = {0U};
+	u8 Qx[XLOADER_ECDSA_MAX_KEYSIZE];
+	u8 Qy[XLOADER_ECDSA_MAX_KEYSIZE];
+	u8 SigR[XLOADER_ECDSA_MAX_KEYSIZE];
+	u8 SigS[XLOADER_ECDSA_MAX_KEYSIZE];
+	u8 Hash[XLOADER_SHA3_LEN];
 	u32 Index;
 	XSecure_EllipticKey PublicKey = {0};
 	XSecure_EllipticSign Sign = {0};
@@ -2546,7 +2547,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	XLoader_AesKekInfo KeyDetails;
 	u32 Offset;
 	u32 RegVal;
-	u32 ReadEncReg = 0x0U;
+	u32 ReadEncReg;
 	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 
@@ -2907,7 +2908,7 @@ int XLoader_AddAuthJtagToScheduler(void)
 	volatile int Status = XST_FAILURE;
 	volatile u32 AuthJtagDis = XLOADER_AUTH_JTAG_DIS_MASK;
 	volatile u32 AuthJtagDisTmp = XLOADER_AUTH_JTAG_DIS_MASK;
-	u32 ReadAuthReg = 0x0U;
+	u32 ReadAuthReg;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
 	AuthJtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
@@ -3047,9 +3048,9 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	XLoader_AuthJtagMessage AuthJtagMessage
 		__attribute__ ((aligned (16U))) = {0U};
-	u32 ReadAuthReg = 0x0U;
-	volatile u8 UseDna = 0x0U;
-	volatile u8 UseDnaTmp = 0x0U;
+	u32 ReadAuthReg;
+	volatile u8 UseDna;
+	volatile u8 UseDnaTmp;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
 	SecureParams.AuthJtagMessagePtr = &AuthJtagMessage;
@@ -3531,7 +3532,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
-	XSecure_Sha3Hash BlkHash = {0U};
+	XSecure_Sha3Hash BlkHash;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
 	volatile int StatusTmp = XST_FAILURE;
 	XLoader_AuthCertificate *AcPtr=
@@ -3706,5 +3707,4 @@ static int XLoader_ReadandCompareDna(const u32 *UserDna)
 END:
 	return Status;
 }
-
 #endif /* END OF PLM_SECURE_EXCLUDE */
