@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfemix_reg.h
-* @addtogroup xdfemix_v1_3
+* @addtogroup Overview
 * @{
 * @cond nocomments
 * Contains the register definitions for dfemixer. This is

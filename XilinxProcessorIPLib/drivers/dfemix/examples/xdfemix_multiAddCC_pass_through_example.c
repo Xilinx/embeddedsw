@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
-* @addtogroup dfemix_v1_3_examples
+* @addtogroup Overview
 * @{
 *
 *****************************************************************************/
