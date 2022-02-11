@@ -55,6 +55,7 @@
 *       kpt  10/20/21 Declared temporal variables in XLoader_SecureTempParams
 *       kpt  10/28/21 Added flags in XLoader_SecureInit function prototype
 *       bsv  02/09/22 Code clean up
+*       bsv  02/11/22 Code optimization to reduce text size
 *
 * </pre>
 *
@@ -80,10 +81,6 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Constant Definitions *****************************/
-#define XLOADER_WORD_IN_BITS					(32U)
-						/**< Word length in bits */
-#define XLOADER_WORD_IN_BITS_SHIFT		(5U)
-#define XLOADER_WORD_IN_BITS_MASK		(0x1FU)
 
 /**
  * @name  Clear buffer error codes
