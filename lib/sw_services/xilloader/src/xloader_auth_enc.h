@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,7 @@
 *       kpt  10/20/21 Removed temporal variables from XLoader_SecureParams
 *       bsv  10/26/21 Code clean up
 *       kpt  10/28/21 Added DmaFlags in XLoader_SecureParams
+*       bsv  02/11/22 Code clean up to reduce size
 *
 * </pre>
 *
@@ -356,6 +357,11 @@ extern "C" {
 
 #define XLOADER_KAT_DONE				(0x000005F0U)
 			/**< Value to indicate that KAT is done */
+
+#define XLOADER_WORD_IN_BITS					(32U)
+						/**< Word length in bits */
+#define XLOADER_WORD_IN_BITS_SHIFT		(5U)
+#define XLOADER_WORD_IN_BITS_MASK		(0x1FU)
 
 /**************************** Type Definitions *******************************/
 /**< RSA Key */
