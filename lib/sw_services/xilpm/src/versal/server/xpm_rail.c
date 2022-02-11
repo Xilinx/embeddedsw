@@ -294,10 +294,11 @@ done:
 
 #else
 
-XStatus XPmRail_Control(XPm_Rail *Rail, u8 State)
+XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 {
 	(void)Rail;
 	(void)State;
+	(void)Mode;
 
 	return XST_SUCCESS;
 }
