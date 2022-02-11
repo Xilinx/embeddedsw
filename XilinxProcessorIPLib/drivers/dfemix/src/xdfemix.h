@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfemix.h
-* @addtogroup xdfemix_v1_3 Overview
+* @addtogroup Overview
 * @{
 *
 * The RFSoC DFE DUC-DDC Mixer IP provides a wrapper around the Channel Mixer and
@@ -74,6 +74,7 @@
 *       dc     11/30/21 Convert AntennaCfg to structure
 *       dc     12/02/21 Add UpdateAntennaCfg API
 *       dc     12/17/21 Update after documentation review
+* 1.3   dc     02/10/22 Add latency information
 *
 * </pre>
 * @endcond
@@ -530,7 +531,8 @@ void XDfeMix_ClearEventStatus(const XDfeMix *InstancePtr,
 			      const XDfeMix_Status *Status);
 void XDfeMix_SetTUserDelay(const XDfeMix *InstancePtr, u32 Delay);
 u32 XDfeMix_GetTUserDelay(const XDfeMix *InstancePtr);
-u32 XDfeMix_GetTDataDelay(const XDfeMix *InstancePtr, u32 Tap);
+u32 XDfeMix_GetTDataDelay(const XDfeMix *InstancePtr, u32 Tap, u32 *TDataDelay);
+u32 XDfeMix_GetCenterTap(const XDfeMix *InstancePtr, u32 Rate, u32 *CenterTap);
 void XDfeMix_GetVersions(const XDfeMix *InstancePtr, XDfeMix_Version *SwVersion,
 			 XDfeMix_Version *HwVersion);
 

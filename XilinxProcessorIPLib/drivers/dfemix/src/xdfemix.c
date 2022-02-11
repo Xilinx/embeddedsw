@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,9 +43,10 @@
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     01/07/22 NCO assignment in arch4 mode
 *       dc     01/19/22 Assert CCUpdate trigger
+*       dc     02/10/22 Add latency information
 *
 * </pre>
-* @addtogroup xdfemix_v1_3
+* @addtogroup Overview
 * @{
 ******************************************************************************/
 /**
@@ -82,7 +83,7 @@
 /**
 * @endcond
 */
-#define XDFEMIX_DRIVER_VERSION_MINOR (2U) /**< Driver's minor version number */
+#define XDFEMIX_DRIVER_VERSION_MINOR (3U) /**< Driver's minor version number */
 #define XDFEMIX_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
@@ -2660,20 +2661,54 @@ u32 XDfeMix_GetTUserDelay(const XDfeMix *InstancePtr)
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    Tap Tap value.
+* @param    TDataDelay Returned Data latency value.
 *
-* @return   Data latency value.
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-u32 XDfeMix_GetTDataDelay(const XDfeMix *InstancePtr, u32 Tap)
+u32 XDfeMix_GetTDataDelay(const XDfeMix *InstancePtr, u32 Tap, u32 *TDataDelay)
 {
 	u32 Data;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Tap < XDFEMIX_TAP_MAX);
+	Xil_AssertNonvoid(TDataDelay != NULL);
 
 	Data = XDfeMix_RdRegBitField(InstancePtr, XDFEMIX_LATENCY_OFFSET,
 				     XDFEMIX_LATENCY_VALUE_WIDTH,
 				     XDFEMIX_LATENCY_VALUE_OFFSET);
-	return (Data + Tap);
+	*TDataDelay = Data + Tap;
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* Returns predefined Central Tap value for chosen RATE.
+*
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    Rate Interpolation/decimation rate index value [1-5].
+* @param    CenterTap Returned Central Tap value.
+*
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
+****************************************************************************/
+u32 XDfeMix_GetCenterTap(const XDfeMix *InstancePtr, u32 Rate, u32 *CenterTap)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Rate >= XDFEMIX_CC_CONFIG_RATE_1X);
+	Xil_AssertNonvoid(Rate <= XDFEMIX_CC_CONFIG_RATE_16X);
+	Xil_AssertNonvoid(CenterTap != NULL);
+
+	/* Predefined Center Tap values */
+	const u32 XDfeMix_CentralTap[5] = { 0, 23U, 55U, 115U, 235U };
+
+	*CenterTap = XDfeMix_CentralTap[Rate - 1U];
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
