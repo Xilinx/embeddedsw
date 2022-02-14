@@ -24,6 +24,7 @@
 * 2.5   kpt  12/09/2021 Replaced magic number with XNVM_API_ID_MASK
 *       har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
 *       kpt  01/19/2022 Cleared AesKeys structure and added redundancy
+*       kpt  01/31/2022 Removed redundant code in XNvm_EfuseMemCopy
 *
 * </pre>
 *
@@ -74,7 +75,7 @@ static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfusePufWrite(u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfusePufRead(u32 AddrLow, u32 AddrHigh);
 #endif
-static int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
+static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 
 /*************************** Function Definitions *****************************/
 
@@ -977,36 +978,12 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
-static int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
+static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
 {
 	int Status = XST_FAILURE;
-	u64 Src = SourceAddr;
-	u64 Dst = DestAddr;
-	u32 RemLen;
-	u32 Offset;
-	u8 RemData;
 
-	Status = XPlmi_DmaXfr(Src, Dst, (Len >> 2U),
-			XPLMI_PMCDMA_0);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Status = XPlmi_MemCpy64(DestAddr, SourceAddr, Len);
 
-	RemLen = Len & (XNVM_WORD_LEN - 1U);
-	if (RemLen != 0U) {
-		Offset = Len & ~(XNVM_WORD_LEN - 1U);
-		Src += Offset;
-		Dst += Offset;
-		do {
-			RemData = XPlmi_InByte64(Src);
-			XPlmi_OutByte64(Dst, RemData);
-			Src++;
-			Dst++;
-			RemLen--;
-		} while (RemLen > 0U);
-	}
-
-END:
 	return Status;
 }
 
