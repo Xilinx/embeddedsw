@@ -465,9 +465,9 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		if (color_format == XST352_BYTE3_COLOR_FORMAT_444_RGB)
 			SdiStream->ColorFormatId = XVIDC_CSF_RGB;
 		else if (color_format == XST352_BYTE3_COLOR_FORMAT_444)
-			SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_444;
+			SdiStream->ColorFormatId = XVIDC_CSF_YCBCR_444;
 		else
-			SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
+			SdiStream->ColorFormatId = XVIDC_CSF_YCBCR_422;
 
 
 		tscan = (payload & XST352_BYTE2_TS_TYPE_MASK) >>
@@ -495,7 +495,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			byte1 = 0;
 			active_luma = 0;
 			color_format = XST352_BYTE3_COLOR_FORMAT_422;
-			SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
+			SdiStream->ColorFormatId = XVIDC_CSF_YCBCR_422;
 			bitdepth = XST352_BYTE4_BIT_DEPTH_10;
 			SdiStream->ColorDepth = XVIDC_BPC_10;
 		}
@@ -511,13 +511,13 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		if (InstancePtr->Transport.TMode >= XSDIVID_MODE_6G) {
 			switch(color_format) {
 				case XST352_BYTE3_COLOR_FORMAT_420:
-					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_420;
+					SdiStream->ColorFormatId = XVIDC_CSF_YCBCR_420;
 					break;
 				case XST352_BYTE3_COLOR_FORMAT_422:
-					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_422;
+					SdiStream->ColorFormatId = XVIDC_CSF_YCBCR_422;
 					break;
 				case XST352_BYTE3_COLOR_FORMAT_444:
-					SdiStream->ColorFormatId = XVIDC_CSF_YCRCB_444;
+					SdiStream->ColorFormatId = XVIDC_CSF_YCBCR_444;
 					break;
 				case XST352_BYTE3_COLOR_FORMAT_444_RGB:
 					SdiStream->ColorFormatId = XVIDC_CSF_RGB;
