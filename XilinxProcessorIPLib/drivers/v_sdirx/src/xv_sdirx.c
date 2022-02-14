@@ -170,6 +170,9 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 	/* Reset all peripherals */
 	XV_SdiRx_IntrDisable(InstancePtr, XV_SDIRX_IER_ALLINTR_MASK);
 
+	/* Ignore VPID / ST352 payload to generate Video lock interrupt */
+	InstancePtr->HandleNoPayload = 1;
+
 	/* Start SDI core */
 	XV_SdiRx_Start(InstancePtr, XV_SDIRX_MULTISEARCHMODE);
 
@@ -518,7 +521,10 @@ void XV_SdiRx_Start(XV_SdiRx *InstancePtr, XV_SdiRx_SearchMode Mode)
 	}
 
 	/* Ignore VPID / ST352 payload to generate Video lock interrupt */
-	Data &= ~XV_SDIRX_MDL_CTRL_VPID_MASK;
+	if (InstancePtr->HandleNoPayload)
+		Data &= ~XV_SDIRX_MDL_CTRL_VPID_MASK;
+	else
+		Data |= XV_SDIRX_MDL_CTRL_VPID_MASK;
 
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDIRX_MDL_CTRL_OFFSET), (Data));
@@ -1006,6 +1012,30 @@ void XV_SdiRx_SetBitDepth(XV_SdiRx *InstancePtr, XVidC_ColorDepth BitDepth)
 	InstancePtr->BitDepth = BitDepth;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function disables generating Video lock interrupt for no payload case
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+* @param	enable is to enable/disable the Handling of nopayload case
+* 			0 is to disable
+* 			1 is to enable
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiRx_HandleNoPayload(XV_SdiRx *InstancePtr, u8 enable)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	if (enable)
+		InstancePtr->HandleNoPayload = 1;
+	else
+		InstancePtr->HandleNoPayload = 0;
+
+}
 
 /*****************************************************************************/
 /**
