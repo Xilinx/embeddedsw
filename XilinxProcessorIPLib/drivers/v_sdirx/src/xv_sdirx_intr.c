@@ -487,13 +487,14 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 
 		/*
 		 * when in 3G scenario there is no ST352 payload, we are setting
-		 * colorformat as YUV 422 10bpc. Resolution will be 1920x1080.
+		 * colorformat as YUV 422 10bpc. Resolution will be 1920x1080/2048x1080
 		 */
 		if (((InstancePtr->Transport.TMode == XSDIVID_MODE_3GA) ||
 		     (InstancePtr->Transport.TMode == XSDIVID_MODE_3GB)) && !valid) {
 
 			byte1 = 0;
-			active_luma = 0;
+			active_luma = (InstancePtr->Transport.TFamily ==
+					XV_SDIRX_SMPTE_ST_2048_2) ? 1 : 0;
 			color_format = XST352_BYTE3_COLOR_FORMAT_422;
 			SdiStream->ColorFormatId = XVIDC_CSF_YCBCR_422;
 			bitdepth = XST352_BYTE4_BIT_DEPTH_10;
@@ -1071,31 +1072,47 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				if (InstancePtr->Transport.IsLevelB3G) {
 					switch (FrameRate) {
 					case XVIDC_FR_24HZ:
-						SdiStream->VmId = XVIDC_VM_1920x1080_48_P;
+						SdiStream->VmId = !active_luma ?
+								XVIDC_VM_1920x1080_96_I :
+								XVIDC_VM_2048x1080_96_I;
 						break;
 					case XVIDC_FR_25HZ:
-						SdiStream->VmId = XVIDC_VM_1920x1080_50_P;
+						SdiStream->VmId = !active_luma ?
+								XVIDC_VM_1920x1080_100_I :
+								XVIDC_VM_2048x1080_100_I;
 						break;
 					case XVIDC_FR_30HZ:
-						SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+						SdiStream->VmId = !active_luma ?
+								XVIDC_VM_1920x1080_120_I :
+								XVIDC_VM_2048x1080_120_I;
 						break;
 					default:
-						SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+						SdiStream->VmId = !active_luma ?
+								XVIDC_VM_1920x1080_120_P :
+								XVIDC_VM_2048x1080_120_I;
 					}
 				} else {
 					/* 3GA */
 					switch (FrameRate) {
 					case XVIDC_FR_48HZ:
-						SdiStream->VmId = XVIDC_VM_1920x1080_48_P;
+						SdiStream->VmId = !active_luma ?
+								XVIDC_VM_1920x1080_48_P :
+								XVIDC_VM_2048x1080_48_P;
 						break;
 					case XVIDC_FR_50HZ:
-						SdiStream->VmId = XVIDC_VM_1920x1080_50_P;
+						SdiStream->VmId = !active_luma ?
+								XVIDC_VM_1920x1080_50_P :
+								XVIDC_VM_2048x1080_50_P;
 						break;
 					case XVIDC_FR_60HZ:
-						SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+						SdiStream->VmId = !active_luma ?
+								XVIDC_VM_1920x1080_60_P :
+								XVIDC_VM_2048x1080_60_P;
 						break;
 					default:
-						SdiStream->VmId = XVIDC_VM_1920x1080_60_P;
+						SdiStream->VmId = !active_luma ?
+								XVIDC_VM_1920x1080_60_P :
+								XVIDC_VM_2048x1080_60_P;
 					}
 				}
 			}
