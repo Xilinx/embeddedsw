@@ -40,6 +40,7 @@
 *       bsv  10/26/21 Code clean up
 *       kpt  10/28/21 Added DmaFlags in XLoader_SecureParams
 *       bsv  02/11/22 Code clean up to reduce size
+*       bsv  02/13/22 Reduce stack usage of functions
 *
 * </pre>
 *
@@ -467,6 +468,17 @@ typedef struct XLoader_SecureParams {
 	u8 IsAuthenticated;	/**< Authentication enabled or disabled */
 #endif
 } XLoader_SecureParams;
+
+/* To reduce stack usage, instances of XLoader_AuthCertificate and XPufData
+ * and arrays named RsaSha3Array and Buffer are moved to this structure
+ * which resides at XPLMI_PMC_CHUNK_MEMORY_1.
+ */
+typedef struct {
+	XLoader_AuthCertificate AuthCert;
+	u8 RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
+	u8 Buffer[XLOADER_RSA_PSS_BUFFER_LEN] __attribute__ ((aligned(32U)));
+	XPuf_Data PufData;
+} XLoader_StoreSecureData;
 
 #ifndef PLM_SECURE_EXCLUDE
 typedef enum {

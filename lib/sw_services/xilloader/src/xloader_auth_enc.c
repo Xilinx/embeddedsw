@@ -79,6 +79,7 @@
 *       bsv  02/09/22 Code clean up
 *       bsv  02/10/22 Code clean up by removing unwanted initializations
 *       bsv  02/11/22 Code optimization to reduce text size
+*       bsv  02/13/22 Reduce stack usage of functions
 *
 * </pre>
 *
@@ -1522,10 +1523,15 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	volatile u32 DbTmp;
 	XSecure_Sha3Hash MPrimeHash;
 	volatile u8 HashTmp;
-	u8 XSecure_RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
-	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32U)));
+	/* To reduce stack usage, RsaSha3Array and Buffer are moved to a structure
+	 * called XLoader_StoreSecureData which resides at XPLMI_PMC_CHUNK_MEMORY_1.
+	 */
+	XLoader_StoreSecureData *StoreSecureDataPtr = (XLoader_StoreSecureData *)
+		(UINTPTR)(XPLMI_PMCRAM_CHUNK_MEMORY_1);
+	u8 *XSecure_RsaSha3Array = StoreSecureDataPtr->RsaSha3Array;
 	/* Buffer variable used to store HashMgf and DB */
-	u8 Buffer[XLOADER_RSA_PSS_BUFFER_LEN] __attribute__ ((aligned(32U)));
+	u8 *Buffer = StoreSecureDataPtr->Buffer;
+	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32U)));
 	u32 Index;
 	u32 IndexTmp;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
@@ -2626,29 +2632,40 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 					const XLoader_AesKekInfo *KeyDetails)
 {
 	int Status = XST_FAILURE;
-	XPuf_Data PufData = {0U};
+	/* To reduce stack usage, XPufData is moved to a structure called
+	 * XLoader_StoreSecureData which resides at XPLMI_PMC_CHUNK_MEMORY_1.
+	 */
+	XLoader_StoreSecureData *SecureDataStorePtr = (XLoader_StoreSecureData *)
+		(UINTPTR)XPLMI_PMCRAM_CHUNK_MEMORY_1;
+	XPuf_Data *PufData = &SecureDataStorePtr->PufData;
+
+	Status = XPlmi_MemSetBytes(PufData, sizeof(XPuf_Data), 0U,
+		sizeof(XPuf_Data));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	XPlmi_Printf(DEBUG_INFO, "Decrypting PUF KEK\n\r");
-	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
-	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
-	PufData.PufOperation = XPUF_REGEN_ON_DEMAND;
-	PufData.GlobalVarFilter = (u8)(PufData.ShutterValue >>
+	PufData->RegMode = XPUF_SYNDROME_MODE_4K;
+	PufData->ShutterValue = XPUF_SHUTTER_VALUE;
+	PufData->PufOperation = XPUF_REGEN_ON_DEMAND;
+	PufData->GlobalVarFilter = (u8)(PufData->ShutterValue >>
 		XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
 
 	if (KeyDetails->PufHdLocation == XLOADER_PUF_HD_BHDR) {
-		PufData.ReadOption = XPUF_READ_FROM_RAM;
-		PufData.SyndromeAddr = XIH_BH_PRAM_ADDR + XIH_BH_PUF_HD_OFFSET;
-		PufData.Chash = *(u32 *)(XIH_BH_PRAM_ADDR + XIH_BH_PUF_CHASH_OFFSET);
-		PufData.Aux = *(u32 *)(XIH_BH_PRAM_ADDR + XIH_BH_PUF_AUX_OFFSET);
+		PufData->ReadOption = XPUF_READ_FROM_RAM;
+		PufData->SyndromeAddr = XIH_BH_PRAM_ADDR + XIH_BH_PUF_HD_OFFSET;
+		PufData->Chash = *(u32 *)(XIH_BH_PRAM_ADDR + XIH_BH_PUF_CHASH_OFFSET);
+		PufData->Aux = *(u32 *)(XIH_BH_PRAM_ADDR + XIH_BH_PUF_AUX_OFFSET);
 		XPlmi_Printf(DEBUG_INFO, "BHDR PUF HELPER DATA with CHASH:"
-			"%0x and AUX:%0x\n\r", PufData.Chash, PufData.Aux);
+			"%0x and AUX:%0x\n\r", PufData->Chash, PufData->Aux);
 	}
 	else {
 		XPlmi_Printf(DEBUG_INFO, "EFUSE PUF HELPER DATA\n\r");
-		PufData.ReadOption = XPUF_READ_FROM_EFUSE_CACHE;
+		PufData->ReadOption = XPUF_READ_FROM_EFUSE_CACHE;
 	}
 
-	Status = XPuf_Regeneration(&PufData);
+	Status = XPuf_Regeneration(PufData);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Failed at PUF regeneration with status "
 			"%0x\n\r", Status);
@@ -2931,14 +2948,24 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	XLoader_SecureParams SecureParams = {0U};
 	XSecure_Sha3Hash Sha3Hash = {0U};
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
-	XLoader_AuthJtagMessage AuthJtagMessage
-		__attribute__ ((aligned (16U))) = {0U};
 	u32 ReadAuthReg;
 	volatile u8 UseDna;
 	volatile u8 UseDnaTmp;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
-	SecureParams.AuthJtagMessagePtr = &AuthJtagMessage;
+	/* To reduce stack usage, instance of XLoader_AuthJtagMessage is moved to
+	 * a structure called XLoader_StoreSecureData which resides at
+	 * XPLMI_PMC_CHUNK_MEMORY_1.
+	 */
+	SecureParams.AuthJtagMessagePtr = (XLoader_AuthJtagMessage *)
+		(UINTPTR)XPLMI_PMCRAM_CHUNK_MEMORY_1;
+
+	Status = XPlmi_MemSetBytes(SecureParams.AuthJtagMessagePtr,
+		sizeof(XLoader_AuthJtagMessage), 0U, sizeof(XLoader_AuthJtagMessage));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XPlmi_DmaXfr(XLOADER_PMC_TAP_AUTH_JTAG_DATA_OFFSET,
 			(u64)(u32)SecureParams.AuthJtagMessagePtr,
 			XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS, XPLMI_PMCDMA_0);
