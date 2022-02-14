@@ -34,6 +34,7 @@
 *       bsv  09/09/2021 Added PLM_NVM macro
 *       gm   09/17/2021 Added MJTAG workaround related macros
 * 1.08  kpt  01/04/2022 Added PLM_PUF and PLM_PUF_EXCLUDE macros
+*       kpt  01/31/2022 Added description for PLM_PUF_EXCLUDE
 *
 * </pre>
 *
@@ -124,6 +125,7 @@ extern "C" {
  *		- PLM_SEM_EXCLUDE SEM code will be excluded
  *		- PLM_SECURE_EXCLUDE secure code will be excluded
  *		- PLM_NVM_EXCLUDE Nvm code will be excluded
+ *		- PLM_PUF_EXCLUDE PUF code will be excluded
  */
 //#define PLM_QSPI_EXCLUDE
 //#define PLM_SD_EXCLUDE
