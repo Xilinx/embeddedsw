@@ -805,3 +805,19 @@ u32 XV_SdiRxSs_WaitforPayLoad(XV_SdiRxSs *InstancePtr)
 
 	return XV_SdiRx_WaitforPayLoad(InstancePtr->SdiRxPtr);
 }
+
+/*****************************************************************************/
+/**
+*
+* This function disables handling for no payload case
+*
+* @param	InstancePtr is a pointer to the XV_SdiRxSs core instance.
+* @param	enable is to enable/disable the Handling of nopayload case
+*
+* @return	None
+*
+******************************************************************************/
+void XV_SdiRxSs_HandleNoPayload(XV_SdiRxSs *InstancePtr, u8 enable)
+{
+	XV_SdiRx_HandleNoPayload(InstancePtr->SdiRxPtr, enable);
+}
