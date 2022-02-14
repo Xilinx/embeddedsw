@@ -9,6 +9,11 @@
 # -------- ------ -------- ------------------------------------
 # 3.0      adk    12/10/13 Updated as per the New Tcl API's
 # 3.7	   adk	  31/01/22 Fix interrupt controller name in SMP designs.
+# 3.7	   adk	  14/02/22 When uartlite is configured as TMR SEM, Selftest
+# 			   example is failing as TMR SEM continuously
+# 			   receives data, So don't pull the driver examples
+# 			   for this configuration, updated the tcl checks
+# 			   accordingly.
 ##############################################################################
 
 ## BEGIN_CHANGELOG EDK_I
@@ -45,6 +50,9 @@ proc gen_include_files {swproj mhsinst} {
     set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
     set isStdout [string match $stdout $mhsinst]
     set ipname [common::get_property IP_NAME $mhsinst]
+    if {$ipname == "tmr_sem"} {
+      return ""
+    }
     if {${isStdout} == 0} {
 	set ifuartliteintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
         if {$ifuartliteintr == 1} {
@@ -70,6 +78,9 @@ proc gen_src_files {swproj mhsinst} {
    
     if {$swproj == 1} {
 	 set ipname [common::get_property IP_NAME $mhsinst]
+	 if {$ipname == "tmr_sem"} {
+	    return ""
+	 }
 	 set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
 	set isStdout [string match $stdout $mhsinst]
 	if {${isStdout} == 0} {
@@ -101,6 +112,10 @@ proc gen_init_code {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
+	  set ipname [common::get_property IP_NAME $mhsinst]
+	  if {$ipname == "tmr_sem"} {
+	    return ""
+	  }
 	  set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
 	  set isStdout [string match $stdout $mhsinst]
 	if {${isStdout} == 0} {
@@ -130,6 +145,11 @@ proc gen_testfunc_call {swproj mhsinst} {
   set testfunc_call ""
 
   if {$swproj == 0} {
+    return $testfunc_call
+  }
+
+  set ipname [common::get_property IP_NAME $mhsinst]
+  if {$ipname == "tmr_sem"} {
     return $testfunc_call
   }
 

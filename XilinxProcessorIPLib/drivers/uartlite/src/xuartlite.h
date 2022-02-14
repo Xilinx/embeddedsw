@@ -123,7 +123,10 @@
 * 3.3	sne 09/13/19  Updated driver tcl file for mdm & tmr_sem ip's.
 * 3.7	adk 31/01/22  Fix interrupt controller name in SMP designs, Changes are
 * 		      made in the interrupt app tcl file.
-*
+* 3.7	adk 14/02/22  When generating peripheral tests for TMR subsystem based
+* 		      designs don't pull the driver examples when uartlite is
+* 		      configured as a TMR SEM fix for CR-1121291, changes are
+* 		      made in the uartlite_tapp.tcl file.
 * </pre>
 *
 *****************************************************************************/
