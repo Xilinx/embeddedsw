@@ -1001,10 +1001,10 @@ void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr)
 		break;
 
 	case XSDIVID_MODE_6G:
-		if ((InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_444) ||
+		if ((InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCBCR_444) ||
 		(InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_RGB)) {
 			MuxPattern = XV_SDITX_MUX_4STREAM_6G;
-		} else if (InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
+		} else if (InstancePtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCBCR_422) {
 			MuxPattern = (InstancePtr->bitdepth == 10) ? XV_SDITX_MUX_8STREAM_6G_12G : XV_SDITX_MUX_4STREAM_6G;
 		} else {
 			MuxPattern = XV_SDITX_MUX_8STREAM_6G_12G;
