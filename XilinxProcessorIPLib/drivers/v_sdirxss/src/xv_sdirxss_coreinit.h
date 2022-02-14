@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_sdirxss_coreinit.h
-* @addtogroup v_sdirxss_v3_2
+* @addtogroup v_sdirxss_v3_3
 * @{
 *
 * This header file contains the sdi rx subsystem sub-cores

@@ -234,7 +234,7 @@ void XV_SdiRxSs_LogWrite(XV_SdiRxSs *InstancePtr, XV_SdiRxSs_LogEvent Evt,
 		u8 Data);
 u16 XV_SdiRxSs_LogRead(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_LogDisplay(XV_SdiRxSs *InstancePtr);
-
+void XV_SdiRxSs_HandleNoPayload(XV_SdiRxSs *InstancePtr, u8 enable);
 
 /************************** Variable Declarations ****************************/
 
