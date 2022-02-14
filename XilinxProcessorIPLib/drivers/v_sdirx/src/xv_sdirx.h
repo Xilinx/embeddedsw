@@ -210,6 +210,7 @@ typedef struct {
 	XSdiVid_Transport	Transport;
 	u8					SupportedModes;
 	u8					VideoStreamNum;
+	u8					HandleNoPayload;
 	XVidC_ColorDepth	BitDepth;
 } XV_SdiRx;
 
@@ -296,6 +297,7 @@ void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Mask);
 void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Mask);
 
 void XV_SdiRx_SetBitDepth(XV_SdiRx *InstancePtr, XVidC_ColorDepth BitDepth);
+void XV_SdiRx_HandleNoPayload(XV_SdiRx *InstancePtr, u8 enable);
 
 /************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/
