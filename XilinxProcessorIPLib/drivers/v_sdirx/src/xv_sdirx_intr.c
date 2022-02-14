@@ -1068,7 +1068,8 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				}
 				break;
 			default:
-				xil_printf("No ST352 valid payload available for 3G modes\n\r");
+				xil_printf("Error: No ST352 valid payload available for 3G modes,"
+						"source is not 3G compliant\n\r");
 				if (InstancePtr->Transport.IsLevelB3G) {
 					switch (FrameRate) {
 					case XVIDC_FR_24HZ:
