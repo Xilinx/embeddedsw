@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kpt  01/04/2022 Initial release
+*       kpt  01/31/2022 Removed redundant code in XNvm_EfuseMemCopy
 *
 * </pre>
 *
@@ -44,7 +45,7 @@
 /************************** Function Prototypes *****************************/
 static int XPuf_PufRegistration(u32 AddrLow, u32 AddrHigh);
 static int XPuf_PufRegeneration(u32 AddrLow, u32 AddrHigh);
-static int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
+static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 
 /*************************** Function Definitions *****************************/
 
@@ -220,35 +221,12 @@ END:
  * 		    - XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
-static int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
+static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
 {
 	int Status = XST_FAILURE;
-	u64 Src = SourceAddr;
-	u64 Dst = DestAddr;
-	u32 RemLen;
-	u32 Offset;
-	u8 RemData;
 
-	Status = XPlmi_DmaXfr(Src, Dst, (Len >> 2U), XPLMI_PMCDMA_0);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Status = XPlmi_MemCpy64(DestAddr, SourceAddr, Len);
 
-	RemLen = Len & (XPUF_WORD_LENGTH - 1U);
-	if (RemLen != 0U) {
-		Offset = Len & ~(XPUF_WORD_LENGTH - 1U);
-		Src += Offset;
-		Dst += Offset;
-		do {
-			RemData = XPlmi_InByte64(Src);
-			XPlmi_OutByte64(Dst, RemData);
-			Src++;
-			Dst++;
-			RemLen--;
-		} while (RemLen > 0U);
-	}
-
-END:
 	return Status;
 }
 #endif
