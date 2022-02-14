@@ -673,7 +673,7 @@ static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr)
 	}
 
 	/* For YUV420 the line width is double there for double the blanking */
-	if (SdiTxPtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
+	if (SdiTxPtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCBCR_420) {
 		VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
 		VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
 		VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
@@ -716,7 +716,7 @@ static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr)
 		}
 
 		/* For YUV420 the line width is double there for double the blanking */
-		if (SdiTxPtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
+		if (SdiTxPtr->Stream[0].Video.ColorFormatId == XVIDC_CSF_YCBCR_420) {
 			Vtc_Hblank *= 2;
 		}
 
@@ -889,10 +889,10 @@ void XV_SdiTxSs_StreamConfig(XV_SdiTxSs *InstancePtr)
 		break;
 	case XSDIVID_MODE_6G:
 		if (InstancePtr->SdiTxPtr->Stream[0].Video.ColorFormatId ==
-				XVIDC_CSF_YCRCB_444) {
+				XVIDC_CSF_YCBCR_444) {
 			InstancePtr->MaxDataStreams = 4;
 		} else if (InstancePtr->SdiTxPtr->Stream[0].Video.ColorFormatId ==
-				XVIDC_CSF_YCRCB_422){
+				XVIDC_CSF_YCBCR_422){
 			InstancePtr->MaxDataStreams =
 					(InstancePtr->Config.bitdepth == 10) ? 8 : 4;
 		} else {
