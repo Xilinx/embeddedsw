@@ -110,6 +110,7 @@
 *       bsv  02/09/22 Code clean up to reduce size
 *       bsv  02/09/22 Code clean up
 *       bsv  02/10/22 Code clean up by removing unwanted initializations
+*       bsv  02/14/22 Added comments for better readability
 *
 * </pre>
 *
@@ -196,6 +197,17 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 	SecurePtr->PdiPtr = PdiPtr;
 	SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
+	/* The below initialization is important, it has been added since
+	 * autentication certficate and Puf data are now stored in PMC RAM
+	 * instead of PPU1 RAM. What this means is that while processing
+	 * first chunk of any partition, the second 32K chunk of PMC RAM
+	 * starting from 0xf2008120 containis authentication certifcate and
+	 * PufData as applicable. This means second chunk of partition
+	 * must get loaded at 0xf2000020 and not at 0xf2008120. This means
+	 * double buffering would be disabled when first chunk is processed
+	 * and only enabled from second chunk onwards. Third chunk gets loaded
+	 * at 0xf2008120 and from then on chunks get loaded alternatively to
+	 * the two 32KB chunks of PMC RAM. */
 	SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	SecurePtr->BlockNum = 0x00U;
 	SecurePtr->ProcessedLen = 0x00U;
@@ -658,6 +670,17 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 				XLOADER_ERR_DATA_COPY_FAIL, Status);
 		goto END;
 	}
+	/* The below if condition is important, it has been added since
+         * autentication certficate and Puf data are now stored in PMC RAM
+         * instead of PPU1 RAM. What this means is that while processing
+         * first chunk of any partition, the second 32K chunk of PMC RAM
+         * starting from 0xf2008120 contains authentication certifcate and
+         * PufData as applicable. This means second chunk of partition
+         * must get loaded at 0xf2000020 and not at 0xf2008120. This means
+         * double buffering should be disabled when first chunk is processed
+         * and only enabled from second chunk onwards. Third chunk gets loaded
+         * at 0xf2008120 and from then on chunks alternatively get loaded to
+	 * the two 32KB chunks of PMC RAM. */
 
 	if ((Last != (u8)TRUE) && (SecurePtr->BlockNum != 0U)) {
 		Status = XLoader_StartNextChunkCopy(SecurePtr,
