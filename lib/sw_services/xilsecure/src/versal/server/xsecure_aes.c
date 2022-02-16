@@ -71,6 +71,7 @@
 *                       XSecure_AesWriteKey()
 *       har  01/20/2022 Added glitch checks for clearing keys in
 *                       XSecure_AesWriteKey()
+*       har  02/16/2022 Updated Status with ClearStatus only in case of success
 *
 * </pre>
 *
@@ -642,7 +643,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 END:
 	ClearStatus = Xil_SecureZeroize((u8*)Key, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
 	ClearStatusTmp = Xil_SecureZeroize((u8*)Key, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
-	if ((ClearStatus != XST_SUCCESS) || (ClearStatusTmp != XST_SUCCESS)) {
+	if (Status == XST_SUCCESS) {
 		Status = (ClearStatus | ClearStatusTmp);
 	}
 
