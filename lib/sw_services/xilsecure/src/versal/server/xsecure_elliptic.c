@@ -40,6 +40,8 @@
 *       har  01/20/22 Added glitch checks for clearing keys in
 *                     XSecure_EllipticGenerateKey_64Bit() and
 *                     XSecure_EllipticGenerateSignature_64Bit()
+*       har  02/16/22 Updated Status with ClearStatus only in case of success
+*
 *
 * </pre>
 *
@@ -160,7 +162,7 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 END:
 	ClearStatus = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	ClearStatusTmp = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
-	if ((ClearStatusTmp != XST_SUCCESS) || (ClearStatus != XST_SUCCESS)) {
+	if (Status == XST_SUCCESS) {
 		Status = ClearStatusTmp | ClearStatus;
 	}
 
@@ -313,13 +315,13 @@ END:
 	/* Zeroize local key copy */
 	ClearStatus = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	ClearStatusTmp = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
-	if ((ClearStatusTmp != XST_SUCCESS) || (ClearStatus != XST_SUCCESS)) {
+	if (Status == XST_SUCCESS) {
 		Status = ClearStatusTmp | ClearStatus;
 	}
 
 	ClearStatus = Xil_SecureZeroize((u8*)K, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	ClearStatusTmp = Xil_SecureZeroize((u8*)K, XSECURE_ECC_P521_SIZE_IN_BYTES);
-	if ((ClearStatusTmp != XST_SUCCESS) || (ClearStatus != XST_SUCCESS)) {
+	if (Status == XST_SUCCESS) {
 		Status = ClearStatusTmp | ClearStatus;
 	}
 
