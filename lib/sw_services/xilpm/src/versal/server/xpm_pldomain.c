@@ -580,7 +580,7 @@ done:
 	return Status;
 }
 
-static XStatus GtyHouseClean(void)
+static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 {
 	volatile XStatus Status = XPM_ERR_HC_PL;
 	volatile XStatus StatusTmp = XPM_ERR_HC_PL;
@@ -618,48 +618,58 @@ static XStatus GtyHouseClean(void)
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
 	if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
-		/* Bisr repair - Bisr should be triggered only for Addresses for which repair
-		 * data is found and so not calling in loop. Trigger is handled in below routine
-		 * */
-		Status = XPmBisr_Repair(GTY_TAG_ID);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_GTY_BISR_REPAIR;
-			goto done;
-		}
 
-		Status = XPmBisr_Repair(GTM_TAG_ID);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_GTM_BISR_REPAIR;
-			goto done;
-		}
-
-		Status = XPmBisr_Repair(GTYP_TAG_ID);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_GTYP_BISR_REPAIR;
-			goto done;
-		}
-
-		for (i = 0; i < ARRAY_SIZE(GtyAddrs); i++) {
-			if (0U == GtyAddrs[i]) {
-				continue;
+		/* Run GTY BISR operations if houseclean disable mask not set */
+		if (HOUSECLEAN_DISABLE_GTY_BISR_MASK != (Pld->Domain.HcDisableMask &
+					HOUSECLEAN_DISABLE_GTY_BISR_MASK)) {
+			/* Bisr repair - Bisr should be triggered only for Addresses for which repair
+			* data is found and so not calling in loop. Trigger is handled in below routine
+			* */
+			Status = XPmBisr_Repair(GTY_TAG_ID);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_GTY_BISR_REPAIR;
+				goto done;
 			}
-			XPmPlDomain_UnlockGtyPcsr(GtyAddrs[i]);
-			/* Mbist */
-			XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PldGtyMbist), (GtyAddrs[i]));
-			XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
-			/* Required for redundancy */
-			if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
-				/* Gt Mem clear is found to be failing on some parts.
-				 Just print message and return not to break execution */
-				PmErr("ERROR: GT Mem clear Failed for 0x%x\r\n", GtyAddrs[i]);
+
+			Status = XPmBisr_Repair(GTM_TAG_ID);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_GTM_BISR_REPAIR;
+				goto done;
 			}
-			XPmPlDomain_LockGtyPcsr(GtyAddrs[i]);
+
+			Status = XPmBisr_Repair(GTYP_TAG_ID);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_GTYP_BISR_REPAIR;
+				goto done;
+			}
 		}
 
-		if (i != ARRAY_SIZE(GtyAddrs)) {
-			DbgErr = XPM_INT_ERR_GTY_MEM_CLEAR_LOOP;
-			Status = XST_FAILURE;
-			goto done;
+		/* Run GTY MBIST operations if houseclean disable mask not set */
+		if (HOUSECLEAN_DISABLE_GTY_MBIST_MASK != (Pld->Domain.HcDisableMask &
+					HOUSECLEAN_DISABLE_GTY_MBIST_MASK)) {
+
+			for (i = 0; i < ARRAY_SIZE(GtyAddrs); i++) {
+				if (0U == GtyAddrs[i]) {
+					continue;
+				}
+				XPmPlDomain_UnlockGtyPcsr(GtyAddrs[i]);
+				/* Mbist */
+				XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PldGtyMbist), (GtyAddrs[i]));
+				XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
+				/* Required for redundancy */
+				if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+					/* Gt Mem clear is found to be failing on some parts.
+					Just print message and return not to break execution */
+					PmErr("ERROR: GT Mem clear Failed for 0x%x\r\n", GtyAddrs[i]);
+				}
+				XPmPlDomain_LockGtyPcsr(GtyAddrs[i]);
+			}
+
+			if (i != ARRAY_SIZE(GtyAddrs)) {
+				DbgErr = XPM_INT_ERR_GTY_MEM_CLEAR_LOOP;
+				Status = XST_FAILURE;
+				goto done;
+			}
 		}
 	}
 
@@ -1040,7 +1050,7 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	if ((PLATFORM_VERSION_SILICON == Platform) || (PLATFORM_VERSION_FCV == Platform)) {
 		/*House clean GTY*/
-		Status = GtyHouseClean();
+		Status = GtyHouseClean(Pld);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_GTY_HC;
 			XPlmi_Printf(DEBUG_GENERAL, "ERROR: %s : GTY HC failed", __func__);

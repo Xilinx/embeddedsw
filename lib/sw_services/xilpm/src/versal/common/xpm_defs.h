@@ -669,21 +669,6 @@ typedef enum {
 	PM_API_MAX					/**< 0x43 */
 } XPm_ApiId;
 
-/**
- * @name Houseclean Disable Masks
- * @{
- */
-/**
- * Houseclean Disable Masks
- */
-#define HOUSECLEAN_DISABLE_DEFAULT_MASK        (0x0000U)
-#define HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK (0x0001U)
-#define HOUSECLEAN_DISABLE_BISR_MASK       (0x0002U)
-#define HOUSECLEAN_DISABLE_LBIST_MASK      (0x0004U)
-#define HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK    (0x0008U)
-#define HOUSECLEAN_DISABLE_PL_HC_MASK      (0x0010U)
-/** @} */
-
 #ifdef __cplusplus
 }
 #endif
