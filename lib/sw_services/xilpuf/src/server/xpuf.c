@@ -43,6 +43,7 @@
 * 1.5   kpt  12/02/2021 Replaced standard library utility functions with
 *                       xilinx maintained functions
 *       har  01/20/2022 Removed inclusion of xil_mem.h
+*       am   02/18/2022 Fixed COMF code complexity violations
 *
 * </pre>
 *
@@ -223,7 +224,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Error code shall be returned if MSB of PUF shutter value does not
 	 * match with Global Variation Filter option
 	 */
@@ -260,13 +261,19 @@ int XPuf_Registration(XPuf_Data *PufData)
 		goto END;
 	}
 
+	/**
+	 * Update shutter value for PUF registration
+	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 		PufData->ShutterValue);
 
+	/**
+	 * Trigger PUF registration
+	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
 		XPUF_CMD_REGISTRATION);
 
-	/*
+	/**
 	 * Recheck MaxSyndromeSizeInWords before use to avoid overflow
 	 */
 	if (XPUF_SYNDROME_MODE_4K == PufData->RegMode) {
@@ -278,6 +285,10 @@ int XPuf_Registration(XPuf_Data *PufData)
 
 	Status = XST_FAILURE;
 
+	/**
+	 * PUF helper data includes Syndrome data, CHash and Auxillary data.
+	 * Capturing Syndrome data word by word
+	 */
 	for (Idx = 0; Idx < MaxSyndromeSizeInWords; Idx++) {
 		Status = XPuf_WaitForPufSynWordRdy();
 		if (Status != XST_SUCCESS) {
@@ -288,6 +299,10 @@ int XPuf_Registration(XPuf_Data *PufData)
 			XPUF_PMC_GLOBAL_PUF_WORD_OFFSET);
 	}
 
+	/**
+	 * Once complete Syndrome data is captured and PUF operation is done,
+	 * read CHash, Auxillary data and PUF ID
+	 */
 	if (Idx == MaxSyndromeSizeInWords) {
 		Status = XST_FAILURE;
 		Status  = XPuf_WaitForPufDoneStatus();
@@ -351,7 +366,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Error code shall be returned if MSB of PUF shutter value does not
 	 * match with Global Variation Filter option
 	 */
@@ -446,6 +461,9 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
 {
 	u32 Index;
 
+	/**
+	 * Reads PUF ID from PUF_ID_0 to PUF_ID_7 registers
+	 */
 	for (Index = 0U; Index < XPUF_ID_LEN_IN_WORDS; Index++) {
 		PufData->PufID[Index] = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
 			(XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET + (Index * XPUF_WORD_LENGTH)));
@@ -481,7 +499,6 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 
 	switch (Operation) {
 
-		/* For Registration */
 		case XPUF_REGISTRATION:
 			if ((SecurityCtrlVal & XPUF_PUF_DIS) == XPUF_PUF_DIS) {
 				Status = XPUF_ERROR_REGISTRATION_INVALID;
@@ -491,7 +508,6 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 			}
 			break;
 
-		/* For Regeneration */
 		case XPUF_REGEN_ON_DEMAND:
 		case XPUF_REGEN_ID_ONLY:
 			if (((SecurityCtrlVal & XPUF_PUF_DIS) == XPUF_PUF_DIS) ||

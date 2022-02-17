@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/22 Initial release
 *       kpt  01/13/22 Removed hardcoded IPI device id
+*       am   02/18/22 Fixed COMF code complexity violations
 *
 * </pre>
 *
@@ -256,7 +257,9 @@ int XPuf_IpiReadBuff32(void)
 		goto END;
 	}
 
-	/* Wait until current IPI interrupt is handled by target module */
+	/**
+	 * Wait until current IPI interrupt is handled by target module
+	 */
 	Status = XIpiPsu_PollForAck(PufIpiPtr, XPUF_TARGET_IPI_INT_MASK,
 				    XPUF_IPI_TIMEOUT);
 	if (XST_SUCCESS != Status) {
@@ -315,7 +318,7 @@ END:
 * @param	IpiInstPtr	Pointer to IPI instance
 *
 * @return
-* 		- XST_SUCCESS if Ipi configuration is successful
+*		- XST_SUCCESS if Ipi configuration is successful
 *		- XST_FAILURE if Ipi configuration is failed.
 *
 ******************************************************************************/
@@ -324,7 +327,9 @@ int XPuf_InitializeIpi(XIpiPsu* const IpiInstPtr)
 	int Status = XST_FAILURE;
 	XIpiPsu_Config *IpiCfgPtr;
 
-	/* Look Up the config data */
+	/**
+	 * Look Up the configuration data
+	 */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPUF_IPI_CHANNEL);
 	if (NULL == IpiCfgPtr) {
 		Status = XST_FAILURE;
@@ -333,7 +338,6 @@ int XPuf_InitializeIpi(XIpiPsu* const IpiInstPtr)
 		goto END;
 	}
 
-	/* Init with the Cfg Data */
 	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr,
 		IpiCfgPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
