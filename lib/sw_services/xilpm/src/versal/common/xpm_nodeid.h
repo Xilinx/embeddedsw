@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -177,6 +177,9 @@
 /** @endcond */
 #define PM_RST_AIE_ARRAY			(0xc10405eU)
 #define PM_RST_AIE_SHIM				(0xc10405fU)
+/** @cond INTERNAL */
+#define PM_RST_PCIE_DMA1			(0xc410060U)
+/** @endcond */
 /** @} */
 
 /**
@@ -307,6 +310,10 @@
 #define PM_CLK_PL_PMC_ALT_REF_CLK		(0x830c076U)
 #define PM_CLK_PL_LPD_ALT_REF_CLK		(0x830c077U)
 #define PM_CLK_PL_FPD_ALT_REF_CLK		(0x830c078U)
+/** @cond INTERNAL */
+#define PM_CLK_CPM_DMA_ALT_REF			(0x8208079U)
+#define PM_CLK_CPM_AUX2_REF			(0x820807aU)
+/** @endcond */
 /** @} */
 
 /**
@@ -571,6 +578,18 @@
 #define PM_DEV_GTM_21				(0x1862c0a0U)
 #define PM_DEV_GTM_22				(0x1862c0a1U)
 #define PM_DEV_GTM_23				(0x1862c0a2U)
+#define PM_DEV_BFRB_0				(0x186540a3U)
+#define PM_DEV_BFRB_1				(0x186540a4U)
+#define PM_DEV_BFRB_2				(0x186540a5U)
+#define PM_DEV_BFRB_3				(0x186540a6U)
+#define PM_DEV_BFRB_4				(0x186540a7U)
+#define PM_DEV_BFRB_5				(0x186540a8U)
+#define PM_DEV_BFRB_6				(0x186540a9U)
+#define PM_DEV_BFRB_7				(0x186540aaU)
+#define PM_DEV_BFRB_8				(0x186540abU)
+#define PM_DEV_BFRB_9				(0x186540acU)
+#define PM_DEV_BFRB_10				(0x186540adU)
+#define PM_DEV_BFRB_11				(0x186540aeU)
 /** @endcond */
 /** @} */
 
