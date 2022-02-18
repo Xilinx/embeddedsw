@@ -56,6 +56,7 @@
 *       kpt  10/28/21 Added flags in XLoader_SecureInit function prototype
 *       bsv  02/09/22 Code clean up
 *       bsv  02/11/22 Code optimization to reduce text size
+*       kpt  02/18/22 Removed Flags param from XLoader_SecureInit function prototype
 *
 * </pre>
 *
@@ -121,7 +122,7 @@ typedef struct {
 
 /***************************** Function Prototypes ***************************/
 int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
-	u32 PrtnNum, u32 Flags);
+	u32 PrtnNum);
 int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
 int XLoader_SecureClear(void);
 int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
