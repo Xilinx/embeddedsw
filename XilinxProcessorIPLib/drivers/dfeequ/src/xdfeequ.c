@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,9 +31,10 @@
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     01/19/22 Assert Update trigger
 *       dc     01/24/22 Auto-compute number of units
+*       dc     02/18/22 Write 1 clears event status
 *
 * </pre>
-* @addtogroup xdfeequ_v1_3
+* @addtogroup Overview
 * @{
 ******************************************************************************/
 /**
@@ -64,7 +65,7 @@
 * @endcond
 */
 #define XDFEEQU_TAP_MAX (24U) /**< Maximum tap value */
-#define XDFEEQU_DRIVER_VERSION_MINOR (2U) /**< Driver's minor version number */
+#define XDFEEQU_DRIVER_VERSION_MINOR (3U) /**< Driver's minor version number */
 #define XDFEEQU_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
