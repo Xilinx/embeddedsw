@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 *       dc     01/24/22 Auto-compute number of units
 *
 * </pre>
-* @addtogroup dfeequ_v1_3_examples
+* @addtogroup Overview
 * @{
 *
 *****************************************************************************/

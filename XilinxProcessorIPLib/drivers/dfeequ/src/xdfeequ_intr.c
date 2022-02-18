@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +23,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *
 * </pre>
-* @addtogroup xdfeequ_v1_3
+* @addtogroup Overview
 * @{
 ******************************************************************************/
 /**
@@ -94,6 +94,7 @@ void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr,
 {
 	u32 Index;
 	u32 Offset;
+	u32 Data;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Status != NULL);
@@ -101,13 +102,12 @@ void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr,
 	/* Clears the Status register if IStatus or Qstatus are not 0. */
 	Offset = XDFEEQU_CHANNEL_0_STATUS_OFFSET;
 	for (Index = 0; Index < XDFEEQU_CHANNEL_NUM; Index++) {
-		if ((Status->IStatus[Index] == 0) &&
-		    (Status->QStatus[Index] == 0)) {
-			continue;
-		}
-		(void)XDfeEqu_ReadReg(
+		Data = (Status->IStatus[Index] & 1U) |
+		       ((Status->QStatus[Index] & 1U)
+			<< XDFEEQU_CHANNEL_Q_STATUS_OFFSET);
+		XDfeEqu_WriteReg(
 			InstancePtr,
-			Offset + (XDFEEQU_CHANNEL_STATUS_OFFSET * Index));
+			Offset + (XDFEEQU_CHANNEL_STATUS_OFFSET * Index), Data);
 	}
 }
 
