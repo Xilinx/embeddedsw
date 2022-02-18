@@ -111,6 +111,7 @@
 *       bsv  02/09/22 Code clean up
 *       bsv  02/10/22 Code clean up by removing unwanted initializations
 *       bsv  02/14/22 Added comments for better readability
+*       kpt  02/18/22 Fixed copy to memory issue
 *
 * </pre>
 *
@@ -162,13 +163,12 @@ static int XLoader_CheckNonZeroPpk(void);
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
 * @param	PdiPtr is pointer to the XilPdi instance
 * @param	PrtnNum is the partition number to be processed
-* @param	Flags is the indication for the mode of copy
 *
 * @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
-	u32 PrtnNum, u32 Flags)
+	u32 PrtnNum)
 {
 	volatile int Status = XST_FAILURE;
 	XilPdi_PrtnHdr *PrtnHdr;
@@ -198,10 +198,10 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	SecurePtr->PdiPtr = PdiPtr;
 	SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	/* The below initialization is important, it has been added since
-	 * autentication certficate and Puf data are now stored in PMC RAM
+	 * authentication certificate and Puf data are now stored in PMC RAM
 	 * instead of PPU1 RAM. What this means is that while processing
 	 * first chunk of any partition, the second 32K chunk of PMC RAM
-	 * starting from 0xf2008120 containis authentication certifcate and
+	 * starting from 0xf2008120 contains authentication certificate and
 	 * PufData as applicable. This means second chunk of partition
 	 * must get loaded at 0xf2000020 and not at 0xf2008120. This means
 	 * double buffering would be disabled when first chunk is processed
@@ -213,8 +213,10 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	SecurePtr->ProcessedLen = 0x00U;
 	SecurePtr->PrtnHdr = PrtnHdr;
 
-	/* Assign the device copy flags to local variable */
-	SecurePtr->DmaFlags = (u16)Flags;
+	/* PMCDMA0 will be used in blocking mode when PDI type is restore */
+	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
+		SecurePtr->DmaFlags = XPLMI_PMCDMA_0;
+	}
 
 	/* Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
@@ -671,10 +673,10 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 		goto END;
 	}
 	/* The below if condition is important, it has been added since
-         * autentication certficate and Puf data are now stored in PMC RAM
+         * authentication certificate and Puf data are now stored in PMC RAM
          * instead of PPU1 RAM. What this means is that while processing
          * first chunk of any partition, the second 32K chunk of PMC RAM
-         * starting from 0xf2008120 contains authentication certifcate and
+         * starting from 0xf2008120 contains authentication certificate and
          * PufData as applicable. This means second chunk of partition
          * must get loaded at 0xf2000020 and not at 0xf2008120. This means
          * double buffering should be disabled when first chunk is processed
@@ -682,7 +684,8 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
          * at 0xf2008120 and from then on chunks alternatively get loaded to
 	 * the two 32KB chunks of PMC RAM. */
 
-	if ((Last != (u8)TRUE) && (SecurePtr->BlockNum != 0U)) {
+	if ((Last != (u8)TRUE) && (SecurePtr->BlockNum != 0U) &&
+	((SecurePtr->DmaFlags & XPLMI_PMCDMA_0) != XPLMI_PMCDMA_0)) {
 		Status = XLoader_StartNextChunkCopy(SecurePtr,
 					(SecurePtr->RemainingDataLen - TotalSize),
 					SrcAddr + TotalSize, BlockSize);

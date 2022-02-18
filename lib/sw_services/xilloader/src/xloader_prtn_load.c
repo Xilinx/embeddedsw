@@ -80,6 +80,8 @@
 *                       JTAG or Reset Reason is not EPOR
 *       ma   01/31/2022 Fix DMA Keyhole command issue where the command
 *                       starts at the 32K boundary
+*       kpt  02/18/2022 Fix copy to memory issue for slave and non-slave boot
+*                       modes
 *
 * </pre>
 *
@@ -822,8 +824,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	}
 
 	if (PdiPtr->CopyToMem == (u8)TRUE) {
-		Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum,
-					PrtnParams.DeviceCopy.Flags);
+		Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -882,8 +883,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		 */
 	}
 
-	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum,
-				PrtnParams.DeviceCopy.Flags);
+	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
