@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ_sinit.c
-* @addtogroup xdfeequ_v1_3
+* @addtogroup Overview
 * @{
 * @cond nocomments
 * The implementation of the Equalizer component's static initialization

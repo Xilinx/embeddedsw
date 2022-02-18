@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ.h
-* @addtogroup xdfeequ_v1_3 Overview
+* @addtogroup Overview
 * @{
 *
 * The RFSoC DFE Equalizer LogiCore builds upon the Complex Equalizer primitive
@@ -56,6 +56,7 @@
 *       dc     11/19/21 Update doxygen documentation
 *       dc     12/17/21 Update after documentation review
 *       dc     01/24/22 Auto-compute number of units
+* 1.3   dc     02/18/22 Write 1 clears event status
 *
 * </pre>
 * @endcond
