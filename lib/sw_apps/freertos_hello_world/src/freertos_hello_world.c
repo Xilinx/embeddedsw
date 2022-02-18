@@ -1,6 +1,6 @@
 /*
     Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
-    Copyright (c) 2012 - 2020 Xilinx, Inc. All Rights Reserved.
+    Copyright (c) 2012 - 2022 Xilinx, Inc. All Rights Reserved.
 	SPDX-License-Identifier: MIT
 
 
@@ -41,12 +41,24 @@ static TimerHandle_t xTimer = NULL;
 char HWstring[15] = "Hello World";
 long RxtaskCntr = 0;
 
+#if (configSUPPORT_STATIC_ALLOCATION == 1)
+#define QUEUE_BUFFER_SIZE		100
+
+uint8_t ucQueueStorageArea[ QUEUE_BUFFER_SIZE ];
+StackType_t xStack1[ configMINIMAL_STACK_SIZE ];
+StackType_t xStack2[ configMINIMAL_STACK_SIZE ];
+StaticTask_t xTxBuffer,xRxBuffer;
+StaticTimer_t xTimerBuffer;
+static StaticQueue_t xStaticQueue;
+#endif
+
 int main( void )
 {
 	const TickType_t x10seconds = pdMS_TO_TICKS( DELAY_10_SECONDS );
 
 	xil_printf( "Hello from Freertos example main\r\n" );
 
+#if ( configSUPPORT_STATIC_ALLOCATION == 0 ) /* Normal or standard use case */
 	/* Create the two tasks.  The Tx task is given a lower priority than the
 	Rx task, so the Rx task will leave the Blocked state and pre-empt the Tx
 	task as soon as the Tx task places an item in the queue. */
@@ -87,6 +99,40 @@ int main( void )
 							vTimerCallback);
 	/* Check the timer was created. */
 	configASSERT( xTimer );
+
+#else /* Use case where memories for tasks/queues/timers etc are provided statically by the users */
+	xil_printf( "Using static memory for tasks, queue and timer creations. \r\n" );
+	xTxTask = xTaskCreateStatic( 	prvTxTask, 				/* The function that implements the task. */
+						( const char * ) "Tx", 					/* Text name for the task, provided to assist debugging only. */
+						configMINIMAL_STACK_SIZE, 							/* The stack allocated to the task. */
+						( void * ) NULL, 						/* The task parameter is not used, so set to NULL. */
+						tskIDLE_PRIORITY,						/* The task runs at the idle priority. */
+						xStack1,								/* Array to use the task's stack  */
+						&xTxBuffer );               			/* variable to hold the task data structure */
+	xRxTask =  xTaskCreateStatic( prvRxTask,
+				 ( const char * ) "Rx",
+				 configMINIMAL_STACK_SIZE,
+				 ( void * ) NULL,
+				 tskIDLE_PRIORITY + 1,
+				 xStack2,
+				 &xRxBuffer );
+
+	xQueue = xQueueCreateStatic( 1,				/* Number of items in the queue. */
+								sizeof( HWstring ),			/*size for each item to be stored in queue */
+								ucQueueStorageArea,         /* Buffer to store the queue items*/
+								&xStaticQueue);				/* Each space in the queue is large enough to hold a 1 byte. */
+	/* Check the queue was created. */
+	configASSERT( xQueue );
+	xTimer = xTimerCreateStatic( (const char *) "Timer",
+							x10seconds,
+							pdFALSE,
+							(void *) TIMER_ID,
+							vTimerCallback,
+							&xTimerBuffer);
+	/* Check the timer was created. */
+	configASSERT( xTimer );
+
+#endif
 
 	/* start the timer with a block time of 0 ticks. This means as soon
 	   as the schedule starts the timer will start running and will expire after
