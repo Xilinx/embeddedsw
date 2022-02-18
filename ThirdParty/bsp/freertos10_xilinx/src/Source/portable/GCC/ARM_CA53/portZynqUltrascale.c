@@ -1,7 +1,7 @@
 /*
  * FreeRTOS Kernel V10.4.6
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2014 - 2022 Xilinx, Inc. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -38,6 +38,11 @@
 #endif
 
 void vApplicationAssert( const char *pcFileName, uint32_t ulLine )
+		__attribute__((weak));
+void vApplicationTickHook( void ) __attribute__((weak));
+void vApplicationIdleHook( void ) __attribute__((weak));
+void vApplicationMallocFailedHook( void ) __attribute__((weak));
+void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName )
 		__attribute__((weak));
 
 #ifndef XPAR_XILTIMER_ENABLED
