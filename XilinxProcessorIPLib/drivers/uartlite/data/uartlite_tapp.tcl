@@ -14,6 +14,11 @@
 # 			   receives data, So don't pull the driver examples
 # 			   for this configuration, updated the tcl checks
 # 			   accordingly.
+# 	   adk    21/02/22 Fix ipname variable usage in gen_testfunc_call API(),
+#			   ipname variable in the gen_testfunc_call  API() is
+#			   getting overwritten for the tmr_sem IP validation
+#			   check, due to which wrong instance name being
+#			   generated in the testperiph.c file.
 ##############################################################################
 
 ## BEGIN_CHANGELOG EDK_I
@@ -148,8 +153,8 @@ proc gen_testfunc_call {swproj mhsinst} {
     return $testfunc_call
   }
 
-  set ipname [common::get_property IP_NAME $mhsinst]
-  if {$ipname == "tmr_sem"} {
+  set ip_name [common::get_property IP_NAME $mhsinst]
+  if {$ip_name == "tmr_sem"} {
     return $testfunc_call
   }
 
