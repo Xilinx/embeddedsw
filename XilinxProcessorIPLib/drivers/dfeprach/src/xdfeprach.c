@@ -38,6 +38,7 @@
 * 1.3   dc     01/11/22 Compilation warrning fix
 *       dc     01/19/22 Assert RachUpdate trigger
 *       dc     01/31/22 Add CORE_SETTINGS register
+*       dc     02/17/22 Physical channel index RACH config array
 *
 * </pre>
 * @addtogroup Overview
@@ -102,8 +103,8 @@ XDfePrach_AddRachChannel(u32 RachChan,
 static void XDfePrach_GetRC_CCID(const XDfePrach *InstancePtr, bool Next,
 				 u32 RCId, s32 *CCID);
 static void XDfePrach_AddRC_CCID(s32 CCID, XDfePrach_RCCfg *RCCfg, u32 RCId);
-static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RachChan,
-			     XDfePrach_NCO *NcoCfg);
+static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RCId,
+			     u32 RachChan, XDfePrach_NCO *NcoCfg);
 static void XDfePrach_AddNCO(XDfePrach_RCCfg *RCCfg,
 			     const XDfePrach_NCO *NcoCfg, u32 RCId);
 static void XDfePrach_SetNCO(const XDfePrach *InstancePtr,
@@ -581,11 +582,11 @@ static void XDfePrach_GetRC(const XDfePrach *InstancePtr, bool Next, u32 RCId,
 	XDfePrach_GetRC_CCID(InstancePtr, Next, RCId,
 			     &RCCfg->InternalRCCfg[RCId].CCID);
 	/* get the NCO configuration - no Next/current available here! */
-	XDfePrach_GetNCO(InstancePtr, RCCfg->InternalRCCfg[RCId].RachChannel,
+	XDfePrach_GetNCO(InstancePtr, RCId,
+			 RCCfg->InternalRCCfg[RCId].RachChannel,
 			 &RCCfg->NcoCfg[RCId]);
 	/* get the DDC configuration - no Next/current available here! */
-	XDfePrach_GetDDC(InstancePtr, RCCfg->InternalRCCfg[RCId].RachChannel,
-			 &RCCfg->DdcCfg[RCId]);
+	XDfePrach_GetDDC(InstancePtr, RCId, &RCCfg->DdcCfg[RCId]);
 	/* get the DDC configuration */
 	XDfePrach_GetSchedule(InstancePtr, Next, RCId,
 			      &RCCfg->StaticSchedule[RCId]);
@@ -871,12 +872,13 @@ static void XDfePrach_AddRC_CCID(s32 CCID, XDfePrach_RCCfg *RCCfg, u32 RCId)
 * Reads the NCO for a given RCID.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCId RC Id.
 * @param    RachChan RACH channel number.
 * @param    NcoCfg NCO data container.
 *
 ****************************************************************************/
-static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RachChan,
-			     XDfePrach_NCO *NcoCfg)
+static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RCId,
+			     u32 RachChan, XDfePrach_NCO *NcoCfg)
 {
 	u32 Offset;
 
@@ -896,7 +898,7 @@ static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RachChan,
 	NcoCfg->NcoGain = XDfePrach_ReadReg(InstancePtr, Offset);
 
 	Offset = XDFEPRACH_FREQUENCY_CONTROL_WORD +
-		 (RachChan * XDFEPRACH_NCO_CTRL_ADDR_STEP);
+		 (RCId * XDFEPRACH_NCO_CTRL_ADDR_STEP);
 	NcoCfg->Frequency = XDfePrach_ReadReg(InstancePtr, Offset);
 }
 
@@ -928,6 +930,7 @@ static void XDfePrach_AddNCO(XDfePrach_RCCfg *RCCfg,
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    RCCfg RC configuration container.
+* @param    RCId RC Id.
 *
 ****************************************************************************/
 static void XDfePrach_SetNCO(const XDfePrach *InstancePtr,
@@ -970,17 +973,17 @@ static void XDfePrach_SetNCO(const XDfePrach *InstancePtr,
 * Reads the DDC for a given RCID.
 *
 * @param    InstancePtr Pointer to the PRACH instance.
-* @param    RachChan RACH channel number.
+* @param    RCId RC Id.
 * @param    DdcCfg DDC data container.
 *
 ****************************************************************************/
-static void XDfePrach_GetDDC(const XDfePrach *InstancePtr, u32 RachChan,
+static void XDfePrach_GetDDC(const XDfePrach *InstancePtr, u32 RCId,
 			     XDfePrach_DDCCfg *DdcCfg)
 {
 	u32 Offset;
 	u32 Data;
 
-	Offset = XDFEPRACH_CHANNEL_CONFIG_RATE + (RachChan * sizeof(u32));
+	Offset = XDFEPRACH_CHANNEL_CONFIG_RATE + (RCId * sizeof(u32));
 	Data = XDfePrach_ReadReg(InstancePtr, Offset);
 
 	DdcCfg->DecimationRate = XDfePrach_RdBitField(
@@ -990,6 +993,8 @@ static void XDfePrach_GetDDC(const XDfePrach *InstancePtr, u32 RachChan,
 		XDfePrach_RdBitField(XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_WIDTH,
 				     XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_OFFSET,
 				     Data);
+	Offset = XDFEPRACH_CHANNEL_CONFIG_GAIN + (RCId * sizeof(u32));
+	Data = XDfePrach_ReadReg(InstancePtr, Offset);
 	DdcCfg->RachGain[0] = XDfePrach_RdBitField(
 		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_WIDTH,
 		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_OFFSET, Data);
@@ -1057,8 +1062,7 @@ static void XDfePrach_SetDDC(const XDfePrach *InstancePtr,
 		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_WIDTH,
 		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_OFFSET, Data,
 		RCCfg->DdcCfg[RCId].DecimationRate);
-	Offset = XDFEPRACH_CHANNEL_CONFIG_RATE +
-		 (RCCfg->InternalRCCfg[RCId].RachChannel * sizeof(u32));
+	Offset = XDFEPRACH_CHANNEL_CONFIG_RATE + (RCId * sizeof(u32));
 	XDfePrach_WriteReg(InstancePtr, Offset, Data);
 
 	Data = XDfePrach_WrBitField(
@@ -1085,8 +1089,7 @@ static void XDfePrach_SetDDC(const XDfePrach *InstancePtr,
 		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_WIDTH,
 		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_OFFSET, Data,
 		RCCfg->DdcCfg[RCId].RachGain[5]);
-	Offset = XDFEPRACH_CHANNEL_CONFIG_GAIN +
-		 (RCCfg->InternalRCCfg[RCId].RachChannel * sizeof(u32));
+	Offset = XDFEPRACH_CHANNEL_CONFIG_GAIN + (RCId * sizeof(u32));
 	XDfePrach_WriteReg(InstancePtr, Offset, Data);
 }
 
@@ -2422,11 +2425,12 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 			  XDFEPRACH_CC_NUM_MAX);
 	Xil_AssertNonvoid(CurrentRCCfg->InternalRCCfg[RCId].RCId <
 			  XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertNonvoid(DdcCfg != NULL);
 	Xil_AssertNonvoid(NcoCfg != NULL);
 	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-	Xil_AssertNonvoid(RachChan == RCId);
 
 	/* Check  RachChan" is not in use. */
 	for (Index = 0; Index < XDFEPRACH_RC_NUM_MAX; Index++) {
@@ -2503,11 +2507,11 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(CurrentRCCfg != NULL);
 	Xil_AssertVoid(CCID < XDFEPRACH_CC_NUM_MAX);
 	Xil_AssertVoid(RCId < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertVoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertVoid(DdcCfg != NULL);
 	Xil_AssertVoid(NcoCfg != NULL);
 	Xil_AssertVoid(StaticSchedule != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-	Xil_AssertVoid(RachChan == RCId);
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
@@ -2549,11 +2553,11 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CCID < XDFEPRACH_CC_NUM_MAX);
 	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertNonvoid(DdcCfg != NULL);
 	Xil_AssertNonvoid(NcoCfg != NULL);
 	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-	Xil_AssertNonvoid(RachChan == RCId);
 
 	/* Read current CC configuration. */
 	XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
@@ -2665,11 +2669,11 @@ u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CCID < XDFEPRACH_CC_NUM_MAX);
 	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
 	Xil_AssertNonvoid(DdcCfg != NULL);
 	Xil_AssertNonvoid(NcoCfg != NULL);
 	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
-	Xil_AssertNonvoid(RachChan == RCId);
 
 	/* Read current CC configuration. */
 	XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);

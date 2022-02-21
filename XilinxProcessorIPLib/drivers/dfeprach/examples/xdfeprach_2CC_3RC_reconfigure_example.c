@@ -150,8 +150,8 @@ int XDfePrach_2CC3RCReconfigureTestExample()
 	PRACHSCS[2] = 12; /* 12 => 1.25kHz */
 	SourceCC[2] = 1; /* From "second" CC above */
 
-	printf("\r\nPrach \"Configure 2xCC, 3xRC and Reconfigure one RC\""\
-		" Example - Start\n\n\r");
+	printf("\r\nPrach \"Configure 2xCC, 3xRC and Reconfigure one RC\""
+	       " Example - Start\n\n\r");
 
 	/* set up decimation and demodulation structures: */
 	for (Index = 0; Index < XDFEPRACH_NUMBER_RC; Index++) {
