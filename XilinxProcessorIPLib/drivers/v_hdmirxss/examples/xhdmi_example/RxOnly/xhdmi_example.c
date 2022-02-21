@@ -1134,6 +1134,12 @@ int main() {
 	/* Initialize external clock generator */
 #if (!defined XPS_BOARD_ZCU104)
 	Si5324_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
+#if (!(defined (ARMR5) || (__aarch64__)))
+	I2cClk(0, 156250000);
+
+	/* Delay 50ms to allow SI chip to lock */
+	usleep (50000);
+#endif
 #else
 	usleep(200000);
 	IDT_8T49N24x_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
