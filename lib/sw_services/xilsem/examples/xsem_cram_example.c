@@ -22,6 +22,7 @@
  * 0.5   rama  01/14/2022  Added example for reading Total frames & golden CRC
  * 0.6	 hv    01/17/2022  Added example for reading CRAM and NPI
  *                         configuration over IPI
+ * 0.7   hb    02/10/2022  Modified print information
  * </pre>
  *
  *****************************************************************************/
@@ -657,9 +658,9 @@ int main(void)
 		xil_printf("[XSem_CmdCfrReadFrameEcc] Success Reading Cfr Frame "
 				"ECC Values of Row = 0x%02x  Frame = 0x%08x  Over IPI\n\r",\
 				RowLoc, CframeAddr);
-		xil_printf("Received Virtual frame 0 ECC "
+		xil_printf("Received Segment 0 ECC "
 				"Value = 0x%08x\n\r", IpiResp.RespMsg2);
-		xil_printf("Received Virtual frame 1 ECC "
+		xil_printf("Received Segment 1 ECC "
 				"Value = 0x%08x\n\r", IpiResp.RespMsg3);
 	} else {
 		xil_printf("[%s] Error: Reading Cfr frame ECC, "
