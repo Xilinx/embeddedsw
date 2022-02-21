@@ -40,6 +40,7 @@
 *                         information
 * 1.4	hv   01/11/2022   Added interface for reading Frame ECC
 * 1.5   rama 01/14/2022   Added user interface to get golden CRC & total frames
+* 1.6   hb   02/07/2022   Updated API information for Doxygen
 * </pre>
 *
 * @note
@@ -50,15 +51,15 @@
 
 /****************************************************************************/
 /**
- * @brief	This function is used to initialize CRAM scan from
- *		user application.
- *		Primarily this function sends an IPI request to PLM to start
- *		CRAM Scan Initialization, waits for PLM to process the
- *		request and reads the response message.
+ * @brief	This function is used to initialize CRAM scan from user
+ *		 application.
+ *		Primarily this function sends an IPI request to PLM to start CRAM
+ *		Scan Initialization, waits for PLM to process the request and reads
+ *		 the response message.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of CRAM Initialization
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of CRAM Initialization(0x10301)
  *		- Resp->RespMsg2: Status of CRAM Initialization
  *
  * @return	This API returns the success or failure.
@@ -114,8 +115,8 @@ END:
  *		the response message.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of CRAM start scan
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of CRAM start scan(0x10302)
  *		- Resp->RespMsg2: Status of CRAM start scan
  *
  * @return	This API returns the success or failure.
@@ -171,8 +172,8 @@ END:
  *		the response message.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of CRAM stop scan
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of CRAM stop scan(0x10303)
  *		- Resp->RespMsg2: Status of CRAM stop scan
  *
  * @return	This API returns the success or failure.
@@ -231,13 +232,32 @@ END:
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[in]	ErrDetail	Structure Pointer with Error Injection details
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of CRAM error injection
+ *		- ErrDetail->Row   : Row Number
+ *		(Min: 0 , Max: (value at CFU_ROW_RANGE)-1)
+ *		- ErrDetail->Efar  : Frame Address
+ *					- Frame Number [0:19] (Refer note)
+ *					- Block Type [20:22]
+ *		- ErrDetail->Qword : Quad Word(Min: 0, Max: 24)
+ *		- ErrDetail->Bit   : Bit Position(Min: 0, Max: 127)
+ * @param[out]	Resp	Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of CRAM error injection(0x10304)
  *		- Resp->RespMsg2: Status of CRAM error injection
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On CRAM error injection failure
  *		- XST_SUCCESS: On CRAM error injection success
+ * @note
+ *	- Total number of frames in a row is not same for all rows.
+ *
+ *	- XSem_CmdCfrGetTotalFrames API is provided to know the total number of
+ * frames in a row for each block. Output param (FrameCntPtr) of
+ * XSem_CmdCfrGetTotalFrames API is updated with total number of frames of each
+ * block type for the input row. If a particular block in a row has 0 frames,
+ * then error injection shall not be performed. Range of Frame number: 0 to
+ * (FrameCntPtr[n] - 1) where n is block type with range 0 to 6.
+ *
+ *	- The safe location to perform error injection is QWORD 12 which has
+ * ECC bits. The error injection will not change the design behaviour.
  *****************************************************************************/
 XStatus XSem_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 			XSemCfrErrInjData *ErrDetail, \
@@ -316,11 +336,13 @@ END:
  *				- 01101: Masked Bit during Injection
  *				- 01110: Invalid Block Type for Error
  *				Injection
- *				- 01111: CRC or Uncorrectable Error is
- *				active in CRAM
+ *				- 01111: CRC or Uncorrectable Error or
+ * 				correctable error(when correction is disabled)
+ *				is active in CRAM
  *				- 10000: ECC or CRC Error detected during
  *				CRAM Calibration in case of SWECC
- *			- Bit [19-17]: Reserved
+ *			- Bit [19-18]: Reserved
+ *			- Bit [17]: CRAM scan is disabled in design
  *			- Bit [16]: CRAM Initialization is completed
  *			- Bit [15-14]: CRAM Correctable ECC error status
  *				- 00: No Correctable error encountered
@@ -334,7 +356,7 @@ END:
  *			- Bit [11]: CRAM Correctable ECC error detected
  *			- Bit [10]: CRAM CRC error detected
  *			- Bit [09]: CRAM Uncorrectable ECC error detected
- *			- Bit [08]: CRAM ECC error during Initialization
+ *			- Bit [08]: CRAM Start-up test failure
  *			- Bit [07]: CRAM Calibration Timeout error
  *			- Bit [06]: CRAM Fatal/Error State
  *			- Bit [05]: CRAM Error Injection State
@@ -347,7 +369,7 @@ END:
  *		the last 7 corrected error details if correction is enabled
  *		in design.
  *			- Bit [31:28]: Reserved
- *			- Bit [27:23]: Word location where error was detected
+ *			- Bit [27:23]: QWord location where error was detected
  *			- Bit [22:16]: Bit location where error was detected
  *			- Bit [15:2]: Reserved
  *			- Bit [1:0]: Define validity of error address.
@@ -404,19 +426,34 @@ END:
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[in]	CframeAddr	Frame Address
- * @param[in]	RowLoc		Row index
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of CRAM Send Frame ECC
- *		- Resp->RespMsg2: Virtual Frame 0 ECC value
- *		- Resp->RespMsg3: Virtual Frame 1 ECC value
+ *					- Frame Number [0:19] (Refer note)
+ *					- Block Type [20:22]
+ * @param[in]	RowLoc		Row index(Min: 0 , Max: CFU_ROW_RANGE -1)
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of CRAM Send Frame ECC(0x3030A)
+ *		- Resp->RespMsg2: Segment 0 ECC value
+ *		- Resp->RespMsg3: Segment 1 ECC value
  *		- Resp->RespMsg4: Status of CRAM stop scan
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On CRAM Read Frame ECC failure
  *		- XST_SUCCESS: On CRAM Read Frame ECC success
+ *
+ * @note
+ *	- Total number of frames in a row is not same for all rows.
+ *
+ *	- XSem_CmdCfrGetTotalFrames API is provided to know the total number of
+ * frames in a row for each block. Output param (FrameCntPtr) of
+ * XSem_CmdCfrGetTotalFrames API is updated with total number of frames of each
+ * block type for the input row. If a particular block in a row has 0 frames,
+ * then error injection shall not be performed. Range of Frame number: 0 to
+ * (FrameCntPtr[n] - 1) where n is block type with range 0 to 6.
+ *
+ *	- The safe location to perform error injection is QWORD 12 which has
+ * ECC bits. The error injection will not change the design behaviour.
  *****************************************************************************/
-XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, \
-		u32 CframeAddr, u32 RowLoc, XSemIpiResp *Resp)
+XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLoc,
+		 XSemIpiResp *Resp)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
@@ -467,8 +504,8 @@ END:
  *		reads the response message.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of NPI start scan
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of NPI start scan(0x10305)
  *		- Resp->RespMsg2: Status of NPI start scan
  *
  * @return	This API returns the success or failure.
@@ -524,8 +561,8 @@ END:
  *		reads the response message.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of NPI stop scan
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of NPI stop scan(0x10306)
  *		- Resp->RespMsg2: Status of NPI stop scan
  *
  * @return	This API returns the success or failure.
@@ -581,8 +618,8 @@ END:
  *		reads the response message.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of NPI error injection
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of NPI error injection(0x10307)
  *		- Resp->RespMsg2: Status of NPI error injection
  *
  * @return	This API returns the success or failure.
@@ -638,11 +675,11 @@ END:
  * @brief	This function is used to get golden SHA
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of NPI get golden SHA
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of NPI get golden SHA(0x10310)
  *		- Resp->RespMsg2: Status of NPI get golden SHA
- * @param[out] DescData		Structure pointer to hold total descriptor count,
- *                          golden SHA and information related to descriptors
+ * @param[out]  DescData	Structure pointer to hold total descriptor count,
+ *							golden SHA and information related to descriptors
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On NPI golden SHA retrieve failure
@@ -700,7 +737,11 @@ END:
  *		- NpiStatusInfo->Status: Provides details about NPI scan
  *			- Bit [31]: Cryptographic acceleration blocks are disabled for
  *			export compliance
- *			- Bit [30-26]: Reserved
+ *			- Bit [30]: Periodic scan missed
+ *			- Bit [29]: Pulse Check failed. NPI scan skipped descriptors
+ *			- Bit [28]: Execution time exceeded. NPI scan exceeded 20ms
+ *			budget time
+ *			- Bit [27-26]: Reserved
  *			- Bit [25]: NPI GPIO write failure
  *			- Bit [24]: NPI SHA engine failure
  *			- Bit [23]: NPI Safety register write failure
@@ -717,7 +758,7 @@ END:
  *			- Bit [11]: NPI periodic scan is enabled
  *			- Bit [10]: NPI scan is suspended
  *			- Bit [09]: NPI completed the first scan
- *			- Bit [08]: NPI Scan is included in design
+ *			- Bit [08]: NPI Scan is disabled in design
  *			- Bit [07-06]: Reserved
  *			- Bit [05]: NPI Internal Error State
  *			- Bit [04]: NPI SHA mismatch Error State
@@ -786,6 +827,10 @@ END:
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[in]	Notifier	Pointer of the notifier object to be associated
  * 		with the requested notification
+ *		- Notifier->Module: The SEM module from which notification is required
+ *		- Notifier->Event: Event(s) belonging to the Module for which
+ *			notifications are required
+ *		- Notifier->Flag: Flags to enable or disable notifications
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On event registration/un-registration failure
@@ -843,8 +888,8 @@ END:
  *		reads the response message.
  *
  * @param[in]	IpiInst		Pointer to IPI driver instance
- * @param[out]	Resp		Structure Pointer of IPI response.
- *		- Resp->RespMsg1: Acknowledgment ID of Get Configuration
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of Get Configuration(0x30309)
  *
  *		- Resp->RespMsg2: CRAM Attribute register details
  *			- Bit [31:16]: Not Implemented
@@ -854,14 +899,14 @@ END:
  *			- Bit [6:5]: Indicates when to start CRAM scan
  *				- 00: Do not automatically start scan
  *				- 01: Enable scan automatically after
- *					  device configuration.
+ *						device configuration.
  *				- 10: Reserved
  *				- 11: Reserved
  *			- Bit [4]: Reserved
  *			- Bit [3]: Indicates HwECC/SwECC
  *				- 0: Uses hardware calculated ECC.
  *				- 1: Uses software calculated ECC that comes from tools
- *				     and part of CDO
+ *						and part of CDO
  *			- Bit [2]: Indicates Correctable error is to be corrected/not
  *				- 0: Disables error correction capability
  *				- 1: Enables error correction capability
@@ -875,8 +920,8 @@ END:
  *			- Bit [31:24]: Not implemented
  *			- Bit [23:18]: Reserved
  *			- Bit [17:8]: The scheduled time in milliseconds that the
- *				          NPI scan will be periodically performed.
- *				          Default Setting: 0x064 = 100ms
+ *							NPI scan will be periodically performed.
+ *							Default Setting: 0x064 = 100ms
  *			- Bit [7:6]: Reserved
  *			- Bit [5:4]: Indicates when to start NPI scan
  *				- 00: Do not automatically start scan
@@ -945,9 +990,14 @@ END:
  * @brief	This function is used to read CFRAME golden CRC for a row
  *
  * @param[in]	RowIndex	Row index for which CRC to be read
+ *							(Min: 0 , Max: CFU_ROW_RANGE -1)
  *
  * @return	This API returns the Golden CRC for a given Row.
  *
+ * @note
+ * - Total number of rows is not same for all platforms.
+ * - The number maximum rows (CFU_ROW_RANGE) can be obtained by reading the
+ * address CFU_ROW_RANGE(0XF12B006C).
  *****************************************************************************/
 u32 XSem_CmdCfrGetCrc(u32 RowIndex)
 {
@@ -970,7 +1020,9 @@ u32 XSem_CmdCfrGetCrc(u32 RowIndex)
 /**
  * @brief	This function is used to read total frames in a row
  *
- * @param[in]	RowIndex	 Row index for which CRC to be read
+ * @param[in]	RowIndex	 Row index for which total number of frames is to
+ *								be read
+ *                           (Min: 0 , Max: CFU_ROW_RANGE -1)
  * @param[out]	FrameCntPtr	 Pointer to store Total frames
  *		- FrameCntPtr[0] : Type_0 total frames
  *		- FrameCntPtr[1] : Type_1 total frames
@@ -980,6 +1032,16 @@ u32 XSem_CmdCfrGetCrc(u32 RowIndex)
  *		- FrameCntPtr[5] : Type_5 total frames
  *		- FrameCntPtr[6] : Type_6 total frames
  *
+ * @note
+ *	- Total number of frames in a row is not same for all rows.
+ *	- XSem_CmdCfrGetTotalFrames API is provided to know the total number of
+ * frames in a row for each block. Output param (FrameCntPtr) of
+ * XSem_CmdCfrGetTotalFrames API is updated with total number of frames of each
+ * block type for the input row. If a particular block in a row has 0 frames,
+ * then error injection shall not be performed. Range of Frame number: 0 to
+ * (FrameCntPtr[n] - 1) where n is block type with range 0 to 6.
+ *	- The safe location to perform error injection is QWORD 12 which has
+ * ECC bits. The error injection will not change the design behaviour.
  *****************************************************************************/
 void XSem_CmdCfrGetTotalFrames(u32 RowIndex, u32 *FrameCntPtr)
 {

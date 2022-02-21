@@ -38,6 +38,7 @@
 * 1.5	hv   01/11/2022   Added interface for reading Frame ECC
 * 1.6   rama 01/14/2022   Added user interface to get golden CRC & total frames
 * 1.7   hb   01/27/2022   Added define for NPI self-diagnosis event
+* 1.8   hb   02/07/2022   Updated Structure information for Doxygen
 * </pre>
 *
 * @note
@@ -249,45 +250,58 @@ typedef struct {
  * XSemNpiStatus - NPI Status structure to store the data read from
  * PMC RAM registers.
  * This structure provides:
- * - NPI scan status information
+ * - NPI scan status information (Refer XSem_CmdNpiGetStatus API)
  * - NPI descriptor slave skip counter value if arbitration fails
  * - NPI scan counter value
  * - NPI heartbeat counter value
  * - NPI scan error information if SHA mismatch is detected
  */
 typedef struct {
-	u32 Status; /**< NPI Status */
-	u32 SlvSkipCnt[MAX_NPI_SLV_SKIP_CNT]; /**< Slave Skip Count */
-	u32 ScanCnt; /**< Scan Count */
-	u32 HbCnt; /**< Heart Beat Count */
-	u32 ErrInfo[MAX_NPI_ERR_INFO_CNT]; /**< Error Information when SHA
-						mismatch occurs */
+	u32 Status; /**< NPI scan status */
+	u32 SlvSkipCnt[MAX_NPI_SLV_SKIP_CNT]; /**< Slave Skip Count: Contains the
+	number of times NPI scan failed to get arbitration for GT/DDRMC
+	descriptor */
+	u32 ScanCnt; /**< NPI Scan Count: Increments each time  NPI scan
+	successfully completes a full scan (Including the first scan) */
+	u32 HbCnt; /**< Heart Beat Count: Increments for each slave group scanned
+	in the descriptor and each time SHA is calculated */
+	u32 ErrInfo[MAX_NPI_ERR_INFO_CNT]; /**< Error Information: Is updated with
+	error details in case of SHA mismatch failure.
+	-ErrInfo[0]: Node ID of the descriptor for which SHA mismatch is observed.
+	-ErrInfo[1]: Bit[31:16] Reserved. Bit[15:8] The descriptor index number for
+	which the SHA failure is observed. Bit[7:0] The skip count index of the
+	descriptor where SHA failure is observed (This value is zero if arbitration
+	is not applicable for the descriptor) */
 } XSemNpiStatus;
 
-/* Structure to hold each descriptor information
- * Descriptor Attribute:
- * Bit[31]: STNN - The descriptor contains Split Tiles/NPS/NCRB registers
- * Bit[30]: XMPU - The descriptor contains XMPU registers
- * Bit[29:16]: Reserved
- * Bit[15:8]: Exclusive Lock Type - Bit[8] signifies that descriptor
- * contains GT slaves. Bit[9] signifies that descriptor contains DDRMC slaves
- * bits 10 to 15 are reserved for future use
- * Bit[7:0]: Slave skip count index - Points the corresponding byte in Sem
+/**
+ * Structure to hold each descriptor information
+ *
+ * Descriptor Attribute: Contains detailed information related to descriptor
+ * - Bit[31]: STNN - If set, the descriptor contains Split Tiles/NPS/NCRB
+ * registers
+ * - Bit[30]: XMPU - If set, the descriptor contains XMPU registers
+ * - Bit[29:16]: Reserved
+ * - Bit[15:8]: Exclusive Lock Type - Bit[8] if set, signifies that descriptor
+ * contains GT slaves. Bit[9] if set, signifies that descriptor contains DDRMC
+ * slave registers. Bit[10:15] are reserved for future use
+ * - Bit[7:0]: Slave skip count index - Points the corresponding byte in SEM
  * NPI slave skip count registers that need to be updated on arbitration
- * failure
- * Descriptor Golden SHA:
- * This word contains the Golden SHA value that is used to compare with
- * hardware calculated SHA value
- *  */
+ * failure(Value is zero if arbitration is not required).
+ *
+ * Descriptor Golden SHA: This word contains the Golden SHA value that is used
+ * to compare with hardware calculated SHA value.
+ */
 typedef struct {
 	u32 DescriptorAttrib; /**< Descriptor attributes */
 	u32 DescriptorGldnSha; /**< Descriptor Golden SHA value */
 }XSem_DescriptorInfo;
 
-/* Structure contains descriptor information used during SEM NPI scan*/
+/** Structure contains descriptor information used during SEM NPI scan*/
 typedef struct {
 	u32 DescriptorCount; /**< Current Total Descriptor Count */
-	XSem_DescriptorInfo DescriptorInfo[NPI_MAX_DESCRIPTORS]; /**< Descriptor information */
+	XSem_DescriptorInfo DescriptorInfo[NPI_MAX_DESCRIPTORS]; /**< Descriptor
+information: Contains descriptor attributes and golden SHA value */
 }XSem_DescriptorData;
 
 /** SEM CRAM Module Notification ID */
@@ -363,9 +377,11 @@ typedef struct {
 	 * - SHA Indicator mismatch: use XSEM_EVENT_NPI_SHA_IND_ERR
 	 * - SHA engine error: use XSEM_EVENT_NPI_SHA_ENGINE_ERR
 	 * - Periodic Scan Missed: use XSEM_EVENT_NPI_PSCAN_MISSED_ERR
-	 * - Cryptographic Accelerator Disabled: use XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR
+	 * - Cryptographic Accelerator Disabled: use
+	 * XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR
 	 * - Safety Write Failure: useXSEM_EVENT_NPI_SFTY_WR_ERR
 	 * - GPIO Error event: use XSEM_EVENT_NPI_GPIO_ERR
+	 * - Self Diagnosis failed: use XSEM_EVENT_NPI_SELF_DIAG_FAIL
 	 */
 	u32 Event;
 	/**
