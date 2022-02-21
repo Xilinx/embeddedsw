@@ -1021,9 +1021,10 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		 * other than node index.
 		 */
 		XPm_Device *Device = XPmDevice_GetByIndex(i);
-		if (NULL != Device) {
+		if ((NULL != Device) && (1U == XPmDevice_IsRequestable(Device->Node.Id))) {
 			Prealloc = 0;
 			Capability = 0;
+
 			for (j = 0; j < ARRAY_SIZE(DefaultPreallocDevList); j++) {
 				if (Device->Node.Id == DefaultPreallocDevList[j][0]) {
 					Prealloc = 1;

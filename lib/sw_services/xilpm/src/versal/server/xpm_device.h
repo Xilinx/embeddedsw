@@ -141,6 +141,28 @@ struct XPm_DeviceAttr {
 };
 
 /************************** Function Prototypes ******************************/
+static inline u8 XPmDevice_IsRequestable(u32 NodeId)
+{
+	u8 Requestable = 0U;
+
+	switch (NODESUBCLASS(NodeId)) {
+	case (u32)XPM_NODESUBCL_DEV_CORE:
+	case (u32)XPM_NODESUBCL_DEV_PERIPH:
+	case (u32)XPM_NODESUBCL_DEV_MEM:
+	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
+	case (u32)XPM_NODESUBCL_DEV_PL:
+	case (u32)XPM_NODESUBCL_DEV_AIE:
+		Requestable = 1U;
+		break;
+	default:
+		Requestable = 0U;
+		break;
+	}
+
+	return Requestable;
+}
+
+/************************** Function Prototypes ******************************/
 XStatus XPmDevice_Init(XPm_Device *Device,
 		u32 Id,
 		u32 BaseAddress,
