@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu_control.c
- * @addtogroup qspipsu_v1_15
+ * @addtogroup Overview
  * @{
  *
  * This file contains intermediate control functions used by functions
