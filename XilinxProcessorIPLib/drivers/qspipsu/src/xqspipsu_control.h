@@ -31,6 +31,7 @@
  *
  ******************************************************************************/
 
+/** @cond INTERNAL */
 #ifndef XQSPIPSU_CONTROL_H_		/**< prevent circular inclusions */
 #define XQSPIPSU_CONTROL_H_		/**< by using protection macros */
 
@@ -92,4 +93,5 @@ s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler);
 
 
 #endif /* XQSPIPSU_CONTROL_H_ */
+/** @endcond */
 /** @} */
