@@ -11,7 +11,9 @@
 * @{
 * @details
 *
-* This file contains the implementation of XSdPs driver.
+* This section explains the implementation of the XSdPs driver.
+* See xsdps.h for a detailed description of the device and driver.
+*
 * This driver is used initialize read from and write to the SD card.
 * Features such as switching bus width to 4-bit and switching to high speed,
 * changing clock frequency, block size etc. are supported.
@@ -26,6 +28,7 @@
 * This driver does not support multi card slots at present.
 *
 * <b>Initialization & Configuration</b>
+*
 * This includes initialization on the host controller side to select
 * clock frequency, bus power and default transfer related parameters.
 * The default voltage is 3.3V.
@@ -34,6 +37,7 @@
 * identifies key card related specifications.
 *
 * <b>Data transfer</b>
+*
 * The SD card is put in transfer state to read from or write to it.
 * The default block size is 512 bytes and if supported,
 * default bus width is 4-bit and bus speed is High speed.
@@ -47,6 +51,7 @@
 * communicate failure to the upper layer.
 *
 * <b>File system use</b>
+*
 * This driver can be used with xilffs library to read and write files to SD.
 * (Please refer to procedure in diskio.c). The file system read/write example
 * in polled mode can used for reference.
@@ -62,6 +67,7 @@
 * with file system.
 *
 * <b>eMMC support</b>
+*
 * SD driver supports SD and eMMC based on the "enable MMC" parameter in SDK.
 * The features of eMMC supported by the driver will depend on those supported
 * by the host controller. The current driver supports read/write on eMMC card
