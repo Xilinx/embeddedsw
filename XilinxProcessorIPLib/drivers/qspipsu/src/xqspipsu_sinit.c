@@ -49,10 +49,9 @@
 * @param	DeviceId contains the ID of the device to look up the
 *		configuration for.
 *
-* @return
-*
-* A pointer to the configuration found or NULL if the specified device ID was
-* not found. See xqspipsu.h for the definition of XQspiPsu_Config.
+* @return	A pointer to the configuration found or NULL if the specified
+* 		device ID was not found. See xqspipsu.h for the definition of
+* 		XQspiPsu_Config.
 *
 * @note		None.
 *
