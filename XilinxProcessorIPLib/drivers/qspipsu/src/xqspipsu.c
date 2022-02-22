@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu.c
- * @addtogroup qspipsu_v1_15
+ * @addtogroup Overview
  * @{
  *
  * This file implements the functions required to use the QSPIPSU hardware to
