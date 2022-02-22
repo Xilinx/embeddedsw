@@ -267,7 +267,7 @@ void XQspiPsu_Reset(XQspiPsu *InstancePtr)
  *
  * @return	None.
  *
- * @note
+ * @note	None.
  *
  ******************************************************************************/
 void XQspiPsu_Abort(XQspiPsu *InstancePtr)
