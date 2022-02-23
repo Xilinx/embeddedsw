@@ -256,6 +256,143 @@ static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 done:
 	return status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Call this function to set divider for a clock
+ *
+ * @param  clk   Identifier of the target clock
+ * @param  divider Divider value to be set
+ * @param  divId ID of the divider to be set
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ * @note   If the access isn't permitted this function returns an error code.
+ *
+ ****************************************************************************/
+static XStatus XPm_ClockSetOneDivider(const enum XPmClock clk,
+				      const u32 divider,
+				      const u32 divId)
+{
+	XStatus status = (XStatus)XST_FAILURE;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	if (NULL != primary_master) {
+		/* Send request to the PMU */
+		PACK_PAYLOAD3(payload, PM_CLOCK_SETDIVIDER, clk, divId, divider);
+		status = pm_ipi_send(primary_master, payload);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+
+done:
+	return status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Local function to get one divider (DIV0 or DIV1) of a clock
+ *
+ * @param  clk   Identifier of the target clock
+ * @param  divider Location to store the divider value
+ * @param  divId ID of the divider
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+static XStatus XPm_ClockGetOneDivider(const enum XPmClock clk,
+				      u32 *const divider,
+				      const u32 divId)
+{
+	XStatus status = (XStatus)XST_FAILURE;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	if (NULL != primary_master) {
+		/* Send request to the PMU */
+		PACK_PAYLOAD2(payload, PM_CLOCK_GETDIVIDER, clk, divId);
+		status = pm_ipi_send(primary_master, payload);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, divider, NULL, NULL);
+	}
+
+done:
+	return status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Locally used function to request or release a pin control
+ *
+ * @param  pin  PIN identifier (index from range 0-77)
+ * @param  api  API identifier (request or release pin control)
+ *
+ * @return Status of performing the operation as returned by the PMU-FW
+ *
+ ****************************************************************************/
+static XStatus XPm_PinCtrlAction(const u32 pin, const enum XPmApiId api)
+{
+	XStatus status = (XStatus)XST_FAILURE;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	if (NULL != primary_master) {
+		/* Send request to the PMU */
+		PACK_PAYLOAD1(payload, api, pin);
+		status = pm_ipi_send(primary_master, payload);
+
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		/* Return result from IPI return buffer */
+		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+	}
+
+done:
+	return status;
+}
+
+static XStatus XPm_SendFeatureCheckRequest(const enum XPmApiId featureId,
+					   u32 *version, u32 *bitMask, u32 len)
+{
+	XStatus status = (XStatus)XST_FAILURE;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	if (NULL != primary_master) {
+		/* Send request to the PMU */
+		PACK_PAYLOAD1(payload, PM_FEATURE_CHECK, featureId);
+		status = pm_ipi_send(primary_master, payload);
+
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		/* Read the result from IPI return buffer */
+		if (NULL == bitMask) {
+			status = pm_ipi_buff_read32(primary_master, version,
+						    NULL, NULL);
+		} else {
+			if (2U > len) {
+				status = XST_INVALID_PARAM;
+				goto done;
+			}
+
+			status = pm_ipi_buff_read32(primary_master, version,
+						    &bitMask[0], &bitMask[1]);
+		}
+	}
+
+done:
+	return status;
+}
+
 /**
  * @}
  * @endcond
@@ -811,40 +948,6 @@ XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 
 		/* Read the result from IPI return buffer */
 		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
-	}
-
-done:
-	return status;
-}
-
-static XStatus XPm_SendFeatureCheckRequest(const enum XPmApiId featureId,
-					   u32 *version, u32 *bitMask, u32 len)
-{
-	XStatus status = (XStatus)XST_FAILURE;
-	u32 payload[PAYLOAD_ARG_CNT];
-
-	if (NULL != primary_master) {
-		/* Send request to the PMU */
-		PACK_PAYLOAD1(payload, PM_FEATURE_CHECK, featureId);
-		status = pm_ipi_send(primary_master, payload);
-
-		if (XST_SUCCESS != status) {
-			goto done;
-		}
-
-		/* Read the result from IPI return buffer */
-		if (NULL == bitMask) {
-			status = pm_ipi_buff_read32(primary_master, version,
-						    NULL, NULL);
-		} else {
-			if (2U > len) {
-				status = XST_INVALID_PARAM;
-				goto done;
-			}
-
-			status = pm_ipi_buff_read32(primary_master, version,
-						    &bitMask[0], &bitMask[1]);
-		}
 	}
 
 done:
@@ -1560,42 +1663,6 @@ done:
  *
  * @param  clk   Identifier of the target clock
  * @param  divider Divider value to be set
- * @param  divId ID of the divider to be set
- *
- * @return Status of performing the operation as returned by the PMU-FW
- *
- * @note   If the access isn't permitted this function returns an error code.
- *
- ****************************************************************************/
-static XStatus XPm_ClockSetOneDivider(const enum XPmClock clk,
-				      const u32 divider,
-				      const u32 divId)
-{
-	XStatus status = (XStatus)XST_FAILURE;
-	u32 payload[PAYLOAD_ARG_CNT];
-
-	if (NULL != primary_master) {
-		/* Send request to the PMU */
-		PACK_PAYLOAD3(payload, PM_CLOCK_SETDIVIDER, clk, divId, divider);
-		status = pm_ipi_send(primary_master, payload);
-		if (XST_SUCCESS != status) {
-			goto done;
-		}
-
-		/* Return result from IPI return buffer */
-		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
-	}
-
-done:
-	return status;
-}
-
-/****************************************************************************/
-/**
- * @brief  Call this function to set divider for a clock
- *
- * @param  clk   Identifier of the target clock
- * @param  divider Divider value to be set
  *
  * @return XST_INVALID_PARAM or status of performing the operation as returned
  * by the PMU-FW
@@ -1624,40 +1691,6 @@ XStatus XPm_ClockSetDivider(const enum XPmClock clk, const u32 divider)
 
 	if (0U != (mapping & (1U << PM_CLOCK_DIV1_ID))) {
 		status = XPm_ClockSetOneDivider(clk, div1, PM_CLOCK_DIV1_ID);
-	}
-
-done:
-	return status;
-}
-
-/****************************************************************************/
-/**
- * @brief  Local function to get one divider (DIV0 or DIV1) of a clock
- *
- * @param  clk   Identifier of the target clock
- * @param  divider Location to store the divider value
- * @param  divId ID of the divider
- *
- * @return Status of performing the operation as returned by the PMU-FW
- *
- ****************************************************************************/
-static XStatus XPm_ClockGetOneDivider(const enum XPmClock clk,
-				      u32 *const divider,
-				      const u32 divId)
-{
-	XStatus status = (XStatus)XST_FAILURE;
-	u32 payload[PAYLOAD_ARG_CNT];
-
-	if (NULL != primary_master) {
-		/* Send request to the PMU */
-		PACK_PAYLOAD2(payload, PM_CLOCK_GETDIVIDER, clk, divId);
-		status = pm_ipi_send(primary_master, payload);
-		if (XST_SUCCESS != status) {
-			goto done;
-		}
-
-		/* Return result from IPI return buffer */
-		status = pm_ipi_buff_read32(primary_master, divider, NULL, NULL);
 	}
 
 done:
@@ -1960,38 +1993,6 @@ XStatus XPm_PllGetMode(const enum XPmNodeId node, enum XPmPllMode* const mode)
 		/* Return result from IPI return buffer */
 		status = pm_ipi_buff_read32(primary_master, &mode_val, NULL, NULL);
 		*mode = (enum XPmPllMode)mode_val;
-	}
-
-done:
-	return status;
-}
-
-/****************************************************************************/
-/**
- * @brief  Locally used function to request or release a pin control
- *
- * @param  pin  PIN identifier (index from range 0-77)
- * @param  api  API identifier (request or release pin control)
- *
- * @return Status of performing the operation as returned by the PMU-FW
- *
- ****************************************************************************/
-static XStatus XPm_PinCtrlAction(const u32 pin, const enum XPmApiId api)
-{
-	XStatus status = (XStatus)XST_FAILURE;
-	u32 payload[PAYLOAD_ARG_CNT];
-
-	if (NULL != primary_master) {
-		/* Send request to the PMU */
-		PACK_PAYLOAD1(payload, api, pin);
-		status = pm_ipi_send(primary_master, payload);
-
-		if (XST_SUCCESS != status) {
-			goto done;
-		}
-
-		/* Return result from IPI return buffer */
-		status = pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 	}
 
 done:
