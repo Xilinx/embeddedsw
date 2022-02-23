@@ -231,8 +231,9 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 
  *
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
  *
- * @return	- XST_SUCCESS - On success
- *		- XSECURE_RSA_INVALID_PARAM - On invalid parameter
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XSECURE_RSA_INVALID_PARAM - On invalid parameter
  *
 ******************************************************************************/
 int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
@@ -271,9 +272,10 @@ END:
  * 				  is either encryption/decryption
  * @param	KeySize		- Size of the key in bytes
  *
- * @return	- XST_SUCCESS - On success
- *		- XSECURE_RSA_INVALID_PARAM - On invalid parameter
- * 		- XST_FAILURE - On failure
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XSECURE_RSA_INVALID_PARAM - On invalid parameter
+ *	-	XST_FAILURE - On failure
  *
 ******************************************************************************/
 int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
@@ -435,8 +437,6 @@ END:
  *
  * @param	InstancePtr - Pointer to the XSecure_Rsa instance
  *
- * @return	None
- *
  ******************************************************************************/
 static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
 {
@@ -465,8 +465,6 @@ static void XSecure_RsaPutData(const XSecure_Rsa *InstancePtr)
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
  * @param	RdDataAddr	- Address of the location where RSA output data
  *				  will be written
- *
- * @return	None
  *
  ******************************************************************************/
 static void XSecure_RsaGetData(const XSecure_Rsa *InstancePtr, u64 RdDataAddr)
@@ -513,8 +511,6 @@ END: ;
  *
  * @param	InstancePtr - Pointer to XSeure_Rsa instance
  *
- * @return	None
- *
  * @note	MINV is the 32-bit value of `-M mod 2**32`,
  *		where M is LSB 32 bits of the original modulus
  *
@@ -554,8 +550,6 @@ static void XSecure_RsaMod32Inverse(const XSecure_Rsa *InstancePtr)
  * @param	InstancePtr	- Pointer to the XSecure_Aes instance
  * @param	WrDataAddr	- Address of the data to be written to RSA RAM
  * @param	RamOffset	- Offset for the data to be written in RSA RAM
- *
- * @return	None
  *
  ******************************************************************************/
 static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
@@ -623,8 +617,9 @@ static void XSecure_RsaWriteMem(const XSecure_Rsa *InstancePtr,
  *
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
  *
- * @return	- XST_SUCCESS - On Success
- * 		- XSECURE_RSA_ZEROIZE_ERROR - On Zeroization Failure
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	XSECURE_RSA_ZEROIZE_ERROR - On Zeroization Failure
  *
  *****************************************************************************/
 int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr)
@@ -675,8 +670,9 @@ END:
  *
  * @param	InstancePtr	- Pointer to the XSecure_Rsa instance
  *
- * @return	- XST_SUCCESS - On Success
- * 		- XSECURE_RSA_ZEROIZE_ERROR - On Zeroize Verify Failure
+ * @return
+ *	-	XST_SUCCESS - On Success
+ *	-	XSECURE_RSA_ZEROIZE_ERROR - On Zeroize Verify Failure
  *
  *****************************************************************************/
 static int XSecure_RsaZeroizeVerify(const XSecure_Rsa *InstancePtr)
@@ -730,8 +726,6 @@ END:
  * @param	Cfg2		- Memory location size.
  * @param	Cfg5		- Number of groups.
  *
- * @return	None
- *
 ******************************************************************************/
 static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
 	u32 Cfg1, u32 Cfg2, u32 Cfg5)
@@ -758,9 +752,9 @@ static void XSecure_RsaDataLenCfg(const XSecure_Rsa *InstancePtr, u32 Cfg0,
  * @brief	This function performs KAT on RSA core
  *
  * @return
- * 	- XST_SUCCESS - On success
- * 	- XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR - When RSA KAT fails
- * 	- XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR - Error when RSA data not
+ *	-	XST_SUCCESS - On success
+ *	-	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR - When RSA KAT fails
+ *	-	XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR - Error when RSA data not
  *							matched with expected data
  *
  *****************************************************************************/
@@ -804,7 +798,8 @@ END:
 /**
  * @brief	This function returns PKCS padding as per the silicon version
  *
- * @return	XSecure_Silicon2_TPadSha3
+ * @return
+ *	-	XSecure_Silicon2_TPadSha3
  *
 *****************************************************************************/
 u8* XSecure_RsaGetTPadding(void)

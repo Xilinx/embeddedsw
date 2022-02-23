@@ -50,8 +50,6 @@
  * @param	BaseAddress	- Base address of the core
  * @param	Offset		- Offset of the reset register
  *
- * @return	None
- *
  *****************************************************************************/
 void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
 {
@@ -65,8 +63,6 @@ void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset)
  *
  * @param	BaseAddress	- Base address of the core
  * @param	Offset		- Offset of the reset register
- *
- * @return	None
  *
  *****************************************************************************/
 void XSecure_SetReset(u32 BaseAddress, u32 Offset)

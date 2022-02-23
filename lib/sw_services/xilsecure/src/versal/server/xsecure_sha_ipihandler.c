@@ -62,8 +62,9 @@ static int XSecure_ShaKat(void);
  *
  * @param 	Cmd is pointer to the command structure
  *
- * @return	- XST_SUCCESS - If the handler execution is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the handler execution is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
@@ -91,8 +92,9 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 /**
  * @brief       This function initializes SHA3 instance.
  *
- * @return	- XST_SUCCESS - If the initialization is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the initialization is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_ShaInitialize(void)
@@ -131,8 +133,9 @@ END:
  * 		DstAddrHigh	- Higher 32 bit address of the output data
  * 				where hash to be stored
  *
- * @return	- XST_SUCCESS - If the sha update/fnish is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the sha update/fnish is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
@@ -177,8 +180,9 @@ END:
 /**
  * @brief       This function handler calls XSecure_ShaKat server API
  *
- * @return	- XST_SUCCESS - If the sha update/fnish is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+	-	XST_SUCCESS - If the sha update/fnish is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_ShaKat(void)

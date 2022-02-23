@@ -78,8 +78,9 @@ static int XSecure_AesExecuteDecCmKat(void);
  *
  * @param 	Cmd is pointer to the command structure
  *
- * @return	- XST_SUCCESS - If the handler execution is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the handler execution is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
@@ -143,8 +144,9 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 /**
  * @brief       This function handler calls XSecure_AesInitialize Server API
  *
- * @return	- XST_SUCCESS - If the initialization is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the initialization is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesInit(void)
@@ -174,8 +176,9 @@ END:
  * 		SrcAddrHigh	- Higher 32 bit address of the XSecure_AesInitOps
  * 				structure.
  *
- * @return	- XST_SUCCESS - If the initialization is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the initialization is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
@@ -226,8 +229,9 @@ END:
  * 		SrcAddrHigh	- Higher 32 bit address of the AAD data
  *		Size		- AAD Size
  *
- * @return	- XST_SUCCESS - If the encrypt update is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the encrypt update is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size)
@@ -254,8 +258,9 @@ static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size)
  * 		DstAddrHigh	- Higher 32 bit address of the output buffer
  * 				where encrypted data to be stored
  *
- * @return	- XST_SUCCESS - If the encrypt update is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the encrypt update is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -288,8 +293,9 @@ END:
  * 		DstAddrHigh	- Higher 32 bit address of the GCM-TAG
  * 				to be stored.
  *
- * @return	- XST_SUCCESS - If the encrypt final is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the encrypt final is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
@@ -316,8 +322,9 @@ static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh)
  * 		DstAddrHigh	- Higher 32 bit address of the output buffer
  * 				where decrypted data to be stored
  *
- * @return	- XST_SUCCESS - If the decrypt update is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the decrypt update is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -349,8 +356,9 @@ END:
  * @param	SrcAddrLow	- Lower 32 bit address of the GCM-TAG
  * 		SrcAddrHigh	- Higher 32 bit address of the GCM-TAG
  *
- * @return	- XST_SUCCESS - If the decrypt final is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the decrypt final is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh)
@@ -370,8 +378,9 @@ static int XSecure_AesDecFinal(u32 SrcAddrLow, u32 SrcAddrHigh)
  *
  * @param	KeySrc	- Key source to be zeroized
  *
- * @return	- XST_SUCCESS - If the key zeroize is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the key zeroize is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesKeyZeroize(u32 KeySrc)
@@ -402,8 +411,9 @@ static int XSecure_AesKeyZeroize(u32 KeySrc)
  * 		KeyAddrLow	- Lower 32 bit address of the Key
  * 		KeyAddrHigh	- Higher 32 bit address of the Key
  *
- * @return	- XST_SUCCESS - If the key write is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the key write is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
@@ -440,8 +450,9 @@ END:
  * 		IvAddrLow	- Lower 32 bit address of the IV
  * 		IvAddrHigh	- Higher 32 bit address of the IV
  *
- * @return	- XST_SUCCESS - If the decryption is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the decryption is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh)
@@ -480,8 +491,9 @@ END:
  *
  * @param	DpaCmCfg	- User DpaCmCfg configuration
  *
- * @return	- XST_SUCCESS - If the Set DpaCm is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the Set DpaCm is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
@@ -498,8 +510,9 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 /**
  * @brief       This function handler calls XSecure_AesDecryptKat server API
  *
- * @return	- XST_SUCCESS - If the KAT is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the KAT is successful
+ * 	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesExecuteDecKat(void)
@@ -536,8 +549,9 @@ END:
  * @brief       This function handler calls XSecure_AesExecuteDecCmKat
  * 		server API
  *
- * @return	- XST_SUCCESS - If the KAT is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the KAT is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_AesExecuteDecCmKat(void)
