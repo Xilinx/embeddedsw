@@ -56,6 +56,25 @@
 
 #define INVALID_ACK_ARG(a)	(((a) < REQUEST_ACK_MIN) || ((a) > REQUEST_ACK_MAX))
 
+#ifdef ENABLE_FEATURE_CONFIG
+#define FEATURE_CONFIG_BITMASK	(			\
+	(1ULL << (u64)PM_IOCTL_SET_FEATURE_CONFIG) | 	\
+	(1ULL << (u64)PM_IOCTL_GET_FEATURE_CONFIG))
+#else
+#define FEATURE_CONFIG_BITMASK	(0ULL)
+#endif	/* ENABLE_FEATURE_CONFIG */
+
+#ifdef ENABLE_DYNAMIC_MIO_CONFIG
+#define DYNAMIC_MIO_CONFIG_BITMASK	(		\
+	(1ULL << (u64)PM_IOCTL_SET_SD_CONFIG) |		\
+	(1ULL << (u64)PM_IOCTL_SET_GEM_CONFIG) |	\
+	(1ULL << (u64)PM_IOCTL_SET_USB_CONFIG))
+#else
+#define DYNAMIC_MIO_CONFIG_BITMASK	(0ULL)
+#endif /* ENABLE_DYNAMIC_MIO_CONFIG */
+
+#define PM_IOCTL_FEATURE_BITMASK (			\
+	(FEATURE_CONFIG_BITMASK) | (DYNAMIC_MIO_CONFIG_BITMASK))
 /*
  * PM error numbers, mostly used to identify erroneous usage of EEMI. Note:
  * these errors are errors from the perspective of using EEMI API. PMU-FW
@@ -2063,45 +2082,6 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 
 	IPI_RESPONSE2(master->ipiMask, (u32)status, value);
 }
-
-/**
- * PmGetIoctlBitMask() - This function returns bit mask of supported IOCTL IDs
- * @bitMask	Pointer to store IOCTL bit mask
- * @len		Length of bitMask array
- *
- * @return	Success or failure
- */
-static XStatus PmGetIoctlBitMask(u32 *bitMask, u32 len)
-{
-	XStatus status = XST_FAILURE;
-	u8 supportedIds[] = {
-#ifdef ENABLE_FEATURE_CONFIG
-		PM_IOCTL_SET_FEATURE_CONFIG,
-		PM_IOCTL_GET_FEATURE_CONFIG,
-#endif
-#ifdef ENABLE_DYNAMIC_MIO_CONFIG
-		PM_IOCTL_SET_SD_CONFIG,
-		PM_IOCTL_SET_GEM_CONFIG,
-		PM_IOCTL_SET_USB_CONFIG,
-#endif
-	};
-	u8 i, id;
-
-	for (i = 0U; i < ARRAYSIZE(supportedIds); i++) {
-		id = supportedIds[i];
-
-		if ((id / 32) >= len) {
-			goto done;
-		}
-
-		bitMask[id / 32] |= BIT(id % 32);
-	}
-
-	status = XST_SUCCESS;
-
-done:
-	return status;
-}
 #endif /* ENABLE_IOCTL */
 
 /**
@@ -2116,8 +2096,7 @@ done:
 static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 {
 	s32 status = XST_FAILURE;
-	u32 version;
-	u32 bitMask[2] = {0U};
+	u32 retPayload[3] = {0U};
 
 	PmInfo("%s> PmFeatureCheck(%lu)\r\n", master->name, apiId);
 
@@ -2174,27 +2153,29 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_REGISTER_ACCESS):
 	case PM_API(PM_EFUSE_ACCESS):
 	case PM_API(PM_QUERY_DATA):
-		version = PM_API_BASE_VERSION;
+		retPayload[0] = PM_API_BASE_VERSION;
 		status = XST_SUCCESS;
 		break;
 #ifdef ENABLE_IOCTL
 	case PM_API(PM_IOCTL):
-		version = PM_API_BASE_VERSION;
-		status = PmGetIoctlBitMask(bitMask, ARRAYSIZE(bitMask));
+		retPayload[0] = PM_API_BASE_VERSION;
+		retPayload[1] = (u32)(PM_IOCTL_FEATURE_BITMASK);
+		retPayload[2] = (u32)(PM_IOCTL_FEATURE_BITMASK >> 32);
+		status = XST_SUCCESS;
 		break;
 #endif
 	case PM_API(PM_FEATURE_CHECK):
-		version = PM_API_VERSION_2;
+		retPayload[0] = PM_API_VERSION_2;
 		status = XST_SUCCESS;
 		break;
 	default:
-		version = 0U;
+		retPayload[0] = 0U;
 		status = XST_NO_FEATURE;
 		break;
 	}
 
-	IPI_RESPONSE4(master->ipiMask, (u32)status, version, bitMask[0],
-		      bitMask[1]);
+	IPI_RESPONSE4(master->ipiMask, (u32)status, retPayload[0], retPayload[1],
+		      retPayload[2]);
 }
 
 /**
