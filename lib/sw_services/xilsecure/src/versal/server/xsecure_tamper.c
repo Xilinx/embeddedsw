@@ -83,8 +83,6 @@
 /**
  * @brief	This function enables the tamper interrupt in PMC_GLOBAL
  *
- * @return	None
- *
  *****************************************************************************/
 void XSecure_EnableTamperInterrupt(void)
  {
@@ -98,7 +96,8 @@ void XSecure_EnableTamperInterrupt(void)
 /**
  * @brief	This function processes the tamper response
  *
- * @return 	- XST_SUCCESS - Always
+ * @return
+ *	-	XST_SUCCESS - Always returns success
  *
  *****************************************************************************/
 int XSecure_ProcessTamperResponse(void)
@@ -156,8 +155,6 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function executes the secure lock down for LPD/FPD/PL/NoC
- *
- * @return	None
  *
  *****************************************************************************/
  void XSecure_SecureLockDown(void)

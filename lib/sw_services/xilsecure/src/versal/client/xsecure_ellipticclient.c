@@ -47,13 +47,14 @@
  * @param	EPrivKeyAddr	- Address of the Ephemeral private key
  * @param	SignAddr	- Address of the signature buffer
  *
- * @return 	- XST_SUCCESS - On success
- *		- XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *		- XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM - When Bad random number
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
+ *	-	XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM - When Bad random number
  *					used for sign generation
- *		- XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN - Incorrect hash
- *						length for sign generation
- *		- XST_FAILURE - On failure
+ *	-	XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN - Incorrect hash
+ *					length for sign generation
+ *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
 int XSecure_EllipticGenerateSign(u32 CurveType, u64 HashAddr, u32 Size,
@@ -95,11 +96,12 @@ END:
  * @param	PubKeyAddr	- Address of the buffer where public key to be
  * 				stored.
  *
- * @return	- XST_SUCCESS - On success
- *		- XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - When elliptic Curve
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - When elliptic Curve
  *						is not supported
- *		- XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *		- XSECURE_ELLIPTIC_GEN_KEY_ERR - Error in generating Public key
+ *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
+ *	-	XSECURE_ELLIPTIC_GEN_KEY_ERR - Error in generating Public key
  *
  ******************************************************************************/
 int XSecure_EllipticGenerateKey(u32 CurveType, u64 PrivKeyAddr, u64 PubKeyAddr)
@@ -121,13 +123,14 @@ int XSecure_EllipticGenerateKey(u32 CurveType, u64 PrivKeyAddr, u64 PubKeyAddr)
  * @param	CrvType		- Type of elliptic curve
  * @param	KeyAddr		- Address of the pubilc key to be validated
  *
- * @return	XST_SUCCESS 			- On success
- *		XSECURE_ELLIPTIC_INVALID_PARAM	- On invalid argument
- *		XSECURE_ELLIPTIC_KEY_ZERO	- When Public key is zero
- *		XSECURE_ELLIPTIC_KEY_WRONG_ORDER- Wrong order of Public key
- *		XSECURE_ELLIPTIC_KEY_NOT_ON_CRV	- When Key is not found on
+ * @return
+ *	-	XST_SUCCESS 			- On success
+ *	-	XSECURE_ELLIPTIC_INVALID_PARAM	- On invalid argument
+ *	-	XSECURE_ELLIPTIC_KEY_ZERO	- When Public key is zero
+ *	-	XSECURE_ELLIPTIC_KEY_WRONG_ORDER- Wrong order of Public key
+ *	-	XSECURE_ELLIPTIC_KEY_NOT_ON_CRV	- When Key is not found on
  *						the curve
- *		XST_FAILURE			- On failure
+ *	-	XST_FAILURE			- On failure
  *
  *****************************************************************************/
 int XSecure_EllipticValidateKey(u32 CurveType, u64 KeyAddr)
@@ -153,19 +156,20 @@ int XSecure_EllipticValidateKey(u32 CurveType, u64 KeyAddr)
  * @param	PubKeyAddr	- Address of the pubilc key
  * @param	SignAddr	- Address of the signature buffer
 
- * @return	- XST_SUCCESS - On success
- *		- XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
- *		- XSECURE_ELLIPTIC_BAD_SIGN - When signature provided
- *						for verification is bad
- *		- XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN - Incorrect hash
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument
+ *	-	XSECURE_ELLIPTIC_BAD_SIGN - When signature provided
+ *					for verification is bad
+ *	-	XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN - Incorrect hash
  *						length for sign verification
- *		- XSECURE_ELLIPTIC_VER_SIGN_R_ZERO - R set to zero
- *		- XSECURE_ELLIPTIC_VER_SIGN_S_ZERO - S set to zero
- *		- XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR - R is not within ECC
+ *	-	XSECURE_ELLIPTIC_VER_SIGN_R_ZERO - R set to zero
+ *	-	XSECURE_ELLIPTIC_VER_SIGN_S_ZERO - S set to zero
+ *	-	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR - R is not within ECC
  *							order
- *		- XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR - S is not within ECC
+ *	-	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR - S is not within ECC
  *							order
- *		- XST_FAILURE - On failure
+ *	-	XST_FAILURE - On failure
  *
  *****************************************************************************/
 int XSecure_EllipticVerifySign(u32 CurveType, u64 HashAddr, u32 Size,
@@ -204,10 +208,11 @@ END:
  *
  * @param	CrvType		- Type of elliptic curve
  *
- * @return	- XST_SUCCESS - On success
- * 		- XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR - When elliptic key
+ * @return
+ *	-	XST_SUCCESS - On success
+ * 	-	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR - When elliptic key
  * 							is not valid
- *		- XSECURE_ELLIPTIC_KAT_FAILED_ERROR	- When elliptic KAT
+ *	-	XSECURE_ELLIPTIC_KAT_FAILED_ERROR - When elliptic KAT
  *							fails
  *
  ******************************************************************************/

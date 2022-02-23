@@ -70,8 +70,9 @@ static XPlmi_Module XPlmi_Secure =
  *
  * @param	ApiId is API ID in the IPI request
  *
- * @return	XST_SUCCESS in case of success
- *		XST_INVALID_PARAM in case of unsupported API ID
+ * @return
+ *	-	XST_SUCCESS - Success
+ *	-	XST_INVALID_PARAM - Unsupported API ID
  *
  *****************************************************************************/
 static int XSecure_FeaturesCmd(u32 ApiId)
@@ -197,8 +198,9 @@ void XSecure_CmdsInit(void)
  * @param	CmdId - Not used in the function
  * @param	IpiReqType is the IPI command request type
  *
- * @return	XST_SUCCESS on success
- *              XSECURE_IPI_ACCESS_NOT_ALLOWED on failure
+ * @return
+ *	-	XST_SUCCESS - on success
+ *	-	XSECURE_IPI_ACCESS_NOT_ALLOWED - Failure
  *
  * @note	By default, only secure IPI requests are supported for Xilsecure
  *              client APIs. Non-secure IPI requests are supported only if

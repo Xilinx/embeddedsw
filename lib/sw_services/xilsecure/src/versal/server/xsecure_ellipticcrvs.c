@@ -372,7 +372,8 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 /**
  * @brief	This function calculates the total number of curves supported
  *
- * @return	Returns the number of curves supported
+ * @return
+ *	Number of curves supported
  *
  *****************************************************************************/
 u32 XSecure_EllipticCrvsGetCount(void)

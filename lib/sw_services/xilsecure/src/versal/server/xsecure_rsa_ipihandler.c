@@ -51,8 +51,9 @@ static int XSecure_RsaKat(void);
  *
  * @param 	Cmd is pointer to the command structure
  *
- * @return	- XST_SUCCESS - If the handler execution is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the handler execution is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
@@ -98,8 +99,9 @@ int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
  * 		DstAddrHigh	- Higher 32 bit address of the output data
  * 				where decrypted data to be stored
  *
- * @return	- XST_SUCCESS - If the Rsa decryption is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the Rsa decryption is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -148,8 +150,9 @@ END:
  * 		DstAddrHigh	- Higher 32 bit address of the output data
  * 				where encrypted data to be stored
  *
- * @return	- XST_SUCCESS - If the Rsa encryption is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the Rsa encryption is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -194,8 +197,9 @@ END:
  * 		SrcAddrHigh	- Higher 32 bit address of the
  * 				XSecure_RsaSignParams structure
  *
- * @return	- XST_SUCCESS - If the Rsa sign verification is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the Rsa sign verification is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh)
@@ -224,8 +228,9 @@ END:
  * @brief       This function handler calls XSecure_RsaPublicEncryptKat server
  * 		API
  *
- * @return	- XST_SUCCESS - If the Rsa Kat is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the Rsa Kat is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_RsaKat(void)
