@@ -877,26 +877,26 @@ typedef enum {
  * Config types for SD configs at run time
  */
 typedef enum {
-	SD_CONFIG_INVALID = 0,
-	SD_CONFIG_EMMC_SEL = 1, /**< To set SD_EMMC_SEL in CTRL_REG_SD and SD_SLOTTYPE */
-	SD_CONFIG_BASECLK = 2, /**< To set SD_BASECLK in SD_CONFIG_REG1 */
-	SD_CONFIG_8BIT = 3, /**< To set SD_8BIT in SD_CONFIG_REG2 */
-	SD_CONFIG_FIXED = 4, /* To set fixed config registers */
+	SD_CONFIG_INVALID = 0,	/**< Invalid SD config */
+	SD_CONFIG_EMMC_SEL = 1,	/**< To set SD_EMMC_SEL in CTRL_REG_SD and SD_SLOTTYPE */
+	SD_CONFIG_BASECLK = 2,	/**< To set SD_BASECLK in SD_CONFIG_REG1 */
+	SD_CONFIG_8BIT = 3,	/**< To set SD_8BIT in SD_CONFIG_REG2 */
+	SD_CONFIG_FIXED = 4,	/**< To set fixed config registers */
 } XPm_SdConfigType;
 
 /**
  * Config types for GEM configs at run time
  */
 typedef enum {
-	GEM_CONFIG_INVALID = 0,
-	GEM_CONFIG_SGMII_MODE = 1, /**< To set GEM_SGMII_MODE in GEM_CLK_CTRL register */
-	GEM_CONFIG_FIXED = 2, /* To set fixed config registers */
+	GEM_CONFIG_INVALID = 0,		/**< Invalid GEM config */
+	GEM_CONFIG_SGMII_MODE = 1,	/**< To set GEM_SGMII_MODE in GEM_CLK_CTRL register */
+	GEM_CONFIG_FIXED = 2,		/**< To set fixed config registers */
 } XPm_GemConfigType;
 
 /* Config types for USB configs at run time */
 typedef enum {
-	USB_CONFIG_INVALID = 0,
-	USB_CONFIG_FIXED = 1, /* To set fixed config registers */
+	USB_CONFIG_INVALID = 0,	/**< Invalid USB config */
+	USB_CONFIG_FIXED = 1,	/**< To set fixed config registers */
 } XPm_UsbConfigType;
 #ifdef __cplusplus
 }
