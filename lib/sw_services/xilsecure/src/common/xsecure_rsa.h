@@ -86,14 +86,9 @@ extern "C" {
 #define XSECURE_RSA_BYTE_PAD2		(0X01U) /**<PKCS T Padding Byte */
 #define XSECURE_RSA_BYTE_PAD3		(0XFFU)	/**<PKCS T Padding Byte */
 
-/**
- * @name  RSA error codes
- * @{
- */
-/**< Error Codes */
-#define XSECURE_RSA_INVALID_PARAM	 (0x82U)
-#define XSECURE_RSA_STATE_MISMATCH_ERROR (0x84U)
-/** @} */
+#define XSECURE_RSA_INVALID_PARAM	 (0x82U)	/**< Invalid Argument */
+#define XSECURE_RSA_STATE_MISMATCH_ERROR (0x84U)	/**< State mismatch */
+
 
 /***************************** Type Definitions ******************************/
 

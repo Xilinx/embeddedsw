@@ -68,9 +68,10 @@ static int XSecure_RegisterTampIntHandler(void);
 /**
  * @brief	This function registers the handler for tamper interrupt
  *
- * @return	- XST_SUCCESS - On success
- *     		- XPLMI_INVALID_ERROR_ID      - On invalid ID
- *      	- XPLMI_INVALID_ERROR_HANDLER - On Null handler
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XPLMI_INVALID_ERROR_ID - On invalid ID
+ *	-	XPLMI_INVALID_ERROR_HANDLER - On Null handler
  *
  *****************************************************************************/
 int XSecure_Init(void)
@@ -88,9 +89,10 @@ int XSecure_Init(void)
 /**
  * @brief	This function registers the handler for tamper interrupt
  *
- * @return	- XST_SUCCESS - On success
- *     		- XPLMI_INVALID_ERROR_ID      - On invalid ID
- *      	- XPLMI_INVALID_ERROR_HANDLER - On Null handler
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XPLMI_INVALID_ERROR_ID - On invalid ID
+ *	-	XPLMI_INVALID_ERROR_HANDLER - On Null handler
  *
  *****************************************************************************/
 static int XSecure_RegisterTampIntHandler(void)
@@ -124,8 +126,6 @@ END:
  * @param	ErrorNodeId - Node Identifier
  * @param	ErrorMask   - Mask Identifier
  *
- * @return	None
- *
  *****************************************************************************/
 void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)
 {
@@ -156,7 +156,8 @@ void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)
  * @brief	This function provides the pointer to the common Sha3 instance
  * which has to be used between PLM and xilsecure server
  *
- * @return	Pointer to the XSecure_Sha3 instance
+ * @return
+ *	-	Pointer to the XSecure_Sha3 instance
  *
  *****************************************************************************/
 XSecure_Sha3 *XSecure_GetSha3Instance(void)
@@ -171,7 +172,8 @@ XSecure_Sha3 *XSecure_GetSha3Instance(void)
  * @brief	This function provides the pointer to the common Aes instance
  * which has to be used between PLM and xilsecure server
  *
- * @return	Pointer to the XSecure_Aes instance
+ * @return
+ *	-	Pointer to the XSecure_Aes instance
  *
  *****************************************************************************/
 XSecure_Aes *XSecure_GetAesInstance(void)
@@ -186,7 +188,8 @@ XSecure_Aes *XSecure_GetAesInstance(void)
  * @brief	This function provides the pointer to the common Rsa instance
  * which has to be used between PLM and xilsecure server
  *
- * @return	Pointer to the XSecure_Rsa instance
+ * @return
+ *	-	Pointer to the XSecure_Rsa instance
  *
  *****************************************************************************/
 XSecure_Rsa *XSecure_GetRsaInstance(void)

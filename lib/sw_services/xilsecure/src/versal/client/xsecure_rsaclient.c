@@ -48,8 +48,9 @@
  *		OutDataAddr	- Address of the buffer where resultant decrypted
  *				data to be stored
  *
- * @return	- XST_SUCCESS - If the update is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the update is successful
+ * 	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_RsaPrivateDecrypt(const u64 KeyAddr, const u64 InDataAddr,
@@ -95,9 +96,10 @@ END:
  *		OutDataAddr	- Address of the buffer where resultant decrypted
  *				data to be stored
  *
- * @return	- XST_SUCCESS - If encryption was successful
- *		- XSECURE_RSA_INVALID_PARAM - On invalid arguments
- *		- XSECURE_RSA_STATE_MISMATCH_ERROR - If there is state mismatch
+ * @return
+ *	-	XST_SUCCESS - If encryption was successful
+ *	-	XSECURE_RSA_INVALID_PARAM - On invalid arguments
+ *	-	XSECURE_RSA_STATE_MISMATCH_ERROR - If there is state mismatch
  *
  ******************************************************************************/
 int XSecure_RsaPublicEncrypt(const u64 KeyAddr, const u64 InDataAddr,
@@ -136,9 +138,10 @@ END:
  * @param	HashAddr	- Address of the HashAddr which has the
  * 				hash calculated on the data to be authenticated
  *
- * @return	- XST_SUCCESS - If decryption was successful
- *		- XSECURE_RSA_INVALID_PARAM - On invalid arguments
- *		- XST_FAILURE - In case of mismatch
+ * @return
+ *	-	XST_SUCCESS - If decryption was successful
+ *	-	XSECURE_RSA_INVALID_PARAM - On invalid arguments
+ *	-	XST_FAILURE - In case of mismatch
  *
  *****************************************************************************/
 int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
@@ -174,9 +177,10 @@ END:
  *
  * @param
  *
- * @return	- XST_SUCCESS - On success
- *		- XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR - When RSA KAT fails
- *		- XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR - Error when
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR - When RSA KAT fails
+ *	-	XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR - Error when
  *					RSA data not matched with expected data
  *
  ******************************************************************************/

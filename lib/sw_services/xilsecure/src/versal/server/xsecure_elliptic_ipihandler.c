@@ -53,8 +53,9 @@ static int XSecure_EllipticExecuteKat(u32 CurveType);
  *
  * @param 	Cmd is pointer to the command structure
  *
- * @return	- XST_SUCCESS - If the handler execution is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the handler execution is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
@@ -105,8 +106,9 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
  * 		DstAddrHigh	- Higher 32 bit address of the public key
  * 				to be stored
  *
- * @return	- XST_SUCCESS - If the elliptic key generation is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the elliptic key generation is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
@@ -152,8 +154,9 @@ END:
  * 		DstAddrHigh	- Higher 32 bit address of the signature
  * 				to be stored
  *
- * @return	- XST_SUCCESS - If the elliptic sign generation is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the elliptic sign generation is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
@@ -195,8 +198,9 @@ END:
  * 		SrcAddrLow	- Lower 32 bit address of the public key
  * 		SrcAddrHigh	- Higher 32 bit address of the public key
  *
- * @return	- XST_SUCCESS - If the elliptic key validation is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the elliptic key validation is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
@@ -236,8 +240,9 @@ END:
  * 		SrcAddrHigh	- Higher 32 bit address of the
  * 				XSecure_EllipticSignVerifyParams structure
  *
- * @return	- XST_SUCCESS - If the elliptic sign verify is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the elliptic sign verify is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
@@ -276,8 +281,9 @@ END:
  *
  * @param	CurveType	- Is a type of elliptic curve
  *
- * @return	- XST_SUCCESS - If the elliptic KAT is successful
- * 		- ErrorCode - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the elliptic KAT is successful
+ *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XSecure_EllipticExecuteKat(u32 CurveType)

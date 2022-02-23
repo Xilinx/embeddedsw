@@ -62,7 +62,8 @@ extern "C" {
 					/**< Unused param */
 
 /* Maximum size of shared memory used to store the CDO command */
-#define XSECURE_SHARED_MEM_SIZE		(128U) /**< Shared memory size */
+#define XSECURE_SHARED_MEM_SIZE		(128U)
+					/**< Shared memory size */
 
 /**************************** Type Definitions *******************************/
 
@@ -76,9 +77,9 @@ typedef enum {
 }XSecure_IpiSharedMemState;
 
 typedef struct {
-	u64 Address;
-	u32 Size;
-	XSecure_IpiSharedMemState SharedMemState;
+	u64 Address; /**< Address of the shared memory location */
+	u32 Size; /**< Size od the shared memory location */
+	XSecure_IpiSharedMemState SharedMemState; /**< State of shared memory */
 }XSecure_IpiSharedMem;
 
 /************************** Function Definitions *****************************/

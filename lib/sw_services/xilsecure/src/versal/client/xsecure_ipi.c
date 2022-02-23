@@ -61,8 +61,9 @@ static XSecure_IpiSharedMem XSecure_SharedMem;
  * @param	Arg4		Payload argument 4
  * @param	Arg5		Payload argument 5
  *
- * @return	- XST_SUCCESS - If the IPI send and receive is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI send and receive is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  * @note	Payload  consists of API id and call arguments to be written
  * 		in IPI buffer
@@ -98,8 +99,9 @@ END:
  *
  * @param	ApiId 		API id of the IPI command
  *
- * @return	- XST_SUCCESS - If the IPI send and receive is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI send and receive is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
 int XSecure_ProcessIpiWithPayload0(u32 ApiId)
@@ -113,10 +115,11 @@ int XSecure_ProcessIpiWithPayload0(u32 ApiId)
  * @brief  This function processes the IPI with 2 payload arguments
  *
  * @param	ApiId 		API id of the IPI command
- * 		Arg1 		Payload argument 1
+ * @param	Arg1 		Payload argument 1
  *
- * @return	- XST_SUCCESS - If the IPI send and receive is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI send and receive is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
 int XSecure_ProcessIpiWithPayload1(u32 ApiId, u32 Arg1)
@@ -130,11 +133,12 @@ int XSecure_ProcessIpiWithPayload1(u32 ApiId, u32 Arg1)
  * @brief  This function processes IPI request with 3 payload arguments
  *
  * @param	ApiId 		API id of the IPI command
- * 		Arg1 		Payload argument 1
- *		Arg2 		Payload argument 2
+ * @param	Arg1 		Payload argument 1
+ * @param	Arg2 		Payload argument 2
  *
- * @return	- XST_SUCCESS - If the IPI send and receive is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI send and receive is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
 int XSecure_ProcessIpiWithPayload2(u32 ApiId, u32 Arg1, u32 Arg2)
@@ -148,12 +152,13 @@ int XSecure_ProcessIpiWithPayload2(u32 ApiId, u32 Arg1, u32 Arg2)
  * @brief  This function processes IPI request with 4 payload arguments
  *
  * @param	ApiId 		API id of the IPI command
- * 		Arg1 		Payload argument 1
- *		Arg2 		Payload argument 2
- *		Arg3 		Payload argument 3
+ * @param	Arg1 		Payload argument 1
+ * @param	Arg2 		Payload argument 2
+ * @param	Arg3 		Payload argument 3
  *
- * @return	- XST_SUCCESS - If the IPI send and receive is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI send and receive is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
 int XSecure_ProcessIpiWithPayload3(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3)
@@ -167,13 +172,14 @@ int XSecure_ProcessIpiWithPayload3(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3)
  * @brief  This function processes IPI request with 5 payload arguments
  *
  * @param	ApiId 		API id of the IPI command
- * 		Arg1 		Payload argument 1
- *		Arg2 		Payload argument 2
- *		Arg3 		Payload argument 3
- *		Arg4 		Payload argument 4
+ * @param	Arg1 		Payload argument 1
+ * @param	Arg2 		Payload argument 2
+ * @param	Arg3 		Payload argument 3
+ * @param	Arg4 		Payload argument 4
  *
- * @return	- XST_SUCCESS - If the IPI send and receive is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI send and receive is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
 int XSecure_ProcessIpiWithPayload4(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
@@ -188,14 +194,15 @@ int XSecure_ProcessIpiWithPayload4(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
  * @brief  This function processes IPI request with 6 payload arguments
  *
  * @param	ApiId 		API id of the IPI command
- * 		Arg1 		Payload argument 1
- *		Arg2 		Payload argument 2
- *		Arg3 		Payload argument 3
- *		Arg4 		Payload argument 4
- *		Arg5 		Payload argument 5
+ * @param	Arg1 		Payload argument 1
+ * @param	Arg2 		Payload argument 2
+ * @param	Arg3 		Payload argument 3
+ * @param	Arg4 		Payload argument 4
+ * @param	Arg5 		Payload argument 5
  *
- * @return	- XST_SUCCESS - If the IPI send and receive is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI send and receive is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
 int XSecure_ProcessIpiWithPayload5(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
@@ -212,8 +219,9 @@ int XSecure_ProcessIpiWithPayload5(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
  * @param	Payload 	API id and call arguments to be written
  * 				in IPI buffer
  *
- * @return	- XST_SUCCESS - If the IPI send is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI send is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
 int XSecure_IpiSend(u32 *Payload)
@@ -252,8 +260,9 @@ END:
  * @brief	This function reads IPI Response after target module
  * 		has handled interrupt
  *
- * @return	- XST_SUCCESS - If the IPI send is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI send is successful
+ *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
 int XSecure_IpiReadBuff32(void)
@@ -290,8 +299,9 @@ END:
  *
  * @param  	IpiInst 	Pointer to IPI driver instance
  *
- * @return	- XST_SUCCESS - If the IPI poniter is successfully set
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the IPI poniter is successfully set
+ *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
 int XSecure_SetIpi(XIpiPsu* const IpiInst)
@@ -320,8 +330,8 @@ END:
 * @param	IpiInstPtr	Pointer to IPI instance
 *
 * @return
-* 		- XST_SUCCESS if Ipi configuration is successful
-*		- XST_FAILURE if Ipi configuration is failed.
+*	-	XST_SUCCESS - if Ipi configuration is successful
+*	-	XST_FAILURE - if Ipi configuration is failed.
 *
 ******************************************************************************/
 int XSecure_InitializeIpi(XIpiPsu* const IpiInstPtr)
@@ -376,7 +386,8 @@ void XSecure_SetSharedMem(u64 Address, u32 Size)
 * @param	Address	Pointer to the address of the variable for
 *		which memory needs to be assigned
 *
-* @return	Size	Size of the memory allocated for IPI usage
+* @return
+*	-	Size - Size of the memory allocated for IPI usage
 *
 ******************************************************************************/
 u32 XSecure_GetSharedMem(u64 **Address)
@@ -396,8 +407,9 @@ u32 XSecure_GetSharedMem(u64 **Address)
 *
 * This function releases the shared memory
 *
-* @return	XST_SUCCESS - if memory is released
-*		XST_FAILURE - if memory is not released
+* @return
+*	-	XST_SUCCESS - if memory is released
+*	-	XST_FAILURE - if memory is not released
 *
 ******************************************************************************/
 int XSecure_ReleaseSharedMem(void)

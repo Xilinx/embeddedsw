@@ -53,8 +53,9 @@ static XSecure_ShaState Sha3State = XSECURE_SHA_UNINITIALIZED;
  * @brief       This function stores the Sha3 initialize state as initialized
  *              if the current state is uninitialized.
  *
- * @return	- XST_SUCCESS - If the Sha3 state is changed to initialized state
- * 		- XST_FAILURE - If the Sha3 is not in uninitialized state
+ * @return
+ *	-	XST_SUCCESS - If the Sha3 state is changed to initialized state
+ * 	-	XST_FAILURE - If the Sha3 is not in uninitialized state
  *
  ******************************************************************************/
 int XSecure_Sha3Initialize(void)
@@ -78,8 +79,9 @@ int XSecure_Sha3Initialize(void)
  * 				output hash
  * @param	Size		Size of the data to be updated to SHA3 engine
  *
- * @return	- XST_SUCCESS - If the update is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the update is successful
+ * 	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_Sha3Update(const u64 InDataAddr, u32 Size)
@@ -120,10 +122,11 @@ END:
  * @param	OutDataAddr	Address of the output buffer to store the
  * 				output hash
  *
- * @return	- XST_SUCCESS - If finished without any errors
- *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *		- XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
- *		- XST_FAILURE - If Sha3PadType is other than KECCAK or NIST
+ * @return
+ *	-	XST_SUCCESS - If finished without any errors
+ *	-	XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *	-	XSECURE_SHA3_STATE_MISMATCH_ERROR - If State mismatch is occurred
+ *	-	XST_FAILURE - If Sha3PadType is other than KECCAK or NIST
  *
  *****************************************************************************/
 int XSecure_Sha3Finish(const u64 OutDataAddr)
@@ -157,10 +160,11 @@ END:
  * 				output hash
  * @param	Size		Size of the data to be updated to SHA3 engine
  *
- * @return	- XST_SUCCESS - If the sha3 hash calculation is successful
- *		- XSECURE_SHA3_INVALID_PARAM - On invalid parameter
- *		- XSECURE_SHA3_STATE_MISMATCH_ERROR - If there is State mismatch
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *	-	XST_SUCCESS - If the sha3 hash calculation is successful
+ *	-	XSECURE_SHA3_INVALID_PARAM - On invalid parameter
+ *	-	XSECURE_SHA3_STATE_MISMATCH_ERROR - If there is State mismatch
+ *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XSecure_Sha3Digest(const u64 InDataAddr, const u64 OutDataAddr, u32 Size)
@@ -193,14 +197,14 @@ END:
  * 		known answer test(KAT) on SHA crypto engine
  *
  * @return
- * 	- XST_SUCCESS - When KAT Pass
- * 	- XSECURE_SHA3_INVALID_PARAM 	 - On invalid argument
- * 	- XSECURE_SHA3_LAST_UPDATE_ERROR - Error when SHA3 last update fails
- * 	- XSECURE_SHA3_KAT_FAILED_ERROR	 - Error when SHA3 hash not matched with
- * 					   expected hash
- * 	- XSECURE_SHA3_PMC_DMA_UPDATE_ERROR - Error when DMA driver fails to update
- * 					      the data to SHA3
- * 	- XSECURE_SHA3_FINISH_ERROR 	 - Error when SHA3 finish fails
+ *	-	XST_SUCCESS - When KAT Pass
+ *	-	XSECURE_SHA3_INVALID_PARAM 	 - On invalid argument
+ *	-	XSECURE_SHA3_LAST_UPDATE_ERROR - Error when SHA3 last update fails
+ *	-	XSECURE_SHA3_KAT_FAILED_ERROR	 - Error when SHA3 hash not matched with
+ *					   expected hash
+ *	-	XSECURE_SHA3_PMC_DMA_UPDATE_ERROR - Error when DMA driver fails to update
+ *					      the data to SHA3
+ *	-	XSECURE_SHA3_FINISH_ERROR 	 - Error when SHA3 finish fails
  *
  ******************************************************************************/
 int XSecure_Sha3Kat(void)
