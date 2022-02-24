@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -7,10 +7,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver ttcps
 
-  OPTION supported_peripherals = (ps7_ttc psu_ttc psv_ttc);
+  OPTION supported_peripherals = (ps7_ttc psu_ttc psv_ttc psxl_ttc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.15;
+  OPTION VERSION = 3.16;
   OPTION NAME = ttcps;
 
 END driver
