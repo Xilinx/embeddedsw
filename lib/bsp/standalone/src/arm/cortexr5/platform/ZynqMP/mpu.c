@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,9 @@
 *                     Print_DDRSize_Warning has been introduced to print warnings.
 *                     It will be called from boot code after MPU enablement to
 *                     ensure the correct behavior. It fixes CR#1116431.
+* 7.7   mus  02/23/22 Updated Print_DDRSize_Warning function to use xdbg_printf
+*                     instead of xil_printf, so that warning would be printed
+*                     only when DEBUG is enabled. It fixes CR#1123028.
 * </pre>
 *
 * @note
@@ -54,6 +57,7 @@
 #include "xil_mpu.h"
 #include "xpseudo_asm.h"
 #include "xparameters.h"
+#include "xdebug.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -327,7 +331,7 @@ void Init_MPU(void)
 void Print_DDRSize_Warning(void) {
 #ifdef XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
 	if (1 == DDRSizeWarning)
-		xil_printf("WARNING: DDR size mapped to Cortexr5 processor is not \
+		xdbg_printf(XDBG_DEBUG_GENERAL, "WARNING: DDR size mapped to Cortexr5 processor is not \
 		in power of 2. As processor allocates MPU regions size \
             in power of 2, address range %llx to %x has been \
             incorrectly mapped as normal memory \n", \
