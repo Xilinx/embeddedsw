@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -7,10 +7,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver uartpsv
 
-  OPTION supported_peripherals = (psv_sbsauart);
+  OPTION supported_peripherals = (psv_sbsauart psxl_sbsauart);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.6;
+  OPTION VERSION = 1.7;
   OPTION NAME = uartpsv;
 
   BEGIN INTERFACE stdin
