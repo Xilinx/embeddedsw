@@ -237,6 +237,10 @@ int XHdcp22Rx_Dp_CfgInitialize(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_Config 
 		XHdcp22_Rx_StubSetHandler;
 	InstancePtr->Handles.IsRxDpSetClearAuxDeferCallbackSet = FALSE;
 
+	InstancePtr->Handles.Ske_Send_EksCallback =
+		XHdcp22_Rx_StubSetHandler;
+	InstancePtr->Handles.IsSke_Send_EksCallbackSet = FALSE;
+
 	/* Set RXCAPS repeater mode */
 	InstancePtr->RxCaps[0] = 0x02;
 	InstancePtr->RxCaps[1] = 0x00;
@@ -586,6 +590,12 @@ int XHdcp22Rx_Dp_SetCallback(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_HandlerTy
 			InstancePtr->Handles.IsUnauthenticatedCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+		case (XHDCP22_RX_HANDLER_SKE_SEND_EKS):
+				InstancePtr->Handles.Ske_Send_EksCallback = (XHdcp22_Rx_RunHandler)CallbackFunc;
+				InstancePtr->Handles.Ske_Send_EksCallbackRef = CallbackRef;
+				InstancePtr->Handles.IsSke_Send_EksCallbackSet = (TRUE);
+				Status = (XST_SUCCESS);
+				break;
 
 		// Authentication Request
 		case (XHDCP22_RX_HANDLER_AUTHENTICATION_REQUEST):
@@ -699,15 +709,11 @@ int XHdcp22Rx_Dp_Poll(XHdcp22_Rx_Dp *InstancePtr)
 
 	/* Run state machine */
 	if(InstancePtr->Info.IsEnabled == TRUE)
-	{
-		InstancePtr->StateFunc = (XHdcp22_Rx_StateFunc)(*InstancePtr->StateFunc)(InstancePtr);
-	}
+	   InstancePtr->StateFunc = (XHdcp22_Rx_StateFunc)(*InstancePtr->StateFunc)(InstancePtr);
 
 	/* Log state transitions */
 	if(InstancePtr->Info.NextState != InstancePtr->Info.CurrentState)
-	{
 	    XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_STATE, InstancePtr->Info.NextState);
-	}
 
 	return (int)(InstancePtr->Info.AuthenticationStatus);
 }
@@ -1118,7 +1124,6 @@ void XHdcp22Rx_Dp_SetTopologyReceiverIdList(XHdcp22_Rx_Dp *InstancePtr, const u8
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(ListPtr != NULL);
-	Xil_AssertVoid(ListSize <= XHDCP22_RX_MAX_DEVICE_COUNT);
 
 	memcpy(InstancePtr->Topology.ReceiverIdList, ListPtr, (ListSize*XHDCP22_RX_RCVID_SIZE));
 }
@@ -3483,6 +3488,9 @@ static int XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx_Dp *InstancePtr)
 	/* Log info event */
 	XHdcp22Rx_Dp_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_ENCRYPTION_ENABLE);
 
+	if((InstancePtr->Handles.IsSke_Send_EksCallbackSet))
+		InstancePtr->Handles.Ske_Send_EksCallback(InstancePtr->Handles.Ske_Send_EksCallbackRef);
+
 	return XST_SUCCESS;
 }
 
@@ -3800,7 +3808,6 @@ static void XHdcp22Rx_SetTopologyDepth(XHdcp22_Rx_Dp *InstancePtr, u8 Depth)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Depth <= XHDCP22_RX_MAX_DEPTH);
 
 	InstancePtr->Topology.Depth = Depth;
 }
@@ -3824,7 +3831,6 @@ static void XHdcp22Rx_SetTopologyDeviceCnt(XHdcp22_Rx_Dp *InstancePtr, u8 Device
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(DeviceCnt > 0);
-	Xil_AssertVoid(DeviceCnt <= XHDCP22_RX_MAX_DEVICE_COUNT);
 
 	InstancePtr->Topology.DeviceCnt = DeviceCnt;
 }

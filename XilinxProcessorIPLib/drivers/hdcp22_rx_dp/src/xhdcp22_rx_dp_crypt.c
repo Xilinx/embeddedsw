@@ -1233,7 +1233,6 @@ void XHdcp22Rx_ComputeVPrime(const u8 *ReceiverIdList, u32 ReceiverIdListSize,
 	Xil_AssertVoid(ReceiverIdList != NULL);
 	Xil_AssertVoid(ReceiverIdListSize > 0);
 	Xil_AssertVoid(RxInfo != NULL);
-	Xil_AssertVoid(SeqNumV != NULL);
 	Xil_AssertVoid(Km != NULL);
 	Xil_AssertVoid(Rrx != NULL);
 	Xil_AssertVoid(Rtx != NULL);
@@ -1286,8 +1285,6 @@ void XHdcp22Rx_ComputeMPrime(const u8 *StreamIdType, const u8 *SeqNumM,
 	u8 Kd[2 * XHDCP22_RX_AES_SIZE]; /* dkey0 || dkey 1 */
 
 	/* Verify arguments */
-	Xil_AssertVoid(StreamIdType != NULL);
-	Xil_AssertVoid(SeqNumM != NULL);
 	Xil_AssertVoid(Km != NULL);
 	Xil_AssertVoid(Rrx != NULL);
 	Xil_AssertVoid(Rtx != NULL);
