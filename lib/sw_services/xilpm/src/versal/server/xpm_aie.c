@@ -772,8 +772,8 @@ static XStatus AiePreBisrHook(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 
 	(void)AieDomain;
 
-	/* Config AIE SMID: ME_SMID_REG.ME_SMID[4:0]=0x1f */
-	PmOut32((BaseAddress + ME_NPI_ME_SMID_REG), 0x1FU);
+	/* Config AIE SMID: ME_SMID_REG.ME_SMID[4:0]=0xf */
+	PmOut32((BaseAddress + ME_NPI_ME_SMID_REG), 0xFU);
 
 	/* Make AIE block non-secure: ME_SECURE_REG.ME_SECURE[0]=0x0 */
 	PmOut32((BaseAddress + ME_NPI_ME_SECURE_REG), 0U);
@@ -880,8 +880,8 @@ static XStatus Aie2PreBisrHook(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 		goto done;
 	}
 
-	/* Config AIE SMID: ME_SMID_REG.ME_SMID[4:0]=0x1f */
-	PmOut32((BaseAddress + ME_NPI_ME_SMID_REG), 0x1FU);
+	/* Config AIE SMID: ME_SMID_REG.ME_SMID[4:0]=0xf */
+	PmOut32((BaseAddress + ME_NPI_ME_SMID_REG), 0xFU);
 
 	/* Make AIE block non-secure: ME_SECURE_REG.ME_SECURE[0]=0x0 */
 	PmOut32((BaseAddress + ME_NPI_ME_SECURE_REG), 0U);
