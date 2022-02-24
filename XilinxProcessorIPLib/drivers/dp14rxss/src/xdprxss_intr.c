@@ -620,7 +620,17 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 				Status = XST_FAILURE;
 			}
 			break;
-
+		case XDPRXSS_HANDLER_HDCP22_SKE_SEND_EKS:
+			if (InstancePtr->Hdcp22Ptr) {
+				XHdcp22Rx_Dp_SetCallback(InstancePtr->Hdcp22Ptr,
+						XHDCP22_RX_HANDLER_SKE_SEND_EKS,
+					(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+					(void *)CallbackRef);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
 		case XDPRXSS_HANDLER_HDCP22_AUTHENTICATION_REQUEST:
 			if (InstancePtr->Hdcp22Ptr) {
 				XHdcp22Rx_Dp_SetCallback(InstancePtr->Hdcp22Ptr,
