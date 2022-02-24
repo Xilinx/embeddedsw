@@ -67,6 +67,8 @@
 * 		      xtmr_manager_recover_l.S file.
 *       adk  01/31/22 Updated the interrupt examples independent of SEM IP
 *       	      hardware configuration.
+*       adk  02/23/22 Added new API XTMR_Manager_Configure_BrkDelay()
+*       	      for configuring break delay.
 * </pre>
 *
 *****************************************************************************/
@@ -178,6 +180,8 @@ XTMR_Manager_Config *XTMR_Manager_LookupConfig(u16 DeviceId);
 int XTMR_Manager_CfgInitialize(XTMR_Manager *InstancePtr,
 				XTMR_Manager_Config *Config,
 				UINTPTR EffectiveAddr);
+void XTMR_Manager_Configure_BrkDelay(XTMR_Manager *InstancePtr,
+				     u32 BrkDelay);
 
 /*
  * Functions for recovery, in file xtmr_manager_recover.c
