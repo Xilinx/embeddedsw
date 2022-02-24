@@ -5280,7 +5280,7 @@ void XV_Rx_HdmiTrigCb_StreamOn(void *InstancePtr)
 		xhdmi_exdes_ctrlr.SystemEvent = FALSE;
 		PrintRxInfo = TRUE;
 	} else {
-#if defined TX_RX_RATE
+#if (TX_RX_RATE == 1)
 		if (EdidHdmi_t.EdidCtrlParam.MaxFrlRateSupp >=
 				HdmiRxSs.HdmiRx1Ptr->Stream.Frl.CurFrlRate) {
 		    XV_HdmiTxSs1_StartFrlTraining(&HdmiTxSs,
