@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,8 @@
 #include "xcsudma.h"
 #include <stdbool.h>
 
+/************************** Constant Definitions *****************************/
+#define XCSUDMA_WORD_SIZE	(4U)
 /************************** Function Prototypes ******************************/
 
 

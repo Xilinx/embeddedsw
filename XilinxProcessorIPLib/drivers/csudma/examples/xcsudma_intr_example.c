@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 1.6   hk     11/18/19 Correct Versal INTR definition.
 * 1.9	sk     12/23/20 Add the documentation for XCsuDma_IntrExample() function
 * 			parameters to fix the doxygen warning.
+* 1.11	sk     12/20/21 Add interrupt device id support for A78 and R52 processors.
 * </pre>
 *
 ******************************************************************************/
@@ -63,7 +64,10 @@
 #else
 #define INTC		XScuGic
 #define INTG_INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#if defined (versal)
+#if defined(VERSAL_NET)
+#define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSXL_PMC_DMA_0_INTR /**< Interrupt device ID
+						 *  of PMC DMA 0 device ID */
+#elif defined (versal)
 #define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSV_PMC_DMA_0_INTR /**< Interrupt device ID
 						 *  of PMC DMA 0 device ID */
 #else

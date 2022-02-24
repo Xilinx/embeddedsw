@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.0   vnsld  22/10/14 First release
 * 1.9	sk     02/11/21 Add description for XPS_CRP_BASEADDRESS and
 * 			XCSUDMA_DONE_TIMEOUT_VAL macros.
+* 2.0   sk     22/02/22 Added support for VERSAL NET
 * </pre>
 *
 ******************************************************************************/
@@ -97,7 +98,11 @@ extern "C" {
 /** @name Address register bit masks
  * @{
  */
+#if defined (VERSAL_NET)
+#define XCSUDMA_ADDR_MASK	0xFFFFFFFFU	/**< Address mask */
+#else
 #define XCSUDMA_ADDR_MASK	0xFFFFFFFCU	/**< Address mask */
+#endif
 #define XCSUDMA_ADDR_LSB_MASK	0x00000003U	/**< Address alignment check
 						  *  mask */
 /*@}*/
@@ -106,8 +111,13 @@ extern "C" {
  * @{
  */
 #define XCSUDMA_SIZE_MASK	0x1FFFFFFCU	/**< Mask for size */
+#if defined (VERSAL_NET)
+#define XCSUDMA_LAST_WORD_MASK	0x20000000U	/**< Last word check bit mask*/
+#define XCSUDMA_SIZE_SHIFT	0U		/**< Shift for size */
+#else
 #define XCSUDMA_LAST_WORD_MASK	0x00000001U	/**< Last word check bit mask*/
 #define XCSUDMA_SIZE_SHIFT	2U		/**< Shift for size */
+#endif
 /*@}*/
 
 /** @name Status register bit masks and shifts
