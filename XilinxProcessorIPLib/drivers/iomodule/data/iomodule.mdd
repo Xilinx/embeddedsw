@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -10,10 +10,10 @@ OPTION psf_version = 2.1;
 BEGIN driver iomodule
 
     OPTION DRC = iomodule_drc;
-    OPTION supported_peripherals = (iomodule);
+    OPTION supported_peripherals = (iomodule psxl_iomodule);
     OPTION driver_state = ACTIVE;
     OPTION copyfiles = all;
-    OPTION VERSION = 2.13;
+    OPTION VERSION = 2.14;
     OPTION NAME = iomodule;
     OPTION INTC_TYPE = XIOModule; 
 
