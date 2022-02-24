@@ -1580,6 +1580,8 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA1(XHdcp22_Tx_Dp *InstancePtr)
 	InstancePtr->Info.SentFirstSeqNum_M = FALSE;
 	InstancePtr->Info.IsContentStreamTypeSent = FALSE;
 	InstancePtr->Info.SeqNum_M = 0;
+	InstancePtr->Info.SeqNum_V = 0;
+	InstancePtr->Info.Prev_SeqNum_M = 0;
 	InstancePtr->Info.ContentStreamManageCheckCounter = 0;
 
 	/* Goto the waiting state for AKE_SEND_CERT */
@@ -2404,6 +2406,7 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx_Dp *InstancePt
 	InstancePtr->Topology.DeviceCnt = DeviceCount + 1;
 	InstancePtr->Topology.Depth =
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[0] >> 1) & 0x7;
+	InstancePtr->Topology.Depth = InstancePtr->Topology.Depth +1;
 	InstancePtr->Topology.MaxDevsExceeded =
 		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x8) ? TRUE : FALSE;
 	InstancePtr->Topology.MaxCascadeExceeded =
@@ -2469,22 +2472,10 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx_Dp *InstancePt
 	SeqNum_V |= MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V[1] << 8;
 	SeqNum_V |= MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V[2];       // LSB
 
-	/* Verify the seq_num_V value */
-	if (InstancePtr->Info.ReceivedFirstSeqNum_V == FALSE) {
-		if (SeqNum_V != 0) {
-			/* First value should be 0. Go to state A0 */
-			return XHDCP22_TX_STATE_A0;
-		}
-		InstancePtr->Info.ReceivedFirstSeqNum_V = TRUE;
-	}
-	else {
-		/* Check for roll-over of seq_num_V */
-		if (SeqNum_V == 0) {
-			/* Roll-over of seq_num_V. Go to state A0 */
-			return XHDCP22_TX_STATE_A0;
-		}
-	}
+	if (SeqNum_V < InstancePtr->Info.SeqNum_V)
+		return XHDCP22_TX_STATE_A0;
 
+	InstancePtr->Info.SeqNum_V = SeqNum_V;
 	/* State A8: Send Receiver ID list acknowledgement */
 	Result = XHdcp22Tx_WriteRepeaterAuth_Send_Ack(InstancePtr, &V[XHDCP22_TX_V_PRIME_SIZE]);
 
@@ -2498,18 +2489,7 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx_Dp *InstancePt
 	if (InstancePtr->IsDownstreamTopologyAvailableCallbackSet)
 		InstancePtr->DownstreamTopologyAvailableCallback(InstancePtr->DownstreamTopologyAvailableCallbackRef);
 
-	/* Have we already sent the Content Stream Type? */
-	if (InstancePtr->Info.IsContentStreamTypeSent == TRUE) {
-		/* Start the re-authentication check timer */
-		XHdcp22Tx_StartTimer(InstancePtr, 1000, XHDCP22_TX_TS_RX_REAUTH_CHECK);
-
-		/* Go to state A5 */
-		return XHDCP22_TX_STATE_A5;
-	}
-	else {
-		/* Go to state A9 */
-		return XHDCP22_TX_STATE_A9;
-	}
+	return XHDCP22_TX_STATE_A9;
 }
 
 
@@ -2624,14 +2604,13 @@ static XHdcp22_Tx_Dp_StateType XHdcp22Tx_StateA9(XHdcp22_Tx_Dp *InstancePtr)
 	}
 
 	/* Check for roll-over of seq_num_M */
-	if ((InstancePtr->Info.SentFirstSeqNum_M == TRUE) &&
-		(InstancePtr->Info.SeqNum_M == 0)) {
+	if ((InstancePtr->Info.SeqNum_M < InstancePtr->Info.Prev_SeqNum_M)) {
 		/* Roll-over detected. According to the state-diagram
 		 * we should go to state H1 and restart authentication.
 		 * Instead of doing that we restart authentication by going to state A0 */
 		return XHDCP22_TX_STATE_A0;
 	}
-
+	InstancePtr->Info.Prev_SeqNum_M = InstancePtr->Info.SeqNum_M;
 	/* Send the Content Stream Manage message */
 	Result = XHdcp22Tx_WriteRepeaterAuth_Stream_Manage(InstancePtr);
 
