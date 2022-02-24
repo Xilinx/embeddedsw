@@ -694,7 +694,7 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 
 	if (FlashEraseStats->State == XBIR_FLASH_ERASE_NOTSTARTED) {
 		Xbir_QspiEraseStatsInit();
-		FlashEraseStats->State = XBIR_FLASH_ERASE_STARTED;
+		FlashEraseStats->State = XBIR_FLASH_ERASE_REQUESTED;
 		FlashEraseStats->CurrentImgErased = (u8)BootImgId;
 	}
 	else if (FlashEraseStats->State == XBIR_FLASH_ERASE_COMPLETED) {

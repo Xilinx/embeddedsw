@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,8 +41,9 @@ extern "C" {
 #define XBIR_SYS_MAX_PART_NO_VAL_LEN	(20U)
 #define XBIR_SYS_MAX_UUID_VAL_LEN	(20U)
 #define XBIR_FLASH_ERASE_NOTSTARTED	(0U)
-#define XBIR_FLASH_ERASE_STARTED	(1U)
-#define XBIR_FLASH_ERASE_COMPLETED	(2U)
+#define XBIR_FLASH_ERASE_REQUESTED	(1U)
+#define XBIR_FLASH_ERASE_STARTED	(2U)
+#define XBIR_FLASH_ERASE_COMPLETED	(3U)
 
 /**************************** Type Definitions *******************************/
 typedef struct {

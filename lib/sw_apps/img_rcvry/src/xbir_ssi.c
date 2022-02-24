@@ -216,7 +216,7 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 		XBIR_SSI_JSON_OBJ_END,
 		XBIR_SSI_JSON_OBJ_END);
 	Status = XST_SUCCESS;
-	Xbir_Printf("\n[SysInfo]\n%s\n", JsonStr);
+	Xbir_Printf("\r\n[SysInfo] %s\r\n", JsonStr);
 
 END:
 	return Status;
@@ -284,7 +284,7 @@ int Xbir_SsiJsonBuildBootImgStatus (char *JsonStr, u16 JsonStrLen)
 		XBIR_SSI_JSON_OBJ_END);
 	Status = XST_SUCCESS;
 
-	Xbir_Printf("\n[BootImgInfo]\n%s\n", JsonStr);
+	Xbir_Printf("[BootImgInfo] %s\r\n", JsonStr);
 
 END:
 	return Status;
@@ -333,7 +333,12 @@ int Xbir_SsiJsonBuildFlashEraseStatus(char *JsonStr, u16 JsonStrLen)
 		ProgressString,
 		XBIR_SSI_JSON_OBJ_END);
 
-	Xbir_Printf("\n[FlashEraseStatus]\n%s\n", JsonStr);
+	if (FlashEraseStats->State == XBIR_FLASH_ERASE_REQUESTED) {
+		FlashEraseStats->State = XBIR_FLASH_ERASE_STARTED;
+		Xbir_Printf("FlashEraseStatus Progress: \n\r");
+	}
+	Xbir_Printf("%3u %%\r", Progress);
+
 	Status = XST_SUCCESS;
 
 END:
