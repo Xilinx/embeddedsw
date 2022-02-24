@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic.h
-* @addtogroup scugic_v4_7
+* @addtogroup scugic_v5_0
 * @{
 * @details
 *
@@ -172,6 +172,7 @@
 * 4.6	sk   08/05/21 Fix scugic misrac violations.
 * 4.7   dp   11/22/21 Added new API XScuGic_IsInitialized() to check and return
 *                     the GIC initialization status.
+* 5.9   mus  22/02/22 Add support for VERSAL NET
 *
 * </pre>
 *
@@ -322,6 +323,7 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 #define XScuGic_DistReadReg(InstancePtr, RegOffset) \
 (XScuGic_ReadReg(((InstancePtr)->Config->DistBaseAddress), (RegOffset)))
 
+#if defined (GICv3)
 /****************************************************************************/
 /**
 *
@@ -400,6 +402,30 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 (XScuGic_ReadReg((((InstancePtr)->Config->DistBaseAddress)+ \
 					XSCUGIC_RDIST_SGI_PPI_OFFSET), (RegOffset)))
 
+#if defined(ARMR52)
+#define XREG_ICC_SRE_EL1	"p15, 0, %0,  c12,  c12, 5"
+#define XREG_ICC_IGRPEN0_EL1	"p15, 0, %0,  c12,  c12, 6"
+#define XREG_ICC_IGRPEN1_EL1	"p15, 0, %0,  c12,  c12, 7"
+#define XREG_ICC_SGI0R_EL1	"p15, 2, %0,  %1,  c12"
+#define XREG_ICC_SGI1R_EL1	"p15, 0, %0,  %1,  c12"
+#define XREG_ICC_PMR_EL1	"p15, 0, %0,  c4,  c6, 0"
+#define XREG_ICC_IAR0_EL1	"p15, 0, %0,  c12,  c8, 0"
+#define XREG_ICC_EOIR0_EL1	"p15, 0, %0,  c12,  c8, 1"
+#define XREG_IMP_CBAR		"p15, 1, %0, c15, c3, 0"
+#else
+#define XREG_ICC_SRE_EL1	"S3_6_C12_C12_5"
+#define XREG_ICC_SRE_EL3	"S3_6_C12_C12_5"
+#define XREG_ICC_IGRPEN0_EL1	"S3_0_C12_C12_6"
+#define XREG_ICC_IGRPEN1_EL1	"S3_0_C12_C12_7"
+#define XREG_ICC_IGRPEN1_EL3	"S3_6_C12_C12_7"
+#define XREG_ICC_SGI0R_EL1	"S3_0_C12_C11_7"
+#define XREG_ICC_SGI1R_EL1	"S3_0_C12_C11_5"
+#define XREG_ICC_PMR_EL1	"S3_0_C4_C6_0"
+#define XREG_ICC_IAR0_EL1	"S3_0_C12_C8_0"
+#define XREG_ICC_IAR1_EL1	"S3_0_C12_C12_0"
+#define XREG_ICC_EOIR0_EL1	"S3_0_C12_C8_1"
+#define XREG_ICC_EOIR1_EL1	"S3_0_C12_C12_1"
+#endif
 /****************************************************************************/
 /**
 * This function enables system register interface for GIC CPU Interface
@@ -411,8 +437,12 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
-#define XScuGic_Enable_SystemReg_CPU_Interface_EL3() mtcp(S3_6_C12_C12_5, 0xF);
-#define XScuGic_Enable_SystemReg_CPU_Interface_EL1() mtcp(S3_0_C12_C12_5, 0xF);
+#if defined (__aarch64__)
+#define XScuGic_Enable_SystemReg_CPU_Interface_EL3() mtcpnotoken(XREG_ICC_SRE_EL3, 0xF);
+#define XScuGic_Enable_SystemReg_CPU_Interface_EL1() mtcpnotoken(XREG_ICC_SRE_EL1, 0xF);
+#elif defined (ARMR52)
+#define XScuGic_Enable_SystemReg_CPU_Interface_EL1() mtcp(XREG_ICC_SRE_EL1, 0xF);
+#endif
 /****************************************************************************/
 /**
 * This function enables Grou0 interrupts
@@ -424,7 +454,11 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
-#define XScuGic_Enable_Group0_Interrupts() mtcp(S3_0_C12_C12_6,0x1);
+#if defined(ARMR52)
+#define XScuGic_Enable_Group0_Interrupts() mtcp(XREG_ICC_IGRPEN0_EL1,0x1);
+#else
+#define XScuGic_Enable_Group0_Interrupts() mtcpnotoken(XREG_ICC_IGRPEN0_EL1,0x1);
+#endif
 /****************************************************************************/
 /**
 * This function enables Group1 interrupts
@@ -436,14 +470,16 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
-#if defined (__aarch64__)
-#if EL1_NONSECURE
+#if defined (ARMR52)
+
 #define XScuGic_Enable_Group1_Interrupts() \
-		mtcp (S3_0_C12_C12_7, 0x1 | mfcp(S3_0_C12_C12_7) );
+		mtcp (XREG_ICC_IGRPEN1_EL1, 0x1 | mfcp(XREG_ICC_IGRPEN1_EL1) );
+#elif EL1_NONSECURE
+#define XScuGic_Enable_Group1_Interrupts() \
+                mtcpnotoken(XREG_ICC_IGRPEN1_EL1, 0x1 | mfcpnotoken(XREG_ICC_IGRPEN1_EL1) );
 #else
 #define XScuGic_Enable_Group1_Interrupts() \
-		mtcp (S3_6_C12_C12_7, 0x1 | mfcp(S3_6_C12_C12_7) );
-#endif
+		mtcpnotoken(XREG_ICC_IGRPEN1_EL3, 0x1 | mfcpnotoken(XREG_ICC_IGRPEN1_EL3) );
 #endif
 /****************************************************************************/
 /**
@@ -456,7 +492,11 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note     None.
 *
 *****************************************************************************/
-#define XScuGic_WriteICC_SGI0R_EL1(val) mtcp(S3_0_C12_C11_7,val)
+#if defined(ARMR52)
+#define XScuGic_WriteICC_SGI0R_EL1(val) mtcp2(XREG_ICC_SGI0R_EL1,val)
+#else
+#define XScuGic_WriteICC_SGI0R_EL1(val) mtcpnotoken(XREG_ICC_SGI0R_EL1,val)
+#endif
 
 /****************************************************************************/
 /**
@@ -469,7 +509,11 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
-#define XScuGic_WriteICC_SGI1R_EL1(val) mtcp(S3_0_C12_C11_5,val)
+#if defined(ARMR52)
+#define XScuGic_WriteICC_SGI1R_EL1(val) mtcp2(XREG_ICC_SGI1R_EL1,val)
+#else
+#define XScuGic_WriteICC_SGI1R_EL1(val) mtcpnotoken(XREG_ICC_SGI1R_EL1,val)
+#endif
 
 /****************************************************************************/
 /**
@@ -482,7 +526,11 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
-#define XScuGic_ReadICC_SGI1R_EL1() mfcp(S3_0_C12_C11_5)
+#if defined (ARMR52)
+#define XScuGic_ReadICC_SGI1R_EL1() mfcp(XREG_ICC_SGI1R_EL1)
+#else
+#define XScuGic_ReadICC_SGI1R_EL1() mfcpnotoken(XREG_ICC_SGI1R_EL1)
+#endif
 /****************************************************************************/
 /**
 * This function sets interrupt priority filter
@@ -494,7 +542,11 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
-#define XScuGic_set_priority_filter(val)  __asm__ __volatile__("msr  S3_0_C4_C6_0,%0"  : : "r" (val))
+#if defined (ARMR52)
+#define XScuGic_set_priority_filter(val)  mtcp(XREG_ICC_PMR_EL1, val)
+#else
+#define XScuGic_set_priority_filter(val)  mtcpnotoken(XREG_ICC_PMR_EL1, val)
+#endif
 /****************************************************************************/
 /**
 * This function returns interrupt id of highest priority pending interrupt
@@ -506,12 +558,12 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
-#if defined (__aarch64__)
-#if EL3
-#define XScuGic_get_IntID()  mfcp(S3_0_C12_C8_0)
+#if defined(ARMR52)
+#define XScuGic_get_IntID()  mfcp(XREG_ICC_IAR0_EL1)
+#elif EL3
+#define XScuGic_get_IntID()  mfcpnotoken(XREG_ICC_IAR0_EL1)
 #else
-#define XScuGic_get_IntID()  mfcp(S3_0_C12_C12_0)
-#endif
+#define XScuGic_get_IntID()  mfcpnotoken(XREG_ICC_IAR1_EL1)
 #endif
 /****************************************************************************/
 /**
@@ -524,12 +576,12 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
-#if  defined (__aarch64__)
-#if EL3
-#define XScuGic_ack_Int(val)   mtcp(S3_0_C12_C8_1,val)
+#if defined(ARMR52)
+#define XScuGic_ack_Int(val)   mtcp(XREG_ICC_EOIR0_EL1,val)
+#elif EL3
+#define XScuGic_ack_Int(val)   mtcpnotoken(XREG_ICC_EOIR0_EL1,val)
 #else
-#define XScuGic_ack_Int(val)   mtcp(S3_0_C12_C12_1,val)
-#endif
+#define XScuGic_ack_Int(val)   mtcpnotoken(XREG_ICC_EOIR1_EL1,val)
 #endif
 /****************************************************************************/
 /**
@@ -544,6 +596,7 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 *
 *****************************************************************************/
 #define XScuGic_Get_Rdist_Int_Trigger_Index(IntrId)  (((Int_Id%16) & 0x1f) << 2) +1
+#endif
 /************************** Function Prototypes ******************************/
 
 /*

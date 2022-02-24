@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic.c
-* @addtogroup scugic_v4_7
+* @addtogroup scugic_v5_0
 * @{
 *
 * Contains required functions for the XScuGic driver for the Interrupt
@@ -134,6 +134,7 @@
 * 		      when (Int_Id >= XSCUGIC_SPI_INT_ID_START).
 * 4.7   dp   11/22/21 Added new API XScuGic_IsInitialized() to check and return
 *                     the GIC initialization status.
+* 5.0   mus  22/02/22 Added support for VERSAL NET.
 * </pre>
 *
 ******************************************************************************/
@@ -401,6 +402,10 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 
 		InstancePtr->IsReady = 0U;
 		InstancePtr->Config = ConfigPtr;
+		#if defined(ARMR52)
+		/* Read Distributor base address through IMP_CBAR register */
+		ConfigPtr->DistBaseAddress = mfcp(XREG_IMP_CBAR);
+		#endif
 
 
 		for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
@@ -423,6 +428,12 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 		}
 #if defined (GICv3)
 	u32 Waker_State;
+	#if defined (GIC600)
+	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_PWRR_OFFSET,
+			(XScuGic_ReDistReadReg(InstancePtr, XSCUGIC_RDIST_PWRR_OFFSET) &
+			(~XSCUGIC_RDIST_PWRR_RDPD_MASK)));
+	#endif
+
 	Waker_State = XScuGic_ReDistReadReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET);
 	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET,
 							Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));

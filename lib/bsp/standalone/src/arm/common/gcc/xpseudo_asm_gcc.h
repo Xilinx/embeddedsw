@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 6.0   mus      07/27/16 Consolidated file for a53,a9 and r5 processors
 * 7.2   asa      04/03/20 Renamed the str macro to strw.
 * 7.2   dp       04/30/20 Added clobber "cc" to mtcpsr for aarch32 processors
+* 8.0   mus      02/24/22 Added macro mfcpnotoken and mtcpnotoken.
 * </pre>
 *
 ******************************************************************************/
@@ -207,7 +208,13 @@ extern "C" {
 			rval;\
 			})
 
+#define mfcpnotoken(reg)       ({u64 rval = 0U;\
+                        __asm__ __volatile__("mrs       %0, " reg : "=r" (rval));\
+                        rval;\
+                        })
+
 #define mtcp(reg,val)	__asm__ __volatile__("msr " #reg ",%0"  : : "r" (val))
+#define mtcpnotoken(reg,val)	__asm__ __volatile__("msr " reg ",%0"  : : "r" (val))
 
 #else
 /* CP15 operations */
@@ -223,6 +230,12 @@ extern "C" {
 			 );\
 			 rval;\
 			 })
+
+#define mtcp2(rn, v)     __asm__ __volatile__(\
+                         "mcrr " rn "\n"\
+                         : : "r" (v), "r" (0)\
+                        );
+
 #endif
 
 /************************** Variable Definitions ****************************/

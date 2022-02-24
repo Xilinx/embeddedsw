@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic_sinit.c
-* @addtogroup scugic_v4_7
+* @addtogroup scugic_v5_0
 * @{
 *
 * Contains static init functions for the XScuGic driver for the Interrupt

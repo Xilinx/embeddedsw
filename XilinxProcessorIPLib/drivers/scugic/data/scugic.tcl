@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -87,6 +87,7 @@
 #                     Utility vector logic. Also defined get_interrupt_parent and
 #                     get_connected_intr_cntrl to handle utility vector logic and
 #                     return proper interrupt controller.
+# 5.0   mus  22/02/22 Added support for VERSAL NET.
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -142,6 +143,8 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0) ||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psxl_cortexa78"] == 0) && ([string compare -nocase $periph "psxl_acpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psxl_cortexr52"] == 0) && ([string compare -nocase $periph "psxl_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph_inst
@@ -193,6 +196,8 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 		} elseif {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set value 0xF9001000
+			} elseif {([string compare -nocase $proctype "psxl_cortexr52"] == 0) || ([string compare -nocase $proctype "psxl_cortexa78"] == 0)} {
+				set value 0xE2001000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [::hsi::utils::get_param_value $periph $arg]
 			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
@@ -207,6 +212,8 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) } {
 				set value 0xF9001FFF
+			} elseif {([string compare -nocase $proctype "psxl_cortexr52"] == 0) || ([string compare -nocase $proctype "psxl_cortexa78"] == 0)} {
+				set value 0xE2001FFF
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [::hsi::utils::get_param_value $periph $arg]
 			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
@@ -221,6 +228,8 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 		   } elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) } {
 				set value 0xF9000000
+			} elseif {([string compare -nocase $proctype "psxl_cortexr52"] == 0) || ([string compare -nocase $proctype "psxl_cortexa78"] == 0)} {
+				set value 0xE2000000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value 0xf8f01000
 			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
@@ -278,7 +287,9 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0) || ([string compare -nocase $proctype "psu_cortexa72"] == 0) ||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
-	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
+	     (([string compare -nocase $proctype "psxl_cortexa78"] == 0) && ([string compare -nocase $periph "psxl_acpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psxl_cortexr52"] == 0) && ([string compare -nocase $periph "psxl_rcpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph_inst
 		set valid_periph 1
@@ -338,6 +349,8 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
                 if {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set rvalue 0xF9001000
+			} elseif {([string compare -nocase $proctype "psxl_cortexr52"] == 0) || ([string compare -nocase $proctype "psxl_cortexa78"] == 0)} {
+				set rvalue 0xE2001000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [::hsi::utils::get_param_value $periph $arg]
 			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) } {
@@ -352,6 +365,8 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set rvalue 0xF9001FFF
+			} elseif {([string compare -nocase $proctype "psxl_cortexr52"] == 0) || ([string compare -nocase $proctype "psxl_cortexa78"] == 0)} {
+				set rvalue 0xE2001FFF
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [::hsi::utils::get_param_value $periph $arg]
 			} elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0)} {
@@ -366,6 +381,8 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 		} elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
 			if {([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0)} {
 				set rvalue 0xF9000000
+			} elseif {([string compare -nocase $proctype "psxl_cortexr52"] == 0) || ([string compare -nocase $proctype "psxl_cortexa78"] == 0)} {
+				set rvalue 0xE2000000
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue 0xf8f01000
                         } elseif {([string compare -nocase $proctype "psu_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0)} {
@@ -431,6 +448,8 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psxl_cortexa78"] == 0) && ([string compare -nocase $periph "psxl_acpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psxl_cortexr52"] == 0) && ([string compare -nocase $periph "psxl_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph_inst
@@ -507,6 +526,8 @@ proc xdefine_gic_params {drvhandle} {
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)|| ([string compare -nocase $proctype "psu_cortexa72"] == 0)||
 	     (([string compare -nocase $proctype "psv_cortexa72"] == 0) && ([string compare -nocase $periph "psv_acpu_gic"] == 0)) ||
 	     (([string compare -nocase $proctype "psv_cortexr5"] == 0) && ([string compare -nocase $periph "psv_rcpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psxl_cortexa78"] == 0) && ([string compare -nocase $periph "psxl_acpu_gic"] == 0)) ||
+	     (([string compare -nocase $proctype "psxl_cortexr52"] == 0) && ([string compare -nocase $periph "psxl_rcpu_gic"] == 0)) ||
 	   (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $periph "psu_acpu_gic"] == 0))||
 	   (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $periph "psu_rcpu_gic"] == 0))} {
 		lappend newperiphs $periph_inst
@@ -588,7 +609,7 @@ proc xdefine_gic_params {drvhandle} {
             set ip_name   $source_name($i)
             set port_name $source_port_name($i)
             set port_obj  [::hsi::get_ports $port_name]
-            if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) } {
+            if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) || ([string compare -nocase $proctype "psxl_cortexa78"] == 0) || ([string compare -nocase $proctype "psxl_cortexr52"] == 0)} {
 		set port_intr_id [get_psu_interrupt_id $ip_name $port_name]
                 if {[llength $port_intr_id] == 1} {
 		      set port_intr_id [expr $port_intr_id + 32]
@@ -608,7 +629,7 @@ proc xdefine_gic_params {drvhandle} {
                     set port_obj    [::hsi::get_pins -of_objects $ip_obj $port_name]
                 }
             } else {
-                if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) } {
+                if {([string compare -nocase $proctype "psu_cortexa53"] == 0) || ([string compare -nocase $proctype "psu_cortexr5"] == 0) || ([string compare -nocase $proctype "psv_cortexa72"] == 0) || ([string compare -nocase $proctype "psv_cortexr5"] == 0) || ([string compare -nocase $proctype "psxl_cortexa78"] == 0)  || ([string compare -nocase $proctype "psxl_cortexr52"] == 0)} {
 			set port_intr_id [get_psu_interrupt_id $ip_name $port_name]
 			if {[llength $port_intr_id] == 1} {
 				set port_intr_id [expr $port_intr_id + 32]
@@ -1340,9 +1361,9 @@ proc get_psu_interrupt_id { ip_name port_name } {
 proc is_interrupt { IP_NAME } {
 		if { [string match -nocase $IP_NAME "ps7_scugic"] } {
 						return true
-		} elseif { ([string match -nocase $IP_NAME "psu_acpu_gic"]) || ([string match -nocase $IP_NAME "psv_acpu_gic"])   } {
+		} elseif { ([string match -nocase $IP_NAME "psu_acpu_gic"]) || ([string match -nocase $IP_NAME "psv_acpu_gic"] || ([string match -nocase $IP_NAME "psxl_acpu_gic"])} {
 						return true
-		} elseif { ([string match -nocase $IP_NAME "psu_rcpu_gic"]) || ([string match -nocase $IP_NAME "psv_rcpu_gic"])   } {
+`		} elseif { ([string match -nocase $IP_NAME "psu_rcpu_gic"]) || ([string match -nocase $IP_NAME "psv_rcpu_gic"] || ([string match -nocase $IP_NAME "psxl_rcpu_gic"])} {
 						return true
 		}
 		#puts "return $IP_NAME\n\r"

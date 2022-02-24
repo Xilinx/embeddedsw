@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic_hw.h
-* @addtogroup scugic_v4_7
+* @addtogroup scugic_v5_0
 * @{
 *
 * This header file contains identifiers and HW access functions (or
@@ -59,6 +59,7 @@
 * 4.6	sk   08/05/21 Fix Scugic Misrac violations.
 * 4.7	sk   12/10/21 Update XSCUGIC_SPI_INT_ID_START macro from signed to unsigned
 * 		      to fix misrac violation.
+* 5.0   mus  22/02/22 Added support for VERSAL NET
 *
 * </pre>
 *
@@ -80,15 +81,22 @@ extern "C" {
 #include "bspconfig.h"
 
 /************************** Constant Definitions *****************************/
-#if defined (versal) && !defined(ARMR5)
+#if (defined (versal) && !defined(ARMR5)) || defined (ARMR52)
 #define GICv3
 #endif
+
+#if defined (VERSAL_NET) && ! defined (ARMR52)
+#define GIC600
+#endif
+
 
 /*
  * The maximum number of interrupts supported by the hardware.
  */
 #ifdef PLATFORM_ZYNQ
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	95U /* Maximum number of interrupt defined by Zynq */
+#elif defined (VERSAL_NET)
+#define XSCUGIC_MAX_NUM_INTR_INPUTS    	256U /* Maximum number of interrupt sources in VERSAL NET */
 #elif defined (versal)
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	192U
 #else
@@ -481,9 +489,22 @@ extern "C" {
  *
  * @{
  */
+#if defined (VERSAL_NET) && ! defined (ARMR52)
+#define XSCUGIC_RDIST_OFFSET              0x60000U
+#elif defined (ARMR52)
+#define XSCUGIC_RDIST_OFFSET              0x100000U
+#else
 #define XSCUGIC_RDIST_OFFSET              0x80000U
+#endif
 #define XSCUGIC_RDIST_BASE_ADDRESS        (XPAR_SCUGIC_0_DIST_BASEADDR + XSCUGIC_RDIST_OFFSET)
+
+#if defined (VERSAL_NET) && ! defined (ARMR52)
+#define XSCUGIC_RDIST_SGI_PPI_OFFSET              0x70000U
+#elif defined (ARMR52)
+#define XSCUGIC_RDIST_SGI_PPI_OFFSET              0x110000U
+#else
 #define XSCUGIC_RDIST_SGI_PPI_OFFSET              0x90000U
+#endif
 #define XSCUGIC_RDIST_SGI_PPI_BASE_ADDRESS    (XPAR_SCUGIC_0_DIST_BASEADDR + XSCUGIC_RDIST_SGI_PPI_OFFSET)
 #define XSCUGIC_RDIST_ISENABLE_OFFSET     0x100U
 #define XSCUGIC_RDIST_IPRIORITYR_OFFSET   0x400U
@@ -493,10 +514,13 @@ extern "C" {
 #define XSCUGIC_RDIST_WAKER_OFFSET        0x14U
 #define XSCUGIC_SGIR_EL1_INITID_SHIFT    24U
 
+#if defined (GIC600)
+#define XSCUGIC_RDIST_PWRR_OFFSET	0x24U
+#endif
 /*
  * GICR_IGROUPR  register definitions
  */
-#if EL3
+#if (defined(ARMR52) || EL3)
 #define XSCUGIC_DEFAULT_SECURITY    0x0U
 #else
 #define XSCUGIC_DEFAULT_SECURITY    0xFFFFFFFFU
@@ -505,6 +529,7 @@ extern "C" {
  * GICR_WAKER  register definitions
  */
 #define XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK    0x7
+#define XSCUGIC_RDIST_PWRR_RDPD_MASK	0x1U
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
