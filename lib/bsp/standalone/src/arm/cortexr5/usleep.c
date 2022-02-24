@@ -37,6 +37,7 @@
 *                         CR#1051591.
 * 7.7	sk	 01/10/22 Modify usleep_R5 functions return type from int to
 * 			  void to fix misra_c_2012_rule_17_7 violation.
+* 8.0   mus  02/24/22    Updated usleep_R5 to support CortexR52 processor.
 *
 * </pre>
 *
@@ -79,7 +80,17 @@
 
 void usleep_R5(unsigned long useconds)
 {
-#if defined (SLEEP_TIMER_BASEADDR)
+#if defined (ARMR52)
+        XTime tEnd, tCur;
+
+        tCur = arch_counter_get_cntvct();
+        tEnd  = tCur + (((XTime) useconds) * COUNTS_PER_USECOND);
+        do
+        {
+                tCur = arch_counter_get_cntvct();
+        } while (tCur < tEnd);
+
+#elif defined (SLEEP_TIMER_BASEADDR)
 	Xil_SleepTTCCommon(useconds, COUNTS_PER_USECOND);
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
 	Xpm_SleepPerfCounter(useconds, COUNTS_PER_USECOND);

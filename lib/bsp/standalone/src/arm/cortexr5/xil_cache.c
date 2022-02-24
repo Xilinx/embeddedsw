@@ -22,6 +22,7 @@
 * 		      to fix misra_c_2012_rule_10_4 violation.
 * 7.7	sk   01/10/22 Typecast to fix wider essential type misra_c_2012_rule_10_7
 * 		      violation.
+* 8.0   mus  02/21/22 Updated cache API's to support Cortex-R52
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +117,11 @@ void Xil_DCacheInvalidate(void)
 {
 	u32 currmask;
 	u32 stack_start,stack_end,stack_size;
+#if defined (ARMR52)
+    register u32 CsidReg, C7Reg;
+    u32 CacheSize, LineSize, NumWays;
+    u32 Way, WayIndex, Set, SetIndex, NumSet;
+#endif
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
@@ -135,11 +141,55 @@ void Xil_DCacheInvalidate(void)
 	Xil_DCacheFlushRange(stack_end, stack_size);
 #endif
 
+#if !defined (ARMR52)
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
 
 	/*invalidate all D cache*/
 	mtcp(XREG_CP15_INVAL_DC_ALL, 0);
+#else
+       /* Select cache level 0 and D cache in CSSR */
+        mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
 
+#if defined (__GNUC__)
+        CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
+#elif defined (__ICCARM__)
+         mfcp(XREG_CP15_CACHE_SIZE_ID,CsidReg);
+#endif
+        /* Number of sets */
+        NumSet = (CsidReg >> 13U) & 0x000001FFU;
+        NumSet += 0x00000001U;
+
+        /* Number of Ways */
+        NumWays = (CsidReg & 0x000003ffU) >> 3U;
+        NumWays += 0x00000001U;
+
+
+        /* Get the cacheline size, way size, index size from csidr */
+        LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
+
+
+        /* Determine Cache Size */
+        CacheSize = (NumSet * NumWays * (0x00000001U << LineSize));
+
+        Way = 0U;
+        Set = 0U;
+
+        /* Invalidate all the cachelines */
+        for (WayIndex = 0U; WayIndex < NumWays; WayIndex++) {
+                for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
+                        C7Reg = Way | Set;
+                        /* Flush by Set/Way */
+                        mtcp(XREG_CP15_INVAL_DC_LINE_SW, C7Reg);
+
+                        Set += (0x00000001U << LineSize);
+                }
+                Set = 0U;
+                Way += 0x40000000U;
+        }
+
+        /* Wait for flush to complete */
+        dsb();
+#endif
 	mtcpsr(currmask);
 }
 
@@ -240,6 +290,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 ****************************************************************************/
 void Xil_DCacheFlush(void)
 {
+#if !defined(ARMR52)
 	register u32 CsidReg, C7Reg;
 	u32 CacheSize, LineSize, NumWays;
 	u32 Way, WayIndex, Set, SetIndex, NumSet;
@@ -293,6 +344,7 @@ void Xil_DCacheFlush(void)
 	mtcpsr(currmask);
 
 	mtcpsr(currmask);
+#endif
 }
 
 /****************************************************************************/
@@ -312,6 +364,7 @@ void Xil_DCacheFlush(void)
 ****************************************************************************/
 void Xil_DCacheFlushLine(INTPTR adr)
 {
+#if !defined(ARMR52)
 	u32 currmask;
 
 	currmask = mfcpsr();
@@ -324,6 +377,7 @@ void Xil_DCacheFlushLine(INTPTR adr)
 		/* Wait for flush to complete */
 	dsb();
 	mtcpsr(currmask);
+#endif
 }
 
 /****************************************************************************/
@@ -342,6 +396,7 @@ void Xil_DCacheFlushLine(INTPTR adr)
 ****************************************************************************/
 void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 {
+#if !defined(ARMR52)
 	u32 LocalAddr = adr;
 	const u32 cacheline = 32U;
 	u32 end;
@@ -366,6 +421,7 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 	}
 	dsb();
 	mtcpsr(currmask);
+#endif
 }
 /****************************************************************************/
 /**

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -24,6 +24,10 @@
 * 7.2   mus  10/22/19 Defined RPU_TZ_MASK as #define instead of variable.
 * 7.2   sd   03/20/20 Add clocking support.
 * 7.7   adk  11/30/21 Added support for xiltimer library.
+* 8.0   mus  07/06/21 Added support for VERSAL NET
+* 8.0   mus  19/01/22 Existing bootcode is skipping call to __cpu_init for
+*                     R52, it's keeping PMU events disabled. Updated code
+*                     to fix it.
 * </pre>
 *
 ******************************************************************************/
@@ -62,6 +66,11 @@
 
 _startup:
 	bl      __cpu_init		/* Initialize the CPU first (BSP provides this) */
+
+/* TODO: This logic needs to be updated for Cortex-R52 */
+#if  defined (ARMR52)
+	bl XTime_StartTimer
+#else
 #if (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
 	mrc	p15, 0, r0,  c0,  c0, 5	/* Read MPIDR register */
 	ands	r0, r0, #MPIDR_AFF0	/* Get affinity level 0 */
@@ -78,6 +87,7 @@ test_boot_status:
 
 	/* if warm reset, skip the clearing of BSS and SBSS */
 	bne	.Lenclbss
+#endif
 #endif
 	mov	r0, #0
 
@@ -113,7 +123,10 @@ test_boot_status:
     bl XTime_StartTTCTimer
 #endif
 #endif
+
+#ifndef ARMR52
 	bl 	Xil_InitializeExistingMPURegConfig	/* Initialize MPU config */
+#endif
 	/* run global constructors */
 	bl __libc_init_array
 

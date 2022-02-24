@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,12 @@
 *                         Xil_GetExceptionRegisterHandler to ignore
 *                         Exception_id, only if its pointing to IRQ.
 *                         It fixes CR#1069524
+* 8.0  mus       02/24/22 Updated Xil_ExceptionRegisterHandler and
+*                         Xil_GetExceptionRegisterHandler to support legacy
+*                         driver examples for CortexR52. This is needed, as
+*                         by default scugic driver configures interrupts as
+*                         group0, and CortexR52 GIC triggers FIQ for group0
+*                         interrupts.
 *
 * </pre>
 *
@@ -148,7 +154,7 @@ void Xil_ExceptionRegisterHandler(u32 Exception_id,
 				    Xil_ExceptionHandler Handler,
 				    void *Data)
 {
-#if defined (versal) && !defined(ARMR5) && EL3
+#if (defined (versal) && !defined(ARMR5) && EL3) || defined(ARMR52)
 	if ( XIL_EXCEPTION_ID_IRQ_INT == Exception_id )
 	{
 	/*
@@ -182,7 +188,7 @@ void Xil_GetExceptionRegisterHandler(u32 Exception_id,
 					Xil_ExceptionHandler *Handler,
 					void **Data)
 {
-#if defined (versal) && !defined(ARMR5) && EL3
+#if (defined (versal) && !defined(ARMR5) && EL3) || defined(ARMR52)
 	if ( XIL_EXCEPTION_ID_IRQ_INT == Exception_id )
 	{
 	/*

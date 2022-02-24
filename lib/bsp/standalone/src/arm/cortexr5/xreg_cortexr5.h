@@ -22,6 +22,7 @@
 * 5.00  pkp  02/10/14 Initial version
 * 7.7	sk   01/10/22 Update PRIV_RW_USER_RW macro from unsigned to unsigned
 * 		      long to fix misra_c_2012_rule_12_2 violation.
+* 8.0   mus  02/24/22 Updated #defines to support CortexR52 processor
 * </pre>
 *
 ******************************************************************************/
@@ -143,6 +144,47 @@ extern "C" {
 #define REGION_EN  0x00000001U
 
 
+#if defined (ARMR52)
+
+#define SHAREABLE               0x00000018U     /*shareable */
+#define STRONG_ORDERD_SHARED    0x00000000U     /*strongly ordered, always shareable*/
+
+#define DEVICE_SHARED           0x00000200U     /*device, shareable*/
+#define DEVICE_NONSHARED        0x00000200U     /*device, non shareable*/
+
+#define NORM_NSHARED_WT_NWA     0x00000000U     /*Outer and Inner write-through, no write-allocate non-shareable*/
+#define NORM_SHARED_WT_NWA      0x00000006U     /*Outer and Inner write-through, no write-allocate shareable*/
+
+#define NORM_NSHARED_WB_NWA     0x00000003U     /*Outer and Inner write-back, no write-allocate non shareable*/
+#define NORM_SHARED_WB_NWA              0x00000007U     /*Outer and Inner write-back, no write-allocate shareable*/
+
+#define NORM_NSHARED_NCACHE     0x00000400U     /*Outer and Inner Non cacheable  non shareable*/
+#define NORM_SHARED_NCACHE              0x0000000CU     /*Outer and Inner Non cacheable shareable*/
+
+#define NORM_NSHARED_WB_WA              0x0000000BU     /*Outer and Inner write-back non shared*/
+#define NORM_SHARED_WB_WA               0x0000000FU     /*Outer and Inner write-back shared*/
+
+/* inner and outer cache policies can be combined for different combinations */
+
+#define NORM_IN_POLICY_NCACHE   0x00000020U     /*inner non cacheable*/
+#define NORM_IN_POLICY_WB_WA    0x00000021U     /*inner write back write allocate*/
+#define NORM_IN_POLICY_WT_NWA   0x00000022U     /*inner write through no write allocate*/
+#define NORM_IN_POLICY_WB_NWA   0x00000023U     /*inner write back no write allocate*/
+
+#define NORM_OUT_POLICY_NCACHE  0x00000020U     /*outer non cacheable*/
+#define NORM_OUT_POLICY_WB_WA   0x00000028U     /*outer write back write allocate*/
+#define NORM_OUT_POLICY_WT_NWA  0x00000030U     /*outer write through no write allocate*/
+#define NORM_OUT_POLICY_WB_NWA  0x00000038U     /*outer write back no write allocate*/
+
+#define NO_ACCESS                               (0x00000000U<<8U)       /*No access*/
+#define PRIV_RW_USER_NA                 (0x00000001U<<8U) /*Privileged access only*/
+#define PRIV_RW_USER_RO                 (0x00000002U<<8U) /*Writes in User mode generate permission faults*/
+#define PRIV_RW_USER_RW                 (0x00000002U)       /*Full Access*/
+#define PRIV_RO_USER_NA                 (0x00000005U<<8U) /*Privileged eead only*/
+#define PRIV_RO_USER_RO                 (0x00000006U<<8U) /*Privileged/User read-only*/
+
+#define EXECUTE_NEVER                   (0x00000001U<<12U)  /* Bit 12*/
+#else
 
 #define SHAREABLE				0x00000004U 	/*shareable */
 #define STRONG_ORDERD_SHARED	0x00000000U	/*strongly ordered, always shareable*/
@@ -182,6 +224,7 @@ extern "C" {
 #define PRIV_RO_USER_RO			(0x00000006U<<8U) /*Privileged/User read-only*/
 
 #define EXECUTE_NEVER  			(0x00000001U<<12U)  /* Bit 12*/
+#endif
 
 
 /* CP15 defines */
@@ -257,11 +300,20 @@ extern "C" {
 #define XREG_CP15_DATA_FAULT_ADDRESS		"p15, 0, %0,  c6,  c0, 0"
 #define XREG_CP15_INST_FAULT_ADDRESS		"p15, 0, %0,  c6,  c0, 2"
 
+#if defined(ARMR52)
+#define XREG_CP15_MPU_REG_BASEADDR                      "p15, 0, %0,  c6,  c3, 0"
+#define XREG_CP15_MPU_REG_SIZE_EN                       "p15, 0, %0,  c6,  c3, 1"
+#else
 #define XREG_CP15_MPU_REG_BASEADDR			"p15, 0, %0,  c6,  c1, 0"
 #define XREG_CP15_MPU_REG_SIZE_EN			"p15, 0, %0,  c6,  c1, 2"
+#endif
 #define XREG_CP15_MPU_REG_ACCESS_CTRL		"p15, 0, %0,  c6,  c1, 4"
 
+#if defined(ARMR52)
+#define XREG_CP15_MPU_MEMORY_REG_NUMBER			"p15, 0, %0,  c6,  c2, 1"
+#else
 #define XREG_CP15_MPU_MEMORY_REG_NUMBER			"p15, 0, %0,  c6,  c2, 0"
+#endif
 
 /* C7 Register Defines */
 #define XREG_CP15_NOP				"p15, 0, %0,  c7,  c0, 4"

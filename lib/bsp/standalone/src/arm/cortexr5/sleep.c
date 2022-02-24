@@ -38,6 +38,7 @@
 * 			  violations.
 * 7.7	sk	 01/10/22 Modify sleep_R5 functions return type from unsigned
 * 			  to void to fix misra_c_2012_rule_17_7 violation.
+* 8.0   mus  02/24/22    Updated sleep_R5 to support CortexR52 processor.
 *
 * </pre>
 *
@@ -74,7 +75,17 @@
 
 void sleep_R5(u32 seconds)
 {
-#if defined (SLEEP_TIMER_BASEADDR)
+#if defined (ARMR52)
+	XTime tEnd, tCur;
+
+	tCur = arch_counter_get_cntvct();
+	tEnd  = tCur + (((XTime) seconds) * COUNTS_PER_SECOND);
+	do
+	{
+		tCur = arch_counter_get_cntvct();
+	} while (tCur < tEnd);
+
+#elif defined (SLEEP_TIMER_BASEADDR)
 	Xil_SleepTTCCommon(seconds, COUNTS_PER_SECOND);
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
 	Xpm_SleepPerfCounter(seconds, COUNTS_PER_SECOND);

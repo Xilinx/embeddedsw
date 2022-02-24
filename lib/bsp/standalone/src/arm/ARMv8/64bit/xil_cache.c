@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,6 +60,7 @@
 *                    Xil_DCacheFlushRange function implementation and defined it as
 *                    macro. Xil_DCacheFlushRange macro points to the
 *                    Xil_DCacheInvalidateRange API to avoid code duplication.
+* 8.0 mus  02/24/22  Added support for CortexA78 processor in VERSAL NET SoC
 *
 * </pre>
 *
@@ -227,6 +228,42 @@ void Xil_DCacheDisable(void)
 	/* Wait for Flush to complete */
 	dsb();
 
+#if defined (VERSAL_NET)
+	/* Select cache level 2 and D cache in CSSR */
+	CacheLevel += (0x00000001U << 1U);
+	mtcp(CSSELR_EL1,CacheLevel);
+	isb();
+
+	CsidReg = mfcp(CCSIDR_EL1);
+
+	/* Get the cacheline size, way size, index size from csidr */
+	LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
+
+	/* Number of Ways */
+	NumWays = (CsidReg & 0x00001FFFU) >> 3U;
+	NumWays += 0x00000001U;
+
+	/* Number of Sets */
+	NumSet = (CsidReg >> 13U) & 0x00007FFFU;
+	NumSet += 0x00000001U;
+
+	WayAdjust=clz(NumWays) - (u32)0x0000001FU;
+	Way = 0U;
+	Set = 0U;
+
+	/* Flush all the cachelines */
+	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
+		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
+			C7Reg = Way | Set | CacheLevel;
+			mtcpdc(CISW,C7Reg);
+			Set += (0x00000001U << LineSize);
+		}
+		Set=0U;
+		Way += (0x00000001U<<WayAdjust);
+	}
+	/* Wait for Flush to complete */
+	dsb();
+#endif
 	asm(
 #if EL3==1
 		"tlbi 	ALLE3\n\t"
@@ -340,6 +377,44 @@ void Xil_DCacheInvalidate(void)
 	/* Wait for invalidate to complete */
 	dsb();
 
+#if defined (VERSAL_NET)
+	/* Select cache level 2 and D cache in CSSR */
+	CacheLevel += (0x00000001U<<1U) ;
+	mtcp(CSSELR_EL1,CacheLevel);
+	isb();
+
+	CsidReg = mfcp(CCSIDR_EL1);
+
+	/* Get the cacheline size, way size, index size from csidr */
+		LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
+
+	/* Number of Ways */
+	NumWays = (CsidReg & 0x00001FFFU) >> 3U;
+	NumWays += 0x00000001U;
+
+	/* Number of Sets */
+	NumSet = (CsidReg >> 13U) & 0x00007FFFU;
+	NumSet += 0x00000001U;
+
+	WayAdjust = clz(NumWays) - (u32)0x0000001FU;
+
+	Way = 0U;
+	Set = 0U;
+
+	/* Invalidate all the cachelines */
+	for (WayIndex = 0U; WayIndex < NumWays; WayIndex++) {
+		for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
+			C7Reg = Way | Set | CacheLevel;
+			mtcpdc(ISW,C7Reg);
+			Set += (0x00000001U << LineSize);
+		}
+		Set = 0U;
+		Way += (0x00000001U << WayAdjust);
+	}
+	/* Wait for invalidate to complete */
+	dsb();
+#endif
+
 	mtcpsr(currmask);
 }
 
@@ -412,6 +487,79 @@ void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 		while (adr < end) {
 			mtcpdc(CIVAC,adr);
 			adr += cacheline;
+	#if defined (VERSAL_NET)
+	/*
+	 * Note: "NOP" instructions added below is workaround to avoid processor
+	 * halts observed during execution of cache integration test. Issue is
+	 * observed with O2 optimization level, adding 60 NOP instructions between
+	 * consecutive CIVAC instruction prevents it.  Below are the observations,
+	 *   - Issue observed only with cache integration test, which does stress
+	 *     testing on cache APIs
+	 *   - Issue was not reproduced with O0 optimization level
+	 *   - This issue has been observed from IPP_PSXL_0_9_1 release.
+	 * These NOP instruction would be removed, once said issue is resolved.
+	 */
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+			 __asm volatile( "NOP" );
+	#endif
 		}
 	}
 	/* Wait for invalidate to complete */
@@ -511,6 +659,44 @@ void Xil_DCacheFlush(void)
 	}
 	/* Wait for Flush to complete */
 	dsb();
+
+#if defined(VERSAL_NET)
+	/* Select cache level 1 and D cache in CSSR */
+	CacheLevel += (0x00000001U << 1U);
+	mtcp(CSSELR_EL1,CacheLevel);
+	isb();
+
+	CsidReg = mfcp(CCSIDR_EL1);
+
+	/* Get the cacheline size, way size, index size from csidr */
+		LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
+
+	/* Number of Ways */
+	NumWays = (CsidReg & 0x00001FFFU) >> 3U;
+	NumWays += 0x00000001U;
+
+	/* Number of Sets */
+	NumSet = (CsidReg >> 13U) & 0x00007FFFU;
+	NumSet += 0x00000001U;
+
+	WayAdjust=clz(NumWays) - (u32)0x0000001FU;
+
+	Way = 0U;
+	Set = 0U;
+
+	/* Flush all the cachelines */
+	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
+		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
+			C7Reg = Way | Set | CacheLevel;
+			mtcpdc(CISW,C7Reg);
+			Set += (0x00000001U << LineSize);
+		}
+		Set=0U;
+		Way += (0x00000001U<<WayAdjust);
+	}
+	/* Wait for Flush to complete */
+	dsb();
+#endif
 
 	mtcpsr(currmask);
 }

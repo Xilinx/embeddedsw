@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 *                       present in the HW design. It fixes CR#1051591.
 * 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
 *                        displaying same warnings multiple times. It fixes CR#1090562.
+* 8.0   mus    07/06/21  Added support for VERSAL NET
 *
 * </pre>
 *
@@ -58,6 +59,32 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
+#if defined (ARMR52)
+
+#define LPD_RST_TIMESTAMP  0xEB5E035CU
+/**
+* @brief	Start the 64-bit physical timer counter.
+*
+* @return	None.
+*
+* @note		The timer is initialized only if it is disabled. If the timer is
+*		already running this function does not perform any operation.
+*
+****************************************************************************/
+void XTime_StartTimer(void)
+{
+		/* Take LPD_TIMESTAMP out of reset, TODO: remove this once FW flow is up */
+		Xil_Out32(LPD_RST_TIMESTAMP, 0x0);
+
+		/*write frequency to System Time Stamp Generator Register*/
+		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),
+				XIOU_SCNTRS_FREQ);
+		/*Enable the timer/counter*/
+		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET)
+						,XIOU_SCNTRS_CNT_CNTRL_REG_EN);
+}
+#endif
+
 #if defined (SLEEP_TIMER_BASEADDR)
 #pragma message ("For the sleep routines, TTC3/TTC2 is used")
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
@@ -101,7 +128,9 @@ void XTime_SetTime(XTime Xtime_Global)
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
-#if defined (SLEEP_TIMER_BASEADDR)
+#if defined (ARMR52)
+	*Xtime_Global = arch_counter_get_cntvct();
+#elif defined (SLEEP_TIMER_BASEADDR)
 	*Xtime_Global = Xil_In32(SLEEP_TIMER_BASEADDR +
 				      XSLEEP_TIMER_TTC_COUNT_VALUE_OFFSET);
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)

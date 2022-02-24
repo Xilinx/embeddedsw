@@ -36,6 +36,7 @@
 * 		      violation.
 * 7.7	sk   01/10/22 Add unsigned to hexadecimal value to fix misra_c_2012_rule_7_2
 * 		      violation.
+* 8.0   mus  07/06/21 Added support for VERSAL NET
 * </pre>
 *
 * @note
@@ -146,6 +147,83 @@ void Init_MPU(void)
 
 	Xil_DisableMPURegions();
 
+#if defined(ARMR52)
+	/* 2 GB DDR */
+	Addr = 0x00000000U;
+        RegSize = 0x7FFFFFFF;
+        Attrib = NORM_NSHARED_NCACHE | PRIV_RW_USER_RW;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
+
+	/* 512 MB LPD to AFI fabric slave port */
+        Addr = 0x80000000;
+        RegSize = 0x1FFFFFFF;
+        Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
+
+	/* 256 MB PCIE region + 128 MB PS_FPD_AFI_FS */
+        Addr = 0xA0000000;
+        RegSize = 0x17FFFFFF;
+        Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
+
+	/* 64 MB OCM */
+        Addr = 0xB8000000U;
+        RegSize = 0x3FFFFFF;
+	Attrib = NORM_NSHARED_NCACHE | PRIV_RW_USER_RW;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
+
+        /* 512 MB xSPI + 16 MB Coresight */
+        Addr = 0xC0000000;
+        RegSize = 0x20FFFFFF;
+        Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
+
+
+        /* 16 MB CPM */
+        Addr = 0xE4000000;
+        RegSize = 0xFFFFFF;
+        Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
+
+        /* 16 MB FPD + 32 MB LPD */
+        Addr = 0xEA000000;
+        RegSize = 0x2FFFFFF;
+        Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
+
+
+        /* 128 MB PMC */
+        Addr = 0xF0000000;
+        RegSize = 0x7FFFFFF;
+        Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
+
+        /* 64 MB PS_FPD_CMN */
+        Addr = 0xF8000000;
+        RegSize = 0x3FFFFFF;
+        Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
+
+	/* A total of 9 MPU regions are allocated with another 7 being free for users */
+#else
 	Addr = 0x00000000U;
 #ifdef	XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
@@ -285,6 +363,7 @@ void Init_MPU(void)
 	Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
 
 	/* A total of 11 MPU regions are allocated with another 5 being free for users */
+#endif
 
 }
 
@@ -305,14 +384,23 @@ void Init_MPU(void)
 static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib)
 {
 	u32 Local_reg_size = reg_size;
-
+#if defined(ARMR52)
+        Local_reg_size = (Local_reg_size + addr);
+        Local_reg_size &= (~0x3FUL);
+        Local_reg_size |= ((attrib >> 8) & 0xE);
+#else
 	Local_reg_size = Local_reg_size<<1U;
+#endif
 	Local_reg_size |= REGION_EN;
 	dsb();
 	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,reg_num);
 	isb();
-	mtcp(XREG_CP15_MPU_REG_BASEADDR,addr); 		/* Set base address of a region */
+#if defined (ARMR52)
+	mtcp(XREG_CP15_MPU_REG_BASEADDR,(addr | (attrib & 0x1F))); 		/* Set base address of a region to 64 bit aligned */
+#else
+	mtcp(XREG_CP15_MPU_REG_BASEADDR,addr); 		    /* Set base address of a region */
 	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL,attrib); 	/* Set the control attribute */
+#endif
 	mtcp(XREG_CP15_MPU_REG_SIZE_EN,Local_reg_size);	/* set the region size and enable it*/
 	dsb();
 	isb();						/* synchronize context on this processor */

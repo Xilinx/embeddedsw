@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022  Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,9 +17,10 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 7.2   asa  3/18/10  First release of R5 based performance counter example
+* 8.0   mus  01/19/22 Added support for CortexR52 processor.
 * </pre>
 ******************************************************************************/
-#if defined (ARMR5) && defined (__GNUC__)
+#if (defined (ARMR5) || defined (ARMR52)) && defined (__GNUC__)
 #include "xil_printf.h"
 #include "xpm_counter.h"
 #include "xstatus.h"

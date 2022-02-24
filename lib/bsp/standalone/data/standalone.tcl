@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -67,6 +67,7 @@
 #                     support SSIT devices.
 # 7.7   adk  14/12/21 Updated xsleep_timer_config proc to use TTC3 for sleep
 #                     routines if present in the HW design.
+# 8.0   mus  22/02/22 Added support for VERSAL NET
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -196,6 +197,7 @@ proc get_processor_access {} {
 	set r5_access 0
 	set cnt 0
 	set cortexa72proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
+	set cortexa78proc [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexa78"}]
 	set rpu_instance [get_mem_ranges -of_objects [get_cells -hier $sw_proc_handle] -filter { INSTANCE == "psu_rpu" || INSTANCE == "psv_rpu"}]
 	set slcr_instance [get_mem_ranges -of_objects [get_cells -hier $sw_proc_handle] -filter { INSTANCE == "psu_iouslcr_0" }]
 
@@ -312,7 +314,7 @@ proc generate {os_handle} {
         file copy -force $entry "./src"
     }
 
-    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
+    if { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72" || $proctype == "psxl_cortexa78" || $proctype == "psxl_cortexr52"} {
         set compiler [common::get_property CONFIG.compiler $procdrv]
         foreach entry [glob -nocomplain -types f [file join $armcommonsrcdir *]] {
             file copy -force $entry "./src"
@@ -338,6 +340,7 @@ proc generate {os_handle} {
     }
    
     set cortexa72proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
+    set cortexa78proc [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexa78"}]
 
 
 
@@ -353,7 +356,8 @@ proc generate {os_handle} {
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
 	"psu_pmc" -
-	"psv_pmc"
+	"psv_pmc" -
+	"psxl_pmc"
 	{
 	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
                 # Copy over only files that are not related to exception handling. All such files have exception in their names
@@ -373,7 +377,8 @@ proc generate {os_handle} {
             close $file_handle
         }
 	"psu_psm" -
-	"psv_psm"
+	"psv_psm" -
+	"psxl_psm"
 	{
 	    foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
                 # Copy over only files that are not related to exception handling. All such files have exception in their names
@@ -435,7 +440,8 @@ proc generate {os_handle} {
         }
         "psu_cortexa53" -
 	"psv_cortexa72" -
-	"psu_cortexa72"
+	"psu_cortexa72" -
+	"psxl_cortexa78"
 	{
             set procdrv [hsi::get_sw_processor]
             set compiler [get_property CONFIG.compiler $procdrv]
@@ -459,7 +465,11 @@ proc generate {os_handle} {
 			set platformsrcdir "./src/arm/ARMv8/64bit/platform/ZynqMP/gcc"
 		    }
 		 } else {
-             file copy -force [file join $cortexa53srcdir1 platform versal xparameters_ps.h] ./src
+		if { $proctype == "psv_cortexa72" } {
+                   file copy -force [file join $cortexa53srcdir1 platform versal xparameters_ps.h] ./src
+	        } else {
+                   file copy -force [file join "./src/arm" platform versal_net xparameters_ps.h] ./src
+	        }
              if {[string compare -nocase $compiler "armclang"] == 0} {
                  set platformsrcdir "./src/arm/ARMv8/64bit/platform/versal/armclang"
              } else {
@@ -524,13 +534,16 @@ proc generate {os_handle} {
             close $file_handle
         }  
         "psu_cortexr5" -
-	"psv_cortexr5"
+	"psv_cortexr5" -
+	"psxl_cortexr52"
 	{
 	    set procdrv [hsi::get_sw_processor]
 	    set includedir "./src/arm/ARMv8/includes_ps/"
 	    file copy -force $includedir "./src/"
-	    if {[llength $cortexa72proc] > 0} {
+	    if {$proctype == "psv_cortexr5"} {
 	        set platformincludedir "./src/arm/ARMv8/includes_ps/platform/Versal"
+	    } elseif {$proctype == "psxl_cortexr52"} {
+	        set platformincludedir "./src/arm/platform/versal_net"
 	    } else {
 	        set platformincludedir "./src/arm/ARMv8/includes_ps/platform/ZynqMP"
 	    }
@@ -566,7 +579,7 @@ proc generate {os_handle} {
 	    puts $file_handle ""
 	    puts $file_handle "#include \"xparameters_ps.h\""
 	    puts $file_handle ""
-	    if {[llength $cortexa72proc] > 0} { 
+	    if {[llength $cortexa72proc] > 0 || [llength $cortexa78proc] > 0} {
 		set platformsrcdir "./src/arm/cortexr5/platform/versal"
 	    } else {
 	        set platformsrcdir "./src/arm/cortexr5/platform/ZynqMP"
@@ -640,12 +653,12 @@ proc generate {os_handle} {
     # Write the Config.make file
     set makeconfig [open "./src/config.make" w]
 #    print_generated_header_tcl $makeconfig "Configuration parameters for Standalone Makefile"
-    if { $proctype == "microblaze" || $proctype == "psu_pmu" || $proctype == "psu_psm" || $proctype == "psu_pmc" || $proctype == "psv_psm" || $proctype == "psv_pmc" } {
+    if { $proctype == "microblaze" || $proctype == "psu_pmu" || $proctype == "psu_psm" || $proctype == "psu_pmc" || $proctype == "psv_psm" || $proctype == "psv_pmc" || $proctype == "psxl_pmc" || $proctype == "psxl_psm" } {
         puts $makeconfig "LIBSOURCES = *.c *.S"
         puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_mb.o"
-    } elseif { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5" } {
+    } elseif { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5" || $proctype == "psxl_cortexr52" } {
 	puts $makeconfig "LIBSOURCES = *.c *.S"
-    } elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "psv_cortexa72"}  {
+    } elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexa72" || $proctype == "psv_cortexa72" || $proctype == "psxl_cortexa78"}  {
             puts $makeconfig "LIBSOURCES = *.c *.S"
     } elseif { $proctype == "ps7_cortexa9" } {
         if {[string compare -nocase $compiler "armcc"] == 0} {
@@ -673,7 +686,7 @@ proc generate {os_handle} {
     if { $stdin != "none" } {
         set stdin_ipname [common::get_property IP_NAME [hsi::get_cells -hier $stdin]]
     }
-    if { $proctype == "psv_pmc" && $stdin_ipname != "psv_sbsauart"} {
+    if { ($proctype == "psv_pmc" && $stdin_ipname != "psv_sbsauart") || ($proctype == "psxl_pmc" && $stdin_ipname != "psxl_sbsauart")} {
             common::set_property CONFIG.stdin "none" $os_handle
             handle_stdin_parameter $os_handle
     } elseif { $stdin == "" || $stdin == "none" } {
@@ -688,8 +701,8 @@ proc generate {os_handle} {
     if { $stdout != "none" } {
         set stdout_ipname [common::get_property IP_NAME [hsi::get_cells -hier $stdout]]
     }
-    if { $proctype == "psv_pmc" } {
-		if { $stdout_ipname != "psv_sbsauart" } {
+    if { $proctype == "psv_pmc" || $proctype == "psxl_pmc" } {
+		if {$stdout_ipname != "psv_sbsauart" && $stdout_ipname != "psxl_sbsauart"} {
 			common::set_property CONFIG.stdout "none" $os_handle
 		}
                 handle_stdout_parameter $os_handle
@@ -777,9 +790,13 @@ proc generate {os_handle} {
 			puts $bspcfg_fh "#define HYP_GUEST 0"
 		}
 	}
-    } elseif { $proctype == "psu_cortexa72" || $proctype == "psv_cortexa72"} {
+    } elseif { $proctype == "psu_cortexa72" || $proctype == "psv_cortexa72" || $proctype == "psxl_cortexa78"} {
                 set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
-                set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
+		if {$proctype == "psxl_cortexa78"} {
+                        set flagindex [string first {-DARMA78_EL3} $extra_flags 0]
+		} else {
+			set flagindex [string first {-DARMA72_EL3} $extra_flags 0]
+		}
                 if { $flagindex == -1 } {
                      puts $bspcfg_fh "#define EL3 0"
                      puts $bspcfg_fh "#define EL1_NONSECURE 1"
@@ -820,7 +837,7 @@ proc generate {os_handle} {
 	puts $file_handle "#define PLATFORM_MB"
     }
 
-    if { $proctype == "psv_pmc"} {
+    if { $proctype == "psv_pmc" || $proctype == "psxl_pmc" } {
 	puts $file_handle "#define VERSAL_PLM"
 	foreach entry [glob -nocomplain [file join $versalsrcdir *]] {
 		file copy -force $entry "./src/"
@@ -836,7 +853,18 @@ proc generate {os_handle} {
 		file copy -force $entry "./src/"
 	}
     }
-    if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5"} {
+
+    if {[llength $cortexa78proc] > 0} {
+        puts $file_handle "#ifndef versal"
+        puts $file_handle "#define versal"
+        puts $file_handle "#endif"
+        puts $file_handle ""
+
+        puts $file_handle "#ifndef VERSAL_NET"
+        puts $file_handle "#define VERSAL_NET"
+        puts $file_handle "#endif"
+    }
+    if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psxl_cortexr52"} {
 	 set lockstep_debug [common::get_property CONFIG.lockstep_mode_debug $os_handle]
 	 puts $file_handle " "
 	 puts $file_handle "/* Definitions for debug logic configuration in lockstep mode */"
@@ -859,7 +887,7 @@ proc generate {os_handle} {
 	 puts $file_handle "/* Definitions for sleep timer configuration */"
 	 xsleep_timer_config $proctype $os_handle $file_handle
 	 puts $file_handle " "
-	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5"} {
+	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psxl_cortexr52"} {
 		puts $file_handle "/* Definitions for processor access to RPU/IOU slcr address space*/"
 		set r5_access [get_processor_access]
 		puts $file_handle "#define PROCESSOR_ACCESS_VALUE $r5_access"
@@ -979,15 +1007,15 @@ proc xcreate_cmake_toolchain_file {os_handle is_versal} {
 proc xsleep_timer_config {proctype os_handle file_handle} {
 
     set sleep_timer [common::get_property CONFIG.sleep_timer $os_handle ]
-	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexa72"}]
+	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexa72" || IP_NAME=="psxl_cortexa78"}]
 	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" || $sleep_timer == "psv_iou_scntr" || $sleep_timer == "psv_iou_scntrs"} {
-		if { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5"} {
+		if { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5" || $proctype == "psxl_cortexr52"} {
 			error "ERROR: $proctype does not support $sleep_timer "
 		}
     } elseif { $sleep_timer == "none" } {
-		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
+		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psxl_cortexr52"} {
 			set is_ttc_present 0
-			set periphs [hsi::get_cells -hier -filter {IP_NAME==ps7_ttc || IP_NAME==psu_ttc || IP_NAME==psv_ttc}]
+			set periphs [hsi::get_cells -hier -filter {IP_NAME==ps7_ttc || IP_NAME==psu_ttc || IP_NAME==psv_ttc || IP_NAME==psxl_ttc}]
 			set periphs [lsort -decreasing $periphs]
 			foreach periph $periphs {
 				set base_addr [get_base_value $periph]
@@ -1053,7 +1081,7 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 			}
 			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSU_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
 			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSU_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
-		} elseif {$proctype == "psv_cortexr5" || $proctype == "psv_cortexa72"} {
+		} elseif {$proctype == "psv_cortexr5" || $proctype == "psv_cortexa72" || $proctype == "psxl_cortexa78" || $proctype == "psxl_cortexr52"} {
 			if { $proctype == "psv_cortexr5" && [is_ttc_accessible_from_processor $sleep_timer] == 0 } {
 				error "ERROR: $sleep_timer is secure and it is not accessible to the processor. Please select non secure ttc \
 					instance as sleep_timer from BSP settings"

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -63,6 +63,7 @@
 * 7.7  mus  11/26/21  Added call to Print_DDRSize_Warning after MPU enablement
 *                     to print warning related to DDR size if it is not in
 *                     power of 2. It fixes CR#1116431.
+* 8.0  mus  07/06/21  Added support for VERSAL NET
 * </pre>
 *
 ******************************************************************************/
@@ -104,6 +105,10 @@
 #endif
 .set fault_log_enable,	0x101
 
+#if defined (ARMR52)
+.set counterfreq,       XPAR_CPU_CORTEXR52_0_TIMESTAMP_CLK_FREQ
+#endif
+
 /*
  * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
  * setting for RPU address space
@@ -119,7 +124,15 @@ _prestart:
 _boot:
 
 OKToRun:
+#if defined (ARMR52)
+	mrs r0, cpsr
+	bfi r1, r0, #0, #5
+	cmp r1, #0x1A         /* Check if it is HYP mode */
+	bne InitEL1
 
+        ldr r0, =_vector_table
+        mcr p15, 4, r0, c12, c0, 0      /* Write HVBAR */
+#endif
 /* Initialize processor registers to 0 */
 	mov	r0,#0
 	mov	r1,#0
@@ -134,6 +147,28 @@ OKToRun:
 	mov	r10,#0
 	mov	r11,#0
 	mov	r12,#0
+
+#if defined (ARMR52)
+/* Set counter frequency, CNTFRQ: RW from EL2 RO from EL1 */
+    ldr     r0,=counterfreq              /* 800 KHZ TODO: change it based on HW design through XPARS */
+    mcr     15,0,r0,c14,c0,0        /* Write CNTFRQ */
+
+/* Change EL1 exception base address */
+    ldr r0, =_vector_table
+    mcr p15, 0, r0, c12, c0, 0      /* Write VBAR */
+
+/* Switch to EL1 SVC mode */
+    mrs r0, cpsr
+    mov r1, #0x13                   /* Mode SVC */
+    bfi r0, r1, #0, #5
+    msr spsr, r0
+    ldr r0, =InitEL1
+    msr elr_hyp, r0
+    dsb
+    isb
+    eret
+InitEL1:
+#endif
 
 /* Initialize stack pointer and banked registers for various mode */
 	mrs	r0, cpsr			/* get the current PSR */
@@ -234,7 +269,31 @@ OKToRun:
         dsb                                 	/* Ensure all previous loads/stores have completed */
         mcr     p15, 0, r0, c1, c0, 0       	/* Write CP15 Control Register */
         isb                                 	/* Ensure subsequent insts execute wrt new MPU settings */
+#if defined (ARMR52)
+/* TODO: revisit to check whether fault log handling like Cortex-R5 is needed */
 
+/* Enable ECC checks */
+	mrc p15, 1, r0, c9, c1, 2			/* Read IMP_MEMPROTCTLR */
+	/* disable TCM ECC */
+	bic r0, r0, #(0x1 << 0)				/* disable TCM and L1 cache ECC */
+	mcr p15, 1, r0, c9, c1, 2			/* Write IMP_MEMPROTCTLR */
+
+/* Disable branch prediction */
+	mrc p15, 1, r0, c9, c1, 1			/* Read IMP_BPCTLR */
+	orr r0, r0, #(0x1 << 1)				/* Disable branch prediction */
+	mcr p15, 1, r0, c9, c1, 1 			/* Write IMP_BPCTLR */
+
+/* Set attributes index for normal and device memory in MAIR0 */
+        MRC p15, 0, r0, c10, c2, 0	/* Read MAIR0 */
+        LDR r1, =0xBB                   /* Attribute index0: Normal inner/outer RW cacheable, write-through */
+        BFI r0, r1, #0, #8              /* Update attribute index0 */
+        LDR r1, =0x04                   /* Attribute index1: Device nGnRnE */
+        BFI r0, r1, #8, #8              /* Update Attribute index1 */
+	LDR r1, =0x44                   /* Attribute index1: Normal non cacheable */
+        BFI r0, r1, #16, #8              /* Update Attribute index2 */
+        MCR p15,0,r0,c10,c2,0           /* Write MAIR0 */
+
+#else
 /* Disable Branch prediction, TCM ECC checks */
         mrc     p15, 0, r0, c1, c0, 1       	/* Read ACTLR */
         orr     r0, r0, #(0x1 << 17)        	/* Enable RSDIS bit 17 to disable the return stack */
@@ -282,10 +341,23 @@ OKToRun:
 	nop
 	nop
 #endif
+#endif
 
 init:
 	bl 	Init_MPU		/* Initialize MPU */
+#if defined (ARMR52)
+/* Enable Branch prediction */
+        mrc p15, 1, r0, c9, c1, 1       /* Read IMP_BPCTLR */
+        bic r0, r0, #(0x1 << 1)         /* Enable branch prediction */
+        mcr p15, 1, r0, c9, c1, 1       /* Write IMP_BPCTLR */
 
+	mrc p15, 0, r1, c1, c0, 0	/* Read System Control Register */
+        ldr     r0, =0x1005           /* Set M bit to enable MPU, C & I bit for data and instruction caches  */
+	orr r1,r1,r0
+        dsb                             /* Ensure all previous loads/stores have completed */
+        mcr     p15, 0, r0, c1, c0, 0   /* Write System Control Register */
+        isb
+#else
 /* Enable Branch prediction */
 	mrc     p15, 0, r0, c1, c0, 1       /* Read ACTLR*/
         bic     r0, r0, #(0x1 << 17)        /* Clear RSDIS bit 17 to enable return stack*/
@@ -329,6 +401,7 @@ init:
 	ldr r1, [r0]
 	bic r1, r1, #(0x1 << 2)
 	str r1, [r0]
+#endif
 #endif
 #endif
 /* enable asynchronous abort exception */

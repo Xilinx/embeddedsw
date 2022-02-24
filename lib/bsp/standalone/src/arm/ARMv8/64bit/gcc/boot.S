@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -62,6 +62,15 @@
 *                         any subsequent instruction.
 * 7.0   mus      03/26/18 Updated TCR_EL3/TCR_EL1 as per versal address map
 * 7.3   mus      04/24/20 Corrected CPACR_EL1 handling at EL1 NS
+* 8.0   mus      07/06/21 Added support for CortexA78 processor in VERSAL NET SoC
+* 8.0   mus      10/05/21 Default translation table for VERSAL NET has been configured
+*                         for 256 TB address space, due to this page tables size
+*                         exceeds OCM size, hence executable size is too large
+*                         to fit into OCM. This patch adds option  to reduce
+*                         page table size, when OCM_ELF flag is defined in
+*                         compiler flags, translation table would be configured
+*                         for 1 TB address space. It would help to reduce
+*                         executable size.
 *
 * </pre>
 *
@@ -97,7 +106,9 @@
 .set vector_base,	_vector_table
 .set rvbar_base,	0xFD5C0040
 
-#if defined (versal)
+#if defined (VERSAL_NET)
+.set counterfreq,       XPAR_CPU_CORTEXA78_0_TIMESTAMP_CLK_FREQ
+#elif defined (versal)
 .set counterfreq,       XPAR_CPU_CORTEXA72_0_TIMESTAMP_CLK_FREQ
 #else
 .set counterfreq,	XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
@@ -175,6 +186,7 @@ InitEL3:
 	mrs  x0, MPIDR_EL1
 	and  x0, x0, #0xFF
 	mov  w0, w0
+#ifndef VERSAL_NET
 	ldr	 w2, =rvbar_base
 	/* calculate the rvbar base address for particular CPU core */
 	mov	 w3, #0x8
@@ -182,7 +194,7 @@ InitEL3:
 	add	 w2, w2, w0
 	/* store vector base address to RVBAR */
 	str  x1, [x2]
-
+#endif
 	/*Define stack pointer for current exception level*/
 	ldr	 x2,=EL3_stack
 	mov	 sp,x2
@@ -214,6 +226,8 @@ InitEL3:
 	orr      w1, w1, #(1 << 1)   	//; Set IRQ bit (IRQs routed to EL3)
 	msr      SCR_EL3, x1
 
+/* As per A78 TRM, CPUACTLR_EL1 is reserved for ARM internal use */
+#if !defined (VERSAL_NET)
 	/*configure cpu auxiliary control register EL1 */
 	ldr	x0,=0x80CA000 		// L1 Data prefetch control - 5, Enable device split throttle, 2 independent data prefetch streams
 #if CONFIG_ARM_ERRATA_855873
@@ -225,16 +239,20 @@ InitEL3:
         orr     x0, x0, #(1 << 44)      //; Set ENDCCASCI bit
 #endif
 	msr	S3_1_C15_C2_0, x0 	//CPUACTLR_EL1
+#endif
 
 	/* program the counter frequency */
 	ldr	x0,=counterfreq
 	msr	CNTFRQ_EL0, x0
 
+/* There is no SMPEN bit in A78, TODO: Check for equivalent bit */
+#if !defined (VERSAL_NET)
 	/*Enable hardware coherency between cores*/
 	mrs      x0, S3_1_c15_c2_1  	//Read EL1 CPU Extended Control Register
 	orr      x0, x0, #(1 << 6)  	//Set the SMPEN bit
 	msr      S3_1_c15_c2_1, x0  	//Write EL1 CPU Extended Control Register
 	isb
+#endif
 
 	tlbi 	ALLE3
 	ic      IALLU                  	//; Invalidate I cache to PoU
@@ -257,7 +275,26 @@ InitEL3:
 	ldr      x1, =0x000000BB0400FF44
 	msr      MAIR_EL3, x1
 
-#if defined (versal)
+#if defined (VERSAL_NET) && defined (OCM_ELF)
+        /**********************************************
+         * Set up TCR_EL3
+         * Physical Address Size PS =  010 -> 40bits 1TB
+         * Granual Size TG0 = 00 -> 4KB
+         * Attributes for page table walks = 00 -> non cacheable
+         * size offset of the memory region T0SZ = 24 -> (region size 2^(64-24) = 2^40)
+         ***************************************************/
+        ldr     x1,=0x80823018
+
+#elif defined (VERSAL_NET)
+        /**********************************************
+         * Set up TCR_EL3
+         * Physical Address Size PS =  101 -> 48bits 256 TB
+         * Granual Size TG0 = 00 -> 4KB
+         * size offset of the memory region T0SZ = 16 -> (region size 2^(64-16) = 2^48)
+         ***************************************************/
+        /* ldr     x1,=0x80853510 */
+        ldr     x1,=0x80853010
+#elif defined (versal)
 	/**********************************************
 	 * Set up TCR_EL3
 	 * Physical Address Size PS =  100 -> 44bits 16 TB

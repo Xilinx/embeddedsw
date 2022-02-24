@@ -26,6 +26,7 @@
 * 7.7   mus  01/06/22 Added call to Xil_SetTlbAttributes to set correct
 *                     attributes for GIC in case of Xen domU guest application.
 *                     It fixes CR#974078.
+* 8.0   mus  07/06/21 Added support for VERSAL NET
 * </pre>
 *
 * @note
@@ -57,8 +58,8 @@
 
 	.globl	_startup
 _startup:
-
 	mov	x0, #0
+#if ! defined(VERSAL_NET)
 .if (EL3 == 1)
 	/* Check whether the clearing of bss sections shall be skipped */
 	ldr	x10, =APU_PWRCTL	/* Load PWRCTRL address */
@@ -70,6 +71,7 @@ _startup:
 	ands	w11, w11, w2		/* Get PWRCTRL bit for this core */
 	bne	.Lenclbss		/* Skip BSS and SBSS clearing */
 .endif
+#endif
 	/* clear sbss */
 	ldr 	x1,.Lsbss_start		/* calculate beginning of the SBSS */
 	ldr	x2,.Lsbss_end		/* calculate end of the SBSS */

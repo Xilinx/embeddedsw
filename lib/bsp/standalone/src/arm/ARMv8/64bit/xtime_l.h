@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *		        implementation
 * 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
 *                        displaying same warnings multiple times. It fixes CR#1090562.
+* 8.0   mus    07/06/21  Added support for VERSAL NET
 * </pre>
 *
 *
@@ -50,7 +51,11 @@ extern "C" {
 typedef u64 XTime;
 
 /************************** Constant Definitions *****************************/
-#if defined (versal)
+#if defined (VERSAL_NET)
+#define XIOU_SCNTRS_BASEADDR                            0xEC920000U //0xFD6F0000U
+#define XIOU_SCNTRS_FREQ                                XPAR_CPU_CORTEXA78_0_TIMESTAMP_CLK_FREQ
+#define COUNTS_PER_SECOND     							XIOU_SCNTRS_FREQ
+#elif defined (versal)
 #if defined (SLEEP_TIMER_BASEADDR)
 #define COUNTS_PER_SECOND     SLEEP_TIMER_FREQUENCY
 #else

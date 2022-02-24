@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +30,7 @@
 *                        delta error in time calculations can be minimized.
 * 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
 *                        displaying same warnings multiple times. It fixes CR#1090562.
+* 8.0   mus    07/06/21 Added support for VERSAL NET.
 * </pre>
 *
 ******************************************************************************/
@@ -49,10 +50,20 @@ extern "C" {
 #include "xil_types.h"
 #include "xparameters.h"
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#if defined (ARMR52)
+/* TODO: Taken from ARMv8 32 bit BSP, check if we can keep it in some common location */
+static inline u64 arch_counter_get_cntvct(void)
+ {
+          u64 cval;
+          __asm__ __volatile__("mrrc p15, 1, %Q0, %R0, c14" : "=r" (cval));
+          return cval;
+  }
+#endif
 /************************** Constant Definitions *****************************/
 
-#ifdef SLEEP_TIMER_BASEADDR
+#if defined (ARMR52)
+#define COUNTS_PER_SECOND     XPAR_CPU_CORTEXR52_0_TIMESTAMP_CLK_FREQ
+#elif defined (SLEEP_TIMER_BASEADDR)
 
 #define COUNTS_PER_SECOND				SLEEP_TIMER_FREQUENCY
 
@@ -73,15 +84,36 @@ extern "C" {
 
 #define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
 
+#if defined (ARMR52)
+#pragma message ("For the sleep routines, global timer is used")
+#elif defined (SLEEP_TIMER_BASEADDR)
+#pragma message ("For the sleep routines, TTC3/TTC2 is used")
+#elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
+#pragma message ("For the sleep routines, CortexR5 PMU cycle counter is used")
+#else
+#pragma message ("For the sleep routines, machine cycles are used")
+#endif
+
+#if defined (ARMR52)
+#define XIOU_SCNTRS_BASEADDR 0xEB5B0000U
+#define XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET 0x0U
+#define XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK 0x1U
+#define XIOU_SCNTRS_CNT_CNTRL_REG_EN 0x1U
+#define XIOU_SCNTRS_FREQ_REG_OFFSET 0x20U
+#define XIOU_SCNTRS_FREQ XPAR_CPU_CORTEXR52_0_TIMESTAMP_CLK_FREQ
+#endif
+
 /*
  * 1st bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
  * setting for IOU slcr address space
  */
 #define IOU_SLCR_TZ_MASK	0x2U
 /**************************** Type Definitions *******************************/
-
+#if defined(ARMR52)
+typedef u64 XTime;
+#else
 typedef u32 XTime;
-
+#endif
 /**
  *@endcond
  */

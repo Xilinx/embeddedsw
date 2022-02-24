@@ -46,6 +46,10 @@
 *                         xparameters.h results  in incorrect behavior.
 *                         Including xparameters.h in xil_exception.h to avoid
 *                         such issues. It fixes CR#1120498.
+* 8.0  mus       02/24/22 Updated few macros to support legacy driver examples
+*                         for CortexR52. This is needed, as by default scugic
+*                         driver configures interrupts as group0 and CortexR52
+*                         GIC triggers FIQ for group0 interrupts.
 * </pre>
 *
 ******************************************************************************/
@@ -95,7 +99,7 @@ extern "C" {
 /*
  * XIL_EXCEPTION_ID_INT is defined for all Xilinx processors.
  */
-#if defined (versal) && !defined(ARMR5) && EL3
+#if (defined (versal) && !defined(ARMR5) && EL3) || defined(ARMR52)
 #define XIL_EXCEPTION_ID_INT    XIL_EXCEPTION_ID_FIQ_INT
 #else
 #define XIL_EXCEPTION_ID_INT	XIL_EXCEPTION_ID_IRQ_INT
@@ -127,7 +131,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
 *			C-Style signature: void Xil_ExceptionEnableMask(Mask)
 *
 ******************************************************************************/
-#if defined (versal) && !defined(ARMR5) && EL3
+#if (defined (versal) && !defined(ARMR5) && EL3) || defined(ARMR52)
 /*
  * Cortexa72 processor in versal is coupled with GIC-500, and GIC-500 supports
  * only FIQ at EL3. Hence, tweaking this macro to always enable FIQ
@@ -154,7 +158,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
 * @note     None.
 *
 ******************************************************************************/
-#if defined (versal) && !defined(ARMR5) && EL3
+#if (defined (versal) && !defined(ARMR5) && EL3) || defined(ARMR52)
 #define Xil_ExceptionEnable() \
                 Xil_ExceptionEnableMask(XIL_EXCEPTION_FIQ)
 #else
@@ -174,7 +178,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
 *			C-Style signature: Xil_ExceptionDisableMask(Mask)
 *
 ******************************************************************************/
-#if defined (versal) && !defined(ARMR5) && EL3
+#if (defined (versal) && !defined(ARMR5) && EL3) || defined(ARMR52)
 /*
  * Cortexa72 processor in versal is coupled with GIC-500, and GIC-500 supports
  * only FIQ at EL3. Hence, tweaking this macro to always disable FIQ
