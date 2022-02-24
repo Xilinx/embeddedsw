@@ -55,6 +55,9 @@ extern "C" {
 #define XTI_CR_MAGIC_MASK	0x0ff	/* magic byte mask */
 #define XTI_CR_CPU_MASK		0x300	/* cpu id mask */
 
+/* Instruction Inject Register masks */
+#define	XTI_IIR_MASK		0xffff0000 /* Instruction Inject address mask */
+
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
