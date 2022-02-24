@@ -41,6 +41,8 @@
 *       kpt  10/28/21 Added DmaFlags in XLoader_SecureParams
 *       bsv  02/11/22 Code clean up to reduce size
 *       bsv  02/13/22 Reduce stack usage of functions
+*       har  02/17/22 Added macro XLOADER_AUTH_JTAG_LOCK_DIS_MASK and removed
+*                     macro XLOADER_AUTH_FAIL_COUNTER_RST_VALUE
 *
 * </pre>
 *
@@ -297,15 +299,14 @@ extern "C" {
 			/**< Mask for Authenticated JTAG interrupt status */
 #define XLOADER_AUTH_JTAG_DIS_MASK			(0x180000U)
 			/**< Mask for disabling Authenticated JTAG */
+#define XLOADER_AUTH_JTAG_LOCK_DIS_MASK			(0x600000U)
+	/**< Mask for disabling Authenticated JTAG after secure lockdown */
 #define XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS		(512U)
 			/**< Authenticated JTAG data length(in words) */
 #define XLOADER_AUTH_JTAG_DATA_AH_LENGTH		(104U)
 	/**< Length of Authentication Header in Authenticated JTAG message */
 #define XLOADER_AUTH_JTAG_MAX_ATTEMPTS			(1U)
 		/**< Maximum allowed attempts to authenticate JTAG message */
-#define XLOADER_AUTH_FAIL_COUNTER_RST_VALUE		(0U)
-		/**< . Reset value of counter to keep track of failed attempts
-			of authenticating JTAG message */
 
 #define XLOADER_AUTH_JTAG_PADDING_SIZE			(18U)
 			/**< Authenticated JTAG padding size */
