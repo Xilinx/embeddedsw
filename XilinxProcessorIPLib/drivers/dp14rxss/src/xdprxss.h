@@ -208,6 +208,9 @@ typedef enum {
 	XDPRXSS_HANDLER_HDCP22_ENCRYPTION_UPDATE, /**< Handler for HDCP
 						    encryption status update
 						    event */
+	XDPRXSS_HANDLER_HDCP22_SKE_SEND_EKS,	/**< Handler for HDCP Repeater
+                                                     first stage of authentication
+						     event */
 #endif
 	XDPRXSS_HANDLER_UNPLUG_EVENT,		/**< Unplug event type for
 						  *  DisplayPort RX
