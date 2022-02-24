@@ -217,6 +217,7 @@ typedef enum
 	XHDCP22_RX_HANDLER_DP_AUX_WRITE,	  /**< Set the DP AUX register data*/
 	XHDCP22_RX_HANDLER_DP_CP_IRQ_SET,	  /**< To raise CP_IRQ from DP Rx*/
 	XHDCP22_RX_HANDLER_DP_AUX_DEFER_SET_CLR, /**< To Set or clear AUX DEFFERS for HDCP22 msgs*/
+	XHDCP22_RX_HANDLER_SKE_SEND_EKS,     /**< Executed when  Ks message is received*/
 	XHDCP22_RX_HANDLER_INVALID                /**< Invalid */
 } XHdcp22_Rx_Dp_HandlerType;
 
@@ -475,6 +476,13 @@ typedef struct
 	void                  *RxDpSetClearAuxDeferCallbackRef;
 	/** This flag is set true when the callback has been registered */
 	u8                    IsRxDpSetClearAuxDeferCallbackSet;
+	/** Function pointer Used to Raise SkE event interrupt from DP Rx*/
+	XHdcp22_Rx_RunHandler Ske_Send_EksCallback;
+	/** To be passed to callback function */
+	void                  *Ske_Send_EksCallbackRef;
+	/** This flag is set true when the callback has been registered */
+	u8                    IsSke_Send_EksCallbackSet;
+
 } XHdcp22_Rx_Dp_Handles;
 
 /**
@@ -744,9 +752,9 @@ void XHdcp22Rx_Dp_SetTopologyReceiverIdList(XHdcp22_Rx_Dp *InstancePtr, const u8
 void XHdcp22Rx_Dp_SetTopologyField(XHdcp22_Rx_Dp *InstancePtr, XHdcp22_Rx_Dp_TopologyField Field, u8 Value);
 void XHdcp22Rx_Dp_SetTopologyUpdate(XHdcp22_Rx_Dp *InstancePtr);
 void XHdcp22Rx_Dp_SetRepeater(XHdcp22_Rx_Dp *InstancePtr, u8 Set);
+void XHdcp22_Dp_RxSetReauthReq(XHdcp22_Rx_Dp *InstancePtr);
 u8   XHdcp22Rx_Dp_IsRepeater(XHdcp22_Rx_Dp *InstancePtr);
 u8   XHdcp22Rx_Dp_GetContentStreamType(XHdcp22_Rx_Dp *InstancePtr);
-void XHdcp22_Dp_RxSetReauthReq(XHdcp22_Rx_Dp *InstancePtr);
 
 #ifdef __cplusplus
 }
