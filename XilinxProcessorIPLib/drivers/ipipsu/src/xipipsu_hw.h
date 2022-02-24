@@ -21,6 +21,7 @@
 * 2.1   kvn  05/05/16 Modified code for MISRA-C:2012 Compliance
 * 2.5   sdd  12/17/18 Add the cpp extern macro
 * 2.11  ma   01/17/22 Added XIPIPSU_BASE_ADDR macro
+* 2.12  sd   02/24/22 Added support for VERSAL NET
 *
 * </pre>
 *
@@ -34,7 +35,9 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* Message RAM related params */
-#if defined (versal)
+#if defined (VERSAL_NET)
+#define XIPIPSU_MSG_RAM_BASE 0xEB3F0000U  /**< IPI Message RAM base address */
+#elif defined (versal)
 #define XIPIPSU_MSG_RAM_BASE 0xFF3F0000U  /**< IPI Message RAM base address */
 #else
 #define XIPIPSU_MSG_RAM_BASE 0xFF990000U  /**< IPI Message RAM base address */
@@ -58,11 +61,14 @@ extern "C" {
 #define XIPIPSU_IER_OFFSET 0x18U  /**< Offset for Interrupt Enable Register */
 #define XIPIPSU_IDR_OFFSET 0x1CU  /**< Offset for Interrupt Disable Register */
 
-#if defined (versal)
+#if defined (VERSAL_NET)
+#define XIPIPSU_BASE_ADDR	0xEB300000U /**< VERSAL NET IPI base address */
+#define XIPIPSU_ISR_BASE	0xEB300010U /**< VERSAL NET ISR base address */
+#elif defined (versal)
 #define XIPIPSU_BASE_ADDR	0xFF300000U /**< Versal IPI base address */
 #define XIPIPSU_ISR_BASE	0xFF300010U /**< Versal ISR base address */
-#define XIPIPSU_ECC_UE_MASK	0x40U  /**< Uncorrecteble Error mask */
 #endif
+#define XIPIPSU_ECC_UE_MASK	0x40U  /**< Uncorrecteble Error mask */
 /* MASK of all valid IPI bits in above registers */
 #if defined (versal)
 #define XIPIPSU_ALL_MASK	0x000003FFU /**< All valid bit mask */
