@@ -53,6 +53,7 @@
 * 1.3   mus  08/31/20 Updated makefile to support parallel make and
 *                          incremental builds. It would help to reduce
 *                          compilation time.
+* 1.4   adk  02/24/22 While updating the IIR offset apply the mask.
 * </pre>
 *
 *****************************************************************************/

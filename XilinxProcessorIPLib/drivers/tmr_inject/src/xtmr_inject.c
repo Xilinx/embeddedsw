@@ -21,6 +21,7 @@
 * 1.0   sa   04/05/17 First release
 * 1.1   mus  10/25/18 Updated XTMR_Inject_CfgInitialize to support
 *                     64 bit fault address.
+* 1.4   adk  02/24/22 While updating the IIR offset apply the mask.
 *
 * </pre>
 *
@@ -140,7 +141,7 @@ int XTMR_Inject_CfgInitialize(XTMR_Inject *InstancePtr,
 				xtmr_inject_addr);
 	}
 	XTMR_Inject_WriteReg(InstancePtr->RegBaseAddress, XTI_IIR_OFFSET,
-				xtmr_inject_instr);
+				xtmr_inject_instr & XTI_IIR_MASK);
 
 	return XST_SUCCESS;
 }
