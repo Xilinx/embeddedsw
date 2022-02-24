@@ -374,10 +374,14 @@ typedef struct
 
 	/** Content stream type used with Content Stream Management */
 	XHdcp22_Tx_Dp_ContentStreamType ContentStreamType;
+	/** Sequence number V used with Received Id list */
+	u32 SeqNum_V;
 
 	/** Sequence number M used with Content Stream Management */
 	u32 SeqNum_M;
+	/** Indicates the detection of rollover */
 
+	u32 Prev_SeqNum_M;
 	/** Indicates if the first seq_num_M value is sent */
 	u8 SentFirstSeqNum_M;
 

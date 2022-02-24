@@ -723,7 +723,6 @@ void XHdcp22Tx_ComputeV(const u8* Rn, const u8* Rrx, const u8* RxInfo,
 	Xil_AssertVoid(Rn != NULL);
 	Xil_AssertVoid(Rrx != NULL);
 	Xil_AssertVoid(RxInfo != NULL);
-	Xil_AssertVoid(SeqNum_V != NULL);
 	Xil_AssertVoid(Km != NULL);
 	Xil_AssertVoid(V != NULL);
 
@@ -786,9 +785,7 @@ void XHdcp22Tx_ComputeM(const u8* Rn, const u8* Rrx, const u8* Rtx,
 	Xil_AssertVoid(Rn != NULL);
 	Xil_AssertVoid(Rrx != NULL);
 	Xil_AssertVoid(Rtx != NULL);
-	Xil_AssertVoid(StreamIDType != NULL);
 	Xil_AssertVoid(k != NULL);
-	Xil_AssertVoid(SeqNum_M != NULL);
 	Xil_AssertVoid(Km != NULL);
 	Xil_AssertVoid(M != NULL);
 
