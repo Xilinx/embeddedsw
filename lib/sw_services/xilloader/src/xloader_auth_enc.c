@@ -80,6 +80,8 @@
 *       bsv  02/10/22 Code clean up by removing unwanted initializations
 *       bsv  02/11/22 Code optimization to reduce text size
 *       bsv  02/13/22 Reduce stack usage of functions
+*       har  02/17/22 Updated code to limit number of attempts to enable JTAG
+*                     when efuse bits are set
 *
 * </pre>
 *
@@ -109,6 +111,13 @@
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u32 JtagTimeOut;	/**< Timeout value set by user */
+	u8 JtagTimerEnabled;	/**< Enable JTAG timer */
+	volatile u8 AuthFailCounter;
+		/**< Counter for failed attempts to authenticate JTAG */
+	volatile u8 AuthFailCounterTmp;	/**< For temporal redundancy */
+} XLoader_AuthJtagStatus;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_RSA_PSS_MSB_PADDING_MASK	(u8)(0x80U)
@@ -191,6 +200,7 @@ static void XLoader_DisableJtag(void);
 static void XLoader_SetKatStatus(u32 PlmKatStatus);
 
 /************************** Variable Definitions *****************************/
+static XLoader_AuthJtagStatus AuthJtagStatus = {0U};
 
 /************************** Function Definitions *****************************/
 
@@ -2871,11 +2881,11 @@ int XLoader_AddAuthJtagToScheduler(void)
 static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	volatile u32 InterruptStatus = 0U;
 	volatile u32 InterruptStatusTmp = 0U;
-	static u32 JtagTimeOut = 0U;
-	static u8 JtagTimerEnabled = FALSE;
-	static u8 AuthFailCouter = XLOADER_AUTH_FAIL_COUNTER_RST_VALUE;
+	volatile u32 LockDisStatus = 0U;
+	volatile u32 LockDisStatusTmp = 0U;
 
 	(void)Arg;
 
@@ -2887,30 +2897,46 @@ static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 		(InterruptStatusTmp == XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK)) {
 		XPlmi_Out32(XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_OFFSET,
 			XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
-		if (AuthFailCouter < XLOADER_AUTH_JTAG_MAX_ATTEMPTS) {
-			Status = XLoader_AuthJtag(&JtagTimeOut);
-			if (Status != XST_SUCCESS) {
-				AuthFailCouter += 1U;
+		/**
+		  * Check if Auth JTAG Lock disable efuse bits are set.
+		  * If set then allow limited number of attempts to enable JTAG
+		  *
+		  */
+		LockDisStatus = XPlmi_In32(
+			XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+			XLOADER_AUTH_JTAG_LOCK_DIS_MASK;
+		LockDisStatusTmp = XPlmi_In32(
+			XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+			XLOADER_AUTH_JTAG_LOCK_DIS_MASK;
+		if ((LockDisStatus == XLOADER_AUTH_JTAG_LOCK_DIS_MASK) ||
+			(LockDisStatusTmp == XLOADER_AUTH_JTAG_LOCK_DIS_MASK)) {
+			if ((AuthJtagStatus.AuthFailCounter >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS) ||
+				(AuthJtagStatus.AuthFailCounterTmp >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS)) {
+				Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_AUTH_JTAG_EXCEED_ATTEMPTS, 0);
 				goto END;
 			}
 		}
-		else {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_AUTH_JTAG_EXCEED_ATTEMPTS, 0);
+
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_AuthJtag,
+			&AuthJtagStatus.JtagTimeOut);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			AuthJtagStatus.AuthFailCounter += 1U;
+			AuthJtagStatus.AuthFailCounterTmp += 1U;
 			goto END;
 		}
 
-		if (JtagTimeOut == 0U) {
-			JtagTimerEnabled = FALSE;
+		if (AuthJtagStatus.JtagTimeOut == 0U) {
+			AuthJtagStatus.JtagTimerEnabled = FALSE;
 		}
 		else {
-			JtagTimerEnabled = TRUE;
+			AuthJtagStatus.JtagTimerEnabled = TRUE;
 		}
 	}
 	else {
-		if (JtagTimerEnabled == TRUE) {
-			JtagTimeOut--;
-			if (JtagTimeOut == 0U) {
+		if (AuthJtagStatus.JtagTimerEnabled == TRUE) {
+			AuthJtagStatus.JtagTimeOut--;
+			if (AuthJtagStatus.JtagTimeOut == 0U) {
 				Status = XLOADER_DAP_TIMEOUT_DISABLED;
 				goto END;
 			}
@@ -2922,8 +2948,8 @@ END:
 	/* Reset DAP status */
 	if (Status != XST_SUCCESS) {
 		XLoader_DisableJtag();
-		JtagTimerEnabled = FALSE;
-		JtagTimeOut = 0U;
+		AuthJtagStatus.JtagTimerEnabled = FALSE;
+		AuthJtagStatus.JtagTimeOut = 0U;
 	}
 	return Status;
 }
