@@ -1482,7 +1482,7 @@ XStatus XPmPowerDomain_SecureEfuseTransfer(const u32 NodeId)
 		BypassState = XPm_In32(AmsRoot->Node.BaseAddress +
 				       AMS_ROOT_TOKEN_MNGR_OFFSET) &
 				       AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK;
-		/* Disable the SSC interface to PL satellite */
+		/* Enable the SSC interface to PL satellite */
 		PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_TOKEN_MNGR_OFFSET,
 			AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK, 0U);
 		PmChkRegMask32(AmsRoot->Node.BaseAddress +
