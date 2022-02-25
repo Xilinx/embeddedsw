@@ -30,6 +30,7 @@
 * 3.14  sk     10/22/21 Add support for Erase feature.
 *       mn     11/28/21 Fix MISRA-C violations.
 *       sk     01/10/22 Add support to read slot_type parameter.
+* 4.0   sk     02/25/22 Add support for eMMC5.1.
 *
 * </pre>
 *
@@ -688,7 +689,7 @@ s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 {
 	s32 Status;
 
-#ifndef versal
+#if !defined (versal) && !defined (VERSAL_NET)
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	Status = XSdPs_DllReset(InstancePtr);
 	if (Status != XST_SUCCESS) {
@@ -705,7 +706,7 @@ s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 		goto RETURN_PATH;
 	}
 
-#ifndef versal
+#if !defined (versal) && !defined (VERSAL_NET)
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	Status = XSdPs_DllReset(InstancePtr);
 	if (Status != XST_SUCCESS) {
@@ -821,6 +822,16 @@ s32 XSdPs_CalcBusSpeed(XSdPs *InstancePtr, u32 *Arg)
 		}
 	} else {
 		switch (InstancePtr->Mode) {
+#ifdef VERSAL_NET
+		case XSDPS_HS400_MODE:
+			if (InstancePtr->IsTuningDone == 0U) {
+				*Arg = XSDPS_MMC_HS200_ARG;
+			} else {
+				*Arg = XSDPS_MMC_HS400_ARG;
+			}
+			InstancePtr->BusSpeed = XSDPS_MMC_HS200_MAX_CLK;
+			break;
+#endif
 		case XSDPS_HS200_MODE:
 			*Arg = XSDPS_MMC_HS200_ARG;
 			InstancePtr->BusSpeed = XSDPS_MMC_HS200_MAX_CLK;
@@ -1725,5 +1736,58 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 
 	return RetVal;
 }
+
+#ifdef VERSAL_NET
+/*****************************************************************************/
+/**
+* @brief
+* This function selects the HS400 timing mode.
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+*
+* @return	- XST_SUCCESS if successful
+* 			- XST_FAILURE if failure occurred.
+*
+******************************************************************************/
+u32 XSdPs_Select_HS400(XSdPs *InstancePtr)
+{
+	u32 Status;
+
+	InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
+	Status = XSdPs_Change_MmcBusSpeed(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	InstancePtr->Mode = XSDPS_HS400_MODE;
+	Status = XSdPs_Change_BusWidth(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XSdPs_Change_MmcBusSpeed(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+RETURN_PATH:
+	return Status;
+}
+#endif
 
 /** @} */

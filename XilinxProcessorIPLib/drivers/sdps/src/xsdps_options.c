@@ -61,6 +61,7 @@
 * 3.10  mn     06/05/20 Modified code for SD Non-Blocking Read support
 * 3.12  sk     01/28/21 Added support for non-blocking write.
 * 3.14  mn     11/28/21 Fix MISRA-C violations.
+* 4.0   sk     02/25/22 Add support for eMMC5.1.
 *
 * </pre>
 *
@@ -98,10 +99,12 @@ s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#ifndef VERSAL_NET
 	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 		/* Program the Tap delays */
 		XSdPs_SetTapDelay(InstancePtr);
 	}
+#endif
 
 	Status = XSdPs_SetClock(InstancePtr, SelFreq);
 	if (Status != XST_SUCCESS) {
@@ -275,7 +278,8 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 		}
 	} else {
 		if (InstancePtr->BusWidth == XSDPS_8_BIT_WIDTH) {
-			if (InstancePtr->Mode == XSDPS_DDR52_MODE) {
+			if ((InstancePtr->Mode == XSDPS_DDR52_MODE) ||
+					(InstancePtr->Mode == XSDPS_HS400_MODE)) {
 				Arg = XSDPS_MMC_DDR_8_BIT_BUS_ARG;
 			} else {
 				Arg = XSDPS_MMC_8_BIT_BUS_ARG;
@@ -499,7 +503,8 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 		goto RETURN_PATH;
 	}
 
-	if ((InstancePtr->Mode == XSDPS_HS200_MODE) ||
+	if ((InstancePtr->Mode == XSDPS_HS400_MODE) ||
+		(InstancePtr->Mode == XSDPS_HS200_MODE) ||
 		(InstancePtr->Mode == XSDPS_UHS_SPEED_MODE_SDR104) ||
 		(InstancePtr->Mode == XSDPS_UHS_SPEED_MODE_SDR50)) {
 		Status = XSdPs_Execute_Tuning(InstancePtr);
@@ -516,6 +521,17 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 	StatusReg |= XSDPS_HC_SPEED_MASK;
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_HOST_CTRL1_OFFSET, (u8)StatusReg);
+
+#ifdef VERSAL_NET
+	if (InstancePtr->Mode == XSDPS_HS400_MODE) {
+		InstancePtr->IsTuningDone = 1U;
+		Status = XSdPs_Select_HS400(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	}
+#endif
 
 	Status = XST_SUCCESS;
 

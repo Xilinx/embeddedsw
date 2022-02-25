@@ -24,6 +24,7 @@
 * 3.12  sk     01/28/21 Added support for non-blocking write.
 * 3.14  sk     10/22/21 Add support for Erase feature.
 *       mn     11/28/21 Fix MISRA-C violations.
+* 4.0   sk     02/25/22 Add support for eMMC5.1.
 *
 * </pre>
 *
@@ -106,6 +107,9 @@ void XSdPs_ConfigInterrupt(XSdPs *InstancePtr);
 s32 XSdPs_SendErase(XSdPs *InstancePtr);
 s32 XSdPs_SetEndAddr(XSdPs *InstancePtr, u32 EndAddr);
 s32 XSdPs_SetStartAddr(XSdPs *InstancePtr, u32 StartAddr);
+#ifdef VERSAL_NET
+u32 XSdPs_Select_HS400(XSdPs *InstancePtr);
+#endif
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val);

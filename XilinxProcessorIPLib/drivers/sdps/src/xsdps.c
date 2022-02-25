@@ -86,6 +86,7 @@
 * 3.14  sk     10/22/21 Add support for Erase feature.
 *       mn     11/28/21 Fix MISRA-C violations.
 *       sk     01/10/22 Add support to read slot_type parameter.
+* 4.0   sk     02/25/22 Add support for eMMC5.1.
 *
 * </pre>
 *
@@ -171,6 +172,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->SlcrBaseAddr = XPS_SYS_CTRL_BASEADDR;
 	InstancePtr->IsBusy = FALSE;
 	InstancePtr->BlkSize = 0U;
+	InstancePtr->IsTuningDone = 0U;
 
 	/* Host Controller version is read. */
 	InstancePtr->HC_Version =

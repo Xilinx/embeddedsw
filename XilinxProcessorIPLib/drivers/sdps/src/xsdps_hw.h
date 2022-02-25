@@ -41,6 +41,7 @@
 *       mn     07/03/19 Update Input Tap Delays for Versal
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 * 3.14  mn     11/28/21 Fix MISRA-C violations.
+* 4.0   sk     02/25/22 Add support for eMMC5.1.
 *
 * </pre>
 *
@@ -146,6 +147,9 @@ extern "C" {
 							Register */
 #define XSDPS_HOST_CTRL_VER_OFFSET	0xFEU	/**< Host Controller Version
 							Register */
+#ifdef VERSAL_NET
+#define XSDPS_PHYCTRLREG2_OFFSET	0x274U	/**< PHY Control register2 */
+#endif
 
 /** @} */
 
@@ -615,6 +619,29 @@ extern "C" {
 #define XSDPS_HC_SPEC_V1		0x0000U	/**< HC spec version 1 */
 /** @} */
 
+/** @name PHYCTRL Register2 - DLL enable, FREQ_SEL, Tx and Rx Dly Chain Sel
+ *
+ * This register contains bits for cDLL enable, FREQ_SEL, Tx and Rx Dly Chain Sel
+ * and DLL Ready.
+ * @{
+ */
+
+#define XSDPS_PHYREG2_DLL_EN_MASK		0x00000001U /**< DLL enable */
+#define XSDPS_PHYREG2_DLL_RDY_MASK		0x00000002U /**< DLL Ready */
+#define XSDPS_PHYREG2_FREQ_SEL_MASK		0x00000070U /**< Freq selection */
+#define XSDPS_PHYREG2_FREQ_SEL_SHIFT	4U		/**< Freq selection shift */
+#define XSDPS_FREQ_SEL_170MHZ_200MHz	0U	/**< Macro to select between 170MHz to 200MHz */
+#define XSDPS_FREQ_SEL_140MHZ_169MHz	1U	/**< Macro to select between 140MHz to 169MHz */
+#define XSDPS_FREQ_SEL_110MHZ_139MHz	2U	/**< Macro to select between 110MHz to 139MHz */
+#define XSDPS_FREQ_SEL_80MHZ_109MHz		3U	/**< Macro to select between 80MHz to 109MHz */
+#define XSDPS_FREQ_SEL_50MHZ_79MHz		4U	/**< Macro to select between 50MHz to 79MHz */
+#define XSDPS_PHYREG2_TRIM_ICP_MASK		0x00000F00U /**< DLL TRIM ICP */
+#define XSDPS_PHYREG2_TRIM_ICP_DEF_VAL	8U	/**< DLL TRIM ICP default value */
+#define XSDPS_PHYREG2_TRIM_ICP_SHIFT	8U	/**< DLL TRIM ICP shift */
+#define XSDPS_PHYREG2_DLYTX_SEL_MASK	0x00010000U /**< Delay Chain based Tx Clk */
+#define XSDPS_PHYREG2_DLYRX_SEL_MASK	0x00020000U /**< Delay Chain based Rx Clk */
+/** @} */
+
 /** @name Commands
  *
  * Constant definitions for commands and response related to SD
@@ -921,6 +948,7 @@ extern "C" {
 #define EXT_CSD_HS_TIMING_DEF		0U
 #define EXT_CSD_HS_TIMING_HIGH		1U	/* Card is in high speed mode */
 #define EXT_CSD_HS_TIMING_HS200		2U	/* Card is in HS200 mode */
+#define EXT_CSD_HS_TIMING_HS400		3U	/* Card is in HS200 mode */
 
 #define EXT_CSD_RST_N_FUN_BYTE		162U
 #define EXT_CSD_RST_N_FUN_TEMP_DIS	0U	/* RST_n signal is temporarily disabled */
@@ -951,6 +979,10 @@ extern "C" {
 #define XSDPS_MMC_HS200_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24) \
 					 | ((u32)EXT_CSD_HS_TIMING_BYTE << 16) \
 					 | ((u32)EXT_CSD_HS_TIMING_HS200 << 8))
+
+#define XSDPS_MMC_HS400_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24) \
+					 | ((u32)EXT_CSD_HS_TIMING_BYTE << 16) \
+					 | ((u32)EXT_CSD_HS_TIMING_HS400 << 8))
 
 #define XSDPS_MMC_1_BIT_BUS_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24) \
 					 | ((u32)EXT_CSD_BUS_WIDTH_BYTE << 16) \
@@ -1037,6 +1069,7 @@ extern "C" {
 #define XSDPS_HIGH_SPEED_MODE		0x5U	/**< High Speed mode */
 #define XSDPS_DEFAULT_SPEED_MODE	0x6U	/**< Default speed mode */
 #define XSDPS_HS200_MODE			0x7U	/**< eMMC HS200 mode */
+#define XSDPS_HS400_MODE			0x8U	/**< eMMC HS400 mode */
 #define XSDPS_DDR52_MODE			0x4U	/**< eMMC DDR52 mode */
 #define XSDPS_SWITCH_CMD_BLKCNT		1U	/**< Blk cnt for SWITCH cmd */
 #define XSDPS_SWITCH_CMD_BLKSIZE	64U	/**< Blk sz for SWITCH cmd */
@@ -1090,6 +1123,8 @@ extern "C" {
 #define XSDPS_MMC_HS200_MAX_CLK	200000000U /**< Max clk for MMC HS200 mode */
 #define XSDPS_MMC_HSD_MAX_CLK	52000000U /**< Max clk for MMC HSD mode */
 #define XSDPS_MMC_DDR_MAX_CLK	52000000U /**< Max clk for MMC DDR52 mode */
+
+#define XSDPD_MIN_DLL_MODE_CLK	50000000U	/**< Min clk for DLL mode */
 
 /**
  * @name Card states
