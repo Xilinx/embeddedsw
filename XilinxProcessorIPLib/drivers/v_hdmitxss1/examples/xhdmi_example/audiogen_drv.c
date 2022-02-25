@@ -24,12 +24,20 @@
 
 #include "audiogen_drv.h"
 
+#ifdef XPS_BOARD_VCK190
+static u32 XhdmiAudGen_Mmcme5DividerEncoding(XhdmiAudioGen_MmcmDivType DivType,
+		u16 Div);
+static u32 XhdmiAudGen_Mmcme5CpResEncoding(u16 Mult);
+static u32 XhdmiAudGen_Mmcme5LockReg1Reg2Encoding(u16 Mult);
+#endif
+
 typedef struct {
 	AudioRate_t         SampleRate;
 	XhdmiAudioGen_PLL_t	PLLSettings;
 } XHDMI_SamplingFreq_PLLSettings;
 
 /* MMCM PLL settings for sampling frequencies */
+#ifndef XPS_BOARD_VCK190
 const XHDMI_SamplingFreq_PLLSettings SampleRatePllSettingsTbl[] = {
     { XAUD_SRATE_32K,           { 2, 19,  0, 58,  0 }},
     { XAUD_SRATE_44K1,          { 2, 14,  0, 31,  0 }},
@@ -40,6 +48,18 @@ const XHDMI_SamplingFreq_PLLSettings SampleRatePllSettingsTbl[] = {
     { XAUD_SRATE_192K,          { 1, 10,  0, 10,  0 }},
 	{ XAUD_NUM_SUPPORTED_SRATE, { 0,  0,  0,  0,  0 }},
 };
+#else
+const XHDMI_SamplingFreq_PLLSettings SampleRatePllSettingsTbl[] = {
+    { XAUD_SRATE_32K,           { 1, 38,  0, 232, 0 }},
+    { XAUD_SRATE_44K1,          { 1, 28,  0, 124, 0 }},
+    { XAUD_SRATE_48K,           { 1, 28,  0, 114, 0 }},
+    { XAUD_SRATE_88K2,          { 1, 28,  0, 62,  0 }},
+    { XAUD_SRATE_96K,           { 1, 28,  0, 57,  0 }},
+    { XAUD_SRATE_176K4,         { 1, 28,  0, 31,  0 }},
+    { XAUD_SRATE_192K,          { 1, 43,  0, 44,  0 }},
+	{ XAUD_NUM_SUPPORTED_SRATE, { 0,  0,  0,  0,  0 }},
+};
+#endif
 /* Original:
     { XAUD_SRATE_44K1,          { 2, 19,  0, 42,  0 }},
  */
@@ -303,9 +323,15 @@ int XhdmiAudGen_SetAudClkParam(XhdmiAudioGen_t *AudioGen,
 int XhdmiAudGen_AudClkConfig(XhdmiAudioGen_t *AudioGen)
 {
   u32 dat = 0;
-  u32 fraction;
   u32 waitcount;
+#ifdef XPS_BOARD_VCK190
+  u32 regval;
+  u32 regval2;
+#else
+  u32 fraction;
+#endif
 
+#ifndef XPS_BOARD_VCK190
   /* Set the DIVCLK_DIVIDE and CLKFBOUT_MULT parameters */
   fraction = AudioGen->AudClkPLL.Mult_Eights * 125;
   dat = ((AudioGen->AudClkPLL.Div) & 0xFF);
@@ -337,6 +363,73 @@ int XhdmiAudGen_AudClkConfig(XhdmiAudioGen_t *AudioGen)
     waitcount++;
   }
   return XST_FAILURE;
+
+#else
+  /* Write CLKFBOUT_1 & CLKFBOUT_2 Values */
+  regval = XhdmiAudGen_Mmcme5DividerEncoding(AUDGEN_MMCM_CLKFBOUT_MULT_F,
+			  AudioGen->AudClkPLL.Mult);
+  *(u32*)(AudioGen->AudClkGenBase + 0x330) = (u16)(regval & 0xFFFF);
+  *(u32*)(AudioGen->AudClkGenBase + 0x334) = (u16)((regval >> 16) & 0xFFFF);
+
+  /* Write DIVCLK_DIVIDE & DESKEW_2 Values */
+  regval = XhdmiAudGen_Mmcme5DividerEncoding(AUDGEN_MMCM_DIVCLK_DIVIDE,
+				AudioGen->AudClkPLL.Div) ;
+  *(u32*)(AudioGen->AudClkGenBase + 0x384) = (u16)((regval >> 16) & 0xFFFF);
+  *(u32*)(AudioGen->AudClkGenBase + 0x380) =
+			  ((AudioGen->AudClkPLL.Div == 0) ? 0x0000 :
+					  ((AudioGen->AudClkPLL.Div % 2) ? 0x0400 : 0x0000));
+
+  /* Write CLKOUT0_1 & CLKOUT0_2 Values */
+  regval = XhdmiAudGen_Mmcme5DividerEncoding(AUDGEN_MMCM_CLKOUT_DIVIDE,
+					AudioGen->AudClkPLL.Clk0Div);
+  *(u32*)(AudioGen->AudClkGenBase + 0x338) = (u16)(regval & 0xFFFF);
+  *(u32*)(AudioGen->AudClkGenBase + 0x33C) = (u16)((regval >> 16) & 0xFFFF);
+
+  /* Write CP & RES Values */
+  regval = XhdmiAudGen_Mmcme5CpResEncoding(AudioGen->AudClkPLL.Mult);
+  /* CP */
+  regval2 = *(u32*)(AudioGen->AudClkGenBase + 0x378);
+  regval2 &= ~(0xF);
+  *(u32*)(AudioGen->AudClkGenBase + 0x378) = (u16)((regval & 0xF) | regval2);
+
+  /* RES */
+  regval2 = *(u32*)(AudioGen->AudClkGenBase + 0x3A8);
+  regval2 &= ~(0x1E);
+  *(u32*)(AudioGen->AudClkGenBase + 0x3A8) =
+					  (u16)(((regval >> 15) & 0x1E) | regval2);
+
+  /* Write Lock Reg1 & Reg2 Values */
+  regval = XhdmiAudGen_Mmcme5LockReg1Reg2Encoding(AudioGen->AudClkPLL.Mult);
+  /* LOCK_1 */
+  regval2 = *(u32*)(AudioGen->AudClkGenBase + 0x39C);
+  regval2 &= ~(0x8000);
+  *(u32*)(AudioGen->AudClkGenBase + 0x39C) =
+						(u16)((regval & 0x7FFF) | regval2);
+
+  /* LOCK_2 */
+  regval2 = *(u32*)(AudioGen->AudClkGenBase + 0x3A0);
+  regval2 &= ~(0x8000);
+  *(u32*)(AudioGen->AudClkGenBase + 0x3A0) =
+						(u16)(((regval >> 16) & 0x7FFF) | regval2);
+
+  *(u32*)(AudioGen->AudClkGenBase + 0x3F0) = 0x0000;
+  *(u32*)(AudioGen->AudClkGenBase + 0x3FC) = 0x0001;
+
+  /* Load the regs and start reconfiguration */
+  *(u32*)(AudioGen->AudClkGenBase + 0x014) = 0x3;
+
+  waitcount = 0;
+  while(waitcount < (AUDGEN_WAIT_CNT)) {
+	usleep(100);
+    dat = *(volatile u32*)(AudioGen->AudClkGenBase + 0x004);
+    if(dat & 0x1) {
+      return XST_SUCCESS;
+    }
+    waitcount++;
+  }
+  return XST_FAILURE;
+#endif
+
 }
 
 int XhdmiAudGen_GetAudClk (AudioRate_t SampleRate)
@@ -577,3 +670,446 @@ int XhdmiACRCtrl_TxMode (XhdmiAudioGen_t *AudioGen, u8 setclr)
 
   return XST_SUCCESS;
 }
+
+#ifdef XPS_BOARD_VCK190
+/*****************************************************************************/
+/**
+* This function returns the DRP encoding of ClkFbOutMult optimized for:
+* Phase = 0; Dutycycle = 0.5; No Fractional division
+* The calculations are based on XAPP888
+*
+* @param	Div is the divider to be encoded
+*
+* @return
+*		- Encoded Value for ClkReg1 [15: 0]
+*       - Encoded Value for ClkReg2 [31:16]
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XhdmiAudGen_Mmcme5DividerEncoding(XhdmiAudioGen_MmcmDivType DivType,
+		u16 Div)
+{
+	u32 DrpEnc;
+	u32 ClkReg1;
+    u32 ClkReg2;
+    u8 HiTime, LoTime;
+    u16 Divide = Div;
+
+    if (DivType == AUDGEN_MMCM_CLKOUT_DIVIDE) {
+	/* Div is an odd number */
+		if (Div % 2) {
+		Divide = (Div / 2);
+		}
+		/* Div is an even number */
+		else {
+		Divide = (Div / 2) + (Div % 2);
+		}
+    }
+
+	HiTime = Divide / 2;
+	LoTime = HiTime;
+
+	ClkReg2 = LoTime & 0xFF;
+	ClkReg2 |= (HiTime & 0xFF) << 8;
+
+	if (DivType == AUDGEN_MMCM_CLKFBOUT_MULT_F) {
+		ClkReg1 = (Divide % 2) ? 0x00001700 : 0x00001600;
+	}
+	else {
+		/* Div is an odd number */
+		if (Div % 2) {
+			ClkReg1 = (Divide % 2) ? 0x0000BB00 : 0x0000BA00;
+		}
+		/* Div is an even number */
+		else {
+			ClkReg1 = (Divide % 2) ? 0x00001B00 : 0x00001A00;
+		}
+	}
+
+    DrpEnc = (ClkReg2 << 16) | ClkReg1;
+
+	return DrpEnc;
+}
+
+/*****************************************************************************/
+/**
+* This function returns the DRP encoding of CP and Res optimized for:
+* Phase = 0; Dutycycle = 0.5; BW = low; No Fractional division
+*
+* @param	Mult is the divider to be encoded
+*
+* @return
+*		- [3:0]   CP
+*		- [20:17] RES
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XhdmiAudGen_Mmcme5CpResEncoding(u16 Mult)
+{
+	u32 DrpEnc;
+	u16 cp;
+	u16 res;
+
+    switch (Mult) {
+    case 4:
+         cp = 5; res = 15;
+         break;
+    case 5:
+         cp = 6; res = 15;
+         break;
+    case 6:
+         cp = 7; res = 15;
+         break;
+    case 7:
+         cp = 13; res = 15;
+         break;
+    case 8:
+         cp = 14; res = 15;
+         break;
+    case 9:
+         cp = 15; res = 15;
+         break;
+    case 10:
+         cp = 14; res = 7;
+         break;
+    case 11:
+         cp = 15; res = 7;
+         break;
+    case 12 ... 13:
+         cp = 15; res = 11;
+         break;
+    case 14:
+         cp = 15; res = 13;
+         break;
+    case 15:
+         cp = 15; res = 3;
+         break;
+    case 16 ... 17:
+         cp = 14; res = 5;
+         break;
+    case 18 ... 19:
+         cp = 15; res = 5;
+         break;
+    case 20 ... 21:
+         cp = 15; res = 9;
+         break;
+    case 22 ... 23:
+         cp = 14; res = 14;
+         break;
+    case 24 ... 26:
+         cp = 15; res = 14;
+         break;
+    case 27 ... 28:
+         cp = 14; res = 1;
+         break;
+    case 29 ... 33:
+         cp = 15; res = 1;
+         break;
+    case 34 ... 37:
+         cp = 14; res = 6;
+         break;
+    case 38 ... 44:
+         cp = 15; res = 6;
+         break;
+    case 45 ... 57:
+         cp = 15; res = 10;
+         break;
+    case 58 ... 63:
+         cp = 13; res = 12;
+         break;
+    case 64 ... 70:
+         cp = 14; res = 12;
+         break;
+    case 71 ... 86:
+         cp = 15; res = 12;
+         break;
+    case 87 ... 93:
+         cp = 14; res = 2;
+         break;
+    case 94:
+         cp = 5; res = 15;
+         break;
+    case 95:
+         cp = 6; res = 15;
+         break;
+    case 96:
+         cp = 7; res = 15;
+         break;
+    case 97:
+         cp = 13; res = 15;
+         break;
+    case 98:
+         cp = 14; res = 15;
+         break;
+    case 99:
+         cp = 15; res = 15;
+         break;
+    case 100:
+         cp = 14; res = 7;
+         break;
+    case 101:
+         cp = 15; res = 7;
+         break;
+    case 102 ... 103:
+         cp = 15; res = 11;
+         break;
+    case 104:
+         cp = 15; res = 13;
+         break;
+    case 105:
+         cp = 15; res = 3;
+         break;
+    case 106 ... 107:
+         cp = 14; res = 5;
+         break;
+    case 108 ... 109:
+         cp = 15; res = 5;
+         break;
+    case 110 ... 111:
+         cp = 15; res = 9;
+         break;
+    case 112 ... 113:
+         cp = 14; res = 14;
+         break;
+    case 114 ... 116:
+         cp = 15; res = 14;
+         break;
+    case 117 ... 118:
+         cp = 14; res = 1;
+         break;
+    case 119 ... 123:
+         cp = 15; res = 1;
+         break;
+    case 124 ... 127:
+         cp = 14; res = 6;
+         break;
+    case 128 ... 134:
+         cp = 15; res = 6;
+         break;
+    case 135 ... 147:
+         cp = 15; res = 10;
+         break;
+    case 148 ... 153:
+         cp = 13; res = 12;
+         break;
+    case 154 ... 160:
+         cp = 14; res = 12;
+         break;
+    case 161 ... 176:
+         cp = 15; res = 12;
+         break;
+    case 177 ... 183:
+         cp = 14; res = 2;
+         break;
+    case 184 ... 200:
+         cp = 14; res = 4;
+         break;
+    case 201 ... 273:
+         cp = 15; res = 4;
+         break;
+    case 274 ... 300:
+         cp = 13; res = 8;
+         break;
+    case 301 ... 325:
+         cp = 14; res = 8;
+         break;
+    case 326 ... 432:
+         cp = 15; res = 8;
+         break;
+	 default:
+         cp = 13; res = 8;
+	     break;
+	}
+
+    /* Construct the return value */
+    DrpEnc = ((res & 0xf) << 17) | ((cp & 0xf) | 0x160);
+
+	return DrpEnc;
+}
+
+/*****************************************************************************/
+/**
+* This function returns the DRP encoding of Lock Reg1 & Reg2 optimized for:
+* Phase = 0; Dutycycle = 0.5; BW = low; No Fractional division
+*
+* @param	Mult is the divider to be encoded
+*
+* @return
+*		- [15:0]  Lock_1 Reg
+*		- [31:16] Lock_2 Reg
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XhdmiAudGen_Mmcme5LockReg1Reg2Encoding(u16 Mult)
+{
+	u32 DrpEnc;
+	u16 Lock_1;
+	u16 Lock_2;
+	u16 lock_ref_dly;
+	u16 lock_fb_dly;
+	u16 lock_cnt;
+	u16 lock_sat_high = 9;
+
+	switch (Mult) {
+		case 4:
+			lock_ref_dly = 4;
+			lock_fb_dly = 4;
+			lock_cnt = 1000;
+			break;
+		case 5:
+			lock_ref_dly = 6;
+			lock_fb_dly = 6;
+			lock_cnt = 1000;
+			break;
+		case 6 ... 7:
+			lock_ref_dly = 7;
+			lock_fb_dly = 7;
+			lock_cnt = 1000;
+			break;
+		case 8:
+			lock_ref_dly = 9;
+			lock_fb_dly = 9;
+			lock_cnt = 1000;
+			break;
+		case 9 ... 10:
+			lock_ref_dly = 10;
+			lock_fb_dly = 10;
+			lock_cnt = 1000;
+			break;
+		case 11:
+			lock_ref_dly = 11;
+			lock_fb_dly = 11;
+			lock_cnt = 1000;
+			break;
+		case 12:
+			lock_ref_dly = 13;
+			lock_fb_dly = 13;
+			lock_cnt = 1000;
+			break;
+		case 13 ... 14:
+			lock_ref_dly = 14;
+			lock_fb_dly = 14;
+			lock_cnt = 1000;
+			break;
+		case 15:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 900;
+			break;
+		case 16 ... 17:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 825;
+			break;
+		case 18:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 750;
+			break;
+		case 19 ... 20:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 700;
+			break;
+		case 21:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 650;
+			break;
+		case 22 ... 23:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 625;
+			break;
+		case 24:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 575;
+			break;
+		case 25:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 550;
+			break;
+		case 26 ... 28:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 525;
+			break;
+		case 29 ... 30:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 475;
+			break;
+		case 31:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 450;
+			break;
+		case 32 ... 33:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 425;
+			break;
+		case 34 ... 36:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 400;
+			break;
+		case 37:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 375;
+			break;
+		case 38 ... 40:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 350;
+			break;
+		case 41 ... 43:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 325;
+			break;
+		case 44 ... 47:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 300;
+			break;
+		case 48 ... 51:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 275;
+			break;
+		case 52 ... 205:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 950;
+			break;
+		case 206 ... 432:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 925;
+			break;
+		default:
+			lock_ref_dly = 16;
+			lock_fb_dly = 16;
+			lock_cnt = 250;
+			break;
+	}
+
+	/* Construct Lock_1 Reg */
+	Lock_1 = ((lock_fb_dly & 0x1F) << 10) | (lock_cnt & 0x3FF);
+
+	/* Construct Lock_2 Reg */
+	Lock_2 = ((lock_ref_dly & 0x1F) << 10) | (lock_sat_high & 0x3FF);
+
+	/* Construct Return Value */
+	DrpEnc = (Lock_2 << 16) | Lock_1;
+
+	return DrpEnc;
+}
+#endif

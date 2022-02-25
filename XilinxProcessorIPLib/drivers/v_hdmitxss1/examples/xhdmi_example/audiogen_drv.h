@@ -78,6 +78,13 @@ typedef struct {
   XhdmiAudioGen_PLL_t AudClkPLL;
 } XhdmiAudioGen_t;
 
+/* This typedef enumerates the different MMCM Dividers */
+typedef enum {
+  AUDGEN_MMCM_CLKFBOUT_MULT_F, /* M */
+  AUDGEN_MMCM_DIVCLK_DIVIDE,   /* D */
+  AUDGEN_MMCM_CLKOUT_DIVIDE    /* On */
+} XhdmiAudioGen_MmcmDivType;
+
 int XhdmiAudGen_Init(XhdmiAudioGen_t *AudioGen, UINTPTR AudGen_Base,
                           UINTPTR ACRCtrl_Base, UINTPTR AudClk_Gen_Base);
 int XhdmiAudGen_Reset(XhdmiAudioGen_t *AudioGen);
