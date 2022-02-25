@@ -19,6 +19,8 @@
  * 1.2   ND   04/03/21 Moved all global variables declaration from .h to .c
  * 				       files due to gcc compiler compilation error.
  * 1.3   ND   05/04/21 Moved Rx initialization after loading hdcp keys.
+ * 1.4   ND   02/21/22 Rx initialization shifted out of hdcp enabled macro
+ * 					   for pt application.
 *******************************************************************************/
 
 #include "dppt.h"
@@ -601,9 +603,13 @@ int main(void)
         xil_printf ("System is capable of displaying HDCP content...\r\n");
     }
     KEYMGMT_Init();
+#endif
+
 #if XPAR_XDPRXSS_NUM_INSTANCES
 	DPRxInitialize();
 #endif
+
+#if ENABLE_HDCP_IN_DESIGN
     XHdcp1xExample_Init();
     DpTxSsInst.Hdcp1xPtr->IsRepeater = 0;
     DpRxSsInst.Hdcp1xPtr->IsRepeater = 0;
