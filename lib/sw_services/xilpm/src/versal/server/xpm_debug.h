@@ -660,6 +660,8 @@ extern "C" {
 #define XPM_INT_ERR_DE_ASSERT_SECURE_EFUSE_START_PCSR_MASK	0x5106U
 /* Error during restore bypass state */
 #define XPM_INT_ERR_RESTORE_BYPASS_STATE			0x5108U
+/* Error in secure EFUSE done interrupt status clear */
+#define XPM_INT_ERR_CLEAR_SECURE_EFUSE_DONE_ISR		0x5109U
 
 /**************************** VDU Specific Errors ****************************/
 /************************** (0x5200) - (0x52FF) ******************************/

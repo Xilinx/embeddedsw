@@ -1519,6 +1519,17 @@ XStatus XPmPowerDomain_SecureEfuseTransfer(const u32 NodeId)
 		goto deassert_start_bit;
 	}
 
+	/* Clear interrupt status for SECURE_EFUSE_DONE */
+	PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_ISR_OFFSET,
+		AMS_ROOT_REG_ISR_SECURE_EFUSE_DONE_MASK,
+		AMS_ROOT_REG_ISR_SECURE_EFUSE_DONE_MASK);
+	PmChkRegMask32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_ISR_OFFSET,
+		       AMS_ROOT_REG_ISR_SECURE_EFUSE_DONE_MASK, 0U, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		DbgErr = XPM_INT_ERR_CLEAR_SECURE_EFUSE_DONE_ISR;
+		goto deassert_start_bit;
+	}
+
 	/* Check for SECURE_EFUSE_ERR  */
 	RegVal = XPm_In32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_ISR_OFFSET);
 	if (AMS_ROOT_REG_ISR_SECURE_EFUSE_ERR_MASK == (RegVal &
