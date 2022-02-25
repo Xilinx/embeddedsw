@@ -516,6 +516,9 @@ extern "C" {
 
 #if (ENABLE_RUNTIME_OVERTEMP_VAL) && (!defined(ENABLE_RUNTIME_OVERTEMP))
 #define ENABLE_RUNTIME_OVERTEMP
+#endif
+
+#if defined(ENABLE_RUNTIME_OVERTEMP)
 #ifndef ENABLE_MOD_OVERTEMP
 #define ENABLE_MOD_OVERTEMP
 #endif
@@ -532,6 +535,9 @@ extern "C" {
 
 #if (ENABLE_RUNTIME_EXTWDT_VAL) && (!defined(ENABLE_RUNTIME_EXTWDT))
 #define ENABLE_RUNTIME_EXTWDT
+#endif
+
+#if defined(ENABLE_RUNTIME_EXTWDT)
 #ifndef ENABLE_MOD_EXTWDT
 #define ENABLE_MOD_EXTWDT
 #endif
@@ -545,6 +551,9 @@ extern "C" {
 
 #if (ENABLE_DYNAMIC_MIO_CONFIG_VAL) && (!defined(ENABLE_DYNAMIC_MIO_CONFIG))
 #define ENABLE_DYNAMIC_MIO_CONFIG
+#endif
+
+#if defined(ENABLE_DYNAMIC_MIO_CONFIG)
 #ifndef ENABLE_IOCTL
 #define ENABLE_IOCTL
 #endif
