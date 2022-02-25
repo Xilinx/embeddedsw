@@ -13,6 +13,9 @@
 #include "xpm_device.h"
 #include "xpm_debug.h"
 
+/* TODO: Remove once tools supports add_node commands for AIE partition device */
+#include "xpm_aiedevice.h"
+
 #define AIE_POLL_TIMEOUT 0X1000000U
 
 #define COL_SHIFT 23U
@@ -382,6 +385,60 @@ static void Aie2ClockGate(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 
 }
 
+/*
+ * NOTE: This function is a workaround until tools supports pm_add_node for AIE
+ * partition devices.
+ * TODO: Remove once supported.
+ */
+static XStatus AddAieDeviceNode(void)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_AieNode *AieNode = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
+	XPm_AieDevice *AieDev;
+	u32 NodeId = 0x18800000U;
+	u32 NodeIdx = NODEINDEX(NodeId);
+	u32 Args[2] = {0};
+
+	/* Check for any existing AIE partition nodes */
+	u32 Temp = NodeId;
+	while ((u32)XPM_NODEIDX_DEV_AIE_MAX > NodeIdx) {
+		AieDev = (XPm_AieDevice *)XPmDevice_GetById(Temp);
+		if (NULL != AieDev) {
+			/* Aie partition node already present so exit */
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		Temp++;
+		NodeIdx++;
+	}
+
+	/* AIE0 is default node ID so add this node and its parent only */
+	Args[0] = NodeId;
+	Args[1] = 0x18700000U;
+
+	Status = XPm_AddNode(Args, 1U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPm_AddNodeParent(Args, 2U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	AieDev = (XPm_AieDevice *)XPmDevice_GetById(Args[0]);
+	if (NULL == AieDev) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	/* Assign AIE device dependency */
+	AieDev->BaseDev = AieNode;
+
+done:
+	return Status;
+}
+
 static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -582,6 +639,15 @@ static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Clock gate ME Array column-wise (except SHIM array) */
 	AieClkGateByCol(AieDomain);
 
+	/* Add AIE partition nodes. This is a temporary workaround until tools
+	 * supports pm_add_node commands.
+	 * TODO: Remove once supported
+	 */
+	Status = AddAieDeviceNode();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	/* Store initial clock devider value */
 	/* TODO: Get clock address from clock topology */
 	ClkDivider =  XPm_In32(BaseAddress + ME_CORE_REF_CTRL_OFFSET) & AIE_DIVISOR0_MASK;
@@ -631,6 +697,15 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AIE_PCOMPLETE;
+	}
+
+	/* Add AIE partition nodes. This is a temporary workaround until tools
+	 * supports pm_add_node commands.
+	 * TODO: Remove once supported.
+	 */
+	Status = AddAieDeviceNode();
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	/* Store initial clock devider value */
