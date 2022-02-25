@@ -557,18 +557,19 @@ static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
+	u32 ClkDivider;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
 
-	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	XPm_AieNode *AieDev = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
-	BaseAddress = AieDev->Node.BaseAddress;
+	BaseAddress = AieDev->Device.Node.BaseAddress;
 
 	/* Set PCOMPLETE bit */
 	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_PCOMPLETE_MASK,
@@ -580,6 +581,13 @@ static XStatus AieInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* Clock gate ME Array column-wise (except SHIM array) */
 	AieClkGateByCol(AieDomain);
+
+	/* Store initial clock devider value */
+	/* TODO: Get clock address from clock topology */
+	ClkDivider =  XPm_In32(BaseAddress + ME_CORE_REF_CTRL_OFFSET) & AIE_DIVISOR0_MASK;
+	ClkDivider = ClkDivider >> AIE_DIVISOR0_SHIFT;
+
+	AieDev->DefaultClockDiv = ClkDivider;
 
 done:
 	if (0U != BaseAddress) {
@@ -598,18 +606,19 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_AieDomain *AieDomain = (const XPm_AieDomain *)PwrDomain;
+	u32 ClkDivider;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
 
-	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
+	XPm_AieNode *AieDev = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		goto done;
 	}
 
-	BaseAddress = AieDev->Node.BaseAddress;
+	BaseAddress = AieDev->Device.Node.BaseAddress;
 
 	/* Change from AIE to AIE2. */
 	/* Clock gate for each column */
@@ -623,6 +632,13 @@ static XStatus Aie2InitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_AIE_PCOMPLETE;
 	}
+
+	/* Store initial clock devider value */
+	/* TODO: Get clock address from clock topology */
+	ClkDivider =  XPm_In32(BaseAddress + ME_CORE_REF_CTRL_OFFSET) & AIE_DIVISOR0_MASK;
+	ClkDivider = ClkDivider >> AIE_DIVISOR0_SHIFT;
+
+	AieDev->DefaultClockDiv = ClkDivider;
 
 done:
 	if (0U != BaseAddress) {

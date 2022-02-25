@@ -80,6 +80,14 @@ struct XPm_AieDomain {
 	XPm_AieDomainOpHooks Hooks;	/**< Hooks for AIE domain ops */
 };
 
+/**
+ * AIE base device node
+ */
+typedef struct XPm_AieNode {
+	XPm_Device Device;              /**< Device: Base class */
+	u32 DefaultClockDiv;            /**< Default AIE clock divider at boot */
+} XPm_AieNode;
+
 /*****************************************************************************/
 /**
  * @brief This function unlocks the AIE PCSR registers.
