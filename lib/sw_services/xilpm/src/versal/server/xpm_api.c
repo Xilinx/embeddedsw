@@ -2336,9 +2336,6 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 			goto done;
 		}
 		break;
-	case PM_SHUTDOWN_SUBTYPE_RST_PS_ONLY:
-		/* TODO */
-		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
 		/*
 		 * Caller subystem may not be allowed to enact reset operation
