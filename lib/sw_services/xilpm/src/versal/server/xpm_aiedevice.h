@@ -7,6 +7,7 @@
 #define XPM_AIEDEVICE_H_
 
 #include "xpm_pldevice.h"
+#include "xpm_aie.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,14 +24,14 @@ typedef struct XPm_AieDeviceNode XPm_AieDevice;
 
 struct XPm_AieInitNodeOps {
 	XStatus (*InitStart)(XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs);
-	XStatus (*InitFinish)(XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs);
+	XStatus (*InitFinish)(const XPm_AieDevice *AieDevice, const u32 *Args, u32 NumArgs);
 };
 
 struct XPm_AieDeviceNode {
 	XPm_Device Device;              /**< Device: Base class */
 	struct XPm_AieInitNodeOps *Ops; /**< Node Initialization Operations */
 	XPm_PlDevice *Parent;           /**< Parent of Aie device */
-	XPm_Device *BaseDev;			/**< AIE device dependency */
+	XPm_AieNode *BaseDev;			/**< AIE device dependency */
 	u32 DefaultClockDiv;			/**< Default AIE clock divider at boot */
 };
 
