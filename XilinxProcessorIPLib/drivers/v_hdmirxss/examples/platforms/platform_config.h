@@ -1,3 +1,9 @@
+/******************************************************************************
+
+Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
+SPDX-License-Identifier: MIT
+******************************************************************************/
+
 #ifndef __PLATFORM_CONFIG_H_
 #define __PLATFORM_CONFIG_H_
 
