@@ -7,10 +7,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver sdps
 
-  OPTION supported_peripherals = (ps7_sdio psu_sd psv_pmc_sd);
+  OPTION supported_peripherals = (ps7_sdio psu_sd psv_pmc_sd psxl_pmc_sd psxl_pmc_emmc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.14;
+  OPTION VERSION = 4.0;
   OPTION NAME = sdps;
 
 END driver
