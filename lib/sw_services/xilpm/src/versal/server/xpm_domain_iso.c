@@ -481,6 +481,14 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 					  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK,
 					  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK);
 			}
+			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
+				XPm_RMW32(PCIEA_ATTRIB_0_DPLL,
+						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x1);
+			}
+			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == IsoIdx) {
+				XPm_RMW32(PCIEA_ATTRIB_1_DPLL,
+						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x1);
+			}
 		}
 		/* Mark node state appropriately */
 		XPmDomainIso_List[IsoIdx].Node.State = (TRUE_VALUE == Enable) ?
@@ -521,6 +529,14 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
 					  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK,
 					  0U);
+			}
+			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
+				XPm_RMW32(PCIEA_ATTRIB_0_DPLL,
+						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
+			}
+			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == IsoIdx) {
+				XPm_RMW32(PCIEA_ATTRIB_1_DPLL,
+						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
 			}
 		}
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
@@ -564,6 +580,14 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				XPm_RMW32(PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H,
 					  PCIEA_ATTRIB_DMA_ATTR_DMA_SPARE_3_H_MASK,
 					  0U);
+			}
+			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA0_ATTR == IsoIdx) {
+				XPm_RMW32(PCIEA_ATTRIB_0_DPLL,
+						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
+			}
+			if ((u32)XPM_NODEIDX_ISO_PL_CPM_PCIEA1_ATTR == IsoIdx) {
+				XPm_RMW32(PCIEA_ATTRIB_1_DPLL,
+						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
 			}
 		}
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
