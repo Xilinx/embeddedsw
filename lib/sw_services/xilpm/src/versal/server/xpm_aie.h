@@ -55,15 +55,20 @@ typedef struct XPm_AieDomainOpHooks XPm_AieDomainOpHooks;
  * AI Engine array.
  */
 struct XPm_AieArray {
-	u64 NocAddress;
-	u16 GenVersion;
-	u16 NumCols;
-	u16 NumRows;
-	u16 StartCol;
-	u16 StartRow;
-	u16 NumAieRows;
-	u16 NumMemRows;
-	u16 NumShimRows;
+	u64 NocAddress;		/**< NoC Address of AIE */
+	u16 GenVersion;		/**< AIE Gen: 1, 2 etc. */
+	u16 NumCols;		/**< Total number of columns */
+	u16 NumRows;		/**< Total number of rows (excluding shim) */
+	u16 NumColsAdjusted;	/**< Total number of columns (adjusted after offset) */
+	u16 NumRowsAdjusted;	/**< Total number of rows (adjusted after offset) */
+	u16 NumAieRows;		/**< Total number of AieTile rows */
+	u16 NumMemRows;		/**< Total number of MemTile rows */
+	u16 NumShimRows;	/**< Total number of Shim rows */
+	u16 StartCol;		/**< Start col */
+	u16 StartRow;		/**< Start row */
+	u8 LColOffset;		/**< Offset for start col (i.e. left col offset) */
+	u8 RColOffset;		/**< Offset for end col (i.e. right col offset) */
+	u8 TRowOffset;		/**< Offset for end row (i.e. top row offset) */
 };
 
 struct XPm_AieDomainOpHooks {

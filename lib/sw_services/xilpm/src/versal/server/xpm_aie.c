@@ -267,9 +267,9 @@ done:
 static void TriggerEccScrub(const XPm_AieDomain *AieDomain, u32 Action)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
-	u16 EndCol = StartCol + AieDomain->Array.NumCols;
+	u16 EndCol = StartCol + AieDomain->Array.NumColsAdjusted;
 	u16 StartRow = AieDomain->Array.StartRow;
-	u16 EndRow = StartRow + AieDomain->Array.NumRows;
+	u16 EndRow = StartRow + AieDomain->Array.NumRowsAdjusted;
 
 	for (u16 col = StartCol; col < EndCol; col++) {
 		for (u16 row = StartRow; row < EndRow; row++) {
@@ -290,7 +290,7 @@ static void TriggerEccScrub(const XPm_AieDomain *AieDomain, u32 Action)
 static void AieClkGateByCol(const XPm_AieDomain *AieDomain)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
-	u16 EndCol = StartCol + AieDomain->Array.NumCols;
+	u16 EndCol = StartCol + AieDomain->Array.NumColsAdjusted;
 	u16 StartRow = 0U;	/* Shim row is always row zero */
 	u16 EndRow = AieDomain->Array.NumShimRows;
 
@@ -307,9 +307,9 @@ static void AieClkGateByCol(const XPm_AieDomain *AieDomain)
 static XStatus AieCoreMemInit(const XPm_AieDomain *AieDomain)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
-	u16 EndCol = StartCol + AieDomain->Array.NumCols;
+	u16 EndCol = StartCol + AieDomain->Array.NumColsAdjusted;
 	u16 StartRow = AieDomain->Array.StartRow;
-	u16 EndRow = StartRow + AieDomain->Array.NumRows;
+	u16 EndRow = StartRow + AieDomain->Array.NumRowsAdjusted;
 	XStatus Status;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -345,7 +345,7 @@ done:
 static void Aie2ClockInit(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
-	u16 EndCol = StartCol + AieDomain->Array.NumCols;
+	u16 EndCol = StartCol + AieDomain->Array.NumColsAdjusted;
 
 	/* Enable privileged write access */
 	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
@@ -366,7 +366,7 @@ static void Aie2ClockInit(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 static void Aie2ClockGate(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 {
 	u16 StartCol = AieDomain->Array.StartCol;
-	u16 EndCol = StartCol + AieDomain->Array.NumCols;
+	u16 EndCol = StartCol + AieDomain->Array.NumColsAdjusted;
 
 	/* Enable privileged write access */
 	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
@@ -491,7 +491,7 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 *	- ROW_OFFSET = 0
 	 *	- ME_TOP_ROW = Total number of rows in the array
 	 */
-	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), AieDomain->Array.NumRows);
+	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), AieDomain->Array.NumRowsAdjusted);
 
 	/* Get houseclean disable mask */
 	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_AIE_SHIFT;
@@ -567,7 +567,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 *	- ROW_OFFSET = 0
 	 *	- ME_TOP_ROW = Total number of rows in the array
 	 */
-	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), AieDomain->Array.NumRows);
+	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), AieDomain->Array.NumRowsAdjusted);
 
 	/* Change from AIE to AIE2. AIE handles in CDO */
 	/* De-assert INIT_STATE */
@@ -1418,9 +1418,9 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	const XPm_AieArray *Array = &((const XPm_AieDomain *)PwrDomain)->Array;
 	u16 StartCol = Array->StartCol;
-	u16 EndCol = StartCol + Array->NumCols;
+	u16 EndCol = StartCol + Array->NumColsAdjusted;
 	u16 StartRow = Array->StartRow;
-	u16 EndRow = StartRow + Array->NumRows;
+	u16 EndRow = StartRow + Array->NumRowsAdjusted;
 	u16 StartTileRow = StartRow + Array->NumMemRows;
 
 	/* This function does not use the args */
@@ -1462,8 +1462,8 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 	}
 
-	col = (u32)(Array->StartCol + Array->NumCols - 1U);
-	row = (u32)(Array->StartRow + Array->NumRows - 1U);
+	col = (u32)(Array->StartCol + Array->NumColsAdjusted - 1U);
+	row = (u32)(Array->StartRow + Array->NumRowsAdjusted - 1U);
 	mrow = (u32)(Array->StartRow + Array->NumMemRows - 1U);
 
 	/* Poll the last cell for each tile type for memory zeroization complete */
@@ -1539,6 +1539,7 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 {
 	XStatus Status = XST_FAILURE;
 	u32 Platform = XPm_GetPlatform();
+	u32 IdCode = XPm_GetIdCode();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u16 ArrayInfoPresent = 0U;
 	const struct XPm_PowerDomainOps *Ops = NULL;
@@ -1565,6 +1566,9 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			Array->NumShimRows = 1U;
 			Array->NumAieRows = Array->NumRows - Array->NumMemRows;
 			Array->GenVersion = AIE_GENV1;
+			Array->LColOffset = 0U;		/**< left col offset = 0 */
+			Array->RColOffset = 0U;		/**< right col offset = 0 */
+			Array->TRowOffset = 0U;		/**< top row offset = 0 */
 			/* Skip this info from topology in this case */
 			ArrayInfoPresent = 1U;
 		}
@@ -1596,7 +1600,22 @@ XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 		Array->NumShimRows = ARR_SHMROWS(Args[2]);
 		Array->StartCol = 0U;			/**< always start from first column */
 		Array->StartRow = Array->NumShimRows;	/**< always start after shim row */
+		Array->LColOffset = 0U;			/**< left col offset = 0 */
+		Array->RColOffset = 0U;			/**< right col offset = 0 */
+		Array->TRowOffset = 0U;			/**< top row offset = 0 */
+
+		/* AIE Array offsets for VC1502 */
+		if (PMC_TAP_IDCODE_DEV_SBFMLY_VC1502 == (IdCode & PMC_TAP_IDCODE_DEV_SBFMLY_MASK)) {
+			Array->LColOffset = 3U;
+			Array->RColOffset = 2U;
+			Array->TRowOffset = 2U;
+		}
 	}
+
+	/* Derive row and col ranges after offset adjustments */
+	Array->StartCol += Array->LColOffset;
+	Array->NumColsAdjusted = Array->NumCols - (u16)(Array->LColOffset + Array->RColOffset);
+	Array->NumRowsAdjusted = Array->NumRows - Array->TRowOffset;
 
 	/* NOP for HC on QEMU */
 	if (Platform == PLATFORM_VERSION_QEMU) {
@@ -1778,7 +1797,7 @@ static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColE
 	u32 NodeAddress = AieDev->Node.BaseAddress;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RowStart = AieDomain->Array.StartRow;
-	u32 RowEnd = RowStart + AieDomain->Array.NumRows - 1U;
+	u32 RowEnd = RowStart + AieDomain->Array.NumRowsAdjusted - 1U;
 	u32 StartTileRow = RowStart + AieDomain->Array.NumMemRows;
 	u32 AieZeroizationTime = 0U;
 	u32 RegVal = 0;
@@ -1935,7 +1954,7 @@ static XStatus Aie2_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 	u32 NodeAddress = AieDev->Node.BaseAddress;
 
 	/* Check that column and operations are in range */
-	if (((ColEnd) > (u32)(Array->NumCols + Array->StartCol - 1U)) ||
+	if (((ColEnd) > (u32)(Array->NumColsAdjusted + Array->StartCol - 1U)) ||
 	    (ColStart < (u32)Array->StartCol) ||
 	    (AIE_OPS_MAX < Ops)) {
 		Status = XST_INVALID_PARAM;
