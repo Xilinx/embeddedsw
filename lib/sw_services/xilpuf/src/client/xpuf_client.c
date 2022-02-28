@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/22 Initial release
+*       am   02/28/22 Fixed MISRA C violation rule 10.3
 *
 * </pre>
 *
@@ -99,7 +100,7 @@ int XPuf_ClearPufID(void)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XPuf_ProcessIpiWithPayload0(XPUF_PUF_CLEAR_PUF_ID);
+	Status = XPuf_ProcessIpiWithPayload0((u32)XPUF_PUF_CLEAR_PUF_ID);
 	if (Status != XST_SUCCESS) {
 		XPuf_Printf(XPUF_DEBUG_GENERAL, "Clear PUF ID Failed \r\n");
 	}
