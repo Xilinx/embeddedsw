@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/22 Initial release
+*       am   02/28/22 Fixed MISRA C violation rule 8.3
 *
 * </pre>
 *
@@ -63,8 +64,8 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPuf_Registration(const u64 Addr);
-int XPuf_Regeneration(const u64 Addr);
+int XPuf_Registration(const u64 DataAddr);
+int XPuf_Regeneration(const u64 DataAddr);
 int XPuf_ClearPufID(void);
 
 /************************** Variable Definitions *****************************/
