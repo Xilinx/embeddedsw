@@ -7,10 +7,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver usbpsu
 
-  OPTION supported_peripherals = (psu_usb_xhci psv_usb_xhci);
+  OPTION supported_peripherals = (psu_usb_xhci psv_usb_xhci psxl_usb_xhci);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.11;
+  OPTION VERSION = 1.12;
   OPTION NAME = usbpsu;
 
 END driver
