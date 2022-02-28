@@ -50,6 +50,7 @@
 *                         Xil_SStrCpy functions
 * 7.7	sk	 01/10/22 Update functions return type to fix misra_c_2012_
 * 			  directive_4_6 violations.
+*      mmd       02/28/22 Added Xil_SMemMove function prototype
 *
 * </pre>
 *
@@ -186,6 +187,11 @@ int Xil_SecureZeroize(u8 *DataPtr, const u32 Length);
 
 /* Copies Len bytes from source memory to destination memory */
 int Xil_SMemCpy (void *Dest, const u32 DestSize,
+	const void *Src, const u32 SrcSize, const u32 CopyLen);
+
+/* Copies Len bytes from source memory to destination memory, allows
+   overlapped memory between source and destination */
+int Xil_SMemMove(void *Dest, const u32 DestSize,
 	const void *Src, const u32 SrcSize, const u32 CopyLen);
 
 /* Compares Len bytes between source and destination memory */
