@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -23,10 +23,10 @@ BEGIN LIBRARY xilsem
   OPTION drc = sem_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone);
-  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psv_cortexr5);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psxl_pmc psv_cortexr5 psxl_cortexr52);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
-  OPTION VERSION = 1.5;
+  OPTION VERSION = 1.6;
   OPTION NAME = xilsem;
   BEGIN CATEGORY cfr_options
     PARAM name = SEM_MEM_SCAN, desc = "Defines if XilSEM CRAM scan is enabled(1) or disabled (0).", type = bool, default = false;

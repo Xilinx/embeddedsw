@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -34,11 +34,13 @@ proc generate {libhandle} {
 
 	switch $proctype {
 		"psu_pmc" -
-		"psv_pmc" {
+		"psv_pmc" -
+		"psxl_pmc" {
 			copy_files_to_src $server_dir
 		}
 
-		"psv_cortexr5" {
+		"psv_cortexr5" -
+		"psxl_cortexr52" {
 			copy_files_to_src $client_dir
 		}
 
