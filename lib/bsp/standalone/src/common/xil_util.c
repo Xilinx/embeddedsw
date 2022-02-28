@@ -56,6 +56,7 @@
 * 7.7	sk	 01/10/22 Update conditional expression to fix misra_c_2012_rule_14_4
 * 			  violation.
 *       bm       01/20/22 Fix compilation warnings in Xil_SMemCpy
+*       mmd      02/28/22 Added Xil_SMemMove function
 *
 * </pre>
 *
@@ -1177,5 +1178,43 @@ int Xil_SStrCpy(u8 *DestStr, const u32 DestSize,
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This is wrapper function to memmove function. This function
+ *		takes size of two memory regions to avoid out of bound memory region.
+ *
+ * @param	Dest      - Pointer to destination memory
+ * @param	DestSize  - Memory available at destination
+ * @param	Src       - Pointer to source memory
+ * @param	SrcSize   - Maximum data that can be copied from source
+ * @param	CopyLen   - Number of bytes to be copied
+ *
+ * @return
+ *		XST_SUCCESS - Copy is successful
+ * 		XST_INVALID_PARAM - Invalid inputs
+ *
+ *****************************************************************************/
+int Xil_SMemMove(void *Dest, const u32 DestSize,
+	const void *Src, const u32 SrcSize, const u32 CopyLen)
+{
+	volatile int Status = XST_FAILURE;
+	void *Output = NULL;
+
+	if ((Dest == NULL) || (Src == NULL)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
+		Status =  XST_INVALID_PARAM;
+	}
+	else {
+		Output = memmove(Dest, Src, CopyLen);
+		if (Output != NULL) {
+			Status = XST_SUCCESS;
+		}
+	}
+
 	return Status;
 }
