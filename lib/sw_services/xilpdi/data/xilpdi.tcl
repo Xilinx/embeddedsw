@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -13,8 +13,19 @@
 # pdi_drc
 #---------------------------------------------
 proc pdi_drc {libhandle} {
-
-
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set versal_net "src/versal_net/"
+	if {$proc_type == "psxl_pmc"} {
+		foreach entry [glob -nocomplain -types f [file join ./src/ *]] {
+			file delete -force $entry
+		}
+		foreach entry [glob -nocomplain -types f [file join $versal_net *]] {
+			file copy -force $entry "./src"
+		}
+	}
+	file delete -force $versal_net
 }
 
 proc generate {libhandle} {
