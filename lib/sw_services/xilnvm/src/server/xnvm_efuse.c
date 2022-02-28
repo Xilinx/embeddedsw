@@ -261,6 +261,7 @@ static int XNvm_EfuseWriteSecMisc1Fuses(const XNvm_EfuseSecMisc1Bits *Misc1Bits)
 static int XNvm_EfusePmcVoltageCheck(float Voltage);
 static int XNvm_EfuseTemparatureCheck(float Temparature);
 static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr);
+static u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses);
 #endif
@@ -5607,7 +5608,7 @@ END:
  *		On Failure returns default SupplyReg value
  *
  ******************************************************************************/
-static int XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
+static u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
 {
 	UINTPTR BaseAddr = SysmonpsvSatBaseAddr;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
@@ -5694,10 +5695,10 @@ static int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 			SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
 			XNVM_EFUSE_SYSMON_LOCK_CODE);
 
-	SupplyReg = (u32)XNvm_GetSysmonSupplyRegId(
+	SupplyReg = XNvm_GetSysmonSupplyRegId(
 		(UINTPTR)XNVM_EFUSE_SYSMONPSV_SAT0_BASEADDR);
 	if (SupplyReg == XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET) {
-		SupplyReg = (u32)XNvm_GetSysmonSupplyRegId(
+		SupplyReg = XNvm_GetSysmonSupplyRegId(
 			(UINTPTR)XNVM_EFUSE_SYSMONPSV_SAT1_BASEADDR);
 	}
 
