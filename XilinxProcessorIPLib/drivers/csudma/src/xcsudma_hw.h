@@ -37,6 +37,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xil_io.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
