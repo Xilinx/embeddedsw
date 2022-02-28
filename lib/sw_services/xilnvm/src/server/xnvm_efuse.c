@@ -79,6 +79,7 @@
 *                       in XNvm_EfuseTemparatureCheck and XNvm_EfusePmcVoltageCheck
 *                       Added checks for return value for
 *                       XNvm_EfuseDisableProgramming() and XNvm_EfuseResetReadMode()
+*       am   02/28/2022 Resolved MISRA C violations
 *
 * </pre>
 *
@@ -4978,10 +4979,10 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 	if (((Page == XNVM_EFUSE_PAGE_0) && (Row < XNVM_EFUSE_AES_KEY_START_ROW ||
 		Row > XNVM_EFUSE_USER_KEY_1_END_ROW)) || (Page == XNVM_EFUSE_PAGE_1) ||
 		(Page == XNVM_EFUSE_PAGE_2)) {
-		CacheOffset = (Page * XNVM_NUM_OF_CACHE_ADDR_PER_PAGE) +
+		CacheOffset = ((u32)Page * XNVM_NUM_OF_CACHE_ADDR_PER_PAGE) +
 			(Row * XNVM_EFUSE_WORD_LEN);
 		BitVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, CacheOffset) &
-			(1 << Col);
+			(1U << Col);
 		if (BitVal != 0x0U) {
 			Status = XST_SUCCESS;
 			goto END;
