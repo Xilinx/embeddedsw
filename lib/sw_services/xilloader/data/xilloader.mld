@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 #
@@ -21,9 +21,9 @@ BEGIN LIBRARY xilloader
   OPTION drc = loader_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone);
-  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_psm psv_pmc psv_psm);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_psm psv_pmc psv_psm psxl_pmc psxl_psm);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilloader,-lxilpm,-lxilplmi,-lxilffs,-lxilpdi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Platform Loader Library";
-  OPTION VERSION = 1.6;
+  OPTION VERSION = 1.7;
   OPTION NAME = xilloader;
 END LIBRARY
