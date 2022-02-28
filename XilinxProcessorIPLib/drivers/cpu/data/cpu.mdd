@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2004 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -28,7 +28,8 @@
 #                     at user defined path. It fixes CR#1106407.
 # 2.15  dp   11/25/21 Update tcl to correct toolchain path for libraries of MB64
 #                     platform. Fix for CR#1116189
-#
+# 2.16  bm   02/21/21 Add support for psxl_pmc and psxl_psm processors in
+#                     versal_net devices
 ###############################################################################
 OPTION psf_version = 2.1;
 
@@ -36,9 +37,9 @@ BEGIN driver cpu
 
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
-OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm psv_pmc psv_psm);
+OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm psv_pmc psv_psm psxl_pmc psxl_psm);
 OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 2.15;
+OPTION VERSION = 2.16;
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;

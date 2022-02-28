@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2004 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -63,6 +63,8 @@
 ##                     at user defined path. It fixes CR#1106407.
 ## 2.15  dp   11/25/21 Updated to correct toolchain path for libraries of MB64
 ##                     platform. Fix for CR#1116189
+## 2.16  bm   02/21/21 Add support for psxl_pmc and psxl_psm processors in
+##                     versal_net devices
 # uses xillib.tcl
 
 ########################################
@@ -399,7 +401,7 @@ proc generate {drv_handle} {
 	append compiler_flags " -mxl-pattern-compare"
     }
 
-    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
+    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0 || [string compare "psxl_pmc" $proctype] == 0 || [string compare "psxl_psm" $proctype] == 0} {
 	set multiply [common::get_property CONFIG.C_USE_HW_MUL $periph]
 	if {[string compare -nocase "0" $multiply] == 0 } {
 		append compiler_flags " -mxl-soft-mul"
@@ -442,7 +444,7 @@ proc generate {drv_handle} {
 	}
     }
 
-    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psxl_pmc" $proctype] == 0} {
         append compiler_flags " -mcpu=v10.0"
     } else {
         append compiler_flags " -mcpu=v" $cpu_version
@@ -456,7 +458,7 @@ proc generate {drv_handle} {
     common::set_property CONFIG.compiler_flags $compiler_flags $drv_handle
 
     # Append LTO flag in extra_compiler_flags for BSPs of PMU Firmware, PLM
-    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+    if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psxl_pmc" $proctype] == 0} {
 
         set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
         #Check if LTO flag in EXTRA_COMPILER_FLAGS exist previoulsy
@@ -467,7 +469,7 @@ proc generate {drv_handle} {
     }
 
     # Update archiver to mb-gcc-ar for PLM
-    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psxl_pmc" $proctype] == 0} {
 	set arch_flags "mb-gcc-ar"
 	common::set_property -name {ARCHIVER} -value $arch_flags -objects [hsi::get_sw_processor]
     }
@@ -476,7 +478,7 @@ proc generate {drv_handle} {
 	# If the processor is PMU Microblaze, then generate required params and return
 	# We don't need the Parameters being generated after this code block
 	#------------------------------------------------------------------------------
-	if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
+	if {[string compare "psu_pmu" $proctype] == 0 || [string compare "psu_pmc" $proctype] == 0 || [string compare "psu_psm" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0 || [string compare "psxl_pmc" $proctype] == 0 || [string compare "psxl_psm" $proctype] == 0} {
 
 		# Generate the Parameters
 		set file_handle [::hsi::utils::open_include_file "xparameters.h"]
@@ -503,10 +505,10 @@ proc generate {drv_handle} {
 		if {[string compare "psu_pmu" $proctype] == 0 } {
 			puts $file_handle "/* Definitions for PMU Microblaze */"
 		}
-		if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
+		if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psxl_pmc" $proctype] == 0} {
 			puts $file_handle "/* Definitions for PMC Microblaze */"
 		}
-                if {[string compare "psu_psm" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0} {
+                if {[string compare "psu_psm" $proctype] == 0 || [string compare "psv_psm" $proctype] == 0 || [string compare "psxl_psm" $proctype] == 0} {
                         puts $file_handle "/* Definitions for PSM Microblaze */"
                 }
 		set params ""
