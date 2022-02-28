@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -55,15 +55,15 @@ proc swapp_is_supported_hw {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-	if {($proc_type != "psu_pmc") && ($proc_type != "psv_pmc")} {
+	if {($proc_type != "psu_pmc") && ($proc_type != "psv_pmc") && ($proc_type != "psxl_pmc")} {
 		error "This application is supported only for PMC Microblaze processor.";
 	}
 
 	# List of all IPIs on SoC
-	set ipi_list [hsi::get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" }]
-	set a72_proc [string map {psv_pmc psv_cortexa72} $proc_instance]
-	set ipi_a72 [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $a72_proc]
-	if {($ipi_a72 == "")} {
+	set ipi_list [hsi::get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" || IP_NAME == "psxl_ipi" }]
+	set a7x_proc [string map {psv_pmc psv_cortexa72 psxl_pmc psxl_cortexa78} $proc_instance]
+	set ipi_a7x [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $a7x_proc]
+	if {($ipi_a7x == "")} {
 		 puts "APU IPIs are not enabled. Linux boot would not work."
 	}
 	return 1;
@@ -76,6 +76,20 @@ proc get_stdout {} {
 }
 
 proc swapp_generate {} {
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set versal_net "versal_net/"
+	if {$proc_type == "psxl_pmc"} {
+		foreach entry [glob -nocomplain -types f [file join . *]] {
+			file delete -force $entry
+		}
+		foreach entry [glob -nocomplain -types f [file join $versal_net *]] {
+			file copy -force $entry "."
+		}
+	}
+	file delete -force $versal_net
+
 	# disable global optimizations through --no-relax flag
 	set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
 	set new_link_flags "-Wl,--no-relax "
@@ -83,7 +97,7 @@ proc swapp_generate {} {
 	common::set_property -name {APP_LINKER_FLAGS} -value $new_link_flags -objects [hsi::current_sw_design]
 
 	set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
-	set new_flags "-mlittle-endian -mxl-barrel-shift -mxl-pattern-compare"
+	set new_flags " -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare"
 	append new_flags " -mno-xl-soft-div -mcpu=v10.0 -mno-xl-soft-mul -mxl-multiply-high -Os -flto -ffat-lto-objects"
 	append new_flags $def_flags
 	# Set PMC Microblaze HW related compiler flags
@@ -96,7 +110,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-	return "psu_pmc psv_pmc";
+	return "psu_pmc psv_pmc psxl_pmc";
 }
 
 proc swapp_get_supported_os {} {
