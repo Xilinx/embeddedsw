@@ -7,10 +7,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver cfupmc
 
-  OPTION supported_peripherals = (psv_pmc_cfu_apb pmc_cfu pmc_cfu_apb);
+  OPTION supported_peripherals = (psv_pmc_cfu_apb pmc_cfu pmc_cfu_apb psxl_pmc_cfu_apb);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.4;
+  OPTION VERSION = 1.5;
   OPTION NAME = cfupmc;
 
 END driver
