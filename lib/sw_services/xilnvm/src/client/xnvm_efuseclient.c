@@ -23,6 +23,7 @@
 *                     XNvm_DCacheFlushRange
 *       kpt  01/13/22 Allocated CDO structure's in shared memory set by the
 *                     user
+*       am   02/28/22 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -64,7 +65,7 @@ int XNvm_EfuseWrite(const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_EFUSE_WRITE,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "eFUSE programming Failed \r\n");
@@ -110,7 +111,7 @@ int XNvm_EfuseWriteIVs(const u64 IvAddr, const u32 EnvDisFlag)
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_EFUSE_WRITE,
 				(u32)DataAddr, (u32)(DataAddr >> 32U));
 
 END:
@@ -174,7 +175,7 @@ int XNvm_EfuseRevokePpk(const XNvm_PpkType PpkRevoke, const u32 EnvDisFlag)
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_EFUSE_WRITE,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
 
 END:
@@ -236,7 +237,7 @@ int XNvm_EfuseWriteRevocationId(const u32 RevokeId, const u32 EnvDisFlag)
 	DataAddr = (u64)(UINTPTR)EfuseData;
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_EFUSE_WRITE,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
 
 END:
@@ -280,7 +281,7 @@ int XNvm_EfuseWriteUserFuses(const u64 UserFuseAddr, const u32 EnvDisFlag)
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE,
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_EFUSE_WRITE,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
 
 END:
@@ -304,7 +305,7 @@ int XNvm_EfuseReadIv(const u64 IvAddr, const XNvm_IvType IvType)
 {
 	int Status = XST_FAILURE;
 
-	Status = XNvm_ProcessIpiWithPayload3((u32)XNVM_EFUSE_READ_IV,
+	Status = XNvm_ProcessIpiWithPayload3((u32)XNVM_API_ID_EFUSE_READ_IV,
 			(u32)IvType, (u32)IvAddr, (u32)(IvAddr >> 32U));
 
 	return Status;
@@ -328,7 +329,7 @@ int XNvm_EfuseReadRevocationId(const u64 RevokeIdAddr,
 {
 	int Status = XST_FAILURE;
 
-	Status = XNvm_ProcessIpiWithPayload3((u32)XNVM_EFUSE_READ_REVOCATION_ID,
+	Status = XNvm_ProcessIpiWithPayload3((u32)XNVM_API_ID_EFUSE_READ_REVOCATION_ID,
 			(u32)RevokeIdNum, (u32)RevokeIdAddr,
 			(u32)(RevokeIdAddr >> 32U));
 
@@ -351,7 +352,7 @@ int XNvm_EfuseReadUserFuses(const u64 UserFuseAddr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_READ_USER_FUSES,
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_EFUSE_READ_USER_FUSES,
 			(u32)UserFuseAddr, (u32)(UserFuseAddr >> 32U));
 
 	return Status;
@@ -374,7 +375,7 @@ int XNvm_EfuseReadMiscCtrlBits(const u64 MiscCtrlBits)
 	int Status = XST_FAILURE;
 
 	Status = XNvm_ProcessIpiWithPayload2(
-			(u32)XNVM_EFUSE_READ_MISC_CTRL_BITS,
+			(u32)XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS,
 			(u32)MiscCtrlBits, (u32)(MiscCtrlBits >> 32U));
 	return Status;
 }
@@ -396,7 +397,7 @@ int XNvm_EfuseReadSecCtrlBits(const u64 SecCtrlBits)
 	int Status = XST_FAILURE;
 
 	Status = XNvm_ProcessIpiWithPayload2(
-			(u32)XNVM_EFUSE_READ_SEC_CTRL_BITS,
+			(u32)XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS,
 			(u32)SecCtrlBits, (u32)(SecCtrlBits >> 32U));
 
 	return Status;
@@ -419,7 +420,7 @@ int XNvm_EfuseReadSecMisc1Bits(const u64 SecMisc1Bits)
 	int Status = XST_FAILURE;
 
 	Status = XNvm_ProcessIpiWithPayload2(
-			(u32)XNVM_EFUSE_READ_SEC_MISC1_BITS,
+			(u32)XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS,
 			(u32)SecMisc1Bits, (u32)(SecMisc1Bits >> 32U));
 
 	return Status;
@@ -442,7 +443,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(const u64 BootEnvCtrlBits)
 	int Status = XST_FAILURE;
 
 	Status = XNvm_ProcessIpiWithPayload2(
-			(u32)XNVM_EFUSE_READ_BOOT_ENV_CTRL_BITS,
+			(u32)XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS,
 			(u32)BootEnvCtrlBits, (u32)(BootEnvCtrlBits >> 32U));
 
 	return Status;
@@ -465,7 +466,7 @@ int XNvm_EfuseReadPufSecCtrlBits(const u64 PufSecCtrlBits)
 	int Status = XST_FAILURE;
 
 	Status = XNvm_ProcessIpiWithPayload2(
-			(u32)XNVM_EFUSE_READ_PUF_SEC_CTRL_BITS,
+			(u32)XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS,
 			(u32)PufSecCtrlBits, (u32)(PufSecCtrlBits >> 32U));
 
 	return Status;
@@ -490,7 +491,7 @@ int XNvm_EfuseReadOffchipRevokeId(const u64 OffChidIdAddr,
 	int Status = XST_FAILURE;
 
 	Status = XNvm_ProcessIpiWithPayload3(
-			(u32)XNVM_EFUSE_READ_OFFCHIP_REVOCATION_ID,
+			(u32)XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID,
 			(u32)OffChipIdNum, (u32)OffChidIdAddr,
 			(u32)(OffChidIdAddr >> 32U));
 
@@ -514,7 +515,7 @@ int XNvm_EfuseReadPpkHash(const u64 PpkHashAddr, const XNvm_PpkType PpkHashType)
 {
 	int Status = XST_FAILURE;
 
-	Status = XNvm_ProcessIpiWithPayload3((u32)XNVM_EFUSE_READ_PPK_HASH,
+	Status = XNvm_ProcessIpiWithPayload3((u32)XNVM_API_ID_EFUSE_READ_PPK_HASH,
 			(u32)PpkHashType, (u32)PpkHashAddr,
 			(u32)(PpkHashAddr >> 32U));
 
@@ -538,7 +539,7 @@ int XNvm_EfuseReadDecOnly(const u64 DecOnlyAddr)
 	int Status = XST_FAILURE;
 
 	Status = XNvm_ProcessIpiWithPayload2(
-			(u32)XNVM_EFUSE_READ_DEC_EFUSE_ONLY,
+			(u32)XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY,
 			(u32)DecOnlyAddr, (u32)(DecOnlyAddr >> 32U));
 
 	return Status;
@@ -560,7 +561,7 @@ int XNvm_EfuseReadDna(const u64 DnaAddr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_READ_DNA,
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_EFUSE_READ_DNA,
 			(u32)DnaAddr, (u32)(DnaAddr >> 32U));
 
 	return Status;
@@ -585,7 +586,7 @@ int XNvm_EfuseWritePufAsUserFuses(const u64 PufUserFuseAddr)
 	int Status = XST_FAILURE;
 
 	Status = XNvm_ProcessIpiWithPayload2(
-			(u32)XNVM_EFUSE_PUF_USER_FUSE_WRITE,
+			(u32)XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE,
 			(u32)PufUserFuseAddr, (u32)(PufUserFuseAddr >> 32U));
 
 	return Status;
@@ -608,7 +609,7 @@ int XNvm_EfuseReadPufAsUserFuses(const u64 PufUserFuseAddr)
 	int Status = XST_FAILURE;
 
 	Status = XNvm_ProcessIpiWithPayload2(
-			(u32)XNVM_EFUSE_READ_PUF_USER_FUSE,
+			(u32)XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE,
 			(u32)PufUserFuseAddr, (u32)(PufUserFuseAddr >> 32U));
 
 	return Status;
@@ -635,7 +636,7 @@ int XNvm_EfuseWritePuf(const u64 PufHdAddr) {
 
 	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(XNvm_EfusePufHdAddr));
 
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_WRITE_PUF,
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_EFUSE_WRITE_PUF,
 			(u32)DataAddr, (u32)(DataAddr >> 32U));
 
 	return Status;
@@ -657,7 +658,7 @@ int XNvm_EfuseWritePuf(const u64 PufHdAddr) {
 int XNvm_EfuseReadPuf(const u64 PufHdAddr) {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_EFUSE_READ_PUF,
+	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_EFUSE_READ_PUF,
 			(u32)PufHdAddr, (u32)(PufHdAddr >> 32U));
 
 	return Status;

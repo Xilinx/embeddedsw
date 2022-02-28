@@ -25,6 +25,7 @@
 *       har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
 *       kpt  01/19/2022 Cleared AesKeys structure and added redundancy
 *       kpt  01/31/2022 Removed redundant code in XNvm_EfuseMemCopy
+*       am   02/28/2022 Fixed MISRA C violation rule 4.5
 *
 * </pre>
 *
@@ -100,62 +101,62 @@ int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
-	case XNVM_API(XNVM_EFUSE_WRITE):
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE):
 		Status = XNvm_EfuseDataWrite(Pload[0U], Pload[1U]);
 		break;
 #ifdef XNVM_ACCESS_PUF_USER_DATA
-	case XNVM_API(XNVM_EFUSE_PUF_USER_FUSE_WRITE):
+	case XNVM_API(XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE):
 		Status = XNvm_EfusePufUserDataWrite(Pload[0U], Pload[1U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_PUF_USER_FUSE):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE):
 		Status = XNvm_EfusePufUserFusesRead(Pload[0U], Pload[1U]);
 		break;
 #else
-	case XNVM_API(XNVM_EFUSE_WRITE_PUF):
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
 		Status = XNvm_EfusePufWrite(Pload[0U], Pload[1U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_PUF):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF):
 		Status = XNvm_EfusePufRead(Pload[0U], Pload[1U]);
 		break;
 #endif
-	case XNVM_API(XNVM_EFUSE_READ_IV):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_IV):
 		Status = XNvm_EfuseIvRead((XNvm_IvType)Pload[0U], Pload[1U],
 				Pload[2U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_REVOCATION_ID):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_REVOCATION_ID):
 		Status = XNvm_EfuseRevocationIdRead((XNvm_RevocationId)Pload[0U],
 				Pload[1U], Pload[2U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_OFFCHIP_REVOCATION_ID):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID):
 		Status = XNvm_EfuseOffChipIdRead((XNvm_OffchipId)Pload[0U],
 				Pload[1U], Pload[2U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_USER_FUSES):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_USER_FUSES):
 		Status = XNvm_EfuseUserFusesRead(Pload[0U], Pload[1U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_MISC_CTRL_BITS):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS):
 		Status = XNvm_EfuseMiscCtrlBitsRead(Pload[0U], Pload[1U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_SEC_CTRL_BITS):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS):
 		Status = XNvm_EfuseSecCtrlBitsRead(Pload[0U], Pload[1U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_SEC_MISC1_BITS):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS):
 		Status = XNvm_EfuseSecMisc1BitsRead(Pload[0U], Pload[1U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_BOOT_ENV_CTRL_BITS):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS):
 		Status = XNvm_EfuseBootEnvCtrlBitsRead(Pload[0U], Pload[1U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_PUF_SEC_CTRL_BITS):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS):
 		Status = XNvm_EfusePufCtrlBitsRead(Pload[0U], Pload[1U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_PPK_HASH):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_PPK_HASH):
 		Status = XNvm_EfusePpkHashRead((XNvm_PpkType)Pload[0U],
 				Pload[1U], Pload[2U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_DEC_EFUSE_ONLY):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY):
 		Status = XNvm_EfuseDecEfuseOnlyRead(Pload[0U], Pload[1U]);
 		break;
-	case XNVM_API(XNVM_EFUSE_READ_DNA):
+	case XNVM_API(XNVM_API_ID_EFUSE_READ_DNA):
 		Status = XNvm_EfuseDnaRead(Pload[0U], Pload[1U]);
 		break;
 	default:

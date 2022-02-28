@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *                        in XNvm_BbramUsrDataRead
 *       kpt   01/19/2022 Added redundancy for XNvm_ZeroizeAndVerify in
 *                        XNvm_BbramKeyWrite
+*       am    02/28/2022 Fixed MISRA C violation rule 4.5
 *
 * </pre>
 *
@@ -76,19 +77,19 @@ int XNvm_BbramIpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
-	case XNVM_API(XNVM_BBRAM_WRITE_AES_KEY):
+	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY):
 		Status = XNvm_BbramKeyWrite(Pload[0], Pload[1], Pload[2]);
 		break;
-	case XNVM_API(XNVM_BBRAM_ZEROIZE):
+	case XNVM_API(XNVM_API_ID_BBRAM_ZEROIZE):
 		Status = XNvm_BbramClear();
 		break;
-	case XNVM_API(XNVM_BBRAM_WRITE_USER_DATA):
+	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_USER_DATA):
 		Status = XNvm_BbramUsrDataWrite(Pload[0]);
 		break;
-	case XNVM_API(XNVM_BBRAM_READ_USER_DATA):
+	case XNVM_API(XNVM_API_ID_BBRAM_READ_USER_DATA):
 		Status = XNvm_BbramUsrDataRead(Pload[0], Pload[1]);
 		break;
-	case XNVM_API(XNVM_BBRAM_LOCK_WRITE_USER_DATA):
+	case XNVM_API(XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA):
 		Status = XNvm_BbramLockUsrData();
 		break;
 	default:
