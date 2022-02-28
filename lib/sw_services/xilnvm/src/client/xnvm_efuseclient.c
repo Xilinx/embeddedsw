@@ -96,7 +96,7 @@ int XNvm_EfuseWriteIVs(const u64 IvAddr, const u32 EnvDisFlag)
 	u32 Size = XNvm_GetSharedMem((u64**)(UINTPTR)&EfuseData);
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr);
 
-	if (Size == 0U || EfuseData == NULL || Size < TotalSize) {
+	if ((EfuseData == NULL) || (Size < TotalSize)) {
 		goto END;
 	}
 
@@ -140,7 +140,7 @@ int XNvm_EfuseRevokePpk(const XNvm_PpkType PpkRevoke, const u32 EnvDisFlag)
 	u32 Size = XNvm_GetSharedMem((u64**)(UINTPTR)&EfuseData);
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseMiscCtrlBits);
 
-	if (Size == 0U || EfuseData == NULL || Size < TotalSize) {
+	if ((EfuseData == NULL) || (Size < TotalSize)) {
 		goto END;
 	}
 
@@ -206,7 +206,7 @@ int XNvm_EfuseWriteRevocationId(const u32 RevokeId, const u32 EnvDisFlag)
 	u32 Size = XNvm_GetSharedMem((u64**)(UINTPTR)&EfuseData);
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseRevokeIds);
 
-	if (Size == 0U || EfuseData == NULL || Size < TotalSize) {
+	if ((EfuseData == NULL) || (Size < TotalSize)) {
 		goto END;
 	}
 
@@ -266,7 +266,7 @@ int XNvm_EfuseWriteUserFuses(const u64 UserFuseAddr, const u32 EnvDisFlag)
 	u32 Size = XNvm_GetSharedMem((u64**)(UINTPTR)&EfuseData);
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr);
 
-	if (Size == 0U || EfuseData == NULL || Size < TotalSize) {
+	if ((EfuseData == NULL) || (Size < TotalSize)) {
 		goto END;
 	}
 

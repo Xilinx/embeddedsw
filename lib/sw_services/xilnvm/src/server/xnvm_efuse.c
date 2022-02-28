@@ -4976,8 +4976,8 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 	u32 CacheOffset = 0U;
 	u32 BitVal = 0U;
 
-	if (((Page == XNVM_EFUSE_PAGE_0) && (Row < XNVM_EFUSE_AES_KEY_START_ROW ||
-		Row > XNVM_EFUSE_USER_KEY_1_END_ROW)) || (Page == XNVM_EFUSE_PAGE_1) ||
+	if (((Page == XNVM_EFUSE_PAGE_0) && ((Row < XNVM_EFUSE_AES_KEY_START_ROW) ||
+		(Row > XNVM_EFUSE_USER_KEY_1_END_ROW))) || (Page == XNVM_EFUSE_PAGE_1) ||
 		(Page == XNVM_EFUSE_PAGE_2)) {
 		CacheOffset = ((u32)Page * XNVM_NUM_OF_CACHE_ADDR_PER_PAGE) +
 			(Row * XNVM_EFUSE_WORD_LEN);
