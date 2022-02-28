@@ -26,8 +26,9 @@ proc puf_drc {libhandle} {
 
 	if {$proc_type != "psv_pmc" && $proc_type != "psv_cortexa72" &&
 		$proc_type != "psv_cortexr5" && $proc_type != "psu_pmc" &&
-		$proc_type != "microblaze"} {
-		error "ERROR: XilPuf library is supported only for Versal";
+		$proc_type != "microblaze" && $proc_type != "psxl_pmc" &&
+		$proc_type != "psxl_cortexa78" && $proc_type != "psxl_cortexr52"} {
+		error "ERROR: XilPuf library is supported only for Versal family of devices";
 		return;
 	}
 
@@ -39,12 +40,13 @@ proc puf_drc {libhandle} {
 			file copy -force $entry "./src"
 	}
 
-	if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $mode == "server"} {
+	if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $proc_type == "psxl_pmc" || $mode == "server"} {
 		foreach entry [glob -nocomplain -types f [file join "$server" *]] {
 			file copy -force $entry "./src"
 		}
 	} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-		$proc_type == "psv_cortexr5" || $proc_type == "microblaze"} {
+		$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
+		$proc_type == "psxl_cortexr52" || $proc_type == "microblaze"} {
 		foreach entry [glob -nocomplain -types f [file join "$client" *]] {
 			file copy -force $entry "./src"
 		}
@@ -52,7 +54,8 @@ proc puf_drc {libhandle} {
 
 	if {$mode == "server"} {
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-		$proc_type == "psv_cortexr5"} {
+		$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
+		$proc_type == "psxl_cortexr52"} {
 			file delete -force ./src/xpuf_ipihandler.c
 			file delete -force ./src/xpuf_ipihandler.h
 			file delete -force ./src/xpuf_cmd.c
@@ -108,7 +111,8 @@ proc xgen_opts_file {libhandle} {
 	}
 
 	set mode [common::get_property CONFIG.mode $libhandle]
-	if {$mode == "client" && $proc_type != "psu_pmc" && $proc_type != "psv_pmc"} {
+	if {$mode == "client" && $proc_type != "psu_pmc" && $proc_type != "psv_pmc" &&
+		$proc_type != "psxl_pmc"} {
 		# Get IPI channel enabled in design for client-server communication
 		set value [common::get_property CONFIG.ipi_channel $libhandle]
 		#Open xparameters.h file

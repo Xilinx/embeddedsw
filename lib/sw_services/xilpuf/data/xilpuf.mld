@@ -15,11 +15,11 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilpuf
   OPTION drc = puf_drc;
   OPTION copyfiles = all;
-  OPTION SUPPORTED_PERIPHERALS = (psv_pmc psv_cortexa72 psv_cortexr5 microblaze);
+  OPTION SUPPORTED_PERIPHERALS = (psv_pmc psxl_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_cortexa78 psxl_cortexr52);
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpuf,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx PUF Library provides interface for registration and regeneration";
-  OPTION VERSION = 1.5;
+  OPTION VERSION = 1.6;
   OPTION NAME = xilpuf;
   PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilPuf library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
   PARAM name = ipi_channel, desc = " Selects the IPI channel for client-server communication for xilpuf library", type = enum, values = ("0" = 0, "1" = 1, "2" = 2, "3" = 3, "4" = 4, 5 = "5", 6 = "6", 7 = "7"), default = 0
