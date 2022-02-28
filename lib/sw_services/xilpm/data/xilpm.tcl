@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -44,12 +44,17 @@ proc generate {libhandle} {
 
 	set zynqmp_dir "./src/zynqmp"
 	set versal_dir "./src/versal"
+	set versal_net_dir    "./src/versal_net"
 	set zynqmp_client_a53dir "$zynqmp_dir/client/apu"
 	set zynqmp_client_r5dir "$zynqmp_dir/client/rpu"
 	set zynqmp_client_commondir "$zynqmp_dir/client/common"
 	set versal_client_dir "$versal_dir/client"
 	set versal_server_dir "$versal_dir/server"
 	set versal_common_dir "$versal_dir/common"
+	set versal_net_client_dir "$versal_net_dir/client"
+	set versal_net_server_dir "$versal_net_dir/server"
+	set versal_net_common_dir "$versal_net_dir/common"
+
 
 	switch $proctype {
 		"psu_cortexa53" {
@@ -73,10 +78,24 @@ proc generate {libhandle} {
 			}
 		}
 
+		"psxl_cortexa78" -
+		"psxl_cortexr52" {
+			if {($iszynqmp == 0)} {
+				copy_files_to_src $versal_net_client_dir
+				copy_files_to_src $versal_net_common_dir
+			} else {
+				error "Error: Processor type $proctype is not supported in ZynqMP\n"
+			}
+		}
+
 		"psu_pmc" -
 		"psv_pmc" {
 			copy_files_to_src $versal_server_dir
 			copy_files_to_src $versal_common_dir
+		}
+		"psxl_pmc" {
+			copy_files_to_src $versal_net_server_dir
+			copy_files_to_src $versal_net_common_dir
 		}
 
 		"default"  {error "Error: Processor type $proctype is not supported\n"}
