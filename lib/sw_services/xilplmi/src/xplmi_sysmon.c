@@ -30,6 +30,7 @@
  *                       after OT event clears up
  *       is   01/10/2022 Updated Copyright Year to 2022
  *       ma   01/17/2022 Enable SLVERR for Sysmon
+ *       ma   03/01/2022 Write PCSR MASK register before enabling SLVERR
  *
  * </pre>
  *
@@ -43,10 +44,8 @@
 #include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_SYSMON_SAT0_PCSR_CTRL_OFFSET		(0x10004U)
-#define XPLMI_SYSMON_SAT0_PCSR_LOCK_OFFSET		(0x1000CU)
-#define XPLMI_SYSMON_SAT1_PCSR_CTRL_OFFSET		(0x20004U)
-#define XPLMI_SYSMON_SAT1_PCSR_LOCK_OFFSET		(0x2000CU)
+#define XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET		(0x10000U)
+#define XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET		(0x20000U)
 #define XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK	(0x80000U)
 
 /**************************** Type Definitions *******************************/
@@ -54,6 +53,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value);
 
 /************************** Variable Definitions *****************************/
 
@@ -71,6 +71,28 @@ XSysMonPsv* XPlmi_GetSysmonInst(void)
 	static XSysMonPsv SysMonInst;
 
 	return &SysMonInst;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function writes given configuration to Sysmon Ctrl register.
+ *
+ * @param	Addr is the address of Sysmon Mask register
+ * @param	Value is the configuration to be written to Control register
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value)
+{
+	/*
+	 * We need to unlock PCSR to write to control register.
+	 * Lock it back in after write.
+	 */
+	XPlmi_Out32((Addr + (u32)XSYSMONPSV_PCSR_LOCK), PCSR_UNLOCK_VAL);
+	XPlmi_UtilRMW(Addr, Value, Value);
+	XPlmi_UtilRMW((Addr + (u32)XSYSMONPSV_PCSR_CONTROL), Value, Value);
+	XPlmi_Out32((Addr + (u32)XSYSMONPSV_PCSR_LOCK), 0U);
 }
 
 /*****************************************************************************/
@@ -101,42 +123,21 @@ int XPlmi_SysMonInit(void)
 		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK,
 			PCSR_UNLOCK_VAL);
 		XSysMonPsv_IntrEnable(SysMonInstPtr, (u32)XSYSMONPSV_IER0_OT_MASK, 0U);
-
-		/* Enable SLVERR for Sysmon */
-		XPlmi_UtilRMW((ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_CONTROL),
-				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK,
-				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
 		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK, 0U);
 
-		/*
-		 * Enable SLVERR for Sysmon SAT0. The registers need to be unlocked
-		 * before enabling SLVERR
-		 */
-		XPlmi_Out32(ConfigPtr->BaseAddress +
-				(u32)XPLMI_SYSMON_SAT0_PCSR_LOCK_OFFSET,
-				PCSR_UNLOCK_VAL);
-		XPlmi_UtilRMW((ConfigPtr->BaseAddress +
-				(u32)XPLMI_SYSMON_SAT0_PCSR_CTRL_OFFSET),
-				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK,
+		/* Enable SLVERR for Sysmon */
+		XPlmi_WriteSysmonCtrlReg(ConfigPtr->BaseAddress,
 				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
-		XPlmi_Out32(ConfigPtr->BaseAddress +
-				(u32)XPLMI_SYSMON_SAT0_PCSR_LOCK_OFFSET,
-				0U);
 
-		/*
-		 * Enable SLVERR for Sysmon SAT1. The registers need to be unlocked
-		 * before enabling SLVERR
-		 */
-		XPlmi_Out32(ConfigPtr->BaseAddress +
-				(u32)XPLMI_SYSMON_SAT1_PCSR_LOCK_OFFSET,
-				PCSR_UNLOCK_VAL);
-		XPlmi_UtilRMW((ConfigPtr->BaseAddress +
-				(u32)XPLMI_SYSMON_SAT1_PCSR_CTRL_OFFSET),
-				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK,
+		/* Enable SLVERR for Sysmon SAT0 */
+		XPlmi_WriteSysmonCtrlReg((ConfigPtr->BaseAddress +
+				(u32)XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET),
 				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
-		XPlmi_Out32(ConfigPtr->BaseAddress +
-				(u32)XPLMI_SYSMON_SAT1_PCSR_LOCK_OFFSET,
-				0U);
+
+		/* Enable SLVERR for Sysmon SAT1 */
+		XPlmi_WriteSysmonCtrlReg((ConfigPtr->BaseAddress +
+				(u32)XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET),
+				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
 	}
 	XPlmi_Printf(DEBUG_DETAILED,
 		 "%s: SysMon init status: 0x%x\n\r", __func__, Status);
