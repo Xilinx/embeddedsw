@@ -50,6 +50,8 @@
 *                         for CortexR52. This is needed, as by default scugic
 *                         driver configures interrupts as group0 and CortexR52
 *                         GIC triggers FIQ for group0 interrupts.
+* 8.0  sk	 03/02/22 Define XExc_VectorTableEntry structure to fix
+* 			  misra_c_2012_rule_5_6 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -112,6 +114,11 @@ extern "C" {
  */
 typedef void (*Xil_ExceptionHandler)(void *data);
 typedef void (*Xil_InterruptHandler)(void *data);
+
+typedef struct {
+        Xil_ExceptionHandler Handler;
+        void *Data;
+} XExc_VectorTableEntry;
 
 /**
 *@endcond
