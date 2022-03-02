@@ -52,6 +52,8 @@
 *                         GIC triggers FIQ for group0 interrupts.
 * 8.0  sk	 03/02/22 Define XExc_VectorTableEntry structure to fix
 * 			  misra_c_2012_rule_5_6 violation.
+* 8.0  sk	 03/02/22 Add XExc_VectorTable as extern to fix misra_c_2012_
+* 			  rule_8_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -119,6 +121,8 @@ typedef struct {
         Xil_ExceptionHandler Handler;
         void *Data;
 } XExc_VectorTableEntry;
+
+extern XExc_VectorTableEntry XExc_VectorTable[];
 
 /**
 *@endcond
