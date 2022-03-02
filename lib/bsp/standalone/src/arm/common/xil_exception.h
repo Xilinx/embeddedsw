@@ -48,6 +48,8 @@
 *                         such issues. It fixes CR#1120498.
 * 7.7	sk	 03/02/22 Define XExc_VectorTableEntry structure to fix
 * 			  misra_c_2012_rule_5_6 violation.
+* 7.7	sk	 03/02/22 Add XExc_VectorTable as extern to fix misra_c_2012_
+* 			  rule_8_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -115,6 +117,8 @@ typedef struct {
         Xil_ExceptionHandler Handler;
         void *Data;
 } XExc_VectorTableEntry;
+
+extern XExc_VectorTableEntry XExc_VectorTable[];
 
 /**
 *@endcond

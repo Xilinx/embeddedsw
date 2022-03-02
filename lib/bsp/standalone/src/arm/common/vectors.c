@@ -20,6 +20,8 @@
 *                     processor
 * 7.7	sk   03/02/22 Move XExc_VectorTableEntry structure to xil_exception.h
 * 		      header file to fix misra_c_2012_rule_5_6 violation.
+* 7.7	sk   03/02/22 Move XExc_VectorTableEntry declaration to xil_exception.h
+* 		      header file to fix misra_c_2012_rule_8_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -35,8 +37,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
-
-extern XExc_VectorTableEntry XExc_VectorTable[];
 
 /************************** Function Prototypes ******************************/
 
