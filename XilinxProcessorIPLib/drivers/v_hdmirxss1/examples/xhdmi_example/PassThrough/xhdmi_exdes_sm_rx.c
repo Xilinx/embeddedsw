@@ -201,7 +201,23 @@ void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef)
 
 	xdbg_xv_rx_print("%s,%d : XHdmiphy1_ClkDetGetRefClkFreqHz: %d\r\n",
 			__func__, __LINE__, Hdmiphy1Ptr->HdmiRxRefClkHz);
-
+#if defined (XPS_BOARD_VCK190)
+	if ((RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
+		XV_HdmiRxSs1_SetStream(HdmiRxSs1Ptr,
+				       Hdmiphy1Ptr->HdmiRxRefClkHz,
+				       (XHdmiphy1_GetLineRateHz(
+						Hdmiphy1Ptr, 0,
+						XHDMIPHY1_CHANNEL_ID_CMN0) /
+					1000000));
+	} else {
+		XV_HdmiRxSs1_SetStream(HdmiRxSs1Ptr,
+				       Hdmiphy1Ptr->HdmiRxRefClkHz,
+				       (XHdmiphy1_GetLineRateHz(
+						Hdmiphy1Ptr, 0,
+						XHDMIPHY1_CHANNEL_ID_CMN1) /
+					1000000));
+	}
+#else
 	if (!(RxPllType == XHDMIPHY1_PLL_TYPE_CPLL)) {
 		XV_HdmiRxSs1_SetStream(HdmiRxSs1Ptr,
 				       Hdmiphy1Ptr->HdmiRxRefClkHz,
@@ -218,6 +234,7 @@ void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef)
 						XHDMIPHY1_CHANNEL_ID_CH1) /
 					1000000));
 	}
+#endif
 }
 
 void XV_Rx_VPhy_SetCallbacks(XV_Rx *InstancePtr)
@@ -400,7 +417,19 @@ u64 XV_Rx_GetLineRate(XV_Rx *InstancePtr)
 				     0,
 				     XHDMIPHY1_DIR_RX,
 				     XHDMIPHY1_CHANNEL_ID_CH1);
+#if defined (XPS_BOARD_VCK190)
 
+	if ((RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
+		LineRate = InstancePtr->VidPhy->Quads[0].Plls[
+					XHDMIPHY1_CHANNEL_ID_CMN0 -
+					XHDMIPHY1_CHANNEL_ID_CH1].LineRateHz;
+	} else {
+		LineRate = InstancePtr->VidPhy->Quads[0].Plls[
+					XHDMIPHY1_CHANNEL_ID_CMN1 -
+					XHDMIPHY1_CHANNEL_ID_CH1].LineRateHz;
+	}
+
+#else
 	if (!(RxPllType == XHDMIPHY1_PLL_TYPE_CPLL)) {
 		LineRate = InstancePtr->VidPhy->Quads[0].Plls[
 					XHDMIPHY1_CHANNEL_ID_CMN0 -
@@ -408,7 +437,7 @@ u64 XV_Rx_GetLineRate(XV_Rx *InstancePtr)
 	} else {
 		LineRate = InstancePtr->VidPhy->Quads[0].Plls[0].LineRateHz;
 	}
-
+#endif
 	return LineRate;
 }
 

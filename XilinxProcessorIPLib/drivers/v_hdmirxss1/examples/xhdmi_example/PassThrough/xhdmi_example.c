@@ -36,6 +36,7 @@
 * 1.07  ssh    01/28/22 Updated GT Swing settings for VCK190
 * 1.08  ssh    02/01/22 Updated Enable CTS Conversion Function
 * 1.09	ssh    02/04/22 Added param to support Tx to train at the same rate as Rx
+* 1.10  ssh    03/02/22 Added LCPLL and RPLL config for VCK190 Exdes
 *
 * </pre>
 *
@@ -127,7 +128,7 @@ void XV_Rx_HdmiTrigCb_VrrVfpEvent(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_VtemEvent(void *InstancePtr);
 void XV_Rx_HdmiTrigCb_DynHdrEvent(void *InstancePtr);
 
-#if defined	(XPAR_V_HDMI_RXSS1_DSC_EN)
+#if (XPAR_V_HDMI_RXSS1_DSC_EN == 1)
 void XV_Rx_HdmiTrigCb_DscDdcEvent(void *InstancePtr);
 #endif
 
@@ -685,7 +686,7 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 #endif
 
 #else
-#if defined (XPAR_V_HDMI_RXSS1_DSC_EN)
+#if (XPAR_V_HDMI_RXSS1_DSC_EN == 1)
 	memcpy(&(InstancePtr->Edid), &SampleEdid_4,
 		         sizeof(InstancePtr->Edid));
 	xil_printf("HDMI 2.1 DSC EDID is Initialized !!\r\n");
@@ -806,7 +807,7 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 				(void *)InstancePtr);
 #endif
 
-#if defined (XPAR_V_HDMI_RXSS1_DSC_EN)
+#if (XPAR_V_HDMI_RXSS1_DSC_EN == 1)
 	Status |= XV_Rx_SetTriggerCallbacks(InstancePtr,
 				XV_RX_TRIG_HANDLER_DSCDDCSTSUPDTEVNT,
 				(void *)XV_Rx_HdmiTrigCb_DscDdcEvent,
@@ -4825,7 +4826,8 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 
 #if defined (XPS_BOARD_ZCU106) || \
 	defined (XPS_BOARD_VCU118) || \
-	defined (XPS_BOARD_ZCU102)
+	defined (XPS_BOARD_ZCU102) || \
+	defined (XPS_BOARD_VCK190)
 			/* Adjust GT TX Diff Swing based on Line rate */
 			if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R0 &&
 				Vfmc[0].TxMezzType <  VFMC_MEZZ_INVALID) {
@@ -4942,7 +4944,8 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 	for (int ChId=1; ChId <= 4; ChId++) {
 		if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0) {
 #if defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_ZCU106)
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_VCK190)
 			Data = 0xD;
 #elif defined (XPS_BOARD_VCU118)
 			Data = ChId==4 ? 0x1C : 0x1A;
@@ -4954,6 +4957,8 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 #elif defined (XPS_BOARD_VCU118)
 			Data = ChId==4 ? 0x1C : 0x1A;
 #elif defined (XPS_BOARD_ZCU102)
+			Data = 0xD;
+#elif defined (XPS_BOARD_VCK190)
 			Data = 0xD;
 #endif
 		} else if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R2) {
@@ -4967,11 +4972,14 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 			Data = 0xD; //0x1F;
 #elif defined (XPS_BOARD_ZCU102)
 			Data = 0xD;
+#elif defined (XPS_BOARD_VCK190)
+			Data = 0xD;
 #endif
 		}
 #if defined (XPS_BOARD_ZCU106) || \
 	defined (XPS_BOARD_VCU118) || \
-	defined (XPS_BOARD_ZCU102)
+	defined (XPS_BOARD_ZCU102) || \
+	defined (XPS_BOARD_VCK190)
 		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, Data);
 #endif
 	}
@@ -5456,7 +5464,7 @@ void XV_Rx_HdmiTrigCb_DynHdrEvent(void *InstancePtr)
 }
 #endif
 
-#if defined	(XPAR_V_HDMI_RXSS1_DSC_EN)
+#if (XPAR_V_HDMI_RXSS1_DSC_EN == 1)
 void XV_Rx_HdmiTrigCb_DscDdcEvent(void *InstancePtr) {
   xil_printf(ANSI_COLOR_YELLOW"SCDCS(0x10) Status update is Cleared by Source\r\n");
   xil_printf("DSC_DecodeFail(bit 7 of 0x40) is cleared by Sink "ANSI_COLOR_RESET"\r\n");
