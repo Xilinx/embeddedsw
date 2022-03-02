@@ -43,8 +43,8 @@ typedef s32 (*func_ptr)(int c);
 void xil_printf( const char8 *ctrl1, ...);
 void xil_vprintf(const char8 *ctrl1, va_list argp);
 void print( const char8 *ptr);
-extern void outbyte (char8 c);
-extern char8 inbyte(void);
+extern void outbyte (char c);
+extern char inbyte(void);
 
 #ifdef __cplusplus
 }
