@@ -37,7 +37,7 @@ void putnum(u32 num)
 
   ptr = buf;
   for (cnt = 0 ; cnt <= 7 ; cnt++) {
-    digit = (num >> (val * 4U)) & 0x0000000fU;
+    digit = (num >> ((u32)val * 4U)) & 0x0000000fU;
 
     if (digit <= 9U) {
 		digit += (u32)'0';

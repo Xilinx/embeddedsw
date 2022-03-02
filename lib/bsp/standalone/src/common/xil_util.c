@@ -71,6 +71,8 @@
 * 			  not used and fix misra_c_2012_rule_17_7 violation.
 * 7.7	sk	 03/02/22 Remove increment operations during comparision to
 * 			  fix misra_c_2012_rule_13_3 violation.
+* 7.7	sk	 03/02/22 Update values from signed to unsigned to fix
+* 			  misra_c_2012_rule_10_4 violation.
 *
 * </pre>
 *
@@ -286,7 +288,7 @@ u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 	do {
 		EventStatus = Xil_In32(EventsRegAddr);
 		EventStatus &= EventsMask;
-		if((EventStatus & WaitEvents) != 0) {
+		if((EventStatus & WaitEvents) != 0U) {
 			Status = XST_SUCCESS;
 			*Events = EventStatus;
 			break;
@@ -643,7 +645,7 @@ int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 		goto END;
 	}
 
-	for (Index = From; (Index <= To) && (Src[Index]!= '\0'); Index++) {
+	for (Index = From; (Index <= To) && (Src[Index]!= (u8)'\0'); Index++) {
 		Dest[Index - From] = Src[Index];
 	}
 
