@@ -46,6 +46,8 @@
 *                         xparameters.h results  in incorrect behavior.
 *                         Including xparameters.h in xil_exception.h to avoid
 *                         such issues. It fixes CR#1120498.
+* 7.7	sk	 03/02/22 Define XExc_VectorTableEntry structure to fix
+* 			  misra_c_2012_rule_5_6 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -108,6 +110,11 @@ extern "C" {
  */
 typedef void (*Xil_ExceptionHandler)(void *data);
 typedef void (*Xil_InterruptHandler)(void *data);
+
+typedef struct {
+        Xil_ExceptionHandler Handler;
+        void *Data;
+} XExc_VectorTableEntry;
 
 /**
 *@endcond

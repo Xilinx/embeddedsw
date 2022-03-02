@@ -32,6 +32,8 @@
 *                         Xil_GetExceptionRegisterHandler to ignore
 *                         Exception_id, only if its pointing to IRQ.
 *                         It fixes CR#1069524
+* 7.7	sk	 03/02/22 Move XExc_VectorTableEntry structure to header
+* 			  file to fix misra_c_2012_rule_5_6 violation.
 *
 * </pre>
 *
@@ -47,11 +49,6 @@
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions ******************************/
-
-typedef struct {
-	Xil_ExceptionHandler Handler;
-	void *Data;
-} XExc_VectorTableEntry;
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
