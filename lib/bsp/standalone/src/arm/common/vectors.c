@@ -18,6 +18,8 @@
 * 6.0   mus  27/07/16 Consolidated vectors for a53,a9 and r5 processor
 *                     and added UndefinedException for a53 32 bit and r5
 *                     processor
+* 7.7	sk   03/02/22 Move XExc_VectorTableEntry structure to xil_exception.h
+* 		      header file to fix misra_c_2012_rule_5_6 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -29,11 +31,6 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-
-typedef struct {
-	Xil_ExceptionHandler Handler;
-	void *Data;
-} XExc_VectorTableEntry;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
