@@ -1147,20 +1147,23 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 	PrevState = Device->Node.State;
 
-	/*
-	 * AIE device requirement is added implicitly when requested only if it
-	 * has not been previously requested.
-	 */
-	if ((IS_DEV_AIE(Device->Node.Id)) && ((u8)XPM_DEVSTATE_UNUSED == Device->Node.State)) {
-		Status = XPmRequirement_Add(Subsystem, Device,
-				(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U, (u32)REQ_ACCESS_SECURE_NONSECURE,
-				(u32)REQ_NO_RESTRICTION), 0U, 0U, XPM_DEF_QOS);
-	}
-
 	/* Check whether this device assigned to the subsystem */
 	Reqm = FindReqm(Device, Subsystem);
 	if (NULL == Reqm) {
-		goto done;
+		/* AIE device requirement is added implicitly when requested */
+		if (IS_DEV_AIE(Device->Node.Id)) {
+			Status = XPmRequirement_Add(Subsystem, Device,
+				(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U, (u32)REQ_ACCESS_SECURE_NONSECURE,
+				(u32)REQ_TIME_SHARED), 0U, 0U, XPM_DEF_QOS);
+
+			/* Get requirement */
+			Reqm = FindReqm(Device, Subsystem);
+			if (NULL == Reqm) {
+				goto done;
+			}
+		} else {
+			goto done;
+		}
 	}
 
 	Status = CheckSecurityAccess(Reqm, Capabilities, CmdType);
