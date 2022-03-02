@@ -67,6 +67,8 @@
 * 			  _2012_rule_10_3 violation.
 * 8.0	sk	 03/02/22 Add const to unmodified variable to fix misra_c_2012
 * 			  _rule_8_13 violation.
+* 8.0	sk	 03/02/22 Typecast the function with void as return type is
+* 			  not used and fix misra_c_2012_rule_17_7 violation.
 *
 * </pre>
 *
@@ -1043,7 +1045,7 @@ int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 		Status =  XST_INVALID_PARAM;
 	}
 	else {
-		strcat((char*)DestStr, (const char*)SrcStr);
+		(void)strcat((char*)DestStr, (const char*)SrcStr);
 		Status = XST_SUCCESS;
 	}
 
