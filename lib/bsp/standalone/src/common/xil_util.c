@@ -65,6 +65,8 @@
 * 			  misra_c_2012_rule_10_7 violation.
 * 7.7	sk	 03/02/22 Typecast variables with unsigned or signed to fix misra_c
 * 			  _2012_rule_10_3 violation.
+* 7.7	sk	 03/02/22 Add const to unmodified variable to fix misra_c_2012
+* 			   _rule_8_13 violation.
 *
 * </pre>
 *
@@ -945,7 +947,7 @@ int Xil_SMemCpy(void *Dest, const u32 DestSize,
 {
 	int Status = XST_FAILURE;
 	const u8 *Src8 = (const u8 *) Src;
-	u8 *Dst8 = (u8 *) Dest;
+	const u8 *Dst8 = (u8 *) Dest;
 	void * volatile DestTemp = Dest;
 	const void * volatile SrcTemp = Src;
 
