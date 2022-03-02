@@ -209,7 +209,7 @@ static s32 getnum(charptr* linep)
 	charptr cptr = *linep;
 
 	while (cptr != NULL) {
-		ResultIsDigit = isdigit(((s32)*cptr));
+		ResultIsDigit = isdigit(((u8)*cptr));
 		if (ResultIsDigit == 0) {
 			break;
 		}
