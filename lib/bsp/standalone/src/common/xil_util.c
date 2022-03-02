@@ -63,6 +63,8 @@
 * 			  11_8 violation.
 * 8.0	sk	 03/02/22 Typecast expression with unsigned int to fix
 * 			  misra_c_2012_rule_10_7 violation.
+* 8.0	sk	 03/02/22 Typecast variables with unsigned or signed to fix misra_c
+* 			  _2012_rule_10_3 violation.
 *
 * </pre>
 *
@@ -639,7 +641,7 @@ int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 		Dest[Index - From] = Src[Index];
 	}
 
-	Dest[Index - From] = '\0';
+	Dest[Index - From] = (u8)'\0';
 	Status = XST_SUCCESS;
 
 END:
@@ -994,7 +996,7 @@ int Xil_SMemSet(void *Dest, const u32 DestSize,
 		Status =  XST_INVALID_PARAM;
 	}
 	else {
-		(void)memset(Dest, Data, Len);
+		(void)memset(Dest, (s32)Data, Len);
 		Status = XST_SUCCESS;
 	}
 
