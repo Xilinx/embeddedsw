@@ -33,6 +33,8 @@
 * 7.7	sk   01/10/22 Modify Xpm_GetEventCounter and Xpm_DisableEvent
 * 		      functions arguments to fix misra_c_2012_rule_8_3
 * 		      violation.
+* 8.0	sk   03/02/22 Add endif at the end of the file to fix misra_c_2012
+* 		      _directive_4_10 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -493,7 +495,6 @@ extern "C" {
 #define XPM_CNTRCFG14   13
 #define XPM_CNTRCFG15   14
 #define XPM_CNTRCFG16   15
-#endif
 
 #define XPM_NO_COUNTERS_AVAILABLE 	0xFFU
 #define XPM_MAX_EVENTHANDLER_ID		0x2U
@@ -535,6 +536,8 @@ void Xpm_SleepPerfCounter(u32 delay, u64 frequency);
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif
 
 /**
