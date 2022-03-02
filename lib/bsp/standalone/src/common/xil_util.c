@@ -59,6 +59,8 @@
 *       mmd      02/28/22 Added Xil_SMemMove function
 * 7.7	sk	 03/02/22 Add explicit parentheses to fix misra_c_2012_rule_12_1
 * 			  violation.
+* 7.7	sk	 03/02/22 Add const qualifier to varaibles to fix misra_c_2012_rule_
+* 			  11_8 violation.
 *
 * </pre>
 *
@@ -881,8 +883,8 @@ int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
 	volatile u32 Data = 0U;
 	volatile u32 DataRedundant = 0xFFFFFFFFU;
 	u32 Cnt = CmpLen;
-	const u8 *Src_1 = (u8 *)Src1;
-	const u8 *Src_2 = (u8 *)Src2;
+	const u8 *Src_1 = (const u8 *)Src1;
+	const u8 *Src_2 = (const u8 *)Src2;
 
 
 	if ((Src1 == NULL) || (Src2 == NULL)) {
@@ -893,7 +895,7 @@ int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
 	}
 	else {
 		while (Cnt >= sizeof(u32)) {
-			Data |= (*(u32 *)Src_1 ^ *(u32 *)Src_2);
+			Data |= (*(const u32 *)Src_1 ^ *(const u32 *)Src_2);
 			DataRedundant &= ~Data;
 			Src_1 += sizeof(u32);
 			Src_2 += sizeof(u32);
@@ -938,7 +940,7 @@ int Xil_SMemCpy(void *Dest, const u32 DestSize,
 	const void *Src, const u32 SrcSize, const u32 CopyLen)
 {
 	int Status = XST_FAILURE;
-	const u8 *Src8 = (u8 *) Src;
+	const u8 *Src8 = (const u8 *) Src;
 	u8 *Dst8 = (u8 *) Dest;
 	void * volatile DestTemp = Dest;
 	const void * volatile SrcTemp = Src;
