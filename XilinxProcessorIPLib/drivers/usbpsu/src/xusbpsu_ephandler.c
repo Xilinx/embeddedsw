@@ -228,7 +228,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	s32	RetVal;
 	struct XUsbPsu_Trb	*TrbPtr;
 	struct XUsbPsu_Ep *Ept;
-	struct XUsbPsu_EpParams *Params;
+	struct XUsbPsu_EpParams Params;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(UsbEp <= (u8)16U);
@@ -293,10 +293,9 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 		Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
 	}
 
-	Params = XUsbPsu_GetEpParams(InstancePtr);
-	Xil_AssertNonvoid(Params != NULL);
-	Params->Param0 = 0U;
-	Params->Param1 = (UINTPTR)TrbPtr;
+	Params.Param0 = 0U;
+	Params.Param1 = (UINTPTR)TrbPtr;
+	Params.Param2 = 0U;
 
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != (u32)0U) {
 		cmd = XUSBPSU_DEPCMD_UPDATETRANSFER;
@@ -337,7 +336,7 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	}
 
 	RetVal = XUsbPsu_SendEpCmd(InstancePtr, UsbEp, Ept->Direction,
-								cmd, Params);
+								cmd, &Params);
 	if (RetVal != (s32)XST_SUCCESS) {
 		return (s32)XST_FAILURE;
 	}
@@ -378,7 +377,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	s32	RetVal;
 	struct XUsbPsu_Trb	*TrbPtr;
 	struct XUsbPsu_Ep *Ept;
-	struct XUsbPsu_EpParams *Params;
+	struct XUsbPsu_EpParams Params;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(UsbEp <= (u8)16U);
@@ -455,10 +454,9 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 		Xil_DCacheInvalidateRange((INTPTR)BufferPtr, Length);
 	}
 
-	Params = XUsbPsu_GetEpParams(InstancePtr);
-	Xil_AssertNonvoid(Params != NULL);
-	Params->Param0 = 0U;
-	Params->Param1 = (UINTPTR)TrbPtr;
+	Params.Param0 = 0U;
+	Params.Param1 = (UINTPTR)TrbPtr;
+	Params.Param2 = 0U;
 
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != (u32)0U) {
 		cmd = XUSBPSU_DEPCMD_UPDATETRANSFER;
@@ -498,7 +496,7 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 	}
 
 	RetVal = XUsbPsu_SendEpCmd(InstancePtr, UsbEp, Ept->Direction,
-								cmd, Params);
+								cmd, &Params);
 	if (RetVal != XST_SUCCESS) {
 		return (s32)XST_FAILURE;
 	}
