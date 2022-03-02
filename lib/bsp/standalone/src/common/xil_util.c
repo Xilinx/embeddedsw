@@ -69,6 +69,8 @@
 * 			  _rule_8_13 violation.
 * 8.0	sk	 03/02/22 Typecast the function with void as return type is
 * 			  not used and fix misra_c_2012_rule_17_7 violation.
+* 8.0	sk	 03/02/22 Remove increment operations during comparision to
+* 			  fix misra_c_2012_rule_13_3 violation.
 *
 * </pre>
 *
@@ -679,7 +681,9 @@ int Xil_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size)
 	}
 
 	while ((Str2Ptr[CountTmp] != '\0') && (Count < Size)) {
-		Str1Ptr[Count++] = Str2Ptr[CountTmp++];
+		Str1Ptr[Count] = Str2Ptr[CountTmp];
+		Count++;
+		CountTmp++;
 	}
 	if (Count == Size) {
 		Str1Ptr[0U] = '\0';
