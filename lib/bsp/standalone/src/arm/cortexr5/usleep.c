@@ -37,6 +37,8 @@
 *                         CR#1051591.
 * 7.7	sk	 01/10/22 Modify usleep_R5 functions return type from int to
 * 			  void to fix misra_c_2012_rule_17_7 violation.
+* 7.7	sk	 03/02/22 Update usleep_R5 argument type to fix misra_c_2012_
+* 			  directive_4_6 violation.
 *
 * </pre>
 *
@@ -77,7 +79,7 @@
 *
 ****************************************************************************/
 
-void usleep_R5(unsigned long useconds)
+void usleep_R5(ULONG useconds)
 {
 #if defined (SLEEP_TIMER_BASEADDR)
 	Xil_SleepTTCCommon(useconds, COUNTS_PER_USECOND);
