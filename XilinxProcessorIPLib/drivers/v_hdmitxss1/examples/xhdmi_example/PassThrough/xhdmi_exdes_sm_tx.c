@@ -2317,7 +2317,18 @@ void XV_Tx_HdmiTx_EnterStateStreamOn(XV_Tx *InstancePtr)
 	/* Get the Tx PLL type and the corresponding Line rate. */
 	TxPllType = XHdmiphy1_GetPllType(XV_Tx_Hdmiphy1Ptr, 0,
 				XHDMIPHY1_DIR_TX, XHDMIPHY1_CHANNEL_ID_CH1);
+#if defined (XPS_BOARD_VCK190)
 
+	if ((TxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
+		TxLineRate = XHdmiphy1_GetLineRateHz(XV_Tx_Hdmiphy1Ptr, 0,
+				XHDMIPHY1_CHANNEL_ID_CMN0);
+
+	} else if ((TxPllType == XHDMIPHY1_PLL_TYPE_RPLL)) {
+		TxLineRate = XHdmiphy1_GetLineRateHz(XV_Tx_Hdmiphy1Ptr, 0,
+						XHDMIPHY1_CHANNEL_ID_CMN1);
+	}
+
+#else
 	if ((TxPllType == XHDMIPHY1_PLL_TYPE_CPLL)) {
 		TxLineRate = XHdmiphy1_GetLineRateHz(XV_Tx_Hdmiphy1Ptr, 0,
 						XHDMIPHY1_CHANNEL_ID_CH1);
@@ -2330,7 +2341,7 @@ void XV_Tx_HdmiTx_EnterStateStreamOn(XV_Tx *InstancePtr)
 		TxLineRate = XHdmiphy1_GetLineRateHz(XV_Tx_Hdmiphy1Ptr, 0,
 						XHDMIPHY1_CHANNEL_ID_CMN1);
 	}
-
+#endif
 	InstancePtr->ConfigInfo.LineRate = TxLineRate;
 
 	/* Setup the audio and video sources. */
