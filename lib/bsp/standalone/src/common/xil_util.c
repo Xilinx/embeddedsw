@@ -57,6 +57,8 @@
 * 			  violation.
 *       bm       01/20/22 Fix compilation warnings in Xil_SMemCpy
 *       mmd      02/28/22 Added Xil_SMemMove function
+* 7.7	sk	 03/02/22 Add explicit parentheses to fix misra_c_2012_rule_12_1
+* 			  violation.
 *
 * </pre>
 *
@@ -411,7 +413,7 @@ u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
 	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
 		if ((Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]),&UpperNibble)
 			== (u32)XST_SUCCESS) && (Xil_ConvertCharToNibble(((u8)Str[ConvertedLen+1U]),
-				&LowerNibble)) == (u32)XST_SUCCESS) {
+				&LowerNibble) == (u32)XST_SUCCESS)) {
 				Buf[ConvertedLen/2U] =
 				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
 								LowerNibble;
