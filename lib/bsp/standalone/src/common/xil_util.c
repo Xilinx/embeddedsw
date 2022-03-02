@@ -61,6 +61,8 @@
 * 			  violation.
 * 7.7	sk	 03/02/22 Add const qualifier to varaibles to fix misra_c_2012_rule_
 * 			  11_8 violation.
+* 7.7	sk	 03/02/22 Typecast expression with unsigned int to fix
+* 			  misra_c_2012_rule_10_7 violation.
 *
 * </pre>
 *
@@ -202,10 +204,10 @@ u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
 			}
 		}
 
-		buf[index] = ((Nibble[0] << (u8)28U) | (Nibble[1] << (u8)24U) |
-		              (Nibble[2] << (u8)20U) | (Nibble[3] << (u8)16U) |
-		              (Nibble[4] << (u8)12U) | (Nibble[5] << (u8)8U)  |
-		              (Nibble[6] << (u8)4U)  | (u32)Nibble[7]);
+		buf[index] = (((u32)Nibble[0] << (u8)28U) | ((u32)Nibble[1] << (u8)24U) |
+		              ((u32)Nibble[2] << (u8)20U) | ((u32)Nibble[3] << (u8)16U) |
+		              ((u32)Nibble[4] << (u8)12U) | ((u32)Nibble[5] << (u8)8U)  |
+		              ((u32)Nibble[6] << (u8)4U)  | (u32)Nibble[7]);
 		index++;
 	}
 END:
@@ -903,7 +905,7 @@ int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
 		}
 
 		while (Cnt > 0U) {
-			Data |= (*Src_1 ^ *Src_2);
+			Data |= (u32)(*Src_1 ^ *Src_2);
 			DataRedundant &= ~Data;
 			Src_1++;
 			Src_2++;
