@@ -30,6 +30,8 @@
 *                        delta error in time calculations can be minimized.
 * 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
 *                        displaying same warnings multiple times. It fixes CR#1090562.
+* 7.7	sk	03/02/22 Update COUNTS_PER_USECOND macro to fix misra_c_2012_rule_
+* 			 10_4 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -69,7 +71,7 @@ extern "C" {
 #define COUNTS_PER_SECOND	((XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ + 32)/ 64)
 #endif
 
-#define COUNTS_PER_USECOND	((COUNTS_PER_SECOND + 500000) / 1000000)
+#define COUNTS_PER_USECOND	((COUNTS_PER_SECOND + 500000U) / 1000000U)
 
 #define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
 
