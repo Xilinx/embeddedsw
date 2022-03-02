@@ -47,6 +47,8 @@
 * 		      misra_c_2012_rule_10_4 violation.
 * 7.7	sk   01/10/22 Typecast to fix wider essential type misra_c_2012_rule_10_7
 * 		      violation.
+* 7.7	sk   03/02/22 Remove continue statement from else condition to fix
+* 		      NO_EFFECT violation.
 * </pre>
 *
 ******************************************************************************/
@@ -226,7 +228,6 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
 			    break;
             } else {
                 Counters = Counters >> 0x1U;
-                continue;
             }
         }
     }
