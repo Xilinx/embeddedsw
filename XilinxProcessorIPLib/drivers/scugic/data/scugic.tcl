@@ -1361,9 +1361,9 @@ proc get_psu_interrupt_id { ip_name port_name } {
 proc is_interrupt { IP_NAME } {
 		if { [string match -nocase $IP_NAME "ps7_scugic"] } {
 						return true
-		} elseif { ([string match -nocase $IP_NAME "psu_acpu_gic"]) || ([string match -nocase $IP_NAME "psv_acpu_gic"] || ([string match -nocase $IP_NAME "psxl_acpu_gic"])} {
+		} elseif { ([string match -nocase $IP_NAME "psu_acpu_gic"]) || ([string match -nocase $IP_NAME "psv_acpu_gic"]) || ([string match -nocase $IP_NAME "psxl_acpu_gic"])} {
 						return true
-`		} elseif { ([string match -nocase $IP_NAME "psu_rcpu_gic"]) || ([string match -nocase $IP_NAME "psv_rcpu_gic"] || ([string match -nocase $IP_NAME "psxl_rcpu_gic"])} {
+`		} elseif { ([string match -nocase $IP_NAME "psu_rcpu_gic"]) || ([string match -nocase $IP_NAME "psv_rcpu_gic"]) || ([string match -nocase $IP_NAME "psxl_rcpu_gic"])} {
 						return true
 		}
 		#puts "return $IP_NAME\n\r"
