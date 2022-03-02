@@ -846,6 +846,13 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 			    CRP_RESET_REASON_SW_SYS_MASK |
 			    CRP_RESET_REASON_ERR_SYS_MASK |
 			    CRP_RESET_REASON_DAP_SYS_MASK);
+	u32 NoCResetsMask = CRP_RST_NONPS_NOC_POR_MASK |
+			CRP_RST_NONPS_NPI_RESET_MASK |
+			CRP_RST_NONPS_NOC_RESET_MASK |
+			CRP_RST_NONPS_SYS_RST_1_MASK |
+			CRP_RST_NONPS_SYS_RST_2_MASK |
+			CRP_RST_NONPS_SYS_RST_3_MASK;
+
 	const u32 IsolationIdx[] = {
 		(u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM,
 		(u32)XPM_NODEIDX_ISO_VCCRAM_SOC,
@@ -889,8 +896,8 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 		PmRmw32(CRP_RST_PS, CRP_RST_PS_PL_POR_MASK | CRP_RST_PS_PS_POR_MASK,
 					CRP_RST_PS_PL_POR_MASK | CRP_RST_PS_PS_POR_MASK);
 
-		/* Assert NOC POR */
-		PmRmw32(CRP_RST_NONPS, CRP_RST_NONPS_NOC_POR_MASK, CRP_RST_NONPS_NOC_POR_MASK);
+		/* Assert NOC POR, NPI Reset, Sys Resets */
+		PmRmw32(CRP_RST_NONPS, NoCResetsMask, NoCResetsMask);
 
 		/* Enable domain isolations after system reset */
 		for (i = 0; i < ARRAY_SIZE(IsolationIdx); i++) {
