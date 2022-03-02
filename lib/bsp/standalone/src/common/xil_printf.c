@@ -393,7 +393,7 @@ void xil_vprintf(const char8 *ctrl1, va_list argp)
 
             case 'c':
 #if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM)
-                outbyte( va_arg( argp, s32));
+                outbyte( (char8)va_arg( argp, s32));
 #endif
                 Check = 1;
                 break;
