@@ -5,6 +5,10 @@
 
 /*****************************************************************************/
 /**
+* @file xcsudma.h
+* @addtogroup Overview
+* @{
+* @details
 *
 * The CSU_DMA is present inside CSU (Configuration Security Unit) module which
 * is located within the Low-Power Subsystem (LPS) internal to the PS.
@@ -61,11 +65,6 @@
 * The XCsuDma driver is composed of several source files. This allows the user
 * to build and link only those parts of the driver that are necessary.
 *
-* @file xcsudma.h
-* @addtogroup csudma_v1_10
-* @{
-* @details
-*
 * This header file contains identifiers and register-level driver functions (or
 * macros), range macros, structure typedefs that can be used to access the
 * Xilinx CSU_DMA core instance.
@@ -101,6 +100,8 @@
 * 1.8   nsk     12/14/20 Updated the tcl to not to use the instance names.
 * 1.9	sk	02/11/21 Add description for the dmatype macros.
 * 1.9	sk	02/11/21 Remove the prototype of undefined functions.
+* 1.11	sk	03/03/22 Move addtogroup to starting of the file and replace
+* 			 driver version with Overview.
 * </pre>
 *
 ******************************************************************************/

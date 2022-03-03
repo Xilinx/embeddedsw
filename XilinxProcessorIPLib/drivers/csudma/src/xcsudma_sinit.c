@@ -8,7 +8,7 @@
 /**
 *
 * @file xcsudma_sinit.c
-* @addtogroup csudma_v1_10
+* @addtogroup Overview
 * @{
 *
 * This file contains static initialization methods for Xilinx CSU_DMA core.
@@ -20,6 +20,7 @@
 * ----- ------  -------- ---------------------------------------------------
 * 1.0   vnsld   22/10/14 First release
 * 1.7	sk	08/26/20 Fix MISRA-C violations.
+* 1.11	sk	03/03/22 Replace driver version in addtogroup with Overview.
 * </pre>
 *
 ******************************************************************************/
