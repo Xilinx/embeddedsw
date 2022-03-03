@@ -413,7 +413,7 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 #define XREG_ICC_EOIR0_EL1	"p15, 0, %0,  c12,  c8, 1"
 #define XREG_IMP_CBAR		"p15, 1, %0, c15, c3, 0"
 #else
-#define XREG_ICC_SRE_EL1	"S3_6_C12_C12_5"
+#define XREG_ICC_SRE_EL1	"S3_0_C12_C12_5"
 #define XREG_ICC_SRE_EL3	"S3_6_C12_C12_5"
 #define XREG_ICC_IGRPEN0_EL1	"S3_0_C12_C12_6"
 #define XREG_ICC_IGRPEN1_EL1	"S3_0_C12_C12_7"
