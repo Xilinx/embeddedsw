@@ -10,8 +10,8 @@
 * @addtogroup Overview
 * @{
 *
-* This header file contains identifiers and register-level driver functions (or
-* macros) that can be used to access the Xilinx CSU_DMA core.
+* The xcsudma_hw.h header file contains identifiers and register-level driver
+* functions (or macros) that can be used to access the Xilinx CSU_DMA core.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,6 +22,7 @@
 * 1.9	sk     02/11/21 Add description for XPS_CRP_BASEADDRESS and
 * 			XCSUDMA_DONE_TIMEOUT_VAL macros.
 * 1.11	sk     03/03/22 Replace driver version in addtogroup with Overview.
+* 1.11	sk     03/03/22 Update Overview section based on review comments.
 * </pre>
 *
 ******************************************************************************/

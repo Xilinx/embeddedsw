@@ -19,9 +19,9 @@
 * The CSU_DMA is a 2 channel simple DMA, allowing separate control of the SRC
 * (read) channel and DST (write) channel. The DMA is effectively able to
 * transfer data:
-*	- From PS-side to the SSS-side (SRC DMA only)
-*	- From SSS-side to the PS-side (DST DMA only)
-*	- Simultaneous PS-side to SSS_side and SSS-side to the PS-side
+*	- From PS-side to the SSS-side (SRC DMA only).
+*	- From SSS-side to the PS-side (DST DMA only).
+*	- Simultaneous PS-side to SSS_side and SSS-side to the PS-side.
 *
 * <b>Initialization & Configuration</b>
 *
@@ -65,7 +65,7 @@
 * The XCsuDma driver is composed of several source files. This allows the user
 * to build and link only those parts of the driver that are necessary.
 *
-* This header file contains identifiers and register-level driver functions (or
+* This section contains identifiers and register-level driver functions (or
 * macros), range macros, structure typedefs that can be used to access the
 * Xilinx CSU_DMA core instance.
 *
@@ -102,6 +102,7 @@
 * 1.9	sk	02/11/21 Remove the prototype of undefined functions.
 * 1.11	sk	03/03/22 Move addtogroup to starting of the file and replace
 * 			 driver version with Overview.
+* 1.11	sk	03/03/22 Update overview section based on review comments.
 * </pre>
 *
 ******************************************************************************/
