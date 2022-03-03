@@ -11,8 +11,8 @@
 * @addtogroup Overview
 * @{
 *
-* This file contains the implementation of the interface functions for CSU_DMA
-* driver. Refer to the header file xcsudma.h for more detailed information.
+* This section contains the functions of the CSU_DMA driver.
+* Refer to the header file xcsudma.h for more detailed information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -37,6 +37,7 @@
 * 1.7	sk	08/26/20 Fix MISRA-C violations.
 * 1.7	sk	08/26/20 Remove busy check in SetConfig.
 * 1.11	sk	03/03/22 Replace driver version in addtogroup with Overview.
+* 1.11	sk	03/03/22 Update Overview section based on review comments.
 * </pre>
 *
 ******************************************************************************/
