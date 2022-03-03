@@ -41,6 +41,7 @@
 *                       XPlmi_SsitWaitForDmaDone function
 *       ma   01/17/2022 Enable SLVERR for PMC DMA
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
+*       skd  03/03/2022 Minor bug fix in XPlmi_MemCpy64
 *
 * </pre>
 *
@@ -975,7 +976,7 @@ int XPlmi_MemCpy64(u64 DestAddr, u64 SrcAddr, u32 Len)
 	u8 Data;
 	u32 LenWords;
 
-	if ((SrcBytes != DestBytes) || (SrcBytes < Len)) {
+	if ((SrcBytes != DestBytes) || (SrcBytes > Len)) {
 		SrcBytes = Len;
 	}
 	Len = Len - SrcBytes;
