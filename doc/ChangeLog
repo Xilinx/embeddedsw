@@ -1,6 +1,177 @@
 Changes for 2022.1
 ===============================
 
+axiethernet_v5_14:
+Fixed interrupt controller variable for  SMP designs changes are made in the tapp tcl file
+
+clockps_v1_4:
+Fixed warnings reported with -Wundef flag
+
+cpu_v2_15:
+Updates the cpu.tcl to correct path of libraries for microblaze64 with older toolchains.
+
+freertos10_xilinx_v1_11:
+Updated FreeRTOS kernel to 10.4.6
+
+emacps_v3_16:
+Add ARMv8 check for EL1_NONSECURE as it is specific to that architecture
+
+gpio_v4_9:
+Fix the doxygen warnings and comments.
+
+iicps_v3_15:
+Fixed doxygen warning
+Fixed read issue when byte count is one
+
+intc_v3_14:
+Added support for generic interrupt wrapper
+Updated XIntc_DeviceInterruptHandler to replace Xil_ExceptionEnable/Xil_ExceptionDisable calls with microblaze_enable_interrupts/microblaze_disable_interrupts.
+
+iomodule_v2_13:
+Fixed misra-c violations
+Added missing function declaration for XIOModule_Intc_SelfTest function
+Moved XIOModule_DeviceInterruptHandler (IntrStatus == 0) check condition to the start of the for loop to avoid the servicing of interrupts  if IntrStatus is 0
+
+ipipsu_v2_11:
+Updated tcl to check for microblaze processors
+
+mcdma_v1_6:
+Fix typo in mcdma BD header guard
+
+nandpsu_v1_10:
+Use Xil_AssertNonvoid instead of Xil_AssertVoid in non-void functions
+Initiaize variable before using it
+Fix logic to avoid infinite loop
+Validate input parameters before use
+Fix improper indentation in nandpsu driver
+Remove assert checks form static and internal APIs
+
+ospipsv_v1_6:
+Configured OSPI MUX to select DMA mode explicitly
+Fixed compilation warnings reported with -Wundef flag
+Fixed doxygen warnings
+Restructured XOspiPsv_ExecuteRxTuning() API to meet the safety standard guidelines for CCM metrics
+
+qspipsu_v1_15:
+Fix MISRA C-2012 violations
+Fix read/write failures on Spansion flash
+Typecast function parameter with appropriate data type
+Fix compilation warnings reported with -Wundef flag
+Fix doxygen warning
+Initialize variables before using them
+
+resetps_v1_5:
+Fixed compilation warnings reported with -Wundef flag
+
+rfdc_v11_1:
+Fix C++ compilation issue
+Structure packing homogenized (all packed)
+Reset clock gaters when changing decimation rate
+DAC coupling now read from register rather than from configuration structure
+Added safety checks in exposed APIs
+Refactor of multiband connected data components
+Refactor based on static analysis
+
+scugic_v4_7:
+Added support for generic interrupt wrapper
+Added an API to check whether GIC is initialized
+Fixed misra-c violations
+
+scutimer_v2_4:
+Added support for generic interrupt wrapper
+
+sdps_v3_14:
+Added Erase feature support
+Fixed compilation warnings reported with -Wundef flag
+Fixed MISRAC warnings
+Added support to read slot_type parameter
+
+spi_v4_9:
+Fixed interrupt controller variable for  SMP designs changes are made in the tapp tcl file
+
+tmr_manager_v1_3:
+Updated the interrupt examples to independent of SEM IP hardware configuration
+Fixed Assert check in the XTMR_Manager_BreakHandler API
+Corrected the break handler handoff offset
+Fix issues in the peripheral test
+
+tmrctr_v4_9:
+Added support for generic interrupt wrapper
+Fixed bug in interrupt example,  issue occurs when there are more than one AXI timer instances in HW design, and interrupt example is included in peripheral tests
+
+ttcps_v3_15:
+Added support for generic interrupt wrapper
+
+uartlite_v3_7:
+Fixed interrupt controller variable for  SMP designs changes are made in the tapp tcl file
+Updated tapp tcl for tmr sem support
+
+uartpsv_v1_6:
+Added the internal doxygen tags for the macros that are not exposed.
+
+usbpsu_v1_11:
+Fix the doxygen warnings and comments.
+
+wdttb_v5_4:
+Fix the doxygen warnings and comments.
+
+xilffs_v4_7:
+Added support for TRIM(Erase) operation
+Added DCache Flush for last unaligned sector size read.
+
+xilfpga_v6_2:
+Added provision in ZynqMP PMUFW to skip XFPGA_SECURE_MODE macro
+Replaced library specific utility functions and standard lib functions with Xilinx maintained functions
+Remove duplicated legacy API's
+Implemented new API's to get the xilfpga component info
+Added build-time flag to skip eFUSE checks
+
+xilmailbox_v1_5:
+initialise GIC only if it is not initialised.
+
+xilsem_v1_5:
+User interface to read
+  Total number of Cframes
+  CFRAME ECC, CRC
+  NPI Scan golden SHA
+XilSEM configuration set in CIPS
+Prioritize CFRAME error correction over partial reload
+CRAM scan start-up test
+NPI scan self diagnostics to verify if the scan has done on all descriptors within budget time
+Removal of PSM RAM dependency during NPI descriptor processing
+Added run time check for CRAM & NPI scan enablement
+Replaced standard utils with Xilinx provided APIs
+Unique event code for errors
+Bug fixes
+
+lwip211_v1_7:
+Fixed cache handling for Axi Ethernet.
+Removed L1 prefetch disablement for AXI ETHERNET on ARM v8 architecture.
+Added support for UDP send to block till the corresponding packet is transmitted.
+
+standalone_v7_7:
+Fixed compilation warnings reported with -Wundef flag
+Added few standalone utility wrapper functions for safe/secure memory and string operations.
+Added support for generic interrupt wrapper
+Fixed Init_MPU function for HW designs where DDR is not mapped at 0x0.
+Removed Cortex-A9 errata handling for errata 742230 and 743622, since it is not applicable for the Cortex-A9 version being used in Zynq SoC
+Fixed MMU attributes for GIC, in case of domU guest BSP.
+Fixed misra-c violations.
+
+Updated Cortex-R5 BSP to remove warning message from Init_MPU, now warning message would be invoked from boot code code after Init_MPU function.
+
+zynqmp_dram_test:
+Updated the information to be printed for eye tests
+Modified 2D Read/Write Eye test code for more usability
+
+dhyrstone:
+Removed dependency with library printf
+Added print statement to indicate success
+
+axidma_v9_14:
+Update instance pointer passed to TX/RX ring helper in example
+
+
 New Files Added for 2022.1:
 SPDX-License-Identifier:MIT
 lib/sw_services/xiltimer/src/xiltimer.h
