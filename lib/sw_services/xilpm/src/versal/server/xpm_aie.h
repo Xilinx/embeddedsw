@@ -39,6 +39,11 @@ typedef struct XPm_AieDomainOpHooks XPm_AieDomainOpHooks;
 #define AIE_START_COL_MASK		(0x0000FFFFU)
 #define AIE_NUM_COL_MASK		(0xFFFF0000U)
 
+/* Type of Tile */
+#define AIE_TILE_TYPE_UNDEFINED		(0U)
+#define AIE_TILE_TYPE_SHIMPL		(1U)
+#define AIE_TILE_TYPE_SHIMNOC		(2U)
+
 /**
  * AI Engine array.
  */

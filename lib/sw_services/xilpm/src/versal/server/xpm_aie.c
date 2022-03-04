@@ -1639,6 +1639,28 @@ done:
 	return Status;
 }
 
+static u8 Aie_TileType(const u32 Col, const u32 Row)
+{
+	u8 TileType;
+	u8 RemVal;
+
+	/* Check for the type of Tile based on (Col,Row) */
+	if (0U == Row) {
+		RemVal = (u8)((Col) % 4U);
+		if((RemVal == 0U) || (RemVal == 1U)) {
+			/* Shim-PL Tile */
+			TileType = AIE_TILE_TYPE_SHIMPL;
+		} else {
+			/* Shim-NOC Tile */
+			TileType = AIE_TILE_TYPE_SHIMNOC;
+		}
+	} else {
+		TileType = AIE_TILE_TYPE_UNDEFINED;
+	}
+
+	return TileType;
+}
+
 static XStatus Aie1_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
 {
 	(void)AieDev;
