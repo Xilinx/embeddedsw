@@ -684,6 +684,29 @@ typedef enum {
 #define HOUSECLEAN_DISABLE_PL_HC_MASK      (0x0010U)
 /** @} */
 
+/**
+ * @name Run time AIE Operations
+ * @{
+ */
+/**
+ * AIE Run time Operations
+ */
+#define AIE_OPS_COL_RST			BIT(0U)
+#define AIE_OPS_SHIM_RST		BIT(1U)
+#define AIE_OPS_ENB_COL_CLK_BUFF	BIT(2U)
+#define AIE_OPS_ZEROIZATION		BIT(3U)
+#define AIE_OPS_DIS_COL_CLK_BUFF	BIT(4U)
+#define AIE_OPS_ENB_AXI_MM_ERR_EVENT	BIT(5U)
+#define AIE_OPS_SET_L2_CTRL_NPI_INTR	BIT(6U)
+#define AIE_OPS_MAX			(AIE_OPS_COL_RST |		\
+					 AIE_OPS_SHIM_RST |		\
+					 AIE_OPS_ENB_COL_CLK_BUFF |	\
+					 AIE_OPS_ZEROIZATION |		\
+					 AIE_OPS_DIS_COL_CLK_BUFF |	\
+					 AIE_OPS_ENB_AXI_MM_ERR_EVENT |	\
+					 AIE_OPS_SET_L2_CTRL_NPI_INTR)
+/** @} */
+
 #ifdef __cplusplus
 }
 #endif
