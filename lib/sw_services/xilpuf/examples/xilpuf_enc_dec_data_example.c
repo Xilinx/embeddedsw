@@ -34,6 +34,7 @@
  *                     xilinx maintained functions
  *       har  01/20/22 Removed inclusion of xil_mem.h
  *       har  03/04/22 Added comment to specify mode of libraries
+ *                     Added shared memory allocation for client APIs
  *
  * @note
  *
@@ -158,6 +159,9 @@ static u8 EncData[XPUF_DATA_LEN_IN_BYTES];
 #pragma data_alignment = 64
 static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
+
+/* shared memory allocation */
+static u8 SharedMem[XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
 
 /************************** Function Prototypes ******************************/
 static int XPuf_GenerateKey(void);
@@ -321,6 +325,8 @@ static int XPuf_VerifyDataEncDec(void)
 		goto END;
 	}
 
+	XSecure_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
+
 	if (Xil_Strnlen(XPUF_IV, (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 				(XPUF_IV_LEN_IN_BYTES * 2U)) {
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
@@ -427,6 +433,7 @@ static int XPuf_VerifyDataEncDec(void)
 		}
 	}
 END:
+	Status |= XSecure_ReleaseSharedMem();
 	return Status;
 }
 

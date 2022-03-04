@@ -34,6 +34,7 @@
   *                     xilinx maintained functions
   *       har  01/20/22 Removed inclusion of xil_mem.h
   *       har  03/04/22 Added comment to specify mode of libraries
+  *                     Added shared memory allocation for client APIs
   *
   *@note
   *
@@ -96,6 +97,9 @@ static u8 BlackKey[XPUF_RED_KEY_LEN_IN_BYTES];
 static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
 
+/* shared memory allocation */
+static u8 SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
+
 /************************** Function Prototypes ******************************/
 static int XPuf_ValidateUserInput(void);
 static int XPuf_GenerateKey(void);
@@ -125,6 +129,8 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	XNvm_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
 
 	Status = XPuf_ValidateUserInput();
 	if (Status == XST_SUCCESS) {
@@ -181,9 +187,15 @@ int main(void)
 		XPuf_ShowPufSecCtrlBits();
 	}
 
-	xil_printf("Successfully ran xilpuf example\r\n");
-
 END:
+	Status |= XNvm_ReleaseSharedMem();
+	if (Status != XST_SUCCESS) {
+		xil_printf("xilpuf example failed with Status:%08x\r\n",Status);
+	}
+	else {
+		xil_printf("Successfully ran xilpuf example\r\n");
+	}
+
 	return Status;
 }
 
@@ -448,6 +460,8 @@ static int XPuf_GenerateBlackKey(void)
 		goto END;
 	}
 
+	XSecure_SetSharedMem((UINTPTR)&SharedMem, sizeof(SharedMem));
+
 	if (Xil_Strnlen(XPUF_IV, (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 		(XPUF_IV_LEN_IN_BYTES * 2U)) {
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
@@ -517,6 +531,7 @@ static int XPuf_GenerateBlackKey(void)
 	}
 
 END:
+	Status |= XSecure_ReleaseSharedMem();
 	return Status;
 }
 
