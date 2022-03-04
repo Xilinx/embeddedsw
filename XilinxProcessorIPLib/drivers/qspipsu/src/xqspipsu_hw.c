@@ -26,6 +26,8 @@
  * 1.15   akm  11/16/21 Typecast function parameter with appropriate
  * 			data type.
  * 1.15   akm  11/30/21 Fix compilation warnings reported with -Wundef flag
+ * 1.15   akm  03/03/22 Enable tapdelay settings for applications on
+ * 			 Microblaze platform.
  *
  * </pre>
  ******************************************************************************/
@@ -706,7 +708,7 @@ void XQspiPsu_IORead(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	}
 }
 
-#if defined (ARMR5) || (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
 /*****************************************************************************/
 /**
 *
