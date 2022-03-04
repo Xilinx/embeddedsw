@@ -200,11 +200,14 @@ void XDpRxSs_ReportLinkInfo(XDpRxSs *InstancePtr)
 void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 {
 	XDp_Config *RxConfig = &InstancePtr->DpPtr->Config;
-
+	u8 Stream;
+	u32 StreamOffset[4] = {0, XDP_RX_STREAM2_MSA_START_OFFSET,
+					XDP_RX_STREAM3_MSA_START_OFFSET,
+					XDP_RX_STREAM4_MSA_START_OFFSET};
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
-
-	xil_printf("RX MSA registers:\n\r"
+	for (Stream = 1; Stream <= InstancePtr->Config.NumMstStreams; Stream++) {
+		xil_printf("RX MSA registers:Stream %x\n\r"
 			"\tClocks, H Total                (0x510) : %d\n\r"
 			"\tClocks, V Total                (0x524) : %d\n\r"
 			"\tHSyncPolarity                  (0x504) : %d\n\r"
@@ -223,26 +226,47 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 			"\tM Aud			  (0x324) : %d\n\r"
 			"\tN Aud			  (0x328) : %d\n\r"
 			"\tVB-ID                          (0x538) : %d\n\r",
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HTOTAL),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VTOTAL),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HSPOL),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VSPOL),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HSWIDTH),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VSWIDTH),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HRES),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VHEIGHT),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HSTART),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VSTART),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MISC0),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MISC1),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_USER_PIXEL_WIDTH),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MVID),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_NVID),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_MAUD),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_NAUD),
-		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VBID));
 
-	xil_printf("\n\r");
+		Stream,
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HTOTAL +
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VTOTAL+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HSPOL+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VSPOL+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HSWIDTH +
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VSWIDTH +
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HRES +
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VHEIGHT+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HSTART+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VSTART+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MISC0+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MISC1+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_USER_PIXEL_WIDTH+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MVID+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_NVID+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_MAUD+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_NAUD+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VBID+
+				StreamOffset[Stream - 1]));
+
+		xil_printf("\n\r");
+	}
 }
 
 /*****************************************************************************/
