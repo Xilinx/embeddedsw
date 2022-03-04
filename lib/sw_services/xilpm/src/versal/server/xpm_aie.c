@@ -1809,6 +1809,39 @@ static XStatus Aie1_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 ColStart, u32
 
 	return XST_SUCCESS;
 }
+
+static XStatus Aie1_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd)
+{
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const u64 NocAddress = AieDomain->Array.NocAddress;
+	u32 NodeAddress = AieDev->Node.BaseAddress;
+	u64 BaseAddress;
+	u32 Col;
+
+	/* Enable protect register */
+	PmRmw32(NodeAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
+		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK, 1U);
+
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* Skip if it's not an NOC Tile */
+		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col, 0U)) {
+			continue;
+		}
+
+		/* BaseAddress for AIE1 column */
+		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
+
+		/* Set L2 controller NPI INTR */
+		AieWrite64(BaseAddress + AIE_NOC_MODULE_INTR_CTRL_L2_INTR_OFFSET, 2U);
+	}
+
+	/* Disable protect register */
+	PmRmw32(NodeAddress + ME_NPI_ME_SPARE_CTRL_OFFSET,
+		ME_NPI_ME_SPARE_CTRL_PROTECTED_REG_EN_MASK, 1U);
+
+	return XST_SUCCESS;
+}
+
 static XStatus Aie2_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
@@ -2175,6 +2208,15 @@ static XStatus Aie1_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 		Status = Aie1_EnbAxiMmErrEvent(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_ENB_AXI_MM_ERR_EVENT;
+			goto done;
+		}
+	}
+
+	/* Set L2 controller NPI INTR */
+	if (0U != (AIE_OPS_SET_L2_CTRL_NPI_INTR & Ops)) {
+		Status = Aie1_SetL2CtrlNpiIntr(AieDev, ColStart, ColEnd);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_SET_L2_CTRL_NPI_INTR;
 			goto done;
 		}
 	}
