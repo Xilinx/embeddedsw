@@ -450,6 +450,10 @@ extern "C" {
 #define XPM_INT_ERR_AIE_SHIM_RST_EN		0x410FU
 /* Error during disable of AIE SHIM rest */
 #define XPM_INT_ERR_AIE_SHIM_RST_DIS		0x4110U
+/* Error during AIE1 Operations */
+#define XPM_INT_ERR_AIE1_OPS			0x4111U
+/* Error during AIE2 Operations */
+#define XPM_INT_ERR_AIE2_OPS			0x4112U
 
 /************************** PMC specific Errors ******************************/
 /************************** (0x4200) - (0x42FF) ******************************/
