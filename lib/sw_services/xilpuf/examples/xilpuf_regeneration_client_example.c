@@ -9,6 +9,7 @@
  * @file xilpuf_regeneration_client_example.c
  *
  * This file illustrates PUF regeneration.
+ * To build the application, xilpuf must be in client mode.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -17,6 +18,7 @@
  * ----- ---  ----------   -----------------------------------------------------
  * 1.0   kpt  01/04/2022   Initial release of Puf_regeneration example
  *       kpt  01/13/2022   Added support to run example on PL microblaze
+ *       har  03/04/2022   Added comment to specify mode of libraries
  *
  * @note
  *
@@ -56,32 +58,36 @@
  * be configured as FALSE to disable Global Variation Filter.
  *
  * Procedure to link and compile the example for the default ddr less designs
- *------------------------------------------------------------------------------------------------------------
- * By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
- * placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
+ *-------------------------------------------------------------------------------
+ * By default the linker settings uses a software stack, heap and data in DDR and
+ * any variables used by the example will be placed in the DDR memory.
+ * For this example to work on BRAM or any local memory it requires a design that
  * contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
  *
- * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
+ * Following is the procedure to compile the example on OCM or any memory region
+ * which can be accessed by server
  *
- *		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
- *			be updated to point all the required sections to shared memory(OCM or TCM)
- *			using a memory region drop down selection
+ * 1. Open example linker script(lscript.ld) in Vitis project and section to
+ * memory mapping should be updated to point all the required sections to
+ * shared memory(OCM or TCM) using a memory region drop down selection
  *
- *						OR
+ *				OR
  *
- *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
- *			sharedmemory (NOLOAD) : {
- *			= ALIGN(4);
- *			__bss_start = .;
- *			*(.bss)
- *			*(.bss.*)
- *			*(.gnu.linkonce.b.*)
- *			*(COMMON)
- *			. = ALIGN(4);
- *			__bss_end = .;
- *			} > Memory(OCM,TCM or DDR)
+ * 1. In linker script(lscript.ld) user can add new memory section in source tab
+ * as shown below
+ *		sharedmemory (NOLOAD) : {
+ *		= ALIGN(4);
+ *		__bss_start = .;
+ *		*(.bss)
+ *		*(.bss.*)
+ *		*(.gnu.linkonce.b.*)
+ *		*(COMMON)
+ *		. = ALIGN(4);
+ *		__bss_end = .;
+ *		} > Memory(OCM,TCM or DDR)
  *
- * 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+ * 2. Data elements that are passed by reference to the server side should be
+ * stored in the above shared memory section.
  *
  ******************************************************************************/
 /***************************** Include Files *********************************/
