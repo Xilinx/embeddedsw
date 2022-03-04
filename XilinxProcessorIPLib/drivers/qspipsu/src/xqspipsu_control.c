@@ -22,6 +22,8 @@
  * 1.11   akm  03/09/20 First release
  * 1.13   akm  01/04/21 Fix MISRA-C violations.
  * 1.15   akm  10/21/21 Fix MISRA-C violations.
+ * 1.15   akm  03/03/22 Enable tapdelay settings for applications on
+ * 			 Microblaze platform.
  * </pre>
  *
  ******************************************************************************/
@@ -196,7 +198,7 @@ void XQspiPsu_PollDataConfig(XQspiPsu *InstancePtr, XQspiPsu_Msg *FlashMsg)
 
 }
 
-#if defined (ARMR5) || (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__)
 /*****************************************************************************/
 /**
 *
