@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,6 +9,7 @@
  * @file xilpuf_regeneration_example.c
  *
  * This file illustrates PUF regeneration.
+ * To build the application, xilpuf must be in server mode.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -22,6 +23,7 @@
  *                         XPUF_ID_LEN_IN_BYTES for printing PUF ID
  *       am   08/14/2020   Replacing local status variable from u32 to int.
  *       har  09/30/2020   Replaced XPuf_printf with xil_printf
+ * 1.3   har  03/04/2022   Added comment to specify mode of libraries
  *
  * @note
  *

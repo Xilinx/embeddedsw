@@ -11,6 +11,8 @@
  * This file illustrates encryption and decryption of user data using PUF KEY.
  * The key can be generated using either PUF registration or PUF on demand
  * regeneration.
+ * To build the application, xilsecure must be in client mode and xilpuf must
+ * be in server mode.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -31,6 +33,7 @@
  * 1.4   kpt  12/02/21 Replaced standard library utility functions with
  *                     xilinx maintained functions
  *       har  01/20/22 Removed inclusion of xil_mem.h
+ *       har  03/04/22 Added comment to specify mode of libraries
  *
  * @note
  *
