@@ -10,6 +10,8 @@
   *
   * This file illustrates encryption of red key using PUF KEY and
   * programming the black key and helper data in a user specified location
+  * To build the application, xilsecure and xilnvm must be in client mode and
+  * xilpuf must be in server mode.
   *
   * <pre>
   * MODIFICATION HISTORY:
@@ -31,6 +33,7 @@
   * 1.3   kpt  12/02/21 Replaced standard library utility functions with
   *                     xilinx maintained functions
   *       har  01/20/22 Removed inclusion of xil_mem.h
+  *       har  03/04/22 Added comment to specify mode of libraries
   *
   *@note
   *
