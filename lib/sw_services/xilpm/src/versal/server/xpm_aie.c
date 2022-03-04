@@ -37,6 +37,9 @@
 #define AieWrite64(addr, val) swea(addr, val)
 #define AieRead64(addr) lwea(addr)
 
+#define AIE1_PROG_MEM_SIZE		(0x4000U)
+#define AIE1_DATA_MEM_SIZE		(0x8000U)
+
 static XPm_AieDomain *PmAieDomain;
 
 static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
@@ -1842,6 +1845,54 @@ static XStatus Aie1_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 ColStart, u32
 	return XST_SUCCESS;
 }
 
+static XStatus Aie1_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd)
+{
+	(void)AieDev;
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const u64 NocAddress = AieDomain->Array.NocAddress;
+	u64 BaseAddress;
+	u64 Addr;
+	u32 Col;
+
+	/* write 0 to program memory 16KB from 0x20000 for every core module
+	 * of every column of the partition */
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* BaseAddress for AIE1 column */
+		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
+		/* Address of Program memory for AIE1 column */
+		Addr = BaseAddress + AIE_PROGRAM_MEM_OFFSET;
+
+		/* Initialize program memory with 0 */
+		Status = XPlmi_EccInit(Addr, AIE1_PROG_MEM_SIZE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_AIE_PROG_MEM_ZEROISATION;
+			goto done;
+		}
+	}
+
+	/* write 0 to data memory 32KB from 0x0 for every memory module of
+	 * every column of the partition */
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* BaseAddress for AIE1 column */
+		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
+		/* Address of Data memory for AIE1 column */
+		Addr = BaseAddress + AIE_DATA_MEM_OFFSET;
+
+		/* Initialize data memory with 0 */
+		Status = XPlmi_EccInit(Addr, AIE1_DATA_MEM_SIZE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_AIE_DATA_MEM_ZEROISATION;
+			goto done;
+		}
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus Aie2_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
@@ -2190,6 +2241,15 @@ static XStatus Aie1_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 		Status = Aie1_EnbColClkBuff(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_ENB_COL_CLK_BUFF;
+			goto done;
+		}
+	}
+
+	/* Zeroization of Program and data memories */
+	if (0U != (AIE_OPS_ZEROIZATION & Ops)) {
+		Status = Aie1_Zeroization(AieDev, ColStart, ColEnd);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_ZEROIZATION;
 			goto done;
 		}
 	}
