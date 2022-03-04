@@ -26,6 +26,8 @@
 * 1.1   kpt  11/29/21 Added macro XNvm_DCacheFlushRange
 *       har  01/03/22 Renamed NumOfPufFuses as NumOfPufFusesRows
 *       am   02/28/22 Fixed MISRA C violation rule 4.5
+*       kpt  03/03/22 Fixed alignment issue in XNvm_EfusePufFuseAddr
+*                     by rearranging the structure elements
 *
 * </pre>
 * @note
@@ -264,11 +266,11 @@ typedef struct {
 
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 typedef struct {
-	u8 EnvMonitorDis;
-	u8 PrgmPufFuse;
+	u64 PufFuseDataAddr;
 	u32 StartPufFuseRow;
 	u32 NumOfPufFusesRows;
-	u64 PufFuseDataAddr;
+	u8 EnvMonitorDis;
+	u8 PrgmPufFuse;
 } XNvm_EfusePufFuseAddr;
 #else
 typedef struct {
