@@ -61,18 +61,19 @@ proc secure_drc {libhandle} {
 			return;
 		}
 		if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc"  || $proc_type == "psxl_pmc" || $mode == "server"} {
-			if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc"} {
-				foreach entry [glob -nocomplain -types f [file join "$versal/server" *]] {
-					file copy -force $entry "./src"
-				}
-				foreach entry [glob -nocomplain -types f [file join "$versal/common" *]] {
-					file copy -force $entry "./src"
-				}
-			} elseif {$proc_type == "psxl_pmc"} {
+			if {$proc_type == "psxl_pmc" || $proc_type == "psxl_cortexa78" ||
+					$proc_type == "psxl_cortexr52"} {
 				foreach entry [glob -nocomplain -types f [file join "$versal_net/server" *]] {
 					file copy -force $entry "./src"
 				}
 				foreach entry [glob -nocomplain -types f [file join "$versal_net/common" *]] {
+					file copy -force $entry "./src"
+				}
+			} else {
+				foreach entry [glob -nocomplain -types f [file join "$versal/server" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal/common" *]] {
 					file copy -force $entry "./src"
 				}
 			}
