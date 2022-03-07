@@ -15,7 +15,7 @@
 * MODIFICATION HISTORY:
 *
 * Ver	Who  Date         Changes
-* ----  ---  ----------   --------------------------------------------------
+* ----  ---  ----------   --------------------------------------------------
 * 0.1   gm   01/04/2021   Initial creation : Cram IPI commands
 * 0.2   hb   01/06/2021   Added Npi IPI commands
 * 0.3   rb   01/18/2021   Added Npi PMC RAM status read API
@@ -39,6 +39,7 @@
 * 1.6   rama 01/14/2022   Added user interface to get golden CRC & total frames
 * 1.7   hb   01/27/2022   Added define for NPI self-diagnosis event
 * 1.8   hb   02/07/2022   Updated Structure information for Doxygen
+* 1.9   hb   03/07/2022   Updated comments
 * </pre>
 *
 * @note
@@ -267,7 +268,8 @@ typedef struct {
 	in the descriptor and each time SHA is calculated */
 	u32 ErrInfo[MAX_NPI_ERR_INFO_CNT]; /**< Error Information: Is updated with
 	error details in case of SHA mismatch failure.
-	-ErrInfo[0]: Node ID of the descriptor for which SHA mismatch is observed.
+	-ErrInfo[0]: Calculated SHA value of the descriptor for which mismatch is
+	observed.
 	-ErrInfo[1]: Bit[31:16] Reserved. Bit[15:8] The descriptor index number for
 	which the SHA failure is observed. Bit[7:0] The skip count index of the
 	descriptor where SHA failure is observed (This value is zero if arbitration
