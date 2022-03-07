@@ -41,6 +41,7 @@
 * 1.4	hv   01/11/2022   Added interface for reading Frame ECC
 * 1.5   rama 01/14/2022   Added user interface to get golden CRC & total frames
 * 1.6   hb   02/07/2022   Updated API information for Doxygen
+* 1.7   hb   03/07/2022   Fixed MISRA-C violations and added comments
 * </pre>
 *
 * @note
@@ -72,25 +73,27 @@ XStatus XSem_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate IPI Response structure pointer */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD1(Payload, CMD_ID_CFR_INIT);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
@@ -98,6 +101,7 @@ XStatus XSem_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 		goto END;
 	}
 
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 
@@ -129,32 +133,35 @@ XStatus XSem_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate IPI Response structure pointer */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
 		goto END;
 	}
 
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD1(Payload, CMD_ID_CFR_START_SCAN);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 
@@ -186,32 +193,34 @@ XStatus XSem_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate IPI Response structure pointer */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD1(Payload, CMD_ID_CFR_STOP_SCAN);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status){
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status){
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 
@@ -267,38 +276,40 @@ XStatus XSem_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate ErrDetail structure pointer */
 	if (NULL == ErrDetail) {
 		XSem_Dbg("[%s] ERROR: ErrDetailStruct is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate IPI Response structure pointer */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD5(Payload, CMD_ID_CFR_NJCT_ERR, ErrDetail->Efar,
 			ErrDetail->Qword, ErrDetail->Bit, ErrDetail->Row);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status){
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status){
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 
@@ -396,14 +407,17 @@ XStatus XSem_CmdCfrGetStatus(XSemCfrStatus *CfrStatusInfo)
 	XStatus Status = XST_FAILURE;
 	u32 Index = 0U;
 
+	/* Validate CRAM scan status info structure pointer */
 	if (NULL == CfrStatusInfo) {
 		XSem_Dbg("[%s] ERROR: CfrStatusInfo is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Get CRAM scan status */
 	CfrStatusInfo->Status = Xil_In32(PMC_RAM_SEM_CRAM_STATUS);
+	/* Get CRAM scan corrected bit count */
 	CfrStatusInfo->ErrCorCnt = Xil_In32(PMC_RAM_SEM_CRAM_COR_BITCNT);
 
+	/* Get CRAM scan error addresses */
 	for (Index = 0U; Index < MAX_CRAMERR_REGISTER_CNT; Index++) {
 		CfrStatusInfo->ErrAddrL[Index] = \
 			Xil_In32((PMC_RAM_SEM_CRAMERR_ADDRL0 + (Index * 8U)));
@@ -459,37 +473,40 @@ XStatus XSem_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLoc,
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance structure pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate IPI Response structure pointer */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD3(Payload, CMD_ID_CFR_RDFRAME_ECC, CframeAddr, RowLoc);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status){
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status){
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 	Resp->RespMsg3 = Response[3U];
 	Resp->RespMsg4 = Response[4U];
 
+	/* Print API status */
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
 END:
@@ -518,32 +535,34 @@ XStatus XSem_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate IPI Response structure pointer */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: RespStruct is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD1(Payload, CMD_NPI_STARTSCAN);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with"
 		"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with"
 		"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 
@@ -575,31 +594,34 @@ XStatus XSem_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
+	/* Validate IPI Response structure pointer */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: RespStruct is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD1(Payload, CMD_NPI_STOPSCAN);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with"
 		"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with"
 		"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 
@@ -635,32 +657,34 @@ XStatus XSem_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp)
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate IPI Response structure pointer */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: RespStruct is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD1(Payload, CMD_NPI_ERRINJECT);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with"
 		" ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with"
 		" ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 
@@ -693,32 +717,34 @@ XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate IPI response structure */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: RespStruct is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD2(Payload, CMD_NPI_GET_GLDN_SHA, DescData);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with"
 		" ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with"
 		" ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 
@@ -791,20 +817,25 @@ XStatus XSem_CmdNpiGetStatus(XSemNpiStatus *NpiStatusInfo)
 	XStatus Status = XST_FAILURE;
 	u32 Index = 0U;
 
+	/* Validate NPI status Info structure pointer */
 	if (NULL == NpiStatusInfo) {
 		XSem_Dbg("[%s] ERROR: NpiStatusInfo is NULL\n\r", __func__);
 		goto END;
 	}
 
+	/* Get NPI status */
 	NpiStatusInfo->Status = Xil_In32(PMC_RAM_SEM_NPI_STATUS);
+	/* Get NPI scan count */
 	NpiStatusInfo->ScanCnt = Xil_In32(PMC_RAM_SEM_NPI_SCAN_CNT);
+	/* Get NPI scan heart beat count */
 	NpiStatusInfo->HbCnt = Xil_In32(PMC_RAM_SEM_NPI_HEARTBEAT_CNT);
 
+	/* Get NPI scan slave skip count */
 	for (Index = 0U; Index < MAX_NPI_SLV_SKIP_CNT; Index++) {
 		NpiStatusInfo->SlvSkipCnt[Index] = \
 			Xil_In32(PMC_RAM_SEM_NPI_SLVSKIP_CNT0 + (Index * 4U));
 	}
-
+	/* Get NPI scan error info */
 	for (Index = 0U; Index < MAX_NPI_ERR_INFO_CNT; Index++) {
 		NpiStatusInfo->ErrInfo[Index] = \
 			Xil_In32(PMC_RAM_SEM_NPIERR_INFO0 + (Index * 4U));
@@ -846,27 +877,30 @@ XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier)
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance structure pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
 
+	/* Validate Notifier structure pointer */
 	if (NULL == Notifier) {
 		XSem_Dbg("[%s] ERROR: Notifier is NULL\n\r", __func__);
 		goto END;
 	}
 
-	/* Flag will decide to enable/disable event */
+	/* Flag will decide whether to enable/disable event */
 	PACK_PAYLOAD4(Payload, CMD_EM_EVENT_REGISTER, Notifier->Module,
 			Notifier->Event, Notifier->Flag);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with "\
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with "\
@@ -874,6 +908,7 @@ XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier)
 		goto END;
 	}
 
+	/* Print API status */
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
 END:
@@ -947,37 +982,40 @@ XStatus XSem_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
+	/* Validate IPI instance structure pointer */
 	if (NULL == IpiInst) {
 		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Validate IPI Response structure pointer */
 	if (NULL == Resp) {
 		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
 		goto END;
 	}
-
+	/* Pack commands to be sent over IPI */
 	PACK_PAYLOAD1(Payload, CMD_ID_SEM_GET_CONFIG);
 
+	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Check PLM response */
 	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
 	if (XST_SUCCESS != Status) {
 		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
 				"ErrCode 0x%x\n\r", __func__, Status);
 		goto END;
 	}
-
+	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
 	Resp->RespMsg3 = Response[3U];
 	Resp->RespMsg4 = Response[4U];
 
+	/* Print API status */
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
 END:
@@ -1003,19 +1041,27 @@ u32 XSem_CmdCfrGetCrc(u32 RowIndex)
 {
 	u32 GoldenCrc = 0U;
 
+	/**
+	 * SEU Golden Hardware CRC from first scan is stored in Bits [95:64] of
+	 * CFRAME_SEU_CRC_ADDR (128-Bit) register
+	 */
+	/** Read CRC register word 0 */
 	(void)Xil_In32(CFRAME_BASE_ADDRESS +
-            (RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR);
+			(RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR);
+	/** Read CRC register word 1 */
 	(void)Xil_In32(CFRAME_BASE_ADDRESS +
-		(RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR + 0x04U);
+			(RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR + 0x04U);
+	/** Read CRC register word 2 and store it as GoldenCrc */
 	GoldenCrc = Xil_In32(CFRAME_BASE_ADDRESS +
-                        (RowIndex * CFRAME_ROW_OFFSET) +
-						CFRAME_SEU_CRC_ADDR + 0x08U);
+			(RowIndex * CFRAME_ROW_OFFSET) +
+			CFRAME_SEU_CRC_ADDR + 0x08U);
+	/** Read CRC register word 3 */
 	(void)Xil_In32(CFRAME_BASE_ADDRESS +
-            (RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR + 0x0CU);
+			(RowIndex * CFRAME_ROW_OFFSET) + CFRAME_SEU_CRC_ADDR + 0x0CU);
 
+	/** Return GoldenCrc */
 	return GoldenCrc;
 }
-
 /*****************************************************************************/
 /**
  * @brief	This function is used to read total frames in a row
@@ -1048,7 +1094,7 @@ void XSem_CmdCfrGetTotalFrames(u32 RowIndex, u32 *FrameCntPtr)
 	u32 TypeId;
 	u32 Buf[8];
 
-	for (TypeId = 0U; TypeId < 8; TypeId++) {
+	for (TypeId = 0U; TypeId < 8U; TypeId++) {
 		/* Read total frames in each type */
 		Buf[TypeId] = Xil_In32(CFRAME_BASE_ADDRESS + \
 		                        (RowIndex * CFRAME_ROW_OFFSET) + \
