@@ -689,6 +689,9 @@
 #define PM_ISO_XRAM_PL_AXI2			(0x20000026U)
 #define PM_ISO_XRAM_PL_AXILITE			(0x20000027U)
 #define PM_ISO_XRAM_PL_FABRIC			(0x20000028U)
+#define PM_ISO_CPM5_PL_DFX			(0x20000029U)
+#define PM_ISO_CPM5_GT				(0x2000002aU)
+#define PM_ISO_CPM5_GT_DFX			(0x2000002bU)
 /** @} */
 /** @endcond */
 
