@@ -313,6 +313,22 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Polarity = (u8)PM_ACTIVE_HIGH,
 		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM5 },
 	},
+	[XPM_NODEIDX_ISO_CPM5_PL_PCIEA0_MPIO] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM5_PL_PCIEA0_MPIO),
+		.Node.BaseAddress = CPM5_PCIE0_CSR_FABRICEN,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = BIT(CPM5_PCIEA_CSR_FABRICEN_ATTR_SHIFT),
+		.Polarity = (u8)PM_ACTIVE_LOW,
+		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_CPM5 },
+	},
+	[XPM_NODEIDX_ISO_CPM5_PL_PCIEA1_MPIO] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM5_PL_PCIEA1_MPIO),
+		.Node.BaseAddress = CPM5_PCIE1_CSR_FABRICEN,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = BIT(CPM5_PCIEA_CSR_FABRICEN_ATTR_SHIFT),
+		.Polarity = (u8)PM_ACTIVE_LOW,
+		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_CPM5 },
+	},
 };
 
 static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
@@ -426,6 +442,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	XStatus Status = XST_FAILURE;
 	u32 Mask;
 	const XPm_Device *Device = NULL;
+	u32 WprotReg;
 
 	if (IsoIdx >= (u32)XPM_NODEIDX_ISO_MAX)
 	{
@@ -489,6 +506,34 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				XPm_RMW32(PCIEA_ATTRIB_1_DPLL,
 						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x1);
 			}
+
+			/* Store CPM5_DMA0_ATTR_WPROTP register value */
+			WprotReg = XPm_In32(CPM5_DMA0_ATTR_WPROTP);
+			/* Enable attribute writes */
+			XPm_Out32(CPM5_DMA0_ATTR_WPROTP, 0x0);
+
+			if ((u32)XPM_NODEIDX_ISO_CPM5_PL_PCIEA0_MPIO == IsoIdx) {
+				XPm_RMW32(CPM5_DMA0_ATTRIB_ATTR_DMA_SPARE_3_H,
+						CPM5_DMA_ATTRIB_ATTR_DMA_SPARE_3_H_MASK,
+						CPM5_DMA_ATTRIB_ATTR_DMA_SPARE_3_H_MASK);
+			}
+
+			/* Restore CPM5_DMA0_ATTR_WPROTP register value */
+			XPm_Out32(CPM5_DMA0_ATTR_WPROTP, WprotReg);
+
+			/* Store CPM5_DMA1_ATTR_WPROTP register value */
+			WprotReg = XPm_In32(CPM5_DMA1_ATTR_WPROTP);
+			/*Enable attribute writes */
+			XPm_Out32(CPM5_DMA1_ATTR_WPROTP, 0x0);
+
+			if ((u32)XPM_NODEIDX_ISO_CPM5_PL_PCIEA1_MPIO == IsoIdx) {
+				XPm_RMW32(CPM5_DMA1_ATTRIB_ATTR_DMA_SPARE_3_H,
+						CPM5_DMA_ATTRIB_ATTR_DMA_SPARE_3_H_MASK,
+						CPM5_DMA_ATTRIB_ATTR_DMA_SPARE_3_H_MASK);
+			}
+
+			/* Restore CPM5_DMA1_ATTR_WPROTP register value */
+			XPm_Out32(CPM5_DMA1_ATTR_WPROTP, WprotReg);
 		}
 		/* Mark node state appropriately */
 		XPmDomainIso_List[IsoIdx].Node.State = (TRUE_VALUE == Enable) ?
@@ -538,6 +583,32 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				XPm_RMW32(PCIEA_ATTRIB_1_DPLL,
 						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
 			}
+
+			/* Store CPM5_DMA0_ATTR_WPROTP register value */
+			WprotReg = XPm_In32(CPM5_DMA0_ATTR_WPROTP);
+			/* Enable attribute writes */
+			XPm_Out32(CPM5_DMA0_ATTR_WPROTP, 0x0);
+
+			if ((u32)XPM_NODEIDX_ISO_CPM5_PL_PCIEA0_MPIO == IsoIdx) {
+				XPm_RMW32(CPM5_DMA0_ATTRIB_ATTR_DMA_SPARE_3_H,
+						CPM5_DMA_ATTRIB_ATTR_DMA_SPARE_3_H_MASK, 0x0);
+			}
+
+			/* Restore CPM5_DMA0_ATTR_WPROTP register value */
+			XPm_Out32(CPM5_DMA0_ATTR_WPROTP, WprotReg);
+
+			/* Store CPM5_DMA1_ATTR_WPROTP register value */
+			WprotReg = XPm_In32(CPM5_DMA1_ATTR_WPROTP);
+			/*Enable attribute writes */
+			XPm_Out32(CPM5_DMA1_ATTR_WPROTP, 0x0);
+
+			if ((u32)XPM_NODEIDX_ISO_CPM5_PL_PCIEA1_MPIO == IsoIdx) {
+				XPm_RMW32(CPM5_DMA1_ATTRIB_ATTR_DMA_SPARE_3_H,
+						CPM5_DMA_ATTRIB_ATTR_DMA_SPARE_3_H_MASK, 0x0);
+			}
+
+			/* Restore CPM5_DMA1_ATTR_WPROTP register value */
+			XPm_Out32(CPM5_DMA1_ATTR_WPROTP, WprotReg);
 		}
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	} else {
@@ -589,6 +660,32 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				XPm_RMW32(PCIEA_ATTRIB_1_DPLL,
 						PCIEA_ATTRIB_DPLL_DPLL_RESET_MASK, 0x0);
 			}
+
+			/* Store CPM5_DMA0_ATTR_WPROTP register value */
+			WprotReg = XPm_In32(CPM5_DMA0_ATTR_WPROTP);
+			/* Enable attribute writes */
+			XPm_Out32(CPM5_DMA0_ATTR_WPROTP, 0x0);
+
+			if ((u32)XPM_NODEIDX_ISO_CPM5_PL_PCIEA0_MPIO == IsoIdx) {
+				XPm_RMW32(CPM5_DMA0_ATTRIB_ATTR_DMA_SPARE_3_H,
+						CPM5_DMA_ATTRIB_ATTR_DMA_SPARE_3_H_MASK, 0x0);
+			}
+
+			/* Restore CPM5_DMA0_ATTR_WPROTP register value */
+			XPm_Out32(CPM5_DMA0_ATTR_WPROTP, WprotReg);
+
+			/* Store CPM5_DMA1_ATTR_WPROTP register value */
+			WprotReg = XPm_In32(CPM5_DMA1_ATTR_WPROTP);
+			/*Enable attribute writes */
+			XPm_Out32(CPM5_DMA1_ATTR_WPROTP, 0x0);
+
+			if ((u32)XPM_NODEIDX_ISO_CPM5_PL_PCIEA1_MPIO == IsoIdx) {
+				XPm_RMW32(CPM5_DMA1_ATTRIB_ATTR_DMA_SPARE_3_H,
+						CPM5_DMA_ATTRIB_ATTR_DMA_SPARE_3_H_MASK, 0x0);
+			}
+
+			/* Restore CPM5_DMA1_ATTR_WPROTP register value */
+			XPm_Out32(CPM5_DMA1_ATTR_WPROTP, WprotReg);
 		}
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	}
