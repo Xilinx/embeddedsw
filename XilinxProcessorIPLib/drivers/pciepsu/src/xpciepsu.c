@@ -462,7 +462,7 @@ static u32 XPciePsu_PositionRightmostSetbit(u64 Size)
 *
 * @param   InstancePtr pointer to XPciePsu Instance Pointer
 * @param   mem_type type of bar memory. address mem or IO.
-* @param   mem_as bar memory tpye 32 or 64 bit
+* @param   mem_as bar memory type 32 or 64 bit
 * @param   size	u64 size to increase
 *
 * @return  bar address
