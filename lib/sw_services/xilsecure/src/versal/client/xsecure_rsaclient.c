@@ -22,6 +22,7 @@
 *                      XSecure_DCacheFlushRange
 *       kpt  01/13/21 Allocated CDO structure's in shared memory set by the
 *                     user
+*       am   03/08/22 Fixed MISRA C violations
 *
 * </pre>
 * @note
@@ -61,7 +62,7 @@ int XSecure_RsaPrivateDecrypt(const u64 KeyAddr, const u64 InDataAddr,
 	u64 BufferAddr;
 	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&RsaParams);
 
-	if (MemSize == 0U || RsaParams == NULL || MemSize < sizeof(XSecure_RsaInParam)) {
+	if ((RsaParams == NULL) || (MemSize < sizeof(XSecure_RsaInParam))) {
 		goto END;
 	}
 
@@ -110,7 +111,7 @@ int XSecure_RsaPublicEncrypt(const u64 KeyAddr, const u64 InDataAddr,
 	u64 BufferAddr;
 	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&RsaParams);
 
-	if (MemSize == 0U || RsaParams == NULL || MemSize < sizeof(XSecure_RsaInParam)) {
+	if ((RsaParams == NULL) || (MemSize < sizeof(XSecure_RsaInParam))) {
 		goto END;
 	}
 
@@ -152,7 +153,7 @@ int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
 	u64 BufferAddr;
 	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&SignParams);
 
-	if (MemSize == 0U || SignParams == NULL || MemSize < sizeof(XSecure_RsaSignParams)) {
+	if ((SignParams == NULL) || (MemSize < sizeof(XSecure_RsaSignParams))) {
 		goto END;
 	}
 
