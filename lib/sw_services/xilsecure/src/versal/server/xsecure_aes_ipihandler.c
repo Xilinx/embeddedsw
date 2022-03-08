@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       kal   08/16/2021 Fixed magic number usage comment
 *       kal   08/18/2021 Fixed SW-BP-LOCK-RESOURCE review comments
 *       har   09/14/2021 Added check for DecKeySrc in XSecure_AesKekDecrypt
+* 4.7   am    03/08/2022 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -194,12 +195,12 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	if ((AesParams.KeySrc == XSECURE_AES_BBRAM_KEY) ||
-		(AesParams.KeySrc == XSECURE_AES_BBRAM_RED_KEY) ||
-		(AesParams.KeySrc == XSECURE_AES_EFUSE_KEY) ||
-		(AesParams.KeySrc == XSECURE_AES_EFUSE_RED_KEY) ||
-		(AesParams.KeySrc == XSECURE_AES_BH_KEY) ||
-		(AesParams.KeySrc == XSECURE_AES_BH_RED_KEY)) {
+	if ((AesParams.KeySrc == (u32)XSECURE_AES_BBRAM_KEY) ||
+		(AesParams.KeySrc == (u32)XSECURE_AES_BBRAM_RED_KEY) ||
+		(AesParams.KeySrc == (u32)XSECURE_AES_EFUSE_KEY) ||
+		(AesParams.KeySrc == (u32)XSECURE_AES_EFUSE_RED_KEY) ||
+		(AesParams.KeySrc == (u32)XSECURE_AES_BH_KEY) ||
+		(AesParams.KeySrc == (u32)XSECURE_AES_BH_RED_KEY)) {
 		Status = XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
 		goto END;
 	}
@@ -388,10 +389,10 @@ static int XSecure_AesKeyZeroize(u32 KeySrc)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	if ((KeySrc == XSECURE_AES_KUP_KEY) ||
-		(KeySrc == XSECURE_AES_EXPANDED_KEYS) ||
-		((KeySrc >= XSECURE_AES_USER_KEY_0) &&
-		(KeySrc <= XSECURE_AES_USER_KEY_7))) {
+	if ((KeySrc == (u32)XSECURE_AES_KUP_KEY) ||
+		(KeySrc == (u32)XSECURE_AES_EXPANDED_KEYS) ||
+		((KeySrc >= (u32)XSECURE_AES_USER_KEY_0) &&
+		(KeySrc <= (u32)XSECURE_AES_USER_KEY_7))) {
 		Status = XSecure_AesKeyZero(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)KeySrc);
 	}
@@ -423,8 +424,8 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 	u64 KeyAddr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	if ((KeySrc == XSECURE_AES_BH_KEY) ||
-		(KeySrc == XSECURE_AES_BH_RED_KEY)) {
+	if ((KeySrc == (u32)XSECURE_AES_BH_KEY) ||
+		(KeySrc == (u32)XSECURE_AES_BH_RED_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
