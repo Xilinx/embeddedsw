@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -17,7 +17,8 @@
  *
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
-*  1.0  adk	 24/11/21 Initial release.
+ *  1.0  adk   24/11/21 Initial release.
+ *  	 adk   07/02/22 Updated the IntrHandler as per XTimer_SetHandler() API.
  *</pre>
  *
  *@note
@@ -41,7 +42,7 @@ static void XSleepTimer_AxiTimerStop(XTimer *InstancePtr);
 
 #ifdef XTICKTIMER_IS_AXITIMER
 static void XAxiTimer_TickInterval(XTimer *InstancePtr, u32 Delay);
-static void XAxiTimer_IntrHandler(XTimer *InstancePtr);
+static void XAxiTimer_SetIntrHandler(XTimer *InstancePtr, u8 Priority);
 void XAxiTimer_CallbackHandler(void *CallBackRef, u8 TmrCtrNumber);
 static void XTickTimer_AxiTimerStop(XTimer *InstancePtr);
 static void XTickTimer_ClearAxiTimerInterrupt(XTimer *InstancePtr);
@@ -78,7 +79,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 /****************************************************************************/
 u32 XilTickTimer_Init(XTimer *InstancePtr)
 {
-	InstancePtr->XTimer_TickIntrHandler = XAxiTimer_IntrHandler;
+	InstancePtr->XTimer_TickIntrHandler = XAxiTimer_SetIntrHandler;
 	InstancePtr->XTimer_TickInterval = XAxiTimer_TickInterval;
 	InstancePtr->XTickTimer_Stop = XTickTimer_AxiTimerStop;
 	InstancePtr->XTickTimer_ClearInterrupt = XTickTimer_ClearAxiTimerInterrupt;
@@ -185,11 +186,12 @@ static void XAxiTimer_TickInterval(XTimer *InstancePtr, u32 Delay)
  * This function implements the tick interrupt handler
  *
  * @param  InstancePtr is Pointer to the XTimer instance
+ * @param  Priority - Priority for the interrupt
  *
  * @return	None
  *
  ****************************************************************************/
-static void XAxiTimer_IntrHandler(XTimer *InstancePtr)
+static void XAxiTimer_SetIntrHandler(XTimer *InstancePtr, u8 Priority)
 {
 	XTmrCtr *AxiTimerInstPtr = &InstancePtr->AxiTimer_TickInst;
 
@@ -198,7 +200,7 @@ static void XAxiTimer_IntrHandler(XTimer *InstancePtr)
 	XSetupInterruptSystem(AxiTimerInstPtr, XTmrCtr_InterruptHandler,
 			      AxiTimerInstPtr->Config.IntrId,
 			      AxiTimerInstPtr->Config.IntrParent,
-			      XINTERRUPT_DEFAULT_PRIORITY);
+			      Priority);
 }
 
 /*****************************************************************************/
