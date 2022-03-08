@@ -52,6 +52,7 @@
 #endif
 #else
 #include "xiltimer.h"
+#include "xinterrupt_wrap.h"
 #endif
 
 /*
@@ -322,7 +323,7 @@ void vApplicationSetupTimerInterrupt( void )
          */
 	XTimer_SetInterval(configTICK_RATE_HZ/10);
 #endif
-	XTimer_SetHandler(vPortTickISR, 0);
+	XTimer_SetHandler(vPortTickISR, 0, XINTERRUPT_DEFAULT_PRIORITY);
 }
 #endif
 

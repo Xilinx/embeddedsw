@@ -167,8 +167,8 @@ void FreeRTOS_SetupTickInterrupt( void )
          */
         XTimer_SetInterval(configTICK_RATE_HZ/10);
 #endif
-        XTimer_SetHandler(TimerCounterHandler, 0);
-        XTimer_SetTickPriority(portLOWEST_USABLE_INTERRUPT_PRIORITY << portPRIORITY_SHIFT);
+        XTimer_SetHandler(TimerCounterHandler, 0,
+			portLOWEST_USABLE_INTERRUPT_PRIORITY << portPRIORITY_SHIFT);
 
 }
 #endif
