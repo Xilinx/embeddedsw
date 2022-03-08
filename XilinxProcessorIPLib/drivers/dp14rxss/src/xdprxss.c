@@ -2493,13 +2493,13 @@ static void XDpRxSs_Set_Dec_Clk(XDpRxSs *InstancePtr)
 	 * 1.62G : Input MMCM clock is 101.25, output is 81
 	 */
 	switch (InstancePtr->UsrOpt.LinkRate) {
-	case XDP_TX_LINK_BW_SET_810GBPS:
+	case XDP_LINK_BW_SET_810GBPS:
 		Mval = M_VAL_405;
 		break;
-	case XDP_TX_LINK_BW_SET_540GBPS:
+	case XDP_LINK_BW_SET_540GBPS:
 		Mval = M_VAL_270;
 		break;
-	case XDP_TX_LINK_BW_SET_270GBPS:
+	case XDP_LINK_BW_SET_270GBPS:
 		Mval = M_VAL_135;
 		break;
 	default:
