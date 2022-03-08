@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   har     09/16/21 Initial Release
 * 4.6   har     09/16/21 Updated release version to 4.6
+* 4.7   am      03/08/22 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -56,7 +57,7 @@ int XSecure_CryptoCheck(void)
 
 	if ((ExportControl == XSECURE_EFUSE_CACHE_IP_DISABLE0_EXPORT_MASK) &&
 		((CfuApbEos == XSECURE_CFU_APB_CFU_FGCR_EOS_MASK) || (PsSrst == 0U))) {
-		Status = XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED;
+		Status = (int)XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED;
 	}
 	else {
 		Status = XST_SUCCESS;

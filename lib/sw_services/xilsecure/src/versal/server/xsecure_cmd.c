@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 *       kal  08/16/2021 Fixed magic number usage comment and fixed bug in
 *                       XSecure_FeaturesCmd API
 *       rb   08/11/2021 Fix compilation warnings
+* 4.7   am   03/08/2022 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -220,7 +221,7 @@ static int XSecure_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
 #endif
 
 	if ((NonSecureIpiAccess == FALSE) && (IpiReqType == XPLMI_CMD_NON_SECURE)) {
-		Status = XSECURE_IPI_ACCESS_NOT_ALLOWED;
+		Status = (int)XSECURE_IPI_ACCESS_NOT_ALLOWED;
 		goto END;
 	}
 
