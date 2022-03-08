@@ -90,8 +90,8 @@ int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	}
 
 	AesParams->IvAddr = IvAddr;
-	AesParams->OperationId = XSECURE_ENCRYPT;
-	AesParams->KeySrc = KeySrc;
+	AesParams->OperationId = (u32)XSECURE_ENCRYPT;
+	AesParams->KeySrc = (u32)KeySrc;
 	AesParams->KeySize = Size;
 	Buffer = (u64)(UINTPTR)AesParams;
 
@@ -129,8 +129,8 @@ int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	}
 
 	AesParams->IvAddr = IvAddr;
-	AesParams->OperationId = XSECURE_DECRYPT;
-	AesParams->KeySrc = KeySrc;
+	AesParams->OperationId = (u32)XSECURE_DECRYPT;
+	AesParams->KeySrc = (u32)KeySrc;
 	AesParams->KeySize = Size;
 	Buffer = (u64)(UINTPTR)AesParams;
 
@@ -330,7 +330,7 @@ int XSecure_AesKeyZero(XSecure_AesKeySource KeySrc)
 	volatile int Status = XST_FAILURE;
 
 	Status = XSecure_ProcessIpiWithPayload1(XSECURE_API_AES_KEY_ZERO,
-			KeySrc);
+			(u32)KeySrc);
 
 	return Status;
 }
@@ -358,7 +358,7 @@ int XSecure_AesWriteKey(XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr)
 	volatile int Status = XST_FAILURE;
 
 	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_WRITE_KEY, Size,
-			KeySrc, (u32)KeyAddr, (u32)(KeyAddr >> 32));
+			(u32)KeySrc, (u32)KeyAddr, (u32)(KeyAddr >> 32));
 
 	return Status;
 }

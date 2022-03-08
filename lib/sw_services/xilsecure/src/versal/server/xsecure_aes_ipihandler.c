@@ -201,7 +201,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 		(AesParams.KeySrc == (u32)XSECURE_AES_EFUSE_RED_KEY) ||
 		(AesParams.KeySrc == (u32)XSECURE_AES_BH_KEY) ||
 		(AesParams.KeySrc == (u32)XSECURE_AES_BH_RED_KEY)) {
-		Status = XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
+		Status = (int)XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
 		goto END;
 	}
 

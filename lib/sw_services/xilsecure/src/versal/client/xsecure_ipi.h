@@ -22,6 +22,7 @@
 *       am   05/22/21 Resolved MISRA C violation
 * 4.6   har  07/14/21 Fixed doxygen warnings
 * 4.7   kpt  01/13/22 Added macro XSECURE_SHARED_MEM_SIZE
+*       am   03/08/22 Fixed MISRA C violations
 *
 * </pre>
 * @note
@@ -38,9 +39,10 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xipipsu.h"
 #include "xparameters.h"
+#include "xsecure_defs.h"
 
 /************************** Constant Definitions ****************************/
-#define XILSECURE_MODULE_ID			(0x05UL)
+#define XILSECURE_MODULE_ID			(0x05U)
 				/**< Module ID for xilsecure */
 
 #define HEADER(len, ApiId) ((len << 16U) | (XILSECURE_MODULE_ID << 8U) | ((u32)ApiId))
@@ -85,13 +87,13 @@ typedef struct {
 /************************** Function Definitions *****************************/
 int XSecure_ProcessIpi(u32 Arg0, u32 Arg1, u32 Arg2, u32 Arg3, u32 Arg4,
 	u32 Arg5);
-int XSecure_ProcessIpiWithPayload0(u32 ApiId);
-int XSecure_ProcessIpiWithPayload1(u32 ApiId, u32 Arg1);
-int XSecure_ProcessIpiWithPayload2(u32 ApiId, u32 Arg1, u32 Arg2);
-int XSecure_ProcessIpiWithPayload3(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3);
-int XSecure_ProcessIpiWithPayload4(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
+int XSecure_ProcessIpiWithPayload0(XSecure_ApiId ApiId);
+int XSecure_ProcessIpiWithPayload1(XSecure_ApiId ApiId, u32 Arg1);
+int XSecure_ProcessIpiWithPayload2(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2);
+int XSecure_ProcessIpiWithPayload3(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2, u32 Arg3);
+int XSecure_ProcessIpiWithPayload4(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
 	u32 Arg4);
-int XSecure_ProcessIpiWithPayload5(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
+int XSecure_ProcessIpiWithPayload5(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
 	u32 Arg4, u32 Arg5);
 int XSecure_IpiSend(u32 *Payload);
 int XSecure_IpiReadBuff32(void);
