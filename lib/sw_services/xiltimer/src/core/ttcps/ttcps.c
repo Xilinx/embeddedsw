@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -18,6 +18,8 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk   24/11/21 Initial release.
+ *  	 adk   07/02/22 Updated the IntrHandler as per XTimer_SetHandler() API
+ *  	 	        and removed the unneeded XTickTimer_SetPriority() API.
  *</pre>
  *
  *@note
@@ -41,9 +43,8 @@ static void XSleepTimer_TtcStop(XTimer *InstancePtr);
 #ifdef XTICKTIMER_IS_TTCPS
 void XTtc_CallbackHandler(void *CallBackRef, u32 StatusEvent);
 static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay);
-static void XTimer_TtcIntrHandler(XTimer *InstancePtr);
+static void XTimer_TtcSetIntrHandler(XTimer *InstancePtr, u8 Priority);
 static void XTickTimer_TtcStop(XTimer *InstancePtr);
-static void XTickTimer_SetTtcIntrPriority(XTimer *InstancePtr, u8 Priority);
 static void XTickTimer_ClearTtcInterrupt(XTimer *InstancePtr);
 #endif
 
@@ -77,10 +78,9 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 /****************************************************************************/
 u32 XilTickTimer_Init(XTimer *InstancePtr)
 {
-	InstancePtr->XTimer_TickIntrHandler = XTimer_TtcIntrHandler;
+	InstancePtr->XTimer_TickIntrHandler = XTimer_TtcSetIntrHandler;
 	InstancePtr->XTimer_TickInterval = XTimer_TtcTickInterval;
 	InstancePtr->XTickTimer_Stop = XTickTimer_TtcStop;
-	InstancePtr->XTickTimer_SetPriority = XTickTimer_SetTtcIntrPriority;
 	InstancePtr->XTickTimer_ClearInterrupt = XTickTimer_ClearTtcInterrupt;
 	return XST_SUCCESS;
 }
@@ -179,11 +179,12 @@ static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay)
  * This function implements the tick interrupt handler
  *
  * @param  InstancePtr is Pointer to the XTimer instance
+ * @param  Priority - Priority for the interrupt
  *
  * @return	None
  *
  ****************************************************************************/
-static void XTimer_TtcIntrHandler(XTimer *InstancePtr)
+static void XTimer_TtcSetIntrHandler(XTimer *InstancePtr, u8 Priority)
 {
 	XTtcPs *TtcPsInstPtr = &InstancePtr->TtcPs_TickInst;
 
@@ -192,7 +193,7 @@ static void XTimer_TtcIntrHandler(XTimer *InstancePtr)
 	XSetupInterruptSystem(TtcPsInstPtr, XTtcPs_InterruptHandler,
 			      TtcPsInstPtr->Config.IntrId,
 			      TtcPsInstPtr->Config.IntrParent,
-			      XINTERRUPT_DEFAULT_PRIORITY);
+			      Priority);
 }
 
 /*****************************************************************************/
@@ -209,24 +210,6 @@ static void XTickTimer_TtcStop(XTimer *InstancePtr)
 	XTtcPs *TtcPsInstPtr = &InstancePtr->TtcPs_TickInst;
 
 	XTtcPs_Stop(TtcPsInstPtr);
-}
-
-/*****************************************************************************/
-/**
- * This function implements the tick interrupt handler
- *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Priority is priority to set for interrupt trigger
- *
- * @return	None
- *
- ****************************************************************************/
-static void XTickTimer_SetTtcIntrPriority(XTimer *InstancePtr, u8 Priority)
-{
-	XTtcPs *TtcPsInstPtr = &InstancePtr->TtcPs_TickInst;
-
-	XSetPriorityTriggerType(TtcPsInstPtr->Config.IntrId, Priority,
-				TtcPsInstPtr->Config.IntrParent);
 }
 
 /*****************************************************************************/

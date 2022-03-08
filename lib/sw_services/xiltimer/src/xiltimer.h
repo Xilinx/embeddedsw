@@ -29,6 +29,8 @@
 *  1.0  adk	 24/11/21 Initial release.
 *  	adk	 12/01/22 Fix compilation errors when cortexr5 internal pm
 *  			  counter selected as default timer.
+*  	adk	 07/02/22 Integrate configuring of priority field into
+*  			  XTimer_SetHandler() API instead of a new API.
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H
@@ -71,7 +73,6 @@ typedef void (*XTimer_TickHandler) (void *CallBackRef, u32 StatusEvent);
  * @param XTimer_TickInterval Configures the tick interval
  * @param XSleepTimer_Stop Stops the sleep timer
  * @param XTickTimer_Stop Stops the tick timer
- * @param XTickTimer_SetPriority Sets proprity for the tick timer
  * @param XTickTimer_ClearInterrupt Clears the Tick timer interrupt status
  * @param Handler Tick Handler
  * @param CallBackRef Callback reference for handler
@@ -84,11 +85,10 @@ typedef void (*XTimer_TickHandler) (void *CallBackRef, u32 StatusEvent);
  */
 typedef struct XTimerTag {
 	void (*XTimer_ModifyInterval)(struct XTimerTag *InstancePtr, u32 delay, XTimer_DelayType Delaytype);
-	void (*XTimer_TickIntrHandler)(struct XTimerTag *InstancePtr);
+	void (*XTimer_TickIntrHandler)(struct XTimerTag *InstancePtr, u8 Priority);
 	void (*XTimer_TickInterval)(struct XTimerTag *InstancePtr, u32 Delay);
 	void (*XSleepTimer_Stop)(struct XTimerTag *InstancePtr);
 	void (*XTickTimer_Stop)(struct XTimerTag *InstancePtr);
-	void (*XTickTimer_SetPriority)(struct XTimerTag *InstancePtr, u8 Priority);
 	void (*XTickTimer_ClearInterrupt)(struct XTimerTag *InstancePtr);
 	XTimer_TickHandler Handler; /**< Callback function */
 	void *CallBackRef;       /**< Callback reference for handler */
@@ -119,8 +119,8 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr);
 u32 XilTickTimer_Init(XTimer *InstancePtr);
 void XTime_GetTime(XTime *Xtime_Global);
 void XTimer_SetInterval(unsigned long delay);
-void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef);
-void XTimer_SetTickPriority(u8 Priority);
+void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
+		       u8 Priority);
 void XTimer_ClearTickInterrupt( void );
 
 #ifdef __cplusplus

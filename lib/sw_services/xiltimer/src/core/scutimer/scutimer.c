@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -17,7 +17,9 @@
  *
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
-*  1.0  adk	 24/11/21 Initial release.
+ *  1.0  adk   24/11/21 Initial release.
+ *  	 adk   07/02/22 Updated the IntrHandler as per XTimer_SetHandler() API
+ *  	 	        and removed the unneeded XTickTimer_SetPriority() API.
  *</pre>
  *
  *@note
@@ -41,9 +43,8 @@ static void XSleepTimer_ScutimerStop(XTimer *InstancePtr);
 #ifdef XTICKTIMER_IS_SCUTIMER
 void XScutimer_CallbackHandler(void *CallBackRef);
 static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay);
-static void XTimer_ScutimerIntrHandler(XTimer *InstancePtr);
+static void XTimer_ScutimerSetIntrHandler(XTimer *InstancePtr, u8 Priority);
 static void XTickTimer_ScutimerStop(XTimer *InstancePtr);
-static void XTickTimer_SetScutimerIntrPriority(XTimer *InstancePtr, u8 Priority);
 static void XTickTimer_ClearScutimerInterrupt(XTimer *InstancePtr);
 #endif
 
@@ -77,10 +78,9 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 /****************************************************************************/
 u32 XilTickTimer_Init(XTimer *InstancePtr)
 {
-	InstancePtr->XTimer_TickIntrHandler = XTimer_ScutimerIntrHandler;
+	InstancePtr->XTimer_TickIntrHandler = XTimer_ScutimerSetIntrHandler;
 	InstancePtr->XTimer_TickInterval = XTimer_ScutimerTickInterval;
 	InstancePtr->XTickTimer_Stop = XTickTimer_ScutimerStop;
-	InstancePtr->XTickTimer_SetPriority = XTickTimer_SetScutimerIntrPriority;
 	InstancePtr->XTickTimer_ClearInterrupt = XTickTimer_ClearScutimerInterrupt;
 	return XST_SUCCESS;
 }
@@ -174,18 +174,19 @@ static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
  * This function implements the tick interrupt handler
  *
  * @param  InstancePtr is Pointer to the XTimer instance
+ * @param  Priority - Priority for the interrupt
  *
  * @return	None
  *
  ****************************************************************************/
-static void XTimer_ScutimerIntrHandler(XTimer *InstancePtr)
+static void XTimer_ScutimerSetIntrHandler(XTimer *InstancePtr, u8 Priority)
 {
 	XScuTimer *ScuTimerInstPtr = &InstancePtr->ScuTimer_TickInst;
 
 	XSetupInterruptSystem(InstancePtr, XScutimer_CallbackHandler,
 			      ScuTimerInstPtr->Config.IntrId,
 			      ScuTimerInstPtr->Config.IntrParent,
-			      XINTERRUPT_DEFAULT_PRIORITY);
+			      Priority);
 }
 
 /*****************************************************************************/
@@ -202,23 +203,6 @@ static void XTickTimer_ScutimerStop(XTimer *InstancePtr)
 	XScuTimer *ScuTimerInstPtr = &InstancePtr->ScuTimer_TickInst;
 
 	XScuTimer_Stop(ScuTimerInstPtr);
-}
-
-/*****************************************************************************/
-/**
- * This function implements the tick interrupt handler
- *
- * @param  InstancePtr is Pointer to the XTimer instance
- *
- * @return	None
- *
- ****************************************************************************/
-static void XTickTimer_SetScutimerIntrPriority(XTimer *InstancePtr, u8 Priority)
-{
-	XScuTimer *ScuTimerInstPtr = &InstancePtr->ScuTimer_TickInst;
-
-	XSetPriorityTriggerType(ScuTimerInstPtr->Config.IntrId, Priority,
-				ScuTimerInstPtr->Config.IntrParent);
 }
 
 /*****************************************************************************/

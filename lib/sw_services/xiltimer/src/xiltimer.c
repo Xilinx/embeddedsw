@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,8 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 *  1.0  adk	 24/11/21 Initial release.
+*  	adk	 07/02/22 Integrate configuring of priority field into
+*  			  XTimer_SetHandler() API instead of a new API.
 * </pre>
 ******************************************************************************/
 
@@ -125,11 +127,13 @@ void __attribute__ ((constructor)) xtimerinit()
 * @param	FuncPtr is the address of the callback function.
 * @param	CallBackRef is a user data item that will be passed to the
 * 		callback function when it is invoked.
+* @param        Priority - Priority for the interrupt
 *
 * @return	None
 *
 *****************************************************************************/
-void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef)
+void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
+		       u8 Priority)
 {
 	XTimer *InstancePtr;
 
@@ -138,7 +142,7 @@ void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef)
 	InstancePtr->Handler = FuncPtr;
 	InstancePtr->CallBackRef = CallBackRef;
 	if (InstancePtr->XTimer_TickIntrHandler) {
-		InstancePtr->XTimer_TickIntrHandler(InstancePtr);
+		InstancePtr->XTimer_TickIntrHandler(InstancePtr, Priority);
 	}
 }
 
@@ -161,27 +165,6 @@ void XTimer_SetInterval(unsigned long delay)
 	InstancePtr = &TimerInst;
 	if (InstancePtr->XTimer_TickInterval)
 		InstancePtr->XTimer_TickInterval(InstancePtr, delay);
-}
-
-/****************************************************************************/
-/**
-*
-* This API sets the priority for the tick timer instance.
-*
-* @param            Priority - Priority for the tick
-*
-* @return           none
-*
-* @note             none
-*
-*****************************************************************************/
-void XTimer_SetTickPriority(u8 Priority)
-{
-	XTimer *InstancePtr;
-
-	InstancePtr = &TimerInst;
-	if (InstancePtr->XTickTimer_SetPriority)
-		InstancePtr->XTickTimer_SetPriority(InstancePtr, Priority);
 }
 
 /****************************************************************************/
