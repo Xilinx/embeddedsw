@@ -85,7 +85,7 @@ int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	u64 Buffer;
 	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&AesParams);
 
-	if (MemSize == 0U || AesParams == NULL || MemSize < sizeof(XSecure_AesInitOps)) {
+	if ((AesParams == NULL) || (MemSize < sizeof(XSecure_AesInitOps))) {
 		goto END;
 	}
 
@@ -124,7 +124,7 @@ int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 	u64 Buffer;
 	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&AesParams);
 
-	if (MemSize == 0U || AesParams == NULL || MemSize < sizeof(XSecure_AesInitOps)) {
+	if ((AesParams == NULL) || (MemSize < sizeof(XSecure_AesInitOps))) {
 		goto END;
 	}
 
@@ -193,7 +193,7 @@ int XSecure_AesEncryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 	u64 SrcAddr;
 	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&EncInAddr);
 
-	if (MemSize == 0U || EncInAddr == NULL || MemSize < sizeof(XSecure_AesInParams)) {
+	if ((EncInAddr == NULL) || (MemSize < sizeof(XSecure_AesInParams))) {
 		goto END;
 	}
 
@@ -266,7 +266,7 @@ int XSecure_AesDecryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 	u64 SrcAddr;
 	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&DecInParams);
 
-	if (MemSize == 0U || DecInParams == NULL || MemSize < sizeof(XSecure_AesInParams)) {
+	if ((DecInParams == NULL) || (MemSize < sizeof(XSecure_AesInParams))) {
 		goto END;
 	}
 
