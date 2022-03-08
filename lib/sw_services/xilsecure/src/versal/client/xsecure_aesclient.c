@@ -25,6 +25,7 @@
 *                     XSecure_DCacheFlushRange
 *       kpt  01/13/21 Allocated CDO structure's in shared memory set by the
 *                     user
+*       am   03/08/22 Fixed MISRA C violations
 *
 * </pre>
 * @note
@@ -393,8 +394,8 @@ int XSecure_AesKekDecrypt(u64 IvAddr, XSecure_AesKeySource DstKeySrc,
 	}
 
 	Status = XSecure_ProcessIpiWithPayload3(XSECURE_API_AES_KEK_DECRYPT,
-			(((u32)Size << 16) | ((u32)DstKeySrc << 8) | DecKeySrc),
-			(u32)IvAddr, (u32)(IvAddr >> 32));
+			(((u32)Size << 16U) | ((u32)DstKeySrc << 8U) | (u32)DecKeySrc),
+			(u32)IvAddr, (u32)(IvAddr >> 32U));
 
 END:
 	return Status;
