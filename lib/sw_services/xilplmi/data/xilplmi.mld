@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -7,6 +7,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00  kc   9/22/2018 Initial Release
+# 1.10  ssc  3/05/2022 Added configurable options
 #
 ##############################################################################
 
@@ -21,4 +22,17 @@ BEGIN LIBRARY xilplmi
   OPTION desc = "Xilinx Versal Platform Loader and Manager Interface Library";
   OPTION VERSION = 1.6;
   OPTION NAME = xilplmi;
+  PARAM name = plm_uart_dbg_en, desc = "Enables (if enabled in hardware design too) or Disables Debug prints from UART (log to memory done irrespectively)", type = bool, default = true;
+  PARAM name = plm_dbg_lvl, desc = "Selects the debug logs level", type = enum, values = (minimal = "level0", general = "level1", info = "level2", detailed = "level3"), default = "general";
+  PARAM name = plm_mode, desc = "Selects between Release and Debug modes", type = enum, values = (release = "release", debug = "debug"), default = "release";
+  PARAM name = plm_perf_en, desc = "Enables or Disables Boot time measurement", type = bool, default = true;
+  PARAM name = plm_qspi_en, desc = "Enables (if enabled in hardware design too) or Disables QSPI boot mode", type = bool, default = true;
+  PARAM name = plm_sd_en, desc = "Enables (if enabled in hardware design too) or Disables SD boot mode", type = bool, default = true;
+  PARAM name = plm_ospi_en, desc = "Enables (if enabled in hardware design too) or Disables OSPI boot mode", type = bool, default = true;
+  PARAM name = plm_sem_en, desc = "Enables (if enabled in hardware design too) or Disables SEM feature", type = bool, default = true;
+  PARAM name = plm_secure_en, desc = "Enables or Disbales Secure features", type = bool, default = true;
+  PARAM name = plm_usb_en, desc = "Enables (if enabled in hardware design too) or disables USB boot mode", type = bool, default = false;
+  PARAM name = plm_nvm_en, desc = "Enables or Disables NVM handlers", type = bool, default = false;
+  PARAM name = plm_puf_en, desc = "Enables or Disables PUF handlers", type = bool, default = false;
+  PARAM name = plm_stl_en, desc = "Enables or Disables STL", type = bool, default = false;
 END LIBRARY
