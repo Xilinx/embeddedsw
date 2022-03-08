@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -41,6 +41,7 @@
 * 4.6   har  07/14/21 Fixed doxygen warnings
 * 4.7   kpt  12/01/21 Replaced library specific,standard utility functions
 *                     with xilinx maintained functions
+*       am   03/08/22 Replaced memset() with Xil_SMemSet()
 *
 * </pre>
 * @note
@@ -405,6 +406,7 @@ int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const UINTPTR InDataAddr,
 int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 {
 	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	u32 PadLen;
 	u32 Size = 0U;
 
@@ -464,7 +466,10 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 
 END_RST:
 	if (Size > 0x0U) {
-		(void)memset((void*)InstancePtr->PartialData, 0, Size);
+		SStatus = Xil_SMemSet(&InstancePtr->PartialData, Size, 0U, Size);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
 	}
 	/* Set SHA under reset */
 	XSecure_SetReset(InstancePtr->BaseAddress,
