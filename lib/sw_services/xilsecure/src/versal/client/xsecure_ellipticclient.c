@@ -23,6 +23,7 @@
 *                     XSecure_DCacheFlushRange
 *       kpt  01/13/21 Allocated CDO structure's in shared memory set by the
 *                     user
+*       am   03/08/22 Fixed MISRA C violations
 *
 * </pre>
 * @note
@@ -65,7 +66,7 @@ int XSecure_EllipticGenerateSign(u32 CurveType, u64 HashAddr, u32 Size,
 	u64 Buffer;
 	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&EcdsaParams);
 
-	if (MemSize == 0U || EcdsaParams == NULL || MemSize < sizeof(XSecure_EllipticSignGenParams)) {
+	if ((EcdsaParams == NULL) || (MemSize < sizeof(XSecure_EllipticSignGenParams))) {
 		goto END;
 	}
 
@@ -180,7 +181,7 @@ int XSecure_EllipticVerifySign(u32 CurveType, u64 HashAddr, u32 Size,
 	u64 Buffer;
 	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&EcdsaParams);
 
-	if (MemSize == 0U || EcdsaParams == NULL || MemSize < sizeof(XSecure_EllipticSignVerifyParams)) {
+	if ((EcdsaParams == NULL) || (MemSize < sizeof(XSecure_EllipticSignVerifyParams))) {
 		goto END;
 	}
 
