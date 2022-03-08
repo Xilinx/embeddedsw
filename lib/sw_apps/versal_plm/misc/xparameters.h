@@ -1593,5 +1593,24 @@
 #define FILE_SYSTEM_NUM_LOGIC_VOL 10
 #define FILE_SYSTEM_USE_STRFUNC 0
 #define FILE_SYSTEM_SET_FS_RPATH 0
+
+/* PLM/XilPLMI configuration */
+
+/* Debug level option */
+#define PLM_DEBUG
+
+/* Boot time measurement enable */
+#define PLM_PRINT_PERF
+
+/* USB Boot mode support disable */
+#define PLM_USB_EXCLUDE
+
+/* NVM handlers disable */
+#define PLM_NVM_EXCLUDE
+
+/* PUF handlers disable */
+#define PLM_PUF_EXCLUDE
+
+
 #define XPAR_XILPM_ENABLED
 #endif  /* end of protection macro */
