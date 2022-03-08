@@ -25,6 +25,7 @@
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       kpt  09/27/21 Fixed compilation warnings
 * 4.7   kpt  01/13/21 Added API's to set and get the shared memory
+*       am   03/08/22 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -35,7 +36,6 @@
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xsecure_ipi.h"
-#include "xsecure_defs.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -104,9 +104,9 @@ END:
  *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
-int XSecure_ProcessIpiWithPayload0(u32 ApiId)
+int XSecure_ProcessIpiWithPayload0(XSecure_ApiId ApiId)
 {
-	return XSecure_ProcessIpi(HEADER(0UL, ApiId), 0U, 0U, 0U,
+	return XSecure_ProcessIpi(HEADER(0U, ApiId), 0U, 0U, 0U,
 		0U, 0U);
 }
 
@@ -122,9 +122,9 @@ int XSecure_ProcessIpiWithPayload0(u32 ApiId)
  *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
-int XSecure_ProcessIpiWithPayload1(u32 ApiId, u32 Arg1)
+int XSecure_ProcessIpiWithPayload1(XSecure_ApiId ApiId, u32 Arg1)
 {
-	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, 0U, 0U,
+	return XSecure_ProcessIpi(HEADER(0U, ApiId), Arg1, 0U, 0U,
 		0U, 0U);
 }
 
@@ -141,9 +141,9 @@ int XSecure_ProcessIpiWithPayload1(u32 ApiId, u32 Arg1)
  *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
-int XSecure_ProcessIpiWithPayload2(u32 ApiId, u32 Arg1, u32 Arg2)
+int XSecure_ProcessIpiWithPayload2(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2)
 {
-	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, Arg2, 0U,
+	return XSecure_ProcessIpi(HEADER(0U, ApiId), Arg1, Arg2, 0U,
 		0U, 0U);
 }
 
@@ -161,9 +161,9 @@ int XSecure_ProcessIpiWithPayload2(u32 ApiId, u32 Arg1, u32 Arg2)
  *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
-int XSecure_ProcessIpiWithPayload3(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3)
+int XSecure_ProcessIpiWithPayload3(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2, u32 Arg3)
 {
-	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, Arg2, Arg3,
+	return XSecure_ProcessIpi(HEADER(0U, ApiId), Arg1, Arg2, Arg3,
 		0U, 0U);
 }
 
@@ -182,10 +182,10 @@ int XSecure_ProcessIpiWithPayload3(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3)
  *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
-int XSecure_ProcessIpiWithPayload4(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
+int XSecure_ProcessIpiWithPayload4(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
 	u32 Arg4)
 {
-	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, Arg2, Arg3,
+	return XSecure_ProcessIpi(HEADER(0U, ApiId), Arg1, Arg2, Arg3,
 		Arg4, 0U);
 }
 
@@ -205,10 +205,10 @@ int XSecure_ProcessIpiWithPayload4(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
  *	-	XST_FAILURE - If there is a failure
  *
  ****************************************************************************/
-int XSecure_ProcessIpiWithPayload5(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
+int XSecure_ProcessIpiWithPayload5(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
 	u32 Arg4, u32 Arg5)
 {
-	return XSecure_ProcessIpi(HEADER(0UL, ApiId), Arg1, Arg2, Arg3,
+	return XSecure_ProcessIpi(HEADER(0U, ApiId), Arg1, Arg2, Arg3,
 		Arg4, Arg5);
 }
 
