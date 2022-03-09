@@ -352,7 +352,8 @@ static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
 		} else if (PM_DEV_PLD_0 == NodeId) {
 			Device = XPmDevice_GetById(NodeId);
 			if ((NULL != Device) &&
-			    ((u8)XPM_DEVSTATE_RUNNING != Device->Node.State)) {
+				((u8)XPM_DEVSTATE_RUNNING != Device->Node.State) &&
+				((u8)XPM_POWER_STATE_INITIALIZING != Device->Node.State)) {
 				Status = XST_FAILURE;
 			}
 		} else {
@@ -701,12 +702,11 @@ done:
 	return Status;
 }
 
-XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId)
+XStatus XPmDomainIso_ProcessPending()
 {
 	XStatus Status = XST_FAILURE;
 	u32 i;
 
-	(void)PowerDomainId;
 
 	for(i=0; i< ARRAY_SIZE(XPmDomainIso_List); i++)
 	{

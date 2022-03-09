@@ -43,7 +43,7 @@ typedef enum {
 	NODEID(XPM_NODECLASS_ISOLATION, XPM_NODESUBCL_ISOLATION, XPM_NODETYPE_ISOLATION, x)
 
 XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable);
-XStatus XPmDomainIso_ProcessPending(u32 PowerDomainId);
+XStatus XPmDomainIso_ProcessPending(void);
 XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State);
 
 #ifdef __cplusplus
