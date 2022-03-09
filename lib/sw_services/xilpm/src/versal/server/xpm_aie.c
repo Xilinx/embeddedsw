@@ -1639,6 +1639,34 @@ done:
 	return Status;
 }
 
+static XStatus Aie1_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
+{
+	(void)AieDev;
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const u64 NocAddress = AieDomain->Array.NocAddress;
+	u64 BaseAddress;
+	u32 Col;
+
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* BaseAddress for AIE1 column */
+		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
+
+		/* Gate columns */
+		AieWrite64(BaseAddress + AIE_TILE_CLOCK_CONTROL_OFFSET, 0U);
+
+		/* Set column Reset */
+		AieWrite64(BaseAddress + AIE_PL_MODULE_COLUMN_RST_CTRL_OFFSET, 1U);
+
+		/* Ungate columns */
+		AieWrite64(BaseAddress + AIE_TILE_CLOCK_CONTROL_OFFSET, 3U);
+
+		/* Un-Set column Reset */
+		AieWrite64(BaseAddress + AIE_PL_MODULE_COLUMN_RST_CTRL_OFFSET, 0U);
+	}
+
+	return XST_SUCCESS;
+}
+
 static XStatus Aie2_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
@@ -1943,6 +1971,42 @@ static XStatus Aie2_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 ColStart, u32
 	return XST_SUCCESS;
 }
 
+static XStatus Aie1_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const XPm_AieArray *Array = &AieDomain->Array;
+	u32 ColStart = (Part & AIE_START_COL_MASK);
+	u32 NumCol = ((Part & AIE_NUM_COL_MASK) >> 16U);
+	u32 ColEnd = ColStart + NumCol - 1U;
+	u32 NodeAddress = AieDev->Node.BaseAddress;
+
+	/* Check that column and operations are in range */
+	if (((ColEnd) > ((u32)Array->NumCols + (u32)Array->StartCol - 1U)) ||
+	    (ColStart < (u32)Array->StartCol) ||
+	    (AIE_OPS_MAX < Ops)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Unlock AIE1 PCSR */
+	XPmAieDomain_UnlockPcsr(NodeAddress);
+
+	/* Column Reset */
+	if (0U != (AIE_OPS_COL_RST & Ops)) {
+		Status = Aie1_ColRst(AieDev, ColStart, ColEnd);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_COL_RST;
+			goto done;
+		}
+	}
+
+done:
+	/* Lock AIE1 PCSR */
+	XPmAieDomain_LockPcsr(NodeAddress);
+
+	return Status;
+}
 static XStatus Aie2_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 {
 	XStatus Status = XST_FAILURE;
@@ -2043,12 +2107,22 @@ XStatus Aie_Operations(u32 Part, u32 Ops)
 
 	const XPm_Device * const AieDev = XPmDevice_GetById(PM_DEV_AIE);
 	if (NULL == AieDev) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		DbgErr = XPM_INT_ERR_DEV_AIE;
 		goto done;
 	}
 
 	if (AIE_GENV2 == Array->GenVersion) {
+		/* AIE2 Operations */
 		Status = Aie2_Operation(AieDev, Part, Ops);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_AIE2_OPS;
+		}
+	} else {
+		/* AIE1 Operations */
+		Status = Aie1_Operation(AieDev, Part, Ops);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_AIE1_OPS;
+		}
 	}
 
 done:
