@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 7.7   bsv   02/21/2017 Initial release
+* 7.8   skd   03/09/2022 Compilation warning fix
 *
 * </pre>
 *
@@ -66,7 +67,7 @@ extern "C" {
 #define CRP_BASEADDR		(0XF1260000U)
 #define CRP_RESET_REASON		(CRP_BASEADDR + 0X00000220U)
 #define CRP_RST_NONPS		(CRP_BASEADDR + 0X00000320U)
-
+#define CRP_RST_NONPS_NPI_RESET_MASK		(0X10U)
 /*
  * Register: CRP_RST_PS
  */
