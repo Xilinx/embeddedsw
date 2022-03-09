@@ -1353,6 +1353,14 @@ static XStatus PldInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArg
 			goto done;
 		}
 		Status = PlDevice->Ops->InitFinish(PlDevice, Args, NumArgs);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPmDomainIso_ProcessPending();
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DOMAIN_ISO;
+			goto done;
+		}
 		break;
 	default:
 		DbgErr = XPM_INT_ERR_INVALID_FUNC;
