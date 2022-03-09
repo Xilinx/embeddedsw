@@ -453,6 +453,10 @@ extern "C" {
 #define XPM_INT_ERR_AIE1_OPS			0x4111U
 /* Error during AIE2 Operations */
 #define XPM_INT_ERR_AIE2_OPS			0x4112U
+/* Error during zeroization of program memory */
+#define XPM_INT_ERR_AIE_PROG_MEM_ZEROISATION	0x4113U
+/* Error during zeroization of data memory */
+#define XPM_INT_ERR_AIE_DATA_MEM_ZEROISATION	0x4114U
 
 /************************** PMC specific Errors ******************************/
 /************************** (0x4200) - (0x42FF) ******************************/
