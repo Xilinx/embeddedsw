@@ -1667,6 +1667,53 @@ static XStatus Aie1_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u
 	return XST_SUCCESS;
 }
 
+static XStatus Aie1_ShimRst(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
+{
+	(void)AieDev;
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const u64 NocAddress = AieDomain->Array.NocAddress;
+	u64 BaseAddress;
+	u32 Col;
+
+	/* Enable shim resets of columns */
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* BaseAddress for AIE1 column */
+		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
+
+		/* Enable Shim Reset Per Column */
+		AieWrite64(BaseAddress + AIE_TILE_COL_SHIM_RST_OFFSET, 1U);
+	}
+
+	/* Enable shim reset bit of AIE NPI PCSR register */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK,
+			      ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_AIE_SHIM_RST_EN;
+		goto done;
+	}
+
+	/* Disable shim reset bit of AIE NPI PCSR register */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK, 0U);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_AIE_SHIM_RST_DIS;
+	}
+
+done:
+	/* Disable shim resets of columns */
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* BaseAddress for AIE1 column */
+		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
+
+		/* Disable Shim Reset Per Column */
+		AieWrite64(BaseAddress + AIE_TILE_COL_SHIM_RST_OFFSET, 1U);
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus Aie2_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
@@ -1997,6 +2044,15 @@ static XStatus Aie1_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 		Status = Aie1_ColRst(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_COL_RST;
+			goto done;
+		}
+	}
+
+	/* Shim Reset */
+	if (0U != (AIE_OPS_SHIM_RST & Ops)) {
+		Status = Aie1_ShimRst(AieDev, ColStart, ColEnd);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_SHIM_RST;
 			goto done;
 		}
 	}
