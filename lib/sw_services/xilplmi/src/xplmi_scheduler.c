@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,8 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Removed unnecessary initializations to reduce code size
 *       bsv  08/15/2021 Removed unwanted goto statements
+* 1.05  bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
+*                       same priority
 *
 * </pre>
 *
@@ -191,7 +193,7 @@ void XPlmi_SchedulerHandler(void *Data)
 				 * the previously scheduled task is executed or not
 				 */
 				if ((Sched.TaskList[Idx].ErrorFunc != NULL) &&
-					((Task->State & (u8)(XPLMI_TASK_IN_PROGRESS_AND_MISSED)) ==
+					((Task->State & (u8)(XPLMI_SCHED_TASK_MISSED)) ==
 							(u8)0x0U)) {
 					/* Update scheduler task state with task missed flag */
 					Task->State |= (u8)XPLMI_SCHED_TASK_MISSED;
@@ -279,11 +281,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			}
 			Task->IntrId = XPLMI_INVALID_INTR_ID;
 			Sched.TaskList[Idx].Task = Task;
-			if (TaskType == XPLMI_PERIODIC_TASK) {
-				Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
-			}
-			else {
-				Task->State &= (u8)(~XPLMI_TASK_IS_PERSISTENT);
+			if (TaskType != XPLMI_PERIODIC_TASK) {
 				microblaze_disable_interrupts();
 				XPlmi_MeasurePerfTime(Sched.LastTimerTick, &ExtraTime);
 				if (Sched.Tick == 0U) {
@@ -337,9 +335,11 @@ int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			Sched.TaskList[Idx].OwnerId = 0U;
 			Sched.TaskList[Idx].CustomerFunc = NULL;
 			Sched.TaskList[Idx].Data = NULL;
-			Sched.TaskList[Idx].Task->State &= (u8)(~XPLMI_TASK_IS_PERSISTENT);
 			microblaze_disable_interrupts();
-			XPlmi_TaskDelete(Sched.TaskList[Idx].Task);
+			if (metal_list_is_empty(&Sched.TaskList[Idx].Task->TaskNode) ==
+				(int)FALSE) {
+				metal_list_del(&Sched.TaskList[Idx].Task->TaskNode);
+			}
 			microblaze_enable_interrupts();
 			TaskCount++;
 		}

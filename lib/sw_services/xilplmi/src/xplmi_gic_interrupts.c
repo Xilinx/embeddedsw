@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,8 @@
 * 1.05  ma   07/12/2021 Minor updates to task related code
 *       bsv  08/02/2021 Code clean up to reduce code size
 *       ma   08/05/2021 Add separate task for each IPI channel
+* 1.06  bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
+*                       same priority
 *
 * </pre>
 *
@@ -76,7 +78,6 @@ int XPlmi_GicRegisterHandler(u32 GicPVal, u32 GicPxVal, GicIntHandler_t Handler,
 		goto END;
 	}
 	Task->IntrId = PlmIntrId | XPLMI_IOMODULE_PMC_GIC_IRQ;
-	Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
 	Status = XST_SUCCESS;
 
 END:

@@ -28,6 +28,8 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       ma   08/05/2021 Add separate task for each IPI channel
 *       bsv  08/15/2021 Replaced enums with macros
+* 1.05  bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
+*                       same priority
 *
 * </pre>
 *
@@ -57,11 +59,8 @@ extern "C" {
 #define XPLMI_TASK_PRIORITIES		(2U)
 #define XPLMI_INVALID_INTR_ID		(0xFFFFFFFFU)
 
-#define XPLMI_TASK_IN_QUEUE					(0x1U)
-#define XPLMI_TASK_IS_PERSISTENT			(0x2U)
-#define XPLMI_TASK_IN_PROGRESS				(0x4U)
-#define XPLMI_SCHED_TASK_MISSED				(0x8U)
-#define XPLMI_TASK_IN_PROGRESS_AND_MISSED	(0xCU)
+
+#define XPLMI_SCHED_TASK_MISSED				(0x1U)
 
 #define XPLM_TASK_PRIORITY_0		(0U)
 #define XPLM_TASK_PRIORITY_1		(1U)
@@ -95,7 +94,6 @@ XPlmi_TaskNode * XPlmi_TaskCreate(TaskPriority_t Priority,
 void XPlmi_TaskTriggerNow(XPlmi_TaskNode * Task);
 void XPlmi_TaskInit(void);
 void XPlmi_TaskDispatchLoop(void);
-void XPlmi_TaskDelete(XPlmi_TaskNode *Task);
 XPlmi_TaskNode* XPlmi_GetTaskInstance(int (*Handler)(void *Arg),
 	const void *PrivData, const u32 IntrId);
 

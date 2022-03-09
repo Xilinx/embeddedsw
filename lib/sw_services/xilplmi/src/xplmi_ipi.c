@@ -58,6 +58,8 @@
  * 1.05  ma   12/15/2021 Update function header for XPlmi_IpiDispatchHandler
  *       ma   01/17/2022 Enable SLVERR for IPI
  *       ma   02/04/2022 Print Command ID when IPI command execute fails
+ *       bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
+ *                       same priority
  *
  * </pre>
  *
@@ -172,7 +174,6 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 				goto END;
 			}
 			Task->IntrId = IpiIntrId;
-			Task->State |= (u8)XPLMI_TASK_IS_PERSISTENT;
 		}
 	}
 

@@ -37,6 +37,8 @@
 *       ma   07/12/2021 Minor updates to task related code
 *       ma   08/05/2021 Add separate task for each IPI channel
 * 1.07  bm   02/04/2022 Fix race condition in task dispatch loop
+*       bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
+*                       same priority
 *
 * </pre>
 *
@@ -104,35 +106,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function deletes the task from the task queue.
- *
- * @param	Task Pointer to the task node
- *
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_TaskDelete(XPlmi_TaskNode *Task)
-{
-	if ((Task->State & (u8)XPLMI_TASK_IN_QUEUE) != (u8)XPLMI_TASK_IN_QUEUE) {
-		if (metal_list_is_empty(&Task->TaskNode) == (int)FALSE) {
-			metal_list_del(&Task->TaskNode);
-		}
-		if ((Task->State & (u8)XPLMI_TASK_IS_PERSISTENT) !=
-				(u8)XPLMI_TASK_IS_PERSISTENT) {
-			Task->Delay = 0U;
-			Task->PrivData = NULL;
-			Task->Handler = NULL;
-			Task->IntrId = XPLMI_INVALID_INTR_ID;
-		}
-	}
-	else {
-		Task->State &= (u8)(~XPLMI_TASK_IN_QUEUE);
-	}
-	Task->State &= (u8)(~XPLMI_TASK_IN_PROGRESS);
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function returns the instance of the task with matching
  * handler and private data or with matching interrupt id
  *
@@ -186,13 +159,9 @@ void XPlmi_TaskTriggerNow(XPlmi_TaskNode *Task)
 {
 	Xil_AssertVoid(Task->Handler != NULL);
 	if (metal_list_is_empty(&Task->TaskNode) != (int)FALSE) {
-		Task->State &= (u8)(~XPLMI_TASK_IN_QUEUE);
+		metal_list_add_tail(&TaskQueue[Task->Priority],
+			&Task->TaskNode);
 	}
-	else {
-		Task->State |= (u8)XPLMI_TASK_IN_QUEUE;
-		metal_list_del(&Task->TaskNode);
-	}
-	metal_list_add_tail(&TaskQueue[Task->Priority], &Task->TaskNode);
 }
 
 /*****************************************************************************/
@@ -255,7 +224,8 @@ void XPlmi_TaskDispatchLoop(void)
 				/* Skip the first element as it
 				 * is not proper task
 				 */
-				if (Node[Index] == &TaskQueue[Index]) {
+				if ((metal_list_is_empty(Node[Index]) != (int)FALSE) ||
+					(Node[Index] == &TaskQueue[Index])) {
 					Node[Index] = TaskQueue[Index].next;
 				}
 				/* Get the next task in round robin */
@@ -266,29 +236,26 @@ void XPlmi_TaskDispatchLoop(void)
 			}
 		}
 		if (Task != NULL) {
-			Task->State |= (u8)XPLMI_TASK_IN_PROGRESS;
-			microblaze_enable_interrupts();
 #ifdef PLM_DEBUG_DETAILED
 			/* Call the task handler */
 			TaskStartTime = XPlmi_GetTimerValue();
 #endif
 			Xil_AssertVoid(Task->Handler != NULL);
+			metal_list_del(&Task->TaskNode);
+			microblaze_enable_interrupts();
 			Status = Task->Handler(Task->PrivData);
 #ifdef PLM_DEBUG_DETAILED
 			XPlmi_MeasurePerfTime(TaskStartTime, &PerfTime);
 			XPlmi_Printf(DEBUG_PRINT_PERF, "%u.%03u ms: Task Time\n\r",
 				(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 #endif
-			if (Status != (int)XPLMI_TASK_INPROGRESS) {
-				/* Delete the task that is handled */
-				microblaze_disable_interrupts();
-				XPlmi_TaskDelete(Task);
-			}
-			if ((Status != XST_SUCCESS) &&
-				(Status != (int)XPLMI_TASK_INPROGRESS)) {
+			if (Status != XST_SUCCESS) {
 				XPlmi_ErrMgr(Status);
 			}
 			continue;
+		}
+		else {
+			microblaze_enable_interrupts();
 		}
 		/*
 		 * Goto sleep when all queues are empty
@@ -296,6 +263,6 @@ void XPlmi_TaskDispatchLoop(void)
 		XPlmi_Printf(DEBUG_DETAILED,
 			"No pending tasks..Going to sleep\n\r");
 		mb_sleep();
-		microblaze_enable_interrupts();
+
 	}
 }
