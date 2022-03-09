@@ -1714,6 +1714,26 @@ done:
 	return Status;
 }
 
+static XStatus Aie1_EnbColClkBuff(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
+{
+	(void)AieDev;
+	const XPm_AieDomain *AieDomain = PmAieDomain;
+	const u64 NocAddress = AieDomain->Array.NocAddress;
+	u64 BaseAddress;
+	u32 Col;
+
+	/* Enable column clock buffer */
+	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* BaseAddress for AIE1 column */
+		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
+
+		/* Un-Gate columns */
+		AieWrite64(BaseAddress + AIE_TILE_CLOCK_CONTROL_OFFSET, 3U);
+	}
+
+	return XST_SUCCESS;
+}
+
 static XStatus Aie2_ColRst(const XPm_Device *AieDev, const u32 ColStart, const u32 ColEnd)
 {
 	const XPm_AieDomain *AieDomain = PmAieDomain;
@@ -2053,6 +2073,15 @@ static XStatus Aie1_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 		Status = Aie1_ShimRst(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_SHIM_RST;
+			goto done;
+		}
+	}
+
+	/* Enable Column Clock Buffer */
+	if (0U != (AIE_OPS_ENB_COL_CLK_BUFF & Ops)) {
+		Status = Aie1_EnbColClkBuff(AieDev, ColStart, ColEnd);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_AIE_OPS_ENB_COL_CLK_BUFF;
 			goto done;
 		}
 	}
