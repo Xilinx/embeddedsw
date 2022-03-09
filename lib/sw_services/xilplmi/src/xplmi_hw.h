@@ -68,6 +68,7 @@
 *       ma   01/24/2022 Add missing EAM registers
 *       ma   01/31/2022 Fix DMA Keyhole command issue where the command
 *                       starts at the 32K boundary
+*       skd  03/09/2022 Compilation warning fix
 *
 * </pre>
 *
@@ -697,7 +698,6 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #ifndef CRP_RST_NONPS
 #define CRP_RST_NONPS		(CRP_BASEADDR + 0X00000320U)
 #endif
-#define CRP_RST_NONPS_NPI_RESET_MASK		(0X10U)
 #define CRP_RST_NONPS_NPI_RESET_SHIFT		(0X4U)
 
 /*

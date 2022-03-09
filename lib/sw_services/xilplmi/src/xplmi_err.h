@@ -49,6 +49,7 @@
 *                       folder
 *       ma   01/24/2022 Add XPLMI_ERROR_ACTION_NOT_DISABLED and
 *                       XPLMI_ERROR_ACTION_NOT_ENABLED minor error codes
+*       skd  03/09/2022 Compilation warning fix
 *
 * </pre>
 *
@@ -67,6 +68,7 @@ extern "C" {
 #include "xil_error_node.h"
 #include "xplmi_error_node.h"
 #include "xplmi_hw.h"
+#include "xil_hw.h"
 
 /**@cond xplmi_internal
  * @{
