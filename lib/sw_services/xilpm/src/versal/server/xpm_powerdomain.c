@@ -1693,7 +1693,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 			/* Required for MISRA */
 		}
 
-		Status = XPmDomainIso_ProcessPending(PwrDomain->Power.Node.Id);
+		Status = XPmDomainIso_ProcessPending();
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_DOMAIN_ISO;
 			goto done;
