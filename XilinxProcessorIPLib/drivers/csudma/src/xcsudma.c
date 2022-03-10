@@ -39,6 +39,7 @@
 * 1.11  bm      02/21/22 Add byte-aligned support for VERSAL_NET devices
 * 1.11	sk	03/03/22 Replace driver version in addtogroup with Overview.
 * 1.11	sk	03/03/22 Update Overview section based on review comments.
+* 1.11	sk	03/03/22 Update XCsuDma_GetSize return type description.
 * </pre>
 *
 ******************************************************************************/
@@ -336,7 +337,7 @@ u64 XCsuDma_GetAddr(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
 *
-* @return	Size is amount of data yet to be transfered.
+* @return	Returns number of bytes of data yet to be transferred.
 *
 * @note		None.
 *
