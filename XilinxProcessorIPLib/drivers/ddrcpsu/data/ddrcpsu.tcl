@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -8,7 +8,7 @@
 # 1.0	    ssc   04/28/16 First Release.
 # 1.4       mus   11/17/21 Updated to export base and high
 #                          address for psu_ddr instances.
-# 1.5       mus   12/22/21 Updated xdefine_include_file and
+# 1.4       mus   12/22/21 Updated xdefine_include_file and
 #                          xdefine_canonical_xpars procs to initialize the
 #                          the variables before using them. It fixes CR#1118044
 #
