@@ -1,5 +1,4 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +24,11 @@
  * 6.8  asa  11/10/18 Fix issues in cache Xil_DCacheInvalidate and
  * 			Xil_DCacheFlush that got introduced in the optimization
  * 			changes done in the previous patch for this file.
+ * 7.7  mus  02/21/22 Existing note in cache API's says, "bottom 4 bits of input
+ *                    address are forced to 0 as per architecture". As cache line
+ *                    length is of 32 byte, bottom 5 bits of input address would
+ *                    be forced to 0. Updated note to have correct details.
+ *                    It fixes CR#1122561.
  * </pre>
  *
  ******************************************************************************/
@@ -368,7 +372,7 @@ void Xil_DCacheFlush(void)
  *
  * @return	None.
  *
- * @note	The bottom 4 bits are set to 0, forced by architecture.
+ * @note	The bottom 5 bits are set to 0, forced by architecture.
  *
  ****************************************************************************/
 void Xil_DCacheFlushLine(u32 adr)
@@ -526,7 +530,7 @@ void Xil_ICacheInvalidate(void)
  *
  * @return	None.
  *
- * @note	The bottom 4 bits are set to 0, forced by architecture.
+ * @note	The bottom 5 bits are set to 0, forced by architecture.
  *
  ****************************************************************************/
 void Xil_ICacheInvalidateLine(u32 adr)

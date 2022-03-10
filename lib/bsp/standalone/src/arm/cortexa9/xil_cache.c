@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,6 +74,11 @@
 *					  caches are enabled. This fixes CR-992023.
 * 7.5    mus 01/19/21 Implement workaround for errata#588369 in Xil_DCacheFlushRange.
 *					  It fixes CR#1086022.
+* 7.7  mus  02/21/22 Existing note in cache API's says, "bottom 4 bits of input
+*                    address are forced to 0 as per architecture". As cache line
+*                    length is of 32 byte, bottom 5 bits of input address would
+*                    be forced to 0. Updated note to have correct details.
+*                    It fixes CR#1122561.
 *
 * </pre>
 *
@@ -204,7 +209,7 @@ void Xil_DCacheInvalidate(void)
 *
 * @return	None.
 *
-* @note		The bottom 4 bits are set to 0, forced by architecture.
+* @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidateLine(u32 adr)
@@ -389,7 +394,7 @@ void Xil_DCacheFlush(void)
 *
 * @return	None.
 *
-* @note		The bottom 4 bits are set to 0, forced by architecture.
+* @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
 void Xil_DCacheFlushLine(u32 adr)
@@ -485,7 +490,7 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 *
 * @return	None.
 *
-* @note		The bottom 4 bits are set to 0, forced by architecture.
+* @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
 void Xil_DCacheStoreLine(u32 adr)
@@ -564,7 +569,7 @@ void Xil_ICacheInvalidate(void)
 *
 * @return	None.
 *
-* @note		The bottom 4 bits are set to 0, forced by architecture.
+* @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
 void Xil_ICacheInvalidateLine(u32 adr)
@@ -1337,7 +1342,7 @@ void Xil_L2CacheInvalidate(void)
 *
 * @return	None.
 *
-* @note		The bottom 4 bits are set to 0, forced by architecture.
+* @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
 void Xil_L2CacheInvalidateLine(u32 adr)
@@ -1445,7 +1450,7 @@ void Xil_L2CacheFlush(void)
 *
 * @return	None.
 *
-* @note		The bottom 4 bits are set to 0, forced by architecture.
+* @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
 void Xil_L2CacheFlushLine(u32 adr)
@@ -1522,7 +1527,7 @@ void Xil_L2CacheFlushRange(u32 adr, u32 len)
 *
 * @return	None.
 *
-* @note		The bottom 4 bits are set to 0, forced by architecture.
+* @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
 void Xil_L2CacheStoreLine(u32 adr)
