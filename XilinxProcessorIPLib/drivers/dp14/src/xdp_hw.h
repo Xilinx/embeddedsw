@@ -283,12 +283,6 @@
 							configuration. */
 #define XDP_TX_PHY_VOLTAGE_DIFF_LANE_0	0x220	/**< Controls the differential
 							voltage swing. */
-#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_1	0x224	/**< Controls the differential
-							voltage swing. */
-#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_2	0x228	/**< Controls the differential
-							voltage swing. */
-#define XDP_TX_PHY_VOLTAGE_DIFF_LANE_3	0x22C	/**< Controls the differential
-							voltage swing. */
 #define XDP_TX_PHY_TRANSMIT_PRBS7	0x230	/**< Enable pseudo random bit
 							sequence 7 pattern
 							transmission for link
@@ -297,30 +291,11 @@
 							generate the proper
 							clock frequency for the
 							required link rate. */
-#define XDP_TX_PHY_POWER_DOWN		0x238	/**< Controls PHY power down. */
 #define XDP_TX_PHY_PRECURSOR_LANE_0	0x23C	/**< Controls the pre-cursor
-							level. */
-#define XDP_TX_PHY_PRECURSOR_LANE_1	0x240	/**< Controls the pre-cursor
-							level. */
-#define XDP_TX_PHY_PRECURSOR_LANE_2	0x244	/**< Controls the pre-cursor
-							level. */
-#define XDP_TX_PHY_PRECURSOR_LANE_3	0x248	/**< Controls the pre-cursor
 							level. */
 #define XDP_TX_PHY_POSTCURSOR_LANE_0	0x24C	/**< Controls the post-cursor
 							level. */
-#define XDP_TX_PHY_POSTCURSOR_LANE_1	0x250	/**< Controls the post-cursor
-							level. */
-#define XDP_TX_PHY_POSTCURSOR_LANE_2	0x254	/**< Controls the post-cursor
-							level. */
-#define XDP_TX_PHY_POSTCURSOR_LANE_3	0x258	/**< Controls the post-cursor
-							level. */
 #define XDP_TX_PHY_STATUS		0x280	/**< Current PHY status. */
-#define XDP_TX_GT_DRP_COMMAND		0x2A0	/**< Provides access to the GT
-							DRP ports. */
-#define XDP_TX_GT_DRP_READ_DATA		0x2A4	/**< Provides access to GT DRP
-							read data. */
-#define XDP_TX_GT_DRP_CHANNEL_STATUS	0x2A8	/**< Provides access to GT DRP
-							channel status. */
 /* @} */
 
 /** @name DPTX core registers: DisplayPort audio.
