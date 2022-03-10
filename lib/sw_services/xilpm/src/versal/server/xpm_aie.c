@@ -2255,7 +2255,7 @@ static XStatus Aie1_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 	}
 
 	/* Disable Column Clock Buffer */
-	if (0U != (AIE_OPS_ENB_COL_CLK_BUFF & Ops)) {
+	if (0U != (AIE_OPS_DIS_COL_CLK_BUFF & Ops)) {
 		Status = Aie1_DisColClkBuff(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_DIS_COL_CLK_BUFF;
