@@ -42,6 +42,7 @@
  *       adk  06/03/19    In the mld file updated supported peripheral option
  *			  with A72 and PMC.
  * 1.3   sd   03/03/21    Doxygen Fixes
+ * 1.6   sd   28/02/21    Add support for microblaze
  *</pre>
  *
  *@note
