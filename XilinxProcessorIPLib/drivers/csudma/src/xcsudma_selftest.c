@@ -8,7 +8,7 @@
 /**
 *
 * @file xcsudma_selftest.c
-* @addtogroup csudma_v1_10
+* @addtogroup Overview
 * @{
 *
 * This file contains a diagnostic self-test function for the CSU_DMA driver.
@@ -20,6 +20,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------
 * 1.0   vnsld   22/10/14 First release
+* 1.11	sk	03/03/22 Replace driver version in addtogroup with Overview.
 * </pre>
 *
 ******************************************************************************/

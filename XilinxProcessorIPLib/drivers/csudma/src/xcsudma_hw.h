@@ -7,7 +7,7 @@
 /**
 *
 * @file xcsudma_hw.h
-* @addtogroup csudma_v1_10
+* @addtogroup Overview
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or
@@ -21,7 +21,8 @@
 * 1.0   vnsld  22/10/14 First release
 * 1.9	sk     02/11/21 Add description for XPS_CRP_BASEADDRESS and
 * 			XCSUDMA_DONE_TIMEOUT_VAL macros.
-* 2.0   sk     22/02/22 Added support for VERSAL NET
+* 1.11	sk     03/03/22 Replace driver version in addtogroup with Overview.
+* 1.12	sk     03/03/22 Added support for VERSAL NET.
 * </pre>
 *
 ******************************************************************************/

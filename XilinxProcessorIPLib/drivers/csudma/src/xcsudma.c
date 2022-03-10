@@ -8,7 +8,7 @@
 /**
 *
 * @file xcsudma.c
-* @addtogroup csudma_v1_10
+* @addtogroup Overview
 * @{
 *
 * This file contains the implementation of the interface functions for CSU_DMA
@@ -37,6 +37,7 @@
 * 1.7	sk	08/26/20 Fix MISRA-C violations.
 * 1.7	sk	08/26/20 Remove busy check in SetConfig.
 * 1.11  bm      02/21/22 Add byte-aligned support for VERSAL_NET devices
+* 1.11	sk	03/03/22 Replace driver version in addtogroup with Overview.
 * </pre>
 *
 ******************************************************************************/
