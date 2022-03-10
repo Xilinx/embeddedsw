@@ -25,13 +25,16 @@
  * 1.5   dp   22/11/21    Update XIpiPs_RegisterIrq() to check whether GIC has
  *                        already been setup or not and if it was setup skip
  *                        initalizing GIC again and just register handlers.
+ * 1.6   sd   28/02/21    Add support for microblaze
  *</pre>
  *
  *@note
  *****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
+#ifndef __MICROBLAZE__
 #include "xscugic.h"
+#endif
 #include "sleep.h"
 
 /**************************** Type Definitions *******************************/
@@ -44,9 +47,11 @@ static u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
 static u32 XIpiPs_PollforDone(XMailbox *InstancePtr);
 static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 			   u32 MsgLen, u8 BufferType);
+#ifndef __MICROBLAZE__
 static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				  XMailbox *InstancePtr,
 				  u32 IpiIntrId);
+#endif
 static void XIpiPs_ErrorIntrHandler(void *XMailboxPtr);
 static void XIpiPs_IntrHandler(void *XMailboxPtr);
 
@@ -113,8 +118,10 @@ static u32 XIpiPs_Init(XMailbox *InstancePtr, u8 DeviceId)
 	XIpiPsu_ClearInterruptStatus(IpiInstancePtr, XIPIPSU_ALL_MASK);
 
 	/* Register IRQ */
+#ifndef __MICROBLAZE__
 	Status = XIpiPs_RegisterIrq(&DataPtr->GicInst, InstancePtr,
 				    CfgPtr->IntId);
+#endif
 
 	return (u32)Status;
 }
@@ -263,6 +270,7 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
  *	- XST_FAILURE if unsuccessful
  *
  ****************************************************************************/
+#ifndef __MICROBLAZE__
 static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				  XMailbox *InstancePtr,
 				  u32 IpiIntrId) {
@@ -336,6 +344,7 @@ static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**

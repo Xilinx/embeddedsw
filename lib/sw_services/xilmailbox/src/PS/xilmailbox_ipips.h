@@ -18,6 +18,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk  12/02/19    Initial Release
  * 1.3   sd   03/03/21    Doxygen Fixes
+ * 1.6   sd   28/02/21    Add support for microblaze
  *</pre>
  *
  *@note
@@ -32,7 +33,9 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
 #include "xipipsu.h"
+#ifndef __MICROBLAZE__
 #include "xscugic.h"
+#endif
 
 /**************************** Type Definitions *******************************/
 /**
@@ -40,7 +43,9 @@ extern "C" {
  */
 typedef struct {
 	XIpiPsu IpiInst; /**< Ipi instance */
+#ifndef __MICROBLAZE__
 	XScuGic GicInst; /**< Interrupt instance */
+#endif
 	u32 SourceId; /**< Source id */
 	u32 RemoteId; /**< Remote id */
 } XMailbox_Agent; /**< Xilmailbox agent */

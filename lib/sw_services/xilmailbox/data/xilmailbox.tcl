@@ -18,13 +18,7 @@ proc mailbox_drc {libhandle} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
-	if {$proc_type == "microblaze"} {
-		error "ERROR: This library is not supported for the selected processor"
-	}
         set gic [hsi::get_cells -hier -filter {IP_NAME=="psu_scugic" || IP_NAME=="psu_acpu_gic" || IP_NAME=="psu_rcpu_gic" || IP_NAME=="psv_scugic" || IP_NAME=="psv_acpu_gic" || IP_NAME=="psv_rcpu_gic"}]
-	if {[llength $gic] == 0} {
-		error "ERROR: This library is requires a scugic instance in the design"
-	}
 }
 
 proc generate {libhandle} {
