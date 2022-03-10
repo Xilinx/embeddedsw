@@ -7,7 +7,7 @@
 /**
  *
  * @file xilmailbox_ipips.c
- * @addtogroup xilmailbox_v1_5
+ * @addtogroup Overview
  * @{
  * @details
  *
