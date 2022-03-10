@@ -42,6 +42,9 @@
 * 7.7   mus  02/23/22 Updated Print_DDRSize_Warning function to use xdbg_printf
 *                     instead of xil_printf, so that warning would be printed
 *                     only when DEBUG is enabled. It fixes CR#1123028.
+* 7.7   dp   03/08/22 Update Init_MPU and Print_DDRSize_Warning to use latest
+*                     DDR macros that will contain lowest DDR base address and
+*                     highest DDR address. It fixes CR#1118988
 * </pre>
 *
 * @note
@@ -168,9 +171,9 @@ void Init_MPU(void)
 	Xil_DisableMPURegions();
 
 	Addr = 0x00000000U;
-#ifdef	XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
+#ifdef	XPAR_PSU_R5_DDR_0_LOW_ADDR
 	/* If the DDR is present, configure region as per DDR size */
-	size = (XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR - XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR) + 1;
+	size = (XPAR_PSU_R5_DDR_0_HIGH_ADDR - XPAR_PSU_R5_DDR_0_LOW_ADDR) + 1;
 	if (size < 0x80000000) {
 		/* Lookup the size.  */
 		for (i = 0; i < sizeof region_size / sizeof region_size[0]; i++) {
@@ -181,12 +184,12 @@ void Init_MPU(void)
 				 * Check if DDR size is in power of 2
 				 * and it is mapped at 0x0 in HW design
 				 */
-				if ( XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR != 0x100000) {
+				if ( XPAR_PSU_R5_DDR_0_LOW_ADDR != 0x100000) {
 					CreateTCMRegion = 1;
-					Addr = XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR;
+					Addr = XPAR_PSU_R5_DDR_0_LOW_ADDR;
 					Offset = 0;
 				} else {
-					Offset = XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR;
+					Offset = XPAR_PSU_R5_DDR_0_LOW_ADDR;
 				}
 
 				if (region_size[i].size > (size + Offset + 1)) {
@@ -329,13 +332,13 @@ void Init_MPU(void)
 *
 ******************************************************************************/
 void Print_DDRSize_Warning(void) {
-#ifdef XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR
+#ifdef XPAR_PSU_R5_DDR_0_LOW_ADDR
 	if (1 == DDRSizeWarning)
 		xdbg_printf(XDBG_DEBUG_GENERAL, "WARNING: DDR size mapped to Cortexr5 processor is not \
 		in power of 2. As processor allocates MPU regions size \
             in power of 2, address range %llx to %x has been \
             incorrectly mapped as normal memory \n", \
-            region_size[DDRSizeIndex].size - 1, ((u32)XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR + 1));
+            region_size[DDRSizeIndex].size - 1, ((u32)XPAR_PSU_R5_DDR_0_HIGH_ADDR + 1));
 #endif
 
 }
