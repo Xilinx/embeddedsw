@@ -82,6 +82,7 @@
 *       ma   01/24/2022 Check if error action is enabled before executing the
 *                       handler
 *       ma   02/01/2022 Fix SW-BP-INIT-TO-FAILURE warnings
+*       ma   03/10/2022 Fix bug in disabling the error actions for PSM errors
 *
 * </pre>
 *
@@ -1105,7 +1106,7 @@ static int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask)
 	/* Disable all PSM error actions */
 	Status = EmDisableErrAction((PSM_GLOBAL_REG_PSM_CR_ERR1_MASK + RegOffset),
 			RegMask);
-	Status |= EmDisableErrAction((PSM_GLOBAL_REG_PSM_CR_ERR2_MASK + RegOffset),
+	Status |= EmDisableErrAction((PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK + RegOffset),
 			RegMask);
 	Status |= EmDisableErrAction((PSM_GLOBAL_REG_PSM_IRQ1_MASK + RegOffset),
 			RegMask);
