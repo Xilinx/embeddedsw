@@ -23,6 +23,7 @@
 * 			XCSUDMA_DONE_TIMEOUT_VAL macros.
 * 1.11	sk     03/03/22 Replace driver version in addtogroup with Overview.
 * 1.11	sk     03/03/22 Update Overview section based on review comments.
+* 1.11	sk     03/03/22 Add cond INTERNAL to avoid internal macros.
 * 1.12	sk     03/03/22 Added support for VERSAL NET.
 * </pre>
 *
@@ -50,9 +51,10 @@ extern "C" {
 #define XCSUDMA_SIZE_OFFSET	0x004U	/**< Size Register Offset */
 #define XCSUDMA_STS_OFFSET	0x008U	/**< Status Register Offset */
 #define XCSUDMA_CTRL_OFFSET	0x00CU	/**< Control Register Offset */
-#define XCSUDMA_CRC_OFFSET	0x010U	/**< CheckSum Register Offset */
 #define XCSUDMA_I_STS_OFFSET	0x014U	/**< Interrupt Status Register
 					  *  Offset */
+/** @cond INTERNAL */
+#define XCSUDMA_CRC_OFFSET	0x010U	/**< CheckSum Register Offset */
 #define XCSUDMA_I_EN_OFFSET	0x018U	/**< Interrupt Enable Register
 					  *  Offset */
 #define XCSUDMA_I_DIS_OFFSET	0x01CU	/**< Interrupt Disable Register
@@ -63,8 +65,10 @@ extern "C" {
 #define XCSUDMA_ADDR_MSB_OFFSET	0x028U	/**< Address's MSB Register Offset */
 #define XCSUDMA_SAFETY_CHK_OFFSET 0xFF8U /**< Safety Check Field Offset */
 #define XCSUDMA_FUTURE_ECO_OFFSET 0xFFCU /**< Future potential ECO Offset */
+/** @endcond */
 /*@}*/
 
+/** @cond INTERNAL */
 /** @name CSU Base address, CRP Base Address and CSU_DMA reset offset
  * @{
  */
@@ -109,6 +113,7 @@ extern "C" {
 #define XCSUDMA_ADDR_LSB_MASK	0x00000003U	/**< Address alignment check
 						  *  mask */
 /*@}*/
+/** @endcond */
 
 /** @name Size register bit masks and shifts
  * @{
@@ -123,6 +128,7 @@ extern "C" {
 #endif
 /*@}*/
 
+/** @cond INTERNAL */
 /** @name Status register bit masks and shifts
  * @{
  */
@@ -180,6 +186,7 @@ extern "C" {
 							  *  value of
 							  *  check sum */
 /*@}*/
+/** @endcond */
 
 /** @name Interrupt Enable/Disable/Mask/Status registers bit masks
  * @{
@@ -227,6 +234,7 @@ extern "C" {
 					  *  for destination */
 /*@}*/
 
+/** @cond INTERNAL */
 /** @name Control register 2 bit masks and shifts
  * @{
  */
@@ -258,6 +266,7 @@ extern "C" {
 #define XCSUDMA_MSB_ADDR_SHIFT	32U		/**< Shift for MSB bits of
 						  *  address */
 /*@}*/
+/** @endcond */
 
 /** @name Software done timeout value
  * @{
