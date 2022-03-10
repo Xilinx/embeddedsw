@@ -11,7 +11,7 @@
 * @addtogroup Overview
 * @{
 *
-* This file contains a diagnostic self-test function for the CSU_DMA driver.
+* The xcsudma_selftest.c file contains a diagnostic self-test function for the CSU_DMA driver.
 * Refer to the header file xcsudma.h for more detailed information.
 *
 * <pre>
@@ -21,6 +21,7 @@
 * ----- ------  -------- ---------------------------------------------------
 * 1.0   vnsld   22/10/14 First release
 * 1.11	sk	03/03/22 Replace driver version in addtogroup with Overview.
+* 1.11	sk	03/03/22 Update Overview section based on review comments.
 * </pre>
 *
 ******************************************************************************/

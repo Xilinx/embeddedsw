@@ -11,7 +11,7 @@
 * @addtogroup Overview
 * @{
 *
-* This file contains interrupt related functions of Xilinx CSU_DMA core.
+* The xcsudma_intr.c file contains interrupt related functions of Xilinx CSU_DMA core.
 * Please see xcsudma.h for more details of the driver.
 *
 * <pre>
@@ -21,6 +21,7 @@
 * ----- ------  -------- ---------------------------------------------------
 * 1.0   vnsld  22/10/14  First release
 * 1.11	sk     03/03/22  Replace driver version in addtogroup with Overview.
+* 1.11	sk     03/03/22  Update Overview section based on review comments.
 * </pre>
 *
 ******************************************************************************/
