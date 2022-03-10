@@ -11,6 +11,11 @@
 # 1.4       mus   12/22/21 Updated xdefine_include_file and
 #                          xdefine_canonical_xpars procs to initialize the
 #                          the variables before using them. It fixes CR#1118044
+# 1.4       dp    03/08/22 Updated define_addr_params to handle special case
+#                          for FSBL to define whole DDR map irrespective of DDR
+#                          mapped for the core. Also, updated to define all
+#                          regions of DDR mapped to the core and not just the
+#                          first region. It fixes CR#1118988
 #
 ###############################################################################
 
@@ -26,6 +31,8 @@ proc generate {drv_handle} {
     get_ddr_config_info_canonical $drv_handle "xparameters.h"
 
 }
+
+
 
 proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Get all peripherals connected to this driver
@@ -108,6 +115,12 @@ proc define_addr_params {periph file_name type device_id} {
    set interface_high_names [get_property HIGH_NAME [get_mem_ranges \
 	-of_objects [get_cells -hier $sw_proc] $periph]]
    set i 0
+
+   set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
+   set sw_proc_handle [hsi::get_sw_processor]
+   set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+   set proctype [common::get_property IP_NAME $hw_proc_handle]
+
    foreach interface_base $interface_base_names interface_high $interface_high_names {
 		set base_name [common::get_property BASE_NAME [lindex [get_mem_ranges \
 			-of_objects [get_cells -hier $sw_proc] $periph] $i]]
@@ -128,11 +141,15 @@ proc define_addr_params {periph file_name type device_id} {
 			puts $file_handle "/* Peripheral Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 			set lvalue [::hsi::utils::get_ip_param_name $periph $base_name]
 			set paramlist [lappend paramlist $lvalue]
-			puts $file_handle "#define $lvalue $base_value"
 
+			set base_value [::hsi::utils::get_param_value $periph $base_name]
+			set base_value [::hsi::utils::format_addr_string $base_value $base_name]
+			set high_value [::hsi::utils::get_param_value $periph $high_name]
+			set high_value [::hsi::utils::format_addr_string $high_value $high_name]
+			puts $file_handle "#define $lvalue $base_value"
 			set lvalue [::hsi::utils::get_ip_param_name $periph $high_name]
 			puts $file_handle "#define $lvalue $high_value"
-			puts $file_handle "\n/******************************************************************/\n"
+			define_ddr_xpars $periph $file_handle $interface_base_names $type $device_id
 		} else {
 			set lvalue [format "XPAR_%s%s%s" [common::get_property IP_NAME $periph] "_${device_id}_" [string range $base_name 2 end]]
 			set lvalue [string toupper $lvalue]
@@ -140,12 +157,15 @@ proc define_addr_params {periph file_name type device_id} {
 				puts $file_handle ""
 				puts $file_handle "/* Canonical Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 				set paramlist [lappend paramlist $lvalue]
+				set base_value [::hsi::utils::get_param_value $periph $base_name]
+				set base_value [::hsi::utils::format_addr_string $base_value $base_name]
+				set high_value [::hsi::utils::get_param_value $periph $high_name]
+				set high_value [::hsi::utils::format_addr_string $high_value $high_name]
 				puts $file_handle "#define $lvalue $base_value"
-
 				set lvalue [format "XPAR_%s%s%s" [common::get_property IP_NAME $periph] "_${device_id}_" [string range $high_name 2 end]]
 				set lvalue [string toupper $lvalue]
 				puts $file_handle "#define $lvalue $high_value"
-				puts $file_handle "\n/******************************************************************/\n"
+				define_ddr_xpars $periph $file_handle $interface_base_names $type $device_id
 			} else {
 				continue
 			}
@@ -158,6 +178,83 @@ proc define_addr_params {periph file_name type device_id} {
 	}
 
    close $file_handle
+}
+
+
+proc define_ddr_xpars { periph file_handle interface_base_names type dev_id} {
+
+	set sw_proc [hsi::get_sw_processor]
+	set num_ddr_regions [llength $interface_base_names]
+	set loop 0
+	set lo_ddr 0
+	set hi_ddr 0
+	set base_name [common::get_property BASE_NAME [lindex [get_mem_ranges \
+                        -of_objects [get_cells -hier $sw_proc] $periph] 0]]
+	set high_name [common::get_property HIGH_NAME [lindex [get_mem_ranges \
+                        -of_objects [get_cells -hier $sw_proc] $periph] 0]]
+
+	while {$loop < $num_ddr_regions} {
+
+		set base_value [common::get_property BASE_VALUE [lindex [get_mem_ranges \
+				-of_objects [get_cells -hier $sw_proc] $periph] $loop]]
+		set high_value [common::get_property HIGH_VALUE [lindex [get_mem_ranges \
+				-of_objects [get_cells -hier $sw_proc] $periph] $loop]]
+
+		if {$loop == 0 } {
+			set lo_ddr $base_value
+			set hi_ddr $high_value
+			if { $num_ddr_regions == 1 } {
+				break
+			}
+		} else {
+			if { $base_value < $lo_ddr } {
+				set lo_ddr $base_value
+			}
+			if { $high_value > $hi_ddr } {
+				set hi_ddr $high_value
+			}
+		}
+		if {[string match -nocase $type "peripheral"]} {
+			set lvalue [common::get_property NAME $periph]
+			set lvalue [string toupper $lvalue]
+			set lvalue [format "XPAR_%s" $lvalue]
+			set lvalue [format "%s_%s_%s" $lvalue $loop $base_name]
+		} else {
+			set lvalue [format "XPAR_%s%s%s_%s" [common::get_property IP_NAME $periph] \
+				"_${dev_id}_" "${loop}" [string range $base_name 2 end]]
+			set lvalue [string toupper $lvalue]
+		}
+		puts $file_handle "#define $lvalue $base_value"
+
+		if {[string match -nocase $type "peripheral"]} {
+			set lvalue [common::get_property NAME $periph]
+			set lvalue [string toupper $lvalue]
+			set lvalue [format "XPAR_%s" $lvalue]
+			set lvalue [format "%s_%s_%s" $lvalue $loop $high_name]
+		} else {
+			set lvalue [format "XPAR_%s%s%s_%s" [common::get_property IP_NAME $periph] \
+				"_${dev_id}_" "${loop}" [string range $high_name 2 end]]
+			set lvalue [string toupper $lvalue]
+
+		}
+		puts $file_handle "#define $lvalue $high_value"
+		incr loop
+	}
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc] ]
+        set proctype [common::get_property IP_NAME $hw_proc_handle]
+
+	if {[string match -nocase $type "peripheral"] && $proctype == "psu_cortexr5" } {
+		set lvalue [common::get_property NAME $periph]
+		set lvalue [string toupper $lvalue]
+		set lvalue [format "XPAR_%s_%s" $lvalue "LOW_ADDR"]
+		puts $file_handle "#define $lvalue $lo_ddr"
+		set lvalue [common::get_property NAME $periph]
+		set lvalue [string toupper $lvalue]
+		set lvalue [format "XPAR_%s_%s" $lvalue "HIGH_ADDR"]
+		puts $file_handle "#define $lvalue $hi_ddr"
+
+	}
+	puts $file_handle "\n/******************************************************************/\n"
 }
 
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
