@@ -291,13 +291,6 @@ static const XPm_StateTran XPmMemDevTransitions[] = {
 	},
 };
 
-static XStatus TcmProtControl(const XPm_Requirement *Reqm, u32 Enable)
-{
-	const XPm_MemDevice *Tcm = (XPm_MemDevice *)Reqm->Device;
-
-	return XPmProt_PpuControl(Reqm, Tcm->StartAddress, Enable);
-}
-
 static void TcmEccInit(const XPm_MemDevice *Tcm, u32 Mode)
 {
 	u32 Size = Tcm->EndAddress - Tcm->StartAddress;
@@ -527,8 +520,6 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		break;
 	case (u32)XPM_NODETYPE_DEV_TCM:
 		MemDevice->Device.DeviceFsm = &XPmTcmDeviceFsm;
-		/* TCM is protected by XPPU */
-		MemDevice->Device.HandleProtection = &TcmProtControl;
 		break;
 	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
 	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
