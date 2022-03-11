@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,7 @@
 #include "xpm_api.h"
 
 static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
-				XPm_Device *Device, u32 Flags, u32 AperPerm,
+				XPm_Device *Device, u32 Flags,
 				u32 PreallocCaps, u32 PreallocQoS)
 {
 	/* Prepend to subsystem's device reqm list */
@@ -26,7 +26,6 @@ static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 	Reqm->Allocated = 0;
 	Reqm->SetLatReq = 0;
 	Reqm->Flags = (u16)(Flags & REG_FLAGS_MASK);
-	Reqm->AperPerm = AperPerm;
 	Reqm->PreallocCaps = (u8)PreallocCaps;
 	Reqm->PreallocQoS = PreallocQoS;
 
@@ -39,8 +38,7 @@ static void XPmRequirement_Init(XPm_Requirement *Reqm, XPm_Subsystem *Subsystem,
 }
 
 XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
-			   u32 Flags, u32 AperPerm, u32 PreallocCaps,
-			   u32 PreallocQoS)
+			   u32 Flags, u32 PreallocCaps, u32 PreallocQoS)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Requirement *Reqm;
@@ -51,8 +49,7 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
 		goto done;
 	}
 
-	XPmRequirement_Init(Reqm, Subsystem, Device, Flags, AperPerm,
-			    PreallocCaps, PreallocQoS);
+	XPmRequirement_Init(Reqm, Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
 	Status = XST_SUCCESS;
 
 done:
