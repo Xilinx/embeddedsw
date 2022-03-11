@@ -359,7 +359,7 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 {
 	XStatus Status = XST_FAILURE;
 	u32 DevType = NODETYPE(DeviceId);
-	u32 AperPerm, PreallocCaps, PreallocQoS;
+	u32 PreallocCaps, PreallocQoS;
 	XPm_Device *Device = NULL;
 	u32 Flags = ReqFlags;
 
@@ -386,10 +386,7 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 	if (((u32)XPM_NODETYPE_DEV_GGS == DevType) ||
 	    ((u32)XPM_NODETYPE_DEV_PGGS == DevType)) {
 		/* Prealloc requirement */
-		Flags = REQUIREMENT_FLAGS(1U, 0U, 0U, 0U,
-					  (u32)REQ_ACCESS_SECURE_NONSECURE,
-					  (u32)REQ_NO_RESTRICTION);
-		AperPerm = 0U;
+		Flags = REQUIREMENT_FLAGS(1U, (u32)REQ_ACCESS_SECURE_NONSECURE, (u32)REQ_NO_RESTRICTION);
 		PreallocCaps = (u32)PM_CAP_ACCESS;
 		PreallocQoS = XPM_DEF_QOS;
 	} else {
@@ -398,7 +395,7 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 			Status = XST_INVALID_PARAM;
 			goto done;
 		}
-		AperPerm = Args[3];
+		(void)Args[3];	/* Args[3] is reserved */
 		PreallocCaps = Args[4];
 		PreallocQoS = Args[5];
 	}
@@ -409,8 +406,7 @@ static XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
-	Status = XPmRequirement_Add(Subsystem, Device, Flags, AperPerm,
-				    PreallocCaps, PreallocQoS);
+	Status = XPmRequirement_Add(Subsystem, Device, Flags, PreallocCaps, PreallocQoS);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -1041,10 +1037,10 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 				}
 			}
 			Status = XPmRequirement_Add(Subsystem, Device,
-					REQUIREMENT_FLAGS(Prealloc, 0U, 0U, 0U,
+					REQUIREMENT_FLAGS(Prealloc,
 						(u32)REQ_ACCESS_SECURE_NONSECURE,
 						(u32)REQ_NO_RESTRICTION),
-					0U, Capability, XPM_DEF_QOS);
+					Capability, XPM_DEF_QOS);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
@@ -1055,10 +1051,10 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		XPm_Device *Device = XPmDevice_GetPlDeviceByIndex(i);
 		if (NULL != Device) {
 			Status = XPmRequirement_Add(Subsystem, Device,
-					(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U,
+					(u32)REQUIREMENT_FLAGS(0U,
 						(u32)REQ_ACCESS_SECURE_NONSECURE,
 						(u32)REQ_NO_RESTRICTION),
-					0U, 0U, XPM_DEF_QOS);
+					0U, XPM_DEF_QOS);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}

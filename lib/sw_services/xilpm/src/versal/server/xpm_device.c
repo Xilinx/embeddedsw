@@ -1107,8 +1107,8 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		/* AIE device requirement is added implicitly when requested */
 		if (IS_DEV_AIE(Device->Node.Id)) {
 			Status = XPmRequirement_Add(Subsystem, Device,
-				(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U, (u32)REQ_ACCESS_SECURE_NONSECURE,
-				(u32)REQ_TIME_SHARED), 0U, 0U, XPM_DEF_QOS);
+				(u32)REQUIREMENT_FLAGS(0U, (u32)REQ_ACCESS_SECURE_NONSECURE, (u32)REQ_TIME_SHARED),
+				0U, XPM_DEF_QOS);
 
 			/* Get requirement */
 			Reqm = FindReqm(Device, Subsystem);
@@ -1310,13 +1310,9 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 
 	/* Add requirement for each requestable device on PMC subsystem */
 	if (1U == XPmDevice_IsRequestable(Id)) {
-		Status = XPmRequirement_Add(
-				XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
-				Device,
-				(u32)REQUIREMENT_FLAGS(0U, 0U, 0U, 0U,
-					(u32)REQ_ACCESS_SECURE_NONSECURE,
-					(u32)REQ_NO_RESTRICTION),
-				0U, 0U, XPM_DEF_QOS);
+		u32 Flags = REQUIREMENT_FLAGS(0U, (u32)REQ_ACCESS_SECURE_NONSECURE, (u32)REQ_NO_RESTRICTION);
+		Status = XPmRequirement_Add(XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
+					    Device, Flags, 0U, XPM_DEF_QOS);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
 			goto done;
