@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,8 +63,6 @@ void XPmNode_Init(XPm_Node *Node, u32 Id, u8 State, u32 BaseAddress);
 
 #define PMIONODEID(PIN_NUM)	NODEID(XPM_NODECLASS_STMIC,\
 	XPM_NODESUBCL_PIN, XPM_NODETYPE_PMC_MIO, (PIN_NUM) + XPM_NODEIDX_STMIC_PMIO_0)
-
-#define MEM_REGN_DEV_NODE_MAX	(16U)
 
 /* Node class types */
 typedef enum {
@@ -224,8 +222,8 @@ typedef enum {
 	XPM_NODETYPE_DEV_GT,
 	XPM_NODETYPE_DEV_EFUSE,
 	XPM_NODETYPE_DEV_XRAM,
-	XPM_NODETYPE_DEV_OCM_REGN,
-	XPM_NODETYPE_DEV_DDR_REGN,
+	XPM_NODETYPE_DEV_RESERVED_0,
+	XPM_NODETYPE_DEV_RESERVED_1,
 	XPM_NODETYPE_DEV_HBM,
 	XPM_NODETYPE_DEV_VDU,
 	XPM_NODETYPE_DEV_GGS,
@@ -1048,18 +1046,6 @@ typedef enum {
 	XPM_NODEIDX_DEV_PLD_0,
 	XPM_NODEIDX_DEV_PLD_MAX = 32,
 } XPm_PlDeviceNodeIndex;
-
-typedef enum {
-	/* OCM Memory region device nodes */
-	XPM_NODEIDX_DEV_OCM_REGN_0,
-	XPM_NODEIDX_DEV_OCM_REGN_MAX = MEM_REGN_DEV_NODE_MAX,
-} XPm_OcmMemRegnDeviceNodeIndex;
-
-typedef enum {
-	/* DDR Memory region device nodes */
-	XPM_NODEIDX_DEV_DDR_REGN_0,
-	XPM_NODEIDX_DEV_DDR_REGN_MAX = MEM_REGN_DEV_NODE_MAX,
-} XPm_DdrMemRegnDeviceNodeIndex;
 
 typedef enum {
 	/* Virtual device nodes */
