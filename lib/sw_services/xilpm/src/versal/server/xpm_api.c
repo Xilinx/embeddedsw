@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -4111,20 +4111,9 @@ static XStatus AddMemDevice(const u32 *Args, u32 PowerId)
 	Type = NODETYPE(DeviceId);
 	Index = NODEINDEX(DeviceId);
 
-	switch (Type) {
-	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
-	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
-		if ((u32)MEM_REGN_DEV_NODE_MAX <= Index) {
-			Status = XST_DEVICE_NOT_FOUND;
-			goto done;
-		}
-		break;
-	default:
-		if ((u32)XPM_NODEIDX_DEV_MAX <= Index) {
-			Status = XST_DEVICE_NOT_FOUND;
-			goto done;
-		}
-		break;
+	if ((u32)XPM_NODEIDX_DEV_MAX <= Index) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
 	}
 
 	if (NULL != XPmDevice_GetById(DeviceId)) {
@@ -4139,8 +4128,6 @@ static XStatus AddMemDevice(const u32 *Args, u32 PowerId)
 	case (u32)XPM_NODETYPE_DEV_DDR:
 	case (u32)XPM_NODETYPE_DEV_TCM:
 	case (u32)XPM_NODETYPE_DEV_EFUSE:
-	case (u32)XPM_NODETYPE_DEV_OCM_REGN:
-	case (u32)XPM_NODETYPE_DEV_DDR_REGN:
 	case (u32)XPM_NODETYPE_DEV_HBM:
 		Device = (XPm_MemDevice *)XPm_AllocBytes(sizeof(XPm_MemDevice));
 		if (NULL == Device) {
@@ -5072,8 +5059,6 @@ XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr)
 		    ((u32)XPM_NODETYPE_DEV_TCM == Type) ||
 		    ((u32)XPM_NODETYPE_DEV_OCM == Type) ||
 		    ((u32)XPM_NODETYPE_DEV_XRAM == Type) ||
-		    ((u32)XPM_NODETYPE_DEV_OCM_REGN == Type) ||
-		    ((u32)XPM_NODETYPE_DEV_DDR_REGN == Type) ||
 		    ((u32)XPM_NODETYPE_DEV_HBM == Type) ||
 		    ((u32)XPM_NODETYPE_DEV_EFUSE == Type))) {
 		/* Get base address using MEM device subclass */
