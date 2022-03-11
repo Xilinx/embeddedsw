@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -65,14 +65,10 @@ static XPm_DeviceOps PmDeviceOps;
 static XPm_Device *PmDevices[(u32)XPM_NODEIDX_DEV_MAX];
 static XPm_Device *PmPlDevices[(u32)XPM_NODEIDX_DEV_PLD_MAX];
 static XPm_Device *PmAieDevices[(u32)XPM_NODEIDX_DEV_AIE_MAX];
-static XPm_Device *PmOcmMemRegnDevices[(u32)MEM_REGN_DEV_NODE_MAX];
-static XPm_Device *PmDdrMemRegnDevices[(u32)MEM_REGN_DEV_NODE_MAX];
 static XPm_Device *PmVirtualDevices[(u32)XPM_NODEIDX_DEV_VIRT_MAX];
 static XPm_Device *PmHbMonDevices[(u32)XPM_NODEIDX_DEV_HB_MON_MAX];
 static u32 PmNumDevices;
 static u32 PmNumPlDevices;
-static u32 PmNumOcmMemRegnDevices;
-static u32 PmNumDdrMemRegnDevices;
 static u32 PmNumVirtualDevices;
 static u32 PmNumHbMonDevices;
 static u32 PmNumAieDevices;
@@ -210,47 +206,6 @@ static XStatus SetHbMonDeviceNode(u32 Id, XPm_Device *Device)
 		Status = XST_SUCCESS;
 	}
 
-	return Status;
-}
-
-static XStatus SetMemRegnDeviceNode(u32 Id, XPm_Device *Device)
-{
-	XStatus Status = XST_INVALID_PARAM;
-	u32 NodeType = NODETYPE(Id);
-	u32 NodeIndex = NODEINDEX(Id);
-	XPm_Device **MemRegDevices = NULL;
-	u32 *NumMemRegDevices = NULL;
-
-	switch (NodeType) {
-	case (u8)XPM_NODETYPE_DEV_OCM_REGN:
-		MemRegDevices = PmOcmMemRegnDevices;
-		NumMemRegDevices = &PmNumOcmMemRegnDevices;
-		break;
-	case (u8)XPM_NODETYPE_DEV_DDR_REGN:
-		MemRegDevices = PmDdrMemRegnDevices;
-		NumMemRegDevices = &PmNumDdrMemRegnDevices;
-		break;
-	default:
-		PmDbg("Memory type other than OCM or DDR\r\n");
-		break;
-	}
-
-	if (NULL == NumMemRegDevices) {
-		goto done;
-	}
-
-	/*
-	 * We assume that the Node ID class, subclass and type has _already_
-	 * been validated before, so only check bounds here against index
-	 */
-	if ((NULL != Device) && ((u32)MEM_REGN_DEV_NODE_MAX > NodeIndex)) {
-
-		MemRegDevices[NodeIndex] = Device;
-		(*NumMemRegDevices)++;
-		Status = XST_SUCCESS;
-	}
-
-done:
 	return Status;
 }
 
@@ -1353,11 +1308,8 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 
 	XPmNode_Init(&Device->Node, Id, (u8)XPM_DEVSTATE_UNUSED, BaseAddress);
 
-	/**
-	 * Add requirement by default for PMC subsystem;
-	 * for all the requestable devices except memory region devices.
-	 */
-	if ((0U == IS_MEM_REGN(Id)) && (1U == XPmDevice_IsRequestable(Id))) {
+	/* Add requirement for each requestable device on PMC subsystem */
+	if (1U == XPmDevice_IsRequestable(Id)) {
 		Status = XPmRequirement_Add(
 				XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
 				Device,
@@ -1402,12 +1354,6 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 		Status = SetPlDeviceNode(Id, Device);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_SET_PL_DEV;
-			goto done;
-		}
-	}  else if (IS_MEM_REGN(Id)) {
-		Status = SetMemRegnDeviceNode(Id, Device);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_SET_MEM_REG_DEV;
 			goto done;
 		}
 	} else if (((u32)XPM_NODESUBCL_DEV_PERIPH == NODESUBCLASS(Id)) &&
@@ -1651,24 +1597,6 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId)
 		}
 		DevicesHandle = PmPlDevices;
 
-	} else if (((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(DeviceId))
-		&& (IS_MEM_REGN_TYPE(DeviceId))) {
-		if ((u32)MEM_REGN_DEV_NODE_MAX <= NODEINDEX(DeviceId)) {
-			goto done;
-		}
-
-		switch (NODETYPE(DeviceId)) {
-		case (u8)XPM_NODETYPE_DEV_OCM_REGN:
-			DevicesHandle = PmOcmMemRegnDevices;
-			break;
-		case (u8)XPM_NODETYPE_DEV_DDR_REGN:
-			DevicesHandle = PmDdrMemRegnDevices;
-			break;
-		default:
-			/* Should never reach here */
-			PmDbg("Memory type other than OCM or DDR\r\n");
-			break;
-		}
 	} else if (((u32)XPM_NODETYPE_DEV_GGS == NODETYPE(DeviceId)) ||
 		   ((u32)XPM_NODETYPE_DEV_PGGS == NODETYPE(DeviceId))) {
 		if ((u32)XPM_NODEIDX_DEV_VIRT_MAX <= NODEINDEX(DeviceId)) {
