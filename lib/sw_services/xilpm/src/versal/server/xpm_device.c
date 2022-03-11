@@ -8,7 +8,6 @@
 #include "xpm_device.h"
 #include "xpm_core.h"
 #include "xpm_regs.h"
-#include "xpm_prot.h"
 #include "xpm_rpucore.h"
 #include "xpm_notifier.h"
 #include "xpm_api.h"
