@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,10 +10,8 @@
 #include "xpm_regs.h"
 #include "xpm_psm.h"
 #include "xpm_device.h"
-#include "xpm_prot.h"
 #include "xpm_debug.h"
 #include "xpm_rail.h"
-
 
 static XStatus SendFpdHouseCleanReqToPsm(u32 FuncId, u16 *DbgErr)
 {

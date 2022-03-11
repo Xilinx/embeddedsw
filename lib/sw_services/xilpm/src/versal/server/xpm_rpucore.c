@@ -10,7 +10,6 @@
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
 #include "xpm_psm.h"
-#include "xpm_prot.h"
 
 XStatus XPmRpuCore_Halt(const XPm_Device *Device)
 {
