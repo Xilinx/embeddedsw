@@ -81,6 +81,7 @@
  * 6.2  Nava  01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
  *                      to provide the access to the xilfpga library to get the
  *                      xilfpga version and supported feature list info.
+ * 6.2  Nava  03/11/22  Fixed an "implicit declaration of function" warning.
  *
  * </pre>
  *
@@ -99,6 +100,7 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xil_printf.h"
+#include "xil_util.h"
 #include "xparameters.h"
 #include "xfpga_config.h"
 /**************************** Type Definitions *******************************/
@@ -261,7 +263,7 @@ u32 XFpga_GetPlConfigData(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 u32 XFpga_GetPlConfigReg(XFpga *InstancePtr, UINTPTR ReadbackAddr,
 			 u32 ConfigRegAddr);
 u32 XFpga_InterfaceStatus(XFpga *InstancePtr);
-#pragma message ("rom 2023.1 release onwards the XilFPGA BSP user configuration  flags ‘reg_readback_en’ and  ‘data_readback_en’ will be disabled by default but users can still be able to enable these flags as needed")
+#pragma message ("From 2023.1 release onwards the XilFPGA BSP user configuration  flags ‘reg_readback_en’ and  ‘data_readback_en’ will be disabled by default but users can still be able to enable these flags as needed")
 #endif
 
 #ifdef __cplusplus
