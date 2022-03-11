@@ -2149,6 +2149,11 @@ static XStatus Aie2_EnbAxiMmErrEvent(const XPm_Device *AieDev, u32 ColStart, u32
 	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* Skip if it's not an NOC Tile */
+		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col, 0U)) {
+			continue;
+		}
+
 		/* BaseAddress for AIE2 column */
 		BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, 0U);
 
@@ -2183,6 +2188,11 @@ static XStatus Aie2_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 ColStart, u32
 	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
 
 	for (Col = ColStart; Col <= ColEnd; Col++) {
+		/* Skip if it's not an NOC Tile */
+		if (AIE_TILE_TYPE_SHIMNOC != Aie_TileType(Col, 0U)) {
+			continue;
+		}
+
 		/* BaseAddress for AIE2 column */
 		BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, 0U);
 
@@ -2298,7 +2308,7 @@ static XStatus Aie2_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 	u32 NodeAddress = AieDev->Node.BaseAddress;
 
 	/* Check that column and operations are in range */
-	if (((ColEnd) > (u32)(Array->NumColsAdjusted + Array->StartCol - 1U)) ||
+	if (((ColEnd) > (u32)(Array->NumCols + Array->StartCol - 1U)) ||
 	    (ColStart < (u32)Array->StartCol) ||
 	    (AIE_OPS_MAX < Ops)) {
 		Status = XST_INVALID_PARAM;
