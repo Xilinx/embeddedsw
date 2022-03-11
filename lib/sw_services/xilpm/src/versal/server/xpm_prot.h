@@ -83,9 +83,6 @@ XStatus XPmProt_PpuInit(XPm_ProtPpu *Ppu,
 XStatus XPmProt_MpuInit(XPm_ProtMpu *Mpu,
 			u32 Id, u32 BaseAddr, XPm_Power *Power);
 
-XStatus XPmProt_PpuControl(const XPm_Requirement *Reqm,
-			   const u32 AddrToProt,
-			   const u32 Enable);
 XStatus XPmProt_MpuControl(const XPm_Requirement *Reqm,
 			   u32 Enable);
 

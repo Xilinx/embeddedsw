@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,9 +11,6 @@
 #include "xplmi_err.h"
 #include "xplmi_scheduler.h"
 #include "xpm_prot.h"
-
-/* OSPI/QSPI Memory mapped region */
-#define XPM_OSPI_QSPI_MEM_REG_START		(0xC0000000U)
 
 static struct XPm_PeriphOps GenericOps = {
 	.SetWakeupSource = XPmGicProxy_WakeEventSet,
@@ -45,34 +42,6 @@ static int HbMon_Scheduler(void *data);
 static XStatus HbMon_StartTimer(u32 HbMonIdx, u32 TimeoutVal);
 static void HbMon_StopTimer(u32 HbMonIdx);
 
-/************************************************************/
-
-static XStatus XPmPeriph_ProtControl(const XPm_Requirement *Reqm,
-				     u32 Enable)
-{
-	return XPmProt_PpuControl(Reqm, Reqm->Device->Node.BaseAddress,
-				  Enable);
-}
-
-static XStatus XPmPeriph_ProtControlQspiOspi(const XPm_Requirement *Reqm,
-					     u32 Enable)
-{
-	XStatus Status = XST_FAILURE;
-
-	/* Protect control registers for flash device */
-	Status = XPmPeriph_ProtControl(Reqm, Enable);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	/* Protect memory mapped region for flash device */
-	Status = XPmProt_PpuControl(Reqm, XPM_OSPI_QSPI_MEM_REG_START,
-				    Enable);
-
-done:
-	return Status;
-}
-
 XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		       XPm_Power *Power, XPm_ClockNode *Clock,
 		       XPm_ResetNode *Reset, u32 GicProxyMask,
@@ -85,31 +54,6 @@ XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
-	/* Protection handler for peripherals */
-	switch (Periph->Device.Node.Id) {
-	case (u32)PM_DEV_IPI_0:
-	case (u32)PM_DEV_IPI_1:
-	case (u32)PM_DEV_IPI_2:
-	case (u32)PM_DEV_IPI_3:
-	case (u32)PM_DEV_IPI_4:
-	case (u32)PM_DEV_IPI_5:
-	case (u32)PM_DEV_IPI_6:
-	case (u32)PM_DEV_IPI_PMC:
-		/* Dynamic runtime protection is not supported for IPI devices */
-		Periph->Device.HandleProtection = NULL;
-		break;
-	case (u32)PM_DEV_QSPI:
-	case (u32)PM_DEV_OSPI:
-		/* Dynamic runtime protection for QSPI/OSPI devices (ctrl + mem) */
-		Periph->Device.HandleProtection = &XPmPeriph_ProtControlQspiOspi;
-		break;
-	default:
-		/* Default runtime protection handler for other peripherals */
-		Periph->Device.HandleProtection = &XPmPeriph_ProtControl;
-		break;
-	}
-
 	Periph->PeriphOps = &GenericOps;
 	Periph->GicProxyMask = GicProxyMask;
 	Periph->GicProxyGroup = GicProxyGroup;
