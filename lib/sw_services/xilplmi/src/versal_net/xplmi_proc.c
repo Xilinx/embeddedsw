@@ -431,14 +431,12 @@ int XPlmi_SetUpInterruptSystem(void)
 		(void*) IOMODULE_DEVICE_ID);
 
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PPU1_HW_INT);
-#ifdef PLM_FCV_LATEST
 	XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR,
 			PMC_GLOBAL_PPU1_HW_INT_MB_DATA_MASK);
 	XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR,
 			PMC_GLOBAL_PPU1_HW_INT_MB_INSTR_MASK);
 	XPlmi_Out32(PMC_GLOBAL_PPU1_PL_INT_ENABLE_ADDR,
 			PMC_GLOBAL_PPU1_PL_INT_GPI_MASK);
-#endif
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_ERR_IRQ);
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_PIT3_IRQ);
 
@@ -498,10 +496,8 @@ void XPlmi_PlmIntrEnable(u32 IntrId)
 			if (HwSwIntrNum == XPLMI_HW_INT_GIC_IRQ) {
 				XPlmi_GicIntrEnable(PlmIntrId);
 			}
-#ifdef PLM_FCV_LATEST
 			XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR,
 					1U << HwSwIntrNum);
-#endif
 			break;
 
 		case XPLMI_IOMODULE_CFRAME_SEU:
@@ -548,10 +544,8 @@ int XPlmi_PlmIntrDisable(u32 IntrId)
 			if (HwSwIntrNum == XPLMI_HW_INT_GIC_IRQ) {
 				XPlmi_GicIntrDisable(PlmIntrId);
 			}
-#ifdef PLM_FCV_LATEST
 			XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_DISABLE_ADDR,
 					1U << HwSwIntrNum);
-#endif
 			Status = XST_SUCCESS;
 			break;
 

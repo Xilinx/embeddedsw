@@ -138,14 +138,6 @@ extern "C" {
  */
 //#define PLM_ENABLE_STL
 
-/**
- * @name PLM FCV LATEST options
- *
- * By default, LATEST code for FCV is not enabled in PLM
- * Users will be given an option to enable this
- *
- */
-//#define PLM_FCV_LATEST
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
