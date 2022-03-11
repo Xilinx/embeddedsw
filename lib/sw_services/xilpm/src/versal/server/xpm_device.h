@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -122,8 +122,6 @@ struct XPm_DeviceNode {
 	const XPm_DeviceFsm* DeviceFsm; /**< Device finite state machine */
 	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
 		/**< HandleEvent: Pointer to event handler */
-	XStatus (* HandleProtection)(const struct XPm_Reqm *Reqm, u32 Enable);
-		/**< Dynamic runtime protection config handler */
 };
 
 struct XPm_RegAttr {
