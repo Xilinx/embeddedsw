@@ -1,6 +1,14 @@
 Changes for 2022.1
 ===============================
 
+libmetal_v2_3:
+Component update to upstream release 2021.10
+Port the changes from the internal OpenAMP repo
+
+openamp_v1_7:
+Component update to upstream release 2021.10
+Port the changes from the internal OpenAMP repo
+
 axiethernet_v5_14:
 Fixed interrupt controller variable for  SMP designs changes are made in the tapp tcl file
 
