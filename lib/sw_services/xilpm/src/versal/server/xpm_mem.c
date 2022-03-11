@@ -12,7 +12,6 @@
 #include "xpm_rpucore.h"
 #include "xpm_npdomain.h"
 #include "xpm_debug.h"
-#include "xpm_prot.h"
 
 #define XPM_TCM_BASEADDRESS_MODE_OFFSET	0x80000U
 
@@ -532,8 +531,6 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		 * and will never be turned off.
 		 */
 		MemDevice->Device.DeviceFsm = &XPmMemRegnDeviceFsm;
-		/* XMPU handler for memory regions */
-		MemDevice->Device.HandleProtection = &XPmProt_MpuControl;
 		break;
 	default:
 		MemDevice->Device.DeviceFsm = &XPmMemDeviceFsm;
