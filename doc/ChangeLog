@@ -29,6 +29,8 @@ Fix the doxygen warnings and comments.
 
 iicps_v3_15:
 Fixed doxygen warning
+
+iic_v3_9:
 Fixed read issue when byte count is one
 
 intc_v3_14:
