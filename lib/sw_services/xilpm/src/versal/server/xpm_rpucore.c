@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,14 +11,6 @@
 #include "xpm_subsystem.h"
 #include "xpm_psm.h"
 #include "xpm_prot.h"
-
-static XStatus XPmRpuCore_ProtControl(const XPm_Requirement *Reqm,
-				      u32 Enable)
-{
-	const XPm_RpuCore *Rpu = (XPm_RpuCore *)Reqm->Device;
-
-	return XPmProt_PpuControl(Reqm, Rpu->RpuBaseAddr, Enable);
-}
 
 XStatus XPmRpuCore_Halt(const XPm_Device *Device)
 {
@@ -94,9 +86,6 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, const u32 *BaseAd
 		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
 	}
-
-	/* Protection handler for RPU cores */
-	RpuCore->Core.Device.HandleProtection = &XPmRpuCore_ProtControl;
 
 	RpuCore->RpuBaseAddr = BaseAddress[0];
 
