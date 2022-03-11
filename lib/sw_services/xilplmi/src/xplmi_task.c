@@ -39,6 +39,8 @@
 * 1.07  bm   02/04/2022 Fix race condition in task dispatch loop
 *       bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
 *                       same priority
+*       bsv  03/11/2022 Restore race condition fix that got disturbed by
+*                       previous patch
 *
 * </pre>
 *
@@ -254,15 +256,13 @@ void XPlmi_TaskDispatchLoop(void)
 			}
 			continue;
 		}
-		else {
-			microblaze_enable_interrupts();
-		}
+
 		/*
 		 * Goto sleep when all queues are empty
 		 */
 		XPlmi_Printf(DEBUG_DETAILED,
 			"No pending tasks..Going to sleep\n\r");
 		mb_sleep();
-
+		microblaze_enable_interrupts();
 	}
 }
