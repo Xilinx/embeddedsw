@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
 #include "xpm_domain_iso.h"
 #include "xpm_reset.h"
 #include "xpm_bisr.h"
-#include "xpm_prot.h"
 #include "xpm_regs.h"
 #include "xpm_device.h"
 #include "xpm_debug.h"

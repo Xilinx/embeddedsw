@@ -10,7 +10,6 @@
 #include "xpm_requirement.h"
 #include "xplmi_err.h"
 #include "xplmi_scheduler.h"
-#include "xpm_prot.h"
 
 static struct XPm_PeriphOps GenericOps = {
 	.SetWakeupSource = XPmGicProxy_WakeEventSet,

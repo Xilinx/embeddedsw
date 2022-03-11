@@ -28,7 +28,7 @@
 #include "xplmi.h"
 #include "xplmi_modules.h"
 #include "xpm_aie.h"
-#include "xpm_prot.h"
+#include "xpm_requirement.h"
 #include "xpm_regs.h"
 #include "xpm_ioctl.h"
 #include "xpm_ipi.h"
@@ -45,6 +45,7 @@
 #include "xplmi_sysmon.h"
 #include "xpm_access.h"
 #include "xpm_noc_config.h"
+
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
 		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
@@ -4518,55 +4519,16 @@ done:
  ****************************************************************************/
 static XStatus XPm_AddNodeProt(const u32 *Args, u32 NumArgs)
 {
-	XStatus Status = XST_FAILURE;
-	u32 NodeId;
-	u32 PowerId;
-	u32 BaseAddress;
-	u32 SubClass;
-	XPm_ProtPpu *PpuNode;
-	XPm_ProtMpu *MpuNode;
-	XPm_Power *Power;
+	(void)Args;
+	(void)NumArgs;
 
-	if (NumArgs < 3U) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	NodeId = Args[0];
-	PowerId = Args[1];
-	BaseAddress = Args[2];
-	SubClass = NODESUBCLASS(NodeId);
-
-	Power = XPmPower_GetById(PowerId);
-	if (NULL == Power) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
-	}
-
-	switch (SubClass) {
-	case (u32)XPM_NODESUBCL_PROT_XPPU:
-		PpuNode = XPm_AllocBytes(sizeof(XPm_ProtPpu));
-		if (NULL == PpuNode) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-		Status = XPmProt_PpuInit(PpuNode, NodeId, BaseAddress, Power);
-		break;
-	case (u32)XPM_NODESUBCL_PROT_XMPU:
-		MpuNode = XPm_AllocBytes(sizeof(XPm_ProtMpu));
-		if (NULL == MpuNode) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-		Status = XPmProt_MpuInit(MpuNode, NodeId, BaseAddress, Power);
-		break;
-	default:
-		Status = XST_INVALID_PARAM;
-		break;
-	}
-
-done:
-	return Status;
+	/**
+	 * NOTE:
+	 * Protection nodes are now deprecated, but still passed from topology.
+	 * Therefore, they must be silently ignored since firmware does not
+	 * manage runtime protections for subsystems.
+	 */
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
