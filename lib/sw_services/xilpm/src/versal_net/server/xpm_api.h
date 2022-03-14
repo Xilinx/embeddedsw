@@ -65,6 +65,9 @@ u32 XPm_GetSubsystemId(u32 ImageId);
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable);
 XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
 XStatus XPm_GetApiVersion(u32 *Version);
+XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
+			const u32 Latency, const u8 State,
+			u32 AddrLow, u32 AddrHigh);
 
 #ifdef __cplusplus
 }

@@ -20,9 +20,13 @@
 #include "xpm_regs.h"
 #include "xpm_subsystem.h"
 #include "xsysmonpsv.h"
-
+#include "xpm_ipi.h"
+#include "xpm_psm_api.h"
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
+
+extern u32 ProcDevList[PROC_DEV_MAX];
+extern volatile struct PsmToPlmEvent_t *PsmToPlmEvent;
 
 u32 ResetReason;
 static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX];
@@ -55,6 +59,11 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_INIT_NODE):
 		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
+		break;
+	case PM_API(PM_SELF_SUSPEND):
+		Status = XPm_SelfSuspend(SubsystemId, Pload[0],
+					 Pload[1], (u8)Pload[2],
+					 Pload[3], Pload[4]);
 		break;
 	case PM_API(PM_ISO_CONTROL):
 		Status = XPm_IsoControl(Pload[0], Pload[1]);
@@ -132,6 +141,104 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	Status = XST_SUCCESS;
 	return Status;
 
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to suspend a child
+ * subsystem.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param DeviceId	Processor device ID
+ * @param Latency	Maximum wake-up latency requirement in us(microsecs)
+ * @param State		Instead of specifying a maximum latency, a CPU can also
+ *			explicitly request a certain power state.
+ * @param AddressLow	Lower Address from which to resume when wake up.
+ * @param AddressHigh	Higher Address from which to resume when wake up.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
+			const u32 Latency, const u8 State,
+			u32 AddrLow, u32 AddrHigh)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask = 0;
+
+	(void)SubsystemId;
+	(void)Latency;
+	(void)State;
+	(void)AddrLow;
+	(void)AddrHigh;
+
+	/* TODO: Store resume address */
+
+	/* TODO: Remove hard coded mask when available from topology */
+	switch (DeviceId) {
+	case PM_DEV_CLUSTER0_ACPU_0:
+		Mask = APU0_CORE0_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER0_ACPU_1:
+		Mask = APU0_CORE1_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER0_ACPU_2:
+		Mask = APU0_CORE2_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER0_ACPU_3:
+		Mask = APU0_CORE3_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER1_ACPU_0:
+		Mask = APU1_CORE0_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER1_ACPU_1:
+		Mask = APU1_CORE1_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER1_ACPU_2:
+		Mask = APU1_CORE2_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER1_ACPU_3:
+		Mask = APU1_CORE3_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER2_ACPU_0:
+		Mask = APU2_CORE0_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER2_ACPU_1:
+		Mask = APU2_CORE1_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER2_ACPU_2:
+		Mask = APU2_CORE2_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER2_ACPU_3:
+		Mask = APU2_CORE3_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER3_ACPU_0:
+		Mask = APU3_CORE0_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER3_ACPU_1:
+		Mask = APU3_CORE1_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER3_ACPU_2:
+		Mask = APU3_CORE2_PWRDWN_MASK;
+		break;
+	case PM_DEV_CLUSTER3_ACPU_3:
+		Mask = APU3_CORE3_PWRDWN_MASK;
+		break;
+	default:
+		break;
+	}
+
+	ENABLE_WFI(Mask);
+
+	XPm_Out32(PSMX_GLOBAL_SCAN_CLEAR_TRIGGER, 0U);
+	XPm_Out32(PSMX_GLOBAL_MEM_CLEAR_TRIGGER, 0U);
+
+	Status = XST_SUCCESS;
+
+	return Status;
 }
 
 XStatus XPm_HookAfterPlmCdo(void)
@@ -258,85 +365,35 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 	XStatus Status=XST_FAILURE;
 	/* Warning Fix */
 	(void) (Ack);
-	static u8 ApuClusterState[4U] = {0U};
-	u8 ClusterId;
 	(void)CmdType;
 	(void)SubsystemId;
 	(void)SetAddress;
 	(void)Address;
+	u32 Payload[2], Idx;
 	PmDbg("DeviceId %x\n",DeviceId);
 
-	/*SPP_TBD: these register writes need to be moved to PSMFW when IPI is enables*/
-	if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)){
-		ClusterId = GET_APU_CLUSTER_ID(DeviceId);
-		u32 LowAddress = (u32)(Address & 0xFFFFFFFCUL);
-		u32 HighAddress = (u32)(Address >> 32UL);
-		u32 CoreNum = GET_APU_CORE_NUM(DeviceId);
-		u32 PcliCoreNum = (ClusterId * 4U) + CoreNum;
-		u32 RstApuOffset = PSX_CRF_RST_APU0 + (ClusterId * RST_APU_REG_OFFSET);
-		u32 ApuCoreOffset = (CoreNum * 8U);
-
-		/* Skip cluster configuration if cluster is already configured */
-		if (ApuClusterState[ClusterId] != XPM_A78_CLUSTER_CONFIGURED) {
-			/* APU PSTATE, PREQ configuration */
-			XPm_RMW32(GET_APU_PCLI_CLUSTER_REG(ClusterId,
-				APU_PCLI_CLUSTER_PSTATE_OFFSET),
-				APU_PCLI_CLUSTER_PSTATE_PSTATE_MASK,
-				APU_CLUSTER_PSTATE_FULL_ON_VAL);
-			XPm_RMW32(GET_APU_PCLI_CLUSTER_REG(ClusterId,
-				APU_PCLI_CLUSTER_PREQ_OFFSET), APU_PCLI_CLUSTER_PREQ_PREQ_MASK,
-				APU_PCLI_CLUSTER_PREQ_PREQ_MASK);
-			/* ACPU clock config */
-			XPm_RMW32(PSX_CRF_ACPU0_CLK_CTRL +
-					(ClusterId * ACPU_CLK_CTRL_REG_OFFSET),
-					ACPU0_CLK_CTRL_CLKACT_MASK, ACPU0_CLK_CTRL_CLKACT_VAL);
-			/* APU cluster release cold & warm reset */
-			XPm_RMW32(RstApuOffset, (APU_CLUSTER_WARM_RESET_MASK |
-				APU_CLUSTER_COLD_RESET_MASK), 0U);
-
-			Status = XPm_PollForMask(GET_APU_PCLI_CLUSTER_REG(ClusterId,
-				APU_PCLI_CLUSTER_PACTIVE_OFFSET),
-				APU_PCLI_CLUSTER_PACTIVE_PACCEPT_MASK, 1000U);
-			if (Status != XST_SUCCESS) {
-				PmErr("A78 Cluster PACCEPT timeout1..\n");
-				goto done;
+	/*TBD: move this to XPmCore_StoreResumeAddr when topology cdo is ready*/
+	/* Set reset address */
+	if (1U == SetAddress) {
+		for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
+			if(ProcDevList[Idx]==DeviceId){
+				/* Store the resume address to PSM reserved RAM location */
+				PsmToPlmEvent->ResumeAddress[Idx] = Address;
 			}
-			ApuClusterState[ClusterId] = XPM_A78_CLUSTER_CONFIGURED;
 		}
+	}
 
-		XPm_Out32(GET_APU_CLUSTER_REG(ClusterId,
-			APU_CLUSTER_RVBARADDR0L_OFFSET) + ApuCoreOffset, LowAddress);
-		XPm_Out32(GET_APU_CLUSTER_REG(ClusterId,
-			APU_CLUSTER_RVBARADDR0H_OFFSET) + ApuCoreOffset, HighAddress);
-
-		XPm_RMW32(GET_APU_PCLI_CORE_REG(PcliCoreNum, APU_PCLI_CORE_PSTATE_OFFSET),
-			APU_PCLI_CORE_PSTATE_PSTATE_MASK, APU_CORE_PSTATE_FULL_ON_VAL);
-		XPm_RMW32(GET_APU_PCLI_CORE_REG(PcliCoreNum, APU_PCLI_CORE_PREQ_OFFSET),
-			APU_PCLI_CORE_PREQ_PREQ_MASK, APU_PCLI_CORE_PREQ_PREQ_MASK);
-
-		/* APU core release warm reset */
-		XPm_RMW32(RstApuOffset,
-			(u32)(1U << (CoreNum + APU_CORE_WARM_RESET_SHIFT)), 0U);
-		Status = XPm_PollForMask(GET_APU_PCLI_CORE_REG(PcliCoreNum,
-				APU_PCLI_CORE_PACTIVE_OFFSET),
-				APU_PCLI_CORE_PACTIVE_PACCEPT_MASK, 1000U);
-		if (Status != XST_SUCCESS) {
-			PmErr("A78 core PACCEPT timeout2..\n\r");
+	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
+		((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId))){
+		Payload[0] = PSM_API_DIRECT_PWR_UP;
+		Payload[1] = DeviceId;
+		Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+		if (XST_SUCCESS != Status) {
 			goto done;
 		}
-
+		Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
 	}
 
-	if((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)){
-		ClusterId = GET_RPU_CLUSTER_ID(DeviceId);
-		if(((u32)0x13 == NODEINDEX(DeviceId)) || ((u32)0x15 == NODEINDEX(DeviceId))){
-			XPm_RMW32((RPU_CLUSTER_BASEADDR+(ClusterId*0x10000)), 0x1, 0);
-		}
-		if(((u32)0x14 == NODEINDEX(DeviceId)) || ((u32)0x16 == NODEINDEX(DeviceId))){
-			XPm_RMW32((RPU_CLUSTER_BASEADDR+(ClusterId*0x10000)+(1*0x100)), 0x1, 0);
-		}
-		Status = XST_SUCCESS;
-	}
 	if((u32)XPM_NODETYPE_DEV_CORE_PSM == NODETYPE(DeviceId)) {
 		XPm_RMW32(CRL_PSM_RST_MODE_ADDR, CRL_PSM_RST_WAKEUP_MASK,
 						CRL_PSM_RST_WAKEUP_MASK);
@@ -346,6 +403,11 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 		if (XST_SUCCESS != Status) {
 				goto done;
 		}
+		Status = XPm_GetPsmToPlmEventAddr();
+		if (XST_SUCCESS != Status) {
+				goto done;
+		}
+
 	}
 done:
 	if (XST_SUCCESS != Status) {
