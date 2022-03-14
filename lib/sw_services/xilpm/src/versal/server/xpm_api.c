@@ -339,12 +339,9 @@ done:
  * @param  DeviceId     Device Id
  * @param  ReqFlags     Bit[0:1] - No-restriction(0)/Shared(1)/Time-Shared(2)/Nonshared(3)
  *                      Bit[2] - Secure(1)/Nonsecure(0) (Device mode)
- *                      Bit[3] - Read access policy (Allowed(0)/Not-allowed(1))
- *                      Bit[4] - Write access policy (Allowed(0)/Not-allowed(1))
- *                      Bit[5] - Non-secure region check policy (Relaxed(0)/Strict(1))
+ *                      Bit[3:5] - Reserved
  *                      Bit[6] - Pre-alloc flag
  * @param  Args		Node specific arguments
- *			- Aperture permission mask for the given peripheral
  *			- Pre-alloc capability bits
  *			- Quality of Service
  * @param  NumArgs	Total number of arguments
