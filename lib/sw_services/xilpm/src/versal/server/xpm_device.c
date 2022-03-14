@@ -1876,7 +1876,7 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 	const XPm_Requirement *Reqm;
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if ((Subsystem == NULL) || (Subsystem->State != (u8)ONLINE)) {
+	if ((Subsystem == NULL) || ((Subsystem->State != (u8)ONLINE) && (Subsystem->State != (u8)PENDING_POWER_OFF))) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
