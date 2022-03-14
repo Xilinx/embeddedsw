@@ -112,7 +112,7 @@ proc secure_drc {libhandle} {
 
 		} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 			$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
-			$proc_type == "psxl_cortexr52"} {
+			$proc_type == "psxl_cortexr52" || $proc_type == "microblaze"} {
 			if {$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52"} {
 				foreach entry [glob -nocomplain -types f [file join "$versal_net/client" *]] {
 					file copy -force $entry "./src"
