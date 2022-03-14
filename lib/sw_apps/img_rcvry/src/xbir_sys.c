@@ -11,6 +11,20 @@
 * This file contains System Board APIs used to read/update image related
 * information.
 *
+* @note
+*
+* None.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date       Changes
+* ----- ---- ---------- -------------------------------------------------------
+* 1.00  bsv   07/02/20   First release
+* 2.00  bsv   03/13/20   Added error prints for unrecognized Eeprom
+*
+* </pre>
+*
 ******************************************************************************/
 
 
@@ -134,7 +148,7 @@ static u32 Xbir_SysCalcBootImgInfoChecksum (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_SysWrvBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo, u32 Offset);
 static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_EthInit (void);
-static void Xbir_SysReadSysInfoFromEeprom (void);
+static int Xbir_SysReadSysInfoFromEeprom (void);
 static int Xbir_KVEthInit (void);
 static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
 	Xbir_ReadDevice ReadDevice);
@@ -217,7 +231,11 @@ int Xbir_SysInit (void)
 		goto END;
 	}
 
-	Xbir_SysReadSysInfoFromEeprom();
+	Status = Xbir_SysReadSysInfoFromEeprom();
+	if (Status != XST_SUCCESS) {
+		Xbir_Printf(" defaulting to GEM1\n\r");
+	}
+
 	Xbir_SysReadAndCorrectBootImgInfo();
 	Xbir_SysShowBootImgInfo(&BootImgStatus);
 
@@ -1009,10 +1027,14 @@ static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
  * This function reads the system information (SysBoard and carrier card) from
  * EEPROM and stores it into global variable for later access.
  *
- * @return	None
+ * @param	None
+ *
+ * @return	XST_SUCCESS on successfully reading system information from
+ * 		EEPEOM.
+ *		Error code on failure
  *
  *****************************************************************************/
-static void Xbir_SysReadSysInfoFromEeprom (void)
+static int Xbir_SysReadSysInfoFromEeprom (void)
 {
 	int Status = XST_FAILURE;
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
@@ -1029,6 +1051,7 @@ static void Xbir_SysReadSysInfoFromEeprom (void)
 		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
 		Xbir_Printf("Unable to access System Board Eeprom\n\r");
+		Xbir_Printf("Unrecognized Eeprom contents...");
 		goto END;
 	}
 
@@ -1039,7 +1062,8 @@ static void Xbir_SysReadSysInfoFromEeprom (void)
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) &&
 		(strncmp((char *)&SysInfo.BoardPrdName, XBIR_SYS_PRODUCT_NAME,
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U)) {
-		Xbir_Printf("Unrecognized SOM Eeprom contents\n\r");
+		Xbir_Printf("Unrecognized SOM Eeprom contents...");
+		Status = XBIR_ERR_SOM_EEPROM_CONTENTS;
 		goto END;
 	}
 	memcpy(SysInfo.RevNum,
@@ -1058,6 +1082,8 @@ static void Xbir_SysReadSysInfoFromEeprom (void)
 		Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
 			SysBoardEepromData.SysBoardInfo.UUID[LoopIndex]);
 		if (Ret != XBIR_BYTE_HEX_LEN) {
+			Xbir_Printf("Unrecognized Eeprom contents...");
+			Status = XST_FAILURE;
 			goto END;
 		}
 		UUIDStrPtr += Ret;
@@ -1068,6 +1094,7 @@ static void Xbir_SysReadSysInfoFromEeprom (void)
 		sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
 		Xbir_Printf("Unable to access CC Eeprom\n\r");
+		Xbir_Printf("Unrecognized Eeprom contents...");
 		goto END;
 	}
 
@@ -1076,7 +1103,8 @@ static void Xbir_SysReadSysInfoFromEeprom (void)
 		sizeof(CCEepromData.SysBoardInfo.BoardPrdName));
 	if (strncmp((char *)&CCInfo.BoardPrdName, "SCK",
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) {
-		Xbir_Printf("Unrecognized CC Eeprom contents\n\r");
+		Xbir_Printf("Unrecognized CC Eeprom contents...");
+		Status = XBIR_ERR_CC_EEPROM_CONTENTS;
 		goto END;
 	}
 	memcpy(CCInfo.RevNum, CCEepromData.SysBoardInfo.RevNum,
@@ -1095,6 +1123,8 @@ static void Xbir_SysReadSysInfoFromEeprom (void)
 		Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
 			CCEepromData.SysBoardInfo.UUID[LoopIndex]);
 		if (Ret != XBIR_BYTE_HEX_LEN) {
+			Xbir_Printf("Unrecognized Eeprom contents...");
+			Status = XST_FAILURE;
 			goto END;
 		}
 		UUIDStrPtr += Ret;
@@ -1103,8 +1133,10 @@ static void Xbir_SysReadSysInfoFromEeprom (void)
 #endif
 
 END:
+#else
+	Status = XST_SUCCESS;
 #endif
-	return;
+	return Status;
 }
 
 /*****************************************************************************/

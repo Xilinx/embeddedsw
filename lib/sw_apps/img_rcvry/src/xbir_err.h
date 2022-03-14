@@ -10,7 +10,22 @@
 *
 * This file contains list of error codes generated across the application.
 *
+* @note
+*
+* None.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date       Changes
+* ----- ---- ---------- -------------------------------------------------------
+* 1.00  bsv   01/19/21   First release
+* 2.00  bsv   03/13/22   Added error codes for unrecognized Eeprom
+*
+* </pre>
+*
 ******************************************************************************/
+
 #ifndef __XBIR_ERR_H_
 #define __XBIR_ERR_H_
 
@@ -46,6 +61,8 @@ extern "C" {
 #define	XBIR_ERROR_QSPI_PRESCALER_CLK	(0x28U)
 #define	XBIR_ERROR_QSPI_CONN_MODE	(0x29U)
 #define XBIR_ERROR_QSPI_VENDOR		(0x2AU)
+#define XBIR_ERR_SOM_EEPROM_CONTENTS	(0x2BU)
+#define XBIR_ERR_CC_EEPROM_CONTENTS	(0x2CU)
 
 #define XBIR_ERROR_BOOT_IMG_ID	(0x30U)
 #define XBIR_ERROR_IMAGE_SIZE	(0x31U)
