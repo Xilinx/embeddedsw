@@ -37,6 +37,7 @@
 * 10.0  cog    11/26/20 Refactor and split files.
 * 11.0  cog    05/31/21 Upversion.
 * 11.1  cog    11/16/21 Upversion.
+*       cog    02/24/22 Fixed memory leak.
 *
 * </pre>
 *
@@ -161,6 +162,12 @@ s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 			}
 		}
 	}
+
+   Status = (s32)closedir(DirPtr);
+   if (Status < 0) {
+      metal_log(METAL_LOG_ERROR, "\n Failed to close directory");
+   }
+
 	return Status;
 }
 #endif
