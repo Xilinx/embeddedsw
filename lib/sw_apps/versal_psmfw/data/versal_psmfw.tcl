@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2018-2020 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2018-2022 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -35,7 +35,7 @@ proc swapp_is_supported_hw {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-	if {($proc_type != "psu_psm") && ($proc_type != "psv_psm")} {
+	if {($proc_type != "psu_psm") && ($proc_type != "psv_psm") && ($proc_type != "psxl_psm")} {
 		error "This application is supported only for PSM Microblaze processor.";
 	}
 
@@ -49,6 +49,19 @@ proc get_stdout {} {
 }
 
 proc swapp_generate {} {
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set versal_net "versal_net/"
+	if {$proc_type == "psxl_psm"} {
+		foreach entry [glob -nocomplain -types f [file join . *]] {
+			file delete -force $entry
+		}
+		foreach entry [glob -nocomplain -types f [file join $versal_net *]] {
+			file copy -force $entry "."
+		}
+	}
+	file delete -force $versal_net
 	# Get the compiler flags, if set already
 	set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
 	set new_flags "-mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v10.0 -mxl-soft-mul $def_flags"
@@ -62,7 +75,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-	return "psu_psm psv_psm";
+	return "psu_psm psv_psm psxl_psm";
 }
 
 proc swapp_get_supported_os {} {
