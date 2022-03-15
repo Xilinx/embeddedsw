@@ -49,7 +49,7 @@ extern "C" {
 //TODO: TBD
 #define XPSMFW_RPU_CTRL_CLK_PROP_TIME                 ((u32)2000)
 
-#define ACPU_CLUSTER_COLD_WARM_RST_MASK                        ((u32)0x000000C0U)
+#define ACPU_CLUSTER_COLD_WARM_RST_MASK                        ((u32)0x00000300U)
 #define ACPU_PACCEPT_TIMEOUT				(1000U)
 #define A78_CLUSTER_CONFIGURED	(0x1U)
 enum TcmPowerState {

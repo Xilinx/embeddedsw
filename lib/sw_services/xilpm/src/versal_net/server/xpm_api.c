@@ -452,9 +452,9 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 static void XPm_RpuCoreConfig(u8 ClusterNum, u8 CoreNum, u64 HandoffAddr,
 		u32 *RstRpuMask)
 {
-	u32 RpuCfg0Addr = GET_RPU_CLUSTER_CORE_REG(ClusterNum, CoreNum,
+	u32 RpuCfg0Addr = XPM_GET_RPU_CLUSTER_CORE_REG(ClusterNum, CoreNum,
 				RPU_CLUSTER_CORE_CFG0_OFFSET);
-	u32 VecTableAddr = GET_RPU_CLUSTER_CORE_REG(ClusterNum, CoreNum,
+	u32 VecTableAddr = XPM_GET_RPU_CLUSTER_CORE_REG(ClusterNum, CoreNum,
 				RPU_CLUSTER_CORE_VECTABLE_OFFSET);
 	u32 Address = (u32)(HandoffAddr & 0xFFFFFFE0U);
 
@@ -514,7 +514,7 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 		/*SPP_TBD: Need to find a place to clear RpuClusterState*/
 		static u8 RpuClusterState[2U] = {0U};
 		u8 CoreNum = GET_RPU_CORE_NUM(DeviceId);
-		LockstepVal = XPm_In32((RPU_CLUSTER_BASEADDR+(ClusterNum*RPU_CLUSTER_OFFSET)+RPU_CLUSTER_CFG_OFFSET))&0x1;
+		LockstepVal = XPm_In32((RPU_CLUSTER_BASEADDR+(ClusterNum*RPU_CLUSTER_OFFSET)+XPM_RPU_CLUSTER_CFG_OFFSET))&0x1;
 		/* Skip cluster configuration if cluster is already configured */
 		if (RpuClusterState[ClusterNum] != XPM_R52_CLUSTER_CONFIGURED) {
 			RstRpuMask = (RPU_A_TOPRESET_MASK | RPU_A_DBGRST_MASK) << ClusterNum;
@@ -659,7 +659,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 		if (XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED != Arg1){
 			LockStep = XPM_RPU_CLUSTER_LOCKSTEP_ENABLE;
 		}
-		PmOut32((RPU_CLUSTER_BASEADDR+(Cluster*RPU_CLUSTER_OFFSET)+RPU_CLUSTER_CFG_OFFSET),LockStep);
+		PmOut32((RPU_CLUSTER_BASEADDR+(Cluster*RPU_CLUSTER_OFFSET)+XPM_RPU_CLUSTER_CFG_OFFSET),LockStep);
 	}else if(XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)){
 		LockStep = XPM_APU_CLUSTER_LOCKSTEP_DISABLE;
 		if (XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED != Arg1){

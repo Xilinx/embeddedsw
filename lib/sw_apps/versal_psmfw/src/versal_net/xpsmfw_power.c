@@ -383,7 +383,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 
 		/* APU cluster release cold & warm reset */
 		XPsmFw_RMW32(Args->RstAddr,ACPU_CLUSTER_COLD_WARM_RST_MASK,0);
-		//XPsmFw_RMW32(Args->RstAddr,0x300,0);
+
 		Status = XPsmFw_UtilPollForMask(Args->ClusterPactive,Args->ClusterPacceptMask,ACPU_PACCEPT_TIMEOUT);
 		if (Status != XST_SUCCESS) {
 			XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
