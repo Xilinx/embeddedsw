@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,6 +11,8 @@
 # 1.4  sne 02/03/21 Updated uartpsv_tapp.tcl to support CIPS3.0 designs
 #		    In CIPS3.0 interrupt id not generating properly.
 #		    This patch fixes the interrupt id issue.
+# 1.6  adk 15/03/22 Updated interrupt id variable for CIPS3 designs
+# 		    when stdout is none.
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -141,7 +143,7 @@ proc gen_testfunc_call {swproj mhsinst} {
             } then {
                     set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
             } else {
-        set intr_id "XPAR_${ipname}_INTR"
+        set intr_id "XPAR_${ip_name}_${intsnum}_INTR"
             }
 	set intr_id [string toupper $intr_id]
 
