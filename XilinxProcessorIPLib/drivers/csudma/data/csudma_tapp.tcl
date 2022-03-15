@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -12,6 +12,8 @@
 # 1.2      adk    11/22/17 Added peripheral test app support.
 # 1.9	   sk	  02/05/21 Update interrupt id and ip name to support CIPS3.0
 # 			   designs.
+# 1.11	   adk	  03/15/22 Fixed syntax errors when stdout is configured as
+# 			   none.
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -121,13 +123,14 @@ proc gen_testfunc_call {swproj mhsinst} {
 		}
             }
 	    set intr_id [string toupper $intr_id]
+      append testfunc_call "
 
    {
       int Status;
       Status = XCsuDma_IntrExample(&${intcvar}, &${ipname}, \\
                                  ${deviceid}, \\
                                  ${intr_id});
-   }
+   }"
 
    }
 } else {
