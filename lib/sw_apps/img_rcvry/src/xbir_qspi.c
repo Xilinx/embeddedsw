@@ -287,6 +287,7 @@ int Xbir_QspiInit(void)
 
 		case XQSPIPSU_CONNECTION_MODE_STACKED:
 				FlashInfo.NumSectors *= 2U;
+				FlashInfo.PageSize *= 2U;
 			break;
 
 		default:
