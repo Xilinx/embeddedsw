@@ -61,6 +61,7 @@ static const char *PmInitFunctions[FUNC_MAX_COUNT_PMINIT] = {
 	[FUNC_HOUSECLEAN_PL]		= "HOUSECLEAN_PL",
 	[FUNC_HOUSECLEAN_COMPLETE]	= "HOUSECLEAN_COMPLETE",
 	[FUNC_MIO_FLUSH]		= "MIO_FLUSH",
+	[FUNC_MEM_CTRLR_MAP]		= "MEM_CTRLR_MAP",
 };
 
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
