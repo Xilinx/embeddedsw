@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * Ver   Who    Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.00  bsv   07/02/20   First release
+* 2.00  bsv   03/15/22   Fix bug in stacked mode
 *
 * </pre>
 *
@@ -287,7 +288,6 @@ int Xbir_QspiInit(void)
 
 		case XQSPIPSU_CONNECTION_MODE_STACKED:
 				FlashInfo.NumSectors *= 2U;
-				FlashInfo.PageSize *= 2U;
 			break;
 
 		default:
