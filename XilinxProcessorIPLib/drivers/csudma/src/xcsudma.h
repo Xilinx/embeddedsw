@@ -103,6 +103,8 @@
 * 1.11	sk	03/03/22 Move addtogroup to starting of the file and replace
 * 			 driver version with Overview.
 * 1.11	sk	03/03/22 Update overview section based on review comments.
+* 1.11	adk	03/15/22 Fixed syntax errors in csudma_tapp.tcl file, when stdout
+* 			 is configured as none.
 * </pre>
 *
 ******************************************************************************/
