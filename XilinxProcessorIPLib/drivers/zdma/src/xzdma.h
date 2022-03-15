@@ -113,6 +113,8 @@
 *			 check to support versal adma IP.
 * 1.10  hk      04/29/20 Enable Scatter Gather setup and Enable APIs for use
 *                        in applications directly.
+* 1.14	adk	03/15/22 Fixed syntax errors in zdma_tapp.tcl file, when stdout
+* 			 is configured as none.
 * </pre>
 *
 ******************************************************************************/

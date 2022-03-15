@@ -12,6 +12,8 @@
 # 1.5      adk    11/22/17 Added peripheral test app support.
 # 1.11	   sk	  02/04/21 Update interrupt id and name to support CIPS3.0
 # 			   designs.
+# 1.14	   adk	  03/15/22 Fixed syntax errors when stdout is configured as
+# 			   none.
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -115,6 +117,7 @@ proc gen_testfunc_call {swproj mhsinst} {
             }
 	    set intr_id [string toupper $intr_id]
 
+      append testfunc_call "
    {
       int Status;
       Status = XZDma_SimpleExample(&${intcvar}, &${ipname}, \\
