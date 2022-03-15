@@ -21,6 +21,7 @@ typedef struct XPm_PlDeviceNode XPm_PlDevice;
 struct XPm_PldInitNodeOps {
 	XStatus (*InitStart)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
 	XStatus (*InitFinish)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
+	XStatus (*MemCtrlrMap)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
 };
 
 struct XPm_PlDeviceNode {

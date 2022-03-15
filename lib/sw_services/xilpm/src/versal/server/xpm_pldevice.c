@@ -579,9 +579,33 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  DDRMC mapping/annotation for PlDevice
+ *
+ * @param  Args: Arguments for PlDevice
+ * @param  NumArgs: Number of arguments for PlDevice
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note This command is used to annotate the ddrmc device nodes defined by
+ * topology with additional user specified information
+ *
+ ****************************************************************************/
+static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
+{
+	(void)PlDevice;
+	(void)Args;
+	(void)NumArgs;
+
+	/* TODO: Handler implementation */
+	return XST_SUCCESS;
+}
+
 static struct XPm_PldInitNodeOps PldOps = {
 	.InitStart = PlInitStart,
 	.InitFinish = PlInitFinish,
+	.MemCtrlrMap = PldMemCtrlrMap,
 };
 
 /****************************************************************************/
