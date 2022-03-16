@@ -41,6 +41,7 @@
 * 1.06  ma   01/17/2022 Move EFUSE defines to xplmi_hw.h file
 *       bm   01/27/2022 Fix setup interrupt system logic
 *       rama 01/31/2022 Added STL error interrupt register functionality
+*       bm   03/16/2022 Fix ROM time calculation
 *
 * </pre>
 *
@@ -97,7 +98,8 @@ static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
 			XInterruptHandler Handler, void *Data);
 static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
 static void XPlmi_IntrHandler(void *CallbackRef);
-static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime);
+static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
+		XPlmi_PerfTime *PerfTime);
 
 /************************** Variable Definitions *****************************/
 static u32 PmcIroFreq; /* Frequency of the PMC IRO */
@@ -177,19 +179,21 @@ u64 XPlmi_GetTimerValue(void)
  *
  * @param	TCur is the current time
  * @param	TStart is the start time
+ * @param	IroFreq is the frequency at which PMC IRO is running
  * @param	PerfTime is the pointer to variable holding the performance time
  *
  * @return	None
  *
  *****************************************************************************/
-static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
+static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
+		XPlmi_PerfTime *PerfTime)
 {
 	u64 PerfNs;
 	u64 TDiff = TCur - TStart;
 	double PerfTemp;
 
 	/* Convert TPerf into nanoseconds */
-	PerfTemp = ((double)TDiff * XPLMI_GIGA) / (double)PmcIroFreq;
+	PerfTemp = ((double)TDiff * XPLMI_GIGA) / (double)IroFreq;
 	PerfNs = (u64)PerfTemp;
 	PerfTemp /= XPLMI_MEGA;
 	PerfTime->TPerfMs = (u64)PerfTemp;
@@ -211,7 +215,7 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, XPlmi_PerfTime *PerfTime)
 void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime)
 {
 	u64 TEnd = XPlmi_GetTimerValue();
-	XPlmi_GetPerfTime(TCur, TEnd, PerfTime);
+	XPlmi_GetPerfTime(TCur, TEnd, PmcIroFreq, PerfTime);
 }
 
 /*****************************************************************************/
@@ -232,7 +236,8 @@ void XPlmi_PrintRomTime(void)
 
 	/* Print time stamp of PLM */
 	XPlmi_GetPerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
-		XPLMI_PIT2_CYCLE_VALUE, PmcRomTime, &PerfTime);
+		XPLMI_PIT2_CYCLE_VALUE, PmcRomTime,
+		XPLMI_PMC_IRO_FREQ_320_MHZ, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: ROM Time\r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }
