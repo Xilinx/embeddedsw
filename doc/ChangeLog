@@ -23,6 +23,7 @@ Updated FreeRTOS kernel to 10.4.6
 
 emacps_v3_16:
 Add ARMv8 check for EL1_NONSECURE as it is specific to that architecture
+Fix compilation warnings in ConfigTable
 
 gpio_v4_9:
 Fix the doxygen warnings and comments.
@@ -178,6 +179,58 @@ Added print statement to indicate success
 
 axidma_v9_14:
 Update instance pointer passed to TX/RX ring helper in example
+
+xilloader_v1_6:
+Removed redundant check in XLoader_VerifyRevokeId
+Decoupled checksum functionality from xloader_secure.c
+Added support in extract metaheader IPI command to return extracted
+metaheader size as response
+Moved redundant copies of security specific variables to data section
+Fixed bugs in copy to memory for checksum enabled PDIs
+Addressed security reveiw comments
+Replaced standard library utility functions with xilinx maintained functions
+Fixed error case in Add ImageStore command
+Enable SLVERR for Boot devices
+Skip MJTAG workaround image for JTAG bootmode
+Reduce stack usage of some APIs by storing instances of certain large data structures in PMCRAM AT 0XF2008120
+Fix DMA keyhole issue when commands starts at the 32k boundary
+Move authentication certificate to PMC RAM at 0xF2008120
+Code clean up by removing unwanted initializations
+Replace arithmetic operations with bitwise operations
+Code optimization by replacing wrapper APIs with existing generic utilities
+Limit attempts to enable JTAG when efuse bits are set
+Fixed bugs in copy to memory functioning in secure cases
+
+xilpdi_v1_5:
+Replaced Xil_SecureMemCpy with Xil_SMemCpy
+Updated XilPdi_ReadBootHdr prototype
+
+versal_plm:
+Added change to ensure SbiRecovery is only called in Jtag boot modes
+Added security review comments
+Added missing include file in xplm_stl
+Enable SLVERR for PLM related components
+
+zynqmp_fsbl:
+Fix secondary boot issue with non zero multiboot offset
+Added support for ZCU670 boards
+
+zynqmp_pmufw:
+Updated to give/change permissions for writing another overlay config object
+Cleanup of dynamic feature config logic to enable them only if dynamic feature config is enabled
+Added IOCTL support for dynamic SD, GEM and USB configuration under ENABLE_DYNAMIC_MIO_CONFIG macro which is disabled by default
+Give an error when same overlay configuration for existing node is called multiple times
+Added provision in ZynqMP PMUFW to skip XFPGA_SECURE_MODE macro
+Return unique error code if slave is already configured
+Added support for feature check API
+Implemented new APIs to get XilFPGA component information
+Re-apply PLL workaround when DP device is added
+Provide user option to manually enable DDR XMPU settings using ENABLE_DDR_XMPU macro which is disabled by default
+Fix issue on SOM related to enabling build flags
+
+csudma_v1_11:
+Update doxygen documentation
+Fix compilation warnings in ConfigTable
 
 
 New Files Added for 2022.1:
