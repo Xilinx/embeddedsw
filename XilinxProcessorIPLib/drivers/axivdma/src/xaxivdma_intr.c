@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxivdma_intr.c
-* @addtogroup axivdma_v6_10
+* @addtogroup axivdma_v6_11
 * @{
 *
 * Implementation of interrupt related functions.
