@@ -53,6 +53,8 @@
  * 6.9	 sk   05/25/21 Fix data comparison failure wtih optimization level 2.
  * 6.10  rsp  09/09/21 Fix read/write done count check in while loop.
  *                     Remove unused variable GCC warning in ReadSetup().
+ * 6.11  rsp  03/16/21 After Wr/Rd channel reset ensure it's completed
+ *                     and then do data comparison.
  * </pre>
  *
  * ***************************************************************************
@@ -62,6 +64,7 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xil_printf.h"
+#include "sleep.h"
 
 #include "xil_cache.h"
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -177,6 +180,10 @@
  */
 #define DELAY_TIMER_COUNTER	10
 
+/* Default reset timeout
+ */
+#define XAXIVDMA_RESET_TIMEOUT_USEC	500
+
 /*
  * Device instance definitions
  */
@@ -282,6 +289,7 @@ int main(void)
 	int Status,Index;
 	XAxiVdma_Config *Config;
 	XAxiVdma_FrameCounter FrameCfg;
+	int Polls;
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 	Uart550_Setup();
@@ -456,8 +464,33 @@ int main(void)
 	/* Soft reset for AXI VDMA channels which causes the AXI VDMA
 	 * channels to be reset
 	 */
+
+	Polls = XAXIVDMA_RESET_TIMEOUT_USEC;
 	XAxiVdma_Reset(&AxiVdma,XAXIVDMA_READ);
+
+	while (Polls && XAxiVdma_ResetNotDone(&AxiVdma,XAXIVDMA_READ)) {
+		usleep(1);
+		Polls -= 1;
+	}
+
+	if (!Polls) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+		            "Read channel reset failed %x\n\r",
+		            (unsigned int)XAxiVdma_GetStatus(&AxiVdma,XAXIVDMA_READ));
+	}
+
+	Polls = XAXIVDMA_RESET_TIMEOUT_USEC;
 	XAxiVdma_Reset(&AxiVdma,XAXIVDMA_WRITE);
+	while (Polls && XAxiVdma_ResetNotDone(&AxiVdma,XAXIVDMA_WRITE)) {
+		usleep(1);
+		Polls -= 1;
+	}
+
+	if (!Polls) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+		            "Write channel reset failed %x\n\r",
+		            (unsigned int)XAxiVdma_GetStatus(&AxiVdma,XAXIVDMA_WRITE));
+	}
 
 	if (ReadError || WriteError) {
 		xil_printf("Test has transfer error %d/%d, Failed\r\n",
@@ -947,10 +980,7 @@ static int CheckFrame(int FrameIndex)
 	Vsize_Max = ReadCfg.VertSizeInput;
 
 	Xil_DCacheInvalidateRange((UINTPTR)RdAddr, Vsize_Max*Hsize_Max*ReadCount);
-#if 1
-	xdbg_printf(XDBG_DEBUG_GENERAL,"Check frame %d/%d with hsize %d vsize %d\n\r",
-		RdFrame, WrFrame, Hsize_Max, Vsize_Max);
-#endif
+
 	for (Vsize = 0; Vsize < Vsize_Max; Vsize++) {
 		for (Hsize = 0; Hsize < Hsize_Max; Hsize++) {
 			Index = Hsize + Vsize * FRAME_HORIZONTAL_LEN;
