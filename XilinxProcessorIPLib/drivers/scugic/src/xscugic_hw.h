@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,6 +59,10 @@
 * 4.6	sk   08/05/21 Fix Scugic Misrac violations.
 * 4.7	sk   12/10/21 Update XSCUGIC_SPI_INT_ID_START macro from signed to unsigned
 * 		      to fix misrac violation.
+* 4.7   mus  03/17/22 GICv3 coupled with A72 has different redistributor for
+*                     each core, and each redistributor has different address,
+*                     Updated #define for re-distributor address to have correct
+*                     value based on the cpu number. It fixes CR#1126156.
 *
 * </pre>
 *
@@ -481,9 +485,9 @@ extern "C" {
  *
  * @{
  */
-#define XSCUGIC_RDIST_OFFSET              0x80000U
+#define XSCUGIC_RDIST_OFFSET              (0x80000U + (XPAR_CPU_ID * 0x20000))
 #define XSCUGIC_RDIST_BASE_ADDRESS        (XPAR_SCUGIC_0_DIST_BASEADDR + XSCUGIC_RDIST_OFFSET)
-#define XSCUGIC_RDIST_SGI_PPI_OFFSET              0x90000U
+#define XSCUGIC_RDIST_SGI_PPI_OFFSET      (0x90000U + (XPAR_CPU_ID * 0x20000))
 #define XSCUGIC_RDIST_SGI_PPI_BASE_ADDRESS    (XPAR_SCUGIC_0_DIST_BASEADDR + XSCUGIC_RDIST_SGI_PPI_OFFSET)
 #define XSCUGIC_RDIST_ISENABLE_OFFSET     0x100U
 #define XSCUGIC_RDIST_IPRIORITYR_OFFSET   0x400U
