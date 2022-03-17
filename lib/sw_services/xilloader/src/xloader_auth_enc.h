@@ -43,6 +43,7 @@
 *       bsv  02/13/22 Reduce stack usage of functions
 *       har  02/17/22 Added macro XLOADER_AUTH_JTAG_LOCK_DIS_MASK and removed
 *                     macro XLOADER_AUTH_FAIL_COUNTER_RST_VALUE
+*       bsv  03/18/22 Fix build issues when PLM_SECURE_EXCLUDE is enabled
 *
 * </pre>
 *
@@ -474,6 +475,7 @@ typedef struct XLoader_SecureParams {
  * and arrays named RsaSha3Array and Buffer are moved to this structure
  * which resides at XPLMI_PMC_CHUNK_MEMORY_1.
  */
+#ifndef PLM_SECURE_EXCLUDE
 typedef struct {
 	XLoader_AuthCertificate AuthCert;
 	u8 RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
@@ -481,7 +483,6 @@ typedef struct {
 	XPuf_Data PufData;
 } XLoader_StoreSecureData;
 
-#ifndef PLM_SECURE_EXCLUDE
 typedef enum {
 	XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO = 0x02,
 			/**< 0x02 Incorrect Authentication type selected */
