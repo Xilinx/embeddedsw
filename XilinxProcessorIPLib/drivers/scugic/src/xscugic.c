@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -134,6 +134,9 @@
 * 		      when (Int_Id >= XSCUGIC_SPI_INT_ID_START).
 * 4.7   dp   11/22/21 Added new API XScuGic_IsInitialized() to check and return
 *                     the GIC initialization status.
+* 4.7   mus  03/17/22 Fixed XScuGic_InterruptMaptoCpu and
+*                     XScuGic_InterruptUnmapFromCpu for GICv3. It fixes
+*                     CR#1126156.
 * </pre>
 *
 ******************************************************************************/
@@ -985,14 +988,12 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 
 if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
 #if defined (GICv3)
-	u32 Temp;
 	Xil_AssertVoid(InstancePtr != NULL);
-	Temp = Int_Id - 32;
 	RegValue = XScuGic_DistReadReg(InstancePtr,
-			XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+			XSCUGIC_IROUTER_OFFSET_CALC(Int_Id));
 	RegValue |= Cpu_Identifier;
-	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
-					  (Cpu_Identifier-1));
+	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Int_Id),
+					  RegValue);
 #else
 	u8 Cpu_CoreId;
 	u32 Offset;
@@ -1044,14 +1045,12 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 
 
 if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
 #if defined (GICv3)
-	u32 Temp;
 	Xil_AssertVoid(InstancePtr != NULL);
-	Temp = Int_Id - 32;
 	RegValue = XScuGic_DistReadReg(InstancePtr,
-			XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+			XSCUGIC_IROUTER_OFFSET_CALC(Int_Id));
 	RegValue &= ~Cpu_Identifier;
-	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
-						  (Cpu_Identifier-1));
+	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Int_Id),
+						  RegValue);
 #else
 	u32 Cpu_CoreId;
 	u32 Offset;
