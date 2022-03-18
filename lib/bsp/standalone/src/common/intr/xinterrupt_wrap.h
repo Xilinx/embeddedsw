@@ -16,6 +16,8 @@
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 7.2   mus  22/11/21 First release of xil interrupt support
+* 8.0	sk   03/17/22 Update XINTC_BASEADDR_MASK macro to unsigned to
+* 		      fix misra_c_2012_rule_7_2 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -46,7 +48,7 @@
 
 #define XINTC_TYPE_MASK		0x1
 #define XINTC_INTR_TYPE_MASK		0x100000
-#define XINTC_BASEADDR_MASK		0xFFFFFFFFFFFFFFFE
+#define XINTC_BASEADDR_MASK		0xFFFFFFFFFFFFFFFEU
 #define XINTC_INTRID_MASK		0xFFF
 #define XINTC_TRIGGER_MASK		0xF000
 #define XINTC_TRIGGER_SHIFT		12
