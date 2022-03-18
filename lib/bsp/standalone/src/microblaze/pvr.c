@@ -31,7 +31,7 @@
 ****************************************************************************/
 int microblaze_get_pvr (pvr_t *pvr)
 {
-  if (!pvr)
+  if (pvr == NULL)
     return -1;
 
   bzero ((void*)pvr, sizeof (pvr_t));
