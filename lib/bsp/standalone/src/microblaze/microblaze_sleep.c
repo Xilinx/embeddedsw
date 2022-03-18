@@ -51,6 +51,8 @@
 * 8.0	sk   03/17/22  Modify sleep_MB parameter type from unsigned int to
 *		       u32 and usleep_MB parameter type from unsigned long to
 *		       ULONG to fix misra_c_2012_rule_4_6 violation.
+* 8.0	sk   03/17/22  Update RHS operands to unsigned to match with LHS
+*		       operands and fix misra_c_2012_rule_10_4 violation.
 *
 * </pre>
 *
@@ -73,9 +75,9 @@
 #define COUNTS_PER_USECOND ((COUNTS_PER_SECOND + 500000)/ 1000000)
 #warning "May wait for more than the specified delay"
 #elif defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
-#define ITERS_PER_SEC	(Xil_GetMBFrequency() / 4)
-#define ITERS_PER_MSEC	((ITERS_PER_SEC + 500) / 1000)
-#define ITERS_PER_USEC	((ITERS_PER_MSEC + 500) / 1000)
+#define ITERS_PER_SEC	(Xil_GetMBFrequency() / 4U)
+#define ITERS_PER_MSEC	((ITERS_PER_SEC + 500U) / 1000U)
+#define ITERS_PER_USEC	((ITERS_PER_MSEC + 500U) / 1000U)
 #pragma message ("For the sleep routines, assembly instructions are used")
 #endif
 /***************** Variable Definitions *********************/
@@ -104,7 +106,7 @@ static u32 MBFreq = XPAR_CPU_CORE_CLOCK_FREQ_HZ;
 ******************************************************************************/
 u32 Xil_SetMBFrequency(u32 Val)
 {
-	if ( Val != 0) {
+	if ( Val != 0U) {
 		MBFreq = Val;
 		return XST_SUCCESS;
 	}
