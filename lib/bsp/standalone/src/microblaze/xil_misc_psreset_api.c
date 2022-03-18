@@ -20,6 +20,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00b kpc   03/07/13 First release
 * 5.4	pkp	  16/11/15 Change the description for XOcm_Remap function
+* 8.0	sk    03/17/22 Remove typecast of u32 to fix misra_c_2012_rule_10_8
+* 		       violation.
 * </pre>
 *
 ******************************************************************************/
@@ -55,7 +57,7 @@ void XDdr_ResetHw(void)
 	 Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Assert and deassert the ddr softreset bit */
      RegVal = 	Xil_In32(XDDRC_CTRL_BASEADDR);
-	 RegVal &= (u32)(~XDDRPS_CTRL_RESET_MASK);
+	 RegVal &= (~XDDRPS_CTRL_RESET_MASK);
 	 Xil_Out32(XDDRC_CTRL_BASEADDR,RegVal);
 	 RegVal |= XDDRPS_CTRL_RESET_MASK;
 	 Xil_Out32(XDDRC_CTRL_BASEADDR,RegVal);
@@ -78,7 +80,7 @@ void XOcm_Remap(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Map the ocm region to postbootrom state */
 	RegVal = Xil_In32(XSLCR_OCM_CFG_ADDR);
-	RegVal = (RegVal & (u32)(~XSLCR_OCM_CFG_HIADDR_MASK)) | (u32)XSLCR_OCM_CFG_RESETVAL;
+	RegVal = (RegVal & (~XSLCR_OCM_CFG_HIADDR_MASK)) | (u32)XSLCR_OCM_CFG_RESETVAL;
 	Xil_Out32(XSLCR_OCM_CFG_ADDR, RegVal);
 }
 
@@ -187,7 +189,7 @@ void XSlcr_DisableLevelShifters(void)
 	Xil_Out32(XSLCR_UNLOCK_ADDR, XSLCR_UNLOCK_CODE);
 	/* Disable the level shifters */
 	RegVal = Xil_In32(XSLCR_LVL_SHFTR_EN_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_LVL_SHFTR_EN_MASK);
+	RegVal = RegVal & (~XSLCR_LVL_SHFTR_EN_MASK);
 	Xil_Out32(XSLCR_LVL_SHFTR_EN_ADDR, RegVal);
 
 }
@@ -210,7 +212,7 @@ void XSlcr_OcmReset(void)
 	Xil_Out32(XSLCR_OCM_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_OCM_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_OCM_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_OCM_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_OCM_RST_CTRL_ADDR, RegVal);
 }
 
@@ -233,7 +235,7 @@ void XSlcr_EmacPsReset(void)
 	Xil_Out32(XSLCR_GEM_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_GEM_RST_CTRL_ADDR);
-	RegVal &= (u32)(~XSLCR_GEM_RST_CTRL_VAL);
+	RegVal &= (~XSLCR_GEM_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_GEM_RST_CTRL_ADDR, RegVal);
 }
 
@@ -256,7 +258,7 @@ void XSlcr_UsbPsReset(void)
 	Xil_Out32(XSLCR_USB_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_USB_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_USB_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_USB_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_USB_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -278,7 +280,7 @@ void XSlcr_QspiPsReset(void)
 	Xil_Out32(XSLCR_LQSPI_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_LQSPI_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_QSPI_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_QSPI_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_LQSPI_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -300,7 +302,7 @@ void XSlcr_SpiPsReset(void)
 	Xil_Out32(XSLCR_SPI_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_SPI_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_SPI_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_SPI_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_SPI_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -321,7 +323,7 @@ void XSlcr_I2cPsReset(void)
 	Xil_Out32(XSLCR_I2C_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_I2C_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_I2C_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_I2C_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_I2C_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -343,7 +345,7 @@ void XSlcr_UartPsReset(void)
 	Xil_Out32(XSLCR_UART_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_UART_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_UART_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_UART_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_UART_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -365,7 +367,7 @@ void XSlcr_CanPsReset(void)
 	Xil_Out32(XSLCR_CAN_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_CAN_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_CAN_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_CAN_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_CAN_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -386,7 +388,7 @@ void XSlcr_SmcPsReset(void)
 	Xil_Out32(XSLCR_SMC_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_SMC_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_SMC_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_SMC_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_SMC_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -408,7 +410,7 @@ void XSlcr_DmaPsReset(void)
 	Xil_Out32(XSLCR_DMAC_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_DMAC_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_DMAC_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_DMAC_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_DMAC_RST_CTRL_ADDR, RegVal);
 }
 /*****************************************************************************/
@@ -430,6 +432,6 @@ void XSlcr_GpioPsReset(void)
 	Xil_Out32(XSLCR_GPIO_RST_CTRL_ADDR, RegVal);
 	/* Release the reset */
 	RegVal = Xil_In32(XSLCR_GPIO_RST_CTRL_ADDR);
-	RegVal = RegVal & (u32)(~XSLCR_GPIO_RST_CTRL_VAL);
+	RegVal = RegVal & (~XSLCR_GPIO_RST_CTRL_VAL);
 	Xil_Out32(XSLCR_GPIO_RST_CTRL_ADDR, RegVal);
 }
