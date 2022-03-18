@@ -49,9 +49,9 @@ extern "C" {
 /* Defs */
 typedef struct pvr_s {
 #ifdef MICROBLAZE_PVR_FULL
-  unsigned int  pvr[16];
+  u32  pvr[16];
 #else
-  unsigned int  pvr[1];
+  u32  pvr[1];
 #endif
 } pvr_t;
 

@@ -48,6 +48,9 @@
 * 8.0	sk   03/17/22  Modify sleep_MB return type from unsigned to void and
 *		       usleep_MB functions return type from int to void to fix
 *		       misra_c_2012_rule_17_7 violation.
+* 8.0	sk   03/17/22  Modify sleep_MB parameter type from unsigned int to
+*		       u32 and usleep_MB parameter type from unsigned long to
+*		       ULONG to fix misra_c_2012_rule_4_6 violation.
 *
 * </pre>
 *
@@ -146,7 +149,7 @@ static void sleep_common(u32 n, u32 iters)
 * @note		Instruction cache should be enabled for this to work.
 *
 ******************************************************************************/
-void usleep_MB(unsigned long useconds)
+void usleep_MB(ULONG useconds)
 {
 #if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 	sleep_common((u32)useconds, ITERS_PER_USEC);
@@ -167,7 +170,7 @@ void usleep_MB(unsigned long useconds)
 * @note		Instruction cache should be enabled for this to work.
 *
 ******************************************************************************/
-void sleep_MB(unsigned int seconds)
+void sleep_MB(u32 seconds)
 {
 #if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 	 sleep_common(seconds, ITERS_PER_SEC);
