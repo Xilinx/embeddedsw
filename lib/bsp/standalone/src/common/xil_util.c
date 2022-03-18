@@ -73,6 +73,8 @@
 * 			  fix misra_c_2012_rule_13_3 violation.
 * 8.0	sk	 03/02/22 Update values from signed to unsigned to fix
 * 			  misra_c_2012_rule_10_4 violation.
+* 8.0	sk	 03/17/22 Add const to unmodified pointer variable to fix misra_c
+*			  _2012_rule_8_13 violation.
 *
 * </pre>
 *
@@ -1219,7 +1221,7 @@ int Xil_SMemMove(void *Dest, const u32 DestSize,
 	const void *Src, const u32 SrcSize, const u32 CopyLen)
 {
 	volatile int Status = XST_FAILURE;
-	void *Output = NULL;
+	const void *Output = NULL;
 
 	if ((Dest == NULL) || (Src == NULL)) {
 		Status =  XST_INVALID_PARAM;
