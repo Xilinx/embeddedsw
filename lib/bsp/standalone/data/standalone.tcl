@@ -70,6 +70,9 @@
 # 8.0   mus  22/02/22 Added support for VERSAL NET
 # 8.0	sk   03/17/22 Update microblaze_interrupts_g.h to fix misra_c_2012_
 # 		      directive_4_10 violation.
+# 8.0	sk   03/17/22 Update parameter function declaration parameter name in
+# 		      microblaze_interrupts_g.c to fix misra_c_2012_rule_8_6
+# 		      violation.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -1171,7 +1174,7 @@ proc xcreate_mb_intr_config_file {handler arg} {
     puts $config_file "#include \"microblaze_interrupts_i.h\""
     puts $config_file "#include \"xparameters.h\""
     puts $config_file "\n"
-    puts $config_file [format "extern void %s (void *);" $handler]
+    puts $config_file [format "extern void %s (void *DeviceId);" $handler]
     puts $config_file "\n/*"
     puts $config_file "* The interrupt handler table for microblaze processor"
     puts $config_file "*/\n"
