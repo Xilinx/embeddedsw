@@ -57,10 +57,6 @@ int microblaze_get_pvr (pvr_t *pvr)
   getpvr (10, pvr->pvr[10]);
   getpvr (11, pvr->pvr[11]);
 
-/*   getpvr (12, pvr->pvr[12]); */
-/*   getpvr (13, pvr->pvr[13]); */
-/*   getpvr (14, pvr->pvr[14]); */
-/*   getpvr (15, pvr->pvr[15]); */
 
 #endif  /* MICROBLAZE_PVR_FULL  */
 

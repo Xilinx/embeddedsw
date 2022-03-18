@@ -16,6 +16,8 @@
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00b kpc   03/07/13 First release.
+* 8.0	sk    03/17/22 Remove commented code to fix misra_c_2012_directive_4_4
+* 		       violation.
 * </pre>
 *
 ******************************************************************************/
@@ -85,10 +87,6 @@ extern "C" {
 #define XSLCR_MIO_PIN_00_ADDR			(XSLCR_BASEADDR + 0x00000700U)
 /**< SLCR DMAC reset control address register */
 #define XSLCR_DMAC_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x0000020CU)
-/**< SLCR USB reset control address register */
-/*#define XSLCR_USB_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000210U)*/
-/**< SLCR GEM reset control address register */
-/*#define XSLCR_GEM_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000214U)*/
 /**< SLCR SDIO reset control address register */
 #define XSLCR_SDIO_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000218U)
 /**< SLCR SPI reset control address register */
@@ -103,8 +101,6 @@ extern "C" {
 #define XSLCR_GPIO_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x0000022CU)
 /**< SLCR LQSPI reset control address register */
 #define XSLCR_LQSPI_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000230U)
-/**< SLCR SMC reset control address register */
-/*#define XSLCR_SMC_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000234U)*/
 /**< SLCR OCM reset control address register */
 #define XSLCR_OCM_RST_CTRL_ADDR			(XSLCR_BASEADDR + 0x00000238U)
 
