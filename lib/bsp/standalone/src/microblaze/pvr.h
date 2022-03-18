@@ -32,8 +32,8 @@
  *@cond nocomments
  */
 
-#ifndef _PVR_H
-#define _PVR_H
+#ifndef PVR_H
+#define PVR_H
 
 #include "xil_types.h"
 #include "xil_assert.h"
@@ -517,7 +517,7 @@ int microblaze_get_pvr (pvr_t *pvr);
 #ifdef __cplusplus
 }
 #endif
-#endif /* _PVR_H */
+#endif /* PVR_H */
 
 /**
 * @} End of "addtogroup microblaze_pvr_macros".
