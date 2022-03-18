@@ -32,7 +32,6 @@ struct XPm_AieDeviceNode {
 	struct XPm_AieInitNodeOps *Ops; /**< Node Initialization Operations */
 	XPm_PlDevice *Parent;           /**< Parent of Aie device */
 	XPm_AieNode *BaseDev;			/**< AIE device dependency */
-	u32 DefaultClockDiv;			/**< Default AIE clock divider at boot */
 };
 
 /************************** Function Prototypes ******************************/

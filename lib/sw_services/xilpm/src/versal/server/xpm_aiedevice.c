@@ -10,6 +10,8 @@
 #include "xpm_requirement.h"
 #include "xpm_regs.h"
 
+#define AIE_MAX_DIVIDER 1023U
+
 static const XPm_StateCap AieDeviceStates[] = {
 	{
 		.State = (u8)XPM_DEVSTATE_UNUSED,
@@ -273,6 +275,12 @@ XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsyste
 		goto done;
 	}
 
+	/* Check if requested divider is higher than max possible divider value */
+	if (AIE_MAX_DIVIDER < Divider) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	/* If the divider value is 1 or any number smaller than the initial divider
 	 * set at boot, it is assumed the subsystem would like the maximum
 	 * frequency allowed, which is set at boot time.
@@ -295,7 +303,7 @@ XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsyste
 		/* Check for any other AIE devices within this subsystem */
 		NextReqm = Reqm->NextDevice;
 		while (NULL != NextReqm) {
-			if ((1U == NextReqm->Allocated) && (IS_DEV_AIE(Device->Node.Id))) {
+			if ((1U == NextReqm->Allocated) && (IS_DEV_AIE(NextReqm->Device->Node.Id))) {
 				if ((TempDiv > NextReqm->Curr.QoS) && (AieNode->DefaultClockDiv <= NextReqm->Curr.QoS)) {
 					TempDiv = NextReqm->Curr.QoS;
 				}
