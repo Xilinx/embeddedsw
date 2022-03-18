@@ -19,6 +19,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  hbm  07/28/09 Initial release
 * 6.2   ms   02/20/17 Fixed compilation warning. This is a fix for CR-969126.
+* 8.0	sk   03/17/22 Delete MB_ExceptionVectorTableEntry structure to fix
+* 		      misra_c_2012_rule_5_6 violation.
 *
 * </pre>
 *
@@ -29,6 +31,7 @@
 
 #include "microblaze_exceptions_g.h"
 #include "microblaze_interrupts_i.h"
+#include "microblaze_exceptions_i.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,10 +50,6 @@ extern void microblaze_disable_interrupts(void);
 * of MB_ExceptionVectorTableEntry is used here.
 */
 
-typedef struct {
-   Xil_ExceptionHandler Handler;
-   void *CallBackRef;
-} MB_ExceptionVectorTableEntry;
 
 #ifdef __cplusplus
 }
