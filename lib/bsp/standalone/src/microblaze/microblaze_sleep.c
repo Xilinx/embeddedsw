@@ -45,6 +45,9 @@
 *                      arguments with void keyword. This has been done to fix
 *                      compilation warnings with "-Wstrict-prototypes" flag.
 *                      It fixes CR#1108601
+* 8.0	sk   03/17/22  Modify sleep_MB return type from unsigned to void and
+*		       usleep_MB functions return type from int to void to fix
+*		       misra_c_2012_rule_17_7 violation.
 *
 * </pre>
 *
@@ -143,7 +146,7 @@ static void sleep_common(u32 n, u32 iters)
 * @note		Instruction cache should be enabled for this to work.
 *
 ******************************************************************************/
-int usleep_MB(unsigned long useconds)
+void usleep_MB(unsigned long useconds)
 {
 #if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 	sleep_common((u32)useconds, ITERS_PER_USEC);
@@ -153,7 +156,6 @@ int usleep_MB(unsigned long useconds)
 	Xil_SleepAxiTimer(useconds, COUNTS_PER_USECOND);
 #endif
 
-	return 0;
 }
 
 /*****************************************************************************/
@@ -165,7 +167,7 @@ int usleep_MB(unsigned long useconds)
 * @note		Instruction cache should be enabled for this to work.
 *
 ******************************************************************************/
-unsigned sleep_MB(unsigned int seconds)
+void sleep_MB(unsigned int seconds)
 {
 #if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 	 sleep_common(seconds, ITERS_PER_SEC);
@@ -175,7 +177,6 @@ unsigned sleep_MB(unsigned int seconds)
 	Xil_SleepAxiTimer(seconds, COUNTS_PER_SECOND);
 #endif
 
-	return 0;
 }
 
 /*****************************************************************************/
