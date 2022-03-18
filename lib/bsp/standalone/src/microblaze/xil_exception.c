@@ -21,6 +21,10 @@
 * 6.2   ms   02/20/17 Fixed compilation warning. This is a fix for CR-969126.
 * 8.0	sk   03/17/22 Delete MB_ExceptionVectorTableEntry structure to fix
 * 		      misra_c_2012_rule_5_6 violation.
+* 8.0	sk   03/17/22 Move MB_ExceptionVectorTableEntry and MB_InterruptVector
+* 		      TableEntry decalrations to header files and delete
+* 		      interrupts and excpetion disable and enable declarations
+* 		      to fix misra_c_2012_rule_8_5 violations.
 *
 * </pre>
 *
@@ -32,6 +36,7 @@
 #include "microblaze_exceptions_g.h"
 #include "microblaze_interrupts_i.h"
 #include "microblaze_exceptions_i.h"
+#include "mb_interface.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,10 +45,6 @@ extern "C" {
 /**
  *@cond nocomments
  */
-extern void microblaze_enable_exceptions(void);
-extern void microblaze_disable_exceptions(void);
-extern void microblaze_enable_interrupts(void);
-extern void microblaze_disable_interrupts(void);
 
 /**
 * Currently HAL is an augmented part of standalone BSP, so the old definition
@@ -60,8 +61,6 @@ extern void microblaze_disable_interrupts(void);
  */
 
 /************************** Variable Definitions *****************************/
-extern MB_ExceptionVectorTableEntry MB_ExceptionVectorTable[XIL_EXCEPTION_ID_INT];
-extern MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_TABLE_ENTRIES];
 
 /****************************************************************************/
 /**

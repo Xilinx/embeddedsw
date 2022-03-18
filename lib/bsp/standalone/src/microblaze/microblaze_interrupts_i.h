@@ -19,6 +19,8 @@
 * Ver   Date     Changes
 * ----- -------- -----------------------------------------------
 * 1.00b 10/03/03 First release
+* 8.0	03/17/22 Add MB_InterruptVectorTableEntry decalration to
+* 		 fix misra_c_2012_rule_8_5 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -47,6 +49,8 @@ typedef struct
 } MB_InterruptVectorTableEntry;
 
 #define MB_INTERRUPT_VECTOR_TABLE_ENTRIES	1
+
+extern MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_TABLE_ENTRIES];
 
 #ifdef __cplusplus
 }

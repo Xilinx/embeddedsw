@@ -16,6 +16,8 @@
 * Ver   Date     Changes
 * ----- -------- -----------------------------------------------
 * 1.00b 10/03/03 First release
+* 8.0	03/17/22 Move MB_InterruptVectorTableEntry declaration to
+* 		 header file to fix misra_c_2012_rule_8_5 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -45,7 +47,6 @@ void microblaze_register_handler(XInterruptHandler Handler, void *DataPtr);
 
 /************************** Variable Definitions *****************************/
 
-extern MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_TABLE_ENTRIES];
 /*****************************************************************************/
 /**
 *

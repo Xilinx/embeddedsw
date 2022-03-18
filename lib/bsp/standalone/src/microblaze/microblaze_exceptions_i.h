@@ -17,6 +17,8 @@
 * Ver   Date     Changes
 * ----- -------- -----------------------------------------------
 * 1.00a 06/24/04 First release
+* 8.0	03/17/22 Add MB_ExceptionVectorTableEntry decalration to
+* 		 fix misra_c_2012_rule_8_5 violation.
 * </pre>
 *
 ******************************************************************************/
@@ -43,6 +45,8 @@ typedef struct
    Xil_ExceptionHandler Handler;
    void *CallBackRef;
 } MB_ExceptionVectorTableEntry;
+
+extern MB_ExceptionVectorTableEntry MB_ExceptionVectorTable[XIL_EXCEPTION_ID_INT];
 
 /* Exception IDs */
 #define XEXC_ID_FSL                     0U
