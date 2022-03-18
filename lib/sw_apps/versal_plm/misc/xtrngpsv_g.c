@@ -14,24 +14,16 @@
 *******************************************************************/
 
 #include "xparameters.h"
-#include "xiicps.h"
+#include "xtrngpsv.h"
 
 /*
 * The configuration table for devices
 */
 
-XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES] =
+XTrngpsv_Config XTrngpsv_ConfigTable[XPAR_XTRNGPSV_NUM_INSTANCES] =
 {
 	{
-		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_I2C_0_DEVICE_ID,
-		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_I2C_0_BASEADDR,
-		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_I2C_0_I2C_CLK_FREQ_HZ
-	},
-	{
-		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_I2C_1_DEVICE_ID,
-		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_I2C_1_BASEADDR,
-		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_I2C_1_I2C_CLK_FREQ_HZ
+		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_TRNG_DEVICE_ID,
+		XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_PMC_TRNG_BASEADDR
 	}
 };
-
-
