@@ -68,6 +68,8 @@
 # 7.7   adk  14/12/21 Updated xsleep_timer_config proc to use TTC3 for sleep
 #                     routines if present in the HW design.
 # 8.0   mus  22/02/22 Added support for VERSAL NET
+# 8.0	sk   03/17/22 Update microblaze_interrupts_g.h to fix misra_c_2012_
+# 		      directive_4_10 violation.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -1232,6 +1234,13 @@ proc xcreate_mb_exc_config_file {os_handle} {
         return
     }
 
+    puts $hconfig_file "\#ifndef MICROBLAZE_EXCEPTIONS_G_H"
+    puts $hconfig_file "\#define MICROBLAZE_EXCEPTIONS_G_H"
+    puts $hconfig_file "\n"
+    puts $hconfig_file "\#ifdef __cplusplus"
+    puts $hconfig_file "extern \"C\" {"
+    puts $hconfig_file "\#endif"
+    puts $hconfig_file "\n"
     puts $hconfig_file "\#define MICROBLAZE_EXCEPTIONS_ENABLED 1"
     if { [mb_can_handle_exceptions_in_delay_slots $procver] } {
         puts $hconfig_file "#define MICROBLAZE_CAN_HANDLE_EXCEPTIONS_IN_DELAY_SLOTS"
@@ -1253,6 +1262,11 @@ proc xcreate_mb_exc_config_file {os_handle} {
         }
     }
 
+    puts $hconfig_file "\n"
+    puts $hconfig_file "\#ifdef __cplusplus"
+    puts $hconfig_file "}"
+    puts $hconfig_file "\#endif \n"
+    puts $hconfig_file "\#endif"
     puts $hconfig_file "\n"
     close $hconfig_file
 }
