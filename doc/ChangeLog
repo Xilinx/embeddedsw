@@ -285,6 +285,8 @@ lib/bsp/standalone/src/common/versal/xil_error_node.h
 lib/bsp/standalone/src/common/intr/xinterrupt_wrap.h
 lib/bsp/standalone/src/common/intr/xinterrupt_wrap.c
 lib/bsp/standalone/data/intr_wrapper.tcl
+lib/sw_services/xilpm/src/versal/server/xpm_noc_config.c
+lib/sw_services/xilpm/src/versal/server/xpm_noc_config.h
 XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gtyp.c
 XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_sinit.c
 XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h
@@ -320,6 +322,9 @@ XilinxProcessorIPLib/drivers/aienginev2/src/lite/xaie_lite.h
 XilinxProcessorIPLib/drivers/aienginev2/src/interrupt/xaie_interrupt_init.c
 XilinxProcessorIPLib/drivers/aienginev2/src/interrupt/xaie_interrupt_control.c
 XilinxProcessorIPLib/drivers/aienginev2/src/interrupt/xaie_interrupt_backtrack.c
+XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_example.c
+XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_reconfigure_example.c
+XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_recovery_example.c
 
 SPDX-License-Identifier: BSD-3-Clause
 ThirdParty/sw_services/openamp/src/open-amp/lib/version.c
