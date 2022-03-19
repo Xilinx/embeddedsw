@@ -25,6 +25,8 @@
 * 1.05 ND  04/03/21 Moved all global variables declaration from .h to .c
 * 				    files due to gcc compiler compilation error.
 * 1.06 ND  04/15/21 Added support for stream 2,3 and 4 handler interrupts
+* 1.07 ND  02/25/22 Modified the code for de-asserting longer hpd for some
+* 					gpu's to retrain our rx.
 *
 * </pre>
 *
@@ -1107,13 +1109,19 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
                                XDP_RX_INTERRUPT_MASK_ALL_MASK);
         XDp_RxInterruptDisable1(DpRxSsInst.DpPtr, 0xFFFFFFFF);
 
-        XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
-                              XDP_RX_INTERRUPT_MASK_TP1_MASK |
-                              XDP_RX_INTERRUPT_MASK_TP2_MASK |
-                        XDP_RX_INTERRUPT_MASK_TP3_MASK|
-                        XDP_RX_INTERRUPT_MASK_POWER_STATE_MASK|
-                        XDP_RX_INTERRUPT_MASK_CRC_TEST_MASK|
-                        XDP_RX_INTERRUPT_MASK_BW_CHANGE_MASK);
+        /*Enable Training related interrupts*/
+               XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
+                               XDP_RX_INTERRUPT_MASK_TP1_MASK |
+                               XDP_RX_INTERRUPT_MASK_TP2_MASK |
+                               XDP_RX_INTERRUPT_MASK_TP3_MASK|
+                               XDP_RX_INTERRUPT_MASK_POWER_STATE_MASK|
+                               XDP_RX_INTERRUPT_MASK_CRC_TEST_MASK|
+                               XDP_RX_INTERRUPT_MASK_BW_CHANGE_MASK |
+						XDP_RX_INTERRUPT_MASK_VCP_ALLOC_MASK |
+						XDP_RX_INTERRUPT_MASK_VCP_DEALLOC_MASK |
+						XDP_RX_INTERRUPT_MASK_DOWN_REPLY_MASK |
+						XDP_RX_INTERRUPT_MASK_DOWN_REQUEST_MASK);
+
 
         XDp_RxInterruptEnable1(DpRxSsInst.DpPtr,
                         XDP_RX_INTERRUPT_MASK_TP4_MASK|
