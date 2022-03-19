@@ -1062,7 +1062,9 @@ void pt_loop(){
 		}
 
 		//Pass-through Handling
-		if(DpRxSsInst.VBlankCount>VBLANK_WAIT_COUNT){
+		//rx_trained == 1 needed as safety measure to start tx
+		if(DpRxSsInst.VBlankCount>VBLANK_WAIT_COUNT && (rx_trained == 1)){
+
 			//restoring timeout
 			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CDR_CONTROL_CONFIG,
 							XDP_RX_CDR_CONTROL_CONFIG_TDLOCK_DP159);
@@ -1182,12 +1184,20 @@ void pt_loop(){
 			break;
 
 		case '3':
-			DpRxSs_Setup();
+			unplug_proc();
+
+			/*HPD is held low for 2sec for gpu to recover*/
+	        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+	                     XDP_RX_LINK_ENABLE, 0x0);
+	        usleep(2000000);
+	        XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+	                     XDP_RX_LINK_ENABLE, 0x1);
+
 			// Disabling TX interrupts
 			XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144, 0xFFF);
 			XDpTxSs_Stop(&DpTxSsInst);
-			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_HPD_INTERRUPT,0xFBB80001);
-			xil_printf("\r\n- HPD Toggled for 3ms! -\n\r");
+//			XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,XDP_RX_HPD_INTERRUPT,0xFFFF0001/*0xFBB80001*/);
+			xil_printf("\r\n- HPD Toggled for retraining! -\n\r");
 			break;
 
 		case '4':
@@ -1589,6 +1599,8 @@ void unplug_proc (void) {
         XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,	XDP_TX_AUDIO_CONTROL, 0x00000);
         DpRxSsInst.VBlankCount = 0;
         DpRxSs_Setup();
+	DpRxSsInst.link_up_trigger = 0;
+	XDp_RxDtgDis(DpRxSsInst.DpPtr);
         AudioinfoFrame.frame_count = 0;
         aud_info_rcvd = 0;
 	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
