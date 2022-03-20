@@ -292,8 +292,8 @@
 /* Definitions for driver DDRCPSU */
 #define XPAR_XDDRCPSU_NUM_INSTANCES 1
 
-#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x0
-#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FEFFFFF
+#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x00000000
+#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF
 #define XPAR_PSU_DDR_1_S_AXI_BASEADDR 0x800000000
 #define XPAR_PSU_DDR_1_S_AXI_HIGHADDR 0x87FFFFFFF
 /* Definitions for peripheral PSU_DDRC_0 */
@@ -1098,7 +1098,7 @@
 #define XPAR_PSU_SD_1_BUS_WIDTH 8
 #define XPAR_PSU_SD_1_MIO_BANK 1
 #define XPAR_PSU_SD_1_HAS_EMIO 0
-#define XPAR_PSU_SD_1_SLOT_TYPE 0
+#define XPAR_PSU_SD_1_SLOT_TYPE 3
 
 
 /******************************************************************/
@@ -1115,7 +1115,7 @@
 #define XPAR_XSDPS_0_BUS_WIDTH 8
 #define XPAR_XSDPS_0_MIO_BANK 1
 #define XPAR_XSDPS_0_HAS_EMIO 0
-#define XPAR_XSDPS_0_SLOT_TYPE 0
+#define XPAR_XSDPS_0_SLOT_TYPE 3
 #define XPAR_XSDPS_0_IS_CACHE_COHERENT 0
 
 
