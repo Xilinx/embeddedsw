@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,6 +90,7 @@
 *       ma   08/30/2021 Added error code for SSIT errors
 *       kpt  09/09/2021 Added error code XLOADER_ERR_SECURE_CLEAR_FAIL
 * 1.07  ma   11/25/2021 Added error code XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE
+*       bsv  03/17/2022 Add support for A72 elfs to run from TCM
 *
 * </pre>
 *
@@ -522,6 +523,7 @@ typedef enum {
 	XLOADER_ERR_REQUEST_BOOT_DEVICE,	/**< 0x368 - Failed to Request Boot Device */
 	XLOADER_ERR_RELEASE_BOOT_DEVICE,	/**< 0x369 - Failed to Release Boot Device */
 	XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,	/**< 0x36A - Failed to disable DUAL BYTE OP */
+	XLOADER_ERR_INVALID_TCM_ADDR,	/**< 0x36B - Invalid TCM address for A72 elfs */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,

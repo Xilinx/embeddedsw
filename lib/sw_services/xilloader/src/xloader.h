@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -91,6 +91,7 @@
 *       ma   09/01/2021 Use SSIT defines from XilPlmi
 *       kpt  09/06/2021 Added macro XLOADER_TOTAL_CHUNK_SIZE
 *       bsv  10/26/2021 Code clean up
+*       bsv  03/17/2022 Add support for A72 elfs to run from TCM
 *
 * </pre>
 *
@@ -139,6 +140,15 @@ extern "C" {
 #define XLOADER_R5_TCMB_LOAD_ADDRESS	(0x20000U)
 #define XLOADER_R5_TCM_BANK_LENGTH	(0x10000U)
 #define XLOADER_R5_TCM_TOTAL_LENGTH	(XLOADER_R5_TCM_BANK_LENGTH * 4U)
+#define XLOADER_R5_0_TCM_A_BASE_ADDR	(0xFFE00000U)
+#define XLOADER_R5_0_TCM_A_END_ADDR	(0xFFE0FFFFU)
+#define XLOADER_R5_0_TCM_B_BASE_ADDR	(0xFFE20000U)
+#define XLOADER_R5_0_TCM_B_END_ADDR	(0xFFE2FFFFU)
+#define XLOADER_R5_LS_TCM_END_ADDR	(0xFFE3FFFFU)
+#define XLOADER_R5_1_TCM_A_BASE_ADDR	(0xFFE90000U)
+#define XLOADER_R5_1_TCM_A_END_ADDR	(0xFFE9FFFFU)
+#define XLOADER_R5_1_TCM_B_BASE_ADDR	(0xFFEB0000U)
+#define XLOADER_R5_1_TCM_B_END_ADDR	(0xFFEBFFFFU)
 
 /*
  * APU related macros
