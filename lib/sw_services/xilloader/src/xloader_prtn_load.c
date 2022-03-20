@@ -82,6 +82,7 @@
 *                       starts at the 32K boundary
 *       kpt  02/18/2022 Fix copy to memory issue for slave and non-slave boot
 *                       modes
+*       bsv  03/17/2022 Add support for A72 elfs to run from TCM
 *
 * </pre>
 *
@@ -110,8 +111,13 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U) /**< Indicates that PLM is not
-												   the partition owner */
+#define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U) /**< Indicates that PLM is not the partition owner */
+#define XLOADER_TCM_0		(0U)
+#define XLOADER_TCM_1		(1U)
+#define XLOADER_RPU_GLBL_CNTL	(0xFF9A0000U)
+#define XLOADER_TCMCOMB_MASK		(0x40U)
+#define XLOADER_TCMCOMB_SHIFT		(6U)
+
 /**
  * @{
  * @cond DDR calibration errors
@@ -138,6 +144,7 @@ static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceC
 static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr* PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
 static int XLoader_DumpDdrmcRegisters(void);
+static int XLoader_RequestTCM(u8 TcmId);
 
 /************************** Variable Definitions *****************************/
 
@@ -364,14 +371,15 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams)
 {
 	int Status = XST_FAILURE;
-	u32 Mode = 0U;
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
-	u64 Addr = PrtnParams->DeviceCopy.DestAddr;
 	u32 Len = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
+	u64 EndAddr = PrtnParams->DeviceCopy.DestAddr + Len - 1U;
 	u32 ErrorCode;
+	u32 Mode = 0U;
+	u8 TcmComb;
 
-	Status = XPlmi_VerifyAddrRange(Addr, Addr + Len - 1U);
+	Status = XPlmi_VerifyAddrRange(PrtnParams->DeviceCopy.DestAddr, EndAddr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_ELF_LOAD_ADDR,
 				Status);
@@ -439,49 +447,87 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_A,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_0_A, 0);
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_0_B,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_B;
+		Status = XLoader_RequestTCM(XLOADER_TCM_0);
 	}
-
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_A,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_TCM_1_A, 0);
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC,PM_DEV_TCM_1_B,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_B;
+		Status = XLoader_RequestTCM(XLOADER_TCM_1);
 	}
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(ErrorCode, 0);
 		goto END;
 	}
 
 	Status = XLoader_GetLoadAddr(PrtnParams->DstnCpu,
-		&PrtnParams->DeviceCopy.DestAddr,
-		(PrtnHdr->UnEncDataWordLen * XIH_PRTN_WORD_LEN));
+		&PrtnParams->DeviceCopy.DestAddr, Len);
 	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+	if ((PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
+		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_1)) {
+		goto END1;
+	}
+
+	EndAddr = PrtnParams->DeviceCopy.DestAddr + Len - 1U;
+	if (((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_1_TCM_A_BASE_ADDR)
+		&& (EndAddr <= XLOADER_R5_1_TCM_A_END_ADDR)) ||
+		((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_1_TCM_B_BASE_ADDR)
+		&& (EndAddr <= XLOADER_R5_1_TCM_B_END_ADDR))) {
+		/* TCM 1 is in use */
+		/* Only allow if TCM is in split mode */
+		TcmComb = (u8)((XPlmi_In32(XLOADER_RPU_GLBL_CNTL) &
+			XLOADER_TCMCOMB_MASK) >> XLOADER_TCMCOMB_SHIFT);
+		if (TcmComb == (u8)FALSE) {
+			Status = XLoader_RequestTCM(XLOADER_TCM_1);
+		}
+		else {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_INVALID_TCM_ADDR, 0);
+		}
+	}
+	else if ((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_0_TCM_A_BASE_ADDR)
+		&& (EndAddr <= XLOADER_R5_0_TCM_A_END_ADDR)) {
+		/* TCM 0 A is in use */
+		Status = XLoader_RequestTCM(XLOADER_TCM_0);
+	}
+	else if ((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_0_TCM_B_BASE_ADDR)
+		&& (EndAddr <= XLOADER_R5_0_TCM_B_END_ADDR)) {
+		/* TCM 0 B is in use */
+		TcmComb = (u8)((XPlmi_In32(XLOADER_RPU_GLBL_CNTL) &
+			XLOADER_TCMCOMB_MASK) >> XLOADER_TCMCOMB_SHIFT);
+		if (TcmComb == (u8)FALSE) {
+			Status = XLoader_RequestTCM(XLOADER_TCM_0);
+		}
+		else {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_INVALID_TCM_ADDR, 0);
+		}
+	}
+	else if ((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_0_TCM_A_BASE_ADDR)
+		&& (EndAddr <= XLOADER_R5_LS_TCM_END_ADDR)) {
+		/* TCM COMB is in use */
+		TcmComb = (u8)((XPlmi_In32(XLOADER_RPU_GLBL_CNTL) &
+			XLOADER_TCMCOMB_MASK) >> XLOADER_TCMCOMB_SHIFT);
+		if (TcmComb == (u8)TRUE) {
+			Status = XLoader_RequestTCM(XLOADER_TCM_0);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Status = XLoader_RequestTCM(XLOADER_TCM_1);
+		}
+		else {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_INVALID_TCM_ADDR, 0);
+		}
+	}
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 END1:
 	Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams->DeviceCopy, SecureParams);
 	if (XST_SUCCESS != Status) {
-			goto END;
+		goto END;
 	}
 
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A72_0) ||
@@ -1117,5 +1163,57 @@ static int XLoader_DumpDdrmcRegisters(void)
 	XPlmi_Printf(DEBUG_GENERAL, "====DDRMC Register Dump End======\n\r");
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function requests TCM_0_A, TCM_0_B, TCM_1_A and TCM_1_B
+ * depending upon input param and R5-0 and R5-1 cores as required for TCMs.
+ *
+ * @param	TcmId denotes TCM_0 or TCM_1
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_RequestTCM(u8 TcmId)
+{
+	int Status = XST_FAILURE;
+	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+	u32 CapContext = (u32)PM_CAP_CONTEXT;
+	u32 ErrorCode;
+
+	if (TcmId == XLOADER_TCM_0) {
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_0_A,
+			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			XPLMI_CMD_SECURE);
+		if (Status != XST_SUCCESS) {
+			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_A;
+			goto END;
+		}
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_0_B,
+			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			XPLMI_CMD_SECURE);
+		ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_B;
+	}
+	else if (TcmId == XLOADER_TCM_1) {
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_A,
+			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			XPLMI_CMD_SECURE);
+		if (Status != XST_SUCCESS) {
+			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_A;
+			goto END;
+		}
+
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_B,
+			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			XPLMI_CMD_SECURE);
+		ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_B;
+	}
+
+END:
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(ErrorCode, 0);
+	}
 	return Status;
 }
