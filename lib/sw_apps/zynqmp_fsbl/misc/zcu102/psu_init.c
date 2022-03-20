@@ -5862,7 +5862,7 @@ unsigned long psu_ddr_init_data(void)
     * General Purpose Register 1
     * (OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000E3U)
     */
-	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000E4U);
+	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000E5U);
 /*##################################################################### */
 
     /*
@@ -6302,7 +6302,7 @@ unsigned long psu_ddr_init_data(void)
     * RDIMM Control Register 1
     * (OFFSET, MASK, VALUE)      (0XFD080154, 0xFFFFFFFFU ,0x00000200U)
     */
-	PSU_Mask_Write(DDR_PHY_RDIMMCR1_OFFSET, 0xFFFFFFFFU, 0x00000200U);
+	PSU_Mask_Write(DDR_PHY_RDIMMCR1_OFFSET, 0xFFFFFFFFU, 0x00000300U);
 /*##################################################################### */
 
     /*
