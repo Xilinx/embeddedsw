@@ -45,6 +45,10 @@ proc puf_drc {libhandle} {
 		}
 	} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 		$proc_type == "psv_cortexr5" || $proc_type == "microblaze"} {
+		set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
+		if { [llength $librarylist] == 0 } {
+			error "This library requires xilmailbox library in the Board Support Package.";
+		}
 		foreach entry [glob -nocomplain -types f [file join "$client" *]] {
 			file copy -force $entry "./src"
 		}
@@ -85,7 +89,6 @@ proc execs_generate {libhandle} {
 }
 
 proc xgen_opts_file {libhandle} {
-
 	# Copy the include files to the include directory
 	set srcdir src
 	set dstdir [file join .. .. include]
@@ -107,14 +110,19 @@ proc xgen_opts_file {libhandle} {
 		file copy -force $source $dstdir
 	}
 
-	set mode [common::get_property CONFIG.mode $libhandle]
-	if {$mode == "client" && $proc_type != "psu_pmc" && $proc_type != "psv_pmc"} {
-		# Get IPI channel enabled in design for client-server communication
-		set value [common::get_property CONFIG.ipi_channel $libhandle]
+	# Get cache_disable value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.cache_disable $libhandle]
+	if {$value == true} {
 		#Open xparameters.h file
-		set file_handle [hsi::utils::open_include_file "xparameters.h"]
-		puts $file_handle [format %s%d%s "#define XPUF_IPI_CHANNEL " [expr $value]  "U"]
-		close $file_handle
+		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+			$proc_type == "psv_cortexr5" || $proc_type == "microblaze"} {
+			set file_handle [hsi::utils::open_include_file "xparameters.h"]
+
+			puts $file_handle "\n/* XilPuf library User Settings */"
+			puts $file_handle "#define XPUF_CACHE_DISABLE\n"
+
+			close $file_handle
+		}
 	}
 
 }

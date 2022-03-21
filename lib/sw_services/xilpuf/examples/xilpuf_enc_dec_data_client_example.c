@@ -11,7 +11,8 @@
  * This file illustrates encryption and decryption of user data using PUF KEY.
  * The key can be generated using either PUF registration or PUF on demand
  * regeneration.
- * To build the application, xilsecure and xilpuf must be in client mode.
+ * To build this application, xilmailbox library must be included in BSP and
+ * xilsecure and xilpuf must be in client mode.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -22,6 +23,7 @@
  *       kpt  01/13/22 Added support to run example on PL microblaze
  *       har  01/20/22 Removed inclusion of xil_mem.h
  *       har  03/04/22 Added comment to specify mode of libraries
+ *       kpt  03/16/22 Removed IPI related code and added mailbox support
  *
  * @note
  *
@@ -73,44 +75,43 @@
  * It is recommended to always enable this option to ensure entropy. It can
  * be configured as FALSE to disable Global Variation Filter.
  *
+ * This file illustrates encryption of red key using PUF KEY and
+ * programming the black key and helper data in a user specified location
+ * To build the application, xilsecure, xilnvm and xilpuf must be in client mode.
+ *
  * Procedure to link and compile the example for the default ddr less designs
- *-------------------------------------------------------------------------------
- * By default the linker settings uses a software stack, heap and data in DDR and
- * any variables used by the example will be placed in the DDR memory.
- * For this example to work on BRAM or any local memory it requires a design that
- * contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+ * ------------------------------------------------------------------------------------------------------------
+ * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
+ * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
+ * which is acccessible to both client and server.
  *
- * Following is the procedure to compile the example on OCM or any memory region
- * which can be accessed by server
+ * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
  *
- * 1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
- * be updated to point all the required sections to shared memory(OCM or TCM)
- * using a memory region drop down selection
+ *		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+ *			be updated to point all the required sections to shared memory(OCM or TCM)
+ *			using a memory region drop down selection
  *
- *				OR
+ *						OR
  *
- * 1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
- *		sharedmemory (NOLOAD) : {
- *		= ALIGN(4);
- *		__bss_start = .;
- *		*(.bss)
- *		*(.bss.*)
- *		*(.gnu.linkonce.b.*)
- *		*(COMMON)
- *		. = ALIGN(4);
- *		__bss_end = .;
- *		} > Memory(OCM,TCM or DDR)
+ *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+ *			.sharedmemory : {
+ *   			. = ALIGN(4);
+ *   			__sharedmemory_start = .;
+ *   			*(.sharedmemory)
+ *   			*(.sharedmemory.*)
+ *   			*(.gnu.linkonce.d.*)
+ *   			__sharedmemory_end = .;
+ *  			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
  *
- * 2. Data elements that are passed by reference to the server side should be
- * stored in the above shared memory section.
+ * 		2. Data elements that are passed by reference to the server side should be stored in the above shared
+ * 			memory section.
+ *
+ * To keep things simple, by default the cache is disabled for this example
  *
  *****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xpuf_client.h"
-#include "xpuf_defs.h"
 #include "xsecure_aesclient.h"
-#include "xpuf_ipi.h"
-#include "xsecure_ipi.h"
 #include "xil_util.h"
 #include "xil_cache.h"
 
@@ -157,13 +158,13 @@
 #define XPUF_RED_KEY_SIZE_256		(2U)
 
 /************************** Type Definitions *********************************/
-static XPuf_DataAddr PufData __attribute__ ((aligned (64)));
-static XPuf_PufData PufArr;
-static XIpiPsu IpiInst;
-static u8 Iv[XPUF_IV_LEN_IN_BYTES];
+static XPuf_DataAddr PufData __attribute__ ((aligned (64)))
+							__attribute__ ((section (".data.PufData")));
+static XPuf_PufData PufArr __attribute__ ((section (".data.PufArr")));
 
 /* shared memory allocation */
-static u8 SharedMem[XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
+static u8 SharedMem[XPUF_IV_LEN_IN_BYTES + XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
+						__attribute__ ((section (".data.Data")));
 
 #if defined (__GNUC__)
 static u8 Data[XPUF_DATA_LEN_IN_BYTES]__attribute__ ((aligned (64)))
@@ -186,28 +187,29 @@ static u8 GcmTag[XPUF_GCM_TAG_SIZE];
 #endif
 
 /************************** Function Prototypes ******************************/
-static int XPuf_GenerateKey(void);
-static int XPuf_VerifyDataEncDec(void);
+static int XPuf_GenerateKey(XMailbox *MailboxPtr);
+static int XPuf_VerifyDataEncDec(XMailbox *MailboxPtr);
 static void XPuf_ShowData(const u8* Data, u32 Len);
 
 /************************** Function Definitions *****************************/
 int main(void)
 {
 	int Status = XST_FAILURE;
+	XMailbox MailboxInstance;
 
-	Status = XPuf_InitializeIpi(&IpiInst);
-	if (Status != XST_SUCCESS) {
-			goto END;
-	}
+	#ifdef XPUF_CACHE_DISABLE
+		Xil_DCacheDisable();
+	#endif
 
-	Status = XPuf_SetIpi(&IpiInst);
+	Status = XMailbox_Initialize(&MailboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialization failed %x\r\n", Status);
 		goto END;
 	}
 
 	/* Generate PUF KEY
 	 */
-	Status = XPuf_GenerateKey();
+	Status = XPuf_GenerateKey(&MailboxInstance);
 	if (Status == XST_SUCCESS) {
 		xil_printf("Successfully generated PUF KEY %x\r\n", Status);
 	}
@@ -218,7 +220,7 @@ int main(void)
 
 	/* Encryption using PUF KEY followed by decryption and then comparing
 	 * decrypted data with original data */
-	Status = XPuf_VerifyDataEncDec();
+	Status = XPuf_VerifyDataEncDec(&MailboxInstance);
 	if (Status == XST_SUCCESS) {
 		xil_printf("Successfully encrypted and decrypted user data %x\r\n", Status);
 	}
@@ -240,7 +242,7 @@ END:
  * @brief	This function generates PUF KEY by PUF registration or
  * 		PUF on demand regeneration as per the user provided inputs.
  *
- * @param	None.
+ * @param	MailboxPtr Pointer to mailbox instance
  *
  * @return
  *		XST_SUCCESS - If PUF_KEY generation was successful.
@@ -260,12 +262,19 @@ END:
  *		XST_FAILURE - PUF KEY generation failed.
  *
  ******************************************************************************/
-static int XPuf_GenerateKey(void)
+static int XPuf_GenerateKey(XMailbox *MailboxPtr)
 {
 	int Status = XST_FAILURE;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 	u32 PUF_HelperData[XPUF_HD_LEN_IN_WORDS] = {0U};
 #endif
+	XPuf_ClientInstance PufClientInstance;
+
+	Status = XPuf_ClientInit(&PufClientInstance, MailboxPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Client initialization failed %x\r\n", Status);
+		goto END;
+	}
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
@@ -282,7 +291,7 @@ static int XPuf_GenerateKey(void)
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
 	Xil_DCacheInvalidateRange((UINTPTR)&PufData, sizeof(PufData));
 
-	Status = XPuf_Registration((u64)(UINTPTR)&PufData);
+	Status = XPuf_Registration(&PufClientInstance, (u64)(UINTPTR)&PufData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -325,7 +334,7 @@ static int XPuf_GenerateKey(void)
 	}
 	Xil_DCacheInvalidateRange((UINTPTR)&PufData, sizeof(PufData));
 	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
-	Status = XPuf_Regeneration((u64)(UINTPTR)&PufData);
+	Status = XPuf_Regeneration(&PufClientInstance, (u64)(UINTPTR)&PufData);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Puf Regeneration failed with error:%x\r\n", Status);
 		goto END;
@@ -348,7 +357,7 @@ END:
  * @brief	This function verifies the encryption and decryption of the data
  *		blob using PUF key.
  *
- * @param	None.
+ * @param	MailboxPtr Pointer to mailbox instance
  *
  * @return
  *		XST_SUCCESS - When the encryption and decryption of data is
@@ -359,18 +368,25 @@ END:
  *			Initialization and AES decrypt data.
  *
  ******************************************************************************/
-static int XPuf_VerifyDataEncDec(void)
+static int XPuf_VerifyDataEncDec(XMailbox *MailboxPtr)
 {
 	int Status = XST_FAILURE;
 	u32 Index;
+	u8 *Iv = &SharedMem[0U];
+	XSecure_ClientInstance SecureClientInstance;
 
-	Status = XSecure_SetIpi(&IpiInst);
+	Status = XSecure_ClientInit(&SecureClientInstance, MailboxPtr);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		xil_printf("Client initialization failed %x\r\n", Status);
 	}
 
 	/* Set shared memory */
-	XSecure_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
+	Status = XMailbox_SetSharedMem(MailboxPtr, (u64)(UINTPTR)(SharedMem + XPUF_IV_LEN_IN_BYTES),
+				XSECURE_SHARED_MEM_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n shared memory initialization failed");
+		goto END;
+	}
 
 	if (Xil_Strnlen(XPUF_IV, (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 				(XPUF_IV_LEN_IN_BYTES * 2U)) {
@@ -420,7 +436,7 @@ static int XPuf_VerifyDataEncDec(void)
 	Xil_DCacheFlushRange((UINTPTR)Data, XPUF_DATA_LEN_IN_BYTES);
 
 	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize();
+	Status = XSecure_AesInitialize(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Aes init failed %x\n\r", Status);
 		goto END;
@@ -430,7 +446,7 @@ static int XPuf_VerifyDataEncDec(void)
 	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XPUF_GCM_TAG_SIZE);
 
 	/* Encryption of Data */
-	Status = XSecure_AesEncryptData(XSECURE_AES_PUF_KEY,
+	Status = XSecure_AesEncryptData(&SecureClientInstance, XSECURE_AES_PUF_KEY,
 		XPUF_RED_KEY_SIZE_256, (UINTPTR)Iv, (UINTPTR)Data,
 		(UINTPTR)EncData, XPUF_DATA_LEN_IN_BYTES, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
@@ -448,7 +464,7 @@ static int XPuf_VerifyDataEncDec(void)
 	XPuf_ShowData((u8*)GcmTag, XPUF_GCM_TAG_SIZE);
 
 	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize();
+	Status = XSecure_AesInitialize(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Aes init failed %x\n\r", Status);
 		goto END;
@@ -457,7 +473,7 @@ static int XPuf_VerifyDataEncDec(void)
 	Xil_DCacheInvalidateRange((UINTPTR)DecData, XPUF_DATA_LEN_IN_BYTES);
 
 	/* Decryption of Data */
-	Status = XSecure_AesDecryptData(XSECURE_AES_PUF_KEY,
+	Status = XSecure_AesDecryptData(&SecureClientInstance, XSECURE_AES_PUF_KEY,
 		XPUF_RED_KEY_SIZE_256, (UINTPTR)Iv, (UINTPTR)EncData,
 		(UINTPTR)DecData, XPUF_DATA_LEN_IN_BYTES, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
@@ -478,7 +494,7 @@ static int XPuf_VerifyDataEncDec(void)
 		}
 	}
 END:
-	Status |= XSecure_ReleaseSharedMem();
+	Status |= XMailbox_ReleaseSharedMem(MailboxPtr);
 	return Status;
 }
 
