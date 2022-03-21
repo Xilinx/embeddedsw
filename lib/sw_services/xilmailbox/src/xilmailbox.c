@@ -23,6 +23,7 @@
  * 1.1   sd   16/08/19    Initialise status variable
  * 1.3   sd   03/03/21    Doxygen Fixes
  * 1.4   sd   23/06/21    Fix MISRA-C warnings
+ * 1.6   kpt  03/16/22    Added shared memory API's for IPI utilization
  *</pre>
  *
  *@note
@@ -184,4 +185,85 @@ s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 	}
 
 	return (s32)XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief	This function sets the shared memory location for IPI usage
+*
+* @param	InstancePtr is a pointer to the XMailbox instance.
+* @param	Address	Address of shared memory location
+* @param	Size	Size of the memory location
+*
+* @return
+*	-	XST_SUCCESS - if memory is set for IPI usage
+*	-	XST_FAILURE - On failure
+*
+******************************************************************************/
+u32 XMailbox_SetSharedMem(XMailbox *InstancePtr, u64 Address, u32 Size)
+{
+	u32 Status = XST_FAILURE;
+
+	if (InstancePtr != NULL) {
+		if (InstancePtr->SharedMem.SharedMemState != XMAILBOX_SHARED_MEM_INITIALIZED) {
+			InstancePtr->SharedMem.Address = Address;
+			InstancePtr->SharedMem.Size = Size;
+			InstancePtr->SharedMem.SharedMemState = XMAILBOX_SHARED_MEM_INITIALIZED;
+			Status = XST_SUCCESS;
+		}
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief	This function returns the shared memory location for IPI usage
+*
+* @param	InstancePtr is a pointer to the XMailbox instance.
+* @param	Address	Pointer to the address of the variable for
+* 			which memory needs to be assigned
+*
+* @return
+* 	- Size	Size of the memory allocated for IPI usage
+*
+******************************************************************************/
+u32 XMailbox_GetSharedMem(XMailbox *InstancePtr, u64 **Address)
+{
+	u32 Size = 0U;
+
+	if (InstancePtr != NULL) {
+		if (InstancePtr->SharedMem.SharedMemState == XMAILBOX_SHARED_MEM_INITIALIZED) {
+			*Address = (u64*)(UINTPTR)InstancePtr->SharedMem.Address;
+			Size = InstancePtr->SharedMem.Size;
+		}
+	}
+
+	return Size;
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief	This function releases the shared memory
+*
+* @return
+*	-	XST_SUCCESS - if memory is released
+*	-	XST_FAILURE - if memory is not released
+*
+******************************************************************************/
+int XMailbox_ReleaseSharedMem(XMailbox *InstancePtr)
+{
+	int Status = XST_FAILURE;
+
+	if (InstancePtr != NULL) {
+		InstancePtr->SharedMem.Address = 0U;
+		InstancePtr->SharedMem.Size = 0U;
+		InstancePtr->SharedMem.SharedMemState = XMAILBOX_SHARED_MEM_UNINITIALIZED;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
