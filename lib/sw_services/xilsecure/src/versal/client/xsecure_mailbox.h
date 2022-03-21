@@ -23,6 +23,7 @@
 * 4.6   har  07/14/21 Fixed doxygen warnings
 * 4.7   kpt  01/13/22 Added macro XSECURE_SHARED_MEM_SIZE
 *       am   03/08/22 Fixed MISRA C violations
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 * @note
@@ -37,9 +38,8 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xipipsu.h"
+#include "xilmailbox.h"
 #include "xparameters.h"
-#include "xsecure_defs.h"
 
 /************************** Constant Definitions ****************************/
 #define XILSECURE_MODULE_ID			(0x05U)
@@ -54,9 +54,6 @@ extern "C" {
 #define RESPONSE_ARG_CNT		(8U)
 	/**< 1 for status + 3 for values + 3 for reserved + 1 for CRC */
 
-#define XSECURE_IPI_TIMEOUT		(~0U)
-					/**< IPI timeout */
-
 #define XSECURE_TARGET_IPI_INT_MASK	(0x00000002U)
 					/**< Target PMC IPI interrupt mask */
 
@@ -67,41 +64,26 @@ extern "C" {
 #define XSECURE_SHARED_MEM_SIZE		(128U)
 					/**< Shared memory size */
 
+#define XSECURE_PAYLOAD_LEN_1U		(1U)
+#define XSECURE_PAYLOAD_LEN_2U		(2U)
+#define XSECURE_PAYLOAD_LEN_3U		(3U)
+#define XSECURE_PAYLOAD_LEN_4U		(4U)
+#define XSECURE_PAYLOAD_LEN_5U		(5U)
+#define XSECURE_PAYLOAD_LEN_6U		(6U)
+#define XSECURE_PAYLOAD_LEN_7U		(7U)
+
 /**************************** Type Definitions *******************************/
+typedef struct {
+	XMailbox *MailboxPtr;
+} XSecure_ClientInstance;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
 
-typedef enum {
-	XSECURE_SHARED_MEM_UNINITIALIZED = 0, /**< Shared memory uninitialized */
-	XSECURE_SHARED_MEM_INITIALIZED, /**< Shared memory initialized */
-}XSecure_IpiSharedMemState;
-
-typedef struct {
-	u64 Address; /**< Address of the shared memory location */
-	u32 Size; /**< Size od the shared memory location */
-	XSecure_IpiSharedMemState SharedMemState; /**< State of shared memory */
-}XSecure_IpiSharedMem;
-
 /************************** Function Definitions *****************************/
-int XSecure_ProcessIpi(u32 Arg0, u32 Arg1, u32 Arg2, u32 Arg3, u32 Arg4,
-	u32 Arg5);
-int XSecure_ProcessIpiWithPayload0(XSecure_ApiId ApiId);
-int XSecure_ProcessIpiWithPayload1(XSecure_ApiId ApiId, u32 Arg1);
-int XSecure_ProcessIpiWithPayload2(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2);
-int XSecure_ProcessIpiWithPayload3(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2, u32 Arg3);
-int XSecure_ProcessIpiWithPayload4(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
-	u32 Arg4);
-int XSecure_ProcessIpiWithPayload5(XSecure_ApiId ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
-	u32 Arg4, u32 Arg5);
-int XSecure_IpiSend(u32 *Payload);
-int XSecure_IpiReadBuff32(void);
-int XSecure_SetIpi(XIpiPsu* const IpiInst);
-int XSecure_InitializeIpi(XIpiPsu* const IpiInstPtr);
-void XSecure_SetSharedMem(u64 Address, u32 Size);
-u32 XSecure_GetSharedMem(u64 **Address);
-int XSecure_ReleaseSharedMem(void);
+int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
+int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
 
 #ifdef __cplusplus
 }

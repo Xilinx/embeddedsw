@@ -16,11 +16,14 @@
 * with provided key and IV and decrypt's the output of encrypted data and
 * compares with original data and checks for GCM tag match.
 *
+* To build this application, xilmailbox library must be included in BSP and xilsecure
+* must be in client mode
+*
 * Procedure to link and compile the example for the default ddr less designs
 * ------------------------------------------------------------------------------------------------------------
-* By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
-* placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
-* contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+* The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
+* any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
+* which is acccessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -31,18 +34,19 @@
 *						OR
 *
 *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
-*			sharedmemory (NOLOAD) : {
-*			= ALIGN(4);
-*			__bss_start = .;
-*			*(.bss)
-*			*(.bss.*)
-*			*(.gnu.linkonce.b.*)
-*			*(COMMON)
-*			. = ALIGN(4);
-*			__bss_end = .;
-*			} > Memory(OCM,TCM or DDR)
+*			.sharedmemory : {
+*   			. = ALIGN(4);
+*   			__sharedmemory_start = .;
+*   			*(.sharedmemory)
+*   			*(.sharedmemory.*)
+*   			*(.gnu.linkonce.d.*)
+*   			__sharedmemory_end = .;
+* 			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
 *
-* 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+* 		2. Data elements that are passed by reference to the server side should be stored in the above shared
+* 			memory section.
+*
+* To keep things simple, by default the cache is disabled for this example
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -54,6 +58,7 @@
 * 	kal    03/23/21 Updated example for client support
 *       har    06/02/21 Fixed GCC warnings for R5 compiler
 * 4.7   kpt    01/13/22 Added support for PL microblaze
+*       kpt    03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 ******************************************************************************/
@@ -62,8 +67,6 @@
 #include "xil_cache.h"
 #include "xil_util.h"
 #include "xsecure_aesclient.h"
-#include "xsecure_defs.h"
-#include "xsecure_ipi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -92,6 +95,8 @@
 #define XSECURE_PMCDMA_DEVICEID	PMCDMA_0_DEVICE_ID
 #define XSECURE_SECURE_GCM_TAG_SIZE	(16U)
 #define XSECURE_AES_KEY_SIZE_256 	(2U)
+#define XSECURE_SHARED_TOTAL_MEM_SIZE		(XSECURE_SHARED_MEM_SIZE +\
+						XSECURE_IV_SIZE + XSECURE_KEY_SIZE)
 
 /**************************** Type Definitions *******************************/
 
@@ -99,16 +104,13 @@
 
 /************************** Function Prototypes ******************************/
 
-static s32 SecureAesExample(void);
+static s32 SecureAesExample(XSecure_ClientInstance *InstancePtr, u8* Key, u8* Iv);
 
 /************************** Variable Definitions *****************************/
-static u8 Iv[XSECURE_IV_SIZE];
-static u8 Key[XSECURE_KEY_SIZE];
 
 /* shared memory allocation */
-static u8 SharedMem[XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
-
-static XIpiPsu IpiInst;
+static u8 SharedMem[XSECURE_SHARED_TOTAL_MEM_SIZE] __attribute__((aligned(64U)))
+						__attribute__ ((section (".data.SharedMem")));
 
 #if defined (__GNUC__)
 static u8 Data[XSECURE_DATA_SIZE]__attribute__ ((aligned (64)))
@@ -152,41 +154,56 @@ static u8 Aad[XSECURE_AAD_SIZE];
 int main(void)
 {
 	int Status = XST_FAILURE;
+	XMailbox MailboxInstance;
+	XSecure_ClientInstance SecureClientInstance;
+	u8 *Key = NULL;
+	u8 *Iv = NULL;
 
-	Status = XSecure_InitializeIpi(&IpiInst);
+	#ifdef XSECURE_CACHE_DISABLE
+		Xil_DCacheDisable();
+	#endif
+
+	Status = XMailbox_Initialize(&MailboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialize failed:%08x \r\n", Status);
 		goto END;
 	}
 
-	Status = XSecure_SetIpi(&IpiInst);
+	Status = XSecure_ClientInit(&SecureClientInstance, &MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/* Set shared memory */
-	XSecure_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
+	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)(SharedMem +
+			XSECURE_KEY_SIZE + XSECURE_IV_SIZE), XSECURE_SHARED_MEM_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n Shared Memory initialization failed");
+		goto END;
+	}
+
+
+	Key = &SharedMem[0U];
+	Iv = (Key + XSECURE_KEY_SIZE);
 
 	/* Covert strings to buffers */
-	Status = Xil_ConvertStringToHexBE(
-			(const char *) (XSECURE_AES_KEY),
-				Key, XSECURE_KEY_SIZE_IN_BITS);
+	Status = Xil_ConvertStringToHexBE((const char *) (XSECURE_AES_KEY),
+			Key, XSECURE_KEY_SIZE_IN_BITS);
 	if (Status != XST_SUCCESS) {
 		xil_printf(
 			"String Conversion error (KEY):%08x !!!\r\n", Status);
 		goto END;
 	}
 
-	Status = Xil_ConvertStringToHexBE(
-			(const char *) (XSECURE_IV),
-				Iv, XSECURE_IV_SIZE_IN_BITS);
+	Status = Xil_ConvertStringToHexBE( (const char *) (XSECURE_IV),
+			Iv, XSECURE_IV_SIZE_IN_BITS);
 	if (Status != XST_SUCCESS) {
 		xil_printf(
 			"String Conversion error (IV):%08x !!!\r\n", Status);
 		goto END;
 	}
 
-	Status = Xil_ConvertStringToHexBE(
-			(const char *) (XSECURE_DATA),
+	Status = Xil_ConvertStringToHexBE((const char *) (XSECURE_DATA),
 				Data, XSECURE_DATA_SIZE_IN_BITS);
 	if (Status != XST_SUCCESS) {
 		xil_printf(
@@ -201,13 +218,12 @@ int main(void)
 		goto END;
 	}
 
-	Xil_DCacheFlushRange((UINTPTR)Iv, XSECURE_IV_SIZE);
+	Xil_DCacheFlushRange((UINTPTR)SharedMem, XSECURE_IV_SIZE + XSECURE_KEY_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_DATA_SIZE);
-	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_KEY_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Aad, XSECURE_AAD_SIZE);
 
 	/* Encryption and decryption of the data */
-	Status = SecureAesExample();
+	Status = SecureAesExample(&SecureClientInstance, Key, Iv);
 	if(Status == XST_SUCCESS) {
 		xil_printf("\r\nSuccessfully ran Versal AES example\r\n");
 	}
@@ -216,6 +232,7 @@ int main(void)
 	}
 
 END:
+	Status |= XMailbox_ReleaseSharedMem(&MailboxInstance);
 	return Status;
 }
 
@@ -226,7 +243,9 @@ END:
 * the encrypted data also checks whether GCM tag is matched or not and finally
 * compares the decrypted data with the original data provided.
 *
-* @param	None
+* @param	InstancePtr Pointter to the client instance
+* @param	Key Pointer to AES key
+* @param	Iv  Pointer to initialization vector
 *
 * @return
 *		- XST_FAILURE if the Aes example was failed.
@@ -236,13 +255,13 @@ END:
 *
 ****************************************************************************/
 /** //! [Generic AES example] */
-static s32 SecureAesExample(void)
+static s32 SecureAesExample(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv)
 {
 	s32 Status = XST_FAILURE;
 	u32 Index;
 
 	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize();
+	Status = XSecure_AesInitialize(InstancePtr);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes encrypt init is failed\n\r");
@@ -250,8 +269,8 @@ static s32 SecureAesExample(void)
 	}
 
 	/* Write AES key */
-	Status = XSecure_AesWriteKey(XSECURE_AES_USER_KEY_0,
-				XSECURE_AES_KEY_SIZE_256, (UINTPTR)&Key);
+	Status = XSecure_AesWriteKey(InstancePtr, XSECURE_AES_USER_KEY_0,
+				XSECURE_AES_KEY_SIZE_256, (UINTPTR)Key);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failure at key write\n\r");
 		goto END;
@@ -266,28 +285,28 @@ static s32 SecureAesExample(void)
 	Xil_DCacheInvalidateRange((UINTPTR)EncData, XSECURE_DATA_SIZE);
 	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 
-	Status = XSecure_AesEncryptInit(XSECURE_AES_USER_KEY_0,
-			XSECURE_AES_KEY_SIZE_256, (UINTPTR)&Iv);
+	Status = XSecure_AesEncryptInit(InstancePtr, XSECURE_AES_USER_KEY_0,
+			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes encrypt init is failed\n\r");
 		goto END;
 	}
 
-	Status = XSecure_AesUpdateAad((UINTPTR)Aad, XSECURE_AAD_SIZE);
+	Status = XSecure_AesUpdateAad(InstancePtr, (UINTPTR)Aad, XSECURE_AAD_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes update aad failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptUpdate((UINTPTR)&Data,(UINTPTR)EncData,
+	Status = XSecure_AesEncryptUpdate(InstancePtr, (UINTPTR)&Data,(UINTPTR)EncData,
 						XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes encrypt update is failed\n\r");
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptFinal((UINTPTR)&GcmTag);
+	Status = XSecure_AesEncryptFinal(InstancePtr, (UINTPTR)&GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed at GCM tag generation\n\r");
 		goto END;
@@ -311,27 +330,27 @@ static s32 SecureAesExample(void)
 	Xil_DCacheInvalidateRange((UINTPTR)DecData, XSECURE_DATA_SIZE);
 
 	/* Decrypt's the encrypted data */
-	Status = XSecure_AesDecryptInit(XSECURE_AES_USER_KEY_0,
-					XSECURE_AES_KEY_SIZE_256, (UINTPTR)&Iv);
+	Status = XSecure_AesDecryptInit(InstancePtr, XSECURE_AES_USER_KEY_0,
+					XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in decrypt init ");
 		goto END;
 	}
 
-	Status = XSecure_AesUpdateAad((UINTPTR)Aad, XSECURE_AAD_SIZE);
+	Status = XSecure_AesUpdateAad(InstancePtr, (UINTPTR)Aad, XSECURE_AAD_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf(" Aes update aad failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptUpdate((UINTPTR)&EncData, (UINTPTR)&DecData,
+	Status = XSecure_AesDecryptUpdate(InstancePtr, (UINTPTR)&EncData, (UINTPTR)&DecData,
 						 XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Aes decrypt update failed %x\n\r", Status);
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptFinal((UINTPTR)&GcmTag);
+	Status = XSecure_AesDecryptFinal(InstancePtr, (UINTPTR)&GcmTag);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Decryption failure- GCM tag was not matched\n\r");
 		goto END;
@@ -355,7 +374,6 @@ static s32 SecureAesExample(void)
 	}
 
 END:
-	Status |= XSecure_ReleaseSharedMem();
 	return Status;
 }
 /** //! [Generic AES example] */

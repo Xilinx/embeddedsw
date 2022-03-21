@@ -18,6 +18,7 @@
 * 1.0  kal   03/23/21 Initial release
 *      bm    05/13/21 Updated code to use common crypto instance
 * 4.6  gm    07/16/21 Added 64-bit address support
+* 4.7  kpt   03/18/21 Replaced XPlmi_DmaXfr with XPlmi_MemCpy64
 *
 * </pre>
 *
@@ -113,8 +114,7 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_RsaInParam RsaParams;
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
-	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&RsaParams, sizeof(RsaParams),
-			XPLMI_PMCDMA_0);
+	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -164,8 +164,7 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_RsaInParam RsaParams;
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
-	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&RsaParams, sizeof(RsaParams),
-			XPLMI_PMCDMA_0);
+	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -208,8 +207,7 @@ static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_RsaSignParams SignParams;
 
-	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&SignParams, sizeof(SignParams),
-			XPLMI_PMCDMA_0);
+	Status = XPlmi_MemCpy64((UINTPTR)&SignParams, Addr, sizeof(SignParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

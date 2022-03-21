@@ -20,6 +20,7 @@
 * 1.0   kal  03/23/21 Initial release
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       har  04/14/21 Added XSecure_AesEncryptData and XSecure_AesDecryptData
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 * @note
@@ -35,6 +36,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xsecure_mailbox.h"
+#include "xsecure_defs.h"
 
 /**************************** Type Definitions *******************************/
 typedef enum {
@@ -73,26 +76,28 @@ typedef enum {
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-int XSecure_AesInitialize(void);
-int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr);
-int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr);
-int XSecure_AesUpdateAad(u64 AadAddr, u32 AadSize);
-int XSecure_AesEncryptUpdate(u64 InDataAddr, u64 OutDataAddr,
+int XSecure_AesInitialize(XSecure_ClientInstance *InstancePtr);
+int XSecure_AesEncryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc,
+						u32 Size, u64 IvAddr);
+int XSecure_AesDecryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 Size,
+						u64 IvAddr);
+int XSecure_AesUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 AadSize);
+int XSecure_AesEncryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr, u64 OutDataAddr,
 	u32 Size, u32 IsLast);
-int XSecure_AesDecryptUpdate(u64 InDataAddr, u64 OutDataAddr,
+int XSecure_AesDecryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr, u64 OutDataAddr,
 	u32 Size, u32 IsLast);
-int XSecure_AesDecryptFinal(u64 GcmTagAddr);
-int XSecure_AesEncryptFinal(u64 GcmTagAddr);
-int XSecure_AesKeyZero(XSecure_AesKeySource KeySrc);
-int XSecure_AesWriteKey(XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr);
-int XSecure_AesKekDecrypt(u64 IvAddr, XSecure_AesKeySource DstKeySrc,
+int XSecure_AesDecryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr);
+int XSecure_AesEncryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr);
+int XSecure_AesKeyZero(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc);
+int XSecure_AesWriteKey(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr);
+int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr, XSecure_AesKeySource DstKeySrc,
 	XSecure_AesKeySource DecKeySrc, XSecure_AesKeySize Size);
-int XSecure_AesSetDpaCm(u8 DpaCmCfg);
-int XSecure_AesDecryptKat(void);
-int XSecure_AesDecryptCmKat(void);
-int XSecure_AesEncryptData(XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
+int XSecure_AesSetDpaCm(XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg);
+int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr);
+int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr);
+int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
-int XSecure_AesDecryptData(XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
+int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 
 #ifdef __cplusplus

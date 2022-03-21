@@ -18,6 +18,7 @@
 * 1.0  kal   03/23/2021 Initial release
 * 4.6  gm    07/16/2021 Added support for 64-bit address
 *      rb    08/11/2021 Fix compilation warnings
+* 4.7  kpt   03/18/2022 Replaced XPlmi_Dmaxfr with XPlmi_MemCpy64
 *
 * </pre>
 *
@@ -167,8 +168,7 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_EllipticSignGenParams EcdsaParams;
 
-	Status = XPlmi_DmaXfr(SrcAddr, (UINTPTR)&EcdsaParams, sizeof(EcdsaParams),
-			XPLMI_PMCDMA_0);
+	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, SrcAddr, sizeof(EcdsaParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -251,9 +251,7 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_EllipticSignVerifyParams EcdsaParams;
 
-	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&EcdsaParams,
-			sizeof(EcdsaParams),
-			XPLMI_PMCDMA_0);
+	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, Addr, sizeof(EcdsaParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

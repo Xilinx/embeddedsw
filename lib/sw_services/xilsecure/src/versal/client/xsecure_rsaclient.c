@@ -23,6 +23,7 @@
 *       kpt  01/13/21 Allocated CDO structure's in shared memory set by the
 *                     user
 *       am   03/08/22 Fixed MISRA C violations
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 * @note
@@ -30,8 +31,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xsecure_defs.h"
-#include "xsecure_ipi.h"
 #include "xsecure_rsaclient.h"
 
 /*****************************************************************************/
@@ -39,6 +38,7 @@
  * @brief	This function sends IPI request to Perform RSA decryption with
  * 		private key.
  *
+ * @param	InstancePtr	- Pointer to the client instance
  * @param	KeyAddr		- Address of the Key
  * @param	InDataAddr	- Address of the data which has to be decrypted
  * @param	Size		- Key size in bytes, Input size also should be
@@ -46,7 +46,7 @@
  *				- XSECURE_RSA_4096_KEY_SIZE,
  *				- XSECURE_RSA_2048_KEY_SIZE
  *				- XSECURE_RSA_3072_KEY_SIZE
- *		OutDataAddr	- Address of the buffer where resultant decrypted
+ * @param	OutDataAddr	- Address of the buffer where resultant decrypted
  *				data to be stored
  *
  * @return
@@ -54,13 +54,20 @@
  * 	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XSecure_RsaPrivateDecrypt(const u64 KeyAddr, const u64 InDataAddr,
-				const u32 Size, const u64 OutDataAddr)
+int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr,
+				const u64 InDataAddr, const u32 Size, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_RsaInParam *RsaParams = NULL;
 	u64 BufferAddr;
-	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&RsaParams);
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&RsaParams);
 
 	if ((RsaParams == NULL) || (MemSize < sizeof(XSecure_RsaInParam))) {
 		goto END;
@@ -73,9 +80,14 @@ int XSecure_RsaPrivateDecrypt(const u64 KeyAddr, const u64 InDataAddr,
 
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
-	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_RSA_PRIVATE_DECRYPT,
-			(u32)BufferAddr, (u32)(BufferAddr >> 32),
-			(u32)OutDataAddr, (u32)(OutDataAddr >> 32));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_RSA_PRIVATE_DECRYPT);
+	Payload[1U] = (u32)BufferAddr;
+	Payload[2U] = (u32)(BufferAddr >> 32);
+	Payload[3U] = (u32)(OutDataAddr);
+	Payload[4U] = (u32)(OutDataAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -86,6 +98,7 @@ END:
  * @brief	This function sends IPI request to Perform RSA encryption with
  * 		public key.
  *
+ * @param	InstancePtr	- Pointer to the client instance
  * @param	KeyAddr		- Address of the Key
  * @param	InDataAddr	- Address of the data which has to be encrypted
  * 				with public key
@@ -94,8 +107,8 @@ END:
  *				- XSECURE_RSA_4096_KEY_SIZE,
  *				- XSECURE_RSA_2048_KEY_SIZE
  *				- XSECURE_RSA_3072_KEY_SIZE
- *		OutDataAddr	- Address of the buffer where resultant decrypted
- *				data to be stored
+ * @param	OutDataAddr	- Address of the buffer where resultant decrypted
+ *							data to be stored
  *
  * @return
  *	-	XST_SUCCESS - If encryption was successful
@@ -103,13 +116,20 @@ END:
  *	-	XSECURE_RSA_STATE_MISMATCH_ERROR - If there is state mismatch
  *
  ******************************************************************************/
-int XSecure_RsaPublicEncrypt(const u64 KeyAddr, const u64 InDataAddr,
+int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr,
                                 const u32 Size, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_RsaInParam *RsaParams = NULL;
 	u64 BufferAddr;
-	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&RsaParams);
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&RsaParams);
 
 	if ((RsaParams == NULL) || (MemSize < sizeof(XSecure_RsaInParam))) {
 		goto END;
@@ -122,9 +142,14 @@ int XSecure_RsaPublicEncrypt(const u64 KeyAddr, const u64 InDataAddr,
 
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
-	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_RSA_PUBLIC_ENCRYPT,
-			(u32)BufferAddr, (u32)(BufferAddr >> 32),
-			(u32)OutDataAddr, (u32)(OutDataAddr >> 32));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_RSA_PUBLIC_ENCRYPT);
+	Payload[1U] = (u32)BufferAddr;
+	Payload[2U] = (u32)(BufferAddr >> 32);
+	Payload[3U] = (u32)(OutDataAddr);
+	Payload[4U] = (u32)(OutDataAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -134,6 +159,7 @@ END:
 /**
  * @brief	This function sends IPI request to Perform RSA sign verification
  *
+ * @param	InstancePtr	- Pointer to the client instance
  * @param	SignAddr 	- Address of the buffer which holds the
  * 				decrypted RSA signature.
  * @param	HashAddr	- Address of the HashAddr which has the
@@ -145,13 +171,20 @@ END:
  *	-	XST_FAILURE - In case of mismatch
  *
  *****************************************************************************/
-int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
+int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr,
 								const u32 Size)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_RsaSignParams *SignParams = NULL;
 	u64 BufferAddr;
-	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&SignParams);
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&SignParams);
 
 	if ((SignParams == NULL) || (MemSize < sizeof(XSecure_RsaSignParams))) {
 		goto END;
@@ -164,8 +197,12 @@ int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
 
 	XSecure_DCacheFlushRange(SignParams, sizeof(XSecure_RsaSignParams));
 
-	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_RSA_SIGN_VERIFY,
-			(u32)BufferAddr, (u32)(BufferAddr >> 32));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_RSA_SIGN_VERIFY);
+	Payload[1U] = (u32)BufferAddr;
+	Payload[2U] = (u32)(BufferAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -176,7 +213,7 @@ END:
  *
  * @brief	This function sends IPI request to Perform RSA KAT
  *
- * @param
+ * @param	InstancePtr	- Pointer to the client instance
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -185,11 +222,20 @@ END:
  *					RSA data not matched with expected data
  *
  ******************************************************************************/
-int XSecure_RsaKat(void)
+int XSecure_RsaKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
 
-	Status = XSecure_ProcessIpiWithPayload0(XSECURE_API_RSA_KAT);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_RSA_KAT);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
