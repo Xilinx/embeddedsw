@@ -20,6 +20,8 @@
 * 2.00a jz	06/04/11	partition header expands to 12 words
 * 5.00a kc	07/30/13	Added defines for image header information
 * 8.00a kc	01/16/13	Added defines for partition owner attribute
+* 9.0   vns	03/21/22	Deleted GetImageHeaderAndSignature() and added
+*				GetNAuthImageHeader()
 * </pre>
 *
 * @note
@@ -111,7 +113,7 @@ u32 GetPartitionHeaderInfo(u32 ImageBaseAddress);
 u32 PartitionMove(u32 ImageBaseAddress, PartHeader *Header);
 u32 ValidatePartitionHeaderChecksum(struct HeaderArray *H);
 u32 GetPartitionHeaderStartAddr(u32 ImageAddress, u32 *Offset);
-u32 GetImageHeaderAndSignature(u32 ImageAddress, u32 *Offset);
+u32 GetNAuthImageHeader(u32 ImageAddress);
 u32 GetFsblLength(u32 ImageAddress, u32 *FsblLength);
 u32 LoadPartitionsHeaderInfo(u32 PartHeaderOffset,  PartHeader *Header);
 u32 IsEmptyHeader(struct HeaderArray *H);
