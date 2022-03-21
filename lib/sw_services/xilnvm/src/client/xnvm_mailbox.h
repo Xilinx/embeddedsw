@@ -20,6 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  07/05/21 Initial release
 * 1.1   kpt  01/13/21 Added macro XNVM_SHARED_MEM_SIZE
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 * @note
@@ -35,7 +36,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xipipsu.h"
+#include "xilmailbox.h"
 #include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
@@ -61,17 +62,18 @@ extern "C" {
 /* Max size of shared memory used to store the CDO command */
 #define XNVM_SHARED_MEM_SIZE		(256U)
 
-/**************************** Type Definitions *******************************/
-typedef enum {
-	XNVM_SHARED_MEM_UNINITIALIZED = 0, /**< Shared memory uninitialized */
-	XNVM_SHARED_MEM_INITIALIZED, /**< Shared memory initialized */
-}XNvm_IpiSharedMemState;
+#define XNVM_PAYLOAD_LEN_1U		(1U)
+#define XNVM_PAYLOAD_LEN_2U		(2U)
+#define XNVM_PAYLOAD_LEN_3U		(3U)
+#define XNVM_PAYLOAD_LEN_4U		(4U)
+#define XNVM_PAYLOAD_LEN_5U		(5U)
+#define XNVM_PAYLOAD_LEN_6U		(6U)
+#define XNVM_PAYLOAD_LEN_7U		(7U)
 
+/**************************** Type Definitions *******************************/
 typedef struct {
-	u64 Address;
-	u32 Size;
-	XNvm_IpiSharedMemState SharedMemState;
-}XNvm_IpiSharedMem;
+	XMailbox *MailboxPtr;
+} XNvm_ClientInstance;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -88,23 +90,8 @@ static inline u32 Header(u32 Len, u32 ApiId)
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-int XNvm_ProcessIpi(u32 Arg0, u32 Arg1, u32 Arg2, u32 Arg3, u32 Arg4,
-	u32 Arg5);
-int XNvm_ProcessIpiWithPayload0(u32 ApiId);
-int XNvm_ProcessIpiWithPayload1(u32 ApiId, u32 Arg1);
-int XNvm_ProcessIpiWithPayload2(u32 ApiId, u32 Arg1, u32 Arg2);
-int XNvm_ProcessIpiWithPayload3(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3);
-int XNvm_ProcessIpiWithPayload4(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
-	u32 Arg4);
-int XNvm_ProcessIpiWithPayload5(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
-	u32 Arg4, u32 Arg5);
-int XNvm_IpiSend(u32 *Payload);
-int XNvm_IpiReadBuff32(void);
-int XNvm_SetIpi(XIpiPsu* const IpiInst);
-int XNvm_InitializeIpi(XIpiPsu* const IpiInstPtr);
-void XNvm_SetSharedMem(u64 Address, u32 Size);
-u32 XNvm_GetSharedMem(u64 **Address);
-int XNvm_ReleaseSharedMem(void);
+int XNvm_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
+int XNvm_ClientInit(XNvm_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
 
 #ifdef __cplusplus
 }

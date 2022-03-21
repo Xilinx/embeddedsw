@@ -12,6 +12,9 @@
 * This file illustrates how to program AES key of Versal BBRAM. The key provided
 * by XNVM_BBRAM_AES_KEY macro is written to the BBRAM
 *
+* To build this application, xilmailbox library must be included in BSP and
+* xilnvm library must be in client mode
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -19,6 +22,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   kal     06/28/21 First release
 * 1.1   kpt     01/13/22 Added support for PL microblaze
+*       kpt     03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 *
@@ -40,9 +44,9 @@
 *
 * Procedure to link and compile the example for the default ddr less designs
 * ------------------------------------------------------------------------------------------------------------
-* By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
-* placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
-* contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+* The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
+* any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
+* which is acccessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -53,18 +57,19 @@
 *						OR
 *
 *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
-*			sharedmemory (NOLOAD) : {
-*			= ALIGN(4);
-*			__bss_start = .;
-*			*(.bss)
-*			*(.bss.*)
-*			*(.gnu.linkonce.b.*)
-*			*(COMMON)
-*			. = ALIGN(4);
-*			__bss_end = .;
-*			} > Memory(OCM,TCM or DDR)
+*			.sharedmemory : {
+*   			. = ALIGN(4);
+*   			__sharedmemory_start = .;
+*   			*(.sharedmemory)
+*   			*(.sharedmemory.*)
+*   			*(.gnu.linkonce.d.*)
+*   			__sharedmemory_end = .;
+* 			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
 *
-* 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+* 		2. Data elements that are passed by reference to the server side should be stored in the above shared
+* 			memory section.
+*
+* To keep things simple, by default the cache is disabled for this example
 *
 ******************************************************************************/
 
@@ -72,8 +77,6 @@
 #include "xil_cache.h"
 #include "xil_util.h"
 #include "xnvm_bbramclient.h"
-#include "xnvm_defs.h"
-#include "xnvm_ipi.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -106,27 +109,21 @@
 
 
 /************************** Variable Definitions ****************************/
-static XIpiPsu IpiInst;
 
-/* If the data is read from a shared memory written by the other processer
- * we need to invalidate the cache. Because of this requirement the data
- * need to be cache aligned in such a way that no other data in the cache
- * line impact the read process. To serve the same, the below structure of
- * 64 bytes is created and used only the required 4 bytes for user data.
+/*
+ * if cache is enabled, User need to make sure the data is aligned to cache line
  */
-struct CacheAlignedData {
-	u32 UsrData;
-	u32 Unused[XNVM_CACHE_LINE_LEN / XNVM_WORD_LEN - 1U];
-};
 
-struct CacheAlignedData ReadData = {0U};
+/* shared memory allocation */
+static u8 SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
+		__attribute__((section(".data.SharedMem")));
 
 /************************** Function Prototypes ******************************/
-static int BbramWriteAesKey(void);
+static int BbramWriteAesKey(XNvm_ClientInstance *InstancePtr);
 static int XNvm_ValidateAesKey(const char *Key);
-static int BbramWriteUsrData(void);
-static int BbramReadUsrData(void);
-static int BbramLockUsrData(void);
+static int BbramWriteUsrData(XNvm_ClientInstance *InstancePtr);
+static int BbramReadUsrData(XNvm_ClientInstance *InstancePtr);
+static int BbramLockUsrData(XNvm_ClientInstance *InstancePtr);
 
 /*****************************************************************************/
 /**
@@ -145,35 +142,49 @@ static int BbramLockUsrData(void);
 int main(void)
 {
 	int Status = XST_FAILURE;
+	XMailbox MailboxInstance;
+	XNvm_ClientInstance NvmClientInstance;
 
 	xil_printf("BBRAM AES Key writing client example for Versal\n\r");
 
-	Status = XNvm_InitializeIpi(&IpiInst);
+	#ifdef XNVM_CACHE_DISABLE
+		Xil_DCacheDisable();
+	#endif
+
+	Status = XMailbox_Initialize(&MailboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XNvm_SetIpi(&IpiInst);
+	Status = XNvm_ClientInit(&NvmClientInstance, &MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = BbramWriteAesKey();
+	/* Set shared memory */
+	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)&SharedMem[0U],
+			XNVM_SHARED_MEM_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n shared memory initialization failed");
+		goto END;
+	}
+
+	Status = BbramWriteAesKey(&NvmClientInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = BbramWriteUsrData();
+	Status = BbramWriteUsrData(&NvmClientInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = BbramReadUsrData();
+	Status = BbramReadUsrData(&NvmClientInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = BbramLockUsrData();
+	Status = BbramLockUsrData(&NvmClientInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -200,10 +211,10 @@ END:
 *		- XST_FAILURE if the Aes key write failed
 *
 ******************************************************************************/
-static int BbramWriteAesKey(void)
+static int BbramWriteAesKey(XNvm_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
-	u8 AesKey[XNVM_BBRAM_AES_KEY_LEN_IN_BYTES];
+	u8 *AesKey = &SharedMem[0U];
 
 	/* Validate the key */
 	Status = XNvm_ValidateAesKey((char *)XNVM_BBRAM_AES_KEY);
@@ -218,7 +229,7 @@ static int BbramWriteAesKey(void)
 	Xil_DCacheFlushRange((UINTPTR)AesKey, XNVM_BBRAM_AES_KEY_LEN_IN_BYTES);
 
 	/* Write AES key to BBRAM */
-	Status = XNvm_BbramWriteAesKey((UINTPTR)AesKey,
+	Status = XNvm_BbramWriteAesKey(InstancePtr, (UINTPTR)AesKey,
 				       XNVM_BBRAM_AES_KEY_LEN_IN_BYTES);
 
 END:
@@ -235,11 +246,11 @@ END:
 *		- XST_FAILURE if the user data write failed
 *
 ******************************************************************************/
-static int BbramWriteUsrData(void)
+static int BbramWriteUsrData(XNvm_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XNvm_BbramWriteUsrData(XNVM_BBRAM_USER_DATA);
+	Status = XNvm_BbramWriteUsrData(InstancePtr, XNVM_BBRAM_USER_DATA);
 
 	return Status;
 }
@@ -253,17 +264,17 @@ static int BbramWriteUsrData(void)
 *		- XST_FAILURE if the user data read failed
 *
 ******************************************************************************/
-static int BbramReadUsrData(void)
+static int BbramReadUsrData(XNvm_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
-	u64 DstAddr = (UINTPTR)&ReadData.UsrData;
+	u32 *UsrData = (u32*)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, XNVM_CACHE_LINE_LEN);
-	Status = XNvm_BbramReadUsrData((UINTPTR)DstAddr);
-	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, XNVM_CACHE_LINE_LEN);
+	Xil_DCacheInvalidateRange((UINTPTR)UsrData, XNVM_CACHE_LINE_LEN);
+	Status = XNvm_BbramReadUsrData(InstancePtr, (UINTPTR)UsrData);
+	Xil_DCacheInvalidateRange((UINTPTR)UsrData, XNVM_CACHE_LINE_LEN);
 
 	if (Status == XST_SUCCESS) {
-		xil_printf("Bbram UserData : %x\n\r", ReadData.UsrData);
+		xil_printf("Bbram UserData : %x\n\r", *UsrData);
 	}
 
 	return Status;
@@ -278,11 +289,11 @@ static int BbramReadUsrData(void)
 *		- XST_FAILURE if the user data lock failed
 *
 ******************************************************************************/
-static int BbramLockUsrData(void)
+static int BbramLockUsrData(XNvm_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XNvm_BbramLockUsrDataWrite();
+	Status = XNvm_BbramLockUsrDataWrite(InstancePtr);
 
 	return Status;
 }

@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  07/05/21 Initial release
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 *
@@ -35,6 +36,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xnvm_mailbox.h"
+#include "xnvm_defs.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -43,11 +46,11 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XNvm_BbramWriteAesKey(const u64 KeyAddr, const u32 KeyLen);
-int XNvm_BbramZeroize(void);
-int XNvm_BbramWriteUsrData(const u32 UsrData);
-int XNvm_BbramReadUsrData(const u64 OutDataAddr);
-int XNvm_BbramLockUsrDataWrite(void);
+int XNvm_BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, const u64 KeyAddr, const u32 KeyLen);
+int XNvm_BbramZeroize(XNvm_ClientInstance *InstancePtr);
+int XNvm_BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, const u32 UsrData);
+int XNvm_BbramReadUsrData(XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr);
+int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 

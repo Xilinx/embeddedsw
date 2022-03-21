@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  07/05/21 Initial release
 * 1.1   am   02/28/22 Fixed MISRA C violation rule 4.5
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 *
@@ -27,8 +28,6 @@
 
 /***************************** Include Files *********************************/
 #include "xnvm_bbramclient.h"
-#include "xnvm_defs.h"
-#include "xnvm_ipi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -44,6 +43,7 @@
 /**
  * @brief       This function sends IPI request to program BBRAM AES key
  *
+ * @param	InstancePtr Pointer to the client instance
  * @param	KeyAddr		Address of the key buffer where the key to
  * 				be programmed is stored
  *
@@ -53,16 +53,26 @@
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_BbramWriteAesKey(const u64 KeyAddr, const u32 KeyLen)
+int XNvm_BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, const u64 KeyAddr,
+						const u32 KeyLen)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_PAYLOAD_LEN_4U];
 
-	Status = XNvm_ProcessIpiWithPayload3((u32)XNVM_API_ID_BBRAM_WRITE_AES_KEY,
-			KeyLen, (u32)KeyAddr, (u32)(KeyAddr >> 32U));
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_WRITE_AES_KEY);
+	Payload[1U] = KeyLen;
+	Payload[2U] = (u32)KeyAddr;
+	Payload[3U] = (u32)(KeyAddr >> 32U);
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "BBRAM programming Failed \r\n");
 	}
-
+END:
 	return Status;
 }
 
@@ -70,16 +80,25 @@ int XNvm_BbramWriteAesKey(const u64 KeyAddr, const u32 KeyLen)
 /**
  * @brief       This function sends IPI request to zeroize the BBRAM
  *
+ * @param	InstancePtr Pointer to the client instance
+ *
  * @return	- XST_SUCCESS - If the BBRAM zeroize is successful
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_BbramZeroize(void)
+int XNvm_BbramZeroize(XNvm_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_PAYLOAD_LEN_1U];
 
-	Status = XNvm_ProcessIpiWithPayload0((u32)XNVM_API_ID_BBRAM_ZEROIZE);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_ZEROIZE);
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+END:
 	return Status;
 }
 
@@ -88,19 +107,27 @@ int XNvm_BbramZeroize(void)
  * @brief	This function sends IPI request to write the user data into
  * 		BBRAM user data registers
  *
+ * @param	InstancePtr Pointer to the client instance
  * @param	UsrData		User data to be written to BBRAM
  *
  * @return	- XST_SUCCESS - If the BBRAM user data write successful
  *		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
-int XNvm_BbramWriteUsrData(const u32 UsrData)
+int XNvm_BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, const u32 UsrData)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_PAYLOAD_LEN_2U];
 
-	Status = XNvm_ProcessIpiWithPayload1((u32)XNVM_API_ID_BBRAM_WRITE_USER_DATA,
-			UsrData);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_WRITE_USER_DATA);
+	Payload[1U] = UsrData;
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+END:
 	return Status;
 }
 
@@ -108,6 +135,7 @@ int XNvm_BbramWriteUsrData(const u32 UsrData)
 /**
  * @brief	This function sends IPI request to read the BBRAM user data
  *
+ * @param	InstancePtr Pointer to the client instance
  * @param	OutDataAddr	Address of the output buffer to store the
  * 				BBRAM user data
  *
@@ -115,13 +143,21 @@ int XNvm_BbramWriteUsrData(const u32 UsrData)
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_BbramReadUsrData(const u64 OutDataAddr)
+int XNvm_BbramReadUsrData(XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_PAYLOAD_LEN_3U];
 
-	Status = XNvm_ProcessIpiWithPayload2((u32)XNVM_API_ID_BBRAM_READ_USER_DATA,
-			(u32)OutDataAddr, (u32)(OutDataAddr >> 32U));
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_READ_USER_DATA);
+	Payload[1U] = (u32)OutDataAddr;
+	Payload[2U] = (u32)(OutDataAddr >> 32U);
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+END:
 	return Status;
 }
 
@@ -131,15 +167,24 @@ int XNvm_BbramReadUsrData(const u64 OutDataAddr)
  * @brief	This function sends IPI request to lock the user data written
  * 		to BBRAM
  *
+ * @param	InstancePtr Pointer to the client instance
+ *
  * @return	- XST_SUCCESS - If the Locking is successful
  *		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_BbramLockUsrDataWrite(void)
+int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_PAYLOAD_LEN_1U];
 
-	Status = XNvm_ProcessIpiWithPayload0((u32)XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA);
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+END:
 	return Status;
 }
