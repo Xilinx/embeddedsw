@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  03/23/21 Initial release
 * 4.5   kal  03/23/20 Updated file version to sync with library version
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 * @note
@@ -34,6 +35,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xsecure_mailbox.h"
+#include "xsecure_defs.h"
 
 /**************************** Type Definitions *******************************/
 
@@ -42,13 +45,13 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-int XSecure_RsaPrivateDecrypt(const u64 KeyAddr, const u64 InDataAddr,
+int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr,
 				const u32 Size, const u64 OutDataAddr);
-int XSecure_RsaPublicEncrypt(const u64 KeyAddr, const u64 InDataAddr,
+int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr,
 				const u32 Size, const u64 OutDataAddr);
-int XSecure_RsaSignVerification(const u64 SignAddr, const u64 HashAddr,
+int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr,
 				const u32 Size);
-int XSecure_RsaKat(void);
+int XSecure_RsaKat(XSecure_ClientInstance *InstancePtr);
 
 #ifdef __cplusplus
 }

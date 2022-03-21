@@ -10,13 +10,15 @@
 * @addtogroup xsecure_sha3_example_apis XilSecure SHA3 API Example Usage
 * @{
 * This example illustrates the SHA3 hash calculation.
+* To build this application, xilmailbox library must be included in BSP and xilsecure
+* must be in client mode
 *
 * @note
 * Procedure to link and compile the example for the default ddr less designs
 * ------------------------------------------------------------------------------------------------------------
-* By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
-* placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
-* contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+* The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
+* any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
+* which is acccessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -27,18 +29,19 @@
 *						OR
 *
 *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
-*			sharedmemory (NOLOAD) : {
-*			= ALIGN(4);
-*			__bss_start = .;
-*			*(.bss)
-*			*(.bss.*)
-*			*(.gnu.linkonce.b.*)
-*			*(COMMON)
-*			. = ALIGN(4);
-*			__bss_end = .;
-*			} > Memory(OCM,TCM or DDR)
+*			.sharedmemory : {
+*   			. = ALIGN(4);
+*   			__sharedmemory_start = .;
+*   			*(.sharedmemory)
+*   			*(.sharedmemory.*)
+*   			*(.gnu.linkonce.d.*)
+*   			__sharedmemory_end = .;
+* 			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
 *
-* 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+* 		2. Data elements that are passed by reference to the server side should be stored in the above shared
+* 			memory section.
+*
+* To keep things simple, by default the cache is disabled for this example
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -48,6 +51,7 @@
 * 4.5   kal  03/23/21 Updated file version to sync with library version
 *       har  06/02/21 Fixed GCC warnings for R5 compiler
 * 4.7   kpt  01/13/22 Added support for PL microblaze
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 ******************************************************************************/
@@ -55,12 +59,9 @@
 /***************************** Include Files *********************************/
 #include "xil_cache.h"
 #include "xil_util.h"
-#include "xsecure_ipi.h"
 #include "xsecure_shaclient.h"
 
 /************************** Constant Definitions *****************************/
-
-static XIpiPsu IpiInst;
 
 /**************************** Type Definitions *******************************/
 
@@ -77,17 +78,24 @@ static void SecureSha3PrintHash(const u8 *Hash);
 
 /************************** Variable Definitions *****************************/
 
-static const char Data[SHA3_INPUT_DATA_LEN + 1U] = "XILINX";
+static const char Data[SHA3_INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data"))) = "XILINX";
 
-static const u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] =
-				     {0x70,0x69,0x77,0x35,0x0b,0x93,
-				      0x92,0xa0,0x48,0x2c,0xd8,0x23,
-				      0x38,0x47,0xd2,0xd9,0x2d,0x1a,
-				      0x95,0x0c,0xad,0xa8,0x60,0xc0,
-				      0x9b,0x70,0xc6,0xad,0x6e,0xf1,
-				      0x5d,0x49,0x68,0xa3,0x50,0x75,
-				      0x06,0xbb,0x0b,0x9b,0x03,0x7d,
-				      0xd5,0x93,0x76,0x50,0xdb,0xd4};
+static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
+
+static const u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] = {
+	0x70, 0x69, 0x77, 0x35, 0x0b, 0x93,
+	0x92, 0xa0, 0x48, 0x2c, 0xd8, 0x23,
+	0x38, 0x47, 0xd2, 0xd9, 0x2d, 0x1a,
+	0x95, 0x0c, 0xad, 0xa8, 0x60, 0xc0,
+	0x9b, 0x70, 0xc6, 0xad, 0x6e, 0xf1,
+	0x5d, 0x49, 0x68, 0xa3, 0x50, 0x75,
+	0x06, 0xbb, 0x0b, 0x9b, 0x03, 0x7d,
+	0xd5, 0x93, 0x76, 0x50, 0xdb, 0xd4
+};
+
+/* shared memory allocation */
+static u8 SharedMem[XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
+		__attribute__ ((section (".data.SharedMem")));
 
 /*****************************************************************************/
 /**
@@ -104,17 +112,11 @@ static const u8 ExpHash[SHA3_HASH_LEN_IN_BYTES] =
 ******************************************************************************/
 int main(void)
 {
-	int Status;
+	int Status = XST_FAILURE;
 
-	Status = XSecure_InitializeIpi(&IpiInst);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XSecure_SetIpi(&IpiInst);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	#ifdef XSECURE_CACHE_DISABLE
+		Xil_DCacheDisable();
+	#endif
 
 	Status = SecureSha3Example();
 	if(Status == XST_SUCCESS) {
@@ -123,7 +125,7 @@ int main(void)
 	else {
 		xil_printf("SHA Example failed");
 	}
-END:
+
 	return Status;
 }
 
@@ -144,12 +146,33 @@ END:
 *
 ****************************************************************************/
 /** //! [SHA3 example] */
-static u32 SecureSha3Example()
+static u32 SecureSha3Example(void)
 {
-	u8 OutAddr[SHA3_HASH_LEN_IN_BYTES]__attribute__ ((aligned (64))) = {0U};
-	u64 DstAddr = (UINTPTR)&OutAddr;
+	u64 DstAddr = (UINTPTR)&Sha3Hash;
 	u32 Status = XST_FAILURE;
 	u32 Size = 0U;
+	XMailbox MailboxInstance;
+	XSecure_ClientInstance SecureClientInstance;
+
+	Status = XMailbox_Initialize(&MailboxInstance, 0U);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialize failed:%08x \r\n", Status);
+		goto END;
+	}
+
+	Status = XSecure_ClientInit(&SecureClientInstance, &MailboxInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Client initialize failed:%08x \r\n", Status);
+		goto END;
+	}
+
+	/* Set shared memory */
+	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)&SharedMem[0U],
+			XSECURE_SHARED_MEM_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n shared memory initialization failed");
+		goto END;
+	}
 
 	Size = Xil_Strnlen(Data, SHA3_INPUT_DATA_LEN);
 	if (Size != SHA3_INPUT_DATA_LEN) {
@@ -159,7 +182,7 @@ static u32 SecureSha3Example()
 	}
 
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
-	Status = XSecure_Sha3Digest((UINTPTR)&Data, DstAddr, Size);
+	Status = XSecure_Sha3Digest(&SecureClientInstance, (UINTPTR)&Data, DstAddr, Size);
 	if(Status != XST_SUCCESS) {
 		xil_printf("Calculation of SHA digest failed, Status = %x \n\r", Status);
 		goto END;
@@ -167,9 +190,9 @@ static u32 SecureSha3Example()
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
 
 	xil_printf(" Calculated Hash \r\n ");
-	SecureSha3PrintHash((u8 *)(UINTPTR)OutAddr);
+	SecureSha3PrintHash((u8 *)(UINTPTR)&Sha3Hash);
 
-	Status = SecureSha3CompareHash(OutAddr, ExpHash);
+	Status = SecureSha3CompareHash((u8*)(UINTPTR)&Sha3Hash, ExpHash);
 END:
 	return Status;
 }

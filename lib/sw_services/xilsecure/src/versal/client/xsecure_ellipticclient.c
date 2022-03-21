@@ -24,6 +24,7 @@
 *       kpt  01/13/21 Allocated CDO structure's in shared memory set by the
 *                     user
 *       am   03/08/22 Fixed MISRA C violations
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 * @note
@@ -31,8 +32,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xsecure_defs.h"
-#include "xsecure_ipi.h"
 #include "xsecure_ellipticclient.h"
 
 /*****************************************************************************/
@@ -40,6 +39,7 @@
  * @brief	This function sends IPI request to generate elliptic signature
  * 		for a given hash and curve type
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	CrvType		- Type of elliptic curve
  * @param	HashAddr	- Address of the hash for which sign has to be
  * 				generated
@@ -58,13 +58,20 @@
  *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
-int XSecure_EllipticGenerateSign(u32 CurveType, u64 HashAddr, u32 Size,
-			u64 PrivKeyAddr, u64 EPrivKeyAddr, u64 SignAddr)
+int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 HashAddr,
+			u32 Size, u64 PrivKeyAddr, u64 EPrivKeyAddr, u64 SignAddr)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_EllipticSignGenParams *EcdsaParams = NULL;
 	u64 Buffer;
-	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&EcdsaParams);
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EcdsaParams);
 
 	if ((EcdsaParams == NULL) || (MemSize < sizeof(XSecure_EllipticSignGenParams))) {
 		goto END;
@@ -79,9 +86,14 @@ int XSecure_EllipticGenerateSign(u32 CurveType, u64 HashAddr, u32 Size,
 
 	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignGenParams));
 
-	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_ELLIPTIC_GENERATE_SIGN,
-			(u32)Buffer, (u32)(Buffer >> 32),
-			(u32)SignAddr,(u32)(SignAddr >> 32));
+		/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_GENERATE_SIGN);
+	Payload[1U] = (u32)Buffer;
+	Payload[2U] = (u32)(Buffer >> 32);
+	Payload[3U] = (u32)(SignAddr);
+	Payload[4U] = (u32)(SignAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -92,6 +104,7 @@ END:
  * @brief	This function sends IPI request to generate Public Key for a
  * 		given curve type
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	CrvType		- Type of elliptic curve
  * @param	PrivKeyAddr	- Address of the static private key
  * @param	PubKeyAddr	- Address of the buffer where public key to be
@@ -105,14 +118,27 @@ END:
  *	-	XSECURE_ELLIPTIC_GEN_KEY_ERR - Error in generating Public key
  *
  ******************************************************************************/
-int XSecure_EllipticGenerateKey(u32 CurveType, u64 PrivKeyAddr, u64 PubKeyAddr)
+int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 PrivKeyAddr,
+						u64 PubKeyAddr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_6U];
 
-	Status = XSecure_ProcessIpiWithPayload5(XSECURE_API_ELLIPTIC_GENERATE_KEY,
-			CurveType, (u32)PrivKeyAddr, (u32)(PrivKeyAddr >> 32),
-			(u32)PubKeyAddr, (u32)(PubKeyAddr >> 32));
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_GENERATE_KEY);
+	Payload[1U] = CurveType;
+	Payload[2U] = (u32)PrivKeyAddr;
+	Payload[3U] = (u32)(PrivKeyAddr >> 32);
+	Payload[4U] = (u32)PubKeyAddr;
+	Payload[5U] = (u32)(PubKeyAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -121,6 +147,7 @@ int XSecure_EllipticGenerateKey(u32 CurveType, u64 PrivKeyAddr, u64 PubKeyAddr)
  * @brief	This function sends IPI request to validate the public key for
  * 		a given curve type
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	CrvType		- Type of elliptic curve
  * @param	KeyAddr		- Address of the pubilc key to be validated
  *
@@ -134,14 +161,24 @@ int XSecure_EllipticGenerateKey(u32 CurveType, u64 PrivKeyAddr, u64 PubKeyAddr)
  *	-	XST_FAILURE			- On failure
  *
  *****************************************************************************/
-int XSecure_EllipticValidateKey(u32 CurveType, u64 KeyAddr)
+int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 KeyAddr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_4U];
 
-	Status = XSecure_ProcessIpiWithPayload3(
-			XSECURE_API_ELLIPTIC_VALIDATE_KEY, CurveType,
-			(u32)KeyAddr, (u32)(KeyAddr >> 32));
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_VALIDATE_KEY);
+	Payload[1U] = CurveType;
+	Payload[2U] = (u32)KeyAddr;
+	Payload[3U] = (u32)(KeyAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -150,6 +187,7 @@ int XSecure_EllipticValidateKey(u32 CurveType, u64 KeyAddr)
  * @brief	This function sends IPI request to verify signature for a
  * 		given hash, key and curve type
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	CrvType		- Type of elliptic curve
  * @param	HashAddr	- Address of the hash for which sign has to be
  * 				generated
@@ -173,13 +211,21 @@ int XSecure_EllipticValidateKey(u32 CurveType, u64 KeyAddr)
  *	-	XST_FAILURE - On failure
  *
  *****************************************************************************/
-int XSecure_EllipticVerifySign(u32 CurveType, u64 HashAddr, u32 Size,
-                        u64 PubKeyAddr, u64 SignAddr)
+int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 HashAddr,
+						u32 Size, u64 PubKeyAddr, u64 SignAddr)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_EllipticSignVerifyParams *EcdsaParams = NULL;
 	u64 Buffer;
-	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&EcdsaParams);
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EcdsaParams);
 
 	if ((EcdsaParams == NULL) || (MemSize < sizeof(XSecure_EllipticSignVerifyParams))) {
 		goto END;
@@ -194,9 +240,12 @@ int XSecure_EllipticVerifySign(u32 CurveType, u64 HashAddr, u32 Size,
 
 	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignVerifyParams));
 
-	Status = XSecure_ProcessIpiWithPayload2(
-			XSECURE_API_ELLIPTIC_VERIFY_SIGN,
-			(u32)Buffer, (u32)(Buffer >> 32));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_VERIFY_SIGN);
+	Payload[1U] = (u32)Buffer;
+	Payload[2U] = (u32)(Buffer >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -207,6 +256,7 @@ END:
  *
  * @brief	This function sends IPI request to perform KAT on ECC core
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	CrvType		- Type of elliptic curve
  *
  * @return
@@ -217,12 +267,21 @@ END:
  *							fails
  *
  ******************************************************************************/
-int XSecure_EllipticKat(u32 CurveType)
+int XSecure_EllipticKat(XSecure_ClientInstance *InstancePtr, u32 CurveType)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
 
-	Status = XSecure_ProcessIpiWithPayload1(XSECURE_API_ELLIPTIC_KAT,
-			CurveType);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_KAT);
+	Payload[1U] = CurveType;
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
