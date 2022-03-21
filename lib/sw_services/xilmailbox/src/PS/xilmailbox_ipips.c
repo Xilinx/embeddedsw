@@ -26,6 +26,7 @@
  *                        already been setup or not and if it was setup skip
  *                        initalizing GIC again and just register handlers.
  * 1.6   sd   28/02/21    Add support for microblaze
+ *       kpt  03/16/21    Fixed compilation warning on microblaze
  *</pre>
  *
  *@note
@@ -51,9 +52,9 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				  XMailbox *InstancePtr,
 				  u32 IpiIntrId);
-#endif
 static void XIpiPs_ErrorIntrHandler(void *XMailboxPtr);
 static void XIpiPs_IntrHandler(void *XMailboxPtr);
+#endif
 
 /****************************************************************************/
 /**
@@ -344,7 +345,6 @@ static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -390,3 +390,4 @@ static void XIpiPs_ErrorIntrHandler(void *XMailboxPtr)
 		InstancePtr->ErrorHandler(InstancePtr->ErrorRefPtr, Status);
 	}
 }
+#endif

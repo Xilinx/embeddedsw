@@ -43,6 +43,7 @@
  *			  with A72 and PMC.
  * 1.3   sd   03/03/21    Doxygen Fixes
  * 1.6   sd   28/02/21    Add support for microblaze
+ *       kpt  03/16/22    Added shared memory API's for IPI utilization
  *</pre>
  *
  *@note
@@ -72,6 +73,21 @@ typedef void (*XMailbox_RecvHandler) (void *CallBackRefPtr); /**< Receive handle
 typedef void (*XMailbox_ErrorHandler) (void *CallBackRefPtr, u32 ErrorMask); /**< Error handler */
 
 /**
+ * This typedef contains XMAILBOX shared memory state.
+ */
+typedef enum {
+	XMAILBOX_SHARED_MEM_UNINITIALIZED = 0, /**< Shared memory uninitialized */
+	XMAILBOX_SHARED_MEM_INITIALIZED, /**< Shared memory initialized */
+}XMailbox_IpiSharedMemState;
+
+
+typedef struct {
+	u64 Address; /**< Address of the shared memory location */
+	u32 Size; /**< Size of the shared memory location */
+	XMailbox_IpiSharedMemState SharedMemState; /**< State of shared memory */
+}XMailbox_IpiSharedMem;
+
+/**
  * Data structure used to refer XilMailbox
  */
 typedef struct XMboxTag {
@@ -85,6 +101,7 @@ typedef struct XMboxTag {
 	void *ErrorRefPtr; /**<  To be passed to the error interrupt callback */
 	void *RecvRefPtr;  /**< To be passed to the receive interrupt callback */
 	XMailbox_Agent Agent; /**< Agent to store IPI channel information */
+	XMailbox_IpiSharedMem SharedMem;
 } XMailbox; /**< XilMailbox structure */
 
 /**
@@ -104,6 +121,9 @@ u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 		  u32 MsgLen, u8 BufferType);
 s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 			 void *CallBackFuncPtr, void *CallBackRefPtr);
+u32 XMailbox_SetSharedMem(XMailbox *InstancePtr, u64 Address, u32 Size);
+u32 XMailbox_GetSharedMem(XMailbox *InstancePtr, u64 **Address);
+int XMailbox_ReleaseSharedMem(XMailbox *InstancePtr);
 
 #ifdef __cplusplus
 }
