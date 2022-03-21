@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2012 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,9 @@
 *					 					 fallback unless FSBL* and FSBL are
 *					 					 identical in length
 *					 Fix for CR#791245 - Use of xilrsa in FSBL
+* 10.0  vns 03/18/22 Fixed CR#1125470 to authenticate the parition header buffer
+*                    which is being used instead of one from DDR. Modified
+*                    prototype of AuthenticatePartition() API
 * </pre>
 *
 * @note
@@ -160,7 +163,9 @@ void SetPpk(void )
 *
 * This function Authenticate Partition Signature
 *
-* @param	Partition header pointer
+* @param	AC is the pointer to authentication certificate
+* @param	Hash is the pointer which holds the SHA2 digest of data
+*		to be authenticated.
 *
 * @return
 *		- XST_SUCCESS if Authentication passed
@@ -169,7 +174,7 @@ void SetPpk(void )
 * @note		None
 *
 ******************************************************************************/
-u32 AuthenticatePartition(u8 *Buffer, u32 Size)
+u32 AuthenticatePartition(u8 *Ac, u8* Hash)
 {
 	u8 DecryptSignature[256];
 	u8 HashSignature[32];
@@ -189,7 +194,7 @@ u32 AuthenticatePartition(u8 *Buffer, u32 Size)
 	/*
 	 * Point to Authentication Certificate
 	 */
-	SignaturePtr = (u8 *)(Buffer + Size - RSA_SIGNATURE_SIZE);
+	SignaturePtr = (u8 *)Ac;
 
 	/*
 	 * Increment the pointer by authentication Header size
@@ -257,17 +262,7 @@ u32 AuthenticatePartition(u8 *Buffer, u32 Size)
 	FsblPrintArray(DecryptSignature, RSA_PARTITION_SIGNATURE_SIZE,
 					"Partition Decrypted Hash");
 
-	/*
-	 * Partition Authentication
-	 * Calculate Hash Signature
-	 */
-	sha_256((u8 *)Buffer,
-			(Size - RSA_PARTITION_SIGNATURE_SIZE),
-			HashSignature);
-	FsblPrintArray(HashSignature, 32,
-						"Partition Hash Calculated");
-
-	Status = RecreatePaddingAndCheck(DecryptSignature, HashSignature);
+	Status = RecreatePaddingAndCheck(DecryptSignature, Hash);
 	if (Status != XST_SUCCESS) {
 		fsbl_printf(DEBUG_INFO, "Partition Signature "
 				"Authentication failed\r\n");

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +49,10 @@
 * 						encryption with E-Fuse - Enhancement
 * 11.00a ka 10/12/18    Fix for CR#1006294 Zynq FSBL - Zynq FSBL does not check
 * 						USE_AES_ONLY eFuse
+* 12.0  vns 03/18/22    Fixed CR#1125470 to authenticate the parition header buffer
+*                       which is being used instead of one from DDR.
+*                       Deleted GetImageHeaderAndSignature() and added
+*                       GetNAuthImageHeader()
 *
 * </pre>
 *
@@ -73,6 +77,7 @@
 #ifdef RSA_SUPPORT
 #include "rsa.h"
 #include "xil_cache.h"
+#include "xilrsa.h"
 #endif
 /************************** Constant Definitions *****************************/
 
@@ -153,7 +158,8 @@ u32 LoadBootImage(void)
 	PartHeader *HeaderPtr;
 	u32 EfuseStatusRegValue;
 #ifdef RSA_SUPPORT
-	u32 HeaderSize;
+	u8 Hash[SHA_VALBYTES];
+	u8 *Ac;
 #endif
 #ifndef FORCE_USE_AES_EXCLUDE
 	u32 EncOnly;
@@ -232,25 +238,18 @@ u32 LoadBootImage(void)
 			SetPpk();
 
 			/*
-			 * Read partition header with signature
+			 * Read image header table, image headers and partition header
+			 * with signature
 			 */
-			Status = GetImageHeaderAndSignature(ImageStartAddress,
-					(u32 *)DDR_TEMP_START_ADDR);
+			Status = GetNAuthImageHeader(ImageStartAddress);
 			if (Status != XST_SUCCESS) {
 				fsbl_printf(DEBUG_GENERAL,
-						"Read Partition Header signature Failed\r\n");
+						"Header signature verification Failed\r\n");
 				OutputStatus(GET_HEADER_INFO_FAIL);
 				FsblFallback();
 			}
-			HeaderSize=TOTAL_HEADER_SIZE+RSA_SIGNATURE_SIZE;
-
-			Status = AuthenticatePartition((u8 *)DDR_TEMP_START_ADDR, HeaderSize);
-			if (Status != XST_SUCCESS) {
-				fsbl_printf(DEBUG_GENERAL,
-						"Partition Header signature Failed\r\n");
-				OutputStatus(GET_HEADER_INFO_FAIL);
-				FsblFallback();
-			}
+			fsbl_printf(DEBUG_GENERAL,
+				"Header authentication is Success\r\n");
 #else
 			/*
 			 * In case user not enabled RSA authentication feature
@@ -480,8 +479,16 @@ u32 LoadBootImage(void)
 			if (SignedPartitionFlag == 1 ) {
 #ifdef RSA_SUPPORT
 				Xil_DCacheEnable();
-				Status = AuthenticatePartition((u8*)PartitionStartAddr,
-						(PartitionTotalSize << WORD_LENGTH_SHIFT));
+				sha_256((u8 *)PartitionStartAddr,
+						((PartitionTotalSize << WORD_LENGTH_SHIFT) -
+							RSA_PARTITION_SIGNATURE_SIZE),
+						Hash);
+				FsblPrintArray(Hash, 32,
+						"Partition Hash Calculated");
+				Ac = (u8 *)(PartitionStartAddr +
+						(PartitionTotalSize << WORD_LENGTH_SHIFT) -
+							RSA_SIGNATURE_SIZE);
+				Status = AuthenticatePartition((u8*)Ac, Hash);
 				if (Status != XST_SUCCESS) {
 					Xil_DCacheFlush();
 		        	Xil_DCacheDisable();
@@ -722,38 +729,77 @@ u32 GetFsblLength(u32 ImageAddress, u32 *FsblLength)
 /*****************************************************************************/
 /**
 *
-* This function goes to read the image headers and its signature. Image
-* header consists of image header table, image headers, partition
-* headers
+* This function goes to read the image headers and its signature and authenticates.
+* the image header Image header consists of image header table, image headers,
+* partition headers
 *
 * @param	ImageBaseAddress is the start address of the image header
 *
-* @return	Offset Partition header address of the image
-*
-* @return	- XST_SUCCESS if Get Partition Header start address successful
-* 			- XST_FAILURE if Get Partition Header start address failed
+* @return	- XST_SUCCESS if image header authentication is successful
+* 			- XST_FAILURE if image header authentication is failed
 *
 * @note		None
 *
 ****************************************************************************/
-u32 GetImageHeaderAndSignature(u32 ImageBaseAddress, u32 *Offset)
+u32 GetNAuthImageHeader(u32 ImageBaseAddress)
 {
 	u32 Status;
-	u32 ImageHeaderOffset;
+	u32 Offset;
+	u8 *HdrTmpPtr = (u8 *) DDR_TEMP_START_ADDR;
+	u32 Size;
+	u8 *Ac;
+	u8 Hash[SHA_VALBYTES];
+	sha2_context Sha2Instance;
 
 	/*
-	 * Get the start address of the partition header table
+	 * Get the start address of the image header table
 	 */
-	Status = GetImageHeaderStartAddr(ImageBaseAddress, &ImageHeaderOffset);
+	Status = GetImageHeaderStartAddr(ImageBaseAddress, &Offset);
 	if (Status != XST_SUCCESS) {
 		fsbl_printf(DEBUG_GENERAL, "Get Header Start Address Failed\r\n");
 		return XST_FAILURE;
 	}
-
-	Status = MoveImage(ImageBaseAddress+ImageHeaderOffset, (u32)Offset,
-							TOTAL_HEADER_SIZE + RSA_SIGNATURE_SIZE);
+	Size = IMAGE_HEADER_TABLE_SIZE + TOTAL_IMAGE_HEADER_SIZE;
+	/* Read image header table and all image headers */
+	Status = MoveImage(ImageBaseAddress + Offset, (u32)HdrTmpPtr,
+							Size);
 	if (Status != XST_SUCCESS) {
-		fsbl_printf(DEBUG_GENERAL,"Move Image failed\r\n");
+		fsbl_printf(DEBUG_GENERAL,"Move IHT and IHs failed\r\n");
+		return XST_FAILURE;
+	}
+	/* Update SHA */
+	sha2_starts(&Sha2Instance);
+	sha2_update(&Sha2Instance, (u8 *)HdrTmpPtr, Size);
+	sha2_update(&Sha2Instance, (u8 *)&PartitionHeader[0],
+				TOTAL_PARTITION_HEADER_SIZE);
+
+	/*
+	 * Get the start address of the partition header table
+	 */
+	Status = GetPartitionHeaderStartAddr(ImageBaseAddress, &Offset);
+	if (Status != XST_SUCCESS) {
+		fsbl_printf(DEBUG_GENERAL, "Get Header Start Address Failed\r\n");
+		return XST_FAILURE;
+	}
+	Offset = Offset + TOTAL_PARTITION_HEADER_SIZE;
+	Size = TOTAL_HEADER_SIZE + RSA_SIGNATURE_SIZE - (Size + TOTAL_PARTITION_HEADER_SIZE);
+
+	/* Read RSA signature */
+	Status = MoveImage(ImageBaseAddress + Offset, (u32)HdrTmpPtr, Size);
+	if (Status != XST_SUCCESS) {
+		fsbl_printf(DEBUG_GENERAL,"Move image header signature is failed\r\n");
+		return XST_FAILURE;
+	}
+	sha2_update(&Sha2Instance, (u8 *)(HdrTmpPtr),
+				Size - RSA_PARTITION_SIGNATURE_SIZE);
+	sha2_finish(&Sha2Instance, Hash);
+	FsblPrintArray(Hash, 32,"Header Hash Calculated");
+
+	/* Authentication of image header */
+	Ac = (u8 *)(HdrTmpPtr + 64);
+	Status = AuthenticatePartition((u8 *)Ac, Hash);
+	if (Status != XST_SUCCESS) {
+		fsbl_printf(DEBUG_GENERAL,"Image header authentication is failed\r\n");
 		return XST_FAILURE;
 	}
 

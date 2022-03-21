@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2012 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver	Who	Date		Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.00a sg	02/28/13 Initial release
+* 5.0   vns     03/18/22 Modified prototype of AuthenticatePartition() API
 *
 * </pre>
 *
@@ -44,7 +45,7 @@ extern "C" {
 #define RSA_MAGIC_WORD_SIZE				60		/* Magic word size in bytes */
 
 void SetPpk(void );
-u32 AuthenticatePartition(u8 *Buffer, u32 Size);
+u32 AuthenticatePartition(u8 *Ac, u8 *Hash);
 u32 RecreatePaddingAndCheck(u8 *signature, u8 *hash);
 
 #ifdef __cplusplus
