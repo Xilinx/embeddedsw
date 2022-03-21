@@ -20,6 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/22 Initial release
 *       am   02/28/22 Fixed MISRA C violation rule 8.3
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 *
@@ -36,6 +37,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xpuf_mailbox.h"
 #include "xpuf_defs.h"
 
 /************************** Constant Definitions *****************************/
@@ -64,9 +66,10 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPuf_Registration(const u64 DataAddr);
-int XPuf_Regeneration(const u64 DataAddr);
-int XPuf_ClearPufID(void);
+int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
+int XPuf_Registration(XPuf_ClientInstance *InstancePtr, const u64 DataAddr);
+int XPuf_Regeneration(XPuf_ClientInstance *InstancePtr, const u64 DataAddr);
+int XPuf_ClearPufID(XPuf_ClientInstance *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 

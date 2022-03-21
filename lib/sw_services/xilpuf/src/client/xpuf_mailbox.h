@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/22 Initial release
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 * @note
@@ -34,7 +35,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xipipsu.h"
+#include "xilmailbox.h"
 #include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
@@ -47,14 +48,24 @@ extern "C" {
 /* 1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC */
 #define PAYLOAD_ARG_CNT			(8U)
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
-#define RESPONSE_ARG_CNT		(8U)
-#define XPUF_IPI_TIMEOUT		(0xFFFFFFFFU)
+#define RESPONSE_ARG_CNT			(8U)
 #define XPUF_TARGET_IPI_INT_MASK	(0x00000002U)
 #define XPUF_MODULE_ID_SHIFT		(8U)
 #define XPUF_PAYLOAD_LEN_SHIFT		(16U)
 #define XILPUF_MODULE_ID_MASK		(XILPUF_MODULE_ID << XPUF_MODULE_ID_SHIFT)
 
+#define XPUF_PAYLOAD_LEN_1U		(1U)
+#define XPUF_PAYLOAD_LEN_2U		(2U)
+#define XPUF_PAYLOAD_LEN_3U		(3U)
+#define XPUF_PAYLOAD_LEN_4U		(4U)
+#define XPUF_PAYLOAD_LEN_5U		(5U)
+#define XPUF_PAYLOAD_LEN_6U		(6U)
+#define XPUF_PAYLOAD_LEN_7U		(7U)
+
 /**************************** Type Definitions *******************************/
+typedef struct {
+	XMailbox *MailboxPtr;
+} XPuf_ClientInstance;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -71,20 +82,7 @@ static inline u32 PufHeader(u32 Len, u32 ApiId)
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
-int XPuf_ProcessIpi(u32 Arg0, u32 Arg1, u32 Arg2, u32 Arg3, u32 Arg4,
-	u32 Arg5);
-int XPuf_ProcessIpiWithPayload0(u32 ApiId);
-int XPuf_ProcessIpiWithPayload1(u32 ApiId, u32 Arg1);
-int XPuf_ProcessIpiWithPayload2(u32 ApiId, u32 Arg1, u32 Arg2);
-int XPuf_ProcessIpiWithPayload3(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3);
-int XPuf_ProcessIpiWithPayload4(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
-	u32 Arg4);
-int XPuf_ProcessIpiWithPayload5(u32 ApiId, u32 Arg1, u32 Arg2, u32 Arg3,
-	u32 Arg4, u32 Arg5);
-int XPuf_IpiSend(u32 *Payload);
-int XPuf_IpiReadBuff32(void);
-int XPuf_SetIpi(XIpiPsu* const IpiInst);
-int XPuf_InitializeIpi(XIpiPsu* const IpiInstPtr);
+int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
 
 #ifdef __cplusplus
 }

@@ -22,5 +22,5 @@ BEGIN LIBRARY xilpuf
   OPTION VERSION = 1.5;
   OPTION NAME = xilpuf;
   PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilPuf library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
-  PARAM name = ipi_channel, desc = " Selects the IPI channel for client-server communication for xilpuf library", type = enum, values = ("0" = 0, "1" = 1, "2" = 2, "3" = 3, "4" = 4, 5 = "5", 6 = "6", 7 = "7"), default = 0
+  PARAM name = cache_disable, desc = "Enables/Disables Cache", type = bool, default = true;
 END LIBRARY
