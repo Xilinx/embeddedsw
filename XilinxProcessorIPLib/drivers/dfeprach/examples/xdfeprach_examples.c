@@ -29,6 +29,7 @@
 * 1.1   dc     07/13/21 Update to common latency requirements
 *       dc     07/21/21 Add and reorganise examples
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
+*       dc     03/21/22 Add prefix to global variables
 *
 * </pre>
 *
@@ -48,11 +49,11 @@ extern int XDfePrach_2CC3RCTestExample();
 extern int XDfePrach_2CC3RCReconfigureTestExample();
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
-metal_phys_addr_t metal_phys[XDFEPRACH_MAX_NUM_INSTANCES] = {
+metal_phys_addr_t XDfePrach_metal_phys[XDFEPRACH_MAX_NUM_INSTANCES] = {
 	XPAR_XDFEPRACH_0_BASEADDR,
 };
 
-struct metal_device CustomDevice[XDFEPRACH_MAX_NUM_INSTANCES] = {
+struct metal_device XDfePrach_CustomDevice[XDFEPRACH_MAX_NUM_INSTANCES] = {
 	XDFEPRACH_CUSTOM_DEV(XPAR_XDFEPRACH_0_DEV_NAME,
 			     XPAR_XDFEPRACH_0_BASEADDR, 0),
 };
