@@ -49,7 +49,7 @@
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define REPETATIONS 10
+#define REPETATIONS 2
 
 /************************** Function Prototypes *****************************/
 
@@ -206,7 +206,6 @@ void Handler(void *CallBackRef, u32 Event)
 	/* A new second event */
 	if (Event == XRTCPSU_EVENT_SECS_GEN) {
 		Seconds++;
-		xil_printf("A new second is generated.\n\r");
 	}
 }
 
