@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -172,6 +172,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #define PLATFORM_VERSION_EMU			(0x2U)
 #define PLATFORM_VERSION_QEMU			(0x3U)
 #define PLATFORM_VERSION_FCV			(0x4U)
+#define PLATFORM_VERSION_COSIM			(0x7U)
 
 #define PLATFORM_VERSION_SILICON_ES1		(0x0U)
 #define PLATFORM_VERSION_SILICON_ES2		(0x1U)
