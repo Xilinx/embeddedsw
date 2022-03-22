@@ -2191,10 +2191,15 @@ XStatus XPm_MmioRead(const u32 Address, u32 *const Value)
  * @brief  This function queries information about the feature version.
  *
  * @param FeatureId	The feature ID (API-ID)
- * @param Version	Pointer to the output data where  version of
- *			feature store.
- *			For the supported feature get non zero value in version,
- *			But if version is 0U that means feature not supported.
+ * @param Version	Pointer to array of words (32-bit).
+ *     - version[0] - If fails 0, else EEMI API ID version number (positive integer).
+ *                    This is supported in version 1 and 2 of PM_FEATURE_CHECK.
+ *     - version[1] - lower 32-bit (0 - 31) bitmask to check if IOCTL or QUERY ID
+                      is supported. If Bit 1 is set for PM_IOCTL, then IOCTL 1 is
+ *                    supported. Only supported if API PM_FEATURE_CHECK version is 2.
+ *     - version[2] - upper 32-bit bitmask to check support of IOCTL ID or QUERY ID.
+ *                    if bit 0 is set for PM_IOCTL, then IOCTL number 32 is supported.
+ *                    Only supported if API PM_FEATURE_CHECK version is 2.
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
