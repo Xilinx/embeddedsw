@@ -4855,8 +4855,12 @@ done:
  * @brief  This function returns supported version of the given API.
  *
  * @param  ApiId	API ID to check
- * @param  Version	Supported version number
- *
+ * @param  Version	pointer to array of 4 words
+ *  - version[0] - EEMI API version number
+ *  - version[1] - lower 32-bit bitmask of IOCTL or QUERY ID
+ *  - version[2] - upper 32-bit bitmask of IOCTL or Query ID
+ *  - Only PM_FEATURE_CHECK version 2 supports 64-bit bitmask
+ *  - i.e. version[1] and version[2]
  * @return XST_SUCCESS if successful else XST_NO_FEATURE.
  *
  * @note   None
@@ -4917,8 +4921,11 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_ADD_REQUIREMENT):
 	case PM_API(PM_INIT_NODE):
 	case PM_API(PM_SET_NODE_ACCESS):
-	case PM_API(PM_FEATURE_CHECK):
 		*Version = XST_API_BASE_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_FEATURE_CHECK):
+		*Version = XST_API_PM_FEATURE_CHECK_VERSION;
 		Status = XST_SUCCESS;
 		break;
 	case PM_API(PM_QUERY_DATA):
