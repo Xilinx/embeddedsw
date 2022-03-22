@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -77,6 +77,7 @@
 *       dc     12/17/21 Update after documentation review
 *       dc     01/21/22 Symmetric filter Zero-padding
 *       dc     01/27/22 Get calculated TDataDelay
+*       dc     03/21/22 Add prefix to global variables
 *
 * </pre>
 * @endcond
@@ -116,8 +117,12 @@ extern "C" {
 /**
 * @endcond
 */
+#ifndef XST_SUCCESS
 #define XST_SUCCESS (0U) /**< Success flag */
+#endif
+#ifndef XST_FAILURE
 #define XST_FAILURE (1U) /**< Failure flag */
+#endif
 #else
 #define XDFECCF_MAX_NUM_INSTANCES XPAR_XDFECCF_NUM_INSTANCES
 #endif
@@ -146,7 +151,7 @@ typedef __s8 s8;
 		.name = _dev_name, .bus = NULL, .num_regions = 1,              \
 		.regions = { {                                                 \
 			.virt = (void *)_baseaddr,                             \
-			.physmap = &metal_phys[_idx],                          \
+			.physmap = &XDfeCcf_metal_phys[_idx],                  \
 			.size = 0x10000,                                       \
 			.page_shift = (u32)(-1),                               \
 			.page_mask = (u32)(-1),                                \
