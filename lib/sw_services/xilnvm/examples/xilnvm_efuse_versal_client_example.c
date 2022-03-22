@@ -11,12 +11,14 @@
  * @{
  *
  * This file illustrates Basic eFuse read/write using rows.
+ * To build this application, xilmailbox library must be included in BSP and
+ * xilnvm library must be in client mode
  *
  * Procedure to link and compile the example for the default ddr less designs
  * ------------------------------------------------------------------------------------------------------------
- * By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
- * placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
- * contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+ * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
+ * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
+ * which is acccessible to both client and server.
  *
  * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
  *
@@ -27,18 +29,19 @@
  *						OR
  *
  *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
- *			sharedmemory (NOLOAD) : {
- *			= ALIGN(4);
- *			__bss_start = .;
- *			*(.bss)
- *			*(.bss.*)
- *			*(.gnu.linkonce.b.*)
- *			*(COMMON)
- *			. = ALIGN(4);
- *			__bss_end = .;
- *			} > Memory(OCM,TCM or DDR)
+ *			.sharedmemory : {
+ *   			. = ALIGN(4);
+ *   			__sharedmemory_start = .;
+ *   			*(.sharedmemory)
+ *   			*(.sharedmemory.*)
+ *   			*(.gnu.linkonce.d.*)
+ *   			__sharedmemory_end = .;
+ *  			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
  *
- * 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+ * 		2. Data elements that are passed by reference to the server side should be stored in the above shared
+ * 			memory section.
+ *
+ * To keep things simple, by default the cache is disabled for this example
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -51,6 +54,7 @@
  *       kpt   01/07/2022 Added check to program RegInitDis in
  *                        XilNvm_EfuseInitSecCtrl
  *       kpt   01/13/2022 Added support for PL microblaze
+ *       kpt   03/16/2022 Removed IPI related code and added mailbox support
  *
  * </pre>
  *
@@ -62,7 +66,6 @@
 #include "xilnvm_efuse_versal_input.h"
 #include "xil_util.h"
 #include "xil_cache.h"
-#include "xnvm_ipi.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
@@ -79,26 +82,34 @@
 #define XNVM_128_BITS_AES_KEY_LEN_IN_BYTES (128U / XIL_SIZE_OF_BYTE_IN_BITS)
 #define XNVM_128_BITS_AES_KEY_LEN_IN_CHARS (\
 					XNVM_128_BITS_AES_KEY_LEN_IN_BYTES * 2U)
+#define XNVM_USER_FUSES_SIZE_IN_BYTES (XNVM_EFUSE_NUM_OF_USER_FUSES * sizeof(u32))
 
 #define XNVM_MAX_AES_KEY_LEN_IN_CHARS	XNVM_256_BITS_AES_KEY_LEN_IN_CHARS
 #define XNVM_CACHE_LINE_LEN		(64U)
+#define XNVM_CACHE_ALIGNED_LEN		(XNVM_CACHE_LINE_LEN * 2U)
+#define Align(Size)		(Size + (XNVM_WORD_LEN - ((Size % 4 == 0U)?XNVM_WORD_LEN: (Size % XNVM_WORD_LEN))))
+#define XNVM_SHARED_BUF_SIZE	(Align(sizeof(XNvm_EfuseIvs)) + Align(sizeof(XNvm_EfuseDataAddr)) + \
+				Align(sizeof(XNvm_EfuseGlitchCfgBits)) + Align(sizeof(XNvm_EfuseAesKeys)) + \
+				Align(sizeof(XNvm_EfusePpkHash)) + Align(sizeof(XNvm_EfuseDecOnly)) + \
+				Align(sizeof(XNvm_EfuseMiscCtrlBits)) + Align(sizeof(XNvm_EfuseSecCtrlBits)) + \
+				Align(sizeof(XNvm_EfuseRevokeIds)) + Align(sizeof(XNvm_EfuseBootEnvCtrlBits)) + \
+				Align(sizeof(XNvm_EfuseSecMisc1Bits)) + Align(sizeof(XNvm_EfuseUserDataAddr)) + \
+				Align(sizeof(XNvm_EfuseOffChipIds)) + \
+				XNVM_USER_FUSES_SIZE_IN_BYTES)
+#define XNVM_TOTAL_SHARED_MEM_SIZE	(XNVM_SHARED_BUF_SIZE + XNVM_SHARED_MEM_SIZE)
 
 /**************************** Type Definitions *******************************/
-static XIpiPsu IpiInst;
+XNvm_ClientInstance NvmClientInstance;
 
 /**************************** Variable Definitions ***************************/
 
-/* If the data is read from a shared memory written by the other processer
- * we need to invalidate the cache. Because of this requirement the data
- * need to be cache aligned in such a way that no other data in the cache
- * line impact the read process. To serve the same, the below array of
- * 128 bytes is created and used only the required.
+/*
+ * if cache is enabled, User need to make sure the data is aligned to cache line
  */
-u8 CacheAlignedArr[XNVM_CACHE_LINE_LEN * 2U]
-	__attribute__ ((aligned (64U))) = {0U};
 
 /* shared memory allocation */
-static u8 SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
+static u8 SharedMem[XNVM_TOTAL_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
+		__attribute__((section(".data.SharedMem")));
 
 /************************** Function Prototypes ******************************/
 static int XilNvm_EfuseWriteFuses(void);
@@ -159,19 +170,29 @@ static int XilNvm_EfuseInitPufFuses(XNvm_EfusePufFuseAddr *PufFuse);
 int main(void)
 {
 	int Status = XST_FAILURE;
+	XMailbox MailboxInstance;
 
-	Status = XNvm_InitializeIpi(&IpiInst);
+	#ifdef XNVM_CACHE_DISABLE
+		Xil_DCacheDisable();
+	#endif
+
+	Status = XMailbox_Initialize(&MailboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XNvm_SetIpi(&IpiInst);
+	Status = XNvm_ClientInit(&NvmClientInstance, &MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/* Set shared memory */
-	XNvm_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
+	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)(SharedMem + XNVM_SHARED_BUF_SIZE),
+			XNVM_SHARED_MEM_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n shared memory initialization failed");
+		goto END;
+	}
 
 	Status = XilNvm_EfuseWriteFuses();
 	if (Status != XST_SUCCESS) {
@@ -195,7 +216,7 @@ int main(void)
 #endif
 
 END:
-	Status |= XNvm_ReleaseSharedMem();
+	Status |= XMailbox_ReleaseSharedMem(&MailboxInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\nVersal Efuse example failed with err: %08x\n\r",
 									Status);
@@ -244,101 +265,111 @@ END:
 static int XilNvm_EfuseWriteFuses(void)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfuseIvs Ivs __attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseDataAddr WriteEfuse
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseGlitchCfgBits GlitchData
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseAesKeys AesKeys
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfusePpkHash PpkHash
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseDecOnly DecOnly
-			 __attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseMiscCtrlBits MiscCtrlBits
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseSecCtrlBits SecCtrlBits
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseRevokeIds RevokeIds
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseOffChipIds OffChipIds
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseBootEnvCtrlBits BootEnvCtrl
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseSecMisc1Bits SecMisc1Bits
-			__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfuseUserDataAddr UserFuses
-			__attribute__ ((aligned (64U))) = {0U};
-	u32 UserFusesArr[XNVM_EFUSE_NUM_OF_USER_FUSES]
-			__attribute__ ((aligned (64U))) = {0U};
 
-	Status = XilNvm_EfuseInitGlitchData(&WriteEfuse, &GlitchData);
+	XNvm_EfuseIvs *Ivs = (XNvm_EfuseIvs*)(UINTPTR)&SharedMem[0U];
+	XNvm_EfuseDataAddr *WriteEfuse = (XNvm_EfuseDataAddr*)(UINTPTR)((u8*)Ivs + Align(sizeof(XNvm_EfuseIvs)));
+	XNvm_EfuseGlitchCfgBits *GlitchData = (XNvm_EfuseGlitchCfgBits*)(UINTPTR)((u8*)WriteEfuse +
+			Align(sizeof(XNvm_EfuseDataAddr)));
+	XNvm_EfuseAesKeys *AesKeys = (XNvm_EfuseAesKeys*)(UINTPTR)((u8*)GlitchData +
+			Align(sizeof(XNvm_EfuseGlitchCfgBits)));
+	XNvm_EfusePpkHash *PpkHash = (XNvm_EfusePpkHash*)(UINTPTR)((u8*)AesKeys +
+			Align(sizeof(XNvm_EfuseAesKeys)));
+	XNvm_EfuseDecOnly *DecOnly = (XNvm_EfuseDecOnly*)(UINTPTR)((u8*)PpkHash +
+			Align(sizeof(XNvm_EfusePpkHash)));
+	XNvm_EfuseMiscCtrlBits *MiscCtrlBits = (XNvm_EfuseMiscCtrlBits*)(UINTPTR)((u8*)DecOnly +
+			Align(sizeof(XNvm_EfuseDecOnly)));
+	XNvm_EfuseSecCtrlBits *SecCtrlBits = (XNvm_EfuseSecCtrlBits*)(UINTPTR)((u8*)MiscCtrlBits +
+			Align(sizeof(XNvm_EfuseMiscCtrlBits)));
+	XNvm_EfuseRevokeIds *RevokeIds = (XNvm_EfuseRevokeIds*)(UINTPTR)((u8*)SecCtrlBits +
+			Align(sizeof(XNvm_EfuseSecCtrlBits)));
+	XNvm_EfuseOffChipIds *OffChipIds = (XNvm_EfuseOffChipIds*)(UINTPTR)((u8*)RevokeIds +
+			Align(sizeof(XNvm_EfuseRevokeIds)));
+	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl = (XNvm_EfuseBootEnvCtrlBits*)(UINTPTR)((u8*)OffChipIds +
+			Align(sizeof(XNvm_EfuseOffChipIds)));
+	XNvm_EfuseSecMisc1Bits *SecMisc1Bits = (XNvm_EfuseSecMisc1Bits*)(UINTPTR)((u8*)BootEnvCtrl +
+			Align(sizeof(XNvm_EfuseBootEnvCtrlBits)));
+	XNvm_EfuseUserDataAddr *UserFuses = (XNvm_EfuseUserDataAddr*)(UINTPTR)((u8*)SecMisc1Bits +
+			Align(sizeof(XNvm_EfuseSecMisc1Bits)));
+	u32 *UserFusesArr = (u32*)(UINTPTR)((u8*)UserFuses + Align(sizeof(XNvm_EfuseUserDataAddr)));
+
+	if (((u8*)UserFusesArr + XNVM_USER_FUSES_SIZE_IN_BYTES) > (SharedMem + XNVM_SHARED_BUF_SIZE)) {
+		goto END;
+	}
+
+	/* Clear total shared memory */
+	Status = Xil_SMemSet(&SharedMem[0U], XNVM_TOTAL_SHARED_MEM_SIZE, 0U,
+						XNVM_TOTAL_SHARED_MEM_SIZE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitAesKeys(&WriteEfuse, &AesKeys);
+	Status = XilNvm_EfuseInitGlitchData(WriteEfuse, GlitchData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitPpkHash(&WriteEfuse, &PpkHash);
+	Status = XilNvm_EfuseInitAesKeys(WriteEfuse, AesKeys);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitDecOnly(&WriteEfuse, &DecOnly);
+	Status = XilNvm_EfuseInitPpkHash(WriteEfuse, PpkHash);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitSecCtrl(&WriteEfuse, &SecCtrlBits);
+	Status = XilNvm_EfuseInitDecOnly(WriteEfuse, DecOnly);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitMiscCtrl(&WriteEfuse, &MiscCtrlBits);
+	Status = XilNvm_EfuseInitSecCtrl(WriteEfuse, SecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitBootEnvCtrl(&WriteEfuse, &BootEnvCtrl);
+	Status = XilNvm_EfuseInitMiscCtrl(WriteEfuse, MiscCtrlBits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitSecMisc1Ctrl(&WriteEfuse, &SecMisc1Bits);
+	Status = XilNvm_EfuseInitBootEnvCtrl(WriteEfuse, BootEnvCtrl);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitRevocationIds(&WriteEfuse, &RevokeIds);
+	Status = XilNvm_EfuseInitSecMisc1Ctrl(WriteEfuse, SecMisc1Bits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitIVs(&WriteEfuse, &Ivs);
+	Status = XilNvm_EfuseInitRevocationIds(WriteEfuse, RevokeIds);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XilNvm_EfuseInitOffChipRevokeIds(&WriteEfuse, &OffChipIds);
+	Status = XilNvm_EfuseInitIVs(WriteEfuse, Ivs);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	UserFuses.UserFuseDataAddr = (UINTPTR)&UserFusesArr;
-	Status = XilNvm_EfuseInitUserFuses(&WriteEfuse, &UserFuses);
+	Status = XilNvm_EfuseInitOffChipRevokeIds(WriteEfuse, OffChipIds);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	UserFuses->UserFuseDataAddr = (UINTPTR)UserFusesArr;
+	Status = XilNvm_EfuseInitUserFuses(WriteEfuse, UserFuses);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
-	Xil_DCacheFlushRange((UINTPTR)&UserFusesArr, sizeof(UserFusesArr));
+	Xil_DCacheFlushRange((UINTPTR)UserFusesArr, XNVM_EFUSE_NUM_OF_USER_FUSES * sizeof(u32));
 
-	WriteEfuse.EnvMonDisFlag = XNVM_EFUSE_ENV_MONITOR_DISABLE;
+	WriteEfuse->EnvMonDisFlag = XNVM_EFUSE_ENV_MONITOR_DISABLE;
 
-	Xil_DCacheFlushRange((UINTPTR)&WriteEfuse, sizeof(WriteEfuse));
+	Xil_DCacheFlushRange((UINTPTR)WriteEfuse, sizeof(XNvm_EfuseDataAddr));
 
-	Status = XNvm_EfuseWrite((UINTPTR)&WriteEfuse);
+	Status = XNvm_EfuseWrite(&NvmClientInstance, (UINTPTR)WriteEfuse);
 
 END:
 	return Status;
@@ -435,18 +466,18 @@ END:
 static int XilNvm_EfuseShowDna(void)
 {
 	int Status = XST_FAILURE;
-	XNvm_Dna *EfuseDna = (XNvm_Dna *)CacheAlignedArr;
+	XNvm_Dna *EfuseDna = (XNvm_Dna *)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+		XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadDna((UINTPTR)EfuseDna);
+	Status = XNvm_EfuseReadDna(&NvmClientInstance, (UINTPTR)EfuseDna);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+		XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("\r\nDNA:%08x%08x%08x%08x", EfuseDna->Dna[3],
 			EfuseDna->Dna[2],
@@ -472,20 +503,20 @@ END:
 static int XilNvm_EfuseShowPpkHash(XNvm_PpkType PpkType)
 {
 	int Status = XST_FAILURE;
-	XNvm_PpkHash *EfusePpk = (XNvm_PpkHash *)CacheAlignedArr;
+	XNvm_PpkHash *EfusePpk = (XNvm_PpkHash *)(UINTPTR)&SharedMem[0U];
 	u32 ReadPpk[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS] = {0U};
 	s8 Row;
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-			sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadPpkHash((UINTPTR)EfusePpk, PpkType);
+	Status = XNvm_EfuseReadPpkHash(&NvmClientInstance, (UINTPTR)EfusePpk, PpkType);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 	else {
-		Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-				sizeof(CacheAlignedArr));
+		Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+				XNVM_CACHE_ALIGNED_LEN);
 		xil_printf("\n\rPPK%d:", PpkType);
 		XilNvm_FormatData((u8 *)EfusePpk->Hash, (u8 *)ReadPpk,
 				XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES);
@@ -515,20 +546,20 @@ END:
 static int XilNvm_EfuseShowIv(XNvm_IvType IvType)
 {
 	int Status = XST_FAILURE;
-	XNvm_Iv *EfuseIv = (XNvm_Iv *)CacheAlignedArr;
+	XNvm_Iv *EfuseIv = (XNvm_Iv *)(UINTPTR)&SharedMem[0U];
 	u32 ReadIv[XNVM_EFUSE_IV_LEN_IN_WORDS] = {0U};
 	s8 Row;
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-			sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadIv((UINTPTR)EfuseIv, IvType);
+	Status = XNvm_EfuseReadIv(&NvmClientInstance, (UINTPTR)EfuseIv, IvType);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-			sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("\n\r IV%d:",IvType);
 
@@ -557,19 +588,19 @@ END:
 static int XilNvm_EfuseShowRevocationId(u8 RevokeIdNum)
 {
 	int Status = XST_FAILURE;
-	u32 *RegData = (u32 *)CacheAlignedArr;
+	u32 *RegData = (u32 *)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-			sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadRevocationId((UINTPTR)RegData,
+	Status = XNvm_EfuseReadRevocationId(&NvmClientInstance, (UINTPTR)RegData,
 			(XNvm_RevocationId)RevokeIdNum);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)CacheAlignedArr,
-			sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("RevocationId%d Fuse:%08x\n\r", RevokeIdNum, *RegData);
 	Status = XST_SUCCESS;
@@ -592,19 +623,19 @@ END:
 static int XilNvm_EfuseShowOffChipId(u8 OffChipIdNum)
 {
 	int Status = XST_FAILURE;
-	u32 *RegData = (u32 *)CacheAlignedArr;
+	u32 *RegData = (u32 *)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-			sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadOffchipRevokeId((UINTPTR)RegData,
+	Status = XNvm_EfuseReadOffchipRevokeId(&NvmClientInstance, (UINTPTR)RegData,
 			(XNvm_OffchipId)OffChipIdNum);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)CacheAlignedArr,
-			sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("OffChipId%d Fuse:%08x\n\r", OffChipIdNum, *RegData);
 	Status = XST_SUCCESS;
@@ -625,18 +656,18 @@ END:
 static int XilNvm_EfuseShowDecOnly(void)
 {
 	int Status = XST_FAILURE;
-	u32 *RegData = (u32 *)CacheAlignedArr;
+	u32 *RegData = (u32 *)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-			sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadDecOnly((UINTPTR)RegData);
+	Status = XNvm_EfuseReadDecOnly(&NvmClientInstance, (UINTPTR)RegData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-			sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("\r\nDec_only Fuse : %x\r\n", *RegData);
 	Status = XST_SUCCESS;
@@ -657,35 +688,33 @@ END:
 static int XilNvm_EfuseShowUserFuses(void)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfuseUserDataAddr ReadUserFuses
-		__attribute__ ((aligned (64))) = {0U};
+	XNvm_EfuseUserDataAddr *ReadUserFuses = (XNvm_EfuseUserDataAddr*)(UINTPTR)&SharedMem[0U];
 	s8 Row;
 
-	ReadUserFuses.StartUserFuseNum = XNVM_EFUSE_READ_USER_FUSE_NUM;
-	ReadUserFuses.NumOfUserFuses = XNVM_EFUSE_READ_NUM_OF_USER_FUSES;
-	ReadUserFuses.UserFuseDataAddr = (UINTPTR)&CacheAlignedArr;
+	ReadUserFuses->StartUserFuseNum = XNVM_EFUSE_READ_USER_FUSE_NUM;
+	ReadUserFuses->NumOfUserFuses = XNVM_EFUSE_READ_NUM_OF_USER_FUSES;
+	ReadUserFuses->UserFuseDataAddr = (UINTPTR)(SharedMem + Align(sizeof(XNvm_EfuseUserDataAddr)));
 
-	Xil_DCacheFlushRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadUserFuses,
-		sizeof(ReadUserFuses));
+	Xil_DCacheFlushRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfuseUserDataAddr))),
+		(XNVM_EFUSE_READ_NUM_OF_USER_FUSES * sizeof(u32)));
+	Xil_DCacheInvalidateRange((UINTPTR)ReadUserFuses, sizeof(XNvm_EfuseUserDataAddr));
 
-	Status = XNvm_EfuseReadUserFuses((UINTPTR)&ReadUserFuses);
+	Status = XNvm_EfuseReadUserFuses(&NvmClientInstance, (UINTPTR)ReadUserFuses);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadUserFuses,
-		sizeof(ReadUserFuses));
+	Xil_DCacheFlushRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfuseUserDataAddr))),
+		(XNVM_EFUSE_READ_NUM_OF_USER_FUSES * sizeof(u32)));
+	Xil_DCacheInvalidateRange((UINTPTR)ReadUserFuses,
+		sizeof(XNvm_EfuseUserDataAddr));
 
 	for (Row = XNVM_EFUSE_READ_USER_FUSE_NUM;
 		Row < (s8)(XNVM_EFUSE_READ_USER_FUSE_NUM +
 			XNVM_EFUSE_READ_NUM_OF_USER_FUSES); Row++) {
 
 		xil_printf("User%d Fuse:%08x\n\r",
-			Row, *(u32 *)(UINTPTR)(ReadUserFuses.UserFuseDataAddr +
+			Row, *(u32 *)(UINTPTR)(ReadUserFuses->UserFuseDataAddr +
 					Row - XNVM_EFUSE_READ_USER_FUSE_NUM));
 	}
 	xil_printf("\n\r");
@@ -1656,18 +1685,18 @@ static int XilNvm_EfuseShowSecCtrlBits(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseSecCtrlBits *SecCtrlBits =
-		(XNvm_EfuseSecCtrlBits *)CacheAlignedArr;
+		(XNvm_EfuseSecCtrlBits *)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadSecCtrlBits((UINTPTR)SecCtrlBits);
+	Status = XNvm_EfuseReadSecCtrlBits(&NvmClientInstance, (UINTPTR)SecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("\r\nSecurity Control eFuses:\n\r");
 
@@ -1787,18 +1816,18 @@ static int XilNvm_EfuseShowPufSecCtrlBits(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfusePufSecCtrlBits *PufSecCtrlBits =
-		(XNvm_EfusePufSecCtrlBits *)CacheAlignedArr;
+		(XNvm_EfusePufSecCtrlBits *)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadSecCtrlBits((UINTPTR)PufSecCtrlBits);
+	Status = XNvm_EfuseReadSecCtrlBits(&NvmClientInstance, (UINTPTR)PufSecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("\r\nPuf Control eFuses:\n\r");
 
@@ -1850,18 +1879,18 @@ static int XilNvm_EfuseShowMiscCtrlBits(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseMiscCtrlBits *MiscCtrlBits =
-		(XNvm_EfuseMiscCtrlBits *)CacheAlignedArr;
+		(XNvm_EfuseMiscCtrlBits *)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadMiscCtrlBits((UINTPTR)MiscCtrlBits);
+	Status = XNvm_EfuseReadMiscCtrlBits(&NvmClientInstance, (UINTPTR)MiscCtrlBits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("\r\nMisc Control eFuses:\n\r");
 
@@ -1944,18 +1973,18 @@ static int XilNvm_EfuseShowSecMisc1Bits(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseSecMisc1Bits *SecMisc1Bits =
-		(XNvm_EfuseSecMisc1Bits *)CacheAlignedArr;
+		(XNvm_EfuseSecMisc1Bits *)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadSecMisc1Bits((UINTPTR)SecMisc1Bits);
+	Status = XNvm_EfuseReadSecMisc1Bits(&NvmClientInstance, (UINTPTR)SecMisc1Bits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("\r\nSecurity Misc1 eFuses:\n\r");
 
@@ -2009,18 +2038,18 @@ static int XilNvm_EfuseShowBootEnvCtrlBits(void)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBits =
-		(XNvm_EfuseBootEnvCtrlBits *)CacheAlignedArr;
+		(XNvm_EfuseBootEnvCtrlBits *)(UINTPTR)&SharedMem[0U];
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadBootEnvCtrlBits((UINTPTR)BootEnvCtrlBits);
+	Status = XNvm_EfuseReadBootEnvCtrlBits(&NvmClientInstance, (UINTPTR)BootEnvCtrlBits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
+	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
+			XNVM_CACHE_ALIGNED_LEN);
 
 	xil_printf("\r\nBoot Environmental Control eFuses:\n\r");
 
@@ -2354,21 +2383,26 @@ END:
 static int XilNvm_EfuseWritePufFuses(void)
 {
 	int Status = XST_FAILURE;
-	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES]
-		__attribute__ ((aligned (64U))) = {0U};
-	XNvm_EfusePufFuseAddr PufFuses __attribute__ ((aligned (64U))) = {0U};
+	XNvm_EfusePufFuseAddr *PufFuses = (XNvm_EfusePufFuseAddr*)(UINTPTR)&SharedMem[0U];
+	u32 *PufFusesArr = (u32*)(UINTPTR)(PufFuses + Align(sizeof(XNvm_EfusePufFuseAddr)));
 
-	PufFuses.PufFuseDataAddr = (UINTPTR)&PufFusesArr;
-	Status = XilNvm_EfuseInitPufFuses(&PufFuses);
+	Status = Xil_SMemSet(PufFusesArr, sizeof(u32) * XNVM_EFUSE_NUM_OF_PUF_FUSES, 0U,
+			sizeof(u32) * XNVM_EFUSE_NUM_OF_PUF_FUSES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	PufFuses->PufFuseDataAddr = (UINTPTR)PufFusesArr;
+	Status = XilNvm_EfuseInitPufFuses(PufFuses);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
-	Xil_DCacheFlushRange((UINTPTR)&PufFusesArr, sizeof(PufFusesArr));
-	Xil_DCacheFlushRange((UINTPTR)&PufFuses, sizeof(XNvm_EfusePufFuseAddr));
+	Xil_DCacheFlushRange((UINTPTR)PufFusesArr, sizeof(u32) * XNVM_EFUSE_NUM_OF_PUF_FUSES);
+	Xil_DCacheFlushRange((UINTPTR)PufFuses, sizeof(XNvm_EfusePufFuseAddr));
 
-	if (PufFuses.PrgmPufFuse == TRUE) {
+	if (PufFuses->PrgmPufFuse == TRUE) {
 		/* Write PUF Fuses */
-		Status = XNvm_EfuseWritePufAsUserFuses((UINTPTR)&PufFuses);
+		Status = XNvm_EfuseWritePufAsUserFuses(&NvmClientInstance, (UINTPTR)PufFuses);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -2390,33 +2424,33 @@ END:
 static int XilNvm_EfuseReadPufFuses(void)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfusePufFuseAddr PufFuses __attribute__ ((aligned (64U))) = {0U};
+	XNvm_EfusePufFuseAddr *PufFuses = (XNvm_EfusePufFuseAddr*)(UINTPTR)&SharedMem[0U];
 	u32 Row = 0U;
 
 	/* Init data */
-	PufFuses.PufFuseDataAddr = (UINTPTR)&CacheAlignedArr;
-	PufFuses.StartPufFuseRow = XNVM_EFUSE_READ_PUF_FUSE_NUM;
-	PufFuses.NumOfPufFusesRows = XNVM_EFUSE_READ_NUM_OF_PUF_FUSES;
+	PufFuses->PufFuseDataAddr = (UINTPTR)(SharedMem + Align(sizeof(XNvm_EfusePufFuseAddr)));
+	PufFuses->StartPufFuseRow = XNVM_EFUSE_READ_PUF_FUSE_NUM;
+	PufFuses->NumOfPufFusesRows = XNVM_EFUSE_READ_NUM_OF_PUF_FUSES;
 
-	Xil_DCacheFlushRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
-	Xil_DCacheInvalidateRange((UINTPTR)&PufFuses, sizeof(PufFuses));
+	Xil_DCacheFlushRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfusePufFuseAddr))),
+		(XNVM_EFUSE_READ_NUM_OF_PUF_FUSES * sizeof(u32)));
+	Xil_DCacheInvalidateRange((UINTPTR)PufFuses, sizeof(XNvm_EfusePufFuseAddr));
 
 	/* Read PUF Fuses */
-	Status = XNvm_EfuseReadPufAsUserFuses((UINTPTR)&PufFuses);
+	Status = XNvm_EfuseReadPufAsUserFuses(&NvmClientInstance, (UINTPTR)PufFuses);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&CacheAlignedArr,
-		sizeof(CacheAlignedArr));
-	Xil_DCacheInvalidateRange((UINTPTR)&PufFuses, sizeof(PufFuses));
+	Xil_DCacheFlushRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfusePufFuseAddr))),
+		(XNVM_EFUSE_READ_NUM_OF_PUF_FUSES * sizeof(u32)));
+	Xil_DCacheInvalidateRange((UINTPTR)PufFuses, sizeof(XNvm_EfusePufFuseAddr));
 
 	for (Row = XNVM_EFUSE_READ_PUF_FUSE_NUM;
 		Row < (XNVM_EFUSE_READ_PUF_FUSE_NUM +
 			XNVM_EFUSE_READ_NUM_OF_PUF_FUSES); Row++) {
 		xil_printf("User eFuse(PufHd)%d:%08x\n\r",
-			Row, *(u32 *)(UINTPTR)(PufFuses.PufFuseDataAddr +
+			Row, *(u32 *)(UINTPTR)(PufFuses->PufFuseDataAddr +
 			Row - XNVM_EFUSE_READ_PUF_FUSE_NUM));
 	}
 

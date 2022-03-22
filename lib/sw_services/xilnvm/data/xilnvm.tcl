@@ -51,6 +51,10 @@ proc nvm_drc {libhandle} {
 	} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 		$proc_type == "psv_cortexr5" || $proc_type == "microblaze" ||
 		$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52"} {
+		set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
+		if { [llength $librarylist] == 0 } {
+			error "This library requires xilmailbox library in the Board Support Package.";
+		}
 		foreach entry [glob -nocomplain -types f [file join "$client" *]] {
 			file copy -force $entry "./src"
 		}
@@ -127,15 +131,6 @@ proc xgen_opts_file {libhandle} {
 			set file_handle [hsi::utils::open_include_file "xparameters.h"]
 			puts $file_handle "#define XNVM_CACHE_DISABLE\n"
 		}
-	}
-
-	set mode [common::get_property CONFIG.mode $libhandle]
-	if {$mode == "client" && $proc_type != "psu_pmc" && $proc_type != "psv_pmc"} {
-		# Get IPI channel enabled in design for client-server communication
-		set value [common::get_property CONFIG.ipi_channel $libhandle]
-		#Open xparameters.h file
-		set file_handle [hsi::utils::open_include_file "xparameters.h"]
-		puts $file_handle [format %s%d%s "#define XNVM_IPI_CHANNEL " [expr $value]  "U"]
 	}
 
 	close $file_handle
