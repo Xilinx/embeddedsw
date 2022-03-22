@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,7 +90,10 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 *****************************************************************************/
 int XPlm_HookAfterBootPdi(void *Arg)
 {
-	(void)Arg;
+	int Status = XST_FAILURE;
 
-	return XST_SUCCESS;
+	/* Call XilPM hook */
+	Status = XPm_HookAfterBootPdi();
+
+	return Status;
 }
