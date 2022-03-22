@@ -9,7 +9,8 @@
  * @file xilpuf_regeneration_client_example.c
  *
  * This file illustrates PUF regeneration.
- * To build the application, xilpuf must be in client mode.
+ * To build this application, xilmailbox library must be included in BSP and
+ * xilpuf must be in client mode.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -19,6 +20,7 @@
  * 1.0   kpt  01/04/2022   Initial release of Puf_regeneration example
  *       kpt  01/13/2022   Added support to run example on PL microblaze
  *       har  03/04/2022   Added comment to specify mode of libraries
+ *       kpt  03/16/2022   Removed IPI related code and added mailbox support
  *
  * @note
  *
@@ -58,45 +60,40 @@
  * be configured as FALSE to disable Global Variation Filter.
  *
  * Procedure to link and compile the example for the default ddr less designs
- *-------------------------------------------------------------------------------
- * By default the linker settings uses a software stack, heap and data in DDR and
- * any variables used by the example will be placed in the DDR memory.
- * For this example to work on BRAM or any local memory it requires a design that
- * contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+ * ------------------------------------------------------------------------------------------------------------
+ * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
+ * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
+ * which is acccessible to both client and server.
  *
- * Following is the procedure to compile the example on OCM or any memory region
- * which can be accessed by server
+ * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
  *
- * 1. Open example linker script(lscript.ld) in Vitis project and section to
- * memory mapping should be updated to point all the required sections to
- * shared memory(OCM or TCM) using a memory region drop down selection
+ *		1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+ *			be updated to point all the required sections to shared memory(OCM or TCM)
+ *			using a memory region drop down selection
  *
- *				OR
+ *						OR
  *
- * 1. In linker script(lscript.ld) user can add new memory section in source tab
- * as shown below
- *		sharedmemory (NOLOAD) : {
- *		= ALIGN(4);
- *		__bss_start = .;
- *		*(.bss)
- *		*(.bss.*)
- *		*(.gnu.linkonce.b.*)
- *		*(COMMON)
- *		. = ALIGN(4);
- *		__bss_end = .;
- *		} > Memory(OCM,TCM or DDR)
+ *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+ *			.sharedmemory : {
+ *   			. = ALIGN(4);
+ *   			__sharedmemory_start = .;
+ *   			*(.sharedmemory)
+ *   			*(.sharedmemory.*)
+ *   			*(.gnu.linkonce.d.*)
+ *   			__sharedmemory_end = .;
+ *  			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
  *
- * 2. Data elements that are passed by reference to the server side should be
- * stored in the above shared memory section.
+ * 		2. Data elements that are passed by reference to the server side should be stored in the above shared
+ * 			memory section.
+ *
+ * To keep things simple, by default the cache is disabled for this example
  *
  ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xpuf_client.h"
-#include "xpuf_defs.h"
 #include "xstatus.h"
 #include "xil_cache.h"
 #include "xil_printf.h"
-#include "xpuf_ipi.h"
 
 /* User Configurable parameters start */
 #define XPUF_REGEN_OPTION			(XPUF_REGEN_ID_ONLY)
@@ -108,12 +105,17 @@
 /* User Configurable parameters end */
 
 #define XPUF_ID_LEN_IN_BYTES			(XPUF_ID_LEN_IN_WORDS * \
-							 XPUF_WORD_LENGTH)
+						XPUF_WORD_LENGTH)
+#define XPUF_SHARED_MEM_SIZE		(128U)
 
 /************************** Type Definitions **********************************/
-static XPuf_DataAddr PufData __attribute__ ((aligned (64)));
-static XPuf_PufData PufArr;
-static XIpiPsu IpiInst;
+static XPuf_DataAddr PufData __attribute__ ((aligned (64)))
+							__attribute__ ((section (".data.PufData")));
+static XPuf_PufData PufArr __attribute__ ((section (".data.PufArr")));
+
+/* shared memory allocation */
+static u8 SharedMem[XPUF_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
+		__attribute__ ((section (".data.SharedMem")));
 
 /************************** Function Prototypes ******************************/
 static void XPuf_ShowData(const u8* Data, u32 Len);
@@ -122,13 +124,28 @@ static void XPuf_ShowData(const u8* Data, u32 Len);
 int main(void)
 {
 	int Status = XST_FAILURE;
+	XMailbox MailboxInstance;
+	XPuf_ClientInstance PufClientInstance;
 
-	Status = XPuf_InitializeIpi(&IpiInst);
-	if  (Status != XST_SUCCESS) {
+	#ifdef XPUF_CACHE_DISABLE
+		Xil_DCacheDisable();
+	#endif
+
+	Status = XMailbox_Initialize(&MailboxInstance, 0U);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n Mailbox initialization failed \r\n");
 		goto END;
 	}
 
-	Status = XPuf_SetIpi(&IpiInst);
+	Status = XPuf_ClientInit(&PufClientInstance, &MailboxInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n PUF client init failed \r\n");
+		goto END;
+	}
+
+	/* Set shared memory */
+	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)&SharedMem[0U],
+			XPUF_SHARED_MEM_SIZE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -151,7 +168,7 @@ int main(void)
 	Xil_DCacheInvalidateRange((UINTPTR)&PufData, sizeof(PufData));
 	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 
-	Status = XPuf_Regeneration((u64)(UINTPTR)&PufData);
+	Status = XPuf_Regeneration(&PufClientInstance, (u64)(UINTPTR)&PufData);
 
 	if (Status != XST_SUCCESS) {
 		xil_printf("Puf Regeneration example failed with error : %x\r\n",
