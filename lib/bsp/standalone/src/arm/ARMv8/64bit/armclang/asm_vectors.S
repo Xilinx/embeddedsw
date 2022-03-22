@@ -14,6 +14,7 @@
 ;* Ver   Who     Date     Changes
 ;* ----- ------- -------- ---------------------------------------------------
 ;* 7.0   cjp     02/26/19 First release
+;* 7.7   asa     03/22/22 Updated FIQ handler to handle floating/SIMD context.
 ;* </pre>
 ;*
 ;* @note
@@ -288,7 +289,64 @@ RestorePrevState
 
 FIQInterruptHandler
    saveregister
+
+   ; Save the status of SPSR, ELR and CPTR to stack
+#if (EL3 == 1)
+   mrs	x0, CPTR_EL3
+   mrs	x1, ELR_EL3
+   mrs	x2, SPSR_EL3
+#else
+   mrs	x0, CPACR_EL1
+   mrs	x1, ELR_EL1
+   mrs	x2, SPSR_EL1
+#endif
+   stp	x0, x1, [sp,#-0x10]!
+   str	x2, [sp,#-0x10]!
+
+
+   ; Trap floating point access
+#if (EL3 == 1)
+   mrs	x1, CPTR_EL3
+   orr	x1, x1, #(0x1<<10)
+   msr	CPTR_EL3, x1
+#else
+   mrs	x1, CPACR_EL1
+   mov	x2, #(0x1<<20)
+   bic	x1, x1, x2
+   msr	CPACR_EL1, x1
+#endif
+   isb
    bl	FIQInterrupt
+;
+; If floating point access is enabled during interrupt handling, restore
+; floating point registers
+;
+#if (EL3 == 1)
+   mrs	x0, CPTR_EL3
+   ands	x0, x0, #(0x1<<10)
+   bne	RestorePrevStateFiq
+#else
+   mrs	x0, CPACR_EL1
+   ands	x0, x0, #(0x1<<20)
+   beq	RestorePrevStateFiq
+#endif
+
+   restorefloatregister
+
+; Restore the status of SPSR, ELR and CPTR from stack
+RestorePrevStateFiq
+   ldr	x2, [sp], #0x10
+   ldp	x0, x1, [sp],#0x10
+#if (EL3 == 1)
+   msr	CPTR_EL3, x0
+   msr	ELR_EL3, x1
+   msr	SPSR_EL3, x2
+#else
+   msr	CPACR_EL1, x0
+   msr	ELR_EL1, x1
+   msr	SPSR_EL1, x2
+#endif
+
    restoreregister
    eret
 
