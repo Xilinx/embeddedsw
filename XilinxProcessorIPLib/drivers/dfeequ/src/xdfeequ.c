@@ -32,6 +32,7 @@
 * 1.3   dc     01/19/22 Assert Update trigger
 *       dc     01/24/22 Auto-compute number of units
 *       dc     02/18/22 Write 1 clears event status
+*       dc     03/21/22 Add prefix to global variables
 *
 * </pre>
 * @addtogroup Overview
@@ -75,8 +76,8 @@
 * @cond nocomments
 */
 #ifdef __BAREMETAL__
-extern struct metal_device CustomDevice[XDFEEQU_MAX_NUM_INSTANCES];
-extern metal_phys_addr_t metal_phys[XDFEEQU_MAX_NUM_INSTANCES];
+extern struct metal_device XDfeEqu_CustomDevice[XDFEEQU_MAX_NUM_INSTANCES];
+extern metal_phys_addr_t XDfeEqu_metal_phys[XDFEEQU_MAX_NUM_INSTANCES];
 #endif
 extern XDfeEqu XDfeEqu_Equalizer[XDFEEQU_MAX_NUM_INSTANCES];
 static u32 XDfeEqu_DriverHasBeenRegisteredOnce = 0U;
@@ -642,8 +643,8 @@ register_metal:
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
 	for (Index = 0; Index < XDFEEQU_MAX_NUM_INSTANCES; Index++) {
-		if (Addr == metal_phys[Index]) {
-			InstancePtr->Device = &CustomDevice[Index];
+		if (Addr == XDfeEqu_metal_phys[Index]) {
+			InstancePtr->Device = &XDfeEqu_CustomDevice[Index];
 			goto bm_register_metal;
 		}
 	}
