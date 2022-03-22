@@ -1166,6 +1166,93 @@ done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function is a workaround for COSIM emulation platform.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static XStatus XPm_CosimInit(void)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 BaseAddress;
+	u32 ClkDivider;
+	XPm_PlDevice *PlDevice;
+	const u32 PldPwrNodeDependency[1U] = {PM_POWER_PLD};
+
+	Status = AddAieDeviceNode();
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+	XPm_AieNode *AieDev = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
+	if (NULL == AieDev) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	BaseAddress = AieDev->Device.Node.BaseAddress;
+
+	/* Store initial clock devider value */
+	ClkDivider = XPm_In32(BaseAddress + ME_CORE_REF_CTRL_OFFSET) & AIE_DIVISOR0_MASK;
+	ClkDivider = ClkDivider >> AIE_DIVISOR0_SHIFT;
+
+	AieDev->DefaultClockDiv = ClkDivider;
+
+	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(PM_DEV_PLD_0);
+	if (NULL == PlDevice) {
+		DbgErr = XST_DEVICE_NOT_FOUND;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	if ((u8)XPM_DEVSTATE_UNUSED == PlDevice->Device.Node.State) {
+		Status = XPm_InitNode(PM_DEV_PLD_0, (u32)FUNC_INIT_START,
+				PldPwrNodeDependency, 1U);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PLDEVICE_INITNODE;
+			goto done;
+		}
+		Status = XPm_InitNode(PM_DEV_PLD_0, (u32)FUNC_INIT_FINISH,
+				PldPwrNodeDependency, 1U);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PLDEVICE_INITNODE;
+			goto done;
+		}
+	}
+
+	Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_AIE,
+			XPM_MAX_CAPABILITY, XPM_MAX_QOS, XPLMI_CMD_SECURE);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_REQ_ME_DEVICE;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+XStatus XPm_HookAfterBootPdi(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Platform = XPm_GetPlatform();
+
+	/* If platform is COSIM, run setup for PL and AIE devices */
+	if (PLATFORM_VERSION_COSIM == Platform) {
+		Status = XPm_CosimInit();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function is used to request the version and ID code of a chip

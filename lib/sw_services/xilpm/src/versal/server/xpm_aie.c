@@ -393,7 +393,7 @@ static void Aie2ClockGate(const XPm_AieDomain *AieDomain, u32 BaseAddress)
  * partition devices.
  * TODO: Remove once supported.
  */
-static XStatus AddAieDeviceNode(void)
+XStatus AddAieDeviceNode(void)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_AieNode *AieNode = (XPm_AieNode *)XPmDevice_GetById(PM_DEV_AIE);
