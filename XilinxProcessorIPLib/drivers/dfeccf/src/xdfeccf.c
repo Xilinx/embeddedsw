@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 *       dc     01/21/22 Symmetric filter Zero-padding
 *       dc     01/27/22 Get calculated TDataDelay
 *       dc     01/31/22 CCF IP MODEL_PARAM register change
+*       dc     03/21/22 Add prefix to global variables
 *
 * </pre>
 * @addtogroup Overview
@@ -88,8 +89,8 @@
 * @cond nocomments
 */
 #ifdef __BAREMETAL__
-extern struct metal_device CustomDevice[XDFECCF_MAX_NUM_INSTANCES];
-extern metal_phys_addr_t metal_phys[XDFECCF_MAX_NUM_INSTANCES];
+extern struct metal_device XDfeCcf_CustomDevice[XDFECCF_MAX_NUM_INSTANCES];
+extern metal_phys_addr_t XDfeCcf_metal_phys[XDFECCF_MAX_NUM_INSTANCES];
 #endif
 extern XDfeCcf XDfeCcf_ChFilter[XDFECCF_MAX_NUM_INSTANCES];
 static u32 XDfeCcf_DriverHasBeenRegisteredOnce = 0U;
@@ -791,8 +792,8 @@ register_metal:
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
 	for (Index = 0; Index < XDFECCF_MAX_NUM_INSTANCES; Index++) {
-		if (Addr == metal_phys[Index]) {
-			InstancePtr->Device = &CustomDevice[Index];
+		if (Addr == XDfeCcf_metal_phys[Index]) {
+			InstancePtr->Device = &XDfeCcf_CustomDevice[Index];
 			goto bm_register_metal;
 		}
 	}

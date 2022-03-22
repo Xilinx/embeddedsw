@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 1.1   dc     07/13/21 Update to common latency requirements
 *       dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+* 1.3   dc     03/21/22 Add prefix to global variables
 *
 * </pre>
 *
@@ -54,12 +55,12 @@ extern int XDfeCcf_multiAddCC_1xNR100_3xNR20_Example();
 
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
-metal_phys_addr_t metal_phys[XDFECCF_MAX_NUM_INSTANCES] = {
+metal_phys_addr_t XDfeCcf_metal_phys[XDFECCF_MAX_NUM_INSTANCES] = {
 	XPAR_XDFECCF_0_BASEADDR,
 	XPAR_XDFECCF_1_BASEADDR,
 };
 
-struct metal_device CustomDevice[XDFECCF_MAX_NUM_INSTANCES] = {
+struct metal_device XDfeCcf_CustomDevice[XDFECCF_MAX_NUM_INSTANCES] = {
 	XDFECCF_CUSTOM_DEV(XPAR_XDFECCF_0_DEV_NAME, XPAR_XDFECCF_0_BASEADDR, 0),
 	XDFECCF_CUSTOM_DEV(XPAR_XDFECCF_1_DEV_NAME, XPAR_XDFECCF_1_BASEADDR, 1),
 };
