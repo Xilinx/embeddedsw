@@ -21,6 +21,7 @@
 * 1.0   kal  03/17/21 Initial release
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       kpt  04/28/21 Added enum XSecure_ShaState to update sha driver states
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 *
@@ -37,6 +38,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xsecure_mailbox.h"
+#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -50,10 +53,10 @@ typedef enum {
 
 /************************** Function Prototypes ******************************/
 int XSecure_Sha3Initialize(void);
-int XSecure_Sha3Update(const u64 InDataAddr, u32 Size);
-int XSecure_Sha3Finish(const u64 OutDataAddr);
-int XSecure_Sha3Digest(const u64 InDataAddr, const u64 OutDataAddr, u32 Size);
-int XSecure_Sha3Kat(void);
+int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, u32 Size);
+int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAddr);
+int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, const u64 OutDataAddr, u32 Size);
+int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 

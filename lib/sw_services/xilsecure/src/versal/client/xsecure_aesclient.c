@@ -26,6 +26,7 @@
 *       kpt  01/13/21 Allocated CDO structure's in shared memory set by the
 *                     user
 *       am   03/08/22 Fixed MISRA C violations
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 * @note
@@ -34,8 +35,6 @@
 
 /***************************** Include Files *********************************/
 #include "xsecure_aesclient.h"
-#include "xsecure_defs.h"
-#include "xsecure_ipi.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -51,17 +50,27 @@
 /**
  * @brief       This function sends IPI request to initialize the AES engine
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @return
  *	-	XST_SUCCESS - If the initialization is successful
  * 	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XSecure_AesInitialize(void)
+int XSecure_AesInitialize(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
 
-	Status = XSecure_ProcessIpiWithPayload0(XSECURE_API_AES_INIT);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_INIT);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr ,Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -69,22 +78,29 @@ int XSecure_AesInitialize(void)
 /**
  * @brief	This function sends IPI request to EncryptInit the AES engine
  *
- * @param	KeySrc	Type of the Key
- * @param	Size	Size of the Key
- * @param	IvAddr	Address of the IV
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KeySrc		Type of the Key
+ * @param	Size		Size of the Key
+ * @param	IvAddr		Address of the IV
  *
  * @return
  *	-	XST_SUCCESS - If the Encrypt init is successful
  *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
+int XSecure_AesEncryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_AesInitOps *AesParams = NULL;
 	u64 Buffer;
-	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&AesParams);
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
 
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&AesParams);
 	if ((AesParams == NULL) || (MemSize < sizeof(XSecure_AesInitOps))) {
 		goto END;
 	}
@@ -97,8 +113,12 @@ int XSecure_AesEncryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesInitOps));
 
-	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_OP_INIT,
-			(u32)Buffer, (u32)(Buffer >> 32));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_OP_INIT);
+	Payload[1U] = (u32)Buffer;
+	Payload[2U] = (u32)(Buffer >> 32U);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -108,22 +128,29 @@ END:
 /**
  * @brief	This function sends IPI request to DecryptInit the AES engine
  *
- * @param	KeySrc	Type of the Key
- * @param	Size	Size of the Key
- * @param	IvAddr	Address of the IV
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KeySrc		Type of the Key
+ * @param	Size		Size of the Key
+ * @param	IvAddr		Address of the IV
  *
  * @return
  *	-	XST_SUCCESS - If the Decrypt init is successful
  *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
+int XSecure_AesDecryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_AesInitOps *AesParams = NULL;
 	u64 Buffer;
-	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&AesParams);
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
 
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&AesParams);
 	if ((AesParams == NULL) || (MemSize < sizeof(XSecure_AesInitOps))) {
 		goto END;
 	}
@@ -136,8 +163,12 @@ int XSecure_AesDecryptInit(XSecure_AesKeySource KeySrc, u32 Size, u64 IvAddr)
 
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesInitOps));
 
-	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_OP_INIT,
-			(u32)Buffer, (u32)(Buffer >> 32));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_OP_INIT);
+	Payload[1U] = (u32)Buffer;
+	Payload[2U] = (u32)(Buffer >> 32U);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 END:
 	return Status;
 }
@@ -146,21 +177,33 @@ END:
 /**
  * @brief	This function sends IPI request to update AAD to AES engine
  *
- * @param	AadSize	Size of the Aad data
- * @param	AadAddr	Address of the Aad
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	AadSize		Size of the Aad data
+ * @param	AadAddr		Address of the Aad
  *
  * @return
  *	-	XST_SUCCESS - If the Aad update is successful
  *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XSecure_AesUpdateAad(u64 AadAddr, u32 AadSize)
+int XSecure_AesUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 AadSize)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_4U];
 
-	Status = XSecure_ProcessIpiWithPayload3(XSECURE_API_AES_UPDATE_AAD,
-			(u32)AadAddr, (u32)(AadAddr >> 32), AadSize);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_UPDATE_AAD);
+	Payload[1U] = (u32)AadAddr;
+	Payload[2U] = (u32)(AadAddr >> 32U);
+	Payload[3U] = (u32)AadSize;
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -169,6 +212,7 @@ int XSecure_AesUpdateAad(u64 AadAddr, u32 AadSize)
  * @brief	This function sends IPI request to update the input data to
  * 		AES engine for encryption
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	InDataAddr	Address of the input data which needs to be
  * 				encrypted
  * @param	OutDataAddr	Address of the buffer where the encrypted data
@@ -185,13 +229,20 @@ int XSecure_AesUpdateAad(u64 AadAddr, u32 AadSize)
  *	-	XST_FAILURE - On failure
  *
  *****************************************************************************/
-int XSecure_AesEncryptUpdate(u64 InDataAddr, u64 OutDataAddr,
-				u32 Size, u32 IsLast)
+int XSecure_AesEncryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr,
+				u64 OutDataAddr, u32 Size, u32 IsLast)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_AesInParams *EncInAddr = NULL;
 	u64 SrcAddr;
-	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&EncInAddr);
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EncInAddr);
 
 	if ((EncInAddr == NULL) || (MemSize < sizeof(XSecure_AesInParams))) {
 		goto END;
@@ -204,9 +255,14 @@ int XSecure_AesEncryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 
 	XSecure_DCacheFlushRange(EncInAddr, sizeof(XSecure_AesInParams));
 
-	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_ENCRYPT_UPDATE,
-			(u32)SrcAddr, (u32)(SrcAddr >> 32), (u32)OutDataAddr,
-			(u32)(OutDataAddr >> 32));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_ENCRYPT_UPDATE);
+	Payload[1U] = (u32)SrcAddr;
+	Payload[2U] = (u32)(SrcAddr >> 32U);
+	Payload[3U] = (u32)(OutDataAddr);
+	Payload[4U] = (u32)(OutDataAddr >> 32U);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -217,6 +273,7 @@ END:
  * @brief	This function sends IPI request to update the GcmTag Addr to
  * 		AES engine
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	GcmTagAddr	Address to the buffer of GCM tag size,
  * 				where the API updates GCM tag
  *
@@ -227,13 +284,22 @@ END:
  *	-	XST_FAILURE - On failure
  *
  *****************************************************************************/
-int XSecure_AesEncryptFinal(u64 GcmTagAddr)
+int XSecure_AesEncryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
 
-	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_ENCRYPT_FINAL,
-			(u32)GcmTagAddr, (u32)(GcmTagAddr >> 32));
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_ENCRYPT_FINAL);
+	Payload[1U] = (u32)GcmTagAddr;
+	Payload[2U] = (u32)(GcmTagAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -242,6 +308,7 @@ int XSecure_AesEncryptFinal(u64 GcmTagAddr)
  * @brief	This function sends IPI request to update the encrypted data to
  * 		AES engine for decryption
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	InDataAddr	Address of the encryped data which needs to be
  * 				decrypted
  * @param	OutDataAddr	Address of the buffer where the decrypted data
@@ -258,13 +325,20 @@ int XSecure_AesEncryptFinal(u64 GcmTagAddr)
  *	-	XST_FAILURE - On failure
  *
  *****************************************************************************/
-int XSecure_AesDecryptUpdate(u64 InDataAddr, u64 OutDataAddr,
-				u32 Size, u32 IsLast)
+int XSecure_AesDecryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr,
+				u64 OutDataAddr, u32 Size, u32 IsLast)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_AesInParams *DecInParams = NULL;
 	u64 SrcAddr;
-	u32 MemSize = XSecure_GetSharedMem((u64**)(UINTPTR)&DecInParams);
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&DecInParams);
 
 	if ((DecInParams == NULL) || (MemSize < sizeof(XSecure_AesInParams))) {
 		goto END;
@@ -277,9 +351,14 @@ int XSecure_AesDecryptUpdate(u64 InDataAddr, u64 OutDataAddr,
 
 	XSecure_DCacheFlushRange(DecInParams, sizeof(XSecure_AesInParams));
 
-	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_DECRYPT_UPDATE,
-			(u32)SrcAddr, (u32)(SrcAddr >> 32),
-			(u32)OutDataAddr, (u32)(OutDataAddr >> 32));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_DECRYPT_UPDATE);
+	Payload[1U] = (u32)SrcAddr;
+	Payload[2U] = (u32)(SrcAddr >> 32);
+	Payload[3U] = (u32)(OutDataAddr);
+	Payload[4U] = (u32)(OutDataAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -290,6 +369,7 @@ END:
  * @brief	This function sends IPI request to verify the GcmTag provided
  * 		for the data decrypted till the point
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	GcmTagAddr	Address of a buffer which should holds GCM Tag
  *
  * @return
@@ -301,13 +381,22 @@ END:
  *	-	XST_FAILURE - On failure
  *
  *****************************************************************************/
-int XSecure_AesDecryptFinal(u64 GcmTagAddr)
+int XSecure_AesDecryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
 
-	Status = XSecure_ProcessIpiWithPayload2(XSECURE_API_AES_DECRYPT_FINAL,
-			(u32)GcmTagAddr, (u32)(GcmTagAddr >> 32));
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_DECRYPT_FINAL);
+	Payload[1U] = (u32)GcmTagAddr;
+	Payload[2U] = (u32)(GcmTagAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -316,7 +405,8 @@ int XSecure_AesDecryptFinal(u64 GcmTagAddr)
  * @brief	This function sends IPI request to zeroize selected AES
  * 		key storage register
  *
- * @param	KeySrc	Select the key source which needs to be zeroized
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KeySrc		Select the key source which needs to be zeroized
  *
  * @return
  *	-	XST_SUCCESS -  When key zeroization is success
@@ -325,13 +415,21 @@ int XSecure_AesDecryptFinal(u64 GcmTagAddr)
  *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
-int XSecure_AesKeyZero(XSecure_AesKeySource KeySrc)
+int XSecure_AesKeyZero(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
 
-	Status = XSecure_ProcessIpiWithPayload1(XSECURE_API_AES_KEY_ZERO,
-			(u32)KeySrc);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_KEY_ZERO);
+	Payload[1U] = KeySrc;
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -340,11 +438,12 @@ int XSecure_AesKeyZero(XSecure_AesKeySource KeySrc)
  * @brief	This function sends IPI request to write the key provided
  * 		into the specified AES key registers
  *
- * @param	KeySrc	Key Source to be selected to which provided
- * 			key should be updated
- * 		Size	Size of the input key to be written
- * 		KeyAddr	Address of a buffer which should contain the key
- * 			to be written
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KeySrc		Key Source to be selected to which provided
+ * 						key should be updated
+ * @param	Size		Size of the input key to be written
+ * @param	KeyAddr		Address of a buffer which should contain the key
+ * 						to be written
  *
  * @return
  *	-	XST_SUCCESS - On successful key written on AES registers
@@ -353,13 +452,26 @@ int XSecure_AesKeyZero(XSecure_AesKeySource KeySrc)
  *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
-int XSecure_AesWriteKey(XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr)
+int XSecure_AesWriteKey(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc,
+								u32 Size, u64 KeyAddr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
 
-	Status = XSecure_ProcessIpiWithPayload4(XSECURE_API_AES_WRITE_KEY, Size,
-			(u32)KeySrc, (u32)KeyAddr, (u32)(KeyAddr >> 32));
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_WRITE_KEY);
+	Payload[1U] = Size;
+	Payload[2U] = KeySrc;
+	Payload[3U] = (u32)KeyAddr;
+	Payload[4U] = (u32)(KeyAddr >> 32U);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -368,6 +480,7 @@ int XSecure_AesWriteKey(XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr)
  * @brief	This function sends IPI request to decrypt the key in
  * 		KEK key form
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	IVAddr		Address of IV holding buffer for decryption
  *				of the key
  * @param	DecKeySrc	Select key source which holds KEK and
@@ -382,10 +495,16 @@ int XSecure_AesWriteKey(XSecure_AesKeySource KeySrc, u32 Size, u64 KeyAddr)
  *	-	XST_FAILURE - If timeout has occurred
  *
  ******************************************************************************/
-int XSecure_AesKekDecrypt(u64 IvAddr, XSecure_AesKeySource DstKeySrc,
-				XSecure_AesKeySource DecKeySrc, XSecure_AesKeySize Size)
+int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr,
+				XSecure_AesKeySource DstKeySrc, XSecure_AesKeySource DecKeySrc,
+				XSecure_AesKeySize Size)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_4U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
 	if ((Size != XSECURE_AES_KEY_SIZE_128) &&
 		 (Size != XSECURE_AES_KEY_SIZE_256)) {
@@ -393,9 +512,13 @@ int XSecure_AesKekDecrypt(u64 IvAddr, XSecure_AesKeySource DstKeySrc,
 		goto END;
 	}
 
-	Status = XSecure_ProcessIpiWithPayload3(XSECURE_API_AES_KEK_DECRYPT,
-			(((u32)Size << 16U) | ((u32)DstKeySrc << 8U) | (u32)DecKeySrc),
-			(u32)IvAddr, (u32)(IvAddr >> 32U));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_KEK_DECRYPT);
+	Payload[1U] = (((u32)Size << 16) | ((u32)DstKeySrc << 8) | DecKeySrc);
+	Payload[2U] = (u32)IvAddr;
+	Payload[3U] = (u32)(IvAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -405,6 +528,7 @@ END:
  *
  * @brief	This function sends IPI request to enable/disable DpaCm in AES
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	DpaCmCfg    User choice to enable/disable DPA CM
  *
  * @return
@@ -416,13 +540,22 @@ END:
  *
  *
  ******************************************************************************/
-int XSecure_AesSetDpaCm(u8 DpaCmCfg)
+int XSecure_AesSetDpaCm(XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
 
-	Status = XSecure_ProcessIpiWithPayload1(XSECURE_API_AES_SET_DPA_CM,
-		DpaCmCfg);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_SET_DPA_CM);
+	Payload[1U] = DpaCmCfg;
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -430,6 +563,8 @@ int XSecure_AesSetDpaCm(u8 DpaCmCfg)
 /**
  *
  * @brief	This function sends IPI request to KAT on AES engine
+ *
+ * @param	InstancePtr	Pointer to the client instance
  *
  * @return
  *	-	XST_SUCCESS - When KAT Pass
@@ -444,12 +579,21 @@ int XSecure_AesSetDpaCm(u8 DpaCmCfg)
  * 					not matched with expected data
  *
  ******************************************************************************/
-int XSecure_AesDecryptKat(void)
+int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
 
-	Status = XSecure_ProcessIpiWithPayload0(XSECURE_API_AES_DECRYPT_KAT);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_DECRYPT_KAT);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -458,6 +602,8 @@ int XSecure_AesDecryptKat(void)
  *
  * @brief	This function sends IPI request to perform KAT on AES engine
  * 		to confirm DPA counter measures is working fine
+ *
+ * @param	InstancePtr	Pointer to the client instance
  *
  * @return
  *	-	XST_SUCCESS - On success
@@ -472,12 +618,21 @@ int XSecure_AesDecryptKat(void)
  *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
-int XSecure_AesDecryptCmKat(void)
+int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
 
-	Status = XSecure_ProcessIpiWithPayload0(XSECURE_API_AES_DECRYPT_CM_KAT);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_AES_DECRYPT_CM_KAT);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }
 
@@ -486,14 +641,15 @@ int XSecure_AesDecryptCmKat(void)
  *
  * @brief	This function calls IPI request to encrypt a single block of data.
  *
- * @param	KeySrc Type of the key
- * @param	KeySize Size of the key
- * @param	IvAddr  Address of the IV
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KeySrc 		Type of the key
+ * @param	KeySize 	Size of the key
+ * @param	IvAddr  	Address of the IV
  * @param	InDataAddr  Address of the data which needs to be encrypted
- * @param	OutDataAddr  Address of output buffer where the encrypted data
- *		to be updated
- * @param	Size  Size of data to be encrypted in bytes where number of
- * 		bytes provided should be multiples of 4
+ * @param	OutDataAddr	Address of output buffer where the encrypted data
+ *						to be updated
+ * @param	Size		Size of data to be encrypted in bytes where number of
+ * 						bytes provided should be multiples of 4
  * @param	GcmTagAddr  Address to the buffer of GCM tag
  *
  * @return
@@ -503,22 +659,26 @@ int XSecure_AesDecryptCmKat(void)
  *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
-int XSecure_AesEncryptData(XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
+int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XSecure_AesEncryptInit(KeySrc, KeySize, IvAddr);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	Status = XSecure_AesEncryptInit(InstancePtr, KeySrc, KeySize, IvAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptUpdate(InDataAddr, OutDataAddr, Size, TRUE);
+	Status = XSecure_AesEncryptUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptFinal(GcmTagAddr);
+	Status = XSecure_AesEncryptFinal(InstancePtr, GcmTagAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -532,14 +692,15 @@ END:
  *
  * @brief	This function calls IPI request to decrypt a single block of data.
  *
- * @param	KeySrc  Type of the key
- * @param	KeySize  Size of the key
- * @param	IvAddr  Address of the IV
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	KeySrc  	Type of the key
+ * @param	KeySize  	Size of the key
+ * @param	IvAddr  	Address of the IV
  * @param	InDataAddr  Address of the encrypted data which needs to be
- *		decrypted
- * @param	OutDataAddr  Address of buffer where the decrypted data to be
- *		updated
- * @param	Size  Size of input data to be decrypted
+ *						decrypted
+ * @param	OutDataAddr	Address of buffer where the decrypted data to be
+ *						updated
+ * @param	Size  		Size of input data to be decrypted
  * @param	GcmTagAddr  Address to the buffer of GCM tag
  *
  * @return
@@ -549,22 +710,26 @@ END:
  *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
-int XSecure_AesDecryptData(XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
+int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XSecure_AesDecryptInit(KeySrc, KeySize, IvAddr);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	Status = XSecure_AesDecryptInit(InstancePtr, KeySrc, KeySize, IvAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptUpdate(InDataAddr, OutDataAddr, Size, TRUE);
+	Status = XSecure_AesDecryptUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptFinal(GcmTagAddr);
+	Status = XSecure_AesDecryptFinal(InstancePtr, GcmTagAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

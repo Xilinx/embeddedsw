@@ -24,6 +24,7 @@
 *                     state using XSecure_ShaState
 * 4.6   kal  08/22/21 Updated doxygen comment description for
 *                     XSecure_Sha3Initialize API
+*       kpt  03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 *
@@ -32,8 +33,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xsecure_defs.h"
-#include "xsecure_ipi.h"
 #include "xsecure_shaclient.h"
 
 /************************** Constant Definitions *****************************/
@@ -75,6 +74,7 @@ int XSecure_Sha3Initialize(void)
  * @brief       This function sends IPI request to update the SHA3 engine
  *		with the input data
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	InDataAddr	Address of the output buffer to store the
  * 				output hash
  * @param	Size		Size of the data to be updated to SHA3 engine
@@ -84,10 +84,15 @@ int XSecure_Sha3Initialize(void)
  * 	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XSecure_Sha3Update(const u64 InDataAddr, u32 Size)
+int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Sha3InitializeMask = 0U;
+	u32 Payload[XSECURE_PAYLOAD_LEN_6U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
 	if ((Sha3State != XSECURE_SHA_INITIALIZED) &&
 		(Sha3State != XSECURE_SHA_UPDATE)) {
@@ -99,11 +104,16 @@ int XSecure_Sha3Update(const u64 InDataAddr, u32 Size)
 		Sha3InitializeMask = 1U << XSECURE_SHA_FIRST_PACKET_SHIFT;
 	}
 
-	Status = XSecure_ProcessIpiWithPayload5(XSECURE_API_SHA3_UPDATE,
-			(u32)InDataAddr, (u32)(InDataAddr >> 32U),
-			((1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT)|
-			(Sha3InitializeMask) | Size),
-			XSECURE_IPI_UNUSED_PARAM, XSECURE_IPI_UNUSED_PARAM);
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_SHA3_UPDATE);
+	Payload[1U] = (u32)InDataAddr;
+	Payload[2U] = (u32)(InDataAddr >> 32);
+	Payload[3U] = (u32)((1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT)|
+						(Sha3InitializeMask) | Size);
+	Payload[4U] = XSECURE_IPI_UNUSED_PARAM;
+	Payload[5U] = XSECURE_IPI_UNUSED_PARAM;
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Update Failed \r\n");
 		goto END;
@@ -119,6 +129,7 @@ END:
  * @brief	This function sends IPI request final data to SHA3 engine
  * 		which includes SHA3 padding and reads final hash
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	OutDataAddr	Address of the output buffer to store the
  * 				output hash
  *
@@ -129,9 +140,14 @@ END:
  *	-	XST_FAILURE - If Sha3PadType is other than KECCAK or NIST
  *
  *****************************************************************************/
-int XSecure_Sha3Finish(const u64 OutDataAddr)
+int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_6U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
 	if ((Sha3State != XSECURE_SHA_INITIALIZED) &&
 		(Sha3State != XSECURE_SHA_UPDATE)) {
@@ -139,10 +155,19 @@ int XSecure_Sha3Finish(const u64 OutDataAddr)
 		goto END;
 	}
 
-	Status = XSecure_ProcessIpiWithPayload5(XSECURE_API_SHA3_UPDATE,
-			XSECURE_IPI_UNUSED_PARAM, XSECURE_IPI_UNUSED_PARAM,
-			XSECURE_IPI_UNUSED_PARAM, (u32)OutDataAddr,
-			(u32)(OutDataAddr >> 32));
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_SHA3_UPDATE);
+	Payload[1U] = XSECURE_IPI_UNUSED_PARAM;
+	Payload[2U] = XSECURE_IPI_UNUSED_PARAM;
+	Payload[3U] = XSECURE_IPI_UNUSED_PARAM;
+	Payload[4U] = (u32)OutDataAddr;
+	Payload[5U] = (u32)(OutDataAddr >> 32);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	if (Status != XST_SUCCESS) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Finish Failed \r\n");
+		goto END;
+	}
 
 	Sha3State = XSECURE_SHA_UNINITIALIZED;
 END:
@@ -154,6 +179,7 @@ END:
  * @brief	This function sends IPI request to calculate hash on single
  *		block of data
  *
+ * @param	InstancePtr	Pointer to the client instance
  * @param	InDataAddr	Address of the input buffer where the input
  * 				data is stored
  * @param	OutDataAddr	Address of the output buffer to store the
@@ -167,21 +193,25 @@ END:
  *	-	XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XSecure_Sha3Digest(const u64 InDataAddr, const u64 OutDataAddr, u32 Size)
+int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, const u64 OutDataAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
 	Status = XSecure_Sha3Initialize();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_Sha3Update(InDataAddr, Size);
+	Status = XSecure_Sha3Update(InstancePtr, InDataAddr, Size);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_Sha3Finish(OutDataAddr);
+	Status = XSecure_Sha3Finish(InstancePtr, OutDataAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -196,6 +226,8 @@ END:
  * @brief	This function sends IPI request to execute
  * 		known answer test(KAT) on SHA crypto engine
  *
+ * @param	InstancePtr	Pointer to the client instance
+ *
  * @return
  *	-	XST_SUCCESS - When KAT Pass
  *	-	XSECURE_SHA3_INVALID_PARAM 	 - On invalid argument
@@ -207,11 +239,20 @@ END:
  *	-	XSECURE_SHA3_FINISH_ERROR 	 - Error when SHA3 finish fails
  *
  ******************************************************************************/
-int XSecure_Sha3Kat(void)
+int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
 
-	Status = XSecure_ProcessIpiWithPayload0(XSECURE_API_SHA3_KAT);
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
 
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_SHA3_KAT);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+
+END:
 	return Status;
 }

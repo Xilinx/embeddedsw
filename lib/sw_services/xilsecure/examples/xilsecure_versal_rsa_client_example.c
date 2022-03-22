@@ -16,11 +16,14 @@
 * - Then signature will be encrypted with public key and generates the actual
 * data also verifies with actual data.
 *
+* To build this application, xilmailbox library must be included in BSP and xilsecure
+* must be in client mode
+*
 * Procedure to link and compile the example for the default ddr less designs
 * ------------------------------------------------------------------------------------------------------------
-* By default the linker settings uses a software stack, heap and data in DDR and any variables used by the example will be
-* placed in the DDR memory. For this example to work on BRAM or any local memory it requires a design that
-* contains memory region which is accessible by both client(A72/R5/PL) and server(PMC).
+* The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
+* any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
+* which is acccessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -31,18 +34,19 @@
 *						OR
 *
 *		1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
-*			sharedmemory (NOLOAD) : {
-*			= ALIGN(4);
-*			__bss_start = .;
-*			*(.bss)
-*			*(.bss.*)
-*			*(.gnu.linkonce.b.*)
-*			*(COMMON)
-*			. = ALIGN(4);
-*			__bss_end = .;
-*			} > Memory(OCM,TCM or DDR)
+*			.sharedmemory : {
+*   			. = ALIGN(4);
+*   			__sharedmemory_start = .;
+*   			*(.sharedmemory)
+*   			*(.sharedmemory.*)
+*   			*(.gnu.linkonce.d.*)
+*   			__sharedmemory_end = .;
+* 			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
 *
-* 		2. Data elements that are passed by reference to the server side should be stored in the above shared memory section.
+* 		2. Data elements that are passed by reference to the server side should be stored in the above shared
+* 			memory section.
+*
+* To keep things simple, by default the cache is disabled for this example
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -54,6 +58,7 @@
 * 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
 *                       with xilinx maintained functions
 *       kpt    01/13/22 Added support for PL microblaze
+*       kpt    03/16/22 Removed IPI related code and added mailbox support
 *
 * </pre>
 ******************************************************************************/
@@ -62,11 +67,13 @@
 #include "xil_cache.h"
 #include "xparameters.h"
 #include "xil_util.h"
-#include "xsecure_ipi.h"
 #include "xsecure_rsaclient.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_RSA_SIZE	512	/**< 512 bytes for 4096 bit data */
+#define XSECURE_SHARED_BUF_SIZE	(XSECURE_SHARED_MEM_SIZE +\
+								XSECURE_RSA_SIZE + XSECURE_RSA_SIZE+\
+								XSECURE_RSA_SIZE + XSECURE_RSA_SIZE)
 
 /**************************** Type Definitions *******************************/
 /* Exponent of private key */
@@ -171,7 +178,7 @@ static const u8 Modulus[XSECURE_RSA_SIZE] = {
  * MSB  ------------------------------------------------------------LSB
  * 0x0 || 0x1 || 0xFF(for 202 bytes) || 0x0 || T_padding || SHA384 Hash
  */
-static const u8 Data[XSECURE_RSA_SIZE] = {
+static const u8 Data[XSECURE_RSA_SIZE] __attribute__ ((section (".data.Data"))) = {
 	 0x00,0x01,
 	 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 	 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
@@ -275,12 +282,11 @@ static u32 SecureRsaExample(void);
 
 /************************** Variable Definitions *****************************/
 
-static XIpiPsu IpiInst;
-
 static u32 Size = XSECURE_RSA_SIZE;
 
 /* shared memory allocation */
-static u8 SharedMem[XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64U)));
+static u8 SharedMem[XSECURE_SHARED_BUF_SIZE] __attribute__((aligned(64U)))
+										__attribute__ ((section (".data.SharedMem")));
 
 /*****************************************************************************/
 /**
@@ -297,21 +303,11 @@ int main(void)
 {
 	u32 Status;
 
-	Status = XSecure_InitializeIpi(&IpiInst);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XSecure_SetIpi(&IpiInst);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/* Set shared memory */
-	XSecure_SetSharedMem((u64)(UINTPTR)&SharedMem, sizeof(SharedMem));
+	#ifdef XSECURE_CACHE_DISABLE
+		Xil_DCacheDisable();
+	#endif
 
 	Status = SecureRsaExample();
-
 	if(Status != XST_SUCCESS)
 	{
 		xil_printf("\r\nRSA client example failed %d \r\n",
@@ -345,15 +341,32 @@ END:
 static u32 SecureRsaExample(void)
 {
 	u32 Status = XST_FAILURE;
-	u8 Signature[XSECURE_RSA_SIZE]
-			__attribute__ ((aligned (64))) = {0U};
-	u64 SignAddr = (UINTPTR)&Signature;
-	u8 EncryptSignatureOut[XSECURE_RSA_SIZE]
-			__attribute__ ((aligned (64))) = {0U};
-	u64 EncOutAddr = (UINTPTR)&EncryptSignatureOut;
+	u8 *Signature = &SharedMem[0];
+	u8 *EncryptSignatureOut = Signature + XSECURE_RSA_SIZE;
+	u8 *Key = EncryptSignatureOut + XSECURE_RSA_SIZE;
 	u32 Index;
-	u8 Key[XSECURE_RSA_SIZE + XSECURE_RSA_SIZE]
-			__attribute__ ((aligned (64))) = {0U};
+	XMailbox MailboxInstance;
+	XSecure_ClientInstance SecureClientInstance;
+
+	Status = XMailbox_Initialize(&MailboxInstance, 0U);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Mailbox initialize failed:%08x \r\n", Status);
+		goto END;
+	}
+
+	Status = XSecure_ClientInit(&SecureClientInstance, &MailboxInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Client initialize failed:%08x \r\n", Status);
+		goto END;
+	}
+
+	/* Set shared memory */
+	Status = XMailbox_SetSharedMem(&MailboxInstance, (u64)(UINTPTR)(Key + XSECURE_RSA_SIZE +
+				XSECURE_RSA_SIZE), XSECURE_SHARED_MEM_SIZE);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n shared memory initialization failed");
+		goto END;
+	}
 
 	Status = Xil_SMemCpy(Key, XSECURE_RSA_SIZE, Modulus, XSECURE_RSA_SIZE,
 			XSECURE_RSA_SIZE);
@@ -370,18 +383,18 @@ static u32 SecureRsaExample(void)
 	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_RSA_SIZE + XSECURE_RSA_SIZE);
 	Xil_DCacheFlushRange((UINTPTR)Data, XSECURE_RSA_SIZE);
 
-	Xil_DCacheInvalidateRange((UINTPTR)SignAddr, XSECURE_RSA_SIZE);
+	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_RSA_SIZE);
 
 	/* RSA signature decrypt with private key */
-	Status = XSecure_RsaPrivateDecrypt((UINTPTR)&Key, (UINTPTR)&Data,
-			Size, SignAddr);
+	Status = XSecure_RsaPrivateDecrypt(&SecureClientInstance, (UINTPTR)Key, (UINTPTR)&Data,
+			Size, (UINTPTR)Signature);
 
 	if(XST_SUCCESS != Status)	{
 		xil_printf("Failed at RSA signature decryption\n\r");
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)SignAddr, XSECURE_RSA_SIZE);
+	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_RSA_SIZE);
 	xil_printf("\r\n Decrypted Signature with private key\r\n ");
 
 	for(Index = 0; Index < Size; Index++) {
@@ -407,16 +420,16 @@ static u32 SecureRsaExample(void)
 	}
 
 	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_RSA_SIZE + XSECURE_RSA_SIZE);
-	Xil_DCacheInvalidateRange((UINTPTR)EncOutAddr, XSECURE_RSA_SIZE);
+	Xil_DCacheInvalidateRange((UINTPTR)EncryptSignatureOut, XSECURE_RSA_SIZE);
 
-	Status = XSecure_RsaPublicEncrypt((UINTPTR)&Key, (UINTPTR)&Signature,
-			Size, EncOutAddr);
+	Status = XSecure_RsaPublicEncrypt(&SecureClientInstance, (UINTPTR)Key, (UINTPTR)Signature,
+			Size, (UINTPTR)EncryptSignatureOut);
 	if(XST_SUCCESS != Status)	{
 		xil_printf("\r\nFailed at RSA signature encryption\n\r");
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)EncOutAddr, XSECURE_RSA_SIZE);
+	Xil_DCacheInvalidateRange((UINTPTR)EncryptSignatureOut, XSECURE_RSA_SIZE);
 
 	xil_printf("\r\n Encrypted Signature with public key\r\n ");
 
@@ -435,7 +448,7 @@ static u32 SecureRsaExample(void)
 	}
 
 END:
-	Status |= XSecure_ReleaseSharedMem();
+	Status |= XMailbox_ReleaseSharedMem(&MailboxInstance);
 	return Status;
 }
 /** //! [RSA generic example] */

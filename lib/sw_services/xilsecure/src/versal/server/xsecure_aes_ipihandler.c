@@ -28,6 +28,7 @@
 *       kal   08/18/2021 Fixed SW-BP-LOCK-RESOURCE review comments
 *       har   09/14/2021 Added check for DecKeySrc in XSecure_AesKekDecrypt
 * 4.7   am    03/08/2022 Fixed MISRA C violations
+*       kpt   03/18/2022 Replaced XPlmi_Dmaxfr with XPlmi_MemCpy64
 *
 * </pre>
 *
@@ -189,8 +190,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	XSecure_AesInitOps AesParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&AesParams, sizeof(AesParams),
-			XPLMI_PMCDMA_0);
+	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -273,8 +273,7 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_AesInParams InParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&InParams, sizeof(InParams),
-			XPLMI_PMCDMA_0);
+	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -337,8 +336,7 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_AesInParams InParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	Status = XPlmi_DmaXfr(Addr, (UINTPTR)&InParams, sizeof(InParams),
-			XPLMI_PMCDMA_0);
+	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&InParams, Addr, sizeof(InParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
