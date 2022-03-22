@@ -39,6 +39,7 @@
 *       dc     01/19/22 Assert RachUpdate trigger
 *       dc     01/31/22 Add CORE_SETTINGS register
 *       dc     02/17/22 Physical channel index RACH config array
+*       dc     03/21/22 Add prefix to global variables
 *
 * </pre>
 * @addtogroup Overview
@@ -123,8 +124,8 @@ static void XDfePrach_SetSchedule(const XDfePrach *InstancePtr,
 				  const XDfePrach_RCCfg *RCCfg, u32 RCId);
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
-extern struct metal_device CustomDevice[XDFEPRACH_MAX_NUM_INSTANCES];
-extern metal_phys_addr_t metal_phys[XDFEPRACH_MAX_NUM_INSTANCES];
+extern struct metal_device XDfePrach_CustomDevice[XDFEPRACH_MAX_NUM_INSTANCES];
+extern metal_phys_addr_t XDfePrach_metal_phys[XDFEPRACH_MAX_NUM_INSTANCES];
 #endif
 extern XDfePrach XDfePrach_Prach[XDFEPRACH_MAX_NUM_INSTANCES];
 static u32 XDfePrach_DriverHasBeenRegisteredOnce = 0U;
@@ -1459,8 +1460,8 @@ register_metal:
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
 	for (Index = 0; Index < XDFEPRACH_MAX_NUM_INSTANCES; Index++) {
-		if (Addr == metal_phys[Index]) {
-			InstancePtr->Device = &CustomDevice[Index];
+		if (Addr == XDfePrach_metal_phys[Index]) {
+			InstancePtr->Device = &XDfePrach_CustomDevice[Index];
 			goto bm_register_metal;
 		}
 	}
