@@ -44,6 +44,7 @@
 * 1.3   dc     01/07/22 NCO assignment in arch4 mode
 *       dc     01/19/22 Assert CCUpdate trigger
 *       dc     02/10/22 Add latency information
+*       dc     03/21/22 Add prefix to global variables
 *
 * </pre>
 * @addtogroup Overview
@@ -94,8 +95,8 @@
 */
 
 #ifdef __BAREMETAL__
-extern struct metal_device CustomDevice[XDFEMIX_MAX_NUM_INSTANCES];
-extern metal_phys_addr_t metal_phys[XDFEMIX_MAX_NUM_INSTANCES];
+extern struct metal_device XDfeMix_CustomDevice[XDFEMIX_MAX_NUM_INSTANCES];
+extern metal_phys_addr_t XDfeMix_metal_phys[XDFEMIX_MAX_NUM_INSTANCES];
 #endif
 extern XDfeMix XDfeMix_Mixer[XDFEMIX_MAX_NUM_INSTANCES];
 static u32 XDfeMix_DriverHasBeenRegisteredOnce = 0U;
@@ -1292,8 +1293,8 @@ register_metal:
 	AddrStr = strtok(Str, ".");
 	Addr = strtoul(AddrStr, NULL, 16);
 	for (Index = 0; Index < XDFEMIX_MAX_NUM_INSTANCES; Index++) {
-		if (Addr == metal_phys[Index]) {
-			InstancePtr->Device = &CustomDevice[Index];
+		if (Addr == XDfeMix_metal_phys[Index]) {
+			InstancePtr->Device = &XDfeMix_CustomDevice[Index];
 			goto bm_register_metal;
 		}
 	}

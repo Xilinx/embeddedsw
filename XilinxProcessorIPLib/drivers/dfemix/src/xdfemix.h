@@ -75,6 +75,7 @@
 *       dc     12/02/21 Add UpdateAntennaCfg API
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     02/10/22 Add latency information
+*       dc     03/21/22 Add prefix to global variables
 *
 * </pre>
 * @endcond
@@ -114,8 +115,12 @@ extern "C" {
 /**
 * @endcond
 */
+#ifndef XST_SUCCESS
 #define XST_SUCCESS (0U) /**< Success flag */
+#endif
+#ifndef XST_FAILURE
 #define XST_FAILURE (1U) /**< Failure flag */
+#endif
 #else
 #define XDFEMIX_MAX_NUM_INSTANCES XPAR_XDFEMIX_NUM_INSTANCES
 #endif
@@ -153,7 +158,7 @@ typedef __s8 s8;
 		.name = _dev_name, .bus = NULL, .num_regions = 1,              \
 		.regions = { {                                                 \
 			.virt = (void *)_baseaddr,                             \
-			.physmap = &metal_phys[_idx],                          \
+			.physmap = &XDfeMix_metal_phys[_idx],                  \
 			.size = 0x10000,                                       \
 			.page_shift = (u32)(-1),                               \
 			.page_mask = (u32)(-1),                                \
