@@ -38,6 +38,9 @@
 *       rv   08/19/2021 Updated EmInit to pass subsystem restart handler
 *       bsv  09/09/2021 Added PLM_NVM macro
 * 1.06  kpt  01/04/2022 Added PLM_PUF macro
+*       ma   03/22/2022 Call XPlmi_EmInit after XPlm_PmInit as clearing some of
+*                       the EAM errors are dependent on domain isolations which
+*                       are handled in XPlm_PmInit
 *
 * </pre>
 *
@@ -112,12 +115,12 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 
-	XPlmi_EmInit(XPm_SystemShutdown, XPm_IdleRestartHandler);
-
 	Status = XPlm_PmInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	XPlmi_EmInit(XPm_SystemShutdown, XPm_IdleRestartHandler);
 
 	Status = XLoader_Init();
 	if (Status != XST_SUCCESS) {
