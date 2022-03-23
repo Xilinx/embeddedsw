@@ -68,6 +68,10 @@ XStatus XPm_GetApiVersion(u32 *Version);
 XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 			const u32 Latency, const u8 State,
 			u32 AddrLow, u32 AddrHigh);
+XStatus XPm_AddNodeParent(const u32 *Args, u32 NumArgs);
+XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs);
+XStatus XPm_AddNode(const u32 *Args, u32 NumArgs);
+
 
 #ifdef __cplusplus
 }

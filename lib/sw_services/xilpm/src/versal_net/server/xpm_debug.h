@@ -18,6 +18,12 @@ extern "C" {
 
 // /*********************** Generic House Cleaning Errors ***********************/
 // /*************************** (0x3100) - (0x31FF) *****************************/
+/* Invalid power domain ID error */
+#define XPM_INT_ERR_INVALID_PWR_DOMAIN		0x3000U
+/* Error during power domain init */
+#define XPM_INT_ERR_POWER_DOMAIN_INIT		0x3100U
+/* Invalid base address */
+#define XPM_INT_ERR_INVALID_BASEADDR		0x3101U
 /* Error during BISR repair */
 #define XPM_INT_ERR_BISR_REPAIR			0x3108U
 
@@ -35,6 +41,16 @@ extern "C" {
 
 // /************************* Miscellaneous Errors ******************************/
 // /************************** (0x3600) - (0x36FF) ******************************/
+/* Invalid parameter passed to function */
+#define XPM_INT_ERR_INVALID_PARAM		0x3603U
+/* Invalid processor */
+#define XPM_INT_ERR_INVALID_PROC		0x3606U
+/* Invalid NODE ID */
+#define XPM_INT_ERR_INVALID_NODE		0x3607U
+/* Invalid NODE index */
+#define XPM_INT_ERR_INVALID_NODE_IDX		0x3608U
+/* Invalid arguments */
+#define XPM_INT_ERR_INVALID_ARGS		0x3609U
 
 // /************************** PLD specific Errors ******************************/
 // /************************** (0x3700) - (0x37FF) ******************************/

@@ -3,37 +3,32 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef XPM_PLDOMAIN_H_
-#define XPM_PLDOMAIN_H_
+
+#ifndef XPM_NPDOMAIN_H_
+#define XPM_NPDOMAIN_H_
 
 #include "xpm_bisr.h"
 #include "xpm_powerdomain.h"
 #include "xpm_regs.h"
-#include "xcframe.h"
-#include "xcfupmc.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-extern u32 HcleanDone;
 /**
- * The PL power domain node class.
+ * The NOC power domain node class.
  */
-typedef struct XPm_PlDomain {
+typedef struct XPm_NpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
-	u32 CfuApbBaseAddr; /**< CFU APB base address */
-	u32 Cframe0RegBaseAddr; /**< CFRAME0 Register base address */
-} XPm_PlDomain;
+} XPm_NpDomain;
 
 /************************** Function Prototypes ******************************/
-XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
-			 XPm_Power *Parent, const u32 *OtherBaseAddresses,
-			 u32 OtherBaseAddressCnt);
-XStatus XPmPlDomain_RetriggerPlHouseClean(void);
+XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
+			 XPm_Power *Parent);
 
 #ifdef __cplusplus
 }
 #endif
+
 /** @} */
-#endif /* XPM_PLDOMAIN_H_ */
+#endif /* XPM_NPDOMAIN_H_ */

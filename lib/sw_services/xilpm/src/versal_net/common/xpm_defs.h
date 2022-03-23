@@ -17,6 +17,7 @@ extern "C" {
 #endif
 
 #include "xpm_regs.h"
+#include "xil_types.h"
 
 /**
  * @name PM Version Number
@@ -47,7 +48,7 @@ enum XPmCapability {
 };
 #define XPM_MAX_QOS		(100U)
 #define XPM_DEF_QOS		XPM_MAX_QOS
-
+#define XPM_MAX_LATENCY		(0xFFFFU)
 
 /**
  * Usage status, returned by PmGetNodeStatus

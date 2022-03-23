@@ -112,6 +112,10 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #endif
 
 #define BIT(n)					(1U << (n))
+// set the first n bits to 1, rest to 0
+#define BITMASK(n)				(u32)((1ULL << (n)) - 1ULL)
+// set width specified bits at offset to 1, rest to 0
+#define BITNMASK(offset, width) 		(BITMASK(width) << (offset))
 
 #define ARRAY_SIZE(x)				(sizeof(x) / sizeof((x)[0]))
 
@@ -124,6 +128,7 @@ u32 XPm_In32(u32 RegAddress);
  */
 void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value);
 
+void *XPm_AllocBytes(u32 SizeInBytes);
 
 #ifdef __cplusplus
 }

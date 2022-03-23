@@ -22,6 +22,14 @@
 #include "xsysmonpsv.h"
 #include "xpm_ipi.h"
 #include "xpm_psm_api.h"
+#include "xpm_powerdomain.h"
+#include "xpm_pmcdomain.h"
+#include "xpm_pslpdomain.h"
+#include "xpm_psfpdomain.h"
+#include "xpm_cpmdomain.h"
+#include "xpm_pldomain.h"
+#include "xpm_npdomain.h"
+
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
 
@@ -80,6 +88,12 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_BISR):
 		Status =  XPmBisr_Repair(Pload[0]);
+		break;
+	case PM_API(PM_ADD_NODE):
+		Status = XPm_AddNode(&Pload[0], Len);
+		break;
+	case PM_API(PM_ADD_NODE_PARENT):
+		Status = XPm_AddNodeParent(&Pload[0], Len);
 		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
@@ -670,6 +684,248 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 	}
 
 	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function allows adding parent to any node or device
+ *
+ * @param  Args		Parent ids
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_AddNodeParent(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Id = Args[0];
+	const u32 *Parents;
+	u32 NumParents;
+
+	if (NumArgs < 2U) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	NumParents = NumArgs-1U;
+	Parents = &Args[1];
+
+	switch (NODECLASS(Id)) {
+	case (u32)XPM_NODECLASS_POWER:
+		Status = XPmPower_AddParent(Id, Parents, NumParents);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function add power node to power topology database
+ *
+ * @param  Args		power arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 PowerId;
+	u32 PowerType;
+	u8 Width;
+	u8 Shift;
+	u32 BitMask;
+	u32 ParentId;
+	XPm_Power *Power;
+	XPm_Power *PowerParent = NULL;
+	XPm_PsFpDomain *PsFpDomain;
+	XPm_PmcDomain *PmcDomain;
+	XPm_PsLpDomain *PsLpDomain;
+	XPm_NpDomain *NpDomain;
+	XPm_PlDomain *PlDomain;
+	XPm_CpmDomain *CpmDomain;
+
+	if (1U > NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	PowerId = Args[0];
+	PowerType = NODETYPE(PowerId);
+	Width = (u8)(Args[1] >> 8) & 0xFFU;
+	Shift = (u8)(Args[1] & 0xFFU);
+	ParentId = Args[2];
+
+	if ((NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	} else {
+		/* Required by MISRA */
+	}
+
+	BitMask = BITNMASK(Shift, Width);
+
+	if ((NODEINDEX(ParentId) != (u32)XPM_NODEIDX_POWER_MIN)) {
+		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		} else if (NODEINDEX(ParentId) >= (u32)XPM_NODEIDX_POWER_MAX) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		} else {
+			/* Required by MISRA */
+		}
+
+		PowerParent = XPmPower_GetById(ParentId);
+		if (NULL == PowerParent) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+	}
+
+	switch (PowerType) {
+	case (u32)XPM_NODETYPE_POWER_ISLAND:
+		Power = (XPm_Power *)XPm_AllocBytes(sizeof(XPm_Power));
+		if (NULL == Power) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPower_Init(Power, PowerId, BitMask,
+			PowerParent);
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_PMC:
+		PmcDomain =
+			(XPm_PmcDomain *)XPm_AllocBytes(sizeof(XPm_PmcDomain));
+		if (NULL == PmcDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPmcDomain_Init((XPm_PmcDomain *)PmcDomain, PowerId,
+					   PowerParent);
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_FULL:
+		PsFpDomain =
+			(XPm_PsFpDomain *)XPm_AllocBytes(sizeof(XPm_PsFpDomain));
+		if (NULL == PsFpDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPsFpDomain_Init(PsFpDomain, PowerId,
+					    BitMask, PowerParent, &Args[3], (NumArgs - 3U));
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_LOW:
+		PsLpDomain =
+			(XPm_PsLpDomain *)XPm_AllocBytes(sizeof(XPm_PsLpDomain));
+		if (NULL == PsLpDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPsLpDomain_Init(PsLpDomain, PowerId,
+					    BitMask, PowerParent,
+					    &Args[3], (NumArgs - 3U));
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_NOC:
+		NpDomain = (XPm_NpDomain *)XPm_AllocBytes(sizeof(XPm_NpDomain));
+		if (NULL == NpDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmNpDomain_Init(NpDomain, PowerId, 0x00000000,
+					  PowerParent);
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_PL:
+		PlDomain = (XPm_PlDomain *)XPm_AllocBytes(sizeof(XPm_PlDomain));
+		if (NULL == PlDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPlDomain_Init(PlDomain, PowerId, 0x00000000,
+					  PowerParent, &Args[3], (NumArgs - 3U));
+		break;
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_CPM:
+		CpmDomain = (XPm_CpmDomain *)XPm_AllocBytes(sizeof(XPm_CpmDomain));
+		if (NULL == CpmDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmCpmDomain_Init(CpmDomain, PowerId, 0x00000000, PowerParent,
+					   &Args[3], (NumArgs - 3U));
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function add isolation node to isolation topology database
+ *
+ * @param  Args		isolation node arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	(void)Args;
+	(void)NumArgs;
+
+	return Status;
+}
+/****************************************************************************/
+/**
+ * @brief  This function allows adding node to clock, power, reset, mio
+ * 			or device topology
+ *
+ * @param  Args		Node specific arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Id = Args[0];
+
+	switch (NODECLASS(Id)) {
+	case (u32)XPM_NODECLASS_POWER:
+		Status = XPm_AddNodePower(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_ISOLATION:
+		Status = XPm_AddNodeIsolation(Args, NumArgs);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+	return Status;
 }
 
 /****************************************************************************/
