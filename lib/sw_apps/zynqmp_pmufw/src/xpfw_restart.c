@@ -395,7 +395,8 @@ static XPfwRestartTracker *Xpfw_GetRstTracker(void)
 		}
 	}
 
-	if (ARRAY_SIZE(RstTrackerList) > RstIdx) {
+	/* FSBL might not be running anywhere - i.e: SPL boots PMUFW */
+	if (ARRAY_SIZE(RstTrackerList) >= RstIdx) {
 		Handle = &RstTrackerList[RstIdx];
 	}
 
