@@ -83,6 +83,7 @@
 *       kpt  02/18/2022 Fix copy to memory issue for slave and non-slave boot
 *                       modes
 *       bsv  03/17/2022 Add support for A72 elfs to run from TCM
+*       bsv  03/23/2022 Minor change in loading of A72 elfs to TCM
 *
 * </pre>
 *
@@ -485,23 +486,14 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				XLOADER_ERR_INVALID_TCM_ADDR, 0);
 		}
 	}
-	else if ((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_0_TCM_A_BASE_ADDR)
-		&& (EndAddr <= XLOADER_R5_0_TCM_A_END_ADDR)) {
-		/* TCM 0 A is in use */
+	else if (((PrtnParams->DeviceCopy.DestAddr >=
+		XLOADER_R5_0_TCM_A_BASE_ADDR) &&
+		(EndAddr <= XLOADER_R5_0_TCM_A_END_ADDR)) ||
+		((PrtnParams->DeviceCopy.DestAddr >=
+		  XLOADER_R5_0_TCM_B_BASE_ADDR) &&
+		 (EndAddr <= XLOADER_R5_0_TCM_B_END_ADDR))) {
+		/* TCM 0 is in use */
 		Status = XLoader_RequestTCM(XLOADER_TCM_0);
-	}
-	else if ((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_0_TCM_B_BASE_ADDR)
-		&& (EndAddr <= XLOADER_R5_0_TCM_B_END_ADDR)) {
-		/* TCM 0 B is in use */
-		TcmComb = (u8)((XPlmi_In32(XLOADER_RPU_GLBL_CNTL) &
-			XLOADER_TCMCOMB_MASK) >> XLOADER_TCMCOMB_SHIFT);
-		if (TcmComb == (u8)FALSE) {
-			Status = XLoader_RequestTCM(XLOADER_TCM_0);
-		}
-		else {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_INVALID_TCM_ADDR, 0);
-		}
 	}
 	else if ((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_0_TCM_A_BASE_ADDR)
 		&& (EndAddr <= XLOADER_R5_LS_TCM_END_ADDR)) {
