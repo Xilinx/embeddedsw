@@ -83,6 +83,7 @@
 *                       handler
 *       ma   02/01/2022 Fix SW-BP-INIT-TO-FAILURE warnings
 *       ma   03/10/2022 Fix bug in disabling the error actions for PSM errors
+*       is   03/22/2022 Add custom handler for XPPU/XMPU error events
 *
 * </pre>
 *
@@ -136,6 +137,9 @@ static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
 static void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 		u32 Cpm5DmaCsrIntDecReg, u32 ProcId);
 static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask);
+static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
+static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
+static void XPlmi_ProtUnitErrHandler(u32 ErrorNodeId, u32 RegMask);
 
 /************************** Variable Definitions *****************************/
 static u32 EmSubsystemId = 0U;
@@ -333,9 +337,11 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_PMCTO] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCXMPU] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ProtUnitErrHandler,
+			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCXPPU] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ProtUnitErrHandler,
+			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_SSIT0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_SSIT1] =
@@ -444,11 +450,14 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_PSM_RSRV19] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPD_XMPU] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ProtUnitErrHandler,
+			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPD_XPPU] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ProtUnitErrHandler,
+			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_FPD_XMPU] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ProtUnitErrHandler,
+			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_HB_MON_0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_HB_MON_1] =
@@ -755,6 +764,114 @@ static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask)
 		/* Only PCIE0/1 errors are handled */
 		XPlmi_Printf(DEBUG_GENERAL, "Unhandled CPM_NCR error: 0x%x\r\n",
 				CpmErrors);
+	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function handles the XPPU errors
+*
+* @param    BaseAddr is the base address of the XPPU
+* @param    ProtUnitStr is string prefix to be used while printing event info
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
+{
+	u32 XppuErrStatus1 = XPlmi_In32(BaseAddr + XPPU_ERR_STATUS1);
+	u32 XppuErrStatus2 = XPlmi_In32(BaseAddr + XPPU_ERR_STATUS2);
+	u32 XppuErrors = XPlmi_In32(BaseAddr + XPPU_ISR);
+
+	if (NULL == ProtUnitStr) {
+		ProtUnitStr = "";
+	}
+
+	/*
+	 * ERR_ST1 is the upper 20 bits of violated transaction address
+	 * ERR_ST2 is the Master ID (i.e. SMID) of the violated transaction
+	 * ISR is the interrupt status and clear for access violations
+	 */
+	XPlmi_Printf(DEBUG_GENERAL, "%s: ERR_ST1: 0x%08x, ERR_ST2: 0x%08x, ISR: 0x%08x\r\n",
+			ProtUnitStr, XppuErrStatus1, XppuErrStatus2, XppuErrors);
+}
+
+/****************************************************************************/
+/**
+* @brief    This function handles the XMPU errors
+*
+* @param    BaseAddr is the base address of the XMPU
+* @param    ProtUnitStr is string prefix to be used while printing event info
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
+{
+	u32 XmpuErr1lo = XPlmi_In32(BaseAddr + XMPU_ERR_STATUS1_LO);
+	u32 XmpuErr1hi = XPlmi_In32(BaseAddr + XMPU_ERR_STATUS1_HI);
+	u32 XmpuErrStatus2 = XPlmi_In32(BaseAddr + XMPU_ERR_STATUS2);
+	u32 XmpuErrors = XPlmi_In32(BaseAddr + XMPU_ISR);
+
+	if (NULL == ProtUnitStr) {
+		ProtUnitStr = "";
+	}
+
+	/*
+	 * ERR_ST1_LO is the lower bits of failed transaction address
+	 * ERR_ST1_HI is the higher bits of failed transaction address
+	 * ERR_ST2 is Master ID (i.e. SMID) of the failed transaction
+	 * ISR is the interrupt status and clear for access violations
+	 */
+	XPlmi_Printf(DEBUG_GENERAL,
+			"%s: ERR_ST1_LO: 0x%08x, ERR_ST1_HI: 0x%08x, ERR_ST2: 0x%08x, ISR: 0x%08x\r\n",
+			ProtUnitStr, XmpuErr1lo, XmpuErr1hi, XmpuErrStatus2, XmpuErrors);
+}
+
+/****************************************************************************/
+/**
+* @brief    Top level action handler for the XPPU/XMPU errors
+*
+* @param    ErrorNodeId is the node ID for the error event
+* @param    RegMask is the register mask of the error received
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_ProtUnitErrHandler(u32 ErrorNodeId, u32 RegMask)
+{
+	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
+
+	/*
+	 * The nature of XPPU/XMPU errors is such that they often occur consecutively
+	 * due to the stream of transactions. This may result in flooding the UART with
+	 * prints and/or starvation of user tasks due to PLM's constant handling of these
+	 * error events. Therefore, such events are handled only the first time error
+	 * occurs and these errors are not enabled again. The source is also not cleared
+	 * because doing so may interfere with user's handling of these errors.
+	 */
+	switch (ErrorId) {
+	case XPLMI_ERROR_PMCXPPU:
+		XPlmi_XppuErrHandler(PMC_XPPU_BASEADDR, "PMC_XPPU");
+		XPlmi_XppuErrHandler(PMC_XPPU_NPI_BASEADDR, "PMC_XPPU_NPI");
+		break;
+	case XPLMI_ERROR_LPD_XPPU:
+		XPlmi_XppuErrHandler(LPD_XPPU_BASEADDR, "LPD_XPPU");
+		break;
+	case XPLMI_ERROR_PMCXMPU:
+		XPlmi_XmpuErrHandler(PMC_XMPU_BASEADDR, "PMC_XMPU");
+		break;
+	case XPLMI_ERROR_LPD_XMPU:
+		XPlmi_XmpuErrHandler(LPD_XMPU_BASEADDR, "LPD_XMPU");
+		break;
+	case XPLMI_ERROR_FPD_XMPU:
+		XPlmi_XmpuErrHandler(FPD_XMPU_BASEADDR, "FPD_XMPU");
+		break;
+	default:
+		/* Only XPPU/XMPU errors are handled */
+		XPlmi_Printf(DEBUG_GENERAL, "Unhandled Error: Node: 0x%x, Mask: 0x%x\r\n",
+				ErrorNodeId, RegMask);
+		break;
 	}
 }
 

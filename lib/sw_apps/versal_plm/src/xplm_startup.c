@@ -37,6 +37,7 @@
 *       bm   09/07/2021 Merged pre-boot startup tasks into a single task
 * 1.05  am   11/24/2021 Fixed doxygen warnings
 *       ma   01/17/2022 Enable SLVERR for PLM related components
+*       is   03/22/2022 Updated PMC XMPU/XPPUs IEN macros
 *
 * </pre>
 *
@@ -171,11 +172,11 @@ static void XPlm_EnableSlaveErrors(void)
 	XPlmi_UtilRMW(RTC_CONTROL, XPLMI_SLAVE_ERROR_ENABLE_MASK,
 			XPLMI_SLAVE_ERROR_ENABLE_MASK);
 	/* Enable SLVERR for PMC_XMPU registers */
-	XPlmi_Out32(PMC_XMPU_IEN, XPLMI_SLAVE_ERROR_ENABLE_MASK);
+	XPlmi_Out32((PMC_XMPU_BASEADDR + XMPU_IEN), XPLMI_SLAVE_ERROR_ENABLE_MASK);
 	/* Enable SLVERR for PMC_XPPU_NPI registers */
-	XPlmi_Out32(PMC_XPPU_NPI_IEN, XPLMI_SLAVE_ERROR_ENABLE_MASK);
+	XPlmi_Out32((PMC_XPPU_NPI_BASEADDR + XPPU_IEN), XPLMI_SLAVE_ERROR_ENABLE_MASK);
 	/* Enable SLVERR for PMC_XPPU registers */
-	XPlmi_Out32(PMC_XPPU_IEN, XPLMI_SLAVE_ERROR_ENABLE_MASK);
+	XPlmi_Out32((PMC_XPPU_BASEADDR + XPPU_IEN), XPLMI_SLAVE_ERROR_ENABLE_MASK);
 	/* Enable SLVERR for INTPMC_CONFIG registers */
 	XPlmi_Out32(INTPMC_CONFIG_IR_ENABLE, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 }
