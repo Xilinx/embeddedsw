@@ -69,6 +69,7 @@
 *       ma   01/31/2022 Fix DMA Keyhole command issue where the command
 *                       starts at the 32K boundary
 *       skd  03/09/2022 Compilation warning fix
+*       is   03/22/2022 Combined old and new XPPU/XMPU macros
 *
 * </pre>
 *
@@ -916,24 +917,35 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define RTC_CONTROL		(RTC_BASEADDR + 0X00000040U)
 
 /*
- * Register: PMC_XMPU
+ * XMPUs
  */
 #define PMC_XMPU_BASEADDR		(0XF12F0000U)
+#define LPD_XMPU_BASEADDR		(0xFF980000U)
+#define FPD_XMPU_BASEADDR		(0xFD390000U)
 
 /*
- * Register: PMC_XMPU_IEN
+ * XMPU Offsets
  */
-#define PMC_XMPU_IEN		(PMC_XMPU_BASEADDR + 0X00000018U)
+#define XMPU_ERR_STATUS1_LO		(0x00000004U)
+#define XMPU_ERR_STATUS1_HI		(0x00000008U)
+#define XMPU_ERR_STATUS2		(0x0000000CU)
+#define XMPU_ISR			(0x00000010U)
+#define XMPU_IEN			(0x00000018U)
 
 /*
- * Register: PMC_XPPU_NPI
+ * XPPUs
  */
+#define PMC_XPPU_BASEADDR		(0XF1310000U)
 #define PMC_XPPU_NPI_BASEADDR		(0XF1300000U)
+#define LPD_XPPU_BASEADDR		(0xFF990000U)
 
 /*
- * Register: PMC_XPPU_IEN
+ * XPPU Offsets
  */
-#define PMC_XPPU_NPI_IEN		(PMC_XPPU_NPI_BASEADDR + 0X00000018U)
+#define XPPU_ERR_STATUS1		(0x00000004U)
+#define XPPU_ERR_STATUS2		(0x00000008U)
+#define XPPU_ISR			(0x00000010U)
+#define XPPU_IEN			(0x00000018U)
 
 /*
  * Register: INTPMC_CONFIG
@@ -941,19 +953,10 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define INTPMC_CONFIG_BASEADDR		(0XF1330000U)
 
 /*
- * Register: PMC_XPPU_IEN
+ * Register: INTPMC_CONFIG_IR_ENABLE
  */
 #define INTPMC_CONFIG_IR_ENABLE		(INTPMC_CONFIG_BASEADDR + 0X00000008U)
 
-/*
- * Register: PMC_XPPU
- */
-#define PMC_XPPU_BASEADDR		(0XF1310000U)
-
-/*
- * Register: PMC_XPPU_IEN
- */
-#define PMC_XPPU_IEN		(PMC_XPPU_BASEADDR + 0X00000018U)
 
 /*
  * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
