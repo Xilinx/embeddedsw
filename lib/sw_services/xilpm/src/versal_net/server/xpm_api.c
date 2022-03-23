@@ -193,52 +193,52 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 
 	/* TODO: Remove hard coded mask when available from topology */
 	switch (DeviceId) {
-	case PM_DEV_CLUSTER0_ACPU_0:
+	case PM_DEV_ACPU_0_0:
 		Mask = APU0_CORE0_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER0_ACPU_1:
+	case PM_DEV_ACPU_0_1:
 		Mask = APU0_CORE1_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER0_ACPU_2:
+	case PM_DEV_ACPU_0_2:
 		Mask = APU0_CORE2_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER0_ACPU_3:
+	case PM_DEV_ACPU_0_3:
 		Mask = APU0_CORE3_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER1_ACPU_0:
+	case PM_DEV_ACPU_1_0:
 		Mask = APU1_CORE0_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER1_ACPU_1:
+	case PM_DEV_ACPU_1_1:
 		Mask = APU1_CORE1_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER1_ACPU_2:
+	case PM_DEV_ACPU_1_2:
 		Mask = APU1_CORE2_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER1_ACPU_3:
+	case PM_DEV_ACPU_1_3:
 		Mask = APU1_CORE3_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER2_ACPU_0:
+	case PM_DEV_ACPU_2_0:
 		Mask = APU2_CORE0_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER2_ACPU_1:
+	case PM_DEV_ACPU_2_1:
 		Mask = APU2_CORE1_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER2_ACPU_2:
+	case PM_DEV_ACPU_2_2:
 		Mask = APU2_CORE2_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER2_ACPU_3:
+	case PM_DEV_ACPU_2_3:
 		Mask = APU2_CORE3_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER3_ACPU_0:
+	case PM_DEV_ACPU_3_0:
 		Mask = APU3_CORE0_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER3_ACPU_1:
+	case PM_DEV_ACPU_3_1:
 		Mask = APU3_CORE1_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER3_ACPU_2:
+	case PM_DEV_ACPU_3_2:
 		Mask = APU3_CORE2_PWRDWN_MASK;
 		break;
-	case PM_DEV_CLUSTER3_ACPU_3:
+	case PM_DEV_ACPU_3_3:
 		Mask = APU3_CORE3_PWRDWN_MASK;
 		break;
 	default:
@@ -519,9 +519,9 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 	if(XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)){
 		static u8 EccInitDone[2]={0};
 		u32 RstRpuMask = 0U;
-		u64 Tcm_Addr = (DeviceId == PM_DEV_CLUSTER0_RPU0_0) || (DeviceId == PM_DEV_CLUSTER1_RPU0_0)?XPM_R52_0A_TCMA_BASE_ADDR:
+		u64 Tcm_Addr = (DeviceId == PM_DEV_RPU_A_0) || (DeviceId == PM_DEV_RPU_B_0)?XPM_R52_0A_TCMA_BASE_ADDR:
 						XPM_R52_1A_TCMA_BASE_ADDR;
-		u8 Ecc_Mask = (DeviceId == PM_DEV_CLUSTER0_RPU0_0) || (DeviceId == PM_DEV_CLUSTER1_RPU0_0)?XPM_R52_0_TCMA_ECC_DONE:
+		u8 Ecc_Mask = (DeviceId == PM_DEV_RPU_A_0) || (DeviceId == PM_DEV_RPU_B_0)?XPM_R52_0_TCMA_ECC_DONE:
 						XPM_R52_1_TCMA_ECC_DONE;
 		u8 ClusterNum = GET_RPU_CLUSTER_ID(DeviceId);
 		u32 LockstepVal;

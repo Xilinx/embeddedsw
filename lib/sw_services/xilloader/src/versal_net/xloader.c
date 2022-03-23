@@ -1166,7 +1166,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 					XPlmi_Printf(DEBUG_GENERAL, "Invalid ClusterId\n\r");
 					goto END;
 				}
-				DeviceId = PM_DEV_CLUSTER0_RPU0_0 + (ClusterId*2) + XLOADER_RPU_CORE0;
+				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) + XLOADER_RPU_CORE0;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d"
 						" R52_0 wakeup\r\n", ClusterId);
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
@@ -1186,7 +1186,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 					XPlmi_Printf(DEBUG_GENERAL, "Invalid ClusterId\n\r");
 					goto END;
 				}
-				DeviceId = PM_DEV_CLUSTER0_RPU0_0 + (ClusterId*2) + XLOADER_RPU_CORE1;
+				DeviceId = PM_DEV_RPU_A_0 + (ClusterId*2) + XLOADER_RPU_CORE1;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d"
 						" R52_1 wakeup\r\n", ClusterId);
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
@@ -1206,7 +1206,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 					XPlmi_Printf(DEBUG_GENERAL, "Invalid ClusterId\n\r");
 					goto END;
 				}
-				DeviceId = PM_DEV_CLUSTER0_ACPU_0 + (ClusterId*4);
+				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4);
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
 						" A78_0 wakeup\r\n", ClusterId);
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
@@ -1226,7 +1226,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 					XPlmi_Printf(DEBUG_GENERAL, "Invalid ClusterId\n\r");
 					goto END;
 				}
-				DeviceId = PM_DEV_CLUSTER0_ACPU_0 + (ClusterId*4) + XLOADER_APU_CORE1;
+				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) + XLOADER_APU_CORE1;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
 						" A78_1 wakeup\r\n", ClusterId);
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
@@ -1246,7 +1246,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 					XPlmi_Printf(DEBUG_GENERAL, "Invalid ClusterId\n\r");
 					goto END;
 				}
-				DeviceId = PM_DEV_CLUSTER0_ACPU_0 + (ClusterId*4) + XLOADER_APU_CORE2;
+				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) + XLOADER_APU_CORE2;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
 						" A78_2 wakeup\r\n", ClusterId);
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,
@@ -1266,7 +1266,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 					XPlmi_Printf(DEBUG_GENERAL, "Invalid ClusterId\n\r");
 					goto END;
 				}
-				DeviceId = PM_DEV_CLUSTER0_ACPU_0 + (ClusterId*4) + XLOADER_APU_CORE3;
+				DeviceId = PM_DEV_ACPU_0_0 + (ClusterId*4) + XLOADER_APU_CORE3;
 				XLoader_Printf(DEBUG_INFO, "Request Cluster %d "
 						" A78_3 wakeup\r\n", ClusterId);
 				Status = XPm_RequestWakeUp(PM_SUBSYS_PMC,

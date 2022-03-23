@@ -10,18 +10,18 @@
 #include "xplmi.h"
 
 u32 ProcDevList[PROC_DEV_MAX] = {
-	[ACPU_0] = PM_DEV_CLUSTER0_ACPU_0,
-	[ACPU_1] = PM_DEV_CLUSTER0_ACPU_1,
-    [ACPU_2] = PM_DEV_CLUSTER0_ACPU_2,
-    [ACPU_3] = PM_DEV_CLUSTER0_ACPU_3,
-    [ACPU_4] = PM_DEV_CLUSTER1_ACPU_0,
-    [ACPU_5] = PM_DEV_CLUSTER1_ACPU_1,
-    [ACPU_6] = PM_DEV_CLUSTER1_ACPU_2,
-    [ACPU_7] = PM_DEV_CLUSTER1_ACPU_3,
-	[RPU0_0] = PM_DEV_CLUSTER0_RPU0_0,
-	[RPU0_1] = PM_DEV_CLUSTER0_RPU0_1,
-    [RPU1_0] = PM_DEV_CLUSTER1_RPU0_0,
-    [RPU1_1] = PM_DEV_CLUSTER1_RPU0_1,
+	[ACPU_0] = PM_DEV_ACPU_0_0,
+	[ACPU_1] = PM_DEV_ACPU_0_1,
+    [ACPU_2] = PM_DEV_ACPU_0_2,
+    [ACPU_3] = PM_DEV_ACPU_0_3,
+    [ACPU_4] = PM_DEV_ACPU_1_0,
+    [ACPU_5] = PM_DEV_ACPU_1_1,
+    [ACPU_6] = PM_DEV_ACPU_1_2,
+    [ACPU_7] = PM_DEV_ACPU_1_3,
+	[RPU0_0] = PM_DEV_RPU_A_0,
+	[RPU0_1] = PM_DEV_RPU_A_1,
+    [RPU1_0] = PM_DEV_RPU_B_0,
+    [RPU1_1] = PM_DEV_RPU_B_1,
 };
 /* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
 volatile struct PsmToPlmEvent_t *PsmToPlmEvent;
