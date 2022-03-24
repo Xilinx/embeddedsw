@@ -330,13 +330,13 @@ int XHdcp1x_TxPoll(XHdcp1x *InstancePtr)
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	if (InstancePtr->IsReady) {
+		/* Process any pending events */
+		XHdcp1x_TxProcessPending(InstancePtr);
 
-	/* Process any pending events */
-	XHdcp1x_TxProcessPending(InstancePtr);
-
-	/* Poll it */
-	XHdcp1x_TxDoTheState(InstancePtr, XHDCP1X_EVENT_POLL);
-
+		/* Poll it */
+		XHdcp1x_TxDoTheState(InstancePtr, XHDCP1X_EVENT_POLL);
+	}
 	return (Status);
 }
 
