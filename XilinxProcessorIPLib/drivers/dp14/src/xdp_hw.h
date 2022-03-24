@@ -1308,14 +1308,12 @@
 							(0x100 bytes). */
 /* @} */
 
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 /** @name DPRX core registers: DPCD registers for HDCP22.
  * @{
  */
 #define XDP_RX_DPCD_HDCP22_TABLE	0x1000	/**< HDCP22 register table
 						  (0x558 bytes). */
 /* @} */
-#endif
 
 /** @name DPRX core registers: MST field for sideband message buffers and the
   *	  virtual channel payload table.
@@ -1527,7 +1525,6 @@
 					0x01000000 /**< Mask the interrupt
 							for a read of the HDCP
 							BInfo register. */
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 #define XDP_RX_INTERRUPT_MASK_HDCP22_AKE_INIT_MASK \
 	0x00000001 /**< Mask the interrupt for a write of the HDCP22
 		     Ake_Init message*/
@@ -1561,7 +1558,6 @@
 #define XDP_RX_INTERRUPT_MASK_HDCP22_RPTR_STREAM_MANAGE_MASK \
 	0x00000400 /**< Mask the interrupt for a write of the HDCP22
 		     Stream Management message*/
-#endif
 #define XDP_RX_INTERRUPT_MASK_AUDIO_OVER_MASK \
 					0x08000000 /**< Mask the interrupt
 							assertion caused for an
