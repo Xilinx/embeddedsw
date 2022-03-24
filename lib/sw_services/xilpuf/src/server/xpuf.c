@@ -44,6 +44,7 @@
 *                       xilinx maintained functions
 *       har  01/20/2022 Removed inclusion of xil_mem.h
 *       am   02/18/2022 Fixed COMF code complexity violations
+*       har  03/21/2022 Disabled SLV_ERR for PUF on demand regeneration
 *
 * </pre>
 *
@@ -354,6 +355,8 @@ END:
 int XPuf_Regeneration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
+	u32 GlobalCntrlVal;
+	u32 Reset = FALSE;
 
 	if (PufData == NULL) {
 		Status = XPUF_ERROR_INVALID_PARAM;
@@ -407,13 +410,27 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 		PufData->ShutterValue);
 
+	GlobalCntrlVal = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
+                XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET);
+
+	if ((GlobalCntrlVal & XPUF_SLVERR_ENABLE_MASK) == XPUF_SLVERR_ENABLE_MASK) {
+		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET,
+			GlobalCntrlVal & ~(XPUF_SLVERR_ENABLE_MASK));
+		Reset = TRUE;
+	}
+
 	Status = XST_FAILURE;
 
 	Status = XPuf_StartRegeneration(PufData);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
+	if (Reset == TRUE) {
+		GlobalCntrlVal = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET);
+		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET,
+			GlobalCntrlVal | XPUF_SLVERR_ENABLE_MASK);
+	}
 END:
 	return Status;
 }
