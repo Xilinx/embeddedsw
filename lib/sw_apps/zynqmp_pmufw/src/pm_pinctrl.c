@@ -58,7 +58,7 @@
 	(IOU_SLCR_BANK0_CTRL0 + \
 	 (PM_IOU_SLCR_BANK_OFFSET * ((pinId) / PM_PIN_PARAM_PER_REG)) + (regOffset))
 
-#define IOU_SLCR_BANK1_CTRL5	(IOU_SLCR_BASE + 164U)
+#define IOU_SLCR_BANK1_CTRL5	(IOU_SLCR_BASE + 0x164U)
 
 #define FIX_BANK1_CTRL5(shift)	\
 	(shift) = (((shift) < 12U) ? ((shift) + 14U) : ((shift) - 12U))
