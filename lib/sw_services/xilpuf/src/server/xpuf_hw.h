@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 1.3   har  01/06/2021 Added offset for PUF_CLEAR register and its definition
 *       har  03/08/2021 Added offset for IRO frequency
 * 1.4   har  07/09/2021 Fixed doxygen warnings
+* 1.5   har  03/21/2022 Added offset for GLOBAL_CNTRL register
 *
 * </pre>
 *
@@ -47,6 +48,7 @@ extern "C" {
  * @{
  */
 /**< PUF register offsets */
+#define XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET		(0x0U)
 #define XPUF_PMC_GLOBAL_PUF_CMD_OFFSET			(0x00040000U)
 #define XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET			(0x00040004U)
 #define XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET			(0x00040008U)
@@ -58,6 +60,14 @@ extern "C" {
 #define XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET		(0x00040028U)
 #define XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET		(0x0004002CU)
 #define XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET			(0x00040030U)
+/** @} */
+
+/**
+ * @name  GLOBAL Control register definition
+ * @{
+ */
+/**< GLOBAL_CNTRL register definition */
+#define XPUF_SLVERR_ENABLE_MASK		(0x1U << 1U)
 /** @} */
 
 /**
