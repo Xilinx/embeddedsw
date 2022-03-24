@@ -436,7 +436,6 @@ typedef enum {
 	XDP_RX_HANDLER_DRV_PWRSTATE,
 	XDP_RX_HANDLER_DRV_NOVIDEO,
 	XDP_RX_HANDLER_DRV_VIDEO,
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 	XDP_RX_HANDLER_HDCP22_AKE_INIT,
 	XDP_RX_HANDLER_HDCP22_AKE_NO_STORED_KM,
 	XDP_RX_HANDLER_HDCP22_AKE_STORED_KM,
@@ -447,7 +446,6 @@ typedef enum {
 	XDP_RX_HANDLER_HDCP22_STREAM_TYPE,
 	XDP_RX_HANDLER_HDCP22_REPEAT_AUTH_RCVID_LST_DONE,
 	XDP_RX_HANDLER_HDCP22_REPEAT_AUTH_STREAM_MANAGE_DONE,
-#endif
 	XDP_RX_HANDLER_VBLANK_STREAM_2,
 	XDP_RX_HANDLER_VBLANK_STREAM_3,
 	XDP_RX_HANDLER_VBLANK_STREAM_4,
@@ -1250,7 +1248,6 @@ typedef struct {
 							passed to the HDCP
 							Binfo register read
 							callback function. */
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 	XDp_IntrHandler IntrHdcp22AkeInitWrHandler;	/**< Callback function
 							  for HDCP22 Ake_Init
 							  register write
@@ -1348,7 +1345,6 @@ typedef struct {
 							  Stream Manage
 							  register write
 							  callback function. */
-#endif
 
 	XDp_IntrHandler IntrUnplugHandler;	/**< Callback function for
 							unplug interrupts. */
@@ -1672,14 +1668,10 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream);
 void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 void XDp_GenerateCpIrq(XDp *InstancePtr);
 void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable);
-#endif
-#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 void XDp_TxHdcp22Enable(XDp *InstancePtr);
 void XDp_TxHdcp22Disable(XDp *InstancePtr);
-#endif
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

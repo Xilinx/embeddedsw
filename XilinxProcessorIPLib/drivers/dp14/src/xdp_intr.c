@@ -663,7 +663,6 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		Status = XST_SUCCESS;
 		break;
 
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 	case XDP_RX_HANDLER_HDCP22_AKE_INIT:
 		InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler =
 			CallbackFunc;
@@ -734,7 +733,6 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 			CallbackRef;
 		Status = XST_SUCCESS;
 		break;
-#endif
 
 	case XDP_RX_HANDLER_UNPLUG:
 		InstancePtr->RxInstance.IntrUnplugHandler = CallbackFunc;
@@ -1268,7 +1266,6 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 			InstancePtr->RxInstance.IntrHdcpBinfoRdCallbackRef);
 	}
 
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 	/* A write to the HDCP22 Ake_Init MSB register has been performed. */
 	if ((IntrStatus2 & XDP_RX_INTERRUPT_MASK_HDCP22_AKE_INIT_MASK) &&
 			InstancePtr->RxInstance.IntrHdcp22AkeInitWrHandler) {
@@ -1367,7 +1364,6 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 				InstancePtr->RxInstance.
 				IntrHdcp22RepeatAuthStreamMangWrCallbackRef);
 	}
-#endif /*XPAR_XHDCP22_RX_DP_NUM_INSTANCES*/
 
 	/* An unplug event has occurred. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_UNPLUG_MASK) &&
