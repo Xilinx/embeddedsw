@@ -22,7 +22,6 @@
 
 /****************************** Include Files ********************************/
 #include "xdptxss_hdcp22.h"
-#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 #include "xdptxss.h"
 
 
@@ -448,4 +447,3 @@ u8 XDpTxSs_IsSinkHdcp22Capable(void *Instance)
 
 	return FALSE;
 }
-#endif /*(XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)*/
