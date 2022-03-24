@@ -33,10 +33,8 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 #include "xhdcp1x.h"
 #include "xtmrctr.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -55,6 +53,6 @@ extern "C" {
 
 #ifdef __cplusplus
 }
-#endif
 
 #endif /* End of protection macro */
+#endif

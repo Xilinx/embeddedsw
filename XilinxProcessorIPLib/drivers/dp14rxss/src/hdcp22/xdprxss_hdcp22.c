@@ -23,7 +23,6 @@
 
 /***************************** Include Files *********************************/
 #include "xdprxss_hdcp22.h"
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 #include "xdprxss.h"
 /************************** Constant Definitions *****************************/
 
@@ -779,5 +778,3 @@ void XDpRxSs_Hdcp22Poll(void *Instance)
 		}
 	}
 }
-
-#endif /*#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)*/
