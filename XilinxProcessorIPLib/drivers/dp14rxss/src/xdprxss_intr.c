@@ -84,7 +84,6 @@ void XDpRxSs_DpIntrHandler(void *InstancePtr)
 	XDp_InterruptHandler(XDpRxSsPtr->DpPtr);
 }
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 *
@@ -112,9 +111,7 @@ void XDpRxSs_HdcpIntrHandler(void *InstancePtr)
 	/* HDCP Cipher interrupt handler */
 	XHdcp1x_CipherIntrHandler(XDpRxSsPtr->Hdcp1xPtr);
 }
-#endif
 
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
  * This function is the interrupt handler for HDCP22 LIC failure.
@@ -141,11 +138,7 @@ void XDpRxSs_Hdcp22LicFailHandler(void *InstancePtr)
 		}
 	}
 }
-#endif
 
-#if (((XPAR_XHDCP_NUM_INSTANCES > 0) || \
-	(XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)) \
-		&& (XPAR_XTMRCTR_NUM_INSTANCES > 0))
 /*****************************************************************************/
 /**
 *
@@ -173,7 +166,6 @@ void XDpRxSs_TmrCtrIntrHandler(void *InstancePtr)
 	/* Timer Counter interrupt handler */
 	XTmrCtr_InterruptHandler(XDpRxSsPtr->TmrCtrPtr);
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -581,7 +573,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 		case XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
 				XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
@@ -595,8 +586,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
-#endif
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 		case XDPRXSS_HANDLER_HDCP22_AUTHENTICATED:
 			if (InstancePtr->Hdcp22Ptr) {
 				XHdcp22Rx_Dp_SetCallback(InstancePtr->Hdcp22Ptr,
@@ -654,8 +643,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 				Status = XST_FAILURE;
 			}
 			break;
-#endif
-
 		case XDPRXSS_HANDLER_UNPLUG_EVENT:
 			InstancePtr->UnplugCallback =
 				(XDpRxSs_Callback)((void *)CallbackFunc);
