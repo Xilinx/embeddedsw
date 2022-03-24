@@ -238,18 +238,20 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 	u32 TimeOutInUs = Cmd->Payload[3U];
 	u32 Flags = 0U;
 	u32 Level = 0U;
+	u32 DebugLevel = DEBUG_INFO;
 #ifdef PLM_PRINT_PERF_POLL
 	u64 PollTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
 
-	if (TimeOutInUs < XPLMI_MASK_POLL_MIN_TIMEOUT) {
-		TimeOutInUs = XPLMI_MASK_POLL_MIN_TIMEOUT;
-	}
-
 	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL,
+		if ((XPLMI_MASKPOLL_LEN_EXT == Cmd->Len) && (XPLMI_MASKPOLL_FLAGS_BREAK == (Cmd->Payload[4U] & XPLMI_MASKPOLL_FLAGS_MASK))) {
+			DebugLevel = DEBUG_INFO;
+		}else {
+			DebugLevel = DEBUG_GENERAL;
+		}
+		XPlmi_Printf(DebugLevel,
 			"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
 			"Timeout: %u ...ERROR\r\n",  __func__,
 			Addr, Mask, ExpectedValue, TimeOutInUs);
@@ -1264,7 +1266,7 @@ static int XPlmi_LogString(XPlmi_Cmd *Cmd)
 	StringIndex += (Len * XPLMI_WORD_LEN);
 	if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
 		/* Print the string only when complete payload is received */
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s", LogString);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s\n\r", LogString);
 	}
 
 END:
