@@ -3908,7 +3908,6 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 	return XST_SUCCESS;
 }
 
-#if (XPAR_XHDCP22_RX_DP_NUM_INSTANCES > 0)
 /******************************************************************************/
 /**
  * This function raises the CP_IRQ interrupt to the Upstream device.
@@ -3960,9 +3959,7 @@ void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr,
 			XDP_RX_AUX_CLK_DIVIDER, Regval);
 }
-#endif
 
-#if (XPAR_XHDCP22_TX_DP_NUM_INSTANCES > 0)
 /******************************************************************************/
 /**
  * This function Enables Dp Tx video path routes through HDCP22 core.
@@ -3997,5 +3994,4 @@ void XDp_TxHdcp22Disable(XDp *InstancePtr)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr,
 			XDP_TX_HDCP22_ENABLE, 0);
 }
-#endif
 /** @} */
