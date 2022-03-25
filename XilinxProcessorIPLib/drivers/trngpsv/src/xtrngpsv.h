@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xtrngpsv.h
- * @addtogroup trngpsv_v1_0
+ * @addtogroup Overview
  * @{
  * @details
  *
@@ -17,12 +17,12 @@
  * Oscillators.
  *
  * The Versal PMC TRNG is envisaged to operate in three basic modes: DRNG, PTRNG and HRNG modes.
- * Each of these can be operated with or without Derivative  * Function (DF), resulting in a total
+ * Each of these can be operated with or without Derivative Function (DF), resulting in a total
  * of 6 different modes of operation.
  *
  * NIST SP-800-90A practically requires the true random generators based on CTR_DRBG to include a
- * derivation function (DF). This is expected to be  * implemented inside the Silicon (TRNG IP).
- * However, the version of the IP used  * in Versal PMC doesn't have this implementation. Hence,
+ * derivation function (DF). This is expected to be  implemented inside the Silicon (TRNG IP).
+ * However, the version of the IP used in Versal PMC doesn't have this implementation. Hence,
  * a software implementation of the DF is done in this driver.
  *
  * DRNG mode: Deterministic Random Number Generator mode. In this mode, the DRBG portion of the
@@ -70,7 +70,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
- *
+ * 1.1   ssc  03/24/22 New error code XTRNGPSV_ERROR_GLITCH and doxygen fixes
  * </pre>
  *
  ******************************************************************************/
@@ -107,23 +107,24 @@ extern "C" {
 #define DF_SEED	0U 		/**< to indicate DF called for seed  */
 #define DF_RAND	1U 		/**< to indicate DF called for random number */
 
-#define DF_IP_IV_LEN	4U
-#define BYTES_PER_BLOCK	16U
-#define DF_PAD_DATA_LEN	8U
+#define DF_IP_IV_LEN	4U		/**< Input IV Length for DF */
+#define BYTES_PER_BLOCK	16U		/**< No. of bytes per block, equivalent to 128 bits*/
+#define DF_PAD_DATA_LEN	8U		/**< Length of Padding data used for DF calculation */
 
-#define XTRNGPSV_SUCCESS	(s32)XST_SUCCESS
-#define XTRNGPSV_FAILURE	(s32)XST_FAILURE
+#define XTRNGPSV_SUCCESS	(s32)XST_SUCCESS	/**< SUCCESS definition of TRNGPSV driver */
+#define XTRNGPSV_FAILURE	(s32)XST_FAILURE	/**< FAILURE definition of TRNGPSV driver */
 
-#define XTRNGPSV_TRUE	(u32)TRUE
-#define XTRNGPSV_FALSE	(u32)FALSE
+#define XTRNGPSV_TRUE	(u32)TRUE		/**< Boolean TRUE definition of TRNGPSV driver */
+#define XTRNGPSV_FALSE	(u32)FALSE		/**< Boolean FALSE definition of TRNGPSV driver */
 
-#define XTRNGPSV_SWAP_ENDIAN Xil_EndianSwap32
+#define XTRNGPSV_SWAP_ENDIAN Xil_EndianSwap32	/**< Macro to swap endianness of 32 bit data */
 
 /* Error codes definition */
 typedef enum {
 	XTRNGPSV_ERROR_INVALID_PARAM = 0x10, /**< 0x10 */
 	XTRNGPSV_ERROR_INVALID_STATE, /**< 0x11 */
 	XTRNGPSV_ERROR_UNNECESSARY_PARAM, /**< 0x12 */
+	XTRNGPSV_ERROR_GLITCH,  /**< 0x13 */
 
 	/* Error codes from Instantiation operation */
 	XTRNGPSV_ERROR_NOT_UNINSTANTIATED = 0x20, /**< 0x20 */
@@ -257,7 +258,7 @@ XTrngpsv_Config *XTrngpsv_LookupConfig(u16 DeviceId);
 s32 XTrngpsv_CfgInitialize(XTrngpsv *InstancePtr, const XTrngpsv_Config *CfgPtr,
 		UINTPTR EffectiveAddr);
 s32 XTrngpsv_Instantiate(XTrngpsv *InstancePtr, const XTrngpsv_UsrCfg *ConfigurValues);
-s32 XTrngpsv_Reseed(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u32 DFLenMul);
+s32 XTrngpsv_Reseed(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, u32 DFLenMul);
 s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8 PredResistanceEn);
 s32 XTrngpsv_Uninstantiate(XTrngpsv *InstancePtr);
 

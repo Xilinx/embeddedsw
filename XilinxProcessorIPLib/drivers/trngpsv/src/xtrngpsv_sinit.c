@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xtrngpsv_sinit.c
- * @addtogroup xtrngpsv_v1_0
+ * @addtogroup Overview
  * @{
  *
  * This file contains static initialization method for Xilinx TRNG driver
