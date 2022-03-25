@@ -31,6 +31,8 @@
 *  			  counter selected as default timer.
 *  	adk	 07/02/22 Integrate configuring of priority field into
 *  			  XTimer_SetHandler() API instead of a new API.
+*  	adk	 25/03/22 Fix compilation errors when cortexa72 global timer
+*  			  selected as default timer.
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H
@@ -43,6 +45,7 @@
 #include "xil_printf.h"
 #include "xstatus.h"
 #include "bspconfig.h"
+#include "xparameters.h"
 #if defined(XSLEEPTIMER_IS_AXITIMER) || defined(XTICKTIMER_IS_AXITIMER)
 #include "xtmrctr.h"
 #endif
