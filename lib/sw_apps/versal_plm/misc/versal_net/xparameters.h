@@ -637,8 +637,8 @@
 
 
 /* Peripheral Definitions for peripheral PSV_USB_0 */
-#define XPAR_PSV_USB_0_S_AXI_BASEADDR 0xFF9D0000
-#define XPAR_PSV_USB_0_S_AXI_HIGHADDR 0xFF9DFFFF
+#define XPAR_PSV_USB_0_S_AXI_BASEADDR 0xF1E00000
+#define XPAR_PSV_USB_0_S_AXI_HIGHADDR 0xF1E0FFFF
 
 
 /******************************************************************/
@@ -1482,8 +1482,8 @@
 
 /* Definitions for peripheral PSV_USB_XHCI_0 */
 #define XPAR_PSV_USB_XHCI_0_DEVICE_ID 0
-#define XPAR_PSV_USB_XHCI_0_BASEADDR 0xFE200000
-#define XPAR_PSV_USB_XHCI_0_HIGHADDR 0xFE2FFFFF
+#define XPAR_PSV_USB_XHCI_0_BASEADDR 0xF1B00000
+#define XPAR_PSV_USB_XHCI_0_HIGHADDR 0xF1BFFFFF
 
 
 /******************************************************************/
@@ -1492,8 +1492,8 @@
 #define XPAR_PSV_USB_XHCI_0_SUPER_SPEED 0
 /* Canonical definitions for peripheral PSV_USB_XHCI_0 */
 #define XPAR_XUSBPSU_0_DEVICE_ID XPAR_PSV_USB_XHCI_0_DEVICE_ID
-#define XPAR_XUSBPSU_0_BASEADDR 0xFE200000
-#define XPAR_XUSBPSU_0_HIGHADDR 0xFE2FFFFF
+#define XPAR_XUSBPSU_0_BASEADDR 0xF1B00000
+#define XPAR_XUSBPSU_0_HIGHADDR 0xF1BFFFFF
 
 
 /******************************************************************/

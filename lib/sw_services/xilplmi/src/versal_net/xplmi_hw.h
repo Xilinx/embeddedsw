@@ -604,7 +604,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #endif
 
 #if (!defined(PLM_USB_EXCLUDE) && defined(XPAR_XUSBPSU_0_DEVICE_ID) &&\
-		(XPAR_XUSBPSU_0_BASEADDR == 0xFE200000U))
+		(XPAR_XUSBPSU_0_BASEADDR == 0xF1B00000U))
 #define XLOADER_USB
 #endif
 
