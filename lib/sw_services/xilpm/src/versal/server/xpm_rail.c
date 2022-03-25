@@ -335,24 +335,6 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 	}
 
 	/*
-	 * On the first cycle, start by setting the power rail to upper voltage
-	 * value.  The voltage will be adjusted on the next cycle based on
-	 * current temperature.
-	 */
-	if (0U == *CurrentVoltMode) {
-		PmDbg("Set voltage to upper mode %d\n\r", UpperVoltMode);
-		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON,
-					 UpperVoltMode);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_RAIL_UPPER_VOLT;
-			goto done;
-		}
-
-		*CurrentVoltMode = UpperVoltMode;
-		goto done;
-	}
-
-	/*
 	 * If Root SysMon is not initialized yet, skip the cycle until
 	 * it is initialized.
 	 */
@@ -388,6 +370,21 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 	} else if ((XSysMonPsv_FixedToFloat(CurrentTemp) >=
 		    XSysMonPsv_FixedToFloat(UpperTempThresh)) &&
 		   (*CurrentVoltMode != LowerVoltMode)) {
+		PmDbg("Current temperature is 0x%x, Set voltage to lower mode "
+		      "%d\n\r", CurrentTemp, LowerVoltMode);
+		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON,
+					 LowerVoltMode);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RAIL_LOWER_VOLT;
+			goto done;
+		}
+
+		*CurrentVoltMode = LowerVoltMode;
+	} else if ((XSysMonPsv_FixedToFloat(CurrentTemp) <
+		    XSysMonPsv_FixedToFloat(UpperTempThresh)) &&
+		   (XSysMonPsv_FixedToFloat(CurrentTemp) >
+		    XSysMonPsv_FixedToFloat(LowerTempThresh)) &&
+		   (0U == *CurrentVoltMode)) {
 		PmDbg("Current temperature is 0x%x, Set voltage to lower mode "
 		      "%d\n\r", CurrentTemp, LowerVoltMode);
 		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON,
