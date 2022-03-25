@@ -1282,17 +1282,41 @@ XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId)
 	XStatus Status = XST_FAILURE;
 
 	switch (DeviceId) {
-		case XPSMFW_DEV_ACPU_0:
+		case XPSMFW_DEV_CLUSTER0_ACPU_0:
 			Status = XPsmFwACPUxDirectPwrDwn(&Acpu0_Core0PwrCtrl);
 			break;
-		case XPSMFW_DEV_ACPU_1:
+		case XPSMFW_DEV_CLUSTER0_ACPU_1:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu0_Core1PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER0_ACPU_2:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu0_Core2PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER0_ACPU_3:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu0_Core3PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER1_ACPU_0:
 			Status = XPsmFwACPUxDirectPwrDwn(&Acpu1_Core0PwrCtrl);
 			break;
-		case XPSMFW_DEV_RPU0_0:
+		case XPSMFW_DEV_CLUSTER1_ACPU_1:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu1_Core1PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER1_ACPU_2:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu1_Core2PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER1_ACPU_3:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu1_Core3PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER0_RPU0_0:
 			Status = XPsmFwRPUxDirectPwrDwn(&Rpu0_Core0PwrCtrl);
 			break;
-		case XPSMFW_DEV_RPU0_1:
+		case XPSMFW_DEV_CLUSTER0_RPU0_1:
+			Status = XPsmFwRPUxDirectPwrDwn(&Rpu0_Core1PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER1_RPU0_0:
 			Status = XPsmFwRPUxDirectPwrDwn(&Rpu1_Core0PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER1_RPU0_1:
+			Status = XPsmFwRPUxDirectPwrDwn(&Rpu1_Core1PwrCtrl);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;
