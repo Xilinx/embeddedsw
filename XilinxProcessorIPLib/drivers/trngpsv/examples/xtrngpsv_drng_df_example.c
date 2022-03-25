@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
+ * 1.1   ssc  03/24/22 Minor updates related to security best practices
  *
  *</pre>
  **************************************************************************************************/
@@ -51,7 +52,7 @@ XTrngpsv Trngpsv; /* Instance of TRNGPSV */
 u8 RandBuf[XTRNGPSV_SEC_STRENGTH_BYTES];
 
 /* Initial entropy contains 256bit seed + 128bit nonce */
-u8 InitEntropy[XTRNGPSV_SEED_LEN_BYTES] = {
+const u8 InitEntropy[XTRNGPSV_SEED_LEN_BYTES] = {
 		0xE4U, 0xBCU, 0x23U, 0xC5U, 0x08U, 0x9AU, 0x19U, 0xD8U,
 		0x6FU, 0x41U, 0x19U, 0xCBU, 0x3FU, 0xA0U, 0x8CU, 0x0AU,
 		0x49U, 0x91U, 0xE0U, 0xA1U, 0xDEU, 0xF1U, 0x7EU, 0x10U,
@@ -60,7 +61,7 @@ u8 InitEntropy[XTRNGPSV_SEED_LEN_BYTES] = {
 		0x57U, 0xB5U, 0x5FU, 0x56U, 0xCAU, 0xE2U, 0x5BU, 0xADU
 };
 
-u8 ReseedEntropy[XTRNGPSV_SEED_LEN_BYTES] = {
+const u8 ReseedEntropy[XTRNGPSV_SEED_LEN_BYTES] = {
 		0xFDU, 0x85U, 0xA8U, 0x36U, 0xBBU, 0xA8U, 0x50U, 0x19U,
 		0x88U, 0x1EU, 0x8CU, 0x6bU, 0xADU, 0x23U, 0xC9U, 0x06U,
 		0x1AU, 0xDCU, 0x75U, 0x47U, 0x76U, 0x59U, 0xACU, 0xAEU,
@@ -69,7 +70,7 @@ u8 ReseedEntropy[XTRNGPSV_SEED_LEN_BYTES] = {
 		0x86U, 0x53U, 0xA5U, 0xDCU, 0x11U, 0x86U, 0x63U, 0xD6U
 };
 
-u8 PersStr[XTRNGPSV_PERS_STR_LEN_BYTES] = {
+const u8 PersStr[XTRNGPSV_PERS_STR_LEN_BYTES] = {
 		0xB2U, 0x80U, 0x7EU, 0x4CU, 0xD0U, 0xE4U, 0xE2U, 0xA9U,
 		0x2FU, 0x1FU, 0x5DU, 0xC1U, 0xA2U, 0x1FU, 0x40U, 0xFCU,
 		0x1FU, 0x24U, 0x5DU, 0x42U, 0x61U, 0x80U, 0xE6U, 0xE9U,
@@ -130,15 +131,15 @@ int Trngpsv_Drng_DF_Example(u16 DeviceId)
 			.PersStrPresent = XTRNGPSV_TRUE
 	};
 
-	Status = Xil_SecureMemCpy(&UsrCfg.InitSeed, (UsrCfg.DFLenMul + 1U) * BYTES_PER_BLOCK,
-			InitEntropy, sizeof(InitEntropy));
+	Status = Xil_SMemCpy(&UsrCfg.InitSeed, (UsrCfg.DFLenMul + 1U) * BYTES_PER_BLOCK,
+			InitEntropy, sizeof(InitEntropy), sizeof(InitEntropy));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	if (UsrCfg.PersStrPresent == XTRNGPSV_TRUE) {
-		Status = Xil_SecureMemCpy(&UsrCfg.PersString, sizeof(UsrCfg.PersString), PersStr,
-				sizeof(PersStr));
+		Status = Xil_SMemCpy(&UsrCfg.PersString, sizeof(UsrCfg.PersString), PersStr,
+				sizeof(PersStr), sizeof(PersStr));
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}

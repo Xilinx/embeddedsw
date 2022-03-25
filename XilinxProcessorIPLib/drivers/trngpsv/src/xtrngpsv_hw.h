@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xtrngpsv_hw.h
- * @addtogroup trngpsv_v1_0
+ * @addtogroup Overview
  * @{
  *
  * This header file contains identifiers and register-level core functions (or macros) that can be
@@ -22,6 +22,7 @@
  * Ver  Who Date     Changes
  * ---- --- -------- -------------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
+ * 1.1   ssc  03/24/22 Minor doxygen related fixes
  *
  * </pre>
  *
@@ -39,6 +40,10 @@ extern "C" {
 
 /************************** Constant Definitions *************************************************/
 
+/**
+ * @name Register definitions
+ * @{
+ */
 /* Register: TRNG_STATUS */
 #define TRNG_STATUS    0x00000004U
 
@@ -105,6 +110,7 @@ extern "C" {
 /* Register: TRNG_OSC_EN */
 #define TRNG_OSC_EN    0x000000D4U
 #define TRNG_OSC_EN_VAL_MASK    0x00000001U
+/** @} */
 
 #ifdef __cplusplus
 }
