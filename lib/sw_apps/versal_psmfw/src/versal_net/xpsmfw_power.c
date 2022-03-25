@@ -1014,16 +1014,110 @@ done:
 }
 
 /**
- * R50Wakeup() - Wake up R50
+ * RPU0_Core0Wakeup() - Wake up Rpu0 Core0
  *
  * @return    XST_SUCCESS or error code
  */
-static XStatus R50Wakeup(void)
+static XStatus RPU0_Core0Wakeup(void)
 {
 	XStatus Status = XST_FAILURE;
 
-	/*TODO: add rpu wakeup support*/
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_0] == 0U);
 
+	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_0]) {
+		Status = XPsmFwRPUxDirectPwrUp(&Rpu0_Core0PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[RPU0_0] = PWR_UP_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * RPU0_Core1Wakeup() - Wake up Rpu0 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus RPU0_Core1Wakeup(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU0_1] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU0_1]) {
+		Status = XPsmFwRPUxDirectPwrUp(&Rpu0_Core1PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[RPU0_1] = PWR_UP_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * RPU1_Core0Wakeup() - Wake up Rpu1 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus RPU1_Core0Wakeup(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU1_0] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU1_0]) {
+		Status = XPsmFwRPUxDirectPwrUp(&Rpu1_Core0PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[RPU1_0] = PWR_UP_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * RPU1_Core1Wakeup() - Wake up Rpu1 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus RPU1_Core1Wakeup(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[RPU1_1] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[RPU1_1]) {
+		Status = XPsmFwRPUxDirectPwrUp(&Rpu1_Core1PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[RPU1_1] = PWR_UP_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
 	return Status;
 }
 
@@ -1037,19 +1131,6 @@ static XStatus R50Sleep(void)
 	XStatus Status = XST_FAILURE;
 
 	/*TODO: add rpu sleep support*/
-
-	return Status;
-}
-
-/**
- * R51Wakeup() - Wake up R51
- *
- * @return    XST_SUCCESS or error code
- */
-static XStatus R51Wakeup(void)
-{
-	XStatus Status = XST_FAILURE;
-	/*TODO: add rpu wakeup support*/
 
 	return Status;
 }
@@ -1173,8 +1254,13 @@ static struct PwrCtlWakeupHandlerTable_t APUWakeupHandlerTable[] = {
 	{ PSMX_GLOBAL_REG_WAKEUP0_IRQ_STATUS_APU1_CORE1_MASK, ACPU1_Core1Wakeup},
 	{ PSMX_GLOBAL_REG_WAKEUP0_IRQ_STATUS_APU1_CORE2_MASK, ACPU1_Core2Wakeup},
 	{ PSMX_GLOBAL_REG_WAKEUP0_IRQ_STATUS_APU1_CORE3_MASK, ACPU1_Core3Wakeup},
-	{ PSMX_GLOBAL_REG_WAKEUP1_IRQ_STATUS_RPU_A_CORE0_MASK, R50Wakeup},
-	{ PSMX_GLOBAL_REG_WAKEUP1_IRQ_STATUS_RPU_A_CORE1_MASK, R51Wakeup},
+};
+
+static struct PwrCtlWakeupHandlerTable_t RPUWakeupHandlerTable[] = {
+	{ PSMX_GLOBAL_REG_WAKEUP1_IRQ_STATUS_RPU_A_CORE0_MASK, RPU0_Core0Wakeup},
+	{ PSMX_GLOBAL_REG_WAKEUP1_IRQ_STATUS_RPU_A_CORE1_MASK, RPU0_Core1Wakeup},
+	{ PSMX_GLOBAL_REG_WAKEUP1_IRQ_STATUS_RPU_B_CORE0_MASK, RPU1_Core0Wakeup},
+	{ PSMX_GLOBAL_REG_WAKEUP1_IRQ_STATUS_RPU_B_CORE1_MASK, RPU1_Core1Wakeup},
 };
 
 static struct PwrCtlWakeupHandlerTable_t SleepHandlerTable[] = {
@@ -1211,6 +1297,34 @@ XStatus XPsmFw_DispatchAPUWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
 
 			/* Disable wake-up interrupt */
 			XPsmFw_Write32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_DIS, APUWakeupHandlerTable[Index].Mask);
+		} else {
+			Status = XST_SUCCESS;
+		}
+	}
+
+	return Status;
+}
+
+/**
+ * XPsmFw_DispatchRPUWakeupHandler() - RPU Wakeup up interrupt handler
+ *
+ * @WakeupStatus    Wake Up status register value
+ * @WakeupIntMask   Wake Up interrupt mask register value
+ *
+ * @return         XST_SUCCESS or error code
+ */
+XStatus XPsmFw_DispatchRPUWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Index;
+	for (Index = 0U; Index < ARRAYSIZE(RPUWakeupHandlerTable); Index++) {
+		if ((CHECK_BIT(WakeupStatus, RPUWakeupHandlerTable[Index].Mask)) &&
+		    !(CHECK_BIT(WakeupIntMask, RPUWakeupHandlerTable[Index].Mask))) {
+			/* Call power up handler */
+			Status = RPUWakeupHandlerTable[Index].Handler();
+
+			/* Disable wake-up interrupt */
+			XPsmFw_Write32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_DIS, RPUWakeupHandlerTable[Index].Mask);
 		} else {
 			Status = XST_SUCCESS;
 		}

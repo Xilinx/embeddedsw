@@ -97,7 +97,15 @@ static void XPsmfw_InterruptWakeupHandler(void)
 
 	WakeupStatus = XPsmFw_Read32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_STATUS);
 	WakeupIntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_MASK);
-	Status = XPsmFw_DispatchAPUWakeupHandler(WakeupStatus, WakeupIntMask);
+	if(0 != WakeupStatus){
+		Status = XPsmFw_DispatchAPUWakeupHandler(WakeupStatus, WakeupIntMask);
+	}
+
+	WakeupStatus = XPsmFw_Read32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_STATUS);
+	WakeupIntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_MASK);
+	if(0 != WakeupStatus){
+		Status = XPsmFw_DispatchRPUWakeupHandler(WakeupStatus, WakeupIntMask);
+	}
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Error in handling wakeup interrupt\r\n");
 	}
