@@ -51,6 +51,7 @@ extern "C" {
 
 #define ACPU_CLUSTER_COLD_WARM_RST_MASK                        ((u32)0x00000300U)
 #define ACPU_PACCEPT_TIMEOUT				(1000U)
+#define RPU_PACTIVE_TIMEOUT				(1000U)
 #define A78_CLUSTER_CONFIGURED	(0x1U)
 enum TcmPowerState {
 	STATE_POWER_DEFAULT,
@@ -181,6 +182,9 @@ struct XPsmFwPwrCtrl_t {
 
 	/* Address of the Core P-Channel Pactive and Accept/Deny */
 	u32 CorePactive;
+
+	/* Bit number in  Core P-Channel Pactive and Accept/Deny */
+	u32 CorePactiveMask;
 
 	/* Bit number in  Core P-Channel Pactive and Accept/Deny */
 	u32 CorePacceptMask;
