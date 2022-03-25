@@ -45,6 +45,8 @@
 *       har  01/20/2022 Removed inclusion of xil_mem.h
 *       am   02/18/2022 Fixed COMF code complexity violations
 *       har  03/21/2022 Disabled SLV_ERR for PUF on demand regeneration
+*       kpt  03/23/2022 Added code to change IRO frequency to 320MHZ when IRO frequency
+*                       is 400MHZ to make PUF work at nominal voltage
 *
 * </pre>
 *
@@ -160,26 +162,29 @@ static inline void XPuf_CfgGlobalVariationFilter(const u8 GlobalVarFilter)
 /*****************************************************************************/
 /**
  *
- * @brief	This function checks if the IRO frequency at time of PUF
- *		operation matches IRO frequency at boot i.e. 320 MHz.
+ * @brief	This function reads the IRO frequency value from register
  *
- * @return	XST_SUCCESS if IRO frequency is 320 MHz
- *		XPUF_IRO_FREQ_MISMATCH - IRO frequency is not 320 MHz
+ * @return	The 32-bit value of the IRO frequency register
  *
  *****************************************************************************/
-static inline int XPuf_CheckIroFreq(void)
+static inline u8 XPuf_ReadIroFreq(void)
 {
-	int Status = XPUF_IRO_FREQ_MISMATCH;
+	return (XPuf_ReadReg(XPUF_EFUSE_CTRL_BASEADDR,
+		XPUF_ANLG_OSC_SW_1LP_OFFSET) & XPUF_IRO_TRIM_FUSE_SEL_BIT);
+}
 
-	if (XPuf_ReadReg(XPUF_EFUSE_CTRL_BASEADDR,
-		XPUF_ANLG_OSC_SW_1LP_OFFSET) != 0U) {
-		goto END;
-	}
-
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
+/*****************************************************************************/
+/**
+ *
+ * @brief       This function writes the IRO frequency value in to register
+ *
+ * @param       IroFreq IRO frequency to be set.
+ *
+ *****************************************************************************/
+static inline void XPuf_WriteIroFreq(u32 IroFreq)
+{
+	Xil_UtilRMW32((XPUF_EFUSE_CTRL_BASEADDR + XPUF_ANLG_OSC_SW_1LP_OFFSET),
+			XPUF_IRO_TRIM_FUSE_SEL_BIT, IroFreq);
 }
 
 /************************** Function Prototypes ******************************/
@@ -187,6 +192,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData);
 static int XPuf_ValidateAccessRules(const XPuf_Data *PufData);
 static int XPuf_UpdateHelperData(const XPuf_Data *PufData);
 static int XPuf_StartRegeneration(XPuf_Data *PufData);
+static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated);
 
 /************************** Function Definitions *****************************/
 
@@ -204,8 +210,9 @@ static int XPuf_StartRegeneration(XPuf_Data *PufData);
  *                                                  waiting for PUF Syndrome data
  *          XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT      - Timeout occurred while
  *                                                  waiting for PUF done bit
- *          XPUF_IRO_FREQ_MISMATCH                - Mismatch in IRO frequency
  *                                                  at the time of PUF registration
+ *          XPUF_IRO_FREQ_WRITE_MISMATCH          - Mismatch in writing or reading
+ *                                                  IRO frequency
  *          XST_FAILURE - Unexpected event
  *
  * @note	Helper data will be available in PufData->SyndromeData,
@@ -217,8 +224,10 @@ static int XPuf_StartRegeneration(XPuf_Data *PufData);
 int XPuf_Registration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	volatile u32 MaxSyndromeSizeInWords;
 	u32 Idx = 0U;
+	u8 IroFreqUpdated = FALSE;
 
 	if (PufData == NULL) {
 		Status = XPUF_ERROR_INVALID_PARAM;
@@ -235,8 +244,15 @@ int XPuf_Registration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	Status = XPuf_CheckIroFreq();
-	if(Status != XST_SUCCESS) {
+	/**
+	 * When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set
+	 * to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of
+	 * 320 MHz for -LP devices and 400 MHZ for -MP,-HP devices. If the IRO frequency at boot
+	 * does not match the IRO frequency during registration, there is a potential of reduced
+	 * stability which can impact the PUFs ability to regenerate properly.
+	 */
+	Status = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ, &IroFreqUpdated);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -323,6 +339,13 @@ int XPuf_Registration(XPuf_Data *PufData)
 	}
 
 END:
+	if (IroFreqUpdated == TRUE) {
+		StatusTmp = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
+		if (Status == XST_SUCCESS) {
+			Status = StatusTmp;
+		}
+	}
+
 	return Status;
 }
 
@@ -344,7 +367,8 @@ END:
  *              XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY    - Key ready bit and ID ready
  *                                                     bit is not set
  *              XPUF_ERROR_PUF_DONE_ID_NT_RDY        - Id ready bit is not set
- *              XPUF_IRO_FREQ_MISMATCH               - Mismatch in IRO frequency
+ *              XPUF_IRO_FREQ_WRITE_MISMATCH         - Mismatch in writing or reading
+ *                                                     IRO frequency
  *                                                     at the time of PUF regeneration
  *              XST_FAILURE - Unexpected event
  *
@@ -355,8 +379,10 @@ END:
 int XPuf_Regeneration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 GlobalCntrlVal;
 	u32 Reset = FALSE;
+	u8 IroFreqUpdated = FALSE;
 
 	if (PufData == NULL) {
 		Status = XPUF_ERROR_INVALID_PARAM;
@@ -379,8 +405,15 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	Status = XPuf_CheckIroFreq();
-	if(Status != XST_SUCCESS) {
+	/**
+	 * When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set
+	 * to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of
+	 * 320 MHz for -LP devices and 400 MHZ for -MP,-HP devices. If the IRO frequency at boot
+	 * does not match the IRO frequency during registration, there is a potential of reduced
+	 * stability which can impact the PUFs ability to regenerate properly.
+	 */
+	Status = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ, &IroFreqUpdated);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -432,6 +465,13 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 			GlobalCntrlVal | XPUF_SLVERR_ENABLE_MASK);
 	}
 END:
+	if (IroFreqUpdated == TRUE) {
+		StatusTmp = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
+		if (Status == XST_SUCCESS) {
+			Status = StatusTmp;
+		}
+	}
+
 	return Status;
 }
 
@@ -888,6 +928,43 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 						XPUF_LAST_WORD_MASK;
 	Status = XST_SUCCESS;
 
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sets the IRO frequency.IRO frequency can be set
+ *		to 320 MHZ or 400 MHZ
+ *
+ * @param	IroFreq - IRO frequency to be set.
+ * @param	IroFreqUpdated -  Flag to indicate whether IRO frequency is updated.
+ *
+ *
+ * @return	XST_SUCCESS - if IRO is at required frequency or updated to required
+ *			      frequency
+ *		XPUF_IRO_FREQ_WRITE_MISMATCH - Mismatch in either reading or writing
+ *					       IRO frequency
+ *
+ ******************************************************************************/
+static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated)
+{
+	int Status = XST_FAILURE;
+	u8 ReadIroFreq;
+
+	*IroFreqUpdated = FALSE;
+	ReadIroFreq = XPuf_ReadIroFreq();
+	if (ReadIroFreq != IroFreq) {
+		XPuf_WriteIroFreq(IroFreq);
+		ReadIroFreq = XPuf_ReadIroFreq();
+		if (ReadIroFreq != IroFreq) {
+			Status = XPUF_IRO_FREQ_WRITE_MISMATCH;
+			goto END;
+		}
+		*IroFreqUpdated = TRUE;
+	}
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }

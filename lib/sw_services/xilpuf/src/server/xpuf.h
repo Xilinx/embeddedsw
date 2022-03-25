@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@
 *       har  05/03/2021 Renamed error code XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY
 *                       as XPUF_ERROR_PUF_DONE_KEY_NT_RDY
 * 1.4   kpt  12/02/2021 Added macro XPUF_4K_PUF_SYN_LEN_IN_BYTES
+* 1.5   kpt  03/23/2022 Added macro's and error code related to IRO frequency
 *
 * </pre>
 *
@@ -83,6 +84,9 @@ extern "C" {
 #define XPUF_LAST_WORD_OFFSET				(126U)
 #define XPUF_LAST_WORD_MASK				(0xFFFFFFF0U)
 
+#define XPUF_IRO_FREQ_320MHZ				(0x0U)
+#define XPUF_IRO_FREQ_400MHZ				(0x1U)
+
 /* Key registration time error codes */
 #define XPUF_ERROR_INVALID_PARAM			(0x02)
 #define XPUF_ERROR_INVALID_SYNDROME_MODE		(0x03)
@@ -91,7 +95,7 @@ extern "C" {
 #define XPUF_ERROR_REGISTRATION_INVALID			(0x08)
 #define XPUF_SHUTTER_GVF_MISMATCH			(0x09)
 #define XPUF_ERROR_SYN_DATA_ERROR			(0x0A)
-#define XPUF_IRO_FREQ_MISMATCH				(0x0B)
+#define XPUF_IRO_FREQ_WRITE_MISMATCH			(0x0B)
 
 /* Key regeneration time error codes */
 #define XPUF_ERROR_CHASH_NOT_PROGRAMMED			(0x10)

@@ -27,6 +27,7 @@
 *       har  03/08/2021 Added offset for IRO frequency
 * 1.4   har  07/09/2021 Fixed doxygen warnings
 * 1.5   har  03/21/2022 Added offset for GLOBAL_CNTRL register
+*       kpt  03/24/2021 Added macro XPUF_IRO_TRIM_FUSE_SEL_BIT
 *
 * </pre>
 *
@@ -138,6 +139,8 @@ extern "C" {
 					/**< EFUSE_CTRL Base Address */
 #define XPUF_ANLG_OSC_SW_1LP_OFFSET		(0x00000060U)
 					/**< IRO Trim Fuse Select */
+#define XPUF_IRO_TRIM_FUSE_SEL_BIT		((u32)0x01U << 0U)
+					/**< IRO Trim Fuse Select bit */
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
