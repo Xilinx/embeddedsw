@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -20,7 +20,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
-
+ * 1.1   ssc  03/24/22 Minor updates related to security best practices
+ *
  *</pre>
  **************************************************************************************************/
 
@@ -53,7 +54,7 @@ static void Trngpsv_PrintBytes(u8 *Src, u32 Size);
 XTrngpsv Trngpsv; /* Instance of TRNGPSV */
 u8 RandBuf[XTRNGPSV_SEC_STRENGTH_BYTES];
 
-u8 PersStr[XTRNGPSV_PERS_STR_LEN_BYTES] = {
+const u8 PersStr[XTRNGPSV_PERS_STR_LEN_BYTES] = {
 		0xB2U, 0x80U, 0x7EU, 0x4CU, 0xD0U, 0xE4U, 0xE2U, 0xA9U,
 		0x2FU, 0x1FU, 0x5DU, 0xC1U, 0xA2U, 0x1FU, 0x40U, 0xFCU,
 		0x1FU, 0x24U, 0x5DU, 0x42U, 0x61U, 0x80U, 0xE6U, 0xE9U,
@@ -115,8 +116,8 @@ int Trngpsv_Hrng_Example(u16 DeviceId)
 	};
 
 	if (UsrCfg.PersStrPresent == XTRNGPSV_TRUE) {
-		Status = Xil_SecureMemCpy(&UsrCfg.PersString, sizeof(UsrCfg.PersString), PersStr,
-				sizeof(PersStr));
+		Status = Xil_SMemCpy(&UsrCfg.PersString, sizeof(UsrCfg.PersString), PersStr,
+				sizeof(PersStr), sizeof(PersStr));
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}

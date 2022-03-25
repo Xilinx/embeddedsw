@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xtrngpsv.c
- * @addtogroup trngpsv_v1_0
+ * @addtogroup Overview
  * @{
  *
  * Contains the required functions of the XTrngpsv driver. See xtrng.h for a description of the
@@ -19,6 +19,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
+ * 1.1   ssc  03/24/22 Updates based on Security best practices and other assorted changes
  *
  * </pre>
  *
@@ -37,8 +38,8 @@
 #define XTRNGPSV_BYTES_PER_REG		4U	/**< Number of bytes register (i.e. 32/8) */
 #define XTRNGPSV_MAX_QCNT		4U	/**< Max value of QCNT field in STATUS register */
 
-#define XTRNGPSV_RESEED_TIMEOUT		15000U	/** Reseed timeout in micro-seconds */
-#define XTRNGPSV_GENERATE_TIMEOUT	8000U	/** Generate timeout in micro-seconds */
+#define XTRNGPSV_RESEED_TIMEOUT		15000U	/**< Reseed timeout in micro-seconds */
+#define XTRNGPSV_GENERATE_TIMEOUT	8000U	/**< Generate timeout in micro-seconds */
 
 #define PRNGMODE_RESEED			0U	/**< PRNG in Reseed mode */
 #define PRNGMODE_GEN			TRNG_CTRL_PRNGMODE_MASK	/**< PRNG in Generate mode */
@@ -66,14 +67,15 @@ static void XTrngpsv_Reset(const XTrngpsv *InstancePtr);
 static void XTrngpsv_SoftReset(const XTrngpsv *InstancePtr);
 static void XTrngpsv_HoldReset(const XTrngpsv *InstancePtr);
 static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u8 *RandGenBuf, u32 NumBytes);
-static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *PersStrPtr,
+static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, u8 *PersStrPtr,
 		u32 DFLenMul);
-static void XTrngpsv_WriteRegs(const XTrngpsv *InstancePtr, u32 StartRegOffset, u32 NumRegs,
+static s32 XTrngpsv_WriteRegs(const XTrngpsv *InstancePtr, u32 StartRegOffset, u32 NumRegs,
 		const u8 *InitBuf);
 static s32 XTrngpsv_CheckSeedPattern(u8 *EntropyData, u32 EntropyLength);
 static inline u32 XTrngpsv_ReadReg(UINTPTR BaseAddress, u32 RegOffset);
 static inline void XTrngpsv_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 RegValue);
 static inline void XTrngpsv_RMW32(UINTPTR BaseAddress, u32 RegOffset, u32 RegMask, u32 RegValue);
+static inline s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value);
 static inline s32 XTrngpsv_WaitForEvent(u32 BaseAddr, u32 RegOffset, u32 EventMask, u32 Event,
 		u32 Timeout);
 
@@ -100,7 +102,7 @@ static inline s32 XTrngpsv_WaitForEvent(u32 BaseAddr, u32 RegOffset, u32 EventMa
 s32 XTrngpsv_CfgInitialize(XTrngpsv *InstancePtr, const XTrngpsv_Config *CfgPtr,
 		UINTPTR EffectiveAddr)
 {
-	s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 Status = XTRNGPSV_FAILURE;
 
 	/* Validate arguments. */
 	if (InstancePtr == NULL) {
@@ -117,6 +119,7 @@ s32 XTrngpsv_CfgInitialize(XTrngpsv *InstancePtr, const XTrngpsv_Config *CfgPtr,
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
+	InstancePtr->State = XTRNGPSV_UNINITIALIZED;
 	Status = (s32)XTRNGPSV_SUCCESS;
 
 SET_ERR:
@@ -163,7 +166,7 @@ END:
 
 s32 XTrngpsv_Instantiate(XTrngpsv *InstancePtr, const XTrngpsv_UsrCfg *ConfigurValues)
 {
-	s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 Status = XTRNGPSV_FAILURE;
 	u8 *SeedPtr;
 	u8 *PersPtr;
 
@@ -222,7 +225,7 @@ s32 XTrngpsv_Instantiate(XTrngpsv *InstancePtr, const XTrngpsv_UsrCfg *ConfigurV
 
 	if ((ConfigurValues->InitSeedPresent == XTRNGPSV_FALSE)
 			&& (ConfigurValues->Mode == XTRNGPSV_DRNG)) {
-		Status = XTRNGPSV_ERROR_NO_SEED_INSTANTIATE;
+		Status = (s32)XTRNGPSV_ERROR_NO_SEED_INSTANTIATE;
 		goto SET_ERR;
 	}
 
@@ -324,10 +327,10 @@ END:
  *		- Other error codes from the called functions as defined in XTrngpsv_ErrorCodes.
  *
  **************************************************************************************************/
-s32 XTrngpsv_Reseed(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u32 DFLenMul)
+s32 XTrngpsv_Reseed(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, u32 DFLenMul)
 {
-	s32 Status = XTRNGPSV_FAILURE;
-	s32 Result;
+	volatile s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 Result = XTRNGPSV_SUCCESS;
 
 	/* Validate parameters */
 	if (InstancePtr == NULL) {
@@ -371,7 +374,7 @@ s32 XTrngpsv_Reseed(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u32 DFLenMul)
 		/* if initial seed during instantiation and reseed is same, it is an error*/
 		Result = Xil_MemCmp(ExtSeedPtr, InstancePtr->UsrCfg.InitSeed,
 				InstancePtr->EntropySize);
-		if (Result == XTRNGPSV_SUCCESS) {
+		if ((Result == XTRNGPSV_SUCCESS) || (Result != XTRNGPSV_FAILURE)) {
 			Status = (s32)XTRNGPSV_ERROR_SAME_SEED;
 			goto SET_ERR;
 		}
@@ -413,13 +416,14 @@ END:
  *		but set now.
  *		- XTRNGPSV_ERROR_RESEEDING_REQUIRED if SeedLife elapsed.
  *		- XTRNGPSV_ERROR_RESEED_REQD_PREDRES if seed is consumed and has Pred Resistance.
+ *		- XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions.
  *		- Other error codes from the called functions as defined in XTrngpsv_ErrorCodes.
  *
  *************************************************************************************************/
 s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8 PredResistanceEn)
 {
 
-	s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 Status = XTRNGPSV_FAILURE;
 	u8 *RandGenBuf;
 	u32 NumBytes = XTRNGPSV_SEC_STRENGTH_BYTES;
 
@@ -477,13 +481,19 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 				&& (PredResistanceEn == XTRNGPSV_TRUE)
 				&& (InstancePtr->TrngStats.ElapsedSeedLife > 0U)) {
 
+			Status = XTRNGPSV_FAILURE;
 			Status = XTrngpsv_ReseedInternal(InstancePtr, NULL, NULL, 0U);
 			if (Status != XTRNGPSV_SUCCESS) {
 				goto SET_ERR;
 			}
 		}
 
-		XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress, TRNG_CTRL, PRNGMODE_GEN);
+		Status = XTRNGPSV_FAILURE;
+		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL, PRNGMODE_GEN);
+		if (Status != XTRNGPSV_SUCCESS) {
+			Status = (s32)XTRNGPSV_ERROR_GLITCH;
+			goto SET_ERR;
+		}
 
 	}
 	else if (InstancePtr->UsrCfg.Mode == XTRNGPSV_DRNG) {
@@ -499,12 +509,16 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 		 */
 		if ((InstancePtr->UsrCfg.PredResistanceEn == XTRNGPSV_TRUE)
 				&& (PredResistanceEn == XTRNGPSV_TRUE)
-				&& (InstancePtr->TrngStats.ElapsedSeedLife > 0)) {
+				&& (InstancePtr->TrngStats.ElapsedSeedLife > 0U)) {
 			Status = (s32)XTRNGPSV_ERROR_RESEED_REQD_PREDRES;
 			goto SET_ERR;
 		}
 
-		XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress, TRNG_CTRL, PRNGMODE_GEN);
+		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL, PRNGMODE_GEN);
+		if (Status != XTRNGPSV_SUCCESS) {
+			Status = (s32)XTRNGPSV_ERROR_GLITCH;
+			goto SET_ERR;
+		}
 	}
 	else { /* UsrCfg.Mode == XTRNGPSV_PTRNG */
 
@@ -516,7 +530,11 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 			/* fill the DFInput datastructure with 0s so that
 			 * it can be populated
 			 */
-			(void)memset((u8*)&InstancePtr->DFInput, 0, sizeof(InstancePtr->DFInput));
+			Status = Xil_SMemSet((u8*)&InstancePtr->DFInput, (u32)sizeof(InstancePtr->DFInput), 0U,
+					(u32)sizeof(InstancePtr->DFInput));
+			if (Status != XTRNGPSV_SUCCESS) {
+				goto SET_ERR;
+			}
 
 			RandGenBuf = (u8*)InstancePtr->DFInput.EntropyData;
 		}
@@ -524,19 +542,28 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 		 * Enable all the 8 ring oscillators used for entropy source
 		 * Provide soft reset, Enable loading entropy data as random number
 		 */
-		XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress, TRNG_OSC_EN, TRNG_OSC_EN_VAL_MASK);
+		Status = XTRNGPSV_FAILURE;
+		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_OSC_EN,
+					TRNG_OSC_EN_VAL_MASK);
+		if (Status != XTRNGPSV_SUCCESS) {
+			Status = (s32)XTRNGPSV_ERROR_GLITCH;
+			goto SET_ERR;
+		}
 
 		XTrngpsv_SoftReset(InstancePtr);
 
-		XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress, TRNG_CTRL,
+		Status = XTRNGPSV_FAILURE;
+		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL,
 				TRNG_CTRL_EUMODE_MASK | TRNG_CTRL_TRSSEN_MASK);
+		if (Status != XTRNGPSV_SUCCESS) {
+			Status = (s32)XTRNGPSV_ERROR_GLITCH;
+			goto SET_ERR;
+		}
 	}
 
 	/* Collect random data based on above configuration*/
-	Status = XTrngpsv_CollectRandData(InstancePtr, RandGenBuf, NumBytes);
-	if (Status != XTRNGPSV_SUCCESS) {
-		goto SET_ERR;
-	}
+	XSECURE_TEMPORAL_CHECK(SET_ERR, Status, XTrngpsv_CollectRandData,
+			InstancePtr, RandGenBuf, NumBytes);
 
 	InstancePtr->TrngStats.RandBytesReseed += NumBytes;
 	InstancePtr->TrngStats.RandBytes += NumBytes;
@@ -554,11 +581,12 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 		}
 	}
 
-	Status = XTRNGPSV_SUCCESS;
-
 SET_ERR:
 	if ((Status != XTRNGPSV_SUCCESS) && (InstancePtr->State != XTRNGPSV_CATASTROPHIC)) {
 		InstancePtr->State = XTRNGPSV_ERROR;
+	}
+	else {
+		Status = XTRNGPSV_SUCCESS;
 	}
 
 END:
@@ -577,11 +605,12 @@ END:
  *		- XTRNGPSV_SUCCESS if Uninstantiation was successful.
  *		- XTRNGPSV_ERROR_INVALID_PARAM if invalid parameter(s) passed to this function.
  *		- XTRNGPSV_ERROR_INVALID_STATE if driver is not Healthy state before invoking this.
+ *		- XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions.
  *
  **************************************************************************************************/
 s32 XTrngpsv_Uninstantiate(XTrngpsv *InstancePtr)
 {
-	s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 Status = XTRNGPSV_FAILURE;
 
 	/* Validate arguments. */
 	if (InstancePtr == NULL) {
@@ -595,15 +624,25 @@ s32 XTrngpsv_Uninstantiate(XTrngpsv *InstancePtr)
 	}
 
 	/* clear contents of external seed and personalization string */
-	XTrngpsv_WriteRegs(InstancePtr, TRNG_EXT_SEED_0, XTRNGPSV_SEED_LEN, NULL);
+	Status = XTrngpsv_WriteRegs(InstancePtr, TRNG_EXT_SEED_0, XTRNGPSV_SEED_LEN, NULL);
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
 
-	XTrngpsv_WriteRegs(InstancePtr, TRNG_PER_STRNG_0, XTRNGPSV_PERS_STR_LEN, NULL);
+	Status = XTrngpsv_WriteRegs(InstancePtr, TRNG_PER_STRNG_0, XTRNGPSV_PERS_STR_LEN, NULL);
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
 
 	XTrngpsv_HoldReset(InstancePtr);
 
 	/* Clear the instance datastructure */
-	(void)memset(((u8*)InstancePtr + sizeof(InstancePtr->Config)), 0,
-			sizeof(XTrngpsv) - sizeof(InstancePtr->Config));
+	Status = Xil_SMemSet(((u8*)InstancePtr + sizeof(InstancePtr->Config)),
+			(u32)(sizeof(XTrngpsv) - sizeof(InstancePtr->Config)),
+			0U, (u32)(sizeof(XTrngpsv) - sizeof(InstancePtr->Config)));
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
 
 	InstancePtr->State = XTRNGPSV_UNINITIALIZED;
 	Status = XTRNGPSV_SUCCESS;
@@ -692,26 +731,32 @@ static void XTrngpsv_HoldReset(const XTrngpsv *InstancePtr)
  *		- XTRNGPSV_ERROR_GENERATE_TIMEOUT if timeout occurred waiting for QCNT to become 4.
  *		- XTRNGPSV_ERROR_CATASTROPHIC_DTF if DTF bit asserted in STATUS register.
  *		- XTRNGPSV_ERROR_CATASTROPHIC_DTF_SW if DTF error detected in software.
+ *		- XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions.
  *
  *************************************************************************************************/
 static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u8 *RandGenBuf, u32 NumBytes)
 {
-	s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 Status = XTRNGPSV_FAILURE;
 	u32 BufIndex = 0U;
 	u32 WordCount;
 	u32 BurstCount;
-	u32 RegVal;
+	volatile u32 RegVal;
+	volatile u32 RegValTmp;
 	u32 PatternMatch;
 	u32 NumBursts = NumBytes / XTRNGPSV_BURST_SIZE;
 
-	XTrngpsv_RMW32(InstancePtr->Config.BaseAddress, TRNG_CTRL,
-	TRNG_CTRL_PRNGSTART_MASK, TRNG_CTRL_PRNGSTART_MASK);
+	Status = Xil_SecureRMW32(InstancePtr->Config.BaseAddress + TRNG_CTRL,
+			TRNG_CTRL_PRNGSTART_MASK, TRNG_CTRL_PRNGSTART_MASK);
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto END;
+	}
 
 	/* Loop as many times based on NumBytes requested. In each burst 128 bits are generated,
 	 * which is reflected in QCNT value of 4 by hardware.
 	 */
 	for (BurstCount = 0U; BurstCount < NumBursts; BurstCount++) {
 
+		Status = XTRNGPSV_FAILURE;
 		Status = XTrngpsv_WaitForEvent((u32)InstancePtr->Config.BaseAddress,
 				TRNG_STATUS, TRNG_STATUS_QCNT_MASK,
 				(u32)XTRNGPSV_MAX_QCNT << TRNG_STATUS_QCNT_SHIFT,
@@ -744,8 +789,8 @@ static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u8 *RandGenBuf, u32 N
 		for (WordCount = 0U; WordCount < XTRNGPSV_BURST_SIZE_BITS / XTRNGPSV_REG_SIZE;
 				WordCount++) {
 
-			RegVal = XTrngpsv_ReadReg(InstancePtr->Config.BaseAddress,
-					TRNG_CORE_OUTPUT);
+			XSECURE_TEMPORAL_IMPL(RegVal, RegValTmp, XTrngpsv_ReadReg,
+					InstancePtr->Config.BaseAddress, TRNG_CORE_OUTPUT);
 
 			/* Check if the value to be stored is same as the previous value stored
 			 * in RandBitBuf, if this is TRUE for all the 4 words, it means the data
@@ -753,7 +798,8 @@ static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u8 *RandGenBuf, u32 N
 			 * is an error (which is checked at end of the current burst)
 			 */
 			if (BurstCount > 0U) {
-				if (InstancePtr->RandBitBuf[WordCount] != RegVal) {
+				if ((InstancePtr->RandBitBuf[WordCount] != RegVal)
+						|| (InstancePtr->RandBitBuf[WordCount] != RegValTmp)) {
 					PatternMatch = XTRNGPSV_FALSE;
 				}
 			}
@@ -776,6 +822,12 @@ static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u8 *RandGenBuf, u32 N
 			Status = (s32)XTRNGPSV_ERROR_CATASTROPHIC_DTF_SW;
 			goto END;
 		}
+	}
+
+	if (BurstCount != NumBursts)
+	{
+		Status = (s32)XTRNGPSV_ERROR_GLITCH;
+		goto END;
 	}
 
 	Status = XTRNGPSV_SUCCESS;
@@ -805,16 +857,19 @@ END:
  *		- XTRNGPSV_ERROR_CPY_RESEED if error encountered during seed copy.
  *		- XTRNGPSV_ERROR_RESEED_TIMEOUT if timeout occurred waiting for done of reseeding.
  *		- XTRNGPSV_ERROR_CERTF if CTF flag is set in STATUS register.
+ *		- XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions.
  *		- Other error codes from the called functions as defined in XTrngpsv_ErrorCodes.
  *
  **************************************************************************************************/
-static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *PersStrPtr,
+static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, u8 *PersStrPtr,
 		u32 DFLenMul)
 {
-	s32 Status = XTRNGPSV_FAILURE;
-	u32 RegVal;
+	volatile s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 StatusTemp = XTRNGPSV_FAILURE;
+	volatile u32 RegVal;
+	volatile u32 RegValTmp;
 	u8 EntropyOutput[XTRNGPSV_SEED_LEN_BYTES];
-	u8 *SeedPtr;
+	const volatile u8 *SeedPtr = NULL;
 
 	InstancePtr->TrngStats.RandBytesReseed = 0;
 	InstancePtr->TrngStats.ElapsedSeedLife = 0;
@@ -835,31 +890,38 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *Pe
 			 * TRNG couldn't be configured for entropy source as seed source. Instead,
 			 * entropy data is collected as random data, and after inspecting for
 			 * pattern, is fed again to the external seed registers. This is essentially
-			 * similar to HRNG + DF case except that there is no DF involved. this
+			 * similar to HRNG + DF case except that there is no DF involved. This
 			 * actually is configuration for PTRNG mode (not for reseed) to collect
 			 * random output data from entropy source.
 			 */
 
-			XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress,
-					TRNG_OSC_EN, TRNG_OSC_EN_VAL_MASK);
+			Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_OSC_EN,
+					TRNG_OSC_EN_VAL_MASK);
+			if (Status != XTRNGPSV_SUCCESS) {
+				Status = (s32)XTRNGPSV_ERROR_GLITCH;
+				goto SET_ERR;
+			}
 
 			/* Provide soft reset before configuring the entropy mode */
 			XTrngpsv_SoftReset(InstancePtr);
 
-			XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress, TRNG_CTRL,
+			Status = XTRNGPSV_FAILURE;
+			Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL,
 					TRNG_CTRL_EUMODE_MASK | TRNG_CTRL_TRSSEN_MASK);
-
-			/* TRNG_CTRL.PRNGstart will be asserted in XTrngpsv_CollectRandData() */
-
-			Status = XTrngpsv_CollectRandData(InstancePtr, EntropyOutput,
-							XTRNGPSV_SEED_LEN_BYTES);
 			if (Status != XTRNGPSV_SUCCESS) {
+				Status = (s32)XTRNGPSV_ERROR_GLITCH;
 				goto SET_ERR;
 			}
 
-			Status = XTrngpsv_CheckSeedPattern(EntropyOutput, XTRNGPSV_SEED_LEN_BYTES);
+			/* TRNG_CTRL.PRNGstart will be asserted in XTrngpsv_CollectRandData() */
 
-			if (Status != XTRNGPSV_SUCCESS) {
+			XSECURE_TEMPORAL_CHECK(SET_ERR, Status, XTrngpsv_CollectRandData,
+					InstancePtr, EntropyOutput, XTRNGPSV_SEED_LEN_BYTES);
+
+			XSECURE_TEMPORAL_IMPL(Status, StatusTemp, XTrngpsv_CheckSeedPattern,
+					EntropyOutput, XTRNGPSV_SEED_LEN_BYTES);
+
+			if ((Status != XTRNGPSV_SUCCESS) || (StatusTemp != XTRNGPSV_SUCCESS)) {
 				Status = (s32)XTRNGPSV_ERROR_CERTF_SW_A5_PATTERN;
 				goto SET_ERR;
 			}
@@ -879,12 +941,21 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *Pe
 		 * passed.
 		 */
 
-		XTrngpsv_WriteRegs(InstancePtr, TRNG_EXT_SEED_0, XTRNGPSV_SEED_LEN, SeedPtr);
+		Status = XTRNGPSV_FAILURE;
+		Status = XTrngpsv_WriteRegs(InstancePtr, TRNG_EXT_SEED_0,
+				XTRNGPSV_SEED_LEN, (const u8*)SeedPtr);
+		if (Status != XTRNGPSV_SUCCESS) {
+			goto SET_ERR;
+		}
 
 		if (PersStrPtr != NULL) {
 			/* Loading personalization is used in both DRNG and HRNG cases */
-			XTrngpsv_WriteRegs(InstancePtr, TRNG_PER_STRNG_0,
+			Status = XTRNGPSV_FAILURE;
+			Status = XTrngpsv_WriteRegs(InstancePtr, TRNG_PER_STRNG_0,
 					XTRNGPSV_PERS_STR_LEN, PersStrPtr);
+			if (Status != XTRNGPSV_SUCCESS) {
+				goto SET_ERR;
+			}
 		}
 	}
 	else { /* DF Mode */
@@ -892,7 +963,11 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *Pe
 		/* Fill the DFInput datastructure with 0s and copy the external seed (for DRNG)
 		 * or collect the entropy output data to the input to the DF operation.
 		 */
-		(void)memset((u8*)&InstancePtr->DFInput, 0, sizeof(InstancePtr->DFInput));
+		Status = Xil_SMemSet((u8*)&InstancePtr->DFInput, (u32)sizeof(InstancePtr->DFInput), 0U,
+				(u32)sizeof(InstancePtr->DFInput));
+		if (Status != XTRNGPSV_SUCCESS) {
+			goto SET_ERR;
+		}
 
 		if (InstancePtr->UsrCfg.Mode == XTRNGPSV_HRNG) {
 
@@ -900,8 +975,13 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *Pe
 			 * collect random output data from entropy source.
 			 */
 
-			XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress,
-					TRNG_OSC_EN, TRNG_OSC_EN_VAL_MASK);
+			Status = XTRNGPSV_FAILURE;
+			Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_OSC_EN,
+					TRNG_OSC_EN_VAL_MASK);
+			if (Status != XTRNGPSV_SUCCESS) {
+				Status = (s32)XTRNGPSV_ERROR_GLITCH;
+				goto SET_ERR;
+			}
 
 			/* Provide soft reset before configuring the entropy mode */
 			XTrngpsv_SoftReset(InstancePtr);
@@ -911,23 +991,19 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *Pe
 
 			/* TRNG_CTRL.PRNGstart will be asserted in XTrngpsv_CollectRandData() */
 
-			Status = XTrngpsv_CollectRandData(InstancePtr,
-					InstancePtr->DFInput.EntropyData,
-					InstancePtr->EntropySize * 8U);
-			if (Status != XTRNGPSV_SUCCESS) {
-				goto SET_ERR;
-			}
+			XSECURE_TEMPORAL_CHECK(SET_ERR, Status, XTrngpsv_CollectRandData,
+					InstancePtr, InstancePtr->DFInput.EntropyData, InstancePtr->EntropySize);
 
-			Status = XTrngpsv_CheckSeedPattern(InstancePtr->DFInput.EntropyData,
-					InstancePtr->EntropySize);
+			XSECURE_TEMPORAL_IMPL(Status, StatusTemp, XTrngpsv_CheckSeedPattern,
+					InstancePtr->DFInput.EntropyData, InstancePtr->EntropySize);
 
-			if (Status != XTRNGPSV_SUCCESS) {
+			if ((Status != XTRNGPSV_SUCCESS) || (StatusTemp != XTRNGPSV_SUCCESS)) {
 				Status = (s32)XTRNGPSV_ERROR_CERTF_SW_A5_PATTERN;
 				goto SET_ERR;
 			}
 		}
 		else if (InstancePtr->UsrCfg.Mode == XTRNGPSV_DRNG) {
-
+			Status = XTRNGPSV_FAILURE;
 			Status = Xil_SecureMemCpy(InstancePtr->DFInput.EntropyData,
 					InstancePtr->EntropySize, ExtSeedPtr,
 					InstancePtr->EntropySize);
@@ -943,16 +1019,14 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *Pe
 		/* Call the DF operation with input as external seed OR random data generated from
 		 * entropy output
 		 */
-		Status = XTrngpsv_DF(InstancePtr, (u8 *)InstancePtr->DFOutput, DF_SEED, PersStrPtr);
-		if (Status != XTRNGPSV_SUCCESS) {
-			goto SET_ERR;
-		}
+		XSECURE_TEMPORAL_CHECK(SET_ERR, Status, XTrngpsv_DF, InstancePtr,
+				(u8 *)InstancePtr->DFOutput, DF_SEED, PersStrPtr);
 
 		/* Output of DF (new seed) is input to the external seed registers, also configure
 		 * for the external seed as seed source type.
 		 */
-		XTrngpsv_WriteRegs(InstancePtr, TRNG_EXT_SEED_0, XTRNGPSV_SEED_LEN,
-				InstancePtr->DFOutput);
+		XSECURE_TEMPORAL_CHECK(SET_ERR, Status, XTrngpsv_WriteRegs,
+				InstancePtr, TRNG_EXT_SEED_0, XTRNGPSV_SEED_LEN, InstancePtr->DFOutput);
 
 		/* Note that there is no personalization string programmed here as the
 		 * personalization string is considered already as input to the DF.
@@ -960,8 +1034,13 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *Pe
 	}
 
 	/* select Reseed operation, and configure for external seed */
-	XTrngpsv_WriteReg(InstancePtr->Config.BaseAddress, TRNG_CTRL,
+	Status = XTRNGPSV_FAILURE;
+	Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL,
 			PRNGMODE_RESEED | TRNG_CTRL_PRNGXS_MASK);
+	if (Status != XTRNGPSV_SUCCESS) {
+		Status = (s32)XTRNGPSV_ERROR_GLITCH;
+		goto SET_ERR;
+	}
 
 	/* Start the reseed operation with above configuration and wait for STATUS.Done bit to be
 	 * set. Monitor STATUS.CERTF bit, if set indicates SP800-90B entropy health test has failed.
@@ -976,8 +1055,10 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *Pe
 		goto SET_ERR;
 	}
 
-	RegVal = XTrngpsv_ReadReg(InstancePtr->Config.BaseAddress, TRNG_STATUS);
-	if ((RegVal & TRNG_STATUS_CERTF_MASK) == TRNG_STATUS_CERTF_MASK) {
+	XSECURE_TEMPORAL_IMPL(RegVal, RegValTmp, XTrngpsv_ReadReg,
+			InstancePtr->Config.BaseAddress, TRNG_STATUS);
+	if (((RegVal & TRNG_STATUS_CERTF_MASK) == TRNG_STATUS_CERTF_MASK)
+			|| ((RegValTmp & TRNG_STATUS_CERTF_MASK) == TRNG_STATUS_CERTF_MASK)) {
 		Status = (s32)XTRNGPSV_ERROR_CERTF;
 		goto SET_ERR;
 	}
@@ -1015,16 +1096,20 @@ SET_ERR:
  * @param	NumRegs is number of registers to be programmed
  * @param	InitBuf is the source of buffer from where data will be written to registers.
  *
- * @return	None.
+ * @return
+ *		- XTRNGPSV_SUCCESS if Write to Registers is successful
+ *		- XTRNGPSV_ERROR_GLITCH if write and read values are different
+ *		- XTRNGPSV_FAILURE if any other failure
  *
  **************************************************************************************************/
-static void XTrngpsv_WriteRegs(const XTrngpsv *InstancePtr, u32 StartRegOffset, u32 NumRegs,
+static s32 XTrngpsv_WriteRegs(const XTrngpsv *InstancePtr, u32 StartRegOffset, u32 NumRegs,
 		const u8 *InitBuf)
 {
 	u32 Index;
 	u32 Count;
 	u32 RegVal;
 	u32 Offset;
+	volatile s32 Status = XTRNGPSV_FAILURE;
 
 	for (Index = 0U; Index < NumRegs; ++Index) {
 		if (InitBuf != NULL) {
@@ -1042,6 +1127,16 @@ static void XTrngpsv_WriteRegs(const XTrngpsv *InstancePtr, u32 StartRegOffset, 
 					StartRegOffset + Index * XTRNGPSV_BYTES_PER_REG, 0U);
 		}
 	}
+
+	if (Index != NumRegs) {
+		Status = (s32)XTRNGPSV_ERROR_GLITCH;
+		goto END;
+	}
+
+	Status = XTRNGPSV_SUCCESS;
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -1128,7 +1223,43 @@ static inline void XTrngpsv_RMW32(UINTPTR BaseAddress, u32 RegOffset, u32 RegMas
 }
 
 /**************************************************************************************************/
-/*
+/**
+ * @brief
+ * Performs a Read Modify Write operation for a memory location by writing the 32 bit
+ * Value to the the specified address and then reading it back to verify the
+ * value written in the register.
+ *
+ * @param	Addr contains the address to perform the output operation
+ * @param	Mask indicates the bits to be modified
+ * @param	Value contains 32 bit Value to be written at the specified address
+ *
+ * @return
+ *         XST_SUCCESS on success
+ *         XST_FAILURE on failure
+ *
+ **************************************************************************************************/
+static inline s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value)
+{
+	s32 Status = XST_FAILURE;
+	u32 ReadReg;
+	u32 Val;
+
+	Val = Xil_In32(Addr);
+	Val = (Val & (~Mask)) | (Mask & Value);
+	Xil_Out32(Addr, Val);
+
+	/* verify value written to specified address */
+	ReadReg = Xil_In32(Addr) & Mask;
+
+	if(ReadReg == (Mask & Value)) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/**************************************************************************************************/
+/**
  * @brief
  * Waits for an event to occur for a certain timeout duration.
  *

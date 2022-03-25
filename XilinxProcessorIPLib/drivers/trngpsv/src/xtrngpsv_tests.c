@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xtrngpsv_tests.c
- * @addtogroup trngpsv_v1_0
+ * @addtogroup Overview
  * @{
  *
  * Contains Known Answer Tests and Health Tests for the TRNGPSV component.
@@ -18,6 +18,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
+ * 1.1   ssc  03/24/22 Updates based on Security best practices
  *
  * </pre>
  *
@@ -28,11 +29,15 @@
 #include "xtrngpsv.h"
 
 /************************************ Constant Definitions ***************************************/
-
+/**
+ * @name Constant definitions for parameters used for Health and KAT tests
+ * @{
+ */
 #define HEALTH_TEST_SEEDLIFE	10U
 #define HEALTH_TEST_DFLENMUL	7U
 #define KAT_SEEDLIFE	5U
 #define KAT_DFLENMUL	2U
+/** @} */
 
 /************************************** Type Definitions *****************************************/
 
@@ -63,7 +68,7 @@
 
 s32 XTrngpsv_RunHealthTest(XTrngpsv *InstancePtr)
 {
-	s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 Status = XTRNGPSV_FAILURE;
 
 	XTrngpsv_UsrCfg UsrCfgTests;
 
@@ -72,7 +77,10 @@ s32 XTrngpsv_RunHealthTest(XTrngpsv *InstancePtr)
 		goto END;
 	}
 
-	(void)memset((u8*)&UsrCfgTests, 0, sizeof(UsrCfgTests));
+	Status = Xil_SMemSet((u8*)&UsrCfgTests, (u32)sizeof(UsrCfgTests), 0U, (u32)sizeof(UsrCfgTests));
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
 
 	/* Populate user config parameters of TRNGPSV driver */
 
@@ -89,6 +97,9 @@ s32 XTrngpsv_RunHealthTest(XTrngpsv *InstancePtr)
 	if (Status != XTRNGPSV_SUCCESS) {
 		goto SET_ERR;
 	}
+
+	/* Status Reset */
+	Status = XTRNGPSV_FAILURE;
 
 	/* CTF is not being monitored explicitly here since that is done as part of Reseeding
 	 * during Instantiation
@@ -126,8 +137,8 @@ END:
 s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 {
 
-	s32 Status = XTRNGPSV_FAILURE;
-	s32 Result;
+	volatile s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 Result =  XTRNGPSV_FAILURE;
 	XTrngpsv_UsrCfg UsrCfgTests;
 
 	const u8 ExtSeed[XTRNGPSV_SEED_LEN_BYTES] = {
@@ -155,14 +166,17 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 			0xD3U, 0x48U, 0xFDU, 0x3DU, 0xD2U, 0xC4U, 0x50U, 0x1EU,
 	};
 
-	u8 RandBufOut[XTRNGPSV_GEN_LEN_BYTES];
+	u8 RandBufOut[XTRNGPSV_GEN_LEN_BYTES] = {0};
 
 	if (InstancePtr == NULL) {
 		Status = (s32)XTRNGPSV_ERROR_INVALID_PARAM;
 		goto END;
 	}
 
-	(void)memset((u8*)&UsrCfgTests, 0, sizeof(UsrCfgTests));
+	Status = Xil_SMemSet((u8*)&UsrCfgTests, (u32)sizeof(UsrCfgTests), 0U, (u32)sizeof(UsrCfgTests));
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
 
 	/* Populate user config parameters of TRNGPSV driver */
 
@@ -174,9 +188,9 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 	UsrCfgTests.PersStrPresent = XTRNGPSV_TRUE;
 	UsrCfgTests.InitSeedPresent = XTRNGPSV_TRUE;
 
-	Status = Xil_SecureMemCpy(&UsrCfgTests.InitSeed,
+	Status = Xil_SMemCpy(&UsrCfgTests.InitSeed,
 			(UsrCfgTests.DFLenMul + 1U) * BYTES_PER_BLOCK, ExtSeed,
-			(u32)sizeof(ExtSeed));
+			(u32)sizeof(ExtSeed), (u32)sizeof(ExtSeed));
 
 	if (Status != XTRNGPSV_SUCCESS) {
 		Status = (s32)XTRNGPSV_ERROR_USRCFG_CPY_KAT;
@@ -184,9 +198,9 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 	}
 
 	if (UsrCfgTests.PersStrPresent == XTRNGPSV_TRUE) {
-		Status = Xil_SecureMemCpy(UsrCfgTests.PersString,
+		Status = Xil_SMemCpy(UsrCfgTests.PersString,
 				(u32)sizeof(UsrCfgTests.PersString), PersString,
-				(u32)sizeof(PersString));
+				(u32)sizeof(PersString), (u32)sizeof(PersString));
 		if (Status != XTRNGPSV_SUCCESS) {
 			Status = (s32)XTRNGPSV_ERROR_USRCFG_CPY_KAT;
 			goto SET_ERR;
@@ -206,10 +220,11 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 		goto SET_ERR;
 	}
 
-	/* If the generated Randam data doesn't match with reference,
+	/* If the generated Random data doesn't match with reference,
 	 * error out
 	 */
-	Result = Xil_MemCmp(RandBufOut, ExpectedOutput, XTRNGPSV_GEN_LEN_BYTES);
+	Result = Xil_SMemCmp(RandBufOut, XTRNGPSV_GEN_LEN_BYTES, ExpectedOutput,
+				XTRNGPSV_GEN_LEN_BYTES, XTRNGPSV_GEN_LEN_BYTES);
 	if (Result != XTRNGPSV_SUCCESS) {
 		Status = (s32)XTRNGPSV_ERROR_KAT_MISMATCH;
 		goto SET_ERR;

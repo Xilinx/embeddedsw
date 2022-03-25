@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xtrngpsv_df.c
- * @addtogroup trngpsv_v1_0
+ * @addtogroup Overview
  * @{
  *
  * Implements the DF functionality, calls the functions that implement core algorithm for the
@@ -19,6 +19,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
+ * 1.1   ssc  03/24/22 Updates based on Security best practices
  *
  * </pre>
  *
@@ -31,8 +32,8 @@
 
 /************************************ Constant Definitions ***************************************/
 
-#define DF_PAD_VAL	0x80U
-#define DF_KEY_LEN	32U
+#define DF_PAD_VAL	0x80U		/**< Value to be written to first byte of Padding data */
+#define DF_KEY_LEN	32U			/**< Length of key for DF */
 
 /************************************** Type Definitions *****************************************/
 
@@ -65,11 +66,12 @@
  * @return
  *		- XTRNGPSV_SUCCESS if successful.
  *		- XTRNGPSV_ERROR_DF_CPY if MemCpy failure
+ *		- XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions.
  *
  **************************************************************************************************/
 s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *PersStrPtr)
 {
-	s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 Status = XTRNGPSV_FAILURE;
 	UINTPTR SrcAddr;
 	UINTPTR DestAddr;
 	UINTPTR RemDataAddr;
@@ -146,16 +148,25 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 	DiffSize = (u32)(SrcAddr - DestAddr);
 	RemDataAddr = (UINTPTR)&InstancePtr->DFInput + (u32)sizeof(InstancePtr->DFInput) - DiffSize;
 
+	/* Status Reset */
+	Status = XTRNGPSV_FAILURE;
+
 	if (DiffSize > 0U) {
 		/* Move the block up */
-		Status = Xil_SecureMemCpy((u8*)DestAddr, TransferSize, (u8*)SrcAddr, TransferSize);
+		Status = Xil_SMemCpy((u8*)DestAddr, TransferSize, (u8*)SrcAddr, TransferSize, TransferSize);
 		if (Status != XTRNGPSV_SUCCESS) {
 			Status = (s32)XTRNGPSV_ERROR_DF_CPY;
 			goto SET_ERR;
 		}
 
+		/* Status Reset */
+		Status = XTRNGPSV_FAILURE;
+
 		/* Fill the remaining memory (after moving) with 0s */
-		(void)memset((u8*)RemDataAddr, 0, DiffSize);
+		Status = Xil_SMemSet((u8*)RemDataAddr, DiffSize, 0U, DiffSize);
+		if (Status != XTRNGPSV_SUCCESS) {
+			goto SET_ERR;
+		}
 	}
 
 	/* Perform first part of the DF algorithm */
@@ -163,11 +174,19 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 	(void)aesSetupKey(DFKey, (s32)sizeof(DFKey));
 	for (Index = 0U; Index < XTRNGPSV_SEED_LEN_BYTES; Index += AES_BLK_SIZE) {
 
-		(void)memset((u8*)InstancePtr->DFOutput + Index, 0, AES_BLK_SIZE);
+		Status = Xil_SMemSet((u8*)InstancePtr->DFOutput + Index, AES_BLK_SIZE, 0, AES_BLK_SIZE);
+		if (Status != XTRNGPSV_SUCCESS) {
+			goto SET_ERR;
+		}
+
 		InstancePtr->DFInput.IvCounter[0] =
 		XTRNGPSV_SWAP_ENDIAN(Index / AES_BLK_SIZE);
 		aesCbcEncrypt((u8*)&InstancePtr->DFInput, NULL, InstancePtr->DFOutput + Index,
 				(s32)ActualDFInputLen);
+	}
+
+	if (Index != XTRNGPSV_SEED_LEN_BYTES) {
+		goto SET_ERR;
 	}
 
 	/* Perform second part of the DF algorithm (final update to DFOutput) */
@@ -186,7 +205,12 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 		aesEncrypt(AesInBlkPtr, AesOutBlkPtr);
 	}
 
-	Status = XTRNGPSV_SUCCESS;
+	if (Index != XTRNGPSV_SEED_LEN_BYTES) {
+		Status = (s32)XTRNGPSV_ERROR_GLITCH;
+	}
+	else {
+		Status = XTRNGPSV_SUCCESS;
+	}
 
 SET_ERR:
 	return Status;
