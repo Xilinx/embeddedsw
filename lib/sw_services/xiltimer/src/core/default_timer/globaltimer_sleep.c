@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -19,6 +19,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk  24/11/21 Initial release.
+ *  	 adk  25/03/22 Fix compilation errors for a72 processor.
  *</pre>
  *
  *@note
@@ -74,7 +75,12 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 static void XGlobalTimer_Start(XTimer *InstancePtr)
 {
 	(void) InstancePtr;
+#if defined (versal)
+        u32 TimerStampFreq = XPAR_CPU_CORTEXA72_0_TIMESTAMP_CLK_FREQ;
+#else
         u32 TimerStampFreq = XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ;
+#endif
+
 
 	if (EL3 == 1){
                 /* Enable the global timer counter only if it is disabled */
@@ -107,7 +113,11 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 {
 	(void) InstancePtr;
 	XTime tEnd, tCur;
+#if defined (versal)
+        u32 TimerStampFreq = XPAR_CPU_CORTEXA72_0_TIMESTAMP_CLK_FREQ;
+#else
         u32 TimerStampFreq = XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ;
+#endif
         u32 iterpersec = TimerStampFreq;
 	static u8 IsSleepTimerStarted = FALSE;
 
