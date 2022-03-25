@@ -372,7 +372,8 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 	 * to lower voltage.  If the temperature is between lower and upper
 	 * threshold, no adjustment is needed.
 	 */
-	if ((CurrentTemp <= LowerTempThresh) &&
+	if ((XSysMonPsv_FixedToFloat(CurrentTemp) <=
+	     XSysMonPsv_FixedToFloat(LowerTempThresh)) &&
 	    (*CurrentVoltMode != UpperVoltMode)) {
 		PmDbg("Current temperature is 0x%x, Set voltage to upper mode "
 		      "%d\n\r", CurrentTemp, UpperVoltMode);
@@ -384,7 +385,8 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 		}
 
 		*CurrentVoltMode = UpperVoltMode;
-	} else if ((CurrentTemp >= UpperTempThresh) &&
+	} else if ((XSysMonPsv_FixedToFloat(CurrentTemp) >=
+		    XSysMonPsv_FixedToFloat(UpperTempThresh)) &&
 		   (*CurrentVoltMode != LowerVoltMode)) {
 		PmDbg("Current temperature is 0x%x, Set voltage to lower mode "
 		      "%d\n\r", CurrentTemp, LowerVoltMode);
@@ -436,7 +438,7 @@ static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 	 * the upper temperature threshold.  Validate that value of lower
 	 * threshold is less than value of upper threshold.
 	 */
-	if (Args[2] >= Args[4]) {
+	if (XSysMonPsv_FixedToFloat(Args[2]) >= XSysMonPsv_FixedToFloat(Args[4])) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
