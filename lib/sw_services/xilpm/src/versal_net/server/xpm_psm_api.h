@@ -55,6 +55,11 @@ struct PsmToPlmEvent_t {
 	u16 ProcDataLen;
 };
 
+void XPm_PsmModuleInit(void);
+XStatus XPm_PwrDwnEvent(const u32 DeviceId);
+XStatus XPm_WakeUpEvent(const u32 DeviceId);
+XStatus XPm_DirectPwrUp(const u32 DeviceId);
+XStatus XPm_DirectPwrDwn(const u32 DeviceId);
 XStatus XPm_GetPsmToPlmEventAddr(void);
 
 #ifdef __cplusplus
