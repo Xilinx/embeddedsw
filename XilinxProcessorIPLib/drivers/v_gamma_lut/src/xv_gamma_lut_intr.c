@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2018 - 2021 Xilinx, Inc.	All rights reserved.
+ * Copyright (C) 2018 - 2022 Xilinx, Inc.	All rights reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
  *
  * @file xv_gamma_lut_intr.c
- * @addtogroup v_gamma_lut_v1_3
+ * @addtogroup v_gamma_lut_v1_4
  * @{
  *
  * The functions in this file provides interrupt handler and associated

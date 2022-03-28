@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 1986 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 1986 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_mix_l2.h
-* @addtogroup v_mix_v6_2
+* @addtogroup v_mix_v6_3
 * @{
 * @details
 *

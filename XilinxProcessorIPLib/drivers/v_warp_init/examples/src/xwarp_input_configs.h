@@ -1,3 +1,9 @@
+/******************************************************************************
+* Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+
 #ifndef XWARP_INPUT_CONFIGS_H_
 #define XWARP_INPUT_CONFIGS_H_
 

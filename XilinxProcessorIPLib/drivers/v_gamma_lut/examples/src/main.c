@@ -1,3 +1,9 @@
+/******************************************************************************
+* Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+
 #include "xparameters.h"
 #include "sleep.h"
 #include "xv_gamma_lut.h"
