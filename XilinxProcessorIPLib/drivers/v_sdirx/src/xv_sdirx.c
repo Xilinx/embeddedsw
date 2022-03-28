@@ -420,9 +420,16 @@ int XV_SdiRx_Stop(XV_SdiRx *InstancePtr)
 	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 				(XV_SDIRX_RST_CTRL_OFFSET));
 	Data &= ~XV_SDIRX_RST_CTRL_SDIRX_SS_EN_MASK;
-
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDIRX_RST_CTRL_OFFSET), (Data));
+
+	/* Set VPID bit to its default */
+	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_SDIRX_MDL_CTRL_OFFSET));
+	if (InstancePtr->HandleNoPayload)
+		Data |= XV_SDIRX_MDL_CTRL_VPID_MASK;
+	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XV_SDIRX_MDL_CTRL_OFFSET), (Data));
 
 	return XST_SUCCESS;
 }
