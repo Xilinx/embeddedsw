@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_multi_scaler_l2.h
-* @addtogroup v_multi_scaler_v1_3
+* @addtogroup v_multi_scaler_v1_4
 * @{
 *
 * This header file contains layer 2 API's of the multi scaler core

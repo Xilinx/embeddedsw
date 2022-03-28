@@ -5,7 +5,7 @@
 * Version: 2020.2
 * DO NOT EDIT.
 *
-* Copyright (C) 2010-2021 Xilinx, Inc. All Rights Reserved.
+* Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 
 *
