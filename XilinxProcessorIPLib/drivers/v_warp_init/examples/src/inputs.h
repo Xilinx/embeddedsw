@@ -1,3 +1,9 @@
+/******************************************************************************
+* Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+
 #ifndef INPUTS_H
 #define INPUTS_H
 

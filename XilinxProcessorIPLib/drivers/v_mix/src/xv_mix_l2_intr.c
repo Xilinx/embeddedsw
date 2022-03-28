@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_mix_l2_intr.c
-* @addtogroup v_mix_v6_2
+* @addtogroup v_mix_v6_3
 * @{
 *
 * The functions in this file provides interrupt handler and associated
