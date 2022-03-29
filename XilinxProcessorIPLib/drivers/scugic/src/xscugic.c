@@ -135,6 +135,10 @@
 * 4.7   dp   11/22/21 Added new API XScuGic_IsInitialized() to check and return
 *                     the GIC initialization status.
 * 5.0   mus  22/02/22 Added support for VERSAL NET.
+* 5.0   asa  03/29/22 The API XScuGic_IsInitialized has a bug where if
+* 		      Distributor Control Register, GICD_CTLR has both
+* 		      bit 0 and 1 set, the API wrongly returns 0.
+*                     This is fixed with this change.
 * </pre>
 *
 ******************************************************************************/
@@ -1292,7 +1296,7 @@ u8 XScuGic_IsInitialized(u32 DeviceId)
 	CfgPtr = XScuGic_LookupConfig(DeviceId);
 	if (CfgPtr != NULL) {
 		RegVal = XScuGic_ReadReg(CfgPtr->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET);
-		if ((RegVal & XSCUGIC_EN_INT_MASK) == 1U) {
+		if (RegVal & XSCUGIC_EN_INT_MASK) {
 			Device_Initilaized = 1U;
 		}
 	}
