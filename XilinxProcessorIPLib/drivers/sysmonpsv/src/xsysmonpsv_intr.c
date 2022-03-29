@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv_intr.c
-* @addtogroup sysmonpsv_v2_3
+* @addtogroup sysmonpsv_v3_0
 * @{
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
@@ -27,6 +27,7 @@
 * 2.3   aad    04/30/21 Size optimization for PLM.
 *       aad    07/26/21 Fixed doxygen comments.
 *       aad    09/21/21 Fixed warning.
+* 3.0   cog    03/25/21 Driver Restructure
 *
 * </pre>
 *
@@ -36,11 +37,12 @@
 
 #include "xil_assert.h"
 #include "xsysmonpsv.h"
+#include "xsysmonpsv_lowlevel.h"
 #include "xsysmonpsv_supplylist.h"
 
-
 /************************** Constant Definitions ****************************/
-#define XSYSMONPSV_INTR_OFFSET          0xCU    /**< Interrupt register
+#define XSYSMONPSV_INTR_OFFSET                                                 \
+	0xCU /**< Interrupt register
                                                   offset */
 
 /**************************** Type Definitions ******************************/
@@ -69,19 +71,19 @@
 *****************************************************************************/
 void XSysMonPsv_IntrEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 {
-        u32 Offset;
+	u32 Offset;
 
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-        Xil_AssertVoid(IntrNum <= 1U);
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(IntrNum <= 1U);
 
-        /* Calculate the offset of the IER register to be written to */
-        Offset = (XSYSMONPSV_IER0_OFFSET +
-                  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
+	/* Calculate the offset of the IER register to be written to */
+	Offset = (XSYSMONPSV_IER0_OFFSET +
+		  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
 
-        /* Enable the specified interrupts in the AMS Interrupt Enable Register. */
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Mask);
+	/* Enable the specified interrupts in the AMS Interrupt Enable Register. */
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Mask);
 }
 
 /****************************************************************************/
@@ -102,22 +104,21 @@ void XSysMonPsv_IntrEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 *****************************************************************************/
 u32 XSysMonPsv_IntrGetEnabled(XSysMonPsv *InstancePtr, u8 IntrNum)
 {
-        u32 Interrupts;
-        u32 Offset;
+	u32 Interrupts;
+	u32 Offset;
 
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-        Xil_AssertNonvoid(IntrNum <= 1U);
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(IntrNum <= 1U);
 
-        /* Calculate the offset of the IER register to be written to */
-        Offset = (XSYSMONPSV_IMR0_OFFSET +
-                  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
-        /* Return the value read from the AMS Interrupt Mask Register. */
-        Interrupts = (u32)XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
-                                             Offset);
+	/* Calculate the offset of the IER register to be written to */
+	Offset = (XSYSMONPSV_IMR0_OFFSET +
+		  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
+	/* Return the value read from the AMS Interrupt Mask Register. */
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Interrupts);
 
-        return ~(Interrupts);
+	return ~(Interrupts);
 }
 
 /****************************************************************************/
@@ -139,19 +140,19 @@ u32 XSysMonPsv_IntrGetEnabled(XSysMonPsv *InstancePtr, u8 IntrNum)
 *****************************************************************************/
 void XSysMonPsv_IntrDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 {
-        u32 Offset;
+	u32 Offset;
 
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-        Xil_AssertVoid(IntrNum <= 1U);
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(IntrNum <= 1U);
 
-        /* Calculate the offset of the IDR register to be written to */
-        Offset = (XSYSMONPSV_IDR0_OFFSET +
-                  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
+	/* Calculate the offset of the IDR register to be written to */
+	Offset = (XSYSMONPSV_IDR0_OFFSET +
+		  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
 
-        /* Disable the specified interrupts in the AMS Interrupt Disable Register. */
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Mask);
+	/* Disable the specified interrupts in the AMS Interrupt Disable Register. */
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Mask);
 }
 
 /****************************************************************************/
@@ -171,18 +172,15 @@ void XSysMonPsv_IntrDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 *****************************************************************************/
 u32 XSysMonPsv_IntrGetStatus(XSysMonPsv *InstancePtr)
 {
-        u32 IntrStatusRegister;
+	u32 IntrStatus;
 
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-        /* Return the value read from the AMS ISR. */
-        IntrStatusRegister = (u32)XSysMonPsv_ReadReg(
-                                InstancePtr->Config.BaseAddress +
-                                XSYSMONPSV_ISR_OFFSET);
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_ISR_OFFSET, &IntrStatus);
 
-        return IntrStatusRegister;
+	return IntrStatus;
 }
 
 /****************************************************************************/
@@ -202,15 +200,13 @@ u32 XSysMonPsv_IntrGetStatus(XSysMonPsv *InstancePtr)
 *****************************************************************************/
 void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask)
 {
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-        /* Clear the specified interrupts in the Interrupt Status register. */
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_ISR_OFFSET, Mask);
+	/* Clear the specified interrupts in the Interrupt Status register. */
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_ISR_OFFSET, Mask);
 }
-
 
 /****************************************************************************/
 /**
@@ -227,38 +223,37 @@ void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
 void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
-                                XSysMonPsv_Supply Supply, u32 Mask)
+				 XSysMonPsv_Supply Supply, u32 Mask)
 {
-        u32 Reg, Val, Shift, Index;
+	u32 Reg, Val, Shift, Index;
 
-        /* Assert the arguments */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid((Mask & XSYSMONPSV_INTR_NEW_DATA_MASK) != 0U);
+	/* Assert the arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Mask & XSYSMONPSV_INTR_NEW_DATA_MASK) != 0U);
 
-        Reg = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
-                                 XSYSMONPSV_NEW_DATA_INT_SRC);
-        Val = (Mask & XSYSMONPSV_INTR_NEW_DATA_MASK) >>
-                XSYSMONPSV_INTR_NEW_DATA_SHIFT;
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_NEW_DATA_INT_SRC, &Reg);
+	Val = (Mask & XSYSMONPSV_INTR_NEW_DATA_MASK) >>
+	      XSYSMONPSV_INTR_NEW_DATA_SHIFT;
 
-        for(Index = 0U; Index < 4U; Index++) {
-                Val = Val >> 1U;
+	for (Index = 0U; Index < 4U; Index++) {
+		Val = Val >> 1U;
 
-                if(Val == 0U) {
-                        break;
-                }
-        }
+		if (Val == 0U) {
+			break;
+		}
+	}
 
-        Shift = XSYSMONPSV_NEW_DATA_INT_SRC_ADDR_ID1_SHIFT * Index;
-        Val = InstancePtr->Config.Supply_List[Supply];
+	Shift = XSYSMONPSV_NEW_DATA_INT_SRC_ADDR_ID1_SHIFT * Index;
+	Val = InstancePtr->Config.Supply_List[Supply];
 
-        if(Index < 4U) {
-                Reg |= Val << Shift;
-                XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                                    XSYSMONPSV_NEW_DATA_INT_SRC, Reg);
-        }
+	if (Index < 4U) {
+		Reg |= Val << Shift;
+		XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_NEW_DATA_INT_SRC,
+				    Reg);
+	}
 }
 
-#if !defined (VERSAL_PLM)
+#if defined (ARMR5) || defined (__arch64__) || defined (__aarch64__)
 /******************************************************************************/
 /**
  * This function installs a callback function for when a Device Temperature
@@ -275,17 +270,17 @@ void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
  *
 *******************************************************************************/
 void XSysMonPsv_SetTempEventHandler(XSysMonPsv *InstancePtr,
-                                    XSysMonPsv_Handler CallbackFunc,
-                                    void *CallbackRef)
+				    XSysMonPsv_Handler CallbackFunc,
+				    void *CallbackRef)
 {
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(CallbackFunc != NULL);
-        Xil_AssertVoid(CallbackRef != NULL);
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
 
-        InstancePtr->TempEvent.Handler = CallbackFunc;
-        InstancePtr->TempEvent.CallbackRef = CallbackRef;
-        InstancePtr->TempEvent.IsCallbackSet = 1U;
+	InstancePtr->TempEvent.Handler = CallbackFunc;
+	InstancePtr->TempEvent.CallbackRef = CallbackRef;
+	InstancePtr->TempEvent.IsCallbackSet = 1U;
 }
 
 /******************************************************************************/
@@ -304,17 +299,17 @@ void XSysMonPsv_SetTempEventHandler(XSysMonPsv *InstancePtr,
  *
 *******************************************************************************/
 void XSysMonPsv_SetOTEventHandler(XSysMonPsv *InstancePtr,
-                                  XSysMonPsv_Handler CallbackFunc,
-                                  void *CallbackRef)
+				  XSysMonPsv_Handler CallbackFunc,
+				  void *CallbackRef)
 {
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(CallbackFunc != NULL);
-        Xil_AssertVoid(CallbackRef != NULL);
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
 
-        InstancePtr->OTEvent.Handler = CallbackFunc;
-        InstancePtr->OTEvent.CallbackRef = CallbackRef;
-        InstancePtr->OTEvent.IsCallbackSet = 1U;
+	InstancePtr->OTEvent.Handler = CallbackFunc;
+	InstancePtr->OTEvent.CallbackRef = CallbackRef;
+	InstancePtr->OTEvent.IsCallbackSet = 1U;
 }
 
 /******************************************************************************/
@@ -334,22 +329,21 @@ void XSysMonPsv_SetOTEventHandler(XSysMonPsv *InstancePtr,
  *
 *******************************************************************************/
 void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
-                                      XSysMonPsv_Supply Supply,
-                                      XSysMonPsv_Handler CallbackFunc,
-                                      void *CallbackRef)
+				      XSysMonPsv_Supply Supply,
+				      XSysMonPsv_Handler CallbackFunc,
+				      void *CallbackRef)
 {
-        u32 SupplyReg;
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(CallbackFunc != NULL);
-        Xil_AssertVoid(CallbackRef != NULL);
+	u32 SupplyReg;
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
 
-        SupplyReg = InstancePtr->Config.Supply_List[Supply];
-        InstancePtr->SupplyEvent[SupplyReg].Handler = CallbackFunc;
-        InstancePtr->SupplyEvent[SupplyReg].CallbackRef = CallbackRef;
-        InstancePtr->SupplyEvent[SupplyReg].Supply = Supply;
-        InstancePtr->SupplyEvent[SupplyReg].IsCallbackSet = 1U;
-
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	InstancePtr->SupplyEvent[SupplyReg].Handler = CallbackFunc;
+	InstancePtr->SupplyEvent[SupplyReg].CallbackRef = CallbackRef;
+	InstancePtr->SupplyEvent[SupplyReg].Supply = Supply;
+	InstancePtr->SupplyEvent[SupplyReg].IsCallbackSet = 1U;
 }
 
 /******************************************************************************/
@@ -368,75 +362,59 @@ void XSysMonPsv_SetSupplyEventHandler(XSysMonPsv *InstancePtr,
 *******************************************************************************/
 void XSysMonPsv_AlarmEventHandler(XSysMonPsv *InstancePtr)
 {
-        u32 DevTempDetected, OTTempDetected, SupplyAlarm;
-        /* Upper 16 bits contain Min Temp, Lower 16 bits contain Max Temp */
-        u32 TempMinMax, IntrStatus, SupplyReg, SupplyVal;
-        u32 SupplyNum = 0U, ListLength = (u32) EndList;
-        XSysMonPsv_EventHandler *EventHandler;
-        XSysMonPsv_Supply Supply = (XSysMonPsv_Supply) 0;
+	u32 DevTempDetected, OTTempDetected, SupplyAlarm;
+	/* Upper 16 bits contain Min Temp, Lower 16 bits contain Max Temp */
+	u32 IntrStatus, SupplyReg;
+	u32 SupplyNum = 0U, ListLength = (u32)EndList;
+	XSysMonPsv_EventHandler *EventHandler;
+	XSysMonPsv_Supply Supply = (XSysMonPsv_Supply)0;
 
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
 
-        /* Determine what kind of interrupt occured */
-        IntrStatus = XSysMonPsv_IntrGetStatus(InstancePtr);
+	/* Determine what kind of interrupt occured */
+	IntrStatus = XSysMonPsv_IntrGetStatus(InstancePtr);
 
-        /* Clear interrupt status register */
-        XSysMonPsv_IntrClear(InstancePtr, IntrStatus);
+	/* Clear interrupt status register */
+	XSysMonPsv_IntrClear(InstancePtr, IntrStatus);
 
-        SupplyAlarm = IntrStatus & (XSYSMONPSV_ISR_ALARM0_MASK |
-                                    XSYSMONPSV_ISR_ALARM1_MASK |
-                                    XSYSMONPSV_ISR_ALARM2_MASK |
-                                    XSYSMONPSV_ISR_ALARM3_MASK |
-                                    XSYSMONPSV_ISR_ALARM4_MASK);
-        DevTempDetected = IntrStatus & XSYSMONPSV_ISR_TEMP_MASK;
-        OTTempDetected = IntrStatus & XSYSMONPSV_ISR_OT_MASK;
+	SupplyAlarm = IntrStatus &
+		      (XSYSMONPSV_ISR_ALARM0_MASK | XSYSMONPSV_ISR_ALARM1_MASK |
+		       XSYSMONPSV_ISR_ALARM2_MASK | XSYSMONPSV_ISR_ALARM3_MASK |
+		       XSYSMONPSV_ISR_ALARM4_MASK);
+	DevTempDetected = IntrStatus & XSYSMONPSV_ISR_TEMP_MASK;
+	OTTempDetected = IntrStatus & XSYSMONPSV_ISR_OT_MASK;
 
-        /* Handle OT Event */
-        if((OTTempDetected != 0U) && (InstancePtr->OTEvent.IsCallbackSet == 1U)) {
-                TempMinMax = XSysMonPsv_ReadDeviceTemp(InstancePtr,
-                                                       XSYSMONPSV_VAL_MIN);
-                TempMinMax = TempMinMax << 16U;
-                TempMinMax |= XSysMonPsv_ReadDeviceTemp(InstancePtr,
-                                                       XSYSMONPSV_VAL_MAX);
+	/* Handle OT Event */
+	if ((OTTempDetected != 0U) &&
+	    (InstancePtr->OTEvent.IsCallbackSet == 1U)) {
+		InstancePtr->OTEvent.Handler(InstancePtr->OTEvent.CallbackRef);
+	}
 
-                InstancePtr->OTEvent.Handler(InstancePtr->OTEvent.CallbackRef,
-                                             &TempMinMax);
-        }
+	/* Handle Dev Temp Event */
+	if ((DevTempDetected != 0U) &&
+	    (InstancePtr->TempEvent.IsCallbackSet == 1U)) {
+		InstancePtr->TempEvent.Handler(
+			InstancePtr->TempEvent.CallbackRef);
+	}
 
-        /* Handle Dev Temp Event */
-        if((DevTempDetected != 0U) && (InstancePtr->TempEvent.IsCallbackSet == 1U)) {
-                TempMinMax = XSysMonPsv_ReadDeviceTemp(InstancePtr,
-                                                       XSYSMONPSV_VAL_MIN);
-                TempMinMax = TempMinMax << 16U;
-                TempMinMax |= XSysMonPsv_ReadDeviceTemp(InstancePtr,
-                                                       XSYSMONPSV_VAL_MAX);
-                InstancePtr->TempEvent.Handler(InstancePtr->TempEvent.CallbackRef,
-                                               &TempMinMax);
-        }
+	if (SupplyAlarm != 0U) {
+		for (SupplyNum = 0U; SupplyNum < ListLength; SupplyNum++) {
+			Supply = (XSysMonPsv_Supply)SupplyNum;
+			if (XSysMonPsv_IsAlarmCondition(InstancePtr, Supply) ==
+			    1U) {
+				SupplyReg =
+					InstancePtr->Config.Supply_List[Supply];
+				EventHandler =
+					&InstancePtr->SupplyEvent[SupplyReg];
 
-        if(SupplyAlarm != 0U) {
-                for(SupplyNum = 0U; SupplyNum < ListLength; SupplyNum++) {
-                        Supply = (XSysMonPsv_Supply) SupplyNum;
-                        if(XSysMonPsv_IsAlarmCondition(InstancePtr, Supply) == 1U) {
-                                SupplyReg =
-                                        InstancePtr->Config.Supply_List[Supply];
-                                EventHandler =
-                                        &InstancePtr->SupplyEvent[SupplyReg];
-
-                                if(EventHandler->IsCallbackSet == 1U) {
-                                        SupplyVal = XSysMonPsv_ReadSupplyValue(InstancePtr,
-                                                                               Supply,
-                                                                               XSYSMONPSV_VAL);
-                                        EventHandler->Handler(EventHandler->CallbackRef,
-                                                              &SupplyVal);
-                                }
-                        }
-
-                }
-
-        }
-
+				if (EventHandler->IsCallbackSet == 1U) {
+					EventHandler->Handler(
+						EventHandler->CallbackRef);
+				}
+			}
+		}
+	}
 }
 #endif
 /** @} */

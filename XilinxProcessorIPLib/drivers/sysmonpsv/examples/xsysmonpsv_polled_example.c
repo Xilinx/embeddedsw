@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 1.1   aad    07/16/19 Added register unlock
 * 1.1   aad    07/21/19 Added Temperature measurement
 * 2.0   aad    10/29/20 Graceful exit when no supplies enabled
+* 3.0   cog    03/25/21 Driver Restructure
 *
 * </pre>
 *
@@ -38,43 +39,21 @@
 #include "xstatus.h"
 #include "stdio.h"
 
-/************************** Constant Definitions ****************************/
-#define INTR_0		0
-#define SYSMONPSV_TIMEOUT	100000
-#define LOCK_CODE		0xF9E8D7C6
-
-/**************************** Type Definitions ******************************/
-
-
-/***************** Macros (Inline Functions) Definitions ********************/
-
-
-
 /************************** Function Prototypes *****************************/
 
 int SysMonPsvPolledExample();
-
-/************************** Variable Definitions ****************************/
-
-static XSysMonPsv SysMonInst;      /* System Monitor driver instance */
 
 /****************************************************************************/
 /**
 *
 * Main function that invokes the polled example in this file.
 *
-* @param	None.
-*
-* @return
-*		- XST_SUCCESS if the example has completed successfully.
+* @return	- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note		None.
 *
 *****************************************************************************/
 int main(void)
 {
-
 	int Status;
 
 	/*
@@ -101,97 +80,40 @@ int main(void)
 *	- Read supply configuration.
 *	- Read the latest on-chip temperatures and confiured supplies
 *
-* @param	None.
-*
-* @return
-*		- XST_SUCCESS if the example has completed successfully.
+* @return	- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note		None
 *
 ****************************************************************************/
 int SysMonPsvPolledExample()
 {
-	int Timeout;
-	XSysMonPsv_Config *ConfigPtr;
-	u32 IntrStatus;
-	u32 RawVoltage;
+	XSysMonPsv InstancePtr;
+	;
 	float Voltage;
-	XSysMonPsv *SysMonInstPtr = &SysMonInst;
-	XSysMonPsv_Supply Supply = (XSysMonPsv_Supply) 0;
-	u32 CurrentMin, CurrentMax;
 	float TempMin, TempMax;
+	XSysMonPsv_Supply Supply = (XSysMonPsv_Supply)0;
 
-	printf("\r\nEntering the SysMon Polled Example. \r\n");
+	XSysMonPsv_Init(&InstancePtr, NULL);
 
-	/* Initialize the SysMon driver. */
-	ConfigPtr = XSysMonPsv_LookupConfig();
-	if (ConfigPtr == NULL) {
-		return XST_FAILURE;
-	}
-
-	XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
-
-	/* Unlock the sysmon register space */
-	XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
-			    LOCK_CODE);
-
-	/* Clear any bits set in the Interrupt Status Register. */
-	IntrStatus = XSysMonPsv_IntrGetStatus(SysMonInstPtr);
-	XSysMonPsv_IntrClear(SysMonInstPtr, IntrStatus);
-
-	/* Enable New Data Interrupt in the IER0 register.
-	 * This MASK covers for Supplies that have a value from 0-31.
-	 * For values between 32-63, 64-95, 96-127 and 128-159, use
-	 * XSYSMONPSV_IER0_NEW_DATA*_MASK, where * is 1, 2, 3, 4 respectively.
-	 * Similarly, use XSYSMON_IER0_ALARM*_mask depending on the alarms to
-	 * be enabled.
-	 * in the Supply_List of XSysMonPsv_Config. The index of the array
-	 * corresponds to the enum XSysMonPsv_Supply from
-	 * xsysmonpsv_supplylist.h
-	 */
-	XSysMonPsv_SetNewDataIntSrc(SysMonInstPtr, Supply,
-				    XSYSMONPSV_IER0_NEW_DATA0_MASK);
-
-	Timeout = 0;
-	if(Supply != EndList) {
-		/* Wait till new data is available */
-		do {
-			Timeout++;
-			if(Timeout > SYSMONPSV_TIMEOUT)
-				return XST_FAILURE;
-		} while (!(XSysMonPsv_IntrGetStatus(SysMonInstPtr) &
-			  XSYSMONPSV_IER0_NEW_DATA0_MASK));
-
-		/* Read the desired Supply from the enabled supplies from the
-		 * configuration using enum XSysmonPsv_Supply from
-		 * xsysmonpsv_supplylist.h
-		 * This enum is generated depending on the configuration selected
-		 * for sysmon in the PCW.
-		 */
-
-		RawVoltage = XSysMonPsv_ReadSupplyValue(SysMonInstPtr, Supply,
-							XSYSMONPSV_VAL);
-
-		Voltage = XSysMonPsv_RawToVoltage(RawVoltage);
-
-		printf("Voltage =%fv \r\n", Voltage);
+	if (Supply != EndList) {
+		while (Supply != EndList) {
+			XSysMonPsv_ReadSupplyProcessed(&InstancePtr, Supply,
+						       &Voltage);
+			printf("Voltage for %s=%fv \r\n",
+			       XSysMonPsv_Supply_Arr[Supply], Voltage);
+			Supply++;
+		}
 	} else {
 		printf("No Supplies Enabled\r\n");
 	}
 
 	/* There is no polling mechanism to read the new temperature data */
-	CurrentMin = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL_VREF_MIN);
-	TempMin = XSysMonPsv_FixedToFloat(CurrentMin);
+	XSysMonPsv_ReadTempProcessed(&InstancePtr, XSYSMONPSV_TEMP_MIN,
+				     &TempMin);
 	printf("Current Minimum Temperature on the chip = %fC \r\n", TempMin);
 
-	CurrentMax = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL_VREF_MAX);
-	TempMax = XSysMonPsv_FixedToFloat(CurrentMax);
+	XSysMonPsv_ReadTempProcessed(&InstancePtr, XSYSMONPSV_TEMP_MAX,
+				     &TempMax);
 	printf("Current Maximum Temperature on the chip = %fC \r\n", TempMax);
-
-
-
-	printf("Exiting the SysMon Polled Example. \r\n");
 
 	return XST_SUCCESS;
 }
