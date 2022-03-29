@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,7 +10,7 @@ BEGIN driver sysmonpsv
   OPTION supported_peripherals = (pmc_sysmon psv_pmc_sysmon);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.3;
+  OPTION VERSION = 3.0;
   OPTION NAME = sysmonpsv;
 
 END driver
