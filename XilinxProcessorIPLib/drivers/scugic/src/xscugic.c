@@ -137,6 +137,10 @@
 * 4.7   mus  03/17/22 Fixed XScuGic_InterruptMaptoCpu and
 *                     XScuGic_InterruptUnmapFromCpu for GICv3. It fixes
 *                     CR#1126156.
+* 4.7   asa  03/29/22 The API XScuGic_IsInitialized has a bug where if the
+*                     Distributor Control Register, GICD_CTLR has both
+*                     bit 0 and bit 1 set, the API wrongly returns 0,
+*                     This is fixed with this change.
 * </pre>
 *
 ******************************************************************************/
@@ -1280,7 +1284,7 @@ u8 XScuGic_IsInitialized(u32 DeviceId)
 	CfgPtr = XScuGic_LookupConfig(DeviceId);
 	if (CfgPtr != NULL) {
 		RegVal = XScuGic_ReadReg(CfgPtr->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET);
-		if ((RegVal & XSCUGIC_EN_INT_MASK) == 1U) {
+		if (RegVal & XSCUGIC_EN_INT_MASK) {
 			Device_Initilaized = 1U;
 		}
 	}
