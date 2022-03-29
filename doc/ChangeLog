@@ -207,12 +207,6 @@ xilpdi_v1_5:
 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 Updated XilPdi_ReadBootHdr prototype
 
-versal_plm:
-Added change to ensure SbiRecovery is only called in Jtag boot modes
-Added security review comments
-Added missing include file in xplm_stl
-Enable SLVERR for PLM related components
-
 zynqmp_fsbl:
 Fix secondary boot issue with non zero multiboot offset
 Added support for ZCU670 boards
@@ -233,6 +227,85 @@ Fix issue on SOM related to enabling build flags
 csudma_v1_11:
 Update doxygen documentation
 Fix compilation warnings in ConfigTable
+
+versal_plm:
+Added change to ensure SbiRecovery is only called in Jtag boot modes
+Added security review comments
+Added missing include file in xplm_stl
+Enable SLVERR for PLM related components
+Call XPlmi_EmInit after XPlm_PmInit to fix issue related to clearing PL errors which occurred during last boot
+
+axivdma_v6_11:
+Fix read/write done comparison in vdma interrupt example
+
+v_gamma_lut_v1_4:
+Added license in missing files of this driver
+
+v_mix_v6_3:
+Added license in missing files of this driver
+
+v_multi_scaler_v1_4:
+Added license in missing files of this driver
+
+v_scenechange_v1_4:
+Added license in missing files of this driver
+
+tmr_inject_v1_4:
+Fix IIR offset address mask
+
+zdma_v1_14:
+Fix syntax errors in the tapp tcl
+
+xiltimer_v1_0:
+Initial version of xiltimer library, The XilTimer library provides sleep and interval timer functionality
+By default, XilTimer library is disabled. User can enable it through software configuration wizard
+
+v_frmbuf_rd_v4_6:
+Added new video color format Y_U_V10
+
+v_frmbuf_wr_v4_6:
+Added new video color format Y_U_V10
+
+v_warp_filter_v1_1:
+Changed the mdd and addtogroup to support v1_1
+
+v_warp_init_v1_2:
+Changed the register offsets and the descriptor
+
+video_common_v4_13:
+Added new video color format Y_U_V10
+
+xilplmi_v1_6:
+Added boundary check before incrementing NumErrOuts to prevent wrap around
+Added redundancy check to CheckIpiAccess API
+Resolved Divide by Zero exception in XPlmi_MemSet
+Added RTCA initialization for MIO Flush routine RTCA registers
+Fixed compiler warnings related redenition macros
+Fixed few doxygen warnings
+Added performance time stamp prints during loading and processing of partitions
+Update function header of XPlmi_IpiDispatchHandler
+Remove hardcoding of PSM RAM address for proc reserved memory
+Removed checking of SSIT errors during XPlmi_SsitWaitForDmaDone and call XPmcDma_WaitForDoneTimeout function during SSIT DMA wait for done
+Clear PMC_GLOBAL_SSIT_ERR register during EAM init to clear any previous errors
+Removed checking of SSIT errors in SSIT synchronization commands
+Replaced Xil_SecureMemCpy with Xil_SMemCpy
+Moved hardware definitions to standalone folder
+Added xilpuf client-server support
+Enabled ssit_sync per slave
+Added support for OT_CHECK command
+Added PL_POR before PMC reset
+Enabled SLVERR for all PLM related components
+Added PLM exceptions to SW Errors list
+Check error mask registers after error action is enabled or disabled
+Check if error action is enabled before executing the handler
+Fix Setup Interrupt System Logic
+Added STL interrupt handler registration
+Fix DMA keyhole issue when commands starts at the 32k boundary
+Fix race condition in task dispatch loop
+Print Command ID when IPI command processing fails
+Fixed versionless compilation warning related to redefinition
+Enhance user configurability of PLM
+Fix ROM time calculation
 
 
 New Files Added for 2022.1:
