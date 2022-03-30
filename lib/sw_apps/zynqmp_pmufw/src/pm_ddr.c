@@ -1640,30 +1640,30 @@ static s32 store_training_data(void)
 	PmDma64BitTransfer(RESERVED_ADDRESS, 0U, 0U, 0U, size);
 
 	if (((0U != haddr) || (0U != laddr)) && old_mapping) {
-		PmDma64BitTransfer(RESERVED_ADDRESS + size, 0U,
+		PmDma64BitTransfer(RESERVED_ADDRESS + (4U * size), 0U,
 				    old_map_offset, 0U, size);
 
-		PmDma64BitTransfer(RESERVED_ADDRESS + (2U * size), 0U, laddr,
+		PmDma64BitTransfer(RESERVED_ADDRESS + (8U * size), 0U, laddr,
 				    haddr, size);
 
 		if (0U != IS_ADDR_MIRR()) {
 			mirr_offset = mirrored_r1_addr();
 			mirr_offset += (((u64)haddr) << 32U);
 			mirr_offset += (u64)laddr;
-			PmDma64BitTransfer(RESERVED_ADDRESS + (3U * size), 0U,
+			PmDma64BitTransfer(RESERVED_ADDRESS + (12U * size), 0U,
 					   ADDR_LO(mirr_offset),
 					   ADDR_HI(mirr_offset),
 					   size);
 		} else {
-			PmDma64BitTransfer(RESERVED_ADDRESS + (3U * size), 0U,
+			PmDma64BitTransfer(RESERVED_ADDRESS + (12U * size), 0U,
 					   laddr + old_map_offset, haddr,
 					   size);
 		}
 	} else if (old_mapping) {
-		PmDma64BitTransfer(RESERVED_ADDRESS + size, 0U, old_map_offset,
-				   0U, size);
+		PmDma64BitTransfer(RESERVED_ADDRESS + (4U * size), 0U,
+				   old_map_offset, 0U, size);
 	} else {
-		PmDma64BitTransfer(RESERVED_ADDRESS + size, 0U, laddr,
+		PmDma64BitTransfer(RESERVED_ADDRESS + (4U * size), 0U, laddr,
 				   haddr, size);
 	}
 
@@ -1697,28 +1697,28 @@ static void restore_training_data(void)
 
 	if (((0U != haddr) || (0U != laddr)) && old_mapping) {
 		PmDma64BitTransfer(old_map_offset, 0U,
-				   RESERVED_ADDRESS + size, 0U, size);
+				   RESERVED_ADDRESS + (4U * size), 0U, size);
 		PmDma64BitTransfer(laddr, haddr,
-				   RESERVED_ADDRESS + (2U * size), 0U, size);
+				   RESERVED_ADDRESS + (8U * size), 0U, size);
 		if (0U != IS_ADDR_MIRR()) {
 			mirr_offset = mirrored_r1_addr();
 			mirr_offset += (((u64)haddr) << 32U);
 			mirr_offset += (u64)laddr;
 			PmDma64BitTransfer(ADDR_LO(mirr_offset),
 					   ADDR_HI(mirr_offset),
-					   RESERVED_ADDRESS + (3U * size), 0U,
+					   RESERVED_ADDRESS + (12U * size), 0U,
 					   size);
 		} else {
 			PmDma64BitTransfer(laddr + old_map_offset, haddr,
-					   RESERVED_ADDRESS + (3U * size), 0U,
+					   RESERVED_ADDRESS + (12U * size), 0U,
 					   size);
 		}
 	} else if (old_mapping) {
-		PmDma64BitTransfer(old_map_offset, 0U, RESERVED_ADDRESS + size,
-				   0U, size);
+		PmDma64BitTransfer(old_map_offset, 0U,
+				   RESERVED_ADDRESS + (4U * size), 0U, size);
 	} else {
-		PmDma64BitTransfer(laddr, haddr, RESERVED_ADDRESS + size, 0U,
-				   size);
+		PmDma64BitTransfer(laddr, haddr, RESERVED_ADDRESS + (4U * size),
+				   0U, size);
 	}
 
 #ifdef ENABLE_DDR_SR_WR
