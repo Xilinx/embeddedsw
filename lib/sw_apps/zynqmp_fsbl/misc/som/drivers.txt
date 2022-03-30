@@ -9,5 +9,5 @@ scugic
 sysmonpsu
 ttcps
 uartps
-wdtps
 ipipsu
+sdps

@@ -1,7 +1,29 @@
 /******************************************************************************
-* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/*****************************************************************************/
+/**
+* @file xparameters_ps.h
+*
+* This file contains the address definitions for the hard peripherals
+* attached to the ARM Cortex A53 core.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who     Date     Changes
+* ----- ------- -------- ---------------------------------------------------
+* 5.00 	pkp  05/29/14 First release
+* </pre>
+*
+* @note
+*
+* None.
+*
+******************************************************************************/
+
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
 #define XPARAMETERS_H   /* by using protection macros */
 
@@ -9,14 +31,14 @@
 #define XPAR_CPU_ID 0U
 
 /* Definitions for peripheral PSU_CORTEXA53_0 */
-#define XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ 1333333008
+#define XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ 1199988037
 #define XPAR_PSU_CORTEXA53_0_TIMESTAMP_CLK_FREQ 99999001
 
 
 /******************************************************************/
 
 /* Canonical definitions for peripheral PSU_CORTEXA53_0 */
-#define XPAR_CPU_CORTEXA53_0_CPU_CLK_FREQ_HZ 1333333008
+#define XPAR_CPU_CORTEXA53_0_CPU_CLK_FREQ_HZ 1199988037
 #define XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ 99999001
 
 
@@ -26,8 +48,6 @@
 #define XPAR_PSU_PSS_REF_CLK_FREQ_HZ 33333000U
 
 #include "xparameters_ps.h"
-
-#define XPS_BOARD_K26I
 
 
 /* Number of Fabric Resets */
@@ -256,8 +276,22 @@
 
 /******************************************************************/
 
-/* Definitions for driver DDRCPSU */
+/*Definitions for driver DDRCPSU */
 #define XPAR_XDDRCPSU_NUM_INSTANCES 1
+
+/* Peripheral Definitions for peripheral PSU_DDR_0 */
+#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x00000000
+#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF
+
+/******************************************************************/
+
+
+/* Peripheral Definitions for peripheral PSU_DDR_1 */
+#define XPAR_PSU_DDR_1_S_AXI_BASEADDR 0x800000000
+#define XPAR_PSU_DDR_1_S_AXI_HIGHADDR 0x87FFFFFFF
+
+/******************************************************************/
+
 
 /* Definitions for peripheral PSU_DDRC_0 */
 #define XPAR_PSU_DDRC_0_DEVICE_ID 0
@@ -265,10 +299,7 @@
 #define XPAR_PSU_DDRC_0_HIGHADDR 0xFD070FFF
 #define XPAR_PSU_DDRC_0_HAS_ECC 0
 #define XPAR_PSU_DDRC_0_DDRC_CLK_FREQ_HZ 533328002
-
-
 /******************************************************************/
-
 #define XPAR_PSU_DDRC_0_DDR4_ADDR_MAPPING 0
 #define XPAR_PSU_DDRC_0_DDR_FREQ_MHZ 1066.656006
 #define XPAR_PSU_DDRC_0_VIDEO_BUFFER_SIZE 0
@@ -376,16 +407,6 @@
 /* Peripheral Definitions for peripheral PSU_CTRL_IPI */
 #define XPAR_PSU_CTRL_IPI_S_AXI_BASEADDR 0xFF380000
 #define XPAR_PSU_CTRL_IPI_S_AXI_HIGHADDR 0xFF3FFFFF
-
-
-/* Peripheral Definitions for peripheral PSU_DDR_0 */
-#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x00000000
-#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF
-
-
-/* Peripheral Definitions for peripheral PSU_DDR_1 */
-#define XPAR_PSU_DDR_1_S_AXI_BASEADDR 0x800000000
-#define XPAR_PSU_DDR_1_S_AXI_HIGHADDR 0x87FFFFFFF
 
 
 /* Peripheral Definitions for peripheral PSU_DDR_PHY */
@@ -635,10 +656,6 @@
 /* Canonical Definitions for peripheral PSU_CTRL_IPI */
 #define XPAR_PERIPHERAL_0_S_AXI_BASEADDR 0xFF380000
 #define XPAR_PERIPHERAL_0_S_AXI_HIGHADDR 0xFF3FFFFF
-
-
-
-
 
 
 /* Canonical Definitions for peripheral PSU_DDR_PHY */
@@ -1040,6 +1057,42 @@
 
 /******************************************************************/
 
+/* Definitions for driver SDPS */
+#define XPAR_XSDPS_NUM_INSTANCES 1
+
+/* Definitions for peripheral PSU_SD_0 */
+#define XPAR_PSU_SD_0_DEVICE_ID 0
+#define XPAR_PSU_SD_0_BASEADDR 0xFF160000
+#define XPAR_PSU_SD_0_HIGHADDR 0xFF16FFFF
+#define XPAR_PSU_SD_0_SDIO_CLK_FREQ_HZ 187498123
+#define XPAR_PSU_SD_0_HAS_CD 0
+#define XPAR_PSU_SD_0_HAS_WP 0
+#define XPAR_PSU_SD_0_BUS_WIDTH 8
+#define XPAR_PSU_SD_0_MIO_BANK 0
+#define XPAR_PSU_SD_0_HAS_EMIO 0
+#define XPAR_PSU_SD_0_SLOT_TYPE 1
+
+
+/******************************************************************/
+
+#define XPAR_PSU_SD_0_IS_CACHE_COHERENT 0
+#define XPAR_PSU_SD_0_REF_CLK SDIO0_REF
+/* Canonical definitions for peripheral PSU_SD_0 */
+#define XPAR_XSDPS_0_DEVICE_ID XPAR_PSU_SD_0_DEVICE_ID
+#define XPAR_XSDPS_0_BASEADDR 0xFF160000
+#define XPAR_XSDPS_0_HIGHADDR 0xFF16FFFF
+#define XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ 187498123
+#define XPAR_XSDPS_0_HAS_CD 0
+#define XPAR_XSDPS_0_HAS_WP 0
+#define XPAR_XSDPS_0_BUS_WIDTH 8
+#define XPAR_XSDPS_0_MIO_BANK 0
+#define XPAR_XSDPS_0_HAS_EMIO 0
+#define XPAR_XSDPS_0_SLOT_TYPE 1
+#define XPAR_XSDPS_0_IS_CACHE_COHERENT 0
+
+
+/******************************************************************/
+
 /* Definitions for driver SPIPS */
 #define XPAR_XSPIPS_NUM_INSTANCES 1
 
@@ -1047,7 +1100,7 @@
 #define XPAR_PSU_SPI_1_DEVICE_ID 0
 #define XPAR_PSU_SPI_1_BASEADDR 0xFF050000
 #define XPAR_PSU_SPI_1_HIGHADDR 0xFF05FFFF
-#define XPAR_PSU_SPI_1_SPI_CLK_FREQ_HZ 199998001
+#define XPAR_PSU_SPI_1_SPI_CLK_FREQ_HZ 187498123
 
 
 /******************************************************************/
@@ -1056,7 +1109,7 @@
 #define XPAR_XSPIPS_0_DEVICE_ID XPAR_PSU_SPI_1_DEVICE_ID
 #define XPAR_XSPIPS_0_BASEADDR 0xFF050000
 #define XPAR_XSPIPS_0_HIGHADDR 0xFF05FFFF
-#define XPAR_XSPIPS_0_SPI_CLK_FREQ_HZ 199998001
+#define XPAR_XSPIPS_0_SPI_CLK_FREQ_HZ 187498123
 
 
 /******************************************************************/
@@ -1072,7 +1125,7 @@
 
 /******************************************************************/
 
-#define XPAR_PSU_AMS_REF_FREQMHZ 49.999500
+#define XPAR_PSU_AMS_REF_FREQMHZ 51.723621
 /* Canonical definitions for peripheral PSU_AMS */
 #define XPAR_XSYSMONPSU_0_DEVICE_ID XPAR_PSU_AMS_DEVICE_ID
 #define XPAR_XSYSMONPSU_0_BASEADDR 0xFFA50000
@@ -1081,7 +1134,7 @@
 
 /******************************************************************/
 
-#define XPAR_XSYSMONPSU_0_REF_FREQMHZ 49.999500
+#define XPAR_XSYSMONPSU_0_REF_FREQMHZ 51.723621
 /* Definitions for driver TTCPS */
 #define XPAR_XTTCPS_NUM_INSTANCES 12U
 
@@ -1239,40 +1292,6 @@
 
 /* Definition for input Clock */
 #define XPAR_PSU_UART_1_REF_CLK UART1_REF
-/* Definitions for driver WDTPS */
-#define XPAR_XWDTPS_NUM_INSTANCES 2
-
-/* Definitions for peripheral PSU_WDT_0 */
-#define XPAR_PSU_WDT_0_DEVICE_ID 0
-#define XPAR_PSU_WDT_0_BASEADDR 0xFF150000
-#define XPAR_PSU_WDT_0_HIGHADDR 0xFF15FFFF
-#define XPAR_PSU_WDT_0_WDT_CLK_FREQ_HZ 99999001
-
-
-/* Definitions for peripheral PSU_WDT_1 */
-#define XPAR_PSU_WDT_1_DEVICE_ID 1
-#define XPAR_PSU_WDT_1_BASEADDR 0xFD4D0000
-#define XPAR_PSU_WDT_1_HIGHADDR 0xFD4DFFFF
-#define XPAR_PSU_WDT_1_WDT_CLK_FREQ_HZ 99999001
-
-
-/******************************************************************/
-
-/* Canonical definitions for peripheral PSU_WDT_0 */
-#define XPAR_XWDTPS_0_DEVICE_ID XPAR_PSU_WDT_0_DEVICE_ID
-#define XPAR_XWDTPS_0_BASEADDR 0xFF150000
-#define XPAR_XWDTPS_0_HIGHADDR 0xFF15FFFF
-#define XPAR_XWDTPS_0_WDT_CLK_FREQ_HZ 99999001
-
-/* Canonical definitions for peripheral PSU_WDT_1 */
-#define XPAR_XWDTPS_1_DEVICE_ID XPAR_PSU_WDT_1_DEVICE_ID
-#define XPAR_XWDTPS_1_BASEADDR 0xFD4D0000
-#define XPAR_XWDTPS_1_HIGHADDR 0xFD4DFFFF
-#define XPAR_XWDTPS_1_WDT_CLK_FREQ_HZ 99999001
-
-
-/******************************************************************/
-
 /* Definitions for driver ZDMA */
 #define XPAR_XZDMA_NUM_INSTANCES 16
 
@@ -1538,6 +1557,7 @@
 /******************************************************************/
 
 /* Xilinx FAT File System Library (XilFFs) User Settings */
+#define FILE_SYSTEM_INTERFACE_SD
 #define FILE_SYSTEM_READ_ONLY
 #define FILE_SYSTEM_NUM_LOGIC_VOL 2
 #define FILE_SYSTEM_USE_STRFUNC 0

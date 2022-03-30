@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -312,6 +312,64 @@ extern "C" {
 
 #define XPAR_SCUWDT_DEVICE_ID		0U
 
+/*
+ * Defines for interrupt wrapper API
+ * For more details about usage please refer xinterrupt_wrap.h
+ * Here Bits[11:0] represents interrupt id
+ * Bits[15:12] represents interrupt trigger type and level flags
+ */
+#define XPAR_PSU_ADMA_0_INTERRUPT_ID       0x404dU
+#define XPAR_PSU_ADMA_1_INTERRUPT_ID       0x404eU
+#define XPAR_PSU_ADMA_2_INTERRUPT_ID       0x404fU
+#define XPAR_PSU_ADMA_3_INTERRUPT_ID       0x4050U
+#define XPAR_PSU_ADMA_4_INTERRUPT_ID       0x4051U
+#define XPAR_PSU_ADMA_5_INTERRUPT_ID       0x4052U
+#define XPAR_PSU_ADMA_6_INTERRUPT_ID       0x4053U
+#define XPAR_PSU_ADMA_7_INTERRUPT_ID       0x4054U
+#define XPAR_PSU_CSUDMA_INTERRUPT_ID       0x4056U
+#define XPAR_PSU_UART_0_INTERRUPT_ID       0x4015U
+#define XPAR_PSU_UART_1_INTERRUPT_ID       0x4016U
+#define XPAR_PSU_USB_0_INTERRUPT_ID        0x4041U
+#define XPAR_PSU_USB_1_INTERRUPT_ID        0x4046U
+#define XPAR_PSU_I2C_0_INTERRUPT_ID        0x4011U
+#define XPAR_PSU_I2C_1_INTERRUPT_ID        0x4012U
+#define XPAR_PSU_SPI_0_INTERRUPT_ID        0x4013U
+#define XPAR_PSU_SPI_1_INTERRUPT_ID       0x4014U
+#define XPAR_PSU_CAN_0_INTERRUPT_ID        0x4017U
+#define XPAR_PSU_CAN_1_INTERRUPT_ID        0x4018U
+#define XPAR_PSU_GPIO_0_INTERRUPT_ID       0x4010U
+#define XPAR_PSU_ETHERNET_0_INTERRUPT_ID   0x4039U
+#define XPAR_PSU_ETHERNET_0_WAKE_INTERRUPT_ID 0x4039U
+#define XPAR_PSU_ETHERNET_1_INTERRUPT_ID   0x403BU
+#define XPAR_PSU_ETHERNET_1_WAKE_INTERRUPT_ID 0x403BU
+#define XPAR_PSU_ETHERNET_2_INTERRUPT_ID   0x403DU
+#define XPAR_PSU_ETHERNET_2_WAKE_INTERRUPT_ID 0x403DU
+#define XPAR_PSU_ETHERNET_3_INTERRUPT_ID   0x403FU
+#define XPAR_PSU_ETHERNET_3_WAKE_INTERRUPT_ID 0x403FU
+#define XPAR_PSU_QSPI_0_INTERRUPT_ID       0x400FU
+#define XPAR_PSU_WDT_0_INTERRUPT_ID        0x1034U
+#define XPAR_PSU_WDT_1_INTERRUPT_ID        0x1071U
+#define XPAR_PSU_TTC_0_INTERRUPT_ID        0x4024U
+#define XPAR_PSU_TTC_1_INTERRUPT_ID        0x4025U
+#define XPAR_PSU_TTC_2_INTERRUPT_ID        0x4026U
+#define XPAR_PSU_TTC_3_INTERRUPT_ID        0x4027U
+#define XPAR_PSU_TTC_4_INTERRUPT_ID        0x4028U
+#define XPAR_PSU_TTC_5_INTERRUPT_ID        0x4029U
+#define XPAR_PSU_TTC_6_INTERRUPT_ID        0x402AU
+#define XPAR_PSU_TTC_7_INTERRUPT_ID        0x402BU
+#define XPAR_PSU_TTC_8_INTERRUPT_ID        0x402CU
+#define XPAR_PSU_TTC_9_INTERRUPT_ID        0x402DU
+#define XPAR_PSU_TTC_10_INTERRUPT_ID       0x402EU
+#define XPAR_PSU_TTC_11_INTERRUPT_ID       0x402FU
+#define XPAR_PSU_AMS_INTERRUPT_ID          0x4038U
+#define XPAR_PSU_GDMA_0_INTERRUPT_ID       0x407CU
+#define XPAR_PSU_GDMA_1_INTERRUPT_ID       0x407DU
+#define XPAR_PSU_GDMA_2_INTERRUPT_ID       0x407EU
+#define XPAR_PSU_GDMA_3_INTERRUPT_ID       0x407FU
+#define XPAR_PSU_GDMA_4_INTERRUPT_ID       0x4080U
+#define XPAR_PSU_GDMA_5_INTERRUPT_ID       0x4081U
+#define XPAR_PSU_GDMA_6_INTERRUPT_ID       0x4082U
+#define XPAR_PSU_GDMA_7_INTERRUPT_ID       0x4083U
 /**
  *@endcond
  */
