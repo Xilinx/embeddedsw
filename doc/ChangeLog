@@ -307,6 +307,37 @@ Fixed versionless compilation warning related to redefinition
 Enhance user configurability of PLM
 Fix ROM time calculation
 
+pciepsu_v1_4:
+32bit compilation fixes
+Added a interrupt handler to handle interrupt raised via DoorBell in EP driver
+Fixed bug in PCIe EP Bridge Initialization
+
+xilnvm_v2_5:
+Added compile time option to disable cache calls for xilnvm client side interface
+Replaced library specific utility functions and standard lib functions with Xilinx maintained functions
+Avoid overhead of DMA use in XNvm_BbramUsrDataRead
+Added full range check case and error case in XNvm_EfuseTemparatureCheck and
+XNvm_EfusePmcVoltageCheck functions
+Added support for PL microblaze
+Fixed MISRA C warnings
+Added mailbox support for client side IPI communication
+
+xilpuf_v1_5:
+Replaced library specific utility functions and standard lib functions with Xilinx maintained functions
+Added client-server support
+Added support for PL microblaze
+Fixed code complexity issues and MISRA C warnings
+Added support to make PUF operate at 320 MHz
+
+xilsecure_v4_7:
+Added compile time option to disable cache calls for xilsecure client side interface
+Replaced library specific utility functions and standard lib functions with Xilinx maintained functions
+Added support for PL microblaze
+Fixed MISRA C warnings
+Added mailbox support for client side IPI communication
+
+xilskey_v7_3:
+Fixed shadow variable defect
 
 New Files Added for 2022.1:
 SPDX-License-Identifier:MIT
