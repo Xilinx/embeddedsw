@@ -84,6 +84,7 @@
 *                       modes
 *       bsv  03/17/2022 Add support for A72 elfs to run from TCM
 *       bsv  03/23/2022 Minor change in loading of A72 elfs to TCM
+*       bsv  03/29/2022 Dump Ddrmc registers only when PLM DEBUG MODE is enabled
 *
 * </pre>
 *
@@ -119,6 +120,7 @@
 #define XLOADER_TCMCOMB_MASK		(0x40U)
 #define XLOADER_TCMCOMB_SHIFT		(6U)
 
+#ifdef PLM_DEBUG_MODE
 /**
  * @{
  * @cond DDR calibration errors
@@ -132,6 +134,7 @@
  * @}
  * @endcond
  */
+#endif
 
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
@@ -144,7 +147,9 @@ static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceC
 	XLoader_SecureParams* SecureParams);
 static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr* PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
+#ifdef PLM_DEBUG_MODE
 static int XLoader_DumpDdrmcRegisters(void);
+#endif
 static int XLoader_RequestTCM(u8 TcmId);
 
 /************************** Variable Definitions *****************************/
@@ -802,7 +807,14 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 
 	/* If deferred error, flagging it after CDO process complete */
 	if (Cdo.DeferredError == (u8)TRUE) {
+#ifdef PLM_DEBUG_MODE
 		Status = XLoader_DumpDdrmcRegisters();
+#else
+		XPlmi_Printf(DEBUG_GENERAL, "\033[1m Error: DDR Calibration "
+			 "failed!! Enable PLM_DEBUG_MODE for more information "
+			 "including DDR dump.\033[0m\n\r");
+#endif
+
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_DEFERRED_CDO_PROCESS, Status);
 		goto END;
@@ -1061,6 +1073,7 @@ END:
 	return Status;
 }
 
+#ifdef PLM_DEBUG_MODE
 /*****************************************************************************/
 /**
  * @brief	This function prints DDRMC register details.
@@ -1157,6 +1170,7 @@ static int XLoader_DumpDdrmcRegisters(void)
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
