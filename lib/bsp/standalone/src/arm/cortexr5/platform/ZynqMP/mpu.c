@@ -45,6 +45,8 @@
 * 7.7   dp   03/08/22 Update Init_MPU and Print_DDRSize_Warning to use latest
 *                     DDR macros that will contain lowest DDR base address and
 *                     highest DDR address. It fixes CR#1118988
+* 8.0   dp   03/31/22 Fix compilation warning in Print_DDRSize_Warning().
+*                     Fixes CR#1124773.
 * </pre>
 *
 * @note
@@ -333,12 +335,13 @@ void Init_MPU(void)
 ******************************************************************************/
 void Print_DDRSize_Warning(void) {
 #ifdef XPAR_PSU_R5_DDR_0_LOW_ADDR
-	if (1 == DDRSizeWarning)
+	if (1 == DDRSizeWarning) {
 		xdbg_printf(XDBG_DEBUG_GENERAL, "WARNING: DDR size mapped to Cortexr5 processor is not \
 		in power of 2. As processor allocates MPU regions size \
             in power of 2, address range %llx to %x has been \
             incorrectly mapped as normal memory \n", \
             region_size[DDRSizeIndex].size - 1, ((u32)XPAR_PSU_R5_DDR_0_HIGH_ADDR + 1));
+	}
 #endif
 
 }
