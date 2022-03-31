@@ -207,6 +207,9 @@ xilpdi_v1_5:
 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 Updated XilPdi_ReadBootHdr prototype
 
+zynq_fsbl:
+Made partition header authentication more secure by having single PH copy in internal memory
+
 zynqmp_fsbl:
 Fix secondary boot issue with non zero multiboot offset
 Added support for ZCU670 boards
