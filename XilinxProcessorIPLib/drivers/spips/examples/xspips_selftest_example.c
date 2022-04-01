@@ -20,6 +20,12 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 1.00  drg/jz 01/25/10 First release.
+* 3.7   asa    04/01/22 The selftest example uses the instance name as
+*                       "Spi" in the instance definition. That causes
+*                       issue when periphtest application is build for a
+*                       design that has a soft spi IP along with the
+*                       hard spips. This is fixed by renaming the
+*                       instance name from "Spi" to "SpiPs"
 * </pre>
 *
 *******************************************************************************/
@@ -49,7 +55,7 @@ int SpiPsSelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions ******************************/
 
-XSpiPs Spi;			/* The instance of the SPI device */
+XSpiPs SpiPs;			/* The instance of the SPI device */
 
 /******************************************************************************/
 /**
@@ -66,7 +72,7 @@ int main(void)
 {
 	int Status;
 
-	xil_printf("SPI Selftest Example \r\n");
+	xil_printf("SPIPS Selftest Example \r\n");
 
 	/*
 	 * Call the example , specify the device ID that is generated in
@@ -74,11 +80,11 @@ int main(void)
 	 */
 	Status = SpiPsSelfTestExample(SPI_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("SPI Selftest Example Failed\r\n");
+		xil_printf("SPIPS Selftest Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Successfully ran SPI Selftest Example\r\n");
+	xil_printf("Successfully ran SPIPS Selftest Example\r\n");
 	return XST_SUCCESS;
 }
 #endif
@@ -86,7 +92,7 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a selftest on the SPI device and XSpiPs driver as an
+* This function does a selftest on the SPIPS device and XSpiPs driver as an
 * example. The purpose of this function is to illustrate the usage of the
 * XSpiPs driver.
 *
@@ -105,14 +111,14 @@ int SpiPsSelfTestExample(u16 DeviceId)
 	XSpiPs_Config *SpiConfig;
 
 	/*
-	 * Initialize the SPI device.
+	 * Initialize the SPIPS device.
 	 */
 	SpiConfig = XSpiPs_LookupConfig(DeviceId);
 	if (NULL == SpiConfig) {
 		return XST_FAILURE;
 	}
 
-	Status = XSpiPs_CfgInitialize(&Spi, SpiConfig, SpiConfig->BaseAddress);
+	Status = XSpiPs_CfgInitialize(&SpiPs, SpiConfig, SpiConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -120,7 +126,7 @@ int SpiPsSelfTestExample(u16 DeviceId)
 	/*
 	 * Perform a self-test to check hardware build.
 	 */
-	Status = XSpiPs_SelfTest(&Spi);
+	Status = XSpiPs_SelfTest(&SpiPs);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
