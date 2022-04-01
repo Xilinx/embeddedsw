@@ -7,7 +7,7 @@
 /**
 *
 * @file xnandpsu_bbm.h
-* @addtogroup nandpsu_v1_10
+* @addtogroup Overview
 * @{
 *
 * This file implements the Bad Block Management(BBM) functionality. This is
