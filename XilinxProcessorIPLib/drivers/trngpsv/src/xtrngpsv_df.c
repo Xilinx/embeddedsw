@@ -174,6 +174,7 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 	(void)aesSetupKey(DFKey, (s32)sizeof(DFKey));
 	for (Index = 0U; Index < XTRNGPSV_SEED_LEN_BYTES; Index += AES_BLK_SIZE) {
 
+		Status = XTRNGPSV_FAILURE;
 		Status = Xil_SMemSet((u8*)InstancePtr->DFOutput + Index, AES_BLK_SIZE, 0, AES_BLK_SIZE);
 		if (Status != XTRNGPSV_SUCCESS) {
 			goto SET_ERR;
@@ -186,6 +187,7 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 	}
 
 	if (Index != XTRNGPSV_SEED_LEN_BYTES) {
+		Status = (s32)XTRNGPSV_ERROR_GLITCH;
 		goto SET_ERR;
 	}
 
