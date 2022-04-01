@@ -278,6 +278,7 @@ s32 XTrngpsv_Instantiate(XTrngpsv *InstancePtr, const XTrngpsv_UsrCfg *ConfigurV
 	PersPtr = (InstancePtr->UsrCfg.PersStrPresent == XTRNGPSV_TRUE) ?
 			(u8*)InstancePtr->UsrCfg.PersString : NULL;
 
+	Status = XTRNGPSV_FAILURE;
 	/* Reseed device with initial seed and personalization string */
 	if ((InstancePtr->UsrCfg.Mode == XTRNGPSV_HRNG)
 			|| (InstancePtr->UsrCfg.Mode == XTRNGPSV_DRNG)) {
@@ -331,6 +332,7 @@ s32 XTrngpsv_Reseed(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, u32 DFLenMul)
 {
 	volatile s32 Status = XTRNGPSV_FAILURE;
 	volatile s32 Result = XTRNGPSV_SUCCESS;
+	volatile s32 ResultTmp = XTRNGPSV_SUCCESS;
 
 	/* Validate parameters */
 	if (InstancePtr == NULL) {
@@ -372,9 +374,10 @@ s32 XTrngpsv_Reseed(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, u32 DFLenMul)
 
 	if (ExtSeedPtr != NULL) {
 		/* if initial seed during instantiation and reseed is same, it is an error*/
-		Result = Xil_MemCmp(ExtSeedPtr, InstancePtr->UsrCfg.InitSeed,
-				InstancePtr->EntropySize);
-		if ((Result == XTRNGPSV_SUCCESS) || (Result != XTRNGPSV_FAILURE)) {
+		XSECURE_TEMPORAL_IMPL(Result, ResultTmp, Xil_SMemCmp,
+				ExtSeedPtr, XTRNGPSV_SEED_LEN_BYTES, InstancePtr->UsrCfg.InitSeed,
+				InstancePtr->EntropySize, InstancePtr->EntropySize);
+		if ((Result == XTRNGPSV_SUCCESS) || (ResultTmp == XTRNGPSV_SUCCESS)) {
 			Status = (s32)XTRNGPSV_ERROR_SAME_SEED;
 			goto SET_ERR;
 		}
@@ -629,6 +632,7 @@ s32 XTrngpsv_Uninstantiate(XTrngpsv *InstancePtr)
 		goto SET_ERR;
 	}
 
+	Status = XTRNGPSV_FAILURE;
 	Status = XTrngpsv_WriteRegs(InstancePtr, TRNG_PER_STRNG_0, XTRNGPSV_PERS_STR_LEN, NULL);
 	if (Status != XTRNGPSV_SUCCESS) {
 		goto SET_ERR;
@@ -637,6 +641,7 @@ s32 XTrngpsv_Uninstantiate(XTrngpsv *InstancePtr)
 	XTrngpsv_HoldReset(InstancePtr);
 
 	/* Clear the instance datastructure */
+	Status = XTRNGPSV_FAILURE;
 	Status = Xil_SMemSet(((u8*)InstancePtr + sizeof(InstancePtr->Config)),
 			(u32)(sizeof(XTrngpsv) - sizeof(InstancePtr->Config)),
 			0U, (u32)(sizeof(XTrngpsv) - sizeof(InstancePtr->Config)));
