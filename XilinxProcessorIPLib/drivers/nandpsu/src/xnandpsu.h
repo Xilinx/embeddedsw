@@ -153,6 +153,7 @@
 * 1.10  akm    12/21/21    Validate input parameters before use.
 * 1.10  akm    01/05/22    Remove assert checks form static and internal APIs.
 * 1.11  akm    03/31/22    Fix unused parameter warning.
+* 1.11  akm    03/31/22    Fix misleading-indentation warning.
 *
 * </pre>
 *
