@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips_g.c
-* @addtogroup spips_v3_6
+* @addtogroup spips_v3_7
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
