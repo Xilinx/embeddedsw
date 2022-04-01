@@ -88,6 +88,7 @@
 * 1.10  akm    10/20/21    Fix gcc warnings.
 * 1.10  akm    12/21/21    Validate input parameters before use.
 * 1.10  akm    01/05/22    Remove assert checks form static and internal APIs.
+* 1.11  akm    03/31/22    Fix unused parameter warning.
 *
 * </pre>
 *
@@ -175,7 +176,7 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 							u32 Col, u8 *Buf);
 
-static s32 XNandPsu_CheckOnDie(XNandPsu *InstancePtr, OnfiParamPage *Param);
+static s32 XNandPsu_CheckOnDie(XNandPsu *InstancePtr);
 
 static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr);
 
@@ -380,7 +381,7 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 			XNandPsu_InitTimingMode(InstancePtr, &Param[Index]);
 			XNandPsu_InitFeatures(InstancePtr, &Param[Index]);
 			if ((!InstancePtr->Features.EzNand) != 0U) {
-				Status =XNandPsu_CheckOnDie(InstancePtr,&Param[Index]);
+				Status =XNandPsu_CheckOnDie(InstancePtr);
 				if (Status != XST_SUCCESS) {
 					InstancePtr->Features.OnDie = 0U;
 				}
@@ -642,7 +643,7 @@ static void XNandPsu_InitTimingMode(XNandPsu *InstancePtr, OnfiParamPage *Param)
 * @note		None
 *
 ******************************************************************************/
-static s32 XNandPsu_CheckOnDie(XNandPsu *InstancePtr, OnfiParamPage *Param)
+static s32 XNandPsu_CheckOnDie(XNandPsu *InstancePtr)
 {
 	s32 Status = XST_FAILURE;
 	u8 JedecId[2] = {0U};
