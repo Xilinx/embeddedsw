@@ -435,6 +435,18 @@ hdcp1x_v4_7:
 HDCP1x and HDCP2x drivers will be enabled by default irrespective of
 Hardware availability.
 
+ddrcpsu_v1_4:
+Update ddrcpsu tcl to handle ddrpsu too for generating DDR related macros.
+
+dp12rxss_v4_6:
+Moved the rx initialization outside of hdcp enabled macro
+
+dp12txss_v5_5:
+Moved the rx initialization outside of hdcp enabled macro
+
+img_sel:
+Versionless build related changes
+
 New Files Added for 2022.1:
 SPDX-License-Identifier:MIT
 lib/sw_services/xiltimer/src/xiltimer.h
