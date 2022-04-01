@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips_sinit.c
-* @addtogroup spips_v3_6
+* @addtogroup spips_v3_7
 * @{
 *
 * The implementation of the XSpiPs driver's static initialization
