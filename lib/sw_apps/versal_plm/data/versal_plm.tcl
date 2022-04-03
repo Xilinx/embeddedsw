@@ -32,8 +32,8 @@ proc swapp_is_supported_sw {} {
     set lib_list_missing ""
     set has_missing_libs 0
 
-    # make sure xilffs and xilpdi are available
-    set lib_needed "xilffs xilpdi"
+    # make sure all required libraries are available
+    set lib_needed "xilffs xilpdi xilplmi xilloader xilpm xilsecure xilpuf"
     set lib_list [hsi::get_libs];
 
     foreach libs ${lib_needed} {
