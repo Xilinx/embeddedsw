@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------
 * 1.00a drg  01/18/10 First release
+* 5.0   mus  04/04/22 Updated example to support it on any CPU
+*                     instance, for which example is compiled.
+*                     It fixes CR#1126331.
 * </pre>
 ******************************************************************************/
 
@@ -47,6 +50,8 @@
  */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 #define INTC_DEVICE_INT_ID	0x0E
+
+#define XSCUGIC_SPI_CPU_MASK	(XSCUGIC_SPI_CPU0_MASK << XPAR_CPU_ID)
 
 /**************************** Type Definitions *******************************/
 
@@ -195,7 +200,7 @@ int ScuGicExample(u16 DeviceId)
 	 */
 	Status = XScuGic_SoftwareIntr(&InterruptController,
 					INTC_DEVICE_INT_ID,
-					XSCUGIC_SPI_CPU0_MASK);
+					XSCUGIC_SPI_CPU_MASK);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
