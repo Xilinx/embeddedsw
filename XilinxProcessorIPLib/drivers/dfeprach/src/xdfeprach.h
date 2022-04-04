@@ -67,6 +67,7 @@
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     01/31/22 Add CORE_SETTINGS register
 *       dc     03/21/22 Add prefix to global variables
+* 1.4   dc     04/04/22 Correct PatternPeriod represantion
 *
 * </pre>
 * @endcond
@@ -417,7 +418,8 @@ typedef struct {
  */
 typedef struct {
 	u32 PatternPeriod; /**< [1-256] Duration, in Frames, of the repeating
-		pattern of enables */
+		pattern of enables. Internal frame count runs from 0 to
+		PatternPeriod-1 */
 	u32 FrameID; /**< [0-255] First frame within the pattern period which
 		is enabled for a RACH capture. Cannot exceed  PatternPeriod */
 	u32 SubframeID; /**< [0-9] Subframe number which denotes the subframe

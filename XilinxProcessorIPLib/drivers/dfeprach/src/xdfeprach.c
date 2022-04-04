@@ -40,6 +40,7 @@
 *       dc     01/31/22 Add CORE_SETTINGS register
 *       dc     02/17/22 Physical channel index RACH config array
 *       dc     03/21/22 Add prefix to global variables
+* 1.4   dc     04/04/22 Correct PatternPeriod represantion
 *
 * </pre>
 * @addtogroup Overview
@@ -71,7 +72,7 @@
 */
 
 #define XDFEPRACH_DRIVER_VERSION_MINOR                                         \
-	(3U) /**< Driver's minor version number */
+	(4U) /**< Driver's minor version number */
 #define XDFEPRACH_DRIVER_VERSION_MAJOR                                         \
 	(1U) /**< Driver's major version number */
 
@@ -1129,9 +1130,12 @@ static void XDfePrach_GetSchedule(const XDfePrach *InstancePtr, bool Next,
 	}
 
 	/* Read RCID_SCHEDULE.LOCATION */
-	Schedule->PatternPeriod = XDfePrach_RdBitField(
-		XDFEPRACH_RCID_SCHEDULE_LOCATION_PATTERN_PERIOD_WIDTH,
-		XDFEPRACH_RCID_SCHEDULE_LOCATION_PATTERN_PERIOD_OFFSET, Data2);
+	Schedule->PatternPeriod =
+		1U +
+		XDfePrach_RdBitField(
+			XDFEPRACH_RCID_SCHEDULE_LOCATION_PATTERN_PERIOD_WIDTH,
+			XDFEPRACH_RCID_SCHEDULE_LOCATION_PATTERN_PERIOD_OFFSET,
+			Data2);
 	Schedule->FrameID = XDfePrach_RdBitField(
 		XDFEPRACH_RCID_SCHEDULE_LOCATION_FRAMEID_WIDTH,
 		XDFEPRACH_RCID_SCHEDULE_LOCATION_FRAMEID_OFFSET, Data2);
@@ -1190,7 +1194,7 @@ static void XDfePrach_SetSchedule(const XDfePrach *InstancePtr,
 	Data = XDfePrach_WrBitField(
 		XDFEPRACH_RCID_SCHEDULE_LOCATION_PATTERN_PERIOD_WIDTH,
 		XDFEPRACH_RCID_SCHEDULE_LOCATION_PATTERN_PERIOD_OFFSET, 0U,
-		RCCfg->StaticSchedule[RCId].PatternPeriod);
+		(RCCfg->StaticSchedule[RCId].PatternPeriod - 1U));
 	Data = XDfePrach_WrBitField(
 		XDFEPRACH_RCID_SCHEDULE_LOCATION_FRAMEID_WIDTH,
 		XDFEPRACH_RCID_SCHEDULE_LOCATION_FRAMEID_OFFSET, Data,
