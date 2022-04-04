@@ -409,7 +409,7 @@ hdcp22_tx_dp_v3_0:
 Hdcp2x tx config structure parameters get enabled only when HDCP2.2
 TX is enabled in the hardware design
 
-xdmapcie _v1_5:
+xdmapcie_v1_5:
 32bit compilation fixes
 CIPS3.0 address ranges parsing fixes for CPM based designs
 Handle cases when driver attaches to both pl/ps peripherals
@@ -446,6 +446,11 @@ Moved the rx initialization outside of hdcp enabled macro
 
 img_sel:
 Versionless build related changes
+
+xilpm_v4_0:
+Update PM_FEATURE_CHECK API version
+Update PM_QUERY_DATA version to 3
+Add implementation of PLL related API
 
 New Files Added for 2022.1:
 SPDX-License-Identifier:MIT
