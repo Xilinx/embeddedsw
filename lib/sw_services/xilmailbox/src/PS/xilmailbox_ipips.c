@@ -27,12 +27,14 @@
  *                        initalizing GIC again and just register handlers.
  * 1.6   sd   28/02/21    Add support for microblaze
  *       kpt  03/16/21    Fixed compilation warning on microblaze
+ * 1.7   sd   01/04/22    Replace memset with Xil_SMemSet
  *</pre>
  *
  *@note
  *****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
+#include "xil_util.h"
 #ifndef __MICROBLAZE__
 #include "xscugic.h"
 #endif
@@ -74,7 +76,10 @@ u32 XMailbox_Initialize(XMailbox *InstancePtr, u8 DeviceId)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	(void)memset((void *)InstancePtr, 0, sizeof(XMailbox));
+	Status = (u32) Xil_SMemSet((void *)InstancePtr, sizeof(XMailbox), 0, sizeof(XMailbox));
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
 
 	InstancePtr->XMbox_IPI_SendData = XIpiPs_SendData;
 	InstancePtr->XMbox_IPI_Send = XIpiPs_Send;
