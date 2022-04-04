@@ -717,36 +717,36 @@ u32 XV_Rx_InitController(XV_Rx *InstancePtr, u32 HdmiRxSsDevId,
 
 	 switch (HdmiRxSs.Config.MaxFrlRate) {
 	 case 6: // 12 Gbps @ 4 Lanes
-			 InstancePtr->Edid[187] = 0x63;
-			 InstancePtr->Edid[255] = 0x94;
+			 InstancePtr->Edid[189] = 0x63;
+			 InstancePtr->Edid[255] = 0xCB;
 			 break;
 	 case 5: // 10 Gbps @ 4 Lanes
-			InstancePtr->Edid[187] = 0x53;
-			InstancePtr->Edid[255] = 0xA4;
+			InstancePtr->Edid[189] = 0x53;
+			InstancePtr->Edid[255] = 0xDB;
 			break;
 	 case 4: // 8 Gbps @ 4 Lanes
-			InstancePtr->Edid[187] = 0x43;
-			InstancePtr->Edid[255] = 0xB4;
+			InstancePtr->Edid[189] = 0x43;
+			InstancePtr->Edid[255] = 0xEB;
 			break;
 	 case 3: // 6 Gbps @ 4 Lanes
-			InstancePtr->Edid[187] = 0x33;
-			InstancePtr->Edid[255] = 0xC4;
+			InstancePtr->Edid[189] = 0x33;
+			InstancePtr->Edid[255] = 0xFB;
 			break;
 	 case 2: // 6 Gbps @ 3 Lanes
-			InstancePtr->Edid[187] = 0x23;
-			InstancePtr->Edid[255] = 0xD4;
+			InstancePtr->Edid[189] = 0x23;
+			InstancePtr->Edid[255] = 0x0B;
 			break;
 	 case 1: // 3 Gbps @ 4 Lanes
-			InstancePtr->Edid[187] = 0x13;
-			InstancePtr->Edid[255] = 0xE4;
+			InstancePtr->Edid[189] = 0x13;
+			InstancePtr->Edid[255] = 0x1B;
 			break;
 	 case 0: // TMDS
-			InstancePtr->Edid[187] = 0x03;
-			InstancePtr->Edid[255] = 0xF4;
+			InstancePtr->Edid[189] = 0x03;
+			InstancePtr->Edid[255] = 0x2B;
 			break;
 	 default:
-			InstancePtr->Edid[187] = 0x63;
-			InstancePtr->Edid[255] = 0x94;
+			InstancePtr->Edid[189] = 0x63;
+			InstancePtr->Edid[255] = 0xCB;
 			break;
 	 }
 
