@@ -1350,8 +1350,8 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	    break;
 
 	case 10 :
-	    xhdmi_example_rx_controller.Edid[187] = 0x03;
-	    xhdmi_example_rx_controller.Edid[255] = 0xF4;
+	    xhdmi_example_rx_controller.Edid[189] = 0x03;
+	    xhdmi_example_rx_controller.Edid[255] = 0x2B;
 	    XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
 			(u8*)&(xhdmi_example_rx_controller.Edid), 256);
 	    InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
@@ -1359,8 +1359,8 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 11 :
 		if(HdmiRxSs.Config.MaxFrlRate == 6) {
-	        xhdmi_example_rx_controller.Edid[187] = 0x63;
-	        xhdmi_example_rx_controller.Edid[255] = 0x94;
+	        xhdmi_example_rx_controller.Edid[189] = 0x63;
+	        xhdmi_example_rx_controller.Edid[255] = 0xCB;
 	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
 			     (u8*)&(xhdmi_example_rx_controller.Edid), 256);
 	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
@@ -1371,8 +1371,8 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 12 :
 		if(HdmiRxSs.Config.MaxFrlRate >= 5) {
-	        xhdmi_example_rx_controller.Edid[187] = 0x53;
-	        xhdmi_example_rx_controller.Edid[255] = 0xA4;
+	        xhdmi_example_rx_controller.Edid[189] = 0x53;
+	        xhdmi_example_rx_controller.Edid[255] = 0xDB;
 	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
 			    (u8*)&(xhdmi_example_rx_controller.Edid), 256);
 	         InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
@@ -1383,8 +1383,8 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 13 :
 		if(HdmiRxSs.Config.MaxFrlRate >= 4) {
-	        xhdmi_example_rx_controller.Edid[187] = 0x43;
-	        xhdmi_example_rx_controller.Edid[255] = 0xB4;
+	        xhdmi_example_rx_controller.Edid[189] = 0x43;
+	        xhdmi_example_rx_controller.Edid[255] = 0xEB;
 	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
 			   (u8*)&(xhdmi_example_rx_controller.Edid), 256);
 	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
@@ -1395,8 +1395,8 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 14 :
 		if(HdmiRxSs.Config.MaxFrlRate >= 3) {
-	        xhdmi_example_rx_controller.Edid[187] = 0x33;
-	        xhdmi_example_rx_controller.Edid[255] = 0xC4;
+	        xhdmi_example_rx_controller.Edid[189] = 0x33;
+	        xhdmi_example_rx_controller.Edid[255] = 0xFB;
 	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
 			    (u8*)&(xhdmi_example_rx_controller.Edid), 256);
 	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
@@ -1407,8 +1407,8 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 15 :
 		if(HdmiRxSs.Config.MaxFrlRate >= 2) {
-	        xhdmi_example_rx_controller.Edid[187] = 0x23;
-	        xhdmi_example_rx_controller.Edid[255] = 0xD4;
+	        xhdmi_example_rx_controller.Edid[189] = 0x23;
+	        xhdmi_example_rx_controller.Edid[255] = 0x0B;
 	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
 			   (u8*)&(xhdmi_example_rx_controller.Edid), 256);
 	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
@@ -1419,8 +1419,8 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	case 16 :
 		if(HdmiRxSs.Config.MaxFrlRate >= 1) {
-	        xhdmi_example_rx_controller.Edid[187] = 0x13;
-	        xhdmi_example_rx_controller.Edid[255] = 0xE4;
+	        xhdmi_example_rx_controller.Edid[189] = 0x13;
+	        xhdmi_example_rx_controller.Edid[255] = 0x1B;
 	        XV_HdmiRxSs1_LoadEdid(&HdmiRxSs,
 			     (u8*)&(xhdmi_example_rx_controller.Edid), 256);
 	        InstancePtr->ExDesCtrlr.ToggleHdmiRxHpdCB(&Hdmiphy1, &HdmiRxSs);
