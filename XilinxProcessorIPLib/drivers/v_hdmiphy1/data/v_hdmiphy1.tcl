@@ -132,6 +132,8 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 set xvr [common::get_property CONFIG.$xvr $periph]
                 if {[string compare -nocase "GTYE5" "$xvr"] == 0} {
                     set freq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
+                } elseif {[string compare -nocase "GTYP" "$xvr"] == 0} {
+                    set freq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
                 } else {
                     set freq [::hsi::utils::get_clk_pin_freq  $periph "vid_phy_axi4lite_aclk"]
                 }
@@ -159,8 +161,10 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                              set freq [::hsi::utils::get_clk_pin_freq  $periph "drpclk"]
                  } elseif {[string compare -nocase "GTYE5" "$xcvr"] == 0} {
                              set freq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
+                 } elseif {[string compare -nocase "GTYP" "$xcvr"] == 0} {
+                             set freq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
                  } else {
-                     puts $file_handle "#error \"Video PHY currently supports only GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $xcvr not supported\""
+                     puts $file_handle "#error \"Video PHY currently supports only GTYP, GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $xcvr not supported\""
                  }
                 if {[llength $freq] == 0} {
                     set freq "100000000"
@@ -194,8 +198,10 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 6"
                     } elseif {[string compare -nocase "GTYE5" "$value"] == 0} {
                                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 7"
+                    } elseif {[string compare -nocase "GTYP" "$value"] == 0} {
+                                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 8"
                     } else {
-                        puts $file_handle "#error \"Video PHY currently supports only GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $value not supported\""
+                        puts $file_handle "#error \"Video PHY currently supports only GTYP, GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $value not supported\""
                     }
             } elseif {[string compare -nocase "C_SPEEDGRADE" $arg] == 0} {
                     puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg]_STR \"$value\""
@@ -282,13 +288,17 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                                puts $file_handle "#define [string toupper $lvalue] 6"
                    } elseif {[string compare -nocase "GTYE5" "$rvalue"] == 0} {
                                puts $file_handle "#define [string toupper $lvalue] 7"
+                   } elseif {[string compare -nocase "GTYP" "$rvalue"] == 0} {
+                               puts $file_handle "#define [string toupper $lvalue] 8"
                    } else {
-                       puts $file_handle "#error \"Video PHY currently supports only GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTEP2 and GTXE2; $rvalue not supported\""
+                       puts $file_handle "#error \"Video PHY currently supports only GTYP, GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTEP2 and GTXE2; $rvalue not supported\""
                    }
             } elseif {[string compare -nocase "AXI_LITE_FREQ_HZ" $arg] == 0} {
                 set xcvr1 "Transceiver"
                 set xcvr1 [common::get_property CONFIG.$xcvr1 $periph]
                 if {[string compare -nocase "GTYE5" "$xcvr1"] == 0} {
+                    set rfreq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
+                } elseif {[string compare -nocase "GTYP" "$xcvr1"] == 0} {
                     set rfreq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
                 } else {
                     set rfreq [::hsi::utils::get_clk_pin_freq  $periph "vid_phy_axi4lite_aclk"]
@@ -318,8 +328,10 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                              set rfreq [::hsi::utils::get_clk_pin_freq  $periph "drpclk"]
                  } elseif {[string compare -nocase "GTYE5" "$rxcvr"] == 0} {
                              set rfreq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
+                 } elseif {[string compare -nocase "GTYP" "$rxcvr"] == 0} {
+                             set rfreq [::hsi::utils::get_clk_pin_freq  $periph "axi4lite_aclk"]
                  } else {
-                     puts $file_handle "#error \"Video PHY currently supports only GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $rxcvr not supported\""
+                     puts $file_handle "#error \"Video PHY currently supports only GTYP, GTYE5, GTYE4, GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $rxcvr not supported\""
                  }
                 if {[llength $rfreq] == 0} {
                     set rfreq "100000000"
