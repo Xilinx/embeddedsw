@@ -7,7 +7,7 @@
 /**
 *
 * @file xclk_wiz.c
-* @addtogroup clk_wiz_v1_4
+* @addtogroup Overview
 * @{
 *
 * This file implements the functions to get the CLK_WIZ GUI information and
@@ -26,6 +26,7 @@
 * 1.4 sd  5/22/20 Added zynqmp set rate.
 * 		  Use PrimInClkFreq for input clock rate.
 *     sd  8/12/20 Added a setrate function that takes the rate in Hz.
+* 1.5 sd  5/22/20 Prevent return in void function
 * </pre>
 ******************************************************************************/
 
@@ -296,8 +297,8 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 *****************************************************************************/
 void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr)
 {
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	InstancePtr->MinErr  = Minerr;
 }
 /****************************************************************************/
