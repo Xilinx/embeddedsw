@@ -1666,13 +1666,14 @@ XVidC_ColorStd XDp_RxGetColorimetry(XDp *InstancePtr, u8 Stream);
 XDp_DynamicRange XDp_RxGetDynamicRange(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream);
 void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
-#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
-
 void XDp_GenerateCpIrq(XDp *InstancePtr);
 void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
 void XDp_TxHdcp22Enable(XDp *InstancePtr);
 void XDp_TxHdcp22Disable(XDp *InstancePtr);
-
+#endif
 /******************* Macros (Inline Functions) Definitions ********************/
 
 /******************************************************************************/
