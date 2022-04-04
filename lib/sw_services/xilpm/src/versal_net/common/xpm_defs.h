@@ -233,7 +233,8 @@ typedef enum {
 	PM_ISO_CONTROL,					/**< 0x40 */
 	PM_ACTIVATE_SUBSYSTEM,				/**< 0x41 */
 	PM_BISR = 0x43,					/**< 0x43 */
-	PM_API_MAX					/**< 0x44 */
+	PM_APPLY_TRIM,					/**< 0x44 */
+	PM_API_MAX					/**< 0x45 */
 } XPm_ApiId;
 
 #define CRL_PSM_RST_MODE_OFFSET					(0x00000370U)

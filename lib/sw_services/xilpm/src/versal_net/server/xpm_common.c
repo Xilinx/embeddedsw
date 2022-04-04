@@ -8,10 +8,14 @@
 
 #include "xpm_common.h"
 #include <stdarg.h>
+#include "xplmi_hw.h"
+#include "xpm_regs.h"
 
 #define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
+#define NOT_INITIALIZED	0xFFFFFFFFU
 #define DBG_STR_IDX(DebugType) ((((DebugType) & XPM_DEBUG_MASK) >> \
 					XPM_DEBUG_SHIFT) - 1U)
+#define PMC_TAP_VERSION_PLATFORM_MASK		(0x0F000000U)
 
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
 static u8 *FreeBytes = ByteBuffer;
@@ -83,4 +87,17 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...)
 		xil_vprintf(Ctrl1, Args);
 	}
 	va_end(Args);
+}
+
+u32 XPm_GetPlatform(void)
+{
+	static u32 DevPlatform = NOT_INITIALIZED;
+
+	if (NOT_INITIALIZED == DevPlatform) {
+		DevPlatform = (XPm_In32(PMC_TAP_VERSION) &
+		            PMC_TAP_VERSION_PLATFORM_MASK) >>
+			    PMC_TAP_VERSION_PLATFORM_SHIFT;
+	}
+
+	return DevPlatform;
 }

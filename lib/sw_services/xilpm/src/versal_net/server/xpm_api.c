@@ -95,6 +95,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_ADD_NODE_PARENT):
 		Status = XPm_AddNodeParent(&Pload[0], Len);
 		break;
+	case PM_API(PM_APPLY_TRIM):
+		Status = XPm_PldApplyTrim(Pload[0]);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;

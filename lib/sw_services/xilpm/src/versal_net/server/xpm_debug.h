@@ -26,12 +26,20 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_BASEADDR		0x3101U
 /* Error during BISR repair */
 #define XPM_INT_ERR_BISR_REPAIR			0x3108U
+/* Invalid trim type */
+#define XPM_INT_ERR_INVALID_TRIM_TYPE		0x310EU
+/* Error during self test */
+#define XPM_INT_ERR_SELF_TEST			0x310FU
 
 // /************************** LPD specific Errors ******************************/
 // /************************** (0x3200) - (0x32FF) ******************************/
 
 // /************************* Device specific Errors ****************************/
 // /************************** (0x3300) - (0x33FF) ******************************/
+/* Error during device lookup configuration */
+#define XPM_INT_ERR_DEVICE_LOOKUP		0x3301U
+/* Error during configuration initialization */
+#define XPM_INT_ERR_CFG_INIT			0x3302U
 
 // /************************* Reset specific Errors *****************************/
 // /************************** (0x3400) - (0x34FF) ******************************/

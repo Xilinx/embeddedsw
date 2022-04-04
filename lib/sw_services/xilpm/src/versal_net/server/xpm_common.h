@@ -35,6 +35,15 @@ extern "C" {
 /* Enable PSM power control interrupt */
 #define ENABLE_WFI(mask)	PmOut32(PSMX_GLOBAL_PWR_CTRL1_IRQ_EN, mask)
 
+/**
+ * Platform type definitions
+ */
+#define PLATFORM_VERSION_SILICON		(0x0U)
+#define PLATFORM_VERSION_SPP			(0x1U)
+#define PLATFORM_VERSION_EMU			(0x2U)
+#define PLATFORM_VERSION_QEMU			(0x3U)
+#define PLATFORM_VERSION_FCV			(0x4U)
+
 #define XPM_ALERT_VAL	0x10U
 #define XPM_ERR_VAL	0x20U
 #define XPM_WARN_VAL	0x30U
@@ -122,6 +131,7 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 void XPm_Out32(u32 RegAddress, u32 l_Val);
 
 u32 XPm_In32(u32 RegAddress);
+u32 XPm_GetPlatform(void);
 
 /**
  * Read Modify Write a register
