@@ -45,6 +45,7 @@
 *       dc     01/19/22 Assert CCUpdate trigger
 *       dc     02/10/22 Add latency information
 *       dc     03/21/22 Add prefix to global variables
+* 1.4   dc     04/04/22 Correct conversion rate calculation
 *
 * </pre>
 * @addtogroup Overview
@@ -84,7 +85,7 @@
 /**
 * @endcond
 */
-#define XDFEMIX_DRIVER_VERSION_MINOR (3U) /**< Driver's minor version number */
+#define XDFEMIX_DRIVER_VERSION_MINOR (4U) /**< Driver's minor version number */
 #define XDFEMIX_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
@@ -629,8 +630,11 @@ static u32 XDfeMix_FindRate(const XDfeMix *InstancePtr, u32 CCSeqBitmap,
 		*Rate = 0;
 	} else {
 		/* Calculate conversion ratio */
-		ConversionRatio = InstancePtr->Config.AntennaInterleave *
-				  (InstancePtr->SequenceLength / OnesCounter);
+		ConversionRatio =
+			(InstancePtr->Config.AntennaInterleave *
+			 (InstancePtr->SequenceLength / OnesCounter)) /
+			InstancePtr->Config.MixerCps;
+		;
 		/* Select Rate from Interpolation/decimation rate */
 		switch (ConversionRatio) {
 		case 1: /* 1: 1x interpolation/decimation */
