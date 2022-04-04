@@ -17,6 +17,6 @@ BEGIN driver clk_wiz
 	OPTION supported_peripherals = (clk_wiz clk_wizard);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.4;
+	OPTION VERSION = 1.5;
 	OPTION NAME = clk_wiz;
 END driver
