@@ -153,9 +153,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 			set child_cell_vlnv [::common::get_property VLNV $child_cell_g]
 			set child_cell_name_g [common::get_property NAME $child_cell_g]
 			set vlnv_arr [split $child_cell_vlnv :]
-
 			lassign $vlnv_arr ip_vendor ip_library ip_name ip_version
-
 			set ip_type_g [common::get_property IP_TYPE $child_cell_g]
 
 			if {[string compare -nocase "BUS" $ip_type_g] != 0} {
@@ -188,26 +186,33 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 				#puts $config_file [format "JB:%s, ::%s" $ip_inst_name, $sub_core]
 
 				if {$sub_core == "v_tc"} {
+					set avail_instances [llength $ip_instances]
+					set count 0
 					puts $config_file "\t\t\{"
-					puts $config_file "\t\t\t\{"
-					puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
-					puts $config_file ","
-					puts $config_file "\t\t\t\t\{"
-					puts -nonewline $config_file [format "\t\t\t\t\t%s" [string toupper $final_child_cell_instance_name]]
+					while {$count < $avail_instances} {
+						set ip_inst_name [lindex $ip_instances $count]
+						set final_child_cell_instance_name_present "XPAR_${ip_inst_name}_PRESENT"
+						set final_child_cell_instance_name "XPAR_${ip_inst_name}_DEVICE_ID"
+						puts $config_file "\t\t\t\{"
+						puts -nonewline $config_file [format "\t\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
+						puts $config_file ","
+						puts $config_file "\t\t\t\t\{"
+						puts -nonewline $config_file [format "\t\t\t\t\t%s" [string toupper $final_child_cell_instance_name]]
 
-					set params_str $sub_core_params($sub_core)
-					set params_arr [split $params_str " " ]
+						set params_str $sub_core_params($sub_core)
+						set params_arr [split $params_str " " ]
 
-					foreach param $params_arr {
+						foreach param $params_arr {
 							set final_child_cell_param_name XPAR_${ip_inst_name}_$param
 							puts $config_file ","
 							puts -nonewline $config_file [format "\t\t\t\t\t%s" [string toupper $final_child_cell_param_name]]
+						}
+
+						puts $config_file "\n\t\t\t\t\}"
+						puts $config_file "\t\t\t\},"
+						incr count
 					}
-
-					puts $config_file "\n\t\t\t\t\}"
-					puts $config_file "\t\t\t\}"
 					puts $config_file "\t\t\}"
-
 				} else {
 					set comma ",\n"
 					puts $config_file "\t\t\{"
