@@ -36,8 +36,10 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Removed unnecessary initializations to reduce code size
 *       bsv  08/15/2021 Removed unwanted goto statements
-* 1.05  bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
+* 1.05  bsv  03/05/2022 Fixed exception while deleting two consecutive tasks of
 *                       same priority
+*       bsv  04/03/2022 Updated logic in XPlmi_SchedulerAddTask to fix subsystem
+*                       restart issue
 *
 * </pre>
 *
@@ -257,9 +259,12 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		goto END;
 	}
 
-	if (XPlmi_GetTaskInstance(CallbackFn, Data, XPLMI_INVALID_INTR_ID) != NULL) {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_TASK_EXISTS, 0);
-		goto END;
+	if ((Task = XPlmi_GetTaskInstance(CallbackFn, Data,
+		XPLMI_INVALID_INTR_ID)) != NULL) {
+		if (metal_list_is_empty(&Task->TaskNode) == (u8)FALSE) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_TASK_EXISTS, 0);
+			goto END;
+		}
 	}
 
 	/* Get the Next Free Task Index */
