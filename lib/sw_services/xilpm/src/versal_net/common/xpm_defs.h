@@ -16,7 +16,6 @@
 extern "C" {
 #endif
 
-#include "xpm_regs.h"
 #include "xil_types.h"
 
 /**
