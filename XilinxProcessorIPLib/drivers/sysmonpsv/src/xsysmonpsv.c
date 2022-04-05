@@ -440,7 +440,7 @@ u32 XSysMonPsv_ReadDeviceTemp(XSysMonPsv *InstancePtr, XSysMonPsv_Val Value)
 
 	/* Use for reading current device temperature
                  * only applicable on Production silicon. */
-	case XSYSMONPSV_VAL_CURRENT:
+	case XSYSMONPSV_VAL:
 		Offset = XSYSMONPSV_DEVICE_TEMP;
 		break;
 
@@ -524,7 +524,7 @@ u32 XSysMonPsv_ReadSupplyValue(XSysMonPsv *InstancePtr,
 		return XSYSMONPSV_INVALID;
 	}
 
-	if (Value == XSYSMONPSV_VAL_CURRENT) {
+	if (Value == XSYSMONPSV_VAL) {
 		Offset = XSYSMONPSV_SUPPLY;
 	} else if (Value == XSYSMONPSV_VAL_MIN) {
 		Offset = XSYSMONPSV_SUPPLY_MIN;

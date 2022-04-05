@@ -162,7 +162,7 @@ extern const char *XSysMonPsv_Supply_Arr[]; /**< Names of the supplies
  * @{
  */
 typedef enum {
-	XSYSMONPSV_VAL_CURRENT, /**< Current Value for temperature
+	XSYSMONPSV_VAL, /**< Current Value for temperature
                                          (for production silicon only)
                                           and supply */
 	XSYSMONPSV_VAL_MIN, /**< Minimum Value reached since
