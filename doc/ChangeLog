@@ -452,6 +452,33 @@ xilpm_v4_0:
 Update PM_FEATURE_CHECK API version
 Update PM_QUERY_DATA version to 3
 Add implementation of PLL related API
+Replaced library specific utility functions and standard lib functions with Xilinx maintained functions
+Extends PM EEMI commands for AIEML and AIE1 partition resets
+Remove hardcoded AIE addresses from xpm_aie.c
+PLM is hanging while processing lpd data cdo for SV20 Device
+CPM5 base address is hardcoded
+Update memory size for adding more requirements
+Isolation controls are missing in PDI
+Update sysmon power good checks
+Restrict the head of subsystem database
+SRST Sequence for Versal Devices
+Implementation of CPM5 shutdown sequence
+Fix HIS violations for the xilpm server
+Workaround for MIO tristate vs data racing condition to be implemented in PLM
+CPM5 Isolation Deassertion
+Register Writes in AIE static CDOs should be moved to tool generated CDO
+Add CPM5_GT isolation control support
+Add skeleton for "DDRMC Mapping" PLD Init Op
+SV60- VDU programming is not completely done by PLM
+Add Node ID for MJTAG Workaround Image
+Add toggle for PCIe DPLL reset
+Add support for Request/Release AIE Device
+CDO commands for XPPU protection
+Add run time operation support for AIE1
+Add new clock/reset nodes for CPM5
+Enhancement of feature check for Versal
+Add COSIM workaround for AIE device nodes
+Support for AIE power domain on VC1502
 
 versal_psmfw:
 Add support for validating interrupt source
