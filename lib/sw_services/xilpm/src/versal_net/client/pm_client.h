@@ -50,7 +50,7 @@ extern struct XPm_Proc *PrimaryProc;
 #if defined (__aarch64__)
 #define XPm_Print(MSG, ...)		xil_printf("APU: "MSG, ##__VA_ARGS__)
 #elif defined (__arm__)
-extern char ProcName[5];
+extern char ProcName[7];
 #define XPm_Print(MSG, ...)		xil_printf("%s: "MSG, ProcName, ##__VA_ARGS__)
 #endif
 

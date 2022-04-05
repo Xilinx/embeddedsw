@@ -128,14 +128,18 @@ static struct XPm_Proc *const ProcList[] = {
 struct XPm_Proc *PrimaryProc = &Proc_APU0_0;
 #elif defined (__arm__)
 #define PM_RPU_CORE_COUNT_PER_CLUSTER	(2U)
+#define PSX_RPU_CLUSTER_A_BASEADDR	(0xEB580000U)
+#define PSX_RPU_CLUSTER_B_BASEADDR	(0xEB590000U)
 #define PSX_RPU_CLUSTER_A0_BASEADDR	(0xEB588000U)
 #define PSX_RPU_CLUSTER_A1_BASEADDR	(0xEB58C000U)
 #define PSX_RPU_CLUSTER_B0_BASEADDR	(0xEB598000U)
 #define PSX_RPU_CLUSTER_B1_BASEADDR	(0xEB59C000U)
 #define RPU_PWRDWN_OFFSET		(0x80U)
+#define CLUSTER_CFG_OFFSET		(0x0U)
 #define RPU_PWRDWN_EN_MASK		(0x1U)
 #define MPIDR_AFF0_SHIFT		(0U)
 #define MPIDR_AFF1_SHIFT		(8U)
+#define RPU_GLBL_CNTL_SLSPLIT_MASK	(0x1U)
 
 static struct XPm_Proc Proc_RPU_A_0 = {
 	.DevId = PM_DEV_RPU_A_0,
@@ -173,7 +177,13 @@ static struct XPm_Proc *const ProcList[] = {
 };
 
 struct XPm_Proc *PrimaryProc = &Proc_RPU_A_0;
-char ProcName[5] = "RPU";
+char ProcName[7] = "RPU";
+static char RPU_LS_A[] = "RPU_A";
+static char RPU_LS_B[] = "RPU_B";
+static char RPU_A0[] = "RPU_A0";
+static char RPU_A1[] = "RPU_A1";
+static char RPU_B0[] = "RPU_B0";
+static char RPU_B1[] = "RPU_B1";
 #endif
 
 /**
@@ -193,6 +203,33 @@ void XPm_SetPrimaryProc(void)
 	CpuId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF0_SHIFT) & MPIDR_AFFLVL_MASK;
 	ClusterId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) >> MPIDR_AFF1_SHIFT) & MPIDR_AFFLVL_MASK;
 	ProcId = (((u32)ClusterId * PM_RPU_CORE_COUNT_PER_CLUSTER) + (u32)CpuId);
+	if (PM_RPU_CORE_COUNT_PER_CLUSTER > ProcId) {
+		if (0U == (XPm_Read(PSX_RPU_CLUSTER_A_BASEADDR + CLUSTER_CFG_OFFSET) & RPU_GLBL_CNTL_SLSPLIT_MASK)) {
+			ProcId = 0U;
+			(void)memcpy(ProcName, RPU_LS_A, sizeof(RPU_LS_A));
+			XPm_Dbg("Running in lock-step mode\r\n");
+		} else {
+			if (0U == ProcId) {
+				(void)memcpy(ProcName, RPU_A0, sizeof(RPU_A0));
+			} else {
+				(void)memcpy(ProcName, RPU_A1, sizeof(RPU_A1));
+			}
+		}
+	} else if ((PM_RPU_CORE_COUNT_PER_CLUSTER * 2U) > ProcId) {
+		if (0U == (XPm_Read(PSX_RPU_CLUSTER_B_BASEADDR + CLUSTER_CFG_OFFSET) & RPU_GLBL_CNTL_SLSPLIT_MASK)) {
+			ProcId = 2U;
+			(void)memcpy(ProcName, RPU_LS_B, sizeof(RPU_LS_B));
+			XPm_Dbg("Running in lock-step mode\r\n");
+		} else {
+			if (2U == ProcId) {
+				(void)memcpy(ProcName, RPU_B0, sizeof(RPU_B0));
+			} else {
+				(void)memcpy(ProcName, RPU_B1, sizeof(RPU_B1));
+			}
+		}
+	} else {
+		/* Required for MISRA */
+	}
 #endif
 
 	PrimaryProc = ProcList[ProcId];
