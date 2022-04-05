@@ -311,6 +311,7 @@ Print Command ID when IPI command processing fails
 Fixed versionless compilation warning related to redefinition
 Enhance user configurability of PLM
 Fix ROM time calculation
+Error handling support for XMPU/XPPU EAM errors
 
 pciepsu_v1_4:
 32bit compilation fixes
