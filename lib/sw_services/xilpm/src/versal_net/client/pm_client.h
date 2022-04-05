@@ -28,7 +28,7 @@ extern "C" {
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
 #define RESPONSE_ARG_CNT		(8U)
 #define PM_IPI_TIMEOUT			(~0U)
-#define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
+#define TARGET_IPI_INT_MASK		XPAR_PSX_0_PSPMCX_0_PSXL_IPI_PMC_BIT_MASK
 
 /**
  * XPm_Proc - Processor structure
