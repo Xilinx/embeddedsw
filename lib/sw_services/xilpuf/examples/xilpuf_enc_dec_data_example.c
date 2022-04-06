@@ -36,15 +36,16 @@
  *       har  03/04/22 Added comment to specify mode of libraries
  *                     Added shared memory allocation for client APIs
  *       kpt  03/18/22 Removed IPI related code and added mailbox support
+ *       har  03/31/22 Updated default data and data size
  *
  * @note
  *
  * User configurable parameters for PUF
  *------------------------------------------------------------------------------
- * #define XPUF_DATA				"000000000000000000000000"
+ * #define XPUF_DATA				"0123456789ABCDEF0123456789ABCDEF"
  * Data to be encrypted by PUF KEY should be provided in string format.
  *
- * #define XPUF_DATA_LEN_IN_BYTES		(0U)
+ * #define XPUF_DATA_LEN_IN_BYTES		(16U)
  * Length of data to be encrypted should be provided in bytes, where number of
  * bytes must be a multiple of 4.
  *
@@ -96,8 +97,8 @@
 
 /************************** Constant Definitions ****************************/
 /* User configurable parameters start*/
-#define XPUF_DATA 			"000000000000000000000000000000"
-#define XPUF_DATA_LEN_IN_BYTES		(0U)
+#define XPUF_DATA 			"0123456789ABCDEF0123456789ABCDEF"
+#define XPUF_DATA_LEN_IN_BYTES		(16U)
 					/* Data length in Bytes */
 #define XPUF_IV				"000000000000000000000000"
 
@@ -172,6 +173,10 @@ static void XPuf_ShowData(const u8* Data, u32 Len);
 int main(void)
 {
 	int Status = XST_FAILURE;
+
+	#ifdef XPUF_CACHE_DISABLE
+		Xil_DCacheDisable();
+	#endif
 
 	/* Generate PUF KEY
 	 */
@@ -351,7 +356,7 @@ static int XPuf_VerifyDataEncDec(void)
 		goto END;
 	}
 
-	if (Xil_Strnlen(XPUF_DATA, (XPUF_DATA_LEN_IN_BYTES * 2U)) ==
+	if (Xil_Strnlen(XPUF_DATA, ((XPUF_DATA_LEN_IN_BYTES * 2U) + 1U)) ==
 				(XPUF_DATA_LEN_IN_BYTES * 2U)) {
 		Status = Xil_ConvertStringToHexBE(
 			(const char *) (XPUF_DATA),
@@ -364,13 +369,19 @@ static int XPuf_VerifyDataEncDec(void)
 	}
 	else {
 		Status = XST_FAILURE;
-		xil_printf("Provided data length is wrong\r\n");
+		xil_printf("Provided XPUF_DATA_LEN is wrong\r\n");
+		goto END;
+	}
+
+	if (XPUF_DATA_LEN_IN_BYTES == 0U) {
+		Status = XST_FAILURE;
+		xil_printf("Zero data length is not accepted\r\n");
 		goto END;
 	}
 
 	if (XPUF_DATA_LEN_IN_BYTES % XPUF_WORD_LENGTH != 0U) {
 		Status = XST_FAILURE;
-		xil_printf("Provided data length is not multiple of 4\r\n");
+		xil_printf("Provided XPUF_DATA_LEN is not multiple of 4\r\n");
 		goto END;
 	}
 
