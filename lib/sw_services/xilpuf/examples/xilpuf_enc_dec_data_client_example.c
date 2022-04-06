@@ -24,6 +24,7 @@
  *       har  01/20/22 Removed inclusion of xil_mem.h
  *       har  03/04/22 Added comment to specify mode of libraries
  *       kpt  03/16/22 Removed IPI related code and added mailbox support
+ *       har  03/31/22 Updated default data and data length
  *
  * @note
  *
@@ -117,8 +118,8 @@
 
 /************************** Constant Definitions ****************************/
 /* User configurable parameters start*/
-#define XPUF_DATA 			"000000000000000000000000000000"
-#define XPUF_DATA_LEN_IN_BYTES		(0U)
+#define XPUF_DATA 			"0123456789ABCDEF0123456789ABCDEF"
+#define XPUF_DATA_LEN_IN_BYTES		(16U)
 					/* Data length in Bytes */
 #define XPUF_IV				"000000000000000000000000"
 
@@ -403,7 +404,7 @@ static int XPuf_VerifyDataEncDec(XMailbox *MailboxPtr)
 		goto END;
 	}
 
-	if (Xil_Strnlen(XPUF_DATA, (XPUF_DATA_LEN_IN_BYTES * 2U)) ==
+	if (Xil_Strnlen(XPUF_DATA, ((XPUF_DATA_LEN_IN_BYTES * 2U) + 1U)) ==
 				(XPUF_DATA_LEN_IN_BYTES * 2U)) {
 		Status = Xil_ConvertStringToHexBE(
 			(const char *) (XPUF_DATA),
@@ -416,13 +417,19 @@ static int XPuf_VerifyDataEncDec(XMailbox *MailboxPtr)
 	}
 	else {
 		Status = XST_FAILURE;
-		xil_printf("Provided data length is wrong\r\n");
+		xil_printf("Provided XPUF_DATA_LEN is wrong\r\n");
+		goto END;
+	}
+
+	if (XPUF_DATA_LEN_IN_BYTES == 0U) {
+		Status = XST_FAILURE;
+		xil_printf("Zero data length is not accepted\r\n");
 		goto END;
 	}
 
 	if (XPUF_DATA_LEN_IN_BYTES % XPUF_WORD_LENGTH != 0U) {
 		Status = XST_FAILURE;
-		xil_printf("Provided data length is not multiple of 4\r\n");
+		xil_printf("Provided XPUF_DATA_LEN is not multiple of 4\r\n");
 		goto END;
 	}
 
