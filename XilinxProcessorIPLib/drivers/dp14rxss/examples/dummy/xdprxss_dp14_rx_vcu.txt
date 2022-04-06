@@ -1,0 +1,1 @@
+This is application for VCU118 Rx only configuration
