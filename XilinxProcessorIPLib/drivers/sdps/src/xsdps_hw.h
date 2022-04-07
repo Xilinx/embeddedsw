@@ -42,6 +42,7 @@
 * 3.9   mn     03/03/20 Restructured the code for more readability and modularity
 * 3.14  mn     11/28/21 Fix MISRA-C violations.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
+*       sk     04/07/22 Fix typo in 'XSDPS_MMC_1_BIT_BUS_ARG' macro definition.
 *
 * </pre>
 *
@@ -986,7 +987,7 @@ extern "C" {
 
 #define XSDPS_MMC_1_BIT_BUS_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24) \
 					 | ((u32)EXT_CSD_BUS_WIDTH_BYTE << 16) \
-					 | ((u32)EXT_CSD_BUS_WITH_1_BIT << 8))
+					 | ((u32)EXT_CSD_BUS_WIDTH_1_BIT << 8))
 
 #define XSDPS_MMC_4_BIT_BUS_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24) \
 					 | ((u32)EXT_CSD_BUS_WIDTH_BYTE << 16) \
