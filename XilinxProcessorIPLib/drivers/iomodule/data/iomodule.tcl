@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -37,6 +37,14 @@
 # 2.12     mus    08/24/21 Updated xredefine_iomodule with additional checks,
 #                          to avoid tcl errors for HW design where interrupts
 #                          are not connected to iomodule. It fixes CR#1108543
+# 2.13     mus    04/06/22 Updated tcl to use C_S_AXI_BASEADDR and
+#                          C_S_AXI_HIGHADDR instead of C_BASEADDR and
+#                          C_HIGHADDR, in case of psv_pmc/psv_psm processors.
+#                          This has been done to export correct base/high
+#                          address values in case of SSIT devices. Also, in
+#                          case of psv_pmc/psv_psm, base/high address is read
+#                          through get_param_value proc instead of using
+#                          get_property. It fixes CR#1127489.
 ##############################################################################
 
 
@@ -59,11 +67,19 @@ proc iomodule_drc {drv_handle} {
 # "generate" procedure
 ############################################################
 proc generate {drv_handle} {
+
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
     # Generate the following definitions in xparameters.h
     # 1. Common
-    set common_params [list "NUM_INSTANCES" "DEVICE_ID" \
+    if {([string compare -nocase $proctype "psv_pmc"] == 0) || ([string compare -nocase $proctype "psv_psm"] == 0)} {
+        set common_params [list "NUM_INSTANCES" "DEVICE_ID" \
+                            "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_MASK" "C_FREQ"]
+    } else {
+        set common_params [list "NUM_INSTANCES" "DEVICE_ID" \
                             "C_BASEADDR" "C_HIGHADDR" "C_MASK" "C_FREQ"]
-
+    }
     # 2. UART
     set uart_params [list "C_USE_UART_RX" "C_USE_UART_TX" "C_UART_BAUDRATE" \
                           "C_UART_PROG_BAUDRATE" "C_UART_DATA_BITS" "C_UART_USE_PARITY" \
@@ -137,11 +153,18 @@ proc generate {drv_handle} {
     set periphs [hsi::utils::get_common_driver_ips $drv_handle]
     set count [llength $periphs]
     if {$count == 1} {
-      hsi::utils::define_with_names $drv_handle [hsi::utils::get_common_driver_ips $drv_handle] "xparameters.h" \
+       if {([string compare -nocase $proctype "psv_pmc"] == 0) || ([string compare -nocase $proctype "psv_psm"] == 0)} {
+         hsi::utils::define_with_names $drv_handle [hsi::utils::get_common_driver_ips $drv_handle] "xparameters.h" \
+         "XPAR_IOMODULE_SINGLE_BASEADDR" "C_S_AXI_BASEADDR" \
+         "XPAR_IOMODULE_SINGLE_HIGHADDR" "C_S_AXI_HIGHADDR" \
+         "XPAR_IOMODULE_INTC_SINGLE_DEVICE_ID" "DEVICE_ID"
+       } else {
+         hsi::utils::define_with_names $drv_handle [hsi::utils::get_common_driver_ips $drv_handle] "xparameters.h" \
          "XPAR_IOMODULE_SINGLE_BASEADDR" "C_BASEADDR" \
          "XPAR_IOMODULE_SINGLE_HIGHADDR" "C_HIGHADDR" \
          "XPAR_IOMODULE_INTC_SINGLE_DEVICE_ID" "DEVICE_ID"
-	 }
+       }
+    }
 
     set config_inc [hsi::utils::open_include_file "xparameters.h"]
     puts $config_inc "#define XPAR_IOMODULE_INTC_MAX_INTR_SIZE $max_intr_size$uSuffix"
@@ -164,11 +187,19 @@ proc iomodule_define_config_file {drv_handle periphs config_inc} {
     variable interrupt_handlers
     variable default_interrupt_handler
 
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+
     # set isr_options to be XIN_SVC_SGL_ISR_OPTION as defined in xiomodule.h
     set isr_options XIN_SVC_SGL_ISR_OPTION
     set file_name "xiomodule_g.c"
     set drv_string "XIOModule"
-    set args [list "DEVICE_ID" "C_BASEADDR" "C_IO_BASEADDR" "C_INTC_HAS_FAST" "C_INTC_BASE_VECTORS" "C_INTC_ADDR_WIDTH "]
+    if {([string compare -nocase $proctype "psv_pmc"] == 0) || ([string compare -nocase $proctype "psv_psm"] == 0)} {
+        set args [list "DEVICE_ID" "C_S_AXI_BASEADDR" "C_IO_BASEADDR" "C_INTC_HAS_FAST" "C_INTC_BASE_VECTORS" "C_INTC_ADDR_WIDTH "]
+    } else {
+        set args [list "DEVICE_ID" "C_BASEADDR" "C_IO_BASEADDR" "C_INTC_HAS_FAST" "C_INTC_BASE_VECTORS" "C_INTC_ADDR_WIDTH "]
+    }
     set filename [file join "src" $file_name]
     set config_file [open $filename w]
     hsi::utils::write_c_header $config_file "Driver configuration"
@@ -191,7 +222,11 @@ proc iomodule_define_config_file {drv_handle periphs config_inc} {
         set comma ""
         foreach arg $args {
             # Check if this is a driver parameter or a peripheral parameter
-            set value [common::get_property CONFIG.$arg $drv_handle]
+            if {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0 || [string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0 } {
+                set value [::hsi::utils::get_param_value $drv_handle $arg]
+            } else {
+                set value [common::get_property CONFIG.$arg $drv_handle]
+            }
             if {[llength $value] == 0} {
                 puts -nonewline $tmp_config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
             } else {
@@ -388,6 +423,7 @@ proc iomodule_add_handler {handler} {
 # using the driver name, in an include file.
 ##########################################################################
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
+    set redef_value 0
     set args [hsi::utils::get_exact_arg_list $args]
     # Open include file
     set file_handle [hsi::utils::open_include_file $file_name]
@@ -434,13 +470,20 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 				set rvalue [expr pow(2, $rvalue) - 1]
 				set rvalue [format "%.0f" $rvalue]
 				set rvalue [format "0x%08X" $rvalue]
+			} elseif {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0 || [string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0 } {
+				if {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
+					set lvalue [hsi::utils::get_driver_param_name $canonical_name C_BASEADDR]
+				} else {
+					set lvalue [hsi::utils::get_driver_param_name $canonical_name C_HIGHADDR]
+				}
+				set rvalue [::hsi::utils::get_param_value $periph $arg]
 			} else {
 				set lvalue [hsi::utils::get_driver_param_name $canonical_name [string toupper $arg]]
 				# The commented out rvalue is the name of the instance-specific constant
 				# set rvalue [::hsi::utils::get_ip_param_name $periph $arg]
 				# The rvalue set below is the actual value of the parameter
 				set rvalue [common::get_property CONFIG.$arg  $periph]
-				}
+			}
 			if {[llength $rvalue] == 0} {
 				set rvalue 0
 			}
@@ -456,7 +499,13 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     #
     # Now redefine the Interrupt ID constants
     #
-    set redef_value [is_psmicroblaze_iomodule $drv_handle]
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set proctype [common::get_property IP_NAME $hw_proc_handle]
+
+    if {([string compare -nocase $proctype "psv_pmc"] == 0) || ([string compare -nocase $proctype "psv_psm"] == 0)} {
+        set redef_value [is_psmicroblaze_iomodule $drv_handle]
+    }
     if {$redef_value == 0} {
 	     xredefine_iomodule $drv_handle $file_handle
     }
@@ -772,6 +821,9 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
                 set value $device_id
                 incr device_id
+            } elseif {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0 || [string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0 } {
+
+                set value [::hsi::utils::get_param_value $periph $arg]
             } else {
             	if {[string first "_EXPIRED_MASK" $arg] > 0} {
 	      		set charindex [string first "_EXPIRED_MASK" $arg]
@@ -915,7 +967,7 @@ proc is_psmicroblaze_iomodule {drv_handle} {
 		set base_val [string trimleft $base_val "0x"]
 		set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 		foreach periph $periphs {
-			set baseaddr [::hsi::utils::get_param_value $periph C_BASEADDR]
+			set baseaddr [::hsi::utils::get_param_value $periph C_S_AXI_BASEADDR]
 			set baseaddr [string trimleft $base_val "0x"]
 			if {[string compare -nocase $base_val $baseaddr] == 0} {
 				set is_pl [common::get_property IS_PL $periph]
