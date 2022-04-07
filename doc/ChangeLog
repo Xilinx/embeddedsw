@@ -484,6 +484,9 @@ Enhancement of feature check for Versal
 Add COSIM workaround for AIE device nodes
 Add support for AIE power domain on VC1502
 
+sysmonpsv_v3_0:
+New reorganised driver
+
 versal_psmfw:
 Add support for validating interrupt source
 Add support for an exception handler
