@@ -455,10 +455,11 @@ Add implementation of PLL related API
 Replaced library specific utility functions and standard lib functions with Xilinx maintained functions
 Extends PM EEMI commands for AIEML and AIE1 partition resets
 Remove hardcoded AIE addresses from xpm_aie.c
-PLM is hanging while processing lpd data cdo for SV20 Device
-CPM5 base address is hardcoded
+Fix PLM hanging issue while processing lpd data cdo by removing OCM2 reset if XRAM present
+Fix hardcoded CPM5 base addresses
+Add support for a new clock/reset nodes
 Update memory size for adding more requirements
-Isolation controls are missing in PDI
+Fix missing isolation controls by adding process pending isolation for PL device
 Update sysmon power good checks
 Restrict the head of subsystem database
 SRST Sequence for Versal Devices
@@ -466,19 +467,18 @@ Implementation of CPM5 shutdown sequence
 Fix HIS violations for the xilpm server
 Workaround for MIO tristate vs data racing condition to be implemented in PLM
 CPM5 Isolation Deassertion
-Register Writes in AIE static CDOs should be moved to tool generated CDO
+Add support for AIE1/2 hook handlers for AIE power domain Ops
 Add CPM5_GT isolation control support
 Add skeleton for "DDRMC Mapping" PLD Init Op
-SV60- VDU programming is not completely done by PLM
+Fix VDU programming issue by updating secure EFUSE transfer sequence
 Add Node ID for MJTAG Workaround Image
 Add toggle for PCIe DPLL reset
 Add support for Request/Release AIE Device
-CDO commands for XPPU protection
+Removed CDO commands for XPPU/XMPU protections
 Add run time operation support for AIE1
-Add new clock/reset nodes for CPM5
 Enhancement of feature check for Versal
 Add COSIM workaround for AIE device nodes
-Support for AIE power domain on VC1502
+Add support for AIE power domain on VC1502
 
 versal_psmfw:
 Add support for validating interrupt source
