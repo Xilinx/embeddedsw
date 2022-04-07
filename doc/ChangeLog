@@ -1,6 +1,9 @@
 Changes for 2022.1
 ===============================
 
+trngpsv_v1_1:
+Addressed Security best practices related comments in TRNG driver
+
 libmetal_v2_3:
 Component update to upstream release 2021.10
 Port the changes from the internal OpenAMP repo
@@ -239,6 +242,7 @@ Added security review comments
 Added missing include file in xplm_stl
 Enable SLVERR for PLM related components
 Call XPlmi_EmInit after XPlm_PmInit to fix issue related to clearing PL errors which occurred during last boot
+Updated check for the required libraries for creating PLM application (change in versal_plm.tcl)
 
 axivdma_v6_11:
 Fix read/write done comparison in vdma interrupt example
