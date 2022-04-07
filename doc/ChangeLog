@@ -582,6 +582,14 @@ XilinxProcessorIPLib/drivers/aienginev2/src/interrupt/xaie_interrupt_backtrack.c
 XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_example.c
 XilinxProcessorIPLib/drivers/dfeprach/examples/xdfeprach_2CC_3RC_reconfigure_example.c
 XilinxProcessorIPLib/drivers/tmr_manager/examples/xtmr_manager_recovery_example.c
+XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.c
+XilinxProcessorIPLib/drivers/sysmonpsv/src/common/xsysmonpsv_common.h
+XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_direct.c
+XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h
+XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_hw.h
+XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_lowlevel.h
+XilinxProcessorIPLib/drivers/sysmonpsv/src/services/xsysmonpsv_services.c
+XilinxProcessorIPLib/drivers/sysmonpsv/src/services/xsysmonpsv_services.h
 
 SPDX-License-Identifier: BSD-3-Clause
 ThirdParty/sw_services/openamp/src/open-amp/lib/version.c
