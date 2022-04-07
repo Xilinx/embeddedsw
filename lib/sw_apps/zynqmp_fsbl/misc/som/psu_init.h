@@ -1047,6 +1047,12 @@
 #define CRL_APB_DLL_REF_CTRL_OFFSET                                                0XFF5E0104
 #undef CRL_APB_TIMESTAMP_REF_CTRL_OFFSET
 #define CRL_APB_TIMESTAMP_REF_CTRL_OFFSET                                          0XFF5E0128
+#undef CRF_APB_DP_VIDEO_REF_CTRL_OFFSET
+#define CRF_APB_DP_VIDEO_REF_CTRL_OFFSET                                           0XFD1A0070
+#undef CRF_APB_DP_AUDIO_REF_CTRL_OFFSET
+#define CRF_APB_DP_AUDIO_REF_CTRL_OFFSET                                           0XFD1A0074
+#undef CRF_APB_DP_STC_REF_CTRL_OFFSET
+#define CRF_APB_DP_STC_REF_CTRL_OFFSET                                             0XFD1A007C
 #undef CRF_APB_ACPU_CTRL_OFFSET
 #define CRF_APB_ACPU_CTRL_OFFSET                                                   0XFD1A0060
 #undef CRF_APB_DBG_FPD_CTRL_OFFSET
