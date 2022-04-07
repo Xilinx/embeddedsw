@@ -662,6 +662,41 @@
  *     mus   05/15/21   Fixed HIS_COMF metric violations in xil_io.h file.
  *     mus   05/25/21   Added mitigation in ARMv8 BSP for speculative execution past ERET and BR instruction
  *                      (CVE-2020-13844).
+ * 7.6 mus   07/08/21   Updated standalone.tcl to support SSIT devices.
+ *     kpt   07/15/21   Added Xil_SecureZeroize API to common/xil_util.c.
+ *     mus   07/29/21   Updated Xil_TestMem8 API to fix overflow issue reported by static analysis tool.
+ *     mus   08/23/21   Fixed compilation warnings reported with "Wstrict-prototypes" and "-Wundef" flag.
+ *     mus   09/02/21   SCU invalidation should happen only from primary CPU. So, updated cortexa9/boot.S to skip SCU
+ *                      invalidation when USE_AMP flag is set to 1.
+ *     mus   09/23/21   Updated macros in arm/ARMv8/64bit/xreg_cortexa53.h file with U suffix, to fix warning reported 
+ *                      with -Wconversion option.
+ * 7.7 kpt   11/09/21   Added new functions Xil_SMemCmp, Xil_SMemCmp_CT, Xil_SMemCpy, Xil_SMemSet, Xil_SStrCat, Xil_SStrCmp, 
+ *                      Xil_SStrCmp_CT Xil_SStrCpy to common/xil_util.c
+ *     adk   11/24/21   Added support for generic interrupt wrapper APIs. User's can select this functionality by enabling
+ *                      the xil_interrupt parameter in BSP configuration settings.
+ *     mus   11/27/21   Existing Init_MPU (cortexr5 BSP) function assumes that DDR would be always mapped at 0x0 address
+ *                      in HW design. It is not correct in case of typical isolation use cases, where only chunk of DDR 
+ *                      starting for location other than 0x0 can be mapped to cortexR5 core.
+ *                      For such use cases, there would be gap between TCM and DDR start address, so we can not use 
+ *                      single MPU region. Updated Init_MPU function in arm/cortexr5/platform/ZynqMP/mpu.c file to 
+ *                      handle such scenarios.
+ *     mus    01/11/22  Xen domU guest memory map is not same as that of native ZynqMP memory map. Currently GIC for Xen 
+ *                      domU guest is being mapped at < 2GB address, which is configured as normal cacheable memory (DDR) 
+ *                      in default translation table. As GIC needs to be configured as device memory, updated attributes
+ *                      of GIC region as strongly ordered, RW, non executable through Xil_SetTlbAttributes API in ARMv8
+ *                      BSP boot code.
+ *     mus    02/23/22  Warning message in arm/cortexr5/platform/ZynqMP/mpu.c has been moved after MPU initialization. It has been
+ *                      added to separate function (Print_DDRSize_Warning) and that function is being called through boot code.
+ *                      Also, used xdbg_printf instead of xil_printf to print the warning, so that warning would be printed only 
+ *                      when DEBUG flag is enabled.
+ *     dp     03/08/22  Update Init_MPU (arm/cortexr5/platform/ZynqMP/mpu.c) to use new macros for mpu init as these macros
+ *                      represent the lowest DDR address and highest DDR address mapped to CortexR5, incase if there are are 
+ *                      mutiple DDR regions assigned to CortexR5 in the HW design. Assigning multiple mpu regions of DDR is 
+ *                      not possible as we have limited mpu entries in case of R5. Note that these macros doesnt consider the 
+ *                      holes in between the regions.
+ *     asa     03/22/22 Updated FIQ handling in ARMv8 vectors (arm/ARMv8/64bit/<gcc/armclang>/asm_vectors.S) to save and 
+ *                      restore the SIMD register contexts.
+ *
  *
  *
  *****************************************************************************************/
