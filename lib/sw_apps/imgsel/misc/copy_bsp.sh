@@ -1,5 +1,5 @@
 #******************************************************************************
-#* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************
 
@@ -37,7 +37,7 @@ SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
 BSP_SEQUENTIAL_MAKEFILES=
 
 # Copy psu_init.c file from SOM folder
-if [ "$BOARD" == "som" ]; then
+if [ $BOARD = "som" ]; then
 	cp $WORKING_DIR/$BOARD/psu_init.c .
 fi
 # creation of BSP folders required
