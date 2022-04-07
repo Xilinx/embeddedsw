@@ -31,6 +31,8 @@
 *       mn     11/28/21 Fix MISRA-C violations.
 *       sk     01/10/22 Add support to read slot_type parameter.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
+*       sk     04/07/22 Add support to read custom tap delay values from design
+*                       for SD/eMMC.
 *
 * </pre>
 *
@@ -277,11 +279,20 @@ s32 XSdPs_SdModeInit(XSdPs *InstancePtr)
 			if (((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U) &&
 					(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 				InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
-				InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
-				if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
+				if (InstancePtr->Config.OTapDly_SDR_Clk50 &&
+					InstancePtr->Config.ITapDly_SDR_Clk50) {
+					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk50;
+					InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_SDR_Clk50;
+					if ((InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) &&
+						(InstancePtr->ITapDelay == SD_ITAPDLYSEL_HSD)) {
+						InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_HSD;
+					}
+				} else if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
 					InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_HSD;
+					InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
 				} else {
 					InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+					InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
 				}
 
 				Status = XSdPs_Change_BusSpeed(InstancePtr);

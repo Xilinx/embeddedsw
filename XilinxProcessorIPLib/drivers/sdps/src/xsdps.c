@@ -87,6 +87,8 @@
 *       mn     11/28/21 Fix MISRA-C violations.
 *       sk     01/10/22 Add support to read slot_type parameter.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
+*       sk     04/07/22 Add support to read custom tap delay values from design
+*                       for SD/eMMC.
 *
 * </pre>
 *
@@ -164,6 +166,12 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
 	InstancePtr->Config.SlotType = ConfigPtr->SlotType;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
+	InstancePtr->Config.ITapDly_SDR_Clk50 = ConfigPtr->ITapDly_SDR_Clk50;
+	InstancePtr->Config.OTapDly_SDR_Clk50 = ConfigPtr->OTapDly_SDR_Clk50;
+	InstancePtr->Config.ITapDly_DDR_Clk50 = ConfigPtr->ITapDly_DDR_Clk50;
+	InstancePtr->Config.OTapDly_DDR_Clk50 = ConfigPtr->OTapDly_DDR_Clk50;
+	InstancePtr->Config.OTapDly_SDR_Clk100 = ConfigPtr->OTapDly_SDR_Clk100;
+	InstancePtr->Config.OTapDly_SDR_Clk200 = ConfigPtr->OTapDly_SDR_Clk200;
 	InstancePtr->SectorCount = 0U;
 	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
 	InstancePtr->OTapDelay = 0U;

@@ -30,6 +30,8 @@
 *       mn     11/28/21 Fix MISRA-C violations.
 *       sk     01/10/22 Add support to read slot_type parameter.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
+*       sk     04/07/22 Add support to read custom tap delay values from design
+*                       for SD/eMMC.
 *
 * </pre>
 *
@@ -942,7 +944,9 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 	if (((ReadBuff[13] & UHS_SDR104_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_INPUT_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR104;
-		if (InstancePtr->Config.BankNumber == 2U) {
+		if (InstancePtr->Config.OTapDly_SDR_Clk200) {
+			InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk200;
+		} else if (InstancePtr->Config.BankNumber == 2U) {
 			InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B2;
 		} else {
 			InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
@@ -950,24 +954,46 @@ void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
 	} else if (((ReadBuff[13] & UHS_SDR50_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR50_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR50;
-		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD50;
+		if (InstancePtr->Config.OTapDly_SDR_Clk100) {
+			InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk100;
+		} else {
+			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD50;
+		}
 	} else if (((ReadBuff[13] & UHS_DDR50_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_DDR50_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_DDR50;
-		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_DDR50;
-		if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
+		if (InstancePtr->Config.OTapDly_DDR_Clk50 &&
+			InstancePtr->Config.ITapDly_DDR_Clk50) {
+			InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_DDR_Clk50;
+			InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_DDR_Clk50;
+			if ((InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) &&
+				(InstancePtr->ITapDelay == SD_ITAPDLYSEL_SD_DDR50)) {
+				InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_DDR50;
+			}
+		} else if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
 			InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_DDR50;
+			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_DDR50;
 		} else {
 			InstancePtr->ITapDelay = SD_ITAPDLYSEL_SD_DDR50;
+			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_DDR50;
 		}
 	} else if (((ReadBuff[13] & UHS_SDR25_SUPPORT) != 0U) &&
 		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR25_MAX_CLK)) {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR25;
-		InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
-		if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
+		if (InstancePtr->Config.OTapDly_SDR_Clk50 &&
+			InstancePtr->Config.ITapDly_SDR_Clk50) {
+			InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk50;
+			InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_SDR_Clk50;
+			if ((InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) &&
+				(InstancePtr->ITapDelay == SD_ITAPDLYSEL_HSD)) {
+				InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_SDR25;
+			}
+		} else if (InstancePtr->Config.SlotType == XSDPS_SLOTTYPE_SDADIR) {
 			InstancePtr->ITapDelay = SD_AUTODIR_ITAPDLYSEL_SDR25;
+			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
 		} else {
 			InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+			InstancePtr->OTapDelay = SD_OTAPDLYSEL_SD_HSD;
 		}
 	} else {
 		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR12;
@@ -1358,7 +1384,9 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 					(EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
 					EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) {
 				InstancePtr->Mode = XSDPS_HS200_MODE;
-				if (InstancePtr->Config.BankNumber == 2U) {
+				if (InstancePtr->Config.OTapDly_SDR_Clk200) {
+					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk200;
+				} else if (InstancePtr->Config.BankNumber == 2U) {
 					InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B2;
 				} else {
 					InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
@@ -1367,13 +1395,25 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 					(EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED |
 					EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) {
 				InstancePtr->Mode = XSDPS_DDR52_MODE;
-				InstancePtr->OTapDelay = SD_OTAPDLYSEL_EMMC_DDR50;
-				InstancePtr->ITapDelay = SD_ITAPDLYSEL_EMMC_DDR50;
+				if (InstancePtr->Config.OTapDly_DDR_Clk50 &&
+					InstancePtr->Config.ITapDly_DDR_Clk50) {
+					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_DDR_Clk50;
+					InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_DDR_Clk50;
+				} else {
+					InstancePtr->OTapDelay = SD_OTAPDLYSEL_EMMC_DDR50;
+					InstancePtr->ITapDelay = SD_ITAPDLYSEL_EMMC_DDR50;
+				}
 			} else if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 					EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
 				InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
-				InstancePtr->OTapDelay = SD_OTAPDLYSEL_EMMC_HSD;
-				InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+				if (InstancePtr->Config.OTapDly_SDR_Clk50 &&
+					InstancePtr->Config.ITapDly_SDR_Clk50) {
+					InstancePtr->OTapDelay = InstancePtr->Config.OTapDly_SDR_Clk50;
+					InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_SDR_Clk50;
+				} else {
+					InstancePtr->OTapDelay = SD_OTAPDLYSEL_EMMC_HSD;
+					InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+				}
 			} else {
 				InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
 			}

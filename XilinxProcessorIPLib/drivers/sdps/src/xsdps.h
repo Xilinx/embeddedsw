@@ -153,6 +153,8 @@
 *       sk     11/29/21 Fix compilation warnings reported with "-Wundef" flag.
 *       sk     01/10/22 Add support to read slot_type parameter.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
+*       sk     04/07/22 Add support to read custom tap delay values from design
+*                       for SD/eMMC.
 *
 * </pre>
 *
@@ -248,6 +250,12 @@ typedef struct {
 #if defined  (XCLOCKING)
 	u32 RefClk;			/**< Input clocks */
 #endif
+	u32 ITapDly_SDR_Clk50;	/**< Input Tap delay for HSD/SDR25 modes */
+	u32 OTapDly_SDR_Clk50;	/**< Output Tap delay for HSD/SDR25 modes */
+	u32 ITapDly_DDR_Clk50;	/**< Input Tap delay for DDR50 modes */
+	u32 OTapDly_DDR_Clk50;	/**< Output Tap delay for DDR50 modes */
+	u32 OTapDly_SDR_Clk100;	/**< Input Tap delay for SDR50 modes */
+	u32 OTapDly_SDR_Clk200;	/**< Input Tap delay for SDR104/HS200 modes */
 } XSdPs_Config;
 
 /**
