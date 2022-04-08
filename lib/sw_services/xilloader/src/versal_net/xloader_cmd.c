@@ -709,6 +709,21 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 
 /*****************************************************************************/
 /**
+ * @brief	This function is used for shutdown operation before In-place
+ * 		PLM Update
+ *
+ * @param	Op is to provide operation information
+ *
+ * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ *****************************************************************************/
+static int XPlmi_LoaderHandler(XPlmi_ModuleOp Op)
+{
+	(void)Op;
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
  * @brief	Contains the module ID and loader commands array
  *
  *****************************************************************************/
@@ -718,6 +733,7 @@ static XPlmi_Module XPlmi_Loader =
 	XLoader_Cmds,
 	XPLMI_ARRAY_SIZE(XLoader_Cmds),
 	XLoader_CheckIpiAccess,
+	XPlmi_LoaderHandler,
 };
 
 /*****************************************************************************/

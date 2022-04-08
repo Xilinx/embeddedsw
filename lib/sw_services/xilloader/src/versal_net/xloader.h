@@ -300,6 +300,10 @@ enum {
 #define XLOADER_RPU_CORE0	(0U)
 #define XLOADER_RPU_CORE1	(1U)
 
+/* Xilloader Module Data Structure Ids*/
+#define XLOADER_IMAGE_INFO_DS_ID	(0x01U)
+#define XLOADER_PDI_INST_DS_ID		(0x02U)
+
 /**************************** Type Definitions *******************************/
 /*
  * This stores the handoff Address of the different cpu's
@@ -347,7 +351,7 @@ typedef struct {
 #endif
 	u32 DelayLoad; /**< Delay Load is enabled if set */
 	u64 CopyToMemAddr; /**< Address to which image is copied */
-} XilPdi;
+} XilPdi __attribute__ ((aligned(4U)));
 
 /* Structure to store various attributes required for IDCODEs checks */
 typedef struct {
@@ -386,7 +390,7 @@ typedef struct {
 	XLoader_ImageInfo *TblPtr;
 	u32 Count;
 	u8 IsBufferFull;
-} XLoader_ImageInfoTbl;
+} XLoader_ImageInfoTbl __attribute__ ((aligned(4U)));
 
 typedef struct {
 	u64 PdiAddr[XLOADER_MAX_PDI_LIST];

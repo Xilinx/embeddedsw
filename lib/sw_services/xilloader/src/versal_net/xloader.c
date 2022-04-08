@@ -127,8 +127,11 @@
 #include "xplmi_err.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_wdt.h"
+#include "xplmi_update.h"
 
 /************************** Constant Definitions *****************************/
+#define XLOADER_IMAGE_INFO_VERSION	(1U)
+#define XLOADER_IMAGE_INFO_LCVERSION	(1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -280,11 +283,14 @@ static const XLoader_DeviceOps DeviceOps[] =
 };
 
 /* Image Info Table */
-static XLoader_ImageInfoTbl ImageInfoTbl = {
+static XLoader_ImageInfoTbl ImageInfoTbl __attribute__ ((aligned(4U))) = {
 	.TblPtr = (XLoader_ImageInfo *)XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR,
 	.Count = 0U,
 	.IsBufferFull = FALSE,
 };
+
+EXPORT_LOADER_DS(ImageInfoTbl, XLOADER_IMAGE_INFO_DS_ID, XLOADER_IMAGE_INFO_VERSION,
+	XLOADER_IMAGE_INFO_LCVERSION, sizeof(ImageInfoTbl), (u32)(UINTPTR)&ImageInfoTbl);
 
 /*****************************************************************************/
 /**
