@@ -21,6 +21,10 @@ extern "C" {
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 u32 XPmPsm_FwIsPresent(void);
 
+/* PSM MODULE Data Structures IDs */
+#define XPM_PSM_COUNTER_DS_ID				(0x01U)
+#define XPM_PSM_KEEP_ALIVE_STS_DS_ID			(0x02U)
+
 #ifdef __cplusplus
 }
 #endif

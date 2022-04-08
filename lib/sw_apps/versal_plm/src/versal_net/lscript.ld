@@ -7,13 +7,15 @@
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1800;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
 _USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x4000;
+_PLM_UPDATE_CODE_SIZE = DEFINED(_PLM_UPDATE_CODE_SIZE) ? _PLM_UPDATE_CODE_SIZE : 0x200;
 /* Define Memories in the system */
 
 MEMORY
 {
-   tmr_ram_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = (0x5FFB0 - _USER_CODE_SIZE)
-   tmr_ram_instr_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = 0x3FFB0
-   tmr_ram_data_cntlr_Mem : ORIGIN = 0xF0240000, LENGTH = 0x20000
+   tmr_ram_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = (0x9FFB0 - _USER_CODE_SIZE - _PLM_UPDATE_CODE_SIZE)
+   tmr_ram_instr_cntlr_Mem : ORIGIN = 0xF0200000, LENGTH = 0x7FFB0
+   tmr_ram_data_cntlr_Mem : ORIGIN = 0xF0280000, LENGTH = 0x20000
+   update_mgr_Mem : ORIGIN = 0xF029BE00, LENGTH = _PLM_UPDATE_CODE_SIZE
 }
 
 /* Specify the default entry point to the program */
@@ -44,6 +46,15 @@ SECTIONS
    *(.text)
    *(.text.*)
    *(.gnu.linkonce.t.*)
+} > tmr_ram_cntlr_Mem
+
+.update_mgr_a : {
+  . = ALIGN(16);
+  __update_mgr_a_fn_start = .;
+   KEEP (*(.update_mgr_a))
+  __update_mgr_a_fn_end = .;
+  _update_mgr_a_end = __update_mgr_a_fn_start + _PLM_UPDATE_CODE_SIZE;
+  . = _update_mgr_a_end;
 } > tmr_ram_cntlr_Mem
 
 .note.gnu.build-id : {
@@ -95,6 +106,21 @@ SECTIONS
    *(.data.*)
    *(.gnu.linkonce.d.*)
    __data_end = .;
+} > tmr_ram_cntlr_Mem
+
+.struct_info : {
+   . = ALIGN(4);
+   __struct_info_start = .;
+   KEEP(*(.struct_info_hdr))
+   KEEP(*(.struct_versions))
+   __struct_info_end = .;
+} > tmr_ram_cntlr_Mem
+
+.struct_data : {
+   . = ALIGN(4);
+   __data_struct_start = .;
+   KEEP(*(.struct_entries))
+   __data_struct_end = .;
 } > tmr_ram_cntlr_Mem
 
 .got : {
@@ -205,6 +231,13 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    _stack = .;
    __stack = _stack;
 } > tmr_ram_cntlr_Mem
+
+.update_mgr_b (NOLOAD) : {
+   __update_mgr_b = .;
+   __update_mgr_b_start = .;
+   . += _PLM_UPDATE_CODE_SIZE;
+   __update_mgr_b_end = .;
+} > update_mgr_Mem
 
 _end = .;
 }

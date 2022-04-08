@@ -37,8 +37,11 @@
 /***************************** Include Files *********************************/
 #include "xplm_loader.h"
 #include "xloader_auth_enc.h"
+#include "xplmi_update.h"
 
 /************************** Constant Definitions *****************************/
+#define XLOADER_PDI_INST_VERSION 	(1U)
+#define XLOADER_PDI_INST_LCVERSION 	(1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -83,7 +86,17 @@ int XPlm_LoadBootPdi(void *Arg)
 	XilPdi *PdiPtr;
 	static XilPdi PdiInstance = {0U};
 
+	EXPORT_LOADER_DS(PdiInstance, XLOADER_PDI_INST_DS_ID, XLOADER_PDI_INST_VERSION,
+		XLOADER_PDI_INST_LCVERSION, sizeof(PdiInstance), (u32)(UINTPTR)&PdiInstance);
+
 	(void )Arg;
+
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		XPlmi_Printf(DEBUG_GENERAL, "Inplace PLM Update Done\n\r");
+		Status = XST_SUCCESS;
+		goto ERR_END;
+	}
+
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
 
 	/**

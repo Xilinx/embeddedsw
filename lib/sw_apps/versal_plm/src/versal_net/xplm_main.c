@@ -41,6 +41,7 @@
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
 #endif
+#include "xplmi_update.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -67,8 +68,15 @@ int main(void)
 {
 	int Status = XST_FAILURE;
 
-	/* Initialize debug log structure */
-	XPlmi_InitDebugLogBuffer();
+	Status = XPlmi_UpdateInit();
+	if (Status != XST_SUCCESS) {
+		XPlmi_ErrMgr(Status);
+	}
+
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		/* Initialize debug log structure */
+		XPlmi_InitDebugLogBuffer();
+	}
 
 #ifdef DEBUG_UART_MDM
 	/** If MDM UART, banner can be printed before any initialization */

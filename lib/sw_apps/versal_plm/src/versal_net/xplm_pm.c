@@ -53,6 +53,7 @@
 #ifdef PLM_ENABLE_STL
 #include "xplm_stl.h"
 #endif
+#include "xplmi_update.h"
 
 /************************** Constant Definitions *****************************/
 /**
@@ -70,8 +71,14 @@
 #define XPLM_NOCPLL_CTRL_VAL		(0x34809U)
 #define NOCPLL_TIMEOUT			(100000U)
 #ifdef PLM_PM_EXCLUDE
-#define PM_SUBSYS_PMC				(0x1c000001U)
+#define PM_SUBSYS_PMC			(0x1c000001U)
 #endif
+
+#define XPLMI_PSM_COUNTER_VER 		(1U)
+#define XPLMI_PSM_COUNTER_LCVER		(1U)
+
+#define XPLMI_PSM_KEEP_ALIVE_STS_VER 	(1U)
+#define XPLMI_PSM_KEEP_ALIVE_STS_LCVER	(1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -86,7 +93,7 @@ static int XPlm_ConfigureDefaultNPll(void);
 static u32 XPlm_UpdateCounterVal(u8 Val);
 static int XPlm_SendKeepAliveEvent(void);
 static int XPlm_KeepAliveTask(void *Arg);
-static u8 XPlm_SetAliveStsVal(u8 Val);
+static u32 XPlm_SetAliveStsVal(u32 Val);
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 
 /************************** Variable Definitions *****************************/
@@ -272,7 +279,9 @@ END:
 *****************************************************************************/
 static u32 XPlm_UpdateCounterVal(u8 Val)
 {
-	static u32 CounterVal = 0U;
+	static u32 CounterVal __attribute__ ((aligned(4U))) = 0U;
+	EXPORT_XILPSM_DS(CounterVal, XPM_PSM_COUNTER_DS_ID, XPLMI_PSM_COUNTER_VER,
+		XPLMI_PSM_COUNTER_LCVER, sizeof(CounterVal), (u32)(UINTPTR)&CounterVal);
 
 	if(Val == XPLM_PSM_COUNTER_INCREMENT) {
 		/* Increment the counter value */
@@ -327,9 +336,14 @@ static int XPlm_SendKeepAliveEvent(void)
 * @return	PsmKeepAliveStatus
 *
 *****************************************************************************/
-static u8 XPlm_SetAliveStsVal(u8 Val)
+static u32 XPlm_SetAliveStsVal(u32 Val)
 {
-	static u8 PsmKeepAliveStatus = XPLM_PSM_ALIVE_NOT_STARTED;
+	static u32 PsmKeepAliveStatus __attribute__ ((aligned(4U)))
+			= XPLM_PSM_ALIVE_NOT_STARTED;
+	EXPORT_XILPSM_DS(PsmKeepAliveStatus, XPM_PSM_KEEP_ALIVE_STS_DS_ID,
+		XPLMI_PSM_KEEP_ALIVE_STS_VER, XPLMI_PSM_COUNTER_LCVER,
+		sizeof(PsmKeepAliveStatus), (u32)(UINTPTR)&PsmKeepAliveStatus);
+
 
 	if(Val != XPLM_PSM_ALIVE_RETURN) {
 		/* Update the Keep Alive Status */
@@ -452,10 +466,12 @@ int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
 		goto END;
 	}
 
-	/* Clear keep alive counter and status as not started */
-	XPlmi_Out32(XPLM_PSM_ALIVE_COUNTER_ADDR, 0U);
-	(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_CLEAR);
-	XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_NOT_STARTED);
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		/* Clear keep alive counter and status as not started */
+		XPlmi_Out32(XPLM_PSM_ALIVE_COUNTER_ADDR, 0U);
+		(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_CLEAR);
+		XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_NOT_STARTED);
+	}
 
 	/**
 	 * Add keep alive task in scheduler which runs at every

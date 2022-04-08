@@ -33,7 +33,10 @@
 #include "xplm_default.h"
 #ifndef PLM_PM_EXCLUDE
 #include "xpm_api.h"
+#include "xpm_subsystem.h"
 #endif
+#include "xplmi_update.h"
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -75,12 +78,24 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 	int Status = XST_FAILURE;
 
 	(void)Arg;
+
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+#ifndef PLM_PM_EXCLUDE
+		XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask);
+#else
+		XPlmi_IpiInit(NULL);
+#endif
+		XPlmi_LpdInit();
+		Status = XST_SUCCESS;
+	}
+	else {
 	/* Call LibPM hook */
 #ifndef PLM_PM_EXCLUDE
-	Status = XPm_HookAfterPlmCdo();
+		Status = XPm_HookAfterPlmCdo();
 #else
-	Status = XST_SUCCESS;
+		Status = XST_SUCCESS;
 #endif
+	}
 	return Status;
 }
 
