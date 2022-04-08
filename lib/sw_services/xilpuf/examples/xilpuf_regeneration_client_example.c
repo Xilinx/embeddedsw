@@ -21,6 +21,7 @@
  *       kpt  01/13/2022   Added support to run example on PL microblaze
  *       har  03/04/2022   Added comment to specify mode of libraries
  *       kpt  03/16/2022   Removed IPI related code and added mailbox support
+ *       kpt  04/08/2022   Added comment on usage of shared memory
  *
  * @note
  *
@@ -83,8 +84,12 @@
  *   			__sharedmemory_end = .;
  *  			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
  *
- * 		2. Data elements that are passed by reference to the server side should be stored in the above shared
- * 			memory section.
+ * 		2. In this example ".data" section elements that are passed by reference to the server-side should
+ * 		   be stored in the above shared memory section. To make it happen in below example,
+ *		   replace ".data" in attribute section with ".sharedmemory. For example,
+ * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".data.PufData")));
+ * 					should be changed to
+ * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".sharedmemory.PufData")));
  *
  * To keep things simple, by default the cache is disabled for this example
  *
