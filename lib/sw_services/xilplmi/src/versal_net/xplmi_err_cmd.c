@@ -239,6 +239,7 @@ static XPlmi_Module XPlmi_ErrModule =
 	XPlmi_ErrCmds,
 	XPLMI_ARRAY_SIZE(XPlmi_ErrCmds),
 	NULL,
+	NULL,
 };
 
 /*****************************************************************************/

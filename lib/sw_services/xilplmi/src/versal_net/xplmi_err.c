@@ -1569,15 +1569,15 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown)
 	XPlmi_Out32(XPLMI_RTCFG_PMC_ERR2_STATUS_ADDR, PmcErr2Status);
 	//TODO - Allocate RTCA register for PMC ERR3 Status
 	if (PmcErr1Status != 0U) {
-		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR1_STATUS: "
+		XPlmi_Printf(DEBUG_INFO, "PMC_GLOBAL_PMC_ERR1_STATUS: "
 			"0x%08x\n\r", PmcErr1Status);
 	}
 	if (PmcErr2Status != 0U) {
-		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR2_STATUS: "
+		XPlmi_Printf(DEBUG_INFO, "PMC_GLOBAL_PMC_ERR2_STATUS: "
 			"0x%08x\n\r", PmcErr2Status);
 	}
 	if (PmcErr3Status != 0U) {
-		XPlmi_Printf(DEBUG_GENERAL, "PMC_GLOBAL_PMC_ERR3_STATUS: "
+		XPlmi_Printf(DEBUG_INFO, "PMC_GLOBAL_PMC_ERR3_STATUS: "
 			"0x%08x\n\r", PmcErr3Status);
 	}
 	/* Clear the error status registers */

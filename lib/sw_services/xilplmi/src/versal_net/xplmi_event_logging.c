@@ -41,6 +41,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_event_logging.h"
+#include "xplmi_update.h"
 #include "xplmi_dma.h"
 #include "xplmi_debug.h"
 #include "xplmi_hw.h"
@@ -60,6 +61,8 @@
 #define XPLMI_TRACE_LOG_BUFFER	(0U)
 #define XPLMI_DEBUG_LOG_BUFFER	(1U)
 
+#define XPLMI_TRACE_LOG_VERSION (1U)
+#define XPLMI_TRACE_LOG_LCVERSION (1U)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -76,6 +79,9 @@ static XPlmi_CircularBuffer TraceLog = {
 	.Offset = 0x0U,
 	.IsBufferFull = (u32)FALSE,
 };
+
+EXPORT_GENERIC_DS(TraceLog, XPLMI_TRACELOG_DS_ID, XPLMI_TRACE_LOG_VERSION,
+	XPLMI_TRACE_LOG_LCVERSION, sizeof(TraceLog), (u32)(UINTPTR)&TraceLog);
 
 
 /*****************************************************************************/

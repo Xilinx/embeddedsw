@@ -137,6 +137,13 @@ extern "C" {
 				PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) ? \
 					(TRUE) : (FALSE))
 
+/* PLMI GENERIC MODULE Data Structures IDs */
+#define XPLMI_WDT_DS_ID			(0x01U)
+#define XPLMI_TRACELOG_DS_ID		(0x02U)
+#define XPLMI_LPDINITIALIZED_DS_ID	(0x03U)
+#define XPLMI_BANNER_DS_ID		(0x04U)
+#define XPLMI_UPDATE_IPIMASK_DS_ID	(0x05U)
+
 /************************** Function Prototypes ******************************/
 int XPlmi_Init(void);
 void XPlmi_LpdInit(void);
@@ -144,7 +151,7 @@ void XPlmi_ResetLpdInitialized(void);
 void XPlmi_PrintPlmBanner(void);
 
 /************************** Variable Definitions *****************************/
-extern u8 LpdInitialized;
+extern u32 LpdInitialized;
 
 #ifdef __cplusplus
 }

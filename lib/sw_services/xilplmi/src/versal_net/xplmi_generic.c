@@ -75,6 +75,7 @@
 #include "xil_util.h"
 #include "xplmi_cdo.h"
 #include "xplmi_ipi.h"
+#include "xplmi_update.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -107,6 +108,7 @@ static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams);
 static int XPlmi_StackPush(u32 *Data);
 static int XPlmi_StackPop(u32 PopLevel, u32 *Data);
 static int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level);
+static int XPlmi_GenericHandler(XPlmi_ModuleOp Op);
 
 /************************** Variable Definitions *****************************/
 
@@ -1166,6 +1168,28 @@ static int XPlmi_SetBoard(XPlmi_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides In Place PLM Update support.
+ *
+ * @param	Cmd is pointer to the command structure
+ *		Command payload parameters are
+ *		- High Addr
+ *		- Low Addr
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+
+	XPlmi_Printf(DEBUG_DETAILED, "%s\n\r", __func__);
+	Status = XPlmi_PlmUpdate(Cmd);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function provides GET BOARD command execution.
  *
  * @param	Cmd is pointer to the command structure
@@ -2027,7 +2051,7 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_Break),
 		XPLMI_MODULE_COMMAND(NULL),
 		XPLMI_MODULE_COMMAND(XPlmi_PsmSequence),
-		XPLMI_MODULE_COMMAND(NULL),
+		XPLMI_MODULE_COMMAND(XPlmi_InPlacePlmUpdate),
 		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite),
 		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite2),
 
@@ -2037,6 +2061,7 @@ void XPlmi_GenericInit(void)
 	XPlmi_Generic.CmdAry = XPlmi_GenericCmds;
 	XPlmi_Generic.CmdCnt = XPLMI_ARRAY_SIZE(XPlmi_GenericCmds);
 	XPlmi_Generic.CheckIpiAccess = XPlmi_CheckIpiAccess;
+	XPlmi_Generic.UpdateHandler = XPlmi_GenericHandler;
 
 	XPlmi_ModuleRegister(&XPlmi_Generic);
 }
@@ -2379,6 +2404,40 @@ static int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
 
 	Status = XST_SUCCESS;
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used for shutdown operation before In-place
+ * 		PLM Update
+ *
+ * @param	Op is the operation information
+ *
+ * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ *****************************************************************************/
+static int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
+{
+	int Status = XST_FAILURE;
+
+	if (Op.Mode == XPLMI_MODULE_SHUTDOWN_INITIATE) {
+		Status = XST_SUCCESS;
+	}
+	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_COMPLETE) {
+		/* Stop Timers */
+		XPlmi_StopTimer(XPLMI_PIT3_SEL);
+
+		/* Disable & Acknowledge Interrupts */
+		microblaze_disable_interrupts();
+
+		XPlmi_PlmIntrDisable(XPLMI_SBI_DATA_RDY);
+		XPlmi_PlmIntrDisable(XPLMI_IPI_IRQ);
+		XPlmi_PlmIntrClear(XPLMI_SBI_DATA_RDY);
+		XPlmi_PlmIntrClear(XPLMI_IPI_IRQ);
+		XPlmi_DisableClearIOmodule();
+
+		Status = XST_SUCCESS;
+	}
 	return Status;
 }
 

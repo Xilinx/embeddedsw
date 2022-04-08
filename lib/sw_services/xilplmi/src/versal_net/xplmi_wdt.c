@@ -30,6 +30,7 @@
 #include "xplmi_status.h"
 #include "xplmi_debug.h"
 #include "xplmi.h"
+#include "xplmi_update.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_WDT_PERIODICITY		(100U)
@@ -57,11 +58,13 @@ typedef struct {
 } XPlmi_Wdt;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_WDT_VERSION	(1U)
+#define XPLMI_WDT_LCVERSION	(1U)
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-static XPlmi_Wdt WdtInstance = {
+static XPlmi_Wdt WdtInstance __attribute__ ((aligned(4U))) = {
 	.PlmLiveStatus = (u8)FALSE,
 	.IsEnabled = (u8)FALSE,
 	.PlmMode = XPLMI_MODE_CONFIGURATION,
@@ -69,6 +72,9 @@ static XPlmi_Wdt WdtInstance = {
 	.GpioAddr = 0U,
 	.GpioMask = 0U
 };
+
+EXPORT_GENERIC_DS(WdtInstance, XPLMI_WDT_DS_ID, XPLMI_WDT_VERSION,
+	XPLMI_WDT_LCVERSION, sizeof(WdtInstance), (u32)(UINTPTR)&WdtInstance);
 
 /*****************************************************************************/
 /**

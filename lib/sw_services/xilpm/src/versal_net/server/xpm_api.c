@@ -44,6 +44,7 @@ static XPlmi_Module XPlmi_Pm =
 	XPlmi_PmCmds,
 	PM_API(PM_API_MAX),
 	NULL,
+	NULL,
 };
 
 void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);

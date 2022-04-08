@@ -67,6 +67,9 @@ extern "C" {
 #define XPLMI_PIT1			(0U)
 #define XPLMI_PIT2			(1U)
 #define XPLMI_PIT3			(2U)
+#define XPLMI_PIT1_SEL			(1U << XPLMI_PIT1)
+#define XPLMI_PIT2_SEL			(1U << XPLMI_PIT2)
+#define XPLMI_PIT3_SEL			(1U << XPLMI_PIT3)
 #define XPLMI_IOMODULE_PMC_PIT3_IRQ	(0x5U)
 #define XPLMI_PIT_FREQ_DIVISOR_QEMU	(10U)
 #define XPLMI_PIT_FREQ_DIVISOR		(100U)
@@ -113,6 +116,7 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_StartTimer(void);
+void XPlmi_StopTimer(u8 Timer);
 u64 XPlmi_GetTimerValue(void);
 int XPlmi_SetUpInterruptSystem(void);
 void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime);
@@ -122,6 +126,7 @@ int XPlmi_PlmIntrClear(u32 IntrId);
 int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data);
 void XPlmi_PrintRomTime(void);
 void XPlmi_PrintPlmTimeStamp(void);
+void XPlmi_DisableClearIOmodule(void);
 
 /* Handler Table Structure */
 struct HandlerTable {

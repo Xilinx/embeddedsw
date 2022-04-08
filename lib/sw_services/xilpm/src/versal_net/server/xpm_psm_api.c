@@ -16,6 +16,7 @@ static XPlmi_Module XPlmi_Psm =
 	XPlmi_PsmCmds,
 	PSM_API_MAX+1,
 	NULL,
+	NULL
 };
 
 u32 ProcDevList[PROC_DEV_MAX] = {

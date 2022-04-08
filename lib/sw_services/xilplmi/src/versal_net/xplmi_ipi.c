@@ -73,6 +73,7 @@ static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 /*****************************************************************************/
 /* Instance of IPI Driver */
 static XIpiPsu IpiInst;
+static XIpiPsu_Config *IpiCfgPtr;
 
 /*****************************************************************************/
 /**
@@ -127,20 +128,13 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function initializes the IPI.
+ * @brief	This function initializes the IPI Driver Instance
  *
- * @param	SubsystemHandler is handler to XilPm API called to retrieve
- *		Subsystem Id using Ipi mask
- *
- * @return	Status	IPI initialization status
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
-{
+int XPlmi_IpiDrvInit(void) {
 	int Status = XST_FAILURE;
-	XIpiPsu_Config *IpiCfgPtr;
-	XPlmi_TaskNode *Task = NULL;
-	u32 Index;
 
 	/* Load Config for Processor IPI Channel */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
@@ -153,6 +147,30 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	Status = XIpiPsu_CfgInitialize(&IpiInst, IpiCfgPtr,
 			IpiCfgPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the IPI.
+ *
+ * @param	SubsystemHandler is handler to XilPm API called to retrieve
+ *		Subsystem Id using Ipi mask
+ *
+ * @return	Status	IPI initialization status
+ *
+ *****************************************************************************/
+int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
+{
+	int Status = XST_FAILURE;
+	XPlmi_TaskNode *Task = NULL;
+	u32 Index;
+
+	Status = XPlmi_IpiDrvInit();
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -424,6 +442,7 @@ static int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
 			if ((ApiId == XPLMI_PLM_GENERIC_DEVICE_ID_VAL) ||
 					(ApiId == XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL) ||
 					(ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) ||
+					(ApiId == XPLMI_PLM_GENERIC_PLMUPDATE) ||
 					(ApiId == XPLMI_PLM_MODULES_GET_BOARD_VAL)) {
 				Status = XST_SUCCESS;
 			}

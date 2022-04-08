@@ -46,6 +46,7 @@
 #include "xplmi_err.h"
 #include "xplmi_wdt.h"
 #include "xplmi_hw.h"
+#include "xplmi_update.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_DIGEST_PMC_1_0_ROM_1_0	(0x2B004AC7U)
@@ -59,6 +60,10 @@
 typedef int (*XPlmi_InitHandler)(void);
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_LPDINITIALIZED_VER 	(1U)
+#define XPLMI_LPDINITIALIZED_LCVER 	(1U)
+#define XPLMI_BANNER_VER		(1U)
+#define XPLMI_BANNER_LCVER		(1U)
 
 /************************** Function Prototypes ******************************/
 static void XPlmi_RunTimeConfigInit(void);
@@ -66,7 +71,10 @@ static void XPlmi_PrintRomVersion(void);
 static void XPlmi_PrintEarlyLog(void);
 
 /************************** Variable Definitions *****************************/
-u8 LpdInitialized = (u8)0U;
+u32 LpdInitialized __attribute__ ((aligned(4U))) = (u32)0U;
+
+EXPORT_GENERIC_DS(LpdInitialized, XPLMI_LPDINITIALIZED_DS_ID, XPLMI_LPDINITIALIZED_VER,
+		XPLMI_LPDINITIALIZED_LCVER, sizeof(LpdInitialized), (u32)(UINTPTR)&LpdInitialized);
 
 /******************************************************************************/
 /**
@@ -81,7 +89,9 @@ int XPlmi_Init(void)
 {
 	int Status = XST_FAILURE;
 
-	XPlmi_RunTimeConfigInit();
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		XPlmi_RunTimeConfigInit();
+	}
 	Status = XPlmi_SetUpInterruptSystem();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -163,7 +173,9 @@ void XPlmi_LpdInit(void)
 	if (XST_SUCCESS == Status) {
 		LpdInitialized |= LPD_INITIALIZED;
 	}
-	XPlmi_PrintEarlyLog();
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		XPlmi_PrintEarlyLog();
+	}
 }
 
 /*****************************************************************************/
@@ -196,12 +208,15 @@ void XPlmi_PrintPlmBanner(void)
 	u32 Version;
 	u32 PsVersion;
 	u32 PmcVersion;
-	static u8 IsBannerPrinted = (u8)FALSE;
+	static u32 IsBannerPrinted __attribute__ ((aligned(4U))) = (u8)FALSE;
 	u32 BootMode;
 	u32 MultiBoot;
 	char *Platform = NULL;
 
-	if ((u8)FALSE == IsBannerPrinted) {
+	EXPORT_GENERIC_DS(IsBannerPrinted, XPLMI_BANNER_DS_ID, XPLMI_BANNER_VER,
+		XPLMI_BANNER_LCVER, sizeof(IsBannerPrinted), (u32)(UINTPTR)&IsBannerPrinted);
+
+	if ((u32)FALSE == IsBannerPrinted) {
 		/* Print the PLM Banner */
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"****************************************\n\r");
@@ -248,7 +263,7 @@ void XPlmi_PrintPlmBanner(void)
 				"\n\r", BootMode, MultiBoot);
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 			"****************************************\n\r");
-		IsBannerPrinted = (u8)TRUE;
+		IsBannerPrinted = (u32)TRUE;
 	}
 }
 
@@ -300,5 +315,5 @@ void XPlmi_ResetLpdInitialized(void)
 		XPlmi_DisableWdt();
 	}
 
-	LpdInitialized = (u8)0U;
+	LpdInitialized = (u32)0U;
 }

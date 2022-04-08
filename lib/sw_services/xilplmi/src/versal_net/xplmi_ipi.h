@@ -82,6 +82,7 @@ typedef u32 (*XPlmi_SubsystemHandler)(u32 IpiMask);
 
 /************************** Function Prototypes ******************************/
 int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler);
+int XPlmi_IpiDrvInit(void);
 int XPlmi_IpiDispatchHandler(void *Data);
 int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);

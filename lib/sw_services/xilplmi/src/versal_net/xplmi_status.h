@@ -246,7 +246,45 @@ typedef enum {
 	XPLMI_ERR_PROC_LPD_NOT_INITIALIZED, /**< 0x138 LPD is not initialized
 						     proc command cannot be stored/executed */
 	XPLMI_ERR_CDO_CMD_BREAK_CHUNKS_NOT_SUPPORTED, /**< 0x139 - Error when end
-				and break command are in separate chunks */
+						and break command are in separate chunks */
+	XPLMI_ERR_PLM_UPDATE_COMPATIBILITY, /**< 0x13A - Error in compatibility check
+					      during InPlace PLM Update */
+	XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT, /**< 0x13B - Error in shutdown initiate of modules
+					      during InPlace PLM Update */
+	XPLMI_ERR_PLM_UPDATE_SHUTDOWN_COMPLETE, /**< 0x13C - Error in shutdown complete of modules
+						during InPlace PLM Update */
+	XPLMI_ERR_INVALID_STORE_DS_HANDLER, /**< 0x13D - Error due to invalid Data Structure Handler used
+						in storing of Data Structures during InPlace PLM Update */
+	XPLMI_ERR_INVALID_RESTORE_DS_HANDLER, /**< 0x13E - Error due to invalid Data Structure Handler used
+						in restoring of Data Structures during InPlace PLM Update */
+	XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND, /**< 0x13F - Error when no Data Structure is found whose structure ID
+						and module ID are matching while restoring of Data Structures
+						during InPlace PLM Update */
+	XPLMI_ERR_INVALID_DS_ENTRY, 	/**< 0x140 - Error when a invalid Data Structure entry is passed
+						to the PLM Db Update Handler */
+	XPLMI_ERR_DS_ALIGNMENT_INCORRECT, /**< 0x141 - Error when the alignment of Data Structure used during
+						store or restore operations is not word aligned Header */
+	XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW, /**< 0x142 - Error when the given Data Structure length is exceed
+						the Update DB buffer available */
+	XPLMI_ERR_PLM_UPDATE_INVALID_OP, /**< 0x143 - Error when a invalid operation is passed to PLM
+						Update DB Handler */
+	XPLMI_ERR_PLM_UPDATE_RELOCATED_FN, /**< 0x144 - Error when the relocated PLM update function fails */
+	XPLMI_ERR_DB_HDR_SIZE_MISMATCH,	/**< 0x145 - Error when the DB Hdr size of old PLM is not matching
+						with the size of updated PLM */
+	XPLMI_ERR_DB_HDR_VERSION_MISMATCH, /**< 0x146 - Error when the DB Hdr version of old PLM is not matching
+						with that of updated PLM */
+	XPLMI_ERR_DB_ENDADDR_INVALID, /**< 0x147 - Error when the DB end address calculated is not in a
+						valid range that is accepted by updated PLM */
+	XPLMI_ERR_IPI_DRV_INIT,		/**< 0x148 - Error when there is a failure in Ipi Driver Init
+						which is done after In-Place update */
+	XPLMI_ERR_MEMSET_UPDATE_RESP,	/**< 0x149 - Error when there is a failure in memset of
+						IPI response buffer used to ack the ipi after update */
+	XPLMI_ERR_MEMCPY_STORE_DB,	/**< 0x14A - Error when memcpy during store database is failed */
+	XPLMI_ERR_MEMSET_RESTORE_DB,	/**< 0x14B - Error when memset during store database is failed */
+	XPLMI_ERR_MEMCPY_RESTORE_DB,	/**< 0x14C - Error when memcpy during restore database is failed */
+	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x14D - Error when memset of DbHdr during store database is failed */
+	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x14E - Error when relocating of update manager code is failed */
+
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

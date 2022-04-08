@@ -56,16 +56,25 @@ extern "C" {
 #define XPLMI_MODULE_STL_ID				(10U)
 #define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
 
+/* Module Operations */
+#define XPLMI_MODULE_SHUTDOWN_INITIATE		(1U)
+#define XPLMI_MODULE_SHUTDOWN_COMPLETE		(2U)
+
 /**************************** Type Definitions *******************************/
 typedef struct {
 	int (*Handler)(XPlmi_Cmd *Cmd);
 } XPlmi_ModuleCmd;
 
 typedef struct {
+	u8 Mode;
+} XPlmi_ModuleOp;
+
+typedef struct {
 	u32 Id;
 	const XPlmi_ModuleCmd *CmdAry;
 	u32 CmdCnt;
 	int (*CheckIpiAccess)(u32 CmdId, u32 IpiReqType);
+	int (*UpdateHandler)(XPlmi_ModuleOp Op);
 } XPlmi_Module;
 
 /***************** Macros (Inline Functions) Definitions *********************/

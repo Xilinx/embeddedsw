@@ -113,6 +113,26 @@ extern "C" {
 #define PMC_GLOBAL_PMC_GSW_ERR    (PMC_GLOBAL_BASEADDR + 0X00000064U)
 
 /*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE5
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE5	(PMC_GLOBAL_BASEADDR + 0X00000068U)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE6
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE6	(PMC_GLOBAL_BASEADDR + 0X0000006CU)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE7
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE7	(PMC_GLOBAL_BASEADDR + 0X00000070U)
+
+/*
+ * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE8
+ */
+#define PMC_GLOBAL_GLOBAL_GEN_STORAGE8	(PMC_GLOBAL_BASEADDR + 0X00000074U)
+
+/*
  * Register: PMC_GLOBAL_PWR_STATUS
  */
 #define PMC_GLOBAL_PWR_STATUS    (PMC_GLOBAL_BASEADDR + 0X00000100U)
@@ -158,6 +178,15 @@ extern "C" {
 #define PMC_GLOBAL_PMC_FW_ERR    (PMC_GLOBAL_BASEADDR + 0X00010100U)
 #define PMC_GLOBAL_PMC_FW_ERR_NCR_FLAG_MASK		(0x80000000U)
 
+/*
+ * Register: PMC_GLOBAL_ROM_INT
+ */
+#define PMC_GLOBAL_ROM_INT		(PMC_GLOBAL_BASEADDR + 0X00011060U)
+
+/*
+ * Register: PMC_GLOBAL_ROM_INT_REASON
+ */
+#define PMC_GLOBAL_ROM_INT_REASON	(PMC_GLOBAL_BASEADDR + 0X00011508U)
 /*
  * Register: PMC_GLOBAL_PMC_ERR1_STATUS
  */
@@ -307,6 +336,11 @@ extern "C" {
 #define PMC_GLOBAL_PMC_SRST3_DIS    (PMC_GLOBAL_BASEADDR + 0X00020148U)
 
 /*
+ * Register: PMC_GLOBAL_PMC_BOOT_ERR
+ */
+#define PMC_GLOBAL_PMC_BOOT_ERR    (PMC_GLOBAL_BASEADDR + 0x00020100U)
+
+/*
  * Register: PMC_GLOBAL_GICP0_IRQ_STATUS
  */
 #define PMC_GLOBAL_GICP0_IRQ_STATUS    (PMC_GLOBAL_BASEADDR + 0X00030000U)
@@ -394,7 +428,7 @@ extern "C" {
  * @return       32-bit register value
  *
  ******************************************************************************/
-static inline u32 XPlmi_In32(UINTPTR Addr)
+static inline  __attribute__((always_inline)) u32 XPlmi_In32(UINTPTR Addr)
 {
 	return Xil_In32(Addr);
 }
@@ -409,7 +443,7 @@ static inline u32 XPlmi_In32(UINTPTR Addr)
  * @return	None
  *
 ******************************************************************************/
-static inline void XPlmi_Out32(UINTPTR Addr, u32 Value)
+static inline __attribute__((always_inline)) void XPlmi_Out32(UINTPTR Addr, u32 Value)
 {
 	Xil_Out32(Addr, Value);
 }
@@ -912,6 +946,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PMC_GLOBAL_PPU1_HW_INT_DISABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011530U)
 #define PMC_GLOBAL_PPU1_PL_INT_ENABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011524U)
 
+#define PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK	(0x00000001U)
 #define PMC_GLOBAL_PPU1_HW_INT_MB_DATA_MASK	(0x00000002U)
 #define PMC_GLOBAL_PPU1_HW_INT_MB_INSTR_MASK	(0x00000004U)
 #define PMC_GLOBAL_PPU1_PL_INT_GPI_MASK		(0x00000001U)

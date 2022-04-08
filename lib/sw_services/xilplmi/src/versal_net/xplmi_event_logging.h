@@ -51,7 +51,7 @@ typedef struct {
 	u32 Len;
 	u32 Offset:31;
 	u32 IsBufferFull:1;
-} XPlmi_CircularBuffer;
+} XPlmi_CircularBuffer  __attribute__ ((aligned(4U)));
 
 typedef struct {
 	XPlmi_CircularBuffer LogBuffer;

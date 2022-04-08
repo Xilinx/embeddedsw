@@ -56,6 +56,7 @@ static XPlmi_Module XPlmi_Secure =
 	XSecure_Cmds,
 	XSECURE_API(XSECURE_API_MAX),
 	XSecure_CheckIpiAccess,
+	NULL,
 };
 
 /**************************** Type Definitions *******************************/

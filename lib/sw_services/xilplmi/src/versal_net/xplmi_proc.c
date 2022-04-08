@@ -46,6 +46,7 @@
 #include "xplmi_scheduler.h"
 #include "xplmi_debug.h"
 #include "xplmi_err.h"
+#include "xplmi_update.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
@@ -261,6 +262,27 @@ static void XPlmi_SetPmcIroFreq(void)
 	}
 }
 
+
+/*****************************************************************************/
+/**
+* @brief	It stops the PIT timers.
+*
+* @param	Timer argument to select. This can be OR of all three timers too.
+*
+*****************************************************************************/
+void XPlmi_StopTimer(u8 Timer)
+{
+	if ((Timer & XPLMI_PIT1_SEL) == XPLMI_PIT1_SEL) {
+		XIOModule_Timer_Stop(&IOModule, (u8)XPLMI_PIT1);
+	}
+	if ((Timer & XPLMI_PIT2_SEL) == XPLMI_PIT2_SEL) {
+		XIOModule_Timer_Stop(&IOModule, (u8)XPLMI_PIT2);
+	}
+	if ((Timer & XPLMI_PIT3_SEL) == XPLMI_PIT3_SEL) {
+		XIOModule_Timer_Stop(&IOModule, (u8)XPLMI_PIT3);
+	}
+}
+
 /*****************************************************************************/
 /**
 * @brief	It initializes the IO module structures and PIT timers.
@@ -273,7 +295,26 @@ static void XPlmi_SetPmcIroFreq(void)
 int XPlmi_StartTimer(void)
 {
 	int Status =  XST_FAILURE;
+	XIOModule_Config *CfgPtr;
 	u32 Pit3ResetValue;
+	u32 Pit2ResetValue;
+	u32 Pit1ResetValue;
+
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		CfgPtr = XIOModule_LookupConfig(IOMODULE_DEVICE_ID);
+		if (CfgPtr == NULL) {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_IOMOD_INIT, 0U);
+			goto END;
+		}
+
+		Pit2ResetValue = XPlmi_In32(CfgPtr->BaseAddress + XTC_TCR_OFFSET +
+					XTC_TIMER_COUNTER_OFFSET);
+		Pit1ResetValue = XPlmi_In32(CfgPtr->BaseAddress + XTC_TCR_OFFSET);
+	}
+	else {
+		Pit2ResetValue = XPLMI_PIT2_RESET_VALUE;
+		Pit1ResetValue = XPLMI_PIT1_RESET_VALUE;
+	}
 
 	/*
 	 * Initialize the IO Module so that it's ready to use,
@@ -291,6 +332,16 @@ int XPlmi_StartTimer(void)
 		goto END;
 	}
 
+	/* Initialize and start the timer
+	 *  Use PIT1 and PIT2 in prescaler mode
+	 *  Setting for Prescaler mode
+	 */
+
+	XPlmi_Out32(IOModule.BaseAddress + (u32)XGO_OUT_OFFSET,
+		MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT2, Pit2ResetValue);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT1, Pit1ResetValue);
+
 	XPlmi_SetPmcIroFreq();
 	/*
 	 * PLM scheduler is running too fast for QEMU, so increasing the
@@ -304,15 +355,8 @@ int XPlmi_StartTimer(void)
 
 	XPlmi_SchedulerInit();
 
-	/* Initialize and start the timer
-	 *  Use PIT1 and PIT2 in prescaler mode
-	 *  Setting for Prescaler mode
-	 */
-	XPlmi_Out32(IOModule.BaseAddress + (u32)XGO_OUT_OFFSET,
-		MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT2, XPLMI_PIT2_RESET_VALUE);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT1, XPLMI_PIT1_RESET_VALUE);
 	XPlmi_InitPitTimer((u8)XPLMI_PIT3, Pit3ResetValue);
+
 END:
 	return Status;
 }
@@ -431,6 +475,8 @@ int XPlmi_SetUpInterruptSystem(void)
 		(void*) IOMODULE_DEVICE_ID);
 
 	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PPU1_HW_INT);
+	XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR,
+			PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK);
 	XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR,
 			PMC_GLOBAL_PPU1_HW_INT_MB_DATA_MASK);
 	XPlmi_Out32(PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR,
@@ -692,4 +738,17 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 
 END:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function will disable and clear the IOmodule interrupts
+*
+* @return   None
+*
+****************************************************************************/
+void XPlmi_DisableClearIOmodule(void)
+{
+	XIomodule_Out32(IOModule.BaseAddress + XIN_IER_OFFSET, 0U);
+	XIomodule_Out32(IOModule.BaseAddress + XIN_IAR_OFFSET, 0xFFFFFFFFU);
 }
