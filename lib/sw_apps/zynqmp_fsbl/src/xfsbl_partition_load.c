@@ -1969,7 +1969,11 @@ static void XFsbl_PollForDDRSrExit(void)
 {
 	u32 RegValue;
 	/* Timeout count for around 1 second */
+#ifdef ARMR5
+	u32 TimeOut = XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ;
+#else
 	u32 TimeOut = XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ;
+#endif
 
 	/* Wait for DDR exit from self refresh mode within 1 second */
 	while (TimeOut > 0) {
