@@ -913,7 +913,7 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, u8 *ExtSeedPtr, u8 *Pe
 
 			Status = XTrngpsv_CollectRandData(InstancePtr,
 					InstancePtr->DFInput.EntropyData,
-					InstancePtr->EntropySize * 8U);
+					InstancePtr->EntropySize);
 			if (Status != XTRNGPSV_SUCCESS) {
 				goto SET_ERR;
 			}
