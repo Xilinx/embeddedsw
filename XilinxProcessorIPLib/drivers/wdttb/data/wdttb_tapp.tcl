@@ -226,7 +226,7 @@ proc gen_testfunc_call {swproj mhsinst} {
           
       }
    } else {
-     if {$ps_wdt == 1} {
+     if {$ps_wdt == 1 && $iftmrintr == 1} {
         append testfunc_call "
 
    {
@@ -345,7 +345,7 @@ proc gen_testfunc_call {swproj mhsinst} {
            }
          }
        } else {
-         if {$ps_wdt == 1} {
+         if {$ps_wdt == 1 && $iftmrintr == 1} {
     append testfunc_call "
 
    {

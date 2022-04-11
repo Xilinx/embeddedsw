@@ -178,6 +178,8 @@
 * 5.0	sne  02/27/20 Reorganize the driver source and Fixed doxygen warnings.
 *		      Added XWdtTb_ConfigureWDTMode function.
 * 5.1	sne  05/04/20 Fixed violations according to MISRAC-2012 standards.
+* 5.6	sne  04/11/22 Added IP interrupt current core connection check for
+*		      Generic WDT example
 *
 * </pre>
 *
