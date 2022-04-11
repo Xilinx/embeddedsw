@@ -66,8 +66,14 @@
 *   			__sharedmemory_end = .;
 * 			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
 *
-* 		2. Data elements that are passed by reference to the server side should be stored in the above shared
-* 			memory section.
+* 		2. In this example, ".data" section elements that are passed by reference to the server side
+* 			should be stored in the above shared memory section. To make it happen in below example,
+* 			replace ".data" in attribute section with ".sharedmemory". For example,
+* 			static SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
+* 					__attribute__((section(".data.SharedMem")));
+* 			should be changed to
+* 			static SharedMem[XNVM_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
+* 					__attribute__((section(".sharedmemory.SharedMem")));
 *
 * To keep things simple, by default the cache is disabled for this example
 *
