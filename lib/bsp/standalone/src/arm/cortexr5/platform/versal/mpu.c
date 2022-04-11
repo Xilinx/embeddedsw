@@ -188,6 +188,13 @@ void Init_MPU(void)
         Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
         RegNum++;
 
+        /* 2MB RPU GIC */
+        Addr = 0xE2000000;
+        RegSize = 0x1FFFFF;
+        Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW;
+        Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
+        Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
+        RegNum++;
 
         /* 16 MB CPM */
         Addr = 0xE4000000;
