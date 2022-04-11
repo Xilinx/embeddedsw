@@ -107,7 +107,7 @@
  *
  * 		2. In this example ".data" section elements that are passed by reference to the server-side should
  * 		   be stored in the above shared memory section. To make it happen in below example,
- *		   replace ".data" in attribute section with ".sharedmemory. For example,
+ *		   replace ".data" in attribute section with ".sharedmemory". For example,
  * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".data.PufData")));
  * 					should be changed to
  * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".sharedmemory.PufData")));
