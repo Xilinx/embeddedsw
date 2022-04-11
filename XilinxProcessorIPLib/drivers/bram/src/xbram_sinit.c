@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xbram_sinit.c
-* @addtogroup bram_v4_7
+* @addtogroup bram_v4_8
 * @{
 *
 * The implementation of the XBram driver's static initialization
