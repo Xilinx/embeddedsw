@@ -34,6 +34,7 @@
 *	ag	03/31/21	Fixed IPI poll for ack condition check.
 *	sd  06/02/21	Update the crc code remove the check for max length.
 * 2.10	sd	07/14/21	Fix a unused label warning
+* 2.12	sd	03/29/22	Make the message pointer in XIpiPsu_WriteMessage constant
 * </pre>
 *
 *****************************************************************************/
@@ -288,7 +289,7 @@ END:
  * 			XST_FAILURE if an error occurred
  */
 
-XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
+XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask,const u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType)
 {
 	XStatus Status = (XStatus)XST_FAILURE;

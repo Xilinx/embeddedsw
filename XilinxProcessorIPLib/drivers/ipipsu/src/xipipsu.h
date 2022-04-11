@@ -316,7 +316,7 @@ XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
 XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType);
 
-XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
+XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask,const u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType);
 
 void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr);
