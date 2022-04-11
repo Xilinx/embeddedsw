@@ -37,8 +37,12 @@
 *   			__sharedmemory_end = .;
 * 			} > versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
 *
-* 		2. Data elements that are passed by reference to the server side should be stored in the above shared
-* 			memory section.
+* 		2. In this example ".data" section elements that are passed by reference to the server-side should
+* 		   be stored in the above shared memory section. To make it happen in below example,
+*		   replace ".data" in attribute section with ".sharedmemory". For example,
+* 		   static const u8 Hash_P384[] __attribute__ ((section (".data.Hash_P384")))
+* 					should be changed to
+* 		   static const u8 Hash_P384[] __attribute__ ((section (".sharedmemory.Hash_P384")))
 *
 * To keep things simple, by default the cache is disabled for this example
 *
@@ -53,6 +57,7 @@
 *       har  06/02/2021 Fixed GCC warnings for R5 compiler
 * 4.7   kpt  01/13/2022 Added support for PL microblaze
 *       kpt  03/16/2022 Removed IPI related code and added mailbox support
+*       kpt  04/11/2022 Added comment on usage of shared memory
 *
 * </pre>
 *
