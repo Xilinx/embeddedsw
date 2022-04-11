@@ -18,6 +18,8 @@
 #                         identify specific lmb_bram_if_cntlr instance in
 #                         microblaze_scrub.S file of standalone BSP. It fixes
 #                         CR#1094218
+# 4.8     adk    04/11/22 Fix lmb_bram_if_cntlr canonical redefinition warnings
+# 			  when multiple lmb_bram_if_cntlr instances are present.
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_P
@@ -304,6 +306,8 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     }
 
     set i 0
+    set dlmb_ref 0
+    set ilmb_ref 0
     foreach periph $periphs {
         #set have_ecc [::hsi::utils::get_param_value $periph "C_ECC"]
         set have_ecc [common::get_property CONFIG.C_ECC $periph]
@@ -359,22 +363,32 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
         # be consumed in microblaze_scrub.S file of standalone BSP. From generic canonicals,
         # instances of lmb_bram_if_cntlr can not be identified, hence exporting these
         # additional #define
-        if { $periph_type == "lmb_bram_if_cntlr" && [string match -nocase "*dlmb*" $periph] } {
+        if { $periph_type == "lmb_bram_if_cntlr" && [string match -nocase "*dlmb*" $periph]} {
                  set rvalue [::hsi::utils::get_param_value $periph C_BASEADDR]
                  set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
-                 puts $file_handle "#define XPAR_DLMB_CNTLR_BASEADDR $rvalue"
+                 puts $file_handle "#define XPAR_DLMB_${dlmb_ref}_CNTLR_BASEADDR $rvalue"
 
                  set rvalue [::hsi::utils::get_param_value $periph C_HIGHADDR]
                  set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
-                 puts $file_handle "#define XPAR_DLMB_CNTLR_HIGHADDR $rvalue"
-        } elseif { $periph_type == "lmb_bram_if_cntlr" && [string match -nocase "*ilmb*" $periph] } {
+                 puts $file_handle "#define XPAR_DLMB_${dlmb_ref}_CNTLR_HIGHADDR $rvalue"
+		 if {$dlmb_ref == 0} {
+                     puts $file_handle "#define XPAR_DLMB_CNTLR_BASEADDR XPAR_DLMB_0_CNTLR_BASEADDR"
+                     puts $file_handle "#define XPAR_DLMB_CNTLR_HIGHADDR XPAR_DLMB_0_CNTLR_HIGHADDR"
+		 }
+		 incr dlmb_ref
+        } elseif { $periph_type == "lmb_bram_if_cntlr" && [string match -nocase "*ilmb*" $periph]} {
                  set rvalue [::hsi::utils::get_param_value $periph C_BASEADDR]
                  set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
-                 puts $file_handle "#define XPAR_ILMB_CNTLR_BASEADDR $rvalue"
+                 puts $file_handle "#define XPAR_ILMB_${ilmb_ref}_CNTLR_BASEADDR $rvalue"
 
                  set rvalue [::hsi::utils::get_param_value $periph C_HIGHADDR]
                  set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
-                 puts $file_handle "#define XPAR_ILMB_CNTLR_HIGHADDR $rvalue"
+                 puts $file_handle "#define XPAR_ILMB_${ilmb_ref}_CNTLR_HIGHADDR $rvalue"
+		 if {$ilmb_ref == 0} {
+                     puts $file_handle "#define XPAR_ILMB_CNTLR_BASEADDR XPAR_ILMB_0_CNTLR_BASEADDR"
+                     puts $file_handle "#define XPAR_ILMB_CNTLR_HIGHADDR XPAR_ILMB_0_CNTLR_HIGHADDR"
+		 }
+		 incr ilmb_ref
         }
             puts $file_handle ""
             incr i

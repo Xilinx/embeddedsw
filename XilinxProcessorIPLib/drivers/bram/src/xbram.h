@@ -98,6 +98,9 @@
 *       ms  08/07/17 Fixed compilation warnings in xbram_sinit.c
 * 4.6	sk  02/18/21 Use UINTPTR instead of u32 for MemBaseAddress and
 * 		     MemHighAddress variables.
+* 4.8   adk 04/11/22 Modified driver tcl fix lmb_bram_if_cntlr canonical
+* 		     redefinition warnings when multiple lmb_bram_if_cntlr
+* 		     instances are present.
 * </pre>
 *****************************************************************************/
 #ifndef XBRAM_H		/* prevent circular inclusions */
