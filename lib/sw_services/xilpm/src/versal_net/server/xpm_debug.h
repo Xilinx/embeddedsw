@@ -59,6 +59,10 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_NODE_IDX		0x3608U
 /* Invalid arguments */
 #define XPM_INT_ERR_INVALID_ARGS		0x3609U
+/* Invalid subclass */
+#define XPM_INT_ERR_INVALID_SUBCLASS		0x360BU
+/* Buffer too small */
+#define XPM_INT_ERR_BUFFER_TOO_SMALL		0x360CU
 
 // /************************** PLD specific Errors ******************************/
 // /************************** (0x3700) - (0x37FF) ******************************/
@@ -68,6 +72,32 @@ extern "C" {
 
 // /************************* Clock specific errors *****************************/
 // /************************** (0x3900) - (0x39FF) ******************************/
+/* Error during clock enable */
+#define XPM_INT_ERR_CLK_ENABLE			0x3900U
+/* Max clock parents error */
+#define XPM_INT_ERR_MAX_CLK_PARENTS		0x3901U
+/* Error during clock init */
+#define XPM_INT_ERR_CLK_INIT			0x3902U
+/* Topology nodes greater than max number of nodes */
+#define XPM_INT_ERR_CLK_TOPOLOGY_MAX_NUM_NODES	0x3903U
+/* Invalid clock type */
+#define XPM_INT_ERR_INVALID_CLK_TYPE		0x3904U
+/* Invalid clock parent */
+#define XPM_INT_ERR_INVALID_CLK_PARENT		0x3905U
+/* Read only clock */
+#define XPM_INT_ERR_READ_ONLY_CLK		0x3906U
+/* PLL permission error as PLLs are shared */
+#define XPM_INT_ERR_PLL_PERMISSION		0x3907U
+/* Error during clock disable */
+#define XPM_INT_ERR_CLK_DISABLE			0x3908U
+/* Error enabling CPM_TOPSW_REF clk */
+#define XPM_INT_ERR_CPM_TOPSW_REF_CLK_ENABLE	0x3909U
+/* Error enabling USB clk */
+#define XPM_INT_ERR_USB_CLK_ENABLE		0x390AU
+/* Error enabling CAN_0 clk */
+#define XPM_INT_ERR_CAN0_CLK_ENABLE		0x390BU
+/* Error enabling CAN_1 clk */
+#define XPM_INT_ERR_CAN1_CLK_ENABLE		0x390CU
 
 // /************************** CPM specific Errors ******************************/
 // /************************** (0x4000) - (0x40FF) ******************************/

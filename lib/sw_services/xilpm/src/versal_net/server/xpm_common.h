@@ -10,7 +10,7 @@
 #include "xstatus.h"
 #include "xil_io.h"
 #include "xil_util.h"
-//#include "xpm_err.h"
+#include "xpm_err.h"
 #include "xplmi_debug.h"
 
 #ifdef __cplusplus
@@ -121,6 +121,10 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #endif
 
 #define BIT(n)					(1U << (n))
+#define BIT8(n)					((u8)1U << (n))
+#define BIT16(n)				((u16)1U << (n))
+#define BIT32(n)				((u32)1U << (n))
+
 // set the first n bits to 1, rest to 0
 #define BITMASK(n)				(u32)((1ULL << (n)) - 1ULL)
 // set width specified bits at offset to 1, rest to 0

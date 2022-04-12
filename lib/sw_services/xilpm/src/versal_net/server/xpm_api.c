@@ -29,6 +29,7 @@
 #include "xpm_cpmdomain.h"
 #include "xpm_pldomain.h"
 #include "xpm_npdomain.h"
+#include "xpm_pll.h"
 
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
@@ -95,6 +96,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_ADD_NODE_PARENT):
 		Status = XPm_AddNodeParent(&Pload[0], Len);
+		break;
+	case PM_API(PM_ADD_NODE_NAME):
+		Status = XPm_AddNodeName(&Pload[0], Len);
 		break;
 	case PM_API(PM_APPLY_TRIM):
 		Status = XPm_PldApplyTrim(Pload[0]);
@@ -723,6 +727,13 @@ XStatus XPm_AddNodeParent(const u32 *Args, u32 NumArgs)
 	case (u32)XPM_NODECLASS_POWER:
 		Status = XPmPower_AddParent(Id, Parents, NumParents);
 		break;
+	case (u32)XPM_NODECLASS_CLOCK:
+		if (ISPLL(Id)) {
+			Status = XPmClockPll_AddParent(Id, Parents, (u8)NumParents);
+		} else {
+			Status = XPmClock_AddParent(Id, Parents, (u8)NumParents);
+		}
+		break;
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
@@ -880,6 +891,147 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function adds node name
+ *
+ * @param  Args		name
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeId;
+	char Name[MAX_NAME_BYTES] = {0};
+	u32 i=0U, j=0U;
+	const u32 CopySize = 4U;
+
+	if (0U == NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	NodeId = Args[0];
+	if (ISOUTCLK(NodeId) || ISREFCLK(NodeId) || ISPLL(NodeId)) {
+		for (i = 1U; i < NumArgs; i++) {
+			Status = Xil_SMemCpy(&Name[j], CopySize, (char *)((UINTPTR)&Args[i]), CopySize, CopySize);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			j += 4U;
+		}
+		Status = XPmClock_AddClkName(NodeId, Name);
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function adds sub nodes for clocks having custom topology
+ *
+ * @param  Args		topology node arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddClockSubNode(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 ClockId, ControlReg, Type, Flags;
+	u8 Param1, Param2;
+
+	if (5U > NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	ClockId = Args[0];
+	if (ISOUTCLK(ClockId)) {
+		Type = Args[1];
+		ControlReg = Args[2];
+		Param1 =  (u8)(Args[3] & 0xFFU);
+		Param2 =  (u8)((Args[3] >> 8U) & 0xFFU);
+		Flags = Args[4];
+		Status = XPmClock_AddSubNode(ClockId, Type, ControlReg, Param1, Param2, Flags);
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function add clock node to clock topology database
+ *
+ * @param  Args		clock arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodeClock(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 ClockId, ControlReg;
+	u32 PowerDomainId;
+	u8 TopologyType, NumCustomNodes=0, NumParents, ClkFlags;
+
+	if (4U > NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	ClockId = Args[0];
+
+	if (NODETYPE(ClockId) == (u32)XPM_NODETYPE_CLOCK_SUBNODE) {
+		Status = XPm_AddClockSubNode(Args, NumArgs);
+		goto done;
+	}
+	if (ISOUTCLK(ClockId) || ISREFCLK(ClockId) || ISPLL(ClockId)) {
+		ControlReg = Args[1];
+		TopologyType = (u8)(Args[2] & 0xFFU);
+		NumCustomNodes = (u8)((Args[2] >> 8U) & 0xFFU);
+		NumParents = (u8)((Args[2] >> 16U) & 0xFFU);
+		ClkFlags = (u8)((Args[2] >> 24U) & 0xFFU);
+		PowerDomainId = Args[3];
+		if (ISPLL(ClockId)) {
+			const u16 *Offsets = (u16 *)&Args[4];
+			Status = XPmClockPll_AddNode(ClockId, ControlReg,
+						     TopologyType, Offsets,
+						     PowerDomainId, ClkFlags);
+		} else {
+			Status = XPmClock_AddNode(ClockId, ControlReg,
+						  TopologyType, NumCustomNodes,
+						  NumParents, PowerDomainId,
+						  ClkFlags);
+		}
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function add isolation node to isolation topology database
  *
  * @param  Args		isolation node arguments
@@ -924,6 +1076,9 @@ XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODECLASS_ISOLATION:
 		Status = XPm_AddNodeIsolation(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_CLOCK:
+		Status = XPm_AddNodeClock(Args, NumArgs);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
