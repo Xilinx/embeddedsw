@@ -40,6 +40,16 @@ extern "C" {
 #define XPM_INT_ERR_DEVICE_LOOKUP		0x3301U
 /* Error during configuration initialization */
 #define XPM_INT_ERR_CFG_INIT			0x3302U
+/* Error during device init */
+#define XPM_INT_ERR_DEVICE_INIT			0x3305U
+/* Error during Add requirement of device*/
+#define XPM_INT_ERR_ADD_REQUIREMENT		0x3306U
+/* Error during add clock */
+#define XPM_INT_ERR_ADD_CLK			0x3307U
+/* Error during add reset node */
+#define XPM_INT_ERR_ADD_RST			0x3308U
+/* Error during set device node */
+#define XPM_INT_ERR_SET_DEV_NODE		0x3309U
 
 // /************************* Reset specific Errors *****************************/
 // /************************** (0x3400) - (0x34FF) ******************************/
@@ -103,6 +113,20 @@ extern "C" {
 
 // /************************** CPM specific Errors ******************************/
 // /************************** (0x4000) - (0x40FF) ******************************/
+/* Invalid subsystem ID */
+#define XPM_INT_ERR_INVALID_SUBSYSTEMID		0x4600U
+/* Subsystem not allowed to access clock */
+#define XPM_INT_ERR_CLOCK_PERMISSION		0x4601U
+/* Subsystem not allowed to access reset */
+#define XPM_INT_ERR_RESET_PERMISSION		0x4602U
+/* Subsystem not allowed to access pin */
+#define XPM_INT_ERR_PIN_PERMISSION		0x4603U
+/* Subsystem already added */
+#define XPM_INT_ERR_SUBSYS_ADDED		0x4604U
+/* Error during set subsystem state */
+#define XPM_INT_ERR_SUBSYS_SET_STATE		0x4605U
+/* Subsystem not allowed access */
+#define  XPM_INT_ERR_SUBSYS_ACCESS		0x4606U
 
 // /************************** AIE specific Errors ******************************/
 // /************************** (0x4100) - (0x41FF) ******************************/
@@ -126,6 +150,8 @@ extern "C" {
 
 // /************************* Proc specific Errors ******************************/
 // /************************** (0x4500) - (0x45FF) ******************************/
+/* Error during core init */
+#define XPM_INT_ERR_CORE_INIT			0x4501U
 
 // /************************ Subsys specific Errors *****************************/
 // /************************** (0x4600) - (0x46FF) ******************************/

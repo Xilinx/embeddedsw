@@ -14,6 +14,14 @@ extern "C" {
 #define PMC_GLOBAL_BASEADDR			(0xF1110000U)
 #endif
 
+/**
+ * IPI register masks
+ */
+#define PMC_IPI_MASK						(0x00000002U)
+
+#define RPU_0_CFG_OFFSET					(0x00000000U)
+#define RPU_1_CFG_OFFSET					(0x00000000U)
+
 #define PMC_GLOBAL_PMC_GSW_ERR_OFFSET		(0x00000064U)
 #define PMC_GLOBAL_PMC_GSW_ERR_CR_FLAG_SHIFT	(30U)
 /* PSM GLOBAL registers */

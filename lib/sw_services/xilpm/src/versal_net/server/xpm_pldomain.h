@@ -11,6 +11,7 @@
 #include "xpm_regs.h"
 #include "xcframe.h"
 #include "xcfupmc.h"
+#include "xpm_nodeid.h"
 
 #ifdef __cplusplus
 extern "C" {

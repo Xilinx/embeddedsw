@@ -21,3 +21,24 @@ u32 XPmPsm_FwIsPresent(void)
 	PmDbg("Reg %d\n",Reg);
 	return Reg;
 }
+
+XStatus XPmPsm_Init(XPm_Psm *Psm,
+	u32 Ipi,
+	const u32 *BaseAddress,
+	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset)
+{
+	XStatus Status = XST_FAILURE;
+
+	/*TBD: add psmops*/
+	Status = XPmCore_Init(&Psm->Core, PM_DEV_PSM_PROC, Power, Clock, Reset,
+			      (u8)Ipi, NULL);
+	if (XST_SUCCESS != Status) {
+		PmErr("Status: 0x%x\r\n", Status);
+		goto done;
+	}
+
+	Psm->PsmGlobalBaseAddr = BaseAddress[0];
+	Psm->CrlBaseAddr = BaseAddress[1];
+done:
+	return Status;
+}

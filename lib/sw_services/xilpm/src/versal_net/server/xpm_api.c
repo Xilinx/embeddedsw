@@ -31,12 +31,15 @@
 #include "xpm_npdomain.h"
 #include "xpm_pll.h"
 #include "xpm_reset.h"
+#include "xpm_pmc.h"
+#include "xpm_apucore.h"
+#include "xpm_rpucore.h"
+#include "xpm_psm.h"
+#include "xpm_periph.h"
+#include "xpm_mem.h"
 
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
-
-extern u32 ProcDevList[PROC_DEV_MAX];
-extern volatile struct PsmToPlmEvent_t *PsmToPlmEvent;
 
 u32 ResetReason;
 static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX];
@@ -739,6 +742,9 @@ XStatus XPm_AddNodeParent(const u32 *Args, u32 NumArgs)
 			Status = XPmClock_AddParent(Id, Parents, (u8)NumParents);
 		}
 		break;
+	case (u32)XPM_NODECLASS_DEVICE:
+		Status = XPmDevice_AddParent(Id, Parents, NumParents);
+		break;
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
@@ -1074,6 +1080,249 @@ done:
 	return Status;
 }
 
+static XStatus AddProcDevice(const u32 *Args, u32 PowerId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId;
+	u32 Type;
+	u32 Index;
+
+	XPm_Psm *Psm;
+	XPm_Pmc *Pmc;
+	XPm_ApuCore *ApuCore;
+	XPm_RpuCore *RpuCore;
+	XPm_Power *Power;
+	u32 BaseAddr[MAX_BASEADDR_LEN];
+	u32 Ipi;
+
+	DeviceId = Args[0];
+	BaseAddr[0] = Args[2];
+	Ipi = Args[3];
+	BaseAddr[1] = Args[4];
+	BaseAddr[2] = Args[5];
+
+	Type = NODETYPE(DeviceId);
+	Index = NODEINDEX(DeviceId);
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	if (Index >= (u32)XPM_NODEIDX_DEV_MAX) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	if (NULL != XPmDevice_GetById(DeviceId)) {
+		Status = XST_DEVICE_BUSY;
+		goto done;
+	}
+
+	switch (Type) {
+	case (u32)XPM_NODETYPE_DEV_CORE_PSM:
+		Psm = (XPm_Psm *)XPm_AllocBytes(sizeof(XPm_Psm));
+		if (NULL == Psm) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPsm_Init(Psm, Ipi, BaseAddr, Power, NULL, NULL);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_APU:
+		ApuCore = (XPm_ApuCore *)XPm_AllocBytes(sizeof(XPm_ApuCore));
+		if (NULL == ApuCore) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmApuCore_Init(ApuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_RPU:
+		RpuCore = (XPm_RpuCore *)XPm_AllocBytes(sizeof(XPm_RpuCore));
+		if (NULL == RpuCore) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmRpuCore_Init(RpuCore, DeviceId, Ipi, BaseAddr, Power, NULL, NULL);
+		break;
+	case (u32)XPM_NODETYPE_DEV_CORE_PMC:
+		Pmc = (XPm_Pmc *)XPm_AllocBytes(sizeof(XPm_Pmc));
+		if (NULL == Pmc) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmPmc_Init(Pmc, DeviceId, 0, BaseAddr, Power, NULL, NULL);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
+static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId;
+	u32 GicProxyMask;
+	u32 GicProxyGroup;
+	XPm_Periph *PeriphDevice;
+	XPm_Power *Power;
+	u32 BaseAddr;
+
+	DeviceId = Args[0];
+	BaseAddr = Args[2];
+	GicProxyMask = Args[3];
+	GicProxyGroup = Args[4];
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	if (NULL != XPmDevice_GetById(DeviceId)) {
+		Status = XST_DEVICE_BUSY;
+		goto done;
+	}
+
+	PeriphDevice = (XPm_Periph *)XPm_AllocBytes(sizeof(XPm_Periph));
+	if (NULL == PeriphDevice) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+
+	Status = XPmPeriph_Init(PeriphDevice, DeviceId, BaseAddr, Power, NULL, NULL,
+				GicProxyMask, GicProxyGroup);
+
+done:
+	return Status;
+}
+
+static XStatus AddMemDevice(const u32 *Args, u32 PowerId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId;
+	u32 Type;
+	u32 Index;
+
+	XPm_MemDevice *Device;
+	XPm_Power *Power;
+	u32 BaseAddr;
+	u32 StartAddr;
+	u32 EndAddr;
+
+	DeviceId = Args[0];
+	BaseAddr = Args[2];
+	StartAddr = Args[3];
+	EndAddr = Args[4];
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Type = NODETYPE(DeviceId);
+	Index = NODEINDEX(DeviceId);
+
+	if ((u32)XPM_NODEIDX_DEV_MAX <= Index) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	if (NULL != XPmDevice_GetById(DeviceId)) {
+		Status = XST_DEVICE_BUSY;
+		goto done;
+	}
+
+	switch (Type) {
+	case (u32)XPM_NODETYPE_DEV_OCM:
+	case (u32)XPM_NODETYPE_DEV_TCM:
+	case (u32)XPM_NODETYPE_DEV_DDR:
+		Device = (XPm_MemDevice *)XPm_AllocBytes(sizeof(XPm_MemDevice));
+		if (NULL == Device) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmMemDevice_Init(Device, DeviceId, BaseAddr, Power, NULL, NULL, StartAddr, EndAddr);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function adds device node to device topology database
+ *
+ * @param  Args		device specific arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId;
+	u32 SubClass;
+	u32 PowerId = 0U;
+
+	if (1U > NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	DeviceId = Args[0];
+	SubClass = NODESUBCLASS(DeviceId);
+
+	if (1U < NumArgs) {
+		/*
+		 * Check for Num Args < 3U as device specific (except PLDevice)
+		 * AddNode functions currently don't implement any NumArgs checks
+		 */
+		if (3U > NumArgs) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		PowerId = Args[1];
+		if (NULL == XPmPower_GetById(PowerId)) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+	}
+
+	switch (SubClass) {
+	case (u32)XPM_NODESUBCL_DEV_CORE:
+		Status = AddProcDevice(Args, PowerId);
+		break;
+	case (u32)XPM_NODESUBCL_DEV_PERIPH:
+		Status = AddPeriphDevice(Args, PowerId);
+		break;
+	case (u32)XPM_NODESUBCL_DEV_MEM:
+		Status = AddMemDevice(Args, PowerId);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+	/*TBD: add device security, virtualization and coherency attributes */
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function add isolation node to isolation topology database
@@ -1126,6 +1375,9 @@ XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODECLASS_RESET:
 		Status = XPm_AddNodeReset(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_DEVICE:
+		Status = XPm_AddDevice(Args, NumArgs);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
