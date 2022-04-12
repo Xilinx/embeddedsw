@@ -573,7 +573,6 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 
 	Status = XST_SUCCESS;
 
-done:
 	return Status;
 }
 
