@@ -104,6 +104,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_APPLY_TRIM):
 		Status = XPm_PldApplyTrim(Pload[0]);
 		break;
+	case PM_API(PM_ADD_SUBSYSTEM):
+		Status = XPm_AddSubsystem(Pload[0]);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -162,7 +165,8 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	XPlmi_ModuleRegister(&XPlmi_Pm);
 
 	XPm_PsmModuleInit();
-	Status = XST_SUCCESS;
+	Status = XPmSubsystem_Add(PM_SUBSYS_PMC);
+
 	return Status;
 
 }
@@ -1128,6 +1132,35 @@ XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 		break;
 	}
 
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function configures the
+ * platform resources for the new subsystem.
+ *
+ * @param  SubSystemCdo	Pointer to the subsystem CDO
+ * @param  NotifyCb		Pointer to the notify callback handler
+ * @param  SubsystemId	Address to store the new subsystem ID
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   The provided address must be in an address space which is
+ * accessible by the callee.  There will be no change if the subsystem CDO
+ * is incompatible or if the required resources are not available, so no
+ * clean-up will be necessary
+ *
+ ****************************************************************************/
+XStatus XPm_AddSubsystem(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	Status = XPmSubsystem_Add(SubsystemId);
+
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
 

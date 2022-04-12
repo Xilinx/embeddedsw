@@ -16,6 +16,11 @@
 extern "C" {
 #endif
 
+struct XPm_FrcPwrDwnReq {
+	u32 AckType;
+	u32 InitiatorIpiMask;
+};
+
 /* Persistent global general storage register base address */
 #define PGGS_BASEADDR	(0xF1110050U)
 
