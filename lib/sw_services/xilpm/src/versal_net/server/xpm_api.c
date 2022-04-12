@@ -30,6 +30,7 @@
 #include "xpm_pldomain.h"
 #include "xpm_npdomain.h"
 #include "xpm_pll.h"
+#include "xpm_reset.h"
 
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
@@ -745,6 +746,45 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function add reset node to reset topology database
+ *
+ * @param  Args		reset arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodeReset(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 ResetId, ControlReg;
+	u8 Shift, Width, ResetType, NumParents;
+	const u32 *Parents;
+
+	if (NumArgs < 4U) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	ResetId = Args[0];
+	ControlReg = Args[1];
+	Shift = (u8)(Args[2] & 0xFFU);
+	Width = (u8)((Args[2] >> 8U) & 0xFFU);
+	ResetType = (u8)((Args[2] >> 16U) & 0xFFU);
+	NumParents = (u8)((Args[2] >> 24U) & 0xFFU);
+	Parents = &Args[3];
+
+	Status = XPmReset_AddNode(ResetId, ControlReg, Shift, Width, ResetType, NumParents, Parents);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function add power node to power topology database
  *
  * @param  Args		power arguments
@@ -1079,6 +1119,9 @@ XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODECLASS_CLOCK:
 		Status = XPm_AddNodeClock(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_RESET:
+		Status = XPm_AddNodeReset(Args, NumArgs);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
