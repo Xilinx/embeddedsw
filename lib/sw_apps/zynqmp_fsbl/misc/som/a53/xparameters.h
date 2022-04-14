@@ -2,28 +2,6 @@
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
-/*****************************************************************************/
-/**
-* @file xparameters_ps.h
-*
-* This file contains the address definitions for the hard peripherals
-* attached to the ARM Cortex A53 core.
-*
-* <pre>
-* MODIFICATION HISTORY:
-*
-* Ver   Who     Date     Changes
-* ----- ------- -------- ---------------------------------------------------
-* 5.00 	pkp  05/29/14 First release
-* </pre>
-*
-* @note
-*
-* None.
-*
-******************************************************************************/
-
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
 #define XPARAMETERS_H   /* by using protection macros */
 
@@ -1071,6 +1049,12 @@
 #define XPAR_PSU_SD_0_MIO_BANK 0
 #define XPAR_PSU_SD_0_HAS_EMIO 0
 #define XPAR_PSU_SD_0_SLOT_TYPE 1
+#define XPAR_PSU_SD_0_CLK_50_SDR_ITAP_DLY 0x15
+#define XPAR_PSU_SD_0_CLK_50_SDR_OTAP_DLY 0x5
+#define XPAR_PSU_SD_0_CLK_50_DDR_ITAP_DLY 0x3D
+#define XPAR_PSU_SD_0_CLK_50_DDR_OTAP_DLY 0x4
+#define XPAR_PSU_SD_0_CLK_100_SDR_OTAP_DLY 0x3
+#define XPAR_PSU_SD_0_CLK_200_SDR_OTAP_DLY 0x3
 
 
 /******************************************************************/
@@ -1089,6 +1073,13 @@
 #define XPAR_XSDPS_0_HAS_EMIO 0
 #define XPAR_XSDPS_0_SLOT_TYPE 1
 #define XPAR_XSDPS_0_IS_CACHE_COHERENT 0
+#define XPAR_XSDPS_0_CLK_50_SDR_ITAP_DLY 0x15
+#define XPAR_XSDPS_0_CLK_50_SDR_OTAP_DLY 0x5
+#define XPAR_XSDPS_0_CLK_50_DDR_ITAP_DLY 0x3D
+#define XPAR_XSDPS_0_CLK_50_DDR_OTAP_DLY 0x4
+#define XPAR_XSDPS_0_CLK_100_SDR_OTAP_DLY 0x3
+#define XPAR_XSDPS_0_CLK_200_SDR_OTAP_DLY 0x3
+
 
 
 /******************************************************************/

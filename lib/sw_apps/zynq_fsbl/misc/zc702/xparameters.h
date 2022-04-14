@@ -383,6 +383,12 @@
 #define XPAR_PS7_SD_0_MIO_BANK 0
 #define XPAR_PS7_SD_0_HAS_EMIO 0
 #define XPAR_PS7_SD_0_SLOT_TYPE 0
+#define XPAR_PS7_SD_0_CLK_50_SDR_ITAP_DLY 0
+#define XPAR_PS7_SD_0_CLK_50_SDR_OTAP_DLY 0
+#define XPAR_PS7_SD_0_CLK_50_DDR_ITAP_DLY 0
+#define XPAR_PS7_SD_0_CLK_50_DDR_OTAP_DLY 0
+#define XPAR_PS7_SD_0_CLK_100_SDR_OTAP_DLY 0
+#define XPAR_PS7_SD_0_CLK_200_SDR_OTAP_DLY 0
 
 
 /******************************************************************/
@@ -400,6 +406,12 @@
 #define XPAR_XSDPS_0_HAS_EMIO 0
 #define XPAR_XSDPS_0_SLOT_TYPE 0
 #define XPAR_XSDPS_0_IS_CACHE_COHERENT 0
+#define XPAR_XSDPS_0_CLK_50_SDR_ITAP_DLY 0
+#define XPAR_XSDPS_0_CLK_50_SDR_OTAP_DLY 0
+#define XPAR_XSDPS_0_CLK_50_DDR_ITAP_DLY 0
+#define XPAR_XSDPS_0_CLK_50_DDR_OTAP_DLY 0
+#define XPAR_XSDPS_0_CLK_100_SDR_OTAP_DLY 0
+#define XPAR_XSDPS_0_CLK_200_SDR_OTAP_DLY 0
 
 
 /******************************************************************/
