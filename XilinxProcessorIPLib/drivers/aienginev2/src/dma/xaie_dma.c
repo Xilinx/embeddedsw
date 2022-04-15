@@ -839,7 +839,7 @@ AieRC XAie_DmaChannelReset(XAie_DevInst *DevInst, XAie_LocType Loc, u8 ChNum,
 	Val = XAie_SetField(Reset, DmaMod->ChProp->Reset.Lsb,
 			DmaMod->ChProp->Reset.Mask);
 
-	return XAie_MaskWrite32(DevInst, Addr, Val, DmaMod->ChProp->Reset.Mask);
+	return XAie_MaskWrite32(DevInst, Addr, DmaMod->ChProp->Reset.Mask, Val);
 }
 
 /*****************************************************************************/
