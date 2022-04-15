@@ -31,12 +31,14 @@
 #include "xpm_npdomain.h"
 #include "xpm_pll.h"
 #include "xpm_reset.h"
+#include "xpm_domain_iso.h"
 #include "xpm_pmc.h"
 #include "xpm_apucore.h"
 #include "xpm_rpucore.h"
 #include "xpm_psm.h"
 #include "xpm_periph.h"
 #include "xpm_mem.h"
+#include "xpm_debug.h"
 
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
@@ -1327,8 +1329,45 @@ done:
 /**
  * @brief  This function add isolation node to isolation topology database
  *
- * @param  Args		isolation node arguments
- * @param NumArgs	number of arguments
+ * @param Args		pointer to isolation node arguments or payload
+ * @param NumArgs	number of arguments or words in payload
+ *
+ * Format of payload/args (word aligned):
+ *
+ * +--------------------------------------------------------------------+
+ * |Isolation Node ID(Node id include  class , subclass, type and Index)|
+ * +--------------------------------------------+-----------------------+
+ * |               rsvd[31:8]                   |      Format[7:0]      |
+ * +--------------------------------------------+-----------------------+
+ * |              Format specific payload (can be multiple words)       |
+ * |                               ...                                  |
+ * +--------------------------------------------+-----------------------+
+ * |               rsvd[31:8]                   |      Format[7:0]      |
+ * +--------------------------------------------+-----------------------+
+ * |              Format specific payload (can be multiple words)       |
+ * |                               ...                                  |
+ * +--------------------------------------------------------------------+
+ * |                               .                                    |
+ * |                               .                                    |
+ * |                               .                                    |
+ * +--------------------------------------------------------------------+
+ * Format entry for single word isolation control:
+ * +--------------------------------------------+-----------------------+
+ * |               rsvd[31:8]                   |      Format[7:0]      |
+ * +--------------------------------------------+-----------------------+
+ * |                           BaseAddress                              |
+ * +--------------------------------------------------------------------+
+ * |                           Mask                                     |
+ * +--------------------------------------------------------------------+
+ *
+ * Format entry for power domain dependencies:
+ * +----------------+----------------------------+----------------------+
+ * | rsvd[31:16]    | Dependencies Count[15:8]   |      Format[7:0]     |
+ * +-------------- -+ ---------------------------+----------------------+
+ * |                   NodeID of Dependency0                            |
+ * +--------------------------------------------------------------------+
+ * |                           ...                                      |
+ * +--------------------------------------------------------------------+
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -1339,9 +1378,67 @@ done:
 static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
-	(void)Args;
-	(void)NumArgs;
+	if (3U > NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	/* Start at beginning of the payload*/
+	u32 Index = 0U;
+	/* NodeID is always at the first word in payload*/
+	u32 NodeId = Args[Index++];
 
+	u32 Dependencies[PM_ISO_MAX_NUM_DEPENDENCIES] = {0U};
+	u32 BaseAddr = 0U, Mask = 0U, NumDependencies = 0U;
+	XPm_IsoPolarity Polarity = ACTIVE_HIGH;
+	u8 Psm = (u8)0;
+
+	XPm_IsoCdoArgsFormat Format = SINGLE_WORD_ACTIVE_LOW;
+	while(Index < NumArgs) {
+		/* Extract format and number of dependencies*/
+		Format = (XPm_IsoCdoArgsFormat)CDO_ISO_ARG_FORMAT(Args[Index]);
+		NumDependencies = CDO_ISO_DEP_COUNT(Args[Index++]);
+
+		switch (Format){
+		case SINGLE_WORD_ACTIVE_LOW:
+		case SINGLE_WORD_ACTIVE_HIGH:
+		case PSM_SINGLE_WORD_ACTIVE_LOW:
+		case PSM_SINGLE_WORD_ACTIVE_HIGH:
+			/* Format for isolation control by single word*/
+			if (Format == SINGLE_WORD_ACTIVE_LOW || \
+			    Format == PSM_SINGLE_WORD_ACTIVE_LOW){
+				Polarity = ACTIVE_LOW;
+			}
+
+			if (Format == PSM_SINGLE_WORD_ACTIVE_HIGH || \
+			    Format == PSM_SINGLE_WORD_ACTIVE_LOW){
+				Psm =  (u8)1;
+			}
+
+			/* Extract BaseAddress and Mask*/
+			BaseAddr = Args[Index++];
+			Mask = Args[Index++];
+			break;
+		case POWER_DOMAIN_DEPENDENCY:
+			/* Format power domain dependencies*/
+			/* To save space in PMC RAM we statically allocate Dependencies list*/
+			if (NumDependencies > PM_ISO_MAX_NUM_DEPENDENCIES){
+				Status = XPM_INT_ERR_ISO_MAX_DEPENDENCIES;
+				goto done;
+			}else {
+				for (u32 i = 0U ; i < NumDependencies; i++){
+					Dependencies[i] = Args[Index++];
+				}
+			}
+			break;
+		default:
+			Status = XPM_INT_ERR_ISO_INVALID_FORMAT;
+			goto done;
+		}
+	}
+
+	Status = XPmDomainIso_NodeInit(NodeId, BaseAddr, Mask, \
+				       Psm, Polarity, Dependencies, NumDependencies);
+done:
 	return Status;
 }
 /****************************************************************************/

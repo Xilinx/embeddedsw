@@ -75,6 +75,10 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_SUBCLASS		0x360BU
 /* Buffer too small */
 #define XPM_INT_ERR_BUFFER_TOO_SMALL		0x360CU
+/* Error during parsing isolation node. getting invalid format */
+#define XPM_INT_ERR_ISO_INVALID_FORMAT		0x3613U
+/* A topology iso node has exceed number of dependencies */
+#define XPM_INT_ERR_ISO_MAX_DEPENDENCIES	0X3614U
 
 // /************************** PLD specific Errors ******************************/
 // /************************** (0x3700) - (0x37FF) ******************************/
