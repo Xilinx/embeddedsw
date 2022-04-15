@@ -63,6 +63,7 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u8 Psm, \
 	u8 Polarity, const u32* Dependencies, u32 NumDependencies);
 XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable);
 XStatus XPmDomainIso_ProcessPending(void);
+XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State);
 
 #ifdef __cplusplus
 }

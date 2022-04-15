@@ -12,7 +12,6 @@
 
 static XPm_Iso* XPmDomainIso_List[XPM_NODEIDX_ISO_MAX];
 
-
 #define ISO_ON(ISO_NODE) ((ISO_NODE)->Polarity == ACTIVE_HIGH) ? (ISO_NODE)->Mask : 0
 #define ISO_OFF(ISO_NODE) ~(ISO_ON(ISO_NODE))
 
@@ -29,9 +28,10 @@ static XStatus XPmDomainIso_PsmSetValue(XPm_Iso* IsoNode, u32 Value)
 	}
 
 	Payload[0U] = PSM_API_DOMAIN_ISO;
-	Payload[1U] = IsoNode->Node.BaseAddress;
-	Payload[2U] = IsoNode->Mask;
-	Payload[3U] = Value;
+	Payload[1U] = PSM_API_DOMAIN_ISO_SETTER_HEADER;
+	Payload[2U] = IsoNode->Node.BaseAddress;
+	Payload[3U] = IsoNode->Mask;
+	Payload[4U] = Value;
 
 	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 	if (XST_SUCCESS != Status) {
@@ -90,6 +90,40 @@ static XStatus XPmDomainIso_CheckDependencies(XPm_Iso* IsoNode)
 
 	Status = XST_SUCCESS;
 done:
+	return Status;
+}
+
+static XStatus XPmDomainIso_PsmGetValue(XPm_Iso* IsoNode, u32 *OutValue)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+
+	if (1U != XPmPsm_FwIsPresent()) {
+		DbgErr = XPM_INT_ERR_PSMFW_NOT_PRESENT;
+		Status = XST_NOT_ENABLED;
+		goto done;
+	}
+
+	Payload[0U] = PSM_API_DOMAIN_ISO;
+	Payload[1U] = PSM_API_DOMAIN_ISO_GETTER_HEADER;
+	Payload[2U] = IsoNode->Node.BaseAddress;
+	Payload[3U] = IsoNode->Mask;
+
+	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
+	if (XST_SUCCESS != Status){
+		goto done;
+	}
+
+	Status = XPm_IpiRead(PSM_IPI_INT_MASK, &Payload);
+	if (XST_SUCCESS != Status){
+		goto done;
+	}
+
+	*OutValue = Payload[1];
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -244,6 +278,61 @@ XStatus XPmDomainIso_ProcessPending()
 			}
 		}
 	}
+
+done:
+	return Status;
+}
+/****************************************************************************/
+/**
+ * @brief	Get state of isolation node
+ * @param IsoIdx	Isolation node index that need to get state
+ * @param State		Output state.
+ * 			PM_ISOLATION_ON.
+ * 			PM_ISOLATION_OFF
+ *
+ * @return	XST_SUCCESS or error code.
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mask, BaseAddress, Polarity, RegVal;
+	XPm_Iso* IsoNode;
+
+	if ((IsoIdx >= (u32)XPM_NODEIDX_ISO_MAX) || (NULL == State)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	IsoNode = XPmDomainIso_List[IsoIdx];
+	if (NULL == IsoNode){
+		goto done;
+	}
+
+	Mask = IsoNode->Mask;
+	BaseAddress = IsoNode->Node.BaseAddress;
+	Polarity = IsoNode->Polarity;
+
+	if(0U != IsoNode->IsPsmLocal){
+		Status = XPmDomainIso_PsmGetValue(IsoNode, &RegVal);
+		if (XST_SUCCESS != Status){
+			goto done;
+		}
+	} else {
+		RegVal = XPm_In32(BaseAddress);
+	}
+
+	if (Mask == (RegVal & Mask)) {
+		*State = (Polarity == (u32)ACTIVE_HIGH)?
+			PM_ISOLATION_ON : PM_ISOLATION_OFF;
+	} else {
+		*State = (Polarity == (u32)ACTIVE_HIGH)?
+			PM_ISOLATION_OFF : PM_ISOLATION_ON;
+	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;

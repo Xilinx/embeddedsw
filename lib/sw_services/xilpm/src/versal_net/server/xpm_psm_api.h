@@ -24,6 +24,9 @@ extern "C" {
 #define PSM_API_DOMAIN_ISO			(6U)
 #define PSM_API_GET_PSM_TO_PLM_EVENT_ADDR	(7U)
 
+#define PSM_API_DOMAIN_ISO_GETTER_HEADER	(0U)
+#define PSM_API_DOMAIN_ISO_SETTER_HEADER	(1U)
+
 #define PSM_TO_PLM_EVENT_VERSION		(0x2U)
 #define PWR_UP_EVT				(0x1U)
 #define PWR_DWN_EVT				(0x100U)
