@@ -281,30 +281,32 @@ XStatus XPm_HookAfterPlmCdo(void)
 
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function allows to control isolation nodes.
+ *
+ * @param  NodeId	Isolation node id
+ * @param  Enable	0: disable isolation
+ * 			1: enable isolation
+ * 			2: disable isolation immediately
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   none
+ *
+ ****************************************************************************/
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable)
 {
-	//changed to support minimum boot time xilpm
-
 	XStatus Status = XST_FAILURE;
-	(void)Enable;
-	PmDbg("NodeId:%x, Enable: %x\r\n",NodeId,Enable);
-	if(XPM_NODEIDX_ISO_FPD_PL_TEST == NODEINDEX(NodeId)){
-		XPm_RMW32(0xF1120000,0x1,0);
-	}else if(XPM_NODEIDX_ISO_FPD_PL == NODEINDEX(NodeId)){
-		XPm_RMW32(0xF1120000,0x2,0);
-	}else if(XPM_NODEIDX_ISO_LPD_PL_TEST == NODEINDEX(NodeId)){
-		XPm_RMW32(0xF1120000,0x20,0);
-	}else if(XPM_NODEIDX_ISO_LPD_PL == NODEINDEX(NodeId)){
-		XPm_RMW32(0xF1120000,0x40,0);
-	}else if(XPM_NODEIDX_ISO_PMC_PL_TEST == NODEINDEX(NodeId)){
-		XPm_RMW32(0xF1120000,0x800,0);
-	}else if(XPM_NODEIDX_ISO_PMC_PL == NODEINDEX(NodeId)){
-		XPm_RMW32(0xF1120000,0x1000,0);
-	}else{
+
+	if (((u32)XPM_NODECLASS_ISOLATION != NODECLASS(NodeId)) ||
+	    ((u32)XPM_NODEIDX_ISO_MAX <= NODEINDEX(NodeId))) {
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
-	Status = XST_SUCCESS;
+
+	Status = XPmDomainIso_Control(NODEINDEX(NodeId), Enable);
 
 done:
 	if (XST_SUCCESS != Status) {

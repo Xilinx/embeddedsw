@@ -61,6 +61,8 @@ extern "C" {
 
 // /************************* Miscellaneous Errors ******************************/
 // /************************** (0x3600) - (0x36FF) ******************************/
+/* PSMFW is not present */
+#define XPM_INT_ERR_PSMFW_NOT_PRESENT		0x3602U
 /* Invalid parameter passed to function */
 #define XPM_INT_ERR_INVALID_PARAM		0x3603U
 /* Invalid processor */

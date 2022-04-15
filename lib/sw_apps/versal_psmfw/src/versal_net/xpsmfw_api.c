@@ -133,6 +133,31 @@ static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Len)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Process Isolation command that is sent from PMC
+ *
+ * @param Payload	IPI payload
+ *
+ * @return	XST_SUCCESS or error code
+ *
+ * @note	None
+ *
+ ****************************************************************************/
+static XStatus XPsmFw_ProcessIsoCommand(const u32 *Payload)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BaseAddress = Payload[1U];
+	if (0U == BaseAddress){
+		goto done;
+	}
+	u32 Mask = Payload[2U];
+	u32 Value = Payload[3U];
+	XPsmFw_RMW32(BaseAddress, Mask, Value);
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
 
 /****************************************************************************/
 /**
@@ -166,6 +191,9 @@ void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response)
 			break;
 		case PSM_API_CDO_PROC:
 			Status = XPsmFw_ProcessCdo(Payload[1], Payload[2]);
+			break;
+		case PSM_API_DOMAIN_ISO:
+			Status = XPsmFw_ProcessIsoCommand(Payload);
 			break;
 		default:
 			Status = XST_INVALID_PARAM;

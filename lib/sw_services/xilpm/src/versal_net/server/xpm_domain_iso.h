@@ -8,10 +8,16 @@
 #define XPM_DOMAIN_ISO_H
 
 #include "xpm_node.h"
+#include "xpm_common.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define FALSE_VALUE		(0U)
+#define TRUE_VALUE		(1U)
+#define FALSE_IMMEDIATE		(2U)	/* Remove isolation immediately */
+#define TRUE_PENDING_REMOVE	(3U)	/* Set isolation, but pending removal */
 
 #define CDO_ISO_ARG_FORMAT_MASK 	(0X00FFU)
 #define CDO_ISO_DEP_COUNT_MASK		(0xFF00U)
@@ -55,6 +61,8 @@ typedef enum {
 
 XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u8 Psm, \
 	u8 Polarity, const u32* Dependencies, u32 NumDependencies);
+XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable);
+XStatus XPmDomainIso_ProcessPending(void);
 
 #ifdef __cplusplus
 }
