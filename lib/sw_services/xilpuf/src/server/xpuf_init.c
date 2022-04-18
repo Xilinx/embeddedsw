@@ -46,8 +46,6 @@
 /**
  * @brief	This function registers the handlers for Xilpuf IPI commands
  *
- * @return	None
- *
  *****************************************************************************/
 void XPuf_Init(void)
 {

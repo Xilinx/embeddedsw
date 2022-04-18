@@ -59,76 +59,120 @@ extern "C" {
 #if defined XPUF_DEBUG
 #define XPUF_DEBUG_GENERAL (1U)
 #else
-#define XPUF_DEBUG_GENERAL (0U)
+#define XPUF_DEBUG_GENERAL (0U)	/**< Enable debug prints in xilpuf library */
 #endif
 
 #define XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS		(350U)
+		/**< Maximum length of PUF syndrome data in words */
 #define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
+		/**< Length of PUF syndrome data using 4K mode in words */
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS		(127U)
+		/**< Length of syndrome data stored in eFuse after trimming */
 #define XPUF_12K_PUF_SYN_LEN_IN_WORDS			(350U)
+		/**< Length of PUF syndrome data using 12K mode in words */
 #define XPUF_SHUTTER_VALUE				(0x81000100U)
+		/**< PUF Shutter Value */
 #define XPUF_ID_LEN_IN_WORDS				(0x8U)
+		/**< Length of PUF ID in words */
 #define XPUF_WORD_LENGTH				(0x4U)
+		/**< Length of word in bytes */
 
 #define XPUF_4K_PUF_SYN_LEN_IN_BYTES			(XPUF_4K_PUF_SYN_LEN_IN_WORDS * \
 								XPUF_WORD_LENGTH)
+		/**< Length of PUF syndrome data using 12K mode in bytes */
 
 #define XPUF_REGISTRATION				(0x0U)
+		/**< PUF Operation - PUF Registration */
 #define XPUF_REGEN_ON_DEMAND				(0x1U)
+		/**< PUF Operation - PUF On demand regeneration */
 #define XPUF_REGEN_ID_ONLY				(0x2U)
+		/**< PUF Operation - PUF ID only regeneration */
 
 #define XPUF_SYNDROME_MODE_4K				(0x0U)
+		/**< PUF Mode - 4K Syndrome mode */
 #define XPUF_SYNDROME_MODE_12K				(0x1U)
+		/**< PUF Mode - 12K Syndrome mode */
 
 #define XPUF_EFUSE_TRIM_MASK				(0xFFFFF000U)
+		/**< Mask for trimming syndrome data to be stored in eFuses */
 #define XPUF_LAST_WORD_OFFSET				(126U)
+		/**< Offset for last word for PUF Syndrome data */
 #define XPUF_LAST_WORD_MASK				(0xFFFFFFF0U)
+		/**< Mask for last word for PUF Syndrome data */
 
 #define XPUF_IRO_FREQ_320MHZ				(0x0U)
+		/**< Selected IRO Frequency - 320 MHz */
 #define XPUF_IRO_FREQ_400MHZ				(0x1U)
+		/**< Selected IRO Frequency - 400 MHz */
 
 /* Key registration time error codes */
 #define XPUF_ERROR_INVALID_PARAM			(0x02)
+		/**< Error due to invalid parameter */
 #define XPUF_ERROR_INVALID_SYNDROME_MODE		(0x03)
+		/**< Error due to invalid syndrome mode */
 #define XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT		(0x04)
+		/** Error due to timeout while waiting for syndrome data to be
+		  * generated */
 #define XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT		(0x07)
+		/** Error due to timeout while waiting for Done bit to be set
+		  * in PUF Status */
 #define XPUF_ERROR_REGISTRATION_INVALID			(0x08)
+		/** Error as PUF registration is not allowed */
 #define XPUF_SHUTTER_GVF_MISMATCH			(0x09)
+		/** Error if MSB of PUF shutter value does not match with
+		  * Global Variation Filter option */
 #define XPUF_ERROR_SYN_DATA_ERROR			(0x0A)
+		/** Error if Size of PUF Syndrome Data is not same as
+		  * expected size */
 #define XPUF_IRO_FREQ_WRITE_MISMATCH			(0x0B)
+		/** Error if configured IRO frequency does not match
+		  * intended IRO frequency */
 
 /* Key regeneration time error codes */
 #define XPUF_ERROR_CHASH_NOT_PROGRAMMED			(0x10)
+		/** Error if PUF helper data is not provided */
 #define XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT		(0x11)
+		/** Error due to timeout while waiting for Done bit to be
+		  * set in PUF Status */
 #define XPUF_ERROR_INVALID_REGENERATION_TYPE		(0x12)
+		/** Error due to invalid regeneration type */
 #define XPUF_ERROR_INVALID_PUF_OPERATION		(0x13)
+		/** Error due to invalid PUF operation */
 #define XPUF_ERROR_REGENERATION_INVALID			(0x14)
+		/** Error if PUF Regeneration is invalid */
 #define XPUF_ERROR_REGEN_PUF_HD_INVALID			(0x15)
+		/** Error in Regeneration as PUF Helper data in eFuse is
+		  * invalidated */
 #define XPUF_ERROR_INVALID_READ_HD_INPUT		(0x16)
+		/** Error due to invalid option to read PUF helper data */
 #define XPUF_ERROR_PUF_DONE_KEY_NT_RDY			(0x17)
+		/** Error if PUF operation is done but Key Ready bit is not set */
 #define XPUF_ERROR_PUF_DONE_ID_NT_RDY			(0x18)
+		/** Error if PUF operation is done but ID Ready bit is not set */
 #define XPUF_ERROR_PUF_ID_ZERO_TIMEOUT			(0x19)
+		/** Error due to timeout while zeroizing PUF ID */
 
 /***************************** Type Definitions *******************************/
 typedef enum {
-	XPUF_READ_FROM_RAM,
-	XPUF_READ_FROM_EFUSE_CACHE
+	XPUF_READ_FROM_RAM,		/**< Read helper data from memory */
+	XPUF_READ_FROM_EFUSE_CACHE	/**< Read helper data from eFuse cache */
 } XPuf_ReadOption;
 
 typedef struct {
-	u8 RegMode;		/* PUF Registration Mode 4K/12K*/
+	u8 RegMode;			/**< PUF Registration Mode 4K/12K */
 	u8 PufOperation;
-	   /* PUF Registration/ Regeneration On Demand/ ID only regeneration) */
-	u8 GlobalVarFilter;
-	XPuf_ReadOption ReadOption;	/* Read helper data from eFuse Cache/DDR */
-	u32 ShutterValue;
+	/**< PUF Registration/ Regeneration On-Demand/ ID only regeneration) */
+	u8 GlobalVarFilter;	/**< Option to configure Global Variation Filter */
+	XPuf_ReadOption ReadOption;	/**< Read helper data from eFuse Cache/DDR */
+	u32 ShutterValue;		/**< Option to configure Shutter Value */
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS];
-	u32 Chash;
-	u32 Aux;
-	u32 PufID[XPUF_ID_LEN_IN_WORDS];
-	u32 SyndromeAddr;
+					/**< Syndrome data for PUF regeneration */
+	u32 Chash;			/**< Chash for PUF regeneration */
+	u32 Aux;			/**< Auxillary data for PUF regeneration */
+	u32 PufID[XPUF_ID_LEN_IN_WORDS];/**< PUF ID */
+	u32 SyndromeAddr;		/**< Address of syndrome data */
 	u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS];
-				 /* Trimmed data to be written in efuse */
+					/**< Trimmed data to be written in efuse */
 } XPuf_Data;
 
 /** @}
