@@ -76,8 +76,9 @@
 /**
  * @brief	This function waits till Puf Syndrome ready bit is set.
  *
- * @return	XST_SUCCESS	Syndrome word is ready.
- *		XST_FAILURE	Timeout occurred.
+ * @return
+ *	-	XST_SUCCESS - Syndrome word is ready.
+ *	-	XST_FAILURE - Timeout occurred.
  *
  *****************************************************************************/
 static inline int XPuf_WaitForPufSynWordRdy(void)
@@ -92,8 +93,9 @@ static inline int XPuf_WaitForPufSynWordRdy(void)
 /**
  * @brief	This function waits till Puf done bit is set.
  *
- * @return	XST_SUCCESS	Puf Operation is done.
- *		XST_FAILURE	Timeout occurred.
+ * @return
+ *	-	XST_SUCCESS - Puf Operation is done.
+ *	-	XST_FAILURE - Timeout occurred.
  *
  *****************************************************************************/
 static inline int XPuf_WaitForPufDoneStatus(void)
@@ -129,8 +131,6 @@ static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
  *			the register
  * @param	RegOffset is the register offset of the register.
  * @param	Data is the 32-bit value to write to the register.
- *
- * @return	None.
  *
  *****************************************************************************/
 static inline void XPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
@@ -203,17 +203,17 @@ static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated);
  * @param	PufData - Pointer to XPuf_Data structure which includes options
  *                        to configure PUF
  *
- * @return  XST_SUCCESS - PUF registration successful
- *          XPUF_ERROR_INVALID_PARAM - PufData is NULL
- *          XPUF_ERROR_INVALID_SYNDROME_MODE      - Incorrect Registration mode
- *          XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while
- *                                                  waiting for PUF Syndrome data
- *          XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT      - Timeout occurred while
- *                                                  waiting for PUF done bit
- *                                                  at the time of PUF registration
- *          XPUF_IRO_FREQ_WRITE_MISMATCH          - Mismatch in writing or reading
- *                                                  IRO frequency
- *          XST_FAILURE - Unexpected event
+ * @return
+ *	-	XST_SUCCESS - PUF registration successful
+ *	-	XPUF_ERROR_INVALID_PARAM - PufData is NULL
+ *	-	XPUF_ERROR_INVALID_SYNDROME_MODE - Incorrect Registration mode
+ *	-	XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT - Timeout occurred while
+ *			waiting for PUF Syndrome data
+ *	-	XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT - Timeout occurred while
+ *			waiting for PUF done bit at the time of PUF registration
+ *	-	XPUF_IRO_FREQ_WRITE_MISMATCH - Mismatch in writing or reading
+ *			IRO frequency
+ *	-	XST_FAILURE - Unexpected event
  *
  * @note	Helper data will be available in PufData->SyndromeData,
  *		PufData->Chash, PufData->Aux
@@ -357,20 +357,20 @@ END:
  * @param       PufData - Pointer to XPuf_Data structure which includes options
  *                        to configure PUF
  *
- * @return      XST_SUCCESS - PUF Regeneration successful
- *              XPUF_ERROR_INVALID_PARAM - PufData is NULL
- *              XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
- *                                                     regeneration type
- *              XPUF_ERROR_CHASH_NOT_PROGRAMMED      - Helper data not provided
- *              XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout occurred while
- *                                                     waiting for PUF done bit
- *              XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY    - Key ready bit and ID ready
- *                                                     bit is not set
- *              XPUF_ERROR_PUF_DONE_ID_NT_RDY        - Id ready bit is not set
- *              XPUF_IRO_FREQ_WRITE_MISMATCH         - Mismatch in writing or reading
- *                                                     IRO frequency
- *                                                     at the time of PUF regeneration
- *              XST_FAILURE - Unexpected event
+ * @return
+ *	-	XST_SUCCESS - PUF Regeneration successful
+ *	-	XPUF_ERROR_INVALID_PARAM - PufData is NULL
+ *	-	XPUF_ERROR_INVALID_REGENERATION_TYPE - Selection of invalid
+ *			regeneration type
+ *	-	XPUF_ERROR_CHASH_NOT_PROGRAMMED - Helper data not provided
+ *	-	XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT - Timeout occurred while
+ *			waiting for PUF done bit
+ *	-	XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY - Key ready bit and ID ready
+ *			bit is not set
+ *	-	XPUF_ERROR_PUF_DONE_ID_NT_RDY - Id ready bit is not set
+ *	-	XPUF_IRO_FREQ_WRITE_MISMATCH - Mismatch in writing or reading
+ *			IRO frequency at the time of PUF regeneration
+ *	-	XST_FAILURE - Unexpected event
  *
  * @note	PUF is only supported when using a nominal VCC_PMC of 0.70V or
  *		IRO frequency of 320 MHz
@@ -479,10 +479,11 @@ END:
 /**
  * @brief	This function clears PUF ID
  *
- * @return	XST_SUCCESS - PUF ID is successfully cleared
- *		XPUF_ERROR_PUF_ID_ZERO_TIMEOUT - Timeout occurred for clearing
- *                                               PUF ID
- *		XST_FAILURE - Unexpected event
+ * @return
+ *	-	XST_SUCCESS - PUF ID is successfully cleared
+ *	-	XPUF_ERROR_PUF_ID_ZERO_TIMEOUT - Timeout occurred for clearing
+ *			PUF ID
+ *	-	XST_FAILURE - Unexpected event
  *
  *****************************************************************************/
 int XPuf_ClearPufID(void)
@@ -535,14 +536,15 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  * @param	PufData - Pointer to XPuf_Data structure which includes options
  *                        to configure PUF
  *
- * @return	XST_SUCCESS - secure control bits are not set
- *              XPUF_ERROR_REGISTRATION_INVALID  - PUF registration is not allowed
- *              XPUF_ERROR_REGENERATION_INVALID  - PUF regeneration is not allowed
- *              XPUF_ERROR_REGEN_PUF_HD_INVALID  - PUF HD in eFUSE id invalidated
- *              XPUF_ERROR_INVALID_SYNDROME_MODE - If regeneration from eFUSE cache
- *                                                 is selected with 12K syndrome mode
- *              XPUF_ERROR_INVALID_PUF_OPERATION - In case of invalid PUF operation
- *              XST_FAILURE - Unexpected event
+ * @return
+ *	-	XST_SUCCESS - secure control bits are not set
+ *	-	XPUF_ERROR_REGISTRATION_INVALID  - PUF registration is not allowed
+ *	-	XPUF_ERROR_REGENERATION_INVALID  - PUF regeneration is not allowed
+ *	-	XPUF_ERROR_REGEN_PUF_HD_INVALID  - PUF HD in eFUSE id invalidated
+ *	-	XPUF_ERROR_INVALID_SYNDROME_MODE - If regeneration from eFUSE cache
+ *			is selected with 12K syndrome mode
+ *	-	XPUF_ERROR_INVALID_PUF_OPERATION - In case of invalid PUF operation
+ *	-	XST_FAILURE - Unexpected event
  *
  *****************************************************************************/
 static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
@@ -599,9 +601,10 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
  * @param       PufData - Pointer to XPuf_Data structure which includes options
  *                        to configure PUF
  *
- * @return      XST_SUCCESS - On valid Read option
- *              XPUF_ERROR_INVALID_READ_HD_INPUT - On invalid Read option
- *              XST_FAILURE - On unexpected event
+ * @return
+ *	-	XST_SUCCESS - On valid Read option
+ *	-	XPUF_ERROR_INVALID_READ_HD_INPUT - On invalid Read option
+ *	-	XST_FAILURE - On unexpected event
  *
  *****************************************************************************/
 static int XPuf_UpdateHelperData(const XPuf_Data *PufData)
@@ -650,14 +653,15 @@ END:
  * @param       PufData - Pointer to XPuf_Data structure which includes options
  *                        to configure PUF
  *
- * @return      XST_SUCCESS - On Successful Regeneration
- *              XPUF_ERROR_INVALID_REGENERATION_TYPE - On Selection of invalid
- *                                                     regeneration type
- *              XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT   - Timeout occurred while
- *                                                     waiting for PUF done bit
- *              XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY    - Key ready bit and ID ready
- *                                                     bit is not set
- *              XPUF_ERROR_PUF_DONE_ID_NT_RDY        - Id ready bit is not set
+ * @return
+ *	-	XST_SUCCESS - On Successful Regeneration
+ *	-	XPUF_ERROR_INVALID_REGENERATION_TYPE - On Selection of invalid
+ *			regeneration type
+ *	-	XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT - Timeout occurred while
+ *			waiting for PUF done bit
+ *	-	XPUF_ERROR_PUF_DONE_KEY_ID_NT_RDY - Key ready bit and ID ready
+ *			bit is not set
+ *	-	XPUF_ERROR_PUF_DONE_ID_NT_RDY - Id ready bit is not set
  *
  *****************************************************************************/
 static int XPuf_StartRegeneration(XPuf_Data *PufData)
@@ -717,9 +721,10 @@ END:
  * @param	PufData - Pointer to XPuf_Data structure which includes options
  *                        to configure PUF
  *
- * @return	XST_SUCCESS - Syndrome data is successfully trimmed
- *		XPUF_ERROR_INVALID_PARAM - PufData instance pointer is NULL
- * 		XST_FAILURE - Unexpected event
+ * @return
+ *	-	XST_SUCCESS - Syndrome data is successfully trimmed
+ *	-	XPUF_ERROR_INVALID_PARAM - PufData instance pointer is NULL
+ * 	-	XST_FAILURE - Unexpected event
  *
  * @note	Formatted data will be available at PufData->EfuseSynData
  *
@@ -942,10 +947,11 @@ END:
  * @param	IroFreqUpdated -  Flag to indicate whether IRO frequency is updated.
  *
  *
- * @return	XST_SUCCESS - if IRO is at required frequency or updated to required
- *			      frequency
- *		XPUF_IRO_FREQ_WRITE_MISMATCH - Mismatch in either reading or writing
- *					       IRO frequency
+ * @return
+ *	-	XST_SUCCESS - if IRO is at required frequency or updated to required
+ *			frequency
+ *	-	XPUF_IRO_FREQ_WRITE_MISMATCH - Mismatch in either reading or writing
+ *			IRO frequency
  *
  ******************************************************************************/
 static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated)
