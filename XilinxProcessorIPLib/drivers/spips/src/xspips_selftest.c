@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips_selftest.c
-* @addtogroup spips_v3_7
+* @addtogroup spips Overview
 * @{
 *
 * This component contains the implementation of selftest functions for an SPI
