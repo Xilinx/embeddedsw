@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,8 @@
 * 3.10  mus  09/19/18 Update prototype of LowInterruptHandler to fix the GCC
 *                     warning
 * 4.0   mus  01/28/19  Updated to support Cortexa72 GIC (GIC500).
+* 5.0   adk  04/18/22 Replace infinite while loop with
+* 		      Xil_WaitForEventSet() API.
 * </pre>
 ******************************************************************************/
 
@@ -40,6 +42,7 @@
 #include "xil_printf.h"
 #include "xstatus.h"
 #include "xscugic.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -59,6 +62,7 @@
                                                  Bit [23:16] 16 = Target CPU iface 0
                                                  Bit [3:0] identifies the SFI */
 #endif
+#define XSCUGIC_SW_TIMEOUT_VAL	10000000U /* Wait for 10 sec */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -140,6 +144,7 @@ int main(void)
 ******************************************************************************/
 static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 {
+	int Status;
 
 
 	GicDistInit(DistBaseAddress);
@@ -181,18 +186,12 @@ static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 
 	/*
 	 * Wait for the interrupt to be processed, if the interrupt does not
-	 * occur this loop will wait forever
+	 * occur return failure after timeout.
 	 */
-	while (1)
-	{
-		/*
-		 * If the interrupt occurred which is indicated by the global
-		 * variable which is set in the device driver handler, then
-		 * stop waiting
-		 */
-		if (InterruptProcessed != 0) {
-			break;
-		}
+	Status = Xil_WaitForEventSet(&InterruptProcessed,
+				     XSCUGIC_SW_TIMEOUT_VAL);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;

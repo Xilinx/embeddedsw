@@ -26,6 +26,8 @@
 * 5.0   mus  04/04/22 Updated example to support it on any CPU
 *                     instance, for which example is compiled.
 *                     It fixes CR#1126331.
+* 5.0   adk  04/18/22 Replace infinite while loop with
+* 		      Xil_WaitForEventSet() API.
 * </pre>
 ******************************************************************************/
 
@@ -40,6 +42,7 @@
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xscugic.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -52,6 +55,7 @@
 #define INTC_DEVICE_INT_ID	0x0E
 
 #define XSCUGIC_SPI_CPU_MASK	(XSCUGIC_SPI_CPU0_MASK << XPAR_CPU_ID)
+#define XSCUGIC_SW_TIMEOUT_VAL	10000000U /* Wait for 10 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -207,17 +211,12 @@ int ScuGicExample(u16 DeviceId)
 
 	/*
 	 * Wait for the interrupt to be processed, if the interrupt does not
-	 * occur this loop will wait forever
+	 * occur return failure after timeout.
 	 */
-	while (1) {
-		/*
-		 * If the interrupt occurred which is indicated by the global
-		 * variable which is set in the device driver handler, then
-		 * stop waiting
-		 */
-		if (InterruptProcessed) {
-			break;
-		}
+	Status = Xil_WaitForEventSet(&InterruptProcessed,
+				     XSCUGIC_SW_TIMEOUT_VAL);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;
