@@ -22,6 +22,7 @@
 *       kc   03/23/2020 Minor code cleanup
 * 1.03  bm   01/08/2021 Updated PmcCdo function names and related comments
 *       bsv  08/13/2021 Removed unnecessary header file
+* 1.04  skd  04/20/2022 Misra-C violation Rule 2.7 fixed
 *
 * </pre>
 *
@@ -91,6 +92,8 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 int XPlm_HookAfterBootPdi(void *Arg)
 {
 	int Status = XST_FAILURE;
+
+	(void)Arg;
 
 	/* Call XilPM hook */
 	Status = XPm_HookAfterBootPdi();

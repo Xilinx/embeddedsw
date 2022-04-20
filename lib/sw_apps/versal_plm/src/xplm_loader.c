@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *       bsv  08/02/2021 Updated function return type as part of code clean up
 *       bsv  08/13/2021 Code clean up to reduce size
 * 1.07  bsv  11/08/2021 Move XLoader_IsJtagSbiMode to Xilloader
+* 1.08  skd  04/20/2022 Misra-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -78,8 +79,8 @@ int XPlm_LoadBootPdi(void *Arg)
 	 * 1. Read Boot mode register and multiboot offset register
 	 * 2. Load subsystem present in PDI
 	 */
-	PdiInstance.SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) &
-					PMC_TAP_SLR_TYPE_VAL_MASK;
+	PdiInstance.SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
+					PMC_TAP_SLR_TYPE_VAL_MASK);
 	if ((PdiInstance.SlrType == XLOADER_SSIT_MASTER_SLR) ||
 		(PdiInstance.SlrType == XLOADER_SSIT_MONOLITIC)) {
 		BootMode = XLoader_GetBootMode();

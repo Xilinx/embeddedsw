@@ -38,6 +38,7 @@
 *       kpt  09/09/2021 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 * 1.06  skd  11/18/2021 Added time stamps in XPlm_ProcessPmcCdo
 *       bm   01/05/2022 Fixed ZEROIZE-PRIORITY for XLoader_SecureClear
+* 1.07  skd  04/20/2022 Misra-C violation Rule 17.7 fixed
 *
 * </pre>
 *
@@ -472,7 +473,7 @@ int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
 	/* Clear keep alive counter and status as not started */
 	XPlmi_Out32(XPLM_PSM_ALIVE_COUNTER_ADDR, 0U);
 	(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_CLEAR);
-	XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_NOT_STARTED);
+	(void)XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_NOT_STARTED);
 
 	/**
 	 * Add keep alive task in scheduler which runs at every
