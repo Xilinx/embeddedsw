@@ -172,7 +172,9 @@
 * 4.6	sk   08/05/21 Fix scugic misrac violations.
 * 4.7   dp   11/22/21 Added new API XScuGic_IsInitialized() to check and return
 *                     the GIC initialization status.
-* 5.9   mus  22/02/22 Add support for VERSAL NET
+* 5.0   mus  22/02/22 Add support for VERSAL NET
+* 	adk  04/18/22 Replace infinite while loops in the examples with
+* 		      Xil_WaitForEventSet() API.
 *
 * </pre>
 *
