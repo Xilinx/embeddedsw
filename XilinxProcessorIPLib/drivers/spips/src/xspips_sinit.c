@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips_sinit.c
-* @addtogroup spips_v3_7
+* @addtogroup spips Overview
 * @{
 *
 * The implementation of the XSpiPs driver's static initialization

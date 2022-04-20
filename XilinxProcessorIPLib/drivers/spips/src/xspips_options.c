@@ -7,7 +7,7 @@
 /**
 *
 * @file xspips_options.c
-* @addtogroup spips_v3_7
+* @addtogroup spips Overview
 * @{
 *
 * Contains functions for the configuration of the XSpiPs driver.
