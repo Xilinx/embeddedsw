@@ -51,6 +51,7 @@
 * 7.7	sk	 01/10/22 Update functions return type to fix misra_c_2012_
 * 			  directive_4_6 violations.
 *      mmd       02/28/22 Added Xil_SMemMove function prototype
+* 8.0  adk       04/18/22 Added Xil_WaitForEventSet function prototype.
 *
 * </pre>
 *
@@ -221,6 +222,9 @@ int Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
 /* Concatenates source string to destination string */
 int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 	const u8 *SrcStr, const u32 SrcSize);
+
+/* Waits for event timeout */
+u32 Xil_WaitForEventSet(volatile u32 *EventAddr, u32 Timeout);
 
 #ifdef __cplusplus
 }
