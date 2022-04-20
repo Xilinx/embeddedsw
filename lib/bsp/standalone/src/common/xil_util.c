@@ -75,6 +75,7 @@
 * 			  misra_c_2012_rule_10_4 violation.
 * 8.0	sk	 03/17/22 Add const to unmodified pointer variable to fix misra_c
 *			  _2012_rule_8_13 violation.
+* 8.0   adk      04/18/22 Added Xil_WaitForEventSet function.
 *
 * </pre>
 *
@@ -1234,6 +1235,38 @@ int Xil_SMemMove(void *Dest, const u32 DestSize,
 		if (Output != NULL) {
 			Status = XST_SUCCESS;
 		}
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/*
+ * Waits for the event to be set with in timeout and returns error incase
+ * event was not set in specified time out.
+ *
+ * @param   EventAddr - Pointer to address of event to be set.
+ * @param   Timeout   - Max number of microseconds to wait for an event.
+ *
+ * @return
+ *          XST_SUCCESS - On occurrence of the event.
+ *          XST_FAILURE - Event did not occur before counter reaches 0
+ *
+ * @note    None.
+ *
+ *****************************************************************************/
+u32 Xil_WaitForEventSet(volatile u32 *EventAddr, u32 Timeout)
+{
+	u32 PollCount = Timeout;
+	u32 Status = XST_FAILURE;
+
+	while(PollCount > 0U) {
+		if (Xil_In32((UINTPTR)EventAddr)) {
+			Status = XST_SUCCESS;
+			break;
+		}
+		PollCount--;
+		usleep(1U);
 	}
 
 	return Status;
