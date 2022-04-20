@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,8 @@
 *                      are available in all examples. This is a fix for
 *                      CR-965028.
 * 3.10 aru    05/30/19 Updated the example to use XTtcPs_InterruptHandler().
+* 3.16 adk    04/19/22 Fix infinite loop in the example by adding polled
+* 		       timeout loop.
 *</pre>
 ******************************************************************************/
 
@@ -43,6 +45,7 @@
 #include "xttcps.h"
 #include "xscugic.h"
 #include "xil_printf.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -63,6 +66,7 @@
 #define	TICK_TIMER_FREQ_HZ	100  /* Tick timer counter's output frequency */
 
 #define TICKS_PER_CHANGE_PERIOD	TICK_TIMER_FREQ_HZ /* Tick signals per update */
+#define XTTCPS_SW_TIMEOUT_VAL	180 /* wait for 3 minutes */
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -270,6 +274,7 @@ int SetupTicker(void)
 int WaitForDutyCycleFull(void)
 {
 	u32 seconds;
+	u32 PollCount = XTTCPS_SW_TIMEOUT_VAL;
 
 	/*
 	 * Initialize some variables used by the interrupts and in loops.
@@ -286,7 +291,7 @@ int WaitForDutyCycleFull(void)
 		/*
 		 * If error occurs, disable interrupts, and exit.
 		 */
-		if (0 != ErrorCount) {
+		if ((0 != ErrorCount) || (PollCount == 0)) {
 			return XST_FAILURE;
 		}
 
@@ -303,6 +308,9 @@ int WaitForDutyCycleFull(void)
 
 			xil_printf("Time: %d\n\r", seconds);
 
+		} else {
+			PollCount--;
+			sleep(1U);
 		}
 	}
 

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,8 @@
 *                      are available in all examples. This is a fix for
 *                      CR-965028.
 * 3.10 aru    05/30/19 Updated the example to use XTtcPs_InterruptHandler().
+* 3.16 adk    04/19/22 Replace infinite while loop with
+* 		       Xil_WaitForEventSet() API.
 *</pre>
 ******************************************************************************/
 
@@ -46,6 +48,7 @@
 #include "xttcps.h"
 #include "xscugic.h"
 #include "xil_printf.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -61,6 +64,7 @@
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 #define	TICK_TIMER_FREQ_HZ	100  /* Tick timer counter's output frequency */
+#define XTTCPS_SW_TIMEOUT_VAL	10000000U /* Wait for 10 sec */
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -92,7 +96,7 @@ static TmrCntrSetup SettingsTable=
 	{TICK_TIMER_FREQ_HZ, 0, 0, 0};	/* Ticker timer counter initial setup,
 									only output freq */
 
-static volatile u8 UpdateFlag;	/* Flag to update the seconds counter */
+static volatile u32 UpdateFlag;	/* Flag to update the seconds counter */
 
 #ifndef TESTAPP_GEN
 XScuGic InterruptController;  	/* Interrupt controller instance */
@@ -179,10 +183,14 @@ int TmrInterruptExample(XTtcPs *TtcPsInst,u16 DeviceID,u16 TtcTickIntrID,
 		}
 		/*
 		 * The Ticker interrupt sets a flag for update.
-		 * Wait until the flag is updated by interrupt routine
+		 * Wait until the flag is updated by interrupt routine if the
+		 * interrupt does not occur return failure after timeout.
 		 */
-
-		while (!UpdateFlag);
+		Status = Xil_WaitForEventSet(&UpdateFlag,
+					     XTTCPS_SW_TIMEOUT_VAL);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
 		DeviceID++;
 		TtcTickIntrID++;
 

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +39,8 @@
 * 3.12 mus    07/13/20 Updated SettingsTable, to hold settings for PWM and tick
 *                       timer device setting at correct indices. It fixes
 *                       CR#1069191.
+* 3.16 adk    04/19/22 Fix infinite loop in the example by adding polled
+* 		       timeout loop.
 *</pre>
 ******************************************************************************/
 
@@ -52,6 +54,7 @@
 #include "xttcps.h"
 #include "xscugic.h"
 #include "xil_printf.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 #if defined (PLATFORM_ZYNQ)
@@ -90,6 +93,7 @@
 
 #define PWM_DELTA_DUTY	50 /* Initial and increment to duty cycle for PWM */
 #define TICKS_PER_CHANGE_PERIOD TICK_TIMER_FREQ_HZ * 5 /* Tick signals PWM */
+#define XTTCPS_SW_TIMEOUT_VAL	20000000U /* Wait for 20 sec */
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -399,6 +403,7 @@ int WaitForDutyCycleFull(void)
 	TmrCntrSetup *TimerSetup;
 	u8 DutyCycle;		/* The current output duty cycle */
 	XTtcPs *TtcPs_PWM;	/* Pointer to the instance structure */
+	u32 PollCount = XTTCPS_SW_TIMEOUT_VAL;
 
 	TimerSetup = &(SettingsTable[TTC_PWM_DEVICE_ID]);
 	TtcPs_PWM = &(TtcPsInst[TTC_PWM_DEVICE_ID]);
@@ -418,7 +423,7 @@ int WaitForDutyCycleFull(void)
 		/*
 		 * If error occurs, disable interrupts, and exit.
 		 */
-		if (0 != ErrorCount) {
+		if ((0 != ErrorCount) || (PollCount == 0)) {
 			return XST_FAILURE;
 		}
 
@@ -445,6 +450,9 @@ int WaitForDutyCycleFull(void)
 
 			PWM_UpdateFlag = FALSE;
 
+		} else {
+			PollCount--;
+			usleep(1U);
 		}
 	}
 

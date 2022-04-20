@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -146,6 +146,8 @@
 *                     Interrupt status register by reading instead of writing it.
 * 3.14   mus 02/22/21 Updated XTtcPs_ClearInterruptStatus to fix compiler warning.
 *                     It fixes CR#1084697.
+* 3.16  adk  04/19/22 Fix infinite loop in the examples by adding polled
+* 		      timeout loop.
 * </pre>
 *
 ******************************************************************************/
