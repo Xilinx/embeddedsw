@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 * 5.0   bsv  11/15/20 Added Macronix 2G flash support
 * 6.0   bsv  07/29/21 Added Winbond 2G flash support
 *       bsv  09/08/21 Added MultiDie read support for Micron 2G flash part
+* 7.0   bsv  04/20/22 Fixed bug in Qspi copy when destination address is not
+*                     64 byte aligned
 *
 * </pre>
 *
@@ -49,6 +51,8 @@
  * change all the needed parameters in one place.
  */
 #define QSPI_DEVICE_ID		XPAR_XQSPIPSU_0_DEVICE_ID
+#define XFSBL_SIXTY_FOUR_BYTE_MASK	(0x3FU)
+#define XFSBL_SIXTY_FOUR_BYTE_VAL	(64U)
 
 /**************************** Type Definitions *******************************/
 
@@ -60,7 +64,7 @@ static u32 MacronixEnable4B(XQspiPsu *QspiPsuPtr);
 static u32 MacronixEnableQPIMode(XQspiPsu *QspiPsuPtr, int Enable);
 
 /************************** Variable Definitions *****************************/
-static XQspiPsu QspiPsuInstance;
+static XQspiPsu QspiPsuInstance __attribute__ ((aligned(64)));;
 static u32 QspiFlashSize=0U;
 static u32 QspiFlashMake=0U;
 static u32 ReadCommand=0U;
@@ -610,6 +614,9 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	u32 BankSize;
 	u32 BankMask;
 	s32 SStatus;
+	u8 TempBuf[XFSBL_SIXTY_FOUR_BYTE_VAL] __attribute__ ((aligned(64)));
+	u32 UnalignedBytes = (u32)(DestAddress & XFSBL_SIXTY_FOUR_BYTE_MASK);
+	PTRSIZE DestAddr;
 
 	XFsbl_Printf(DEBUG_INFO,"QSPI Reading Src 0x%0lx, Dest %0lx, Length %0lx\r\n",
 			SrcAddress, DestAddress, Length);
@@ -650,6 +657,21 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			TransferBytes = RemainingBytes;
 		}
 
+		/* Check for 64 byte alignment of DMA destination */
+		if (UnalignedBytes != 0U) {
+			UnalignedBytes = (u32)XFSBL_SIXTY_FOUR_BYTE_VAL -
+				UnalignedBytes;
+			if (UnalignedBytes > TransferBytes) {
+				UnalignedBytes = TransferBytes;
+			}
+			else {
+				TransferBytes = UnalignedBytes;
+			}
+			DestAddr = (UINTPTR)TempBuf;
+		}
+		else {
+			DestAddr = DestAddress;
+		}
 		/**
 		 * Translate address based on type of connection
 		 * If stacked assert the slave select based on address
@@ -744,7 +766,7 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 
 			/*Data*/
 			FlashMsg[3].TxBfrPtr = NULL;
-			FlashMsg[3].RxBfrPtr = (u8 *)DestAddress;
+			FlashMsg[3].RxBfrPtr = (u8 *)DestAddr;
 			FlashMsg[3].ByteCount = TransferBytes;
 			FlashMsg[3].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 			FlashMsg[3].Flags = XQSPIPSU_MSG_FLAG_RX;
@@ -820,7 +842,7 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			}
 
 			FlashMsg[2].TxBfrPtr = NULL;
-			FlashMsg[2].RxBfrPtr = (u8 *)DestAddress;
+			FlashMsg[2].RxBfrPtr = (u8 *)DestAddr;
 			FlashMsg[2].ByteCount = TransferBytes;
 			FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;
 
@@ -842,6 +864,11 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			}
 		}
 
+		if (UnalignedBytes != 0U) {
+			(void)XFsbl_MemCpy((void *)DestAddress, TempBuf,
+				UnalignedBytes);
+			UnalignedBytes = 0U;
+		}
 		/**
 		 * Update the variables
 		 */
@@ -1204,6 +1231,9 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	u32 BankSize;
 	u32 BankMask;
 	u32 OrigAddr;
+	u8 TempBuf[XFSBL_SIXTY_FOUR_BYTE_VAL] __attribute__ ((aligned(64)));
+	u32 UnalignedBytes = (u32)(DestAddress & XFSBL_SIXTY_FOUR_BYTE_MASK);
+	PTRSIZE DestAddr;
 
 	XFsbl_Printf(DEBUG_INFO,"QSPI Reading Src 0x%0lx, Dest %0lx, Length %0lx\r\n",
 			SrcAddress, DestAddress, Length);
@@ -1246,6 +1276,22 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			TransferBytes = RemainingBytes;
 		}
 
+		/* Check for 64 byte alignment of DMA destination */
+		if (UnalignedBytes != 0U) {
+			UnalignedBytes = (u32)XFSBL_SIXTY_FOUR_BYTE_VAL -
+				UnalignedBytes;
+			if (UnalignedBytes > TransferBytes) {
+				UnalignedBytes = TransferBytes;
+			}
+			else {
+				TransferBytes = UnalignedBytes;
+			}
+			DestAddr = (UINTPTR)TempBuf;
+		}
+		else {
+			DestAddr = DestAddress;
+		}
+
 		/**
 		 * Translate address based on type of connection
 		 * If stacked assert the slave select based on address
@@ -1278,7 +1324,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		XFsbl_Printf(DEBUG_INFO,".");
 		XFsbl_Printf(DEBUG_DETAILED,
 					"QSPI Read Src 0x%0lx, Dest %0lx, Length %0lx\r\n",
-						QspiAddr, DestAddress, TransferBytes);
+						QspiAddr, DestAddr, TransferBytes);
 
 		/**
 		 * Setup the read command with the specified address and data for the
@@ -1327,7 +1373,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 
 			/*Data*/
 			FlashMsg[3].TxBfrPtr = NULL;
-			FlashMsg[3].RxBfrPtr = (u8 *)DestAddress;
+			FlashMsg[3].RxBfrPtr = (u8 *)DestAddr;
 			FlashMsg[3].ByteCount = TransferBytes;
 			FlashMsg[3].BusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
 			FlashMsg[3].Flags = XQSPIPSU_MSG_FLAG_RX;
@@ -1409,7 +1455,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			}
 
 			FlashMsg[2].TxBfrPtr = NULL;
-			FlashMsg[2].RxBfrPtr = (u8 *)DestAddress;
+			FlashMsg[2].RxBfrPtr = (u8 *)DestAddr;
 			FlashMsg[2].ByteCount = TransferBytes;
 			FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;
 
@@ -1429,6 +1475,11 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 				XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 				goto END;
 			}
+		}
+		if (UnalignedBytes != 0U) {
+			(void)XFsbl_MemCpy((void *)DestAddress, TempBuf,
+				TransferBytes);
+			UnalignedBytes = 0U;
 		}
 		/**
 		 * Update the variables
