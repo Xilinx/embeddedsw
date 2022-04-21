@@ -60,6 +60,7 @@
  *       ma   02/04/2022 Print Command ID when IPI command execute fails
  *       bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
  *                       same priority
+ * 1.06  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
  *
  * </pre>
  *
@@ -92,6 +93,7 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
 static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex);
 static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 	XPlmi_SubsystemHandler SubsystemHandler);
+static int XPlmi_IpiDispatchHandler(void *Data);
 
 /************************** Variable Definitions *****************************/
 
@@ -220,7 +222,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_IpiDispatchHandler(void *Data)
+static int XPlmi_IpiDispatchHandler(void *Data)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};

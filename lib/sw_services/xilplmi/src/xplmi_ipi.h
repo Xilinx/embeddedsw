@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,7 +33,8 @@
 *       bm   10/14/2020 Code clean up
 * 1.03  ma   03/04/2021 Added IPI secure related defines
 *       bsv  04/16/2021 Added provision to store Subsystem Id in XilPlmi
-*       ma   08/09/2021 Added IPI_PMC_IMR register define
+* 1.04  ma   08/09/2021 Added IPI_PMC_IMR register define
+* 1.05  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
 *
 * </pre>
 *
@@ -83,7 +84,6 @@ typedef u32 (*XPlmi_SubsystemHandler)(u32 IpiMask);
 
 /************************** Function Prototypes ******************************/
 int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler);
-int XPlmi_IpiDispatchHandler(void *Data);
 int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiTrigger(u32 DestCpuMask);
