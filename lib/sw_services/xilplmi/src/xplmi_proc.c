@@ -42,6 +42,7 @@
 *       bm   01/27/2022 Fix setup interrupt system logic
 *       rama 01/31/2022 Added STL error interrupt register functionality
 *       bm   03/16/2022 Fix ROM time calculation
+* 1.07  skd  04/21/2022 Misra-C violation Rule 18.1 fixed
 *
 * </pre>
 *
@@ -541,11 +542,9 @@ static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
 
 	if (XPLMI_IOMODULE_CFRAME_SEU == IoModIntrNum) {
 		InterruptTableSize -= (u8)2U;
-	}
-	if (XPLMI_IOMODULE_ERR_IRQ == IoModIntrNum) {
+	} else if (XPLMI_IOMODULE_ERR_IRQ == IoModIntrNum) {
 		InterruptTableSize -= (u8)1U;
-	}
-	if (g_TopLevelInterruptTable[InterruptTableSize] != NULL) {
+	} else {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_REGISTER_IOMOD_HANDLER, 0);
 		goto END;
 	}

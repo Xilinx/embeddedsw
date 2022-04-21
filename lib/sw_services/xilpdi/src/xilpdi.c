@@ -40,6 +40,7 @@
 *       bsv  08/17/2021 Code clean up
 * 1.06  kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 *       kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
+* 1.08  skd  04/21/2022 Misra-C violation Rule 14.3 fixed
 *
 * </pre>
 *
@@ -342,9 +343,9 @@ int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
-	u8 PrtnIndex;
+	u32 PrtnIndex;
 
-	for (PrtnIndex = 0U; PrtnIndex < (u8)MetaHdrPtr->ImgHdrTbl.NoOfPrtns;
+	for (PrtnIndex = 0U; PrtnIndex < MetaHdrPtr->ImgHdrTbl.NoOfPrtns;
 		PrtnIndex++) {
 		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->PrtnHdr[PrtnIndex],
 				XIH_PH_LEN);
@@ -373,9 +374,9 @@ END:
 int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
-	u8 ImgIndex;
+	u32 ImgIndex;
 
-	for (ImgIndex = 0U; ImgIndex < (u8)MetaHdrPtr->ImgHdrTbl.NoOfImgs;
+	for (ImgIndex = 0U; ImgIndex < MetaHdrPtr->ImgHdrTbl.NoOfImgs;
 		ImgIndex++) {
 		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[ImgIndex],
 				XIH_IH_LEN);

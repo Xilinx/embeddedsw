@@ -31,6 +31,7 @@
  *       is   01/10/2022 Updated Copyright Year to 2022
  *       ma   01/17/2022 Enable SLVERR for Sysmon
  *       ma   03/01/2022 Write PCSR MASK register before enabling SLVERR
+ * 1.05  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
  *
  * </pre>
  *
@@ -53,7 +54,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value);
+static void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value);
 
 /************************** Variable Definitions *****************************/
 
@@ -83,7 +84,7 @@ XSysMonPsv* XPlmi_GetSysmonInst(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value)
+static void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value)
 {
 	/*
 	 * We need to unlock PCSR to write to control register.

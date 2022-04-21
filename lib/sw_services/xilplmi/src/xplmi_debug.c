@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 *       rb   08/11/2021 Fix compilation warnings
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 * 1.06  am   11/24/2021 Fixed doxygen warning
+* 1.07  skd  04/21/2022 Misra-C violation Rule 8.3 fixed
 *
 * </pre>
 *
@@ -223,7 +224,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void outbyte(char8 c)
+void outbyte(char c)
 {
 	u64 CurrentAddr;
 #if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
