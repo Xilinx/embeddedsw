@@ -280,13 +280,6 @@ static XStatus LpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			DbgErr = XPM_INT_ERR_SCAN_PASS;
 			goto done;
 		}
-
-		/* unwrite trigger bits */
-		PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
-				(PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_MASK |
-                 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_IOU_MASK |
-                 PMC_ANALOG_SCAN_CLEAR_TRIGGER_LPD_RPU_MASK), 0);
-
 	} else {
 		/* ScanClear is skipped */
 		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
