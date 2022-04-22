@@ -243,12 +243,6 @@ static XStatus VduScanClear(u32 BaseAddress)
 		goto done;
 	}
 
-	/* Unwrite trigger bits */
-	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK, 0U);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER_UNSET;
-	}
-
 done:
 	/* Lock PCSR */
 	XPmPlDomain_LockVduPcsr(BaseAddress);
