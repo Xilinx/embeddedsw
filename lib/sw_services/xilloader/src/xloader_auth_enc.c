@@ -82,6 +82,7 @@
 *       bsv  02/13/22 Reduce stack usage of functions
 *       har  02/17/22 Updated code to limit number of attempts to enable JTAG
 *                     when efuse bits are set
+* 1.04  skd  04/21/2022 Misra-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -2783,7 +2784,7 @@ END:
 ******************************************************************************/
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr)
 {
-	int Status = XLOADER_SEC_IV_METAHDR_RANGE_ERROR;
+	int Status = (int)XLOADER_SEC_IV_METAHDR_RANGE_ERROR;
 	volatile u32 IHPtr_0U = IHPtr[0U];
 	volatile u32 IHPtrTmp_0U = IHPtr[0U];
 	volatile u32 IHPtr_1U = IHPtr[1U];
@@ -2927,17 +2928,17 @@ static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 		}
 
 		if (AuthJtagStatus.JtagTimeOut == 0U) {
-			AuthJtagStatus.JtagTimerEnabled = FALSE;
+			AuthJtagStatus.JtagTimerEnabled = (u8)FALSE;
 		}
 		else {
-			AuthJtagStatus.JtagTimerEnabled = TRUE;
+			AuthJtagStatus.JtagTimerEnabled = (u8)TRUE;
 		}
 	}
 	else {
-		if (AuthJtagStatus.JtagTimerEnabled == TRUE) {
+		if (AuthJtagStatus.JtagTimerEnabled == (u8)TRUE) {
 			AuthJtagStatus.JtagTimeOut--;
 			if (AuthJtagStatus.JtagTimeOut == 0U) {
-				Status = XLOADER_DAP_TIMEOUT_DISABLED;
+				Status = (int)XLOADER_DAP_TIMEOUT_DISABLED;
 				goto END;
 			}
 		}

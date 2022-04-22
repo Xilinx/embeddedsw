@@ -126,6 +126,7 @@
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *       bsv  01/29/2022 Added redundancy to Status variable in XLoader_LoadImage
 *       kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
+* 1.06  skd  04/21/2022 Misra-C violation Rule 10.3 and 14.3 are fixed
 *
 * </pre>
 *
@@ -680,7 +681,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u8 Index;
 	u8 ImageNum;
 	u8 PrtnNum;
-	u8 PrtnIndex;
+	u32 PrtnIndex;
 
 	/*
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -770,7 +771,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		PrtnNum = DelayHandoffPrtnNum[Index];
 		PdiPtr->PrtnNum = PrtnNum;
 		for (PrtnIndex = 0U;
-			PrtnIndex < (u8)PdiPtr->MetaHdr.ImgHdr[ImageNum].NoOfPrtns;
+			PrtnIndex < PdiPtr->MetaHdr.ImgHdr[ImageNum].NoOfPrtns;
 			PrtnIndex++) {
 			Status = XLoader_UpdateHandoffParam(PdiPtr);
 			if (Status != XST_SUCCESS) {
@@ -905,7 +906,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 				/* APU Core configuration */
 				XLoader_A72Config(CpuId, ExecState, VInitHi);
 				DeviceId = PM_DEV_ACPU_0;
-				ErrorCode = XLOADER_ERR_WAKEUP_A72_0;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_A72_0;
 				XLoader_Printf(DEBUG_INFO, "Request APU0 "
 						"wakeup\r\n");
 				break;
@@ -950,7 +951,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 			Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId,
 				SetAddress, HandoffAddr, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(ErrorCode, Status);
+				Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
 				goto END;
 			}
 		}
@@ -1521,11 +1522,11 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 	u8 PdiIndex = PdiPtr->PdiIndex;
 	u8 PdiType = PdiPtr->PdiType;
 	u8 PrtnNum = 0U;
-	u8 Index;
+	u32 Index;
 
 	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 
-	for (Index = 0U; Index < (u8)PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
+	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
 		++Index) {
 		if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId) {
 			PdiPtr->ImageNum = Index;
@@ -1770,7 +1771,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 		ATFHandoffParams.MagicValue[3U] = 'X';
 	}
 	else {
-		for (; LoopCount < (u8)ATFHandoffParams.NumEntries;
+		for (; LoopCount < ATFHandoffParams.NumEntries;
 			LoopCount++) {
 			if (ATFHandoffParams.Entry[LoopCount].PrtnFlags ==
 					PrtnFlags) {
@@ -1914,7 +1915,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 			}
 
 			if (Status == (int)XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE) {
-				Status = XPlmi_UpdateStatus(Status, 0);
+				Status = XPlmi_UpdateStatus((XPlmiStatus_t)Status, 0);
 				goto END;
 			}
 
