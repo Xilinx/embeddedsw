@@ -795,11 +795,6 @@ static XStatus PlHcScanClear(const XPm_PlDomain *Pld, u16 *DbgErr)
 		}
 	}
 
-	/* Unwrite trigger bits for PL scan clear / MBIST */
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_MASK_OFFSET,
-		CFU_APB_CFU_FGCR_SC_HBC_TRIGGER_MASK);
-	PmOut32(Pld->CfuApbBaseAddr + CFU_APB_CFU_FGCR_OFFSET, 0);
-
 #ifdef PLM_PRINT_PERF_PL
 	XPlmi_Printf(DEBUG_GENERAL, "PL House Clean completed\n\r");
 #endif
