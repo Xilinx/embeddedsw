@@ -791,13 +791,6 @@ static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			Status = XST_FAILURE;
 			goto fail;
 		}
-
-		/* Unwrite trigger bits */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK, 0);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER_UNSET;
-			goto fail;
-		}
 	} else {
 		/* ScanClear is skipped */
 		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
