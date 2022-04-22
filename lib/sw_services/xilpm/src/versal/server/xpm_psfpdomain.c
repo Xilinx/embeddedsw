@@ -193,10 +193,6 @@ static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
                 goto done;
 	}
 
-	/* Unwrite trigger bits */
-	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_SCAN_CLEAR_FPD_OFFSET,
-		PSM_GLOBAL_SCAN_CLEAR_TRIGGER, 0);
-
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
