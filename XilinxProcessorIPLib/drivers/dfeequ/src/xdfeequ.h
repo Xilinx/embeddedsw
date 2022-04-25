@@ -7,8 +7,10 @@
 /**
 *
 * @file xdfeequ.h
-* @addtogroup Overview
+* @addtogroup dfeequ Overview
 * @{
+*
+* @cond nocomments
 *
 * The RFSoC DFE Equalizer LogiCore builds upon the Complex Equalizer primitive
 * (dfe_complex_eq). Each instance of the LogiCore supports up to 8
@@ -36,7 +38,6 @@
 *   stream interface.
 * - Does not currently support configuration of the filter coefficients at
 *   startup.
-* @cond nocomments
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -58,6 +59,7 @@
 *       dc     01/24/22 Auto-compute number of units
 * 1.3   dc     02/18/22 Write 1 clears event status
 *       dc     03/21/22 Add prefix to global variables
+* 1.4   dc     04/06/22 Update documentation
 *
 * </pre>
 * @endcond
@@ -289,7 +291,7 @@ typedef struct {
 } XDfeEqu_Status;
 
 /**
- * Status Mask.
+ * Event status and interrupt mask.
  */
 typedef struct {
 	u32 Mask[XDFEEQU_CHANNEL_NUM]; /**< [0,1] Mask status events. */

@@ -22,7 +22,7 @@
 *       dc     01/24/22 Auto-compute number of units
 *
 * </pre>
-* @addtogroup Overview
+* @addtogroup dfeequ Overview
 * @{
 *
 *****************************************************************************/

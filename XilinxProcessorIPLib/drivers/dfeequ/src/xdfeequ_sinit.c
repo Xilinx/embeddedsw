@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ_sinit.c
-* @addtogroup Overview
+* @addtogroup dfeequ Overview
 * @{
 * @cond nocomments
 * The implementation of the Equalizer component's static initialization
