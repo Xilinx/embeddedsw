@@ -21,9 +21,10 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+* 1.4   dc     04/06/22 Update documentation
 *
 * </pre>
-* @addtogroup Overview
+* @addtogroup dfeequ Overview
 * @{
 ******************************************************************************/
 /**
@@ -117,7 +118,6 @@ void XDfeEqu_ClearEventStatus(const XDfeEqu *InstancePtr,
 * Enables an Equalizer status for channel ID.
 *
 * @param    InstancePtr Pointer to the Equalizer instance.
-* @param    ChannelField Bits indicating which channel is enabled.
 * @param    InterruptMask Equalizer interrupt mask container.
 *
 * @note     The Status Mask registers are only present for a given channel when

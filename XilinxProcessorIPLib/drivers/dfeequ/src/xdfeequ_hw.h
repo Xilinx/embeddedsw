@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeequ_reg.h
-* @addtogroup Overview
+* @addtogroup dfeequ Overview
 * @{
 * @cond nocomments
 * Contains the register definitions for dfeequ. This is

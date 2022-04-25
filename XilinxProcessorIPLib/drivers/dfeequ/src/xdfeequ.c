@@ -33,9 +33,10 @@
 *       dc     01/24/22 Auto-compute number of units
 *       dc     02/18/22 Write 1 clears event status
 *       dc     03/21/22 Add prefix to global variables
+* 1.4   dc     04/06/22 Update documentation
 *
 * </pre>
-* @addtogroup Overview
+* @addtogroup dfeequ Overview
 * @{
 ******************************************************************************/
 /**
@@ -66,7 +67,7 @@
 * @endcond
 */
 #define XDFEEQU_TAP_MAX (24U) /**< Maximum tap value */
-#define XDFEEQU_DRIVER_VERSION_MINOR (3U) /**< Driver's minor version number */
+#define XDFEEQU_DRIVER_VERSION_MINOR (4U) /**< Driver's minor version number */
 #define XDFEEQU_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
@@ -684,7 +685,7 @@ return_error:
 /*****************************************************************************/
 /**
 *
-* API closes the instances of an Equalizer driver and moves the state machine
+* API closes the instance of an Equalizer driver and moves the state machine
 * to a Not Ready state.
 *
 * @param    InstancePtr Pointer to the Equalizer instance.
