@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeprach_hw.h
-* @addtogroup Overview
+* @addtogroup dfeprach Overview
 * @{
 * @cond nocomments
 * Contains the register definitions for xdfeprach. This is
