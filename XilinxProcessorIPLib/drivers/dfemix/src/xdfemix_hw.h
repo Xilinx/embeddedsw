@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfemix_reg.h
-* @addtogroup Overview
+* @addtogroup dfemix Overview
 * @{
 * @cond nocomments
 * Contains the register definitions for dfemixer. This is

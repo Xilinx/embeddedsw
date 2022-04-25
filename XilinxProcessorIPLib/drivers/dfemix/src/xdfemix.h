@@ -7,19 +7,19 @@
 /**
 *
 * @file xdfemix.h
-* @addtogroup Overview
+* @addtogroup dfemix Overview
 * @{
+*
+* @cond nocomments
 *
 * The RFSoC DFE DUC-DDC Mixer IP provides a wrapper around the Channel Mixer and
 * DUC_DDC primitives (Combined DUC-DDC and Mixer). Each IP instance can
 * support up to 64 CC, arranged across a maximum of 8 Antennas using
 * four primitives. The wrapper provides access to the underlying primitives via
-* TDMA AXI-Stream data interfaces. Output from the primitive in DL mode is
-* arranged as an AXI-Stream, running at f<SUB>s</SUB>, per antenna. An AXI
-* memory-mapped interface is provided, enabling configuration and control of
-* the block from a microprocessor.
+* TDMA AXI-Stream data interfaces. An AXI memory-mapped interface is provided,
+* enabling configuration and control of the block from a microprocessor.
 * The features that the DUC-DDC Mixer IP and driver support are:
-* - Supports ibw of up to 400MHz.
+* - Supports instantaneous bandwidth of up to 400MHz.
 * - Supports a maximum sample rate of 491.52MSPS for the antenna signals.
 * - Supports CC sequence reconfiguration.
 * - Supports up conversion rate set on a per CC basis, programmed
@@ -34,9 +34,9 @@
 *
 * The NUM_ANTENNAS parameter gives the number of antennas supported by
 * the IP Core. The NUM_CC parameter gives the Number of CC per antenna
-* Combining these two parameters will give the total number of channels
-* the IP core will need to process and hence dictate the internal
-* architecture. The IP core and driver provides the following features:
+* Combining these two parameters gives the total number of channels the IP core
+* needs to process and hence dictate the internal architecture. The IP core and
+* driver provides the following features:
 * - The AXI Memory map provides settings to enable/disable individual CCs.
 * - CC settings apply to all antenna - the only setting that is specific to
 *   an antenna is ANTENNA_GAIN.
@@ -45,9 +45,8 @@
 * - Support for software reset. The IP software reset register allows
 *   the assertion of the internal reset.
 *
-* An API which will read/write registers is provided for debugging purpose.
+* An API which reads/writes registers is provided for debugging purpose.
 *
-* @cond nocomments
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -76,6 +75,7 @@
 *       dc     12/17/21 Update after documentation review
 * 1.3   dc     02/10/22 Add latency information
 *       dc     03/21/22 Add prefix to global variables
+* 1.4   dc     03/28/22 Update documentation
 *
 * </pre>
 * @endcond
@@ -135,10 +135,10 @@ extern "C" {
 * @cond nocomments
 */
 #define XDFEMIX_RATE_MAX (7U) /**< Maximum rate Id */
-#define XDFEMIX_NCO_MAX (7U) /**< Maximum NCO number */
 /**
 * @endcond
 */
+#define XDFEMIX_NCO_MAX (7U) /**< Maximum NCO number */
 #define XDFEMIX_CC_GAIN_MAX (3U) /**< Maximum CC gain */
 
 /**************************** Type Definitions *******************************/
@@ -261,8 +261,8 @@ typedef struct {
 typedef struct {
 	u32 Mode; /**< [0,1] 0=downlink, 1=uplink */
 	u32 NumAntenna; /**< [1,2,4,8] Number of antennas */
-	u32 MaxUseableCcids; /**< [4,8] Maximum CC usable */
-	u32 Lanes; /**< [1-4] Number of lanes */
+	u32 MaxUseableCcids; /**< [2,4,8] Maximum CC usable */
+	u32 Lanes; /**< [1-8] Number of lanes */
 	u32 AntennaInterleave; /**< [1,2,4,8] Number of Antenna slots */
 	u32 MixerCps; /**< [1,2,4] */
 	u32 DataIWidth; /**< [16,24] 16 for 16-bit sample data and 24 for
@@ -360,9 +360,7 @@ typedef struct {
 /**
  * Configuration for a single CC (implementation note: notice that there are
  * two parts, one part (DUCDDCCfg) mapping to the CCCfg state, and another that
- * is written directly to NCO registers (xDFECCMixerNCOT). Note that CC Filter
- * does not have the second part. However, from an API perspective, this is
- * hidden.
+ * is written directly to NCO registers (XDfeMix_NCO).
  */
 typedef struct {
 	XDfeMix_DUCDDCCfg DUCDDCCfg; /**< Defines settings for single CC's
@@ -370,7 +368,7 @@ typedef struct {
 } XDfeMix_CarrierCfg;
 
 /**
- * Configuration for a single Antenna.
+ * Configuration to all antennas.
  */
 typedef struct {
 	u32 Gain[XDFEMIX_ANT_NUM_MAX]; /**< [0: 0dB,1:-6dB] Antenna gain adjustment */
@@ -383,7 +381,7 @@ typedef struct {
 	XDfeMix_CCSequence Sequence; /**< CCID sequence */
 	XDfeMix_InternalDUCDDCCfg DUCDDCCfg[16]; /**< DUC/DDC configurations
 		for all CCs */
-	XDfeMix_NCO NCO[XDFEMIX_NCO_MAX + 1]; /**< Defines settings for single
+	XDfeMix_NCO NCO[XDFEMIX_NCO_MAX + 1]; /**< Defines settings for all
 		CC's NCO */
 	XDfeMix_AntennaCfg AntennaCfg; /**< Antenna configuration */
 } XDfeMix_CCCfg;
@@ -398,7 +396,7 @@ typedef struct {
 		in imaginary data has occurred. */
 	u32 FirstAntennaOverflowing; /**< [0-7] Lowest antenna in which
 		overflow has occurred. */
-	u32 FirstCCIDOverflowing; /**< [0-7] Lowest CCID in which overflow has
+	u32 FirstCCIDOverflowing; /**< [0-15] Lowest CCID in which overflow has
 		occurred. */
 } XDfeMix_DUCDDCStatus;
 
@@ -415,14 +413,17 @@ typedef struct {
 			 and has been saturated. */
 	u32 AdderAntenna; /**< [0-7] Lowest antenna in which overflow has
 		occurred. */
-	u32 MixCCID; /**< [0-7] Lowest CCID on which overflow has occurred
+	u32 MixCCID; /**< [0-15] Lowest CCID on which overflow has occurred
 		in mixer. */
 	u32 MixAntenna; /**< [0-7] Lowest antenna in which overflow has
 		occurred. */
 } XDfeMix_MixerStatus;
 
 /**
- * Interrupt status and mask.
+ * Event status and interrupt mask.
+ *
+ * @note The structure for XDfeMix_InterruptMask is the same as that of
+ *       XDfeMix_Status
  */
 typedef struct {
 	u32 DUCDDCOverflow; /**< [0,1] Mask overflow in DUC/DDC */
@@ -441,8 +442,8 @@ typedef struct {
 	metal_phys_addr_t BaseAddr; /**< Device base address */
 	u32 Mode; /**< [0,1] 0=downlink, 1=uplink */
 	u32 NumAntenna; /**< [1,2,4,8] */
-	u32 MaxUseableCcids; /**< [4,8] */
-	u32 Lanes; /**< [1-4] */
+	u32 MaxUseableCcids; /**< [2,4,8] */
+	u32 Lanes; /**< [1-8] */
 	u32 AntennaInterleave; /**< [1,2,4,8] */
 	u32 MixerCps; /**< [1,2,4] */
 	u32 DataIWidth; /**< [16,24] 16 for 16-bit sample data and 24 for

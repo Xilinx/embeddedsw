@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfemix_sinit.c
-* @addtogroup Overview
+* @addtogroup dfemix Overview
 * @{
 * @cond nocomments
 * The implementation of the Mixer component's static initialization
