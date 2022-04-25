@@ -7,28 +7,32 @@
 /**
 *
 * @file xdfeprach.h
-* @addtogroup Overview
+* @addtogroup dfeprach Overview
 * @{
 *
-* The RFSoC DFE PRACH LogiCORE IP provides a wrapper around the PRACH primitive
-* (PRACH (R16)). The wrapper provides access to the underlying primitives via
+* @cond nocomments
+*
+* The RFSoC DFE PRACH LogiCORE IP provides a wrapper around the PRACH
+* primitive. The wrapper provides access to the underlying primitives via
 * TDM AXI-stream data interfaces. Output from the primitive is arranged as an
-* AXI4-Stream, running at fs, per antenna. A memory mapped AXI interface
-* is provided, which enables configuration and control of the core from
-* a microprocessor. The AXI memory map also provides access to the IP core's
-* status.
+* AXI4-Stream, per antenna. A memory mapped AXI interface is provided, which
+* enables configuration and control of the core from a microprocessor. The AXI
+* memory map also provides access to the IP core's status.
 *
 * The features that the PRACH IP and the driver support are:
 *
-* - Supports ibw of 200 MHz and 400 MHz.
-* - Supports a maximum sample rate of 491.52 MHz.
-* - Supports reallocation of RACH channel.
+* - Support for up to 4x491.52 MSPS aggregated input sample rate distributed
+*   over up to 8 component carriers and 8 antenna paths (e.g. 200MHz oBW over
+*   8 antennas or 400MHz oBW over 4 antennas).
+* - Support for up to 16 PRACH channels per antenna with a maximum aggregated
+*   down-sampling rate of up to 122.88MSPS. The 16 channels can be dynamically
+*   allocated accross up to 8 component carriers.
 * - UL Input TDM pattern programmed via register interface.
-* - Output TDM pattern is driven by the RACH hardcore. There is no option to
-*   programme the order. The expectation is that the buffering in the FFT SS
-*   PRACH chain will recombine the outputs into their respective blocks.
+* - Output TDM pattern is driven by the RACH primitive. There is no option to
+*   programme the order. The expectation is that the buffering in the PRACH FFT
+*   chain will recombine the outputs into their respective blocks.
 * - Supports 16 NCO channels.
-* - Each NCO channel is available to any input TDM slot mod 16.
+* - Each NCO channel is available to any input TDM slot modulo 16.
 * - NCO signal can be replicated across multiple antennas for a given CCID.
 * - Each CCID can access more than one NCO/Filter channel.
 * - Supports up to 16 separate decimation channels, replicated across
@@ -43,9 +47,9 @@
 * - TUSER/TLAST information accompanying the data is delay matched through
 *   the IP.
 *
-* An API which will read/write registers has been provided for debug purpose.
+* An API which will reads/writes registers is provided to allow software to
+* access the DFE PRACH core.
 *
-* @cond nocomments
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -68,6 +72,7 @@
 * 1.3   dc     01/31/22 Add CORE_SETTINGS register
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/04/22 Correct PatternPeriod represantion
+*       dc     03/28/22 Update documentation
 *
 * </pre>
 * @endcond
@@ -535,7 +540,10 @@ typedef struct {
 } XDfePrach_Status;
 
 /**
- * Interrupt mask.
+ * Event status and interrupt mask.
+ *
+ * @note The structure for XDfePrach_InterruptMask is the same as that of
+ *       XDfePrach_StatusMask
  */
 typedef struct {
 	u32 DecimatorOverflow; /**< [0,1] Mask overflow in Decimator */

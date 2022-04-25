@@ -21,7 +21,7 @@
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
 *
 * </pre>
-* @addtogroup Overview
+* @addtogroup dfeprach Overview
 * @{
 *
 *****************************************************************************/
