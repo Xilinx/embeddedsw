@@ -46,9 +46,10 @@
 *       dc     01/27/22 Get calculated TDataDelay
 *       dc     01/31/22 CCF IP MODEL_PARAM register change
 *       dc     03/21/22 Add prefix to global variables
+* 1.4   dc     04/08/22 Update documentation
 *
 * </pre>
-* @addtogroup Overview
+* @addtogroup dfeccf Overview
 * @{
 ******************************************************************************/
 /**
@@ -79,7 +80,7 @@
 #define XDFECCF_ACTIVE_SET_NUM (8U) /**< Maximum number of active sets */
 #define XDFECCF_U32_NUM_BITS (32U) /**< Number of bits in register */
 #define XDFECCF_TAP_NUMBER_MAX (256U) /**< Maximum tap number */
-#define XDFECCF_DRIVER_VERSION_MINOR (2U) /**< Driver's minor version number */
+#define XDFECCF_DRIVER_VERSION_MINOR (4U) /**< Driver's minor version number */
 #define XDFECCF_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
@@ -429,7 +430,7 @@ static void XDfeCcf_RemoveCCID(XDfeCcf *InstancePtr, s32 CCID,
 * Gets specified CCID carrier configuration.
 *
 * @param    InstancePtr Pointer to the Ccf instance.
-* @param    CCID Channel ID.
+* @param    CCID CC ID.
 * @param    CarrierCfg Trigger configuration container.
 *
 *
@@ -1205,7 +1206,7 @@ void XDfeCcf_GetEmptyCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg)
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CCCfg Component carrier (CC) configuration container.
-* @param    CCID Channel ID.
+* @param    CCID CC ID.
 * @param    CCSeqBitmap CC slot position container.
 * @param    CarrierCfg CC configuration container.
 *
@@ -1218,7 +1219,7 @@ void XDfeCcf_GetCarrierCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 	u32 Mask = 0x1;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
-	Xil_AssertVoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertVoid(CCID < XDFECCF_CC_NUM);
 	Xil_AssertVoid(CCSeqBitmap != NULL);
 	Xil_AssertVoid(CarrierCfg != NULL);
 
@@ -1265,7 +1266,7 @@ void XDfeCcf_SetAntennaCfgInCCCfg(const XDfeCcf *InstancePtr,
 * an error.
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
-* The returned CCCfg.Sequence is transleted as there is no explicite indication that
+* The returned CCCfg.Sequence is translated as there is no explicit indication that
 * SEQUENCE[i] is not used - 0 can define the slot as either used or not used.
 * Sequence data that is returned in the CCIDSequence is not the same as what is
 * written in the registers. The translation is:
@@ -1275,7 +1276,7 @@ void XDfeCcf_SetAntennaCfgInCCCfg(const XDfeCcf *InstancePtr,
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CCCfg Component carrier (CC) configuration container.
-* @param    CCID Channel ID.
+* @param    CCID CC ID.
 * @param    CCSeqBitmap CC slot position container.
 * @param    CarrierCfg CC configuration container.
 *
@@ -1292,7 +1293,7 @@ u32 XDfeCcf_AddCCtoCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID,
 	u32 NextMappedID;
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CCCfg != NULL);
-	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(CCID < XDFECCF_CC_NUM);
 	Xil_AssertNonvoid(CarrierCfg != NULL);
 
 	/* Get next mapped ID. This should be done before trying to add a new
@@ -1331,7 +1332,7 @@ u32 XDfeCcf_AddCCtoCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID,
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CCCfg Component carrier (CC) configuration container.
-* @param    CCID Channel ID.
+* @param    CCID CC ID.
 *
 * @note     For a sequence conversion see XDfeCcf_AddCCtoCCCfg comment.
 *
@@ -1340,7 +1341,7 @@ void XDfeCcf_RemoveCCfromCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 			       s32 CCID)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertVoid(CCID < XDFECCF_CC_NUM);
 	Xil_AssertVoid(CCCfg != NULL);
 
 	/* Remove CCID from sequence and mark carrier configuration as
@@ -1360,7 +1361,7 @@ void XDfeCcf_RemoveCCfromCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CCCfg Component carrier (CC) configuration container.
-* @param    CCID Channel ID.
+* @param    CCID CC ID.
 * @param    CarrierCfg CC configuration container.
 *
 ****************************************************************************/
@@ -1371,7 +1372,7 @@ void XDfeCcf_UpdateCCinCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CCCfg != NULL);
-	Xil_AssertVoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertVoid(CCID < XDFECCF_CC_NUM);
 	Xil_AssertVoid(CarrierCfg != NULL);
 
 	/* Update carrier configuration. Set flush if coefficient set has
@@ -1395,7 +1396,7 @@ void XDfeCcf_UpdateCCinCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 /**
 *
 * Writes local CC configuration to the shadow (NEXT) registers and triggers
-* copying from shadow to operational registers.
+* copying from shadow to operational (CURRENT) registers.
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CCCfg CC configuration container.
@@ -1425,7 +1426,7 @@ u32 XDfeCcf_SetNextCCCfgAndTrigger(const XDfeCcf *InstancePtr,
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr Pointer to the Ccf instance.
-* @param    CCID Channel ID.
+* @param    CCID CC ID.
 * @param    CCSeqBitmap - up to 16 defined slots into which a CC can be
 *           allocated. The number of slots can be from 1 to 16 depending on
 *           system initialization. The number of slots is defined by the
@@ -1454,7 +1455,7 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
-	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(CCID < XDFECCF_CC_NUM);
 	Xil_AssertNonvoid(CarrierCfg != NULL);
 
 	/* Read current CC configuration. Note that XDfeCcf_Initialise writes
@@ -1507,7 +1508,7 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr Pointer to the Ccf instance.
-* @param    CCID Channel ID.
+* @param    CCID CC ID.
 *
 * @return
 *           - XST_SUCCESS if successful.
@@ -1523,7 +1524,7 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
-	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(CCID < XDFECCF_CC_NUM);
 
 	/* Read current CC configuration */
 	XDfeCcf_GetCurrentCCCfg(InstancePtr, &CCCfg);
@@ -1547,7 +1548,7 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 * Initiates CC update (enable CCUpdate trigger TUSER Single Shot).
 *
 * @param    InstancePtr Pointer to the Ccf instance.
-* @param    CCID Channel ID.
+* @param    CCID CC ID.
 * @param    CarrierCfg CC configuration container.
 *
 * @return
@@ -1566,7 +1567,7 @@ u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFECCF_STATE_OPERATIONAL);
-	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(CCID < XDFECCF_CC_NUM);
 	Xil_AssertNonvoid(CarrierCfg != NULL);
 
 	/* Read current CC configuration */
@@ -1837,7 +1838,7 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 * Gets specified CCID carrier configuration.
 *
 * @param    InstancePtr Pointer to the Ccf instance.
-* @param    CCID Channel ID.
+* @param    CCID CC ID.
 * @param    CarrierCfg Trigger configuration container.
 *
 ****************************************************************************/
@@ -1847,7 +1848,7 @@ void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, s32 CCID,
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertVoid(CCID < XDFECCF_CC_NUM);
 	Xil_AssertVoid(CarrierCfg != NULL);
 
 	/* Read specified CCID carrier configuration */
@@ -1996,7 +1997,7 @@ void XDfeCcf_LoadCoefficients(XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 						 (sizeof(u32) * Index),
 					 Coeffs->Value[Index]);
 		}
-		/* Non-symetric filter: Zero-padding at the end of array */
+		/* Non-symmetric filter: Zero-padding at the end of array */
 		for (Index = NumValues; Index < NumValues + NumPadding;
 		     Index++) {
 			XDfeCcf_WriteReg(
@@ -2075,7 +2076,7 @@ u32 XDfeCcf_GetTUserDelay(const XDfeCcf *InstancePtr)
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    Tap Tap value.
 * @param    CCID CC ID.
-* @param    Symmetric Select symetric (1) or non-symetric (0) filter.
+* @param    Symmetric Select symmetric (1) or non-symmetric (0) filter.
 * @param    Num Number of coefficients values.
 * @param    TDataDelay Data latency value.
 *
@@ -2091,7 +2092,7 @@ u32 XDfeCcf_GetTDataDelay(XDfeCcf *InstancePtr, u32 Tap, s32 CCID,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Tap < XDFECCF_TAP_NUMBER_MAX);
-	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(CCID < XDFECCF_CC_NUM);
 	Xil_AssertNonvoid(TDataDelay != NULL);
 
 	/* Read current CC configuration */
@@ -2111,7 +2112,7 @@ u32 XDfeCcf_GetTDataDelay(XDfeCcf *InstancePtr, u32 Tap, s32 CCID,
 * @param    Tap Tap value.
 * @param    CCID CC ID.
 * @param    CCCfg Component carrier (CC) configuration container.
-* @param    Symmetric Select symetric (1) or non-symetric (0) filter.
+* @param    Symmetric Select symmetric (1) or non-symmetric (0) filter.
 * @param    Num Number of coefficients values.
 * @param    TDataDelay Data latency value.
 *
@@ -2133,7 +2134,7 @@ u32 XDfeCcf_GetTDataDelayFromCCCfg(XDfeCcf *InstancePtr, u32 Tap, s32 CCID,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Tap < XDFECCF_TAP_NUMBER_MAX);
-	Xil_AssertNonvoid(CCID <= XDFECCF_CC_NUM);
+	Xil_AssertNonvoid(CCID < XDFECCF_CC_NUM);
 	Xil_AssertNonvoid(CCCfg != NULL);
 	Xil_AssertNonvoid(TDataDelay != NULL);
 
