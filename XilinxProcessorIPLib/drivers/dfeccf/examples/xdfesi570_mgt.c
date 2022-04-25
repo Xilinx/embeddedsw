@@ -618,11 +618,11 @@ void XDfeSi570_SetPL()
 	Xil_Out32(0xac001000U, 0U);
 	Xil_In32(0xac001008U);
 #else
-	system("devmem 0xFD615000 w 0");
-	system("devmem 0xac001000");
-	system("devmem 0xac001008");
-	system("devmem 0xac001000 32 0");
-	system("devmem 0xac001008");
+	(void)system("devmem 0xFD615000 w 0");
+	(void)system("devmem 0xac001000");
+	(void)system("devmem 0xac001008");
+	(void)system("devmem 0xac001000 32 0");
+	(void)system("devmem 0xac001008");
 #endif
 }
 

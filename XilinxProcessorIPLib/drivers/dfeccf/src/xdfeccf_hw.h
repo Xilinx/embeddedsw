@@ -7,7 +7,7 @@
 /**
 *
 * @file xdfeccf_hw.h
-* @addtogroup Overview
+* @addtogroup dfeccf Overview
 * @{
 * @cond nocomments
 * Contains the register definitions for xdfeccf. This is

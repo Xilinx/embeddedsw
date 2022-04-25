@@ -7,14 +7,16 @@
 /**
 *
 * @file xdfeccf.h
-* @addtogroup Overview
+* @addtogroup dfeccf Overview
 * @{
+*
+* @cond nocomments
 *
 * The RFSoC DFE Channel Filter IP provides a wrapper around the Channel
 * filter primitive (dfe_channel_filter). Each instance of the primitive can
-* support up to 64 CC, arranged across a maximum of eight antennas. The wrapper
-* provides access to the underlying blocks via TDMA AXI-Stream data
-* interfaces. A memory mapped AXI interface is provided to enable the
+* support up to 128 CC, arranged across a maximum of eight antennas.
+* The wrapper provides access to the underlying blocks via TDMA AXI-Stream
+* data interfaces. A memory mapped AXI interface is provided to enable the
 * configuration and control of the core from a microprocessor.
 *
 * The features that the channel filter IP and the driver support are:
@@ -49,7 +51,6 @@
 * - Software reset.
 * - TUSER and TLAST support on the data interfaces:
 *
-* @cond nocomments
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -78,6 +79,7 @@
 *       dc     01/21/22 Symmetric filter Zero-padding
 *       dc     01/27/22 Get calculated TDataDelay
 *       dc     03/21/22 Add prefix to global variables
+* 1.4   dc     04/08/22 Update documentation
 *
 * </pre>
 * @endcond
@@ -254,7 +256,7 @@ typedef struct {
  */
 typedef struct {
 	u32 NumAntenna; /**< [1-8] Number of antennas */
-	u32 NumCCPerAntenna; /**< [1-16] Number of channels per antenna */
+	u32 NumCCPerAntenna; /**< [1-16] Number of CCs per antenna */
 	u32 AntennaInterleave; /**< [1-8] Number of Antenna slots */
 } XDfeCcf_ModelParameters;
 
@@ -281,8 +283,8 @@ typedef struct {
 typedef struct {
 	u32 Num; /**< [0-(128|256)]. True number of coefficients,
 		    when non-symmetric max is 128. */
-	u32 Symmetric; /**< [0,1] Select the use of symetric (1) or
-			  non-symetric (0) filter */
+	u32 Symmetric; /**< [0,1] Select the use of symmetric (1) or
+			  non-symmetric (0) filter */
 	s16 Value[XDFECCF_NUM_COEFF]; /**< [Signed real numbers]. Array of
 			  coefficients, when symmetric only the first
 			  (Num+1)/2 coefficients are provided */
@@ -375,7 +377,7 @@ typedef struct {
 	u32 DeviceId; /**< The component instance Id */
 	metal_phys_addr_t BaseAddr; /**< Instance base address */
 	u32 NumAntenna; /**< Number of antennas */
-	u32 NumCCPerAntenna; /**< Number of channels per antenna */
+	u32 NumCCPerAntenna; /**< Number of CCs per antenna */
 	u32 AntennaInterleave; /**< Number of Antenna slots */
 } XDfeCcf_Config;
 
