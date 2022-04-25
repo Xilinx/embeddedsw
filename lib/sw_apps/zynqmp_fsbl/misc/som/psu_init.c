@@ -27,8 +27,6 @@ static int mask_poll(u32 add, u32 mask);
 
 static void mask_delay(u32 delay);
 
-static u32 mask_read(u32 add, u32 mask);
-
 static
 void PSU_Mask_Write(unsigned long offset, unsigned long mask,
 	unsigned long val)
@@ -15012,9 +15010,9 @@ unsigned long psu_peripherals_init_data(void)
     *  PSU_CRF_APB_RST_FPD_TOP_GT_RESET                            0
 
     * FPD Block level software controlled reset
-    * (OFFSET, MASK, VALUE)      (0XFD1A0100, 0x0000007CU ,0x00000000U)
+    * (OFFSET, MASK, VALUE)      (0XFD1A0100, 0x0000807CU ,0x00000000U)
     */
-	PSU_Mask_Write(CRF_APB_RST_FPD_TOP_OFFSET, 0x0000007CU, 0x00000000U);
+	PSU_Mask_Write(CRF_APB_RST_FPD_TOP_OFFSET, 0x0000807CU, 0x00000000U);
 /*##################################################################### */
 
     /*
