@@ -142,6 +142,8 @@
 * 		      Distributor Control Register, GICD_CTLR has both
 * 		      bit 0 and 1 set, the API wrongly returns 0.
 *                     This is fixed with this change.
+* 5.0   dp   04/25/22 Update XScuGic_GetPriorityTriggerType() to read and
+*                     update priority and trigger properly for GICv3.
 * </pre>
 *
 ******************************************************************************/
@@ -957,6 +959,16 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	Xil_AssertVoid(Priority != NULL);
 	Xil_AssertVoid(Trigger != NULL);
 
+#if defined (GICv3)
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START )
+	{
+		*Priority = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id));
+		RegValue = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id));
+		RegValue = RegValue >> ((Int_Id%16U)*2U);
+		*Trigger = (u8)(RegValue & XSCUGIC_INT_CFG_MASK);
+		return;
+	}
+#endif
 	/*
 	 * Determine the register to read to using the Int_Id.
 	 */

@@ -175,7 +175,8 @@
 * 5.0   mus  22/02/22 Add support for VERSAL NET
 * 	adk  04/18/22 Replace infinite while loops in the examples with
 * 		      Xil_WaitForEventSet() API.
-*
+*       dp   04/25/22 Correct Trigger index calculation in macro
+*                     XScuGic_Get_Rdist_Int_Trigger_Index
 * </pre>
 *
 ******************************************************************************/
@@ -597,7 +598,7 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 * @note        None.
 *
 *****************************************************************************/
-#define XScuGic_Get_Rdist_Int_Trigger_Index(IntrId)  (((Int_Id%16) & 0x1f) << 2) +1
+#define XScuGic_Get_Rdist_Int_Trigger_Index(IntrId)  ((Int_Id%16) * 2U)
 #endif
 /************************** Function Prototypes ******************************/
 
