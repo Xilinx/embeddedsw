@@ -22,6 +22,7 @@
 * 1.00  kvn 05/12/15 First Release
 *       ms  04/10/17 Modified filename tag to include the file in doxygen
 *                    examples.
+* 1.12	sne 04/25/22 Added volatile keyword for Seconds variable.
 * </pre>
 ****************************************************************************/
 
@@ -68,7 +69,7 @@ void Handler(void *CallBackRef, u32 Event);
 
 XRtcPsu RtcPsu;		/* Instance of the RTC Device */
 XScuGic InterruptController;	/* Instance of the Interrupt Controller */
-u32 Seconds = 0;
+volatile u32 Seconds = 0;
 
 
 /**************************************************************************/
