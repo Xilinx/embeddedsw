@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,13 +23,14 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.0   aad    20/11/18 First release.
 * 2.3   aad    07/26/21 Fixed doxygen comments.
+* 3.0   cog    03/25/21 Driver Restructure
 *
 * </pre>
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
 
-#include "xsysmonpsv_hw.h"
+#include "lowlevel/xsysmonpsv_hw.h"
 #include "xsysmonpsv.h"
 #include "xparameters.h"
 
@@ -42,7 +43,7 @@
 /************************** Function Prototypes *****************************/
 
 /************************** Variable Definitions ****************************/
-extern XSysMonPsv_Config XSysMonPsv_ConfigTable[];      /**< Config Table for
+extern XSysMonPsv_Config XSysMonPsv_ConfigTable[]; /**< Config Table for
                                                           sysmon device */
 
 /*****************************************************************************/
@@ -60,13 +61,13 @@ extern XSysMonPsv_Config XSysMonPsv_ConfigTable[];      /**< Config Table for
 ******************************************************************************/
 XSysMonPsv_Config *XSysMonPsv_LookupConfig(void)
 {
-        XSysMonPsv_Config *CfgPtr = NULL;
-        u32 Index;
+	XSysMonPsv_Config *CfgPtr = NULL;
+	u32 Index;
 
-        for (Index = 0U; Index < (u32)XPAR_XSYSMONPSV_NUM_INSTANCES; Index++) {
-                        CfgPtr = &XSysMonPsv_ConfigTable[Index];
-        }
+	for (Index = 0U; Index < (u32)XPAR_XSYSMONPSV_NUM_INSTANCES; Index++) {
+		CfgPtr = &XSysMonPsv_ConfigTable[Index];
+	}
 
-        return CfgPtr;
+	return CfgPtr;
 }
 /** @} */

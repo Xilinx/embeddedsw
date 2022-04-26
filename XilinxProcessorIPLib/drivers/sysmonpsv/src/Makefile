@@ -1,4 +1,4 @@
-DRIVER_LIB_VERSION = 1.0
+DRIVER_LIB_VERSION = 3.0
 COMPILER=
 ARCHIVER=
 CP=cp
@@ -9,31 +9,36 @@ LIB=libxil.a
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-RELEASEDIR=../../../lib/
-INCLUDEDIR=../../../include/
-INCLUDES=-I./. -I$(INCLUDEDIR)
+RELEASEDIR=../../../lib
+INCLUDEDIR=../../../include
+INCLUDES=-I./. -I${INCLUDEDIR}
+EXTRA_CFLAGS=
 
-SRCFILES:=$(wildcard *.c)
+XSYSMONPSV_DIR = .
+OUTS = *.o
+OBJECTS = $(addsuffix .o, $(basename $(wildcard ./*c ./*/*.c)))
+XSYSMONPSV_SRCS := $(wildcard ./*.c ./*/*.c)
+XSYSMONPSV_OBJS = $(XSYSMONPSV_SRCS:%.c=%.o)
 
-OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
+INCLUDEFILES= $(wildcard ./*.h ./*/*.h)
 
-libs: $(OBJECTS)
+libs: sysmon
 
-DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
+sysmon: print_msg_xsysmonpsv $(XSYSMONPSV_OBJS)
+	${CP} $(XSYSMONPSV_OBJS) ${RELEASEDIR}
 
-include $(wildcard $(DEPFILES))
-
-include $(wildcard ../../../../dep.mk)
-
-$(RELEASEDIR)%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
+print_msg_xsysmonpsv:
+	@echo "Compiling xsysmonpsv"
 
 .PHONY: include
-include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
+include: sysmon_includes
 
-$(INCLUDEDIR)%.h: %.h
-	$(CP) $< $@
+sysmon_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
 	rm -rf ${OBJECTS}
-	rm -rf $(DEPFILES)
+	rm -rf ${RELEASEDIR}/${LIB}
+
+$(XSYSMONPSV_DIR)/%.o: $(XSYSMONPSV_DIR)/%.c $(INCLUDEFILES)
+	$(COMPILER) $(COMPILER_FLAGS)  $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@

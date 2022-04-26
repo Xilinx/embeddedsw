@@ -1,5 +1,5 @@
 ##############################################################################
-# Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -239,7 +239,7 @@ proc generate_sysmon_supplies {drv_handle file_name drv_string} {
 		} elseif {[string compare -nocase $local_value ""] == 0} {
 			if {$index == 0} {
 			        puts $config_file "\tEndList,"
-				puts $config_file "\tNO_SUPPLIES_CONFIGURED = XPAR_XSYSMONPSV_0_NO_MEAS,"
+				puts $config_file "\tNO_SUPPLIES_CONFIGURED = 160,"
 				break
 			}
 			puts $config_file "\tEndList,"

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv.c
-* @addtogroup sysmonpsv_v2_3
+* @addtogroup sysmonpsv_v3_0
 * @{
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
@@ -28,6 +28,9 @@
 * 2.1   aad    02/24/21 Added documentation and support for production
 *                       silicon.
 * 2.3   aad    07/26/21 Fixed doxygen comments.
+* 3.0   cog    03/25/21 Driver Restructure
+*       cog    04/09/22 Remove GIC standalone related functionality for
+*                       arch64 architecture
 *
 * </pre>
 *
@@ -35,17 +38,10 @@
 
 /***************************** Include Files *********************************/
 
-#include "xsysmonpsv_hw.h"
 #include "xsysmonpsv.h"
+#include "xsysmonpsv_lowlevel.h"
 #include "xil_assert.h"
-
 /************************** Constant Definitions ****************************/
-
-/**************************** Type Definitions ******************************/
-
-/***************** Macros (Inline Functions) Definitions ********************/
-
-/************************** Variable Definitions ****************************/
 
 /*****************************************************************************/
 /**
@@ -58,7 +54,7 @@
 *               structure.
 *
 * @return
-*               - XST_SUCCESS if successful.
+*               - XSYSMONPSV_SUCCESS if successful.
 *
 * @note         The user needs to first call the XSysMonPsv_LookupConfig() API
 *               which returns the Configuration structure pointer which is
@@ -67,24 +63,24 @@
 ******************************************************************************/
 s64 XSysMonPsv_CfgInitialize(XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr)
 {
-        u32 i;
+	u32 i;
 
-        /* Assert the input arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        Xil_AssertNonvoid(CfgPtr != NULL);
+	/* Assert the input arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CfgPtr != NULL);
 
-        /* Set the values read from the device config and the base address. */
-        InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
+	/* Set the values read from the device config and the base address. */
+	InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
 
-        /* Map Supplies to supply registers */
-        for(i = 0U; i < XSYSMONPSV_MAX_SUPPLIES; i++) {
-                InstancePtr->Config.Supply_List[i] = CfgPtr->Supply_List[i];
-        }
+	/* Map Supplies to supply registers */
+	for (i = 0U; i < XSYSMONPSV_MAX_SUPPLIES; i++) {
+		InstancePtr->Config.Supply_List[i] = CfgPtr->Supply_List[i];
+	}
 
-        /* Indicate the instance is now ready to use, initialized without error */
-        InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+	/* Indicate the instance is now ready to use, initialized without error */
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
-        return XST_SUCCESS;
+	return XSYSMONPSV_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -101,18 +97,16 @@ s64 XSysMonPsv_CfgInitialize(XSysMonPsv *InstancePtr, XSysMonPsv_Config *CfgPtr)
 ******************************************************************************/
 void XSysMonPsv_SystemReset(XSysMonPsv *InstancePtr)
 {
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
 
-        /* Mask PCSR Register */
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_PCSR_MASK,
-                            XSYSMONPSV_PCSR_MASK_SYS_RST_MASK_MASK);
+	/* Mask PCSR Register */
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_MASK,
+			    XSYSMONPSV_PCSR_MASK_SYS_RST_MASK_MASK);
 
-        /* RESET the SYSMON */
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_PCSR_CONTROL,
-                            XSYSMONPSV_PCSR_CONTROL_SYS_RST_MASK_MASK);
+	/* RESET the SYSMON */
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_CONTROL,
+			    XSYSMONPSV_PCSR_CONTROL_SYS_RST_MASK_MASK);
 }
 
 /*****************************************************************************/
@@ -130,21 +124,18 @@ void XSysMonPsv_SystemReset(XSysMonPsv *InstancePtr)
 ******************************************************************************/
 void XSysMonPsv_EnRegGate(XSysMonPsv *InstancePtr, u8 Enable)
 {
-        u32 RegVal;
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(Enable <= 1U);
+	u32 RegVal;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Enable <= 1U);
 
-        /* Mask PCSR Register */
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_PCSR_MASK,
-                            XSYSMONPSV_PCSR_MASK_GATEREG_MASK);
+	/* Mask PCSR Register */
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_MASK,
+			    XSYSMONPSV_PCSR_MASK_GATEREG_MASK);
 
-        RegVal= ((u32)Enable << XSYSMONPSV_PCSR_CONTROL_GATEREG_SHIFT);
-        /* RESET the SYSMON */
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_PCSR_CONTROL, RegVal);
-
+	RegVal = ((u32)Enable << XSYSMONPSV_PCSR_CONTROL_GATEREG_SHIFT);
+	/* RESET the SYSMON */
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_CONTROL, RegVal);
 }
 
 /*****************************************************************************/
@@ -163,18 +154,16 @@ void XSysMonPsv_EnRegGate(XSysMonPsv *InstancePtr, u8 Enable)
 ******************************************************************************/
 void XSysMonPsv_SetPMBusAddress(XSysMonPsv *InstancePtr, u8 Address)
 {
-        u32 Reg;
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(Address < 128U);
+	u32 Reg;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Address < 128U);
 
-        Reg = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
-                                XSYSMONPSV_CONFIG0);
-        Reg &= ~(XSYSMONPSV_CONFIG0_PMBUS_ADDRESS_MASK);
-        Reg |= Address;
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_CONFIG0, &Reg);
+	Reg &= ~(XSYSMONPSV_CONFIG0_PMBUS_ADDRESS_MASK);
+	Reg |= Address;
 
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_CONFIG0, Reg);
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_CONFIG0, Reg);
 }
 
 /*****************************************************************************/
@@ -193,19 +182,17 @@ void XSysMonPsv_SetPMBusAddress(XSysMonPsv *InstancePtr, u8 Address)
 ******************************************************************************/
 void XSysMonPsv_PMBusEnable(XSysMonPsv *InstancePtr, u8 Enable)
 {
-        u32 Reg;
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(Enable <= 1U);
+	u32 Reg;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Enable <= 1U);
 
-        Reg = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
-                                 XSYSMONPSV_CONFIG0);
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_CONFIG0, &Reg);
 
-        Reg &= ~(XSYSMONPSV_CONFIG0_PMBUS_ENABLE_MASK);
-        Reg |= ((u32)Enable << XSYSMONPSV_CONFIG0_PMBUS_ENABLE_SHIFT);
+	Reg &= ~(XSYSMONPSV_CONFIG0_PMBUS_ENABLE_MASK);
+	Reg |= ((u32)Enable << XSYSMONPSV_CONFIG0_PMBUS_ENABLE_SHIFT);
 
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_CONFIG0, Reg);
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_CONFIG0, Reg);
 }
 
 /*****************************************************************************/
@@ -225,19 +212,17 @@ void XSysMonPsv_PMBusEnable(XSysMonPsv *InstancePtr, u8 Enable)
 ******************************************************************************/
 void XSysMonPsv_PMBusEnableCmd(XSysMonPsv *InstancePtr, u8 Enable)
 {
-        u32 Reg;
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(Enable <= 1U);
+	u32 Reg;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Enable <= 1U);
 
-        Reg = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
-                                 XSYSMONPSV_CONFIG0);
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_CONFIG0, &Reg);
 
-        Reg &= ~(XSYSMONPSV_CONFIG0_PMBUS_UNRESTRICTED_MASK);
-        Reg |= ((u32)Enable << XSYSMONPSV_CONFIG0_PMBUS_UNRESTRICTED_SHIFT);
+	Reg &= ~(XSYSMONPSV_CONFIG0_PMBUS_UNRESTRICTED_MASK);
+	Reg |= ((u32)Enable << XSYSMONPSV_CONFIG0_PMBUS_UNRESTRICTED_SHIFT);
 
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_CONFIG0, Reg);
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_CONFIG0, Reg);
 }
 
 /*****************************************************************************/
@@ -258,20 +243,17 @@ void XSysMonPsv_PMBusEnableCmd(XSysMonPsv *InstancePtr, u8 Enable)
 ******************************************************************************/
 void XSysMonPsv_SelectExtInterface(XSysMonPsv *InstancePtr, u8 Interface)
 {
-        u32 Reg;
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(Interface <= 1U);
+	u32 Reg;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Interface <= 1U);
 
-        Reg = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
-                                 XSYSMONPSV_CONFIG0);
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_CONFIG0, &Reg);
 
-        Reg &= ~(XSYSMONPSV_CONFIG0_I2C_NOT_PMBUS_MASK);
-        Reg |= ((u32)Interface << XSYSMONPSV_CONFIG0_I2C_NOT_PMBUS_SHIFT);
+	Reg &= ~(XSYSMONPSV_CONFIG0_I2C_NOT_PMBUS_MASK);
+	Reg |= ((u32)Interface << XSYSMONPSV_CONFIG0_I2C_NOT_PMBUS_SHIFT);
 
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_CONFIG0, Reg);
-
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_CONFIG0, Reg);
 }
 
 /*****************************************************************************/
@@ -292,18 +274,17 @@ void XSysMonPsv_SelectExtInterface(XSysMonPsv *InstancePtr, u8 Interface)
 *
 ******************************************************************************/
 void XSysMonPsv_StatusReset(XSysMonPsv *InstancePtr, u8 ResetSupply,
-                            u8 ResetTemperature)
+			    u8 ResetTemperature)
 {
-        u8 Value;
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(ResetSupply <= 1U);
-        Xil_AssertVoid(ResetTemperature <= 1U);
+	u8 Value;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ResetSupply <= 1U);
+	Xil_AssertVoid(ResetTemperature <= 1U);
 
-        Value = ResetTemperature |
-                (ResetSupply << XSYSMONPSV_STATUS_RESET_SUPPLY_SHIFT);
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_STATUS_RESET, Value);
+	Value = ResetTemperature |
+		(ResetSupply << XSYSMONPSV_STATUS_RESET_SUPPLY_SHIFT);
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_STATUS_RESET, Value);
 }
 
 /*****************************************************************************/
@@ -321,13 +302,16 @@ void XSysMonPsv_StatusReset(XSysMonPsv *InstancePtr, u8 ResetSupply,
 *
 ******************************************************************************/
 u16 XSysMonPsv_ReadDevTempThreshold(XSysMonPsv *InstancePtr,
-                                    XSysMonPsv_Threshold ThresholdType)
+				    XSysMonPsv_Threshold ThresholdType)
 {
-        u32 Offset = XSYSMONPSV_DEVICE_TEMP_TH + ((u32)ThresholdType * 4U);
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	u32 Reg;
+	u32 Offset = XSYSMONPSV_DEVICE_TEMP_TH + ((u32)ThresholdType * 4U);
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-        return (u16)XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Reg);
+
+	return (u16)Reg;
 }
 
 /*****************************************************************************/
@@ -345,14 +329,14 @@ u16 XSysMonPsv_ReadDevTempThreshold(XSysMonPsv *InstancePtr,
 *
 ******************************************************************************/
 void XSysMonPsv_SetDevTempThreshold(XSysMonPsv *InstancePtr,
-                                   XSysMonPsv_Threshold ThresholdType,
-                                   u16 Value)
+				    XSysMonPsv_Threshold ThresholdType,
+				    u16 Value)
 {
-        u32 Offset = XSYSMONPSV_DEVICE_TEMP_TH + ((u32)ThresholdType * 4U);
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
+	u32 Offset = XSYSMONPSV_DEVICE_TEMP_TH + ((u32)ThresholdType * 4U);
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
 
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Value);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Value);
 }
 
 /*****************************************************************************/
@@ -370,13 +354,15 @@ void XSysMonPsv_SetDevTempThreshold(XSysMonPsv *InstancePtr,
 *
 ******************************************************************************/
 u16 XSysMonPsv_ReadOTTempThreshold(XSysMonPsv *InstancePtr,
-                                    XSysMonPsv_Threshold ThresholdType)
+				   XSysMonPsv_Threshold ThresholdType)
 {
-        u32 Offset = XSYSMONPSV_OT_TEMP_TH + ((u32)ThresholdType * 4U);
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	u32 Reg;
+	u32 Offset = XSYSMONPSV_OT_TEMP_TH + ((u32)ThresholdType * 4U);
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-        return (u16)XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Reg);
+	return (u16)Reg;
 }
 
 /*****************************************************************************/
@@ -394,14 +380,14 @@ u16 XSysMonPsv_ReadOTTempThreshold(XSysMonPsv *InstancePtr,
 *
 ******************************************************************************/
 void XSysMonPsv_SetOTTempThreshold(XSysMonPsv *InstancePtr,
-                                   XSysMonPsv_Threshold ThresholdType,
-                                   u16 Value)
+				   XSysMonPsv_Threshold ThresholdType,
+				   u16 Value)
 {
-        u32 Offset = XSYSMONPSV_OT_TEMP_TH + ((u32)ThresholdType * 4U);
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
+	u32 Offset = XSYSMONPSV_OT_TEMP_TH + ((u32)ThresholdType * 4U);
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
 
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Value);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Value);
 }
 
 /*****************************************************************************/
@@ -415,7 +401,7 @@ void XSysMonPsv_SetOTTempThreshold(XSysMonPsv *InstancePtr,
 *               to be read
 *
 * @return       Temperature value requested
-*               XSYSMONPSV_FAILURE if invalid value requested
+*               XSYSMONPSV_EINVAL if invalid value requested
 *
 * @note         XSYSMONPSV_VAL_VREF_MIN and XSYSMONPSV_VAL_VREF_MAX are only
 *               supported for ES1 silicon to get min and max temperature values.
@@ -428,48 +414,46 @@ void XSysMonPsv_SetOTTempThreshold(XSysMonPsv *InstancePtr,
 ******************************************************************************/
 u32 XSysMonPsv_ReadDeviceTemp(XSysMonPsv *InstancePtr, XSysMonPsv_Val Value)
 {
-        u32 Offset;
-        u32 Temperature;
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	u32 Offset;
+	u32 Temperature;
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-        switch(Value) {
-                /* Use to read the current device minimum temperature
+	switch (Value) {
+	/* Use to read the current device minimum temperature
                  * Only valid for ES1 silicon. */
-                case XSYSMONPSV_VAL_VREF_MIN:
-                        Offset = XSYSMONPSV_DEVICE_TEMP_MIN;
-                        break;
+	case XSYSMONPSV_VAL_VREF_MIN:
+		Offset = XSYSMONPSV_DEVICE_TEMP_MIN;
+		break;
 
-                /* Use to read the current device maximum temperature
+	/* Use to read the current device maximum temperature
                  * Only valid for ES1 silicon. */
-                case XSYSMONPSV_VAL_VREF_MAX:
-                        Offset = XSYSMONPSV_DEVICE_TEMP_MAX;
-                        break;
+	case XSYSMONPSV_VAL_VREF_MAX:
+		Offset = XSYSMONPSV_DEVICE_TEMP_MAX;
+		break;
 
-                case XSYSMONPSV_VAL_MIN:
-                        Offset = XSYSMONPSV_DEVICE_TEMP_MIN_MIN;
-                        break;
+	case XSYSMONPSV_VAL_MIN:
+		Offset = XSYSMONPSV_DEVICE_TEMP_MIN_MIN;
+		break;
 
-                case XSYSMONPSV_VAL_MAX:
-                        Offset = XSYSMONPSV_DEVICE_TEMP_MAX_MAX;
-                        break;
+	case XSYSMONPSV_VAL_MAX:
+		Offset = XSYSMONPSV_DEVICE_TEMP_MAX_MAX;
+		break;
 
-                /* Use for reading current device temperature
+	/* Use for reading current device temperature
                  * only applicable on Production silicon. */
-                case XSYSMONPSV_VAL:
-                        Offset = XSYSMONPSV_DEVICE_TEMP;
-                        break;
+	case XSYSMONPSV_VAL:
+		Offset = XSYSMONPSV_DEVICE_TEMP;
+		break;
 
-                default:
-                        Temperature = XSYSMONPSV_INVALID;
-                        goto END;
-                        break;
-        }
+	default:
+		Temperature = XSYSMONPSV_INVALID;
+		goto END;
+	}
 
-        Temperature = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
-                                         Offset);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Temperature);
 END:
-        return Temperature;
+	return Temperature;
 }
 
 /*****************************************************************************/
@@ -488,27 +472,30 @@ END:
 *
 ******************************************************************************/
 u32 XSysMonPsv_ReadSupplyThreshold(XSysMonPsv *InstancePtr,
-                                   XSysMonPsv_Supply Supply,
-                                   XSysMonPsv_Threshold ThresholdType)
+				   XSysMonPsv_Supply Supply,
+				   XSysMonPsv_Threshold ThresholdType)
 {
-        u32 Offset;
-        u8 SupplyReg;
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	u32 Offset, Reg;
+	u8 SupplyReg;
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-        if(InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
-                return XSYSMONPSV_INVALID;
-        }
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
 
-        if(ThresholdType ==  XSYSMONPSV_TH_LOWER) {
-                Offset = XSYSMONPSV_SUPPLY_TH_LOWER;
-        } else {
-                Offset = XSYSMONPSV_SUPPLY_TH_UPPER;
-        }
+	if (ThresholdType == XSYSMONPSV_TH_LOWER) {
+		Offset = XSYSMONPSV_SUPPLY_TH_LOWER;
+	} else {
+		Offset = XSYSMONPSV_SUPPLY_TH_UPPER;
+	}
 
-        SupplyReg = InstancePtr->Config.Supply_List[Supply];
-        Offset += ((u32)SupplyReg * 4U);
-        return XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset);
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset += ((u32)SupplyReg * 4U);
+
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Reg);
+	return Reg;
 }
 
 /*****************************************************************************/
@@ -527,29 +514,31 @@ u32 XSysMonPsv_ReadSupplyThreshold(XSysMonPsv *InstancePtr,
 *
 ******************************************************************************/
 u32 XSysMonPsv_ReadSupplyValue(XSysMonPsv *InstancePtr,
-                               XSysMonPsv_Supply Supply, XSysMonPsv_Val Value)
+			       XSysMonPsv_Supply Supply, XSysMonPsv_Val Value)
 {
-        u32 Offset;
-        u8 SupplyReg;
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	u32 Offset, Reg;
+	u8 SupplyReg;
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-        if (InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
-                return XSYSMONPSV_INVALID;
-        }
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
 
-        if (Value == XSYSMONPSV_VAL) {
-                Offset = XSYSMONPSV_SUPPLY;
-        } else if (Value == XSYSMONPSV_VAL_MIN) {
-                Offset = XSYSMONPSV_SUPPLY_MIN;
-        } else {
-                Offset = XSYSMONPSV_SUPPLY_MAX;
-        }
+	if (Value == XSYSMONPSV_VAL) {
+		Offset = XSYSMONPSV_SUPPLY;
+	} else if (Value == XSYSMONPSV_VAL_MIN) {
+		Offset = XSYSMONPSV_SUPPLY_MIN;
+	} else {
+		Offset = XSYSMONPSV_SUPPLY_MAX;
+	}
 
-        SupplyReg = InstancePtr->Config.Supply_List[Supply];
-        Offset += ((u32)SupplyReg * 4U);
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset += ((u32)SupplyReg * 4U);
 
-        return XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Reg);
+	return Reg;
 }
 
 /*****************************************************************************/
@@ -569,33 +558,33 @@ u32 XSysMonPsv_ReadSupplyValue(XSysMonPsv *InstancePtr,
 ******************************************************************************/
 u32 XSysMonPsv_IsNewData(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 {
-        u8 Offset;
-        u8 Shift;
-        u8 SupplyReg;
-        u32 Status;
+	u8 Offset;
+	u8 Shift;
+	u8 SupplyReg;
+	u32 Status;
 
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-        if (InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
-                return XSYSMONPSV_INVALID;
-        }
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
 
-        SupplyReg = InstancePtr->Config.Supply_List[Supply];
-        Offset = 4U * (SupplyReg / 32U);
-        Shift = SupplyReg % 32U;
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset = 4U * (SupplyReg / 32U);
+	Shift = SupplyReg % 32U;
 
-        /* Read the New data flag */
-        Status = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset +
-                                    XSYSMONPSV_NEW_DATA_FLAG0);
-        Status &= ((u32)1U << Shift);
+	/* Read the New data flag */
+	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_NEW_DATA_FLAG0,
+			   &Status);
+	Status &= ((u32)1U << Shift);
 
-        /* Clear the New data flag if its set */
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset +
-                            XSYSMONPSV_NEW_DATA_FLAG0, Status);
+	/* Clear the New data flag if its set */
+	XSysMonPsv_WriteReg32(InstancePtr, Offset + XSYSMONPSV_NEW_DATA_FLAG0,
+			    Status);
 
-        return ((Status > 0U) ? 1U : 0U);
-
+	return ((Status > 0U) ? 1U : 0U);
 }
 
 /*****************************************************************************/
@@ -615,35 +604,35 @@ u32 XSysMonPsv_IsNewData(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 *
 ******************************************************************************/
 u32 XSysMonPsv_IsAlarmCondition(XSysMonPsv *InstancePtr,
-                                XSysMonPsv_Supply Supply)
+				XSysMonPsv_Supply Supply)
 {
-        u8 Offset;
-        u8 Shift;
-        u8 SupplyReg;
-        u32 Status;
+	u8 Offset;
+	u8 Shift;
+	u8 SupplyReg;
+	u32 Status;
 
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-        if (InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
-                return XSYSMONPSV_INVALID;
-        }
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
 
-        SupplyReg = InstancePtr->Config.Supply_List[Supply];
-        Offset = 4U * (SupplyReg / 32U);
-        Shift = SupplyReg % 32U;
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset = 4U * (SupplyReg / 32U);
+	Shift = SupplyReg % 32U;
 
-        /* Read the New data flag */
-        Status = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset +
-                                    XSYSMONPSV_ALARM_FLAG0);
-        Status &= ((u32)1U << Shift);
+	/* Read the New data flag */
+	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
+			   &Status);
+	Status &= ((u32)1U << Shift);
 
-        /* Clear the New data flag if its set */
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset +
-                            XSYSMONPSV_ALARM_FLAG0, Status);
+	/* Clear the New data flag if its set */
+	XSysMonPsv_WriteReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
+			    Status);
 
-        return ((Status > 0U) ? 1U : 0U);
-
+	return ((Status > 0U) ? 1U : 0U);
 }
 /*****************************************************************************/
 /**
@@ -656,32 +645,32 @@ u32 XSysMonPsv_IsAlarmCondition(XSysMonPsv *InstancePtr,
 * @param        Value is the upper threshold raw value
 *
 * @return       XSYSMONPSV_INVALID if the Supply hasn't been configured
-*               XST_SUCCESS otherwise
+*               XSYSMONPSV_SUCCESS otherwise
 *
 * @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_SetSupplyUpperThreshold(XSysMonPsv *InstancePtr,
-                                  XSysMonPsv_Supply Supply, u32 Value)
+				       XSysMonPsv_Supply Supply, u32 Value)
 {
-        u32 Offset;
-        u8 SupplyReg;
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	u32 Offset;
+	u8 SupplyReg;
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-        if (InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
-                return XSYSMONPSV_INVALID;
-        }
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
 
-        Offset = XSYSMONPSV_SUPPLY_TH_UPPER;
+	Offset = XSYSMONPSV_SUPPLY_TH_UPPER;
 
-        SupplyReg = InstancePtr->Config.Supply_List[Supply];
-        Offset += ((u32)SupplyReg * 4U);
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset += ((u32)SupplyReg * 4U);
 
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Value);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Value);
 
-        return XST_SUCCESS;
-
+	return XSYSMONPSV_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -695,32 +684,32 @@ u32 XSysMonPsv_SetSupplyUpperThreshold(XSysMonPsv *InstancePtr,
 * @param        Value is the lower threshold raw value
 *
 * @return       XSYSMONPSV_INVALID if the Supply hasn't been configured
-*               XST_SUCCESS otherwise
+*               XSYSMONPSV_SUCCESS otherwise
 *
 * @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_SetSupplyLowerThreshold(XSysMonPsv *InstancePtr,
-                                  XSysMonPsv_Supply Supply, u32 Value)
+				       XSysMonPsv_Supply Supply, u32 Value)
 {
-        u32 Offset;
-        u8 SupplyReg;
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	u32 Offset;
+	u8 SupplyReg;
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-        if (InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
-                return XSYSMONPSV_INVALID;
-        }
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
 
-        Offset = XSYSMONPSV_SUPPLY_TH_LOWER;
+	Offset = XSYSMONPSV_SUPPLY_TH_LOWER;
 
-        SupplyReg = InstancePtr->Config.Supply_List[Supply];
-        Offset += ((u32)SupplyReg * 4U);
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset += ((u32)SupplyReg * 4U);
 
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset, Value);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Value);
 
-        return XST_SUCCESS;
-
+	return XSYSMONPSV_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -739,18 +728,15 @@ u32 XSysMonPsv_SetSupplyLowerThreshold(XSysMonPsv *InstancePtr,
 ******************************************************************************/
 void XSysMonPsv_SetTempMode(XSysMonPsv *InstancePtr, u32 Mode)
 {
-        u32 RegVal;
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(Mode < 2U);
+	u32 RegVal;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Mode < 2U);
 
-        RegVal = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
-                                    XSYSMONPSV_ALARM_CONFIG);
-        RegVal &= ~(XSYSMONPSV_ALARM_CONFIG_DEV_ALARM_MODE_MASK);
-        RegVal |= (Mode << XSYSMONPSV_ALARM_CONFIG_DEV_ALARM_MODE_SHIFT);
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_ALARM_CONFIG, RegVal);
-
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_ALARM_CONFIG, &RegVal);
+	RegVal &= ~(XSYSMONPSV_ALARM_CONFIG_DEV_ALARM_MODE_MASK);
+	RegVal |= (Mode << XSYSMONPSV_ALARM_CONFIG_DEV_ALARM_MODE_SHIFT);
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_ALARM_CONFIG, RegVal);
 }
 
 /*****************************************************************************/
@@ -769,17 +755,15 @@ void XSysMonPsv_SetTempMode(XSysMonPsv *InstancePtr, u32 Mode)
 ******************************************************************************/
 void XSysMonPsv_SetOTMode(XSysMonPsv *InstancePtr, u32 Mode)
 {
-        u32 RegVal;
-        /* Assert the arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(Mode < 2U);
+	u32 RegVal;
+	/* Assert the arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Mode < 2U);
 
-        RegVal = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress +
-                                    XSYSMONPSV_ALARM_CONFIG);
-        RegVal &= ~(XSYSMONPSV_ALARM_CONFIG_OT_ALARM_MODE_MASK);
-        RegVal |= (Mode << XSYSMONPSV_ALARM_CONFIG_OT_ALARM_MODE_SHIFT);
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress +
-                            XSYSMONPSV_ALARM_CONFIG, RegVal);
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_ALARM_CONFIG, &RegVal);
+	RegVal &= ~(XSYSMONPSV_ALARM_CONFIG_OT_ALARM_MODE_MASK);
+	RegVal |= (Mode << XSYSMONPSV_ALARM_CONFIG_OT_ALARM_MODE_SHIFT);
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_ALARM_CONFIG, RegVal);
 }
 
 /*****************************************************************************/
@@ -790,37 +774,38 @@ void XSysMonPsv_SetOTMode(XSysMonPsv *InstancePtr, u32 Mode)
 * @param        InstancePtr is a pointer to the driver instance.
 * @param        Supply is the supply for which config is to be read.
 *
-* @return       XSYSMONPSV_ENABLE if enabled
-*               XSYSMONPSV_DISABLE if disbaled
+* @return       TRUE if enabled
+*               FALSE if disbaled
 *               XSYSMONPSV_INVALID if invalid SupplyValue
 *
 * @note         None.
 *
 ******************************************************************************/
 u32 XSysMonPsv_ReadAlarmConfig(XSysMonPsv *InstancePtr,
-                               XSysMonPsv_Supply Supply)
+			       XSysMonPsv_Supply Supply)
 {
-        u32 Status;
-        u32 Shift;
-        u32 SupplyReg;
-        u32 Offset;
+	u32 Status;
+	u32 Shift;
+	u32 SupplyReg;
+	u32 Offset;
 
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        if (InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
-                return XSYSMONPSV_INVALID;
-        }
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
 
-        SupplyReg = InstancePtr->Config.Supply_List[Supply];
-        Offset = 4U * (SupplyReg / 32U);
-        Shift = SupplyReg % 32U;
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset = 4U * (SupplyReg / 32U);
+	Shift = SupplyReg % 32U;
 
-        /* Read the Alarm flag */
-        Status = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset +
-                                    XSYSMONPSV_ALARM_REG0) >> Shift;
+	/* Read the Alarm flag */
+	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_REG0,
+			   &Status);
+	Status = Status >> Shift;
 
-        return (Status & 1U);
-
+	return (Status & 1U);
 }
 
 /*****************************************************************************/
@@ -834,41 +819,680 @@ u32 XSysMonPsv_ReadAlarmConfig(XSysMonPsv *InstancePtr,
 *               XSYSMONPSV_ENABLE to enable
 *               XSYSMONPSV_DISABLE to disable
 *
-* @return       XST_SUCCESS if successful
+* @return       XSYSMONPSV_SUCCESS if successful
 *               XSYSMONPSV_INVALID if invalid SupplyValue
 *
 * @note         None.
 *
 ******************************************************************************/
-u32 XSysMonPsv_SetAlarmConfig(XSysMonPsv *InstancePtr,
-                              XSysMonPsv_Supply Supply, u32 Config)
+u32 XSysMonPsv_SetAlarmConfig(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply,
+			      u32 Config)
 {
-        u32 Status;
-        u32 Shift;
-        u32 Offset;
-        u32 SupplyReg;
+	u32 Status;
+	u32 Shift;
+	u32 Offset;
+	u32 SupplyReg;
 
-        /* Assert the arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
-        if (InstancePtr->Config.Supply_List[Supply] == XSYSMONPSV_INVALID_SUPPLY) {
-                return XSYSMONPSV_INVALID;
-        }
+	/* Assert the arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	if (InstancePtr->Config.Supply_List[Supply] ==
+	    XSYSMONPSV_INVALID_SUPPLY) {
+		return XSYSMONPSV_INVALID;
+	}
 
-        SupplyReg = InstancePtr->Config.Supply_List[Supply];
-        Offset = 4U * (SupplyReg / 32U);
-        Shift = SupplyReg % 32U;
+	SupplyReg = InstancePtr->Config.Supply_List[Supply];
+	Offset = 4U * (SupplyReg / 32U);
+	Shift = SupplyReg % 32U;
 
-        /* Read the Alarm flag */
-        Status = XSysMonPsv_ReadReg(InstancePtr->Config.BaseAddress + Offset +
-                                    XSYSMONPSV_ALARM_REG0);
-        Status &= ~((u32)1U << Shift);
-        Status |= (Config << Shift);
+	/* Read the Alarm flag */
+	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_REG0,
+			   &Status);
+	Status &= ~((u32)1U << Shift);
+	Status |= (Config << Shift);
 
-        XSysMonPsv_WriteReg(InstancePtr->Config.BaseAddress + Offset +
-                            XSYSMONPSV_ALARM_REG0, Status);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_REG0,
+			    Status);
 
-        return XST_SUCCESS;
-
+	return XSYSMONPSV_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function reads temperature and returns value in degree celsius.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Type is minimum and maximum temperature type.
+ * @param	Val is processed value in degree celsius.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ *		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_ReadTempProcessed(XSysMonPsv *InstancePtr,
+				 XSysMonPsv_TempType Type, float *Val)
+{
+	u32 Offset, Regval;
+	int Val1, Val2;
+
+	if (InstancePtr == NULL || Val == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	Offset = XSysMonPsv_TempOffset(Type);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Regval);
+	XSysMonPsv_Q8P7ToCelsius(Regval, &Val1, &Val2);
+	*Val = (float)Val1 / (float)Val2;
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function reads temperature and returns value in raw format.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Type is minimum and maximum temperature type.
+ * @param	Val is value in raw format.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ *		- XSYSMONPSV_SUCCESS if successful..
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_ReadTempRaw(XSysMonPsv *InstancePtr, XSysMonPsv_TempType Type,
+			   u32 *Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL || Val == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	Offset = XSysMonPsv_TempOffset(Type);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function reads temperature of each satellite in degree celsius.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	SatId is Satellite ID.
+ * @param	Val is processed value.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 		- XSYSMONPSV_SUCCESS if successful..
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_ReadTempProcessedSat(XSysMonPsv *InstancePtr, int SatId,
+				    float *Val)
+{
+	u32 Offset, Regval;
+	int Val1, Val2;
+
+	if (InstancePtr == NULL || Val == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+
+	Offset = XSYSMONPSV_TEMP_SAT + SatId * 4;
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Regval);
+	XSysMonPsv_Q8P7ToCelsius(Regval, &Val1, &Val2);
+	*Val = (float)Val1 / (float)Val2;
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function reads temperature of each satellite in raw format.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	SatId is Satellite ID.
+ * @param	Val is  raw value.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 		- XSYSMONPSV_SUCCESS if successful..
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_ReadTempRawSat(XSysMonPsv *InstancePtr, int SatId, u32 *Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+
+	Offset = XSYSMONPSV_TEMP_SAT + SatId * 4U;
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function sets temperature upper threshold.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Event is Temp or OT event type
+ * @param	Val is threshold value to be set.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 		- XSYSMONPSV_SUCCESS if successful..
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_SetTempThresholdUpper(XSysMonPsv *InstancePtr,
+				     XSysMonPsv_TempEvt Event, u32 Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+
+	if (Event == XSYSMONPSV_TEMP_EVENT) {
+		Offset = XSYSMONPSV_DEVICE_TEMP_TH + 0x4;
+	} else if (Event == XSYSMONPSV_OT_EVENT) {
+		Offset = XSYSMONPSV_OT_TEMP_TH + 0x4;
+	} else {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function sets temperature lower threshold.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Event is Temp or OT event type
+ * @param	Val is threshold value to be se
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 		- XSYSMONPSV_SUCCESS if successful..
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_SetTempThresholdLower(XSysMonPsv *InstancePtr,
+				     XSysMonPsv_TempEvt Event, u32 Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+
+	if (Event == XSYSMONPSV_TEMP_EVENT) {
+		Offset = XSYSMONPSV_DEVICE_TEMP_TH;
+	} else if (Event == XSYSMONPSV_OT_EVENT) {
+		Offset = XSYSMONPSV_OT_TEMP_TH;
+	} else {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+/******************************************************************************/
+/**
+ * This function gets temperature upper threshold.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Event is Temp or OT event type.
+ * @param	Val is upper threshold value to be read in.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 			- XSYSMONPSV_SUCCESS if successful..
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_GetTempThresholdUpper(XSysMonPsv *InstancePtr,
+				     XSysMonPsv_TempEvt Event, u32 *Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+
+	if (Event == XSYSMONPSV_TEMP_EVENT) {
+		Offset = XSYSMONPSV_DEVICE_TEMP_TH + 0x4;
+	} else if (Event == XSYSMONPSV_OT_EVENT) {
+		Offset = XSYSMONPSV_OT_TEMP_TH + 0x4;
+	} else {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function gets temperature lower threshold.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Event is Temp or OT event type
+ * @param	Val is lower threshold value to be read.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 			- XSYSMONPSV_SUCCESS if successful..
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_GetTempThresholdLower(XSysMonPsv *InstancePtr,
+				     XSysMonPsv_TempEvt Event, u32 *Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+
+	if (Event == XSYSMONPSV_TEMP_EVENT) {
+		Offset = XSYSMONPSV_DEVICE_TEMP_TH;
+	} else if (Event == XSYSMONPSV_OT_EVENT) {
+		Offset = XSYSMONPSV_OT_TEMP_TH;
+	} else {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function reads voltage for the supply.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Supply is voltage supply.
+ * @param	Val is float value in Voltage.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_ReadSupplyProcessed(XSysMonPsv *InstancePtr, int Supply,
+				   float *Val)
+{
+	u32 Offset, Regval;
+	int Val1, Val2;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	Offset = XSysMonPsv_SupplyOffset(InstancePtr, Supply);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Regval);
+	XSysMonPsv_SupplyRawToProcessed(Regval, &Val1, &Val2);
+	*Val = (float)Val1 / (float)Val2;
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function reads voltage for the supply in raw.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Supply is voltage supply.
+ * @param	Val is raw voltage.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_ReadSupplyRaw(XSysMonPsv *InstancePtr, u32 Supply, u32 *Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+
+	Offset = XSysMonPsv_SupplyOffset(InstancePtr, Supply);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function sets upper threshold voltage for the supply.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Supply is voltage supply.
+ * @param	Val is upper Threshold Value.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ *              - XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_SetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
+				       u32 Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	Offset = XSysMonPsv_SupplyThreshOffset(InstancePtr, Supply,
+					       XSYSMONPSV_EV_DIR_RISING);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function sets loser threshold voltage for the supply.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Supply is voltage supply.
+ * @param	Val is Threshold Value.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ *		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_SetSupplyThresholdLower(XSysMonPsv *InstancePtr, int Supply,
+				       u32 Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	Offset = XSysMonPsv_SupplyThreshOffset(InstancePtr, Supply,
+					       XSYSMONPSV_EV_DIR_FALLING);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function gets upper threshold voltage for the supply.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Supply is voltage supply.
+ * @param	Val is Threshold Value to be read in.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_GetSupplyThresholdUpper(XSysMonPsv *InstancePtr, u32 Supply,
+				       u32 *Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	Offset = XSysMonPsv_SupplyThreshOffset(InstancePtr, Supply,
+					       XSYSMONPSV_EV_DIR_RISING);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function gets lower threshold voltage for the supply.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Supply is voltage supply.
+ * @param	Val is Threshold Value to be read in.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_GetSupplyThresholdLower(XSysMonPsv *InstancePtr, u32 Supply,
+				       u32 *Val)
+{
+	u32 Offset;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	Offset = XSysMonPsv_SupplyThreshOffset(InstancePtr, Supply,
+					       XSYSMONPSV_EV_DIR_FALLING);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, Val);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+#if defined (ARMR5) || defined (__aarch64__)
+/******************************************************************************/
+/**
+ * This function registers callback function for the device.  This is wrapper
+ * function for the corresponding function in service layer.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	CallbackFunc callback function to be registered.
+ * @param	CallbackRef function's callback data.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 			- XSYSMONPSV_SUCCESS if successful..
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_RegisterDeviceTempOps(XSysMonPsv *InstancePtr,
+				     XSysMonPsv_Handler CallbackFunc,
+				     void *CallbackRef)
+{
+	if (!CallbackFunc || !InstancePtr || !CallbackRef) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_RegisterDevTempCallback(InstancePtr, CallbackFunc,
+					   CallbackRef);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function unregisters callback function for the device. This is wrapper
+ * function for the corresponding function in service layer.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ * 			- XSYSMONPSV_SUCCESS if successful..
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_UnregisterDeviceTempOps(XSysMonPsv *InstancePtr)
+{
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_UnregisterDevTempCallback(InstancePtr);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function registers callback function for OT. This is wrapper
+ * function for the corresponding function in service layer.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	CallbackFunc callback function to be registered.
+ * @param	CallbackRef function's callback data
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ *		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_RegisterOTOps(XSysMonPsv *InstancePtr,
+			     XSysMonPsv_Handler CallbackFunc, void *CallbackRef)
+{
+	if (CallbackFunc == NULL || InstancePtr == NULL || CallbackRef) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_RegisterOTCallback(InstancePtr, CallbackFunc, CallbackRef);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function unregisters callback function for OT. This is wrapper
+ * function for the corresponding function in service layer.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ *		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_UnregisterOTOps(XSysMonPsv *InstancePtr)
+{
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_UnregisterOTCallback(InstancePtr);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function registers callback function for Supply. This is wrapper
+ * function for the corresponding function in service layer.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Supply is voltage supply.
+ * @param	CallbackFunc callback function to be registered.
+ * @param	CallbackRef function's callback data
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ *		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_RegisterSupplyOps(XSysMonPsv *InstancePtr,
+				 XSysMonPsv_Supply Supply,
+				 XSysMonPsv_Handler CallbackFunc,
+				 void *CallbackRef)
+{
+	if (!CallbackFunc || !InstancePtr || !CallbackRef) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_RegisterSupplyCallback(InstancePtr, Supply, CallbackFunc,
+					  CallbackRef);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/******************************************************************************/
+/**
+ * This function unregisters callback function for Supply. This is wrapper
+ * function for the corresponding function in service layer.
+ *
+ * @param	InstancePtr is a pointer to the driver instance.
+ * @param	Supply is voltage supply.
+ *
+ * @return	- -XSYSMONPSV_EINVAL if error
+ *		- XSYSMONPSV_SUCCESS if successful.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+int XSysMonPsv_UnregisterSupplyOps(XSysMonPsv *InstancePtr,
+				   XSysMonPsv_Supply Supply)
+{
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_UnregisterSupplyCallback(InstancePtr, Supply);
+
+	return XSYSMONPSV_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* This function initializes basic hardware and software required for the
+* device. It setup the ISR, read hardware information.
+*
+* @param	InstancePtr is instance to the driver structure.
+* @param	IntcInst is instance to the Interrupt controller.
+*
+* @return	- -XSYSMONPSV_EINVAL if error
+*		- XSYSMONPSV_SUCCESS if successful
+*
+* @note		None.
+*
+*****************************************************************************/
+int XSysMonPsv_Init(XSysMonPsv *InstancePtr, XScuGic *IntcInst)
+{
+	int Status;
+	XSysMonPsv_Config *ConfigPtr;
+	u32 Mask;
+
+	if (InstancePtr == NULL) {
+		return -XSYSMONPSV_EINVAL;
+	}
+
+	/* Initialize the SysMon driver. */
+	ConfigPtr = XSysMonPsv_LookupConfig();
+	if (ConfigPtr == NULL) {
+		return XSYSMONPSV_EINVAL;
+	}
+	XSysMonPsv_CfgInitialize(InstancePtr, ConfigPtr);
+
+	XSysMonPsv_UnlockRegspace(InstancePtr);
+
+	XSysMonPsv_InterruptDisable(InstancePtr, XSYSMONPSV_INTR_MASK, 0);
+
+	XSysMonPsv_InterruptClear(InstancePtr, XSYSMONPSV_INTR_MASK);
+
+	if (IntcInst != NULL) {
+		Status = XSysMonPsv_SetupInterrupts(IntcInst, InstancePtr,
+						    XSYSMONPSV_INTR_0_ID);
+		if (Status != XSYSMONPSV_SUCCESS) {
+			return Status;
+		}
+		Mask = XSYSMONPSV_IER0_OT_MASK | XSYSMONPSV_IER0_TEMP_MASK;
+		XSysMonPsv_InterruptEnable(InstancePtr, Mask, 0);
+	}
+
+	return XSYSMONPSV_SUCCESS;
+}
+#endif
 /** @} */
