@@ -255,6 +255,7 @@ exclusion
 * 2.3	sne  03/09/20 Initialize IsPl of config structure.
 * 2.4   sne  08/28/20 Modify Makefile to support parallel make execution.
 * 2.5	sne  11/23/20 Fixed MISRAC violations.
+* 2.7	sne  04/26/22 Corrected Return value of XCanFd_GetFreeBuffer().
 *
 * </pre>
 *
