@@ -110,7 +110,8 @@ typedef enum {
 	XPM_NODESUBCL_DEV_CORE,	/* 0X1 */
 	XPM_NODESUBCL_DEV_PERIPH,	/* 0X2 */
 	XPM_NODESUBCL_DEV_MEM,	/* 0X3 */
-	XPM_NODESUBCL_DEV_PL,
+	XPM_NODESUBCL_DEV_SOC,	/* 0X4 */
+	XPM_NODESUBCL_DEV_PL = 7,
 	XPM_NODESUBCL_DEV_AIE,
 } XPm_DeviceNodeSubclass;
 
@@ -170,6 +171,7 @@ typedef enum {
 	XPM_NODETYPE_DEV_TCM,	/* 0X6 */
 	XPM_NODETYPE_DEV_PERIPH,	/* 0X7 */
 	XPM_NODETYPE_DEV_DDR,	/* 0X8 */
+	XPM_NODETYPE_DEV_SOC,	/* 0X9 */
 } XPm_DeviceNodeType;
 
 /* isolation subclasses */
@@ -589,7 +591,8 @@ typedef enum {
 	XPM_NODEIDX_DEV_IPI_4,	/* 0X3A */
 	XPM_NODEIDX_DEV_IPI_5,	/* 0X3B */
 	XPM_NODEIDX_DEV_IPI_6,	/* 0X3C */
-	XPM_NODEIDX_DEV_MAX	/* 0X3D */
+	XPM_NODEIDX_DEV_SOC,	/* 0X3D */
+	XPM_NODEIDX_DEV_MAX	/* 0X3E */
 } XPm_DeviceNodeIdx;
 
 /* isolation subclasses */
