@@ -74,6 +74,7 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 	case (u32)XPM_NODETYPE_RESET_DBG:
 	case (u32)XPM_NODETYPE_RESET_WARM:
 	case (u32)XPM_NODETYPE_RESET_COLD:
+	case (u32)XPM_NODETYPE_RESET_PERIPHERAL:
 		Status = XST_SUCCESS;
 		break;
 	default:
