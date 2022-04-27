@@ -482,14 +482,13 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
 	}
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
+	if (TrrVal == (u32)0)
+		return (s32)XST_FIFO_NO_ROOM;
+
+	TrrVal = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET);
 	Value = (~TrrVal) & InstancePtr->GlobalTrrMask;
 	Value = XCanFD_Check_TrrVal_Set_Bit(Value);
 	FreeTxBuffer =  (u32)XCanfd_TrrVal_Get_SetBit_Position(Value);
-
-	if (FreeTxBuffer == (u32)XST_NOBUFFER){
-		return (s32)XST_FIFO_NO_ROOM;
-	}
-	else {
 
 		/* Write ID to ID Register */
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
@@ -535,7 +534,6 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 				DwIndex++;
 			}
 		}
-	}
 
 	Value = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_TRR_OFFSET);
@@ -588,22 +586,18 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 
 	TrrVal = XCanFd_GetFreeBuffer(InstancePtr);
-	if (InstancePtr->MultiBuffTrr == TRR_MASK_INIT_VAL) {
+	if (TrrVal == (u32)0)
 		return (s32)XST_FIFO_NO_ROOM;
-	}
 
 	if(InstancePtr->GlobalTrrMask == (u32)0) {
 		InstancePtr->GlobalTrrMask = TRR_MASK_INIT_VAL;
 	}
+	TrrVal = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress, XCANFD_TRR_OFFSET);
 	MaskValue = (~TrrVal) & InstancePtr->GlobalTrrMask ;
 	InstancePtr->GlobalTrrValue = XCanFD_Check_TrrVal_Set_Bit(MaskValue);
 	FreeTxBuffer =  (u32)XCanfd_TrrVal_Get_SetBit_Position(InstancePtr->GlobalTrrValue);
 	InstancePtr->GlobalTrrMask ^= InstancePtr->GlobalTrrValue;
 
-	if (FreeTxBuffer == (u32)XST_NOBUFFER){
-		return (s32)XST_FIFO_NO_ROOM;
-	}
-	else {
 
 		InstancePtr->MultiBuffTrr = ~(InstancePtr->GlobalTrrMask);
 
@@ -655,7 +649,6 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 
 
 		return (s32)XST_SUCCESS;
-	}
 }
 
 /*****************************************************************************/
@@ -1475,13 +1468,12 @@ u8 XCanFd_GetLen2Dlc(int len)
 
 /*****************************************************************************/
 /**
-* This Routine returns the Free Buffer out of 32 Transmit Buffers.
+* This Routine returns the Free Buffers count out of 32 Transmit Buffers.
 *
 * @param	InstancePtr is a pointer to the XCanFd instance to be worked on.
 *
 *
-* @return	Returns Free buffer if any free buffer
-*		other wise returns XST_NOBUFFER.
+* @return	Returns number of Free buffers count.
 *
 * @note		None.
 *
@@ -1503,11 +1495,8 @@ u32 XCanFd_GetFreeBuffer(XCanFd *InstancePtr)
 		}
 
 	}
-	if(Index == MAX_BUFFER_INDEX) {
-		return XST_NOBUFFER;
-	}
 
-	return RegVal;
+	return (MAX_BUFFER_INDEX - Index);
 }
 
 /*****************************************************************************/
