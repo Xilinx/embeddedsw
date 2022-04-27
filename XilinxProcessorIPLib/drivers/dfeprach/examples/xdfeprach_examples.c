@@ -30,6 +30,7 @@
 *       dc     07/21/21 Add and reorganise examples
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
 *       dc     03/21/22 Add prefix to global variables
+* 1.4   dc     04/26/22 Add dynamic config example
 *
 * </pre>
 *
@@ -47,6 +48,7 @@ extern int XDfeSi570_SetMgtOscillator(double CurrentFrequency,
 extern int XDfePrach_SelfTestExample();
 extern int XDfePrach_2CC3RCTestExample();
 extern int XDfePrach_2CC3RCReconfigureTestExample();
+extern int XDfePrach_2CC3RCDynamicTestExample();
 /************************** Variable Definitions ****************************/
 #ifdef __BAREMETAL__
 metal_phys_addr_t XDfePrach_metal_phys[XDFEPRACH_MAX_NUM_INSTANCES] = {
@@ -107,6 +109,14 @@ int main(void)
 	 */
 	if (XST_SUCCESS != XDfePrach_2CC3RCReconfigureTestExample()) {
 		printf("Setting 2 CC and 3 RC Reconfigure Example failed\r\n");
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Run the DFE Prach example setting dynamically 2 CC and 3 RC.
+	 */
+	if (XST_SUCCESS != XDfePrach_2CC3RCDynamicTestExample()) {
+		printf("Setting 2 CC and 3 RC Dynamic Example failed\r\n");
 		return XST_FAILURE;
 	}
 

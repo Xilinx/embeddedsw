@@ -8,7 +8,7 @@
 *
 * @file xdfeprach_2CC_3RC_example.c
 *
-* This file contains One instance initialisation example.
+* This file contains 2 CC and 3 RC setting example.
 *
 * <pre>
 *
