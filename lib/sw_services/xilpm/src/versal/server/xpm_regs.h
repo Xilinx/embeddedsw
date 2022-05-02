@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -737,6 +737,13 @@ extern "C" {
 #define CRP_RESET_REASON_SLR_POR_MASK				(0x00000004U)
 #define CRP_RESET_REASON_SW_POR_MASK				(0x00000002U)
 #define CRP_RESET_REASON_EXTERNAL_POR_MASK			(0x00000001U)
+
+/**
+ * CRP CFU Registers
+ */
+#define CRP_CFU_REF_CTRL_OFFSET				(0x00000108U)
+#define CRP_CFU_REF_CTRL_DIVISOR0_MASK				(0x0003FF00U)
+
 /**
  * CRP_RST_NONPS
  */
@@ -749,6 +756,7 @@ extern "C" {
 #define CRP_RST_NONPS_SYS_RST_1_MASK				(0x00000004U)
 #define CRP_RST_NONPS_SYS_RST_2_MASK				(0x00000002U)
 #define CRP_RST_NONPS_SYS_RST_3_MASK				(0x00000001U)
+
 /**
  * Definitions required from pmc_tap.h
  */

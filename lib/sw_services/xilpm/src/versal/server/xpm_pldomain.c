@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -947,6 +947,60 @@ done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief This function reduces the CFU clock frequency by dividing by 2
+ *
+ * @param       None
+ *
+ * @return      None
+ *
+ * @note	It is assumed that overflow will not occur for the CFU divisor
+ *		register because the frequency is never configured such that
+ *		the upper bits would be set and overflow would occur.
+ *
+ *****************************************************************************/
+static void ReduceCfuClkFreq(void)
+{
+	u32 CfuDivider;
+
+	/* Get current CFU CLK divider value */
+	CfuDivider = XPm_In32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET) & CRP_CFU_REF_CTRL_DIVISOR0_MASK;
+
+	/* Divide the frequency by 2 */
+	CfuDivider <<= 1U;
+
+	/* Write clock freq divided by 2 */
+	XPm_RMW32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET, CRP_CFU_REF_CTRL_DIVISOR0_MASK, CfuDivider);
+}
+
+/*****************************************************************************/
+/**
+ * @brief This function resotres the CFU clock frequency by multiplying by 2
+ *
+ * @param       None
+ *
+ * @return      None
+ *
+ * @note	The clock frequency is reduced by dividing by 2 so to restore the
+ *		original frequency it is multiplied by 2. This ensures that a global
+ *		variable is not required.
+ *
+ *****************************************************************************/
+static void RestoreCfuClkFreq(void)
+{
+	u32 CfuDivider;
+
+	/* Get current CFU CLK divider value */
+	CfuDivider = XPm_In32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET) & CRP_CFU_REF_CTRL_DIVISOR0_MASK;
+
+	/* Multiply the frequency by 2 */
+	CfuDivider >>= 1U;
+
+	/* Restore clock freq */
+	XPm_RMW32(CRP_BASEADDR + CRP_CFU_REF_CTRL_OFFSET, CRP_CFU_REF_CTRL_DIVISOR0_MASK, CfuDivider);
+}
+
 static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
@@ -967,6 +1021,13 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
 	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+
+	/*
+	 * PL housecleaning requires CFU clock to run at a lower frequency for
+	 * proper operation. Divide the CFU clock frequency by 2 to reduce the
+	 * current frequency.
+	 */
+	ReduceCfuClkFreq();
 
 	/* Get houseclean disable mask */
 	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_PLD_SHIFT;
@@ -1096,6 +1157,9 @@ fail:
 	PldCfuLock(Pld, 1U);
 
 done:
+	/* Restore the CFU clock frequency */
+	RestoreCfuClkFreq();
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -1555,6 +1619,13 @@ XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_PlDomain *Pld;
 
+	/*
+	 * PL housecleaning requires CFU clock to run at a lower frequency for
+	 * proper operation. Divide the CFU clock frequency by 2 to reduce the
+	 * current frequency.
+	 */
+	ReduceCfuClkFreq();
+
 	Pld = (XPm_PlDomain *)XPmPower_GetById(PM_POWER_PLD);
 	if (NULL == Pld) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
@@ -1577,6 +1648,9 @@ XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 	PldCfuLock(Pld, 1U);
 
 done:
+	/* Restore the CFU clock frequency */
+	RestoreCfuClkFreq();
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
