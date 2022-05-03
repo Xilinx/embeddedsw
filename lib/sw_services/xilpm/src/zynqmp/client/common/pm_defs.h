@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -810,6 +810,7 @@ enum XPmPinParam {
 	PINCTRL_CONFIG_SCHMITT_CMOS,			/**< Pin config schmitt CMOS */
 	PINCTRL_CONFIG_DRIVE_STRENGTH,			/**< Pin config drive strength */
 	PINCTRL_CONFIG_VOLTAGE_STATUS,			/**< Pin config voltage status */
+	PINCTRL_CONFIG_MIO_TRI_STATE,			/**< Pin config tri state for MIO pins */
 };
 
 /**
