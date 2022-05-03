@@ -29,6 +29,8 @@
 *       bsv  09/08/21 Added MultiDie read support for Micron 2G flash part
 * 7.0   bsv  04/28/22 Fixed bug in Qspi copy when destination address is not
 *                     64 byte aligned
+*       bsv  05/03/22 Replace memcpy with Xil_MemCpy to avoid non-word aligned
+*                     access to memory
 *
 * </pre>
 *
@@ -865,7 +867,7 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		}
 
 		if (UnalignedBytes != 0U) {
-			memcpy((void *)DestAddress, TempBuf, UnalignedBytes);
+			Xil_MemCpy((void *)DestAddress, TempBuf, UnalignedBytes);
 			UnalignedBytes = 0U;
 		}
 		/**
@@ -1475,7 +1477,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			}
 		}
 		if (UnalignedBytes != 0U) {
-			memcpy((void *)DestAddress, TempBuf, TransferBytes);
+			Xil_MemCpy((void *)DestAddress, TempBuf, TransferBytes);
 			UnalignedBytes = 0U;
 		}
 		/**
