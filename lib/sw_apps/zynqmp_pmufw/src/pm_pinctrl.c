@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -65,6 +65,8 @@
 
 #define SWAP_BITS_BANK1_CTRL5(val)	\
 	(val) = (((val) & 0x3FFFU) << 12U) | (((val) >> 14U) & 0xFFFU)
+
+#define IOU_SLCR_MIO_MST_TRI0		(IOU_SLCR_BASE + 0x204U)
 
 /**
  * PmPinMuxFn - PIN mux function model
@@ -1071,7 +1073,12 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 		FIX_BANK1_CTRL5(shift);
 	}
 
-	if (0U == (PM_PIN_PARAM_2_BITS & pmPinParams[paramId].flags)) {
+	if (PINCTRL_CONFIG_TRI_STATE == paramId) {
+		/* Get the Absolute address from pinId */
+		addr = ((IOU_SLCR_MIO_MST_TRI0) + ((pinId/32U) * 4U));
+		shift = (pinId % 32U);
+		XPfw_RMW32(addr, (u32)1 << shift, (u32)value << shift);
+	} else if (0U == (PM_PIN_PARAM_2_BITS & pmPinParams[paramId].flags)) {
 		XPfw_RMW32(addr, (u32)1 << shift, (u32)value << shift);
 		/* When setting pull up/down we need to enable pull as well */
 		if (paramId == PINCTRL_CONFIG_PULL_CTRL) {
