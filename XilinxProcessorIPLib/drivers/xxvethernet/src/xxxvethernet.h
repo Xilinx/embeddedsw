@@ -338,7 +338,7 @@ typedef struct XXxvEthernet {
 ******************************************************************************/
 #define XXxvEthernet_IsRxErr(InstancePtr)			 \
 	((XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,  \
-	XXE_RXSR_OFFSET) & XXE_STS_RX_ERROR_MASK) ? TRUE : FALSE
+	XXE_RXSR_OFFSET) & XXE_STS_RX_ERROR_MASK) ? TRUE : FALSE)
 
 /****************************************************************************/
 /**
