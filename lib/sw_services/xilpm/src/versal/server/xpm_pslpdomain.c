@@ -236,7 +236,8 @@ done:
 static XStatus LpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegBitMask;
 	u32 RegVal;
@@ -244,8 +245,10 @@ static XStatus LpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
+        Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK,
+				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK),
+				       u32);
+        if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Trigger Scan clear on LPD/LPD_IOU */
@@ -308,7 +311,8 @@ done:
 static XStatus LpdLbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 	u32 RegAddr;
 	volatile u32 RegVal = 0U;
@@ -319,8 +323,10 @@ static XStatus LpdLbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_LBIST_MASK != (PwrDomain->HcDisableMask &
-			HOUSECLEAN_DISABLE_LBIST_MASK)) {
+        Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_LBIST_MASK,
+				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_LBIST_MASK),
+				       u32);
+        if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Triggering LBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		if (NULL == EfuseCache) {
@@ -415,10 +421,11 @@ done:
 static XStatus LpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_Device *XramDevice = XPmDevice_GetById(PM_DEV_XRAM_0);
 	XPm_PsLpDomain *LpDomain = (XPm_PsLpDomain *)PwrDomain;
-	u16 DbgErr;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -430,8 +437,10 @@ static XStatus LpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
-			HOUSECLEAN_DISABLE_BISR_MASK)) {
+        Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_BISR_MASK,
+				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_BISR_MASK),
+				       u32);
+        if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		Status = XPmBisr_Repair(LPD_TAG_ID);
@@ -478,13 +487,14 @@ static XStatus XramMbist(void)
 	/* There are 2 modes of memclear: (1) Unison Mode (2) Per Island Mode */
 	/* Using Unison Mode */
 
-	XStatus Status = XPM_ERR_MBIST_CLR;
+	volatile XStatus Status = XPM_ERR_MBIST_CLR;
+	volatile XStatus StatusTmp = XPM_ERR_MBIST_CLR;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_Device *Device = NULL;
 	u32 BaseAddr, RegValue;
 
-	Device = XPmDevice_GetById(PM_DEV_XRAM_0);
-	if (NULL == Device) {
+        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Device, XPm_Device, XPmDevice_GetById, PM_DEV_XRAM_0);
+        if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 		/* device might not have XRAM IP, hence return success*/
 		Status = XST_SUCCESS;
 		goto done;
@@ -651,8 +661,10 @@ static XStatus LpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
-			HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+        Status = XPM_STRICT_CHECK_IF_EQUAL(StatusTmp, HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK,
+				    (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK),
+				    u32);
+        if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
