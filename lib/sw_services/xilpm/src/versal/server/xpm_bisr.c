@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -361,14 +361,17 @@ done:
 
 XStatus XPmBisr_TriggerLpd(void)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_PsLpDomain *PsLpd;
 	u32 RegValue;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
-	if (NULL == PsLpd) {
+	Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, PsLpd, XPm_PsLpDomain,
+				       XPmPower_GetById, PM_POWER_LPD);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+		Status = XST_FAILURE;
 		goto done;
 	}
 
@@ -411,17 +414,20 @@ done:
 
 static XStatus XPmBisr_RepairFpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_PsFpDomain *PsFpd;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
-	if (NULL == PsFpd) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		goto done;
-	}
+        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, PsFpd, XPm_PsFpDomain,
+				       XPmPower_GetById, PM_POWER_FPD);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+                DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+                Status = XST_FAILURE;
+                goto done;
+        }
 
 	BisrDataDestAddr = PsFpd->FpdSlcrBaseAddr + (u64)FPD_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
@@ -481,17 +487,20 @@ done:
 
 static XStatus XPmBisr_RepairCpm(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM);
-	if (NULL == Cpm) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		goto done;
-	}
+        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Cpm, XPm_CpmDomain,
+				       XPmPower_GetById, PM_POWER_CPM);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+                DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+                Status = XST_FAILURE;
+                goto done;
+        }
 
 	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + (u64)CPM_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
@@ -532,17 +541,20 @@ done:
 
 static XStatus XPmBisr_RepairCpm5(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
-	XStatus Status = XPM_ERR_BISR;
+	volatile XStatus Status = XPM_ERR_BISR;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_CpmDomain *Cpm;
 	u32 RegValue;
 	u64 BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Cpm = (XPm_CpmDomain *)XPmPower_GetById(PM_POWER_CPM5);
-	if (NULL == Cpm) {
-		DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
-		goto done;
-	}
+        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Cpm, XPm_CpmDomain,
+				       XPmPower_GetById, PM_POWER_CPM5);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+                DbgErr = XPM_INT_ERR_INVALID_PWR_DOMAIN;
+                Status = XST_FAILURE;
+                goto done;
+        }
 
 	BisrDataDestAddr = Cpm->CpmSlcrBaseAddr + (u64)CPM5_SLCR_BISR_CACHE_DATA_0_OFFSET;
 	/* Disable write protection */
@@ -641,7 +653,8 @@ fail:
 
 static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagOptional, u32 *TagDataAddr)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u32 RegValue;
 	u64 BaseAddr, BisrDataDestAddr;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -650,11 +663,13 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	/* Compilation warning fix */
 	(void)TagId;
 
-	AieDev = XPmDevice_GetById(PM_DEV_AIE);
-	if (NULL == AieDev) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-		goto done;
-	}
+        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, AieDev, XPm_Device,
+				       XPmDevice_GetById, PM_DEV_AIE);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+                DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+                Status = XST_FAILURE;
+                goto done;
+        }
 
 	BaseAddr = (u64)VIVADO_ME_BASEADDR + ((u64)TagOptional << ME_BISR_EFUSE_OFFSET_SHIFT);
 	BisrDataDestAddr = BaseAddr + ME_BISR_FIXED_OFFSET;
@@ -1342,7 +1357,8 @@ done:
 
 XStatus XPmBisr_Repair(u32 TagId)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u32 EfuseRowTag;
 	u32 EfuseCurrAddr;
 	u32 EfuseNextAddr;
@@ -1356,17 +1372,22 @@ XStatus XPmBisr_Repair(u32 TagId)
 	u32 EfuseTagBitS1Addr;
 	u32 EfuseTagBitS2Addr;
 	u32 XPmTagIdWhiteList[TAG_ID_ARRAY_SIZE] = {0};
-	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache;
 
-	if (NULL == EfuseCache) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-		goto done;
-	}
+        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, EfuseCache, XPm_Device,
+				       XPmDevice_GetById, PM_DEV_EFUSE_CACHE);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+                DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+                goto done;
+        }
 
-	if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
+	Status = XPM_STRICT_CHECK_IF_EQUAL_FOR_FUNC(StatusTmp, PLATFORM_VERSION_SILICON, u32,
+					     XPm_GetPlatform);
+	if ((XST_SUCCESS != Status) && (XST_SUCCESS != StatusTmp)) {
+                Status = XST_SUCCESS;
+                goto done;
+        }
 
 	EfuseCacheBaseAddr = EfuseCache->Node.BaseAddress;
 	EfuseTagBitS1Addr = (EfuseCacheBaseAddr + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
