@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -205,7 +205,8 @@ static XStatus CpmScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XPM_ERR_SCAN_CLR;
+	volatile XStatus Status = XPM_ERR_SCAN_CLR;
+	volatile XStatus StatusTmp = XPM_ERR_SCAN_CLR;
 	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
@@ -233,8 +234,11 @@ static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET, 0U);
 
-	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
+	Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK,
+				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK),
+				       u32);
+
+	if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Run scan clear on CPM */
@@ -324,15 +328,18 @@ done:
 static XStatus CpmBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* This function does not use the args */
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_BISR_MASK)) {
+	Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_BISR_MASK,
+				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_BISR_MASK),
+				       u32);
+	if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Bisr */
@@ -355,7 +362,8 @@ static XStatus CpmBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 static XStatus Cpm5Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 i;
 
@@ -363,8 +371,10 @@ static XStatus Cpm5Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_BISR_MASK)) {
+	Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_BISR_MASK,
+				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_BISR_MASK),
+				       u32);
+	if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Bisr on CPM5 PD*/
@@ -413,7 +423,8 @@ done:
 static XStatus CpmMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_CpmDomain *Cpm = (XPm_CpmDomain *)PwrDomain;
 	u32 RegValue;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
@@ -422,8 +433,10 @@ static XStatus CpmMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+	Status = XPM_STRICT_CHECK_IF_EQUAL(StatusTmp, HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK,
+				    (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK),
+				    u32);
+	if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
@@ -562,8 +575,10 @@ static XStatus Cpm5MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+	Status = XPM_STRICT_CHECK_IF_EQUAL(StatusTmp, HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK,
+				    (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK),
+				    u32);
+	if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
