@@ -24,6 +24,7 @@
 *		      the sequence mentioned in TRM
 * 1.4  rna  03/12/21  Add read,write of LCR in 'XUartPsv_SetBaudRate' from TRM
 *           03/15/21  Improve the accuracy of FBRD value
+* 1.5  sd   05/04/22  Update the loop XUartPsv_ReceiveBuffer
 * </pre>
 *
 ******************************************************************************/
@@ -394,7 +395,7 @@ u32 XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr)
 	 * Loop until there is no more data in RX FIFO or the specified
 	 * number of bytes has been received
 	 */
-	while ((ReceivedCount <= InstancePtr->ReceiveBuffer.RemainingBytes) &&
+	while ((ReceivedCount < InstancePtr->ReceiveBuffer.RemainingBytes) &&
 		(((FlagRegister & XUARTPSV_UARTFR_RXFE) == (u32)0))) {
 
 		InstancePtr->ReceiveBuffer.NextBytePtr[ReceivedCount] =
