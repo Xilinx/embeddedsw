@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -226,26 +226,31 @@ done:
 static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_Pmc *Pmc;
 	u32 RegValue;
 	u32 SlrType;
 	XPm_OutClockNode *Clk;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	volatile u32 SlrTypeTemp;
 
 	(void)Args;
 	(void)NumOfArgs;
 
 	SlrType = XPm_GetSlrType();
-	if ((SlrType != SLR_TYPE_MONOLITHIC_DEV) &&
-	    (SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR)) {
+	SlrTypeTemp = ~(XPm_GetSlrType());
+	if (((SlrType != SLR_TYPE_MONOLITHIC_DEV) &&
+	     (SlrType != SLR_TYPE_SSIT_DEV_MASTER_SLR)) &&
+	    ((SlrTypeTemp != ~(SLR_TYPE_MONOLITHIC_DEV)) &&
+	     (SlrTypeTemp != ~(SLR_TYPE_SSIT_DEV_MASTER_SLR)))) {
 		PmDbg("Skipping Scan-Clear of NPD for Slave SLR\n\r");
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	if (NULL == Pmc) {
+	Status = XPM_STRICT_CHECK_IF_NULL(StatusTmp, Pmc, XPm_Pmc, XPmDevice_GetById, PM_DEV_PMC_PROC);
+	if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 		Status = XST_FAILURE;
 		goto done;
@@ -256,8 +261,10 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		(PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 		PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK));
 
-	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
+        Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK,
+				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK),
+				       u32);
+	if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
@@ -461,7 +468,8 @@ static void AssertPcsrLockMem(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u32 i;
 	const XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
@@ -481,8 +489,10 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* NPD pre bisr requirements - in case if bisr was skipped */
 	NpdPreBisrReqs();
 
-	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+        Status = XPM_STRICT_CHECK_IF_EQUAL(StatusTmp, HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK,
+				    (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK),
+				    u32);
+	if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
@@ -550,7 +560,8 @@ done:
 static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u32 i = 0;
 	const XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
@@ -584,8 +595,10 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 	}
 
-	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_BISR_MASK)) {
+	Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_BISR_MASK,
+				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_BISR_MASK),
+				       u32);
+	if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Enable Bisr clock */
