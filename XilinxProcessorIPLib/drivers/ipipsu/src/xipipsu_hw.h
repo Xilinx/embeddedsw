@@ -22,6 +22,7 @@
 * 2.5   sdd  12/17/18 Add the cpp extern macro
 * 2.11  ma   01/17/22 Added XIPIPSU_BASE_ADDR macro
 * 2.12  sd   02/24/22 Added support for VERSAL NET
+*       sd   05/05/22 Added xparameters.h
 *
 * </pre>
 *
@@ -32,6 +33,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/***************************** Include Files *********************************/
+
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 /* Message RAM related params */
