@@ -149,7 +149,8 @@ done:
 static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
@@ -157,8 +158,10 @@ static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK == (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
+        Status = XPM_STRICT_CHECK_IF_EQUAL(StatusTmp, HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK,
+				    (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK),
+				    u32);
+        if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
@@ -201,7 +204,8 @@ done:
 static XStatus FpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
@@ -220,8 +224,10 @@ static XStatus FpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_BISR_MASK)) {
+        Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_BISR_MASK,
+				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_BISR_MASK),
+				       u32);
+        if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Trigger Bisr repair */
@@ -294,18 +300,19 @@ done:
 static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
 	(void)NumOfArgs;
 
-	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);;
-	if (NULL == Psm) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-		goto done;
-	}
+        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Psm, XPm_Psm, XPmDevice_GetById, PM_DEV_PSM_PROC);
+        if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+                DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+                goto done;
+        }
 
 	/* Release SRST for PS-FPD */
 	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
@@ -319,8 +326,10 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK == (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+        Status = XPM_STRICT_CHECK_IF_EQUAL(StatusTmp, HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK,
+				    (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK),
+				    u32);
+        if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
