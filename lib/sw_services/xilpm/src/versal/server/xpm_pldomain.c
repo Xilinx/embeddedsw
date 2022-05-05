@@ -365,16 +365,19 @@ done:
 static void PldApplyTrim(u32 TrimType)
 {
         u32 TrimVal;
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
         Xuint128 VggTrim={0};
-	const XPm_Device *EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
+	const XPm_Device *EfuseCache;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 Platform;
 
-	if (NULL == EfuseCache) {
-		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
-		goto done;
-	}
+        Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, EfuseCache, XPm_Device, XPmDevice_GetById, PM_DEV_EFUSE_CACHE);
+        if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+                DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_FAILURE;
+                goto done;
+        }
 
         /* Read the corresponding efuse registers for TRIM values */
         switch (TrimType)
