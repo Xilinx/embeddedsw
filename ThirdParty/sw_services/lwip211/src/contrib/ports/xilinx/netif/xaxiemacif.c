@@ -116,6 +116,7 @@ static err_t _unbuffered_low_level_output(xaxiemacif_s *xaxiemacif,
 #endif
 	} else if (XAxiEthernet_IsMcDma(&xaxiemacif->axi_ethernet)) {
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
+		xil_printf("lwip support with mcdma is deprecated\n");
 		status = axi_mcdma_sgsend(xaxiemacif, p);
 #endif
 	} else {

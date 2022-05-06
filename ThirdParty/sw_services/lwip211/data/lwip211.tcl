@@ -1540,6 +1540,7 @@ proc axieth_target_periph {emac} {
 		foreach target_peri $target_periph {
 			set target_periph_type [get_property IP_NAME $target_periph]
 			if {$target_periph_type == "axi_dma" || $target_periph_type == "axi_fifo_mm_s" || $target_periph_type == "axi_mcdma"} {
+				puts "lwip support with mcdma is deprecated"
 				set target_periph_name [string toupper [get_property NAME $target_periph]]
 				return $target_periph_type
 			}
