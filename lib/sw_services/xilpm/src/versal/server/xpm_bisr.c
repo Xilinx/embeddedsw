@@ -47,6 +47,7 @@
 #define TAG_ID_TYPE_XRAM				(14U)
 #define TAG_ID_TYPE_LAGUNA             (15U)
 #define TAG_ID_TYPE_VDU                 (16U)
+#define TAG_ID_TYPE_BFRB				(17U)
 #define TAG_ID_ARRAY_SIZE				(256U)
 
 #define PMC_EFUSE_BISR_UNKN_TAG_ID			(0x1U)
@@ -189,6 +190,7 @@ static void XPmBisr_InitTagIdList(
 	XPmTagIdWhiteList[XRAM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_XRAM;
 	XPmTagIdWhiteList[LAGUNA_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_LAGUNA;
 	XPmTagIdWhiteList[VDU_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_VDU;
+	XPmTagIdWhiteList[BFRB_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_BFRB;
 
 	return;
 }
@@ -1355,6 +1357,12 @@ done:
 	return Status;
 }
 
+static XStatus XPmBisr_RepairBfrb(void)
+{
+	/* TODO: Synchronize repair with GOQ */
+	return XST_SUCCESS;
+}
+
 XStatus XPmBisr_Repair(u32 TagId)
 {
 	volatile XStatus Status = XST_FAILURE;
@@ -1490,6 +1498,9 @@ XStatus XPmBisr_Repair(u32 TagId)
 						break;
 					case TAG_ID_TYPE_VDU:
 						Status = XPmBisr_RepairVdu(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+						break;
+					case TAG_ID_TYPE_BFRB:
+						Status = XPmBisr_RepairBfrb();
 						break;
 					default: //block type not recognized, no function to handle it
 						XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);

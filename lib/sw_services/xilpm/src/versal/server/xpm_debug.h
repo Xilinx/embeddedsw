@@ -656,6 +656,11 @@ extern "C" {
 /* Error during CPM5_SLCR_SECURE register writing in Cpm5MbistClear */
 #define XPM_INT_ERR_REG_WRT_CPM5MBISTCLR_SLCRSECU_MBIST_TRIGGER		0x501AU
 
+/* Error during PCSR unlock */
+#define XPM_INT_ERR_REG_WRT_NPI_PCSR_UNLOCK			0x501BU
+/* Error during PCSR lock */
+#define XPM_INT_ERR_REG_WRT_NPI_PCSR_LOCK			0x501CU
+
 /************************* Sysmon Specific Errors ****************************/
 /************************** (0x5100) - (0x51FF) ******************************/
 #define XPM_INT_ERR_DEVICE_NOT_SUPPORTED		0x5100U
@@ -688,6 +693,21 @@ extern "C" {
 #define XPM_INT_ERR_VDU_HC				0x5206U
 /* Error during VDU Init */
 #define XPM_INT_ERR_VDU_INIT			0x5207U
+
+/*************************** BFRB Specific Errors ****************************/
+/************************** (0x5300) - (0x53FF) ******************************/
+/* Error with BFRB SRAM power up */
+#define XPM_INT_ERR_BFRB_POWER_STATE		0x5300U
+/* Error during BFRB init */
+#define XPM_INT_ERR_BFRB_INIT			0x5301U
+/* Error running BFRB Mem Clear */
+#define XPM_INT_ERR_BFRB_MBIST			0x5302U
+/* Error running BFRB BISR repair */
+#define XPM_INT_ERR_BFRB_BISR_REPAIR		0x5303U
+/* Error running BFRB Scan Clear */
+#define XPM_INT_ERR_BFRB_SCAN_CLEAR		0x5304U
+/* Error running BFRB houseclean */
+#define XPM_INT_ERR_BFRB_HC			0x5206U
 
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU

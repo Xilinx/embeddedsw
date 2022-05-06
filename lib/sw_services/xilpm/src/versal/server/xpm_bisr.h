@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +35,7 @@ extern "C" {
 #define CPM5_GTYP_TAG_ID	0x17
 #define GTYP_TAG_ID	0x18
 #define GTM_TAG_ID	0x19
+#define BFRB_TAG_ID 0x1B
 
 #define PCSR_UNLOCK_VAL		(0xF9E8D7C6U)
 #define PCSR_LOCK_VAL		(0x1U)
