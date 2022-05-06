@@ -58,8 +58,10 @@
 #include "xtrace.h"
 #endif
 
-#if defined __aarch64__
+#if defined __aarch64__ || defined (__arm__)
 #include "xil_mmu.h"
+#elif defined (ARMR5)
+#include "xreg_cortexr5.h"
 #endif
 
 #if XLWIP_CONFIG_INCLUDE_AXIETH_ON_ZYNQ == 1
@@ -97,8 +99,14 @@ xaxiemacif_s *xaxiemacif_fast;
 u32 xInsideISR = 0;
 #endif
 
-#if defined (__aarch64__) || defined (ARMR5)
-u8_t bd_space[0x200000] __attribute__ ((aligned (0x200000)));
+#define BD_SIZE_2MB                 0x200000
+#define BD_SIZE_1MB                 0x100000
+#define BD_SIZE_64KB				0x10000
+
+#if defined (__aarch64__)
+u8_t bd_space[BD_SIZE_2MB] __attribute__ ((aligned (BD_SIZE_2MB)));
+#elif defined (__arm__) || defined (ARMR5)
+u8_t bd_space[BD_SIZE_1MB] __attribute__ ((aligned (BD_SIZE_1MB)));
 #endif
 
 #if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
@@ -636,6 +644,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	struct pbuf *p;
 	XStatus status;
 	u32_t i;
+	u32_t bd_space_index = 0;
 	UINTPTR baseaddr;
 
 	xaxiemacif_s *xaxiemacif = (xaxiemacif_s *)(xemac->state);
@@ -652,22 +661,22 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 #endif
 
 	/* FIXME: On ZyqnMP Multiple Axi Ethernet are not supported */
-#if defined (__aarch64__) || defined (ARMR5)
-	xaxiemacif->rx_bdspace = (void *)(UINTPTR)&(bd_space[0]);;
-	xaxiemacif->tx_bdspace = (void *)(UINTPTR)&(bd_space[0x10000]);
+#if defined (__aarch64__)
+	Xil_SetTlbAttributes((u64)bd_space, NORM_NONCACHE | INNER_SHAREABLE);
+#elif defined (ARMR5)
+	Xil_SetTlbAttributes((s32_t)bd_space, STRONG_ORDERD_SHARED | PRIV_RW_USER_RW);
+#elif defined (__arm__)
+	Xil_SetTlbAttributes((s32_t)bd_space, DEVICE_MEMORY);
 #endif
 
-#if !defined (__aarch64__) && !defined (ARMR5)
+#if defined (__MICROBLAZE__)
 	xaxiemacif->rx_bdspace = alloc_bdspace(XLWIP_CONFIG_N_RX_DESC);
 	xaxiemacif->tx_bdspace = alloc_bdspace(XLWIP_CONFIG_N_TX_DESC);
+#else
+	xaxiemacif->rx_bdspace = (void *)(UINTPTR)&(bd_space[bd_space_index]);
+	bd_space_index += BD_SIZE_64KB;
+	xaxiemacif->tx_bdspace = (void *)(UINTPTR)&(bd_space[bd_space_index]);
 #endif
-
-	/* For A53 case Mark the BD Region as uncaheable */
-#if defined(__aarch64__)
-	Xil_SetTlbAttributes((UINTPTR)xaxiemacif->tx_bdspace, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes((UINTPTR)xaxiemacif->rx_bdspace, NORM_NONCACHE | INNER_SHAREABLE);
-#endif
-
 
 	LWIP_DEBUGF(NETIF_DEBUG, ("rx_bdspace: 0x%08x\r\n",
 												xaxiemacif->rx_bdspace));
