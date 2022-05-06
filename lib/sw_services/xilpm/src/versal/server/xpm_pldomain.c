@@ -25,6 +25,10 @@
 #define XPM_NODEIDX_DEV_VDU_MIN     XPM_NODEIDX_DEV_VDU_0
 #define XPM_NODEIDX_DEV_VDU_MAX     XPM_NODEIDX_DEV_VDU_3
 
+/* The current number of BFR-B devices. Used to run housecleaning for each. */
+#define XPM_NODEIDX_DEV_BFRB_MIN		XPM_NODEIDX_DEV_BFRB_0
+#define XPM_NODEIDX_DEV_BFRB_MAX		XPM_NODEIDX_DEV_BFRB_11
+
 #define PLHCLEAN_EARLY_BOOT 0U
 #define PLHCLEAN_INIT_NODE  1U
 
@@ -361,7 +365,6 @@ done:
 	return Status;
 }
 
-
 static void PldApplyTrim(u32 TrimType)
 {
         u32 TrimVal;
@@ -671,6 +674,303 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 	}
 
 	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus BfrbInit(const u32 *BfrbAddresses, const u32 ArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Rail *VccintRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+	u32 i = 0;
+
+	Status = XPmPower_CheckPower(VccintRail,
+			PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		goto done;
+	}
+
+	/* Deassert PWRDN for each BFRB */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Unlock PCSR */
+		Status = XPm_UnlockPcsr(BfrbAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_UNLOCK;
+			goto done;
+		}
+
+		/* Deassert PWRDN */
+		Status = XPm_PcsrWrite(BfrbAddresses[i], BFR_NPI_PCSR_MASK_PWRDN_MASK, 0U);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_RELEASE;
+			goto done;
+		}
+	}
+
+	/* SRAMS powered up for each BFRB */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Wait for SRAMS Powered Up */
+		Status = XPm_PollForZero(BfrbAddresses[i] + NPI_PCSR_STATUS_OFFSET,
+				BFR_NPI_PCSR_STATUS_POWER_STATE_MASK, XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_BFRB_POWER_STATE;
+			goto done;
+		}
+	}
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Lock PCSR */
+		Status = XPm_LockPcsr(BfrbAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_LOCK;
+		}
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus BfrbMbist(const u32 *BfrbAddresses, const u32 ArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i = 0;
+
+	/* Trigger Mem Clear for each BFRB */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Unlock PCSR */
+		Status = XPm_UnlockPcsr(BfrbAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_UNLOCK;
+			goto done;
+		}
+
+		/* Assert Mem Clear Trigger */
+		Status = XPm_PcsrWrite(BfrbAddresses[i], BFR_NPI_PCSR_MEM_CLEAR_TRIGGER_MASK,
+				BFR_NPI_PCSR_MEM_CLEAR_TRIGGER_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
+			goto done;
+		}
+	}
+
+	/* Wait for MemClear done and check for MemClear pass for each BFRB */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Wait for Mem Clear DONE */
+		Status = XPm_PollForMask(BfrbAddresses[i] + NPI_PCSR_STATUS_OFFSET,
+				BFR_NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_DONE_TIMEOUT;
+			goto done;
+		}
+
+		/* Check Mem Clear Pass */
+		if (BFR_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
+				(XPm_In32(BfrbAddresses[i] + NPI_PCSR_STATUS_OFFSET) & BFR_NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK)) {
+			DbgErr = XPM_INT_ERR_MEM_CLEAR_PASS;
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+	/* Set Status to SUCCESS in case BFR-B is not present */
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Lock PCSR */
+		Status = XPm_LockPcsr(BfrbAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_LOCK;
+		}
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+    return Status;
+}
+
+static XStatus BfrbScanClear(const u32 *BfrbAddresses, const u32 ArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i = 0;
+
+	/* Trigger ScanClear for each BFRB */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Unlock PCSR */
+		Status = XPm_UnlockPcsr(BfrbAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_UNLOCK;
+			goto done;
+		}
+
+		/* Trigger Scan Clear */
+		Status = XPm_PcsrWrite(BfrbAddresses[i], BFR_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+				BFR_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER;
+			goto done;
+		}
+	}
+
+	/* Wait for ScanClear done and check ScanClear PASS for each BFRB */
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Wait for Scan Clear DONE */
+		Status = XPm_PollForMask(BfrbAddresses[i] + NPI_PCSR_STATUS_OFFSET,
+				BFR_NPI_PCSR_STATUS_SCAN_CLEAR_DONE_MASK, XPM_POLL_TIMEOUT);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_TIMEOUT;
+			goto done;
+		}
+
+		/* Check Scan Clear PASS */
+		if (BFR_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK !=
+				(XPm_In32(BfrbAddresses[i] + NPI_PCSR_STATUS_OFFSET) & BFR_NPI_PCSR_STATUS_SCAN_CLEAR_PASS_MASK)) {
+			DbgErr = XPM_INT_ERR_SCAN_CLEAR_PASS;
+			Status = XST_FAILURE;
+			goto done;
+		}
+	}
+
+	/* Set Status to SUCCESS in case BFR-B is not present */
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Lock PCSR */
+		Status = XPm_LockPcsr(BfrbAddresses[i]);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_LOCK;
+		}
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+    return Status;
+}
+
+static XStatus InitBfrbAddrArr(u32 *BfrbArrPtr, const u32 ArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device *Device;
+	u32 i;
+	u32 Idx = 0;
+
+	if (NULL == BfrbArrPtr) {
+		goto done;
+	}
+
+	for (i = (u32)XPM_NODEIDX_DEV_BFRB_MIN; i <= (u32)XPM_NODEIDX_DEV_BFRB_MAX; i++) {
+		Device = XPmDevice_GetByIndex(i);
+		if ((NULL == Device) || ((u32)XPM_NODETYPE_DEV_BFRB != NODETYPE(Device->Node.Id))) {
+			continue;
+		}
+
+		if ((NULL == Device->Power) || ((u32)PM_POWER_PLD != Device->Power->Node.Id)) {
+			continue;
+		}
+
+		if (Idx >= ArrLen) {
+			DbgErr = XPM_INT_ERR_BFRB_INIT;
+			goto done;
+		}
+
+		BfrbArrPtr[Idx] = Device->Node.BaseAddress;
+		Idx++;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus BfrbHouseClean(void)
+{
+	XStatus Status = XST_FAILURE;
+	XStatus StatusTmp = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 BfrbAddresses[XPM_NODEIDX_DEV_BFRB_MAX - XPM_NODEIDX_DEV_BFRB_MIN + 1] = {0};
+
+	/* Initialize array with addresses for each BFRB device */
+	Status = InitBfrbAddrArr(BfrbAddresses, ARRAY_SIZE(BfrbAddresses));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Run setup for BFRB */
+	Status = BfrbInit(BfrbAddresses, ARRAY_SIZE(BfrbAddresses));
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BFRB_INIT;
+		goto done;
+	}
+
+	/* Run BFRB BISR */
+	Status = XPmBisr_Repair(BFRB_TAG_ID);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BFRB_BISR_REPAIR;
+		goto done;
+	}
+
+	/* Run MBIST for each BFRB */
+	XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (BfrbMbist),
+			(BfrbAddresses), ARRAY_SIZE(BfrbAddresses));
+	/* Copy volatile to local to avoid MISRA */
+	XStatus LocalStatus = StatusTmp;
+	/* Required for redundancy */
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
+		DbgErr = XPM_INT_ERR_BFRB_MBIST;
+		goto done;
+	}
+
+	/* Run scan clear for each BFRB */
+	Status = BfrbScanClear(BfrbAddresses, ARRAY_SIZE(BfrbAddresses));
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BFRB_SCAN_CLEAR;
+		goto done;
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -1114,6 +1414,12 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = VduHouseClean();
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_VDU_HC;
+	}
+
+	/* Run houseclean sequence for BFR-B */
+	Status = BfrbHouseClean();
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_BFRB_HC;
 	}
 
 	/* Set init_complete */
