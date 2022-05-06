@@ -65,6 +65,7 @@
 *       mn   04/08/20 Set IsReady to '0' before calling XSdPs_CfgInitialize
 * 4.5   sk   03/31/21 Maintain discrete global variables for each controller.
 * 4.6   sk   07/20/21 Fixed compilation warning in RAM interface.
+* 4.8   sk   05/05/22 Replace standard lib functions with Xilinx functions.
 *
 * </pre>
 *
@@ -370,7 +371,8 @@ DRESULT disk_read (
 #endif
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
-	memcpy(buff, dataramfs + (sector * SECTORSIZE), count * SECTORSIZE);
+	Xil_SMemCpy(buff, count * SECTORSIZE, dataramfs + (sector * SECTORSIZE),
+			count * SECTORSIZE, count * SECTORSIZE);
 #endif
 
 #if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
@@ -539,7 +541,8 @@ DRESULT disk_write (
 #endif
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
-	memcpy(dataramfs + (sector * SECTORSIZE), buff, count * SECTORSIZE);
+	Xil_SMemCpy(dataramfs + (sector * SECTORSIZE), count * SECTORSIZE, buff,
+				count * SECTORSIZE, count * SECTORSIZE);
 #endif
 
 #if !defined(FILE_SYSTEM_INTERFACE_SD) && !defined(FILE_SYSTEM_INTERFACE_RAM)
