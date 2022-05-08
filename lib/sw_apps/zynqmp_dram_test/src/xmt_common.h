@@ -25,6 +25,7 @@
  *       mn   05/27/21 Get the PS Ref Clk from design
  * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  * 1.4   mn   11/29/21 Usability Enhancements for 2D Read/Write Eye
+ * 1.5   sg   05/05/22 Fixed GCC warnings
  *
  * </pre>
  *
@@ -309,29 +310,54 @@ extern "C" {
 #define XMT_YLFSR(a) ((a << 1) + (((a >> 60) & 1) ^ ((a >> 54) & 1) ^ 1))
 #define XMT_RANDOM_VALUE(x) (0x12345678+19*(XMT_YLFSR(x))+0x017c1e2313567c9b)
 
-#define XMT_UPDATE_REG(Addr, Mask, Shift, Value) {\
-    u32 Rd = 0;\
-    Rd  = Xil_In32(Addr);\
-    Rd  = Rd & (~Mask);\
-    Rd  = Rd | (Value << Shift);\
-    Xil_Out32(Addr, Rd);\
+/*****************************************************************************/
+/**
+ * This function is used to set Register with mask value
+ *
+ * @param Offset	DDR configuration register offset
+ * @param Mask 	Data mask
+ * @param Value	Register value
+ *
+ * @return none
+ *
+ *****************************************************************************/
+static INLINE void XMt_MaskWrite(u32 Offset, u32 Mask, u32 Value)
+{
+	u32 RegVal = 0x0;
+	RegVal = Xil_In32(Offset);
+	RegVal &= ~(Mask);
+	RegVal |= (Value & Mask);
+	Xil_Out32(Offset, RegVal);
 }
 
-#define XMT_MASK_WRITE(Offset, Mask, Value) {\
-	u32 RegVal = 0x0;\
-	RegVal = Xil_In32(Offset);\
-	RegVal &= ~(Mask);\
-	RegVal |= (Value & Mask);\
-	Xil_Out32(Offset, RegVal);\
+/*****************************************************************************/
+/**
+ * This function is used to set Register value
+ *
+ * @param Addr	DDR configuration register address
+ * @param Mask	Data mask
+ * @param Shift	Bit shift value
+ * @param Value	Register value
+ *
+ * @return none
+ *
+ *****************************************************************************/
+static INLINE void XMt_SetRegValue(u32 Addr, u32 Mask, u32 Shift, u32 Value)
+{
+    u32 Rd = 0;
+    Rd  = Xil_In32(Addr);
+    Rd  = Rd & (~Mask);
+    Rd  = Rd | (Value << Shift);
+    Xil_Out32(Addr, Rd);
 }
 
 /*****************************************************************************/
 /**
  * This function is used to get Register value
  *
- * @param Ddr is the DDR configuration register address
- * @param Mask is the Mask to the data
- * @param Shift is the bit shift value
+ * @param Ddr	DDR configuration register address
+ * @param Mask	Mask to the data
+ * @param Shift Bit shift value
  *
  * @return Configuration Value
  *
