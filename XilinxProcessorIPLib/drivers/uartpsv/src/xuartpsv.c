@@ -642,6 +642,24 @@ void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister)
 /*****************************************************************************/
 /**
 *
+* This function is a cleanup function to  allow reseting NextBytePtr, RemainingBytes and
+* RequestedBytes.
+*
+* @return	None.
+*
+* @note 	None.
+*
+******************************************************************************/
+
+void XUartPsv_Cleanup(XUartPsv *InstancePtr)
+{
+	InstancePtr->SendBuffer.NextBytePtr = NULL;
+	InstancePtr->SendBuffer.RemainingBytes = 0U;
+	InstancePtr->SendBuffer.RequestedBytes = 0U;
+}
+/*****************************************************************************/
+/**
+*
 * This function is a stub handler that is the default handler such that if
 * the application has not set the handler when interrupts are enabled, this
 * function will be called.
