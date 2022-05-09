@@ -85,7 +85,6 @@
 *       bsv  03/17/2022 Add support for A72 elfs to run from TCM
 *       bsv  03/23/2022 Minor change in loading of A72 elfs to TCM
 *       bsv  03/29/2022 Dump Ddrmc registers only when PLM DEBUG MODE is enabled
-* 1.09  skd  04/21/2022 Misra-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -422,13 +421,13 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
 			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_SPLIT, 0U, 0U, &Mode,
 			XPLMI_CMD_SECURE);
-		ErrorCode = (u32)XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT;
+		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT;
 	}
 	else if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_SPLIT, 0U, 0U, &Mode,
 			XPLMI_CMD_SECURE);
-		ErrorCode = (u32)XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT;
+		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT;
 	}
 	else if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) {
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
@@ -442,13 +441,13 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
 			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_LOCKSTEP, 0U, 0U,
 			&Mode, XPLMI_CMD_SECURE);
-		ErrorCode = (u32)XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP;
+		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP;
 	}
 	else {
 		/* MISRA-C compliance */
 	}
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, 0);
+		Status = XPlmi_UpdateStatus(ErrorCode, 0);
 		goto END;
 	}
 

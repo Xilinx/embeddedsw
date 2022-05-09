@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,7 +55,6 @@
 * 1.07  bm   10/21/2021 Updated Extract Metaheader command to return data size as
 *                       response
 *       bm   12/15/2021 Fix error case in Add ImageStore command
-* 1.08  skd  04/21/2022 Misra-C violation Rule 10.3 fixed
 *
 * </pre>
 *
@@ -294,7 +293,7 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 
 	if (Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX] ==
 		XLOADER_INVALID_IMG_ID) {
-		Status = (int)XLOADER_ERR_INVALID_IMGID;
+		Status = XLOADER_ERR_INVALID_IMGID;
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid ImgID\n\r");
 		goto END;
 	}
@@ -302,12 +301,12 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 	ImageInfo = XLoader_GetImageInfoEntry(
 		Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX]);
 	if (ImageInfo == NULL) {
-		Status = (int)XLOADER_ERR_NO_VALID_IMG_FOUND;
+		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
 		goto END;
 	}
 	if ((ImageInfo->ImgID != Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX])
 		|| (ImageInfo->ImgID == XLOADER_INVALID_IMG_ID)) {
-		Status = (int)XLOADER_ERR_NO_VALID_IMG_FOUND;
+		Status = XLOADER_ERR_NO_VALID_IMG_FOUND;
 		XPlmi_Printf(DEBUG_GENERAL, "No Valid Image Entry Found\n\r");
 		goto END;
 	}
@@ -723,14 +722,14 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL_METAHEADER;
 		}
 		else {
-			Status = (int)XLOADER_ERR_INVALID_PDI_INPUT;
+			Status = XLOADER_ERR_INVALID_PDI_INPUT;
 			goto END;
 		}
 	}
 
 	Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + (XPLMI_WORD_LEN - 1U));
 	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
+		Status = XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
 		goto END;
 	}
 
@@ -740,14 +739,14 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 				XIH_BH_META_HDR_OFFSET);
 		if ((MetaHdrOfst > XLOADER_DDR_LOW_END_ADDR) &&
 			(MetaHdrOfst <= (u64)XPAR_PSV_OCM_RAM_0_S_AXI_HIGHADDR)) {
-			Status = (int)XLOADER_ERR_INVALID_METAHEADER_OFFSET;
+			Status = XLOADER_ERR_INVALID_METAHEADER_OFFSET;
 			goto END;
 		}
 	}
 
 	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + DestSize - 1U);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
+		Status = XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
 		goto END;
 	}
 
@@ -759,7 +758,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	DataSize = (PdiPtr->MetaHdr.ImgHdrTbl.TotalHdrLen * XPLMI_WORD_LEN) +
 			XIH_IHT_LEN;
 	if (DestSize < DataSize) {
-		Status = (int)XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
+		Status = XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE;
 		goto END;
 	}
 

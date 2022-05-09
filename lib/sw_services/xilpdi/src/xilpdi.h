@@ -51,7 +51,6 @@
 *       kpt  09/18/2021 Fixed SW-BP-REDUNDANCY in
 *                       XilPdi_IsDpaCmEnable
 * 1.07  kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
-* 1.08  skd  04/21/2022 Misra-C violation Rule 14.3 is fixed
 *
 * </pre>
 *
@@ -404,8 +403,8 @@ typedef struct {
  * Structure for handoff parameters to ARM Trusted Firmware (ATF)
  */
 typedef struct {
-	u8 NumEntries; /**< Number of Entries */
 	char MagicValue[4U]; /**< 32 bit magic string */
+	u32 NumEntries; /**< Number of Entries */
 	XilPdi_PrtnEntry Entry[XILPDI_MAX_ENTRIES_FOR_ATF]; /**< Structure
 														corresponding to each
 														entry */
