@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc_l.h
-* @addtogroup intc_v3_14
+* @addtogroup intc_v3_15
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
@@ -53,6 +53,8 @@
 * 3.5   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototypes of XIntc_RegisterFastHandler,
 *                     XIntc_SetIntrSvcOption, XIntc_RegisterHandler APIs.
+* 3.15  mus  05/10/22 Included xil_exception.h to xintc_l.h to fix
+*                      compilation failures. It fixes CR#1128446.
 *
 * </pre>
 *
@@ -71,6 +73,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xparameters.h"
 #include "xil_io.h"
+#include "xil_exception.h"
 
 /*
  * XPAR_XINTC_USE_DCR_BRIDGE has to be set to 1 if the Intc device will be
