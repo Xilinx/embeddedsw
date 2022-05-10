@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc_selftest.c
-* @addtogroup intc_v3_14
+* @addtogroup intc_v3_15
 * @{
 *
 * Contains diagnostic self-test functions for the XIntc component. This file
