@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -98,14 +98,14 @@ void init_axiemac(xaxiemacif_s *xaxiemac, struct netif *netif)
                     & XAE_INT_RXDCMLOCK_MASK)) {
                 int first = 1;
                 if (first) {
-                        print("Waiting for RX DCM to lock..");
+                        LWIP_DEBUGF(NETIF_DEBUGF, ("Waiting for RX DCM to lock.."));
                         first = 0;
                         lock_message_printed = 1;
                 }
         }
 
         if (lock_message_printed)
-                print("RX DCM locked.\r\n");
+                LWIP_DEBUGF(NETIF_DEBUGF, ("RX DCM locked.\r\n"));
 #endif
 
 	/* start the temac */

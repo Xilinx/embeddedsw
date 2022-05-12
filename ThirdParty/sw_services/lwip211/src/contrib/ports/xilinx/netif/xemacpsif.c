@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2021 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -179,7 +179,7 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
 #if LINK_STATS
 		lwip_stats.link.drop++;
 #endif
-		printf("pack dropped, no space\r\n");
+		xil_printf("pack dropped, no space\r\n");
 		SYS_ARCH_UNPROTECT(lev);
 		goto return_pack_dropped;
 	}
@@ -407,7 +407,7 @@ static err_t low_level_init(struct netif *netif)
 	status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
 						mac_config->BaseAddress);
 	if (status != XST_SUCCESS) {
-		xil_printf("In %s:EmacPs Configuration Failed....\r\n", __func__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("In %s:EmacPs Configuration Failed....\r\n", __func__));
 	}
 
 	/* initialize the mac */
@@ -423,10 +423,10 @@ static err_t low_level_init(struct netif *netif)
 	/* Freertos tick is 10ms by default; set period to the same */
 	xemac->xTimer = xTimerCreate("Timer", 10, pdTRUE, ( void * ) 1, vTimerCallback);
 	if (xemac->xTimer == NULL) {
-		xil_printf("In %s:Timer creation failed....\r\n", __func__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("In %s:Timer creation failed....\r\n", __func__));
 	} else {
 		if(xTimerStart(xemac->xTimer, 0) != pdPASS) {
-			xil_printf("In %s:Timer start failed....\r\n", __func__);
+			LWIP_DEBUGF(NETIF_DEBUG, ("In %s:Timer start failed....\r\n", __func__));
 		}
 	}
 #endif
@@ -457,7 +457,7 @@ void HandleEmacPsError(struct xemac_s *xemac)
 	status = XEmacPs_CfgInitialize(&xemacpsif->emacps, mac_config,
 						mac_config->BaseAddress);
 	if (status != XST_SUCCESS) {
-		xil_printf("In %s:EmacPs Configuration Failed....\r\n", __func__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("In %s:EmacPs Configuration Failed....\r\n", __func__));
 	}
 	/* initialize the mac */
 	init_emacps_on_error(xemacpsif, NetIf);

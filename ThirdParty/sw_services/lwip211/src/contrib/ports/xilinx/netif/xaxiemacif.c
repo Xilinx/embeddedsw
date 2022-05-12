@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2020 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -208,7 +208,7 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
     }
 
 	if (count == 0) {
-		print("pack dropped, no space\r\n");
+		xil_printf("pack dropped, no space\r\n");
         SYS_ARCH_UNPROTECT(lev);
         goto return_pack_dropped;
 	}
