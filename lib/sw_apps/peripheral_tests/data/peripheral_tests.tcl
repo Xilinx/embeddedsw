@@ -399,7 +399,7 @@ proc copy_files {src_files_base src_files od} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "ps7_cortexa9 psu_cortexa53 psu_cortexr5 microblaze psv_cortexa72 psv_cortexr5";
+    return "ps7_cortexa9 psu_cortexa53 psu_cortexr5 microblaze psv_cortexa72 psv_cortexr5 psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52";
 }
 
 proc swapp_get_supported_os {} {
