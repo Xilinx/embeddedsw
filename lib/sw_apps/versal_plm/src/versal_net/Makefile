@@ -18,11 +18,11 @@ LSCRIPT := -Tlscript.ld
 
 CURRENT_DIR = $(shell pwd)
 DEPFILES := $(patsubst %.o, %.d, $(OBJS))
-LIBS := ../../misc/versal_net/versal_plm_bsp/psxl_pmc_0/lib/libxil.a
+LIBS := ../../misc/versal_net/versal_plm_bsp/psx_pmc_0/lib/libxil.a
 EXEC := plm.elf
 
-INCLUDEPATH := -I../../misc/versal_net/versal_plm_bsp/psxl_pmc_0/include -I.
-LIBPATH := -L../../misc/versal_net/versal_plm_bsp/psxl_pmc_0/lib
+INCLUDEPATH := -I../../misc/versal_net/versal_plm_bsp/psx_pmc_0/include -I.
+LIBPATH := -L../../misc/versal_net/versal_plm_bsp/psx_pmc_0/lib
 
 all: $(EXEC)
 
