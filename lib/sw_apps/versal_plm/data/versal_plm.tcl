@@ -55,13 +55,13 @@ proc swapp_is_supported_hw {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-	if {($proc_type != "psu_pmc") && ($proc_type != "psv_pmc") && ($proc_type != "psxl_pmc")} {
+	if {($proc_type != "psu_pmc") && ($proc_type != "psv_pmc") && ($proc_type != "psxl_pmc") && ($proc_type != "psx_pmc")} {
 		error "This application is supported only for PMC Microblaze processor.";
 	}
 
 	# List of all IPIs on SoC
-	set ipi_list [hsi::get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" || IP_NAME == "psxl_ipi" }]
-	set a7x_proc [string map {psv_pmc psv_cortexa72 psxl_pmc psxl_cortexa78} $proc_instance]
+	set ipi_list [hsi::get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" || IP_NAME == "psxl_ipi" || IP_NAME == "psx_ipi"}]
+	set a7x_proc [string map {psv_pmc psv_cortexa72 psxl_pmc psxl_cortexa78 psx_pmc psx_cortexa78} $proc_instance]
 	set ipi_a7x [ipi_find_cpu $ipi_list CONFIG.C_CPU_NAME $a7x_proc]
 	if {($ipi_a7x == "")} {
 		 puts "APU IPIs are not enabled. Linux boot would not work."
@@ -80,7 +80,7 @@ proc swapp_generate {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set versal_net "versal_net/"
-	if {$proc_type == "psxl_pmc"} {
+	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
 		foreach entry [glob -nocomplain -types f [file join . *]] {
 			file delete -force $entry
 		}
@@ -110,7 +110,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-	return "psu_pmc psv_pmc psxl_pmc";
+	return "psu_pmc psv_pmc psxl_pmc psx_pmc";
 }
 
 proc swapp_get_supported_os {} {

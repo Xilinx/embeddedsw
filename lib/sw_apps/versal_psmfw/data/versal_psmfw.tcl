@@ -35,7 +35,7 @@ proc swapp_is_supported_hw {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-	if {($proc_type != "psu_psm") && ($proc_type != "psv_psm") && ($proc_type != "psxl_psm")} {
+	if {($proc_type != "psu_psm") && ($proc_type != "psv_psm") && ($proc_type != "psxl_psm") && ($proc_type != "psx_psm")} {
 		error "This application is supported only for PSM Microblaze processor.";
 	}
 
@@ -53,7 +53,7 @@ proc swapp_generate {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set versal_net "versal_net/"
-	if {$proc_type == "psxl_psm"} {
+	if {$proc_type == "psxl_psm" || $proc_type == "psx_psm"} {
 		foreach entry [glob -nocomplain -types f [file join . *]] {
 			file delete -force $entry
 		}
@@ -75,7 +75,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-	return "psu_psm psv_psm psxl_psm";
+	return "psu_psm psv_psm psxl_psm psx_psm";
 }
 
 proc swapp_get_supported_os {} {

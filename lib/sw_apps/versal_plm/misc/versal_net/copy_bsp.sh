@@ -6,7 +6,7 @@
 WORKING_DIR=../../misc/versal_net
 
 #bsp dir where files will be copied
-BSP_DIR=$WORKING_DIR/versal_plm_bsp/psxl_pmc_0
+BSP_DIR=$WORKING_DIR/versal_plm_bsp/psx_pmc_0
 
 #processor dir
 PROC_DIRNAME=cpu
