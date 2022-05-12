@@ -10,7 +10,7 @@ OPTION psf_version = 2.1;
 BEGIN driver iomodule
 
     OPTION DRC = iomodule_drc;
-    OPTION supported_peripherals = (iomodule psxl_iomodule);
+    OPTION supported_peripherals = (iomodule psxl_iomodule psx_iomodule);
     OPTION driver_state = ACTIVE;
     OPTION copyfiles = all;
     OPTION VERSION = 2.14;

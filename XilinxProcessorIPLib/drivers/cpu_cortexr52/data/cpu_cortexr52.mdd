@@ -9,7 +9,7 @@ BEGIN driver cpu_cortexr52
 
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
-OPTION supported_peripherals = (psxl_cortexr52);
+OPTION supported_peripherals = (psxl_cortexr52 psx_cortexr52);
 OPTION default_os = "standalone_v8_0";
 OPTION VERSION = 1.0;
 OPTION NAME = cpu_cortexr52;

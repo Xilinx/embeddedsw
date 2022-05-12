@@ -7,7 +7,7 @@ OPTION psf_version = 3.0;
 
 BEGIN driver pmonpsv
 
-  OPTION supported_peripherals = (psu_coresight_lpd_atm psu_coresight_fpd_atm psv_coresight_lpd_atm psv_coresight_fpd_atm psxl_coresight_lpd_atm psxl_coresight_fpd_atm);
+  OPTION supported_peripherals = (psu_coresight_lpd_atm psu_coresight_fpd_atm psv_coresight_lpd_atm psv_coresight_fpd_atm psxl_coresight_lpd_atm psxl_coresight_fpd_atm psx_coresight_lpd_atm psx_coresight_fpd_atm);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 2.2;

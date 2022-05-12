@@ -41,7 +41,7 @@ proc xdefine_cortexr52_params {drvhandle} {
 	}
     }
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
-    set lprocs [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexr52"}]
+    set lprocs [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexr52" || IP_NAME=="psx_cortexr52"}]
     set lprocs [lsort $lprocs]
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
