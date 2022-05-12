@@ -7,7 +7,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver cframe
 
-  OPTION supported_peripherals = (psv_pmc_cfi_cframe psxl_pmc_cfi_cframe cfi_cframe);
+  OPTION supported_peripherals = (psv_pmc_cfi_cframe psxl_pmc_cfi_cframe psx_pmc_cfi_cframe cfi_cframe);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 1.4;

@@ -65,8 +65,13 @@
 #define INTC		XScuGic
 #define INTG_INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #if defined(VERSAL_NET)
+#ifdef XPAR_PSX_PMC_DMA_0_INTR
+#define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSX_PMC_DMA_0_INTR /**< Interrupt device ID
+						 *  of PMC DMA 0 device ID */
+#else
 #define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSXL_PMC_DMA_0_INTR /**< Interrupt device ID
 						 *  of PMC DMA 0 device ID */
+#endif
 #elif defined (versal)
 #define INTG_CSUDMA_INTR_DEVICE_ID	XPAR_PSV_PMC_DMA_0_INTR /**< Interrupt device ID
 						 *  of PMC DMA 0 device ID */

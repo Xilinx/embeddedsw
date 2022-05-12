@@ -7,7 +7,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver csudma
 
-  OPTION supported_peripherals = (psu_csudma psu_pmcdma psv_pmc_dma psxl_pmc_dma);
+  OPTION supported_peripherals = (psu_csudma psu_pmcdma psv_pmc_dma psxl_pmc_dma psx_pmc_dma);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 1.12;

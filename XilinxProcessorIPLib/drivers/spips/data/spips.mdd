@@ -7,7 +7,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver spips
 
-  OPTION supported_peripherals = (ps7_spi psu_spi psv_spi psxl_spi);
+  OPTION supported_peripherals = (ps7_spi psu_spi psv_spi psxl_spi psx_spi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 3.8;

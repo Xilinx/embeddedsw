@@ -72,7 +72,7 @@ proc ipi_find_cpu {ipi_list param hw_proc} {
 				}
 			}
 		}
-		if {[string match -nocase $ip_name "psv_cortexr5"] || [string match -nocase $ip_name "psxl_cortexr52"]} {
+		if {[string match -nocase $ip_name "psv_cortexr5"] || [string match -nocase $ip_name "psxl_cortexr52"] || [string match -nocase $ip_name "psx_cortexr52"]} {
 			set ip_name "${ip_name}_$index"
 		}
 		if { [string match -nocase "*$param_value*" $ip_name] } {
@@ -93,7 +93,7 @@ proc ipi_generate_config {drv_handle file_name iszynqmp} {
 	set hw_proc_handle [::hsi::get_cells -hier [common::get_property hw_instance $sw_proc_handle]]
 
 	# List of all IPIs on SoC
-	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" || IP_NAME == "psxl_ipi" }]
+	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" || IP_NAME == "psxl_ipi" || IP_NAME == "psx_ipi"}]
 	
 	# List of IPIs owned by this processor
 
@@ -161,7 +161,7 @@ proc ipi_generate_params {file_name iszynqmp} {
 	set file_handle [::hsi::utils::open_include_file $file_name]
 
 	# List of all IPIs on SoC
-	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" || IP_NAME == "psxl_ipi" }]
+	set ipi_list [get_cells -hier -filter { IP_NAME == "psu_ipi" || IP_NAME == "psv_ipi" || IP_NAME == "psxl_ipi" || IP_NAME == "psx_ipi"}]
 
 	#List of all processors on SoC
 	set proc_list [get_cells -hier -filter { IP_TYPE == "PROCESSOR" }]
@@ -225,13 +225,13 @@ proc ipi_generate_params {file_name iszynqmp} {
 	foreach proc $proc_list {
 		# List of IPIs owned by this processor
 		set ipname [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
-		if {[string match -nocase $ipname "psv_cortexa72"] || [string match -nocase $ipname "psu_cortexa53"] || [string match -nocase $ipname "psxl_cortexa78"]} {
+		if {[string match -nocase $ipname "psv_cortexa72"] || [string match -nocase $ipname "psu_cortexa53"] || [string match -nocase $ipname "psxl_cortexa78"] || [string match -nocase $ipname "psx_cortexa78"]} {
 			set ipname "${ipname}_${a72_nr}"
 			incr a72_nr
-		} elseif {[string match -nocase $ipname "psv_cortexr5"] || [string match -nocase $ipname "psu_cortexr5"] || [string match -nocase $ipname "psxl_cortexr52"]} {
+		} elseif {[string match -nocase $ipname "psv_cortexr5"] || [string match -nocase $ipname "psu_cortexr5"] || [string match -nocase $ipname "psxl_cortexr52"] || [string match -nocase $ipname "psx_cortexr52"]} {
 			set ipname "${ipname}_${r5_nr}"
 			incr r5_nr
-		} elseif {[string match -nocase $ipname "psv_pmc"] || [string match -nocase $ipname "psv_psm"] || [string match -nocase $ipname "psu_pmu"] || [string match -nocase $ipname "psxl_pmc"] || [string match -nocase $ipname "psxl_psm"]} {
+		} elseif {[string match -nocase $ipname "psv_pmc"] || [string match -nocase $ipname "psv_psm"] || [string match -nocase $ipname "psu_pmu"] || [string match -nocase $ipname "psxl_pmc"] || [string match -nocase $ipname "psxl_psm"] || [string match -nocase $ipname "psx_pmc"] || [string match -nocase $ipname "psx_psm"]} {
 			set ipname "${ipname}_0"
 		} else {
 			set ipname "${proc}"
