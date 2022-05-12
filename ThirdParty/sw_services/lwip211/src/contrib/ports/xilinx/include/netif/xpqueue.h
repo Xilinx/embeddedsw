@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 - 2019 Xilinx, Inc.
+ * Copyright (C) 2007 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -34,6 +34,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include "debug.h"
 
 #define PQ_QUEUE_SIZE 4096
 

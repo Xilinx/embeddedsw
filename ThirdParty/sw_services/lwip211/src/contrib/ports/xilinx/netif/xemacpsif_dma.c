@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2021 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -437,7 +437,7 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 			lwip_stats.link.memerr++;
 			lwip_stats.link.drop++;
 #endif
-			printf("unable to alloc pbuf in recv_handler\r\n");
+			xil_printf("unable to alloc pbuf in recv_handler\r\n");
 			return;
 		}
 		status = XEmacPs_BdRingAlloc(rxring, 1, &rxbd);
@@ -730,7 +730,7 @@ XStatus init_dma(struct xemac_s *xemac)
 			lwip_stats.link.memerr++;
 			lwip_stats.link.drop++;
 #endif
-			printf("unable to alloc pbuf in init_dma\r\n");
+			xil_printf("unable to alloc pbuf in init_dma\r\n");
 			return ERR_IF;
 		}
 		status = XEmacPs_BdRingAlloc(rxringptr, 1, &rxbd);

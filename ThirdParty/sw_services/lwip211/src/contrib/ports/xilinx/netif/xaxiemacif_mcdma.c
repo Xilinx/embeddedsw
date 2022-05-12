@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 - 2021 Xilinx, Inc.
+ * Copyright (C) 2018 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -234,7 +234,7 @@ static inline void *alloc_bdspace(int n_desc, u32 alignment)
 	(void *)(((UINTPTR)(unaligned_mem + alignment - 1)) & ~(alignment - 1));
 
 	if (aligned_mem + space > (void *)(bd_space + BD_SIZE)) {
-		xil_printf("Unable to allocate BD space\r\n");
+		LWIP_DEBUGF(NETIF_DEBUG, ("Unable to allocate BD space\r\n"));
 		return NULL;
 	}
 
@@ -251,8 +251,8 @@ static void axi_mcdma_send_error_handler(void *CallBackRef, u32 ChanId, u32 Mask
 #if !NO_SYS
 	xInsideISR++;
 #endif
-	xil_printf("%s: Error: aximcdma error interrupt is asserted, Chan_id = "
-			"%d, Mask = %d\r\n", __FUNCTION__, ChanId, Mask);
+	LWIP_DEBUGF(NETIF_DEBUG, ("%s: Error: aximcdma error interrupt is asserted, Chan_id = "
+			"%d, Mask = %d\r\n", __FUNCTION__, ChanId, Mask));
 
 	XMcDma_Reset(McDmaInstPtr);
 	timeOut = RESET_TIMEOUT_COUNT;
@@ -263,7 +263,7 @@ static void axi_mcdma_send_error_handler(void *CallBackRef, u32 ChanId, u32 Mask
 	}
 
 	if (!timeOut) {
-		xil_printf("%s: Error: aximcdma reset timed out\r\n", __func__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("%s: Error: aximcdma reset timed out\r\n", __func__));
 	}
 
 #if !NO_SYS
@@ -303,7 +303,7 @@ static void setup_rx_bds(XMcdma_ChanCtrl *Rx_Chan, u32_t n_bds)
 	for (i = 0; i < n_bds; i++) {
 		p = pbuf_alloc(PBUF_RAW, max_frame_size, PBUF_POOL);
 		if (!p) {
-			xil_printf("unable to alloc pbuf in recv_handler\r\n");
+			LWIP_DEBUGF(NETIF_DEBUG, ("unable to alloc pbuf in recv_handler\r\n"));
 			return;
 		}
 
@@ -357,8 +357,8 @@ static void axi_mcdma_recv_error_handler(void *CallBackRef, u32 ChanId)
 #if !NO_SYS
 	xInsideISR++;
 #endif
-	xil_printf("%s: Error: aximcdma error interrupt is asserted\r\n",
-			__FUNCTION__);
+	LWIP_DEBUGF(NETIF_DEBUG, ("%s: Error: aximcdma error interrupt is asserted\r\n",
+			__FUNCTION__));
 	Rx_Chan = XMcdma_GetMcdmaRxChan(McDmaInstPtr, ChanId);
 
 	setup_rx_bds(Rx_Chan, Rx_Chan->BdCnt);
@@ -372,7 +372,7 @@ static void axi_mcdma_recv_error_handler(void *CallBackRef, u32 ChanId)
 	}
 
 	if (!timeOut) {
-		xil_printf("%s: Error: aximcdma reset timed out\r\n", __func__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("%s: Error: aximcdma reset timed out\r\n", __func__));
 	}
 
 	XMcDma_ChanToHw(Rx_Chan);
@@ -481,7 +481,7 @@ s32_t process_sent_bds(XMcdma_ChanCtrl *Tx_Chan)
 	/* free the processed BD's */
 	status =  XMcdma_BdChainFree(Tx_Chan, ProcessedBdCnt, txbdset);
 	if (status != XST_SUCCESS) {
-		xil_printf("Error freeing up TxBDs");
+		LWIP_DEBUGF(NETIF_DEBUG, ("Error freeing up TxBDs"));
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
@@ -570,7 +570,7 @@ XStatus axi_mcdma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
 		status = XMcDma_ChanSubmit(Tx_Chan, (UINTPTR)q->payload,
 				q->len);
 		if (status != XST_SUCCESS) {
-			xil_printf("ChanSubmit failed\n\r");
+			LWIP_DEBUGF(NETIF_DEBUG, ("ChanSubmit failed\n\r"));
 			return XST_FAILURE;
 		}
 
@@ -673,7 +673,7 @@ XStatus axi_mcdma_setup_rx_chan(struct xemac_s *xemac, u32_t ChanId)
 	status = XMcDma_ChanBdCreate(Rx_Chan, (UINTPTR) xaxiemacif->rx_bdspace,
 			XLWIP_CONFIG_N_RX_DESC);
 	if (status != XST_SUCCESS) {
-		xil_printf("Rx bd create failed with %d\r\n", status);
+		LWIP_DEBUGF(NETIF_DEBUG, ("Rx bd create failed with %d\r\n", status));
 		return XST_FAILURE;
 	}
 
@@ -715,7 +715,7 @@ XStatus axi_mcdma_setup_tx_chan(struct xemac_s *xemac, u8 ChanId)
 	status = XMcDma_ChanBdCreate(Tx_Chan, (UINTPTR) xaxiemacif->tx_bdspace,
 			XLWIP_CONFIG_N_TX_DESC);
 	if (status != XST_SUCCESS) {
-		xil_printf("TX bd create failed with %d\r\n", status);
+		LWIP_DEBUGF(NETIF_DEBUG, ("TX bd create failed with %d\r\n", status));
 		return XST_FAILURE;
 	}
 
@@ -771,8 +771,8 @@ XStatus init_axi_mcdma(struct xemac_s *xemac)
 					       (XMCDMA_MAX_CHAN_PER_DEVICE / 2),
 					       XMCDMA_BD_MINIMUM_ALIGNMENT);
 	if (!xaxiemacif->rx_bdspace) {
-		xil_printf("%s@%d: Error: Unable to allocate memory for "
-				"RX buffer descriptors", __FILE__, __LINE__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("%s@%d: Error: Unable to allocate memory for "
+				"RX buffer descriptors", __FILE__, __LINE__));
 		return ERR_IF;
 	}
 
@@ -780,8 +780,8 @@ XStatus init_axi_mcdma(struct xemac_s *xemac)
 					       (XMCDMA_MAX_CHAN_PER_DEVICE / 2),
 					       XMCDMA_BD_MINIMUM_ALIGNMENT);
 	if (!xaxiemacif->tx_bdspace) {
-		xil_printf("%s@%d: Error: Unable to allocate memory for "
-				"TX buffer descriptors", __FILE__, __LINE__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("%s@%d: Error: Unable to allocate memory for "
+				"TX buffer descriptors", __FILE__, __LINE__));
 		return ERR_IF;
 	}
 
@@ -805,13 +805,12 @@ XStatus init_axi_mcdma(struct xemac_s *xemac)
 	baseaddr = xaxiemacif->axi_ethernet.Config.AxiDevBaseAddress;
 	dmaconfig = XMcdma_LookupConfigBaseAddr(baseaddr);
 	if (!baseaddr) {
-		xil_printf("%s@%d: Error: Lookup Config failed\r\n", __FILE__,
-				__LINE__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("%s@%d: Error: Lookup Config failed\r\n", __FILE__,
+				__LINE__));
 	}
 	status = XMcDma_CfgInitialize(&xaxiemacif->aximcdma, dmaconfig);
 	if (status != XST_SUCCESS) {
-		xil_printf("%s@%d: Error: MCDMA config initialization failed\r\n",
-				__FILE__, __LINE__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("%s@%d: Error: MCDMA config initialization failed\r\n", __FILE__, __LINE__));
 		return XST_FAILURE;
 	}
 
@@ -822,15 +821,13 @@ XStatus init_axi_mcdma(struct xemac_s *xemac)
 
 		status = axi_mcdma_setup_rx_chan(xemac, ChanId);
 		if (status != XST_SUCCESS) {
-			xil_printf("%s@%d: Error: MCDMA Rx chan setup failed\r\n",
-					__FILE__, __LINE__);
+			LWIP_DEBUGF(NETIF_DEBUG, ("%s@%d: Error: MCDMA Rx chan setup failed\r\n", __FILE__, __LINE__));
 			return XST_FAILURE;
 		}
 
 		status = axi_mcdma_setup_tx_chan(xemac, ChanId);
 		if (status != XST_SUCCESS) {
-			xil_printf("%s@%d: Error: MCDMA Tx chan setup failed\r\n",
-					__FILE__, __LINE__);
+			LWIP_DEBUGF(NETIF_DEBUG, ("%s@%d: Error: MCDMA Tx chan setup failed\r\n", __FILE__, __LINE__));
 			return XST_FAILURE;
 		}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2019 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -412,7 +412,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_TI_CR, PHY_TI_CRVAL);
 	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_TI_CR, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
-		xil_printf("Error writing to 0x10 \n\r");
+		LWIP_DEBUGF(NETIF_DEBUG, ("Error writing to 0x10 \n\r"));
 		return XST_FAILURE;
 	}
 
@@ -423,7 +423,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
 	RetStatus = XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, 0xA8);
 	if (RetStatus != XST_SUCCESS) {
-		xil_printf("Error in tuning");
+		LWIP_DEBUGF(NETIF_DEBUG, ("Error in tuning"));
 		return XST_FAILURE;
 	}
 
@@ -433,7 +433,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
 	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_ADDAR, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
-		xil_printf("Error in tuning");
+		LWIP_DEBUGF(NETIF_DEBUG, ("Error in tuning"));
 		return XST_FAILURE;
 	}
 
@@ -443,7 +443,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
 	RetStatus = XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, 0xD3);
 	if (RetStatus != XST_SUCCESS) {
-		xil_printf("Error in tuning");
+		LWIP_DEBUGF(NETIF_DEBUG, ("Error in tuning"));
 		return XST_FAILURE;
 	}
 
@@ -453,7 +453,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
 	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_ADDAR, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
-		xil_printf("Error in tuning");
+		LWIP_DEBUGF(NETIF_DEBUG, ("Error in tuning"));
 		return XST_FAILURE;
 	}
 

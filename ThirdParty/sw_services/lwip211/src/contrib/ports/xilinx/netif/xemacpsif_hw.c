@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2021 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -85,7 +85,7 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 	/* set mac address */
 	status = XEmacPs_SetMacAddress(xemacpsp, (void*)(netif->hwaddr), 1);
 	if (status != XST_SUCCESS) {
-		xil_printf("In %s:Emac Mac Address set failed...\r\n",__func__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("In %s:Emac Mac Address set failed...\r\n",__func__));
 	}
 
 	XEmacPs_SetMdioDivisor(xemacpsp, MDC_DIV_224);
@@ -159,7 +159,7 @@ void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif)
 	/* set mac address */
 	status = XEmacPs_SetMacAddress(xemacpsp, (void*)(netif->hwaddr), 1);
 	if (status != XST_SUCCESS) {
-		xil_printf("In %s:Emac Mac Address set failed...\r\n",__func__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("In %s:Emac Mac Address set failed...\r\n",__func__));
 	}
 
 	XEmacPs_SetOperatingSpeed(xemacpsp, link_speed);

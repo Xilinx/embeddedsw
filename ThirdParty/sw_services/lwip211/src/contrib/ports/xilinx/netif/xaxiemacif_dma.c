@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2021 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -285,8 +285,8 @@ static void axidma_send_handler(void *arg)
 	 * processing.
 	 */
 	if (irq_status & XAXIDMA_IRQ_ERROR_MASK) {
-		xil_printf("%s: Error: axidma error interrupt is asserted\r\n",
-			__FUNCTION__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("%s: Error: axidma error interrupt is asserted\r\n",
+			__FUNCTION__));
 		XAxiDma_Reset(&xaxiemacif->axidma);
 #if !NO_SYS
 		xInsideISR--;
@@ -326,7 +326,7 @@ static void setup_rx_bds(XAxiDma_BdRing *rxring)
 			lwip_stats.link.memerr++;
 			lwip_stats.link.drop++;
 #endif
-			printf("unable to alloc pbuf in recv_handler\r\n");
+			xil_printf("unable to alloc pbuf in recv_handler\r\n");
 			return;
 		}
 		status = XAxiDma_BdRingAlloc(rxring, 1, &rxbd);
@@ -406,8 +406,8 @@ static void axidma_recv_handler(void *arg)
 	 */
 	if ((irq_status & XAXIDMA_IRQ_ERROR_MASK)) {
 		setup_rx_bds(rxring);
-		xil_printf("%s: Error: axidma error interrupt is asserted\r\n",
-			__FUNCTION__);
+		LWIP_DEBUGF(NETIF_DEBUG, ("%s: Error: axidma error interrupt is asserted\r\n",
+			__FUNCTION__));
 		XAxiDma_Reset(&xaxiemacif->axidma);
 		timeOut = 10000;
 		while (timeOut) {

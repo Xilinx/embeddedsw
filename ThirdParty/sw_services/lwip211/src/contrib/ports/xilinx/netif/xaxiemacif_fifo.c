@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 - 2021 Xilinx, Inc.
+ * Copyright (C) 2010 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -146,19 +146,19 @@ fifo_error_handler(xaxiemacif_s *xaxiemacif, u32_t pending_intr)
 	XLlFifo *llfifo = &xaxiemacif->axififo;
 
 	if (pending_intr & XLLF_INT_RPURE_MASK) {
-		print("llfifo: Rx under-read error");
+		LWIP_DEBUGF(NETIF_DEBUG, ("llfifo: Rx under-read error"));
 	}
 	if (pending_intr & XLLF_INT_RPORE_MASK) {
-		print("llfifo: Rx over-read error");
+		LWIP_DEBUGF(NETIF_DEBUG, ("llfifo: Rx over-read error"));
 	}
 	if (pending_intr & XLLF_INT_RPUE_MASK) {
-		print("llfifo: Rx fifo empty");
+		LWIP_DEBUGF(NETIF_DEBUG, ("llfifo: Rx fifo empty"));
 	}
 	if (pending_intr & XLLF_INT_TPOE_MASK) {
-		print("llfifo: Tx fifo overrun");
+		LWIP_DEBUGF(NETIF_DEBUG, ("llfifo: Tx fifo overrun"));
 	}
 	if (pending_intr & XLLF_INT_TSE_MASK) {
-		print("llfifo: Tx length mismatch");
+		LWIP_DEBUGF(NETIF_DEBUG, ("llfifo: Tx length mismatch"));
 	}
 
 	/* Reset the tx or rx side of the fifo as needed */

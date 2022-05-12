@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 - 2019 Xilinx, Inc.
+ * Copyright (C) 2007 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -31,7 +31,6 @@
 #include <stdlib.h>
 
 #include "netif/xpqueue.h"
-#include "xil_printf.h"
 
 #define NUM_QUEUES	2
 
@@ -44,7 +43,7 @@ pq_create_queue()
 	pq_queue_t *q = NULL;
 
 	if (i >= NUM_QUEUES) {
-		xil_printf("ERR: Max Queues allocated\n\r");
+		LWIP_DEBUGF(NETIF_DEBUG, ("ERR: Max Queues allocated\n\r"));
 		return q;
 	}
 

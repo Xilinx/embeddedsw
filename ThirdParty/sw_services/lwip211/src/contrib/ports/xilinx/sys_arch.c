@@ -6,7 +6,7 @@
 
 /*
  * Copyright (c) 2001-2003 Swedish Institute of Computer Science.
- * Copyright (C) 2007 - 2021 Xilinx, Inc.
+ * Copyright (C) 2007 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -39,7 +39,6 @@
  */
 
 #include "lwipopts.h"
-#include "xil_printf.h"
 
 #if !NO_SYS
 
@@ -175,7 +174,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 	}
 	else
 	{
-		xil_printf("Queue is full\r\n");
+		LWIP_DEBUGF(NETIF_DEBUGF, ("Queue is full\r\n"));
 		/* The queue was already full. */
 		xReturn = ERR_MEM;
 		SYS_STATS_INC( mbox.err );
@@ -357,7 +356,7 @@ err_t xReturn = ERR_MEM;
 	}
 	else
 	{
-		xil_printf("Sem creation error\r\n");
+		LWIP_DEBUGF(SYS_DEBUG, ("Sem creation error\r\n"));
 		SYS_STATS_INC( sem.err );
 	}
 
@@ -464,7 +463,7 @@ err_t xReturn = ERR_MEM;
 	}
 	else
 	{
-		xil_printf("Mutex creation error\r\n");
+		LWIP_DEBUGF(SYS_DEBUG, ("Mutex creation error\r\n"));
 		SYS_STATS_INC( mutex.err );
 	}
 

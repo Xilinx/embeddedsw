@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 - 2021 Xilinx, Inc.
+ * Copyright (C) 2007 - 2022 Xilinx, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -226,7 +226,7 @@ xemacif_input(struct netif *netif)
 			n_packets = xemacliteif_input(netif);
 			break;
 #else
-			print("incorrect configuration: xps_ethernetlite drivers not present?");
+			xil_printf("incorrect configuration: xps_ethernetlite drivers not present?");
 			while(1);
 			return 0;
 #endif
@@ -235,7 +235,7 @@ xemacif_input(struct netif *netif)
 			n_packets = xaxiemacif_input(netif);
 			break;
 #else
-			print("incorrect configuration: axi_ethernet drivers not present?");
+			xil_printf("incorrect configuration: axi_ethernet drivers not present?");
 			while(1);
 			return 0;
 #endif
@@ -251,7 +251,7 @@ xemacif_input(struct netif *netif)
 #endif
 #endif
 		default:
-			print("incorrect configuration: unknown temac type");
+			xil_printf("incorrect configuration: unknown temac type");
 			while(1);
 			return 0;
 	}
