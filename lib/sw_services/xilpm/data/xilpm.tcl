@@ -79,7 +79,9 @@ proc generate {libhandle} {
 		}
 
 		"psxl_cortexa78" -
-		"psxl_cortexr52" {
+		"psxl_cortexr52" -
+		"psx_cortexa78" -
+		"psx_cortexr52" {
 			if {($iszynqmp == 0)} {
 				copy_files_to_src $versal_net_client_dir
 				copy_files_to_src $versal_net_common_dir
@@ -93,7 +95,8 @@ proc generate {libhandle} {
 			copy_files_to_src $versal_server_dir
 			copy_files_to_src $versal_common_dir
 		}
-		"psxl_pmc" {
+		"psxl_pmc" -
+		"psx_pmc" {
 			copy_files_to_src $versal_net_server_dir
 			copy_files_to_src $versal_net_common_dir
 		}

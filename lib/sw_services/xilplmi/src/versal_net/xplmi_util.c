@@ -380,11 +380,19 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 			/* TCM1 is valid */
 			Status = XST_SUCCESS;
 		}
+#ifdef XPAR_PSX_OCM_RAM_0_S_AXI_BASEADDR
+		else if ((StartAddr >= (u64)XPAR_PSX_OCM_RAM_0_S_AXI_BASEADDR) &&
+			(EndAddr <= (u64)XPAR_PSX_OCM_RAM_0_S_AXI_HIGHADDR)) {
+			/* OCM is valid */
+			Status = XST_SUCCESS;
+		}
+#else
 		else if ((StartAddr >= (u64)XPAR_PSXL_OCM_RAM_0_S_AXI_BASEADDR) &&
 			(EndAddr <= (u64)XPAR_PSXL_OCM_RAM_0_S_AXI_HIGHADDR)) {
 			/* OCM is valid */
 			Status = XST_SUCCESS;
 		}
+#endif
 		else {
 			/* Rest of the Addr range is treated as invalid */
 		}
@@ -393,7 +401,11 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 #endif
 
 	if ((EndAddr <= (u64)XPLMI_M_AXI_FPD_MEM_HIGH_ADDR) ||
+#ifdef XPAR_PSX_OCM_RAM_0_S_AXI_HIGHADDR
+		(StartAddr > (u64)XPAR_PSX_OCM_RAM_0_S_AXI_HIGHADDR)) {
+#else
 		(StartAddr > (u64)XPAR_PSXL_OCM_RAM_0_S_AXI_HIGHADDR)) {
+#endif
 		if ((StartAddr >= (u64)XPLMI_RSVD_BASE_ADDR) &&
 			(EndAddr <= (u64)XPLMI_RSVD_HIGH_ADDR)) {
 			Status = XST_FAILURE;

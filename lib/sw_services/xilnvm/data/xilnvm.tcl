@@ -30,9 +30,10 @@ proc nvm_drc {libhandle} {
 	    $proc_type != "psv_pmc" && $proc_type != "psv_cortexa72" && \
 	    $proc_type != "psv_cortexr5" && $proc_type != "microblaze" && \
 	    $proc_type != "psxl_pmc" && $proc_type != "psxl_cortexa78" && \
-	    $proc_type != "psxl_cortexr52"} {
+	    $proc_type != "psxl_cortexr52" && $proc_type != "psx_cortexa78" && \
+            $proc_type != "psx_cortexr52" && $proc_type != "psx_pmc"} {
 		error "ERROR: XilNvm library is supported only for PSU PMC, \
-		      PSU Cortexa72, PSV PMC, PSV Cortexa72, PSXL PMC, PSXL Cortexa78 and PSXL Cortexr52.";
+		      PSU Cortexa72, PSV PMC, PSV Cortexa72, PSX PMC, PSX Cortexa78 and PSX Cortexr52.";
 	}
 
 	if {$proc_type == "microblaze" && $mode == "server"} {
@@ -44,13 +45,14 @@ proc nvm_drc {libhandle} {
 			file copy -force $entry "./src"
 	}
 
-	if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $proc_type == "psxl_pmc" || $mode == "server"} {
+	if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $mode == "server"} {
 		foreach entry [glob -nocomplain -types f [file join "$server" *]] {
 			file copy -force $entry "./src"
 		}
 	} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 		$proc_type == "psv_cortexr5" || $proc_type == "microblaze" ||
-		$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52"} {
+		$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||
+		$proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
 		set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
 		if { [llength $librarylist] == 0 } {
 			error "This library requires xilmailbox library in the Board Support Package.";
@@ -62,7 +64,8 @@ proc nvm_drc {libhandle} {
 	if {$mode == "server"} {
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 		$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
-		$proc_type == "psxl_cortexr52"} {
+		$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
+		$proc_type == "psx_cortexr52"} {
 			file delete -force ./src/xnvm_bbram_ipihandler.c
 			file delete -force ./src/xnvm_bbram_ipihandler.h
 			file delete -force ./src/xnvm_efuse_ipihandler.c

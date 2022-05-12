@@ -21,7 +21,7 @@ BEGIN LIBRARY xilloader
   OPTION drc = loader_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone);
-  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_psm psv_pmc psv_psm psxl_pmc psxl_psm);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psu_psm psv_pmc psv_psm psxl_pmc psxl_psm psx_pmc psx_psm);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilloader,-lxilpm,-lxilplmi,-lxilffs,-lxilpdi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Platform Loader Library";
   OPTION VERSION = 1.7;
