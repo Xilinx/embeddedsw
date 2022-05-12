@@ -27,7 +27,9 @@ proc puf_drc {libhandle} {
 	if {$proc_type != "psv_pmc" && $proc_type != "psv_cortexa72" &&
 		$proc_type != "psv_cortexr5" && $proc_type != "psu_pmc" &&
 		$proc_type != "microblaze" && $proc_type != "psxl_pmc" &&
-		$proc_type != "psxl_cortexa78" && $proc_type != "psxl_cortexr52"} {
+		$proc_type != "psxl_cortexa78" && $proc_type != "psxl_cortexr52" &&
+		$proc_type != "psx_pmc" && $proc_type != "psx_cortexa78" &&
+		$proc_type != "psx_cortexr52"} {
 		error "ERROR: XilPuf library is supported only for Versal family of devices";
 		return;
 	}
@@ -40,13 +42,14 @@ proc puf_drc {libhandle} {
 			file copy -force $entry "./src"
 	}
 
-	if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $proc_type == "psxl_pmc" || $mode == "server"} {
+	if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $mode == "server"} {
 		foreach entry [glob -nocomplain -types f [file join "$server" *]] {
 			file copy -force $entry "./src"
 		}
 	} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 		$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
-		$proc_type == "psxl_cortexr52" || $proc_type == "microblaze"} {
+		$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
+                $proc_type == "psx_cortexr52" || $proc_type == "microblaze"} {
 		set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
 		if { [llength $librarylist] == 0 } {
 			error "This library requires xilmailbox library in the Board Support Package.";
@@ -59,7 +62,8 @@ proc puf_drc {libhandle} {
 	if {$mode == "server"} {
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 		$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
-		$proc_type == "psxl_cortexr52"} {
+		$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
+                $proc_type == "psx_cortexr52"} {
 			file delete -force ./src/xpuf_ipihandler.c
 			file delete -force ./src/xpuf_ipihandler.h
 			file delete -force ./src/xpuf_cmd.c

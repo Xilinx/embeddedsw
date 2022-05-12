@@ -35,12 +35,14 @@ proc generate {libhandle} {
 	switch $proctype {
 		"psu_pmc" -
 		"psv_pmc" -
-		"psxl_pmc" {
+		"psxl_pmc" -
+		"psx_pmc" {
 			copy_files_to_src $server_dir
 		}
 
 		"psv_cortexr5" -
-		"psxl_cortexr52" {
+		"psxl_cortexr52" -
+		"psx_cortexr52" {
 			copy_files_to_src $client_dir
 		}
 

@@ -54,15 +54,16 @@ proc secure_drc {libhandle} {
 				$proc_type == "psv_pmc" || $proc_type == "psv_cortexa72" ||
 				$proc_type == "psv_cortexr5" || $proc_type == "microblaze" ||
 				$proc_type == "psxl_pmc" || $proc_type == "psxl_cortexa78" ||
-				$proc_type == "psxl_cortexr52"} {
-
+				$proc_type == "psxl_cortexr52" || $proc_type == "psx_pmc" ||
+				$proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
 		if {$proc_type == "microblaze" && $mode == "server"} {
 			error "ERROR: XilSecure server library is not supported for microblaze";
 			return;
 		}
-		if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc"  || $proc_type == "psxl_pmc" || $mode == "server"} {
+		if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc"  || $proc_type == "psxl_pmc" || $proc_type == "psx_pmc"|| $mode == "server"} {
 			if {$proc_type == "psxl_pmc" || $proc_type == "psxl_cortexa78" ||
-					$proc_type == "psxl_cortexr52"} {
+			    $proc_type == "psxl_cortexr52" || $proc_type == "psx_pmc" ||
+			    $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
 				foreach entry [glob -nocomplain -types f [file join "$versal_net/server" *]] {
 					file copy -force $entry "./src"
 				}
@@ -80,8 +81,9 @@ proc secure_drc {libhandle} {
 
 			if {$mode == "server"} {
 				if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-						$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
-						$proc_type == "psxl_cortexr52"} {
+				    $proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
+				    $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
+				    $proc_type == "psx_cortexr52"} {
 					file delete -force ./src/xsecure_rsa_ipihandler.c
 					file delete -force ./src/xsecure_rsa_ipihandler.h
 					file delete -force ./src/xsecure_elliptic_ipihandler.c
@@ -112,12 +114,14 @@ proc secure_drc {libhandle} {
 
 		} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 			$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
-			$proc_type == "psxl_cortexr52" || $proc_type == "microblaze"} {
+			$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
+			$proc_type == "psx_cortexr52" || $proc_type == "microblaze"} {
 			set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
 			if { [llength $librarylist] == 0 } {
 				error "This library requires xilmailbox library in the Board Support Package.";
 			}
-			if {$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52"} {
+			if {$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||
+			    $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
 				foreach entry [glob -nocomplain -types f [file join "$versal_net/client" *]] {
 					file copy -force $entry "./src"
 				}
@@ -139,13 +143,13 @@ proc secure_drc {libhandle} {
 
 		}
 
-		if {$proc_type != "psv_pmc" &&  $proc_type != "psu_pmc" && $proc_type != "psxl_pmc"} {
+		if {$proc_type != "psv_pmc" &&  $proc_type != "psu_pmc" && $proc_type != "psxl_pmc" && $proc_type != "psx_pmc"} {
 			file delete -force ./src/xsecure_init.c
 			file delete -force ./src/xsecure_init.h
 		}
 
 	} else {
-		error "ERROR: XilSecure library is supported only for PMU, CortexA53, CortexR5, CortexA72, CortexA78, CortexR52, psv_pmc and psxl_pmc processors.";
+		error "ERROR: XilSecure library is supported only for PMU, CortexA53, CortexR5, CortexA72, CortexA78, CortexR52, psv_pmc and psx_pmc processors.";
 		return;
 	}
 

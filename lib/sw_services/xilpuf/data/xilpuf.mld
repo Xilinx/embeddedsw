@@ -15,7 +15,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilpuf
   OPTION drc = puf_drc;
   OPTION copyfiles = all;
-  OPTION SUPPORTED_PERIPHERALS = (psv_pmc psxl_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_cortexa78 psxl_cortexr52);
+  OPTION SUPPORTED_PERIPHERALS = (psv_pmc psxl_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52);
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpuf,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx PUF Library provides interface for registration and regeneration";

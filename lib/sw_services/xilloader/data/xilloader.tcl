@@ -17,7 +17,7 @@ proc loader_drc {libhandle} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set versal_net "src/versal_net/"
-	if {$proc_type == "psxl_pmc"} {
+	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
 		foreach entry [glob -nocomplain -types f [file join ./src/ *]] {
 			file delete -force $entry
 		}

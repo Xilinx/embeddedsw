@@ -23,7 +23,7 @@ BEGIN LIBRARY xilsem
   OPTION drc = sem_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone);
-  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psxl_pmc psv_cortexr5 psxl_cortexr52);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psxl_pmc psx_pmc psv_cortexr5 psxl_cortexr52 psx_cortexr52);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
   OPTION VERSION = 1.6;
