@@ -172,6 +172,8 @@
 *		      Added new files xiicps_xfer.c and xiicps_xfer.h.
 *		      Moved internal data transfer APIs to xiicps_xfer.
 * 3.13  rna  05/24/21 Fixed Misra-c violations
+* 3.16  gm   05/10/22 Added support to get the status of receive valid data.
+* 		      Added support for clock stretching and timeout support.
 * </pre>
 *
 ******************************************************************************/
@@ -305,6 +307,22 @@ extern XIicPs_Config XIicPs_ConfigTable[];	/**< Configuration table */
 /****************************************************************************/
 /**
 *
+* This function is to check if Rx data is valid or not.
+*
+* @param        InstancePtr	pointer to the XIicPs instance.
+*
+* @return       returns '1' if Rx data is valid, '0' otherwise.
+*
+* @note         None.
+*
+******************************************************************************/
+static INLINE u32 XIicPs_RxDataValidStatus(XIicPs *InstancePtr)
+{
+	return ((XIicPs_ReadReg(InstancePtr->Config.BaseAddress, XIICPS_SR_OFFSET))
+				& XIICPS_SR_RXDV_MASK);
+}
+
+/*
 * Place one byte into the transmit FIFO.
 *
 * @param	InstancePtr is the instance of IIC
@@ -399,6 +417,8 @@ void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount);
 s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount);
 s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount);
 void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr);
+void XIicPsSclHold(XIicPs *InstancePtr, u8 Enable);
+void XIicPsSetTimeOut(XIicPs *InstancePtr, u8 Value);
 
 /*
  * Functions for selftest, in xiicps_selftest.c

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -282,5 +282,73 @@ s32 TransmitFifoFill(XIicPs *InstancePtr)
 	}
 
 	return InstancePtr->SendByteCount;
+}
+
+/*****************************************************************************/
+/**
+* Function to Enable/Disable Clock Stretching (SCL HOLD)
+*
+* @param	InstancePtr	pointer to the XIicPs instance.
+*
+* @param	Enable	value to Enable/Disable Clock Stretching (SCL HOLD)
+* 			1 to Enable
+* 			0 to Disable
+*
+* @note	None
+*
+******************************************************************************/
+
+void XIicPsSclHold(XIicPs *InstancePtr, u8 Enable)
+{
+	UINTPTR BaseAddr;
+
+	/*
+	 * Assert validates the input arguments
+	 */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	BaseAddr = InstancePtr->Config.BaseAddress;
+
+	if(Enable == 1){
+		XIicPs_WriteReg(BaseAddr, (u32)XIICPS_CR_OFFSET,
+					XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
+							(u32)XIICPS_CR_HOLD_MASK);
+	}
+	else {
+		XIicPs_WriteReg(BaseAddr, (u32)XIICPS_CR_OFFSET,
+					XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) &
+							~((u32)XIICPS_CR_HOLD_MASK));
+	}
+}
+
+/*****************************************************************************/
+/**
+* Function to set TimeOut value
+*
+* @param	InstancePtr	pointer to the XIicPs instance.
+*
+* @param	Value	Timeout value.
+*
+* @note	None
+*
+******************************************************************************/
+
+void XIicPsSetTimeOut(XIicPs *InstancePtr, u8 Value)
+{
+	UINTPTR BaseAddr;
+	u8 TimeOutVal;
+
+	/*
+	 * Assert validates the input arguments
+	 */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	BaseAddr = InstancePtr->Config.BaseAddress;
+
+	TimeOutVal = XIicPs_ReadReg(BaseAddr, XIICPS_TIME_OUT_OFFSET);
+
+	if(TimeOutVal != Value){
+		XIicPs_WriteReg(BaseAddr, XIICPS_TIME_OUT_OFFSET, Value);
+	}
 }
 /** @} */
