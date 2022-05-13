@@ -147,6 +147,8 @@ s32 SlaveRecvData(XIicPs *InstancePtr)
 {
 	u32 StatusReg;
 	UINTPTR BaseAddr;
+	u8 *Data;
+	u8 Value;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -154,9 +156,14 @@ s32 SlaveRecvData(XIicPs *InstancePtr)
 
 	StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 
-	while (((StatusReg & XIICPS_SR_RXDV_MASK)!=0x0U) &&
-			(InstancePtr->RecvByteCount > 0)) {
-		XIicPs_RecvByte(InstancePtr);
+	while ((StatusReg & XIICPS_SR_RXDV_MASK)!=0x0U) {
+		Value = (u8)(XIicPs_In32((InstancePtr)->Config.BaseAddress
+				  + (u32)XIICPS_DATA_OFFSET));
+		Data = &Value;
+		*(InstancePtr)->RecvBufferPtr = *Data;
+		(InstancePtr)->RecvBufferPtr += 1;
+		(InstancePtr)->RecvByteCount ++;
+
 		StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 	}
 

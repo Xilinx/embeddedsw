@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,8 @@
 * 3.11  rna 02/12/20 Moved static data transfer functions to xiicps_xfer.c file
 *	    02/18/20 Modified latest code for MISRA-C:2012 Compliance.
 *       rna 04/09/20 Added timeout as event in slave interrupt handler.
+* 3.16  gm  05/10/22 Updated slave mode receive API's by removing byte count
+* 		     dependency.
 * </pre>
 *
 ******************************************************************************/
@@ -172,6 +174,8 @@ void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 {
 	UINTPTR BaseAddr;
 
+	(void)ByteCount;
+
 	/*
 	 * Assert validates the input arguments.
 	 */
@@ -182,7 +186,6 @@ void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->RecvBufferPtr = MsgPtr;
-	InstancePtr->RecvByteCount = ByteCount;
 	InstancePtr->SendBufferPtr = NULL;
 
 	/*
@@ -366,7 +369,9 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	u32 IntrStatusReg;
 	u32 StatusReg;
 	UINTPTR BaseAddr;
-	s32 Count;
+	u32 RecvCompleteState=0;
+
+	(void)ByteCount;
 
 	/*
 	 * Assert validates the input arguments.
@@ -377,7 +382,6 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->RecvBufferPtr = MsgPtr;
-	InstancePtr->RecvByteCount = ByteCount;
 
 	/*
 	 * Clear the interrupt status register.
@@ -392,12 +396,13 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	XIicPs_WriteReg(BaseAddr, XIICPS_SR_OFFSET, StatusReg);
 
 	StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
-	Count = InstancePtr->RecvByteCount;
-	while (Count > (s32)0) {
+
+	while (RecvCompleteState == 0U) {
 
 		/* Wait for master to put data */
-		while ((StatusReg & XIICPS_SR_RXDV_MASK) == 0U) {
-		    StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
+		IntrStatusReg = XIicPs_ReadReg(BaseAddr,XIICPS_ISR_OFFSET);
+
+		while((IntrStatusReg & (XIICPS_IXR_DATA_MASK | XIICPS_IXR_COMP_MASK)) == 0x0U){
 
 			/*
 			 * If master terminates the transfer before we get all
@@ -406,10 +411,10 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 			 */
 			IntrStatusReg = XIicPs_ReadReg(BaseAddr,
 						XIICPS_ISR_OFFSET);
-			if (((IntrStatusReg & (XIICPS_IXR_DATA_MASK |
-					XIICPS_IXR_COMP_MASK))!=0x0U) &&
-				((StatusReg & XIICPS_SR_RXDV_MASK) == 0U) &&
-				(InstancePtr->RecvByteCount > 0)) {
+			StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
+
+			if (((IntrStatusReg & (XIICPS_IXR_DATA_MASK | XIICPS_IXR_COMP_MASK)) != 0x0U) &&
+				((StatusReg & XIICPS_SR_RXDV_MASK) == 0U)) {
 
 				return (s32)XST_FAILURE;
 			}
@@ -424,15 +429,17 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 		/*
 		 * Read all data from FIFO.
 		 */
-		while (((StatusReg & XIICPS_SR_RXDV_MASK)!=0x0U) &&
-			 (InstancePtr->RecvByteCount > 0)){
+		while ((StatusReg & XIICPS_SR_RXDV_MASK) != 0x0U) {
+
+			if ((IntrStatusReg & XIICPS_IXR_COMP_MASK) !=0x0U){
+				RecvCompleteState = 1;
+			}
 
 			XIicPs_RecvByte(InstancePtr);
 
 			StatusReg = XIicPs_ReadReg(BaseAddr,
 				XIICPS_SR_OFFSET);
 		}
-		Count = InstancePtr->RecvByteCount;
 	}
 
 	return (s32)XST_SUCCESS;
@@ -482,7 +489,6 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 	u32 IntrStatusReg;
 	u32 IsSend = 0U;
 	u32 StatusEvent = 0U;
-	s32 LeftOver;
 	UINTPTR BaseAddr;
 
 	/*
@@ -526,12 +532,11 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 		if (IsSend != 0x0U) {
 			(void)TransmitFifoFill(InstancePtr);
 		} else {
-			LeftOver = SlaveRecvData(InstancePtr);
+			XIicPs_WriteReg(BaseAddr, (u32)XIICPS_CR_OFFSET,
+						XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
+									(u32)XIICPS_CR_HOLD_MASK);
 
-			/* We may finish the receive here */
-			if (LeftOver == 0) {
-				StatusEvent |= XIICPS_EVENT_COMPLETE_RECV;
-			}
+			(void)SlaveRecvData(InstancePtr);
 		}
 	}
 
@@ -549,8 +554,8 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 				StatusEvent |= XIICPS_EVENT_COMPLETE_SEND;
 			}
 		} else {
-			LeftOver = SlaveRecvData(InstancePtr);
-			if (LeftOver > 0) {
+			(void)SlaveRecvData(InstancePtr);
+			if ((InstancePtr)->RecvByteCount == 0) {
 				StatusEvent |= XIICPS_EVENT_ERROR;
 			} else {
 				StatusEvent |= XIICPS_EVENT_COMPLETE_RECV;
