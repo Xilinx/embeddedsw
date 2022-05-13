@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -702,7 +702,7 @@ done:
 	return Status;
 }
 
-XStatus XPmDomainIso_ProcessPending()
+XStatus XPmDomainIso_ProcessPending(void)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i;
