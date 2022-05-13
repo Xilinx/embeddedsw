@@ -976,7 +976,7 @@ done:
 static XStatus XPm_GetQos(const u32 DeviceId, u32 *Response)
 {
 	XStatus Status = XST_FAILURE;
-	XPm_Device *Device;
+	const XPm_Device *Device;
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		Status = XPM_PM_INVALID_NODE;
