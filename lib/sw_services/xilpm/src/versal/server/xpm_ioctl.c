@@ -1095,10 +1095,10 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPm_GetPllMode(Arg1, Response);
 		break;
 	case IOCTL_SET_PLL_FRAC_DATA:
-		Status = XPm_SetPllParameter(SubsystemId, Arg1, PM_PLL_PARAM_ID_DATA, Arg2);
+		Status = XPm_SetPllParameter(SubsystemId, Arg1, (u32)PM_PLL_PARAM_ID_DATA, Arg2);
 		break;
 	case IOCTL_GET_PLL_FRAC_DATA:
-		Status = XPm_GetPllParameter(Arg1, PM_PLL_PARAM_ID_DATA, Response);
+		Status = XPm_GetPllParameter(Arg1, (u32)PM_PLL_PARAM_ID_DATA, Response);
 		break;
 	case IOCTL_GET_QOS:
 		Status = XPm_GetQos(DeviceId, Response);
