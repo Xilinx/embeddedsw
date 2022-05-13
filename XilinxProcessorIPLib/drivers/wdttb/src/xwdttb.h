@@ -180,6 +180,8 @@
 * 5.1	sne  05/04/20 Fixed violations according to MISRAC-2012 standards.
 * 5.6	sne  04/11/22 Added IP interrupt current core connection check for
 *		      Generic WDT example
+* 5.5	sne  05/07/22 Added XWdtTb_SetGenericWdtWindowTimeOut API to configure
+*		      generic watchdog window.
 *
 * </pre>
 *
@@ -225,6 +227,7 @@ typedef struct {
 	u32 MaxCountWidth;	/**< Maximum width of first timer */
 	u32 SstCountWidth;	/**< Maximum width of Second Sequence Timer */
 	u32 IsPl;		/**< IsPl, 1= AXI Timebase ,0= WWDT  */
+	u32 Clock;		/**< Watchdog Clock Frequency */
 } XWdtTb_Config;
 
 /**
@@ -575,6 +578,7 @@ void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr);
 void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 				u32 SecondWinCount);
 void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr, u32 GWOR_config);
+void XWdtTb_SetGenericWdtWindowTimeOut(const XWdtTb *InstancePtr, u32 MilliSeconds);
 u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width);
 
 /*

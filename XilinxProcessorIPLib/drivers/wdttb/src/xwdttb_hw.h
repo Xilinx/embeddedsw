@@ -241,6 +241,8 @@ extern "C" {
 #define XWT_MAX_BYTE_SEGMENT    4U                  /**< Max Byte segment value */
 #define XWT_GWDT		0U		    /**< Flag for GWDT */
 #define XWT_WWDT		1U		    /**< Flag for WWDT */
+#define XWT_MAX_TIMEOUT		30000U		    /**< GWDT max timeout */
+#define XWT_KILO_HZ		1000U		    /**< Flag for Kilo Hz */
 /* @} */
 /**************************** Type Definitions *******************************/
 
