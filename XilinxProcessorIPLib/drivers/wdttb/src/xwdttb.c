@@ -228,6 +228,7 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 	InstancePtr->Config.MaxCountWidth = CfgPtr->MaxCountWidth;
 	InstancePtr->Config.SstCountWidth = CfgPtr->SstCountWidth;
 	InstancePtr->Config.IsPl = CfgPtr->IsPl;
+	InstancePtr->Config.Clock = CfgPtr->Clock;
 	if(InstancePtr->Config.EnableWinWdt == 1U) {
 		InstancePtr->Config.BaseAddr = EffectiveAddr + 0xCU;
 	} else {
@@ -1207,6 +1208,35 @@ void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr, u32 GWOR_config)
 	Xil_AssertVoid(InstancePtr != NULL);
 	/* Write GWDT_Offset_reg count value*/
 	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,GWOR_config);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function sets the count value for the GWDT_Offset_regs .
+*
+* @param     InstancePtr pointer to the XWdtTb instance to be worked on.
+* @param     MilliSeconds GWDT count value in milliseconds.
+* @return    None.
+*
+* @note
+*            This function must be called before Window WDT start/enable
+*            or after Window WDT stop/disable.
+*
+******************************************************************************/
+void XWdtTb_SetGenericWdtWindowTimeOut(const XWdtTb *InstancePtr, u32 MilliSeconds)
+{
+	u32 Reg_count = 0;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(MilliSeconds <= (u32)XWT_MAX_TIMEOUT);
+
+	/* Write GWDT_Offset_reg count value*/
+	Reg_count = (u32)(((u64)MilliSeconds * InstancePtr->Config.Clock) / (u32)XWT_KILO_HZ);
+
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,XWT_GWOR_OFFSET,Reg_count);
 }
 
 /*****************************************************************************/
