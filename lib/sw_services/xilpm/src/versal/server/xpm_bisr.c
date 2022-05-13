@@ -1303,7 +1303,7 @@ static u32 XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 
 			/* Construct block type-6 frame address */
 			FrameAddr = LagunaX;
-			FrameAddr |= (FRAME_BLOCK_TYPE_6 << CFRAME0_REG_FAR_BLOCKTYPE_SHIFT);
+			FrameAddr |= ((u32)FRAME_BLOCK_TYPE_6 << CFRAME0_REG_FAR_BLOCKTYPE_SHIFT);
 
 			LagunaRmwOneFrame(Pld, RowIndex, FrameAddr, LowerTile,
 					UpperTile, RepairWord);
