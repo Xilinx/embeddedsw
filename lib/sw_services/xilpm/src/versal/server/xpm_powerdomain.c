@@ -1601,7 +1601,7 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 	 *   - AND NOT power node is PMC
 	 * We still want to run MIO FLUSH in the case of power domain is on like PMC domain.
 	 */
-	if ((PM_POWER_PMC != PwrDomain->Power.Node.Id && (u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State) ||
+	if (((PM_POWER_PMC != PwrDomain->Power.Node.Id) && ((u8)XPM_POWER_STATE_ON == PwrDomain->Power.Node.State)) ||
 	    (0U != XPmPowerDomain_SkipOp(PwrDomain, Function))) {
 		PmAlert("Skipping %s for 0x%x\r\n",
 				PmInitFunctions[Function],
