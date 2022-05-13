@@ -1684,9 +1684,13 @@ static XStatus XPmBisr_NidbRepairLane(u32 RepairLeftMostNIDBOnly)
 
 		if (SLR_TYPE_SSIT_DEV_MASTER_SLR != SlrType) {
 			if (NidbEfuseGrpInfo[i].NpiBase == RomRepairAddr) {
-				if(0U == RepairLeftMostNIDBOnly) continue;
+				if(0U == RepairLeftMostNIDBOnly) {
+					continue;
+				}
 			} else {
-				if (0U != RepairLeftMostNIDBOnly) continue;
+				if (0U != RepairLeftMostNIDBOnly) {
+					continue;
+				}
 			}
 		}
 		NidbAddr = NidbEfuseGrpInfo[i].NpiBase;
