@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,7 +50,7 @@ static XStatus HandleAieDeviceState(XPm_Device* const Device, const u32 NextStat
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	XPm_AieDevice *AieDevice;
+	const XPm_AieDevice *AieDevice;
 	const XPm_PlDevice *Parent = NULL;
 	u8 CurrState;
 

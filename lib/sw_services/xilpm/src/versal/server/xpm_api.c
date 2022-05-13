@@ -1170,7 +1170,7 @@ static XStatus XPm_CosimInit(void)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 BaseAddress;
 	u32 ClkDivider;
-	XPm_PlDevice *PlDevice;
+	const XPm_PlDevice *PlDevice;
 	const u32 PldPwrNodeDependency[1U] = {PM_POWER_PLD};
 
 	Status = AddAieDeviceNode();
