@@ -89,6 +89,7 @@ static XPlmi_Module XPlmi_Pm =
 	NULL,
 	NULL,
 };
+static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
 
 void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
@@ -422,6 +423,8 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 
 	XPm_PsmModuleInit();
 	Status = XPmSubsystem_Add(PM_SUBSYS_PMC);
+
+	PmRestartCb = RestartCb;
 
 	return Status;
 
@@ -1082,6 +1085,49 @@ done:
 	return Status;
 
 }
+
+/****************************************************************************/
+/**
+ * @brief  This function restarts the given subsystem.
+ *
+ * @param  SubsystemId	Subsystem ID to restart
+ *
+ * @return XST_SUCCESS if successful else appropriate return code.
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+int XPm_RestartCbWrapper(const u32 SubsystemId)
+{
+	int Status = XST_FAILURE;
+
+	if (NULL != PmRestartCb) {
+		Status = PmRestartCb(SubsystemId, NULL);
+	}
+
+	return Status;
+}
+
+static XStatus XPm_SubsystemPwrUp(const u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Activate the subsystem by requesting its pre-alloc devices */
+	Status = XPmSubsystem_Configure(SubsystemId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Reload the subsystem image */
+	Status = XPm_RestartCbWrapper(SubsystemId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to start-up and wake-up
@@ -1111,60 +1157,71 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			  const u32 Ack,
 			  const u32 CmdType)
 {
-	//changed to support minimum boot time xilpm
-	XStatus Status=XST_FAILURE;
+	XStatus Status = XST_FAILURE;
+	XPm_Core *Core;
+	u32 CoreSubsystemId, CoreDeviceId;
+	const XPm_Power *Power;
+
 	/* Warning Fix */
 	(void) (Ack);
-	(void)CmdType;
-	(void)SubsystemId;
-	(void)SetAddress;
-	(void)Address;
-	u32 Payload[2], Idx;
-	PmDbg("DeviceId %x\n",DeviceId);
 
-	/*TBD: move this to XPmCore_StoreResumeAddr when topology cdo is ready*/
-	/* Set reset address */
-	if (1U == SetAddress) {
-		for (Idx = 0U; Idx < ARRAY_SIZE(ProcDevList); Idx++) {
-			if(ProcDevList[Idx]==DeviceId){
-				/* Store the resume address to PSM reserved RAM location */
-				PsmToPlmEvent->ResumeAddress[Idx] = Address;
+	/*Validate access first */
+	Status = XPm_IsWakeAllowed(SubsystemId, DeviceId, CmdType);
+	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	switch (NODECLASS(DeviceId))
+	{
+		case (u32)XPM_NODECLASS_SUBSYSTEM:
+			CoreSubsystemId = DeviceId;
+			Status = XPm_SubsystemPwrUp(CoreSubsystemId);
+			break;
+		case (u32)XPM_NODECLASS_DEVICE:
+			CoreDeviceId = DeviceId;
+			Core = (XPm_Core *)XPmDevice_GetById(CoreDeviceId);
+			if ((NULL == Core) ||
+			    (NULL == Core->CoreOps->RequestWakeup)) {
+				Status = XPM_ERR_WAKEUP;
+				break;
 			}
-		}
+			if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(CoreDeviceId)) ||
+			    ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(CoreDeviceId)) ||
+			    ((u32)XPM_NODETYPE_DEV_CORE_PSM == NODETYPE(CoreDeviceId))) {
+				Power = XPmPower_GetById(PM_POWER_LPD);
+				if ((NULL != Power) && ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
+					/* TODO: Power up LPD if not powered up */
+				}
+			}
+			CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
+			if (INVALID_SUBSYSID == CoreSubsystemId) {
+				Status = XPM_ERR_SUBSYS_NOTFOUND;
+				break;
+			}
+			Status = Core->CoreOps->RequestWakeup(Core, SetAddress, Address);
+			if (XST_SUCCESS == Status) {
+				Status = XPmSubsystem_SetState(CoreSubsystemId, (u32)ONLINE);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			}
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
-	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) ||
-		((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId))){
-		Payload[0] = PSM_API_DIRECT_PWR_UP;
-		Payload[1] = DeviceId;
-		Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-		Status = XPm_IpiReadStatus(PSM_IPI_INT_MASK);
-	}
+	/* TODO: If subsystem is using DDR, disable self-refresh */
 
-	if((u32)XPM_NODETYPE_DEV_CORE_PSM == NODETYPE(DeviceId)) {
-		XPm_RMW32(CRL_PSM_RST_MODE_ADDR, CRL_PSM_RST_WAKEUP_MASK,
-						CRL_PSM_RST_WAKEUP_MASK);
-		Status = XPm_PollForMask(PSMX_GLOBAL_REG_GLOBAL_CNTRL,
-						 PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
-						 XPM_MAX_POLL_TIMEOUT);
-		if (XST_SUCCESS != Status) {
-				goto done;
-		}
-		Status = XPm_GetPsmToPlmEventAddr();
-		if (XST_SUCCESS != Status) {
-				goto done;
-		}
-
-	}
 done:
 	if (XST_SUCCESS != Status) {
-		PmErr("Err Code 0x%x\n\r",Status);
+		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
-
 }
 
 /****************************************************************************/
