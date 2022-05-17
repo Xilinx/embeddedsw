@@ -40,7 +40,7 @@ struct XPm_Core {
 	u8 DebugMode; /**< DebugMode: Debugger is connected */
 	u8 Ipi; /**< IPI channel */
 	u32 SleepMask;
-	u16 PwrDwnMask;
+	u32 WakeUpMask;
 	u8 PsmToPlmEvent_ProcIdx; /**< Processor index in the PsmToPlmEvent structure */
 	u8 isCoreUp;
 	u8 IsCoreIdleSupported; /**< Flag for core idle is supported */
@@ -54,6 +54,10 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 XStatus XPmCore_StoreResumeAddr(const XPm_Core *Core, u64 Address);
 XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag);
+XStatus XPmCore_PwrDwn(XPm_Core *Core);
+XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);
+XStatus XPmCore_AfterDirectWakeUp(XPm_Core *Core);
+XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core);
 
 #ifdef __cplusplus
 }
