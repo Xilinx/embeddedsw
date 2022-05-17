@@ -113,3 +113,18 @@ XStatus XPmPsm_Init(XPm_Psm *Psm,
 done:
 	return Status;
 }
+
+void XPmPsm_RegWrite(const u32 Offset, const u32 Value)
+{
+	const XPm_Psm *Psm;
+
+	Psm = (XPm_Psm *)XPmDevice_GetById(PM_DEV_PSM_PROC);
+	if (NULL == Psm) {
+		goto done;
+	}
+
+	PmOut32(Psm->PsmGlobalBaseAddr + Offset, Value);
+
+done:
+	return;
+}

@@ -41,11 +41,19 @@ struct XPm_Psm {
 #define XPM_PSM_WAKEUP_MASK				BIT(2)
 #define XPM_RPU_NCPUHALT_MASK		BIT(0)
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
+#define PSMX_GLOBAL_PWR_CTRL1_IRQ_EN		(0x0000071CU)
+#define PSMX_GLOBAL_PWR_CTRL1_IRQ_DIS		(0x00000720U)
+
+/* Enable PSM power control interrupt */
+#define ENABLE_WFI(mask)	XPmPsm_RegWrite(PSMX_GLOBAL_PWR_CTRL1_IRQ_EN, mask)
+#define DISABLE_WFI(BitMask)	XPmPsm_RegWrite(PSMX_GLOBAL_PWR_CTRL1_IRQ_DIS, BitMask)
+
 u32 XPmPsm_FwIsPresent(void);
 XStatus XPmPsm_Init(XPm_Psm *Psm, u32 Ipi, const u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
 XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power);
 XStatus XPmPsm_SendPowerDownReq(XPm_Power *Power);
+void XPmPsm_RegWrite(const u32 Offset, const u32 Value);
 
 /* PSM MODULE Data Structures IDs */
 #define XPM_PSM_COUNTER_DS_ID				(0x01U)
