@@ -32,8 +32,6 @@ extern "C" {
 #endif
 
 #define XPM_POLL_TIMEOUT		(0X1000000U)
-/* Enable PSM power control interrupt */
-#define ENABLE_WFI(mask)	PmOut32(PSMX_GLOBAL_PWR_CTRL1_IRQ_EN, mask)
 
 /**
  * Platform type definitions

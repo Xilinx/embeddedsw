@@ -243,6 +243,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					   SetAddress, Address,
 					   Pload[3], Cmd->IpiReqType);
 		break;
+	case PM_API(PM_ABORT_SUSPEND):
+		Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
+		break;
 	case PM_API(PM_BISR):
 		Status =  XPmBisr_Repair(Pload[0]);
 		break;
@@ -811,6 +814,57 @@ done:
 	}
 	return Status;
 
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to aborting suspend of a
+ * child subsystem.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param Reason	Abort reason
+ * @param DeviceId	Processor device ID
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note        None
+ *
+ ****************************************************************************/
+XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
+			 const u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Core *Core;
+
+	PmInfo("(%lu, %lu)\r\n", Reason, DeviceId);
+	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
+		PmErr("Invalid Subsystem Id\n\r");
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	} else if((NODECLASS(DeviceId) == (u32)XPM_NODECLASS_DEVICE) &&
+	   (NODESUBCLASS(DeviceId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
+		Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+		if (NULL == Core) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+		Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+	} else {
+		PmErr("Invalid Device Id\n\r");
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	DISABLE_WFI(Core->SleepMask);
+
+	Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
 }
 
 /****************************************************************************/
