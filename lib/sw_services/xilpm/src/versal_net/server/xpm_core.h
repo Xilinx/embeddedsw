@@ -51,6 +51,7 @@ struct XPm_Core {
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
 		     struct XPm_CoreOps *Ops);
+XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
 
 #ifdef __cplusplus
 }

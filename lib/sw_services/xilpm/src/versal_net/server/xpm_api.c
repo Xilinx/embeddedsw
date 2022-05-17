@@ -337,6 +337,10 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_ACTIVATE_SUBSYSTEM):
 		Status = XPm_ActivateSubsystem(SubsystemId, Pload[0]);
 		break;
+	case PM_API(PM_GET_OP_CHARACTERISTIC):
+		Status = XPm_GetOpCharacteristic(Pload[0], Pload[1],
+						 ApiResponse);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -2819,6 +2823,72 @@ XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
 	case (u32)XPM_NODECLASS_SUBSYSTEM:
 		Status = XPmSubsystem_GetStatus(SubsystemId, DeviceId,
 						DeviceStatus);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+	return Status;
+}
+
+static XStatus XPm_GetLatency(const u32 DeviceId, u32 *Latency)
+{
+	XStatus Status = XST_SUCCESS;
+
+	switch (NODECLASS(DeviceId)) {
+	case (u32)XPM_NODECLASS_DEVICE:
+		if ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) {
+			Status = XPmCore_GetWakeupLatency(DeviceId, Latency);
+		} else {
+			Status = XPmDevice_GetWakeupLatency(DeviceId, Latency);
+		}
+		break;
+	case (u32)XPM_NODECLASS_POWER:
+		Status = XPmPower_GetWakeupLatency(DeviceId, Latency);
+		break;
+	case (u32)XPM_NODECLASS_CLOCK:
+		if ((u32)XPM_NODESUBCL_CLOCK_PLL == NODESUBCLASS(DeviceId)) {
+			Status = XPmClockPll_GetWakeupLatency(DeviceId, Latency);
+		} else {
+			Status = XST_INVALID_PARAM;
+		}
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function gets operating characteristics of a device
+ *
+ * @param  DeviceId  Targeted device Id.
+ * @param  Type      Type of the operating characteristics:
+ *                       power, temperature, and latency
+ * @param  Result    Returns the value of operating characteristic type
+ *
+ * @return XST_SUCCESS if successful else either XST_NO_FEATURE or XST_FAILURE.
+ *
+ * @note   Temperature reported in Celsius (signed Q8.7 format)
+ *
+ ****************************************************************************/
+XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
+{
+	XStatus Status = XST_FAILURE;
+
+	switch(Type) {
+	case (u32)PM_OPCHAR_TYPE_TEMP:
+		Status = XST_NO_FEATURE;
+		break;
+	case (u32)PM_OPCHAR_TYPE_LATENCY:
+		Status = XPm_GetLatency(DeviceId, Result);
+		break;
+	case (u32)PM_OPCHAR_TYPE_POWER:
+		Status = XST_NO_FEATURE;
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
