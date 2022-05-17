@@ -113,6 +113,9 @@ XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 
 XStatus XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 		      const u32 Latency);
+
+XStatus XPm_GetOpCharacteristic(const u32 DeviceId, const u32 Type,
+				u32 *Result);
 #ifdef __cplusplus
 }
 #endif

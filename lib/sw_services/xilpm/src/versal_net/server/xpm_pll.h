@@ -152,6 +152,7 @@ XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);
 XStatus XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp);
+XStatus XPmClockPll_GetWakeupLatency(const u32 Id, u32 *Latency);
 
 #ifdef __cplusplus
 }

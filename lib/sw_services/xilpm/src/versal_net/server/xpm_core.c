@@ -56,3 +56,39 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
+{
+	XStatus Status = XST_SUCCESS;
+	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	const XPm_Power *Power;
+	u32 Lat = 0;
+
+	*Latency = 0;
+
+	if (NULL == Core) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((u32)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		goto done;
+	}
+
+	*Latency += Core->PwrUpLatency;
+	if ((u32)XPM_DEVSTATE_SUSPENDING == Core->Device.Node.State) {
+		*Latency += Core->PwrDwnLatency;
+		goto done;
+	}
+
+	Power = Core->Device.Power;
+	if (NULL != Power) {
+		Status = XPmPower_GetWakeupLatency(Power->Node.Id, &Lat);
+		if (XST_SUCCESS == Status) {
+			*Latency += Lat;
+		}
+	}
+
+done:
+	return Status;
+}
