@@ -15,11 +15,13 @@ extern "C" {
 
 // /*********************** Power domain specific Errors ***********************/
 // /************************** (0x3000) - (0x30FF) ******************************/
+/* Invalid power domain ID error */
+#define XPM_INT_ERR_INVALID_PWR_DOMAIN		0x3000U
+/* Power domain state is OFF */
+#define XPM_INT_ERR_PWR_DOMAIN_OFF		0x3007U
 
 // /*********************** Generic House Cleaning Errors ***********************/
 // /*************************** (0x3100) - (0x31FF) *****************************/
-/* Invalid power domain ID error */
-#define XPM_INT_ERR_INVALID_PWR_DOMAIN		0x3000U
 /* Error during power domain init */
 #define XPM_INT_ERR_POWER_DOMAIN_INIT		0x3100U
 /* Invalid base address */
@@ -50,6 +52,12 @@ extern "C" {
 #define XPM_INT_ERR_ADD_RST			0x3308U
 /* Error during set device node */
 #define XPM_INT_ERR_SET_DEV_NODE		0x3309U
+/* Error during get device permission */
+#define XPM_INT_ERR_GET_DEVICE_PERMISSION	0x330CU
+/* Subsystem has no permission to that device */
+#define XPM_INT_ERR_DEVICE_PERMISSION		0x330DU
+/* Shared resource has no permission to access */
+#define XPM_INT_ERR_SHARED_RESOURCE		0x330EU
 
 // /************************* Reset specific Errors *****************************/
 // /************************** (0x3400) - (0x34FF) ******************************/

@@ -428,3 +428,74 @@ XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk)
 
 	return Status;
 }
+
+XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_ClockNode *Clk;
+	const XPm_ClockHandle *DevHandle;
+	u32 PermissionMask = 0U;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check for read-only flag */
+	if (0U != (CLK_FLAG_READ_ONLY & Clk->Flags)) {
+		DbgErr = XPM_INT_ERR_READ_ONLY_CLK;
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Check for power domain of clock */
+	if ((NULL != Clk->PwrDomain) &&
+	    ((u8)XPM_POWER_STATE_ON != Clk->PwrDomain->Node.State)) {
+		DbgErr = XPM_INT_ERR_PWR_DOMAIN_OFF;
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	if (ISPLL(ClockId)) {
+		/* Do not allow permission by default when PLL is shared */
+		DbgErr = XPM_INT_ERR_PLL_PERMISSION;
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	DevHandle = Clk->ClkHandles;
+	while (NULL != DevHandle) {
+		/* Get permission mask which indicates permission for each subsystem */
+		Status = XPmDevice_GetPermissions(DevHandle->Device,
+						  &PermissionMask);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_GET_DEVICE_PERMISSION;
+			goto done;
+		}
+
+		DevHandle = DevHandle->NextDevice;
+	}
+
+	/* Check permission for given subsystem */
+	if (0U == (PermissionMask & ((u32)1U << SubsystemIdx))) {
+		DbgErr = XPM_INT_ERR_DEVICE_PERMISSION;
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Access is not allowed if resource is shared (multiple subsystems) */
+	if (__builtin_popcount(PermissionMask) > 1) {
+		DbgErr = XPM_INT_ERR_SHARED_RESOURCE;
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}

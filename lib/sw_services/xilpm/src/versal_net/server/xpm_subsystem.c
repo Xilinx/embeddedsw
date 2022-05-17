@@ -31,6 +31,11 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId)
 
 }
 
+u32 XPmSubsystem_GetMaxSubsysIdx(void)
+{
+	return MaxSubsysIdx;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function gives Subsystem from SubsystemId.
@@ -198,6 +203,53 @@ XStatus XPmSubsystem_Add(u32 SubsystemId)
 		goto done;
 	}
 
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	if (SubsystemId == PM_SUBSYS_PMC) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		DbgErr = XPM_INT_ERR_INVALID_SUBSYSTEMID;
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	switch (NODECLASS(NodeId)) {
+	case (u32)XPM_NODECLASS_POWER:
+		/* TODO: Check if an implementation is needed for this case */
+		break;
+	case (u32)XPM_NODECLASS_CLOCK:
+		Status = XPmClock_CheckPermissions(NODEINDEX(Subsystem->Id), NodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_CLOCK_PERMISSION;
+			goto done;
+		}
+		break;
+	case (u32)XPM_NODECLASS_RESET:
+		/* TODO: Add reset check permission logic */
+		break;
+	case (u32)XPM_NODECLASS_DEVICE:
+		/* TODO: Add device check permission logic */
+		break;
+	case (u32)XPM_NODECLASS_STMIC:
+		/* TODO: Add PIN check permission logic */
+		break;
+	default:
+		/* XXX - Not implemented yet. */
+		break;
+	}
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;

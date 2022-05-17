@@ -161,6 +161,7 @@ XStatus XPmClock_AddParent(u32 Id, const u32 *Parents, u8 NumParents);
 XPm_ClockNode* XPmClock_GetById(u32 ClockId);
 XPm_ClockNode* XPmClock_GetByIdx(u32 ClockIdx);
 XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk);
+XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId);
 
 #ifdef __cplusplus
 }

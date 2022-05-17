@@ -176,6 +176,8 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 
 XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents);
 
+XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask);
+
 #ifdef __cplusplus
 }
 #endif
