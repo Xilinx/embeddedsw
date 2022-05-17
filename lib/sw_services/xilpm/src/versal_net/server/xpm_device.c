@@ -1547,3 +1547,52 @@ done:
 	}
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Set maximum allowed latency for the device
+ *
+ * @param  SubsystemId	Initiator of the request who must previously requested
+ *			the device
+ * @param  DeviceId	Device whose latency is specified
+ * @param  Latency	Maximum allowed latency in microseconds
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
+			    const u32 Latency)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Requirement *Reqm;
+	const XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	XPm_Device *Device = XPmDevice_GetById(DeviceId);
+
+	if ((NULL == Subsystem) || (NULL == Device)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Reqm = FindReqm(Device, Subsystem);
+	if (NULL == Reqm) {
+		Status = XPM_ERR_DEVICE_REQ;
+		goto done;
+	}
+
+	Reqm->Next.Latency =
+		(Latency & BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE));
+	Reqm->SetLatReq = 1;
+
+	Status = XPmDevice_UpdateStatus(Device);
+	if (XST_SUCCESS != Status) {
+		Reqm->SetLatReq = 0;
+		goto done;
+	}
+
+	Reqm->Curr.Latency =
+		(Latency & BITMASK(REQ_INFO_LATENCY_BIT_FIELD_SIZE));
+
+done:
+	return Status;
+}
