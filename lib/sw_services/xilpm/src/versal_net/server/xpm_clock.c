@@ -11,6 +11,18 @@
 #include "xpm_device.h"
 #include "xpm_debug.h"
 
+/* Query related defines */
+#define CLK_QUERY_NAME_LEN		(MAX_NAME_BYTES)
+#define CLK_INIT_ENABLE_SHIFT		1U
+#define CLK_TYPE_SHIFT			2U
+#define CLK_NODETYPE_SHIFT		14U
+#define CLK_NODESUBCLASS_SHIFT		20U
+#define CLK_NODECLASS_SHIFT		26U
+#define CLK_PARENTS_PAYLOAD_LEN		12U
+#define CLK_TOPOLOGY_PAYLOAD_LEN	12U
+#define CLK_CLKFLAGS_SHIFT		8U
+#define CLK_TYPEFLAGS_SHIFT		24U
+
 #define CLK_DUMMY_PARENT		0xFFFFFFFF
 
 #define CLOCK_PARENT_INVALID		0U
@@ -854,6 +866,234 @@ XStatus XPmClock_GetClockData(const XPm_OutClockNode *Clk, u32 Nodetype, u32 *Va
 
 	Mask = BITNMASK(Ptr->Param1.Shift, Ptr->Param2.Width);
 	*Value = (XPm_Read32(Ptr->Reg) &  Mask) >> Ptr->Param1.Shift;
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_ClockNode *Clk;
+	const u32 CopySize = CLK_QUERY_NAME_LEN;
+
+	Status = Xil_SMemSet(Resp, CLK_QUERY_NAME_LEN, 0, CLK_QUERY_NAME_LEN);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		goto done;
+	}
+
+	Status = Xil_SMemCpy((char *)Resp, CopySize, &Clk->Name[0], CopySize, CopySize);
+
+done:
+	return Status;
+}
+
+XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	u32 i;
+	const struct XPm_ClkTopologyNode *PtrNodes;
+	const XPm_OutClockNode *Clk;
+	u8 Type;
+	u16 Typeflags;
+	u16 Clkflags;
+
+	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
+
+	Status = Xil_SMemSet(Resp, CLK_TOPOLOGY_PAYLOAD_LEN, 0, CLK_TOPOLOGY_PAYLOAD_LEN);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (ISOUTCLK(ClockId)) {
+		PtrNodes = *Clk->Topology.Nodes;
+
+		/* Skip parent till index */
+		if (Index >= Clk->Topology.NumNodes) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+
+		for (i = 0; i < 3U; i++) {
+			if ((Index + i) == Clk->Topology.NumNodes) {
+				break;
+			}
+			Type =  PtrNodes[Index + i].Type;
+			Clkflags = PtrNodes[Index + i].Clkflags;
+			Typeflags = PtrNodes[Index + i].Typeflags;
+
+			/* Set CCF flags to each nodes for read only clock */
+			if (0U != (Clk->ClkNode.Flags & CLK_FLAG_READ_ONLY)) {
+				if ((u8)TYPE_GATE == Type) {
+					Clkflags |= CLK_IS_CRITICAL;
+				} else if (((u8)TYPE_DIV1 == Type) || ((u8)TYPE_DIV2 == Type)) {
+					Typeflags |= CLK_DIVIDER_READ_ONLY;
+				} else if ((u8)TYPE_MUX == Type) {
+					Typeflags |= CLK_MUX_READ_ONLY;
+				} else {
+					PmDbg("Unknown clock type\r\n");
+				}
+			}
+
+			Resp[i] = Type;
+			Resp[i] |= ((u32)Clkflags << CLK_CLKFLAGS_SHIFT);
+			Resp[i] |= ((u32)Typeflags << CLK_TYPEFLAGS_SHIFT);
+		}
+	} else if (ISPLL(ClockId)) {
+		if (Index != 0U) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		Resp[0] = (u32)TYPE_PLL;
+		Resp[0] |= CLK_SET_RATE_NO_REPARENT << CLK_CLKFLAGS_SHIFT;
+		Resp[0] |= ((u32)NA_TYPE_FLAGS) << CLK_TYPEFLAGS_SHIFT;
+	} else {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	const struct XPm_ClkTopologyNode *Ptr;
+	const XPm_OutClockNode *Clk;
+
+	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
+
+	if (!ISOUTCLK(ClockId)) {
+		goto done;
+	}
+
+	Ptr = XPmClock_GetTopologyNode(Clk, (u32)TYPE_FIXEDFACTOR);
+	if (Ptr == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Resp[0] = Ptr->Param1.Mult;
+	Resp[1] = Ptr->Param2.Div;
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_OutClockNode *Clk;
+	u32 i;
+
+	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
+	if ((NULL == Clk) || (!ISOUTCLK(ClockId))) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+	Status = Xil_SMemSet(Resp, CLK_PARENTS_PAYLOAD_LEN, 0, CLK_PARENTS_PAYLOAD_LEN);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Skip parent till index */
+	for (i = 0; i < 3U; i++) {
+		if (Clk->ClkNode.NumParents == (Index + i)) {
+			Resp[i] = 0xFFFFFFFFU;
+			break;
+		}
+		Resp[i] = Clk->Topology.MuxSources[Index + i];
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Attr = 0;
+	u32 InitEnable = 0;
+	u32 ClockId = 0;
+	const XPm_ClockNode *Clk;
+
+	if (ClockIndex >= MaxClkNodes) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Clock valid bit. All clocks present in clock database is valid. */
+	if (NULL != ClkNodeList[ClockIndex]) {
+		Attr = 1U;
+		Clk = ClkNodeList[ClockIndex];
+		ClockId = Clk->Node.Id;
+	} else {
+		Attr = 0U;
+	}
+
+	/* If clock needs to be enabled during init */
+	/* TBD -  Decide InitEnable value */
+	Attr |= InitEnable << CLK_INIT_ENABLE_SHIFT;
+	/* Clock type (Output/External) */
+	if (NODESUBCLASS(ClockId) == (u32)XPM_NODESUBCL_CLOCK_REF) {
+		Attr |= 1U << CLK_TYPE_SHIFT;
+	}
+	/* Clock node type PLL, OUT or REF*/
+	Attr |= NODETYPE(ClockId) << CLK_NODETYPE_SHIFT;
+	/* Clock node subclass PLL, OUT or REF */
+	Attr |= NODESUBCLASS(ClockId) << CLK_NODESUBCLASS_SHIFT;
+	/* Node class, i.e Clock */
+	Attr |= NODECLASS(ClockId) << CLK_NODECLASS_SHIFT;
+
+	*Resp = Attr;
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmClock_GetNumClocks(u32 *Resp)
+{
+	*Resp = (u32)XPM_NODEIDX_CLK_MAX;
+
+	return XST_SUCCESS;
+}
+
+XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	const struct XPm_ClkTopologyNode *Ptr;
+	const XPm_OutClockNode *Clk;
+
+	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Ptr = XPmClock_GetTopologyNode(Clk, DivType);
+	if (NULL == Ptr) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	*Resp = BITMASK(Ptr->Param2.Width);
 
 	Status = XST_SUCCESS;
 

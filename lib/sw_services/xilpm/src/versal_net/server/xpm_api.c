@@ -43,6 +43,15 @@
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
 
+#define PM_QUERY_FEATURE_BITMASK ( \
+	(1ULL << (u64)XPM_QID_CLOCK_GET_NAME) | \
+	(1ULL << (u64)XPM_QID_CLOCK_GET_TOPOLOGY) | \
+	(1ULL << (u64)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS) | \
+	(1ULL << (u64)XPM_QID_CLOCK_GET_MUXSOURCES) | \
+	(1ULL << (u64)XPM_QID_CLOCK_GET_ATTRIBUTES) | \
+	(1ULL << (u64)XPM_QID_CLOCK_GET_NUM_CLOCKS) | \
+	(1ULL << (u64)XPM_QID_CLOCK_GET_MAX_DIVISOR))
+
 u32 ResetReason;
 static XPlmi_ModuleCmd XPlmi_PmCmds[PM_API_MAX];
 static XPlmi_Module XPlmi_Pm =
@@ -256,6 +265,10 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_SET_MAX_LATENCY):
 		Status = XPm_SetMaxLatency(SubsystemId, Pload[0],
 					   Pload[1]);
+		break;
+	case PM_API(PM_QUERY_DATA):
+		Status = XPm_Query(Pload[0], Pload[1], Pload[2],
+				   Pload[3], ApiResponse);
 		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
@@ -754,19 +767,54 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Output)
 {
+	XStatus Status = XST_FAILURE;
+
 	/* Warning Fix */
 	(void) (Arg3);
-	//changed to support minimum boot time xilpm
-	PmDbg("Qid %x\n",Qid);
-	(void)Qid;
-	(void)Arg1;
-	(void)Arg2;
-	(void)Output;
-	//this service is not supported at boot time
-	PmErr("unsupported service\n");
-	return XST_FAILURE;
 
+	switch (Qid) {
+	case (u32)XPM_QID_CLOCK_GET_NAME:
+		Status = XPmClock_QueryName(Arg1,Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_TOPOLOGY:
+		Status = XPmClock_QueryTopology(Arg1,Arg2,Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS:
+		Status = XPmClock_QueryFFParams(Arg1,Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_MUXSOURCES:
+		if (ISPLL(Arg1)) {
+			Status = XPmClockPll_QueryMuxSources(Arg1,Arg2,Output);
+		} else {
+			Status = XPmClock_QueryMuxSources(Arg1,Arg2,Output);
+		}
+		break;
+	case (u32)XPM_QID_CLOCK_GET_ATTRIBUTES:
+		Status = XPmClock_QueryAttributes(Arg1,Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_NUM_CLOCKS:
+		Status = XPmClock_GetNumClocks(Output);
+		break;
+	case (u32)XPM_QID_CLOCK_GET_MAX_DIVISOR:
+		Status = XPmClock_GetMaxDivisor(Arg1, Arg2, Output);
+		break;
+	case (u32)XPM_QID_PINCTRL_GET_NUM_PINS:
+	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS:
+	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
+	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_NAME:
+	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
+	case (u32)XPM_QID_PINCTRL_GET_PIN_GROUPS:
+	case (u32)XPM_QID_PLD_GET_PARENT:
+		Status = XST_NO_FEATURE;
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+	return Status;
 }
+
 
 /****************************************************************************/
 /**
@@ -2384,6 +2432,8 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		break;
 	case PM_API(PM_QUERY_DATA):
 		Version[0] = XST_API_QUERY_DATA_VERSION;
+		Version[1] = (u32)(PM_QUERY_FEATURE_BITMASK);
+		Version[2] = (u32)(PM_QUERY_FEATURE_BITMASK >> 32);
 		Status = XST_SUCCESS;
 		break;
 	case PM_API(PM_REGISTER_NOTIFIER):

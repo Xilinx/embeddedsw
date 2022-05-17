@@ -170,6 +170,13 @@ XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider);
 XStatus XPmClock_GetClockData(const XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value);
 XStatus XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate);
 XStatus XPmClock_GetRate(const XPm_ClockNode *Clk, u32 *ClkRate);
+XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp);
+XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp);
+XStatus XPmClock_QueryFFParams(u32 ClockId, u32 *Resp);
+XStatus XPmClock_QueryMuxSources(u32 ClockId, u32 Index, u32 *Resp);
+XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp);
+XStatus XPmClock_GetNumClocks(u32 *Resp);
+XStatus XPmClock_GetMaxDivisor(u32 ClockId, u32 DivType, u32 *Resp);
 
 #ifdef __cplusplus
 }
