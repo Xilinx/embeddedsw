@@ -31,6 +31,7 @@ struct XPm_RpuCore {
 	XPm_Core Core; /**< Processor core devices */
 	u32 ResumeCfg;
 	u32 RpuBaseAddr; /**< Base address of RPU module */
+	u32 ClusterBaseAddr; /**< Base address of RPU cluster */
 };
 
 /************************** Function Prototypes ******************************/
