@@ -253,6 +253,10 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_SET_REQUIREMENT):
 		Status = XPm_SetRequirement(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
+	case PM_API(PM_SET_MAX_LATENCY):
+		Status = XPm_SetMaxLatency(SubsystemId, Pload[0],
+					   Pload[1]);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -2498,6 +2502,41 @@ XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 
 	Status = XPmDevice_SetRequirement(SubsystemId, DeviceId,
 					  Capabilities, QoS);
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Set maximum allowed latency for the device
+ *
+ * @param  SubsystemId	Initiator of the request who must previously requested
+ *			the device
+ * @param  DeviceId	Device whose latency is specified
+ * @param  Latency	Maximum allowed latency in micro sec
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code or
+ * a reason code
+ *
+ ****************************************************************************/
+XStatus XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
+		      const u32 Latency)
+{
+	XStatus Status = XPM_ERR_SET_LATENCY;
+
+	PmInfo("(%x, %lu)\r\n", DeviceId, Latency);
+
+	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	Status = XPmDevice_SetMaxLatency(SubsystemId, DeviceId, Latency);
+
 done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
