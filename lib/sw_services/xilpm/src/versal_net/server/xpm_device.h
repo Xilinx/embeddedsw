@@ -11,9 +11,6 @@
 #include "xpm_power.h"
 #include "xpm_clock.h"
 #include "xpm_reset.h"
-#include "xpm_power.h"
-#include "xpm_clock.h"
-#include "xpm_reset.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -170,6 +167,18 @@ XPm_Device *XPmDevice_GetById(const u32 DeviceId);
 
 XPm_Device *XPmDevice_GetByIndex(const u32 DeviceIndex);
 
+XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
+			  const u32 Capabilities, const u32 QoS,
+			  const u32 CmdType);
+
+XStatus XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
+			  const u32 CmdType);
+
+XStatus XPmDevice_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
+				 const u32 Capabilities, const u32 QoS);
+
+struct XPm_Reqm *XPmDevice_FindRequirement(const u32 DeviceId,
+					   const u32 SubsystemId);
 XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 			const u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus);
@@ -179,6 +188,11 @@ XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents);
 XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask);
 
 XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId);
+XStatus XPmDevice_UpdateStatus(XPm_Device *Device);
+XStatus XPmDevice_BringUp(XPm_Device *Device);
+u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *Device);
+XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
+XStatus XPm_CheckCapabilities(const XPm_Device *Device, u32 Caps);
 
 #ifdef __cplusplus
 }

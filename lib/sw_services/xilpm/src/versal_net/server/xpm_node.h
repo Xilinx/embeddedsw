@@ -17,6 +17,8 @@
 extern "C" {
 #endif
 
+#define NODE_IDLE_DONE			(0x4U)
+
 typedef struct XPm_Node XPm_Node;
 /**
  * The node class.  This is the base class for all the power, clock, pin and

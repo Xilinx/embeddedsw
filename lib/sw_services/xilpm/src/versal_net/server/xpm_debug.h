@@ -17,6 +17,8 @@ extern "C" {
 // /************************** (0x3000) - (0x30FF) ******************************/
 /* Invalid power domain ID error */
 #define XPM_INT_ERR_INVALID_PWR_DOMAIN		0x3000U
+/* Invalid state */
+#define XPM_INT_ERR_INVALID_STATE		0x3003U
 /* Power domain state is OFF */
 #define XPM_INT_ERR_PWR_DOMAIN_OFF		0x3007U
 
@@ -58,9 +60,25 @@ extern "C" {
 #define XPM_INT_ERR_DEVICE_PERMISSION		0x330DU
 /* Shared resource has no permission to access */
 #define XPM_INT_ERR_SHARED_RESOURCE		0x330EU
+/* Device is busy */
+#define XPM_INT_ERR_DEVICE_BUSY			0x330FU
+/* Error during power up device parent power domain */
+#define XPM_INT_ERR_DEVICE_PWR_PARENT_UP	0x3310U
+/* Error during device request */
+#define XPM_INT_ERR_DEVICE_REQUEST		0x3311U
+/* Error during device release */
+#define XPM_INT_ERR_DEVICE_RELEASE		0x3312U
+/* Error during device change state */
+#define XPM_INT_ERR_DEVICE_CHANGE_STATE	0x3313U
 
 // /************************* Reset specific Errors *****************************/
 // /************************** (0x3400) - (0x34FF) ******************************/
+/* Invalid reset state */
+#define XPM_INT_ERR_RST_STATE			0x3401U
+/* Error during reset release */
+#define XPM_INT_ERR_RST_RELEASE			0x3402U
+/* Error during reset assert */
+#define XPM_INT_ERR_RST_ASSERT			0x3403U
 /* Error during set reset node */
 #define XPM_INT_ERR_SET_RESET_NODE		0x3404U
 
@@ -85,6 +103,10 @@ extern "C" {
 #define XPM_INT_ERR_INVALID_SUBCLASS		0x360BU
 /* Buffer too small */
 #define XPM_INT_ERR_BUFFER_TOO_SMALL		0x360CU
+/* Invalid event */
+#define XPM_INT_ERR_INVALID_EVENT		0x360DU
+/* Invalid state transition */
+#define XPM_INT_ERR_INVALID_STATE_TRANS		0x3611U
 /* Error during parsing isolation node. getting invalid format */
 #define XPM_INT_ERR_ISO_INVALID_FORMAT		0x3613U
 /* A topology iso node has exceed number of dependencies */
