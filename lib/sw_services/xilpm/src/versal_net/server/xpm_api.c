@@ -228,6 +228,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_INIT_NODE):
 		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
 		break;
+	case PM_API(PM_SYSTEM_SHUTDOWN):
+		Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1], Cmd->IpiReqType);
+		break;
 	case PM_API(PM_SELF_SUSPEND):
 		Status = XPm_SelfSuspend(SubsystemId, Pload[0],
 					 Pload[1], (u8)Pload[2],
@@ -1277,8 +1280,49 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function can be used to send restart CPU idle callback to
+ *	   subsystem to idle cores before subsystem restart
+ *
+ * @param SubsystemId	Subsystem ID
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note  None
+ *
+ ****************************************************************************/
+XStatus XPm_IdleRestartHandler(const u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
+		Status = XPmSubsystem_SetState(SubsystemId, (u8)PENDING_RESTART);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPm_SubsystemIdleCores(Subsystem);
+
+		/* TODO: Need to add recovery handling if subsystem not responding */
+	} else {
+		Status = XPm_SystemShutdown(SubsystemId, PM_SHUTDOWN_TYPE_RESET,
+					    PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM,
+					    XPLMI_CMD_SECURE);
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function can be used by a subsystem to shutdown self or restart
- * 			self, Ps or system
+ *	   self, Ps or system
  *
  * @param SubsystemId		Subsystem ID
  * @param  Type				Shutdown type
@@ -1295,16 +1339,84 @@ done:
 XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 			   const u32 CmdType)
 {
-	//changed to support minimum boot time xilpm
-	PmDbg("SubsystemId %x\n",SubsystemId);
-	(void)SubsystemId;
-	(void)Type;
-	(void)SubType;
-	(void)CmdType;
-	//this service is not supported at boot time
-	PmErr("unsupported service\n");
-	return XST_FAILURE;
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
+	const XPm_ResetNode *Rst;
 
+	if ((PM_SHUTDOWN_TYPE_SHUTDOWN != Type) &&
+	    (PM_SHUTDOWN_TYPE_RESET != Type)) {
+		Status = XPM_INVALID_TYPEID;
+		goto done;
+	}
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	/* For shutdown type the subtype is irrelevant: shut the caller down */
+	if (PM_SHUTDOWN_TYPE_SHUTDOWN == Type) {
+		/* Idle the subsystem first */
+		Status = XPmSubsystem_Idle(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_SUBSYS_IDLE;
+			goto done;
+		}
+		/* Release devices and power down cores */
+		Status = XPmSubsystem_ForceDownCleanup(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_CLEANUP;
+			goto done;
+		}
+
+		/* Clear the pending suspend cb reason */
+		Subsystem->PendCb.Reason = 0U;
+
+		Status = XPmSubsystem_SetState(SubsystemId, (u32)POWERED_OFF);
+		goto done;
+	}
+
+	switch (SubType) {
+	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
+		Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Status = XPm_SubsystemPwrUp(SubsystemId);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		break;
+	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
+		/*
+		 * Caller subystem may not be allowed to enact reset operation
+		 * upon PM_RST_PMC. XPmReset_SystemReset uses PM_RST_PMC.
+		 */
+		Rst = XPmReset_GetById(PM_RST_PS_PMC_SRST);
+		if (NULL == Rst) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Status = XPmReset_IsOperationAllowed(SubsystemId, Rst, CmdType);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		Status = XPmReset_SystemReset();
+		break;
+	default:
+		Status = XPM_INVALID_TYPEID;
+		break;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
 }
 
 static void XPm_RpuCoreConfig(u8 ClusterNum, u8 CoreNum, u64 HandoffAddr,

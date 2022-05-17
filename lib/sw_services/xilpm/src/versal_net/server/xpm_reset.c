@@ -284,3 +284,8 @@ XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
 
 	return Status;
 }
+
+XStatus XPmReset_SystemReset(void)
+{
+	return XPmReset_AssertbyId(PM_RST_PS_PMC_SRST, (u32)PM_RESET_ACTION_ASSERT);
+}
