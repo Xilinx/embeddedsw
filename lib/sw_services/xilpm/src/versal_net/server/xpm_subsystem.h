@@ -106,6 +106,7 @@ struct XPm_Subsystem {
 
 /************************** Function Prototypes ******************************/
 u32 XPmSubsystem_GetIPIMask(u32 SubsystemId);
+XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
 XStatus XPmSubsystem_Configure(u32 SubsystemId);
 u32 XPmSubsystem_GetSubSysIdByIpiMask(u32 IpiMask);
 XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx);

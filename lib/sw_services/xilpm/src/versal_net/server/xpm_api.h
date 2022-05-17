@@ -99,6 +99,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
 XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx);
 XStatus XPm_HookAfterPlmCdo(void);
+int XPm_RestartCbWrapper(const u32 SubsystemId);
 u32 XPm_GetSubsystemId(u32 ImageId);
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable);
 XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);

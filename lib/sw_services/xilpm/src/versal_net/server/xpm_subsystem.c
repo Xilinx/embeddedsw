@@ -616,3 +616,68 @@ done:
 
 	return Status;
 }
+
+XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device = XPmDevice_GetById(NodeId);
+	u32 CoreSubsystemId;
+	(void)CmdType;
+
+	if (NULL == XPmSubsystem_GetById(SubsystemId)) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	switch (NODECLASS(NodeId))
+	{
+		case (u32)XPM_NODECLASS_SUBSYSTEM:
+			/* Check that request wakeup is not for self */
+			if (SubsystemId == NodeId) {
+				Status = XST_INVALID_PARAM;
+				break;
+			}
+			if (NULL == XPmSubsystem_GetById(NodeId)) {
+				Status = XPM_INVALID_SUBSYSID;
+				break;
+			}
+			/* TODO: Check permission from command type and permission mask */
+			Status = XST_SUCCESS;
+
+			break;
+		case (u32)XPM_NODECLASS_DEVICE:
+			if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId)) ||
+			    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(NodeId)))
+			{
+				Status = XST_INVALID_PARAM;
+				break;
+			}
+			/* Validate core before querying access */
+			if (NULL == Device) {
+				Status = XST_INVALID_PARAM;
+				break;
+			}
+			CoreSubsystemId = XPmDevice_GetSubsystemIdOfCore(Device);
+			if (INVALID_SUBSYSID == CoreSubsystemId) {
+				Status = XST_INVALID_PARAM;
+				break;
+			} else if ((PM_SUBSYS_PMC != CoreSubsystemId) &&
+				   (CoreSubsystemId == SubsystemId)) {
+				   Status = XST_SUCCESS;
+				   goto done;
+			} else {
+				/* Required by MISRA */
+			}
+
+			/* TODO: Check permission from command type and permission mask */
+			Status = XST_SUCCESS;
+
+			break;
+		default:
+			Status = XST_INVALID_PARAM;
+			break;
+	}
+
+done:
+	return Status;
+}
