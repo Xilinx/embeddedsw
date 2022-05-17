@@ -76,6 +76,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 XStatus XPm_AddNodeParent(const u32 *Args, u32 NumArgs);
 XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs);
 XStatus XPm_AddNode(const u32 *Args, u32 NumArgs);
+XStatus XPm_GetChipID(u32* IDCode, u32 *Version);
 
 
 #ifdef __cplusplus
