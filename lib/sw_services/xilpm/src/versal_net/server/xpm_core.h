@@ -52,6 +52,8 @@ XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
 		     XPm_ClockNode *Clock, XPm_ResetNode *Reset, u8 IpiCh,
 		     struct XPm_CoreOps *Ops);
 XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
+XStatus XPmCore_StoreResumeAddr(const XPm_Core *Core, u64 Address);
+XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag);
 
 #ifdef __cplusplus
 }

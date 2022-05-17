@@ -92,3 +92,44 @@ XStatus XPmCore_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 done:
 	return Status;
 }
+
+XStatus XPmCore_SetCPUIdleFlag(const XPm_Core *Core, u32 CpuIdleFlag)
+{
+	XStatus Status = XST_FAILURE;
+
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		goto done;
+	}
+
+	/* Store the CPU idle flag to PSM reserved RAM location */
+	PsmToPlmEvent->CpuIdleFlag[Core->PsmToPlmEvent_ProcIdx] = CpuIdleFlag;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmCore_StoreResumeAddr(const XPm_Core *Core, u64 Address)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	/* Check for valid resume address */
+	if (0U == (Address & 1ULL)) {
+		DbgErr = XPM_INT_ERR_INVALID_RESUME_ADDR;
+		goto done;
+	}
+
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		DbgErr = XPM_INT_ERR_INVALID_PROC;
+		goto done;
+	}
+
+	/* Store the resume address to PSM reserved RAM location */
+	PsmToPlmEvent->ResumeAddress[Core->PsmToPlmEvent_ProcIdx] = Address;
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}

@@ -550,77 +550,68 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 			u32 AddrLow, u32 AddrHigh)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Mask = 0;
+	XPm_Core *Core;
+	u64 Address = (u64)AddrLow + ((u64)AddrHigh << 32ULL);
+	u32 CpuIdleFlag;
+	XPm_Subsystem *Subsystem = NULL;
 
-	(void)SubsystemId;
+	/* TODO: Remove this warning fix hack when functionality is implemented */
 	(void)Latency;
-	(void)State;
-	(void)AddrLow;
-	(void)AddrHigh;
 
-	/* TODO: Store resume address */
-
-	/* TODO: Remove hard coded mask when available from topology */
-	switch (DeviceId) {
-	case PM_DEV_ACPU_0_0:
-		Mask = APU0_CORE0_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_0_1:
-		Mask = APU0_CORE1_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_0_2:
-		Mask = APU0_CORE2_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_0_3:
-		Mask = APU0_CORE3_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_1_0:
-		Mask = APU1_CORE0_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_1_1:
-		Mask = APU1_CORE1_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_1_2:
-		Mask = APU1_CORE2_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_1_3:
-		Mask = APU1_CORE3_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_2_0:
-		Mask = APU2_CORE0_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_2_1:
-		Mask = APU2_CORE1_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_2_2:
-		Mask = APU2_CORE2_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_2_3:
-		Mask = APU2_CORE3_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_3_0:
-		Mask = APU3_CORE0_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_3_1:
-		Mask = APU3_CORE1_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_3_2:
-		Mask = APU3_CORE2_PWRDWN_MASK;
-		break;
-	case PM_DEV_ACPU_3_3:
-		Mask = APU3_CORE3_PWRDWN_MASK;
-		break;
-	default:
-		break;
+	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	if ((NULL == Core) ||
+	    (NODESUBCLASS(DeviceId) != (u32)XPM_NODESUBCL_DEV_CORE)) {
+		Status = XPM_INVALID_DEVICEID;
+		goto done;
 	}
 
-	ENABLE_WFI(Mask);
+	if ((PM_SUSPEND_STATE_SUSPEND_TO_RAM != State) &&
+	    (PM_SUSPEND_STATE_CPU_IDLE != State)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	CpuIdleFlag = (State == PM_SUSPEND_STATE_CPU_IDLE) ? (1U) : (0U);
+
+	Status = XPmCore_StoreResumeAddr(Core, (Address | 1U));
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	if (PM_SUSPEND_STATE_SUSPEND_TO_RAM == State) {
+		Subsystem = XPmSubsystem_GetById(SubsystemId);
+		if (NULL == Subsystem) {
+			Status = XPM_INVALID_SUBSYSID;
+			goto done;
+		}
+		/* Clear the pending suspend cb reason */
+		Subsystem->PendCb.Reason = 0U;
+
+		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDING);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/*
+		 * TODO: If subsystem is using DDR and NOC Power Domain is idle,
+		 * enable self-refresh as post suspend requirement
+		 */
+	}
+
+	Status = XPmCore_SetCPUIdleFlag(Core, CpuIdleFlag);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	ENABLE_WFI(Core->SleepMask);
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_SUSPENDING;
 
 	XPm_Out32(PSMX_GLOBAL_SCAN_CLEAR_TRIGGER, 0U);
 	XPm_Out32(PSMX_GLOBAL_MEM_CLEAR_TRIGGER, 0U);
 
-	Status = XST_SUCCESS;
-
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
 
