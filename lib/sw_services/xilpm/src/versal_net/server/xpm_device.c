@@ -470,6 +470,50 @@ u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *D
 	return UsageStatus;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Check if any clock for a given device is active
+ * @param  Device      Device whose clocks need to be checked
+ *
+ * @return XST_SUCCESS if any one clock for given device is active
+ *         XST_FAILURE if all clocks for given device are inactive
+ *
+ ****************************************************************************/
+XStatus XPmDevice_IsClockActive(const XPm_Device *Device)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_ClockHandle *ClkHandle = Device->ClkHandles;
+	const XPm_OutClockNode *Clk;
+	u32 Enable;
+
+	while (NULL != ClkHandle) {
+		if ((NULL != ClkHandle->Clock) &&
+		    (ISOUTCLK(ClkHandle->Clock->Node.Id))) {
+			Clk = (XPm_OutClockNode *)ClkHandle->Clock;
+			Status = XPmClock_GetClockData(Clk, (u32)TYPE_GATE, &Enable);
+			if (XST_SUCCESS == Status) {
+				if (1U == Enable) {
+					Status = XST_SUCCESS;
+					goto done;
+				}
+			} else if (XPM_INVALID_CLK_SUBNODETYPE == Status) {
+				PmDbg("Clock 0x%x does not have Clock Gate\n\r",
+						ClkHandle->Clock->Node.Id);
+				Status = XST_SUCCESS;
+			} else {
+				PmDbg("XPmClock_GetClockData failed with Status 0x%x"
+						" for clock id: 0x%x\r\n",
+						Status,
+						ClkHandle->Clock->Node.Id);
+			}
+		}
+		ClkHandle = ClkHandle->NextClock;
+	}
+
+done:
+	return Status;
+}
+
 XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 			const u32 DeviceId,
 			XPm_DeviceStatus *const DeviceStatus)
