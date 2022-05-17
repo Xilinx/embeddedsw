@@ -111,6 +111,8 @@ XPm_Subsystem *XPmSubsystem_GetByIndex(u32 SubSysIdx);
 XStatus XPmSubsystem_SetState(const u32 SubsystemId, const u32 State);
 XStatus XPmSubsystem_Add(u32 SubsystemId);
 XPm_Subsystem *XPmSubsystem_GetById(u32 SubsystemId);
+XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
+u32 XPmSubsystem_GetMaxSubsysIdx(void);
 
 #ifdef __cplusplus
 }

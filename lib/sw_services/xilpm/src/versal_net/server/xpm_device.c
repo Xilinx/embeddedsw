@@ -292,3 +292,33 @@ XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 done:
 	return Status;
 }
+
+XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Requirement *Reqm;
+	u32 Idx;
+	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
+
+	if ((NULL == Device) || (NULL == PermissionMask)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Reqm = Device->Requirements;
+	while (NULL != Reqm) {
+		if (1U == Reqm->Allocated) {
+			for (Idx = 0; Idx <= SubsysIdx; Idx++) {
+				if (Reqm->Subsystem == XPmSubsystem_GetByIndex(Idx)) {
+					*PermissionMask |= ((u32)1U << Idx);
+				}
+			}
+		}
+		Reqm = Reqm->NextSubsystem;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
