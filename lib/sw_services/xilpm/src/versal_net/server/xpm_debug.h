@@ -186,6 +186,8 @@ extern "C" {
 
 // /************************* Proc specific Errors ******************************/
 // /************************** (0x4500) - (0x45FF) ******************************/
+/* Invalid resume address */
+#define XPM_INT_ERR_INVALID_RESUME_ADDR		0x4500U
 /* Error during core init */
 #define XPM_INT_ERR_CORE_INIT			0x4501U
 
