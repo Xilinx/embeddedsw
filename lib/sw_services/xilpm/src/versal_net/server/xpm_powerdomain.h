@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,16 @@ XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    struct XPm_PowerDomainOps const *Ops);
 XStatus XPmPowerDomain_AddParent(u32 Id, const u32 *ParentNodes, u32 NumParents);
+XStatus XPm_PowerUpLPD(const XPm_Node *Node);
+XStatus XPm_PowerDwnLPD(void);
+XStatus XPm_PowerUpFPD(const XPm_Node *Node);
+XStatus XPm_PowerDwnFPD(const XPm_Node *Node);
+XStatus XPm_PowerUpPLD(XPm_Node *Node);
+XStatus XPm_PowerDwnPLD(const XPm_Node *Node);
+XStatus XPm_PowerUpCPM5N(const XPm_Node *Node);
+XStatus XPm_PowerDwnCPM5N(const XPm_Node *Node);
+XStatus XPm_PowerUpNoC(XPm_Node *Node);
+XStatus XPm_PowerDwnNoC(void);
 
 #ifdef __cplusplus
 }

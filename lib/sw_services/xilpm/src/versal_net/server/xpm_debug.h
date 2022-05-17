@@ -172,6 +172,12 @@ extern "C" {
 
 // /************************* Power specific Errors *****************************/
 // /************************** (0x4700) - (0x47FF) ******************************/
+/* Error during parent power up */
+#define XPM_INT_ERR_PWR_PARENT_UP		0x4700U
+/* Error during PSM power up request */
+#define XPM_INT_ERR_PSM_PWR_UP			0x4701U
+/* Error during PSM power down request */
+#define XPM_INT_ERR_PSM_PWR_DWN			0x4702U
 
 // /*********************** Power rail specific Errors **************************/
 // /************************** (0x4800) - (0x48FF) ******************************/

@@ -26,7 +26,16 @@ struct XPm_Psm {
 };
 
 /* PSM Global Registers */
-#define PSM_GLOBAL_CNTRL				(0x00000000U)
+#define PSMX_GLOBAL_CNTRL				(0x00000000U)
+#define PSMX_GLOBAL_REQ_PWRDWN0_EN			(0xEBC90218U)
+#define PSMX_GLOBAL_REQ_PWRUP0_EN			(0xEBC90118U)
+#define PSMX_GLOBAL_REQ_PWRDWN1_EN			(0xEBC9022CU)
+#define PSMX_GLOBAL_REQ_PWRUP1_EN			(0xEBC9012CU)
+#define PSMX_GLOBAL_REQ_PWRDWN0_EN			(0xEBC90218U)
+#define PSMX_GLOBAL_PWR_STATE0				(0xEBC90100U)
+#define PSMX_GLOBAL_PWR_STATE1				(0xEBC90104U)
+#define REQ_PWRUP_INT_TRIG_OFFSET			(0x00000008U)
+#define REQ_PWRDWN_INT_TRIG_OFFSET			(0x00000008U)
 #define XPM_MAX_POLL_TIMEOUT				(0x10000000U)
 #define PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U)
 #define XPM_PSM_WAKEUP_MASK				BIT(2)
@@ -35,6 +44,8 @@ struct XPm_Psm {
 u32 XPmPsm_FwIsPresent(void);
 XStatus XPmPsm_Init(XPm_Psm *Psm, u32 Ipi, const u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
+XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power);
+XStatus XPmPsm_SendPowerDownReq(XPm_Power *Power);
 
 /* PSM MODULE Data Structures IDs */
 #define XPM_PSM_COUNTER_DS_ID				(0x01U)
