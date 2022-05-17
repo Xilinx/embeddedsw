@@ -2862,6 +2862,32 @@ static XStatus XPm_GetLatency(const u32 DeviceId, u32 *Latency)
 	return Status;
 }
 
+static XStatus XPm_GetTemperature(u32 const DeviceId, u32 *Result)
+{
+	XStatus Status = XST_FAILURE;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+
+	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
+		goto done;
+	}
+
+	/*
+	 * TODO - need to implement getting temperature, beside the
+	 * temperature of entire SoC.
+	 */
+	if ((u32)XPM_NODETYPE_DEV_SOC != NODETYPE(DeviceId)) {
+		Status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	*Result = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr,
+					    XSYSMONPSV_VAL_VREF_MAX);
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function gets operating characteristics of a device
@@ -2882,7 +2908,7 @@ XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result)
 
 	switch(Type) {
 	case (u32)PM_OPCHAR_TYPE_TEMP:
-		Status = XST_NO_FEATURE;
+		Status = XPm_GetTemperature(DeviceId, Result);
 		break;
 	case (u32)PM_OPCHAR_TYPE_LATENCY:
 		Status = XPm_GetLatency(DeviceId, Result);
