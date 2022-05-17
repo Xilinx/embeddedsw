@@ -26,6 +26,7 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, const u32 *BaseAd
 	}
 
 	RpuCore->RpuBaseAddr = BaseAddress[0];
+	RpuCore->ClusterBaseAddr = BaseAddress[1];
 
 	if (PM_DEV_RPU_A_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
