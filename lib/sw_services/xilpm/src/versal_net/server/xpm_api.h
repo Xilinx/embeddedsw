@@ -78,6 +78,13 @@ XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs);
 XStatus XPm_AddNode(const u32 *Args, u32 NumArgs);
 XStatus XPm_GetChipID(u32* IDCode, u32 *Version);
 
+XStatus XPm_SetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 ParamId, const u32 Value);
+
+XStatus XPm_GetPllParameter(const u32 ClockId, const u32 ParamId, u32 *const Value);
+
+XStatus XPm_SetPllMode(const u32 SubsystemId, const u32 ClockId, const u32 Value);
+
+XStatus XPm_GetPllMode(const u32 ClockId, u32 *const Value);
 
 #ifdef __cplusplus
 }
