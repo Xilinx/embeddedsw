@@ -325,3 +325,113 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+XStatus XPmSubsystem_InitFinalize(const u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
+	const XPm_Device *Device;
+	const XPm_Power *Power;
+	const XPm_Requirement *Reqm;
+	u32 DeviceInUse = 0;
+	u32 Idx;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Subsystem->Flags |= SUBSYSTEM_INIT_FINALIZED;
+
+	/*
+	 * TODO: As the subsystem boot is successfully,
+	 * notify healthy to stop healthy boot monitors
+	 */
+
+	for (Idx = (u32)XPM_NODEIDX_DEV_MIN + 1U;
+	     Idx < (u32)XPM_NODEIDX_DEV_MAX; Idx++) {
+		DeviceInUse = 0;
+
+		Device = XPmDevice_GetByIndex(Idx);
+		if (NULL == Device) {
+			continue;
+		}
+
+		/* Exclude device if its parent power domain is OFF */
+		Power = Device->Power;
+		if ((u32)XPM_NODESUBCL_POWER_ISLAND ==
+		    NODESUBCLASS(Power->Node.Id)) {
+			/* Get parent of island */
+			Power = Power->Parent;
+		}
+		if (((u32)XPM_NODESUBCL_POWER_DOMAIN ==
+		     NODESUBCLASS(Power->Node.Id)) &&
+		    ((u8)XPM_POWER_STATE_OFF == Power->Node.State)) {
+			continue;
+		}
+
+		/**
+		 * NOTE: Skip for child of NOC power domain, as powering down
+		 * the NOC domain may cause PLM to hang.
+		 */
+		if (PM_POWER_NOC == Power->Node.Id) {
+			continue;
+		}
+
+		/*
+		 * Exclude devices which are expected not to be requested by
+		 * any subsystem but should be kept on for basic functionalities
+		 * to work:
+		 *	- Soc, PMC are required for basic boot
+		 */
+		if (((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(Device->Node.Id)) ||
+		    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(Device->Node.Id))) {
+			continue;
+		}
+
+		/* Iterate over all subsystems for particular device */
+		Reqm = Device->Requirements;
+		while (NULL != Reqm) {
+			if ((u8)OFFLINE == Reqm->Subsystem->State) {
+				Reqm = Reqm->NextSubsystem;
+				continue;
+			}
+
+			if ((1U == Reqm->Allocated) ||
+			    (((u8)ONLINE == Reqm->Subsystem->State) &&
+			     !IS_SUBSYS_INIT_FINALIZED(Reqm->Subsystem->Flags))) {
+				DeviceInUse = 1;
+				break;
+			}
+
+			Reqm = Reqm->NextSubsystem;
+		}
+
+		/* Power down the device if device is unused */
+		if (0U == DeviceInUse) {
+			/*
+			 * Here device needs to be requested and released to handle
+			 * the use count of its clock and power. This makes unused
+			 * clock and power to be powered down.
+			 */
+			Status = XPmDevice_Request(PM_SUBSYS_PMC, Device->Node.Id,
+						   (u32)PM_CAP_ACCESS, XPM_MAX_QOS,
+						   XPLMI_CMD_SECURE);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			Status = XPmDevice_Release(PM_SUBSYS_PMC, Device->Node.Id,
+						   XPLMI_CMD_SECURE);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		} else {
+			Status = XST_SUCCESS;
+		}
+	}
+
+done:
+	return Status;
+}

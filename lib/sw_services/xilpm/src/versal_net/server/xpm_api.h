@@ -120,6 +120,8 @@ XStatus XPm_GetOpCharacteristic(const u32 DeviceId, const u32 Type,
 XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 Enable,
 			 const u32 IpiMask);
+
+XStatus XPm_InitFinalize(const u32 SubsystemId);
 #ifdef __cplusplus
 }
 #endif

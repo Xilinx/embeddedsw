@@ -347,6 +347,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					      Pload[1], Pload[2],
 					      Pload[3], Cmd->IpiMask);
 		break;
+	case PM_API(PM_INIT_FINALIZE):
+		Status = XPm_InitFinalize(SubsystemId);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -2994,4 +2997,21 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 
 done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function initializes subsystem and releases unused devices
+ *
+ * @param SubsystemId  ID of the subsystem
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_InitFinalize(const u32 SubsystemId)
+{
+	return XPmSubsystem_InitFinalize(SubsystemId);
 }
