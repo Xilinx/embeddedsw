@@ -113,6 +113,129 @@ static void XPm_PllClearLockError(const XPm_PllClockNode* Pll)
 	}
 }
 
+static void XPm_PllSaveContext(XPm_PllClockNode* Pll)
+{
+	/* Save register setting */
+	Pll->Context.Ctrl = XPm_Read32(Pll->ClkNode.Node.BaseAddress);
+	Pll->Context.Cfg = XPm_Read32(Pll->ConfigReg);
+	Pll->Context.Frac = XPm_Read32(Pll->FracConfigReg);
+	Pll->Context.Flag |= PM_PLL_CONTEXT_SAVED;
+}
+
+static void XPm_PllRestoreContext(XPm_PllClockNode* Pll)
+{
+	XPm_Write32(Pll->ClkNode.Node.BaseAddress, Pll->Context.Ctrl);
+	XPm_Write32(Pll->ConfigReg, Pll->Context.Cfg);
+	XPm_Write32(Pll->FracConfigReg, Pll->Context.Frac);
+	Pll->Context.Flag &= (u8)(~PM_PLL_CONTEXT_SAVED);
+}
+
+XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll)
+{
+	XStatus Status = XST_FAILURE;
+
+	XPm_PllSaveContext(Pll);
+
+	/* If PLL is not already in reset, bypass it and put in reset/pwrdn */
+	if (PM_PLL_STATE_RESET != Pll->ClkNode.Node.State) {
+		Status = XPmClockPll_Reset(Pll, PLL_RESET_ASSERT);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Pll->ClkNode.Node.State = PM_PLL_STATE_SUSPENDED;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll)
+{
+	XStatus Status = XST_FAILURE;
+
+	if (0U != (Pll->Context.Flag & PM_PLL_CONTEXT_SAVED)) {
+		XPm_PllRestoreContext(Pll);
+	}
+
+	/* By saved configuration PLL is in reset, leave it as is */
+	if (0U != (Pll->Context.Ctrl & BIT32(Pll->Topology->ResetShift))) {
+		Pll->ClkNode.Node.State = PM_PLL_STATE_RESET;
+		Status = XST_SUCCESS;
+	} else {
+		Status = XPmClockPll_Reset(Pll, PLL_RESET_RELEASE);
+	}
+
+	return Status;
+}
+
+XStatus XPmClockPll_Request(u32 PllId)
+{
+	XStatus Status = XST_FAILURE;
+
+	XPm_PllClockNode *Pll = (XPm_PllClockNode *)XPmClock_GetById(PllId);
+	if (Pll == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
+	if ((0U == Pll->ClkNode.UseCount) && (NULL != PowerDomain)) {
+		Status = PowerDomain->HandleEvent(&PowerDomain->Node,
+						  XPM_POWER_EVENT_PWR_UP);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Pll->ClkNode.UseCount++;
+
+	/* If the PLL is suspended it needs to be resumed first */
+	if (Pll->ClkNode.Node.State == PM_PLL_STATE_SUSPENDED) {
+		Status = XPmClockPll_Resume(Pll);
+	}
+	else if (Pll->ClkNode.Node.State == PM_PLL_STATE_RESET) {
+		Status = XPmClockPll_Reset(Pll, PLL_RESET_RELEASE);
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
+}
+
+XStatus XPmClockPll_Release(u32 PllId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_PllClockNode *Pll = (XPm_PllClockNode *)XPmClock_GetById(PllId);
+	if (Pll == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	Pll->ClkNode.UseCount--;
+
+	/**
+	 * Do not suspend the PLL if its use count goes to 0 because it may
+	 * possible that IOU_SWITCH of other domain is using this PLL.
+	 * Just decrement its parent use count and PLL will be suspended
+	 * when its power domain goes off.
+	 */
+	XPm_Power *PowerDomain = Pll->ClkNode.PwrDomain;
+	if ((0U == Pll->ClkNode.UseCount) && (NULL != PowerDomain)) {
+		Status = PowerDomain->HandleEvent(&PowerDomain->Node,
+						  XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags)
 {
 	XStatus Status = XST_FAILURE;

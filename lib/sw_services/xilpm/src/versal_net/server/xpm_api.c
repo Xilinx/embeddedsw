@@ -56,6 +56,85 @@ static XPlmi_Module XPlmi_Pm =
 
 void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 
+/****************************************************************************/
+/**
+ * @brief  This function sets the rate of the clock.
+ *
+ * @param IpiMask	IpiMask of subsystem
+ * @param ClockId	Clock node ID
+ * @param ClkRate	Clock rate
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_SetClockRate(const u32 IpiMask, const u32 ClockId, const u32 ClkRate)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+	/* Set rate is allow only for the request come from CDO,
+	 * So by use of IpiMask check that request come from CDO or not,
+	 * If request comes from CDO then IpiMask will 0x00U.
+	 */
+	if (0U != IpiMask) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Set rate is allowed only for ref clocks */
+	if (!ISREFCLK(ClockId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmClock_SetRate(Clk, ClkRate);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function gets the rate of the clock.
+ *
+ * @param ClockId	Clock node ID
+ * @param ClkRate	Pointer to store clock rate.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_GetClockRate(const u32 ClockId, u32 *ClkRate)
+{
+	XStatus Status = XST_SUCCESS;
+	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+
+	if (NULL == Clk) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Get rate is allowed only for ref clocks */
+	if (!ISREFCLK(ClockId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmClock_GetRate(Clk, ClkRate);
+
+done:
+	return Status;
+}
+
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	//changed to support minimum boot time xilpm
@@ -114,6 +193,33 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_ADD_SUBSYSTEM):
 		Status = XPm_AddSubsystem(Pload[0]);
+		break;
+	case PM_API(PM_CLOCK_SETRATE):
+		Status = XPm_SetClockRate(Cmd->IpiMask, Pload[0], Pload[1]);
+		break;
+	case PM_API(PM_CLOCK_GETRATE):
+		Status = XPm_GetClockRate(Pload[0], ApiResponse);
+		break;
+	case PM_API(PM_CLOCK_SETPARENT):
+		Status = XPm_SetClockParent(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_API(PM_CLOCK_GETPARENT):
+		Status = XPm_GetClockParent(Pload[0], ApiResponse);
+		break;
+	case PM_API(PM_CLOCK_ENABLE):
+		Status = XPm_SetClockState(SubsystemId, Pload[0], 1);
+		break;
+	case PM_API(PM_CLOCK_DISABLE):
+		Status = XPm_SetClockState(SubsystemId, Pload[0], 0);
+		break;
+	case PM_API(PM_CLOCK_GETSTATE):
+		Status = XPm_GetClockState(Pload[0], ApiResponse);
+		break;
+	case PM_API(PM_CLOCK_SETDIVIDER):
+		Status = XPm_SetClockDivider(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_API(PM_CLOCK_GETDIVIDER):
+		Status = XPm_GetClockDivider(Pload[0], ApiResponse);
 		break;
 	case PM_API(PM_PLL_SET_PARAMETER):
 		Status = XPm_SetPllParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
@@ -1803,5 +1909,292 @@ XStatus XPm_GetPllMode(const u32 ClockId, u32 *const Value)
 	Status = XPmClockPll_GetMode(Clock, Value);
 
 done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function sets the parent of the clock.
+ *
+ * @param SubsystemId	Subsystem ID.
+ * @param ClockId	Clock node ID
+ * @param ParentIdx	Parent clock index
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   To change the clock parent, the clock must be disabled.  Otherwise,
+ * this request will be denied.
+ *
+ ****************************************************************************/
+XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+
+	/* Check if subsystem is allowed to access requested clock or not */
+	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
+	if (Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Set parent is allowed only on output clocks */
+	if (!ISOUTCLK(ClockId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmClock_SetParent((XPm_OutClockNode *)Clk, ParentIdx);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function reads the clock parent.
+ *
+ * @param ClockId	ID of the clock node
+ * @param ParentIdx	Address to store the parent clock index
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_ClockNode *Clk = NULL;
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+	/* Get parent is allowed only on output clocks */
+	if (!ISOUTCLK(ClockId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk, (u32)TYPE_MUX, ParentIdx);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function enables or disables the clock.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param ClockId	ID of the clock node
+ * @param Enable	Enable (1) or disable (0)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   To enable a clock, the subsystem must be using the clock.  To
+ * disable a clock, the subsystem must be the only user of the clock, and the
+ * clock must not have any downstream clock(s) that are enabled.  Otherwise,
+ * this request will be denied.
+ *
+ ****************************************************************************/
+XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+	u32 CurrState = 0U;
+
+	/* HACK: Don't disable PLL clocks for now */
+	if((Enable == 0U) && (ISPLL(ClockId)))
+	{
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Check if clock's state is already desired state */
+	Status = XPm_GetClockState(ClockId, &CurrState);
+	if ((XST_SUCCESS == Status) && (CurrState == Enable)) {
+		goto done;
+	}
+
+	if (1U == Enable) {
+		if (ISPLL(ClockId)) {
+			/* HACK: Allow enabling of PLLs for now */
+			goto bypass;
+		} else if (ISOUTCLK(ClockId) &&
+			   (0U != (Clk->Flags & CLK_FLAG_READ_ONLY))) {
+			/* Allow enable operation for read-only clocks */
+			goto bypass;
+		} else {
+			/* Required due to MISRA */
+		}
+	}
+
+	/* Check if subsystem is allowed to access requested clock or not */
+	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
+
+bypass:
+	if (ISOUTCLK(ClockId)) {
+		Status = XPmClock_SetGate((XPm_OutClockNode *)Clk, Enable);
+	} else if (ISPLL(ClockId)) {
+		u32 Mode;
+		if (1U == Enable) {
+			Mode = ((XPm_PllClockNode *)Clk)->PllMode;
+		} else if (0U == Enable) {
+			Mode = (u32)PM_PLL_MODE_RESET;
+		} else {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Status = XPmClockPll_SetMode((XPm_PllClockNode *)Clk, Mode);
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function reads the clock state.
+ *
+ * @param ClockId	ID of the clock node
+ * @param State		Pointer to the clock state
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_GetClockState(const u32 ClockId, u32 *const State)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_ClockNode *Clk;
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	if (ISOUTCLK(ClockId)) {
+		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
+						(u32)TYPE_GATE, State);
+	} else if (ISPLL(ClockId)) {
+		Status = XPmClockPll_GetMode((XPm_PllClockNode *)Clk, State);
+		if (*State == (u32)PM_PLL_MODE_RESET) {
+			*State = 0;
+		} else {
+			*State = 1;
+		}
+	} else {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function sets the divider value of the clock.
+ *
+ * @param SubsystemId	Subsystem ID.
+ * @param ClockId	Clock node ID
+ * @param Divider	Divider value
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   To change the clock divider, the clock must be disabled.  Otherwise,
+ * this request will be denied.
+ *
+ ****************************************************************************/
+XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
+
+	if (0U == Divider) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check if subsystem is allowed to access requested clock or not */
+	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
+	if (Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	if (ISOUTCLK(ClockId)) {
+		Status = XPmClock_SetDivider((XPm_OutClockNode *)Clk, Divider);
+	} else if (ISPLL(ClockId)) {
+		Status = XPmClockPll_SetParam((XPm_PllClockNode *)Clk,
+					      (u32)PM_PLL_PARAM_ID_FBDIV, Divider);
+	} else {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function reads the clock divider.
+ *
+ * @param ClockId	ID of the clock node
+ * @param Divider	Address to store the divider values
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_ClockNode *Clk = NULL;
+
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+	if (ISOUTCLK(ClockId)) {
+		Status = XPmClock_GetClockData((XPm_OutClockNode *)Clk,
+						(u32)TYPE_DIV1, Divider);
+	} else if (ISPLL(ClockId)) {
+		Status = XPmClockPll_GetParam((XPm_PllClockNode *)Clk,
+					      (u32)PM_PLL_PARAM_ID_FBDIV, Divider);
+	} else {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
