@@ -435,3 +435,19 @@ XStatus XPmSubsystem_InitFinalize(const u32 SubsystemId)
 done:
 	return Status;
 }
+
+u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
+{
+	const XPm_Subsystem *Subsystem;
+	u32 IpiMaskVal = 0;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		goto done;
+	}
+
+	IpiMaskVal = Subsystem->IpiMask;
+
+done:
+	return IpiMaskVal;
+}
