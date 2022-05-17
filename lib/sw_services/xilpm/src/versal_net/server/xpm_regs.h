@@ -17,6 +17,24 @@ extern "C" {
 #endif
 
 /**
+ * PMC Global GIC Proxy Module
+ */
+#define PMC_GLOBAL_GIC_PROXY_BASE_OFFSET			(0x30000U)
+#define GIC_PROXY_GROUP_OFFSET(g)				(0x14U * (g))
+
+#define PMC_GLOBAL_GICP_IRQ_ENABLE_OFFSET			(0x300A8U)
+#define PMC_GLOBAL_GICP_IRQ_DISABLE_OFFSET			(0x300ACU)
+
+/**
+ * GIC Proxy register offsets
+ */
+#define GIC_PROXY_IRQ_STATUS_OFFSET				(0x0U)
+#define GIC_PROXY_IRQ_MASK_OFFSET				(0x4U)
+#define GIC_PROXY_IRQ_ENABLE_OFFSET				(0x8U)
+#define GIC_PROXY_IRQ_DISABLE_OFFSET				(0xCU)
+#define GIC_PROXY_ALL_MASK					(0xFFFFFFFFU)
+
+/**
  * IPI register masks
  */
 #define PMC_IPI_MASK						(0x00000002U)

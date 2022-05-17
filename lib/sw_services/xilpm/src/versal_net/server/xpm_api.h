@@ -165,6 +165,11 @@ int XPm_ForcePwrDwnCb(void *Data);
 void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		       const u32 NodeId, const u32 NodeState);
 
+XStatus XPm_SetWakeUpSource(const u32 SubsystemId,
+			    const u32 TargetNodeId,
+			    const u32 SourceNodeId,
+			    const u32 Enable);
+
 XStatus XPm_IdleRestartHandler(const u32 SubsystemId);
 #ifdef __cplusplus
 }
