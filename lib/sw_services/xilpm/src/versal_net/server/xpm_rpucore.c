@@ -11,15 +11,75 @@
 #include "xpm_subsystem.h"
 #include "xpm_psm.h"
 
+XStatus XPmRpuCore_Halt(const XPm_Device *Device)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Device;
+
+	/* RPU should be in reset state before putting it into halt state */
+	Status = XPmDevice_Reset(&RpuCore->Core.Device, PM_RESET_ACTION_ASSERT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Put RPU in  halt state */
+	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
+		~XPM_RPU_NCPUHALT_MASK);
+
+	/* Release reset for all resets attached to this core */
+	Status = XPmDevice_Reset(&RpuCore->Core.Device, PM_RESET_ACTION_RELEASE);
+
+done:
+	return Status;
+}
+
+static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
+
+	Status = XPmCore_WakeUp(Core, SetAddress, Address);
+	if (XST_SUCCESS != Status) {
+		PmErr("Status = %x\r\n", Status);
+		goto done;
+	}
+
+	/* Put RPU in running state from halt state */
+	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
+		XPM_RPU_NCPUHALT_MASK);
+
+done:
+	return Status;
+}
+
+static XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPmRpuCore_Halt((XPm_Device *)Core);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XPmCore_PwrDwn(Core);
+
+done:
+	return Status;
+}
+
+static struct XPm_CoreOps RpuOps = {
+	.RequestWakeup = XPmRpuCore_WakeUp,
+	.PowerDown = XPmRpuCore_PwrDwn,
+};
+
 XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, const u32 *BaseAddress,
 			XPm_Power *Power, XPm_ClockNode *Clock,
 			XPm_ResetNode *Reset)
 {
 	XStatus Status = XST_FAILURE;
 
-	/*TBD: add rpuops*/
 	Status = XPmCore_Init(&RpuCore->Core, Id, Power, Clock, Reset, (u8)Ipi,
-			      NULL);
+			      &RpuOps);
 	if (XST_SUCCESS != Status) {
 		PmErr("Status: 0x%x\r\n", Status);
 		goto done;
@@ -31,15 +91,19 @@ XStatus XPmRpuCore_Init(XPm_RpuCore *RpuCore, u32 Id, u32 Ipi, const u32 *BaseAd
 	if (PM_DEV_RPU_A_0 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU_A_0_PWR_CTRL_MASK;
+		RpuCore->Core.WakeUpMask = XPM_RPU_A_0_WAKEUP_MASK;
 	} else if (PM_DEV_RPU_A_1 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU_A_1_PWR_CTRL_MASK;
+		RpuCore->Core.WakeUpMask = XPM_RPU_A_1_WAKEUP_MASK;
 	} else if (PM_DEV_RPU_B_0 == Id) {
-		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
+		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_0_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU_B_0_PWR_CTRL_MASK;
+		RpuCore->Core.WakeUpMask = XPM_RPU_B_0_WAKEUP_MASK;
 	} else if (PM_DEV_RPU_B_1 == Id) {
 		RpuCore->ResumeCfg = RpuCore->RpuBaseAddr + RPU_1_CFG_OFFSET;
 		RpuCore->Core.SleepMask = XPM_RPU_B_1_PWR_CTRL_MASK;
+		RpuCore->Core.WakeUpMask = XPM_RPU_B_1_WAKEUP_MASK;
 	}
 
 done:
