@@ -56,6 +56,12 @@ struct XPm_Power {
 	u8 WfParentUseCnt; /**< Pending use count of the parent */
 	u16 PwrDnLatency; /**< Latency (in us) for transition to OFF state */
 	u16 PwrUpLatency; /**< Latency (in us) for transition to ON state */
+	u32 PwrUpEnReg; /**< PSM request power up interrupt enable register */
+	u32 PwrDwnEnReg; /**< PSM request power down interrupt enable register */
+	u32 PwrUpMask; /**< PSM request power up interrupt mask */
+	u32 PwrDwnMask; /**< PSM request power down interrupt mask */
+	u32 PwrStatReg; /**< PSM power state register */
+	u32 PwrStatMask; /**< PSM power state mask */
 	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
 		/**< HandleEvent: Pointer to event handler */
 };

@@ -92,3 +92,111 @@ XStatus XPmPowerDomain_AddParent(u32 Id, const u32 *ParentNodes, u32 NumParents)
 done:
 	return Status;
 }
+
+XStatus XPm_PowerUpLPD(const XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power up sequence for LPD */
+	(void)Node;
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+XStatus XPm_PowerDwnLPD(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power down sequence for LPD */
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+XStatus XPm_PowerUpFPD(const XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power up sequence for FPD */
+	(void)Node;
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power down sequence for FPD */
+	(void)Node;
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+XStatus XPm_PowerUpPLD(XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power up sequence for PLD */
+	(void)Node;
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+XStatus XPm_PowerDwnPLD(const XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power down sequence for PLD */
+	(void)Node;
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+XStatus XPm_PowerUpCPM5N(const XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power up sequence for CPM5N */
+	(void)Node;
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+XStatus XPm_PowerDwnCPM5N(const XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power down sequence for CPM5N */
+	(void)Node;
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+XStatus XPm_PowerUpNoC(XPm_Node *Node)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power up sequence for NOC */
+	(void)Node;
+	Status = XST_SUCCESS;
+
+        return Status;
+}
+
+XStatus XPm_PowerDwnNoC(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power down sequence for NOC */
+	Status = XST_SUCCESS;
+
+	return Status;
+}
