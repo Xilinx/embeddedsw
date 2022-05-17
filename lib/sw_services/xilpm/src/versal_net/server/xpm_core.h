@@ -59,6 +59,8 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core);
 XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);
 XStatus XPmCore_AfterDirectWakeUp(XPm_Core *Core);
 XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core);
+XStatus XPmCore_ForcePwrDwn(u32 DeviceId);
+XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId);
 
 #ifdef __cplusplus
 }

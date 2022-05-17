@@ -21,6 +21,13 @@ extern "C" {
  */
 #define PMC_IPI_MASK						(0x00000002U)
 
+/**
+ * IPI registers
+ */
+#define IPI_BASEADDR				(0xEB300000U)
+#define IPI_PMC_IER				(IPI_BASEADDR + 0x20018U)
+#define IPI_PMC_IDR				(IPI_BASEADDR + 0x2001CU)
+
 #define RPU_0_CFG_OFFSET					(0x00000000U)
 #define RPU_1_CFG_OFFSET					(0x00000000U)
 

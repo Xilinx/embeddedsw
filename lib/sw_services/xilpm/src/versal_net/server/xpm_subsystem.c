@@ -10,8 +10,11 @@
 #include "xpm_reset.h"
 #include "xpm_debug.h"
 #include "xpm_device.h"
+#include "xpm_device_idle.h"
+#include "xpm_notifier.h"
 #include "xpm_regs.h"
 #include "xpm_requirement.h"
+#include "xpm_core.h"
 
 static XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
@@ -450,4 +453,166 @@ u32 XPmSubsystem_GetIPIMask(u32 SubsystemId)
 
 done:
 	return IpiMaskVal;
+}
+
+XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+        Status = XPmRequirement_Release(Subsystem->Requirements, RELEASE_ALL);
+		/* Todo: Cancel wakeup if scheduled
+		 * Should be included with wakeup support
+		XPm_WakeUpCancelScheduled(SubSysIdx);*/
+
+        /* Unregister all notifiers for this subsystem */
+	Status = XPmNotifier_UnregisterAll(Subsystem);
+
+done:
+        return Status;
+}
+
+XStatus XPmSubsystem_Idle(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Requirement *Reqm;
+	XPm_Device *Device;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XST_FAILURE;
+                goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		Device = Reqm->Device;
+		u32 Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
+		s32 IsClkActive = XPmDevice_IsClockActive(Device);
+
+		/* Check if device is requested and its clock is active */
+		if ((1U == Reqm->Allocated) &&
+		    (0U == (Device->Node.Flags & NODE_IDLE_DONE)) &&
+		    (XST_SUCCESS == IsClkActive) &&
+		    ((u32)PM_USAGE_CURRENT_SUBSYSTEM == Usage)) {
+			Status = XPmDevice_SoftResetIdle(Device, DEVICE_IDLE_REQ);
+			if (XST_SUCCESS != Status) {
+				PmErr("Node idling failed for 0x%x\r\n", Device->Node.Id);
+			}
+			Device->Node.Flags |= NODE_IDLE_DONE;
+		}
+
+		Reqm = Reqm->NextDevice;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+        return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Handler for idle subsystem and force down cleanup
+ *
+ * @param Subsystem	Target Subsystem
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	const XPm_Requirement *Reqm = NULL;
+	u32 DeviceId = 0U;
+	u32 Ack = 0U;
+	u32 IpiMask = 0U;
+	u32 NodeState = 0U;
+
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	if ((u32)POWERED_OFF == Subsystem->State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		DeviceId = Reqm->Device->Node.Id;
+		/**
+		 * PSM is required to be up when any application processor is
+		 * running. In case of default subsystem, PSM is part of
+		 * pre-alloc. So PSM might be powered down during force power
+		 * down of subsystem. Currently there is no user option to
+		 * force power down default subsystem because every processor
+		 * is part of default subsystem and we don't allow force power
+		 * down of own subsystem. However, if we want to use
+		 * XPmSubsystem_ForcePwrDwn() from other cases (e.g. subsystem
+		 * restart) then PSM power down will happen. So skip PSM power
+		 * down from XPmSubsystem_ForcePwrDwn().
+		 */
+		if ((1U == Reqm->Allocated) &&
+		    ((u32)XPM_NODESUBCL_DEV_CORE ==
+		    NODESUBCLASS(DeviceId)) &&
+		    (DeviceId != PM_DEV_PSM_PROC)) {
+			Status = XPmCore_ForcePwrDwn(DeviceId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+	/* Idle the subsystem */
+	Status = XPmSubsystem_Idle(Subsystem->Id);
+	if(XST_SUCCESS != Status) {
+		Status = XPM_ERR_SUBSYS_IDLE;
+		goto done;
+	}
+
+	Subsystem->Flags &= (u8)(~SUBSYSTEM_IS_CONFIGURED);
+
+	Status = XPmSubsystem_ForceDownCleanup(Subsystem->Id);
+	if(XST_SUCCESS != Status) {
+		Status = XPM_ERR_CLEANUP;
+		goto done;
+	}
+
+	/* Clear the pending suspend cb reason */
+	Subsystem->PendCb.Reason = 0U;
+
+	Status = XPmSubsystem_SetState(Subsystem->Id, (u32)POWERED_OFF);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Ack = Subsystem->FrcPwrDwnReq.AckType;
+	IpiMask = Subsystem->FrcPwrDwnReq.InitiatorIpiMask;
+	NodeState = Subsystem->State;
+	Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
+					   XPm_ForcePwrDwnCb, 0U,
+					   (void *)SubsystemId);
+	if (XST_SUCCESS != Status) {
+		PmDbg("Task not present\r\n");
+		Status = XST_SUCCESS;
+	}
+
+done:
+	XPm_ProcessAckReq(Ack, IpiMask, Status, SubsystemId, NodeState);
+
+	return Status;
 }

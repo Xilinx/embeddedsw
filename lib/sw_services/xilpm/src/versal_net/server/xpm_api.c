@@ -6,7 +6,9 @@
 #include "xplmi.h"
 #include "xplmi_error_node.h"
 #include "xplmi_hw.h"
+#include "xplmi_ipi.h"
 #include "xplmi_modules.h"
+#include "xplmi_scheduler.h"
 #include "xplmi_sysmon.h"
 #include "xplmi_util.h"
 #include "xpm_api.h"
@@ -229,6 +231,10 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		Status = XPm_SelfSuspend(SubsystemId, Pload[0],
 					 Pload[1], (u8)Pload[2],
 					 Pload[3], Pload[4]);
+		break;
+	case PM_API(PM_FORCE_POWERDOWN):
+		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1],
+					    Cmd->IpiReqType, Cmd->IpiMask);
 		break;
 	case PM_API(PM_REQUEST_SUSPEND):
 		Status = XPm_RequestSuspend(SubsystemId, Pload[0], Pload[1],
@@ -693,6 +699,276 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 	XPmNotifier_NotifyTarget(IpiMask, Payload);
 
 done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+static void XPm_CoreIdle(XPm_Core *Core)
+{
+	ENABLE_WFI(Core->SleepMask);
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_PENDING_PWR_DWN;
+	XPmNotifier_Event(Core->Device.Node.Id,
+			  (u8)EVENT_CPU_IDLE_FORCE_PWRDWN);
+}
+
+static XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Requirement *Reqm;
+	u32 DeviceId;
+
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		DeviceId = Reqm->Device->Node.Id;
+		/**
+		 * PSM is required to be up when any application processor is
+		 * running. In case of default subsystem, PSM is part of
+		 * pre-alloc. So PSM might be powered down during force power
+		 * down of subsystem. Currently there is no user option to
+		 * force power down default subsystem because every processor
+		 * is part of default subsystem and we don't allow force power
+		 * down of own subsystem. However, if we want to use
+		 * XPmSubsystem_ForcePwrDwn() from other cases (e.g. subsystem
+		 * restart) then PSM power down will happen. So skip PSM power
+		 * down from XPmSubsystem_ForcePwrDwn().
+		 */
+		if ((1U == Reqm->Allocated) &&
+		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(DeviceId)) &&
+		    (PM_DEV_PSM_PROC != DeviceId)) {
+			XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+			if (NULL == Core) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			if ((1U == Core->isCoreUp) &&
+			    (1U == Core->IsCoreIdleSupported)) {
+				XPm_CoreIdle(Core);
+				Status = XST_SUCCESS;
+			} else {
+				Status = XPmCore_ForcePwrDwn(DeviceId);
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Handler for force power down timer
+ *
+ * @param Data	Node ID of subsystem/core for which power down event came
+ *
+ * @return XST_SUCCESS in case of success and error code in case of failure
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+int XPm_ForcePwrDwnCb(void *Data)
+{
+	int Status = XST_FAILURE;
+	const XPm_Subsystem *Subsystem;
+	u32 NodeId = (u32)Data;
+	const XPm_Core *Core;
+
+	if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
+		Subsystem = XPmSubsystem_GetById(NodeId);
+		if (NULL == Subsystem) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		if ((u8)PENDING_POWER_OFF != Subsystem->State) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+
+		Status = XPmSubsystem_ForcePwrDwn(NodeId);
+	} else {
+		Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+		if (NULL == Core) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		if ((u8)XPM_DEVSTATE_PENDING_PWR_DWN !=
+		    Core->Device.Node.State) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		Status = XPmCore_ProcessPendingForcePwrDwn(NodeId);
+	}
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Function for processing ack request
+ *
+ * @param Ack		Acknowledgement type
+ * @param IpiMask	IPI mask of initiator of request
+ * @param Status	Return status
+ * @param NodeId	Node ID of target subsystem/core
+ * @param NodeState	State of target node
+ *
+ * @return None
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
+		       const u32 NodeId, const u32 NodeState)
+{
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+	if (0U == IpiMask) {
+		goto done;
+	}
+
+	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
+		/* Return status immediately */
+		IPI_RESPONSE1(IpiMask, (u32)Status);
+		/* Clear interrupt status */
+		PmOut32(IPI_PMC_ISR, IpiMask);
+		/* Enable IPI interrupt */
+		PmOut32(IPI_PMC_IER, IpiMask);
+	} else if ((u32)REQUEST_ACK_NON_BLOCKING == Ack) {
+		/* Return acknowledge through callback */
+		IPI_MESSAGE4(IpiMask, (u32)PM_ACKNOWLEDGE_CB, NodeId, (u32)Status,
+			      NodeState);
+		if (XST_SUCCESS != XPlmi_IpiTrigger(IpiMask)) {
+			PmWarn("Error in IPI trigger\r\n");
+		}
+	} else {
+		/* No returning of the acknowledge */
+	}
+done:
+	return;
+#else
+	(void)Ack;
+	(void)IpiMask;
+	(void)Status;
+	(void)NodeId;
+	(void)NodeState;
+#endif
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to Powerdown other
+ * 	   processor or domain node or subsystem forcefully.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param Node 		Processor or domain node or subsystem to be powered down
+ * @param Ack		Ack request
+ * @param CmdType	IPI command request type
+ * @param IpiMask	IPI mask of initiator
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   The affected PUs are not notified about the upcoming powerdown,
+ *         and PLM does not wait for their WFI interrupt.
+ *
+ ****************************************************************************/
+XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
+			   const u32 CmdType, const u32 IpiMask)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
+	u32 NodeState = 0U;
+	const XPm_Power *Power;
+
+	if ((u32)REQUEST_ACK_BLOCKING == Ack) {
+		/* Disable IPI interrupt */
+		PmOut32(IPI_PMC_IDR, IpiMask);
+	}
+
+	/* TODO: Validate access first */
+	(void)SubsystemId;
+	(void)CmdType;
+
+	if ((NODECLASS(NodeId) == (u32)XPM_NODECLASS_DEVICE) &&
+	    (NODESUBCLASS(NodeId) == (u32)XPM_NODESUBCL_DEV_CORE)) {
+		XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(NodeId);
+		if (NULL == Core) {
+			Status = XST_INVALID_PARAM;
+			goto process_ack;
+		}
+		if ((1U == Core->isCoreUp) && (1U == Core->IsCoreIdleSupported)) {
+			Core->FrcPwrDwnReq.AckType = Ack;
+			Core->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
+			XPm_CoreIdle(Core);
+			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
+							XPm_ForcePwrDwnCb,
+							XPM_PWR_DWN_TIMEOUT,
+							XPLM_TASK_PRIORITY_1,
+							(void *)NodeId,
+							XPLMI_NON_PERIODIC_TASK);
+			goto done;
+		} else {
+			Status = XPmCore_ForcePwrDwn(NodeId);
+			NodeState = Core->Device.Node.State;
+		}
+	} else if ((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) {
+		Power = XPmPower_GetById(NodeId);
+		if (NULL == Power) {
+			goto process_ack;
+		}
+		Status = XPmPower_ForcePwrDwn(NodeId);
+		NodeState = Power->Node.State;
+	} else if ((u32)XPM_NODECLASS_SUBSYSTEM == NODECLASS(NodeId)) {
+		Subsystem = XPmSubsystem_GetById(NodeId);
+		if (NULL == Subsystem) {
+			Status = XST_INVALID_PARAM;
+			goto process_ack;
+		}
+
+		if (0U != (Subsystem->Flags & (u8)SUBSYSTEM_IDLE_SUPPORTED)) {
+			Status = XPmSubsystem_SetState(Subsystem->Id,
+						       (u8)PENDING_POWER_OFF);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			Subsystem->FrcPwrDwnReq.AckType = Ack;
+			Subsystem->FrcPwrDwnReq.InitiatorIpiMask = IpiMask;
+			Status = XPm_SubsystemIdleCores(Subsystem);
+			if (XST_SUCCESS != Status) {
+				NodeState = Subsystem->State;
+				goto process_ack;
+			}
+			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
+							XPm_ForcePwrDwnCb,
+							XPM_PWR_DWN_TIMEOUT,
+							XPLM_TASK_PRIORITY_1,
+							(void *)NodeId,
+							XPLMI_NON_PERIODIC_TASK);
+			goto done;
+		} else {
+			Status = XPmSubsystem_ForcePwrDwn(NodeId);
+			goto done;
+		}
+	} else {
+		Status = XPM_PM_INVALID_NODE;
+	}
+
+process_ack:
+	XPm_ProcessAckReq(Ack, IpiMask, Status, NodeId, NodeState);
+
+done:
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+	if ((u32)REQUEST_ACK_BLOCKING != Ack) {
+		/* Write response */
+		IPI_RESPONSE1(IpiMask, (u32)Status);
+		/* Clear interrupt status */
+		PmOut32(IPI_PMC_ISR, IpiMask);
+	}
+#endif
+
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}

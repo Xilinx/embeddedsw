@@ -12,6 +12,7 @@
 #include "xpm_debug.h"
 #include "xpm_notifier.h"
 #include "xpm_requirement.h"
+#include "xpm_reset.h"
 #include "xpm_subsystem.h"
 
 XStatus XPmCore_Init(XPm_Core *Core, u32 Id, XPm_Power *Power,
@@ -360,5 +361,128 @@ XStatus XPmCore_StoreResumeAddr(const XPm_Core *Core, u64 Address)
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+XStatus XPmCore_ForcePwrDwn(u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Power *AcpuPwrNode;
+	const XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	u32 NodeId;
+
+	if (NULL == Core) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((NULL != Core->CoreOps) && (NULL != Core->CoreOps->PowerDown)) {
+		Status = Core->CoreOps->PowerDown(Core);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		/**
+		 * Disable the direct wake in case of force
+		 * power down.
+		 */
+		if ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Core->Device.Node.Id)) {
+			DISABLE_WAKE0(Core->WakeUpMask);
+		} else if ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) {
+			DISABLE_WAKE1(Core->WakeUpMask);
+		} else {
+			/* Required for MISRA */
+		}
+	} else {
+		Status = XST_FAILURE;
+		goto done;
+	}
+	/*
+	 * Do APU GIC pulse reset if All the cores are in Power OFF
+	 * state and FPD in Power ON state.
+	 */
+	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) &&
+	    (NULL != FpdPwrNode) && ((u8)XPM_POWER_STATE_OFF != FpdPwrNode->Node.State)) {
+		for (NodeId = PM_POWER_ACPU_0_0; NodeId <= PM_POWER_ACPU_3_3; NodeId++) {
+			AcpuPwrNode = XPmPower_GetById(NodeId);
+			if ((NULL != AcpuPwrNode) && ((u8)XPM_POWER_STATE_OFF !=
+			    AcpuPwrNode->Node.State)) {
+				break;
+			}
+		}
+		if (PM_POWER_ACPU_3_3 < NodeId) {
+			Status = XPmReset_AssertbyId(PM_RST_GIC, (u32)PM_RESET_ACTION_PULSE);
+		}
+	}
+done:
+	return Status;
+}
+
+XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsystemId;
+	const XPm_Requirement *Reqm;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+	u32 Ack = 0U;
+	u32 IpiMask = 0U;
+	u32 NodeState = 0U;
+
+	if (NULL == Core) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmCore_ForcePwrDwn(DeviceId);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		if ((1U == Reqm->Allocated) &&
+		    ((u32)XPM_NODESUBCL_DEV_CORE ==
+		     NODESUBCLASS(Reqm->Device->Node.Id)) &&
+		    ((u8)XPM_DEVSTATE_PENDING_PWR_DWN == Reqm->Device->Node.State)) {
+			break;
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+	if ((u8)PENDING_POWER_OFF == Subsystem->State) {
+		if (NULL == Reqm) {
+			Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
+		}
+	} else if ((u8)PENDING_RESTART == Subsystem->State) {
+		if (NULL == Reqm) {
+			Status = XPm_SystemShutdown(SubsystemId,
+					PM_SHUTDOWN_TYPE_RESET,
+					PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM,
+					XPLMI_CMD_SECURE);
+		}
+	} else {
+		Ack = Core->FrcPwrDwnReq.AckType;
+		IpiMask = Core->FrcPwrDwnReq.InitiatorIpiMask;
+		NodeState = Core->Device.Node.State;
+		Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILPM_ID,
+						   XPm_ForcePwrDwnCb, 0U,
+						   (void *)DeviceId);
+		if (XST_SUCCESS != Status) {
+			PmDbg("Task not present\r\n");
+			Status = XST_SUCCESS;
+		}
+	}
+
+done:
+	XPm_ProcessAckReq(Ack, IpiMask, Status, DeviceId, NodeState);
+
 	return Status;
 }

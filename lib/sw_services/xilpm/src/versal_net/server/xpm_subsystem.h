@@ -117,6 +117,9 @@ u32 XPmSubsystem_GetMaxSubsysIdx(void);
 XStatus XPmSubsystem_GetStatus(const u32 SubsystemId, const u32 DeviceId,
 			       XPm_DeviceStatus *const DeviceStatus);
 XStatus XPmSubsystem_InitFinalize(const u32 SubsystemId);
+XStatus XPmSubsystem_Idle(u32 SubsystemId);
+XStatus XPmSubsystem_ForceDownCleanup(u32 SubsystemId);
+XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId);
 
 #ifdef __cplusplus
 }

@@ -270,3 +270,17 @@ XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
 done:
 	return Status;
 }
+
+XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_ResetNode *Rst = XPmReset_GetById(ResetId);
+
+	if (NULL != Rst) {
+		Status = Rst->Ops->SetState(Rst, Action);
+	} else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}

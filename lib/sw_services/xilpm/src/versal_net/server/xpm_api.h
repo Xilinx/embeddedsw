@@ -24,7 +24,31 @@ struct XPm_FrcPwrDwnReq {
 /* Persistent global general storage register base address */
 #define PGGS_BASEADDR	(0xF1110050U)
 
+/* Force power down timeout in us */
+#define XPM_PWR_DWN_TIMEOUT	(60000U)
+
 #define MAX_BASEADDR_LEN	3
+
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+/* Macros for IPI responses (return values and callbacks) */
+#define IPI_RESPONSE1(Mask, Arg0)						\
+{										\
+	u32 Response[XPLMI_CMD_RESP_SIZE] = {Arg0};				\
+	if (XST_SUCCESS != XPlmi_IpiWrite(Mask, Response, XPLMI_CMD_RESP_SIZE,	\
+					  XIPIPSU_BUF_TYPE_RESP)) {		\
+		PmWarn("Error in IPI write response\r\n");			\
+	}									\
+}
+
+#define IPI_MESSAGE4(Mask, Arg0, Arg1, Arg2, Arg3)				\
+{										\
+	u32 Response[XPLMI_CMD_RESP_SIZE] = {Arg0, Arg1, Arg2, Arg3};		\
+	if (XST_SUCCESS != XPlmi_IpiWrite(Mask, Response, XPLMI_CMD_RESP_SIZE,	\
+					  XIPIPSU_BUF_TYPE_MSG)) {		\
+		PmWarn("Error in IPI write response\r\n");			\
+	}									\
+}
+#endif
 
 /* Extern Variable and Function */
 extern u32 ResetReason;
@@ -129,6 +153,16 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 IpiMask);
 
 XStatus XPm_InitFinalize(const u32 SubsystemId);
+
+XStatus XPm_ForcePowerdown(u32 SubsystemId,
+                             const u32 NodeId,
+                             const u32 Ack,
+			     const u32 CmdType, const u32 IpiMask);
+
+int XPm_ForcePwrDwnCb(void *Data);
+
+void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
+		       const u32 NodeId, const u32 NodeState);
 #ifdef __cplusplus
 }
 #endif
