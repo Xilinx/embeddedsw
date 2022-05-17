@@ -20,6 +20,7 @@
 #include "xpm_regs.h"
 #include "xpm_subsystem.h"
 #include "xsysmonpsv.h"
+#include "xpm_ioctl.h"
 #include "xpm_ipi.h"
 #include "xpm_psm_api.h"
 #include "xpm_powerdomain.h"
@@ -42,6 +43,28 @@
 
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
+
+#define PM_IOCTL_FEATURE_BITMASK ( \
+	(1ULL << (u64)IOCTL_GET_APU_OPER_MODE) | \
+	(1ULL << (u64)IOCTL_SET_APU_OPER_MODE) | \
+	(1ULL << (u64)IOCTL_GET_RPU_OPER_MODE) | \
+	(1ULL << (u64)IOCTL_SET_RPU_OPER_MODE) | \
+	(1ULL << (u64)IOCTL_RPU_BOOT_ADDR_CONFIG) | \
+	(1ULL << (u64)IOCTL_SET_TAPDELAY_BYPASS) | \
+	(1ULL << (u64)IOCTL_SD_DLL_RESET) | \
+	(1ULL << (u64)IOCTL_SET_SD_TAPDELAY) | \
+	(1ULL << (u64)IOCTL_SET_PLL_FRAC_MODE) | \
+	(1ULL << (u64)IOCTL_GET_PLL_FRAC_MODE) | \
+	(1ULL << (u64)IOCTL_SET_PLL_FRAC_DATA) | \
+	(1ULL << (u64)IOCTL_GET_PLL_FRAC_DATA) | \
+	(1ULL << (u64)IOCTL_WRITE_GGS) | \
+	(1ULL << (u64)IOCTL_READ_GGS) | \
+	(1ULL << (u64)IOCTL_WRITE_PGGS) | \
+	(1ULL << (u64)IOCTL_READ_PGGS) | \
+	(1ULL << (u64)IOCTL_SET_BOOT_HEALTH_STATUS) | \
+	(1ULL << (u64)IOCTL_OSPI_MUX_SELECT) | \
+	(1ULL << (u64)IOCTL_USB_SET_STATE) | \
+	(1ULL << (u64)IOCTL_GET_LAST_RESET_REASON))
 
 #define PM_QUERY_FEATURE_BITMASK ( \
 	(1ULL << (u64)XPM_QID_CLOCK_GET_NAME) | \
@@ -269,6 +292,10 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_QUERY_DATA):
 		Status = XPm_Query(Pload[0], Pload[1], Pload[2],
 				   Pload[3], ApiResponse);
+		break;
+	case PM_API(PM_IOCTL):
+		Status = XPm_DevIoctl(SubsystemId, Pload[0], (pm_ioctl_id) Pload[1], Pload[2],
+				      Pload[3], Pload[4], ApiResponse, Cmd->IpiReqType);
 		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
@@ -826,9 +853,9 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
  * @param IoctlId		IOCTL function ID
  * @param Arg1			Argument 1
  * @param Arg2			Argument 2
+ * @param Arg3			Argument 3
  * @param Response		Ioctl response
  * @param CmdType		IPI command request type
- * @param Cluster		Cluster Id of A78/R52
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
@@ -839,40 +866,19 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
  * requested this pin.
  *
  ****************************************************************************/
-XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
-			const pm_ioctl_id  IoctlId,
-			const u32 Arg1,
-			const u32 Arg2, u32 *const Response,
-			const u32 CmdType)
+XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id  IoctlId,
+		     const u32 Arg1, const u32 Arg2, const u32 Arg3, u32 *const Response,
+		     const u32 CmdType)
 {
-	//changed to support minimum boot time xilpm
+	XStatus Status;
 
-	(void)SubsystemId;
-	(void)DeviceId;
-	(void)IoctlId;
-	(void)Arg1;
-	(void)Arg2;
-	(void)Response;
-	(void)CmdType;
-	u32 LockStep;
-	u32 Cluster = Arg2;
-	PmDbg("IoctlId %x\n",IoctlId);
-	if(XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)){
-		LockStep = XPM_RPU_CLUSTER_LOCKSTEP_DISABLE;
-		if (XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED != Arg1){
-			LockStep = XPM_RPU_CLUSTER_LOCKSTEP_ENABLE;
-		}
-		PmOut32((RPU_CLUSTER_BASEADDR+(Cluster*RPU_CLUSTER_OFFSET)+XPM_RPU_CLUSTER_CFG_OFFSET),LockStep);
-	}else if(XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)){
-		LockStep = XPM_APU_CLUSTER_LOCKSTEP_DISABLE;
-		if (XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED != Arg1){
-			LockStep = XPM_APU_CLUSTER_LOCKSTEP_ENABLE;
-		}
-		XPm_RMW32(FPX_SLCR_APU_CTRL, (u32)(1U << Cluster),
-			(u32)(LockStep << Cluster));
+	Status = XPm_Ioctl(SubsystemId, DeviceId, IoctlId, Arg1, Arg2, Arg3,
+			   Response, CmdType);
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
 	}
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /****************************************************************************/
@@ -2442,6 +2448,8 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		break;
 	case PM_API(PM_IOCTL):
 		Version[0] = XST_API_PM_IOCTL_VERSION;
+		Version[1] = (u32)(PM_IOCTL_FEATURE_BITMASK);
+		Version[2] = (u32)(PM_IOCTL_FEATURE_BITMASK >> 32);
 		Status = XST_SUCCESS;
 		break;
 	default:

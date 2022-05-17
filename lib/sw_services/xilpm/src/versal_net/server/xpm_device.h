@@ -195,6 +195,7 @@ XStatus XPmDevice_ChangeState(XPm_Device *Device, const u32 NextState);
 XStatus XPm_CheckCapabilities(const XPm_Device *Device, u32 Caps);
 XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 			    const u32 Latency);
+XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
 
 #ifdef __cplusplus
 }

@@ -8,6 +8,10 @@
 #include "xpm_apucore.h"
 #include "xpm_regs.h"
 #include "xpm_debug.h"
+#include "xpm_power.h"
+#include "xpm_psfpdomain.h"
+
+#define XPM_APU_MODE_MASK(ClusterId)		BIT(ClusterId)
 
 XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	u32 Id,
@@ -65,5 +69,54 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+XStatus XPm_ApuGetOperMode(const u32 DeviceId, u32 *Mode)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Val;
+	XPm_PsFpDomain *Fpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
+	u32 ClusterId = GET_APU_CLUSTER_ID(DeviceId);
+
+	if (NULL == Fpd) {
+		*Mode = XPM_INVAL_OPER_MODE;
+		goto done;
+	}
+
+	PmIn32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL, Val);
+	Val &= XPM_APU_MODE_MASK(ClusterId);
+	if (0U == Val) {
+		*Mode = XPM_APU_MODE_SPLIT;
+	} else {
+		*Mode = XPM_APU_MODE_LOCKSTEP;
+	}
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
+}
+
+XStatus XPm_ApuSetOperMode(const u32 DeviceId, const u32 Mode)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Val;
+	XPm_PsFpDomain *Fpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
+	u32 ClusterId = GET_APU_CLUSTER_ID(DeviceId);
+
+	if (NULL == Fpd) {
+		goto done;
+	}
+
+	PmIn32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL, Val);
+	if (Mode == XPM_APU_MODE_SPLIT) {
+		Val &= ~(Mode << ClusterId);
+	} else if (Mode == XPM_APU_MODE_LOCKSTEP) {
+		Val |= (Mode << ClusterId);
+	}
+	PmOut32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL, Val);
+
+	Status = XST_SUCCESS;
+done:
 	return Status;
 }

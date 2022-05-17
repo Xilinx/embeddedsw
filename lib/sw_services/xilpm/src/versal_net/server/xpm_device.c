@@ -1596,3 +1596,35 @@ XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Check if any subsystem requested perticular device or not.
+ *
+ * @param  DeviceId	Device ID
+ * @param  SubsystemId	Subsystem ID
+ *
+ * @return XST_SUCCESS if device is requested from subsystem
+ *         XST_FAILURE if device is not requested or error code
+ *
+ ****************************************************************************/
+XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
+	const XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	const XPm_Requirement *Reqm;
+
+	if ((NULL == Device) || (NULL == Subsystem)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Reqm = FindReqm(Device, Subsystem);
+	if ((NULL != Reqm) && (1U == Reqm->Allocated)) {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
+}

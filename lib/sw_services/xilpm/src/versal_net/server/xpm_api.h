@@ -59,9 +59,11 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
 
 
 XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
-                        const pm_ioctl_id IoctlId,
-                        const u32 Arg1,
-                        const u32 Arg2,u32 *const Response, const u32 CmdType);
+			const pm_ioctl_id IoctlId,
+			const u32 Arg1,
+			const u32 Arg2,
+			const u32 Arg3,
+			u32 *const Response, const u32 CmdType);
 
 XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs);
 XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx);
