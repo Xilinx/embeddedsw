@@ -11,24 +11,61 @@
 #include "xpm_debug.h"
 #include "xpm_device.h"
 #include "xpm_regs.h"
+#include "xpm_requirement.h"
 
 static XPm_Subsystem *PmSubsystems;
 static u32 MaxSubsysIdx;
 
 XStatus XPmSubsystem_Configure(u32 SubsystemId)
 {
-	//changed to support minimum boot time xilpm
 	XStatus Status = XST_FAILURE;
-	PmDbg("SubsystemId %x\n",SubsystemId);
-	if(PM_SUBSYS_DEFAULT == SubsystemId){
-		Status = XST_SUCCESS;
-	}else{
-		PmErr("Invalid Subsystem %x\n",SubsystemId);
+	XPm_Subsystem *Subsystem;
+	const XPm_Requirement *Reqm;
+	u32 DeviceId;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
+		goto done;
 	}
 
-	return Status;
+	/* Consider request as success if subsystem is already configured */
+	if (IS_SUBSYS_CONFIGURED(Subsystem->Flags)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
+	/* Set subsystem to online if powered off */
+	if (Subsystem->State == (u8)POWERED_OFF) {
+		Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	PmDbg("Configuring Subsystem: 0x%x\r\n", SubsystemId);
+	Reqm = Subsystem->Requirements;
+	while (NULL != Reqm) {
+		if ((1U != Reqm->Allocated) && (1U == PREALLOC((u32)Reqm->Flags))) {
+			DeviceId = Reqm->Device->Node.Id;
+			Status = XPm_RequestDevice(SubsystemId, DeviceId,
+						   Reqm->PreallocCaps,
+						   Reqm->PreallocQoS, 0U,
+						   XPLMI_CMD_SECURE);
+			if (XST_SUCCESS != Status) {
+				PmErr("Requesting prealloc device 0x%x failed.\n\r", DeviceId);
+				Status = XPM_ERR_DEVICE_REQ;
+				goto done;
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+	Status = XST_SUCCESS;
+
+	Subsystem->Flags |= SUBSYSTEM_IS_CONFIGURED;
+
+done:
+	return Status;
 }
 
 u32 XPmSubsystem_GetMaxSubsysIdx(void)
