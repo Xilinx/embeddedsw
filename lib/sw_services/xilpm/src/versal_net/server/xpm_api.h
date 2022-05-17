@@ -46,6 +46,10 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 			 const u32 DeviceId);
 
+XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
+			   const u32 Ack, const u32 Latency, const u32 State,
+			   const u32 CmdType);
+
 XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 Capabilities, const u32 QoS, const u32 Ack,
 			  const u32 CmdType);
