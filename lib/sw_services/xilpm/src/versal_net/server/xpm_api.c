@@ -180,6 +180,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	u32 SubsystemId = Cmd->SubsystemId;
 	u32 Len = Cmd->Len;
 	PmDbg("Processing Cmd: 0x%x\r\n",Cmd->CmdId);
+
 	switch (CmdId) {
 	case PM_API(PM_GET_CHIPID):
 		Status = XPm_GetChipID(&ApiResponse[0], &ApiResponse[1]);
@@ -281,6 +282,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_RELEASE_NODE):
 		Status = XPm_ReleaseDevice(SubsystemId, Pload[0], Cmd->IpiReqType);
+		break;
+	case PM_API(PM_GET_NODE_STATUS):
+		Status = XPm_GetDeviceStatus(SubsystemId, Pload[0], (XPm_DeviceStatus *)ApiResponse);
 		break;
 	case PM_API(PM_SET_REQUIREMENT):
 		Status = XPm_SetRequirement(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
@@ -2599,5 +2603,68 @@ done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to obtain information about the current state
+ * of a device. The caller must pass a pointer to an XPm_DeviceStatus
+ * structure, which must be pre-allocated by the caller.
+ *
+ * @param  SubsystemId	Subsystem ID.
+ * @param  DeviceId	Device ID
+ * @param  DeviceStatus	Pointer to the device status
+ *
+ * - Status - The current power state of the device
+ *  - For CPU nodes:
+ *   - 0 : if CPU is powered down,
+ *   - 1 : if CPU is active (powered up),
+ *   - 8 : if CPU is suspending (powered up)
+ *  - For power islands and power domains:
+ *   - 0 : if island is powered down,
+ *   - 2 : if island is powered up
+ *  - For slaves:
+ *   - 0 : if slave is powered down,
+ *   - 1 : if slave is powered up,
+ *   - 9 : if slave is in retention
+ *
+ * - Requirement - Requirements placed on the device by the caller
+ *
+ * - Usage
+ *  - 0 : node is not used by any PU,
+ *  - 1 : node is used by caller exclusively,
+ *  - 2 : node is used by other PU(s) only,
+ *  - 3 : node is used by caller and by other PU(s)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
+			const u32 DeviceId,
+			XPm_DeviceStatus *const DeviceStatus)
+{
+	XStatus Status = XPM_ERR_DEVICE_STATUS;
+
+
+	switch(NODECLASS(DeviceId)) {
+	case (u32)XPM_NODECLASS_DEVICE:
+		Status = XPmDevice_GetStatus(SubsystemId, DeviceId, DeviceStatus);
+		break;
+	case (u32)XPM_NODECLASS_POWER:
+		Status = XPmPower_GetStatus(SubsystemId, DeviceId, DeviceStatus);
+		break;
+	case (u32)XPM_NODECLASS_SUBSYSTEM:
+		Status = XPmSubsystem_GetStatus(SubsystemId, DeviceId,
+						DeviceStatus);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
 	return Status;
 }

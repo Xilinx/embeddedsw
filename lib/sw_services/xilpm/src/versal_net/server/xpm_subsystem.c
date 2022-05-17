@@ -137,6 +137,32 @@ done:
 	return Status;
 }
 
+XStatus XPmSubsystem_GetStatus(const u32 SubsystemId, const u32 DeviceId,
+			       XPm_DeviceStatus *const DeviceStatus)
+{
+	XStatus Status = XPM_ERR_DEVICE_STATUS;
+	const XPm_Subsystem *Subsystem;
+	const XPm_Subsystem *Target_Subsystem;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	Target_Subsystem = XPmSubsystem_GetById(DeviceId);
+	if ((NULL == Subsystem) || (NULL == Target_Subsystem) ||
+	    (NULL == DeviceStatus)) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	DeviceStatus->Status = Target_Subsystem->State;
+	Status = XST_SUCCESS;
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+
+	return Status;
+}
+
 XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
 
