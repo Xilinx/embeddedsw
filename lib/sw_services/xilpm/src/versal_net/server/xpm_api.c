@@ -38,6 +38,7 @@
 #include "xpm_rpucore.h"
 #include "xpm_psm.h"
 #include "xpm_periph.h"
+#include "xpm_requirement.h"
 #include "xpm_mem.h"
 #include "xpm_debug.h"
 
@@ -365,6 +366,115 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function is to link devices to the default subsystem.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
+{
+	XStatus Status = XST_FAILURE;
+	u32 i = 0, j = 0UL, Prealloc = 0, Capability = 0;
+	const XPm_Requirement *Req = NULL;
+	const u32 DefaultPreallocDevList[][2] = {
+		{PM_DEV_PSM_PROC, (u32)PM_CAP_ACCESS},
+		{PM_DEV_UART_0, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_UART_1, (u32)XPM_MAX_CAPABILITY},
+		{PM_DEV_ACPU_0_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_0_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_0_2, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_0_3, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_1_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_1_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_1_2, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_1_3, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_2_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_2_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_2_2, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_2_3, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_3_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_3_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_3_2, (u32)PM_CAP_ACCESS},
+		{PM_DEV_ACPU_3_3, (u32)PM_CAP_ACCESS},
+		{PM_DEV_SDIO_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_QSPI, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_OSPI, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_RPU_A_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_RPU_A_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_RPU_B_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_RPU_B_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_IPI_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_2, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_3, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_4, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_5, (u32)PM_CAP_ACCESS},
+		{PM_DEV_IPI_6, (u32)PM_CAP_ACCESS},
+	};
+
+	/*
+	 * Only fill out default subsystem requirements:
+	 *   - if no proc/mem/periph requirements are present
+	 *   - if only 1 subsystem has been added
+	 */
+	Req = Subsystem->Requirements;
+	while (NULL != Req) {
+		u32 SubClass = NODESUBCLASS(Req->Device->Node.Id);
+		/**
+		 * Requirements can be present for non-plm managed nodes in PMC CDO
+		 * (e.g. regnodes, ddrmcs etc.), thus only check for proc/mem/periph
+		 * requirements which are usually present in subsystem definition;
+		 * and stop as soon as first such requirement is found.
+		 */
+		if (((u32)XPM_NODESUBCL_DEV_CORE == SubClass) ||
+		    ((u32)XPM_NODESUBCL_DEV_PERIPH == SubClass) ||
+		    ((u32)XPM_NODESUBCL_DEV_MEM == SubClass)) {
+			Status = XST_SUCCESS;
+			break;
+		}
+		Req = Req->NextDevice;
+	}
+	if (XST_SUCCESS ==  Status) {
+		goto done;
+	}
+
+	for (i = 0; i < (u32)XPM_NODEIDX_DEV_MAX; i++) {
+		/*
+		 * Note: XPmDevice_GetByIndex() assumes that the caller
+		 * is responsible for validating the Node ID attributes
+		 * other than node index.
+		 */
+		XPm_Device *Device = XPmDevice_GetByIndex(i);
+		if ((NULL != Device) && (1U == XPmDevice_IsRequestable(Device->Node.Id))) {
+			Prealloc = 0;
+			Capability = 0;
+
+			for (j = 0; j < ARRAY_SIZE(DefaultPreallocDevList); j++) {
+				if (Device->Node.Id == DefaultPreallocDevList[j][0]) {
+					Prealloc = 1;
+					Capability = DefaultPreallocDevList[j][1];
+					break;
+				}
+			}
+			Status = XPmRequirement_Add(Subsystem, Device,
+					REQUIREMENT_FLAGS(Prealloc,
+						(u32)REQ_ACCESS_SECURE_NONSECURE,
+						(u32)REQ_NO_RESTRICTION),
+					Capability, XPM_DEF_QOS);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function can be used by a subsystem to suspend a child
@@ -465,9 +575,23 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 
 XStatus XPm_HookAfterPlmCdo(void)
 {
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem;
 
-	return XST_SUCCESS;
+	/* If default subsystem is present, attempt to add requirements if needed. */
+	Subsystem = XPmSubsystem_GetById(PM_SUBSYS_DEFAULT);
+	if (((u32)1U == XPmSubsystem_GetMaxSubsysIdx()) && (NULL != Subsystem) &&
+	    ((u8)ONLINE == Subsystem->State)) {
+		Status = XPm_AddReqsDefaultSubsystem(Subsystem);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
 
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 /****************************************************************************/

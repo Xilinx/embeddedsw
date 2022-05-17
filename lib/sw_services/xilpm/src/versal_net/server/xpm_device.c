@@ -1256,6 +1256,43 @@ done:
 	return Device;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Get handle to requested device node by "only" Node INDEX
+ *
+ * @param DeviceIndex	Device Node Index
+ *
+ * @return	Pointer to requested XPm_Device, NULL otherwise
+ *
+ * @note	Requires ONLY Node Index
+ *
+ * Caller should be _careful_ while using this function as it skips the checks
+ * for validating the class, subclass and type of the device before and after
+ * retrieving the node from the database. Use this only where it is absolutely
+ * necessary, otherwise use XPmDevice_GetById() which is more strict
+ * and requires 'complete' Node ID for retrieving the handle.
+ *
+ ****************************************************************************/
+XPm_Device *XPmDevice_GetByIndex(const u32 DeviceIndex)
+{
+	XPm_Device *Device = NULL;
+	/* Make sure we are working with only Index. */
+	u32 Index = (DeviceIndex & NODE_INDEX_MASK);
+
+	if ((u32)XPM_NODEIDX_DEV_MAX <= Index) {
+		goto done;
+	}
+
+	Device = PmDevices[Index];
+	/* Check that Device's Index is same as given Index or not. */
+	if ((NULL != Device) && (Index != NODEINDEX(Device->Node.Id))) {
+		Device = NULL;
+	}
+
+done:
+	return Device;
+}
+
 XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 {
 	XStatus Status = XST_FAILURE;
