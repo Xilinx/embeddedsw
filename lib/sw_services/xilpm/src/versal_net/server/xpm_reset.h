@@ -87,6 +87,10 @@ XStatus XPmReset_AddNode(u32 Id, u32 ControlReg, u8 Shift, u8 Width, u8 ResetTyp
 XPm_ResetNode* XPmReset_GetById(u32 ResetId);
 XStatus XPmReset_AssertbyId(u32 ResetId, const u32 Action);
 XStatus XPmReset_CheckPermissions(const XPm_Subsystem *Subsystem, u32 ResetId);
+XStatus XPmReset_IsPermissionReset(const u32 ResetId);
+XStatus XPmReset_IsOperationAllowed(const u32 SubsystemId,
+				    const XPm_ResetNode *Rst,
+				    const u32 CmdType);
 
 #ifdef __cplusplus
 }

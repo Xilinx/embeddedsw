@@ -233,6 +233,13 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_PLL_GET_MODE):
 		Status = XPm_GetPllMode(Pload[0], ApiResponse);
 		break;
+	case PM_API(PM_RESET_ASSERT):
+		Status = XPm_SetResetState(SubsystemId, Pload[0], Pload[1],
+					   Cmd->IpiReqType);
+		break;
+	case PM_API(PM_RESET_GET_STATUS):
+		Status = XPm_GetResetState(Pload[0], ApiResponse);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -2196,5 +2203,115 @@ done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function reset or de-reset a device. Alternatively a reset
+ * 	   pulse can be requested as well.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param ResetId	Reset ID
+ * @param Action	Reset action to be taken
+ *			- PM_RESET_ACTION_RELEASE for Release Reset
+ *			- PM_RESET_ACTION_ASSERT for Assert Reset
+ *			- PM_RESET_ACTION_PULSE for Pulse Reset
+ * @param CmdType	IPI command request type
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   To de-reset a device, the subsystem must be using the device, and
+ * all the upstream reset line(s) must be de-asserted.  To reset a device, the
+ * subsystem must be the only user of the device, and all downstream devices
+ * (in terms of reset dependency) must be already in reset state.  Otherwise,
+ * this request will be denied.
+ *
+ ****************************************************************************/
+XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
+			  const u32 Action, const u32 CmdType)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubClass = NODESUBCLASS(ResetId);
+	u32 SubType = NODETYPE(ResetId);
+	XPm_ResetNode* Reset;
+
+	Reset = XPmReset_GetById(ResetId);
+	if (NULL == Reset) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Only peripheral, debug and particular specified resets
+	 * are allowed to control externally, on other masters.
+	 */
+	if ((((u32)XPM_NODESUBCL_RESET_PERIPHERAL == SubClass) &&
+	     ((u32)XPM_NODETYPE_RESET_PERIPHERAL == SubType)) ||
+	    (((u32)XPM_NODESUBCL_RESET_DBG == SubClass) &&
+	     ((u32)XPM_NODETYPE_RESET_DBG == SubType))) {
+		/* Check if subsystem is allowed to access requested reset */
+		Status = XPm_IsAccessAllowed(SubsystemId, ResetId);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
+	} else {
+		/*
+		 * Only a certain list of resets is allowed to
+		 * use permissions policy.
+		 *
+		 * If with in this list, then check reset to
+		 * permission policy for access.
+		 */
+		Status = XPmReset_IsPermissionReset(ResetId);
+		if ((XST_SUCCESS != Status) && (PM_SUBSYS_PMC != SubsystemId)) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
+
+		Status = XPmReset_IsOperationAllowed(SubsystemId, Reset, CmdType);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_PM_NO_ACCESS;
+			goto done;
+		}
+	}
+
+	Status = Reset->Ops->SetState(Reset, Action);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function reads the device reset state.
+ *
+ * @param  ResetId		Reset ID
+ * @param State		Pointer to the reset state
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_GetResetState(const u32 ResetId, u32 *const State)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_ResetNode* Reset;
+
+	Reset = XPmReset_GetById(ResetId);
+	if (NULL == Reset) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	*State = Reset->Ops->GetState(Reset);
+
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }

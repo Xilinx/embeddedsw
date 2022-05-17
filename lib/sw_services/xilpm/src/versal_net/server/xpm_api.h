@@ -98,6 +98,11 @@ XStatus XPm_SetPllMode(const u32 SubsystemId, const u32 ClockId, const u32 Value
 
 XStatus XPm_GetPllMode(const u32 ClockId, u32 *const Value);
 
+XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
+			  const u32 Action, const u32 CmdType);
+
+XStatus XPm_GetResetState(const u32 ResetId, u32 *const State);
+
 #ifdef __cplusplus
 }
 #endif
