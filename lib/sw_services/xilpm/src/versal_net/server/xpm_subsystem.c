@@ -238,10 +238,18 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
 		}
 		break;
 	case (u32)XPM_NODECLASS_RESET:
-		/* TODO: Add reset check permission logic */
+		Status = XPmReset_CheckPermissions(Subsystem, NodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RESET_PERMISSION;
+			goto done;
+		}
 		break;
 	case (u32)XPM_NODECLASS_DEVICE:
-		/* TODO: Add device check permission logic */
+		Status = XPmDevice_CheckPermissions(Subsystem, NodeId);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DEVICE_PERMISSION;
+			goto done;
+		}
 		break;
 	case (u32)XPM_NODECLASS_STMIC:
 		/* TODO: Add PIN check permission logic */

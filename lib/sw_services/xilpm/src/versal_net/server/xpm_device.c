@@ -29,6 +29,21 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 
 }
 
+static XPm_Requirement *FindReqm(const XPm_Device *Device, const XPm_Subsystem *Subsystem)
+{
+	XPm_Requirement *Reqm = NULL;
+
+	Reqm = Device->Requirements;
+	while (NULL != Reqm) {
+		if (Reqm->Subsystem == Subsystem) {
+			break;
+		}
+		Reqm = Reqm->NextSubsystem;
+	}
+
+	return Reqm;
+}
+
 XStatus XPmDevice_AddClock(XPm_Device *Device, XPm_ClockNode *Clock)
 {
 	XStatus Status = XST_FAILURE;
@@ -320,5 +335,33 @@ XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask)
 	Status = XST_SUCCESS;
 
 done:
+	return Status;
+}
+
+XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId)
+{
+	XStatus Status = XPM_PM_NO_ACCESS;
+	const XPm_Requirement *Reqm;
+	const XPm_Device *Device = XPmDevice_GetById(DeviceId);
+
+	if (NULL == Device) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Reqm = FindReqm(Device, Subsystem);
+	if (NULL == Reqm) {
+		goto done;
+	}
+
+	if (1U == Reqm->Allocated) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }

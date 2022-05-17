@@ -178,6 +178,8 @@ XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents);
 
 XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask);
 
+XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId);
+
 #ifdef __cplusplus
 }
 #endif
