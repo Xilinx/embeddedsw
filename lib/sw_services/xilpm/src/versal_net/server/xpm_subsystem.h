@@ -115,6 +115,7 @@ XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId);
 u32 XPmSubsystem_GetMaxSubsysIdx(void);
 XStatus XPmSubsystem_GetStatus(const u32 SubsystemId, const u32 DeviceId,
 			       XPm_DeviceStatus *const DeviceStatus);
+XStatus XPmSubsystem_InitFinalize(const u32 SubsystemId);
 
 #ifdef __cplusplus
 }
