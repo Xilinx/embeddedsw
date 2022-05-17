@@ -151,6 +151,7 @@ XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll);
 XStatus XPmClockPll_Request(u32 PllId);
 XStatus XPmClockPll_Release(u32 PllId);
+XStatus XPmClockPll_QueryMuxSources(u32 Id, u32 Index, u32 *Resp);
 
 #ifdef __cplusplus
 }
