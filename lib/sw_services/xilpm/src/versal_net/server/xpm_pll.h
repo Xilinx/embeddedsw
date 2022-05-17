@@ -142,6 +142,11 @@ struct XPm_PllClockNode {
 XStatus XPmClockPll_AddNode(u32 Id, u32 ControlReg, u8 TopologyType,
 			    const u16 *Offsets, u32 PowerDomainId, u8 ClkFlags);
 XStatus XPmClockPll_AddParent(u32 Id, const u32 *Parents, u8 NumParents);
+XStatus XPmClockPll_Reset(XPm_PllClockNode *Pll, uint8_t Flags);
+XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode);
+XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode);
+XStatus XPmClockPll_SetParam(const XPm_PllClockNode *Pll, u32 Param,u32 Value);
+XStatus XPmClockPll_GetParam(const XPm_PllClockNode *Pll, u32 Param,u32 *Val);
 
 #ifdef __cplusplus
 }

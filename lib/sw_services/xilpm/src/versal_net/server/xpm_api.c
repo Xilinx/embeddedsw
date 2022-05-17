@@ -115,6 +115,18 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_ADD_SUBSYSTEM):
 		Status = XPm_AddSubsystem(Pload[0]);
 		break;
+	case PM_API(PM_PLL_SET_PARAMETER):
+		Status = XPm_SetPllParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
+		break;
+	case PM_API(PM_PLL_GET_PARAMETER):
+		Status = XPm_GetPllParameter(Pload[0], Pload[1], ApiResponse);
+		break;
+	case PM_API(PM_PLL_SET_MODE):
+		Status = XPm_SetPllMode(SubsystemId, Pload[0], Pload[1]);
+		break;
+	case PM_API(PM_PLL_GET_MODE):
+		Status = XPm_GetPllMode(Pload[0], ApiResponse);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -1628,4 +1640,168 @@ XStatus XPm_GetChipID(u32* IDCode, u32 *Version)
 	PmIn32(PMC_TAP_VERSION, *Version);
 
 	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function sets the parameter of PLL clock.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param ClockId	ID of the clock node
+ * @param ParmaId	ID of the parameter
+ * @param Value		Value of the parameter
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_SetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 ParamId, const u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_PllClockNode* Clock;
+
+	if (!ISPLL(ClockId)) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+	/* Check if subsystem is allowed to access requested clock or not */
+	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
+	if (Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	Clock = (XPm_PllClockNode *)XPmClock_GetById(ClockId);
+	if (NULL == Clock) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+	Status = XPmClockPll_SetParam(Clock, ParamId, Value);
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function reads the parameter of PLL clock.
+ *
+ * @param ClockId	ID of the clock node
+ * @param ParmaId	ID of the parameter
+ * @param Value		Address to store parameter value
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_GetPllParameter(const u32 ClockId, const u32 ParamId, u32 *const Value)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_PllClockNode* Clock;
+
+	if (!ISPLL(ClockId)) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+	Clock = (XPm_PllClockNode *)XPmClock_GetById(ClockId);
+	if (NULL == Clock) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
+	Status = XPmClockPll_GetParam(Clock, ParamId, Value);
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function sets the mode of PLL clock.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param ClockId	ID of the clock node
+ * @param Value		Pll mode value
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_SetPllMode(const u32 SubsystemId, const u32 ClockId, const u32 Value)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_PllClockNode* Clock;
+
+	if (!ISPLL(ClockId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check if subsystem is allowed to access requested pll or not */
+	Status = XPm_IsAccessAllowed(SubsystemId, ClockId);
+	if (Status != XST_SUCCESS) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	Clock = (XPm_PllClockNode *)XPmClock_GetById(ClockId);
+	if (NULL == Clock) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmClockPll_SetMode(Clock, Value);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function reads the mode of PLL clock.
+ *
+ * @param ClockId	ID of the clock node
+ * @param Value		Address to store mode value
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_GetPllMode(const u32 ClockId, u32 *const Value)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_PllClockNode* Clock;
+
+	if (!ISPLL(ClockId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Clock = (XPm_PllClockNode *)XPmClock_GetById(ClockId);
+	if (NULL == Clock) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmClockPll_GetMode(Clock, Value);
+
+done:
+	return Status;
 }
