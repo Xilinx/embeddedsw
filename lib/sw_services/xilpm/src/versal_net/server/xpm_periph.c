@@ -5,9 +5,14 @@
 
 
 #include "xpm_periph.h"
+#include "xpm_gic_proxy.h"
 #include "xpm_defs.h"
 #include "xpm_requirement.h"
 #include "xplmi_scheduler.h"
+
+static struct XPm_PeriphOps GenericOps = {
+	.SetWakeupSource = XPmGicProxy_WakeEventSet,
+};
 
 XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		       XPm_Power *Power, XPm_ClockNode *Clock,
@@ -22,8 +27,7 @@ XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		goto done;
 	}
 
-	/*TBD: set periphops */
-	Periph->PeriphOps = NULL;
+	Periph->PeriphOps = &GenericOps;
 	Periph->GicProxyMask = GicProxyMask;
 	Periph->GicProxyGroup = GicProxyGroup;
 

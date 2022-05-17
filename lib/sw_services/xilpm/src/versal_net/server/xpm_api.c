@@ -45,6 +45,15 @@
 #include "xpm_mem.h"
 #include "xpm_debug.h"
 
+#define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
+	{ \
+		Status = XPlmi_GicRegisterHandler((GicId << 8U) | (SrcId << 16U), \
+				XPm_DispatchWakeHandler, (void *)(NodeId)); \
+		if (Status != XST_SUCCESS) {\
+			goto END;\
+		}\
+	}
+
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
 
@@ -257,6 +266,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					   SetAddress, Address,
 					   Pload[3], Cmd->IpiReqType);
 		break;
+	case PM_API(PM_SET_WAKEUP_SOURCE):
+		Status = XPm_SetWakeUpSource(SubsystemId, Pload[0], Pload[1], Pload[2]);
+		break;
 	case PM_API(PM_ABORT_SUSPEND):
 		Status = XPm_AbortSuspend(SubsystemId, Pload[0], Pload[1]);
 		break;
@@ -396,6 +408,81 @@ done:
 	return Status;
 }
 
+XStatus XPm_GicProxyWakeUp(const u32 PeriphIdx)
+{
+	XStatus Status = XST_FAILURE;
+
+	const XPm_Periph *Periph = (XPm_Periph *)XPmDevice_GetByIndex(PeriphIdx);
+	if ((NULL == Periph) || (0U == Periph->WakeProcId)) {
+		goto done;
+	}
+
+	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(Periph->WakeProcId);
+
+	/* Do not process anything if core is already running */
+	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, Periph->WakeProcId, 0, 0, 0,
+				   XPLMI_CMD_SECURE);
+
+done:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief This is the handler for wake up interrupts
+ *
+ * @param  DeviceIdx	Index of peripheral device
+ *
+ * @return Status	XST_SUCCESS if processor wake successfully
+ *			XST_FAILURE or error code in case of failure
+ *
+ *****************************************************************************/
+static int XPm_DispatchWakeHandler(void *DeviceIdx)
+{
+	XStatus Status;
+
+	Status = XPm_GicProxyWakeUp((u32)DeviceIdx);
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief Register wakeup handlers with XilPlmi
+ * @return XST_SUCCESS on success and error code on failure
+ ****************************************************************************/
+static int XPm_RegisterWakeUpHandlers(void)
+{
+	int Status = XST_FAILURE;
+
+	/**
+	 * Register the events for PM
+	 */
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC23, XPM_NODEIDX_DEV_SPI_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC24, XPM_NODEIDX_DEV_SPI_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC25, XPM_NODEIDX_DEV_UART_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC26, XPM_NODEIDX_DEV_UART_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC29, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC30, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP0, (u32)XPLMI_GICP0_SRC31, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC0, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC1, XPM_NODEIDX_DEV_USB_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC2, XPM_NODEIDX_DEV_USB_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC3, XPM_NODEIDX_DEV_USB_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC4, XPM_NODEIDX_DEV_USB_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC5, XPM_NODEIDX_DEV_USB_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP1, (u32)XPLMI_GICP1_SRC6, XPM_NODEIDX_DEV_USB_1);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP5, (u32)XPLMI_GICP5_SRC24, XPM_NODEIDX_DEV_SDIO_0);
+	XPm_RegisterWakeUpHandler((u32)XPLMI_PMC_GIC_IRQ_GICP5, (u32)XPLMI_GICP5_SRC25, XPM_NODEIDX_DEV_SDIO_0);
+
+END:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  Initialize XilPM library
@@ -426,9 +513,15 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 
 	XPm_PsmModuleInit();
 	Status = XPmSubsystem_Add(PM_SUBSYS_PMC);
+	if (Status != XST_SUCCESS) {
+		goto done;
+	}
 
 	PmRestartCb = RestartCb;
 
+	Status = XPm_RegisterWakeUpHandlers();
+
+done:
 	return Status;
 
 }
@@ -1410,6 +1503,79 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 	default:
 		Status = XPM_INVALID_TYPEID;
 		break;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function can be used by a subsystem to to set wake up
+ * source
+ *
+ * @param SubsystemId Initiator of the request
+ * @param TargetNodeId  Core to be woken-up (currently must be same as initiator)
+ * @param SourceNodeId  Source of the wake-up (Device that generates interrupt)
+ * @param Enable      Flag stating should event be enabled or disabled
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   This function does not block.  A successful return code means that
+ * the request has been received.
+ *
+ ****************************************************************************/
+XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
+			    const u32 SourceNodeId, const u32 Enable)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Periph *Periph = NULL;
+	const XPm_Subsystem *Subsystem;
+
+	/* Check if given target node is valid and present in device list */
+	if ((NODECLASS(TargetNodeId) != (u32)XPM_NODECLASS_DEVICE) ||
+	    (NODESUBCLASS(TargetNodeId) != (u32)XPM_NODESUBCL_DEV_CORE) ||
+	    (NULL == XPmDevice_GetById(TargetNodeId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* The call applies only to peripheral nodes */
+	if ((NODECLASS(SourceNodeId) != (u32)XPM_NODECLASS_DEVICE) ||
+	    (NODESUBCLASS(SourceNodeId) != (u32)XPM_NODESUBCL_DEV_PERIPH)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Is subsystem allowed to use resource (slave)? */
+	Status = XPm_IsAccessAllowed(SubsystemId, SourceNodeId);
+	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	Periph = (XPm_Periph *)XPmDevice_GetById(SourceNodeId);
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if((NULL == Periph) || (NULL == Subsystem)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Check whether the device has wake-up capability */
+	Status = XPm_CheckCapabilities(&Periph->Device, (u32)PM_CAP_WAKEUP);
+	if (XST_SUCCESS != Status) {
+		Status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	Periph->WakeProcId = TargetNodeId;
+
+	if (NULL != Periph->PeriphOps->SetWakeupSource) {
+		Periph->PeriphOps->SetWakeupSource(Periph, (u8)(Enable));
 	}
 
 done:

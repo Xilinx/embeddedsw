@@ -65,76 +65,81 @@ enum {
  * PMC GICP0 interrupts
  */
 enum {
-	XPLMI_GICP0_SRC13 = 13U, /**< GPIO Interrupt */
-	XPLMI_GICP0_SRC14 = 14U, /**< I2C_0 Interrupt */
-	XPLMI_GICP0_SRC15 = 15U, /**< I2C_1 Interrupt */
-	XPLMI_GICP0_SRC16 = 16U, /**< SPI_0 Interrupt */
-	XPLMI_GICP0_SRC17 = 17U, /**< SPI_1 Interrupt */
-	XPLMI_GICP0_SRC18 = 18U, /**< UART_0 Interrupt */
-	XPLMI_GICP0_SRC19 = 19U, /**< UART_1 Interrupt */
-	XPLMI_GICP0_SRC20 = 20U, /**< CAN_0 Interrupt */
-	XPLMI_GICP0_SRC21 = 21U, /**< CAN_1 Interrupt */
-	XPLMI_GICP0_SRC22 = 22U, /**< USB_0 Interrupt */
-	XPLMI_GICP0_SRC23 = 23U, /**< USB_0 Interrupt */
-	XPLMI_GICP0_SRC24 = 24U, /**< USB_0 Interrupt */
-	XPLMI_GICP0_SRC25 = 25U, /**< USB_0 Interrupt */
-	XPLMI_GICP0_SRC26 = 26U, /**< USB_0 Interrupt */
-	XPLMI_GICP0_SRC27 = 27U, /**< IPI Interrupt */
+	XPLMI_GICP0_SRC20 = 20U, /**< GPIO Interrupt */
+	XPLMI_GICP0_SRC21 = 21U, /**< I2C_0 Interrupt */
+	XPLMI_GICP0_SRC22 = 22U, /**< I2C_1 Interrupt */
+	XPLMI_GICP0_SRC23 = 23U, /**< SPI_0 Interrupt */
+	XPLMI_GICP0_SRC24 = 24U, /**< SPI_1 Interrupt */
+	XPLMI_GICP0_SRC25 = 25U, /**< UART_0 Interrupt */
+	XPLMI_GICP0_SRC26 = 26U, /**< UART_1 Interrupt */
+	XPLMI_GICP0_SRC27 = 27U, /**< CAN_0 Interrupt */
+	XPLMI_GICP0_SRC28 = 28U, /**< CAN_1 Interrupt */
+	XPLMI_GICP0_SRC29 = 29U, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC30 = 30U, /**< USB_0 Interrupt */
+	XPLMI_GICP0_SRC31 = 31U, /**< USB_0 Interrupt */
 };
 
 /*
  * PMC GICP1 interrupts
  */
 enum {
-	XPLMI_GICP1_SRC5 = 5U, /**< TTC_0 Interrupt */
-	XPLMI_GICP1_SRC6 = 6U, /**< TTC_0 Interrupt */
-	XPLMI_GICP1_SRC7 = 7U, /**< TTC_0 Interrupt */
-	XPLMI_GICP1_SRC8 = 8U, /**< TTC_1 Interrupt */
-	XPLMI_GICP1_SRC9 = 9U, /**< TTC_1 Interrupt */
-	XPLMI_GICP1_SRC10 = 10U, /**< TTC_1 Interrupt */
-	XPLMI_GICP1_SRC11 = 11U, /**< TTC_2 Interrupt */
-	XPLMI_GICP1_SRC12 = 12U, /**< TTC_2 Interrupt */
-	XPLMI_GICP1_SRC13 = 13U, /**< TTC_2 Interrupt */
-	XPLMI_GICP1_SRC14 = 14U, /**< TTC_3 Interrupt */
-	XPLMI_GICP1_SRC15 = 15U, /**< TTC_3 Interrupt */
-	XPLMI_GICP1_SRC16 = 16U, /**< TTC_3 Interrupt */
-	XPLMI_GICP1_SRC24 = 24U, /**< GEM_0 Interrupt */
-	XPLMI_GICP1_SRC25 = 25U, /**< GEM_0 Interrupt */
-	XPLMI_GICP1_SRC26 = 26U, /**< GEM_1 Interrupt */
-	XPLMI_GICP1_SRC27 = 27U, /**< GEM_1 Interrupt */
-	XPLMI_GICP1_SRC28 = 28U, /**< ADMA_0 Interrupt */
-	XPLMI_GICP1_SRC29 = 29U, /**< ADMA_1 Interrupt */
-	XPLMI_GICP1_SRC30 = 30U, /**< ADMA_2 Interrupt */
-	XPLMI_GICP1_SRC31 = 31U, /**< ADMA_3 Interrupt */
+	XPLMI_GICP1_SRC0 = 0U, /**< USB_0 Interrupt */
+	XPLMI_GICP1_SRC1 = 1U, /**< USB_0 Interrupt */
+	XPLMI_GICP1_SRC2 = 2U, /**< USB_1 Interrupt */
+	XPLMI_GICP1_SRC3 = 3U, /**< USB_1 Interrupt */
+	XPLMI_GICP1_SRC4 = 4U, /**< USB_1 Interrupt */
+	XPLMI_GICP1_SRC5 = 5U, /**< USB_1 Interrupt */
+	XPLMI_GICP1_SRC6 = 6U, /**< USB_1 Interrupt */
+	XPLMI_GICP1_SRC7 = 7U, /**< GEM_0 Interrupt */
+	XPLMI_GICP1_SRC8 = 8U, /**< GEM_0 Interrupt */
+	XPLMI_GICP1_SRC9 = 9U, /**< GEM_1 Interrupt */
+	XPLMI_GICP1_SRC10 = 10U, /**< GEM_1 Interrupt */
+	XPLMI_GICP1_SRC11 = 11U, /**< TTC_0 Interrupt */
+	XPLMI_GICP1_SRC12 = 12U, /**< TTC_0 Interrupt */
+	XPLMI_GICP1_SRC13 = 13U, /**< TTC_0 Interrupt */
+	XPLMI_GICP1_SRC14 = 14U, /**< TTC_1 Interrupt */
+	XPLMI_GICP1_SRC15 = 15U, /**< TTC_1 Interrupt */
+	XPLMI_GICP1_SRC16 = 16U, /**< TTC_1 Interrupt */
+	XPLMI_GICP1_SRC17 = 17U, /**< TTC_2 Interrupt */
+	XPLMI_GICP1_SRC18 = 18U, /**< TTC_2 Interrupt */
+	XPLMI_GICP1_SRC19 = 19U, /**< TTC_2 Interrupt */
+	XPLMI_GICP1_SRC20 = 20U, /**< TTC_3 Interrupt */
+	XPLMI_GICP1_SRC21 = 21U, /**< TTC_3 Interrupt */
+	XPLMI_GICP1_SRC22 = 22U, /**< TTC_3 Interrupt */
 };
 
 /*
  * PMC GICP2 interrupts
  */
 enum {
-	XPLMI_GICP2_SRC0 = 0U, /**< ADMA_4 Interrupt */
-	XPLMI_GICP2_SRC1 = 1U, /**< ADMA_5 Interrupt */
-	XPLMI_GICP2_SRC2 = 2U, /**< ADMA_6 Interrupt */
-	XPLMI_GICP2_SRC3 = 3U, /**< ADMA_7 Interrupt */
-	XPLMI_GICP2_SRC10 = 10U, /**< USB_0 Interrupt */
+	XPLMI_GICP2_SRC8 = 8U, /**< ADMA_0 Interrupt */
+	XPLMI_GICP2_SRC9 = 9U, /**< ADMA_1 Interrupt */
+	XPLMI_GICP2_SRC10 = 10U, /**< ADMA_2 Interrupt */
+	XPLMI_GICP2_SRC11 = 11U, /**< ADMA_3 Interrupt */
+	XPLMI_GICP2_SRC12 = 12U, /**< ADMA_4 Interrupt */
+	XPLMI_GICP2_SRC13 = 13U, /**< ADMA_5 Interrupt */
+	XPLMI_GICP2_SRC14 = 14U, /**< ADMA_6 Interrupt */
+	XPLMI_GICP2_SRC15 = 15U, /**< ADMA_7 Interrupt */
 };
 
 /*
  * PMC GICP3 interrupts
  */
 enum {
-	XPLMI_GICP3_SRC30 = 30U, /**< SD_0 Interrupt */
-	XPLMI_GICP3_SRC31 = 31U, /**< SD_0 Interrupt */
+	XPLMI_GICP3_SRC2 = 2U, /**< USB_0 Interrupt */
+	XPLMI_GICP3_SRC3 = 3U, /**< USB_1 Interrupt */
 };
 
 /*
- * PMC GICP4 interrupts
+ * PMC GICP5 interrupts
  */
 enum {
-	XPLMI_GICP4_SRC0 = 0U, /**< SD_1 Interrupt */
-	XPLMI_GICP4_SRC1 = 1U, /**< SD_1 Interrupt */
-	XPLMI_GICP4_SRC8 = 8U, /**< SBI interrupt */
-	XPLMI_GICP4_SRC14 = 14U, /**< RTC interrupt */
+	XPLMI_GICP5_SRC22 = 22U, /**< OSPI Interrupt */
+	XPLMI_GICP5_SRC23 = 23U, /**< QSPI Interrupt */
+	XPLMI_GICP5_SRC24 = 24U, /**< SD_0 Interrupt */
+	XPLMI_GICP5_SRC25 = 25U, /**< SD_0 Interrupt */
+	XPLMI_GICP5_SRC26 = 26U, /**< SD_1 Interrupt */
+	XPLMI_GICP5_SRC27 = 27U, /**< SD_1 Interrupt */
 };
 
 /*
