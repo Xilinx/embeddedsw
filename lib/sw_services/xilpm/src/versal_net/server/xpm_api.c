@@ -240,6 +240,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_RESET_GET_STATUS):
 		Status = XPm_GetResetState(Pload[0], ApiResponse);
 		break;
+	case PM_API(PM_FEATURE_CHECK):
+		Status = XPm_FeatureCheck(Pload[0], ApiResponse);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -2313,5 +2316,104 @@ XStatus XPm_GetResetState(const u32 ResetId, u32 *const State)
 	Status = XST_SUCCESS;
 
 done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function returns supported version of the given API.
+ *
+ * @param  ApiId	API ID to check
+ * @param  Version	pointer to array of 4 words
+ *  - version[0] - EEMI API version number
+ *  - version[1] - lower 32-bit bitmask of IOCTL or QUERY ID
+ *  - version[2] - upper 32-bit bitmask of IOCTL or Query ID
+ *  - Only PM_FEATURE_CHECK version 2 supports 64-bit bitmask
+ *  - i.e. version[1] and version[2]
+ * @return XST_SUCCESS if successful else XST_NO_FEATURE.
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
+{
+	XStatus Status = XST_FAILURE;
+
+	if (NULL == Version) {
+		Status = XPM_ERR_VERSION;
+		goto done;
+	}
+
+	switch (ApiId) {
+	case PM_API(PM_GET_API_VERSION):
+	case PM_API(PM_GET_NODE_STATUS):
+	case PM_API(PM_GET_OP_CHARACTERISTIC):
+	case PM_API(PM_REQUEST_SUSPEND):
+	case PM_API(PM_SELF_SUSPEND):
+	case PM_API(PM_FORCE_POWERDOWN):
+	case PM_API(PM_ABORT_SUSPEND):
+	case PM_API(PM_REQUEST_WAKEUP):
+	case PM_API(PM_SET_WAKEUP_SOURCE):
+	case PM_API(PM_SYSTEM_SHUTDOWN):
+	case PM_API(PM_REQUEST_NODE):
+	case PM_API(PM_RELEASE_NODE):
+	case PM_API(PM_SET_REQUIREMENT):
+	case PM_API(PM_SET_MAX_LATENCY):
+	case PM_API(PM_RESET_ASSERT):
+	case PM_API(PM_RESET_GET_STATUS):
+	case PM_API(PM_INIT_FINALIZE):
+	case PM_API(PM_GET_CHIPID):
+	case PM_API(PM_PINCTRL_REQUEST):
+	case PM_API(PM_PINCTRL_RELEASE):
+	case PM_API(PM_PINCTRL_GET_FUNCTION):
+	case PM_API(PM_PINCTRL_SET_FUNCTION):
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
+	case PM_API(PM_CLOCK_ENABLE):
+	case PM_API(PM_CLOCK_DISABLE):
+	case PM_API(PM_CLOCK_GETSTATE):
+	case PM_API(PM_CLOCK_SETDIVIDER):
+	case PM_API(PM_CLOCK_GETDIVIDER):
+	case PM_API(PM_CLOCK_SETPARENT):
+	case PM_API(PM_CLOCK_GETPARENT):
+	case PM_API(PM_CLOCK_GETRATE):
+	case PM_API(PM_PLL_SET_PARAMETER):
+	case PM_API(PM_PLL_GET_PARAMETER):
+	case PM_API(PM_PLL_SET_MODE):
+	case PM_API(PM_PLL_GET_MODE):
+	case PM_API(PM_ADD_SUBSYSTEM):
+	case PM_API(PM_DESTROY_SUBSYSTEM):
+	case PM_API(PM_DESCRIBE_NODES):
+	case PM_API(PM_ADD_NODE):
+	case PM_API(PM_ADD_NODE_PARENT):
+	case PM_API(PM_ADD_NODE_NAME):
+	case PM_API(PM_ADD_REQUIREMENT):
+	case PM_API(PM_INIT_NODE):
+	case PM_API(PM_FEATURE_CHECK):
+		*Version = XST_API_BASE_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_QUERY_DATA):
+		Version[0] = XST_API_QUERY_DATA_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_REGISTER_NOTIFIER):
+		*Version = XST_API_REG_NOTIFIER_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_IOCTL):
+		Version[0] = XST_API_PM_IOCTL_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	default:
+		*Version = 0U;
+		Status = XPM_NO_FEATURE;
+		break;
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 	return Status;
 }
