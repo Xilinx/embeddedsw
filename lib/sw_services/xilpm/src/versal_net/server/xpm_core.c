@@ -322,6 +322,22 @@ done:
 	return Status;
 }
 
+XStatus XPmCore_GetCPUIdleFlag(const XPm_Core *Core, u32 *CpuIdleFlag)
+{
+	XStatus Status = XST_FAILURE;
+
+	if ((NULL == Core) || ((u8)PROC_DEV_MAX == Core->PsmToPlmEvent_ProcIdx)) {
+		goto done;
+	}
+
+	/* Get the CPU idle flag from PSM reserved RAM location */
+	*CpuIdleFlag = PsmToPlmEvent->CpuIdleFlag[Core->PsmToPlmEvent_ProcIdx];
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 XStatus XPmCore_StoreResumeAddr(const XPm_Core *Core, u64 Address)
 {
 	XStatus Status = XST_FAILURE;

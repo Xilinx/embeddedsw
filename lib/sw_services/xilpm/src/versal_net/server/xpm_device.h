@@ -197,6 +197,7 @@ XStatus XPmDevice_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 			    const u32 Latency);
 XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId);
 XStatus XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency);
+u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device);
 
 #ifdef __cplusplus
 }
