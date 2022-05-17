@@ -7,6 +7,7 @@
 #include "xplmi_ipi.h"
 #include "xpm_ipi.h"
 
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
 /****************************************************************************/
 /**
  * @brief	Sends IPI request to the target module
@@ -30,12 +31,14 @@ XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload)
 		PmDbg("%s: ERROR: Timeout expired\n", __func__);
 		goto done;
 	}
+
 	Status = XPlmi_IpiWrite(IpiMask, Payload,
 				PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
 	if (XST_SUCCESS != Status) {
 		PmDbg("%s: ERROR writing to IPI request buffer\n", __func__);
 		goto done;
 	}
+
 	Status = XPlmi_IpiTrigger(IpiMask);
 
 done:
@@ -78,7 +81,6 @@ done:
 	return Status;
 }
 
-
 /****************************************************************************/
 /**
  * @brief	Reads IPI Response after target module has handled interrupt
@@ -115,3 +117,44 @@ XStatus XPm_IpiRead(u32 IpiMask, u32 (*Response)[RESPONSE_ARG_CNT])
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief	Check IPI Response
+ *
+ * @param	IpiMask		IPI interrupt mask of target
+ * @param	TimeOutCount	Number of cycle to wait for response.
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount)
+{
+	return XPlmi_IpiPollForAck(IpiMask, TimeOutCount);
+}
+#else
+XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload)
+{
+	(void)IpiMask;
+	(void)Payload;
+
+	return XST_FAILURE;
+}
+
+XStatus XPm_IpiReadStatus(u32 IpiMask)
+{
+	(void)IpiMask;
+
+	return XST_FAILURE;
+}
+
+XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount)
+{
+	(void)IpiMask;
+	(void)TimeOutCount;
+
+	return XST_FAILURE;
+}
+#endif /* XPAR_XIPIPSU_0_DEVICE_ID */

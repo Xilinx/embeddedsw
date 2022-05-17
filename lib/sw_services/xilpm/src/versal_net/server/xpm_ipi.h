@@ -29,6 +29,7 @@ extern "C" {
 
 XStatus XPm_IpiSend(u32 IpiMask, u32 *Payload);
 XStatus XPm_IpiReadStatus(u32 IpiMask);
+XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount);
 XStatus XPm_IpiRead(u32 IpiMask, u32 (*Response)[RESPONSE_ARG_CNT]);
 #ifdef __cplusplus
 }
