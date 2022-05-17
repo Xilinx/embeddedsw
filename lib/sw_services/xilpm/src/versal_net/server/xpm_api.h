@@ -105,6 +105,9 @@ XStatus XPm_GetResetState(const u32 ResetId, u32 *const State);
 
 XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version);
 
+XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
+			   const u32 Capabilities, const u32 QoS,
+			   const u32 Ack);
 #ifdef __cplusplus
 }
 #endif

@@ -243,6 +243,16 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_FEATURE_CHECK):
 		Status = XPm_FeatureCheck(Pload[0], ApiResponse);
 		break;
+	case PM_API(PM_REQUEST_NODE):
+		Status = XPm_RequestDevice(SubsystemId, Pload[0], Pload[1],
+					   Pload[2], Pload[3], Cmd->IpiReqType);
+		break;
+	case PM_API(PM_RELEASE_NODE):
+		Status = XPm_ReleaseDevice(SubsystemId, Pload[0], Cmd->IpiReqType);
+		break;
+	case PM_API(PM_SET_REQUIREMENT):
+		Status = XPm_SetRequirement(SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -660,13 +670,17 @@ static void XPm_RpuCoreConfig(u8 ClusterNum, u8 CoreNum, u64 HandoffAddr,
 XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 				const u32 Capabilities, const u32 QoS, const u32 Ack,const u32 CmdType)
 {
-	(void)SubsystemId;
-	(void)DeviceId;
-	(void)Capabilities;
-	(void)QoS;
-	(void)Ack;
-	(void)CmdType;
 	XStatus Status = XST_FAILURE;
+
+	/* Warning Fix */
+	(void) (Ack);
+
+	Status = XPmDevice_Request(SubsystemId, DeviceId, Capabilities,
+				   QoS, CmdType);
+
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
 
 	if(XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(DeviceId)){
 		static u8 EccInitDone[2]={0};
@@ -716,35 +730,6 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 		PmErr("Err Code 0x%x\n",Status);
 	}
 	return Status;
-
-}
-
-/****************************************************************************/
-/**
- * @brief  This function is used by a subsystem to release the usage of a
- * device. This will tell the platform management controller that the device
- * is no longer needed, allowing the device to be placed into an inactive
- * state.
- *
- * @param SubsystemId	Subsystem ID
- * @param  DeviceId	ID of the device.
- * @param CmdType	IPI command request type
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
-			  const u32 CmdType)
-{
-	//changed to support minimum boot time xilpm
-	PmDbg("SubsystemId %x,DeviceId %x\n",SubsystemId,DeviceId);
-	(void)SubsystemId;
-	(void)DeviceId;
-	(void)CmdType;
-	return XST_SUCCESS;
 
 }
 
@@ -2411,6 +2396,108 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		break;
 	}
 
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used by a subsystem to release the usage of a
+ * device. This will tell the platform management controller that the device
+ * is no longer needed, allowing the device to be placed into an inactive
+ * state.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param  DeviceId	ID of the device.
+ * @param CmdType	IPI command request type
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
+			  const u32 CmdType)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_Subsystem* Subsystem = NULL;
+	const XPm_Device* Device = NULL;
+	u32 Usage = 0U;
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		goto done;
+	}
+
+	Device = XPmDevice_GetById(DeviceId);
+	if (NULL == Device) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	Status = XPmDevice_Release(SubsystemId, DeviceId, CmdType);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Usage = XPmDevice_GetUsageStatus(Subsystem, Device);
+	if (0U == Usage) {
+		/* TODO: Send notifier event */
+	}
+
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x\n\r", Status);
+	}
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used by a subsystem to announce a change in
+ * requirements for a specific device which is currently in use.
+ *
+ * @param SubsystemId	Subsystem ID.
+ * @param DeviceId	ID of the device.
+ * @param Capabilities	Capabilities required
+ * @param QoS		Quality of Service (0-100) required.
+ * @param Ack		Ack request
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   If this function is called after the last awake CPU within the
+ * subsystem calls RequestSuspend, the requirement change shall be performed
+ * after the CPU signals the end of suspend to the platform management
+ * controller, (e.g. WFI interrupt).
+ *
+ ****************************************************************************/
+XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
+			   const u32 Capabilities, const u32 QoS, const u32 Ack)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Warning Fix */
+	(void) (Ack);
+
+	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
+	if (XST_SUCCESS != Status) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	Status = XPmDevice_SetRequirement(SubsystemId, DeviceId,
+					  Capabilities, QoS);
 done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);

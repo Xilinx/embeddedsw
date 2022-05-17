@@ -110,6 +110,10 @@ struct XPm_Reqm {
 
 XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
 			   u32 Flags, u32 PreallocCaps, u32 PreallocQoS);
+void XPm_RequiremntUpdate(XPm_Requirement *Reqm);
+XStatus XPmRequirement_Release(XPm_Requirement *Reqm, XPm_ReleaseScope Scope);
+void XPmRequirement_Clear(XPm_Requirement* Reqm);
+XStatus XPmRequirement_UpdateScheduled(const XPm_Subsystem *Subsystem, u32 Swap);
 
 #ifdef __cplusplus
 }
