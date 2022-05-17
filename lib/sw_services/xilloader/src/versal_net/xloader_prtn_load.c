@@ -391,6 +391,13 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			goto END;
 		}
 	}
+
+	if (XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED == ClusterLockstep) {
+		Mode = XPM_RPU_MODE_SPLIT;
+	} else {
+		Mode = XPM_RPU_MODE_LOCKSTEP;
+	}
+
 	switch (PrtnParams->DstnCpu)
 	{
 		case XIH_PH_ATTRB_DSTN_CPU_R52_0:
@@ -398,11 +405,9 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, 0U);
 				goto END;
 			}
-			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster*2) + XLOADER_RPU_CORE0;
-			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId,
-						IOCTL_SET_RPU_OPER_MODE,
-						ClusterLockstep, DstnCluster, NULL,
-						XPLMI_CMD_SECURE);
+			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE0;
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_RPU_OPER_MODE,
+					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -417,11 +422,9 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, 0U);
 				goto END;
 			}
-			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster*2) + XLOADER_RPU_CORE1;
-			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId,
-						IOCTL_SET_RPU_OPER_MODE,
-						ClusterLockstep, DstnCluster, NULL,
-						XPLMI_CMD_SECURE);
+			DeviceId = PM_DEV_RPU_A_0 + (DstnCluster * 2) + XLOADER_RPU_CORE1;
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_RPU_OPER_MODE,
+					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -432,41 +435,33 @@ static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_0:
-			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4);
-			Status =  XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId,
-								IOCTL_SET_RPU_OPER_MODE,
-								ClusterLockstep, DstnCluster, NULL,
-								XPLMI_CMD_SECURE);
+			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster * 4);
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
+					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_1:
 			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4) + XLOADER_APU_CORE1;
-			Status =  XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId,
-							IOCTL_SET_RPU_OPER_MODE,
-							ClusterLockstep, DstnCluster, NULL,
-								XPLMI_CMD_SECURE);
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
+					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_2:
 			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4) + XLOADER_APU_CORE2;
-			Status =  XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId,
-							IOCTL_SET_RPU_OPER_MODE,
-							ClusterLockstep, DstnCluster, NULL,
-							XPLMI_CMD_SECURE);
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
+					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_A78_3:
 			DeviceId = PM_DEV_ACPU_0_0 + (DstnCluster*4) + XLOADER_APU_CORE3;
-			Status =  XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId,
-							IOCTL_SET_RPU_OPER_MODE,
-							ClusterLockstep, DstnCluster, NULL,
-							XPLMI_CMD_SECURE);
+			Status = XPm_DevIoctl(PM_SUBSYS_PMC, DeviceId, IOCTL_SET_APU_OPER_MODE,
+					      Mode, 0U, 0U, NULL, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}

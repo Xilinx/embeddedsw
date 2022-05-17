@@ -360,6 +360,23 @@ typedef enum {
 	IOCTL_GET_LAST_RESET_REASON,			/**< Get last reset reason */
 	/* AIE ISR Clear */
 	IOCTL_AIE_ISR_CLEAR,				/**< AIE ISR clear */
+	/* Register SGI to ATF */
+	IOCTL_REGISTER_SGI,				/**< Register SGI to ATF */
+	/* Runtime feature configuration */
+	IOCTL_SET_FEATURE_CONFIG,			/**< Set runtime feature config */
+	IOCTL_GET_FEATURE_CONFIG,			/**< Get runtime feature config */
+	/* Generic IOCTL Read/Write */
+	IOCTL_READ_REG,					/**< Read a 32-bit register */
+	IOCTL_MASK_WRITE_REG,				/**< RMW a 32-bit register */
+	/* Dynamic MIO config */
+	IOCTL_SET_SD_CONFIG,				/**< Set SD config register value */
+	IOCTL_SET_GEM_CONFIG,				/**< Set GEM config register value */
+	IOCTL_SET_USB_CONFIG,				/**< Set USB config register value */
+	/* AIE1/AIEML Run Time Operations */
+	IOCTL_AIE_OPS,                                  /**< AIE1/AIEML Run Time Operations */
+	IOCTL_GET_QOS,					/**< Get Device QoS value */
+	IOCTL_GET_APU_OPER_MODE,			/**< Get APU operation mode */
+	IOCTL_SET_APU_OPER_MODE,			/**< Set APU operation mode */
 } pm_ioctl_id;
 
 /**
@@ -442,6 +459,17 @@ enum XPmNotifyEvent {
  */
 #define XPM_RPU_MODE_LOCKSTEP	0U
 #define XPM_RPU_MODE_SPLIT	1U
+/** @} */
+
+/**
+ * @name APU operation mode
+ * @{
+ */
+/**
+ * APU operation mode
+ */
+#define XPM_APU_MODE_LOCKSTEP	1U
+#define XPM_APU_MODE_SPLIT	0U
 /** @} */
 
 /**

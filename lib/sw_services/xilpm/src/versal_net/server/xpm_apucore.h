@@ -62,6 +62,8 @@ XStatus XPmApuCore_Init(XPm_ApuCore *ApuCore,
 	u32 Ipi,
 	const u32 *BaseAddress,
 	XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset);
+XStatus XPm_ApuSetOperMode(const u32 ClusterId, const u32 Mode);
+XStatus XPm_ApuGetOperMode(const u32 ClusterId, u32 *Mode);
 
 #ifdef __cplusplus
 }
