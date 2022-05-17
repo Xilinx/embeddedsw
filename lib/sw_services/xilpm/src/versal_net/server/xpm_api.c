@@ -168,6 +168,38 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function activates subsystem by requesting all pre-alloc
+ * 	   devices which are essential for susbystem to be operational.
+ *
+ * @param  SubsystemId	ID of subsystem which is requesting to activate other
+ * 			subsystem
+ * @param  TargetSubsystemId	ID of subsystem which needs activation
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   This command is only allowed from PMC subsystem
+ *
+ ****************************************************************************/
+static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Return error if request is not from PMC subsystem */
+	if (PM_SUBSYS_PMC != SubsystemId) {
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Configure target subsystem */
+	Status = XPmSubsystem_Configure(TargetSubsystemId);
+
+done:
+	return Status;
+}
+
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	//changed to support minimum boot time xilpm
@@ -301,6 +333,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_IOCTL):
 		Status = XPm_DevIoctl(SubsystemId, Pload[0], (pm_ioctl_id) Pload[1], Pload[2],
 				      Pload[3], Pload[4], ApiResponse, Cmd->IpiReqType);
+		break;
+	case PM_API(PM_ACTIVATE_SUBSYSTEM):
+		Status = XPm_ActivateSubsystem(SubsystemId, Pload[0]);
 		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
