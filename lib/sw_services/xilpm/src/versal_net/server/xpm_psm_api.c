@@ -3,10 +3,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#include "xpm_common.h"
+#include "xpm_core.h"
+#include "xpm_defs.h"
 #include "xpm_psm_api.h"
 #include "xpm_nodeid.h"
 #include "xpm_ipi.h"
 #include "xpm_api.h"
+#include "xpm_psm.h"
+#include "xpm_requirement.h"
+#include "xpm_subsystem.h"
 #include "xplmi.h"
 
 static XPlmi_ModuleCmd XPlmi_PsmCmds[PSM_API_MAX+1];
@@ -22,24 +28,24 @@ static XPlmi_Module XPlmi_Psm =
 u32 ProcDevList[PROC_DEV_MAX] = {
 	[ACPU_0] = PM_DEV_ACPU_0_0,
 	[ACPU_1] = PM_DEV_ACPU_0_1,
-    [ACPU_2] = PM_DEV_ACPU_0_2,
-    [ACPU_3] = PM_DEV_ACPU_0_3,
-    [ACPU_4] = PM_DEV_ACPU_1_0,
-    [ACPU_5] = PM_DEV_ACPU_1_1,
-    [ACPU_6] = PM_DEV_ACPU_1_2,
-    [ACPU_7] = PM_DEV_ACPU_1_3,
+	[ACPU_2] = PM_DEV_ACPU_0_2,
+	[ACPU_3] = PM_DEV_ACPU_0_3,
+	[ACPU_4] = PM_DEV_ACPU_1_0,
+	[ACPU_5] = PM_DEV_ACPU_1_1,
+	[ACPU_6] = PM_DEV_ACPU_1_2,
+	[ACPU_7] = PM_DEV_ACPU_1_3,
 	[ACPU_8] = PM_DEV_ACPU_2_0,
 	[ACPU_9] = PM_DEV_ACPU_2_1,
-    [ACPU_10] = PM_DEV_ACPU_2_2,
-    [ACPU_11] = PM_DEV_ACPU_2_3,
+	[ACPU_10] = PM_DEV_ACPU_2_2,
+	[ACPU_11] = PM_DEV_ACPU_2_3,
 	[ACPU_12] = PM_DEV_ACPU_3_0,
 	[ACPU_13] = PM_DEV_ACPU_3_1,
-    [ACPU_14] = PM_DEV_ACPU_3_2,
-    [ACPU_15] = PM_DEV_ACPU_3_3,
+	[ACPU_14] = PM_DEV_ACPU_3_2,
+	[ACPU_15] = PM_DEV_ACPU_3_3,
 	[RPU0_0] = PM_DEV_RPU_A_0,
 	[RPU0_1] = PM_DEV_RPU_A_1,
-    [RPU1_0] = PM_DEV_RPU_B_0,
-    [RPU1_1] = PM_DEV_RPU_B_1,
+	[RPU1_0] = PM_DEV_RPU_B_0,
+	[RPU1_1] = PM_DEV_RPU_B_1,
 };
 /* This replicates PsmToPlmEvent stored at PSM reserved RAM location */
 volatile struct PsmToPlmEvent_t *PsmToPlmEvent;
@@ -48,11 +54,11 @@ static int XPm_ProcessPsmCmd(XPlmi_Cmd * Cmd)
 {
 	XStatus Status = XST_FAILURE, EventStatus;
 	u32 Idx;
-    Status = XST_SUCCESS;
+	Status = XST_SUCCESS;
 	PmDbg("Processing Psm Event\n\r");
 
 	/* Check for the power up/down event register */
-    /*TBD: Check for LPD power node is not equals to XPM_POWER_STATE_OFF*/
+	/*TBD: Check for LPD power node is not equals to XPM_POWER_STATE_OFF*/
 	for (Idx = 0; (Idx < ARRAY_SIZE(ProcDevList)); Idx++) {
 		if (PsmToPlmEvent->Event[Idx] == PWR_UP_EVT) {
 			/* Clear power up event register bit */
@@ -184,14 +190,29 @@ done:
 XStatus XPm_WakeUpEvent(const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
+	u32 CpuIdleFlag = 0;
+	XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 
-	/*TBD: Do not process anything if proc is already running */
+	/* Do not process anything if proc is already running */
+	if ((u8)XPM_DEVSTATE_RUNNING == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
 
-    /*TBD: read the cpuidleflag*/
-	/*TBD: Update the state and its parent use counts in case of CPU idle */
-    Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId, 0, 0, 0,
-				   XPLMI_CMD_SECURE);
+	Status = XPmCore_GetCPUIdleFlag(Core, &CpuIdleFlag);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
+	if (1U == CpuIdleFlag) {
+		/* Update the state and its parent use counts in case of CPU idle */
+		Status = XPmCore_AfterDirectWakeUp(Core);
+	} else {
+		Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId, 0, 0, 0,
+					   XPLMI_CMD_SECURE);
+	}
+
+done:
 	return Status;
 }
 
@@ -210,24 +231,68 @@ XStatus XPm_WakeUpEvent(const u32 DeviceId)
 XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
-    (void)DeviceId;
-    /*TBD: Do not process anything if proc is already down */
-    /*TBD: do processpendingforcepwrdwn if the core state is not XPM_DEVSTATE_SUSPENDING */
+	XPm_Core *Core;
+	XPm_Subsystem *Subsystem;
+	u32 SubsystemId;
+	u32 CpuIdleFlag = 0;
 
-    XPm_DirectPwrDwn(DeviceId);
+	if (((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) ||
+	    ((u32)XPM_NODESUBCL_DEV_CORE != NODESUBCLASS(DeviceId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
-    /*TBD: Update the state and its parent use counts in case of CPU idle */
-    /*TBD: PowerDown the Core*/
-    /*TBD: Get the subsystem id, if its state is SUSPENDING then do:
-        - update the scheduled requirement
-        - Read PSM_PGGS_0 and PSM_PGGS_1 registers value and do not
-            power down LPD if values are non zero
-        - Release devices requested by PLM to turn of LPD domain
-        - Clear the pending suspend cb reason
-        - set the subsystem state to SUSPENDED
-    */
-    Status = XST_SUCCESS;
-    return Status;
+	Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
+
+	/* Do not process anything if proc is already down */
+	if ((u8)XPM_DEVSTATE_UNUSED == Core->Device.Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* TODO: Process pending force power down */
+
+	Status = XPmCore_GetCPUIdleFlag(Core, &CpuIdleFlag);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Update the state and its parent use counts in case of CPU idle */
+	if (1U == CpuIdleFlag) {
+		Status = XPmCore_AfterDirectPwrDwn(Core);
+		goto done;
+	}
+
+	if (NULL != Core->CoreOps->PowerDown) {
+		Status = Core->CoreOps->PowerDown(Core);
+	}
+
+	SubsystemId = XPmDevice_GetSubsystemIdOfCore((XPm_Device *)Core);
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	if ((u8)SUSPENDING == Subsystem->State) {
+		Status = XPmRequirement_UpdateScheduled(Subsystem, 1U);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* TODO: Release LPD devices to power down LPD */
+
+		/* Clear the pending suspend cb reason */
+		Subsystem->PendCb.Reason = 0U;
+
+		Status = XPmSubsystem_SetState(SubsystemId, (u32)SUSPENDED);
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+done:
+	return Status;
 }
 
 /****************************************************************************/

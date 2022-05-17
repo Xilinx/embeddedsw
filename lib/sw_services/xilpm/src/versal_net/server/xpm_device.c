@@ -1666,6 +1666,47 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief	Get subsystem ID of processor
+ *
+ * @param  Device	Processor whose subsystem needs to found
+ *
+ * @return	Subsystem ID of that processor
+ *
+ * @note	Core must be requested from single subsystem. If it is
+ *		requested from multiple subsystems then it returns only one
+ *		subsystem ID and if it is not requested from any subsystem
+ *		then this function returns maximum subsystem ID which is
+ *		invalid.
+ *
+ ****************************************************************************/
+u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
+{
+	const XPm_Requirement *Reqm;
+	const XPm_Subsystem *Subsystem = NULL;
+	u32 Idx, SubSystemId;
+	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
+
+	for (Idx = 0; Idx <= SubsysIdx; Idx++) {
+		Subsystem = XPmSubsystem_GetByIndex(Idx);
+		if (NULL != Subsystem) {
+			Reqm = FindReqm(Device, Subsystem);
+			if ((NULL != Reqm) && (1U == Reqm->Allocated)) {
+				break;
+			}
+		}
+	}
+
+	if (SubsysIdx < Idx) {
+		SubSystemId = INVALID_SUBSYSID;
+	} else {
+		SubSystemId = Subsystem->Id;
+	}
+
+	return SubSystemId;
+}
+
 XStatus XPmDevice_GetWakeupLatency(const u32 DeviceId, u32 *Latency)
 {
 	XStatus Status = XST_SUCCESS;
