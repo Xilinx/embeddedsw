@@ -147,6 +147,10 @@ XStatus XPmClockPll_SetMode(XPm_PllClockNode *Pll, u32 Mode);
 XStatus XPmClockPll_GetMode(XPm_PllClockNode *Pll, u32 *Mode);
 XStatus XPmClockPll_SetParam(const XPm_PllClockNode *Pll, u32 Param,u32 Value);
 XStatus XPmClockPll_GetParam(const XPm_PllClockNode *Pll, u32 Param,u32 *Val);
+XStatus XPmClockPll_Suspend(XPm_PllClockNode *Pll);
+XStatus XPmClockPll_Resume(XPm_PllClockNode *Pll);
+XStatus XPmClockPll_Request(u32 PllId);
+XStatus XPmClockPll_Release(u32 PllId);
 
 #ifdef __cplusplus
 }

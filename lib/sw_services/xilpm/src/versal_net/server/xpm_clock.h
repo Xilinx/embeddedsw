@@ -162,6 +162,14 @@ XPm_ClockNode* XPmClock_GetById(u32 ClockId);
 XPm_ClockNode* XPmClock_GetByIdx(u32 ClockIdx);
 XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk);
 XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId);
+XStatus XPmClock_Request(const XPm_ClockHandle *ClkHandle);
+XStatus XPmClock_Release(const XPm_ClockHandle *ClkHandle);
+XStatus XPmClock_SetGate(XPm_OutClockNode *Clk, u32 Enable);
+XStatus XPmClock_SetParent(XPm_OutClockNode *Clk, u32 ParentIdx);
+XStatus XPmClock_SetDivider(const XPm_OutClockNode *Clk, u32 Divider);
+XStatus XPmClock_GetClockData(const XPm_OutClockNode *Clk, u32 Nodetype, u32 *Value);
+XStatus XPmClock_SetRate(XPm_ClockNode *Clk, const u32 ClkRate);
+XStatus XPmClock_GetRate(const XPm_ClockNode *Clk, u32 *ClkRate);
 
 #ifdef __cplusplus
 }
