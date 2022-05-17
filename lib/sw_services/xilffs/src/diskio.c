@@ -2,7 +2,7 @@
 /* Low level disk I/O module skeleton for FatFs     (C)ChaN, 2016        */
 /*-----------------------------------------------------------------------*/
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -81,6 +81,7 @@
 #endif
 #include "sleep.h"
 #include "xil_printf.h"
+#include "xil_util.h"
 
 #define SD_CD_DELAY		10000U
 #define XSDPS_NUM_INSTANCES	2
