@@ -137,7 +137,7 @@ int XPlmi_IpiDrvInit(void) {
 	int Status = XST_FAILURE;
 
 	/* Load Config for Processor IPI Channel */
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
+	IpiCfgPtr = XIpiPsu_LookupConfig(XPLMI_IPI_DEVICE_ID);
 	if (IpiCfgPtr == NULL) {
 		Status = XST_FAILURE;
 		goto END;
