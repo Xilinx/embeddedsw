@@ -357,7 +357,7 @@ void XDpTxSs_ReportVtcInfo(XDpTxSs *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	for (Index = 0; Index < InstancePtr->UsrOpt.NumOfStreams; Index++) {
+	for (Index = 0; Index < InstancePtr->Config.NumMstStreams; Index++) {
 		if (InstancePtr->VtcPtr[Index]) {
 			XVtc_GetGeneratorTiming(InstancePtr->VtcPtr[Index],
 				&VideoTiming);
@@ -469,55 +469,80 @@ void XDpTxSs_ReportLinkInfo(XDpTxSs *InstancePtr)
 ******************************************************************************/
 void XDpTxSs_ReportMsaInfo(XDpTxSs *InstancePtr)
 {
-
+	u8 Stream;
+	u32 StreamOffset[4] = {0, XDP_TX_STREAM2_MSA_START_OFFSET,
+					XDP_TX_STREAM3_MSA_START_OFFSET,
+					XDP_TX_STREAM4_MSA_START_OFFSET};
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XDp_Config *TxConfig = &InstancePtr->DpPtr->Config;
 
-	xil_printf("TX MSA registers:\n\r"
-			"\tClocks, H Total      	(0x180) : %ld\n\r"
-			"\tClocks, V Total      	(0x184) : %ld\n\r"
-			"\tPolarity (V / H)     	(0x188) : %ld\n\r"
-			"\tHSync Width          	(0x18C) : %ld\n\r"
-			"\tVSync Width          	(0x190) : %ld\n\r"
-			"\tHorz Resolution      	(0x194) : %ld\n\r"
-			"\tVert Resolution      	(0x198) : %ld\n\r"
-			"\tHorz Start           	(0x19C) : %ld\n\r"
-			"\tVert Start           	(0x1A0) : %ld\n\r"
-			"\tMisc0                	(0x1A4) : 0x%08lX\n\r"
-			"\tMisc1                	(0x1A8) : 0x%08lX\n\r"
-			"\tUser Pixel Width     	(0x1B8) : %ld\n\r"
-			"\tM Vid                	(0x1AC) : %ld\n\r"
-			"\tN Vid                	(0x1B4) : %ld\n\r"
-			"\tTransfer Unit Size   	(0x1B0) : %ld\n\r"
-			"\tUser Data Count      	(0x1BC) : %ld\n\r"
-			"\tMinimum bytes per TU 	(0x1C4) : %ld\n\r"
-			"\tFractional bytes per TU	(0x1C8) : %ld\n\r"
-			"\tInit wait              	(0x1CC) : %ld\n\r",
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HTOTAL),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_VTOTAL),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_POLARITY),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HSWIDTH),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_VSWIDTH),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HRES),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_VRES),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HSTART),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_VSTART),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_MISC0),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_MISC1),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_USER_PIXEL_WIDTH),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_M_VID),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_N_VID),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_TU_SIZE),
+	for (Stream = 1; Stream <= InstancePtr->Config.NumMstStreams; Stream++) {
+		xil_printf("TX MSA registers:Stream %x\n\r"
+				"\tClocks, H Total      	(0x180) : %u\n\r"
+				"\tClocks, V Total      	(0x184) : %u\n\r"
+				"\tPolarity (V / H)     	(0x188) : %u\n\r"
+				"\tHSync Width          	(0x18C) : %u\n\r"
+				"\tVSync Width          	(0x190) : %u\n\r"
+				"\tHorz Resolution      	(0x194) : %u\n\r"
+				"\tVert Resolution      	(0x198) : %u\n\r"
+				"\tHorz Start           	(0x19C) : %u\n\r"
+				"\tVert Start           	(0x1A0) : %u\n\r"
+				"\tMisc0                	(0x1A4) : 0x%08x\n\r"
+				"\tMisc1                	(0x1A8) : 0x%08x\n\r"
+				"\tUser Pixel Width     	(0x1B8) : %u\n\r"
+				"\tM Vid                	(0x1AC) : %u\n\r"
+				"\tN Vid                	(0x1B4) : %u\n\r"
+				"\tTransfer Unit Size   	(0x1B0) : %u\n\r"
+				"\tUser Data Count      	(0x1BC) : %u\n\r"
+				"\tMinimum bytes per TU 	(0x1C4) : %u\n\r"
+				"\tFractional bytes per TU	(0x1C8) : %u\n\r"
+				"\tInit wait              	(0x1CC) : %u\n\r",
+		Stream,
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HTOTAL+
+						StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_VTOTAL+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_POLARITY+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HSWIDTH+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_VSWIDTH+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HRES+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_VRES+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_HSTART+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_VSTART+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_MISC0+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MAIN_STREAM_MISC1+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_USER_PIXEL_WIDTH+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_M_VID+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_N_VID+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_TU_SIZE+
+				StreamOffset[Stream - 1]),
 		XDp_ReadReg(TxConfig->BaseAddr,
-				XDP_TX_USER_DATA_COUNT_PER_LANE),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MIN_BYTES_PER_TU),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_FRAC_BYTES_PER_TU),
-		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_INIT_WAIT)
+				XDP_TX_USER_DATA_COUNT_PER_LANE+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_MIN_BYTES_PER_TU+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_FRAC_BYTES_PER_TU+
+				StreamOffset[Stream - 1]),
+		XDp_ReadReg(TxConfig->BaseAddr, XDP_TX_INIT_WAIT+
+				StreamOffset[Stream - 1])
 	);
 
-	xil_printf("\n\r");
+		xil_printf("\n\r");
+	}
 }
 
 /*****************************************************************************/
