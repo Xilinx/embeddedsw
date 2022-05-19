@@ -73,6 +73,8 @@
 # 8.0	sk   03/17/22 Update parameter function declaration parameter name in
 # 		      microblaze_interrupts_g.c to fix misra_c_2012_rule_8_6
 # 		      violation.
+#       adk  05/18/22 Added pmu_sleep_timer config parameter to perform sleep
+#       	      functionality from PMU counters for CortexR5 BSP.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -1022,6 +1024,8 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 			set is_ttc_present 0
 			set periphs [hsi::get_cells -hier -filter {IP_NAME==ps7_ttc || IP_NAME==psu_ttc || IP_NAME==psv_ttc || IP_NAME==psxl_ttc}]
 			set periphs [lsort -decreasing $periphs]
+                        set en_pmu_sleep_timer [common::get_property CONFIG.pmu_sleep_timer $os_handle ]
+
 			foreach periph $periphs {
 				set base_addr [get_base_value $periph]
 				set base_addr [string trimleft $base_addr "0x"]
@@ -1029,27 +1033,35 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 
 				if {[string compare -nocase "psu_ttc_3" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
-					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
-					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
-					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					if {$en_pmu_sleep_timer == false} {
+						puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
+						puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
+						puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					}
 					break
 				} elseif {[string compare -nocase "psu_ttc_2" $periph] == 0 && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
-					puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_6_BASEADDR"
-					puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_6_TTC_CLK_FREQ_HZ"
-					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
+					if {$en_pmu_sleep_timer == false} {
+						puts $file_handle "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_6_BASEADDR"
+						puts $file_handle "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_6_TTC_CLK_FREQ_HZ"
+						puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
+					}
 					break
 				} elseif {([llength $is_versal] > 0) && ([string compare -nocase "psv_ttc_3" $periph] == 0 || [string match -nocase $base_addr "FF110000"]) && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
-					puts $file_handle "#define SLEEP_TIMER_BASEADDR [format XPAR_%s_9_BASEADDR [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
-					puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format XPAR_%s_9_TTC_CLK_FREQ_HZ [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
-					puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					if {$en_pmu_sleep_timer == false} {
+						puts $file_handle "#define SLEEP_TIMER_BASEADDR [format XPAR_%s_9_BASEADDR [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
+						puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format XPAR_%s_9_TTC_CLK_FREQ_HZ [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
+						puts $file_handle "#define XSLEEP_TTC_INSTANCE 3"
+					}
 					break
 				} elseif {([llength $is_versal] > 0) && ([string compare -nocase "psv_ttc_2" $periph] == 0 || [string match -nocase $base_addr "FF100000"]) && [is_ttc_accessible_from_processor $periph] == 1} {
 					set is_ttc_present 1
-					puts $file_handle "#define SLEEP_TIMER_BASEADDR [format XPAR_%s_6_BASEADDR [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
-					puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format XPAR_%s_6_TTC_CLK_FREQ_HZ [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
-					puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
+					if {$en_pmu_sleep_timer == false} {
+						puts $file_handle "#define SLEEP_TIMER_BASEADDR [format XPAR_%s_6_BASEADDR [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
+						puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format XPAR_%s_6_TTC_CLK_FREQ_HZ [string toupper [string range [common::get_property NAME $periph] 0 end-2]]]"
+						puts $file_handle "#define XSLEEP_TTC_INSTANCE 2"
+					}
 					break
 				}
 			}
@@ -1058,7 +1070,9 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 				CortexR5 PMU cycle counter would be used for sleep routines until and unless DONT_USE_PMU_FOR_SLEEP_ROUTINES \
 				flag is used in BSP compiler flags"
 			} else {
-				puts "$periph will be used in sleep routines for delay generation"
+				if {$en_pmu_sleep_timer == false} {
+					puts "$periph will be used in sleep routines for delay generation"
+				}
 			}
 		}
 
