@@ -696,6 +696,8 @@
  *                      holes in between the regions.
  *     asa     03/22/22 Updated FIQ handling in ARMv8 vectors (arm/ARMv8/64bit/<gcc/armclang>/asm_vectors.S) to save and
  *                      restore the SIMD register contexts.
+ *     adk     05/18/22 Added pmu_sleep_timer config parameter to perform sleep
+ * 			functionality from PMU counters for CortexR5 BSP.
  *
  *
  *

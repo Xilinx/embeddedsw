@@ -39,4 +39,5 @@ PARAM name = lockstep_mode_debug, type = bool, default = false, desc = "Enable d
 
 PARAM name = clocking, type = bool, default = false, desc = "Enable clocking support", permit = user;
 PARAM name = xil_interrupt, type = bool, default = false, desc = "Enable xilinx interrupt wrapper API support", permit = user;
+PARAM name = pmu_sleep_timer, type = bool, default = false, desc = "Use PMU counters for sleep functionality applicable only for CortexR5 processor", permit = user;
 END OS
