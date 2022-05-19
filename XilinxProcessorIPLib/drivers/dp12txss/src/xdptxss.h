@@ -363,7 +363,7 @@ u32 XDpTxSs_GetRemoteEdid(XDpTxSs *InstancePtr, u8 SinkNum, u8 *Edid);
 void XDpTxSs_SetHasRedriverInPath(XDpTxSs *InstancePtr, u8 Set);
 void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth,
 				u8 StreamId);
-
+u8 XDpTxSs_GetNumOfMstStreams(XDpTxSs *InstancePtr);
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 /* Optional HDCP related functions */
 u32 XDpTxSs_HdcpEnable(XDpTxSs *InstancePtr);
