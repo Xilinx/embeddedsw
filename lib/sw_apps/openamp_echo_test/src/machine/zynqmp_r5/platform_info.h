@@ -13,6 +13,7 @@
 #include <openamp/virtio.h>
 #include <openamp/rpmsg.h>
 #include <metal/log.h>
+#include "xreg_cortexr5.h"
 
 #if defined __cplusplus
 extern "C" {
@@ -30,13 +31,6 @@ extern "C" {
 		__func__, __LINE__, ##args)
 #define ML_DBG(fmt, args ...) metal_log(METAL_LOG_DEBUG, "%s():%u "fmt, \
 		__func__, __LINE__, ##args)
-
-/* Cortex R5 memory attributes */
-#define DEVICE_SHARED       0x00000001U /* device, shareable */
-#define DEVICE_NONSHARED    0x00000010U /* device, non shareable */
-#define NORM_NSHARED_NCACHE 0x00000008U /* Non cacheable  non shareable */
-#define NORM_SHARED_NCACHE  0x0000000CU /* Non cacheable shareable */
-#define PRIV_RW_USER_RW     (0x00000003U<<8U) /* Full Access */
 
 /* Interrupt vectors */
 #ifdef versal
