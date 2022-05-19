@@ -243,7 +243,7 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_NODEIDX_ERROR_SW_ERR_MAX] = {
 	[XPLMI_NODEIDX_ERROR_SEUECC] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMX_WWDT] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_PMC_RSRV4] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_NODEIDX_ERROR_RTCALARM] =

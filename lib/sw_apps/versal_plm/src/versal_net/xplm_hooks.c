@@ -36,6 +36,7 @@
 #include "xpm_subsystem.h"
 #endif
 #include "xplmi_update.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -89,6 +90,15 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 		Status = XST_SUCCESS;
 	}
 	else {
+		/*
+		 * if ROM SWDT usage EFUSE is enabled and no WDT is configured,
+		 * enable WDT with default timeout
+		 */
+		Status = XPlmi_DefaultSWdtConfig();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
 	/* Call LibPM hook */
 #ifndef PLM_PM_EXCLUDE
 		Status = XPm_HookAfterPlmCdo();
@@ -96,6 +106,8 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 		Status = XST_SUCCESS;
 #endif
 	}
+
+END:
 	return Status;
 }
 

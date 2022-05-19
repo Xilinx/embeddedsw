@@ -90,6 +90,9 @@ int XPlmi_UpdateInit(void)
 
 	if (PlmUpdateStatus == (u8)TRUE) {
 		Status = XPlmi_RestoreDataBackup();
+		if (XPlmi_RomSwdtUsage() == (u8)TRUE) {
+			XPlmi_KickWdt(XPLMI_WDT_INTERNAL);
+		}
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 		if (PlmUpdateIpiMask != 0U) {
 			SStatus = XPlmi_IpiDrvInit();
@@ -514,7 +517,14 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/* TODO - Kick PMC WDT */
+	if (XPlmi_RomSwdtUsage() == (u8)TRUE) {
+		/* Kick PMC WDT before requesting update */
+		XPlmi_KickWdt(XPLMI_WDT_INTERNAL);
+	}
+	else {
+		/* Stop PMC WDT before requesting update */
+		XPlmi_StopWdt(XPLMI_WDT_INTERNAL);
+	}
 
 	/* Update the new PLM location in Memory */
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE5, PdiAddr);

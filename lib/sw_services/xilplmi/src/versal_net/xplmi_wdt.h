@@ -36,6 +36,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 /**
@@ -45,9 +46,32 @@ extern "C" {
 #define XPLMI_MODE_OPERATIONAL		(1U)
 #define XPLMI_MODE_CONFIGURATION	(2U)
 
+/* WDT Timeout (in ms) to be used in In-Place Update */
+#define XPLMI_INPLACE_UPDATE_WDT_TIMEOUT	(100U)
+
+#define XPLMI_PM_STMIC_LMIO_0		(0x14104001U)
+#define XPLMI_PM_STMIC_LMIO_25		(0x1410401aU)
+#define XPLMI_PM_STMIC_PMIO_0		(0x1410801bU)
+#define XPLMI_PM_STMIC_PMIO_51		(0x1410804eU)
+#define XPLMI_PM_DEV_PMC_WDT		(0x1821C035U)
+
+#define XPLMI_WDT_EXTERNAL		XPLMI_PM_STMIC_LMIO_0
+#define XPLMI_WDT_INTERNAL		XPLMI_PM_DEV_PMC_WDT
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/*****************************************************************************/
+/**
+ * @brief	This function checks if ROM SWDT Usage is enabled in EFUSE
+ *
+ * @return	TRUE if Usage is enabled, else FALSE
+ *
+ *****************************************************************************/
+static inline u8 XPlmi_RomSwdtUsage(void) {
+	return (XPlmi_In32(EFUSE_CACHE_ROM_RSVD) &
+			EFUSE_ROM_SWDT_USAGE_MASK) ?  (u8)TRUE : (u8)FALSE;
+}
 
 /************************** Function Prototypes ******************************/
 void XPlmi_SetPlmMode(u8 Mode);
@@ -58,11 +82,15 @@ void XPlmi_ClearPlmLiveStatus(void);
  * @endcond
  */
 int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity);
+void XPlmi_KickWdt(u32 NodeId);
+void XPlmi_RestoreWdt(void);
+void XPlmi_StopWdt(u32 NodeId);
+int XPlmi_DefaultSWdtConfig(void);
 /**
  * @{
  * @cond xplmi_internal
  */
-void XPlmi_DisableWdt(void);
+void XPlmi_DisableWdt(u32 NodeId);
 void XPlmi_WdtHandler(void);
 
 #ifdef __cplusplus

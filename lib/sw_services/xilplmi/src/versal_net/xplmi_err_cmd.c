@@ -198,6 +198,16 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 		goto END;
 	}
 
+	if (((XPlmi_EventNodeType(NodeId) * (u32)XPLMI_MAX_ERR_BITS) ==
+		XPLMI_NODEIDX_ERROR_PMX_WWDT) &&
+		(ErrorAction > XPLMI_EM_ACTION_ERROUT) &&
+		(ErrorAction != XPLMI_EM_ACTION_NONE)) {
+		XPlmi_Printf(DEBUG_GENERAL, "Only HW Error Actions are supported for "
+				"PMC WDT\n\r");
+		Status = XPLMI_INVALID_ERROR_ACTION;
+		goto END;
+	}
+
 	Status = XPlmi_EmSetAction(NodeId, ErrorMasks, (u8)ErrorAction, NULL);
 	if(Status != XST_SUCCESS) {
 		goto END;

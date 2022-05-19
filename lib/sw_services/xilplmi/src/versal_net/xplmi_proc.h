@@ -58,6 +58,7 @@ extern "C" {
 /* PMC IRO Frequency related macros */
 #define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U)
 #define XPLMI_PMC_IRO_FREQ_130_MHZ	(130000000U)
+#define XPLMI_PMC_IRO_FREQ_1_MHZ	(1000000U)
 
 /** PIT related macros */
 #define XPLMI_PIT1_RESET_VALUE		(0xFFFFFFFDU)
@@ -127,6 +128,7 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data);
 void XPlmi_PrintRomTime(void);
 void XPlmi_PrintPlmTimeStamp(void);
 void XPlmi_DisableClearIOmodule(void);
+u32 XPlmi_GetPmcIroFreq(void);
 
 /* Handler Table Structure */
 struct HandlerTable {

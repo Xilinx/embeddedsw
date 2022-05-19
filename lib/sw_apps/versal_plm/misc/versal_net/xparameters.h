@@ -642,7 +642,17 @@
 
 
 /******************************************************************/
+/* Definitions for driver WDTTB */
+#define XPAR_XWDTTB_NUM_INSTANCES 1U
 
+/* Canonical definitions for peripheral PSX_PMX_WWDT_0 */
+#define XPAR_WDTTB_0_DEVICE_ID 0U
+#define XPAR_WDTTB_0_BASEADDR 0xF03F0000U
+#define XPAR_WDTTB_0_HIGHADDR 0xF03FFFFFU
+#define XPAR_WDTTB_0_ENABLE_WINDOW_WDT 0U
+#define XPAR_WDTTB_0_MAX_COUNT_WIDTH 0U
+#define XPAR_WDTTB_0_SST_COUNT_WIDTH 0U
+#define XPAR_WDTTB_0_IS_PL 0U
 
 /* Canonical Definitions for peripheral PSV_CORESIGHT_FPD_STM */
 #define XPAR_PSV_CORESIGHT_FPD_STM_0_S_AXI_BASEADDR 0xF0B70000
