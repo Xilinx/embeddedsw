@@ -254,14 +254,17 @@ static void XPlmi_SetPmcIroFreq(void)
 	Trim7 = XPlmi_In32(EFUSE_CACHE_ANLG_TRIM_7);
 
 	/* Set the Frequency */
-	if (((Trim5 & EFUSE_TRIM_LP_MASK) != 0U) ||
+	if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) {
+		PmcIroFreq = XPLMI_PMC_IRO_FREQ_1_MHZ;
+	}
+	else if (((Trim5 & EFUSE_TRIM_LP_MASK) != 0U) ||
 		((Trim7 & EFUSE_TRIM_LP_MASK) != 0U)) {
 		PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
 	} else {
 		PmcIroFreq = XPLMI_PMC_IRO_FREQ_130_MHZ;
 	}
-}
 
+}
 
 /*****************************************************************************/
 /**
@@ -751,4 +754,16 @@ void XPlmi_DisableClearIOmodule(void)
 {
 	XIomodule_Out32(IOModule.BaseAddress + XIN_IER_OFFSET, 0U);
 	XIomodule_Out32(IOModule.BaseAddress + XIN_IAR_OFFSET, 0xFFFFFFFFU);
+}
+
+/****************************************************************************/
+/**
+* @brief    This function will return PMC IRO frequency
+*
+* @return   PMC IRO frequency value
+*
+****************************************************************************/
+u32 XPlmi_GetPmcIroFreq(void)
+{
+	return PmcIroFreq;
 }

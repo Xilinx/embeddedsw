@@ -18,4 +18,5 @@ ttcps
 uartlite
 uartpsv
 usbpsu
+wdttb
 zdma

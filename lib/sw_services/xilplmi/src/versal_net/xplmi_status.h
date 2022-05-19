@@ -284,6 +284,8 @@ typedef enum {
 	XPLMI_ERR_MEMCPY_RESTORE_DB,	/**< 0x14C - Error when memcpy during restore database is failed */
 	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x14D - Error when memset of DbHdr during store database is failed */
 	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x14E - Error when relocating of update manager code is failed */
+	XPLMI_ERR_PMC_WDT_NOT_ENABLED,	/**< 0x14F - Error when PMC WDT is tried use and it is not enabled in design */
+	XPLMI_ERR_PMC_WDT_DRV_INIT,	/**< 0x150 - Error when PMC WDT driver initialization fails */
 
 
 	/** Status codes used in PLM */

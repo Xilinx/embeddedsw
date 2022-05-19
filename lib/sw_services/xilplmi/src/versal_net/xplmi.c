@@ -92,6 +92,10 @@ int XPlmi_Init(void)
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
 		XPlmi_RunTimeConfigInit();
 	}
+	else {
+		XPlmi_RestoreWdt();
+	}
+
 	Status = XPlmi_SetUpInterruptSystem();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -312,7 +316,7 @@ static void XPlmi_PrintRomVersion(void)
 void XPlmi_ResetLpdInitialized(void)
 {
 	if ((LpdInitialized & LPD_WDT_INITIALIZED) == LPD_WDT_INITIALIZED) {
-		XPlmi_DisableWdt();
+		XPlmi_DisableWdt(XPLMI_WDT_EXTERNAL);
 	}
 
 	LpdInitialized = (u32)0U;
