@@ -584,6 +584,7 @@ typedef struct {
  * This typedef contains configuration information for MMCM programming.
  */
 typedef struct {
+	u8 dp20rate;
 	u8 DivClkDivide;
 	u8 ClkFbOutMult;
 	u16 ClkFbOutFrac;
@@ -674,6 +675,8 @@ typedef struct {
 	u32 AxiLiteClkFreq;	    /**< AXI Lite Clock Frequency in Hz */
 	u32 DrpClkFreq;	        /**< DRP Clock Frequency in Hz */
 	u8  UseGtAsTxTmdsClk;	/**< Use 4th GT channel as TX TMDS clock */
+	u8  DpTxProtocol;       /* DP TX protocol */
+	u8  DpRxProtocol;       /* DP RX protocol */
 } XVphy_Config;
 
 /* Forward declaration. */
@@ -887,6 +890,11 @@ void XVphy_BufgGtReset(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Reset);
 /* xvphy.c Miscellaneous control. */
 void XVphy_Set8b10b(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Enable);
+void XVphy_SetupDP21Phy (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir, u8 Rate, XVphy_PllRefClkSelType RefClkSel,
+		XVphy_PllType PllSelect);
+u16 XVphy_DP21PhyReset (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir);
 #endif
 u32 XVphy_IsBonded(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 

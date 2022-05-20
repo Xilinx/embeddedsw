@@ -172,7 +172,9 @@ u32 XVphy_Gtye4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 
 		LineRateHz = XVphy_GetLineRateHz(InstancePtr, QuadId, ChId);
 
-		if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
+		if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_10GBPS) {
+		  ChPtr->PllParams.Cdr[2] = 0x0263;
+		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_810GBPS) {
 		  ChPtr->PllParams.Cdr[2] = 0x0263;
 		} else if(LineRateHz==XVPHY_DP_LINK_RATE_HZ_540GBPS) {
 			ChPtr->PllParams.Cdr[2] = 0x0263;

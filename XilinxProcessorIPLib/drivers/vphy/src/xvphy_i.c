@@ -525,6 +525,7 @@ void XVphy_MmcmReset(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 	RegVal |= XVPHY_MMCM_USRCLK_CTRL_RST_MASK;
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl, RegVal);
 
+	usleep(1000);
 	if (!Hold) {
 		/* De-assert reset. */
 		RegVal &= ~XVPHY_MMCM_USRCLK_CTRL_RST_MASK;
