@@ -700,7 +700,7 @@ u32 XVphy_ResetGtPll(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	/* Assert reset. */
 	RegVal |= MaskVal;
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
-
+    usleep (1000);
 	if (!Hold) {
 		/* De-assert reset. */
 		RegVal &= ~MaskVal;
@@ -1474,6 +1474,179 @@ void XVphy_Set8b10b(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	}
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
 }
+
+
+/*****************************************************************************/
+/**
+* This function sets up the PHY for DP2.1
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	Enable will enable (if 1) or disable (if 0) the LPM logic.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_SetupDP21Phy (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir, u8 Rate, XVphy_PllRefClkSelType RefClkSel,
+		XVphy_PllType PllSelect)
+{
+	u32 RegVal;
+
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+			XVPHY_CLKDET_CTRL_REG);
+
+    if ((Rate == 0x1E) ||
+		  (Rate == 0x14) ||
+		  (Rate == 0x0A) ||
+		  (Rate == 0x06) ) {
+          //write '1' to [bit 31] of x200; DP1.4 select /40 from MMCM
+	if (!Dir) {
+          XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_CLKDET_CTRL_REG,
+			  RegVal | 0x80000000);
+          XVphy_SetRxLpm(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
+			1);
+	} else {
+            XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_CLKDET_CTRL_REG,
+			  RegVal | 0x40000000);
+	}
+      } else {
+          //write '0' to bit[31] x200; DP2.0 select /32 from GT
+	if (!Dir) {
+          XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_CLKDET_CTRL_REG,
+			  RegVal & 0x7FFFFFFF);
+          XVphy_SetRxLpm(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
+			0);
+	} else {
+            XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_CLKDET_CTRL_REG,
+			  RegVal & 0xBFFFFFFF);
+	}
+      }
+
+	if (!Dir) {
+		InstancePtr->Quads[QuadId].RxMmcm.dp20rate = Rate;
+        XVphy_MmcmWriteParameters (InstancePtr, 0, XVPHY_DIR_RX);
+        XVphy_MmcmReset (InstancePtr, 0, XVPHY_DIR_RX, TRUE);
+        if (PllSelect == XVPHY_PLL_TYPE_CPLL) {
+		XVphy_CfgPllRefClkSel(InstancePtr, QuadId,
+				XVPHY_CHANNEL_ID_CHA, RefClkSel);
+        } else {
+		XVphy_CfgPllRefClkSel(InstancePtr, QuadId,
+				XVPHY_CHANNEL_ID_CMNA, RefClkSel);
+        }
+	} else {
+		InstancePtr->Quads[QuadId].TxMmcm.dp20rate = Rate;
+		XVphy_MmcmWriteParameters (InstancePtr, 0, XVPHY_DIR_TX);
+		XVphy_MmcmReset (InstancePtr, 0, XVPHY_DIR_TX, TRUE);
+        if (PllSelect == XVPHY_PLL_TYPE_CPLL) {
+		XVphy_CfgPllRefClkSel(InstancePtr, QuadId,
+				XVPHY_CHANNEL_ID_CHA, RefClkSel);
+        } else {
+		XVphy_CfgPllRefClkSel(InstancePtr, QuadId,
+				XVPHY_CHANNEL_ID_CMNA, RefClkSel);
+        }
+	}
+	XVphy_WriteCfgRefClkSelReg(InstancePtr, QuadId);
+
+	//forcing CPLL for RX, QPLL for TX as of now for 10G
+	if (!Dir) {
+		XVphy_ClkInitialize(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
+	} else {
+		XVphy_ClkInitialize(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN1, XVPHY_DIR_TX);
+	}
+}
+
+
+u16 XVphy_DP21PhyReset (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		XVphy_DirectionType Dir)
+{
+	u32 Status;
+	u32 Retry;
+
+	if (!Dir) {
+	XVphy_BufgGtReset(InstancePtr, XVPHY_DIR_RX,(TRUE));
+	XVphy_ResetGtPll(InstancePtr, 0, ChId,
+			XVPHY_DIR_RX,(TRUE));
+	XVphy_ResetGtPll(InstancePtr, 0, ChId,
+			XVPHY_DIR_RX, (FALSE));
+	XVphy_BufgGtReset(InstancePtr, XVPHY_DIR_RX, (FALSE));
+	Status = XVphy_WaitForResetDone(InstancePtr, 0, ChId,
+			XVPHY_DIR_RX);
+	Status |= XVphy_WaitForPllLock(InstancePtr, 0, ChId);
+
+	XVphy_MmcmReset (InstancePtr, 0, XVPHY_DIR_RX, FALSE);
+	Retry = 0;
+	while (!XVphy_MmcmLocked(InstancePtr, 0, XVPHY_DIR_RX)) {
+		Retry++;
+		if (Retry > 2000) {
+			Status = XST_FAILURE;
+			break;
+		}
+	}
+	} else {
+				XVphy_WriteReg(InstancePtr->Config.BaseAddr,
+						XVPHY_PLL_RESET_REG,
+						(XVPHY_PLL_RESET_QPLL0_MASK |
+						 XVPHY_PLL_RESET_QPLL1_MASK)); // 0x06
+				XVphy_WriteReg(InstancePtr->Config.BaseAddr,
+						XVPHY_PLL_RESET_REG, 0x0);
+
+//		XVphy_BufgGtReset(InstancePtr, XVPHY_DIR_TX,(TRUE));
+		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
+				XVPHY_DIR_TX,(TRUE));
+		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
+				XVPHY_DIR_TX, (FALSE));
+//		XVphy_BufgGtReset(InstancePtr, XVPHY_DIR_TX, (FALSE));
+		Status = XVphy_WaitForResetDone(InstancePtr, 0, ChId,
+				XVPHY_DIR_TX);
+		Status |= XVphy_WaitForPllLock(InstancePtr, 0, ChId);
+
+		XVphy_MmcmReset (InstancePtr, 0, XVPHY_DIR_TX, FALSE);
+		Retry = 0;
+		while (!XVphy_MmcmLocked(InstancePtr, 0, XVPHY_DIR_TX)) {
+			Retry++;
+			if (Retry > 2000) {
+				Status |= XST_FAILURE;
+				break;
+			}
+		}
+
+//		XVphy_WriteReg(InstancePtr->Config.BaseAddr,
+//				XVPHY_PLL_RESET_REG,
+//				(XVPHY_PLL_RESET_QPLL0_MASK |
+//				 XVPHY_PLL_RESET_QPLL1_MASK)); // 0x06
+//		XVphy_WriteReg(InstancePtr->Config.BaseAddr,
+//				XVPHY_PLL_RESET_REG, 0x0);
+//
+//		XVphy_ResetGtPll(InstancePtr, QuadId,
+//				XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,(FALSE));
+//
+//		Status = XVphy_WaitForPmaResetDone(InstancePtr, 0,
+//				ChId, XVPHY_DIR_TX);
+//
+//		Status |= XVphy_WaitForPllLock(InstancePtr, 0, ChId);
+//
+//		Status |= XVphy_WaitForResetDone(InstancePtr, 0,
+//				ChId, XVPHY_DIR_TX);
+//
+//		XVphy_MmcmReset (InstancePtr, 0, XVPHY_DIR_TX, FALSE);
+//		Retry = 0;
+//		while (!XVphy_MmcmLocked(InstancePtr, 0, XVPHY_DIR_TX)) {
+//			Retry++;
+//			if (Retry > 2000) {
+//				Status = XST_FAILURE;
+//				break;
+//			}
+//		}
+
+	}
+	return Status;
+}
+
 #endif
 
 /*****************************************************************************/

@@ -180,12 +180,24 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 		break;
 	}
 
-	XVphy_Set8b10b(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,
-			1);
-	XVphy_Set8b10b(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
-			1);
-	XVphy_SetRxLpm(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
-			1);
+	if (InstancePtr->Config.DpTxProtocol) {
+		XVphy_Set8b10b(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,
+				0);
+	} else {
+		XVphy_Set8b10b(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,
+				1);
+	}
+	if (InstancePtr->Config.DpRxProtocol) {
+		XVphy_Set8b10b(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
+				0);
+		XVphy_SetRxLpm(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
+				1);
+	} else {
+		XVphy_Set8b10b(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
+				1);
+		XVphy_SetRxLpm(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
+				1);
+	}
     XVphy_GtUserRdyEnable(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
             XVPHY_DIR_TX, TRUE);
     XVphy_GtUserRdyEnable(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,

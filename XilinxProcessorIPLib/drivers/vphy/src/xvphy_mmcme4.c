@@ -443,6 +443,7 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	u8 ChId;
 	u16 DrpVal;
 	u32 DrpVal32;
+	u8 dp20clk = 1;
 	XVphy_Mmcm *MmcmParams;
 
     ChId = (Dir == XVPHY_DIR_TX) ?
@@ -451,14 +452,16 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 
 	MmcmParams = &InstancePtr->Quads[QuadId].Mmcm[Dir];
 
-	/* Check Parameters if has been Initialized */
+	if (!MmcmParams->dp20rate) {
+		dp20clk = 0;
+	}
+
+	if (dp20clk == 0) {
 	if (!MmcmParams->DivClkDivide && !MmcmParams->ClkFbOutMult &&
 			!MmcmParams->ClkOut0Div && !MmcmParams->ClkOut1Div &&
 			!MmcmParams->ClkOut2Div) {
 		return XST_FAILURE;
 	}
-
-
 	/* Write Power Register Value */
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
 
@@ -519,7 +522,175 @@ u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
 	/* Write Filter Reg2 Value */
 	DrpVal = XVphy_Mmcme4FilterReg2Encoding(MmcmParams->ClkFbOutMult);
 	XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, DrpVal);
+	} else {
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x27, 0xFFFF);
+		// directly programming the MMCM registers based on dp20 rate.
+	if (MmcmParams->dp20rate == 0x01) {
+		//new values of 75.75758
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x08, 0x1185);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x09, 0x1800);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0A, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0B, 0x00C0);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0C, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D, 0x00C0);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0E, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0F, 0x00C0);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x10, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x11, 0x00C0);
 
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x12, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x13, 0x00C0);
+
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x14, 0x18E3);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x15, 0x0000);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x16, 0x0146);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, 0x00FA);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x19, 0x7C01);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x1A, 0x7FE9);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, 0x9000);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, 0x1090);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x6, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x7, 0x90C0);
+
+	} else if (MmcmParams->dp20rate == 0x02) {
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x08, 0x10C3);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x09, 0x7800);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0A, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0B, 0x00C0);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0C, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D, 0x00C0);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x16, 0x0146);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x14, 0x1555);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x15, 0x0000);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, 0x00FA);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x19, 0x7C01);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x1A, 0x7FE9);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, 0x9900);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, 0x0890);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x6, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x7, 0xE0C0);
+
+	} else if (MmcmParams->dp20rate == 0x04) {
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x08, 0x1145);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x09, 0x5800);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0A, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0B, 0x00C0);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0C, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D, 0x00C0);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x16, 0x0146);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x14, 0x17DF);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x15, 0x0000);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, 0x00FA);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x19, 0x7C01);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x1A, 0x7FE9);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, 0x9900);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, 0x0890);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x6, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x7, 0xC0C0);
+
+	} else if (MmcmParams->dp20rate == 0x1E) {
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x08, 0x1082);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x09, 0x7800);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0A, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0B, 0x00C0);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0C, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D, 0x00C0);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x16, 0x0083);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x14, 0x15D8);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x15, 0x0080);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, 0x00FA);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x19, 0x7C01);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x1A, 0x7FE9);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, 0x9900);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, 0x0890);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x6, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x7, 0xE0C0);
+
+	} else if (MmcmParams->dp20rate == 0x14) {
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x08, 0x10C3);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x09, 0x7C00);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0A, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0B, 0x00C0);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0C, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D, 0x00C0);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x16, 0x0083);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x14, 0x18E4);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x15, 0x0080);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, 0x00FA);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x19, 0x7C01);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x1A, 0x7FE9);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, 0x9100);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, 0x1090);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x6, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x7, 0x70C0);
+
+	} else if (MmcmParams->dp20rate == 0xA) {
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x08, 0x1208);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x09, 0x4800);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0A, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0B, 0x00C0);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0C, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D, 0x00C0);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x16, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x14, 0x138E);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x15, 0x0000);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, 0x015E);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x19, 0x7C01);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x1A, 0x7FE9);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, 0x9100);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, 0x9090);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x6, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x7, 0xC0C0);
+
+	} else if (MmcmParams->dp20rate == 0x6) {
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x08, 0x138E);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x09, 0x3800);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0A, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0B, 0x00C0);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0C, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x0D, 0x00C0);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x16, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x14, 0x15D8);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x15, 0x0080);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x18, 0x00FA);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x19, 0x7C01);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x1A, 0x7FE9);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4E, 0x9900);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x4F, 0x0890);
+
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x6, 0x1041);
+		XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x7, 0x00C0);
+	}
+
+	}
 	return XST_SUCCESS;
 }
 
