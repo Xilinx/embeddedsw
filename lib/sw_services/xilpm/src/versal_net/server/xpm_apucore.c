@@ -130,7 +130,7 @@ XStatus XPm_ApuGetOperMode(const u32 DeviceId, u32 *Mode)
 		goto done;
 	}
 
-	PmIn32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL, Val);
+	PmIn32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL_OFFSET, Val);
 	Val &= XPM_APU_MODE_MASK(ClusterId);
 	if (0U == Val) {
 		*Mode = XPM_APU_MODE_SPLIT;
@@ -154,13 +154,13 @@ XStatus XPm_ApuSetOperMode(const u32 DeviceId, const u32 Mode)
 		goto done;
 	}
 
-	PmIn32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL, Val);
+	PmIn32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL_OFFSET, Val);
 	if (Mode == XPM_APU_MODE_SPLIT) {
 		Val &= ~(Mode << ClusterId);
 	} else if (Mode == XPM_APU_MODE_LOCKSTEP) {
 		Val |= (Mode << ClusterId);
 	}
-	PmOut32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL, Val);
+	PmOut32(Fpd->FpdSlcrBaseAddr + FPX_SLCR_APU_CTRL_OFFSET, Val);
 
 	Status = XST_SUCCESS;
 done:

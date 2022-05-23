@@ -152,8 +152,7 @@ extern "C" {
 /*
  * Definitions required for FPX_SLCR
  */
-#define FPX_SLCR_BASEADDR		(0xEC8C0000U)
-#define FPX_SLCR_APU_CTRL		(FPX_SLCR_BASEADDR + 0x1000U)
+#define FPX_SLCR_APU_CTRL_OFFSET	(0x1000U)
 
 /**
  * OSPI Mux select related macros
