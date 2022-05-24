@@ -357,8 +357,8 @@ static void Aie2ClockInit(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 
 	/* Enable all column clocks */
 	for (u16 col = StartCol; col < EndCol; col++) {
-	AieWrite64(AIE2_TILE_BADDR(AieDomain->Array.NocAddress, col, 0) +
-				AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 1U);
+		AieWrite64(AIE2_TILE_BADDR(AieDomain->Array.NocAddress, col, 0) +
+				                AIE2_PL_MODULE_COLUMN_CLK_CTRL_OFFSET, 1U);
 	}
 
 	/* Disable privileged write access */
@@ -385,7 +385,6 @@ static void Aie2ClockGate(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 	/* Disable privileged write access */
 	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK, 0U);
-
 }
 
 /*
@@ -960,9 +959,8 @@ static XStatus Aie2PreBisrHook(const XPm_AieDomain *AieDomain, u32 BaseAddress)
 
 	(void)AieDomain;
 
-	/* Assert AIE2 Shim Reset */
-	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK,
-				ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK);
+	/* Clear AIE2 Shim Reset */
+	Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_ME_SHIM_RESET_MASK, 0U);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
@@ -1011,18 +1009,18 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 	}
 
-	/* Change from AIE to AIE2. AIE has clocks enabled by default whereas AIE2
-	 * has then disabled by default. Clocks must be up from this point to
-	 * continue the sequence */
-	/* Enable all column clocks */
-	Aie2ClockInit(AieDomain, BaseAddress);
-
 	/* Remove PMC-NoC domain isolation */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_PMC_SOC, FALSE_VALUE);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_PMC_SOC_ISO;
 		goto fail;
 	}
+
+	/* Change from AIE to AIE2. AIE has clocks enabled by default whereas AIE2
+	 * has then disabled by default. Clocks must be up from this point to
+	 * continue the sequence */
+	/* Enable all column clocks */
+	Aie2ClockInit(AieDomain, BaseAddress);
 
 	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
 				HOUSECLEAN_DISABLE_BISR_MASK)) {
@@ -1255,9 +1253,8 @@ static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			goto fail;
 		}
 
-		/* Set OD_MBIST_ASYNC_RESET_N bit */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK,
-				ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK);
+		/* Clear OD_MBIST_ASYNC_RESET_N bit */
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK, 0U);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MBIST_RESET;
 			goto fail;
@@ -1304,8 +1301,9 @@ static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			goto fail;
 		}
 
-		/* Clear OD_MBIST_ASYNC_RESET_N bit */
-		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK, 0U);
+		/* Assert OD_MBIST_ASYNC_RESET_N bit */
+		Status = AiePcsrWrite(ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK,
+				ME_NPI_REG_PCSR_MASK_OD_MBIST_ASYNC_RESET_N_MASK);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_MBIST_RESET_RELEASE;
 			goto fail;
@@ -1436,26 +1434,28 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK,
 			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK);
 
-	/* Enable memory zeroization for mem tiles; stop before tile row begins */
+	/*
+	 * Enable memory zeroization for all mem tiles, core module tiles,
+	 * and memory module tiles.
+	 */
 	for (col = StartCol; col < EndCol; col++) {
 		for (row = StartRow; row < StartTileRow; row++) {
 			u64 MemTileBaseAddress = AIE2_TILE_BADDR(Array->NocAddress, col, row);
+
 			AieRMW64(MemTileBaseAddress + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
 					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
 					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
 		}
-	}
-
-	/* Enable memory zeroization for all AIE2 tiles.
-	 * Enable for core and memory modules. */
-	for (col = StartCol; col < EndCol; col++) {
 		for (row = StartTileRow; row < EndRow; row++) {
 			u64 TileBaseAddress = AIE2_TILE_BADDR(Array->NocAddress, col, row);
+
 			AieWrite64(TileBaseAddress + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
 					AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+
 			AieWrite64(TileBaseAddress + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
 					AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
 		}
+
 	}
 
 	col = (u32)(Array->StartCol + Array->NumColsAdjusted - 1U);
@@ -1467,16 +1467,18 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	       (XST_SUCCESS != CoreZeroStatus) ||
 	       (XST_SUCCESS != MemZeroStatus)) {
 
-		if (0U == AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, mrow) +
-				AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)) {
+		if (0U == (AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+				(AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, mrow) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)))) {
 			MemTileZeroStatus = XST_SUCCESS;
 		}
-		if (0U == AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, row) +
-				AIE2_CORE_MODULE_MEM_CTRL_OFFSET)) {
+
+		if (0U == (AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+				(AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET)))) {
 			CoreZeroStatus = XST_SUCCESS;
 		}
-		if (0U == AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, row) +
-				AIE2_MEM_MODULE_MEM_CTRL_OFFSET)) {
+
+		if (0U == (AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+				(AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET)))) {
 			MemZeroStatus = XST_SUCCESS;
 		}
 
