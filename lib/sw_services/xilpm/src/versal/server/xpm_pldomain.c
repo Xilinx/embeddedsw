@@ -148,34 +148,17 @@ done:
  * @param Mask			Mask to be written into PCSR_MASK register
  * @param Value			Value to be written into PCSR_CONTROL register
  *
- * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ * note:	Blind writes are not performed for VDU PCSR writes because some VDU
+ *		PCSR registers are self clearing.
+ *
+ * @return None
  *****************************************************************************/
-static XStatus VduPcsrWrite(u32 BaseAddress, u32 Mask, u32 Value)
+static void VduPcsrWrite(u32 BaseAddress, u32 Mask, u32 Value)
 {
-	XStatus Status = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-
+	/* Write Mask to PCSR_MASK register */
 	XPm_Out32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask);
-	/* Blind write check */
-	PmChkRegOut32((BaseAddress + NPI_PCSR_MASK_OFFSET), Mask, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_MASK;
-		goto done;
-	}
-
+	/* Write Value to PCSR_CONTROL register */
 	XPm_Out32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Value);
-	/* Blind write check */
-	PmChkRegMask32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), Mask, Value, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_CONTROL;
-		goto done;
-	}
-
-	Status = XST_SUCCESS;
-
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
 }
 
 static XStatus VduInit(u32 BaseAddress)
@@ -194,18 +177,12 @@ static XStatus VduInit(u32 BaseAddress)
 	XPmPlDomain_UnlockVduPcsr(BaseAddress);
 
 	/* Release VDU internal POR */
-	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_VDU_IPOR_MASK, 0U);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto done;
-	}
+	VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_VDU_IPOR_MASK, 0U);
 
 	/* Release DFX isolation gasket */
-	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_ISO_2_VDU_PL_MASK, 0U);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_VDU_PL_ISO;
-		goto done;
-	}
+	VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_ISO_2_VDU_PL_MASK, 0U);
+
+	Status = XST_SUCCESS;
 
 done:
 	/* Lock PCSR */
@@ -224,12 +201,12 @@ static XStatus VduScanClear(u32 BaseAddress)
 	XPmPlDomain_UnlockVduPcsr(BaseAddress);
 
 	/* Trigger Scan Clear */
-	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
+	VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
 			VDU_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER;
-		goto done;
-	}
+
+	/* Delay is required after trigger ScanClear */
+	/* TODO: Update delay based on HW team input */
+	usleep(10000U);
 
 	/* Wait for Scan Clear DONE */
 	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
@@ -264,12 +241,8 @@ static XStatus VduMbist(u32 BaseAddress)
 	XPmPlDomain_UnlockVduPcsr(BaseAddress);
 
 	/* Assert Mem Clear Trigger */
-	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK,
+	VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK,
 					VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_MEM_CLEAR_TRIGGER;
-		goto done;
-	}
 
 	/* Wait for Mem Clear DONE */
 	Status = XPm_PollForMask(BaseAddress + NPI_PCSR_STATUS_OFFSET,
@@ -288,10 +261,7 @@ static XStatus VduMbist(u32 BaseAddress)
 	}
 
 	/* Unwrite trigger bits */
-	Status = VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SCAN_CLEAR_TRIGGER_UNSET;
-	}
+	VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK, 0U);
 
 done:
 	/* Lock PCSR */
@@ -343,7 +313,7 @@ static XStatus VduHouseClean(void)
 		goto done;
 	}
 
-	/* For each VDU device run MBIST and secure efuse transmission */
+	/* For each VDU device run MBIST */
 	for (i = 0U; i < ARRAY_SIZE(VduAddresses); i++) {
 		if (0U == VduAddresses[i]) {
 			continue;
