@@ -800,6 +800,33 @@ void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream)
 
 /******************************************************************************/
 /**
+ * This function Overrides the polarity of Horizontal and vertical sync signals
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream number for which to set the MSA values for.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxOverrideSyncPolarity(XDp *InstancePtr, u8 Stream)
+{
+	XDp_Config *ConfigPtr;
+	XDp_TxMainStreamAttributes *MsaConfig;
+	u32 StreamOffset[4] = {0, XDP_TX_STREAM2_MSA_START_OFFSET,
+					XDP_TX_STREAM3_MSA_START_OFFSET,
+					XDP_TX_STREAM4_MSA_START_OFFSET};
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+	MsaConfig = &InstancePtr->TxInstance.MsaConfig[Stream - 1];
+	MsaConfig->OverrideSyncPolarity = 1;
+}
+/******************************************************************************/
+/**
  * This function sets the main stream attributes registers of the DisplayPort TX
  * core with the values specified in the main stream attributes configuration
  * structure.
@@ -819,7 +846,6 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 	u32 StreamOffset[4] = {0, XDP_TX_STREAM2_MSA_START_OFFSET,
 					XDP_TX_STREAM3_MSA_START_OFFSET,
 					XDP_TX_STREAM4_MSA_START_OFFSET};
-
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -845,11 +871,24 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VTOTAL +
 			StreamOffset[Stream - 1],
 			MsaConfig->Vtm.Timing.F0PVTotal);
-		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_POLARITY +
+
+		if (MsaConfig->OverrideSyncPolarity)
+		{
+			XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_POLARITY +
 			StreamOffset[Stream - 1],
 			MsaConfig->Vtm.Timing.HSyncPolarity |
 			(MsaConfig->Vtm.Timing.VSyncPolarity <<
 			XDP_TX_MAIN_STREAMX_POLARITY_VSYNC_POL_SHIFT));
+		}
+		else
+		{
+			XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_POLARITY +
+			StreamOffset[Stream - 1],
+			(~(MsaConfig->Vtm.Timing.HSyncPolarity) & 0x01) |
+			((~MsaConfig->Vtm.Timing.VSyncPolarity & 0x01) <<
+			XDP_TX_MAIN_STREAMX_POLARITY_VSYNC_POL_SHIFT));
+		}
+
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_HSWIDTH +
 			StreamOffset[Stream - 1],
 			MsaConfig->Vtm.Timing.HSyncWidth);

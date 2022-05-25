@@ -726,7 +726,7 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 			{
 				/*downstream port is branch*/
 				if ( (PortDetails->MsgCapStatus == 1)&&
-						(PortDetails->PeerDeviceType == XDP_MST_SINK_DEVICE_DETECTED) )
+						(PortDetails->PeerDeviceType == XDP_MST_BRANCH_DEVICE_DETECTED) )
 				{
 					/* Add the branch device to the topology table. */
 					XDp_TxAddBranchToList(InstancePtr, &DeviceInfo, LinkCountTotal,
@@ -739,7 +739,7 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 					NumDownBranches++;
 				}
 				else if ( (PortDetails->MsgCapStatus == 0)&&
-						(PortDetails->PeerDeviceType == XDP_MST_BRANCH_DEVICE_DETECTED) )
+						(PortDetails->PeerDeviceType == XDP_MST_SINK_DEVICE_DETECTED) )
 				{
 					XDp_TxAddSinkToList(InstancePtr, PortDetails,
 							LinkCountTotal,

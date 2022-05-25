@@ -573,6 +573,9 @@ typedef struct {
 	u8 OverrideUserPixelWidth;	/**< If set to 1, the value stored for
 						UserPixelWidth will be used as
 						the pixel width. */
+	u8 OverrideSyncPolarity;	/**< Overrides the Horizontal
+						and vertical sync polarity */
+
 } XDp_TxMainStreamAttributes;
 
 /**
@@ -1360,6 +1363,7 @@ void XDp_TxCfgMsaEnSynchClkMode(XDp *InstancePtr, u8 Stream, u8 Enable);
 void XDp_TxSetVideoMode(XDp *InstancePtr, u8 Stream);
 void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
+void XDp_TxOverrideSyncPolarity(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
