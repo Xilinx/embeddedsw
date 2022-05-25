@@ -79,7 +79,7 @@
 #define PM_RST_CPM5N_SYSMON_SEQ		(0XC4100AAU)
 #define PM_RST_PMC_SYSMON_SEQ		(0XC4100ABU)
 #define PM_RST_SBI		(0XC41002BU)
-#define PM_RST_SDIO1		(0XC41002CU)
+#define PM_RST_SDIO1		(0XC10402CU)
 #define PM_RST_PL1		(0XC41002DU)
 #define PM_RST_PL0		(0XC41002EU)
 #define PM_RST_PL3		(0XC41002FU)
@@ -273,8 +273,8 @@
 #define PM_DEV_IPI_4		(0X1821C03AU)
 #define PM_DEV_IPI_5		(0X1821C03BU)
 #define PM_DEV_IPI_6		(0X1821C03CU)
-/*TBD: update sdio pld0 dev ids*/
-#define PM_DEV_SDIO_1				(0x1822402fU)
+#define PM_DEV_SDIO_1		(0X1821C03EU)
+/*TBD: update pld0 dev ids*/
 #define PM_DEV_PLD_0	(0x18700000U)
 
 #define PM_CLK_CPLL_PRE_SRC		(0X8208001U)
