@@ -2,6 +2,7 @@
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+#include "xplmi_hw.h"
 #include "xpm_psm.h"
 #include "xil_types.h"
 #include "xpm_common.h"
@@ -173,6 +174,12 @@ XStatus XPmPsm_SendPowerDownReq(XPm_Power *Power)
 
 	if (1U != XPmPsm_FwIsPresent()) {
 		Status = XST_NOT_ENABLED;
+		goto done;
+	}
+
+	/* Skip power down for power islands since power down not supported on SPP */
+	if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
