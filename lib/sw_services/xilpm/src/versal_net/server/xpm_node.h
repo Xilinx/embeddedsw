@@ -594,7 +594,8 @@ typedef enum {
 	XPM_NODEIDX_DEV_IPI_5,	/* 0X3B */
 	XPM_NODEIDX_DEV_IPI_6,	/* 0X3C */
 	XPM_NODEIDX_DEV_SOC,	/* 0X3D */
-	XPM_NODEIDX_DEV_MAX	/* 0X3E */
+	XPM_NODEIDX_DEV_SDIO_1,	/* 0X3E */
+	XPM_NODEIDX_DEV_MAX	/* 0X3F */
 } XPm_DeviceNodeIdx;
 
 /* isolation subclasses */
