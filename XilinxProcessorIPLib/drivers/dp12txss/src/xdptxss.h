@@ -349,6 +349,7 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr);
 void XDpTxSs_Reset(XDpTxSs *InstancePtr);
 void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr);
 void XDpTxSs_VtcAdjustBSTimingDisable(XDpTxSs *InstancePtr);
+void XDpTxSs_OverrideSyncPolarity(XDpTxSs *InstancePtr, u8 Stream);
 u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc);
 u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode);
 u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate);

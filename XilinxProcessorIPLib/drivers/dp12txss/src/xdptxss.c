@@ -743,7 +743,28 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
 
 	return XST_SUCCESS;
 }
-
+/******************************************************************************/
+/**
+ * This function overrides the Horizontal and Vertical Sync signals
+ *
+ * @param	InstancePtr is a pointer to the XDpTxSs instance.
+ * @param	Stream is the stream number for which to set the MSA values for.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDpTxSs_OverrideSyncPolarity(XDpTxSs *InstancePtr, u8 Stream)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+	XDp_TxOverrideSyncPolarity(InstancePtr->DpPtr, Stream);
+}
 /*****************************************************************************/
 /**
 *
