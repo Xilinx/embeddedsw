@@ -521,6 +521,11 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_FORCE_POWERDOWN):
 		Status = XPm_ForcePowerdown(SubsystemId, Pload[0], Pload[1],
 					    Cmd->IpiReqType, Cmd->IpiMask);
+		/**
+		 *  Skip providing ack for the force power down command as it is
+		 *  handled from the xilpm module itself.
+		 */
+		Cmd->AckInPLM = (u8)FALSE;
 		break;
 	case PM_API(PM_SYSTEM_SHUTDOWN):
 		Status = XPm_SystemShutdown(SubsystemId, Pload[0], Pload[1], Cmd->IpiReqType);
