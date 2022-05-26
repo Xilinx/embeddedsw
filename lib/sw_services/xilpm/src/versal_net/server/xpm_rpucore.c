@@ -23,8 +23,8 @@ XStatus XPmRpuCore_Halt(const XPm_Device *Device)
 	}
 
 	/* Put RPU in  halt state */
-	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
-		~XPM_RPU_NCPUHALT_MASK);
+	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_CPUHALT_MASK,
+		XPM_RPU_CPUHALT_MASK);
 
 	/* Release reset for all resets attached to this core */
 	Status = XPmDevice_Reset(&RpuCore->Core.Device, PM_RESET_ACTION_RELEASE);
@@ -45,8 +45,8 @@ static XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	}
 
 	/* Put RPU in running state from halt state */
-	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_NCPUHALT_MASK,
-		XPM_RPU_NCPUHALT_MASK);
+	PmRmw32(RpuCore->ResumeCfg, XPM_RPU_CPUHALT_MASK,
+		~XPM_RPU_CPUHALT_MASK);
 
 done:
 	return Status;
