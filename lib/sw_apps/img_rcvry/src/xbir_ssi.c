@@ -1014,12 +1014,12 @@ static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	Xbir_FlashEraseStats *FlashEraseStats = Xbir_GetFlashEraseStats();
 	Xbir_WriteDevice WriteDevice = NULL;
 
-	if (XBIR_SYS_BOOT_IMG_WIC == Xbir_SsiLastImgUpload) {
+#if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
+	if (XBIR_SYS_BOOT_IMG_WIC == Xbir_SsiLastImgUpload)
 		WriteDevice = Xbir_SysWriteSD;
-	}
-	else {
+	else
+#endif
 		WriteDevice = Xbir_SysWriteFlash;
-	}
 
 	if (HttpArg->Fsize > 0U) {
 		if (HttpArg->Fsize <= HttpReqLen) {

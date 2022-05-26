@@ -44,6 +44,7 @@ extern "C" {
 #define XBIR_FLASH_ERASE_REQUESTED	(1U)
 #define XBIR_FLASH_ERASE_STARTED	(2U)
 #define XBIR_FLASH_ERASE_COMPLETED	(3U)
+#define XBIR_BUFFER_SIZE	(0x100000U)
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -179,8 +180,9 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId);
 int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc);
 void Xbir_SysExecuteBackgroundTasks(void);
-int Xbir_SysWriteSD (u32 Offset, u8 *Data, u32 Size,
-	Xbir_ImgDataStatus IsLast);
+#if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
+int Xbir_SysWriteSD (u32 Offset, u8 *Data, u32 Size, Xbir_ImgDataStatus IsLast);
+#endif
 
 #ifdef __cplusplus
 }

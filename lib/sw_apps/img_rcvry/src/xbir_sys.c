@@ -153,10 +153,12 @@ static int Xbir_KVEthInit (void);
 static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
 	Xbir_ReadDevice ReadDevice);
 static int Xbir_KREthInit (void);
-static int Xbir_KVeMMCInit (void);
 static int Xbir_SCEthInit (void);
+#if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
+static int Xbir_KVeMMCInit (void);
 #ifndef XPS_BOARD_K26I
 static int Xbir_SCeMMCInit (void);
+#endif
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -198,7 +200,7 @@ static const u32 Xbir_UtilCrcTable[] = {
 static Xbir_SysBootImgInfo BootImgStatus = \
 		{{0x41U, 0x42U, 0x55U, 0x4DU}, 1U, 4U, 0xAEB1BDB9U, \
 		{0U, 0U, 1U, 1U}, 0x200000U, 0xF80000U, 0x1E00000U};
-static u8 WriteBuffer[XBIR_SDPS_CHUNK_SIZE * 2U];
+static u8 WriteBuffer[XBIR_BUFFER_SIZE * 2U];
 static Xbir_SysInfo SysInfo = {0U};
 static Xbir_CCInfo CCInfo = {0U};
 u32 EmacBaseAddr = 0U;
@@ -244,6 +246,7 @@ int Xbir_SysInit (void)
 		goto END;
 	}
 
+#if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
 	if (strncmp((char *)&SysInfo.BoardPrdName, "SM-",
 		XBIR_SYS_PRODUCT_NAME_LEN) == 0U) {
 		Status = Xbir_KVeMMCInit();
@@ -252,6 +255,7 @@ int Xbir_SysInit (void)
 	else {
 		Status = Xbir_SCeMMCInit();
 	}
+#endif
 #endif
 
 END:
@@ -728,12 +732,14 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 		Offset = BootImgStatus.BootImgBOffset;
 		EraseDevice = Xbir_QspiFlashErase;
 	}
+#if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
 	else if (XBIR_SYS_BOOT_IMG_WIC == BootImgId) {
 		Offset = 0U;
 		FlashEraseStats->SectorSize = XBIR_SDPS_CHUNK_SIZE;
 		FlashEraseStats->TotalNumOfSectors = XBIR_SD_ERASE_NUM_CHUNKS;
 		EraseDevice = Xbir_SdErase;
 	}
+#endif
 	else {
 		Xbir_Printf("ERROR: Invalid image ID\r\n");
 		goto END;
@@ -1265,6 +1271,7 @@ void Xbir_SysExecuteBackgroundTasks(void)
 	}
 }
 
+#if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
 /*****************************************************************************/
 /**
  * @brief
@@ -1347,6 +1354,7 @@ END:
 	return Status;
 }
 
+
 /*****************************************************************************/
 /**
  * @brief
@@ -1388,6 +1396,7 @@ static int Xbir_KVeMMCInit (void)
 
 	return Status;
 }
+
 #ifndef XPS_BOARD_K26I
 /*****************************************************************************/
 /**
@@ -1408,4 +1417,5 @@ static int Xbir_SCeMMCInit (void)
 
 	return Status;
 }
+#endif
 #endif
