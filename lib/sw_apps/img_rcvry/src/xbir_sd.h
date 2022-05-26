@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,9 @@
 extern "C" {
 #endif
 
+#include "xbir_config.h"
+#if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
+
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
@@ -45,6 +48,9 @@ int Xbir_SdInit (void);
 int Xbir_SdRead (u32 SrcAddr, u8 *DestAddr, u32 Length);
 int Xbir_SdWrite(u32 Offset, u8 *WrBuffer, u32 Length);
 int Xbir_SdErase(u32 Offset, u32 Length);
+
+
+#endif /* end of XBIR_SD */
 
 #ifdef __cplusplus
 }

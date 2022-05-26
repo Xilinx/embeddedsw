@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,15 @@ extern "C" {
 #define Xbir_Printf		xil_printf
 #else
 #define Xbir_Printf(Str, ...)
+#endif
+
+#if (XPAR_XSDPS_0_BASEADDR == 0xFF160000)
+#define XBIR_SD_0
+#endif
+
+#if ((XPAR_XSDPS_0_BASEADDR == 0xFF170000) ||\
+		(XPAR_XSDPS_1_BASEADDR == 0xFF170000))
+#define XBIR_SD_1
 #endif
 
 /**************************** Type Definitions *******************************/

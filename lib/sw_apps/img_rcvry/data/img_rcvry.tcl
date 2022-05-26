@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
+#* Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -68,7 +68,7 @@ proc swapp_is_supported_hw {} {
     if { $proc_instance != "psu_cortexa53_0" } {
                 error "This application is supported only for CortexA53_0.";
     }
-    set ip_list "psu_ethernet_* psu_ttc_* psu_qspi_* psu_gpio_* psu_sd_0"
+    set ip_list "psu_ethernet_* psu_ttc_* psu_qspi_* psu_gpio_*"
     set ip_nodsgn [::hsi::get_cells -hier]
     # create a list of IPs that are not in design
     foreach ips ${ip_list} {

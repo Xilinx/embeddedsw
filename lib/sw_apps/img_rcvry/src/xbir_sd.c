@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,8 +26,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xsdps.h"
 #include "xbir_sd.h"
+#if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
+#include "xsdps.h"
 #include "xbir_config.h"
 #include "xbir_err.h"
 
@@ -180,3 +181,5 @@ int Xbir_SdErase(u32 Offset, u32 Length)
 
 	return Status;
 }
+
+#endif /* end of XBIR_SD */
