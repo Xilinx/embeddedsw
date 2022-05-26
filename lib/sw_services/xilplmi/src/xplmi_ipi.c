@@ -61,6 +61,8 @@
  *       bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
  *                       same priority
  * 1.06  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
+ *	 rj   05/25/2022 Remove check for module ID and API ID for XilPM
+ *			 force power down command
  *
  * </pre>
  *
@@ -86,7 +88,6 @@
 #define XPLMI_IPI_PMC_IMR_MASK		(0xFCU)
 #define XPLMI_IPI_PMC_IMR_SHIFT		(0x2U)
 #define XPLMI_GIC_IPI_INTR_ID		(0x1B0010U)
-#define PM_FORCE_POWERDOWN		(0x8U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
@@ -229,8 +230,6 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 	u8 MaskIndex;
 	XPlmi_Cmd Cmd = {0U};
 	u8 PendingPsmIpi = (u8)FALSE;
-	u8 ModuleId;
-	u8 ApiId;
 
 	for (MaskIndex = 0U; MaskIndex < XPLMI_IPI_MASK_COUNT; MaskIndex++) {
 		if (IpiInst.Config.TargetList[MaskIndex].BufferIndex == (u32)Data) {
@@ -239,6 +238,7 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 	}
 
 	if (MaskIndex != XPLMI_IPI_MASK_COUNT) {
+		Cmd.AckInPLM = (u8)TRUE;
 		Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
 		Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
 		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
@@ -277,16 +277,10 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 		Status = XPlmi_CmdExecute(&Cmd);
 
 END:
-		ModuleId = (u8)((Cmd.CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
-			   XPLMI_CMD_MODULE_ID_SHIFT);
-		ApiId = (u8)(Cmd.CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK);
-		/**
-		 * Skip providing ack for xilpm force power down command as
-		 * force power down command supports blocking/non-blocking
-		 * acknowledgement and it is handled from xilpm.
+		/*
+		 *  Skip providing ack if it is handled in the command handler.
 		 */
-		if (((u8)XPLMI_MODULE_XILPM_ID != ModuleId) ||
-		    ((u8)PM_FORCE_POWERDOWN != ApiId)) {
+		if ((u8)TRUE == Cmd.AckInPLM) {
 			Cmd.Response[0U] = (u32)Status;
 			/* Send response to caller */
 			(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,

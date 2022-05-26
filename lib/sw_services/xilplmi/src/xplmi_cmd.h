@@ -39,6 +39,7 @@
 *       bsv  08/02/2021 Change type of variables to reduce size
 * 1.05  bsv  10/26/2021 Code clean up
 *       ma   01/31/2022 Removed unused defines
+*       rj   05/25/2022 Added a new AckInPLM member in XPlmi_Cmd structure
 *
 * </pre>
 *
@@ -92,6 +93,7 @@ struct XPlmi_Cmd {
 	XPlmi_KeyHoleParams KeyHoleParams;
 	u32 IpiReqType;
 	u8 DeferredError;
+	u8 AckInPLM;
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/
