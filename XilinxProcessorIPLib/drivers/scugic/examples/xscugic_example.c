@@ -28,6 +28,7 @@
 *                     It fixes CR#1126331.
 * 5.0   adk  04/18/22 Replace infinite while loop with
 * 		      Xil_WaitForEventSet() API.
+*       adk  30/05/22 Fix typecast of the variable InterruptProcessed.
 * </pre>
 ******************************************************************************/
 
@@ -76,7 +77,7 @@ static XScuGic_Config *GicConfig;    /* The configuration parameters of the
  * Create a shared variable to be used by the main thread of processing and
  * the interrupt processing
  */
-volatile static int InterruptProcessed = FALSE;
+volatile static u32 InterruptProcessed = FALSE;
 
 static void AssertPrint(const char8 *FilenamePtr, s32 LineNumber){
 	xil_printf("ASSERT: File Name: %s ", FilenamePtr);
