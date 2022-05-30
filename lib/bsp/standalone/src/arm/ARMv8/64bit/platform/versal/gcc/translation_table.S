@@ -299,8 +299,18 @@ MMUTableL2:
 .set	SECT, SECT+0x200000
 .endr
 
-.rept	0x020			   /* 0xB800_0000 - 0xBBFF_FFFF */
-.8byte	SECT + Memory_NonCacheable /* 64MB OCM, TODO: exact  */
+.rept   0x01F                      /* 0xB800_0000 - 0xBBDF_FFFF */
+.8byte  SECT + reserved		   /* 62MB reserved */
+.set    SECT, SECT+0x200000
+.endr
+
+/*
+ * Note: 1 MB OCM 0xBBF0_0000 - 0xBBFF_FFFF,
+ * 0xBBE0_0000 - 0XBBEF_FFFF marked as normal
+ * memory incorrectly due to 2 MB granularity limitation
+ */
+.rept	0x01			   /* 0xBBE0_0000 - 0xBBFF_FFFF */
+.8byte	SECT + Memory_NonCacheable /* 1 MB OCM 0xBBF0_0000 - 0xBBFF_FFFF, 0xBBE0_0000 - 0XBBEF_FFFF marked as normal memory incorrectly  */
 .set	SECT, SECT+0x200000
 .endr
 

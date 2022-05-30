@@ -172,9 +172,9 @@ void Init_MPU(void)
         Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
         RegNum++;
 
-	/* 64 MB OCM */
-        Addr = 0xB8000000U;
-        RegSize = 0x3FFFFFF;
+	/* 1 MB OCM */
+        Addr = 0xBBF00000U;
+        RegSize = 0xFFFFF;
 	Attrib = NORM_NSHARED_NCACHE | PRIV_RW_USER_RW;
         Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
         Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
