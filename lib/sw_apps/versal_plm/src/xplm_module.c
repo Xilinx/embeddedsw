@@ -41,6 +41,7 @@
 *       ma   03/22/2022 Call XPlmi_EmInit after XPlm_PmInit as clearing some of
 *                       the EAM errors are dependent on domain isolations which
 *                       are handled in XPlm_PmInit
+* 1.07  ma   05/10/2022 Call XPlmi_SsitEventsInit during initialization
 *
 * </pre>
 *
@@ -65,6 +66,7 @@
 #include "xplm_pm.h"
 #include "xplmi.h"
 #include "xil_util.h"
+#include "xplmi_ssit.h"
 #ifdef XPLM_SEM
 #include "xilsem.h"
 #endif
@@ -111,6 +113,11 @@ int XPlm_ModuleInit(void *Arg)
 	 */
 
 	Status = XPlmi_Init();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XPlmi_SsitEventsInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

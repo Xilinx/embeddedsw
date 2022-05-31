@@ -34,6 +34,7 @@
 *       bsv  08/13/2021 Code clean up to reduce size
 * 1.07  bsv  11/08/2021 Move XLoader_IsJtagSbiMode to Xilloader
 * 1.08  skd  04/20/2022 Misra-C violation Rule 10.3 fixed
+*       ma   05/10/2022 Enable SSIT interrupts for Master SLR
 *
 * </pre>
 *
@@ -46,6 +47,7 @@
 #include "xloader_auth_enc.h"
 #include "xplmi.h"
 #include "xloader_sbi.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -114,6 +116,11 @@ int XPlm_LoadBootPdi(void *Arg)
 	Status = XLoader_LoadPdi(&PdiInstance, BootMode, 0U);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
+	}
+
+	/* Enable SSIT interrupts for Master SLR */
+	if ((PdiInstance.SlrType == XLOADER_SSIT_MASTER_SLR)) {
+		XPlmi_EnableSsitErrors();
 	}
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Done***********\n\r");
