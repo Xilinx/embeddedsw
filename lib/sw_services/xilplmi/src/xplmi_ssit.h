@@ -63,6 +63,7 @@ extern "C" {
 #define SSIT_SLAVE_1_MASK			(2U)
 #define SSIT_SLAVE_2_MASK			(4U)
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 /**
  * SSIT SLR Index
  */
@@ -161,7 +162,7 @@ u8 XPlmi_SsitIsIntrEnabled(void);
 u8 XPlmi_GetSlrIndex(void);
 void XPlmi_SsitSetIsIntrEnabled(u8 Value);
 void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask);
-
+#endif
 /* SSIT Sync Related functions */
 int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);
 int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd);

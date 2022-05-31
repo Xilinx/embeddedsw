@@ -117,10 +117,12 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	Status = XPlmi_SsitEventsInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#endif
 
 	Status = XPlm_PmInit();
 	if (Status != XST_SUCCESS) {

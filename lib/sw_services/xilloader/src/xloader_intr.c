@@ -151,11 +151,13 @@ static int XLoader_SbiLoadPdi(void *Data)
 		goto END;
 	}
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	/* Enable SSIT interrupts for Slave SLRs */
 	if ((PdiPtr->SlrType != XLOADER_SSIT_MONOLITIC) &&
 		(PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR)) {
 		XPlmi_EnableSsitErrors();
 	}
+#endif
 	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Done\n\r");
 
 END:
