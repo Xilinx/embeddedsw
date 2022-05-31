@@ -84,6 +84,7 @@
 *       ma   02/01/2022 Fix SW-BP-INIT-TO-FAILURE warnings
 *       ma   03/10/2022 Fix bug in disabling the error actions for PSM errors
 *       is   03/22/2022 Add custom handler for XPPU/XMPU error events
+* 1.08  ma   05/10/2022 Added PLM to PLM communication feature
 *
 * </pre>
 *
@@ -1047,8 +1048,10 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 				((Err2IrqMask & RegMask) == 0x0U) &&
 				(ErrorTable[Index].Handler != NULL) &&
 				(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
-				(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
-						      RegMask);
+				if ((RegMask & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U) {
+					(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
+							RegMask);
+				}
 				ErrorTable[Index].Handler(
 					XIL_NODETYPE_EVENT_ERROR_PMC_ERR2, RegMask);
 				XPlmi_EmClearError((u32)XPLMI_NODETYPE_EVENT_PMC_ERR2, Index);
@@ -1771,6 +1774,67 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 			}
 		}
 	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function enables the SSIT interrupts
+*
+* @return   None
+*
+****************************************************************************/
+void XPlmi_EnableSsitErrors(void)
+{
+	u8 SlrIndex;
+	/*
+	 * Set Custom action for SSIT Errors
+	 * For Master SLR:
+	 *   - SSIT_ERR0 is for the events from Slave SLR0
+	 *   - SSIT_ERR1 is for the events from Slave SLR1
+	 *   - SSIT_ERR2 is for the events from Slave SLR2
+	 * For Slave SLRs:
+	 *   - SSIT_ERR0 in Slave SLR0 is for the events from Master SLR
+	 *   - SSIT_ERR1 in Slave SLR1 is for the events from Master SLR
+	 *   - SSIT_ERR2 in Slave SLR2 is for the events from Master SLR
+	 *
+	 * Other SSIT errors in Master/Slave SLRs are not configured
+	 */
+	if (XPlmi_SsitIsIntrEnabled() == (u8)TRUE) {
+		/* Interrupts are enabled already. No need to enable again. */
+		goto END;
+	}
+
+	SlrIndex = XPlmi_GetSlrIndex();
+	if (SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
+		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
+				XIL_EVENT_ERROR_MASK_SSIT0, XPLMI_EM_ACTION_CUSTOM,
+				XPlmi_SsitErrHandler);
+		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
+				XIL_EVENT_ERROR_MASK_SSIT1, XPLMI_EM_ACTION_CUSTOM,
+				XPlmi_SsitErrHandler);
+		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
+				XIL_EVENT_ERROR_MASK_SSIT2, XPLMI_EM_ACTION_CUSTOM,
+				XPlmi_SsitErrHandler);
+	} else if (SlrIndex == XPLMI_SSIT_SLAVE0_SLR_INDEX) {
+		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
+				XIL_EVENT_ERROR_MASK_SSIT0, XPLMI_EM_ACTION_CUSTOM,
+				XPlmi_SsitErrHandler);
+	} else if (SlrIndex == XPLMI_SSIT_SLAVE1_SLR_INDEX) {
+		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
+				XIL_EVENT_ERROR_MASK_SSIT1, XPLMI_EM_ACTION_CUSTOM,
+				XPlmi_SsitErrHandler);
+	} else if (SlrIndex == XPLMI_SSIT_SLAVE2_SLR_INDEX) {
+		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
+				XIL_EVENT_ERROR_MASK_SSIT2, XPLMI_EM_ACTION_CUSTOM,
+				XPlmi_SsitErrHandler);
+	} else {
+		goto END;
+	}
+	XPlmi_Printf(DEBUG_GENERAL, "Enabled SSIT Interrupts\r\n");
+	XPlmi_SsitSetIsIntrEnabled((u8)TRUE);
+
+END:
+	return;
 }
 
 /*****************************************************************************/

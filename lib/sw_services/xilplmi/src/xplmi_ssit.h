@@ -160,6 +160,7 @@ int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex);
 u8 XPlmi_SsitIsIntrEnabled(void);
 u8 XPlmi_GetSlrIndex(void);
 void XPlmi_SsitSetIsIntrEnabled(u8 Value);
+void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask);
 
 /* SSIT Sync Related functions */
 int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);
