@@ -91,6 +91,7 @@
 *       kpt  09/09/2021 Added error code XLOADER_ERR_SECURE_CLEAR_FAIL
 * 1.07  ma   11/25/2021 Added error code XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE
 *       bsv  03/17/2022 Add support for A72 elfs to run from TCM
+* 1.08  ma   05/10/2022 Added error codes related SSIT PLM to PLM communication
 *
 * </pre>
 *
@@ -268,6 +269,29 @@ typedef enum {
 	XPLMI_ERR_FROM_SSIT_SLAVE, /**< 0x13B - Error received from SSIT Slave SLR */
 	XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE, /**< 0x13C - Error when the given address
 	                    range for storing Proc commands is invalid */
+	XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL, /**< 0x13D - Error when the SSIT event
+	                    vector table is full and PLM is trying to register a new
+	                    event */
+	XPLMI_SSIT_WRONG_EVENT_ORIGIN_MASK, /**< 0x13E - Error when the event origin is
+	                    not valid */
+	XPLMI_INVALID_SLR_TYPE, /**< 0x13F - Error when any SSIT event related APIs are
+	                    called from SLR where it is not supported */
+	XPLMI_INVALID_SLR_INDEX, /**< 0x140 - Error when the given SlrIndex is invalid */
+	XPLMI_EVENT_NOT_SUPPORTED_BETWEEN_SLAVE_SLRS, /**< 0x141 - Error when the
+	                    request to trigger an event between slave slrs which is not
+	                    supported */
+	XPLMI_SSIT_INVALID_EVENT, /**< 0x142 - Error when request is received to trigger
+	                    an event which is not registered with PLM */
+	XPLMI_SSIT_EVENT_IS_PENDING, /**< 0x143 - Error when an event is pending and the
+	                    request comes to trigger the same again */
+	XPLMI_SSIT_EVENT_NOT_ACKNOWLEDGED, /**< 0x144 - Error when the triggered event is
+	                    not acknowledged within given TimeOut value */
+	XPLMI_SSIT_BUF_SIZE_EXCEEDS, /**< 0x145 - Error when SSIT request or response
+	                    buffer size exceeds */
+	XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR, /**< 0x146 - Error when the given
+	                    event is not supported to be triggered from the running SLR */
+	XPLMI_SSIT_EVENT_IS_NOT_PENDING, /**< 0x147 - Error when an event is not pending and
+		                the request comes to write to the response buffer */
 
 	/** Status codes used in PLM */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create

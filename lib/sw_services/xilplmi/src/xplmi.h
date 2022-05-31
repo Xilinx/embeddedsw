@@ -50,6 +50,7 @@
 *                       workaround
 *       tnt  11/11/2021 Added RTCA defines for MIO Flush routine
 *       tnt  12/17/2021 Added RTCA define for PL_POR HDIO workaround
+* 1.07  ma   05/10/2022 Added PLM to PLM communication feature
 *
 * </pre>
 *
@@ -178,6 +179,11 @@ enum {
  */
 #define XPLMI_SSIT_MONOLITIC		(0x7U)
 #define XPLMI_SSIT_MASTER_SLR		(0x6U)
+#define XPLMI_SSIT_SLAVE0_SLR_TOP	(0x5U)
+#define XPLMI_SSIT_SLAVE0_SLR_NTOP	(0x4U)
+#define XPLMI_SSIT_SLAVE1_SLR_TOP	(0x3U)
+#define XPLMI_SSIT_SLAVE1_SLR_NTOP	(0x2U)
+#define XPLMI_SSIT_SLAVE2_SLR_TOP	(0x1U)
 #define XPLMI_SSIT_INVALID_SLR		(0x0U)
 
 /*
