@@ -193,7 +193,9 @@ int XPlmi_CheckNpiErrors(void);
 int XPlmi_ClearNpiErrors(void);
 void XPlmi_TriggerFwNcrError(void);
 void XPlmi_PORHandler(void);
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 void XPlmi_EnableSsitErrors(void);
+#endif
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);

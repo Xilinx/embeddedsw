@@ -118,10 +118,12 @@ int XPlm_LoadBootPdi(void *Arg)
 		goto ERR_END;
 	}
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	/* Enable SSIT interrupts for Master SLR */
 	if ((PdiInstance.SlrType == XLOADER_SSIT_MASTER_SLR)) {
 		XPlmi_EnableSsitErrors();
 	}
+#endif
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Done***********\n\r");
 

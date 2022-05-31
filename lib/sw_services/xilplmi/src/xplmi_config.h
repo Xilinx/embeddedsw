@@ -42,6 +42,8 @@
 * 1.08  kpt  01/04/2022 Added PLM_PUF and PLM_PUF_EXCLUDE macros
 *       kpt  01/31/2022 Added description for PLM_PUF_EXCLUDE
 *       ssc  03/05/2022 Moved default config definitions to xparameters.h
+*       ma   05/24/2022 Added PLM_ENABLE_PLM_TO_PLM_COMM macro for SSIT
+*                       PLM to PLM communication
 *
 * </pre>
 *
@@ -196,6 +198,12 @@ extern "C" {
 					to change tap state to RESET */
 #define XPLMI_MJTAG_WA_DELAY_USED_IN_GASKET_TOGGLE 1U /**< Delay in usec in
 					between high and low states of toggle */
+
+/**
+ * Enable the below define to enable PLM - PLM communication for
+ * SSIT devices.
+ */
+//#define PLM_ENABLE_PLM_TO_PLM_COMM
 
 /************************** Function Prototypes ******************************/
 

@@ -1776,6 +1776,7 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	}
 }
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 /****************************************************************************/
 /**
 * @brief    This function enables the SSIT interrupts
@@ -1836,6 +1837,7 @@ void XPlmi_EnableSsitErrors(void)
 END:
 	return;
 }
+#endif
 
 /*****************************************************************************/
 /**

@@ -38,6 +38,11 @@
 #include "xil_error_node.h"
 #include "sleep.h"
 
+#ifndef PLM_ENABLE_PLM_TO_PLM_COMM
+/************************** Function Prototypes ******************************/
+static u32 XPlmi_SsitGetSlaveErrorMask(void);
+
+#else
 /************************** Constant Definitions *****************************/
 /*
  * PMC RAM allocated for SSIT Events
@@ -1036,6 +1041,7 @@ static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait)
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1086,11 +1092,13 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd)
 
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	/* If SSIT interrupts are enabled, treat SSIT sync command as event */
 	if (SsitEvents->IsIntrEnabled == (u8)TRUE) {
 		Status = XPlmi_SsitSyncEventHandler(0x0U, 0x0U, 0x0U);
 		goto END;
 	}
+#endif
 
 	if (0U != SlrErrMask){
 		/* Initiate synchronization to master */
@@ -1118,7 +1126,9 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd)
 		XPlmi_Printf(DEBUG_GENERAL, "SSIT sync master error. Unknown SLR type.\n\r");
 	}
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 END:
+#endif
 	return Status;
 }
 
@@ -1144,11 +1154,13 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	/* If SSIT interrupts are enabled, treat SSIT sync command as event */
 	if (SsitEvents->IsIntrEnabled == (u8)TRUE) {
 		Status = XPlmi_SsitSyncEventHandler(SlavesMask, TimeOut, (u8)FALSE);
 		goto END;
 	}
+#endif
 
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) && (TimeOut != 0x0U)) {
@@ -1232,11 +1244,13 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	/* If SSIT interrupts are enabled, treat SSIT sync command as event */
 	if (SsitEvents->IsIntrEnabled == (u8)TRUE) {
 		Status = XPlmi_SsitSyncEventHandler(SlavesMask, TimeOut, (u8)TRUE);
 		goto END;
 	}
+#endif
 
 	/* Clear any existing SSIT errors in PMC_ERR1_STATUS register */
 	XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, PMC_GLOBAL_SSIT_ERR_MASK);
