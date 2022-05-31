@@ -35,6 +35,7 @@
 *       bsv  08/02/2021 Updated function return type as part of code clean up
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 * 1.06  am   11/24/2021 Fixed doxygen warnings
+* 1.07  ma   05/10/2022 Enable SSIT interrupts for Slave SLRs
 *
 * </pre>
 *
@@ -47,6 +48,8 @@
 #include "xplmi_hw.h"
 #include "xloader.h"
 #include "xplmi_proc.h"
+#include "xplmi.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -146,6 +149,12 @@ static int XLoader_SbiLoadPdi(void *Data)
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	/* Enable SSIT interrupts for Slave SLRs */
+	if ((PdiPtr->SlrType != XLOADER_SSIT_MONOLITIC) &&
+		(PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR)) {
+		XPlmi_EnableSsitErrors();
 	}
 	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Done\n\r");
 
