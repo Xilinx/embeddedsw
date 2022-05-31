@@ -892,6 +892,56 @@ END:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+* @brief    This function handles SSIT Errors 0/1/2 in Master and Slave SLRs.
+*
+* @param    ErrorNodeId is the node ID for the error event
+* @param    RegMask is the register mask of the error received
+*
+* @return   None
+*
+****************************************************************************/
+void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask)
+{
+	XPlmi_TaskNode *Task = NULL;
+
+	(void)ErrorNodeId;
+
+	/*
+	 * If the SLR Type is Master,
+	 *   - Trigger Task1 which is created to handle events from
+	 *     Slave SLR0 to Master SLR
+	 *   - Trigger Task2 which is created to handle events from
+	 *     Slave SLR1 to Master SLR
+	 *   - Trigger Task3 which is created to handle events from
+	 *     Slave SLR2 to Master SLR
+	 * If the SLR Type is Slave SLRs,
+	 *   - Trigger Task1 which is created to handle events from
+	 *     Master SLR to Slave SLR
+	 */
+	if (SsitEvents->SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
+		if (RegMask == XIL_EVENT_ERROR_MASK_SSIT0) {
+			Task = SsitEvents->Task1;
+		} else if (RegMask == XIL_EVENT_ERROR_MASK_SSIT1) {
+			Task = SsitEvents->Task2;
+		} else if (RegMask == XIL_EVENT_ERROR_MASK_SSIT2) {
+			Task = SsitEvents->Task3;
+		} else {
+			/* Do nothing */
+		}
+	} else {
+		if ((RegMask & PMC_GLOBAL_SSIT_ERR_MASK) != 0x0U) {
+			Task = SsitEvents->Task1;
+		}
+	}
+
+	if (Task != NULL) {
+		/* Trigger the task */
+		XPlmi_TaskTriggerNow(Task);
+	}
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function is the event handler for the SSIT sync events

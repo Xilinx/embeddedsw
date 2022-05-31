@@ -50,6 +50,7 @@
 *       ma   01/24/2022 Add XPLMI_ERROR_ACTION_NOT_DISABLED and
 *                       XPLMI_ERROR_ACTION_NOT_ENABLED minor error codes
 *       skd  03/09/2022 Compilation warning fix
+* 1.08  ma   05/10/2022 Added PLM to PLM communication feature
 *
 * </pre>
 *
@@ -192,6 +193,7 @@ int XPlmi_CheckNpiErrors(void);
 int XPlmi_ClearNpiErrors(void);
 void XPlmi_TriggerFwNcrError(void);
 void XPlmi_PORHandler(void);
+void XPlmi_EnableSsitErrors(void);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);
