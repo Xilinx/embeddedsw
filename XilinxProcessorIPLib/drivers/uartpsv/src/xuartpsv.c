@@ -246,11 +246,9 @@ u32 XUartPsv_Send(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 * RX FIFO. The application may need to call it repeatedly to receive the
 * entire buffer. Polled mode is the default mode of operation for the device.
 *
-* In interrupt mode, this function will start the receiving, if not the entire
-* buffer has been received, the interrupt handler will continue receiving data
-* until the entire buffer has been received. A callback function, as specified
-* by the application, will be called to indicate the completion of the
-* receiving or error conditions.
+* In interrupt mode, this function is dummy, the interrupt handler will receive
+* entire buffer. A callback function, as specified by the application, will be
+* called to indicate the completion of the receiving or error conditions.
 *
 * @param	InstancePtr is a pointer to the XUartPsv instance
 * @param	BufferPtr is pointer to buffer for data to be received into
@@ -267,7 +265,8 @@ u32 XUartPsv_Send(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 ******************************************************************************/
 u32 XUartPsv_Recv(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 {
-	u32 ReceivedCount;
+	u32 ReceivedCount = 0U;
+	u32 IntrMask;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -279,8 +278,10 @@ u32 XUartPsv_Recv(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 	InstancePtr->ReceiveBuffer.RemainingBytes = NumBytes;
 	InstancePtr->ReceiveBuffer.NextBytePtr = BufferPtr;
 
+	IntrMask = XUartPsv_GetInterruptMask(InstancePtr);
 	/* Receive the data from the device */
-	ReceivedCount = XUartPsv_ReceiveBuffer(InstancePtr);
+	if (IntrMask == 0 )
+		ReceivedCount = XUartPsv_ReceiveBuffer(InstancePtr);
 
 	return ReceivedCount;
 }

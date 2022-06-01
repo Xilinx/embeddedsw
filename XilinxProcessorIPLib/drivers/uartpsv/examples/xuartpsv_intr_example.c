@@ -276,6 +276,8 @@ int UartPsvIntrExample(INTC *IntcInstPtr, XUartPsv *UartInstPtr,
 		return XST_FAILURE;
 	}
 
+	XUartPsv_SetInterruptMask(UartInstPtr, 0);
+
 	return XST_SUCCESS;
 }
 
