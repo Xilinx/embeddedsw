@@ -152,7 +152,8 @@ XStatus XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 	} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
 		Val &= ~XPM_RPU_SLSPLIT_MASK;
 	} else {
-		/* Required by MISRA */
+		Status = XST_INVALID_PARAM;
+		goto done;
 	}
 
 	PmOut32(RpuCore->ClusterBaseAddr + XPM_CLUSTER_CFG_OFFSET, Val);
@@ -177,6 +178,7 @@ XStatus XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 							   XPLMI_CMD_SECURE);
 				if (XST_SUCCESS != Status) {
 					PmErr("Unable to request RPU 1 Core\n\r");
+					goto done;
 				}
 			} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
 				Status = XPmDevice_IsRequested(Rpu1, PM_SUBSYS_DEFAULT);
@@ -185,14 +187,19 @@ XStatus XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 								   XPLMI_CMD_SECURE);
 					if (XST_SUCCESS != Status) {
 						PmErr("Unable to release RPU 1 Core\n\r");
+						goto done;
 					}
 				}
 			} else {
 				/* Required due to MISRA */
 				PmDbg("Invalid RPU mode %d\r\n", Mode);
+				Status = XST_INVALID_PARAM;
+				goto done;
 			}
 		}
 	}
+
+	Status = XST_SUCCESS;
 
 done:
 	return Status;
