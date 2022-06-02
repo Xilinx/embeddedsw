@@ -149,11 +149,15 @@ XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power)
 		goto done;
 	}
 
-	PmOut32(Power->PwrUpEnReg + REQ_PWRUP_INT_TRIG_OFFSET, Power->PwrUpMask);
+	/**
+	 * TODO: Uncomment below lines when request power up/down interrupt
+	 * handling supported in PSMFW
+	 */
+	/*PmOut32(Power->PwrUpEnReg + REQ_PWRUP_INT_TRIG_OFFSET, Power->PwrUpMask);
 	PmOut32(Power->PwrUpEnReg, Power->PwrUpMask);
 	do {
 		PmIn32(Power->PwrStatReg, Reg);
-	} while ((Reg & Power->PwrStatMask) != Power->PwrStatMask);
+	} while ((Reg & Power->PwrStatMask) != Power->PwrStatMask);*/
 
 	Status = XST_SUCCESS;
 
@@ -190,11 +194,15 @@ XStatus XPmPsm_SendPowerDownReq(XPm_Power *Power)
 		goto done;
 	}
 
-	PmOut32(Power->PwrDwnEnReg + REQ_PWRDWN_INT_TRIG_OFFSET, Power->PwrDwnMask);
+	/**
+	 * TODO: Uncomment below lines when request power up/down interrupt
+	 * handling supported in PSMFW
+	 */
+	/*PmOut32(Power->PwrDwnEnReg + REQ_PWRDWN_INT_TRIG_OFFSET, Power->PwrDwnMask);
 	PmOut32(Power->PwrDwnEnReg, Power->PwrDwnMask);
 	do {
 		PmIn32(Power->PwrStatReg, Reg);
-	} while (0U != (Reg & Power->PwrStatMask));
+	} while (0U != (Reg & Power->PwrStatMask));*/
 
 	Status = XST_SUCCESS;
 
