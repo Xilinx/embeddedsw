@@ -51,6 +51,7 @@
 *                       XPLMI_ERROR_ACTION_NOT_ENABLED minor error codes
 *       skd  03/09/2022 Compilation warning fix
 * 1.08  ma   05/10/2022 Added PLM to PLM communication feature
+*       ma   06/01/2022 Added PLM Print Log as new error action
 *
 * </pre>
 *
@@ -84,8 +85,9 @@ extern "C" {
 #define XPLMI_EM_ACTION_ERROUT			(4U)
 #define XPLMI_EM_ACTION_SUBSYS_SHUTDN		(5U)
 #define XPLMI_EM_ACTION_SUBSYS_RESTART		(6U)
-#define XPLMI_EM_ACTION_NONE			(7U)
-#define XPLMI_EM_ACTION_MAX			(8U)
+#define XPLMI_EM_ACTION_PRINT_TO_LOG		(7U)
+#define XPLMI_EM_ACTION_NONE			(8U)
+#define XPLMI_EM_ACTION_MAX			(9U)
 
 /* Subsystem shutdown/restart related macros */
 #define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		(0U)
