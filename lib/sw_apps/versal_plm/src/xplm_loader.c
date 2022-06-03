@@ -35,6 +35,7 @@
 * 1.07  bsv  11/08/2021 Move XLoader_IsJtagSbiMode to Xilloader
 * 1.08  skd  04/20/2022 Misra-C violation Rule 10.3 fixed
 *       ma   05/10/2022 Enable SSIT interrupts for Master SLR
+*       ma   06/03/2022 Removed extra braces for SlrType if condition
 *
 * </pre>
 *
@@ -120,7 +121,7 @@ int XPlm_LoadBootPdi(void *Arg)
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	/* Enable SSIT interrupts for Master SLR */
-	if ((PdiInstance.SlrType == XLOADER_SSIT_MASTER_SLR)) {
+	if (PdiInstance.SlrType == XLOADER_SSIT_MASTER_SLR) {
 		XPlmi_EnableSsitErrors();
 	}
 #endif
