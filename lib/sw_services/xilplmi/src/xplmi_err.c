@@ -85,6 +85,7 @@
 *       ma   03/10/2022 Fix bug in disabling the error actions for PSM errors
 *       is   03/22/2022 Add custom handler for XPPU/XMPU error events
 * 1.08  ma   05/10/2022 Added PLM to PLM communication feature
+*       ma   06/01/2022 Added PLM Print Log as new error action
 *
 * </pre>
 *
@@ -141,6 +142,7 @@ static void XPlmi_CpmErrHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
 static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr);
 static void XPlmi_ProtUnitErrHandler(u32 ErrorNodeId, u32 RegMask);
+static void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask);
 
 /************************** Variable Definitions *****************************/
 static u32 EmSubsystemId = 0U;
@@ -227,9 +229,11 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_FW_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
 	[XPLMI_ERROR_GSW_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_GSW_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_CFU] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_CFRAME] =
@@ -240,33 +244,43 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	{ .Handler = NULL,
 			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_DDRMB_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_DDRMB_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_NOCTYPE1_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_NOCTYPE1_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_NOCUSER] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_MMCM] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_AIE_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_AIE_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_DDRMC_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_DDRMC_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_GT_CR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_GT_NCR] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PLSMON_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PLSMON_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PL0] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PL1] =
@@ -288,25 +302,35 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_PMCROM] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_MB_FATAL0] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_MB_FATAL1] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCPAR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMC_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMC_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCSMON0] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCSMON1] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCSMON2] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCSMON3] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCSMON4] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMC_RSRV1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMC_RSRV2] =
@@ -314,9 +338,11 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_PMC_RSRV3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCSMON8] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCSMON9] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_CFI] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_SEUCRC] =
@@ -334,9 +360,11 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_PPLL] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_CLKMON] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCTO] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCXMPU] =
 	{ .Handler = XPlmi_ProtUnitErrHandler,
 			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
@@ -350,64 +378,90 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_SSIT2] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PS_SW_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PS_SW_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_B_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_B_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_MB_FATAL] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_OCM_ECC] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_L2_ECC] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_RPU_ECC] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_RPU_LS] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_RPU_CCF] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_GIC_AXI] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_GIC_ECC] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_APLL_LOCK] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_RPLL_LOCK] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_CPM_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_CPM_NCR] =
 	{ .Handler = XPlmi_CpmErrHandler,
 			.Action = XPLMI_EM_ACTION_CUSTOM, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPD_APB] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_FPD_APB] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPD_PAR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_FPD_PAR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_IOU_PAR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_PAR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPD_TO] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_FPD_TO] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_TO] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_XRAM_CR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_XRAM_NCR] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_RSRV1] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_RSRV2] =
@@ -415,9 +469,11 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_PSM_RSRV3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_ERROR_LPD_SWDT] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_FPD_SWDT] =
-	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	{ .Handler = XPlmi_ErrPrintToLog,
+			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_RSRV4] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PSM_RSRV5] =
@@ -580,6 +636,7 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 	case XPLMI_EM_ACTION_CUSTOM:
 	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 	case XPLMI_EM_ACTION_SUBSYS_RESTART:
+	case XPLMI_EM_ACTION_PRINT_TO_LOG:
 		(void)XPlmi_EmDisable(ErrorNodeId, RegMask);
 		if (ErrorTable[ErrorId].Handler != NULL) {
 			ErrorTable[ErrorId].Handler(ErrorNodeId, RegMask);
@@ -631,6 +688,7 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 		case XPLMI_EM_ACTION_CUSTOM:
 		case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
 		case XPLMI_EM_ACTION_SUBSYS_RESTART:
+		case XPLMI_EM_ACTION_PRINT_TO_LOG:
 			(void)XPlmi_EmDisable(ErrorNodeId, RegMask);
 			if (ErrorTable[ErrorId].Handler != NULL) {
 				ErrorTable[ErrorId].Handler(ErrorNodeId, RegMask);
@@ -911,6 +969,10 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 	Err1Mask = Err1CrMask & Err1NcrMask;
 	Err2Mask = Err2CrMask & Err2NcrMask;
 
+	XPlmi_Printf(DEBUG_GENERAL,
+		"PSM EAM Interrupt: ERR1: 0x%0x, ERR2: 0x%0x\n\r",
+		Err1Status, Err2Status);
+
 	if (Err1Status != 0U) {
 		for (Index = XPLMI_ERROR_PS_SW_CR;
 				Index < XPLMI_ERROR_PSMERR1_MAX; Index++) {
@@ -1058,6 +1120,27 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 			}
 		}
 	}
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is the interrupt handler for Error action "Print
+*           to Log"
+*
+* @param    ErrorNodeId is the node ID for the error event
+* @param    RegMask is the register mask of the error received
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
+{
+	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
+
+	/* Print NodeId, Mask and Error ID information of the error received */
+	XPlmi_Printf(DEBUG_GENERAL, "Received EAM error. ErrorNodeId: 0x%x,"
+			" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
+			ErrorNodeId, RegMask, ErrorId);
 }
 
 /*****************************************************************************/
@@ -1591,6 +1674,12 @@ static int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
 			ErrorTable[ErrorId].Action = ActionId;
 			ErrorTable[ErrorId].Handler = XPlmi_ErrIntrSubTypeHandler;
 			ErrorTable[ErrorId].SubsystemId = EmSubsystemId;
+			Status = XPlmi_EmEnableInt(NodeType, RegMask);
+			break;
+		case XPLMI_EM_ACTION_PRINT_TO_LOG:
+			/* Set handler and error action for the errorId */
+			ErrorTable[ErrorId].Action = ActionId;
+			ErrorTable[ErrorId].Handler = XPlmi_ErrPrintToLog;
 			Status = XPlmi_EmEnableInt(NodeType, RegMask);
 			break;
 		default:
