@@ -124,9 +124,8 @@ test_boot_status:
 #endif
 #endif
 
-#ifndef ARMR52
 	bl 	Xil_InitializeExistingMPURegConfig	/* Initialize MPU config */
-#endif
+
 	/* run global constructors */
 	bl __libc_init_array
 

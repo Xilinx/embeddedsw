@@ -42,6 +42,7 @@ extern "C" {
 #if !defined (__aarch64__)
 #if !defined(ARMR52)
 #define ARMR52
+#define ARMR5
 #endif
 #endif
 

@@ -51,6 +51,7 @@
 * 					  represent the MPU configuration table.
 * 7.7	sk   01/10/22 Modify Xil_SetTlbAttributes function argument name to fix
 * 		      misra_c_2012_rule_8_3 violation.
+* 8.0   mus  05/09/22  Updated MPU related APIs to support CortexR52 processor.
 * </pre>
 *
 
@@ -74,6 +75,13 @@ extern "C" {
 #define MPU_REG_DISABLED		0U
 #define MPU_REG_ENABLED			1U
 #define MAX_POSSIBLE_MPU_REGS	16U
+
+#if defined(ARMR52)
+#define XMPU_LIMIT_REG_ATTRIBUTE_SHIFT 8U
+#define XMPU_LIMIT_REG_ATTRIBUTE_MASK 0xEU
+#define XMPU_64BYTE_ALIGNMENT_MASK	0xFFFFFFC0U
+#define XMPU_BASE_REG_ATTRIBUTE_MASK	0x1FU
+#endif
 /**************************** Type Definitions *******************************/
 struct XMpuConfig{
 	u32 RegionStatus; /* Enabled or disabled */
