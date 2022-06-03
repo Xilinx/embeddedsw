@@ -155,6 +155,7 @@
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 *       sk     04/07/22 Add support to read custom tap delay values from design
 *                       for SD/eMMC.
+*       sk     06/03/22 Fix issue in internal clock divider calculation logic.
 *
 * </pre>
 *

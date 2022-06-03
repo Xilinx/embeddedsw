@@ -33,6 +33,7 @@
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 *       sk     04/07/22 Add support to read custom tap delay values from design
 *                       for SD/eMMC.
+*       sk     06/03/22 Fix issue in internal clock divider calculation logic.
 *
 * </pre>
 *
@@ -1110,10 +1111,14 @@ u32 XSdPs_CalcClock(XSdPs *InstancePtr, u32 SelFreq)
 
 	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 		/* Calculate divisor */
-		for (DivCnt = 0x1U; DivCnt <= XSDPS_CC_EXT_MAX_DIV_CNT; DivCnt++) {
-			if (((InstancePtr->Config.InputClockHz) / DivCnt) <= SelFreq) {
-				Divisor = DivCnt >> 1;
-				break;
+		if (InstancePtr->Config.InputClockHz <= SelFreq) {
+			Divisor = 0U;
+		} else {
+			for (DivCnt = 2U; DivCnt <= XSDPS_CC_EXT_MAX_DIV_CNT; DivCnt += 2U) {
+				if (((InstancePtr->Config.InputClockHz) / DivCnt) <= SelFreq) {
+					Divisor = DivCnt >> 1;
+					break;
+				}
 			}
 		}
 	} else {
