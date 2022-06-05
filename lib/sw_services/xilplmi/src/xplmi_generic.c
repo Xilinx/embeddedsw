@@ -65,6 +65,7 @@
 *       is   01/10/2022 Added support for OT_CHECK command (XPlmi_OTCheck)
 *       is   01/10/2022 Updated Copyright Year to 2022
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
+* 1.08  bsv  06/03/2022 Add CommandInfo to a separate section in elf
 *
 * </pre>
 *
@@ -106,6 +107,7 @@
 #define XPLMI_SRC_ALIGN_REQ	(0U)
 #define XPLMI_DEST_ALIGN_REQ	(1U)
 #define XPLMI_LEN_ALIGN_REQ	(2U)
+#define XPLMI_UNLIMITED_ARG_CNT		(0xFFU)
 
 /* SSIT readback max length in words */
 #define XPLMI_SSIT_MAX_READBACK_SIZE	(0x10000U)
@@ -146,6 +148,7 @@ static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams);
  *
  *****************************************************************************/
 static XPlmi_Module XPlmi_Generic;
+
 /**
  * @}
  * @endcond
@@ -165,6 +168,8 @@ static XPlmi_Module XPlmi_Generic;
 static int XPlmi_Features(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
+	XPLMI_EXPORT_CMD(XPLMI_FEATURES_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_MAJOR_MODULE_VERSION, XPLMI_MINOR_MODULE_VERSION);
 
 	if (Cmd->Payload[0U] < XPlmi_Generic.CmdCnt) {
 		Cmd->Response[1U] = (u32)XST_SUCCESS;
@@ -190,6 +195,8 @@ static int XPlmi_Features(XPlmi_Cmd *Cmd)
 static int XPlmi_Nop(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
+	XPLMI_EXPORT_CMD(XPLMI_NOP_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_UNLIMITED_ARG_CNT);
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 	Status = XST_SUCCESS;
@@ -216,6 +223,8 @@ static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 ExtIdCode;
+	XPLMI_EXPORT_CMD(XPLMI_GET_DEVICE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_CMD_ARG_CNT_ZERO);
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 
@@ -268,6 +277,8 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 	u64 PollTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
+	XPLMI_EXPORT_CMD(XPLMI_MASK_POLL_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FIVE);
 
 	if (TimeOutInUs < XPLMI_MASK_POLL_MIN_TIMEOUT) {
 		TimeOutInUs = XPLMI_MASK_POLL_MIN_TIMEOUT;
@@ -331,6 +342,8 @@ static int XPlmi_MaskWrite(XPlmi_Cmd *Cmd)
 	u32 Addr = Cmd->Payload[0U];
 	u32 Mask = Cmd->Payload[1U];
 	u32 Value = Cmd->Payload[2U];
+	XPLMI_EXPORT_CMD(XPLMI_MASK_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s, Addr: 0x%08x,  Mask 0x%08x, Value: 0x%08x\n\r",
@@ -359,6 +372,8 @@ static int XPlmi_Write(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 Addr = Cmd->Payload[0U];
 	u32 Value = Cmd->Payload[1U];
+	XPLMI_EXPORT_CMD(XPLMI_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s, Addr: 0x%0x,  Val: 0x%0x\n\r",
@@ -384,6 +399,8 @@ static int XPlmi_Delay(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 Delay;
+	XPLMI_EXPORT_CMD(XPLMI_DELAY_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 
 	Delay = Cmd->Payload[0U];
 	XPlmi_Printf(DEBUG_DETAILED,
@@ -467,6 +484,8 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
 	u64 SrcAddr;
 	u32 Len = Cmd->PayloadLen;
 	u32 DestOffset = 0U;
+	XPLMI_EXPORT_CMD(XPLMI_DMA_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -519,6 +538,8 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd *Cmd)
 	u32 ExpectedValue = Cmd->Payload[3U];
 	u32 TimeOutInUs = Cmd->Payload[4U];
 	u32 Flags = 0U;
+	XPLMI_EXPORT_CMD(XPLMI_MASK_POLL64_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_FIVE, XPLMI_CMD_ARG_CNT_SIX);
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s, Addr: 0x%0x%08x,  Mask 0x%0x, ExpVal: 0x%0x, Timeout: %u\n\r",
@@ -568,6 +589,8 @@ static int XPlmi_MaskWrite64(XPlmi_Cmd *Cmd)
 	u32 Mask = Cmd->Payload[2U];
 	u32 Value = Cmd->Payload[3U];
 	u32 ReadVal;
+	XPLMI_EXPORT_CMD(XPLMI_MASK_WRITE64_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s, Addr: 0x%0x%08x,  Mask 0x%0x, Val: 0x%0x\n\r",
@@ -602,6 +625,8 @@ static int XPlmi_Write64(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u64 Addr = ((u64)Cmd->Payload[0U] << 32U) | Cmd->Payload[1U];
 	u32 Value = Cmd->Payload[2U];
+	XPLMI_EXPORT_CMD(XPLMI_WRITE64_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 
 	XPlmi_Printf(DEBUG_DETAILED,
 		"%s, Addr: 0x%0x%08x,  Val: 0x%0x\n\r",
@@ -781,6 +806,8 @@ static int XPlmi_DmaXfer(XPlmi_Cmd *Cmd)
 	u64 SrcAddr;
 	u32 Len;
 	u32 Flags;
+	XPLMI_EXPORT_CMD(XPLMI_DMA_XFER_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_SIX, XPLMI_CMD_ARG_CNT_SIX);
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -864,6 +891,8 @@ END:
  *****************************************************************************/
 static int XPlmi_InitSeq(XPlmi_Cmd *Cmd)
 {
+	XPLMI_EXPORT_CMD(XPLMI_INIT_SEQ_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_UNLIMITED_ARG_CNT);
 	/* For MISRA C */
 	(void)Cmd;
 
@@ -900,6 +929,8 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	u32 ReadLen;
 	u32 Len = Cmd->Payload[3U];
 	u32 CfiPayloadSrcAddr = (u32)(&Cmd->Payload[XPLMI_CFI_DATA_OFFSET]);
+	XPLMI_EXPORT_CMD(XPLMI_CFI_READ_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_UNLIMITED_ARG_CNT);
 
 	if (SlrType == XPLMI_READBACK_SLR_TYPE_1) {
 		SrcAddr = XPLMI_SLR1_CFU_FDRO_2_ADDR;
@@ -1054,6 +1085,8 @@ static int XPlmi_Set(XPlmi_Cmd *Cmd)
 	u64 DestAddr = (DestAddrHigh << 32U) | DestAddrLow;
 	u32 Len = Cmd->Payload[2U];
 	u32 Val = Cmd->Payload[3U];
+	XPLMI_EXPORT_CMD(XPLMI_SET_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 
 	Status = XPlmi_MemSet(DestAddr, Val, Len);
 
@@ -1088,6 +1121,8 @@ static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd *Cmd)
 	u64 KeyHoleTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
 #endif
+	XPLMI_EXPORT_CMD(XPLMI_WRITE_KEYHOLE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_THREE, XPLMI_UNLIMITED_ARG_CNT);
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -1204,6 +1239,8 @@ static int XPlmi_SetBoard(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 Len = Cmd->PayloadLen;
+	XPLMI_EXPORT_CMD(XPLMI_SET_BOARD_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
 	(void)XPlmi_BoardNameRW(Cmd, (u8)FALSE, &Len);
 
@@ -1233,6 +1270,8 @@ static int XPlmi_GetBoard(XPlmi_Cmd *Cmd)
 	u64 DestAddr = (HighAddr << XPLMI_NUM_BITS_IN_WORD) | LowAddr;
 	u32 Len = Cmd->Payload[2U];
 	u8* BoardName = XPlmi_BoardNameRW(Cmd, (u8)TRUE, &Len);
+	XPLMI_EXPORT_CMD(XPLMI_GET_BOARD_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 
 	Status = XPlmi_DmaXfr((u64)(u32)&BoardName[0U], DestAddr, Len,
 			XPLMI_PMCDMA_0);
@@ -1264,6 +1303,8 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 NodeId = Cmd->Payload[0U];
 	u32 Periodicity = Cmd->Payload[1U];
+	XPLMI_EXPORT_CMD(XPLMI_SET_WDT_PARAM_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 
 	XPlmi_Printf(DEBUG_INFO, "Enabling WDT with Node:0x%08x, "
 		     "Periodicity: %u ms\n\r", NodeId, Periodicity);
@@ -1289,6 +1330,8 @@ static int XPlmi_LogString(XPlmi_Cmd *Cmd)
 	u32 Len = Cmd->PayloadLen * XPLMI_WORD_LEN;
 	static u8 LogString[XPLMI_MAX_LOG_STR_LEN] __attribute__ ((aligned(4U)));
 	static u32 StringIndex = 0U;
+	XPLMI_EXPORT_CMD(XPLMI_LOG_STR_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
 	if (Cmd->ProcessedLen == 0U) {
 		/* Check for array overflow */
@@ -1341,6 +1384,8 @@ static int XPlmi_LogAddress(XPlmi_Cmd *Cmd)
 	u64 HighAddr = 0UL;
 	u64 Addr;
 	u32 Val;
+	XPLMI_EXPORT_CMD(XPLMI_LOG_ADDR_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_TWO);
 
 	if (Cmd->Len == XPLMI_LOG_ADDR_MAX_ARGS) {
 		/* This indicates non-zero 32-bit higher address */
@@ -1371,6 +1416,8 @@ static int XPlmi_LogAddress(XPlmi_Cmd *Cmd)
 static int XPlmi_Marker(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
+	XPLMI_EXPORT_CMD(XPLMI_MARKER_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s %p\n\r", __func__, Cmd);
 	/* Return success */
@@ -1568,6 +1615,8 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 	u32 CmdLenInBytes = (Cmd->Len - 1U) * XPLMI_WORD_LEN;
 	u32 CurrPayloadLen;
 	XPlmi_ProcList *ProcList = NULL;
+	XPLMI_EXPORT_CMD(XPLMI_PROC_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
 	if (Cmd->ProcessedLen == 0U) {
 		ProcId = Cmd->Payload[0U];
@@ -1678,6 +1727,8 @@ static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 WaitInMSec = Cmd->Payload[0U];
+	XPLMI_EXPORT_CMD(XPLMI_OT_CHECK_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 
 	XPlmi_Printf(DEBUG_INFO, "%s: Delay post OT Event (mSec): %u\n\r",
 			__func__, WaitInMSec);
@@ -1780,6 +1831,9 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(NULL),	/* Reserved for future */
 		XPLMI_MODULE_COMMAND(XPlmi_OTCheck),
 	};
+	/* This is to store CMD_END in xplm_modules section */
+	XPLMI_EXPORT_CMD(XPLMI_END_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_CMD_ARG_CNT_ZERO);
 
 	XPlmi_Generic.Id = XPLMI_MODULE_GENERIC_ID;
 	XPlmi_Generic.CmdAry = XPlmi_GenericCmds;
