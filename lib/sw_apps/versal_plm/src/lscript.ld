@@ -206,5 +206,8 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    __stack = _stack;
 } > tmr_ram_cntlr_Mem
 
+.xplm_modules (INFO) : {
+   KEEP (*(.xplm_modules))
+} > tmr_ram_cntlr_Mem
 _end = .;
 }

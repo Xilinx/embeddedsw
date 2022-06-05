@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 *                       Return error codes as minor error codes from this file
 *       ma   09/13/2021 Set PLM prints log level to 0 in
 *                       XPlmi_InitDebugLogBuffer function
+* 1.06  bsv  06/03/2022 Add CommandInfo to a separate section in elf
 *
 * </pre>
 *
@@ -61,6 +62,7 @@
 #include "xplmi.h"
 #include "xplmi_util.h"
 #include "xil_util.h"
+#include "xplmi_modules.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -265,6 +267,8 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 	u64 Arg2 = (u64)Cmd->Payload[2U];
 	u32 Arg3 = Cmd->Payload[3U];
 	u64 StartAddr;
+	XPLMI_EXPORT_CMD(XPLMI_EVENT_LOGGING_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 
 	switch (LoggingCmd) {
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:

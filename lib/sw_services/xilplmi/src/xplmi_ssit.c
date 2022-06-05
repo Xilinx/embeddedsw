@@ -25,6 +25,7 @@
 * 1.04  tnt  01/10/2022 Update ssit_sync* code to wait for each slave mask
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 * 1.05  ma   05/10/2022 Added PLM to PLM communication feature
+*       bsv  06/03/2022 Add CommandInfo to a separate section in elf
 *
 * </pre>
 *
@@ -37,6 +38,7 @@
 #include "xplmi_hw.h"
 #include "xil_error_node.h"
 #include "sleep.h"
+#include "xplmi_modules.h"
 
 #ifndef PLM_ENABLE_PLM_TO_PLM_COMM
 /************************** Function Prototypes ******************************/
@@ -1089,6 +1091,8 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 ErrStatus = (u32)XST_FAILURE;
 	u32 SlrErrMask = XPlmi_SsitGetSlaveErrorMask();
+	XPLMI_EXPORT_CMD(XPLMI_SSIT_SYNC_MASTER_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_ZERO, XPLMI_CMD_ARG_CNT_ZERO);
 
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
@@ -1151,6 +1155,8 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 	u32 TimeOut = Cmd->Payload[1U];
 	u32 SlavesReady = 0U;
 	u32 PmcErrStatus2;
+	XPLMI_EXPORT_CMD(XPLMI_SSIT_SYNC_SLAVES_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
@@ -1241,6 +1247,8 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 	u32 TimeOut = Cmd->Payload[1U];
 	u32 SlavesReady = 0U;
 	volatile u32 PmcErrStatus2;
+	XPLMI_EXPORT_CMD(XPLMI_SSIT_WAIT_SLAVES_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+		XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
