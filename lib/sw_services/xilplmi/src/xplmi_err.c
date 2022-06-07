@@ -338,8 +338,7 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_PMC_RSRV3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_INVALID, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCSMON8] =
-	{ .Handler = XPlmi_ErrPrintToLog,
-			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PMCSMON9] =
 	{ .Handler = XPlmi_ErrPrintToLog,
 			.Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
