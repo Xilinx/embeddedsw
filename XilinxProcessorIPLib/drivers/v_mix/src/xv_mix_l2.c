@@ -563,9 +563,9 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
        if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
          u32 WinResInRange;
 
-         WinResInRange = ((Win->Width  > (XVMIX_MIN_STRM_WIDTH-1))  &&
+         WinResInRange = ((Win->Width > (XVMIX_MIN_STRM_WIDTH-1)) &&
                           (Win->Height > (XVMIX_MIN_STRM_HEIGHT-1)) &&
-                          (Win->Width  < MixPtr->Config.LayerMaxWidth[LayerId-1]) &&
+                          (Win->Width <= MixPtr->Config.LayerMaxWidth[LayerId-1]) &&
                           (Win->Height <= MixPtr->Config.MaxHeight));
          if(WinResInRange) {
            /* Check layer interface is Stream or Memory */
