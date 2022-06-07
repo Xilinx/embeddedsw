@@ -441,6 +441,30 @@ static XStatus SetPowerNode(u32 Id, XPm_Power *PwrNode)
 	return Status;
 }
 
+void XPmPower_SetPsmRegInfo(XPm_Power *Power, const u32 *Args)
+{
+	u32 Offset, Width;
+
+	Power->PwrUpEnOffset = ((Args[7] & 0xFFU) == 0U) ?
+				PSMX_GLOBAL_REQ_PWRUP0_EN_OFFSET :
+				PSMX_GLOBAL_REQ_PWRUP1_EN_OFFSET;
+	Power->PwrDwnEnOffset = ((Args[7] & 0xFF00U) == 0U) ?
+				 PSMX_GLOBAL_REQ_PWRDWN0_EN_OFFSET :
+				 PSMX_GLOBAL_REQ_PWRDWN1_EN_OFFSET;
+	Power->PwrStatOffset = ((Args[7] & 0xFF0000U) == 0U) ?
+				PSMX_GLOBAL_PWR_STATE0_OFFSET :
+				PSMX_GLOBAL_PWR_STATE1_OFFSET;
+	Offset = (Args[1] & 0xFFU);
+	Width = (Args[1] & 0xFF00U) >> 8U;
+	Power->PwrUpMask = BITNMASK(Offset, Width);
+	Offset = (Args[8] & 0xFFU);
+	Width = (Args[8] & 0xFF00U) >> 8U;
+	Power->PwrDwnMask = BITNMASK(Offset, Width);
+	Offset = (Args[8] & 0xFF0000U) >> 16U;
+	Width = (Args[8] & 0xFF000000U) >> 24U;
+	Power->PwrStatMask = BITNMASK(Offset, Width);
+}
+
 XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent)
 {
@@ -462,178 +486,6 @@ XStatus XPmPower_Init(XPm_Power *Power,
 	Power->WfParentUseCnt = 0;
 	Power->PwrDnLatency = 0;
 	Power->PwrUpLatency = 0;
-	switch (Id) {
-	case PM_POWER_FPD:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x100000U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x100000U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE1;
-		Power->PwrStatMask = 0x4U;
-		break;
-	case PM_POWER_ACPU_0_0:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x1U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x1U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x1U;
-		break;
-	case PM_POWER_ACPU_0_1:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x2U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x2U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x2U;
-		break;
-	case PM_POWER_ACPU_0_2:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x4U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x4U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x4U;
-		break;
-	case PM_POWER_ACPU_0_3:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x8U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x8U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x8U;
-		break;
-	case PM_POWER_ACPU_1_0:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x10U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x10U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x10U;
-		break;
-	case PM_POWER_ACPU_1_1:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x20U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x20U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x20U;
-		break;
-	case PM_POWER_ACPU_1_2:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x40U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x40U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x40U;
-		break;
-	case PM_POWER_ACPU_1_3:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x80U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x80U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x80U;
-		break;
-	case PM_POWER_ACPU_2_0:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x100U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x100U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x100U;
-		break;
-	case PM_POWER_ACPU_2_1:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x200U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x200U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x200U;
-		break;
-	case PM_POWER_ACPU_2_2:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x400U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x400U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x400U;
-		break;
-	case PM_POWER_ACPU_2_3:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x800U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x800U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x800U;
-		break;
-	case PM_POWER_ACPU_3_0:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x1000U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x1000U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x1000U;
-		break;
-	case PM_POWER_ACPU_3_1:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x2000U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x2000U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x2000U;
-		break;
-	case PM_POWER_ACPU_3_2:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x4000U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x4000U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x4000U;
-		break;
-	case PM_POWER_ACPU_3_3:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP0_EN;
-		Power->PwrUpMask = 0x8000U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN0_EN;
-		Power->PwrDwnMask = 0x8000U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x8000U;
-		break;
-	case PM_POWER_RPU_A_0:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP1_EN;
-		Power->PwrUpMask = 0x1U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN1_EN;
-		Power->PwrDwnMask = 0x1U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x10000U;
-		break;
-	case PM_POWER_RPU_A_1:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP1_EN;
-		Power->PwrUpMask = 0x2U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN1_EN;
-		Power->PwrDwnMask = 0x2U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x20000U;
-		break;
-	case PM_POWER_RPU_B_0:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP1_EN;
-		Power->PwrUpMask = 0x4U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN1_EN;
-		Power->PwrDwnMask = 0x4U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x40000U;
-		break;
-	case PM_POWER_RPU_B_1:
-		Power->PwrUpEnReg = PSMX_GLOBAL_REQ_PWRUP1_EN;
-		Power->PwrUpMask = 0x8U;
-		Power->PwrDwnEnReg = PSMX_GLOBAL_REQ_PWRDWN1_EN;
-		Power->PwrDwnMask = 0x8U;
-		Power->PwrStatReg = PSMX_GLOBAL_PWR_STATE0;
-		Power->PwrStatMask = 0x80000U;
-		break;
-	default:
-		break;
-	}
 
 	Status = SetPowerNode(Id, Power);
 	if (XST_SUCCESS != Status) {

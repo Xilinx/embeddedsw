@@ -56,11 +56,11 @@ struct XPm_Power {
 	u8 WfParentUseCnt; /**< Pending use count of the parent */
 	u16 PwrDnLatency; /**< Latency (in us) for transition to OFF state */
 	u16 PwrUpLatency; /**< Latency (in us) for transition to ON state */
-	u32 PwrUpEnReg; /**< PSM request power up interrupt enable register */
-	u32 PwrDwnEnReg; /**< PSM request power down interrupt enable register */
+	u32 PwrUpEnOffset; /**< PSM request power up interrupt enable register offset */
+	u32 PwrDwnEnOffset; /**< PSM request power down interrupt enable register offset */
 	u32 PwrUpMask; /**< PSM request power up interrupt mask */
 	u32 PwrDwnMask; /**< PSM request power down interrupt mask */
-	u32 PwrStatReg; /**< PSM power state register */
+	u32 PwrStatOffset; /**< PSM power state register offset */
 	u32 PwrStatMask; /**< PSM power state mask */
 	XStatus (* HandleEvent)(XPm_Node *Node, u32 Event);
 		/**< HandleEvent: Pointer to event handler */
@@ -68,6 +68,7 @@ struct XPm_Power {
 
 /************************** Function Prototypes ******************************/
 XPm_Power *XPmPower_GetById(u32 Id);
+void XPmPower_SetPsmRegInfo(XPm_Power *Power, const u32 *Args);
 XStatus XPmPower_Init(XPm_Power *Power,
 	u32 Id, u32 BaseAddress, XPm_Power *Parent);
 XStatus XPmPower_AddParent(u32 Id, const u32 *Parents, u32 NumParents);

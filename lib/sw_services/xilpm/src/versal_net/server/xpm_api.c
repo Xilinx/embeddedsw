@@ -1965,6 +1965,12 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 		}
 		Status = XPmPower_Init(Power, PowerId, BitMask,
 			PowerParent);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		if (9U <= NumArgs) {
+			XPmPower_SetPsmRegInfo(Power, Args);
+		}
 		break;
 	case (u32)XPM_NODETYPE_POWER_DOMAIN_PMC:
 		PmcDomain =
@@ -1985,6 +1991,12 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 		}
 		Status = XPmPsFpDomain_Init(PsFpDomain, PowerId,
 					    BitMask, PowerParent, &Args[3], (NumArgs - 3U));
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		if (9U <= NumArgs) {
+			XPmPower_SetPsmRegInfo(&PsFpDomain->Domain.Power, Args);
+		}
 		break;
 	case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_LOW:
 		PsLpDomain =
