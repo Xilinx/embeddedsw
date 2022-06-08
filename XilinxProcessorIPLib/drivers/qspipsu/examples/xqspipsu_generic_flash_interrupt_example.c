@@ -63,6 +63,7 @@
 * 1.14  akm 07/16/21 Enable Quad Mode for Winbond flashes.
 * 1.15  akm 11/19/21 Fix read/write failures on Spansion flash parts.
 * 1.15  akm 12/22/21 Initialize variables before use.
+* 1.16  akm 06/03/22 Add timeout in QSPIPSU driver examples.
 *
 *</pre>
 *
@@ -492,6 +493,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 {
 	int Status;
 	u32 ReadId = 0;
+	u32 LoopCount;
 
 	/*
 	 * Read ID
@@ -514,7 +516,11 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	while (TransferInProgress);
+	LoopCount = 0;
+	while (TransferInProgress) {
+		if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+			return XST_FAILURE;
+	}
 
 	xil_printf("FlashID=0x%x 0x%x 0x%x\n\r", ReadBfrPtr[0], ReadBfrPtr[1],
 		   ReadBfrPtr[2]);
@@ -568,6 +574,8 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	u32 RealAddr;
 	u32 CmdByteCount;
 	int Status;
+	u32 DelayCount;
+	u32 LoopCount;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
 	/*
@@ -594,7 +602,11 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		return XST_FAILURE;
 	}
 
-	while (TransferInProgress);
+	LoopCount = 0;
+	while (TransferInProgress) {
+		if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+			return XST_FAILURE;
+	}
 
 	WriteCmd[COMMAND_OFFSET]   = Command;
 
@@ -642,58 +654,76 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		return XST_FAILURE;
 	}
 
-	while (TransferInProgress);
+	LoopCount = 0;
+	while (TransferInProgress) {
+		if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+			return XST_FAILURE;
+	}
 
 	/*
 	 * Wait for the write command to the Flash to be completed, it takes
 	 * some time for the data to be written
 	 */
+	DelayCount = 0;
 	while (1) {
-		ReadStatusCmd = StatusCmd;
-		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		}
-
-		TransferInProgress = TRUE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		while (TransferInProgress);
-
-		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			if (FSRFlag) {
-				FlashStatus[1] &= FlashStatus[0];
-			} else {
-				FlashStatus[1] |= FlashStatus[0];
-			}
-		}
-
-		if (FSRFlag) {
-			if ((FlashStatus[1] & 0x80) != 0) {
-				break;
-			}
+		if (DelayCount == MAX_DELAY_CNT) {
+			Status = XST_FAILURE;
+			goto ERROR_PATH;
 		} else {
-			if ((FlashStatus[1] & 0x01) == 0) {
-				break;
+			ReadStatusCmd = StatusCmd;
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashStatus;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 			}
+
+			TransferInProgress = TRUE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			LoopCount = 0;
+			while (TransferInProgress) {
+				if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+					return XST_FAILURE;
+			}
+
+			if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				if (FSRFlag) {
+					FlashStatus[1] &= FlashStatus[0];
+				} else {
+					FlashStatus[1] |= FlashStatus[0];
+				}
+			}
+
+			if (FSRFlag) {
+				if ((FlashStatus[1] & 0x80) != 0) {
+					break;
+				}
+			} else {
+				if ((FlashStatus[1] & 0x01) == 0) {
+					break;
+				}
+			}
+			/* Wait for 1 usec */
+			usleep(1);
+			DelayCount++;
 		}
 	}
 
-	return 0;
+ERROR_PATH:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -725,6 +755,8 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	int Status;
 	u32 SectSize;
 	u32 SectMask;
+	u32 DelayCount;
+	u32 LoopCount;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
 
@@ -841,7 +873,11 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		WriteBfrPtr[COMMAND_OFFSET]   = SectorEraseCmd;
 
@@ -879,60 +915,78 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		/*
 		 * Wait for the erase command to be completed
 		 */
+		DelayCount = 0;
 		while (1) {
-			ReadStatusCmd = StatusCmd;
-			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-			FlashMsg[0].RxBfrPtr = NULL;
-			FlashMsg[0].ByteCount = 1;
-			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-			FlashMsg[1].TxBfrPtr = NULL;
-			FlashMsg[1].RxBfrPtr = FlashStatus;
-			FlashMsg[1].ByteCount = 2;
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-			}
-
-			TransferInProgress = TRUE;
-			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
-					FlashMsg, 2);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-			while (TransferInProgress);
-
-			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-				if (FSRFlag) {
-					FlashStatus[1] &= FlashStatus[0];
-				} else {
-					FlashStatus[1] |= FlashStatus[0];
-				}
-			}
-
-			if (FSRFlag) {
-				if ((FlashStatus[1] & 0x80) != 0) {
-					break;
-				}
+			if (DelayCount == MAX_DELAY_CNT) {
+				Status = XST_FAILURE;
+				goto ERROR_PATH;
 			} else {
-				if ((FlashStatus[1] & 0x01) == 0) {
-					break;
+				ReadStatusCmd = StatusCmd;
+				FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+				FlashMsg[1].TxBfrPtr = NULL;
+				FlashMsg[1].RxBfrPtr = FlashStatus;
+				FlashMsg[1].ByteCount = 2;
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+				if (QspiPsuPtr->Config.ConnectionMode ==
+						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+					FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 				}
+
+				TransferInProgress = TRUE;
+				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
+						FlashMsg, 2);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+				LoopCount = 0;
+				while (TransferInProgress) {
+					if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+						return XST_FAILURE;
+				}
+
+				if (QspiPsuPtr->Config.ConnectionMode ==
+						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+					if (FSRFlag) {
+						FlashStatus[1] &= FlashStatus[0];
+					} else {
+						FlashStatus[1] |= FlashStatus[0];
+					}
+				}
+
+				if (FSRFlag) {
+					if ((FlashStatus[1] & 0x80) != 0) {
+						break;
+					}
+				} else {
+					if ((FlashStatus[1] & 0x01) == 0) {
+						break;
+					}
+				}
+				/* Wait for 1 usec */
+				usleep(1);
+				DelayCount++;
 			}
 		}
 		Address += SectSize;
 	}
 
-	return 0;
+ERROR_PATH:
+	return Status;
 }
 
 
@@ -964,6 +1018,7 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	u32 DiscardByteCnt;
 	u32 FlashMsgCnt;
 	int Status;
+	u32 LoopCount;
 
 	/* Check die boundary conditions if required for any flash */
 	if (Flash_Config_Table[FCTIndex].NumDie > 1) {
@@ -1076,7 +1131,11 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 	}
 	return 0;
@@ -1119,6 +1178,7 @@ int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	u32 data_len;
 	u32 transfer_len;
 	u8 *ReadBuffer = ReadBfrPtr;
+	u32 LoopCount;
 
 	/*
 	 * Some flash devices like N25Q512 have multiple dies
@@ -1256,8 +1316,11 @@ int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
-		while (TransferInProgress);
-
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		ReadBuffer += data_len;
 		Address += data_len;
@@ -1286,6 +1349,8 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	u8 ReadStatusCmd;
 	u8 FlashStatus[2];
 	int Status;
+	u32 DelayCount;
+	u32 LoopCount;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
 	/*
@@ -1304,7 +1369,11 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	while (TransferInProgress);
+	LoopCount = 0;
+	while (TransferInProgress) {
+		if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+			return XST_FAILURE;
+	}
 
 	WriteBfrPtr[COMMAND_OFFSET]   = BULK_ERASE_CMD;
 	FlashMsg[0].TxBfrPtr = WriteBfrPtr;
@@ -1318,58 +1387,76 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	while (TransferInProgress);
+	LoopCount = 0;
+	while (TransferInProgress) {
+		if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+			return XST_FAILURE;
+	}
 
 	/*
 	 * Wait for the write command to the Flash to be completed, it takes
 	 * some time for the data to be written
 	 */
+	DelayCount = 0;
 	while (1) {
-		ReadStatusCmd = StatusCmd;
-		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		}
-
-		TransferInProgress = TRUE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		while (TransferInProgress);
-
-		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			if (FSRFlag) {
-				FlashStatus[1] &= FlashStatus[0];
-			} else {
-				FlashStatus[1] |= FlashStatus[0];
-			}
-		}
-
-		if (FSRFlag) {
-			if ((FlashStatus[1] & 0x80) != 0) {
-				break;
-			}
+		if (DelayCount == MAX_DELAY_CNT) {
+			Status = XST_FAILURE;
+			goto ERROR_PATH;
 		} else {
-			if ((FlashStatus[1] & 0x01) == 0) {
-				break;
+			ReadStatusCmd = StatusCmd;
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashStatus;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 			}
+
+			TransferInProgress = TRUE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			LoopCount = 0;
+			while (TransferInProgress) {
+				if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+					return XST_FAILURE;
+			}
+
+			if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				if (FSRFlag) {
+					FlashStatus[1] &= FlashStatus[0];
+				} else {
+					FlashStatus[1] |= FlashStatus[0];
+				}
+			}
+
+			if (FSRFlag) {
+				if ((FlashStatus[1] & 0x80) != 0) {
+					break;
+				}
+			} else {
+				if ((FlashStatus[1] & 0x01) == 0) {
+					break;
+				}
+			}
+			/* Wait for 1 usec */
+			usleep(1);
+			DelayCount++;
 		}
 	}
 
-	return 0;
+ERROR_PATH:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1399,6 +1486,8 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	u32 RealAddr;
 	u32 SectSize = 0;
 	u32 NumSect = 0;
+	u32 DelayCount;
+	u32 LoopCount;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
 
@@ -1431,7 +1520,11 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		 }
 
 		WriteBfrPtr[COMMAND_OFFSET]   = DIE_ERASE_CMD;
 
@@ -1470,60 +1563,78 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		/*
 		 * Wait for the write command to the Flash to be completed,
 		 * it takes some time for the data to be written
 		 */
+		DelayCount = 0;
 		while (1) {
-			ReadStatusCmd = StatusCmd;
-			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-			FlashMsg[0].RxBfrPtr = NULL;
-			FlashMsg[0].ByteCount = 1;
-			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-			FlashMsg[1].TxBfrPtr = NULL;
-			FlashMsg[1].RxBfrPtr = FlashStatus;
-			FlashMsg[1].ByteCount = 2;
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-			}
-
-			TransferInProgress = TRUE;
-			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
-					FlashMsg, 2);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-			while (TransferInProgress);
-
-			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-				if (FSRFlag) {
-					FlashStatus[1] &= FlashStatus[0];
-				} else {
-					FlashStatus[1] |= FlashStatus[0];
-				}
-			}
-
-			if (FSRFlag) {
-				if ((FlashStatus[1] & 0x80) != 0) {
-					break;
-				}
+			if (DelayCount == MAX_DELAY_CNT) {
+				Status = XST_FAILURE;
+				goto ERROR_PATH;
 			} else {
-				if ((FlashStatus[1] & 0x01) == 0) {
-					break;
+				ReadStatusCmd = StatusCmd;
+				FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+				FlashMsg[1].TxBfrPtr = NULL;
+				FlashMsg[1].RxBfrPtr = FlashStatus;
+				FlashMsg[1].ByteCount = 2;
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+				if (QspiPsuPtr->Config.ConnectionMode ==
+						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+					FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 				}
+
+				TransferInProgress = TRUE;
+				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
+						FlashMsg, 2);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+				LoopCount = 0;
+				while (TransferInProgress) {
+					if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+						return XST_FAILURE;
+				}
+
+				if (QspiPsuPtr->Config.ConnectionMode ==
+						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+					if (FSRFlag) {
+						FlashStatus[1] &= FlashStatus[0];
+					} else {
+						FlashStatus[1] |= FlashStatus[0];
+					}
+				}
+
+				if (FSRFlag) {
+					if ((FlashStatus[1] & 0x80) != 0) {
+						break;
+					}
+				} else {
+					if ((FlashStatus[1] & 0x01) == 0) {
+						break;
+					}
+				}
+				/* Wait for 1 usec */
+				usleep(1);
+				DelayCount++;
 			}
 		}
 	}
 
-	return 0;
+ERROR_PATH:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1725,6 +1836,8 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 	u8 ReadStatusCmd;
 	u8 WriteBuffer[2] = {0};
 	u8 FlashStatus[2] = {0};
+	u32 DelayCount;
+	u32 LoopCount;
 
 	if (Enable) {
 		Cmd = ENTER_4B_ADDR_MODE;
@@ -1756,7 +1869,11 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		break;
 
@@ -1780,7 +1897,11 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 		if (Enable) {
 			WriteBuffer[0] = BANK_REG_WR;
 			WriteBuffer[1] |= 1 << 7;
@@ -1805,7 +1926,11 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 		WriteBuffer[0] = BANK_REG_RD;
 		FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
 		FlashMsg[0].RxBfrPtr = NULL;
@@ -1824,7 +1949,11 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		return Status;
 
@@ -1849,52 +1978,68 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	while (TransferInProgress);
-
-	while (1) {
-		ReadStatusCmd = StatusCmd;
-
-		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-
-		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		}
-
-		TransferInProgress = TRUE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
+	LoopCount = 0;
+	while (TransferInProgress) {
+		if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
 			return XST_FAILURE;
-		}
-		while (TransferInProgress);
+	}
 
-		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			if (FSRFlag) {
-				FlashStatus[1] &= FlashStatus[0];
-			} else {
-				FlashStatus[1] |= FlashStatus[0];
-			}
-		}
-
-		if (FSRFlag) {
-			if ((FlashStatus[1] & 0x80) != 0) {
-				break;
-			}
+	DelayCount = 0;
+	while (1) {
+		if (DelayCount == MAX_DELAY_CNT) {
+			Status = XST_FAILURE;
+			goto ERROR_PATH;
 		} else {
-			if ((FlashStatus[1] & 0x01) == 0) {
-				break;
+			ReadStatusCmd = StatusCmd;
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashStatus;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+			if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 			}
+
+			TransferInProgress = TRUE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			LoopCount = 0;
+			while (TransferInProgress) {
+				if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+					return XST_FAILURE;
+			}
+
+			if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				if (FSRFlag) {
+					FlashStatus[1] &= FlashStatus[0];
+				} else {
+					FlashStatus[1] |= FlashStatus[0];
+				}
+			}
+
+			if (FSRFlag) {
+				if ((FlashStatus[1] & 0x80) != 0) {
+					break;
+				}
+			} else {
+				if ((FlashStatus[1] & 0x01) == 0) {
+					break;
+				}
+			}
+			/* Wait for 1 usec */
+			usleep(1);
+			DelayCount++;
 		}
 	}
 
@@ -1919,7 +2064,11 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		break;
 
@@ -1930,6 +2079,7 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 		 */
 		break;
 	}
+ERROR_PATH:
 	return Status;
 }
 
@@ -1957,6 +2107,8 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 	u8 FlashStatus[2];
 	u8 StatusRegVal;
 	u8 WriteBuffer[3] = {0};
+	u32 DelayCount;
+	u32 LoopCount;
 
 	switch (FlashMake) {
 	case SPANSION_ID_BYTE0:
@@ -1979,7 +2131,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		WriteEnableCmd = WRITE_ENABLE_CMD;
 		/*
@@ -2000,7 +2156,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
 
@@ -2025,40 +2185,58 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
-
-		while (1) {
-			TxBfrPtr = READ_STATUS_CMD;
-			FlashMsg[0].TxBfrPtr = &TxBfrPtr;
-			FlashMsg[0].RxBfrPtr = NULL;
-			FlashMsg[0].ByteCount = 1;
-			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-			FlashMsg[1].TxBfrPtr = NULL;
-			FlashMsg[1].RxBfrPtr = FlashStatus;
-			FlashMsg[1].ByteCount = 2;
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-
-			TransferInProgress = TRUE;
-			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
-					FlashMsg, 2);
-			if (Status != XST_SUCCESS) {
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
 				return XST_FAILURE;
-			}
-			while (TransferInProgress);
-			if (QspiPsuPtr->Config.ConnectionMode ==
-						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-				if (FSRFlag) {
-					FlashStatus[1] &= FlashStatus[0];
-				}else {
-					FlashStatus[1] |= FlashStatus[0];
-				}
-			}
+		}
 
-			if ((FlashStatus[1] & 0x01) == 0x00)
-				break;
+		DelayCount = 0;
+		while (1) {
+			if (DelayCount == MAX_DELAY_CNT) {
+				Status = XST_FAILURE;
+				goto ERROR_PATH;
+			} else {
+				TxBfrPtr = READ_STATUS_CMD;
+				FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+				FlashMsg[1].TxBfrPtr = NULL;
+				FlashMsg[1].RxBfrPtr = FlashStatus;
+				FlashMsg[1].ByteCount = 2;
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+				TransferInProgress = TRUE;
+				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
+						FlashMsg, 2);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+				LoopCount = 0;
+				while (TransferInProgress) {
+					if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+						return XST_FAILURE;
+				}
+				if (QspiPsuPtr->Config.ConnectionMode ==
+							XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+					if (FSRFlag) {
+						FlashStatus[1] &= FlashStatus[0];
+					}else {
+						FlashStatus[1] |= FlashStatus[0];
+					}
+				}
+
+				if ((FlashStatus[1] & 0x01) == 0x00)
+					break;
+
+				/* Wait for 1 usec */
+				usleep(1);
+				DelayCount++;
+			}
 		}
 		TxBfrPtr = READ_CONFIG_CMD;
 		FlashMsg[0].TxBfrPtr = &TxBfrPtr;
@@ -2078,7 +2256,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 		break;
 	case ISSI_ID_BYTE0:
 		/*
@@ -2104,7 +2286,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 		if (QspiPsuPtr->Config.ConnectionMode ==
 				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 			if (FSRFlag) {
@@ -2138,7 +2324,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		/*
 		 * Write Status register
@@ -2164,7 +2354,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		/*
 		 * Write Disable
@@ -2180,7 +2374,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 		break;
 
 	case WINBOND_ID_BYTE0:
@@ -2200,7 +2398,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 
 		if (QspiPsuPtr->Config.ConnectionMode ==
 			XQSPIPSU_CONNECTION_MODE_PARALLEL) {
@@ -2229,7 +2431,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 		/*
 		 * Write Status register
 		 */
@@ -2250,37 +2456,55 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
-
-		while (1) {
-			ReadStatusCmd = READ_STATUS_CMD;
-			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-			FlashMsg[0].RxBfrPtr = NULL;
-			FlashMsg[0].ByteCount = 1;
-			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-			FlashMsg[1].TxBfrPtr = NULL;
-			FlashMsg[1].RxBfrPtr = FlashStatus;
-			FlashMsg[1].ByteCount = 2;
-			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-			TransferInProgress = TRUE;
-			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-			if (Status != XST_SUCCESS) {
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
 				return XST_FAILURE;
-			}
-			while (TransferInProgress);
+		}
+		DelayCount = 0;
+		while (1) {
+			if (DelayCount == MAX_DELAY_CNT) {
+				Status = XST_FAILURE;
+				goto ERROR_PATH;
+			} else {
+				ReadStatusCmd = READ_STATUS_CMD;
+				FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-			if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-				if (FSRFlag) {
-					FlashStatus[1] &= FlashStatus[0];
-				} else {
-					FlashStatus[1] |= FlashStatus[0];
+				FlashMsg[1].TxBfrPtr = NULL;
+				FlashMsg[1].RxBfrPtr = FlashStatus;
+				FlashMsg[1].ByteCount = 2;
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+				TransferInProgress = TRUE;
+				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
 				}
-			}
-			if ((FlashStatus[1] & 0x01) == 0x00) {
-				break;
+				LoopCount = 0;
+				while (TransferInProgress) {
+					if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+						return XST_FAILURE;
+				}
+
+				if (QspiPsuPtr->Config.ConnectionMode ==
+					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+					if (FSRFlag) {
+						FlashStatus[1] &= FlashStatus[0];
+					} else {
+						FlashStatus[1] |= FlashStatus[0];
+					}
+				}
+				if ((FlashStatus[1] & 0x01) == 0x00) {
+					break;
+				}
+
+				/* Wait for 1 usec */
+				usleep(1);
+				DelayCount++;
 			}
 		}
 		/*
@@ -2297,7 +2521,11 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		while (TransferInProgress);
+		LoopCount = 0;
+		while (TransferInProgress) {
+			if (CheckTimeOut(&LoopCount) != XST_SUCCESS)
+				return XST_FAILURE;
+		}
 		break;
 
 	default:
@@ -2309,5 +2537,6 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 		break;
 	}
 
+ERROR_PATH:
 	return Status;
 }
