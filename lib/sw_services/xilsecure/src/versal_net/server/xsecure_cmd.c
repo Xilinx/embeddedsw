@@ -41,6 +41,7 @@
 #include "xsecure_elliptic_ipihandler.h"
 #include "xsecure_rsa_ipihandler.h"
 #include "xsecure_sha_ipihandler.h"
+#include "xsecure_trng_ipihandler.h"
 #include "xsecure_cmd.h"
 
 /************************** Function Prototypes ******************************/
@@ -105,6 +106,8 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
+	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
+	case XSECURE_API(XSECURE_API_TRNG_KAT):
 #endif
 		Status = XST_SUCCESS;
 		break;
@@ -163,6 +166,10 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
 		Status = XSecure_AesIpiHandler(Cmd);
+		break;
+	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
+	case XSECURE_API(XSECURE_API_TRNG_KAT):
+		Status = XSecure_TrngIpiHandler(Cmd);
 		break;
 #endif
 	default:

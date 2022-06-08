@@ -28,6 +28,7 @@
  *       kpt  02/04/2021 Added error code for tamper response
  *       har  05/18/2021 Added error code XSECURE_IPI_ACCESS_NOT_ALLOWED
  *                       Added error code XSECURE_AES_DEVICE_KEY_NOT_ALLOWED
+ * 4.8   kpt  06/06/2022 Added error codes for TRNG
  *
  * </pre>
  *
@@ -123,6 +124,37 @@ typedef enum {
 	XSECURE_RSA_INVALID_PARAM_RESERVED,	     /**< 0x82 - Invalid Argument */
 	XSECURE_RSAKAT_INVALID_PARAM,		     /**< 0x83 - Invalid Argument */
 	XSECURE_RSA_STATE_MISMATCH_RESERVED,	     /**< 0x84 - State mismatch */
+
+	XSECURE_TRNG_INVALID_PARAM = 0xA0,	/**< 0xA0 - Invalid argument */
+	XSECURE_TRNG_INVALID_MODE,		/**< 0xA1 - Error when TRNG operation mode is
+						   invalid */
+	XSECURE_TRNG_INVALID_DF_LENGTH,		/**< 0xA2 - Error when DF length is invalid */
+	XSECURE_TRNG_INVALID_SEED_LIFE,		/**< 0xA3 - Error when seed life is invalid */
+	XSECURE_TRNG_INVALID_SEED_VALUE,	/**< 0xA4 - Error when seed is NULL */
+	XSECURE_TRNG_INVALID_SEED_LENGTH,	/**< 0xA5 - Error when input seed length doesn't
+						   match with df length */
+	XSECURE_TRNG_INVALID_STATE,		/**< 0xA6 - Error when TRNG state is
+						   invalid */
+	XSECURE_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE, /**< 0xA7 - Invalid adaptive proptest
+							   cutoff value */
+	XSECURE_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE,	 /**< 0xA8 - Invalid repitive count test
+							    cutoff value */
+	XSECURE_TRNG_USER_CFG_COPY_ERROR,		 /**< 0xA9 - Error during memcpy of
+							    UserConfig structure */
+	XSECURE_TRNG_UNHEALTHY_STATE,			 /**< 0xAA - Error when device fails KAT or
+							    health tests */
+	XSECURE_TRNG_INVALID_BUF_SIZE,			 /**< 0xAB - Error invalid buffer size */
+	XSECURE_TRNG_RESEED_REQUIRED_ERROR,		 /**< 0xAC - Error seed life expired and
+							    reseed required in DRBG mode */
+	XSECURE_TRNG_MEMSET_UNINSTANTIATE_ERROR,	 /**< 0xAD - Error during memset */
+	XSECURE_TRNG_TIMEOUT_ERROR,			 /**< 0xAE - Timeout while waiting for
+							    done bit during reseed or generate*/
+	XSECURE_TRNG_CATASTROPHIC_CTF_ERROR,		 /**< 0xAF - CTF error during reseed */
+	XSECURE_TRNG_CATASTROPHIC_DTF_ERROR,		 /**< 0xB0 - DTF error during generate */
+	XSECURE_TRNG_KAT_FAILED_ERROR,			 /**< 0xB1 - Error when resultant TRNG o/p
+							    doesn't match with expected o/p */
+	XSECURE_TRNG_WRITE_ERROR,			 /**< 0xB2 - Error occured while writing in
+							    to the register */
 
 	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR = 0xC0,   /**< 0xC0 -ECC key is not valid */
 
