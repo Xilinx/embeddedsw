@@ -95,6 +95,12 @@ proc secure_drc {libhandle} {
 					file delete -force ./src/xsecure_cmd.c
 					file delete -force ./src/xsecure_cmd.h
 					file delete -force ./src/xsecure_defs.h
+					if {$proc_type == "psxl_cortexa78" ||
+					    $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
+					    $proc_type == "psx_cortexr52"} {
+						file delete -force ./src/xsecure_trng_ipihandler.c
+						file delete -force ./src/xsecure_trng_ipihandler.h
+					}
 				}
 			}
 
@@ -244,5 +250,22 @@ proc xgen_opts_file {libhandle} {
 
 			close $file_handle
 		}
+	}
+
+	if {$proc_type == "psxl_pmc"} {
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+		puts $file_handle "\n/* Xilinx Secure library TRNG User Settings */"
+		set value [common::get_property CONFIG.seedlife $libhandle]
+		puts $file_handle "\n/* TRNG seed life */"
+		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_USER_CFG_SEED_LIFE " [expr $value]  "U"]
+		set value [common::get_property CONFIG.dlen $libhandle]
+		puts $file_handle "\n/* TRNG DF length */"
+		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_USER_CFG_DF_LENGTH " [expr $value]  "U"]
+		set value [common::get_property CONFIG.adaptproptestcutoff $libhandle]
+		puts $file_handle "\n/* TRNG adaptive prop test cutoff value*/"
+		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_ADAPT_TEST_CUTOFF " [expr $value]  "U"]
+		set value [common::get_property CONFIG.repcounttestcutoff $libhandle]
+		puts $file_handle "\n/* TRNG repetitive prop test cutoff value*/"
+		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_REP_TEST_CUTOFF " [expr $value]  "U"]
 	}
 }

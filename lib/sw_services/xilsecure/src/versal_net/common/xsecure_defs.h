@@ -137,7 +137,9 @@ typedef enum {
 	XSECURE_API_AES_SET_DPA_CM,		/**< 107U */
 	XSECURE_API_AES_DECRYPT_KAT,		/**< 108U */
 	XSECURE_API_AES_DECRYPT_CM_KAT,		/**< 109U */
-	XSECURE_API_MAX,			/**< 110U */
+	XSECURE_API_TRNG_GENERATE,		/**< 110U */
+	XSECURE_API_TRNG_KAT,			/**< 111U */
+	XSECURE_API_MAX,			/**< 112U */
 } XSecure_ApiId;
 
 #ifdef __cplusplus
