@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@
 * 1.07  bm   10/21/2021 Updated Extract Metaheader command to return data size as
 *                       response
 *       bm   12/15/2021 Fix error case in Add ImageStore command
+* 1.08  bsv  06/08/2022 Add CommandInfo to a separate section in elf
 *
 * </pre>
 *
@@ -145,6 +146,21 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_PRTN_HDR_EXPORT_MASK0	(0x00001DFFU)
 #define XLOADER_DDR_LOW_END_ADDR	(0x7FFFFFFFU)
 
+/* Command related macros */
+#define XLOADER_MAJOR_MODULE_VERSION		(1U)
+#define XLOADER_MINOR_MODULE_VERSION		(1U)
+#define XLOADER_FEATURES_CMD_ID			(0U)
+#define XLOADER_LOAD_PARTIAL_PDI_CMD_ID		(1U)
+#define XLOADER_LOAD_IMAGE_CMD_ID		(2U)
+#define XLOADER_GET_IMAGE_INFO_CMD_ID		(3U)
+#define XLOADER_SET_IMAGE_INFO_CMD_ID		(4U)
+#define XLOADER_GET_IMAGE_INFO_LIST_CMD_ID	(5U)
+#define XLOADER_EXTRACT_METAHEADER_CMD_ID	(6U)
+#define XLOADER_LOAD_READBACK_PDI_CMD_ID	(7U)
+#define XLOADER_UPDATE_MULTIBOOT_CMD_ID		(8U)
+#define XLOADER_ADD_IMAGE_STORE_PDI_CMD_ID	(9U)
+#define XLOADER_REMOVE_IMAGE_STORE_PDI_CMD_ID	(10U)
+
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -162,6 +178,8 @@ static XPlmi_Module XPlmi_Loader;
  *****************************************************************************/
 static int XLoader_Features(XPlmi_Cmd *Cmd)
 {
+	XPLMI_EXPORT_CMD(XLOADER_FEATURES_CMD_ID, XPLMI_MODULE_LOADER_ID,
+		XLOADER_MAJOR_MODULE_VERSION, XLOADER_MINOR_MODULE_VERSION);
 	if (Cmd->Payload[XLOADER_CMD_FEATURES_CMD_ID_INDEX] <
 		XPlmi_Loader.CmdCnt) {
 		Cmd->Response[XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED] = XLOADER_SUCCESS;
@@ -197,6 +215,8 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd *Cmd)
 	u32 *FuncID = (Cmd->Len > XLOADER_CMD_DDR_CPY_FUNCID_INDEX) ?
 		(&Cmd->Payload[XLOADER_CMD_DDR_CPY_FUNCID_INDEX]) : NULL;
 	XilPdi* PdiPtr = BootPdiPtr;
+	XPLMI_EXPORT_CMD(XLOADER_LOAD_IMAGE_CMD_ID, XPLMI_MODULE_LOADER_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_TWO);
 
 	PdiPtr->IpiMask = Cmd->IpiMask;
 	XPlmi_Printf(DEBUG_INFO, "%s \n\r", __func__);
@@ -233,6 +253,9 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
 	XilPdi* PdiPtr = &SubsystemPdiIns;
+	XPLMI_EXPORT_CMD(XLOADER_LOAD_PARTIAL_PDI_CMD_ID,
+		XPLMI_MODULE_LOADER_ID, XPLMI_CMD_ARG_CNT_THREE,
+		XPLMI_CMD_ARG_CNT_THREE);
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -290,6 +313,8 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	const XLoader_ImageInfo *ImageInfo = NULL;
+	XPLMI_EXPORT_CMD(XLOADER_GET_IMAGE_INFO_CMD_ID, XPLMI_MODULE_LOADER_ID,
+		XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 
 	if (Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX] ==
 		XLOADER_INVALID_IMG_ID) {
@@ -340,6 +365,8 @@ END:
  *****************************************************************************/
 static int XLoader_SetImageInfo(XPlmi_Cmd *Cmd)
 {
+	XPLMI_EXPORT_CMD(XLOADER_SET_IMAGE_INFO_CMD_ID, XPLMI_MODULE_LOADER_ID,
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 	/* This acts as a placeholder for the implementation done by bootgen */
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)XST_SUCCESS;
 	return XST_SUCCESS;
@@ -368,6 +395,9 @@ static int XLoader_GetImageInfoList(XPlmi_Cmd *Cmd)
 	u64 DestAddr;
 	u32 MaxSize;
 	u32 NumEntries = 0U;
+	XPLMI_EXPORT_CMD(XLOADER_GET_IMAGE_INFO_LIST_CMD_ID,
+		XPLMI_MODULE_LOADER_ID, XPLMI_CMD_ARG_CNT_THREE,
+		XPLMI_CMD_ARG_CNT_THREE);
 
 	DestAddr =
 		(u64)Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_LIST_DESTADDR_HIGH_INDEX];
@@ -410,6 +440,9 @@ static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
 	XPlmi_ReadBackProps DefaultReadBack = {
 		XPLMI_READBACK_DEF_DST_ADDR, 0U, 0U
 	};
+	XPLMI_EXPORT_CMD(XLOADER_LOAD_READBACK_PDI_CMD_ID,
+		XPLMI_MODULE_LOADER_ID, XPLMI_CMD_ARG_CNT_SIX,
+		XPLMI_CMD_ARG_CNT_SIX);
 
 	ReadBack.DestAddr = (u64)Cmd->Payload[XLOADER_CMD_READBACK_PDIADDR_HIGH_INDEX];
 	ReadBack.DestAddr = ((u64)(Cmd->Payload[XLOADER_CMD_READBACK_PDIADDR_LOW_INDEX]) |
@@ -464,6 +497,9 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 	u32 RawBootVal = XLOADER_DEFAULT_RAWBOOT_VAL;
 	u8 FlashType;
 	PdiSrc_t PdiSrc;
+	XPLMI_EXPORT_CMD(XLOADER_UPDATE_MULTIBOOT_CMD_ID,
+		XPLMI_MODULE_LOADER_ID, XPLMI_CMD_ARG_CNT_TWO,
+		XPLMI_CMD_ARG_CNT_TWO);
 
 	FlashType = (u8)(Cmd->Payload[XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX] &
 				XLOADER_CMD_MULTIBOOT_FLASHTYPE_MASK);
@@ -565,6 +601,9 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	u64 PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX];
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 	u8 Index;
+	XPLMI_EXPORT_CMD(XLOADER_ADD_IMAGE_STORE_PDI_CMD_ID,
+		XPLMI_MODULE_LOADER_ID, XPLMI_CMD_ARG_CNT_TWO,
+		XPLMI_CMD_ARG_CNT_TWO);
 
 	if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_FULL, 0);
@@ -612,6 +651,9 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 	u8 Index;
 	u8 ShiftIdx;
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
+	XPLMI_EXPORT_CMD(XLOADER_REMOVE_IMAGE_STORE_PDI_CMD_ID,
+		XPLMI_MODULE_LOADER_ID, XPLMI_CMD_ARG_CNT_TWO,
+		XPLMI_CMD_ARG_CNT_TWO);
 
 	if (PdiList->Count == 0U) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_EMPTY, 0);
@@ -704,6 +746,8 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	u32 TotalDataSize = 0U;
 	u64 MetaHdrOfst;
 	u32 Index;
+	XPLMI_EXPORT_CMD(XLOADER_EXTRACT_METAHEADER_CMD_ID, XPLMI_MODULE_LOADER_ID,
+		XPLMI_CMD_ARG_CNT_FIVE, XPLMI_CMD_ARG_CNT_FIVE);
 
 	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 	SrcAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX]) |
