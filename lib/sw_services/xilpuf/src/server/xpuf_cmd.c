@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/2022 Initial release
+* 1.01  bsv  06/09/2022 Added CommandInfo to a separate section in elf
 *
 * </pre>
 *
@@ -51,6 +52,9 @@ static XPlmi_Module XPlmi_Puf =
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/* Command related macros */
+#define XPUF_MAJOR_MODULE_VERSION	(1U)
+#define XPUF_MINOR_MODULE_VERSION	(1U)
 
 /************************** Function Definitions *****************************/
 
@@ -133,6 +137,17 @@ END:
 void XPuf_CmdsInit(void)
 {
 	u32 Idx;
+	XPLMI_EXPORT_CMD(XPUF_API(XPUF_API_FEATURES), XPLMI_MODULE_XILPUF_ID,
+		XPUF_MAJOR_MODULE_VERSION, XPUF_MINOR_MODULE_VERSION);
+	XPLMI_EXPORT_CMD(XPUF_API(XPUF_PUF_REGISTRATION),
+		XPLMI_MODULE_XILPUF_ID, XPLMI_CMD_ARG_CNT_TWO,
+		XPLMI_CMD_ARG_CNT_TWO);
+	XPLMI_EXPORT_CMD(XPUF_API(XPUF_PUF_REGENERATION),
+		XPLMI_MODULE_XILPUF_ID, XPLMI_CMD_ARG_CNT_TWO,
+		XPLMI_CMD_ARG_CNT_TWO);
+	XPLMI_EXPORT_CMD(XPUF_API(XPUF_PUF_CLEAR_PUF_ID),
+		XPLMI_MODULE_XILPUF_ID, XPLMI_CMD_ARG_CNT_TWO,
+		XPLMI_CMD_ARG_CNT_TWO);
 
 	/* Register command handlers with XilPlmi */
 	for (Idx = 0U; Idx < XPlmi_Puf.CmdCnt; Idx++) {
