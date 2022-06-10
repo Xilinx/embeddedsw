@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@
 * 1.07  bm   10/21/2021 Updated Extract Metaheader command to return data size as
 *                       response
 *       bm   12/15/2021 Fix error case in Add ImageStore command
+* 1.08  bsv  06/10/2022 Add CommandInfo to a separate section in elf
 *
 * </pre>
 *
@@ -144,6 +145,9 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_IMG_HDR_EXPORT_MASK0	(0x00003FFBU)
 #define XLOADER_PRTN_HDR_EXPORT_MASK0	(0x00001DFFU)
 #define XLOADER_DDR_LOW_END_ADDR	(0x7FFFFFFFU)
+
+/* Command related macros */
+#define XLOADER_SET_IMAGE_INFO_CMD_ID		(4U)
 
 /************************** Function Prototypes ******************************/
 
@@ -340,6 +344,8 @@ END:
  *****************************************************************************/
 static int XLoader_SetImageInfo(XPlmi_Cmd *Cmd)
 {
+	XPLMI_EXPORT_CMD(XLOADER_SET_IMAGE_INFO_CMD_ID, XPLMI_MODULE_LOADER_ID,
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 	/* This acts as a placeholder for the implementation done by bootgen */
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)XST_SUCCESS;
 	return XST_SUCCESS;
@@ -410,7 +416,7 @@ static int XLoader_LoadReadBackPdi(XPlmi_Cmd *Cmd)
 	XPlmi_ReadBackProps DefaultReadBack = {
 		XPLMI_READBACK_DEF_DST_ADDR, 0U, 0U
 	};
-
+	
 	ReadBack.DestAddr = (u64)Cmd->Payload[XLOADER_CMD_READBACK_PDIADDR_HIGH_INDEX];
 	ReadBack.DestAddr = ((u64)(Cmd->Payload[XLOADER_CMD_READBACK_PDIADDR_LOW_INDEX]) |
 		(ReadBack.DestAddr << 32U));

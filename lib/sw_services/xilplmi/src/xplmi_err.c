@@ -86,6 +86,7 @@
 *       is   03/22/2022 Add custom handler for XPPU/XMPU error events
 * 1.08  ma   05/10/2022 Added PLM to PLM communication feature
 *       ma   06/01/2022 Added PLM Print Log as new error action
+*       bsv  06/10/2022 Add CommandInfo to a separate section in elf
 *
 * </pre>
 *
@@ -114,6 +115,9 @@
 /* Proc IDs for CPM Proc CDOs */
 #define CPM_NCR_PCIE0_LINK_DOWN_PROC_ID					(0x1U)
 #define CPM_NCR_PCIE1_LINK_DOWN_PROC_ID					(0x2U)
+
+/* Command IDs supported in CDOs */
+#define XPLMI_EM_SET_ACTION_CMD_ID	(1U)
 
 /**
  * @}
@@ -1714,6 +1718,8 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 	u32 ErrorId = NodeType * (u32)XPLMI_MAX_ERR_BITS;
 	u32 RegMask;
 	u32 ErrMasks = ErrorMasks;
+	XPLMI_EXPORT_CMD(XPLMI_EM_SET_ACTION_CMD_ID, XPLMI_MODULE_ERROR_ID,
+		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 
 	for ( ; ErrMasks != 0U; ErrMasks >>= 1U) {
 		if ((ErrMasks & 0x1U) == 0U) {
