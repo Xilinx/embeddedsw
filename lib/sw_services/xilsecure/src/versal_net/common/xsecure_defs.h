@@ -18,6 +18,7 @@
 * 1.0   kal  03/23/20 Initial release
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 * 4.6   har  07/14/21 Fixed doxygen warnings
+* 4.7   am   06/13/22 Added macro XSecure_DCacheFlushRange
 *
 * </pre>
 * @note
@@ -34,6 +35,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_printf.h"
 #include "xil_types.h"
+#include "xil_cache.h"
 
 /************************** Constant Definitions ****************************/
 /**
@@ -53,6 +55,15 @@ extern "C" {
 #define XSecure_Printf(DebugType, ...)	\
 	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}
 				/**< For prints in XilSecure library */
+#ifndef XSECURE_CACHE_DISABLE
+	#if defined(__microblaze__)
+		#define XSecure_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((UINTPTR)SrcAddr, Len)
+	#else
+		#define XSecure_DCacheFlushRange(SrcAddr, Len) Xil_DCacheFlushRange((INTPTR)SrcAddr, Len)
+	#endif
+#else
+	#define XSecure_DCacheFlushRange(SrcAddr, Len) {}
+#endif /**< Cache Invalidate function */
 
 #define XSECURE_API(ApiId)	((u32)ApiId)
 				/**< Macro to typecast XILSECURE API ID */
