@@ -18,15 +18,33 @@ proc plmi_drc {libhandle} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set versal_net "src/versal_net/"
-	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
-		foreach entry [glob -nocomplain -types f [file join ./src/ *]] {
+	set versal "src/versal/"
+	set common "src/common/"
+
+	foreach entry [glob -nocomplain -types f [file join ./src/ *]] {
+		if {$entry != "./src/Makefile"} {
 			file delete -force $entry
 		}
+	}
+
+	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
 		foreach entry [glob -nocomplain -types f [file join $versal_net *]] {
 			file copy -force $entry "./src"
 		}
 	}
+
+	if {$proc_type == "psv_pmc"} {
+		foreach entry [glob -nocomplain -types f [file join $common *]] {
+			file copy -force $entry "./src"
+		}
+		foreach entry [glob -nocomplain -types f [file join $versal *]] {
+			file copy -force $entry "./src"
+		}
+	}
+
 	file delete -force $versal_net
+	file delete -force $versal
+	file delete -force $common
 }
 
 proc generate {libhandle} {
