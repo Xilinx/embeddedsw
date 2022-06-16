@@ -152,7 +152,7 @@
 #include "xilsem.h"
 #endif
 #include "xplmi.h"
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_wdt.h"
 

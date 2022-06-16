@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_err.h
+* @file xplmi_err_common.h
 *
 * This is the file which contains .
 *
@@ -58,8 +58,8 @@
 * @note
 *
 ******************************************************************************/
-#ifndef XPLMI_ERR_H
-#define XPLMI_ERR_H
+#ifndef XPLMI_ERR_COMMON_H
+#define XPLMI_ERR_COMMON_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -215,4 +215,4 @@ void XPlmi_ErrModuleInit(void);
 }
 #endif
 
-#endif /* XPLMI_ERR_H */
+#endif /* XPLMI_ERR_COMMON_H */

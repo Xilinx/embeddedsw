@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_err.c
+* @file xplmi_err_common.c
 *
 * This file contains error management for the PLM.
 *
@@ -95,7 +95,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "xplmi.h"
 #include "xplmi_sysmon.h"
 #include "xplmi_ssit.h"
