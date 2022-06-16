@@ -69,6 +69,11 @@ typedef enum {
 
 	XSECURE_SHA3_STATE_MISMATCH_ERROR,	/**< 0x0A - State mismatch */
 
+	XSECURE_HMAC_KAT_INIT_ERROR = 0x10,		/**< 0x10 - HMAC init failure */
+	XSECURE_HMAC_KAT_UPDATE_ERROR,			/**< 0x11 - HMAC update failure */
+	XSECURE_HMAC_KAT_FINAL_ERROR,			/**< 0x12 - HMAC final failure */
+	XSECURE_HMAC_KAT_ERROR,				/**< 0x13 - HMAC KAT error */
+
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
 	XSECURE_AES_KEY_CLEAR_ERROR,

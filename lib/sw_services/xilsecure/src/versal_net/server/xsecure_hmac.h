@@ -1,0 +1,62 @@
+/******************************************************************************
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+*******************************************************************************/
+
+/*****************************************************************************/
+/**
+*
+* @file xsecure_hmac.h
+*
+* This file contains APIs which calculate the HMAC on provided data and key.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date        Changes
+* ----- ---- -------- -------------------------------------------------------
+* 4.9   vns 05/30/22 Initial release
+*
+* </pre>
+*
+*
+******************************************************************************/
+
+#ifndef XSECURE_HMAC_H
+#define XSECURE_HMAC_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/************************** Include Files ***********************************/
+
+#include "xsecure_sha.h"
+
+/************************** Constant Definitions ****************************/
+
+/************************** Type Definitions ********************************/
+
+typedef struct {
+	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
+} XSecure_HmacRes;
+
+typedef struct {
+	XSecure_Sha3 *Sha3InstPtr;
+	u8 IPadRes[XSECURE_SHA3_BLOCK_LEN];
+	u8 OPadRes[XSECURE_SHA3_BLOCK_LEN];
+} XSecure_Hmac;
+
+/************************** Function Prototypes ******************************/
+int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
+					XSecure_Sha3 *Sha3InstancePtr,
+					u64 KeyAddr, u32 KeyLen);
+int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len);
+int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac);
+int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
+
+#ifdef __cplusplus
+extern "C" }
+#endif
+
+#endif /* XSECURE_HMAC_H_ */
