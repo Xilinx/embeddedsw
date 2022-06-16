@@ -37,11 +37,13 @@ proc secure_drc {libhandle} {
 	set zynqmp "src/zynqmp/"
 	set versal "src/versal/"
 	set versal_net "src/versal_net/"
+	set common_all "$common/all"
+	set versal_common "$common/versal_common"
 	set versal_client_dir "$versal/client"
 	set versal_server_dir "$versal/server"
 	set versal_common_dir "$versal/common"
 
-	foreach entry [glob -nocomplain -types f [file join $common *]] {
+	foreach entry [glob -nocomplain -types f [file join $common_all *]] {
 			file copy -force $entry "./src"
 	}
 
@@ -71,6 +73,12 @@ proc secure_drc {libhandle} {
 					file copy -force $entry "./src"
 				}
 			} else {
+				foreach entry [glob -nocomplain -types f [file join "$versal_common/server" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_common/common" *]] {
+					file copy -force $entry "./src"
+				}
 				foreach entry [glob -nocomplain -types f [file join "$versal/server" *]] {
 					file copy -force $entry "./src"
 				}
@@ -135,6 +143,12 @@ proc secure_drc {libhandle} {
 					file copy -force $entry "./src"
 				}
 			} else {
+				foreach entry [glob -nocomplain -types f [file join "$versal_common/client" *]] {
+					file copy -force $entry "./src"
+				}
+				foreach entry [glob -nocomplain -types f [file join "$versal_common/common" *]] {
+					file copy -force $entry "./src"
+				}
 				foreach entry [glob -nocomplain -types f [file join "$versal/client" *]] {
 					file copy -force $entry "./src"
 				}
@@ -146,7 +160,6 @@ proc secure_drc {libhandle} {
 			file delete -force ./src/xsecure_utils.h
 			file delete -force ./src/xsecure_rsa.c
 			file delete -force ./src/xsecure_rsa.h
-
 		}
 
 		if {$proc_type != "psv_pmc" &&  $proc_type != "psu_pmc" && $proc_type != "psxl_pmc" && $proc_type != "psx_pmc"} {
@@ -159,6 +172,10 @@ proc secure_drc {libhandle} {
 		return;
 	}
 
+	file delete -force $versal_net
+	file delete -force $versal
+	file delete -force $common
+	file delete -force $zynqmp
 }
 
 proc generate {libhandle} {
