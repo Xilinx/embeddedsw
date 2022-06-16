@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,7 +33,7 @@
 
 /***************************** Include Files *********************************/
 #include "xil_util.h"
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "xsecure_init.h"
 #include "xsecure_tamper.h"
 #include "xsecure_cmd.h"

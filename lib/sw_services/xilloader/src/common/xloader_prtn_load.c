@@ -105,7 +105,7 @@
 #include "xloader_ddr.h"
 #include "xplmi.h"
 #include "xil_util.h"
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "xpm_nodeid.h"
 
 /************************** Constant Definitions *****************************/

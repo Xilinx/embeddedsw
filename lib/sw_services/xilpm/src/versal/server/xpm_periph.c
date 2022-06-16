@@ -8,7 +8,7 @@
 #include "xpm_gic_proxy.h"
 #include "xpm_defs.h"
 #include "xpm_requirement.h"
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "xplmi_scheduler.h"
 
 static struct XPm_PeriphOps GenericOps = {

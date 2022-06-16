@@ -61,7 +61,7 @@
 #ifdef PLM_PUF
 #include "xpuf_init.h"
 #endif
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "xplm_loader.h"
 #include "xplm_pm.h"
 #include "xplmi.h"

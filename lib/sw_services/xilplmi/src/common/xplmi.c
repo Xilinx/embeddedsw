@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,7 +54,7 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi.h"
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "xplmi_wdt.h"
 #include "xplmi_hw.h"
 

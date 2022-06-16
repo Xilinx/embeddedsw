@@ -55,7 +55,7 @@
 #include "xplmi_hw.h"
 #include "xplmi_scheduler.h"
 #include "xplmi_debug.h"
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "microblaze_sleep.h"
 
 /**@cond xplmi_internal

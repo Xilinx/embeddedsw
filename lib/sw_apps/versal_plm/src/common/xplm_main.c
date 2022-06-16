@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,7 +49,7 @@
 #include "xpm_api.h"
 #include "xpm_subsystem.h"
 #include "xplm_loader.h"
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "xplmi.h"
 
 /************************** Constant Definitions *****************************/

@@ -37,7 +37,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_proc.h"
 #include "xloader_secure.h"
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 #include "xplmi.h"
 
 /************************** Constant Definitions *****************************/

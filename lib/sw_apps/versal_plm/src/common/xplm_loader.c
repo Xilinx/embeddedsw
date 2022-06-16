@@ -48,7 +48,7 @@
 #include "xloader_auth_enc.h"
 #include "xplmi.h"
 #include "xloader_sbi.h"
-#include "xplmi_err.h"
+#include "xplmi_err_common.h"
 
 /************************** Constant Definitions *****************************/
 
