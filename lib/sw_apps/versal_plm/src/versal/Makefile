@@ -10,7 +10,9 @@ CFLAGS := -Os -flto -ffat-lto-objects
 LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilpuf,-lxilloader,-lxilpm,-lxilsecure,-lxilsem,-lxilnvm,-lxil,-lgcc,-lc,--end-group -Wl,--gc-sections
 
 c_SOURCES := $(wildcard *.c)
+c_SOURCES += $(wildcard ../common/*.c)
 INCLUDES := $(wildcard *.h)
+INCLUDES += $(wildcard ../common/*.h)
 OBJS := $(patsubst %.c, %.o, $(c_SOURCES))
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
@@ -18,11 +20,11 @@ LSCRIPT := -Tlscript.ld
 
 CURRENT_DIR = $(shell pwd)
 DEPFILES := $(patsubst %.o, %.d, $(OBJS))
-LIBS := ../misc/versal_plm_bsp/psv_pmc_0/lib/libxil.a
+LIBS := ../../misc/versal_plm_bsp/psv_pmc_0/lib/libxil.a
 EXEC := plm.elf
 
-INCLUDEPATH := -I../misc/versal_plm_bsp/psv_pmc_0/include -I.
-LIBPATH := -L../misc/versal_plm_bsp/psv_pmc_0/lib
+INCLUDEPATH := -I../../misc/versal_plm_bsp/psv_pmc_0/include -I. -I../common/
+LIBPATH := -L../../misc/versal_plm_bsp/psv_pmc_0/lib
 
 all: $(EXEC)
 
@@ -31,13 +33,13 @@ $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
 
 $(LIBS):
 	echo "Copying BSP files"
-	../misc/copy_bsp.sh
+	../../misc/copy_bsp.sh
 	echo "Compiling bsp"
-	$(MAKE) -C ../misc/versal_plm_bsp
+	$(MAKE) -C ../../misc/versal_plm_bsp
 
 %.o:%.c
 	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 clean:
-	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d
-	rm -rf ../misc/versal_plm_bsp
+	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d ../common/*.o ../common/*.d
+	rm -rf ../../misc/versal_plm_bsp

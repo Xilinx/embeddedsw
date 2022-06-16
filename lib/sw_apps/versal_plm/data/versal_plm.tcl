@@ -79,16 +79,31 @@ proc swapp_generate {} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+
 	set versal_net "versal_net/"
+	set versal "versal/"
+	set common "common/"
+
+	foreach entry [glob -nocomplain -types f [file join . *]] {
+		file delete -force $entry
+	}
+
 	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
-		foreach entry [glob -nocomplain -types f [file join . *]] {
-			file delete -force $entry
-		}
 		foreach entry [glob -nocomplain -types f [file join $versal_net *]] {
 			file copy -force $entry "."
 		}
 	}
+	if {$proc_type == "psv_pmc"} {
+		foreach entry [glob -nocomplain -types f [file join $common *]] {
+			file copy -force $entry "."
+		}
+		foreach entry [glob -nocomplain -types f [file join $versal *]] {
+			file copy -force $entry "."
+		}
+	}
 	file delete -force $versal_net
+	file delete -force $common
+	file delete -force $versal
 
 	# disable global optimizations through --no-relax flag
 	set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
