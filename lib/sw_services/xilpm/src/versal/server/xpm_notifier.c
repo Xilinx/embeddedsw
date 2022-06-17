@@ -239,6 +239,21 @@ static void XPmNotifier_SendPendingSuspendCb(XPm_Subsystem *SubSystem)
 	}
 }
 
+static void XPmNotifier_RmvFromEventSeq(const u32 Index)
+{
+	u32 Idx = 0;
+
+	/* remove from list */
+	for (Idx = Index; Idx < (PosEmptySpace - 1U); Idx++) {
+		/* Doing left shifting of data in list by 1 position */
+		EventSeq[Idx] = EventSeq[Idx + 1U];
+	}
+
+	EventSeq[Idx] = 0U; /* clear the data in list */
+
+	PosEmptySpace -= 1U;
+}
+
 static XStatus XPmNotifier_AddInEventSeq(const u32 Index, const u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
@@ -264,40 +279,72 @@ done:
 	return Status;
 }
 
-static void XPmNotifier_SendPendingNotifyEvent(u32 Index)
+static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	XStatus IpiAck;
+	u32 NodeId;
 	u32 Event;
+	u32 Index = 0U;
+	u32 Idx;
 	XPmNotifier* Notifier = NULL;
+	const XPm_Subsystem *TempSubSystem = NULL;
 
-	/* Search for the pending Event */
-	if (0U != PmNotifiers[Index].PendEvent) {
-		PendingEvent = (u32)PRESENT;
-
-		Notifier = &PmNotifiers[Index];
-		Status = XPmNotifier_GetNotifyCbData(Index, Payload);
-		if (XST_SUCCESS != Status) {
-			Notifier->PendEvent = 0U;
-			goto done;
+	/* Check Subsystem is ready or not */
+	IpiAck = XPm_IpiPollForAck(SubSystem->IpiMask, XPM_NOTIFY_TIMEOUTCOUNT);
+	if (XST_SUCCESS == IpiAck) {
+		/* Serch and get pending event for given SubSystem from event
+		 * sequence.
+		 */
+		for (Idx = 0; Idx < PosEmptySpace; Idx++) {
+			Index = ((u32)EventSeq[Idx] - 1U);
+			Notifier = &PmNotifiers[Index];
+			TempSubSystem = Notifier->Subsystem;
+			if ((SubSystem == TempSubSystem) &&
+			    (0U != Notifier->PendEventCnt)) {
+				break;
+			}
 		}
-		IpiAck = XPm_IpiPollForAck(Notifier->IpiMask,
-					   XPM_NOTIFY_TIMEOUTCOUNT);
-		if (XST_SUCCESS == IpiAck) {
+
+		if (Idx != PosEmptySpace) {
+			PendingEvent = (u32)PRESENT;
+			Status = XPmNotifier_GetNotifyCbData(Index, Payload);
+			if (XST_SUCCESS != Status) {
+				XPmNotifier_RmvFromEventSeq(Idx);
+				Notifier->PendEvent = 0U;
+				Notifier->PendEventCnt = 0U;
+				goto done;
+			}
+
+			NodeId = Payload[1];
 			Event = Payload[2];
 			if (((u8)ONLINE == Notifier->Subsystem->State) ||
 			    ((u8)PENDING_POWER_OFF ==  Notifier->Subsystem->State) ||
 			    ((u8)PENDING_RESTART == Notifier->Subsystem->State) ||
 			    (0U != (Event & Notifier->WakeMask))) {
+				/* Send Notification */
 				(*PmRequestCb)(Notifier->IpiMask,
 					       (u32)PM_NOTIFY_CB,
 					       Payload);
-				Notifier->PendEvent &= ~Event;
+			}
+
+			if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
+				Notifier->PendEventCnt = 0U;
 			} else {
-				Notifier->PendEvent &= ~Event;
+				Notifier->PendEventCnt -= 1U;
+			}
+
+			if (0U == Notifier->PendEventCnt) {
+				Notifier->PendEvent = 0U;
+				XPmNotifier_RmvFromEventSeq(Idx);
 			}
 		}
+	} else {
+		/* Mark this Flag as present to avoid removal of scheduler
+		 * task as subsystem is busy.
+		 */
+		PendingEvent = (u32)PRESENT;
 	}
 
 done:
@@ -309,22 +356,37 @@ static int XPmNotifier_SchedulerTask(void *Arg)
 	(void)Arg;
 	int Status = XST_FAILURE;
 	u32 Index = 0U;
-	PendingEvent = (u32)NOT_PRESENT;
 	XPm_Subsystem *SubSystem = NULL;
 	u32 MaxSubIdx = XPmSubsystem_GetMaxSubsysIdx();
+	PendingEvent = (u32)NOT_PRESENT;
 
-	/* Send pending suspend callback */
+	/* Find and Send Notification */
 	for (Index = 0; Index <= MaxSubIdx; Index++) {
 		SubSystem = XPmSubsystem_GetByIndex(Index);
 		if (NULL == SubSystem) {
 			continue;
 		}
-		XPmNotifier_SendPendingSuspendCb(SubSystem);
-	}
 
-	/* scan for pending events */
-	for (Index = 0; Index < ARRAY_SIZE(PmNotifiers); Index++) {
-		XPmNotifier_SendPendingNotifyEvent(Index);
+		/* Check for suspend callback priority */
+		if ( SUBSYSTEM_SUSCB_PRIORITIZE == (SubSystem->Flags & SUBSYSTEM_SUSCB_PRIORITIZE )) {
+			/* Remove priority flag for suspend call back for next scheduler cycle */
+			SubSystem->Flags &= (u8)(~(SUBSYSTEM_SUSCB_PRIORITIZE));
+
+			/* Send pending suspend callback */
+			XPmNotifier_SendPendingSuspendCb(SubSystem);
+
+			/* Send pending notify events per subsystem */
+			XPmNotifier_SendPendingNotifyEvent(SubSystem);
+		} else {
+			/* Set priority flag for suspend call back for next scheduler cycle */
+			SubSystem->Flags |= (u8)(SUBSYSTEM_SUSCB_PRIORITIZE);
+
+			/* Send pending notify events per subsystem */
+			XPmNotifier_SendPendingNotifyEvent(SubSystem);
+
+			/* Send pending suspend callback */
+			XPmNotifier_SendPendingSuspendCb(SubSystem);
+		}
 	}
 
 	/*
@@ -364,6 +426,9 @@ static XStatus XPmNotifier_AddSuspEvent(const u32 IpiMask, const u32 *Payload)
 	Subsystem->PendCb.Reason = Payload[1];
 	Subsystem->PendCb.Latency = Payload[2];
 	Subsystem->PendCb.State = Payload[3];
+
+	/* Set priority flag for suspend call back */
+	Subsystem->Flags |= (u8)(SUBSYSTEM_SUSCB_PRIORITIZE);
 
 	Status = XST_SUCCESS;
 done:
