@@ -18,7 +18,7 @@
 #ifdef XILPM_NOTIFIER_LIST_SIZE
 #define XPM_NOTIFIERS_COUNT XILPM_NOTIFIER_LIST_SIZE /* Provide by user */
 #else
-#define XPM_NOTIFIERS_COUNT    10U /* Default size */
+#define XPM_NOTIFIERS_COUNT    20U /* Default size */
 #endif
 
 #define XILPM_NOTIFIER_INTERVAL	(10U)
@@ -76,11 +76,20 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 			continue;
 		}
 
-		if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
-		    (NodeId == PmNotifiers[Idx].NodeId)) {
-			/* Drop empty index - existing entry found */
-			EmptyIdx = ARRAY_SIZE(PmNotifiers);
-			break;
+		if ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId)) {
+			if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
+			    (NodeId == PmNotifiers[Idx].NodeId)) {
+				/* Drop empty index - existing entry found */
+				EmptyIdx = ARRAY_SIZE(PmNotifiers);
+				break;
+			}
+		} else {
+			if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
+			    (Event == PmNotifiers[Idx].EventMask) &&
+			    (NodeId == PmNotifiers[Idx].NodeId)) {
+				Status = XST_SUCCESS;
+				goto done;
+			}
 		}
 	}
 
