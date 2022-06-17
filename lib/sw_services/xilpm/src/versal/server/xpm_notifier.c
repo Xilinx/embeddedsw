@@ -28,7 +28,19 @@
 /* Use Time out count 0 to just check for IPI ack without holding the PLM */
 #define XPM_NOTIFY_TIMEOUTCOUNT	(0U)
 
+/* Array to maintain sequence of event happen */
+#if (XPM_NOTIFIERS_COUNT < (256U)) /* u8 max limit is 255 */
+#define DATA_TYPE	u8
+#else
+#define DATA_TYPE	u16
+#endif
+
+static DATA_TYPE EventSeq[XPM_NOTIFIERS_COUNT] = {0};
+
 static u32 PendingEvent = (u32)NOT_PRESENT;
+
+/* Variable to record the position of first empty space in EventSeq */
+static volatile u32 PosEmptySpace = 0U;
 
 typedef struct {
 	const XPm_Subsystem* Subsystem;
@@ -37,6 +49,7 @@ typedef struct {
 	u32 WakeMask;
 	u32 IpiMask;  /* TODO: Remove this when IPI mask support in CDO is available*/
 	u32 PendEvent;
+	u32 PendEventCnt;
 } XPmNotifier;
 
 static XPmNotifier PmNotifiers[XPM_NOTIFIERS_COUNT];
@@ -117,6 +130,7 @@ XStatus XPmNotifier_Register(XPm_Subsystem* const Subsystem,
 		PmNotifiers[EmptyIdx].NodeId = NodeId;
 		PmNotifiers[EmptyIdx].IpiMask = IpiMask;
 		PmNotifiers[EmptyIdx].PendEvent = 0U;
+		PmNotifiers[EmptyIdx].PendEventCnt = 0U;
 		Idx = EmptyIdx;
 	}
 
@@ -223,6 +237,31 @@ static void XPmNotifier_SendPendingSuspendCb(XPm_Subsystem *SubSystem)
 			SubSystem->PendCb.Reason = 0U;
 		}
 	}
+}
+
+static XStatus XPmNotifier_AddInEventSeq(const u32 Index, const u32 NodeId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Idx = 0U;
+	u32 EmptyIdx;
+
+	/* search for already present in list or not */
+	for (Idx = 0U; Idx < XPM_NOTIFIERS_COUNT; Idx++) {
+		if (((Index + 1U) == EventSeq[Idx]) &&
+		    ((u32)XPM_NODECLASS_EVENT == NODECLASS(NodeId))) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	}
+
+	EmptyIdx = PosEmptySpace;
+	if (EmptyIdx < (u32)XPM_NOTIFIERS_COUNT) {
+		EventSeq[EmptyIdx] = (DATA_TYPE)(Index + 1U);
+		PosEmptySpace += 1U;
+		Status = XST_SUCCESS;
+	}
+done:
+	return Status;
 }
 
 static void XPmNotifier_SendPendingNotifyEvent(u32 Index)
@@ -349,25 +388,27 @@ static XStatus XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload
 	switch (CbType) {
 	case (u32)PM_INIT_SUSPEND_CB:
 		Status = XPmNotifier_AddSuspEvent(IpiMask, Payload);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
 		break;
 	case (u32)PM_NOTIFY_CB:
 		NodeId = Payload[1];
 		Event = Payload[2];
 		for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 			/* Search for the given NodeId */
-			if (NodeId == PmNotifiers[Idx].NodeId) {
-				break;
+			if ((NodeId == PmNotifiers[Idx].NodeId) &&
+			    (Event == (Event & PmNotifiers[Idx].EventMask))) {
+				Notifier = &PmNotifiers[Idx];
+				Notifier->PendEvent |= Event;
+				Notifier->PendEventCnt += 1U;
+
+				/* Store Index of PmNotifiers[] in Event sequence to get
+				 * order of event occurence in terms of Node-Id
+				 */
+				Status = XPmNotifier_AddInEventSeq(Idx, NodeId);
+				if (XST_SUCCESS != Status) {
+					break;
+				}
 			}
 		}
-		if (Idx >= ARRAY_SIZE(PmNotifiers)) {
-			goto done;
-		}
-		Notifier = &PmNotifiers[Idx];
-		Notifier->PendEvent |= Event;
-		Status = XST_SUCCESS;
 		break;
 	default:
 		PmErr("Invalid callback type %d\r\n", CbType);
