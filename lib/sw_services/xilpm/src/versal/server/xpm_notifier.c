@@ -543,10 +543,12 @@ XStatus XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 			    const u32 Event)
 {
 	u32 Idx;
+	u32 Pos;
 	XStatus Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		if ((Subsystem == PmNotifiers[Idx].Subsystem) &&
+		    (Event == (Event & PmNotifiers[Idx].EventMask)) &&
 		    (NodeId == PmNotifiers[Idx].NodeId)) {
 			/* Entry for subsystem/NodeId pair found */
 			PmNotifiers[Idx].EventMask &= ~Event;
@@ -555,6 +557,11 @@ XStatus XPmNotifier_Unregister(const XPm_Subsystem* const Subsystem,
 				PmNotifiers[Idx].PendEvent &= ~Event;
 			}
 			if (0U == PmNotifiers[Idx].EventMask) {
+				for (Pos = 0; Pos < XPM_NOTIFIERS_COUNT; Pos++ ) {
+					if ((Idx + 1U) == EventSeq[Pos]) {
+						XPmNotifier_RmvFromEventSeq(Pos);
+					}
+				}
 				Status = Xil_SMemSet(&PmNotifiers[Idx],
 						     sizeof(XPmNotifier),
 						     0,
@@ -591,10 +598,16 @@ done:
 XStatus XPmNotifier_UnregisterAll(const XPm_Subsystem* const Subsystem)
 {
 	u32 Idx;
+	u32 Pos;
 	XStatus Status = XST_FAILURE;
 
 	for (Idx = 0U; Idx < ARRAY_SIZE(PmNotifiers); Idx++) {
 		if (Subsystem == PmNotifiers[Idx].Subsystem) {
+			for (Pos = 0; Pos < XPM_NOTIFIERS_COUNT; Pos++ ) {
+				if ((Idx + 1U) == EventSeq[Pos]) {
+					XPmNotifier_RmvFromEventSeq(Pos);
+				}
+			}
 			Status = Xil_SMemSet(&PmNotifiers[Idx], sizeof(XPmNotifier),
 					     0, sizeof(XPmNotifier));
 			if (XST_SUCCESS != Status) {
