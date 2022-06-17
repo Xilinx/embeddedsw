@@ -272,6 +272,8 @@ void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr);
 void XCsiSs_GetLaneInfo(XCsiSs *InstancePtr);
 void XCsiSs_GetShortPacket(XCsiSs *InstancePtr);
 void XCsiSs_GetVCInfo(XCsiSs *InstancePtr);
+u32 XCsiSs_GetVCSelection(XCsiSs *InstancePtr);
+void XCsiSs_SetVCSelection(XCsiSs *InstancePtr, u16 Value);
 
 /* Self test function in xcsiss_selftest.c */
 u32 XCsiSs_SelfTest(XCsiSs *InstancePtr);
