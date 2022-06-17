@@ -344,6 +344,60 @@ void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr)
 #endif
 }
 
+
+/*****************************************************************************/
+/**
+* This function will control the virtual channels selection dynamically.
+*
+* @param	InstancePtr is the XCsi instance to operate on
+* @param	Value will set the virtual channels corresponding to each bit value.
+*
+* @return 	None
+*
+****************************************************************************/
+void XCsiSs_SetVCSelection(XCsiSs *InstancePtr, u16 Value)
+{
+	/* Verify argument */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/*CMN_VC=all means VcNo value is 4 if vcx feature support is disabled and
+	 * VcNo value is 16 if vcx feature support is enabled*/
+	if(((!InstancePtr->Config.EnableVCx) && (InstancePtr->Config.VcNo != XCSI_V10_MAX_VC)) ||
+			((InstancePtr->Config.EnableVCx) && (InstancePtr->Config.VcNo != XCSI_V20_MAX_VC))) {
+		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: To support dynamic VC Selection,"
+				" User has to select 'Allowed VC to all' in IP Configuration." \n\r");
+		return;
+	}
+
+	XCsi_SetVCSelection(InstancePtr->CsiPtr, Value);
+}
+
+/*****************************************************************************/
+/**
+* This function will return the virtual channels selected.
+*
+* @param	InstancePtr is the XCsi instance to operate on
+*
+* @return 	Value of selected VCs.
+*
+****************************************************************************/
+u32 XCsiSs_GetVCSelection(XCsiSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/*CMN_VC=all means VcNo value is 4 if vcx feature support is disabled and
+	 *  VcNo value is 16 if vcx feature support is enabled*/
+	if(((!InstancePtr->Config.EnableVCx) && (InstancePtr->Config.VcNo != XCSI_V10_MAX_VC)) ||
+			((InstancePtr->Config.EnableVCx) && (InstancePtr->Config.VcNo != XCSI_V20_MAX_VC))) {
+		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: To support dynamic VC Selection,"
+				" User has to select 'Allowed VC to all' in IP Configuration." \n\r");
+		return 0;
+	}
+
+	return XCsi_GetVCSelection(InstancePtr->CsiPtr);
+}
+
 /*****************************************************************************/
 /**
 * This function gets the short packets

@@ -10,9 +10,9 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsiSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsiSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX" "CMN_VC"
 	hier_ip_define_config_file $drv_handle "xcsiss_g.c" "XCsiSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CsiSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CsiSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES" "C_EN_CSI_V2_0" "C_EN_VCX" "CMN_VC"
 
 	set orig_dir [pwd]
 	cd ../../include/
@@ -53,9 +53,12 @@ proc generate {drv_handle} {
 				}
 				# if substring C_EN_VCX is present in the string
 				if {[regexp -nocase {VCX} $line]} {
+					# if C_EN_VCX value is true, then set num_vc to 16
+					if {[regexp -nocase {true} $line]} {
+						set num_vc 16
+					}
 					# using string map to replace true with 1 and false with 0
 					set line [string map {true 1 false 0} $line]
-					set num_vc 16
 				}
 				# if substring DPY_EN_REG_IF is present in the string
 				if {[regexp -nocase {DPY_EN_REG_IF} $line]} {
