@@ -670,6 +670,8 @@ u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *Config,
 u32 XCsi_Configure(XCsi *InstancePtr);
 u32 XCsi_Activate(XCsi *InstancePtr, u8 Flag);
 u32 XCsi_Reset(XCsi *InstancePtr);
+void XCsi_SetVCSelection(XCsi *InstancePtr, u16 Value);
+u32 XCsi_GetVCSelection(XCsi *InstancePtr);
 void XCsi_GetShortPacket(XCsi *InstancePtr, XCsi_SPktData *ShortPacketStruct);
 void XCsi_GetClkLaneInfo(XCsi *InstancePtr, XCsi_ClkLaneInfo *ClkLane);
 void XCsi_GetDataLaneInfo(XCsi *InstancePtr, u8 Lane,

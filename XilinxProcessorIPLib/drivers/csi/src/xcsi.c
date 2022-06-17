@@ -274,6 +274,54 @@ u32 XCsi_Configure(XCsi *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function will control the virtual channels selection dynamically.
+*
+* @param	InstancePtr is the XCsi instance to operate on
+* @param	Value will set the virtual channels corresponding to each bit value.
+* 			bit value 1: core processes packets with this VC,
+* 			bit value 0: core filters packets with this VC.
+*
+* @return 	None
+*
+****************************************************************************/
+void XCsi_SetVCSelection(XCsi *InstancePtr, u16 Value)
+{
+	u32 Mask = 0;
+	/* Verify argument */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	Mask = Value;
+	/* write VC Selection register */
+	XCsi_WriteReg(InstancePtr->Config.BaseAddr,
+		XCSI_VC_SEL_OFFSET, Mask);
+}
+
+/*****************************************************************************/
+/**
+* This function will return the virtual channels selected.
+*
+* @param	InstancePtr is the XCsi instance to operate on
+*
+* @return 	Value of selected VCs.
+*
+****************************************************************************/
+u32 XCsi_GetVCSelection(XCsi *InstancePtr)
+{
+	u32 Value;
+
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Read VC Selection register */
+	Value = XCsi_ReadReg(InstancePtr->Config.BaseAddr, XCSI_VC_SEL_OFFSET);
+	/* Clearing reserved higher 16 bits and 15:0 are for VC selection*/
+	Value &= 0xFFFF;
+
+	return Value;
+}
+
+/*****************************************************************************/
+/**
 * This function will get the short packet received in the FIFO from the
 * Generic Short Packet Register and fill up the structure passed from caller.
 *

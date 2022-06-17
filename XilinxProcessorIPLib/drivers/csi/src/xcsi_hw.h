@@ -57,6 +57,8 @@ extern "C" {
 						  *  Register */
 #define XCSI_IER_OFFSET		0x00000028	/**< Interrupt Enable
 						  *  Register */
+#define XCSI_VC_SEL_OFFSET	0x0000002C	/**< VC Selection
+						  *  Register */
 #define XCSI_SPKTR_OFFSET	0x00000030	/**< Generic Short Packet
 						  *  Register */
 #define XCSI_VCX_FE_OFFSET	0x00000034	/**< VCx Frame Error
