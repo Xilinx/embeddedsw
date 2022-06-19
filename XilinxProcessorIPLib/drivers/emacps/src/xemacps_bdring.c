@@ -641,59 +641,62 @@ u32 XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 		*BdSetPtr = NULL;
 		Status = 0U;
 	} else {
-
 		if (BdLimitLoc > RingPtr->HwCnt){
 			BdLimitLoc = RingPtr->HwCnt;
-	}
-	/* Starting at HwHead, keep moving forward in the list until:
-	 *  - A BD is encountered with its new/used bit set which means
-	 *    hardware has not completed processing of that BD.
-	 *  - RingPtr->HwTail is reached and RingPtr->HwCnt is reached.
-	 *  - The number of requested BDs has been processed
-	 */
+		}
+		/* Starting at HwHead, keep moving forward in the list until:
+		 * - A BD is encountered with its new/used bit set which means
+		 *   hardware has not completed processing of that BD.
+		 * - RingPtr->HwTail is reached and RingPtr->HwCnt is reached.
+		 * - The number of requested BDs has been processed
+		 */
 		while (BdCount < BdLimitLoc) {
-		/* Read the status */
+			/* Read the status */
 			if(CurBdPtr != NULL){
-		BdStr = XEmacPs_BdRead(CurBdPtr, XEMACPS_BD_STAT_OFFSET);
+				BdStr = XEmacPs_BdRead(CurBdPtr,
+						       XEMACPS_BD_STAT_OFFSET);
 			}
-
-			if ((Sop == 0x00000000U) && ((BdStr & XEMACPS_TXBUF_USED_MASK)!=0x00000000U)){
+			if ((Sop == 0x00000000U) &&
+			    ((BdStr & XEMACPS_TXBUF_USED_MASK)!=0x00000000U)){
 				Sop = 1U;
 			}
 			if (Sop == 0x00000001U) {
-			BdCount++;
-			BdPartialCount++;
-		}
+				BdCount++;
+				BdPartialCount++;
+			}
 
-		/* hardware has processed this BD so check the "last" bit.
-		 * If it is clear, then there are more BDs for the current
-		 * packet. Keep a count of these partial packet BDs.
-		 */
-			if ((Sop == 0x00000001U) && ((BdStr & XEMACPS_TXBUF_LAST_MASK)!=0x00000000U)) {
+			/* hardware has processed this BD so check the "last"
+			 * bit. If it is clear, then there are more BDs for
+			 * the current packet. Keep a count of these partial
+			 * packet BDs.
+			 */
+			if ((Sop == 0x00000001U) &&
+			    ((BdStr & XEMACPS_TXBUF_LAST_MASK)!=0x00000000U)) {
 				Sop = 0U;
 				BdPartialCount = 0U;
+			}
+
+			/* Move on to next BD in work group */
+			CurBdPtr = XEmacPs_BdRingNext(RingPtr, CurBdPtr);
 		}
 
-		/* Move on to next BD in work group */
-		CurBdPtr = XEmacPs_BdRingNext(RingPtr, CurBdPtr);
-	}
+		/* Subtract off any partial packet BDs found */
+		BdCount -= BdPartialCount;
 
-	/* Subtract off any partial packet BDs found */
-        BdCount -= BdPartialCount;
-
-	/* If BdCount is non-zero then BDs were found to return. Set return
-	 * parameters, update pointers and counters, return success
-	 */
+		/* If BdCount is non-zero then BDs were found to return.
+		 * Set return parameters, update pointers and counters,
+		 * return success
+		 */
 		if (BdCount > 0x00000000U) {
 		*BdSetPtr = RingPtr->HwHead;
 		RingPtr->HwCnt -= BdCount;
 		RingPtr->PostCnt += BdCount;
 		XEMACPS_RING_SEEKAHEAD(RingPtr, RingPtr->HwHead, BdCount);
-			Status = (BdCount);
+		Status = (BdCount);
 		} else {
 			*BdSetPtr = NULL;
 			Status = 0U;
-	}
+		}
 	}
 	return Status;
 }
@@ -785,56 +788,58 @@ u32 XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 		Status = 0U;
 	} else {
 
-	/* Starting at HwHead, keep moving forward in the list until:
-	 *  - A BD is encountered with its new/used bit set which means
-	 *    hardware has completed processing of that BD.
-	 *  - RingPtr->HwTail is reached and RingPtr->HwCnt is reached.
-	 *  - The number of requested BDs has been processed
-	 */
-	while (BdCount < BdLimit) {
+		/* Starting at HwHead, keep moving forward in the list until:
+		 *  - A BD is encountered with its new/used bit set which means
+		 *    hardware has completed processing of that BD.
+		 *  - RingPtr->HwTail is reached and RingPtr->HwCnt is reached.
+		 *  - The number of requested BDs has been processed
+		 */
+		while (BdCount < BdLimit) {
 
-		/* Read the status */
+			/* Read the status */
 			if(CurBdPtr!=NULL){
-		BdStr = XEmacPs_BdRead(CurBdPtr, XEMACPS_BD_STAT_OFFSET);
+				BdStr = XEmacPs_BdRead(CurBdPtr,
+						       XEMACPS_BD_STAT_OFFSET);
 			}
 			if ((!(XEmacPs_BdIsRxNew(CurBdPtr)))==TRUE) {
-			break;
-		}
+				break;
+			}
 
-		BdCount++;
+			BdCount++;
 
-		/* hardware has processed this BD so check the "last" bit. If
-                 * it is clear, then there are more BDs for the current packet.
-                 * Keep a count of these partial packet BDs.
-		 */
+			/* hardware has processed this BD so check the "last"
+			 * bit. If it is clear, then there are more BDs for
+			 * the current packet. Keep a count of these partial
+			 * packet BDs.
+			 */
 			if ((BdStr & XEMACPS_RXBUF_EOF_MASK)!=0x00000000U) {
 				BdPartialCount = 0U;
 			} else {
-			BdPartialCount++;
+				BdPartialCount++;
+			}
+
+			/* Move on to next BD in work group */
+			CurBdPtr = XEmacPs_BdRingNext(RingPtr, CurBdPtr);
 		}
 
-		/* Move on to next BD in work group */
-		CurBdPtr = XEmacPs_BdRingNext(RingPtr, CurBdPtr);
-	}
+		/* Subtract off any partial packet BDs found */
+		BdCount -= BdPartialCount;
 
-	/* Subtract off any partial packet BDs found */
-	BdCount -= BdPartialCount;
-
-	/* If BdCount is non-zero then BDs were found to return. Set return
-	 * parameters, update pointers and counters, return success
-	 */
+		/* If BdCount is non-zero then BDs were found to return.
+		 * Set return parameters, update pointers and counters,
+		 * return success
+		 */
 		if (BdCount > 0x00000000U) {
-		*BdSetPtr = RingPtr->HwHead;
-		RingPtr->HwCnt -= BdCount;
-		RingPtr->PostCnt += BdCount;
-		XEMACPS_RING_SEEKAHEAD(RingPtr, RingPtr->HwHead, BdCount);
+			*BdSetPtr = RingPtr->HwHead;
+			RingPtr->HwCnt -= BdCount;
+			RingPtr->PostCnt += BdCount;
+			XEMACPS_RING_SEEKAHEAD(RingPtr, RingPtr->HwHead, BdCount);
 			Status = (BdCount);
-	}
-	else {
-		*BdSetPtr = NULL;
+		} else {
+			*BdSetPtr = NULL;
 			Status = 0U;
+		}
 	}
-}
 	return Status;
 }
 
