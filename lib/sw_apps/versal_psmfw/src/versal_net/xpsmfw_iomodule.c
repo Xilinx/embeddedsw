@@ -63,28 +63,47 @@ done:
 
 static void XPsmfw_InterruptPwrUpHandler(void)
 {
-	u32 PwrUpStatus, PwrUpIntMask;
+	u32 PwrUp0Status, PwrUp0IntMask, PwrUp1Status, PwrUp1IntMask;
 	XStatus Status = XST_FAILURE;
 
-	PwrUpStatus = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS);
-	PwrUpIntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_MASK);
-	Status = XPsmFw_DispatchPwrUpHandler(PwrUpStatus, PwrUpIntMask);
+	PwrUp0Status = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS);
+	PwrUp0IntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_MASK);
+	if(0U != PwrUp0Status){
+		Status = XPsmFw_DispatchPwrUp0Handler(PwrUp0Status, PwrUp0IntMask);
+	}
+	PwrUp1Status = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS);
+	PwrUp1IntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_MASK);
+	if(0U != PwrUp1Status){
+		Status = XPsmFw_DispatchPwrUp1Handler(PwrUp1Status, PwrUp1IntMask);
+	}
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Error in handling Power up interrupt\r\n");
 	}
+
 }
 
 static void XPsmfw_InterruptPwrDwnHandler(void)
 {
-	u32 PwrDwnStatus, PwrDwnIntMask, PwrUpStatus, PwrUpIntMask;
+	u32 PwrDwn0Status, PwrDwn0IntMask, PwrUp0Status, PwrUp0IntMask;
+	u32 PwrDwn1Status, PwrDwn1IntMask, PwrUp1Status, PwrUp1IntMask;
 	XStatus Status = XST_FAILURE;
 
-	PwrDwnStatus = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS);
-	PwrDwnIntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN0_INT_MASK);
-	PwrUpStatus = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS);
-	PwrUpIntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_MASK);
-	Status = XPsmFw_DispatchPwrDwnHandler(PwrDwnStatus, PwrDwnIntMask,
-			PwrUpStatus, PwrUpIntMask);
+	PwrDwn0Status = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS);
+	PwrDwn0IntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN0_INT_MASK);
+	PwrUp0Status = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS);
+	PwrUp0IntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_MASK);
+	PwrDwn1Status = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS);
+	PwrDwn1IntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_MASK);
+	PwrUp1Status = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS);
+	PwrUp1IntMask = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_MASK);
+	if(0 != PwrDwn0Status){
+		Status = XPsmFw_DispatchPwrDwn0Handler(PwrDwn0Status, PwrDwn0IntMask,
+				PwrUp0Status, PwrUp0IntMask);
+	}
+	if(0 != PwrDwn1Status){
+		Status = XPsmFw_DispatchPwrDwn1Handler(PwrDwn1Status, PwrDwn1IntMask,
+				PwrUp1Status, PwrUp1IntMask);
+	}
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Error in handling Power down interrupt\r\n");
 	}

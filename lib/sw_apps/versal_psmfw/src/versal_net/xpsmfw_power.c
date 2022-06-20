@@ -368,6 +368,134 @@ static struct XPsmFwPwrCtrl_t Rpu1_Core1PwrCtrl = {
 
 };
 
+static struct XPsmFwMemPwrCtrl_t Ocm_B0_I0_PwrCtrl = {
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_OCM_B0_I0_MASK,
+	.ChipEnAddr = PSMX_LOCAL_REG_OCM_CE_CNTRL,
+	.ChipEnMask = PSMX_LOCAL_REG_OCM_CE_CNTRL_B0_I0_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_OCM_PWR_CNTRL,
+	.PwrCtrlMask = PSMX_LOCAL_REG_OCM_PWR_CNTRL_B0_I0_MASK,
+	.PwrStatusAddr = PSMX_LOCAL_REG_OCM_PWR_STATUS,
+	.PwrStatusMask = PSMX_LOCAL_REG_OCM_PWR_STATUS_B0_I0_MASK,
+	.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND0_MASK,
+	.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND0_RET_MASK,
+	.RetCtrlAddr = PSMX_LOCAL_REG_OCM_RET_CNTRL,
+	.RetCtrlMask = PSMX_LOCAL_REG_OCM_RET_CNTRL_B0_I0_MASK,
+	.PwrStateAckTimeout = XPSMFW_OCM_B0_I0_PWR_STATE_ACK_TIMEOUT,
+	.PwrUpWaitTime = XPSMFW_OCM_B0_I0_PWR_UP_WAIT_TIME,
+};
+
+static struct XPsmFwMemPwrCtrl_t Ocm_B0_I1_PwrCtrl = {
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_OCM_B0_I1_MASK,
+	.ChipEnAddr = PSMX_LOCAL_REG_OCM_CE_CNTRL,
+	.ChipEnMask = PSMX_LOCAL_REG_OCM_CE_CNTRL_B0_I1_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_OCM_PWR_CNTRL,
+	.PwrCtrlMask = PSMX_LOCAL_REG_OCM_PWR_CNTRL_B0_I1_MASK,
+	.PwrStatusAddr = PSMX_LOCAL_REG_OCM_PWR_STATUS,
+	.PwrStatusMask = PSMX_LOCAL_REG_OCM_PWR_STATUS_B0_I1_MASK,
+	.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND1_MASK,
+	.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND1_RET_MASK,
+	.RetCtrlAddr = PSMX_LOCAL_REG_OCM_RET_CNTRL,
+	.RetCtrlMask = PSMX_LOCAL_REG_OCM_RET_CNTRL_B0_I1_MASK,
+	.PwrStateAckTimeout = XPSMFW_OCM_B0_I1_PWR_STATE_ACK_TIMEOUT,
+	.PwrUpWaitTime = XPSMFW_OCM_B0_I1_PWR_UP_WAIT_TIME,
+};
+
+static struct XPsmFwMemPwrCtrl_t Ocm_B0_I2_PwrCtrl = {
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_OCM_B0_I2_MASK,
+	.ChipEnAddr = PSMX_LOCAL_REG_OCM_CE_CNTRL,
+	.ChipEnMask = PSMX_LOCAL_REG_OCM_CE_CNTRL_B0_I2_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_OCM_PWR_CNTRL,
+	.PwrCtrlMask = PSMX_LOCAL_REG_OCM_PWR_CNTRL_B0_I2_MASK,
+	.PwrStatusAddr = PSMX_LOCAL_REG_OCM_PWR_STATUS,
+	.PwrStatusMask = PSMX_LOCAL_REG_OCM_PWR_STATUS_B0_I2_MASK,
+	.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND2_MASK,
+	.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND2_RET_MASK,
+	.RetCtrlAddr = PSMX_LOCAL_REG_OCM_RET_CNTRL,
+	.RetCtrlMask = PSMX_LOCAL_REG_OCM_RET_CNTRL_B0_I2_MASK,
+	.PwrStateAckTimeout = XPSMFW_OCM_B0_I2_PWR_STATE_ACK_TIMEOUT,
+	.PwrUpWaitTime = XPSMFW_OCM_B0_I2_PWR_UP_WAIT_TIME,
+};
+
+static struct XPsmFwMemPwrCtrl_t Ocm_B0_I3_PwrCtrl = {
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_OCM_B0_I3_MASK,
+	.ChipEnAddr = PSMX_LOCAL_REG_OCM_CE_CNTRL,
+	.ChipEnMask = PSMX_LOCAL_REG_OCM_CE_CNTRL_B0_I3_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_OCM_PWR_CNTRL,
+	.PwrCtrlMask = PSMX_LOCAL_REG_OCM_PWR_CNTRL_B0_I3_MASK,
+	.PwrStatusAddr = PSMX_LOCAL_REG_OCM_PWR_STATUS,
+	.PwrStatusMask = PSMX_LOCAL_REG_OCM_PWR_STATUS_B0_I3_MASK,
+	.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND3_MASK,
+	.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND3_RET_MASK,
+	.RetCtrlAddr = PSMX_LOCAL_REG_OCM_RET_CNTRL,
+	.RetCtrlMask = PSMX_LOCAL_REG_OCM_RET_CNTRL_B0_I3_MASK,
+	.PwrStateAckTimeout = XPSMFW_OCM_B0_I3_PWR_STATE_ACK_TIMEOUT,
+	.PwrUpWaitTime = XPSMFW_OCM_B0_I3_PWR_UP_WAIT_TIME,
+};
+
+static struct XPsmFwMemPwrCtrl_t Ocm_B1_I0_PwrCtrl = {
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_OCM_B1_I0_MASK,
+	.ChipEnAddr = PSMX_LOCAL_REG_OCM_CE_CNTRL,
+	.ChipEnMask = PSMX_LOCAL_REG_OCM_CE_CNTRL_B1_I0_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_OCM_PWR_CNTRL,
+	.PwrCtrlMask = PSMX_LOCAL_REG_OCM_PWR_CNTRL_B1_I0_MASK,
+	.PwrStatusAddr = PSMX_LOCAL_REG_OCM_PWR_STATUS,
+	.PwrStatusMask = PSMX_LOCAL_REG_OCM_PWR_STATUS_B1_I0_MASK,
+	.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND4_MASK,
+	.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND4_RET_MASK,
+	.RetCtrlAddr = PSMX_LOCAL_REG_OCM_RET_CNTRL,
+	.RetCtrlMask = PSMX_LOCAL_REG_OCM_RET_CNTRL_B1_I0_MASK,
+	.PwrStateAckTimeout = XPSMFW_OCM_B1_I0_PWR_STATE_ACK_TIMEOUT,
+	.PwrUpWaitTime = XPSMFW_OCM_B1_I0_PWR_UP_WAIT_TIME,
+};
+
+static struct XPsmFwMemPwrCtrl_t Ocm_B1_I1_PwrCtrl = {
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_OCM_B1_I1_MASK,
+	.ChipEnAddr = PSMX_LOCAL_REG_OCM_CE_CNTRL,
+	.ChipEnMask = PSMX_LOCAL_REG_OCM_CE_CNTRL_B1_I1_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_OCM_PWR_CNTRL,
+	.PwrCtrlMask = PSMX_LOCAL_REG_OCM_PWR_CNTRL_B1_I1_MASK,
+	.PwrStatusAddr = PSMX_LOCAL_REG_OCM_PWR_STATUS,
+	.PwrStatusMask = PSMX_LOCAL_REG_OCM_PWR_STATUS_B1_I1_MASK,
+	.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND5_MASK,
+	.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND5_RET_MASK,
+	.RetCtrlAddr = PSMX_LOCAL_REG_OCM_RET_CNTRL,
+	.RetCtrlMask = PSMX_LOCAL_REG_OCM_RET_CNTRL_B1_I1_MASK,
+	.PwrStateAckTimeout = XPSMFW_OCM_B1_I1_PWR_STATE_ACK_TIMEOUT,
+	.PwrUpWaitTime = XPSMFW_OCM_B1_I1_PWR_UP_WAIT_TIME,
+};
+
+static struct XPsmFwMemPwrCtrl_t Ocm_B1_I2_PwrCtrl = {
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_OCM_B1_I2_MASK,
+	.ChipEnAddr = PSMX_LOCAL_REG_OCM_CE_CNTRL,
+	.ChipEnMask = PSMX_LOCAL_REG_OCM_CE_CNTRL_B1_I2_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_OCM_PWR_CNTRL,
+	.PwrCtrlMask = PSMX_LOCAL_REG_OCM_PWR_CNTRL_B1_I2_MASK,
+	.PwrStatusAddr = PSMX_LOCAL_REG_OCM_PWR_STATUS,
+	.PwrStatusMask = PSMX_LOCAL_REG_OCM_PWR_STATUS_B1_I2_MASK,
+	.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND6_MASK,
+	.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND6_RET_MASK,
+	.RetCtrlAddr = PSMX_LOCAL_REG_OCM_RET_CNTRL,
+	.RetCtrlMask = PSMX_LOCAL_REG_OCM_RET_CNTRL_B1_I2_MASK,
+	.PwrStateAckTimeout = XPSMFW_OCM_B1_I2_PWR_STATE_ACK_TIMEOUT,
+	.PwrUpWaitTime = XPSMFW_OCM_B1_I2_PWR_UP_WAIT_TIME,
+};
+
+static struct XPsmFwMemPwrCtrl_t Ocm_B1_I3_PwrCtrl = {
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_OCM_B1_I3_MASK,
+	.ChipEnAddr = PSMX_LOCAL_REG_OCM_CE_CNTRL,
+	.ChipEnMask = PSMX_LOCAL_REG_OCM_CE_CNTRL_B1_I3_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_OCM_PWR_CNTRL,
+	.PwrCtrlMask = PSMX_LOCAL_REG_OCM_PWR_CNTRL_B1_I3_MASK,
+	.PwrStatusAddr = PSMX_LOCAL_REG_OCM_PWR_STATUS,
+	.PwrStatusMask = PSMX_LOCAL_REG_OCM_PWR_STATUS_B1_I3_MASK,
+	.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND7_MASK,
+	.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND7_RET_MASK,
+	.RetCtrlAddr = PSMX_LOCAL_REG_OCM_RET_CNTRL,
+	.RetCtrlMask = PSMX_LOCAL_REG_OCM_RET_CNTRL_B1_I3_MASK,
+	.PwrStateAckTimeout = XPSMFW_OCM_B1_I3_PWR_STATE_ACK_TIMEOUT,
+	.PwrUpWaitTime = XPSMFW_OCM_B1_I3_PWR_UP_WAIT_TIME,
+};
+
 enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_DIRECT,
 	XPSMFW_PWR_UPDWN_REQUEST,
@@ -576,26 +704,319 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	return Status;
 }
 
+static XStatus XPsmFwMemPwrDwn(struct XPsmFwMemPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	/*clear the interrupt*/
+	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Args->GlobPwrStatusMask);
+	u32 Retention = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS) & Args->RetMask;
+
+	/*Clear the retention bit*/
+	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Args->RetMask);
+	if(0 != Retention){
+		/*Set the retention bit*/
+		XPsmFw_RMW32(PSMX_LOCAL_REG_OCM_RET_CNTRL,Args->PwrStatusMask,Args->PwrStatusMask);
+		/*Check the retention mode is enabled or not*/
+		if((XPsmFw_Read32(PSMX_LOCAL_REG_LOC_AUX_PWR_STATE)&Args->PwrStateMask) != Args->PwrStateMask){
+			XPsmFw_Printf(DEBUG_ERROR,"Retention mode is not set\n");
+			/*TBD: PSMX_LOCAL_REG_LOC_AUX_PWR_STATE bit is not setting to 1,uncomment once it is fixed*/
+			//goto done;
+		}
+	}else{
+
+		/*power down the OCM RAMs without Retention*/
+		XPsmFw_RMW32(Args->RetCtrlAddr, Args->RetCtrlMask, ~Args->RetCtrlAddr);
+
+		/*poll for disable retention*/
+		Status = XPsmFw_UtilPollForZero(PSMX_LOCAL_REG_LOC_AUX_PWR_STATE, Args->PwrStateMask, Args->PwrStateAckTimeout);
+		if (Status != XST_SUCCESS) {
+			XPsmFw_Printf(DEBUG_ERROR,"Retenstion is not disabled\n");
+			goto done;
+		}
+	}
+
+	/*Disable power to ocm banks*/
+	XPsmFw_RMW32(Args->PwrCtrlAddr, Args->PwrCtrlMask, ~Args->PwrCtrlMask);
+
+	/*Disable chip enable signal*/
+	XPsmFw_RMW32(Args->ChipEnAddr, Args->ChipEnMask, ~Args->ChipEnMask);
+
+	/*reset bit in local reg*/
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, ~Args->PwrStateMask);
+
+	/*Read the OCM Power Status register*/
+	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
+	if (Status != XST_SUCCESS) {
+		XPsmFw_Printf(DEBUG_ERROR,"bit is not set\n");
+		goto done;
+	}
+
+	/*Unmask the OCM Power Up Interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_EN, Args->GlobPwrStatusMask, Args->GlobPwrStatusMask);
+
+	/*Clear the interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Args->GlobPwrStatusMask, Args->GlobPwrStatusMask);
+
+done:
+	return Status;
+}
+
+
+static XStatus XPsmFwMemPwrUp(struct XPsmFwMemPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	/*set chip enable*/
+	XPsmFw_RMW32(Args->ChipEnAddr, Args->ChipEnMask, Args->ChipEnMask);
+
+	/* enable power*/
+	XPsmFw_RMW32(Args->PwrCtrlAddr, Args->PwrCtrlMask, Args->PwrCtrlMask);
+
+	/*set bit in local reg*/
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, Args->PwrStateMask);
+
+	Status = XPsmFw_UtilPollForMask(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
+	if (Status != XST_SUCCESS) {
+		XPsmFw_Printf(DEBUG_ERROR,"bit is not set\n");
+		goto done;
+	}
+
+	/* Unmask the OCM Power Down Interrupt  and retention mask*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_EN, Args->GlobPwrStatusMask, Args->GlobPwrStatusMask);
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_EN, Args->RetMask, Args->RetMask);
+
+	/*Clear the interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS, Args->GlobPwrStatusMask, Args->GlobPwrStatusMask);
+
+done:
+	return Status;
+}
+
 /**
- * XPsmFw_DispatchPwrUpHandler() - Power-up interrupt handler
+ * PowerUp_OCM_B0_I0() - Power up OCM BANK0 Island0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_OCM_B0_I0(void)
+{
+	return XPsmFwMemPwrUp(&Ocm_B0_I0_PwrCtrl);
+}
+
+/**
+ * PowerUp_OCM_B0_I1() - Power up OCM BANK0 Island1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_OCM_B0_I1(void)
+{
+	return XPsmFwMemPwrUp(&Ocm_B0_I1_PwrCtrl);
+}
+
+/**
+ * PowerUp_OCM_B0_I2() - Power up OCM BANK0 Island3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_OCM_B0_I2(void)
+{
+	return XPsmFwMemPwrUp(&Ocm_B0_I2_PwrCtrl);
+}
+
+/**
+ * PowerUp_OCM_B0_I3() - Power up OCM BANK0 Island3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_OCM_B0_I3(void)
+{
+	return XPsmFwMemPwrUp(&Ocm_B0_I3_PwrCtrl);
+}
+
+/**
+ * PowerUp_OCM_B1_I0() - Power up OCM BANK1 Island0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_OCM_B1_I0(void)
+{
+	return XPsmFwMemPwrUp(&Ocm_B1_I0_PwrCtrl);
+}
+
+
+/**
+ * PowerUp_OCM_B1_I1() - Power up OCM BANK1 Island1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_OCM_B1_I1(void)
+{
+	return XPsmFwMemPwrUp(&Ocm_B1_I1_PwrCtrl);
+}
+
+/**
+ * PowerUp_OCM_B1_I2() - Power up OCM BANK1 Island2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_OCM_B1_I2(void)
+{
+	return XPsmFwMemPwrUp(&Ocm_B1_I2_PwrCtrl);
+}
+
+/**
+ * PowerUp_OCM_B1_I3() - Power up OCM BANK1 Island3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_OCM_B1_I3(void)
+{
+	return XPsmFwMemPwrUp(&Ocm_B1_I3_PwrCtrl);
+}
+
+/**
+ * PowerDwn_OCM_B0_I0() - Power down OCM BANK0 Island0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_OCM_B0_I0(void)
+{
+	return XPsmFwMemPwrDwn(&Ocm_B0_I0_PwrCtrl);
+}
+
+/**
+ * PowerDwn_OCM_B0_I1() - Power down OCM BANK0 Island1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_OCM_B0_I1(void)
+{
+	return XPsmFwMemPwrDwn(&Ocm_B0_I1_PwrCtrl);
+}
+
+/**
+ * PowerDwn_OCM_B0_I2() - Power down OCM BANK0 Island2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_OCM_B0_I2(void)
+{
+	return XPsmFwMemPwrDwn(&Ocm_B0_I2_PwrCtrl);
+}
+
+/**
+ * PowerDwn_OCM_B0_I3() - Power down OCM BANK0 Island3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_OCM_B0_I3(void)
+{
+	return XPsmFwMemPwrDwn(&Ocm_B0_I3_PwrCtrl);
+}
+
+/**
+ * PowerDwn_OCM_B1_I0() - Power down OCM BANK1 Island0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_OCM_B1_I0(void)
+{
+	return XPsmFwMemPwrDwn(&Ocm_B1_I0_PwrCtrl);
+}
+
+/**
+ * PowerDwn_OCM_B1_I1() - Power down OCM BANK1 Island1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_OCM_B1_I1(void)
+{
+	return XPsmFwMemPwrDwn(&Ocm_B1_I1_PwrCtrl);
+}
+
+/**
+ * PowerDwn_OCM_B1_I2() - Power down OCM BANK1 Island2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_OCM_B1_I2(void)
+{
+	return XPsmFwMemPwrDwn(&Ocm_B1_I2_PwrCtrl);
+}
+
+/**
+ * PowerDwn_OCM_B1_I3() - Power down OCM BANK1 Island3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_OCM_B1_I3(void)
+{
+	return XPsmFwMemPwrDwn(&Ocm_B1_I3_PwrCtrl);
+}
+
+static struct PwrHandlerTable_t PwrUpDwn1HandlerTable[] = {
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND0_MASK, PowerUp_OCM_B0_I0, PowerDwn_OCM_B0_I0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND1_MASK, PowerUp_OCM_B0_I1, PowerDwn_OCM_B0_I1},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND2_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND2_MASK, PowerUp_OCM_B0_I2, PowerDwn_OCM_B0_I2},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND3_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND3_MASK, PowerUp_OCM_B0_I3, PowerDwn_OCM_B0_I3},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND4_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND4_MASK, PowerUp_OCM_B1_I0, PowerDwn_OCM_B1_I0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND5_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND5_MASK, PowerUp_OCM_B1_I1, PowerDwn_OCM_B1_I1},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND6_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND6_MASK, PowerUp_OCM_B1_I2, PowerDwn_OCM_B1_I2},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND7_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND7_MASK, PowerUp_OCM_B1_I3, PowerDwn_OCM_B1_I3},
+};
+
+/**
+ * XPsmFw_DispatchPwrUp0Handler() - Power-up interrupt handler
  *
  * @PwrUpStatus    Power Up status register value
  * @PwrUpIntMask   Power Up interrupt mask register value
  *
  * @return         XST_SUCCESS or error code
  */
-XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
+XStatus XPsmFw_DispatchPwrUp0Handler(u32 PwrUpStatus, u32 PwrUpIntMask)
 {
 	XStatus Status = XST_FAILURE;
-	(void)PwrUpStatus;
-	(void)PwrUpIntMask;
-	/*TODO: add power up support*/
 
 	return Status;
 }
 
 /**
- * XPsmFw_DispatchPwrDwnHandler() - Power-down interrupt handler
+ * XPsmFw_DispatchPwrUp1Handler() - Power-up interrupt handler
+ *
+ * @PwrUpStatus    Power Up status register value
+ * @PwrUpIntMask   Power Up interrupt mask register value
+ *
+ * @return         XST_SUCCESS or error code
+ */
+XStatus XPsmFw_DispatchPwrUp1Handler(u32 PwrUpStatus, u32 PwrUpIntMask)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Index;
+
+	for (Index = 0U; Index < ARRAYSIZE(PwrUpDwn1HandlerTable); Index++) {
+		if ((CHECK_BIT(PwrUpStatus, PwrUpDwn1HandlerTable[Index].PwrUpMask)) &&
+		    !(CHECK_BIT(PwrUpIntMask, PwrUpDwn1HandlerTable[Index].PwrUpMask))) {
+			/* Call power up handler */
+			Status = PwrUpDwn1HandlerTable[Index].PwrUpHandler();
+
+			/* Ack the service */
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS, PwrUpDwn1HandlerTable[Index].PwrUpMask);
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_DIS, PwrUpDwn1HandlerTable[Index].PwrUpMask);
+		} else if (CHECK_BIT(PwrUpStatus, PwrUpDwn1HandlerTable[Index].PwrUpMask)){
+			/* Ack the service if status is 1 but interrupt is not enabled */
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS, PwrUpDwn1HandlerTable[Index].PwrUpMask);
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_DIS, PwrUpDwn1HandlerTable[Index].PwrUpMask);
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_SUCCESS;
+		}
+	}
+
+	return Status;
+}
+
+/**
+ * XPsmFw_DispatchPwrDwn0Handler() - Power-down interrupt handler
  *
  * @PwrDwnStatus   Power Down status register value
  * @pwrDwnIntMask  Power Down interrupt mask register value
@@ -604,15 +1025,55 @@ XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask)
  *
  * @return         XST_SUCCESS or error code
  */
-XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
+XStatus XPsmFw_DispatchPwrDwn0Handler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
 		u32 PwrUpStatus, u32 PwrUpIntMask)
 {
 	XStatus Status = XST_FAILURE;
-	(void)PwrDwnStatus;
-	(void)pwrDwnIntMask;
-	(void)PwrUpStatus;
-	(void)PwrUpIntMask;
-	/*TODO: add power down support*/
+
+	return Status;
+}
+/**
+ * XPsmFw_DispatchPwrDwn1Handler() - Power-down interrupt handler
+ *
+ * @PwrDwnStatus   Power Down status register value
+ * @pwrDwnIntMask  Power Down interrupt mask register value
+ * @PwrUpStatus    Power Up status register value
+ * @PwrUpIntMask   Power Up interrupt mask register value
+ *
+ * @return         XST_SUCCESS or error code
+ */
+XStatus XPsmFw_DispatchPwrDwn1Handler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
+		u32 PwrUpStatus, u32 PwrUpIntMask)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Index;
+
+	for (Index = 0U; Index < ARRAYSIZE(PwrUpDwn1HandlerTable); Index++) {
+		if ((CHECK_BIT(PwrDwnStatus, PwrUpDwn1HandlerTable[Index].PwrDwnMask)) &&
+		    !(CHECK_BIT(pwrDwnIntMask, PwrUpDwn1HandlerTable[Index].PwrDwnMask)) &&
+		    !(CHECK_BIT(PwrUpStatus, PwrUpDwn1HandlerTable[Index].PwrUpMask)) &&
+		    (CHECK_BIT(PwrUpIntMask, PwrUpDwn1HandlerTable[Index].PwrUpMask))) {
+			/* Call power down handler */
+
+			Status = PwrUpDwn1HandlerTable[Index].PwrDwnHandler();
+
+			/* Ack the service */
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, PwrUpDwn1HandlerTable[Index].PwrDwnMask);
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_DIS, PwrUpDwn1HandlerTable[Index].PwrDwnMask);
+		} else if (CHECK_BIT(PwrDwnStatus, PwrUpDwn1HandlerTable[Index].PwrDwnMask)) {
+			/* Ack the service  if power up and power down interrupt arrives simultaneously */
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, PwrUpDwn1HandlerTable[Index].PwrDwnMask);
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_DIS, PwrUpDwn1HandlerTable[Index].PwrDwnMask);
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_SUCCESS;
+		}
+	}
+	if(Index==ARRAYSIZE(PwrUpDwn1HandlerTable)){
+		/* disable the interrupt if the interrupt is not found in the PwrUpDwn1HandlerTable*/
+		XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, PwrDwnStatus);
+		XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_DIS, PwrDwnStatus);
+	}
 
 	return Status;
 }

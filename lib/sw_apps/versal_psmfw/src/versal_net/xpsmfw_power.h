@@ -42,6 +42,22 @@ extern "C" {
 #define PMC_ANALOG_OD_MBIST_DONE                      ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020110U) )
 #define PMC_ANALOG_OD_MBIST_GOOD                      ( ( PMC_ANALOG_BASEADDR ) + ((u32)0x00020114U) )
 
+#define XPSMFW_OCM_B0_I0_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_OCM_B0_I1_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_OCM_B0_I2_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_OCM_B0_I3_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_OCM_B1_I0_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_OCM_B1_I1_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_OCM_B1_I2_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_OCM_B1_I3_PWR_STATE_ACK_TIMEOUT             MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_OCM_B0_I0_PWR_UP_WAIT_TIME                  NANOSECOND_TO_TICKS(50U)
+#define XPSMFW_OCM_B0_I1_PWR_UP_WAIT_TIME                  NANOSECOND_TO_TICKS(50U)
+#define XPSMFW_OCM_B0_I2_PWR_UP_WAIT_TIME                  NANOSECOND_TO_TICKS(50U)
+#define XPSMFW_OCM_B0_I3_PWR_UP_WAIT_TIME                  NANOSECOND_TO_TICKS(50U)
+#define XPSMFW_OCM_B1_I0_PWR_UP_WAIT_TIME                  NANOSECOND_TO_TICKS(50U)
+#define XPSMFW_OCM_B1_I1_PWR_UP_WAIT_TIME                  NANOSECOND_TO_TICKS(50U)
+#define XPSMFW_OCM_B1_I2_PWR_UP_WAIT_TIME                  NANOSECOND_TO_TICKS(50U)
+#define XPSMFW_OCM_B1_I3_PWR_UP_WAIT_TIME                  NANOSECOND_TO_TICKS(50U)
 
 //TODO: TBD
 #define XPSMFW_ACPU_CTRL_CLK_PROP_TIME                ((u32)2000)
@@ -239,6 +255,19 @@ struct XPsmFwMemPwrCtrl_t {
 
 	/* mem_BANKx_PWRUP_WAIT_TIME */
 	u32 PwrUpWaitTime;
+
+	/*retention bitmask in the PSMX_GLOBAL reg*/
+	u32 RetMask;
+
+	/*pwr status mask in PSMX_GLOBAL Reg*/
+	u32 GlobPwrStatusMask;
+
+	/*Address of PSMX_LOCAL retention ctrl register*/
+	u32 RetCtrlAddr;
+
+	/*Bit number in PSMX_LOCAL retention ctrl register*/
+	u32 RetCtrlMask;
+
 };
 
 /*
@@ -280,8 +309,11 @@ struct PsmToPlmEvent_t {
 	u64 ResumeAddress[PROC_DEV_MAX];
 };
 
-XStatus XPsmFw_DispatchPwrUpHandler(u32 PwrUpStatus, u32 PwrUpIntMask);
-XStatus XPsmFw_DispatchPwrDwnHandler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
+XStatus XPsmFw_DispatchPwrUp0Handler(u32 PwrUpStatus, u32 PwrUpIntMask);
+XStatus XPsmFw_DispatchPwrUp1Handler(u32 PwrUpStatus, u32 PwrUpIntMask);
+XStatus XPsmFw_DispatchPwrDwn0Handler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
+		u32 PwrUpStatus, u32 PwrUpIntMask);
+XStatus XPsmFw_DispatchPwrDwn1Handler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
 		u32 PwrUpStatus, u32 PwrUpIntMask);
 XStatus XPsmFw_DispatchAPUWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
 XStatus XPsmFw_DispatchRPUWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
