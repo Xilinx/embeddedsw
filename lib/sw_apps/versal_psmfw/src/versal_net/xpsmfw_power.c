@@ -496,6 +496,86 @@ static struct XPsmFwMemPwrCtrl_t Ocm_B1_I3_PwrCtrl = {
 	.PwrUpWaitTime = XPSMFW_OCM_B1_I3_PWR_UP_WAIT_TIME,
 };
 
+static struct XPsmTcmPwrCtrl_t TcmA0PwrCtrl = {
+	.TcmMemPwrCtrl = {
+		.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_TCMA0_MASK,
+		.ChipEnAddr = PSMX_LOCAL_REG_TCM_CE_CNTRL,
+		.ChipEnMask = PSMX_LOCAL_REG_TCM_CE_CNTRL_TCMA0_MASK,
+		.PwrCtrlAddr = PSMX_LOCAL_REG_TCM_PWR_CNTRL,
+		.PwrCtrlMask = PSMX_LOCAL_REG_TCM_PWR_CNTRL_TCMA0_MASK,
+		.PwrStatusAddr = PSMX_LOCAL_REG_TCM_PWR_STATUS,
+		.PwrStatusMask = PSMX_LOCAL_REG_TCM_PWR_STATUS_TCMA0_MASK,
+		.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM0A_MASK,
+		.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM0A_RET_MASK,
+		.PwrStateAckTimeout = XPSMFW_TCM0A_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_TCM0A_PWR_UP_WAIT_TIME,
+
+	},
+
+	.Id = TCM_A_0,
+	.PowerState = STATE_POWER_DEFAULT,
+};
+
+static struct XPsmTcmPwrCtrl_t TcmA1PwrCtrl = {
+	.TcmMemPwrCtrl = {
+		.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_TCMA1_MASK,
+		.ChipEnAddr = PSMX_LOCAL_REG_TCM_CE_CNTRL,
+		.ChipEnMask = PSMX_LOCAL_REG_TCM_CE_CNTRL_TCMA1_MASK,
+		.PwrCtrlAddr = PSMX_LOCAL_REG_TCM_PWR_CNTRL,
+		.PwrCtrlMask = PSMX_LOCAL_REG_TCM_PWR_CNTRL_TCMA1_MASK,
+		.PwrStatusAddr = PSMX_LOCAL_REG_TCM_PWR_STATUS,
+		.PwrStatusMask = PSMX_LOCAL_REG_TCM_PWR_STATUS_TCMA1_MASK,
+		.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM1A_MASK,
+		.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM1A_RET_MASK,
+		.PwrStateAckTimeout = XPSMFW_TCM1A_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_TCM1A_PWR_UP_WAIT_TIME,
+
+	},
+
+	.Id = TCM_A_1,
+	.PowerState = STATE_POWER_DEFAULT,
+};
+
+static struct XPsmTcmPwrCtrl_t TcmB0PwrCtrl = {
+	.TcmMemPwrCtrl = {
+		.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_TCMB0_MASK,
+		.ChipEnAddr = PSMX_LOCAL_REG_TCM_CE_CNTRL,
+		.ChipEnMask = PSMX_LOCAL_REG_TCM_CE_CNTRL_TCMB0_MASK,
+		.PwrCtrlAddr = PSMX_LOCAL_REG_TCM_PWR_CNTRL,
+		.PwrCtrlMask = PSMX_LOCAL_REG_TCM_PWR_CNTRL_TCMB0_MASK,
+		.PwrStatusAddr = PSMX_LOCAL_REG_TCM_PWR_STATUS,
+		.PwrStatusMask = PSMX_LOCAL_REG_TCM_PWR_STATUS_TCMB0_MASK,
+		.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM0B_MASK,
+		.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM0B_RET_MASK,
+		.PwrStateAckTimeout = XPSMFW_TCM0B_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_TCM0B_PWR_UP_WAIT_TIME,
+
+	},
+
+	.Id = TCM_B_0,
+	.PowerState = STATE_POWER_DEFAULT,
+};
+
+static struct XPsmTcmPwrCtrl_t TcmB1PwrCtrl = {
+	.TcmMemPwrCtrl = {
+		.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_TCMB1_MASK,
+		.ChipEnAddr = PSMX_LOCAL_REG_TCM_CE_CNTRL,
+		.ChipEnMask = PSMX_LOCAL_REG_TCM_CE_CNTRL_TCMB1_MASK,
+		.PwrCtrlAddr = PSMX_LOCAL_REG_TCM_PWR_CNTRL,
+		.PwrCtrlMask = PSMX_LOCAL_REG_TCM_PWR_CNTRL_TCMB1_MASK,
+		.PwrStatusAddr = PSMX_LOCAL_REG_TCM_PWR_STATUS,
+		.PwrStatusMask = PSMX_LOCAL_REG_TCM_PWR_STATUS_TCMB1_MASK,
+		.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM1B_MASK,
+		.RetMask = PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM1B_RET_MASK,
+		.PwrStateAckTimeout = XPSMFW_TCM1B_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_TCM1B_PWR_UP_WAIT_TIME,
+
+	},
+
+	.Id = TCM_B_1,
+	.PowerState = STATE_POWER_DEFAULT,
+};
+
 enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_DIRECT,
 	XPSMFW_PWR_UPDWN_REQUEST,
@@ -793,6 +873,159 @@ done:
 	return Status;
 }
 
+static XStatus XTcmPwrUp(struct XPsmTcmPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	struct XPsmFwMemPwrCtrl_t *Tcm = &Args->TcmMemPwrCtrl;
+
+	/*Clear the interrupt*/
+	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS, Tcm->GlobPwrStatusMask);
+
+	/*enable the chip enable signal*/
+	XPsmFw_RMW32(Tcm->ChipEnAddr, Tcm->ChipEnMask, Tcm->ChipEnMask);
+	/*Enable power for corresponding TCM bank*/
+	XPsmFw_RMW32(Tcm->PwrCtrlAddr, Tcm->PwrCtrlMask, Tcm->PwrCtrlMask);
+
+	/* Mark tcm bank powered up in LOCAL_PWR_STATE0 register */
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Tcm->PwrStateMask, Tcm->PwrStateMask);
+	Status = XPsmFw_UtilPollForMask(Tcm->PwrStatusAddr, Tcm->PwrStatusMask, Tcm->PwrStateAckTimeout);
+	if (Status != XST_SUCCESS) {
+		XPsmFw_Printf(DEBUG_ERROR,"TCM bit is not set\n");
+		goto done;
+	}
+
+	/* Wait for power to ramp up */
+	XPsmFw_UtilWait(Tcm->PwrUpWaitTime);
+
+	/* Unmask the OCM Power Down Interrupt  and retention mask*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_EN, Tcm->GlobPwrStatusMask, Tcm->GlobPwrStatusMask);
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_EN, Tcm->RetMask, Tcm->RetMask);
+
+done:
+	return Status;
+}
+
+static XStatus XTcmPwrDown(struct XPsmTcmPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+	struct XPsmFwMemPwrCtrl_t *Tcm = &Args->TcmMemPwrCtrl;
+
+	/*Clear the interrupt*/
+	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Tcm->GlobPwrStatusMask);
+	u32 Retention = XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS) & Tcm->RetMask;
+	if(0 != Retention){
+		XPsmFw_RMW32(PSMX_LOCAL_REG_TCM_RET_CNTRL,Tcm->PwrStatusMask,Tcm->PwrStatusMask);
+		XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Tcm->RetMask);
+		/*Ensure for Retention Mode taken effect*/
+		if((XPsmFw_Read32(PSMX_LOCAL_REG_LOC_AUX_PWR_STATE)&Tcm->PwrStateMask) != Tcm->PwrStateMask){
+			XPsmFw_Printf(DEBUG_ERROR,"Retention mode is not set\n");
+			/*TBD: PSMX_LOCAL_REG_LOC_AUX_PWR_STATE bit is not setting to 1,uncomment below line once it is fixed*/
+			//goto done;
+		}
+	}
+
+	/* disable power gate*/
+	XPsmFw_RMW32(Tcm->PwrCtrlAddr, Tcm->PwrStateMask, ~Tcm->PwrStateMask);
+
+	/*disable chip enable signal*/
+	XPsmFw_RMW32(Tcm->ChipEnAddr, Tcm->ChipEnMask, ~Tcm->ChipEnMask);
+
+	/* reset bit in local reg*/
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Tcm->PwrStateMask, ~Tcm->PwrStateMask);
+	Status = XPsmFw_UtilPollForZero(Tcm->PwrStatusAddr, Tcm->PwrStatusMask, Tcm->PwrStateAckTimeout);
+	if (Status != XST_SUCCESS) {
+		XPsmFw_Printf(DEBUG_ERROR,"TCM bit is not reset\n");
+		goto done;
+	}
+
+	/* unmask tcm powerup interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_DIS, Tcm->PwrStateMask, Tcm->PwrStateMask);
+
+done:
+	return Status;
+}
+
+/**
+ * PowerUp_TCMA0() - Power up TCM0A memory
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_TCMA0(void)
+{
+	return XTcmPwrUp(&TcmA0PwrCtrl);
+}
+
+/**
+ * PowerUp_TCMB0() - Power up TCM0B memory
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_TCMB0(void)
+{
+	return XTcmPwrUp(&TcmB0PwrCtrl);
+}
+
+/**
+ * PowerUp_TCMA1() - Power up TCM1A memory
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_TCMA1(void)
+{
+	return XTcmPwrUp(&TcmA1PwrCtrl);
+}
+
+/**
+ * PowerUp_TCMB1() - Power up TCM1B memory
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_TCMB1(void)
+{
+	return XTcmPwrUp(&TcmB1PwrCtrl);
+}
+
+/**
+ * PowerDwn_TCMA0() - Power down TCMA0 memory
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_TCMA0(void)
+{
+	return XTcmPwrDown(&TcmA0PwrCtrl);
+}
+
+/**
+ * PowerDwn_TCMB0() - Power down TCMB0 memory
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_TCMB0(void)
+{
+	return XTcmPwrDown(&TcmB0PwrCtrl);
+}
+
+/**
+ * PowerDwn_TCMA1() - Power down TCMA1 memory
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_TCMA1(void)
+{
+	return XTcmPwrDown(&TcmA1PwrCtrl);
+}
+
+/**
+ * PowerDwn_TCMB1() - Power down TCMB1 memory
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_TCMB1(void)
+{
+	return XTcmPwrDown(&TcmB1PwrCtrl);
+}
+
 /**
  * PowerUp_OCM_B0_I0() - Power up OCM BANK0 Island0
  *
@@ -963,6 +1196,10 @@ static struct PwrHandlerTable_t PwrUpDwn1HandlerTable[] = {
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND5_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND5_MASK, PowerUp_OCM_B1_I1, PowerDwn_OCM_B1_I1},
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND6_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND6_MASK, PowerUp_OCM_B1_I2, PowerDwn_OCM_B1_I2},
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND7_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND7_MASK, PowerUp_OCM_B1_I3, PowerDwn_OCM_B1_I3},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM0A_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM0A_MASK, PowerUp_TCMA0, PowerDwn_TCMA0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM0B_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM0B_MASK, PowerUp_TCMB0, PowerDwn_TCMB0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM1A_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM1A_MASK, PowerUp_TCMA1, PowerDwn_TCMA1},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM1B_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM1B_MASK, PowerUp_TCMB1, PowerDwn_TCMB1},
 };
 
 /**
