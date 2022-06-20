@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,9 @@
 * ----- ---- -------- -----------------------------------------------
 * 7.0   cjp  02/26/19 First Release
 * 7.2   asa  04/03/20 Renamed the str macro to strw.
+* 8.0   mus  06/20/22 Added mfcpnotoken and mtcpnotoken macros to fix
+*                     linking errors observed while building application
+*                     with armclang compiler. It fixes CR#1132642.
 * </pre>
 *
 ******************************************************************************/
@@ -119,7 +122,14 @@ extern "C" {
 			    rval;\
 			})
 
+#define mfcpnotoken(reg)       ({u64 rval = 0U;\
+                        __asm__ __volatile__("mrs       %0, " reg : "=r" (rval));\
+                        rval;\
+                        })
+
 #define mtcp(reg,val)	__asm__ __volatile__("msr " #reg ",%x0" : : "r" (val))
+
+#define mtcpnotoken(reg,val)    __asm__ __volatile__("msr " reg ",%0"  : : "r" (val))
 
 /************************** Variable Definitions ****************************/
 
