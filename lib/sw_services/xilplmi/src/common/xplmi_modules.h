@@ -29,7 +29,8 @@
 *       bsv  08/02/2021 Removed incorrect comment
 * 1.05  kpt  01/04/2022 Added XilPuf module ID
 * 1.06  bsv  06/03/2022 Add CommandInfo to a separate section in elf
-*
+*       SK   06/14/2022 Updated macro XPLMI_EXPORT_CMD to create
+*                       unique variable names
 * </pre>
 *
 * @note
@@ -88,7 +89,7 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 /* Macros for command ids */
 #define XPLMI_EXPORT_CMD(CmdIdVal, ModuleIdVal, MinArgCntVal, MaxArgCntVal) {	\
-		static volatile const XPlmi_CmdInfo CmdInfo __attribute__((unused)) \
+		static volatile const XPlmi_CmdInfo CmdInfo_##ModuleIdVal##_##CmdIdVal __attribute__((unused)) \
 		__attribute__((section (".xplm_modules"))) = {	\
 		.CmdId = CmdIdVal,\
 		.ModuleId = ModuleIdVal,\
