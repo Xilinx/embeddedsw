@@ -1324,6 +1324,63 @@ static XStatus PowerDwn_GEM1(void)
 	return XPsmFwMemPwrDwn_Gem(&Gem1PwrCtrl.GemMemPwrCtrl);
 }
 
+/**
+ * PowerUp_FP() - Power up FPD
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_FP(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Instead of trigeering this interrupt
+	FPD CDO should be reexecuted by XilPM */
+
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+/**
+ * PowerDwn_FP() - Power down FPD
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_FP(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegVal;
+
+	/* Check if already power down */
+	RegVal = XPsmFw_Read32(PSMX_LOCAL_REG_LOC_PWR_STATE1);
+	if (CHECK_BIT(RegVal, PSMX_LOCAL_REG_LOC_PWR_STATE1_FP_MASK)) {
+		/* Enable isolation between FPD and LPD, PLD */
+		XPsmFw_RMW32(PSMX_LOCAL_REG_DOMAIN_ISO_CNTRL,
+			     PSMX_LOCAL_REG_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK | PSMX_LOCAL_REG_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
+			     PSMX_LOCAL_REG_DOMAIN_ISO_CNTRL_LPD_FPD_DFX_MASK | PSMX_LOCAL_REG_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
+
+		/* Disable alarms associated with FPD */
+		XPsmFw_Write32(PSMX_GLOBAL_REG_PWR_CTRL0_IRQ_DIS,
+			       PSMX_GLOBAL_REG_PWR_CTRL0_IRQ_DIS_FPD_SUPPLY_MASK);
+
+		/* Clear power down request status */
+		/* This is already handled by common handler so no need to handle here */
+
+		/* Mark the FP as Powered Down */
+		XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE1, PSMX_LOCAL_REG_LOC_PWR_STATE1_FP_MASK,
+			     ~PSMX_LOCAL_REG_LOC_PWR_STATE1_FP_MASK);
+	}
+
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+/* Structure for power up/down handler table */
+static struct PwrHandlerTable_t PwrUpDwn0HandlerTable[] = {
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_FP_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_FP_MASK, PowerUp_FP, PowerDwn_FP},
+};
+
 static struct PwrHandlerTable_t PwrUpDwn1HandlerTable[] = {
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_GEM0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_GEM0_MASK, PowerUp_GEM0, PowerDwn_GEM0},
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_GEM1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_GEM1_MASK, PowerUp_GEM1, PowerDwn_GEM1},
@@ -1352,6 +1409,26 @@ static struct PwrHandlerTable_t PwrUpDwn1HandlerTable[] = {
 XStatus XPsmFw_DispatchPwrUp0Handler(u32 PwrUpStatus, u32 PwrUpIntMask)
 {
 	XStatus Status = XST_FAILURE;
+	u32 Index;
+
+	for (Index = 0U; Index < ARRAYSIZE(PwrUpDwn0HandlerTable); Index++) {
+		if ((CHECK_BIT(PwrUpStatus, PwrUpDwn0HandlerTable[Index].PwrUpMask)) &&
+		    !(CHECK_BIT(PwrUpIntMask, PwrUpDwn0HandlerTable[Index].PwrUpMask))) {
+			/* Call power up handler */
+			Status = PwrUpDwn0HandlerTable[Index].PwrUpHandler();
+
+			/* Ack the service */
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS, PwrUpDwn0HandlerTable[Index].PwrUpMask);
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_DIS, PwrUpDwn0HandlerTable[Index].PwrUpMask);
+		} else if (CHECK_BIT(PwrUpStatus, PwrUpDwn0HandlerTable[Index].PwrUpMask)){
+			/* Ack the service if status is 1 but interrupt is not enabled */
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS, PwrUpDwn0HandlerTable[Index].PwrUpMask);
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_DIS, PwrUpDwn0HandlerTable[Index].PwrUpMask);
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_SUCCESS;
+		}
+	}
 
 	return Status;
 }
@@ -1405,6 +1482,28 @@ XStatus XPsmFw_DispatchPwrDwn0Handler(u32 PwrDwnStatus, u32 pwrDwnIntMask,
 		u32 PwrUpStatus, u32 PwrUpIntMask)
 {
 	XStatus Status = XST_FAILURE;
+	u32 Index;
+
+	for (Index = 0U; Index < ARRAYSIZE(PwrUpDwn0HandlerTable); Index++) {
+		if ((CHECK_BIT(PwrDwnStatus, PwrUpDwn0HandlerTable[Index].PwrDwnMask)) &&
+		    !(CHECK_BIT(pwrDwnIntMask, PwrUpDwn0HandlerTable[Index].PwrDwnMask)) &&
+		    !(CHECK_BIT(PwrUpStatus, PwrUpDwn0HandlerTable[Index].PwrUpMask)) &&
+		    (CHECK_BIT(PwrUpIntMask, PwrUpDwn0HandlerTable[Index].PwrUpMask))) {
+			/* Call power down handler */
+			Status = PwrUpDwn0HandlerTable[Index].PwrDwnHandler();
+
+			/* Ack the service */
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS, PwrUpDwn0HandlerTable[Index].PwrDwnMask);
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN0_INT_DIS, PwrUpDwn0HandlerTable[Index].PwrDwnMask);
+		} else if (CHECK_BIT(PwrDwnStatus, PwrUpDwn0HandlerTable[Index].PwrDwnMask)) {
+			/* Ack the service  if power up and power down interrupt arrives simultaneously */
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS, PwrUpDwn0HandlerTable[Index].PwrDwnMask);
+			XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN0_INT_DIS, PwrUpDwn0HandlerTable[Index].PwrDwnMask);
+			Status = XST_SUCCESS;
+		} else {
+			Status = XST_SUCCESS;
+		}
+	}
 
 	return Status;
 }
