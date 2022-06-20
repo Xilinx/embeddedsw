@@ -576,6 +576,44 @@ static struct XPsmTcmPwrCtrl_t TcmB1PwrCtrl = {
 	.PowerState = STATE_POWER_DEFAULT,
 };
 
+static struct XPsmFwGemPwrCtrl_t Gem0PwrCtrl = {
+	.GemMemPwrCtrl = {
+		.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE1_GEM0_MASK,
+		.ChipEnAddr = PSMX_LOCAL_REG_GEM_CE_CNTRL,
+		.ChipEnMask = PSMX_LOCAL_REG_GEM_CE_CNTRL_GEM0_MASK,
+		.PwrCtrlAddr = PSMX_LOCAL_REG_GEM_PWR_CNTRL,
+		.PwrCtrlMask = PSMX_LOCAL_REG_GEM_PWR_CNTRL_GEM0_MASK,
+		.PwrStatusAddr = PSMX_LOCAL_REG_GEM_PWR_STATUS,
+		.PwrStatusMask = PSMX_LOCAL_REG_GEM_PWR_STATUS_GEM0_MASK,
+		.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_GEM0_MASK,
+		.PwrStateAckTimeout = XPSMFW_GEM0_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_GEM0_PWR_UP_WAIT_TIME,
+	},
+        .ClkCtrlAddr = CRL_GEM0_REF_CTRL,
+        .ClkCtrlMask = CRL_GEM0_REF_CTRL_CLKACT_MASK,
+        .RstCtrlAddr = CRL_RST_GEM0,
+        .RstCtrlMask = CRL_RST_GEM0_RESET_MASK,
+};
+
+static struct XPsmFwGemPwrCtrl_t Gem1PwrCtrl = {
+	.GemMemPwrCtrl = {
+		.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE1_GEM1_MASK,
+		.ChipEnAddr = PSMX_LOCAL_REG_GEM_CE_CNTRL,
+		.ChipEnMask = PSMX_LOCAL_REG_GEM_CE_CNTRL_GEM1_MASK,
+		.PwrCtrlAddr = PSMX_LOCAL_REG_GEM_PWR_CNTRL,
+		.PwrCtrlMask = PSMX_LOCAL_REG_GEM_PWR_CNTRL_GEM1_MASK,
+		.PwrStatusAddr = PSMX_LOCAL_REG_GEM_PWR_STATUS,
+		.PwrStatusMask = PSMX_LOCAL_REG_GEM_PWR_STATUS_GEM1_MASK,
+		.GlobPwrStatusMask = PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_GEM1_MASK,
+		.PwrStateAckTimeout = XPSMFW_GEM1_PWR_STATE_ACK_TIMEOUT,
+		.PwrUpWaitTime = XPSMFW_GEM1_PWR_UP_WAIT_TIME,
+	},
+        .ClkCtrlAddr = CRL_GEM1_REF_CTRL,
+        .ClkCtrlMask = CRL_GEM1_REF_CTRL_CLKACT_MASK,
+        .RstCtrlAddr = CRL_RST_GEM1,
+        .RstCtrlMask = CRL_RST_GEM1_RESET_MASK,
+};
+
 enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_DIRECT,
 	XPSMFW_PWR_UPDWN_REQUEST,
@@ -946,6 +984,65 @@ done:
 	return Status;
 }
 
+static XStatus XPsmFwMemPwrUp_Gem(struct XPsmFwMemPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	/*set chip enable*/
+	XPsmFw_RMW32(Args->ChipEnAddr, Args->ChipEnMask, Args->ChipEnMask);
+
+	/* enable power*/
+	XPsmFw_RMW32(Args->PwrCtrlAddr, Args->PwrCtrlMask, Args->PwrCtrlMask);
+
+	/*set bit in local reg*/
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE1, Args->PwrStateMask, Args->PwrStateMask);
+
+	Status = XPsmFw_UtilPollForMask(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
+	if (Status != XST_SUCCESS) {
+		XPsmFw_Printf(DEBUG_ERROR,"bit is not set\n");
+		goto done;
+	}
+
+	/* Unmask the Power Down Interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_EN, Args->GlobPwrStatusMask, Args->GlobPwrStatusMask);
+
+	/*Clear the interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS, Args->GlobPwrStatusMask, Args->GlobPwrStatusMask);
+
+done:
+	return Status;
+}
+
+static XStatus XPsmFwMemPwrDwn_Gem(struct XPsmFwMemPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	/*Disable power to gem banks*/
+	XPsmFw_RMW32(Args->PwrCtrlAddr, Args->PwrCtrlMask, ~Args->PwrCtrlMask);
+
+	/*Disable chip enable signal*/
+	XPsmFw_RMW32(Args->ChipEnAddr, Args->ChipEnMask, ~Args->ChipEnMask);
+
+	/*reset bit in local reg*/
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE1, Args->PwrStateMask, ~Args->PwrStateMask);
+
+	/*Read the gem Power Status register*/
+	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, Args->PwrStatusMask, Args->PwrStateAckTimeout);
+	if (Status != XST_SUCCESS) {
+		XPsmFw_Printf(DEBUG_ERROR,"bit is not set\n");
+		goto done;
+	}
+
+	/*Unmask the gem Power Up Interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_EN, Args->GlobPwrStatusMask, Args->GlobPwrStatusMask);
+
+	/*Clear the interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS, Args->GlobPwrStatusMask, Args->GlobPwrStatusMask);
+
+done:
+	return Status;
+}
+
 /**
  * PowerUp_TCMA0() - Power up TCM0A memory
  *
@@ -1187,7 +1284,49 @@ static XStatus PowerDwn_OCM_B1_I3(void)
 	return XPsmFwMemPwrDwn(&Ocm_B1_I3_PwrCtrl);
 }
 
+/**
+ * PowerUp_GEM0() - Power up GEM0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_GEM0(void)
+{
+	return XPsmFwMemPwrUp_Gem(&Gem0PwrCtrl.GemMemPwrCtrl);
+}
+
+/**
+ * PowerUp_GEM1() - Power up GEM1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_GEM1(void)
+{
+	return XPsmFwMemPwrUp_Gem(&Gem1PwrCtrl.GemMemPwrCtrl);
+}
+
+/**
+ * PowerDwn_GEM0() - Power down GEM0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_GEM0(void)
+{
+	return XPsmFwMemPwrDwn_Gem(&Gem0PwrCtrl.GemMemPwrCtrl);
+}
+
+/**
+ * PowerDwn_GEM1() - Power down GEM1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_GEM1(void)
+{
+	return XPsmFwMemPwrDwn_Gem(&Gem1PwrCtrl.GemMemPwrCtrl);
+}
+
 static struct PwrHandlerTable_t PwrUpDwn1HandlerTable[] = {
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_GEM0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_GEM0_MASK, PowerUp_GEM0, PowerDwn_GEM0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_GEM1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_GEM1_MASK, PowerUp_GEM1, PowerDwn_GEM1},
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND0_MASK, PowerUp_OCM_B0_I0, PowerDwn_OCM_B0_I0},
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND1_MASK, PowerUp_OCM_B0_I1, PowerDwn_OCM_B0_I1},
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_OCM_ISLAND2_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_OCM_ISLAND2_MASK, PowerUp_OCM_B0_I2, PowerDwn_OCM_B0_I2},
