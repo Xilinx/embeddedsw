@@ -126,6 +126,7 @@
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *       bsv  01/29/2022 Added redundancy to Status variable in XLoader_LoadImage
 *       kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
+* 1.06  skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
 *
 * </pre>
 *
@@ -925,7 +926,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 			case XIH_PH_ATTRB_DSTN_CPU_R5_1:
 				DeviceId = PM_DEV_RPU0_1;
-				ErrorCode = XLOADER_ERR_WAKEUP_R5_1;
+				ErrorCode = (u32)XLOADER_ERR_WAKEUP_R5_1;
 				XLoader_Printf(DEBUG_INFO, "Request RPU 1 "
 						"wakeup\r\n");
 				break;
@@ -950,7 +951,7 @@ static int XLoader_StartImage(XilPdi *PdiPtr)
 			Status = XPm_RequestWakeUp(PM_SUBSYS_PMC, DeviceId,
 				SetAddress, HandoffAddr, 0U, XPLMI_CMD_SECURE);
 			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(ErrorCode, Status);
+				Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
 				goto END;
 			}
 		}
@@ -1914,7 +1915,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 			}
 
 			if (Status == (int)XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE) {
-				Status = XPlmi_UpdateStatus(Status, 0);
+				Status = XPlmi_UpdateStatus((XPlmiStatus_t)Status, 0);
 				goto END;
 			}
 

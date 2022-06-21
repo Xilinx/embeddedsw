@@ -82,6 +82,7 @@
 *       bsv  02/13/22 Reduce stack usage of functions
 *       har  02/17/22 Updated code to limit number of attempts to enable JTAG
 *                     when efuse bits are set
+* 1.04  skg  06/20/22 Fixed MISRA C Rule 10.3 violation
 *
 * </pre>
 *
@@ -2937,7 +2938,7 @@ static int XLoader_CheckAuthJtagIntStatus(void *Arg)
 		if (AuthJtagStatus.JtagTimerEnabled == TRUE) {
 			AuthJtagStatus.JtagTimeOut--;
 			if (AuthJtagStatus.JtagTimeOut == 0U) {
-				Status = XLOADER_DAP_TIMEOUT_DISABLED;
+				Status = (int)XLOADER_DAP_TIMEOUT_DISABLED;
 				goto END;
 			}
 		}
@@ -2949,7 +2950,7 @@ END:
 	if (Status != XST_SUCCESS) {
 		XLoader_DisableJtag();
 		AuthJtagStatus.JtagTimerEnabled = FALSE;
-		AuthJtagStatus.JtagTimeOut = 0U;
+		AuthJtagStatus.JtagTimeOut = (u32)0U;
 	}
 	return Status;
 }

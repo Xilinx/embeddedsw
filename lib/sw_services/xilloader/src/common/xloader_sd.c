@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,8 @@
 * 1.05  bsv  10/01/2021 Addressed code review comments
 *       bsv  10/26/2021 Code clean up
 * 1.06  kpt  12/13/2021 Replaced Xil_Strcat with Xil_SStrcat
+* 1.07  skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
+*       skg  06/20/2022 Fixed MISRA C Rule 7.4 violation
 *
 * </pre>
 *
@@ -194,7 +196,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
 		SdDeviceNode = PM_DEV_SDIO_0;
 		SdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;
-		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_0;
+		ErrorCode = (u32)XLOADER_ERR_PM_DEV_SDIO_0;
 	}
 	else {
 		SdDeviceNode = PM_DEV_SDIO_1;
@@ -205,7 +207,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(ErrorCode, Status);
+		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
 		goto END;
 	}
 	SdCdnVal = XPlmi_In32(SdCdnReg);
@@ -421,7 +423,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
 		SdDeviceNode = PM_DEV_SDIO_0;
 		SdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;
-		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_0;
+		ErrorCode = (u32)XLOADER_ERR_PM_DEV_SDIO_0;
 	}
 	else {
 		SdDeviceNode = PM_DEV_SDIO_1;
@@ -432,7 +434,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(ErrorCode, Status);
+		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
 		goto END;
 	}
 	SdCdnVal = XPlmi_In32(SdCdnReg);
