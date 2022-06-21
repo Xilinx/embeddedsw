@@ -812,9 +812,9 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 #ifdef PLM_DEBUG_MODE
 		Status = XLoader_DumpDdrmcRegisters();
 #else
-		XPlmi_Printf(DEBUG_GENERAL, "\033[1m Error: DDR Calibration "
+		XPlmi_Printf(DEBUG_GENERAL, "\033\[1m Error: DDR Calibration "
 			 "failed!! Enable PLM_DEBUG_MODE for more information "
-			 "including DDR dump.\033[0m\n\r");
+			 "including DDR dump.\033\[0m\n\r");
 #endif
 
 		Status = XPlmi_UpdateStatus(
