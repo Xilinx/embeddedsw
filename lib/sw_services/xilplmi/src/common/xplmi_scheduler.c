@@ -40,6 +40,7 @@
 *                       same priority
 *       bsv  04/03/2022 Updated logic in XPlmi_SchedulerAddTask to fix subsystem
 *                       restart issue
+* 1.06  skg  06/20/2022 Misra-C violation Rule 10.4 fixed
 *
 * </pre>
 *
@@ -261,7 +262,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 
 	if ((Task = XPlmi_GetTaskInstance(CallbackFn, Data,
 		XPLMI_INVALID_INTR_ID)) != NULL) {
-		if (metal_list_is_empty(&Task->TaskNode) == (u8)FALSE) {
+		if (metal_list_is_empty(&Task->TaskNode) == (int)FALSE) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_TASK_EXISTS, 0);
 			goto END;
 		}
