@@ -25,6 +25,7 @@
 *       ana  10/19/2020 Added doxygen comments
 * 1.04  tnt  01/10/2022 Added more constants to support ssit_sync_slave
 * 1.05  ma   05/10/2022 Added PLM to PLM communication feature
+*       hb   06/15/2022 Added event XPLMI_SEM_NOTIFY_ERR_EVENT_INDEX
 *
 * </pre>
 *
@@ -96,6 +97,7 @@ extern "C" {
 enum SsitEventIndex {
 	XPLMI_SLRS_SYNC_EVENT_INDEX,
 	XPLMI_SLRS_MESSAGE_EVENT_INDEX,
+	XPLMI_SEM_NOTIFY_ERR_EVENT_INDEX,
 	XPLMI_SSIT_MAX_EVENTS
 };
 
@@ -162,6 +164,7 @@ u8 XPlmi_SsitIsIntrEnabled(void);
 u8 XPlmi_GetSlrIndex(void);
 void XPlmi_SsitSetIsIntrEnabled(u8 Value);
 void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask);
+u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex);
 #endif
 /* SSIT Sync Related functions */
 int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);
