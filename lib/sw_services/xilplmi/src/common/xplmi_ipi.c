@@ -61,8 +61,9 @@
  *       bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
  *                       same priority
  * 1.06  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
- *	 rj   05/25/2022 Remove check for module ID and API ID for XilPM
- *			 force power down command
+ *	     rj   05/25/2022 Remove check for module ID and API ID for XilPM
+ *			             force power down command
+ *       skg  06/20/2022 Misra-C violation Rule 8.13 fixed
  *
  * </pre>
  *
@@ -323,7 +324,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
+int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type)
 {
 	int Status = XST_FAILURE;
 
