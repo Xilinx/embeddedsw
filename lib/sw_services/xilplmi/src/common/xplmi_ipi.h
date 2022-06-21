@@ -35,6 +35,7 @@
 *       bsv  04/16/2021 Added provision to store Subsystem Id in XilPlmi
 * 1.04  ma   08/09/2021 Added IPI_PMC_IMR register define
 * 1.05  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
+*       skg  06/20/2022 Misra-C violation Rule 8.13 fixed
 *
 * </pre>
 *
@@ -84,7 +85,7 @@ typedef u32 (*XPlmi_SubsystemHandler)(u32 IpiMask);
 
 /************************** Function Prototypes ******************************/
 int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler);
-int XPlmi_IpiWrite(u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
+int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiTrigger(u32 DestCpuMask);
 int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
