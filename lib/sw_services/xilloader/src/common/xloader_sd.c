@@ -103,14 +103,14 @@ static int XLoader_MakeSdFileName(u32 MultiBootOffset)
 
 	if (0x0U == MultiBootOffset) {
 		Status = Xil_SStrCat((u8*)BootFile, XLOADER_BASE_FILE_NAME_LEN_SD,
-			(u8*)"BOOT.BIN", XLOADER_SD_SRC_FILENAME_SIZE1);
+			(const u8*)"BOOT.BIN", XLOADER_SD_SRC_FILENAME_SIZE1);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 	else {
 		Status = Xil_SStrCat((u8*)BootFile, XLOADER_BASE_FILE_NAME_LEN_SD,
-			(u8*)"BOOT0000.BIN", XLOADER_SD_SRC_FILENAME_SIZE2);
+			(const u8*)"BOOT0000.BIN", XLOADER_SD_SRC_FILENAME_SIZE2);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
