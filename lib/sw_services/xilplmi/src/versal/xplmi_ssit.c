@@ -26,6 +26,7 @@
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 * 1.05  ma   05/10/2022 Added PLM to PLM communication feature
 *       bsv  06/03/2022 Add CommandInfo to a separate section in elf
+*       hb   06/15/2022 Removed static declaration of XPlmi_SsitGetSlrAddr
 *
 * </pre>
 *
@@ -80,7 +81,6 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 /************************** Function Prototypes ******************************/
 static u32 XPlmi_SsitGetSlaveErrorMask(void);
 static XPlmi_TaskNode *XPlmi_SsitCreateTask(u8 SlrIndex);
-static u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex);
 static u8 XPlmi_SsitIsEventPending(u8 SlrIndex, u32 EventIndex);
 static int XPlmi_SsitEventHandler(void *Data);
 static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait);
@@ -518,7 +518,7 @@ END:
 * @return   Returns SSIT SLR global address for the given address
 *
 ****************************************************************************/
-static u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex)
+u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex)
 {
 	u64 SlrAddr = XPLMI_SSIT_MASTER_SLR_BASEADDR;
 
