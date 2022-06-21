@@ -56,6 +56,7 @@
 *                       response
 *       bm   12/15/2021 Fix error case in Add ImageStore command
 * 1.08  bsv  06/10/2022 Add CommandInfo to a separate section in elf
+*       skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
 *
 * </pre>
 *
@@ -297,7 +298,7 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 
 	if (Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX] ==
 		XLOADER_INVALID_IMG_ID) {
-		Status = XLOADER_ERR_INVALID_IMGID;
+		Status = (int)XLOADER_ERR_INVALID_IMGID;
 		XPlmi_Printf(DEBUG_GENERAL, "Invalid ImgID\n\r");
 		goto END;
 	}
@@ -735,7 +736,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 
 	Status = XPlmi_VerifyAddrRange(SrcAddr, SrcAddr + (XPLMI_WORD_LEN - 1U));
 	if (Status != XST_SUCCESS) {
-		Status = XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
+		Status = (int)XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR;
 		goto END;
 	}
 
@@ -752,7 +753,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 
 	Status = XPlmi_VerifyAddrRange(DestAddr, DestAddr + DestSize - 1U);
 	if (Status != XST_SUCCESS) {
-		Status = XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
+		Status = (int)XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR;
 		goto END;
 	}
 
