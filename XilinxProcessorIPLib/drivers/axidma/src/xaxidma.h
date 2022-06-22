@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_14
+* @addtogroup AXIDMA Overview
 * @{
 * @details
 *

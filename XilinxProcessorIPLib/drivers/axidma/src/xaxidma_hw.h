@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
  *  @file xaxidma_hw.h
-* @addtogroup axidma_v9_13
-* @{
+ * @addtogroup AXIDMA Overview
+ * @{
  *
  * Hardware definition file. It defines the register interface and Buffer
  * Descriptor (BD) definitions.
