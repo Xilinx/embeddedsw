@@ -92,6 +92,7 @@
 *       kpt  09/06/2021 Added macro XLOADER_TOTAL_CHUNK_SIZE
 *       bsv  10/26/2021 Code clean up
 *       bsv  03/17/2022 Add support for A72 elfs to run from TCM
+* 1.05  ma   06/21/2022 Add support for Get Handoff Parameters IPI command
 *
 * </pre>
 *
@@ -427,6 +428,7 @@ void XLoader_CmdsInit(void);
 /* Functions defined in xloader_intr.c */
 int XLoader_IntrInit(void);
 void XLoader_ClearIntrSbiDataRdy(void);
+XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void);
 
 /************************** Variable Definitions *****************************/
 extern XilPdi* BootPdiPtr;

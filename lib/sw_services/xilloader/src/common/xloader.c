@@ -125,8 +125,9 @@
 *                       case of invalid header
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *       bsv  01/29/2022 Added redundancy to Status variable in XLoader_LoadImage
-*       kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
-* 1.06  skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
+* 1.06  kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
+*       skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
+*       ma   06/21/2022 Add support for Get Handoff Parameters IPI command
 *
 * </pre>
 *
@@ -1711,6 +1712,20 @@ static int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 
 END:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function returns the ATFHandoffParams structure address to
+*           the caller.
+*
+* @return	Returns ATFHandoffParams structure address
+*
+*****************************************************************************/
+XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
+{
+	/* Return ATF Handoff parameters structure address */
+	return &ATFHandoffParams;
 }
 
 /****************************************************************************/

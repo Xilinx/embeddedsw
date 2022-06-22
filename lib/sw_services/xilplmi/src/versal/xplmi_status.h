@@ -92,6 +92,7 @@
 * 1.07  ma   11/25/2021 Added error code XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE
 *       bsv  03/17/2022 Add support for A72 elfs to run from TCM
 * 1.08  ma   05/10/2022 Added error codes related SSIT PLM to PLM communication
+*       ma   06/21/2022 Added error codes related to Get Handoff Parameters
 *
 * </pre>
 *
@@ -548,6 +549,10 @@ typedef enum {
 	XLOADER_ERR_RELEASE_BOOT_DEVICE,	/**< 0x369 - Failed to Release Boot Device */
 	XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,	/**< 0x36A - Failed to disable DUAL BYTE OP */
 	XLOADER_ERR_INVALID_TCM_ADDR,	/**< 0x36B - Invalid TCM address for A72 elfs */
+	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR, /**< 0x36C - Invalid destination address
+	                        for copying ATF Handoff Parameters */
+	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE, /**< 0x36D - Invalid destination size
+	                        for copying ATF Handoff Parameters */
 
 	/**< Security Major error codes */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
