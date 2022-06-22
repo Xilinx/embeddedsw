@@ -57,6 +57,7 @@
 *       bm   12/15/2021 Fix error case in Add ImageStore command
 * 1.08  bsv  06/10/2022 Add CommandInfo to a separate section in elf
 *       skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
+*       ma   06/21/2022 Add support for Get Handoff Parameters IPI command
 *
 * </pre>
 *
@@ -118,6 +119,9 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX	(2U)
 #define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX	(3U)
 #define XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX	(4U)
+#define XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_HIGH_INDEX	(0U)
+#define XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_LOW_INDEX	(1U)
+#define XLOADER_CMD_GET_HANDOFF_PARAM_DEST_SIZE_INDEX	(2U)
 #define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U)
 #define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
 #define XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX	(1U)
@@ -126,6 +130,7 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_RESP_CMD_GET_IMG_INFO_FUNCID_INDEX		(3U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_LIST_NUM_ENTRIES_INDEX	(1U)
 #define XLOADER_RESP_CMD_EXTRACT_METAHDR_SIZE_INDEX	(1U)
+#define XLOADER_RESP_CMD_GET_HANDOFF_PARAM_SIZE_INDEX	(1U)
 
 #define XLOADER_CMD_MULTIBOOT_PDISRC_MASK		(0xFF00U)
 #define XLOADER_CMD_MULTIBOOT_FLASHTYPE_MASK		(0xFU)
@@ -137,6 +142,7 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_DEFAULT_MULTIBOOT_VAL			(0U)
 #define XLOADER_DEFAULT_RAWBOOT_VAL			(0U)
 #define XLOADER_SD_FILE_SYSTEM_VAL			(0xF0000000U)
+#define XLOADER_GET_HANDOFF_PARAM_SIZE_MASK	(0x7FFFFFFFU)
 
 /* Loader command defines */
 #define XLOADER_CMD_READBACK_CMD_ID				(0x7U)
@@ -149,6 +155,8 @@ static XPlmi_Module XPlmi_Loader;
 
 /* Command related macros */
 #define XLOADER_SET_IMAGE_INFO_CMD_ID		(4U)
+#define XLOADER_ATF_HANDOFF_FORMAT_SIZE		(8U)
+#define XLOADER_ATF_HANDOFF_PRTN_ENTRIES_SIZE	(16U)
 
 /************************** Function Prototypes ******************************/
 
@@ -819,6 +827,65 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function copies the ATF handoff parameter structure to the
+ *          given address.
+ *
+ *  Command payload parameters are:
+ *	- Destination Buffer High Address
+ *	- Destination Buffer Low Address
+ *	- Destination Buffer Size
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_GetATFHandOffParams(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u64 DestAddr;
+	u32 Size;
+	XilPdi_ATFHandoffParams *HandoffParams;
+	u32 HandoffParamsSize = 0x0U;
+
+	DestAddr = (((u64)Cmd->Payload[XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_HIGH_INDEX] <<
+			32U) | (u64)Cmd->Payload[XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_LOW_INDEX]);
+	Size = Cmd->Payload[XLOADER_CMD_GET_HANDOFF_PARAM_DEST_SIZE_INDEX] &
+			XLOADER_GET_HANDOFF_PARAM_SIZE_MASK;
+
+	/* Verify destination address and the size */
+	Status = XPlmi_VerifyAddrRange(DestAddr, (DestAddr + Size - 1U));
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR;
+		goto END;
+	}
+
+	/* Get ATF Handoff parameters structure address */
+	HandoffParams = XLoader_GetATFHandoffParamsAddr();
+
+	HandoffParamsSize = XLOADER_ATF_HANDOFF_FORMAT_SIZE +
+			(HandoffParams->NumEntries * XLOADER_ATF_HANDOFF_PRTN_ENTRIES_SIZE);
+
+	/* Verify the Handoff parameters size */
+	if (Size < HandoffParamsSize) {
+		Status = (int)XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE;
+		goto END;
+	}
+
+	/* Write the ATF handoff parameters data to the given address */
+	Status = XPlmi_MemCpy64(DestAddr, (u64)(UINTPTR)HandoffParams,
+			HandoffParamsSize);
+
+END:
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+	Cmd->Response[XLOADER_RESP_CMD_GET_HANDOFF_PARAM_SIZE_INDEX] =
+			HandoffParamsSize;
+
+	return Status;
+}
+
 /**
  * @{
  * @cond xloader_internal
@@ -884,7 +951,8 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_LoadReadBackPdi),
 	XPLMI_MODULE_COMMAND(XLoader_UpdateMultiboot),
 	XPLMI_MODULE_COMMAND(XLoader_AddImageStorePdi),
-	XPLMI_MODULE_COMMAND(XLoader_RemoveImageStorePdi)
+	XPLMI_MODULE_COMMAND(XLoader_RemoveImageStorePdi),
+	XPLMI_MODULE_COMMAND(XLoader_GetATFHandOffParams)
 };
 
 /*****************************************************************************/
