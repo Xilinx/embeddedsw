@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxidma_selftest.c
-* @addtogroup axidma_v9_13
+* @addtogroup AXIDMA Overview
 * @{
 *
 * Contains diagnostic/self-test functions for the XAxiDma component.
