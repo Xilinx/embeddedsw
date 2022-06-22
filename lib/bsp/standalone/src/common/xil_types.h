@@ -173,8 +173,16 @@ typedef void (*XExceptionHandler) (void *InstancePtr);
  */
 #define LOWER_32_BITS(n) ((u32)(n))
 
-
-
+/**
+ * @brief   Returns 0-31 bits of a number .
+ * @param   n : Number being accessed.
+ * @return  Bits 0-31 of number.
+ */
+#if defined (__aarch64__) || defined (__arch64__)
+#define LEFT_SHIFT_BY_32_BITS(n) (u64)(((u64)n) << 32)
+#else
+#define LEFT_SHIFT_BY_32_BITS(n) 0U
+#endif
 
 /************************** Constant Definitions *****************************/
 
