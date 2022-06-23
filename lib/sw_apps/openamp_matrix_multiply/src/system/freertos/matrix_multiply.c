@@ -67,7 +67,6 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 
 	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
 		ML_INFO("shutdown message is received.\r\n");
-		shutdown_req = 1;
 		return RPMSG_SUCCESS;
 	}
 
@@ -86,7 +85,6 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
 	ML_ERR("Endpoint is destroyed\r\n");
-	shutdown_req = 1;
 }
 
 /*-----------------------------------------------------------------------------*
