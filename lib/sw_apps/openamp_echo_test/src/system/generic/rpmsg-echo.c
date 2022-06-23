@@ -77,7 +77,6 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	/* On reception of a shutdown we signal the application to terminate */
 	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
 		ML_INFO("shutdown message is received.\r\n");
-		shutdown_req = 1;
 		return RPMSG_SUCCESS;
 	}
 
@@ -92,7 +91,6 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
 	ML_INFO("unexpected Remote endpoint destroy\r\n");
-	shutdown_req = 1;
 }
 
 /*-----------------------------------------------------------------------------*
