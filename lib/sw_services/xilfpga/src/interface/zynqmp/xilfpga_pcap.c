@@ -117,6 +117,8 @@
  *                     to provide the access to the xilfpga library to get the
  *                     xilfpga version and supported feature list info.
  * 6.2 Nava  01/19/22  Added build time flag to skip eFUSE checks.
+ * 6.3 Nava  06/22/22  Skip eFUSE checks to allow xilfpga to load non-secure
+ *                     bitstream in secure boot platform.
  *
  * </pre>
  *
@@ -405,7 +407,12 @@ static u32 XFpga_ValidateBitstreamImage(XFpga *InstancePtr)
 			InstancePtr->WriteInfo.Flags &=
 				~(XFPGA_AUTHENTICATION_DDR_EN |
 				  XFPGA_AUTHENTICATION_OCM_EN);
+#ifdef XFPGA_SKIP_EFUSE_CHECK
+		} else if ((Status != XSECURE_AUTH_NOT_ENABLED) &&
+			   (Status != XSECURE_AUTH_ISCOMPULSORY)) {
+#else
 		} else if (Status != XSECURE_AUTH_NOT_ENABLED) {
+#endif
 			Status = XFPGA_PCAP_UPDATE_ERR(XFPGA_ERROR_HDR_AUTH, Status);
 			goto END;
 		} else {
