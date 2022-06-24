@@ -93,6 +93,8 @@
 *       bsv  10/26/2021 Code clean up
 *       bsv  03/17/2022 Add support for A72 elfs to run from TCM
 * 1.05  ma   06/21/2022 Add support for Get Handoff Parameters IPI command
+*       sk   06/24/2022 Removed bit field from XLoader_ImageInfoTbl to avoid
+*                       compiler or portability issues
 *
 * </pre>
 *
@@ -387,8 +389,8 @@ typedef struct {
 } XLoader_ImageInfo;
 
 typedef struct {
-	u32 Count:31;
-	u32 IsBufferFull:1;
+	u32 Count;
+	u8 IsBufferFull;
 } XLoader_ImageInfoTbl;
 
 typedef struct {
