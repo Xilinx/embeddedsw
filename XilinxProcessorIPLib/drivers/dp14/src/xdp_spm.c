@@ -1463,27 +1463,29 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	double Target_Average_StreamSymbolTimeSlotsPerMTP;
 	double MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP;
 	u32 TsInt;
-	u32 TsFrac;
+	double TsFrac;
+	double pbn;
 
 	PeakPixelBw = ((double)MsaConfig->PixelClockHz / 1000000) *
 						((double)BitsPerPixel / 8);
 	LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 
+	pbn = (double)((double)PeakPixelBw / ((double)54 / 64));
 	/* Calculate the payload bandwidth number (PBN).  */
-	InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn =
-					1.006 * PeakPixelBw * ((double)64 / 54);
+	InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn = (double)
+					1.006 * pbn;
+
 	/* Ceil - round up if required, avoiding overhead of math.h. */
-	if ((double)(1.006 * PeakPixelBw * ((double)64 / 54)) >
-			((double)InstancePtr->TxInstance.MstStreamConfig[
-			Stream - 1].MstPbn)) {
+	if ((double)(1.006 * pbn) >
+			InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn) {
 		InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn++;
 	}
 
 	/* Calculate the average stream symbol time slots per MTP. */
-	Average_StreamSymbolTimeSlotsPerMTP = (64.0 * PeakPixelBw / LinkBw);
-	MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (54.0 *
-		((double)InstancePtr->TxInstance.MstStreamConfig[Stream - 1].
-		MstPbn / LinkBw));
+	Average_StreamSymbolTimeSlotsPerMTP = (double)((double)PeakPixelBw / LinkBw * 64);
+	MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (double)(54.0 *
+		((double)InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn
+				/ LinkBw));
 
 	/* The target value to be found needs to follow the condition:
 	 *	Average_StreamSymbolTimeSlotsPerMTP <=
@@ -1492,6 +1494,7 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	 * Obtain the greatest target value that satisfies the above condition
 	 * and still a multiple of 1/TsFrac_Denominator.
 	 * Note: TsFrac_Denominator = 8. */
+
 	/* Round down. */
 	Target_Average_StreamSymbolTimeSlotsPerMTP =
 				(u32)Average_StreamSymbolTimeSlotsPerMTP;
@@ -1502,8 +1505,9 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 
 	/* Determine the integer and the fractional part of the number of time
 	 * slots that will be allocated for the stream. */
+
 	TsInt = Target_Average_StreamSymbolTimeSlotsPerMTP;
-	TsFrac = (((double)Target_Average_StreamSymbolTimeSlotsPerMTP * 1000) -
+	TsFrac = (((double)(Target_Average_StreamSymbolTimeSlotsPerMTP * 1000)) -
 								(TsInt * 1000));
 
 	/* Store TsInt and TsFrac in AvgBytesPerTU. */
@@ -1520,16 +1524,10 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 		/* Set to a multiple of 4 boundary. */
 		MsaConfig->TransferUnitSize += (4 -
 					(MsaConfig->TransferUnitSize % 4));
-	}
-	else if ((MsaConfig->TransferUnitSize % 2) != 0) {
+	} else if ((MsaConfig->TransferUnitSize % 2) != 0) {
 		/* Set to an even boundary. */
 		MsaConfig->TransferUnitSize++;
 	}
-
-	/* Determine the PBN for the stream. */
-	InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn =
-			MsaConfig->TransferUnitSize *
-			(LinkConfig->LaneCount * LinkConfig->LinkRate / 2);
 }
 
 /******************************************************************************/
