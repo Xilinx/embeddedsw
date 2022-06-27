@@ -883,7 +883,7 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 		double MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP;
 		u32 TsInt;
 		u32 TsFrac;
-		u16 Pbn;
+		double Pbn;
 
 		if (VidMode != XVIDC_VM_CUSTOM){
 			PeakPixelBw =
@@ -896,17 +896,17 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 					0].PixelClockHz / 1000000) *
 					((double)BitsPerPixel / 8);
 		}
+		/*PBN Value Calculation by a Source Device Payload Bandwidth Manager,
+		 * The PBN value has the unit of 54/64MBps.
+		 */
+		Pbn = (double)((double)PeakPixelBw / ((double)54 / 64));
 
-		Pbn = 1.006 * PeakPixelBw * ((double)64 / 54);
-
-		if ((double)(1.006 * PeakPixelBw * ((double)64 / 54)) >
-							((double)Pbn)) {
+		if ((double)(1.006 * Pbn) > (int)Pbn)
 			Pbn++;
-		}
 
-		Average_StreamSymbolTimeSlotsPerMTP = (64.0 * PeakPixelBw /
-								LinkBw);
-		MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (54.0 *
+		/*VC Payload Size Determination by a Source Payload Bandwidth Manager*/
+		Average_StreamSymbolTimeSlotsPerMTP = (double)((double)PeakPixelBw / LinkBw * 64);
+		MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (double)(54.0 *
 						((double)Pbn / LinkBw));
 
 		Target_Average_StreamSymbolTimeSlotsPerMTP =
