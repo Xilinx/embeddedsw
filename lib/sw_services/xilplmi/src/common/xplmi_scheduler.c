@@ -41,6 +41,8 @@
 *       bsv  04/03/2022 Updated logic in XPlmi_SchedulerAddTask to fix subsystem
 *                       restart issue
 * 1.06  skg  06/20/2022 Misra-C violation Rule 10.4 fixed
+*       sk   06/27/2022 Updated logic in XPlmi_SchedulerAddTask to fix task
+*                       creation error
 *
 * </pre>
 *
@@ -248,6 +250,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	u8 Idx;
 	u32 TriggerTime = 0U;
 	XPlmi_TaskNode *Task = NULL;
+	u8 TaskNodePresent = (u8)FALSE;
 
 	if ((TaskType !=  XPLMI_PERIODIC_TASK) &&
 		(TaskType != XPLMI_NON_PERIODIC_TASK)) {
@@ -266,6 +269,9 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_TASK_EXISTS, 0);
 			goto END;
 		}
+		else {
+			TaskNodePresent = (u8)TRUE;
+		}
 	}
 
 	/* Get the Next Free Task Index */
@@ -278,7 +284,11 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 			Sched.TaskList[Idx].ErrorFunc = ErrorFunc;
 			Sched.TaskList[Idx].Type = TaskType;
 			Sched.TaskList[Idx].Data = Data;
-			Task = XPlmi_TaskCreate(Priority, CallbackFn, Data);
+			/* Create a new task if task instance not found */
+			if (TaskNodePresent == (u8)FALSE) {
+				Task = XPlmi_TaskCreate(Priority, CallbackFn, Data);
+			}
+
 			if (Task == NULL) {
 				Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
 				XPlmi_Printf(DEBUG_GENERAL, "Task Creation "
