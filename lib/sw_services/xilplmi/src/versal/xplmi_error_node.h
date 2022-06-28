@@ -25,6 +25,8 @@
 * 1.05  bsv  12/24/2021 Move common defines from xilplmi and xilpm to common
 *                       folder
 *       ma   01/17/2022 Add exceptions to SW errors list
+* 1.06  rama 06/28/2022 Added XilSem error IDs to support software event
+*                       notification
 *
 * </pre>
 *
@@ -194,8 +196,13 @@ typedef enum {
 #define XPLMI_ERROR_HB_MON_2		(0x82U)
 #define XPLMI_ERROR_HB_MON_3		(0x83U)
 #define XPLMI_ERROR_PLM_EXCEPTION	(0x84U)
-#define XPLMI_ERROR_SW_ERR_MAX		(0x85U)
 
+/* XilSem CE & UE errors */
+#define XPLMI_ERROR_CRAM_CE			(0x85U)
+#define XPLMI_ERROR_CRAM_UE			(0x86U)
+#define XPLMI_ERROR_NPI_UE			(0x87U)
+
+#define XPLMI_ERROR_SW_ERR_MAX		(0x88U)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
