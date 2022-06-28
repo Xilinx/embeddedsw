@@ -36,6 +36,7 @@
 *       sk  08/08/19 Issue device reset to bring back to default state.
 * 1.3   sk  05/27/20 Added Stacked mode support.
 * 1.4   sk  02/18/21 Added support for Macronix flash and DualByte commands.
+* 1.7   sk  06/28/22 Added Block Protection test for Micron flash.
 *
 *</pre>
 *
@@ -98,6 +99,8 @@ int FlashRegisterWrite(XOspiPsv *OspiPsvPtr, u32 ByteCount, u8 Command,
 s32 InitCmd(XOspiPsv *OspiPsvInstancePtr);
 int FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, int Enable);
 int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode);
+int SetBlockProtect(XOspiPsv *OspiPsvPtr, u8 BlockProtectionVal, u8 IsBottom);
+int MicronBlockProtectTest(XOspiPsv *OspiPsvPtr);
 
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
@@ -333,6 +336,13 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 		if (ReadBuffer[Count] != (u8)(UniqueValue + Test)) {
 			return XST_FAILURE;
 		}
+	}
+
+	if (FlashMake == MICRON_OCTAL_ID_BYTE0) {
+		xil_printf("MICRON Block Protection Test \r\n");
+		Status = MicronBlockProtectTest(OspiPsvInstancePtr);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
 	}
 
 	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
@@ -1485,4 +1495,227 @@ u32 GetRealAddr(XOspiPsv *OspiPsvPtr, u32 Address)
 	(void)XOspiPsv_SelectFlash(OspiPsvPtr, Chip_Sel);
 
 	return RealAddr;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function test the Block Protect feature for Micron flash by enabling
+ * the write protect for the first sector.
+ *
+ * @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use
+ *
+ * @return	XST_SUCCESS or XST_FAILURE.
+ *
+ * @note	This function is tested with the Micron device(MT35XU02G).
+ *
+ ******************************************************************************/
+int MicronBlockProtectTest(XOspiPsv *OspiPsvInstancePtr)
+{
+	int Status;
+	int Page;
+	int Count;
+	u8 UniqueValue;
+	int ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE);
+
+	Status = FlashErase(OspiPsvInstancePtr, TEST_ADDRESS, MaxData, CmdBfr);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	/* Enable Block Protection for first sector from top */
+	Status = SetBlockProtect(OspiPsvInstancePtr, 0x1, 1);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	if (XOspiPsv_GetOptions(OspiPsvInstancePtr) == XOSPIPSV_DAC_EN_OPTION) {
+		xil_printf("WriteCmd: 0x%x\n\r", (u8)(Flash_Config_Table[FCTIndex].WriteCmd >> 8));
+		Status = FlashLinearWrite(OspiPsvInstancePtr, TEST_ADDRESS,
+		(Flash_Config_Table[FCTIndex].PageSize * PAGE_COUNT), WriteBuffer);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+	} else {
+		xil_printf("WriteCmd: 0x%x\n\r", (u8)Flash_Config_Table[FCTIndex].WriteCmd);
+		for (Page = 0; Page < PAGE_COUNT; Page++) {
+			Status = FlashIoWrite(OspiPsvInstancePtr,
+			(Page * Flash_Config_Table[FCTIndex].PageSize) + TEST_ADDRESS,
+			((Flash_Config_Table[FCTIndex].PageSize)), WriteBuffer);
+			if (Status != XST_SUCCESS)
+				return XST_FAILURE;
+		}
+	}
+	for (Count = 0; Count < ReadBfrSize; Count++) {
+		ReadBuffer[Count] = 0;
+	}
+
+	Status = FlashRead(OspiPsvInstancePtr, TEST_ADDRESS, MaxData,
+			CmdBfr, ReadBuffer);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	/*
+	 * Check for 0xFF as write operation is protected.
+	 */
+	for (UniqueValue = UNIQUE_VALUE, Count = 0; Count < MaxData;
+		 Count++, UniqueValue++) {
+		if (ReadBuffer[Count] != 0xFF) {
+			return XST_FAILURE;
+		}
+	}
+
+	/* Disable Block Protection */
+	Status = SetBlockProtect(OspiPsvInstancePtr, 0x0, 0);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function set the Block Protect bits in the Status register of the
+ * device. User has to pass the BP bits[3:0] value as an argument to this
+ * function. This function reads the status register and set the corresponding
+ * BP bits as requested by the user and write back the status register.
+ *
+ * @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
+ * @param	BlockProtectionVal Block protection bits value (4-bit value).
+ * @param	IsBottom Indicates whether the protected memory area defined by the
+ *          block protect bits starts from the top or bottom of the memory.
+ *
+ * @return	XST_SUCCESS or XST_FAILURE.
+ *
+ * @note	This function is tested with the Micron device(MT35XU02G).
+ *
+ ******************************************************************************/
+int SetBlockProtect(XOspiPsv *OspiPsvPtr, u8 BlockProtectionVal, u8 IsBottom)
+{
+	int Status;
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8 FlashStatus[2];
+#else
+	u8 FlashStatus[2] __attribute__ ((aligned(4)));
+#endif
+
+	FlashMsg.Opcode = READ_STATUS_CMD;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = FlashStatus;
+	FlashMsg.ByteCount = 1;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+	FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+		FlashMsg.ByteCount = 2;
+		FlashMsg.Dummy += 8;
+	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	if (IsBottom) {
+		if (BlockProtectionVal & 0x8)
+			BlockProtectionVal |= (1 << 4);
+		else
+			BlockProtectionVal |= (1 << 3);
+	} else {
+		if (BlockProtectionVal & 0x8) {
+			BlockProtectionVal &= ~0x8;
+			BlockProtectionVal |= (1 << 4);
+		}
+	}
+
+	FlashStatus[0] &= ~MICRON_BP_BITS_MASK;
+	FlashStatus[0] |= (BlockProtectionVal << 2);
+	FlashStatus[1] = FlashStatus[0];
+
+	FlashMsg.Opcode = WRITE_ENABLE_CMD;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = NULL;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 0;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = 0;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_0;
+	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	FlashMsg.Opcode = WRITE_STATUS_CMD;
+	FlashMsg.Addrsize = 0;
+	FlashMsg.Addrvalid = 0;
+	FlashMsg.TxBfrPtr = FlashStatus;
+	FlashMsg.RxBfrPtr = NULL;
+	FlashMsg.ByteCount = 1;
+	FlashMsg.Flags = XOSPIPSV_MSG_FLAG_TX;
+	FlashMsg.Dummy = 0;
+	FlashMsg.IsDDROpCode = 0;
+	FlashMsg.Proto = XOSPIPSV_WRITE_1_0_1;
+	if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+		FlashMsg.Proto = XOSPIPSV_WRITE_8_0_8;
+		FlashMsg.ByteCount = 2;
+	}
+
+	if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
+	Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	while (1) {
+		FlashMsg.Opcode = Flash_Config_Table[FCTIndex].StatusCmd;
+		FlashMsg.Addrsize = 0;
+		FlashMsg.Addrvalid = 0;
+		FlashMsg.TxBfrPtr = NULL;
+		FlashMsg.RxBfrPtr = FlashStatus;
+		FlashMsg.ByteCount = 1;
+		FlashMsg.Flags = XOSPIPSV_MSG_FLAG_RX;
+		FlashMsg.Dummy = OspiPsvPtr->Extra_DummyCycle;
+		FlashMsg.IsDDROpCode = 0;
+		FlashMsg.Proto = 0;
+		FlashMsg.Addr = 0;
+		if (OspiPsvPtr->SdrDdrMode == XOSPIPSV_EDGE_MODE_DDR_PHY) {
+			FlashMsg.Proto = XOSPIPSV_READ_8_0_8;
+			FlashMsg.ByteCount = 2;
+			FlashMsg.Dummy += 8;
+		}
+
+		if (OspiPsvPtr->DualByteOpcodeEn != 0U)
+			FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
+
+		Status = XOspiPsv_PollTransfer(OspiPsvPtr, &FlashMsg);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		if (FSRFlag) {
+			if ((FlashStatus[0] & 0x80) != 0) {
+				break;
+			}
+		} else {
+			if ((FlashStatus[0] & 0x01) == 0) {
+				break;
+			}
+		}
+	}
+
+	return Status;
 }
