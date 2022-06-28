@@ -365,7 +365,7 @@ void XCsiSs_SetVCSelection(XCsiSs *InstancePtr, u16 Value)
 	if(((!InstancePtr->Config.EnableVCx) && (InstancePtr->Config.VcNo != XCSI_V10_MAX_VC)) ||
 			((InstancePtr->Config.EnableVCx) && (InstancePtr->Config.VcNo != XCSI_V20_MAX_VC))) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: To support dynamic VC Selection,"
-				" User has to select 'Allowed VC to all' in IP Configuration." \n\r");
+				" User has to select 'Allowed VC to all' in IP Configuration. \n\r");
 		return;
 	}
 
@@ -391,7 +391,7 @@ u32 XCsiSs_GetVCSelection(XCsiSs *InstancePtr)
 	if(((!InstancePtr->Config.EnableVCx) && (InstancePtr->Config.VcNo != XCSI_V10_MAX_VC)) ||
 			((InstancePtr->Config.EnableVCx) && (InstancePtr->Config.VcNo != XCSI_V20_MAX_VC))) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"CSISS ERR:: To support dynamic VC Selection,"
-				" User has to select 'Allowed VC to all' in IP Configuration." \n\r");
+				" User has to select 'Allowed VC to all' in IP Configuration. \n\r");
 		return 0;
 	}
 
