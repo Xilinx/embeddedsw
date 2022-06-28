@@ -87,6 +87,8 @@
 * 1.08  ma   05/10/2022 Added PLM to PLM communication feature
 *       ma   06/01/2022 Added PLM Print Log as new error action
 *       bsv  06/10/2022 Add CommandInfo to a separate section in elf
+*       rama 06/28/2022 Added new entries in ErrorTable to support XilSem
+*                       events
 *
 * </pre>
 *
@@ -527,6 +529,12 @@ static struct XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_HB_MON_3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PLM_EXCEPTION] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_CRAM_CE] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_CRAM_UE] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_NPI_UE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
