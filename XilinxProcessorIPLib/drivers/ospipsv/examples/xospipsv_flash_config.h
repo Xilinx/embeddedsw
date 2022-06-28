@@ -27,6 +27,7 @@
 *       sk  05/18/20 Added support for gigadevice and ISSI parts.
 *       sk  06/22/20 Fixed Sector Mask value for Micron and ISSI.
 *       sk  02/18/21 Added support for Macronix flash.
+* 1.7   sk  06/28/22 Added Block Protection test for Micron flash.
 *
 *</pre>
 *
@@ -90,6 +91,8 @@
 #define GIGADEVICE_OCTAL_ID_BYTE0	0xc8
 #define ISSI_OCTAL_ID_BYTE0		0x9d
 #define MACRONIX_OCTAL_ID_BYTE0		0xc2
+
+#define MICRON_BP_BITS_MASK		0x7C
 
 /**************************** Type Definitions *******************************/
 
