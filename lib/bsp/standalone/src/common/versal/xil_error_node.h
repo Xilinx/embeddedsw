@@ -17,6 +17,7 @@
 * ----- -------- -------- -----------------------------------------------------
 * 7.7   bsv      12/22/2021 Initial release
 *       ma       01/17/2022 Add PLM exceptions to SW errors list
+* 7.8   rama     06/28/2022 Add XilSem errors to SW error events
 *
 * </pre>
 *
@@ -465,6 +466,10 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_HB_MON_2		(0x00000004U)
 #define XIL_EVENT_ERROR_MASK_HB_MON_3		(0x00000008U)
 #define XIL_EVENT_ERROR_MASK_PLM_EXCEPTION	(0x00000010U)
+/** XilSem errors */
+#define XIL_EVENT_ERROR_MASK_XSEM_CRAM_CE	(0x00000020U)
+#define XIL_EVENT_ERROR_MASK_XSEM_CRAM_UE	(0x00000040U)
+#define XIL_EVENT_ERROR_MASK_XSEM_NPI_UE	(0x00000080U)
 /**
  * @}
  */
