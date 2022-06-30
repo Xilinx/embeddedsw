@@ -49,6 +49,9 @@ extern "C" {
 #define GENMASK(h, l) \
 	(((~0ULL) << (l)) & (~0ULL >> (BITSPERLONGLONG - 1U - (h))))
 
+/* PCI Express hardcore configuration register offset */
+#define XPCIEPSU_PCIE_CORE_OFFSET               0x0U
+
 /* Bridge core config registers */
 #define XPCIEPSU_BRCFG_RX0			0x00000000U
 #define XPCIEPSU_BRCFG_RX_MSG_FILTER 		0x00000020U
@@ -58,6 +61,7 @@ extern "C" {
 #define XPCIEPSU_E_BREG_CONTROL 		0x00000208U
 #define XPCIEPSU_E_BREG_BASE_LO 		0x00000210U
 #define XPCIEPSU_E_BREG_BASE_HI 		0x00000214U
+
 #define XPCIEPSU_E_ECAM_CAPABILITIES 		0x00000220U
 #define XPCIEPSU_E_ECAM_CONTROL 		0x00000228U
 #define XPCIEPSU_E_ECAM_BASE_LO 		0x00000230U
