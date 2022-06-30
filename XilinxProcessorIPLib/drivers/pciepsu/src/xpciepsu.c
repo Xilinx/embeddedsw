@@ -437,6 +437,69 @@ End:
 	return Ret;
 }
 
+/****************************************************************************/
+/**
+* Read 32-bit value from one of this IP own configuration space.
+* Location is identified by its offset from the beginning of the
+* configuration space.
+*
+* @param 	InstancePtr is the XPciePsu instance to operate on.
+* @param 	Offset from beginning of IP own configuration space.
+* @param 	DataPtr is a pointer to a variable where the driver will pass
+* 		back the value read from the specified location.
+*
+* @return	XST_SUCCESS on success
+*		XST_FAILURE on failure.
+*
+* @note 	None
+*
+*****************************************************************************/
+u8 XPciePsu_ReadLocalConfigSpace(XPciePsu *InstancePtr, u16 Offset,
+					u32 *DataPtr)
+{
+	u8 Ret = XST_SUCCESS;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(DataPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	*DataPtr = XPciePsu_ReadReg((InstancePtr->Config.Ecam),
+			(XPCIEPSU_PCIE_CORE_OFFSET + ((u32) (Offset * 4))));
+
+	return Ret;
+}
+
+/****************************************************************************/
+/**
+* Write 32-bit value to one of this IP own configuration space.
+* Location is identified by its offset from the begginning of the
+* configuration space.
+*
+* @param 	InstancePtr is the PCIe component to operate on.
+* @param 	Offset from beggininng of IP own configuration space.
+* @param 	Data to be written to the specified location.
+*
+* @return	XST_SUCCESS on success
+*		XST_FAILURE on failure.
+*
+* @note 	This function is valid only when IP is configured as a
+*		root complex.
+*
+*****************************************************************************/
+u8 XPciePsu_WriteLocalConfigSpace(XPciePsu *InstancePtr, u16 Offset,
+					u32 Data)
+{
+	u8 Ret = XST_SUCCESS;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	XPciePsu_WriteReg((InstancePtr->Config.Ecam),
+		(XPCIEPSU_PCIE_CORE_OFFSET + ((u32) (Offset * 4))), Data);
+
+	return Ret;
+}
+
 static u32 XPciePsu_PositionRightmostSetbit(u64 Size)
 {
 	u32 Position = 0U;

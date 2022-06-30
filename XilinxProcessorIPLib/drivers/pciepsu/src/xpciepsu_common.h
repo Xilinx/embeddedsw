@@ -38,6 +38,15 @@ extern "C" {
 /* Bus master enable */
 #define XPCIEPSU_CFG_CMD_BUSM_EN	0x00000004U
 
+/* I/O access enable */
+#define XPCIEPSU_CFG_CMD_IO_EN		0x00000001U
+
+/* Parity errors response */
+#define XPCIEPSU_CFG_CMD_PARITY_EN	0x00000040U
+
+/* SERR report enable */
+#define XPCIEPSU_CFG_CMD_SERR_EN	0x00000100U
+
 /* PCIe Configuration registers offsets */
 
 /* Vendor ID/Device ID offset */

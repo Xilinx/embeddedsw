@@ -111,8 +111,8 @@ int main(void)
 int PcieInitRootComplex(XPciePsu *PciePsuPtr, u16 DeviceId)
 {
 	int Status;
-
 	const XPciePsu_Config *ConfigPtr;
+	u32 HeaderData;
 
 	ConfigPtr = XPciePsu_LookupConfig(DeviceId);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -131,6 +131,33 @@ int PcieInitRootComplex(XPciePsu *PciePsuPtr, u16 DeviceId)
 			"Instance\r\n");
 		return XST_FAILURE;
 	}
+
+	/* Set up the PCIe header of this Root Complex */
+	Status = XPciePsu_ReadLocalConfigSpace(PciePsuPtr,
+				      XPCIEPSU_CFG_CMD_STATUS_REG, &HeaderData);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed to Read PCIe Root Complex Config Status Reg\r\n");
+		return XST_FAILURE;
+	}
+	HeaderData |= (XPCIEPSU_CFG_CMD_BUSM_EN | XPCIEPSU_CFG_CMD_MEM_EN |
+		       XPCIEPSU_CFG_CMD_IO_EN | XPCIEPSU_CFG_CMD_PARITY_EN |
+		       XPCIEPSU_CFG_CMD_SERR_EN);
+	Status = XPciePsu_WriteLocalConfigSpace(PciePsuPtr,
+				       XPCIEPSU_CFG_CMD_STATUS_REG, HeaderData);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed to Write to PCIe Root Complex Config Status Reg\r\n");
+		return XST_FAILURE;
+	}
+
+	/* Read back local config reg to verify the write. */
+	Status = XPciePsu_ReadLocalConfigSpace(PciePsuPtr,
+				      XPCIEPSU_CFG_CMD_STATUS_REG, &HeaderData);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed to Read PCIe Root Complex Config Status Reg\r\n");
+		return XST_FAILURE;
+	}
+	xil_printf("PCIe Local Config Space is 0x%x at register"
+					" CommandStatus\r\n", HeaderData);
 
 	return XST_SUCCESS;
 }

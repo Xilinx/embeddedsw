@@ -106,6 +106,10 @@ u8 XPciePsu_ReadConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				    u8 Function, u16 Offset, u32 *DataPtr);
 u8 XPciePsu_WriteConfigSpace(XPciePsu *InstancePtr, u8 Bus, u8 Device,
 				     u8 Function, u16 Offset, u32 Data);
+u8 XPciePsu_ReadLocalConfigSpace(XPciePsu *InstancePtr, u16 Offset,
+					u32 *DataPtr);
+u8 XPciePsu_WriteLocalConfigSpace(XPciePsu *InstancePtr, u16 Offset,
+					u32 Data);
 u32 XPciePsu_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 					  u16 Offset);
 
