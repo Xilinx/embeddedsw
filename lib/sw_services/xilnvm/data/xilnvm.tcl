@@ -21,10 +21,14 @@ proc nvm_drc {libhandle} {
 	set mode [common::get_property CONFIG.mode $libhandle]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
-	set srddir "src/bbram/"
-	set common "src/common/"
-	set server "src/server/"
-	set client "src/client/"
+
+	set versal_dir "./src/versal"
+	set versal_client_dir "$versal_dir/client"
+	set versal_server_dir "$versal_dir/server"
+	set versal_common_dir "$versal_dir/common"
+	set common_dir "./src/common"
+	set common_client_dir "$common_dir/client"
+	set common_server_dir "$common_dir/server"
 
 	if {$proc_type != "psu_pmc" && $proc_type != "psu_cortexa72" && \
 	    $proc_type != "psv_pmc" && $proc_type != "psv_cortexa72" && \
@@ -41,31 +45,51 @@ proc nvm_drc {libhandle} {
 		return;
 	}
 
-	foreach entry [glob -nocomplain -types f [file join $common *]] {
-			file copy -force $entry "./src"
-	}
+	if {$mode == "client" &&  $proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+                $proc_type == "psv_cortexr5" || $proc_type == "microblaze" ||
+                $proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||
+                $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
+                set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
+                if { [llength $librarylist] == 0 } {
+                        error "This library requires xilmailbox library in the Board Support Package.";
+                }
+        }
 
-	if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $mode == "server"} {
-		foreach entry [glob -nocomplain -types f [file join "$server" *]] {
-			file copy -force $entry "./src"
-		}
-	} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-		$proc_type == "psv_cortexr5" || $proc_type == "microblaze" ||
-		$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||
-		$proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
-		set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
-		if { [llength $librarylist] == 0 } {
-			error "This library requires xilmailbox library in the Board Support Package.";
-		}
-		foreach entry [glob -nocomplain -types f [file join "$client" *]] {
-			file copy -force $entry "./src"
-		}
-	}
+	switch $proc_type {
+		"psu_pmc" -
+		"psv_pmc" -
+		"psxl_pmc" -
+		"psx_pmc" {
+			copy_files_to_src $common_server_dir
+			copy_files_to_src $versal_server_dir
+			copy_files_to_src $versal_common_dir
+                }
+
+		"psu_cortexa72" -
+		"psv_cortexa72" -
+		"psxl_cortexa78" -
+		"psx_cortexa78" -
+		"psxl_cortexr52" -
+		"psx_cortexr52" -
+		"psv_cortexr5" -
+                "microblaze" {
+			if {$mode == "server"} {
+				copy_files_to_src $common_server_dir
+				copy_files_to_src $versal_server_dir
+				copy_files_to_src $versal_common_dir
+			} else {
+				copy_files_to_src $common_client_dir
+				copy_files_to_src $versal_client_dir
+				copy_files_to_src $versal_common_dir
+			}
+                }
+        }
+
 	if {$mode == "server"} {
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
-		$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
-		$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
-		$proc_type == "psx_cortexr52"} {
+			$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
+			$proc_type == "psx_cortexa78" || $proc_type == "psxl_cortexr52" ||
+			$proc_type == "psx_cortexr52"} {
 			file delete -force ./src/xnvm_bbram_ipihandler.c
 			file delete -force ./src/xnvm_bbram_ipihandler.h
 			file delete -force ./src/xnvm_efuse_ipihandler.c
@@ -80,6 +104,12 @@ proc nvm_drc {libhandle} {
 
 proc generate {libhandle} {
 
+}
+
+proc copy_files_to_src {dir_path} {
+        foreach entry [glob -nocomplain [file join $dir_path *]] {
+                file copy -force $entry "./src"
+        }
 }
 
 #-------

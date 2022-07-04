@@ -94,8 +94,9 @@ BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpm/src/ve
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilnvm/src/Makefile"
 mkdir -p $BSP_DIR/libsrc/xilnvm/src
 cp -r $SERVICES_DIR/xilnvm/src/Makefile $BSP_DIR/libsrc/xilnvm/src
-cp -r $SERVICES_DIR/xilnvm/src/common/* $BSP_DIR/libsrc/xilnvm/src/
-cp -r $SERVICES_DIR/xilnvm/src/server/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/versal/common/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/versal/server/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/common/server/* $BSP_DIR/libsrc/xilnvm/src/
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src
@@ -111,8 +112,9 @@ BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilsecure/sr
 
 mkdir -p $BSP_DIR/libsrc/xilnvm/src
 cp -r $SERVICES_DIR/xilnvm/src/Makefile $BSP_DIR/libsrc/xilnvm/src
-cp -r $SERVICES_DIR/xilnvm/src/common/* $BSP_DIR/libsrc/xilnvm/src/
-cp -r $SERVICES_DIR/xilnvm/src/server/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/versal/common/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/versal/server/* $BSP_DIR/libsrc/xilnvm/src/
+cp -r $SERVICES_DIR/xilnvm/src/common/server/* $BSP_DIR/libsrc/xilnvm/src/
 cp $BSP_DIR/libsrc/xilnvm/src/*.h $BSP_DIR/include/
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilnvm/src/Makefile"
 
