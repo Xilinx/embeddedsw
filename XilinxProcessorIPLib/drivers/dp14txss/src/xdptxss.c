@@ -1219,6 +1219,29 @@ u32 XDpTxSs_IsMstCapable(XDpTxSs *InstancePtr)
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ *
+ * This function returns number of downstream MST sink devices enumerated and available for
+ * payload allocation .
+ *
+ * @param	InstancePtr is a pointer to the XDpTxSs core instance.
+ *
+ * @return
+ *		- Number of MST sinks to be enabled for payload allocation
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u8 XDpTxSs_GetNumOfMstStreams(XDpTxSs *InstancePtr)
+{
+		/* Verify argument.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Return number of mst streams to be enabled*/
+	return InstancePtr->DpPtr->TxInstance.NumOfMstStreams;
+}
+
 /******************************************************************************/
 /**
  * This function will check if the immediate downstream RX device capable
