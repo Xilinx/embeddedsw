@@ -102,6 +102,14 @@ extern "C" {
 	PACK_PAYLOAD(Payload, HEADER(5UL, ApiId), Arg1, \
 	Arg2, Arg3, Arg4, 0, 0, 0)
 
+/* For Payload with API Id + 5 Args */
+#define PACK_PAYLOAD6(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
+		PACK_PAYLOAD(Payload, HEADER(6UL, ApiId), Arg1, \
+		Arg2, Arg3, Arg4, Arg5, 0, 0)
+
+/** Right shifts the masked bits of Addr */
+#define XSem_DataMaskShift(Addr, Mask, Shift)	((Addr&Mask)>>Shift)
+
 XStatus XSem_IpiPlmRespMsg(XIpiPsu *IpiInst,u32 RespMsg[RESPONSE_ARG_CNT]);
 XStatus XSem_IpiSendReqPlm(XIpiPsu *IpiInst, u32 Payload[PAYLOAD_ARG_CNT]);
 

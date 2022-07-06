@@ -40,6 +40,7 @@
 * 1.7   hb   01/27/2022   Added define for NPI self-diagnosis event
 * 1.8   hb   02/07/2022   Updated Structure information for Doxygen
 * 1.9   hb   03/07/2022   Updated comments
+* 3.0   hb   07/03/2022   Added SSIT macros and function prototypes
 * </pre>
 *
 * @note
@@ -55,6 +56,9 @@
 extern "C" {
 #endif
 
+/* Enabled below define to enable support for SSIT */
+//#define XILSEM_ENABLE_SSIT
+
 /* CRAM Commands Acknowledgment IDs */
 /** CRAM Initialization Acknowledgment ID */
 #define CMD_ACK_CFR_INIT		(0x00010301U)
@@ -66,6 +70,8 @@ extern "C" {
 #define CMD_ACK_CFR_NJCT_ERR		(0x00010304U)
 /** SEM Read Frame ECC Acknowledgment ID */
 #define CMD_ACK_SEM_READ_FRAME_ECC	(0x0003030AU)
+/** SEM Read Golden CRC Acknowledgment ID */
+#define CMD_ACK_CFR_GET_GLDN_CRC	(0x0001030CU)
 
 /* NPI Commands Acknowledgment ID */
 /** NPI Start Scan Acknowledgment ID */
@@ -147,6 +153,9 @@ extern "C" {
 
 /** Command ID for SEM Get Configuration */
 #define CMD_ID_SEM_GET_CONFIG		(0x09U)
+
+/** Command ID for SEM Get Configuration for SSIT devices*/
+#define CMD_ID_SEM_GET_CRC			(0x0CU)
 
 /** Total number of possible descriptors in NPI scan */
 #define NPI_MAX_DESCRIPTORS	(50U)
@@ -351,6 +360,45 @@ information: Contains descriptor attributes and golden SHA value */
 #define XSEM_EVENT_ENABLE	(0x1U)
 /** SEM Event Notification Disable */
 #define XSEM_EVENT_DISABLE	(0x0U)
+/* Maximum number of SLRs on SSIT device */
+#define XSEM_SSIT_MAX_SLR_CNT	(4U)
+
+/**
+ * The below definitions are used for decoding response from
+ * PLM during particular SLR failure
+ */
+/* SSIT master SLR mask */
+#define XSEM_SSIT_MASTER_SLR_MASK		(0x1U)
+/* SSIT slave SLR0 mask */
+#define XSEM_SSIT_SLAVE_SLR0_MASK		(0x2U)
+/* SSIT slave SLR1 mask */
+#define XSEM_SSIT_SLAVE_SLR1_MASK		(0x4U)
+/* SSIT slave SLR2 mask */
+#define XSEM_SSIT_SLAVE_SLR2_MASK		(0x8U)
+/* SSIT all slave SLR mask */
+#define XSEM_SSIT_ALL_SLAVE_SLRS_MASK	(0xEU)
+/* SSIT all SLR mask */
+#define XSEM_SSIT_ALL_SLRS_MASK			(0xFU)
+
+/* SSIT Check SLR mask */
+#define XSEM_SSIT_SLR_CHECK_MASK	(0x00000001U)
+
+/**
+ * The below definitions are used for targeting SLRs while
+ * sending commands
+ */
+/* SSIT master SLR index */
+#define XSEM_SSIT_MASTER_SLR_ID		(0x0U)
+/* SSIT slave SLR0 index */
+#define XSEM_SSIT_SLAVE0_SLR_ID		(0x1U)
+/* SSIT slave SLR1 index */
+#define XSEM_SSIT_SLAVE1_SLR_ID		(0x2U)
+/* SSIT slave SLR2 index */
+#define XSEM_SSIT_SLAVE2_SLR_ID		(0x3U)
+/* SSIT invalid SLR index */
+#define XSEM_SSIT_INVALID_SLR_ID	(0x4U)
+/* SSIT all SLRs index */
+#define XSEM_SSIT_ALL_SLRS_ID		(0xFU)
 
 /**
  * XSem_Notifier : This structure contains details of event notifications
@@ -394,6 +442,7 @@ typedef struct {
 	u32 Flag;
 } XSem_Notifier;
 
+#ifndef XILSEM_ENABLE_SSIT
 /* CRAM functions */
 XStatus XSem_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp);
 XStatus XSem_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp);
@@ -413,12 +462,38 @@ XStatus XSem_CmdNpiInjectError(XIpiPsu *IpiInst, XSemIpiResp * Resp);
 XStatus XSem_CmdNpiGetGldnSha(XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		XSem_DescriptorData * DescData);
 XStatus XSem_CmdNpiGetStatus(XSemNpiStatus *NpiStatusInfo);
+#endif
+
+/* SSIT Cram functions */
+XStatus XSem_Ssit_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp,
+		u32 TargetSlr);
+XStatus XSem_Ssit_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp,
+		u32 TargetSlr);
+XStatus XSem_Ssit_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp,
+		u32 TargetSlr);
+XStatus XSem_Ssit_CmdCfrNjctErr (XIpiPsu *IpiInst, \
+			XSemCfrErrInjData *ErrDetail, \
+			XSemIpiResp *Resp, u32 TargetSlr);
+XStatus XSem_Ssit_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr,
+			u32 RowLoc, XSemIpiResp *Resp, u32 TargetSlr);
+XStatus XSem_Ssit_CmdCfrGetCrc(XIpiPsu *IpiInst, u32 RowIndex,
+		XSemIpiResp *Resp, u32 TargetSlr);
+
+/* SSIT Npi functions */
+XStatus XSem_Ssit_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp,
+		u32 TargetSlr);
+XStatus XSem_Ssit_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp,
+		u32 TargetSlr);
+XStatus XSem_Ssit_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp,
+		u32 TargetSlr);
+
+/* SSIT get Cram and Npi configuration for target SLR */
+XStatus XSem_Ssit_CmdGetConfig(XIpiPsu *IpiInst,
+		XSemIpiResp *Resp, u32 TargetSlr);
 
 /* Event Notification Management */
 XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier);
 
-/* Get XilSEM configuration */
-XStatus XSem_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp);
 
 #ifdef __cplusplus
 }
