@@ -51,7 +51,7 @@ typedef struct {
 } XMailbox_Agent; /**< Xilmailbox agent */
 /************************** Constant Definitions *****************************/
 #define BIT(x)                 	(1 << (x)) /**< Bit position */
-#define XIPI_DONE_TIMEOUT_VAL	3000000    /**< Timeout for IPI */
+#define XIPI_DONE_TIMEOUT_VAL	20000    /**< Timeout for IPI */
 
 #ifdef versal
 #define XMAILBOX_IPIPSM		BIT(0)  /**< PSM channel */
