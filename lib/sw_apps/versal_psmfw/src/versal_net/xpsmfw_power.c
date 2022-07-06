@@ -323,7 +323,7 @@ static struct XPsmFwPwrCtrl_t Rpu0_Core1PwrCtrl = {
 };
 
 static struct XPsmFwPwrCtrl_t Rpu1_Core0PwrCtrl = {
-	.Id = RPU0_0,
+	.Id = RPU1_0,
 	.ResetCfgAddr = RPU_RPU1_CORE0_CFG0,
 	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_RPU_B_CORE0_MASK,
 	.PwrCtrlAddr = PSMX_LOCAL_REG_RPU_B_CORE0_PWR_CNTRL,
@@ -346,7 +346,7 @@ static struct XPsmFwPwrCtrl_t Rpu1_Core0PwrCtrl = {
 };
 
 static struct XPsmFwPwrCtrl_t Rpu1_Core1PwrCtrl = {
-	.Id = RPU0_1,
+	.Id = RPU1_1,
 	.ResetCfgAddr = RPU_RPU1_CORE1_CFG0,
 	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_RPU_B_CORE1_MASK,
 	.PwrCtrlAddr = PSMX_LOCAL_REG_RPU_B_CORE1_PWR_CNTRL,
@@ -823,20 +823,14 @@ done:
 	return Status;
 }
 
-static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
-{
+static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args){
+
 	XStatus Status = XST_FAILURE;
-
-	/*TBD:Set the start address */
-
-    XPsmFw_RMW32(Args->ResetCfgAddr,RPU_CORE_CPUHALT_MASK,0);
-
-	/* Mask wake interrupt */
-    XPsmFw_RMW32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_EN,Args->PwrStateMask >> 14, 0);
 
 	/* Mask RPU PCIL Interrupts */
     XPsmFw_RMW32(Args->IntrDisableAddr,Args->IntrDisableMask,Args->IntrDisableMask);
 
+	/*TBD: check if powering up from emulated pwr dwn state,if so skip below 4 instructions*/
 	/* Restore Power to Core */
     XPsmFw_RMW32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_RPU_A_CORE0_PWR_CNTRL_PWR_GATES_MASK,
 			PSMX_LOCAL_REG_RPU_A_CORE0_PWR_CNTRL_PWR_GATES_MASK);
@@ -860,10 +854,34 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	/* release reset */
     XPsmFw_RMW32(PSX_CRL_RST_RPU,Args->RstCtrlMask,~Args->RstCtrlMask);
 
-	/* TBD: poll for paccept */
+	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,RPU_PACTIVE_TIMEOUT);
+    if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_ERROR,"R52 Core PACCEPT timeout..\n");
+        goto done;
+	}
 
 	/*Mark RPUx powered up in LOCAL_PWR_STATE register */
     XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0,Args->PwrStateMask,Args->PwrStateMask);
+
+done:
+	return Status;
+}
+
+static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	/*TBD:Set the start address */
+
+    XPsmFw_RMW32(Args->ResetCfgAddr,RPU_CORE_CPUHALT_MASK,0);
+
+	/* Mask wake interrupt */
+    XPsmFw_RMW32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_EN,Args->PwrStateMask >> 14, 0);
+
+	Status = XPsmFwRPUxPwrUp(Args);
+	if(XST_SUCCESS != Status){
+		goto done;
+	}
 
 	/* Disable and clear RPUx direct wake-up interrupt request */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_STATUS, Args->PwrStateMask >> 14);
@@ -875,15 +893,13 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_EN, XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS));
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_SWRST_INT_EN, XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_SWRST_STATUS));
 
-	Status = XST_SUCCESS;
-
+done:
 	return Status;
 }
 
-static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
+static XStatus XPsmFwRPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
-	XStatus Status = XST_FAILURE;
-	/*TTBD:poll for pactive[1] bit to go low */
+	/*TBD:poll for pactive[1] bit to go low */
 
 	/* set pstate bit */
 	XPsmFw_RMW32(Args->CorePstate,Args->CorePstateMask,Args->CorePstateMask);
@@ -891,8 +907,9 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* set preq field to request power state change */
 	XPsmFw_RMW32(Args->CorePreq,Args->CorePreqMask,Args->CorePreqMask);
 
-	/* TBD: poll for paccept bit */
+	/*TBD: poll for paccept bit */
 
+	/*TBD: check if it emulated pwr dwn, if so skip below 4 instructions*/
 	/* Enable isolation */
 	XPsmFw_RMW32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_RPU_A_CORE0_PWR_CNTRL_ISOLATION_MASK,
 		PSMX_LOCAL_REG_RPU_A_CORE0_PWR_CNTRL_ISOLATION_MASK);
@@ -907,17 +924,29 @@ static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Power gate the RPU core cache RAMs */
 	XPsmFw_RMW32(PSMX_LOCAL_REG_RPU_CACHE_PWR_CNTRL,Args->PwrStateMask >> 16,~(Args->PwrStateMask >> 16));
 
-	/* Unmask the corresponding Wake Interrupt RPU core */
-	XPsmFw_RMW32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_EN,Args->PwrStateMask >> 14, ~(Args->PwrStateMask >> 14));
-
 	/* Unmask the RPU PCIL Interrupt */
 	XPsmFw_Write32(Args->IntrDisableAddr,Args->IntrDisableMask);
 
 	/*Mark RPUx powered down in LOCAL_PWR_STATE register */
 	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0,Args->PwrStateMask,~Args->PwrStateMask);
 
-	Status = XST_SUCCESS;
+	return XST_SUCCESS;
 
+}
+
+static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	Status = XPsmFwRPUxPwrDwn(Args);
+	if(XST_SUCCESS != Status){
+		goto done;
+	}
+
+	/* Unmask the corresponding Wake Interrupt RPU core */
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_EN,Args->PwrStateMask >> 14, ~(Args->PwrStateMask >> 14));
+
+done:
 	return Status;
 }
 
@@ -1634,6 +1663,130 @@ static XStatus PowerDwn_ACPU1_3(void)
 	return XPsmFwACPUxReqPwrDwn(&Acpu1_Core3PwrCtrl);
 }
 
+static XStatus XPsmFwRPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegVal;
+
+	/* Check if already power up */
+	RegVal = XPsmFw_Read32(PSMX_GLOBAL_REG_PWR_STATE0);
+	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*mask powerup interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_EN , Args->PwrStateMask >> 18,0);
+
+	Status = XPsmFwRPUxPwrUp(Args);
+	if(XST_SUCCESS != Status){
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+/**
+ * PowerUp_RPUA_0() - Power up RPUA Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_RPUA_0(void)
+{
+	return XPsmFwRPUxReqPwrUp(&Rpu0_Core0PwrCtrl);
+}
+
+/**
+ * PowerUp_RPUA_1() - Power up RPUA Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_RPUA_1(void)
+{
+	return XPsmFwRPUxReqPwrUp(&Rpu0_Core1PwrCtrl);
+}
+
+/**
+ * PowerUp_RPUB_0() - Power up RPUB Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_RPUB_0(void)
+{
+	return XPsmFwRPUxReqPwrUp(&Rpu1_Core0PwrCtrl);
+}
+
+/**
+ * PowerUp_RPUB_1() - Power up RPUB Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_RPUB_1(void)
+{
+	return XPsmFwRPUxReqPwrUp(&Rpu1_Core1PwrCtrl);
+}
+
+static XStatus XPsmFwRPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegVal;
+
+	/* Check if already power down */
+	RegVal = XPsmFw_Read32(PSMX_GLOBAL_REG_PWR_STATE0);
+	if (!CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+	/*mask powerup interrupt*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRDWN1_INT_EN , Args->PwrStateMask >> 18,0);
+	Status = XPsmFwRPUxPwrDwn(Args);
+
+done:
+	return Status;
+}
+
+/**
+ * PowerDwn_RPUA_0() - Power up RPUA Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_RPUA_0(void)
+{
+	return XPsmFwRPUxReqPwrDwn(&Rpu0_Core0PwrCtrl);
+}
+
+/**
+ * PowerDwn_RPUA_1() - Power up RPUA Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_RPUA_1(void)
+{
+	return XPsmFwRPUxReqPwrDwn(&Rpu0_Core1PwrCtrl);
+}
+
+
+/**
+ * PowerDwn_RPUB_0() - Power up RPUB Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_RPUB_0(void)
+{
+	return XPsmFwRPUxReqPwrDwn(&Rpu1_Core0PwrCtrl);
+}
+
+/**
+ * PowerDwn_RPUB_1() - Power up RPUB Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_RPUB_1(void)
+{
+	return XPsmFwRPUxReqPwrDwn(&Rpu1_Core1PwrCtrl);
+}
+
 /* Structure for power up/down handler table */
 static struct PwrHandlerTable_t PwrUpDwn0HandlerTable[] = {
 	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_FP_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_FP_MASK, PowerUp_FP, PowerDwn_FP},
@@ -1662,6 +1815,10 @@ static struct PwrHandlerTable_t PwrUpDwn1HandlerTable[] = {
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM0B_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM0B_MASK, PowerUp_TCMB0, PowerDwn_TCMB0},
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM1A_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM1A_MASK, PowerUp_TCMA1, PowerDwn_TCMA1},
 	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_TCM1B_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_TCM1B_MASK, PowerUp_TCMB1, PowerDwn_TCMB1},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_RPU_A_CORE0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_RPU_A_CORE0_MASK, PowerUp_RPUA_0, PowerDwn_RPUA_0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_RPU_A_CORE1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_RPU_A_CORE1_MASK, PowerUp_RPUA_1, PowerDwn_RPUA_1},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_RPU_B_CORE0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_RPU_B_CORE0_MASK, PowerUp_RPUB_0, PowerDwn_RPUB_0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS_RPU_B_CORE1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN1_STATUS_RPU_B_CORE1_MASK, PowerUp_RPUB_1, PowerDwn_RPUB_1},
 };
 
 /**
