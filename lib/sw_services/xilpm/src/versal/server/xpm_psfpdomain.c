@@ -41,11 +41,10 @@ static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 DisableMask;
 
 	(void)Args;
 	(void)NumOfArgs;
-
+	(void)PwrDomain;
 	const XPm_Rail *VccintPsfpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSFP);
 
 	/* Check vccint_fpd first to make sure power is on */
@@ -72,12 +71,6 @@ static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_FPD_POR;
 	}
-
-	/* Get houseclean disable mask */
-	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_1) >> HOUSECLEAN_FPD_SHIFT;
-
-	/* Set Houseclean Mask */
-	PwrDomain->HcDisableMask |= DisableMask;
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -150,7 +143,6 @@ static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
-	volatile XStatus StatusTmp = XST_FAILURE;
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 RegVal;
@@ -158,10 +150,7 @@ static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-        Status = XPM_STRICT_CHECK_IF_EQUAL(StatusTmp, HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK,
-				    (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK),
-				    u32);
-        if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
+	if (!(PM_HOUSECLEAN_CHECK(FPD, SCAN))) {
 		PmInfo("Skipping ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
@@ -205,7 +194,6 @@ static XStatus FpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
-	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	(void)Args;
@@ -224,10 +212,7 @@ static XStatus FpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-        Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_BISR_MASK,
-				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_BISR_MASK),
-				       u32);
-        if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
+	if (PM_HOUSECLEAN_CHECK(FPD, BISR)) {
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Trigger Bisr repair */
@@ -325,11 +310,7 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
-        Status = XPM_STRICT_CHECK_IF_EQUAL(StatusTmp, HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK,
-				    (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK),
-				    u32);
-        if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
+	if (!(PM_HOUSECLEAN_CHECK(FPD, MBIST))) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;

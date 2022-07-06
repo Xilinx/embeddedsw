@@ -509,6 +509,30 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 		}						\
 		STSTMP;						\
 	})
+#define PM_CHECK_MASK(v, m) ((v & m) == m)
+
+/**
+ * Get a value at each bits to tell if skipping house cleaning function for given block
+ * BLOCK are one of these(can be found under xpm_regs.h):
+ * 		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC.
+ *
+ */
+#define PM_DISABLE_HOUSECLEAN_GET(BLOCK)( \
+	(XPm_In32(PM_HOUSECLEAN_DISABLE_ ##BLOCK## _BASEADDR) & PM_HOUSECLEAN_DISABLE_ ##BLOCK## _MASK ) >> PM_HOUSECLEAN_DISABLE_ ##BLOCK## _OFFSET \
+)
+/**
+ * FALSE if house clean of given BLOCK and FUNC is skipped
+ * Note:  The condition is evaluated redundantly to avoid glitches from altering
+ * branching decision.
+ * BLOCK are one of these(can be found under xpm_regs.h):
+ * 		LPD, FPD, NPD, AIE, CPM, PLD, VDU, GT, HNIC, DDRMC, BFR, SDFEC, ILKN, PMC.
+ * FUNC are one of these:
+ *      SCAN, BISR, MBIST, LBIST, PLHC
+ */
+#define PM_HOUSECLEAN_CHECK(BLOCK, FUNC) (	\
+	(!PM_CHECK_MASK(PM_DISABLE_HOUSECLEAN_GET(BLOCK), HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK)) ||	\
+	(!PM_CHECK_MASK(PM_DISABLE_HOUSECLEAN_GET(BLOCK), HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK))		\
+)
 
 #define BIT(n)					(1U << (n))
 #define BIT8(n)					((u8)1U << (n))

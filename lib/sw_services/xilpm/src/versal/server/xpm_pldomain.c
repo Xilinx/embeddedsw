@@ -557,6 +557,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 	u32 i;
 	u32 GtyAddrs[MAX_DEV_GT] = {0};
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	(void)Pld;
 
 	/* Initialize array with GT addresses */
 	Status = InitGtyAddrArr(GtyAddrs, ARRAY_SIZE(GtyAddrs));
@@ -590,8 +591,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 	if ((0U == PlpdHouseCleanBypass) || (0U == LocalPlpdHCBypass)) {
 
 		/* Run GTY BISR operations if houseclean disable mask not set */
-		if (HOUSECLEAN_DISABLE_GTY_BISR_MASK != (Pld->Domain.HcDisableMask &
-					HOUSECLEAN_DISABLE_GTY_BISR_MASK)) {
+		if (PM_HOUSECLEAN_CHECK(GT, BISR)) {
 			/* Bisr repair - Bisr should be triggered only for Addresses for which repair
 			* data is found and so not calling in loop. Trigger is handled in below routine
 			* */
@@ -615,9 +615,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 		}
 
 		/* Run GTY MBIST operations if houseclean disable mask not set */
-		if (HOUSECLEAN_DISABLE_GTY_MBIST_MASK != (Pld->Domain.HcDisableMask &
-					HOUSECLEAN_DISABLE_GTY_MBIST_MASK)) {
-
+		if (PM_HOUSECLEAN_CHECK(GT, MBIST)) {
 			for (i = 0; i < ARRAY_SIZE(GtyAddrs); i++) {
 				if (0U == GtyAddrs[i]) {
 					continue;
@@ -1115,13 +1113,11 @@ static XStatus PlHouseClean(u32 TriggerTime)
 		/* CRAM TRIM */
 		PldApplyTrim(XPM_PL_TRIM_CRAM);
 
-		if (HOUSECLEAN_DISABLE_PL_HC_MASK == (Pld->Domain.HcDisableMask &
-					HOUSECLEAN_DISABLE_PL_HC_MASK)) {
+		if (!(PM_HOUSECLEAN_CHECK(PLD, PLHC))) {
 			PmInfo("Skipping PL Houseclean, power node 0x%x\r\n", Pld->Domain.Power.Node.Id);
 			Status = XST_SUCCESS;
 			goto done;
 		}
-
 		PmInfo("Running PL Houseclean, power node 0x%x\r\n", Pld->Domain.Power.Node.Id);
 
 		/* LAGUNA REPAIR */
@@ -1285,7 +1281,6 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	u32 Platform = XPm_GetPlatform();
 	u32 IdCode = XPm_GetIdCode();
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 DisableMask;
 
 	(void)Args;
 	(void)NumOfArgs;
@@ -1301,13 +1296,6 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 * current frequency.
 	 */
 	ReduceCfuClkFreq();
-
-	/* Get houseclean disable mask */
-	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_PLD_SHIFT;
-
-	/* Set Houseclean Mask */
-	PwrDomain->HcDisableMask |= DisableMask;
-
 
 	/* If PL power is still not up, return error as PLD can't
 	   be initialized */
@@ -1716,8 +1704,7 @@ static XStatus XPmPlDomain_InitandHouseclean(void)
 	}
 
 	/* Check if housecleaning needs to be bypassed */
-	if ( HOUSECLEAN_DISABLE_PL_HC_MASK == (Pld->Domain.HcDisableMask &
-				HOUSECLEAN_DISABLE_PL_HC_MASK)) {
+	if (!(PM_HOUSECLEAN_CHECK(PLD, PLHC))) {
 		PlpdHouseCleanBypass = 1;
 		PlpdHouseCleanBypassTmp = 1;
 		PmInfo("Enabling PL Houseclean bypass, power node 0x%x\r\n", Pld->Domain.Power.Node.Id);

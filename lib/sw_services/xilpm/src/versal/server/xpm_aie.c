@@ -447,7 +447,6 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 DisableMask;
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
@@ -495,12 +494,6 @@ static XStatus AieInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 */
 	PmOut32((BaseAddress + ME_NPI_ME_TOP_ROW_OFFSET), AieDomain->Array.NumRowsAdjusted);
 
-	/* Get houseclean disable mask */
-	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_AIE_SHIFT;
-
-	/* Set Houseclean Mask */
-	PwrDomain->HcDisableMask |= DisableMask;
-
 	/*
 	 * To maintain backwards compatibility, skip locking of AIE NPI space. NPI
 	 * space shall remain unlocked for entire housecleaning sequence unless
@@ -523,7 +516,7 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 DisableMask;
+
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)PwrDomain;
 
 	/* This function does not use the args */
@@ -586,12 +579,6 @@ static XStatus Aie2InitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_ARRAY_RESET_RELEASE;
 		goto fail;
 	}
-
-	/* Get houseclean disable mask */
-	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_2) >> HOUSECLEAN_AIE_SHIFT;
-
-	/* Set Houseclean Mask */
-	PwrDomain->HcDisableMask |= DisableMask;
 
 	/*
 	 * To maintain backwards compatibility, skip locking of AIE NPI space. NPI
@@ -754,8 +741,7 @@ static XStatus AieScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto fail;
 	}
 
-	if (HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK)) {
+	if (PM_HOUSECLEAN_CHECK(AIE, SCAN)){
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Trigger Scan Clear */
@@ -911,8 +897,7 @@ static XStatus AieBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto fail;
 	}
 
-	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_BISR_MASK)) {
+	if (PM_HOUSECLEAN_CHECK(AIE, BISR)){
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		Status = XPmBisr_Repair(MEA_TAG_ID);
@@ -1022,8 +1007,7 @@ static XStatus Aie2Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	/* Enable all column clocks */
 	Aie2ClockInit(AieDomain, BaseAddress);
 
-	if (HOUSECLEAN_DISABLE_BISR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_BISR_MASK)) {
+	if (PM_HOUSECLEAN_CHECK(AIE, BISR)){
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		Status = XPmBisr_Repair(MEA_TAG_ID);
@@ -1178,8 +1162,7 @@ static XStatus AieMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+	if (PM_HOUSECLEAN_CHECK(AIE, MBIST)) {
 		PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		Status = TriggerMemClear(&DbgErr);
@@ -1239,8 +1222,7 @@ static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	BaseAddress = AieDev->Node.BaseAddress;
 
-	if (HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK != (PwrDomain->HcDisableMask &
-				HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK)) {
+	if (PM_HOUSECLEAN_CHECK(AIE, MBIST)) {
 		PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		/* Change from AIE to AIE2. */
 		/* TODO: In AIE this is set to low power mode to avoid failures. Need
