@@ -619,6 +619,23 @@ enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_REQUEST,
 };
 
+static void XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
+{
+
+	/*TBD: ignore below 2 steps if it is powering up from emulated
+		pwrdwn or debug recovery pwrdwn*/
+	/*Enables Power to the Core*/
+	XPsmFw_Write32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_PWR_GATES_MASK);
+
+	/*Removes Isolation to the APU*/
+	XPsmFw_RMW32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_ISOLATION_MASK,
+			~PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_ISOLATION_MASK);
+
+	XPsmFw_RMW32(Args->CorePstate,Args->CorePstateMask,Args->CorePstateVal);
+	XPsmFw_RMW32(Args->CorePreq,Args->CorePreqMask,Args->CorePreqMask);
+
+}
+
 static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -643,15 +660,7 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		ApuClusterState[Args->ClusterId] = A78_CLUSTER_CONFIGURED;
 	}
 
-	/*Enables Power to the Core*/
-	XPsmFw_Write32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_PWR_GATES_MASK);
-
-	/*Removes Isolation to the APU*/
-	XPsmFw_RMW32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_ISOLATION_MASK,
-			~PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_ISOLATION_MASK);
-
-	/* Mark ACPUx powered up in LOCAL_PWR_STATUS register */
-	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, Args->PwrStateMask);
+	XPsmFwACPUxPwrUp(Args);
 
 	/*set start address*/
 	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xfffffffeULL);
@@ -660,9 +669,6 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_Write32(Args->ResetCfgAddr+0x4,HighAddress);
 	PsmToPlmEvent.ResumeAddress[Args->Id]=0;
 
-	XPsmFw_RMW32(Args->CorePstate,Args->CorePstateMask,Args->CorePstateVal);
-	XPsmFw_RMW32(Args->CorePreq,Args->CorePreqMask,Args->CorePreqMask);
-
 	/* APU core release warm reset */
 	XPsmFw_RMW32(Args->RstAddr,Args->WarmRstMask,~Args->WarmRstMask);
 	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
@@ -670,6 +676,9 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
 		goto done;
 	}
+
+	/* Mark ACPUx powered up in LOCAL_PWR_STATUS register */
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, Args->PwrStateMask);
 
 	/* Disable and clear ACPUx direct wake-up interrupt request */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_STATUS, Args->PwrStateMask);
@@ -685,19 +694,49 @@ done:
 	return Status;
 }
 
-static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
+static XStatus XPsmFwACPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
+	u32 RegVal;
 
-	/* poll for power state change */
-	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-		XPsmFw_Printf(DEBUG_ERROR,"A78 Core PACCEPT timeout..\n");
+	/* Disable and clear ACPUx req pwr-up interrupt request */
+	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS, Args->PwrStateMask);
+
+	/*Mask the Power Up Interrupt*/
+	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_DIS, Args->PwrStateMask);
+
+	/* Check if already power up */
+	RegVal = XPsmFw_Read32(PSMX_GLOBAL_REG_PWR_STATE0);
+	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
+	XPsmFwACPUxPwrUp(Args);
+
+	/* APU core release warm reset */
+	XPsmFw_RMW32(Args->RstAddr,Args->WarmRstMask,~Args->WarmRstMask);
+	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
+		goto done;
+	}
+
+	/* Mark ACPUx powered up in LOCAL_PWR_STATUS register */
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, Args->PwrStateMask);
+
+done:
+	return Status;
+}
+
+static void XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
+{
+	/*TBD: check for emulated power down/debug recovery pwrdwn*/
 	XPsmFw_RMW32(Args->RstAddr,Args->WarmRstMask&PSX_CRF_RST_APU_WARM_RST_MASK,
 			Args->WarmRstMask);
+
+	/*TBD: for emulation and debug recovery pwrdwn modes
+		no need to enable isolation and no need to disable power*/
 	/* enable isolation */
 	XPsmFw_RMW32(Args->PwrCtrlAddr,PSM_LOCAL_PWR_CTRL_ISO_MASK,PSM_LOCAL_PWR_CTRL_ISO_MASK);
 
@@ -706,6 +745,25 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 
 	/* unmask the wakeup interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_EN,Args->PwrStateMask);
+
+}
+
+static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	/*Disable the Scan Clear and Mem Clear triggers*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_SCAN_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_MEM_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
+
+	/* poll for power state change */
+	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		XPsmFw_Printf(DEBUG_ERROR,"A78 Core PACCEPT timeout..\n");
+		goto done;
+	}
+
+	XPsmFwACPUxPwrDwn(Args);
 
 	/* Unmask the Power Up Interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_EN,Args->PwrStateMask);
@@ -722,6 +780,48 @@ done:
 	return Status;
 }
 
+static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+
+	/*Disable the Scan Clear and Mem Clear triggers*/
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_SCAN_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_MEM_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
+
+	u32 Edprcr = (CORESIGHT_APU0CORE0_DBG_EDPRCR + (Args->Id*0x20000) + (Args->ClusterId*0x100000));
+	/*check for emulated pwr down*/
+	if(CORESIGHT_APU0CORE0_DBG_EDPRCR_CORENPDRQ_MASK == (XPsmFw_Read32(Edprcr)&CORESIGHT_APU0CORE0_DBG_EDPRCR_CORENPDRQ_MASK)){
+		/*Set the PSTATE field for emulated pwrdwn*/
+		XPsmFw_RMW32(Args->CorePstate, Args->CorePstateMask, 0x1);
+	}else{
+		/*Set the PSTATE field*/
+		XPsmFw_RMW32(Args->CorePstate, Args->CorePstateMask, 0);
+	}
+
+	/*set PREQ field*/
+	XPsmFw_RMW32(Args->CorePreq,Args->CorePreqMask,Args->CorePreqMask);
+
+	/* poll for power state change */
+	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		XPsmFw_Printf(DEBUG_ERROR,"A78 Core PACCEPT timeout..\n");
+		goto done;
+	}
+
+	XPsmFwACPUxPwrDwn(Args);
+
+	/* Unmask the Power Up Interrupt */
+	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_EN,Args->PwrStateMask);
+
+	/*Mark ACPUx powered down in LOCAL_PWR_STATUS register */
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0,Args->PwrStateMask,~Args->PwrStateMask);
+
+	/* clear the Power dwn Interrupt */
+	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS,Args->PwrStateMask);
+
+done:
+	return Status;
+}
 
 static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
@@ -779,7 +879,6 @@ static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 
 	return Status;
 }
-
 
 static XStatus XPsmFwRPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
@@ -879,7 +978,6 @@ static XStatus XPsmFwMemPwrDwn(struct XPsmFwMemPwrCtrl_t *Args)
 done:
 	return Status;
 }
-
 
 static XStatus XPsmFwMemPwrUp(struct XPsmFwMemPwrCtrl_t *Args)
 {
@@ -1376,9 +1474,177 @@ static XStatus PowerDwn_FP(void)
 	return Status;
 }
 
+/**
+ * PowerUp_ACPU0_0() - Power up ACPU0 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU0_0(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu0_Core0PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU0_1() - Power up ACPU0 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU0_1(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu0_Core1PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU0_2() - Power up ACPU0 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU0_2(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu0_Core2PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU0_3() - Power up ACPU0 Core3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU0_3(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu0_Core3PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU1_0() - Power up ACPU1 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU1_0(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu1_Core0PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU1_0() - Power up ACPU1 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU1_1(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu1_Core1PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU1_0() - Power up ACPU1 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU1_2(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu1_Core2PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU1_0() - Power up ACPU1 Core3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU1_3(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu1_Core3PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU0_0() - Power down ACPU0 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU0_0(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu0_Core0PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU0_1() - Power down ACPU0 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU0_1(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu0_Core1PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU0_2() - Power down ACPU0 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU0_2(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu0_Core2PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU0_3() - Power down ACPU0 Core3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU0_3(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu0_Core3PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU1_0() - Power down ACPU1 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU1_0(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu1_Core0PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU1_1() - Power down ACPU1 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU1_1(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu1_Core1PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU1_2() - Power down ACPU1 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU1_2(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu1_Core2PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU1_3() - Power down ACPU1 Core
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU1_3(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu1_Core3PwrCtrl);
+}
+
 /* Structure for power up/down handler table */
 static struct PwrHandlerTable_t PwrUpDwn0HandlerTable[] = {
 	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_FP_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_FP_MASK, PowerUp_FP, PowerDwn_FP},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU0_CORE0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU0_CORE0_MASK, PowerUp_ACPU0_0, PowerDwn_ACPU0_0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU0_CORE1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU0_CORE1_MASK, PowerUp_ACPU0_1, PowerDwn_ACPU0_1},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU0_CORE2_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU0_CORE2_MASK, PowerUp_ACPU0_2, PowerDwn_ACPU0_2},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU0_CORE3_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU0_CORE3_MASK, PowerUp_ACPU0_3, PowerDwn_ACPU0_3},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU1_CORE0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU1_CORE0_MASK, PowerUp_ACPU1_0, PowerDwn_ACPU1_0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU1_CORE1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU1_CORE1_MASK, PowerUp_ACPU1_1, PowerDwn_ACPU1_1},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU1_CORE2_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU1_CORE2_MASK, PowerUp_ACPU1_2, PowerDwn_ACPU1_2},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU1_CORE3_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU1_CORE3_MASK, PowerUp_ACPU1_3, PowerDwn_ACPU1_3},
 };
 
 static struct PwrHandlerTable_t PwrUpDwn1HandlerTable[] = {
