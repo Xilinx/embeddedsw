@@ -155,16 +155,6 @@ XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power)
 		goto done;
 	}
 
-	/**
-	 * TODO: Uncomment below lines when request power up/down interrupt
-	 * handling supported in PSMFW
-	 */
-	/*PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrUpEnOffset + REQ_PWRUP_INT_TRIG_OFFSET, Power->PwrUpMask);
-	PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrUpEnOffset, Power->PwrUpMask);
-	do {
-		PmIn32(Psm->PsmGlobalBaseAddr + Power->PwrStatOffset, Reg);
-	} while ((Reg & Power->PwrStatMask) != Power->PwrStatMask);*/
-
 	Status = XST_SUCCESS;
 
 done:
@@ -187,28 +177,12 @@ XStatus XPmPsm_SendPowerDownReq(XPm_Power *Power)
 		goto done;
 	}
 
-	/* Skip power down for power islands since power down not supported on SPP */
-	if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
 	/* Check if already powered down */
 	PmIn32(Psm->PsmGlobalBaseAddr + Power->PwrStatOffset, Reg);
 	if (0U == (Reg & Power->PwrStatMask)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
-
-	/**
-	 * TODO: Uncomment below lines when request power up/down interrupt
-	 * handling supported in PSMFW
-	 */
-	/*PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrDwnEnOffset + REQ_PWRDWN_INT_TRIG_OFFSET, Power->PwrDwnMask);
-	PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrDwnEnOffset, Power->PwrDwnMask);
-	do {
-		PmIn32(Psm->PsmGlobalBaseAddr + Power->PwrStatOffset, Reg);
-	} while (0U != (Reg & Power->PwrStatMask));*/
 
 	Status = XST_SUCCESS;
 
