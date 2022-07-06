@@ -128,6 +128,7 @@
 * 1.06  kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
 *       skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
 *       ma   06/21/2022 Add support for Get Handoff Parameters IPI command
+*       bsv  07/06/2022 Added support to read Optional Data in slave boot modes
 *
 * </pre>
 *
@@ -497,6 +498,14 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	 */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTemp,
 			XilPdi_ValidateImgHdrTbl, &(PdiPtr->MetaHdr.ImgHdrTbl));
+
+	if ((PdiPtr->PdiIndex == XLOADER_SBI_INDEX) &&
+		(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL)) {
+		Status = XilPdi_ReadOptionalData(&PdiPtr->MetaHdr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
 
 	/*
 	 * Update the PDI ID in the RTC area of PMC RAM

@@ -41,6 +41,7 @@
 * 1.06  kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 *       kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
 * 1.08  skd  04/21/2022 Misra-C violation Rule 14.3 fixed
+*       bsv  07/06/2022 Added API to read Optional data from Metaheader
 *
 * </pre>
 *
@@ -59,6 +60,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XILPDI_PMC_RAM_BASE_ADDR	(0xF2000000U)
 
 /************************** Function Prototypes ******************************/
 static int XilPdi_ValidateChecksum(const void *Buffer, u32 Len);
@@ -271,6 +273,34 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	}
 
 END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function Reads the optional data in Image Header Table.
+*
+* @param	MetaHdrPtr is pointer to MetaHeader table
+*
+* @return	XST_SUCCESS on successful read
+*			Errors as mentioned in xilpdi.h on failure
+*
+*****************************************************************************/
+int XilPdi_ReadOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
+{
+	int Status = XST_FAILURE;
+
+	/**
+	 * Read the Optinal data from Metaheader
+	 */
+	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
+		MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst +
+		sizeof(MetaHdrPtr->ImgHdrTbl), XILPDI_PMC_RAM_BASE_ADDR,
+		(MetaHdrPtr->ImgHdrTbl.OptionalDataLen << 2U), 0U);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed \n\r");
+	}
+
 	return Status;
 }
 
