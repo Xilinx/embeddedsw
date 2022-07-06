@@ -51,6 +51,7 @@
 *       kpt  09/18/2021 Fixed SW-BP-REDUNDANCY in
 *                       XilPdi_IsDpaCmEnable
 * 1.07  kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
+*       bsv  07/06/2022 Added API to read OptionaData from Metaheader
 *
 * </pre>
 *
@@ -326,7 +327,8 @@ typedef struct {
 	u32 ExtIdCode;  /**< Extended ID Code */
 	u32 AcOffset; /**< AC offset of Meta header */
 	u32 KekIv[3U]; /**< Kek IV for meta header decryption */
-	u32 Rsvd[9U]; /**< Reserved */
+	u32 OptionalDataLen; /**< Len in words of OptionalData */
+	u32 Rsvd[8U]; /**< Reserved */
 	u32 Checksum; /**< Checksum of the image header table */
 } XilPdi_ImgHdrTbl __attribute__ ((aligned(16U)));
 
@@ -676,6 +678,7 @@ int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
+int XilPdi_ReadOptionalData(XilPdi_MetaHdr * MetaHdrPtr);
 
 /** @} */
 #ifdef __cplusplus
