@@ -27,7 +27,6 @@ static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u32 NpdPowerUpTime = 0;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 DisableMask;
 
 	(void)PwrDomain;
 	(void)Args;
@@ -74,12 +73,6 @@ static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		DbgErr = XPM_INT_ERR_RST_RELEASE;
 		goto done;
 	}
-
-	/* Get houseclean disable mask */
-	DisableMask = XPm_In32(PM_HOUSECLEAN_DISABLE_REG_1) >> HOUSECLEAN_NPD_SHIFT;
-
-	/* Set Houseclean Mask */
-	PwrDomain->HcDisableMask |= DisableMask;
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -258,10 +251,7 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		(PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 		PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK));
 
-        Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK,
-				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_SCAN_CLEAR_MASK),
-				       u32);
-	if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
+	if (PM_HOUSECLEAN_CHECK(NPD, SCAN)) {
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		PmRmw32(PMC_ANALOG_SCAN_CLEAR_TRIGGER,
@@ -466,7 +456,6 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
-	volatile XStatus StatusTmp = XST_FAILURE;
 	u32 i;
 	const XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
@@ -485,11 +474,7 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* NPD pre bisr requirements - in case if bisr was skipped */
 	NpdPreBisrReqs();
-
-        Status = XPM_STRICT_CHECK_IF_EQUAL(StatusTmp, HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK,
-				    (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_MBIST_CLEAR_MASK),
-				    u32);
-	if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
+	if (!(PM_HOUSECLEAN_CHECK(NPD, MBIST))) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
 		goto done;
@@ -558,7 +543,6 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	volatile XStatus Status = XST_FAILURE;
-	volatile XStatus StatusTmp = XST_FAILURE;
 	u32 i = 0;
 	const XPm_Device *Device;
 	u32 DdrMcAddresses[XPM_NODEIDX_DEV_DDRMC_MAX - XPM_NODEIDX_DEV_DDRMC_MIN + 1] = {0};
@@ -592,10 +576,7 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 	}
 
-	Status = XPM_STRICT_CHECK_IF_NOTEQUAL(StatusTmp, HOUSECLEAN_DISABLE_BISR_MASK,
-				       (PwrDomain->HcDisableMask & HOUSECLEAN_DISABLE_BISR_MASK),
-				       u32);
-	if ((XST_SUCCESS == Status) || (XST_SUCCESS == StatusTmp)) {
+	if (PM_HOUSECLEAN_CHECK(NPD, BISR)){
 		PmInfo("Triggering BISR for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
 		/* Enable Bisr clock */
