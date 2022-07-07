@@ -36,6 +36,7 @@
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 * 1.06  am   11/24/2021 Fixed doxygen warnings
 * 1.07  ma   05/10/2022 Enable SSIT interrupts for Slave SLRs
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -49,7 +50,8 @@
 #include "xloader.h"
 #include "xplmi_proc.h"
 #include "xplmi.h"
-#include "xplmi_err_common.h"
+#include "xplmi_err.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -89,7 +91,7 @@ int XLoader_IntrInit(void)
 	 * Register the SBI RDY interrupt to enable the PDI loading from
 	 * SBI interface.
 	 */
-	Status = XPlmi_GicRegisterHandler(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC8,
+	Status = XPlmi_GicRegisterHandler(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX,
 		XLoader_SbiLoadPdi, (void *)0U);
 
 	return Status;
@@ -127,7 +129,7 @@ static int XLoader_SbiLoadPdi(void *Data)
 	 * Disable the SBI RDY interrupt so that PDI load does not
 	 * interrupt itself
 	 */
-	XPlmi_GicIntrDisable(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC8);
+	XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 
 	/* Store the command fields in resume data */
 	RegVal = XPlmi_In32(SLAVE_BOOT_SBI_CTRL) &
@@ -195,8 +197,8 @@ void XLoader_ClearIntrSbiDataRdy(void)
 		SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 
 	/* Clear and Enable GIC interrupt */
-	XPlmi_GicIntrClearStatus(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC8);
-	XPlmi_GicIntrEnable(XPLMI_PMC_GIC_IRQ_GICP4, XPLMI_GICP4_SRC8);
+	XPlmi_GicIntrClearStatus(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
+	XPlmi_GicIntrEnable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 }
 
 /**

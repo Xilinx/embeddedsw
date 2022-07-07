@@ -95,6 +95,7 @@
 * 1.05  ma   06/21/2022 Add support for Get Handoff Parameters IPI command
 *       sk   06/24/2022 Removed bit field from XLoader_ImageInfoTbl to avoid
 *                       compiler or portability issues
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -128,39 +129,9 @@ extern "C" {
 #define XLOADER_DDR_TEMP_BUFFER_ADDRESS	(0x50000000U)
 #define XLOADER_CHUNK_SIZE		(0x10000U) /* 64K */
 #define XLOADER_TOTAL_CHUNK_SIZE    (XLOADER_CHUNK_SIZE + 0x100U)
-#define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /* 32K */
 #define XLOADER_DMA_LEN_ALIGN		(0x10U)
 #define XLOADER_DMA_LEN_ALIGN_MASK	(0xFU)
 #define XLOADER_IMAGE_SEARCH_OFFSET	(0x8000U) /* 32K */
-
-#define XLOADER_R5_0_TCMA_BASE_ADDR	(0xFFE00000U)
-#define XLOADER_R5_1_TCMA_BASE_ADDR	(0xFFE90000U)
-
-/*
- * TCM address for R5
- */
-#define XLOADER_R5_TCMA_LOAD_ADDRESS	(0x0U)
-#define XLOADER_R5_TCMB_LOAD_ADDRESS	(0x20000U)
-#define XLOADER_R5_TCM_BANK_LENGTH	(0x10000U)
-#define XLOADER_R5_TCM_TOTAL_LENGTH	(XLOADER_R5_TCM_BANK_LENGTH * 4U)
-#define XLOADER_R5_0_TCM_A_BASE_ADDR	(0xFFE00000U)
-#define XLOADER_R5_0_TCM_A_END_ADDR	(0xFFE0FFFFU)
-#define XLOADER_R5_0_TCM_B_BASE_ADDR	(0xFFE20000U)
-#define XLOADER_R5_0_TCM_B_END_ADDR	(0xFFE2FFFFU)
-#define XLOADER_R5_LS_TCM_END_ADDR	(0xFFE3FFFFU)
-#define XLOADER_R5_1_TCM_A_BASE_ADDR	(0xFFE90000U)
-#define XLOADER_R5_1_TCM_A_END_ADDR	(0xFFE9FFFFU)
-#define XLOADER_R5_1_TCM_B_BASE_ADDR	(0xFFEB0000U)
-#define XLOADER_R5_1_TCM_B_END_ADDR	(0xFFEBFFFFU)
-
-/*
- * APU related macros
- */
-#define XLOADER_FPD_APU_CONFIG_0	(0xFD5C0020U)
-#define XLOADER_FPD_APU_CONFIG_0_AA64N32_MASK_CPU0	(0x1U)
-#define XLOADER_FPD_APU_CONFIG_0_AA64N32_MASK_CPU1	(0x2U)
-#define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU0	(0x100U)
-#define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1	(0x200U)
 
 /*
  * Subsystem related macros
@@ -228,23 +199,6 @@ extern "C" {
 
 /* Macro for Image Index Not found */
 #define XLOADER_IMG_INDEX_NOT_FOUND		(0xFFFFFFFFU)
-
-/* Boot Modes */
-#define XLOADER_PDI_SRC_JTAG		(0x0U)
-#define XLOADER_PDI_SRC_QSPI24		(0x1U)
-#define XLOADER_PDI_SRC_QSPI32		(0x2U)
-#define XLOADER_PDI_SRC_SD0		(0x3U)
-#define XLOADER_PDI_SRC_EMMC0		(0x4U)
-#define XLOADER_PDI_SRC_SD1		(0x5U)
-#define XLOADER_PDI_SRC_EMMC1		(0x6U)
-#define XLOADER_PDI_SRC_USB		(0x7U)
-#define XLOADER_PDI_SRC_OSPI		(0x8U)
-#define XLOADER_PDI_SRC_SBI		(0x9U)
-#define XLOADER_PDI_SRC_SMAP		(0xAU)
-#define XLOADER_PDI_SRC_PCIE		(0xBU)
-#define XLOADER_PDI_SRC_SD1_LS		(0xEU)
-#define XLOADER_PDI_SRC_DDR		(0xFU)
-#define XLOADER_PDI_SRC_INVALID		(0xFFU)
 
 #define XLOADER_SBI_INDEX		(0U)
 #define XLOADER_QSPI_INDEX		(1U)
@@ -399,6 +353,24 @@ typedef struct {
 } XLoader_ImageStore;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/*****************************************************************************/
+/**
+ * @brief	This function reads the boot mode register and returns the
+ * 			boot source
+ *
+ * @return	Boot Source
+ *
+ *****************************************************************************/
+static inline PdiSrc_t XLoader_GetBootMode(void)
+{
+	u32 BootMode;
+
+	BootMode = (XPlmi_In32(CRP_BOOT_MODE_USER) &
+				CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
+
+	return (PdiSrc_t)BootMode;
+}
+
 
 /************************** Function Prototypes ******************************/
 int XLoader_Init(void);
@@ -422,7 +394,8 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);
-int XLoader_UpdateHandoffParam(XilPdi* PdiPtr);
+int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
+	void* SecureParamsPtr);
 
 /* Functions defined in xloader_cmds.c */
 void XLoader_CmdsInit(void);

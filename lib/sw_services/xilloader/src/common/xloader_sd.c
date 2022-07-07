@@ -40,6 +40,7 @@
 * 1.06  kpt  12/13/2021 Replaced Xil_Strcat with Xil_SStrcat
 * 1.07  skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
 *       skg  06/20/2022 Fixed MISRA C Rule 7.4 violation
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -58,6 +59,7 @@
 #include "xpm_api.h"
 #include "xpm_nodeid.h"
 #include "xplmi.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -146,7 +148,7 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 	 * If design has ONLY SD0 or ONLY SD1, drive number should be "0"
 	 */
 #ifdef XPAR_XSDPS_1_DEVICE_ID
-	if ((DeviceFlags == XLOADER_PDI_SRC_SD0) ||
+	if ((XLoader_IsPdiSrcSD0(DeviceFlags) == (u8)TRUE) ||
 		(DeviceFlags == XLOADER_PDI_SRC_EMMC0)) {
 		DrvNum = XLOADER_SD_DRV_NUM_0;
 	}
@@ -192,7 +194,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	if ((PdiSrc == XLOADER_PDI_SRC_SD0) ||
+	if ((XLoader_IsPdiSrcSD0(PdiSrc) == (u8)TRUE) ||
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
 		SdDeviceNode = PM_DEV_SDIO_0;
 		SdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;
@@ -419,7 +421,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 			(int)XLOADER_ERR_MEMSET_SD_INSTANCE);
 		goto END;
 	}
-	if ((PdiSrc == XLOADER_PDI_SRC_SD0) ||
+	if ((XLoader_IsPdiSrcSD0(PdiSrc) == (u8)TRUE) ||
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
 		SdDeviceNode = PM_DEV_SDIO_0;
 		SdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;

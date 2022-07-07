@@ -34,6 +34,7 @@
 * 1.05  bsv  07/22/2021 Added support for Winbond flash part
 *       bsv  08/31/2021 Code clean up
 * 1.06  ma   01/17/2022 Enable SLVERR for QSPI registers
+* 1.07  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -51,6 +52,7 @@
 #include "xqspipsu.h"
 #include "xpm_api.h"
 #include "xpm_nodeid.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions *****************************/
 /*
