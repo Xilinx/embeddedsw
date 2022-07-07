@@ -108,13 +108,6 @@ SECTIONS
    __data_end = .;
 } > tmr_ram_cntlr_Mem
 
-.struct_info : {
-   . = ALIGN(4);
-   __struct_info_start = .;
-   KEEP(*(.struct_info_hdr))
-   KEEP(*(.struct_versions))
-   __struct_info_end = .;
-} > tmr_ram_cntlr_Mem
 
 .struct_data : {
    . = ALIGN(4);
@@ -238,6 +231,15 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _PLM_UPDATE_CODE_SIZE;
    __update_mgr_b_end = .;
 } > update_mgr_Mem
+
+.xplm_modules (INFO) : {
+   KEEP (*(.xplm_modules))
+}
+
+.struct_info (INFO): {
+   KEEP(*(.struct_info_hdr))
+   KEEP(*(.struct_versions))
+}
 
 _end = .;
 }

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/13/2021 Remove unnecessary header file
 * 1.07  bsv  11/08/2021 Move XLoader_IsJtagSbiMode to Xilloader
+* 1.08  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -48,24 +49,6 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
-/*****************************************************************************/
-/**
- * @brief	This function reads the boot mode register and returns the
- * 			boot source
- *
- * @return	Boot Source
- *
- *****************************************************************************/
-static inline PdiSrc_t XLoader_GetBootMode(void)
-{
-	u32 BootMode;
-
-	BootMode = (XPlmi_In32(CRP_BOOT_MODE_USER) &
-				CRP_BOOT_MODE_USER_BOOT_MODE_MASK);
-
-	return (PdiSrc_t)BootMode;
-}
 
 /************************** Function Prototypes ******************************/
 int XPlm_LoadBootPdi(void *Arg);

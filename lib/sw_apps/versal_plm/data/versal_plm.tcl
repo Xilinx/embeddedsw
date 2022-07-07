@@ -88,15 +88,15 @@ proc swapp_generate {} {
 		file delete -force $entry
 	}
 
+	foreach entry [glob -nocomplain -types f [file join $common *]] {
+		file copy -force $entry "."
+	}
 	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
 		foreach entry [glob -nocomplain -types f [file join $versal_net *]] {
 			file copy -force $entry "."
 		}
 	}
 	if {$proc_type == "psv_pmc"} {
-		foreach entry [glob -nocomplain -types f [file join $common *]] {
-			file copy -force $entry "."
-		}
 		foreach entry [glob -nocomplain -types f [file join $versal *]] {
 			file copy -force $entry "."
 		}

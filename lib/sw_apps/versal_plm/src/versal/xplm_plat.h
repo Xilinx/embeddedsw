@@ -1,22 +1,22 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 
 /*****************************************************************************/
 /**
 *
-* @file xplm_proc.h
+* @file xplm_plat.h
 *
-* This file contains declarations for PROC C file in PLM.
+* This file contains versal specific declarations PLM module.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   03/27/2018 Initial release
-* 1.01  kc   03/23/2020 Minor code cleanup
+* 1.00  bm   07/06/2022 Initial release
 *
 * </pre>
 *
@@ -24,8 +24,8 @@
 *
 ******************************************************************************/
 
-#ifndef XPLM_PROC_H
-#define XPLM_PROC_H
+#ifndef XPLM_PLAT_H
+#define XPLM_PLAT_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,10 +40,17 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_InitProc(void);
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+u32 XPlm_SetPsmAliveStsVal(u32 Val);
+u32 XPlm_UpdatePsmCounterVal(u32 Val);
+#endif
+int XPlm_ConfigureDefaultNPll(void);
+void XPlm_EnablePlatformSlaveErrors(void);
+
+/************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XPLM_PROC_H */
+#endif  /* XPLMI_PLAT_H */

@@ -42,6 +42,7 @@
 *                       the EAM errors are dependent on domain isolations which
 *                       are handled in XPlm_PmInit
 * 1.07  ma   05/10/2022 Call XPlmi_SsitEventsInit during initialization
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -66,7 +67,9 @@
 #include "xplm_pm.h"
 #include "xplmi.h"
 #include "xil_util.h"
+#ifndef VERSAL_NET
 #include "xplmi_ssit.h"
+#endif
 #ifdef XPLM_SEM
 #include "xilsem.h"
 #endif
