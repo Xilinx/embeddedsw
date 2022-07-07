@@ -26,6 +26,9 @@ proc pdi_drc {libhandle} {
 		}
 	}
 
+	foreach entry [glob -nocomplain -types f [file join $common *]] {
+		file copy -force $entry "./src"
+	}
 	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
 		foreach entry [glob -nocomplain -types f [file join $versal_net *]] {
 			file copy -force $entry "./src"
@@ -33,9 +36,6 @@ proc pdi_drc {libhandle} {
 	}
 
 	if {$proc_type == "psv_pmc"} {
-		foreach entry [glob -nocomplain -types f [file join $common *]] {
-			file copy -force $entry "./src"
-		}
 		foreach entry [glob -nocomplain -types f [file join $versal *]] {
 			file copy -force $entry "./src"
 		}
