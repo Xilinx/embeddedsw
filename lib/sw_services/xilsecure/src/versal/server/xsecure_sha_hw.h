@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +18,7 @@
 * 4.2   har  03/20/20 Updated file version to sync with library version
 * 4.3   am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
+* 4.9   bm   07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -36,8 +37,11 @@ extern "C" {
 #include "xsecure_utils.h"
 
 /************************** Constant Definitions ****************************/
+#define XSECURE_SHA3_NUM_OF_INSTANCES		(1U)
 /**< SHA3 base address */
-#define XSECURE_SHA3_BASE		(0xF1210000U)
+#define XSECURE_SHA3_0_BASE_ADDRESS		(0xF1210000U)
+/**< SHA3 0 device id */
+#define XSECURE_SHA3_0_DEVICE_ID		(0U)
 
 /** @name Register Map
  *

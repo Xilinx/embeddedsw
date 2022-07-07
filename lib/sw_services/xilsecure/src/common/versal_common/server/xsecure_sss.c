@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       kpt     11/12/20 Fixed SSS Cfg issue
 * 4.5   am      11/24/20 Resolved Coverity warnings
 * 4.6   har     07/14/21 Fixed doxygen warnings
+* 4.9   bm      07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -38,31 +39,12 @@
 #include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
-/* XSecure_SssLookupTable[Input source][Resource] */
-static const u8 XSecure_SssLookupTable
-		[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS] = {
-	/*+----+-----+-----+-----+-----+-----+-----+--------+
-	*|DMA0| DMA1| PTPI| AES | SHA | SBI | PZM |Invalid |
-	*+----+-----+-----+-----+-----+-----+-----+--------+
-	* 0x00 = INVALID value
-	*/
-	{0x0DU, 0x00U, 0x00U, 0x06U, 0x00U, 0x0BU, 0x03U, 0x00U}, /* DMA0 */
-	{0x00U, 0x09U, 0x00U, 0x07U, 0x00U, 0x0EU, 0x04U, 0x00U}, /* DMA1 */
-	{0x0DU, 0x0AU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* PTPI */
-	{0x0EU, 0x05U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* AES  */
-	{0x0CU, 0x07U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* SHA  */
-	{0x05U, 0x0BU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* SBI  */
-	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* PZI  */
-	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}, /* Invalid */
-};
 
 /************************** Function Prototypes ******************************/
 static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource);
 static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 			   XSecure_SssSrc Resource, XSecure_SssSrc InputSrc,
 			   XSecure_SssSrc OutputSrc);
-static u32 XSecure_SssMask(XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc,
-			   u32 Value);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -165,7 +147,8 @@ END:
  *	-	XST_FAILURE - On failure to configure switch
  *
  *****************************************************************************/
-int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId)
+int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
+		XSecure_SssSrc Resource)
 {
 	int Status = XST_FAILURE;
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
@@ -194,7 +177,7 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId)
 		goto END;
 	}
 
-	Status = XSecure_SssCfg(InstancePtr, XSECURE_SSS_SHA, InputSrc,
+	Status = XSecure_SssCfg(InstancePtr, Resource, InputSrc,
 			XSECURE_SSS_INVALID);
 
 END:
@@ -356,54 +339,3 @@ static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief	This function masks the secure stream switch value
- *
- * @param	InputSrc	- Input source to be selected for the resource
- * @param	OutputSrc	- Output source to be selected for the resource
- * @param   Value       - Register Value of SSS cfg register
- *
- * @return
- *	-	Mask - Mask value of corresponding InputSrc and OutputSrc
- *
- * @note	InputSrc, OutputSrc are of type XSecure_SssSrc
- *
- *****************************************************************************/
- static u32 XSecure_SssMask(XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc,
-							u32 Value)
-{
-	u32 Mask = 0U;
-	u32 RegVal = Value;
-
-	if ((InputSrc == XSECURE_SSS_DMA0) || (OutputSrc == XSECURE_SSS_DMA0)) {
-		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA0_VAL) {
-			Mask |= XSECURE_SSS_SBI_MASK;
-		}
-		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA0_VAL) {
-			Mask |= XSECURE_SSS_SHA_MASK;
-		}
-		if ((RegVal & XSECURE_SSS_AES_MASK) == XSECURE_SSS_AES_DMA0_VAL) {
-			Mask |= XSECURE_SSS_AES_MASK;
-		}
-		if ((RegVal & XSECURE_SSS_DMA0_MASK) != 0U) {
-			Mask |= XSECURE_SSS_DMA0_MASK;
-		}
-	}
-	if ((InputSrc == XSECURE_SSS_DMA1) || (OutputSrc == XSECURE_SSS_DMA1)) {
-		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA1_VAL) {
-			Mask |= XSECURE_SSS_SBI_MASK;
-		}
-		if ((RegVal & XSECURE_SSS_SHA_MASK) == XSECURE_SSS_SHA_DMA1_VAL) {
-			Mask |= XSECURE_SSS_SHA_MASK;
-		}
-		if ((RegVal & XSECURE_SSS_AES_MASK) == XSECURE_SSS_AES_DMA1_VAL) {
-			Mask |= XSECURE_SSS_AES_MASK;
-		}
-		if ((RegVal & XSECURE_SSS_DMA1_MASK) != 0U) {
-			Mask |= XSECURE_SSS_DMA1_MASK;
-		}
-	}
-
-	return Mask;
-}

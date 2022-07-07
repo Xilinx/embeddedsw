@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,6 +19,7 @@
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 * 4.6   har  07/14/21 Fixed doxygen warnings
 * 4.7   kpt  11/29/21 Added macro XSecure_DCacheFlushRange
+* 4.9   bm   07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 * @note
@@ -36,7 +37,7 @@ extern "C" {
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xil_cache.h"
-
+#include "xsecure_plat_defs.h"
 
 /************************** Constant Definitions ****************************/
 /**
@@ -120,37 +121,6 @@ typedef enum {
 	XSECURE_ENCRYPT,	/**< Encrypt operation */
 	XSECURE_DECRYPT,	/**< Decrypt operation */
 } XSecure_AesOp;
-
-/**< XilSecure API ids */
-typedef enum {
-	XSECURE_API_FEATURES = 0U,		/**< 0U */
-	XSECURE_API_RSA_SIGN_VERIFY,		/**< 1U */
-	XSECURE_API_RSA_PUBLIC_ENCRYPT,		/**< 2U */
-	XSECURE_API_RSA_PRIVATE_DECRYPT,	/**< 3U */
-	XSECURE_API_RSA_KAT,			/**< 4U */
-	XSECURE_API_SHA3_UPDATE = 32U,		/**< 32U */
-	XSECURE_API_SHA3_KAT,			/**< 33U */
-	XSECURE_API_ELLIPTIC_GENERATE_KEY = 64U,/**< 64U */
-	XSECURE_API_ELLIPTIC_GENERATE_SIGN,	/**< 65U */
-	XSECURE_API_ELLIPTIC_VALIDATE_KEY,	/**< 66U */
-	XSECURE_API_ELLIPTIC_VERIFY_SIGN,	/**< 67U */
-	XSECURE_API_ELLIPTIC_KAT,		/**< 68U */
-	XSECURE_API_AES_INIT = 96U,		/**< 96U */
-	XSECURE_API_AES_OP_INIT,		/**< 97U */
-	XSECURE_API_AES_UPDATE_AAD,		/**< 98U */
-	XSECURE_API_AES_ENCRYPT_UPDATE,		/**< 99U */
-	XSECURE_API_AES_ENCRYPT_FINAL,		/**< 100U */
-	XSECURE_API_AES_DECRYPT_UPDATE,		/**< 101U */
-	XSECURE_API_AES_DECRYPT_FINAL,		/**< 102U */
-	XSECURE_API_AES_KEY_ZERO,		/**< 103U */
-	XSECURE_API_AES_WRITE_KEY,		/**< 104U */
-	XSECURE_API_AES_LOCK_USER_KEY,		/**< 105U */
-	XSECURE_API_AES_KEK_DECRYPT,		/**< 106U */
-	XSECURE_API_AES_SET_DPA_CM,		/**< 107U */
-	XSECURE_API_AES_DECRYPT_KAT,		/**< 108U */
-	XSECURE_API_AES_DECRYPT_CM_KAT,		/**< 109U */
-	XSECURE_API_MAX,			/**< 110U */
-} XSecure_ApiId;
 
 #ifdef __cplusplus
 }

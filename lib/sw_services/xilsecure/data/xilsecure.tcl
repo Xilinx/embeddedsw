@@ -19,6 +19,7 @@
 #       kal  04/21/21 Added server side support for A72/R5 processors for
 #                     Versal
 #       har  05/17/21 Added support for non-secure access of Xilsecure IPIs
+# 4.9   bm   07/06/22 Refactor versal and versal_net code
 #
 ##############################################################################
 
@@ -63,6 +64,12 @@ proc secure_drc {libhandle} {
 			return;
 		}
 		if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc"  || $proc_type == "psxl_pmc" || $proc_type == "psx_pmc"|| $mode == "server"} {
+			foreach entry [glob -nocomplain -types f [file join "$versal_common/server" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_common/common" *]] {
+				file copy -force $entry "./src"
+			}
 			if {$proc_type == "psxl_pmc" || $proc_type == "psxl_cortexa78" ||
 			    $proc_type == "psxl_cortexr52" || $proc_type == "psx_pmc" ||
 			    $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
@@ -73,12 +80,6 @@ proc secure_drc {libhandle} {
 					file copy -force $entry "./src"
 				}
 			} else {
-				foreach entry [glob -nocomplain -types f [file join "$versal_common/server" *]] {
-					file copy -force $entry "./src"
-				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_common/common" *]] {
-					file copy -force $entry "./src"
-				}
 				foreach entry [glob -nocomplain -types f [file join "$versal/server" *]] {
 					file copy -force $entry "./src"
 				}
@@ -134,6 +135,12 @@ proc secure_drc {libhandle} {
 			if { [llength $librarylist] == 0 } {
 				error "This library requires xilmailbox library in the Board Support Package.";
 			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_common/client" *]] {
+				file copy -force $entry "./src"
+			}
+			foreach entry [glob -nocomplain -types f [file join "$versal_common/common" *]] {
+				file copy -force $entry "./src"
+			}
 			if {$proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||
 			    $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
 				foreach entry [glob -nocomplain -types f [file join "$versal_net/client" *]] {
@@ -143,12 +150,6 @@ proc secure_drc {libhandle} {
 					file copy -force $entry "./src"
 				}
 			} else {
-				foreach entry [glob -nocomplain -types f [file join "$versal_common/client" *]] {
-					file copy -force $entry "./src"
-				}
-				foreach entry [glob -nocomplain -types f [file join "$versal_common/common" *]] {
-					file copy -force $entry "./src"
-				}
 				foreach entry [glob -nocomplain -types f [file join "$versal/client" *]] {
 					file copy -force $entry "./src"
 				}

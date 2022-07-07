@@ -23,6 +23,7 @@
 *                       XSecure_FeaturesCmd API
 *       rb   08/11/2021 Fix compilation warnings
 * 4.7   am   03/08/2022 Fixed MISRA C violations
+* 4.9   bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -57,6 +58,9 @@ static XPlmi_Module XPlmi_Secure =
 	XSecure_Cmds,
 	XSECURE_API(XSECURE_API_MAX),
 	XSecure_CheckIpiAccess,
+#ifdef VERSAL_NET
+	NULL
+#endif
 };
 
 /**************************** Type Definitions *******************************/

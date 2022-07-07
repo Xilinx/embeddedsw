@@ -42,6 +42,7 @@
 * 4.7   kpt  12/01/21 Replaced library specific,standard utility functions
 *                     with xilinx maintained functions
 *       am   03/08/22 Replaced memset() with Xil_SMemSet()
+* 4.9   bm   07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 * @note
@@ -55,6 +56,7 @@
 #include "xsecure_sha.h"
 #include "xil_util.h"
 #include "xsecure_cryptochk.h"
+#include "xsecure_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_SHA3_HASH_LENGTH_IN_BITS		(384U)
@@ -148,7 +150,20 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 		goto END;
 	}
 
-	InstancePtr->BaseAddress = XSECURE_SHA3_BASE;
+	if (InstancePtr->Sha3State == XSECURE_SHA3_UNINITIALIZED) {
+		Status = XSecure_Sha3LookupConfig(InstancePtr,
+				XSECURE_SHA3_0_DEVICE_ID);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XSECURE_SHA3_INVALID_PARAM;
+			goto END;
+		}
+	}
+
+	if ((InstancePtr->Sha3State != XSECURE_SHA3_INITIALIZED) &&
+		(InstancePtr->Sha3State != XSECURE_SHA3_LOOKUP_CONFIG)) {
+		goto END;
+	}
+
 	InstancePtr->Sha3Len = 0U;
 	InstancePtr->DmaPtr = DmaPtr;
 	InstancePtr->IsLastUpdate = FALSE;
@@ -606,7 +621,8 @@ static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
 
 	/* Configure the SSS for SHA3 hashing. */
 	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
-				InstancePtr->DmaPtr->Config.DeviceId);
+				InstancePtr->DmaPtr->Config.DeviceId,
+				InstancePtr->Sha3Config->SssShaCfg);
 	if (Status != XST_SUCCESS) {
 		goto ENDF;
 	}
@@ -794,6 +810,43 @@ END_RST:
 	XSecure_SetReset(SecureSha3->BaseAddress,
 			XSECURE_SHA3_RESET_OFFSET);
 
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function assigns SHA3 configuration to the InstancePtr
+ *
+ * @param	InstancePtr Pointer to XSecure_Sha3Instance
+ * @param	DeviceId Deviceid of the SHA3
+ *
+ * @return
+ * 		XST_SUCCESS On successful initialization
+ * 		XST_FAILURE On failure
+ *
+ ******************************************************************************/
+int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u8 DeviceId) {
+	int Status = XST_FAILURE;
+	const XSecure_Sha3Config *CfgPtr = NULL;
+	u8 Index;
+
+	for (Index = 0U; Index < XSECURE_SHA3_NUM_OF_INSTANCES; Index++) {
+		if (Sha3ConfigTable[Index].DeviceId == DeviceId) {
+			CfgPtr = &Sha3ConfigTable[Index];
+			break;
+		}
+	}
+
+	if ((CfgPtr == NULL) || (InstancePtr == NULL)) {
+		goto END;
+	}
+
+	InstancePtr->BaseAddress = CfgPtr->BaseAddress;
+	InstancePtr->Sha3Config = CfgPtr;
+	InstancePtr->Sha3State = XSECURE_SHA3_LOOKUP_CONFIG;
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
