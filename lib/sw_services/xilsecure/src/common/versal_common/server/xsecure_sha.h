@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -45,6 +45,7 @@
 *       har  10/12/20 Addressed security review comments
 *       ana  10/15/20 Updated doxygen tags
 * 4.5   bm   01/13/21 Added support for 64-bit input data address
+* 4.9   bm   07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -62,7 +63,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xpmcdma.h"
 #include "xsecure_sss.h"
-
+#include "xsecure_plat.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal
@@ -97,8 +98,15 @@ typedef struct {
 typedef enum {
 	XSECURE_SHA3_UNINITIALIZED = 0,
 	XSECURE_SHA3_INITIALIZED,
-	XSECURE_SHA3_ENGINE_STARTED
+	XSECURE_SHA3_ENGINE_STARTED,
+	XSECURE_SHA3_LOOKUP_CONFIG,
 } XSecure_Sha3State;
+
+typedef struct {
+	XSecure_SssSrc SssShaCfg;
+	u32 BaseAddress;
+	u8 DeviceId;
+}XSecure_Sha3Config;
 
 /**
  * The SHA-3 driver instance data structure. A pointer to an instance data
@@ -114,7 +122,9 @@ typedef struct {
 	u8 PartialData[XSECURE_SHA3_BLOCK_LEN]; /**< Partial Data */
 	XSecure_Sss SssInstance; /**< SSS Instance */
 	XSecure_Sha3State Sha3State; /**< SHA engine state */
+	const XSecure_Sha3Config *Sha3Config;
 } XSecure_Sha3;
+
 /**
  * @}
  * @endcond
@@ -144,6 +154,11 @@ int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
 int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
 int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
+
+int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u8 DeviceId);
+
+/***************************** Variable Prototypes ***************************/
+extern const XSecure_Sha3Config Sha3ConfigTable[XSECURE_SHA3_NUM_OF_INSTANCES];
 
 #ifdef __cplusplus
 }

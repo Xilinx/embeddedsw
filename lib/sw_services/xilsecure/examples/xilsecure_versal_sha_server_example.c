@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * 4.5   kal    04/21/21 Updated file version to sync with library version
 * 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
 *                       with xilinx maintained functions
+* 4.9   bm     07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 ******************************************************************************/
@@ -104,7 +105,11 @@ int main(void)
 /** //! [SHA3 example] */
 static int SecureSha3Example()
 {
-	XSecure_Sha3 Secure_Sha3;
+	/*
+	 * It is required to zeroize sha instance before calling
+	 * XSecure_Sha3Initialize in server mode.
+	 */
+	XSecure_Sha3 Secure_Sha3 = {0U};
 	XCsuDma CsuDma;
 	XCsuDma_Config *Config;
 	u8 Out[SHA3_HASH_LEN_IN_BYTES];

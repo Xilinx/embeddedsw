@@ -7,17 +7,14 @@
 /**
 *
 * @file xsecure_sha_hw.h
-* This file contains SHA3 core hardware definitions for Versal.
+* This file contains SHA3 core hardware definitions for Versalnet.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   har  03/20/20 Initial release
-* 4.2   har  03/20/20 Updated file version to sync with library version
-* 4.3   am   09/24/20 Resolved MISRA C violations
-*       har  10/12/20 Addressed security review comments
+* 1.0   bm   07/06/22 Initial release
 *
 * </pre>
 *
@@ -36,11 +33,16 @@ extern "C" {
 #include "xsecure_utils.h"
 
 /************************** Constant Definitions ****************************/
+#define XSECURE_SHA3_NUM_OF_INSTANCES		(2U)
 /**< SHA3 0 base address */
 #define XSECURE_SHA3_0_BASE_ADDRESS		(0xF1210000U)
+/**< SHA3 0 device id */
+#define XSECURE_SHA3_0_DEVICE_ID		(0U)
 
 /**< SHA3 1 base address */
 #define XSECURE_SHA3_1_BASE_ADDRESS		(0xF1800000U)
+/**< SHA3 1 device id */
+#define XSECURE_SHA3_1_DEVICE_ID		(1U)
 
 
 /** @name Register Map

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
 *       bsv     10/19/20 Changed register writes to PMC SSS Cfg to mask writes
+* 4.9   bm      07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 * @endcond
@@ -36,22 +37,19 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xsecure_plat.h"
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal */
 #define XSECURE_SSS_CFG_LEN_IN_BITS	(4U) /**< Length is bits */
 #define XSECURE_SSS_ADDRESS		(0xF1110500U) /**< SSS base address */
-#define XSECURE_SSS_MAX_SRCS	(8U)	/**< Maximum resources */
 #define XSECURE_SSS_SBI_MASK	(0xF00000U)
-#define XSECURE_SSS_SHA_MASK	(0xF0000U)
 #define XSECURE_SSS_AES_MASK	(0xF000U)
 #define XSECURE_SSS_DMA1_MASK	(0xF0U)
 #define XSECURE_SSS_DMA0_MASK	(0xFU)
 #define XSECURE_SSS_SRC_SEL_MASK	(0xFU)
 #define XSECURE_SSS_SBI_DMA0_VAL	(0x500000U)
 #define XSECURE_SSS_SBI_DMA1_VAL	(0xB00000U)
-#define XSECURE_SSS_SHA_DMA0_VAL	(0xC0000U)
-#define XSECURE_SSS_SHA_DMA1_VAL	(0x70000U)
 #define XSECURE_SSS_AES_DMA0_VAL	(0xE000U)
 #define XSECURE_SSS_AES_DMA1_VAL	(0x5000U)
 
@@ -63,31 +61,21 @@ typedef struct {
 	u32 Address; /**< Address of SSS CFG register */
 }XSecure_Sss;
 
-/*
- * Sources to be selected to configure secure stream switch.
- * XSECURE_SSS__IGNORE is added to make enum type int
- * irrespective of compiler used.
- */
-typedef enum {
-	XSECURE_SSS_IGNORE = -1,
-	XSECURE_SSS_DMA0 = 0,
-	XSECURE_SSS_DMA1,
-	XSECURE_SSS_PTPI,
-	XSECURE_SSS_AES,
-	XSECURE_SSS_SHA,
-	XSECURE_SSS_SBI,
-	XSECURE_SSS_PZI,
-	XSECURE_SSS_INVALID
-}XSecure_SssSrc;
-
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 int XSecure_SssInitialize(XSecure_Sss *InstancePtr);
 int XSecure_SssAes(const XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc,
 		   XSecure_SssSrc OutputSrc);
-int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId);
+int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
+		XSecure_SssSrc Resource);
 int XSecure_SssDmaLoopBack(const XSecure_Sss *InstancePtr, u16 DmaId);
+
+/* Functions defined in xsecure_plat.c */
+u32 XSecure_SssMask(XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc, u32 Value);
+
+/************************** Variable Prototypes ******************************/
+extern const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS];
 
 #ifdef __cplusplus
 }
