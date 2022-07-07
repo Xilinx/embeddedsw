@@ -6,7 +6,7 @@
 # this script will copy the required bsp directories
 
 # present working dir
-WORKING_DIR=../../misc
+WORKING_DIR=../../misc/versal
 
 #bsp dir where files will be copied
 BSP_DIR=$WORKING_DIR/versal_plm_bsp/psv_pmc_0
@@ -15,7 +15,7 @@ BSP_DIR=$WORKING_DIR/versal_plm_bsp/psv_pmc_0
 PROC_DIRNAME=cpu
 
 # Embedded Sw dir relative path from versal_plm src
-EMBEDDED_SW_DIR=$WORKING_DIR/../../../../
+EMBEDDED_SW_DIR=$WORKING_DIR/../../../../../
 
 # selection of drivers is based on the board selected
 DRIVERS_LIST="$WORKING_DIR/drivers.txt"

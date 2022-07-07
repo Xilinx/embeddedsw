@@ -653,6 +653,7 @@
 #define XPAR_WDTTB_0_MAX_COUNT_WIDTH 0U
 #define XPAR_WDTTB_0_SST_COUNT_WIDTH 0U
 #define XPAR_WDTTB_0_IS_PL 0U
+#define XPAR_WDTTB_0_WDT_CLK_FREQ_HZ 100000000U
 
 /* Canonical Definitions for peripheral PSV_CORESIGHT_FPD_STM */
 #define XPAR_PSV_CORESIGHT_FPD_STM_0_S_AXI_BASEADDR 0xF0B70000
@@ -1249,6 +1250,13 @@
 #define XPAR_PSV_PMC_SD_0_BUS_WIDTH 8
 #define XPAR_PSV_PMC_SD_0_MIO_BANK 0
 #define XPAR_PSV_PMC_SD_0_HAS_EMIO 0
+#define XPAR_PSV_PMC_SD_0_SLOT_TYPE 0
+#define XPAR_PSV_PMC_SD_0_CLK_50_SDR_ITAP_DLY 0
+#define XPAR_PSV_PMC_SD_0_CLK_50_SDR_OTAP_DLY 0
+#define XPAR_PSV_PMC_SD_0_CLK_50_DDR_ITAP_DLY 0
+#define XPAR_PSV_PMC_SD_0_CLK_50_DDR_OTAP_DLY 0
+#define XPAR_PSV_PMC_SD_0_CLK_100_SDR_OTAP_DLY 0
+#define XPAR_PSV_PMC_SD_0_CLK_200_SDR_OTAP_DLY 0
 
 
 /* Definitions for peripheral PSV_PMC_SD_1 */
@@ -1261,6 +1269,13 @@
 #define XPAR_PSV_PMC_SD_1_BUS_WIDTH 8
 #define XPAR_PSV_PMC_SD_1_MIO_BANK 1
 #define XPAR_PSV_PMC_SD_1_HAS_EMIO 0
+#define XPAR_PSV_PMC_SD_1_SLOT_TYPE 0
+#define XPAR_PSV_PMC_SD_1_CLK_50_SDR_ITAP_DLY 0
+#define XPAR_PSV_PMC_SD_1_CLK_50_SDR_OTAP_DLY 0
+#define XPAR_PSV_PMC_SD_1_CLK_50_DDR_ITAP_DLY 0
+#define XPAR_PSV_PMC_SD_1_CLK_50_DDR_OTAP_DLY 0
+#define XPAR_PSV_PMC_SD_1_CLK_100_SDR_OTAP_DLY 0
+#define XPAR_PSV_PMC_SD_1_CLK_200_SDR_OTAP_DLY 0
 
 
 /******************************************************************/
@@ -1651,5 +1666,24 @@
 #define FILE_SYSTEM_NUM_LOGIC_VOL 10
 #define FILE_SYSTEM_USE_STRFUNC 0
 #define FILE_SYSTEM_SET_FS_RPATH 0
+
+/* PLM/XilPLMI configuration */
+
+/* Debug level option */
+#define PLM_DEBUG
+
+/* Boot time measurement enable */
+#define PLM_PRINT_PERF
+
+/* USB Boot mode support disable */
+#define PLM_USB_EXCLUDE
+
+/* NVM handlers disable */
+#define PLM_NVM_EXCLUDE
+
+/* PUF handlers disable */
+#define PLM_PUF_EXCLUDE
+
+
 #define XPAR_XILPM_ENABLED
 #endif  /* end of protection macro */
