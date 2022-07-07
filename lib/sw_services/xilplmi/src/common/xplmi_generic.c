@@ -66,6 +66,7 @@
 *       is   01/10/2022 Updated Copyright Year to 2022
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 * 1.08  bsv  06/03/2022 Add CommandInfo to a separate section in elf
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -81,7 +82,6 @@
 #include "xplmi_hw.h"
 #include "xcfupmc.h"
 #include "sleep.h"
-#include "xplmi_ssit.h"
 #include "xplmi_event_logging.h"
 #include "xplmi_wdt.h"
 #include "xplmi_modules.h"
@@ -89,6 +89,11 @@
 #include "xil_util.h"
 #include "xplmi_cdo.h"
 #include "xplmi_sysmon.h"
+#include "xplmi.h"
+#ifndef VERSAL_NET
+#include "xplmi_ssit.h"
+#endif
+#include "xplmi_plat.h"
 
 /**@cond xplmi_internal
  * @{
@@ -107,30 +112,10 @@
 #define XPLMI_SRC_ALIGN_REQ	(0U)
 #define XPLMI_DEST_ALIGN_REQ	(1U)
 #define XPLMI_LEN_ALIGN_REQ	(2U)
-#define XPLMI_UNLIMITED_ARG_CNT		(0xFFU)
 
-/* SSIT readback max length in words */
-#define XPLMI_SSIT_MAX_READBACK_SIZE	(0x10000U)
-
-/* SSIT SLR related macros */
-#define XPLMI_CFU_STREAM_2_SLR_OFFSET	\
-	(CFU_STREAM_2_ADDR - XPLMI_PMC_LOCAL_BASEADDR)
-#define XPLMI_CFU_FDRO_2_SLR_OFFSET		\
-	(CFU_FDRO_2_ADDR - XPLMI_PMC_LOCAL_BASEADDR)
-
-#define XPLMI_SLR1_CFU_FDRO_2_ADDR	\
-	(XPLMI_PMC_ALIAS1_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET)
-#define XPLMI_SLR2_CFU_FDRO_2_ADDR	\
-	(XPLMI_PMC_ALIAS2_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET)
-#define XPLMI_SLR3_CFU_FDRO_2_ADDR	\
-	(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET)
-
-#define XPLMI_SLR1_CFU_STREAM_2_ADDR	\
-	(XPLMI_PMC_ALIAS1_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
-#define XPLMI_SLR2_CFU_STREAM_2_ADDR	\
-	(XPLMI_PMC_ALIAS2_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
-#define XPLMI_SLR3_CFU_STREAM_2_ADDR	\
-	(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
+#define XPLMI_BEGIN_MAX_LOG_STR_LEN			(28U)
+#define XPLMI_BEGIN_OFFSET_STACK_SIZE			(10U)
+#define XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL	(1U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
@@ -139,8 +124,12 @@ static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void);
 static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
 	u8 Flag);
 static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams);
+static int XPlmi_StackPush(u32 *Data);
+static int XPlmi_StackPop(u32 PopLevel, u32 *Data);
 
 /************************** Variable Definitions *****************************/
+static u32 OffsetList[XPLMI_BEGIN_OFFSET_STACK_SIZE] = {0U};
+static int OffsetListTop = -1;
 
 /*****************************************************************************/
 /**
@@ -273,6 +262,9 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 	u32 ExpectedValue = Cmd->Payload[2U];
 	u32 TimeOutInUs = Cmd->Payload[3U];
 	u32 Flags = 0U;
+	u32 Level;
+	u16 DebugLevel = DEBUG_INFO;
+	u8 BreakFlagEn;
 #ifdef PLM_PRINT_PERF_POLL
 	u64 PollTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
@@ -280,13 +272,19 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 	XPLMI_EXPORT_CMD(XPLMI_MASK_POLL_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FIVE);
 
-	if (TimeOutInUs < XPLMI_MASK_POLL_MIN_TIMEOUT) {
-		TimeOutInUs = XPLMI_MASK_POLL_MIN_TIMEOUT;
+	BreakFlagEn = (u8)((XPLMI_MASKPOLL_LEN_EXT == Cmd->Len) &&
+			(XPLMI_MASKPOLL_FLAGS_BREAK == (Cmd->Payload[4U] &
+			XPLMI_MASKPOLL_FLAGS_MASK)));
+	if (BreakFlagEn == (u8)FALSE) {
+		if (TimeOutInUs < XPLMI_MASK_POLL_MIN_TIMEOUT) {
+			TimeOutInUs = XPLMI_MASK_POLL_MIN_TIMEOUT;
+		}
+		DebugLevel = DEBUG_GENERAL;
 	}
 
 	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL,
+		XPlmi_Printf(DebugLevel,
 			"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
 			"Timeout: %u ...ERROR\r\n",  __func__,
 			Addr, Mask, ExpectedValue, TimeOutInUs);
@@ -315,6 +313,11 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 			/* Defer the error till the end of CDO processing */
 			Status = XST_SUCCESS;
 			Cmd->DeferredError = (u8)TRUE;
+		} else if (Flags == XPLMI_MASKPOLL_FLAGS_BREAK) {
+			Level = (Cmd->Payload[4U] & XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_MASK) >>
+				XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT;
+			/* Jump to "end" associated with break level */
+			Status = XPlmi_GetJumpOffSet(Cmd, Level);
 		} else {
 			/* Return mask_poll status */
 		}
@@ -425,7 +428,7 @@ static int XPlmi_Delay(XPlmi_Cmd *Cmd)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags)
+int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	u32 UnalignedWordCount;
@@ -538,6 +541,7 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd *Cmd)
 	u32 ExpectedValue = Cmd->Payload[3U];
 	u32 TimeOutInUs = Cmd->Payload[4U];
 	u32 Flags = 0U;
+	u32 Level = 0U;
 	XPLMI_EXPORT_CMD(XPLMI_MASK_POLL64_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FIVE, XPLMI_CMD_ARG_CNT_SIX);
 
@@ -560,6 +564,11 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd *Cmd)
 			/* Defer the error till the end of CDO processing */
 			Status = XST_SUCCESS;
 			Cmd->DeferredError = (u8)TRUE;
+		} else if (Flags == XPLMI_MASKPOLL_FLAGS_BREAK) {
+			Level = (Cmd->Payload[5U] & XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_MASK) >>
+				XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT;
+			/* Jump to "end" associated with break level */
+			Status = XPlmi_GetJumpOffSet(Cmd, Level);
 		} else {
 			/* Return mask_poll status */
 		}
@@ -922,8 +931,8 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 					XPLMI_READBACK_SLR_TYPE_SHIFT;
 	u64 DestAddrHigh;
 	u32 DestAddrLow;
-	u64 SrcAddr = (u64)CFU_FDRO_2_ADDR;
-	u64 DestAddrRead = (u64)CFU_STREAM_2_ADDR;
+	u64 SrcAddr;
+	u64 DestAddrRead;
 	u64 DestAddr = 0UL;
 	XPlmi_ReadBackProps *ReadBackPtr = XPlmi_GetReadBackPropsInstance();
 	u32 ReadLen;
@@ -932,24 +941,8 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	XPLMI_EXPORT_CMD(XPLMI_CFI_READ_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_UNLIMITED_ARG_CNT);
 
-	if (SlrType == XPLMI_READBACK_SLR_TYPE_1) {
-		SrcAddr = XPLMI_SLR1_CFU_FDRO_2_ADDR;
-		DestAddrRead = XPLMI_SLR1_CFU_STREAM_2_ADDR;
-	} else if (SlrType == XPLMI_READBACK_SLR_TYPE_2) {
-		SrcAddr = XPLMI_SLR2_CFU_FDRO_2_ADDR;
-		DestAddrRead = XPLMI_SLR2_CFU_STREAM_2_ADDR;
-	} else if (SlrType == XPLMI_READBACK_SLR_TYPE_3) {
-		SrcAddr = XPLMI_SLR3_CFU_FDRO_2_ADDR;
-		DestAddrRead = XPLMI_SLR3_CFU_STREAM_2_ADDR;
-	} else {
-		/* For Misra-C */
-	}
-
-	if (Len > XPLMI_SSIT_MAX_READBACK_SIZE) {
-		ReadLen = XPLMI_SSIT_MAX_READBACK_SIZE;
-	} else {
-		ReadLen = Len;
-	}
+	XPlmi_GetReadbackSrcDest(SlrType, &SrcAddr, &DestAddrRead);
+	ReadLen = XPlmi_GetReadbackLen(Len);
 	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_MIN_VAL);
 
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
@@ -1012,11 +1005,7 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 
 	Len -= ReadLen;
 	while (Len > 0U) {
-		if (Len > XPLMI_SSIT_MAX_READBACK_SIZE) {
-			ReadLen = XPLMI_SSIT_MAX_READBACK_SIZE;
-		} else {
-			ReadLen = Len;
-		}
+		ReadLen = XPlmi_GetReadbackLen(Len);
 
 		if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
 			DestAddr += ((u64)ReadLen * XPLMI_WORD_LEN);
@@ -1308,7 +1297,7 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
 
 	XPlmi_Printf(DEBUG_INFO, "Enabling WDT with Node:0x%08x, "
 		     "Periodicity: %u ms\n\r", NodeId, Periodicity);
-	Status = XPlmi_EnableWdt(NodeId, (u16)Periodicity);
+	Status = XPlmi_EnableWdt(NodeId, Periodicity);
 
 	return Status;
 }
@@ -1492,7 +1481,7 @@ END:
  * @return	ProcList is the address of ProcList structure
  *
  *****************************************************************************/
-static XPlmi_ProcList* XPlmi_GetProcList(void)
+XPlmi_ProcList* XPlmi_GetProcList(void)
 {
 	static XPlmi_ProcList ProcList = {0U};
 
@@ -1555,7 +1544,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 	 * If LPD is not initialized or Proc memory is not available,
 	 * do not execute the proc
 	 */
-	if (((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) ||
+	if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
 		(ProcList->IsProcMemAvailable != (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory "
 				"is not available, Proc commands cannot be executed\r\n");
@@ -1627,7 +1616,7 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 		 * Check if LPD is initialized and ProcList is initialized
 		 * as we are using PSM RAM to store Proc data
 		 */
-		if (((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) ||
+		if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
 			(ProcList->IsProcMemAvailable != (u8)TRUE)) {
 			XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory"
 					" is not available, Proc commands cannot be stored\r\n");
@@ -1746,36 +1735,139 @@ static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
- * @brief	This function checks if the IPI command is accessible or not
+ * @brief	This function provides start of the block.
+ *  		Command payload parameters are
+ *		- Offset : specifies no. of words until "end" of the block
+ *		- String : optional for debugging purpose (max. 7 words)
  *
- * @param	CmdId is the Command ID
- * @param	IpiReqType is the IPI command request type
+ * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
+static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 ModuleCmdId = CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
+	u32 CurAddr = (u32)Cmd->Payload;
+	u32 EndOffSet = (Cmd->Payload[0U] + 1U) * XPLMI_WORD_LEN;
+	u32 EndAddr = CurAddr + EndOffSet;
+	u8  LogString[XPLMI_BEGIN_MAX_LOG_STR_LEN] __attribute__ ((aligned(4U)));
+	u32 StrLen = 0U;
 
-	/* Secure check for PLMI IPI commands */
-	switch (ModuleCmdId) {
-		/*
-		 * Check IPI request type for Event Logging IPI command
-		 * and allow access only if the request is secure
-		 */
-		case XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL:
-			if (XPLMI_CMD_SECURE == IpiReqType) {
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		/* Allow access for all other IPI commands */
-		default:
-			Status = XST_SUCCESS;
-			break;
+	/* Max 10 nested begin supported */
+	if (OffsetListTop == (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
+		XPlmi_Printf(DEBUG_GENERAL,"Max %d nested begin supported\n",
+				XPLMI_BEGIN_OFFSET_STACK_SIZE);
+		goto END;
 	}
+
+	/* Max 7 word (28 characters) long string supported */
+	if (Cmd->PayloadLen > XPLMI_CMD_RESP_SIZE) {
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Max %d characters long string supported\n",
+				XPLMI_BEGIN_MAX_LOG_STR_LEN);
+		goto END;
+	}
+
+	/* Push "end" Address to stack */
+	Status = XPlmi_StackPush(&EndAddr);
+	if ( Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* TODO Check on CmdResume Logic */
+	if (Cmd->PayloadLen > 1U) {
+		StrLen = Cmd->PayloadLen - 1U;
+
+		Status = XPlmi_MemSet((u64)(UINTPTR)LogString, 0U,
+				(XPLMI_BEGIN_MAX_LOG_STR_LEN /  XPLMI_WORD_LEN));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/* Add the payload to local buffer */
+		Status = Xil_SMemCpy(LogString, XPLMI_BEGIN_MAX_LOG_STR_LEN,
+				(u8 *)&Cmd->Payload[1U], (StrLen * XPLMI_WORD_LEN),
+				(StrLen * XPLMI_WORD_LEN));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/* Print the string only when complete payload is received */
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s\n\r", LogString);
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides end of the block.
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_End(XPlmi_Cmd *Cmd)
+{
+	u32 CurAddr = (u32)Cmd->Payload;
+	u32 PopAddr = 0U;
+	int Status = XST_FAILURE;
+
+	/* Stack empty, End does not have begin */
+	if (OffsetListTop < 0) {
+		XPlmi_Printf(DEBUG_GENERAL,"End does not have valid begin\n");
+		goto END;
+	}
+
+	/* Get the address of end command */
+	CurAddr -= XPLMI_WORD_LEN;
+
+	/* Popped "end" addr from stack should match with current addr */
+	Status = XPlmi_StackPop(XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL,
+			&PopAddr);
+	if ( Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (CurAddr == PopAddr) {
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function skips all the commands until the Levels
+ * number of nested "end".
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_Break(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 Level = 0U;
+
+	/*
+	 * Get Level to skip all commands until Levels number of nested “end”
+	 * commands have been seen
+	 */
+	if (0U == Cmd->PayloadLen) {
+		Level = XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL;
+	} else {
+		Level = Cmd->Payload[0U] & XPLMI_BREAK_LEVEL_MASK;
+	}
+
+	/* Jump to "end" associated with break level */
+	Status = XPlmi_GetJumpOffSet(Cmd, Level);
 
 	return Status;
 }
@@ -1826,10 +1918,14 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_LogAddress),
 		XPLMI_MODULE_COMMAND(XPlmi_Marker),
 		XPLMI_MODULE_COMMAND(XPlmi_Proc),
-		XPLMI_MODULE_COMMAND(NULL),	/* Reserved for future */
-		XPLMI_MODULE_COMMAND(NULL),	/* Reserved for future */
-		XPLMI_MODULE_COMMAND(NULL),	/* Reserved for future */
+		XPLMI_MODULE_COMMAND(XPlmi_Begin),
+		XPLMI_MODULE_COMMAND(XPlmi_End),
+		XPLMI_MODULE_COMMAND(XPlmi_Break),
 		XPLMI_MODULE_COMMAND(XPlmi_OTCheck),
+		XPLMI_MODULE_COMMAND(XPlmi_PsmSequence),
+		XPLMI_MODULE_COMMAND(XPlmi_InPlacePlmUpdate),
+		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite),
+		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite2),
 	};
 	/* This is to store CMD_END in xplm_modules section */
 	XPLMI_EXPORT_CMD(XPLMI_END_CMD_ID, XPLMI_MODULE_GENERIC_ID,
@@ -1839,6 +1935,9 @@ void XPlmi_GenericInit(void)
 	XPlmi_Generic.CmdAry = XPlmi_GenericCmds;
 	XPlmi_Generic.CmdCnt = XPLMI_ARRAY_SIZE(XPlmi_GenericCmds);
 	XPlmi_Generic.CheckIpiAccess = XPlmi_CheckIpiAccess;
+#ifdef VERSAL_NET
+	XPlmi_Generic.UpdateHandler = XPlmi_GenericHandler;
+#endif
 
 	XPlmi_ModuleRegister(&XPlmi_Generic);
 }
@@ -2072,6 +2171,126 @@ static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams)
 		KeyHoleXfrParams->DestAddr += LenTemp;
 	}
 
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function pushes data on stack.
+ *
+ * @param	Data is pointer to the data to be stored on stack
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_StackPush(u32 *Data)
+{
+	int Status = XST_FAILURE;
+
+	/* Validate stack top */
+	if (OffsetListTop < -1) {
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Invalid top in End address stack\n");
+		goto END;
+	}
+
+	if (OffsetListTop >= (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
+		XPlmi_Printf(DEBUG_GENERAL,
+				"End address stack is full\n");
+	} else {
+		OffsetList[++OffsetListTop] = *Data;
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function pops data from stack.
+ *
+ * @param	PopLevel is the number of elements to remove from stack.
+ * @param	Data is pointer to store removed data from stack.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_StackPop(u32 PopLevel, u32 *Data)
+{
+	int Status = XST_FAILURE;
+	u32 Index;
+
+	/* Validate stack top */
+	if (OffsetListTop >= (int)XPLMI_BEGIN_OFFSET_STACK_SIZE) {
+		XPlmi_Printf(DEBUG_GENERAL,
+				"Invalid top in End address stack\n");
+		goto END;
+	}
+
+	for (Index = 0U; Index < PopLevel; Index++) {
+		if (OffsetListTop < 0) {
+			XPlmi_Printf(DEBUG_GENERAL,
+				"End address stack is empty\n");
+			Status = XST_FAILURE;
+			break;
+		} else {
+			*Data = OffsetList[OffsetListTop];
+			--OffsetListTop;
+			Status = XST_SUCCESS;
+		}
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function gets the jump offset for break command and break
+ * supported commands.
+ *
+ * @param	Cmd is pointer to the command structure
+ * @param	Level is the break level
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
+{
+	int Status = XST_FAILURE;
+	u32 CurAddr = (u32)Cmd->Payload;
+	u32 PopAddr = 0U;
+
+	/*
+	 * - Break level should not be 0.
+	 * - Stack empty, Break does not have begin
+	 * - Break level should be always less than no. of stack element
+	 */
+	if ((Level == 0U) || (OffsetListTop < 0) ||
+			(Level > (u32)(OffsetListTop + 1))) {
+		goto END;
+	}
+
+	/* Get the address of command */
+	CurAddr -= XPLMI_WORD_LEN;
+
+	/* If level > 1, then remove (Level - 1) address from stack */
+	if (Level > XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL) {
+		Status = XPlmi_StackPop(--Level, &PopAddr);
+		if ( Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	/*
+	 * Calculate jump offset using "end" address available at the top of
+	 * the stack and current addr
+	 */
+	Cmd->BreakOffSet = ((OffsetList[OffsetListTop] - CurAddr) / XPLMI_WORD_LEN);
+
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }

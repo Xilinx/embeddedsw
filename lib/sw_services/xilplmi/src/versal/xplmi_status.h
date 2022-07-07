@@ -10,7 +10,7 @@
 * @file xplmi_status.h
 *
 * This is the header file which contains status codes for the PLM, PLMI
-* and loader.
+* and loader in versal platform
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -93,6 +93,7 @@
 *       bsv  03/17/2022 Add support for A72 elfs to run from TCM
 * 1.08  ma   05/10/2022 Added error codes related SSIT PLM to PLM communication
 *       ma   06/21/2022 Added error codes related to Get Handoff Parameters
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -136,6 +137,7 @@ typedef enum {
 	XPLMI_TASK_INPROGRESS,		/**< 0x2 - Used internally
 					  to indicate task is in progress */
 
+	/* XPLMI error codes common for all platforms are from 0x100 to 0x19F */
 	XPLMI_ERR_DMA_LOOKUP = 0x100,	/**< 0x100 - Error when DMA driver
 					  lookup fails. */
 	XPLMI_ERR_DMA_CFG,		/**< 0x101 - Error when DMA driver
@@ -270,31 +272,36 @@ typedef enum {
 	XPLMI_ERR_FROM_SSIT_SLAVE, /**< 0x13B - Error received from SSIT Slave SLR */
 	XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE, /**< 0x13C - Error when the given address
 	                    range for storing Proc commands is invalid */
-	XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL, /**< 0x13D - Error when the SSIT event
+	XPLMI_ERR_CDO_CMD_BREAK_CHUNKS_NOT_SUPPORTED, /**< 0x13D - Error when end
+						and break command are in separate chunks */
+
+	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
+	XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL = 0x1A0, /**< 0x1A0 - Error when the SSIT event
 	                    vector table is full and PLM is trying to register a new
 	                    event */
-	XPLMI_SSIT_WRONG_EVENT_ORIGIN_MASK, /**< 0x13E - Error when the event origin is
+	XPLMI_SSIT_WRONG_EVENT_ORIGIN_MASK, /**< 0x1A1 - Error when the event origin is
 	                    not valid */
-	XPLMI_INVALID_SLR_TYPE, /**< 0x13F - Error when any SSIT event related APIs are
+	XPLMI_INVALID_SLR_TYPE, /**< 0x1A2 - Error when any SSIT event related APIs are
 	                    called from SLR where it is not supported */
-	XPLMI_INVALID_SLR_INDEX, /**< 0x140 - Error when the given SlrIndex is invalid */
-	XPLMI_EVENT_NOT_SUPPORTED_BETWEEN_SLAVE_SLRS, /**< 0x141 - Error when the
+	XPLMI_INVALID_SLR_INDEX, /**< 0x1A3 - Error when the given SlrIndex is invalid */
+	XPLMI_EVENT_NOT_SUPPORTED_BETWEEN_SLAVE_SLRS, /**< 0x1A4 - Error when the
 	                    request to trigger an event between slave slrs which is not
 	                    supported */
-	XPLMI_SSIT_INVALID_EVENT, /**< 0x142 - Error when request is received to trigger
+	XPLMI_SSIT_INVALID_EVENT, /**< 0x1A5 - Error when request is received to trigger
 	                    an event which is not registered with PLM */
-	XPLMI_SSIT_EVENT_IS_PENDING, /**< 0x143 - Error when an event is pending and the
+	XPLMI_SSIT_EVENT_IS_PENDING, /**< 0x1A6 - Error when an event is pending and the
 	                    request comes to trigger the same again */
-	XPLMI_SSIT_EVENT_NOT_ACKNOWLEDGED, /**< 0x144 - Error when the triggered event is
+	XPLMI_SSIT_EVENT_NOT_ACKNOWLEDGED, /**< 0x1A7 - Error when the triggered event is
 	                    not acknowledged within given TimeOut value */
-	XPLMI_SSIT_BUF_SIZE_EXCEEDS, /**< 0x145 - Error when SSIT request or response
+	XPLMI_SSIT_BUF_SIZE_EXCEEDS, /**< 0x1A8 - Error when SSIT request or response
 	                    buffer size exceeds */
-	XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR, /**< 0x146 - Error when the given
+	XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR, /**< 0x1A9 - Error when the given
 	                    event is not supported to be triggered from the running SLR */
-	XPLMI_SSIT_EVENT_IS_NOT_PENDING, /**< 0x147 - Error when an event is not pending and
+	XPLMI_SSIT_EVENT_IS_NOT_PENDING, /**< 0x1AA - Error when an event is not pending and
 		                the request comes to write to the response buffer */
 
 	/** Status codes used in PLM */
+	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
 					  fails. This can happen when max
 					  tasks are created */
@@ -323,6 +330,9 @@ typedef enum {
 						PMC CDO region in PMC RAM */
 
 	/** Status codes used in XLOADER */
+	/* PLM error codes specific to platform are from 0x2A0 to 0x2FF */
+
+	/* Xilloader error codes common for all platforms are from 0x300 to 0x39F */
 	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300, /**< 0x300 - Error for
 					 unsupported bootmode. It occurs if
 					 invalid boot mode is selected or
@@ -554,7 +564,10 @@ typedef enum {
 	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE, /**< 0x36D - Invalid destination size
 	                        for copying ATF Handoff Parameters */
 
+	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
+
 	/**< Security Major error codes */
+	/* Security error codes common for all platforms are from 0x600 to 0x69F */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
 		/**< 0x600 Failed to get DMA instance at time of initialization */
 	XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE,
@@ -678,6 +691,8 @@ typedef enum {
 		/**< 0x634 Failed to verify checksum of partition headers */
 	XLOADER_ERR_SECURE_CLEAR_FAIL,
 		/**< 0x635 Failed to place either AES,RSA,SHA3 engine in reset */
+
+	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

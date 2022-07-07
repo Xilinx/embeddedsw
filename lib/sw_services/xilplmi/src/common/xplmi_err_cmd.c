@@ -33,6 +33,7 @@
 * 1.05  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
 *       ma   08/19/2021 Renamed error related macros
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -46,6 +47,7 @@
 #include "xplmi_modules.h"
 #include "xplmi.h"
 #include "xplmi_debug.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -188,12 +190,16 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 	/*
 	 * Allow error action setting for PSM errors only if LPD is initialized
 	 */
-	if (((NodeType == XPLMI_NODETYPE_EVENT_PSM_ERR1) ||
-		(NodeType == XPLMI_NODETYPE_EVENT_PSM_ERR2)) &&
-		((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED)) {
+	if ((XPlmi_GetEventIndex(NodeType) ==  XPLMI_NODETYPE_EVENT_PSM_INDEX) &&
+		(XPlmi_IsLpdInitialized() != (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized to configure "
 				"PSM errors and actions\n\r");
 		Status = XPLMI_LPD_UNINITIALIZED;
+		goto END;
+	}
+
+	Status = XPlmi_RestrictErrActions(NodeType, ErrorMasks, ErrorAction);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -237,6 +243,9 @@ static XPlmi_Module XPlmi_ErrModule =
 	XPlmi_ErrCmds,
 	XPLMI_ARRAY_SIZE(XPlmi_ErrCmds),
 	NULL,
+#ifdef VERSAL_NET
+	NULL
+#endif
 };
 
 /*****************************************************************************/

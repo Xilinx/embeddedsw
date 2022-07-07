@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -62,15 +63,6 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_MASK_PRINT_PERIOD		(1000000U)
-#define XPLMI_PSM_RAM_BASE_ADDR		(0xFFC00000U)
-#define XPLMI_PSM_RAM_HIGH_ADDR		(0xFFC3FFFFU)
-#define XPLMI_TCM0_BASE_ADDR		(0xFFE00000U)
-#define XPLMI_TCM0_HIGH_ADDR		(0xFFE3FFFFU)
-#define XPLMI_TCM1_BASE_ADDR		(0xFFE90000U)
-#define XPLMI_TCM1_HIGH_ADDR		(0xFFEBFFFFU)
-#define XPLMI_RSVD_BASE_ADDR		(0xA0000000U)
-#define XPLMI_RSVD_HIGH_ADDR		(0xA3FFFFFFU)
-#define XPLMI_M_AXI_FPD_MEM_HIGH_ADDR	(0xBFFFFFFFU)
 
 /**
  * @}
@@ -354,67 +346,4 @@ void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len,
 		XPlmi_Printf((DebugType), "%s END\r\n", Str);
 	}
 	return;
-}
-
-/****************************************************************************/
-/**
-* @brief	This function is used to check if the given address range is
-* valid. This function can be called before loading any elf or assigning any
-* buffer in that address range
-*
-* @param	StartAddr is the starting address
-* @param	EndAddr is the ending address
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-*****************************************************************************/
-int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
-{
-	int Status = XST_FAILURE;
-
-	if (EndAddr < StartAddr) {
-		goto END;
-	}
-
-	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
-		if ((StartAddr >= (u64)XPLMI_PSM_RAM_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_PSM_RAM_HIGH_ADDR)) {
-			/* PSM RAM is valid */
-			Status = XST_SUCCESS;
-		}
-		else if ((StartAddr >= (u64)XPLMI_TCM0_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_TCM0_HIGH_ADDR)) {
-			/* TCM0 is valid */
-			Status = XST_SUCCESS;
-		}
-		else if ((StartAddr >= (u64)XPLMI_TCM1_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_TCM1_HIGH_ADDR)) {
-			/* TCM1 is valid */
-			Status = XST_SUCCESS;
-		}
-		else if ((StartAddr >= (u64)XPAR_PSV_OCM_RAM_0_S_AXI_BASEADDR) &&
-			(EndAddr <= (u64)XPAR_PSV_OCM_RAM_0_S_AXI_HIGHADDR)) {
-			/* OCM is valid */
-			Status = XST_SUCCESS;
-		}
-		else {
-			/* Rest of the Addr range is treated as invalid */
-		}
-	}
-
-	if ((EndAddr <= (u64)XPLMI_M_AXI_FPD_MEM_HIGH_ADDR) ||
-		(StartAddr > (u64)XPAR_PSV_OCM_RAM_0_S_AXI_HIGHADDR)) {
-		if ((StartAddr >= (u64)XPLMI_RSVD_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_RSVD_HIGH_ADDR)) {
-			Status = XST_FAILURE;
-		}
-		else {
-			/* Addr range less than AXI FPD high addr or greater
-				than OCM high address is valid */
-			Status = XST_SUCCESS;
-		}
-	}
-
-END:
-	return Status;
 }

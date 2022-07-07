@@ -10,72 +10,15 @@
 * @file xplmi_status.h
 *
 * This is the header file which contains status codes for the PLM, PLMI
-* and loader.
+* and loader in versal_net platform.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   07/13/2018 Initial release
-* 1.01  bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
-*                       R5-1 split mode functionality
-*       bsv  06/17/2019 Added support for CFI and CFU error handling
-*       bsv  06/26/2019 Added secondary boot support
-*       vnsl 07/30/2019 Added code to load secure headers
-*       ma   08/01/2019 Added LPD init code
-*       ma   08/24/2019 Added SSIT commands
-*       kc   08/28/2019 Added descriptions to PLM error codes
-*       scs  08/29/2019 Added API to validate extended ID Code
-* 1.02  bsv  10/31/2019 Added USB secondary boot mode support
-*       kc   12/17/2019 Add deferred error mechanism for mask poll
-*       bsv  02/12/2020 Added support for SD/eMMC raw boot mode
-*       bsv  02/13/2020 XilPlmi generic commands should not be supported
-*                       via IPI
-*       ma   02/18/2020 Added event logging code
-*       bsv  02/23/2020 Added multi partition support for SD/eMMC FS boot modes
-*       kc   02/27/2020 Added SEM support for partial reconfiguration
-*       bsv  02/28/2020 Added support for delay handoff
-*       har  02/18/2020 Added major error code for Security
-*       bsv  04/04/2020 Code clean up
-*       kc   04/23/2020 Added interrupt support for SEU events
-* 1.03  bsv  06/27/2020 Add dual stacked mode support
-*       bsv  07/01/2020 Unmount file system after loading PDIs
-*       skd  07/14/2020 Added a macro for DMA transfer error
-*       kal  07/21/2020 Added a macro for Data copy failure for Security
-*       bsv  07/29/2020 Added error codes related to delay load
-*       kpt  07/30/2020 Added error code for Meta header length overflow
-*       kc   08/04/2020 Added error code NPLL lock status for master SLR
-*       har  08/11/2020 Added error code for authenticated JTAG
-*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
-*       rama 08/21/2020 Added error code for STL
-*       bm   09/21/2020 Added error codes for DFx Compatibility Check
-*       bm   09/24/2020 Added error code for FuncID mismatch
-*       bsv  10/13/2020 Code clean up
-*       kpt  10/19/2020 Added error code for glitch detection
-*       td   10/19/2020 MISRA C Fixes
-* 1.04  td   11/23/2020 Added error code for XilPdi_ReadBootHdr failure
-*       bsv  12/02/2020 Replaced SEM_CFR error code with generic SEM error code
-*       bm   12/15/2020 Added Update Multiboot related error codes
-*       bm   12/16/2020 Added error code when Secure code is not enabled
-*       kpt  01/21/2021 Added error code for Auth Jtag revoke id failure
-*       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
-*       har  02/01/2021 Added error code for mismatch of encryption key source
-*       bsv  02/09/2021 Added error code for invalid PdiSrc in subsystem Pdi load
-*       ma   02/12/2021 Added error code for IPI CRC mismatch and read error
-*       kpt  02/16/2021 Added error codes for invalid key source when encryption
-*                       only is enabled and when secure validations are failed
-*       bsv  02/28/2021 Added code to avoid unaligned NPI writes
-* 1.05  har  03/02/2021 Added error code for failure to update AAD
-*       ma   03/04/2021 Added error code for PLMI IPI access failure
-*       bm   03/04/2021 Added error code for invalid elf load address
-*       skd  03/12/2021 Added error codes for PSM keep alive failure
-*       bm   03/16/2021 Added error codes for Image Upgrade logic
-*       har  03/17/2021 Updated description for XLOADER_ERR_SECURE_NOT_ALLOWED
-*       bm   04/03/2021 Added error codes for task creation in scheduler
-*       bm   04/10/2021 Added error codes for scheduler updates
-*       rp   04/22/2021 Added error codes for request/release boot device
-*       bm   05/10/2021 Added error codes for unsupported pdi version
+* 1.00  bm   07/06/2022 Initial release
+*
 * </pre>
 *
 * @note
@@ -118,6 +61,7 @@ typedef enum {
 	XPLMI_TASK_INPROGRESS,		/**< 0x2 - Used internally
 					  to indicate task is in progress */
 
+	/* XPLMI error codes common for all platforms are from 0x100 to 0x19F */
 	XPLMI_ERR_DMA_LOOKUP = 0x100,	/**< 0x100 - Error when DMA driver
 					  lookup fails. */
 	XPLMI_ERR_DMA_CFG,		/**< 0x101 - Error when DMA driver
@@ -158,7 +102,7 @@ typedef enum {
 					  checksum is wrong. Can happen when
 					  CDO header is corrupted */
 
-	XPLMI_ERR_UART_DEV_PM_REQ,	/**< 0x10D - Error when libPM request
+	XPLMI_ERR_UART_DEV_PM_REQ,	/**< 0x10D - Error when XilPM request
 					  device for UART fails. PM error code
 					  is present in PLM minor code */
 	XPLMI_ERR_UART_LOOKUP,		/**< 0x10E - Error when UART driver
@@ -244,51 +188,61 @@ typedef enum {
 	XPLMI_UNSUPPORTED_PROC_LENGTH, /**< 0x137 - Received proc does not fit in
 						proc memory */
 	XPLMI_ERR_PROC_LPD_NOT_INITIALIZED, /**< 0x138 LPD is not initialized
-						     proc command cannot be stored/executed */
-	XPLMI_ERR_CDO_CMD_BREAK_CHUNKS_NOT_SUPPORTED, /**< 0x139 - Error when end
+						proc command cannot be stored/executed */
+	XPLMI_ERR_SCHED_TASK_MISSED, /**< 0x139 Scheduler task missed executing
+						at the scheduled interval */
+	XPLMI_ERR_SET_PMC_IRO_FREQ, /**< 0x13A - Error when setting PMC IRO frequency
+						is failed */
+	XPLMI_ERR_RESERVED0, /**< 0x13B - Reserved Error 0 */
+	XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE, /**< 0x13C - Error when the given address
+	                    range for storing Proc commands is invalid */
+	XPLMI_ERR_CDO_CMD_BREAK_CHUNKS_NOT_SUPPORTED, /**< 0x13D - Error when end
 						and break command are in separate chunks */
-	XPLMI_ERR_PLM_UPDATE_COMPATIBILITY, /**< 0x13A - Error in compatibility check
+
+	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
+	XPLMI_ERR_PLM_UPDATE_COMPATIBILITY = 0x1A0, /**< 0x1A0 - Error in compatibility check
 					      during InPlace PLM Update */
-	XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT, /**< 0x13B - Error in shutdown initiate of modules
+	XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT, /**< 0x1A1 - Error in shutdown initiate of modules
 					      during InPlace PLM Update */
-	XPLMI_ERR_PLM_UPDATE_SHUTDOWN_COMPLETE, /**< 0x13C - Error in shutdown complete of modules
+	XPLMI_ERR_PLM_UPDATE_SHUTDOWN_COMPLETE, /**< 0x1A2 - Error in shutdown complete of modules
 						during InPlace PLM Update */
-	XPLMI_ERR_INVALID_STORE_DS_HANDLER, /**< 0x13D - Error due to invalid Data Structure Handler used
+	XPLMI_ERR_INVALID_STORE_DS_HANDLER, /**< 0x1A3 - Error due to invalid Data Structure Handler used
 						in storing of Data Structures during InPlace PLM Update */
-	XPLMI_ERR_INVALID_RESTORE_DS_HANDLER, /**< 0x13E - Error due to invalid Data Structure Handler used
+	XPLMI_ERR_INVALID_RESTORE_DS_HANDLER, /**< 0x1A4 - Error due to invalid Data Structure Handler used
 						in restoring of Data Structures during InPlace PLM Update */
-	XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND, /**< 0x13F - Error when no Data Structure is found whose structure ID
+	XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND, /**< 0x1A5 - Error when no Data Structure is found whose structure ID
 						and module ID are matching while restoring of Data Structures
 						during InPlace PLM Update */
-	XPLMI_ERR_INVALID_DS_ENTRY, 	/**< 0x140 - Error when a invalid Data Structure entry is passed
+	XPLMI_ERR_INVALID_DS_ENTRY, 	/**< 0x1A6 - Error when a invalid Data Structure entry is passed
 						to the PLM Db Update Handler */
-	XPLMI_ERR_DS_ALIGNMENT_INCORRECT, /**< 0x141 - Error when the alignment of Data Structure used during
+	XPLMI_ERR_DS_ALIGNMENT_INCORRECT, /**< 0x1A7 - Error when the alignment of Data Structure used during
 						store or restore operations is not word aligned Header */
-	XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW, /**< 0x142 - Error when the given Data Structure length is exceed
+	XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW, /**< 0x1A8 - Error when the given Data Structure length is exceed
 						the Update DB buffer available */
-	XPLMI_ERR_PLM_UPDATE_INVALID_OP, /**< 0x143 - Error when a invalid operation is passed to PLM
+	XPLMI_ERR_PLM_UPDATE_INVALID_OP, /**< 0x1A9 - Error when a invalid operation is passed to PLM
 						Update DB Handler */
-	XPLMI_ERR_PLM_UPDATE_RELOCATED_FN, /**< 0x144 - Error when the relocated PLM update function fails */
-	XPLMI_ERR_DB_HDR_SIZE_MISMATCH,	/**< 0x145 - Error when the DB Hdr size of old PLM is not matching
+	XPLMI_ERR_PLM_UPDATE_RELOCATED_FN, /**< 0x1AA - Error when the relocated PLM update function fails */
+	XPLMI_ERR_DB_HDR_SIZE_MISMATCH,	/**< 0x1AB - Error when the DB Hdr size of old PLM is not matching
 						with the size of updated PLM */
-	XPLMI_ERR_DB_HDR_VERSION_MISMATCH, /**< 0x146 - Error when the DB Hdr version of old PLM is not matching
+	XPLMI_ERR_DB_HDR_VERSION_MISMATCH, /**< 0x1AC - Error when the DB Hdr version of old PLM is not matching
 						with that of updated PLM */
-	XPLMI_ERR_DB_ENDADDR_INVALID, /**< 0x147 - Error when the DB end address calculated is not in a
+	XPLMI_ERR_DB_ENDADDR_INVALID, /**< 0x1AD - Error when the DB end address calculated is not in a
 						valid range that is accepted by updated PLM */
-	XPLMI_ERR_IPI_DRV_INIT,		/**< 0x148 - Error when there is a failure in Ipi Driver Init
+	XPLMI_ERR_IPI_DRV_INIT,		/**< 0x1AE - Error when there is a failure in Ipi Driver Init
 						which is done after In-Place update */
-	XPLMI_ERR_MEMSET_UPDATE_RESP,	/**< 0x149 - Error when there is a failure in memset of
+	XPLMI_ERR_MEMSET_UPDATE_RESP,	/**< 0x1AF - Error when there is a failure in memset of
 						IPI response buffer used to ack the ipi after update */
-	XPLMI_ERR_MEMCPY_STORE_DB,	/**< 0x14A - Error when memcpy during store database is failed */
-	XPLMI_ERR_MEMSET_RESTORE_DB,	/**< 0x14B - Error when memset during store database is failed */
-	XPLMI_ERR_MEMCPY_RESTORE_DB,	/**< 0x14C - Error when memcpy during restore database is failed */
-	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x14D - Error when memset of DbHdr during store database is failed */
-	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x14E - Error when relocating of update manager code is failed */
-	XPLMI_ERR_PMC_WDT_NOT_ENABLED,	/**< 0x14F - Error when PMC WDT is tried use and it is not enabled in design */
-	XPLMI_ERR_PMC_WDT_DRV_INIT,	/**< 0x150 - Error when PMC WDT driver initialization fails */
+	XPLMI_ERR_MEMCPY_STORE_DB,	/**< 0x150 - Error when memcpy during store database is failed */
+	XPLMI_ERR_MEMSET_RESTORE_DB,	/**< 0x151 - Error when memset during store database is failed */
+	XPLMI_ERR_MEMCPY_RESTORE_DB,	/**< 0x152 - Error when memcpy during restore database is failed */
+	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x153 - Error when memset of DbHdr during store database is failed */
+	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x154 - Error when relocating of update manager code is failed */
+	XPLMI_ERR_PMC_WDT_NOT_ENABLED,	/**< 0x155 - Error when PMC WDT is tried use and it is not enabled in design */
+	XPLMI_ERR_PMC_WDT_DRV_INIT,	/**< 0x156 - Error when PMC WDT driver initialization fails */
 
 
 	/** Status codes used in PLM */
+	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
 	XPLM_ERR_TASK_CREATE = 0x200,	/**< 0x200 - Error when task create
 					  fails. This can happen when max
 					  tasks are created */
@@ -313,8 +267,13 @@ typedef enum {
 	XPLM_ERR_PSM_NOT_ALIVE,			/**< 0x208 - PSM is not alive */
 	XPLM_ERR_IPI_SEND,			/**< 0x209 - Error while sending
 						     IPI */
+	XPLM_ERR_PMC_RAM_MEMSET,	/**< 0x20A - Error while clearing the
+						PMC CDO region in PMC RAM */
+
+	/* PLM error codes specific to platform are from 0x2A0 to 0x2FF */
 
 	/** Status codes used in XLOADER */
+	/* Xilloader error codes common for all platforms are from 0x300 to 0x39F */
 	XLOADER_UNSUPPORTED_BOOT_MODE = 0x300, /**< 0x300 - Error for
 					 unsupported bootmode. It occurs if
 					 invalid boot mode is selected or
@@ -328,16 +287,10 @@ typedef enum {
 					  checksum fails */
 	XLOADER_ERR_PRTNHDR,		/**< 0x304 - Error if partition header
 					  checksum fails */
-	XLOADER_ERR_WAKEUP_A78_0,	/**< 0x305 - Error waking up the A78-0
-					  during handoff. */
-	XLOADER_ERR_WAKEUP_A78_1,	/**< 0x306 - Error waking up the A78-1
-					  during handoff. */
-	XLOADER_ERR_WAKEUP_R52_0,	/**< 0x307 - Error waking up the R52-0
-					  during handoff. Check the PLM minor
-					  code for PM error code. */
-	XLOADER_ERR_WAKEUP_R52_1,	/**< 0x308 - Error waking up the R52-1
-					  during handoff. Check the PLM minor
-					  code for PM error code. */
+	XLOADER_ERR_RESERVED0,		/**< 0x305 - XLoader Reserved Error 0 */
+	XLOADER_ERR_RESERVED1,		/**< 0x306 - XLoader Reserved Error 1 */
+	XLOADER_ERR_RESERVED2,		/**< 0x307 - XLoader Reserved Error 2 */
+	XLOADER_ERR_RESERVED3,		/**< 0x308 - XLoader Reserved Error 3 */
 	XLOADER_ERR_WAKEUP_R5_L,	/**< 0x309 - Error waking up the R5-L
 					  during handoff. Check the PLM minor
 					  code for PM error code. */
@@ -474,7 +427,7 @@ typedef enum {
 							PM_DEV_TCM_0_B */
 	XLOADER_ERR_PM_DEV_TCM_1_A,		/**< 0x349 - Failed in XPM Request Device for
 							PM_DEV_TCM_1_A */
-	XLOADER_ERR_PM_DEV_TCM_1_B,		/***<0x34A - Failed in XPM Request Device for
+	XLOADER_ERR_PM_DEV_TCM_1_B,		/**< 0x34A - Failed in XPM Request Device for
 							PM_DEV_TCM_1_B */
 	XLOADER_ERR_PM_DEV_DDR_0,		/**< 0x34B - Failed to XPM Request Device for
 							PM_DEV_DDR_0 */
@@ -537,15 +490,32 @@ typedef enum {
 							PM_DEV_DDR_0 */
 	XLOADER_ERR_REQUEST_BOOT_DEVICE,	/**< 0x368 - Failed to Request Boot Device */
 	XLOADER_ERR_RELEASE_BOOT_DEVICE,	/**< 0x369 - Failed to Release Boot Device */
-	XLOADER_ERR_WAKEUP_A78_2,	/**< 0x36A - Error waking up the A78-2
+	XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,	/**< 0x36A - Failed to disable DUAL BYTE OP */
+	XLOADER_ERR_INVALID_TCM_ADDR,	/**< 0x36B - Invalid TCM address for A72 elfs */
+	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR, /**< 0x36C - Invalid destination address
+	                        for copying ATF Handoff Parameters */
+	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE, /**< 0x36D - Invalid destination size
+	                        for copying ATF Handoff Parameters */
+
+	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
+	XLOADER_ERR_WAKEUP_A78_0 = 0x3A0,	/**< 0x3A0 - Error waking up the A78-0 during handoff. */
+	XLOADER_ERR_WAKEUP_A78_1,	/**< 0x3A1 - Error waking up the A78-1
 					  during handoff. */
-	XLOADER_ERR_WAKEUP_A78_3,	/**< 0x36B - Error waking up the A78-3
+	XLOADER_ERR_WAKEUP_R52_0,	/**< 0x3A2 - Error waking up the R52-0
+					  during handoff. Check the PLM minor
+					  code for PM error code. */
+	XLOADER_ERR_WAKEUP_R52_1,	/**< 0x3A3 - Error waking up the R52-1
+					  during handoff. Check the PLM minor
+					  code for PM error code. */
+	XLOADER_ERR_WAKEUP_A78_2,	/**< 0x3A4 - Error waking up the A78-2
 					  during handoff. */
-	XLOADER_ERR_INVALID_R52_CLUSTER, /**< 0x36C - Error when invalid R52 cluster is
+	XLOADER_ERR_WAKEUP_A78_3,	/**< 0x3A5 - Error waking up the A78-3 during handoff. */
+	XLOADER_ERR_INVALID_R52_CLUSTER, /**< 0x3A6 - Error when invalid R52 cluster is
 					   selected */
 
 
 	/**< Security Major error codes */
+	/* Security error codes common for all platforms are from 0x600 to 0x69F */
 	XLOADER_ERR_INIT_GET_DMA = 0x600,
 		/**< 0x600 Failed to get DMA instance at time of initialization */
 	XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE,
@@ -593,10 +563,10 @@ typedef enum {
 	XLOADER_ERR_HDR_AUTH_DISABLED,
 		/**< 0x613 Authentication disabled for IH/PH */
 
-	XLOADER_ERR_SEC_IH_READ_VERIFY_FAIL,
-		/**< 0x614 Failed to read IH and verify checksum */
-	XLOADER_ERR_SEC_PH_READ_VERIFY_FAIL,
-		/**< 0x615 Failed to read PH and verify checksum */
+	XLOADER_ERR_SEC_IH_READ_FAIL,
+		/**< 0x614 Failed to read IH */
+	XLOADER_ERR_SEC_PH_READ_FAIL,
+		/**< 0x615 Failed to read PH */
 
 	XLOADER_ERR_PRTN_HASH_CALC_FAIL,
 		/**< 0x616 Hash calculation failed for partition authentication */
@@ -658,6 +628,19 @@ typedef enum {
 		  * decryption */
 	XLOADER_ERR_UNSUPPORTED_PDI_VER,
 		/**< 0x630 PDI version used in secure operations is unsupported */
+	XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED,
+		/**< 0x631 Partition is not allowed to be encrypted if State
+		 of boot is non secure */
+	XLOADER_ERR_AUTH_JTAG_INVALID_DNA,
+		/**< 0x632 User provided Device DNA is not valid **/
+	XLOADER_ERR_SEC_IH_VERIFY_FAIL,
+		/**< 0x633 Failed to verify checksum of image headers */
+	XLOADER_ERR_SEC_PH_VERIFY_FAIL,
+		/**< 0x634 Failed to verify checksum of partition headers */
+	XLOADER_ERR_SECURE_CLEAR_FAIL,
+		/**< 0x635 Failed to place either AES,RSA,SHA3 engine in reset */
+
+	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

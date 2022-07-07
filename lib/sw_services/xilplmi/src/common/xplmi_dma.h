@@ -27,6 +27,7 @@
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/13/2021 Code clean up to reduce elf size
 * 1.05  bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -81,6 +82,9 @@ extern "C" {
 #define XPLMI_SET_CHUNK_SIZE			(128U)
 #define XPLMI_WORD_LEN_MASK			(0x3U)
 #define XPLMI_WORD_LEN_SHIFT			(0x2U)
+
+/* Type Definition of XPlmi_WaitForDmaDone */
+typedef int (*XPlmi_WaitForDmaDone_t)(XPmcDma *DmaPtr, XPmcDma_Channel Channel);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

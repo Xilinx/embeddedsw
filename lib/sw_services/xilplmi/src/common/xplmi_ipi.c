@@ -64,6 +64,7 @@
  *	     rj   05/25/2022 Remove check for module ID and API ID for XilPM
  *			             force power down command
  *       skg  06/20/2022 Misra-C violation Rule 8.13 fixed
+ *       bm   07/06/2022 Refactor versal and versal_net code
  *
  * </pre>
  *
@@ -78,7 +79,7 @@
 #include "xplmi_hw.h"
 #include "xil_util.h"
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -88,7 +89,6 @@
 #define XPLMI_PMC_IMAGE_ID		(0x1C000001U)
 #define XPLMI_IPI_PMC_IMR_MASK		(0xFCU)
 #define XPLMI_IPI_PMC_IMR_SHIFT		(0x2U)
-#define XPLMI_GIC_IPI_INTR_ID		(0x1B0010U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex);
@@ -102,6 +102,7 @@ static int XPlmi_IpiDispatchHandler(void *Data);
 /*****************************************************************************/
 /* Instance of IPI Driver */
 static XIpiPsu IpiInst;
+static XIpiPsu_Config *IpiCfgPtr;
 
 /*****************************************************************************/
 /**
@@ -128,6 +129,34 @@ static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 
 /*****************************************************************************/
 /**
+ * @brief	This function initializes the IPI Driver Instance
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_IpiDrvInit(void)
+{
+	int Status = XST_FAILURE;
+
+	/* Load Config for Processor IPI Channel */
+	IpiCfgPtr = XIpiPsu_LookupConfig(XPLMI_IPI_DEVICE_ID);
+	if (IpiCfgPtr == NULL) {
+		goto END;
+	}
+
+	/* Initialize the Instance pointer */
+	Status = XIpiPsu_CfgInitialize(&IpiInst, IpiCfgPtr,
+			IpiCfgPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function initializes the IPI.
  *
  * @param	SubsystemHandler is handler to XilPm API called to retrieve
@@ -139,23 +168,13 @@ static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 {
 	int Status = XST_FAILURE;
-	XIpiPsu_Config *IpiCfgPtr;
 	u32 Index;
 	u32 RegVal;
 	u32 IpiIntrId;
 	XPlmi_TaskNode *Task = NULL;
 
-	/* Load Config for Processor IPI Channel */
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
-	if (IpiCfgPtr == NULL) {
-		Status = XST_FAILURE;
-		goto END;
-	}
-
-	/* Initialize the Instance pointer */
-	Status = XIpiPsu_CfgInitialize(&IpiInst, IpiCfgPtr,
-			IpiCfgPtr->BaseAddress);
-	if (XST_SUCCESS != Status) {
+	Status = XPlmi_IpiDrvInit();
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -164,8 +183,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 		XIpiPsu_InterruptEnable(&IpiInst,
 			IpiCfgPtr->TargetList[Index].Mask);
 
-		IpiIntrId = XPLMI_GIC_IPI_INTR_ID |
-			(IpiCfgPtr->TargetList[Index].BufferIndex << XPLMI_IPI_INDEX_SHIFT);
+		IpiIntrId = XPlmi_GetIpiIntrId(IpiCfgPtr->TargetList[Index].BufferIndex);
 		Task = XPlmi_GetTaskInstance(NULL, NULL, IpiIntrId);
 		if (Task == NULL) {
 			Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0,
@@ -185,10 +203,15 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	XPlmi_Out32(XIPIPSU_BASE_ADDR, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 
 	(void) XPlmi_GetPmSubsystemHandler(SubsystemHandler);
+
 	/*
-	 * Enable the IPI IRQ
+	 *  Register and Enable the IPI IRQ
 	 */
-	XPlmi_GicIntrEnable(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC27);
+	Status = XPlmi_RegisterNEnableIpi();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	RegVal = XPlmi_In32(PS7_IPI_PMC_IMR);
 	RegVal = (RegVal & XPLMI_IPI_PMC_IMR_MASK) >>
 		XPLMI_IPI_PMC_IMR_SHIFT;
@@ -288,7 +311,7 @@ END:
 					XPLMI_CMD_RESP_SIZE,
 					XIPIPSU_BUF_TYPE_RESP);
 			/* Ack all IPIs */
-			if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
+			if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
 				if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
 				    (PendingPsmIpi == (u8)TRUE)) {
 					XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
@@ -304,9 +327,9 @@ END:
 		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
 	}
 
-	/* Clear and enable the GIC IPI interrupt */
-	XPlmi_GicIntrClearStatus(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC27);
-	XPlmi_GicIntrEnable(XPLMI_PMC_GIC_IRQ_GICP0, XPLMI_GICP0_SRC27);
+	/* Clear and enable the IPI interrupt */
+	XPlmi_ClearIpiIntr();
+	XPlmi_EnableIpiIntr();
 
 	return Status;
 }
@@ -328,7 +351,7 @@ int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type)
 {
 	int Status = XST_FAILURE;
 
-	if ((LpdInitialized & LPD_INITIALIZED) == LPD_INITIALIZED) {
+	if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
 		if ((NULL != MsgPtr) &&
 			((MsgLen != 0U) && (MsgLen <= XPLMI_IPI_MAX_MSG_LEN)) &&
 			((XIPIPSU_BUF_TYPE_MSG == Type) || (XIPIPSU_BUF_TYPE_RESP == Type))) {
@@ -414,66 +437,6 @@ int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 	int Status = XST_FAILURE;
 
 	Status = XIpiPsu_PollForAck(&IpiInst, DestCpuMask, TimeOutCount);
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function checks whether the Cmd passed is supported
- * 			via IPI mechanism or not.
- *
- * @param	ModuleId is the module ID
- * @param	ApiId is the API ID
- *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
- *
- *****************************************************************************/
-static int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
-{
-	int Status = XST_FAILURE;
-
-	/* Validate IPI Command */
-	switch (ModuleId) {
-		case XPLMI_MODULE_GENERIC_ID:
-			/*
-			 * Only Device ID, Event Logging and Get Board
-			 * commands are allowed through IPI.
-			 * All other commands are allowed only from CDO file.
-			 */
-			if ((ApiId == XPLMI_PLM_GENERIC_DEVICE_ID_VAL) ||
-					(ApiId == XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL) ||
-					(ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) ||
-					(ApiId == XPLMI_PLM_MODULES_GET_BOARD_VAL)) {
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		case XPLMI_MODULE_ERROR_ID:
-			/*
-			 * Only features command is allowed in EM module through IPI.
-			 * Other EM commands are allowed only from CDO file.
-			 */
-			if (ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) {
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		case XPLMI_MODULE_LOADER_ID:
-			/*
-			 * Except Set Image Info command, all other commands are allowed
-			 * in Loader module through IPI.
-			 */
-			if (ApiId != XPLMI_PLM_LOADER_SET_IMG_INFO_VAL) {
-				Status = XST_SUCCESS;
-			}
-			break;
-
-		default:
-			/* Other module's commands are allowed through IPI */
-			Status = XST_SUCCESS;
-			break;
-	}
 
 	return Status;
 }
@@ -590,4 +553,4 @@ static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex)
 END:
 	return IpiReqType;
 }
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */

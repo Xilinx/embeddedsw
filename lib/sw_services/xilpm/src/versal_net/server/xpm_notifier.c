@@ -370,7 +370,7 @@ static XStatus XPmNotifier_AddPendingEvent(const u32 IpiMask, const u32 *Payload
 	}
 	if ((u32)NOT_PRESENT == SchedulerTask) {
 		Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
-						XPmNotifier_SchedulerTask,
+						XPmNotifier_SchedulerTask, NULL,
 						XILPM_NOTIFIER_INTERVAL,
 						XPLM_TASK_PRIORITY_0,
 						NULL, XPLMI_PERIODIC_TASK);

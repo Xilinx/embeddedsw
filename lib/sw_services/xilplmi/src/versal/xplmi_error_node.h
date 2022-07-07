@@ -8,7 +8,7 @@
 *
 * @file xplmi_error_node.h
 *
-* This is the file which contains node IDs information for error events.
+* This is the file which contains node IDs information for versal error events.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,6 +27,7 @@
 *       ma   01/17/2022 Add exceptions to SW errors list
 * 1.06  rama 06/28/2022 Added XilSem error IDs to support software event
 *                       notification
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -203,6 +204,10 @@ typedef enum {
 #define XPLMI_ERROR_NPI_UE			(0x87U)
 
 #define XPLMI_ERROR_SW_ERR_MAX		(0x88U)
+
+#define XPLMI_ERROR_PSMERR_MAX		XPLMI_ERROR_PSMERR2_MAX
+#define XPLMI_ERROR_PMCERR_MAX		XPLMI_ERROR_PMCERR2_MAX
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

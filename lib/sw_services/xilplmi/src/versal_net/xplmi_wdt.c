@@ -8,15 +8,14 @@
 *
 * @file xplmi_wdt.c
 *
-* This file contains the PLMI WDT functionality related code.
+* This file contains the PLMI WDT functionality related code for versal_net.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   07/28/2020 Initial release
-*       bm   10/14/2020 Code clean up
+* 1.00  bm   07/06/2022 Initial release
 *
 * </pre>
 *
@@ -41,8 +40,8 @@
 #define XPLMI_SCHEDULER_PERIOD		(10U)
 
 #define XPLMI_WDT_PERIODICITY_MIN	(15U)
-#define XPLMI_SPP_WDT_PERIODICITY_MIN	(45U)
 #define XPLMI_WDT_PERIODICITY_MAX	(1000U)
+#define XPLMI_SPP_WDT_PERIODICITY_MIN	(45U)
 
 #define XPLMI_MIO_NUM_PER_BANK		(26U)
 
@@ -52,7 +51,11 @@
 #define XPLMI_PM_STMIC_PMIO_51		(0x1410804eU)
 #define XPLMI_PM_DEV_PMC_WDT		(0x1821C035U)
 
+#ifdef XPLMI_PMC_WDT
+#define XPLMI_WDT_VERSION	(1U)
+#define XPLMI_WDT_LCVERSION	(1U)
 #define XPLMI_PMC_WDT_GWOR_ADDR		(0xF03F2008U)
+#endif
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -67,11 +70,12 @@ typedef struct {
 } XPlmi_Wdt;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_WDT_VERSION	(1U)
-#define XPLMI_WDT_LCVERSION	(1U)
 
 /************************** Function Prototypes ******************************/
+#ifdef XPLMI_PMC_WDT
 static void XPlmi_SetGWdtTimeout(u32 Time);
+static int XPlmi_WdtDrvInit(void);
+#endif
 
 /************************** Variable Definitions *****************************/
 static XPlmi_Wdt WdtInstance = {
@@ -112,10 +116,11 @@ EXPORT_GENERIC_DS(PmcWdtInstance, XPLMI_WDT_DS_ID, XPLMI_WDT_VERSION,
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_WdtDrvInit(void)
+static int XPlmi_WdtDrvInit(void)
 {
 	int Status = XST_FAILURE;
 	XWdtTb_Config *Config;
+	u32 *WdtClkFreq;
 
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
 		Status = XST_SUCCESS;
@@ -131,6 +136,11 @@ int XPlmi_WdtDrvInit(void)
                         Config->BaseAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) {
+		WdtClkFreq = XPlmi_GetPmcIroFreq();
+		PmcWdtInstance.DrvInst.Config.Clock = *WdtClkFreq;
 	}
 
 END:
@@ -193,11 +203,11 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 		if ((NodeId >= XPLMI_PM_STMIC_LMIO_0) &&
 		    (NodeId <= XPLMI_PM_STMIC_LMIO_25)) {
 			/* LPD MIO is used */
-			if ((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) {
+			if (XPlmi_IsLpdInitialized() != (u8)TRUE) {
 				Status = (int)XPLMI_ERR_WDT_LPD_NOT_INITIALIZED;
 				goto END;
 			}
-			LpdInitialized |= LPD_WDT_INITIALIZED;
+			XPlmi_SetLpdInitialized(LPD_WDT_INITIALIZED);
 			MioNum = NodeId - XPLMI_PM_STMIC_LMIO_0;
 			WdtInstance.GpioAddr = PS_GPIO_DATA_0_OFFSET;
 			WdtInstance.GpioMask = (u32)(1U) << MioNum;
@@ -243,7 +253,7 @@ int XPlmi_DefaultSWdtConfig(void)
 	int Status = XST_FAILURE;
 #ifdef XPLMI_PMC_WDT
 	u32 CntVal;
-	u32 WdtClkFreq;
+	u32 *WdtClkFreq;
 	u32 Period;
 
 	if ((XPlmi_RomSwdtUsage() == (u8)TRUE) &&
@@ -251,9 +261,9 @@ int XPlmi_DefaultSWdtConfig(void)
 		CntVal = XPlmi_In32(XPLMI_PMC_WDT_GWOR_ADDR);
 		WdtClkFreq = XPlmi_GetPmcIroFreq();
 		if (XPLMI_PLATFORM != PMC_TAP_VERSION_SPP) {
-			WdtClkFreq /= 4U;
+			*WdtClkFreq /= 4U;
 		}
-		Period = (u32)((u64)CntVal * 2U * 1000U / WdtClkFreq);
+		Period = (u32)((u64)CntVal * 2U * 1000U / *WdtClkFreq);
 		Status = XPlmi_EnableWdt(XPLMI_PM_DEV_PMC_WDT, Period);
 	}
 	else {
@@ -302,7 +312,9 @@ void XPlmi_StopWdt(u32 NodeId)
 {
 	if (NodeId == XPLMI_WDT_INTERNAL) {
 #ifdef XPLMI_PMC_WDT
-		XWdtTb_Stop(&PmcWdtInstance.DrvInst);
+		if (PmcWdtInstance.WdtInst.IsEnabled == (u8)TRUE) {
+			XWdtTb_Stop(&PmcWdtInstance.DrvInst);
+		}
 #endif
 	}
 }
@@ -409,6 +421,7 @@ END:
 
 }
 
+#ifdef XPLMI_PMC_WDT
 /*****************************************************************************/
 /**
  * @brief	This function is used to set GWDT timeout
@@ -420,27 +433,17 @@ END:
  *****************************************************************************/
 static void XPlmi_SetGWdtTimeout(u32 Time)
 {
-#ifdef XPLMI_PMC_WDT
-	u32 WdtClkFreq;
-	double Period;
 
 	if (PmcWdtInstance.WdtInst.IsEnabled == (u8)FALSE) {
 		goto END;
 	}
-	/* Assuming the WDT clock source is PMC IRO divided by 4 */
-	WdtClkFreq = XPlmi_GetPmcIroFreq();
-	if (XPLMI_PLATFORM != PMC_TAP_VERSION_SPP) {
-		WdtClkFreq /= 4U;
-	}
-	Period = ((double)Time * WdtClkFreq) / (double)1000;
 	XWdtTb_Stop(&PmcWdtInstance.DrvInst);
-	/* TODO Need Driver fix for the API to consume time instead of count */
-	XWdtTb_SetGenericWdtWindow(&PmcWdtInstance.DrvInst, (u32)Period/ 2U);
+	XWdtTb_SetGenericWdtWindowTimeOut(&PmcWdtInstance.DrvInst, Time / 2U);
 	XWdtTb_Start(&PmcWdtInstance.DrvInst);
 END:
 	return;
-#endif
 }
+#endif
 
 /*****************************************************************************/
 /**

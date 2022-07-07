@@ -43,6 +43,7 @@
 *       rama 01/31/2022 Added STL error interrupt register functionality
 *       bm   03/16/2022 Fix ROM time calculation
 * 1.07  skd  04/21/2022 Misra-C violation Rule 18.1 fixed
+* 1.08  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -56,7 +57,7 @@
 #include "xplmi_scheduler.h"
 #include "xplmi_debug.h"
 #include "xplmi_err_common.h"
-#include "microblaze_sleep.h"
+#include "xplmi_plat.h"
 
 /**@cond xplmi_internal
  * @{
@@ -64,47 +65,48 @@
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_MB_MSR_BIP_MASK		(0x8U)
-#define XPLMI_EFUSE_IRO_TRIM_320MHZ	(0U)
-#define XPLMI_EFUSE_IRO_TRIM_400MHZ	(1U)
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f)
-#define XPLMI_PMC_VERSION_1_0		(0x10U)
 
 /**
  * @}
  * @endcond
  */
 
-/*****************************************************************************/
-/**
- * @brief        This function converts voltage to raw voltage value
- *
- * @param        Voltage is the floating point voltage value
- *
- * @return       32-bit voltage value
- *
- ******************************************************************************/
-static inline u32 XPlmi_GetRawVoltage(float Voltage)
-{
-	float RawVoltage = Voltage * XPLMI_PMC_VOLTAGE_MULTIPLIER;
-
-	return (u32)RawVoltage;
-}
-
 /************************** Function Prototypes ******************************/
-static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
-			XInterruptHandler Handler, void *Data);
 static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue);
-static void XPlmi_IntrHandler(void *CallbackRef);
 static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
 		XPlmi_PerfTime *PerfTime);
 
 /************************** Variable Definitions *****************************/
 static u32 PmcIroFreq; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
+
+/*****************************************************************************/
+/**
+* @brief	This function provides the pointer to PmcIroFreq variable
+*
+* @return	Pointer to PmcIroFreq variable
+*
+*****************************************************************************/
+u32 *XPlmi_GetPmcIroFreq(void)
+{
+	return &PmcIroFreq;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function provides the pointer to IOModule variable
+*
+* @return	Pointer to IOModule variable
+*
+*****************************************************************************/
+XIOModule *XPlmi_GetIOModuleInst(void)
+{
+	return &IOModule;
+}
 
 /*****************************************************************************/
 /**
@@ -262,47 +264,6 @@ void XPlmi_PrintPlmTimeStamp(void)
 
 /*****************************************************************************/
 /**
-* @brief	It sets the PMC IRO frequency.
-*
-* @return	XST_SUCCESS on success and error code failure
-*
-*****************************************************************************/
-static int XPlmi_SetPmcIroFreq(void)
-{
-	int Status = XST_FAILURE;
-	u32 RawVoltage;
-	u32 PmcVersion = XPlmi_In32(PMC_TAP_VERSION);
-
-
-	PmcVersion = ((PmcVersion & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
-				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
-	if (PmcVersion == XPLMI_PMC_VERSION_1_0) {
-		PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
-	}
-	else {
-		RawVoltage = Xil_In32(XPLMI_SYSMON_SUPPLY0_ADDR);
-		RawVoltage &= XPLMI_SYSMON_SUPPLYX_MASK;
-		/* Update IR0 frequency to 400MHz for MP and HP parts */
-		XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_UNLOCK_VAL);
-		if (RawVoltage >= XPlmi_GetRawVoltage(XPLMI_VCC_PMC_MP_MIN)) {
-			PmcIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
-			XPlmi_Out32(EFUSE_CTRL_ANLG_OSC_SW_1LP,
-				XPLMI_EFUSE_IRO_TRIM_400MHZ);
-		}
-		else {
-			PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
-			XPlmi_Out32(EFUSE_CTRL_ANLG_OSC_SW_1LP,
-				XPLMI_EFUSE_IRO_TRIM_320MHZ);
-		}
-		XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_LOCK_VAL);
-	}
-	Status = (int)Xil_SetMBFrequency(PmcIroFreq);
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
 * @brief	It initializes the IO module structures and PIT timers.
 *
 * @return	XST_SUCCESS on success and error code failure
@@ -311,7 +272,15 @@ static int XPlmi_SetPmcIroFreq(void)
 int XPlmi_StartTimer(void)
 {
 	int Status =  XST_FAILURE;
+	u32 Pit1ResetValue;
+	u32 Pit2ResetValue;
 	u32 Pit3ResetValue;
+
+	/* Get Pit1 and Pit2 reset values */
+	Status = XPlmi_GetPitResetValues(&Pit1ResetValue, &Pit2ResetValue);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/*
 	 * Initialize the IO Module so that it's ready to use,
@@ -353,22 +322,13 @@ int XPlmi_StartTimer(void)
 	 */
 	XPlmi_Out32(IOModule.BaseAddress + (u32)XGO_OUT_OFFSET,
 		MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT2, XPLMI_PIT2_RESET_VALUE);
-	XPlmi_InitPitTimer((u8)XPLMI_PIT1, XPLMI_PIT1_RESET_VALUE);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT2, Pit2ResetValue);
+	XPlmi_InitPitTimer((u8)XPLMI_PIT1, Pit1ResetValue);
 	XPlmi_InitPitTimer((u8)XPLMI_PIT3, Pit3ResetValue);
 
 END:
 	return Status;
 }
-
-/* Structure for Top level interrupt table */
-static XInterruptHandler g_TopLevelInterruptTable[] = {
-	XPlmi_GicIntrHandler,
-	XPlmi_IntrHandler,
-	XPlmi_ErrIntrHandler,
-	NULL,
-	NULL,
-};
 
 /******************************************************************************/
 /**
@@ -384,7 +344,8 @@ int XPlmi_SetUpInterruptSystem(void)
 	int Status =  XST_FAILURE;
 	u8 IntrNum = XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR;
 	u8 Index;
-	u8 Size = (u8)(XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable) - 2U);
+	XInterruptHandler *g_TopLevelInterruptTable = XPlmi_GetTopLevelIntrTbl();
+	u8 Size = XPlmi_GetTopLevelIntrTblSize();
 
 	microblaze_disable_interrupts();
 	/*
@@ -428,15 +389,10 @@ int XPlmi_SetUpInterruptSystem(void)
 		(Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
 		(void*) IOMODULE_DEVICE_ID);
 
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GIC_IRQ);
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PPU1_MB_RAM);
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_ERR_IRQ);
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_GPI);
-	XIOModule_Enable(&IOModule, XPLMI_IOMODULE_PMC_PIT3_IRQ);
-
 	/*
 	 * Enable interrupts
 	 */
+	XPlmi_EnableIomoduleIntr();
 	microblaze_enable_interrupts();
 
 	/**
@@ -456,7 +412,7 @@ END:
 * @return   None
 *
 ****************************************************************************/
-static void XPlmi_IntrHandler(void *CallbackRef)
+void XPlmi_IntrHandler(void *CallbackRef)
 {
 	/*
 	 * Indicate Interrupt received
@@ -467,7 +423,7 @@ static void XPlmi_IntrHandler(void *CallbackRef)
 
 /****************************************************************************/
 /**
-* @brief    This function will enable the interrupt.
+* @brief    This function will enable the Iomodule interrupt.
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
 *
@@ -476,14 +432,19 @@ static void XPlmi_IntrHandler(void *CallbackRef)
 ****************************************************************************/
 void XPlmi_PlmIntrEnable(u32 IntrId)
 {
+	u32 IntrNum = IntrId;
+
+	/* For Backward Compatibility of Xilsem */
 	if (IntrId == 0U) {
-		XIOModule_Enable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
+		IntrNum = XPLMI_IOMODULE_CFRAME_SEU;
 	}
+
+	XIOModule_Enable(&IOModule, (u8)IntrNum);
 }
 
 /****************************************************************************/
 /**
-* @brief    This function will disable the interrupt.
+* @brief    This function will disable the Iomodule interrupt.
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
 *
@@ -492,19 +453,21 @@ void XPlmi_PlmIntrEnable(u32 IntrId)
 ****************************************************************************/
 int XPlmi_PlmIntrDisable(u32 IntrId)
 {
-	int Status = XST_FAILURE;
+	u32 IntrNum = IntrId;
 
+	/* For Backward Compatibility of Xilsem */
 	if (IntrId == 0U) {
-		XIOModule_Disable(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
-		Status = XST_SUCCESS;
+		IntrNum = XPLMI_IOMODULE_CFRAME_SEU;
 	}
 
-	return Status;
+	XIOModule_Disable(&IOModule, (u8)IntrNum);
+
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
 /**
-* @brief    This function will clear the interrupt.
+* @brief    This function will clear the Iomodule interrupt.
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
 *
@@ -513,59 +476,24 @@ int XPlmi_PlmIntrDisable(u32 IntrId)
 ****************************************************************************/
 int XPlmi_PlmIntrClear(u32 IntrId)
 {
-	int Status = XST_FAILURE;
+	u32 IntrNum = IntrId;
 
+	/* For Backward Compatibility of Xilsem */
 	if (IntrId == 0U) {
-		XIOModule_Acknowledge(&IOModule, XPLMI_IOMODULE_CFRAME_SEU);
-		Status = XST_SUCCESS;
+		IntrNum = XPLMI_IOMODULE_CFRAME_SEU;
 	}
 
-	return Status;
+	XIOModule_Acknowledge(&IOModule, (u8)IntrNum);
+
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
 /**
-* @brief    This function will register IOModule handler.
+* @brief    This function will register the handler and enable the Iomodule
+*           interrupt.
 *
-* @param    IoModIntrNum IOModule interrupt Number
-* @param    Handler to be registered for the interrupt
-* @param    Data to be passed to handler
-*
-* @return   XST_SUCCESS on success and error code on failure
-*
-****************************************************************************/
-static int XPlmi_IoModuleRegisterHandler(u32 IoModIntrNum,
-			XInterruptHandler Handler, void *Data)
-{
-	int Status = XST_FAILURE;
-	u8 InterruptTableSize = (u8)XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable);
-
-	if (XPLMI_IOMODULE_CFRAME_SEU == IoModIntrNum) {
-		InterruptTableSize -= (u8)2U;
-	} else if (XPLMI_IOMODULE_ERR_IRQ == IoModIntrNum) {
-		InterruptTableSize -= (u8)1U;
-	} else {
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_REGISTER_IOMOD_HANDLER, 0);
-		goto END;
-	}
-	g_TopLevelInterruptTable[InterruptTableSize] = Handler;
-	Status = XIOModule_Connect(&IOModule, (u8)IoModIntrNum, Handler, Data);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "IoModule Connect Failed:0x%0x\n\r",
-			     Status);
-		Status = XPlmi_UpdateStatus(XPLMI_ERR_REGISTER_IOMOD_HANDLER,
-					    Status);
-	}
-
-END:
-	return Status;
-}
-
-/****************************************************************************/
-/**
-* @brief    This function will register the handler and enable the interrupt.
-*
-* @param    IntrId Interrupt ID as specified in the xplmi_proc.h
+* @param    IntrId Interrupt ID as specified in the xplmi_hw.h
 * @param    Handler to be registered for the interrupt
 * @param    Data to be passed to handler
 *
@@ -577,11 +505,19 @@ int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)
 	int Status = XST_FAILURE;
 	u32 IntrNum = IntrId;
 
+	/* For Backward Compatibility of Xilsem */
 	if (IntrId == 0U) {
 		IntrNum = XPLMI_IOMODULE_CFRAME_SEU;
 	}
-	Status = XPlmi_IoModuleRegisterHandler(IntrNum,
-				(XInterruptHandler)(void*)Handler, Data);
+
+	Status = XIOModule_Connect(&IOModule, (u8)IntrNum,
+			(XInterruptHandler)(void *)Handler, (void *)Data);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "IoModule Connect Failed:0x%0x\n\r",
+			     Status);
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_REGISTER_IOMOD_HANDLER,
+					    Status);
+	}
 
 	return Status;
 }

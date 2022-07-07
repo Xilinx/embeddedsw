@@ -8,7 +8,8 @@
 /**
 *
 * @file xplmi_plm_update.c
-* This is the file which contains PLM update process.
+* This is the file which contains PLM update process. This code in this file
+* is applicable only for versal_net platform.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -16,6 +17,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.00  bm   01/30/2022 Initial release
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -93,7 +95,7 @@ int XPlmi_UpdateInit(void)
 		if (XPlmi_RomSwdtUsage() == (u8)TRUE) {
 			XPlmi_KickWdt(XPLMI_WDT_INTERNAL);
 		}
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 		if (PlmUpdateIpiMask != 0U) {
 			SStatus = XPlmi_IpiDrvInit();
 			if (SStatus != XST_SUCCESS) {
@@ -259,8 +261,8 @@ int XPlmi_DsOps(u32 Op, u64 Addr, void *Data)
 			goto END;
 		}
 		/* Copy header to given address */
-		XPlmi_Out32(Addr, DsEntry->DsHdr.Ver.HdrVal);
-		XPlmi_Out32(Addr + XPLMI_WORD_LEN, DsEntry->DsHdr.Len);
+		XPlmi_Out64(Addr, DsEntry->DsHdr.Ver.HdrVal);
+		XPlmi_Out64(Addr + XPLMI_WORD_LEN, DsEntry->DsHdr.Len);
 	} else if (Op == XPLMI_RESTORE_DATABASE) {
 		Len = DsEntry->DsHdr.Len;
 		if (DsEntry->DsHdr.Len > RestoreDsHdr->Len) {
@@ -341,7 +343,7 @@ int XPlmi_RestoreDataBackup(void)
 	XPlmi_DsEntry *DsEntry = NULL;
 	XPlmi_DbHdr *DbHdr = (XPlmi_DbHdr *)XPLMI_PLM_UPDATE_DS_START_ADDR;
 	u64 DsAddr;
-	u32 EndAddr;
+	u64 EndAddr;
 
 	if (DbHdr->HdrVersion != XPLMI_UPDATE_DB_VERSION) {
 		Status = XPLMI_ERR_DB_HDR_VERSION_MISMATCH;
@@ -426,8 +428,8 @@ static int XPlmi_StoreDataBackup(void)
 		DsAddr += XPLMI_DS_HDR_SIZE + DsEntry[Index].DsHdr.Len;
 	}
 	if (Index == DsCnt) {
-		DbHdr->DbSize = (DsAddr - XPLMI_PLM_UPDATE_DS_START_ADDR -
-					DbHdr->HdrSize) / XPLMI_WORD_LEN;
+		DbHdr->DbSize = (u32)(DsAddr - (u64)XPLMI_PLM_UPDATE_DS_START_ADDR -
+					(u32)DbHdr->HdrSize) / XPLMI_WORD_LEN;
 	}
 
 END:
@@ -478,7 +480,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 PdiAddr = Cmd->Payload[0U];
 	XPlmi_ModuleOp Op;
-	u32 UpdMgrSize = __update_mgr_a_fn_end - __update_mgr_a_fn_start;
+	u32 UpdMgrSize = (u32)__update_mgr_a_fn_end - (u32)__update_mgr_a_fn_start;
 	int (*XPlmi_RelocatedFn)(void) =
 			(int (*)(void))(UINTPTR)__update_mgr_b_start;
 

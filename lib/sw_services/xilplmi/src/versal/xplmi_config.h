@@ -8,7 +8,7 @@
 *
 * @file xplmi_config.h
 *
-* This is the header file which contains PLM configuration for users.
+* This is the header file which contains versal PLM configuration for users.
 * All key configuration options are now made available through Vitis GUI and
 * xsct command line. Hence, the corresponding defines now appear in
 * xparameters.h file. However, references for those configurations are retained

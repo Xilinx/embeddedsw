@@ -3,47 +3,27 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+
 /*****************************************************************************/
 /**
 *
-* @file xplmi_err.h
+* @file xplmi_err_plat.h
 *
-* This is the file which contains .
+* This file contains declarations versal_net PLMI module.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/12/2019 Initial release
-* 1.01  kc   08/01/2019 Added error management framework
-*       ma   08/01/2019 Added LPD init code
-*       sn   08/03/2019 Added code to wait until over-temperature condition
-*						gets resolved before restart
-*       bsv  08/29/2019 Added Multiboot and Fallback support
-*       scs  08/29/2019 Added support for Extended IDCODE checks
-* 1.02  ma   05/02/2020 Remove SRST error action for PSM errors as it is
-*                       de-featured
-*       ma   02/28/2020 Error actions related changes
-*       bsv  04/04/2020 Code clean up
-* 1.03  bsv  07/07/2020 Made functions used in single transaltion unit as
-*						static
-* 1.04  td   11/23/2020 MISRA C Rule 17.8 Fixes
-*       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
-* 1.05  pj   03/24/2021 Added API for updating the SubsystemId of the error node
-*                       Added API for handling and trigger sofware errors
-*       bl   04/01/2021 Update XPlmi_ShutdownHandler_t typedef to remove
-*                       warning
-*       ma   04/05/2021 Added support for error configuration using Error Mask
-*                       instead of Error ID. Also, added support to configure
-*                       multiple errors at once.
-*       ma   05/03/2021 Minor updates related to PSM and FW errors
+* 1.00  bm   07/06/2022 Initial release
 *
 * </pre>
 *
 * @note
 *
 ******************************************************************************/
+
 #ifndef XPLMI_ERR_H
 #define XPLMI_ERR_H
 
@@ -51,128 +31,109 @@
 extern "C" {
 #endif
 
-/***************************** Include Files *********************************/
-#include "xplmi_debug.h"
+/************************** Include Files *****************************/
 #include "xplmi_error_node.h"
 #include "xplmi_hw.h"
+#include "xplmi_err_common.h"
 
 /************************** Constant Definitions *****************************/
-/* Action to be taken when an error occurs */
-#define XPLMI_EM_ACTION_INVALID			(0U)
-#define XPLMI_EM_ACTION_POR			(1U)
-#define XPLMI_EM_ACTION_SRST			(2U)
-#define XPLMI_EM_ACTION_CUSTOM			(3U)
-#define XPLMI_EM_ACTION_ERROUT			(4U)
-#define XPLMI_EM_ACTION_SUBSYS_SHUTDN		(5U)
-#define XPLMI_EM_ACTION_SUBSYS_RESTART		(6U)
-#define XPLMI_EM_ACTION_NONE			(7U)
-#define XPLMI_EM_ACTION_MAX			(8U)
-
-/* Subsystem shutdown/restart related macros */
-#define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		(0U)
-#define XPLMI_SUBSYS_SHUTDN_TYPE_RESTART	(1U)
-#define XPLMI_RESTART_SUBTYPE_SUBSYS		(0U)
-
-/* PLMI ERROR Management error codes */
-#define XPLMI_INVALID_ERROR_ID		(1)
-#define XPLMI_INVALID_ERROR_TYPE	(2)
-#define XPLMI_INVALID_ERROR_HANDLER	(3)
-#define XPLMI_INVALID_ERROR_ACTION	(4)
-#define XPLMI_LPD_UNINITIALIZED		(5)
-#define XPLMI_CANNOT_CHANGE_ACTION	(6)
-#define XPLMI_INVALID_NODE_ID		(7)
-
-/* Error Register mask */
-#define XPLMI_MAX_ERR_BITS			(32U)
 
 /**************************** Type Definitions *******************************/
-/* Pointer to Error Handler Function */
-typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorNodeId, u32 RegMask);
-/* Pointer to Shutdown Handler Function */
-typedef s32 (*XPlmi_ShutdownHandler_t)(u32 SubsystemId, const u32 Type,
-		const u32 SubType, const u32 CmdType);
-
-/* Data Structure to hold Error Info */
-struct XPlmi_Error_t {
-	XPlmi_ErrorHandler_t Handler;
-	u8 Action;
-	u32 SubsystemId;
-};
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define GET_PMC_ERR_ACTION_OFFSET(Index)	((Index == 2) ? \
+			((0xFU) * PMC_PSM_ERR_REG_OFFSET) : \
+			(Index * PMC_PSM_ERR_REG_OFFSET))
+
+#define GET_PMC_ERR_ACTION_ADDR(PmcMask, Index)	((Index == 2) ? \
+			(PmcMask + ((0xFU) * PMC_PSM_ERR_REG_OFFSET - \
+			 ((PmcMask - PMC_GLOBAL_PMC_ERR_OUT1_MASK) / 2U))) :\
+			(PmcMask + (Index * PMC_PSM_ERR_REG_OFFSET)))
+
+
+#define GET_PMC_ERR_OUT_MASK(RegOffset)	(RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_ERR_OUT3_MASK) :\
+					(PMC_GLOBAL_PMC_ERR_OUT1_MASK + RegOffset)
+
+#define GET_PMC_POR_MASK(RegOffset) (RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_POR3_MASK) :\
+					(PMC_GLOBAL_PMC_POR1_MASK + RegOffset)
+
+#define GET_PMC_IRQ_MASK(RegOffset) (RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_IRQ3_MASK) :\
+					(PMC_GLOBAL_PMC_IRQ1_MASK + RegOffset)
+
+#define GET_PMC_SRST_MASK(RegOffset) (RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_SRST3_MASK) :\
+					(PMC_GLOBAL_PMC_SRST1_MASK + RegOffset)
 
 /*****************************************************************************/
 /**
- * @brief	This function returns register mask value for the error id mask
- * given.
+ * @brief	This function triggers SSIT_ERR to slave SLRS and is not
+ *		applicable for versal_net
  *
- * @param	ErrorId  is the input.
- *
- * @return	Register mask value
+ * @return	None
  *
  *****************************************************************************/
-static inline u32 XPlmi_ErrRegMask(u32 ErrorId)
+static inline void XPlmi_TriggerSsitErrToMaster(void)
 {
-	return ((u32)0x1U << (ErrorId % (u32)XPLMI_MAX_ERR_BITS));
+	/* Not applicable for versal net */
+	return;
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function returns Error event ID for the given error node ID.
+ * @brief	This function sets the sysmon clock to IRO for ES1 silicon
  *
- * @param	Id is the event ID.
- *
- * @return	Error event ID
+ * @return	None
  *
  *****************************************************************************/
-static inline u32 XPlmi_EventNodeType(u32 Id)
+static inline void XPlmi_SysmonClkSetIro(void) {
+	/* This workaround is not applicable for versal net */
+	return;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function handles the CPM_NCR PCIE link down error.
+*
+* @param    Cpm5PcieIrStatusReg is the PCIE0/1 IR status register address
+* @param    Cpm5DmaCsrIntDecReg is the DMA0/1 CSR INT DEC register address
+* @param    ProcId is the ProcId for PCIE0/1 link down error
+*
+* @return   None
+*
+****************************************************************************/
+static inline void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
+		u32 Cpm5DmaCsrIntDecReg, u32 ProcId)
 {
-	u32 EventTypeId;
-
-	EventTypeId = (Id & XPLMI_NODE_TYPE_MASK) >> XPLMI_NODE_TYPE_SHIFT;
-
-	return EventTypeId;
+	(void)Cpm5PcieIrStatusReg;
+	(void)Cpm5DmaCsrIntDecReg;
+	(void)ProcId;
+	/* Not applicable for versal net */
+	return;
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function checks if NPI is out of reset or not.
+ * @brief	This function clears Ssit errors for ES1 silicon
  *
- * @return	TRUE if NPI is out of reset, else FALSE
+ * @param	PmcErrStatus is the pointer to the error status array
+ * @param	Index is the PMC Error register Index
  *
-******************************************************************************/
-static inline u8 XPlmi_NpiOutOfReset(void)
+ * @return	None
+ *
+ *****************************************************************************/
+static inline void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index)
 {
-	u8 RegVal = (u8)((XPlmi_In32(CRP_RST_NONPS) &
-		CRP_RST_NONPS_NPI_RESET_MASK) >> CRP_RST_NONPS_NPI_RESET_SHIFT);
-
-	if (RegVal == 0U) {
-		RegVal = (u8)TRUE;
-	}
-	else {
-		RegVal = (u8)FALSE;
-	}
-
-	return RegVal;
+	(void)PmcErrStatus;
+	(void)Index;
+	/* Not applicable for versal net */
+	return;
 }
 
 /************************** Function Prototypes ******************************/
-void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown);
-int XPlmi_PsEmInit(void);
-int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
-		XPlmi_ErrorHandler_t ErrorHandler);
-void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId, u32 ErrorMasks,
-		u32 SubsystemId);
-int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask);
-void XPlmi_ErrIntrHandler(void *CallbackRef);
-void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask);
-void XPlmi_SetEmSubsystemId(const u32 *Id);
-int XPlmi_CheckNpiErrors(void);
-void XPlmi_ClearNpiErrors(void);
-void XPlmi_TriggerFwNcrError(void);
-
-/* Functions defined in xplmi_err_cmd.c */
-void XPlmi_ErrModuleInit(void);
+XPlmi_Error_t *XPlmi_GetErrorTable(void);
+u8 XPlmi_GetEventIndex(u32 ErrorNodeType);
+int XPlmi_RestrictErrActions(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAction);
+void XPlmi_DisablePmcErrAction(u32 ErrIndex, u32 RegMask);
+void XPlmi_DumpErrNGicStatus(void);
 
 /************************** Variable Definitions *****************************/
 

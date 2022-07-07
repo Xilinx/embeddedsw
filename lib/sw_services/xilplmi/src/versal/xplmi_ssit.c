@@ -9,7 +9,7 @@
 *
 * @file xplmi_ssit.c
 *
-* This file contains the SSIT related CDO commands
+* This file contains the SSIT related code and is applicable only for versal
 *
 * <pre>
 * MODIFICATION HISTORY:

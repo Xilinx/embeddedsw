@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *                       task
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/15/2021 Removed redundant element in structure
+* 1.04  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -54,8 +55,6 @@ extern "C" {
 #define XPLMI_SCHED_MAX_TASK		(10U)
 #define XPLMI_PERIODIC_TASK		(0U)
 #define XPLMI_NON_PERIODIC_TASK		(1U)
-
-#define PMC_PMC_MB_IO_IRQ_ACK			(0xF028003CU)
 
 typedef int (*XPlmi_Callback_t)(void *Data);
 typedef void (*XPlmi_ErrorFunc_t)(int Status);

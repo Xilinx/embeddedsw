@@ -7,8 +7,11 @@
 #include "xil_types.h"
 #include "xpm_common.h"
 #include "xpm_regs.h"
+#include "xplmi_generic.h"
 
 #define GLOBAL_CNTRL(BASE)	((BASE) + PSMX_GLOBAL_CNTRL)
+#define PROC_LOCATION_ADDRESS	(0xEBC26000U)
+#define PROC_LOCATION_LENGTH	(0x2000U)
 
 static struct PsmToPlmEvent_t PsmToPlmEvent_bkp = {0};
 static u32 Is_PsmPoweredDown = 0U;
@@ -74,7 +77,10 @@ static XStatus XPmPsm_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	PmRmw32(CRLBaseAddress + CRL_PSM_RST_MODE_OFFSET, XPM_PSM_WAKEUP_MASK, 0U);
 
 
-	/* TODO: Set proc list */
+	Status = XPlmi_SetProcList(PROC_LOCATION_ADDRESS, PROC_LOCATION_LENGTH);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	Status = XST_SUCCESS;
 

@@ -47,7 +47,7 @@
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
-		Status = XPlmi_GicRegisterHandler((GicId << 8U) | (SrcId << 16U), \
+		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
 				XPm_DispatchWakeHandler, (void *)(NodeId)); \
 		if (Status != XST_SUCCESS) {\
 			goto END;\
@@ -1003,6 +1003,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			XPm_CoreIdle(Core);
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
 							XPm_ForcePwrDwnCb,
+							NULL,
 							XPM_PWR_DWN_TIMEOUT,
 							XPLM_TASK_PRIORITY_1,
 							(void *)NodeId,
@@ -1042,6 +1043,7 @@ XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			}
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_XILPM_ID,
 							XPm_ForcePwrDwnCb,
+							NULL,
 							XPM_PWR_DWN_TIMEOUT,
 							XPLM_TASK_PRIORITY_1,
 							(void *)NodeId,

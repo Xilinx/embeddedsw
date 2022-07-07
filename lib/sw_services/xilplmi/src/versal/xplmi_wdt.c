@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 *
 * @file xplmi_wdt.c
 *
-* This file contains the PLMI WDT functionality related code.
+* This file contains the PLMI WDT functionality related code for versal.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,6 +20,7 @@
 * 1.01  td   07/08/2021 Fix doxygen warnings
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/13/2021 Code clean up
+* 1.02  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -56,7 +57,7 @@ typedef struct {
 	u8 PlmLiveStatus; /**< PLM sets this bit to indicate it is alive */
 	u8 IsEnabled; /**< Used to indicate if WDT is enabled or not */
 	u8 PlmMode; /**< Indicates PLM configuration / operational mode */
-	u16 Periodicity; /**< WDT period at which PLM should set the
+	u32 Periodicity; /**< WDT period at which PLM should set the
 			   live status */
 	u32 GpioAddr; /**< GPIO address corresponding to MIO used for WDT */
 	u32 GpioMask; /**< GPIO Mask corresponding to MIO used for WDT */
@@ -92,7 +93,7 @@ static XPlmi_Wdt WdtInstance = {
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_EnableWdt(u32 NodeId, u16 Periodicity)
+int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 {
 	int Status = XST_FAILURE;
 	u32 MioNum;
@@ -107,11 +108,11 @@ int XPlmi_EnableWdt(u32 NodeId, u16 Periodicity)
 	if ((NodeId >= XPLMI_PM_STMIC_LMIO_0) &&
 	    (NodeId <= XPLMI_PM_STMIC_LMIO_25)) {
 		/* LPD MIO is used */
-		if ((LpdInitialized & LPD_INITIALIZED) != LPD_INITIALIZED) {
+		if (XPlmi_IsLpdInitialized() != (u8)TRUE) {
 			Status = (int)XPLMI_ERR_WDT_LPD_NOT_INITIALIZED;
 			goto END;
 		}
-		LpdInitialized |= LPD_WDT_INITIALIZED;
+		XPlmi_SetLpdInitialized(LPD_WDT_INITIALIZED);
 		MioNum = NodeId - XPLMI_PM_STMIC_LMIO_0;
 		WdtInstance.GpioAddr = PS_GPIO_DATA_0_OFFSET;
 		WdtInstance.GpioMask = (u32)(1U) << MioNum;
@@ -151,8 +152,9 @@ END:
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_DisableWdt(void)
+void XPlmi_DisableWdt(u32 NodeId)
 {
+	(void)NodeId;
 	WdtInstance.IsEnabled = (u8)FALSE;
 }
 

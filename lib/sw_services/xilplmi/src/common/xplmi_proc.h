@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 * 1.05  bm   07/12/2021 Updated IRO freqency defines
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Removed unnecessary structure
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -65,6 +66,7 @@ extern "C" {
 /* PMC IRO Frequency related macros */
 #define XPLMI_PMC_IRO_FREQ_400_MHZ	(400000000U)
 #define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U)
+#define XPLMI_PMC_IRO_FREQ_130_MHZ	(130000000U)
 
 /** PIT related macros */
 #define XPLMI_PIT1_RESET_VALUE		(0xFFFFFFFDU)
@@ -81,16 +83,10 @@ extern "C" {
 #define XPLMI_MEGA			(1e6)
 #define XPLMI_MILLI			(1e3)
 
-/**************************** Type Definitions *******************************/
-/*
- * PMC IOmodule interrupts
- */
-#define XPLMI_IOMODULE_PMC_GIC_IRQ		(16U)
-#define XPLMI_IOMODULE_PPU1_MB_RAM		(17U)
-#define XPLMI_IOMODULE_ERR_IRQ			(18U)
-#define XPLMI_IOMODULE_CFRAME_SEU		(20U)
-#define XPLMI_IOMODULE_PMC_GPI			(22U)
+#define XPLMI_EFUSE_IRO_TRIM_320MHZ	(0U)
+#define XPLMI_EFUSE_IRO_TRIM_400MHZ	(1U)
 
+/**************************** Type Definitions *******************************/
 /**
  * @}
  * @endcond
@@ -117,6 +113,9 @@ int XPlmi_PlmIntrClear(u32 IntrId);
 int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data);
 void XPlmi_PrintRomTime(void);
 void XPlmi_PrintPlmTimeStamp(void);
+u32 *XPlmi_GetPmcIroFreq(void);
+XIOModule *XPlmi_GetIOModuleInst(void);
+void XPlmi_IntrHandler(void *CallbackRef);
 
 #ifdef __cplusplus
 }

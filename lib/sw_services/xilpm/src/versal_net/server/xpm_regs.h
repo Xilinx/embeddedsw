@@ -10,11 +10,8 @@
 extern "C" {
 #endif
 /* PMC_GLOBAL registers */
-#ifndef PMC_GLOBAL_BASEADDR
-#define PMC_GLOBAL_BASEADDR			(0xF1110000U)
 #define PMC_GLOBAL_GGS4_OFFSET			(0x00000040U)
 #define PMC_GLOBAL_PGGS3_OFFSET			(0x0000005CU)
-#endif
 
 /**
  * PMC Global GIC Proxy Module
@@ -42,7 +39,6 @@ extern "C" {
 /**
  * IPI registers
  */
-#define IPI_BASEADDR				(0xEB300000U)
 #define IPI_PMC_IER				(IPI_BASEADDR + 0x20018U)
 #define IPI_PMC_IDR				(IPI_BASEADDR + 0x2001CU)
 
@@ -82,8 +78,6 @@ extern "C" {
 
 #define XPM_RPU_CLUSTER_LOCKSTEP_DISABLE (0x1U)
 #define XPM_RPU_CLUSTER_LOCKSTEP_ENABLE (0x0U)
-#define XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED (0x0U)
-#define XIH_PH_ATTRB_CLUSTER_LOCKSTEP_ENABLE (0x30U)
 #define XPM_A78_CLUSTER_CONFIGURED 		(1U)
 #define XPM_R52_CLUSTER_CONFIGURED 		(1U)
 

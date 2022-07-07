@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bm   08/12/2021 Added support to configure uart during run-time
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -64,6 +65,8 @@ extern "C" {
 #define DEBUG_INFO		(0x04U)    /* More debug information */
 #define DEBUG_DETAILED		(0x08U)    /* More debug information */
 
+#define XPLMI_INVALID_UART_BASE_ADDR	(0U) /**< Flag indicates invalid UART
+                                              * base address */
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -109,10 +112,10 @@ int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable);
 /* Check if UART is present in design */
 #if defined (STDOUT_BASEADDRESS)
 /* Check if MDM uart or PS Uart */
-#if (STDOUT_BASEADDRESS == 0xF0310000U)
+#if (STDOUT_BASEADDRESS == XPLMI_HW_PPU1_MDM_BASEADDR)
 #define DEBUG_UART_MDM
-#elif ((STDOUT_BASEADDRESS == 0xFF000000U) || \
-			(STDOUT_BASEADDRESS == 0xFF010000U))
+#elif ((STDOUT_BASEADDRESS == XPLMI_HW_UART0_BASEADDR) || \
+			(STDOUT_BASEADDRESS == XPLMI_HW_UART1_BASEADDR))
 #define DEBUG_UART_PS
 #endif
 #endif
