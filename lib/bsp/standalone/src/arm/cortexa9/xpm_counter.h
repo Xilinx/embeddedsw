@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,8 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sdm  07/11/11 First release
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
+* 8.0   mus  07/07/22 Added prototype for new APIs as per consolidated
+*                     xpm_counter.c.
 * </pre>
 *
 ******************************************************************************/
@@ -532,10 +534,19 @@ extern "C" {
 #define XPM_CNTRCFG10	9
 #define XPM_CNTRCFG11	10
 
+#define XPM_NO_COUNTERS_AVAILABLE 	0xFFU
+#define XPM_MAX_EVENTHANDLER_ID		0x6U
+#define XPM_EVENT_CNTRS_BIT_MASK	0x3FU
+#define XPM_ALL_EVENT_CNTRS_IN_USE	0x3FU
+#define XPM_EVENT_CNTRS_MASK		0x3FU
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
-
+#if defined(__GNUC__)
+#define Xpm_ReadCycleCounterVal()	mfcp(XREG_CP15_PERF_CYCLE_COUNTER)
+#elif defined (__ICCARM__)
+#define Xpm_ReadCycleCounterVal(val)       mfcp(XREG_CP15_PERF_CYCLE_COUNTER,val)
+#endif
 /************************** Variable Definitions ****************************/
 
 /**
@@ -547,6 +558,12 @@ extern "C" {
 /* Interface functions to access performance counters from abstraction layer */
 void Xpm_SetEvents(s32 PmcrCfg);
 void Xpm_GetEventCounters(u32 *PmCtrValue);
+u32 Xpm_DisableEvent(u32 EventCntrId);
+void Xpm_DisableEventCounters(void);
+void Xpm_EnableEventCounters (void);
+void Xpm_ResetEventCounters (void);
+u32 Xpm_SetUpAnEvent(u32 EventID);
+u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal);
 
 #ifdef __cplusplus
 }

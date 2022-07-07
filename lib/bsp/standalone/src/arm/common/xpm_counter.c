@@ -8,9 +8,9 @@
 *
 * @file xpm_counter.c
 *
-* This file contains APIs for configuring and controlling the Cortex-R5
-* Performance Monitor Events. For more information about the event counters,
-* see xpm_counter.h.
+* This file contains APIs for configuring and controlling the Performance
+* Monitor Events for ARM based processors supported by standalone BSP.
+* For more information about the event counters, see xpm_counter.h.
 * The file contains APIs to setup an event, return the event counter value,
 * disable event(s), enable events, reset event counters.
 * It also provides a helper function: Xpm_SleepPerfCounter that is used to
@@ -25,30 +25,7 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
-* 5.00  pkp  02/10/14 Initial version
-* 6.2   mus  01/27/17 Updated to support IAR compiler
-* 7.1   aru  04/15/19 Updated the events correctly
-* 7.2   mus  01/29/20 Added helper function Xpm_SleepPerfCounter for sleep
-*                     routines. It would be consumed by sleep routines for
-*                     delay generation through CortexR5 PMU cycle counter,if
-*                     TTC2 as well as TTC3 is not present in HW design. User
-*                     can add compiler flag "DONT_USE_PMU_FOR_SLEEP_ROUTINES"
-*                     in BSP compiler flags to avoid using PMU cycle counter
-*                     for sleep routines.
-* 7.2   asa  03/18/20 Add implementation for new APIs that simplifies the
-*                     existing event handling mechanism.
-*                     Older APIs are being deprecated.
-* 7.6   mus  09/16/21 PmcrEventCfg32 is declared with deprecate attribute and
-*                     being used in one of the deprecated function,
-*                     that is always resulting into complialation
-*                     warning. Removed deprecate attribute from PmcrEventCfg32
-*                     to fix un-necessary warning CR#1110990.
-* 7.7	sk   01/10/22 Update values from signed to unsigned to fix
-* 		      misra_c_2012_rule_10_4 violation.
-* 7.7	sk   01/10/22 Typecast to fix wider essential type misra_c_2012_rule_10_7
-* 		      violation.
-* 8.0	sk   03/02/22 Remove continue statement from else condition to fix
-* 		      NO_EFFECT violation.
+* 8.00  mus  07/07/22 Initial version
 * </pre>
 *
 ******************************************************************************/
@@ -76,7 +53,7 @@ typedef const u32 PmcrEventCfg32[XPM_CTRCOUNT];
 /****************************************************************************/
 /**
 *
-* @brief    This function disables the Cortex R5 event counters.
+* @brief    This function disables the event counters.
 *
 * @return	None.
 *
@@ -84,6 +61,10 @@ typedef const u32 PmcrEventCfg32[XPM_CTRCOUNT];
 void Xpm_DisableEventCounters(void)
 {
     u32 RegVal;
+
+#if defined(__aarch64__)
+    RegVal = mfcp(PMCNTENCLR_EL0);
+#else
     /* Disable the event counters */
 #ifdef __GNUC__
     RegVal = mfcp(XREG_CP15_COUNT_ENABLE_CLR);
@@ -93,14 +74,21 @@ void Xpm_DisableEventCounters(void)
     { register u32 C15Reg __asm(XREG_CP15_COUNT_ENABLE_CLR);
       RegVal = C15Reg; }
 #endif
-    RegVal |= XPM_EVENT_CNTRS_MASK;
+#endif
+
+    RegVal &= 0x7FFFFFFF;
+    RegVal |= (XPM_EVENT_CNTRS_MASK & 0x7FFFFFFF);
+#if defined(__aarch64__)
+    mtcp(PMCNTENCLR_EL0, RegVal);
+#else
     mtcp(XREG_CP15_COUNT_ENABLE_CLR, RegVal);
+#endif
 }
 
 /****************************************************************************/
 /**
 *
-* @brief    This function enables the Cortex R5 event counters.
+* @brief    This function enables the event counters.
 *
 * @return	None.
 *
@@ -108,6 +96,10 @@ void Xpm_DisableEventCounters(void)
 void Xpm_EnableEventCounters(void)
 {
     u32 RegVal;
+
+#if defined(__aarch64__)
+    RegVal = mfcp(PMCNTENSET_EL0);
+#else
     /* Enable the event counters */
 #ifdef __GNUC__
     RegVal = mfcp(XREG_CP15_COUNT_ENABLE_SET);
@@ -117,14 +109,23 @@ void Xpm_EnableEventCounters(void)
     { register u32 C15Reg __asm(XREG_CP15_COUNT_ENABLE_SET);
       RegVal = C15Reg; }
 #endif
+#endif
     RegVal |= XPM_EVENT_CNTRS_MASK;
-	mtcp(XREG_CP15_COUNT_ENABLE_SET, RegVal);
+#if defined(__aarch64__)
+    mtcp(PMCNTENSET_EL0, RegVal);
+#if defined(VERSAL_NET)
+	RegVal = mfcp(MDCR_EL3);
+	mtcp(MDCR_EL3, RegVal | XPM_MDCR_EL3_SPME_MASK);
+#endif
+#else
+    mtcp(XREG_CP15_COUNT_ENABLE_SET, RegVal);
+#endif
 }
 
 /****************************************************************************/
 /**
 *
-* @brief    This function resets the Cortex R5 event counters.
+* @brief    This function resets the event counters.
 *
 * @return	None.
 *
@@ -133,6 +134,9 @@ void Xpm_ResetEventCounters(void)
 {
     u32 Reg;
 
+#if defined(__aarch64__)
+    Reg = mfcp(PMCR_EL0);
+#else
 #ifdef __GNUC__
     Reg = mfcp(XREG_CP15_PERF_MONITOR_CTRL);
 #elif defined (__ICCARM__)
@@ -141,8 +145,15 @@ void Xpm_ResetEventCounters(void)
 	{ register u32 C15Reg __asm(XREG_CP15_PERF_MONITOR_CTRL);
 	  Reg = C15Reg; }
 #endif
-    Reg |= (1U << 2U); /* reset event counters */
+#endif
+
+    Reg |= (1U << 1U); /* reset event counters */
+
+#if defined(__aarch64__)
+    mtcp(PMCR_EL0, Reg);
+#else
     mtcp(XREG_CP15_PERF_MONITOR_CTRL, Reg);
+#endif
 }
 
 /*****************************************************************************/
@@ -153,13 +164,10 @@ void Xpm_ResetEventCounters(void)
  *
  * @param	EventCntrId: Event Counter ID. The counter ID is the same that
  *          was earlier returned through a call to Xpm_SetUpAnEvent.
- *          Cortex-R5 supports only 3 counters. The valid values are 0, 1,
- *          or 2.
  *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if the passed Counter ID is invalid
- *        (i.e. greater than 2).
  *
  ******************************************************************************/
 u32 Xpm_DisableEvent(u32 EventCntrId)
@@ -172,6 +180,9 @@ u32 Xpm_DisableEvent(u32 EventCntrId)
         return XST_FAILURE;
     } else {
         CntrMask = CntrMask << EventCntrId;
+#if defined(__aarch64__)
+        Counters = mfcp(PMCNTENCLR_EL0);
+#else
 #ifdef __GNUC__
         Counters = mfcp(XREG_CP15_COUNT_ENABLE_CLR);
 #elif defined (__ICCARM__)
@@ -180,8 +191,13 @@ u32 Xpm_DisableEvent(u32 EventCntrId)
         { register u32 C15Reg __asm(XREG_CP15_COUNT_ENABLE_CLR);
 		Counters = C15Reg; }
 #endif
+#endif
 		Counters &= ~CntrMask;
+#if defined(__aarch64__)
+        mtcp(PMCNTENCLR_EL0, Counters);
+#else
         mtcp(XREG_CP15_COUNT_ENABLE_CLR, Counters);
+#endif
         return XST_SUCCESS;
     }
 }
@@ -199,7 +215,7 @@ u32 Xpm_DisableEvent(u32 EventCntrId)
  *
  * @return
  *		- Counter Number if successful. For Cortex-R5, valid return values are
- *        0, 1, or 2.
+ *        0, 1, or 2, and for others valid values are 0 to 5
  *		- XPM_NO_COUNTERS_AVAILABLE (0xFF) if all counters are being used
  *
  ******************************************************************************/
@@ -209,6 +225,9 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
     u32 OriginalCounters;
     u32 Index;
 
+#if defined(__aarch64__)
+    OriginalCounters = mfcp(PMCNTENSET_EL0);
+#else
 #ifdef __GNUC__
     OriginalCounters = mfcp(XREG_CP15_COUNT_ENABLE_SET);
 #elif defined (__ICCARM__)
@@ -217,6 +236,8 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
     { register u32 C15Reg __asm(XREG_CP15_COUNT_ENABLE_SET);
 	OriginalCounters = C15Reg; }
 #endif
+#endif
+
     OriginalCounters &= XPM_EVENT_CNTRS_BIT_MASK;
     Counters = OriginalCounters;
     if (Counters == XPM_ALL_EVENT_CNTRS_IN_USE) {
@@ -232,12 +253,21 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
         }
     }
 
+#if defined(__aarch64__)
+   /* Select event counter */
+    mtcp(PMSELR_EL0, Index);
+    /* Set the event */
+    mtcp( PMXEVTYPER_EL0, EventID);
+    /* Enable event counter */
+    mtcp(PMCNTENSET_EL0, OriginalCounters | (1U << Index));
+#else
     /* Select event counter */
     mtcp(XREG_CP15_EVENT_CNTR_SEL, Index);
     /* Set the event */
     mtcp(XREG_CP15_EVENT_TYPE_SEL, EventID);
     /* Enable event counter */
     mtcp(XREG_CP15_COUNT_ENABLE_SET, OriginalCounters | ((u32)1U << Index));
+#endif
     return Index;
 }
 
@@ -252,14 +282,13 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
  * @param	EventCntrId: The counter ID is the same that was earlier
  *          returned through a call to Xpm_SetUpAnEvent.
  *          Cortex-R5 supports only 3 counters. The valid values are 0, 1,
- *          or 2.
+ *          or 2 for other processors valid values are 0 to 5.
  * @param	CntVal: Pointer to a 32 bit unsigned int type. This is used to return
  *          the event counter value.
  *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if the passed Counter ID is invalid
- *        (i.e. greater than 2).
  *
  ******************************************************************************/
 u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal)
@@ -268,6 +297,10 @@ u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal)
         xil_printf("Invalid Event Handler ID\r\n");
         return XST_FAILURE;
     } else {
+#if defined(__aarch64__)
+	mtcp(PMSELR_EL0, EventCntrId);
+        *CntVal = mfcp(PMXEVCNTR_EL0);
+#else
         mtcp(XREG_CP15_EVENT_CNTR_SEL, EventCntrId);
 #ifdef __GNUC__
         *CntVal = mfcp(XREG_CP15_PERF_MONITOR_COUNT);
@@ -276,6 +309,7 @@ u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal)
 #else
         { register u32 C15Reg __asm(XREG_CP15_PERF_MONITOR_COUNT);
 	    *CntVal = C15Reg; }
+#endif
 #endif
         return XST_SUCCESS;
     }
@@ -323,10 +357,11 @@ void Xpm_SleepPerfCounter(u32 delay, u64 frequency)
         }while (tCur < tEnd);
 }
 #endif
+#if !defined(__aarch64__)
 /****************************************************************************/
 /**
 *
-* @brief    This function configures the Cortex R5 event counters controller,
+* @brief    This function configures the event counters controller,
 *           with the event codes, in a configuration selected by the user and
 *           enables the counters.
 *
@@ -342,6 +377,7 @@ void Xpm_SetEvents(s32 PmcrCfg)
 	u32 Counter;
 	static PmcrEventCfg32 PmcrEvents[] = {
 
+#if defined(ARMR5)
 		{
 			XPM_EVENT_SOFTINCR,
 			XPM_EVENT_INSTRCACHEMISS,
@@ -422,7 +458,96 @@ void Xpm_SetEvents(s32 PmcrCfg)
 			XPM_EVENT_TCMFATALERRORAXI,
 			XPM_EVENT_TCMERRORAXI
 		},
-
+#else
+	{
+		XPM_EVENT_SOFTINCR,
+		XPM_EVENT_INSRFETCH_CACHEREFILL,
+		XPM_EVENT_INSTRFECT_TLBREFILL,
+		XPM_EVENT_DATA_CACHEREFILL,
+		XPM_EVENT_DATA_CACHEACCESS,
+		XPM_EVENT_DATA_TLBREFILL
+	},
+	{
+		XPM_EVENT_DATA_READS,
+		XPM_EVENT_DATA_WRITE,
+		XPM_EVENT_EXCEPTION,
+		XPM_EVENT_EXCEPRETURN,
+		XPM_EVENT_CHANGECONTEXT,
+		XPM_EVENT_SW_CHANGEPC
+	},
+	{
+		XPM_EVENT_IMMEDBRANCH,
+		XPM_EVENT_UNALIGNEDACCESS,
+		XPM_EVENT_BRANCHMISS,
+		XPM_EVENT_CLOCKCYCLES,
+		XPM_EVENT_BRANCHPREDICT,
+		XPM_EVENT_JAVABYTECODE
+	},
+	{
+		XPM_EVENT_SWJAVABYTECODE,
+		XPM_EVENT_JAVABACKBRANCH,
+		XPM_EVENT_COHERLINEMISS,
+		XPM_EVENT_COHERLINEHIT,
+		XPM_EVENT_INSTRSTALL,
+		XPM_EVENT_DATASTALL
+	},
+	{
+		XPM_EVENT_MAINTLBSTALL,
+		XPM_EVENT_STREXPASS,
+		XPM_EVENT_STREXFAIL,
+		XPM_EVENT_DATAEVICT,
+		XPM_EVENT_NODISPATCH,
+		XPM_EVENT_ISSUEEMPTY
+	},
+	{
+		XPM_EVENT_INSTRRENAME,
+		XPM_EVENT_PREDICTFUNCRET,
+		XPM_EVENT_MAINEXEC,
+		XPM_EVENT_SECEXEC,
+		XPM_EVENT_LDRSTR,
+		XPM_EVENT_FLOATRENAME
+	},
+	{
+		XPM_EVENT_NEONRENAME,
+		XPM_EVENT_PLDSTALL,
+		XPM_EVENT_WRITESTALL,
+		XPM_EVENT_INSTRTLBSTALL,
+		XPM_EVENT_DATATLBSTALL,
+		XPM_EVENT_INSTR_uTLBSTALL
+	},
+	{
+		XPM_EVENT_DATA_uTLBSTALL,
+		XPM_EVENT_DMB_STALL,
+		XPM_EVENT_INT_CLKEN,
+		XPM_EVENT_DE_CLKEN,
+		XPM_EVENT_INSTRISB,
+		XPM_EVENT_INSTRDSB
+	},
+	{
+		XPM_EVENT_INSTRDMB,
+		XPM_EVENT_EXTINT,
+		XPM_EVENT_PLE_LRC,
+		XPM_EVENT_PLE_LRS,
+		XPM_EVENT_PLE_FLUSH,
+		XPM_EVENT_PLE_CMPL
+	},
+	{
+		XPM_EVENT_PLE_OVFL,
+		XPM_EVENT_PLE_PROG,
+		XPM_EVENT_PLE_LRC,
+		XPM_EVENT_PLE_LRS,
+		XPM_EVENT_PLE_FLUSH,
+		XPM_EVENT_PLE_CMPL
+	},
+	{
+		XPM_EVENT_DATASTALL,
+		XPM_EVENT_INSRFETCH_CACHEREFILL,
+		XPM_EVENT_INSTRFECT_TLBREFILL,
+		XPM_EVENT_DATA_CACHEREFILL,
+		XPM_EVENT_DATA_CACHEACCESS,
+		XPM_EVENT_DATA_TLBREFILL
+	},
+#endif
 	};
 	const u32 *ptr = PmcrEvents[PmcrCfg];
 
@@ -463,6 +588,7 @@ void Xpm_GetEventCounters(u32 *PmCtrValue)
 	for(Counter = 0U; Counter < XPM_CTRCOUNT; Counter++) {
 
 		mtcp(XREG_CP15_EVENT_CNTR_SEL, Counter);
+
 #ifdef __GNUC__
 		PmCtrValue[Counter] = mfcp(XREG_CP15_PERF_MONITOR_COUNT);
 #elif defined (__ICCARM__)
@@ -473,5 +599,5 @@ void Xpm_GetEventCounters(u32 *PmCtrValue)
 #endif
 	}
 }
-
+#endif
 
