@@ -42,6 +42,15 @@
  * multiple fragments. */
 #define XDP_MAX_LENGTH_SBMSG 48
 
+/* MST device is detected. */
+#define XDP_MST_DEVICE_DETECTED 0x01
+/* Source device or SST Branch device connected to a UFP. */
+#define XDP_MST_SOURCE_DEVICE_DETECTED 0x01
+/* Device with MST Branching Unit or SST Branch device connected to a DFP. */
+#define XDP_MST_BRANCH_DEVICE_DETECTED 0x02
+/* SST Sink device or Stream Sink in an MST Sink/Composite device. */
+#define XDP_MST_SINK_DEVICE_DETECTED 0x03
+
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /* Error out if waiting for a sideband message reply or waiting for the payload
  * ID table to be updated takes more than 5000 AUX read iterations. */
@@ -700,11 +709,6 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 	/* Write GUID to the branch device if it doesn't already have one. */
 	XDp_TxIssueGuid(InstancePtr, LinkCountTotal, RelativeAddress, Topology,
 							DeviceInfo.Guid);
-
-	/* Add the branch device to the topology table. */
-	XDp_TxAddBranchToList(InstancePtr, &DeviceInfo, LinkCountTotal,
-							RelativeAddress);
-
 	/* Downstream devices will be an extra link away from the source than
 	 * this branch device. */
 	LinkCountTotal++;
@@ -715,29 +719,30 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 		/* Any downstream device downstream device will have the RAD of
 		 * the current branch device appended with the port number. */
 		RelativeAddress[LinkCountTotal - 2] = PortDetails->PortNum;
-
-		if ((PortDetails->InputPort == 0) &&
-					(PortDetails->PeerDeviceType != 0x2) &&
-					(PortDetails->DpDevPlugStatus == 1)) {
-
-			if ((PortDetails->MsgCapStatus == 1) &&
-					(PortDetails->DpcdRev >= 0x12)) {
-				/* Write GUID to the branch device if it
-				 * doesn't already have one. */
-				XDp_TxIssueGuid(InstancePtr,
-					LinkCountTotal, RelativeAddress,
-					Topology, PortDetails->Guid);
+		/*presence of HPD */
+		if (PortDetails->DpDevPlugStatus == XDP_MST_DEVICE_DETECTED) {
+			/* information of RX*/
+			if (PortDetails->InputPort == 0) {
+				if (PortDetails->MsgCapStatus == 1 &&
+				    PortDetails->PeerDeviceType
+						 == XDP_MST_BRANCH_DEVICE_DETECTED) {
+					/* Add branch device to the topology table. */
+					XDp_TxAddBranchToList(InstancePtr, &DeviceInfo,
+								LinkCountTotal, RelativeAddress);
+					DownBranchesDownPorts[NumDownBranches] =
+						PortDetails->PortNum;
+					NumDownBranches++;
+				} else if (PortDetails->MsgCapStatus == 0 &&
+					 PortDetails->PeerDeviceType ==
+						XDP_MST_SINK_DEVICE_DETECTED) {
+					/* Add sink device to the topology table. */
+					XDp_TxAddSinkToList(InstancePtr,
+						PortDetails, LinkCountTotal, RelativeAddress);
+				} else if (PortDetails->MsgCapStatus == 1 &&
+					 PortDetails->PeerDeviceType ==
+						XDP_MST_SOURCE_DEVICE_DETECTED) {
+				}
 			}
-
-			XDp_TxAddSinkToList(InstancePtr, PortDetails,
-					LinkCountTotal,
-					RelativeAddress);
-		}
-
-		if (PortDetails->PeerDeviceType == 0x2) {
-			DownBranchesDownPorts[NumDownBranches] =
-							PortDetails->PortNum;
-			NumDownBranches++;
 		}
 	}
 
@@ -750,6 +755,10 @@ u32 XDp_TxFindAccessibleDpDevices(XDp *InstancePtr, u8 LinkCountTotal,
 		/* Found a branch device; recurse the algorithm to see what
 		 * DisplayPort devices are connected to it with the appended
 		 * RAD. */
+		/* This Delay is added to match with UCD400 flow. This delay
+		 * should be deleted once UCD400 fixes its internal issues.
+		 */
+		usleep(10000);
 		Status = XDp_TxFindAccessibleDpDevices(InstancePtr,
 					LinkCountTotal, RelativeAddress);
 		if (Status != XST_SUCCESS) {
