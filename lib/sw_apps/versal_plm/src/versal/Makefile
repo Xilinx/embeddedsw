@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -23,8 +23,8 @@ DEPFILES := $(patsubst %.o, %.d, $(OBJS))
 LIBS := ../../misc/versal_plm_bsp/psv_pmc_0/lib/libxil.a
 EXEC := plm.elf
 
-INCLUDEPATH := -I../../misc/versal_plm_bsp/psv_pmc_0/include -I. -I../common/
-LIBPATH := -L../../misc/versal_plm_bsp/psv_pmc_0/lib
+INCLUDEPATH := -I../../misc/versal/versal_plm_bsp/psv_pmc_0/include -I. -I../common/
+LIBPATH := -L../../misc/versal/versal_plm_bsp/psv_pmc_0/lib
 
 all: $(EXEC)
 
@@ -33,13 +33,13 @@ $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
 
 $(LIBS):
 	echo "Copying BSP files"
-	../../misc/copy_bsp.sh
+	../../misc/versal/copy_bsp.sh
 	echo "Compiling bsp"
-	$(MAKE) -C ../../misc/versal_plm_bsp
+	$(MAKE) -C ../../misc/versal/versal_plm_bsp
 
 %.o:%.c
 	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 clean:
 	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d ../common/*.o ../common/*.d
-	rm -rf ../../misc/versal_plm_bsp
+	rm -rf ../../misc/versal/versal_plm_bsp
