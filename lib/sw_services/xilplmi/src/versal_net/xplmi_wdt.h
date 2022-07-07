@@ -7,18 +7,17 @@
 /**
 *
 * @file xplmi_wdt.h
-* @addtogroup xplmi_apis XilPlmi Versal APIs
+* @addtogroup xplmi_apis XilPlmi versal_net APIs
 * @{
 * @cond xplmi_internal
-* This file contains declarations related to WDT
+* This file contains declarations related to WDT in versal_net
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   07/28/2020 Initial release
-*       ana  10/19/2020 Added doxygen comments
+* 1.00  bm   07/06/2022 Initial release
 *
 * </pre>
 *

@@ -26,6 +26,7 @@
 *       ma   08/05/2021 Add separate task for each IPI channel
 * 1.06  bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
 *                       same priority
+* 1.07  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -38,6 +39,7 @@
 #include "xplmi_hw.h"
 #include "xplmi_util.h"
 #include "xplmi_debug.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -46,8 +48,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlmi_GicIntrAddTask(u32 Index);
-static void XPlmi_GicAddTask(u32 PlmIntrId);
 
 /************************** Variable Definitions *****************************/
 
@@ -68,7 +68,6 @@ int XPlmi_GicRegisterHandler(u32 GicPVal, u32 GicPxVal, GicIntHandler_t Handler,
 {
 	int Status = XST_FAILURE;
 	XPlmi_TaskNode *Task = NULL;
-	u32 PlmIntrId = (GicPVal << 8U) | (GicPxVal << 16U);
 
 	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0, Handler, Data);
 	if (Task == NULL) {
@@ -77,7 +76,7 @@ int XPlmi_GicRegisterHandler(u32 GicPVal, u32 GicPxVal, GicIntHandler_t Handler,
 			"error\n\r");
 		goto END;
 	}
-	Task->IntrId = PlmIntrId | XPLMI_IOMODULE_PMC_GIC_IRQ;
+	Task->IntrId = XPlmi_GetGicIntrId(GicPVal, GicPxVal);
 	Status = XST_SUCCESS;
 
 END:
@@ -217,47 +216,6 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 
 /*****************************************************************************/
 /**
- * @brief	This will add the GIC interrupt task handler to the TaskQueue.
- *
- * @param	PlmIntrId is the GIC interrupt ID of the task
- *
- * @return	None
- *
- *****************************************************************************/
-static void XPlmi_GicAddTask(u32 PlmIntrId)
-{
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
-	u16 IpiIntrVal;
-	u16 IpiMaskVal;
-	u8 IpiIndex;
-	u16 IpiIndexMask;
-
-	/* Check if the received interrupt is IPI */
-	if (PlmIntrId == XPLMI_IPI_INTR_ID) {
-		IpiIntrVal = (u16)Xil_In32(IPI_PMC_ISR);
-		IpiMaskVal = (u16)Xil_In32(IPI_PMC_IMR);
-		/*
-		 * Check IPI source channel and add channel specific task to
-		 * task queue according to the channel priority
-		 */
-		for (IpiIndex = 0U; IpiIndex < XPLMI_IPI_MASK_COUNT; ++IpiIndex) {
-			IpiIndexMask = (u16)1U << IpiIndex;
-			if (((IpiIntrVal & IpiIndexMask) != 0U) &&
-				((IpiMaskVal & IpiIndexMask) == 0U)) {
-				XPlmi_GicIntrAddTask(PlmIntrId |
-					((u32)IpiIndex << XPLMI_IPI_INDEX_SHIFT));
-			}
-		}
-	} else
-#endif
-	{
-		/* Add task to the task queue */
-		XPlmi_GicIntrAddTask(PlmIntrId);
-	}
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function adds the GiC task handler to the TaskQueue.
  *
  * @param	Index is the interrupt index with GicPx and its corresponding
@@ -265,12 +223,11 @@ static void XPlmi_GicAddTask(u32 PlmIntrId)
  * @return	None
  *
  *****************************************************************************/
-static void XPlmi_GicIntrAddTask(u32 Index)
+void XPlmi_GicIntrAddTask(u32 Index)
 {
 	XPlmi_TaskNode *Task = NULL;
-	u32 IntrId = Index | XPLMI_IOMODULE_PMC_GIC_IRQ;
 
-	Task = XPlmi_GetTaskInstance(NULL, NULL, IntrId);
+	Task = XPlmi_GetTaskInstance(NULL, NULL, Index);
 	if (Task == NULL) {
 		XPlmi_Printf(DEBUG_GENERAL, "GIC Interrrupt add task error\n\r");
 		goto END;

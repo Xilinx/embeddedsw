@@ -37,6 +37,7 @@
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 * 1.06  am   11/24/2021 Fixed doxygen warning
 * 1.07  skd  04/21/2022 Misra-C violation Rule 8.3 fixed
+* 1.08  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -54,7 +55,7 @@
 #include "xstatus.h"
 #include "xplmi_hw.h"
 #include "xplmi_status.h"
-#include "xparameters.h"
+#include "xplmi_hw.h"
 #include <stdarg.h>
 
 /************************** Constant Definitions *****************************/
@@ -64,28 +65,21 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_SPP_INPUT_CLK_FREQ	(25000000U) /**< SPP Input Clk Freq
 						should be 25 MHz */
-#define UART_PRINT_INITIALIZED	(UART_INITIALIZED | UART_PRINT_ENABLED)
-					/**< Flag indicates UART is initialized
-						and prints are enabled */
 #define XPLMI_UART_SELECT_CURRENT	(0U) /**< Flag indicates current uart is selected */
 
-#if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
+#if (XPLMI_UART_NUM_INSTANCES > 0U)
 #define XPLMI_UART_SELECT_0		(1U) /**< Flag indicates UART0 is selected */
 #define XPLMI_UART_ENABLE 		(0U) /**< Flag indicates UART prints are enabled */
 #define XPLMI_UART_DISABLE		(1U) /**< Flag indicates UART prints are disabled */
 #endif
 
-#if (XPAR_XUARTPSV_NUM_INSTANCES > 1U)
+#if (XPLMI_UART_NUM_INSTANCES > 1U)
 #define XPLMI_UART_SELECT_1		(2U) /**< Flag indicates UART1 is selected */
 #endif
-
-#define XPLMI_INVALID_UART_BASE_ADDR	(0U) /**< Flag indicates invalid UART
-                                              * base address */
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-static u32 UartBaseAddr = XPLMI_INVALID_UART_BASE_ADDR; /**< Base address of Uart */
 
 /*****************************************************************************/
 /**
@@ -97,20 +91,21 @@ static u32 UartBaseAddr = XPLMI_INVALID_UART_BASE_ADDR; /**< Base address of Uar
 int XPlmi_InitUart(void)
 {
 	int Status = XST_FAILURE;
+	u32 *UartBaseAddr = XPlmi_GetUartBaseAddr();
 
 	/* Initialize UART */
 	/* If UART is already initialized, just return success */
-	if ((LpdInitialized & UART_INITIALIZED) == UART_INITIALIZED) {
+	if (XPlmi_IsUartInitialized() == (u8)TRUE) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
-#if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
+#if (XPLMI_UART_NUM_INSTANCES > 0U)
 	u8 Index = 0U;
 	XUartPsv UartPsvIns;
 	XUartPsv_Config *Config;
 
-	for (Index = 0U; Index < (u8)XPAR_XUARTPSV_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < (u8)XPLMI_UART_NUM_INSTANCES; Index++) {
 
 		Status = XPlmi_MemSetBytes(&UartPsvIns, sizeof(XUartPsv),
 				0U, sizeof(XUartPsv));
@@ -142,19 +137,18 @@ int XPlmi_InitUart(void)
 			goto END;
 		}
 	}
-
-	LpdInitialized |= UART_INITIALIZED;
+	XPlmi_SetLpdInitialized(UART_INITIALIZED);
 #endif
 
 #ifdef DEBUG_UART_MDM
-	LpdInitialized |= UART_INITIALIZED;
+	XPlmi_SetLpdInitialized(UART_INITIALIZED);
 #endif
 
 #if !defined(PLM_PRINT_NO_UART) && defined(STDOUT_BASEADDRESS)
-	LpdInitialized |= UART_PRINT_ENABLED;
+	XPlmi_SetLpdInitialized(UART_PRINT_ENABLED);
 #endif
 #ifdef STDOUT_BASEADDRESS
-	UartBaseAddr = (u32)STDOUT_BASEADDRESS;
+	*UartBaseAddr = (u32)STDOUT_BASEADDRESS;
 #endif
 
 	Status = XST_SUCCESS;
@@ -176,18 +170,19 @@ END:
 int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable)
 {
 	int Status = XPLMI_ERR_NO_UART_PRESENT;
+#if (XPLMI_UART_NUM_INSTANCES > 0U)
+	u32 *UartBaseAddr = XPlmi_GetUartBaseAddr();
 
-#if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
 	if (UartSelect == XPLMI_UART_SELECT_0) {
-		UartBaseAddr = XPAR_XUARTPSV_0_BASEADDR;
+		*UartBaseAddr = XPLMI_UART_0_BASEADDR;
 	}
-#if (XPAR_XUARTPSV_NUM_INSTANCES > 1U)
+#if (XPLMI_UART_NUM_INSTANCES > 1U)
 	else if (UartSelect == XPLMI_UART_SELECT_1) {
-		UartBaseAddr = XPAR_XUARTPSV_1_BASEADDR;
+		*UartBaseAddr = XPLMI_UART_1_BASEADDR;
 	}
 #endif
 	else if (UartSelect == XPLMI_UART_SELECT_CURRENT) {
-		if (UartBaseAddr == XPLMI_INVALID_UART_BASE_ADDR) {
+		if (*UartBaseAddr == XPLMI_INVALID_UART_BASE_ADDR) {
 			Status = XPLMI_ERR_CURRENT_UART_INVALID;
 			goto END;
 		}
@@ -198,10 +193,10 @@ int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable)
 	}
 
 	if (UartEnable == XPLMI_UART_ENABLE) {
-		LpdInitialized |= UART_PRINT_ENABLED;
+		XPlmi_SetLpdInitialized(UART_PRINT_ENABLED);
 	}
 	else if (UartEnable == XPLMI_UART_DISABLE) {
-		LpdInitialized &= (u8)(~UART_PRINT_ENABLED);
+		XPlmi_UnSetLpdInitialized(UART_PRINT_ENABLED);
 	}
 	else {
 		Status = XPLMI_ERR_INVALID_UART_ENABLE;
@@ -227,9 +222,10 @@ END:
 void outbyte(char c)
 {
 	u64 CurrentAddr;
-#if (XPAR_XUARTPSV_NUM_INSTANCES > 0U)
-	if (((LpdInitialized) & UART_PRINT_INITIALIZED) == UART_PRINT_INITIALIZED) {
-		XUartPsv_SendByte(UartBaseAddr, (u8)c);
+#if (XPLMI_UART_NUM_INSTANCES > 0U)
+	u32 *UartBaseAddr = XPlmi_GetUartBaseAddr();
+	if (XPlmi_IsUartPrintInitialized() == (u8)TRUE) {
+		XUartPsv_SendByte(*UartBaseAddr, (u8)c);
 	}
 #endif
 

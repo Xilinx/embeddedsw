@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  08/15/2021 Removed unwanted goto statements
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -74,7 +75,6 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value);
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
 	u32 TimeOutInUs);
 void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len, const char *Str);
-int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr);
 
 /**
  * @}

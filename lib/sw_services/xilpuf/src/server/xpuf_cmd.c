@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/2022 Initial release
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -46,6 +47,9 @@ static XPlmi_Module XPlmi_Puf =
 	XPuf_Cmds,
 	XPUF_API(XPUF_API_MAX),
 	NULL,
+#ifdef VERSAL_NET
+	NULL
+#endif
 };
 
 /**************************** Type Definitions *******************************/

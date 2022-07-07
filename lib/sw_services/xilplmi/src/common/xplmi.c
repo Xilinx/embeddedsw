@@ -45,6 +45,7 @@
 *       ma   09/13/2021 Set PLM prints log level during RTCA init
 *       tnt  11/11/2021 Add RTCA initialization for MIO Flush routine
 *       tnt  12/17/2021 Add RTCA initialization for PL_POR HDIO WA
+*1.06   bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -57,28 +58,18 @@
 #include "xplmi_err_common.h"
 #include "xplmi_wdt.h"
 #include "xplmi_hw.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_DIGEST_PMC_1_0_ROM_1_0	(0x2B004AC7U) /**< PMC1 ROM version 1
-														digest */
-#define XPLMI_DIGEST_PMC_2_0_ROM_2_0	(0xB576B550U) /**< PMC2 ROM version 2
-														digest */
-
-#define XPLMI_ROM_VERSION_1_0		(0x10U) /**< ROM version 1 */
-#define XPLMI_ROM_VERSION_2_0		(0x20U) /**< ROM version 2 */
-#define XPLMI_INVALID_ROM_VERSION	(0x0U) /**< Invalid ROM version */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlmi_PrintRomVersion(void);
 static void XPlmi_PrintEarlyLog(void);
-static void XPlmi_UpdateResetReason(void);
 
 /************************** Variable Definitions *****************************/
-u8 LpdInitialized = (u8)0U; /**< 1 if LPD is initialized */
 
 /******************************************************************************/
 /**
@@ -91,7 +82,7 @@ int XPlmi_Init(void)
 {
 	int Status = XST_FAILURE;
 
-	XPlmi_UpdateResetReason();
+	XPlmi_PreInit();
 
 	Status = XPlmi_SetUpInterruptSystem();
 	if (Status != XST_SUCCESS) {
@@ -101,30 +92,6 @@ int XPlmi_Init(void)
 
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function updates reset reason.
- *
- * @return	None
- *
- *****************************************************************************/
-static void XPlmi_UpdateResetReason(void)
-{
-	u32 AccResetReason = XPlmi_In32(PMC_GLOBAL_PERS_GEN_STORAGE2) &
-				PERS_GEN_STORAGE2_ACC_RR_MASK;
-	u32 ResetReason = XPlmi_In32(CRP_RESET_REASON) &
-				CRP_RESET_REASON_MASK;
-
-	/* Accumulate previous reset reasons and add last reset reason */
-	AccResetReason |= (ResetReason << CRP_RESET_REASON_SHIFT) | ResetReason;
-
-	/* Store Reset Reason to Persistent2 address */
-	XPlmi_Out32(PMC_GLOBAL_PERS_GEN_STORAGE2, AccResetReason);
-
-	/* Clear Reset Reason register, by writing the same value */
-	XPlmi_Out32(CRP_RESET_REASON, ResetReason);
 }
 
 /*****************************************************************************/
@@ -168,11 +135,10 @@ int XPlmi_RunTimeConfigInit(void)
 				XPLMI_RTCFG_SECURESTATE_SHWROT);
 	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, XPLMI_RTCFG_PDI_ID);
 	XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, DevSecureState);
-	/* MIO flush RTCFG init */
-	XPlmi_Out32(XPLMI_RTCFG_MIO_WA_BANK_500_ADDR, XPLMI_MIO_FLUSH_ALL_PINS);
-	XPlmi_Out32(XPLMI_RTCFG_MIO_WA_BANK_501_ADDR, XPLMI_MIO_FLUSH_ALL_PINS);
-	XPlmi_Out32(XPLMI_RTCFG_MIO_WA_BANK_502_ADDR, XPLMI_MIO_FLUSH_ALL_PINS);
-	XPlmi_Out32(XPLMI_RTCFG_RST_PL_POR_WA, 0U);
+
+	/* Initialize platform specific RTCA Registers */
+	XPlmi_RtcaPlatInit();
+
 	/* Set PLM prints log level */
 	DebugLog->LogLevel = ((u8)XPlmiDbgCurrentTypes << XPLMI_LOG_LEVEL_SHIFT) |
 		(u8)XPlmiDbgCurrentTypes;
@@ -205,8 +171,12 @@ void XPlmi_LpdInit(void)
 		goto END;
 	}
 
-	LpdInitialized |= LPD_INITIALIZED;
-	XPlmi_PrintEarlyLog();
+	XPlmi_SetLpdInitialized(LPD_INITIALIZED);
+
+	/* For versal, PLM Update is not applicable, and this API returns FALSE */
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		XPlmi_PrintEarlyLog();
+	}
 
 END:
 	return;
@@ -231,32 +201,34 @@ void XPlmi_PrintPlmBanner(void)
 	/* Print the PLM Banner */
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 		"****************************************\n\r");
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
-		"Xilinx Versal Platform Loader and Manager \n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS, XPLMI_PLM_BANNER);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 		"Release %s.%s   %s  -  %s\n\r",
 		SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER, __DATE__, __TIME__);
 
-	/* Read the Version */
-	Version = XPlmi_In32(PMC_TAP_VERSION);
-	PsVersion = (u8)((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
-			PMC_TAP_VERSION_PS_VERSION_SHIFT);
-	PmcVersion = (u8)((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
-			PMC_TAP_VERSION_PMC_VERSION_SHIFT);
-	BootMode = XPlmi_In32(CRP_BOOT_MODE_USER) &
-			CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
-	MultiBoot = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
-	PmcVersionDecimal = (u8)(PmcVersion & XPLMI_PMC_VERSION_MASK);
-	PmcVersion = (u8)(PmcVersion >> XPLMI_PMC_VERSION_SHIFT);
+	/* For versal, PLM Update is not applicable, and this API returns FALSE */
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		/* Read the Version */
+		Version = XPlmi_In32(PMC_TAP_VERSION);
+		PsVersion = (u8)((Version & PMC_TAP_VERSION_PS_VERSION_MASK) >>
+				PMC_TAP_VERSION_PS_VERSION_SHIFT);
+		PmcVersion = (u8)((Version & PMC_TAP_VERSION_PMC_VERSION_MASK) >>
+				PMC_TAP_VERSION_PMC_VERSION_SHIFT);
+		BootMode = XPlmi_In32(CRP_BOOT_MODE_USER) &
+				CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
+		MultiBoot = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+		PmcVersionDecimal = (u8)(PmcVersion & XPLMI_PMC_VERSION_MASK);
+		PmcVersion = (u8)(PmcVersion >> XPLMI_PMC_VERSION_SHIFT);
 
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%u.%u "
-		"PMC: v%u.%u, PS: v%u.%u\n\r", PmcVersion, PmcVersionDecimal,
-		PmcVersion, PmcVersionDecimal,
-		(PsVersion >> XPLMI_PMC_VERSION_SHIFT),
-		(PsVersion & XPLMI_PMC_VERSION_MASK));
-	XPlmi_PrintRomVersion();
-	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: 0x%x, MULTIBOOT: 0x%x"
-			"\n\r", BootMode, MultiBoot);
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Platform Version: v%u.%u "
+			"PMC: v%u.%u, PS: v%u.%u\n\r", PmcVersion, PmcVersionDecimal,
+			PmcVersion, PmcVersionDecimal,
+			(PsVersion >> XPLMI_PMC_VERSION_SHIFT),
+			(PsVersion & XPLMI_PMC_VERSION_MASK));
+		XPlmi_PrintRomVersion();
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "BOOTMODE: 0x%x, MULTIBOOT: 0x%x"
+				"\n\r", BootMode, MultiBoot);
+	}
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
 		"****************************************\n\r");
 }
@@ -286,37 +258,6 @@ static void XPlmi_PrintEarlyLog(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function prints ROM version using ROM digest value.
- *
- * @return	None
- *
- *****************************************************************************/
-static void XPlmi_PrintRomVersion(void)
-{
-	u32 RomDigest;
-	u8 RomVersion;
-
-	RomDigest = XPlmi_In32(PMC_GLOBAL_ROM_VALIDATION_DIGEST_0);
-	switch (RomDigest) {
-		case XPLMI_DIGEST_PMC_1_0_ROM_1_0:
-			RomVersion = XPLMI_ROM_VERSION_1_0;
-			break;
-		case XPLMI_DIGEST_PMC_2_0_ROM_2_0:
-			RomVersion = XPLMI_ROM_VERSION_2_0;
-			break;
-		default:
-			RomVersion = XPLMI_INVALID_ROM_VERSION;
-			break;
-	}
-
-	if (RomVersion != XPLMI_INVALID_ROM_VERSION) {
-		XPlmi_Printf(DEBUG_INFO, "ROM Version: v%u.%u\n\r",
-			(RomVersion >> 4U), (RomVersion & 15U));
-	}
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function resets LpdInitialized variable to 0.
  *
  * @return	None
@@ -324,9 +265,39 @@ static void XPlmi_PrintRomVersion(void)
  *****************************************************************************/
 void XPlmi_ResetLpdInitialized(void)
 {
-	if ((LpdInitialized & LPD_WDT_INITIALIZED) == LPD_WDT_INITIALIZED) {
-		XPlmi_DisableWdt();
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	if ((*LpdInitializedPtr & LPD_WDT_INITIALIZED) == LPD_WDT_INITIALIZED) {
+		XPlmi_DisableWdt(XPLMI_WDT_EXTERNAL);
 	}
 
-	LpdInitialized = (u8)0U;
+	*LpdInitializedPtr = (u32)0U;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets LpdInitialized variable with given flag.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_SetLpdInitialized(u32 Flag)
+{
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	*LpdInitializedPtr |= Flag;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets LpdInitialized variable with given flag.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_UnSetLpdInitialized(u32 Flag)
+{
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	*LpdInitializedPtr &= (u32)(~Flag);
 }

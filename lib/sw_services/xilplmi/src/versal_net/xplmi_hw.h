@@ -9,7 +9,7 @@
 *
 * @file xplmi_hw.h
 *
-* This is the header file which contains definitions for the hardware
+* This is the header file which contains definitions for the versal_net hardware
 * registers.
 *
 * <pre>
@@ -17,34 +17,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/21/2017 Initial release
-* 1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
-*       bsv  04/18/2019 Added support for NPI readback and CFI readback
-*       kc   04/27/2019 Added SPP check for UART frequency
-*       kc   05/21/2019 Updated IPI error code to response buffer
-*       kc   07/16/2019 Added logic to determine the IRO frequency
-*       bsv  08/29/2019 Added Multiboot and Fallback support in PLM
-*       scs  08/31/2019 Added support for Extended IDCODE checks
-* 1.02  ma   02/05/2020 Removed SRST error action for PSM errors
-*       ma   02/18/2020 Added event logging code
-*       ma   02/28/2020 Code related to handling PSM errors from PLM
-*       ma   03/02/2020 Added support for logging trace events
-*       bsv  04/04/2020 Code clean up
-* 1.03  bsv  07/10/2020 Added PMC_IOU_SLCR register related macros
-*       kc   07/28/2020 Added PMC PS GPIO related macros
-*       kc   08/04/2020 Added CRP NPLL related macros
-*       bm   08/19/2020 Added ImageInfo Table related macros
-*       bm   09/08/2020 Added PMC RAM Usage for RunTime Configuration registers
-*       bsv  09/21/2020 Set clock source to IRO before SRST for ES1 silicon
-*       bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP
-*                       and PCIE boot modes
-*       td   10/30/2020 Fixed MISRA C Rule 2.5 and added PMC_GLOBAL macros
-* 1.04  bm   11/10/2020 Added ROM_VALIDATION_DIGEST macro
-*       bsv  01/29/2021 Added APIs for checking and clearing NPI errors
-* 1.05  pj   03/24/2021 Added Macros for PSM_CR MASK and trigger
-*       skd  03/25/2021 Macros re-definitions compilation warning fixes
-*       ma   05/03/2021 Added macros for FW_CR and FW_ERR NCR_FLAG masks and
-*                       removed PSM_CR mask macro which is unused
+* 1.00  bm   07/06/2022 Initial release
 *
 * </pre>
 *
@@ -63,6 +36,7 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xparameters.h"
 #include "xil_io.h"
+#include "xil_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -81,6 +55,7 @@ extern "C" {
  */
 #define PMC_GLOBAL_GLOBAL_CNTRL    (PMC_GLOBAL_BASEADDR + 0X00000000U)
 #define PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK   (0X00000010U)
+#define PMC_GLOBAL_GLOBAL_CNTRL_SLVERR_ENABLE_MASK		(0X00000002U)
 
 /*
  * Register: PMC_GLOBAL_PMC_MULTI_BOOT
@@ -165,18 +140,11 @@ extern "C" {
 #define PMC_GLOBAL_SSIT_ERR    (PMC_GLOBAL_BASEADDR + 0X00000958U)
 
 /*
- * Register: PMC_GLOBAL_DOMAIN_ISO_CNTRL
- */
-#define PMC_GLOBAL_DOMAIN_ISO_CNTRL    (PMC_GLOBAL_BASEADDR + 0X00010000U)
-#ifndef PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK
-#define PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK   (0X00000400U)
-#endif
-
-/*
  * Register: PMC_GLOBAL_PMC_FW_ERR
  */
 #define PMC_GLOBAL_PMC_FW_ERR    (PMC_GLOBAL_BASEADDR + 0X00010100U)
 #define PMC_GLOBAL_PMC_FW_ERR_NCR_FLAG_MASK		(0x80000000U)
+#define PMC_GLOBAL_PMC_FW_ERR_DATA_MASK			(0x3FFFFFFFU)
 
 /*
  * Register: PMC_GLOBAL_ROM_INT
@@ -216,6 +184,11 @@ extern "C" {
 #define PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK			(0x00000004U)
 
 /*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT1_MASK
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT1_MASK    (PMC_GLOBAL_BASEADDR + 0X00020020U)
+
+/*
  * Register: PMC_GLOBAL_PMC_ERR_OUT1_EN
  */
 #define PMC_GLOBAL_PMC_ERR_OUT1_EN    (PMC_GLOBAL_BASEADDR + 0X00020024U)
@@ -224,6 +197,11 @@ extern "C" {
  * Register: PMC_GLOBAL_PMC_ERR_OUT1_DIS
  */
 #define PMC_GLOBAL_PMC_ERR_OUT1_DIS    (PMC_GLOBAL_BASEADDR + 0X00020028U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT2_MASK
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT2_MASK    (PMC_GLOBAL_BASEADDR + 0X00020030U)
 
 /*
  * Register: PMC_GLOBAL_PMC_ERR_OUT2_EN
@@ -236,6 +214,11 @@ extern "C" {
 #define PMC_GLOBAL_PMC_ERR_OUT2_DIS    (PMC_GLOBAL_BASEADDR + 0X00020038U)
 
 /*
+ * Register: PMC_GLOBAL_PMC_ERR_OUT3_MASK
+ */
+#define PMC_GLOBAL_PMC_ERR_OUT3_MASK    (PMC_GLOBAL_BASEADDR + 0X00020110U)
+
+/*
  * Register: PMC_GLOBAL_PMC_ERR_OUT3_EN
  */
 #define PMC_GLOBAL_PMC_ERR_OUT3_EN    (PMC_GLOBAL_BASEADDR + 0X00020114U)
@@ -246,6 +229,11 @@ extern "C" {
 #define PMC_GLOBAL_PMC_ERR_OUT3_DIS    (PMC_GLOBAL_BASEADDR + 0X00020118U)
 
 /*
+ * Register: PMC_GLOBAL_PMC_POR1_MASK
+ */
+#define PMC_GLOBAL_PMC_POR1_MASK    (PMC_GLOBAL_BASEADDR + 0X00020040U)
+
+/*
  * Register: PMC_GLOBAL_PMC_POR1_EN
  */
 #define PMC_GLOBAL_PMC_POR1_EN    (PMC_GLOBAL_BASEADDR + 0X00020044U)
@@ -254,6 +242,16 @@ extern "C" {
  * Register: PMC_GLOBAL_PMC_POR1_DIS
  */
 #define PMC_GLOBAL_PMC_POR1_DIS    (PMC_GLOBAL_BASEADDR + 0X00020048U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR2_MASK
+ */
+#define PMC_GLOBAL_PMC_POR2_MASK    (PMC_GLOBAL_BASEADDR + 0X00020050U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_POR3_MASK
+ */
+#define PMC_GLOBAL_PMC_POR3_MASK    (PMC_GLOBAL_BASEADDR + 0X00020120U)
 
 /*
  * Register: PMC_GLOBAL_PMC_POR2_EN
@@ -276,6 +274,11 @@ extern "C" {
 #define PMC_GLOBAL_PMC_POR3_DIS    (PMC_GLOBAL_BASEADDR + 0X00020128U)
 
 /*
+ * Register: PMC_GLOBAL_PMC_IRQ1_MASK
+ */
+#define PMC_GLOBAL_PMC_IRQ1_MASK    (PMC_GLOBAL_BASEADDR + 0X00020060U)
+
+/*
  * Register: PMC_GLOBAL_PMC_IRQ1_EN
  */
 #define PMC_GLOBAL_PMC_IRQ1_EN    (PMC_GLOBAL_BASEADDR + 0X00020064U)
@@ -284,6 +287,16 @@ extern "C" {
  * Register: PMC_GLOBAL_PMC_IRQ1_DIS
  */
 #define PMC_GLOBAL_PMC_IRQ1_DIS    (PMC_GLOBAL_BASEADDR + 0X00020068U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ2_MASK
+ */
+#define PMC_GLOBAL_PMC_IRQ2_MASK    (PMC_GLOBAL_BASEADDR + 0X00020070U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_IRQ3_MASK
+ */
+#define PMC_GLOBAL_PMC_IRQ3_MASK    (PMC_GLOBAL_BASEADDR + 0X00020130U)
 
 /*
  * Register: PMC_GLOBAL_PMC_IRQ2_EN
@@ -306,6 +319,11 @@ extern "C" {
 #define PMC_GLOBAL_PMC_IRQ3_DIS    (PMC_GLOBAL_BASEADDR + 0X00020138U)
 
 /*
+ * Register: PMC_GLOBAL_PMC_SRST1_MASK
+ */
+#define PMC_GLOBAL_PMC_SRST1_MASK    (PMC_GLOBAL_BASEADDR + 0X00020080U)
+
+/*
  * Register: PMC_GLOBAL_PMC_SRST1_EN
  */
 #define PMC_GLOBAL_PMC_SRST1_EN    (PMC_GLOBAL_BASEADDR + 0X00020084U)
@@ -316,6 +334,11 @@ extern "C" {
 #define PMC_GLOBAL_PMC_SRST1_DIS    (PMC_GLOBAL_BASEADDR + 0X00020088U)
 
 /*
+ * Register: PMC_GLOBAL_PMC_SRST2_MASK
+ */
+#define PMC_GLOBAL_PMC_SRST2_MASK    (PMC_GLOBAL_BASEADDR + 0X00020090U)
+
+/*
  * Register: PMC_GLOBAL_PMC_SRST2_EN
  */
 #define PMC_GLOBAL_PMC_SRST2_EN    (PMC_GLOBAL_BASEADDR + 0X00020094U)
@@ -324,6 +347,11 @@ extern "C" {
  * Register: PMC_GLOBAL_PMC_SRST2_DIS
  */
 #define PMC_GLOBAL_PMC_SRST2_DIS    (PMC_GLOBAL_BASEADDR + 0X00020098U)
+
+/*
+ * Register: PMC_GLOBAL_PMC_SRST3_MASK
+ */
+#define PMC_GLOBAL_PMC_SRST3_MASK    (PMC_GLOBAL_BASEADDR + 0X00020140U)
 
 /*
  * Register: PMC_GLOBAL_PMC_SRST3_EN
@@ -405,6 +433,9 @@ extern "C" {
  */
 #define PMC_GLOBAL_GICP_PMC_IRQ_ENABLE    (PMC_GLOBAL_BASEADDR + 0X000300A8U)
 
+#define PMC_PSM_ERR_REG_OFFSET			(0x10U)
+#define PMC_PSM_EN_REG_OFFSET			(0x4U)
+#define PMC_PSM_DIS_REG_OFFSET			(0x8U)
 /*
  * Register: NPI_NIR
  */
@@ -418,6 +449,15 @@ extern "C" {
 #define NPI_NIR_AXI_WRSTRB_ERR_MASK	(0X40U)
 #define NPI_NIR_ERR_LOG_P0_INFO_0	(NPI_NIR_BASEADDR + 0X208U)
 #define NPI_NIR_ERR_LOG_P0_INFO_1	(NPI_NIR_BASEADDR + 0X20CU)
+
+/*
+ * Register: PS7_IPI_PMC_IMR
+ */
+#define PS7_IPI_PMC_IMR		(0xEB320014U)
+
+/* IPI Aperture TZ register base address */
+#define IPI_APER_TZ_000_ADDR			(0xEB3000BCU)
+#define IPI_APER_TZ_PMC_REQ_BUF_MASK	(0x4U)
 
 /*****************************************************************************/
 /**
@@ -480,8 +520,6 @@ static inline u8 XPlmi_InByte64(u64 Addr)
 /**
  * @brief       This function disables waking up of PPU1 processor
  *
- * @param       None
- *
  * @return      None
  *
  *****************************************************************************/
@@ -497,7 +535,7 @@ static inline void XPlmi_PpuWakeUpDis(void)
  * @brief	This function writes 32-bit value to 64-bit register
  *
  * @param	Addr is the address of the register
- * @param	Value is the value to store in register
+ * @param	Data is the value to store in register
  *
  * @return	None
  *
@@ -512,7 +550,7 @@ static inline void XPlmi_Out64(u64 Addr, u32 Data)
  * @brief	This function writes 8-bit value to 64-bit register
  *
  * @param	Addr is the address of the register
- * @param	Value is the value to store in register
+ * @param	Data is the value to store in register
  *
  * @return	None
  *
@@ -555,7 +593,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PMC_TAP_VERSION_PS_VERSION_SHIFT		(8U)
 #define PMC_TAP_VERSION_PS_VERSION_MASK		(0X0000FF00U)
 #define PMC_TAP_VERSION_PMC_VERSION_SHIFT		(0U)
+#ifndef PMC_TAP_VERSION_PMC_VERSION_MASK
 #define PMC_TAP_VERSION_PMC_VERSION_MASK		(0X000000FFU)
+#endif
 
 #define PMC_TAP_VERSION_SILICON			(0x0U)
 #define PMC_TAP_VERSION_SPP			(0x1U)
@@ -565,6 +605,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_PLATFORM		((XPlmi_In32(PMC_TAP_VERSION) & \
 					XPLMI_PLATFORM_MASK) >> \
 					PMC_TAP_VERSION_PLATFORM_SHIFT)
+
+#define PMC_TAP_SLVERR_CTRL		(PMC_TAP_BASEADDR + 0X0000001CU)
 #define XPLMI_SILICON_ES1_VAL	(0x10U)
 
 /*
@@ -597,7 +639,16 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /*
  * Definitions required from Efuse
  */
-#define EFUSE_CACHE_BASEADDR		(0XF1250000U)
+#define EFUSE_CACHE_BASEADDR		(0xF1250000U)
+#define EFUSE_CTRL_BASEADDR		(0xF1240000U)
+#define EFUSE_CTRL_WR_LOCK		(EFUSE_CTRL_BASEADDR + 0x0U)
+#define XPLMI_EFUSE_CTRL_UNLOCK_VAL	(0xDF0DU)
+#define XPLMI_EFUSE_CTRL_LOCK_VAL	(1U)
+
+#define EFUSE_CTRL_CFG			(EFUSE_CTRL_BASEADDR + 0x4U)
+#define EFUSE_CTRL_CFG_SLVERR_ENABLE_MASK	(0x20U)
+#define EFUSE_CTRL_ANLG_OSC_SW_1LP	(EFUSE_CTRL_BASEADDR + 0x60U)
+
 #define EFUSE_CACHE_ANLG_TRIM_5		(EFUSE_CACHE_BASEADDR + 0X000000E0U)
 #define EFUSE_CACHE_ANLG_TRIM_7		(EFUSE_CACHE_BASEADDR + 0X000000F8U)
 #define EFUSE_CACHE_ROM_RSVD		(EFUSE_CACHE_BASEADDR + 0X00000090U)
@@ -634,12 +685,16 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /*
  * Definitions for SD to be included
  */
-#if (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_0_BASEADDR) && (XPAR_XSDPS_0_BASEADDR == 0xF1040000U))
+#if (!defined(PLM_SD_EXCLUDE) && defined(XPAR_XSDPS_0_BASEADDR) &&\
+		(XPAR_XSDPS_0_BASEADDR == 0xF1040000U))
 #define XLOADER_SD_0
 #endif
 
-#if ((!defined(PLM_SD_EXCLUDE)) && ((defined(XPAR_XSDPS_0_BASEADDR) && (XPAR_XSDPS_0_BASEADDR == 0xF1050000U)) ||\
-			((defined(XPAR_XSDPS_1_BASEADDR) && (XPAR_XSDPS_1_BASEADDR == 0xF1050000U)))))
+#if ((!defined(PLM_SD_EXCLUDE)) &&\
+		((defined(XPAR_XSDPS_1_BASEADDR) &&\
+		  (XPAR_XSDPS_1_BASEADDR == 0xF1050000U)) ||\
+		 (defined(XPAR_XSDPS_0_BASEADDR) &&\
+		  (XPAR_XSDPS_0_BASEADDR == 0xF1050000U))))
 #define XLOADER_SD_1
 #endif
 
@@ -663,6 +718,24 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLM_SEM
 #endif
 
+/*
+ * Definition for UART
+ */
+#if defined(XPAR_XUARTPSV_NUM_INSTANCES)
+#define XPLMI_UART_NUM_INSTANCES	XPAR_XUARTPSV_NUM_INSTANCES
+#endif
+
+#if defined(XPAR_XUARTPSV_0_BASEADDR)
+#define XPLMI_UART_0_BASEADDR	XPAR_XUARTPSV_0_BASEADDR
+#endif
+
+#if defined(XPAR_XUARTPSV_1_BASEADDR)
+#define XPLMI_UART_1_BASEADDR	XPAR_XUARTPSV_1_BASEADDR
+#endif
+
+/*
+ * Definition for PMC WDT to be included
+ */
 #if defined(XPAR_WDTTB_0_DEVICE_ID) && (XPAR_WDTTB_0_BASEADDR == XPLMI_PMC_WDT_BASEADDR) &&\
 		(XPAR_WDTTB_0_ENABLE_WINDOW_WDT == 0U)
 #define XPLMI_PMC_WDT
@@ -707,14 +780,18 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define CRP_RST_SBI_RESET_MASK			(0X00000001U)
 #define CRP_RST_PDMA				(CRP_BASEADDR + 0X00000328U)
 #define CRP_RST_PDMA_RESET1_MASK		(0X00000002U)
+#ifndef CRP_RST_NONPS
 #define CRP_RST_NONPS		(CRP_BASEADDR + 0X00000320U)
+#endif
 #define CRP_RST_NONPS_NPI_RESET_MASK		(0X10U)
 #define CRP_RST_NONPS_NPI_RESET_SHIFT		(0X4U)
 
 /*
  * Register: CRP_RST_PS
  */
+#ifndef CRP_RST_PS
 #define CRP_RST_PS		(CRP_BASEADDR + 0x0000031CU)
+#endif
 #define CRP_RST_PS_PMC_SRST_MASK		(0X00000008U)
 #define CRP_RST_PS_PMC_POR_MASK		(0X00000080U)
 
@@ -753,6 +830,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define SLAVE_BOOT_SBI_CTRL		(SLAVE_BOOT_BASEADDR + 0X00000004U)
 #define SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK		(0X0000001CU)
 #define SLAVE_BOOT_SBI_CTRL_ENABLE_MASK		(0X00000001U)
+#define SLAVE_BOOT_SBI_CTRL_APB_ERR_RES_MASK	(0X00000020U)
 
 /*
  * Register: SLAVE_BOOT_SBI_STATUS
@@ -802,6 +880,24 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PSM_GLOBAL_REG_PSM_ERR2_STATUS	(PSM_GLOBAL_REG_BASEADDR + 0X00001004U)
 #define PSM_GLOBAL_REG_PSM_ERR3_STATUS	(PSM_GLOBAL_REG_BASEADDR + 0X00001008U)
 #define PSM_GLOBAL_REG_PSM_ERR4_STATUS	(PSM_GLOBAL_REG_BASEADDR + 0X0000100CU)
+#define PSM_GLOBAL_REG_PSM_CR_ERR1_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001040U)
+#define PSM_GLOBAL_REG_PSM_CR_ERR2_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001050U)
+#define PSM_GLOBAL_REG_PSM_CR_ERR3_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001060U)
+#define PSM_GLOBAL_REG_PSM_CR_ERR4_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001070U)
+#define PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001100U)
+#define PSM_GLOBAL_REG_PSM_NCR_ERR2_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001110U)
+#define PSM_GLOBAL_REG_PSM_NCR_ERR3_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001120U)
+#define PSM_GLOBAL_REG_PSM_NCR_ERR4_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001130U)
+#define PSM_GLOBAL_REG_PSM_IRQ1_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001060U)
+#define PSM_GLOBAL_REG_PSM_IRQ2_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001070U)
+
+#define PMC_GLOBAL_PSM_ERR_ACTION_OFFSET	(0x10U)
+
+#define PSM_GLOBAL_REG_PSM_ERR_OFFSET	(4U)
+#define PMC_GLOBAL_REG_PMC_ERR_OFFSET	(4U)
+
+#define XPLMI_PSM_MAX_ERR_CNT	(0x4U)
+#define XPLMI_PMC_MAX_ERR_CNT	(0x3U)
 
 /*
  * Register: EFUSE_CACHE_IP_DISABLE_0
@@ -823,7 +919,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /*
  * Register: PMC_IOU_SLCR
  */
+#ifndef PMC_IOU_SLCR_BASEADDR
 #define PMC_IOU_SLCR_BASEADDR      (0XF1060000U)
+#endif
 
 /*
  * Register: PMC_IOU_SLCR_SD0_CDN_CTRL
@@ -836,6 +934,118 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  */
 #define PMC_IOU_SLCR_SD1_CDN_CTRL    (PMC_IOU_SLCR_BASEADDR + 0X000004CCU)
 #define PMC_IOU_SLCR_SD1_CDN_CTRL_SD1_CDN_CTRL_MASK    (0X00000001U)
+
+/*
+ * Register: PMC_IOU_SLCR_CTRL
+ */
+#define PMC_IOU_SLCR_CTRL			(PMC_IOU_SLCR_BASEADDR + 0X00000700U)
+
+/*
+ * Register: PMC_IOU_SECURE_SLCR
+ */
+#define PMC_IOU_SECURE_SLCR_BASEADDR	(0XF1070000U)
+
+/*
+ * Register: PMC_IOU_SECURE_SLCR_CTRL
+ */
+#define PMC_IOU_SECURE_SLCR_CTRL	(PMC_IOU_SECURE_SLCR_BASEADDR + 0X00000040U)
+
+/*
+ * Register: PMC_RAM_CFG
+ */
+#define PMC_RAM_CFG_BASEADDR	(0XF1100000U)
+
+/*
+ * Register: PMC_ANALOG
+ */
+#define PMC_ANALOG_BASEADDR	(0XF1160000U)
+
+/*
+ * Register: PMC_ANALOG_SLVERR_CTRL
+ */
+#define PMC_ANALOG_SLVERR_CTRL	(PMC_ANALOG_BASEADDR + 0X00000050U)
+
+/*
+ * Register: AES
+ */
+#define AES_BASEADDR	(0XF11E0000U)
+
+/*
+ * Register: AES_SLV_ERR_CTRL
+ */
+#define AES_SLV_ERR_CTRL	(AES_BASEADDR + 0X00000210U)
+
+/*
+ * Register: BBRAM_CTRL
+ */
+#define BBRAM_CTRL_BASEADDR		(0XF11F0000U)
+
+/*
+ * Register: BBRAM_CTRL_SLV_ERR_CTRL
+ */
+#define BBRAM_CTRL_SLV_ERR_CTRL		(BBRAM_CTRL_BASEADDR + 0X00000034U)
+
+/*
+ * Register: ECDSA_RSA
+ */
+#define ECDSA_RSA_BASEADDR		(0XF1200000U)
+
+/*
+ * Register: ECDSA_RSA_APB_SLV_ERR_CTRL
+ */
+#define ECDSA_RSA_APB_SLV_ERR_CTRL		(ECDSA_RSA_BASEADDR + 0X00000044U)
+
+/*
+ * Register: SHA3
+ */
+#define SHA3_BASEADDR		(0XF1210000U)
+
+/*
+ * Register: SHA3_SHA_SLV_ERR_CTRL
+ */
+#define SHA3_SHA_SLV_ERR_CTRL		(SHA3_BASEADDR + 0X00000040U)
+
+/*
+ * Register: RTC
+ */
+#define RTC_BASEADDR		(0XF12A0000U)
+
+/*
+ * Register: RTC_CONTROL
+ */
+#define RTC_CONTROL		(RTC_BASEADDR + 0X00000040U)
+
+/*
+ * XMPUs
+ */
+#define PMC_XMPU_BASEADDR		(0XF12F0000U)
+/* TODO Check OCM0 XMPU */
+#define LPD_XMPU_BASEADDR		(0xEB980000U)
+#define FPD_XMPU_BASEADDR		(0xEC810000U)
+
+/*
+ * XMPU Offsets
+ */
+#define XMPU_ERR_STATUS1_LO		(0x00000004U)
+#define XMPU_ERR_STATUS1_HI		(0x00000008U)
+#define XMPU_ERR_STATUS2		(0x0000000CU)
+#define XMPU_ISR			(0x00000010U)
+#define XMPU_IEN			(0x00000018U)
+
+/*
+ * XPPUs
+ */
+#define PMC_XPPU_BASEADDR		(0XF1310000U)
+#define PMC_XPPU_NPI_BASEADDR		(0XF1300000U)
+#define LPD_XPPU_BASEADDR		(0xEB990000U)
+
+/*
+ * XPPU Offsets
+ */
+#define XPPU_ERR_STATUS1		(0x00000004U)
+#define XPPU_ERR_STATUS2		(0x00000008U)
+#define XPPU_ISR			(0x00000010U)
+#define XPPU_IEN			(0x00000018U)
 
 /*
  * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
@@ -854,6 +1064,9 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  */
 #define PSMX_GLOBAL_REG_GLOBAL_CNTRL	(0xEBC90000U)
 #define PSMX_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U)
+
+/* Slave error enable mask */
+#define XPLMI_SLAVE_ERROR_ENABLE_MASK	(0x1U)
 
 /*
  * Definitions required for PSX_CRF
@@ -980,19 +1193,48 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 		GET_REGISTER_ADDR(RPU_CLUSTER_BASEADDR, \
 		(ClusterNum) * RPU_CLUSTER_OFFSET, Offset, 0U)
 
-#define PMC_GLOBAL_PPU1_HW_INT_GIC_MASK		(0x1U)
-
 #define PMC_GLOBAL_PPU1_HW_INT_ADDR		(PMC_GLOBAL_BASEADDR + 0x00011500U)
-#define PMC_GLOBAL_PPU1_PL_INT_ADDR		(PMC_GLOBAL_BASEADDR + 0x00011504U)
-
+#define PMC_GLOBAL_PPU1_HW_INT_MASK_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011510U)
 #define PMC_GLOBAL_PPU1_HW_INT_ENABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011520U)
 #define PMC_GLOBAL_PPU1_HW_INT_DISABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011530U)
+
+#define PMC_GLOBAL_PPU1_PL_INT_ADDR		(PMC_GLOBAL_BASEADDR + 0x00011504U)
 #define PMC_GLOBAL_PPU1_PL_INT_ENABLE_ADDR	(PMC_GLOBAL_BASEADDR + 0x00011524U)
 
 #define PMC_GLOBAL_PPU1_HW_INT_GICP_IRQ_MASK	(0x00000001U)
 #define PMC_GLOBAL_PPU1_HW_INT_MB_DATA_MASK	(0x00000002U)
 #define PMC_GLOBAL_PPU1_HW_INT_MB_INSTR_MASK	(0x00000004U)
 #define PMC_GLOBAL_PPU1_PL_INT_GPI_MASK		(0x00000001U)
+
+/* Uart base address */
+#define XPLMI_HW_UART0_BASEADDR		(0xF1920000U)
+#define XPLMI_HW_UART1_BASEADDR		(0xF1930000U)
+#define XPLMI_HW_PPU1_MDM_BASEADDR	(0xF0310000U)
+
+/*
+ * PMC IOmodule interrupts
+ */
+#define XPLMI_IOMODULE_PPU1_HW_INT		(16U)
+#define XPLMI_IOMODULE_PPU1_PL_INT		(17U)
+#define XPLMI_IOMODULE_ERR_IRQ			(18U)
+#define XPLMI_IOMODULE_CFRAME_SEU		(20U)
+#define XPLMI_IOMODULE_PMC_IPI			(28U)
+
+#define PMC_PMC_MB_IO_IRQ_ACK			(0xF030003CU)
+
+/* Memory map used for validating addresses */
+#define XPLMI_PSM_RAM_BASE_ADDR		(0xEBC00000U)
+#define XPLMI_PSM_RAM_HIGH_ADDR		(0xEBC2FFFFU)
+#define XPLMI_TCM0_BASE_ADDR		(0xEBA00000U)
+#define XPLMI_TCM0_HIGH_ADDR		(0xEBA6FFFFU)
+#define XPLMI_TCM1_BASE_ADDR		(0xEBA80000U)
+#define XPLMI_TCM1_HIGH_ADDR		(0xEBAEFFFFU)
+#define XPLMI_RSVD_BASE_ADDR		(0xA0000000U)
+#define XPLMI_RSVD_HIGH_ADDR		(0xAFFFFFFFU)
+#define XPLMI_M_AXI_FPD_MEM_HIGH_ADDR	(0xBFFFFFFFU)
+#define XPLMI_OCM_BASE_ADDR		(0xBBF00000U)
+#define XPLMI_OCM_HIGH_ADDR		(0xBBFFFFFFU)
+#define XPLMI_2GB_END_ADDR		(0xFFFFFFFFU)
 
 /************************** Function Prototypes ******************************/
 

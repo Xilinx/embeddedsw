@@ -32,7 +32,6 @@
 #include "xpm_noc_config.h"
 #include "xpm_bisr.h"
 
-#define PMC_GLOBAL_DOMAIN_ISO_CNTRL	(PMC_GLOBAL_BASEADDR + 0x00010000U)
 #define NPI_ROOT_BASE_ADDR		(0xF6000000U)
 #define NSU_ID_SLR1			(0x00000401U)
 #define NSU_ID_SLR2			(0x00000801U)

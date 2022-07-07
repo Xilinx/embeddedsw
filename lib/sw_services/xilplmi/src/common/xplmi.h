@@ -51,6 +51,7 @@
 *       tnt  11/11/2021 Added RTCA defines for MIO Flush routine
 *       tnt  12/17/2021 Added RTCA define for PL_POR HDIO workaround
 * 1.07  ma   05/10/2022 Added PLM to PLM communication feature
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -66,6 +67,7 @@ extern "C" {
 #endif
 
 #include "xplmi_generic.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 /* SDK release version */
@@ -92,24 +94,37 @@ extern "C" {
 #define XPLMI_PMC_VERSION_SHIFT		(0x4U) /**< Used to calculate PMC Version */
 
 /**************************** Type Definitions *******************************/
-#define UART_INITIALIZED	((u8)(1U << 0U)) /**< Flag indicates UART is initialized */
-#define LPD_INITIALIZED		((u8)(1U << 1U)) /**< Flag indicates LPD is initialized */
-#define LPD_WDT_INITIALIZED	((u8)(1U << 2U)) /**< Flag indicates LPD_WDT is initialized */
-#define UART_PRINT_ENABLED	((u8)(1U << 3U)) /**< Flag indicates UART prints are enabled */
-
-/* Minor Error Codes */
-enum {
-	XPLMI_ERR_CURRENT_UART_INVALID = 0x2, /**< 0x2 - Error when current uart
-						selected has invalid base address */
-	XPLMI_ERR_INVALID_UART_SELECT, /**< 0x3 - Error when invalid uart select
-						argument is passed */
-	XPLMI_ERR_INVALID_UART_ENABLE, /**< 0x4 - Error when invalid uart enable
-						argument is passed */
-	XPLMI_ERR_NO_UART_PRESENT, /**< 0x5 - Error when no uart is present to
-						configure in run-time */
-};
-
+#define UART_INITIALIZED	((u32)(1U << 0U)) /**< Flag indicates UART is initialized */
+#define LPD_INITIALIZED		((u32)(1U << 1U)) /**< Flag indicates LPD is initialized */
+#define LPD_WDT_INITIALIZED	((u32)(1U << 2U)) /**< Flag indicates LPD_WDT is initialized */
+#define UART_PRINT_ENABLED	((u32)(1U << 3U)) /**< Flag indicates UART prints are enabled */
+#define UART_PRINT_INITIALIZED	(UART_INITIALIZED | UART_PRINT_ENABLED)
+					/**< Flag indicates UART is initialized
+						and prints are enabled */
 /***************** Macros (Inline Functions) Definitions *********************/
+static inline u8 XPlmi_IsLpdInitialized(void)
+{
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	return (((*LpdInitializedPtr & LPD_INITIALIZED) == LPD_INITIALIZED) ?
+			(u8)TRUE : (u8)FALSE);
+}
+
+static inline u8 XPlmi_IsUartInitialized(void)
+{
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	return (((*LpdInitializedPtr & UART_INITIALIZED) == UART_INITIALIZED) ?
+			(u8)TRUE : (u8)FALSE);
+}
+
+static inline u8 XPlmi_IsUartPrintInitialized(void)
+{
+	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
+
+	return (((*LpdInitializedPtr & UART_PRINT_INITIALIZED) ==
+			UART_PRINT_INITIALIZED) ?  (u8)TRUE : (u8)FALSE);
+}
 
 /**@cond xplmi_internal
  * @{
@@ -118,9 +133,6 @@ enum {
 /*
  * PLM RunTime Configuration Registers related defines
  */
-/* PLM RunTime Configuration Area Base Address */
-#define XPLMI_RTCFG_BASEADDR			(0xF2014000U)
-
 /* Offsets of PLM Runtime Configuration Registers */
 #define XPLMI_RTCFG_RTCA_ADDR			(XPLMI_RTCFG_BASEADDR + 0x0U)
 #define XPLMI_RTCFG_VERSION_ADDR		(XPLMI_RTCFG_BASEADDR + 0x4U)
@@ -131,20 +143,10 @@ enum {
 #define XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR		(XPLMI_RTCFG_BASEADDR + 0x48U)
 #define XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR	(XPLMI_RTCFG_BASEADDR + 0x14CU)
 #define XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR	(XPLMI_RTCFG_BASEADDR + 0x150U)
-#define XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x154U)
-#define XPLMI_RTCFG_PMC_ERR2_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x158U)
-#define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x15CU)
-#define XPLMI_RTCFG_PSM_ERR2_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x160U)
 #define XPLMI_RTCFG_PDI_ID_ADDR			(XPLMI_RTCFG_BASEADDR + 0x164U)
 #define XPLMI_RTCFG_USR_ACCESS_ADDR		(XPLMI_RTCFG_BASEADDR + 0x168U)
 #define XPLMI_RTCFG_SECURE_STATE_ADDR	(XPLMI_RTCFG_BASEADDR + 0x16CU)
 #define XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR	(XPLMI_RTCFG_BASEADDR + 0x184U)
-#define XPLMI_RTCFG_PLM_MJTAG_WA		(XPLMI_RTCFG_BASEADDR + 0x188U)
-#define XPLMI_RTCFG_MIO_WA_BANK_500_ADDR	(XPLMI_RTCFG_BASEADDR + 0x270U)
-#define XPLMI_RTCFG_MIO_WA_BANK_501_ADDR	(XPLMI_RTCFG_BASEADDR + 0x274U)
-#define XPLMI_RTCFG_MIO_WA_BANK_502_ADDR	(XPLMI_RTCFG_BASEADDR + 0x278U)
-#define XPLMI_MIO_FLUSH_ALL_PINS		0x3FFFFFFU
-#define XPLMI_RTCFG_RST_PL_POR_WA		(XPLMI_RTCFG_BASEADDR + 0x27CU)
 
 #define XPLMI_RTCFG_DBG_LOG_BUF_OFFSET	(0x10U)
 #define XPLMI_RTCFG_LOG_UART_OFFSET		(0x24U)
@@ -152,12 +154,9 @@ enum {
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK	(0x0000FFFFU)
 #define XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK	(0xFFFF0000U)
-#define XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK	(0x00000001U)
-#define XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_MASK	(0x00000002U)
 
 /* Shifts of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT	(0x10U)
-#define XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_SHIFT	(0x00000001U)
 
 /* Default Values of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_VER				(0x1U)
@@ -173,18 +172,6 @@ enum {
 #define XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT	(0x5A5A5A5AU)
 #define XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT	(0x69696969U)
 #define XPLMI_RTCFG_SECURESTATE_NONSECURE	(0xD2D2D2D2U)
-
-/*
- * SLR Types
- */
-#define XPLMI_SSIT_MONOLITIC		(0x7U)
-#define XPLMI_SSIT_MASTER_SLR		(0x6U)
-#define XPLMI_SSIT_SLAVE0_SLR_TOP	(0x5U)
-#define XPLMI_SSIT_SLAVE0_SLR_NTOP	(0x4U)
-#define XPLMI_SSIT_SLAVE1_SLR_TOP	(0x3U)
-#define XPLMI_SSIT_SLAVE1_SLR_NTOP	(0x2U)
-#define XPLMI_SSIT_SLAVE2_SLR_TOP	(0x1U)
-#define XPLMI_SSIT_INVALID_SLR		(0x0U)
 
 /*
  * Using FW_IS_PRESENT to indicate Boot PDI loading is completed
@@ -208,9 +195,10 @@ void XPlmi_LpdInit(void);
 void XPlmi_ResetLpdInitialized(void);
 void XPlmi_PrintPlmBanner(void);
 int XPlmi_RunTimeConfigInit(void);
+void XPlmi_SetLpdInitialized(u32 Flag);
+void XPlmi_UnSetLpdInitialized(u32 Flag);
 
 /************************** Variable Definitions *****************************/
-extern u8 LpdInitialized;
 
 /**
  * @}

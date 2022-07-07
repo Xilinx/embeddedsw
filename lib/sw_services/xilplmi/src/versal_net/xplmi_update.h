@@ -14,6 +14,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   01/30/2022 Initial release
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -32,7 +33,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xplmi_cmd.h"
-#include "xplmi_modules.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -157,11 +157,9 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd);
-u8 XPlmi_IsPlmUpdateDone(void);
 int XPlmi_RestoreDataBackup(void);
 int XPlmi_DsOps(u32 Op, u64 Addr, void *Data);
 int XPlmi_UpdateInit(void);
-void XPlmi_PlmUpdateDone(void);
 
 #ifdef __cplusplus
 }

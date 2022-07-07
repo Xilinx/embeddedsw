@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 *       ma   06/28/2021 Added support for proc command
 *       bsv  07/16/2021 Fix doxygen warnings
 * 1.07  ma   11/22/2021 Remove hardcoding of Proc addresses
+* 1.08  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -57,6 +58,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xplmi_debug.h"
 #include "xplmi_dma.h"
+#include "xplmi_cmd.h"
 
 /**@cond xplmi_internal
  * @{
@@ -132,6 +134,9 @@ typedef struct {
 #define XPLMI_MASKPOLL_FLAGS_MASK		(0x3U)
 #define XPLMI_MASKPOLL_FLAGS_SUCCESS		(0x1U)
 #define XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR	(0x2U)
+#define XPLMI_MASKPOLL_FLAGS_BREAK		(0x3U)
+#define XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_MASK	(0xFF000000U)
+#define XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT	(24U)
 
 /* Defines related to module commands */
 #define XPLMI_PLM_GENERIC_CMD_ID_MASK		(0xFFU)
@@ -141,12 +146,18 @@ typedef struct {
 #define XPLMI_PLM_MODULES_GET_BOARD_VAL		(0x15U)
 #define XPLMI_PLM_LOADER_SET_IMG_INFO_VAL	(0x4U)
 
+/* Define related to break */
+#define XPLMI_BREAK_LEVEL_MASK			(0xFFU)
+
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
 int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack);
 int XPlmi_ExecuteProc(u32 ProcId);
 int XPlmi_SetProcList(u32 Address, u16 Size);
+XPlmi_ProcList* XPlmi_GetProcList(void);
+int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags);
+int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level);
 
 /************************** Variable Definitions *****************************/
 

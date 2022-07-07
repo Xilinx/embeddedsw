@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,9 +17,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 7.7   bsv   02/21/2017 Initial release
-* 7.8   skd   03/09/2022 Compilation warning fix
-* 8.0   bm    07/06/2022 Refactor versal and versal_net code
+* 8.0   bm   07/06/2022 Initial release
 *
 * </pre>
 *
@@ -80,7 +78,7 @@ extern "C" {
  */
 #define PMC_IOU_SLCR_BASEADDR      (0XF1060000U)
 
-#define IPI_BASEADDR		(0xFF300000U)
+#define IPI_BASEADDR		(0xEB300000U)
 /**
  * @}
  * @endcond

@@ -52,6 +52,7 @@
 *       skd  03/09/2022 Compilation warning fix
 * 1.08  ma   05/10/2022 Added PLM to PLM communication feature
 *       ma   06/01/2022 Added PLM Print Log as new error action
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -71,6 +72,7 @@ extern "C" {
 #include "xplmi_error_node.h"
 #include "xplmi_hw.h"
 #include "xil_hw.h"
+#include "xplmi_cmd.h"
 
 /**@cond xplmi_internal
  * @{
@@ -93,18 +95,36 @@ extern "C" {
 #define XPLMI_SUBSYS_SHUTDN_TYPE_SHUTDN		(0U)
 
 /* PLMI ERROR Management error codes */
-#define XPLMI_INVALID_ERROR_ID		(1)
-#define XPLMI_INVALID_ERROR_TYPE	(2)
-#define XPLMI_INVALID_ERROR_HANDLER	(3)
-#define XPLMI_INVALID_ERROR_ACTION	(4)
-#define XPLMI_LPD_UNINITIALIZED		(5)
-#define XPLMI_CANNOT_CHANGE_ACTION	(6)
-#define XPLMI_INVALID_NODE_ID		(7)
+#define XPLMI_INVALID_ERROR_ID			(1)
+#define XPLMI_INVALID_ERROR_TYPE		(2)
+#define XPLMI_INVALID_ERROR_HANDLER		(3)
+#define XPLMI_INVALID_ERROR_ACTION		(4)
+#define XPLMI_LPD_UNINITIALIZED			(5)
+#define XPLMI_CANNOT_CHANGE_ACTION		(6)
+#define XPLMI_INVALID_NODE_ID			(7)
 #define XPLMI_ERROR_ACTION_NOT_DISABLED		(8)
 #define XPLMI_ERROR_ACTION_NOT_ENABLED		(9)
 
 /* Error Register mask */
 #define XPLMI_MAX_ERR_BITS			(32U)
+#define XPLMI_REG_MAX_ERRORS			(0x20U)
+#define XPLMI_EVENT_ERROR_OFFSET		(0x4000U)
+
+#define GET_PMC_ERR_START(ErrIndex)		(XPLMI_ERROR_BOOT_CR + \
+						(ErrIndex * XPLMI_REG_MAX_ERRORS))
+#define GET_PMC_ERR_END(ErrIndex)		(XPLMI_ERROR_PMCERR1_MAX + \
+						(ErrIndex * XPLMI_REG_MAX_ERRORS))
+#define GET_PSM_ERR_START(ErrIndex)		(XPLMI_ERROR_PS_SW_CR + \
+						(ErrIndex * XPLMI_REG_MAX_ERRORS))
+#define GET_PSM_ERR_END(ErrIndex)		(XPLMI_ERROR_PSMERR1_MAX + \
+						(ErrIndex * XPLMI_REG_MAX_ERRORS))
+#define GET_PSM_ERR_ACTION_OFFSET(Index)	(Index * PMC_PSM_ERR_REG_OFFSET)
+
+/* Event error Indexes */
+#define XPLMI_NODETYPE_EVENT_PMC_INDEX		(0x0U)
+#define XPLMI_NODETYPE_EVENT_PSM_INDEX		(0x1U)
+#define XPLMI_NODETYPE_EVENT_SW_INDEX		(0x2U)
+#define XPLMI_NODETYPE_EVENT_INVALID_INDEX	(0x3U)
 
 /**************************** Type Definitions *******************************/
 /* Pointer to Error Handler Function */
@@ -116,11 +136,11 @@ typedef s32 (*XPlmi_ShutdownHandler_t)(u32 SubsystemId, const u32 Type,
 typedef s32 (*XPlmi_RestartHandler_t)(const u32 SubsystemId);
 
 /* Data Structure to hold Error Info */
-struct XPlmi_Error_t {
+typedef struct {
 	XPlmi_ErrorHandler_t Handler; /**< Error Handler function pointer */
 	u8 Action; /**< Action to take on error */
 	u32 SubsystemId; /**< Subsystem ID for shutdown or restart */
-};
+} XPlmi_Error_t;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -195,9 +215,8 @@ int XPlmi_CheckNpiErrors(void);
 int XPlmi_ClearNpiErrors(void);
 void XPlmi_TriggerFwNcrError(void);
 void XPlmi_PORHandler(void);
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-void XPlmi_EnableSsitErrors(void);
-#endif
+void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask);
+u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);

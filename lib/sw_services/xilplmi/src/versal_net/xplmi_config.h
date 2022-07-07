@@ -6,27 +6,23 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_config.h
+* @file xplmi_config.h
 *
-* This is the header file which contains PLM configuration
-* for users.
+* This is the header file which contains versal_net PLM configuration for users.
+* All key configuration options are now made available through Vitis GUI and
+* xsct command line. Hence, the corresponding defines now appear in
+* xparameters.h file. However, references for those configurations are retained
+* here in comments, for users who prefer configuring by updating sources.
+* Please refer xparameters.h file (under comment "PLM/XilPLMI configuration")
+* for the Vitis/tool generated definitions, while building, before attempting
+* to edit definitions in this file
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kc   02/21/2017 Initial release
-* 1.01  kc   07/16/2019 Make DEBUG_GENERAL as default to reduce print log
-*       kc   07/16/2019 Added PERF macro to print task times
-* 1.02  bsv  10/31/2019 Added macro to exclude USB
-*       kc   02/26/2020 Added macro to exclude SEM
-*       bsv  03/09/2020 Added DEBUG MODE to PLM
-* 1.03  bsv  04/04/2020 Code clean up
-* 1.04  kc   01/07/2020 Added MACRO to get performance number for keyhole
-* 1.05  rama 08/12/2020 Added macro to exclude STL by default
-*       bm   10/14/2020 Code clean up
-* 1.06  bm   12/16/2020 Added PLM_SECURE_EXCLUDE macro
+* 1.00  bm   07/06/2022 Initial release
 *
 * </pre>
 *
@@ -41,6 +37,11 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 
@@ -63,27 +64,87 @@ extern "C" {
  *       specifiers in addition to the basic information
  *     - PLM_DEBUG_DETAILED Defining this will print information with
  *       all data exchanged.
+ * Please note that below are defined in xparameters.h based on the
+ * xilplmi library configuration, hence commented out here.
+ * PLM_DEBUG is defined by default.
  */
-/**
- * PLM Debug options
- */
-/**
- * Enable the below define to disable prints from UART.
- * Prints to memory are still enabled as defined by PLM DEBUG macros
- */
-//#define PLM_PRINT_NO_UART
-
 //#define PLM_PRINT
-#define PLM_DEBUG
+//#define PLM_DEBUG
 //#define PLM_DEBUG_INFO
 //#define PLM_DEBUG_DETAILED
 
 /**
+ * Enable the below define to disable prints from UART.
+ * Prints to memory are still enabled as defined by PLM DEBUG macros
+ * Please note that below is defined in xparameters.h based on the
+ * xilplmi library configuration, hence commented out here.
+ * This definition is disabled by default (i.e. not defined).
+ */
+//#define PLM_PRINT_NO_UART
+
+/**
  * Enabling the PLM_PRINT_PERF prints the time taken for loading partitions,
  * images and tasks. This define can be enabled with any of the above
- * debug defines to print the timings.
+ * PLM debug options to print the timings.
+ * Please note that below is defined in xparameters.h based on the
+ * xilplmi library configuration, hence commented out here.
+ * This definition is enabled by default.
  */
-#define PLM_PRINT_PERF
+//#define PLM_PRINT_PERF
+
+/**
+ * @name PLM code include options
+ *
+ *  PLM by default includes all the code except USB code and NVM code.
+ *  Unwanted code can be excluded from the elf by defining here
+ *  Below blocks can be excluded from the code.
+ *	- PLM_QSPI_EXCLUDE QSPI code will be excluded (included by default)
+ *	- PLM_SD_EXCLUDE SD code will be excluded (included by default)
+ *	- PLM_OSPI_EXCLUDE OSPI code will be excluded (included by default)
+ *	- PLM_USB_EXCLUDE USB code will be excluded (excluded by default)
+ *	- PLM_SEM_EXCLUDE SEM code will be excluded (included by default)
+ *	- PLM_SECURE_EXCLUDE secure code will be excluded (included by default)
+ *	- PLM_NVM_EXCLUDE NVM handlers will be excluded (excluded by default)
+ *	- PLM_PUF_EXCLUDE PUF handlers will be excluded (excluded by default)
+ *
+ * Please note that below are defined in xparameters.h based on the
+ * xilplmi library configuration, hence all the below are commented out here.
+ */
+//#define PLM_QSPI_EXCLUDE
+//#define PLM_SD_EXCLUDE
+//#define PLM_OSPI_EXCLUDE
+//#define PLM_USB_EXCLUDE
+//#define PLM_SEM_EXCLUDE
+//#define PLM_SECURE_EXCLUDE
+//#define PLM_NVM_EXCLUDE
+//#define PLM_PUF_EXCLUDE
+
+#if (!defined(PLM_NVM_EXCLUDE)) && (!defined(PLM_NVM))
+#define PLM_NVM
+#endif
+
+#if (!defined(PLM_PUF_EXCLUDE)) && (!defined(PLM_PUF))
+#define PLM_PUF
+#endif
+
+/**
+ * @name PLM DEBUG MODE options
+ *
+ * By default, PLM would get built in release mode, which implies any
+ * error during boot pdi load would result in SRST. User has the options
+ * to enable the below macro to enable debug mode, which would make the system hang
+ * in case of any error for the user to debug further.
+ * Please note that below is defined in xparameters.h based on the
+ * xilplmi library configuration, hence commented out here.
+ * This definition is disabled by default (i.e. not defined).
+ */
+//#define PLM_DEBUG_MODE
+
+/**
+ * NOTE: ALL the configurations below this line can only be done in this file
+ *       and NOT through xilplmi library configuration through xparameters.h
+ */
+
 /**
  * Enable the below defines as per the requirement.
  * POLL prints the time taken for any poll for MASK_POLL command.
@@ -100,47 +161,15 @@ extern "C" {
 //#define PLM_PRINT_PERF_KEYHOLE
 //#define PLM_PRINT_PERF_PL
 
-/**
- * @name PLM code include options
- *
- *  PLM by default all the code is included.
- *  Unwanted code can be excluded from the elf by defining here
- *  Below blocks can be excluded from the code.
- *		- PLM_QSPI_EXCLUDE QSPI code will be excluded
- *		- PLM_SD_EXCLUDE SD code will be excluded
- *		- PLM_SEM_EXCLUDE SEM code will be excluded
- *		- PLM_SECURE_EXCLUDE secure code will be excluded
- */
-//#define PLM_QSPI_EXCLUDE
-//#define PLM_SD_EXCLUDE
-//#define PLM_OSPI_EXCLUDE
-//#define PLM_USB_EXCLUDE
-//#define PLM_SEM_EXCLUDE
-//#define PLM_SECURE_EXCLUDE
-//#define PLM_PM_EXCLUDE
-#define PLM_EMUL_EXCLUDE
-/**
- * @name PLM DEBUG MODE options
- *
- * By default, PLM would get built in release mode, which implies any
- * error during boot pdi load would result in SRST. User has the options
- * to enable the below macro to enable debug mode, which would make the system hang
- * in case of any error for the user to debug further.
- *
- */
-//#define PLM_DEBUG_MODE
-/**
- * @name PLM DEBUG MODE options
- *
- * By default, STL is not enabled in PLM
- * Users will be given an option to enable this
- *
- */
-//#define PLM_ENABLE_STL
-
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+
+/**
+ * @}
+ * @endcond
+ */
+
 
 #ifdef __cplusplus
 }

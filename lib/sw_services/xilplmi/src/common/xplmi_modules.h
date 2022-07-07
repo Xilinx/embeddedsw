@@ -31,6 +31,7 @@
 * 1.06  bsv  06/03/2022 Add CommandInfo to a separate section in elf
 *       SK   06/14/2022 Updated macro XPLMI_EXPORT_CMD to create
 *                       unique variable names
+*       bm   07/06/2022 Refactor versal and versal_net code
 * </pre>
 *
 * @note
@@ -46,6 +47,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_cmd.h"
+#include "xplmi_plat.h"
+#include "xparameters.h"
 
 /**@cond xplmi_internal
  * @{
@@ -75,6 +78,9 @@ typedef struct {
 	const XPlmi_ModuleCmd *CmdAry;
 	u32 CmdCnt;
 	int (*CheckIpiAccess)(u32 CmdId, u32 IpiReqType);
+#ifdef VERSAL_NET
+	XPlmi_UpdateHandler_t UpdateHandler;
+#endif
 } XPlmi_Module;
 
 typedef struct {
@@ -107,6 +113,8 @@ typedef struct {
 #define XPLMI_CMD_ARG_CNT_FOUR		(4U)
 #define XPLMI_CMD_ARG_CNT_FIVE		(5U)
 #define XPLMI_CMD_ARG_CNT_SIX		(6U)
+#define XPLMI_UNLIMITED_ARG_CNT		(0xFFU)
+
 #define XPLMI_MAJOR_MODULE_VERSION	(1U)
 #define XPLMI_MINOR_MODULE_VERSION	(1U)
 
@@ -125,9 +133,6 @@ typedef struct {
 #define XPLMI_CFI_READ_CMD_ID		(11U)
 #define XPLMI_SET_CMD_ID		(12U)
 #define XPLMI_WRITE_KEYHOLE_CMD_ID	(13U)
-#define XPLMI_SSIT_SYNC_SLAVES_CMD_ID	(14U)
-#define XPLMI_SSIT_SYNC_MASTER_CMD_ID	(15U)
-#define XPLMI_SSIT_WAIT_SLAVES_CMD_ID	(16U)
 #define XPLMI_NOP_CMD_ID		(17U)
 #define XPLMI_GET_DEVICE_CMD_ID		(18U)
 #define XPLMI_EVENT_LOGGING_CMD_ID	(19U)

@@ -36,6 +36,7 @@
 * 1.04  ma   08/09/2021 Added IPI_PMC_IMR register define
 * 1.05  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
 *       skg  06/20/2022 Misra-C violation Rule 8.13 fixed
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -55,7 +56,8 @@ extern "C" {
 #include "xplmi_modules.h"
 #include "xplmi_cmd.h"
 #include "xil_assert.h"
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#include "xil_hw.h"
+#ifdef XPLMI_IPI_DEVICE_ID
 #include "xipipsu.h"
 
 /************************** Constant Definitions *****************************/
@@ -64,19 +66,14 @@ extern "C" {
 #define XPLMI_MAX_IPI_CMD_LEN		(6U)
 
 /* IPI defines */
-#define IPI_BASEADDR				(0xFF300000U)
-#define IPI_PMC_ISR					(IPI_BASEADDR + 0x20010U)
-#define IPI_PMC_IMR					(IPI_BASEADDR + 0x20014U)
+#define IPI_PMC_ISR			(IPI_BASEADDR + 0x20010U)
+#define IPI_PMC_IMR			(IPI_BASEADDR + 0x20014U)
 #define IPI_PMC_ISR_PSM_BIT_MASK	(0x1U)
 #define IPI_PMC_ISR_IPI5_BIT_MASK	(0x80U)
 #define IPI_NO_BUF_CHANNEL_INDEX	(0xFFFFU)
 
 /* Command header secure bit defines */
 #define IPI_CMD_HDR_SECURE_BIT_MASK		(0x1000000U)
-
-/* IPI Aperture TZ register base address */
-#define IPI_APER_TZ_000_ADDR			(0xFF3000BCU)
-#define IPI_APER_TZ_PMC_REQ_BUF_MASK	(0x4U)
 
 /**************************** Type Definitions *******************************/
 
@@ -89,11 +86,12 @@ int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type);
 int XPlmi_IpiTrigger(u32 DestCpuMask);
 int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
+int XPlmi_IpiDrvInit(void);
 
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 #ifdef __cplusplus
 }

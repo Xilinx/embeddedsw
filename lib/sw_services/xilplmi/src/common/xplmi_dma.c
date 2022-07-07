@@ -42,6 +42,7 @@
 *       ma   01/17/2022 Enable SLVERR for PMC DMA
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *       skd  03/03/2022 Minor bug fix in XPlmi_MemCpy64
+* 1.07  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -57,7 +58,7 @@
 #include "xplmi_util.h"
 #include "xplmi_status.h"
 #include "xplmi_hw.h"
-#include "xplmi_ssit.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_XCSUDMA_DEST_CTRL_OFFSET		(0x80CU)
@@ -75,7 +76,6 @@ static void XPlmi_SSSCfgDmaSbi(u32 Flags);
 static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags);
 static int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
                 XPmcDma** DmaPtrAddr);
-static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel);
 
 /************************** Variable Definitions *****************************/
 static XPmcDma PmcDma0;		/**<Instance of the Pmc_Dma Device */
@@ -198,10 +198,12 @@ static void XPlmi_SSSCfgDmaDma(u32 Flags)
 
 	/* It is DMA0/1 to DMA0/1 configuration */
 	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
+		XPlmi_SssMask(XPLMI_PMCDMA_0, XPLMI_PMCDMA_0);
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPLMI_SSSCFG_DMA0_MASK,
 				XPLMI_SSS_DMA0_DMA0);
 	} else if ((Flags & XPLMI_PMCDMA_1) == XPLMI_PMCDMA_1) {
+		XPlmi_SssMask(XPLMI_PMCDMA_1, XPLMI_PMCDMA_1);
 		XPlmi_UtilRMW(PMC_GLOBAL_PMC_SSS_CFG,
 				XPLMI_SSSCFG_DMA1_MASK,
 				XPLMI_SSS_DMA1_DMA1);
@@ -318,6 +320,7 @@ static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags
 {
 	int Status = XST_FAILURE;
 	XPmcDma *DmaPtr;
+	XPlmi_WaitForDmaDone_t XPlmi_WaitForDmaDone;
 
 	/* Select DMA pointer */
 	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
@@ -346,17 +349,11 @@ static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags
 		goto END;
 	}
 
-	/* Polling for transfer to be done */
-	if ((Addr >= XPLMI_PMC_ALIAS1_BASEADDR) &&
-		(Addr < XPLMI_PMC_ALIAS_MAX_ADDR)) {
-		/*
-		 * Call XPlmi_SsitWaitForDmaDone() if DMA transfer is to
-		 * SSIT Slave SLRs
-		 */
-		Status = XPlmi_SsitWaitForDmaDone(DmaPtr, Channel);
-	} else {
-		Status = XPmcDma_WaitForDone(DmaPtr, Channel);
+	XPlmi_WaitForDmaDone = XPlmi_GetPlmiWaitForDone(Addr);
+	if (XPlmi_WaitForDmaDone == NULL) {
+		goto END;
 	}
+	Status = XPlmi_WaitForDmaDone(DmaPtr, Channel);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_DMA_XFER_WAIT, 0);
 		goto END;
@@ -562,30 +559,6 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to check and wait for DMA done when sending
- *          data to SSIT Slave SLRs.
- *
- * @param	DmaPtr is pointer to DMA structure
- * @param	Channel is DMA source or destination channel
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel)
-{
-	int Status = XST_FAILURE;
-
-	Status = XPmcDma_WaitForDoneTimeout(DmaPtr, Channel);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "SSIT Wait for DMA Done Timed Out\r\n");
-		Status = (int)XPLMI_ERR_FROM_SSIT_SLAVE;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function is used to initiate and complete the DMA to DMA transfer.
  *
  * @param	SrcAddr for SRC channel to fetch data from
@@ -600,7 +573,7 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 {
 	int Status = XST_FAILURE;
 	XPmcDma *DmaPtr;
-	int (*XPlmi_WaitForDmaDone)(XPmcDma *DmaPtr, XPmcDma_Channel Channel);
+	XPlmi_WaitForDmaDone_t XPlmi_WaitForDmaDone;
 #ifdef PLM_PRINT_PERF_DMA
 	u64 XfrTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
@@ -611,16 +584,9 @@ int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
 		goto END;
 	}
 
-	/* Assign XPlmi_WaitForDmaDone with appropriate function */
-	if ((DestAddr >= XPLMI_PMC_ALIAS1_BASEADDR) &&
-		(DestAddr < XPLMI_PMC_ALIAS_MAX_ADDR)) {
-		/*
-		 * Call XPlmi_SsitWaitForDmaDone() if DMA transfer is to
-		 * SSIT Slave SLRs
-		 */
-		XPlmi_WaitForDmaDone = XPlmi_SsitWaitForDmaDone;
-	} else {
-		XPlmi_WaitForDmaDone = XPmcDma_WaitForDone;
+	XPlmi_WaitForDmaDone = XPlmi_GetPlmiWaitForDone(DestAddr);
+	if (XPlmi_WaitForDmaDone == NULL) {
+		goto END;
 	}
 
 	Status = XPlmi_StartDma(SrcAddr, DestAddr, Len, Flags, &DmaPtr);

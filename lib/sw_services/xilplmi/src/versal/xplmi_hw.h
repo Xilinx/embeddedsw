@@ -9,7 +9,7 @@
 *
 * @file xplmi_hw.h
 *
-* This is the header file which contains definitions for the hardware
+* This is the header file which contains definitions for the versal hardware
 * registers.
 *
 * <pre>
@@ -70,6 +70,7 @@
 *                       starts at the 32K boundary
 *       skd  03/09/2022 Compilation warning fix
 *       is   03/22/2022 Combined old and new XPPU/XMPU macros
+* 1.08  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -88,6 +89,7 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xparameters.h"
 #include "xil_io.h"
+#include "xil_hw.h"
 
 /**@cond xplmi_internal
  * @{
@@ -179,17 +181,6 @@ extern "C" {
  * Register: PMC_GLOBAL_SSIT_ERR
  */
 #define PMC_GLOBAL_SSIT_ERR    (PMC_GLOBAL_BASEADDR + 0X00000958U)
-
-/*
- * Register: PMC_GLOBAL_DOMAIN_ISO_CNTRL
- */
-#define PMC_GLOBAL_DOMAIN_ISO_CNTRL    (PMC_GLOBAL_BASEADDR + 0X00010000U)
-#ifndef PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK
-#define PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK   (0X00000400U)
-#endif
-#ifndef PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK
-#define PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK   (0X00000800U)
-#endif
 
 /*
  * Register: PMC_GLOBAL_PMC_FW_ERR
@@ -391,9 +382,11 @@ extern "C" {
  */
 #define PMC_GLOBAL_GICP_PMC_IRQ_ENABLE    (PMC_GLOBAL_BASEADDR + 0X000300A8U)
 
-#define PMC_PSM_ERR2_REG_OFFSET			(0x10U)
+#define PMC_PSM_ERR_REG_OFFSET			(0x10U)
 #define PMC_PSM_EN_REG_OFFSET			(0x4U)
 #define PMC_PSM_DIS_REG_OFFSET			(0x8U)
+
+
 /*
  * Register: NPI_NIR
  */
@@ -411,6 +404,10 @@ extern "C" {
  * Register: PS7_IPI_PMC_IMR
  */
 #define PS7_IPI_PMC_IMR		(0xFF320014U)
+
+/* IPI Aperture TZ register base address */
+#define IPI_APER_TZ_000_ADDR			(0xFF3000BCU)
+#define IPI_APER_TZ_PMC_REQ_BUF_MASK	(0x4U)
 
 /*
  * Register: CPM5_SLCR_PS_UNCORR_IR_STATUS
@@ -627,6 +624,14 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define EFUSE_CTRL_CFG_SLVERR_ENABLE_MASK	(0x20U)
 #define EFUSE_CTRL_ANLG_OSC_SW_1LP	(EFUSE_CTRL_BASEADDR + 0x60U)
 
+#define XPLMI_IPI_BASEADDR		(0xFF320000U)
+
+#if defined(XPAR_XIPIPSU_0_DEVICE_ID) && (XPAR_XIPIPSU_0_BASE_ADDRESS == XPLMI_IPI_BASEADDR)
+#define XPLMI_IPI_DEVICE_ID		XPAR_XIPIPSU_0_DEVICE_ID
+#elif defined(XPAR_XIPIPSU_1_DEVICE_ID) && (XPAR_XIPIPSU_1_BASE_ADDRESS == XPLMI_IPI_BASEADDR)
+#define XPLMI_IPI_DEVICE_ID		XPAR_XIPIPSU_1_DEVICE_ID
+#endif
+
 /*
  * Definition for QSPI to be included
  */
@@ -677,6 +682,21 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #if !defined(PLM_SEM_EXCLUDE) && (defined(XSEM_CFRSCAN_EN) ||\
 		defined(XSEM_NPISCAN_EN))
 #define XPLM_SEM
+#endif
+
+/*
+ * Definition for UART
+ */
+#if defined(XPAR_XUARTPSV_NUM_INSTANCES)
+#define XPLMI_UART_NUM_INSTANCES	XPAR_XUARTPSV_NUM_INSTANCES
+#endif
+
+#if defined(XPAR_XUARTPSV_0_BASEADDR)
+#define XPLMI_UART_0_BASEADDR	XPAR_XUARTPSV_0_BASEADDR
+#endif
+
+#if defined(XPAR_XUARTPSV_1_BASEADDR)
+#define XPLMI_UART_1_BASEADDR	XPAR_XUARTPSV_1_BASEADDR
 #endif
 
 /*
@@ -768,7 +788,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_SBI_CTRL_INTERFACE_JTAG			(0x4U)
 
 /*
- * Definitions required from psm_gloabl_reg
+ * Definitions required from psm_global_reg
  */
 #define PSM_GLOBAL_REG_BASEADDR			(0XFFC90000U)
 #define PSM_GLOBAL_REG_PSM_CR_ERR1_DIS	(PSM_GLOBAL_REG_BASEADDR + 0X00001028U)
@@ -789,6 +809,14 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define PSM_GLOBAL_REG_PSM_NCR_ERR2_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001050U)
 #define PSM_GLOBAL_REG_PSM_IRQ1_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001060U)
 #define PSM_GLOBAL_REG_PSM_IRQ2_MASK	(PSM_GLOBAL_REG_BASEADDR + 0X00001070U)
+
+#define PMC_GLOBAL_PSM_ERR_ACTION_OFFSET	(0x10U)
+
+#define PSM_GLOBAL_REG_PSM_ERR_OFFSET	(4U)
+#define PMC_GLOBAL_REG_PMC_ERR_OFFSET	(4U)
+
+#define XPLMI_PSM_MAX_ERR_CNT	(0x2U)
+#define XPLMI_PMC_MAX_ERR_CNT	(0x2U)
 
 /*
  * Register: EFUSE_CACHE_IP_DISABLE_0
@@ -957,7 +985,6 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  */
 #define INTPMC_CONFIG_IR_ENABLE		(INTPMC_CONFIG_BASEADDR + 0X00000008U)
 
-
 /*
  * Register: PMC_GLOBAL_ROM_VALIDATION_DIGEST_0
  */
@@ -992,6 +1019,38 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 /* Slave error enable mask */
 #define XPLMI_SLAVE_ERROR_ENABLE_MASK	(0x1U)
+
+/* Uart base address */
+#define XPLMI_HW_UART0_BASEADDR		(0xFF000000U)
+#define XPLMI_HW_UART1_BASEADDR		(0xFF010000U)
+#define XPLMI_HW_PPU1_MDM_BASEADDR	(0xF0310000U)
+
+/*
+ * PMC IOmodule interrupts
+ */
+#define XPLMI_IOMODULE_PMC_GIC_IRQ		(16U)
+#define XPLMI_IOMODULE_PPU1_MB_RAM		(17U)
+#define XPLMI_IOMODULE_ERR_IRQ			(18U)
+#define XPLMI_IOMODULE_CFRAME_SEU		(20U)
+#define XPLMI_IOMODULE_PMC_GPI			(22U)
+
+#define PMC_PMC_MB_IO_IRQ_ACK			(0xF028003CU)
+
+#define XPLMI_PSM_RAM_BASE_ADDR		(0xFFC00000U)
+
+/* Memory map used for validating addresses */
+#define XPLMI_PSM_RAM_BASE_ADDR		(0xFFC00000U)
+#define XPLMI_PSM_RAM_HIGH_ADDR		(0xFFC3FFFFU)
+#define XPLMI_TCM0_BASE_ADDR		(0xFFE00000U)
+#define XPLMI_TCM0_HIGH_ADDR		(0xFFE3FFFFU)
+#define XPLMI_TCM1_BASE_ADDR		(0xFFE90000U)
+#define XPLMI_TCM1_HIGH_ADDR		(0xFFEBFFFFU)
+#define XPLMI_RSVD_BASE_ADDR		(0xA0000000U)
+#define XPLMI_RSVD_HIGH_ADDR		(0xA3FFFFFFU)
+#define XPLMI_M_AXI_FPD_MEM_HIGH_ADDR	(0xBFFFFFFFU)
+#define XPLMI_OCM_BASE_ADDR		(0xFFFC0000U)
+#define XPLMI_OCM_HIGH_ADDR		(0xFFFFFFFFU)
+#define XPLMI_2GB_END_ADDR		(0xFFFFFFFFU)
 
 /************************** Function Prototypes ******************************/
 

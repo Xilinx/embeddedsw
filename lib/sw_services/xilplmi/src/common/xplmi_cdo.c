@@ -45,6 +45,7 @@
 *       kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
 *       ma   01/31/2022 Fix DMA Keyhole command issue where the command
 *                       starts at the 32K boundary
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -58,6 +59,7 @@
 #include "xplmi_proc.h"
 #include "xplmi_hw.h"
 #include "xil_util.h"
+#include "xplmi_generic.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_LEN_TEMPBUF		(0x8U) /**< This buffer is used to
@@ -325,6 +327,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	/* Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->SubsystemId;
 	CmdPtr->IpiMask = 0U;
+	CmdPtr->BreakOffSet = 0U;
 
 	/* Execute the command */
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);
@@ -343,6 +346,22 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 				 "CMD Payload");
 		goto END;
 	}
+
+	/*
+	 * If Cdo command is either break or it support break, update "Size" of
+	 * current command to jump at the "end" command
+	 */
+	if (CmdPtr->BreakOffSet != 0) {
+		if (BufLen > CmdPtr->BreakOffSet) {
+			*Size = CmdPtr->BreakOffSet;
+		} else {
+			XPlmi_Printf(DEBUG_GENERAL,
+				"Break does not support cdo chunking yet.\n");
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_CDO_CMD_BREAK_CHUNKS_NOT_SUPPORTED, 0);
+			goto END;
+		}
+	}
+
 	if(CmdPtr->Len == (CmdPtr->PayloadLen - 1U)) {
 		CdoPtr->ProcessedCdoLen +=  CdoPtr->Cmd.KeyHoleParams.ExtraWords;
 		CmdPtr->PayloadLen = CmdPtr->Len;

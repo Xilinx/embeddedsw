@@ -46,6 +46,7 @@
 *       ma   09/13/2021 Set PLM prints log level to 0 in
 *                       XPlmi_InitDebugLogBuffer function
 * 1.06  bsv  06/03/2022 Add CommandInfo to a separate section in elf
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -63,6 +64,7 @@
 #include "xplmi_util.h"
 #include "xil_util.h"
 #include "xplmi_modules.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -96,13 +98,6 @@
  */
 XPlmi_LogInfo *DebugLog = (XPlmi_LogInfo *)(UINTPTR)XPLMI_RTCFG_DBG_LOG_BUF_ADDR;
 
-/* Trace log buffer */
-static XPlmi_CircularBuffer TraceLog = {
-	.StartAddr = XPLMI_TRACE_LOG_BUFFER_ADDR,
-	.Len = XPLMI_TRACE_LOG_BUFFER_LEN,
-	.Offset = 0x0U,
-	.IsBufferFull = (u32)FALSE,
-};
 
 /*****************************************************************************/
 /**
@@ -267,6 +262,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 	u64 Arg2 = (u64)Cmd->Payload[2U];
 	u32 Arg3 = Cmd->Payload[3U];
 	u64 StartAddr;
+	XPlmi_CircularBuffer *TraceLog = XPlmi_GetTraceLogInst();
 	XPLMI_EXPORT_CMD(XPLMI_EVENT_LOGGING_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 
@@ -295,15 +291,15 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_TRACE_MEM:
 			StartAddr = (Arg1 << 32U) | Arg2;
-			Status = XPlmi_ConfigureLogMem(&TraceLog, StartAddr,
+			Status = XPlmi_ConfigureLogMem(TraceLog, StartAddr,
 					Arg3, XPLMI_TRACE_LOG_BUFFER);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_DATA:
-			Status = XPlmi_RetrieveBufferData(&TraceLog,
+			Status = XPlmi_RetrieveBufferData(TraceLog,
 					(Arg1 << 32U) | Arg2);
 			break;
 		case XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO:
-			XPlmi_RetrieveBufferInfo(Cmd, &TraceLog);
+			XPlmi_RetrieveBufferInfo(Cmd, TraceLog);
 			Status = XST_SUCCESS;
 			break;
 		case XPLMI_LOGGING_CMD_CONFIG_UART:
@@ -337,6 +333,7 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 {
 	u32 Index;
 	XPlmi_PerfTime PerfTime;
+	XPlmi_CircularBuffer *TraceLog = XPlmi_GetTraceLogInst();
 
 	/* Get time stamp of PLM */
 	XPlmi_MeasurePerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
@@ -347,13 +344,13 @@ void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)
 	TraceData[2U] = (u32)PerfTime.TPerfMsFrac;
 
 	for (Index = 0U; Index < Len; Index++) {
-		if (TraceLog.Offset >= TraceLog.Len) {
-			TraceLog.Offset = 0x0U;
-			TraceLog.IsBufferFull = (u32)TRUE;
+		if (TraceLog->Offset >= TraceLog->Len) {
+			TraceLog->Offset = 0x0U;
+			TraceLog->IsBufferFull = (u32)TRUE;
 		}
 
-		XPlmi_Out64((TraceLog.StartAddr + TraceLog.Offset), TraceData[Index]);
-		TraceLog.Offset += XPLMI_WORD_LEN;
+		XPlmi_Out64((TraceLog->StartAddr + TraceLog->Offset), TraceData[Index]);
+		TraceLog->Offset += XPLMI_WORD_LEN;
 	}
 }
 
