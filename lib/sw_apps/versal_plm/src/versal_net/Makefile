@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -10,7 +10,9 @@ CFLAGS := -Os -flto -ffat-lto-objects
 LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilpuf,-lxilloader,-lxilpm,-lxilsecure,-lxilsem,-lxil,-lgcc,-lc,--end-group -Wl,--gc-sections
 
 c_SOURCES := $(wildcard *.c)
+c_SOURCES += $(wildcard ../common/*.c)
 INCLUDES := $(wildcard *.h)
+INCLUDES += $(wildcard ../common/*.h)
 OBJS := $(patsubst %.c, %.o, $(c_SOURCES))
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
@@ -21,7 +23,7 @@ DEPFILES := $(patsubst %.o, %.d, $(OBJS))
 LIBS := ../../misc/versal_net/versal_plm_bsp/psx_pmc_0/lib/libxil.a
 EXEC := plm.elf
 
-INCLUDEPATH := -I../../misc/versal_net/versal_plm_bsp/psx_pmc_0/include -I.
+INCLUDEPATH := -I../../misc/versal_net/versal_plm_bsp/psx_pmc_0/include -I. -I../common/
 LIBPATH := -L../../misc/versal_net/versal_plm_bsp/psx_pmc_0/lib
 
 all: $(EXEC)
@@ -39,5 +41,5 @@ $(LIBS):
 	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 clean:
-	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d
+	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d ../common/*.o ../common/*.d
 	rm -rf ../../misc/versal_net/versal_plm_bsp

@@ -38,6 +38,7 @@
 * 1.05  am   11/24/2021 Fixed doxygen warnings
 *       ma   01/17/2022 Enable SLVERR for PLM related components
 *       is   03/22/2022 Updated PMC XMPU/XPPUs IEN macros
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -52,6 +53,7 @@
 #include "xplm_loader.h"
 #include "xplm_hooks.h"
 #include "xplmi_task.h"
+#include "xplm_plat.h"
 #ifdef XPLM_SEM
 #include "xplm_sem_init.h"
 #endif
@@ -177,8 +179,8 @@ static void XPlm_EnableSlaveErrors(void)
 	XPlmi_Out32((PMC_XPPU_NPI_BASEADDR + XPPU_IEN), XPLMI_SLAVE_ERROR_ENABLE_MASK);
 	/* Enable SLVERR for PMC_XPPU registers */
 	XPlmi_Out32((PMC_XPPU_BASEADDR + XPPU_IEN), XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for INTPMC_CONFIG registers */
-	XPlmi_Out32(INTPMC_CONFIG_IR_ENABLE, XPLMI_SLAVE_ERROR_ENABLE_MASK);
+	/* Enable Platform specific Slave Errors */
+	XPlm_EnablePlatformSlaveErrors();
 }
 
 /*****************************************************************************/

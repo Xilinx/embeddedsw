@@ -39,6 +39,7 @@
 * 1.06  skd  11/18/2021 Added time stamps in XPlm_ProcessPmcCdo
 *       bm   01/05/2022 Fixed ZEROIZE-PRIORITY for XLoader_SecureClear
 * 1.07  skd  04/20/2022 Misra-C violation Rule 17.7 fixed
+* 1.08  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -62,28 +63,12 @@
 #include "xplmi_hw.h"
 #include "xplmi_status.h"
 #include "xplmi_cdo.h"
+#include "xplm_plat.h"
 #ifdef PLM_ENABLE_STL
 #include "xplm_stl.h"
 #endif
 
 /************************** Constant Definitions *****************************/
-/**
- * XPLM_NOCPLL_CFG_VAL    NPLL CFG params
- * LOCK_DLY[31:25]=0x3f, LOCK_CNT[22:13]=0x2EE, LFHF[11:10]=0x3,
- * CP[8:5]=0x3, RES[3:0]=0x5
- */
-#define XPLM_NOCPLL_CFG_VAL		(0x7E5DCC65U)
-
-/**
- * @{
- * XPLM_NOCPLL_CTRL_VAL    NPLL CTRL params
- * POST_SRC[26:24]=0x0, PRE_SRC[22:20]=0x0, CLKOUTDIV[17:16]=0x3,
- * FBDIV[15:8]=0x48, BYPASS[3]=0x1, RESET[0]=0x1
- *
- */
-#define XPLM_NOCPLL_CTRL_VAL		(0x34809U)
-#define NOCPLL_TIMEOUT			(100000U)
-/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -91,12 +76,9 @@
 
 /************************** Function Prototypes ******************************/
 static void XPlm_PmRequestCb(const u32 IpiMask, const XPmApiCbId_t EventId, u32 *Payload);
-static int XPlm_ConfigureDefaultNPll(void);
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
-static u32 XPlm_UpdateCounterVal(u8 Val);
 static int XPlm_SendKeepAliveEvent(void);
 static int XPlm_KeepAliveTask(void *Arg);
-static u8 XPlm_SetAliveStsVal(u8 Val);
 #endif /* XPAR_XIPIPSU_0_DEVICE_ID */
 
 /************************** Variable Definitions *****************************/
@@ -161,44 +143,6 @@ int XPlm_PmInit(void)
 		Status = XPlmi_UpdateStatus(XPLM_ERR_PM_MOD, Status);
 	}
 
-	return Status;
-}
-
-/*****************************************************************************/
-/**
-* @brief This function configures the NPLL equal to slave SLR ROM NPLL
-*        frequency. It is only required for master SLR devices.
-*
-* @return	Status as defined in xplmi_status.h
-*
-*****************************************************************************/
-static int XPlm_ConfigureDefaultNPll(void)
-{
-	int Status = XST_FAILURE;
-
-	/* Set the PLL helper Data */
-	Xil_Out32(CRP_NOCPLL_CFG, XPLM_NOCPLL_CFG_VAL);
-
-	/* Set the PLL Basic Controls */
-	Xil_Out32(CRP_NOCPLL_CTRL, XPLM_NOCPLL_CTRL_VAL);
-
-	/* De-assert the PLL Reset; PLL is still in bypass mode only */
-	XPlmi_UtilRMW(CRP_NOCPLL_CTRL, CRP_NOCPLL_CTRL_RESET_MASK, 0x0U);
-
-	/* Check for NPLL lock */
-	Status = XPlmi_UtilPoll(CRP_PLL_STATUS,
-			CRP_PLL_STATUS_NOCPLL_LOCK_MASK,
-			CRP_PLL_STATUS_NOCPLL_LOCK_MASK,
-			NOCPLL_TIMEOUT);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XPLM_ERR_NPLL_LOCK, 0);
-		goto END;
-	}
-
-	/* Release the bypass mode */
-	XPlmi_UtilRMW(CRP_NOCPLL_CTRL, CRP_NOCPLL_CTRL_BYPASS_MASK, 0x0U);
-
-END:
 	return Status;
 }
 
@@ -288,32 +232,6 @@ END:
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 /*****************************************************************************/
 /**
-* @brief	This function updates the counter value
-*
-* @param	Val to Increment or Clear the CounterVal variable
-*
-* @return	CounterVal
-*
-*****************************************************************************/
-static u32 XPlm_UpdateCounterVal(u8 Val)
-{
-	static u32 CounterVal = 0U;
-
-	if(Val == XPLM_PSM_COUNTER_INCREMENT) {
-		/* Increment the counter value */
-		CounterVal++;
-	}else if(Val == XPLM_PSM_COUNTER_CLEAR){
-		/* Clear the counter value */
-		CounterVal = 0U;
-	} else{
-		/* To avoid Misra-C violation  */
-	}
-
-	return CounterVal;
-}
-
-/*****************************************************************************/
-/**
 * @brief	This function sends keep alive IPI event to PSM
 *
 * @return	Status as defined in xplmi_status.h
@@ -341,27 +259,6 @@ static int XPlm_SendKeepAliveEvent(void)
 
 /*****************************************************************************/
 /**
-* @brief	This function updates the keep alive status variable
-*
-* @param	Val to set the status as started or not started or error
-*
-* @return	PsmKeepAliveStatus
-*
-*****************************************************************************/
-static u8 XPlm_SetAliveStsVal(u8 Val)
-{
-	static u8 PsmKeepAliveStatus = XPLM_PSM_ALIVE_NOT_STARTED;
-
-	if(Val != XPLM_PSM_ALIVE_RETURN) {
-		/* Update the Keep Alive Status */
-		PsmKeepAliveStatus = Val;
-	}
-
-	return PsmKeepAliveStatus;
-}
-
-/*****************************************************************************/
-/**
 * @brief	This function checks if PSM is alive and healthy.
 *
 * @param	Arg Not used in the function currently
@@ -384,34 +281,34 @@ static int XPlm_KeepAliveTask(void *Arg)
 	 * from PSM Keep alive event.
 	 */
 	if (((u8)TRUE == XPmPsm_FwIsPresent()) && (XPLM_PSM_ALIVE_ERR !=
-	    XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_RETURN))) {
+	    XPlm_SetPsmAliveStsVal(XPLM_PSM_ALIVE_RETURN))) {
 		/**
 		 * Check if the keep alive task called for first time then skip
 		 * comparing keep alive counter value.
 		 */
-		if (XPLM_PSM_ALIVE_STARTED == XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_RETURN)) {
+		if (XPLM_PSM_ALIVE_STARTED == XPlm_SetPsmAliveStsVal(XPLM_PSM_ALIVE_RETURN)) {
 			/**
 			 * Read keep alive counter value from RTCA(Run time
 			 * configuration area) register.
 			 */
 			ActualCounterValue = XPlmi_In32(XPLM_PSM_ALIVE_COUNTER_ADDR);
 			/* Increment expected keep alive counter value */
-			(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_INCREMENT);
+			(void)XPlm_UpdatePsmCounterVal(XPLM_PSM_COUNTER_INCREMENT);
 			/**
 			 * Check if PSM incremented keep alive counter value or
 			 * not. Return error if counter value is not matched
 			 * with expected value.
 			 */
-			if (ActualCounterValue != XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_RETURN)) {
+			if (ActualCounterValue != XPlm_UpdatePsmCounterVal(XPLM_PSM_COUNTER_RETURN)) {
 				XPlmi_Printf(DEBUG_GENERAL, "%s ERROR: PSM is not alive\r\n",
 						__func__);
 				/* Clear RTCA register */
 				XPlmi_Out32(XPLM_PSM_ALIVE_COUNTER_ADDR,
 						0U);
 				/* Clear expected counter value */
-				(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_CLEAR);
+				(void)XPlm_UpdatePsmCounterVal(XPLM_PSM_COUNTER_CLEAR);
 				/* Update PSM keep alive status for error */
-				(void)XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_ERR);
+				(void)XPlm_SetPsmAliveStsVal(XPLM_PSM_ALIVE_ERR);
 				/* Remove Keep alive task in case of error */
 				Status = XPlm_RemoveKeepAliveTask();
 				/* Update the error status */
@@ -430,7 +327,7 @@ static int XPlm_KeepAliveTask(void *Arg)
 		}
 
 		/* Update PSM keep alive status as successfully started */
-		(void)XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_STARTED);
+		(void)XPlm_SetPsmAliveStsVal(XPLM_PSM_ALIVE_STARTED);
 	}
 
 	Status = XST_SUCCESS;
@@ -472,8 +369,8 @@ int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
 
 	/* Clear keep alive counter and status as not started */
 	XPlmi_Out32(XPLM_PSM_ALIVE_COUNTER_ADDR, 0U);
-	(void)XPlm_UpdateCounterVal(XPLM_PSM_COUNTER_CLEAR);
-	(void)XPlm_SetAliveStsVal(XPLM_PSM_ALIVE_NOT_STARTED);
+	(void)XPlm_UpdatePsmCounterVal(XPLM_PSM_COUNTER_CLEAR);
+	(void)XPlm_SetPsmAliveStsVal(XPLM_PSM_ALIVE_NOT_STARTED);
 
 	/**
 	 * Add keep alive task in scheduler which runs at every

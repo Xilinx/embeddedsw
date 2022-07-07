@@ -36,6 +36,7 @@
 * 1.08  skd  04/20/2022 Misra-C violation Rule 10.3 fixed
 *       ma   05/10/2022 Enable SSIT interrupts for Master SLR
 *       ma   06/03/2022 Removed extra braces for SlrType if condition
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -49,6 +50,8 @@
 #include "xplmi.h"
 #include "xloader_sbi.h"
 #include "xplmi_err_common.h"
+#include "xloader_plat.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -73,19 +76,26 @@ int XPlm_LoadBootPdi(void *Arg)
 {
 	int Status = XST_FAILURE;
 	PdiSrc_t BootMode = XLOADER_PDI_SRC_INVALID;
-	static XilPdi PdiInstance = {0U};
+	XilPdi *PdiInstPtr = XLoader_GetPdiInstance();
 
 	(void )Arg;
+
+	/* In-Place PLM Update is applicable only for versalnet */
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		XPlmi_Printf(DEBUG_GENERAL, "Inplace PLM Update Done\n\r");
+		Status = XST_SUCCESS;
+		goto ERR_END;
+	}
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
 
 	/**
 	 * 1. Read Boot mode register and multiboot offset register
 	 * 2. Load subsystem present in PDI
 	 */
-	PdiInstance.SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
+	PdiInstPtr->SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
 					PMC_TAP_SLR_TYPE_VAL_MASK);
-	if ((PdiInstance.SlrType == XLOADER_SSIT_MASTER_SLR) ||
-		(PdiInstance.SlrType == XLOADER_SSIT_MONOLITIC)) {
+	if ((PdiInstPtr->SlrType == XLOADER_SSIT_MASTER_SLR) ||
+		(PdiInstPtr->SlrType == XLOADER_SSIT_MONOLITIC)) {
 		BootMode = XLoader_GetBootMode();
 	} else {
 		BootMode = XLOADER_PDI_SRC_SBI;
@@ -102,7 +112,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	}
 
 #ifndef PLM_SECURE_EXCLUDE
-	Status = XLoader_GetKatStatus(&PdiInstance);
+	Status = XLoader_GetKatStatus(PdiInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
@@ -110,18 +120,18 @@ int XPlm_LoadBootPdi(void *Arg)
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Started***********\n\r");
 
-	PdiInstance.PdiType = XLOADER_PDI_TYPE_FULL;
-	PdiInstance.IpiMask = 0U;
-	PdiInstance.ValidHeader = (u8)TRUE;
+	PdiInstPtr->PdiType = XLOADER_PDI_TYPE_FULL;
+	PdiInstPtr->IpiMask = 0U;
+	PdiInstPtr->ValidHeader = (u8)TRUE;
 	SubsystemPdiIns.ValidHeader = (u8)TRUE;
-	Status = XLoader_LoadPdi(&PdiInstance, BootMode, 0U);
+	Status = XLoader_LoadPdi(PdiInstPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	/* Enable SSIT interrupts for Master SLR */
-	if (PdiInstance.SlrType == XLOADER_SSIT_MASTER_SLR) {
+	if (PdiInstPtr->SlrType == XLOADER_SSIT_MASTER_SLR) {
 		XPlmi_EnableSsitErrors();
 	}
 #endif

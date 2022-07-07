@@ -8,7 +8,7 @@
 *
 * @file xplm_hooks.c
 *
-* This file contains the hook functions for the user
+* This file contains the hook functions for the user in versal platform
 *
 * <pre>
 * MODIFICATION HISTORY:

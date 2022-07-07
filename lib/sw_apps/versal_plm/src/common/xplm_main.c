@@ -36,6 +36,7 @@
 *       ma   08/23/2021 Move XPlmi_InitDebugLogBuffer and XPlm_InitProc to
 *                       happen as soon as PLM starts
 * 1.05  am   11/24/2021 Fixed doxygen warning
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -51,18 +52,17 @@
 #include "xplm_loader.h"
 #include "xplmi_err_common.h"
 #include "xplmi.h"
+#include "xloader_plat.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define PLM_VP1802_POR_SETTLE_TIME	(25000U) /**< Flag indicates POR
-                                                  * settle time for VP1802 */
 
 /************************** Function Prototypes ******************************/
 static int XPlm_Init(void);
-static void XPlm_PerformInternalPOR(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -110,57 +110,6 @@ int main(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function check conditions and perform internal POR
- * 		for VP1802 and VP1502 device if required.
- *
- * @return	None.
- *
- *****************************************************************************/
-static void XPlm_PerformInternalPOR(void)
-{
-	u32 IdCode = XPlmi_In32(PMC_TAP_IDCODE) &
-			PMC_TAP_IDCODE_SIREV_DVCD_MASK;
-	u32 CrpResetReason = XPlmi_In32(CRP_RESET_REASON);
-	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
-		PMC_TAP_SLR_TYPE_VAL_MASK);
-	u32 DnaBit = XPlmi_In32(EFUSE_CACHE_DNA_1) &
-			EFUSE_CACHE_DNA_1_BIT25_MASK;
-	PdiSrc_t BootMode = XLoader_GetBootMode();
-
-	if ((IdCode != PMC_TAP_IDCODE_ES1_VP1802) &&
-		(IdCode != PMC_TAP_IDCODE_ES1_VP1502)) {
-		/* Not a VP1802 Or VP1502 device */
-		goto END;
-	}
-
-	if (SlrType != XLOADER_SSIT_MASTER_SLR) {
-		/* Not a Master SLR */
-		goto END;
-	}
-
-	if ((BootMode == XLOADER_PDI_SRC_JTAG) ||
-		(BootMode == XLOADER_PDI_SRC_SMAP)) {
-		/* Bootmode check failed for IPOR of VP1502/VP1802 device */
-		goto END;
-	}
-
-	if (DnaBit == 0x00U) {
-		/* Efuse DNA_57 bit should be non-zero for IPOR */
-		goto END;
-	}
-
-	/* All the pre-conditions are met to do IPOR of VP1502/VP1802 device */
-	if (CrpResetReason == CRP_RESET_REASON_EXT_POR_MASK) {
-		usleep(PLM_VP1802_POR_SETTLE_TIME);
-		XPlmi_PORHandler();
-	}
-
-END:
-	return;
-}
-
-/*****************************************************************************/
-/**
  * @brief This function initializes DMA, Run Time Config area, the processor
  * 		and task list structures.
  *
@@ -170,16 +119,16 @@ END:
 static int XPlm_Init(void)
 {
 	int Status = XST_FAILURE;
-	u8 PmcVersion = (u8)(XPlmi_In32(PMC_TAP_VERSION) &
-			PMC_TAP_VERSION_PMC_VERSION_MASK);
+
+	Status = XPlmi_UpdateInit();
+	if (Status != XST_SUCCESS) {
+		XPlmi_ErrMgr(Status);
+	}
 
 	/**
-	 * Disable CFRAME isolation for VCCRAM for ES1 Silicon
+	 * Disable CFRAME isolation for VCCRAM for Versal ES1 Silicon
 	 */
-	if (PmcVersion == XPLMI_SILICON_ES1_VAL) {
-		XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
-		 PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK, 0U);
-	}
+	XPlmi_DisableCFrameIso();
 
 	/**
 	 * Reset the wakeup signal set by ROM
@@ -188,7 +137,9 @@ static int XPlm_Init(void)
 	XPlmi_PpuWakeUpDis();
 
 	/* Initialize debug log structure */
-	XPlmi_InitDebugLogBuffer();
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		XPlmi_InitDebugLogBuffer();
+	}
 
 	/** Initialize the processor, enable exceptions */
 	Status = XPlm_InitProc();
@@ -202,9 +153,12 @@ static int XPlm_Init(void)
 		goto END;
 	}
 
-	Status = XPlmi_RunTimeConfigInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
+	/* In-Place PLM Update is applicable only for versalnet */
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		Status = XPlmi_RunTimeConfigInit();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 #ifdef DEBUG_UART_MDM
@@ -213,7 +167,7 @@ static int XPlm_Init(void)
 #endif
 
 	/** Do Internal POR if any specific case */
-	XPlm_PerformInternalPOR();
+	XLoader_PerformInternalPOR();
 
 	/** Initialize the tasks lists */
 	XPlmi_TaskInit();

@@ -75,6 +75,7 @@
 # 		      violation.
 #       adk  05/18/22 Added pmu_sleep_timer config parameter to perform sleep
 #       	      functionality from PMU counters for CortexR5 BSP.
+#       bm   07/06/22 Added logic to include files from versal_net directory
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -310,6 +311,7 @@ proc generate {os_handle} {
     set clksrcdir "./src/common/clocking"
     set intrsrcdir "./src/common/intr"
     set versalsrcdir "./src/common/versal"
+    set versalnetsrcdir "./src/common/versal_net"
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
@@ -345,7 +347,7 @@ proc generate {os_handle} {
         }
 
     }
-   
+
     set cortexa72proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
     set cortexa78proc [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
 
@@ -542,7 +544,7 @@ proc generate {os_handle} {
             }
             xdefine_fabric_reset $file_handle
             close $file_handle
-        }  
+        }
         "psu_cortexr5" -
 	"psv_cortexr5" -
 	"psxl_cortexr52" -
@@ -571,7 +573,7 @@ proc generate {os_handle} {
 	    foreach entry [glob -nocomplain [file join $ccdir *]] {
 		file copy -force $entry "./src/"
 	    }
-	    
+
 	    foreach entry [glob -nocomplain [file join $platformincludedir *]] {
 	        file copy -force $entry "./src/includes_ps/"
 	    }
@@ -599,7 +601,7 @@ proc generate {os_handle} {
 	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
 		file copy -force $entry "./src/"
 	    }
-	    
+
             # If board name is valid, define corresponding symbol in xparameters
             if { [string length $boardname] != 0 } {
                 set fields [split $boardname ":"]
@@ -848,9 +850,17 @@ proc generate {os_handle} {
 	puts $file_handle "#define PLATFORM_MB"
     }
 
-    if { $proctype == "psv_pmc" || $proctype == "psxl_pmc" || $proctype == "psx_pmc"} {
+    if { $proctype == "psv_pmc"} {
 	puts $file_handle "#define VERSAL_PLM"
 	foreach entry [glob -nocomplain [file join $versalsrcdir *]] {
+		file copy -force $entry "./src/"
+	}
+    }
+
+    if { $proctype == "psxl_pmc" || $proctype == "psx_pmc"} {
+	puts $file_handle "#define VERSAL_PLM"
+	puts $file_handle "#define VERSALNET_PLM"
+	foreach entry [glob -nocomplain [file join $versalnetsrcdir *]] {
 		file copy -force $entry "./src/"
 	}
     }
@@ -874,6 +884,9 @@ proc generate {os_handle} {
         puts $file_handle "#ifndef VERSAL_NET"
         puts $file_handle "#define VERSAL_NET"
         puts $file_handle "#endif"
+	foreach entry [glob -nocomplain [file join $versalnetsrcdir *]] {
+		file copy -force $entry "./src/"
+	}
     }
     if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psxl_cortexr52" || $proctype == "psx_cortexr52"} {
 	 set lockstep_debug [common::get_property CONFIG.lockstep_mode_debug $os_handle]
@@ -884,8 +897,15 @@ proc generate {os_handle} {
 	 } else {
 		puts $file_handle "#define LOCKSTEP_MODE_DEBUG 0U"
 	 }
-	 foreach entry [glob -nocomplain [file join $versalsrcdir *]] {
-		file copy -force $entry "./src/"
+	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
+		 foreach entry [glob -nocomplain [file join $versalsrcdir *]] {
+			file copy -force $entry "./src/"
+		}
+	}
+	if { $proctype == "psxl_cortexr52" || $proctype == "psx_cortexr52" } {
+		 foreach entry [glob -nocomplain [file join $versalnetsrcdir *]] {
+			file copy -force $entry "./src/"
+		}
 	}
      }
      set interrupt_wrap_supported [common::get_property CONFIG.xil_interrupt $os_handle ]
@@ -982,7 +1002,7 @@ proc xcreate_cmake_toolchain_file {os_handle is_versal} {
 	cd "${bdir}"
 	set cmake_cmd "../src/run_cmake"
 	set os_platform_type "$::tcl_platform(platform)"
-	
+
 	#copy toolchain file to libsrc directory of BSP
 	file copy -force ../src/toolchain.cmake ../../
 
