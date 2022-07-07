@@ -27,6 +27,7 @@
 *                     attributes for GIC in case of Xen domU guest application.
 *                     It fixes CR#974078.
 * 8.0   mus  07/06/21 Added support for VERSAL NET
+* 8.0   mus  06/27/22 Enabled PMU counter.
 * </pre>
 *
 * @note
@@ -127,6 +128,14 @@ _startup:
 	     XEN_USE_PV_CONSOLE == 1)
          bl XPVXenConsole_Init
 	.endif
+
+	/* Set E, C and D bits */
+	mrs x1, PMCR_EL0
+	orr x1, x1, #(0x1 << 0)
+	orr x1, x1, #(0x1 << 2)
+	orr x1, x1, #(0x1 << 3)
+	msr PMCR_EL0, x1
+
 	/* make sure argc and argv are valid */
 	mov	x0, #0
 	mov	x1, #0
