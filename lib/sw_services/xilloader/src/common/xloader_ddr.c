@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +29,7 @@
 *       bsv  10/13/2020 Code clean up
 * 1.04  bsv  08/31/2021 Code clean up
 * 1.05  bsv  10/26/2021 Code clean up
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -44,6 +45,7 @@
 #include "xplmi_dma.h"
 #include "xpm_api.h"
 #include "xpm_nodeid.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions *****************************/
 

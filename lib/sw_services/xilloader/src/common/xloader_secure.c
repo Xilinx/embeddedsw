@@ -112,6 +112,7 @@
 *       bsv  02/10/22 Code clean up by removing unwanted initializations
 *       bsv  02/14/22 Added comments for better readability
 *       kpt  02/18/22 Fixed copy to memory issue
+* 1.09  bm   07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -130,6 +131,7 @@
 #include "xplmi_modules.h"
 #include "xplmi_scheduler.h"
 #include "xsecure_init.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions ****************************/
 

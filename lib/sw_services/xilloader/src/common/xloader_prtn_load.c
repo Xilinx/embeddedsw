@@ -87,6 +87,7 @@
 *       bsv  03/29/2022 Dump Ddrmc registers only when PLM DEBUG MODE is enabled
 * 1.09  skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
 *       skg  06/20/2022 Fixed MISRA C Rule 4.1 violation
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -109,6 +110,8 @@
 #include "xil_util.h"
 #include "xplmi_err_common.h"
 #include "xpm_nodeid.h"
+#include "xplmi_plat.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -116,43 +119,12 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XLOADER_SUCCESS_NOT_PRTN_OWNER	(0x100U) /**< Indicates that PLM is not the partition owner */
-#define XLOADER_TCM_0		(0U)
-#define XLOADER_TCM_1		(1U)
-#define XLOADER_RPU_GLBL_CNTL	(0xFF9A0000U)
-#define XLOADER_TCMCOMB_MASK		(0x40U)
-#define XLOADER_TCMCOMB_SHIFT		(6U)
-
-#ifdef PLM_DEBUG_MODE
-/**
- * @{
- * @cond DDR calibration errors
- */
-#define DDRMC_OFFSET_CALIB_ERR		(0x840CU)
-#define DDRMC_OFFSET_CALIB_ERR_NIBBLE_1	(0x8420U)
-#define DDRMC_OFFSET_CALIB_ERR_NIBBLE_2	(0x841CU)
-#define DDRMC_OFFSET_CALIB_ERR_NIBBLE_3	(0x8418U)
-#define DDRMC_OFFSET_CALIB_STAGE_PTR	(0x8400U)
-/**
- * @}
- * @endcond
- */
-#endif
 
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr);
-static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
-	XLoader_SecureParams* SecureParams);
-static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu);
-static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams* SecureParams);
-static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr* PrtnHdr,
-	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
-#ifdef PLM_DEBUG_MODE
-static int XLoader_DumpDdrmcRegisters(void);
-#endif
-static int XLoader_RequestTCM(u8 TcmId);
 
 /************************** Variable Definitions *****************************/
 
@@ -327,18 +299,19 @@ END:
  * @param	PdiPtr is pointer to XilPdi instance
  * @param	DeviceCopy is pointer to the structure variable with parameters
  *			required for copying
- * @param	SecureParams is pointer to the instance containing security related
+ * @param	SecureParamsPtr is pointer to the instance containing security related
  *			params
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
-		XLoader_SecureParams* SecureParams)
+int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
+		void* SecureParamsPtr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
+	XLoader_SecureParams *SecureParams = (XLoader_SecureParams *)SecureParamsPtr;
 
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
 			(SecureTempParams->SecureEn == (u8)FALSE) &&
@@ -358,270 +331,6 @@ static int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* Devi
 		XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed\n\r");
 	}
 
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function copies the elf partitions to specified destinations.
- *
- * @param	PdiPtr is pointer to XilPdi instance
- * @param	PrtnHdr is pointer to the partition header
- * @param	PrtnParams is pointer to the structure variable that contains
- *			parameters required to process the partition
- * @param	SecureParams is pointer to the instance containing security related
- *			params
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-static int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
-	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams)
-{
-	int Status = XST_FAILURE;
-	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
-	u32 CapContext = (u32)PM_CAP_CONTEXT;
-	u32 Len = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
-	u64 EndAddr = PrtnParams->DeviceCopy.DestAddr + Len - 1U;
-	u32 ErrorCode;
-	u32 Mode = 0U;
-	u8 TcmComb;
-
-	Status = XPlmi_VerifyAddrRange(PrtnParams->DeviceCopy.DestAddr, EndAddr);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_ELF_LOAD_ADDR,
-				Status);
-		goto END;
-	}
-	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
-
-	/*
-	 * Requirements:
-	 *
-	 * PSM:
-	 * For PSM, PSM should be taken out of reset before loading
-	 * PSM RAM should be ECC initialized
-	 *
-	 * OCM:
-	 * OCM RAM should be ECC initialized
-	 *
-	 * R5:
-	 * R5 should be taken out of reset before loading
-	 * R5 TCM should be ECC initialized
-	 */
-	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_PSM_PROC, 0);
-			goto END;
-		}
-		goto END1;
-	}
-
-	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
-		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
-			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_SPLIT, 0U, 0U, &Mode,
-			XPLMI_CMD_SECURE);
-		ErrorCode = (u32)XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT;
-	}
-	else if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
-		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
-			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_SPLIT, 0U, 0U, &Mode,
-			XPLMI_CMD_SECURE);
-		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT;
-	}
-	else if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) {
-		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_0,
-			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_LOCKSTEP, 0U, 0U,
-			&Mode, XPLMI_CMD_SECURE);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP, 0);
-			goto END;
-		}
-		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
-			IOCTL_SET_RPU_OPER_MODE, XPM_RPU_MODE_LOCKSTEP, 0U, 0U,
-			&Mode, XPLMI_CMD_SECURE);
-		ErrorCode = XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP;
-	}
-	else {
-		/* MISRA-C compliance */
-	}
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, 0);
-		goto END;
-	}
-
-	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
-		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
-		Status = XLoader_RequestTCM(XLOADER_TCM_0);
-	}
-	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) ||
-		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L)) {
-		Status = XLoader_RequestTCM(XLOADER_TCM_1);
-	}
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XLoader_GetLoadAddr(PrtnParams->DstnCpu,
-		&PrtnParams->DeviceCopy.DestAddr, Len);
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
-	if ((PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
-		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_1)) {
-		goto END1;
-	}
-
-	EndAddr = PrtnParams->DeviceCopy.DestAddr + Len - 1U;
-	if (((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_1_TCM_A_BASE_ADDR)
-		&& (EndAddr <= XLOADER_R5_1_TCM_A_END_ADDR)) ||
-		((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_1_TCM_B_BASE_ADDR)
-		&& (EndAddr <= XLOADER_R5_1_TCM_B_END_ADDR))) {
-		/* TCM 1 is in use */
-		/* Only allow if TCM is in split mode */
-		TcmComb = (u8)((XPlmi_In32(XLOADER_RPU_GLBL_CNTL) &
-			XLOADER_TCMCOMB_MASK) >> XLOADER_TCMCOMB_SHIFT);
-		if (TcmComb == (u8)FALSE) {
-			Status = XLoader_RequestTCM(XLOADER_TCM_1);
-		}
-		else {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_INVALID_TCM_ADDR, 0);
-		}
-	}
-	else if (((PrtnParams->DeviceCopy.DestAddr >=
-		XLOADER_R5_0_TCM_A_BASE_ADDR) &&
-		(EndAddr <= XLOADER_R5_0_TCM_A_END_ADDR)) ||
-		((PrtnParams->DeviceCopy.DestAddr >=
-		  XLOADER_R5_0_TCM_B_BASE_ADDR) &&
-		 (EndAddr <= XLOADER_R5_0_TCM_B_END_ADDR))) {
-		/* TCM 0 is in use */
-		Status = XLoader_RequestTCM(XLOADER_TCM_0);
-	}
-	else if ((PrtnParams->DeviceCopy.DestAddr >= XLOADER_R5_0_TCM_A_BASE_ADDR)
-		&& (EndAddr <= XLOADER_R5_LS_TCM_END_ADDR)) {
-		/* TCM COMB is in use */
-		TcmComb = (u8)((XPlmi_In32(XLOADER_RPU_GLBL_CNTL) &
-			XLOADER_TCMCOMB_MASK) >> XLOADER_TCMCOMB_SHIFT);
-		if (TcmComb == (u8)TRUE) {
-			Status = XLoader_RequestTCM(XLOADER_TCM_0);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-			Status = XLoader_RequestTCM(XLOADER_TCM_1);
-		}
-		else {
-			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_INVALID_TCM_ADDR, 0);
-		}
-	}
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-END1:
-	Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams->DeviceCopy, SecureParams);
-	if (XST_SUCCESS != Status) {
-		goto END;
-	}
-
-	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A72_0) ||
-		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A72_1)) {
-		/*
-		 *  Populate handoff parameters to ATF
-		 *  These correspond to the partitions of application
-		 *  which ATF will be loading
-		 */
-		XLoader_SetATFHandoffParameters(PrtnHdr);
-	}
-
-	if (PdiPtr->DelayHandoff == (u8)FALSE) {
-		/* Update the handoff values */
-		Status = XLoader_UpdateHandoffParam(PdiPtr);
-	}
-
-END:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief	This function is used to update the handoff parameters.
- *
- * @param	PdiPtr is pointer to XilPdi instance
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
-{
-	int Status = XST_FAILURE;
-	u32 DstnCpu = XIH_PH_ATTRB_DSTN_CPU_NONE;
-	u32 CpuNo = XLOADER_MAX_HANDOFF_CPUS;
-	u32 PrtnNum = PdiPtr->PrtnNum;
-	/* Assign the partition header to local variable */
-	const XilPdi_PrtnHdr * PrtnHdr =
-			&(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-
-	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
-
-	if ((DstnCpu > XIH_PH_ATTRB_DSTN_CPU_NONE) &&
-	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_PSM)) {
-		CpuNo = PdiPtr->NoOfHandoffCpus;
-		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS) {
-			if (CpuNo >= XLOADER_MAX_HANDOFF_CPUS) {
-				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
-				goto END;
-			}
-			/* Update the CPU settings */
-			PdiPtr->HandoffParam[CpuNo].CpuSettings =
-				XilPdi_GetDstnCpu(PrtnHdr) |
-				XilPdi_GetA72ExecState(PrtnHdr) |
-				XilPdi_GetVecLocation(PrtnHdr);
-			PdiPtr->HandoffParam[CpuNo].HandoffAddr =
-				PrtnHdr->DstnExecutionAddr;
-			PdiPtr->NoOfHandoffCpus += 1U;
-		}
-	}
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief	This function is used to check whether cpu has handoff address
- * stored in the handoff structure.
- *
- * @param	PdiPtr is pointer to XilPdi instance
- * @param	DstnCpu is the cpu which needs to be checked
- *
- * @return	XST_SUCCESS if the DstnCpu is successfully added to Handoff list
- *          XST_FAILURE if the DstnCpu is already added to Handoff list
- *
- *****************************************************************************/
-static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu)
-{
-	int Status = XST_FAILURE;
-	u32 Index;
-	u32 CpuId;
-
-	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
-		CpuId = PdiPtr->HandoffParam[Index].CpuSettings &
-			XIH_PH_ATTRB_DSTN_CPU_MASK;
-		if (CpuId == DstnCpu) {
-			goto END;
-		}
-	}
-	Status = XST_SUCCESS;
-
-END:
 	return Status;
 }
 
@@ -809,16 +518,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 
 	/* If deferred error, flagging it after CDO process complete */
 	if (Cdo.DeferredError == (u8)TRUE) {
-#ifdef PLM_DEBUG_MODE
-		Status = XLoader_DumpDdrmcRegisters();
-#else
-		XPlmi_Printf(DEBUG_GENERAL, "\033\[1m Error: DDR Calibration "
-			 "failed!! Enable PLM_DEBUG_MODE for more information "
-			 "including DDR dump.\033\[0m\n\r");
-#endif
-
-		Status = XPlmi_UpdateStatus(
-			XLOADER_ERR_DEFERRED_CDO_PROCESS, Status);
+		Status = XLoader_ProcessDeferredError();
 		goto END;
 	}
 	Status = XST_SUCCESS;
@@ -860,7 +560,6 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	u64 CopyToMemAddr = PdiPtr->CopyToMemAddr;
 	/* Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
-	u32 RstReason;
 
 	/* Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
@@ -964,24 +663,13 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	 */
 	PrtnParams.DeviceCopy.Len -= SecureParams.ProcessedLen;
 
-	/* MJTAG workaround partition */
-	if (PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID ==
-			PM_MISC_MJTAG_WA_IMG) {
-		RstReason = XPlmi_In32(PMC_GLOBAL_PERS_GEN_STORAGE2);
-		/*
-		 * Skip MJTAG WA2 partitions if boot mode is JTAG and
-		 * Reset Reason is not external POR
-		 */
-		if ((PdiPtr->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
-			(((RstReason & PERS_GEN_STORAGE2_ACC_RR_MASK) >>
-					CRP_RESET_REASON_SHIFT) !=
-				CRP_RESET_REASON_EXT_POR_MASK)) {
-			/* Just copy the partitions to PMC RAM and skip processing */
-			PrtnParams.DeviceCopy.DestAddr = XPLMI_PMCRAM_BASEADDR;
-			Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
-			XPlmi_Printf(DEBUG_GENERAL, "Skipping MJTAG partition\n\r");
-			goto END;
-		}
+	/* Skip MJTAG workaround partition for versal */
+	if (XLoader_SkipMJtagWorkAround(PdiPtr) == (u8)TRUE) {
+		/* Just copy the partitions to PMC RAM and skip processing */
+		PrtnParams.DeviceCopy.DestAddr = XPLMI_PMCRAM_BASEADDR;
+		Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
+		XPlmi_Printf(DEBUG_GENERAL, "Skipping MJTAG partition\n\r");
+		goto END;
 	}
 
 	if (PrtnType == XIH_PH_ATTRB_PRTN_TYPE_CDO) {
@@ -1007,221 +695,6 @@ END:
 	}
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
 		PdiPtr->MetaHdr.FlashOfstAddr = OfstAddr;
-	}
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function updates the load address based on the
- * destination CPU.
- *
- * @param	DstnCpu is destination CPU
- * @param	LoadAddrPtr is the destination load address pointer
- * @param	Len is the length of the partition
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
-{
-	int Status = XST_FAILURE;
-	u64 Address = *LoadAddrPtr;
-	u32 Offset = 0U;
-
-	if (((Address < (XLOADER_R5_TCMA_LOAD_ADDRESS +
-			XLOADER_R5_TCM_BANK_LENGTH)) ||
-			((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&
-			(Address < (XLOADER_R5_TCMB_LOAD_ADDRESS +
-				XLOADER_R5_TCM_BANK_LENGTH))))) {
-		if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) {
-			Offset = XLOADER_R5_0_TCMA_BASE_ADDR;
-		}
-		else if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1) {
-			Offset = XLOADER_R5_1_TCMA_BASE_ADDR;
-		}
-		else {
-			/* MISRA-C compliance */
-		}
-
-		if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_0) ||
-			(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1)) {
-			if (((Address % XLOADER_R5_TCM_BANK_LENGTH) + Len) >
-				XLOADER_R5_TCM_BANK_LENGTH) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
-				goto END;
-			}
-		}
-	}
-
-	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
-		(Address < XLOADER_R5_TCM_TOTAL_LENGTH)) {
-		if (((Address % XLOADER_R5_TCM_TOTAL_LENGTH) + Len) >
-			XLOADER_R5_TCM_TOTAL_LENGTH) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
-			goto END;
-		}
-		Offset = XLOADER_R5_0_TCMA_BASE_ADDR;
-	}
-
-	/*
-	 * Update the load address
-	 */
-	Address += Offset;
-	*LoadAddrPtr = Address;
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-
-#ifdef PLM_DEBUG_MODE
-/*****************************************************************************/
-/**
- * @brief	This function prints DDRMC register details.
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-static int XLoader_DumpDdrmcRegisters(void)
-{
-	int Status = XST_FAILURE;
-	u32 PcsrStatus;
-	u32 CalibErr;
-	u32 CalibErrNibble1;
-	u32 CalibErrNibble2;
-	u32 CalibErrNibble3;
-	u32 CalibStage;
-	u32 PcsrCtrl;
-	u32 DevId;
-	u8 Ub = 0U;
-	u32 BaseAddr;
-
-	XPlmi_Printf(DEBUG_GENERAL,"====DDRMC Register Dump Start======\n\r");
-
-	Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
-	if (XST_SUCCESS != Status) {
-		XPlmi_Printf(DEBUG_GENERAL,
-				"Error  0x%0x in requesting DDR.\n\r", Status);
-		goto END;
-	}
-
-	for (DevId = PM_DEV_DDRMC_0; DevId <= PM_DEV_DDRMC_3; DevId++) {
-		/* Get DDRMC UB Base address */
-		Status = XPm_GetDeviceBaseAddr(DevId, &BaseAddr);
-		if (XST_SUCCESS != Status) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Error 0x%0x in getting DDRMC_%u addr\n",
-				Status, Ub);
-			goto END;
-		}
-
-		XPlmi_Printf(DEBUG_GENERAL,
-				"DDRMC_%u (UB 0x%08x)\n\r", Ub, BaseAddr);
-
-		/* Read PCSR Control */
-		PcsrCtrl = XPlmi_In32(BaseAddr + DDRMC_PCSR_CONTROL_OFFSET);
-
-		/* Skip DDRMC dump if PComplete is zero */
-		if (0U == (PcsrCtrl & DDRMC_PCSR_CONTROL_PCOMPLETE_MASK)) {
-			XPlmi_Printf(DEBUG_GENERAL, "PComplete not set\n\r");
-			++Ub;
-			continue;
-		}
-
-		/* Read PCSR Status */
-		PcsrStatus = XPlmi_In32(BaseAddr + DDRMC_PCSR_STATUS_OFFSET);
-		/* Read Calibration Error */
-		CalibErr = XPlmi_In32(BaseAddr + DDRMC_OFFSET_CALIB_ERR);
-		/* Read Error Nibble 1 */
-		CalibErrNibble1 = XPlmi_In32(BaseAddr +
-				DDRMC_OFFSET_CALIB_ERR_NIBBLE_1);
-		/* Read Error Nibble 2 */
-		CalibErrNibble2 = XPlmi_In32(BaseAddr +
-				DDRMC_OFFSET_CALIB_ERR_NIBBLE_2);
-		/* Read Error Nibble 3 */
-		CalibErrNibble3 = XPlmi_In32(BaseAddr +
-				DDRMC_OFFSET_CALIB_ERR_NIBBLE_3);
-		/* Read calibration stage */
-		CalibStage = XPlmi_In32(BaseAddr +
-				DDRMC_OFFSET_CALIB_STAGE_PTR);
-
-		XPlmi_Printf(DEBUG_GENERAL,
-				"PCSR Control: 0x%0x\n\r", PcsrCtrl);
-		XPlmi_Printf(DEBUG_GENERAL,
-				"PCSR Status: 0x%0x\n\r", PcsrStatus);
-		XPlmi_Printf(DEBUG_GENERAL,
-				"Calibration Error: 0x%0x\n\r", CalibErr);
-		XPlmi_Printf(DEBUG_GENERAL,
-				"Nibble Location 1: 0x%0x\n\r",
-				CalibErrNibble1);
-		XPlmi_Printf(DEBUG_GENERAL,
-				"Nibble Location 2: 0x%0x\n\r",
-				CalibErrNibble2);
-		XPlmi_Printf(DEBUG_GENERAL,
-				"Nibble Location 3: 0x%0x\n\r",
-				CalibErrNibble3);
-		XPlmi_Printf(DEBUG_GENERAL,
-				"Calibration Stage: 0x%0x\n\r", CalibStage);
-		++Ub;
-	}
-	XPlmi_Printf(DEBUG_GENERAL, "PMC Interrupt Status : 0x%0x\n\r",
-			XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS));
-	XPlmi_Printf(DEBUG_GENERAL, "====DDRMC Register Dump End======\n\r");
-
-END:
-	return Status;
-}
-#endif
-
-/*****************************************************************************/
-/**
- * @brief	This function requests TCM_0_A, TCM_0_B, TCM_1_A and TCM_1_B
- * depending upon input param and R5-0 and R5-1 cores as required for TCMs.
- *
- * @param	TcmId denotes TCM_0 or TCM_1
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-static int XLoader_RequestTCM(u8 TcmId)
-{
-	int Status = XST_FAILURE;
-	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
-	u32 CapContext = (u32)PM_CAP_CONTEXT;
-	u32 ErrorCode;
-
-	if (TcmId == XLOADER_TCM_0) {
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_0_A,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (Status != XST_SUCCESS) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_A;
-			goto END;
-		}
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_0_B,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_B;
-	}
-	else if (TcmId == XLOADER_TCM_1) {
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_A,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		if (Status != XST_SUCCESS) {
-			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_A;
-			goto END;
-		}
-
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_B,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
-			XPLMI_CMD_SECURE);
-		ErrorCode = (u32)XLOADER_ERR_PM_DEV_TCM_1_B;
-	}
-
-END:
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, 0);
 	}
 	return Status;
 }

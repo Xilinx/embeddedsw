@@ -23,6 +23,7 @@
 * 1.02   bsv 08/31/2021 Code clean up
 * 1.03   ma  01/17/2022 Enable SLVERR for USB registes
 *        bsv 01/21/2022 Reduce stack usage
+* 1.04   bm  07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -40,6 +41,7 @@
 #include "xpm_nodeid.h"
 #include "xplmi.h"
 #include "xloader_ddr.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions ****************************/
 #define XLOADER_USB_DEVICE_ID		(XPAR_XUSBPSU_0_DEVICE_ID)

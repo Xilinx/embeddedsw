@@ -83,6 +83,7 @@
 *       har  02/17/22 Updated code to limit number of attempts to enable JTAG
 *                     when efuse bits are set
 * 1.04  skg  06/20/22 Fixed MISRA C Rule 10.3 violation
+*       bm   07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -108,6 +109,8 @@
 #include "xplmi_modules.h"
 #include "xplmi_scheduler.h"
 #include "xsecure_init.h"
+#include "xloader_plat_secure.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -888,40 +891,6 @@ ERR_END:
 	}
 END:
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function updates KEK red key availability status from
- * boot header.
- *
- * @param	PdiPtr is pointer to the XilPdi instance.
- *
- * @return	None.
- *
- ******************************************************************************/
-void XLoader_UpdateKekSrc(XilPdi *PdiPtr)
-{
-	PdiPtr->KekStatus = 0x0U;
-
-	XPlmi_Printf(DEBUG_INFO, "Identifying KEK's corresponding RED "
-			"key availability status\n\r");
-	switch(PdiPtr->MetaHdr.BootHdrPtr->EncStatus) {
-	case XLOADER_BH_BLK_KEY:
-		PdiPtr->KekStatus = XLOADER_BHDR_RED_KEY;
-		break;
-	case XLOADER_BBRAM_BLK_KEY:
-		PdiPtr->KekStatus = XLOADER_BBRAM_RED_KEY;
-		break;
-	case XLOADER_EFUSE_BLK_KEY:
-		PdiPtr->KekStatus = XLOADER_EFUSE_RED_KEY;
-		break;
-	default:
-		/* No KEK is available for PLM */
-		break;
-	}
-	XPlmi_Printf(DEBUG_DETAILED, "KEK red key available after "
-			"for PLM %x\n\r", PdiPtr->KekStatus);
 }
 
 /*****************************************************************************/
@@ -2205,6 +2174,9 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		Status = XST_SUCCESS;
 		break;
 	default:
+		/* Aes Obfuscated Key is applicable only for versal_net */
+		Status = XLoader_AesObfusKeySelect(KeyDetails->PdiKeySrc,
+				*KekStatus, KeySrc);
 		break;
 	}
 	if (DecryptBlkKey == (u8)TRUE) {

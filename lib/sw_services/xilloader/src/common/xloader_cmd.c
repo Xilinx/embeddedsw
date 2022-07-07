@@ -58,6 +58,7 @@
 * 1.08  bsv  06/10/2022 Add CommandInfo to a separate section in elf
 *       skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
 *       ma   06/21/2022 Add support for Get Handoff Parameters IPI command
+*       bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -79,6 +80,8 @@
 #include "xpm_nodeid.h"
 #include "xil_util.h"
 #include "xloader_ddr.h"
+#include "xplmi_plat.h"
+#include "xloader_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -151,7 +154,6 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_IMG_HDR_TBL_EXPORT_MASK0	(0x00021F7FU)
 #define XLOADER_IMG_HDR_EXPORT_MASK0	(0x00003FFBU)
 #define XLOADER_PRTN_HDR_EXPORT_MASK0	(0x00001DFFU)
-#define XLOADER_DDR_LOW_END_ADDR	(0x7FFFFFFFU)
 
 /* Command related macros */
 #define XLOADER_SET_IMAGE_INFO_CMD_ID		(4U)
@@ -487,8 +489,7 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 			XLOADER_CMD_MULTIBOOT_PDISRC_SHIFT);
 	ImageLocation = Cmd->Payload[XLOADER_CMD_MULTIBOOT_IMG_LOCATION_INDEX];
 
-	if ((PdiSrc == XLOADER_PDI_SRC_SD0) || (PdiSrc == XLOADER_PDI_SRC_SD1)
-		|| (PdiSrc == XLOADER_PDI_SRC_SD1_LS)) {
+	if (XLoader_IsPdiSrcSD(PdiSrc) == (u8)TRUE) {
 		if (FlashType == XLOADER_FLASHTYPE_RAW) {
 			RawBootVal = XLOADER_SD_RAWBOOT_VAL;
 		}
@@ -507,7 +508,6 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 		}
 		else if (FlashType == XLOADER_FLASHTYPE_FS) {
 			RawBootVal = XLOADER_SD_FILE_SYSTEM_VAL;
-
 		}
 		else if (FlashType == XLOADER_FLASHTYPE_RAW_BP1) {
 			RawBootVal = XLOADER_EMMC_BP1_RAW_VAL;
@@ -752,9 +752,11 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
 		MetaHdrOfst = SrcAddr + (u64)XPlmi_In64(SrcAddr +
 				XIH_BH_META_HDR_OFFSET);
-		if ((MetaHdrOfst > XLOADER_DDR_LOW_END_ADDR) &&
-			(MetaHdrOfst <= (u64)XPAR_PSV_OCM_RAM_0_S_AXI_HIGHADDR)) {
-			Status = XLOADER_ERR_INVALID_METAHEADER_OFFSET;
+
+		Status = XPlmi_VerifyAddrRange(MetaHdrOfst, MetaHdrOfst +
+				(XPLMI_WORD_LEN - 1U));
+		if (Status != XST_SUCCESS) {
+			Status = (int)XLOADER_ERR_INVALID_METAHEADER_OFFSET;
 			goto END;
 		}
 	}
@@ -966,6 +968,9 @@ static XPlmi_Module XPlmi_Loader =
 	XLoader_Cmds,
 	XPLMI_ARRAY_SIZE(XLoader_Cmds),
 	XLoader_CheckIpiAccess,
+#ifdef VERSAL_NET
+	NULL
+#endif
 };
 
 /*****************************************************************************/

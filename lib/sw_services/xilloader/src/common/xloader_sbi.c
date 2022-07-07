@@ -32,6 +32,7 @@
 *       bsv  08/31/2021 Code clean up
 * 1.05  bsv  11/08/2021 Skip SbiRecovery for SMAP and PCIe boot modes
 *       ma   01/17/2022 Enable SLVERR for SLAVE_BOOT registers
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *
 * </pre>
 *
@@ -47,6 +48,7 @@
 #include "xloader_sbi.h"
 #include "xplmi.h"
 #include "xplmi_dma.h"
+#include "xloader_plat.h"
 
 #if defined(XLOADER_SBI)
 /************************** Constant Definitions *****************************/
