@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       kpt  07/05/2022 Added support to update KAT status
 *
 * </pre>
 *
@@ -93,4 +94,21 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr)
 	/* Obfuscated Key is not supported in Versal */
 	return XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, 0U);
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates the KAT status
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance
+ * @param	PlmKatMask is the mask of the KAT that is going to run
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask) {
+	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
+		XLoader_UpdatePpdiKatStatus(SecurePtr, PlmKatMask);
+	}
+}
+
 #endif /* END OF PLM_SECURE_EXCLUDE */

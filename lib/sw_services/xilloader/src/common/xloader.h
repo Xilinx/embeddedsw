@@ -96,6 +96,7 @@
 *       sk   06/24/2022 Removed bit field from XLoader_ImageInfoTbl to avoid
 *                       compiler or portability issues
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       kpt  07/05/22 Added PpdiKatStatus for partial pdi KAT
 *
 * </pre>
 *
@@ -318,6 +319,7 @@ typedef struct {
 #ifndef PLM_SECURE_EXCLUDE
 	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
 	u32 KekStatus; /**< KEK status flag */
+	u32 PpdiKatStatus; /**< PPDI Known Answer Test Status */
 #endif
 } XilPdi;
 

@@ -15,6 +15,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- --------   -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       kpt  07/07/2022 Added support to update KAT status
 *
 * </pre>
 *
@@ -36,6 +37,9 @@ extern "C" {
 #ifndef PLM_SECURE_EXCLUDE
 
 /************************** Constant Definitions *****************************/
+
+#define XLOADER_EFUSE_CACHE_FIPS (0xF1250234U)
+#define XLOADER_EFUSE_FIPS_MODE_SHIFT (26U)
 
 /**************************** Type Definitions *******************************/
 typedef enum {
@@ -127,6 +131,7 @@ typedef enum {
 /************************** Function Prototypes ******************************/
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
+u8 XLoader_IsFipsModeEn(void);
 
 /************************** Variable Definitions *****************************/
 

@@ -45,6 +45,7 @@
 *                     macro XLOADER_AUTH_FAIL_COUNTER_RST_VALUE
 *       bsv  03/18/22 Fix build issues when PLM_SECURE_EXCLUDE is enabled
 * 1.03  bm   07/06/22 Refactor versal and versal_net code
+*       kpt  07/05/2022 Added support to update KAT status
 *
 * </pre>
 *
@@ -101,6 +102,8 @@ extern "C" {
 #define XLOADER_AES_KAT_MASK		(0x00000080U)
 #define XLOADER_DPACM_KAT_MASK		(0x00000100U)
 #define XLOADER_ECC_P521_KAT_MASK		(0x00000400U)
+#define XLOADER_PPDI_KAT_MASK		(0x03U)
+
 /** @} */
 
 #define XLOADER_SPK_SIZE		(XSECURE_RSA_4096_KEY_SIZE + \
@@ -528,6 +531,11 @@ int XLoader_AuthEncClear(void);
 int XLoader_GetKatStatus(XilPdi *PdiPtr);
 int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
+void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
+void XLoader_SetKatStatus(u32 PlmKatStatus);
+void XLoader_ClearKatStatus(u32 *PlmKatStatus, u32 PlmKatMask);
+void XLoader_UpdatePpdiKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
+
 #endif
 
 #ifdef __cplusplus
