@@ -130,6 +130,7 @@
 *       ma   06/21/2022 Add support for Get Handoff Parameters IPI command
 *       bsv  07/06/2022 Added support to read Optional Data in slave boot modes
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       kpt  07/05/22 Added support to update KAT status
 *
 * </pre>
 *
@@ -534,6 +535,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 				(int)XLOADER_ERR_MEMSET_SECURE_PTR);
 		goto END;
 	}
+
+	/* Update KAT status */
+	XLoader_UpdateKatStatus(&SecureParams, 0U);
 
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		/* Update KEK red key availability status */
