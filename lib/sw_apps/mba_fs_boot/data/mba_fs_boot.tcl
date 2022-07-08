@@ -82,7 +82,12 @@ proc get_eram_config { fp } {
 		set ip_name [get_ipname $mem];
 	}
 	switch -exact $ip_name {
-		"ddr4" -
+		"ddr4" {
+                        set eram_start [common::get_property CONFIG.C0_DDR4_MEMORY_MAP_BASEADDR \
+                                        [hsi::get_cells -hier $mem]];
+                        set eram_end [format 0x%x [expr [common::get_property CONFIG.C0_DDR4_MEMORY_MAP_HIGHADDR \
+                                        [hsi::get_cells -hier $mem ]] + 1]];
+                       }
 		"ddr3" -
 		"mig" -
 		"mig_7series" {
