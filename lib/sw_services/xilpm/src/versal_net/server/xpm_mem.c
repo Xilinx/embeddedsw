@@ -90,11 +90,11 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 	switch (Type) {
 	case (u32)XPM_NODETYPE_DEV_DDR:
 		/*TBD: add DDR FSM */
-		MemDevice->Device.DeviceFsm = NULL;
+		MemDevice->Device.DeviceFsm = &XPmMemDeviceFsm;
 		break;
 	case (u32)XPM_NODETYPE_DEV_TCM:
 		/*TBD: add tcmfsm */
-		MemDevice->Device.DeviceFsm = NULL;
+		MemDevice->Device.DeviceFsm = &XPmMemDeviceFsm;
 		break;
 	default:
 		MemDevice->Device.DeviceFsm = &XPmMemDeviceFsm;
