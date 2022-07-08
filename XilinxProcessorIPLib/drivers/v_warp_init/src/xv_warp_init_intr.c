@@ -7,7 +7,7 @@
 /**
  *
  * @file xv_warp_init_intr.c
- * @addtogroup v_warp_init_v1_2
+ * @addtogroup v_warp_init_v1_3
  * @{
  *
  * The functions in this file provides interrupt handler and associated
