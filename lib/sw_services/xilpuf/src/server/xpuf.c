@@ -48,6 +48,7 @@
 *       kpt  03/23/2022 Added code to change IRO frequency to 320MHZ when IRO frequency
 *                       is 400MHZ to make PUF work at nominal voltage
 * 1.6   har  06/09/2022 Added support for Versal_net
+*                       Removed support for 12K mode
 *
 * </pre>
 *
@@ -226,7 +227,6 @@ int XPuf_Registration(XPuf_Data *PufData)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	volatile u32 MaxSyndromeSizeInWords;
 	u32 Idx = 0U;
 	u8 IroFreqUpdated = FALSE;
 
@@ -259,20 +259,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 
 	XPuf_CfgGlobalVariationFilter(PufData->GlobalVarFilter);
 
-	if (XPUF_SYNDROME_MODE_4K == PufData->RegMode) {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
-			XPUF_CFG1_INIT_VAL_4K);
-		MaxSyndromeSizeInWords = XPUF_4K_PUF_SYN_LEN_IN_WORDS;
-	}
-	else if (XPUF_SYNDROME_MODE_12K == PufData->RegMode) {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
-			XPUF_CFG1_INIT_VAL_12K);
-		MaxSyndromeSizeInWords = XPUF_12K_PUF_SYN_LEN_IN_WORDS;
-	}
-	else {
-		Status = XPUF_ERROR_INVALID_SYNDROME_MODE;
-		goto END;
-	}
+	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
+		XPUF_CFG1_INIT_VAL_4K);
 
 	/**
 	 * Update shutter value for PUF registration
@@ -288,23 +276,13 @@ int XPuf_Registration(XPuf_Data *PufData)
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
 		XPUF_CMD_REGISTRATION);
 
-	/**
-	 * Recheck MaxSyndromeSizeInWords before use to avoid overflow
-	 */
-	if (XPUF_SYNDROME_MODE_4K == PufData->RegMode) {
-		MaxSyndromeSizeInWords = XPUF_4K_PUF_SYN_LEN_IN_WORDS;
-	}
-	else {
-		MaxSyndromeSizeInWords = XPUF_12K_PUF_SYN_LEN_IN_WORDS;
-	}
-
 	Status = XST_FAILURE;
 
 	/**
 	 * PUF helper data includes Syndrome data, CHash and Auxillary data.
 	 * Capturing Syndrome data word by word
 	 */
-	for (Idx = 0; Idx < MaxSyndromeSizeInWords; Idx++) {
+	for (Idx = 0; Idx < XPUF_4K_PUF_SYN_LEN_IN_WORDS; Idx++) {
 		Status = XPuf_WaitForPufSynWordRdy();
 		if (Status != XST_SUCCESS) {
 			Status = XPUF_ERROR_SYNDROME_WORD_WAIT_TIMEOUT;
@@ -318,7 +296,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 * Once complete Syndrome data is captured and PUF operation is done,
 	 * read CHash, Auxillary data and PUF ID
 	 */
-	if (Idx == MaxSyndromeSizeInWords) {
+	if (Idx == XPUF_4K_PUF_SYN_LEN_IN_WORDS) {
 		Status = XST_FAILURE;
 		Status  = XPuf_WaitForPufDoneStatus();
 		if (Status != XST_SUCCESS) {
@@ -424,14 +402,8 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 
 	XPuf_CfgGlobalVariationFilter(PufData->GlobalVarFilter);
 
-	if (XPUF_SYNDROME_MODE_4K == PufData->RegMode) {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
-			XPUF_CFG1_INIT_VAL_4K);
-	}
-	else {
-		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
-			XPUF_CFG1_INIT_VAL_12K);
-	}
+	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
+		XPUF_CFG1_INIT_VAL_4K);
 
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 		PufData->ShutterValue);
@@ -536,8 +508,6 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
  *	-	XPUF_ERROR_REGISTRATION_INVALID  - PUF registration is not allowed
  *	-	XPUF_ERROR_REGENERATION_INVALID  - PUF regeneration is not allowed
  *	-	XPUF_ERROR_REGEN_PUF_HD_INVALID  - PUF HD in eFUSE id invalidated
- *	-	XPUF_ERROR_INVALID_SYNDROME_MODE - If regeneration from eFUSE cache
- *			is selected with 12K syndrome mode
  *	-	XPUF_ERROR_INVALID_PUF_OPERATION - In case of invalid PUF operation
  *	-	XST_FAILURE - Unexpected event
  *
@@ -571,10 +541,6 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 			else if((PufData->ReadOption == XPUF_READ_FROM_EFUSE_CACHE) &&
 				((PufEccCtrlValue & XPUF_PUF_HD_INVLD) == XPUF_PUF_HD_INVLD)) {
 				Status = XPUF_ERROR_REGEN_PUF_HD_INVALID;
-			}
-			else if((PufData->ReadOption == XPUF_READ_FROM_EFUSE_CACHE) &&
-				(PufData->RegMode == XPUF_SYNDROME_MODE_12K)) {
-				Status = XPUF_ERROR_INVALID_SYNDROME_MODE;
 			}
 			else {
 				Status = XST_SUCCESS;

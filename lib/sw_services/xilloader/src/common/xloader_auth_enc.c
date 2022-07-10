@@ -2637,7 +2637,6 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "Decrypting PUF KEK\n\r");
-	PufData->RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData->ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData->PufOperation = XPUF_REGEN_ON_DEMAND;
 	PufData->GlobalVarFilter = (u8)(PufData->ShutterValue >>

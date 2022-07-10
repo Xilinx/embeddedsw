@@ -115,7 +115,6 @@ static int XPuf_PufRegistration(u32 AddrLow, u32 AddrHigh) {
 	}
 
 	PufData.ShutterValue = PufDataAddr.ShutterValue;
-	PufData.RegMode = PufDataAddr.RegMode;
 	PufData.PufOperation = PufDataAddr.PufOperation;
 	PufData.GlobalVarFilter = PufDataAddr.GlobalVarFilter;
 
@@ -180,7 +179,6 @@ static int XPuf_PufRegeneration(u32 AddrLow, u32 AddrHigh) {
 	}
 
 	PufData.ShutterValue = PufDataAddr.ShutterValue;
-	PufData.RegMode = PufDataAddr.RegMode;
 	PufData.PufOperation = PufDataAddr.PufOperation;
 	PufData.GlobalVarFilter = PufDataAddr.GlobalVarFilter;
 	PufData.ReadOption = (XPuf_ReadOption)PufDataAddr.ReadOption;

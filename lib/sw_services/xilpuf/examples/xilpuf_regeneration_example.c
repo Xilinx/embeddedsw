@@ -92,7 +92,6 @@ int main(void)
 	XPuf_Data PufData;
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
-	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData.PufOperation = XPUF_REGEN_OPTION;
 	PufData.ReadOption = XPUF_READ_HD_OPTION;
 	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
