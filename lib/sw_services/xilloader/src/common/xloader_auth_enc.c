@@ -85,6 +85,7 @@
 * 1.04  skg  06/20/22 Fixed MISRA C Rule 10.3 violation
 *       bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/07/22 Added support to update KAT status
+*       bsv  07/08/22 Changes related to Optional data in Image header table
 *
 * </pre>
 *
@@ -679,7 +680,8 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 	}
 
 	Status = XST_FAILURE;
-	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)ImgHdrTbl, XIH_IHT_LEN,
+	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)XILPDI_PMCRAM_IHT_COPY_ADDR,
+		(ImgHdrTbl->OptionalDataLen << XPLMI_WORD_LEN_SHIFT) + XIH_IHT_LEN,
 		&Sha3Hash);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IHT_HASH_CALC_FAIL, Status);
@@ -2526,7 +2528,8 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	}
 
 	Status = XSecure_AesUpdateAad(SecurePtr->AesInstPtr,
-		(UINTPTR)&(MetaHdr->ImgHdrTbl), XIH_IHT_LEN);
+		(UINTPTR)XILPDI_PMCRAM_IHT_COPY_ADDR, XIH_IHT_LEN +
+		(MetaHdr->ImgHdrTbl.OptionalDataLen << XPLMI_WORD_LEN_SHIFT));
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "Updating Image header Table as AAD "
 			"failed during secure header decryption\n\r");
