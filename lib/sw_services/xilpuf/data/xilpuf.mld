@@ -19,7 +19,7 @@ BEGIN LIBRARY xilpuf
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpuf,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx PUF Library provides interface for registration and regeneration";
-  OPTION VERSION = 1.7;
+  OPTION VERSION = 1.6;
   OPTION NAME = xilpuf;
   PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilPuf library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
   PARAM name = cache_disable, desc = "Enables/Disables Cache", type = bool, default = true;
