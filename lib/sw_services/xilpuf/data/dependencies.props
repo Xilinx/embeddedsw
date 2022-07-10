@@ -9,3 +9,4 @@ xilpuf_example.c = xilpuf_example.h
 xilpuf_regeneration_client_example.c = NULL
 xilpuf_enc_dec_data_client_example.c = NULL
 xilpuf_client_example.c = xilpuf_example.h
+xilpuf_versal_net_example.c = xilpuf_versal_net_example.h
