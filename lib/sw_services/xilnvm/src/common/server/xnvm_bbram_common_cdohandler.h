@@ -6,11 +6,11 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_bbarm_ipihandler.h
-* @addtogroup xnvm_apis XilNvm Versal APIs
+* @file xnvm_bbarm_common_cdohandler.h
+* @addtogroup xnvm_apis XilNvm Versal Common BBRAM APIs
 * @{
 * @cond xnvm_internal
-* This file contains the xilnvm BBRAM IPI handler declaration.
+* This file contains the xilnvm BBRAM common cdo handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,8 +27,8 @@
 *
 ******************************************************************************/
 
-#ifndef XNVM_BBRAM_IPIHANDLER_H_
-#define XNVM_BBRAM_IPIHANDLER_H_
+#ifndef XNVM_BBRAM_COMMON_CDOHANDLER_H_
+#define XNVM_BBRAM_COMMON_CDOHANDLER_H_
 
 #ifdef __cplusplus
 extern "c" {
@@ -41,7 +41,7 @@ extern "c" {
 #include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
-int XNvm_BbramIpiHandler(XPlmi_Cmd *Cmd);
+int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd);
 
 #endif /* PLM_NVM */
 
@@ -49,4 +49,4 @@ int XNvm_BbramIpiHandler(XPlmi_Cmd *Cmd);
 }
 #endif
 
-#endif /* XNVM_BBRAM_IPIHANDLER_H_ */
+#endif /* XNVM_BBRAM_COMMON_CDOHANDLER_H_ */

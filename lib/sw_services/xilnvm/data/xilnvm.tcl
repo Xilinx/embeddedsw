@@ -23,12 +23,20 @@ proc nvm_drc {libhandle} {
 	set os_type [hsi::get_os];
 
 	set versal_dir "./src/versal"
+	set versal_net_dir    "./src/versal_net"
+	set versal_family_dir "./src/common"
+
 	set versal_client_dir "$versal_dir/client"
 	set versal_server_dir "$versal_dir/server"
 	set versal_common_dir "$versal_dir/common"
-	set common_dir "./src/common"
-	set common_client_dir "$common_dir/client"
-	set common_server_dir "$common_dir/server"
+
+	set versal_net_client_dir "$versal_net_dir/client"
+	set versal_net_server_dir "$versal_net_dir/server"
+	set versal_net_common_dir "$versal_net_dir/common"
+
+	set family_common_client_dir "$versal_family_dir/client"
+	set family_common_server_dir "$versal_family_dir/server"
+	set family_common_dir "$versal_family_dir/common"
 
 	if {$proc_type != "psu_pmc" && $proc_type != "psu_cortexa72" && \
 	    $proc_type != "psv_pmc" && $proc_type != "psv_cortexa72" && \
@@ -57,41 +65,58 @@ proc nvm_drc {libhandle} {
 
 	switch $proc_type {
 		"psu_pmc" -
-		"psv_pmc" -
-		"psxl_pmc" -
-		"psx_pmc" {
-			copy_files_to_src $common_server_dir
+		"psv_pmc" {
+			copy_files_to_src $family_common_server_dir
 			copy_files_to_src $versal_server_dir
 			copy_files_to_src $versal_common_dir
-                }
+		}
+
+		"psxl_pmc" -
+		"psx_pmc" {
+			copy_files_to_src $family_common_server_dir
+			copy_files_to_src $versal_net_server_dir
+			copy_files_to_src $versal_net_common_dir
+
+		}
 
 		"psu_cortexa72" -
 		"psv_cortexa72" -
-		"psxl_cortexa78" -
-		"psx_cortexa78" -
-		"psxl_cortexr52" -
-		"psx_cortexr52" -
 		"psv_cortexr5" -
                 "microblaze" {
 			if {$mode == "server"} {
-				copy_files_to_src $common_server_dir
+				copy_files_to_src $family_common_server_dir
 				copy_files_to_src $versal_server_dir
 				copy_files_to_src $versal_common_dir
 			} else {
-				copy_files_to_src $common_client_dir
+				copy_files_to_src $family_common_client_dir
 				copy_files_to_src $versal_client_dir
 				copy_files_to_src $versal_common_dir
 			}
-                }
-        }
+		}
+
+		"psxl_cortexr52" -
+		"psxl_cortexa78" -
+		"psx_cortexr52" -
+		"psx_cortexa78" {
+			if {$mode == "server"} {
+				copy_files_to_src $family_common_server_dir
+				copy_files_to_src $versal_net_server_dir
+				copy_files_to_src $versal_net_common_dir
+			} else {
+				copy_files_to_src $family_common_client_dir
+				copy_files_to_src $versal_net_client_dir
+				copy_files_to_src $versal_net_common_dir
+			}
+		}
+	}
 
 	if {$mode == "server"} {
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 			$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
 			$proc_type == "psx_cortexa78" || $proc_type == "psxl_cortexr52" ||
 			$proc_type == "psx_cortexr52"} {
-			file delete -force ./src/xnvm_bbram_ipihandler.c
-			file delete -force ./src/xnvm_bbram_ipihandler.h
+			file delete -force ./src/xnvm_bbram_common_cdohandler.c
+			file delete -force ./src/xnvm_bbram_common_cdohandler.h
 			file delete -force ./src/xnvm_efuse_ipihandler.c
 			file delete -force ./src/xnvm_efuse_ipihandler.h
 			file delete -force ./src/xnvm_cmd.c
@@ -99,6 +124,12 @@ proc nvm_drc {libhandle} {
 			file delete -force ./src/xnvm_init.c
 			file delete -force ./src/xnvm_init.h
 		}
+		if {$proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78" ||
+			$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
+			file delete -force ./src/xnvm_bbram_cdohandler.c
+			file delete -force ./src/xnvm_bbram_cdohandler.h
+		}
+
 	}
 }
 

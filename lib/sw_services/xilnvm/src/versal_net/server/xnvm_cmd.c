@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,19 +8,14 @@
 *
 * @file xnvm_cmd.c
 *
-* This file contains the xilnvm IPI handler implementation.
+* This file contains the xilnvm IPI/CDO handler implementation.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   kal  07/05/2021 Initial release
-*       kal  07/25/2021 Registered eFUSE IPI handlers
-*       kpt  08/27/2021 Added commands to support puf helper data efuse
-*                       programming
-* 2.4   bsv  09/09/2021 Added PLM_NVM macro
-* 2.5   am   02/28/2022 Fixed MISRA C violation rule 4.5
+* 1.0   kal  01/05/2022 Initial release
 *
 * </pre>
 *
@@ -32,14 +27,11 @@
 #include "xplmi_config.h"
 
 #ifdef PLM_NVM
-#include "xplmi_hw.h"
-#include "xplmi.h"
 #include "xplmi_cmd.h"
 #include "xplmi_generic.h"
 #include "xplmi_modules.h"
 #include "xnvm_defs.h"
-#include "xnvm_bbram_common_cdohandler.h"
-#include "xnvm_efuse_ipihandler.h"
+#include "xnvm_bbram_cdohandler.h"
 #include "xnvm_cmd.h"
 
 /************************** Function Prototypes ******************************/
@@ -52,6 +44,7 @@ static XPlmi_Module XPlmi_Nvm =
 	XPLMI_MODULE_XILNVM_ID,
 	XNvm_Cmds,
 	XNVM_API(XNVM_API_MAX),
+	NULL,
 	NULL,
 };
 
@@ -82,26 +75,6 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 	case XNVM_API_ID_BBRAM_WRITE_USER_DATA:
 	case XNVM_API_ID_BBRAM_READ_USER_DATA:
 	case XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA:
-	case XNVM_API_ID_EFUSE_WRITE:
-	case XNVM_API_ID_EFUSE_READ_IV:
-	case XNVM_API_ID_EFUSE_READ_REVOCATION_ID:
-	case XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID:
-	case XNVM_API_ID_EFUSE_READ_USER_FUSES:
-	case XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS:
-	case XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS:
-	case XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS:
-	case XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS:
-	case XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS:
-	case XNVM_API_ID_EFUSE_READ_PPK_HASH:
-	case XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY:
-	case XNVM_API_ID_EFUSE_READ_DNA:
-#ifdef XNVM_ACCESS_PUF_USER_DATA
-	case XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE:
-	case XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE:
-#else
-	case XNVM_API_ID_EFUSE_READ_PUF:
-	case XNVM_API_ID_EFUSE_WRITE_PUF:
-#endif
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -133,38 +106,17 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	switch (Cmd->CmdId & 0xFFU) {
+	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_FEATURES):
 		Status = XNvm_FeaturesCmd(Pload[0]);
-		break;
+                break;
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY):
 	case XNVM_API(XNVM_API_ID_BBRAM_ZEROIZE):
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_USER_DATA):
 	case XNVM_API(XNVM_API_ID_BBRAM_READ_USER_DATA):
 	case XNVM_API(XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA):
-		Status = XNvm_BbramCommonCdoHandler(Cmd);
-		break;
-	case XNVM_API(XNVM_API_ID_EFUSE_WRITE):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_IV):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_REVOCATION_ID):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_USER_FUSES):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_PPK_HASH):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_DNA):
-#ifdef XNVM_ACCESS_PUF_USER_DATA
-	case XNVM_API(XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE):
-#else
-	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
-	case XNVM_API(XNVM_API_ID_EFUSE_READ_PUF):
-#endif
-		Status = XNvm_EfuseIpiHandler(Cmd);
+	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY_FROM_PLOAD):
+		Status = XNvm_BbramCdoHandler(Cmd);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
