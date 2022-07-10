@@ -283,7 +283,6 @@ static int XPuf_GenerateKey(XMailbox *MailboxPtr)
 	}
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
-	PufData.RegMode = XPUF_SYNDROME_MODE_4K;
 	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
 	PufData.PufOperation = XPUF_KEY_GENERATE_OPTION;
 	PufData.ChashAddr = (u64)(UINTPTR)&PufArr.Chash;
