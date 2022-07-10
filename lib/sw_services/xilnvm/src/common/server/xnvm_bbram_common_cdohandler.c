@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_bbram_ipihandler.c
-* @addtogroup xnvm_apis XilNvm Versal APIs
+* @file xnvm_bbram_common_cdohandler.c
+* @addtogroup xnvm_apis XilNvm Versal Common BBRAM APIs
 * @{
 * @cond xnvm_internal
 * This file contains the XilNvm BBRAM IPI Handler definition.
@@ -37,7 +37,7 @@
 
 #ifdef PLM_NVM
 #include "xnvm_bbram.h"
-#include "xnvm_bbram_ipihandler.h"
+#include "xnvm_bbram_common_cdohandler.h"
 #include "xnvm_defs.h"
 #include "xnvm_init.h"
 #include "xnvm_utils.h"
@@ -66,7 +66,7 @@ static int XNvm_BbramLockUsrData(void);
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-int XNvm_BbramIpiHandler(XPlmi_Cmd *Cmd)
+int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
