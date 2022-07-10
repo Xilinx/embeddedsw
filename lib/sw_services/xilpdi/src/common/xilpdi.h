@@ -53,6 +53,7 @@
 * 1.07  kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
 * 1.08  bsv  07/06/2022 Added API to read OptionaData from Metaheader
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       bsv  07/08/2022 Code changes related to Optional data in IHT
 *
 * </pre>
 *
@@ -334,6 +335,10 @@ typedef struct {
 #define XilPdi_Printf(...)
 #endif
 
+#define XILPDI_PMCRAM_IHT_COPY_ADDR	(0xF2004120U) /* IHT Optional data cannot exceed 16 KB */
+#define XILPDI_PMCRAM_IHT_DATA_ADDR	(XILPDI_PMCRAM_IHT_COPY_ADDR + XIH_IHT_LEN)
+#define XILPDI_WORD_LEN_SHIFT		(2U)
+
 /****************************************************************************/
 /**
 * @brief	This function will return the value of Partition Owner field.
@@ -578,7 +583,7 @@ int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ReadOptionalData(XilPdi_MetaHdr * MetaHdrPtr);
+int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr);
 
 /** @} */
 #ifdef __cplusplus

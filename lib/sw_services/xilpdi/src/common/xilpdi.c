@@ -42,6 +42,7 @@
 *       kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
 * 1.08  skd  04/21/2022 Misra-C violation Rule 14.3 fixed
 *       bsv  07/06/2022 Added API to read Optional data from Metaheader
+*       bsv  07/08/2022 Code changes related to Optional data in IHT
 *
 * </pre>
 *
@@ -60,7 +61,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XILPDI_PMC_RAM_BASE_ADDR	(0xF2000000U)
 
 /************************** Function Prototypes ******************************/
 static int XilPdi_ValidateChecksum(const void *Buffer, u32 Len);
@@ -278,7 +278,7 @@ END:
 
 /****************************************************************************/
 /**
-* @brief	This function Reads the optional data in Image Header Table.
+* @brief	This function reads IHT and optional data in Image Header Table.
 *
 * @param	MetaHdrPtr is pointer to MetaHeader table
 *
@@ -286,21 +286,31 @@ END:
 *			Errors as mentioned in xilpdi.h on failure
 *
 *****************************************************************************/
-int XilPdi_ReadOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
+int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
 {
 	int Status = XST_FAILURE;
 
 	/**
+	 * Read the IHT from Metaheader
+	 */
+	Status = Xil_SecureMemCpy((void *)(UINTPTR)XILPDI_PMCRAM_IHT_COPY_ADDR,
+		XIH_IHT_LEN, (const void*)&MetaHdrPtr->ImgHdrTbl, XIH_IHT_LEN);
+	if (XST_SUCCESS != Status) {
+		XilPdi_Printf("Device Copy Failed \n\r");
+		goto END;
+	}
+	/**
 	 * Read the Optinal data from Metaheader
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-		MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst +
-		sizeof(MetaHdrPtr->ImgHdrTbl), XILPDI_PMC_RAM_BASE_ADDR,
-		(MetaHdrPtr->ImgHdrTbl.OptionalDataLen << 2U), 0U);
+		MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst + XIH_IHT_LEN,
+		XILPDI_PMCRAM_IHT_DATA_ADDR,
+		(MetaHdrPtr->ImgHdrTbl.OptionalDataLen << XILPDI_WORD_LEN_SHIFT), 0U);
 	if (XST_SUCCESS != Status) {
 		XilPdi_Printf("Device Copy Failed \n\r");
 	}
 
+END:
 	return Status;
 }
 

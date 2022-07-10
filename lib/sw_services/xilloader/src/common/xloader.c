@@ -131,6 +131,7 @@
 *       bsv  07/06/2022 Added support to read Optional Data in slave boot modes
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/05/22 Added support to update KAT status
+*       bsv  07/08/2022 Code changes related to Optional data in Image header
 *
 * </pre>
 *
@@ -480,14 +481,6 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	XSECURE_TEMPORAL_IMPL(Status, StatusTemp,
 			XilPdi_ValidateImgHdrTbl, &(PdiPtr->MetaHdr.ImgHdrTbl));
 
-	if ((PdiPtr->PdiIndex == XLOADER_SBI_INDEX) &&
-		(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL)) {
-		Status = XilPdi_ReadOptionalData(&PdiPtr->MetaHdr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
 	/*
 	 * Update the PDI ID in the RTC area of PMC RAM
 	 */
@@ -562,6 +555,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		SecureParams.SecureEn = (u8)TRUE;
 		SecureTempParams->SecureEn = (u8)TRUE;
+		Status = XilPdi_ReadIhtAndOptionalData(&PdiPtr->MetaHdr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/* Secure flow is not supported for PDI versions older than v4 */
@@ -612,6 +609,17 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	 * Read and verify image headers and partition headers
 	 */
 	if (SecureParams.SecureEn != (u8)TRUE) {
+		if (PdiPtr->PdiIndex == XLOADER_SBI_INDEX) {
+			/* Source address does not matter in slave boot mode and hence
+			 * making it zero
+			 */
+			Status = PdiPtr->MetaHdr.DeviceCopy(0U, XPLMI_PMCRAM_CHUNK_MEMORY,
+				(PdiPtr->MetaHdr.ImgHdrTbl.OptionalDataLen <<
+				XPLMI_WORD_LEN_SHIFT), 0U);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
 		/* Read IHT and PHT to structures and verify checksum */
 		XPlmi_Printf(DEBUG_INFO, "Reading 0x%x Image Headers\n\r",
 				PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs);
