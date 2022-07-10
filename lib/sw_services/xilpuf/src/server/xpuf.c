@@ -47,6 +47,7 @@
 *       har  03/21/2022 Disabled SLV_ERR for PUF on demand regeneration
 *       kpt  03/23/2022 Added code to change IRO frequency to 320MHZ when IRO frequency
 *                       is 400MHZ to make PUF work at nominal voltage
+* 1.6   har  06/09/2022 Added support for Versal_net
 *
 * </pre>
 *
@@ -61,12 +62,12 @@
 #include "xil_util.h"
 #include "xil_io.h"
 #include "xil_printf.h"
+#include "xpuf_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XPUF_STATUS_WAIT_TIMEOUT		(1000000U)
 				/**< Recommended software timeout is 1 second */
-#define XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT	(31)
-		/**< Shift for Global Variation Filter bit in shutter value */
+
 /********************Macros (Inline function) Definitions*********************/
 #define XPuf_Printf(DebugType, ...)	\
 	if ((DebugType) == (1U)) {xil_printf (__VA_ARGS__);}
@@ -234,13 +235,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	/**
-	 * Error code shall be returned if MSB of PUF shutter value does not
-	 * match with Global Variation Filter option
-	 */
-	if (((PufData->ShutterValue >> XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT) ^
-		PufData->GlobalVarFilter) == TRUE) {
-		Status = XPUF_SHUTTER_GVF_MISMATCH;
+	Status = XPuf_CheckGlobalVariationFilter(PufData);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -283,6 +279,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 		PufData->ShutterValue);
+
+	XPuf_SetRoSwap(PufData);
 
 	/**
 	 * Trigger PUF registration
@@ -395,13 +393,8 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
-	/**
-	 * Error code shall be returned if MSB of PUF shutter value does not
-	 * match with Global Variation Filter option
-	 */
-	if (((PufData->ShutterValue >> XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT) ^
-		PufData->GlobalVarFilter) == TRUE) {
-		Status = XPUF_SHUTTER_GVF_MISMATCH;
+	Status = XPuf_CheckGlobalVariationFilter(PufData);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -452,6 +445,8 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 			GlobalCntrlVal & ~(XPUF_SLVERR_ENABLE_MASK));
 		Reset = TRUE;
 	}
+
+	XPuf_SetRoSwap(PufData);
 
 	Status = XST_FAILURE;
 
