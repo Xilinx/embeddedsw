@@ -61,6 +61,7 @@ extern "C" {
 #define XDSI_TIME4_OFFSET	0x0000005C  /**< Time 4 Offset */
 #define XDSI_LTIME_OFFSET	0x00000060  /**< Total Line Timing Offset */
 #define XDSI_BLLP_TIME_OFFSET	0x00000064  /**< BLLP Time duration Offset */
+#define XDSI_TIME5_OFFSET	0x0000006C  /**< Time 5 Offset */
 
 /** @name Core configuration register masks and shifts
  *
@@ -206,6 +207,17 @@ extern "C" {
 #define XDSI_TIME4_VSA_SHIFT	16	/**< Shift for VSA*/
 #define XDSI_TIME4_VBP_SHIFT	8	/**< Shift for VBP*/
 #define XDSI_TIME4_VFP_SHIFT	0	/**< Shift for VFP*/
+/*@}*/
+
+/** @name Bitmasks and offset of XDSI_TIME5_OFFSET
+ *
+ * This register used to set Extended vertical timing parameters
+ * It stores MSB 8-bits of 16-bit Vertical front porch lines count.
+ * @{
+ */
+#define XDSI_TIME5_VFP_MASK	0x000000FF  /**< Vertical extended timing
+						parameter1 VFP*/
+#define XDSI_TIME5_VFP_SHIFT	0	/**< Shift for VFP*/
 /*@}*/
 
 /** @name Bitmasks and offsets of XDSI_GIER_OFFSET register
