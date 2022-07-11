@@ -42,6 +42,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 * 1.07  ma   11/22/2021 Remove hardcoding of Proc addresses
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
+*       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
 *
 * </pre>
 *
@@ -72,9 +73,6 @@ enum {
 	XPLMI_ERR_READBACK_BUFFER_OVERFLOW, /**< 0x13 */
 };
 
-/* Maximum procs supported */
-#define XPLMI_MAX_PROCS_SUPPORTED	(10U)
-
 /**************************** Type Definitions *******************************/
 typedef struct {
 	u64 DestAddr;
@@ -101,7 +99,7 @@ typedef struct {
 	u8 ProcCount;
 	u8 IsProcMemAvailable;
 	u16 ProcMemSize;
-	XPlmi_ProcData ProcData[XPLMI_MAX_PROCS_SUPPORTED + 1U];
+	XPlmi_ProcData *ProcData;
 } XPlmi_ProcList;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -149,13 +147,20 @@ typedef struct {
 /* Define related to break */
 #define XPLMI_BREAK_LEVEL_MASK			(0xFFU)
 
+/* Proc List types */
+#define XPLMI_PSM_PROC_LIST		(0x0U)
+#define XPLMI_PMC_PROC_LIST		(0x1U)
+
+/* Proc related defines */
+#define XPLMI_PMC_RAM_PROC_ID_MASK	(0x80000000U) /** All procs which need to be
+                    stored in PMC RAM must have MSB set in Proc ID */
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
 int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack);
 int XPlmi_ExecuteProc(u32 ProcId);
 int XPlmi_SetProcList(u32 Address, u16 Size);
-XPlmi_ProcList* XPlmi_GetProcList(void);
+XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType);
 int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags);
 int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level);
 

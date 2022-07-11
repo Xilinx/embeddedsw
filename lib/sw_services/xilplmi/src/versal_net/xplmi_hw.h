@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
 *
 * </pre>
 *
@@ -611,10 +612,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 /*
  * PMC RAM Memory usage:
- * 0xF2000000U to 0xF2010100U - Used by XilLoader to process CDO
+ * 0xF2000000U to 0xF201011FU - Used by XilLoader to process CDO
  * 0xF2014000U to 0xF2014FFFU - Used for PLM Runtime Configuration Registers
- * 0xF2019000U to 0xF201D000U - Used by XilPlmi to store PLM prints
- * 0xF201D000U to 0xF201E000U - Used by XilPlmi to store PLM Trace Events
+ * 0xF2016000U to 0xF2016800U - Used for storing secure lockdown CDO proc data
+ * 0xF2019000U to 0xF201CFFFU - Used by XilPlmi to store PLM prints
+ * 0xF201D000U to 0xF201DFFFU - Used by XilPlmi to store PLM Trace Events
  * 0xF201E000U to 0xF2020000U - Used by XilPdi to get boot Header copied by ROM
  */
 #define XPLMI_PMCRAM_BASEADDR			(0xF2000000U)
@@ -635,6 +637,10 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /* Image Info Table related macros */
 #define XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x1DD00U)
 #define XPLMI_IMAGE_INFO_TBL_BUFFER_LEN		(0x300U)	/* 768B */
+
+/* PMC RAM secure lockdown reserved memory macros */
+#define XPLMI_PMCRAM_PROC_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x16000U)
+#define XPLMI_PMCRAM_PROC_MEMORY_LENGTH		(0x800U)
 
 /*
  * Definitions required from Efuse

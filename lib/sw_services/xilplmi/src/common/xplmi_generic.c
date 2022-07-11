@@ -67,6 +67,8 @@
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 * 1.08  bsv  06/03/2022 Add CommandInfo to a separate section in elf
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
+*       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *
 * </pre>
 *
@@ -117,6 +119,14 @@
 #define XPLMI_BEGIN_OFFSET_STACK_SIZE			(10U)
 #define XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL	(1U)
 
+/* Maximum procs supported */
+#define XPLMI_MAX_PSM_PROCS		(10U)
+#define XPLMI_MAX_PMC_PROCS		(5U)
+
+/* Command related macros */
+#define XPLMI_SCATTER_WRITE_PAYLOAD_LEN			(2U)
+#define XPLMI_SCATTER_WRITE2_PAYLOAD_LEN		(3U)
+
 /************************** Function Prototypes ******************************/
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
@@ -126,6 +136,8 @@ static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
 static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams);
 static int XPlmi_StackPush(u32 *Data);
 static int XPlmi_StackPop(u32 PopLevel, u32 *Data);
+static int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd);
+static int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *****************************/
 static u32 OffsetList[XPLMI_BEGIN_OFFSET_STACK_SIZE] = {0U};
@@ -1478,22 +1490,43 @@ END:
 /**
  * @brief	This function defines ProcList and returns the address of the same
  *
+ * @param   ProcListType is the proc list type if it is stored in PMC or PSM RAM
+ *
  * @return	ProcList is the address of ProcList structure
  *
  *****************************************************************************/
-XPlmi_ProcList* XPlmi_GetProcList(void)
+XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType)
 {
-	static XPlmi_ProcList ProcList = {0U};
+	static XPlmi_ProcList PsmProcList = {0U};
+	static XPlmi_ProcData PsmProcs[XPLMI_MAX_PSM_PROCS + 1U] = {0U};
+	static XPlmi_ProcList PmcProcList = {0U};
+	static XPlmi_ProcData PmcProcs[XPLMI_MAX_PMC_PROCS + 1U] = {0U};
+	XPlmi_ProcList *ProcList = &PsmProcList;
 
-	return &ProcList;
+	PsmProcList.ProcData = PsmProcs;
+	PmcProcList.ProcData = PmcProcs;
+
+	if (ProcListType == XPLMI_PMC_PROC_LIST) {
+		ProcList = &PmcProcList;
+
+		/*
+		 * Initialize first ProcData address of the PmcProcList to the PMC RAM
+		 * reserved address and ProcMemSize with the Max Size allocated
+		 */
+		PmcProcList.ProcData[0U].Addr = XPLMI_PMCRAM_PROC_MEMORY;
+		PmcProcList.ProcMemSize = XPLMI_PMCRAM_PROC_MEMORY_LENGTH;
+		PmcProcList.IsProcMemAvailable = (u8)TRUE;
+	}
+
+	return ProcList;
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function sets the ProcList address to given Address and Size
+ * @brief	This function sets PSM ProcList address to given Address and Size
  *
- * @param	Address is the address of Proc reserved memory
- * @param	Size is the size of Proc reserved memory in bytes
+ * @param	Address is the address of Proc reserved memory for PSM ProcList
+ * @param	Size is the size of Proc reserved memory for PSM ProcList in bytes
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -1501,7 +1534,7 @@ XPlmi_ProcList* XPlmi_GetProcList(void)
 int XPlmi_SetProcList(u32 Address, u16 Size)
 {
 	int Status = XST_FAILURE;
-	XPlmi_ProcList *ProcList = XPlmi_GetProcList();
+	XPlmi_ProcList *ProcList = XPlmi_GetProcList(XPLMI_PSM_PROC_LIST);
 
 	Status = XPlmi_VerifyAddrRange((u64)Address,
 			(u64)(Address + (u32)Size - 1U));
@@ -1509,8 +1542,9 @@ int XPlmi_SetProcList(u32 Address, u16 Size)
 		Status = (int)XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE;
 		goto END;
 	}
+
 	/*
-	 * Initialize first ProcData address to the given Address
+	 * Initialize first ProcData address of PSM ProcList to the given Address
 	 * and ProcMemSize with the given Size
 	 */
 	ProcList->ProcData[0U].Addr = Address;
@@ -1537,19 +1571,30 @@ int XPlmi_ExecuteProc(u32 ProcId)
 	XPlmiCdo ProcCdo;
 	XPlmi_ProcList *ProcList = NULL;
 	u8 ProcIndex = 0U;
+	u8 ProcListType = XPLMI_PSM_PROC_LIST;
 	XPlmi_Printf(DEBUG_GENERAL, "Proc ID received: 0x%x\r\n", ProcId);
 
-	ProcList = XPlmi_GetProcList();
 	/*
-	 * If LPD is not initialized or Proc memory is not available,
-	 * do not execute the proc
+	 * If the ProcId has MSB set, its in PMC RAM memory
 	 */
-	if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
-		(ProcList->IsProcMemAvailable != (u8)TRUE)) {
-		XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory "
-				"is not available, Proc commands cannot be executed\r\n");
-		Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
-		goto END;
+	if ((ProcId & XPLMI_PMC_RAM_PROC_ID_MASK) == XPLMI_PMC_RAM_PROC_ID_MASK) {
+		ProcListType = XPLMI_PMC_PROC_LIST;
+	}
+
+	ProcList = XPlmi_GetProcList(ProcListType);
+
+	if (ProcListType == XPLMI_PSM_PROC_LIST) {
+		/*
+		 * If LPD is not initialized or Proc memory is not available,
+		 * do not execute the proc
+		 */
+		if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
+				(ProcList->IsProcMemAvailable != (u8)TRUE)) {
+			XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory "
+					"is not available, Proc commands cannot be executed\r\n");
+			Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
+			goto END;
+		}
 	}
 
 	ProcList->ProcData[ProcList->ProcCount].Id = ProcId;
@@ -1583,7 +1628,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function copies the proc data to reserved PSM RAM when proc
+ * @brief	This function copies the proc data to reserved PSM/PMC RAM when proc
  *          command is received.
  *
  * @param	Cmd is pointer to the command structure
@@ -1604,24 +1649,34 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 	u32 CmdLenInBytes = (Cmd->Len - 1U) * XPLMI_WORD_LEN;
 	u32 CurrPayloadLen;
 	XPlmi_ProcList *ProcList = NULL;
+	u8 ProcListType = XPLMI_PSM_PROC_LIST;
+	u8 MaxProcs = XPLMI_MAX_PSM_PROCS;
 	XPLMI_EXPORT_CMD(XPLMI_PROC_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 
 	if (Cmd->ProcessedLen == 0U) {
 		ProcId = Cmd->Payload[0U];
-		/* Get the proc list */
-		ProcList = XPlmi_GetProcList();
+		/* Check if the Procs are stored in PSM RAM or PMC RAM */
+		if ((ProcId & XPLMI_PMC_RAM_PROC_ID_MASK) == XPLMI_PMC_RAM_PROC_ID_MASK) {
+			ProcListType = XPLMI_PMC_PROC_LIST;
+			MaxProcs = XPLMI_MAX_PMC_PROCS;
+		}
 
-		/*
-		 * Check if LPD is initialized and ProcList is initialized
-		 * as we are using PSM RAM to store Proc data
-		 */
-		if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
-			(ProcList->IsProcMemAvailable != (u8)TRUE)) {
-			XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory"
-					" is not available, Proc commands cannot be stored\r\n");
-			Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
-			goto END;
+		/* Get the proc list */
+		ProcList = XPlmi_GetProcList(ProcListType);
+
+		if (ProcListType == XPLMI_PSM_PROC_LIST) {
+			/*
+			 * Check if LPD is initialized and ProcList is initialized
+			 * as we are using PSM RAM to store Proc data
+			 */
+			if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
+					(ProcList->IsProcMemAvailable != (u8)TRUE)) {
+				XPlmi_Printf(DEBUG_GENERAL, "LPD is not initialized or Proc memory"
+						" is not available, Proc commands cannot be stored\r\n");
+				Status = (int)XPLMI_ERR_PROC_LPD_NOT_INITIALIZED;
+				goto END;
+			}
 		}
 
 		/* Check if received ProcId is already in memory */
@@ -1659,7 +1714,7 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 			--ProcList->ProcCount;
 		} else {
 			/* Check if proc list is full */
-			if (ProcList->ProcCount == XPLMI_MAX_PROCS_SUPPORTED) {
+			if (ProcList->ProcCount == MaxProcs) {
 				Status = (int)XPLMI_MAX_PROC_COMMANDS_RECEIVED;
 				goto END;
 			}
@@ -1869,6 +1924,115 @@ static int XPlmi_Break(XPlmi_Cmd *Cmd)
 	/* Jump to "end" associated with break level */
 	Status = XPlmi_GetJumpOffSet(Cmd, Level);
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will write single 32 bit value to multiple addresses
+ * 		which are specified in the payload.
+ *  		Command payload parameters are
+ *			- Value
+ *			- Address[N]: array of N addresses
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 StartIndex;
+	u32 Index;
+
+	XPLMI_EXPORT_CMD(XPLMI_SCATTER_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+			XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
+
+	/* Take care of resume case when long command can be split */
+	if (Cmd->ProcessedLen == 0U) {
+		/*
+		 * Sanity check Arguments
+		 */
+		if (Cmd->PayloadLen < XPLMI_SCATTER_WRITE_PAYLOAD_LEN) {
+			XPlmi_Print(DEBUG_GENERAL, "Scatter_write: invalid "
+				"payload length 0x%x which is less than 2", Cmd->PayloadLen);
+			Status = (int)XPLMI_ERR_INVALID_PAYLOAD_LEN;
+			goto END;
+		}
+
+		/* Save value at very first part of the split */
+		Cmd->ResumeData[0U] = Cmd->Payload[0U];
+		/* Also the start index of the address[i] is 1 in first part */
+		StartIndex = 1U;
+	} else {
+		/* Start index of the address[i] in other parts is 0 */
+		StartIndex = 0U;
+	}
+
+	/* Start writing out to the addresses */
+	for (Index = StartIndex; Index < Cmd->PayloadLen; Index++) {
+		XPlmi_Out32(Cmd->Payload[Index], Cmd->ResumeData[0U]);
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will write 2 32-bit values to multiple addresses
+ * 		which are specified by the payload.
+ *  		Command payload parameters are
+ *			- Value1
+ * 			- Value2
+ *			- Address[N]: array of N addresses
+ *			where Address[i] = Value1 and Address[i] + 4 = Value2
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 StartIndex;
+	u32 Index;
+
+	XPLMI_EXPORT_CMD(XPLMI_SCATTER_WRITE2_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+			XPLMI_CMD_ARG_CNT_FOUR, XPLMI_UNLIMITED_ARG_CNT);
+
+	/* Take care of resume case when long command can be split */
+	if (Cmd->ProcessedLen == 0U) {
+		/*
+		* Sanity check Arguments
+		*/
+		if (Cmd->PayloadLen < XPLMI_SCATTER_WRITE2_PAYLOAD_LEN) {
+			XPlmi_Print(DEBUG_GENERAL, "Scatter_write2: invalid "
+				"payload length 0x%x which is less than 3", Cmd->PayloadLen);
+			Status = (int)XPLMI_ERR_INVALID_PAYLOAD_LEN;
+			goto END;
+		}
+
+		/* Save values at very first part of the split */
+		Cmd->ResumeData[0U] = Cmd->Payload[0U];
+		Cmd->ResumeData[1U] = Cmd->Payload[1U];
+		/* Also the start index of the address[i] is 2 in first part */
+		StartIndex = 2U;
+	} else {
+		/* Start index of the address[i] in other parts is 0 */
+		StartIndex = 0U;
+	}
+
+	/* Start writing out to the address */
+	for (Index = StartIndex; Index < Cmd->PayloadLen; Index++) {
+		XPlmi_Out32(Cmd->Payload[Index], Cmd->ResumeData[0U]);
+		XPlmi_Out32(Cmd->Payload[Index] + XPLMI_WORD_LEN, Cmd->ResumeData[1U]);
+	}
+	Status = XST_SUCCESS;
+
+END:
 	return Status;
 }
 

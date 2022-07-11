@@ -198,6 +198,8 @@ typedef enum {
 	                    range for storing Proc commands is invalid */
 	XPLMI_ERR_CDO_CMD_BREAK_CHUNKS_NOT_SUPPORTED, /**< 0x13D - Error when end
 						and break command are in separate chunks */
+	XPLMI_ERR_INVALID_PAYLOAD_LEN, /**< 0x13E - Invalid payload length received for
+	                    the command */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_ERR_PLM_UPDATE_COMPATIBILITY = 0x1A0, /**< 0x1A0 - Error in compatibility check
