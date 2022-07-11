@@ -91,6 +91,7 @@
 *       rama 06/28/2022 Added new entries in ErrorTable to support XilSem
 *                       events
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       ma   07/08/2022 Added support for secure lockdown
 *
 * </pre>
 *
@@ -107,6 +108,7 @@
 #ifndef VERSAL_NET
 #include "xplmi_ssit.h"
 #endif
+#include "xplmi_tamper.h"
 
 /**@cond xplmi_internal
  * @{
@@ -982,12 +984,13 @@ END:
  * @param	SubsystemRestart is pointer to the PM subsystem restart
  *		with CPU idle support handler for action subtype restart
  *
- * @return	None
+ * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
+int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		  XPlmi_RestartHandler_t SubsystemRestart)
 {
+	int Status = XST_FAILURE;
 	u32 Index;
 	u32 PmcErrStatus[XPLMI_PMC_MAX_ERR_CNT];
 	u32 FwErr;
@@ -1041,17 +1044,25 @@ void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 				continue;
 			}
 			RegMask = XPlmi_ErrRegMask(Index);
-			if (XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
-				(ErrIndex * XPLMI_EVENT_ERROR_OFFSET),
-				RegMask, ErrorTable[Index].Action,
-				ErrorTable[Index].Handler) != XST_SUCCESS) {
+			Status = XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
+					(ErrIndex * XPLMI_EVENT_ERROR_OFFSET),
+					RegMask, ErrorTable[Index].Action,
+					ErrorTable[Index].Handler);
+			if (Status != XST_SUCCESS) {
 				XPlmi_Printf(DEBUG_GENERAL,
 					"Warning: XPlmi_EmInit: Failed to "
 					"set action for PMC ERR%d: %u\r\n",
 					ErrIndex + 1U, Index);
+				goto END;
 			}
 		}
 	}
+
+	/* Register Tamper Interrupt Handler */
+	Status = XPlmi_RegisterTamperIntrHandler();
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/

@@ -53,6 +53,7 @@
 * 1.08  ma   05/10/2022 Added PLM to PLM communication feature
 *       ma   06/01/2022 Added PLM Print Log as new error action
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       ma   07/08/2022 Added support for secure lockdown
 *
 * </pre>
 *
@@ -200,7 +201,7 @@ static inline u8 XPlmi_NpiOutOfReset(void)
 }
 
 /************************** Function Prototypes ******************************/
-void XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
+int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		  XPlmi_RestartHandler_t SubsystemRestart);
 int XPlmi_PsEmInit(void);
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
