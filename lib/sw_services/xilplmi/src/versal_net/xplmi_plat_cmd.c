@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ====  ==== ======== ======================================================-
 * 1.00  bm   07/06/2022 Initial release
+*       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *
 * </pre>
 *
@@ -256,7 +257,7 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	u32 SrcAddr = (u32)(&Cmd->Payload[0U]);
 	u32 CurrPayloadLen = Cmd->PayloadLen;;
-	XPlmi_ProcList *ProcList = XPlmi_GetProcList();
+	XPlmi_ProcList *ProcList = XPlmi_GetProcList(XPLMI_PSM_PROC_LIST);
 
 	XPLMI_EXPORT_CMD(XPLMI_PSM_SEQUENCE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
@@ -309,109 +310,3 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief	This function will write single 32 bit value to multiple addresses
- * 		which are specified in the payload.
- *  		Command payload parameters are
- *		- Value
- *		- Address[N]: array of N addresses
- *
- * @param	Cmd is pointer to the command structure
- *
- * @return	XST_SUCCESS
- *
- *****************************************************************************/
-int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd)
-{
-	int Status = XST_FAILURE;
-	u32 StartIndex = 0;
-
-	XPLMI_EXPORT_CMD(XPLMI_SCATTER_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
-		XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
-
-	/* Take care resume case when long command can be splitted */
-	if (Cmd->ProcessedLen == 0) {
-		/*
-		* Sanity check Arguments
-		*/
-		if (Cmd->PayloadLen < 2U) {
-			XPlmi_Print(DEBUG_GENERAL,"scatter_write: invalid \
-				payload length %d which is less than 2", Cmd->PayloadLen);
-			Status = XST_FAILURE;
-			goto END;
-		}
-
-		/* Save value at very first part of the split */
-		Cmd->ResumeData[0U] = Cmd->Payload[0U];
-		/* Also the start index of the address[i] is 1 in first part */
-		StartIndex = 1;
-	} else {
-		/* Start index of the address[i] in other parts is 0*/
-		StartIndex = 0;
-	}
-
-	/* Start writting out to the addresses */
-	for (u32 i = StartIndex; i < Cmd->PayloadLen; i++) {
-		XPlmi_Out32(Cmd->Payload[i], Cmd->ResumeData[0U]);
-	}
-	Status= XST_SUCCESS;
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function will write 2 32-bit values to multiple addresses
- * 		which are specified by the payload.
- *  		Command payload parameters are
- *		- Value1
- * 		- Value2
- *		- Address[N]: array of N addresses
- *		where Address[i] = Value1 and Address[i] + 4 = Value2
- * @param	Cmd is pointer to the command structure
- *
- * @return	XST_SUCCESS
- *
- *****************************************************************************/
-int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd)
-{
-	int Status = XST_FAILURE;
-	u32 StartIndex = 0;
-
-	XPLMI_EXPORT_CMD(XPLMI_SCATTER_WRITE2_CMD_ID, XPLMI_MODULE_GENERIC_ID,
-		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_UNLIMITED_ARG_CNT);
-
-	/* Take care resume case when long command can be splitted */
-	if (Cmd->ProcessedLen == 0U) {
-		/*
-		* Sanity check Arguments
-		*/
-		if (Cmd->PayloadLen < 3U) {
-			XPlmi_Print(DEBUG_GENERAL,"scatter_write2: invalid \
-				payload length %d which is less than 3", Cmd->PayloadLen);
-			Status = XST_FAILURE;
-			goto END;
-		}
-
-		/* Save values at very first part of the split */
-		Cmd->ResumeData[0U] = Cmd->Payload[0U];
-		Cmd->ResumeData[1U] = Cmd->Payload[1U];
-		/* Also the start index of the address[i] is 2 in first part */
-		StartIndex = 2U;
-	} else {
-		/* Start index of the address[i] in other parts is 0*/
-		StartIndex = 0U;
-	}
-
-	/* Start writting out to the address */
-	for (u32 i = StartIndex; i < Cmd->PayloadLen; i++) {
-		XPlmi_Out32(Cmd->Payload[i], Cmd->ResumeData[0U]);
-		XPlmi_Out32(Cmd->Payload[i] + XPLMI_WORD_LEN, Cmd->ResumeData[1U]);
-	}
-	Status= XST_SUCCESS;
-
-END:
-	return Status;
-}

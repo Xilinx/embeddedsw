@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *
 * </pre>
 *
@@ -92,8 +93,6 @@ typedef int (*XPlmi_UpdateHandler_t)(XPlmi_ModuleOp Op);
 
 /* Macros for command ids */
 #define XPLMI_PSM_SEQUENCE_CMD_ID	(31U)
-#define XPLMI_SCATTER_WRITE_CMD_ID	(33U)
-#define XPLMI_SCATTER_WRITE2_CMD_ID	(34U)
 
 /* GIC related Macros */
 #define XPLMI_GICP_SOURCE_COUNT		(0x5U)
@@ -302,8 +301,6 @@ int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
 int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId);
 int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd);
 int XPlmi_PsmSequence(XPlmi_Cmd *Cmd);
-int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd);
-int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *****************************/
 

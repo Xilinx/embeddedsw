@@ -32,6 +32,7 @@
 *       SK   06/14/2022 Updated macro XPLMI_EXPORT_CMD to create
 *                       unique variable names
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       ma   07/08/2022 Move ScatterWrite and ScatterWrite2 APIs to common code
 * </pre>
 *
 * @note
@@ -144,6 +145,8 @@ typedef struct {
 #define XPLMI_MARKER_CMD_ID		(25U)
 #define XPLMI_PROC_CMD_ID		(26U)
 #define XPLMI_OT_CHECK_CMD_ID		(30U)
+#define XPLMI_SCATTER_WRITE_CMD_ID	(33U)
+#define XPLMI_SCATTER_WRITE2_CMD_ID	(34U)
 #define XPLMI_END_CMD_ID		(0xFFU)
 
 /************************** Function Prototypes ******************************/

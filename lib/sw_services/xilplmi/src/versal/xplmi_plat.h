@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *
 * </pre>
 *
@@ -183,8 +184,6 @@ enum {
 
 #define XPlmi_InPlacePlmUpdate		NULL
 #define XPlmi_PsmSequence		NULL
-#define XPlmi_ScatterWrite		NULL
-#define XPlmi_ScatterWrite2		NULL
 
 #define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U))
 #define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U))
