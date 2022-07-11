@@ -177,6 +177,8 @@
 * 		      Xil_WaitForEventSet() API.
 *       dp   04/25/22 Correct Trigger index calculation in macro
 *                     XScuGic_Get_Rdist_Int_Trigger_Index
+* 5.0   dp   11/07/22 Add macros for accessing the GIC Binary Point and
+*                     Running Priority registers of Cortex-R52.
 * </pre>
 *
 ******************************************************************************/
@@ -415,6 +417,8 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 #define XREG_ICC_IAR0_EL1	"p15, 0, %0,  c12,  c8, 0"
 #define XREG_ICC_EOIR0_EL1	"p15, 0, %0,  c12,  c8, 1"
 #define XREG_IMP_CBAR		"p15, 1, %0, c15, c3, 0"
+#define XREG_ICC_BPR0_EL1	"p15, 0, %0, c12, c8, 3"
+#define XREG_ICC_RPR_EL1	"p15, 0, %0, c12, c11, 3"
 #else
 #define XREG_ICC_SRE_EL1	"S3_0_C12_C12_5"
 #define XREG_ICC_SRE_EL3	"S3_6_C12_C12_5"
