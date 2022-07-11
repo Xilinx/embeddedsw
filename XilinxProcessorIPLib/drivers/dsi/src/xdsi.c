@@ -424,6 +424,11 @@ void XDsi_GetConfigParams(XDsi *InstancePtr,
 	(InstancePtr->Config.BaseAddr, XDSI_TIME4_OFFSET,
 	XDSI_TIME4_VFP_MASK, XDSI_TIME4_VFP_SHIFT);
 
+	/* Get Extended VFP in Timing 5 register */
+	ConfigInfo->Timing.VFrontPorch |= XDsi_GetBitField
+	(InstancePtr->Config.BaseAddr, XDSI_TIME5_OFFSET,
+	XDSI_TIME5_VFP_MASK, XDSI_TIME5_VFP_SHIFT) << 8;
+
 	/* Get Line Time and BLLP Time */
 	ConfigInfo->LineTime = XDsi_GetBitField
 	(InstancePtr->Config.BaseAddr, XDSI_LTIME_OFFSET,
@@ -507,6 +512,11 @@ s32 XDsi_SetVideoInterfaceTiming(XDsi *InstancePtr, XDsi_VideoMode VideoMode,
 	XDSI_TIME4_OFFSET, XDSI_TIME4_VFP_MASK, XDSI_TIME4_VFP_SHIFT,
 	TimingMode->Timing.F0PVFrontPorch);
 
+	/* Set Extended VFP in Timing 5 register */
+	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_TIME5_OFFSET, XDSI_TIME5_VFP_MASK, XDSI_TIME5_VFP_SHIFT,
+	TimingMode->Timing.F0PVFrontPorch >> 8);
+
 	return XST_SUCCESS;
 }
 
@@ -588,6 +598,11 @@ s32 XDsi_SetCustomVideoInterfaceTiming(XDsi *InstancePtr,
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME4_OFFSET, XDSI_TIME4_VFP_MASK, XDSI_TIME4_VFP_SHIFT,
 	Timing->VFrontPorch);
+
+	/* Set Extended VFP in Timing 5 register */
+	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_TIME5_OFFSET, XDSI_TIME5_VFP_MASK, XDSI_TIME5_VFP_SHIFT,
+	Timing->VFrontPorch >> 8);
 
 	return XST_SUCCESS;
 }
