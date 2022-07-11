@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *
 * </pre>
 *
@@ -200,6 +201,8 @@ typedef enum {
 						and break command are in separate chunks */
 	XPLMI_ERR_INVALID_PAYLOAD_LEN, /**< 0x13E - Invalid payload length received for
 	                    the command */
+	XPLMI_INVALID_TAMPER_RESPONSE, /**< 0x13F - Invalid tamper response received for
+		                TamperTrigger IPI call */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_ERR_PLM_UPDATE_COMPATIBILITY = 0x1A0, /**< 0x1A0 - Error in compatibility check

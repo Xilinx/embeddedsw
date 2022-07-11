@@ -43,6 +43,7 @@
 * 1.07  ma   11/22/2021 Remove hardcoding of Proc addresses
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
+*       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *
 * </pre>
 *
@@ -142,6 +143,7 @@ typedef struct {
 #define XPLMI_PLM_GENERIC_DEVICE_ID_VAL		(0x12U)
 #define XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL	(0x13U)
 #define XPLMI_PLM_MODULES_GET_BOARD_VAL		(0x15U)
+#define XPLMI_PLM_GENERIC_TAMP_TRIGGER_VAL	(0x23U)
 #define XPLMI_PLM_LOADER_SET_IMG_INFO_VAL	(0x4U)
 
 /* Define related to break */
