@@ -16,6 +16,8 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 8.0 	mus     11/26/21 First release
+* 8.0   dp      07/11/22 Add TTC interrupt Id macros thats needed for
+*                        interrupt wrapper.
 * </pre>
 *
 * @note
@@ -308,8 +310,37 @@ extern "C" {
 
 #define XPAR_XQSPIPS_0_CLOCK_HZ		XPAR_XQSPIPS_0_QSPI_CLK_FREQ_HZ
 
+/*
+ * Defines for interrupt wrapper API
+ * For more details about usage please refer xinterrupt_wrap.h
+ * Here Bits[11:0] represents interrupt id
+ * Bits[15:12] represents interrupt trigger type and level flags
+ */
+#define XPAR_PSXL_TTC_0_INTERRUPT_ID        0x402DU
+#define XPAR_PSXL_TTC_1_INTERRUPT_ID        0x402EU
+#define XPAR_PSXL_TTC_2_INTERRUPT_ID        0x402FU
+#define XPAR_PSXL_TTC_3_INTERRUPT_ID        0x4030U
+#define XPAR_PSXL_TTC_4_INTERRUPT_ID        0x4031U
+#define XPAR_PSXL_TTC_5_INTERRUPT_ID        0x4032U
+#define XPAR_PSXL_TTC_6_INTERRUPT_ID        0x4033U
+#define XPAR_PSXL_TTC_7_INTERRUPT_ID        0x4034U
+#define XPAR_PSXL_TTC_8_INTERRUPT_ID        0x4035U
+#define XPAR_PSXL_TTC_9_INTERRUPT_ID        0x4036U
+#define XPAR_PSXL_TTC_10_INTERRUPT_ID       0x4037U
+#define XPAR_PSXL_TTC_11_INTERRUPT_ID       0x4038U
 
-
+#define XPAR_PSX_TTC_0_INTERRUPT_ID        0x402DU
+#define XPAR_PSX_TTC_1_INTERRUPT_ID        0x402EU
+#define XPAR_PSX_TTC_2_INTERRUPT_ID        0x402FU
+#define XPAR_PSX_TTC_3_INTERRUPT_ID        0x4030U
+#define XPAR_PSX_TTC_4_INTERRUPT_ID        0x4031U
+#define XPAR_PSX_TTC_5_INTERRUPT_ID        0x4032U
+#define XPAR_PSX_TTC_6_INTERRUPT_ID        0x4033U
+#define XPAR_PSX_TTC_7_INTERRUPT_ID        0x4034U
+#define XPAR_PSX_TTC_8_INTERRUPT_ID        0x4035U
+#define XPAR_PSX_TTC_9_INTERRUPT_ID        0x4036U
+#define XPAR_PSX_TTC_10_INTERRUPT_ID       0x4037U
+#define XPAR_PSX_TTC_11_INTERRUPT_ID       0x4038U
 
 #ifdef __cplusplus
 }
