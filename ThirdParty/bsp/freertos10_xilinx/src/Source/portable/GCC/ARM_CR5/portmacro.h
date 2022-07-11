@@ -1,7 +1,7 @@
 /*
  * FreeRTOS Kernel V10.4.6
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -231,6 +231,7 @@ number of bits implemented by the interrupt controller. */
 	#error Invalid configUNIQUE_INTERRUPT_PRIORITIES setting.  configUNIQUE_INTERRUPT_PRIORITIES must be set to the number of unique priorities implemented by the target hardware
 #endif
 
+#if !defined(ARMR52)
 /* Interrupt controller access addresses. */
 #define portICCPMR_PRIORITY_MASK_OFFSET  						( 0x04 )
 #define portICCIAR_INTERRUPT_ACKNOWLEDGE_OFFSET 				( 0x0C )
@@ -247,6 +248,7 @@ number of bits implemented by the interrupt controller. */
 #define portICCRPR_RUNNING_PRIORITY_REGISTER 				( *( ( const volatile uint32_t * ) ( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCRPR_RUNNING_PRIORITY_OFFSET ) ) )
 #define portICCBPR_BINARY_POINT_REGISTER_ADDRESS			( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCBPR_BINARY_POINT_OFFSET )
 #define portICCRPR_RUNNING_PRIORITY_REGISTER_ADDRESS		( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCRPR_RUNNING_PRIORITY_OFFSET )
+#endif
 #define portMEMORY_BARRIER()    __asm volatile ( "" ::: "memory" )
 
 #endif /* PORTMACRO_H */
