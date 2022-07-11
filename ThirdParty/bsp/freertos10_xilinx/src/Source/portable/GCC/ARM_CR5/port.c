@@ -1,7 +1,7 @@
 /*
  * FreeRTOS Kernel V10.4.6
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Copyright (C) 2018 - 2020 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2018 - 2022 Xilinx, Inc. All rights reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -133,6 +133,9 @@ the CPU itself before modifying certain hardware registers. */
 	__asm volatile ( "ISB" );
 
 
+/* ARM Cortex-R52 has GICv3 internal to it and the CPU interface
+register accesses need to be done using coprocessor instructions */
+#if !defined(ARMR52)
 /* Macro to unmask all interrupt priorities. */
 #define portCLEAR_INTERRUPT_MASK()									\
 {																	\
@@ -142,8 +145,22 @@ the CPU itself before modifying certain hardware registers. */
 						"ISB		\n" );							\
 	portCPU_IRQ_ENABLE();											\
 }
+#else
+#define portCLEAR_INTERRUPT_MASK()									\
+{																	\
+	portCPU_IRQ_DISABLE();											\
+	XScuGic_set_priority_filter(portUNMASK_VALUE); \
+	__asm volatile (	"DSB		\n"								\
+						"ISB		\n" );							\
+	portCPU_IRQ_ENABLE();											\
+}
+#endif
 
+#if !defined(ARMR52)
 #define portINTERRUPT_PRIORITY_REGISTER_OFFSET		0x400UL
+#else
+#define portINTERRUPT_PRIORITY_REGISTER_OFFSET          0x420UL
+#endif
 #define portMAX_8_BIT_VALUE							( ( uint8_t ) 0xff )
 #define portBIT_0_SET								( ( uint8_t ) 0x01 )
 
@@ -207,10 +224,12 @@ uint32_t ulPortInterruptNesting = 0UL;
 volatile uint32_t ulHighFrequencyTimerTicks;
 #endif
 
+#if !defined(ARMR52)
 /* Used in asm code. */
 __attribute__(( used )) const uint32_t ulICCIAR = portICCIAR_INTERRUPT_ACKNOWLEDGE_REGISTER_ADDRESS;
 __attribute__(( used )) const uint32_t ulICCEOIR = portICCEOIR_END_OF_INTERRUPT_REGISTER_ADDRESS;
 __attribute__(( used )) const uint32_t ulICCPMR	= portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS;
+#endif
 __attribute__(( used )) const uint32_t ulMaxAPIPriorityMask = ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT );
 
 /*-----------------------------------------------------------*/
@@ -467,11 +486,18 @@ int32_t lReturn;
 BaseType_t xPortStartScheduler( void )
 {
 uint32_t ulAPSR, ulCycles = 8; /* 8 bits per byte. */
+#if defined(ARMR52)
+uint32_t ulBpr;
+#endif
 
 	#if( configASSERT_DEFINED == 1 )
 	{
 		volatile uint32_t ulOriginalPriority;
+#if !defined(ARMR52)
 		volatile uint32_t ulFirstUserPriorityRegister = ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
+#else
+		volatile uint32_t ulFirstUserPriorityRegister = ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET);
+#endif
 		volatile uint8_t ucMaxPriorityValue;
 
 		/* Determine how many priority bits are implemented in the GIC.
@@ -515,9 +541,14 @@ uint32_t ulAPSR, ulCycles = 8; /* 8 bits per byte. */
 		/* Only continue if the binary point value is set to its lowest possible
 		setting.  See the comments in vPortValidateInterruptPriority() below for
 		more information. */
+#if !defined(ARMR52)
 		configASSERT( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
-
-		if( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE )
+		if( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE)
+#else
+		ulBpr = mfcp(XREG_ICC_BPR0_EL1);
+		configASSERT( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
+		if( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE )
+#endif
 		{
 			/* Interrupts are turned off in the CPU itself to ensure tick does
 			not execute	while the scheduler is being started.  Interrupts are
@@ -614,7 +645,11 @@ void FreeRTOS_Tick_Handler( void )
 	necessary to turn off interrupts in the CPU itself while the ICCPMR is being
 	updated. */
 	portCPU_IRQ_DISABLE();
+#if !defined(ARMR52)
 	Xil_Out32(portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS, ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ));
+#else
+	mtcp(XREG_ICC_PMR_EL1, ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ));
+#endif
 	__asm volatile (	"dsb		\n"
 						"isb		\n" ::: "memory" );
 	portCPU_IRQ_ENABLE();
@@ -658,11 +693,19 @@ void vPortClearInterruptMask( uint32_t ulNewMaskValue )
 uint32_t ulPortSetInterruptMask( void )
 {
 uint32_t ulReturn;
+#if defined(ARMR52)
+uint32_t ulPmr;
+#endif
 
 	/* Interrupt in the CPU must be turned off while the ICCPMR is being
 	updated. */
 	portCPU_IRQ_DISABLE();
+#if !defined(ARMR52)
 	if( Xil_In32(portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS) == ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) )
+#else
+	ulPmr = mfcp(XREG_ICC_PMR_EL1);
+	if (ulPmr ==  ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT))
+#endif
 	{
 		/* Interrupts were already masked. */
 		ulReturn = pdTRUE;
@@ -670,7 +713,11 @@ uint32_t ulReturn;
 	else
 	{
 		ulReturn = pdFALSE;
+#if !defined(ARMR52)
 		Xil_Out32(portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS, ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ));
+#else
+		mtcp(XREG_ICC_PMR_EL1, ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ));
+#endif
 		__asm volatile (	"dsb		\n"
 							"isb		\n" ::: "memory" );
 	}
@@ -684,6 +731,10 @@ uint32_t ulReturn;
 
 	void vPortValidateInterruptPriority( void )
 	{
+#if defined(ARMR52)
+		unsigned int ulRpr;
+		unsigned int ulBpr;
+#endif
 		/* The following assertion will fail if a service routine (ISR) for
 		an interrupt that has been assigned a priority above
 		configMAX_SYSCALL_INTERRUPT_PRIORITY calls an ISR safe FreeRTOS API
@@ -699,7 +750,12 @@ uint32_t ulReturn;
 		FreeRTOS maintains separate thread and ISR API functions to ensure
 		interrupt entry is as fast and simple as possible. */
 
+#if !defined(ARMR52)
 		configASSERT( Xil_In32(portICCRPR_RUNNING_PRIORITY_REGISTER_ADDRESS) >= ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) );
+#else
+		ulRpr = mfcp(XREG_ICC_RPR_EL1);
+		configASSERT( ulRpr >= ( uint32_t ) (configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) );
+#endif
 
 		/* Priority grouping:  The interrupt controller (GIC) allows the bits
 		that define each interrupt's priority to be split between bits that
@@ -711,7 +767,12 @@ uint32_t ulReturn;
 		The priority grouping is configured by the GIC's binary point register
 		(ICCBPR).  Writing 0 to ICCBPR will ensure it is set to its lowest
 		possible value (which may be above 0). */
+#if !defined(ARMR52)
 		configASSERT( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
+#else
+		ulBpr = mfcp(XREG_ICC_BPR0_EL1);
+		configASSERT( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
+#endif
 	}
 
 #endif /* configASSERT_DEFINED */

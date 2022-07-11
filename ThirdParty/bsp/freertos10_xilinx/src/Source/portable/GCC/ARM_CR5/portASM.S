@@ -1,6 +1,7 @@
 /*
  * FreeRTOS Kernel V10.4.6
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Copyright (C) 2022 Xilinx, Inc. All rights reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -25,6 +26,7 @@
  * https://github.com/FreeRTOS
  *
  */
+#include "bspconfig.h"
 
 	.text
 	.arm
@@ -33,10 +35,12 @@
 	.set SVC_MODE,	0x13
 	.set IRQ_MODE,	0x12
 
+#if !defined(ARMR52)
 	/* Hardware registers. */
 	.extern ulICCIAR
 	.extern ulICCEOIR
 	.extern ulICCPMR
+#endif
 
 	/* Variables and functions. */
 	.extern ulMaxAPIPriorityMask
@@ -112,6 +116,7 @@
 	STR		R1, [R0]
 
 	/* Ensure the priority mask is correct for the critical nesting depth. */
+#if !defined(ARMR52)
 	LDR		R2, ulICCPMRConst
 	LDR		R2, [R2]
 	CMP		R1, #0
@@ -119,6 +124,13 @@
 	LDRNE	R4, ulMaxAPIPriorityMaskConst
 	LDRNE	R4, [R4]
 	STR		R4, [R2]
+#else
+	CMP             R1, #0
+	MOVEQ   R4, #255
+	LDRNE   R4, ulMaxAPIPriorityMaskConst
+	LDRNE   R4, [R4]
+	mcr 	p15, 0, r4,  c4,  c6, 0
+#endif
 
 	/* Restore all system mode registers other than the SP (which is already
 	being used). */
@@ -182,10 +194,14 @@ FreeRTOS_IRQ_Handler:
 
 	/* Read value from the interrupt acknowledge register, which is stored in r0
 	for future parameter and interrupt clearing use. */
+#if !defined(ARMR52)
 	LDR 	r2, ulICCIARConst
 	LDR		r2, [r2]
 	LDR		r0, [r2]
+#else
+	mrc   p15, 0, r0,  c12,  c8, 0
 
+#endif
 	/* Ensure bit 2 of the stack pointer is clear.  r2 holds the bit 2 value for
 	future use.  _RB_ Is this ever needed provided the start of the stack is
 	aligned on an 8-byte boundary? */
@@ -204,11 +220,14 @@ FreeRTOS_IRQ_Handler:
 	DSB
 	ISB
 
+#if !defined(ARMR52)
 	/* Write the value read from ICCIAR to ICCEOIR. */
 	LDR 	r4, ulICCEOIRConst
 	LDR		r4, [r4]
 	STR		r0, [r4]
-
+#else
+	mcr p15, 0, r0,  c12,  c8, 1
+#endif
 	/* Restore the old nesting count. */
 	STR		r1, [r3]
 
@@ -260,9 +279,11 @@ switch_before_exit:
 	next. */
 	portRESTORE_CONTEXT
 
+#if !defined(ARMR52)
 ulICCIARConst:	.word ulICCIAR
 ulICCEOIRConst:	.word ulICCEOIR
 ulICCPMRConst: .word ulICCPMR
+#endif
 pxCurrentTCBConst: .word pxCurrentTCB
 ulCriticalNestingConst: .word ulCriticalNesting
 ulPortTaskHasFPUContextConst: .word ulPortTaskHasFPUContext
