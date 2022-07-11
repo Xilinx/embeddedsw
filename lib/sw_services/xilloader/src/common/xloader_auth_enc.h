@@ -46,6 +46,7 @@
 *       bsv  03/18/22 Fix build issues when PLM_SECURE_EXCLUDE is enabled
 * 1.03  bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/05/2022 Added support to update KAT status
+*       ma   07/08/22 Removed EFUSE_CACHE_MISC_CTRL as it is defined in xplmi_hw.h
 *
 * </pre>
 *
@@ -358,7 +359,6 @@ extern "C" {
 #define XLOADER_PDI_DPACM_DISABLED			(0U)
 				/**< DPA counter measures are disabled in PDI */
 
-#define EFUSE_CACHE_MISC_CTRL				(0xF12500A0U)
 				/**< Misc Control register address */
 #define EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK	(0X00008000U)
 			/**< Mask to enable running of KAT for Crypto engines */
