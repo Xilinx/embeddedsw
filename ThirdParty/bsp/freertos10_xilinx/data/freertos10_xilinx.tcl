@@ -1,5 +1,5 @@
 
-# Copyright (C) 2015 - 2021 Xilinx, Inc.
+# Copyright (C) 2015 - 2022 Xilinx, Inc.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -91,17 +91,27 @@ proc get_instance_name_from_base_value {base_value} {
 
 proc Check_ttc_ip {instance_name} {
 	set cortexa53cpu [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
-	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
+	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72" || IP_NAME=="psxl_cortexr52"}]
 
 	if {[llength $cortexa53cpu] > 0 || [llength $is_versal] > 0 } {
-		set ttc_ips [get_cell -hier -filter {IP_NAME== "psu_ttc" || IP_NAME== "psv_ttc"}]
+		set ttc_ips [get_cell -hier -filter {IP_NAME== "psu_ttc" || IP_NAME== "psv_ttc" || IP_NAME== "psx_ttc" || IP_NAME== "psxl_ttc"}]
 	} else {
 		set ttc_ips [get_cell -hier -filter {IP_NAME== "ps7_ttc"}]
 	}
 
+	set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexr52" || IP_NAME=="psx_cortexr52"}]
+
 	if { [llength $ttc_ips] != 0 } {
 		foreach ttc_ip $ttc_ips {
-			if {[string compare -nocase $ttc_ip $instance_name] == 0} {
+			if {[string compare -nocase $ttc_ip $instance_name] == 0 } {
+				set isintr [::hsm::utils::is_ip_interrupting_current_proc $ttc_ip]
+				if {$isintr == 1} {
+					return
+				} else {
+					error "FreeRTOS requires timer with interrupt enabled. $ttc_ip is not connected to interrupt controller."
+				}
+			}
+			if {[llength $is_versal_net] > 0 && [string first $instance_name $ttc_ip] != -1} {
 				set isintr [::hsm::utils::is_ip_interrupting_current_proc $ttc_ip]
 				if {$isintr == 1} {
 					return
@@ -156,6 +166,7 @@ proc generate {os_handle} {
 	set need_config_file "false"
 	set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
 	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
+	set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psx_cortexr52" || IP_NAME=="psxl_cortexr52"}]
 	# proctype should be "microblaze", ps7_cortexa9, psu_cortexr5 or psu_cortexa53
 	set commonsrcdir "../${standalone_version}/src/common"
 	set mbsrcdir "../${standalone_version}/src/microblaze"
@@ -188,7 +199,7 @@ proc generate {os_handle} {
 		file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	}
 
-	if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72" } {
+	if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psv_cortexa72" ||  $proctype == "psx_cortexr52" || $proctype == "psxl_cortexr52"} {
 	        foreach entry [glob -nocomplain -types f [file join $armcommonsrcdir *]] {
 	       file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	     }
@@ -201,7 +212,9 @@ proc generate {os_handle} {
 	switch $proctype {
 
 		"psu_cortexr5" -
-		"psv_cortexr5"
+		"psv_cortexr5" -
+		"psx_cortexr52" -
+		"psxl_cortexr52"
 		{
 				puts "In start copy psu_cortexr5"
 				file copy -force "./src/Makefile_psu_cortexr5" "./src/Makefile"
@@ -219,6 +232,8 @@ proc generate {os_handle} {
 				file copy -force $includedir "../${standalone_version}/src/"
 				if {[llength $is_versal] > 0} {
 				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/Versal"
+				} elseif {[llength $is_versal_net] > 0} {
+				    set platformincludedir "../${standalone_version}/src/arm/platform/versal_net"
 				} else {
 				    set platformincludedir "../${standalone_version}/src/arm/ARMv8/includes_ps/platform/ZynqMP"
 				}
@@ -243,7 +258,7 @@ proc generate {os_handle} {
 				puts $file_handle ""
 
 				#Tweak DDR addresses for versal, to be removed once proper addresses added by PCW
-				if {[llength $is_versal] > 0} {
+				if {[llength $is_versal] > 0 || [llength $is_versal_net] > 0} {
 					set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/versal"
 				} else {
 				        set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/ZynqMP"
@@ -371,7 +386,7 @@ proc generate {os_handle} {
 	set makeconfig [open "../${standalone_version}/src/config.make" w]
 	file rename -force -- "../${standalone_version}/src/Makefile" "../${standalone_version}/src/Makefile_depends"
 
-	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "ps7_cortexa9" || $proctype == "microblaze" || $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72"} {
+	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psx_cortexr52" || $proctype == "psxl_cortexr52" || $proctype == "ps7_cortexa9" || $proctype == "microblaze" || $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72"} {
 		puts $makeconfig "LIBSOURCES = *.c *.S"
 		puts $makeconfig "LIBS = standalone_libs"
 	}
@@ -392,7 +407,7 @@ proc generate {os_handle} {
 		file copy -force [file join src Source stream_buffer.c] ./src
 	}
 
-	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5"} {
+	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psx_cortexr52" || $proctype == "psxl_cortexr52"} {
 		file copy -force [file join src Source portable GCC ARM_CR5 port.c] ./src
 		file copy -force [file join src Source portable GCC ARM_CR5 portASM.S] ./src
 		file copy -force [file join src Source portable GCC ARM_CR5 port_asm_vectors.S] ./src
@@ -562,7 +577,7 @@ proc generate {os_handle} {
 	puts $file_handle "\n/******************************************************************/\n"
 	set val [common::get_property CONFIG.enable_stm_event_trace $os_handle]
 	if { $val == "true" } {
-		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" } {
+		if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psx_cortexr52" || $proctype == "psxl_cortexr52" || $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" } {
 			variable stm_trace_header_data
 			puts $file_handle "/* Enable event trace through STM */"
 			puts $file_handle "#define FREERTOS_ENABLE_TRACE"
@@ -894,7 +909,7 @@ proc generate {os_handle} {
 	## Add constants specific to the psu_cortexr5
 	############################################################################
 
-	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" } {
+	if { $proctype == "psu_cortexr5" || $proctype == "psv_cortexr5" || $proctype == "psx_cortexr52" || $proctype == "psxl_cortexr52"} {
 
 		set val [common::get_property CONFIG.PSU_TTC0_Select $os_handle]
 		if {$val == "true"} {
@@ -902,6 +917,8 @@ proc generate {os_handle} {
 			if { $proctype == "psv_cortexr5" } {
 				set instance_name [get_instance_name_from_base_value "FF0E0000"]
 				Check_ttc_ip $instance_name
+			} elseif { $proctype == "psx_cortexr52" || $proctype == "psxl_cortexr52"} {
+				Check_ttc_ip "ttc_0"
 			} else {
 				Check_ttc_ip "psu_ttc_0"
 			}
@@ -936,6 +953,8 @@ proc generate {os_handle} {
 				if { $proctype == "psv_cortexr5" } {
 					set instance_name [get_instance_name_from_base_value "FF0F0000"]
 					Check_ttc_ip $instance_name
+				} elseif { $proctype == "psx_cortexr52" || $proctype == "psxl_cortexr52"} {
+					Check_ttc_ip "ttc_1"
 
 				} else {
 					Check_ttc_ip "psu_ttc_1"
@@ -972,6 +991,8 @@ proc generate {os_handle} {
 				if { $proctype == "psv_cortexr5" } {
 					set instance_name [get_instance_name_from_base_value "FF100000"]
 					Check_ttc_ip $instance_name
+				} elseif { $proctype == "psx_cortexr52" || $proctype == "psxl_cortexr52"} {
+					Check_ttc_ip "ttc_2"
 				} else {
 					Check_ttc_ip "psu_ttc_2"
 				}
@@ -1007,6 +1028,9 @@ proc generate {os_handle} {
 				if { $proctype == "psv_cortexr5" } {
 					set instance_name [get_instance_name_from_base_value "FF110000"]
 					Check_ttc_ip $instance_name
+				} elseif { $proctype == "psx_cortexr52" || $proctype == "psxl_cortexr52"} {
+					set instance_name [get_instance_name_from_base_value "F1DF0000"]
+					Check_ttc_ip "ttc_3"
 				} else {
 					Check_ttc_ip "psu_ttc_3"
 				}
