@@ -43,6 +43,7 @@
 *                       are handled in XPlm_PmInit
 * 1.07  ma   05/10/2022 Call XPlmi_SsitEventsInit during initialization
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       ma   07/08/2022 Added support for secure lockdown
 *
 * </pre>
 *
@@ -132,7 +133,10 @@ int XPlm_ModuleInit(void *Arg)
 		goto END;
 	}
 
-	XPlmi_EmInit(XPm_SystemShutdown, XPm_IdleRestartHandler);
+	Status = XPlmi_EmInit(XPm_SystemShutdown, XPm_IdleRestartHandler);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XLoader_Init();
 	if (Status != XST_SUCCESS) {

@@ -53,6 +53,7 @@
 * 1.07  ma   05/10/2022 Added PLM to PLM communication feature
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/05/2022 Added XPLMI_RTCFG_SECURE_CTRL_ADDR
+*       ma   07/08/2022 Added support for secure lockdown
 *
 * </pre>
 *
@@ -149,6 +150,7 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_USR_ACCESS_ADDR		(XPLMI_RTCFG_BASEADDR + 0x168U)
 #define XPLMI_RTCFG_SECURE_STATE_ADDR	(XPLMI_RTCFG_BASEADDR + 0x16CU)
 #define XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR	(XPLMI_RTCFG_BASEADDR + 0x184U)
+#define XPLMI_RTCFG_TAMPER_RESP			(XPLMI_RTCFG_BASEADDR + 0x18CU)
 
 #define XPLMI_RTCFG_DBG_LOG_BUF_OFFSET	(0x10U)
 #define XPLMI_RTCFG_LOG_UART_OFFSET		(0x24U)
@@ -156,6 +158,10 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK	(0x0000FFFFU)
 #define XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK	(0xFFFF0000U)
+/* Mask for Tamper Response Secure lockdown 0 and 1 */
+#define XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK	(0xCU)
+/* Mask for Tamper response Secure lockdown 1 */
+#define XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK		(0x8U)
 
 /* Shifts of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT	(0x10U)

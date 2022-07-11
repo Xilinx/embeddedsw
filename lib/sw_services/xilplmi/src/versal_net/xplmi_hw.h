@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
+*       ma   07/08/2022 Added support for secure lockdown
 *
 * </pre>
 *
@@ -437,6 +438,33 @@ extern "C" {
 #define PMC_PSM_ERR_REG_OFFSET			(0x10U)
 #define PMC_PSM_EN_REG_OFFSET			(0x4U)
 #define PMC_PSM_DIS_REG_OFFSET			(0x8U)
+
+/*
+ * Register: PMC_GLOBAL_IER
+ */
+#define PMC_GLOBAL_IER				(PMC_GLOBAL_BASEADDR + 0X00000018U)
+
+/*
+ * Register: PMC_GLOBAL_ISR
+ */
+#define PMC_GLOBAL_ISR				(PMC_GLOBAL_BASEADDR + 0X00000010U)
+
+/*
+ * TAMPER_INT mask value
+ */
+#define PMC_GLOBAL_TAMPER_INT_MASK	(0x00000008U)
+
+/*
+ * Register: PMC_GLOBAL_TAMPER_RESP_0
+ */
+#define PMC_GLOBAL_TAMPER_RESP_0	(PMC_GLOBAL_BASEADDR + 0X00000530U)
+
+/*
+ * Register: PMC_GLOBAL_TAMPER_TRIG
+ */
+#define PMC_GLOBAL_TAMPER_TRIG		(PMC_GLOBAL_BASEADDR + 0X00000570U)
+#define PMC_GLOBAL_TAMPER_TRIG_VAL	(1U)
+
 /*
  * Register: NPI_NIR
  */

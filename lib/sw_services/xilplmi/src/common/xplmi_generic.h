@@ -154,6 +154,9 @@ typedef struct {
 /* Proc related defines */
 #define XPLMI_PMC_RAM_PROC_ID_MASK	(0x80000000U) /** All procs which need to be
                     stored in PMC RAM must have MSB set in Proc ID */
+/* SLD Proc IDs */
+#define XPLMI_SLD_PROC_ID			(0x80000000U)
+
 /************************** Function Prototypes ******************************/
 void XPlmi_GenericInit(void);
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal);
