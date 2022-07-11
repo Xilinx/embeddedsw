@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
  *       am   09/24/2020 Resolved MISRA C violations
  *       har  10/12/2020 Addressed security review comments
  * 4.5   bm   05/13/2021 Add common crypto instances
+ * 4.6   ma   07/08/2022 Added support for secure lockdown
  *
  * </pre>
  *
@@ -44,7 +45,6 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_Init(void);
-void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask);
 XSecure_Sha3 *XSecure_GetSha3Instance(void);
 XSecure_Aes *XSecure_GetAesInstance(void);
 XSecure_Rsa *XSecure_GetRsaInstance(void);

@@ -24,6 +24,7 @@
 * 4.5   ma  04/05/2021 Use error mask instead of ID to set an error action
 *       bm  05/13/2021 Add common crypto instances
 * 4.6   har 07/14/2021 Fixed doxygen warnings
+* 4.7   ma   07/08/2022 Added support for secure lockdown
 *
 * </pre>
 *
@@ -32,33 +33,14 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xil_util.h"
-#include "xplmi_err_common.h"
 #include "xsecure_init.h"
-#include "xsecure_tamper.h"
 #include "xsecure_cmd.h"
 
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_EVENT_ERROR_PMC_ERR2	(0x28104000U)
-					/**< PLMI Event PMC error 2 */
-#define	XSECURE_NODEIDX_ERROR_PMCAPB_MASK	(0x1U)
-					/**< Node Idx Error PMC APB mask */
-#define XSECURE_TAMPER_INT_MASK		(8U)
-					/**< Tamper interrupt mask */
-#define XSECURE_GD0_GLITCH_STATUS_MASK	(0x200U)	/**< Glitch detector0 status mask */
-#define XSECURE_GD1_GLITCH_STATUS_MASK	(0x2000000U)	/**< Glitch detector1 status mask */
-#define XSECURE_GD_STATUS 		(XSECURE_GD1_GLITCH_STATUS_MASK | \
-					 XSECURE_GD0_GLITCH_STATUS_MASK)
-					/**< Glitch detector status mask */
-#define PMC_ANALOG_GD_CTRL_REG		(0xF1160000U)
-					/**< PMC_ANALOG base address */
-#define PMC_GLOBAL_ISR_REG		(0xF1110010U)
-					/**< PMC_GLOBAL_ISR register offset */
 
 /************************** Function Prototypes ******************************/
-static int XSecure_RegisterTampIntHandler(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -69,86 +51,17 @@ static int XSecure_RegisterTampIntHandler(void);
  * @brief	This function registers the handler for tamper interrupt
  *
  * @return
- *	-	XST_SUCCESS - On success
- *	-	XPLMI_INVALID_ERROR_ID - On invalid ID
- *	-	XPLMI_INVALID_ERROR_HANDLER - On Null handler
+ *	-	XST_SUCCESS - Always returns success
  *
  *****************************************************************************/
 int XSecure_Init(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = XSecure_RegisterTampIntHandler();
-
 	XSecure_CmdsInit();
+	Status = XST_SUCCESS;
 
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function registers the handler for tamper interrupt
- *
- * @return
- *	-	XST_SUCCESS - On success
- *	-	XPLMI_INVALID_ERROR_ID - On invalid ID
- *	-	XPLMI_INVALID_ERROR_HANDLER - On Null handler
- *
- *****************************************************************************/
-static int XSecure_RegisterTampIntHandler(void)
-{
-	int Status = XST_FAILURE;
-
-	/**
-	 * Register handler
-	 */
-	Status = XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
-				   XSECURE_NODEIDX_ERROR_PMCAPB_MASK,
-				   XPLMI_EM_ACTION_CUSTOM,
-				   XSecure_TamperInterruptHandler);
-	if(Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/**
-	 * Enable tamper interrupt in PMC GLOBAL
-	 */
-	XSecure_EnableTamperInterrupt();
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This is the handler for tamper interrupt
- *
- * @param	ErrorNodeId - Node Identifier
- * @param	ErrorMask   - Mask Identifier
- *
- *****************************************************************************/
-void XSecure_TamperInterruptHandler(const u32 ErrorNodeId, const u32 ErrorMask)
-{
-	(void)ErrorNodeId;
-	(void)ErrorMask;
-
-	(void)XSecure_ProcessTamperResponse();
-
-	/**
-	 * Clear the interrupt source
-	 */
-	Xil_UtilRMW32(PMC_ANALOG_GD_CTRL_REG,	XSECURE_GD_STATUS, XSECURE_GD_STATUS);
-	Xil_Out32(PMC_GLOBAL_ISR_REG, XSECURE_TAMPER_INT_MASK);
-	Xil_UtilRMW32(PMC_ANALOG_GD_CTRL_REG, XSECURE_GD_STATUS, 0U);
-
-	/**
-	 * Once the interrupt is detected by PLM, disables the interrupt and
-	 * calls the handler. So it is necessary to re-enable the interrupt
-	 */
-	(void)XPlmi_EmSetAction(XPLMI_EVENT_ERROR_PMC_ERR2,
-				XSECURE_NODEIDX_ERROR_PMCAPB_MASK,
-				XPLMI_EM_ACTION_CUSTOM,
-				XSecure_TamperInterruptHandler);
 }
 
 /*****************************************************************************/

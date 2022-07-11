@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +28,7 @@
  *       kpt  02/04/2021 Added error code for tamper response
  *       har  05/18/2021 Added error code XSECURE_IPI_ACCESS_NOT_ALLOWED
  *                       Added error code XSECURE_AES_DEVICE_KEY_NOT_ALLOWED
+ * 4.6   ma   07/08/2022 Added support for secure lockdown
  *
  * </pre>
  *
@@ -147,8 +148,9 @@ typedef enum {
 	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR,        /**< 0xCF - S is not within ECC order */
 	XSECURE_ELLIPTIC_KAT_INVLD_CRV_ERROR,   /**< 0xD0 - Curve not supported for KAT */
 
-	XSECURE_NO_TAMPER_RESPONSE = 0xF0,	/**< 0xF0 - No tamper response when
-						tamper interrupt is detected */
+	XSECURE_ERR_CODE_RESERVED = 0xF0,	/**< 0xF0 -
+	                    Till 2022.1 - No tamper response when tamper interrupt is detected
+	                    From 2022.2 - Reserved */
 	XSECURE_IPI_ACCESS_NOT_ALLOWED,         /**< 0xF1 - Access to Xilsecure IPIs
 						is disabled if IPI request is non secure */
 	XSECURE_SHA3_KAT_BUSY,			/**< 0xF2 - SHA3 busy with earlier operation,
