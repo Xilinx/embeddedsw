@@ -19,6 +19,7 @@
 * ====  ==== ======== ======================================================-
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
+*       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *
 * </pre>
 *
@@ -121,7 +122,8 @@ int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
 					(ApiId == XPLMI_PLM_GENERIC_EVENT_LOGGING_VAL) ||
 					(ApiId == XPLMI_PLM_MODULES_FEATURES_VAL) ||
 					(ApiId == XPLMI_PLM_GENERIC_PLMUPDATE) ||
-					(ApiId == XPLMI_PLM_MODULES_GET_BOARD_VAL)) {
+					(ApiId == XPLMI_PLM_MODULES_GET_BOARD_VAL) ||
+					(ApiId == XPLMI_PLM_GENERIC_TAMP_TRIGGER_VAL)) {
 				Status = XST_SUCCESS;
 			}
 			break;
@@ -309,4 +311,3 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 END:
 	return Status;
 }
-

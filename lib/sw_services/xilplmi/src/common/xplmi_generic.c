@@ -69,6 +69,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
+*       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *
 * </pre>
 *
@@ -96,6 +97,7 @@
 #include "xplmi_ssit.h"
 #endif
 #include "xplmi_plat.h"
+#include "xplmi_tamper.h"
 
 /**@cond xplmi_internal
  * @{
@@ -127,6 +129,9 @@
 #define XPLMI_SCATTER_WRITE_PAYLOAD_LEN			(2U)
 #define XPLMI_SCATTER_WRITE2_PAYLOAD_LEN		(3U)
 
+/* Secure Lockdown and SRST Tamper response mask */
+#define XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK	(0xEU)
+
 /************************** Function Prototypes ******************************/
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
         XPlmi_Cmd* Cmd);
@@ -138,6 +143,7 @@ static int XPlmi_StackPush(u32 *Data);
 static int XPlmi_StackPop(u32 PopLevel, u32 *Data);
 static int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd);
 static int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd);
+static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd);
 
 /************************** Variable Definitions *****************************/
 static u32 OffsetList[XPLMI_BEGIN_OFFSET_STACK_SIZE] = {0U};
@@ -2036,6 +2042,37 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function triggers secure lockdown when Tamper Trigger IPI is
+ *          received.
+ *
+ * @param	Cmd is pointer to the command structure
+ *              Command payload parameters are
+ *              - Tamper Response
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 TamperResp = Cmd->Payload[0U];
+
+	/* Check if the Tamper Response input is valid */
+	if ((TamperResp & XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK) == 0x0U) {
+		/* Return error code if the Tamper Response received is invalid */
+		Status = (int)XPLMI_INVALID_TAMPER_RESPONSE;
+		goto END;
+	}
+
+	/* Execute secure lockdown */
+	Status = XPlmi_ProcessTamperResponse(TamperResp);
+
+END:
+	return Status;
+}
+
 /**
  * @{
  * @cond xplmi_internal
@@ -2090,6 +2127,7 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_InPlacePlmUpdate),
 		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite),
 		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite2),
+		XPLMI_MODULE_COMMAND(XPlmi_TamperTrigger),
 	};
 	/* This is to store CMD_END in xplm_modules section */
 	XPLMI_EXPORT_CMD(XPLMI_END_CMD_ID, XPLMI_MODULE_GENERIC_ID,

@@ -94,6 +94,7 @@
 * 1.08  ma   05/10/2022 Added error codes related SSIT PLM to PLM communication
 *       ma   06/21/2022 Added error codes related to Get Handoff Parameters
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *
 * </pre>
 *
@@ -276,6 +277,8 @@ typedef enum {
 						and break command are in separate chunks */
 	XPLMI_ERR_INVALID_PAYLOAD_LEN, /**< 0x13E - Invalid payload length received for
 	                    the command */
+	XPLMI_INVALID_TAMPER_RESPONSE, /**< 0x13F - Invalid tamper response received for
+		                TamperTrigger IPI call */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL = 0x1A0, /**< 0x1A0 - Error when the SSIT event
