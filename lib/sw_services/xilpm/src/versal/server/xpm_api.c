@@ -683,6 +683,12 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 	case PM_API(PM_SET_NODE_ACCESS):
 		Status = XPm_SetNodeAccess(&Pload[0], Len);
 		break;
+	case PM_API(PM_NOC_CLOCK_ENABLE):
+		Status = XPm_NocClockEnable(Pload[0], &Pload[1], Len-1U);
+		break;
+	case PM_API(PM_IF_NOC_CLOCK_ENABLE):
+		Status = XPm_IfNocClockEnable(Cmd, &Pload[0], Len);
+		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;
@@ -5004,6 +5010,8 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_ADD_REQUIREMENT):
 	case PM_API(PM_INIT_NODE):
 	case PM_API(PM_SET_NODE_ACCESS):
+	case PM_API(PM_NOC_CLOCK_ENABLE):
+	case PM_API(PM_IF_NOC_CLOCK_ENABLE):
 		*Version = XST_API_BASE_VERSION;
 		Status = XST_SUCCESS;
 		break;
@@ -5169,6 +5177,86 @@ XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr)
 	}
 
 	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function updates information for NoC clock enablement
+ *
+ * @param  NodeId	PLD Node Id
+ * @param  Args	Arguments buffer specific to function
+ * @param  NumArgs	Number of arguments passed
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_NocClockEnable(u32 NodeId, const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_PlDevice *PlDevice;
+
+	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(NodeId);
+	if (NULL == PlDevice) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Status = XPmPlDevice_NocClkEnable(PlDevice, Args, NumArgs);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function checks current and previous NoC clock enablement
+ *
+ * @param  Cmd		Pointer to CDO command
+ * @param  Args	Arguments specific to function
+ * @param  NumArgs	Number of arguments passed
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPm_IfNocClockEnable(XPlmi_Cmd *Cmd, const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BitArrayIdx;
+	u16 State, Mask;
+	u32 Level = 1U;
+
+	if (NumArgs < 2U) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	BitArrayIdx = Args[0];
+	State = (u16)(Args[1] & 0xFFFFU);
+	Mask = (u16)((Args[1] >> 16U) & 0xFFFFU);
+
+	/*
+	 * A Mask value of 0 indicates there is no requirement to ignore any bits
+	 * in the State argument, so the Mask is set to 0xFFFF
+	 */
+	if (0U == Mask) {
+		Mask = 0xFFFFU;
+	}
+
+	/* Level value defaults to 1 unless optional value is passed as argument */
+	if (3U == NumArgs) {
+		Level = Args[2];
+	}
+
+	Status = XPmPlDevice_IfNocClkEnable(Cmd, BitArrayIdx, State, Mask, Level);
 
 done:
 	return Status;

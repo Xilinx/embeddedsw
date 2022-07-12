@@ -183,6 +183,8 @@ void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		       const u32 NodeId, const u32 NodeState);
 XStatus XPm_IdleRestartHandler(const u32 SubsystemId);
 XStatus XPm_HookAfterBootPdi(void);
+XStatus XPm_NocClockEnable(u32 NodeId, const u32 *Args, u32 NumArgs);
+XStatus XPm_IfNocClockEnable(XPlmi_Cmd *Cmd, const u32 *Args, u32 NumArgs);
 
 #ifdef __cplusplus
 }

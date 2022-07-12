@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,6 +12,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define MAX_NOC_CLOCK_ARRAY_SIZE    8U
 
 /**
  * PLD node class.
@@ -32,7 +34,8 @@ struct XPm_PlDeviceNode {
 	XPm_PlDevice *Parent;           /**< Parent of PLD */
 	XPm_PlDevice *NextPeer;         /**< Sibling/Peer of PLD */
 	XPm_PlDevice *Child;            /**< Child head PLD’s children */
-	struct XPm_AieDeviceNode *AieDevice;       /**< Link to AIE Device */
+	struct XPm_AieDeviceNode *AieDevice;    /**< Link to AIE Device */
+	u32 NocClockEnablement[MAX_NOC_CLOCK_ARRAY_SIZE];	/**< Bit array representing NoC clock enablement */
 };
 
 /************************** Function Prototypes ******************************/
@@ -43,6 +46,9 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 
 XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp);
 XStatus XPmPlDevice_IsValidPld(const XPm_PlDevice *PlDevice);
+XStatus XPmPlDevice_NocClkEnable(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
+XStatus XPmPlDevice_IfNocClkEnable(XPlmi_Cmd *Cmd, u32 BitArrayIdx, u16 State,
+		        u16 Mask, u32 Level);
 
 #ifdef __cplusplus
 }
