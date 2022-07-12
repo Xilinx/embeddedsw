@@ -18,6 +18,7 @@
 * ----- ---- --------   -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       kpt  07/05/2022 Added support to update KAT status
+*       dc   07/12/2022 Added Device state change support
 *
 * </pre>
 *
@@ -29,6 +30,13 @@
 #include "xplmi_config.h"
 #ifndef PLM_SECURE_EXCLUDE
 #include "xloader_auth_enc.h"
+#include "xplmi_status.h"
+#include "xplmi_scheduler.h"
+#include "xloader_plat_secure.h"
+#include "xloader_secure.h"
+#include "xplmi.h"
+#include "xplmi_err.h"
+#include "xil_error_node.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /* eFuse Obfuscated Key */
@@ -40,7 +48,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+static int XLoader_CheckDeviceStateChange(void *Arg);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -170,6 +178,104 @@ void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask) {
 			XLoader_UpdatePpdiKatStatus(SecurePtr, PlmKatMask);
 		}
 	}
+}
+
+/******************************************************************************/
+/**
+* @brief        This function adds periodic checks of the device status
+*               change during secure boot.
+*
+* @return       XST_SUCCESS otherwise error code is returned
+*
+******************************************************************************/
+int XLoader_AddDeviceStateChangeToScheduler(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 JtagDis = 0x0U;
+	volatile u32 JtagDisTmp = 0x0U;
+	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	u32 SecureStateSHWRoT = XLoader_GetSHWRoT(NULL);
+
+	JtagDis = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+			XLOADER_EFUSE_CACHE_JTAG_DIS_MASK;
+	JtagDisTmp = XPlmi_In32(XLOADER_EFUSE_CACHE_SECURITY_CONTROL_OFFSET) &
+			XLOADER_EFUSE_CACHE_JTAG_DIS_MASK;
+
+	if ((JtagDis != XLOADER_EFUSE_CACHE_JTAG_DIS_MASK) &&
+		(JtagDisTmp != XLOADER_EFUSE_CACHE_JTAG_DIS_MASK)) {
+		/*
+		 * Checking HWROT enabled/disabled, for secure boot
+		 * DAP device state change will be identified.
+		 */
+		if ((SecureStateAHWRoT == XPLMI_RTCFG_SECURESTATE_AHWROT) ||
+			(SecureStateSHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT)) {
+			Status = XST_FAILURE;
+			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
+					XLoader_CheckDeviceStateChange, NULL,
+					XLOADER_DEVICE_STATE_POLL_INTERVAL,
+					XPLM_TASK_PRIORITY_0, NULL, XPLMI_PERIODIC_TASK);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_ADD_TASK_SCHEDULER, 0);
+			}
+			else {
+				XPlmi_Printf(DEBUG_INFO,
+					"Device state change task added successfully\r\n");
+			}
+		}
+		else {
+			/*
+			 * In non secure boot DAP is always open state
+			*/
+			Status = XST_SUCCESS;
+		}
+	}
+	else {
+		/*
+		 * The task should not be added to the scheduler if JTAG
+		 * disable efuse bit is set.
+		 * Thus forcing the Status to be XST_SUCCESS.
+		 */
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+* @brief        This function checks the JTAG device state change.
+* 		When Secure gate is opened from close state this API raises an error,
+*		if the gate is closed and re-opened again this function recognizes the
+*		state change and performs the action configured.
+*
+* @param	Arg is of pointer of void type.
+*
+* @return       XST_SUCCESS is returned.
+*
+******************************************************************************/
+static int XLoader_CheckDeviceStateChange(void *Arg)
+{
+	volatile u32 JtagStatus = XPlmi_In32(XLOADER_PMC_TAP_JTAG_STATUS_0) &
+					XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK;
+	static u8 JtagStateChange = XLOADER_JTAG_SEC_GATE_CLOSE;
+	(void)Arg;
+
+	if (JtagStatus == XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK) {
+		if (JtagStateChange == XLOADER_JTAG_SEC_GATE_CLOSE) {
+			JtagStateChange = XLOADER_JTAG_SEC_GATE_OPEN;
+			XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
+				XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE);
+		}
+	}
+	else {
+		/*
+		 * When DAP is closed resetting the variable to CLOSE state,
+		 * to identify the next JTAG GATE OPEN state and report the error.
+		 */
+		JtagStateChange = XLOADER_JTAG_SEC_GATE_CLOSE;
+	}
+
+	return XST_SUCCESS;
 }
 
 #endif /* END OF PLM_SECURE_EXCLUDE */

@@ -15,6 +15,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       dc   07/12/2022 Added XLoader_AddDeviceStateChangeToScheduler()
+*                       applicable only for Versalnet
 *
 * </pre>
 *
@@ -123,6 +125,18 @@ typedef enum {
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/*****************************************************************************/
+/**
+ * @brief	This function is supported only for Versalnet, nothing to be done
+ *		in Versal.
+ *
+ * @return	Returns XST_SUCCESS always
+ *
+ *****************************************************************************/
+static inline int XLoader_AddDeviceStateChangeToScheduler(void)
+{
+	return XST_SUCCESS;
+}
 
 /************************** Function Prototypes ******************************/
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);

@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       dc   07/12/2022 Added XPLMI_ERROR_DEV_STATE_CHANGE
 *
 * </pre>
 *
@@ -265,7 +266,8 @@ typedef enum {
 #define XPLMI_ERROR_HB_MON_2		(0xE2U)
 #define XPLMI_ERROR_HB_MON_3		(0xE3U)
 #define XPLMI_ERROR_PLM_EXCEPTION	(0xE4U)
-#define XPLMI_ERROR_SW_ERR_MAX		(0xE5U)
+#define XPLMI_ERROR_DEV_STATE_CHANGE 	(0xE5U)
+#define XPLMI_ERROR_SW_ERR_MAX		(0xE6U)
 
 #define XPLMI_ERROR_PSMERR_MAX		XPLMI_ERROR_PSMERR4_MAX
 #define XPLMI_ERROR_PMCERR_MAX		XPLMI_ERROR_PMCERR3_MAX

@@ -132,6 +132,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/05/22 Added support to update KAT status
 *       bsv  07/08/2022 Code changes related to Optional data in Image header
+*       dc   07/12/2022 Added device stage to scheduler
 *
 * </pre>
 *
@@ -267,6 +268,15 @@ int XLoader_Init(void)
 #ifndef PLM_SECURE_EXCLUDE
 	/* Adding task to the scheduler to handle Authenticated JTAG message */
 	Status = XLoader_AddAuthJtagToScheduler();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/*
+	 * Adding task to the scheduler to check DAP status
+	 * Applicable only for VersalNet
+	 */
+	Status = XLoader_AddDeviceStateChangeToScheduler();
 #endif
 
 END:

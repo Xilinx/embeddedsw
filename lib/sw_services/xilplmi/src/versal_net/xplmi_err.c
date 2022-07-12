@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       dc   07/12/2022 Added support to device state change
 *
 * </pre>
 *
@@ -421,6 +422,8 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_HB_MON_3] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PLM_EXCEPTION] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_DEV_STATE_CHANGE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
