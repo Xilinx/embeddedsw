@@ -16,6 +16,7 @@
 * ----- ---- --------   -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       kpt  07/07/2022 Added support to update KAT status
+*       dc   07/12/2022 Added support to recognize device state change
 *
 * </pre>
 *
@@ -41,6 +42,13 @@ extern "C" {
 #define XLOADER_EFUSE_CACHE_FIPS (0xF1250234U)
 #define XLOADER_EFUSE_FIPS_MODE_SHIFT (26U)
 
+#define XLOADER_EFUSE_CACHE_JTAG_DIS_MASK		(0x00000004U)
+#define XLOADER_PMC_TAP_JTAG_STATUS_0			(0xF11A004CU)
+#define XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK	(0x00000001U << 23U)
+#define XLOADER_JTAG_SEC_GATE_CLOSE			(0x00U)
+#define XLOADER_JTAG_SEC_GATE_OPEN			(0x01U)
+
+#define XLOADER_DEVICE_STATE_POLL_INTERVAL	(1000U)
 /**************************** Type Definitions *******************************/
 typedef enum {
 	/* Add platform specific error codes from 0xA0 */
@@ -132,7 +140,7 @@ typedef enum {
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
 u8 XLoader_IsFipsModeEn(void);
-
+int XLoader_AddDeviceStateChangeToScheduler(void);
 /************************** Variable Definitions *****************************/
 
 #endif /* END OF PLM_SECURE_EXCLUDE */

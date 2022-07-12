@@ -16,6 +16,7 @@
 * Ver   Who 	 Date        Changes
 * ----- -------- -------- -----------------------------------------------------
 * 8.0   bm       07/06/2022 Initial release
+*       dc       07/12/2022 Added XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE
 *
 * </pre>
 *
@@ -708,6 +709,7 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_HB_MON_2		(0x00000004U)
 #define XIL_EVENT_ERROR_MASK_HB_MON_3		(0x00000008U)
 #define XIL_EVENT_ERROR_MASK_PLM_EXCEPTION	(0x00000010U)
+#define XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE 	(0x00000020U)
 /**
  * @}
  */
