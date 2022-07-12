@@ -42,6 +42,10 @@
  * multiple fragments. */
 #define XDP_MAX_LENGTH_SBMSG 48
 
+/* Maximum number of bytes to be read from downstream receiver. */
+#define XDP_MAX_BYTES_TO_READ 16
+/* Down request offset. */
+#define XDP_DOWN_REQ_OFFSET 0x10
 /* MST device is detected. */
 #define XDP_MST_DEVICE_DETECTED 0x01
 /* Source device or SST Branch device connected to a UFP. */
@@ -3634,8 +3638,10 @@ static void XDp_RxReadDownReq(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply)
 {
 	u32 Status;
+	int BytesToRead = 0;
 	u8 Index = 0;
 	u8 AuxData[80];
+	u8 DownReqOffset = XDP_DOWN_REQ_OFFSET;
 	XDp_SidebandMsg Msg;
 
 	Msg.FragmentNum = 0;
@@ -3651,11 +3657,29 @@ static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply)
 		}
 
 		/* Receive reply. */
-		Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_DOWN_REP, 80,
+		Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_DOWN_REP, XDP_MAX_BYTES_TO_READ,
 								AuxData);
 		if (Status != XST_SUCCESS) {
 			/* The AUX read transaction failed. */
 			return Status;
+		}
+
+		DownReqOffset = XDP_DOWN_REQ_OFFSET;
+		BytesToRead = AuxData[1];
+		BytesToRead = BytesToRead & 0x003F;
+		BytesToRead = BytesToRead - XDP_MAX_BYTES_TO_READ;
+		while (BytesToRead >= 0) {
+			/* Receive reply. */
+			Status = XDp_TxAuxRead(InstancePtr,
+					       XDP_DPCD_DOWN_REP + DownReqOffset,
+					       XDP_MAX_BYTES_TO_READ,
+					       &AuxData[DownReqOffset]);
+			if (Status != XST_SUCCESS) {
+				/* The AUX read transaction failed. */
+				return Status;
+			}
+			BytesToRead = BytesToRead - XDP_MAX_BYTES_TO_READ;
+			DownReqOffset += XDP_DOWN_REQ_OFFSET;
 		}
 
 		/* Convert the reply transaction into XDp_SidebandReply
@@ -3667,12 +3691,6 @@ static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply)
 			return XST_FAILURE;
 		}
 
-		/* Collect body data into an array. */
-		for (Index = 0; Index < Msg.Body.MsgDataLength; Index++) {
-			SbReply->Data[SbReply->Length++] =
-							Msg.Body.MsgData[Index];
-		}
-
 		/* Clear. */
 		AuxData[0] = 0x10;
 		Status = XDp_TxAuxWrite(InstancePtr,
@@ -3682,6 +3700,13 @@ static u32 XDp_TxReceiveSbMsg(XDp *InstancePtr, XDp_SidebandReply *SbReply)
 			/* The AUX write transaction failed. */
 			return Status;
 		}
+
+		/* Collect body data into an array. */
+		for (Index = 0; Index < Msg.Body.MsgDataLength; Index++) {
+			SbReply->Data[SbReply->Length++] =
+							Msg.Body.MsgData[Index];
+		}
+
 	}
 	while (Msg.Header.EndOfMsgTransaction == 0);
 
