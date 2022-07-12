@@ -1,0 +1,17 @@
+#******************************************************************************
+# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+#
+##*****************************************************************************/
+
+OPTION psf_version = 2.1;
+
+BEGIN driver dp14
+        OPTION supported_peripherals = (displayport_v[8-9]_[0-9]);
+        OPTION driver_state = ACTIVE;
+	OPTION depends = (video_common_v4_0);
+        OPTION copyfiles = all;
+        OPTION VERSION = 7.7;
+        OPTION NAME = dp14;
+END driver
