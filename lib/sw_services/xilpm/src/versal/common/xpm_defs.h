@@ -670,7 +670,9 @@ typedef enum {
 	PM_ISO_CONTROL,					/**< 0x40 */
 	PM_ACTIVATE_SUBSYSTEM,				/**< 0x41 */
 	PM_SET_NODE_ACCESS,				/**< 0x42 */
-	PM_API_MAX					/**< 0x43 */
+	PM_NOC_CLOCK_ENABLE = 0x45,			/**< 0x45 */
+	PM_IF_NOC_CLOCK_ENABLE,				/**< 0x46 */
+	PM_API_MAX					/**< 0x47 */
 } XPm_ApiId;
 
 /**

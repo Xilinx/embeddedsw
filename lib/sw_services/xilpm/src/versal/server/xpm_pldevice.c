@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -14,6 +14,13 @@
 #define MAX_PWR_DOMAIN_BITMASK			(PWR_DOMAIN_NOC_BITMASK |\
 						  PWR_DOMAIN_PL_BITMASK)
 #define NOT_INITIALIZED			0xFFU
+
+/* NoC clock gating definitions */
+#define MAX_NOC_CLOCK_BITS			256U
+#define PREVIOUS_ARRAY_MASK			0x0002U
+#define CURRENT_ARRAY_MASK			0x0001U
+static u32 NocClkPrevUnionBits[MAX_NOC_CLOCK_ARRAY_SIZE];
+static u32 NocClkCurrUnionBits[MAX_NOC_CLOCK_ARRAY_SIZE];
 
 typedef struct {
 	const u8 BitMask;
@@ -650,6 +657,11 @@ XStatus XPmPlDevice_Init(XPm_PlDevice *PlDevice,
 
 	PlDevice->Device.DeviceFsm = &XPmPlDeviceFsm;
 
+	/* Initialize Noc Clock BitArray to 0 */
+	for (u32 i = 0U; i < MAX_NOC_CLOCK_ARRAY_SIZE; i++) {
+		PlDevice->NocClockEnablement[i] = 0U;
+	}
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -699,5 +711,159 @@ XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp)
 	Status = XST_SUCCESS;
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Save the NoC clock enablement for the given PLD partition and
+ *	    update the global current and previous union bit arrays
+ *
+ * @param  PlDevice: Pointer to PLD partition
+ * @param  Args: Argument buffer with BitArray words
+ * @param  NumArgs: Number of BitArray words
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note None
+ *
+ ****************************************************************************/
+XStatus XPmPlDevice_NocClkEnable(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_PlDevice *Device;
+	u32 i;
+
+	if (MAX_NOC_CLOCK_ARRAY_SIZE < NumArgs)	{
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Save local copy of bit array to PLD partition */
+	for (i = 0U; i < NumArgs; i++) {
+		PlDevice->NocClockEnablement[i] = Args[i];
+	}
+
+	/*
+	 * Copy the current union bit array into the previous union bit array
+	 * and clear the current union bit array. The current union bit array is
+	 * cleared in case an enablement is switching from 1 to 0.
+	 */
+	for (i = 0U; i < MAX_NOC_CLOCK_ARRAY_SIZE; i++) {
+		NocClkPrevUnionBits[i] = NocClkCurrUnionBits[i];
+		NocClkCurrUnionBits[i] = 0U;
+	}
+
+	/*
+	 * The current union bit array has been cleared to handle cases where
+	 * a clock enablement bit has transitioned from 1 to 0. To create a new
+	 * current union bit array, OR all partition Bit Arrays.
+	 */
+	for (i = 0U; i < (u32)XPM_NODEIDX_DEV_PLD_MAX; i++) {
+		Device = (XPm_PlDevice *)XPmDevice_GetPlDeviceByIndex(i);
+		/* Only update the current union for active PLD partitions */
+		if ((NULL == Device) ||
+			(((u8)XPM_DEVSTATE_INITIALIZING != Device->Device.Node.State) &&
+			((u8)XPM_DEVSTATE_RUNNING != Device->Device.Node.State))) {
+			continue;
+		}
+
+		/* OR all words for this partition with the current union bit array */
+		for (u32 Idx = 0U; Idx < MAX_NOC_CLOCK_ARRAY_SIZE; Idx++) {
+			NocClkCurrUnionBits[Idx] |= Device->NocClockEnablement[Idx];
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Check the current and previous NoC clock enablement specified by
+ *	    BitArrayIdx argument. If the enablement matches the State argument
+ *	    the processing will continue. Otherwise the processing will break
+ *	    out of the block.
+ *
+ * @param  Cmd: Pointer to the CDO command
+ * @param  BitArrayIdx: Index into the bit array which represents a specific
+ *	    NoC clock switch
+ * @param  State: The state which is checked against the previous and current
+ *	    clock enablement
+ * @param  Mask: Mask which indicates if the current or previous enablement
+ *	    states will be checked
+ * @param  Level: Level of block nesting to break out of
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note None
+ *
+ ****************************************************************************/
+XStatus XPmPlDevice_IfNocClkEnable(XPlmi_Cmd *Cmd, u32 BitArrayIdx, u16 State,
+		u16 Mask, u32 Level)
+{
+	XStatus Status = XST_FAILURE;
+	u8 PreviousState;
+	u8 CurrentState;
+	u32 PreviousWord, CurrentWord;
+	u32 Bit, Index;
+
+	if (MAX_NOC_CLOCK_BITS <= BitArrayIdx) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Get the previous and current states from State argument.
+	 * Bit 0 of State is the current state
+	 * Bit 1 of State is the previous state
+	 */
+	PreviousState = (u8)((State >> 1U) & 0x1U);
+	CurrentState = (u8)(State & 0x1U);
+
+	/*
+	 * BitArrayIdx is used to calculate the Index of the word in the current
+	 * and previous union arrays as well as the respective bit in that word.
+	 * Using the calculated Index, retrieve the word from the current and
+	 * previous union arrays.
+	 */
+	Index = BitArrayIdx / 32U;
+	Bit = BitArrayIdx % 32U;
+	PreviousWord = NocClkPrevUnionBits[Index];
+	CurrentWord = NocClkCurrUnionBits[Index];
+
+	/*
+	 * This block is used to check if the clock enablement matches the state
+	 * passed by the CDO command. If the states do not match then
+	 * skip CDO processing to the end of the block.
+	 */
+	if (((PREVIOUS_ARRAY_MASK == (PREVIOUS_ARRAY_MASK & Mask)) &&
+		(PreviousState != ((PreviousWord >> Bit) & 1U))) ||
+		((CURRENT_ARRAY_MASK == (CURRENT_ARRAY_MASK & Mask)) &&
+		(CurrentState != ((CurrentWord >> Bit) & 1U)))) {
+
+		/*
+		 * If the block condition passes this means one of two things:
+		 * - There is no clock state transition -> from on(1) to off(0) or vice
+		 *   versa
+		 * - The clock is already enabled or disabled -> in cases where the
+		 *   mask is included, it is checked if a clock is/was (curr/prev)
+		 *   enabled/disabled (1/0). No transition is checked, i.e. there is no
+		 *   check on both previous and current arrays.
+		 * This indicates there is no requirement to enable or disable the
+		 * clocks. Therefore, the CDO block should not continue. Call this
+		 * function to break out of the block.
+		 */
+		Status = XPlmi_GetJumpOffSet(Cmd, Level);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
 	return Status;
 }
