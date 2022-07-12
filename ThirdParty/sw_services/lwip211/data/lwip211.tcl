@@ -868,6 +868,7 @@ proc generate_lwip_opts {libhandle} {
 	set netif_debug		[expr [common::get_property CONFIG.netif_debug $libhandle] == true]
 	set sys_debug		[expr [common::get_property CONFIG.sys_debug $libhandle] == true]
 	set pbuf_debug		[expr [common::get_property CONFIG.pbuf_debug $libhandle] == true]
+	set socket_debug	[expr [common::get_property CONFIG.socket_debug $libhandle] == true]
 
 	if {$lwip_debug == 1} {
 		puts $lwipopts_fd "\#define LWIP_DEBUG 1"
@@ -890,6 +891,9 @@ proc generate_lwip_opts {libhandle} {
 		}
 		if {$pbuf_debug} {
 			puts $lwipopts_fd "\#define PBUF_DEBUG (LWIP_DBG_LEVEL_SEVERE | LWIP_DBG_ON)"
+		}
+		if {$socket_debug} {
+			puts $lwipopts_fd "\#define SOCKET_DEBUG (LWIP_DBG_LEVEL_SEVERE | LWIP_DBG_ON)"
 		}
 		puts $lwipopts_fd "\#define MEMP_DEBUG (LWIP_DBG_LEVEL_SEVERE | LWIP_DBG_ON)"
 		puts $lwipopts_fd ""
