@@ -1161,7 +1161,7 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 done:
 	if (XST_SUCCESS != Status) {
 		XPmRequirement_Clear(Reqm);
-		PmErr("0x%x\n\r", Status);
+		PmErr("0x%x, Id: 0x%x\r\n", Status, Device->Node.Id);
 	}
 	return Status;
 }
@@ -1229,7 +1229,7 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 done:
 	if (XST_SUCCESS != Status) {
 		Device->PendingReqm = NULL;
-		PmErr("0x%x\n\r", Status);
+		PmErr("0x%x, Id: 0x%x\r\n", Status, Device->Node.Id);
 	}
 	return Status;
 }
@@ -1285,7 +1285,7 @@ static XStatus DevRelease(XPm_Device *Device, const XPm_Subsystem *Subsystem, u3
 done:
 	if (XST_SUCCESS != Status) {
 		Device->PendingReqm = NULL;
-		PmErr("0x%x\n\r", Status);
+		PmErr("0x%x, Id: 0x%x\r\n", Status, Device->Node.Id);
 	}
 	return Status;
 }

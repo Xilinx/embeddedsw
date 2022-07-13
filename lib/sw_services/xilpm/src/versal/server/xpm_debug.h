@@ -573,6 +573,12 @@ extern "C" {
 #define XPM_INT_ERR_PLDEVICE_INVALID_BITMASK			0x490CU
 /* Error when RM is run for child when parent is in unused state */
 #define XPM_INT_ERR_RUN_PARENT_IMAGE_FIRST			0x490DU
+/* Error during init mem controller map for PLDx */
+#define XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP			0x490EU
+/* Error during mem controller request */
+#define XPM_INT_ERR_PLDEVICE_MEM_CTRLR_REQUEST			0x490FU
+/* Error during mem controller release */
+#define XPM_INT_ERR_PLDEVICE_MEM_CTRLR_RELEASE			0x4910U
 
 /*********************** AIE Device specific Errors **************************/
 /************************** (0x4980) - (0x49FF) ******************************/
