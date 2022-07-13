@@ -208,7 +208,7 @@ int XLoader_AddDeviceStateChangeToScheduler(void)
 		 * DAP device state change will be identified.
 		 */
 		if ((SecureStateAHWRoT == XPLMI_RTCFG_SECURESTATE_AHWROT) ||
-			(SecureStateSHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT)) {
+			(SecureStateSHWRoT == XPLMI_RTCFG_SECURESTATE_SHWROT)) {
 			Status = XST_FAILURE;
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
 					XLoader_CheckDeviceStateChange, NULL,
