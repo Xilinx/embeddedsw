@@ -6,7 +6,7 @@
 #ifndef XPM_PLDEVICE_H_
 #define XPM_PLDEVICE_H_
 
-#include "xpm_device.h"
+#include "xpm_mem.h"
 #include "xpm_powerdomain.h"
 
 #ifdef __cplusplus
@@ -19,6 +19,7 @@ extern "C" {
  * PLD node class.
  */
 typedef struct XPm_PlDeviceNode XPm_PlDevice;
+typedef struct XPm_PldInitNodeOps XPm_PldInitNodeOps;
 
 struct XPm_PldInitNodeOps {
 	XStatus (*InitStart)(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs);
@@ -30,11 +31,13 @@ struct XPm_PlDeviceNode {
 	XPm_Device Device;              /**< Device: Base class */
 	u8 PowerBitMask;                /**< Current Power Domain Dependency */
 	u8 WfPowerBitMask;              /**< Desired Power Domain Dependency */
-	struct XPm_PldInitNodeOps *Ops; /**< Node Initialization Operations */
+	u8 MemCtrlrCount;		/**< Link count for DDR Mem controllers */
 	XPm_PlDevice *Parent;           /**< Parent of PLD */
 	XPm_PlDevice *NextPeer;         /**< Sibling/Peer of PLD */
 	XPm_PlDevice *Child;            /**< Child head PLD’s children */
-	struct XPm_AieDeviceNode *AieDevice;    /**< Link to AIE Device */
+	XPm_PldInitNodeOps *Ops;	/**< Node Initialization Operations */
+	XPm_MemCtrlrDevice *MemCtrlr[4];	/**< Link to DDR Mem controllers */
+	struct XPm_AieDeviceNode *AieDevice;       /**< Link to AIE Device */
 	u32 NocClockEnablement[MAX_NOC_CLOCK_ARRAY_SIZE];	/**< Bit array representing NoC clock enablement */
 };
 

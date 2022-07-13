@@ -6,6 +6,7 @@
 #include "xpm_pldevice.h"
 #include "xpm_debug.h"
 #include "xpm_defs.h"
+#include "xpm_mem.h"
 #include "xpm_aiedevice.h"
 
 #define PWR_DOMAIN_UNUSED_BITMASK		0U
@@ -66,6 +67,34 @@ static XStatus Pld_UnsetBitPwrBitMask(u8 *BitMask, const u32 NodeId)
 		}
 	}
 
+	return Status;
+}
+
+static XStatus Pld_ReleaseMemCtrlr(XPm_PlDevice *PlDevice)
+{
+	XStatus Status = XST_FAILURE;
+	u32 McCount = PlDevice->MemCtrlrCount;
+
+	for (u8 i = 0; i < McCount; ++i) {
+		if ((NULL == PlDevice->MemCtrlr[i]) ||
+		    ((u8)XPM_DEVSTATE_RUNNING != PlDevice->MemCtrlr[i]->Device.Node.State)) {
+			continue;
+		}
+		Status = XPmDevice_Release(PM_SUBSYS_PMC,
+				PlDevice->MemCtrlr[i]->Device.Node.Id,
+				XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			Status = XPM_ERR_DEVICE_RELEASE;
+			goto done;
+		}
+		/* Remove link between PLD <-> DDRMC */
+		PlDevice->MemCtrlr[i]->PlDevice = NULL;
+		PlDevice->MemCtrlr[i] = NULL;
+		PlDevice->MemCtrlrCount--;
+	}
+
+	Status = XST_SUCCESS;
+done:
 	return Status;
 }
 
@@ -137,6 +166,11 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+		}
+		/* Release any DDRMCs linked to this PLD */
+		Status = Pld_ReleaseMemCtrlr(PldChild);
+		if (XST_SUCCESS != Status) {
+			goto done;
 		}
 		PldChild->WfPowerBitMask = PWR_DOMAIN_UNUSED_BITMASK;
 		PldChild->Device.Node.State = (u8)XPM_DEVSTATE_INITIALIZING;
@@ -569,6 +603,13 @@ static XStatus PlInitFinish(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs
 	}
 
 	if (PWR_DOMAIN_UNUSED_BITMASK == PlDevice->WfPowerBitMask) {
+		/* Release DDRMCs linked to this PLD */
+		Status = Pld_ReleaseMemCtrlr(PlDevice);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_PLDEVICE_MEM_CTRLR_RELEASE;
+			goto done;
+		}
+		/* Release PLD */
 		Status = XPmDevice_Release(PM_SUBSYS_PMC, PlDevice->Device.Node.Id,
 					   XPLMI_CMD_SECURE);
 		if (XST_SUCCESS != Status) {
@@ -595,18 +636,93 @@ done:
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *
- * @note This command is used to annotate the ddrmc device nodes defined by
- * topology with additional user specified information
+ * @note This command is used to annotate the DDRMC device nodes defined by
+ * topology with additional user specified information. A two way link is
+ * established between a PLD and DDRMC device. Each DDRMC device links to
+ * exactly one PLD, however each PLD can link to one or more DDRMC devices.
  *
  ****************************************************************************/
 static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 {
-	(void)PlDevice;
-	(void)Args;
-	(void)NumArgs;
+	XStatus Status = XST_FAILURE;
+	u32 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_MemCtrlrDevice *MCDev = NULL;
 
-	/* TODO: Handler implementation */
-	return XST_SUCCESS;
+	if ((6U != NumArgs) && (10U != NumArgs)) {
+
+		Status = XST_INVALID_PARAM;
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		goto done;
+	}
+
+	/* PLD must be in an initializing state */
+	if ((u8)XPM_DEVSTATE_INITIALIZING != PlDevice->Device.Node.State) {
+		Status = XPM_ERR_DEVICE_STATUS;
+		DbgErr = XPM_INT_ERR_INVALID_STATE;
+		goto done;
+	}
+
+	/* Lookup DDRMC device based on provided address in args */
+	for (u32 i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+		MCDev = (XPm_MemCtrlrDevice *)XPmDevice_GetById(DDRMC_DEVID(i));
+		if ((NULL != MCDev) &&
+		    (Args[0U] == MCDev->Device.Node.BaseAddress)) {
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
+		goto done;
+	}
+
+	/* Link DDRMC to PLD */
+	if (NULL == MCDev->PlDevice) {
+		MCDev->PlDevice = PlDevice;
+	} else {
+		/* Error if previously linked to another PLD */
+		Status = XST_DEVICE_BUSY;
+		DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
+		goto done;
+	}
+
+	/* Link PLD to DDRMC */
+	if (PlDevice->MemCtrlrCount < ARRAY_SIZE(PlDevice->MemCtrlr)) {
+		PlDevice->MemCtrlr[PlDevice->MemCtrlrCount] = MCDev;
+		PlDevice->MemCtrlrCount++;
+	} else {
+		/* Fatal error if not enough space */
+		Status = XST_BUFFER_TOO_SMALL;
+		DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
+		goto done;
+	}
+
+	/* DDRMC address region count */
+	MCDev->RegionCount = (u8)(Args[1U] & 0xFFU);
+
+	/* DDRMC interleave size and index */
+	MCDev->IntlvSize = (u8)((Args[1U] >> 8U) & 0xFFU);
+	MCDev->IntlvIndex = (u8)((Args[1U] >> 16U) & 0xFU);
+
+	/* Annotate DDRMC regions */
+	for (u32 Cnt = 0U, Off = 2U; Cnt < MCDev->RegionCount; Cnt++) {
+		MCDev->Region[Cnt].Address = ((u64)Args[Off + 1U] << 32U) | (u64)(Args[Off]);
+		MCDev->Region[Cnt].Size = ((u64)Args[Off + 3U] << 32U) | (u64)(Args[Off + 2U]);
+		Off += 4U;
+	}
+
+	/* Request DDRMC for this PLD */
+	Status = XPmDevice_Request(PM_SUBSYS_PMC, MCDev->Device.Node.Id,
+			(u32)PM_CAP_ACCESS, XPM_MAX_QOS, XPLMI_CMD_SECURE);
+	if (XST_SUCCESS != Status) {
+		Status = XPM_ERR_DEVICE_REQ;
+		DbgErr = XPM_INT_ERR_PLDEVICE_MEM_CTRLR_REQUEST;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }
 
 static struct XPm_PldInitNodeOps PldOps = {
