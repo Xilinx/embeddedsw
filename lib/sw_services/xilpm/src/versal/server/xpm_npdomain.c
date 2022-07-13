@@ -19,9 +19,6 @@
 #include "xpm_device.h"
 #include "xpm_mem.h"
 
-#define XPM_NODEIDX_DEV_DDRMC_MIN	XPM_NODEIDX_DEV_DDRMC_0
-#define XPM_NODEIDX_DEV_DDRMC_MAX	XPM_NODEIDX_DEV_DDRMC_3
-
 static u32 NpdMemIcAddresses[XPM_NODEIDX_MEMIC_MAX];
 
 static XStatus NpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
