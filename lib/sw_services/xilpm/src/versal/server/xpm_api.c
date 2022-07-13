@@ -6,6 +6,7 @@
 #include "xil_util.h"
 #include "xplmi_ipi.h"
 #include "xplmi_util.h"
+#include "xplmi_ssit.h"
 #include "xpm_api.h"
 #include "xpm_defs.h"
 #include "xpm_psm_api.h"
@@ -477,6 +478,28 @@ done:
 	return Status;
 }
 
+static inline u32 IsOnSecondarySLR(u32 SubsystemId)
+{
+	u32 Status = FALSE;
+	(void)SubsystemId;
+
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+	/*
+	 * Ideally, we'd like to pass the source info "securely" from master
+	 * to slave SLRs, however until such means are available,
+	 * use SubsystemId as 0U - which will let slave SLRs know that this
+	 * is likely a forwarded command from master. Each command handler on
+	 * slave SLR will check validity of SubsystemId so unauthorized
+	 * commands will not get executed.
+	 */
+	if ((0U == SubsystemId) && XPLMI_SSIT_MASTER_SLR_INDEX != XPlmi_GetSlrIndex()) {
+		Status = TRUE;
+	}
+#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
+
+	return Status;
+}
+
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	u32 ApiResponse[XPLMI_CMD_RESP_SIZE-1] = {0};
@@ -494,7 +517,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					Cmd->CmdId, SubsystemId, Cmd->IpiMask);
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if ((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) {
+	if (((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) &&
+	    (TRUE != IsOnSecondarySLR(SubsystemId))) {
 		/* Subsystem must not be offline here */
 		PmErr("Subsystem 0x%x is not present or offline\r\n", SubsystemId);
 		Status = XPM_INVALID_SUBSYSID;
