@@ -151,6 +151,39 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 		}								\
 	} while (XPM_FALSE_COND)								\
 
+
+/* Payload Packets */
+#define XPM_PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)	\
+	do {								\
+		Payload[0] = (u32)Arg0;					\
+		Payload[1] = (u32)Arg1;					\
+		Payload[2] = (u32)Arg2;					\
+		Payload[3] = (u32)Arg3;					\
+		Payload[4] = (u32)Arg4;					\
+		Payload[5] = (u32)Arg5;					\
+		PmDbg("%s(%x, %x, %x, %x, %x)\r\n", __func__, Arg1, Arg2, Arg3, Arg4, Arg5);	\
+	} while (XPM_FALSE_COND)
+
+#define XPM_MODULE_ID			(0x02UL)
+
+#define XPM_HEADER(len, ApiId)		((len << 16U) | (XPM_MODULE_ID << 8U) | ((u32)ApiId))
+
+#define XPM_HEADER_SET_CMDTYPE(Payload, SecurityFlag)		\
+	(Payload[0] = ((Payload[0] & ~0xFF000000UL) | ((SecurityFlag & 0x1UL) << 24U)))
+
+#define XPM_PACK_PAYLOAD0(Payload, ApiId) \
+	XPM_PACK_PAYLOAD(Payload, XPM_HEADER(0UL, ApiId), 0, 0, 0, 0, 0)
+#define XPM_PACK_PAYLOAD1(Payload, ApiId, Arg1) \
+	XPM_PACK_PAYLOAD(Payload, XPM_HEADER(1UL, ApiId), Arg1, 0, 0, 0, 0)
+#define XPM_PACK_PAYLOAD2(Payload, ApiId, Arg1, Arg2) \
+	XPM_PACK_PAYLOAD(Payload, XPM_HEADER(2UL, ApiId), Arg1, Arg2, 0, 0, 0)
+#define XPM_PACK_PAYLOAD3(Payload, ApiId, Arg1, Arg2, Arg3) \
+	XPM_PACK_PAYLOAD(Payload, XPM_HEADER(3UL, ApiId), Arg1, Arg2, Arg3, 0, 0)
+#define XPM_PACK_PAYLOAD4(Payload, ApiId, Arg1, Arg2, Arg3, Arg4) \
+	XPM_PACK_PAYLOAD(Payload, XPM_HEADER(4UL, ApiId), Arg1, Arg2, Arg3, Arg4, 0)
+#define XPM_PACK_PAYLOAD5(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
+	XPM_PACK_PAYLOAD(Payload, XPM_HEADER(5UL, ApiId), Arg1, Arg2, Arg3, Arg4, Arg5)
+
 /**
  * Adds redundancy while comparing the return value of called function.
  * based on NULL == RHS comparison wants to skip some part from execution.
