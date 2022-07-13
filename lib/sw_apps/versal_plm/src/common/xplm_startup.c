@@ -39,6 +39,7 @@
 *       ma   01/17/2022 Enable SLVERR for PLM related components
 *       is   03/22/2022 Updated PMC XMPU/XPPUs IEN macros
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
+*       ma   07/13/2022 Fix bug in enabling SLVERR for RTC
 *
 * </pre>
 *
@@ -170,9 +171,13 @@ static void XPlm_EnableSlaveErrors(void)
 	XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_LOCK_VAL);
 	/* Enable SLVERR for CRP registers */
 	XPlmi_Out32(CRP_BASEADDR, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for RTC registers */
-	XPlmi_UtilRMW(RTC_CONTROL, XPLMI_SLAVE_ERROR_ENABLE_MASK,
-			XPLMI_SLAVE_ERROR_ENABLE_MASK);
+	/*
+	 * Enable SLVERR for RTC registers
+	 * Bit 31 in RTC_CONTROL is to disable the battery which is write-only.
+	 * When writing to this register, bit 31 should also be set to 1.
+	 */
+	XPlmi_UtilRMW(RTC_CONTROL, RTC_CONTROL_SLVERR_EN_MASK,
+			RTC_CONTROL_SLVERR_EN_MASK);
 	/* Enable SLVERR for PMC_XMPU registers */
 	XPlmi_Out32((PMC_XMPU_BASEADDR + XMPU_IEN), XPLMI_SLAVE_ERROR_ENABLE_MASK);
 	/* Enable SLVERR for PMC_XPPU_NPI registers */

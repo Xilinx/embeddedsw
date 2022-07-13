@@ -20,6 +20,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
 *       ma   07/08/2022 Added support for secure lockdown
+*       ma   07/13/2022 Added RTC_CONTROL_SLVERR_EN_MASK macro
 *
 * </pre>
 *
@@ -1051,6 +1052,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * Register: RTC_CONTROL
  */
 #define RTC_CONTROL		(RTC_BASEADDR + 0X00000040U)
+#define RTC_CONTROL_SLVERR_EN_MASK      (0X80000001U)
 
 /*
  * XMPUs
