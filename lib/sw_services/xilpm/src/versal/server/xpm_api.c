@@ -4248,6 +4248,7 @@ static XStatus AddMemCtrlrDevice(const u32 *Args, u32 PowerId)
 	u32 DeviceId;
 	u32 Type;
 	XPm_Device *Device;
+	XPm_MemCtrlrDevice *MemCtrlr;
 	XPm_Power *Power;
 	u32 BaseAddr;
 
@@ -4268,7 +4269,6 @@ static XStatus AddMemCtrlrDevice(const u32 *Args, u32 PowerId)
 	}
 
 	switch (Type) {
-	case (u32)XPM_NODETYPE_DEV_DDR:
 	case (u32)XPM_NODETYPE_DEV_HBM:
 		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
 		if (NULL == Device) {
@@ -4276,6 +4276,15 @@ static XStatus AddMemCtrlrDevice(const u32 *Args, u32 PowerId)
 			goto done;
 		}
 		Status = XPmDevice_Init(Device, DeviceId, BaseAddr,
+					Power, NULL, NULL);
+		break;
+	case (u32)XPM_NODETYPE_DEV_DDR:
+		MemCtrlr = (XPm_MemCtrlrDevice *)XPm_AllocBytes(sizeof(XPm_MemCtrlrDevice));
+		if (NULL == MemCtrlr) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmDevice_Init(&MemCtrlr->Device, DeviceId, BaseAddr,
 					Power, NULL, NULL);
 		break;
 	default:
