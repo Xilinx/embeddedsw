@@ -27,6 +27,7 @@
 * 1.05  ma   05/10/2022 Added PLM to PLM communication feature
 *       bsv  06/03/2022 Add CommandInfo to a separate section in elf
 *       hb   06/15/2022 Removed static declaration of XPlmi_SsitGetSlrAddr
+*       is   07/10/2022 Added support for XPlmi_SsitSendMsgEventAndGetResp API
 *
 * </pre>
 *
@@ -791,6 +792,51 @@ END:
 
 /****************************************************************************/
 /**
+* @brief    This function sends a message event with given request buffer
+*           to a slave SLR, waits for event completion, reads the response
+*           from the slave SLR and returns it to the caller
+*
+* @param    SlrIndex is the SLR index from which the response need to be read
+* @param    ReqBuf is the buffer to which the event buffer data to be written
+* @param    ReqBufSize is the size of the ReqBuf
+* @param    RespBuf is the Response Buffer to where the response to be written
+* @param    RespBufSize is the size of the response buffer
+* @param    WaitForEventCompletion is the maximum time to wait before the
+*           requested message event is handled by a slave SLR [in microseconds]
+*
+* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+*
+****************************************************************************/
+int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
+		u32 *RespBuf, u32 RespBufSize, u32 WaitForEventCompletion)
+{
+	int Status = XST_FAILURE;
+
+	/* Write message event buffer and trigger the event from master SLR */
+	Status = XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(SlrIndex, ReqBuf, ReqBufSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Wait until message event is handled by a slave SLR */
+	Status = XPlmi_SsitWaitForEvent(SlrIndex,
+			XPLMI_SLRS_MESSAGE_EVENT_INDEX, WaitForEventCompletion);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Read response in master SLR - which is provided by a slave SLR */
+	Status = XPlmi_SsitReadResponse(SlrIndex, RespBuf, RespBufSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
 * @brief    This function is the task handler for the SSIT events in both
 *           Master and Slave SLRs
 *
@@ -886,6 +932,12 @@ static int XPlmi_SsitMsgEventHandler(void *Data)
 	} else {
 		Cmd.Payload = (u32 *)&MsgBuf[1U];
 	}
+
+	/*
+	 * Use Subsystem Id as 0U - to indicate this command is likely
+	 * a forwarded command from master SLR
+	 */
+	Cmd.SubsystemId = 0U;
 
 	/* Call the received command handler */
 	Status = XPlmi_CmdExecute(&Cmd);

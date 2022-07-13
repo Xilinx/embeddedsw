@@ -26,6 +26,7 @@
 * 1.04  tnt  01/10/2022 Added more constants to support ssit_sync_slave
 * 1.05  ma   05/10/2022 Added PLM to PLM communication feature
 *       hb   06/15/2022 Added event XPLMI_SEM_NOTIFY_ERR_EVENT_INDEX
+*       is   07/10/2022 Added support for XPlmi_SsitSendMsgEventAndGetResp API
 *
 * </pre>
 *
@@ -165,6 +166,8 @@ u8 XPlmi_GetSlrIndex(void);
 void XPlmi_SsitSetIsIntrEnabled(u8 Value);
 void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask);
 u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex);
+int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
+		u32 *RespBuf, u32 RespBufSize, u32 WaitForEventCompletion);
 #endif
 /* SSIT Sync Related functions */
 int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);
