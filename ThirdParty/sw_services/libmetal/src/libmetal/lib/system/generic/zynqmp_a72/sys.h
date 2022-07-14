@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022, Xilinx Inc. and Contributors. All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
 /*
- * @file	generic/zynqmp_a53/sys.h
- * @brief	generic zynqmp_a53 system primitives for libmetal.
+ * @file	generic/zynqmp_a72/sys.h
+ * @brief	generic zynqmp_a72 system primitives for libmetal.
  */
 
 /*

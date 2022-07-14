@@ -149,6 +149,7 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
  * ignoring argument passed by user.
  */
 #define Xil_ExceptionEnableMask(Mask)	\
+		(void)Mask; \
 		mtcpsr(mfcpsr() & ~ ((XIL_EXCEPTION_FIQ) & XIL_EXCEPTION_ALL))
 #elif defined (__GNUC__) || defined (__ICCARM__)
 #define Xil_ExceptionEnableMask(Mask)	\
