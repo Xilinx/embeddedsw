@@ -59,6 +59,13 @@
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
 
+/*
+ * Macro for exporting xilpm command details. Use in the first line of commands
+ * used in CDOs.
+ */
+#define XPM_EXPORT_CMD(CmdIdVal, MinArgCntVal, MaxArgCntVal) \
+    XPLMI_EXPORT_CMD(CmdIdVal, XPLMI_MODULE_XILPM_ID, MinArgCntVal, MaxArgCntVal)
+
 #define PM_IOCTL_FEATURE_BITMASK ( \
 	(1ULL << (u64)IOCTL_GET_RPU_OPER_MODE) | \
 	(1ULL << (u64)IOCTL_SET_RPU_OPER_MODE) | \
@@ -133,6 +140,7 @@ static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
  ****************************************************************************/
 static XStatus XPm_SetClockRate(const u32 IpiMask, const u32 ClockId, const u32 ClkRate)
 {
+	XPM_EXPORT_CMD(PM_CLOCK_SETRATE, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 	if (NULL == Clk) {
@@ -176,6 +184,7 @@ done:
  ****************************************************************************/
 static XStatus XPm_GetClockRate(const u32 ClockId, u32 *ClkRate)
 {
+	XPM_EXPORT_CMD(PM_CLOCK_GETRATE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_SUCCESS;
 	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
@@ -213,6 +222,7 @@ done:
  ****************************************************************************/
 static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
 {
+	XPM_EXPORT_CMD(PM_CLOCK_GETRATE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 
 	/* Return error if request is not from PMC subsystem */
@@ -241,6 +251,7 @@ done:
  ****************************************************************************/
 static XStatus XPm_SetNodeAccess(const u32 *Args, u32 NumArgs)
 {
+	XPM_EXPORT_CMD(PM_SET_NODE_ACCESS, XPLMI_CMD_ARG_CNT_THREE, XPLMI_UNLIMITED_ARG_CNT);
 	XStatus Status = XST_FAILURE;
 	u32 NodeId;
 	XPm_NodeAccess *NodeEntry;
@@ -421,6 +432,8 @@ done:
  ****************************************************************************/
 static XStatus XPm_AddRequirement(const u32 *Args, const u32 NumArgs)
 {
+	XPM_EXPORT_CMD(PM_ADD_REQUIREMENT, XPLMI_CMD_ARG_CNT_THREE,
+		XPLMI_CMD_ARG_CNT_SIX);
 	XStatus Status = XST_FAILURE;
 	u32 SubsysId, DevId, Flags;
 	XPm_ResetNode *Rst = NULL;
@@ -1318,6 +1331,8 @@ XStatus XPm_GetChipID(u32* IDCode, u32 *Version)
  ****************************************************************************/
 XStatus XPm_GetApiVersion(u32 *Version)
 {
+	XPM_EXPORT_CMD(PM_GET_API_VERSION, XPLMI_CMD_ARG_CNT_ZERO, XPLMI_CMD_ARG_CNT_ZERO);
+
 	*Version = PM_VERSION;
 	return XST_SUCCESS;
 }
@@ -1342,6 +1357,7 @@ XStatus XPm_GetApiVersion(u32 *Version)
  ****************************************************************************/
 XStatus XPm_AddSubsystem(u32 SubsystemId)
 {
+	XPM_EXPORT_CMD(PM_ADD_SUBSYSTEM, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	Status = XPmSubsystem_Add(SubsystemId);
 
@@ -1549,6 +1565,7 @@ done:
  ****************************************************************************/
 XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 {
+	XPM_EXPORT_CMD(PM_INIT_NODE, XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -1588,6 +1605,7 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
  ****************************************************************************/
 XStatus XPm_IsoControl(u32 NodeId, u32 Enable)
 {
+	XPM_EXPORT_CMD(PM_ISO_CONTROL, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 
 	if (((u32)XPM_NODECLASS_ISOLATION != NODECLASS(NodeId)) ||
@@ -1620,6 +1638,7 @@ done:
  ****************************************************************************/
 XStatus XPm_DestroySubsystem(u32 SubsystemId)
 {
+	XPM_EXPORT_CMD(PM_DESTROY_SUBSYSTEM, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	Status = XPmSubsystem_Destroy(SubsystemId);
 
@@ -1647,6 +1666,7 @@ XStatus XPm_DestroySubsystem(u32 SubsystemId)
 XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 			 const u32 DeviceId)
 {
+	XPM_EXPORT_CMD(PM_ABORT_SUSPEND, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 
@@ -1703,6 +1723,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
 			const u32 Latency, const u8 State,
 			u32 AddrLow, u32 AddrHigh)
 {
+	XPM_EXPORT_CMD(PM_SELF_SUSPEND, XPLMI_CMD_ARG_CNT_FIVE, XPLMI_CMD_ARG_CNT_FIVE);
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 	u64 Address = (u64)AddrLow + ((u64)AddrHigh << 32ULL);
@@ -1801,6 +1822,7 @@ XStatus XPm_RequestSuspend(const u32 SubsystemId, const u32 TargetSubsystemId,
 			   const u32 Ack, const u32 Latency, const u32 State,
 			   const u32 CmdType)
 {
+	XPM_EXPORT_CMD(PM_REQUEST_SUSPEND, XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 	XStatus Status = XST_FAILURE;
 	u32 IpiMask = 0;
 	u32 Payload[5] = {0};
@@ -1936,6 +1958,7 @@ XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			  const u32 Ack,
 			  const u32 CmdType)
 {
+	XPM_EXPORT_CMD(PM_REQUEST_WAKEUP, XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 	XStatus Status = XST_FAILURE;
 	XPm_Core *Core;
 	u32 CoreSubsystemId, CoreDeviceId;
@@ -2185,6 +2208,7 @@ done:
 XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 Ack,
 			   const u32 CmdType, const u32 IpiMask)
 {
+	XPM_EXPORT_CMD(PM_FORCE_POWERDOWN, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	u32 NodeState = 0U;
@@ -2348,6 +2372,7 @@ done:
 XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 			   const u32 CmdType)
 {
+	XPM_EXPORT_CMD(PM_SYSTEM_SHUTDOWN, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	const XPm_ResetNode *Rst;
@@ -2448,6 +2473,7 @@ done:
 XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 			    const u32 SourceNodeId, const u32 Enable)
 {
+	XPM_EXPORT_CMD(PM_SET_WAKEUP_SOURCE, XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 	XStatus Status = XST_FAILURE;
 	XPm_Periph *Periph = NULL;
 	const XPm_Subsystem *Subsystem;
@@ -2527,6 +2553,7 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 Capabilities, const u32 QoS, const u32 Ack,
 			  const u32 CmdType)
 {
+	XPM_EXPORT_CMD(PM_REQUEST_NODE, XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 	XStatus Status = XST_FAILURE;
 
 	/* Warning Fix */
@@ -2561,6 +2588,7 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 CmdType)
 {
+	XPM_EXPORT_CMD(PM_RELEASE_NODE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	const XPm_Subsystem* Subsystem = NULL;
 	const XPm_Device* Device = NULL;
@@ -2623,6 +2651,7 @@ done:
 XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 			   const u32 Capabilities, const u32 QoS, const u32 Ack)
 {
+	XPM_EXPORT_CMD(PM_SET_REQUIREMENT, XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
 	XStatus Status = XST_FAILURE;
 
 	/* Warning Fix */
@@ -2659,6 +2688,7 @@ done:
 XStatus XPm_SetMaxLatency(const u32 SubsystemId, const u32 DeviceId,
 		      const u32 Latency)
 {
+	XPM_EXPORT_CMD(PM_SET_MAX_LATENCY, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XPM_ERR_SET_LATENCY;
 
 	PmInfo("(%x, %lu)\r\n", DeviceId, Latency);
@@ -2836,6 +2866,8 @@ XStatus XPm_Query(const u32 Qid, const u32 Arg1, const u32 Arg2,
  ****************************************************************************/
 XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 Enable)
 {
+	XPM_EXPORT_CMD(PM_CLOCK_ENABLE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
+	XPM_EXPORT_CMD(PM_CLOCK_DISABLE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 	u32 CurrState = 0U;
@@ -2911,6 +2943,7 @@ done:
  ****************************************************************************/
 XStatus XPm_GetClockState(const u32 ClockId, u32 *const State)
 {
+	XPM_EXPORT_CMD(PM_CLOCK_GETSTATE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk;
 
@@ -2956,6 +2989,7 @@ done:
  ****************************************************************************/
 XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 Divider)
 {
+	XPM_EXPORT_CMD(PM_CLOCK_SETDIVIDER, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
@@ -3002,6 +3036,7 @@ done:
  ****************************************************************************/
 XStatus XPm_GetClockDivider(const u32 ClockId, u32 *const Divider)
 {
+	XPM_EXPORT_CMD(PM_CLOCK_GETDIVIDER, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk = NULL;
 
@@ -3046,6 +3081,7 @@ done:
  ****************************************************************************/
 XStatus XPm_SetClockParent(const u32 SubsystemId, const u32 ClockId, const u32 ParentIdx)
 {
+	XPM_EXPORT_CMD(PM_CLOCK_SETPARENT, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
@@ -3083,6 +3119,7 @@ done:
  ****************************************************************************/
 XStatus XPm_GetClockParent(const u32 ClockId, u32 *const ParentIdx)
 {
+	XPM_EXPORT_CMD(PM_CLOCK_GETPARENT, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk = NULL;
 
@@ -3121,6 +3158,7 @@ done:
  ****************************************************************************/
 XStatus XPm_SetPllParameter(const u32 SubsystemId, const u32 ClockId, const u32 ParamId, const u32 Value)
 {
+	XPM_EXPORT_CMD(PM_PLL_SET_PARAMETER, XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 	XStatus Status = XST_FAILURE;
 	const XPm_PllClockNode* Clock;
 
@@ -3167,6 +3205,7 @@ done:
  ****************************************************************************/
 XStatus XPm_GetPllParameter(const u32 ClockId, const u32 ParamId, u32 *const Value)
 {
+	XPM_EXPORT_CMD(PM_PLL_GET_PARAMETER, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 	const XPm_PllClockNode* Clock;
 
@@ -3206,6 +3245,7 @@ done:
  ****************************************************************************/
 XStatus XPm_SetPllMode(const u32 SubsystemId, const u32 ClockId, const u32 Value)
 {
+	XPM_EXPORT_CMD(PM_PLL_SET_MODE, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 	XPm_PllClockNode* Clock;
 
@@ -3248,6 +3288,7 @@ done:
  ****************************************************************************/
 XStatus XPm_GetPllMode(const u32 ClockId, u32 *const Value)
 {
+	XPM_EXPORT_CMD(PM_PLL_GET_MODE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	XPm_PllClockNode* Clock;
 
@@ -3294,6 +3335,7 @@ done:
 XStatus XPm_SetResetState(const u32 SubsystemId, const u32 ResetId,
 			  const u32 Action, const u32 CmdType)
 {
+	XPM_EXPORT_CMD(PM_RESET_ASSERT, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 	u32 SubClass = NODESUBCLASS(ResetId);
 	u32 SubType = NODETYPE(ResetId);
@@ -3361,6 +3403,7 @@ done:
  ****************************************************************************/
 XStatus XPm_GetResetState(const u32 ResetId, u32 *const State)
 {
+	XPM_EXPORT_CMD(PM_RESET_GET_STATUS, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 	const XPm_ResetNode* Reset;
 
@@ -3393,6 +3436,7 @@ done:
  ****************************************************************************/
 XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId)
 {
+	XPM_EXPORT_CMD(PM_PINCTRL_REQUEST, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 
 	Status = XPmPin_Request(SubsystemId, PinId);
@@ -3415,6 +3459,7 @@ XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId)
  ****************************************************************************/
 XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId)
 {
+	XPM_EXPORT_CMD(PM_PINCTRL_RELEASE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 
 	Status = XPmPin_Release(SubsystemId, PinId);
@@ -3442,6 +3487,7 @@ XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId)
 XStatus XPm_SetPinFunction(const u32 SubsystemId,
 	const u32 PinId, const u32 FunctionId)
 {
+	XPM_EXPORT_CMD(PM_PINCTRL_SET_FUNCTION, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 
 	/* Check if subsystem is allowed to access or not */
@@ -3477,6 +3523,7 @@ done:
  ****************************************************************************/
 XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId)
 {
+	XPM_EXPORT_CMD(PM_PINCTRL_GET_FUNCTION, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 
 	Status = XPmPin_GetPinFunction(PinId, FunctionId);
@@ -3506,6 +3553,7 @@ XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
 			const u32 ParamId,
 			const u32 ParamVal)
 {
+	XPM_EXPORT_CMD(PM_PINCTRL_CONFIG_PARAM_SET, XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 	XStatus Status = XST_FAILURE;
 
 	/* Check if subsystem is allowed to access or not */
@@ -3544,6 +3592,7 @@ XStatus XPm_GetPinParameter(const u32 PinId,
 			const u32 ParamId,
 			u32 * const ParamVal)
 {
+	XPM_EXPORT_CMD(PM_PINCTRL_CONFIG_PARAM_GET, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
 	XStatus Status = XST_FAILURE;
 
 	Status = XPmPin_GetPinConfig(PinId, ParamId, ParamVal);
@@ -3582,6 +3631,7 @@ XStatus XPm_DevIoctl(const u32 SubsystemId, const u32 DeviceId,
 			u32 *const Response,
 			const u32 CmdType)
 {
+	XPM_EXPORT_CMD(PM_IOCTL, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_FIVE);
 	XStatus Status;
 
 	Status = XPm_Ioctl(SubsystemId, DeviceId, IoctlId, Arg1, Arg2, Arg3,
@@ -3625,6 +3675,8 @@ XStatus XPm_InitFinalize(const u32 SubsystemId)
  ****************************************************************************/
 XStatus XPm_DescribeNodes(u32 NumArgs)
 {
+	XPM_EXPORT_CMD(PM_DESCRIBE_NODES, XPLMI_CMD_ARG_CNT_THREE,
+		XPLMI_CMD_ARG_CNT_THREE);
 	XStatus Status = XST_FAILURE;
 
 	if(NumArgs < 3U) {
@@ -3653,6 +3705,7 @@ done:
  ****************************************************************************/
 XStatus XPm_AddNodeParent(const u32 *Args, u32 NumArgs)
 {
+	XPM_EXPORT_CMD(PM_ADD_NODE_PARENT, XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
 	XStatus Status = XST_FAILURE;
 	u32 Id = Args[0];
 	const u32 *Parents;
@@ -3810,6 +3863,7 @@ done:
  ****************************************************************************/
 XStatus XPm_AddNodeName(const u32 *Args, u32 NumArgs)
 {
+	XPM_EXPORT_CMD(PM_ADD_NODE_NAME, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_FIVE);
 	XStatus Status = XST_FAILURE;
 	u32 NodeId;
 	char Name[MAX_NAME_BYTES] = {0};
@@ -4775,6 +4829,7 @@ done:
  ****************************************************************************/
 XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 {
+	XPM_EXPORT_CMD(PM_ADD_NODE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
 	XStatus Status = XST_FAILURE;
 	u32 Id = Args[0];
 
@@ -4926,6 +4981,8 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 			 const u32 Event, const u32 Wake, const u32 Enable,
 			 const u32 IpiMask)
 {
+	XPM_EXPORT_CMD(PM_REGISTER_NOTIFIER, XPLMI_CMD_ARG_CNT_FOUR,
+		XPLMI_CMD_ARG_CNT_FOUR);
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem* Subsystem = NULL;
 
@@ -5231,6 +5288,8 @@ done:
  ****************************************************************************/
 XStatus XPm_NocClockEnable(u32 NodeId, const u32 *Args, u32 NumArgs)
 {
+	XPM_EXPORT_CMD(PM_NOC_CLOCK_ENABLE, XPLMI_CMD_ARG_CNT_TWO,
+		XPLMI_UNLIMITED_ARG_CNT);
 	XStatus Status = XST_FAILURE;
 	XPm_PlDevice *PlDevice;
 
@@ -5262,6 +5321,8 @@ done:
  ****************************************************************************/
 XStatus XPm_IfNocClockEnable(XPlmi_Cmd *Cmd, const u32 *Args, u32 NumArgs)
 {
+	XPM_EXPORT_CMD(PM_IF_NOC_CLOCK_ENABLE, XPLMI_CMD_ARG_CNT_TWO,
+		XPLMI_CMD_ARG_CNT_THREE);
 	XStatus Status = XST_FAILURE;
 	u32 BitArrayIdx;
 	u16 State, Mask;
