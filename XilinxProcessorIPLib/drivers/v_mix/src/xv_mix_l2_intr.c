@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_mix_l2_intr.c
-* @addtogroup v_mix_v6_3
+* @addtogroup v_mix_v6_4
 * @{
 *
 * The functions in this file provides interrupt handler and associated
