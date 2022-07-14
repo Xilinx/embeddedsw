@@ -2237,6 +2237,7 @@ u32 XDp_TxSendSbMsgAllocatePayload(XDp *InstancePtr, u8 LinkCountTotal,
 u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
 {
 	u32 Status;
+	u8 AuxData;
 	XDp_SidebandMsg Msg;
 	XDp_SidebandReply SbMsgReply;
 
@@ -2271,6 +2272,19 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
 		return Status;
 	}
 	Status = XDp_TxReceiveSbMsg(InstancePtr, &SbMsgReply);
+	if (Status != XST_SUCCESS) {
+		/* Either the reply indicates a NACK, an AUX read or write
+		 * transaction failed, there was a time out waiting for a reply,
+		 * or a CRC check failed.
+		 */
+		return Status;
+	}
+	/* Enable MST in the immediate branch device and tell it that its
+	 * upstream device is a source (the DisplayPort TX).
+	 */
+	AuxData = XDP_DPCD_UP_IS_SRC_MASK | XDP_DPCD_UP_REQ_EN_MASK |
+							XDP_DPCD_MST_EN_MASK;
+	Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_MSTM_CTRL, 1, &AuxData);
 
 	return Status;
 }
