@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -19,6 +19,6 @@ BEGIN LIBRARY libmetal
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lgcc,-lc,--end-group";
   OPTION DESC = "Libmetal Library";
-  OPTION VERSION = 2.3;
+  OPTION VERSION = 2.4;
   OPTION NAME = libmetal;
 END LIBRARY

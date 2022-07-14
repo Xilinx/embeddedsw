@@ -51,6 +51,9 @@ proc generate {libhandle} {
 	} elseif { "${proc_type}" == "psu_cortexa53" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynqmp_a53\")"
+	} elseif { "${proc_type}" == "psv_cortexa72" } {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
+		puts $fd "set (MACHINE \"zynqmp_a72\")"
 	} elseif { "${proc_type}" == "ps7_cortexa9" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynq7\")"
