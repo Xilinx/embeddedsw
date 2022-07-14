@@ -3548,20 +3548,6 @@ static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 
 	XDp_WaitUs(InstancePtr, InstancePtr->TxInstance.SbMsgDelayUs);
 
-#if XPAR_XDPTXSS_NUM_INSTANCES
-	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
-		/* First, clear the DOWN_REP_MSG_RDY in case the RX device is in
-		 * a weird state. */
-		Data[0] = 0x10;
-		Status = XDp_TxAuxWrite(InstancePtr,
-				XDP_DPCD_SINK_DEVICE_SERVICE_IRQ_VECTOR_ESI0, 1,
-				Data);
-		if (Status != XST_SUCCESS) {
-			return Status;
-		}
-	}
-#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
-
 	/* Add the header to the sideband message transaction. */
 	Msg->Header.MsgHeaderLength = 0;
 	Data[Msg->Header.MsgHeaderLength++] =
