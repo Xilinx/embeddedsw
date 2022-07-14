@@ -26,12 +26,15 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 8.00  mus  07/07/22 Initial version
+* 8.00  mus  07/14/22 Existing PMU APIs dont have support for CortexA53 32
+*                     bit processor, added check to skip PMU APIs
+*                     compilation in case of CortexA53 32 bit BSP.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
+#if !defined(ARMA53_32)
 #include "xpm_counter.h"
 #ifndef XPAR_XILTIMER_ENABLED
 #include "xil_sleeptimer.h"
@@ -600,4 +603,4 @@ void Xpm_GetEventCounters(u32 *PmCtrValue)
 	}
 }
 #endif
-
+#endif
