@@ -62,6 +62,13 @@
 /* Error out if waiting for the RX device to indicate that it has received an
  * ACT trigger takes more than 30 AUX read iterations. */
 #define XDP_TX_VCP_TABLE_MAX_TIMEOUT_COUNT 30
+/* Error out if waiting for a sideband message reply or waiting for the payload
+ * ID table to be updated takes more than 30 AUX read iterations.
+ */
+#define XDP_TX_ALLOCATE_PAYLOAD_MAX_TIMEOUT_COUNT 30
+/* Maximum timeslots available for payload allocation. */
+#define XDP_TX_NUM_PAYLOAD_TIMESLOTS 64
+
 #endif
 
 /****************************** Type Definitions ******************************/
@@ -1415,6 +1422,9 @@ u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts, u8 StartTs)
 	u32 Status;
 	u8 AuxData[3];
 	u8 Index;
+	u8 TimeoutCount = 0;
+	u8 PayloadCount = 0;
+	XDp_TxMainStreamAttributes *MsaConfig;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1432,15 +1442,30 @@ u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts, u8 StartTs)
 	}
 
 	/* Check that there are enough time slots available. */
-	if ((VcId != 0) && (((63 - StartTs + 1) < Ts) || (StartTs == 0))) {
+	if (VcId != 0 && (((63 - StartTs + 1) < Ts))) {
 		/* Payload ID table needs to be cleared to. */
 		return XST_BUFFER_TOO_SMALL;
 	}
 
-	/* Allocate timeslots in TX. */
-	for (Index = StartTs; Index < (StartTs + Ts); Index++) {
-		XDp_WriteReg(InstancePtr->Config.BaseAddr,
-			(XDP_TX_VC_PAYLOAD_BUFFER_ADDR + (4 * Index)), VcId);
+	for (u8 StreamIndex = 0; StreamIndex < VcId; StreamIndex++) {
+		MsaConfig = &InstancePtr->TxInstance.MsaConfig[StreamIndex];
+		/* Allocate timeslots in TX. */
+		for (Index =  MsaConfig->StartTs;
+				Index < (MsaConfig->StartTs + MsaConfig->TransferUnitSize);
+				Index++) {
+			XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				     (XDP_TX_VC_PAYLOAD_BUFFER_ADDR + (4 * Index)),
+				      StreamIndex + XDP_TX_STREAM_ID1);
+			PayloadCount++;
+		}
+	}
+	if (VcId != 0) {
+		for (int i = PayloadCount + 1; i < XDP_TX_NUM_PAYLOAD_TIMESLOTS; i++) {
+			int vicid = 0;
+
+			XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				     (XDP_TX_VC_PAYLOAD_BUFFER_ADDR + (4 * i)), vicid);
+		}
 	}
 
 	XDp_WaitUs(InstancePtr, 1000);
@@ -1473,6 +1498,12 @@ u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts, u8 StartTs)
 			/* The AUX read transaction failed. */
 			return Status;
 		}
+		/* Error out if timed out. */
+		if (TimeoutCount > XDP_TX_ALLOCATE_PAYLOAD_MAX_TIMEOUT_COUNT)
+			return XST_ERROR_COUNT_MAX;
+
+		TimeoutCount++;
+		XDp_WaitUs(InstancePtr, 1000);
 	} while ((AuxData[0] & 0x01) != 0x01);
 
 	XDp_WaitUs(InstancePtr, 1000);
