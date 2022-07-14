@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_mix_l2.h
-* @addtogroup v_mix_v6_3
+* @addtogroup v_mix_v6_4
 * @{
 * @details
 *

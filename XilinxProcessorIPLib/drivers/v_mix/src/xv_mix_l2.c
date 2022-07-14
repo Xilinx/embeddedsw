@@ -7,7 +7,7 @@
 /**
 *
 * @file xv_mix_l2.c
-* @addtogroup v_mix_v6_3
+* @addtogroup v_mix_v6_4
 * @{
 *
 * Mixer Layer-2 Driver. The functions in this file provides an abstraction
@@ -1679,8 +1679,8 @@ static void XVMix_SetCoeffForYuvToRgb(XV_Mix_l2 *InstancePtr,
 	for (i = 0; i < XVMIX_CSC_MATRIX_SIZE; i++)
 		XV_mix_WriteReg(MixPtr->Config.BaseAddress,
 				XV_MIX_CTRL_ADDR_HWREG_K11_DATA + i * 8,
-				xv_mix_yuv2rgb_coeffs[ColorStd][colorRange][i] \
-				* scale_factor / XVMIX_CSC_COEFF_DIVISOR);
+				(int) ((float)xv_mix_yuv2rgb_coeffs[ColorStd][colorRange][i] \
+				/ (float)XVMIX_CSC_COEFF_DIVISOR * (float)scale_factor));
 
 	for (i = XVMIX_CSC_MATRIX_SIZE; i < XVMIX_CSC_COEFF_SIZE; i++)
 		XV_mix_WriteReg(MixPtr->Config.BaseAddress,
@@ -1718,8 +1718,8 @@ static void XVMix_SetCoeffForRgbToYuv(XV_Mix_l2 *InstancePtr,
 	for (i = 0; i < XVMIX_CSC_MATRIX_SIZE; i++)
 		XV_mix_WriteReg(MixPtr->Config.BaseAddress,
 				XV_MIX_CTRL_ADDR_HWREG_K11_2_DATA + i * 8,
-				xv_mix_rgb2yuv_coeffs[ColorStd][colorRange][i] \
-				* scale_factor / XVMIX_CSC_COEFF_DIVISOR);
+				(int) ((float)xv_mix_rgb2yuv_coeffs[ColorStd][colorRange][i] \
+				/ (float)XVMIX_CSC_COEFF_DIVISOR * (float)scale_factor));
 
 	for (i = XVMIX_CSC_MATRIX_SIZE; i < XVMIX_CSC_COEFF_SIZE; i++)
 		XV_mix_WriteReg(MixPtr->Config.BaseAddress,

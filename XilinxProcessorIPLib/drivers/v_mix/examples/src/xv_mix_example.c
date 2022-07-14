@@ -571,7 +571,7 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
    * Program CSC coefficients when ENABLE_CSC_COEFFICIENT_REGISTERS
    * is enabled
    */
-#if XPAR_V_MIX_0_ENABLE_CSC_COEFFICIENT_REGISTERS
+#if XPAR_XV_MIX_0_ENABLE_CSC_COEFFICIENT_REGISTERS
   colorStandard = XVIDC_BT_709;
   colorRange = XVIDC_CR_16_240;
   colorDepth = MixerPtr->Stream.ColorDepth;
