@@ -617,6 +617,8 @@ typedef struct {
 						is also the number of time slots
 						that are alloted in the payload
 						ID table. */
+	u32 StartTs;		/**< Starting timeslot for payload
+								allocation */
 	u32 InitWait;			/**< Number of initial wait cycles at
 						the start of a new line by
 						the framing logic. */
@@ -928,6 +930,7 @@ typedef struct {
 	u8 TrainAdaptive;			/**< Downshift lane count and
 							link rate if necessary
 							during training. */
+	u8 NumOfMstStreams;		/**< No of mst streams supported */
 	u8 IsTps4Supported;		/**< Is TPS4 supported by the
 							downstream sink */
 	u8 ColorimetryThroughVsc;		/**< Enable / Disable of sending
