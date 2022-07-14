@@ -1335,22 +1335,27 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 	u32 Status;
 	u8 StreamIndex;
 	u8 StartTs = 1;
+	u8 NumOfStreams;
 	XDp_TxMstStream *MstStream;
 	XDp_TxMainStreamAttributes *MsaConfig;
+	XDp_TxTopology *Msatopology;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Msatopology = &InstancePtr->TxInstance.Topology;
 
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
-	for (StreamIndex = 0; StreamIndex < XDP_TX_STREAM_ID4; StreamIndex++) {
+	for (StreamIndex = 0; StreamIndex < InstancePtr->TxInstance.NumOfMstStreams;
+			StreamIndex++) {
 		if (!XDp_TxMstStreamIsEnabled(InstancePtr,
 					StreamIndex + XDP_TX_STREAM_ID1)) {
 			continue;
 		}
 		MsaConfig = &InstancePtr->TxInstance.MsaConfig[StreamIndex];
+		MsaConfig->StartTs = StartTs;
 
 		Status = XDp_TxAllocatePayloadVcIdTable(InstancePtr,
 			StreamIndex + XDP_TX_STREAM_ID1,
@@ -1359,20 +1364,13 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 			return Status;
 		}
 		StartTs += MsaConfig->TransferUnitSize;
-	}
 
-	/* Generate an ACT event. */
-	Status = XDp_TxSendActTrigger(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
-
-	/* Send ALLOCATE_PAYLOAD request. */
-	for (StreamIndex = 0; StreamIndex < XDP_TX_STREAM_ID4; StreamIndex++) {
-		if (!XDp_TxMstStreamIsEnabled(InstancePtr,
-					StreamIndex + XDP_TX_STREAM_ID1)) {
-			continue;
+		/* Generate an ACT event. */
+		Status = XDp_TxSendActTrigger(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return Status;
 		}
+
 		MstStream =
 			&InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
 
