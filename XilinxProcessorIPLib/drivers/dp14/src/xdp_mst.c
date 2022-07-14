@@ -3489,7 +3489,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 	u8 AuxData;
 	u8 TimeoutCount = 0;
 
-	XDp_WaitUs(InstancePtr, 10000);
+	XDp_WaitUs(InstancePtr, 1000);
 
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_MST_CONFIG, 0x3);
 
@@ -3510,14 +3510,6 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 		XDp_WaitUs(InstancePtr, 1000);
 	} while ((AuxData & 0x02) != 0x02);
 
-	/* Clear the ACT event received bit. */
-	AuxData = 0x2;
-	Status = XDp_TxAuxWrite(InstancePtr,
-			XDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS, 1, &AuxData);
-	if (Status != XST_SUCCESS) {
-		/* The AUX write transaction failed. */
-		return Status;
-	}
 
 	return XST_SUCCESS;
 }
