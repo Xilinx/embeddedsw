@@ -141,20 +141,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		InstancePtr->TxInstance.AuxDelayUs = XDP_TX_SB_MSG_DELAY;
 		InstancePtr->TxInstance.SbMsgDelayUs = XDP_TX_SB_MSG_DELAY;
 
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
-				"topology.\n\r");
-		/* Get list of sinks */
-		Status = Dp_GetTopology(InstancePtr);
-		if (Status)
-			return Status;
-
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
-				"discovery done, # of sinks found = %d.\n\r",
-				InstancePtr->TxInstance.Topology.SinkTotal);
-
-		/* Total number of streams equal to number of sinks found */
-		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
-
 		/* Enable downshifting during link training */
 		XDp_TxEnableTrainAdaptive(InstancePtr, 1);
 
@@ -178,6 +164,12 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				return Status;
 			}
 		}
+		XDp_TxEnableMainLink(InstancePtr);
+
+		/* Re-Enable MST mode in both the RX and TX. */
+		Status = XDp_TxMstEnable(InstancePtr);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
 
 		Status = XDp_TxCheckLinkStatus(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
@@ -185,6 +177,56 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
 					"is up !\n\r\n\r");
 		}
+		xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Discovering topology.\n\r");
+	    /* Wait the requested amount of time to start mst topology
+	     * discovery after link training got success. This delay is added
+	     * to match UCD400. Once UCD400 fixes its internal issues,
+	     * this delay can be removed.
+	     */
+		usleep(10000);
+		/* Get list of sinks */
+		Status = Dp_GetTopology(InstancePtr);
+		if (Status)
+			return Status;
+
+		/* Total number of streams equal to number of sinks found */
+		NumOfStreams = InstancePtr->TxInstance.NumOfMstStreams;
+		xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Topology Discovery done\n\r",
+			    NumOfStreams);
+		xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Number # of sinks found = %d.\n\r",
+			    NumOfStreams);
+
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+					       InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status != XST_SUCCESS) {
+			Status = XDpTxSs_DpTxStartLink(InstancePtr, TRUE);
+			if (Status != XST_SUCCESS)
+				return Status;
+		}
+
+		/* Enable each stream(s) */
+		for (StreamIndex = 0; StreamIndex < NumOfStreams;
+							StreamIndex++) {
+			XDp_TxMstCfgStreamEnable(InstancePtr,
+						 XDP_TX_STREAM_ID1 + StreamIndex);
+			XDp_TxSetStreamSelectFromSinkList(InstancePtr,
+							  XDP_TX_STREAM_ID1 + StreamIndex,
+							  StreamIndex);
+		}
+		/* Clear virtual channel payload ID table in TX and all
+		 * downstream RX devices.
+		 */
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "SS INFO:MST:Clear PayloadId table.\n\r");
+
+		Status = XDp_TxClearPayloadVcIdTable(InstancePtr);
+		if (Status != XST_SUCCESS)
+			return Status;
+
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+					       InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status != XST_SUCCESS)
+			return Status;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Reading (MST) Sink "
 			"EDID...\n\r");
@@ -292,18 +334,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			}
 		}
 
-		/* Enable each stream(s) */
-		for (StreamIndex = 0; StreamIndex < NumOfStreams;
-							StreamIndex++) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:"
-				"Enabling stream #%d\n", XDP_TX_STREAM_ID1 +
-					StreamIndex);
-			XDp_TxMstCfgStreamEnable(InstancePtr,
-				XDP_TX_STREAM_ID1 + StreamIndex);
-			XDp_TxSetStreamSelectFromSinkList(InstancePtr,
-				XDP_TX_STREAM_ID1 + StreamIndex, StreamIndex);
-		}
-
 		/* Disable stream(s) */
 		for (StreamIndex = NumOfStreams; StreamIndex < 4;
 							StreamIndex++) {
@@ -403,17 +433,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Allocating "
 			"payload...\n\r");
-
-		/* Clear virtual channel payload ID table in TX and all
-		 * downstream RX devices
-		*/
-		Status = XDp_TxClearPayloadVcIdTable(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:MST:"
-				"Clearing virtual channel payload "
-					"failed.\n\r");
-			return XST_DATA_LOST;
-		}
 
 		/* Allocate payloads. */
 		Status = XDp_TxAllocatePayloadStreams(InstancePtr);
