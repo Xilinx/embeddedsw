@@ -346,9 +346,13 @@ extern "C" {
 #define XV_HDMIRX1_AUX_VTEM_RB_MASK                  (1<<26)    /**< AUX VTEM Reduced blanking mask */
 #define XV_HDMIRX1_AUX_VTEM_BASE_VFRONT_MASK         ((0xFF) << 8)   /**< AUX VTEM Reduced blanking mask */
 #define XV_HDMIRX1_AUX_VTEM_BASE_REFRESH_RATE_MASK   ((0x3FF) << 16) /**< AUX VTEM Base refresh rate mask */
+#define XV_HDMIRX1_AUX_VTEM_QMS_EN_MASK              (1<<3) /**< AUX VTEM QMS Enable mask */
+#define XV_HDMIRX1_AUX_VTEM_NEXT_TFR_MASK            ((0x1F) << 27) /**< AUX VTEM Next transfer rate mask */
 #define XV_HDMIRX1_AUX_VTEM_M_CONST_SHIFT            1
 #define XV_HDMIRX1_AUX_VTEM_FVA_FACT_M1_SHIFT        2
+#define XV_HDMIRX1_AUX_VTEM_QMS_EN_SHIFT	     3
 #define XV_HDMIRX1_AUX_VTEM_RB_SHIFT                 26
+#define XV_HDMIRX1_AUX_VTEM_NEXT_TFR_SHIFT	     27
 #define XV_HDMIRX1_AUX_VTEM_BASE_VFRONT_SHIFT        8
 #define XV_HDMIRX1_AUX_VTEM_BASE_REFRESH_RATE_SHIFT  16
 
