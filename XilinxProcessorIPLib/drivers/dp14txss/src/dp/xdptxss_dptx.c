@@ -215,7 +215,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				VidMode = XVIDC_VM_640x480_60_P;
 			}
 
-			if ((InstancePtr->TxInstance.Topology.SinkTotal ==
+			if ((NumOfStreams ==
 				4) && (VidMode == XVIDC_VM_UHD2_60_P)) {
 				VidMode = XVIDC_VM_1080_60_P;
 
@@ -226,7 +226,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				/* Order the sink belong to same TDT */
 				XDp_TxTopologySortSinksByTiling(InstancePtr);
 			}
-			else if ((InstancePtr->TxInstance.Topology.SinkTotal ==
+			else if ((NumOfStreams ==
 				2) && (VidMode <= XVIDC_VM_UHD2_60_P)){
 
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:"
@@ -241,7 +241,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Using "
 				"user set resolution.\n\r");
 
-			if ((InstancePtr->TxInstance.Topology.SinkTotal ==
+			if ((NumOfStreams ==
 				4) && (VidMode == XVIDC_VM_UHD2_60_P)){
 				VidMode = XVIDC_VM_1080_60_P;
 
@@ -252,7 +252,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				/* Order sinks belongs to the same TDT */
 				XDp_TxTopologySortSinksByTiling(InstancePtr);
 			}
-			else if ((InstancePtr->TxInstance.Topology.SinkTotal ==
+			else if ((NumOfStreams ==
 				2) && (VidMode <= XVIDC_VM_UHD2_60_P)){
 
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:"
