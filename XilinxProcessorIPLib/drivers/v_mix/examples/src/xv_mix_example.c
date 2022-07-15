@@ -36,6 +36,7 @@
 * 6.00  pg    01/10/20   Add Colorimetry feature.
 *                        Program CSC coefficient registers to do color conversion
 *                        from YUV to RGB and RGB to YUV.
+*       se    30/05/22	 Added 4K overlay layer support
 * </pre>
 *
 ******************************************************************************/
@@ -117,14 +118,21 @@ FrmbufInst FBLayer[XPAR_XV_FRMBUFRD_NUM_INSTANCES];
 
 static const XVidC_VideoWindow MixLayerConfig[8] =
 {// X   Y     W    H
-  {12,  10,  128, 128}, //Layer 1
-  {200, 10,  128, 128}, //Layer 2
+  {16,  10,  128, 128},//Layer 1
+  {200, 0,  128, 128}, //Layer 2
   {400, 10,  128, 128}, //Layer 3
   {600, 10,  128, 128}, //Layer 4
   {800, 100, 128, 128}, //Layer 5
-  {12,  100, 128, 128}, //Layer 6
-  {200, 100, 128, 128}, //Layer 7
-  {200, 300, 128, 128}  //Layer 8
+  {1000,  100, 128, 128}, //Layer 6
+  {200, 400, 128, 128}, //Layer 7
+  {200, 600, 128, 128}  //Layer 8
+};
+static const XVidC_VideoWindow MixLayerConfig_4K[4] =
+{// X   Y     W    H
+  {0,  0,  1920, 1080}, 	//Layer 1
+  {3840, 0,  1920, 1080}, 	//Layer 2
+  {0, 2160,  3840, 2160}, 	//Layer 3
+  {3840, 2160,  3840, 2160},//Layer 4
 };
 
 /*****************************************************************************/
@@ -624,6 +632,8 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   XVidC_ColorFormat Cfmt;
   u32 baseaddr, Stride;
   XV_Mix_l2 *MixerPtr = &mix;
+  u16 ScaleFactor[XVMIX_SCALE_FACTOR_NUM_SUPPORTED] = {1,2,4};
+  XVMix_Scalefactor Scale = XVMIX_SCALE_FACTOR_2X ;
 
   xil_printf("\r\n****Running Mixer Feature Tests****\r\n");
   /* Test 1: Master Layer Enable/Disable
@@ -668,7 +678,12 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
       baseaddr = XVMix_GetLayerBufferAddr(MixerPtr, layerIndex);
       xil_printf("   Layer Buffer Addr: 0x%X\r\n", baseaddr);
     }
+    if(StreamPtr->VmId  <= XVIDC_VM_4096x2160_24_P ) {
     Win = MixLayerConfig[layerIndex-1];
+    }
+    else {
+	Win = MixLayerConfig_4K[layerIndex-1];
+    }
 
     XVMix_GetLayerColorFormat(MixerPtr, layerIndex, &Cfmt);
 
@@ -701,14 +716,20 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
 
     xil_printf("   Set Layer Scale Factor to 2x: ");
     if(XVMix_IsScalingEnabled(MixerPtr, layerIndex)) {
+	if(((Win.StartX + (Win.Width * ScaleFactor[Scale]) ) <= (MixerPtr->Stream.Timing.HActive)) &&
+			((Win.StartY + ( Win.Height * ScaleFactor[Scale]) ) <= (MixerPtr->Stream.Timing.VActive))){
       Status = XVMix_SetLayerScaleFactor(MixerPtr,
                                          layerIndex,
-                                         XVMIX_SCALE_FACTOR_2X);
+										 Scale );
       if(Status != XST_SUCCESS) {
         xil_printf("<ERROR:: Command Failed>\r\n");
         ++ErrorCount;
       } else {
         xil_printf("Done\r\n");
+		}
+	}
+	else{
+		 xil_printf(" <Check Window Position and Configuration>\r\n");
       }
     } else {
         xil_printf("(Disabled in HW)\r\n");
@@ -727,16 +748,21 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
     xil_printf("   Check Vidout State: ");
     ErrorCount += (!CheckVidoutLock() ? 1 : 0);
 
-    xil_printf("   Move window (x+12), (y+12): ");
+    xil_printf("   Move window (x+16), (y+16): ");
+    if(((Win.StartX + (Win.Width * ScaleFactor[Scale]) + 16 ) <= (MixerPtr->Stream.Timing.HActive)) &&
+		((Win.StartY + (Win.Height * ScaleFactor[Scale]) + 16) <= (MixerPtr->Stream.Timing.VActive))){
     Status = XVMix_MoveLayerWindow(MixerPtr,
                                    layerIndex,
-                                   (Win.StartX+12),
-                                   (Win.StartY+12));
+                                   (Win.StartX+16),
+                                   (Win.StartY+16));
     if(Status != XST_SUCCESS) {
       xil_printf("<ERROR:: Command Failed>\r\n");
       ++ErrorCount;
     } else {
       xil_printf("Done\r\n");
+	}
+    }else {
+	xil_printf(" <Check Window Position and Configuration>\r\n");
     }
 
     //Check for vidout lock
@@ -875,8 +901,19 @@ int main(void)
   XVidC_ColorFormat Cfmt;
   XVidC_VideoTiming const *TimingPtr;
   XVidC_VideoMode TestModes[NUM_TEST_MODES] =
-  { XVIDC_VM_1080_60_P,
+  {
+#if XPAR_V_MIX_0_MAX_COLS >= 7680
+	XVIDC_VM_3840x2160_60_P,
+    XVIDC_VM_7680x4320_30_P
+#endif
+#if ((XPAR_V_MIX_0_MAX_COLS  < 7680) && (XPAR_V_MIX_0_MAX_COLS  >=3840))
+	XVIDC_VM_1080_30_P ,
     XVIDC_VM_UHD_30_P
+#endif
+#if XPAR_V_MIX_0_MAX_COLS  <= 2048
+	XVIDC_VM_1080_30_P ,
+	XVIDC_VM_1080_60_P
+#endif
   };
 
   init_platform();
