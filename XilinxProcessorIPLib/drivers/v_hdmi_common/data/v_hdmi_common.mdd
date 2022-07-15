@@ -11,6 +11,6 @@ BEGIN driver v_hdmi_common
 	OPTION supported_peripherals = ();
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.6;
+	OPTION VERSION = 1.7;
 	OPTION NAME = v_hdmi_common;
 END driver

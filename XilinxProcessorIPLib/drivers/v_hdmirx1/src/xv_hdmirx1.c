@@ -2490,6 +2490,10 @@ void XV_HdmiRx1_ParseVideoTimingExtMetaIF(XV_HdmiRx1 *InstancePtr)
 			XV_HDMIRX1_AUX_VTEM_BASE_REFRESH_RATE_SHIFT;
 	ExtMeta->RBEnabled = (Data & XV_HDMIRX1_AUX_VTEM_RB_MASK) >>
 				XV_HDMIRX1_AUX_VTEM_RB_SHIFT;
+	ExtMeta->QMSEnabled = (Data & XV_HDMIRX1_AUX_VTEM_QMS_EN_MASK) >>
+				XV_HDMIRX1_AUX_VTEM_QMS_EN_SHIFT;
+	ExtMeta->NextTransferRate = (Data & XV_HDMIRX1_AUX_VTEM_NEXT_TFR_MASK) >>
+				XV_HDMIRX1_AUX_VTEM_NEXT_TFR_SHIFT;
 }
 
 XV_HdmiC_SrcProdDescIF *XV_HdmiRx1_GetSrcProdDescIF(

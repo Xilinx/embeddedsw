@@ -4071,10 +4071,12 @@ void DetailedInfo(void)
 		xil_printf("------------\r\n");
 		xil_printf("VRR_EN : %d \r\n",VrrInforFrame.VidTimingExtMeta.VRREnabled);
 		xil_printf("M_CONST : %d \r\n",VrrInforFrame.VidTimingExtMeta.MConstEnabled);
+		xil_printf("QMS_EN : %d \r\n",VrrInforFrame.VidTimingExtMeta.QMSEnabled);
 		xil_printf("FVA_FACTOR_M1 : %d \r\n",VrrInforFrame.VidTimingExtMeta.FVAFactorMinus1);
 		xil_printf("Base_Vfront : %dHz \r\n",VrrInforFrame.VidTimingExtMeta.BaseVFront);
 		xil_printf("Base_Refresh_Rate : %dHz \r\n",VrrInforFrame.VidTimingExtMeta.BaseRefreshRate);
 		xil_printf("RB %d \r\n",VrrInforFrame.VidTimingExtMeta.RBEnabled);
+		xil_printf("NEXT_TFR %d \r\n",VrrInforFrame.VidTimingExtMeta.NextTransferRate);
 	} else if(VrrInforFrame.VrrIfType == XV_HDMIC_VRRINFO_TYPE_SPDIF) {
 		xil_printf("\r\n------------\r\n");
 		xil_printf("RX Core AMD VSIF Info Frame\r\n");

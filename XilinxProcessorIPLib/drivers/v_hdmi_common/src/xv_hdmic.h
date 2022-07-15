@@ -519,6 +519,8 @@ typedef struct {
 	u8	BaseVFront;
 	u16	BaseRefreshRate;
 	u8	RBEnabled;
+	u8	QMSEnabled;
+	u8	NextTransferRate;
 } XV_HdmiC_VideoTimingExtMeta;
 
 typedef struct {
