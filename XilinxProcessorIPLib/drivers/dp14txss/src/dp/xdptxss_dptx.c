@@ -41,6 +41,8 @@
 
 /************************** Constant Definitions *****************************/
 
+/* Set AUX and Sideband delays in microseconds. */
+#define XDP_TX_SB_MSG_DELAY 3000
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -136,8 +138,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		}
 
 		/* Set AUX and sideband delays in microseconds */
-		InstancePtr->TxInstance.AuxDelayUs = 30000;
-		InstancePtr->TxInstance.SbMsgDelayUs = 30000;
+		InstancePtr->TxInstance.AuxDelayUs = XDP_TX_SB_MSG_DELAY;
+		InstancePtr->TxInstance.SbMsgDelayUs = XDP_TX_SB_MSG_DELAY;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
 				"topology.\n\r");
