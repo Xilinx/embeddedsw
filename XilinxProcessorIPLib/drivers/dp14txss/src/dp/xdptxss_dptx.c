@@ -173,10 +173,9 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		Status = XDp_TxCheckLinkStatus(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
-		if (Status == XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
-					"is up !\n\r\n\r");
-		}
+		if (Status != XST_SUCCESS)
+			return Status;
+
 		xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Discovering topology.\n\r");
 	    /* Wait the requested amount of time to start mst topology
 	     * discovery after link training got success. This delay is added
@@ -313,6 +312,11 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:calculating "
 			"payload...\n\r");
 
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+					       InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status != XST_SUCCESS)
+			return Status;
+
 		/* Check link and video bandwidth */
 		Status = Dp_CheckBandwidth(InstancePtr, Bpc, VidMode);
 		if (Status != XST_SUCCESS) {
@@ -426,10 +430,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		Status = XDp_TxCheckLinkStatus(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
-		if (Status == XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST: Link "
-				"is up after streams are configured!\n\r\n\r");
-		}
+		if (Status != XST_SUCCESS)
+			return Status;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Allocating "
 			"payload...\n\r");
@@ -446,10 +448,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		Status = XDp_TxCheckLinkStatus(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
-		if (Status == XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
-				"is up after allocate payload!\n\r\n\r");
-		}
+		if (Status != XST_SUCCESS)
+			return Status;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Config done!"
 			"\n\r\n\r");
@@ -619,6 +619,10 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	}
 
 	Dp_ConfigVideoPackingClockControl(InstancePtr, Bpc);
+	Status = XDp_TxCheckLinkStatus(InstancePtr,
+				       InstancePtr->TxInstance.LinkConfig.LaneCount);
+	if (Status != XST_SUCCESS)
+		return Status;
 
 	/* Enable the main link. */
 	XDp_TxEnableMainLink(InstancePtr);
@@ -628,6 +632,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Link "
 			"is DOWN after main link enabled!\n\r\n\r");
+		return Status;
 	}
 	else if (Status == XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Link "
