@@ -1053,7 +1053,7 @@ void TxConnectCallback(void *CallbackRef) {
 		/* Cable is disconnected, don't allow any TX operation */
 		TxBusy = (TRUE);
 
-		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_TX, (FALSE));
+
 
 #ifdef USE_HDCP
 		/* Call HDCP disconnect callback */
@@ -1304,7 +1304,7 @@ void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef) {
 				     XHDMIPHY1_DIR_RX,
 				     XHDMIPHY1_CHANNEL_ID_CH1);
 
-	if (!(RxPllType == XHDMIPHY1_PLL_TYPE_CPLL)) {
+	if ((RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs,
 		        Hdmiphy1Ptr->HdmiRxRefClkHz,
 			(XHdmiphy1_GetLineRateHz(&Hdmiphy1,
@@ -1315,7 +1315,7 @@ void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef) {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs, Hdmiphy1Ptr->HdmiRxRefClkHz,
 			 (XHdmiphy1_GetLineRateHz(&Hdmiphy1,
 			                      0,
-					      XHDMIPHY1_CHANNEL_ID_CH1)/1000000));
+					      XHDMIPHY1_CHANNEL_ID_CMN1)/1000000));
 	}
 }
 #endif
@@ -2497,34 +2497,8 @@ int config_hdmi() {
 	usleep (50000);
 
 
-	/* Deassert the GTWiz_RESET_ALL */
-	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14,
-			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) & ~0x1));
-	/* Release RXPLL dependency from TXPLL RESET */
-	XHdmiphy1_WriteReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14,
-			(XHdmiphy1_ReadReg(XPAR_HDMIPHY1_0_BASEADDR, 0x14) | 0x80000000));
-	/* Delay 50ms for GT to complete initialization */
-	usleep (50000);
 
-	//IPS Workaround TODO
-	//Unlock the IPS registers
-	XHdmiphy1_Out32(0xF70E000C, 0xF9E8D7C6);
 
-	xil_printf("\nRX IPS From: 0x%08x ", XHdmiphy1_In32(0xF70E3C4C));
-	XHdmiphy1_Out32(0xF70E3C4C, 0x03E00C10);
-    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3C4C));
-
-    xil_printf("TX IPS From: 0x%08x ", XHdmiphy1_In32(0xF70EC48));
-	XHdmiphy1_Out32(0xF70E3C48, 0x03E00C40);
-    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70EC48));
-
-    // CDRHOLD Workaround
-    xil_printf("CDRHOLD REG From: 0x%08x ", XHdmiphy1_In32(0xF70E3290));
-	XHdmiphy1_Out32(0xF70E3290, 0x2400A00A);
-	XHdmiphy1_Out32(0xF70E3690, 0x2400A00A);
-	XHdmiphy1_Out32(0xF70E3A90, 0x2400A00A);
-	XHdmiphy1_Out32(0xF70E3E90, 0x2400A00A);
-    xil_printf("To: 0x%08x \r\n", XHdmiphy1_In32(0xF70E3290));
 
 
 	XIic_Config *ConfigPtr;	/* Pointer to configuration data */
