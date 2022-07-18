@@ -54,6 +54,8 @@
 /***************************** Include Files *********************************/
 
 #include "xnvm_efuse.h"
+#include "xnvm_efuse_common.h"
+#include "xnvm_efuse_common_hw.h"
 #include "xilnvm_efuse_versal_input.h"
 #include "xnvm_utils.h"
 #include "xil_util.h"
@@ -469,7 +471,10 @@ static int XilNvm_EfusePerformCrcChecks(void)
 	if (XNVM_EFUSE_CHECK_AES_KEY_CRC == TRUE) {
 		xil_printf("AES Key's CRC provided for verification: %08x\n\r",
 					XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
-		Status= XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
+		Status= XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_CRC_REG_OFFSET,
+					XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK,
+					XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK,
+					XNVM_EFUSE_EXPECTED_AES_KEY_CRC);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\nAES CRC check is failed\n\r");
 			Cnt++;
@@ -483,7 +488,9 @@ static int XilNvm_EfusePerformCrcChecks(void)
 		xil_printf("UserKey0 CRC provided for verification: %08x\n\r",
 					XNVM_EFUSE_EXPECTED_USER_KEY0_CRC);
 
-		Status = XNvm_EfuseCheckAesUserKey0Crc(
+		Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_USR_KEY0_CRC_REG_OFFSET,
+					XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK,
+					XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_PASS_MASK,
 					XNVM_EFUSE_EXPECTED_USER_KEY0_CRC);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\nUser Key 0 CRC check is failed\n\r");
@@ -498,7 +505,9 @@ static int XilNvm_EfusePerformCrcChecks(void)
 		xil_printf("UserKey1 CRC provided for verification: %08x\n\r",
 					XNVM_EFUSE_EXPECTED_USER_KEY1_CRC);
 
-		Status = XNvm_EfuseCheckAesUserKey1Crc(
+		Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_USR_KEY1_CRC_REG_OFFSET,
+					XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK,
+					XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_PASS_MASK,
 					XNVM_EFUSE_EXPECTED_USER_KEY1_CRC);
 		if (Status != XST_SUCCESS) {
 			xil_printf("\r\nUser Key 1 CRC check is failed\n\r");
