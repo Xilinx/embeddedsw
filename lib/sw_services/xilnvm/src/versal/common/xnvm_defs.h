@@ -45,6 +45,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_printf.h"
 #include "xil_types.h"
+#include "xnvm_common_defs.h"
 
 /************************** Constant Definitions ****************************/
 /**@cond xnvm_internal
@@ -60,9 +61,6 @@ extern "C" {
 #endif
 
 /* Key and Iv length definitions for Versal eFuse */
-#define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)
-#define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)
 #define XNVM_EFUSE_DNA_IN_WORDS				(4U)
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
 #define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)
@@ -98,29 +96,8 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	u32 Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
-} XNvm_PpkHash;
-
-typedef struct {
-	u32 Iv[XNVM_EFUSE_IV_LEN_IN_WORDS];
-} XNvm_Iv;
-
-typedef struct {
 	u32 Dna[XNVM_EFUSE_DNA_IN_WORDS];
 } XNvm_Dna;
-
-typedef enum {
-	XNVM_EFUSE_META_HEADER_IV_RANGE = 0,
-	XNVM_EFUSE_BLACK_IV,
-	XNVM_EFUSE_PLM_IV_RANGE,
-	XNVM_EFUSE_DATA_PARTITION_IV_RANGE
-} XNvm_IvType;
-
-typedef enum {
-	XNVM_EFUSE_PPK0 = 0,
-	XNVM_EFUSE_PPK1,
-	XNVM_EFUSE_PPK2
-} XNvm_PpkType;
 
 typedef enum {
 	XNVM_EFUSE_REVOCATION_ID_0 = 0,
