@@ -69,6 +69,7 @@ proc nvm_drc {libhandle} {
 			copy_files_to_src $family_common_server_dir
 			copy_files_to_src $versal_server_dir
 			copy_files_to_src $versal_common_dir
+			copy_files_to_src $versal_family_dir
 		}
 
 		"psxl_pmc" -
@@ -76,7 +77,7 @@ proc nvm_drc {libhandle} {
 			copy_files_to_src $family_common_server_dir
 			copy_files_to_src $versal_net_server_dir
 			copy_files_to_src $versal_net_common_dir
-
+			copy_files_to_src $versal_family_dir
 		}
 
 		"psu_cortexa72" -
@@ -87,10 +88,12 @@ proc nvm_drc {libhandle} {
 				copy_files_to_src $family_common_server_dir
 				copy_files_to_src $versal_server_dir
 				copy_files_to_src $versal_common_dir
+				copy_files_to_src $versal_family_dir
 			} else {
 				copy_files_to_src $family_common_client_dir
 				copy_files_to_src $versal_client_dir
 				copy_files_to_src $versal_common_dir
+				copy_files_to_src $versal_family_dir
 			}
 		}
 
@@ -102,10 +105,12 @@ proc nvm_drc {libhandle} {
 				copy_files_to_src $family_common_server_dir
 				copy_files_to_src $versal_net_server_dir
 				copy_files_to_src $versal_net_common_dir
+				copy_files_to_src $versal_family_dir
 			} else {
 				copy_files_to_src $family_common_client_dir
 				copy_files_to_src $versal_net_client_dir
 				copy_files_to_src $versal_net_common_dir
+				copy_files_to_src $versal_family_dir
 			}
 		}
 	}
