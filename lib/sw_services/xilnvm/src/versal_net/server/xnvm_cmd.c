@@ -32,6 +32,7 @@
 #include "xplmi_modules.h"
 #include "xnvm_defs.h"
 #include "xnvm_bbram_cdohandler.h"
+#include "xnvm_efuse_cdohandler.h"
 #include "xnvm_cmd.h"
 
 /************************** Function Prototypes ******************************/
@@ -75,6 +76,9 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 	case XNVM_API_ID_BBRAM_WRITE_USER_DATA:
 	case XNVM_API_ID_BBRAM_READ_USER_DATA:
 	case XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA:
+	case XNVM_API_ID_EFUSE_WRITE_AES_KEY:
+	case XNVM_API_ID_EFUSE_WRITE_PPK_HASH:
+	case XNVM_API_ID_EFUSE_WRITE_IV:
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -117,6 +121,11 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA):
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY_FROM_PLOAD):
 		Status = XNvm_BbramCdoHandler(Cmd);
+		break;
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEY_FROM_PLOAD):
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PPK_HASH_FROM_PLOAD):
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_IV_FROM_PLOAD):
+		Status = XNvm_EfuseCdoHandler(Cmd);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
