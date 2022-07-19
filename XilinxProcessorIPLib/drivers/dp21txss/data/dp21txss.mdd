@@ -1,0 +1,16 @@
+##############################################################################
+# Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+# SPDX-License-Identifier: MIT
+##
+#############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN driver dp21txss
+	OPTION supported_peripherals = (v_dp_txss2);
+	OPTION driver_state = ACTIVE;
+	OPTION depends = (dual_splitter_v1_0 vtc_v7_2 hdcp22_tx_dp hdcp1x hdcp22_cipher_dp hdcp22_rng hdcp22_common);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = dp21txss;
+END driver
