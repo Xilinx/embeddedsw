@@ -1,0 +1,16 @@
+##############################################################################
+# Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+# SPDX-License-Identifier: MIT
+##
+#############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN driver dp21rxss
+	OPTION supported_peripherals = (v_dp_rxss2);
+	OPTION driver_state = ACTIVE;
+	OPTION depends = (video_common_v4_0 hdcp22_rx_dp hdcp1x hdcp22_common hdcp22_mmult hdcp22_cipher_dp hdcp22_rng);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = dp21rxss;
+END driver
