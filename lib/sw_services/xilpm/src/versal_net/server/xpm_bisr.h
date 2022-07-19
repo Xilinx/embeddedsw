@@ -35,9 +35,6 @@ extern "C" {
 #define GTYP_TAG_ID	0x18
 #define GTM_TAG_ID	0x19
 
-#define PCSR_UNLOCK_VAL		(0xF9E8D7C6U)
-#define PCSR_LOCK_VAL		(0x1U)
-
 XStatus XPmBisr_Repair(u32 TagId);
 XStatus XPmBisr_NidbLeftMostLaneRepair(void);
 XStatus XPmBisr_NidbLaneRepair(void);

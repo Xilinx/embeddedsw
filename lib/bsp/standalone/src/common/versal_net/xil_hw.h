@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 8.0   bm   07/06/2022 Initial release
+*       bsv  07/19/2022 Moved PCSR_LOCK macros to standalone from xilpm
 *
 * </pre>
 *
@@ -79,6 +80,10 @@ extern "C" {
 #define PMC_IOU_SLCR_BASEADDR      (0XF1060000U)
 
 #define IPI_BASEADDR		(0xEB300000U)
+
+#define PCSR_UNLOCK_VAL		(0xF9E8D7C6U)
+#define PCSR_LOCK_VAL		(0U)
+
 /**
  * @}
  * @endcond
