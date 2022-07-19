@@ -1,0 +1,17 @@
+#******************************************************************************
+# Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+#
+##*****************************************************************************/
+
+OPTION psf_version = 2.1;
+
+BEGIN driver dp21
+        OPTION supported_peripherals = (dptx dprx);
+        OPTION driver_state = ACTIVE;
+	OPTION depends = (video_common_v4_0);
+        OPTION copyfiles = all;
+        OPTION VERSION = 1.0;
+        OPTION NAME = dp21;
+END driver
