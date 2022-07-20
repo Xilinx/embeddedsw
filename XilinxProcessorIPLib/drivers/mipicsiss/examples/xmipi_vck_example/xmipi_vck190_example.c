@@ -55,6 +55,10 @@ extern void CamReset(void);
 extern void EnableCSI(void);
 extern void DisableCSI(void);
 XScuGic     Intc;
+extern u8                 TxBusy ;
+extern u8                 TxRestartColorbar ;
+extern u8   			  IsStreamUp;
+extern u8                        SinkReady;
 
 #define VPROCSSCSC_BASE	XPAR_XVPROCSS_1_BASEADDR
 #define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
@@ -581,9 +585,8 @@ void Enable_mmcmfabric_control()
 * @note   None.
 *
 ******************************************************************************/
-int XMipi_DisplayMainMenu(void)
+void XMipi_DisplayMainMenu(void)
 {
-	int VideoMode_Select;
 
 	xil_printf("\r\n");
 	xil_printf("---------------------\r\n");
@@ -603,48 +606,42 @@ do {
 			XUartPsv_SendByte(XPAR_XUARTPSV_0_BASEADDR, Response);
 
 			if ((Response == 'r')||(Response == 'R')){
-					VideoMode_Select = 0 ;
-					xil_printf("\r\n0 - 1920x1080p60\r\n");
-					xil_printf("\r\n => Configures Sensor for 1920x1080 60fps.\r\n");
-					xil_printf("\r\n1 - 3840x2160p60\r\n");
-					xil_printf("\r\n => Configures Sensor for 3840x2160 60fps.\r\n");
+					xil_printf("\r\n0 - 1920x1080p60");
+					xil_printf(" => Configures Sensor for 1920x1080 60fps.\r\n");
+					xil_printf("\r\n1 - 3840x2160p60");
+					xil_printf(" => Configures Sensor for 3840x2160 60fps.\r\n");
 					xil_printf("\r\n\r\n");
 					xil_printf("\r\nEnter Selection ->\r\n ");
 					Response = XUartPsv_RecvByte(XPAR_XUARTPSV_0_BASEADDR);
 					XUartPsv_SendByte(XPAR_XUARTPSV_0_BASEADDR, Response);
-					if ((Response == 0)) {
-						xil_printf("\r\n\r\n 1920x1080p60 is Selected.\r\n");
-						VideoMode_Select = 0 ;
+					if ((Response == '0')) {
+						xil_printf("\r\n 1920x1080p60 Resolution is Selected.\r\n");
+						New_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P;
 						break;
 					} else if ((Response == '1')) {
-						VideoMode_Select = 1 ;
-						xil_printf("\r\n\r\n 3840x2160p60 is Selected.\r\n");
+						New_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P;
+						xil_printf("\r\n 3840x2160p60 Resolution is Selected.\r\n");
 						break;
 					} else {
-						VideoMode_Select = 0 ;
+						New_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P;
 xil_printf("\r\n Wrong Input Selection, Default(1920x1080p60) is Selected\r\n");
 						break;
 					}
-
 				} else if ((Response == 'h') ||(Response =='H')){
-					xil_printf("\r\n\r\n HDMI Display is Selected.\r\n");
-					Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;
+					xil_printf("\r\n HDMI Display is Selected.\r\n");
+					New_Cfg.VideoDestn = XVIDDES_HDMI ;
 					break;
-
 				} else if((Response == 'd') || (Response == 'D')){
-					xil_printf("\r\n\r\n DSI Display is Selected.\r\n");
-					Pipeline_Cfg.VideoDestn = XVIDDES_DSI;
+					xil_printf("\r\n DSI Display is Selected.\r\n");
+					New_Cfg.VideoDestn = XVIDDES_DSI ;
 					break;
-
 				}else{
-					VideoMode_Select = 0 ;
-					Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;
-      xil_printf("\r\n\r\n Wrong Input Selection, Default is Selected.\r\n");
-                                        break;
+					New_Cfg.VideoDestn = XVIDDES_HDMI ;
+		xil_printf("\r\n Wrong Input Selection, Default is Selected.\r\n");
+					xil_printf("\r\n HDMI Display is Selected.\r\n");
+          break;
 				}
 			} while (1);
-	return (VideoMode_Select) ;
-
 }
 
 
@@ -656,10 +653,10 @@ int main() {
 
 	Pipeline_Cfg.ActiveLanes = 4;
 	Pipeline_Cfg.VideoSrc = XVIDSRC_SENSOR;
-
-	/* Default DSI */
+	New_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P;
+	/* Default HDMI */
 	Pipeline_Cfg.VideoDestn = XVIDDES_HDMI;
-
+	New_Cfg.VideoDestn = XVIDDES_HDMI;
 	Pipeline_Cfg.Live = TRUE;
 
 	/* Vertical and Horizontal flip don't work */
@@ -696,47 +693,44 @@ int main() {
 	Enable_mmcmfabric_control();
 
 
-	val = XMipi_DisplayMainMenu();
+	XMipi_DisplayMainMenu();
 
-	if(val == 0) {
-	  VideoMode_CSI =  XVIDC_VM_1920x1080_60_P ;
-	  VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
-	  Pipeline_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P ;
-	}
-	else {
-	VideoMode_CSI =  XVIDC_VM_3840x2160_60_P ;
-	VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
-	Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P ;
-	}
+	Pipeline_Cfg.VideoDestn = New_Cfg.VideoDestn ;
+	Pipeline_Cfg.VideoMode = New_Cfg.VideoMode ;
 
 	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
 	SelectHDMIOutput();
 
 	Reset_IP_Pipe();
+	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
 	Status = SetupDSI();
 		if (Status != XST_SUCCESS) {
 		  xil_printf("SetupDSI failed status = %x.\r\n", Status);
 		  return XST_FAILURE;
 		}
+	}
 	/* Initialize IRQ */
 	Status = SetupInterruptSystem();
 	if (Status == XST_FAILURE) {
-		xil_printf("\r\n\r\n IRQ Configuration failed.\r\n\r\n");
+		xil_printf("IRQ Configuration failed.\r\n");
 		return XST_FAILURE;
 	}
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
-		xil_printf("\r\n\r\n CSI Cature Pipe Configuration failed.\r\n\r\n");
+		xil_printf("CSI Capture Pipe Configuration failed.\r\n");
 		return XST_FAILURE;
 	}
+	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
 	InitDSI();
-	xil_printf("\r\nInitDSI Done \n\r");
+	xil_printf("InitDSI Done \n\r");
+	}
 	Status = config_hdmi();
 		if (Status == XST_FAILURE) {
-			xil_printf("\r\n\r\n HDMI  TX Configuration failed.\r\n\r\n");
+			xil_printf("HDMI  TX Configuration failed.\r\n");
 			return XST_FAILURE;
 		}
-		xil_printf("\r\n\r\n HDMI  TX Configuration Done.\r\n\r\n");
+		usleep(5000);
+		xil_printf("HDMI  TX Configuration Done.\r\n");
 		if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
 			SelectDSIOutput();
 		}else {
@@ -752,30 +746,22 @@ int main() {
 	/* Start CSI PIPE */
 	Status = start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
 	if (Status == XST_FAILURE) {
-		xil_printf("\r\n\r\n CSI Cature Pipe Start failed.\r\n\r\n");
+		xil_printf("CSI Cature Pipe Start failed.\r\n");
 		return XST_FAILURE;
 	}
-
+	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
 	EnableDSI();
-
+	}
 
 		/* Main loop */
 			do {
-
-				val = XMipi_DisplayMainMenu();
-					if(val == 0) {
-					  VideoMode_CSI =  XVIDC_VM_1920x1080_60_P ;
-					  VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
-					  Pipeline_Cfg.VideoMode = XVIDC_VM_1920x1080_60_P ;
-					  }
-					  else {
-					  VideoMode_CSI =  XVIDC_VM_3840x2160_60_P ;
-					  VideoMode_HDMI =  XVIDC_VM_1920x1080_60_P ;
-					  Pipeline_Cfg.VideoMode = XVIDC_VM_3840x2160_60_P ;
-					  }
-
+				XMipi_DisplayMainMenu();
+				Pipeline_Cfg.VideoDestn = New_Cfg.VideoDestn ;
+				Pipeline_Cfg.VideoMode = New_Cfg.VideoMode ;
 				if (Pipeline_Cfg.VideoDestn == XVIDDES_HDMI) {
 					xil_printf("Set HDMI as destination \r\n");
+					TxBusy            = (FALSE);
+					TxRestartColorbar = (TRUE);
 					config_csi_cap_path( );
 					SelectHDMIOutput();
 					start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
@@ -787,7 +773,9 @@ int main() {
 					XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
 					Reset_IP_Pipe();
 					SetupDSI();
-
+					TxRestartColorbar = (FALSE);
+					TxBusy            = (TRUE);
+					IsStreamUp        = (FALSE);
 					config_csi_cap_path();
 					SelectDSIOutput();
 					InitDSI();
