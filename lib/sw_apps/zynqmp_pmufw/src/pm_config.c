@@ -286,6 +286,15 @@ static s32 PmConfigSlaveSectionHandler(u32* const addr)
 			PmConfigPllPermsWorkaround();
 		}
 
+		if ((NODE_ETH_0 == nodeId) || (NODE_ETH_1 == nodeId) ||
+		    (NODE_ETH_2 == nodeId) || (NODE_ETH_3 == nodeId)) {
+			status = PmSetEthBaseAddr(nodeId);
+			if (XST_SUCCESS != status) {
+				PmErr("%s Failed to set the Base Address.\r\n", slave->node.name);
+				goto done;
+			}
+		}
+
 		slave->flags |= PM_SLAVE_FLAG_IS_CONFIGURED;
 	}
 

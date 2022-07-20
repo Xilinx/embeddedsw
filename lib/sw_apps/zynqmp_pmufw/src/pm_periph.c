@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -529,6 +529,12 @@ PmSlave pmSlaveCan1_g = {
 #define ETH_RECV_Q1_PTR_OFFSET		0x480U
 #define ETH_RECV_HIGH_PTR_OFFSET	0x4D4U
 
+/* Default base address */
+#define PM_ETH_0_DEF_BASEADDR	0xFF0B0000U
+#define PM_ETH_1_DEF_BASEADDR	0xFF0C0000U
+#define PM_ETH_2_DEF_BASEADDR	0xFF0D0000U
+#define PM_ETH_3_DEF_BASEADDR	0xFF0E0000U
+
 static u32 ocmData[ETH_OCM_REQ_SIZE];
 static bool ocmStored;
 
@@ -658,6 +664,45 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 		ethWake->subClass->set(ethWake->subWake, ipiMask, enable);
 		ethWake->wakeEnabled = true;
 	}
+}
+
+s32 PmSetEthBaseAddr(u32 nodeId) {
+	s32 status = XST_SUCCESS;
+	PmSlave* slave;
+	PmWakeEventEth *ethWake;
+
+	slave = (PmSlave*)PmNodeGetSlave(nodeId);
+	if (NULL == slave) {
+		PmErr("Unknown slave #%lu\r\n", nodeId);
+		status = XST_FAILURE;
+		goto done;
+	}
+
+	ethWake = slave->wake->derived;
+
+	/* Modify the BaseAddress only if not assign by design at compile time */
+	if (0U == ethWake->baseAddr) {
+		switch(nodeId) {
+			case NODE_ETH_0:
+				ethWake->baseAddr = PM_ETH_0_DEF_BASEADDR;
+				break;
+			case NODE_ETH_1:
+				ethWake->baseAddr = PM_ETH_1_DEF_BASEADDR;
+				break;
+			case NODE_ETH_2:
+				ethWake->baseAddr = PM_ETH_2_DEF_BASEADDR;
+				break;
+			case NODE_ETH_3:
+				ethWake->baseAddr = PM_ETH_3_DEF_BASEADDR;
+				break;
+			default:
+				status = XST_FAILURE;
+				break;
+		}
+	}
+
+done:
+	return status;
 }
 
 static PmWakeEventClass pmWakeEventClassEth_g = {
