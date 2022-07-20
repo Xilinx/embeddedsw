@@ -270,14 +270,8 @@ void InitVprocSs_Scaler(int count,int width,int height)
 	int status;
 	int widthIn, heightIn, widthOut, heightOut;
 
-	if(Pipeline_Cfg.VideoDestn == XVIDDES_DSI){
 		widthOut = DSI_H_RES;
 		heightOut = DSI_V_RES;
-	} else {
-
-		widthOut = HDMI_H_RES;
-		heightOut = HDMI_V_RES;
-	}
 	usleep(1000);
 	/* Local variables */
 	XVidC_VideoMode resIdIn, resIdOut;
@@ -1339,21 +1333,20 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 		widthOut = DSI_H_RES;
 		heightOut = DSI_V_RES;}
 	else {
-		/* Fixed Output to HDMI (1920x1080) */
-		widthOut = HDMI_H_RES;
-		heightOut = HDMI_V_RES;
+		widthOut = widthIn;
+		heightOut = heightIn;
 	}
 
     usleep(1000);
 	Reset_IP_Pipe();
 
 
-	resIdOut = XVidC_GetVideoModeId(widthOut, heightOut, XVIDC_FR_60HZ,
+	resIdOut = XVidC_GetVideoModeId(widthIn, heightIn, XVIDC_FR_60HZ,
 					FALSE);
 
 	StreamOut.VmId = resIdOut;
-	StreamOut.Timing.HActive = widthOut;
-	StreamOut.Timing.VActive = heightOut;
+	StreamOut.Timing.HActive = widthIn;
+	StreamOut.Timing.VActive = heightIn;
 	StreamOut.ColorFormatId = XVIDC_CSF_RGB;
 	StreamOut.FrameRate = XVIDC_FR_60HZ;
 	StreamOut.IsInterlaced = 0;
@@ -1392,7 +1385,6 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	xil_printf("\r\nSensor is Enabled\r\n");
 	usleep(20000);
 
-
 	XV_frmbufwr_EnableAutoRestart(&frmbufwr.FrmbufWr);
 	XVFrmbufWr_Start(&frmbufwr);
 
@@ -1403,7 +1395,9 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 	ConfigCSC(widthIn, heightIn);
 	ConfigGammaLut(widthIn, heightIn);
 	ConfigDemosaic(widthIn, heightIn);
+	if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
 	InitVprocSs_Scaler(1,widthOut, heightOut);
+	}
 	EnableCSI();
 
 	xil_printf("CSI is Enabled\r\n");
@@ -1418,8 +1412,8 @@ int start_csi_cap_pipe(XVidC_VideoMode VideoMode)
 
 	/* Start HDMI */
 	if (Pipeline_Cfg.VideoDestn == XVIDDES_HDMI) {
-
-	  start_hdmi(XVIDC_VM_1920x1080_60_P);}
+	  start_hdmi(Pipeline_Cfg.VideoMode);
+	}
 	  /* Start Camera Sensor to capture video */
       StartSensor();
 	  xil_printf("Sensor is started \r\n");
