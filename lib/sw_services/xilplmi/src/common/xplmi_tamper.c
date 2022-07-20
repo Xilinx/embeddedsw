@@ -16,6 +16,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   ma   07/08/2022 Initial release
+*       ma   07/19/2022 Disable interrupts before calling secure lockdown proc
+*                       and continue secure lockdown irrespective of the status
 *
 * </pre>
 *
@@ -58,20 +60,29 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
  *
  * @param   TamperResp is the tamper response
  *
- * @return  Error code if secure lockdown proc execution fails
+ * @return  None
  *
  *****************************************************************************/
-int XPlmi_ProcessTamperResponse(u32 TamperResp)
+void XPlmi_ProcessTamperResponse(u32 TamperResp)
 {
 	int Status = XST_FAILURE;
 
 	if ((TamperResp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) {
+		/* Reset LpdInitialized variable */
+		XPlmi_ResetLpdInitialized();
+		/* Disable interrupts to Microblaze */
+		microblaze_disable_interrupts();
+		/* Disable PMC EAM interrupts */
+		XPlmi_EmDisablePmcErrors(XPLMI_PMC_PSM_ERR1_REG_OFFSET,
+			MASK32_ALL_HIGH);
+		XPlmi_EmDisablePmcErrors(XPLMI_PMC_PSM_ERR2_REG_OFFSET,
+			MASK32_ALL_HIGH);
+
 		/* Execute secure lockdown proc */
 		Status = XPlmi_ExecuteProc(XPLMI_SLD_PROC_ID);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "Secure Lockdown failed with 0x%x "
 					"error\r\n", Status);
-			goto END;
 		}
 	}
 
@@ -92,9 +103,6 @@ int XPlmi_ProcessTamperResponse(u32 TamperResp)
 	while(1U) {
 		;
 	}
-
-END:
-	return Status;
 }
 
 /*****************************************************************************/
@@ -164,7 +172,7 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 		TamperRespTmp = Xil_In32(XPLMI_RTCFG_TAMPER_RESP);
 		if (((TamperResp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) ||
 			((TamperRespTmp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U)) {
-			(void)XPlmi_ProcessTamperResponse(TamperResp);
+			XPlmi_ProcessTamperResponse(TamperResp);
 		} else {
 			XPlmi_Printf(DEBUG_GENERAL, "Warning: Invalid Tamper Response. "
 					"Configured Tamper Response at RTCA: 0x%x\r\n"

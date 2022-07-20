@@ -94,6 +94,7 @@
 *       ma   07/08/2022 Added support for secure lockdown
 *       ma   07/08/2022 Added support for executing secure lockdown when
 *                       Halt Boot eFuses are blown
+*       ma   07/19/2022 Disable interrupts before secure lockdown
 *
 * </pre>
 *
@@ -203,7 +204,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 #ifndef PLM_DEBUG_MODE
 			if ((HaltBoot != 0x0U) || (HaltBootTmp != 0x0U)) {
 				/* Trigger secure lockdown if Halt Boot eFuses are blown */
-				(void)XPlmi_ProcessTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK);
+				XPlmi_ProcessTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK);
 			} else {
 				/* Update Multiboot register */
 				RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
@@ -697,7 +698,7 @@ static int EmEnableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
+int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
 {
 	u32 Status = (u32)XPLMI_ERROR_ACTION_NOT_DISABLED;
 

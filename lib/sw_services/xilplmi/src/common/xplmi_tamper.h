@@ -16,6 +16,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 1.0   ma   07/08/2022 Initial release
+ *       ma   07/19/2022 Change XPlmi_ProcessTamperResponse return type to void
  *
  * </pre>
  *
@@ -39,7 +40,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XPlmi_RegisterTamperIntrHandler(void);
-int XPlmi_ProcessTamperResponse(u32 TamperResp);
+void XPlmi_ProcessTamperResponse(u32 TamperResp);
 
 #ifdef __cplusplus
 }
