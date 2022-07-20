@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -66,7 +66,7 @@ extern PmSlave pmSlaveFpdWdt_g;
  */
 typedef struct PmWakeEventEth {
 	PmWakeEvent wake;
-	const u32 baseAddr;
+	u32 baseAddr;
 	u32 receiveQptr;
 	u32 receiveQ1ptr;
 	u32 receiveHighptr;
@@ -74,6 +74,8 @@ typedef struct PmWakeEventEth {
 	PmWakeEventClass* const subClass;
 	PmWakeEvent* const subWake;
 } PmWakeEventEth;
+
+s32 PmSetEthBaseAddr(u32 nodeId);
 
 #ifdef __cplusplus
 }
