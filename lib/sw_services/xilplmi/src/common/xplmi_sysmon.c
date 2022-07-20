@@ -32,6 +32,7 @@
  *       ma   01/17/2022 Enable SLVERR for Sysmon
  *       ma   03/01/2022 Write PCSR MASK register before enabling SLVERR
  * 1.05  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
+ *       bsv  07/20/2022 Removed magic number usage
  *
  * </pre>
  *
@@ -93,7 +94,7 @@ static void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value)
 	XPlmi_Out32((Addr + (u32)XSYSMONPSV_PCSR_LOCK), PCSR_UNLOCK_VAL);
 	XPlmi_UtilRMW(Addr, Value, Value);
 	XPlmi_UtilRMW((Addr + (u32)XSYSMONPSV_PCSR_CONTROL), Value, Value);
-	XPlmi_Out32((Addr + (u32)XSYSMONPSV_PCSR_LOCK), 0U);
+	XPlmi_Out32((Addr + (u32)XSYSMONPSV_PCSR_LOCK), PCSR_LOCK_VAL);
 }
 
 /*****************************************************************************/
