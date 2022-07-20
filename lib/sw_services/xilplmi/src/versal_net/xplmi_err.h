@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       ma   07/20/2022 Rename PMC_PSM_ERR_REG_OFFSET macro
 *
 * </pre>
 *
@@ -42,13 +43,13 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define GET_PMC_ERR_ACTION_OFFSET(Index)	((Index == 2) ? \
-			((0xFU) * PMC_PSM_ERR_REG_OFFSET) : \
-			(Index * PMC_PSM_ERR_REG_OFFSET))
+			((0xFU) * XPLMI_PMC_PSM_ERR2_REG_OFFSET) : \
+			(Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET))
 
 #define GET_PMC_ERR_ACTION_ADDR(PmcMask, Index)	((Index == 2) ? \
-			(PmcMask + ((0xFU) * PMC_PSM_ERR_REG_OFFSET - \
+			(PmcMask + ((0xFU) * XPLMI_PMC_PSM_ERR2_REG_OFFSET - \
 			 ((PmcMask - PMC_GLOBAL_PMC_ERR_OUT1_MASK) / 2U))) :\
-			(PmcMask + (Index * PMC_PSM_ERR_REG_OFFSET)))
+			(PmcMask + (Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET)))
 
 
 #define GET_PMC_ERR_OUT_MASK(RegOffset)	(RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_ERR_OUT3_MASK) :\

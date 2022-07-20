@@ -54,6 +54,7 @@
 *       ma   06/01/2022 Added PLM Print Log as new error action
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Added support for secure lockdown
+*       ma   07/19/2022 Disable interrupts before secure lockdown
 *
 * </pre>
 *
@@ -111,6 +112,9 @@ extern "C" {
 #define XPLMI_REG_MAX_ERRORS			(0x20U)
 #define XPLMI_EVENT_ERROR_OFFSET		(0x4000U)
 
+#define XPLMI_PMC_PSM_ERR1_REG_OFFSET		(0x0U)
+#define XPLMI_PMC_PSM_ERR2_REG_OFFSET		(0x10U)
+
 #define GET_PMC_ERR_START(ErrIndex)		(XPLMI_ERROR_BOOT_CR + \
 						(ErrIndex * XPLMI_REG_MAX_ERRORS))
 #define GET_PMC_ERR_END(ErrIndex)		(XPLMI_ERROR_PMCERR1_MAX + \
@@ -119,7 +123,7 @@ extern "C" {
 						(ErrIndex * XPLMI_REG_MAX_ERRORS))
 #define GET_PSM_ERR_END(ErrIndex)		(XPLMI_ERROR_PSMERR1_MAX + \
 						(ErrIndex * XPLMI_REG_MAX_ERRORS))
-#define GET_PSM_ERR_ACTION_OFFSET(Index)	(Index * PMC_PSM_ERR_REG_OFFSET)
+#define GET_PSM_ERR_ACTION_OFFSET(Index)	(Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET)
 
 /* Event error Indexes */
 #define XPLMI_NODETYPE_EVENT_PMC_INDEX		(0x0U)
@@ -218,6 +222,7 @@ void XPlmi_TriggerFwNcrError(void);
 void XPlmi_PORHandler(void);
 void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask);
 u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask);
+int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);

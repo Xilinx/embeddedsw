@@ -21,6 +21,7 @@
 *       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
 *       ma   07/08/2022 Added support for secure lockdown
 *       ma   07/13/2022 Added RTC_CONTROL_SLVERR_EN_MASK macro
+*       ma   07/20/2022 Move PMC_PSM_ERR_REG_OFFSET to xplmi_error_common.h
 *
 * </pre>
 *
@@ -436,7 +437,6 @@ extern "C" {
  */
 #define PMC_GLOBAL_GICP_PMC_IRQ_ENABLE    (PMC_GLOBAL_BASEADDR + 0X000300A8U)
 
-#define PMC_PSM_ERR_REG_OFFSET			(0x10U)
 #define PMC_PSM_EN_REG_OFFSET			(0x4U)
 #define PMC_PSM_DIS_REG_OFFSET			(0x8U)
 

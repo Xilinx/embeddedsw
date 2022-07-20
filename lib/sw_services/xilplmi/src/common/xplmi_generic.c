@@ -70,6 +70,7 @@
 *       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
+*       ma   07/19/2022 Print XPlmi_MaskPoll failures in all cases
 *
 * </pre>
 *
@@ -2067,7 +2068,7 @@ static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd)
 	}
 
 	/* Execute secure lockdown */
-	Status = XPlmi_ProcessTamperResponse(TamperResp);
+	XPlmi_ProcessTamperResponse(TamperResp);
 
 END:
 	return Status;
