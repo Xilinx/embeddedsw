@@ -30,6 +30,8 @@
 extern "C" {
 #endif
 
+#include "xpsmfw_plat.h"
+
 /*Check if UART is present in design */
 #if defined (STDOUT_BASEADDRESS)
 /*Check if MDM uart or PS Uart */
@@ -37,7 +39,7 @@ extern "C" {
 #define DEBUG_PMC_UART_MDM
 #elif (STDOUT_BASEADDRESS == 0xFFCF0000U)
 #define DEBUG_PSM_UART_MDM
-#elif ((STDOUT_BASEADDRESS == 0xFF000000U) || (STDOUT_BASEADDRESS == 0xFF010000U))
+#elif ((STDOUT_BASEADDRESS == UART0_BASEADDR) || (STDOUT_BASEADDRESS == UART1_BASEADDR))
 #define DEBUG_UART_PS
 #endif
 #endif

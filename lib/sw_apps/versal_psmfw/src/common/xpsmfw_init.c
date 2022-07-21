@@ -25,7 +25,9 @@
 
 #include "xpsmfw_init.h"
 #include "xpsmfw_default.h"
+#ifdef PSM_ENABLE_STL
 #include "xpsmfw_stl.h"
+#endif
 
 #define NOT_INITIALIZED			0xFFFFFFFFU
 

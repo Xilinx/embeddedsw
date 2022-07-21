@@ -30,7 +30,7 @@
 extern "C" {
 #endif
 
-#include "psm_local.h"
+#include "xpsmfw_plat.h"
 #include "xpsmfw_debug.h"
 #include "xil_io.h"
 #include "xpsmfw_ipi_manager.h"
