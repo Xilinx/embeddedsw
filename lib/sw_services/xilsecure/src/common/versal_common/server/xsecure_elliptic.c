@@ -41,6 +41,8 @@
 *                     XSecure_EllipticGenerateKey_64Bit() and
 *                     XSecure_EllipticGenerateSignature_64Bit()
 *       har  02/16/22 Updated Status with ClearStatus only in case of success
+*       dc   07/13/22 Modified static function XSecure_EllipticGetCrvData()
+*                     to non static
 *
 *
 * </pre>
@@ -77,7 +79,7 @@
 				to make the address word aligned */
 
 /************************** Function Prototypes ******************************/
-static EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
+EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
 static void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr);
 static void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
 
@@ -834,7 +836,7 @@ END:
  *	-	Crv - Curve information
  *
  *****************************************************************************/
-static EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp)
+EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp)
 {
 	u32 Index;
 	EcdsaCrvInfo *Crv = NULL;
