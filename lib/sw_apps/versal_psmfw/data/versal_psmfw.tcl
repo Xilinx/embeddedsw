@@ -53,6 +53,8 @@ proc swapp_generate {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set versal_net "versal_net/"
+	set versal "versal/"
+	set common "common/"
 	if {$proc_type == "psxl_psm" || $proc_type == "psx_psm"} {
 		foreach entry [glob -nocomplain -types f [file join . *]] {
 			file delete -force $entry
@@ -61,7 +63,20 @@ proc swapp_generate {} {
 			file copy -force $entry "."
 		}
 	}
+	if {$proc_type == "psv_psm"} {
+		foreach entry [glob -nocomplain -types f [file join . *]] {
+			file delete -force $entry
+		}
+		foreach entry [glob -nocomplain -types f [file join $versal *]] {
+			file copy -force $entry "."
+		}
+		foreach entry [glob -nocomplain -types f [file join $common *]] {
+			file copy -force $entry "."
+		}
+	}
 	file delete -force $versal_net
+	file delete -force $versal
+	file delete -force $common
 	# Get the compiler flags, if set already
 	set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
 	set new_flags "-mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v10.0 -mxl-soft-mul $def_flags"
