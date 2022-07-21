@@ -23,6 +23,7 @@
 *
 ******************************************************************************/
 
+#include <sleep.h>
 #include "xil_io.h"
 #include "xpsmfw_util.h"
 
@@ -93,4 +94,21 @@ void XPsmFw_UtilWait(u32 TimeOutCount)
 	while (TimeOut > 0U) {
 		TimeOut--;
 	}
+}
+
+XStatus XPsmFw_UtilPollForValue(u32 RegAddress, u32 Mask, u32 Value, u32 TimeOutUs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 TimeOut = TimeOutUs;
+
+	if (TimeOut == 0U){
+		Status = ((Xil_In32(RegAddress) & Mask) == Value) ? XST_SUCCESS : XST_FAILURE;
+	}else {
+		while (((Xil_In32(RegAddress) & Mask) != Value) && (TimeOut > 0U)){
+			usleep(1U);
+			TimeOut--;
+		}
+		Status = (0U < TimeOut) ? XST_SUCCESS: XST_TIMEOUT;
+	}
+	return Status;
 }

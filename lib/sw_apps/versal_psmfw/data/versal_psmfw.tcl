@@ -62,6 +62,9 @@ proc swapp_generate {} {
 		foreach entry [glob -nocomplain -types f [file join $versal_net *]] {
 			file copy -force $entry "."
 		}
+		foreach entry [glob -nocomplain -types f [file join $common *]] {
+			file copy -force $entry "."
+		}
 	}
 	if {$proc_type == "psv_psm"} {
 		foreach entry [glob -nocomplain -types f [file join . *]] {

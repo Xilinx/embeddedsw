@@ -146,13 +146,41 @@ static void XPsmfw_InterruptPwrCtlHandler(void)
 
 /* Structure for Top level interrupt table */
 static struct HandlerTable g_TopLevelInterruptTable[] = {
-	{PSM_IOMODULE_IRQ_PENDING_IPI_MASK, XPsmFw_InterruptIpiHandler},
-	{PSM_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK, XPsmfw_InterruptPwrUpHandler},
-	{PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_MASK, XPsmfw_InterruptPwrDwnHandler},
-	{PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_MASK, XPsmfw_InterruptWakeupHandler},
-	{PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_MASK, XPsmfw_InterruptPwrCtlHandler},
-	{PSM_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK, NULL},
-	{PSM_IOMODULE_IRQ_PENDING_GICP_INT_MASK, NULL},
+	{
+		PSM_IOMODULE_IRQ_PENDING_IPI_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_IPI_MASK,
+		XPsmFw_InterruptIpiHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_PWR_UP_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK,
+		XPsmfw_InterruptPwrUpHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_PWR_DWN_REQ_MASK,
+		XPsmfw_InterruptPwrDwnHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_WAKE_UP_REQ_MASK,
+		XPsmfw_InterruptWakeupHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_PWR_CNT_REQ_MASK,
+		XPsmfw_InterruptPwrCtlHandler
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_SW_RST_REQ_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK,
+		NULL
+	},
+	{
+		PSM_IOMODULE_IRQ_PENDING_GICP_INT_SHIFT,
+		PSM_IOMODULE_IRQ_PENDING_GICP_INT_MASK,
+		NULL
+	},
 };
 
 /**
@@ -282,8 +310,10 @@ void XPsmFw_IntrHandler(void *IntrNumber)
 	    l_index++) {
 			if ((l_IrqReg & g_TopLevelInterruptTable[l_index].Mask)
 				    == g_TopLevelInterruptTable[l_index].Mask) {
-				/* Call interrupt handler */
-				g_TopLevelInterruptTable[l_index].Handler();
+				if (NULL != g_TopLevelInterruptTable[l_index].Handler) {
+					/* Call interrupt handler */
+					g_TopLevelInterruptTable[l_index].Handler();
+				}
 
 				/* ACK the interrupt */
 				XPsmFw_Write32(PSM_IOMODULE_IRQ_ACK,
