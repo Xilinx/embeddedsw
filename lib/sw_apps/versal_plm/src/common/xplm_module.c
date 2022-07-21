@@ -44,6 +44,7 @@
 * 1.07  ma   05/10/2022 Call XPlmi_SsitEventsInit during initialization
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Added support for secure lockdown
+*       dc   07/13/2022 Added OCP init calls
 *
 * </pre>
 *
@@ -77,6 +78,10 @@
 #ifdef PLM_ENABLE_STL
 #include "xplm_stl.h"
 #endif
+#ifdef PLM_OCP
+#include "xocp_keymgmt.h"
+#endif
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -159,7 +164,15 @@ int XPlm_ModuleInit(void *Arg)
 #endif
 #ifdef XPLM_SEM
 	Status = XSem_Init();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 #endif
+/* OCP module is applicable only for Versalnet */
+#ifdef PLM_OCP
+	Status = XOcp_KeyInit();
+#endif
+
 
 END:
 	return Status;

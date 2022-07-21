@@ -8,6 +8,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00  kc   9/22/2018 Initial Release
 # 1.10  ssc  3/05/2022 Added configurable options
+# 1.20  dc   7/13/2022 Added OCP configuration option
 #
 ##############################################################################
 
@@ -35,4 +36,5 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_nvm_en, desc = "Enables or Disables NVM handlers", type = bool, default = false;
   PARAM name = plm_puf_en, desc = "Enables or Disables PUF handlers", type = bool, default = false;
   PARAM name = plm_stl_en, desc = "Enables or Disables STL", type = bool, default = false;
+  PARAM name = plm_ocp_en, desc = "Enables or Disables OCP", type = bool, default = false;
 END LIBRARY
