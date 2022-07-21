@@ -20,6 +20,7 @@ s32 PmPinCtrlCheckPerms(const u32 ipiMask, const u32 pinId);
 
 s32 PmPinCtrlGetParam(const u32 pinId, const u32 paramId, u32* const value);
 s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value);
+void PmPinCtrlMioTriState(const u32 pinId, const u32 value);
 
 #ifdef __cplusplus
 }
