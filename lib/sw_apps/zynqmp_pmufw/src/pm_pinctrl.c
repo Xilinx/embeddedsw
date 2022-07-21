@@ -1074,10 +1074,7 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 	}
 
 	if (PINCTRL_CONFIG_TRI_STATE == paramId) {
-		/* Get the Absolute address from pinId */
-		addr = ((IOU_SLCR_MIO_MST_TRI0) + ((pinId/32U) * 4U));
-		shift = (pinId % 32U);
-		XPfw_RMW32(addr, (u32)1 << shift, (u32)value << shift);
+		PmPinCtrlMioTriState(pinId, value);
 	} else if (0U == (PM_PIN_PARAM_2_BITS & pmPinParams[paramId].flags)) {
 		XPfw_RMW32(addr, (u32)1 << shift, (u32)value << shift);
 		/* When setting pull up/down we need to enable pull as well */
@@ -1098,4 +1095,22 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 
 done:
 	return status;
+}
+
+/**
+ * PmPinCtrlMioTriState() - Set/Clear MIO tri state PINs
+ * @pinId	ID of the PIN
+ * @value	Parameter value to be set(1U) or clear(0U)
+ *
+ * @return	None
+ */
+void PmPinCtrlMioTriState(const u32 pinId, const u32 value)
+{
+	u32 addr;
+	u32 shift;
+
+	/* Get the Absolute address from pinId */
+	addr = ((IOU_SLCR_MIO_MST_TRI0) + ((pinId / 32U) * 4U));
+	shift = (pinId % 32U);
+	XPfw_RMW32(addr, (u32)1 << shift, (u32)value << shift);
 }
