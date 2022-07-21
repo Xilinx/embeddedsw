@@ -8,7 +8,7 @@
 *
 * @file xpsmfw_plat.h
 *
-* This file contains definitions related to versal platform
+* This file contains definitions related to versal net platform
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -31,17 +31,22 @@ extern "C" {
 #endif
 
 #include "xpsmfw_default.h"
-#include "psm_local.h"
-#include "psm_global.h"
+#include "psmx_local.h"
+#include "psmx_global.h"
 
 /**
  * IPI Base Address
  */
-#define IPI_BASEADDR      (0XFF300000U)
+#define IPI_BASEADDR      (0XEB300000U)
 
-#define UART0_BASEADDR (0xFF000000U)
-#define UART1_BASEADDR (0xFF010000U)
-#define IOMODULE_BASEADDR (0xFFC80000U)
+#define UART0_BASEADDR (0xF1920000U)
+#define UART1_BASEADDR (0xF1930000U)
+#define IOMODULE_BASEADDR (0xEBC80000U)
+
+#define XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK
+
+#define PSM_GLOBAL_REG_GLOBAL_CNTRL PSMX_GLOBAL_REG_GLOBAL_CNTRL
+#define PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK PSMX_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK
 
 #ifdef __cplusplus
 }

@@ -69,6 +69,16 @@ XStatus XPsmFw_UtilPollForZero(u32 RegAddress, u32 Mask, u32 TimeOutCount);
  */
 void XPsmFw_UtilWait(u32 TimeOutCount);
 
+/**
+ * Poll for certain value to be set under mask
+ * or until we TimeOut
+ * @param RegAddress is the Address of the Register to be polled
+ * @param Mask is the bit mask to poll for in the register value
+ * @param Value is value to check agains after mask
+ * @param TimeOutus is timeout value in microsecond
+ */
+XStatus XPsmFw_UtilPollForValue(u32 RegAddress, u32 Mask, u32 Value, u32 TimeOutUs);
+
 #ifdef __cplusplus
 }
 #endif

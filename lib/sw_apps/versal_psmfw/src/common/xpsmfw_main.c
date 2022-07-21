@@ -51,7 +51,9 @@ int main(void)
 		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! PSM Initialization failed\r\n", __func__);
 	}
 
-	XPsmFw_SetIsFwPresent();
+	XPsmFw_UtilRMW(PSM_GLOBAL_REG_GLOBAL_CNTRL,
+		       PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
+		       PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
 
 	/* Put Microblaze to Sleep in an infinite loop */
 	do{

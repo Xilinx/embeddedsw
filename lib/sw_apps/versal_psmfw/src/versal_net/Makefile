@@ -12,7 +12,9 @@ ifeq ($(findstring gcc, $(CC)), gcc)
 endif
 
 c_SOURCES := $(wildcard *.c)
+c_SOURCES += $(wildcard ../common/*.c)
 INCLUDES := $(wildcard *.h)
+INCLUDES += $(wildcard ../common/*.h)
 OBJS := $(patsubst %.c, %.o, $(c_SOURCES))
 OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
@@ -23,7 +25,7 @@ DEPFILES := $(patsubst %.o, %.d, $(OBJS))
 LIBS := ../../misc/versal_net/versal_psmfw_bsp/psxl_psm_0/lib/libxil.a
 EXEC := psmfw.elf
 
-INCLUDEPATH := -I../../misc/versal_net/versal_psmfw_bsp/psxl_psm_0/include -I.
+INCLUDEPATH := -I../../misc/versal_net/versal_psmfw_bsp/psxl_psm_0/include -I. -I../common
 LIBPATH := -L../../misc/versal_net/versal_psmfw_bsp/psxl_psm_0/lib
 
 all: $(EXEC)
@@ -41,5 +43,5 @@ $(LIBS):
 	$(CC) $(CC_FLAGS) $(CFLAGS) $(CUSTOM_COMPILER_FLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 clean:
-	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d
+	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d ../common/*.o ../common/*.d
 	rm -rf ../../misc/versal_net/versal_psmfw_bsp
