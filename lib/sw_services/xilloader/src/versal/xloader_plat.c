@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       bsv  07/21/2022 DDR modelling related changes
 *
 * </pre>
 *
@@ -36,6 +37,7 @@
 #include "xplmi_util.h"
 #include "xloader_plat.h"
 #include "xplmi_err.h"
+#include "xloader_ddr.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_TCM_0		(0U)
@@ -46,8 +48,6 @@
 
 #define PLM_VP1802_POR_SETTLE_TIME	(25000U) /**< Flag indicates POR
                                                   * settle time for VP1802 */
-
-#ifdef PLM_DEBUG_MODE
 /**
  * @{
  * @cond DDR calibration errors
@@ -61,7 +61,6 @@
  * @}
  * @endcond
  */
-#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -72,9 +71,7 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi);
 static int XLoader_RequestTCM(u8 TcmId);
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
-#ifdef PLM_DEBUG_MODE
 static int XLoader_DumpDdrmcRegisters(void);
-#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -865,7 +862,6 @@ END:
 	return Status;
 }
 
-#ifdef PLM_DEBUG_MODE
 /*****************************************************************************/
 /**
  * @brief	This function prints DDRMC register details.
@@ -886,6 +882,7 @@ static int XLoader_DumpDdrmcRegisters(void)
 	u32 DevId;
 	u8 Ub = 0U;
 	u32 BaseAddr;
+	XPm_DeviceStatus DevStatus;
 
 	XPlmi_Printf(DEBUG_GENERAL,"====DDRMC Register Dump Start======\n\r");
 
@@ -897,7 +894,15 @@ static int XLoader_DumpDdrmcRegisters(void)
 	}
 
 	for (DevId = PM_DEV_DDRMC_0; DevId <= PM_DEV_DDRMC_3; DevId++) {
+		DevStatus.Status = XPM_DEVSTATE_UNUSED;
 		/* Get DDRMC UB Base address */
+		Status = XPm_GetDeviceStatus(PM_SUBSYS_PMC, DevId, &DevStatus);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		if (DevStatus.Status != XPM_DEVSTATE_RUNNING) {
+			continue;
+		}
 		Status = XPm_GetDeviceBaseAddr(DevId, &BaseAddr);
 		if (XST_SUCCESS != Status) {
 			XPlmi_Printf(DEBUG_GENERAL,
@@ -962,7 +967,6 @@ static int XLoader_DumpDdrmcRegisters(void)
 END:
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -1008,14 +1012,7 @@ int XLoader_ProcessDeferredError(void)
 {
 	int Status = XST_FAILURE;
 
-#ifdef PLM_DEBUG_MODE
 	Status = XLoader_DumpDdrmcRegisters();
-#else
-	XPlmi_Printf(DEBUG_GENERAL, "\033\[1m Error: DDR Calibration "
-		 "failed!! Enable PLM_DEBUG_MODE for more information "
-		 "including DDR dump.\033\[0m\n\r");
-#endif
-
 	Status = XPlmi_UpdateStatus(
 		XLOADER_ERR_DEFERRED_CDO_PROCESS, Status);
 
