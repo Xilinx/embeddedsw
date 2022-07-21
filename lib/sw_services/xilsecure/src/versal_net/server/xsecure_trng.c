@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  05/05/22 Initial release
+*       dc   07/13/22 Modified XSECURE_TRNG_DF_MIN_LENGTH to 2
 *
 * </pre>
 *
@@ -42,7 +43,7 @@
 #define XSECURE_TRNG_MAX_SEEDLIFE		0x80000 /**< Maximum seed life 2^19 */
 #define XSECURE_TRNG_SEC_STRENGTH_IN_BURSTS	2U	/**< Security strength in 128-bit bursts */
 #define XSECURE_TRNG_BURST_SIZE_IN_WORDS	4U	/**< Burst size in words */
-#define XSECURE_TRNG_DF_MIN_LENGTH		7U	/**< Minimum DF input length */
+#define XSECURE_TRNG_DF_MIN_LENGTH		2U	/**< Minimum DF input length */
 #define XSECURE_TRNG_DF_MAX_LENGTH		0x1FU	/**< Maximum DF input length */
 
 #define XSECURE_TRNG_DF_NUM_OF_BYTES_BEFORE_MIN_700CLKS_WAIT	8U	/**< Number of bytes to be written before wait */

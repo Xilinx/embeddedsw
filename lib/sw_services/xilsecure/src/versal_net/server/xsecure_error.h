@@ -30,6 +30,7 @@
  *                       Added error code XSECURE_AES_DEVICE_KEY_NOT_ALLOWED
  * 4.8   kpt  06/06/2022 Added error codes for TRNG
  *       ma   07/08/2022 Added support for secure lockdown
+ *       dc   07/13/2022 Added error codes for VersalNet
  *
  * </pre>
  *
@@ -69,11 +70,6 @@ typedef enum {
 	XSECURE_SSS_INVALID_PARAM,		/**< 0x09 - Invalid Argument */
 
 	XSECURE_SHA3_STATE_MISMATCH_ERROR,	/**< 0x0A - State mismatch */
-
-	XSECURE_HMAC_KAT_INIT_ERROR = 0x10,		/**< 0x10 - HMAC init failure */
-	XSECURE_HMAC_KAT_UPDATE_ERROR,			/**< 0x11 - HMAC update failure */
-	XSECURE_HMAC_KAT_FINAL_ERROR,			/**< 0x12 - HMAC final failure */
-	XSECURE_HMAC_KAT_ERROR,				/**< 0x13 - HMAC KAT error */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */
@@ -131,6 +127,13 @@ typedef enum {
 	XSECURE_RSAKAT_INVALID_PARAM,		     /**< 0x83 - Invalid Argument */
 	XSECURE_RSA_STATE_MISMATCH_RESERVED,	     /**< 0x84 - State mismatch */
 
+	/* The error codes from 0x90 to 0xBF are reserved for Versal net platform */
+	XSECURE_HMAC_KAT_INIT_ERROR = 0x90,		/**< 0x90 - HMAC init failure */
+	XSECURE_HMAC_KAT_UPDATE_ERROR,			/**< 0x91 - HMAC update failure */
+	XSECURE_HMAC_KAT_FINAL_ERROR,			/**< 0x92 - HMAC final failure */
+	XSECURE_HMAC_KAT_ERROR,				/**< 0x93 - HMAC KAT error */
+	XSECURE_HMAC_INVALID_PARAM,			/**< 0x94 - HMAC invalid parameter */
+
 	XSECURE_TRNG_INVALID_PARAM = 0xA0,	/**< 0xA0 - Invalid argument */
 	XSECURE_TRNG_INVALID_MODE,		/**< 0xA1 - Error when TRNG operation mode is
 						   invalid */
@@ -162,6 +165,7 @@ typedef enum {
 	XSECURE_TRNG_WRITE_ERROR,			 /**< 0xB2 - Error occured while writing in
 							    to the register */
 
+	XSECURE_ECC_PRVT_KEY_GEN_ERR = 0xBF, /**< = 0xBF - ECC private key generation error */
 	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR = 0xC0,   /**< 0xC0 -ECC key is not valid */
 
 	XSECURE_ELLIPTIC_KAT_FAILED_ERROR,		/**< 0xC1 - Elliptic KAT fails */

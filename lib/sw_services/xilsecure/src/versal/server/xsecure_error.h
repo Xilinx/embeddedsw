@@ -28,7 +28,8 @@
  *       kpt  02/04/2021 Added error code for tamper response
  *       har  05/18/2021 Added error code XSECURE_IPI_ACCESS_NOT_ALLOWED
  *                       Added error code XSECURE_AES_DEVICE_KEY_NOT_ALLOWED
- * 4.6   ma   07/08/2022 Added support for secure lockdown
+ * 4.8   ma   07/08/2022 Added support for secure lockdown
+ *       dc   07/13/2022 Reserved error codes reservation for Versal net
  *
  * </pre>
  *
@@ -124,6 +125,11 @@ typedef enum {
 	XSECURE_RSA_INVALID_PARAM_RESERVED,	     /**< 0x82 - Invalid Argument */
 	XSECURE_RSAKAT_INVALID_PARAM,		     /**< 0x83 - Invalid Argument */
 	XSECURE_RSA_STATE_MISMATCH_RESERVED,	     /**< 0x84 - State mismatch */
+
+	/*
+	 * The error codes from 0x90 to 0xBF are reserved for Versal net platform
+	 * This range is reserved please don't define any error codes for Versal
+	 */
 
 	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR = 0xC0,   /**< 0xC0 -ECC key is not valid */
 
