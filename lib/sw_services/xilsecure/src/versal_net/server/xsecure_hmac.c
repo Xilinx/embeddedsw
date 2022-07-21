@@ -69,9 +69,15 @@ int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
 	int Status = XST_FAILURE;
 	u8 K0[XSECURE_SHA3_BLOCK_LEN];
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Sha3InstancePtr != NULL);
-	Xil_AssertNonvoid(KeyLen != 0x0U);
+	if ((InstancePtr == NULL) || (KeyLen == 0x0U)) {
+		Status = XSECURE_HMAC_INVALID_PARAM;
+		goto RET;
+	}
+	if ((Sha3InstancePtr == NULL) ||
+			(Sha3InstancePtr->Sha3State == XSECURE_SHA3_UNINITIALIZED)) {
+		Status = XSECURE_HMAC_INVALID_PARAM;
+		goto RET;
+	}
 
 	InstancePtr->Sha3InstPtr = Sha3InstancePtr;
 
@@ -102,6 +108,7 @@ END:
 					XSECURE_SHA3_RESET_OFFSET);
 	}
 	(void)memset((void *)K0, (u32)0U, XSECURE_SHA3_BLOCK_LEN);
+RET:
 
 	return Status;
 }
@@ -127,9 +134,11 @@ int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len)
 
 	int Status = XST_FAILURE;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Sha3InstPtr != NULL);
-	Xil_AssertNonvoid(Len != 0x0U);
+	if ((InstancePtr == NULL) || (InstancePtr->Sha3InstPtr == NULL) ||
+			(Len == 0x0U)) {
+		Status = XSECURE_HMAC_INVALID_PARAM;
+		goto END;
+	}
 
 	Status = XSecure_Sha3Update(InstancePtr->Sha3InstPtr,
 		(UINTPTR)DataAddr, Len);
@@ -141,7 +150,7 @@ int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len)
 		XSecure_SetReset(InstancePtr->Sha3InstPtr->BaseAddress,
 			XSECURE_SHA3_RESET_OFFSET);
 	}
-
+END:
 	return Status;
 }
 
@@ -169,9 +178,11 @@ int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 	XSecure_Sha3 *Sha3InstancePtr;
 	u8 IntHash[XSECURE_HASH_SIZE_IN_BYTES];
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->Sha3InstPtr != NULL);
-	Xil_AssertNonvoid(Hmac != NULL);
+	if ((InstancePtr == NULL) || (InstancePtr->Sha3InstPtr == NULL) ||
+			(Hmac == NULL)) {
+		Status = XSECURE_HMAC_INVALID_PARAM;
+		goto RET;
+	}
 
 	Sha3InstancePtr = InstancePtr->Sha3InstPtr;
 
@@ -206,7 +217,7 @@ END:
 	(void)memset((void *)InstancePtr->IPadRes, 0U, XSECURE_SHA3_BLOCK_LEN);
 	(void)memset((void *)InstancePtr->OPadRes, 0U, XSECURE_SHA3_BLOCK_LEN);
 	(void)memset((void *)IntHash, 0U, XSECURE_HASH_SIZE_IN_BYTES);
-
+RET:
 	return Status;
 }
 

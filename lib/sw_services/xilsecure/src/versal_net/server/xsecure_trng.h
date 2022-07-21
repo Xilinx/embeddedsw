@@ -21,6 +21,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  05/05/22 Initial release
+*       dc   07/12/22 Corrected comments
 *
 * </pre>
 *
@@ -39,7 +40,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XSECURE_TRNG_DEFAULT_SEED_LIFE		256U	/**< Default seed life */
 #define XSECURE_TRNG_PERS_STRING_LEN_IN_WORDS	12U	/**< Personalization string length in words */
-#define XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES	48U	/**< Personalization string length in words */
+#define XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES	48U	/**< Personalization string length in bytes */
 #define XSECURE_TRNG_SEC_STRENGTH_IN_BYTES	32U	/**< security strength in Bytes */
 
 #if !defined(XSECURE_TRNG_USER_CFG_SEED_LIFE)
