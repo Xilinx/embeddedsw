@@ -27,8 +27,7 @@
 #include "xpsmfw_iomodule.h"
 #include "xpsmfw_power.h"
 #include "xpsmfw_ipi_manager.h"
-#include "xpsmfw_gic.h"
-#include "psm_global.h"
+#include "xpsmfw_plat.h"
 
 #define XPSMFW_MB_MSR_BIP_MASK		(0x8U)
 
@@ -64,12 +63,9 @@ done:
 
 static void XPsmfw_InterruptPwrUpHandler(void)
 {
-	u32 PwrUpStatus, PwrUpIntMask;
 	XStatus Status = XST_FAILURE;
 
-	PwrUpStatus = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRUP_STATUS);
-	PwrUpIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK);
-	Status = XPsmFw_DispatchPwrUpHandler(PwrUpStatus, PwrUpIntMask);
+	Status = XPsmfw_PwrUpHandler();
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Error in handling Power up interrupt\r\n");
 	}
@@ -77,15 +73,9 @@ static void XPsmfw_InterruptPwrUpHandler(void)
 
 static void XPsmfw_InterruptPwrDwnHandler(void)
 {
-	u32 PwrDwnStatus, PwrDwnIntMask, PwrUpStatus, PwrUpIntMask;
 	XStatus Status = XST_FAILURE;
 
-	PwrDwnStatus = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRDWN_STATUS);
-	PwrDwnIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRDWN_INT_MASK);
-	PwrUpStatus = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRUP_STATUS);
-	PwrUpIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_REQ_PWRUP_INT_MASK);
-	Status = XPsmFw_DispatchPwrDwnHandler(PwrDwnStatus, PwrDwnIntMask,
-			PwrUpStatus, PwrUpIntMask);
+	Status = XPsmfw_PwrDwnHandler();
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Error in handling Power down interrupt\r\n");
 	}
@@ -93,12 +83,9 @@ static void XPsmfw_InterruptPwrDwnHandler(void)
 
 static void XPsmfw_InterruptWakeupHandler(void)
 {
-	u32 WakeupStatus, WakeupIntMask;
 	XStatus Status = XST_FAILURE;
 
-	WakeupStatus = XPsmFw_Read32(PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS);
-	WakeupIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_WAKEUP_IRQ_MASK);
-	Status = XPsmFw_DispatchWakeupHandler(WakeupStatus, WakeupIntMask);
+	Status = XPsmfw_WakeupHandler();
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Error in handling wakeup interrupt\r\n");
 	}
@@ -106,12 +93,9 @@ static void XPsmfw_InterruptWakeupHandler(void)
 
 static void XPsmfw_InterruptPwrCtlHandler(void)
 {
-	u32 PwrCtlStatus, PwrCtlIntMask;
 	XStatus Status = XST_FAILURE;
 
-	PwrCtlStatus = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS);
-	PwrCtlIntMask = XPsmFw_Read32(PSM_GLOBAL_REG_PWR_CTRL_IRQ_MASK);
-	Status = XPsmFw_DispatchPwrCtlHandler(PwrCtlStatus, PwrCtlIntMask);
+	Status = XPsmfw_PwrCtlHandler();
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Error in handling power control interrupt\r\n");
 	}
@@ -120,12 +104,8 @@ static void XPsmfw_InterruptPwrCtlHandler(void)
 static void XPsmfw_InterruptGicP2Handler(void)
 {
 	XStatus Status = XST_FAILURE;
-	u32 GicP2IrqStatus;
-	u32 GicP2IrqMask;
 
-	GicP2IrqStatus = XPsmFw_Read32(PSM_GLOBAL_GICP2_IRQ_STATUS);
-	GicP2IrqMask = XPsmFw_Read32(PSM_GLOBAL_GICP2_IRQ_MASK);
-	Status = XPsmFw_DispatchGicP2Handler(GicP2IrqStatus, GicP2IrqMask);
+	Status = XPsmFw_GicP2Handler();
 	if (XST_SUCCESS != Status) {
 		XPsmFw_Printf(DEBUG_ERROR, "Error in handling GIC interrupt\r\n");
 	}

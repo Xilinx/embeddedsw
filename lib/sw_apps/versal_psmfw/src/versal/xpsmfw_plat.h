@@ -30,9 +30,12 @@
 extern "C" {
 #endif
 
-#include "xpsmfw_default.h"
+#include "xil_types.h"
+#include "xstatus.h"
 #include "psm_local.h"
 #include "psm_global.h"
+#include "xpsmfw_gic.h"
+#include "xpsmfw_default.h"
 
 /**
  * IPI Base Address
@@ -42,6 +45,12 @@ extern "C" {
 #define UART0_BASEADDR (0xFF000000U)
 #define UART1_BASEADDR (0xFF010000U)
 #define IOMODULE_BASEADDR (0xFFC80000U)
+
+XStatus XPsmfw_PwrUpHandler(void);
+XStatus XPsmfw_PwrDwnHandler(void);
+XStatus XPsmfw_WakeupHandler(void);
+XStatus XPsmfw_PwrCtlHandler(void);
+XStatus XPsmFw_GicP2Handler(void);
 
 #ifdef __cplusplus
 }
