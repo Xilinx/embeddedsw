@@ -6,7 +6,7 @@
 # this script will copy the required bsp directories
 
 # present working dir
-WORKING_DIR=../misc
+WORKING_DIR=../../misc
 
 #bsp dir where files will be copied
 BSP_DIR=$WORKING_DIR/versal_psmfw_bsp/psv_psm_0
