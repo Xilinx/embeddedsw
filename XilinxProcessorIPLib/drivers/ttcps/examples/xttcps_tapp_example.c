@@ -34,6 +34,8 @@
 * 3.10 aru    05/30/19 Updated the example to use XTtcPs_InterruptHandler().
 * 3.16 adk    04/19/22 Replace infinite while loop with
 * 		       Xil_WaitForEventSet() API.
+*      adk    20/04/22 Update the Xil_WaitForEventSet() API arguments as
+*      		       per latest API.
 *</pre>
 ******************************************************************************/
 
@@ -186,8 +188,8 @@ int TmrInterruptExample(XTtcPs *TtcPsInst,u16 DeviceID,u16 TtcTickIntrID,
 		 * Wait until the flag is updated by interrupt routine if the
 		 * interrupt does not occur return failure after timeout.
 		 */
-		Status = Xil_WaitForEventSet(&UpdateFlag,
-					     XTTCPS_SW_TIMEOUT_VAL);
+		Status = Xil_WaitForEventSet(XTTCPS_SW_TIMEOUT_VAL, 1,
+					     &UpdateFlag);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
