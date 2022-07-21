@@ -29,6 +29,8 @@
 * 5.0   adk  04/18/22 Replace infinite while loop with
 * 		      Xil_WaitForEventSet() API.
 *       adk  30/05/22 Fix typecast of the variable InterruptProcessed.
+*       adk  20/07/22 Update the Xil_WaitForEventSet() API arguments as
+*      		      per latest API.
 * </pre>
 ******************************************************************************/
 
@@ -214,8 +216,8 @@ int ScuGicExample(u16 DeviceId)
 	 * Wait for the interrupt to be processed, if the interrupt does not
 	 * occur return failure after timeout.
 	 */
-	Status = Xil_WaitForEventSet(&InterruptProcessed,
-				     XSCUGIC_SW_TIMEOUT_VAL);
+	Status = Xil_WaitForEventSet(XSCUGIC_SW_TIMEOUT_VAL, 1,
+				     &InterruptProcessed);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
