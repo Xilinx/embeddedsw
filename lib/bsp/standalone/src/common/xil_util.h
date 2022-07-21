@@ -224,7 +224,7 @@ int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 	const u8 *SrcStr, const u32 SrcSize);
 
 /* Waits for event timeout */
-u32 Xil_WaitForEventSet(volatile u32 *EventAddr, u32 Timeout);
+u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, ...);
 
 #ifdef __cplusplus
 }

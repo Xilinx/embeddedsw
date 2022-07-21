@@ -76,6 +76,8 @@
 * 8.0	sk	 03/17/22 Add const to unmodified pointer variable to fix misra_c
 *			  _2012_rule_8_13 violation.
 * 8.0   adk      04/18/22 Added Xil_WaitForEventSet function.
+*       adk	 07/15/22 Updated the Xil_WaitForEventSet() API to
+*			  support variable number of events.
 *
 * </pre>
 *
@@ -1245,29 +1247,49 @@ int Xil_SMemMove(void *Dest, const u32 DestSize,
  * Waits for the event to be set with in timeout and returns error incase
  * event was not set in specified time out.
  *
- * @param   EventAddr - Pointer to address of event to be set.
- * @param   Timeout   - Max number of microseconds to wait for an event.
+ * @param   Timeout     - Max number of microseconds to wait for an event,
+ *			  It should be maximum timeout needed among the
+ *			  events specified.
+ * @param   NumOfEvents - Number of event(s) to be checked.
+ * @param   EventAddr   - Pointer to address of event(s) to be set.
  *
  * @return
- *          XST_SUCCESS - On occurrence of the event.
- *          XST_FAILURE - Event did not occur before counter reaches 0
+ *          XST_SUCCESS - On occurrence of the event(s).
+ *          XST_FAILURE - Event(s) did not occur before counter reaches 0
  *
  * @note    None.
  *
  *****************************************************************************/
-u32 Xil_WaitForEventSet(volatile u32 *EventAddr, u32 Timeout)
+u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, ...)
 {
 	u32 PollCount = Timeout;
 	u32 Status = XST_FAILURE;
+	u32 LoopCnt = 0, i;
+	va_list Event;
 
-	while(PollCount > 0U) {
-		if (Xil_In32((UINTPTR)EventAddr)) {
-			Status = XST_SUCCESS;
-			break;
+	va_start(Event, EventAddr);
+	/* wait for all events to complete */
+	for (i = 0; i < NumOfEvents; i++) {
+		while(PollCount > 0U) {
+			if (Xil_In32((UINTPTR)EventAddr)) {
+				LoopCnt++;
+				break;
+			}
+			PollCount--;
+			usleep(1U);
 		}
-		PollCount--;
-		usleep(1U);
+		if (PollCount == 0U) {
+			goto END;
+		}
+		EventAddr = va_arg(Event, volatile u32 *);
+		PollCount = Timeout;
+	}
+	va_end(Event);
+
+	if (LoopCnt == NumOfEvents) {
+		Status = XST_SUCCESS;
 	}
 
+END:
 	return Status;
 }
