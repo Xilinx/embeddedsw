@@ -57,6 +57,7 @@
 *       bsv  02/09/22 Code clean up
 *       bsv  02/11/22 Code optimization to reduce text size
 *       kpt  02/18/22 Removed Flags param from XLoader_SecureInit function prototype
+* 1.08  dc   07/12/22 Moved error codes related to buffer clear to xplmi_status.h
 *
 * </pre>
 *
@@ -82,22 +83,6 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Constant Definitions *****************************/
-
-/**
- * @name  Clear buffer error codes
- * @{
- */
-/**< In case of failure of any security operation, the buffer must be
- * cleared.In case of success/failure in clearing the buffer,
- * the following error codes shall be updated in the status
- */
-#define XLOADER_SEC_CHUNK_CLEAR_ERR		((u32)0x20U << 8U)
-#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)0x80U << 8U)
-				/**< Error in clearing buffer */
-#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)0x40U << 8U)
-				/**< Buffer is successfully cleared */
-/** @} */
-
 #define XLOADER_EFUSE_PPK0_START_OFFSET			(0xF1250100U)
 					/**< PPK0 Start register address */
 #define XLOADER_EFUSE_PPK1_START_OFFSET			(0xF1250120U)

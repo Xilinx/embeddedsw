@@ -95,6 +95,7 @@
 *       ma   06/21/2022 Added error codes related to Get Handoff Parameters
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
+*       dc   07/12/2022 Moved buffer clear status to here from xilloader
 *
 * </pre>
 *
@@ -127,6 +128,16 @@ extern "C" {
 #define XPLMI_STATUS_SHIFT				(16U)
 #define XPLMI_ERR_CODE_MASK				(0x7FFFFFFFU)
 
+/*
+ * In case of failure of any security operation, the buffer must be
+ * cleared.In case of success/failure in clearing the buffer,
+ * the following error codes shall be updated in the status
+ */
+#define XLOADER_SEC_CHUNK_CLEAR_ERR		((u32)0x20U << 8U)
+#define XLOADER_SEC_BUF_CLEAR_ERR		((u32)0x80U << 8U)
+				/**< Error in clearing buffer */
+#define XLOADER_SEC_BUF_CLEAR_SUCCESS	((u32)0x40U << 8U)
+				/**< Buffer is successfully cleared */
 /**
  * Status for PLM functions
  */

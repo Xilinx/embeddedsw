@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       dc   07/12/2022 Added XPlmi_RomISR() API
 *
 * </pre>
 *
@@ -38,6 +39,8 @@
 #include "xcfupmc.h"
 #include "xplmi_generic.h"
 #include "xplmi.h"
+#include "xplmi_proc.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_ROM_VERSION_1_0		(0x10U) /**< ROM version 1 */
@@ -73,6 +76,8 @@
 static void XPlmi_DisableClearIOmodule(void);
 static void XPlmi_StopTimer(u8 Timer);
 static void XPlmi_HwIntrHandler(void *CallbackRef);
+static u32 XPlmi_GetIoIntrMask(void);
+static void XPlmi_SetIoIntrMask(u32 Mask);
 
 /************************** Variable Definitions *****************************/
 /* Structure for Top level interrupt table */
@@ -284,7 +289,7 @@ int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 		microblaze_disable_interrupts();
 
 		/* Disable SBI interrupt */
-		XPlmi_GicIntrEnable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
+		XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 		/* Disable IPI interrupt */
 		XPlmi_PlmIntrDisable(XPLMI_IOMODULE_PMC_IPI);
 		/* Clear SBI interrupt */
@@ -522,6 +527,36 @@ static void XPlmi_DisableClearIOmodule(void)
 
 /*****************************************************************************/
 /**
+* @brief	This function returns the current enabled interrupt mask of
+* 			IOmodule.
+*
+* @return	Current interrupt enable mask
+*
+*****************************************************************************/
+static u32 XPlmi_GetIoIntrMask(void)
+{
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+
+	return (IOModule->CurrentIER);
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function enables the IOModule interrupts with provided value.
+*
+* @param	Value to be written to the IER register of IOModule
+*
+* @return	None.
+*
+*****************************************************************************/
+static void XPlmi_SetIoIntrMask(u32 Value)
+{
+	XIOModule *IOModule = XPlmi_GetIOModuleInst();
+
+	XPlmi_Out32(IOModule->BaseAddress + XIN_IER_OFFSET, Value);
+}
+/*****************************************************************************/
+/**
 * @brief	This functions provides the PIT1 and PIT2 reset values
 *
 * @return	XST_SUCCESS
@@ -690,4 +725,56 @@ void XPlmi_EnableIpiIntr(void)
 void XPlmi_ClearIpiIntr(void)
 {
 	XPlmi_PlmIntrClear(XPLMI_IOMODULE_PMC_IPI);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function raises an interrupt request to ROM and waits for
+ * completion. Before calling this API all pre-requsites for ROM service shall
+ * be completed.
+ *
+ * @param	RomServiceReq variable of enum type XPlmi_RomIntr
+ *
+ * @return
+ *	-	XST_SUCCESS - If the ROM interrupt service completes
+ *	-	XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq)
+{
+	int Status = XST_FAILURE;
+	u32 IntrMask;
+	u32 IoMask;
+
+	if ((RomServiceReq >= XPLMI_INVALID_INT) ||
+		(RomServiceReq == XPLMI_PLM_UPDT_REQ)) {
+		Status = XPLMI_ERR_INVALID_ROM_INT_REQ;
+		goto END;
+	}
+	IntrMask = (u32)1 << RomServiceReq;
+	XPlmi_Out32(PMC_GLOBAL_ROM_INT_REASON, IntrMask);
+	/* Generate ROM interrupt */
+	XPlmi_Out32(PMC_GLOBAL_ROM_INT, IntrMask);
+
+	/* For DME request keeping Microblaze into sleep state */
+	if (RomServiceReq == XPLMI_DME_CHL_SIGN_GEN) {
+		/* Disable Interrupts */
+		microblaze_disable_interrupts();
+		/* Storing current interrupt enable mask of IOModule's IER */
+		IoMask = XPlmi_GetIoIntrMask();
+		XPlmi_DisableClearIOmodule();
+		mb_sleep();
+	}
+	Status = (int)Xil_WaitForEvent(PMC_GLOBAL_ROM_INT_REASON,
+		IntrMask, IntrMask, XPLMI_ROM_SERVICE_TIMEOUT);
+
+	if (RomServiceReq == XPLMI_DME_CHL_SIGN_GEN) {
+		XPlmi_SetIoIntrMask(IoMask);
+		microblaze_enable_interrupts();
+		XPlmi_PpuWakeUpDis();
+	}
+
+	XPlmi_Out32(PMC_GLOBAL_ROM_INT_REASON, IntrMask);
+END:
+	return Status;
 }

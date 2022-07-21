@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
+*       dc   07/12/2022 Added API XPlmi_RomISR() API
 *
 * </pre>
 *
@@ -51,6 +52,8 @@ extern "C" {
 #define XPLMI_RTCFG_PMC_ERR3_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x190U)
 #define XPLMI_RTCFG_PSM_ERR3_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x1A0U)
 
+#define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U)
+
 /**************************** Type Definitions *******************************/
 /* Minor Error Codes */
 /* Add any platform specific minor error codes from 0xA0 */
@@ -71,6 +74,14 @@ typedef struct {
 
 typedef int (*XPlmi_UpdateHandler_t)(XPlmi_ModuleOp Op);
 
+/* ROM interrupt services */
+typedef enum {
+	XPLMI_DME_CHL_SIGN_GEN = 0U,	/**< DME channel signature generation */
+	XPLMI_PCR_OP,			/**< PCR extenstion */
+	XPLMI_SHA2_HASH_GEN,		/**< SHA2 hash calculation */
+	XPLMI_PLM_UPDT_REQ,		/**< In place PLM update */
+	XPLMI_INVALID_INT		/**< Invalid interrupt */
+} XPlmi_RomIntr;
 /***************** Macros (Inline Functions) Definitions *********************/
 /* PLMI GENERIC MODULE Data Structures IDs */
 #define XPLMI_WDT_DS_ID			(0x01U)
@@ -301,6 +312,8 @@ int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
 int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId);
 int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd);
 int XPlmi_PsmSequence(XPlmi_Cmd *Cmd);
+
+int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq);
 
 /************************** Variable Definitions *****************************/
 
