@@ -30,9 +30,11 @@
 extern "C" {
 #endif
 
-#include "xpsmfw_default.h"
+#include "xil_types.h"
+#include "xstatus.h"
 #include "psmx_local.h"
 #include "psmx_global.h"
+#include "xpsmfw_default.h"
 
 /**
  * IPI Base Address
@@ -47,6 +49,15 @@ extern "C" {
 
 #define PSM_GLOBAL_REG_GLOBAL_CNTRL PSMX_GLOBAL_REG_GLOBAL_CNTRL
 #define PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK PSMX_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK
+
+#define PSM_GLOBAL_REG_ERR1_TRIG PSMX_GLOBAL_REG_PSM_ERR1_TRIG
+#define PSM_GLOBAL_REG_ERR1_TRIG_PSM_B_NCR_MASK PSMX_GLOBAL_REG_PSM_ERR1_TRIG_SRC3_MASK
+
+XStatus XPsmfw_PwrUpHandler(void);
+XStatus XPsmfw_PwrDwnHandler(void);
+XStatus XPsmfw_WakeupHandler(void);
+XStatus XPsmfw_PwrCtlHandler(void);
+XStatus XPsmFw_GicP2Handler(void);
 
 #ifdef __cplusplus
 }
