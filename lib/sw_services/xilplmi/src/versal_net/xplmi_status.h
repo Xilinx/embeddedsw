@@ -19,7 +19,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
-*       dc   07/12/2022 Moved buffer clear status to here from xilloader
+*       dc   07/12/2022 Moved buffer clear status to here from xilloader and
+*                       added errror codes for OCP
 *
 * </pre>
 *
@@ -657,6 +658,12 @@ typedef enum {
 		/**< 0x635 Failed to place either AES,RSA,SHA3 engine in reset */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
+	XOCP_PCR_ERR_PCR_SELECT	= 0x6A0, /**< 0x6A0 Error in PCR selection */
+	XOCP_PCR_ERR_NOT_COMPLETED,	/**< 0x6A1 PCR operation not completed */
+	XOCP_PCR_ERR_OPERATION,		/**< 0x6A2 PCR operation error */
+	XOCP_PCR_ERR_GLITCH,		/**< 0x6A3 PCR operation error */
+
+	XOCP_DME_ERR = 0x6B0,		/**< 0x6B0 DME signing error */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

@@ -1684,6 +1684,8 @@
 /* PUF handlers disable */
 #define PLM_PUF_EXCLUDE
 
+/* OCP code disable */
+#define PLM_OCP_EXCLUDE
 
 #define XPAR_XILPM_ENABLED
 #endif  /* end of protection macro */

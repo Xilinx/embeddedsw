@@ -9,6 +9,7 @@
 # 1.00  kc   09/22/18 Initial Release
 # 1.10  ssc  03/05/22 Added configurable options
 # 1.2   bm   07/06/22 Added versal net support
+#       dc   07/13/22 Added OCP configuration enable support for VersalNet
 ##############################################################################
 
 #---------------------------------------------
@@ -186,6 +187,13 @@ proc xgen_opts_file {libhandle} {
 	if {$value == true} {
 		puts $file_handle "\n/* STL code enable */"
 		puts $file_handle "#define PLM_ENABLE_STL"
+	}
+
+	# Get plm_ocp_en value set by user, by default it is FALSE(Valid only for VersalNet)
+	set value [common::get_property CONFIG.plm_ocp_en $libhandle]
+	if {$value == false} {
+		puts $file_handle "\n/* OCP code disable */"
+		puts $file_handle "#define PLM_OCP_EXCLUDE"
 	}
 
 	puts $file_handle "\n"

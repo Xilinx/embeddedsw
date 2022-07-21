@@ -23,6 +23,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       dc   07/17/2022 Added PLM_OCP configuration
 *
 * </pre>
 *
@@ -125,6 +126,10 @@ extern "C" {
 
 #if (!defined(PLM_PUF_EXCLUDE)) && (!defined(PLM_PUF))
 #define PLM_PUF
+#endif
+
+#if (!defined(PLM_OCP_EXCLUDE)) && (!defined(PLM_OCP))
+#define PLM_OCP
 #endif
 
 /**
