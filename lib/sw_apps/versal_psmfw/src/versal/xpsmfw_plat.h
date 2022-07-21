@@ -1,21 +1,21 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file ipi.h
+* @file xpsmfw_plat.h
 *
-* This file contains definitions related to PSM IPI
+* This file contains definitions related to versal platform
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver	Who		Date		Changes
 * ---- ---- -------- ------------------------------
-* 1.00  ma   04/09/2018 Initial release
+* 1.00  sr   06/23/2022 Initial release
 *
 * </pre>
 *
@@ -23,20 +23,30 @@
 *
 ******************************************************************************/
 
-#ifndef XPSMFW_IPI_H_
-#define XPSMFW_IPI_H_
+#ifndef XPSMFW_PLAT_H
+#define XPSMFW_PLAT_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "xpsmfw_plat.h"
+#include "xpsmfw_default.h"
+#include "psm_local.h"
+#include "psm_global.h"
 
-#define IPI_PSM_ISR    ( ( IPI_BASEADDR ) + ((u32)0x00010010U) )
-#define IPI_PSM_ISR_PMC_MASK	((u32)0x00000002U)
+/**
+ * IPI Base Address
+ */
+#define IPI_BASEADDR      (0XFF300000U)
+
+#define UART0_BASEADDR (0xFF000000U)
+#define UART1_BASEADDR (0xFF010000U)
+#define IOMODULE_BASEADDR (0xFFC80000U)
+
+void XPsmFw_SetIsFwPresent(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XPSMFW_IPI_H_ */
+#endif /* XPSMFW_PLAT_H_ */

@@ -30,7 +30,7 @@
 #include "xpsmfw_debug.h"
 #include "xpsmfw_init.h"
 #include "xpsmfw_iomodule.h"
-#include "psm_global.h"
+#include "xpsmfw_plat.h"
 
 #define XPAR_IOMODULE_0_DEVICE_ID 0U
 
@@ -51,9 +51,7 @@ int main(void)
 		XPsmFw_Printf(DEBUG_ERROR, "%s: Error! PSM Initialization failed\r\n", __func__);
 	}
 
-	XPsmFw_UtilRMW(PSM_GLOBAL_REG_GLOBAL_CNTRL,
-		       PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
-		       PSM_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
+	XPsmFw_SetIsFwPresent();
 
 	/* Put Microblaze to Sleep in an infinite loop */
 	do{
