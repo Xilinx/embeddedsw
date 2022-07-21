@@ -30,7 +30,7 @@ par_libs: $(addsuffix /make.libs,$(PAR_SUBDIRS))
 	@echo 'Finished building libraries parallelly.'
 
 archive:
-	$(ARCHIVER) -r  $(LIBRARIES) $(wildcard $(PROCESSOR)/lib/*.o)
+	$(ARCHIVER) -r  $(LIBRARIES) $(sort $(wildcard $(PROCESSOR)/lib/*.o))
 
 clean: $(addsuffix /make.clean,$(SUBDIRS))
 	rm -f ${PROCESSOR}/lib/libxil.a
