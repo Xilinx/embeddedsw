@@ -24,6 +24,7 @@
  * 1.5	 KU   06/17/21 Added support for VCU118
  * 1.6   ND   02/01/22 Corrected XDP_RX_AUDIO_INFO_DATA to XDP_RX_AUDIO_EXT_DATA
  * 					   in DpRxSs_ExtPacketHandler()
+ * 1.7   ND   07/21/22 Updated the LMK03318 address.
 *******************************************************************************/
 
 #include "dppt.h"
