@@ -787,6 +787,7 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     XHdmiphy1_PllType PllType;
     u32 RxRefClkHz;
     u8 Id, Id0, Id1;
+	u32 Hdmi21_frl_refclk;
 
     if (InstancePtr->RxHdmi21Cfg.IsEnabled) {
         if (InstancePtr->Config.RxRefClkSel !=
@@ -820,9 +821,11 @@ void XHdmiphy1_HdmiRxClkDetFreqChangeHandler(XHdmiphy1 *InstancePtr)
     RxRefClkHz = (RxRefClkHz+5000) / 10000;
     RxRefClkHz = RxRefClkHz * 10000;
 
+	Hdmi21_frl_refclk = Xhdmiphy1_RefClkValue();
+
     /* Store RX reference clock. */
     if (InstancePtr->RxHdmi21Cfg.IsEnabled) {
-        InstancePtr->HdmiRxRefClkHz = XHDMIPHY1_HDMI21_FRL_REFCLK;
+        InstancePtr->HdmiRxRefClkHz = Hdmi21_frl_refclk;
     }
     else {
         InstancePtr->HdmiRxRefClkHz = RxRefClkHz;
