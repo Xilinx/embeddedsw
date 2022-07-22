@@ -380,6 +380,20 @@ XPlmi_Error_t *XPlmi_GetErrorTable(void)
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides IsPsmChanged variable
+ *
+ * @return	Pointer to IsPsmCrChanged
+ *
+ *****************************************************************************/
+u32 *XPlmi_GetPsmChanged(void)
+{
+	static u32 IsPsmCrChanged __attribute__ ((aligned(4U))) = (u32)FALSE;
+
+	return &IsPsmCrChanged;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function provides event index
  *
  * @param	ErrorNodeType is the Node Type of the EAM register
@@ -739,6 +753,20 @@ void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index)
 	if (SiliconVal == XPLMI_SILICON_ES1_VAL) {
 		PmcErrStatus[Index] &= ~(XPLMI_PMC_ERR_SSIT_MASK);
 	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to NumErrOuts
+ *
+ * @return	Pointer to NumErrOuts
+ *
+ *****************************************************************************/
+u32 *XPlmi_GetNumErrOuts(void)
+{
+	static u32 NumErrOuts = 0U;
+
+	return &NumErrOuts;
 }
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM

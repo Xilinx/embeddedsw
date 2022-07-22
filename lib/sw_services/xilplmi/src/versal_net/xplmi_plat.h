@@ -20,6 +20,7 @@
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *       dc   07/12/2022 Added API XPlmi_RomISR() API
 *       kpt  07/21/2022 Added APIs and macros for KAT
+*       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -91,6 +92,8 @@ typedef enum {
 #define XPLMI_LPDINITIALIZED_DS_ID	(0x03U)
 #define XPLMI_UPDATE_IPIMASK_DS_ID	(0x04U)
 #define XPLMI_UART_BASEADDR_DS_ID	(0x05U)
+#define XPLMI_ERROR_TABLE_DS_ID		(0x06U)
+#define XPLMI_IS_PSMCR_CHANGED_DS_ID	(0x07U)
 
 /*
  * SLR Types

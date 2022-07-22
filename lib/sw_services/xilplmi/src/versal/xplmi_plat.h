@@ -20,6 +20,7 @@
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *       is   07/19/2022 Add HBM temperature monitoring registers from RTCA
 *       kpt  07/21/2022 Added API and macros related to KAT
+*       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *

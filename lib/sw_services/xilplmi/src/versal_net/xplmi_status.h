@@ -21,6 +21,7 @@
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *       dc   07/12/2022 Moved buffer clear status to here from xilloader and
 *                       added errror codes for OCP
+*       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -249,14 +250,14 @@ typedef enum {
 						which is done after In-Place update */
 	XPLMI_ERR_MEMSET_UPDATE_RESP,	/**< 0x1AF - Error when there is a failure in memset of
 						IPI response buffer used to ack the ipi after update */
-	XPLMI_ERR_MEMCPY_STORE_DB,	/**< 0x150 - Error when memcpy during store database is failed */
-	XPLMI_ERR_MEMSET_RESTORE_DB,	/**< 0x151 - Error when memset during store database is failed */
-	XPLMI_ERR_MEMCPY_RESTORE_DB,	/**< 0x152 - Error when memcpy during restore database is failed */
-	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x153 - Error when memset of DbHdr during store database is failed */
-	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x154 - Error when relocating of update manager code is failed */
-	XPLMI_ERR_PMC_WDT_NOT_ENABLED,	/**< 0x155 - Error when PMC WDT is tried use and it is not enabled in design */
-	XPLMI_ERR_PMC_WDT_DRV_INIT,	/**< 0x156 - Error when PMC WDT driver initialization fails */
-	XPLMI_ERR_INVALID_ROM_INT_REQ,	/**< 0x157 - Error when an invalid interrupt request for ROM */
+	XPLMI_ERR_MEMCPY_STORE_DB,	/**< 0x1B0 - Error when memcpy during store database is failed */
+	XPLMI_ERR_MEMSET_RESTORE_DB,	/**< 0x1B1 - Error when memset during store database is failed */
+	XPLMI_ERR_MEMCPY_RESTORE_DB,	/**< 0x1B2 - Error when memcpy during restore database is failed */
+	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x1B3 - Error when memset of DbHdr during store database is failed */
+	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x1B4 - Error when relocating of update manager code is failed */
+	XPLMI_ERR_PMC_WDT_NOT_ENABLED,	/**< 0x1B5 - Error when PMC WDT is tried use and it is not enabled in design */
+	XPLMI_ERR_PMC_WDT_DRV_INIT,	/**< 0x1B6 - Error when PMC WDT driver initialization fails */
+	XPLMI_ERR_RESTORE_ERR_HANDLERS, /**< 0x1B7 - Error when restoring error handlers fails */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
