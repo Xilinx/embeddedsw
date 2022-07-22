@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/20/2022 Rename PMC_PSM_ERR_REG_OFFSET macro
+*       bm   07/20/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -135,6 +136,9 @@ u8 XPlmi_GetEventIndex(u32 ErrorNodeType);
 int XPlmi_RestrictErrActions(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAction);
 void XPlmi_DisablePmcErrAction(u32 ErrIndex, u32 RegMask);
 void XPlmi_DumpErrNGicStatus(void);
+void XPlmi_ReconfigErrActions(void);
+u32 *XPlmi_GetNumErrOuts(void);
+u32 *XPlmi_GetPsmChanged(void);
 
 /************************** Variable Definitions *****************************/
 

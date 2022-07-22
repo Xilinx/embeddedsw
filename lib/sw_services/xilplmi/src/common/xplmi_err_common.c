@@ -96,6 +96,7 @@
 *                       Halt Boot eFuses are blown
 *       ma   07/19/2022 Disable interrupts before secure lockdown
 *       kpt  07/21/2022 Replaced secure lockdown code with function
+*       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -650,7 +651,7 @@ static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
+u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
 {
 	int Status = XPLMI_ERROR_ACTION_NOT_DISABLED;
 
@@ -721,7 +722,7 @@ int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask)
+int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask)
 {
 	u32 Status = (u32)XPLMI_ERROR_ACTION_NOT_DISABLED;
 
@@ -881,7 +882,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
+int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler)
 {
 	int Status = XST_FAILURE;
@@ -1013,6 +1014,20 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	/* Register Error module commands */
 	XPlmi_ErrModuleInit();
 
+	PmSystemShutdown = SystemShutdown;
+	PmSubsysRestart = SubsystemRestart;
+
+	/* In-Place Update is applicable only for versal_net */
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		/* Reconfigure error actions after the update */
+		XPlmi_ReconfigErrActions();
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/* Detect if we are in over-temperature condition */
+	XPlmi_SysMonOTDetect(0U);
+
 	/* Clear SSIT_ERR register to stop error propagation to other SLRs */
 	XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, 0x0U);
 
@@ -1037,16 +1052,7 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		/* Clear the error status registers */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS +
 			(ErrIndex * PMC_GLOBAL_REG_PMC_ERR_OFFSET), MASK32_ALL_HIGH);
-	}
 
-	/* Detect if we are in over-temperature condition */
-	XPlmi_SysMonOTDetect(0U);
-
-	PmSystemShutdown = SystemShutdown;
-	PmSubsysRestart = SubsystemRestart;
-
-	/* Set the default actions as defined in the Error table */
-	for (ErrIndex = 0U; ErrIndex < XPLMI_PMC_MAX_ERR_CNT; ErrIndex++) {
 		for (Index = GET_PMC_ERR_START(ErrIndex); Index <
 				GET_PMC_ERR_END(ErrIndex); Index++) {
 			if (Index >= XPLMI_ERROR_PMCERR_MAX) {

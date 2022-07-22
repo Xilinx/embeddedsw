@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       kpt  07/21/2022 Added XPlmi_GetBootKatStatus
+*       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *

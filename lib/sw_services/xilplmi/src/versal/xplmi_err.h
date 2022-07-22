@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/20/2022 Rename PMC_PSM_ERR_REG_OFFSET macro
+*       bm   07/20/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -73,6 +74,19 @@ static inline int XPlmi_RestrictErrActions(XPlmi_EventType NodeType,
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function reconfigures error actions after the update
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static inline void XPlmi_ReconfigErrActions(void)
+{
+	/* Not applicable for versal */
+	return;
+}
+
 /************************** Function Prototypes ******************************/
 XPlmi_Error_t *XPlmi_GetErrorTable(void);
 void XPlmi_TriggerSsitErrToMaster(void);
@@ -86,6 +100,8 @@ void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index);
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 void XPlmi_EnableSsitErrors(void);
 #endif
+u32 *XPlmi_GetNumErrOuts(void);
+u32 *XPlmi_GetPsmChanged(void);
 
 /************************** Variable Definitions *****************************/
 

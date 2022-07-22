@@ -19,6 +19,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       dc   07/12/2022 Added XPlmi_RomISR() API
 *       kpt  07/21/2022 Added KAT APIs
+*       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -42,6 +43,7 @@
 #include "xplmi.h"
 #include "xplmi_proc.h"
 #include "xil_util.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_ROM_VERSION_1_0		(0x10U) /**< ROM version 1 */
@@ -278,8 +280,19 @@ XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void)
 int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 {
 	int Status = XST_FAILURE;
+	u8 Index;
 
 	if (Op.Mode == XPLMI_MODULE_SHUTDOWN_INITIATE) {
+		/* Disable all the Error Actions */
+		for (Index = 0U; Index < XPLMI_PMC_MAX_ERR_CNT; Index++) {
+			(void)EmDisableErrAction(
+			GET_PMC_IRQ_MASK(GET_PMC_ERR_ACTION_OFFSET(Index)),
+			MASK32_ALL_HIGH);
+		}
+		for (Index = 0U; Index < XPLMI_PSM_MAX_ERR_CNT; Index++) {
+			(void)XPlmi_EmDisablePsmErrors(
+			GET_PSM_ERR_ACTION_OFFSET(Index), MASK32_ALL_HIGH);
+		}
 		Status = XST_SUCCESS;
 	}
 	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_COMPLETE) {

@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       dc   07/12/2022 Added support to device state change
+*       bm   07/13/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -30,8 +31,15 @@
 #include "xplmi_err_common.h"
 #include "xplmi_err.h"
 #include "xil_error_node.h"
+#include "xplmi_plat.h"
+#include "xplmi_util.h"
 
 /************************** Constant Definitions *****************************/
+#define XPLMI_ERROR_TABLE_DS_VER	(1U)
+#define XPLMI_ERROR_TABLE_DS_LCVER	(1U)
+
+#define XPLMI_IS_PSMCR_CHANGED_VERSION		(1U)
+#define XPLMI_IS_PSMCR_CHANGED_LCVERSION	(1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -436,7 +444,68 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
  *****************************************************************************/
 XPlmi_Error_t *XPlmi_GetErrorTable(void)
 {
+	EXPORT_GENERIC_DS(ErrorTable, XPLMI_ERROR_TABLE_DS_ID, XPLMI_ERROR_TABLE_DS_VER,
+	XPLMI_ERROR_TABLE_DS_LCVER, sizeof(ErrorTable), (u32)(UINTPTR)ErrorTable);
+
 	return ErrorTable;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides IsPsmChanged variable
+ *
+ * @return	Pointer to IsPsmCrChanged
+ *
+ *****************************************************************************/
+u32 *XPlmi_GetPsmChanged(void)
+{
+	static u32 IsPsmCrChanged __attribute__ ((aligned(4U))) = (u32)FALSE;
+
+	EXPORT_GENERIC_DS(IsPsmCrChanged, XPLMI_IS_PSMCR_CHANGED_DS_ID,
+	XPLMI_IS_PSMCR_CHANGED_VERSION, XPLMI_IS_PSMCR_CHANGED_LCVERSION,
+	sizeof(IsPsmCrChanged), (u32)(UINTPTR)&IsPsmCrChanged);
+
+	return &IsPsmCrChanged;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function reconfigures error actions after the update
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_ReconfigErrActions(void)
+{
+	u8 ErrIndex;
+	u32 ErrorNodeId;
+	u32 NodeType;
+
+	for (ErrIndex = 0U; ErrIndex < XPLMI_ARRAY_SIZE(ErrorTable); ErrIndex++) {
+		ErrorTable[ErrIndex].Handler = NULL;
+		/* All custom actions except PSM NCR will be disabled */
+		if ((ErrorTable[ErrIndex].Action == XPLMI_EM_ACTION_CUSTOM) &&
+				(ErrIndex != XPLMI_ERROR_PMC_PSM_NCR)) {
+			ErrorTable[ErrIndex].Action = XPLMI_EM_ACTION_NONE;
+		}
+		/* Restore print to log handler after update */
+		else if (ErrorTable[ErrIndex].Action == XPLMI_EM_ACTION_PRINT_TO_LOG) {
+			ErrorTable[ErrIndex].Handler = XPlmi_ErrPrintToLog;
+		}
+		else if (ErrorTable[ErrIndex].Action == XPLMI_EM_ACTION_INVALID) {
+			continue;
+		}
+		ErrorNodeId = XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
+			((ErrIndex / XPLMI_MAX_ERR_BITS) * XPLMI_EVENT_ERROR_OFFSET);
+		NodeType = XPlmi_EventNodeType(ErrorNodeId);
+		if (XPlmi_EmConfig(NodeType, ErrIndex, ErrorTable[ErrIndex].Action,
+			ErrorTable[ErrIndex].Handler) != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL,
+				"Warning: XPlmi_ReconfigErrActions: Failed to "
+				"restore action for ERR index %d\n\r",
+				ErrIndex);
+		}
+	}
 }
 
 /*****************************************************************************/
@@ -554,4 +623,22 @@ int XPlmi_RestrictErrActions(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAct
 	}
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to NumErrOuts
+ *
+ * @return	Pointer to NumErrOuts
+ *
+ *****************************************************************************/
+u32 *XPlmi_GetNumErrOuts(void)
+{
+	static u32 NumErrOuts = 0U;
+
+	EXPORT_GENERIC_DS(NumErrOuts, XPLMI_NUM_ERROUTS_DS_ID,
+		XPLMI_NUM_ERROUTS_VERSION, XPLMI_NUM_ERROUTS_LCVERSION,
+		sizeof(NumErrOuts), (u32)(UINTPTR)&NumErrOuts);
+
+	return &NumErrOuts;
 }

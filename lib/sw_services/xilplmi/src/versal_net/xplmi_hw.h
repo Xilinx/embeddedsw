@@ -23,6 +23,7 @@
 *       ma   07/13/2022 Added RTC_CONTROL_SLVERR_EN_MASK macro
 *       ma   07/20/2022 Move PMC_PSM_ERR_REG_OFFSET to xplmi_error_common.h
 *       kpt  07/21/2022 Added DME FIPS cache register
+*       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -653,8 +654,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_PMCRAM_LEN			(0x20000U)
 
 /* Loader chunk memory */
-#define XPLMI_PMCRAM_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR)
-#define XPLMI_PMCRAM_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8100U)
+#define XPLMI_PMCRAM_CHUNK_MEMORY		(XPLMI_PMCRAM_BASEADDR + 0x20U)
+#define XPLMI_PMCRAM_CHUNK_MEMORY_1		(XPLMI_PMCRAM_BASEADDR + 0x8120U)
 
 /* Log Buffer default address and length */
 #define XPLMI_DEBUG_LOG_BUFFER_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x19000U)

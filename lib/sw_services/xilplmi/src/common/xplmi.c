@@ -47,6 +47,7 @@
 *       tnt  12/17/2021 Add RTCA initialization for PL_POR HDIO WA
 *1.06   bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/19/2022 Added APIs to update or get KAT status from RTC area
+*       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -167,15 +168,13 @@ void XPlmi_LpdInit(void)
 		goto END;
 	}
 #endif
-	Status = XPlmi_PsEmInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	XPlmi_SetLpdInitialized(LPD_INITIALIZED);
-
 	/* For versal, PLM Update is not applicable, and this API returns FALSE */
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		Status = XPlmi_PsEmInit();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		XPlmi_SetLpdInitialized(LPD_INITIALIZED);
 		XPlmi_PrintEarlyLog();
 	}
 

@@ -34,6 +34,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 *       ma   08/19/2021 Renamed error related macros
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
+*       bm   07/13/2022 Update EAM logic for In-Place PLM Update
 *
 * </pre>
 *
@@ -122,7 +123,8 @@ static int XPlmi_CmdEmFeatures(XPlmi_Cmd * Cmd)
 static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
-	static u8 IsPsmCrChanged = (u8)FALSE;
+
+	u32 *IsPsmCrChanged = XPlmi_GetPsmChanged();
 	XPlmi_EventType NodeType =
 			(XPlmi_EventType)XPlmi_EventNodeType(Cmd->Payload[0U]);
 	u32 ErrorAction = Cmd->Payload[1U];
@@ -168,7 +170,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 				goto END;
 			}
 
-			if (IsPsmCrChanged == (u8)TRUE) {
+			if (*IsPsmCrChanged == (u32)TRUE) {
 				XPlmi_Printf(DEBUG_GENERAL, "Error: "
 					"XPlmi_CmdEmSetAction: PMC PSM_CR error"
 					" action cannot be changed more than "
@@ -210,7 +212,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 
 	if ((NodeType == XPLMI_NODETYPE_EVENT_PMC_ERR1) &&
 		(PmcPsmCrErrVal  != 0U)) {
-		IsPsmCrChanged = (u8)TRUE;
+		*IsPsmCrChanged = (u32)TRUE;
 	}
 
 END:
