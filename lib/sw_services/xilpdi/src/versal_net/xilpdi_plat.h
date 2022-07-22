@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -129,6 +130,15 @@ extern "C" {
 #define XIH_PRTN_FLAGS_DSTN_CPU_A78_1		(0x20U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A78_2		(0x40U)
 #define XIH_PRTN_FLAGS_DSTN_CPU_A78_3		(0x60U)
+
+/* Optional Data related defines */
+#define XIH_OPTIONAL_DATA_LEN_OFFSET	(0x58U)
+#define XIH_OPT_DATA_HDR_ID_MASK	(0xFFFFU)
+#define XIH_OPT_DATA_HDR_LEN_MASK	(0xFFFF0000U)
+#define XIH_OPT_DATA_LEN_SHIFT	(16U)
+#define XIH_OPT_DATA_NON_DATA_LEN	(8U)
+
+#define XIH_OPT_DATA_STRUCT_INFO_ID	(2U)
 
 /**************************** Type Definitions *******************************/
 

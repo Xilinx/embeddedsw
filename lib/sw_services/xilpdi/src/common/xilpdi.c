@@ -43,6 +43,7 @@
 * 1.08  skd  04/21/2022 Misra-C violation Rule 14.3 fixed
 *       bsv  07/06/2022 Added API to read Optional data from Metaheader
 *       bsv  07/08/2022 Code changes related to Optional data in IHT
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -63,7 +64,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XilPdi_ValidateChecksum(const void *Buffer, u32 Len);
 
 /************************** Variable Definitions *****************************/
 
@@ -82,7 +82,7 @@ static int XilPdi_ValidateChecksum(const void *Buffer, u32 Len);
 			XST_FAILURE if checksum validation fails
 *
 *****************************************************************************/
-static int XilPdi_ValidateChecksum(const void *Buffer, u32 Len)
+int XilPdi_ValidateChecksum(const void *Buffer, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u32 Checksum = 0U;

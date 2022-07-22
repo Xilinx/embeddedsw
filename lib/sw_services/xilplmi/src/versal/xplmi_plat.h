@@ -21,6 +21,7 @@
 *       is   07/19/2022 Add HBM temperature monitoring registers from RTCA
 *       kpt  07/21/2022 Added API and macros related to KAT
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
+*       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -257,11 +258,14 @@ static inline u8 XPlmi_IsPlmUpdateDone(void)
 /**
 * @brief	This function will initialize In-Place Update related logic
 *
+* @param	CompatibilityHandler is the handler used for compatibility check
+*
 * @return	XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
-static inline int XPlmi_UpdateInit(void)
+static inline int XPlmi_UpdateInit(void *CompatibilityHandler)
 {
+	(void)CompatibilityHandler;
 	/* Not Applicable for Versal */
 	return XST_SUCCESS;
 }

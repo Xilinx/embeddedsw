@@ -15,6 +15,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   01/30/2022 Initial release
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -83,6 +84,8 @@ typedef struct {
 	u16 Reserved; /**< Reserved Field */
 	u32 DbSize;/**< Database Size in Words */
 } XPlmi_DbHdr;
+
+typedef int (*XPlmi_CompatibilityCheck_t)(u32 PdiAddr);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -159,7 +162,8 @@ typedef struct {
 int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd);
 int XPlmi_RestoreDataBackup(void);
 int XPlmi_DsOps(u32 Op, u64 Addr, void *Data);
-int XPlmi_UpdateInit(void);
+int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler);
+XPlmi_DsEntry* XPlmi_GetDsEntry(XPlmi_DsEntry *DsList, u32 DsCnt, XPlmi_DsVer *DsVer);
 
 #ifdef __cplusplus
 }

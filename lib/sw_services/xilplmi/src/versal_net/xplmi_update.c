@@ -18,6 +18,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.00  bm   01/30/2022 Initial release
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -57,7 +58,7 @@
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_PlmUpdateMgr(void) __attribute__((section(".update_mgr_a")));
-static int XPlmi_CompatibilityCheck(void);
+static XPlmi_CompatibilityCheck_t XPlmi_CompatibilityCheck;
 
 /************************** Variable Definitions *****************************/
 extern XPlmi_DsEntry __data_struct_start[];
@@ -80,11 +81,13 @@ EXPORT_GENERIC_DS(PlmUpdateIpiMask, XPLMI_UPDATE_IPIMASK_DS_ID,
 * @return	XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
-int XPlmi_UpdateInit(void)
+int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	u32 ResponseBuffer[XPLMI_CMD_RESP_SIZE];
+
+	XPlmi_CompatibilityCheck = CompatibilityHandler;
 
 	PlmUpdateStatus = (u8)(((XPlmi_In32(PMC_GLOBAL_ROM_INT_REASON) &
 			PMX_PLM_UPDATE_REASON_MASK) ==
@@ -199,20 +202,7 @@ static int XPlmi_PlmUpdateMgr(void)
  *****************************************************************************/
 u8 XPlmi_IsPlmUpdateDone(void)
 {
-	return PlmUpdateStatus;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function checks compatibility between data structures of
- * 		old and new PLM
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- *****************************************************************************/
-int XPlmi_CompatibilityCheck(void)
-{
-	return XST_SUCCESS;
+	return ((PlmUpdateStatus & 0x1U) ? (u8)TRUE : (u8)FALSE);
 }
 
 /*****************************************************************************/
@@ -307,8 +297,8 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static XPlmi_DsEntry* XPlmi_GetDsEntry(XPlmi_DsEntry *DsList, u32 DsCnt,
-				XPlmi_DsHdr *DsHdr)
+XPlmi_DsEntry* XPlmi_GetDsEntry(XPlmi_DsEntry *DsList, u32 DsCnt,
+				XPlmi_DsVer *DsVer)
 {
 	XPlmi_DsEntry *Result = NULL;
 	u32 Index;
@@ -318,8 +308,8 @@ static XPlmi_DsEntry* XPlmi_GetDsEntry(XPlmi_DsEntry *DsList, u32 DsCnt,
 	}
 
 	for (Index = 0U; Index < DsCnt; Index++) {
-		if ((DsList[Index].DsHdr.Ver.ModuleId == DsHdr->Ver.ModuleId) &&
-			(DsList[Index].DsHdr.Ver.DsId == DsHdr->Ver.DsId)) {
+		if ((DsList[Index].DsHdr.Ver.ModuleId == DsVer->ModuleId) &&
+			(DsList[Index].DsHdr.Ver.DsId == DsVer->DsId)) {
 			Result = &DsList[Index];
 			break;
 		}
@@ -365,7 +355,7 @@ int XPlmi_RestoreDataBackup(void)
 
 	while (DsAddr < EndAddr) {
 		DsEntry = XPlmi_GetDsEntry(__data_struct_start, XPLMI_DS_CNT,
-				(XPlmi_DsHdr *)(UINTPTR)DsAddr);
+				(XPlmi_DsVer *)(UINTPTR)DsAddr);
 		if (DsEntry == NULL) {
 			Status = XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND;
 			break;
@@ -478,19 +468,27 @@ static int XPlmi_ShutdownModules(XPlmi_ModuleOp Op)
 int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 PdiAddr = Cmd->Payload[0U];
 	XPlmi_ModuleOp Op;
+	u32 PdiAddr = Cmd->Payload[0U];
+	u32 RomRsvd;
 	u32 UpdMgrSize = (u32)__update_mgr_a_fn_end - (u32)__update_mgr_a_fn_start;
 	int (*XPlmi_RelocatedFn)(void) =
 			(int (*)(void))(UINTPTR)__update_mgr_b_start;
 
 	XPlmi_Printf(DEBUG_GENERAL, "InPlace PLM Update started with new PLM "
-			"from Pdi Address: 0x%x\n\r", PdiAddr);
+			"from PDI Address: 0x%x\n\r", PdiAddr);
+
+	/* Check if PLM Update is enabled in ROM_RSVD efuse */
+	RomRsvd = XPlmi_In32(EFUSE_CACHE_ROM_RSVD);
+	if ((RomRsvd & EFUSE_PLM_UPDATE_MASK) == EFUSE_PLM_UPDATE_MASK) {
+		Status = (int)XPLMI_ERR_PLM_UPDATE_DISABLED;
+		goto END;
+	}
 
 	/* Check version compatibility */
-	Status = XPlmi_CompatibilityCheck();
+	Status = XPlmi_CompatibilityCheck(PdiAddr);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_PLM_UPDATE_COMPATIBILITY;
+		XPlmi_Printf(DEBUG_GENERAL, "Compatibility Check Failed\n\r");
 		goto END;
 	}
 

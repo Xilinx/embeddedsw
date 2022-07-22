@@ -22,6 +22,7 @@
 *       dc   07/12/2022 Moved buffer clear status to here from xilloader and
 *                       added errror codes for OCP
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
+*       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -257,7 +258,7 @@ typedef enum {
 	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x1B4 - Error when relocating of update manager code is failed */
 	XPLMI_ERR_PMC_WDT_NOT_ENABLED,	/**< 0x1B5 - Error when PMC WDT is tried use and it is not enabled in design */
 	XPLMI_ERR_PMC_WDT_DRV_INIT,	/**< 0x1B6 - Error when PMC WDT driver initialization fails */
-	XPLMI_ERR_RESTORE_ERR_HANDLERS, /**< 0x1B7 - Error when restoring error handlers fails */
+	XPLMI_ERR_PLM_UPDATE_DISABLED,	/**< 0x1B7 - Error when PLM Update is disabled in ROM_RSV efuse */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
@@ -289,6 +290,21 @@ typedef enum {
 						PMC CDO region in PMC RAM */
 
 	/* PLM error codes specific to platform are from 0x2A0 to 0x2FF */
+	XPLM_ERR_RESTORE_ERR_HANDLERS = 0x2A0, /**< 0x2A0 - Error when restoring error handlers fails */
+	XPLM_ERR_UPDATE_ID_CODE_CHECK,		/**< 0x2A1 - Error when unsupported Idcode is present in the
+						  PDI used for In-Place PLM Update */
+	XPLM_ERR_INVALID_UPDATE_ADDR,		/**< 0x2A2 - Error when a invalid address of the PDI is used for
+						 In-Place PLM Update */
+	XPLM_ERR_INVALID_UPDATE_BH_IDENT,	/**< 0x2A3 - Error when a invalid Boot header is detected in the
+						PDI used for In-Place PLM Update */
+	XPLM_ERR_NO_STRUCT_OPTIONAL_DATA,	/**< 0x2A4 - Error when optional data related to data structures
+						is not found */
+	XPLM_ERR_DS_INFO_CHECKSUM_FAILED,	/**< 0x2A5 - Error when checksum of data structure info in optional
+						data of PDI fails. This is checked during compatibility check */
+	XPLM_ERR_UPDATE_PDI_UNSUPPORTED_VER,	/**< 0x2A6 - Error when unsupported PDI version is used for
+						In-Place PLM Update */
+	XPLM_ERR_UPDATE_INVALID_IDENT_STRING,	/**< 0x2A7 - Error when invalid identification string is seen in
+						  the PDI used for In-Place PLM Update */
 
 	/** Status codes used in XLOADER */
 	/* Xilloader error codes common for all platforms are from 0x300 to 0x39F */

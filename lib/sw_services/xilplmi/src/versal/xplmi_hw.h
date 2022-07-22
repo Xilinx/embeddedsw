@@ -75,6 +75,7 @@
 *       ma   07/08/2022 Added support for secure lockdown
 *       ma   07/13/2022 Added RTC_CONTROL_SLVERR_EN_MASK macro
 *       ma   07/20/2022 Move PMC_PSM_ERR_REG_OFFSET to xplmi_error_common.h
+*       bm   07/20/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -1088,7 +1089,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_M_AXI_FPD_MEM_HIGH_ADDR	(0xBFFFFFFFU)
 #define XPLMI_OCM_BASE_ADDR		(0xFFFC0000U)
 #define XPLMI_OCM_HIGH_ADDR		(0xFFFFFFFFU)
-#define XPLMI_2GB_END_ADDR		(0xFFFFFFFFU)
+#define XPLMI_2GB_END_ADDR		(0x7FFFFFFFU)
+#define XPLMI_4GB_END_ADDR		(0xFFFFFFFFU)
 
 /************************** Function Prototypes ******************************/
 

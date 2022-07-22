@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -58,6 +59,7 @@ u32 XPlm_SetPsmAliveStsVal(u32 Val);
 u32 XPlm_UpdatePsmCounterVal(u32 Val);
 #endif
 void XPlm_EnablePlatformSlaveErrors(void);
+int XPlm_CompatibilityCheck(u32 PdiAddr);
 
 /************************** Variable Definitions *****************************/
 

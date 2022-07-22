@@ -97,6 +97,7 @@
 *                       compiler or portability issues
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/05/22 Added PpdiKatStatus for partial pdi KAT
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -406,6 +407,7 @@ void XLoader_CmdsInit(void);
 int XLoader_IntrInit(void);
 void XLoader_ClearIntrSbiDataRdy(void);
 XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void);
+int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl);
 
 /************************** Variable Definitions *****************************/
 extern XilPdi* BootPdiPtr;

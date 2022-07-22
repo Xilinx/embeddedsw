@@ -37,6 +37,7 @@
 *                       happen as soon as PLM starts
 * 1.05  am   11/24/2021 Fixed doxygen warning
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -54,6 +55,7 @@
 #include "xplmi.h"
 #include "xloader_plat.h"
 #include "xplmi_plat.h"
+#include "xplm_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -120,7 +122,7 @@ static int XPlm_Init(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = XPlmi_UpdateInit();
+	Status = XPlmi_UpdateInit(XPlm_CompatibilityCheck);
 	if (Status != XST_SUCCESS) {
 		XPlmi_ErrMgr(Status);
 	}
