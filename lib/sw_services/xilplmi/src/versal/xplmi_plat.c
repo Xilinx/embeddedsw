@@ -545,7 +545,7 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 	}
 
 	if ((EndAddr <= (u64)XPLMI_M_AXI_FPD_MEM_HIGH_ADDR) ||
-		(StartAddr > (u64)XPLMI_2GB_END_ADDR)) {
+		(StartAddr > (u64)XPLMI_4GB_END_ADDR)) {
 		if ((StartAddr >= (u64)XPLMI_RSVD_BASE_ADDR) &&
 			(EndAddr <= (u64)XPLMI_RSVD_HIGH_ADDR)) {
 			Status = XST_FAILURE;

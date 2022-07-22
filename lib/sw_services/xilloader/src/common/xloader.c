@@ -133,6 +133,7 @@
 *       kpt  07/05/22 Added support to update KAT status
 *       bsv  07/08/2022 Code changes related to Optional data in Image header
 *       dc   07/12/2022 Added device stage to scheduler
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -177,7 +178,6 @@
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr);
 static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr);
 static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr);
-static int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl);
 static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr);
 static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
@@ -1475,7 +1475,7 @@ END:
 * @return	XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
-static int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
+int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 {
 	int Status = XST_FAILURE;
 	u32 IdCodeIHT; /**< IdCode as read from IHT */

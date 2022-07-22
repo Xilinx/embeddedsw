@@ -54,6 +54,7 @@
 * 1.08  bsv  07/06/2022 Added API to read OptionaData from Metaheader
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bsv  07/08/2022 Code changes related to Optional data in IHT
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -154,8 +155,10 @@ extern "C" {
 /*
  * IHT Identification string
  */
+#define XIH_IHT_VERSION_OFFSET			(0x0U)
 #define XIH_IHT_IDENT_STRING_OFFSET		(0x28U)
 #define XIH_IHT_PPDI_IDENT_VAL			(0x50504449U)
+#define XIH_IHT_FPDI_IDENT_VAL			(0x46504449U)
 
 /**
  *  Prtn Attribute fields
@@ -584,6 +587,7 @@ int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr);
+int XilPdi_ValidateChecksum(const void *Buffer, u32 Len);
 
 /** @} */
 #ifdef __cplusplus

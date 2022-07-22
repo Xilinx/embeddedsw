@@ -24,6 +24,7 @@
 *       ma   07/20/2022 Move PMC_PSM_ERR_REG_OFFSET to xplmi_error_common.h
 *       kpt  07/21/2022 Added DME FIPS cache register
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
+*       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -698,6 +699,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_EFUSE_FIPS_MODE_SHIFT   	(26U)
 
 #define EFUSE_ROM_SWDT_USAGE_MASK	(0xC0U)
+#define EFUSE_PLM_UPDATE_MASK		(0x400U)
 #define EFUSE_TRIM_LP_MASK		(0xFFFFU)
 
 #define XPLMI_IPI_BASEADDR		(0xEB320000U)
@@ -1279,7 +1281,8 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_M_AXI_FPD_MEM_HIGH_ADDR	(0xBFFFFFFFU)
 #define XPLMI_OCM_BASE_ADDR		(0xBBF00000U)
 #define XPLMI_OCM_HIGH_ADDR		(0xBBFFFFFFU)
-#define XPLMI_2GB_END_ADDR		(0xFFFFFFFFU)
+#define XPLMI_2GB_END_ADDR		(0x7FFFFFFFU)
+#define XPLMI_4GB_END_ADDR		(0xFFFFFFFFU)
 
 /************************** Function Prototypes ******************************/
 

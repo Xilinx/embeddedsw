@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *
 * </pre>
 *
@@ -30,6 +31,8 @@
 #include "xplmi_update.h"
 #include "xplmi.h"
 #include "xpm_psm.h"
+#include "xilpdi.h"
+#include "xloader.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_PSM_COUNTER_VER 		(1U)
@@ -42,8 +45,11 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+#define XPLMI_DS_CNT			(u32)(__data_struct_end - __data_struct_start)
 
 /************************** Variable Definitions *****************************/
+extern XPlmi_DsEntry __data_struct_start[];
+extern XPlmi_DsEntry __data_struct_end[];
 
 /*****************************************************************************/
 /**
@@ -112,3 +118,141 @@ u32 XPlm_UpdatePsmCounterVal(u32 Val)
 	return CounterVal;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks compatibility between data structures of
+ * 		old and new PLM
+ *
+ * @param	PdiAddr is the address of the PDI which has new PLM
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlm_CompatibilityCheck(u32 PdiAddr)
+{
+	int Status = (int)XST_FAILURE;
+	u32 IdString;
+	u32 Offset;
+	u32 OptionalDataLen;
+	u32 OptionalDataEndAddr;
+	u32 Checksum;
+	u32 Index;
+	u32 PdiVersion;
+	XPlmi_DsVer *DsVerList = NULL;
+	XPlmi_DsEntry *DsEntry = NULL;
+
+	/* Check if given PDI address is in lower DDR */
+	if ((PdiAddr > XPLMI_2GB_END_ADDR) || (PdiAddr + XIH_BH_META_HDR_OFFSET >
+		XPLMI_2GB_END_ADDR)) {
+		Status = (int)XPLM_ERR_INVALID_UPDATE_ADDR;
+		goto END;
+	}
+
+	/* Check if given PDI is a full PDI */
+	IdString = XPlmi_In32(PdiAddr + XIH_BH_IMAGE_IDENT_OFFSET);
+	if (IdString != XIH_BH_IMAGE_IDENT) {
+		Status = (int)XPLM_ERR_INVALID_UPDATE_BH_IDENT;
+		goto END;
+	}
+
+	Offset = PdiAddr + (u32)XPlmi_In32(PdiAddr + XIH_BH_META_HDR_OFFSET);
+	if ((PdiAddr > Offset) || (Offset > XPLMI_2GB_END_ADDR)) {
+		Status = (int)XPLM_ERR_INVALID_UPDATE_ADDR;
+		goto END;
+
+	}
+	/* Check if IHT is within lower DDR */
+	if (Offset + XIH_IHT_LEN > XPLMI_2GB_END_ADDR) {
+		Status = (int)XPLM_ERR_INVALID_UPDATE_ADDR;
+		goto END;
+	}
+
+	/* Check PDI Version */
+	PdiVersion = XPlmi_In32(Offset + XIH_IHT_VERSION_OFFSET);
+	if (PdiVersion < XLOADER_PDI_VERSION_4) {
+		Status = XPLM_ERR_UPDATE_PDI_UNSUPPORTED_VER;
+		goto END;
+	}
+	/* Check ID string for FPDI */
+	if (XPlmi_In32(Offset + XIH_IHT_IDENT_STRING_OFFSET) != XIH_IHT_FPDI_IDENT_VAL) {
+		Status = XPLM_ERR_UPDATE_INVALID_IDENT_STRING;
+		goto END;
+	}
+	/* Check IdCode */
+	if(XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) {
+		Status = XLoader_IdCodeCheck((XilPdi_ImgHdrTbl *)(UINTPTR)Offset);
+		if (Status != XST_SUCCESS) {
+			Status = XPLM_ERR_UPDATE_ID_CODE_CHECK;
+			goto END;
+		}
+	}
+	/* Check if Optional data length is non-zero */
+	OptionalDataLen = XPlmi_In32(Offset + XIH_OPTIONAL_DATA_LEN_OFFSET);
+	if (OptionalDataLen == 0U) {
+		XPlmi_Printf(DEBUG_GENERAL, "Skipped DS Compatibility Check\n\r");
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	Offset += XIH_IHT_LEN;
+	OptionalDataEndAddr = Offset + (OptionalDataLen << XPLMI_WORD_LEN_SHIFT);
+	/* Check if optional data is within lower DDR */
+	if ((Offset > OptionalDataEndAddr) || (OptionalDataEndAddr > XPLMI_2GB_END_ADDR)) {
+		Status = (int)XPLM_ERR_INVALID_UPDATE_ADDR;
+		goto END;
+	}
+
+	/* Search for the data structure information ID in Optional Data */
+	while (Offset < OptionalDataEndAddr) {
+		if ((XPlmi_In32(Offset) & XIH_OPT_DATA_HDR_ID_MASK) !=
+				XIH_OPT_DATA_STRUCT_INFO_ID) {
+			Offset += ((XPlmi_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
+				XIH_OPT_DATA_LEN_SHIFT) << XPLMI_WORD_LEN_SHIFT;
+		}
+		else {
+			break;
+		}
+	}
+	if (Offset >= OptionalDataEndAddr) {
+		Status = (int)XPLM_ERR_NO_STRUCT_OPTIONAL_DATA;
+		goto END;
+	}
+
+	OptionalDataLen = (XPlmi_In32(Offset) & XIH_OPT_DATA_HDR_LEN_MASK) >>
+				XIH_OPT_DATA_LEN_SHIFT;
+
+	if (OptionalDataLen > 1U) {
+		/* Verify checksum of data structure info */
+		Status = XilPdi_ValidateChecksum((void *)Offset, OptionalDataLen <<
+				XPLMI_WORD_LEN_SHIFT);
+		if (Status != XST_SUCCESS) {
+			Status = (int)XPLM_ERR_DS_INFO_CHECKSUM_FAILED;
+			goto END;
+		}
+	}
+	else {
+		Status = (int)XPLM_ERR_NO_STRUCT_OPTIONAL_DATA;
+		goto END;
+	}
+
+	/* Check data structures compatibility */
+	DsVerList = (XPlmi_DsVer *)(Offset + XPLMI_WORD_LEN);
+	for (Index = 0U; Index < OptionalDataLen - 2U; Index++) {
+		DsEntry = XPlmi_GetDsEntry(__data_struct_start, XPLMI_DS_CNT,
+				&DsVerList[Index]);
+		if (DsEntry != NULL) {
+			if ((DsEntry->DsHdr.Ver.Version < DsVerList[Index].LowestCompVer) ||
+				(DsEntry->DsHdr.Ver.Version > DsVerList[Index].Version)) {
+				XPlmi_Printf(DEBUG_GENERAL, "Incompatible data "
+				"structure - ModuleId: 0x%x, DsId : 0x%x\n\r",
+				DsVerList[Index].ModuleId, DsVerList[Index].DsId);
+				Status = (int)XPLMI_ERR_PLM_UPDATE_COMPATIBILITY;
+				break;
+			}
+		}
+	}
+
+END:
+	return Status;
+}
