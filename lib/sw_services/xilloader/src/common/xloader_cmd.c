@@ -59,6 +59,7 @@
 *       skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
 *       ma   06/21/2022 Add support for Get Handoff Parameters IPI command
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       bm   07/18/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -969,7 +970,7 @@ static XPlmi_Module XPlmi_Loader =
 	XPLMI_ARRAY_SIZE(XLoader_Cmds),
 	XLoader_CheckIpiAccess,
 #ifdef VERSAL_NET
-	NULL
+	XLoader_UpdateHandler
 #endif
 };
 

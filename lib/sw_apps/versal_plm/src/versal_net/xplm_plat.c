@@ -131,7 +131,7 @@ u32 XPlm_UpdatePsmCounterVal(u32 Val)
  *****************************************************************************/
 int XPlm_CompatibilityCheck(u32 PdiAddr)
 {
-	int Status = (int)XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 IdString;
 	u32 Offset;
 	u32 OptionalDataLen;
@@ -152,19 +152,19 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 	/* Check if given PDI is a full PDI */
 	IdString = XPlmi_In32(PdiAddr + XIH_BH_IMAGE_IDENT_OFFSET);
 	if (IdString != XIH_BH_IMAGE_IDENT) {
-		Status = (int)XPLM_ERR_INVALID_UPDATE_BH_IDENT;
+		Status = XPLM_ERR_INVALID_UPDATE_BH_IDENT;
 		goto END;
 	}
 
 	Offset = PdiAddr + (u32)XPlmi_In32(PdiAddr + XIH_BH_META_HDR_OFFSET);
 	if ((PdiAddr > Offset) || (Offset > XPLMI_2GB_END_ADDR)) {
-		Status = (int)XPLM_ERR_INVALID_UPDATE_ADDR;
+		Status = XPLM_ERR_INVALID_UPDATE_ADDR;
 		goto END;
 
 	}
 	/* Check if IHT is within lower DDR */
 	if (Offset + XIH_IHT_LEN > XPLMI_2GB_END_ADDR) {
-		Status = (int)XPLM_ERR_INVALID_UPDATE_ADDR;
+		Status = XPLM_ERR_INVALID_UPDATE_ADDR;
 		goto END;
 	}
 
@@ -199,7 +199,7 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 	OptionalDataEndAddr = Offset + (OptionalDataLen << XPLMI_WORD_LEN_SHIFT);
 	/* Check if optional data is within lower DDR */
 	if ((Offset > OptionalDataEndAddr) || (OptionalDataEndAddr > XPLMI_2GB_END_ADDR)) {
-		Status = (int)XPLM_ERR_INVALID_UPDATE_ADDR;
+		Status = XPLM_ERR_INVALID_UPDATE_ADDR;
 		goto END;
 	}
 
@@ -215,7 +215,7 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 		}
 	}
 	if (Offset >= OptionalDataEndAddr) {
-		Status = (int)XPLM_ERR_NO_STRUCT_OPTIONAL_DATA;
+		Status = XPLM_ERR_NO_STRUCT_OPTIONAL_DATA;
 		goto END;
 	}
 
@@ -227,12 +227,12 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 		Status = XilPdi_ValidateChecksum((void *)Offset, OptionalDataLen <<
 				XPLMI_WORD_LEN_SHIFT);
 		if (Status != XST_SUCCESS) {
-			Status = (int)XPLM_ERR_DS_INFO_CHECKSUM_FAILED;
+			Status = XPLM_ERR_DS_INFO_CHECKSUM_FAILED;
 			goto END;
 		}
 	}
 	else {
-		Status = (int)XPLM_ERR_NO_STRUCT_OPTIONAL_DATA;
+		Status = XPLM_ERR_NO_STRUCT_OPTIONAL_DATA;
 		goto END;
 	}
 
@@ -247,7 +247,7 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 				XPlmi_Printf(DEBUG_GENERAL, "Incompatible data "
 				"structure - ModuleId: 0x%x, DsId : 0x%x\n\r",
 				DsVerList[Index].ModuleId, DsVerList[Index].DsId);
-				Status = (int)XPLMI_ERR_PLM_UPDATE_COMPATIBILITY;
+				Status = XPLMI_ERR_PLM_UPDATE_COMPATIBILITY;
 				break;
 			}
 		}

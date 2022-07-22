@@ -20,6 +20,7 @@
 *       kpt  07/21/2022 Added XPlmi_GetBootKatStatus
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
+*       bm   07/22/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -408,6 +409,7 @@ void XPlmi_GicAddTask(u32 PlmIntrId)
 	if (PlmIntrId == XPLMI_IPI_INTR_ID) {
 		IpiIntrVal = (u16)Xil_In32(IPI_PMC_ISR);
 		IpiMaskVal = (u16)Xil_In32(IPI_PMC_IMR);
+		XPlmi_Out32(IPI_PMC_IDR, IpiIntrVal);
 		/*
 		 * Check IPI source channel and add channel specific task to
 		 * task queue according to the channel priority

@@ -23,6 +23,7 @@
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
+*       bm   07/22/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -244,12 +245,25 @@ static inline void XPlmi_SssMask(u32 InputSrc, u32 OutputSrc)
 
 /*****************************************************************************/
 /**
- * @brief	This function masks the secure stream switch value
+ * @brief	This function checks if the update is Done
  *
  * @return 	FALSE
  *
  *****************************************************************************/
 static inline u8 XPlmi_IsPlmUpdateDone(void)
+{
+	/* Not Applicable for versal */
+	return (u8)FALSE;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if the update is in progress
+ *
+ * @return 	FALSE
+ *
+ *****************************************************************************/
+static inline u8 XPlmi_IsPlmUpdateInProgress(void)
 {
 	/* Not Applicable for versal */
 	return (u8)FALSE;
@@ -269,6 +283,20 @@ static inline int XPlmi_UpdateInit(void *CompatibilityHandler)
 	(void)CompatibilityHandler;
 	/* Not Applicable for Versal */
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for versal
+ *
+ * @return 	None
+ *
+ *****************************************************************************/
+static inline void XPlmi_IpiIntrHandler(void *CallbackRef)
+{
+	(void)CallbackRef;
+	/* Not Applicable for Versal */
+	return;
 }
 
 /************************** Function Prototypes ******************************/

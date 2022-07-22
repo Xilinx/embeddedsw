@@ -21,6 +21,7 @@
 *       kpt  07/21/2022 Added KAT APIs
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
+*       bm   07/22/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -306,8 +307,23 @@ int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 {
 	int Status = XST_FAILURE;
 	u8 Index;
+	static u8 GenericHandlerState = XPLMI_MODULE_NORMAL_STATE;
 
 	if (Op.Mode == XPLMI_MODULE_SHUTDOWN_INITIATE) {
+		if (GenericHandlerState == XPLMI_MODULE_NORMAL_STATE) {
+			GenericHandlerState = XPLMI_MODULE_SHUTDOWN_INITIATED_STATE;
+			Status = XST_SUCCESS;
+		}
+	}
+	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_COMPLETE) {
+		if (GenericHandlerState != XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
+			goto END;
+		}
+		else if (GenericHandlerState == XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE) {
+			Status = XST_SUCCESS;
+			goto END;
+		}
+
 		/* Disable all the Error Actions */
 		for (Index = 0U; Index < XPLMI_PMC_MAX_ERR_CNT; Index++) {
 			(void)EmDisableErrAction(
@@ -318,17 +334,12 @@ int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 			(void)XPlmi_EmDisablePsmErrors(
 			GET_PSM_ERR_ACTION_OFFSET(Index), MASK32_ALL_HIGH);
 		}
-		Status = XST_SUCCESS;
-	}
-	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_COMPLETE) {
 		/* Stop Timers */
 		XPlmi_StopTimer(XPLMI_PIT3);
 
 		/* Disable & Acknowledge Interrupts */
 		microblaze_disable_interrupts();
 
-		/* Disable SBI interrupt */
-		XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 		/* Disable IPI interrupt */
 		XPlmi_PlmIntrDisable(XPLMI_IOMODULE_PMC_IPI);
 		/* Clear SBI interrupt */
@@ -337,10 +348,18 @@ int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 		XPlmi_PlmIntrClear(XPLMI_IOMODULE_PMC_IPI);
 		/* Disable and Clear all Iomodule interrupts */
 		XPlmi_DisableClearIOmodule();
+		GenericHandlerState = XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE;
 
 		Status = XST_SUCCESS;
 	}
+	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_ABORT) {
+		if (GenericHandlerState == XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
+			GenericHandlerState = XPLMI_MODULE_NORMAL_STATE;
+			Status = XST_SUCCESS;
+		}
+	}
 
+END:
 	return Status;
 }
 
@@ -390,7 +409,7 @@ void XPlmi_GicAddTask(u32 PlmIntrId)
 * @return   None
 *
 ****************************************************************************/
-static void XPlmi_IpiIntrHandler(void *CallbackRef)
+void XPlmi_IpiIntrHandler(void *CallbackRef)
 {
 #ifdef XPLMI_IPI_DEVICE_ID
 	XPlmi_TaskNode *Task = NULL;
@@ -400,8 +419,11 @@ static void XPlmi_IpiIntrHandler(void *CallbackRef)
 	u16 IpiIndexMask;
 	u8 IpiIndex;
 
+	XPlmi_PlmIntrClear(XPLMI_IOMODULE_PMC_IPI);
 	IpiIntrVal = (u16)Xil_In32(IPI_PMC_ISR);
 	IpiMaskVal = (u16)Xil_In32(IPI_PMC_IMR);
+	XPlmi_Out32(IPI_PMC_IDR, IpiIntrVal);
+
 	/*
 	 * Check IPI source channel and add channel specific task to
 	 * task queue according to the channel priority
@@ -415,14 +437,12 @@ static void XPlmi_IpiIntrHandler(void *CallbackRef)
 			if (Task == NULL) {
 				XPlmi_Printf(DEBUG_GENERAL, "IPI Interrrupt"
 						" add task error\n\r");
-				goto END;
+				break;
 			}
 			XPlmi_TaskTriggerNow(Task);
 		}
 	}
 
-END:
-	XPlmi_PlmIntrDisable(XPLMI_IOMODULE_PMC_IPI);
 #endif
 }
 
@@ -442,7 +462,7 @@ int XPlmi_RegisterNEnableIpi(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	XPlmi_EnableIpiIntr();
+	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PMC_IPI);
 
 END:
 	return Status;
@@ -740,30 +760,6 @@ u32 XPlmi_GetGicIntrId(u32 GicPVal, u32 GicPxVal)
 u32 XPlmi_GetIpiIntrId(u32 BufferIndex)
 {
 	return XPLMI_IPI_INTR_ID | (BufferIndex << XPLMI_IPI_INDEX_SHIFT);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function provides Iomodule instance pointer
- *
- * @return	Pointer to Iomodule instance
- *
- *****************************************************************************/
-void XPlmi_EnableIpiIntr(void)
-{
-	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_PMC_IPI);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function clears IPI interrupt
- *
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_ClearIpiIntr(void)
-{
-	XPlmi_PlmIntrClear(XPLMI_IOMODULE_PMC_IPI);
 }
 
 /*****************************************************************************/

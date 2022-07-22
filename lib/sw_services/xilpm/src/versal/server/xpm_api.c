@@ -2303,6 +2303,7 @@ done:
 		IPI_RESPONSE1(IpiMask, (u32)Status);
 		/* Clear interrupt status */
 		PmOut32(IPI_PMC_ISR, IpiMask);
+		PmOut32(IPI_PMC_IER, IpiMask);
 	}
 #endif
 

@@ -17,6 +17,7 @@
 * ----- ---- --------   -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
+*       bm   07/18/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -35,6 +36,7 @@
 #include "xplmi_update.h"
 #include "xplmi.h"
 #include "xilpdi.h"
+#include "xplmi_gic_interrupts.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U)
@@ -762,4 +764,50 @@ int XLoader_ProcessDeferredError(void)
 		"processing\n\r");
 
 	return XPlmi_UpdateStatus(XLOADER_ERR_DEFERRED_CDO_PROCESS, 0U);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides update handler for xilloader
+ *
+ * @param	Op is the module operation variable
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
+{
+	int Status = XST_FAILURE;
+	static u8 LoaderHandlerState = XPLMI_MODULE_NORMAL_STATE;
+
+	if (Op.Mode == XPLMI_MODULE_SHUTDOWN_INITIATE) {
+		if (LoaderHandlerState == XPLMI_MODULE_NORMAL_STATE) {
+			LoaderHandlerState = XPLMI_MODULE_SHUTDOWN_INITIATED_STATE;
+			/* Disable SBI interrupt */
+			XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
+			Status = XST_SUCCESS;
+		}
+	}
+	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_COMPLETE) {
+		if (LoaderHandlerState != XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
+			goto END;
+		}
+		else if (LoaderHandlerState == XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE) {
+			Status = XST_SUCCESS;
+			goto END;
+		}
+
+		Status = XST_SUCCESS;
+	}
+	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_ABORT) {
+		if (LoaderHandlerState == XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
+			LoaderHandlerState = XPLMI_MODULE_NORMAL_STATE;
+			XPlmi_GicIntrEnable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
+			Status = XST_SUCCESS;
+		}
+	}
+
+END:
+	return Status;
+
 }

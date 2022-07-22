@@ -38,6 +38,7 @@
 *       ma   06/03/2022 Removed extra braces for SlrType if condition
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/21/2022 Added XPlmi_GetBootKatStatus
+*       bm   07/22/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -87,7 +88,7 @@ int XPlm_LoadBootPdi(void *Arg)
 
 	/* In-Place PLM Update is applicable only for versalnet */
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
-		XPlmi_Printf(DEBUG_GENERAL, "Inplace PLM Update Done\n\r");
+		XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update Done\n\r");
 		Status = XST_SUCCESS;
 		goto ERR_END;
 	}

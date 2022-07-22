@@ -98,6 +98,7 @@
 *       kpt  07/21/2022 Replaced secure lockdown code with function
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
+*       bm   07/20/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -1022,7 +1023,8 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
 		/* Reconfigure error actions after the update */
 		XPlmi_ReconfigErrActions();
-		Status = XST_SUCCESS;
+		/* Re-register Tamper Handler */
+		Status = XPlmi_RegisterTamperIntrHandler();
 		goto END;
 	}
 

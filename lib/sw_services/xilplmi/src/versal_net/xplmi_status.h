@@ -23,6 +23,7 @@
 *                       added errror codes for OCP
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Added compatibility check for In-Place PLM Update
+*       bm   07/22/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -251,14 +252,20 @@ typedef enum {
 						which is done after In-Place update */
 	XPLMI_ERR_MEMSET_UPDATE_RESP,	/**< 0x1AF - Error when there is a failure in memset of
 						IPI response buffer used to ack the ipi after update */
-	XPLMI_ERR_MEMCPY_STORE_DB,	/**< 0x1B0 - Error when memcpy during store database is failed */
-	XPLMI_ERR_MEMSET_RESTORE_DB,	/**< 0x1B1 - Error when memset during store database is failed */
-	XPLMI_ERR_MEMCPY_RESTORE_DB,	/**< 0x1B2 - Error when memcpy during restore database is failed */
-	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x1B3 - Error when memset of DbHdr during store database is failed */
-	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x1B4 - Error when relocating of update manager code is failed */
-	XPLMI_ERR_PMC_WDT_NOT_ENABLED,	/**< 0x1B5 - Error when PMC WDT is tried use and it is not enabled in design */
-	XPLMI_ERR_PMC_WDT_DRV_INIT,	/**< 0x1B6 - Error when PMC WDT driver initialization fails */
-	XPLMI_ERR_PLM_UPDATE_DISABLED,	/**< 0x1B7 - Error when PLM Update is disabled in ROM_RSV efuse */
+	XPLMI_ERR_INVALID_ROM_INT_REQ,  /**< 0x1B0 - Error when an invalid interrupt request for ROM */
+	XPLMI_ERR_MEMCPY_STORE_DB,	/**< 0x1B1 - Error when memcpy during store database is failed */
+	XPLMI_ERR_MEMSET_RESTORE_DB,	/**< 0x1B2 - Error when memset during store database is failed */
+	XPLMI_ERR_MEMCPY_RESTORE_DB,	/**< 0x1B3 - Error when memcpy during restore database is failed */
+	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x1B4 - Error when memset of DbHdr during store database is failed */
+	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x1B5 - Error when relocating of update manager code is failed */
+	XPLMI_ERR_PMC_WDT_NOT_ENABLED,	/**< 0x1B6 - Error when PMC WDT is tried use and it is not enabled in design */
+	XPLMI_ERR_PMC_WDT_DRV_INIT,	/**< 0x1B7 - Error when PMC WDT driver initialization fails */
+	XPLMI_ERR_PLM_UPDATE_DISABLED,	/**< 0x1B8 - Error when PLM Update is disabled in ROM_RSV efuse */
+	XPLMI_ERR_UPDATE_TASK_NOT_FOUND,/**< 0x1B9 - Error when PLM Update task is not found */
+	XPLMI_ERR_UPDATE_IN_PROGRESS,	/**< 0x1BA - Error when a task cannot be executed as the update is in progress */
+	XPLMI_ERR_RETRY_SHUTDOWN_LATER, /**< 0x1BB - Error when a module cannot be shutdown currently and request to
+						retry later */
+	XPLMI_ERR_STORE_DATA_BACKUP,	/**< 0x1BC - Error when data structure storing fails */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
@@ -293,9 +300,9 @@ typedef enum {
 	XPLM_ERR_RESTORE_ERR_HANDLERS = 0x2A0, /**< 0x2A0 - Error when restoring error handlers fails */
 	XPLM_ERR_UPDATE_ID_CODE_CHECK,		/**< 0x2A1 - Error when unsupported Idcode is present in the
 						  PDI used for In-Place PLM Update */
-	XPLM_ERR_INVALID_UPDATE_ADDR,		/**< 0x2A2 - Error when a invalid address of the PDI is used for
+	XPLM_ERR_INVALID_UPDATE_ADDR,		/**< 0x2A2 - Error when an invalid address of the PDI is used for
 						 In-Place PLM Update */
-	XPLM_ERR_INVALID_UPDATE_BH_IDENT,	/**< 0x2A3 - Error when a invalid Boot header is detected in the
+	XPLM_ERR_INVALID_UPDATE_BH_IDENT,	/**< 0x2A3 - Error when an invalid Boot header is detected in the
 						PDI used for In-Place PLM Update */
 	XPLM_ERR_NO_STRUCT_OPTIONAL_DATA,	/**< 0x2A4 - Error when optional data related to data structures
 						is not found */

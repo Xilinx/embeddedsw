@@ -37,6 +37,7 @@
 * 1.06  am   11/24/2021 Fixed doxygen warnings
 * 1.07  ma   05/10/2022 Enable SSIT interrupts for Slave SLRs
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       bm   07/18/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -52,6 +53,7 @@
 #include "xplmi.h"
 #include "xplmi_err.h"
 #include "xloader_plat.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -94,6 +96,10 @@ int XLoader_IntrInit(void)
 	Status = XPlmi_GicRegisterHandler(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX,
 		XLoader_SbiLoadPdi, (void *)0U);
 
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		XPlmi_GicIntrEnable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
+	}
+
 	return Status;
 }
 
@@ -131,7 +137,12 @@ static int XLoader_SbiLoadPdi(void *Data)
 	 */
 	XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 
-	/* Store the command fields in resume data */
+	/* In-Place Update is applicable only for versal_net */
+	if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
+		XPlmi_Printf(DEBUG_GENERAL, "ERROR: Update in Progress\n\r");
+		goto END1;
+	}
+
 	RegVal = XPlmi_In32(SLAVE_BOOT_SBI_CTRL) &
 			SLAVE_BOOT_SBI_CTRL_INTERFACE_MASK;
 	if (RegVal == 0U) {
@@ -171,6 +182,7 @@ END:
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}
 	XLoader_ClearIntrSbiDataRdy();
+END1:
 	return XST_SUCCESS;
 }
 
