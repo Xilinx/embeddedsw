@@ -30,7 +30,7 @@
 * 1.04 KU       04/12/21    Updated Versal GT programming to get /20 clk
 * 1.05 ND       05/07/21    Setting bit[12] of Reg 0x1A4 to 1 for VSC
 * 							Colorimetry support
-*
+* 1.06 ND 	07/21/22    Updated the LMK03318 address.
 * </pre>
 *
 ******************************************************************************/

@@ -37,7 +37,7 @@ extern "C" {
 #define I2C_CLK_ADDR       0x68 /**< I2C Clk Address */
 #define I2C_VFMCEXP_1_ADDR 0x65 /**< I2C VideoFMC IO Expander 1 address */
 #define I2C_VFMCEXP_0_ADDR 0x64 /**< I2C VideoFMC IO Expander 0 address */
-#define I2C_LMK03318_ADDR  0x50 /**< I2C TI LMK03318 Address */ 
+#define I2C_LMK03318_ADDR  0x51 /**< I2C TI LMK03318 Address */
  
 /**************************** Type Definitions *******************************/
 

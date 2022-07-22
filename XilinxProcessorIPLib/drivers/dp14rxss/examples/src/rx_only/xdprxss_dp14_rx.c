@@ -21,6 +21,7 @@
 * 1.2  nd 1/12/21  Added Support for VSC
 * 1.3  ND 04/02/21 Moved all global variables declaration from .h to .c
 * 				   files due to gcc compiler compilation error.
+* 1.4  ND 07/21/22 Updated LMK03318 address.
 * </pre>
 *
 ******************************************************************************/

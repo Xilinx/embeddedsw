@@ -33,6 +33,7 @@
 * 				   420 format
 * 1.09 ND 01/31/21 Updated the code with new api names corresponding to the changes
 * 				   in hdcp tx and rx drivers. No change in functionality.
+* 1.10 ND 07/21/22 Updated the LMK03318 address.
 * </pre>
 *
 ******************************************************************************/

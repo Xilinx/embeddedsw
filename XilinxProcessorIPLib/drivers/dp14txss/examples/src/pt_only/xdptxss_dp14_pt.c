@@ -52,6 +52,7 @@
 * 1.13 KU 12/22/21 2022.1 -	Versal: MMCM that generates the rx_dec_clk is now part of
 * 							RX SS. The application has been modified for this change.
 * 							App will work for both configurations of MMCM.
+* 1.14 ND 07/21/22 2022.2 - Updated the LMK03318 address.
 * </pre>
 *
 ******************************************************************************/

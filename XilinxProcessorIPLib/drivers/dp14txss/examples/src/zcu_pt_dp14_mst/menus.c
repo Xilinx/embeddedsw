@@ -182,7 +182,7 @@ void sub_help_menu(void)
 "- - - - - - - - - - - - - - - - - - - - - - - - -\r\n"
 
    "1 - Change Resolution \n\r"
-//             "2 - Change Bits Per Color \n\r"
+   "8 - Change Bits Per Color \n\r"
    "2 - Change Number of Lanes, Link Rate \n\r"
    "3 - Change Pattern \n\r"
    "4 - Display MSA Values for Tx\n\r"
@@ -306,6 +306,8 @@ void main_loop(){
 	u32 data;
 	int it = 0;
 	u8 stream;
+
+	unsigned char bpc_table[] = {6,8,10,12,16};
 
 //	int m_aud, n_aud;
 	u8 in_pwr_save = 0;
@@ -560,8 +562,8 @@ void main_loop(){
             exit = 0;
 			sub_help_menu ();
 			break;
-#if 0
-		case '2' :
+#if 1
+		case '8' :
 			// BPC menu
 			LineRate = get_LineRate();
 			LaneCount = get_Lanecounts();
@@ -598,7 +600,9 @@ void main_loop(){
 												user_config.user_bpc);
 								done = 1;
 							}
-							start_tx (LineRate, LaneCount,user_config);
+
+							Status = set_vphy(0x14);
+							start_tx_only (LineRate, LaneCount,user_config);
 							LineRate = get_LineRate();
 							LaneCount = get_Lanecounts();
 							exit = done;

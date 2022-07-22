@@ -27,11 +27,14 @@
 * 1.06 ND  04/15/21 Added support for stream 2,3 and 4 handler interrupts
 * 1.07 ND  02/25/22 Modified the code for de-asserting longer hpd for some
 * 					gpu's to retrain our rx.
+* 1.08 ND  07/18/22 Added support to the app for branch topology.
+* 					Disabling the av pat gen before start of new training
+* 					sequence.
+* 					Updation of the LMK03318 address.
 *
 * </pre>
 *
 ******************************************************************************/
-
 
 #include "xdptxss_zcu102_mst_pt.h"
 
@@ -2222,7 +2225,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx)
 			}
 
 			/* Total number of streams equivalent to number of sinks found */
-			NumStreams = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
+			NumStreams = XDpTxSs_GetNumOfMstStreams(&DpTxSsInst);
 			if (NumStreams != num_sinks) {
 				if (NumStreams > num_sinks) {
 					retrain_link = 1;
@@ -2249,7 +2252,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx)
 
 		Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
 		clk_wiz_locked();
-		num_sinks = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
+		num_sinks = XDpTxSs_GetNumOfMstStreams(&DpTxSsInst);;
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 		Status = XDpTxSs_DsSetup(DpTxSsInst.DsPtr, 0,
 				&DpTxSsInst.DpPtr->TxInstance.MsaConfig[0]);
@@ -2591,7 +2594,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 	}
 	xil_printf ("..done !\r\n");
 
-	num_sinks = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
+	num_sinks = XDpTxSs_GetNumOfMstStreams(&DpTxSsInst);;
 	if (num_sinks == 0) {
 		num_sinks = 1;
 	}
@@ -2612,6 +2615,15 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	num_sinks = 0;
 
 	u32 Status;
+    XDp_WriteReg(XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR,
+                     0x0, 0x0);
+    XDp_WriteReg(XPAR_DP_TX_HIER_0_AV_PAT_GEN_1_BASEADDR,
+                     0x0, 0x0);
+    XDp_WriteReg(XPAR_DP_TX_HIER_0_AV_PAT_GEN_2_BASEADDR,
+                     0x0, 0x0);
+    XDp_WriteReg(XPAR_DP_TX_HIER_0_AV_PAT_GEN_3_BASEADDR,
+                     0x0, 0x0);
+
 	//Disabling TX interrupts
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -2662,7 +2674,7 @@ u32 start_tx_only(u8 line_rate, u8 lane_count,user_config_struct user_config){
 	xil_printf (".");
 	clk_wiz_locked();
 
-	num_sinks = DpTxSsInst.DpPtr->TxInstance.Topology.SinkTotal;
+	num_sinks = XDpTxSs_GetNumOfMstStreams(&DpTxSsInst);;
 	// Keeping splitter in False mode
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	Status = XDpTxSs_DsSetup(DpTxSsInst.DsPtr, 0,
