@@ -54,6 +54,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/05/2022 Added XPLMI_RTCFG_SECURE_CTRL_ADDR
 *       ma   07/08/2022 Added support for secure lockdown
+*       kpt  07/19/2022 Added APIs and macros related to KAT
 *
 * </pre>
 *
@@ -152,6 +153,8 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR	(XPLMI_RTCFG_BASEADDR + 0x184U)
 #define XPLMI_RTCFG_TAMPER_RESP			(XPLMI_RTCFG_BASEADDR + 0x18CU)
 
+#define XPLMI_RTCFG_PLM_KAT_ADDR 		(XPLMI_RTCFG_SECURE_STATE_PLM_ADDR)
+
 #define XPLMI_RTCFG_DBG_LOG_BUF_OFFSET	(0x10U)
 #define XPLMI_RTCFG_LOG_UART_OFFSET		(0x24U)
 
@@ -181,6 +184,11 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT	(0x69696969U)
 #define XPLMI_RTCFG_SECURESTATE_NONSECURE	(0xD2D2D2D2U)
 
+/* Mask and shifts for KAT */
+#define XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_MASK  (0X00008000U)
+#define XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_SHIFT (15U)
+
+
 /*
  * Using FW_IS_PRESENT to indicate Boot PDI loading is completed
  */
@@ -205,6 +213,10 @@ void XPlmi_PrintPlmBanner(void);
 int XPlmi_RunTimeConfigInit(void);
 void XPlmi_SetLpdInitialized(u32 Flag);
 void XPlmi_UnSetLpdInitialized(u32 Flag);
+void XPlmi_UpdateKatStatus(u32 PlmKatStatus);
+u32 XPlmi_GetKatStatus(void);
+u8 XPlmi_IsKatRan(u32 PlmKatMask);
+u8 XPlmi_IsCryptoKatEn(void);
 
 /************************** Variable Definitions *****************************/
 

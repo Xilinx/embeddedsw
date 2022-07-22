@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       kpt  07/21/2022 Added XPlmi_GetBootKatStatus
 *
 * </pre>
 *
@@ -632,5 +633,29 @@ void XPlmi_DisableCFrameIso(void)
 	if (PmcVersion == XPLMI_SILICON_ES1_VAL) {
 		XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
 		 PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_CFRAME_MASK, 0U);
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns KAT status from RCTA area.
+ *
+ * @param	PlmKatStatus is the pointer to the variable which holds kat status
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
+{
+	volatile u8 CryptoKatEn = TRUE;
+	volatile u8 CryptoKatEnTmp = TRUE;
+
+	*PlmKatStatus = 0U;
+	CryptoKatEn = XPlmi_IsCryptoKatEn();
+	CryptoKatEnTmp = CryptoKatEn;
+	if((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+		*PlmKatStatus = XPlmi_GetKatStatus();
+	} else {
+		*PlmKatStatus = XPLMI_KAT_MASK;
 	}
 }

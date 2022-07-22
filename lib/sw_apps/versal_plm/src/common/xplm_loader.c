@@ -37,6 +37,7 @@
 *       ma   05/10/2022 Enable SSIT interrupts for Master SLR
 *       ma   06/03/2022 Removed extra braces for SlrType if condition
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       kpt  07/21/2022 Added XPlmi_GetBootKatStatus
 *
 * </pre>
 *
@@ -46,12 +47,12 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_loader.h"
-#include "xloader_auth_enc.h"
 #include "xplmi.h"
 #include "xloader_sbi.h"
 #include "xplmi_err_common.h"
 #include "xloader_plat.h"
 #include "xplmi_err.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -79,6 +80,10 @@ int XPlm_LoadBootPdi(void *Arg)
 	XilPdi *PdiInstPtr = XLoader_GetPdiInstance();
 
 	(void )Arg;
+
+	if (PdiInstPtr == NULL) {
+		goto ERR_END;
+	}
 
 	/* In-Place PLM Update is applicable only for versalnet */
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
@@ -112,10 +117,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	}
 
 #ifndef PLM_SECURE_EXCLUDE
-	Status = XLoader_GetKatStatus(PdiInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto ERR_END;
-	}
+	XPlmi_GetBootKatStatus((volatile u32*)&PdiInstPtr->PlmKatStatus);
 #endif
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Started***********\n\r");

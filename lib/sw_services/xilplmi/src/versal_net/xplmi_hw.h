@@ -22,6 +22,7 @@
 *       ma   07/08/2022 Added support for secure lockdown
 *       ma   07/13/2022 Added RTC_CONTROL_SLVERR_EN_MASK macro
 *       ma   07/20/2022 Move PMC_PSM_ERR_REG_OFFSET to xplmi_error_common.h
+*       kpt  07/21/2022 Added DME FIPS cache register
 *
 * </pre>
 *
@@ -690,6 +691,10 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define EFUSE_CACHE_ANLG_TRIM_5		(EFUSE_CACHE_BASEADDR + 0X000000E0U)
 #define EFUSE_CACHE_ANLG_TRIM_7		(EFUSE_CACHE_BASEADDR + 0X000000F8U)
 #define EFUSE_CACHE_ROM_RSVD		(EFUSE_CACHE_BASEADDR + 0X00000090U)
+
+#define EFUSE_CACHE_DME_FIPS_CTRL  (EFUSE_CACHE_BASEADDR + 0x234U)
+#define EFUSE_CACHE_DME_FIPS_MODE_MASK (0X04000000U)
+#define XPLMI_EFUSE_FIPS_MODE_SHIFT   	(26U)
 
 #define EFUSE_ROM_SWDT_USAGE_MASK	(0xC0U)
 #define EFUSE_TRIM_LP_MASK		(0xFFFFU)

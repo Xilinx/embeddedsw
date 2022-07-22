@@ -95,6 +95,7 @@
 *       ma   07/08/2022 Added support for executing secure lockdown when
 *                       Halt Boot eFuses are blown
 *       ma   07/19/2022 Disable interrupts before secure lockdown
+*       kpt  07/21/2022 Replaced secure lockdown code with function
 *
 * </pre>
 *
@@ -163,10 +164,6 @@ void XPlmi_ErrMgr(int ErrStatus)
 {
 #ifndef PLM_DEBUG_MODE
 	u32 RegVal;
-	u32 HaltBoot = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
-			EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK;
-	u32 HaltBootTmp = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
-			EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK;
 #endif
 	u8 SlrType = XPlmi_GetSlrType();
 
@@ -202,16 +199,19 @@ void XPlmi_ErrMgr(int ErrStatus)
 			}
 
 #ifndef PLM_DEBUG_MODE
-			if ((HaltBoot != 0x0U) || (HaltBootTmp != 0x0U)) {
-				/* Trigger secure lockdown if Halt Boot eFuses are blown */
-				XPlmi_ProcessTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK);
-			} else {
-				/* Update Multiboot register */
-				RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
-				XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, RegVal + 1U);
+		   /*
+		    * If Halt Boot eFuses are blown, then trigger secure lockdown.
+		    * XPlmi_TriggerSLDOnHaltBoot function will run secure lockdown on domains other than PMC
+			* and triggers TAMPER_RESP_0 to ROM for running secure lockdown on PMC domain.
+			* The function will not return if eFuses are blown.
+			* If Halt Boot eFuses are not blown, update multiboot register and trigger FW NCR.
+			*/
+			XPlmi_TriggerSLDOnHaltBoot();
+			/* Update Multiboot register */
+			RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
+			XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, RegVal + 1U);
 
-				XPlmi_TriggerFwNcrError();
-			}
+			XPlmi_TriggerFwNcrError();
 #endif
 		}
 	} else {

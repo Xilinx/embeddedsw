@@ -19,6 +19,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *       dc   07/12/2022 Added API XPlmi_RomISR() API
+*       kpt  07/21/2022 Added APIs and macros for KAT
 *
 * </pre>
 *
@@ -51,6 +52,7 @@ extern "C" {
 #define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x15CU)
 #define XPLMI_RTCFG_PMC_ERR3_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x190U)
 #define XPLMI_RTCFG_PSM_ERR3_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x1A0U)
+#define XPLMI_RTCFG_SECURE_STATE_PLM_ADDR	(XPLMI_RTCFG_BASEADDR + 0x280U)
 
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U)
 
@@ -221,6 +223,35 @@ typedef enum {
 #define XPlmi_SsitSyncSlaves	NULL
 #define XPlmi_SsitWaitSlaves	NULL
 
+/*
+ * RTCA area KAT masks
+ */
+#define XPLMI_SECURE_CPM5N_AES_XTS_KAT_MASK				(0x00000001U)
+#define XPLMI_SECURE_CPM5N_PCI_IDE_KAT_MASK				(0x00000002U)
+#define XPLMI_SECURE_NICSEC_KAT_MASK					(0X00000004U)
+#define XPLMI_SECURE_SHA3_KAT_MASK 				        (0x00000010U)
+#define XPLMI_SECURE_RSA_KAT_MASK 				        (0x00000020U)
+#define XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_KAT_MASK      (0x00000040U)
+#define XPLMI_SECURE_AES_DEC_KAT_MASK 			        (0x00000080U)
+#define XPLMI_SECURE_AES_CMKAT_MASK                     (0x00000100U)
+#define XPLMI_SECURE_TRNG_KAT_MASK	                    (0x00001000U)
+#define XPLMI_SECURE_ENC_KAT_MASK						(0x00004000U)
+#define XPLMI_SECURE_HMAC_KAT_PASS 						(0x00010000U)
+#define XPLMI_RSA_PRIVATE_DEC_KAT_MASK	 				(0x00020000U)
+#define XPLMI_ECC_SIGN_GEN_SHA384_KAT_MASK 				(0x00040000U)
+#define XPLMI_ECC_PWCT_KAT_MASK							(0x00080000U)
+
+#define XPLMI_ROM_KAT_MASK		(XPLMI_SECURE_SHA3_KAT_MASK | XPLMI_SECURE_RSA_KAT_MASK |\
+								XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_KAT_MASK | XPLMI_SECURE_AES_DEC_KAT_MASK | \
+								XPLMI_SECURE_AES_CMKAT_MASK | XPLMI_SECURE_TRNG_KAT_MASK | \
+								XPLMI_SECURE_ENC_KAT_MASK | XPLMI_SECURE_HMAC_KAT_PASS)
+
+#define XPLMI_KAT_MASK			(XPLMI_ROM_KAT_MASK | XPLMI_SECURE_CPM5N_AES_XTS_KAT_MASK | \
+								XPLMI_SECURE_CPM5N_PCI_IDE_KAT_MASK | XPLMI_SECURE_NICSEC_KAT_MASK | \
+								XPLMI_RSA_PRIVATE_DEC_KAT_MASK | XPLMI_ECC_SIGN_GEN_SHA384_KAT_MASK | \
+								XPLMI_ECC_PWCT_KAT_MASK)
+
+
 #define GET_RTCFG_PMC_ERR_ADDR(Index)	(Index > 1U) ? \
 			(XPLMI_RTCFG_PMC_ERR3_STATUS_ADDR) : \
 			(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U))
@@ -306,6 +337,11 @@ u32 XPlmi_GetIpiIntrId(u32 BufferIndex);
 void XPlmi_EnableIpiIntr(void);
 void XPlmi_ClearIpiIntr(void);
 u32 *XPlmi_GetUartBaseAddr(void);
+u8 XPlmi_IsFipsModeEn(void);
+void XPlmi_SetKatMask(u32 PlmKatMask);
+void XPlmi_ClearKatMask(u32 PlmKatMask);
+u32 XPlmi_GetRomKatStatus(void);
+void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
