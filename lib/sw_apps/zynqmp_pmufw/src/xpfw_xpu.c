@@ -149,7 +149,7 @@ static struct XpuReg XpuRegList[] =
 void XPfw_XpuIntrInit(void)
 {
 	u32 Idx;
-	XPfw_Printf(DEBUG_DETAILED,"EM: Enabling XMPU/XPPU interrupts\r\n");
+	XPfw_Printf(DEBUG_ERROR,"EM: Enabling XMPU/XPPU interrupts\r\n");
 	for(Idx = 0U; Idx < ARRAYSIZE(XpuRegList);Idx++) {
 		/* Enable all the Interrupts for this XMPU/XPPU Instance */
 		XPfw_Write32(XpuRegList[Idx].BaseAddress + XPU_IER_OFFSET,
@@ -190,28 +190,28 @@ void XPfw_XpuIntrAck(void)
 
 				case XMPU_REG_ACC_ERR_ON_APB:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XMPU %s Register Access "
+					XPfw_Printf(DEBUG_ERROR,"EM: XMPU %s Register Access "
 							"Error on APB\r\n", XpuRegList[Idx].CfgName);
 				}
 				break;
 
 				case XMPU_READ_PERMISSION_VIOLATION:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XMPU %s Read permission "
+					XPfw_Printf(DEBUG_ERROR,"EM: XMPU %s Read permission "
 							"violation occurred\r\n", XpuRegList[Idx].CfgName);
 				}
 				break;
 
 				case XMPU_WRITE_PERMISSION_VIOLATION:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XMPU %s Write permission "
+					XPfw_Printf(DEBUG_ERROR,"EM: XMPU %s Write permission "
 							"violation occurred\r\n", XpuRegList[Idx].CfgName);
 				}
 				break;
 
 				case XMPU_SECURITY_VIOLATION_ERR:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XMPU %s Security violation"
+					XPfw_Printf(DEBUG_ERROR,"EM: XMPU %s Security violation"
 							" occurred\r\n", XpuRegList[Idx].CfgName);
 				}
 				break;
@@ -221,7 +221,7 @@ void XPfw_XpuIntrAck(void)
 					break;
 			}
 
-			XPfw_Printf(DEBUG_DETAILED,"EM: Address of poisoned operation: "
+			XPfw_Printf(DEBUG_ERROR,"EM: Address of poisoned operation: "
 					"0x%x%s\r\n",Addr,"XXX");
 
 			for(MasterIdx = 0U; MasterIdx < ARRAYSIZE(XpuMasterIDLUT);
@@ -230,14 +230,14 @@ void XPfw_XpuIntrAck(void)
 				if ((MasterID >= XpuMasterIDLUT[MasterIdx].MasterID) &&
 					  (MasterID <= XpuMasterIDLUT[MasterIdx].MasterIDLimit)) {
 
-					XPfw_Printf(DEBUG_DETAILED,"EM: Master Device of poisoned "
+					XPfw_Printf(DEBUG_ERROR,"EM: Master Device of poisoned "
 							"operation: %s\r\n",
 							XpuMasterIDLUT[MasterIdx].MasterName);
 					break;
 				}
 			}
 
-			XPfw_Printf(DEBUG_DETAILED,"EM: Poison register: 0x%x\r\n",
+			XPfw_Printf(DEBUG_ERROR,"EM: Poison register: 0x%x\r\n",
 					PoisonReg);
 		} else if ((Idx == (ARRAYSIZE(XpuRegList) - 1U)) && (XpuIntSts != 0U)) {
 
@@ -247,7 +247,7 @@ void XPfw_XpuIntrAck(void)
 
 				case XPPU_REG_ACC_ERR_ON_APB:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Register access error"
+					XPfw_Printf(DEBUG_ERROR,"EM: XPPU Register access error"
 						" on APB. A register access was requested to an "
 						"unimplemented register location\r\n");
 				}
@@ -255,14 +255,14 @@ void XPfw_XpuIntrAck(void)
 
 				case XPPU_MID_NOT_FOUND:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Master ID "
+					XPfw_Printf(DEBUG_ERROR,"EM: XPPU Master ID "
 						"not found\r\n");
 				}
 				break;
 
 				case XPPU_MWRITE_PERMISSON_VIOLATION:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Read permission "
+					XPfw_Printf(DEBUG_ERROR,"EM: XPPU Read permission "
 						"violation. Master attempted a write, but the master "
 						"has read-only permission\r\n");
 				}
@@ -270,21 +270,21 @@ void XPfw_XpuIntrAck(void)
 
 				case XPPU_MID_PARITY_ERROR:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Master ID parity "
+					XPfw_Printf(DEBUG_ERROR,"EM: XPPU Master ID parity "
 							"error\r\n");
 				}
 				break;
 
 				case XPPU_MID_ACCESS_VIOLATION:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Master ID access "
+					XPfw_Printf(DEBUG_ERROR,"EM: XPPU Master ID access "
 							"violation\r\n");
 				}
 				break;
 
 				case XPPU_TRUSTZONE_VIOLATION:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU TrustZone Violation. "
+					XPfw_Printf(DEBUG_ERROR,"EM: XPPU TrustZone Violation. "
 						"A non-secure master attempted to access a secure "
 						"memory location\r\n");
 				}
@@ -292,7 +292,7 @@ void XPfw_XpuIntrAck(void)
 
 				case XPPU_APPER_PARITY_ERROR:
 				{
-					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Aperture parity "
+					XPfw_Printf(DEBUG_ERROR,"EM: XPPU Aperture parity "
 							"Error\r\n");
 				}
 				break;
@@ -303,7 +303,7 @@ void XPfw_XpuIntrAck(void)
 			}
 
 			Addr = (Addr << 12) | Offset;
-			XPfw_Printf(DEBUG_DETAILED,"EM: Address of poisoned operation: "
+			XPfw_Printf(DEBUG_ERROR,"EM: Address of poisoned operation: "
 					"0x%x\r\n",Addr);
 			for(MasterIdx = 0U; MasterIdx < ARRAYSIZE(XpuMasterIDLUT);
 					++MasterIdx) {
@@ -311,13 +311,13 @@ void XPfw_XpuIntrAck(void)
 				if ((MasterID >= XpuMasterIDLUT[MasterIdx].MasterID) &&
 					  (MasterID <= XpuMasterIDLUT[MasterIdx].MasterIDLimit)) {
 
-					XPfw_Printf(DEBUG_DETAILED,"EM: Master Device of poisoned "
+					XPfw_Printf(DEBUG_ERROR,"EM: Master Device of poisoned "
 						"operation: %s\r\n",
 						XpuMasterIDLUT[MasterIdx].MasterName);
 					break;
 				}
 			}
-			XPfw_Printf(DEBUG_DETAILED,"EM: Poison register : 0x%x\r\n",
+			XPfw_Printf(DEBUG_ERROR,"EM: Poison register : 0x%x\r\n",
 					PoisonReg);
 		} else {
 			/* For MISRA C compliance */
@@ -338,11 +338,11 @@ void XPfw_XpuIntrAck(void)
  */
 void XPfw_XpuIntrHandler(u8 ErrorId)
 {
-	XPfw_Printf(DEBUG_DETAILED,
+	XPfw_Printf(DEBUG_ERROR,
 		"============================================================\r\n");
-	XPfw_Printf(DEBUG_DETAILED,"EM: XMPU/XPPU violation occurred "
+	XPfw_Printf(DEBUG_ERROR,"EM: XMPU/XPPU violation occurred "
 			"(ErrorId: %d)\r\n", ErrorId);
 	XPfw_XpuIntrAck();
-	XPfw_Printf(DEBUG_DETAILED,
+	XPfw_Printf(DEBUG_ERROR,
 		"============================================================\r\n");
 }
