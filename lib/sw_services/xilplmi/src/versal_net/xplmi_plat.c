@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       dc   07/12/2022 Added XPlmi_RomISR() API
+*       kpt  07/21/2022 Added KAT APIs
 *
 * </pre>
 *
@@ -777,4 +778,105 @@ int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq)
 	XPlmi_Out32(PMC_GLOBAL_ROM_INT_REASON, IntrMask);
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function return FIPS mode.
+ *
+ * @return
+ *			TRUE  If FIPS mode is enabled
+ *			FALSE If FIPS mode is disabled
+ *
+ *****************************************************************************/
+u8 XPlmi_IsFipsModeEn(void)
+{
+	u8 FipsModeEn = TRUE;
+
+	FipsModeEn = (u8)((XPlmi_In32(EFUSE_CACHE_DME_FIPS_CTRL) & EFUSE_CACHE_DME_FIPS_MODE_MASK) >>
+					XPLMI_EFUSE_FIPS_MODE_SHIFT);
+
+	return FipsModeEn;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets XPLMI_RTCFG_PLM_KAT_ADDR  with
+ *          PlmKatMask.
+ *
+ * @param   PlmKatMask contains the kat mask that needs to be set
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_SetKatMask(u32 PlmKatMask)
+{
+	u32 PlmKatStatus = XPlmi_GetKatStatus();
+
+	PlmKatStatus |= PlmKatMask;
+	XPlmi_UpdateKatStatus(PlmKatStatus);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears XPLMI_RTCFG_PLM_KAT_ADDR with
+ *          PlmKatMask.
+ *
+ * @param   PlmKatMask contains the kat mask that needs to be cleared
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_ClearKatMask(u32 PlmKatMask)
+{
+	u32 PlmKatStatus = XPlmi_GetKatStatus();
+
+	PlmKatStatus &= ~PlmKatMask;
+	XPlmi_UpdateKatStatus(PlmKatStatus);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns ROM KAT status.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+u32 XPlmi_GetRomKatStatus(void)
+{
+	return (XPlmi_In32(XPLMI_RTCFG_SECURE_STATE_ADDR) & XPLMI_ROM_KAT_MASK);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets KAT status from RTC area.
+ *
+ * @param	PlmKatStatus is the pointer to the variable which holds kat status
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
+{
+	volatile u8 CryptoKatEn = TRUE;
+	volatile u8 CryptoKatEnTmp = TRUE;
+	volatile u8 FipsModeEn = TRUE;
+	volatile u8 FipsModeEnTmp = TRUE;
+
+	CryptoKatEn = XPlmi_IsCryptoKatEn();
+	CryptoKatEnTmp = CryptoKatEn;
+	if((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+		*PlmKatStatus = 0U;
+		FipsModeEn = XPlmi_IsFipsModeEn();
+		FipsModeEnTmp = FipsModeEn;
+		if ((FipsModeEn == TRUE) || (FipsModeEnTmp == TRUE)) {
+			*PlmKatStatus = 0U;
+		}
+		else {
+			*PlmKatStatus = XPlmi_GetRomKatStatus();
+		}
+		XPlmi_UpdateKatStatus(*PlmKatStatus);
+	} else {
+		*PlmKatStatus = XPLMI_KAT_MASK;
+	}
 }

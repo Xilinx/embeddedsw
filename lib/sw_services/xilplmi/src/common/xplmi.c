@@ -46,6 +46,7 @@
 *       tnt  11/11/2021 Add RTCA initialization for MIO Flush routine
 *       tnt  12/17/2021 Add RTCA initialization for PL_POR HDIO WA
 *1.06   bm   07/06/2022 Refactor versal and versal_net code
+*       kpt  07/19/2022 Added APIs to update or get KAT status from RTC area
 *
 * </pre>
 *
@@ -300,4 +301,75 @@ void XPlmi_UnSetLpdInitialized(u32 Flag)
 	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
 
 	*LpdInitializedPtr &= (u32)(~Flag);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets XPLMI_RTCFG_PLM_KAT_ADDR with
+ *          PlmKatStatus.
+ *
+ * @param	PlmKatStatus contains the KAT status updated by PLM
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_UpdateKatStatus(u32 PlmKatStatus)
+{
+	XPlmi_UtilRMW(XPLMI_RTCFG_PLM_KAT_ADDR, XPLMI_KAT_MASK, PlmKatStatus);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is called to get KAT status.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+u32 XPlmi_GetKatStatus(void)
+{
+	return (XPlmi_In32(XPLMI_RTCFG_PLM_KAT_ADDR) & XPLMI_KAT_MASK);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will return KAT status of given mask.
+ *
+ * @param	PlmKatStatus contains the KAT status of PLM
+ *
+ * @return
+ *			TRUE  If KAT ran
+ *			FALSE If KAT didn't ran
+ *
+ *****************************************************************************/
+u8 XPlmi_IsKatRan(u32 PlmKatMask)
+{
+	volatile u8 CryptoKatEn = XPlmi_IsCryptoKatEn();
+	volatile u8 CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
+	u8 IsKatRan = TRUE;
+
+	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+		IsKatRan = (((XPlmi_In32(XPLMI_RTCFG_PLM_KAT_ADDR) & PlmKatMask) != 0U)?
+					(u8)TRUE: (u8)FALSE);
+	}
+
+	return IsKatRan;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will return the crypto kat enable status from efuse
+ *          cache.
+ *
+ * @return
+ *			TRUE  If crypto kat bit is set
+ *			FALSE If crypto kat bit is not set
+ *
+ *****************************************************************************/
+u8 XPlmi_IsCryptoKatEn(void)
+{
+	u8 CryptoKatEn = ((XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
+						XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_MASK) >>
+						XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_SHIFT);
+
+	return CryptoKatEn;
 }

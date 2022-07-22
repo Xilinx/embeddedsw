@@ -18,6 +18,7 @@
 * 1.0   ma   07/08/2022 Initial release
 *       ma   07/19/2022 Disable interrupts before calling secure lockdown proc
 *                       and continue secure lockdown irrespective of the status
+*       kpt  07/21/2022 Added XPlmi_IfHaltBootTriggerSLD
 *
 * </pre>
 *
@@ -200,4 +201,22 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 	(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
 			XIL_EVENT_ERROR_MASK_PMCAPB, XPLMI_EM_ACTION_CUSTOM,
 			XPlmi_PmcApbErrorHandler);
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function triggers secure lockdown if haltboot efuses are programmed.
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void XPlmi_TriggerSLDOnHaltBoot(void) {
+	u32 HaltBoot = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
+			EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK;
+	u32 HaltBootTmp = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
+			EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK;
+
+	if ((HaltBoot != 0U) || (HaltBootTmp != 0U)) {
+		XPlmi_ProcessTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK);
+	}
 }

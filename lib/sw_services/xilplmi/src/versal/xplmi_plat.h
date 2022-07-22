@@ -19,6 +19,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *       is   07/19/2022 Add HBM temperature monitoring registers from RTCA
+*       kpt  07/21/2022 Added API and macros related to KAT
 *
 * </pre>
 *
@@ -48,6 +49,7 @@ extern "C" {
 /* Offsets of PLM Runtime Configuration Registers */
 #define XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x154U)
 #define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x15CU)
+#define XPLMI_RTCFG_SECURE_STATE_PLM_ADDR	(XPLMI_RTCFG_BASEADDR + 0x16CU)
 
 #define XPLMI_RTCFG_PLM_MJTAG_WA		(XPLMI_RTCFG_BASEADDR + 0x188U)
 #define XPLMI_RTCFG_MIO_WA_BANK_500_ADDR	(XPLMI_RTCFG_BASEADDR + 0x270U)
@@ -157,6 +159,19 @@ extern "C" {
 
 #define XPLMI_SBI_GICP_INDEX	(XPLMI_PMC_GIC_IRQ_GICP4)
 #define XPLMI_SBI_GICPX_INDEX	(XPLMI_GICP4_SRC8)
+
+/*
+ * RTCA area KAT masks
+ */
+#define XPLMI_SECURE_SHA3_KAT_MASK 						(0x00000010U)
+#define XPLMI_SECURE_RSA_KAT_MASK 						(0x00000020U)
+#define XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_KAT_MASK 		(0x00000040U)
+#define XPLMI_SECURE_AES_DEC_KAT_MASK 					(0x00000080U)
+#define XPLMI_SECURE_AES_CMKAT_MASK 					(0x00000100U)
+
+#define XPLMI_KAT_MASK			(XPLMI_SECURE_SHA3_KAT_MASK | XPLMI_SECURE_RSA_KAT_MASK | \
+								XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_KAT_MASK | XPLMI_SECURE_AES_DEC_KAT_MASK | \
+								XPLMI_SECURE_AES_CMKAT_MASK)
 
 /**************************** Type Definitions *******************************/
 /* Minor Error Codes */
@@ -273,6 +288,7 @@ void XPlmi_EnableIpiIntr(void);
 void XPlmi_ClearIpiIntr(void);
 void XPlmi_DisableCFrameIso(void);
 u32 *XPlmi_GetUartBaseAddr(void);
+void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
