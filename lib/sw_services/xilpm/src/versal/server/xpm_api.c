@@ -1286,7 +1286,8 @@ XStatus XPm_HookAfterBootPdi(void)
 		}
 	}
 
-	Status = XST_SUCCESS;
+	/* Start HBM temperature monitoring task, if applicable */
+	Status = XPmMem_HBMTempMonInitTask();
 
 done:
 	return Status;

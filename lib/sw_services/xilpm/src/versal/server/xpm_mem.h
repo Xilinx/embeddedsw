@@ -15,6 +15,9 @@ extern "C" {
 #define XPM_NODEIDX_DEV_DDRMC_MIN	XPM_NODEIDX_DEV_DDRMC_0
 #define XPM_NODEIDX_DEV_DDRMC_MAX	XPM_NODEIDX_DEV_DDRMC_3
 
+/* Periodicity of HBM Stack Temperature Monitoring Task */
+#define HBM_TEMP_MON_PERIOD		(250U)
+
 typedef struct XPm_MemDevice XPm_MemDevice;
 typedef struct XPm_MemCtrlrDevice XPm_MemCtrlrDevice;
 
@@ -45,6 +48,7 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset,
 		u32 MemStartAddress, u32 MemEndAddress);
 XStatus XPmDDRDevice_IsInSelfRefresh(void);
+XStatus XPmMem_HBMTempMonInitTask(void);
 
 #ifdef __cplusplus
 }

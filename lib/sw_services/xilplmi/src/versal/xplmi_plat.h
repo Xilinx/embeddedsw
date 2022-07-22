@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
+*       is   07/19/2022 Add HBM temperature monitoring registers from RTCA
 *
 * </pre>
 *
@@ -54,6 +55,8 @@ extern "C" {
 #define XPLMI_RTCFG_MIO_WA_BANK_502_ADDR	(XPLMI_RTCFG_BASEADDR + 0x278U)
 #define XPLMI_MIO_FLUSH_ALL_PINS		0x3FFFFFFU
 #define XPLMI_RTCFG_RST_PL_POR_WA		(XPLMI_RTCFG_BASEADDR + 0x27CU)
+#define XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX	(XPLMI_RTCFG_BASEADDR + 0x280U)
+#define XPLMI_RTCFG_HBM_TEMP_VAL		(XPLMI_RTCFG_BASEADDR + 0x284U)
 
 /* Masks of PLM RunTime Configuration Registers */
 #define XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK	(0x00000001U)
