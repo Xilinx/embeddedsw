@@ -37,6 +37,7 @@
 * 1.05  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
 *       skg  06/20/2022 Misra-C violation Rule 8.13 fixed
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       bm   07/18/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -68,6 +69,8 @@ extern "C" {
 /* IPI defines */
 #define IPI_PMC_ISR			(IPI_BASEADDR + 0x20010U)
 #define IPI_PMC_IMR			(IPI_BASEADDR + 0x20014U)
+#define IPI_PMC_IER			(IPI_BASEADDR + 0x20018U)
+#define IPI_PMC_IDR			(IPI_BASEADDR + 0x2001CU)
 #define IPI_PMC_ISR_PSM_BIT_MASK	(0x1U)
 #define IPI_PMC_ISR_IPI5_BIT_MASK	(0x80U)
 #define IPI_NO_BUF_CHANNEL_INDEX	(0xFFFFU)

@@ -113,12 +113,12 @@ XilPdi *XLoader_GetPdiInstance(void)
 /**
  * @brief	This function provides pointer to PdiList
  *
- * @return	pointer to PdiList
+ * @return	Pointer to PdiList
  *
  *****************************************************************************/
 XLoader_ImageStore* XLoader_GetPdiList(void)
 {
-	static XLoader_ImageStore PdiList __attribute__ ((aligned(4U))) = {0};
+	static XLoader_ImageStore PdiList __attribute__ ((aligned(4U))) = {0U};
 
 	return &PdiList;
 }
@@ -133,7 +133,7 @@ XLoader_ImageStore* XLoader_GetPdiList(void)
 *****************************************************************************/
 XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
 {
-	static XilPdi_ATFHandoffParams ATFHandoffParams = {0}; /**< Instance containing
+	static XilPdi_ATFHandoffParams ATFHandoffParams = {0U}; /**< Instance containing
 								 ATF handoff params */
 	/* Return ATF Handoff parameters structure address */
 	return &ATFHandoffParams;

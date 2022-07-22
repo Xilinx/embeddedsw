@@ -19,6 +19,7 @@
 * 1.00  bm   01/30/2022 Initial release
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
+*       bm   07/18/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -35,6 +36,8 @@
 #include "xplmi_ipi.h"
 #include "xplmi.h"
 #include "xil_util.h"
+#include "xplmi_task.h"
+#include "xplmi_scheduler.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_RESET_VECTOR		(0xF0200000U)
@@ -51,14 +54,20 @@
 #define XPLMI_DS_CNT			(u32)(__data_struct_end - __data_struct_start)
 #define XPLMI_UPDATE_IPIMASK_VER 	(1U)
 #define XPLMI_UPDATE_IPIMASK_LCVER 	(1U)
+#define XPLMI_UPDATE_TASK_ID		(0x120U)
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XPLMI_UPDATE_IN_PROGRESS	(0x1U)
+#define XPLMI_UPDATE_DONE		(0x2U)
+#define XPLMI_INVALID_UPDATE_ADDR	(0xFFFFFFFFU)
+#define XPLMI_UPDATE_TASK_DELAY		(10U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_PlmUpdateMgr(void) __attribute__((section(".update_mgr_a")));
 static XPlmi_CompatibilityCheck_t XPlmi_CompatibilityCheck;
+static int XPlmi_PlmUpdateTask(void *Arg);
 
 /************************** Variable Definitions *****************************/
 extern XPlmi_DsEntry __data_struct_start[];
@@ -66,7 +75,8 @@ extern XPlmi_DsEntry __data_struct_end[];
 extern u32 __update_mgr_b_start[];
 extern u8 __update_mgr_a_fn_start[];
 extern u8 __update_mgr_a_fn_end[];
-static u8 PlmUpdateStatus;
+static u8 PlmUpdateState;
+static u32 UpdatePdiAddr = XPLMI_INVALID_UPDATE_ADDR;
 static u32 PlmUpdateIpiMask __attribute__ ((aligned(4U)));
 EXPORT_GENERIC_DS(PlmUpdateIpiMask, XPLMI_UPDATE_IPIMASK_DS_ID,
 	XPLMI_UPDATE_IPIMASK_VER, XPLMI_UPDATE_IPIMASK_LCVER,
@@ -85,15 +95,27 @@ int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
+	XPlmi_TaskNode *Task = NULL;
 	u32 ResponseBuffer[XPLMI_CMD_RESP_SIZE];
 
 	XPlmi_CompatibilityCheck = CompatibilityHandler;
 
-	PlmUpdateStatus = (u8)(((XPlmi_In32(PMC_GLOBAL_ROM_INT_REASON) &
-			PMX_PLM_UPDATE_REASON_MASK) ==
-			PMX_PLM_UPDATE_REASON_MASK) ? (u8)TRUE : (u8)FALSE);
+	if ((XPlmi_In32(PMC_GLOBAL_ROM_INT_REASON) & PMX_PLM_UPDATE_REASON_MASK) ==
+		PMX_PLM_UPDATE_REASON_MASK) {
+		PlmUpdateState |= XPLMI_UPDATE_DONE;
+	}
 
-	if (PlmUpdateStatus == (u8)TRUE) {
+	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1, XPlmi_PlmUpdateTask,
+			&UpdatePdiAddr);
+	if (Task == NULL) {
+		Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
+		XPlmi_Printf(DEBUG_GENERAL, "PLM Update task creation "
+				"error\n\r");
+		goto END;
+	}
+	Task->IntrId = XPLMI_UPDATE_TASK_ID;
+
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
 		Status = XPlmi_RestoreDataBackup();
 		if (XPlmi_RomSwdtUsage() == (u8)TRUE) {
 			XPlmi_KickWdt(XPLMI_WDT_INTERNAL);
@@ -202,7 +224,21 @@ static int XPlmi_PlmUpdateMgr(void)
  *****************************************************************************/
 u8 XPlmi_IsPlmUpdateDone(void)
 {
-	return ((PlmUpdateStatus & 0x1U) ? (u8)TRUE : (u8)FALSE);
+	return (((PlmUpdateState & XPLMI_UPDATE_DONE) == XPLMI_UPDATE_DONE) ?
+			(u8)TRUE : (u8)FALSE);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if Inplace PLM update is in progress or not
+ *
+ * @return	TRUE if Inplace PLM Update is in progress and FALSE otherwise
+ *
+ *****************************************************************************/
+u8 XPlmi_IsPlmUpdateInProgress(void)
+{
+	return (((PlmUpdateState & XPLMI_UPDATE_IN_PROGRESS) ==
+			XPLMI_UPDATE_IN_PROGRESS) ?  (u8)TRUE : (u8)FALSE);
 }
 
 /*****************************************************************************/
@@ -467,36 +503,97 @@ static int XPlmi_ShutdownModules(XPlmi_ModuleOp Op)
  *****************************************************************************/
 int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XPlmi_ModuleOp Op;
-	u32 PdiAddr = Cmd->Payload[0U];
+	XPlmi_TaskNode *Task = NULL;
 	u32 RomRsvd;
-	u32 UpdMgrSize = (u32)__update_mgr_a_fn_end - (u32)__update_mgr_a_fn_start;
-	int (*XPlmi_RelocatedFn)(void) =
-			(int (*)(void))(UINTPTR)__update_mgr_b_start;
 
-	XPlmi_Printf(DEBUG_GENERAL, "InPlace PLM Update started with new PLM "
-			"from PDI Address: 0x%x\n\r", PdiAddr);
+	Op.Mode = XPLMI_MODULE_NO_OPERATION;
+
+	if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
+		XPlmi_Printf(DEBUG_GENERAL, "Update in Progress\n\r");
+		Status = XPLMI_ERR_UPDATE_IN_PROGRESS;
+		goto END;
+	}
+
+	UpdatePdiAddr = Cmd->Payload[0U];
+	XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update started with new PLM "
+			"from PDI Address: 0x%x\n\r", UpdatePdiAddr);
 
 	/* Check if PLM Update is enabled in ROM_RSVD efuse */
 	RomRsvd = XPlmi_In32(EFUSE_CACHE_ROM_RSVD);
 	if ((RomRsvd & EFUSE_PLM_UPDATE_MASK) == EFUSE_PLM_UPDATE_MASK) {
+		XPlmi_Printf(DEBUG_GENERAL, "Update Disabled\n\r");
 		Status = (int)XPLMI_ERR_PLM_UPDATE_DISABLED;
 		goto END;
 	}
 
 	/* Check version compatibility */
-	Status = XPlmi_CompatibilityCheck(PdiAddr);
+	Status = XPlmi_CompatibilityCheck(UpdatePdiAddr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Compatibility Check Failed\n\r");
 		goto END;
 	}
 
+	PlmUpdateState |= XPLMI_UPDATE_IN_PROGRESS;
 	/* Initiate Shutdown of Modules */
 	Op.Mode = XPLMI_MODULE_SHUTDOWN_INITIATE;
 	Status = XPlmi_ShutdownModules(Op);
 	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_GENERAL, "Shutdown Initialite Failed\n\r");
 		Status = XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT;
+		goto END;
+	}
+
+	PlmUpdateIpiMask = Cmd->IpiMask;
+	Cmd->AckInPLM = (u8)FALSE;
+
+	Task = XPlmi_GetTaskInstance(NULL, NULL, XPLMI_UPDATE_TASK_ID);
+	if (Task == NULL) {
+		XPlmi_Printf(DEBUG_GENERAL, "Task not found\n\r");
+		Status = XPLMI_ERR_UPDATE_TASK_NOT_FOUND;
+		goto END;
+	}
+
+	/* Add the 2nd stage of PLM Update to the end of Normal Priority Queue */
+	XPlmi_TaskTriggerNow(Task);
+
+END:
+	if (Status != XST_SUCCESS) {
+		if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
+			PlmUpdateState &= (u8)~XPLMI_UPDATE_IN_PROGRESS;
+		}
+		if (Op.Mode != XPLMI_MODULE_NO_OPERATION) {
+			Op.Mode = XPLMI_MODULE_SHUTDOWN_ABORT;
+			if (XPlmi_ShutdownModules(Op) != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_GENERAL, "Shutdown Abort Failed\n\r");
+			}
+		}
+	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function does In-Place PLM Update
+ *
+ * @param	Cmd is the command pointer of in place update command
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_PlmUpdateTask(void *Arg)
+{
+	int Status = XST_FAILURE;
+	u32 *PdiAddr = (u32 *)Arg;
+	XPlmi_ModuleOp Op;
+	u32 UpdMgrSize = (u32)__update_mgr_a_fn_end - (u32)__update_mgr_a_fn_start;
+	int (*XPlmi_RelocatedFn)(void) =
+			(int (*)(void))__update_mgr_b_start;
+
+	/* Check if update is in progress or not */
+	if ((XPlmi_IsPlmUpdateInProgress() != (u8)TRUE) ||
+		(*PdiAddr > XPLMI_2GB_END_ADDR)) {
 		goto END;
 	}
 
@@ -504,16 +601,23 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	Op.Mode = XPLMI_MODULE_SHUTDOWN_COMPLETE;
 	Status = XPlmi_ShutdownModules(Op);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_PLM_UPDATE_SHUTDOWN_COMPLETE;
+		if (Status == (int)XPLMI_ERR_RETRY_SHUTDOWN_LATER) {
+			/* Add a delayed task to retry shutdown later */
+			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_GENERIC_ID,
+				XPlmi_PlmUpdateTask, NULL, XPLMI_UPDATE_TASK_DELAY,
+				XPLM_TASK_PRIORITY_1, (void *)Arg, XPLMI_NON_PERIODIC_TASK);
+		}
+		else {
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_PLM_UPDATE_SHUTDOWN_COMPLETE,
+					Status);
+		}
 		goto END;
 	}
-
-	/* Store IPI Mask to ack after update */
-	PlmUpdateIpiMask = Cmd->IpiMask;
 
 	/* Data Backup */
 	Status = XPlmi_StoreDataBackup();
 	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_STORE_DATA_BACKUP, Status);
 		goto END;
 	}
 
@@ -527,7 +631,7 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	}
 
 	/* Update the new PLM location in Memory */
-	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE5, PdiAddr);
+	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE5, *PdiAddr);
 
 	/* Clear Previous Done Bits */
 	XPlmi_Out32(PMC_GLOBAL_ROM_INT_REASON, XPLMI_ROM_INT_REASON_CLEAR);
@@ -536,14 +640,17 @@ int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
 	Status = Xil_SMemCpy((u8 *)(UINTPTR)__update_mgr_b_start, UpdMgrSize,
 		(const void *)&XPlmi_PlmUpdateMgr, UpdMgrSize, UpdMgrSize);
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_MEMCPY_RELOCATE;
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_MEMCPY_RELOCATE,
+				Status);
 		goto END;
 	}
 
+	PlmUpdateState &= (u8)~XPLMI_UPDATE_IN_PROGRESS;
 	/* Jump to relocated PLM Update Manager */
 	Status = XPlmi_RelocatedFn();
 	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_PLM_UPDATE_RELOCATED_FN;
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_PLM_UPDATE_RELOCATED_FN,
+				Status);
 	}
 
 END:

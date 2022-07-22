@@ -16,6 +16,7 @@
 * ----- ---- --------   -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
+*       bm   07/18/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -215,6 +216,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
 XilPdi *XLoader_GetPdiInstance(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
+int XLoader_UpdateHandler(XPlmi_ModuleOp Op);
 
 /************************** Variable Definitions *****************************/
 

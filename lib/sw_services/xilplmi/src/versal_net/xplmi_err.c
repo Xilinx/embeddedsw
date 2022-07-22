@@ -491,10 +491,6 @@ void XPlmi_ReconfigErrActions(void)
 				(ErrIndex != XPLMI_ERROR_PMC_PSM_NCR)) {
 			ErrorTable[ErrIndex].Action = XPLMI_EM_ACTION_NONE;
 		}
-		/* Restore print to log handler after update */
-		else if (ErrorTable[ErrIndex].Action == XPLMI_EM_ACTION_PRINT_TO_LOG) {
-			ErrorTable[ErrIndex].Handler = XPlmi_ErrPrintToLog;
-		}
 		else if (ErrorTable[ErrIndex].Action == XPLMI_EM_ACTION_INVALID) {
 			continue;
 		}

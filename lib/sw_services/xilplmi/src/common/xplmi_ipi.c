@@ -65,6 +65,7 @@
  *			             force power down command
  *       skg  06/20/2022 Misra-C violation Rule 8.13 fixed
  *       bm   07/06/2022 Refactor versal and versal_net code
+ *       bm   07/18/2022 Shutdown modules gracefully during update
  *
  * </pre>
  *
@@ -204,6 +205,11 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 
 	(void) XPlmi_GetPmSubsystemHandler(SubsystemHandler);
 
+	/* In-Place Update is applicable only for versal_net */
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		XPlmi_IpiIntrHandler(NULL);
+	}
+
 	/*
 	 *  Register and Enable the IPI IRQ
 	 */
@@ -212,24 +218,27 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 		goto END;
 	}
 
-	RegVal = XPlmi_In32(PS7_IPI_PMC_IMR);
-	RegVal = (RegVal & XPLMI_IPI_PMC_IMR_MASK) >>
-		XPLMI_IPI_PMC_IMR_SHIFT;
-	if (RegVal == 0U) {
-		goto END;
-	}
-
-	Index = 0U;
-	XPlmi_Printf_WoTS(DEBUG_GENERAL, "INFO: IPIs disabled:");
-	while(RegVal != 0U) {
-		if ((RegVal & 1U) == 1U) {
-			XPlmi_Printf_WoTS(DEBUG_GENERAL,
-			" IPI-%u", Index);
+	/* In-Place Update is applicable only for versal_net */
+	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
+		RegVal = XPlmi_In32(PS7_IPI_PMC_IMR);
+		RegVal = (RegVal & XPLMI_IPI_PMC_IMR_MASK) >>
+			XPLMI_IPI_PMC_IMR_SHIFT;
+		if (RegVal == 0U) {
+			goto END;
 		}
-		RegVal = RegVal >> 1U;
-		++Index;
+
+		Index = 0U;
+		XPlmi_Printf_WoTS(DEBUG_GENERAL, "INFO: IPIs disabled:");
+		while(RegVal != 0U) {
+			if ((RegVal & 1U) == 1U) {
+				XPlmi_Printf_WoTS(DEBUG_GENERAL,
+				" IPI-%u", Index);
+			}
+			RegVal = RegVal >> 1U;
+			++Index;
+		}
+		XPlmi_Printf_WoTS(DEBUG_GENERAL, "\n\r");
 	}
-	XPlmi_Printf_WoTS(DEBUG_GENERAL, "\n\r");
 
 END:
 	XPlmi_Printf(DEBUG_DETAILED,
@@ -262,6 +271,10 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 	}
 
 	if (MaskIndex != XPLMI_IPI_MASK_COUNT) {
+		if (XPlmi_IsPlmUpdateInProgress() == (u8)TRUE) {
+			Status = XST_SUCCESS;
+			goto END;
+		}
 		Cmd.AckInPLM = (u8)TRUE;
 		Cmd.IpiReqType = XPLMI_CMD_NON_SECURE;
 		Cmd.IpiMask = IpiInst.Config.TargetList[MaskIndex].Mask;
@@ -316,6 +329,7 @@ END:
 				    (PendingPsmIpi == (u8)TRUE)) {
 					XPlmi_Out32(IPI_PMC_ISR, Cmd.IpiMask);
 				}
+				XPlmi_Out32(IPI_PMC_IER, Cmd.IpiMask);
 			}
 		}
 	}

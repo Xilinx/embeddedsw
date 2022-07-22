@@ -22,6 +22,7 @@
 *       kpt  07/21/2022 Added APIs and macros for KAT
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
+*       bm   07/22/2022 Shutdown modules gracefully during update
 *
 * </pre>
 *
@@ -45,7 +46,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XPLMI_PLM_BANNER	"Xilinx VersalNet Platform Loader and Manager \n\r"
+#define XPLMI_PLM_BANNER	"Xilinx Versal Net Platform Loader and Manager\n\r"
 
 /* PLM RunTime Configuration Area Base Address */
 #define XPLMI_RTCFG_BASEADDR			(0xF2014000U)
@@ -222,8 +223,15 @@ typedef enum {
 #define XPLMI_PLM_GENERIC_PLMUPDATE		(0x20U)
 
 /* Module Operations */
+#define XPLMI_MODULE_NO_OPERATION		(0U)
 #define XPLMI_MODULE_SHUTDOWN_INITIATE		(1U)
 #define XPLMI_MODULE_SHUTDOWN_COMPLETE		(2U)
+#define XPLMI_MODULE_SHUTDOWN_ABORT		(3U)
+
+/* Module Handler States */
+#define XPLMI_MODULE_NORMAL_STATE		(0U)
+#define XPLMI_MODULE_SHUTDOWN_INITIATED_STATE	(1U)
+#define XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE	(2U)
 
 #define XPlmi_SsitSyncMaster	NULL
 #define XPlmi_SsitSyncSlaves	NULL
@@ -319,11 +327,38 @@ static inline void XPlmi_DisableCFrameIso(void)
 	return;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function provides Iomodule instance pointer
+ *
+ * @return	Pointer to Iomodule instance
+ *
+ *****************************************************************************/
+static inline void XPlmi_EnableIpiIntr(void)
+{
+	/* Not Applicable for Versal Net */
+	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears IPI interrupt
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static inline void XPlmi_ClearIpiIntr(void)
+{
+	/* Not Applicable for Versal Net */
+	return;
+}
+
 /************************** Function Prototypes ******************************/
 u32 *XPlmi_GetLpdInitialized(void);
 void XPlmi_PreInit(void);
 void XPlmi_RtcaPlatInit(void);
 u8 XPlmi_IsPlmUpdateDone(void);
+u8 XPlmi_IsPlmUpdateInProgress(void);
 void XPlmi_SssMask(u32 InputSrc, u32 OutputSrc);
 XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void);
 void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead);
@@ -340,14 +375,13 @@ XPlmi_WaitForDmaDone_t XPlmi_GetPlmiWaitForDone(u64 DestAddr);
 void XPlmi_PrintRomVersion(void);
 u32 XPlmi_GetGicIntrId(u32 GicPVal, u32 GicPxVal);
 u32 XPlmi_GetIpiIntrId(u32 BufferIndex);
-void XPlmi_EnableIpiIntr(void);
-void XPlmi_ClearIpiIntr(void);
 u32 *XPlmi_GetUartBaseAddr(void);
 u8 XPlmi_IsFipsModeEn(void);
 void XPlmi_SetKatMask(u32 PlmKatMask);
 void XPlmi_ClearKatMask(u32 PlmKatMask);
 u32 XPlmi_GetRomKatStatus(void);
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
+void XPlmi_IpiIntrHandler(void *CallbackRef);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);

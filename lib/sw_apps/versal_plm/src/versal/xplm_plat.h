@@ -44,6 +44,8 @@ extern "C" {
 /**
 * @brief	This function is not applicable for versal
 *
+* @param	PdiAddr is the address of the PDI which has new PLM
+*
 * @return	XST_SUCCESS
 *
 *****************************************************************************/

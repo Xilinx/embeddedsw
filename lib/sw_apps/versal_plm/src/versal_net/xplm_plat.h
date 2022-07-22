@@ -39,6 +39,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
 /*****************************************************************************/
 /**
 * @brief	This function configures the NPLL equal to slave SLR ROM NPLL
