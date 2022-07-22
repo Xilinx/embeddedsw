@@ -19,6 +19,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       kpt  07/21/2022 Added XPlmi_GetBootKatStatus
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
+*       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -36,6 +37,7 @@
 #include "xplmi_plat.h"
 #include "microblaze_sleep.h"
 #include "xplmi_err_common.h"
+#include "xplmi_generic.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_DIGEST_PMC_1_0_ROM_1_0	(0x2B004AC7U) /**< PMC1 ROM version 1
@@ -127,6 +129,23 @@ XInterruptHandler *XPlmi_GetTopLevelIntrTbl(void)
 u8 XPlmi_GetTopLevelIntrTblSize(void)
 {
 	return XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to BoardParams
+ *
+ * @return	Pointer to BoardParams
+ *
+ *****************************************************************************/
+XPlmi_BoardParams *XPlmi_GetBoardParams(void)
+{
+	static XPlmi_BoardParams BoardParams __attribute__ ((aligned(4U))) = {
+		.Name = {0U,},
+		.Len = 0U,
+	};
+
+	return &BoardParams;
 }
 
 /*****************************************************************************/

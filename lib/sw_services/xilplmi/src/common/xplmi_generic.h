@@ -44,6 +44,7 @@
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
+*       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -74,6 +75,10 @@ enum {
 	XPLMI_ERR_READBACK_BUFFER_OVERFLOW, /**< 0x13 */
 };
 
+/* Max board name length supported is 256 bytes */
+#define XPLMI_MAX_NAME_LEN			(256U)
+#define XPLMI_MAX_NAME_WORDS			(XPLMI_MAX_NAME_LEN / XPLMI_WORD_LEN)
+
 /**************************** Type Definitions *******************************/
 typedef struct {
 	u64 DestAddr;
@@ -103,6 +108,11 @@ typedef struct {
 	XPlmi_ProcData *ProcData;
 } XPlmi_ProcList;
 
+typedef struct {
+	u8 Name[XPLMI_MAX_NAME_LEN + 1U];
+	u32 Len;
+} XPlmi_BoardParams;
+
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPLMI_SBI_DEST_ADDR			(0xFFFFFFFFFFFFFFFFUL)
 #define XPLMI_READBK_INTF_TYPE_SMAP		(0x0U)
@@ -122,10 +132,6 @@ typedef struct {
 #define XPLMI_CFI_DATA_OFFSET			(4U)
 #define XPLMI_SIXTEEN_BYTE_MASK			(0xFU)
 #define XPLMI_NUM_BITS_IN_WORD			(32U)
-
-/* Max board name length supported is 256 bytes */
-#define XPLMI_MAX_NAME_LEN			(256U)
-#define XPLMI_MAX_NAME_WORDS			(XPLMI_MAX_NAME_LEN / XPLMI_WORD_LEN)
 
 /* Mask poll command flag descriptions */
 #define XPLMI_MASKPOLL_LEN_EXT			(5U)
@@ -168,6 +174,9 @@ int XPlmi_SetProcList(u32 Address, u16 Size);
 XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType);
 int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags);
 int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level);
+
+/* xplmi_plat.c definitions */
+XPlmi_BoardParams *XPlmi_GetBoardParams(void);
 
 /************************** Variable Definitions *****************************/
 

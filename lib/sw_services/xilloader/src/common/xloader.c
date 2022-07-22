@@ -134,6 +134,7 @@
 *       bsv  07/08/2022 Code changes related to Optional data in Image header
 *       dc   07/12/2022 Added device stage to scheduler
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
+*       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -188,8 +189,6 @@ static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
 
 /************************** Variable Definitions *****************************/
 XilPdi SubsystemPdiIns = {0U}; /**< Instance of subsystem pdi */
-static XilPdi_ATFHandoffParams ATFHandoffParams = {0}; /**< Instance containing
-														 ATF handoff params */
 XilPdi* BootPdiPtr = NULL; /**< Pointer to instance of boot pdi */
 
 /*****************************************************************************/
@@ -315,7 +314,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	 * Store address of the structure in PMC_GLOBAL.GLOBAL_GEN_STORAGE4.
 	 */
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE4,
-		(u32)((UINTPTR) &ATFHandoffParams));
+		(u32)((UINTPTR)XLoader_GetATFHandoffParamsAddr()));
 
 	if (DeviceFlags >= XPLMI_ARRAY_SIZE(PdiSourceMap)) {
 		goto END1;
@@ -1277,19 +1276,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function provides pointer to PdiList
- *
- * @return	pointer to PdiList
- *
- *****************************************************************************/
-XLoader_ImageStore* XLoader_GetPdiList(void)
-{
-	static XLoader_ImageStore PdiList = {0};
-	return &PdiList;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function is used to restart the image in PDI. This function
  * will take ImageId as an input and based on the subsystem info available, it
  * will read the image partitions, loads them and hand-off to the required CPUs
@@ -1578,20 +1564,6 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 
 END:
 	return Status;
-}
-
-/****************************************************************************/
-/**
-* @brief	This function returns the ATFHandoffParams structure address to
-*           the caller.
-*
-* @return	Returns ATFHandoffParams structure address
-*
-*****************************************************************************/
-XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
-{
-	/* Return ATF Handoff parameters structure address */
-	return &ATFHandoffParams;
 }
 
 /*****************************************************************************/

@@ -70,7 +70,8 @@
 *       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
-*       ma   07/19/2022 Print XPlmi_MaskPoll failures in all cases
+*       ma   07/20/2022 Print XPlmi_MaskPoll failures in all cases
+*       bm   07/20/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -1202,8 +1203,7 @@ END:
 static u8* XPlmi_BoardNameRW(const XPlmi_Cmd *Cmd, u8 GetFlag, u32 *Len)
 {
 	int Status = XST_FAILURE;
-	static u8 BoardName[XPLMI_MAX_NAME_LEN + 1U] = {0U,};
-	static u32 BoardLen = 0U;
+	XPlmi_BoardParams *BoardParams = XPlmi_GetBoardParams();
 
 	if (*Len > XPLMI_MAX_NAME_WORDS) {
 		*Len = XPLMI_MAX_NAME_WORDS;
@@ -1212,20 +1212,20 @@ static u8* XPlmi_BoardNameRW(const XPlmi_Cmd *Cmd, u8 GetFlag, u32 *Len)
 	if (GetFlag == (u8)FALSE) {
 		/* Set Command */
 		Status = XPlmi_DmaXfr((u64)(u32)&Cmd->Payload[0U],
-				(u64)(u32)BoardName, *Len, XPLMI_PMCDMA_0);
+				(u64)(u32)BoardParams->Name, *Len, XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		BoardName[*Len * XPLMI_WORD_LEN] = 0U;
-		BoardLen = *Len;
+		BoardParams->Name[*Len * XPLMI_WORD_LEN] = 0U;
+		BoardParams->Len = *Len;
 	}
 	else {
-		*Len = BoardLen;
+		*Len = BoardParams->Len;
 	}
 
 END:
-	return BoardName;
+	return BoardParams->Name;
 }
 /**
  * @}

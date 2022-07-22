@@ -21,6 +21,7 @@
 *       dc   07/12/2022 Added API XPlmi_RomISR() API
 *       kpt  07/21/2022 Added APIs and macros for KAT
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
+*       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -94,6 +95,8 @@ typedef enum {
 #define XPLMI_UART_BASEADDR_DS_ID	(0x05U)
 #define XPLMI_ERROR_TABLE_DS_ID		(0x06U)
 #define XPLMI_IS_PSMCR_CHANGED_DS_ID	(0x07U)
+#define XPLMI_NUM_ERROUTS_DS_ID		(0x08U)
+#define XPLMI_BOARD_PARAMS_DS_ID	(0x09U)
 
 /*
  * SLR Types
@@ -111,7 +114,7 @@ typedef enum {
 #define XPLMI_PSM_SEQUENCE_CMD_ID	(31U)
 
 /* GIC related Macros */
-#define XPLMI_GICP_SOURCE_COUNT		(0x5U)
+#define XPLMI_GICP_SOURCE_COUNT		(0x8U)
 #define XPLMI_GICP_INDEX_SHIFT		(16U)
 #define XPLMI_GICPX_INDEX_SHIFT		(24U)
 #define XPLMI_GICPX_LEN			(0x14U)

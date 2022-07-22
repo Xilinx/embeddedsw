@@ -20,6 +20,7 @@
 *       dc   07/12/2022 Added XPlmi_RomISR() API
 *       kpt  07/21/2022 Added KAT APIs
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
+*       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -69,6 +70,9 @@
 #define XPLMI_TRACE_LOG_VERSION		(1U)
 #define XPLMI_TRACE_LOG_LCVERSION	(1U)
 
+#define XPLMI_BOARD_PARAMS_VERSION	(1U)
+#define XPLMI_BOARD_PARAMS_LCVERSION	(1U)
+
 #define XPLMI_PMC_IRO_FREQ_1_MHZ	(1000000U)
 
 /**************************** Type Definitions *******************************/
@@ -112,6 +116,27 @@ XInterruptHandler *XPlmi_GetTopLevelIntrTbl(void)
 u8 XPlmi_GetTopLevelIntrTblSize(void)
 {
 	return XPLMI_ARRAY_SIZE(g_TopLevelInterruptTable);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to BoardParams
+ *
+ * @return	Pointer to BoardParams
+ *
+ *****************************************************************************/
+XPlmi_BoardParams *XPlmi_GetBoardParams(void)
+{
+	static XPlmi_BoardParams BoardParams __attribute__ ((aligned(4U))) = {
+		.Name = {0U,},
+		.Len = 0U,
+	};
+
+	EXPORT_GENERIC_DS(BoardParams, XPLMI_BOARD_PARAMS_DS_ID,
+		XPLMI_BOARD_PARAMS_VERSION, XPLMI_BOARD_PARAMS_LCVERSION,
+		sizeof(BoardParams), (u32)(UINTPTR)&BoardParams);
+
+	return &BoardParams;
 }
 
 /*****************************************************************************/

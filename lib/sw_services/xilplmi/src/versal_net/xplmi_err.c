@@ -41,6 +41,9 @@
 #define XPLMI_IS_PSMCR_CHANGED_VERSION		(1U)
 #define XPLMI_IS_PSMCR_CHANGED_LCVERSION	(1U)
 
+#define XPLMI_NUM_ERROUTS_VERSION	(1U)
+#define XPLMI_NUM_ERROUTS_LCVERSION	(1U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

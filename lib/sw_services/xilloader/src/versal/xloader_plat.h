@@ -15,6 +15,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -153,7 +154,6 @@ static inline u8 XLoader_IsPdiSrcSD0(u8 PdiSrc)
 
 /************************** Function Prototypes ******************************/
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);
-u32 XLoader_GetAtfHandoffParamsAddr(void);
 void XLoader_SetJtagTapToReset(void);
 int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		u32 *PdiAddr);
@@ -165,6 +165,7 @@ int XLoader_ProcessDeferredError(void);
 int XLoader_StartImage(XilPdi *PdiPtr);
 XilPdi *XLoader_GetPdiInstance(void);
 void XLoader_PerformInternalPOR(void);
+XLoader_ImageStore* XLoader_GetPdiList(void);
 
 /************************** Variable Definitions *****************************/
 

@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- --------   -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -33,12 +34,17 @@
 #include "xloader_plat.h"
 #include "xplmi_update.h"
 #include "xplmi.h"
+#include "xilpdi.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U)
 #define XLOADER_IMAGE_INFO_LCVERSION	(1U)
 #define XLOADER_PDI_INST_VERSION 	(1U)
 #define XLOADER_PDI_INST_LCVERSION 	(1U)
+#define XLOADER_PDI_LIST_VERSION 	(1U)
+#define XLOADER_PDI_LIST_LCVERSION 	(1U)
+#define XLOADER_ATF_HANDOFF_PARAMS_VERSION 	(1U)
+#define XLOADER_ATF_HANDOFF_PARAMS_LCVERSION 	(1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -83,13 +89,54 @@ XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void)
  *****************************************************************************/
 XilPdi *XLoader_GetPdiInstance(void)
 {
-	static XilPdi PdiInstance = {0U};
+	static XilPdi PdiInstance __attribute__ ((aligned(4U))) = {0U};
 
 	EXPORT_LOADER_DS(ImageInfoTbl, XLOADER_PDI_INST_DS_ID,
 		XLOADER_PDI_INST_VERSION, XLOADER_PDI_INST_LCVERSION,
 		sizeof(PdiInstance), (u32)(UINTPTR)&PdiInstance);
 
 	return &PdiInstance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to PdiList
+ *
+ * @return	pointer to PdiList
+ *
+ *****************************************************************************/
+XLoader_ImageStore* XLoader_GetPdiList(void)
+{
+	static XLoader_ImageStore PdiList __attribute__ ((aligned(4U))) = {0};
+
+	EXPORT_LOADER_DS(PdiList, XLOADER_PDI_LIST_DS_ID,
+		XLOADER_PDI_LIST_VERSION, XLOADER_PDI_LIST_LCVERSION,
+		sizeof(PdiList), (u32)(UINTPTR)&PdiList);
+
+	return &PdiList;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function returns the ATFHandoffParams structure address to
+*           the caller.
+*
+* @return	Returns ATFHandoffParams structure address
+*
+*****************************************************************************/
+XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
+{
+	static XilPdi_ATFHandoffParams ATFHandoffParams
+		__attribute__ ((aligned(4U))) = {0}; /**< Instance containing
+							 ATF handoff params */
+
+	EXPORT_LOADER_DS(ATFHandoffParams, XLOADER_ATF_HANDOFF_PARAMS_DS_ID,
+		XLOADER_ATF_HANDOFF_PARAMS_VERSION,
+		XLOADER_ATF_HANDOFF_PARAMS_LCVERSION,
+		sizeof(ATFHandoffParams), (u32)(UINTPTR)&ATFHandoffParams);
+
+	/* Return ATF Handoff parameters structure address */
+	return &ATFHandoffParams;
 }
 
 /*****************************************************************************/
