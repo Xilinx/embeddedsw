@@ -97,6 +97,7 @@
 *       ma   07/19/2022 Disable interrupts before secure lockdown
 *       kpt  07/21/2022 Replaced secure lockdown code with function
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
+*       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -1244,19 +1245,19 @@ void XPlmi_SetEmSubsystemId(const u32 *Id)
  *****************************************************************************/
 static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType)
 {
-	static u32 NumErrOuts = 0U;
+	u32 *NumErrOuts = XPlmi_GetNumErrOuts();
 
 	if (UpdateType == XPLMI_UPDATE_TYPE_INCREMENT) {
-		if (NumErrOuts < XPLMI_MAX_ERR_OUTS) {
-			++NumErrOuts;
+		if (*NumErrOuts < XPLMI_MAX_ERR_OUTS) {
+			++(*NumErrOuts);
 		}
 	} else {
-		if (NumErrOuts > 0U) {
-			--NumErrOuts;
+		if (*NumErrOuts > 0U) {
+			--(*NumErrOuts);
 		}
 	}
 
-	return NumErrOuts;
+	return *NumErrOuts;
 }
 
 /*****************************************************************************/

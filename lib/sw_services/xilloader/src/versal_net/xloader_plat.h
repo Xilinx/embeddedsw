@@ -15,6 +15,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- --------   -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -84,8 +85,10 @@ extern "C" {
 #define XLOADER_RPU_CORE1	(1U)
 
 /* Xilloader Module Data Structure Ids*/
-#define XLOADER_IMAGE_INFO_DS_ID	(0x01U)
-#define XLOADER_PDI_INST_DS_ID		(0x02U)
+#define XLOADER_IMAGE_INFO_DS_ID		(0x01U)
+#define XLOADER_PDI_INST_DS_ID			(0x02U)
+#define XLOADER_PDI_LIST_DS_ID			(0x03U)
+#define XLOADER_ATF_HANDOFF_PARAMS_DS_ID	(0x04U)
 
 /**************************** Type Definitions *******************************/
 
@@ -204,7 +207,6 @@ static inline void XLoader_SetJtagTapToReset(void)
 /************************** Function Prototypes ******************************/
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);
 int XLoader_StartImage(XilPdi *PdiPtr);
-u32 XLoader_GetAtfHandoffParamsAddr(void);
 int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 		u32 *PdiAddr);
 int XLoader_UpdateHandoffParam(XilPdi* PdiPtr);
@@ -212,6 +214,7 @@ int XLoader_ProcessDeferredError(void);
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
 XilPdi *XLoader_GetPdiInstance(void);
+XLoader_ImageStore* XLoader_GetPdiList(void);
 
 /************************** Variable Definitions *****************************/
 

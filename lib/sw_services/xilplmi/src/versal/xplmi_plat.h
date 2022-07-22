@@ -22,6 +22,7 @@
 *       kpt  07/21/2022 Added API and macros related to KAT
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Added compatibility check for In-Place PLM Update
+*       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -75,7 +76,7 @@ extern "C" {
 #define XPLMI_SSIT_WAIT_SLAVES_CMD_ID	(16U)
 
 /* GIC related Macros */
-#define XPLMI_GICP_SOURCE_COUNT		(0x8U)
+#define XPLMI_GICP_SOURCE_COUNT		(0x5U)
 #define XPLMI_GICP_INDEX_SHIFT		(8U)
 #define XPLMI_GICPX_INDEX_SHIFT		(16U)
 #define XPLMI_GICPX_LEN			(0x14U)

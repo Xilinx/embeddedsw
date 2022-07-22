@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       bsv  07/21/2022 DDR modelling related changes
+*       bm   07/21/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -38,6 +39,7 @@
 #include "xloader_plat.h"
 #include "xplmi_err.h"
 #include "xloader_ddr.h"
+#include "xilpdi.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_TCM_0		(0U)
@@ -105,6 +107,36 @@ XilPdi *XLoader_GetPdiInstance(void)
 	static XilPdi PdiInstance = {0U};
 
 	return &PdiInstance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to PdiList
+ *
+ * @return	pointer to PdiList
+ *
+ *****************************************************************************/
+XLoader_ImageStore* XLoader_GetPdiList(void)
+{
+	static XLoader_ImageStore PdiList __attribute__ ((aligned(4U))) = {0};
+
+	return &PdiList;
+}
+
+/****************************************************************************/
+/**
+* @brief	This function returns the ATFHandoffParams structure address to
+*           the caller.
+*
+* @return	Returns ATFHandoffParams structure address
+*
+*****************************************************************************/
+XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
+{
+	static XilPdi_ATFHandoffParams ATFHandoffParams = {0}; /**< Instance containing
+								 ATF handoff params */
+	/* Return ATF Handoff parameters structure address */
+	return &ATFHandoffParams;
 }
 
 /*****************************************************************************/

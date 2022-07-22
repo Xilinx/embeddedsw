@@ -98,6 +98,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/05/22 Added PpdiKatStatus for partial pdi KAT
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
+*       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *
 * </pre>
 *
@@ -392,7 +393,6 @@ int XLoader_CframeInit(void);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
-XLoader_ImageStore* XLoader_GetPdiList(void);
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 
 /* Functions defined in xloader_prtn_load.c */
