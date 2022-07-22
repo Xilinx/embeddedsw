@@ -756,6 +756,10 @@ u32 XHdmiphy1_DruGetRefClkFreqHz(XHdmiphy1 *InstancePtr)
 				DruFreqHz < XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK2_MAX){
 			return XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK2;
 		}
+		else if (DruFreqHz > XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK3_MIN &&
+				DruFreqHz < XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK3_MAX){
+			return XHDMIPHY1_HDMI_GTHE4_DRU_REFCLK3;
+		}
 	}
 	else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4) {
 		if (DruFreqHz > XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK_MIN &&
@@ -765,6 +769,10 @@ u32 XHdmiphy1_DruGetRefClkFreqHz(XHdmiphy1 *InstancePtr)
 		else if (DruFreqHz > XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK2_MIN &&
 				DruFreqHz < XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK2_MAX){
 			return XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK2;
+		}
+		else if (DruFreqHz > XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK3_MIN &&
+				DruFreqHz < XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK3_MAX){
+			return XHDMIPHY1_HDMI_GTYE4_DRU_REFCLK3;
 		}
 	}
 	else {
@@ -2324,6 +2332,34 @@ u32 XHdmiphy1_Hdmi20Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 
 /*****************************************************************************/
 /**
+* This function will configure the FRL REF CLK for HDMI 2.1 operation
+*
+*
+* @return
+*		- FRL Ref Clk value
+*
+* @note		None.
+*
+******************************************************************************/
+u32 Xhdmiphy1_RefClkValue() {
+
+	u32 frl_refclk;
+	char SpeedGrade[5] = XPAR_HDMIPHY1_0_SPEEDGRADE_STR;
+	char CompVal[5] = "-1";
+	char *SpeedGradePtr = &SpeedGrade[0];
+	char *CompValPtr = &CompVal[0];
+
+	if (strncmp(SpeedGradePtr, CompValPtr, 2) == 0) {
+		frl_refclk = 200000000U;
+	} else {
+		frl_refclk = 400000000U;
+	}
+
+	return frl_refclk;
+}
+
+/*****************************************************************************/
+/**
 * This function will configure the GT for HDMI 2.1 operation
 *
 * @param	InstancePtr is a pointer to the Hdmiphy core instance.
@@ -2350,23 +2386,36 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 	char CompVal[5] = "-1";
 	char *SpeedGradePtr = &SpeedGrade[0];
 	char *CompValPtr = &CompVal[0];
+	u32 Hdmi21_frl_refclk;
+
+
+	/* Determine PLL type. */
+	PllType = XHdmiphy1_GetPllType(InstancePtr, 0, Dir,
+                XHDMIPHY1_CHANNEL_ID_CH1);
 
 	/* Look for -1 Parts. Max Line rate is 8Gbps */
 	if (strncmp(SpeedGradePtr, CompValPtr, 2) == 0) {
+#if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
+		if (PllType == (XHDMIPHY1_PLL_TYPE_QPLL0 || XHDMIPHY1_PLL_TYPE_QPLL1)) {
+		if (LineRate > 10e9) {
+			XHdmiphy1_LogWrite(InstancePtr,
+                XHDMIPHY1_LOG_EVT_SPDGRDE_ERR, Dir);
+			XHdmiphy1_ErrorHandler(InstancePtr);
+			return XST_FAILURE;
+		}
+		} else {
 		if (LineRate > 8e9) {
 			XHdmiphy1_LogWrite(InstancePtr,
                 XHDMIPHY1_LOG_EVT_SPDGRDE_ERR, Dir);
 			XHdmiphy1_ErrorHandler(InstancePtr);
 			return XST_FAILURE;
 		}
+		}
 	}
+#endif
 #endif
 
 	XHdmiphy1_LogWrite(InstancePtr, XHDMIPHY1_LOG_EVT_FRL_RECONFIG, Dir);
-
-	/* Determine PLL type. */
-	PllType = XHdmiphy1_GetPllType(InstancePtr, 0, Dir,
-                XHDMIPHY1_CHANNEL_ID_CH1);
 
 	/* Disable Clock Detector Interrupts */
 	if (Dir == XHDMIPHY1_DIR_TX) {
@@ -2398,9 +2447,11 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_WriteCfgRefClkSelReg(InstancePtr, 0);
 #endif
 
+	Hdmi21_frl_refclk = Xhdmiphy1_RefClkValue();
+
 	/* Update HDMI Configurations */
 	if (Dir == XHDMIPHY1_DIR_TX) {
-		InstancePtr->HdmiTxRefClkHz = XHDMIPHY1_HDMI21_FRL_REFCLK;
+		InstancePtr->HdmiTxRefClkHz = Hdmi21_frl_refclk;
 		InstancePtr->TxHdmi21Cfg.LineRate = LineRate;
 		InstancePtr->TxHdmi21Cfg.NChannels = NChannels;
 		InstancePtr->TxHdmi21Cfg.IsEnabled = TRUE;
@@ -2428,7 +2479,7 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 			XHdmiphy1_HdmiTxTimerTimeoutHandler(InstancePtr);
 		}
 	} else {
-		InstancePtr->HdmiRxRefClkHz = XHDMIPHY1_HDMI21_FRL_REFCLK;
+		InstancePtr->HdmiRxRefClkHz = Hdmi21_frl_refclk;
 		InstancePtr->RxHdmi21Cfg.LineRate = LineRate;
 		InstancePtr->RxHdmi21Cfg.NChannels = NChannels;
 		InstancePtr->RxHdmi21Cfg.IsEnabled = TRUE;

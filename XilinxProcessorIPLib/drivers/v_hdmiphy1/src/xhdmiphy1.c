@@ -24,6 +24,8 @@
  * 1.0   gm   10/12/18 Initial release.
  * 1.1   ku   17/05/20 Adding uniquification to avoid clash with vphy
  * 1.1   ku   27/07/20 Removed GTHE3 related code
+ * 1.2   ssh  22/07/22 Added multi gt support and updated the frl and
+ * 		       dru clk freq to 200MHz for -1 GTHE4 and GTYE4 device
  * </pre>
  *
 *******************************************************************************/
@@ -81,10 +83,12 @@ void XHdmiphy1_CfgInitialize(XHdmiphy1 *InstancePtr,
 	InstancePtr->Config = *ConfigPtr;
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
-	InstancePtr->GtAdaptor = &XHdmiphy1_Gthe4Config;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
-	InstancePtr->GtAdaptor = &XHdmiphy1_Gtye4Config;
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4) || (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
+	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) {
+		InstancePtr->GtAdaptor = &XHdmiphy1_Gthe4Config;
+	} else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4) {
+		InstancePtr->GtAdaptor = &XHdmiphy1_Gtye4Config;
+	}
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE5)
 	InstancePtr->GtAdaptor = &Gtye5Config;
 #elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYP)
@@ -1323,9 +1327,7 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 	}
 
 #if ((XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYE5)&&(XPAR_HDMIPHY1_0_TRANSCEIVER != XHDMIPHY1_GTYP))
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
-	MaxDrpAddr = 0x00B0;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4) || (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
 	MaxDrpAddr = 0x00B0;
 #endif
 
@@ -1343,10 +1345,12 @@ void XHdmiphy1_RegisterDebug(XHdmiphy1 *InstancePtr)
 		xil_printf("No QPLL in this HDMIPHY Instance\r\n");
 	}
 
-#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4)
-	MaxDrpAddr = 0x0125;
-#elif (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
-	MaxDrpAddr = 0x0135;
+#if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4) || (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
+	if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTHE4) {
+		MaxDrpAddr = 0x0125;
+	} else if (InstancePtr->Config.XcvrType == XHDMIPHY1_GT_TYPE_GTYE4) {
+		MaxDrpAddr = 0x0135;
+	}
 #endif
 	/* Get Max number of channels in HDMIPHY */
 	MaxChannels = (InstancePtr->Config.RxChannels >
