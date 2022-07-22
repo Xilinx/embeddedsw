@@ -5,6 +5,8 @@
 
 #include "xpm_defs.h"
 #include "xplmi_dma.h"
+#include "xplmi_plat.h"
+#include "xplmi_scheduler.h"
 #include "xpm_regs.h"
 #include "xpm_device.h"
 #include "xpm_powerdomain.h"
@@ -14,6 +16,189 @@
 #include "xpm_debug.h"
 
 #define XPM_TCM_BASEADDRESS_MODE_OFFSET	0x80000U
+
+/* Max number of HBM stacks on any device */
+#define XPM_HBM_MAX_STACKS		2U
+
+/* Scheduler Owner ID for HBM Monitoring Task */
+#define XPM_HBM_TEMP_MON_SCHED_ID	PM_DEV_HBMMC_0
+
+/*
+ * Handler to read the temperature of a given HBM Stack
+ */
+static XStatus XPmMem_GetTempData(u32 BaseAddress, u32 *TempData)
+{
+	XStatus Status = XST_FAILURE;
+	u32 TempVal = 0U;
+
+	/* Unlock PCSR */
+	XPm_Out32(BaseAddress + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+
+	/* Write CFG2 */
+	XPm_Out32(BaseAddress + HBM_PHY_MS_CFG2_OFFSET, 0x200U);
+
+	/* Write CFG1 */
+	XPm_Out32(BaseAddress + HBM_PHY_MS_CFG1_OFFSET, 0xA0000FU);
+
+	/* Write CFG64 to indicate a pending command */
+	XPm_RMW32(BaseAddress + HBM_PHY_MS_CFG64_OFFSET, 0x1U, 0x1U);
+
+	/* Wait until pending command is handled */
+	Status = XPm_PollForZero(BaseAddress + HBM_PHY_MS_CFG64_OFFSET, 0x1, 2000U);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Read data */
+	TempVal = XPm_In32(BaseAddress + HBM_PHY_MS_CFG66_OFFSET) >>
+		HBM_PHY_MS_CFG66_DATA_SHIFT;
+
+	/* Check for data validity (valid bit must be 0) */
+	if (0U != (TempVal & HBM_PHY_MS_CFG66_DATA_VALID_BIT)) {
+		TempVal = 0U;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	/* Data may be valid or invalid, clear other bits */
+	*TempData = (TempVal & HBM_PHY_MS_CFG66_DATA_MASK);
+
+	/* Lock PCSR */
+	XPm_Out32(BaseAddress + NPI_PCSR_LOCK_OFFSET, 0U);
+
+	return Status;
+}
+
+/*
+ * Handler for the HBM Temp monitoring task (called periodically)
+ */
+static int XPmMem_HBMTempMonitor(void *data)
+{
+	int Status = XST_FAILURE;
+	u32 S0Temp = 0U, S1Temp = 0U;
+	u32 S0Done = 0U, S1Done = 0U;
+	u32 TempVal = 0U, TempMax = 0U;
+	const u32 *HbmPhyMs = (u32 *)data;
+
+	/* Read HBM temp config register from RTCA */
+	u32 HbmCfgAndMax = XPm_In32(XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX);
+
+	/* Read PCSRs for blocks to check if the stacks are configured */
+	u32 S0PcsrCntrl = XPm_In32(HbmPhyMs[0] + NPI_PCSR_CONTROL_OFFSET);
+	u32 S1PcsrCntrl = XPm_In32(HbmPhyMs[1] + NPI_PCSR_CONTROL_OFFSET);
+
+	/* HBM Stack 0 must be configured and temp monitoring must be enabled for it to read data */
+	if ((NPI_PCSR_CONTROL_PCOMPLETE_MASK == (S0PcsrCntrl & NPI_PCSR_CONTROL_PCOMPLETE_MASK)) &&
+	    (0U != (HbmCfgAndMax & XPM_RTCA_HBM_TEMP_CONFIG_STACK0_EN_MASK))) {
+		/* Read the temperature data */
+		Status = XPmMem_GetTempData(HbmPhyMs[0], &S0Temp);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		TempVal = S0Temp;
+		S0Done = 1U;
+	}
+
+	/* HBM Stack 1 must be configured and temp monitoring must be enabled for it to read data */
+	if ((NPI_PCSR_CONTROL_PCOMPLETE_MASK == (S1PcsrCntrl & NPI_PCSR_CONTROL_PCOMPLETE_MASK)) &&
+	    (0U != (HbmCfgAndMax & XPM_RTCA_HBM_TEMP_CONFIG_STACK1_EN_MASK))) {
+		/* Read the temperature data */
+		Status = XPmMem_GetTempData(HbmPhyMs[1], &S1Temp);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		TempVal |= (S1Temp << XPM_RTCA_HBM_TEMP_VAL_STACK1_TEMP_SHIFT);
+		S1Done = 1U;
+	}
+
+	/* Calculate max temp among both stacks */
+	TempMax = (S0Temp >= S1Temp) ? S0Temp : S1Temp;
+
+	/* Write temp values to RTCA */
+	XPm_Out32(XPLMI_RTCFG_HBM_TEMP_VAL, TempVal);
+	XPm_RMW32(XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX,
+		  XPM_RTCA_HBM_TEMP_CONFIG_STACKS_MAX_TEMP_MASK,
+		  (TempMax << XPM_RTCA_HBM_TEMP_CONFIG_STACKS_MAX_TEMP_SHIFT));
+
+	/* No stack is configured and no temp monitoring is enabled for it */
+	if ((0U == S0Done) && (0U == S1Done)) {
+		/* Remove the task */
+		Status = XPlmi_SchedulerRemoveTask(XPM_HBM_TEMP_MON_SCHED_ID, XPmMem_HBMTempMonitor,
+				HBM_TEMP_MON_PERIOD, data);
+		/* Clear out the contents since the temperature values will now be stale */
+		XPm_Out32(XPLMI_RTCFG_HBM_TEMP_VAL, 0U);
+		XPm_RMW32(XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX,
+				XPM_RTCA_HBM_TEMP_CONFIG_STACKS_MAX_TEMP_MASK, 0U);
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function is used to start the task which enables HBM temperature
+ * monitoring in PLM. This will only work on the devices with HBM nodes present
+ * in the topology. If the feature is not enabled for any of the HBM stacks
+ * (controlled through PLM RTCA), then the task is never started. During the task
+ * execution, if found that no HBM stacks are configured in the design, then it
+ * is removed from the task queue.
+ *
+ * @param  None
+ *
+ * @return XST_SUCCESS if successful, return error code otherwise
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+XStatus XPmMem_HBMTempMonInitTask(void)
+{
+	XStatus Status = XST_FAILURE;
+	static u32 HbmPhyMsAddr[XPM_HBM_MAX_STACKS];	/* HBM_PHY_MS block addresses */
+
+	/* Read HBM temp config register from RTCA */
+	u32 HbmCfgAndMax = XPm_In32(XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX);
+	if (0U == (HbmCfgAndMax & XPM_RTCA_HBM_TEMP_CONFIG_STACK_EN_MASK)) {
+		/* Do not fail since temp monitoring is not enabled for any HBM stack */
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* Check if device has any HBM nodes, and compute HBM_PHY_MS base addresses */
+	for (u32 i = (u32)XPM_NODEIDX_DEV_HBMMC_0; i <= (u32)XPM_NODEIDX_DEV_HBMMC_15; ++i) {
+		const XPm_Device *Hbm = XPmDevice_GetByIndex(i);
+		if (NULL == Hbm) {
+			/* Do not fail since this device has no HBM stacks */
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		/* Derive HBM PHY MiddleStack block addresses (TODO: Should pass through topology) */
+		switch (i) {
+		case (u32)XPM_NODEIDX_DEV_HBMMC_7:
+			HbmPhyMsAddr[0] = Hbm->Node.BaseAddress + HBM_PHY_MS_OFF_FROM_PREV_HBMMC_MC;
+			break;
+		case (u32)XPM_NODEIDX_DEV_HBMMC_15:
+			HbmPhyMsAddr[1] = Hbm->Node.BaseAddress + HBM_PHY_MS_OFF_FROM_PREV_HBMMC_MC;
+			break;
+		default:
+			/* Nothing to do */
+			break;
+		}
+	}
+
+	/* Schedule the HBM temp monitoring task with periodicity of HBM_TEMP_MON_PERIOD */
+	Status = XPlmi_SchedulerAddTask(XPM_HBM_TEMP_MON_SCHED_ID, XPmMem_HBMTempMonitor,
+			NULL, HBM_TEMP_MON_PERIOD, XPLM_TASK_PRIORITY_0,
+			(void *)HbmPhyMsAddr, XPLMI_PERIODIC_TASK);
+
+done:
+	return Status;
+}
 
 static const XPm_StateCap XPmDDRDeviceStates[] = {
 	{
