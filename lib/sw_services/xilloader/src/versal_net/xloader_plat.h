@@ -17,6 +17,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/18/2022 Shutdown modules gracefully during update
+*       dc   07/20/2022 Added support for data measurement.
 *
 * </pre>
 *
@@ -90,6 +91,12 @@ extern "C" {
 #define XLOADER_PDI_INST_DS_ID			(0x02U)
 #define XLOADER_PDI_LIST_DS_ID			(0x03U)
 #define XLOADER_ATF_HANDOFF_PARAMS_DS_ID	(0x04U)
+
+#define XLOADER_SHA1_DEVICE_ID		(1U)
+/* Data measurement flags */
+#define XLOADER_MEASURE_START		(0U)
+#define XLOADER_MEASURE_UPDATE		(1U)
+#define XLOADER_MEASURE_FINISH		(2U)
 
 /**************************** Type Definitions *******************************/
 
@@ -217,6 +224,9 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 XilPdi *XLoader_GetPdiInstance(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
 int XLoader_UpdateHandler(XPlmi_ModuleOp Op);
+int XLoader_PlatInit(void);
+int XLoader_HdrMeasurement(XilPdi* PdiPtr);
+int XLoader_DataMeasurement(u64 DataAddr, u32 DataSize, u32 PcrInfo, u8 Flags);
 
 /************************** Variable Definitions *****************************/
 

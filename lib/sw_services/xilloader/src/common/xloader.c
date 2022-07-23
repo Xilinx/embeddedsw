@@ -135,6 +135,7 @@
 *       dc   07/12/2022 Added device stage to scheduler
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
+*       dc   07/20/2022 Added Data measurement, supports only for Versal Net
 *
 * </pre>
 *
@@ -276,7 +277,11 @@ int XLoader_Init(void)
 	 * Applicable only for VersalNet
 	 */
 	Status = XLoader_AddDeviceStateChangeToScheduler();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 #endif
+	Status = XLoader_PlatInit();
 
 END:
 	return Status;
@@ -666,6 +671,11 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		}
 	}
 #endif
+	/* This is applicable only for VersalNet */
+	Status = XLoader_HdrMeasurement(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 END:
 	return Status;
@@ -1233,7 +1243,19 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[XILPDI_IMG_NAME_ARRAY_SIZE - 1U] = 0;
 	/* Update current subsystem ID for EM */
 	XPlmi_SetEmSubsystemId(&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+	/* This is applicable only for Versal Net */
+	Status = XLoader_DataMeasurement(0U, 0U, 0U, XLOADER_MEASURE_START);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XLoader_LoadImagePrtns(PdiPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* This is applicable only for Versal Net */
+	Status = XLoader_DataMeasurement(0U, 0U, 0U, XLOADER_MEASURE_FINISH);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

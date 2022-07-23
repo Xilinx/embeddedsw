@@ -85,6 +85,11 @@ extern "C" {
 #define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU0	(0x100U)
 #define XLOADER_FPD_APU_CONFIG_0_VINITHI_MASK_CPU1	(0x200U)
 
+/* Data measurement flags applicable only for VersalNet */
+#define XLOADER_MEASURE_START		(0U)
+#define XLOADER_MEASURE_UPDATE		(1U)
+#define XLOADER_MEASURE_FINISH		(2U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -150,6 +155,61 @@ static inline u8 XLoader_IsPdiSrcSD(u32 PdiSrc)
 static inline u8 XLoader_IsPdiSrcSD0(u8 PdiSrc)
 {
 	return (PdiSrc == XLOADER_PDI_SRC_SD0) ? (u8)TRUE : (u8)FALSE;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the loader with platform specific
+ * 		initializations.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static inline int XLoader_PlatInit(void)
+{
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the PDI's meta header data by calculating
+ *		the hash using SHA3.
+ *
+ * @param	PdiPtr is the pointer to PDI instance
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static inline int XLoader_HdrMeasurement(XilPdi* PdiPtr)
+{
+	(void)PdiPtr;
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the data by calculating SHA3 hash.
+ *
+ * @param	DataAddr is the address of the data to be measured.
+ * @param	DataSize is the size of the data to be measured.
+ * @param	PcrInfo provides the PCR number to be extended.
+ * @param	Flags - The hash calcualtion flags
+ * 			- XLOADER_MEASURE_START : Sha3 start
+ * 			- XLOADER_MEASURE_UPDATE: Sha3 update
+ * 			- XLOADER_MEASURE_FINISH: Sha3Finish
+ * 			- Any other option will be an error.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static inline int XLoader_DataMeasurement(u64 DataAddr, u32 DataSize,
+				u32 PcrInfo, u8 Flags)
+{
+	(void)DataAddr;
+	(void)DataSize;
+	(void)PcrInfo;
+	(void)Flags;
+	return XST_SUCCESS;
 }
 
 /************************** Function Prototypes ******************************/

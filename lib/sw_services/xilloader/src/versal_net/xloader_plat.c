@@ -18,6 +18,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/18/2022 Shutdown modules gracefully during update
+*       dc   07/20/2022 Added support for data measurement
 *
 * </pre>
 *
@@ -37,6 +38,9 @@
 #include "xplmi.h"
 #include "xilpdi.h"
 #include "xplmi_gic_interrupts.h"
+#ifdef PLM_OCP
+#include "xsecure_sha.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U)
@@ -57,8 +61,12 @@ static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 	const u32 DstnCluster);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u32 DstnCluster, u64 *LoadAddrPtr,
 	u32 Len);
+static int XLoader_InitSha1Instance(void);
 
 /************************** Variable Definitions *****************************/
+#ifdef PLM_OCP
+static XSecure_Sha3 Sha1Instance;
+#endif
 
 /*****************************************************************************/
 /**
@@ -810,4 +818,152 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 END:
 	return Status;
 
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the loader with platform specific
+ * 			initializations.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_PlatInit(void)
+{
+	int Status = XST_FAILURE;
+
+	Status = XLoader_InitSha1Instance();
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the PDI's meta header data by calculating
+ *		the hash using SHA3.
+ *
+ * @param	PdiPtr is the pointer to PDI instance
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_HdrMeasurement(XilPdi* PdiPtr)
+{
+	int Status = XLOADER_ERR_HDR_MEASUREMENT;
+#ifdef PLM_OCP
+	XilPdi_MetaHdr * MetaHdrPtr = &PdiPtr->MetaHdr;
+
+	Status = XLoader_DataMeasurement(0U, 0U, 0U, XLOADER_MEASURE_START);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XLoader_DataMeasurement((u64)(UINTPTR)&(MetaHdrPtr->ImgHdrTbl),
+			sizeof(XilPdi_ImgHdrTbl), 0U, XLOADER_MEASURE_UPDATE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XLoader_DataMeasurement((u64)(UINTPTR)(MetaHdrPtr->ImgHdr),
+			(MetaHdrPtr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN), 0U,
+			 XLOADER_MEASURE_UPDATE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XLoader_DataMeasurement((u64)(UINTPTR)(MetaHdrPtr->PrtnHdr),
+			(MetaHdrPtr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN), 0U,
+			 XLOADER_MEASURE_UPDATE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XLoader_DataMeasurement(0U, 0U, 0U, XLOADER_MEASURE_FINISH);
+	XPlmi_Printf(DEBUG_GENERAL, "INFO: Measurement may not be accurate when"
+		" CDO is enabled with key whole write\n\r");
+END:
+	if (Status != XST_SUCCESS) {
+		Status |= XLOADER_ERR_HDR_MEASUREMENT;
+	}
+#else
+	(void)PdiPtr;
+	Status = XST_SUCCESS;
+#endif
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the data by calculating SHA3 hash.
+ *
+ * @param	DataAddr is the address of the data to be measured.
+ * @param	DataSize is the size of the data to be measured.
+ * @param	PcrInfo provides the PCR number to be extended.
+ * @param	Flags - The hash calcualtion flags
+ * 			- XLOADER_MEASURE_START : Sha3 start
+ * 			- XLOADER_MEASURE_UPDATE: Sha3 update
+ * 			- XLOADER_MEASURE_FINISH: Sha3Finish
+ * 			- Any other option will be an error.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_DataMeasurement(u64 DataAddr, u32 DataSize, u32 PcrInfo, u8 Flags)
+{
+	int Status = XLOADER_ERR_DATA_MEASUREMENT;
+#ifdef PLM_OCP
+	XSecure_Sha3Hash Sha3Hash;
+	(void)PcrInfo;
+
+	switch(Flags) {
+	case XLOADER_MEASURE_START:
+		Status = XSecure_Sha3Start(&Sha1Instance);
+		break;
+	case XLOADER_MEASURE_UPDATE:
+		Status = XSecure_Sha3Update64Bit(&Sha1Instance,
+				DataAddr, DataSize);
+		break;
+	case XLOADER_MEASURE_FINISH:
+		Status = XSecure_Sha3Finish(&Sha1Instance, &Sha3Hash);
+		break;
+	default:
+		break;
+	}
+	if (Status != XST_SUCCESS) {
+		Status |= XLOADER_ERR_DATA_MEASUREMENT;
+	}
+#else
+	(void)DataAddr;
+	(void)DataSize;
+	(void)PcrInfo;
+	(void)Flags;
+	Status = XST_SUCCESS;
+#endif
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the SHA1 instance.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_InitSha1Instance(void)
+{
+	int Status = XLOADER_ERR_SHA1_INIT;
+#ifdef PLM_OCP
+	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
+
+	Status = XSecure_Sha3LookupConfig(&Sha1Instance, XLOADER_SHA1_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XSecure_Sha3Initialize(&Sha1Instance, PmcDmaPtr);
+END:
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_SHA1_INIT;
+	}
+#else
+	Status = XST_SUCCESS;
+#endif
+	return Status;
 }
