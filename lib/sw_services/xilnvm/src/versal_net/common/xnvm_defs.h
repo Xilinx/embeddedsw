@@ -58,16 +58,59 @@ extern "C" {
 /* Macro to typecast XILNVM API ID */
 #define XNVM_API(ApiId)	((u32)ApiId)
 
-#define XNVM_API_ID_MASK	(0xFFU)
+#define XNVM_API_ID_MASK		(0xFFU)
+#define XNVM_EFUSE_CRC_AES_ZEROS 	(0x6858A3D5U)
+#define XNVM_NUM_OF_CACHE_ADDR_PER_PAGE	(0x400U)
+#define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U)
+#define XNVM_EFUSE_ERROR_NIBBLE_SHIFT	(4U)
 
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-typedef enum {
-	XNVM_EFUSE_AES_KEY = 0,
-	XNVM_EFUSE_USER_KEY_0,
-	XNVM_EFUSE_USER_KEY_1,
-} XNvm_AesKeyType;
+typedef struct {
+	u16 StartOffset;
+	u16 RegCount;
+	u32 AddrLow;
+	u32 AddrHigh;
+} XNvm_RdCachePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_RdCachePload Pload;
+} XNvm_RdCacheCdo;
+
+typedef struct {
+	u32 KeyType;
+	u32 AddrLow;
+	u32 AddrHigh;
+} XNvm_AesKeyWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_AesKeyWritePload Pload;
+} XNvm_AesKeyWriteCdo;
+
+typedef struct {
+	u32 PpkType;
+	u32 AddrLow;
+	u32 AddrHigh;
+} XNvm_PpkWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_PpkWritePload Pload;
+} XNvm_PpkWriteCdo;
+
+typedef struct {
+	u32 IvType;
+	u32 AddrLow;
+	u32 AddrHigh;
+} XNvm_IvWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_IvWritePload Pload;
+} XNvm_IvWriteCdo;
 
 /* XilNVM API ids */
 typedef enum {
@@ -84,6 +127,8 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_PPK_HASH_FROM_PLOAD,
 	XNVM_API_ID_EFUSE_WRITE_IV,
 	XNVM_API_ID_EFUSE_WRITE_IV_FROM_PLOAD,
+	XNVM_API_ID_EFUSE_READ_CACHE = 47,
+	XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS,
 	XNVM_API_MAX,
 } XNvm_ApiId;
 

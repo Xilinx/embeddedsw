@@ -72,6 +72,7 @@
 #include "xilnvm_efuse_versal_input.h"
 #include "xil_util.h"
 #include "xil_cache.h"
+#include "xnvm_common_defs.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
@@ -570,7 +571,7 @@ static int XilNvm_EfuseShowIv(XNvm_IvType IvType)
 	xil_printf("\n\r IV%d:",IvType);
 
 	XilNvm_FormatData((u8 *)EfuseIv->Iv, (u8 *)ReadIv,
-			XNVM_EFUSE_IV_LEN_IN_BYES);
+			XNVM_EFUSE_IV_LEN_IN_BYTES);
 	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
 		xil_printf("%08x", ReadIv[Row]);
 	}
@@ -929,6 +930,7 @@ static int XilNvm_EfuseInitPpkHash(XNvm_EfuseDataAddr *WriteEfuse,
 			goto END;
 		}
 	}
+
 	if (PpkHash->PrgmPpk1Hash == TRUE) {
 		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK1_HASH,
 					XNVM_EFUSE_PPK_HASH_STRING_LEN);

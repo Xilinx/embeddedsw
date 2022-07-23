@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -46,6 +46,7 @@ extern "C" {
 /****************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xil_util.h"
+#include "xil_io.h"
 
 /*************************** Constant Definitions *****************************/
 /**@cond xnvm_internal
@@ -69,7 +70,12 @@ extern "C" {
 /*************************** Function Prototypes ******************************/
 int XNvm_ValidateAesKey(const char *Key);
 u32 XNvm_AesCrcCalc(const u32 *Key);
+int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask, u32 Crc);
 int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length);
+u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset);
+void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data);
+int XNvm_EfuseLockController(void);
+int XNvm_EfuseUnlockController(void);
 
 #ifdef __cplusplus
 }

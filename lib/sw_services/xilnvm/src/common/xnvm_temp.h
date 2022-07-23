@@ -1,104 +1,50 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
-******************************************************************************/
+*******************************************************************************/
 
-
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* @file xnvm_efuse_common.h
-* @addtogroup xnvm_efuse_apis XilNvm eFuse APIs
-* @{
+* @file xnvm_temp.h
 *
-* @cond xnvm_internal
-* This file contains function declarations of eFUSE APIs
+* TEMPORARY FILE....SHALL BE DELETED LATER
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date       Changes
-* ----- ---- ---------- --------------------------------------------------------
-* 1.0   kal  07/16/2022 Initial release
+* Ver   Who  Date     Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.0   har  07/21/22 Initial release
 *
 * </pre>
-*
 * @note
 *
 * @endcond
-*******************************************************************************/
-#ifndef XNVM_EFUSE_COMMON_H
-#define XNVM_EFUSE_COMMON_H
+******************************************************************************/
+
+#ifndef XNVM_TEMP_H
+#define XNVM_TEMP_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/****************************** Include Files *********************************/
-#include "xil_io.h"
-#include "xil_types.h"
-#include "xstatus.h"
-#include "xsysmonpsv.h"
-#include "xnvm_defs.h"
+/***************************** Include Files *********************************/
+
+
+/************************** Constant Definitions ****************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Variable Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
+
+/************************** Function Prototypes ******************************/
+
 
 /*************************** Constant Definitions *****************************/
-/**@cond xnvm_internal
- * @{
- */
-/* Enable printfs by setting XNVM_DEBUG to 1 */
-#define XNVM_DEBUG	(0U)
-
-#if (XNVM_DEBUG)
-#define XNVM_DEBUG_GENERAL (1U)
-#else
-#define XNVM_DEBUG_GENERAL (0U)
-#endif
-
-/* Versal eFuse maximum bits in a row */
-#define XNVM_EFUSE_MAX_BITS_IN_ROW	(32U)
-
-/*Macros for eFUSE CTRL WRITE LOCKED and UNLOCKED */
-#define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U)
-#define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U)
-
-/***************************** Type Definitions *******************************/
-/**
- * @name  Operation mode
- */
-typedef enum {
-	XNVM_EFUSE_MODE_RD, /**< eFuse read mode */
-	XNVM_EFUSE_MODE_PGM /**< eFuse program mode */
-} XNvm_EfuseOpMode;
-/** @} */
-
-/**
- * @name  Read mode
- */
-typedef enum {
-	XNVM_EFUSE_NORMAL_RD, /**< eFuse normal read */
-	XNVM_EFUSE_MARGIN_RD /**< eFuse margin read */
-} XNvm_EfuseRdMode;
-/** @} */
-
-typedef enum {
-	XNVM_EFUSE_PAGE_0 = 0,
-	XNVM_EFUSE_PAGE_1,
-	XNVM_EFUSE_PAGE_2
-} XNvm_EfuseType;
-
-/**
-* @}
-* @endcond
-*/
-
-/**
- * @addtogroup xilnvm_versal_error_codes XilNvm Error Codes
- * @{
- */
-
-/**
- The following table lists the Versal eFuse library error codes.
- */
 typedef enum {
 	XNVM_EFUSE_ERR_NONE = 0,/**< 0 - No error. */
 
@@ -504,26 +450,287 @@ typedef enum {
 
 } XNvm_EfuseErrorCodes;
 
-/**
-* @}
-*/
 
-/*************************** Function Prototypes ******************************/
-int XNvm_EfuseCacheReload(void);
-void XNvm_EfuseDisablePowerDown(void);
-int  XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode);
-void XNvm_EfuseSetRefClk(void);
-void XNvm_EfuseEnableProgramming(void);
-int XNvm_EfuseDisableProgramming(void);
-int XNvm_EfuseResetReadMode(void);
-void XNvm_EfuseInitTimers(void);
-int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op, XNvm_EfuseRdMode RdMode);
-int XNvm_EfuseCheckForTBits(void);
+/**< EFUSE row count numbers */
+#define XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS		(8U)
+#define XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS			(3U)
+/** @} */
+
+/**< EFUSE Row numbers */
+#define XNVM_EFUSE_META_HEADER_IV_START_ROW		(90U)
+#define XNVM_EFUSE_BLACK_IV_START_ROW			(4U)
+#define XNVM_EFUSE_PLM_IV_START_ROW			(4U)
+#define XNVM_EFUSE_DATA_PARTITION_IV_START_ROW		(4U)
+#define XNVM_EFUSE_PPK0_HASH_START_ROW			(160U)
+#define XNVM_EFUSE_PPK1_HASH_START_ROW			(96U)
+#define XNVM_EFUSE_PPK2_HASH_START_ROW			(128U)
+#define XNVM_EFUSE_AES_KEY_0_TO_127_START_ROW		(16U)
+#define XNVM_EFUSE_AES_KEY_128_TO_255_START_ROW		(16U)
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_START_ROW		(56U)
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_START_ROW	(66U)
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_START_ROW	(74U)
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_START_ROW		(48U)
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_START_ROW	(66U)
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_START_ROW	(74U)
+#define XNVM_EFUSE_AES_KEY_0_TO_255_END_ROW		(31U)
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_END_ROW		(63U)
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_END_ROW		(73U)
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_END_ROW		(81U)
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_END_ROW		(55U)
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_END_ROW		(73U)
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_END_ROW		(81U)
+
+#define XNVM_EFUSE_AES_KEY_0_TO_127_COL_START_NUM	(8U)
+#define XNVM_EFUSE_AES_KEY_0_TO_127_COL_END_NUM		(15U)
+#define XNVM_EFUSE_AES_KEY_128_TO_255_COL_START_NUM	(16U)
+#define XNVM_EFUSE_AES_KEY_128_TO_255_COL_END_NUM	(23U)
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_COL_START_NUM	(8U)
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_COL_END_NUM	(15U)
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_COL_START_NUM	(8U)
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_COL_END_NUM	(23U)
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_COL_START_NUM	(8U)
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_COL_END_NUM	(15U)
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_START_COL_NUM	(16U)
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_END_COL_NUM	(23U)
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_START_COL_NUM	(24U)
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_END_COL_NUM	(31U)
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_START_COL_NUM	(16U)
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_END_COL_NUM	(31U)
+
+#define XNVM_EFUSE_AES_KEY_0_TO_127_NUM_OF_ROWS		(16U)
+#define XNVM_EFUSE_AES_KEY_128_TO_255_NUM_OF_ROWS	(16U)
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_NUM_OF_ROWS	(8U)
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_NUM_OF_ROWS	(8U)
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_NUM_OF_ROWS	(8U)
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_NUM_OF_ROWS	(8U)
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_NUM_OF_ROWS	(8U)
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_NUM_OF_ROWS	(8U)
+
+#define XNVM_EFUSE_PPK0_HASH_START_COL_NUM		(16U)
+#define XNVM_EFUSE_PPK0_HASH_END_COL_NUM		(23U)
+#define XNVM_EFUSE_PPK1_HASH_START_COL_NUM		(24U)
+#define XNVM_EFUSE_PPK1_HASH_END_COL_NUM		(31U)
+#define XNVM_EFUSE_PPK2_HASH_START_COL_NUM              (24U)
+#define XNVM_EFUSE_PPK2_HASH_END_COL_NUM                (31U)
+
+#define XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS			(32U)
+
+#define XNVM_EFUSE_METAHEADER_IV_RANGE_START_COL_NUM	(0U)
+#define XNVM_EFUSE_METAHEADER_IV_RANGE_END_COL_NUM	(31U)
+#define XNVM_EFUSE_BLACK_IV_START_COL_NUM		(8U)
+#define XNVM_EFUSE_BLACK_IV_END_COL_NUM			(15U)
+#define XNVM_EFUSE_PLM_IV_RANGE_START_COL_NUM		(16U)
+#define XNVM_EFUSE_PLM_IV_RANGE_END_COL_NUM		(23U)
+#define XNVM_EFUSE_DATA_PARTITION_IV_START_COL_NUM	(24U)
+#define XNVM_EFUSE_DATA_PARTITION_IV_END_COL_NUM	(31U)
+
+#define XNVM_EFUSE_METAHEADER_IV_NUM_OF_ROWS		(3U)
+#define XNVM_EFUSE_BLACK_IV_NUM_OF_ROWS			(12U)
+#define XNVM_EFUSE_PLM_IV_NUM_OF_ROWS			(12U)
+#define XNVM_EFUSE_DATA_PARTITION_IV_NUM_OF_ROWS	(12U)
+
+#define XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET	(0x00000180U)
+#define XNVM_EFUSE_CACHE_BLACK_IV_OFFSET		(0x000001D0U)
+#define XNVM_EFUSE_CACHE_PLM_IV_RANGE_OFFSET		(0x000001DCU)
+#define XNVM_EFUSE_CACHE_DATA_PARTITION_IV_OFFSET	(0x000001E8U)
+#define XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET		(0x000000ACU)
+#define XNVM_EFUSE_CACHE_PPK0_HASH_OFFSET		(0x00000100U)
+#define XNVM_EFUSE_CACHE_PPK1_HASH_OFFSET		(0x00000120U)
+#define XNVM_EFUSE_CACHE_PPK2_HASH_OFFSET		(0x00000140U)
+
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK	(0xc0000000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK	(0x10000000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_LOCK_DBG_DIS_MASK	(0x00600000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_DEBUG_DIS_MASK	(0x00180000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_MASK		(0x00040000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_TEST2_DIS_MASK	(0x00020000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK	(0x00010000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_MASK	(0x00008000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_CRC_LK_MASK	(0x00004000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_MASK	(0x00002000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_CRC_LK_MASK	(0x00001000U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_MASK	(0x00000800U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_CRC_LK_1_0_MASK	(0x00000600U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK2_WR_LK_MASK	(0x00000100U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK1_WR_LK_MASK	(0x00000080U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_MASK	(0x00000040U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK		(0x00000004U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK	(0x00000002U)
+#define XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK		(0x00000001U)
+
+/**
+ * @name CRP base address definition
+ */
+/**< CRP Base Address */
+#define XNVM_CRP_BASE_ADDR				(0xF1260000U)
+/** @} */
+
+/**
+ * @name CRP eFUSE Clock Control Register
+ */
+/**< CRP REF_CLK offset and definition */
+#define XNVM_CRP_EFUSE_REF_CLK_REG_OFFSET		(0x00000134U)
+#define XNVM_CRP_EFUSE_REF_CLK_SELSRC_SHIFT		(2U)
+#define XNVM_CRP_EFUSE_REF_CLK_IN			((u32)0x01U << \
+					XNVM_CRP_EFUSE_REF_CLK_SELSRC_SHIFT)
+#define XNVM_CRP_EFUSE_REF_CLK_SELSRC		(XNVM_CRP_EFUSE_REF_CLK_IN)
+/** @} */
+
+/**
+ * @name eFUSE Controller base address
+ */
+/**< eFUSE Control Base Address */
+#define XNVM_EFUSE_CTRL_BASEADDR			(0xF1240000U)
+/** @} */
+
+/**
+ * @name eFUSE Controller Register Offsets
+ */
+/**< eFUSE CTRL Register Offsets */
+#define XNVM_EFUSE_WR_LOCK_REG_OFFSET			(0x00000000U)
+#define XNVM_EFUSE_CFG_REG_OFFSET			(0x00000004U)
+#define XNVM_EFUSE_STATUS_REG_OFFSET			(0x00000008U)
+#define XNVM_EFUSE_PGM_ADDR_REG_OFFSET			(0x0000000CU)
+#define XNVM_EFUSE_RD_ADDR_REG_OFFSET			(0x00000010U)
+#define XNVM_EFUSE_RD_DATA_REG_OFFSET			(0x00000014U)
+#define XNVM_EFUSE_TPGM_REG_OFFSET			(0x00000018U)
+#define XNVM_EFUSE_TRD_REG_OFFSET			(0x0000001CU)
+#define XNVM_EFUSE_TSU_H_PS_REG_OFFSET			(0x00000020U)
+#define XNVM_EFUSE_TSU_H_PS_CS_REG_OFFSET		(0x00000024U)
+#define XNVM_EFUSE_TRDM_REG_OFFSET			(0x00000028U)
+#define XNVM_EFUSE_TSU_H_CS_REG_OFFSET			(0x0000002CU)
+#define XNVM_EFUSE_ISR_REG_OFFSET			(0x00000030U)
+#define XNVM_EFUSE_CACHE_LOAD_REG_OFFSET		(0x00000040U)
+#define XNVM_EFUSE_AES_CRC_REG_OFFSET			(0x00000048U)
+#define XNVM_EFUSE_AES_USR_KEY0_CRC_REG_OFFSET		(0x0000004CU)
+#define XNVM_EFUSE_AES_USR_KEY1_CRC_REG_OFFSET		(0x00000050U)
+#define XNVM_EFUSE_PD_REG_OFFSET			(0x00000054U)
+#define XNVM_EFUSE_TEST_CTRL_REG_OFFSET			(0x00000100U)
+/** @} */
+
+/**
+ * @name Register: EFUSE_CTRL_CFG
+ */
+/**< eFUSE CTRL STATUS Register Masks */
+#define XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK    		(0x00000004U)
+
+/* access_type: ro  */
+#define XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_PASS_MASK	(0x00000800U)
+#define XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_1_CRC_DONE_MASK	(0x00000400U)
+#define XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_PASS_MASK	(0x00000200U)
+#define XNVM_EFUSE_CTRL_STATUS_AES_USER_KEY_0_CRC_DONE_MASK	(0x00000100U)
+#define XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK		(0x00000080U)
+#define XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK		(0x00000040U)
+/** @} */
+
+/**
+ * @name  EFUSE_CACHE Base Address
+ */
+/**< eFUSE Cache Base Address */
+#define XNVM_EFUSE_CACHE_BASEADDR				(0xF1250000U)
+/** @} */
+
+/**
+ * @name  Register: EFUSE_CACHE_SECURITY_MISC_0
+ */
+/**< eFUSE Cache DEC_EFUSE_ONLY Mask */
+#define XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK			(0x0000ffffU)
+/**
+ * @name  WR_UNLOCK Code
+ */
+/**< eFUSE Write Unlock Passcode */
+#define XNVM_EFUSE_WR_UNLOCK_PASSCODE			(0xDF0DU)
+/** @} */
+
+/**
+ * @name eFUSE Controller CFG register
+ */
+/**< eFUSE CFG Modes */
+#define XNVM_EFUSE_CFG_ENABLE_PGM			(0x01U << 1U)
+#define XNVM_EFUSE_CFG_MARGIN_RD			(0x01U << 2U)
+#define XNVM_EFUSE_CFG_NORMAL_RD			(0x00U << 2U)
+/** @} */
+
+/**
+ * @name eFUSE STATUS register
+ */
+/**< eFUSE Status Register Masks */
+#define XNVM_EFUSE_STATUS_TBIT_0			(0x01U << 0U)
+#define XNVM_EFUSE_STATUS_TBIT_1			(0x01U << 1U)
+#define XNVM_EFUSE_STATUS_TBIT_2			(0x01U << 2U)
+#define XNVM_EFUSE_STATUS_CACHE_DONE			(0x01U << 5U)
+/** @} */
+
+/**
+ * @name eFUSE Controller PGM_ADDR register
+ */
+/**< eFUSE Addres Shifts */
+#define XNVM_EFUSE_ADDR_COLUMN_SHIFT			(0U)
+#define XNVM_EFUSE_ADDR_ROW_SHIFT			(5U)
+#define XNVM_EFUSE_ADDR_PAGE_SHIFT			(13U)
+/** @} */
+
+/**< eFUse Cache load mask */
+#define XNVM_EFUSE_CACHE_LOAD_MASK			(0x01U)
+
+
+#define XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK		(0x1FFFU)
+/**< eFuse Protection Row Mask */
+
+/**
+ * @name eFUSE ISR Register
+ */
+/**< eFuse ISR registers masks */
+#define XNVM_EFUSE_ISR_PGM_DONE				(0x01U << 0U)
+#define XNVM_EFUSE_ISR_PGM_ERROR			(0x01U << 1U)
+#define XNVM_EFUSE_ISR_RD_DONE				(0x01U << 2U)
+#define XNVM_EFUSE_ISR_CACHE_ERROR			(0x01U << 4U)
+/** @} */
+
+/**< eFUSE Controller PD register definition */
+#define XNVM_EFUSE_PD_ENABLE				(0x01U << 0U)
+
+
+#define XNVM_PS_REF_CLK_FREQ			(XPAR_PSU_PSS_REF_CLK_FREQ_HZ)
+					/**< PS Ref clock definition in Hz */
+
+#define XNVM_NUM_OF_ROWS_PER_PAGE			(256U)
+					/**< Number of Rows per Page */
+
+/**
+ * @name Timeout values
+ */
+/**< Timeout in term of number of times status register polled to check eFUSE
+ * read operation complete
+ */
+#define XNVM_EFUSE_RD_TIMEOUT_VAL			(100U)
+
+/**< Timeout in term of number of times status register polled to check eFUSE
+ * programming operation complete
+ */
+#define XNVM_EFUSE_PGM_TIMEOUT_VAL			(100U)
+
+/**< Timeout in term of number of times status register polled to check eFuse
+ * Cache load is done
+ */
+#define XNVM_EFUSE_CACHE_LOAD_TIMEOUT_VAL		(0x800U)
+
+/**< Timeout in term of number of times status register polled to check eFuse
+ * Crc check id done.
+ */
+#define XNVM_POLL_TIMEOUT				(0x400U)
+/** @} */
+
+#define XNVM_WORD_LEN					(4U)
+
+#define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U)
+#define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U)
+
+
+
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif	/* XNVM_EFUSE_COMMON_H */
-
-/* @} */
+#endif	/* XNVM_TEMP_H */
