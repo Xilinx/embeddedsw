@@ -553,6 +553,9 @@ typedef enum {
 	XLOADER_ERR_WAKEUP_A78_3,	/**< 0x3A5 - Error waking up the A78-3 during handoff. */
 	XLOADER_ERR_INVALID_R52_CLUSTER, /**< 0x3A6 - Error when invalid R52 cluster is
 					   selected */
+	XLOADER_ERR_HDR_MEASUREMENT,	/**< 0x3A7 - Error in meta header measurement */
+	XLOADER_ERR_DATA_MEASUREMENT,   /**< 0x3A8 - Error in data measurement */
+	XLOADER_ERR_SHA1_INIT,		/**< 0x3A9 - Error when SHA1 initialization fails */
 
 
 	/**< Security Major error codes */

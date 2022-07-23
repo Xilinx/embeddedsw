@@ -88,6 +88,7 @@
 * 1.09  skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
 *       skg  06/20/2022 Fixed MISRA C Rule 4.1 violation
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       dc   07/19/2022 Added support for data measurement in VersalNet
 *
 * </pre>
 *
@@ -312,6 +313,8 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	volatile int StatusTmp = XST_FAILURE;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 	XLoader_SecureParams *SecureParams = (XLoader_SecureParams *)SecureParamsPtr;
+	u32 PrtnNum = PdiPtr->PrtnNum;
+	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
 			(SecureTempParams->SecureEn == (u8)FALSE) &&
@@ -329,6 +332,12 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	}
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed\n\r");
+	}
+	else {
+		/* Update the data for measurement, only VersalNet */
+		Status = XLoader_DataMeasurement(DeviceCopy->DestAddr,
+			PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT,
+			0U, XLOADER_MEASURE_UPDATE);
 	}
 
 	return Status;
@@ -417,6 +426,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			/* Update variables for next chunk */
 			Cdo.BufPtr = (u32 *)ChunkAddr;
 			Cdo.BufLen = ChunkLen >> XPLMI_WORD_LEN_SHIFT;
+			ChunkLenTemp = ChunkLen;
 			DeviceCopy->SrcAddr += ChunkLen;
 			DeviceCopy->Len -= ChunkLen;
 			Cdo.Cmd.KeyHoleParams.SrcAddr = DeviceCopy->SrcAddr;
@@ -463,6 +473,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			SecureParams->ChunkAddr = SecureParams->NextChunkAddr;
 			Cdo.BufPtr = (u32 *)SecureParams->SecureData;
 			Cdo.BufLen = SecureParams->SecureDataLen >> XPLMI_WORD_LEN_SHIFT;
+			ChunkLenTemp = SecureParams->SecureDataLen;
 			DeviceCopy->SrcAddr += SecureParams->ProcessedLen;
 			DeviceCopy->Len -= SecureParams->ProcessedLen;
 		}
@@ -512,6 +523,14 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 				DeviceCopy->SrcAddr += Cdo.Cmd.KeyHoleParams.ExtraWords;
 				Cdo.Cmd.KeyHoleParams.ExtraWords = 0x0U;
 				Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted = (u8)FALSE;
+			}
+		}
+		else {
+			/* Update the data for measurement, only VersalNet */
+			Status = XLoader_DataMeasurement((u64)(UINTPTR)Cdo.BufPtr, ChunkLenTemp,
+					0U, XLOADER_MEASURE_UPDATE);
+			if (Status != XST_SUCCESS) {
+				goto END;
 			}
 		}
 	}
