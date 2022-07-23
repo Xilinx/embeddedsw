@@ -1,0 +1,68 @@
+/******************************************************************************
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+*******************************************************************************/
+
+/*****************************************************************************/
+/**
+*
+* @file xnvm_efuseclient.h
+* @addtogroup xnvm_efuse_client_apis XilNvm eFUSE Versal Client APIs
+* @{
+* @cond xnvm_internal
+* This file Contains the client function prototypes, defines and macros for
+* the programming and reading eFUSEs.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.0   har  07/06/22 Initial release
+*
+* </pre>
+*
+* @note
+*
+******************************************************************************/
+
+#ifndef XNVM_EFUSECLIENT_H
+#define XNVM_EFUSECLIENT_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/***************************** Include Files *********************************/
+#include "xil_types.h"
+#include "xnvm_mailbox.h"
+#include "xnvm_defs.h"
+
+/************************** Constant Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Function Prototypes ******************************/
+int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr);
+int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const XNvm_IvType IvType);
+int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 RevokeIdAddr, const XNvm_RevocationId RevokeIdNum);
+int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr);
+int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscCtrlBits);
+int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtrlBits);
+int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits);
+int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits);
+int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits);
+int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 OffChipIdAddr, const XNvm_OffchipId OffChipIdNum);
+int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType);
+int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr);
+int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr);
+
+/************************** Variable Definitions *****************************/
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif  /* XNVM_EFUSECLIENT_H */

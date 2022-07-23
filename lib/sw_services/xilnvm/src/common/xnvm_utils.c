@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -42,6 +42,7 @@
 #include "xnvm_utils.h"
 #include "xstatus.h"
 #include "xil_util.h"
+#include "xnvm_temp.h"
 
 /*************************** Constant Definitions *****************************/
 
@@ -52,8 +53,97 @@
 /***************************** Type Definitions *******************************/
 
 /****************** Macros (Inline Functions) Definitions *********************/
+/******************************************************************************/
+/**
+ * @brief	This function reads the given register.
+ *
+ * @param	BaseAddress is the eFuse controller base address.
+ * @param	RegOffset is the register offset from the base address.
+ *
+ * @return	The 32-bit value of the register.
+ *
+ ******************************************************************************/
+u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset)
+{
+	return Xil_In32((UINTPTR)(BaseAddress + RegOffset));
+}
 
-/*************************** Function Prototypes ******************************/
+/******************************************************************************/
+/**
+ * @brief	This function writes the value into the given register.
+ *
+ * @param	BaseAddress is the eFuse controller base address.
+ * @param	RegOffset is the register offset from the base address.
+ * @param	Data is the 32-bit value to be written to the register.
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+{
+	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), Data);
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function locks the eFUSE Controller to prevent accidental
+ * 		writes to eFUSE controller registers.
+ *
+ * @return	- XST_SUCCESS - eFUSE controller locked.
+ *		- XNVM_EFUSE_ERR_LOCK - Failed to lock eFUSE controller
+ *					                register access.
+ *
+ ******************************************************************************/
+int XNvm_EfuseLockController(void)
+{
+	int Status = XST_FAILURE;
+	volatile u32 LockStatus = ~XNVM_EFUSE_CTRL_WR_LOCKED;
+
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+			XNVM_EFUSE_WR_LOCK_REG_OFFSET,
+			~XNVM_EFUSE_WR_UNLOCK_PASSCODE);
+	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
+	if(XNVM_EFUSE_CTRL_WR_LOCKED == LockStatus) {
+		Status = XST_SUCCESS;
+	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_LOCK;
+	}
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function unlocks the eFUSE Controller for writing
+ *		to its registers.
+ *
+ * @return	XST_SUCCESS - eFUSE controller locked.
+ *		XNVM_EFUSE_ERR_UNLOCK - Failed to unlock eFUSE controller
+ *							register access.
+ *
+ ******************************************************************************/
+int XNvm_EfuseUnlockController(void)
+{
+	int Status = XST_FAILURE;
+	volatile u32 LockStatus = ~XNVM_EFUSE_CTRL_WR_UNLOCKED;
+
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
+				XNVM_EFUSE_WR_LOCK_REG_OFFSET,
+				XNVM_EFUSE_WR_UNLOCK_PASSCODE);
+	LockStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
+	if(XNVM_EFUSE_CTRL_WR_UNLOCKED == LockStatus) {
+		Status = XST_SUCCESS;
+	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_UNLOCK;
+	}
+
+	return Status;
+}
+
 
 /*************************** Variable Definitions *****************************/
 
@@ -176,5 +266,70 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	}
 
 END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function performs the CRC check of AES key/User0 key/User1 key
+ *
+ * @param	CrcRegOffSet - Register offset of respective CRC register
+ * @param	CrcDoneMask - Respective CRC done mask in status register
+ * @param	CrcPassMask - Respective CRC pass mask in status register
+ * @param	Crc - A 32 bit CRC value of an expected AES key.
+ *
+ * @return	- XST_SUCCESS - On successful CRC check.
+ *		- XNVM_EFUSE_ERR_CRC_VERIFICATION - If AES boot key integrity
+ *							check is failed.
+ *		- XST_FAILURE - If AES boot key integrity check
+ *							has not finished.
+ *
+ * @note	For Calculating the CRC of the AES key use the
+ *		XNvm_AesCrcCalc() function.
+ *
+ ******************************************************************************/
+int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask, u32 Crc)
+{
+	int Status = XST_FAILURE;
+	int LockStatus = XST_FAILURE;
+	u32 ReadReg = 0U;
+	u8 IsUnlocked = FALSE;
+
+	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
+	if(XNVM_EFUSE_CTRL_WR_LOCKED == ReadReg) {
+		Status = XNvm_EfuseUnlockController();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		IsUnlocked = TRUE;
+	}
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR, CrcRegOffSet, Crc);
+
+	Status = (int)Xil_WaitForEvent((XNVM_EFUSE_CTRL_BASEADDR + XNVM_EFUSE_STATUS_REG_OFFSET),
+				CrcDoneMask, CrcDoneMask, XNVM_POLL_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+				XNVM_EFUSE_STATUS_REG_OFFSET);
+
+	if ((ReadReg & CrcDoneMask) != CrcDoneMask) {
+		Status = XST_FAILURE;
+	}
+	else if ((ReadReg & CrcPassMask) != CrcPassMask) {
+		Status = (int)XNVM_EFUSE_ERR_CRC_VERIFICATION;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+END:
+	if (IsUnlocked == TRUE) {
+		LockStatus = XNvm_EfuseLockController();
+		if (XST_SUCCESS == Status) {
+			Status = LockStatus;
+		}
+	}
 	return Status;
 }

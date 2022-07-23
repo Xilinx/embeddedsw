@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -719,6 +719,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -886,7 +887,12 @@ extern "C" {
 #define XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE	0
 #define XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES	0
 
+#if (defined(versal) && !defined(VERSAL_NET))
 #define XNVM_EFUSE_PRGM_USER_FUSE_NUM		1U
+#else
+#define XNVM_EFUSE_PRGM_USER_FUSE_NUM		0U
+#endif
+
 #define XNVM_EFUSE_NUM_OF_USER_FUSES		1U
 #define XNVM_EFUSE_USER_FUSES			"00000000"
 
@@ -910,7 +916,6 @@ extern "C" {
 #define XNVM_EFUSE_CHECK_USER_KEY_0_CRC		FALSE
 #define XNVM_EFUSE_CHECK_USER_KEY_1_CRC		FALSE
 
-#define XNVM_EFUSE_CRC_AES_ZEROS                0x6858A3D5U
 
 #define XNVM_EFUSE_EXPECTED_AES_KEY_CRC		XNVM_EFUSE_CRC_AES_ZEROS
 #define XNVM_EFUSE_EXPECTED_USER_KEY0_CRC	XNVM_EFUSE_CRC_AES_ZEROS

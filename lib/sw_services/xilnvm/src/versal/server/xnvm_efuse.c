@@ -136,37 +136,6 @@
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
-/******************************************************************************/
-/**
- * @brief	This function reads the given register.
- *
- * @param	BaseAddress is the Xilinx base address of the eFuse controller.
- * @param	RegOffset is the register offset of the register.
- *
- * @return	The 32-bit value of the register.
- *
- ******************************************************************************/
-static INLINE u32 XNvm_EfuseReadReg(u32 BaseAddress, u32 RegOffset)
-{
-	return Xil_In32((UINTPTR)(BaseAddress + RegOffset));
-}
-
-/******************************************************************************/
-/**
- * @brief	This function writes the value into the given register.
- *
- * @param	BaseAddress is the Xilinx base address of the eFuse controller.
- * @param	RegOffset is the register offset of the register.
- * @param	Data is the 32-bit value to write to the register.
- *
- * @return	None
- *
- ******************************************************************************/
-static INLINE void XNvm_EfuseWriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
-{
-	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), Data);
-}
-
 /*************************** Function Prototypes ******************************/
 static int XNvm_EfuseReadCache(u32 Row, u32* RowData);
 static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData);

@@ -59,6 +59,7 @@
 #include "xilnvm_efuse_versal_input.h"
 #include "xnvm_utils.h"
 #include "xil_util.h"
+#include "xnvm_common_defs.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_AES_KEY_STRING_LEN			(64U)
@@ -359,7 +360,7 @@ static int XilNvm_EfuseReadFuses(void)
 	}
 	xil_printf("\n\rMetaheader IV:");
 
-	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
+	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYTES);
 	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
 		xil_printf("%08x", ReadIv[Row]);
 	}
@@ -371,7 +372,7 @@ static int XilNvm_EfuseReadFuses(void)
 	}
 	xil_printf("\n\rBlack Obfuscated IV:");
 
-	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYES);
+	XilNvm_FormatData((u8 *)EfuseIv.Iv, (u8 *)ReadIv, XNVM_EFUSE_IV_LEN_IN_BYTES);
 	for (Row = (XNVM_EFUSE_IV_LEN_IN_WORDS - 1U); Row >= 0; Row--) {
 		xil_printf("%08x", ReadIv[Row]);
 	}
