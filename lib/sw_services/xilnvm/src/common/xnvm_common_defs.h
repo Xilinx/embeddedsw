@@ -56,7 +56,10 @@ extern "C" {
 #define XNVM_IV_STRING_LEN				(24U)
 #define XNVM_WORD_LEN					(4U)
 #define XNVM_EFUSE_CRC_AES_ZEROS			(0x6858A3D5U)
-
+#define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)
+#define XNVM_MAX_REVOKE_ID_FUSES		(XNVM_NUM_OF_REVOKE_ID_FUSES	\
+						* XNVM_EFUSE_MAX_BITS_IN_ROW)
+						*
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
