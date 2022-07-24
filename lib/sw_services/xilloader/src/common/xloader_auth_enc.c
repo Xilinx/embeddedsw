@@ -198,7 +198,6 @@ static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePt
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr);
 static void XLoader_EnableJtag(void);
 static int XLoader_AuthJtag(u32 *TimeOut);
-static int XLoader_CheckAuthJtagIntStatus(void *Arg);
 static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
 static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
@@ -2864,7 +2863,7 @@ int XLoader_AddAuthJtagToScheduler(void)
 * @note    	If Auth JTAG interrupt status is set, then XLoader_AuthJtag
 *		API will be called.
 *****************************************************************************/
-static int XLoader_CheckAuthJtagIntStatus(void *Arg)
+int XLoader_CheckAuthJtagIntStatus(void *Arg)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
