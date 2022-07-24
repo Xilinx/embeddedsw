@@ -59,7 +59,7 @@ extern "C" {
 #define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)
 #define XNVM_MAX_REVOKE_ID_FUSES		(XNVM_NUM_OF_REVOKE_ID_FUSES	\
 						* XNVM_EFUSE_MAX_BITS_IN_ROW)
-						*
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
@@ -242,25 +242,6 @@ typedef struct {
 	u32 NumOfUserFuses;
 	u64 UserFuseDataAddr;
 } XNvm_EfuseUserDataAddr;
-
-#ifdef XNVM_ACCESS_PUF_USER_DATA
-typedef struct {
-	u64 PufFuseDataAddr;
-	u32 StartPufFuseRow;
-	u32 NumOfPufFusesRows;
-	u8 EnvMonitorDis;
-	u8 PrgmPufFuse;
-} XNvm_EfusePufFuseAddr;
-#else
-typedef struct {
-	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
-	u8 PrgmPufHelperData;
-	u8 EnvMonitorDis;
-	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
-	u32 Chash;
-	u32 Aux;
-}XNvm_EfusePufHdAddr;
-#endif
 
 typedef struct {
 	u64 EnvMonDisFlag;

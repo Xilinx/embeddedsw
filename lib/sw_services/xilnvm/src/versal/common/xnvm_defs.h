@@ -82,6 +82,25 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+#ifdef XNVM_ACCESS_PUF_USER_DATA
+typedef struct {
+	u64 PufFuseDataAddr;
+	u32 StartPufFuseRow;
+	u32 NumOfPufFusesRows;
+	u8 EnvMonitorDis;
+	u8 PrgmPufFuse;
+} XNvm_EfusePufFuseAddr;
+#else
+typedef struct {
+	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
+	u8 PrgmPufHelperData;
+	u8 EnvMonitorDis;
+	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
+	u32 Chash;
+	u32 Aux;
+}XNvm_EfusePufHdAddr;
+#endif
+
 /* XilNVM API ids */
 typedef enum {
 	XNVM_API_FEATURES = 0,

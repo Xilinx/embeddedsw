@@ -46,7 +46,9 @@ extern "C" {
 int XNvm_EfuseValidateAesKeyWriteReq(XNvm_AesKeyType KeyType);
 int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType);
 int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv);
-
+int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count);
+int XNvm_EfuseValidateDecOnlyRequest(void);
+int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion);
 
 /**
  * @}

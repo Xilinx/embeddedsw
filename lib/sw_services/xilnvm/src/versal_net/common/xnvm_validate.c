@@ -36,7 +36,6 @@
 
 /************************** Function Prototypes ******************************/
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvAddress);
-static int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count);
 
 /************************** Constant Definitions *****************************/
 
@@ -246,6 +245,7 @@ int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 			Status = (int)XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD;
 			goto END;
 		}
+		IvOffset = XNVM_EFUSE_CACHE_BLACK_IV_OFFSET;
 	}
 	else if (IvType == XNVM_EFUSE_META_HEADER_IV_RANGE) {
 		IvOffset = XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET;
@@ -305,6 +305,8 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset)
 		Offset = Offset + XNVM_WORD_LEN;
 	}
 
+	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
@@ -320,7 +322,7 @@ END:
  * 		- XST_FAILURE - if efuses are already programmed.
  *
  ******************************************************************************/
-static int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count)
+int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count)
 {
 	volatile int Status = XST_FAILURE;
 	int IsrStatus = XST_FAILURE;
@@ -339,9 +341,109 @@ static int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count)
 		CacheData  = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Offset);
 		if (CacheData != 0x00U) {
 			Status = XST_FAILURE;
-			break;
+			goto END;
 		}
 		Offset = Offset + XNVM_WORD_LEN;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function validates DEC_ONLY eFuse programming request.
+ *
+ * @return	- XST_SUCCESS - if validation is successful.
+ *  		- XNVM_EFUSE_ERR_INVALID_PARAM 	- On Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD- Aes key should be
+ *							 programmed for DEC_ONLY
+ *							 eFuse programming.
+ *		- XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD - Blk IV should be
+ *  				 			 programmed for DEC_ONLY
+ *				   			 eFuse programming.
+ *
+ ******************************************************************************/
+int XNvm_EfuseValidateDecOnlyRequest(void)
+{
+	int Status = XST_FAILURE;
+	u32 SecurityMisc0 = 0U;
+
+	SecurityMisc0 = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+				XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET);
+	if ((SecurityMisc0 & XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK) == 0x00U) {
+		Status = XNvm_EfuseCheckAesKeyCrc(XNVM_EFUSE_AES_CRC_REG_OFFSET,
+				XNVM_EFUSE_CTRL_STATUS_AES_CRC_DONE_MASK,
+				XNVM_EFUSE_CTRL_STATUS_AES_CRC_PASS_MASK,
+				XNVM_EFUSE_CRC_AES_ZEROS);
+		if (Status == XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
+			goto END;
+		}
+		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_CACHE_BLACK_IV_OFFSET,
+				XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS);
+		if (Status == XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_IV_MUST_BE_PRGMD;
+			goto END;
+		}
+	}
+	else {
+		Status = (int)XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+END:
+
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function is used to validate FIPS mode and FIPS version
+ * 		inputs before programming
+ *
+ * @param	FipsMode - Fips mode to be written to eFuses.
+ * @param	FipsVersion - Fips version to be written to eFuses.
+ *
+ * @return	- XST_SUCCESS - On successful write.
+ *
+ ******************************************************************************/
+int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion)
+{
+	int Status = XST_FAILURE;
+	u32 RdFipsMode = 0U;
+	u32 RdFipsVersion = 0U;
+	u8 RdFipsVer_0 = 0U;
+	u8 RdFipsVer_2_1 = 0U;
+
+	RdFipsVersion = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_IP_DISABLE_OFFSET) &
+			(XNVM_EFUSE_FIPS_VERSION_0_MASK | XNVM_EFUSE_FIPS_VERSION_2_1_MASK);
+
+	RdFipsVer_0 = (RdFipsVersion & XNVM_EFUSE_FIPS_VERSION_0_MASK) >>
+			XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_SHIFT;
+	RdFipsVer_2_1 = ((RdFipsVersion & XNVM_EFUSE_FIPS_VERSION_2_1_MASK) >>
+			XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_SHIFT);
+	RdFipsVersion = (RdFipsVer_2_1 | RdFipsVer_0);
+
+	if ((RdFipsVersion & FipsVersion) != RdFipsVersion) {
+		Status = (XNVM_EFUSE_ERR_BEFORE_PROGRAMMING |
+					XNVM_EFUSE_ERR_BIT_CANT_REVERT);
+		goto END;
+	}
+
+	RdFipsMode = (XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
+			XNVM_EFUSE_CACHE_DME_FIPS_OFFSET) &
+			XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK) >>
+			XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_SHIFT;
+
+	if ((RdFipsMode & FipsMode) != RdFipsMode) {
+		Status = (XNVM_EFUSE_ERR_BEFORE_PROGRAMMING |
+					XNVM_EFUSE_ERR_BIT_CANT_REVERT);
+		goto END;
 	}
 
 	Status = XST_SUCCESS;
