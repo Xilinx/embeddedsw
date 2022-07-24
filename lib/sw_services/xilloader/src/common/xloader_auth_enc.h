@@ -535,6 +535,7 @@ void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
 void XLoader_SetKatStatus(u32 PlmKatStatus);
 void XLoader_ClearKatStatus(u32 *PlmKatStatus, u32 PlmKatMask);
 void XLoader_UpdatePpdiKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
+int XLoader_CheckAuthJtagIntStatus(void *Arg);
 
 #endif
 

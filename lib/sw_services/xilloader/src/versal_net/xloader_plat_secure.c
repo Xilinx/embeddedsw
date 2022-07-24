@@ -48,7 +48,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static int XLoader_CheckDeviceStateChange(void *Arg);
+
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -253,7 +253,7 @@ int XLoader_AddDeviceStateChangeToScheduler(void)
 * @return       XST_SUCCESS is returned.
 *
 ******************************************************************************/
-static int XLoader_CheckDeviceStateChange(void *Arg)
+int XLoader_CheckDeviceStateChange(void *Arg)
 {
 	volatile u32 JtagStatus = XPlmi_In32(XLOADER_PMC_TAP_JTAG_STATUS_0) &
 					XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK;

@@ -141,6 +141,7 @@ void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
 u8 XLoader_IsFipsModeEn(void);
 int XLoader_AddDeviceStateChangeToScheduler(void);
+int XLoader_CheckDeviceStateChange(void *Arg);
 /************************** Variable Definitions *****************************/
 
 #endif /* END OF PLM_SECURE_EXCLUDE */

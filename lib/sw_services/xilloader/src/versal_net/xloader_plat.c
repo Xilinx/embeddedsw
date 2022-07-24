@@ -41,6 +41,7 @@
 #ifdef PLM_OCP
 #include "xsecure_sha.h"
 #endif
+#include "xplmi_scheduler.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U)
@@ -787,13 +788,35 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 {
 	int Status = XST_FAILURE;
 	static u8 LoaderHandlerState = XPLMI_MODULE_NORMAL_STATE;
+#ifndef PLM_SECURE_EXCLUDE
+	static u8 AuthJtagTaskRemoved = (u8)FALSE;
+	static u8 DeviceStateTaskRemoved = (u8)FALSE;
+#endif
 
 	if (Op.Mode == XPLMI_MODULE_SHUTDOWN_INITIATE) {
 		if (LoaderHandlerState == XPLMI_MODULE_NORMAL_STATE) {
 			LoaderHandlerState = XPLMI_MODULE_SHUTDOWN_INITIATED_STATE;
-			/* Disable SBI interrupt */
-			XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
+
+			/* Remove Scheduler tasks if they are existing */
+#ifndef PLM_SECURE_EXCLUDE
+			Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_LOADER_ID,
+				XLoader_CheckAuthJtagIntStatus,
+				XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL, NULL);
+			if (Status == XST_SUCCESS) {
+				AuthJtagTaskRemoved = (u8)TRUE;
+			}
+			Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_LOADER_ID,
+					XLoader_CheckDeviceStateChange,
+					XLOADER_DEVICE_STATE_POLL_INTERVAL, NULL);
+			if (Status == XST_SUCCESS) {
+				DeviceStateTaskRemoved = (u8)TRUE;
+			}
+#endif
+			/* Ignore if the tasks to be removed are not present */
 			Status = XST_SUCCESS;
+
+			/* Disable SBI Interrupt */
+			XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 		}
 	}
 	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_COMPLETE) {
@@ -805,11 +828,38 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 			goto END;
 		}
 
+		LoaderHandlerState = XPLMI_MODULE_SHUTDOWN_COMPLETED_STATE;
 		Status = XST_SUCCESS;
 	}
 	else if (Op.Mode == XPLMI_MODULE_SHUTDOWN_ABORT) {
 		if (LoaderHandlerState == XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
 			LoaderHandlerState = XPLMI_MODULE_NORMAL_STATE;
+
+			/* Add Scheduler tasks if they are removed during shutdown init */
+#ifndef PLM_SECURE_EXCLUDE
+			if (AuthJtagTaskRemoved == (u8)TRUE) {
+				Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
+					XLoader_CheckAuthJtagIntStatus, NULL,
+					XLOADER_AUTH_JTAG_INT_STATUS_POLL_INTERVAL,
+					XPLM_TASK_PRIORITY_1, NULL, XPLMI_PERIODIC_TASK);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
+				AuthJtagTaskRemoved = (u8)FALSE;
+			}
+			if (DeviceStateTaskRemoved == (u8)TRUE) {
+				Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
+					XLoader_CheckDeviceStateChange, NULL,
+					XLOADER_DEVICE_STATE_POLL_INTERVAL,
+					XPLM_TASK_PRIORITY_0, NULL, XPLMI_PERIODIC_TASK);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
+				DeviceStateTaskRemoved = (u8)FALSE;
+			}
+#endif
+
+			/* Enable SBI Interrupt */
 			XPlmi_GicIntrEnable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 			Status = XST_SUCCESS;
 		}
