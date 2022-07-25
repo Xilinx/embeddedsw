@@ -38,6 +38,7 @@
 * 1.07  ma   05/10/2022 Enable SSIT interrupts for Slave SLRs
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/18/2022 Shutdown modules gracefully during update
+*       bm   07/24/2022 Set PlmLiveStatus during boot time
 *
 * </pre>
 *
@@ -54,6 +55,7 @@
 #include "xplmi_err.h"
 #include "xloader_plat.h"
 #include "xplmi_plat.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -179,6 +181,7 @@ END:
 		XPlmi_ErrMgr(Status);
 		PdiPtr->ValidHeader = (u8)FALSE;
 		DebugLog->LogLevel |= (DebugLog->LogLevel >> XPLMI_LOG_LEVEL_SHIFT);
+		XPlmi_SetPlmLiveStatus();
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}
 	XLoader_ClearIntrSbiDataRdy();

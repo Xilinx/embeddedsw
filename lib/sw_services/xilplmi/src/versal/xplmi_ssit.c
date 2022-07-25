@@ -28,6 +28,7 @@
 *       bsv  06/03/2022 Add CommandInfo to a separate section in elf
 *       hb   06/15/2022 Removed static declaration of XPlmi_SsitGetSlrAddr
 *       is   07/10/2022 Added support for XPlmi_SsitSendMsgEventAndGetResp API
+*       bm   07/24/2022 Set PlmLiveStatus during boot time
 *
 * </pre>
 *
@@ -41,6 +42,7 @@
 #include "xil_error_node.h"
 #include "sleep.h"
 #include "xplmi_modules.h"
+#include "xplmi_wdt.h"
 
 #ifndef PLM_ENABLE_PLM_TO_PLM_COMM
 /************************** Function Prototypes ******************************/
@@ -649,6 +651,7 @@ int XPlmi_SsitWaitForEvent(u8 SlrIndex, u32 EventIndex, u32 TimeOut)
 			goto END;
 		}
 		usleep(1U);
+		XPlmi_SetPlmLiveStatus();
 		--TimeOutValue;
 	}
 
@@ -1023,6 +1026,7 @@ static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait)
 		/* Check if the SSIT sync event is pending from Slave SLRs */
 		while (((SlavesReady & SlavesMask) != SlavesMask) && (TimeOutVal != 0x0U)) {
 			usleep(1U);
+			XPlmi_SetPlmLiveStatus();
 			if (XPlmi_SsitIsEventPending(XPLMI_SSIT_SLAVE0_SLR_INDEX,
 					XPLMI_SLRS_SYNC_EVENT_INDEX) == (u8)TRUE) {
 				SlavesReady |= SSIT_SLAVE_0_MASK;
@@ -1223,6 +1227,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) && (TimeOut != 0x0U)) {
 		usleep(1U);
+		XPlmi_SetPlmLiveStatus();
 		PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_0_MASK;
@@ -1245,6 +1250,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 		TimeOut = 100U;
 		while (((SlavesReady & SlavesMask) != 0x0U) && (TimeOut != 0x0U)) {
 			usleep(1U);
+			XPlmi_SetPlmLiveStatus();
 			PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 			if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) == (u32)FALSE) {
 				SlavesReady &= (~SSIT_SLAVE_0_MASK);
@@ -1318,6 +1324,7 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 	/* Wait until all Slaves initiate synchronization point */
 	while (((SlavesReady & SlavesMask) != SlavesMask) && (TimeOut != 0x0U)) {
 		usleep(1U);
+		XPlmi_SetPlmLiveStatus();
 		PmcErrStatus2 = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 		if ((PmcErrStatus2 & PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK) != (u32)FALSE) {
 			SlavesReady |= SSIT_SLAVE_0_MASK;

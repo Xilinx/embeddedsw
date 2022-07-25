@@ -99,6 +99,7 @@
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/20/2022 Shutdown modules gracefully during update
+*       bm   07/24/2022 Set PlmLiveStatus during boot time
 *
 * </pre>
 *
@@ -116,6 +117,7 @@
 #include "xplmi_ssit.h"
 #endif
 #include "xplmi_tamper.h"
+#include "xplmi_wdt.h"
 
 /**@cond xplmi_internal
  * @{
@@ -197,7 +199,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 #endif
 			{
 				while (TRUE) {
-					;
+					XPlmi_SetPlmLiveStatus();
 				}
 			}
 

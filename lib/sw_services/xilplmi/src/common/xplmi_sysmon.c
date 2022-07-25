@@ -33,6 +33,7 @@
  *       ma   03/01/2022 Write PCSR MASK register before enabling SLVERR
  * 1.05  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
  *       bsv  07/20/2022 Removed magic number usage
+ *       bm   07/24/2022 Set PlmLiveStatus during boot time
  *
  * </pre>
  *
@@ -44,6 +45,7 @@
 #include "sleep.h"
 #include "xplmi_debug.h"
 #include "xplmi_hw.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET		(0x10000U)
@@ -181,6 +183,7 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSec)
 		XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET,
 			XSYSMONPSV_ISR_OT_MASK);
 		usleep(1000U);
+		XPlmi_SetPlmLiveStatus();
 		Count--;
 		if (0U == Count) {
 			XPlmi_Printf(DEBUG_GENERAL,
@@ -196,6 +199,7 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSec)
 	 */
 	while (WaitInMSec-- > 0U) {
 		usleep(1000U);
+		XPlmi_SetPlmLiveStatus();
 	}
 
 	XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_PCSR_LOCK, 0U);
