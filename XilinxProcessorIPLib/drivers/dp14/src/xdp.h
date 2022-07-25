@@ -1616,6 +1616,7 @@ u32 XDp_TxSendSbMsgEnumPathResources(XDp *InstancePtr, u8 LinkCountTotal,
 u32 XDp_TxSendSbMsgAllocatePayload(XDp *InstancePtr, u8 LinkCountTotal,
 					u8 *RelativeAddress, u8 VcId, u16 Pbn);
 u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr);
+u32 XDp_TxSendEnumPathResourceRequest(XDp *InstancePtr);
 
 /* xdp_mst.c: Multi-stream transport (MST) utility functions. */
 void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,

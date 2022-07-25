@@ -1309,6 +1309,54 @@ u32 XDp_TxRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 
 /******************************************************************************/
 /**
+ * This function is to get the available payload bandwidth from downstream receiver
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the enum path request is issued successfully
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of a sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+ *******************************************************************************/
+u32 XDp_TxSendEnumPathResourceRequest(XDp *InstancePtr)
+{
+	u32 Status;
+	u8 StreamIndex;
+	XDp_TxMstStream *MstStream;
+	XDp_TxMainStreamAttributes *MsaConfig;
+	u16 FullPbn;
+	u16 AvailPbn;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+	/* Allocate the payload table for each stream in both the DisplayPort TX
+	 * and RX device.
+	 */
+	for (StreamIndex = 0; StreamIndex < InstancePtr->TxInstance.NumOfMstStreams;
+	     StreamIndex++) {
+		if (XDp_TxMstStreamIsEnabled(InstancePtr, StreamIndex + XDP_TX_STREAM_ID1)) {
+			MstStream = &InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
+			Status =  XDp_TxSendSbMsgEnumPathResources(InstancePtr,
+								   MstStream->LinkCountTotal,
+								   MstStream->RelativeAddress,
+								   &AvailPbn, &FullPbn);
+			if (Status != XST_SUCCESS)
+				return Status;
+		}
+	}
+	return XST_SUCCESS;
+}
+
+/******************************************************************************/
+/**
  * This function will allocate bandwidth for all enabled stream.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
