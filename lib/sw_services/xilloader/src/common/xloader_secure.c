@@ -400,6 +400,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 HashAddr = SecurePtr->ChunkAddr + Size;
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
+	int ClearStatus = XST_FAILURE;
 
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		goto END;
@@ -466,6 +467,11 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	}
 
 END:
+	ClearStatus = XPlmi_MemSetBytes(&BlkHash, XLOADER_SHA3_LEN, 0U,
+			XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
 	return Status;
 }
 

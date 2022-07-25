@@ -701,6 +701,12 @@ END:
 			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
 		}
 	}
+
+	ClrStatus = XPlmi_MemSetBytes(&Sha3Hash, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClrStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
 	return Status;
 }
 
@@ -1021,6 +1027,7 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3Hash SpkHash;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+	int ClearStatus = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_INFO, "Performing SPK verification\n\r");
 	/* Initialize sha3 */
@@ -1078,6 +1085,12 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 	XPlmi_Printf(DEBUG_INFO, "SPK verification is successful\n\r");
 
 END:
+	ClearStatus = XPlmi_MemSetBytes(&SpkHash, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
+
 	return Status;
 }
 
@@ -1250,6 +1263,7 @@ static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	u32 ReadReg;
@@ -1339,6 +1353,11 @@ static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr)
 	}
 
 END:
+	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
 	return Status;
 }
 
@@ -1379,6 +1398,7 @@ static int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u8 * Out, u32 OutLen, u8 *Input)
 {
 	int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	u32 Counter = 0U;
 	u32 HashLen = XLOADER_SHA3_LEN;
 	XSecure_Sha3Hash HashStore;
@@ -1422,6 +1442,13 @@ static int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	}
 
 END:
+	ClearStatus = XPlmi_MemSetBytes(Convert, sizeof(Convert), 0U,
+                        sizeof(Convert));
+	ClearStatus |= XPlmi_MemSetBytes(&HashStore, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
 	return Status;
 }
 
@@ -1482,6 +1509,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature)
 {
 	volatile int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	volatile u32 DbTmp;
 	XSecure_Sha3Hash MPrimeHash;
 	volatile u8 HashTmp;
@@ -1675,6 +1703,12 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	XPlmi_Printf(DEBUG_INFO, "RSA PSS verification is successful\n\r");
 
 END:
+	ClearStatus = XPlmi_MemSetBytes(&MPrimeHash, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
+
 	return Status;
 }
 
@@ -2182,6 +2216,7 @@ static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 
@@ -2270,6 +2305,11 @@ static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
 		"successful\n\r");
 
 END:
+	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
 	return Status;
 }
 
@@ -2375,6 +2415,11 @@ END:
 		}
 		XPlmi_Printf(DEBUG_INFO, "Authentication/Decryption of "
 				"headers failed with error 0x%x\r\n", Status);
+	}
+	ClrStatus = XPlmi_MemSetBytes(&CalHash, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClrStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
 	}
 	return Status;
 }
@@ -2921,6 +2966,7 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	volatile u32 AuthJtagDis = 0U;
 	volatile u32 AuthJtagDisTmp = 0U;
 	u32 RevokeId = 0U;
@@ -3078,6 +3124,11 @@ static int XLoader_AuthJtag(u32 *TimeOut)
 	}
 
 END:
+	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
 	return Status;
 }
 
@@ -3423,6 +3474,7 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last)
 {
 	volatile int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	u8 *Data = (u8 *)SecurePtr->ChunkAddr;
 	XSecure_Sha3Hash BlkHash;
@@ -3525,6 +3577,11 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	SecurePtr->SecureData = (UINTPTR)Data;
 
 END:
+	ClearStatus = XPlmi_MemSetBytes(&BlkHash, XLOADER_SHA3_LEN, 0U,
+                        XLOADER_SHA3_LEN);
+	if (ClearStatus != XST_SUCCESS) {
+		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+	}
 	return Status;
 }
 
