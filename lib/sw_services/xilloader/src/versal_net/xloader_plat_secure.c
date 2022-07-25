@@ -19,6 +19,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       kpt  07/05/2022 Added support to update KAT status
 *       dc   07/12/2022 Added Device state change support
+*       kpt  07/05/2022 Added XLoader_RsaPssSignVeirfyKat
 *
 * </pre>
 *
@@ -37,6 +38,8 @@
 #include "xplmi.h"
 #include "xplmi_err.h"
 #include "xil_error_node.h"
+#include "xsecure_init.h"
+#include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /* eFuse Obfuscated Key */
@@ -48,6 +51,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+
+static int XLoader_RsaPssSignVeirfyKat(XPmcDma *PmcDmaPtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -131,55 +136,6 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr)
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief	This function return FIPS mode status
- *
- * @return
- * 		TRUE  if FIPS mode is enabled
- * 		FALSE if FIPS mode is not enabled
- *
- * @note
- *     Fips_Mode[24:23] is used to control scan clear execution as a part of
- *     secure lockdown
- *
- *****************************************************************************/
-u8 XLoader_IsFipsModeEn(void) {
-	u8 FipsModeEn = (u8)(XPlmi_In32(XLOADER_EFUSE_CACHE_FIPS) >>
-					XLOADER_EFUSE_FIPS_MODE_SHIFT);
-
-	return (FipsModeEn != 0U) ? (u8)TRUE: (u8)FALSE;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function updates the KAT status
- *
- * @param	SecurePtr is pointer to the XLoader_SecureParams instance
- * @param	PlmKatMask is the mask of the KAT that is going to run
- *
- * @return	None
- *
- *****************************************************************************/
-void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask) {
-	u8 FipsModeEn = XLoader_IsFipsModeEn();
-
-	if (FipsModeEn == TRUE) {
-		if (PlmKatMask != 0U) {
-			/* Rerun KAT for every image */
-			XLoader_ClearKatStatus(&SecurePtr->PdiPtr->PlmKatStatus, PlmKatMask);
-		}
-		else {
-			SecurePtr->PdiPtr->PlmKatStatus = 0U;
-		}
-	}
-	else {
-		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
-			XLoader_UpdatePpdiKatStatus(SecurePtr, PlmKatMask);
-		}
-	}
-}
-
 /******************************************************************************/
 /**
 * @brief        This function adds periodic checks of the device status
@@ -241,6 +197,23 @@ int XLoader_AddDeviceStateChangeToScheduler(void)
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+* @brief    This function runs the KAT for RSA
+*
+* @param    PmcDmaPtr - Pointer to DMA instance
+*
+* @return   XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
+	int Status = XST_FAILURE;
+
+	Status = XLoader_RsaPssSignVeirfyKat(PmcDmaPtr);
+
+	return Status;
+}
+
 /******************************************************************************/
 /**
 * @brief        This function checks the JTAG device state change.
@@ -277,5 +250,81 @@ int XLoader_CheckDeviceStateChange(void *Arg)
 
 	return XST_SUCCESS;
 }
+
+/*****************************************************************************/
+/**
+* @brief    This function runs the KAT for RSA PSS verification
+*
+* @param    SecurePtr - Pointer to XLoader_SecureParams instance
+*
+* @return   XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+static int XLoader_RsaPssSignVeirfyKat(XPmcDma *PmcDmaPtr) {
+	XSecure_Rsa *RsaInstance = XSecure_GetRsaInstance();
+	u32 *RsaModulus = XSecure_GetKatRsaModulus();
+	u32 *RsaModExt = XSecure_GetKatRsaModExt();
+	u32 PubExponent = XSecure_GetKatRsaPubExponent();
+	u8 *MsgHash = XSecure_GetKatSha3ExpHash();
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	static u32 RsaPssSign[XSECURE_RSA_4096_SIZE_WORDS] = {
+		0x1C1F3652, 0xAAB712F5, 0xF5D5A1B6, 0xD6D39EC2,
+		0xACF624DE, 0x8CB3D909, 0x51A3DA87, 0x003DCCF7,
+		0xD445CC9F, 0x672497D0, 0x84616AC0, 0xADFE38AC,
+		0x98E98F65, 0x10659C55, 0x1778B86A, 0x492D8CE0,
+		0x68A100D0, 0x5144E2D8, 0x74F1674E, 0xD62027C5,
+		0x19E993D6, 0x225BD393, 0x6C42221F, 0xC5F56CC0,
+		0x4B4305F8, 0x804663CD, 0x4F0B9892, 0xA1F35E6E,
+		0xED6E220D, 0x3AF33B06, 0x546ACD6D, 0xA6539CD4,
+		0xE9E0FD57, 0xC4DF082F, 0x36736B21, 0xD46CAD29,
+		0x4C5A6879, 0x5573A133, 0xB4B5EEA5, 0xD1AC0B26,
+		0x95F4E35E, 0xD5DCAE46, 0xD7D71D56, 0x8A39FE66,
+		0x6880EF70, 0x898CD627, 0x9628E054, 0xBC92A962,
+		0xA9DF5743, 0xA73D7852, 0x183E5DBF, 0xB112B303,
+		0xCF3354B8, 0x0B4444E9, 0x5220F35B, 0x66D1DBFF,
+		0x81392B6B, 0xCD3BE0C0, 0xFC1F50D7, 0x07E31875,
+		0xD56AB661, 0xE9F8A43A, 0x43244057, 0x31653AEE,
+		0x749E7B6D, 0xE48515EB, 0x7C8D03D6, 0xE058C64B,
+		0x7D4F39F5, 0xAA066515, 0x1F07C07E, 0xB730B64B,
+		0x1DEEE24F, 0xDA246FEB, 0xA440703E, 0xF92F3A42,
+		0xF5388030, 0x652C417C, 0x7965EA9C, 0x857996D7,
+		0x3F9A10CA, 0xB387EEFA, 0x7772E23E, 0x970AE759,
+		0x7F8E6B29, 0xFAE06126, 0xDB9289FD, 0x90FECB65,
+		0x68D11AE1, 0x2DAA0840, 0x99AA8B86, 0x55E7F81D,
+		0x43AB26C7, 0xA46A5B8F, 0xF638E03D, 0x0A6D701F,
+		0xE0D21011, 0x724CEE13, 0xE0955002, 0xA2CAE99B,
+		0x9EF5873C, 0x4257DB7A, 0x9B461544, 0xC327DAAA,
+		0x2B5579D5, 0x24D67939, 0xB7F033DD, 0x517EB9C2,
+		0x4FFBEA9F, 0x308B04C2, 0x40284170, 0x0E420824,
+		0x31A6F605, 0x721C6608, 0x0623E604, 0xE1D94C3C,
+		0xE29002F9, 0xE4347CD0, 0xAC1287B8, 0x40718B65,
+		0xC4185EE6, 0xB1C6094C, 0xE3210914, 0xF05A2CD6,
+		0x25179E50, 0xD7C3054F, 0x24F2F7F9, 0x2FE6F393
+	};
+
+	Status = XSecure_RsaInitialize(RsaInstance, (u8 *)RsaModulus,
+		(u8 *)RsaModExt, (u8 *)&PubExponent);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_RsaPssSignVerify, PmcDmaPtr,
+			(u8*)MsgHash, RsaInstance, (u8*)RsaPssSign);
+	if (Status != XST_SUCCESS || StatusTmp != XST_SUCCESS) {
+		Status = (int)XSECURE_RSA_KAT_PSS_SIGN_VER_ERROR;
+		XPlmi_Printf(DEBUG_GENERAL,"RSA Pss sign verification KAT failed with status:%02x",
+			Status);
+	}
+END:
+	SStatus = Xil_SMemSet(RsaInstance, sizeof(XSecure_Rsa), 0U, sizeof(XSecure_Rsa));
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
+	return Status;
+}
+
 
 #endif /* END OF PLM_SECURE_EXCLUDE */

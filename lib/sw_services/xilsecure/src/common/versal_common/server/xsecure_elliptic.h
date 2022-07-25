@@ -29,6 +29,7 @@
 * 4.5   har  01/18/21 Updated prototype for XSecure_EllipticKat
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added support for 64-bit address
+* 4.9   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
 *
 * </pre>
 *
@@ -50,9 +51,6 @@ extern "C" {
 									/**< Size of NIST P-384 curve in bytes */
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
 									/**< Size of NIST P-521 curve in bytes */
-#define XSECURE_ECC_P384_DATA_SIZE_WORDS	\
-					(XSECURE_ECC_P384_SIZE_IN_BYTES / XSECURE_WORD_SIZE)
-									/**< Size of NIST P-384 curve in words */
 
 /***************************** Type Definitions ******************************/
 typedef struct {
@@ -89,7 +87,6 @@ int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 	XSecure_EllipticKey *Key);
 int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 	const u32 HashLen, XSecure_EllipticKey *Key, XSecure_EllipticSign *Sign);
-int XSecure_EllipticKat(u32 AuthCurve);
 
 /* 64 Bit address supported APIs */
 int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,

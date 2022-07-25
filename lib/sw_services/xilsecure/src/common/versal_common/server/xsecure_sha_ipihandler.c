@@ -24,6 +24,7 @@
 *       am    05/22/2021 Resolved MISRA C violation rule 17.8
 * 4.6   har   07/14/2021 Fixed doxygen warnings
 *       gm    07/16/2021 Added support for 64-bit address
+* 4.9   kpt   07/24/2022 Moved XSecure_ShaKat into xsecure_kat_plat_ipihandler.c
 *
 * </pre>
 *
@@ -52,7 +53,6 @@
 static int XSecure_ShaInitialize(void);
 static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 	u32 DstAddrLow, u32 DstAddrHigh);
-static int XSecure_ShaKat(void);
 
 /*************************** Function Definitions *****************************/
 
@@ -76,10 +76,6 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 		XSECURE_API(XSECURE_API_SHA3_UPDATE)) {
 		Status = XSecure_ShaUpdate(Pload[0], Pload[1],
 				Pload[2], Pload[3], Pload[4]);
-	}
-	else if ((Cmd->CmdId & XSECURE_API_ID_MASK) ==
-		XSECURE_API(XSECURE_API_SHA3_KAT)) {
-		Status = XSecure_ShaKat();
 	}
 	else {
 		Status = XST_INVALID_PARAM;
@@ -171,42 +167,6 @@ static int XSecure_ShaUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size,
 			}
 		}
 	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function handler calls XSecure_ShaKat server API
- *
- * @return
-	-	XST_SUCCESS - If the sha update/fnish is successful
- *	-	ErrorCode - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_ShaKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
-
-	if (NULL == PmcDmaInstPtr) {
-		goto END;
-	}
-
-	if (XSecureSha3InstPtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED) {
-		Status = (int)XSECURE_SHA3_KAT_BUSY;
-		goto END;
-	}
-
-	Status = XSecure_Sha3Initialize(XSecureSha3InstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_Sha3Kat(XSecureSha3InstPtr);
 
 END:
 	return Status;

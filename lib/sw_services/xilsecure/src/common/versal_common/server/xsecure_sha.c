@@ -43,6 +43,7 @@
 *                     with xilinx maintained functions
 *       am   03/08/22 Replaced memset() with Xil_SMemSet()
 * 4.9   bm   07/06/22 Refactor versal and versal_net code
+*       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
 *
 * </pre>
 * @note
@@ -68,25 +69,6 @@
 						/**< Nist Start padding masks */
 #define XSECURE_SHA3_END_NIST_PADDING_MASK		(0x80U)
 						/**< Nist End padding masks */
-
-static const u8 ExpectedHash[XSECURE_HASH_SIZE_IN_BYTES] = {
-			0x86U, 0x89U, 0xACU, 0xE3U, 0xA5U, 0xF9U, 0xF5U, 0x71U, 0xD6U,
-			0xBBU, 0xCDU, 0x1CU, 0xE2U, 0xD4U, 0x18U, 0xD8U, 0xF6U, 0xCFU,
-			0x76U, 0x82U, 0x56U, 0xDDU, 0x35U, 0x6DU, 0xB9U, 0xD6U, 0x1DU,
-			0x58U, 0xCFU, 0xCBU, 0x96U, 0xEBU, 0x49U, 0xC6U, 0xB9U, 0xDDU,
-			0xE3U, 0xA1U, 0x6EU, 0x63U, 0x5EU, 0x4BU, 0x61U, 0xB7U, 0x79U,
-			0xB1U, 0xFEU, 0x8EU
-	};
-
-static const u32 DataValue[XSECURE_SHA3_BLOCK_LEN/4U] = {
-			0xA1D1199EU, 0xB9278FF8U, 0xCA22EDA5U, 0xB51272AAU,
-			0xA583A2F7U, 0x9513A099U, 0x1380DF32U, 0x4305F9A6U,
-			0x26E7DF18U, 0x1C4B3315U, 0xA84AF20EU, 0x7447560CU,
-			0x9580FB9FU, 0x0FE44017U, 0x9C25F0F7U, 0xA90D22A7U,
-			0xA2155D69U, 0x6F34008EU, 0x3FF5E1EAU, 0x84CC3585U,
-			0x3EAAB093U, 0x7DCFEDA7U, 0x21E00F23U, 0xE539A9F3U,
-			0x9C84DB7BU, 0x801ABECDU
-	};
 
 /**************************** Type Definitions *******************************/
 
@@ -726,90 +708,6 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	Status = Xil_SMemSet(&InstancePtr->PartialData[RemainingDataLen],
 			sizeof(InstancePtr->PartialData) - RemainingDataLen, 0U,
 			sizeof(InstancePtr->PartialData) - RemainingDataLen);
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- *
- * @brief	This function performs known answer test(KAT) on SHA crypto engine
- *
- * @param	SecureSha3 Pointer to the XSecure_Sha3 instance
- *
- * @return
- * 	-	XST_SUCCESS - When KAT Pass
- *	-	XSECURE_SHA3_INVALID_PARAM - On invalid argument
- *	-	XSECURE_SHA3_LAST_UPDATE_ERROR - Error when SHA3 last update fails
- *	-	XSECURE_SHA3_KAT_FAILED_ERROR - Error when SHA3 hash not matched with
- *					expected hash
- *	-	XSECURE_SHA3_PMC_DMA_UPDATE_ERROR - Error when DMA driver fails to update
- *					the data to SHA3
- *	-	XSECURE_SHA3_FINISH_ERROR - Error when SHA3 finish fails
- *
- ******************************************************************************/
-int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
-{
-	volatile int Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-	u32 Index;
-	XSecure_Sha3Hash OutVal = {0U};
-
-	if (SecureSha3 ==  NULL) {
-		Status = (int)XSECURE_SHA3_INVALID_PARAM;
-		goto END;
-	}
-
-	if (SecureSha3->Sha3State == XSECURE_SHA3_ENGINE_STARTED) {
-		Status = (int)XSECURE_SHA3_KAT_BUSY;
-		goto END;
-	}
-
-	Status = XSecure_Sha3Start(SecureSha3);
-	if (Status != XST_SUCCESS) {
-		goto END_RST;
-	}
-
-	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-
-	Status = XSecure_Sha3LastUpdate(SecureSha3);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_SHA3_LAST_UPDATE_ERROR;
-		goto END_RST;
-	}
-
-	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-
-	Status = XSecure_Sha3Update(SecureSha3, (UINTPTR)DataValue,
-			XSECURE_SHA3_BLOCK_LEN);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_SHA3_PMC_DMA_UPDATE_ERROR;
-		goto END_RST;
-	}
-
-	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-
-	Status = XSecure_Sha3Finish(SecureSha3, &OutVal);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_SHA3_FINISH_ERROR;
-		goto END_RST;
-	}
-
-	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
-		if (OutVal.Hash[Index] != ExpectedHash[Index]) {
-			Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-			goto END_RST;
-		}
-	}
-
-	if (Index == XSECURE_HASH_SIZE_IN_BYTES) {
-		Status = XST_SUCCESS;
-	}
-
-END_RST:
-	XSecure_SetReset(SecureSha3->BaseAddress,
-			XSECURE_SHA3_RESET_OFFSET);
-
 END:
 	return Status;
 }

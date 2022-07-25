@@ -47,6 +47,7 @@
 * 1.03  bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/05/2022 Added support to update KAT status
 *       ma   07/08/22 Removed EFUSE_CACHE_MISC_CTRL as it is defined in xplmi_hw.h
+*       kpt  07/24/22 Added XLoader_RsaPssSignVerify to support KAT for versal net
 *
 * </pre>
 *
@@ -69,6 +70,7 @@ extern "C" {
 #include "xplmi_util.h"
 #include "xil_util.h"
 #include "xplmi_hw.h"
+#include "xplmi_tamper.h"
 #include "xpuf.h"
 #include "xloader_plat_secure.h"
 
@@ -97,12 +99,6 @@ extern "C" {
 /**< Masks are used to determine if KAT for the respective crypto hardware
  * has already been run or not.
  */
-#define XLOADER_SHA3_KAT_MASK		(0x00000010U)
-#define XLOADER_RSA_KAT_MASK		(0x00000020U)
-#define XLOADER_ECC_P384_KAT_MASK		(0x00000040U)
-#define XLOADER_AES_KAT_MASK		(0x00000080U)
-#define XLOADER_DPACM_KAT_MASK		(0x00000100U)
-#define XLOADER_ECC_P521_KAT_MASK		(0x00000400U)
 #define XLOADER_PPDI_KAT_MASK		(0x03U)
 
 /** @} */
@@ -528,13 +524,11 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 	const XilPdi_PrtnHdr *PrtnHdr);
 int XLoader_AuthEncClear(void);
-int XLoader_GetKatStatus(XilPdi *PdiPtr);
 int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
+int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
+		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature);
 void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
-void XLoader_SetKatStatus(u32 PlmKatStatus);
-void XLoader_ClearKatStatus(u32 *PlmKatStatus, u32 PlmKatMask);
-void XLoader_UpdatePpdiKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
 
 #endif

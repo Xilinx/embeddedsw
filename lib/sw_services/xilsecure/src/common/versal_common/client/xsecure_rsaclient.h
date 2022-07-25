@@ -20,6 +20,7 @@
 * 1.0   kal  03/23/21 Initial release
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 4.9   kpt  07/24/22 Moved XSecure_RsaKat into xsecure_katclient.c
 *
 * </pre>
 * @note
@@ -51,7 +52,6 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 				const u32 Size, const u64 OutDataAddr);
 int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr,
 				const u32 Size);
-int XSecure_RsaKat(XSecure_ClientInstance *InstancePtr);
 
 #ifdef __cplusplus
 }

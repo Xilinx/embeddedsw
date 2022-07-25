@@ -25,6 +25,7 @@
 * 4.6   kal  08/22/21 Updated doxygen comment description for
 *                     XSecure_Sha3Initialize API
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 4.9   kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_katclient.c
 *
 * </pre>
 *
@@ -215,43 +216,6 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- *
- * @brief	This function sends IPI request to execute
- * 		known answer test(KAT) on SHA crypto engine
- *
- * @param	InstancePtr	Pointer to the client instance
- *
- * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	XSECURE_SHA3_INVALID_PARAM 	 - On invalid argument
- *	-	XSECURE_SHA3_LAST_UPDATE_ERROR - Error when SHA3 last update fails
- *	-	XSECURE_SHA3_KAT_FAILED_ERROR	 - Error when SHA3 hash not matched with
- *					   expected hash
- *	-	XSECURE_SHA3_PMC_DMA_UPDATE_ERROR - Error when DMA driver fails to update
- *					      the data to SHA3
- *	-	XSECURE_SHA3_FINISH_ERROR 	 - Error when SHA3 finish fails
- *
- ******************************************************************************/
-int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr)
-{
-	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
-
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_SHA3_KAT);
-
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;

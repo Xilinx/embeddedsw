@@ -29,6 +29,8 @@
 *       har   09/14/2021 Added check for DecKeySrc in XSecure_AesKekDecrypt
 * 4.7   am    03/08/2022 Fixed MISRA C violations
 *       kpt   03/18/2022 Replaced XPlmi_Dmaxfr with XPlmi_MemCpy64
+* 4.9   kpt   07/24/2022 Moved XSecure_AesExecuteDecKat, XSecure_AesExecuteDecCMKat
+*                        into xsecure_kat_plat_ipihandler.c
 *
 * </pre>
 *
@@ -71,8 +73,6 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 	u32 KeyAddrLow, u32 KeyAddrHigh);
 static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh);
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg);
-static int XSecure_AesExecuteDecKat(void);
-static int XSecure_AesExecuteDecCmKat(void);
 
 /*****************************************************************************/
 /**
@@ -126,12 +126,6 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 		Status = XSecure_AesSetDpaCmConfig((u8)Pload[0]);
-		break;
-	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
-		Status = XSecure_AesExecuteDecKat();
-		break;
-	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
-		Status = XSecure_AesExecuteDecCmKat();
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -502,82 +496,5 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 
 	Status = XSecure_AesSetDpaCm(XSecureAesInstPtr, DpaCmCfg);
 
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function handler calls XSecure_AesDecryptKat server API
- *
- * @return
- *	-	XST_SUCCESS - If the KAT is successful
- * 	-	ErrorCode - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_AesExecuteDecKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
-
-	if (NULL == PmcDmaInstPtr) {
-		goto END;
-	}
-
-	if ((XSecureAesInstPtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(XSecureAesInstPtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
-		Status = (int)XSECURE_AES_KAT_BUSY;
-		goto END;
-	}
-
-	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_AesDecryptKat(XSecureAesInstPtr);
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function handler calls XSecure_AesExecuteDecCmKat
- * 		server API
- *
- * @return
- *	-	XST_SUCCESS - If the KAT is successful
- *	-	XST_FAILURE - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_AesExecuteDecCmKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
-
-	if (NULL == PmcDmaInstPtr) {
-		goto END;
-	}
-
-	if ((XSecureAesInstPtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(XSecureAesInstPtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
-		Status = (int)XSECURE_AES_KAT_BUSY;
-		goto END;
-	}
-
-	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_AesDecryptCmKat(XSecureAesInstPtr);
-
-END:
 	return Status;
 }

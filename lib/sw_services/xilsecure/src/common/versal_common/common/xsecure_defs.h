@@ -20,6 +20,7 @@
 * 4.6   har  07/14/21 Fixed doxygen warnings
 * 4.7   kpt  11/29/21 Added macro XSecure_DCacheFlushRange
 * 4.9   bm   07/06/22 Refactor versal and versal_net code
+*       kpt  07/24/22 Added XSecure_EccCrvClass
 *
 * </pre>
 * @note
@@ -121,6 +122,12 @@ typedef enum {
 	XSECURE_ENCRYPT,	/**< Encrypt operation */
 	XSECURE_DECRYPT,	/**< Decrypt operation */
 } XSecure_AesOp;
+
+typedef enum {
+	XSECURE_ECDSA_PRIME = 0,	/**< Prime curve */
+	XSECURE_ECDSA_BINARY = 1,	/**< Binary curve */
+}XSecure_EccCrvClass;
+
 
 #ifdef __cplusplus
 }

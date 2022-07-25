@@ -25,6 +25,7 @@
 *                     user
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 4.9   kpt  07/24/22 Moved XSecure_EllipticKat in to xsecure_katclient.c
 *
 * </pre>
 * @note
@@ -244,41 +245,6 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_VERIFY_SIGN);
 	Payload[1U] = (u32)Buffer;
 	Payload[2U] = (u32)(Buffer >> 32);
-
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- *
- * @brief	This function sends IPI request to perform KAT on ECC core
- *
- * @param	InstancePtr	Pointer to the client instance
- * @param	CrvType		- Type of elliptic curve
- *
- * @return
- *	-	XST_SUCCESS - On success
- * 	-	XSECURE_ELLIPTIC_KAT_KEY_NOTVALID_ERROR - When elliptic key
- * 							is not valid
- *	-	XSECURE_ELLIPTIC_KAT_FAILED_ERROR - When elliptic KAT
- *							fails
- *
- ******************************************************************************/
-int XSecure_EllipticKat(XSecure_ClientInstance *InstancePtr, u32 CurveType)
-{
-	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
-
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_KAT);
-	Payload[1U] = CurveType;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 

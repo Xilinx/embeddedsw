@@ -1,40 +1,113 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+******************************************************************************/
+
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_trng_kat.c
+* @file xsecure_kat_plat.c
 *
-* @addtogroup Overview
-* @{
-* This file contains known answer test(KAT) of TRNG core in different modes
+* This file contains known answer tests for versal net
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.0   kpt  05/05/22 Initial release
+* ----- ---- ---------- -------------------------------------------------------
+* 1.0   kpt  07/15/2022 Initial release
 *
 * </pre>
 *
-* @endcond
+* @note
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xsecure_trng.h"
-#include "xil_util.h"
-#include "xstatus.h"
-#include "xsecure_trng_hw.h"
+#include "xsecure_plat_kat.h"
+#include "xsecure_rsa.h"
+#include "xsecure_hmac.h"
 #include "xsecure_error.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
 #define XSECURE_TRNG_KAT_DEFAULT_DF_lENGTH	7U
 #define XSECURE_TRNG_KAT_DEFAULT_SEED_LIFE	2U
 #define XSECURE_TRNG_KAT_SEED_LEN_IN_BYTES	128U
+
+/************************** Function Prototypes ******************************/
+
+static int XSecure_TrngHealthTest(XSecure_TrngInstance *InstancePtr);
+
+/************************** Variable Definitions *****************************/
+
+/*****************************************************************************/
+/**
+ * This function performs KAT on HMAC (SHA3-384).
+ *
+ * @param 	none
+ *
+ * @return	returns the error codes
+ *		returns XST_SUCCESS on success
+ *
+ *****************************************************************************/
+int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 Index;
+	XSecure_HmacRes Hmac = {0U};
+	XSecure_Hmac HmacInstance;
+	const u8 HmacExpected[XSECURE_HASH_SIZE_IN_BYTES] = {
+		0x0E,0x1D,0x1E,0x2A,0x22,0x6F,0xB9,0x56,
+		0x10,0x4F,0x10,0x00,0x8A,0x50,0xE3,0x5E,
+		0xAB,0x2E,0x37,0xB5,0xE0,0x9F,0xA1,0x68,
+		0x2F,0xE4,0x93,0x59,0x71,0x96,0xCC,0x1B,
+		0x40,0xFD,0xCB,0xDD,0x93,0x4F,0x01,0x3A,
+		0xB2,0x64,0xE9,0xC5,0x2B,0xB0,0x2E,0x52
+	};
+	u8 *HmacKey = XSecure_GetKatAesKey();
+	u8 *HmacMsg = XSecure_GetKatMessage();
+
+	Status = XSecure_HmacInit(&HmacInstance, SecureSha3,
+				(UINTPTR)HmacKey, XSECURE_KAT_KEY_SIZE_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		Status = XSECURE_HMAC_KAT_INIT_ERROR;
+		goto END;
+	}
+	Status = XSecure_HmacUpdate(&HmacInstance, (UINTPTR)HmacMsg,
+				XSECURE_KAT_MSG_LEN_IN_BYTES);
+	if (Status != XST_SUCCESS) {
+		Status = XSECURE_HMAC_KAT_UPDATE_ERROR;
+		goto END;
+	}
+	Status = XSecure_HmacFinal(&HmacInstance, &Hmac);
+	if (Status != XST_SUCCESS) {
+		Status = XSECURE_HMAC_KAT_FINAL_ERROR;
+		goto END;
+	}
+	Status = XSECURE_HMAC_KAT_ERROR;
+	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
+		if (HmacExpected[Index] != Hmac.Hash[Index]) {
+			Status = XSECURE_HMAC_KAT_ERROR;
+			goto END;
+		}
+	}
+
+	if(Index == XSECURE_HASH_SIZE_IN_BYTES) {
+		Status = XST_SUCCESS;
+	}
+END:
+	(void)memset((void *)Hmac.Hash, (u32)0,
+			XSECURE_HASH_SIZE_IN_BYTES);
+
+	return Status;
+}
 
 /*************************************************************************************************/
 /**
@@ -162,7 +235,7 @@ END:
  * 		- Error Code On failure
  *
  **************************************************************************************************/
-int XSecure_TrngHealthTest(XSecure_TrngInstance *InstancePtr) {
+static int XSecure_TrngHealthTest(XSecure_TrngInstance *InstancePtr) {
 	volatile int Status = XST_FAILURE;
 	XSecure_TrngUserConfig UsrCfg;
 

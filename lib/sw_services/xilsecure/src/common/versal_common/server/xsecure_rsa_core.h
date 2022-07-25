@@ -30,6 +30,7 @@
 *       ana  10/15/20 Updated doxygen tags
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added 64-bit address support
+* 4.9   kpt  07/24/21 Moved XSecure_RsaPublicEncrypt KAT into xsecure_kat.c
 *
 * </pre>
 *
@@ -146,9 +147,6 @@ int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr);
 /* Versal specific RSA core encryption/decryption function */
 int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
 	u64 Result, XSecure_RsaOps RsaOp, u32 KeySize);
-
-/* This function performs KAT on RSA core */
-int XSecure_RsaPublicEncryptKat(void);
 
 /* Versal specific function for selection of PKCS padding */
 u8* XSecure_RsaGetTPadding(void);

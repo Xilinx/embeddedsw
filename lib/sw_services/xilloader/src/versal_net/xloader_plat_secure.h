@@ -17,6 +17,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       kpt  07/07/2022 Added support to update KAT status
 *       dc   07/12/2022 Added support to recognize device state change
+*       kpt  07/24/2022 Added XLoader_RsaKat
 *
 * </pre>
 *
@@ -36,11 +37,9 @@ extern "C" {
 #include "xilpdi.h"
 #include "xplmi_config.h"
 #ifndef PLM_SECURE_EXCLUDE
+#include "xsecure_kat.h"
 
 /************************** Constant Definitions *****************************/
-
-#define XLOADER_EFUSE_CACHE_FIPS (0xF1250234U)
-#define XLOADER_EFUSE_FIPS_MODE_SHIFT (26U)
 
 #define XLOADER_EFUSE_CACHE_JTAG_DIS_MASK		(0x00000004U)
 #define XLOADER_PMC_TAP_JTAG_STATUS_0			(0xF11A004CU)
@@ -139,9 +138,10 @@ typedef enum {
 /************************** Function Prototypes ******************************/
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
-u8 XLoader_IsFipsModeEn(void);
 int XLoader_AddDeviceStateChangeToScheduler(void);
 int XLoader_CheckDeviceStateChange(void *Arg);
+int XLoader_RsaKat(XPmcDma *PmcDmaPtr);
+
 /************************** Variable Definitions *****************************/
 
 #endif /* END OF PLM_SECURE_EXCLUDE */

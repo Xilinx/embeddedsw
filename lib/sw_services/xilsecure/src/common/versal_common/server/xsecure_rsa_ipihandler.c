@@ -19,6 +19,7 @@
 *      bm    05/13/21 Updated code to use common crypto instance
 * 4.6  gm    07/16/21 Added 64-bit address support
 * 4.7  kpt   03/18/21 Replaced XPlmi_DmaXfr with XPlmi_MemCpy64
+* 4.9  kpt   07/24/22 Moved XSecure_RsaKat into xsecure_kat_plat_ipihanlder.c
 *
 * </pre>
 *
@@ -42,7 +43,6 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh);
-static int XSecure_RsaKat(void);
 
 /*************************** Function Definitions *****************************/
 
@@ -73,9 +73,6 @@ int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
 		Status = XSecure_RsaSignVerify(Pload[0], Pload[1]);
-		break;
-	case XSECURE_API(XSECURE_API_RSA_KAT):
-		Status = XSecure_RsaKat();
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -218,24 +215,5 @@ static int XSecure_RsaSignVerify(u32 SrcAddrLow, u32 SrcAddrHigh)
 			SignParams.Size);
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function handler calls XSecure_RsaPublicEncryptKat server
- * 		API
- *
- * @return
- *	-	XST_SUCCESS - If the Rsa Kat is successful
- *	-	ErrorCode - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_RsaKat(void)
-{
-	volatile int Status = XST_FAILURE;
-
-	Status = XSecure_RsaPublicEncryptKat();
-
 	return Status;
 }

@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   am   06/13/22 Initial release
+*       kpt  07/24/22 moved XSecure_TrngKat into xsecure_katclient_plat.c
 *
 * </pre>
 *
@@ -45,7 +46,6 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 int XSecure_TrngGenerareRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBufAddr, u32 Size);
-int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 

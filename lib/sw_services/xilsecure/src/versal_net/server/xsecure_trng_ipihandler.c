@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kpt  05/15/2022 Initial release
+* 4.9   kpt  07/24/2022 Moved XSecure_TrngKat to xsecure_kat_plat.c
 *
 * </pre>
 *
@@ -37,7 +38,6 @@
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes *****************************/
-static int XSecure_TrngKat(void);
 static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
 static int XSecure_TrngSetOperationalMode(XSecure_TrngInstance *TrngInstance);
 
@@ -60,31 +60,10 @@ int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
 		Status = XSecure_TrngGenerateRandNum(Pload[0], Pload[1], Pload[2]);
 		break;
-	case XSECURE_API(XSECURE_API_TRNG_KAT):
-		Status = XSecure_TrngKat();
-		break;
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
 	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function handler calls XSecure_TrngPreOperationalSelfTests Server API
- *
- * @return	- XST_SUCCESS - If the KAT is successful
- * 		- ErrorCode - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_TrngKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-
-	Status = XSecure_TrngPreOperationalSelfTests(TrngInstance);
 
 	return Status;
 }

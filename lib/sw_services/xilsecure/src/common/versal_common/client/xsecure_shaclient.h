@@ -22,6 +22,7 @@
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       kpt  04/28/21 Added enum XSecure_ShaState to update sha driver states
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 4.9   kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_katclient.c
 *
 * </pre>
 *
@@ -56,7 +57,6 @@ int XSecure_Sha3Initialize(void);
 int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, u32 Size);
 int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAddr);
 int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, const u64 OutDataAddr, u32 Size);
-int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 

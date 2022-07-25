@@ -22,6 +22,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  05/05/22 Initial release
 *       dc   07/12/22 Corrected comments
+*       kpt  07/24/22 Moved KAT related code to xsecure_kat_plat.c
 *
 * </pre>
 *
@@ -106,9 +107,6 @@ int XSecure_TrngInstantiate(XSecure_TrngInstance *InstancePtr, const u8 *Seed, u
 int XSecure_TrngReseed(XSecure_TrngInstance *InstancePtr, const u8 *Seed, u8 DLen);
 int XSecure_TrngGenerate(XSecure_TrngInstance *InstancePtr, u8 *RandBuf, u32 RandBufSize);
 int XSecure_TrngUninstantiate(XSecure_TrngInstance *InstancePtr);
-int XSecure_TrngDRBGKat(XSecure_TrngInstance *InstancePtr);
-int XSecure_TrngHealthTest(XSecure_TrngInstance *InstancePtr);
-int XSecure_TrngPreOperationalSelfTests(XSecure_TrngInstance *InstancePtr);
 XSecure_TrngInstance *XSecure_GetTrngInstance(void);
 
 #ifdef __cplusplus

@@ -46,6 +46,7 @@
 *       ana  10/15/20 Updated doxygen tags
 * 4.5   bm   01/13/21 Added support for 64-bit input data address
 * 4.9   bm   07/06/22 Refactor versal and versal_net code
+*       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
 *
 * </pre>
 *
@@ -152,8 +153,6 @@ int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
 			 XSecure_Sha3Hash *Sha3Hash);
 
 int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
-
-int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
 
 int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u8 DeviceId);
 

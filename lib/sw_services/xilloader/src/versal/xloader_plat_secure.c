@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       kpt  07/05/2022 Added support to update KAT status
+*       kpt  07/05/2022 Added XLoader_RsaKat
 *
 * </pre>
 *
@@ -97,18 +98,21 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr)
 
 /*****************************************************************************/
 /**
- * @brief	This function updates the KAT status
- *
- * @param	SecurePtr is pointer to the XLoader_SecureParams instance
- * @param	PlmKatMask is the mask of the KAT that is going to run
- *
- * @return	None
- *
- *****************************************************************************/
-void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask) {
-	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
-		XLoader_UpdatePpdiKatStatus(SecurePtr, PlmKatMask);
-	}
+* @brief    This function runs the KAT for RSA
+*
+* @param    PmcDmaPtr - Pointer to DMA instance
+*
+* @return   XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
+	int Status = XST_FAILURE;
+
+	(void)PmcDmaPtr;
+
+	Status = XSecure_RsaPublicEncryptKat();
+
+	return Status;
 }
 
 #endif /* END OF PLM_SECURE_EXCLUDE */

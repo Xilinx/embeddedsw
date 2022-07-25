@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.9   vns 05/30/22 Initial release
+*       kpt 07/24/22 Moved XSecure_HmacKat into xsecure_kat_plat.c
 *
 * </pre>
 *
@@ -53,7 +54,6 @@ int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
 					u64 KeyAddr, u32 KeyLen);
 int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len);
 int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac);
-int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
 
 #ifdef __cplusplus
 extern "C" }
