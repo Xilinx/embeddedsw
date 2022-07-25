@@ -46,6 +46,7 @@
 *       ma   01/31/2022 Fix DMA Keyhole command issue where the command
 *                       starts at the 32K boundary
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
+*       bm   07/24/2022 Set PlmLiveStatus during boot time
 *
 * </pre>
 *
@@ -60,6 +61,7 @@
 #include "xplmi_hw.h"
 #include "xil_util.h"
 #include "xplmi_generic.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_LEN_TEMPBUF		(0x8U) /**< This buffer is used to
@@ -464,5 +466,6 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	Status = XST_SUCCESS;
 
 END:
+	XPlmi_SetPlmLiveStatus();
 	return Status;
 }

@@ -89,6 +89,7 @@
 *       skg  06/20/2022 Fixed MISRA C Rule 4.1 violation
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       dc   07/19/2022 Added support for data measurement in VersalNet
+*       bm   07/24/2022 Set PlmLiveStatus during boot time
 *
 * </pre>
 *
@@ -113,6 +114,7 @@
 #include "xpm_nodeid.h"
 #include "xplmi_plat.h"
 #include "xloader_plat.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -212,6 +214,8 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
+
+		XPlmi_SetPlmLiveStatus();
 
 		/* Process Partition */
 		Status = XLoader_ProcessPrtn(PdiPtr);

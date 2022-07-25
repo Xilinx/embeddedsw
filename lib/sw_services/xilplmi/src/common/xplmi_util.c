@@ -39,6 +39,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
+*       bm   07/24/2022 Set PlmLiveStatus during boot time
 *
 * </pre>
 *
@@ -52,6 +53,7 @@
 #include "xplmi.h"
 #include "xplmi_debug.h"
 #include "sleep.h"
+#include "xplmi_wdt.h"
 
 /**@cond xplmi_internal
  * @{
@@ -129,6 +131,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	 */
 	while (((RegValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
 		usleep(1U);
+		XPlmi_SetPlmLiveStatus();
 		/*
 		 * Latch up the Register value again
 		 */
@@ -184,6 +187,7 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	 */
 	while (((ReadValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
 		usleep(1U);
+		XPlmi_SetPlmLiveStatus();
 		/*
 		 * Latch up the value again
 		 */
@@ -236,6 +240,7 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
 		 * Latch up the Register value again
 		 */
 		RegValue = XPlmi_In32(RegAddr);
+		XPlmi_SetPlmLiveStatus();
 
 		/*
 		 * Decrement the TimeOut Count
@@ -279,6 +284,7 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 TimeOutInUs
 	 */
 	while (((ReadValue & Mask) != Mask) && (TimeOut > 0U)) {
 		usleep(1U);
+		XPlmi_SetPlmLiveStatus();
 		/*
 		 * Latch up the value again
 		 */

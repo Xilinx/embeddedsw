@@ -72,6 +72,7 @@
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *       ma   07/20/2022 Print XPlmi_MaskPoll failures in all cases
 *       bm   07/20/2022 Retain critical data structures after In-Place PLM Update
+*       bm   07/24/2022 Set PlmLiveStatus during boot time
 *
 * </pre>
 *
@@ -2272,6 +2273,7 @@ static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
 	else {
 		LenTmp = RemData;
 	}
+	XPlmi_SetPlmLiveStatus();
 	KeyHoleXfrParams.SrcAddr = Src;
 	KeyHoleXfrParams.Len = LenTmp;
 	Status = XPlmi_KeyHoleXfr(&KeyHoleXfrParams);
@@ -2350,6 +2352,7 @@ static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams)
 	KeyHoleXfrParams->DestAddr = KeyHoleXfrParams->BaseAddr;
 
 	while (KeyHoleXfrParams->Len > 0U) {
+		XPlmi_SetPlmLiveStatus();
 		LenTemp = KeyHoleXfrParams->Keyholesize;
 		if (LenTemp > KeyHoleXfrParams->Len) {
 			LenTemp = KeyHoleXfrParams->Len;
