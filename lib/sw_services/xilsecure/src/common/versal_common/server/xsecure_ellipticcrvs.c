@@ -21,6 +21,8 @@
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 * 4.6   har  07/14/21 Fixed doxygen warnings
+* 4.9   am   07/23/22 Initialized EcdsaCrvInfo structure members(d14 and d15)
+*                     with NULL
 *
 * </pre>
 *
@@ -30,6 +32,7 @@
 
 /***************************** Include Files *********************************/
 #include "xsecure_ellipticcrvs.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef XSECURE_ECC_SUPPORT_NIST_P384
@@ -340,7 +343,11 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP384_d10,
 		XSecure_EllipticNistP384_d11,
 		XSecure_EllipticNistP384_d12,
-		XSecure_EllipticNistP384_d13
+		XSecure_EllipticNistP384_d13,
+#if defined (VERSAL_NET)
+		NULL,
+		NULL
+#endif
 	},
 #endif
 
@@ -362,7 +369,11 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP521_d10,
 		XSecure_EllipticNistP521_d11,
 		XSecure_EllipticNistP521_d12,
-		XSecure_EllipticNistP521_d13
+		XSecure_EllipticNistP521_d13,
+#if defined (VERSAL_NET)
+		NULL,
+		NULL
+#endif
 	},
 #endif
 };
