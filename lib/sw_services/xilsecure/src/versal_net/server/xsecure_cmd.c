@@ -22,6 +22,9 @@
 *       kal  08/16/2021 Fixed magic number usage comment and fixed bug in
 *                       XSecure_FeaturesCmd API
 *       rb   08/11/2021 Fix compilation warnings
+* 4.9   kpt  07/24/2022 Added XSecure_KatIpiHandler and support to go into
+*                       secure lockdown when KAT fails
+*
 *
 * </pre>
 *
@@ -31,7 +34,6 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
-#include "xplmi.h"
 #include "xsecure_error.h"
 #include "xplmi_cmd.h"
 #include "xplmi_generic.h"
@@ -42,7 +44,10 @@
 #include "xsecure_rsa_ipihandler.h"
 #include "xsecure_sha_ipihandler.h"
 #include "xsecure_trng_ipihandler.h"
+#include "xsecure_kat_ipihandler.h"
 #include "xsecure_cmd.h"
+#include "xplmi.h"
+#include "xplmi_tamper.h"
 
 /************************** Function Prototypes ******************************/
 static int XSecure_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
@@ -64,7 +69,13 @@ static XPlmi_Module XPlmi_Secure =
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#define XILSECURE_MODULE_ID			(0x05U)
+#define XSECURE_KAT_API_ERR_ID		((XILSECURE_MODULE_ID << 8U) | ((u32)XSECURE_API_KAT))
+#define XSECURE_KAT_MAJOR_ERROR 	(((u32)XPLMI_ERR_CDO_CMD + (XSECURE_KAT_API_ERR_ID & \
+										XPLMI_ERR_CDO_CMD_MASK)))
+
 /************************** Function Definitions ******************************/
+
 /*****************************************************************************/
 /**
  * @brief	This function checks if a particular Secure API ID is supported
@@ -82,17 +93,14 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 
 	switch (ApiId) {
 	case XSECURE_API(XSECURE_API_SHA3_UPDATE):
-	case XSECURE_API(XSECURE_API_SHA3_KAT):
 #ifndef PLM_SECURE_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
-	case XSECURE_API(XSECURE_API_RSA_KAT):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
-	case XSECURE_API(XSECURE_API_ELLIPTIC_KAT):
 	case XSECURE_API(XSECURE_API_AES_INIT):
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):
@@ -104,10 +112,8 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
-	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
-	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
-	case XSECURE_API(XSECURE_API_TRNG_KAT):
+	case XSECURE_API(XSECURE_API_KAT):
 #endif
 		Status = XST_SUCCESS;
 		break;
@@ -127,7 +133,8 @@ static int XSecure_FeaturesCmd(u32 ApiId)
  *****************************************************************************/
 static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
@@ -135,21 +142,18 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		Status = XSecure_FeaturesCmd(Pload[0]);
 		break;
 	case XSECURE_API(XSECURE_API_SHA3_UPDATE):
-	case XSECURE_API(XSECURE_API_SHA3_KAT):
 		Status = XSecure_Sha3IpiHandler(Cmd);
 		break;
 #ifndef PLM_SECURE_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
-	case XSECURE_API(XSECURE_API_RSA_KAT):
 		Status = XSecure_RsaIpiHandler(Cmd);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
-	case XSECURE_API(XSECURE_API_ELLIPTIC_KAT):
 		Status = XSecure_EllipticIpiHandler(Cmd);
 		break;
 	case XSECURE_API(XSECURE_API_AES_INIT):
@@ -163,15 +167,15 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
-	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
-	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
 		Status = XSecure_AesIpiHandler(Cmd);
 		break;
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
-	case XSECURE_API(XSECURE_API_TRNG_KAT):
 		Status = XSecure_TrngIpiHandler(Cmd);
 		break;
 #endif
+	case XSECURE_API(XSECURE_API_KAT):
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_KatIpiHandler, Cmd)
+		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;

@@ -27,6 +27,8 @@
 *                     user
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 4.9   kpt  07/24/22 Moved XSecure_AesDecryptKat and XSecure_AesDecryptCMKat
+*                     into XSecure_Katclient.c
 *
 * </pre>
 * @note
@@ -552,83 +554,6 @@ int XSecure_AesSetDpaCm(XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg)
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0U, XSECURE_API_AES_SET_DPA_CM);
 	Payload[1U] = DpaCmCfg;
-
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- *
- * @brief	This function sends IPI request to KAT on AES engine
- *
- * @param	InstancePtr	Pointer to the client instance
- *
- * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	XSECURE_AESKAT_INVALID_PARAM	 - On invalid argument
- *	-	XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR - Error when AES key
- *							write fails
- *	-	XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR - Error when AES
- * 							decrypt init fails
- *	-	XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR - Error when GCM tag
- * 					not matched with user provided tag
- *	-	XSECURE_AES_KAT_DATA_MISMATCH_ERROR - Error when AES data
- * 					not matched with expected data
- *
- ******************************************************************************/
-int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr)
-{
-	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
-
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_DECRYPT_KAT);
-
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- *
- * @brief	This function sends IPI request to perform KAT on AES engine
- * 		to confirm DPA counter measures is working fine
- *
- * @param	InstancePtr	Pointer to the client instance
- *
- * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_AESKAT_INVALID_PARAM	- Invalid Argument
- *	-	XSECURE_AESDPACM_KAT_WRITE_KEY_FAILED_ERROR - Error when
- * 						AESDPACM key write fails
- *	-	XSECURE_AESDPACM_KAT_KEYLOAD_FAILED_ERROR - Error when
- * 						AESDPACM key load fails
- *	-	XSECURE_AESDPACM_SSS_CFG_FAILED_ERROR - Error when
- * 						AESDPACM sss configuration fails
- *	-	XSECURE_AESDPACM_KAT_FAILED_ERROR - Error when AESDPACM KAT fails
- *	-	XST_FAILURE - On failure
- *
- ******************************************************************************/
-int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr)
-{
-	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
-
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_DECRYPT_CM_KAT);
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 

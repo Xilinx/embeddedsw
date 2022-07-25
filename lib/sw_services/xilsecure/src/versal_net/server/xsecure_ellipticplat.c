@@ -27,6 +27,7 @@
 
 /***************************** Include Files *********************************/
 #include "xsecure_ellipticplat.h"
+#include "xsecure_plat_kat.h"
 #include "xsecure_error.h"
 #include "xsecure_elliptic.h"
 #include "xsecure_utils.h"

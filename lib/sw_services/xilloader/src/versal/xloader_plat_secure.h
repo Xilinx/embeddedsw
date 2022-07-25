@@ -17,6 +17,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       dc   07/12/2022 Added XLoader_AddDeviceStateChangeToScheduler()
 *                       applicable only for Versalnet
+*       kpt  07/24/2022 Added XLoader_RsaKat
 *
 * </pre>
 *
@@ -36,6 +37,7 @@ extern "C" {
 #include "xilpdi.h"
 #include "xplmi_config.h"
 #ifndef PLM_SECURE_EXCLUDE
+#include "xsecure_kat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -141,6 +143,7 @@ static inline int XLoader_AddDeviceStateChangeToScheduler(void)
 /************************** Function Prototypes ******************************/
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
+int XLoader_RsaKat(XPmcDma *PmcDmaPtr);
 
 /************************** Variable Definitions *****************************/
 

@@ -72,6 +72,8 @@
 *       har  01/20/2022 Added glitch checks for clearing keys in
 *                       XSecure_AesWriteKey()
 *       har  02/16/2022 Updated Status with ClearStatus only in case of success
+* 4.9   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c and fixed bug in
+*                       XSecure_AesDecryptCmKat
 *
 * </pre>
 *
@@ -107,9 +109,6 @@
  * @{
  */
 /**< AES KAT parameters */
-#define XSECURE_KAT_IV_SIZE_IN_WORDS		(4U)
-#define XSECURE_KAT_MSG_SIZE_IN_WORDS		(4U)
-#define XSECURE_KAT_GCMTAG_SIZE_IN_WORDS	(4U)
 #define XSECURE_KAT_AES_SPLIT_DATA_SIZE		(4U)
 #define XSECURE_KAT_KEY_SIZE_IN_WORDS		(8U)
 #define XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS	(16U)
@@ -119,18 +118,6 @@
 													data pushed in AES engine*/
 #define XSECURE_AES_AAD_DISABLE			(0x0U)	/**< Disables authentication of
 													data pushed in AES engine*/
-
-static const u32 KatKey[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
-			  {0xD55455D7U, 0x2B247897U, 0xC4BF1CDU , 0x1A2D14EDU,
-			   0x4D3B0A53U, 0xF3C6E1AEU, 0xAFC2447AU, 0x7B534D99U};
-static const u32 KatIv[XSECURE_KAT_IV_SIZE_IN_WORDS] =
-			  {0xCCF8E3B9U, 0x11F11746U, 0xD58C03AFU, 0x00000000U};
-static const u32 KatMessage[XSECURE_KAT_MSG_SIZE_IN_WORDS] =
-			  {0xF9ECC5AEU, 0x92B9B870U, 0x31299331U, 0xC4182756U};
-static const u32 KatGcmTag[XSECURE_KAT_GCMTAG_SIZE_IN_WORDS] =
-			  {0xC3CFB3E5U, 0x49D4FBCAU, 0xD90B2BFCU, 0xC87DBE9BU};
-static const u32 KatOutput[XSECURE_KAT_MSG_SIZE_IN_WORDS] =
-			  {0x9008CFD4U, 0x3882AA74U, 0xD635531U,  0x6C1C1F47U};
 
 static const u32 Key0[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
 							{0x98076956U, 0x4f158c97U, 0x78ba50f2U, 0x5f7663e4U,
@@ -939,7 +926,7 @@ END_RST:
 	if (Status != XST_SUCCESS) {
 		/*
 		 * Issue a soft to reset to AES engine and
-		 * set the AES state back to initilization state
+		 * set the AES state back to initialization state
 		 */
 		InstancePtr->NextBlkLen = 0U;
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
@@ -1014,7 +1001,7 @@ END_RST:
 	if (Status != XST_SUCCESS) {
 		/*
 		 * Issue a soft to reset to AES engine and
-		 * set the AES state back to initilization state
+		 * set the AES state back to initialization state
 		 */
 		InstancePtr->NextBlkLen = 0U;
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
@@ -1645,96 +1632,6 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * @brief	This function performs known answer test(KAT) on AES engine
- *
- * @param	AesInstance	Pointer to the XSecure_Aes instance
- *
- * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	XSECURE_AESKAT_INVALID_PARAM - Invalid Argument
- *	-	XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR - Error when AES key write fails
- *	-	XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR - Error when AES decrypt init fails
- *	-	XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR - Error when GCM tag not matched
- *			with user provided tag
- *	-	XSECURE_AES_KAT_DATA_MISMATCH_ERROR - Error when AES data not matched with
- *			expected data
- *
- *****************************************************************************/
-int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int SStatus = XST_FAILURE;
-	u32 Index;
-
-	u32 DstVal[XSECURE_KAT_MSG_SIZE_IN_WORDS] = {0U};
-
-	if (AesInstance == NULL) {
-		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
-		goto END;
-	}
-
-	if ((AesInstance->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(AesInstance->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
-		Status = (int)XSECURE_AES_KAT_BUSY;
-		goto END;
-	}
-
-	if (AesInstance->AesState != XSECURE_AES_INITIALIZED) {
-		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END;
-	}
-
-	/* Write AES key */
-	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
-			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KatKey);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AES_KAT_WRITE_KEY_FAILED_ERROR;
-		goto END_CLR;
-	}
-
-	Status = XST_FAILURE;
-
-	Status = XSecure_AesDecryptInit(AesInstance, XSECURE_AES_USER_KEY_7,
-			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KatIv);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AES_KAT_DECRYPT_INIT_FAILED_ERROR;
-		goto END_CLR;
-	}
-
-	Status = XST_FAILURE;
-
-	Status = XSecure_AesDecryptData(AesInstance, (UINTPTR)KatMessage,
-			(UINTPTR)DstVal, XSECURE_SECURE_GCM_TAG_SIZE, (UINTPTR)KatGcmTag);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AES_KAT_GCM_TAG_MISMATCH_ERROR;
-		goto END_CLR;
-	}
-
-	/* Initialized to error */
-	Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
-	for (Index = 0U; Index < XSECURE_AES_BUFFER_SIZE; Index++) {
-		if (DstVal[Index] != KatOutput[Index]) {
-			/* Comparison failure of decrypted data */
-			Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
-			goto END_CLR;
-		}
-	}
-
-	if (Index == XSECURE_AES_BUFFER_SIZE) {
-		Status = XST_SUCCESS;
-	}
-
-END_CLR:
-	SStatus = XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
-	if(Status == XST_SUCCESS) {
-		Status = SStatus;
-	}
-
-END:
-	return Status;
-}
 
 /*****************************************************************************/
 /**
@@ -1920,8 +1817,10 @@ static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
 		(XSECURE_AES_SPLIT_CFG_KEY_SPLIT |
 		XSECURE_AES_SPLIT_CFG_DATA_SPLIT));
 
-	ReadReg = XSecure_ReadReg(AesInstance->BaseAddress,
-		XSECURE_AES_CM_EN_OFFSET);
+	Status = XSecure_AesSetDpaCm(AesInstance, (u32)TRUE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_CM_EN_OFFSET,
 		XSECURE_AES_CM_EN_VAL_MASK);

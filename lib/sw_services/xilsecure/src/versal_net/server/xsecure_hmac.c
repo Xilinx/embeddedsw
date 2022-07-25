@@ -16,6 +16,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -------------------------------------------------------
 * 4.9   vns 05/30/22 Initial release
+*       kpt 07/24/22 Moved XSecure_HmacKat into xsecure_kat_plat.c
 *
 * </pre>
 *
@@ -316,78 +317,3 @@ static void XSecure_HmacXor(const u32 *Data, const u8 Value, u32 *Result)
 	}
 }
 
-/*****************************************************************************/
-/**
- * This function performs KAT on HMAC (SHA3-384).
- *
- * @param 	none
- *
- * @return	returns the error codes
- *		returns XST_SUCCESS on success
- *
- *****************************************************************************/
-int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
-{
-	volatile int Status = XST_FAILURE;
-	volatile u32 Index;
-	XSecure_HmacRes Hmac = {0U};
-	XSecure_Hmac HmacInstance;
-	const u8 HmacExpected[XSECURE_HASH_SIZE_IN_BYTES] = {
-		0x79U, 0xF0U, 0xFAU, 0x0BU, 0x3BU, 0x7CU, 0xA6U, 0xF6U,
-		0xF9U, 0x91U, 0xA7U, 0x87U, 0x4FU, 0x05U, 0x6FU, 0x32U,
-		0x26U, 0x40U, 0xD8U, 0x34U, 0xF6U, 0x48U, 0xDCU, 0x33U,
-		0x36U, 0xD9U, 0x72U, 0xFBU, 0x0BU, 0xD9U, 0xF4U, 0x36U,
-		0x91U, 0xE3U, 0x5BU, 0x12U, 0xC6U, 0x3BU, 0xB9U, 0x82U,
-		0xEDU, 0x38U, 0xF5U, 0x18U, 0xB9U, 0xA5U, 0x90U, 0x97U
-	};
-	const u8 HmacKey[48U] = {
-		0x91U, 0xF8U, 0xECU, 0x84U, 0x8DU, 0x6FU, 0x81U, 0x14U,
-		0x31U, 0xCBU, 0xDEU, 0xEEU, 0x15U, 0x0BU, 0x93U, 0xAFU,
-		0x6FU, 0x67U, 0x8BU, 0xE9U, 0x9CU, 0x90U, 0x3FU, 0x81U,
-		0xFCU, 0x38U, 0x29U, 0x55U, 0x03U, 0xD5U, 0x7CU, 0x22U,
-		0x8DU, 0xA2U, 0x12U, 0xA6U, 0x72U, 0xE7U, 0xA6U, 0x01U,
-		0x5BU, 0x7BU, 0x43U, 0x61U, 0xD4U, 0x87U, 0xFCU, 0xDEU
-	};
-	const u8 HmacMsg[48U] = {
-		0x1AU, 0x40U, 0xE8U, 0x96U, 0xD0U, 0xC0U, 0xC1U, 0x3EU,
-		0x78U, 0x24U, 0xC3U, 0xEFU, 0x86U, 0xE0U, 0x23U, 0x55U,
-		0xFEU, 0xB6U, 0x29U, 0xEAU, 0x88U, 0x7CU, 0xE4U, 0xD2U,
-		0xC7U, 0x1FU, 0x1DU, 0x02U, 0xE7U, 0xE8U, 0x89U, 0xA8U,
-		0x75U, 0xFEU, 0x42U, 0xC7U, 0x74U, 0x2DU, 0x78U, 0x22U,
-		0xADU, 0xE5U, 0x64U, 0x5CU, 0x46U, 0x86U, 0x7EU, 0x5DU
-	};
-
-	Status = XSecure_HmacInit(&HmacInstance, SecureSha3,
-				(UINTPTR)HmacKey, sizeof(HmacKey));
-	if (Status != XST_SUCCESS) {
-		Status = XSECURE_HMAC_KAT_INIT_ERROR;
-		goto END;
-	}
-	Status = XSecure_HmacUpdate(&HmacInstance, (UINTPTR)HmacMsg,
-				sizeof(HmacMsg));
-	if (Status != XST_SUCCESS) {
-		Status = XSECURE_HMAC_KAT_UPDATE_ERROR;
-		goto END;
-	}
-	Status = XSecure_HmacFinal(&HmacInstance, &Hmac);
-	if (Status != XST_SUCCESS) {
-		Status = XSECURE_HMAC_KAT_FINAL_ERROR;
-		goto END;
-	}
-	Status = XSECURE_HMAC_KAT_ERROR;
-	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
-		if (HmacExpected[Index] != Hmac.Hash[Index]) {
-			Status = XSECURE_HMAC_KAT_ERROR;
-			goto END;
-		}
-	}
-
-	if(Index == XSECURE_HASH_SIZE_IN_BYTES) {
-		Status = XST_SUCCESS;
-	}
-END:
-	(void)memset((void *)Hmac.Hash, (u32)0,
-			XSECURE_HASH_SIZE_IN_BYTES);
-
-	return Status;
-}

@@ -86,6 +86,7 @@
 *       bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/07/22 Added support to update KAT status
 *       bsv  07/08/22 Changes related to Optional data in Image header table
+*       kpt  07/24/22 Added support to go into secure lockdown when KAT fails
 *
 * </pre>
 *
@@ -101,11 +102,9 @@
 #include "xilpdi.h"
 #include "xplmi_dma.h"
 #include "xsecure_error.h"
-#include "xsecure_sha.h"
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_elliptic.h"
 #include "xsecure_aes_core_hw.h"
-#include "xsecure_aes.h"
 #include "xsecure_rsa_core.h"
 #include "xsecure_utils.h"
 #include "xplmi_modules.h"
@@ -202,6 +201,9 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 Size, u8 Last);
 static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue);
 static void XLoader_DisableJtag(void);
+static void XLoader_ClearKatStatusOnCfg(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
+static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
+static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr);
 
 /************************** Variable Definitions *****************************/
 static XLoader_AuthJtagStatus AuthJtagStatus = {0U};
@@ -658,24 +660,9 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr)
 		goto END;
 	}
 
-	/* Update KAT status based on the user configuration */
-	XLoader_UpdateKatStatus(SecurePtr, XLOADER_SHA3_KAT_MASK);
-
-	if ((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_SHA3_KAT_MASK) == 0U) {
-		/*
-		 * Skip running the KAT for SHA3 if it is already run by ROM
-		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
-		 */
-		Status = XSecure_Sha3Kat(Sha3InstPtr);
-		if(Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "SHA3 KAT failed\n\r");
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
-			goto END;
-		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_SHA3_KAT_MASK;
-
-		/* Update KAT status */
-		XLoader_SetKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
+	Status = XLoader_Sha3Kat(SecurePtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	Status = XST_FAILURE;
@@ -911,63 +898,15 @@ END:
 static int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	volatile u8 IsEfuseAuth = (u8)TRUE;
 	volatile u8 IsEfuseAuthTmp = (u8)TRUE;
-	u32 AuthType;
-	u32 AuthKatMask;
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 ReadAuthReg = 0x0U;
-	const char* ErrorString = "";
 
-	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
-	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
-		AuthKatMask = XLOADER_RSA_KAT_MASK;
-	}
-	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
-		AuthKatMask = XLOADER_ECC_P384_KAT_MASK;
-	}
-	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
-		AuthKatMask = XLOADER_ECC_P521_KAT_MASK;
-	}
-	else {
-		/* Not supported */
-		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+	Status = XLoader_AuthKat(SecurePtr);
+	if (Status != XST_SUCCESS) {
 		goto END;
-	}
-
-	/* Update KAT status based on the user configuration */
-	XLoader_UpdateKatStatus(SecurePtr, AuthKatMask);
-	/*
-	 * Skip running the KAT for ECDSA or RSA if it is already run by ROM
-	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
-	 */
-	if ((SecurePtr->PdiPtr->PlmKatStatus & AuthKatMask) == 0U) {
-		if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
-			Status = XSecure_RsaPublicEncryptKat();
-			ErrorString = "RSA KAT";
-		}
-		else if ((AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
-			(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
-			Status = XSecure_EllipticKat(AuthType);
-			ErrorString = "ECC KAT";
-		}
-		else {
-			/* Not supported */
-			XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
-			Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
-			goto END;
-		}
-		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "%s failed\n\r", ErrorString);
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
-			goto END;
-		}
-		SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
-
-		/* Update KAT status */
-		XLoader_SetKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 	}
 
 	/* Check Secure state of device
@@ -1489,9 +1428,8 @@ END:
 /*****************************************************************************/
 /**
  *
- * @brief	This function encrypts the RSA signature provided and performs
- * required PSS operations to extract salt and calculates M prime hash and
- * compares with hash obtained from EM.
+ * @brief	This function initializes the RSA module with provided key and
+ *			verifies the signature
  *
  * @param   SecurePtr is pointer to the XLoader_SecureParams instance
  * @param   MsgHash of the data to be authenticated.
@@ -1503,7 +1441,45 @@ END:
  *
  ******************************************************************************/
 static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
-		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature)
+		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature) {
+
+	int Status = XST_FAILURE;
+	XSecure_Rsa *RsaInstPtr = XSecure_GetRsaInstance();
+
+	/* Initialize RSA instance */
+	Status = XSecure_RsaInitialize(RsaInstPtr, (u8 *)Key->PubModulus,
+			(u8 *)Key->PubModulusExt, (u8 *)&Key->PubExponent);
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_AUTH_FAIL,
+					 Status);
+		goto END;
+	}
+
+	Status = XLoader_RsaPssSignVerify(SecurePtr->PmcDmaInstPtr, MsgHash, RsaInstPtr,
+				Signature);
+END:
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function encrypts the RSA signature provided and performs
+ * required PSS operations to extract salt and calculates M prime hash and
+ * compares with hash obtained from EM.
+ *
+ * @param   PmcDmaInstPtr Pointer to DMA instance
+ * @param   MsgHash of the data to be authenticated.
+ * @param   RsaInstPtr is pointer to the XSecure_Rsa instance.
+ * @param   Signature is pointer to RSA signature for data to be
+ *		authenticated.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
+		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature)
 {
 	volatile int Status = XST_FAILURE;
 	volatile u32 DbTmp;
@@ -1521,17 +1497,7 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	u32 Index;
 	u32 IndexTmp;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
-	XSecure_Rsa *RsaInstPtr = XSecure_GetRsaInstance();
 	u8 *DataHash = (u8 *)MsgHash;
-
-	/* Initialize RSA instance */
-	Status = XSecure_RsaInitialize(RsaInstPtr, (u8 *)Key->PubModulus,
-			(u8 *)Key->PubModulusExt, (u8 *)&Key->PubExponent);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_AUTH_FAIL,
-					 Status);
-		goto END;
-	}
 
 	Status = XPlmi_MemSetBytes(XSecure_RsaSha3Array, XLOADER_PARTITION_SIG_SIZE,
 				0U, XLOADER_PARTITION_SIG_SIZE);
@@ -1582,7 +1548,7 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
+	Status = XSecure_Sha3Initialize(Sha3InstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
 									 Status);
@@ -2687,48 +2653,50 @@ END:
 ******************************************************************************/
 static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 DpacmEfuseStatus;
 	u32 PlmDpacmKatStatus;
 
+	/* Update KAT status based on the user configuration */
+	XLoader_UpdateKatStatus(SecurePtr, XPLMI_SECURE_AES_CMKAT_MASK);
+
 	/*
-	 * Skip running the KAT for AES DPACM or AES if it is already run by ROM
+	 * Skip running the KAT for AES DPACM or AES if it is already run
 	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
+	 * If KAT fails device will go into a secure lockdown state
 	 */
 	DpacmEfuseStatus = XPlmi_In32(XLOADER_EFUSE_SEC_MISC1_OFFSET) &
 		XLOADER_EFUSE_SEC_DPA_DIS_MASK;
-	PlmDpacmKatStatus = SecurePtr->PdiPtr->PlmKatStatus & XLOADER_DPACM_KAT_MASK;
-
-	/* Update KAT status based on the user configuration */
-	XLoader_UpdateKatStatus(SecurePtr, XLOADER_DPACM_KAT_MASK);
+	PlmDpacmKatStatus = SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SECURE_AES_CMKAT_MASK;
 
 	if((DpacmEfuseStatus == 0U) && (PlmDpacmKatStatus == 0U)) {
-		Status = XSecure_AesDecryptCmKat(SecurePtr->AesInstPtr);
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+			XSecure_AesDecryptCmKat, SecurePtr->AesInstPtr)
 		if(Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "DPACM KAT failed\n\r");
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_DPACM_KAT_MASK;
+		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_SECURE_AES_CMKAT_MASK;
 
-		/* Update KAT status */
-		XLoader_SetKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
+		/* Update KAT status in RTC area */
+		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 	}
 
 	/* Update KAT status based on the user configuration */
-	XLoader_UpdateKatStatus(SecurePtr, XLOADER_AES_KAT_MASK);
+	XLoader_UpdateKatStatus(SecurePtr, XPLMI_SECURE_AES_DEC_KAT_MASK);
 
-	if((SecurePtr->PdiPtr->PlmKatStatus & XLOADER_AES_KAT_MASK) == 0U) {
-		Status = XSecure_AesDecryptKat(SecurePtr->AesInstPtr);
+	if((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SECURE_AES_DEC_KAT_MASK) == 0U) {
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+			XSecure_AesDecryptKat, SecurePtr->AesInstPtr);
 		if(Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "AES KAT failed\n\r");
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 			goto END;
 		}
-		SecurePtr->PdiPtr->PlmKatStatus |= XLOADER_AES_KAT_MASK;
+		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_SECURE_AES_DEC_KAT_MASK;
 
-		/* Update KAT status */
-		XLoader_SetKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
+		/* Update KAT status in RTC area */
+		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 	}
 	XPlmi_Printf(DEBUG_INFO, "KAT test on AES crypto engine is successful\r\n");
 
@@ -3228,67 +3196,18 @@ int XLoader_AuthEncClear(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function is called to set PlmKatStatus in the PdiPtr from
- *          XPLMI_RTCFG_SECURE_STATE_ADDR
+ * @brief	This function updates the KAT status
  *
- * @param	PdiPtr is the pointer the XilPdi instance
- *
- * @return	XST_SUCCESS on success
- *       	XST_FAILURE on failure
- *
- *****************************************************************************/
-int XLoader_GetKatStatus(XilPdi *PdiPtr)
-{
-	int Status = XST_FAILURE;
-	u32 CryptoKat;
-
-	if (PdiPtr == NULL) {
-		goto END;
-	}
-
-	CryptoKat = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
-			EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK;
-	if(CryptoKat == EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK) {
-		PdiPtr->PlmKatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_STATE_ADDR);
-	} else {
-		PdiPtr->PlmKatStatus = XLOADER_KAT_DONE;
-	}
-
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is called to set XPLMI_RTCFG_SECURE_STATE_ADDR with
- *          PlmKatStatus
- *
- * @param	PlmKatStatus contains the KAT status updated by PLM
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance
+ * @param	PlmKatMask is the mask of the KAT that is going to run
  *
  * @return	None
  *
  *****************************************************************************/
-void XLoader_SetKatStatus(u32 PlmKatStatus)
-{
-	XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, PlmKatStatus);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function is called to clear XPLMI_RTCFG_SECURE_STATE_ADDR with
- *          PlmKatMask
- *
- * @param	PlmKatStatus contains the KAT status updated by PLM
- * @param   PlmKatMask contains the kat mask that needs to be re-run
- *
- * @return	None
- *
- *****************************************************************************/
-void XLoader_ClearKatStatus(u32 *PlmKatStatus, u32 PlmKatMask) {
-	*PlmKatStatus &= ~PlmKatMask;
-	XLoader_SetKatStatus(*PlmKatStatus);
+void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask) {
+	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
+		XLoader_ClearKatStatusOnCfg(SecurePtr, PlmKatMask);
+	}
 }
 
 /*****************************************************************************/
@@ -3302,16 +3221,18 @@ void XLoader_ClearKatStatus(u32 *PlmKatStatus, u32 PlmKatMask) {
  * @return	None
  *
  *****************************************************************************/
-void XLoader_UpdatePpdiKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask)
+static void XLoader_ClearKatStatusOnCfg(XLoader_SecureParams *SecurePtr, u32 PlmKatMask)
 {
-	u8 KatOnConfig = (u8)(XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) & XLOADER_PPDI_KAT_MASK);
+	u8 KatOnConfig = (u8)(XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR) &
+						XLOADER_PPDI_KAT_MASK);
 
 	if (KatOnConfig != 0U) {
 		if (PlmKatMask != 0U) {
 			SecurePtr->PdiPtr->PpdiKatStatus &= SecurePtr->PdiPtr->PlmKatStatus;
 			if ((SecurePtr->PdiPtr->PpdiKatStatus & PlmKatMask) != PlmKatMask) {
 				/* Update RTC area before running KAT */
-				XLoader_ClearKatStatus(&SecurePtr->PdiPtr->PlmKatStatus, PlmKatMask);
+				SecurePtr->PdiPtr->PlmKatStatus &= ~PlmKatMask;
+				XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 				SecurePtr->PdiPtr->PpdiKatStatus |= PlmKatMask;
 			}
 		}
@@ -3521,6 +3442,11 @@ static int XLoader_VerifyAuthHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
+	Status = XLoader_Sha3Kat(SecurePtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XSecure_Sha3Start(Sha3InstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
@@ -3622,6 +3548,121 @@ static int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
 		Status = XST_SUCCESS;
 	}
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function runs RSA or Ecdsa KAT based on pdi
+*
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
+	u32 AuthType;
+	u32 AuthKatMask;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	const char* ErrorString = "";
+	XSecure_EllipticCrvClass CrvClass = XSECURE_ECC_PRIME;
+
+	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+		AuthKatMask = XPLMI_SECURE_RSA_KAT_MASK;
+	}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
+		AuthKatMask = XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_KAT_MASK;
+		CrvClass = XSECURE_ECC_PRIME;
+	}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+		AuthKatMask = XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_KAT_MASK;
+		CrvClass = XSECURE_ECC_PRIME;
+	}
+	else {
+		/* Not supported */
+		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+		goto END;
+	}
+
+	/* Update KAT status based on the user configuration */
+	XLoader_UpdateKatStatus(SecurePtr, AuthKatMask);
+
+	/*
+	 * Skip running the KAT for ECDSA or RSA if it is already run
+	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
+	 * If KAT fails device will go into a secure lockdown state
+	 */
+	if ((SecurePtr->PdiPtr->PlmKatStatus & AuthKatMask) == 0U) {
+		if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+					XLoader_RsaKat, SecurePtr->PmcDmaInstPtr);
+			ErrorString = "RSA KAT";
+		}
+		else if ((AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
+			(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+					XSecure_EllipticVerifySignKat, CrvClass);
+			ErrorString = "ECC KAT";
+		}
+		else {
+			/* Not supported */
+			XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+			goto END;
+		}
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL, "%s failed\n\r", ErrorString);
+			goto END;
+		}
+		SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
+
+		/* Update KAT status */
+		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
+	}
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function runs SHA3 KAT
+*
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+
+		/* Update KAT status based on the user configuration */
+	XLoader_UpdateKatStatus(SecurePtr, XPLMI_SECURE_SHA3_KAT_MASK);
+
+	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SECURE_SHA3_KAT_MASK) == 0U) {
+		/*
+		 * Skip running the KAT for SHA3 if it is already run
+		 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set
+		 * If KAT fails device will go into a secure lockdown state
+		 */
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+			XSecure_Sha3Kat, Sha3InstPtr);
+		if(Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_GENERAL, "SHA3 KAT failed\n\r");
+			goto END;
+		}
+		SecurePtr->PdiPtr->PlmKatStatus |= XPLMI_SECURE_SHA3_KAT_MASK;
+
+		/* Update KAT status */
+		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
+	}
+	Status = XST_SUCCESS;
+END:
 	return Status;
 }
 #endif /* END OF PLM_SECURE_EXCLUDE */

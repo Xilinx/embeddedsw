@@ -35,6 +35,7 @@
 *       ana  10/15/2020 Updated doxygen tags
 * 4.5   har  03/02/2021 Added prototype for XSecure_AesUpdateAad
 * 4.6   har  07/14/2021 Fixed doxygen warnings
+* 4.9   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c
 *
 * </pre>
 *
@@ -58,7 +59,6 @@ extern "C" {
  * @{
  */
 
-#define XSECURE_AES_BUFFER_SIZE				(4U)
 #define XSECURE_AES_KEY_DEC_SEL_BBRAM_RED		(0x0U)
 #define XSECURE_AES_KEY_DEC_SEL_BH_RED			(0x1U)
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED		(0x2U)
@@ -196,8 +196,6 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 
 int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
-
-int XSecure_AesDecryptKat(XSecure_Aes *AesInstance);
 
 int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance);
 

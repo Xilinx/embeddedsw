@@ -21,6 +21,8 @@
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       har  04/14/21 Added XSecure_AesEncryptData and XSecure_AesDecryptData
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 4.9   kpt  07/24/22 Moved XSecure_AesDecryptKat and XSecure_AesDecryptCMKat
+*                     into xsecure_katclient.c
 *
 * </pre>
 * @note
@@ -93,8 +95,6 @@ int XSecure_AesWriteKey(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySourc
 int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr, XSecure_AesKeySource DstKeySrc,
 	XSecure_AesKeySource DecKeySrc, XSecure_AesKeySize Size);
 int XSecure_AesSetDpaCm(XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg);
-int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr);
-int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr);
 int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc, u32 KeySize, u64 IvAddr,

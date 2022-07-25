@@ -835,42 +835,6 @@ u8 XPlmi_IsFipsModeEn(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function sets XPLMI_RTCFG_PLM_KAT_ADDR  with
- *          PlmKatMask.
- *
- * @param   PlmKatMask contains the kat mask that needs to be set
- *
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_SetKatMask(u32 PlmKatMask)
-{
-	u32 PlmKatStatus = XPlmi_GetKatStatus();
-
-	PlmKatStatus |= PlmKatMask;
-	XPlmi_UpdateKatStatus(PlmKatStatus);
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function clears XPLMI_RTCFG_PLM_KAT_ADDR with
- *          PlmKatMask.
- *
- * @param   PlmKatMask contains the kat mask that needs to be cleared
- *
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_ClearKatMask(u32 PlmKatMask)
-{
-	u32 PlmKatStatus = XPlmi_GetKatStatus();
-
-	PlmKatStatus &= ~PlmKatMask;
-	XPlmi_UpdateKatStatus(PlmKatStatus);
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function returns ROM KAT status.
  *
  * @return	None

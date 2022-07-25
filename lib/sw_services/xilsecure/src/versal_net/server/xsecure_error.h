@@ -31,6 +31,7 @@
  * 4.8   kpt  06/06/2022 Added error codes for TRNG
  *       ma   07/08/2022 Added support for secure lockdown
  *       dc   07/13/2022 Added error codes for VersalNet
+ * 4.9   kpt  07/24/2022 Added error codes for KAT
  *
  * </pre>
  *
@@ -117,6 +118,17 @@ typedef enum {
 	XSECURE_AES_DEVICE_KEY_NOT_ALLOWED,	     /**< 0x54 - Access to device keys
 							is not allowed for IPI for
 							any operations */
+	XSECURE_AES_KAT_DECRYPT_UPDATE_FAILED_ERROR, /**< 0x55 - Error when AES KAT decrypt
+													update fails */
+	XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR,/**< 0x56 - Error when aad update
+															fails */
+	XSECURE_AES_KAT_ENCRYPT_INIT_FAILED_ERROR, /**< 0x57 - Error when encrypt
+															init fails */
+	XSECURE_AES_KAT_ENCRYPT_UPDATE_FAILED_ERROR,/**< 0x58 - Error when encrypt
+															update fails */
+	XSECURE_AES_KAT_ENCRYPT_FINAL_FAILED_ERROR,/**< 0x59 - Error when encrypt
+															final fails */
+	XSECURE_KAT_GCM_TAG_MISMATCH_ERROR,/**< 0x60 - Error when GCM mismatch occurs */
 
 	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80, /**< 0x80 - RSA KAT fails  */
 
@@ -126,6 +138,10 @@ typedef enum {
 	XSECURE_RSA_INVALID_PARAM_RESERVED,	     /**< 0x82 - Invalid Argument */
 	XSECURE_RSAKAT_INVALID_PARAM,		     /**< 0x83 - Invalid Argument */
 	XSECURE_RSA_STATE_MISMATCH_RESERVED,	     /**< 0x84 - State mismatch */
+	XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR,	/**< 0x85 - RSA decrypt failed error */
+	XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR,	/**< 0x86 - RSA when decrypted data doesn't
+												match with plain text */
+	XSECURE_RSA_KAT_PSS_SIGN_VER_ERROR,		/**< 0x87 - RSA pss sign verification failed */
 
 	/* The error codes from 0x90 to 0xBF are reserved for Versal net platform */
 	XSECURE_HMAC_KAT_INIT_ERROR = 0x90,		/**< 0x90 - HMAC init failure */
@@ -162,7 +178,7 @@ typedef enum {
 	XSECURE_TRNG_CATASTROPHIC_DTF_ERROR,		 /**< 0xB0 - DTF error during generate */
 	XSECURE_TRNG_KAT_FAILED_ERROR,			 /**< 0xB1 - Error when resultant TRNG o/p
 							    doesn't match with expected o/p */
-	XSECURE_TRNG_WRITE_ERROR,			 /**< 0xB2 - Error occured while writing in
+	XSECURE_TRNG_WRITE_ERROR,			 /**< 0xB2 - Error occurred while writing in
 							    to the register */
 
 	XSECURE_ECC_PRVT_KEY_GEN_ERR = 0xBF, /**< = 0xBF - ECC private key generation error */

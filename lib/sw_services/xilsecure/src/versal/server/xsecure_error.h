@@ -30,6 +30,7 @@
  *                       Added error code XSECURE_AES_DEVICE_KEY_NOT_ALLOWED
  * 4.8   ma   07/08/2022 Added support for secure lockdown
  *       dc   07/13/2022 Reserved error codes reservation for Versal net
+ * 4.9   kpt  07/24/2022 Added error codes for KAT
  *
  * </pre>
  *
@@ -116,6 +117,17 @@ typedef enum {
 	XSECURE_AES_DEVICE_KEY_NOT_ALLOWED,	     /**< 0x54 - Access to device keys
 							is not allowed for IPI for
 							any operations */
+	XSECURE_AES_KAT_DECRYPT_UPDATE_FAILED_ERROR, /**< 0x55 - Error when AES KAT decrypt
+												update fails */
+	XSECURE_AES_KAT_UPDATE_AAD_FAILED_ERROR,/**< 0x56 - Error when aad update
+														fails */
+	XSECURE_AES_KAT_ENCRYPT_INIT_FAILED_ERROR, /**< 0x57 - Error when encrypt
+														init fails */
+	XSECURE_AES_KAT_ENCRYPT_UPDATE_FAILED_ERROR,/**< 0x58 - Error when encrypt
+														update fails */
+	XSECURE_AES_KAT_ENCRYPT_FINAL_FAILED_ERROR,/**< 0x59 - Error when encrypt
+														final fails */
+	XSECURE_KAT_GCM_TAG_MISMATCH_ERROR,/**< 0x60 - Error when GCM mismatch occurs */
 
 	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80, /**< 0x80 - RSA KAT fails  */
 
@@ -125,6 +137,9 @@ typedef enum {
 	XSECURE_RSA_INVALID_PARAM_RESERVED,	     /**< 0x82 - Invalid Argument */
 	XSECURE_RSAKAT_INVALID_PARAM,		     /**< 0x83 - Invalid Argument */
 	XSECURE_RSA_STATE_MISMATCH_RESERVED,	     /**< 0x84 - State mismatch */
+	XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR,	/**< 0x85 - RSA decrypt failed error */
+	XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR,	/**< 0x86 - RSA when decrypted data doesn't
+												match with plain text */
 
 	/*
 	 * The error codes from 0x90 to 0xBF are reserved for Versal net platform

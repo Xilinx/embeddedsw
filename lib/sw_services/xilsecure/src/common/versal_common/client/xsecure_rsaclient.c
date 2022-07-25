@@ -24,6 +24,7 @@
 *                     user
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 4.9   kpt  07/24/22 Moved XSecure_RsaKat into xsecure_katclient.c
 *
 * </pre>
 * @note
@@ -201,38 +202,6 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	Payload[0U] = HEADER(0U, XSECURE_API_RSA_SIGN_VERIFY);
 	Payload[1U] = (u32)BufferAddr;
 	Payload[2U] = (u32)(BufferAddr >> 32);
-
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- *
- * @brief	This function sends IPI request to Perform RSA KAT
- *
- * @param	InstancePtr	- Pointer to the client instance
- *
- * @return
- *	-	XST_SUCCESS - On success
- *	-	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR - When RSA KAT fails
- *	-	XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR - Error when
- *					RSA data not matched with expected data
- *
- ******************************************************************************/
-int XSecure_RsaKat(XSecure_ClientInstance *InstancePtr)
-{
-	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
-
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_RSA_KAT);
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 

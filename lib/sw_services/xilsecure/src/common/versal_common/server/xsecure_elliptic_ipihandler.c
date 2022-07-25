@@ -19,6 +19,7 @@
 * 4.6  gm    07/16/2021 Added support for 64-bit address
 *      rb    08/11/2021 Fix compilation warnings
 * 4.7  kpt   03/18/2022 Replaced XPlmi_Dmaxfr with XPlmi_MemCpy64
+* 4.9  kpt   07/24/2022 Moved XSecure_EllipticExecuteKat in to xsecure_kat_plat_ipihandler.c
 *
 * </pre>
 *
@@ -44,7 +45,6 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 static int XSecure_EllipticValidatePubKey(u32 CurveType,
 	u32 SrcAddrLow, u32 SrcAddrHigh);
 static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh);
-static int XSecure_EllipticExecuteKat(u32 CurveType);
 
 /*************************** Function Definitions *****************************/
 
@@ -79,9 +79,6 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
 		Status = XSecure_EllipticVerifySignature(Pload[0], Pload[1]);
-		break;
-	case XSECURE_API(XSECURE_API_ELLIPTIC_KAT):
-		Status = XSecure_EllipticExecuteKat(Pload[0]);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -269,26 +266,5 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 			(XSecure_EllipticSignAddr *) &SignAddr);
 
 END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function handler calls XSecure_EllipticKat
- * 		server API
- *
- * @param	CurveType	- Is a type of elliptic curve
- *
- * @return
- *	-	XST_SUCCESS - If the elliptic KAT is successful
- *	-	ErrorCode - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_EllipticExecuteKat(u32 CurveType)
-{
-	volatile int Status = XST_FAILURE;
-
-	Status = XSecure_EllipticKat(CurveType);
-
 	return Status;
 }

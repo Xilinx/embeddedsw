@@ -57,14 +57,14 @@ extern "C" {
  * @return	None
  *
  ******************************************************************************/
-#define XPLMI_HALT_BOOT_SLD_TEMPORAL_MACRO(MajorError, Status, StatusTmp, function, ...) \
+#define XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(MajorError, Status, StatusTmp, function, ...) \
 		{ \
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, function, __VA_ARGS__); \
 			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) { \
 				Status |= StatusTmp; \
 				Status = XPlmi_UpdateStatus((XPlmiStatus_t)MajorError, Status); \
 				XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK, \
-					Status); \
+					(u32)Status); \
 				XPlmi_TriggerSLDOnHaltBoot(); \
 			} \
 		}

@@ -543,9 +543,6 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		goto END;
 	}
 
-	/* Update KAT status */
-	XLoader_UpdateKatStatus(&SecureParams, 0U);
-
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
 		/* Update KEK red key availability status */
 		XLoader_UpdateKekSrc(PdiPtr);
@@ -553,6 +550,8 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	else {
 		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
 		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
+		/* Update KAT status */
+		XLoader_UpdateKatStatus(&SecureParams, 0U);
 	}
 
 	SecureParams.IsAuthenticated =
