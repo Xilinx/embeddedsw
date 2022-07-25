@@ -46,6 +46,10 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr);
+int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const u32 EnvDisFlag);
+int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits);
+int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr);
+int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr);
 int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const XNvm_IvType IvType);
 int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 RevokeIdAddr, const XNvm_RevocationId RevokeIdNum);
 int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr);

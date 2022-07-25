@@ -66,6 +66,7 @@ static int XNvm_EfuseWriteDmeRevokeBits(u32 Pload);
 static int XNvm_EfuseWritePlmUpdate(u32 EnvMonDisFlag);
 static int XNvm_EfuseWriteBootModeDis(u32 Pload);
 static int XNvm_EfuseWritePufInfo(u32 *Pload);
+static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh);
 static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 
 /*************************** Function Definitions *****************************/
@@ -137,6 +138,10 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		XNvm_RdCachePload *RdCachePload = (XNvm_RdCachePload *)Cmd->Payload;
 		Status = XNvm_EfuseRead(RdCachePload->RegCount, RdCachePload->StartOffset, RdCachePload->AddrLow,
 			RdCachePload->AddrHigh);
+		break;
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
+		XNvm_PufWritePload *WrPufPload = (XNvm_PufWritePload *)Cmd->Payload;
+		Status = XNvm_EfuseWritePufData(WrPufPload->AddrLow, WrPufPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS):
 		Status =  XNvm_EfuseCacheLoadNPrgmProtBits();
@@ -590,14 +595,16 @@ static int XNvm_EfuseWriteDiceUds(u32 *Pload)
 		goto END;
 	}
 
-
 	while(Offset < EndOffset){
 		RegData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Offset);
-		XPlmi_OutByte64(OutputBuffer, RegData);
 
-		OutputBuffer++;
+		XPlmi_Out64(OutputBuffer, RegData);
+
+		OutputBuffer = OutputBuffer + XNVM_WORD_LEN;
 		Offset = Offset + XNVM_WORD_LEN;
 	}
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -731,4 +738,32 @@ static int XNvm_EfuseWritePufInfo(u32 *Pload)
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+
+ * @brief       This function programs PUF helper data and PUF control bits received
+ * 		via IPI into eFUSEs.
+ *
+ * @param	AddrLow		Lower Address of the IV buffer
+ * @param	AddrHigh	Higher Address of the IV buffer
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- ErrorCode - If there is a failure
+ ******************************************************************************/
+static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	XNvm_EfusePufHdAddr PufData __attribute__ ((aligned (32U))) = {0U};
+	u64 PufDataAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
+
+	Status = XNvm_EfuseMemCopy(PufDataAddr, (u64)(UINTPTR)&PufData, sizeof(PufData));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XNvm_EfuseWritePuf(&PufData);
+
+END:
+	return Status;
+}
 #endif

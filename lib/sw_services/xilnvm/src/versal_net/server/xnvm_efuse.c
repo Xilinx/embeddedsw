@@ -2258,7 +2258,6 @@ static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u
 	Data = *DataPtr;
 	while (Row < EndRow) {
 		Col = EfusePrgmInfo->ColStart;
-		xil_printf("Row : %d Col: %d Data : %x Idx : %d\r\n", Row, Col, Data, Idx);
 		while (Col <= EfusePrgmInfo->ColEnd) {
 			if ((Data & 0x01U) != 0U) {
 				Status = XNvm_EfusePgmAndVerifyBit(
@@ -2267,7 +2266,6 @@ static int XNvm_EfusePgmAndVerifyData(XNvm_EfusePrgmInfo *EfusePrgmInfo, const u
 				if (Status != XST_SUCCESS) {
 					goto END;
 				}
-				Status = XST_SUCCESS;
 			}
 			Col++;
 			Idx++;

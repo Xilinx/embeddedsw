@@ -69,6 +69,7 @@
 #include "xil_util.h"
 #include "xil_cache.h"
 #include "xilpuf_example.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
 #define XPUF_IV_LEN_IN_BYTES			(12U)
@@ -94,6 +95,14 @@
 						Align(sizeof(XNvm_EfuseDataAddr)) + \
 						XPUF_RED_KEY_LEN_IN_BYTES)
 #define XNVM_TOTAL_SHARED_MEM			(XNVM_SHARED_MEM_SIZE + XNVM_SHARED_BUF_SIZE)
+#if defined (VERSAL_NET)
+#define XPUF_PUF_DIS_SHIFT				(18U)
+#define XPUF_PUF_SYN_LK_SHIFT			(16U)
+#define XPUF_PUF_REGEN_DIS_SHIFT		(31U)
+#define XPUF_PUF_HD_INVLD_SHIFT			(30U)
+#define XPUF_PUF_REGIS_DIS_SHIFT		(29U)
+#endif
+
 
 /***************************** Type Definitions *******************************/
 
@@ -448,6 +457,10 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 
 	PrgmPufHelperData.PrgmPufHelperData = TRUE;
 
+#if defined (VERSAL_NET)
+	PrgmPufHelperData.RoSwap = PUF_RO_SWAP;
+#endif
+
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
 
 	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
@@ -754,6 +767,22 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 		goto END;
 	}
 
+#if defined (VERSAL_NET)
+	u32 SecCtrlBits = (PUF_REGEN_DIS << XPUF_PUF_REGEN_DIS_SHIFT) | (PUF_HD_INVLD << XPUF_PUF_HD_INVLD_SHIFT);
+	SecCtrlBits = SecCtrlBits | (PUF_REGIS_DIS << XPUF_PUF_REGIS_DIS_SHIFT);
+	Status = XNvm_EfuseWriteSecCtrlBits(InstancePtr, SecCtrlBits);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
+		goto END;
+	}
+
+	PrgmPufHelperData.PufSecCtrlBits = (PUF_DIS << XPUF_PUF_DIS_SHIFT) | (PUF_SYN_LK << XPUF_PUF_SYN_LK_SHIFT);
+	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
+	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
+	}
+#elif
 	PrgmPufHelperData.PufSecCtrlBits.PufDis = PUF_DIS;
 	PrgmPufHelperData.PufSecCtrlBits.PufRegenDis = PUF_REGEN_DIS;
 	PrgmPufHelperData.PufSecCtrlBits.PufHdInvalid = PUF_HD_INVLD;
@@ -764,6 +793,7 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
 	}
+#endif
 
 END:
 	return Status;

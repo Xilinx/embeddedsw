@@ -39,12 +39,14 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK		(0x00ffffffU)
 
 /************************** Function Prototypes ******************************/
-static void CreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh);
-static void CreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh);
-static void CreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
-static void CreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u8 RegCount, u32 AddrLow, u32 AddrHigh);
+static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh);
+static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh);
+static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
+static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u8 RegCount, u32 AddrLow, u32 AddrHigh);
+static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow, u32 AddrHigh);
 
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
@@ -80,7 +82,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_AesKeyWriteCdo *KeyWrCdo = (XNvm_AesKeyWriteCdo *)(UINTPTR)Payload;
-		CreateWriteKeyCmd(KeyWrCdo, XNVM_EFUSE_AES_KEY,  (u32)(UINTPTR)(AesKeys->AesKey),
+		XNvm_EfuseCreateWriteKeyCmd(KeyWrCdo, XNVM_EFUSE_AES_KEY,  (u32)(UINTPTR)(AesKeys->AesKey),
 			(u32)((UINTPTR)(AesKeys->AesKey) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32*)KeyWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -98,7 +100,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_AesKeyWriteCdo *KeyWrCdo = (XNvm_AesKeyWriteCdo *)(UINTPTR)Payload;
-		CreateWriteKeyCmd(KeyWrCdo, XNVM_EFUSE_USER_KEY_0, (u32)(UINTPTR)(AesKeys->UserKey0),
+		XNvm_EfuseCreateWriteKeyCmd(KeyWrCdo, XNVM_EFUSE_USER_KEY_0, (u32)(UINTPTR)(AesKeys->UserKey0),
 			(u32)((UINTPTR)(AesKeys->UserKey0) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)KeyWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -116,7 +118,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_AesKeyWriteCdo *KeyWrCdo = (XNvm_AesKeyWriteCdo *)(UINTPTR)Payload;
-		CreateWriteKeyCmd(KeyWrCdo, XNVM_EFUSE_USER_KEY_1, (u32)(UINTPTR)(AesKeys->UserKey1),
+		XNvm_EfuseCreateWriteKeyCmd(KeyWrCdo, XNVM_EFUSE_USER_KEY_1, (u32)(UINTPTR)(AesKeys->UserKey1),
 			(u32)((UINTPTR)(AesKeys->UserKey1) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)KeyWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -134,7 +136,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_PpkWriteCdo *PpkWrCdo = (XNvm_PpkWriteCdo *)(UINTPTR)Payload;
-		CreateWritePpkCmd(PpkWrCdo, XNVM_EFUSE_PPK0, (u32)(UINTPTR)(EfusePpk->Ppk0Hash),
+		XNvm_EfuseCreateWritePpkCmd(PpkWrCdo, XNVM_EFUSE_PPK0, (u32)(UINTPTR)(EfusePpk->Ppk0Hash),
 			(u32)((UINTPTR)(EfusePpk->Ppk0Hash) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)PpkWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -152,7 +154,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_PpkWriteCdo *PpkWrCdo = (XNvm_PpkWriteCdo *)(UINTPTR)Payload;
-		CreateWritePpkCmd(PpkWrCdo, XNVM_EFUSE_PPK1, (u32)(UINTPTR)(EfusePpk->Ppk1Hash),
+		XNvm_EfuseCreateWritePpkCmd(PpkWrCdo, XNVM_EFUSE_PPK1, (u32)(UINTPTR)(EfusePpk->Ppk1Hash),
 			(u32)((UINTPTR)(EfusePpk->Ppk1Hash) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)PpkWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -170,7 +172,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_PpkWriteCdo *PpkWrCdo = (XNvm_PpkWriteCdo *)(UINTPTR)Payload;
-		CreateWritePpkCmd(PpkWrCdo, XNVM_EFUSE_PPK2, (u32)(UINTPTR)(EfusePpk->Ppk2Hash),
+		XNvm_EfuseCreateWritePpkCmd(PpkWrCdo, XNVM_EFUSE_PPK2, (u32)(UINTPTR)(EfusePpk->Ppk2Hash),
 			(u32)((UINTPTR)(EfusePpk->Ppk2Hash) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)PpkWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -181,6 +183,63 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 	}
 
+	Status = XNvm_EfuseWriteIVs(InstancePtr, (u64)(UINTPTR)Ivs, FALSE);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XNVM_PAYLOAD_LEN_1U);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to program IV as requested by the user
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	IvAddr		Address of the IV to be programmed
+ * @param	EnvDisFlag	Environmental monitoring flag set by the user.
+ *                      when set to true it will not check for voltage
+ *                      and temparature limits.
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const u32 EnvDisFlag)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	XNvm_EfuseIvs *Ivs = NULL;
+	u32 Size;
+	u32 TotalSize = sizeof(XNvm_EfuseIvs);
+
+	if (EnvDisFlag != TRUE) {
+                //TODO Temp and Voltage checks
+        }
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	Size = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&Ivs);
+
+	if ((Ivs == NULL) || (Size < TotalSize)) {
+		goto END;
+	}
+
+	Status = Xil_SMemSet(Ivs, TotalSize, 0U, TotalSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Ivs = (XNvm_EfuseIvs *)IvAddr;
+
+	Xil_DCacheFlushRange((UINTPTR)Ivs, TotalSize);
+
 	if (Ivs->PrgmMetaHeaderIv == TRUE) {
 		Status = XNvm_EfuseValidateIvWriteReq(XNVM_EFUSE_META_HEADER_IV_RANGE, (XNvm_Iv*)(UINTPTR)(Ivs->MetaHeaderIv));
 		if (Status != XST_SUCCESS) {
@@ -188,7 +247,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_IvWriteCdo *IvWrCdo = (XNvm_IvWriteCdo *)(UINTPTR)Payload;
-		CreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_META_HEADER_IV_RANGE, (u32)(UINTPTR)(Ivs->MetaHeaderIv),
+		XNvm_EfuseCreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_META_HEADER_IV_RANGE, (u32)(UINTPTR)(Ivs->MetaHeaderIv),
 			(u32)((UINTPTR)(Ivs->MetaHeaderIv) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -206,7 +265,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_IvWriteCdo *IvWrCdo = (XNvm_IvWriteCdo *)(UINTPTR)Payload;
-		CreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_BLACK_IV, (u32)(UINTPTR)(Ivs->BlkObfusIv),
+		XNvm_EfuseCreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_BLACK_IV, (u32)(UINTPTR)(Ivs->BlkObfusIv),
 			(u32)((UINTPTR)(Ivs->BlkObfusIv) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -224,7 +283,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_IvWriteCdo *IvWrCdo = (XNvm_IvWriteCdo *)(UINTPTR)Payload;
-		CreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_PLM_IV_RANGE, (u32)(UINTPTR)(Ivs->PlmIv),
+		XNvm_EfuseCreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_PLM_IV_RANGE, (u32)(UINTPTR)(Ivs->PlmIv),
 			(u32)((UINTPTR)(Ivs->PlmIv) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -242,7 +301,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 
 		XNvm_IvWriteCdo *IvWrCdo = (XNvm_IvWriteCdo *)(UINTPTR)Payload;
-		CreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_DATA_PARTITION_IV_RANGE, (u32)(UINTPTR)(Ivs->DataPartitionIv),
+		XNvm_EfuseCreateWriteIvCmd(IvWrCdo, XNVM_EFUSE_DATA_PARTITION_IV_RANGE, (u32)(UINTPTR)(Ivs->DataPartitionIv),
 			(u32)((UINTPTR)(Ivs->DataPartitionIv) >> XNVM_ADDR_HIGH_SHIFT));
 
 		Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)IvWrCdo, XNVM_PAYLOAD_LEN_4U);
@@ -252,8 +311,148 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 	}
 
-	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XNVM_PAYLOAD_LEN_1U);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to program Secure Control Bits
+ * 		requested by the user
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	SecCtrlBits	Value of Secure Control  Bits to be programmed
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	XNvm_SecCtrlBitsWriteCdo *SecCtrlBitsWrCdo = (XNvm_SecCtrlBitsWriteCdo *)(UINTPTR)Payload;
+
+	SecCtrlBitsWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_SEC_CTRL_BITS);
+	SecCtrlBitsWrCdo->Pload.EnvMonitorDis = FALSE;
+	SecCtrlBitsWrCdo->Pload.SecCtrlBits = SecCtrlBits;
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)SecCtrlBitsWrCdo, XNVM_PAYLOAD_LEN_3U);
+	if (Status != XST_SUCCESS) {
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "Secure Control Bits write failed;"
+			"Error Code = %x\r\n", Status);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to program Puf helper data
+ * 		requested by the user
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	PufHdAddr	Address of the XNvm_EfusePufHdAddr structure
+ * 				where the user provided helper data to be programmed
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)PufHdAddr;
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	XNvm_PufWriteCdo *PufWrCdo = (XNvm_PufWriteCdo *)(UINTPTR)Payload;
+	XNvm_EfuseCreateWritePufCmd(PufWrCdo, (u32)(UINTPTR)EfusePuf,
+			(u32)((UINTPTR)EfusePuf >> XNVM_ADDR_HIGH_SHIFT));
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32*)PufWrCdo, XNVM_PAYLOAD_LEN_3U);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to read Puf data from the eFUSE cache.
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	PufHdAddr	Address of the XNvm_EfusePufHdAddr structure
+ * 				where the user provided helper data to be programmed
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 			- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)(UINTPTR)Payload;
+	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)PufHdAddr;
+	u32 ReadPufHd[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS] = {0U};
+	u32 ReadChash = 0U;
+	u32 ReadAux = 0U;
+	u32 ReadRoSwap = 0U;
+
+	/**< Read helper data */
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET, XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS,
+		(u32)(UINTPTR)ReadPufHd, (u32)((UINTPTR)(ReadPufHd) >> XNVM_ADDR_HIGH_SHIFT));
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**< Read Chash */
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET, 1U, (u32)(UINTPTR)&ReadChash,
+		(u32)((UINTPTR)(&ReadChash) >> XNVM_ADDR_HIGH_SHIFT));
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)&ReadChash, XNVM_WORD_LEN);
+
+	/**< Read Aux */
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_ECC_CTRL_OFFSET, 1U, (u32)(UINTPTR)&ReadAux,
+		(u32)((UINTPTR)(&ReadAux) >> XNVM_ADDR_HIGH_SHIFT));
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)&ReadAux, XNVM_WORD_LEN);
+
+	/**< Read RO Swap */
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CAHCE_PUF_RO_SWAP_OFFSET, 1U, (u32)(UINTPTR)&ReadRoSwap,
+		(u32)((UINTPTR)(&ReadRoSwap) >> XNVM_ADDR_HIGH_SHIFT));
+
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)&ReadRoSwap, XNVM_WORD_LEN);
+
+	Status = Xil_SMemCpy(EfusePuf->EfuseSynData, XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS, ReadPufHd,
+		XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS, XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfusePuf->Chash = ReadChash;
+	EfusePuf->Aux = ReadAux & XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK;
+	EfusePuf->RoSwap = ReadRoSwap;
 
 END:
 	return Status;
@@ -307,7 +506,7 @@ int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, XNVM_EFUSE_IV_LEN_IN_WORDS, (u32)IvAddr,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, XNVM_EFUSE_IV_LEN_IN_WORDS, (u32)IvAddr,
 		(u32)(IvAddr >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -342,7 +541,7 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, 1U, (u32)RevokeIdAddr,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, 1U, (u32)RevokeIdAddr,
 		(u32)(RevokeIdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -376,7 +575,7 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, UserFuseData->NumOfUserFuses, (u32)(UINTPTR)UserFuseData->UserFuseDataAddr,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, UserFuseData->NumOfUserFuses, (u32)(UINTPTR)UserFuseData->UserFuseDataAddr,
 		(u32)((UINTPTR)(UserFuseData->UserFuseDataAddr) >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -410,7 +609,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET, 1U, (u32)(UINTPTR)&ReadReg,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET, 1U, (u32)(UINTPTR)&ReadReg,
 		(u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -488,7 +687,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET, 1U, (u32)(UINTPTR)&ReadReg ,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET, 1U, (u32)(UINTPTR)&ReadReg ,
 		(u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -589,7 +788,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_SEC_MISC1_OFFSET, 1U, (u32)(UINTPTR)&ReadReg ,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_SEC_MISC1_OFFSET, 1U, (u32)(UINTPTR)&ReadReg ,
 		(u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -647,7 +846,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET, 1U, (u32)(UINTPTR)&ReadReg ,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET, 1U, (u32)(UINTPTR)&ReadReg ,
 		(u32)((UINTPTR)(&ReadReg) >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -714,7 +913,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET, 1U, (u32)(UINTPTR)&ReadSecurityCtrlReg,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET, 1U, (u32)(UINTPTR)&ReadSecurityCtrlReg,
 		(u32)((UINTPTR)(&ReadSecurityCtrlReg) >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -722,7 +921,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_ECC_CTRL_OFFSET, 1U, (u32)(UINTPTR)&ReadEccCtrlReg,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_PUF_ECC_CTRL_OFFSET, 1U, (u32)(UINTPTR)&ReadEccCtrlReg,
 		(u32)((UINTPTR)(&ReadEccCtrlReg) >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -781,7 +980,7 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, 1U, (u32)OffChipIdAddr ,(u32)(OffChipIdAddr >> XNVM_ADDR_HIGH_SHIFT));
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, 1U, (u32)OffChipIdAddr ,(u32)(OffChipIdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
 
@@ -833,7 +1032,7 @@ int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAdd
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS,
 		(u32)PpkHashAddr ,(u32)(PpkHashAddr >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -865,7 +1064,7 @@ int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAdd
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DEC_ONLY_OFFSET, 1U, (u32)DecOnlyAddr,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DEC_ONLY_OFFSET, 1U, (u32)DecOnlyAddr,
 		(u32)(DecOnlyAddr >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
@@ -897,13 +1096,29 @@ int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 		goto END;
 	}
 
-	CreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DNA_OFFSET, XNVM_EFUSE_DNA_IN_WORDS, (u32)DnaAddr,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DNA_OFFSET, XNVM_EFUSE_DNA_IN_WORDS, (u32)DnaAddr,
 		(u32)(DnaAddr >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo, XNVM_PAYLOAD_LEN_4U);
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function creates payload for Write PUF CDO.
+ *
+ * @param	PufWrCdo	Pointer to the Write PUF Key CDO
+ * @param	AddrLow		Lower Address of the PUF data buffer
+ * @param	AddrHigh	Higher Address of the PUF data buffer
+ *
+ ******************************************************************************/
+static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow, u32 AddrHigh)
+{
+	PufWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_PUF);
+	PufWrCdo->Pload.AddrLow = AddrLow;
+	PufWrCdo->Pload.AddrHigh = AddrHigh;
 }
 
 /*****************************************************************************/
@@ -916,7 +1131,7 @@ END:
  * @param	AddrHigh	Higher Address of the key buffer
  *
  ******************************************************************************/
-static void CreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh)
+static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh)
 {
 	AesKeyWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_AES_KEY);
 	AesKeyWrCdo->Pload.KeyType = KeyType;
@@ -934,7 +1149,7 @@ static void CreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType 
  * @param	AddrHigh	Higher Address of the PPK Hash buffer
  *
  ******************************************************************************/
-static void CreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh)
+static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh)
 {
 	PpkWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_PPK_HASH);
 	PpkWrCdo->Pload.PpkType = PpkType;
@@ -952,7 +1167,7 @@ static void CreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, 
  * @param	AddrHigh	Higher Address of the IV buffer
  *
  ******************************************************************************/
-static void CreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
+static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
 {
 	IvWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_IV);
 	IvWrCdo->Pload.IvType = IvType;
@@ -971,7 +1186,7 @@ static void CreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 A
  * @param	AddrHigh	Higher Address of the output buffer
  *
  ******************************************************************************/
-static void CreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u8 RegCount, u32 AddrLow, u32 AddrHigh)
+static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u8 RegCount, u32 AddrLow, u32 AddrHigh)
 {
 	RdCacheCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_READ_CACHE);
 	RdCacheCdo->Pload.StartOffset = StartOffset;
