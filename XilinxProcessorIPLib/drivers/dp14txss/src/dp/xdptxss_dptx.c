@@ -212,6 +212,18 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 							  XDP_TX_STREAM_ID1 + StreamIndex,
 							  StreamIndex);
 		}
+
+		xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Enum Path Resource Request.\n\r");
+
+		Status = XDp_TxSendEnumPathResourceRequest(InstancePtr);
+		if (Status != XST_SUCCESS)
+			return Status;
+
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+					       InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status != XST_SUCCESS)
+			return Status;
+
 		/* Clear virtual channel payload ID table in TX and all
 		 * downstream RX devices.
 		 */
