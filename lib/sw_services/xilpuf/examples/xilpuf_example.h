@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -178,6 +178,13 @@ extern "C" {
 #define PUF_REGEN_DIS				(FALSE)
 #define PUF_HD_INVLD				(FALSE)
 #define PUF_SYN_LK				(FALSE)
+#if defined (VERSAL_NET)
+#define PUF_REGIS_DIS				(FALSE)
+#endif
+#endif
+
+#if defined (VERSAL_NET)
+#define PUF_RO_SWAP				(0x00000000)
 #endif
 
 #define XPUF_ENV_MONITOR_DISABLE          	(FALSE)

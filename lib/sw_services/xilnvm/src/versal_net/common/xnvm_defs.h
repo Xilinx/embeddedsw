@@ -129,22 +129,42 @@ typedef struct {
 	u32 Key[XNVM_DME_USER_KEY_SIZE_IN_WORDS];
 } XNvm_DmeKey;
 
-typedef struct {
-	u32 PufSecCtrlBits;
-	u8 PrgmPufHelperData;
-	u8 EnvMonitorDis;
-	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
-	u32 Chash;
-	u32 Aux;
-	u32 RoSwap;
-} XNvm_EfusePufHdAddr;
-
 typedef enum {
 	XNVM_EFUSE_DME_REVOKE_0 = 0,
 	XNVM_EFUSE_DME_REVOKE_1,
 	XNVM_EFUSE_DME_REVOKE_2,
 	XNVM_EFUSE_DME_REVOKE_3
 } XNvm_DmeRevoke;
+
+typedef struct {
+	u32 EnvMonitorDis;
+	u32 SecCtrlBits;
+} XNvm_SecCtrlBitsWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_SecCtrlBitsWritePload Pload;
+} XNvm_SecCtrlBitsWriteCdo;
+
+typedef struct {
+	u32 AddrLow;
+	u32 AddrHigh;
+} XNvm_PufWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_PufWritePload Pload;
+} XNvm_PufWriteCdo;
+
+typedef struct {
+	u32 PufSecCtrlBits;
+	u32 PrgmPufHelperData;
+	u32 EnvMonitorDis;
+	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
+	u32 Chash;
+	u32 Aux;
+	u32 RoSwap;
+} XNvm_EfusePufHdAddr;
 
 /* XilNVM API ids */
 typedef enum {
@@ -176,6 +196,7 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_PLM_UPDATE,
 	XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE,
 	XNVM_API_ID_EFUSE_WRITE_PUF_FROM_PLOAD,
+	XNVM_API_ID_EFUSE_WRITE_PUF,
 	XNVM_API_ID_EFUSE_READ_CACHE = 47,
 	XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS,
 	XNVM_API_MAX,
