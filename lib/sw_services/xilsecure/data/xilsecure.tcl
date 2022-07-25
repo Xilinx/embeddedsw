@@ -20,6 +20,7 @@
 #                     Versal
 #       har  05/17/21 Added support for non-secure access of Xilsecure IPIs
 # 4.9   bm   07/06/22 Refactor versal and versal_net code
+#       am   07/24/22 Added support for a78 and r52 processors of VersalNet
 #
 ##############################################################################
 
@@ -116,19 +117,37 @@ proc secure_drc {libhandle} {
 			}
 
 			 if {[string compare -nocase $compiler "mb-gcc"] == 0} {
-		                file delete -force ./src/libxilsecure_a72_64.a
-			        file delete -force ./src/libxilsecure_r5.a
+				if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc"} {
+					file delete -force ./src/libxilsecure_a72_64.a
+					file delete -force ./src/libxilsecure_r5.a
+				} elseif {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
+					file delete -force ./src/libxilsecure_a78_64.a
+					file delete -force ./src/libxilsecure_r52.a
+				}
 				file rename -force ./src/libxilsecure_pmc.a ./src/libxilsecure.a
 	                } elseif {[string compare -nocase $compiler "aarch64-none-elf-gcc"] == 0} {
 				file delete -force ./src/libxilsecure_pmc.a
-				file delete -force ./src/libxilsecure_r5.a
-				file rename -force ./src/libxilsecure_a72_64.a ./src/libxilsecure.a
+				if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72"} {
+					file rename -force ./src/libxilsecure_a72_64.a ./src/libxilsecure.a
+					file delete -force ./src/libxilsecure_r5.a
+					file delete -force ./src/libxilsecure_a78_64.a
+				} elseif {$proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78"} {
+					file rename -force ./src/libxilsecure_a78_64.a ./src/libxilsecure.a
+					file delete -force ./src/libxilsecure_r52.a
+					file delete -force ./src/libxilsecure_a72_64.a
+				}
 			} elseif {[string compare -nocase $compiler "armr5-none-eabi-gcc"] == 0} {
 				file delete -force ./src/libxilsecure_pmc.a
-				file delete -force ./src/libxilsecure_a72_64.a
-				file rename -force ./src/libxilsecure_r5.a ./src/libxilsecure.a
+				if {$proc_type == "psu_cortexr5" || $proc_type == "psv_cortexr5"} {
+					file rename -force ./src/libxilsecure_r5.a ./src/libxilsecure.a
+					file delete -force ./src/libxilsecure_a72_64.a
+					file delete -force ./src/libxilsecure_r52.a
+				} elseif {$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
+					file rename -force ./src/libxilsecure_r52.a ./src/libxilsecure.a
+					file delete -force ./src/libxilsecure_a78_64.a
+					file delete -force ./src/libxilsecure_r5.a
+				}
 			}
-
 		} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 			$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
 			$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||

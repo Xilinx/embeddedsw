@@ -17,6 +17,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 4.9   dc   07/10/22 Initial release
+*       am   07/23/22 Removed Ecdsa_ModEccOrder function defination, as it is
+*                     declared in Ecdsa.h file
 *
 *
 * </pre>
@@ -44,29 +46,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Prototypes ******************************/
 extern EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
-static inline s32 Ecdsa_ModEccOrder(const EcdsaCrvInfo* CrvInfo,
-			const u8* In, u8* Out);
-/************************** Variable Definitions *****************************/
-/*****************************************************************************/
-/**
- * This function performs the modulus operation
- *
- * @param	CrvInfo is of pointer of type EcdsaCrvInfo.
- * @param	In is the pointer to input buffer.
- * @param	Out is the pointer to input buffer.
- *
- * @return	XST_SUCCESS always
- *
- *****************************************************************************/
-static inline s32 Ecdsa_ModEccOrder(const EcdsaCrvInfo* CrvInfo,
-			const u8* In, u8* Out)
-{
-	(void)CrvInfo;
-	(void)In;
-	(void)Out;
 
-	return XST_SUCCESS;
-}
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
