@@ -136,6 +136,7 @@
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *       dc   07/20/2022 Added Data measurement, supports only for Versal Net
+*       dc   07/27/2022 Added goto END in error case for header failures
 *
 * </pre>
 *
@@ -657,6 +658,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		Status = XilPdi_VerifyPrtnHdrs(&PdiPtr->MetaHdr);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTNHDR, Status);
+			goto END;
 		}
 	}
 #ifndef PLM_SECURE_EXCLUDE
@@ -667,6 +669,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		if ((Status != XST_SUCCESS) || (StatusTemp != XST_SUCCESS)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_METAHDR,
 						Status);
+			goto END;
 		}
 	}
 #endif
