@@ -34,6 +34,11 @@ extern "C" {
 #define TARGET_IPI_INT_MASK		XPAR_PSX_0_PSPMCX_0_PSXL_IPI_PMC_BIT_MASK
 #endif
 /**
+ * This macro defines "always false" value which is of boolean type.
+ */
+#define XPM_FALSE_COND			(0U != 0U)
+
+/**
  * XPm_Proc - Processor structure
  */
 struct XPm_Proc {
@@ -55,20 +60,22 @@ extern struct XPm_Proc *PrimaryProc;
 #elif defined (__arm__)
 extern char ProcName[7];
 #define XPm_Print(MSG, ...)		xil_printf("%s: "MSG, ProcName, ##__VA_ARGS__)
+#elif defined (__microblaze__)
+#define XPm_Print(MSG, ...)		xil_printf("MicroBlaze: "MSG, ##__VA_ARGS__)
 #endif
 
 /* Conditional debugging prints */
 #ifdef DEBUG_MODE
-	#define XPm_Dbg(MSG, ...) 	do { XPm_Print(MSG, ##__VA_ARGS__); } while (0)
+	#define XPm_Dbg(MSG, ...) 	do { XPm_Print(MSG, ##__VA_ARGS__); } while (XPM_FALSE_COND)
 #else
-	#define XPm_Dbg(MSG, ...)	do {} while (0)
+	#define XPm_Dbg(MSG, ...)	do {} while (XPM_FALSE_COND)
 #endif
 
 /* Define below macro to disable error prints for memory constrained applications */
 #ifndef DISABLE_ERROR_PRINTS
-	#define XPm_Err(MSG, ...) 	do { XPm_Print("ERROR: "MSG, ##__VA_ARGS__); } while (0)
+	#define XPm_Err(MSG, ...) 	do { XPm_Print("ERROR: "MSG, ##__VA_ARGS__); } while (XPM_FALSE_COND)
 #else
-	#define XPm_Err(MSG, ...)	do {} while (0)
+	#define XPm_Err(MSG, ...)	do {} while (XPM_FALSE_COND)
 #endif
 
 #define pm_print		XPm_Dbg
@@ -76,7 +83,7 @@ extern char ProcName[7];
 #define pm_read			XPm_Read
 #define pm_write		XPm_Write
 
-void XPm_SetPrimaryProc(void);
+XStatus XPm_SetPrimaryProc(void);
 struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId);
 void XPm_ClientSuspend(const struct XPm_Proc *const Proc);
 void XPm_ClientWakeUp(const struct XPm_Proc *const Proc);
