@@ -6,6 +6,7 @@
 
 #include "pm_client.h"
 #include <xil_cache.h>
+#include "xil_util.h"
 #include "xpm_nodeid.h"
 #if defined (__aarch64__)
 #include <xreg_cortexa53.h>
@@ -13,12 +14,14 @@
 #include <xreg_cortexr5.h>
 #endif
 
+#ifndef __microblaze__
 /** @cond xilpm_internal */
 #define XPM_ARRAY_SIZE(x)		(sizeof(x) / sizeof(x[0]))
 
 #define MPIDR_AFFLVL_MASK		(0xFFU)
 
 #define WFI				__asm__ ("wfi")
+#endif
 
 #if defined (__aarch64__)
 #define PM_APU_CORE_COUNT_PER_CLUSTER	(4U)
@@ -189,9 +192,11 @@ static char RPU_B1[] = "RPU_B1";
 /**
  *  XPm_SetPrimaryProc() - Set primary processor based on processor ID
  */
-void XPm_SetPrimaryProc(void)
+#ifndef __microblaze__
+XStatus XPm_SetPrimaryProc(void)
 {
 	u32 ProcId;
+	XStatus Status = (s32)XST_FAILURE;
 	u64 CpuId;
 	u64 ClusterId;
 
@@ -206,25 +211,43 @@ void XPm_SetPrimaryProc(void)
 	if (PM_RPU_CORE_COUNT_PER_CLUSTER > ProcId) {
 		if (0U == (XPm_Read(PSX_RPU_CLUSTER_A_BASEADDR + CLUSTER_CFG_OFFSET) & RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 			ProcId = 0U;
-			(void)memcpy(ProcName, RPU_LS_A, sizeof(RPU_LS_A));
+			Status = Xil_SMemCpy(ProcName, sizeof(RPU_LS_A), RPU_LS_A, sizeof(RPU_LS_A), sizeof(RPU_LS_A));
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 			XPm_Dbg("Running in lock-step mode\r\n");
 		} else {
 			if (0U == ProcId) {
-				(void)memcpy(ProcName, RPU_A0, sizeof(RPU_A0));
+				Status = Xil_SMemCpy(ProcName, sizeof(RPU_A0), RPU_A0, sizeof(RPU_A0), sizeof(RPU_A0));
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			} else {
-				(void)memcpy(ProcName, RPU_A1, sizeof(RPU_A1));
+				Status = Xil_SMemCpy(ProcName, sizeof(RPU_A1), RPU_A1, sizeof(RPU_A1), sizeof(RPU_A1));
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			}
 		}
 	} else if ((PM_RPU_CORE_COUNT_PER_CLUSTER * 2U) > ProcId) {
 		if (0U == (XPm_Read(PSX_RPU_CLUSTER_B_BASEADDR + CLUSTER_CFG_OFFSET) & RPU_GLBL_CNTL_SLSPLIT_MASK)) {
 			ProcId = 2U;
-			(void)memcpy(ProcName, RPU_LS_B, sizeof(RPU_LS_B));
+			Status = Xil_SMemCpy(ProcName, sizeof(RPU_LS_B), RPU_LS_B, sizeof(RPU_LS_B), sizeof(RPU_LS_B));
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
 			XPm_Dbg("Running in lock-step mode\r\n");
 		} else {
 			if (2U == ProcId) {
-				(void)memcpy(ProcName, RPU_B0, sizeof(RPU_B0));
+				Status = Xil_SMemCpy(ProcName, sizeof(RPU_B0), RPU_B0, sizeof(RPU_B0), sizeof(RPU_B0));
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			} else {
-				(void)memcpy(ProcName, RPU_B1, sizeof(RPU_B1));
+				Status = Xil_SMemCpy(ProcName, sizeof(RPU_B1), RPU_B1, sizeof(RPU_B1), sizeof(RPU_B1));
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
 			}
 		}
 	} else {
@@ -232,9 +255,24 @@ void XPm_SetPrimaryProc(void)
 	}
 #endif
 
-	PrimaryProc = ProcList[ProcId];
-}
+	Status = XST_SUCCESS;
 
+	PrimaryProc = ProcList[ProcId];
+
+#if defined (__arm__)
+done:
+#endif
+	return Status;
+}
+#else
+XStatus XPm_SetPrimaryProc(void)
+{
+	PrimaryProc = &Proc_MB_PL_0;
+	return XST_SUCCESS;
+}
+#endif
+
+#ifndef __microblaze__
 struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId)
 {
 	struct XPm_Proc *Proc = NULL;
@@ -249,6 +287,7 @@ struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId)
 
 	return Proc;
 }
+#endif
 
 void XPm_ClientSuspend(const struct XPm_Proc *const Proc)
 {
@@ -289,6 +328,7 @@ void XPm_ClientWakeUp(const struct XPm_Proc *const Proc)
 #endif
 }
 
+#ifndef __microblaze__
 void XPm_ClientSuspendFinalize(void)
 {
 	u32 CtrlReg;
@@ -310,6 +350,7 @@ void XPm_ClientSuspendFinalize(void)
 	WFI;
 	XPm_Dbg("WFI exit...\n");
 }
+#endif
 
 void XPm_ClientAbortSuspend(void)
 {
