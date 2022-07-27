@@ -23,6 +23,7 @@
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/22/2022 Shutdown modules gracefully during update
+*       ma   07/27/2022 Added XPlmi_SsitEventsInit function
 *
 * </pre>
 *
@@ -311,6 +312,19 @@ static inline void XPlmi_EnableSsitErrors(void)
 {
 	/* Not Applicable for versalnet */
 	return;
+}
+
+/****************************************************************************/
+/**
+ * * @brief    This function initializes SSIT events
+ * *
+ * * @return   XST_SUCCESS
+ * *
+ * ****************************************************************************/
+static inline int XPlmi_SsitEventsInit(void)
+{
+	/* Not Applicable for versalnet */
+	return XST_SUCCESS;
 }
 #endif
 
