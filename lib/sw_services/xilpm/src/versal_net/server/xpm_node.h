@@ -12,6 +12,7 @@
 
 #include <xil_types.h>
 #include <xstatus.h>
+#include "xpm_nodeid.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -85,6 +86,8 @@ typedef enum {
 	XPM_NODESUBCL_POWER_MIN,	/* 0X0 */
 	XPM_NODESUBCL_POWER_ISLAND,	/* 0X1 */
 	XPM_NODESUBCL_POWER_DOMAIN,	/* 0X2 */
+	XPM_NODESUBCL_POWER_RAIL,	/* 0X3 */
+	XPM_NODESUBCL_POWER_REGULATOR,	/* 0X4 */
 } XPm_PowerNodeSubclass;
 
 /* Clock nodes */
@@ -140,6 +143,9 @@ typedef enum {
 	XPM_NODETYPE_POWER_DOMAIN_CPM,	/* 0X6 */
 	XPM_NODETYPE_POWER_DOMAIN_ME,	/* 0X7 */
 	XPM_NODETYPE_POWER_DOMAIN_PL,	/* 0X8 */
+	XPM_NODETYPE_POWER_ISLAND_XRAM,	/* 0X9 */
+	XPM_NODETYPE_POWER_RAIL,	/* 0xA */
+	XPM_NODETYPE_POWER_REGULATOR,	/* 0XB */
 } XPm_PowerNodeType;
 
 /* Clock nodes */
@@ -174,6 +180,11 @@ typedef enum {
 	XPM_NODETYPE_DEV_PERIPH,	/* 0X7 */
 	XPM_NODETYPE_DEV_DDR,	/* 0X8 */
 	XPM_NODETYPE_DEV_SOC,	/* 0X9 */
+	XPM_NODETYPE_DEV_HBM,
+	XPM_NODETYPE_DEV_VDU,
+	XPM_NODETYPE_DEV_GGS,
+	XPM_NODETYPE_DEV_PGGS,
+	XPM_NODETYPE_DEV_HB_MON,
 } XPm_DeviceNodeType;
 
 /* isolation subclasses */
@@ -597,6 +608,38 @@ typedef enum {
 	XPM_NODEIDX_DEV_SDIO_1,	/* 0X3E */
 	XPM_NODEIDX_DEV_MAX	/* 0X3F */
 } XPm_DeviceNodeIdx;
+
+typedef enum {
+	/* PL Device nodes */
+	XPM_NODEIDX_DEV_PLD_0,
+	XPM_NODEIDX_DEV_PLD_MAX,
+} XPm_PlDeviceNodeIndex;
+
+typedef enum {
+	/* Virtual device nodes */
+	XPM_NODEIDX_DEV_VIRT_MIN,
+	XPM_NODEIDX_DEV_VIRT_MAX,
+} XPm_VirtualDeviceNodeIndex;
+
+typedef enum {
+	/* Healthy Boot Monitor nodes */
+	XPM_NODEIDX_DEV_HB_MON_0,
+	XPM_NODEIDX_DEV_HB_MON_MAX,
+} XPm_HBMonDeviceNodeIndex;
+
+typedef enum {
+	/* AIE Device nodes */
+	XPM_NODEIDX_DEV_AIE_0,
+	XPM_NODEIDX_DEV_AIE_MAX,
+} XPm_AieDeviceNodeIndex;
+
+/**
+ * Monitor node Ids
+ */
+typedef enum {
+	XPM_NODEIDX_MONITOR_MIN,
+	XPM_NODEIDX_MONITOR_MAX,
+} XPm_MonitorId;
 
 /* isolation subclasses */
 typedef enum {

@@ -748,9 +748,13 @@ extern "C" {
 #define PROBE_COUNTER_FPD_WR_RES_OFFSET				(0x400U)
 #define PROBE_COUNTER_LPD_REQ_TYPE_OFFSET			(0x1000U)
 
+/* Persistent global general storage register base address */
+#define PGGS_BASEADDR	(0xF1110050U)
+
 /**
  * CRP_RESET_REASON
  */
+#define LAST_RESET_REASON_REG					(PGGS_BASEADDR + 0x8U)
 #define CRP_RESET_REASON_MASK					(0x0000FFFFU)
 #define CRP_RESET_REASON_SLR_SYS_MASK				(0x00000400U)
 #define CRP_RESET_REASON_SW_SYS_MASK				(0x00000200U)

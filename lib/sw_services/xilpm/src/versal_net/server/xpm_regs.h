@@ -9,6 +9,44 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/**
+ * PMC IOU SLCR Module
+ */
+#define PMC_IOU_SLCR_WPROT0_OFFSET              (0x00000828U)
+
+/**
+ * LPD IOU SLCR Module
+ */
+#define LPD_IOU_SLCR_WPROT0_OFFSET              (0x00000728U)
+
+/**
+ * FPD_SLCR Module
+ */
+#define FPD_SLCR_WPROT0_OFFSET                  (0x00000000U)
+
+/**
+ * Definitions required from pmc_tap.h
+ */
+#define PMC_TAP_VERSION_PLATFORM_SHIFT          (24U)
+#define PMC_TAP_VERSION_PLATFORM_MASK           (0x0F000000U)
+#define PMC_TAP_VERSION_PLATFORM_VERSION_SHIFT			(28U)
+#define PMC_TAP_VERSION_PLATFORM_VERSION_MASK			(0xF0000000U)
+#define PMC_TAP_IDCODE_SI_REV_MASK				(0xF0000000U)
+#define PMC_TAP_IDCODE_SI_REV_SHIFT				(28U)
+
+/**
+ * SLR TYPES
+ */
+#define PMC_TAP_SLR_TYPE_OFFSET					(0x00000024U)
+#define PMC_TAP_SLR_TYPE_WIDTH					(0x00000002U)
+#define PMC_TAP_SLR_TYPE_MASK					(0x00000007U)
+
+	/**
+ * LPD SLCR Module
+ */
+#define LPD_SLCR_WPROT0_OFFSET                  (0x00000000U)
+
 /* PMC_GLOBAL registers */
 #define PMC_GLOBAL_GGS4_OFFSET			(0x00000040U)
 #define PMC_GLOBAL_PGGS3_OFFSET			(0x0000005CU)
@@ -35,6 +73,13 @@ extern "C" {
  * IPI register masks
  */
 #define PMC_IPI_MASK						(0x00000002U)
+#define IPI_0_MASK						(0x00000004U)
+#define IPI_1_MASK						(0x00000008U)
+#define IPI_2_MASK						(0x00000010U)
+#define IPI_3_MASK						(0x00000020U)
+#define IPI_4_MASK						(0x00000040U)
+#define IPI_5_MASK						(0x00000080U)
+#define IPI_6_MASK						(0x00000200U)
 
 /**
  * IPI registers
@@ -154,6 +199,20 @@ extern "C" {
 #define XPM_OSPI_MUX_SEL_OFFSET					(0x00000504U)
 #define XPM_OSPI_MUX_SEL_MASK					(0x2U)
 #define XPM_OSPI_MUX_SEL_SHIFT					(0x1U)
+
+/**
+ * CRP_RESET_REASON
+ */
+#define LAST_RESET_REASON_REG					(CRP_BASEADDR + 0x224)
+#define CRP_RESET_REASON_MASK					(0x0000FFFFU)
+#define CRP_RESET_REASON_SLR_SYS_MASK				(0x00000400U)
+#define CRP_RESET_REASON_SW_SYS_MASK				(0x00000200U)
+#define CRP_RESET_REASON_ERR_SYS_MASK				(0x00000100U)
+#define CRP_RESET_REASON_DAP_SYS_MASK				(0x00000080U)
+#define CRP_RESET_REASON_ERR_POR_MASK				(0x00000008U)
+#define CRP_RESET_REASON_SLR_POR_MASK				(0x00000004U)
+#define CRP_RESET_REASON_SW_POR_MASK				(0x00000002U)
+#define CRP_RESET_REASON_EXTERNAL_POR_MASK			(0x00000001U)
 
 /**
  * USB registers

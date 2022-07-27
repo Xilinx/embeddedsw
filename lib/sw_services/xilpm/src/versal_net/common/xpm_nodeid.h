@@ -276,6 +276,8 @@
 #define PM_DEV_SDIO_1		(0X1821C03EU)
 /*TBD: update pld0 dev ids*/
 #define PM_DEV_PLD_0	(0x18700000U)
+/*TBD: update HB_MON_0 dev id*/
+#define PM_DEV_HB_MON_0		(0x18250000U)
 
 #define PM_CLK_CPLL_PRE_SRC		(0X8208001U)
 #define PM_CLK_CPLL_POST_SRC		(0X8208002U)

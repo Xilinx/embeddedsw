@@ -605,6 +605,7 @@ enum XPmNotifyEvent {
 #define XST_API_QUERY_DATA_VERSION	(2U)
 #define XST_API_REG_NOTIFIER_VERSION	(2U)
 #define XST_API_PM_IOCTL_VERSION	(2U)
+#define XST_API_PM_FEATURE_CHECK_VERSION	(2U)
 /** @} */
 
 /**
