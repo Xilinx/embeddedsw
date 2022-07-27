@@ -28,11 +28,13 @@ extern "C" {
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
 #define RESPONSE_ARG_CNT		(8U)
 #define PM_IPI_TIMEOUT			(~0U)
-#ifdef XPAR_PSX_0_PSPMCX_0_PSX_IPI_PMC_BIT_MASK
-#define TARGET_IPI_INT_MASK		XPAR_PSX_0_PSPMCX_0_PSX_IPI_PMC_BIT_MASK
+
+#ifdef XPAR_XIPIPS_TARGET_PSXL_PMC_0_CH1_MASK
+#define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSXL_PMC_0_CH1_MASK
 #else
-#define TARGET_IPI_INT_MASK		XPAR_PSX_0_PSPMCX_0_PSXL_IPI_PMC_BIT_MASK
+#define TARGET_IPI_INT_MASK		XPAR_XIPIPS_TARGET_PSX_PMC_0_CH1_MASK
 #endif
+
 /**
  * This macro defines "always false" value which is of boolean type.
  */
