@@ -10,6 +10,8 @@
 # 1.10  ssc  03/05/22 Added configurable options
 # 1.2   bm   07/06/22 Added versal net support
 #       dc   07/13/22 Added OCP configuration enable support for VersalNet
+#       ma   07/27/22 Added configurable option for SSIT PLM to PLM
+#                     communication feature
 ##############################################################################
 
 #---------------------------------------------
@@ -194,6 +196,13 @@ proc xgen_opts_file {libhandle} {
 	if {$value == false} {
 		puts $file_handle "\n/* OCP code disable */"
 		puts $file_handle "#define PLM_OCP_EXCLUDE"
+	}
+
+	# Get ssit_plm_to_plm_comm_en value set by user, by default it is FALSE(Valid only for Versal)
+	set value [common::get_property CONFIG.ssit_plm_to_plm_comm_en $libhandle]
+	if {$value == true} {
+		puts $file_handle "\n/* SSIT PLM to PLM Communication enable */"
+		puts $file_handle "#define PLM_ENABLE_PLM_TO_PLM_COMM"
 	}
 
 	puts $file_handle "\n"
