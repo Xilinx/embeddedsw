@@ -89,6 +89,8 @@ cp -r $SERVICES_DIR/xilpm/src/versal_net/common/* $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/versal_net/server/* $BSP_DIR/libsrc/xilpm/src/
 cp -r $SERVICES_DIR/xilpm/src/versal_net/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilpm/src/versal_net/server/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilpm/src/versal_common/server/* $BSP_DIR/libsrc/xilpm/src/
+cp -r $SERVICES_DIR/xilpm/src/versal_common/server/*.h $BSP_DIR/include/
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpm/src/versal_net/common/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilnvm/src

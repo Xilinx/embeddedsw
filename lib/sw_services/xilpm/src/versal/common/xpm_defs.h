@@ -360,6 +360,8 @@ typedef enum {
 	/* AIE1/AIEML Run Time Operations */
 	IOCTL_AIE_OPS,                                  /**< AIE1/AIEML Run Time Operations */
 	IOCTL_GET_QOS,					/**< Get Device QoS value */
+	IOCTL_GET_APU_OPER_MODE,			/**< Get APU operation mode */
+	IOCTL_SET_APU_OPER_MODE,			/**< Set APU operation mode */
 } pm_ioctl_id;
 
 /**
