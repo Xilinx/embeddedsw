@@ -22,6 +22,8 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.00  bsv   07/02/20   First release
 * 2.00  bsv   03/13/22   Added error prints for unrecognized Eeprom
+* 3.00  skd   07/28/22   Added support to work with kv260 and kr260
+*                        starter kit xsa
 *
 * </pre>
 *
@@ -61,7 +63,8 @@
 #define XBIR_SYS_PRODUCT_NAME_LEN	(3U)
 #define XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET	(4U)
 #if defined(XPAR_XIICPS_NUM_INSTANCES)
-#ifdef XPS_BOARD_K26I
+#if defined(XPS_BOARD_K26I) || defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
+	|| defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 #define XBIR_SYS_PRODUCT_NAME		"SMK"
 #else
 #define XBIR_SYS_PRODUCT_NAME		"VPK"
@@ -156,7 +159,8 @@ static int Xbir_KREthInit (void);
 static int Xbir_SCEthInit (void);
 #if (defined(XBIR_SD_0) || defined(XBIR_SD_1))
 static int Xbir_KVeMMCInit (void);
-#ifndef XPS_BOARD_K26I
+#if !defined(XPS_BOARD_K26I) && !defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
+	&& !defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 static int Xbir_SCeMMCInit (void);
 #endif
 #endif
@@ -251,7 +255,8 @@ int Xbir_SysInit (void)
 		XBIR_SYS_PRODUCT_NAME_LEN) == 0U) {
 		Status = Xbir_KVeMMCInit();
 	}
-#ifndef XPS_BOARD_K26I
+#if !defined(XPS_BOARD_K26I) && !defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
+	&& !defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 	else {
 		Status = Xbir_SCeMMCInit();
 	}
@@ -321,8 +326,13 @@ static int Xbir_KVEthInit (void)
 	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_77_OFFSET, 0x000000FEU, 0x000000C0U);
 
 	/* GEM clock settings */
+#ifdef XPS_BOARD_K26I
 	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
 	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010400U);
+#else
+	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010C00U);
+	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
+#endif
 
 	Xil_Out32(IOU_SLCR_MIO_MST_TRI0_OFFSET, 0xD4000000U);
 	Xil_Out32(IOU_SLCR_MIO_MST_TRI1_OFFSET, 0x00B02020U);
@@ -1049,7 +1059,8 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	int Ret = XST_FAILURE;
 	u32 MaxSize = sizeof(SysInfo.UUID);
 	Xbir_SysBoardEepromData SysBoardEepromData = {0U};
-#ifdef XPS_BOARD_K26I
+#if defined(XPS_BOARD_K26I) || defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
+	|| defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 	Xbir_CCEepromData CCEepromData = {0U};
 #endif
 
@@ -1095,7 +1106,8 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		UUIDStrPtr += Ret;
 		MaxSize -= Ret;
 	}
-#ifdef XPS_BOARD_K26I
+#if defined(XPS_BOARD_K26I) || defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
+	|| defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 	Status = Xbir_IicEepromReadData((u8 *)&CCEepromData,
 		sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
@@ -1397,7 +1409,8 @@ static int Xbir_KVeMMCInit (void)
 	return Status;
 }
 
-#ifndef XPS_BOARD_K26I
+#if !defined(XPS_BOARD_K26I) && !defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
+	&& !defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 /*****************************************************************************/
 /**
  * @brief

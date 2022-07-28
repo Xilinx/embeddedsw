@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,8 @@
 * Ver   Who    Date      Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.00  bsv   07/02/20   First release
+* 2.00  skd   07/28/22   Added support to work with kv260 and kr260
+*                        starter kit xsa
 *
 * </pre>
 *
@@ -34,7 +36,8 @@ extern "C" {
 #include "xiicps.h"
 
 /************************** Constant Definitions *****************************/
-#ifdef XPS_BOARD_K26I
+#if defined(XPS_BOARD_K26I) || defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
+	|| defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 #define XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS	(0x50U)
 #else
 #define XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS	(0x54U)
