@@ -43,6 +43,7 @@
 * 1.6   hb   02/07/2022   Updated API information for Doxygen
 * 1.7   hb   03/07/2022   Fixed MISRA-C violations and added comments
 * 1.8   hb   07/03/2022   Added APIs to support SSIT devices
+* 1.9	hv   07/24/2022   Added client interface to read Cfr Status
 * </pre>
 *
 * @note
@@ -1556,6 +1557,191 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function is used to get the SEM status register values
+ * 		from all SLRs in SSIT device
+ * @param[in]	IpiInst		Pointer to IPI driver instance
+ * @param[out]	Resp		Structure Pointer of IPI response
+ *		- Resp->RespMsg1: Acknowledgment ID of get Cfr status(0x1030D)
+ *		- Resp->RespMsg2: SLR Index in which the command is executed
+ * @param[in]	TargetSlr	Target SLR index on which command is to be executed
+ * 		- 0x0 : Target is master only
+ * 		- 0x1 : Target is slave 0 only
+ * 		- 0x2 : Target is slave 1 only
+ * 		- 0x3 : Target is slave 2 only
+ * @param[out]	StatusInfo Structure Pointer with SEM Status details
+ **		- StatusInfo->NpiStatus: Provides details about NPI scan
+ *			- Bit [31]: Cryptographic acceleration blocks are disabled for
+ *			export compliance
+ *			- Bit [30]: Periodic scan missed
+ *			- Bit [29]: Pulse Check failed. NPI scan skipped descriptors
+ *			- Bit [28]: Execution time exceeded. NPI scan exceeded 20ms
+ *			budget time
+ *			- Bit [27-26]: Reserved
+ *			- Bit [25]: NPI GPIO write failure
+ *			- Bit [24]: NPI SHA engine failure
+ *			- Bit [23]: NPI Safety register write failure
+ *			- Bit [22]: NPI GT slave arbitration failure
+ *			- Bit [21]: NPI DDRMC Main slave arbitration failure
+ *			- Bit [20]: NPI Slave Address is not valid
+ *			- Bit [19]: NPI Descriptor SHA header is not valid
+ *			- Bit [18]: NPI Descriptor header is not valid
+ *			- Bit [17]: NPI SHA mismatch error is detected during
+ *			scan
+ *			- Bit [16]: NPI SHA mismatch error is detected in
+ *			first scan
+ *			- Bit [15-12]: Reserved
+ *			- Bit [11]: NPI periodic scan is enabled
+ *			- Bit [10]: NPI scan is suspended
+ *			- Bit [09]: NPI completed the first scan
+ *			- Bit [08]: NPI Scan is disabled in design
+ *			- Bit [07-06]: Reserved
+ *			- Bit [05]: NPI Internal Error State
+ *			- Bit [04]: NPI SHA mismatch Error State
+ *			- Bit [03]: NPI SHA Error Injection State
+ *			- Bit [02]: NPI Scan State
+ *			- Bit [01]: NPI Initialization State
+ *			- Bit [00]: NPI Idle State
+ *		- StatusInfo->SlvSkipCnt: Provides NPI descriptor slave skip
+ *		counter value if arbitration failure. This is 8 words result
+ *		to accommodate 32 1-Byte skip counters for individual slaves
+ *		arbitration failures. Slaves can be DDRMC Main, GT for which
+ *		arbitration is required before performing scanning.
+ *		- StatusInfo->ScanCnt: NPI scan counter value. This
+ *		counter represents number of periodic scan cycle completion.
+ *		- StatusInfo->HbCnt: NPI heart beat counter value. This
+ *		counter represents number of scanned descriptor slaves.
+ *		- StatusInfo->ErrInfo: NPI scan error information if SHA
+ *		mismatch is detected. This is 2 word information.
+ *			- Word 0: Node ID of descriptor for which SHA
+ *			mismatch is detected
+ *			- Word 1 Bit [15-8]: NPI descriptor index number
+ *			- Word 1 Bit [7-0]: NPI Slave Skip count Index
+ *
+ *		- StatusInfo->CramStatus: Provides details about CRAM scan
+ *			- Bit [31-25]: Reserved
+ *			- Bit [24:20]: CRAM Error codes
+ *				- 00001: Unexpected CRC error when CRAM is
+ *				not in observation state
+ *				- 00010: Unexpected ECC error when CRAM is
+ *				not in Observation or Initialization state
+ *				- 00011: Safety write error in SEU handler
+ *				- 00100: ECC/CRC ISR not found in any Row
+ *				- 00101: CRAM Initialization is not done
+ *				- 00110: CRAM Start Scan failure
+ *				- 00111: CRAM Stop Scan failure
+ *				- 01000: Invalid Row for Error Injection
+ *				- 01001: Invalid QWord for Error Injection
+ *				- 01010: Invalid Bit for Error Injection
+ *				- 01011: Invalid Frame Address for Error
+ *				Injection
+ *				- 01100: Unexpected Bit flip during Error
+ *				Injection
+ *				- 01101: Masked Bit during Injection
+ *				- 01110: Invalid Block Type for Error
+ *				Injection
+ *				- 01111: CRC or Uncorrectable Error or
+ * 				correctable error(when correction is disabled)
+ *				is active in CRAM
+ *				- 10000: ECC or CRC Error detected during
+ *				CRAM Calibration in case of SWECC
+ *			- Bit [19-18]: Reserved
+ *			- Bit [17]: CRAM scan is disabled in design
+ *			- Bit [16]: CRAM Initialization is completed
+ *			- Bit [15-14]: CRAM Correctable ECC error status
+ *				- 00: No Correctable error encountered
+ *				- 01: Correctable error detected and
+ *				corrected
+ *				- 10: Correctable error detected but not
+ *				corrected (Correction is disabled)
+ *				- 11: Reserved
+ *			- Bit [13]: CRAM Scan internal error
+ *			- Bit [12]: CRAM Invalid Error Location detected
+ *			- Bit [11]: CRAM Correctable ECC error detected
+ *			- Bit [10]: CRAM CRC error detected
+ *			- Bit [09]: CRAM Uncorrectable ECC error detected
+ *			- Bit [08]: CRAM Start-up test failure
+ *			- Bit [07]: CRAM Calibration Timeout error
+ *			- Bit [06]: CRAM Fatal/Error State
+ *			- Bit [05]: CRAM Error Injection State
+ *			- Bit [04]: CRAM Idle State
+ *			- Bit [03]: CRAM Correction State
+ *			- Bit [02]: CRAM Observation State
+ *			- Bit [01]: CRAM Initialization State
+ *			- Bit [00]: CRAM Scan is included in design
+ *		- StatusInfo->ErrAddrL: This stores the low address of
+ *		the last 7 corrected error details if correction is enabled
+ *		in design.
+ *			- Bit [31:28]: Reserved
+ *			- Bit [27:23]: QWord location where error was detected
+ *			- Bit [22:16]: Bit location where error was detected
+ *			- Bit [15:2]: Reserved
+ *			- Bit [1:0]: Define validity of error address.
+ *				- 00: Info not available
+ *				- 01: Address out of range
+ *				- 10: Reserved
+ *				- 11: Address valid
+ *		- StatusInfo->ErrAddrH: This stores the high address of
+ *		the last 7 corrected error details if correction is enabled
+ *		in design.
+ *			- Bits[31:27]: Reserved
+ *			- Bits[26:23]: Row number where error was detected
+ *			- Bits[22:20]: Block type of the frame
+ *			- Bits[19:0]: Frame address where error was detected
+ *		- StatusInfo->ErrCorCnt: Counter value of Correctable
+ *		Error Bits
+ *
+ * @return	This API returns the success or failure.
+ *		- XST_FAILURE: If NULL pointer reference of CfrStatusInfo
+ *		- XST_SUCCESS: On successful read from PMC RAM
+ *****************************************************************************/
+XStatus XSem_Ssit_CmdGetStatus(XIpiPsu *IpiInst, XSemIpiResp *Resp,
+		u32 TargetSlr, XSemStatus *StatusInfo)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
+
+	/* Validate IPI instance pointer */
+	if (NULL == IpiInst) {
+		XSem_Dbg("[%s] ERROR: IpiInst is NULL\n\r", __func__);
+		goto END;
+	}
+	/* Validate IPI Response structure pointer */
+	if (NULL == Resp) {
+		XSem_Dbg("[%s] ERROR: Resp is NULL\n\r", __func__);
+		goto END;
+	}
+
+	/* Pack commands to be sent over IPI */
+	PACK_PAYLOAD3(Payload, CMD_ID_CFR_GET_STATUS, TargetSlr, StatusInfo);
+
+	/* Send request to PLM with the payload */
+	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
+	if (XST_SUCCESS != Status){
+		XSem_Dbg("[%s] ERROR: XSem_IpiSendReqPlm failed with " \
+				"ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+	/* Check PLM response */
+	Status = XSem_IpiPlmRespMsg(IpiInst, Response);
+	if (XST_SUCCESS != Status){
+		XSem_Dbg("[%s] ERROR: XSem_IpiPlmRespMsg failed with " \
+				"ErrCode 0x%x\n\r", __func__, Status);
+		goto END;
+	}
+	/* Copy response messages */
+	Resp->RespMsg1 = Response[1U];
+	/* Get SLR index from Response */
+	Resp->RespMsg2 = Response[2U];
+
+	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function is used to start NPI scan from user application.
  *		Primarily this function sends an IPI request to PLM to invoke
  *		SEM NPI StartScan on targeted SLR PLM, waits for PLM to process the
@@ -1963,14 +2149,15 @@ XStatus XSem_Ssit_CmdCfrGetCrc(XIpiPsu *IpiInst, u32 RowIndex,
 
 	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
-	Resp->RespMsg2 = Response[2U];
 	/** CRC register word 0 */
+	Resp->RespMsg2 = Response[2U];
+	/** CRC register word 1 */
 	Resp->RespMsg3 = Response[3U];
-	/** Read CRC register word 1 */
-	Resp->RespMsg4 = Response[4U];
 	/** Read CRC register word 2 */
-	Resp->RespMsg5 = Response[5U];
+	Resp->RespMsg4 = Response[4U];
 	/** Read CRC register word 3 */
+	Resp->RespMsg5 = Response[5U];
+	/** Status */
 	Resp->RespMsg6 = Response[6U];
 
 END:

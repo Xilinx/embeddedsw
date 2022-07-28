@@ -25,6 +25,7 @@
 * 0.7	hv   08/18/2021   Fix Doxygen warnings
 * 0.8   hb   01/04/2022   Added macro for IPI payload 2
 * 0.9	hv   01/11/2022   Added interface for reading Frame ECC
+* 1.0	hv   07/24/2022   Removed unused macro XSem_DataMaskShift
 * </pre>
 * @note
 * @endcond
@@ -106,9 +107,6 @@ extern "C" {
 #define PACK_PAYLOAD6(Payload, ApiId, Arg1, Arg2, Arg3, Arg4, Arg5) \
 		PACK_PAYLOAD(Payload, HEADER(6UL, ApiId), Arg1, \
 		Arg2, Arg3, Arg4, Arg5, 0, 0)
-
-/** Right shifts the masked bits of Addr */
-#define XSem_DataMaskShift(Addr, Mask, Shift)	((Addr&Mask)>>Shift)
 
 XStatus XSem_IpiPlmRespMsg(XIpiPsu *IpiInst,u32 RespMsg[RESPONSE_ARG_CNT]);
 XStatus XSem_IpiSendReqPlm(XIpiPsu *IpiInst, u32 Payload[PAYLOAD_ARG_CNT]);
