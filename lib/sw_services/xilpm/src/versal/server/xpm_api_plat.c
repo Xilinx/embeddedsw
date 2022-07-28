@@ -312,7 +312,7 @@ done:
 	return Status;
 }
 
-static inline u32 IsOnSecondarySLR(u32 SubsystemId)
+u32 IsOnSecondarySLR(u32 SubsystemId)
 {
 	u32 Status = FALSE;
 	(void)SubsystemId;

@@ -1835,6 +1835,10 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 	u32 Idx;
 	XStatus Status = XPM_PM_CONFLICT;
 
+	if (NULL == Device->DeviceFsm) {
+		goto done;
+	}
+
 	for (Idx = 0U; Idx < Device->DeviceFsm->StatesCnt; Idx++) {
 		/* Find the first state that contains all capabilities */
 		if ((Caps & Device->DeviceFsm->States[Idx].Cap) == Caps) {
@@ -1846,6 +1850,7 @@ static XStatus GetStateWithCaps(const XPm_Device* const Device, const u32 Caps,
 		}
 	}
 
+done:
 	return Status;
 }
 

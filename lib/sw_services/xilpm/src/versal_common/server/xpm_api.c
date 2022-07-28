@@ -314,7 +314,8 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 					Cmd->CmdId, SubsystemId, Cmd->IpiMask);
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
-	if ((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) {
+	if (((NULL == Subsystem) || (Subsystem->State == (u8)OFFLINE)) &&
+	    (TRUE != IsOnSecondarySLR(SubsystemId))) {
 		/* Subsystem must not be offline here */
 		PmErr("Subsystem 0x%x is not present or offline\r\n", SubsystemId);
 		Status = XPM_INVALID_SUBSYSID;
