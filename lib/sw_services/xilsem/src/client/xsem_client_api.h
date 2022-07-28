@@ -40,7 +40,8 @@
 * 1.7   hb   01/27/2022   Added define for NPI self-diagnosis event
 * 1.8   hb   02/07/2022   Updated Structure information for Doxygen
 * 1.9   hb   03/07/2022   Updated comments
-* 3.0   hb   07/03/2022   Added SSIT macros and function prototypes
+* 2.0   hb   07/03/2022   Added SSIT macros and function prototypes
+* 2.1	hv   07/24/2022   Added client interface to read Cfr Status
 * </pre>
 *
 * @note
@@ -137,6 +138,14 @@ extern "C" {
 #define CMD_ID_CFR_NJCT_ERR		(0x04U)
 /** Command ID for CRAM Read Frame ECC */
 #define CMD_ID_CFR_RDFRAME_ECC		(0x0BU)
+
+#ifdef XILSEM_ENABLE_SSIT
+/** Command ID for CRAM Get Status */
+#define CMD_ID_CFR_GET_STATUS		(0x0DU)
+
+/** CRAM Get Status Acknowledgment ID */
+#define CMD_ACK_CFR_GET_STATUS		(0x0001030DU)
+#endif
 
 /* NPI Commands ID */
 /** Command ID for NPI Start scan */
@@ -462,7 +471,47 @@ XStatus XSem_CmdNpiInjectError(XIpiPsu *IpiInst, XSemIpiResp * Resp);
 XStatus XSem_CmdNpiGetGldnSha(XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		XSem_DescriptorData * DescData);
 XStatus XSem_CmdNpiGetStatus(XSemNpiStatus *NpiStatusInfo);
-#endif
+XStatus XSem_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp);
+#else
+
+/**
+ * XSemStatus - SEM (CRAM & NPI) Status structure to store the data read from
+ * PMC RAM registers of any SLR
+ * This structure provides:
+ * - NPI scan status information (Refer XSem_CmdNpiGetStatus API)
+ * - NPI descriptor slave skip counter value if arbitration fails
+ * - NPI scan counter value
+ * - NPI heartbeat counter value
+ * - NPI scan error information if SHA mismatch is detected
+ * - CRAM scan state information
+ * - The low address of last 7 corrected error details if correction
+ *   is enabled in design
+ * - The high address of last 7 corrected error details if correction
+ *   is enabled in design
+ * - CRAM corrected error bits count value
+ */
+typedef struct {
+	u32 NpiStatus; /**< NPI scan status */
+	u32 SlvSkipCnt[MAX_NPI_SLV_SKIP_CNT]; /**< Slave Skip Count: Contains the
+	number of times NPI scan failed to get arbitration for GT/DDRMC
+	descriptor */
+	u32 ScanCnt; /**< NPI Scan Count: Increments each time  NPI scan
+	successfully completes a full scan (Including the first scan) */
+	u32 HbCnt; /**< Heart Beat Count: Increments for each slave group scanned
+	in the descriptor and each time SHA is calculated */
+	u32 ErrInfo[MAX_NPI_ERR_INFO_CNT]; /**< Error Information: Is updated with
+	error details in case of SHA mismatch failure.
+	-ErrInfo[0]: Calculated SHA value of the descriptor for which mismatch is
+	observed.
+	-ErrInfo[1]: Bit[31:16] Reserved. Bit[15:8] The descriptor index number for
+	which the SHA failure is observed. Bit[7:0] The skip count index of the
+	descriptor where SHA failure is observed (This value is zero if arbitration
+	is not applicable for the descriptor) */
+	u32 CramStatus; /**< CRAM Status */
+	u32 ErrAddrL[MAX_CRAMERR_REGISTER_CNT]; /**< Error Low register L0...L6 */
+	u32 ErrAddrH[MAX_CRAMERR_REGISTER_CNT]; /**< Error High register H0...H6 */
+	u32 ErrCorCnt; /**< Count of correctable errors */
+} XSemStatus;
 
 /* SSIT Cram functions */
 XStatus XSem_Ssit_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp,
@@ -478,7 +527,8 @@ XStatus XSem_Ssit_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr,
 			u32 RowLoc, XSemIpiResp *Resp, u32 TargetSlr);
 XStatus XSem_Ssit_CmdCfrGetCrc(XIpiPsu *IpiInst, u32 RowIndex,
 		XSemIpiResp *Resp, u32 TargetSlr);
-
+XStatus XSem_Ssit_CmdGetStatus(XIpiPsu *IpiInst, XSemIpiResp *Resp,
+		u32 TargetSlr, XSemStatus *StatusInfo);
 /* SSIT Npi functions */
 XStatus XSem_Ssit_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		u32 TargetSlr);
@@ -490,10 +540,9 @@ XStatus XSem_Ssit_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 /* SSIT get Cram and Npi configuration for target SLR */
 XStatus XSem_Ssit_CmdGetConfig(XIpiPsu *IpiInst,
 		XSemIpiResp *Resp, u32 TargetSlr);
-
+#endif
 /* Event Notification Management */
 XStatus XSem_RegisterEvent(XIpiPsu *IpiInst, XSem_Notifier* Notifier);
-
 
 #ifdef __cplusplus
 }
