@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,6 +58,8 @@ extern "C" {
 #define XCFRAME_CMD_REG_HCLEANR		(0x8U)
 #define XCFRAME_CMD_REG_TRIMB		(0xAU)
 #define XCFRAME_CMD_REG_TRIMU		(0xBU)
+#define XCFRAME_CMD_REG_RCRC		(0xEU)
+#define XCFRAME_CMD_REG_RDALL		(0x10U)
 
 #define XCFRAME_FRAME_OFFSET				(0x2000U)
 

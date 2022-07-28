@@ -19,6 +19,7 @@
 *       ma   07/19/2022 Disable interrupts before calling secure lockdown proc
 *                       and continue secure lockdown irrespective of the status
 *       kpt  07/21/2022 Added XPlmi_IfHaltBootTriggerSLD
+*       ma   07/25/2022 Enhancements to secure lockdown code
 *
 * </pre>
 *
@@ -47,13 +48,32 @@
 #define PMC_ANALOG_GD_STATUS 		(PMC_ANALOG_GD0_RST_STATUS_REG_MASK | \
 					 PMC_ANALOG_GD1_RST_STATUS_REG_MASK)
 					/**< Glitch detector status mask */
+#define CRP_CFU_REF_CTRL				(0xF1260108U)
+					/**< CRP CFU_REF_CTRL register address */
+#define CRP_CFU_REF_CTRL_DIVISOR_MASK	(0x3FF00U)
+					/**< CRP CFU_REF_CTRL Divisor mask */
+#define CFU_REF_CTRL_DIVISOR_INCREASE	(0x2U)
+					/**< CRP CFU_REF_CTRL Divisor increase */
 
 /************************** Function Prototypes ******************************/
 static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 		const u32 ErrorMask);
 /************************** Variable Definitions *****************************/
+static u32 XPlmiSldInitiated = FALSE;
 
 /************************** Function Definitions *****************************/
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks and returns if SLD is initiated
+ *
+ * @return  TRUE or FALSE based on XPlmiSldInitiated state
+ *
+ *****************************************************************************/
+u32 XPlmi_IsSldInitiated(void)
+{
+	return ((XPlmiSldInitiated == TRUE) ? TRUE : FALSE);
+}
 
 /*****************************************************************************/
 /**
@@ -67,6 +87,8 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 void XPlmi_ProcessTamperResponse(u32 TamperResp)
 {
 	int Status = XST_FAILURE;
+	u32 CfuDivisor;
+	u32 CfuRefCtrl;
 
 	if ((TamperResp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) {
 		/* Reset LpdInitialized variable */
@@ -78,6 +100,14 @@ void XPlmi_ProcessTamperResponse(u32 TamperResp)
 			MASK32_ALL_HIGH);
 		XPlmi_EmDisablePmcErrors(XPLMI_PMC_PSM_ERR2_REG_OFFSET,
 			MASK32_ALL_HIGH);
+		/* Reduce PL frequency by half */
+		CfuRefCtrl = XPlmi_In32(CRP_CFU_REF_CTRL);
+		CfuDivisor = (CfuRefCtrl & CRP_CFU_REF_CTRL_DIVISOR_MASK) *
+				CFU_REF_CTRL_DIVISOR_INCREASE;
+		CfuRefCtrl = (CfuRefCtrl & ~CRP_CFU_REF_CTRL_DIVISOR_MASK) | CfuDivisor;
+		XPlmi_Out32(CRP_CFU_REF_CTRL, CfuRefCtrl);
+		/* Set XPlmiSldInitiated to TRUE */
+		XPlmiSldInitiated = TRUE;
 
 		/* Execute secure lockdown proc */
 		Status = XPlmi_ExecuteProc(XPLMI_SLD_PROC_ID);

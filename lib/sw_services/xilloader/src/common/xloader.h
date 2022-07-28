@@ -99,6 +99,8 @@
 *       kpt  07/05/22 Added PpdiKatStatus for partial pdi KAT
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
+*       ma   07/27/2022 Added support for CFrame data clear check which is
+*                        required during PL secure lockdown
 *
 * </pre>
 *
@@ -390,6 +392,7 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 int XLoader_RestartImage(u32 ImageId, u32 *FuncID);
 void XLoader_CframeErrorHandler(u32 ImageId);
 int XLoader_CframeInit(void);
+int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd);
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);

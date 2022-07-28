@@ -47,6 +47,7 @@
 *                       starts at the 32K boundary
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
+*       ma   07/25/2022 Enhancements to secure lockdown code
 *
 * </pre>
 *
@@ -62,6 +63,7 @@
 #include "xil_util.h"
 #include "xplmi_generic.h"
 #include "xplmi_wdt.h"
+#include "xplmi_tamper.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_CMD_LEN_TEMPBUF		(0x8U) /**< This buffer is used to
@@ -390,6 +392,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 Size = 0U;
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
+	u32 SldInitiated = XPlmi_IsSldInitiated();
 
 	/* Verify the header for the first chunk of CDO */
 	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
@@ -448,12 +451,20 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 				XPlmi_CdoCmdExecute(CdoPtr, BufPtr, BufLen, &Size);
 		}
 		CdoPtr->DeferredError |= CdoPtr->Cmd.DeferredError;
-		/*
-		 * If command end is detected, or in case of any error,
-		 * exit the loop
-		 */
-		if ((Status != XST_SUCCESS) ||
-			(CdoPtr->CmdEndDetected == (u8)TRUE)) {
+		if (Status != XST_SUCCESS) {
+			/*
+			 * In case of any error, check if secure lockdown proc is running
+			 * and continue executing the proc further without exiting the loop.
+			 * Otherwise, exit the loop.
+			 */
+			if (SldInitiated == TRUE) {
+				XPlmi_ErrMgr(Status);
+			} else {
+				goto END;
+			}
+		}
+		/* If command end is detected, exit the loop */
+		if (CdoPtr->CmdEndDetected == (u8)TRUE) {
 			goto END;
 		}
 
