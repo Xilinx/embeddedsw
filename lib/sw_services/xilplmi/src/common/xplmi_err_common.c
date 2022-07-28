@@ -100,6 +100,8 @@
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/20/2022 Shutdown modules gracefully during update
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
+*       ma   07/28/2022 Update FW_ERR register and return from XPlmi_ErrMgr if
+*                       secure lockdown is in progress
 *
 * </pre>
 *
@@ -171,11 +173,16 @@ void XPlmi_ErrMgr(int ErrStatus)
 	u32 RegVal;
 #endif
 	u8 SlrType = XPlmi_GetSlrType();
+	u32 SldInitiated = XPlmi_IsSldInitiated();
 
 	/* Print the PLM error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
 	XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
 			(u32)ErrStatus);
+
+	if (SldInitiated == TRUE) {
+		goto END;
+	}
 
 	/*
 	 * Check if SLR Type is Master or Monolithic
@@ -222,6 +229,9 @@ void XPlmi_ErrMgr(int ErrStatus)
 	} else {
 		XPlmi_TriggerSsitErrToMaster();
 	}
+
+END:
+	return;
 }
 
 /****************************************************************************/

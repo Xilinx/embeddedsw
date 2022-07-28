@@ -19,6 +19,7 @@
  *       ma   07/19/2022 Change XPlmi_ProcessTamperResponse return type to void
  *       kpt  07/19/2022 Added temporal macro to trigger secure lockdown
  *						 if haltboot efuses are programmed
+ *       ma   07/25/2022 Enhancements to secure lockdown code
  *
  * </pre>
  *
@@ -73,6 +74,7 @@ extern "C" {
 int XPlmi_RegisterTamperIntrHandler(void);
 void XPlmi_ProcessTamperResponse(u32 TamperResp);
 void XPlmi_TriggerSLDOnHaltBoot(void);
+u32 XPlmi_IsSldInitiated(void);
 
 #ifdef __cplusplus
 }

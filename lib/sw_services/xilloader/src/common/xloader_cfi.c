@@ -32,6 +32,8 @@
 * 1.06  am    11/24/2021 Fixed doxygen warning
 *       bsv   12/04/2021 Addressed security review comment
 * 1.07  ma    01/17/2022 Enable SLVERR for CFU_APB registers
+* 1.08  ma    07/27/2022 Added support for CFrame data clear check which is
+*                        required during PL secure lockdown
 *
 * </pre>
 *
@@ -47,16 +49,29 @@
 #include "xplmi_util.h"
 
 /************************** Constant Definitions *****************************/
+/* CFRAM related register defines */
+#define CFRAME_BCAST_REG_TESTMODE_OFFSET		(0x120U)
+#define CFRAME_BCAST_REG_TESTMODE_CRAM_SELF_CHECK_MASK	(0x100U)
 
+#define CFRAME_BCAST_REG_FAR_OFFSET			(0x10U)
+#define CFRAME_BCAST_REG_FAR_BLOCKTYPE_SHIFT		(20U)
+#define CFRAME_MAX_BLOCK_TYPE_COUNT			(0x3U)
+
+#define XPLMI_ZERO	(0x0U)
+#define CFRAME_CRC_POLL_TIMEOUT				(0xFFFFU)
+
+#define XLOADER_CFRAME_DATACLEAR_CHECK_CMD_ID	(0xCU)
 /**************************** Type Definitions *******************************/
-#ifndef PLM_DEBUG_MODE
+
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifndef PLM_DEBUG_MODE
 #define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT	(16U) /**< CFI Non-Correctable
                                                        * Error shift */
 
 /************************** Function Prototypes ******************************/
 static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr);
 static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr);
+#endif
 
 /************************** Variable Definitions *****************************/
 static XCframe XLoader_CframeIns = {0U}; /**< CFRAME Driver Instance */
@@ -105,6 +120,7 @@ END:
 	return Status;
 }
 
+#ifndef PLM_DEBUG_MODE
 /*****************************************************************************/
 /**
  * @brief	This function is used for Cframe error handling
@@ -202,4 +218,81 @@ void XLoader_CframeErrorHandler(u32 ImageId)
 		(void)XPmPlDomain_RetriggerPlHouseClean();
 	}
 #endif
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function is used to check if the Cframe data is cleared
+ *              or not using CRC method. This function need to be called after
+ *              CFI house cleaning is done.
+ *
+ * @param       Cmd is pointer to the command. Command payload parameters are:
+ *                - Block Type
+ *
+ * @return      XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 BlockType = Cmd->Payload[0U];
+	u32 RowRange;
+	u32 MaxRowRange = XPlmi_In32(CFU_APB_CFU_ROW_RANGE) & CFU_APB_CFU_ROW_RANGE_NUM_MASK;
+	Xuint128 CframeData = {0x0U};
+
+	XPLMI_EXPORT_CMD(XLOADER_CFRAME_DATACLEAR_CHECK_CMD_ID, XPLMI_MODULE_LOADER_ID,
+			XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
+
+	/* Check if the block type is valid */
+	if (BlockType >= CFRAME_MAX_BLOCK_TYPE_COUNT) {
+		Status = (int)XLOADER_INVALID_BLOCKTYPE;
+		goto END;
+	}
+
+	/* Initialize Cframe driver */
+	Status = XLoader_CframeInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Enable CRAM Self Check */
+	CframeData.Word0 = CFRAME_BCAST_REG_TESTMODE_CRAM_SELF_CHECK_MASK;
+	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_TESTMODE_OFFSET,
+			XCFRAME_FRAME_BCAST, &CframeData);
+
+	/* Reset CRC */
+	XCframe_WriteCmd(&XLoader_CframeIns, XCFRAME_FRAME_BCAST, XCFRAME_CMD_REG_RCRC);
+
+	/* Set Frame Address Register with the Block type */
+	CframeData.Word0 = BlockType << CFRAME_BCAST_REG_FAR_BLOCKTYPE_SHIFT;
+	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_FAR_OFFSET,
+			XCFRAME_FRAME_BCAST, &CframeData);
+
+	/* RDALL */
+	XCframe_WriteCmd(&XLoader_CframeIns, XCFRAME_FRAME_BCAST, XCFRAME_CMD_REG_RDALL);
+
+	/* Check if Cframe is busy */
+	Status = XPlmi_UtilPoll(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK,
+			XPLMI_ZERO, CFRAME_CRC_POLL_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		Status = (int)XLOADER_CFI_CFRAME_IS_BUSY;
+		goto END;
+	}
+
+	for (RowRange = 0; RowRange < MaxRowRange; RowRange++) {
+		/* Check CRC */
+		XCframe_ReadReg(&XLoader_CframeIns, XCFRAME_CRC_OFFSET, RowRange, (u32 *)&CframeData);
+		if (CframeData.Word0 != XPLMI_ZERO) {
+			Status = (int)XLOADER_CFRAME_CRC_CHECK_FAILED;
+			goto END;
+		}
+	}
+
+	/* Clear CRAM Self Check */
+	CframeData.Word0 = XPLMI_ZERO;
+	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_TESTMODE_OFFSET,
+			XCFRAME_FRAME_BCAST, &CframeData);
+
+END:
+	return Status;
 }

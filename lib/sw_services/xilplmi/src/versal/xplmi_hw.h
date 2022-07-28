@@ -76,6 +76,7 @@
 *       ma   07/13/2022 Added RTC_CONTROL_SLVERR_EN_MASK macro
 *       ma   07/20/2022 Move PMC_PSM_ERR_REG_OFFSET to xplmi_error_common.h
 *       bm   07/20/2022 Added compatibility check for In-Place PLM Update
+*       ma   07/25/2022 Enhancements to secure lockdown code
 *
 * </pre>
 *
@@ -618,7 +619,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  * 0xF2000000U to 0xF201011FU - Used by XilLoader to process CDO
  * 0xF2014000U to 0xF2014FFFU - Used for PLM Runtime Configuration Registers
  * 0xF2015000U to 0xF2015FFFU - Used for SSIT PLM to PLM communication
- * 0xF2016000U to 0xF2016800U - Used for storing secure lockdown CDO proc data
+ * 0xF2016000U to 0xF2016BFFU - Used for storing secure lockdown CDO proc data
  * 0xF2019000U to 0xF201CFFFU - Used by XilPlmi to store PLM prints
  * 0xF201D000U to 0xF201DFFFU - Used by XilPlmi to store PLM Trace Events
  * 0xF201E000U to 0xF2020000U - Used by XilPdi to get boot Header copied by ROM
@@ -644,7 +645,7 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 /* PMC RAM secure lockdown reserved memory macros */
 #define XPLMI_PMCRAM_PROC_MEMORY			(XPLMI_PMCRAM_BASEADDR + 0x16000U)
-#define XPLMI_PMCRAM_PROC_MEMORY_LENGTH		(0x800U)
+#define XPLMI_PMCRAM_PROC_MEMORY_LENGTH		(0xC00U)
 
 /*
  * Definitions required from Efuse

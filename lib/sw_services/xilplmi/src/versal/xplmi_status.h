@@ -96,6 +96,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *       dc   07/12/2022 Moved buffer clear status to here from xilloader
+*       ma   07/25/2022 Enhancements to secure lockdown code
 *
 * </pre>
 *
@@ -579,6 +580,9 @@ typedef enum {
 	                        for copying ATF Handoff Parameters */
 	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE, /**< 0x36D - Invalid destination size
 	                        for copying ATF Handoff Parameters */
+	XLOADER_INVALID_BLOCKTYPE, /**< 0x36E - Invalid Blocktype to Cframe data clear check */
+	XLOADER_CFI_CFRAME_IS_BUSY, /**< 0x36F - CRAM self check failed as CFI CFrame is busy */
+	XLOADER_CFRAME_CRC_CHECK_FAILED, /**< 0x370 - CFRAME CRC check failed */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

@@ -60,6 +60,8 @@
 *       ma   06/21/2022 Add support for Get Handoff Parameters IPI command
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/18/2022 Shutdown modules gracefully during update
+*       ma   07/27/2022 Added support for CFrame data clear check which is
+*                       required during PL secure lockdown
 *
 * </pre>
 *
@@ -955,7 +957,8 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_UpdateMultiboot),
 	XPLMI_MODULE_COMMAND(XLoader_AddImageStorePdi),
 	XPLMI_MODULE_COMMAND(XLoader_RemoveImageStorePdi),
-	XPLMI_MODULE_COMMAND(XLoader_GetATFHandOffParams)
+	XPLMI_MODULE_COMMAND(XLoader_GetATFHandOffParams),
+	XPLMI_MODULE_COMMAND(XLoader_CframeDataClearCheck)
 };
 
 /*****************************************************************************/

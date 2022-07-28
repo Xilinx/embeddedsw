@@ -24,6 +24,7 @@
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/22/2022 Shutdown modules gracefully during update
+*       ma   07/25/2022 Enhancements to secure lockdown code
 *
 * </pre>
 *
@@ -537,6 +538,9 @@ typedef enum {
 	                        for copying ATF Handoff Parameters */
 	XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE, /**< 0x36D - Invalid destination size
 	                        for copying ATF Handoff Parameters */
+	XLOADER_INVALID_BLOCKTYPE, /**< 0x36E - Invalid Blocktype to Cframe data clear check */
+	XLOADER_CFI_CFRAME_IS_BUSY, /**< 0x36F - CRAM self check failed as CFI CFrame is busy */
+	XLOADER_CFRAME_CRC_CHECK_FAILED, /**< 0x370 - CFRAME CRC check failed */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 	XLOADER_ERR_WAKEUP_A78_0 = 0x3A0,	/**< 0x3A0 - Error waking up the A78-0 during handoff. */
