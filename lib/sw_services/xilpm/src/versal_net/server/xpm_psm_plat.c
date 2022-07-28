@@ -33,8 +33,10 @@ XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power)
 		goto done;
 	}
 
-
-	Status = XST_SUCCESS;
+	PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrUpEnOffset + REQ_PWRUP_INT_TRIG_OFFSET, Power->PwrUpMask);
+	PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrUpEnOffset, Power->PwrUpMask);
+	Status = XPm_PollForMask(Psm->PsmGlobalBaseAddr + Power->PwrStatOffset, Power->PwrStatMask,
+				 XPM_POLL_TIMEOUT);
 
 done:
 	return Status;
@@ -63,8 +65,10 @@ XStatus XPmPsm_SendPowerDownReq(XPm_Power *Power)
 		goto done;
 	}
 
-
-	Status = XST_SUCCESS;
+	PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrDwnEnOffset + REQ_PWRDWN_INT_TRIG_OFFSET, Power->PwrDwnMask);
+	PmOut32(Psm->PsmGlobalBaseAddr + Power->PwrDwnEnOffset, Power->PwrDwnMask);
+	Status = XPm_PollForZero(Psm->PsmGlobalBaseAddr + Power->PwrStatOffset, Power->PwrStatMask,
+				 XPM_POLL_TIMEOUT);
 
 done:
 	return Status;
