@@ -19,7 +19,7 @@ extern "C" {
 
 #define PMC_TAP_VERSION_PLATFORM_MASK           (0x0F000000U)
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 #ifdef XPAR_XIPIPS_TARGET_PSX_PSM_0_CH0_MASK
 #define PSM_IPI_INT_MASK                XPAR_XIPIPS_TARGET_PSX_PSM_0_CH0_MASK
 #else
@@ -27,7 +27,7 @@ extern "C" {
 #endif
 #else
 #define PSM_IPI_INT_MASK                (0U)
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 #define XPM_POLL_TIMEOUT		(0X1000000U)
 

@@ -3281,7 +3281,7 @@ done:
 void XPm_ProcessAckReq(const u32 Ack, const u32 IpiMask, const int Status,
 		       const u32 NodeId, const u32 NodeState)
 {
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 	if (0U == IpiMask) {
 		goto done;
 	}
@@ -3311,7 +3311,7 @@ done:
 	(void)Status;
 	(void)NodeId;
 	(void)NodeState;
-#endif
+#endif /* XPLMI_IPI_DEVICE_ID */
 }
 
 /****************************************************************************/
@@ -3423,7 +3423,7 @@ process_ack:
 	XPm_ProcessAckReq(Ack, IpiMask, Status, NodeId, NodeState);
 
 done:
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 	if ((u32)REQUEST_ACK_BLOCKING != Ack) {
 		/* Write response */
 		IPI_RESPONSE1(IpiMask, (u32)Status);
@@ -3431,7 +3431,7 @@ done:
 		PmOut32(IPI_PMC_ISR, IpiMask);
 		PmOut32(IPI_PMC_IER, IpiMask);
 	}
-#endif
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);

@@ -17,6 +17,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
+*                       XPLMI_IPI_DEVICE_ID
 *
 * </pre>
 *
@@ -26,7 +28,6 @@
 
 /***************************** Include Files *********************************/
 #include "xplm_pm.h"
-#include "xparameters.h"
 #include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
@@ -107,7 +108,7 @@ void XPlm_EnablePlatformSlaveErrors(void)
 	XPlmi_Out32(INTPMC_CONFIG_IR_ENABLE, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 }
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 /*****************************************************************************/
 /**
 * @brief	This function updates the keep alive status variable
@@ -154,4 +155,4 @@ u32 XPlm_UpdatePsmCounterVal(u32 Val)
 
 	return CounterVal;
 }
-#endif
+#endif /* XPLMI_IPI_DEVICE_ID */
