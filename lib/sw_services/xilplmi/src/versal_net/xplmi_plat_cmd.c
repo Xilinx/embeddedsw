@@ -20,6 +20,8 @@
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add ScatterWrite and ScatterWrite2 commands to versal
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
+*       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
+*                       XPLMI_IPI_DEVICE_ID
 *
 * </pre>
 *
@@ -200,7 +202,7 @@ static int XPlmi_SendToPsm(u32 BuffAddr, u32 BuffLen)
 	LocalPayload[XPLMI_PROC_PSM_SEND_START_ADDR_IDX] = BuffAddr;
 	LocalPayload[XPLMI_PROC_PSM_SEND_END_ADDR_IDX] =  BuffLen;
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 	Status = XPlmi_IpiPollForAck(IPI_PMC_ISR_PSM_BIT_MASK, IPI_MAX_TIMEOUT);
 	if (XST_SUCCESS != Status) {
 		XPlmi_Printf(DEBUG_GENERAL,"%s: ERROR: Timeout expired\n", __func__);
@@ -239,7 +241,7 @@ static int XPlmi_SendToPsm(u32 BuffAddr, u32 BuffLen)
 #else
 	Status = XST_FAILURE;
 
-#endif
+#endif /* XPLMI_IPI_DEVICE_ID */
 END:
 	return Status;
 }

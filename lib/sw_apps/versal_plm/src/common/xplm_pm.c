@@ -40,6 +40,8 @@
 *       bm   01/05/2022 Fixed ZEROIZE-PRIORITY for XLoader_SecureClear
 * 1.07  skd  04/20/2022 Misra-C violation Rule 17.7 fixed
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
+*       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
+*                       XPLMI_IPI_DEVICE_ID
 *
 * </pre>
 *
@@ -76,10 +78,10 @@
 
 /************************** Function Prototypes ******************************/
 static void XPlm_PmRequestCb(const u32 IpiMask, const XPmApiCbId_t EventId, u32 *Payload);
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 static int XPlm_SendKeepAliveEvent(void);
 static int XPlm_KeepAliveTask(void *Arg);
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 /************************** Variable Definitions *****************************/
 
@@ -98,7 +100,7 @@ static int XPlm_KeepAliveTask(void *Arg);
 *****************************************************************************/
 static void XPlm_PmRequestCb(const u32 IpiMask, const XPmApiCbId_t EventId, u32 *Payload)
 {
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 	XStatus Status = XST_FAILURE;
 
 	if ((PM_INIT_SUSPEND_CB == EventId) || (PM_NOTIFY_CB == EventId)) {
@@ -120,7 +122,7 @@ static void XPlm_PmRequestCb(const u32 IpiMask, const XPmApiCbId_t EventId, u32 
 	}
 #else
 	XPlmi_Printf(DEBUG_GENERAL, "%s Error: IPI is not defined\r\n", __func__);
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 }
 
 /*****************************************************************************/
@@ -229,7 +231,7 @@ END:
 	return Status;
 }
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 /*****************************************************************************/
 /**
 * @brief	This function sends keep alive IPI event to PSM
@@ -409,4 +411,4 @@ int XPlm_RemoveKeepAliveTask(void)
 
 	return Status;
 }
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */

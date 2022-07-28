@@ -18,6 +18,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
+*       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
+*                       XPLMI_IPI_DEVICE_ID
 *
 * </pre>
 *
@@ -64,7 +66,7 @@ void XPlm_EnablePlatformSlaveErrors(void)
 	return;
 }
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 /*****************************************************************************/
 /**
 * @brief	This function updates the keep alive status variable
@@ -117,7 +119,7 @@ u32 XPlm_UpdatePsmCounterVal(u32 Val)
 
 	return CounterVal;
 }
-#endif
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 /*****************************************************************************/
 /**

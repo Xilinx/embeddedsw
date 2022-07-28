@@ -16,6 +16,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
+*                       XPLMI_IPI_DEVICE_ID
 *
 * </pre>
 *
@@ -77,9 +79,9 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 
 	/* In-Place PLM Update is applicable only for versalnet */
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 		XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask);
-#endif
+#endif /* XPLMI_IPI_DEVICE_ID */
 		XPlmi_LpdInit();
 		Status = XST_SUCCESS;
 	}

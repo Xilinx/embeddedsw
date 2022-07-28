@@ -21,6 +21,8 @@
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/22/2022 Shutdown modules gracefully during update
+*       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
+*                       XPLMI_IPI_DEVICE_ID
 *
 * </pre>
 *
@@ -399,7 +401,7 @@ void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead)
  *****************************************************************************/
 void XPlmi_GicAddTask(u32 PlmIntrId)
 {
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 	u16 IpiIntrVal;
 	u16 IpiMaskVal;
 	u8 IpiIndex;
@@ -422,7 +424,7 @@ void XPlmi_GicAddTask(u32 PlmIntrId)
 			}
 		}
 	} else
-#endif
+#endif /* XPLMI_IPI_DEVICE_ID */
 	{
 		/* Add task to the task queue */
 		XPlmi_GicIntrAddTask(PlmIntrId | XPLMI_IOMODULE_PMC_GIC_IRQ);

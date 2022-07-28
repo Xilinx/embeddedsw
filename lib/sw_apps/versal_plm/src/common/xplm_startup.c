@@ -40,6 +40,8 @@
 *       is   03/22/2022 Updated PMC XMPU/XPPUs IEN macros
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/13/2022 Fix bug in enabling SLVERR for RTC
+*       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
+*                       XPLMI_IPI_DEVICE_ID
 *
 * </pre>
 *
@@ -91,9 +93,9 @@ int XPlm_AddStartUpTasks(void)
 	int Status = XST_FAILURE;
 	u32 Index;
 	XPlmi_TaskNode *Task;
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 	static u32 MilliSeconds = XPLM_DEFAULT_FTTI_TIME;
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 	/**
 	 * Start up tasks of the PLM.
@@ -103,9 +105,9 @@ int XPlm_AddStartUpTasks(void)
 		{XPlm_PreBootTasks, NULL},
 		{XPlm_LoadBootPdi, NULL},
 		{XPlm_HookAfterBootPdi, NULL},
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 		{XPlm_CreateKeepAliveTask, (void *)&MilliSeconds},
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 #ifdef XPLM_SEM
 		{XPlm_SemScanInit, NULL},
 #endif

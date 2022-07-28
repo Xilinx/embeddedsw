@@ -18,7 +18,7 @@
 extern "C" {
 #endif
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 /* Macros for IPI responses (return values and callbacks) */
 #define IPI_RESPONSE1(Mask, Arg0)						\
 {										\
@@ -37,7 +37,7 @@ extern "C" {
 		PmWarn("Error in IPI write response\r\n");			\
 	}									\
 }
-#endif
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 struct XPm_FrcPwrDwnReq {
 	u32 AckType;

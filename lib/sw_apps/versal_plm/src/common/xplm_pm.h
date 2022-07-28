@@ -24,6 +24,8 @@
 *                       FTTI configuration support for keep alive task
 * 1.04  td   07/08/2021 Fix doxygen warnings
 *       bsv  08/13/2021 Removed unwanted header file
+*       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
+*                       XPLMI_IPI_DEVICE_ID
 *
 * </pre>
 *
@@ -38,10 +40,10 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xparameters.h"
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 #define XPLM_PSM_HEALTH_CHK				(0xCU)
 #define XPLM_PSM_ALIVE_COUNTER_ADDR		(0xF20140C8U)
 #define XPLM_PSM_API_KEEP_ALIVE			(5U)
@@ -55,7 +57,7 @@ extern "C" {
 #define XPLM_PSM_COUNTER_CLEAR			(0U)
 #define XPLM_PSM_COUNTER_INCREMENT		(1U)
 #define XPLM_PSM_COUNTER_RETURN			(2U)
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 /**************************** Type Definitions *******************************/
 
@@ -67,10 +69,10 @@ extern "C" {
 
 int XPlm_PmInit(void);
 int XPlm_ProcessPmcCdo(void *Arg);
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds);
 int XPlm_RemoveKeepAliveTask(void);
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 #ifdef __cplusplus
 }

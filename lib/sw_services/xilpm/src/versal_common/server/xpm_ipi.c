@@ -7,7 +7,7 @@
 #include "xplmi_ipi.h"
 #include "xpm_ipi.h"
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 /****************************************************************************/
 /**
  * @brief	Sends IPI request to the target module
@@ -157,4 +157,4 @@ XStatus XPm_IpiPollForAck(u32 IpiMask, u32 TimeOutCount)
 
 	return XST_FAILURE;
 }
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */

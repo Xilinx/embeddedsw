@@ -17,11 +17,11 @@
 extern "C" {
 #endif
 
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 #define PSM_IPI_INT_MASK                XPAR_XIPIPS_TARGET_PSV_PSM_0_CH0_MASK
 #else
 #define PSM_IPI_INT_MASK                (0U)
-#endif /* XPAR_XIPIPSU_0_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 
 /* Hack: These will increase code size.  Define them as needed. */
 #define xSELF_TEST

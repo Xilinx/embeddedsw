@@ -357,14 +357,14 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 		 */
 		XPm_RMW32(XPM_DOMAIN_INIT_STATUS_REG,0x2,0x2);
 		XPlmi_LpdInit();
-	#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+	#ifdef XPLMI_IPI_DEVICE_ID
 		Status = XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask);
 		if (XST_SUCCESS != Status) {
 			PmErr("Error %u in IPI initialization\r\n", Status);
 		}
 	#else
 		PmWarn("IPI is not enabled in design\r\n");
-	#endif
+	#endif /* XPLMI_IPI_DEVICE_ID */
 	}else{
 		PmErr("UnSupported Node %x\n",NodeId);
 		Status = XPM_PM_INVALID_NODE;

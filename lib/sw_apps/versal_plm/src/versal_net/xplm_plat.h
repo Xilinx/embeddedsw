@@ -18,6 +18,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
+*       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
+*                       XPLMI_IPI_DEVICE_ID
 *
 * </pre>
 *
@@ -33,6 +35,7 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -55,10 +58,10 @@ static inline int XPlm_ConfigureDefaultNPll(void)
 }
 
 /************************** Function Prototypes ******************************/
-#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 u32 XPlm_SetPsmAliveStsVal(u32 Val);
 u32 XPlm_UpdatePsmCounterVal(u32 Val);
-#endif
+#endif /* XPLMI_IPI_DEVICE_ID */
 void XPlm_EnablePlatformSlaveErrors(void);
 int XPlm_CompatibilityCheck(u32 PdiAddr);
 
