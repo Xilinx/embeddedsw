@@ -271,6 +271,33 @@ done:
 	return Status;
 }
 
+static void VduClearInterrupts(u32 BaseAddress)
+{
+	/* Unlock PCSR */
+	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+
+	/*
+	 * VDU interrupts are unable to be masked until after INITSTATE is
+	 * released, see EDT-1041183. Release INITSTATE so that VDU interrupts can
+	 * be masked and cleared.
+	 */
+	VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_INITSTATE, 0U);
+
+	/* Mask VDU Interrupts */
+	XPm_Out32((BaseAddress + VDU_NPI_REG_IDR0_OFFSET), VDU_INTERRUPTS_ALL_MASK);
+	XPm_Out32((BaseAddress + VDU_NPI_REG_IDR1_OFFSET), VDU_INTERRUPTS_ALL_MASK);
+	XPm_Out32((BaseAddress + VDU_NPI_REG_IDR2_OFFSET), VDU_INTERRUPTS_ALL_MASK);
+
+	/* Clear VDU interrupt status */
+	XPm_Out32((BaseAddress + VDU_NPI_REG_ISR_OFFSET), VDU_INTERRUPTS_ALL_MASK);
+
+	/* Clear PMC NPI error bits */
+	XPm_Out32((PMC_GLOBAL_BASEADDR + PMC_GLOBAL_ERR1_STATUS_OFFSET), PMC_GLOBAL_ERR1_STATUS_NPI_ALL_MASK);
+
+	/* Lock PCSR */
+	XPmPlDomain_LockVduPcsr(BaseAddress);
+}
+
 static XStatus VduHouseClean(void)
 {
 	volatile XStatus Status = XST_FAILURE;
@@ -303,6 +330,17 @@ static XStatus VduHouseClean(void)
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_VDU_SCAN_CLEAR;
 			goto done;
+		}
+
+		/*
+		 * In ES1, unmasked VDU interrupts are triggering several PMC error
+		 * bits, see EDT-1040224. As workaround, mask and clear the VDU
+		 * interrupts then clear the PMC error bits.
+		 */
+		if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
+		    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()) &&
+		    (PMC_TAP_IDCODE_DEV_SBFMLY_VC2802 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+			VduClearInterrupts(VduAddresses[i]);
 		}
 	}
 
