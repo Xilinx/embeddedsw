@@ -126,12 +126,7 @@ xemac_add(struct netif *netif,
 	UINTPTR mac_baseaddr)
 {
 	int i;
-
-#if !NO_SYS
-	/* Start thread to detect link periodically for Hot Plug autodetect */
-	sys_thread_new("link_detect_thread", link_detect_thread, netif,
-			THREAD_STACKSIZE, tskIDLE_PRIORITY);
-#endif
+	struct netif * nif = NULL;
 
 	/* set mac address */
 	netif->hwaddr_len = 6;
@@ -142,8 +137,8 @@ xemac_add(struct netif *netif,
 		switch (find_mac_type(mac_baseaddr)) {
 			case xemac_type_xps_emaclite:
 #ifdef XLWIP_CONFIG_INCLUDE_EMACLITE
-				return netif_add(netif, ipaddr, netmask, gw,
-					(void*)mac_baseaddr,
+				nif = netif_add(netif, ipaddr, netmask, gw,
+					(void*)(UINTPTR)mac_baseaddr,
 					xemacliteif_init,
 #if NO_SYS
 					ethernet_input
@@ -152,12 +147,12 @@ xemac_add(struct netif *netif,
 #endif
 					);
 #else
-				return NULL;
+				nif = NULL;
 #endif
 			case xemac_type_axi_ethernet:
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET
-				return netif_add(netif, ipaddr, netmask, gw,
-					(void*)mac_baseaddr,
+					nif = netif_add(netif, ipaddr, netmask, gw,
+					(void*)(UINTPTR)mac_baseaddr,
 					xaxiemacif_init,
 #if NO_SYS
 					ethernet_input
@@ -166,13 +161,13 @@ xemac_add(struct netif *netif,
 #endif
 					);
 #else
-				return NULL;
+				nif = NULL;
 #endif
 #if defined (__arm__) || defined (__aarch64__)
 			case xemac_type_emacps:
 #ifdef XLWIP_CONFIG_INCLUDE_GEM
-				return netif_add(netif, ipaddr, netmask, gw,
-						(void*)mac_baseaddr,
+                nif = netif_add(netif, ipaddr, netmask, gw,
+						(void*)(UINTPTR)mac_baseaddr,
 						xemacpsif_init,
 #if NO_SYS
 						ethernet_input
@@ -186,8 +181,15 @@ xemac_add(struct netif *netif,
 			default:
 				xil_printf("unable to determine type of EMAC with baseaddress 0x%08x\r\n",
 						mac_baseaddr);
-				return NULL;
 	}
+
+	#ifdef OS_IS_FREERTOS
+		/* Start thread to detect link periodically for Hot Plug autodetect */
+		sys_thread_new("link_detect_thread", link_detect_thread, netif,
+				THREAD_STACKSIZE, tskIDLE_PRIORITY);
+	#endif
+
+	return nif;
 }
 
 #if !NO_SYS
