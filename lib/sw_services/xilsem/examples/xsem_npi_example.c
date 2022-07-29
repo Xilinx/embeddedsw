@@ -18,6 +18,8 @@
  *                         correction
  * 0.4   hb    01/06/2022  Added feature to print golden SHA values
  * 0.5   hb    01/27/2022  Added event for NPI scan self diagnosis
+ * 0.6   hb    07/28/2022  Updated example with descriptor attribute
+ *                         interpretation
  * </pre>
  *
  *****************************************************************************/
@@ -37,6 +39,12 @@
 #define NPI_STATUS_SCAN_PSCAN_EN_SHIFT		(11U)
 #define NPI_STATUS_SCAN_PSCAN_EN_MASK		(0x00000800U)
 #define POLL_TIMEOUT						(4U)
+#define NPI_DESCTYPE_MASK					(0x300U)
+#define NPI_DESCTYPE_SHIFT					(8U)
+#define NPI_DESCTYPE_GT						(0x1U)
+#define NPI_DESCTYPE_DDRMC					(0x2U)
+#define NPI_DESC_BASE_ADDR_MASK				(0xFFFF0000U)
+#define NPI_SLAVE_SKIP_CNT_MASK				(0x000000FFU)
 #define DataMaskShift(Data, Mask, Shift)	(((Data) & (Mask)) >> (Shift))
 
 static XIpiPsu IpiInst;
@@ -47,7 +55,8 @@ XSem_Notifier Notifier = {
 		XSEM_EVENT_NPI_DESC_ABSNT_ERR | XSEM_EVENT_NPI_SHA_IND_ERR |
 		XSEM_EVENT_NPI_SHA_ENGINE_ERR | XSEM_EVENT_NPI_PSCAN_MISSED_ERR |
 		XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR | XSEM_EVENT_NPI_SFTY_WR_ERR |
-		XSEM_EVENT_NPI_GPIO_ERR | XSEM_EVENT_NPI_SELF_DIAG_FAIL,
+		XSEM_EVENT_NPI_GPIO_ERR | XSEM_EVENT_NPI_SELF_DIAG_FAIL |
+		XSEM_EVENT_NPI_GT_ARB_FAIL,
 	.Flag = 1U,
 };
 
@@ -64,6 +73,7 @@ struct XSem_Npi_Events_t{
 	u32 SftyWrEventCnt;
 	u32 GpioEventCnt;
 	u32 SelfDiagFailEventCnt;
+	u32 GtArbFailEventCnt;
 } NpiEvents;
 
 XSem_DescriptorData DescData_PreInj = {0};
@@ -279,6 +289,10 @@ void XSem_IpiCallback(XIpiPsu *const InstancePtr)
 			NpiEvents.SelfDiagFailEventCnt = 1U;
 			xil_printf("[ALERT] Received NPI Self-diagnosis fail event"
 					" notification from XilSEM\n\r");
+		} else if (XSEM_EVENT_NPI_GT_ARB_FAIL == Payload[2]) {
+			NpiEvents.GtArbFailEventCnt = 1U;
+			xil_printf("[ALERT] Received GT arbitration failure event"
+					" notification from XilSEM\n\r");
 		} else {
 			xil_printf("%s Some other callback received: %d:%d:%d\n",
 					__func__, Payload[0], Payload[1], Payload[2]);
@@ -298,6 +312,11 @@ void PrintErrReport(void)
 	XStatus Status = 0U;
 	XSemNpiStatus NpiStatus = {0};
 	u32 DescCnt = 0U;
+	u32 DescAttrib = 0U;
+	u32 DescGldnSha = 0U;
+	u32 DescBaseAddr = 0U;
+	u32 DescType = 0U;
+	u32 SkipCountIndex = 0U;
 
 	xil_printf("-----------------------------------------------------\n\r");
 	xil_printf("-----------------Print Report------------------------\n\r");
@@ -349,20 +368,65 @@ void PrintErrReport(void)
 	xil_printf("----------------------------------------------------\n\r");
 	xil_printf("Descriptor information before injecting error:\n\n\r");
 	for(DescCnt = 0; DescCnt < TotalDescCnt; DescCnt++) {
-		xil_printf("Descriptor %u\n\r Attribute value: 0x%08x Golden SHA: " \
-				"0x%08x\n\r", (DescCnt+1U), \
-				DescData_PreInj.DescriptorInfo[DescCnt].DescriptorAttrib, \
-				DescData_PreInj.DescriptorInfo[DescCnt].DescriptorGldnSha);
+		/* Store Attribute and goldenSHA for printing */
+		DescAttrib = DescData_PreInj.DescriptorInfo[DescCnt].DescriptorAttrib;
+		DescGldnSha = DescData_PreInj.DescriptorInfo[DescCnt].DescriptorGldnSha;
+
+		/* Obtain Descriptor Type (Static, GT or DDRMC) */
+		DescType = DataMaskShift(DescAttrib, NPI_DESCTYPE_MASK, \
+				NPI_DESCTYPE_SHIFT);
+		xil_printf("Descriptor %u\n\r", (DescCnt+1U));
+		xil_printf("  Type: ");
+		/* Print Descriptor type information */
+		if (DescType == NPI_DESCTYPE_DDRMC) {
+			xil_printf("DDRMC MAIN\n\r");
+		} else if (DescType == NPI_DESCTYPE_GT) {
+			xil_printf("GT\n\r");
+		} else {
+			xil_printf("Static\n\r");
+		}
+		/* Print Golden SHA */
+		xil_printf("  Golden SHA: 0x%08x\n\r", DescGldnSha);
+		/* Print Descriptor attribute information if descriptor is not static */
+		if(DescType > 0U) {
+			DescBaseAddr = (DescAttrib & NPI_DESC_BASE_ADDR_MASK);
+			SkipCountIndex = (DescAttrib & NPI_SLAVE_SKIP_CNT_MASK);
+			xil_printf("  Base Address: 0x%08x\n\r  Skip Count Location:" \
+					" SkipCountByte%u\n\r", DescBaseAddr, SkipCountIndex);
+		}
 	}
 
 	/* Print golden SHA values after injecting error */
 	xil_printf("----------------------------------------------------\n\r");
 	xil_printf("Descriptor information after injecting error:\n\n\r");
 	for(DescCnt = 0; DescCnt < TotalDescCnt; DescCnt++) {
-		xil_printf("Descriptor %u\n\r Attribute value: 0x%08x Golden SHA:" \
-				" 0x%08x\n\r", (DescCnt+1U), \
-				DescData_PostInj.DescriptorInfo[DescCnt].DescriptorAttrib, \
-				DescData_PostInj.DescriptorInfo[DescCnt].DescriptorGldnSha);
+		/* Store Attribute and goldenSHA for printing */
+		DescAttrib = DescData_PostInj.DescriptorInfo[DescCnt].DescriptorAttrib;
+		DescGldnSha = \
+				DescData_PostInj.DescriptorInfo[DescCnt].DescriptorGldnSha;
+
+		/* Obtain Descriptor Type (Static, GT or DDRMC) */
+		DescType = DataMaskShift(DescAttrib, NPI_DESCTYPE_MASK, \
+				NPI_DESCTYPE_SHIFT);
+		xil_printf("Descriptor %u\n\r", (DescCnt+1U));
+		xil_printf("  Type: ");
+		/* Print Descriptor type information */
+		if (DescType == NPI_DESCTYPE_DDRMC) {
+			xil_printf("DDRMC MAIN\n\r");
+		} else if (DescType == NPI_DESCTYPE_GT) {
+			xil_printf("GT\n\r");
+		} else {
+			xil_printf("Static\n\r");
+		}
+		/* Print Golden SHA */
+		xil_printf("  Golden SHA: 0x%08x\n\r", DescGldnSha);
+		/* Print Descriptor attribute information if descriptor is not static */
+		if(DescType > 0U) {
+			DescBaseAddr = (DescAttrib & NPI_DESC_BASE_ADDR_MASK);
+			SkipCountIndex = (DescAttrib & NPI_SLAVE_SKIP_CNT_MASK);
+			xil_printf("  Base Address: 0x%08x\n\r  Skip Count Location:" \
+					" SkipCountByte%u\n\r", DescBaseAddr, SkipCountIndex);
+		}
 	}
 	xil_printf("----------------------------------------------------\n\r");
 
@@ -519,7 +583,7 @@ int main(void)
 		TempA_32 = DataMaskShift(NpiStatus.Status,
 						NPI_STATUS_SHA_COMP_SCAN_ERR_MASK,
 						NPI_STATUS_SHA_COMP_SCAN_ERR_SHIFT);
-		if (TempA_32 == 1) {
+		if (TempA_32 == 1U) {
 			Status = XST_SUCCESS;
 
 			/* Get golden SHA and descriptor information

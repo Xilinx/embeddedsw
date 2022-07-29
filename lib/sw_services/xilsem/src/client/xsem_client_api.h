@@ -42,6 +42,7 @@
 * 1.9   hb   03/07/2022   Updated comments
 * 2.0   hb   07/03/2022   Added SSIT macros and function prototypes
 * 2.1	hv   07/24/2022   Added client interface to read Cfr Status
+* 2.2   hb   07/28/2022   Added macro for GT arbitration fail event
 * </pre>
 *
 * @note
@@ -298,10 +299,9 @@ typedef struct {
  * Structure to hold each descriptor information
  *
  * Descriptor Attribute: Contains detailed information related to descriptor
- * - Bit[31]: STNN - If set, the descriptor contains Split Tiles/NPS/NCRB
- * registers
- * - Bit[30]: XMPU - If set, the descriptor contains XMPU registers
- * - Bit[29:16]: Reserved
+ * - Bit[31:16]: Base Address - Slave Base address in the descriptor for which
+ * attributes are present. Base address is only applicable for DDRMC_MAIN and
+ * GT slave address, for other descriptors, this value should be ignored.
  * - Bit[15:8]: Exclusive Lock Type - Bit[8] if set, signifies that descriptor
  * contains GT slaves. Bit[9] if set, signifies that descriptor contains DDRMC
  * slave registers. Bit[10:15] are reserved for future use
@@ -363,6 +363,12 @@ information: Contains descriptor attributes and golden SHA value */
 #define XSEM_EVENT_NPI_GPIO_ERR	(0x9U)
 /** NPI Self Diagnostic event */
 #define XSEM_EVENT_NPI_SELF_DIAG_FAIL	(0xAU)
+/** NPI GT arbitration failure event */
+/**
+ * GT arbitration failure is notified for every 5 times GT
+ * arbitration failure is encountered in NPI scan
+ */
+#define XSEM_EVENT_NPI_GT_ARB_FAIL		(0xBU)
 
 /* SEM Event Flags */
 /** SEM Event Notification Enable */
