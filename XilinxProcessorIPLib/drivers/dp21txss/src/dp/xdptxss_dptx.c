@@ -38,9 +38,10 @@
 #include "xvidc_edid.h"
 #include "xdebug.h"
 #include "string.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
-
+#define XDP_TX_SB_MSG_DELAY 3000
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -136,22 +137,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		}
 
 		/* Set AUX and sideband delays in microseconds */
-		InstancePtr->TxInstance.AuxDelayUs = 30000;
-		InstancePtr->TxInstance.SbMsgDelayUs = 30000;
-
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Discovering "
-				"topology.\n\r");
-		/* Get list of sinks */
-		Status = Dp_GetTopology(InstancePtr);
-		if (Status)
-			return Status;
-
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Topology "
-				"discovery done, # of sinks found = %d.\n\r",
-				InstancePtr->TxInstance.Topology.SinkTotal);
-
-		/* Total number of streams equal to number of sinks found */
-		NumOfStreams = InstancePtr->TxInstance.Topology.SinkTotal;
+		InstancePtr->TxInstance.AuxDelayUs = XDP_TX_SB_MSG_DELAY;
+		InstancePtr->TxInstance.SbMsgDelayUs = XDP_TX_SB_MSG_DELAY;
 
 		/* Enable downshifting during link training */
 		XDp_TxEnableTrainAdaptive(InstancePtr, 1);
@@ -161,7 +148,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		/* Start link training with user set link rate and lane
 		 * count. Training is required to discover topology so that
-		 * prefer erred timing can be known.
+		 * preferred timing can be known.
 		 */
 		Status = XDpTxSs_DpTxStartLink(InstancePtr, FALSE);
 		if (Status != XST_SUCCESS) {
@@ -176,13 +163,94 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				return Status;
 			}
 		}
+		XDp_TxEnableMainLink(InstancePtr);
+		/* Enable MST mode in both the RX and TX. */
+		Status = XDp_TxMstEnable(InstancePtr);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
 
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+					       InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status == XST_SUCCESS)
+			xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Link is up !\n\r\n\r");
+		else
+			return Status;
+
+		xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Discovering topology.\n\r");
+		 /* Wait the requested amount of time to start mst topology
+		  * discovery after link training got success.
+		  */
+		 /* This delay is added to match UCD400. Once UCD400 fixes its internal issues,
+		  * this delay can be removed.
+		  */
+		usleep(10000);
+		/* Get list of sinks */
+		Status = Dp_GetTopology(InstancePtr);
+		if (Status)
+			return Status;
+
+		/* Total number of streams equal to number of sinks found */
+		NumOfStreams = InstancePtr->TxInstance.NumOfMstStreams;
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "SS INFO:MST:Topology discovery done, # of sinks found = %d.\n\r",
+			    NumOfStreams);
 		Status = XDp_TxCheckLinkStatus(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
 		if (Status == XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
-					"is up !\n\r\n\r");
+			xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Link is up !\n\r\n\r");
+		} else {
+			/* Train link with maximum RX capabilities */
+			Status = XDpTxSs_DpTxStartLink(InstancePtr, TRUE);
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,
+					    "SS ERR:MST:Verify cable and/or monitor.\n\r");
+				return Status;
+			}
 		}
+		/* Enable each stream(s) */
+		for (StreamIndex = 0; StreamIndex < NumOfStreams;
+							StreamIndex++) {
+			xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Enabling stream #%d\n",
+				    XDP_TX_STREAM_ID1 + StreamIndex);
+			XDp_TxMstCfgStreamEnable(InstancePtr, XDP_TX_STREAM_ID1 + StreamIndex);
+			XDp_TxSetStreamSelectFromSinkList(InstancePtr,
+							  XDP_TX_STREAM_ID1 + StreamIndex,
+							  StreamIndex);
+			XDp_TxSetStartTimeslot(InstancePtr, XDP_TX_STREAM_ID1 + StreamIndex);
+		}
+		xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Enum Path Resource Request.\n\r");
+
+		Status = XDp_TxSendEnumPathResourceRequest(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				    "SS INFO:MST:Enum Path Request fail !\n\r\n\r");
+			return Status;
+		}
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+					       InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status == XST_SUCCESS)
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				    "SS INFO:MST: Link is up after Enum path request\n\r\n\r");
+		else
+			return Status;
+
+		/* Clear virtual channel payload ID table in TX and all
+		 * downstream RX devices
+		 */
+		xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST:Clear Payload VIC Id table.\n\r");
+		Status = XDp_TxClearPayloadVcIdTable(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				    "SS ERR:MST:Clearing virtual channel payload failed.\n\r");
+			return XST_DATA_LOST;
+		}
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+					       InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status == XST_SUCCESS)
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				    "SS INFO:MST: Link is up after streams are configured!\n\r");
+		else
+			return Status;
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Reading (MST) Sink "
 			"EDID...\n\r");
@@ -213,8 +281,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				VidMode = XVIDC_VM_640x480_60_P;
 			}
 
-			if ((InstancePtr->TxInstance.Topology.SinkTotal ==
-				4) && (VidMode == XVIDC_VM_UHD2_60_P)) {
+			if (NumOfStreams ==
+				4 && VidMode == XVIDC_VM_UHD2_60_P) {
 				VidMode = XVIDC_VM_1080_60_P;
 
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:"
@@ -223,8 +291,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 				/* Order the sink belong to same TDT */
 				XDp_TxTopologySortSinksByTiling(InstancePtr);
-			}
-			else if ((InstancePtr->TxInstance.Topology.SinkTotal ==
+			} else if ((NumOfStreams ==
 				2) && (VidMode <= XVIDC_VM_UHD2_60_P)){
 
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:"
@@ -239,8 +306,7 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Using "
 				"user set resolution.\n\r");
 
-			if ((InstancePtr->TxInstance.Topology.SinkTotal ==
-				4) && (VidMode == XVIDC_VM_UHD2_60_P)){
+			if (NumOfStreams == 4 && VidMode == XVIDC_VM_UHD2_60_P) {
 				VidMode = XVIDC_VM_1080_60_P;
 
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:"
@@ -249,9 +315,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 				/* Order sinks belongs to the same TDT */
 				XDp_TxTopologySortSinksByTiling(InstancePtr);
-			}
-			else if ((InstancePtr->TxInstance.Topology.SinkTotal ==
-				2) && (VidMode <= XVIDC_VM_UHD2_60_P)){
+			} else if ((NumOfStreams ==
+				2) && (VidMode <= XVIDC_VM_UHD2_60_P)) {
 
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:"
 					"Re-ordering sinks if belongs to same "
@@ -269,6 +334,13 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:calculating "
 			"payload...\n\r");
 
+		Status = XDp_TxCheckLinkStatus(InstancePtr,
+					       InstancePtr->TxInstance.LinkConfig.LaneCount);
+		if (Status == XST_SUCCESS)
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				    "SS INFO:MST: Link is up after streams are configured!\n\r\n\r");
+		else
+			return Status;
 		/* Check link and video bandwidth */
 		Status = Dp_CheckBandwidth(InstancePtr, Bpc, VidMode);
 		if (Status != XST_SUCCESS) {
@@ -277,31 +349,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				"bpc, lane count and link rate value."
 				"\n\rRe-training with maximum RX capabilities."
 				"\n\r");
-
-			/* Check for link training need and run training
-			 * sequence.
-			 */
-			Status = XDpTxSs_DpTxStartLink(InstancePtr, TRUE);
-			if (Status != XST_SUCCESS) {
-				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:"
-					"Re-training with max after payload "
-						"failed.\n\r");
-				return Status;
-			}
+			return Status;
 		}
-
-		/* Enable each stream(s) */
-		for (StreamIndex = 0; StreamIndex < NumOfStreams;
-							StreamIndex++) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:"
-				"Enabling stream #%d\n", XDP_TX_STREAM_ID1 +
-					StreamIndex);
-			XDp_TxMstCfgStreamEnable(InstancePtr,
-				XDP_TX_STREAM_ID1 + StreamIndex);
-			XDp_TxSetStreamSelectFromSinkList(InstancePtr,
-				XDP_TX_STREAM_ID1 + StreamIndex, StreamIndex);
-		}
-
 		/* Disable stream(s) */
 		for (StreamIndex = NumOfStreams; StreamIndex < 4;
 							StreamIndex++) {
@@ -313,13 +362,11 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		}
 
 		/* Stream setup */
-		for (StreamIndex = 0; StreamIndex < 4; StreamIndex++) {
+		for (StreamIndex = 0; StreamIndex < NumOfStreams; StreamIndex++) {
 			if (XDp_TxMstStreamIsEnabled(InstancePtr,
 					XDP_TX_STREAM_ID1 + StreamIndex)) {
-				xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:"
-					"Stream #%d... ",XDP_TX_STREAM_ID1 +
-						StreamIndex);
-
+				xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:MST: Stream #%d... ",
+					    XDP_TX_STREAM_ID1  + StreamIndex);
 				/* Set bits per color for each stream */
 				XDp_TxCfgMsaSetBpc(InstancePtr,
 					XDP_TX_STREAM_ID1 + StreamIndex, Bpc);
@@ -394,24 +441,13 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		Status = XDp_TxCheckLinkStatus(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
-		if (Status == XST_SUCCESS) {
+		if (Status == XST_SUCCESS)
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST: Link "
 				"is up after streams are configured!\n\r\n\r");
-		}
-
+		else
+			return Status;
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Allocating "
 			"payload...\n\r");
-
-		/* Clear virtual channel payload ID table in TX and all
-		 * downstream RX devices
-		*/
-		Status = XDp_TxClearPayloadVcIdTable(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:MST:"
-				"Clearing virtual channel payload "
-					"failed.\n\r");
-			return XST_DATA_LOST;
-		}
 
 		/* Allocate payloads. */
 		Status = XDp_TxAllocatePayloadStreams(InstancePtr);
@@ -425,13 +461,16 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		Status = XDp_TxCheckLinkStatus(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
-		if (Status == XST_SUCCESS) {
+		if (Status == XST_SUCCESS)
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Link "
 				"is up after allocate payload!\n\r\n\r");
-		}
-
+		else
+			return Status;
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Config done!"
 			"\n\r\n\r");
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
+			     XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK | XDP_TX_SOFT_RESET_HDCP_MASK);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x0);
 	}
 	/* SST */
 	else {
@@ -598,7 +637,13 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	}
 
 	Dp_ConfigVideoPackingClockControl(InstancePtr, Bpc);
-
+	Status = XDp_TxCheckLinkStatus(InstancePtr,
+				       InstancePtr->TxInstance.LinkConfig.LaneCount);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,
+			    "SS INFO:Link is DOWN after main link enabled!\n\r\n\r");
+		return Status;
+	}
 	/* Enable the main link. */
 	XDp_TxEnableMainLink(InstancePtr);
 
@@ -607,14 +652,9 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Link "
 			"is DOWN after main link enabled!\n\r\n\r");
+		return Status;
 	}
-	else if (Status == XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Link "
-			"is UP after main link enabled!\n\r\n\r");
-	}
-
-	xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:Enabled main link!"
-		"\n\r\n\r");
+	xdbg_printf(XDBG_DEBUG_GENERAL, "SS INFO:Enabled main link!\n\r\n\r");
 
 	/* Program the VSC Extended Packet */
 	if (InstancePtr->TxInstance.ColorimetryThroughVsc)
@@ -884,6 +924,7 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 		u32 TsInt;
 		u32 TsFrac;
 		double Pbn;
+		double Dp2xLinkBW;
 
 		if (VidMode != XVIDC_VM_CUSTOM){
 			PeakPixelBw =
@@ -904,11 +945,27 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 		if ((double)(1.006 * Pbn) > (int)Pbn)
 			Pbn++;
 
-		/*VC Payload Size Determination by a Source Payload Bandwidth Manager*/
-		Average_StreamSymbolTimeSlotsPerMTP = (double)((double)PeakPixelBw / LinkBw * 64);
-		MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (double)(54.0 *
-						((double)Pbn / LinkBw));
+		/*VC Payload Size Determination by a Source Payload Bandwidth Manager */
 
+		/* Average_StreatSymbolTimeSlotsPerMTP = PeakStreamBandwidth /
+		 * LinkBandwidth * 64.
+		 */
+
+		/* Maximum_TARGET_Average_StreamSymbolTimeSlotsPerMTP
+		 * PBN_Value_to_DownstreamBranchDevices / (LinkBandwidth_Source * 54).
+		 */
+		/* As per DPv2.0 Mem, Sec 2.6.4.3*/
+		if (InstancePtr->TxInstance.LinkConfig.TrainingMode == XDP_TX_TRAINING_MODE_DP21) {
+			Dp2xLinkBW = XDp_TxGetPBN_Values(InstancePtr);
+			Average_StreamSymbolTimeSlotsPerMTP = (64.0 * PeakPixelBw / Dp2xLinkBW);
+			MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (54.0 * ((double)Pbn /
+										Dp2xLinkBW));
+		} else	{
+			Average_StreamSymbolTimeSlotsPerMTP = (double)((double)PeakPixelBw /
+									LinkBw * 64);
+			MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (double)(54.0 *
+							((double)Pbn / LinkBw));
+		}
 		Target_Average_StreamSymbolTimeSlotsPerMTP =
 				(u32)Average_StreamSymbolTimeSlotsPerMTP;
 		Target_Average_StreamSymbolTimeSlotsPerMTP += ((1.0 / 8.0) *
@@ -995,6 +1052,7 @@ static u32 Dp_GetTopology(XDp *InstancePtr)
 	if (NumStreams > InstancePtr->Config.NumMstStreams) {
 		NumStreams = InstancePtr->Config.NumMstStreams;
 	}
+	InstancePtr->TxInstance.NumOfMstStreams = NumStreams;
 
 	return XST_SUCCESS;
 }

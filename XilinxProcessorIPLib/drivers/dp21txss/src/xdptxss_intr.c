@@ -524,7 +524,11 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
-
+		case XDPTXSS_HANDLER_DP_FFE_PRESET_ADJUST:
+			XDp_TxSetCallback(InstancePtr->DpPtr, XDP_TX_HANDLER_PRESET_FFE_ADJUST,
+					  CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
 		default:
 			Status = XST_INVALID_PARAM;
 			break;
