@@ -133,33 +133,18 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	/* Set the user pixel width to handle clocks that exceed the
 	 * capabilities of the DisplayPort TX core. */
 	if (MsaConfig->OverrideUserPixelWidth == 0) {
-		/* Check for Dp1.4 or Dp1.2/1.1 */
-		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-			if ((MsaConfig->PixelClockHz > 540000000) &&
-			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4) &&
-				(XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1)) {
-				MsaConfig->UserPixelWidth = 4;
-			} else if ((MsaConfig->PixelClockHz > 270000000) &&
-				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
-				   ((XPAR_XDP_0_DUAL_PIXEL_ENABLE == 1) ||
-				    (XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1))) {
-				MsaConfig->UserPixelWidth = 2;
-			} else {
-				MsaConfig->UserPixelWidth = 1;
-			}
+		/* Check for Dp2.1or DP1.4/Dp1.2/1.1 */
+		if (MsaConfig->PixelClockHz > 540000000 &&
+		    LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4 &&
+		    XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1) {
+			MsaConfig->UserPixelWidth = 4;
+		} else if ((MsaConfig->PixelClockHz > 270000000) &&
+			   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
+			   ((XPAR_XDP_0_DUAL_PIXEL_ENABLE == 1) ||
+			    (XPAR_XDP_0_QUAD_PIXEL_ENABLE == 1))) {
+			MsaConfig->UserPixelWidth = 2;
 		} else {
-			if ((MsaConfig->PixelClockHz > 300000000) &&
-			    (LinkConfig->LaneCount == XDP_TX_LANE_COUNT_SET_4) &&
-			    (XPAR_XDP_0_QUAD_PIXEL_ENABLE ==1)) {
-				MsaConfig->UserPixelWidth = 4;
-			} else if ((MsaConfig->PixelClockHz > 75000000) &&
-				   (LinkConfig->LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
-					((XPAR_XDP_0_DUAL_PIXEL_ENABLE == 1) ||
-					 (XPAR_XDP_0_QUAD_PIXEL_ENABLE ==1))) {
-				MsaConfig->UserPixelWidth = 2;
-			} else {
-				MsaConfig->UserPixelWidth = 1;
-			}
+			MsaConfig->UserPixelWidth = 1;
 		}
 	}
 
@@ -240,6 +225,7 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 		/* Allocate a fixed size for single-stream transport (SST)
 		 * operation. */
 		MsaConfig->TransferUnitSize = 64;
+		MsaConfig->StartTs = 1;
 
 		/* Calculate the average number of bytes per transfer unit.
 		 * Note: Both the integer and the fractional part is stored in
@@ -851,7 +837,6 @@ void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream)
 *******************************************************************************/
 void XDp_TxOverrideSyncPolarity(XDp *InstancePtr, u8 Stream)
 {
-	XDp_Config *ConfigPtr;
 	XDp_TxMainStreamAttributes *MsaConfig;
 
 	/* Verify arguments. */
@@ -884,7 +869,7 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 	u32 StreamOffset[4] = {0, XDP_TX_STREAM2_MSA_START_OFFSET,
 					XDP_TX_STREAM3_MSA_START_OFFSET,
 					XDP_TX_STREAM4_MSA_START_OFFSET};
-
+	u32 DP2xVfreq;
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -979,6 +964,14 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 		(MsaConfig->AvgBytesPerTU % 1000) * 1024 / 1000);
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_INIT_WAIT +
 			StreamOffset[Stream - 1], MsaConfig->InitWait);
+	/*update vfreq for each stream*/
+	DP2xVfreq = (MsaConfig->PixelClockHz) & 0x00FFFFFF;
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM1, DP2xVfreq);
+
+	DP2xVfreq = (MsaConfig->PixelClockHz) & 0xFF000000;
+	DP2xVfreq = (DP2xVfreq >> 24);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_VFREQ_STREAM2, DP2xVfreq);
 }
 
 /******************************************************************************/
@@ -1344,12 +1337,7 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 			(Stream == XDP_TX_STREAM_ID4));
 
 	BaseAddr  = InstancePtr->Config.BaseAddr;
-	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		LaneCount = XDp_ReadReg(BaseAddr, XDP_RX_DPCD_LANE_COUNT_SET);
-	} else {
-		LaneCount = InstancePtr->RxInstance.LinkConfig.LaneCount;
-	}
-
+	LaneCount = XDp_ReadReg(BaseAddr, XDP_RX_DPCD_LANE_COUNT_SET);
 	BitsPerColor   = XDp_RxGetBpc(InstancePtr, Stream);
 	ColorComponent = XDp_RxGetColorComponent(InstancePtr, Stream);
 
@@ -1373,54 +1361,29 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
 	HActive     = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HRES +
 				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
-	if (InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-		HStart      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSTART +
+	HStart      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSTART +
 				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
-		HSyncWidth  = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSWIDTH +
+	HSyncWidth  = XDp_ReadReg(BaseAddr, XDP_RX_MSA_HSWIDTH +
 				StreamOffset[Stream - XDP_TX_STREAM_ID1]);
-		HBackPorch  = HStart - HSyncWidth;
-		HFrontPorch = HTotal - HSyncWidth - HActive - HBackPorch;
-		HBlank      = HBackPorch + HFrontPorch + HSyncWidth;
-	} else {
-		HBlank      = HTotal - HActive;
+	HBackPorch  = HStart - HSyncWidth;
+	HFrontPorch = HTotal - HSyncWidth - HActive - HBackPorch;
+	HBlank      = HBackPorch + HFrontPorch + HSyncWidth;
 
-		Mvid      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_MVID);
-		Nvid      = XDp_ReadReg(BaseAddr, XDP_RX_MSA_NVID);
+	/* Reduced blanking starts at ceil(0.2 * HTotal). */
+	HReducedBlank = 2 * HTotal;
+	if (HReducedBlank % 10)
+		HReducedBlank += 10;
 
-		/* Stream Load (%) : Stream BW * 100 / Link Bandwidth */
-		StreamLoad = (Mvid*BitsPerPixel*100)/Nvid/LaneCount/8;
-	}
-
-	if (InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
-		/* Reduced blanking starts at ceil(0.2 * HTotal). */
-		HReducedBlank = 2 * HTotal;
-		if (HReducedBlank % 10) {
-			HReducedBlank += 10;
-		}
-		HReducedBlank /= 10;
-	}
+	HReducedBlank /= 10;
 
 	/*Disable Line Reset only in case of fully loaded
 	 * RB2 Video bandwidth : Set Line Reset Disable for Load >95%*/
 	RegVal = XDp_ReadReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE);
-	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
-		if ((StreamLoad > 80) || (HBlank == 80) || (HBlank == 60)) {
-			RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
-		} else {
-			RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
-		}
-	} else {
-		/* CVT spec. states HBlank is either 80 or 160
-		 * for reduced blanking, & check if there is no
-		 * possibility of getting extra pixels by TX. */
-		if ((HBlank < HReducedBlank) &&
-		    ((HBlank == 80) || (HBlank == 160)) &&
-		     (((BitsPerPixel * HActive / LaneCount) % 8) == 0)) {
-			RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
-		} else {
-			RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
-		}
-	}
+	if (StreamLoad > 80 || HBlank == 80 || HBlank == 60)
+		RegVal |= XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
+	else
+		RegVal &= ~XDP_RX_LINE_RESET_DISABLE_MASK(Stream);
+
 	XDp_WriteReg(BaseAddr, XDP_RX_LINE_RESET_DISABLE, RegVal);
 
 	/* Synchronize the display timing generator (DTG). */
@@ -1434,6 +1397,48 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
+/******************************************************************************/
+/**
+ *  This function assigns the PBN values based on linkrate and lane count configuration.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+
+ *
+ * @return	MST payload bandwidth number (PBN) value.
+ *
+ * @note	None.
+ *
+ *******************************************************************************/
+double XDp_TxGetPBN_Values(XDp *InstancePtr)
+{
+	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
+	double Dp2xLinkBW;
+
+	if (LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_UHBR10) {
+		if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_1)
+			Dp2xLinkBW = 1208.9;
+		else if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_2)
+			Dp2xLinkBW = 2417.8;
+		else
+			Dp2xLinkBW = 4835.5;
+	} else if (LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_UHBR20) {
+		if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_1)
+			Dp2xLinkBW = 2417.8;
+		else if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_2)
+			Dp2xLinkBW = 4835.5;
+		else
+			Dp2xLinkBW = 9671.1;
+	} else {
+		if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_1)
+			Dp2xLinkBW = 1632.0;
+		else if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_2)
+			Dp2xLinkBW = 3264.0;
+		else
+			Dp2xLinkBW = 6527.9;
+	}
+	return Dp2xLinkBW;
+}
+
 /******************************************************************************/
 /**
  * When the driver is in multi-stream transport (MST) mode, this function will
@@ -1451,7 +1456,7 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
  *
  * @note	None.
  *
-*******************************************************************************/
+ *******************************************************************************/
 static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 {
 	XDp_TxMainStreamAttributes *MsaConfig =
@@ -1465,12 +1470,17 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	u32 TsInt;
 	double TsFrac;
 	double pbn;
+	double Dp2xLinkBW;
 
 	PeakPixelBw = ((double)MsaConfig->PixelClockHz / 1000000) *
 						((double)BitsPerPixel / 8);
 	LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
 
+	/*PBN Value Calculation by a Source Device Payload Bandwidth Manager,
+	 * The PBN value has the unit of 54/64MBps.
+	 */
 	pbn = (double)((double)PeakPixelBw / ((double)54 / 64));
+
 	/* Calculate the payload bandwidth number (PBN).  */
 	InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn = (double)
 					1.006 * pbn;
@@ -1481,12 +1491,27 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 		InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn++;
 	}
 
-	/* Calculate the average stream symbol time slots per MTP. */
-	Average_StreamSymbolTimeSlotsPerMTP = (double)((double)PeakPixelBw / LinkBw * 64);
-	MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (double)(54.0 *
-		((double)InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn
-				/ LinkBw));
+	/* Average_Strea,SymbolTimeSlotsPerMTP = PeakStreamBandwidth / LinkBandwidth * 64.
+	 */
+	/* Maximum_TARGET_Average_StreamSymbolTimeSlotsPerMTP
+	 * PBN_Value_to_DownstreamBranchDevices / (LinkBandwidth_Source * 54).
+	 */
+	/* As per DPv2.0 Mem, Sec 2.6.4.3*/
 
+	if (LinkConfig->TrainingMode == XDP_TX_TRAINING_MODE_DP21) {
+		Dp2xLinkBW = XDp_TxGetPBN_Values(InstancePtr);
+		Average_StreamSymbolTimeSlotsPerMTP = (64.0 * PeakPixelBw / Dp2xLinkBW);
+		MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (54.0 *
+		((double)InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn /
+		 Dp2xLinkBW));
+		/* Calculate the average stream symbol time slots per MTP. */
+	} else {
+		/* Calculate the average stream symbol time slots per MTP. */
+		Average_StreamSymbolTimeSlotsPerMTP = (double)((double)PeakPixelBw / LinkBw * 64);
+		MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP = (double)(54.0 *
+		((double)InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstPbn /
+		LinkBw));
+	}
 	/* The target value to be found needs to follow the condition:
 	 *	Average_StreamSymbolTimeSlotsPerMTP <=
 	 *		Target_Average_StreamSymbolTimeSlotsPerMTP
@@ -1519,14 +1544,16 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 		/* Round up. */
 		MsaConfig->TransferUnitSize++;
 	}
-	if ((InstancePtr->Config.PayloadDataWidth == 4) &&
-				(MsaConfig->TransferUnitSize % 4) != 0) {
-		/* Set to a multiple of 4 boundary. */
-		MsaConfig->TransferUnitSize += (4 -
-					(MsaConfig->TransferUnitSize % 4));
-	} else if ((MsaConfig->TransferUnitSize % 2) != 0) {
-		/* Set to an even boundary. */
-		MsaConfig->TransferUnitSize++;
+	if (LinkConfig->TrainingMode != XDP_TX_TRAINING_MODE_DP21) {
+		if (InstancePtr->Config.PayloadDataWidth == 4 &&
+		    MsaConfig->TransferUnitSize % 4 != 0) {
+			/* Set to a multiple of 4 boundary. */
+			MsaConfig->TransferUnitSize += (4 -
+						(MsaConfig->TransferUnitSize % 4));
+		} else if ((MsaConfig->TransferUnitSize % 2) != 0) {
+			/* Set to an even boundary. */
+			MsaConfig->TransferUnitSize++;
+		}
 	}
 }
 

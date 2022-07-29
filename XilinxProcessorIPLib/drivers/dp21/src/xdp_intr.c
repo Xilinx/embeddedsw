@@ -335,7 +335,11 @@ int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
 		InstancePtr->TxInstance.VsyncCallbackHandlerRef = CallbackRef;
 		Status = XST_SUCCESS;
 		break;
-
+	case XDP_TX_HANDLER_PRESET_FFE_ADJUST:
+		InstancePtr->TxInstance.PresetFfeAdjustCallback = CallbackFunc;
+		InstancePtr->TxInstance.PresetFfeAdjustCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
@@ -535,25 +539,17 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		Status = XST_SUCCESS;
 		break;
 
-		/* Interrupts for DP 1.4 : set callback start. */
+		/* Interrupts for DP 1.4 and DP2.1 : set callback start. */
 	case XDP_RX_HANDLER_TP4:
-		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			InstancePtr->RxInstance.IntrTp4Handler = CallbackFunc;
 			InstancePtr->RxInstance.IntrTp4CallbackRef = CallbackRef;
 			Status = XST_SUCCESS;
-		} else {
-			Status = XST_FAILURE;
-		}
 		break;
 
 	case XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP:
-		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			InstancePtr->RxInstance.IntrAdaptiveSyncSdpHandler[0] = CallbackFunc;
 			InstancePtr->RxInstance.IntrAdapatveSyncSdpCallbackRef[0] = CallbackRef;
 			Status = XST_SUCCESS;
-		} else {
-			Status = XST_FAILURE;
-		}
 		break;
 
 	case XDP_RX_HANDLER_ADAPTIVE_SYNC_SDP_STREAM_2:
@@ -569,13 +565,9 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		break;
 
 	case XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK:
-		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			InstancePtr->RxInstance.IntrAdaptiveSyncVbHandler[0] = CallbackFunc;
 			InstancePtr->RxInstance.IntrAdaptiveSyncVbCallbackRef[0] = CallbackRef;
 			Status = XST_SUCCESS;
-		} else {
-			Status = XST_FAILURE;
-		}
 		break;
 
 	case XDP_RX_HANDLER_ADAPTIVE_SYNC_VBLANK_STREAM_2:
@@ -740,41 +732,29 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 		Status = XST_SUCCESS;
 		break;
 
-		/* Interrupts for DP 1.4 : set callback start. */
+		/* Interrupts for DP 1.4 and DP2.1 : set callback start. */
 	case XDP_RX_HANDLER_ACCESS_LANE_SET:
-		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			InstancePtr->RxInstance.IntrAccessLaneSetHandler =
 					CallbackFunc;
 			InstancePtr->RxInstance.IntrAccessLaneSetCallbackRef =
 					CallbackRef;
 			Status = XST_SUCCESS;
-		} else {
-			Status = XST_FAILURE;
-		}
 		break;
 
 	case XDP_RX_HANDLER_ACCESS_LINK_QUAL:
-		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			InstancePtr->RxInstance.IntrAccessLinkQualHandler =
 					CallbackFunc;
 			InstancePtr->RxInstance.IntrAccessLinkQualCallbackRef =
 					CallbackRef;
 			Status = XST_SUCCESS;
-		} else {
-			Status = XST_FAILURE;
-		}
 		break;
 
 	case XDP_RX_HANDLER_ACCESS_ERR_COUNTER:
-		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			InstancePtr->RxInstance.IntrAccessErrorCounterHandler =
 					CallbackFunc;
 			InstancePtr->RxInstance.IntrAccessErrorCounterCallbackRef =
 					CallbackRef;
 			Status = XST_SUCCESS;
-		} else {
-			Status = XST_FAILURE;
-		}
 		break;
 		/* Interrupts for DP 1.4 : set callback end. */
 
@@ -1372,8 +1352,7 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 			InstancePtr->RxInstance.IntrUnplugCallbackRef);
 	}
 
-	/* DP 1.4 related interrupt handling */
-	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+	/* DP 1.4/DP 2.1 related interrupt handling */
 		/* The VerticalBlanking_Flag in the VB-ID field of the received
 		 * stream 2 indicates the start of the vertical blanking
 		 * interval. */
@@ -1507,9 +1486,6 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 				IntrAdaptiveSyncVbCallbackRef[3]);
 		}
 
-
 	}
-
-}
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 /** @} */

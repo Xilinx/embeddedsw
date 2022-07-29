@@ -45,12 +45,16 @@
 
 /************************** Constant Definitions ******************************/
 
-/** @name Protocol Selection definitions : DP 1.1, DP 1.2, DP 1.4.
+/** @name Protocol Selection definitions : DP 1.1, DP 1.2, DP 1.4, DP 2.1.
  * @{
  */
 #define XDP_PROTOCOL_DP_1_1		0
 #define XDP_PROTOCOL_DP_1_2		1
 #define XDP_PROTOCOL_DP_1_4		2
+#define XDP_PROTOCOL_DP_2_1		3
+
+#define	XDP_TX_TRAINING_MODE_DP14 0x01
+#define XDP_TX_TRAINING_MODE_DP21 0x02
 /* @} */
 
 /** @name DP generic definitions: Link bandwith and lane count.
@@ -63,6 +67,13 @@
 /* Definitions for DP1.4 */
 #define XDP_LINK_BW_SET_810GBPS	0x1E	/**< 8.10 Gbps link rate. */
 /* DP1.4 definitions end */
+
+/* Definitions for DP2.1 */
+#define XDP_LINK_BW_SET_UHBR10	0x01	/**< 10Gbps link rate. */
+#define XDP_LINK_BW_SET_UHBR20	0x02	/**< 20Gbps link rate. */
+#define XDP_LINK_BW_SET_UHBR135	0x04	/**< 13.5Gbps link rate. */
+/* DP2.1 definitions end */
+
 /* 0x001: LANE_COUNT_SET */
 #define XDP_LANE_COUNT_SET_1		0x01	/**< Lane count of 1. */
 #define XDP_LANE_COUNT_SET_2		0x02	/**< Lane count of 2. */
@@ -384,6 +395,10 @@
 #define XDP_TX_LINK_BW_SET_270GBPS	0x0A	/**< 2.70 Gbps link rate. */
 #define XDP_TX_LINK_BW_SET_540GBPS	0x14	/**< 5.40 Gbps link rate. */
 #define XDP_TX_LINK_BW_SET_810GBPS	0x1E	/**< 8.10 Gbps link rate. */
+#define XDP_TX_LINK_BW_SET_UHBR10	0x01	/**< 10Gbps link rate. */
+#define XDP_TX_LINK_BW_SET_UHBR20	0x02	/**< 20Gbps link rate. */
+#define XDP_TX_LINK_BW_SET_UHBR135	0x04	/**< 13.5Gbps link rate. */
+
 /* 0x001: LANE_COUNT_SET */
 #define XDP_TX_LANE_COUNT_SET_1		0x01	/**< Lane count of 1. */
 #define XDP_TX_LANE_COUNT_SET_2		0x02	/**< Lane count of 2. */
@@ -880,6 +895,11 @@
 #define XDP_LANE_2_CR_DONE		0x2
 #define XDP_LANE_3_CR_DONE		0x3
 #define XDP_LANE_ALL_CR_DONE		0x4
+#define XDP_LANE_0_CE_DONE		0x0
+#define XDP_LANE_1_CE_DONE		0x1
+#define XDP_LANE_2_CE_DONE		0x2
+#define XDP_LANE_3_CE_DONE		0x3
+#define XDP_LANE_ALL_CE_DONE		0x4
 /* @} */
 
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
@@ -2340,6 +2360,17 @@
 #define XDP_RX_DPCD_OVERWRITE_ADJREQUEST 0x80000000
 /* DP 1.4 definitions end. */
 /* @} */
+
+/* DP 2.1 definitions*/
+#define XDP_RX_AUX_RD_INTERVAL	0x1644	/**< The time till which the DUT
+					 * waits to achieve EQ_DONE in 128/132b.
+					 */
+#define XDP_RX_CDS_SEQ_COUNT_VAL	0x1648	/**< The time till which the DUT
+						 * waits to achieve CDS_DONE in 128/132b.
+						 */
+#define XDP_RX_TPS1_SCORE	0x1648	/**< The time till which the DUT
+					 * waits to achieve TPS1 in 128/132b.
+					 */
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /******************************************************************************/
@@ -2894,6 +2925,10 @@
 #define XDP_DPCD_ADJ_REQ_LANE_1_3_VS_SHIFT			4
 #define XDP_DPCD_ADJ_REQ_LANE_1_3_PE_MASK			0xC0
 #define XDP_DPCD_ADJ_REQ_LANE_1_3_PE_SHIFT			6
+#define XDP_DPCD_ADJ_REQ_LANE_0_FFE_PRESET			0x0F
+#define XDP_DPCD_ADJ_REQ_LANE_1_FFE_PRESET			0xF0
+#define XDP_DPCD_ADJ_REQ_LANE_2_FFE_PRESET			0x0F
+#define XDP_DPCD_ADJ_REQ_LANE_3_FFE_PRESET			0xF0
 /* 0x0020C: ADJ_REQ_PC2 */
 #define XDP_DPCD_ADJ_REQ_PC2_LANE_0_MASK			0x03
 #define XDP_DPCD_ADJ_REQ_PC2_LANE_1_MASK			0x0C
@@ -2902,6 +2937,29 @@
 #define XDP_DPCD_ADJ_REQ_PC2_LANE_2_SHIFT			4
 #define XDP_DPCD_ADJ_REQ_PC2_LANE_3_MASK			0xC0
 #define XDP_DPCD_ADJ_REQ_PC2_LANE_3_SHIFT			6
+
+/*Dp2.1 specific Definitions*/
+
+/*Hardware registers*/
+
+#define XDP_TX_MAIN_LINK_CHANNEL_CODING_SET 0x6A4	/*< 128B/132B encoding
+							 * setting as exposed in
+							 * the TX DPCD.
+							 */
+#define XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_8B_10B_MASK	0x01
+#define XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK	0x02
+
+#define XDP_TX_TP_SET_TRAINING_AUX_RD_INTERVAL 0x6CC	/**< Link Training AUX read interval.*/
+#define XDP_TX_VFREQ_STREAM1 0x6D0	/**< Vfreq for MST stream1. */
+#define XDP_TX_VFREQ_STREAM2 0x6D4	/**< Vfreq for MST stream2. */
+#define XDP_TX_VFREQ_STREAM3 0x6D8	/**< Vfreq for MST stream3. */
+#define XDP_TX_VFREQ_STREAM4 0x6DC	/**< Vfreq for MST stream4. */
+
+#define XDP_TX_V2_0_CONFIG 0x6E0	/**< DP v2.1 Config Params */
+
+#define XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE		0x02215	/*< 128B/132B Supported LinkRates.*/
+#define XDP_DPCD_TRAINING_AUX_RD_INTERVAL		0x02216	/*< AUX Read Interval Set. */
+
 /* @} */
 
 /******************************************************************************/

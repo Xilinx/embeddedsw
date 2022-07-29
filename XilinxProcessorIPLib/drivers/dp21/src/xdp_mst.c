@@ -35,7 +35,7 @@
 
 #include "string.h"
 #include "xdp.h"
-
+#include "sleep.h"
 /**************************** Constant Definitions ****************************/
 
 /* The maximum length of a sideband message. Longer messages must be split into
@@ -68,8 +68,10 @@
 #define XDP_TX_ALLOCATE_PAYLOAD_MAX_TIMEOUT_COUNT 30
 /* Maximum timeslots available for payload allocation. */
 #define XDP_TX_NUM_PAYLOAD_TIMESLOTS 64
-
 #endif
+
+/* Maximum VCP timeslots available for payload allocation. */
+#define XDP_MAX_NUM_OF_VCP_TIMESLOTS 63
 
 /****************************** Type Definitions ******************************/
 
@@ -543,6 +545,46 @@ void XDp_TxMstCfgStreamDisable(XDp *InstancePtr, u8 Stream)
 						(Stream == XDP_TX_STREAM_ID4));
 
 	InstancePtr->TxInstance.MstStreamConfig[Stream - 1].MstStreamEnable = 0;
+}
+
+/******************************************************************************/
+/**
+ * This function sets the starting timeslot for MST payload allocation
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream ID that will be mapped to a DisplayPort
+ *		device.
+ *
+ * @return	None.
+ *
+ * @note	The contents of the InstancePtr->TxInstance.
+ *		MsaConfig[Stream] will be modified.
+ *
+ *******************************************************************************/
+void XDp_TxSetStartTimeslot(XDp *InstancePtr, u8 Stream)
+{
+	u8 MstCapable;
+	XDp_TxMainStreamAttributes *MsaConfig =
+				&InstancePtr->TxInstance.MsaConfig[Stream - 1];
+	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
+						(Stream == XDP_TX_STREAM_ID2) ||
+						(Stream == XDP_TX_STREAM_ID3) ||
+						(Stream == XDP_TX_STREAM_ID4));
+	/* Check MST mode */
+	MstCapable = XDp_TxMstCapable(InstancePtr);
+	if (MstCapable == XST_SUCCESS ||
+	    InstancePtr->TxInstance.MstEnable == 1) {
+		if (LinkConfig->TrainingMode == XDP_TX_TRAINING_MODE_DP21)
+			MsaConfig->StartTs = 0;
+		else
+			MsaConfig->StartTs = 1;
+	} else {
+		MsaConfig->StartTs = 0;
+	}
 }
 
 /******************************************************************************/
@@ -1282,7 +1324,7 @@ u32 XDp_TxRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	u8 *RelativeAddress, u8 IicAddress, u8 BytesToWrite,
 	u8 *WriteData)
 {
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1293,18 +1335,69 @@ u32 XDp_TxRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	Xil_AssertNonvoid(WriteData != NULL);
 
 	/* Target RX device is immediately connected to the TX. */
-	if (LinkCountTotal == 1) {
+	if (LinkCountTotal == 1)
 		Status = XDp_TxIicWrite(InstancePtr, IicAddress, BytesToWrite,
 								WriteData);
-	}
-	/* Send remote I2C sideband message. */
 	else {
-		Status = XDp_TxSendSbMsgRemoteIicWrite(InstancePtr,
-			LinkCountTotal, RelativeAddress, IicAddress,
-			BytesToWrite, WriteData);
+		/* Send Remote I2c sideband message */
+		/*XDp_TxSendSbMsgRemoteIicWrite(InstancePtr,
+		 *LinkCountTotal, RelativeAddress, IicAddress, BytesToWrite, WriteData);
+		 */
+		/* currently UCD400/500 doesn't support this remote i2c writes, So this sideband
+		 * message is removed. This will be re-visited once UCD fixes its internal issues
+		 * TBD.
+		 */
 	}
-
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ * This function issues Enum path resource message transaction to
+ * check the path's available PBN value
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the enum path request is issued successfully
+ *		- XST_FAILURE otherwise - if an AUX read or write transaction
+ *		  failed, the header or body CRC of a sideband message did not
+ *		  match the calculated value, or the a reply was negative
+ *		  acknowledged (NACK'ed).
+ *
+ * @note	None.
+ *
+ *******************************************************************************/
+u32 XDp_TxSendEnumPathResourceRequest(XDp *InstancePtr)
+{
+	u32 Status;
+	u8 StreamIndex;
+	XDp_TxMstStream *MstStream;
+	u16 FullPbn;
+	u16 AvailPbn;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+
+	/* Allocate the payload table for each stream in both the DisplayPort TX
+	 * and RX device.
+	 */
+	for (StreamIndex = 0; StreamIndex < InstancePtr->TxInstance.NumOfMstStreams;
+			StreamIndex++) {
+		if (XDp_TxMstStreamIsEnabled(InstancePtr,
+					     StreamIndex + XDP_TX_STREAM_ID1)) {
+			MstStream = &InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
+			Status = XDp_TxSendSbMsgEnumPathResources(InstancePtr,
+								  MstStream->LinkCountTotal,
+								  MstStream->RelativeAddress,
+								  &AvailPbn, &FullPbn);
+			if (Status != XST_SUCCESS)
+				return Status;
+		}
+	}
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/
@@ -1334,17 +1427,13 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 {
 	u32 Status;
 	u8 StreamIndex;
-	u8 StartTs = 1;
-	u8 NumOfStreams;
-	XDp_TxMstStream *MstStream;
 	XDp_TxMainStreamAttributes *MsaConfig;
-	XDp_TxTopology *Msatopology;
+	XDp_TxMstStream *MstStream;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Msatopology = &InstancePtr->TxInstance.Topology;
 
 	/* Allocate the payload table for each stream in both the DisplayPort TX
 	 * and RX device. */
@@ -1355,21 +1444,22 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 			continue;
 		}
 		MsaConfig = &InstancePtr->TxInstance.MsaConfig[StreamIndex];
-		MsaConfig->StartTs = StartTs;
+		MstStream = &InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
 
 		Status = XDp_TxAllocatePayloadVcIdTable(InstancePtr,
 			StreamIndex + XDP_TX_STREAM_ID1,
-			MsaConfig->TransferUnitSize, StartTs);
-		if (Status != XST_SUCCESS) {
+			MsaConfig->TransferUnitSize, MsaConfig->StartTs);
+
+		if (Status != XST_SUCCESS)
 			return Status;
-		}
-		StartTs += MsaConfig->TransferUnitSize;
+
+		MsaConfig->StartTs += MsaConfig->TransferUnitSize;
 
 		/* Generate an ACT event. */
 		Status = XDp_TxSendActTrigger(InstancePtr);
-		if (Status != XST_SUCCESS) {
+
+		if (Status != XST_SUCCESS)
 			return Status;
-		}
 
 		MstStream =
 			&InstancePtr->TxInstance.MstStreamConfig[StreamIndex];
@@ -1377,9 +1467,9 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr)
 		Status = XDp_TxSendSbMsgAllocatePayload(InstancePtr,
 			MstStream->LinkCountTotal, MstStream->RelativeAddress,
 			StreamIndex + XDP_TX_STREAM_ID1, MstStream->MstPbn);
-		if (Status != XST_SUCCESS) {
+
+		if (Status != XST_SUCCESS)
 			return Status;
-		}
 	}
 
 	return XST_SUCCESS;
@@ -1440,7 +1530,7 @@ u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts, u8 StartTs)
 	}
 
 	/* Check that there are enough time slots available. */
-	if (VcId != 0 && (((63 - StartTs + 1) < Ts))) {
+	if (VcId != 0 && (((XDP_MAX_NUM_OF_VCP_TIMESLOTS - StartTs + 1) < Ts))) {
 		/* Payload ID table needs to be cleared to. */
 		return XST_BUFFER_TOO_SMALL;
 	}
@@ -2264,19 +2354,20 @@ u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr)
 
 	/* Submit the CLEAR_PAYLOAD_ID_TABLE transaction message request. */
 	Status = XDp_SendSbMsgFragment(InstancePtr, &Msg);
-	if (Status != XST_SUCCESS) {
-		/* The AUX write transaction used to send the sideband message
-		 * failed. */
+	/* The AUX write transaction used to send the sideband message
+	 * failed.
+	 */
+	if (Status != XST_SUCCESS)
 		return Status;
-	}
+
 	Status = XDp_TxReceiveSbMsg(InstancePtr, &SbMsgReply);
-	if (Status != XST_SUCCESS) {
-		/* Either the reply indicates a NACK, an AUX read or write
-		 * transaction failed, there was a time out waiting for a reply,
-		 * or a CRC check failed.
-		 */
+	/* Either the reply indicates a NACK, an AUX read or write
+	 * transaction failed, there was a time out waiting for a reply,
+	 * or a CRC check failed.
+	 */
+	if (Status != XST_SUCCESS)
 		return Status;
-	}
+
 	/* Enable MST in the immediate branch device and tell it that its
 	 * upstream device is a source (the DisplayPort TX).
 	 */
@@ -3154,56 +3245,66 @@ void XDp_RxAllocatePayloadStream(XDp *InstancePtr)
 {
 	u8 Index;
 	u8 IndexTsEnd = 0;
-        u8 *PayloadTable;
-        u32 RegVal;
-        u8 StreamId;
-        u8 StartTs;
-        u8 NumTs;
-        PayloadTable = &InstancePtr->RxInstance.Topology.PayloadTable[0];
-        RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_ALLOC);
-        StreamId = (RegVal & XDP_RX_MST_ALLOC_VCP_ID_MASK);
-        StartTs = (RegVal & XDP_RX_MST_ALLOC_START_TS_MASK) >>
-		XDP_RX_MST_ALLOC_START_TS_SHIFT;
-        NumTs = (RegVal & XDP_RX_MST_ALLOC_COUNT_TS_MASK) >>
-		XDP_RX_MST_ALLOC_COUNT_TS_SHIFT;
-        /* Set the virtual channel payload table in software using the
-	 * MST allocation values. */
+	u8 *PayloadTable;
+	u32 RegVal;
+	u8 StreamId;
+	u8 StartTs;
+	u8 NumTs;
+
+	PayloadTable = &InstancePtr->RxInstance.Topology.PayloadTable[0];
+	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_ALLOC);
+
+	if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
+		StreamId = (RegVal & 0xFF);
+		StartTs = (RegVal & 0x7F00) >> 8;
+		NumTs = (RegVal & 0xFF0000) >> 16;
+		for (Index = 0; Index < 64; Index++)
+			PayloadTable[Index] = 0;
+	} else {
+		StreamId = (RegVal & XDP_RX_MST_ALLOC_VCP_ID_MASK);
+		StartTs = (RegVal & XDP_RX_MST_ALLOC_START_TS_MASK) >>
+				XDP_RX_MST_ALLOC_START_TS_SHIFT;
+		NumTs = (RegVal & XDP_RX_MST_ALLOC_COUNT_TS_MASK) >>
+				XDP_RX_MST_ALLOC_COUNT_TS_SHIFT;
+	}
+	/* Set the virtual channel payload table in software using the
+	 * MST allocation values.
+	 */
 	memset(&PayloadTable[StartTs], StreamId, NumTs);
-        if ((StreamId == 0) && (NumTs == 63)) {
+	if (StreamId == 0 && NumTs == XDP_MAX_NUM_OF_VCP_TIMESLOTS) {
 		/* CLEAR_PAYLOAD request. */
-                PayloadTable[63] = 0;
-        }
-        for (Index = 0; Index < 64; Index++) {
+		PayloadTable[XDP_MAX_NUM_OF_VCP_TIMESLOTS] = 0;
+	}
+	for (Index = 0; Index < XDP_MAX_NUM_OF_VCP_TIMESLOTS + 1; Index++) {
 		if ((NumTs == 0) && (PayloadTable[Index] == StreamId)) {
 			/* ALLOCATE_PAYLOAD, stream deletion. */
                         PayloadTable[Index] = 0;
-                        IndexTsEnd = Index-1;
-                }
-                /* Write payload table as configured in software
-		 to hardware. */
-                XDp_WriteReg(InstancePtr->Config.BaseAddr,
-                XDP_RX_VC_PAYLOAD_TABLE + (Index * 4), PayloadTable[Index]);
-        }
-        /* Adjust timeslots after initial streams are deallocated*/
+			IndexTsEnd = Index - 1;
+		}
+		/* Write payload table as configured in software to hardware. */
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			     XDP_RX_VC_PAYLOAD_TABLE + (Index * 4), PayloadTable[Index]);
+	}
+
+	/* Adjust timeslots after initial streams are deallocated*/
         if(NumTs == 0) {
 		for (Index = StartTs; Index < 64; Index++) {
-			if(Index+StartTs+IndexTsEnd+2 < 64) {
+			if (Index + StartTs + IndexTsEnd + 2 < 64) {
 				/* ALLOCATE_PAYLOAD, stream deletion. */
                                 PayloadTable[Index] =
-					PayloadTable[Index-StartTs+IndexTsEnd+2];
+					PayloadTable[Index - StartTs + IndexTsEnd + 2];
                                /* Write payload table as configured in
-				* software to hardware. */
+				* software to hardware.
+				*/
                                XDp_WriteReg(InstancePtr->Config.BaseAddr,
-				XDP_RX_VC_PAYLOAD_TABLE + (Index * 4),
-				 PayloadTable[(Index-StartTs)+IndexTsEnd+2]);
-                        }
-                        else {
+					    XDP_RX_VC_PAYLOAD_TABLE + (Index * 4),
+					    PayloadTable[(Index - StartTs) + IndexTsEnd + 2]);
+			} else {
 				PayloadTable[Index] = 0x00;
                                 /* Clear up end timeslots */
                                 XDp_WriteReg(InstancePtr->Config.BaseAddr,
-					XDP_RX_VC_PAYLOAD_TABLE + (Index * 4),
-					0x00);
-                        }
+					     XDP_RX_VC_PAYLOAD_TABLE + (Index * 4), 0x00);
+			}
 		}
        }
        /* Indicate that the virtual channel payload table has been updated. */
@@ -3539,7 +3640,7 @@ static u32 XDp_TxSendActTrigger(XDp *InstancePtr)
 *******************************************************************************/
 static u32 XDp_SendSbMsgFragment(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 {
-	u32 Status;
+	u32 Status = 0;
 	u8 Data[XDP_MAX_LENGTH_SBMSG];
 	XDp_SidebandMsgHeader *Header = &Msg->Header;
 	XDp_SidebandMsgBody *Body = &Msg->Body;
