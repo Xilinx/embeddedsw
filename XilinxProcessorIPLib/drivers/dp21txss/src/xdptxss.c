@@ -782,15 +782,13 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if ((VidMode == XVIDC_VM_UHD_60_P) &&
-				(InstancePtr->UsrOpt.MstSupport)) {
+	if (VidMode == XVIDC_VM_UHD_60_P &&
+	    InstancePtr->UsrOpt.MstSupport) {
 		InstancePtr->UsrOpt.VmId = XVIDC_VM_UHD2_60_P;
-	}
-	else {
+	} else {
 		/* Set video mode */
 		InstancePtr->UsrOpt.VmId = VidMode;
 	}
-
 	return XST_SUCCESS;
 }
 
@@ -861,17 +859,28 @@ u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate)
 	Xil_AssertNonvoid((LinkRate == XDPTXSS_LINK_BW_SET_162GBPS) ||
 			(LinkRate == XDPTXSS_LINK_BW_SET_270GBPS) ||
 			(LinkRate == XDPTXSS_LINK_BW_SET_540GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_810GBPS));
+			(LinkRate == XDPTXSS_LINK_BW_SET_810GBPS) ||
+			(LinkRate == XDPTXSS_LINK_BW_SET_10GBPS) ||
+			(LinkRate == XDPTXSS_LINK_BW_SET_20GBPS) ||
+			(LinkRate == XDPTXSS_LINK_BW_SET_135GBPS));
 
-
-	/* Set link rate */
-	Status = XDp_TxSetLinkRate(InstancePtr->DpPtr, LinkRate);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting link rate "
-			"failed.\n\r");
-		Status = XST_FAILURE;
+	if (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
+		/* Set link rate */
+		Status = XDp_Tx_2x_SetLinkRate(InstancePtr->DpPtr, LinkRate);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				    "SS ERR: Setting link rate failed.\n\r");
+			Status = XST_FAILURE;
+		}
+	} else {
+		/* Set link rate */
+		Status = XDp_TxSetLinkRate(InstancePtr->DpPtr, LinkRate);
+		if (Status != XST_SUCCESS) {
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				    "SS ERR: Setting link rate failed.\n\r");
+			Status = XST_FAILURE;
+		}
 	}
-
 	return Status;
 }
 

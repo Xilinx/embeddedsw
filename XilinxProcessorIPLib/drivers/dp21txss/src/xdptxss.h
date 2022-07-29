@@ -182,9 +182,12 @@ typedef enum {
 						  *	 packet transmit done
 						  *	 interrupt type for
 						  *	 DisplayPort core */
-	XDPTXSS_HANDLER_DP_VSYNC	/**< A Vsync interrupt
+	XDPTXSS_HANDLER_DP_VSYNC,	/**< A Vsync interrupt
 						  *  type for DisplayPort
 						  *  core */
+	XDPTXSS_HANDLER_DP_FFE_PRESET_ADJUST	/**< FFE Preset coefficients change interrupt
+						  * type for DisplayPort core
+						  */
 } XDpTxSs_HandlerType;
 
 /**

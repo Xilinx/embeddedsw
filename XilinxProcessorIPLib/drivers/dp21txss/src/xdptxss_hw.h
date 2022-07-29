@@ -59,6 +59,22 @@ extern "C" {
 								     * link
 								     * rate. */
 
+#define XDPTXSS_LINK_BW_SET_10GBPS	XDP_TX_LINK_BW_SET_UHBR10 /**< 10
+								    *  Gbps
+								    * link
+								    * rate.
+								    */
+#define XDPTXSS_LINK_BW_SET_20GBPS	XDP_TX_LINK_BW_SET_UHBR20 /**< 20
+								    *  Gbps
+								    * link
+								    * rate.
+								    */
+#define XDPTXSS_LINK_BW_SET_135GBPS	XDP_TX_LINK_BW_SET_UHBR135 /**< 13.5
+								     *  Gbps
+								     * link
+								     * rate.
+								     */
+
 /* 0x001: LANE_COUNT_SET */
 #define XDPTXSS_LANE_COUNT_SET_1	XDP_TX_LANE_COUNT_SET_1	/**< Lane count
 								  *  of 1. */
