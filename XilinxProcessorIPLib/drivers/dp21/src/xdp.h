@@ -490,6 +490,7 @@ typedef enum {
 	XDP_TX_HANDLER_EXTPKT_TXD,
 	XDP_TX_HANDLER_DRV_EXTPKT_TXD,
 	XDP_TX_HANDLER_VSYNC,
+	XDP_TX_HANDLER_PRESET_FFE_ADJUST,
 	XDP_TX_NUM_HANDLERS
 } XDp_Tx_HandlerType;
 
@@ -548,6 +549,24 @@ typedef struct {
 					represent the pre-emphasis and voltage
 					swing level adjustments requested by the
 					RX device. */
+	/*below parameters provides the status of first phase of
+	 * link training, channel equalization done part---refer page 272 of dpv2.0
+	 * errata_e11 document
+	 */
+	u8 FfePresetValue[2];	/*This indicates the preset transmitter Feed
+				 *forward equalization values used for adjusting link rate
+				 */
+	u32 AuxReadInterval;	/* dp link status/adjust read interval during training period */
+	u32 LaneEqAlignStatus[2];	/*This is a raw read of the RX device's
+					 *lane equalization align status registers.This bits ensures
+					 *receiver is properly detected and  aligned to 128B/132B
+					 *boudaries
+					 */
+	u32 CdsAlignStatus[2];	/*This is a raw read of the RX device's
+				 *cds align status registers.This bits ensures the
+				 *receiver is properly detected and aligned to 128B/132B
+				 *boudaries.
+				 */
 } XDp_TxSinkConfig;
 
 /**
@@ -582,6 +601,20 @@ typedef struct {
 						clock recovery */
 	u8 cr_done_oldstate;		/**< Restores the number of lanes done
 						with clock recovery. */
+	u8 Downstream2xSupported;	/**< indicates dp2.1 capability from downstream receiver. */
+	u8 ProtocolSwitch;		/*switch from Dp21. to Dp1.4 */
+	u8 Downstream1xSupported;	/**< indicates dp1.4 capability from downstream receiver */
+	u8 PresetVal[4];		/* upstream transmitter has to provide preset values
+					 * as requested by receiver.
+					 */
+	u8 CeDoneLaneCnt;		/* The number of lanes done with
+					 * channel equalization state
+					 */
+	u8 CeDoneOldState;		/* Restores the number of lanes done
+					 * with channel equalization state
+					 */
+	u8 TrainingMode;	/**< The Current Training protocol*/
+	u8 ExtendedCapPresent;	/**< Availability of Extended capabilities*/
 } XDp_TxLinkConfig;
 
 /**
@@ -612,7 +645,7 @@ typedef struct {
 	u32 AvgBytesPerTU;		/**< Average number of bytes per
 						transfer unit, scaled up by a
 						factor of 1000. */
-	u32 TransferUnitSize;		/**< Size of the transfer unit in the
+	u8 TransferUnitSize;		/**< Size of the transfer unit in the
 						framing logic. In MST mode, this
 						is also the number of time slots
 						that are alloted in the payload
@@ -1045,10 +1078,20 @@ typedef struct {
 							passed to the extended packet
 							done callback function. */
 	XDp_IntrHandler VsyncCallbackHandler;	/**< Callback function to be
-							invoked once every vertical sync pulse. */
+							invoked once every vertical sync pulse.
+							*/
 	void *VsyncCallbackHandlerRef;		/**< A pointer to the user data
 							passed to the vertical sync
-							callback function. */
+							callback function.
+							*/
+	XDp_IntrHandler PresetFfeAdjustCallback;	/**< Callback function to be invoked
+							 * once a voltage
+							 *swing and ffe adjust request has been
+							 *handled within the driver.
+							 */
+	void *PresetFfeAdjustCallbackRef;	/* A pointer to the user data passed to the
+						 * ffe preset adjust request callback function.
+						 */
 } XDp_Tx;
 
 /**
@@ -1568,6 +1611,7 @@ void XDp_TxMstCfgStreamEnable(XDp *InstancePtr, u8 Stream);
 void XDp_TxMstCfgStreamDisable(XDp *InstancePtr, u8 Stream);
 u8 XDp_TxMstStreamIsEnabled(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetStreamSelectFromSinkList(XDp *InstancePtr, u8 Stream, u8 SinkNum);
+void XDp_TxSetStartTimeslot(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetStreamSinkRad(XDp *InstancePtr, u8 Stream, u8 LinkCountTotal,
 							u8 *RelativeAddress);
 
@@ -1597,6 +1641,7 @@ u32 XDp_TxAllocatePayloadStreams(XDp *InstancePtr);
 u32 XDp_TxAllocatePayloadVcIdTable(XDp *InstancePtr, u8 VcId, u8 Ts,
 		u8 StartTs);
 u32 XDp_TxClearPayloadVcIdTable(XDp *InstancePtr);
+double XDp_TxGetPBN_Values(XDp *InstancePtr);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for issuing sideband
  * messages. */
@@ -1616,7 +1661,7 @@ u32 XDp_TxSendSbMsgEnumPathResources(XDp *InstancePtr, u8 LinkCountTotal,
 u32 XDp_TxSendSbMsgAllocatePayload(XDp *InstancePtr, u8 LinkCountTotal,
 					u8 *RelativeAddress, u8 VcId, u16 Pbn);
 u32 XDp_TxSendSbMsgClearPayloadIdTable(XDp *InstancePtr);
-
+u32 XDp_TxSendEnumPathResourceRequest(XDp *InstancePtr);
 /* xdp_mst.c: Multi-stream transport (MST) utility functions. */
 void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u8 *Guid);
@@ -1679,6 +1724,11 @@ void XDp_EnableDisableHdcp22AuxDeffers(XDp *InstancePtr, u8 EnableDisable);
 #if XPAR_XDPTXSS_NUM_INSTANCES
 void XDp_TxHdcp22Enable(XDp *InstancePtr);
 void XDp_TxHdcp22Disable(XDp *InstancePtr);
+#endif
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
+void XDp_Tx_2x_ChannelCodingSet(XDp *InstancePtr, u8 dp_protocol);
+u32 XDp_Tx_2x_SetLinkRate(XDp *InstancePtr, u8 LinkRate);
 #endif
 /******************* Macros (Inline Functions) Definitions ********************/
 
