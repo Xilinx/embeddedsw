@@ -469,8 +469,8 @@ extern "C" {
 
 
 /* NPI PCSR related general functions */
-XStatus XPm_UnlockPcsr(u32 BaseAddr);
-XStatus XPm_LockPcsr(u32 BaseAddr);
+void XPm_UnlockPcsr(u32 BaseAddr);
+void XPm_LockPcsr(u32 BaseAddr);
 XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value);
 
 #ifdef __cplusplus

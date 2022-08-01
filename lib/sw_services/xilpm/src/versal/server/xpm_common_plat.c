@@ -21,24 +21,9 @@
  * @param BaseAddr		Base address of the device
  *
  *****************************************************************************/
-XStatus XPm_UnlockPcsr(u32 BaseAddr)
+inline void XPm_UnlockPcsr(u32 BaseAddr)
 {
-	XStatus Status = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-
 	XPm_Out32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-	/* Blind write check */
-	PmChkRegOut32((BaseAddr + NPI_PCSR_LOCK_OFFSET), PCSR_UNLOCK_VAL, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_UNLOCK;
-		goto done;
-	}
-
-	Status = XST_SUCCESS;
-
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
 }
 
 /*****************************************************************************/
@@ -48,24 +33,13 @@ done:
  * @param BaseAddr      Base address of the device
  *
  *****************************************************************************/
-XStatus XPm_LockPcsr(u32 BaseAddr)
+inline void XPm_LockPcsr(u32 BaseAddr)
 {
-	XStatus Status = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-
+	/*
+	 * Any value that is not the unlock value will lock the PCSR. For
+	 * consistency across all blocks, PCSR_LOCK_VAL is 0.
+	 */
 	XPm_Out32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
-	/* Blind write check */
-	PmChkRegOut32((BaseAddr + NPI_PCSR_LOCK_OFFSET), PCSR_LOCK_VAL, Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_LOCK;
-		goto done;
-	}
-
-	Status = XST_SUCCESS;
-
-done:
-	XPm_PrintDbgErr(Status, DbgErr);
-	return Status;
 }
 
 /*****************************************************************************/

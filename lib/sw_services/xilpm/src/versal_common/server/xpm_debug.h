@@ -666,11 +666,6 @@ extern "C" {
 /* Error during CPM5_SLCR_SECURE register writing in Cpm5MbistClear */
 #define XPM_INT_ERR_REG_WRT_CPM5MBISTCLR_SLCRSECU_MBIST_TRIGGER		0x501AU
 
-/* Error during PCSR unlock */
-#define XPM_INT_ERR_REG_WRT_NPI_PCSR_UNLOCK			0x501BU
-/* Error during PCSR lock */
-#define XPM_INT_ERR_REG_WRT_NPI_PCSR_LOCK			0x501CU
-
 /************************* Sysmon Specific Errors ****************************/
 /************************** (0x5100) - (0x51FF) ******************************/
 #define XPM_INT_ERR_DEVICE_NOT_SUPPORTED		0x5100U
