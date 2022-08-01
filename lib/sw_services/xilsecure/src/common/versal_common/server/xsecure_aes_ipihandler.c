@@ -199,6 +199,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
 		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)AesParams.KeySrc,
@@ -272,6 +273,7 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XSecure_AesEncryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 END:
@@ -335,6 +337,7 @@ static int XSecure_AesDecUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XSecure_AesDecryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
@@ -427,6 +430,7 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XSecure_AesWriteKey(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)KeySrc,
 				(XSecure_AesKeySize)KeySize, KeyAddr);
