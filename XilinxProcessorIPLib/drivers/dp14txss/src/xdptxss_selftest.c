@@ -7,7 +7,7 @@
 /**
 *
 * @file xdptxss_selftest.c
-* @addtogroup dptxss_v6_7
+* @addtogroup dptxss_v6_8
 * @{
 *
 * This file contains self test function for the DisplayPort Transmitter

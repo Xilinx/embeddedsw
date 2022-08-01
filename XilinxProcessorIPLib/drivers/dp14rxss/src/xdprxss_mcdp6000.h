@@ -7,7 +7,7 @@
 /**
 *
 * @file mcdp6000.c
-* @addtogroup dprxss_v8_0
+* @addtogroup dprxss_v8_1
 * @{
 *
 * This is the header file contains macros, enum, structure and function
