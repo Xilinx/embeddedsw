@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -175,6 +175,7 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_EllipticSignAddr SignAddr = {DstAddr,
 			(DstAddr + (u64)EcdsaParams.Size)};
 
+	Status = XST_FAILURE;
 	Status = XSecure_EllipticGenerateSignature_64Bit(
 			(XSecure_EllipticCrvTyp)EcdsaParams.CurveType,
 			(XSecure_EllipticHashData *) &HashInfo,
@@ -259,6 +260,8 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 			EcdsaParams.Size};
 	XSecure_EllipticSignAddr SignAddr = {EcdsaParams.SignAddr,
 			(EcdsaParams.SignAddr + (u64)EcdsaParams.Size)};
+
+	Status = XST_FAILURE;
 	Status = XSecure_EllipticVerifySign_64Bit(
 			(XSecure_EllipticCrvTyp)EcdsaParams.CurveType,
 			(XSecure_EllipticHashData *) &HashInfo,
