@@ -707,11 +707,7 @@ static XStatus BfrbInit(const u32 *BfrbAddresses, const u32 ArrLen)
 		}
 
 		/* Unlock PCSR */
-		Status = XPm_UnlockPcsr(BfrbAddresses[i]);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_UNLOCK;
-			goto done;
-		}
+		XPm_UnlockPcsr(BfrbAddresses[i]);
 
 		/* Deassert PWRDN */
 		Status = XPm_PcsrWrite(BfrbAddresses[i], BFR_NPI_PCSR_MASK_PWRDN_MASK, 0U);
@@ -743,10 +739,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		Status = XPm_LockPcsr(BfrbAddresses[i]);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_LOCK;
-		}
+		XPm_LockPcsr(BfrbAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -766,11 +759,7 @@ static XStatus BfrbMbist(const u32 *BfrbAddresses, const u32 ArrLen)
 		}
 
 		/* Unlock PCSR */
-		Status = XPm_UnlockPcsr(BfrbAddresses[i]);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_UNLOCK;
-			goto done;
-		}
+		XPm_UnlockPcsr(BfrbAddresses[i]);
 
 		/* Assert Mem Clear Trigger */
 		Status = XPm_PcsrWrite(BfrbAddresses[i], BFR_NPI_PCSR_MEM_CLEAR_TRIGGER_MASK,
@@ -814,10 +803,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		Status = XPm_LockPcsr(BfrbAddresses[i]);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_LOCK;
-		}
+		XPm_LockPcsr(BfrbAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -837,11 +823,7 @@ static XStatus BfrbScanClear(const u32 *BfrbAddresses, const u32 ArrLen)
 		}
 
 		/* Unlock PCSR */
-		Status = XPm_UnlockPcsr(BfrbAddresses[i]);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_UNLOCK;
-			goto done;
-		}
+		XPm_UnlockPcsr(BfrbAddresses[i]);
 
 		/* Trigger Scan Clear */
 		Status = XPm_PcsrWrite(BfrbAddresses[i], BFR_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
@@ -885,10 +867,7 @@ done:
 		}
 
 		/* Lock PCSR */
-		Status = XPm_LockPcsr(BfrbAddresses[i]);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_REG_WRT_NPI_PCSR_LOCK;
-		}
+		XPm_LockPcsr(BfrbAddresses[i]);
 	}
 
 	XPm_PrintDbgErr(Status, DbgErr);
