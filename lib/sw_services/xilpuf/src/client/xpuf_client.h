@@ -41,19 +41,8 @@ extern "C" {
 #include "xpuf_defs.h"
 
 /************************** Constant Definitions *****************************/
-#define XPUF_REGISTRATION			(0x0U)
-#define XPUF_REGEN_ON_DEMAND			(0x1U)
-#define XPUF_REGEN_ID_ONLY			(0x2U)
-#define XPUF_SHUTTER_VALUE			(0x81000100U)
-#define XPUF_SYNDROME_MODE_4K			(0x0U)
-#define XPUF_SYNDROME_MODE_12K			(0x1U)
 
 /**************************** Type Definitions *******************************/
-typedef enum {
-	XPUF_READ_FROM_RAM = 0,		/**< Read PUF HD from RAM */
-	XPUF_READ_FROM_EFUSE_CACHE	/**< Read PUF HD from cache */
-} XPuf_ReadOption;
-
 typedef struct {
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS];
 	u32 Chash;

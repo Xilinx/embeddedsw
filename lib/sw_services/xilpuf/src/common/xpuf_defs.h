@@ -50,26 +50,42 @@ extern "C" {
 #define XPUF_DEBUG_GENERAL (0U)
 #endif
 
+#define XPUF_REGISTRATION				(0x0U)
+		/**< PUF Operation - PUF Registration */
+#define XPUF_REGEN_ON_DEMAND				(0x1U)
+		/**< PUF Operation - PUF On demand regeneration */
+#define XPUF_REGEN_ID_ONLY				(0x2U)
+		/**< PUF Operation - PUF ID only regeneration */
+
+#define XPUF_SYNDROME_MODE_4K				(0x0U)
+		/**< PUF Mode - 4K Syndrome mode */
+
 #define XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS		(350U)
 #define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS		(127U)
-#define XPUF_12K_PUF_SYN_LEN_IN_WORDS			(350U)
-#define XPUF_ID_LEN_IN_WORDS				    (0x8U)
-#define XPUF_WORD_LENGTH				        (0x4U)
+#define XPUF_ID_LEN_IN_WORDS				(0x8U)
+#define XPUF_WORD_LENGTH				(0x4U)
 #define XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES		(XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS * \
-												 XPUF_WORD_LENGTH)
+								XPUF_WORD_LENGTH)
 #define XPUF_4K_PUF_SYN_LEN_IN_BYTES			(XPUF_4K_PUF_SYN_LEN_IN_WORDS * \
-												 XPUF_WORD_LENGTH)
-#define XPUF_ID_LEN_IN_BYTES				    (XPUF_ID_LEN_IN_WORDS * \
-												 XPUF_WORD_LENGTH)
+								XPUF_WORD_LENGTH)
+#define XPUF_ID_LEN_IN_BYTES				(XPUF_ID_LEN_IN_WORDS * \
+								XPUF_WORD_LENGTH)
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES		(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * \
-												 XPUF_WORD_LENGTH)
+								XPUF_WORD_LENGTH)
+#if defined (VERSAL_NET)
+#define XPUF_SHUTTER_VALUE				(0x01000080U)
+		/**< PUF Shutter Value - Versal Net */
+#else
+#define XPUF_SHUTTER_VALUE				(0x81000100U)
+		/**< PUF Shutter Value - Versal */
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XPuf_Printf(DebugType, ...)	\
 	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}
 
-/* Macro to typecast XILSECURE API ID */
+/* Macro to typecast XILPUF API ID */
 #define XPUF_API(ApiId)	((u32)ApiId)
 
 #define XPUF_API_ID_MASK	(0xFFU)
@@ -77,6 +93,10 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+typedef enum {
+	XPUF_READ_FROM_RAM,		/**< Read helper data from memory */
+	XPUF_READ_FROM_EFUSE_CACHE	/**< Read helper data from eFuse cache */
+} XPuf_ReadOption;
 
 typedef struct {
 	u8 RegMode;		/* PUF Registration Mode 4K/12K*/

@@ -54,17 +54,12 @@ extern "C" {
 /****************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xpuf_plat.h"
+#include "xpuf_defs.h"
 
 /*************************** Constant Definitions *****************************/
 /** @cond xpuf_internal
 @{
 */
-#if defined XPUF_DEBUG
-#define XPUF_DEBUG_GENERAL (1U)
-#else
-#define XPUF_DEBUG_GENERAL (0U)	/**< Enable debug prints in xilpuf library */
-#endif
-
 #define XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS		(350U)
 		/**< Maximum length of PUF syndrome data in words */
 #define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
@@ -79,16 +74,6 @@ extern "C" {
 #define XPUF_4K_PUF_SYN_LEN_IN_BYTES			(XPUF_4K_PUF_SYN_LEN_IN_WORDS * \
 								XPUF_WORD_LENGTH)
 		/**< Length of PUF syndrome data using 4K mode in bytes */
-
-#define XPUF_REGISTRATION				(0x0U)
-		/**< PUF Operation - PUF Registration */
-#define XPUF_REGEN_ON_DEMAND				(0x1U)
-		/**< PUF Operation - PUF On demand regeneration */
-#define XPUF_REGEN_ID_ONLY				(0x2U)
-		/**< PUF Operation - PUF ID only regeneration */
-
-#define XPUF_SYNDROME_MODE_4K				(0x0U)
-		/**< PUF Mode - 4K Syndrome mode */
 
 #define XPUF_EFUSE_TRIM_MASK				(0xFFFFF000U)
 		/**< Mask for trimming syndrome data to be stored in eFuses */
@@ -148,11 +133,6 @@ extern "C" {
 		/** Error due to timeout while zeroizing PUF ID */
 
 /***************************** Type Definitions *******************************/
-typedef enum {
-	XPUF_READ_FROM_RAM,		/**< Read helper data from memory */
-	XPUF_READ_FROM_EFUSE_CACHE	/**< Read helper data from eFuse cache */
-} XPuf_ReadOption;
-
 typedef struct _XPuf_Data {
 	u8 PufOperation;
 	/**< PUF Registration/ Regeneration On-Demand/ ID only regeneration) */
