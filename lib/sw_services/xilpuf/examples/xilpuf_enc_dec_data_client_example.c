@@ -142,6 +142,10 @@
 #endif
 
 #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
+
+#if defined (VERSAL_NET)
+#define PUF_RO_SWAP			(0x00000000)
+#endif
 /*User configurable parameters end */
 
 #define XPUF_IV_LEN_IN_BYTES		(12U)
@@ -290,6 +294,9 @@ static int XPuf_GenerateKey(XMailbox *MailboxPtr)
 	PufData.SyndromeDataAddr = (u64)(UINTPTR)PufArr.SyndromeData;
 	PufData.EfuseSynDataAddr = (u64)(UINTPTR)PufArr.EfuseSynData;
 	PufData.PufIDAddr = (u64)(UINTPTR)PufArr.PufID;
+#if defined (VERSAL_NET)
+	PufData.RoSwapVal = PUF_RO_SWAP;
+#endif
 
 	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 

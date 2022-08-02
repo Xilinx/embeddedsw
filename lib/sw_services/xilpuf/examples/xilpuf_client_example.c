@@ -408,6 +408,9 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 	PufData.SyndromeDataAddr = (u64)(UINTPTR)PufArr.SyndromeData;
 	PufData.EfuseSynDataAddr = (u64)(UINTPTR)PufArr.EfuseSynData;
 	PufData.PufIDAddr = (u64)(UINTPTR)PufArr.PufID;
+#if defined (VERSAL_NET)
+	PufData.RoSwapVal = PUF_RO_SWAP;
+#endif
 
 	xil_printf("PUF ShutterValue : %02x \r\n", PufData.ShutterValue);
 	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));

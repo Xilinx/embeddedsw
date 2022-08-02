@@ -116,6 +116,11 @@
 #endif
 
 #define XPUF_GLBL_VAR_FLTR_OPTION	(TRUE)
+
+#if defined (VERSAL_NET)
+#define PUF_RO_SWAP			(0x00000000)
+#endif
+
 /*User configurable parameters end */
 
 #define XPUF_IV_LEN_IN_BYTES		(12U)
@@ -242,6 +247,9 @@ static int XPuf_GenerateKey(void)
 
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
+#if defined (VERSAL_NET)
+	PufData.RoSwapVal = PUF_RO_SWAP;
+#endif
 
 	PufData.PufOperation = XPUF_KEY_GENERATE_OPTION;
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
