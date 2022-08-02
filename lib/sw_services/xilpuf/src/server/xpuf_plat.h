@@ -41,6 +41,7 @@ extern "C" {
 */
 #if defined (VERSAL_NET)
 #define XPUF_PMX_GLOBAL_PUF_RO_SWP_OFFSET		(0x00000100U)
+#define XPUF_PUF_REGIS_DIS				((u32)1U << 29U)
 #endif
 
 #if defined (VERSAL_NET)
@@ -59,6 +60,8 @@ typedef struct _XPuf_Data XPuf_Data;
 /*************************** Function Prototypes ******************************/
 int XPuf_CheckGlobalVariationFilter(XPuf_Data *PufData);
 void XPuf_SetRoSwap(XPuf_Data *PufData);
+int XPuf_IsRegistrationEnabled(u32 PufEccCtrlValue);
+
 /** @}
 @endcond */
 
