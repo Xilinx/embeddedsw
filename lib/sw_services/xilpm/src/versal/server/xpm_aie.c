@@ -1146,7 +1146,7 @@ done:
 static XStatus AieMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -1206,7 +1206,7 @@ done:
 static XStatus Aie2MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
