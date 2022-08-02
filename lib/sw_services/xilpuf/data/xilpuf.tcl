@@ -70,9 +70,12 @@ proc puf_drc {libhandle} {
 			file delete -force ./src/xpuf_cmd.h
 			file delete -force ./src/xpuf_init.c
 			file delete -force ./src/xpuf_init.h
-			file delete -force ./src/xpuf_defs.h
 		}
 	}
+
+	file delete -force $client
+	file delete -force $server
+	file delete -force $common
 }
 
 proc generate {libhandle} {

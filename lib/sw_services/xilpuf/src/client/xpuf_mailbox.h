@@ -6,12 +6,12 @@
 /*****************************************************************************/
 /**
 *
-* @file xpuf_ipi.h
-* @addtogroup xpuf_ipi_apis XilPuf IPI APIs
+* @file xpuf_mailbox.h
+* @addtogroup xpuf_mailbox_apis XilPuf Mailbox APIs
 * @{
 *
 * @cond xpuf_internal
-* This file contains IPI generic APIs for xilpuf library
+* This file contains APIs for xilpuf library for using mailbox.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,8 +27,8 @@
 * @endcond
 ******************************************************************************/
 
-#ifndef XPUF_IPI_H
-#define XPUF_IPI_H
+#ifndef XPUF_MAILBOX_H
+#define XPUF_MAILBOX_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,7 +40,7 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 
-/**@cond xnvm_internal
+/**@cond xpuf_internal
  * @{
  */
 #define XILPUF_MODULE_ID			(12U)
@@ -88,4 +88,4 @@ int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
 }
 #endif
 
-#endif  /* XPUF_IPI_H */
+#endif  /* XPUF_MAILBOX_H */
