@@ -44,11 +44,11 @@ extern "C" {
 #endif
 
 #if defined (VERSAL_NET)
-#define XPUF_SHUTTER_VALUE				(0x01000080U)
-		/**< PUF Shutter Value - Versal Net */
+#define XPUF_EFUSE_SYN_ADD_INIT				(0xF1250300U)
+		/**< Reset value of PUF_SYN_ADDR register - Versal Net*/
 #else
-#define XPUF_SHUTTER_VALUE				(0x81000100U)
-		/**< PUF Shutter Value - Versal */
+#define XPUF_EFUSE_SYN_ADD_INIT				(0xF1250A04U)
+		/**< Reset value of PUF_SYN_ADDR register - Versal*/
 #endif
 
 /***************************** Type Definitions *******************************/

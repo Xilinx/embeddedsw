@@ -132,9 +132,6 @@ extern "C" {
 #define XPUF_PUF_DIS				((u32)1U << 18U)
 /** @} */
 
-/**< Reset value of PUF_SYN_ADDR register */
-#define XPUF_EFUSE_SYN_ADD_INIT			(0xF1250A04U)
-
 #define XPUF_EFUSE_CTRL_BASEADDR		(0xF1240000U)
 					/**< EFUSE_CTRL Base Address */
 #define XPUF_ANLG_OSC_SW_1LP_OFFSET		(0x00000060U)
