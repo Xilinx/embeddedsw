@@ -72,9 +72,6 @@
 				/**< Recommended software timeout is 1 second */
 
 /********************Macros (Inline function) Definitions*********************/
-#define XPuf_Printf(DebugType, ...)	\
-	if ((DebugType) == (1U)) {xil_printf (__VA_ARGS__);}
-		/**< For prints in XilPuf library */
 
 /*****************************************************************************/
 /**
