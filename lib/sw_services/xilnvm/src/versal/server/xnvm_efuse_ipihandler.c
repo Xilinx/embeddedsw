@@ -26,6 +26,8 @@
 *       kpt  01/19/2022 Cleared AesKeys structure and added redundancy
 *       kpt  01/31/2022 Removed redundant code in XNvm_EfuseMemCopy
 *       am   02/28/2022 Fixed MISRA C violation rule 4.5
+* 2.6   kal  08/01/2022 Added volatile keyword to ClearStatus and
+* 			ClearStatusTmp
 *
 * </pre>
 *
@@ -186,8 +188,8 @@ END:
 static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
 {
 	int Status = XST_FAILURE;
-	int ClearStatus = XST_FAILURE;
-	int ClearStatusTmp = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
+	volatile int ClearStatusTmp = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseIvs Ivs __attribute__ ((aligned (32U))) = {0U};
 	XNvm_EfuseGlitchCfgBits GlitchData
