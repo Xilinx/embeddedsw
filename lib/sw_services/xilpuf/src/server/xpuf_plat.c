@@ -99,5 +99,30 @@ inline void XPuf_SetRoSwap(XPuf_Data *PufData)
 #endif
 }
 
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function checks if registration is enabled or not.
+ *
+ * @return	XST_SUCCESS - Registration is enabled
+ * 		XPUF_ERROR_REGISTRATION_INVALID - Registration is disabled
+ *
+ *****************************************************************************/
+int XPuf_IsRegistrationEnabled(u32 PufEccCtrlValue)
+{
+	int Status = XST_FAILURE;
+
+#if defined (VERSAL_NET)
+	if ((PufEccCtrlValue & XPUF_PUF_REGIS_DIS) == XPUF_PUF_REGIS_DIS) {
+		Status = XST_FAILURE;
+	}
+#else
+	PufEccCtrlValue = PufEccCtrlValue;
+	Status = XST_SUCCESS;
+#endif
+
+	return Status;
+}
+
 /** @}
 @endcond */

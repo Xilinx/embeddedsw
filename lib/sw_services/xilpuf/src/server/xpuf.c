@@ -526,6 +526,9 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 			if ((SecurityCtrlVal & XPUF_PUF_DIS) == XPUF_PUF_DIS) {
 				Status = XPUF_ERROR_REGISTRATION_INVALID;
 			}
+			else if (XPuf_IsRegistrationEnabled(PufEccCtrlValue) != XST_SUCCESS) {
+				Status = XPUF_ERROR_REGISTRATION_INVALID;
+			}
 			else {
 				Status = XST_SUCCESS;
 			}
