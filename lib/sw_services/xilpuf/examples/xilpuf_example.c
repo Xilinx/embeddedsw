@@ -365,6 +365,9 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr)
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.PufOperation = XPUF_KEY_GENERATE_OPTION;
 	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
+#if defined (VERSAL_NET)
+	PufData.RoSwapVal = PUF_RO_SWAP;
+#endif
 
 	xil_printf("PUF ShutterValue : %02x \r\n", PufData.ShutterValue);
 
