@@ -2728,7 +2728,7 @@ END:
  ******************************************************************************/
 static int XNvm_EfusePrgmIVs(const XNvm_EfuseIvs *Ivs)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 PrgmIv[XNVM_EFUSE_IV_NUM_OF_ROWS] = {0U};
 
 	if (Ivs == NULL) {
