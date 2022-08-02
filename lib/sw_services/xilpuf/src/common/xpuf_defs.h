@@ -99,19 +99,20 @@ typedef enum {
 } XPuf_ReadOption;
 
 typedef struct {
-	u8 RegMode;		/* PUF Registration Mode 4K/12K*/
 	u8 PufOperation;
 	   /* PUF Registration/ Regeneration On Demand/ ID only regeneration) */
 	u8 GlobalVarFilter;
-	u8 ReadOption;	/* Read helper data from eFuse Cache/DDR */
+	u8 ReadOption;		/* Read helper data from eFuse Cache/DDR */
 	u32 ShutterValue;	/**< Shutter value for PUF registration or regeneration */
 	u64 SyndromeDataAddr;
 	u64 ChashAddr;
 	u64 AuxAddr;
 	u64 PufIDAddr;
 	u64 SyndromeAddr;
-	u64 EfuseSynDataAddr;
-				 /* Trimmed data to be written in efuse */
+	u64 EfuseSynDataAddr;	/* Trimmed data to be written in efuse */
+#if defined (VERSAL_NET)
+	u32 RoSwapVal;			/**< PUF Ring Oscillator Swap setting */
+#endif
 } XPuf_DataAddr;
 
 /* XilPUF API ids */
