@@ -31,6 +31,8 @@
 * 2.3	kal  01/27/2021 Added XNvm_ZeroizeAndVerify API
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 * 2.5   kpt  12/07/2021 Replace memset with Xil_SMemSet
+* 2.6   kal  08/01/2022 Reset Status to XST_FAILURE before for loop in
+* 			XNvm_ZeroizeAndVerify
 *
 * </pre>
 *
@@ -246,8 +248,8 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
  ********************************************************************************/
 int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 {
+	volatile int Status = XST_FAILURE;
 	u32 Index;
-	int Status = XST_FAILURE;
 
 	/* Clear the decrypted data */
 	Status = Xil_SMemSet(DataPtr, Length, 0, Length);
@@ -256,7 +258,8 @@ int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 	}
 
 	/* Read it back to verify */
-	 for (Index = 0U; Index < Length; Index++) {
+	Status = XST_FAILURE;
+	for (Index = 0U; Index < Length; Index++) {
 		if (DataPtr[Index] != 0x00U) {
 			goto END;
 		}
