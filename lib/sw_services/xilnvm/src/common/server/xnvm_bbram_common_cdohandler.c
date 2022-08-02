@@ -118,8 +118,8 @@ END:
 static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 {
 	int Status = XST_FAILURE;
-	int ClearStatus = XST_FAILURE;
-	int ClearStatusTmp = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
+	volatile int ClearStatusTmp = XST_FAILURE;
 	u64 Addr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
 	u8 Key[XNVM_BBRAM_AES_KEY_SIZE] = {0U};
 
