@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 5.0   bsv  04/01/21 Added TPM support
 *       bsv  05/03/21 Add provision to load bitstream from OCM with DDR
 *                     present in design
+* 6.0   bsv  08/03/22 Fix ECC error count for R5 FSBL
 *
 * </pre>
 *
@@ -910,7 +911,6 @@ extern "C" {
 #endif
 
 #define XFSBL_PS_DDR_START_ADDRESS		(0x0U)
-#define XFSBL_PS_DDR_START_ADDRESS_R5	(0x100000U)
 
 #if ((!defined(FSBL_PL_LOAD_FROM_OCM_EXCLUDE)) || (!defined(XFSBL_PS_DDR)))
 #define XFSBL_PL_LOAD_FROM_OCM
@@ -930,14 +930,13 @@ extern "C" {
 #define XFSBL_PROT_BYPASS
 #endif
 
+#define XFSBL_PS_DDR_INIT_START_ADDRESS XFSBL_PS_DDR_START_ADDRESS
 #ifdef ARMR5
-#define XFSBL_PS_DDR_INIT_START_ADDRESS	XFSBL_PS_DDR_START_ADDRESS_R5
 #if defined(XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR)
 #define XFSBL_PS_HI_DDR_START_ADDRESS	XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR
 #define XFSBL_PS_HI_DDR_END_ADDRESS XPAR_PSU_R5_DDR_1_S_AXI_HIGHADDR
 #endif
 #else
-#define XFSBL_PS_DDR_INIT_START_ADDRESS	XFSBL_PS_DDR_START_ADDRESS
 #if defined(XPAR_PSU_DDR_1_S_AXI_BASEADDR)
 #define XFSBL_PS_HI_DDR_START_ADDRESS	XPAR_PSU_DDR_1_S_AXI_BASEADDR
 #define XFSBL_PS_HI_DDR_END_ADDRESS XPAR_PSU_DDR_1_S_AXI_HIGHADDR
