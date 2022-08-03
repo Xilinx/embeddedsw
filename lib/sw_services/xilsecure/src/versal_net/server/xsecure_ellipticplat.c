@@ -122,8 +122,8 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	TrngUserCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
 	TrngUserCfg.SeedLife = XSECURE_TRNG_DEFAULT_SEED_LIFE;
 	Status = XSecure_TrngInstantiate(TrngInstancePtr,
-			(u8 *)PrivateKey->SeedAddr, PrivateKey->SeedLength,
-			(u8 *)PrivateKey->PerStringAddr, &TrngUserCfg);
+			(u8 *)(UINTPTR)PrivateKey->SeedAddr, PrivateKey->SeedLength,
+			(u8 *)(UINTPTR)PrivateKey->PerStringAddr, &TrngUserCfg);
 	if (Status  != XST_SUCCESS) {
 		goto END;
 	}
@@ -152,7 +152,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 
 	/* IPCores library expects MSB bit to be 0 always */
 	Status = Ecdsa_ModEccOrder(Crv, RandBuf,
-			(u8 *)PrivateKey->KeyOutPutAddr);
+			(u8 *)(UINTPTR)PrivateKey->KeyOutPutAddr);
 
 END:
 	ClearStatus = XSecure_TrngUninstantiate(TrngInstancePtr);
