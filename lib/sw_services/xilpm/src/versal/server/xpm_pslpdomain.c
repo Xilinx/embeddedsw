@@ -271,6 +271,7 @@ static XStatus LpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 				(u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_MASK |
 				(u32)PMC_ANALOG_SCAN_CLEAR_PASS_LPD_RPU_MASK)) {
 			DbgErr = XPM_INT_ERR_SCAN_PASS;
+			Status = XPM_ERR_SCAN_CLR;
 			goto done;
 		}
 	} else {
