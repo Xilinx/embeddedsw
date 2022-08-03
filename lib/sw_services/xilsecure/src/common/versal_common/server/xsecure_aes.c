@@ -874,7 +874,8 @@ END:
 int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile u32 KeyZeroedStatus = XSECURE_PUF_KEY_ZEROED_MASK;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -897,6 +898,13 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
+	}
+
+	KeyZeroedStatus = XSecure_ReadReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_ZEROED_STATUS_OFFSET);
+	if ((KeySrc == XSECURE_AES_PUF_KEY) &&
+		((KeyZeroedStatus & XSECURE_PUF_KEY_ZEROED_MASK) == XSECURE_PUF_KEY_ZEROED_MASK)) {
+		Status = (int)XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED;
+		goto END;
 	}
 
 	if(InstancePtr->NextBlkLen == 0U) {
@@ -1196,7 +1204,8 @@ END:
 int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	XSecure_AesKeySize KeySize, u64 IvAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile u32 KeyZeroedStatus = XSECURE_PUF_KEY_ZEROED_MASK;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -1219,6 +1228,13 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	if (InstancePtr->AesState == XSECURE_AES_UNINITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END_RST;
+	}
+
+	KeyZeroedStatus = XSecure_ReadReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_ZEROED_STATUS_OFFSET);
+	if ((KeySrc == XSECURE_AES_PUF_KEY) &&
+		((KeyZeroedStatus & XSECURE_PUF_KEY_ZEROED_MASK) == XSECURE_PUF_KEY_ZEROED_MASK)) {
+		Status = (int)XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED;
+		goto END;
 	}
 
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,

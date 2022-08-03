@@ -387,7 +387,8 @@ static int XSecure_AesKeyZeroize(u32 KeySrc)
 	if ((KeySrc == (u32)XSECURE_AES_KUP_KEY) ||
 		(KeySrc == (u32)XSECURE_AES_EXPANDED_KEYS) ||
 		((KeySrc >= (u32)XSECURE_AES_USER_KEY_0) &&
-		(KeySrc <= (u32)XSECURE_AES_USER_KEY_7))) {
+		(KeySrc <= (u32)XSECURE_AES_USER_KEY_7)) ||
+		(KeySrc == (u32)XSECURE_AES_PUF_KEY)) {
 		Status = XSecure_AesKeyZero(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)KeySrc);
 	}
