@@ -20,6 +20,8 @@
 * 1.00b 06/24/04 First release
 * 8.0	03/17/22 Move MB_ExceptionVectorTableEntry declaration to
 * 		 header file to fix misra_c_2012_rule_8_5 violation.
+* 8.0   08/02/22 Update description for microblaze_register_exception_handler
+*                to fix documentation issue with its arguments.
 * </pre>
 *
 ******************************************************************************/
@@ -52,10 +54,11 @@
 * argument provided in this call as the DataPtr is used as the argument
 * for the handler when it is called.
 *
-* @param    ExceptionId is the id of the exception to register this handler
-*           for.
-* @param    Top level handler.
-* @param    DataPtr is a reference to data that will be passed to the handler
+* @param    ExceptionId: ExceptionId is the id of the exception to register
+*           this handler for. It can be one of the value between XIL_EXCEPTION_ID_FIRST
+*           and XIL_EXCEPTION_ID_LAST as defined in xil_exception.h.
+* @param    Handler: Top level Exception handler.
+* @param    DataPtr: DataPtr is a reference to data that will be passed to the handler
 *           when it gets called.
 * @return   None.
 *
