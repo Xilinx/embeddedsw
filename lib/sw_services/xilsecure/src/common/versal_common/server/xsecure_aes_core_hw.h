@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -183,8 +183,15 @@ extern "C" {
 #define XSECURE_AES_KEY_DEC_SEL_OFFSET			(0x00000060U)
 				/**< AES_KEY_DEC_SEL register offset */
 
+/**
+ * @name  AES_KEY_ZEROED_STATUS register
+ * @{
+ */
+/**< AES_KEY_ZEROED_STATUS register offset and definitions */
 #define XSECURE_AES_KEY_ZEROED_STATUS_OFFSET		(0x00000064U)
 				/**< AES_KEY_ZEROED register offset */
+#define XSECURE_PUF_KEY_ZEROED_MASK			(0x200000U)
+/** @} */
 
 #define XSECURE_AES_AAD_OFFSET				(0x0000006CU)
 				/**< AES_AAD register offset */
