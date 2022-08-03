@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -68,7 +68,8 @@ proc check_stdout_hw {} {
 		# only if it has a UART interface. So no further check is required
 		if { $slave_type == "ps7_uart" || $slave_type == "psu_uart" || $slave_type == "axi_uartlite" ||
 			 $slave_type == "axi_uart16550" || $slave_type == "iomodule" ||
-			 $slave_type == "mdm" || $slave_type == "psv_sbsauart" } {
+			 $slave_type == "mdm" || $slave_type == "psv_sbsauart" || $slave_type == "psx_sbsauart" ||
+			 $slave_type == "psxl_sbsauart"} {
 			return;
 		}
 	}
@@ -92,8 +93,10 @@ proc get_mem_type { mem } {
     if { $mem_type == "OCM_CTRL" } {
 	return "OCM"
     }
-    if { $mem_type == "MEMORY_CNTLR" && 0xFFFC0000 == [lindex $base_addr 0] } {
+    if { $mem_type == "MEMORY_CNTLR"} {
+       if { 0xFFFC0000 == [lindex $base_addr 0] || 0xBBF80000 == [lindex $base_addr 0]} {
 	return "OCM"
+       }
     }
     return "OTHER"
 }
@@ -180,7 +183,7 @@ proc get_program_code_memory { proctype mem_ranges } {
 	    return $ocm_mem
 	}
     } else {
-	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" } {
+	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" || $proctype == "psx_cortexa78" || $proctype == "psxl_cortexa78"} {
 	    if { $sec_ocm_mem != "" } {
 		return $sec_ocm_mem
 	    }
@@ -239,7 +242,7 @@ proc get_program_data_memory { proctype mem_ranges } {
 	    return $ocm_mem
 	}
     } else {
-	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" } {
+	if { $proctype == "psu_cortexa53" || $proctype == "psv_cortexa72" || $proctype == "psx_cortexa78" || $proctype == "psxl_cortexa78" } {
 	    if { $sec_ocm_mem != "" } {
 		return $sec_ocm_mem
 	    }
@@ -353,6 +356,9 @@ proc generate_memory_config { fname } {
 		   [regexp -nocase "psv_r5_1_atcm_global" $mem_ip] || [regexp -nocase "psv_r5_0_btcm_global" $mem_ip]  ||
 		   [regexp -nocase "psu_r5_0_btcm_lockstep" $mem_ip] || [regexp -nocase "psu_r5_1_atcm" $mem_ip]  ||
 		   [regexp -nocase "psv_r5_1_btcm_global" $mem_ip] || [regexp -nocase "psv_r5_tcm_ram_global" $mem_ip]  ||
+		   [regexp -nocase "psx_r52_1a_atcm_global" $mem_ip] || [regexp -nocase "psx_r52_1a_btcm_global" $mem_ip]  ||
+		   [regexp -nocase "psx_r52_1a_ctcm_global" $mem_ip] ||
+		   [regexp -nocase "psx_ocm_ram_0" $mem_ip] || [regexp -nocase "psx_ocm_ram_1" $mem_ip]  ||
 		   [regexp -nocase "psu_r5_1_btcm" $mem_ip] || [regexp -nocase "psu_pmu_ram" $mem_ip] ||
 		   [regexp -nocase "psv_r5_0_data_cache" $mem_ip] || [regexp -nocase "psv_r5_1_data_cache" $mem_ip]  ||
 		   [regexp -nocase "psv_lpd_afi_mem_0" $mem_ip] || [regexp -nocase "psv_fpd_afi_mem_2" $mem_ip] ||
