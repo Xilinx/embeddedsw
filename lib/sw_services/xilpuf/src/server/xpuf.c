@@ -49,6 +49,8 @@
 *                       is 400MHZ to make PUF work at nominal voltage
 * 1.6   har  06/09/2022 Added support for Versal_net
 *                       Removed support for 12K mode
+*            08/02/2022 Modified if check for XPuf_ChangeIroFreq to avoid returning XST_SUCCESS
+*                       incase of glitch attack
 *
 * </pre>
 *
@@ -314,7 +316,7 @@ int XPuf_Registration(XPuf_Data *PufData)
 END:
 	if (IroFreqUpdated == TRUE) {
 		StatusTmp = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
-		if (Status == XST_SUCCESS) {
+		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 			Status = StatusTmp;
 		}
 	}
@@ -431,7 +433,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 END:
 	if (IroFreqUpdated == TRUE) {
 		StatusTmp = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
-		if (Status == XST_SUCCESS) {
+		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 			Status = StatusTmp;
 		}
 	}
