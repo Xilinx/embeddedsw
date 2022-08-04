@@ -74,6 +74,7 @@
 *       har  02/16/2022 Updated Status with ClearStatus only in case of success
 * 4.9   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c and fixed bug in
 *                       XSecure_AesDecryptCmKat
+*       kpt  08/02/2022 Zeroized user key in XSecure_AesDecryptCmKat
 *
 * </pre>
 *
@@ -1674,6 +1675,7 @@ END:
 int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 
 	u32 Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] = {0U};
 	u32 Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] = {0U};
@@ -1706,14 +1708,14 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 	/* Test 1 */
 	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key0, Data0, Output0);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_CLR;
 	}
 
 	Status = XST_FAILURE;
 
 	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key1, Data1, Output1);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto END_CLR;
 	}
 
 	Status = XST_FAILURE;
@@ -1727,7 +1729,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 			((RM0[0U] == Mm1[0U]) && (RM0[1U] == Mm1[1U]) &&
 				(RM0[2U] == Mm1[2U]) && (RM0[3U] == Mm1[3U]))) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 	if (((RM1[0U] == 0U) && (RM1[1U] == 0U) && (RM1[2U] == 0U) &&
@@ -1739,7 +1741,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 			((RM1[0U] == Mm1[0U]) && (RM1[1U] == Mm1[1]) &&
 				(RM1[2U] == Mm1[2U]) && (RM1[3U] == Mm1[3U]))) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 	if (((Mm0[0U] == 0U) && (Mm0[1U] == 0U) && (Mm0[2U] == 0U) &&
@@ -1751,7 +1753,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 			((Mm0[0U] == Mm1[0U]) && (Mm0[1U] == Mm1[1U]) &&
 				(Mm0[2U] == Mm1[2U]) && (Mm0[3U] == Mm1[3U]))) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 	if (((Mm1[0U] == 0U) && (Mm1[1U] == 0U) && (Mm1[2U] == 0U) &&
@@ -1763,7 +1765,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 			((Mm1[0U] == Mm0[0U]) && (Mm1[1U] == Mm0[1U]) &&
 				(Mm1[2U] == Mm0[2U]) && (Mm1[3U] == Mm0[3U]))) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 	if ((((R0[0U] ^ RM0[0U]) != Ct0[0U])  || ((R0[1U] ^ RM0[1U]) != Ct0[1U]) ||
@@ -1775,11 +1777,15 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 		(((M1[0U] ^ Mm1[0U]) != MiC1[0U]) || ((M1[1U] ^ Mm1[1U]) != MiC1[1U]) ||
 		 ((M1[2U] ^ Mm1[2U]) != MiC1[2U]) || ((M1[3U] ^ Mm1[3U]) != MiC1[3U]))) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR;
-		goto END;
+		goto END_CLR;
 	}
 
 	Status = XST_SUCCESS;
-
+END_CLR:
+	SStatus = XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
+	if((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+		Status = SStatus;
+	}
 END:
 	return Status;
 }
