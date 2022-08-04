@@ -174,11 +174,6 @@ proc secure_drc {libhandle} {
 		error "ERROR: XilSecure library is supported only for PMU, CortexA53, CortexR5, CortexA72, CortexA78, CortexR52, psv_pmc and psx_pmc processors.";
 		return;
 	}
-
-	file delete -force $versal_net
-	file delete -force $versal
-	file delete -force $common
-	file delete -force $zynqmp
 }
 
 proc generate {libhandle} {
