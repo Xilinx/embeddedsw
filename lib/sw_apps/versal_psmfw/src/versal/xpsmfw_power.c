@@ -1512,7 +1512,7 @@ static XStatus PowerDwn_FP(void)
 }
 
 /* Structure for power up/down handler table */
-static struct PwrHandlerTable_t PwrUpDwnHandlerTable[] = {
+static const struct PwrHandlerTable_t PwrUpDwnHandlerTable[] = {
 	{PSM_GLOBAL_REG_REQ_PWRUP_STATUS_FP_MASK, PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_FP_MASK, PowerUp_FP, PowerDwn_FP},
 	{PSM_GLOBAL_REG_REQ_PWRUP_STATUS_GEM0_MASK, PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_GEM0_MASK, PowerUp_GEM0, PowerDwn_GEM0},
 	{PSM_GLOBAL_REG_REQ_PWRUP_STATUS_GEM1_MASK, PSM_GLOBAL_REG_REQ_PWRDWN_STATUS_GEM1_MASK, PowerUp_GEM1, PowerDwn_GEM1},
@@ -1893,14 +1893,14 @@ XStatus XPsmFw_DirectPwrUp(const u32 DeviceId)
 	return Status;
 }
 
-static struct PwrCtlWakeupHandlerTable_t WakeupHandlerTable[] = {
+static const struct PwrCtlWakeupHandlerTable_t WakeupHandlerTable[] = {
 	{ PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_ACPU0_MASK, ACPU0Wakeup},
 	{ PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_ACPU1_MASK, ACPU1Wakeup},
 	{ PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_R50_MASK, R50Wakeup},
 	{ PSM_GLOBAL_REG_WAKEUP_IRQ_STATUS_R51_MASK, R51Wakeup},
 };
 
-static struct PwrCtlWakeupHandlerTable_t SleepHandlerTable[] = {
+static const struct PwrCtlWakeupHandlerTable_t SleepHandlerTable[] = {
 	{ PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_ACPU0_MASK, ACPU0Sleep},
 	{ PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_ACPU1_MASK, ACPU1Sleep},
 	{ PSM_GLOBAL_REG_PWR_CTRL_IRQ_STATUS_R50_MASK, R50Sleep},

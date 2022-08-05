@@ -150,7 +150,7 @@ static void XPsmfw_ExceptionInit(void)
 }
 
 /* Structure for Top level interrupt table */
-static struct HandlerTable g_TopLevelInterruptTable[] = {
+static const struct HandlerTable g_TopLevelInterruptTable[] = {
 	{
 		PSM_IOMODULE_IRQ_PENDING_IPI_SHIFT,
 		PSM_IOMODULE_IRQ_PENDING_IPI_MASK,
