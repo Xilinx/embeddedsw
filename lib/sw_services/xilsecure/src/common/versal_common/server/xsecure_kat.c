@@ -16,7 +16,8 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
-* 1.0   kpt  07/15/2022 Initial release
+* 4.9   kpt  07/15/2022 Initial release
+*       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization of loop redundancy checks
 *
 * </pre>
 *
@@ -568,7 +569,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
-	u32 Index;
+	volatile u32 Index;
 	u8 *AesKey = (u8*)XSecure_GetKatAesKey();
 	u8 *AesIv = (u8*)XSecure_GetKatAesIv();
 	u8 *AesCt = (u8*)XSecure_GetKatAesCt();
@@ -681,7 +682,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 {
 	volatile int Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 	volatile int SStatus = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-	u32 Index;
+	volatile u32 Index;
 	XSecure_Sha3Hash OutVal = {0U};
 	u8 *KatMessage = (u8*)XSecure_GetKatMessage();
 	u8 *ExpectedHash = (u8*)XSecure_GetKatSha3ExpHash();
@@ -757,7 +758,7 @@ int XSecure_RsaPublicEncryptKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
-	u32 Index;
+	volatile u32 Index;
 	XSecure_Rsa XSecureRsaInstance = {0U};
 	u32 RsaOutput[XSECURE_RSA_4096_SIZE_WORDS] = {0U};
 	u32 *PubMod = (u32*)XSecure_GetKatRsaModulus();
@@ -959,7 +960,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
-	u32 Index;
+	volatile u32 Index;
 	u8 *AesKey = (u8*)XSecure_GetKatAesKey();
 	u8 *AesIv = (u8*)XSecure_GetKatAesIv();
 	u8 *AesAad = (u8*)XSecure_GetKatAesAad();
@@ -1074,7 +1075,7 @@ int XSecure_RsaPrivateDecryptKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
-	u32 Index;
+	volatile u32 Index;
 	XSecure_Rsa XSecureRsaInstance = {0U};
 	u32 RsaOutput[XSECURE_RSA_4096_SIZE_WORDS] = {0U};
 	u32 *Mod = (u32*)XSecure_GetKatRsaModulus();
