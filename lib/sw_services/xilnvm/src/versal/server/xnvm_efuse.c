@@ -82,6 +82,7 @@
 *       am   02/28/2022 Resolved MISRA C violations
 * 2.6   kal  12/07/2022 Moved common code to xnvm_efuse_common.c in common directory
 *       kal  05/08/2022 Fix Row37 protection check in XNvm_EfuseProtectionChecks API
+*       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization of loop redundancy check
 *
 * </pre>
 *
@@ -1621,7 +1622,7 @@ END:
  * 							from eFUSE Cache.
  * @param 	RevokeFuseNum - Revocation ID fuse number to read.
  *
- * @return	- XST_SUCCESS - On successfull read.
+ * @return	- XST_SUCCESS - On successful read.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *		- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
  *
@@ -1654,7 +1655,7 @@ END :
  * 				revoke ID values.
  * @param 	OffchipIdNum - Offchip fuse number to read.
  *
- * @return	- XST_SUCCESS - On successfull read.
+ * @return	- XST_SUCCESS - On successful read.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *		- XNVM_EFUSE_ERR_CACHE_PARITY  - Error in Cache reload.
  *
@@ -2488,7 +2489,7 @@ END :
  * 		User key 0
  * 		User key 1.
  *
- * @param	Keys - Pointer to the XNvm_EfuseAesKeys struture, which holds
+ * @param	Keys - Pointer to the XNvm_EfuseAesKeys structure, which holds
  * 			Aes key data to be programmed to eFuse.
  *
  * @return	- XST_SUCCESS - Specified data read.
@@ -2711,7 +2712,7 @@ END:
 /**
  * @brief	This function is used to program all IVs.
  *
- * @param	Ivs - Pointer to the XNvm_EfuseIvs struture which holds IV data
+ * @param	Ivs - Pointer to the XNvm_EfuseIvs structure which holds IV data
  * 			to be programmed to eFuse.
  *
  * @return	- XST_SUCCESS - Specified data read
@@ -4274,7 +4275,7 @@ static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
 	volatile int Status = XST_FAILURE;
 	u32 Data;
 	u32 Row = StartRow;
-	u8 Count = 0U;
+	volatile u8 Count = 0U;
 	const u32* DataPtr = RowData;
 	u32 Idx;
 
@@ -4477,7 +4478,7 @@ END:
  * @return	- XST_SUCCESS - Specified bit set in eFUSE.
  *		- XNVM_EFUSE_ERR_PGM_VERIFY  - Verification failed, specified bit
  *						   is not set.
- *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occured.
+ *		- XNVM_EFUSE_ERR_PGM_TIMEOUT - If Programming timeout has occurred.
  *		- XST_FAILURE                - Unexpected error.
  *
  ******************************************************************************/

@@ -33,6 +33,8 @@
 * 2.5   kpt  12/07/2021 Replace memset with Xil_SMemSet
 * 2.6   kal  08/01/2022 Reset Status to XST_FAILURE before for loop in
 * 			XNvm_ZeroizeAndVerify
+*       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization
+*                       of loop redundancy check
 *
 * </pre>
 *
