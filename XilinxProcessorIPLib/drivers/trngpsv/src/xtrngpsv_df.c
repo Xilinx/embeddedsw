@@ -20,6 +20,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 Updates based on Security best practices
+ * 1.2   kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy check
  *
  * </pre>
  *
@@ -78,7 +79,7 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 	u32 TransferSize;
 	u32 DiffSize;
 	u32 ActualDFInputLen;
-	u32 Index;
+	volatile u32 Index;
 	u8 *AesInBlkPtr;
 	u8 *AesOutBlkPtr;
 
