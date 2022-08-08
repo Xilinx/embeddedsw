@@ -249,7 +249,7 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 int XNvm_ZeroizeAndVerify(u8 *DataPtr, const u32 Length)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Index;
+	volatile u32 Index;
 
 	/* Clear the decrypted data */
 	Status = Xil_SMemSet(DataPtr, Length, 0, Length);

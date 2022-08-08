@@ -27,7 +27,7 @@
 *			Zeroize BBRAM User Data in case of write failure
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 *       kal  08/03/2021 Removed clearing BBRAM UsrData in case for write failure
-* 2.6   kal  08/01/2022 Added redundancy to BbramZeroize function
+* 2.6   kal  08/01/2022 Added redundancy to XNvm_BbramEnablePgmMode function
 *
 * </pre>
 *
@@ -110,10 +110,10 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key);
  ******************************************************************************/
 int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	int DisableStatus = XST_FAILURE;
-	volatile int ZeroizeStatus = XST_FAILURE;
-	volatile int ZeroizeStatusTmp = XST_FAILURE;
+	int ZeroizeStatus = XST_FAILURE;
 	const u32 *AesKey = NULL;
 	u32 BbramKeyAddr;
 	u8 Idx;
@@ -130,13 +130,14 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	 * As per hardware design, zeroization is must between two BBRAM
 	 * AES CRC Check requests
 	 */
-	XSECURE_TEMPORAL_IMPL(ZeroizeStatus, ZeroizeStatusTmp, XNvm_BbramZeroize);
-	if ((ZeroizeStatus != XST_SUCCESS) || (ZeroizeStatusTmp != XST_SUCCESS)) {
+	ZeroizeStatus = XNvm_BbramZeroize();
+	if (ZeroizeStatus != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XNvm_BbramEnablePgmMode();
-	if (Status != XST_SUCCESS) {
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_BbramEnablePgmMode);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = (Status | StatusTmp);
 		goto END;
 	}
 
