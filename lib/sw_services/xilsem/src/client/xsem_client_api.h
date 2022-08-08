@@ -43,6 +43,7 @@
 * 2.0   hb   07/03/2022   Added SSIT macros and function prototypes
 * 2.1	hv   07/24/2022   Added client interface to read Cfr Status
 * 2.2   hb   07/28/2022   Added macro for GT arbitration fail event
+* 2.3	hv   08/08/2022   Fixed Misra C violations
 * </pre>
 *
 * @note
@@ -58,8 +59,7 @@
 extern "C" {
 #endif
 
-/* Enabled below define to enable support for SSIT */
-//#define XILSEM_ENABLE_SSIT
+/* Note: For SSIT support enable XILSEM_ENABLE_SSIT flag in bsp settings */
 
 /* CRAM Commands Acknowledgment IDs */
 /** CRAM Initialization Acknowledgment ID */
