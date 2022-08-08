@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +40,7 @@
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added support for 64-bit address
 * 4.9   kpt  07/24/21 Moved XSecure_RsaPublicEncrypt KAT into xsecure_kat.c
+*       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy check
 *
 * </pre>
 *
@@ -143,7 +144,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
 	u64 Result, XSecure_RsaOps RsaOp, u32 KeySize)
 {
 	int Status = XST_FAILURE;
-	int ErrorCode = XST_FAILURE;
+	volatile int ErrorCode = XST_FAILURE;
 	u32 Events;
 
 	/* Validate the input arguments */
