@@ -66,6 +66,7 @@
  *       skg  06/20/2022 Misra-C violation Rule 8.13 fixed
  *       bm   07/06/2022 Refactor versal and versal_net code
  *       bm   07/18/2022 Shutdown modules gracefully during update
+ *       sk   08/08/2022 Set IPI task's to low priority
  *
  * </pre>
  *
@@ -187,7 +188,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 		IpiIntrId = XPlmi_GetIpiIntrId(IpiCfgPtr->TargetList[Index].BufferIndex);
 		Task = XPlmi_GetTaskInstance(NULL, NULL, IpiIntrId);
 		if (Task == NULL) {
-			Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0,
+			Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_1,
 					XPlmi_IpiDispatchHandler,
 					(void *)IpiCfgPtr->TargetList[Index].BufferIndex);
 			if (Task == NULL) {
