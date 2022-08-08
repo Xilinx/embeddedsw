@@ -20,6 +20,7 @@
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 Updates based on Security best practices and other assorted changes
+ * 1.2   kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
  *
  * </pre>
  *
@@ -413,7 +414,7 @@ END:
  *		- XTRNGPSV_SUCCESS if Random number generation was successful.
  *		- XTRNGPSV_ERROR_INVALID_PARAM if invalid parameter(s) passed to this function.
  *		- XTRNGPSV_ERROR_INVALID_STATE if driver is not Healthy state before invoking this.
- *		- XTRNGPSV_ERROR_INSUFFICIENT_RANDBUF if lenght of Buffer passed is insufficient.
+ *		- XTRNGPSV_ERROR_INSUFFICIENT_RANDBUF if length of Buffer passed is insufficient.
  *		- XTRNGPSV_ERROR_INVALID_GEN_PREDRES if Prediction Resistance set for PTRNG mode.
  *		- XTRNGPSV_ERROR_PREDRES_MISMATCH if Pred Resistance not set during Instantiate
  *		but set now.
@@ -744,7 +745,7 @@ static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u8 *RandGenBuf, u32 N
 	volatile s32 Status = XTRNGPSV_FAILURE;
 	u32 BufIndex = 0U;
 	u32 WordCount;
-	u32 BurstCount;
+	volatile u32 BurstCount;
 	volatile u32 RegVal;
 	volatile u32 RegValTmp;
 	u32 PatternMatch;
@@ -1110,7 +1111,7 @@ SET_ERR:
 static s32 XTrngpsv_WriteRegs(const XTrngpsv *InstancePtr, u32 StartRegOffset, u32 NumRegs,
 		const u8 *InitBuf)
 {
-	u32 Index;
+	volatile u32 Index;
 	u32 Count;
 	u32 RegVal;
 	u32 Offset;
