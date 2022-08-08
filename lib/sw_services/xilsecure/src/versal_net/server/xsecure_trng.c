@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  05/05/22 Initial release
 *       dc   07/13/22 Modified XSECURE_TRNG_DF_MIN_LENGTH to 2
+*       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
 *
 * </pre>
 *
@@ -270,7 +271,7 @@ static void XSecure_TrngCfgDIT(u8 DITValue) {
  * 		- XSECURE_TRNG_INVALID_SEED_LIFE If invalid seed life is provided
  * 		- XSECURE_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE If invalid cutoff value is provided
  * 		- XSECURE_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE If invalid repetitive test cutoff value is provided
- * 		- XSECURE_TRNG_USER_CFG_COPY_ERROR If error occured during copy of XSecure_TrngUserConfig structure
+ * 		- XSECURE_TRNG_USER_CFG_COPY_ERROR If error occurred during copy of XSecure_TrngUserConfig structure
  * 		- XSECURE_TRNG_TIMEOUT_ERROR If timeout occurred waiting for done bit
  * 		- XSECURE_TRNG_CATASTROPHIC_CTF_ERROR If CTF bit asserted in STATUS register.
  * 		- XSECURE_TRNG_ERROR_WRITE On write failure
@@ -769,7 +770,7 @@ static int XSecure_TrngTriggerGenerate(XSecure_TrngInstance *InstancePtr, u8 *Ra
 	volatile int StatusTmp = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	u8 Idx = 0U;
-	u8 NumofBursts = 0U;
+	volatile u8 NumofBursts = 0U;
 	u8 BurstIdx = 0U;
 	u32 RegVal = 0U;
 	u32 Size = RandBufSize / XSECURE_TRNG_WORD_LEN_IN_BYTES;
@@ -842,7 +843,7 @@ END:
 static int XSecure_TrngWriteSeed(const u8 *Seed, u8 DLen) {
 	int Status = XST_FAILURE;
 	u32 SeedLen = (DLen + 1U) * XSECURE_TRNG_BLOCK_LEN_IN_BYTES;
-	u32 Idx = 0U;
+	volatile u32 Idx = 0U;
 	u8 Cnt = 0U;
 	u32 Bit = 0U;
 	u8 SeedConstruct = 0U;
@@ -885,7 +886,7 @@ END:
  **************************************************************************************************/
 static int XSecure_TrngWritePersString(const u8 *PersString) {
 	int Status = XST_FAILURE;
-	u8 Idx = 0U;
+	volatile u8 Idx = 0U;
 	u8 Cnt = 0U;
 	u32 RegVal=0U;
 
