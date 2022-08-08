@@ -13,6 +13,7 @@
  * Ver   Who   Date        Changes
  * ----  ----  ----------  ---------------------------------------------------
  * 0.1   hb    07/03/2022  Initial Creation
+ * 0.2   hv    08/08/2022  Fixed build error due to updated macros
  * </pre>
  *
  *****************************************************************************/
@@ -39,7 +40,8 @@ XSem_Notifier Notifier = {
 		XSEM_EVENT_NPI_DESC_ABSNT_ERR | XSEM_EVENT_NPI_SHA_IND_ERR |
 		XSEM_EVENT_NPI_SHA_ENGINE_ERR | XSEM_EVENT_NPI_PSCAN_MISSED_ERR |
 		XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR | XSEM_EVENT_NPI_SFTY_WR_ERR |
-		XSEM_EVENT_NPI_GPIO_ERR | XSEM_EVENT_NPI_SELF_DIAG_FAIL,
+		XSEM_EVENT_NPI_GPIO_ERR | XSEM_EVENT_NPI_SELF_DIAG_FAIL |
+		XSEM_EVENT_NPI_GT_ARB_FAIL,
 	.Flag = 1U,
 };
 
@@ -56,6 +58,7 @@ struct XSem_Npi_Events_t{
 	u32 SftyWrEventCnt;
 	u32 GpioEventCnt;
 	u32 SelfDiagFailEventCnt;
+	u32 GtArbFailEventCnt;
 } NpiEvents;
 
 u32 ImmediateStartupEn = 0U;
@@ -177,6 +180,10 @@ void XSem_IpiCallback(XIpiPsu *const InstancePtr)
 		} else if (XSEM_EVENT_NPI_SELF_DIAG_FAIL == Payload[2]) {
 			NpiEvents.SelfDiagFailEventCnt = 1U;
 			xil_printf("[ALERT] Received NPI Self-diagnosis fail event"
+					" notification from XilSEM on SLR-%u\n\r", Payload[3]);
+		} else if (XSEM_EVENT_NPI_GT_ARB_FAIL == Payload[2]) {
+			NpiEvents.GtArbFailEventCnt = 1U;
+			xil_printf("[ALERT] Received GT arbitration failure event"
 					" notification from XilSEM on SLR-%u\n\r", Payload[3]);
 		} else {
 			xil_printf("%s Some other callback received: %d:%d:%d\n",
@@ -332,7 +339,7 @@ static XStatus XSem_ApiNpiGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 			NpiConfig = Resp->RespMsg3;
 
 			/* Check if NPI scan is available on SLR */
-			NpiScanAvailable = XSem_DataMaskShift(NpiConfig, \
+			NpiScanAvailable = DataMaskShift(NpiConfig, \
 					XSEM_NPI_ENABLED_MASK, XSEM_NPI_ENABLED_SHIFT);
 
 			if (NpiScanAvailable == 0U) {
@@ -341,7 +348,7 @@ static XStatus XSem_ApiNpiGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 			}
 
 			/* Get NPI scan startup configuration */
-			NpiStartupConfig = XSem_DataMaskShift(NpiConfig, \
+			NpiStartupConfig = DataMaskShift(NpiConfig, \
 					XSEM_STARTUP_CONFIG_MASK, \
 					XSEM_STARTUP_CONFIG_SHIFT);
 			if (NpiStartupConfig == 0x00) {
@@ -358,7 +365,7 @@ static XStatus XSem_ApiNpiGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 			}
 
 			/* Get NPI scan interval */
-			NpiScanTime = XSem_DataMaskShift(NpiConfig,\
+			NpiScanTime = DataMaskShift(NpiConfig,\
 					XSEM_NPI_SCAN_TIME_MASK, XSEM_NPI_SCAN_TIME_SHIFT);
 
 			if (NpiScanTime == 0U) {

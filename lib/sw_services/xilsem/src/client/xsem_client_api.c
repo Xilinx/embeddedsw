@@ -44,6 +44,7 @@
 * 1.7   hb   03/07/2022   Fixed MISRA-C violations and added comments
 * 1.8   hb   07/03/2022   Added APIs to support SSIT devices
 * 1.9	hv   07/24/2022   Added client interface to read Cfr Status
+* 2.0	hv   08/08/2022   Fixed Misra C violations
 * </pre>
 *
 * @note
@@ -799,7 +800,7 @@ XStatus XSem_CmdNpiGetGldnSha (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		goto END;
 	}
 	/* Pack commands to be sent over IPI */
-	PACK_PAYLOAD2(Payload, CMD_NPI_GET_GLDN_SHA, DescData);
+	PACK_PAYLOAD2(Payload, CMD_NPI_GET_GLDN_SHA, (u32 *)DescData);
 
 	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
