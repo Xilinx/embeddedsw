@@ -80,7 +80,8 @@
 *                       Added checks for return value for
 *                       XNvm_EfuseDisableProgramming() and XNvm_EfuseResetReadMode()
 *       am   02/28/2022 Resolved MISRA C violations
-* 2.6	kal  12/07/2022	Moved common code to xnvm_efuse_common.c in common directory
+* 2.6   kal  12/07/2022 Moved common code to xnvm_efuse_common.c in common directory
+*       kal  05/08/2022 Fix Row37 protection check in XNvm_EfuseProtectionChecks API
 *
 * </pre>
 *
@@ -4708,9 +4709,9 @@ static int XNvm_EfuseProtectionChecks(void)
 		}
 
 		RowVal = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_ANLG_TRIM_3_OFFSET);
+				XNVM_EFUSE_CACHE_ANLG_TRIM_2_OFFSET);
 		RowValTmp = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
-				XNVM_EFUSE_CACHE_ANLG_TRIM_3_OFFSET);
+				XNVM_EFUSE_CACHE_ANLG_TRIM_2_OFFSET);
 
 		if ((RowVal != RowValTmp) || (RowVal == 0x0U)) {
 			Status = (int)XNVM_EFUSE_ERR_IN_PROTECTION_CHECK;
