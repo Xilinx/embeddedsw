@@ -4848,7 +4848,7 @@ END:
  ******************************************************************************/
 static int XNvm_EfuseTemparatureCheck(float Temparature)
 {
-	volatile int Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 	u32 EfuseTempMax = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 	u32 EfuseTempMin = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
@@ -4923,7 +4923,7 @@ END:
  ******************************************************************************/
 static int XNvm_EfusePmcVoltageCheck(float Voltage)
 {
-	volatile int Status = XST_FAILURE;
+	int Status = XST_FAILURE;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 	u32 EfuseVoltVal = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 	float VoltMin;
