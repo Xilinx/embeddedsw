@@ -87,6 +87,7 @@
 *       kpt  07/07/22 Added support to update KAT status
 *       bsv  07/08/22 Changes related to Optional data in Image header table
 *       kpt  07/24/22 Added support to go into secure lockdown when KAT fails
+*       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
 *
 * </pre>
 *
@@ -729,7 +730,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	int ClearIHs = XST_FAILURE;
 	int ClearPHs = XST_FAILURE;
 	int Clearchunk = XST_FAILURE;
-	u32 Ihs;
+	volatile u32 Ihs;
 	volatile u32 TotalSize = MetaHdr->ImgHdrTbl.TotalHdrLen *
 								XIH_PRTN_WORD_LEN;
 	volatile u32 TotalSizeTmp = XLOADER_CHUNK_SIZE + 1U;
@@ -1522,7 +1523,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	/* Buffer variable used to store HashMgf and DB */
 	u8 *Buffer = StoreSecureDataPtr->Buffer;
 	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32U)));
-	u32 Index;
+	volatile u32 Index;
 	u32 IndexTmp;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	u8 *DataHash = (u8 *)MsgHash;
