@@ -6,7 +6,7 @@
 /**
  *
  * @file axi_timer.c
- * @addtogroup xiltimer_v1_0
+ * @addtogroup xiltimer_api XilTimer APIs
  * @{
  * @details
  *
@@ -19,6 +19,7 @@
  * ----- ---- -------- -------------------------------------------------------
  *  1.0  adk   24/11/21 Initial release.
  *  	 adk   07/02/22 Updated the IntrHandler as per XTimer_SetHandler() API.
+ *  1.1	 adk   08/08/22 Added doxygen tags.
  *</pre>
  *
  *@note
@@ -319,3 +320,4 @@ void XTime_GetTime(XTime *Xtime_Global)
 	*Xtime_Global = XTmrCtr_GetValue(AxiTimerInstPtr, 0);
 }
 #endif
+/*@}*/

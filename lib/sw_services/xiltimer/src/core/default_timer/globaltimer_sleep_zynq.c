@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
 /**
  *
  * @file globaltimer_sleep_zynq.c
- * @addtogroup xiltimer_v1_0
+ * @addtogroup xiltimer_api XilTimer APIs
  * @{
  * @details
  *
@@ -18,7 +18,8 @@
  *
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
-*  1.0  adk	 24/11/21 Initial release.
+ * 1.0  adk	 24/11/21 Initial release.
+ * 1.1	adk      08/08/22 Added doxygen tags.
  *</pre>
  *
  *@note
