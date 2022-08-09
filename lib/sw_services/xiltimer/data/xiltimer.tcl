@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,6 +10,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0   adk   24/11/21 First release
 # 	adk   20/12/21 Fix TTC Device ID handling.
+# 1.1	adk   08/08/22 Added support for versal net.
 #
 ##############################################################################
 
@@ -63,10 +64,10 @@ proc xtimer_drc {lib_handle} {
 		}
 	}
 	if {$sleep_timer_is_default != 0 || $interval_timer_is_default != 0} {
-		if {$proc_type == "psu_cortexa53" || $proc_type == "psv_cortexa72"} {
+		if {$proc_type == "psu_cortexa53" || $proc_type == "psv_cortexa72" || $proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78"} {
 			file copy -force "src/core/default_timer/globaltimer_sleep.c" "./src"
 		}
-		if {$proc_type == "psu_cortexr5" || $proc_type == "psv_cortexr5"} {
+		if {$proc_type == "psu_cortexr5" || $proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52"} {
 			file copy -force "src/core/default_timer/cortexr5_sleep.c" "./src"
 		}
 		if {$proc_type == "microblaze" || $proc_type == "psu_pmu"
@@ -100,7 +101,7 @@ proc generate {lib_handle} {
 	set sleep_timer [common::get_property CONFIG.sleep_timer $lib_handle]
 	set interval_timer [common::get_property CONFIG.interval_timer $lib_handle]
         # for interval functionality interrupt connection is manadatory
-	set ttc_ips [::hsi::get_mem_ranges -of_objects $hw_proc_handle [hsi::get_cells -hier -filter {IP_NAME == "psv_ttc"  || IP_NAME == "psu_ttc" || IP_NAME == "ps7_ttc"}]]
+	set ttc_ips [::hsi::get_mem_ranges -of_objects $hw_proc_handle [hsi::get_cells -hier -filter {IP_NAME == "psv_ttc"  || IP_NAME == "psu_ttc" || IP_NAME == "ps7_ttc" || IP_NAME == "psxl_ttc" || IP_NAME == "psx_ttc"}]]
 	set axitmr_ips [hsi::get_cells -hier -filter {IP_NAME == "axi_timer"}]
 	set scutmr_ips [hsi::get_cells -hier -filter {IP_NAME == "ps7_scutimer"}]
 	set timer_ips [concat $ttc_ips $axitmr_ips $scutmr_ips]

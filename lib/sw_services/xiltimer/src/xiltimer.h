@@ -33,6 +33,7 @@
 *  			  XTimer_SetHandler() API instead of a new API.
 *  	adk	 25/03/22 Fix compilation errors when cortexa72 global timer
 *  			  selected as default timer.
+*  1.1	adk      08/08/22 Added support for versal net.
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H

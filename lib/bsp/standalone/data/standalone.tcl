@@ -76,6 +76,7 @@
 #       adk  05/18/22 Added pmu_sleep_timer config parameter to perform sleep
 #       	      functionality from PMU counters for CortexR5 BSP.
 #       bm   07/06/22 Added logic to include files from versal_net directory
+#       adk  09/08/22 When xiltimer is enabled don't pull xpm_counter.c file.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -657,7 +658,7 @@ proc generate {os_handle} {
         "default" {puts "unknown processor type $proctype\n"}
     }
 
-    set sleep_file_list "sleep.h sleep.c usleep.c xtime_l.c xtime_l.h microblaze_sleep.c microblaze_sleep.h xil_sleepcommon.c xil_sleeptimer.h xil_sleeptimer.c"
+    set sleep_file_list "sleep.h sleep.c usleep.c xtime_l.c xtime_l.h microblaze_sleep.c microblaze_sleep.h xil_sleepcommon.c xil_sleeptimer.h xil_sleeptimer.c xpm_counter.c"
     if {$is_xiltimer_enabled != 0} {
         foreach entry $sleep_file_list {
             file delete -force "./src/$entry"
