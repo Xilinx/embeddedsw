@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -10,6 +10,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 7.7   adk  24/11/21 First release
+# 8.0   adk  09/08/22 Added support for versal net
 ##############################################################################
 
 #generate interrupt id and interrupt parent info
@@ -58,6 +59,9 @@ proc gen_intr {drv_handle file_name args} {
 		    if {$processor_type == "psv_cortexr5" && $ipname == "psv_rcpu_gic"} {
 			set intc_parent_addr [common::get_property CONFIG.C_S_AXI_BASEADDR $intc]
 		    }
+                    if {($processor_type == "psxl_cortexa78" && $ipname == "psxl_acpu_gic") || ($processor_type == "psx_cortexa78" && $ipname == "psx_acpu_gic") || ($processor_type == "psxl_cortexr52" && $ipname == "psxl_rcpu_gic") || ($processor_type == "psx_cortexr52" && $ipname == "psx_rcpu_gic")} {
+                        set intc_parent_addr [common::get_property CONFIG.C_S_AXI_BASEADDR $intc]
+                    }
 		    if {$ipname == "axi_intc"} {
 			set intc_parent_addr [common::get_property CONFIG.C_BASEADDR $intc]
 			incr intc_parent_addr
@@ -119,7 +123,7 @@ proc get_intr_type {intc_name ip_name port_name} {
                 set sensitivity [get_property SENSITIVITY $intr_pin]
         }
         set intc_type [get_property IP_NAME $intc ]
-        set valid_intc_list "ps7_scugic psu_acpu_gic psv_acpu_gic"
+        set valid_intc_list "ps7_scugic psu_acpu_gic psv_acpu_gic psxl_acpu_gic psx_acpu_gic psxl_rcpu_gic psx_rcpu_gic"
         if {[lsearch  -nocase $valid_intc_list $intc_type] >= 0} {
                 if {[string match -nocase $sensitivity "EDGE_FALLING"]} {
 				set sens [expr {2 << 12}]
