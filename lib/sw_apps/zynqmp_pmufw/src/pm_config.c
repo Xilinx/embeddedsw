@@ -637,6 +637,13 @@ s32 PmConfigLoadObject(const u32 address, const u32 callerIpi)
 	u32 i;
 	u32 confObjType;
 
+	if ((0U != (PM_CONFIG_OBJECT_LOADED & pmConfig.flags)) &&
+            (0U == (callerIpi & pmConfig.overlayConfigPerms))) {
+                PmWarn("No Permission to set overlay config\r\n");
+                status = XST_PM_NO_ACCESS;
+                goto ret;
+        }
+
 	/* Set config object type as base before reading header to support
 	 * backward compatibility.
 	 */
