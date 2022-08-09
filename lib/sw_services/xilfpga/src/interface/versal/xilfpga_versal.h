@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,8 +7,9 @@
 /**
  *
  * @file xilfpga_versal.h
- * @addtogroup xfpga_apis XilFPGA APIs
+ * @addtogroup xilfpga_versal XilFPGA APIs for Versal ACAPs
  * @{
+ * @details
  *
  * The XILFPGA library for Versal provides the interface to the application to
  * configure the programmable logic (PL) though the PS.
@@ -50,6 +51,7 @@
  *                     function arguments to read KeyAddr and
  *                     Size(Bitstream size).
  * 6.0  Nava 05/17/21  Removed unused structure definition.
+ * 6.3  Nava 08/05/22  Added doxygen tags.
  * </pre>
  *
  * @note

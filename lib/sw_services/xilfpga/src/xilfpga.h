@@ -7,8 +7,10 @@
 /**
  *
  * @file xilfpga.h
- * @addtogroup xfpga_apis XilFPGA APIs
+ * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal ACAPs and Zynq UltraScale+ MPSoCs
+ *
  * @{
+ * @details
  *
  * Xilfpga Error format:
  * Lower level Errors + Interface specific Errors + Xilfpga top layer Errors
@@ -82,6 +84,7 @@
  *                      to provide the access to the xilfpga library to get the
  *                      xilfpga version and supported feature list info.
  * 6.2  Nava  03/11/22  Fixed an "implicit declaration of function" warning.
+ * 6.3  Nava  08/05/22  Added doxygen tags.
  *
  * </pre>
  *
@@ -271,3 +274,4 @@ u32 XFpga_InterfaceStatus(XFpga *InstancePtr);
 #endif
 
 #endif  /* XILFPGA_H */
+/** @} */

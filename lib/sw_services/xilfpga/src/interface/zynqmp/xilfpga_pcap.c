@@ -8,7 +8,12 @@
  *
  * @file xilfpga_pcap.c
  *
+ * @addtogroup xilfpga_zynq XilFPGA APIs for Zynq UltraScale+ MPSoCs
  * This file contains the definitions of bitstream loading functions.
+ *
+ * @{
+ * @details
+ *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -119,6 +124,7 @@
  * 6.2 Nava  01/19/22  Added build time flag to skip eFUSE checks.
  * 6.3 Nava  06/22/22  Skip eFUSE checks to allow xilfpga to load non-secure
  *                     bitstream in secure boot platform.
+ * 6.3 Nava  08/05/22  Added doxygen tags.
  *
  * </pre>
  *
@@ -2688,3 +2694,4 @@ END:
 #endif
 
 /* @endcond */
+/** @} */
