@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +8,14 @@
  *
  * @file xilfpga_pcap.h
  *
+ * @addtogroup xilfpga_zynq XilFPGA APIs for Zynq UltraScale+ MPSoCs
+ *
+ *
  * The XILFPGA library provides the interface to the application to configure
  * the programmable logic (PL) though the PS.
  *
+ * @{
+ * @details
  * MODIFICATION HISTORY:
  *
  * Ver   Who    Date        Changes
@@ -63,6 +68,7 @@
  * 5.3   Nava   06/16/20 Modified the date format from dd/mm to mm/dd.
  * 6.0   Nava   01/07/21 Fixed misra-c required standard violations.
  * 6.0   Nava   02/22/21 Fixed doxygen issues.
+ * 6.3   Nava   08/05/22 Added doxygen tags.
  * </pre>
  *
  * @note

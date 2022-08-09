@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,12 @@
  *
  * @file xilfpga_ipi_pcap.c
  *
+ * @addtogroup xilfpga_zynq XilFPGA APIs for Zynq UltraScale+ MPSoCs
  * This file contains the definitions of bitstream loading functions.
+ *
+ * @{
+ * @details
+ *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -37,6 +42,7 @@
  * 6.0  Nava  02/22/21  Fixed doxygen issues.
  * 6.2  Nava  12/13/21  Replaced library specific utility functions and standard
  *                      lib functions with Xilinx maintained functions.
+ * 6.3  Nava  08/05/22  Added doxygen tags.
  * </pre>
  *
  * @note
@@ -296,3 +302,4 @@ END:
 }
 
 /* @endcond */
+/** @} */

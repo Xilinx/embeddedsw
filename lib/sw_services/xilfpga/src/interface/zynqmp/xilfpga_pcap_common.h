@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,8 +7,11 @@
 /**
  *
  * @file xilfpga_pcap_common.h
- * @addtogroup xfpga_apis XilFPGA APIs
+ *
+ * @addtogroup xilfpga_zynq XilFPGA APIs for Zynq UltraScale+ MPSoCs
+ *
  * @{
+ * @details
  *
  *
  * The XILFPGA library provides the interface to the application to configure
@@ -59,6 +62,7 @@
  *                      violation. fixes this  issue by adding a separate
  *                      function arguments to read KeyAddr and
  *                      Size(Bitstream size).
+ * 6.3  Nava  08/05/22  Added doxygen tags.
  * </pre>
  *
  * @note

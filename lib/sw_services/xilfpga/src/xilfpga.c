@@ -7,8 +7,13 @@
 /**
  *
  * @file xilfpga.c
- *
+ * @addtogroup xilfpga_zynq_versal XilFPGA APIs for Versal ACAPs and Zynq UltraScale+ MPSoCs
  * This file contains the definitions of Bitstream loading functions.
+ *
+ * @{
+ * @details
+ *
+ *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -66,6 +71,7 @@
  * 6.2 Nava   01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API's
  *                      to provide the access to the xilfpga library to get the
  *                      xilfpga version and supported feature list info.
+ * 6.3 Nava   08/05/22  Added doxygen tags.
  *</pre>
  *
  *@note
@@ -570,7 +576,7 @@ END:
  *
  * @param InstancePtr Pointer to the XFpga structure
  *
- * @FeatureList xilfpga library supported feature list to read
+ * 		  FeatureList xilfpga library supported feature list to read
  *
  * @return
  *      - XFPGA_SUCCESS if, successful
@@ -667,3 +673,4 @@ END:
 
 /*  @endcond */
 #endif
+/** @} */
