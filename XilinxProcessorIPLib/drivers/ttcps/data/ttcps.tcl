@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2012 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -13,6 +13,7 @@
 # 3.1   sk   11/09/15 Removed delete filename statement CR# 784758.
 # 3.4   ms   04/18/17 Modified tcl file to add suffix U for all macros
 #                     definitions of ttcps in xparameters.h
+# 3.16	adk  08/09/22 Updated interrupt wrap code for versal net
 #
 ##############################################################################
 #uses "xillib.tcl"
@@ -319,6 +320,9 @@ proc gen_intr {drv_handle file_name} {
                            set intc_parent_addr [common::get_property CONFIG.C_S_AXI_BASEADDR $intc]
                        }
                        if {$processor_type == "psv_cortexr5" && $ipname == "psv_rcpu_gic"} {
+                           set intc_parent_addr [common::get_property CONFIG.C_S_AXI_BASEADDR $intc]
+                       }
+                       if {($processor_type == "psxl_cortexa78" && $ipname == "psxl_acpu_gic") || ($processor_type == "psx_cortexa78" && $ipname == "psx_acpu_gic") || ($processor_type == "psxl_cortexr52" && $ipname == "psxl_rcpu_gic") || ($processor_type == "psx_cortexr52" && $ipname == "psx_rcpu_gic")} {
                            set intc_parent_addr [common::get_property CONFIG.C_S_AXI_BASEADDR $intc]
                        }
                        if {$ipname == "axi_intc"} {
