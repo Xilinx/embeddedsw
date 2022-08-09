@@ -85,9 +85,20 @@ proc get_eram_config { fp } {
 		"ddr4" {
                         set eram_start [common::get_property CONFIG.C0_DDR4_MEMORY_MAP_BASEADDR \
                                         [hsi::get_cells -hier $mem]];
-                        set eram_end [format 0x%x [expr [common::get_property CONFIG.C0_DDR4_MEMORY_MAP_HIGHADDR \
-                                        [hsi::get_cells -hier $mem ]] + 1]];
-                       }
+			if {$eram_start eq ""} {
+				set eram_start [common::get_property CONFIG.C_BASEADDR \
+					[hsi::get_cells -hier $mem]];
+			}
+                        set eram_end [common::get_property CONFIG.C0_DDR4_MEMORY_MAP_HIGHADDR \
+                                        [hsi::get_cells -hier $mem ]];
+			if {$eram_end eq ""} {
+				set eram_end [common::get_property CONFIG.C_HIGHADDR \
+					[hsi::get_cells -hier $mem ]];
+			}
+			if {$eram_end ne ""} {
+				set eram_end [format 0x%x [expr $eram_end + 1]];
+			}
+		}
 		"ddr3" -
 		"mig" -
 		"mig_7series" {
