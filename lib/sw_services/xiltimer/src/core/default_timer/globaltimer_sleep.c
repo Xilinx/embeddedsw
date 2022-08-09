@@ -6,7 +6,7 @@
 /**
  *
  * @file globaltimer_sleep.c
- * @addtogroup xiltimer_v1_0
+ * @addtogroup xiltimer_api XilTimer APIs
  * @{
  * @details
  *
@@ -21,6 +21,7 @@
  * 1.0   adk  24/11/21 Initial release.
  *  	 adk  25/03/22 Fix compilation errors for a72 processor.
  * 1.1	 adk  08/08/22 Added support for versal net.
+ *  	 adk  08/08/22 Added doxygen tags.
  *</pre>
  *
  *@note

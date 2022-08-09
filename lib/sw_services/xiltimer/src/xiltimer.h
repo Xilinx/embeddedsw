@@ -7,20 +7,7 @@
 /**
 *
 * @file xiltimer.h
-* @addtogroup xfpga_apis XilFPGA APIs
-* @{
-*
-* This library provides sleep and tick timer functionality, Hardware and
-* Software features are differentiated using a layered approach.
-* The top Level layer is platform-agnostic where the core layer(low level)
-* is hardware dependent, Currently, this library supports TTC, scutimer,
-* axi_timer IP's if none of these IP's present in a given design then the
-* sleep functionality will be executed using processor instructions.
-* For the sleep and tick functionality user can select a specific timer
-* using the library software configuration wizard.
-*
-* @{
-* @cond xilfpga_internal
+* @addtogroup xiltimer_api XilTimer APIs
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -34,6 +21,7 @@
 *  	adk	 25/03/22 Fix compilation errors when cortexa72 global timer
 *  			  selected as default timer.
 *  1.1	adk      08/08/22 Added support for versal net.
+*  	adk      08/08/22 Added doxygen tags.
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H

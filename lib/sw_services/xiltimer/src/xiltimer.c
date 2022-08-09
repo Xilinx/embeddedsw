@@ -6,9 +6,12 @@
 /*****************************************************************************/
 /**
 *
-*@file xiltimer.c
+* @file xiltimer.c
+* @addtogroup xiltimer_api XilTimer APIs
 *
-* This file contains the sleep API's
+* This file contains the sleep API's.
+* @{
+* @details
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -19,6 +22,7 @@
 *  	adk	 07/02/22 Integrate configuring of priority field into
 *  			  XTimer_SetHandler() API instead of a new API.
 *  1.1	adk      08/08/22 Added support for versal net.
+*  	adk      08/08/22 Added doxygen tags.
 * </pre>
 ******************************************************************************/
 
@@ -187,4 +191,4 @@ void XTimer_ClearTickInterrupt( void )
 	InstancePtr = &TimerInst;
 	if (InstancePtr->XTickTimer_ClearInterrupt)
 		InstancePtr->XTickTimer_ClearInterrupt(InstancePtr);
-}
+}/*@}*/

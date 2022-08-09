@@ -6,7 +6,7 @@
 /**
  *
  * @file ttcps.c
- * @addtogroup xiltimer_v1_0
+ * @addtogroup xiltimer_api XilTimer APIs
  * @{
  * @details
  *
@@ -20,6 +20,7 @@
  * 1.0   adk   24/11/21 Initial release.
  *  	 adk   07/02/22 Updated the IntrHandler as per XTimer_SetHandler() API
  *  	 	        and removed the unneeded XTickTimer_SetPriority() API.
+ * 1.1   adk   08/08/22 Added doxygen tags.
  *</pre>
  *
  *@note
@@ -74,7 +75,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
  * @param	InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
- */
+
 /****************************************************************************/
 u32 XilTickTimer_Init(XTimer *InstancePtr)
 {
@@ -306,5 +307,5 @@ void XTime_GetTime(XTime *Xtime_Global)
 	XTtcPs *TtcPsInstPtr = &InstancePtr->TtcPs_SleepInst;
 
 	*Xtime_Global = XTtcPs_GetCounterValue(TtcPsInstPtr);
-}
+}/*@}*/
 #endif
