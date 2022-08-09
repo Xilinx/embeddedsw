@@ -20,6 +20,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk  24/11/21 Initial release.
  *  	 adk  25/03/22 Fix compilation errors for a72 processor.
+ * 1.1	 adk  08/08/22 Added support for versal net.
  *</pre>
  *
  *@note
@@ -31,7 +32,9 @@
 
 /**************************** Type Definitions *******************************/
 /************************** Constant Definitions *****************************/
-#if defined (versal)
+#if defined(VERSAL_NET)
+#define XIOU_SCNTRS_BASEADDR	0xEC920000U
+#elif defined (versal)
 #define XIOU_SCNTRS_BASEADDR	0xFF140000U
 #else
 #define XIOU_SCNTRS_BASEADDR	0xFF260000U
@@ -75,7 +78,9 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 static void XGlobalTimer_Start(XTimer *InstancePtr)
 {
 	(void) InstancePtr;
-#if defined (versal)
+#if defined(VERSAL_NET)
+	u32 TimerStampFreq = XPAR_CPU_CORTEXA78_0_TIMESTAMP_CLK_FREQ;
+#elif defined (versal)
         u32 TimerStampFreq = XPAR_CPU_CORTEXA72_0_TIMESTAMP_CLK_FREQ;
 #else
         u32 TimerStampFreq = XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ;
@@ -113,7 +118,9 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 {
 	(void) InstancePtr;
 	XTime tEnd, tCur;
-#if defined (versal)
+#if defined(VERSAL_NET)
+	u32 TimerStampFreq = XPAR_CPU_CORTEXA78_0_TIMESTAMP_CLK_FREQ;
+#elif defined (versal)
         u32 TimerStampFreq = XPAR_CPU_CORTEXA72_0_TIMESTAMP_CLK_FREQ;
 #else
         u32 TimerStampFreq = XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ;

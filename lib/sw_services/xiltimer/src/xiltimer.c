@@ -18,6 +18,7 @@
 *  1.0  adk	 24/11/21 Initial release.
 *  	adk	 07/02/22 Integrate configuring of priority field into
 *  			  XTimer_SetHandler() API instead of a new API.
+*  1.1	adk      08/08/22 Added support for versal net.
 * </pre>
 ******************************************************************************/
 

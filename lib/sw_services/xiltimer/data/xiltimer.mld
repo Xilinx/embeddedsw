@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -19,7 +19,7 @@ BEGIN LIBRARY xiltimer
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxiltimer,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xiltimer library provides generic timer interface for the timer IP's";
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = xiltimer;
   PARAM name = sleep_timer, type = peripheral_instance, range = (psv_ttc, psu_ttc, ps7_ttc, axi_timer, ps7_scutimer), default=none, desc = "This parameter is used to select specific timer for sleep functionality", permit = user;
   PARAM name = interval_timer, type = peripheral_instance, range = (psv_ttc, psu_ttc, ps7_ttc, axi_timer, ps7_scutimer), default=none, desc = "This parameter is used to select specific timer for interval timer functionality", permit = user;

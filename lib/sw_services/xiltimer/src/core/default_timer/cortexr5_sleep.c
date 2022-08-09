@@ -20,6 +20,7 @@
  * ----- ---- -------- -------------------------------------------------------
 *  1.0  adk	 24/11/21 Initial release.
 *  	adk	 12/01/22 Fix compilation errors.
+*  1.1	adk      08/08/22 Added support for versal net.
  *</pre>
  *
  *@note
@@ -28,12 +29,25 @@
 #include "xiltimer.h"
 #include "xpm_counter.h"
 
+#if defined (ARMR52)
+#define LPD_RST_TIMESTAMP  0xEB5E035CU
+#define XIOU_SCNTRS_BASEADDR 0xEB5B0000U
+#define XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET 0x0U
+#define XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK 0x1U
+#define XIOU_SCNTRS_CNT_CNTRL_REG_EN 0x1U
+#define XIOU_SCNTRS_FREQ_REG_OFFSET 0x20U
+#define XIOU_SCNTRS_FREQ XPAR_CPU_CORTEXR52_0_TIMESTAMP_CLK_FREQ
+#endif
+
 #ifdef XTIMER_IS_DEFAULT_TIMER
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
 static void XCortexr5_ModifyInterval(XTimer *InstancePtr, u32 delay,
 				       XTimer_DelayType DelayType);
+#if defined (ARMR52)
+static void XGlobalTimer_Start(XTimer *InstancePtr);
+#endif
 
 /****************************************************************************/
 /**
@@ -51,6 +65,38 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 
 	return XST_SUCCESS;
 }
+
+#if defined (ARMR52)
+/****************************************************************************/
+/**
+ * Start the Global Timer
+ *
+ * @param	InstancePtr is a pointer to the XTimer Instance
+ *
+ * @return	None
+ */
+/****************************************************************************/
+static void XGlobalTimer_Start(XTimer *InstancePtr)
+{
+	(void) InstancePtr;
+	/* Take LPD_TIMESTAMP out of reset */
+	Xil_Out32(LPD_RST_TIMESTAMP, 0x0);
+
+	/*write frequency to System Time Stamp Generator Register*/
+	Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),
+		  XIOU_SCNTRS_FREQ);
+	/*Enable the timer/counter*/
+	Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),
+		  XIOU_SCNTRS_CNT_CNTRL_REG_EN);
+
+}
+static inline u64 arch_counter_get_cntvct(void)
+ {
+          u64 cval;
+          __asm__ __volatile__("mrrc p15, 1, %Q0, %R0, c14" : "=r" (cval));
+          return cval;
+  }
+#endif
 
 /*****************************************************************************/
 /**
@@ -76,18 +122,33 @@ static void XCortexr5_ModifyInterval(XTimer *InstancePtr, u32 delay,
 	/* For the CortexR5 PMU cycle counter. As boot code is setting up "D"
 	 * bit in PMCR, cycle counter increments on every 64th bit of processor cycle
 	 */
+#if !defined (ARMR52)
 	u32 frequency = XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ/64;
+#endif
+#if defined (ARMR52)
+	static u8 IsSleepTimerStarted = FALSE;
 
-#if defined (__GNUC__)
+	if (FALSE == IsSleepTimerStarted) {
+		XGlobalTimer_Start(InstancePtr);
+		IsSleepTimerStarted = TRUE;
+	}
+	TimeLowVal1 = arch_counter_get_cntvct();
+#elif defined (__GNUC__)
 	TimeLowVal1 = Xpm_ReadCycleCounterVal();
 #elif defined (__ICCARM__)
 	Xpm_ReadCycleCounterVal(TimeLowVal1);
 #endif
 
+#if defined (ARMR52)
+	tEnd = (u64)TimeLowVal1 + ((u64)(delay) * (DelayType));
+#else
 	tEnd = (u64)TimeLowVal1 + ((u64)(delay) * (frequency/(DelayType)));
+#endif
 
 	do {
-#if defined (__GNUC__)
+#if defined (ARMR52)
+		TimeLowVal2 = arch_counter_get_cntvct();
+#elif defined (__GNUC__)
 		TimeLowVal2 = Xpm_ReadCycleCounterVal();
 #elif defined (__ICCARM__)
 		Xpm_ReadCycleCounterVal(TimeLowVal2);
@@ -114,7 +175,11 @@ static void XCortexr5_ModifyInterval(XTimer *InstancePtr, u32 delay,
  ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global) {
 
+#if defined (ARMR52)
+	*Xtime_Global = arch_counter_get_cntvct();
+#else
 	*Xtime_Global = Xpm_ReadCycleCounterVal();
+#endif
 }
 #endif
 

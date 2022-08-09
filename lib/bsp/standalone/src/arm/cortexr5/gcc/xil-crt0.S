@@ -28,6 +28,8 @@
 * 8.0   mus  19/01/22 Existing bootcode is skipping call to __cpu_init for
 *                     R52, it's keeping PMU events disabled. Updated code
 *                     to fix it.
+* 	adk  09/08/22 When xiltimer is enabled don't call XTime_StartTimer()
+*		      API.
 * </pre>
 *
 ******************************************************************************/
@@ -68,6 +70,7 @@ _startup:
 	bl      __cpu_init		/* Initialize the CPU first (BSP provides this) */
 
 /* TODO: This logic needs to be updated for Cortex-R52 */
+#ifndef XPAR_XILTIMER_ENABLED
 #if  defined (ARMR52)
 	bl XTime_StartTimer
 #else
@@ -87,6 +90,7 @@ test_boot_status:
 
 	/* if warm reset, skip the clearing of BSS and SBSS */
 	bne	.Lenclbss
+#endif
 #endif
 #endif
 	mov	r0, #0
