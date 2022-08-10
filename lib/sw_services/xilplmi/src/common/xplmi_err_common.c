@@ -102,6 +102,7 @@
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
 *       ma   07/28/2022 Update FW_ERR register and return from XPlmi_ErrMgr if
 *                       secure lockdown is in progress
+*       ma   08/08/2022 Handle EAM errors at task level
 *
 * </pre>
 *
@@ -522,7 +523,8 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
 
 /****************************************************************************/
 /**
-* @brief    This function is default interrupt handler for the device.
+* @brief    This function is default interrupt handler for EAM error which
+*           will add the task to the task queue.
 *
 * @param    CallbackRef is presently the interrupt number that is received
 *
@@ -531,6 +533,40 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
 ****************************************************************************/
 void XPlmi_ErrIntrHandler(void *CallbackRef)
 {
+	XPlmi_TaskNode *Task = NULL;
+
+	(void)CallbackRef;
+
+	/* Check if the task is already created */
+	Task = XPlmi_GetTaskInstance(XPlmi_ErrorTaskHandler, NULL,
+				XPLMI_INVALID_INTR_ID);
+	if (Task == NULL) {
+		XPlmi_Printf(DEBUG_GENERAL, "EAM task trigger error\n\r");
+		goto END;
+	}
+
+	/*
+	 * Add the EAM task to the queue and disable interrupts
+	 * at IOMODULE level
+	 */
+	XPlmi_TaskTriggerNow(Task);
+	XPlmi_PlmIntrDisable(XPLMI_IOMODULE_ERR_IRQ);
+
+END:
+	return;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is the interrupt handler for the EAM errors.
+*
+* @param    Data is presently passed as NULL
+*
+* @return   Always returns XST_SUCCESS
+*
+****************************************************************************/
+int XPlmi_ErrorTaskHandler(void *Data)
+{
 	u32 ErrStatus[XPLMI_PMC_MAX_ERR_CNT];
 	u32 ErrIrqMask[XPLMI_PMC_MAX_ERR_CNT];
 	u32 ErrIndex;
@@ -538,16 +574,17 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	u32 RegMask;
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 
-	(void)CallbackRef;
+	(void)Data;
 
-	XPlmi_Printf(DEBUG_GENERAL, "PMC EAM Interrupt: ");
 	for (Index = 0U; Index < XPLMI_PMC_MAX_ERR_CNT; Index++) {
 		ErrStatus[Index] = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS +
 					(Index * PMC_GLOBAL_REG_PMC_ERR_OFFSET));
 		ErrIrqMask[Index] = XPlmi_In32(GET_PMC_IRQ_MASK(GET_PMC_ERR_ACTION_OFFSET(Index)));
-		XPlmi_Printf_WoTS(DEBUG_GENERAL, "ERR%d: 0x%0x ", Index, ErrStatus[Index]);
+		if (ErrStatus[Index] != 0x0U) {
+			XPlmi_Printf(DEBUG_GENERAL, "PMC EAM ERR%d: 0x%0x\r\n", Index, ErrStatus[Index]);
+		}
 	}
-	XPlmi_Printf_WoTS(DEBUG_GENERAL, "\n\r");
+
 	/*
 	 * Interrupt is selected as response for Custom, subsystem shutdown
 	 * and subsystem restart actions. For these actions, error will be
@@ -587,6 +624,12 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 			}
 		}
 	}
+
+	/* Clear and enable EAM errors at IOMODULE level */
+	XPlmi_PlmIntrClear(XPLMI_IOMODULE_ERR_IRQ);
+	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_ERR_IRQ);
+
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -1024,6 +1067,16 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	u32 RegMask;
 	u32 ErrIndex;
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
+	XPlmi_TaskNode *Task = NULL;
+
+	/* Check if the task is already created */
+	Task = XPlmi_GetTaskInstance(XPlmi_ErrorTaskHandler, NULL,
+				XPLMI_INVALID_INTR_ID);
+	if (Task == NULL) {
+		/* Create task if it is not already created */
+		Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0, XPlmi_ErrorTaskHandler, NULL);
+		Task->IntrId = XPLMI_INVALID_INTR_ID;
+	}
 
 	/* Register Error module commands */
 	XPlmi_ErrModuleInit();

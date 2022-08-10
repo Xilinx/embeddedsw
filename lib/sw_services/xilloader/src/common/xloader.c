@@ -137,6 +137,7 @@
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *       dc   07/20/2022 Added Data measurement, supports only for Versal Net
 *       dc   07/27/2022 Added goto END in error case for header failures
+*       ma   08/08/2022 Check EAM errors between each image load
 *
 * </pre>
 *
@@ -786,6 +787,8 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+		/* Check for EAM errors */
+		(void)XPlmi_ErrorTaskHandler(NULL);
 	}
 
 	/* Delay Handoff starts here */
