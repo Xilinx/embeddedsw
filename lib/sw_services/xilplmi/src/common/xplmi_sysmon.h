@@ -26,6 +26,7 @@
 * 1.04  bsv  07/16/2021 Fix doxygen warnings
 *       is   01/10/2022 Updated XPlmi_SysMonOTDetect API to pass wait time arg
 *       is   01/10/2022 Updated Copyright Year to 2022
+*       ma   08/08/2022 Fix SW-BP-MAGIC-NUM warning
 *
 * </pre>
 *
@@ -53,6 +54,7 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define PCSR_UNLOCK_VAL       (0xF9E8D7C6U)
+#define XPLMI_SYSMON_NO_WAIT_TIME	(0x0U)
 
 /************************** Function Prototypes ******************************/
 int XPlmi_SysMonInit(void);

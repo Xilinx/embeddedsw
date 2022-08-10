@@ -103,6 +103,7 @@
 *       ma   07/28/2022 Update FW_ERR register and return from XPlmi_ErrMgr if
 *                       secure lockdown is in progress
 *       ma   08/08/2022 Handle EAM errors at task level
+*       ma   08/08/2022 Fix SW-BP-MAGIC-NUM warning
 *
 * </pre>
 *
@@ -1094,7 +1095,7 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 	}
 
 	/* Detect if we are in over-temperature condition */
-	XPlmi_SysMonOTDetect(0U);
+	XPlmi_SysMonOTDetect(XPLMI_SYSMON_NO_WAIT_TIME);
 
 	/* Clear SSIT_ERR register to stop error propagation to other SLRs */
 	XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, 0x0U);
