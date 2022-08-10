@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_intr.c
-* @addtogroup Overview
+* @addtogroup usbpsu USBPSU v1.12
 * @{
 *
 *
@@ -28,6 +28,7 @@
 * 1.7	pm  23/03/20 Restructured the code for more readability and modularity
 * 	pm  25/03/20 Add clocking support
 * 1.8	pm  01/07/20 Add versal hibernation support
+* 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 *
 * </pre>
 *

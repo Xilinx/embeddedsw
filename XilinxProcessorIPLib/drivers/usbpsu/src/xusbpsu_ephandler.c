@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_ephandler.c
-* @addtogroup Overview
+* @addtogroup usbpsu USBPSU v1.12
 * @{
 *
 *
@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   pm  03/23/20 First release
 * 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
+* 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 *
 * </pre>
 *

@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu.h
-* @addtogroup Overview
+* @addtogroup usbpsu Overview
 * @{
 * @details
 *

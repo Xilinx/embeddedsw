@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_sinit.c
-* @addtogroup Overview
+* @addtogroup usbpsu USBPSU v1.12
 * @{
 *
 *
@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg   06/06/16 First release
 * 1.9   pm   03/15/21 Fixed doxygen warnings
+* 1.12   pm   08/10/22 Update doxygen tag and addtogroup version
 *
 * </pre>
 *

@@ -7,11 +7,11 @@
 /**
 *
 * @file xusbpsu_hibernation.c
-* @addtogroup Overview
+* @addtogroup usbpsu USBPSU v1.12
 * @{
 *
 * This patch adds hibernation support to usbpsu driver when dwc3 is operating
-* as a gadget
+* as a gadget.
 *
 * <pre>
 *
@@ -26,6 +26,7 @@
 * 	pm     25/03/20 Add clocking support
 * 1.8	pm     01/07/20 Add versal hibernation support
 *	pm     24/07/20 Fixed MISRA-C and Coverity warnings
+* 1.12	pm     10/08/22 Update doxygen tag and addtogroup version
 *
 * </pre>
 *

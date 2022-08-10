@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_device.c
-* @addtogroup Overview
+* @addtogroup usbpsu USBPSU v1.12
 * @{
 *
 * <pre>
@@ -20,6 +20,7 @@
 * 1.7 	pm    25/03/20 Add clocking support
 * 1.8	pm    22/08/20 Configure register bits when CCI is enable
 *	pm    24/08/20 Fixed MISRA-C and Coverity warnings
+* 1.12	pm    10/08/22 Update doxygen tag and addtogroup version
 *
 * </pre>
 *
