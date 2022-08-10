@@ -56,6 +56,7 @@
 *       ma   07/08/2022 Added support for secure lockdown
 *       ma   07/19/2022 Disable interrupts before secure lockdown
 *       bm   07/20/2022 Update EAM logic for In-Place PLM Update
+*       ma   08/08/2022 Handle EAM errors at task level
 *
 * </pre>
 *
@@ -228,6 +229,7 @@ int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask);
 int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
 		XPlmi_ErrorHandler_t ErrorHandler);
 u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask);
+int XPlmi_ErrorTaskHandler(void *Data);
 
 /* Functions defined in xplmi_err_cmd.c */
 void XPlmi_ErrModuleInit(void);
