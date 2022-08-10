@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_event.c
-* @addtogroup Overview
+* @addtogroup usbpsu USBPSU v1.12
 * @{
 *
 *
@@ -19,6 +19,7 @@
 * 1.0   pm  03/03/20 First release
 * 1.8	pm  01/07/20 Add versal hibernation support
 *	pm  24/07/20 Fixed MISRA-C and Coverity warnings
+* 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 *
 * </pre>
 *

@@ -7,7 +7,7 @@
 /**
 *
 * @file xusbpsu_controltransfers.c
-* @addtogroup Overview
+* @addtogroup usbpsu USBPSU v1.12
 * @{
 *
 * <pre>
@@ -23,6 +23,7 @@
 * 1.6	pm  28/08/19 Removed 80-character warnings
 * 1.7 	pm  23/03/20 Restructured the code for more readability and modularity
 * 1.8	pm  24/07/20 Fixed MISRA-C and Coverity warnings
+* 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 *
 * </pre>
 *
