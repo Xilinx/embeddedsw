@@ -1286,10 +1286,10 @@ u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, .
 	}
 	va_end(Event);
 
+END:
 	if (LoopCnt == NumOfEvents) {
 		Status = XST_SUCCESS;
 	}
 
-END:
 	return Status;
 }
