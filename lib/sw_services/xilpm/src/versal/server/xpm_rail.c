@@ -450,6 +450,11 @@ static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 	 * temperature and make voltage adjustment, if needed.
 	 */
 	Rail = (XPm_Rail *)XPmPower_GetById(NodeId);
+	if (NULL == Rail) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	Rail->TempVoltAdj = &VCCINT_PL_TempVoltAdj;
 	Status = XPlmi_SchedulerAddTask(0x0U, XPmRail_CyclicTempVoltAdj, NULL,
 					100U, XPLM_TASK_PRIORITY_0, Rail,
