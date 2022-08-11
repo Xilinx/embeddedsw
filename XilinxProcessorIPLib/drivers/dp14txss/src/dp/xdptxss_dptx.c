@@ -1033,7 +1033,7 @@ static u32 Dp_GetTopology(XDp *InstancePtr)
 	if (NumStreams > InstancePtr->Config.NumMstStreams) {
 		NumStreams = InstancePtr->Config.NumMstStreams;
 	}
-	InstancePtr->TxInstance.NumOfMSTStreams = NumStreams;
+	InstancePtr->TxInstance.NumOfMstStreams = NumStreams;
 
 	return XST_SUCCESS;
 }
