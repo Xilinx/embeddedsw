@@ -41,6 +41,7 @@
 #include <xdp_hw.h>
 #include "xiicps.h"
 #include "xclk_wiz.h"
+#include "xgpio.h"
 #else
 #include "xvphy.h"
 #include "xvphy_i.h"

@@ -30,7 +30,9 @@
 * 1.04 KU       04/12/21    Updated Versal GT programming to get /20 clk
 * 1.05 ND       05/07/21    Setting bit[12] of Reg 0x1A4 to 1 for VSC
 * 							Colorimetry support
-* 1.06 ND 	07/21/22    Updated the LMK03318 address.
+* 1.06 ND 	    07/21/22    Updated the LMK03318 address.
+* 1.07 ND       08/11/22    Added support for gpio to monitor gtpowergood
+*                           for versal GT
 * </pre>
 *
 ******************************************************************************/
@@ -85,6 +87,7 @@ XIicPs_Config *XIic1Ps_ConfigPtr;
 #ifdef versal
 XClk_Wiz_Config *CfgPtr_Dynamic;
 XClk_Wiz ClkWiz_Dynamic;
+XGpio Gpio; /* The Instance of the GPIO Driver */
 #endif
 #endif
 #define PS_IIC_CLK 100000
@@ -474,6 +477,9 @@ u32 DpTxSs_Main(u16 DeviceId)
 	}
 
 #ifdef versal
+	/*Wait till gtpowergood for accessing gt and its registers*/
+	while(!((XGpio_DiscreteRead(&Gpio, 1)) & 0x1));
+
 #if (VERSAL_FABRIC_8B10B == 1)
 	//Unlocking NPI space to modify GT parameters
 	XDp_WriteReg(GT_QUAD_BASE, 0xC, 0xF9E8D7C6);
@@ -577,6 +583,15 @@ u32 DpTxSs_PlatformInit(void)
      if (Status != XST_SUCCESS) {
              return XST_FAILURE;
      }
+	/* Initialize the GPIO driver */
+	Status = XGpio_Initialize(&Gpio, XPAR_GPIO_1_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Gpio Initialization Failed\r\n");
+		return XST_FAILURE;
+	}
+	/* Set the direction for gpio channel 1 bit 0 as input */
+	XGpio_SetDataDirection(&Gpio, 1, 0x01);
+	 xil_printf("\r\nT3\r\n");
 #endif
 
 	   XIic0Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
