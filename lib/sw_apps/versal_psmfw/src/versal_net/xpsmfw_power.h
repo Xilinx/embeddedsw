@@ -241,6 +241,9 @@ struct XPsmFwPwrCtrl_t {
 
 	u8 IntrDisableMask;
 
+	/* core vectore table address*/
+	u32 VectTableAddr;
+
 };
 
 struct XPsmFwMemPwrCtrl_t {

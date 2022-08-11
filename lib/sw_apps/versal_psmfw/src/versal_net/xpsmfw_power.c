@@ -296,6 +296,7 @@ static struct XPsmFwPwrCtrl_t Rpu0_Core0PwrCtrl = {
 	.IntrDisableAddr = LPD_SLCR_RPU_PCIL_A0_IDS,
 	.IntrDisableMask = LPD_SLCR_RPU_PCIL_A0_IDS_PACTIVE1_MASK,
 	.ClusterId = CLUSTER_0,
+	.VectTableAddr = PSX_RPU_CLUSTER_A0_CORE_0_VECTABLE,
 
 };
 
@@ -319,6 +320,7 @@ static struct XPsmFwPwrCtrl_t Rpu0_Core1PwrCtrl = {
 	.IntrDisableAddr = LPD_SLCR_RPU_PCIL_A1_IDS,
 	.IntrDisableMask = LPD_SLCR_RPU_PCIL_A1_IDS_PACTIVE1_MASK,
 	.ClusterId = CLUSTER_0,
+	.VectTableAddr = PSX_RPU_CLUSTER_A1_CORE_1_VECTABLE,
 
 };
 
@@ -342,7 +344,7 @@ static struct XPsmFwPwrCtrl_t Rpu1_Core0PwrCtrl = {
 	.IntrDisableAddr = LPD_SLCR_RPU_PCIL_B0_IDS,
 	.IntrDisableMask = LPD_SLCR_RPU_PCIL_B0_IDS_PACTIVE1_MASK,
 	.ClusterId = CLUSTER_1,
-
+	.VectTableAddr = PSX_RPU_CLUSTER_B0_CORE_0_VECTABLE,
 };
 
 static struct XPsmFwPwrCtrl_t Rpu1_Core1PwrCtrl = {
@@ -365,7 +367,7 @@ static struct XPsmFwPwrCtrl_t Rpu1_Core1PwrCtrl = {
 	.IntrDisableAddr = LPD_SLCR_RPU_PCIL_B1_IDS,
 	.IntrDisableMask = LPD_SLCR_RPU_PCIL_B1_IDS_PACTIVE1_MASK,
 	.ClusterId = CLUSTER_1,
-
+	.VectTableAddr = PSX_RPU_CLUSTER_B1_CORE_1_VECTABLE,
 };
 
 static struct XPsmFwMemPwrCtrl_t Ocm_B0_I0_PwrCtrl = {
@@ -870,13 +872,25 @@ done:
 static XStatus XPsmFwRPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
+	u32 LowAddress;
 
-	/*TBD:Set the start address */
+	/*reset assert*/
+	XPsmFw_RMW32(PSX_CRL_RST_RPU,Args->RstCtrlMask,Args->RstCtrlMask);
 
-    XPsmFw_RMW32(Args->ResetCfgAddr,RPU_CORE_CPUHALT_MASK,0);
+	/*Set the start address */
+	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xffffffe0ULL);
+	if(0U != PsmToPlmEvent.ResumeAddress[Args->Id] & 1ULL){
+		XPsmFw_Write32(Args->VectTableAddr, LowAddress);
+		if(0U == LowAddress){
+			XPsmFw_RMW32(Args->ResetCfgAddr,RPU_TCMBOOT_MASK,RPU_TCMBOOT_MASK);
+		}else{
+			XPsmFw_RMW32(Args->ResetCfgAddr,RPU_TCMBOOT_MASK,~RPU_TCMBOOT_MASK);
+		}
+		PsmToPlmEvent.ResumeAddress[Args->Id] = 0U;
+	}
 
 	/* Mask wake interrupt */
-    XPsmFw_RMW32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_EN,Args->PwrStateMask >> 14, 0);
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_WAKEUP1_IRQ_EN,Args->PwrStateMask >> 14, 0);
 
 	Status = XPsmFwRPUxPwrUp(Args);
 	if(XST_SUCCESS != Status){
