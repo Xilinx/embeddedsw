@@ -1117,7 +1117,7 @@ done:
  ****************************************************************************/
 XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 {
-	XPM_EXPORT_CMD(PM_INIT_NODE, XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
+	XPM_EXPORT_CMD(PM_INIT_NODE, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWELVE);
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
@@ -2068,7 +2068,7 @@ XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version)
 XStatus XPm_NocClockEnable(u32 NodeId, const u32 *Args, u32 NumArgs)
 {
 	XPM_EXPORT_CMD(PM_NOC_CLOCK_ENABLE, XPLMI_CMD_ARG_CNT_TWO,
-		XPLMI_UNLIMITED_ARG_CNT);
+		XPLMI_CMD_ARG_CNT_NINE);
 	XStatus Status = XST_FAILURE;
 	XPm_PlDevice *PlDevice;
 
