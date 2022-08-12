@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +53,8 @@
  *                       and non-HPC designs. In Rx remove arch64 specific dsb
  *                       instruction by performing cache invalidate operation
  *                       for all supported architectures.
+ * 1.7   sa   08/12/22  Updated the example to use latest MIG cannoical define
+ * 		        i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
  * </pre>
  *
  * ***************************************************************************
@@ -80,8 +82,8 @@
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define DDR_BASE_ADDR	XPAR_MIG7SERIES_0_BASEADDR
-#elif XPAR_MIG_0_BASEADDR
-#define DDR_BASE_ADDR	XPAR_MIG_0_BASEADDR
+#elif XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
+#define DDR_BASE_ADDR	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
 #elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #endif

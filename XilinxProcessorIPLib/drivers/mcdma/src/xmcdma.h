@@ -121,6 +121,8 @@
 *                        to program BD control and sideband information.
 * 1.5	sk	07/13/20 Add XMcDma_BdGetAppWord() function declaration to fix
 * 			 the gcc warning in mcdma integration test suite.
+* 1.7   sa      08/12/22 Updated the examples to use latest MIG cannoical define
+* 		         i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
 ******************************************************************************/
 #ifndef XMCDMA_H_
 #define XMCDMA_H_
