@@ -452,6 +452,8 @@
 *                     In XAxiDma_LookupConfigBaseAddr() use UINTPTR for Baseaddr.
 * 9.7  rsp   04/25/18 Add SgLengthWidth member in dma config structure. CR #1000474
 * 9.13 rsp   01/08/21 Fix compilation failure in XAxiDma_IntrGetEnabled().
+* 9.15  sa   08/12/22 Updated the examples to use latest MIG cannoical define
+* 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
 * </pre>
 *
 ******************************************************************************/

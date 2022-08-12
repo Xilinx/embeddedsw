@@ -51,6 +51,8 @@
  * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
  * 9.14  sk   03/08/22 Delete DDR memory limits comments as they are not
  *		       relevant to this driver version.
+ * 9.15  sa   08/12/22 Updated the example to use latest MIG cannoical define
+ * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
  * </pre>
  *
  * ***************************************************************************
@@ -85,8 +87,8 @@ extern void xil_printf(const char *format, ...);
 #define DDR_BASE_ADDR		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif defined (XPAR_MIG7SERIES_0_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_MIG7SERIES_0_BASEADDR
-#elif defined (XPAR_MIG_0_BASEADDR)
-#define DDR_BASE_ADDR	XPAR_MIG_0_BASEADDR
+#elif defined (XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR)
+#define DDR_BASE_ADDR	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
 #elif defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR)
 #define DDR_BASE_ADDR	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #endif
