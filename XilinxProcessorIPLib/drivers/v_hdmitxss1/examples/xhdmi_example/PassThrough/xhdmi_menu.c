@@ -1308,7 +1308,7 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
     /* Variables */
     XHdmi_MenuType  Menu;
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
-    u8 Buffer[256];
+    u8 Buffer[512];
     int Status = XST_FAILURE;
 #endif
     /* Default */
