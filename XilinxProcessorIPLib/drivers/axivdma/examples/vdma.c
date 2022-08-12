@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,8 @@
  *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
+ * 6.12  sa   08/12/22 Updated the example to use latest MIG cannoical define
+ * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
  ****************************************************************************/
 
 /*** Include file ***/
@@ -37,8 +39,8 @@
 #define MEMORY_BASE		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define MEMORY_BASE	XPAR_MIG7SERIES_0_BASEADDR
-#elif XPAR_MIG_0_BASEADDR
-#define MEMORY_BASE	XPAR_MIG_0_BASEADDR
+#elif XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
+#define MEMORY_BASE	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
 #elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #define MEMORY_BASE	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #else

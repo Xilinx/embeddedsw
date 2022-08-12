@@ -276,6 +276,8 @@
 *                     definitions of axivdma in xparameters.h
 *       ms   08/07/17 Fixed compilation warnings in xaxivdma_sinit.c
 * 6.6   rsp  07/02/18 Add vertical flip states in config structures
+* 6.12  sa   08/12/22 Updated the examples to use latest MIG cannoical define
+* 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
 *
 * </pre>
 *

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2012 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,8 @@
  *                     Remove unused variable GCC warning in ReadSetup().
  * 6.11  rsp  03/16/21 After Wr/Rd channel reset ensure it's completed
  *                     and then do data comparison.
+ * 6.12  sa   08/12/22 Updated the example to use latest MIG cannoical define
+ * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
  * </pre>
  *
  * ***************************************************************************
@@ -104,9 +106,9 @@
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define DDR_BASE_ADDR		XPAR_MIG7SERIES_0_BASEADDR
 #define DDR_HIGH_ADDR	 	XPAR_MIG7SERIES_0_HIGHADDR
-#elif XPAR_MIG_0_BASEADDR
-#define DDR_BASE_ADDR		XPAR_MIG_0_BASEADDR
-#define DDR_HIGH_ADDR	 	XPAR_MIG_0_HIGHADDR
+#elif XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
+#define DDR_BASE_ADDR		XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
+#define DDR_HIGH_ADDR	 	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_HIGHADDR
 #else
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
 			DEFAULT SET TO 0x01000000
