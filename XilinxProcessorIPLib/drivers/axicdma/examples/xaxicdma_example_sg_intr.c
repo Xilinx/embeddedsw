@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,6 +53,8 @@
  * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
  * 4.8	 sk   09/28/20 Fix the compilation error for xreg_cortexa9.h
  * 		       preprocessor on R5 processor.
+ * 4.10  sa   08/12/22 Updated the example to use latest MIG cannoical define
+ * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
  * </pre>
  *
  ****************************************************************************/
@@ -106,8 +108,8 @@ extern void xil_printf(const char *format, ...);
 #define MEMORY_BASE		XPAR_AXI_7SDDR_0_S_AXI_BASEADDR
 #elif XPAR_MIG7SERIES_0_BASEADDR
 #define MEMORY_BASE	XPAR_MIG7SERIES_0_BASEADDR
-#elif XPAR_MIG_0_BASEADDR
-#define MEMORY_BASE	XPAR_MIG_0_BASEADDR
+#elif XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
+#define MEMORY_BASE	XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR
 #elif XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #define MEMORY_BASE	XPAR_PSU_DDR_0_S_AXI_BASEADDR
 #else
