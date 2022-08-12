@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2012 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxivdma_g.c
-* @addtogroup axivdma_v6_11
+* @addtogroup axivdma_v6_12
 * @{
 *
 * Provide a template for user to define their own hardware settings.
