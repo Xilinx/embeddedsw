@@ -52,7 +52,7 @@
 void EdidScdcCheck(XV_HdmiTxSs1          *HdmiTxSs1Ptr,
                    EdidHdmi           *CheckHdmiParam)
 {
-    u8 Buffer [256];
+    u8 Buffer [512];
     int Status;
 
     /*Below Check executed only when TX Cable Connect*/
