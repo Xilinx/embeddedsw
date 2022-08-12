@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xmcdma_bd.c
-* @addtogroup mcdma_v1_6
+* @addtogroup mcdma_v1_7
 * @{
 *
 * This file implements all the Scatter/Gather handling for the MCDMA Core,
