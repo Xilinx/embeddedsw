@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
  *  @file xaxicdma.c
-* @addtogroup axicdma_v4_9
+* @addtogroup axicdma_v4_10
 * @{
  *
  * The implementation of the API of Xilinx CDMA engine.

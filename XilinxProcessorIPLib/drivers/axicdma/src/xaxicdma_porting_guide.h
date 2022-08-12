@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxicdma_porting_guide.h
-* @addtogroup axicdma_v4_9
+* @addtogroup axicdma_v4_10
 * @{
 *
 * This is a guide on how to move from using the XPS Central DMA driver,
