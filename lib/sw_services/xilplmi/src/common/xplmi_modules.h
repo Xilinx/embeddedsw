@@ -33,6 +33,7 @@
 *                       unique variable names
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Move ScatterWrite and ScatterWrite2 APIs to common code
+*       jd   08/11/2022 Increase command argument count macros from 6 to 12
 * </pre>
 *
 * @note
@@ -114,6 +115,12 @@ typedef struct {
 #define XPLMI_CMD_ARG_CNT_FOUR		(4U)
 #define XPLMI_CMD_ARG_CNT_FIVE		(5U)
 #define XPLMI_CMD_ARG_CNT_SIX		(6U)
+#define XPLMI_CMD_ARG_CNT_SEVEN		(7U)
+#define XPLMI_CMD_ARG_CNT_EIGHT		(8U)
+#define XPLMI_CMD_ARG_CNT_NINE		(9U)
+#define XPLMI_CMD_ARG_CNT_TEN		(10U)
+#define XPLMI_CMD_ARG_CNT_ELEVEN	(11U)
+#define XPLMI_CMD_ARG_CNT_TWELVE	(12U)
 #define XPLMI_UNLIMITED_ARG_CNT		(0xFFU)
 
 #define XPLMI_MAJOR_MODULE_VERSION	(1U)
