@@ -97,6 +97,7 @@
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *       dc   07/12/2022 Moved buffer clear status to here from xilloader
 *       ma   07/25/2022 Enhancements to secure lockdown code
+*       ma   08/10/2022 Added error code XPLMI_SSIT_INTR_NOT_ENABLED
 *
 * </pre>
 *
@@ -316,6 +317,8 @@ typedef enum {
 	                    event is not supported to be triggered from the running SLR */
 	XPLMI_SSIT_EVENT_IS_NOT_PENDING, /**< 0x1AA - Error when an event is not pending and
 		                the request comes to write to the response buffer */
+	XPLMI_SSIT_INTR_NOT_ENABLED, /**< 0x1AB - SSIT interrupts are not enabled.
+	                    Hence, cannot trigger the event */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
