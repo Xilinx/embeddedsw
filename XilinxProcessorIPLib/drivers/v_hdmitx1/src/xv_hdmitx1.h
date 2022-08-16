@@ -165,6 +165,7 @@ typedef enum {
 	XV_HDMITX1_HANDLER_FRL_LTSL,
 	XV_HDMITX1_HANDLER_CED_UPDATE,
 	XV_HDMITX1_HANDLER_DYNHDR_MWT,
+	XV_HDMITX1_HANDLER_DSCDECODE_FAIL,
 } XV_HdmiTx1_HandlerType;
 /*@}*/
 
@@ -410,6 +411,8 @@ typedef struct {
 						  *  MTW Start */
 	void *DynHdrMtwRef;			/**< To be passed to the
 						  *  Dynamic HDR callback */
+	XV_HdmiTx1_Callback DscDecodeFailCallback; /**< Callback for DSC decode fail */
+	void *DscDecodeFailRef;  /**< To be passed to DSC decode fail callback */
 	/* Aux peripheral specific */
 	XHdmiC_Aux Aux;                         /**< AUX peripheral information */
 	XV_HdmiC_VrrInfoFrame VrrIF;		/**< VRR infoframe SPDIF or VTEM */
@@ -1430,6 +1433,35 @@ typedef struct {
 			   (XV_HDMITX1_MASK_CTRL_OFFSET)) & \
 	(XV_HDMITX1_MASK_CTRL_RUN_MASK)
 
+/*****************************************************************************/
+/**
+*
+* This macro allows enabling/disabling of DSC in HDMI-TX
+*
+* @param        InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param        SetClr specifies TRUE/FALSE value to either enable or disable
+*               the DSC
+*
+* @return       None.
+*
+* @note         C-style signature:
+* 			void XV_HdmiTx1_DscControl(XV_HdmiTx1 *InstancePtr, u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiTx1_DscControl(InstancePtr, SetClr) \
+{ \
+        if (SetClr) { \
+                XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+                                    (XV_HDMITX1_AUX_CTRL_SET_OFFSET), \
+                                    (XV_HDMITX1_AUX_CTRL_DSC_EN_MASK)); \
+        } \
+        else { \
+                XV_HdmiTx1_WriteReg((InstancePtr)->Config.BaseAddress, \
+                                    (XV_HDMITX1_AUX_CTRL_CLR_OFFSET), \
+                                    (XV_HDMITX1_AUX_CTRL_DSC_EN_MASK)); \
+        } \
+}
+
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xv_hdmitx1_sinit.c */
@@ -1485,6 +1517,8 @@ int XV_HdmiTx1_DdcReadReg(XV_HdmiTx1 *InstancePtr, u8 Slave, u16 Length,
 int XV_HdmiTx1_DdcWriteField(XV_HdmiTx1 *InstancePtr,
 			     XV_HdmiTx1_ScdcFieldType Field,
 			     u8 Value);
+void XV_HdmiTx1_Aux_Dsc_Send_Header(XV_HdmiTx1 *InstancePtr, u32 Data);
+void XV_HdmiTx1_Aux_Dsc_Send_Data(XV_HdmiTx1 *InstancePtr, u32 Data);
 u32 XV_HdmiTx1_AuxSend(XV_HdmiTx1 *InstancePtr);
 int XV_HdmiTx1_Scrambler(XV_HdmiTx1 *InstancePtr);
 int XV_HdmiTx1_ClockRatio(XV_HdmiTx1 *InstancePtr);

@@ -95,6 +95,7 @@ static void XV_HdmiTxSs1_FrlLts4Callback(void *CallbackRef);
 static void XV_HdmiTxSs1_FrlLtsPCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_CedUpdateCallback(void *CallbackRef);
 static void XV_HdmiTxSs1_DynHdrMtwCallback(void *CallbackRef);
+static void XV_HdmiTxSs1_DscDecodeFailCallback(void *CallbackRef);
 
 static u32 XV_HdmiTxSS1_GetVidMaskColorValue(XV_HdmiTxSs1 *InstancePtr,
 											u16 Value);
@@ -366,6 +367,11 @@ static int XV_HdmiTxSs1_RegisterSubsysCallbacks(XV_HdmiTxSs1 *InstancePtr)
 			   XV_HDMITX1_HANDLER_DYNHDR_MWT,
 			   (void *)XV_HdmiTxSs1_DynHdrMtwCallback,
 			   (void *)InstancePtr);
+
+    XV_HdmiTx1_SetCallback(HdmiTxSs1Ptr->HdmiTx1Ptr,
+			XV_HDMITX1_HANDLER_DSCDECODE_FAIL,
+			(void *)XV_HdmiTxSs1_DscDecodeFailCallback,
+				(void *)InstancePtr);
   }
 
   return(XST_SUCCESS);
@@ -815,7 +821,18 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
   VideoTiming.HSyncWidth = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HSyncWidth;
   VideoTiming.HBackPorch = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HBackPorch;
   VideoTiming.HSyncPolarity = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HSyncPolarity;
+  if(HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.IsDSCompressed) {
+	  VideoTiming.HFrontPorch = 44 ;
+	  VideoTiming.HSyncWidth = 0 ;
+	  VideoTiming.HBackPorch  = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HTotal -
+	  (HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HActive +
+	  VideoTiming.HFrontPorch  + VideoTiming.HSyncWidth );
 
+  } else  {
+	  VideoTiming.HFrontPorch = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HFrontPorch;
+	  VideoTiming.HSyncWidth = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HSyncWidth;
+	  VideoTiming.HBackPorch = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HBackPorch;
+  }
   /* Vertical Timing */
   VideoTiming.VActiveVideo = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.VActive;
 
@@ -859,10 +876,14 @@ static int XV_HdmiTxSs1_VtcSetup(XV_HdmiTxSs1 *HdmiTxSs1Ptr)
 * This process will check the horizontal blank timing and compensate
 * for this condition.
 * Calculate hdmi tx horizontal blanking */
+    if(HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.IsDSCompressed)
+	HdmiTx1_Hblank = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HTotal -
+	    HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HActive;
+    else
+	HdmiTx1_Hblank = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HFrontPorch +
+			HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HSyncWidth +
+			HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HBackPorch;
 
-  HdmiTx1_Hblank = HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HFrontPorch +
-    HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HSyncWidth +
-    HdmiTxSs1Ptr->HdmiTx1Ptr->Stream.Video.Timing.HBackPorch;
 
   do {
     /* Calculate vtc horizontal blanking*/
@@ -1363,6 +1384,27 @@ static void XV_HdmiTxSs1_DynHdrMtwCallback(void *CallbackRef)
 
 /*****************************************************************************/
 /**
+* This function is called whenever user needs to be informed of DSC decode fail
+* condition.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiTxSs1_DscDecodeFailCallback(void *CallbackRef)
+{
+	XV_HdmiTxSs1 *HdmiTxSs1Ptr = (XV_HdmiTxSs1 *)CallbackRef;
+
+	if (HdmiTxSs1Ptr->DscDecodeFailCallback) {
+		HdmiTxSs1Ptr->DscDecodeFailCallback(HdmiTxSs1Ptr->DscDecodeFailRef);
+	}
+}
+
+/*****************************************************************************/
+/**
 *
 * This function installs an asynchronous callback function for the given
 * HandlerType:
@@ -1592,6 +1634,12 @@ int XV_HdmiTxSs1_SetCallback(XV_HdmiTxSs1 *InstancePtr,
 	  Status = (XST_SUCCESS);
 	  break;
 
+	case (XV_HDMITXSS1_HANDLER_DSCDECODE_FAIL):
+		  InstancePtr->DscDecodeFailCallback = (XV_HdmiTxSs1_Callback)CallbackFunc;
+		  InstancePtr->DscDecodeFailRef = CallbackRef;
+		  Status = (XST_SUCCESS);
+		  break;
+
 	default:
             Status = (XST_INVALID_PARAM);
             break;
@@ -1628,6 +1676,56 @@ int XV_HdmiTxSs1_SetLogCallback(XV_HdmiTxSs1 *InstancePtr,
     Status = (XST_SUCCESS);
 
     return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is used to Send CVTEM Packet
+*
+* @param    InstancePtr is a pointer to the HDMI TX Subsystem instance.
+* @param	DscAuxFifo is a pointer to the HDMI Aux fifo
+*
+* @return	XST_SUCCESS on successful update of header and data.
+* 			XST_FAILURE if the device is busy
+*
+* @note
+*
+******************************************************************************/
+int XV_HdmiTxSs1_SendCvtemAuxPackets(XV_HdmiTxSs1 *InstancePtr, XHdmiC_Aux *DscAuxFifo)
+{
+	u32 Index;
+	u32 Index_D;
+	u32 Data;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Data = XV_HdmiTx1_ReadReg(InstancePtr->HdmiTx1Ptr->Config.BaseAddress,
+			XV_HDMITX1_AUX_STA_OFFSET);
+
+	/* Iterated 100 times to achieve the functionality across various sinks */
+	for ( Index = 0; Index < 100; Index++) {
+		Data = XV_HdmiTx1_ReadReg(InstancePtr->HdmiTx1Ptr->Config.BaseAddress,
+				XV_HDMITX1_AUX_STA_OFFSET);
+
+		if ((Data & XV_HDMITX1_AUX_STA_DSC_PKT_WRRDY_MASK) == 0) {
+			break;
+		}
+	}
+
+	if (Index == 100) {
+		xil_printf("AUX ACCESS IS BUSY\r\n");
+		return XST_FAILURE;
+	}
+
+	for(Index = 0 ; Index < 6 ; Index++ ) {
+		XV_HdmiTx1_Aux_Dsc_Send_Header(InstancePtr->HdmiTx1Ptr, DscAuxFifo[Index].Header.Data);
+		for(Index_D = 0; Index_D < 8; Index_D++)
+			XV_HdmiTx1_Aux_Dsc_Send_Data(InstancePtr->HdmiTx1Ptr, DscAuxFifo[Index].Data.Data[Index_D]);
+	}
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -2292,6 +2390,7 @@ XHdmiC_DRMInfoFrame *XV_HdmiTxSs1_GetDrmInfoframe(XV_HdmiTxSs1 *InstancePtr)
 *	  FrameRate -	Frame rate to set
 *	  ColorFormat -	Color format of stream (RGB, YUV444/422/420)
 *	  Bpc -		Bit per component
+*	  IsDSCompressed - Flag to indicate DSCompression
 *	  Info3D -	3D Info
 *	  TmdsClock -	Address where the calculated TMDS Clock value is stored.
 *
@@ -2306,6 +2405,7 @@ u32 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 			   XVidC_FrameRate FrameRate,
 			   XVidC_ColorFormat ColorFormat,
 			   XVidC_ColorDepth Bpc,
+			   u8 IsDSCompressed,
 			   XVidC_3DInfo *Info3D,
 			   u64 *TmdsClock)
 {
@@ -2322,7 +2422,8 @@ u32 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 	if (InstancePtr->Config.VideoInterface == 0) {
 		Xil_AssertNonvoid(InstancePtr->Config.Ppc == XVIDC_PPC_4 ||
 				  InstancePtr->Config.Ppc == XVIDC_PPC_8);
-		if (InstancePtr->Config.Ppc == XVIDC_PPC_4) {
+
+		if ((InstancePtr->Config.Ppc == XVIDC_PPC_4) && (IsDSCompressed == 0)){
 			if (ColorFormat != XVIDC_CSF_YCRCB_420) {
 				if (VideoTiming.HActive % 4)
 					Error = 1;
@@ -2331,7 +2432,7 @@ u32 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 					Error = 1;
 			}
 		}
-		if (InstancePtr->Config.Ppc == XVIDC_PPC_8) {
+		if ((InstancePtr->Config.Ppc == XVIDC_PPC_8) && (IsDSCompressed == 0)) {
 			if (VideoTiming.HActive % 8)
 				Error = 1;
 		}
@@ -2358,6 +2459,14 @@ u32 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 	if (Error) {
 		xdbg_printf(XDBG_DEBUG_ERROR,"\r\nInvalid VideoTimings passed!\r\n");
 		return XST_INVALID_PARAM;
+	}
+
+	/* DSC enable */
+	if (IsDSCompressed) {
+		XV_HdmiTx1_DscControl(InstancePtr->HdmiTx1Ptr, 1);
+		xil_printf("Enabled DSC core\r\n");
+	} else {
+		XV_HdmiTx1_DscControl(InstancePtr->HdmiTx1Ptr, 0);
 	}
 
 	Status = XV_HdmiTx1_SetStream(InstancePtr->HdmiTx1Ptr,

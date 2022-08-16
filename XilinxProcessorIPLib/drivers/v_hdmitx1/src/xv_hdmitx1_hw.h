@@ -56,6 +56,7 @@ extern "C" {
 #define XV_HDMITX1_DDC_STCR_FLT_NO_TIMEOUT_MASK      0x20
 
 /* DDC STATUS FLAGS register masks and shifts*/
+#define XV_HDMITX1_DDC_STAT_FLGS_DSC_DECODE_MASK	 0x80
 #define XV_HDMITX1_DDC_STAT_FLGS_FLT_RDY_MASK        0x40
 #define XV_HDMITX1_DDC_STAT_FLGS_LN01_LN0_MASK       0x0F
 #define XV_HDMITX1_DDC_STAT_FLGS_LN01_LN1_SHIFT      4
@@ -305,6 +306,8 @@ extern "C" {
 #define XV_HDMITX1_AUX_CTRL_DYNHDR_GOF_EN_MASK	(1 << 5)  /**< AUX Control Enable Graphic Overlay Flag mask */
 #define XV_HDMITX1_AUX_CTRL_DYNHDR_GOF_VAL_MASK	(1 << 6)  /**< AUX Control Graphic Overlay Flag value mask */
 #define XV_HDMITX1_AUX_CTRL_DYNHDR_FAPA_LOC_MASK	(1 << 7)  /**< AUX Control FAPA Location value mask */
+#define XV_HDMITX1_AUX_CTRL_DSC_EN_MASK      (1<<8)  /**< AUX Control DSC En mask */
+
 
 /* Auxiliary peripheral Status register masks and shift*/
 #define XV_HDMITX1_AUX_STA_IRQ_MASK          (1<<0)  /**< AUX Status Interrupt
@@ -325,6 +328,7 @@ extern "C" {
  * 0 : Memory response is clean
  */
 #define XV_HDMITX1_AUX_DYNHDR_RD_STS_MASK	(1 << 9) /**< AUX Status Dynamic HDR read response */
+#define XV_HDMITX1_AUX_STA_DSC_PKT_WRRDY_MASK	(1 << 10) /**< AUX Status DSC Packet Write Ready */
 
 /* AUX VTEM register masks and shifts*/
 #define XV_HDMITX1_AUX_VTEM_M_CONST_SHIFT            1
@@ -356,6 +360,9 @@ extern "C" {
 #define XV_HDMITX1_AUX_DYNHDR_PKT_LENGTH_MASK	(0xffff << 16)
 #define XV_HDMITX1_AUX_DYNHDR_PKT_TYPE_SHIFT	(0)
 #define XV_HDMITX1_AUX_DYNHDR_PKT_LENGTH_SHIFT	(16)
+
+/* DSC register offset */
+#define XV_HDMITX1_DSC_BASE				0xF0
 
 /* Audio (AUD) peripheral register offsets*/
 /* The AUD is the forth peripheral on the local bus*/

@@ -313,6 +313,13 @@ int XV_HdmiTx1_SetCallback(XV_HdmiTx1 *InstancePtr,
 		Status = (XST_SUCCESS);
 		break;
 
+	/* DSC Decode Fail Update*/
+	case (XV_HDMITX1_HANDLER_DSCDECODE_FAIL):
+			InstancePtr->DscDecodeFailCallback = (XV_HdmiTx1_Callback)CallbackFunc;
+			InstancePtr->DscDecodeFailRef = CallbackRef;
+			Status = (XST_SUCCESS);
+			break;
+
 	default:
 		Status = (XST_INVALID_PARAM);
 		break;

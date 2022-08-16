@@ -256,6 +256,7 @@ typedef enum {
                                                             HDCP unauthenticated
                                                             event */
     XV_HDMITXSS1_HANDLER_DYNHDR_MWT,		/**< Handler for MTW Event */
+	XV_HDMITXSS1_HANDLER_DSCDECODE_FAIL,		/**< Dsc Decode fail Event */
 } XV_HdmiTxSs1_HandlerType;
 /*@}*/
 
@@ -291,6 +292,7 @@ typedef struct
 	u8 YUV420Supp;
 	u32 MaxFrlRate;                   /** < Maximum FRL Rate Supporte */
 	u32 DynHdr;			/**< Supports Dynamic HDR */
+    u32 DSC; /**< DSC Supported */
     u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
     u8 VideoInterface;	/**< 0 - AXI4S 1 - Native 2 - Native DE video interface */
     XV_HdmiTxSs1_SubCore HdcpTimer;    /**< Sub-core instance configuration */
@@ -437,6 +439,8 @@ typedef struct
 						 *  MTW Start */
     void *DynHdrMtwRef;			/**< To be passed to the
 					 *  Dynamic HDR callback */
+    XV_HdmiTxSs1_Callback DscDecodeFailCallback; /**< Callback for DSC decode fail */
+    void *DscDecodeFailRef;  /**< To be passed to DSC decode fail callback */
 
     /**< Scratch pad */
     u8 SamplingRate;              /**< HDMI TX Sampling rate */
@@ -513,6 +517,7 @@ int XV_HdmiTxSs1_SetCallback(XV_HdmiTxSs1 *InstancePtr,
 int XV_HdmiTxSs1_SetLogCallback(XV_HdmiTxSs1 *InstancePtr,
 	u64 *CallbackFunc,
 	void *CallbackRef);
+int XV_HdmiTxSs1_SendCvtemAuxPackets(XV_HdmiTxSs1 *InstancePtr, XHdmiC_Aux *DscAuxFifo);
 int XV_HdmiTxSs1_ReadEdid(XV_HdmiTxSs1 *InstancePtr, u8 *BufferPtr);
 int XV_HdmiTxSs1_ReadEdidSegment(XV_HdmiTxSs1 *InstancePtr, u8 *Buffer, u8 segment);
 void XV_HdmiTxSs1_ShowEdid(XV_HdmiTxSs1 *InstancePtr);
@@ -539,6 +544,7 @@ u32 XV_HdmiTxSs1_SetStream(XV_HdmiTxSs1 *InstancePtr,
 		XVidC_FrameRate FrameRate,
 		XVidC_ColorFormat ColorFormat,
 		XVidC_ColorDepth Bpc,
+		u8 IsDSCompressed,
 		XVidC_3DInfo *Info3D,
 		u64 *TmdsClk);
 XVidC_VideoStream *XV_HdmiTxSs1_GetVideoStream(XV_HdmiTxSs1 *InstancePtr);

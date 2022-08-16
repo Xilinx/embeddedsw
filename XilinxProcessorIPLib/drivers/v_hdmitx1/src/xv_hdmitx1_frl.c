@@ -384,6 +384,13 @@ static int XV_HdmiTx1_ExecFrlState_Lts2(XV_HdmiTx1 *InstancePtr)
 					       (u8*)&DdcBuf);
 
 		if (Status == XST_SUCCESS &&
+				(DdcBuf & XV_HDMITX1_DDC_STAT_FLGS_DSC_DECODE_MASK)) {
+			if (InstancePtr->DscDecodeFailCallback) {
+				InstancePtr->DscDecodeFailCallback(InstancePtr->DscDecodeFailRef);
+			}
+		}
+
+		if (Status == XST_SUCCESS &&
 		    (DdcBuf & XV_HDMITX1_DDC_STAT_FLGS_FLT_RDY_MASK)) {
 #ifdef DEBUG_TX_FRL_VERBOSITY
 			xil_printf(ANSI_COLOR_CYAN "TX: FRL LTS:2 "

@@ -532,6 +532,7 @@ u32 XV_Tx_VideoSetupAndStart(XV_Tx *InstancePtr,
 					HdmiTxSsVidStreamPtr->FrameRate,
 					HdmiTxSsVidStreamPtr->ColorFormatId,
 					HdmiTxSsVidStreamPtr->ColorDepth,
+					HdmiTxSsVidStreamPtr->IsDSCompressed,
 					NULL, &TmdsClock);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n XV_HdmiTxSs1_SetStream failed %u\r\n", Status);
