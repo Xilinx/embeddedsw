@@ -6,10 +6,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xpuf_ipi.c
+* @file xpuf_mailbox.c
 *
-* This file contains the implementation of the client interface functions for
-* IPI driver.
+* This file contains the implementation of the xilmailbox generic interface APIs for
+* xilpuf client library.
 *
 * <pre>
 * MODIFICATION HISTORY:
