@@ -21,6 +21,9 @@
 #                         support SSIT devices. Now get_param_value
 #                         proc would be used instead of get_property
 #                         proc to read those parameters.
+# 5.5	   sne	 08/12/22  Updated tcl file to support C_WDT_CLK_FREQ_HZ
+#			   property. Exports CLK information from xsa to
+#			   wdttb_g.c file.
 #
 ###############################################################################
 
@@ -164,9 +167,7 @@ proc xdefine_params_include_file {file_handle periph device_id} {
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] 0$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] 0$uSuffix"
 		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "IS_PL"] 0$uSuffix"
-		set clk_freq [::hsi::utils::get_param_value $periph C_WDT_CLK_FREQ_HZ]
-		set clk_freq [expr int($clk_freq * 1000000)]
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "WDT_CLK_FREQ_HZ"] $clk_freq"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "WDT_CLK_FREQ_HZ"] [::hsi::utils::get_param_value $periph C_WDT_CLK_FREQ_HZ]$uSuffix"
 	}
 }
 
@@ -233,6 +234,10 @@ proc xdefine_params_canonical {file_handle periph device_id} {
 	set canonical_name [format "%s_IS_PL" $canonical_tag]
 	puts $file_handle "\#define $canonical_name 1$uSuffix"
 	add_field_to_periph_config_struct $device_id $canonical_name
+	# Handle CLK argument
+	set canonical_name [format "%s_WDT_CLK_FREQ_HZ" $canonical_tag]
+	puts $file_handle "\#define $canonical_name 0$uSuffix"
+	add_field_to_periph_config_struct $device_id $canonical_name
 	} else {
 		set canonical_name [format "%s_BASEADDR" $canonical_tag]
 		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_S_AXI_BASEADDR]$uSuffix"
@@ -258,9 +263,7 @@ proc xdefine_params_canonical {file_handle periph device_id} {
 		add_field_to_periph_config_struct $device_id $canonical_name
 
 		set canonical_name [format "%s_WDT_CLK_FREQ_HZ" $canonical_tag]
-		set clk_freq [::hsi::utils::get_param_value $periph C_WDT_CLK_FREQ_HZ]
-		set clk_freq [expr int($clk_freq * 1000000)]
-		puts $file_handle "\#define $canonical_name $clk_freq"
+		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_WDT_CLK_FREQ_HZ]$uSuffix"
 		add_field_to_periph_config_struct $device_id $canonical_name
 	}
 }
