@@ -27,6 +27,8 @@
 * 1.05  ma   05/10/2022 Added PLM to PLM communication feature
 *       hb   06/15/2022 Added event XPLMI_SEM_NOTIFY_ERR_EVENT_INDEX
 *       is   07/10/2022 Added support for XPlmi_SsitSendMsgEventAndGetResp API
+*       ma   08/10/2022 Added dummy PLM to PLM communication APIs to be used
+*                       by other components when the feature is not enabled
 *
 * </pre>
 *
@@ -64,6 +66,11 @@ extern "C" {
 #define SSIT_SLAVE_0_MASK			(1U)
 #define SSIT_SLAVE_1_MASK			(2U)
 #define SSIT_SLAVE_2_MASK			(4U)
+
+/**
+ * SSIT PLM-PLM communication related event handler definition
+ */
+typedef int (*XPlmi_EventHandler_t)(void *Data);
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 /**
@@ -124,7 +131,6 @@ enum SsitEventIndex {
 /*
  * SSIT events related structure definitions
  */
-typedef int (*XPlmi_EventHandler_t)(void *Data);
 typedef struct {
 	u8 EventOrigin;
 	XPlmi_EventHandler_t EventHandler;
@@ -151,6 +157,12 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 /* Functions related to SSIT events between SLRs */
 int XPlmi_SsitEventsInit(void);
+u8 XPlmi_SsitIsIntrEnabled(void);
+u8 XPlmi_GetSlrIndex(void);
+void XPlmi_SsitSetIsIntrEnabled(u8 Value);
+void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask);
+#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
+
 int XPlmi_SsitRegisterEvent(u32 EventIndex, XPlmi_EventHandler_t Handler,
 		u8 EventOrigin);
 int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
@@ -161,14 +173,10 @@ int XPlmi_SsitWaitForEvent(u8 SlrIndex, u32 EventIndex, u32 TimeOut);
 int XPlmi_SsitReadResponse(u8 SlrIndex, u32* RespBuf, u32 RespBufSize);
 int XPlmi_SsitWriteResponseAndAckMsgEvent(u32 *RespBuf, u32 RespBufSize);
 int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex);
-u8 XPlmi_SsitIsIntrEnabled(void);
-u8 XPlmi_GetSlrIndex(void);
-void XPlmi_SsitSetIsIntrEnabled(u8 Value);
-void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask);
 u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex);
 int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
 		u32 *RespBuf, u32 RespBufSize, u32 WaitForEventCompletion);
-#endif
+
 /* SSIT Sync Related functions */
 int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);
 int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd);

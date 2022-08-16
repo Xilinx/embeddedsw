@@ -29,6 +29,10 @@
 *       hb   06/15/2022 Removed static declaration of XPlmi_SsitGetSlrAddr
 *       is   07/10/2022 Added support for XPlmi_SsitSendMsgEventAndGetResp API
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
+*       ma   08/10/2022 Added dummy PLM to PLM communication APIs to be used
+*                       by other components when the feature is not enabled
+*                       Also, check if SSIT interrupts are enabled before
+*                       triggering any event
 *
 * </pre>
 *
@@ -44,11 +48,10 @@
 #include "xplmi_modules.h"
 #include "xplmi_wdt.h"
 
-#ifndef PLM_ENABLE_PLM_TO_PLM_COMM
 /************************** Function Prototypes ******************************/
 static u32 XPlmi_SsitGetSlaveErrorMask(void);
 
-#else
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 /************************** Constant Definitions *****************************/
 /*
  * PMC RAM allocated for SSIT Events
@@ -82,7 +85,6 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static u32 XPlmi_SsitGetSlaveErrorMask(void);
 static XPlmi_TaskNode *XPlmi_SsitCreateTask(u8 SlrIndex);
 static u8 XPlmi_SsitIsEventPending(u8 SlrIndex, u32 EventIndex);
 static int XPlmi_SsitEventHandler(void *Data);
@@ -428,6 +430,14 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 	u8 Index = XPLMI_GET_EVENT_ARRAY_INDEX(EventIndex);
 	u8 BitMask;
 	u8 SlrEvIndex;
+
+	/*
+	 * Check if SSIT interrupts are enabled or not before triggering the event
+	 */
+	if (SsitEvents->IsIntrEnabled != (u8)TRUE) {
+		Status = (int)XPLMI_SSIT_INTR_NOT_ENABLED;
+		goto END;
+	}
 
 	/*
 	 * Check if the event trigger request is between Slave SLRs and
@@ -1099,7 +1109,221 @@ static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait)
 END:
 	return Status;
 }
-#endif
+#else
+/****************************************************************************/
+/**
+* @brief    This function is used to register any event between Master and
+*           Slave SLRs
+*
+* @param    EventIndex is the Index of the event to be registered
+* @param    Handler is the handler to be executed when this Event occurs
+* @param    EventOrigin is the SLR origin which can trigger the event
+*
+* @return   Returns XST_SUCCESS for non-SSIT designs
+*
+****************************************************************************/
+int XPlmi_SsitRegisterEvent(u32 EventIndex, XPlmi_EventHandler_t Handler,
+		u8 EventOrigin)
+{
+	(void)EventIndex;
+	(void)Handler;
+	(void)EventOrigin;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to write the event buffer data and trigger
+*           the Message Event
+*
+* @param    SlrIndex is the index of the SLR to which the event buffer need to
+*            be written
+* @param    ReqBuf is the buffer from where the event buffer data to be
+*            written to Slave SLRs event buffer
+* @param    ReqBufSize is the size of the ReqBuf
+*
+* @return   Returns XST_SUCCESS for non-SSIT designs
+*
+****************************************************************************/
+int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
+		u32 ReqBufSize)
+{
+	(void)SlrIndex;
+	(void)ReqBuf;
+	(void)ReqBufSize;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to read the event buffer of Master SLR in
+*           Slave SLRs where the message event is received
+*
+* @param    ReqBuf is the buffer to which the event buffer data to be written
+* @param    ReqBufSize is the size of the ReqBuf
+*
+* @return   Returns XST_SUCCESS for non-SSIT designs
+*
+****************************************************************************/
+int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
+{
+	(void)ReqBuf;
+	(void)ReqBufSize;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to trigger the given event to the given SLR
+*
+* @param    SlrIndex is the index of the SLR to which the event to be triggered
+* @param    EventIndex is the Index of the event to be triggered
+*
+* @return   Returns XST_SUCCESS for non-SSIT designs
+*
+****************************************************************************/
+int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
+{
+	(void)SlrIndex;
+	(void)EventIndex;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to wait for the event to be acknowledged
+*           by the given SLR after triggering
+*
+* @param    SlrIndex is the SLR index where the event is triggered
+* @param    EventIndex is the Index of the event triggered
+* @param    TimeOut is the timeout in us to wait for the acknowledgment
+*
+* @return   Returns XST_SUCCESS for non-SSIT designs
+*
+****************************************************************************/
+int XPlmi_SsitWaitForEvent(u8 SlrIndex, u32 EventIndex, u32 TimeOut)
+{
+	(void)SlrIndex;
+	(void)EventIndex;
+	(void)TimeOut;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to read the response (if applicable)
+*           in Master SLR once the event is acknowledged by Slave SLR
+*
+* @param    SlrIndex is the SLR index from the response need to be read
+* @param    RespBuf is the Response Buffer to where the response to be written
+* @param    RespBufSize is the size of the response buffer
+*
+* @return   Returns XST_SUCCESS for non-SSIT designs
+*
+****************************************************************************/
+int XPlmi_SsitReadResponse(u8 SlrIndex, u32* RespBuf, u32 RespBufSize)
+{
+	(void)SlrIndex;
+	(void)RespBuf;
+	(void)RespBufSize;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to write the response (if applicable)
+*           in Slave SLR once the event is handled and acknowledge the message
+*           event
+*
+* @param    RespBuf is the Response Buffer data to be written
+* @param    RespBufSize is the size of the response buffer
+*
+* @return   Returns XST_SUCCESS for non-SSIT designs
+*
+****************************************************************************/
+int XPlmi_SsitWriteResponseAndAckMsgEvent(u32 *RespBuf, u32 RespBufSize)
+{
+	(void)RespBuf;
+	(void)RespBufSize;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to acknowledge the event after handling
+*
+* @param    SlrIndex is index of the SLR for which the event was triggered
+* @param    EventIndex is the event to acknowledge
+*
+* @return   Returns XST_SUCCESS for non-SSIT designs
+*
+****************************************************************************/
+int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex)
+{
+	(void)SlrIndex;
+	(void)EventIndex;
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to get the global SLR address for the given
+*           local address
+*
+* @param    Address is the local address for which the global SLR address need
+*            to be calculated
+* @param    SlrIndex is the index of the SLR for which the address need to be
+*            calculated
+*
+* @return   Returns 0x0 for non-SSIT designs
+*
+****************************************************************************/
+u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex)
+{
+	(void)Address;
+	(void)SlrIndex;
+
+	return 0x0U;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function sends a message event with given request buffer
+*           to a slave SLR, waits for event completion, reads the response
+*           from the slave SLR and returns it to the caller
+*
+* @param    SlrIndex is the SLR index from which the response need to be read
+* @param    ReqBuf is the buffer to which the event buffer data to be written
+* @param    ReqBufSize is the size of the ReqBuf
+* @param    RespBuf is the Response Buffer to where the response to be written
+* @param    RespBufSize is the size of the response buffer
+* @param    WaitForEventCompletion is the maximum time to wait before the
+*           requested message event is handled by a slave SLR [in microseconds]
+*
+* @return   Returns XST_SUCCESS for non-SSIT designs
+*
+****************************************************************************/
+int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
+		u32 *RespBuf, u32 RespBufSize, u32 WaitForEventCompletion)
+{
+	(void)SlrIndex;
+	(void)ReqBuf;
+	(void)ReqBufSize;
+	(void)RespBuf;
+	(void)RespBufSize;
+	(void)WaitForEventCompletion;
+
+	return XST_SUCCESS;
+}
+#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 /*****************************************************************************/
 /**
