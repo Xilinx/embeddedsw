@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aesclient.c
+* @file xsecure_katclient.c
 *
 * This file contains the implementation of the client interface functions for
 * KAT.

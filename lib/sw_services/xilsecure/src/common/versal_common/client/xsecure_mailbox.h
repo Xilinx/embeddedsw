@@ -6,9 +6,12 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_ipi.h
+* @file xsecure_mailbox.h
+* @addtogroup xsecure_mailbox_apis XilSecure Mailbox APIs
+* @{
 *
-* This file contains IPI generic APIs for xilsecure library
+* @cond xsecure_internal
+* This file contains declarations of xilmailbox generic interface APIs
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,6 +31,7 @@
 * </pre>
 * @note
 *
+* @endcond
 ******************************************************************************/
 
 #ifndef XSECURE_IPI_H
@@ -42,6 +46,9 @@ extern "C" {
 #include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
+/**@cond xsecure_internal
+ * @{
+ */
 #define XILSECURE_MODULE_ID			(0x05U)
 				/**< Module ID for xilsecure */
 
@@ -77,6 +84,10 @@ typedef struct {
 	XMailbox *MailboxPtr;
 } XSecure_ClientInstance;
 
+/**
+ * @}
+ * @endcond
+ */
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/

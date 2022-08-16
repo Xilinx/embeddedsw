@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_kat_plat.h
+* @file xsecure_plat_kat.h
 * @addtogroup xsecure_kat_apis XilSecure KAT APIs
 * @{
 * @cond xsecure_internal

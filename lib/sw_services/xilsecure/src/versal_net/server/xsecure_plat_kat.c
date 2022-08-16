@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_kat_plat.c
+* @file xsecure_plat_kat.c
 *
 * This file contains known answer tests for versal net
 *
