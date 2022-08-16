@@ -111,6 +111,7 @@ extern void xil_printf(const char *format, ...);
 #define MARK_UNCACHEABLE        0x701
 
 #define TEST_START_VALUE	0xC
+#define POLL_TIMEOUT_COUNTER	1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -612,14 +613,18 @@ static int CheckDmaResult(XAxiDma * AxiDmaInstPtr)
 	int ProcessedBdCount;
 	int FreeBdCount;
 	int Status;
+	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	TxRingPtr = XAxiDma_GetTxRing(AxiDmaInstPtr);
 	RxRingPtr = XAxiDma_GetRxRing(AxiDmaInstPtr);
 
 	/* Wait until the one BD TX transaction is done */
-	while ((ProcessedBdCount = XAxiDma_BdRingFromHw(TxRingPtr,
-						       XAXIDMA_ALL_BDS,
-						       &BdPtr)) == 0) {
+	while (TimeOut) {
+		if ((ProcessedBdCount = XAxiDma_BdRingFromHw(TxRingPtr,
+							    XAXIDMA_ALL_BDS,
+							    &BdPtr)) != 0)
+			break;
+		TimeOut--;
 	}
 
 	/* Free all processed TX BDs for future transmission */
@@ -630,10 +635,14 @@ static int CheckDmaResult(XAxiDma * AxiDmaInstPtr)
 		return XST_FAILURE;
 	}
 
+	TimeOut = POLL_TIMEOUT_COUNTER;
 	/* Wait until the data has been received by the Rx channel */
-	while ((ProcessedBdCount = XAxiDma_BdRingFromHw(RxRingPtr,
-						       XAXIDMA_ALL_BDS,
-						       &BdPtr)) == 0) {
+	while (TimeOut) {
+		if ((ProcessedBdCount = XAxiDma_BdRingFromHw(RxRingPtr,
+							    XAXIDMA_ALL_BDS,
+							    &BdPtr)) != 0)
+			break;
+		TimeOut--;
 	}
 
 	/* Check received data */
