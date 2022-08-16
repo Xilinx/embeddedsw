@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -96,9 +96,10 @@ XVphy_SysClkOutSelType XVphy_GetSysClkOutSel(XVphy *InstancePtr, u8 QuadId,
 u32 XVphy_IsPllLocked(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 u32 XVphy_GtUserRdyEnable(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Hold);
-u32 XVphy_CfgCpllCalPeriodandTol(XVphy *InstancePtr, u8 QuadId,
+u32 XVphy_Gthe4CfgCpllCalPeriodandTol(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir, u32 FreeRunClkFreq);
-
+u32 XVphy_Gtye4CfgCpllCalPeriodandTol(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, XVphy_DirectionType Dir, u32 FreeRunClkFreq);
 
 /* xvphy.c: GT/MMCM DRP access. */
 u32 XVphy_MmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,

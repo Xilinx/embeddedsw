@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -56,6 +56,7 @@
  *                       XVphy_SetTxPreEmphasis from xvphy_i.c/h
  *                     Added XVphy_SetTxPostCursor API
  * 1.9   gm   14/05/18 Added XVphy_SetRxLpm from xvphy_i.c/.h
+ * 1.10  ssh  16/08/22 Added support for multi gt (GTHE4 and GTYE4)
  *
  * </pre>
  *
@@ -118,10 +119,12 @@ void XVphy_CfgInitialize(XVphy *InstancePtr, XVphy_Config *ConfigPtr,
 	InstancePtr->GtAdaptor = &Gtpe2Config;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
 	InstancePtr->GtAdaptor = &Gthe3Config;
-#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
-	InstancePtr->GtAdaptor = &Gthe4Config;
-#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
-	InstancePtr->GtAdaptor = &Gtye4Config;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4) || (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4) {
+		InstancePtr->GtAdaptor = &Gthe4Config;
+	} else if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTYE4) {
+		InstancePtr->GtAdaptor = &Gtye4Config;
+	}
 #endif
 
 	const XVphy_SysClkDataSelType SysClkCfg[7][2] = {
@@ -1893,9 +1896,7 @@ void XVphy_RegisterDebug(XVphy *InstancePtr)
 	MaxDrpAddr = 0x002D;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
 	MaxDrpAddr = 0x00B0;
-#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
-	MaxDrpAddr = 0x00B0;
-#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4) || (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
 	MaxDrpAddr = 0x00B0;
 #endif
 
@@ -1923,10 +1924,12 @@ void XVphy_RegisterDebug(XVphy *InstancePtr)
 	MaxDrpAddr = 0x00AD;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
 	MaxDrpAddr = 0x015F;
-#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
-	MaxDrpAddr = 0x025F;
-#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
-	MaxDrpAddr = 0x028C;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4) || (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
+	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4) {
+		MaxDrpAddr = 0x025F;
+	} else if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTYE4) {
+		MaxDrpAddr = 0x028C;
+	}
 #endif
 	/* Get Max number of channels in VPHY */
 	MaxChannels = (InstancePtr->Config.RxChannels >

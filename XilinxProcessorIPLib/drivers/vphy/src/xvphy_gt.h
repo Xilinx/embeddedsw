@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -107,9 +107,8 @@ extern const XVphy_GtConfig Gthe2Config;
 extern const XVphy_GtConfig Gtpe2Config;
 #elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
 extern const XVphy_GtConfig Gthe3Config;
-#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4) || (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
 extern const XVphy_GtConfig Gthe4Config;
-#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
 extern const XVphy_GtConfig Gtye4Config;
 #endif
 

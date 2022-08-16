@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -53,7 +53,7 @@
 
 #include "xparameters.h"
 #include "xvphy_gt.h"
-#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4) || (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTYE4)
 #include "xstatus.h"
 
 /**************************** Function Prototypes *****************************/
@@ -93,31 +93,31 @@ u32 XVphy_Gthe4RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 /************************** Constant Definitions ******************************/
 
 /* DRP register space. */
-#define XVPHY_DRP_RXCDR_CFG(n)		(0x0E + n)
-#define XVPHY_DRP_RXCDR_CFG_GEN3(n)	(0xA2 + n)
-#define XVPHY_DRP_RXCDR_CFG_GEN4(n)	(0x119 + n)
+#define XVPHY_GTHE4_DRP_RXCDR_CFG(n)		(0x0E + n)
+#define XVPHY_GTHE4_DRP_RXCDR_CFG_GEN3(n)	(0xA2 + n)
+#define XVPHY_GTHE4_DRP_RXCDR_CFG_GEN4(n)	(0x119 + n)
 
-#define XVPHY_DRP_CPLL_FBDIV		0x28
-#define XVPHY_DRP_CPLL_REFCLK_DIV	0x2A
-#define XVPHY_DRP_RXOUT_DIV		0x63
-#define XVPHY_DRP_RXCLK25		0x6D
-#define XVPHY_DRP_TXCLK25		0x7A
-#define XVPHY_DRP_TXOUT_DIV		0x7C
-#define XVPHY_DRP_QPLL1_FBDIV		0x94
-#define XVPHY_DRP_QPLL1_REFCLK_DIV	0x98
-#define XVPHY_DRP_RXCDR_CFG_WORD0	0x0E
-#define XVPHY_DRP_RXCDR_CFG_WORD1	0x0F
-#define XVPHY_DRP_RXCDR_CFG_WORD2	0x10
-#define XVPHY_DRP_RXCDR_CFG_WORD3	0x11
-#define XVPHY_DRP_RXCDR_CFG_WORD4	0x12
+#define XVPHY_GTHE4_DRP_CPLL_FBDIV		0x28
+#define XVPHY_GTHE4_DRP_CPLL_REFCLK_DIV	0x2A
+#define XVPHY_GTHE4_DRP_RXOUT_DIV		0x63
+#define XVPHY_GTHE4_DRP_RXCLK25		0x6D
+#define XVPHY_GTHE4_DRP_TXCLK25		0x7A
+#define XVPHY_GTHE4_DRP_TXOUT_DIV		0x7C
+#define XVPHY_GTHE4_DRP_QPLL1_FBDIV		0x94
+#define XVPHY_GTHE4_DRP_QPLL1_REFCLK_DIV	0x98
+#define XVPHY_GTHE4_DRP_RXCDR_CFG_WORD0	0x0E
+#define XVPHY_GTHE4_DRP_RXCDR_CFG_WORD1	0x0F
+#define XVPHY_GTHE4_DRP_RXCDR_CFG_WORD2	0x10
+#define XVPHY_GTHE4_DRP_RXCDR_CFG_WORD3	0x11
+#define XVPHY_GTHE4_DRP_RXCDR_CFG_WORD4	0x12
 
 /* PLL operating ranges. */
-#define XVPHY_QPLL0_MIN		 9800000000LL
-#define XVPHY_QPLL0_MAX		16375000000LL
-#define XVPHY_QPLL1_MIN		 8000000000LL
-#define XVPHY_QPLL1_MAX		13000000000LL
-#define XVPHY_CPLL_MIN		 2000000000LL
-#define XVPHY_CPLL_MAX		 6250000000LL
+#define XVPHY_GTHE4_QPLL0_MIN		 9800000000LL
+#define XVPHY_GTHE4_QPLL0_MAX		16375000000LL
+#define XVPHY_GTHE4_QPLL1_MIN		 8000000000LL
+#define XVPHY_GTHE4_QPLL1_MAX		13000000000LL
+#define XVPHY_GTHE4_CPLL_MIN		 2000000000LL
+#define XVPHY_GTHE4_CPLL_MAX		 6250000000LL
 
 const u8 Gthe4CpllDivsM[]	= {1, 2, 0};
 const u8 Gthe4CpllDivsN1[]	= {4, 5, 0};
@@ -252,15 +252,15 @@ u32 XVphy_Gthe4CheckPllOpRange(XVphy *InstancePtr, u8 QuadId,
 	QuadId = QuadId;
 
 	if (((ChId == XVPHY_CHANNEL_ID_CMN0) &&
-			(XVPHY_QPLL0_MIN <= PllClkOutFreqHz) &&
-			(PllClkOutFreqHz <= XVPHY_QPLL0_MAX)) ||
+			(XVPHY_GTHE4_QPLL0_MIN <= PllClkOutFreqHz) &&
+			(PllClkOutFreqHz <= XVPHY_GTHE4_QPLL0_MAX)) ||
 	    ((ChId == XVPHY_CHANNEL_ID_CMN1) &&
-			(XVPHY_QPLL1_MIN <= PllClkOutFreqHz) &&
-			(PllClkOutFreqHz <= XVPHY_QPLL1_MAX)) ||
+			(XVPHY_GTHE4_QPLL1_MIN <= PllClkOutFreqHz) &&
+			(PllClkOutFreqHz <= XVPHY_GTHE4_QPLL1_MAX)) ||
 	    ((ChId >= XVPHY_CHANNEL_ID_CH1) &&
 			(ChId <= XVPHY_CHANNEL_ID_CH4) &&
-			(XVPHY_CPLL_MIN <= PllClkOutFreqHz) &&
-			(PllClkOutFreqHz <= XVPHY_CPLL_MAX))) {
+			(XVPHY_GTHE4_CPLL_MIN <= PllClkOutFreqHz) &&
+			(PllClkOutFreqHz <= XVPHY_GTHE4_CPLL_MAX))) {
 		Status = XST_SUCCESS;
 	}
 
@@ -403,7 +403,7 @@ u32 XVphy_Gthe4ClkChReconfig(XVphy *InstancePtr, u8 QuadId,
 	Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0xBC, DrpVal);
 
 	/* Configure CPLL Calibration Registers */
-	XVphy_CfgCpllCalPeriodandTol(InstancePtr, QuadId, ChId,
+	XVphy_Gthe4CfgCpllCalPeriodandTol(InstancePtr, QuadId, ChId,
 			(XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId) ?
 								XVPHY_DIR_TX : XVPHY_DIR_RX),
 			InstancePtr->Config.DrpClkFreq);
@@ -596,12 +596,12 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 			continue;
 		}
 		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-				XVPHY_DRP_RXCDR_CFG(CfgIndex), DrpVal);
+				XVPHY_GTHE4_DRP_RXCDR_CFG(CfgIndex), DrpVal);
 		if (CfgIndex == 2) {
 			Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-					XVPHY_DRP_RXCDR_CFG_GEN3(CfgIndex), DrpVal);
+					XVPHY_GTHE4_DRP_RXCDR_CFG_GEN3(CfgIndex), DrpVal);
 			Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
-					XVPHY_DRP_RXCDR_CFG_GEN4(CfgIndex), DrpVal);
+					XVPHY_GTHE4_DRP_RXCDR_CFG_GEN4(CfgIndex), DrpVal);
 
 		}
 	}
@@ -908,11 +908,11 @@ u32 XVphy_Gthe4TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 								PllPtr->PllRefClkSel);
 	}
 
-	Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, XVPHY_DRP_TXCLK25,
+	Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, XVPHY_GTHE4_DRP_TXCLK25,
                     &DrpVal);
 	DrpVal &= ~(0xF800);
 	DrpVal |= XVphy_DrpEncodeClk25(TxRefClkHz) << 11;
-    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, XVPHY_DRP_TXCLK25,
+    Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, XVPHY_GTHE4_DRP_TXCLK25,
 				DrpVal);
 
 	return Status;
@@ -950,11 +950,11 @@ u32 XVphy_Gthe4RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 								PllPtr->PllRefClkSel);
 	}
 
-	Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, XVPHY_DRP_RXCLK25,
+	Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, XVPHY_GTHE4_DRP_RXCLK25,
                     &DrpVal);
 	DrpVal &= ~(0x00F8);
 	DrpVal |= XVphy_DrpEncodeClk25(RxRefClkHz) << 3;
-	Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, XVPHY_DRP_RXCLK25,
+	Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, XVPHY_GTHE4_DRP_RXCLK25,
                     DrpVal);
 
 	return Status;
@@ -1317,7 +1317,7 @@ static u16 XVphy_DrpEncodeClk25(u32 RefClkFreqHz)
 * @note		None.
 *
 ******************************************************************************/
-u32 XVphy_CfgCpllCalPeriodandTol(XVphy *InstancePtr, u8 QuadId,
+u32 XVphy_Gthe4CfgCpllCalPeriodandTol(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir, u32 FreeRunClkFreq)
 {
 	u64 CpllCalPeriod;
