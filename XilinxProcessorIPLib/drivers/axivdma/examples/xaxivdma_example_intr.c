@@ -67,6 +67,7 @@
 #include "xil_exception.h"
 #include "xil_printf.h"
 #include "sleep.h"
+#include "xil_util.h"
 
 #include "xil_cache.h"
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -185,7 +186,7 @@
 /* Default reset timeout
  */
 #define XAXIVDMA_RESET_TIMEOUT_USEC	500
-
+#define POLL_TIMEOUT_COUNTER            1000000U /* Wait for 1 sec */
 /*
  * Device instance definitions
  */
@@ -458,9 +459,18 @@ int main(void)
 
 	/* Every set of frame buffer finish causes a completion interrupt
 	 */
-	while (((ReadDone < NUM_TEST_FRAME_SETS) || (WriteDone < NUM_TEST_FRAME_SETS))
-	       && !ReadError && !WriteError) {
-		/* NOP */
+
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&ReadDone);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Test has read error %d\r\n, Failed\r\n", ReadError);
+		Status = XST_FAILURE;
+		goto Done;
+	}
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&WriteDone);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Test has write error %d, Failed\r\n", WriteError);
+		Status = XST_FAILURE;
+		goto Done;
 	}
 
 	/* Soft reset for AXI VDMA channels which causes the AXI VDMA
@@ -494,23 +504,14 @@ int main(void)
 		            (unsigned int)XAxiVdma_GetStatus(&AxiVdma,XAXIVDMA_WRITE));
 	}
 
-	if (ReadError || WriteError) {
-		xil_printf("Test has transfer error %d/%d, Failed\r\n",
-		    ReadError, WriteError);
-
-		Status = XST_FAILURE;
-		goto Done;
-	}
-	else {
-		for(Index = 0; Index < ReadCount; Index++) {
-			Status = CheckFrame(Index);
-			if (Status != XST_SUCCESS) {
-				xil_printf("Check frame %d failed %d\n\r", Index, Status);
-				goto Done;
-			}
+	for(Index = 0; Index < ReadCount; Index++) {
+		Status = CheckFrame(Index);
+		if (Status != XST_SUCCESS) {
+			xil_printf("Check frame %d failed %d\n\r", Index, Status);
+			goto Done;
 		}
-		xil_printf("Successfully ran axivdma intr Example\r\n");
 	}
+	xil_printf("Successfully ran axivdma intr Example\r\n");
 
 Done:
 	DisableIntrSystem(READ_INTR_ID, WRITE_INTR_ID);
