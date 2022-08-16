@@ -121,6 +121,8 @@
 
 #define TEST_START_VALUE	0xC
 
+#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
+
 int TxPattern[NUM_MAX_CHANNELS + 1];
 int RxPattern[NUM_MAX_CHANNELS + 1];
 int TestStartValue[] = {0xC, 0xB, 0x3, 0x55, 0x33, 0x20, 0x80, 0x66, 0x88};
@@ -180,6 +182,7 @@ int main(void)
 	RxDone = 0;
 
 	XMcdma_Config *Mcdma_Config;
+	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
@@ -231,10 +234,11 @@ int main(void)
 	}
 
 	/* Check DMA transfer result */
-    while (1) {
+    while (TimeOut) {
         Mcdma_Poll(&AxiMcdma);
         if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels)
               break;
+	TimeOut -= 1;
    }
 
 
