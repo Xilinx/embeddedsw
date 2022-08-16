@@ -6,11 +6,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_ipi.c
+* @file xsecure_mailbox.c
 *
-* This file contains the implementation of the client interface functions for
-* IPI driver. Refer to the header file xsecure_ipi.h for more
-* detailed information.
+* This file contains the implementation of the xilmailbox generic interface APIs for
+* xilsecure client library.
 *
 * <pre>
 * MODIFICATION HISTORY:

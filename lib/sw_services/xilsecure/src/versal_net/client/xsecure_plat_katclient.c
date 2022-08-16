@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_katclient_plat.c
+* @file xsecure_plat_katclient.c
 *
 * This file contains the implementation of the client interface functions for
 * KAT.
@@ -40,7 +40,7 @@
 /*****************************************************************************/
 /**
  *
- * @brief	This function sends IPI request to PLM to perfom TRNG KAT and health tests
+ * @brief	This function sends IPI request to PLM to perform TRNG KAT and health tests
  *
  * @param	InstancePtr  Pointer to the client instance
  *

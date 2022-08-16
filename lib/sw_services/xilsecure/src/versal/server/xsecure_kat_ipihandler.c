@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_kat_plat_ipihandler.c
+* @file xsecure_kat_ipihandler.c
 * @addtogroup xsecure_apis XilSecure Versal KAT handler APIs
 * @{
 * @cond xsecure_internal

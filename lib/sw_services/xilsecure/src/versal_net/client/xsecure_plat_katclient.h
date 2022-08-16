@@ -1,11 +1,11 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xsecure_katclient_plat.h
+* @file xsecure_plat_katclient.h
 * @addtogroup xsecure_kat_client_apis XilSecure KAT Versal net Client APIs
 * @{
 * @cond xsecure_internal
