@@ -51,6 +51,8 @@
 *                       Declared the pointer param as Pointer to const,
 *			added goto statements.
 * 3.3	akm    08/06/19 Initialized DeviceID in XSpiPs_CfgInitialize function.
+* 3.8   sg     08/16/22 Updated SPI enable and chip selection sequence
+* 			for manual mode.
 * </pre>
 *
 ******************************************************************************/
@@ -331,25 +333,25 @@ s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 		InstancePtr->RequestedBytes = ByteCount;
 		InstancePtr->RemainingBytes = ByteCount;
 
-	/*
-	 * If manual chip select mode, initialize the slave select value.
-	 */
-	if (XSpiPs_IsManualChipSelect(InstancePtr) != FALSE) {
-		ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
-					 XSPIPS_CR_OFFSET);
-		/*
-		 * Set the slave select value.
-		 */
-		ConfigReg &= (u32)(~XSPIPS_CR_SSCTRL_MASK);
-		ConfigReg |= InstancePtr->SlaveSelect;
-		XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
-				 XSPIPS_CR_OFFSET, ConfigReg);
-	}
-
 		/*
 		 * Enable the device.
 		 */
 		XSpiPs_Enable(InstancePtr);
+
+		/*
+		 * If manual chip select mode, initialize the slave select value.
+		 */
+		if (XSpiPs_IsManualChipSelect(InstancePtr) != FALSE) {
+			ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
+				 XSPIPS_CR_OFFSET);
+			/*
+			 * Set the slave select value.
+			 */
+			ConfigReg &= (u32)(~XSPIPS_CR_SSCTRL_MASK);
+			ConfigReg |= InstancePtr->SlaveSelect;
+			XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
+				 XSPIPS_CR_OFFSET, ConfigReg);
+		}
 
 		/*
 		 * Clear all the interrupts.
@@ -489,9 +491,14 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 		InstancePtr->RemainingBytes = ByteCount;
 
 		/*
+		 * Enable the device.
+		 */
+                XSpiPs_Enable(InstancePtr);
+
+		/*
 		 * If manual chip select mode, initialize the slave select value.
 		 */
-	     if (XSpiPs_IsManualChipSelect(InstancePtr) == TRUE) {
+		if (XSpiPs_IsManualChipSelect(InstancePtr) == TRUE) {
 			ConfigReg = XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 						 XSPIPS_CR_OFFSET);
 			/*
@@ -502,11 +509,6 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 			XSpiPs_WriteReg(InstancePtr->Config.BaseAddress,
 					 XSPIPS_CR_OFFSET, ConfigReg);
 		}
-
-		/*
-		 * Enable the device.
-		 */
-		XSpiPs_Enable(InstancePtr);
 
 		while((InstancePtr->RemainingBytes > (u32)0U) ||
 			(InstancePtr->RequestedBytes > (u32)0U)) {
