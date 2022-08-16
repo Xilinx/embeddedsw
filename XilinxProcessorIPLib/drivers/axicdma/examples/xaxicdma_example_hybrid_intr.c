@@ -68,6 +68,7 @@
 #include "xil_exception.h"
 #include "xil_cache.h"
 #include "xparameters.h"
+#include "xil_util.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -140,6 +141,7 @@ extern void xil_printf(const char *format, ...);
  */
 #define COALESCING_COUNT   5
 #define DELAY_COUNT	   5
+#define POLL_TIMEOUT_COUNTER   1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -757,11 +759,8 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 
 	/* Wait until the DMA transfer is done
 	 */
-	while (!Done && !Error) {
-		/* Wait */
-	}
-
-	if (Error) {
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&Done);
+	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
 				"Simple transfer has error %x\r\n",
 		    (unsigned int)XAxiCdma_GetError(InstancePtr));
@@ -918,11 +917,8 @@ static int DoSgTransfer(XAxiCdma * InstancePtr)
 
 	/* Wait until the DMA transfer is done
 	 */
-	while ((Done < NUMBER_OF_BDS_TO_TRANSFER) && !Error) {
-		/* Wait */
-	}
-
-	if(Error) {
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&Done);
+	if (Status != XST_SUCCESS ) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "SG transfer has error %x\r\n",
 		    (unsigned int)XAxiCdma_GetError(InstancePtr));
 

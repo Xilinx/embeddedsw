@@ -65,6 +65,7 @@
 #include "xil_cache.h"
 #include "xenv.h"	/* memset */
 #include "xparameters.h"
+#include "xil_util.h"
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 #include "xuartns550_l.h"       /* to use uartns550 */
@@ -115,6 +116,7 @@ extern void xil_printf(const char *format, ...);
 #define NUMBER_OF_BDS_TO_TRANSFER	30
 
 #define RESET_LOOP_COUNT    10 /* Number of times to check reset is done */
+#define POLL_TIMEOUT_COUNTER      1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -544,9 +546,13 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 
 	/* Wait until the DMA transfer is done
 	 */
-	while (XAxiCdma_IsBusy(InstancePtr)) {
-		/* Wait */
-	}
+	Status = (int)Xil_WaitForEvent(InstancePtr->BaseAddr + XAXICDMA_SR_OFFSET,
+			XAXICDMA_SR_IDLE_MASK, XAXICDMA_SR_IDLE_MASK, POLL_TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+				"Failed to complete the transfer with %d\r\n", Status);
+		return XST_FAILURE;
+        }
 
 	/* If the hardware has errors, this example fails
 	 * This is a poll example, no interrupt handler is involved.
@@ -614,6 +620,7 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 	int Status;
 	u8 *SrcPtr;
 	u8 *DstPtr;
+	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	SrcPtr = (u8 *)TransmitBufferPtr;
 	DstPtr = (u8 *)ReceiveBufferPtr;
@@ -633,9 +640,11 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 
 	/* Wait until the DMA transfer is done or error occurs
 	 */
-	while ((CheckSgCompletion(InstancePtr) < NUMBER_OF_BDS_TO_TRANSFER) &&
-		!Error) {
-		/* Wait */
+	while (TimeOut) {
+		if ((CheckSgCompletion(InstancePtr) >=
+		     NUMBER_OF_BDS_TO_TRANSFER) && !Error)
+			break;
+		TimeOut--;
 	}
 
 	if(Error) {

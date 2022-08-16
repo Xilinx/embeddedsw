@@ -59,6 +59,7 @@
 #include "xil_exception.h"
 #include "xil_cache.h"
 #include "xparameters.h"
+#include "xil_util.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -100,6 +101,7 @@
 					 */
 
 #define NUMBER_OF_TRANSFERS	4	/* Number of simple transfers to do */
+#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -334,11 +336,8 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 
 	/* Wait until the DMA transfer is done
 	 */
-	while (!Done && !Error) {
-		/* Wait */
-	}
-
-	if (Error) {
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&Done);
+	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "DMA transfer error\r\n");
 		return XST_FAILURE;
 	}
