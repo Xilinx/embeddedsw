@@ -625,6 +625,90 @@ XHdmiC_SamplingFrequencyVal
 	return ExtACRSampFreq;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function is used to Generate CVTEM Packet
+*
+* @param
+*
+* @return: None
+*
+* @note
+*
+******************************************************************************/
+void XV_HdmiC_GenerateCvtem(XHdmiC_Aux *DscAuxFifo, XHdmiC_DscPpsData *DscPpsPtr,
+		u16 HCact_Bytes, u16 HFrontPorch, u16 HBackPorch, u16 HSyncWidth)
+{
+  u32 i = 0, j = 0, k = 0, pps_idx=0;
+
+  /* Packet -0 : Header */
+  DscAuxFifo[0].Header.Byte[0] = 0x7F;
+  DscAuxFifo[0].Header.Byte[1] = 0x80;
+  DscAuxFifo[0].Header.Byte[2] = 0x0;
+
+  /* Packet -0 : Data */
+  DscAuxFifo[0].Data.Byte[0] =  0x06; //PB0 -  new(0),end(0),ds_type(00),afr(0),vfr(1),sync(1),rsvd
+  DscAuxFifo[0].Data.Byte[1] =  0x00; //PB1 -RSVD
+  DscAuxFifo[0].Data.Byte[2] =  0x01; //PB2  Organization ID
+  DscAuxFifo[0].Data.Byte[3] =  0x00; //PB3  Data_Set_Tag(MSB)
+  DscAuxFifo[0].Data.Byte[4] =  0x02; //PB4  Data_Set_Tag(LSB)
+  DscAuxFifo[0].Data.Byte[5] =  0x00; //PB5  Data_Set_Length(MSB)
+  DscAuxFifo[0].Data.Byte[6] =  0x88; //PB6  Data_Set_Length(LSB)
+
+  /* PB7 to PB 27 / PPS 0 to PPS 20 */
+  for(j = 1; j < 4; j++) {
+	  for(k = 0; k < 7; k++) {
+		  DscAuxFifo[0].Data.Byte[(j*8)+k] = DscPpsPtr->Byte[pps_idx++];
+	  }
+  }
+
+  /*Packet 1 to 3 */
+  for(i = 1; i < 4; i++) {
+	  /* Header */
+	  DscAuxFifo[i].Header.Byte[0] = 0x7F;
+	  DscAuxFifo[i].Header.Byte[1] = 0x00;
+	  DscAuxFifo[i].Header.Byte[2] = i;
+	  /* PB0 to PB 27, PPS 21 to PPS 104 */
+	  for(j = 0; j < 4; j++) {
+		  for(k = 0; k < 7; k++) {
+			  DscAuxFifo[i].Data.Byte[(j*8)+k] = DscPpsPtr->Byte[pps_idx++];
+		  }
+	  }
+  }
+
+  /* Packet - 4 Header  */
+  DscAuxFifo[4].Header.Byte[0] = 0x7F;
+  DscAuxFifo[4].Header.Byte[1] = 0x00;
+  DscAuxFifo[4].Header.Byte[2] = 0x4;
+
+  /* PB0 to PB 20, PPS 105 to PPS 125 */
+  for(j = 0; j < 3; j++) {
+	  for(k = 0; k < 7; k++) {
+		  DscAuxFifo[4].Data.Byte[(j*8)+k] = DscPpsPtr->Byte[pps_idx++];
+	  }
+  }
+
+  DscAuxFifo[4].Data.Byte[24] = DscPpsPtr->Byte[pps_idx++]; // PB21/PPS126
+  DscAuxFifo[4].Data.Byte[25] = DscPpsPtr->Byte[pps_idx++]; // PB22/PPS125
+  DscAuxFifo[4].Data.Byte[26] = HFrontPorch & 0xFF; // PB23/HFront[7:0]
+  DscAuxFifo[4].Data.Byte[27] = (HFrontPorch>>8) & 0xFF; // PB24/HFront[15:8]
+  DscAuxFifo[4].Data.Byte[28] = HSyncWidth & 0xFF; // PB25/HSync[7:0]
+  DscAuxFifo[4].Data.Byte[29] = (HSyncWidth>>8) & 0xFF;  // PB26/HSync[15:8]
+  DscAuxFifo[4].Data.Byte[30] = HBackPorch & 0xFF; // PB27/HBack[7:0]
+
+  /* Packet - 5 Header  */
+  DscAuxFifo[5].Header.Byte[0] = 0x7F;
+  DscAuxFifo[5].Header.Byte[1] = 0x40;
+  DscAuxFifo[5].Header.Byte[2] = 0x5;
+
+  /* Packet 5 Data */
+  DscAuxFifo[5].Data.Byte[0] = (HBackPorch>>8) & 0XFF; // PB0/HBack[15:8]
+  DscAuxFifo[5].Data.Byte[1] = HCact_Bytes & 0xFF; // PB1/HCactive_Bytes[7:0]
+  DscAuxFifo[5].Data.Byte[2] = (HCact_Bytes>>8) & 0xFF; // PB2/HCactive_Bytes[7:0]
+
+}
+
 /*************************** Function Definitions *****************************/
 /**
 *

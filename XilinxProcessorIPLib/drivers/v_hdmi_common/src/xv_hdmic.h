@@ -106,6 +106,11 @@ typedef struct {
 	XHdmiC_AuxData Data;     /**< AUX data field */
 } XHdmiC_Aux;
 
+typedef union {
+    u32 Data[32];    /**< PPS data field */
+    u8 Byte[128];    /**< PPS data byte field */
+} XHdmiC_DscPpsData;
+
 typedef enum {
 	XHDMIC_COLORSPACE_RGB,
 	XHDMIC_COLORSPACE_YUV422,

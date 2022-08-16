@@ -123,6 +123,8 @@ int XV_HdmiTx1_CfgInitialize(XV_HdmiTx1 *InstancePtr, XV_HdmiTx1_Config *CfgPtr,
 
 	InstancePtr->DynHdrMtwCallback = (XV_HdmiTx1_Callback)((void *)StubCallback);
 
+	InstancePtr->DscDecodeFailCallback = (XV_HdmiTx1_Callback)((void *)StubCallback);
+
 	/* Maximum FRL Rate Supported */
 	InstancePtr->Stream.Frl.MaxFrlRate =  InstancePtr->Config.MaxFrlRate;
 
@@ -2176,6 +2178,52 @@ int XV_HdmiTx1_DdcWriteField(XV_HdmiTx1 *InstancePtr,
 
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+*
+* This function transmits the DSC packet header.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	Data value to be written
+*
+* @return	None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTx1_Aux_Dsc_Send_Header(XV_HdmiTx1 *InstancePtr, u32 Data)
+{
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Update DSC packet header */
+	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress, XV_HDMITX1_DSC_BASE, Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function transmits the DSC packet data.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx1 core instance.
+* @param	Data value to be written
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTx1_Aux_Dsc_Send_Data(XV_HdmiTx1 *InstancePtr, u32 Data)
+{
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Update DSC packet Data */
+	XV_HdmiTx1_WriteReg(InstancePtr->Config.BaseAddress, XV_HDMITX1_DSC_BASE, Data);
+
+}
+
 
 /*****************************************************************************/
 /**
