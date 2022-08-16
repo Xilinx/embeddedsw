@@ -687,6 +687,13 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 				/* Restore CPM5_DMA1_ATTR_WPROTP register value */
 				XPm_Out32(CPM5_DMA1_ATTR_WPROTP, WprotReg);
 			}
+
+			if ((u32)XPM_NODEIDX_ISO_XRAM_PL_AXILITE == IsoIdx) {
+				/* Select AXI lite clock from PL */
+				XPm_RMW32(XRAM_SLCR_BASEADDR + XRAM_SLCR_APB_CLK_OFFSET,
+					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK,
+					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK);
+			}
 		}
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	}
