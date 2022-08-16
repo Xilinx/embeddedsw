@@ -11,7 +11,7 @@
 * @{
 *
 * @cond xpuf_internal
-* This file contains APIs for xilpuf library for using mailbox.
+* This file contains declarations of xilmailbox generic interface APIs
 *
 * <pre>
 * MODIFICATION HISTORY:
