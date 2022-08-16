@@ -11,6 +11,7 @@
 # 1.20  dc   7/13/2022 Added OCP configuration option
 #       ma   7/27/2022 Added configurable option for SSIT PLM to PLM
 #                      communication feature
+#       ma   8/10/2022 Changed ssit_plm_to_plm_comm_en default value to true
 #
 ##############################################################################
 
@@ -39,5 +40,5 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_puf_en, desc = "Enables or Disables PUF handlers", type = bool, default = false;
   PARAM name = plm_stl_en, desc = "Enables or Disables STL", type = bool, default = false;
   PARAM name = plm_ocp_en, desc = "Enables or Disables OCP", type = bool, default = false;
-  PARAM name = ssit_plm_to_plm_comm_en, desc = "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)", type = bool, default = false;
+  PARAM name = ssit_plm_to_plm_comm_en, desc = "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)", type = bool, default = true;
 END LIBRARY
