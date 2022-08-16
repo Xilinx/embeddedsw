@@ -6,12 +6,12 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_ipi.h
-* @addtogroup xnvm_ipi_apis XilNvm IPI APIs
+* @file xnvm_mailbox.h
+* @addtogroup xnvm_mailbox_apis XilNvm mailbox APIs
 * @{
 *
 * @cond xnvm_internal
-* This file contains IPI generic APIs for xilnvm library
+* This file contains declarations of xilmailbox generic interface APIs
 *
 * <pre>
 * MODIFICATION HISTORY:

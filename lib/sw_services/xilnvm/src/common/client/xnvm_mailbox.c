@@ -6,10 +6,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_ipi.c
+* @file xnvm_mailbox.c
 *
-* This file contains the implementation of the client interface functions for
-* IPI driver.
+* This file contains the implementation of the xilmailbox generic interface APIs for
+* xilnvm client library.
 *
 * <pre>
 * MODIFICATION HISTORY:
