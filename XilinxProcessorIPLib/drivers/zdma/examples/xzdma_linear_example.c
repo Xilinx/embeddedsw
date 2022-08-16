@@ -43,6 +43,7 @@
 #include "xzdma.h"
 #include "xparameters.h"
 #include "xscugic.h"
+#include "xil_util.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -69,6 +70,8 @@ static void ErrorHandler(void *CallBackRef, u32 Mask);
 
 #define DESCRIPTOR1_DATA_SIZE	1024 /**< Descriptor 1 data in bytes */
 #define DESCRIPTOR2_DATA_SIZE	64   /**< Descriptor 2 data in bytes */
+
+#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -263,7 +266,11 @@ int XZDma_LinearExample(u16 DeviceId)
 	/* Resuming the ZDMA core */
 	XZDma_Resume(&ZDma);
 
-	while (Done == 0); /* Wait till DMA done interrupt generated */
+	/* Wait till DMA done interrupt generated */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&Done);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	/* Disable relevant interrupts */
 	XZDma_DisableIntr(&ZDma, (XZDMA_IXR_DMA_DONE_MASK |

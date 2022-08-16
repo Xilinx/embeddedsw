@@ -44,6 +44,7 @@
 #include "xzdma.h"
 #include "xparameters.h"
 #include "xscugic.h"
+#include "xil_util.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -66,6 +67,7 @@ static void DoneHandler(void *CallBackRef);
 
 #define SIZE			1024 /* Size of the data to be written */
 
+#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
 /**************************** Type Definitions *******************************/
 
 
@@ -221,7 +223,10 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 	XZDma_Start(&ZDma, &Data, 1); /* Initiates the data transfer */
 
 	/* Wait till DMA destination done interrupt generated */
-	while (Done == 0);
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&Done);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	XZDma_DisableIntr(&ZDma, XZDMA_IXR_DMA_DONE_MASK);
 
