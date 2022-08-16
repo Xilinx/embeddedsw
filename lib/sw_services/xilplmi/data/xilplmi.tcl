@@ -12,6 +12,8 @@
 #       dc   07/13/22 Added OCP configuration enable support for VersalNet
 #       ma   07/27/22 Added configurable option for SSIT PLM to PLM
 #                     communication feature
+#       ma   08/10/22 Enable SSIT PLM to PLM communication feature based on
+#                     user option and Number of SLRs from the design
 ##############################################################################
 
 #---------------------------------------------
@@ -198,9 +200,16 @@ proc xgen_opts_file {libhandle} {
 		puts $file_handle "#define PLM_OCP_EXCLUDE"
 	}
 
-	# Get ssit_plm_to_plm_comm_en value set by user, by default it is FALSE(Valid only for Versal)
+	# Get ssit_plm_to_plm_comm_en value set by user, by default it is TRUE(Valid only for Versal)
 	set value [common::get_property CONFIG.ssit_plm_to_plm_comm_en $libhandle]
-	if {$value == true} {
+	# Get number of SLRs from the design
+	set part [::hsi::get_current_part]
+	set SlrCount [common::get_property NUM_OF_SLRS $part]
+	puts $file_handle "\n/* Number of SLRs */"
+	puts $file_handle "#define NUMBER_OF_SLRS       $SlrCount"
+	# Based on ssit_plm_to_plm_comm_en value set by user and the Number Of SLRs present
+	# in the design, enable SSIT PLM-PLM communication
+	if {($value == true) && ($SlrCount > 1)} {
 		puts $file_handle "\n/* SSIT PLM to PLM Communication enable */"
 		puts $file_handle "#define PLM_ENABLE_PLM_TO_PLM_COMM"
 	}
