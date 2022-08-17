@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspips.h
-* @addtogroup qspips_v3_9
+* @addtogroup qspips_v3_10
 * @{
 * @details
 *
