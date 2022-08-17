@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspips_selftest.c
-* @addtogroup qspips_v3_9
+* @addtogroup qspips_v3_10
 * @{
 *
 * This file contains the implementation of selftest function for the QSPI

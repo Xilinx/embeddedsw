@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspips.c
-* @addtogroup qspips_v3_9
+* @addtogroup qspips_v3_10
 * @{
 *
 * Contains implements the interface functions of the XQspiPs driver.

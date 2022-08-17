@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspips_g.c
-* @addtogroup qspips_v3_9
+* @addtogroup qspips_v3_10
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

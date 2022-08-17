@@ -7,7 +7,7 @@
 /**
 *
 * @file xqspips_sinit.c
-* @addtogroup qspips_v3_9
+* @addtogroup qspips_v3_10
 * @{
 *
 * The implementation of the XQspiPs component's static initialization
