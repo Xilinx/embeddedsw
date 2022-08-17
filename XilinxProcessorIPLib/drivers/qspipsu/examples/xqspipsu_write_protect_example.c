@@ -47,6 +47,7 @@
 * 1.13  akm 11/30/20 Removed unwanted header files.
 * 1.15  akm 11/19/21 Fix read/write failures on Spansion flash parts.
 * 1.15  akm 12/22/21 Initialize variables before use.
+* 1.16  akm 08/16/22 Fix logical error in NumSect calculation.
 *
 *</pre>
 *
@@ -789,7 +790,10 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	/*
 	 * Calculate no. of sectors to erase based on byte count
 	 */
-	NumSect = ByteCount / SectSize + 1;
+	if (ByteCount % SectSize)
+		NumSect = ByteCount / SectSize + 1;
+	else
+		NumSect = ByteCount / SectSize;
 
 	/*
 	 * If ByteCount to k sectors,
