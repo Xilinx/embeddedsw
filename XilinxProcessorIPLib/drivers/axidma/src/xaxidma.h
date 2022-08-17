@@ -454,6 +454,7 @@
 * 9.13 rsp   01/08/21 Fix compilation failure in XAxiDma_IntrGetEnabled().
 * 9.15  sa   08/12/22 Updated the examples to use latest MIG cannoical define
 * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+*      adk   08/16/22 Fix syntax error in the XAxiDma_BdRingGetCurrBd() API.
 * </pre>
 *
 ******************************************************************************/

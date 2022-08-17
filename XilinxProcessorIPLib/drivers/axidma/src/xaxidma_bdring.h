@@ -43,6 +43,7 @@
 *		       backward compatibility.
 * 9.2   vak  15/04/16  Fixed the compilation warnings in axidma driver
 * 9.7   rsp  01/11/18  Use UINTPTR instead of u32 for ChanBase CR#976392
+* 9.15  adk  08/16/22  Fix syntax error in the XAxiDma_BdRingGetCurrBd() API.
 *
 * </pre>
 *
@@ -281,7 +282,7 @@ typedef struct {
 	RingPtr->Addr_ext ? ((XAxiDma_Bd *)                                    \
 	((XAxiDma_ReadReg((RingPtr)->ChanBase,		                       \
 	XAXIDMA_CDESC_OFFSET)) | (LEFT_SHIFT_BY_32_BITS                        \
-	(XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CDESC_MSB_OFFSET)))))    \
+	(XAxiDma_ReadReg((RingPtr)->ChanBase, XAXIDMA_CDESC_MSB_OFFSET))))) :  \
 	((XAxiDma_Bd *)XAxiDma_ReadReg((RingPtr)->ChanBase,                    \
 	XAXIDMA_CDESC_OFFSET));
 
