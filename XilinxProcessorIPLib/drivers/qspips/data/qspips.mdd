@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,7 +10,7 @@ BEGIN driver qspips
   OPTION supported_peripherals = (ps7_qspi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.9;
+  OPTION VERSION = 3.10;
   OPTION NAME = qspips;
 
 END driver

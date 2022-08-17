@@ -37,6 +37,7 @@
 *                    recognize it as documentation block for doxygen
 *                    generation.
 * 		tjs	06/16/17 Added support for IS25LP256D flash part (PR-4650)
+* 3.10 akm 08/17/22  Fix logical error in NumSect calculation.
 *</pre>
 *
 ******************************************************************************/
@@ -875,7 +876,10 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)
 	/*
 	 * Calculate no. of sectors to erase based on byte count
 	 */
-	NumSect = ByteCount/(Flash_Config_Table[FCTIndex].SectSize) + 1;
+	if (ByteCount % Flash_Config_Table[FCTIndex].SectSize)
+		NumSect = ByteCount/(Flash_Config_Table[FCTIndex].SectSize) + 1;
+	else
+		NumSect = ByteCount/(Flash_Config_Table[FCTIndex].SectSize);
 
 	/*
 	 * If ByteCount to k sectors,
