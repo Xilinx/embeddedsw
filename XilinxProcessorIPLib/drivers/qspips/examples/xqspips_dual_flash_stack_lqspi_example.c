@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 * 3.5	tjs 07/16/18 Added support for low density ISSI flash parts.
 *		     Added FlashQuadEnable API to enable quad mode in flash.
 *		     Added FlashReadID API to read and identify the flash.
+* 3.10  akm 08/17/22 Fix logical error in NumSect calculation.
 *</pre>
 *
 ******************************************************************************/
@@ -741,8 +742,13 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	 * use sector erase command.
 	 */
 
-	/* Calculate no. of sectors to erase based on byte count*/
-	NumSect = ByteCount/SECTOR_SIZE + 1;
+	/*
+	 * Calculate no. of sectors to erase based on byte count
+	 */
+	if (ByteCount % SECTOR_SIZE)
+		NumSect = ByteCount/SECTOR_SIZE + 1;
+	else
+		NumSect = ByteCount/SECTOR_SIZE;
 
 	/*
 	 * If ByteCount to k sectors,

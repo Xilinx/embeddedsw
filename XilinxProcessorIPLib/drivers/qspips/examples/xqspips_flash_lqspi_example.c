@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,6 +50,7 @@
 * 3.6   akm 04/15/19 Modified FlashQuadEnable, FlashWrie and FlashErase APIs,
 *                    to wait for the on going operation to complete before
 *                    performing the next operation.
+* 3.10  akm 08/17/22 Fix logical error in NumSect calculation.
 *</pre>
 *
 ******************************************************************************/
@@ -465,6 +466,7 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	u8 ReadStatusCmd[] = { READ_STATUS_CMD, 0 };  /* must send 2 bytes */
 	u8 FlashStatus[2];
 	int Sector;
+	u32 NumSect;
 
 	/*
 	 * If erase size is same as the total size of the flash, use bulk erase
@@ -517,10 +519,18 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	}
 
 	/*
+	 * Calculate no. of sectors to erase based on byte count
+	 */
+	if (ByteCount % SECTOR_SIZE)
+		NumSect = ByteCount/SECTOR_SIZE + 1;
+	else
+		NumSect = ByteCount/SECTOR_SIZE;
+
+	/*
 	 * If the erase size is less than the total size of the flash, use
 	 * sector erase command
 	 */
-	for (Sector = 0; Sector < ((ByteCount / SECTOR_SIZE) + 1); Sector++) {
+	for (Sector = 0; Sector < NumSect; Sector++) {
 		/*
 		 * Send the write enable command to the SEEPOM so that it can be
 		 * written to, this needs to be sent as a separate transfer
