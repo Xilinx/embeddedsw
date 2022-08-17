@@ -86,7 +86,7 @@ static int (*PmRestartCb)(u32 ImageId, u32 *FuncId);
  ****************************************************************************/
 static XStatus XPm_ActivateSubsystem(u32 SubsystemId, u32 TargetSubsystemId)
 {
-	XPM_EXPORT_CMD(PM_CLOCK_GETRATE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
+	XPM_EXPORT_CMD(PM_ACTIVATE_SUBSYSTEM, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 	XStatus Status = XST_FAILURE;
 
 	/* Return error if request is not from PMC subsystem */
