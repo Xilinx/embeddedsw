@@ -14,6 +14,8 @@
  * ----  ----  ----------  ---------------------------------------------------
  * 0.1   hb    07/03/2022  Initial Creation
  * 0.2   hv    08/08/2022  Fixed build error due to updated macros
+ * 0.3	 hv    08/15/2022  Updated broadcast APIs to check status of all SLRs
+ *						   seperately
  * </pre>
  *
  *****************************************************************************/
@@ -208,30 +210,46 @@ static XStatus XSem_ApiNpiStartScan_Broadcast(XIpiPsu *IpiInst,
 															XSemIpiResp *Resp)
 {
 	XStatus Status = XST_FAILURE;
-	u32 SlrCnt;
-	u32 SlrFailMask = 0U;
 
 	Status = XSem_Ssit_CmdNpiStartScan(IpiInst, Resp, \
 			XSEM_SSIT_ALL_SLRS_ID);
-	if ((Status != XST_SUCCESS) || (Resp->RespMsg2 != XST_SUCCESS)) {
-		xil_printf("%s Npi Start scan cmd failed\n\r", __func__);
-		goto END;
-	}
 
-	/* Check for Start scan failure */
-	if (SlrFailMask != 0U) {
-		/* Check response and list NPI start scan failure on SLRs */
-		for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
-			SlrFailMask = Resp->RespMsg3;
-			SlrFailMask = ((SlrFailMask >> SlrCnt) & XSEM_CUR_SLR_MASK);
-			if (SlrFailMask == 1U) {
-				xil_printf("[%s]Npi StartScan failed on SLR=%u\n\r",
-						__func__, SlrCnt);
-			}
+	if ((XST_SUCCESS == Status) && (CMD_ACK_NPI_STARTSCAN == Resp->RespMsg1) \
+			&& (XST_SUCCESS == Resp->RespMsg2) &&
+			(XST_SUCCESS == Resp->RespMsg3) &&
+			(XST_SUCCESS == Resp->RespMsg4 &&
+			(XST_SUCCESS == Resp->RespMsg5))) {
+		xil_printf("[%s] Success: NPI StartScan on all SLRs\n\r", __func__);
+	} else {
+		xil_printf("[%s] Error: NPI StartScan Status 0x%x Ack 0x%x \n", \
+			__func__, Status, Resp->RespMsg1);
+
+		/*Check If RespMsg2 is success or not */
+		if (Resp->RespMsg2 != XST_SUCCESS){
+			/* If not success NPI StartScan is failed in master SLR */
+			xil_printf("[%s] NPI StartScan failed on SLR-0 with error"
+					" code = 0x%08x\n\r", __func__, Resp->RespMsg2);
 		}
+		/*Check If RespMsg3 is success or not */
+		if (Resp->RespMsg3 != XST_SUCCESS){
+			/* If not success NPI StartScan is failed in Slave 1 */
+			xil_printf("[%s] NPI StartScan failed on SLR-1 with error"
+					" code = 0x%08x\n\r", __func__, Resp->RespMsg3);
+		}
+		/*Check If RespMsg4 is success or not */
+		if (Resp->RespMsg4 != XST_SUCCESS){
+			/* If not success NPI StartScan is failed in Slave 2 */
+			xil_printf("[%s] NPI StartScan failed on SLR-2 with error"
+					" code = 0x%08x\n\r", __func__, Resp->RespMsg4);
+		}
+		/*Check If RespMsg5 is success or not */
+		if (Resp->RespMsg5 != XST_SUCCESS){
+			/* If not success NPI StartScan is failed in Slave 3 */
+			xil_printf("[%s] NPI StartScan failed on SLR-3 with error"
+					" code = 0x%08x\n\r", __func__, Resp->RespMsg5);
+		}
+		Status = XST_FAILURE;
 	}
-
-END:
 	return Status;
 }
 
@@ -247,30 +265,45 @@ static XStatus XSem_ApiNpiStopScan_Broadcast(XIpiPsu *IpiInst,
 															XSemIpiResp *Resp)
 {
 	XStatus Status = XST_FAILURE;
-	u32 SlrCnt;
-	u32 SlrFailMask = 0U;
 
 	Status = XSem_Ssit_CmdNpiStopScan(IpiInst, Resp, \
 			XSEM_SSIT_ALL_SLRS_ID);
-	if ((Status != XST_SUCCESS) || (Resp->RespMsg2 != XST_SUCCESS)) {
-		xil_printf("%s Npi Stop scan cmd failed\n\r", __func__);
-		goto END;
-	}
+	if ((XST_SUCCESS == Status) && (CMD_ACK_NPI_STOPSCAN == Resp->RespMsg1) \
+			&& (XST_SUCCESS == Resp->RespMsg2) &&
+			(XST_SUCCESS == Resp->RespMsg3) &&
+			(XST_SUCCESS == Resp->RespMsg4 &&
+			(XST_SUCCESS == Resp->RespMsg5))) {
+		xil_printf("[%s] Success: NPI StopScan on all SLRs\n\r", __func__);
+	} else {
+		xil_printf("[%s] Error: NPI StopScan Status 0x%x Ack 0x%x \n", \
+			__func__, Status, Resp->RespMsg1);
 
-	/* Check for Start scan failure */
-	if (SlrFailMask != 0U) {
-		/* Check response and list NPI stop scan failure on SLRs */
-		for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
-			SlrFailMask = Resp->RespMsg3;
-			SlrFailMask = ((SlrFailMask >> SlrCnt) & XSEM_CUR_SLR_MASK);
-			if (SlrFailMask == 1U) {
-				xil_printf("[%s]Npi Stop scan failed on SLR=%u\n\r",
-						__func__, SlrCnt);
-			}
+		/*Check If RespMsg2 is success or not */
+		if (Resp->RespMsg2 != XST_SUCCESS){
+			/* If not success NPI StopScan is failed in master SLR */
+			xil_printf("[%s] NPI StopScan failed on SLR-0 with error"
+					" code = 0x%08x\n\r", __func__, Resp->RespMsg2);
 		}
+		/*Check If RespMsg3 is success or not */
+		if (Resp->RespMsg3 != XST_SUCCESS){
+			/* If not success NPI StopScan is failed in Slave 1 */
+			xil_printf("[%s] NPI StopScan failed on SLR-1 with error"
+					" code = 0x%08x\n\r", __func__, Resp->RespMsg3);
+		}
+		/*Check If RespMsg4 is success or not */
+		if (Resp->RespMsg4 != XST_SUCCESS){
+			/* If not success NPI StopScan is failed in Slave 2 */
+			xil_printf("[%s] NPI StopScan failed on SLR-2 with error"
+					" code = 0x%08x\n\r", __func__, Resp->RespMsg4);
+		}
+		/*Check If RespMsg5 is success or not */
+		if (Resp->RespMsg5 != XST_SUCCESS){
+			/* If not success NPI StopScan is failed in Slave 3 */
+			xil_printf("[%s] NPI StopScan failed on SLR-3 with error"
+					" code = 0x%08x\n\r", __func__, Resp->RespMsg5);
+		}
+		Status = XST_FAILURE;
 	}
-
-END:
 	return Status;
 }
 

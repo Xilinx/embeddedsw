@@ -45,6 +45,8 @@
 * 1.8   hb   07/03/2022   Added APIs to support SSIT devices
 * 1.9	hv   07/24/2022   Added client interface to read Cfr Status
 * 2.0	hv   08/08/2022   Fixed Misra C violations
+* 2.1	hv   08/15/2022   Updated APIs to read status of all SLRs seperately
+*						  in case of broadcast
 * </pre>
 *
 * @note
@@ -1149,12 +1151,13 @@ void XSem_CmdCfrGetTotalFrames(u32 RowIndex, u32 *FrameCntPtr)
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM Initialization(0x10301)
- *		- Resp->RespMsg2: Status of CRAM Initialization
- *		- Resp->RespMsg3: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
+ *		- Resp->RespMsg2:
+ *			- if Broadcast	: is updated with Status of Cfr Init in Master
+ *			- else			: is updated with Status of Cfr Init in Target SLR
+ *		- RespMsg3, 4 and 5 are updated only in case of broadcast
+ *		- Resp->RespMsg3: Status of Cfr Init in Slave 1
+ *		- Resp->RespMsg4: Status of Cfr Init in Slave 2
+ *		- Resp->RespMsg5: Status of Cfr Init in Slave 3
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1203,9 +1206,21 @@ XStatus XSem_Ssit_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 	}
 
 	/* Copy response messages */
+	/* Acknowledgment ID */
 	Resp->RespMsg1 = Response[1U];
+	/**
+	 * Response[2U]:
+	 * 		if Broadcast- is updated with Status of Cfr Init in Master
+	 * 		else		- is updated with Status of Cfr Init in Target SLR
+	 */
 	Resp->RespMsg2 = Response[2U];
+	/* Response[3], [4] and [5] are updated only in case of Broadcast */
+	/* Response[3U] is updated with Status of Cfr Init in Slave 1 */
 	Resp->RespMsg3 = Response[3U];
+	/* Response[4U] is updated with Status of Cfr Init in Slave 2 */
+	Resp->RespMsg4 = Response[4U];
+	/* Response[5U] is updated with Status of Cfr Init in Slave 3 */
+	Resp->RespMsg5 = Response[5U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
@@ -1224,12 +1239,14 @@ END:
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM start scan(0x10302)
- *		- Resp->RespMsg2: Status of CRAM start scan
- *		- Resp->RespMsg3: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
+ *		- Resp->RespMsg2:
+ *			- if Broadcast	: is updated with Status of CfrStartScan in Master
+ *			- else			: is updated with Status of CfrStartScan in Target
+ *							  SLR
+ *		- RespMsg3, 4 and 5 are updated only in case of broadcast
+ *		- Resp->RespMsg3: Status of CfrStartScan in Slave 1
+ *		- Resp->RespMsg4: Status of CfrStartScan in Slave 2
+ *		- Resp->RespMsg5: Status of CfrStartScan in Slave 3
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1277,9 +1294,22 @@ XStatus XSem_Ssit_CmdCfrStartScan(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 		goto END;
 	}
 	/* Copy response messages */
+	/* Acknowledgment ID */
 	Resp->RespMsg1 = Response[1U];
+	/**
+	 * Response[2U]:
+	 * 		if Broadcast- is updated with Status of Cfr start scan in Master
+	 * 		else		- is updated with Status of Cfr start scan in
+	 * 					  Target SLR
+	 */
 	Resp->RespMsg2 = Response[2U];
+	/* Response[3], [4] and [5] are updated only in case of Broadcast */
+	/* Response[3U] is updated with Status of Cfr start scan in Slave 1 */
 	Resp->RespMsg3 = Response[3U];
+	/* Response[4U] is updated with Status of Cfr start scan in Slave 2 */
+	Resp->RespMsg4 = Response[4U];
+	/* Response[5U] is updated with Status of Cfr start scan in Slave 3 */
+	Resp->RespMsg5 = Response[5U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
@@ -1298,12 +1328,14 @@ END:
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM stop scan(0x10303)
- *		- Resp->RespMsg2: Status of CRAM stop scan
- *		- Resp->RespMsg3: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
+ *		- Resp->RespMsg2:
+ *			- if Broadcast	: is updated with Status of CfrStoptScan in Master
+ *			- else			: is updated with Status of CfrStoptScan in Target
+ *							  SLR
+ *		- RespMsg3, 4 and 5 are updated only in case of broadcast
+ *		- Resp->RespMsg3: Status of CfrStoptScan in Slave 1
+ *		- Resp->RespMsg4: Status of CfrStoptScan in Slave 2
+ *		- Resp->RespMsg5: Status of CfrStoptScan in Slave 3
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1350,9 +1382,21 @@ XStatus XSem_Ssit_CmdCfrStopScan(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 		goto END;
 	}
 	/* Copy response messages */
+	/* Acknowledgment ID */
 	Resp->RespMsg1 = Response[1U];
+	/**
+	 * Response[2U]:
+	 * 		if Broadcast- is updated with Status of Cfr stop scan in Master
+	 * 		else		- is updated with Status of Cfr stop scan in Target SLR
+	 */
 	Resp->RespMsg2 = Response[2U];
+	/* Response[3], [4] and [5] are updated only in case of Broadcast */
+	/* Response[3U] is updated with Status of Cfr stop scan in Slave 1 */
 	Resp->RespMsg3 = Response[3U];
+	/* Response[4U] is updated with Status of Cfr stop scan in Slave 2 */
+	Resp->RespMsg4 = Response[4U];
+	/* Response[5U] is updated with Status of Cfr stop scan in Slave 3 */
+	Resp->RespMsg5 = Response[5U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
@@ -1381,11 +1425,6 @@ END:
  * @param[out]	Resp	Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM error injection(0x10304)
  *		- Resp->RespMsg2: Status of CRAM error injection
- *		- Resp->RespMsg3: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1454,7 +1493,6 @@ XStatus XSem_Ssit_CmdCfrNjctErr (XIpiPsu *IpiInst, \
 	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
-	Resp->RespMsg3 = Response[3U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
@@ -1479,11 +1517,6 @@ END:
  *		- Resp->RespMsg2: Segment 0 ECC value
  *		- Resp->RespMsg3: Segment 1 ECC value
  *		- Resp->RespMsg4: Status of CRAM stop scan
- *		- Resp->RespMsg5: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1508,8 +1541,8 @@ END:
  *	- The safe location to perform error injection is QWORD 12 which has
  * ECC bits. The error injection will not change the design behaviour.
  *****************************************************************************/
-XStatus XSem_Ssit_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLoc,
-		 XSemIpiResp *Resp, u32 TargetSlr)
+XStatus XSem_Ssit_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr,
+		u32 RowLoc, XSemIpiResp *Resp, u32 TargetSlr)
 {
 	XStatus Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
@@ -1526,7 +1559,8 @@ XStatus XSem_Ssit_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLo
 		goto END;
 	}
 	/* Pack commands to be sent over IPI */
-	PACK_PAYLOAD4(Payload, CMD_ID_CFR_RDFRAME_ECC, TargetSlr, CframeAddr, RowLoc);
+	PACK_PAYLOAD4(Payload, CMD_ID_CFR_RDFRAME_ECC, TargetSlr, \
+			CframeAddr, RowLoc);
 
 	/* Send request to PLM with the payload */
 	Status = XSem_IpiSendReqPlm(IpiInst, Payload);
@@ -1547,7 +1581,6 @@ XStatus XSem_Ssit_CmdCfrReadFrameEcc(XIpiPsu *IpiInst, u32 CframeAddr, u32 RowLo
 	Resp->RespMsg2 = Response[2U];
 	Resp->RespMsg3 = Response[3U];
 	Resp->RespMsg4 = Response[4U];
-	Resp->RespMsg5 = Response[5U];
 
 	/* Print API status */
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
@@ -1751,12 +1784,14 @@ END:
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of NPI start scan(0x10305)
- *		- Resp->RespMsg2: Status of NPI start scan
- *		- Resp->RespMsg3: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
+ *		- Resp->RespMsg2:
+ *			- if Broadcast	: is updated with Status of NpiStarttScan in Master
+ *			- else			: is updated with Status of NpiStarttScan in Target
+ *							  SLR
+ *		- RespMsg3, 4 and 5 are updated only in case of broadcast
+ *		- Resp->RespMsg3: Status of NpiStarttScan in Slave 1
+ *		- Resp->RespMsg4: Status of NpiStarttScan in Slave 2
+ *		- Resp->RespMsg5: Status of NpiStarttScan in Slave 3
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1803,9 +1838,22 @@ XStatus XSem_Ssit_CmdNpiStartScan (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		goto END;
 	}
 	/* Copy response messages */
+	/* Acknowledgment ID */
 	Resp->RespMsg1 = Response[1U];
+	/**
+	 * Response[2U]:
+	 * 		if Broadcast- is updated with Status of NPI start scan in Master
+	 * 		else		- is updated with Status of NPI start scan in
+	 * 					  Target SLR
+	 */
 	Resp->RespMsg2 = Response[2U];
+	/* Response[3], [4] and [5] are updated only in case of Broadcast */
+	/* Response[3U] is updated with Status of NPI start scan in Slave 1 */
 	Resp->RespMsg3 = Response[3U];
+	/* Response[4U] is updated with Status of NPI start scan in Slave 2 */
+	Resp->RespMsg4 = Response[4U];
+	/* Response[5U] is updated with Status of NPI start scan in Slave 3 */
+	Resp->RespMsg5 = Response[5U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
@@ -1823,12 +1871,14 @@ END:
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of NPI stop scan(0x10306)
- *		- Resp->RespMsg2: Status of NPI stop scan
- *		- Resp->RespMsg3: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
+ *		- Resp->RespMsg2:
+ *			- if Broadcast	: is updated with Status of NpiStoptScan in Master
+ *			- else			: is updated with Status of NpiStoptScan in Target
+ *							  SLR
+ *		- RespMsg3, 4 and 5 are updated only in case of broadcast
+ *		- Resp->RespMsg3: Status of NpiStoptScan in Slave 1
+ *		- Resp->RespMsg4: Status of NpiStoptScan in Slave 2
+ *		- Resp->RespMsg5: Status of NpiStoptScan in Slave 3
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1875,9 +1925,21 @@ XStatus XSem_Ssit_CmdNpiStopScan (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 		goto END;
 	}
 	/* Copy response messages */
+	/* Acknowledgment ID */
 	Resp->RespMsg1 = Response[1U];
+	/**
+	 * Response[2U]:
+	 * 		if Broadcast- is updated with Status of NPI stop scan in Master
+	 * 		else		- is updated with Status of NPI stop scan in Target SLR
+	 */
 	Resp->RespMsg2 = Response[2U];
+	/* Response[3], [4] and [5] are updated only in case of Broadcast */
+	/* Response[3U] is updated with Status of NPI stop scan in Slave 1 */
 	Resp->RespMsg3 = Response[3U];
+	/* Response[4U] is updated with Status of NPI stop scan in Slave 2 */
+	Resp->RespMsg4 = Response[4U];
+	/* Response[5U] is updated with Status of NPI stop scan in Slave 3 */
+	Resp->RespMsg5 = Response[5U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
@@ -1897,11 +1959,6 @@ END:
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of NPI error injection(0x10307)
  *		- Resp->RespMsg2: Status of NPI error injection
- *		- Resp->RespMsg3: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1953,7 +2010,6 @@ XStatus XSem_Ssit_CmdNpiInjectError (XIpiPsu *IpiInst, XSemIpiResp * Resp,
 	/* Copy response messages */
 	Resp->RespMsg1 = Response[1U];
 	Resp->RespMsg2 = Response[2U];
-	Resp->RespMsg3 = Response[3U];
 
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
 
@@ -2023,11 +2079,6 @@ END:
  *			- Bit [1:0]: Reserved
  *
  *		- Resp->RespMsg4: Status of Get Configuration command
- *		- Resp->RespMsg5: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On Get Configuration failure
@@ -2072,7 +2123,6 @@ XStatus XSem_Ssit_CmdGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 	Resp->RespMsg2 = Response[2U];
 	Resp->RespMsg3 = Response[3U];
 	Resp->RespMsg4 = Response[4U];
-	Resp->RespMsg5 = Response[5U];
 
 	/* Print API status */
 	XSem_Dbg("[%s] SUCCESS: 0x%x\n\r", __func__, Status);
@@ -2096,11 +2146,6 @@ END:
  *		- Resp->RespMsg4: CRC register word 1
  *		- Resp->RespMsg5: CRC register word 2
  *		- Resp->RespMsg6: CRC register word 3
- *		- Resp->RespMsg7: Mask containing SLR values in which execution failed
- *			- Bit[0] : Command failed on Master
- *			- Bit[1] : Command failed on SLR 0
- *			- Bit[2] : Command failed on SLR 1
- *			- Bit[3] : Command failed on SLR 2
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only

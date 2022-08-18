@@ -14,6 +14,8 @@
  * ---- ----     ----------  --------------------------------------------------
  * 0.1  hb       07/03/2022  Initial Creation
  * 0.2	gupta    07/18/2022  Added cram get status API and updated example
+ * 0.3	gupta    08/15/2022  Updated broad cast APIs to check status of all SLRs
+ *							 seperately
  * </pre>
  *
  *****************************************************************************/
@@ -221,26 +223,42 @@ static XStatus XSem_ApiCfrInitCram_InOneSlr(u32 TargetSlr)
 static XStatus XSem_ApiCfrInitCram_Broadcast()
 {
 	XStatus Status = XST_FAILURE;
-	u32 SlrCnt;
-	u32 SlrFailMask = 0U;
 
 	Status = XSem_Ssit_CmdCfrInit(&IpiInst, &IpiResp, \
 			XSEM_SSIT_ALL_SLRS_ID);
 	if ((XST_SUCCESS == Status) && (CMD_ACK_CFR_INIT == IpiResp.RespMsg1) \
-			&& (XST_SUCCESS == IpiResp.RespMsg2)) {
+			&& (XST_SUCCESS == IpiResp.RespMsg2) &&
+			(XST_SUCCESS == IpiResp.RespMsg3) &&
+			(XST_SUCCESS == IpiResp.RespMsg4 &&
+			(XST_SUCCESS == IpiResp.RespMsg5))) {
 		xil_printf("[%s] Success: Cfr Init on all SLRs\n\r", __func__);
 	} else {
-		xil_printf("[%s] Error: Cfr Init Status 0x%x Ack 0x%x Ret 0x%x\n", \
-			__func__, Status, IpiResp.RespMsg1, \
-			IpiResp.RespMsg2);
-		/* Check response and list Cram Init failure on SLRs */
-		for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
-			SlrFailMask = IpiResp.RespMsg3;
-			SlrFailMask = ((SlrFailMask >> SlrCnt) & XSEM_CUR_SLR_MASK);
-			if (SlrFailMask == 1U) {
-				xil_printf("[%s] Cfr Init failed on SLR-%u\n\r",
-					__func__, SlrCnt);
-			}
+		xil_printf("[%s] Error: Cfr Init Status 0x%x Ack 0x%x \n", \
+			__func__, Status, IpiResp.RespMsg1);
+
+		/*Check If RespMsg2 is success or not */
+		if (IpiResp.RespMsg2 != XST_SUCCESS){
+			/* If not success Cfr Init is failed in master SLR */
+			xil_printf("[%s] Cfr Init failed on SLR-0 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg2);
+		}
+		/*Check If RespMsg3 is success or not */
+		if (IpiResp.RespMsg3 != XST_SUCCESS){
+			/* If not success Cfr Init is failed in Slave 1 */
+			xil_printf("[%s] Cfr Init failed on SLR-1 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg3);
+		}
+		/*Check If RespMsg4 is success or not */
+		if (IpiResp.RespMsg4 != XST_SUCCESS){
+			/* If not success Cfr Init is failed in Slave 2 */
+			xil_printf("[%s] Cfr Init failed on SLR-2 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg4);
+		}
+		/*Check If RespMsg5 is success or not */
+		if (IpiResp.RespMsg5 != XST_SUCCESS){
+			/* If not success Cfr Init is failed in Slave 3 */
+			xil_printf("[%s] Cfr Init failed on SLR-3 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg5);
 		}
 		Status = XST_FAILURE;
 	}
@@ -291,34 +309,45 @@ static XStatus XSem_Ssit_ApiCfrStartScan_InOneSlr(u32 TargetSlr)
 static XStatus XSem_ApiCfrStartScan_Broadcast()
 {
 	XStatus Status = XST_FAILURE;
-	u32 SlrCnt;
-	u32 SlrFailMask = 0U;
 
 	Status = XSem_Ssit_CmdCfrStartScan(&IpiInst, &IpiResp, \
 		XSEM_SSIT_ALL_SLRS_ID);
-	if ((XST_SUCCESS == Status) && \
-		(CMD_ACK_CFR_START_SCAN == IpiResp.RespMsg1) && \
-		(XST_SUCCESS == IpiResp.RespMsg2)) {
-		xil_printf("[%s] Success: Cfr Start scan on all SLRs\n\r", \
-			__func__);
+	if ((XST_SUCCESS == Status) && (CMD_ACK_CFR_START_SCAN == IpiResp.RespMsg1) \
+			&& (XST_SUCCESS == IpiResp.RespMsg2) &&
+			(XST_SUCCESS == IpiResp.RespMsg3) &&
+			(XST_SUCCESS == IpiResp.RespMsg4 &&
+			(XST_SUCCESS == IpiResp.RespMsg5))) {
+		xil_printf("[%s] Success: Cfr StartScan on all SLRs\n\r", __func__);
 	} else {
-		xil_printf("[%s] Error: Cfr Start scan Status 0x%x Ack 0x%x "
-			"Ret 0x%x\n", __func__, Status, IpiResp.RespMsg1, \
-			IpiResp.RespMsg2);
+		xil_printf("[%s] Error: Cfr StartScan Status 0x%x Ack 0x%x \n", \
+			__func__, Status, IpiResp.RespMsg1);
 
-		/* Check response and list Cfr start failure on SLRs */
-		for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
-			SlrFailMask = IpiResp.RespMsg3;
-			SlrFailMask = ((SlrFailMask >> SlrCnt) & \
-				XSEM_CUR_SLR_MASK);
-			if (SlrFailMask == 1U) {
-				xil_printf("[%s] Cfr start scan failed on" \
-					"SLR-%u\n\r", __func__, SlrCnt);
-			}
+		/*Check If RespMsg2 is success or not */
+		if (IpiResp.RespMsg2 != XST_SUCCESS){
+			/* If not success Cfr StartScan is failed in master SLR */
+			xil_printf("[%s] Cfr StartScan failed on SLR-0 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg2);
+		}
+		/*Check If RespMsg3 is success or not */
+		if (IpiResp.RespMsg3 != XST_SUCCESS){
+			/* If not success Cfr StartScan is failed in Slave 1 */
+			xil_printf("[%s] Cfr StartScan failed on SLR-1 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg3);
+		}
+		/*Check If RespMsg4 is success or not */
+		if (IpiResp.RespMsg4 != XST_SUCCESS){
+			/* If not success Cfr StartScan is failed in Slave 2 */
+			xil_printf("[%s] Cfr StartScan failed on SLR-2 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg4);
+		}
+		/*Check If RespMsg5 is success or not */
+		if (IpiResp.RespMsg5 != XST_SUCCESS){
+			/* If not success Cfr StartScan is failed in Slave 3 */
+			xil_printf("[%s] Cfr StartScan failed on SLR-3 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg5);
 		}
 		Status = XST_FAILURE;
 	}
-
 	return Status;
 }
 
@@ -365,33 +394,45 @@ static XStatus XSem_Ssit_ApiCfrStopScan_InOneSlr(u32 TargetSlr)
 static XStatus XSem_ApiCfrStopScan_Broadcast()
 {
 	XStatus Status = XST_FAILURE;
-	u32 SlrCnt;
-	u32 SlrFailMask = 0U;
 
 	Status = XSem_Ssit_CmdCfrStopScan(&IpiInst, &IpiResp, \
 			XSEM_SSIT_ALL_SLRS_ID);
-	if ((XST_SUCCESS == Status) && \
-			(CMD_ACK_CFR_STOP_SCAN == IpiResp.RespMsg1) && \
-			(XST_SUCCESS == IpiResp.RespMsg2)) {
-		xil_printf("[%s] Success: Cfr Stop scan on all SLRs\n\r", \
-			__func__);
+	if ((XST_SUCCESS == Status) && (CMD_ACK_CFR_STOP_SCAN == IpiResp.RespMsg1) \
+			&& (XST_SUCCESS == IpiResp.RespMsg2) &&
+			(XST_SUCCESS == IpiResp.RespMsg3) &&
+			(XST_SUCCESS == IpiResp.RespMsg4 &&
+			(XST_SUCCESS == IpiResp.RespMsg5))) {
+		xil_printf("[%s] Success: Cfr StopScan on all SLRs\n\r", __func__);
 	} else {
-		xil_printf("[%s] Error: Cfr Stop scan Status 0x%x Ack 0x%x "
-			"Ret 0x%x\n", __func__, Status, IpiResp.RespMsg1, \
-			IpiResp.RespMsg2);
-		/* Check response and list Cfr stop failure on SLRs */
-		for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
-			SlrFailMask = IpiResp.RespMsg3;
-			SlrFailMask = ((SlrFailMask >> SlrCnt) & \
-				XSEM_CUR_SLR_MASK);
-			if (SlrFailMask == 1U) {
-				xil_printf("[%s] Cfr stop scan failed on all "
-					"SLRs\n\r",	__func__);
-			}
+		xil_printf("[%s] Error: Cfr StopScan Status 0x%x Ack 0x%x \n", \
+			__func__, Status, IpiResp.RespMsg1);
+
+		/*Check If RespMsg2 is success or not */
+		if (IpiResp.RespMsg2 != XST_SUCCESS){
+			/* If not success Cfr StopScan is failed in master SLR */
+			xil_printf("[%s] Cfr StopScan failed on SLR-0 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg2);
+		}
+		/*Check If RespMsg3 is success or not */
+		if (IpiResp.RespMsg3 != XST_SUCCESS){
+			/* If not success Cfr StopScan is failed in Slave 1 */
+			xil_printf("[%s] Cfr StopScan failed on SLR-1 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg3);
+		}
+		/*Check If RespMsg4 is success or not */
+		if (IpiResp.RespMsg4 != XST_SUCCESS){
+			/* If not success Cfr StopScan is failed in Slave 2 */
+			xil_printf("[%s] Cfr StopScan failed on SLR-2 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg4);
+		}
+		/*Check If RespMsg5 is success or not */
+		if (IpiResp.RespMsg5 != XST_SUCCESS){
+			/* If not success Cfr StopScan is failed in Slave 3 */
+			xil_printf("[%s] Cfr StopScan failed on SLR-3 with error"
+					" code = 0x%08x\n\r", __func__, IpiResp.RespMsg5);
 		}
 		Status = XST_FAILURE;
 	}
-
 	return Status;
 }
 
