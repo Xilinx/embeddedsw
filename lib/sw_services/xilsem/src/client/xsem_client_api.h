@@ -368,51 +368,52 @@ information: Contains descriptor attributes and golden SHA value */
  * GT arbitration failure is notified for every 5 times GT
  * arbitration failure is encountered in NPI scan
  */
+/** SEM Event_NPI GT Arbitration Fail */
 #define XSEM_EVENT_NPI_GT_ARB_FAIL		(0xBU)
 
-/* SEM Event Flags */
+/** SEM Event Flags */
 /** SEM Event Notification Enable */
 #define XSEM_EVENT_ENABLE	(0x1U)
 /** SEM Event Notification Disable */
 #define XSEM_EVENT_DISABLE	(0x0U)
-/* Maximum number of SLRs on SSIT device */
+/** Maximum number of SLRs on SSIT device */
 #define XSEM_SSIT_MAX_SLR_CNT	(4U)
 
 /**
  * The below definitions are used for decoding response from
  * PLM during particular SLR failure
  */
-/* SSIT master SLR mask */
+/** SSIT master SLR mask */
 #define XSEM_SSIT_MASTER_SLR_MASK		(0x1U)
-/* SSIT slave SLR0 mask */
+/** SSIT slave SLR0 mask */
 #define XSEM_SSIT_SLAVE_SLR0_MASK		(0x2U)
-/* SSIT slave SLR1 mask */
+/** SSIT slave SLR1 mask */
 #define XSEM_SSIT_SLAVE_SLR1_MASK		(0x4U)
-/* SSIT slave SLR2 mask */
+/** SSIT slave SLR2 mask */
 #define XSEM_SSIT_SLAVE_SLR2_MASK		(0x8U)
-/* SSIT all slave SLR mask */
+/** SSIT all slave SLR mask */
 #define XSEM_SSIT_ALL_SLAVE_SLRS_MASK	(0xEU)
-/* SSIT all SLR mask */
+/** SSIT all SLR mask */
 #define XSEM_SSIT_ALL_SLRS_MASK			(0xFU)
 
-/* SSIT Check SLR mask */
+/** SSIT Check SLR mask */
 #define XSEM_SSIT_SLR_CHECK_MASK	(0x00000001U)
 
 /**
  * The below definitions are used for targeting SLRs while
  * sending commands
  */
-/* SSIT master SLR index */
+/** SSIT master SLR index */
 #define XSEM_SSIT_MASTER_SLR_ID		(0x0U)
-/* SSIT slave SLR0 index */
+/** SSIT slave SLR0 index */
 #define XSEM_SSIT_SLAVE0_SLR_ID		(0x1U)
-/* SSIT slave SLR1 index */
+/** SSIT slave SLR1 index */
 #define XSEM_SSIT_SLAVE1_SLR_ID		(0x2U)
-/* SSIT slave SLR2 index */
+/** SSIT slave SLR2 index */
 #define XSEM_SSIT_SLAVE2_SLR_ID		(0x3U)
-/* SSIT invalid SLR index */
+/** SSIT invalid SLR index */
 #define XSEM_SSIT_INVALID_SLR_ID	(0x4U)
-/* SSIT all SLRs index */
+/** SSIT all SLRs index */
 #define XSEM_SSIT_ALL_SLRS_ID		(0xFU)
 
 /**
