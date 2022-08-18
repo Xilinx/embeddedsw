@@ -16,6 +16,7 @@
  * Ver   Who   Date        Changes
  * ----- ---  ----------   ----------------------------------------------------
  * 1.0   bsv  04/20/2022   Initial release
+ *       bsv  08/18/2022   Fix typo in CmdId
  */
 #include <stdio.h>
 #include "platform.h"
@@ -61,7 +62,7 @@ static int DoIpiTest(void)
 *	PLM checks this dynamically added list of PDIs first to get the required image and in case of any failure, it falls back to next possible.
 *	If no valid entry is present, it uses boot pdi, which is the first entry in the list.
 */
-	u32 Payload[] = {0x0207089, 0, 0x10000000};
+	u32 Payload[] = {0x020709, 0, 0x10000000};
 
 	Xil_DCacheDisable();
 
