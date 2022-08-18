@@ -2379,6 +2379,7 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 {
 	XHdmiphy1_PllType PllType;
 	u32 Status = XST_SUCCESS;
+	u32 Hdmi21_frl_refclk;
 
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTHE4) || \
 	(XPAR_HDMIPHY1_0_TRANSCEIVER == XHDMIPHY1_GTYE4)
@@ -2386,7 +2387,6 @@ u32 XHdmiphy1_Hdmi21Config(XHdmiphy1 *InstancePtr, u8 QuadId,
 	char CompVal[5] = "-1";
 	char *SpeedGradePtr = &SpeedGrade[0];
 	char *CompValPtr = &CompVal[0];
-	u32 Hdmi21_frl_refclk;
 
 
 	/* Determine PLL type. */
