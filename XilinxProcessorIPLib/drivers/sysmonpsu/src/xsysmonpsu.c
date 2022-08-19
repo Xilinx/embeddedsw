@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsu.c
-* @addtogroup sysmonpsu_v2_7
+* @addtogroup Overview
 *
 * Functions in this file are the minimum required functions for the XSysMonPsu
 * driver. See xsysmonpsu.h for a detailed description of the driver.
@@ -43,6 +43,7 @@
 * 2.5   mn     07/06/18 Fixed Cppcheck warnings
 *       mn     07/31/18 Modified code for MISRA-C:2012 Compliance.
 * 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
+* 2.8   cog    10/21/20 Fixed issues where ADCCLK divisor was not updated.
 *
 * </pre>
 *
@@ -53,6 +54,17 @@
 #include "xsysmonpsu.h"
 
 /************************** Constant Definitions ****************************/
+
+#define XSYSMONPSU_CLOCK_DIV_CODE_ZERO 0x0U
+#define XSYSMONPSU_CLOCK_DIV_CODE_MIN 0x2U
+#define XSYSMONPSU_CLOCK_DIV_CODE_MAX 0xFFU
+
+#define XSYSMONPSU_CLOCK_DIV_PS_ZERO 8U
+#define XSYSMONPSU_CLOCK_DIV_MIN 2U
+
+#define XSYSMONPSU_ADCCLK_MIN 1.0
+#define XSYSMONPSU_ADCCLK_PL_MAX 5.2
+#define XSYSMONPSU_ADCCLK_PS_MAX 26.0
 
 /**************************** Type Definitions ******************************/
 
@@ -1173,11 +1185,13 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *****************************************************************************/
 u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
-	u16 Divisor;
+	u16 DivisorCode;
+	u16 Divisor = 0U;
 	UINTPTR EffectiveBaseAddress;
 	u32 RegValue;
-	u32 InputFreq;
+	double InputFreq;
 	u32 Count = 0U;
+	double FreqMax;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1188,29 +1202,30 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 			XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
 					SysmonBlk);
 
-	InputFreq = InstancePtr->Config.InputClockMHz;
-	/* Read the divisor value from the Configuration Register 2. */
-	Divisor = (u16) XSysmonPsu_ReadReg(EffectiveBaseAddress +
-							XSYSMONPSU_CFG_REG2_OFFSET);
-	Divisor = Divisor >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT;
+	InputFreq = (double)InstancePtr->Config.InputClockMHz;
+	FreqMax = (SysmonBlk == XSYSMON_PS) ? XSYSMONPSU_ADCCLK_PS_MAX : XSYSMONPSU_ADCCLK_PL_MAX;
 
-	while (Count < XSM_POLL_TIMEOUT) {
-		if (Divisor == 0U) {
-			if ((SysmonBlk == XSYSMON_PS) &&
-			((InputFreq/8U) >= 1U) && ((InputFreq/8U) <= 26U)) {
-				break;
-			}
-			if ((SysmonBlk == XSYSMON_PL) &&
-			((InputFreq/2U) >= 1U) && ((InputFreq/2U) <= 26U)) {
-				break;
-			}
-		} else if (((InputFreq/Divisor) >= 1U) &&
-				((InputFreq/Divisor) <= 26U)) {
+	/* Read the divisor value from the Configuration Register 2. */
+	DivisorCode = (u16) XSysmonPsu_ReadReg(EffectiveBaseAddress +
+							XSYSMONPSU_CFG_REG2_OFFSET);
+	DivisorCode = DivisorCode >> XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT;
+
+	for (Count = 0U; Count < XSM_POLL_TIMEOUT; Count++) {
+		if ((DivisorCode == XSYSMONPSU_CLOCK_DIV_CODE_ZERO) && (SysmonBlk == XSYSMON_PS)) {
+			Divisor = XSYSMONPSU_CLOCK_DIV_PS_ZERO;
+		} else if (DivisorCode < XSYSMONPSU_CLOCK_DIV_CODE_MIN) {
+			Divisor = XSYSMONPSU_CLOCK_DIV_MIN;
+		} else if (DivisorCode > XSYSMONPSU_CLOCK_DIV_CODE_MAX) { /* wrap back to 0 */
+			DivisorCode = 0U;
+			Divisor = (SysmonBlk == XSYSMON_PS) ? XSYSMONPSU_CLOCK_DIV_PS_ZERO : XSYSMONPSU_CLOCK_DIV_MIN;
+		} else {
+			Divisor = DivisorCode;
+		}
+		if (((InputFreq/Divisor) >= XSYSMONPSU_ADCCLK_MIN) && ((InputFreq/Divisor) <= FreqMax)) {
 			break;
 		} else {
-			Divisor += 1U;
+			DivisorCode++;
 		}
-		Count += 1U;
 	}
 
 	/*
@@ -1222,12 +1237,12 @@ u8 XSysMonPsu_UpdateAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	RegValue &= ~(XSYSMONPSU_CFG_REG2_CLK_DVDR_MASK);
 
 	/* Write the divisor value into the Configuration Register 2. */
-	RegValue |= ((u32)Divisor << XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT) &
+	RegValue |= ((u32)DivisorCode << XSYSMONPSU_CFG_REG2_CLK_DVDR_SHIFT) &
 					XSYSMONPSU_CFG_REG2_CLK_DVDR_MASK;
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG2_OFFSET,
 			 RegValue);
 
-	return (u8)Divisor;
+	return (u8)DivisorCode;
 }
 /****************************************************************************/
 /**

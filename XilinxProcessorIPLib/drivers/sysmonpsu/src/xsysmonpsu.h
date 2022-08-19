@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsu.h
-* @addtogroup sysmonpsu_v2_7
+* @addtogroup Overview
 *
 * The XSysMon driver supports the Xilinx System Monitor device.
 *
@@ -156,7 +156,7 @@
 * 2.4   mn     04/20/18 Remove looping check for PL accessible bit
 * 2.6   aad    11/18/19 Fixed typo in alarm macro comments
 * 2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
-*	aad    17/12/20 Removed undefined function.
+*       aad    17/12/20 Removed undefined function.
 *
 * </pre>
 *

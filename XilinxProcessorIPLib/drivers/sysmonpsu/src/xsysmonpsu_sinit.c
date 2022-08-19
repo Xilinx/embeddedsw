@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsu_sinit.c
-* @addtogroup sysmonpsu_v2_7
+* @addtogroup Overview
 *
 * This file contains the implementation of the XSysMonPsu driver's static
 * initialization functionality.
