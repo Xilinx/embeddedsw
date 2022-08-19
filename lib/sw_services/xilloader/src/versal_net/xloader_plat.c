@@ -503,10 +503,18 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		}
 	}
 
-	if (XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED == ClusterLockstep) {
+	if ((XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED == ClusterLockstep) &&
+		((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R52_0) ||
+		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R52_1))){
 		Mode = XPM_RPU_MODE_SPLIT;
-	} else {
+	}else if ((XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED != ClusterLockstep) &&
+		((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R52_0) ||
+		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R52_1))){
 		Mode = XPM_RPU_MODE_LOCKSTEP;
+	}else if (XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED == ClusterLockstep){
+		Mode = XPM_APU_MODE_SPLIT;
+	}else {
+		Mode = XPM_APU_MODE_LOCKSTEP;
 	}
 
 	switch (PrtnParams->DstnCpu)
