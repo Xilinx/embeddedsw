@@ -7,10 +7,10 @@
 /**
 *
 * @file xospipsv_options.c
-* @addtogroup Overview
+* @addtogroup ospipsv Overview
 * @{
 *
-* This file implements functions to configure the OSPIPSV component,
+* The xospipsv_options.c file implements functions to configure the OSPIPSV component,
 * specifically some optional settings, clock and flash related information.
 *
 * <pre>

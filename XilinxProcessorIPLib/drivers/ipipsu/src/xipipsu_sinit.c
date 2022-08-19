@@ -6,7 +6,7 @@
 /**
 *
 * @file xipipsu_sinit.c
-* @addtogroup Overview
+* @addtogroup ipipsu Overview
 * @{
 *
 * The xipipsu_sinit.c file contains the implementation of the XIpiPsu

@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_intr.c
-* @addtogroup Overview
+* @addtogroup gpio Overview
 * @{
 *
 * The xgpio_intr.c file contains the implementation of GPIO interrupt

@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv.h
-* @addtogroup Overview
+* @addtogroup ospipsv Overview
 * @{
 * @details
 *

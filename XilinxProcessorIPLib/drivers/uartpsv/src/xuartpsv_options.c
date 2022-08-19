@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_options.c
-* @addtogroup Overview
+* @addtogroup uartpsv Overview
 * @{
 *
 * The xuartpsv_options.c file contains the implementation of the options

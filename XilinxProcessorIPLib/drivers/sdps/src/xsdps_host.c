@@ -7,10 +7,10 @@
 /**
 *
 * @file xsdps_host.c
-* @addtogroup Overview
+* @addtogroup sdps Overview
 * @{
 *
-* Contains the interface functions of the XSdPs driver.
+* The xsdps_host.c file contains the interface functions of the XSdPs driver.
 * See xsdps.h for a detailed description of the device and driver.
 *
 * <pre>

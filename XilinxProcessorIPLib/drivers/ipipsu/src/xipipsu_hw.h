@@ -6,7 +6,7 @@
 /**
 *
 * @file xipipsu_hw.h
-* @addtogroup Overview
+* @addtogroup ipipsu Overview
 * @{
 *
 * The xipipsu_hw.h file contains macro definitions for low level HW related

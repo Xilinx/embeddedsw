@@ -7,10 +7,10 @@
 /**
 *
 * @file xsdps_card.c
-* @addtogroup Overview
+* @addtogroup sdps Overview
 * @{
 *
-* Contains the interface functions of the XSdPs driver.
+* The xsdps_card.c file contains the interface functions of the XSdPs driver.
 * See xsdps.h for a detailed description of the device and driver.
 *
 * <pre>

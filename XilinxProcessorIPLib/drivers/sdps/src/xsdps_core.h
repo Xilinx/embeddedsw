@@ -7,10 +7,10 @@
 /**
 *
 * @file xsdps_core.h
-* @addtogroup Overview
+* @addtogroup sdps Overview
 * @{
 *
-* This header file contains the identifiers and basic HW access driver
+* The xsdps_core.h header file contains the identifiers and basic HW access driver
 * functions (or  macros) that can be used to access the device. Other driver
 * functions are defined in xsdps.h.
 *

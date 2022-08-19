@@ -7,7 +7,7 @@
 /**
  *
  * @file xilmailbox.c
- * @addtogroup Overview
+ * @addtogroup xilmailbox Overview
  * @{
  * @details
  *

@@ -6,7 +6,7 @@
 /******************************************************************************/
 /**
 * @file xgpio_i.h
-* @addtogroup Overview
+* @addtogroup gpio Overview
 * @{
 *
 * The xgpio_i.h header file contains internal identifiers, which are those

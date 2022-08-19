@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_selftest.c
-* @addtogroup Overview
+* @addtogroup uartpsv Overview
 * @{
 *
 * The xuartpsv_selftest.c file contains the self-test functions for the

@@ -7,10 +7,10 @@
 /**
 *
 * @file xqspipsu_g.c
-* @addtogroup Overview
-* @{
+ * @addtogroup qspipsu Overview
+ * @{
 *
-* This file contains a configuration table that specifies the configuration of
+* The xqspipsu_g.c contains a configuration table that specifies the configuration of
 * QSPIPSU devices in the system.
 *
 * <pre>

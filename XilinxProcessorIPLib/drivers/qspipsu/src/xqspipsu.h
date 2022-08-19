@@ -8,7 +8,7 @@
 /**
  *
  * @file xqspipsu.h
- * @addtogroup Overview
+ * @addtogroup qspipsu Overview
  * @{
  * @details
  *

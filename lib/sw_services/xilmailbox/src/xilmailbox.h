@@ -7,7 +7,7 @@
 /**
  *
  * @file xilmailbox.h
- * @addtogroup Overview
+ * @addtogroup xilmailbox Overview
  * @{
  * @details
  *
@@ -101,7 +101,7 @@ typedef struct XMboxTag {
 	void *ErrorRefPtr; /**<  To be passed to the error interrupt callback */
 	void *RecvRefPtr;  /**< To be passed to the receive interrupt callback */
 	XMailbox_Agent Agent; /**< Agent to store IPI channel information */
-	XMailbox_IpiSharedMem SharedMem;
+	XMailbox_IpiSharedMem SharedMem; /**< shared memory segment */
 } XMailbox; /**< XilMailbox structure */
 
 /**
@@ -113,6 +113,10 @@ typedef enum {
 } XMailbox_Handler;
 
 /************************** Function Prototypes ******************************/
+/**
+ * Functions for xilmailbox.c
+ * @{
+ */
 u32 XMailbox_Initialize(XMailbox *InstancePtr, u8 DeviceId);
 u32 XMailbox_Send(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking);
 u32 XMailbox_SendData(XMailbox *InstancePtr, u32 RemoteId,
@@ -124,6 +128,7 @@ s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 u32 XMailbox_SetSharedMem(XMailbox *InstancePtr, u64 Address, u32 Size);
 u32 XMailbox_GetSharedMem(XMailbox *InstancePtr, u64 **Address);
 int XMailbox_ReleaseSharedMem(XMailbox *InstancePtr);
+/** @} */
 
 #ifdef __cplusplus
 }

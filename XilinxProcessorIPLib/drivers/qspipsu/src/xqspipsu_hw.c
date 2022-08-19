@@ -8,10 +8,10 @@
 /**
  *
  * @file xqspipsu_hw.c
- * @addtogroup Overview
+ * @addtogroup qspipsu Overview
  * @{
  *
- * This file contains functions to reads RXFifo, writes TXFifo and setup
+ * The xqspipsu_hw.c contains functions to reads RXFifo, writes TXFifo and setup
  * RX DMA operation, used by xqspipsu_control.c and xqspipsu_lowlevel.c files.
  *
  * <pre>

@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb_selftest.c
-* @addtogroup Overview
+* @addtogroup wdttb Overview
 * @{
 *
 * The xwdttb_selftest.c file contains diagnostic self-test functions for the

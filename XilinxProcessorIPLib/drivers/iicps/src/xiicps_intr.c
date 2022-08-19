@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_intr.c
-* @addtogroup Overview
+* @addtogroup iicps Overview
 * @{
 *
 * The xiicps_intr.c file contains functions of the XIicPs driver for

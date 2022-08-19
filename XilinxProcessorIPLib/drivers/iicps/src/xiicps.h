@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps.h
-* @addtogroup Overview
+* @addtogroup iicps Overview
 * @{
 * @details
 *
@@ -322,7 +322,8 @@ static INLINE u32 XIicPs_RxDataValidStatus(XIicPs *InstancePtr)
 				& XIICPS_SR_RXDV_MASK);
 }
 
-/*
+/****************************************************************************/
+/**
 * Place one byte into the transmit FIFO.
 *
 * @param	InstancePtr is the instance of IIC
@@ -370,13 +371,14 @@ static INLINE u32 XIicPs_RxDataValidStatus(XIicPs *InstancePtr)
 
 /************************** Function Prototypes ******************************/
 
-/*
+/**
  * Function for configuration lookup, in xiicps_sinit.c
  */
 XIicPs_Config *XIicPs_LookupConfig(u16 DeviceId);
 
-/*
+/**
  * Functions for general setup, in xiicps.c
+ * @{
  */
 s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config * ConfigPtr,
 				  u32 EffectiveAddr);
@@ -386,15 +388,17 @@ void XIicPs_Reset(XIicPs *InstancePtr);
 
 s32 XIicPs_BusIsBusy(XIicPs *InstancePtr);
 s32 TransmitFifoFill(XIicPs *InstancePtr);
+/** @} */
 
-/*
+/**
  * Functions for interrupts, in xiicps_intr.c
  */
 void XIicPs_SetStatusHandler(XIicPs *InstancePtr, void *CallBackRef,
 				  XIicPs_IntrHandler FunctionPtr);
 
-/*
+/**
  * Functions for device as master, in xiicps_master.c
+ * @{
  */
 void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 		u16 SlaveAddr);
@@ -407,9 +411,11 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 void XIicPs_EnableSlaveMonitor(XIicPs *InstancePtr, u16 SlaveAddr);
 void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr);
 void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr);
+/** @} */
 
-/*
+/**
  * Functions for device as slave, in xiicps_slave.c
+ * @{
  */
 void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr);
 void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount);
@@ -419,14 +425,16 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount);
 void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr);
 void XIicPsSclHold(XIicPs *InstancePtr, u8 Enable);
 void XIicPsSetTimeOut(XIicPs *InstancePtr, u8 Value);
+/** @} */
 
-/*
+/**
  * Functions for selftest, in xiicps_selftest.c
  */
 s32 XIicPs_SelfTest(XIicPs *InstancePtr);
 
-/*
+/**
  * Functions for setting and getting data rate, in xiicps_options.c
+ * @{
  */
 s32 XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options);
 s32 XIicPs_ClearOptions(XIicPs *InstancePtr, u32 Options);
@@ -434,6 +442,7 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr);
 
 s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz);
 u32 XIicPs_GetSClk(XIicPs *InstancePtr);
+/** @} */
 
 #ifdef __cplusplus
 }

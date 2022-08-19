@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_hw.c
-* @addtogroup Overview
+* @addtogroup iicps Overview
 * @{
 *
 * The xiicps_hw.c file contains implementation of required functions for

@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb_sinit.c
-* @addtogroup Overview
+* @addtogroup wdttb Overview
 * @{
 *
 * The xwdttb_sinit.c file contains static initialization method for Xilinx AXI

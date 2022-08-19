@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xiicps_slave.c
-* @addtogroup Overview
+* @addtogroup iicps Overview
 * @{
 *
 * The xiicps_slave.c file handles slave transfers.
