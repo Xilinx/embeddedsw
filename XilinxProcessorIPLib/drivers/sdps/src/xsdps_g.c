@@ -7,11 +7,11 @@
 /**
 *
 * @file xsdps_g.c
-* @addtogroup Overview
+* @addtogroup sdps Overview
 * @{
 *
-* This file contains a configuration table that specifies the configuration of
-* SD devices in the system.
+* The xsdps_g.c file contains a configuration table that specifies the
+* configuration of SD devices in the system.
 *
 * <pre>
 * MODIFICATION HISTORY:

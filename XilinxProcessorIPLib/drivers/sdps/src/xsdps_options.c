@@ -7,10 +7,10 @@
 /**
 *
 * @file xsdps_options.c
-* @addtogroup Overview
+* @addtogroup sdps Overview
 * @{
 *
-* Contains API's for changing the various options in host and card.
+* The xsdps_options.c file ontains APIs for changing the various options in host and card.
 * See xsdps.h for a detailed description of the device and driver.
 *
 * <pre>

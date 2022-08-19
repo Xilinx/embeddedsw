@@ -7,10 +7,10 @@
 /**
 *
 * @file xospipsv_g.c
-* @addtogroup Overview
+* @addtogroup ospipsv Overview
 * @{
 *
-* This file contains a configuration table that specifies the configuration of
+* The xospipsv_g.c contains a configuration table that specifies the configuration of
 * OSPI devices in the system.
 *
 * <pre>

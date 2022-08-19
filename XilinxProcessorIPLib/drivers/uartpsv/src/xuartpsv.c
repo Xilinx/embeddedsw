@@ -7,10 +7,10 @@
 /**
 *
 * @file xuartpsv.c
-* @addtogroup Overview
+* @addtogroup uartpsv Overview
 * @{
 *
-* This file contains the implementation of the interface functions for
+* The xuartpsv.c file contains the implementation of the interface functions for
 * XUartPsv driver. Refer to the header file xuartpsv.h for more detailed
 * information.
 *
@@ -246,9 +246,11 @@ u32 XUartPsv_Send(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 * RX FIFO. The application may need to call it repeatedly to receive the
 * entire buffer. Polled mode is the default mode of operation for the device.
 *
-* In interrupt mode, this function is dummy, the interrupt handler will receive
-* entire buffer. A callback function, as specified by the application, will be
-* called to indicate the completion of the receiving or error conditions.
+* In interrupt mode, this function will start the receiving, if not the entire
+* buffer has been received, the interrupt handler will continue receiving data
+* until the entire buffer has been received. A callback function, as specified
+* by the application, will be called to indicate the completion of the
+* receiving or error conditions.
 *
 * @param	InstancePtr is a pointer to the XUartPsv instance
 * @param	BufferPtr is pointer to buffer for data to be received into

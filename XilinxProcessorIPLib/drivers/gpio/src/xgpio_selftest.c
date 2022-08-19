@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_selftest.c
-* @addtogroup Overview
+* @addtogroup gpio Overview
 * @{
 *
 * The xgpio_selftest.c file contains implementation of the XGpio driver's self

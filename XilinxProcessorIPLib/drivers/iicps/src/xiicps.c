@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps.c
-* @addtogroup Overview
+* @addtogroup iicps Overview
 * @{
 *
 * This section contains implementation of required functions for

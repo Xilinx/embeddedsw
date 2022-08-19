@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb_config.h
-* @addtogroup Overview
+* @addtogroup wdttb Overview
 * @{
 *
 * The xwdttb_config.h file contains the required functions of the XWdtTb driver.

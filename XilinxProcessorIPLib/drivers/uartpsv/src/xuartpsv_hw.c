@@ -7,9 +7,8 @@
 /**
 *
 * @file xuartpsv_hw.c
-* @addtogroup Overview
+* @addtogroup uartpsv Overview
 * @{
-*
 *
 * <pre>
 * MODIFICATION HISTORY:

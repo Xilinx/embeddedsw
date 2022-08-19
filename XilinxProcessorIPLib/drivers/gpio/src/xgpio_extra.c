@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_extra.c
-* @addtogroup Overview
+* @addtogroup gpio Overview
 * @{
 *
 * The xgpio_extra.c file contains implementation of the XGpio driver's advanced

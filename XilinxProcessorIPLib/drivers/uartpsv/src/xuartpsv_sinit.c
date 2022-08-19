@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartpsv_sinit.c
-* @addtogroup Overview
+* @addtogroup uartpsv Overview
 * @{
 *
 * The xuartpsv_sinit.c file contains the implementation of the XUartPsv driver's

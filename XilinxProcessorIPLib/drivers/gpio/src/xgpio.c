@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio.c
-* @addtogroup Overview
+* @addtogroup gpio Overview
 * @{
 *
 * This section explains the implementation of the XGpio driver's basic

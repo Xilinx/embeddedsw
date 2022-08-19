@@ -7,7 +7,7 @@
 /**
 *
 * @file xgpio_g.c
-* @addtogroup Overview
+* @addtogroup gpio Overview
 * @{
 *
 * The xgpio_g.c file contains a configuration table that specifies the

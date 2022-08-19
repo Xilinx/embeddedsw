@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_sinit.c
-* @addtogroup Overview
+* @addtogroup iicps Overview
 * @{
 *
 * The xiicps_sinit.c file contains implementation of the XIicPs component's

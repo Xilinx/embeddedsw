@@ -7,7 +7,7 @@
 /**
 *
 * @file xipipsu_buf.c
-* @addtogroup Overview
+* @addtogroup ipipsu Overview
 * @{
 *
 * The xipipsu_buf.c file contains the implementation of the buffer access

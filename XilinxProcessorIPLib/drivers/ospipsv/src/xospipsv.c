@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv.c
-* @addtogroup Overview
+* @addtogroup ospipsv Overview
 * @{
 *
 * This file implements the functions required to use the OSPIPSV hardware to

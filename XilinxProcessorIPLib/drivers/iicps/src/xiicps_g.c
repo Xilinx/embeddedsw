@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_g.c
-* @addtogroup Overview
+* @addtogroup iicps Overview
 * @{
 *
 * The xiicps_g.c file contains a configuration table that specifies the

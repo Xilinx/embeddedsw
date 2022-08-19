@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio.h
-* @addtogroup Overview
+* @addtogroup gpio Overview
 * @{
 * @details
 *

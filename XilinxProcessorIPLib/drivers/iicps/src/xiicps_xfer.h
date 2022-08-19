@@ -7,7 +7,7 @@
 /**
 *
 * @file xiicps_xfer.h
-* @addtogroup Overview
+* @addtogroup iicps Overview
 * @{
 *
 * The xiicps_xfer.h file contains implementation of required helper functions

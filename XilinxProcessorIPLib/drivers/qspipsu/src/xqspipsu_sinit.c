@@ -7,8 +7,8 @@
 /**
 *
 * @file xqspipsu_sinit.c
-* @addtogroup Overview
-* @{
+ * @addtogroup qspipsu Overview
+ * @{
 *
 * The implementation of the XQspiPsu component's static initialization
 * functionality.

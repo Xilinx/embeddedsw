@@ -7,7 +7,7 @@
 /**
 *
 * @file xospipsv_control.h
-* @addtogroup Overview
+* @addtogroup ospipsv Overview
 * @{
 *
 * This is the header file for the low-level functions of OSPIPSV driver.
@@ -111,7 +111,7 @@ u32 XOspiPsv_WaitForLock(const XOspiPsv *InstancePtr, u32 Mask);
 u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 								u32 TXTap);
 u32 XOspiPsv_CalculateRxTap(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
-		u8 *Avg_RXTap, u8 *Max_WindowSize, u8 Dummy_Incr, u32 TXTap);
+		u8 *AvgRXTap, u8 *MaxWindowSize, u8 DummyIncr, u32 TXTap);
 u32 XOspiPsv_ConfigureTaps(const XOspiPsv *InstancePtr, u32 RxTap, u32 TxTap);
 
 #ifdef __cplusplus

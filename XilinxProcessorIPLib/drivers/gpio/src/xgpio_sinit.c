@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_sinit.c
-* @addtogroup Overview
+* @addtogroup gpio Overview
 * @{
 *
 * The xgpio_sinit.c file contains the implementation of the XGpio driver's

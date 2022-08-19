@@ -7,7 +7,7 @@
 /**
 *
 * @file xwdttb_hw.h
-* @addtogroup Overview
+* @addtogroup wdttb Overview
 * @{
 *
 * The xwdttb_hw.h header file contains identifiers and register-level core
