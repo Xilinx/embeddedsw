@@ -80,9 +80,9 @@ static XStatus CpmInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 		/*TODO: Topology is not passing cpm reset register
 		right now, so hard coded for now */
-		XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
+		XPm_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 		PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_ECO_OFFSET, 0);
-		XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
+		XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 	}
 
 done:
@@ -202,7 +202,7 @@ static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)NumOfArgs;
 
 	/* Unlock PCSR */
-	XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
+	XPm_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 
 	/*
 	 * De-assert the HOLDSTATE bit and release open the clock gates in CPM
@@ -300,7 +300,7 @@ static XStatus Cpm5ScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 done:
 	/* Lock PCSR */
-	XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
+	XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -368,11 +368,11 @@ static XStatus Cpm5Bisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		}
 
 		/* De-assert InitCtrl */
-		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+		XPm_UnlockPcsr(GtyAddresses[i]);
 		PmOut32(GtyAddresses[i] + GTY_PCSR_MASK_OFFSET,
 			GTY_PCSR_INITCTRL_MASK);
 		PmOut32(GtyAddresses[i] + GTY_PCSR_CONTROL_OFFSET, 0U);
-		PmOut32(GtyAddresses[i] + GTY_PCSR_LOCK_OFFSET, 1U);
+		XPm_LockPcsr(GtyAddresses[i]);
 	}
 
 	if (PM_HOUSECLEAN_CHECK(CPM, BISR)){
@@ -487,6 +487,9 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	/* Unlock Pcsr */
+	XPm_UnlockPcsr(BaseAddress);
+
 	PmOut32(BaseAddress + GTY_PCSR_MASK_OFFSET, GTY_PCSR_MEM_CLEAR_TRIGGER_MASK);
 	/* Check that the register value written properly or not! */
 	PmChkRegMask32((BaseAddress + GTY_PCSR_MASK_OFFSET),
@@ -527,6 +530,9 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 	PmOut32(BaseAddress + GTY_PCSR_CONTROL_OFFSET, 0);
 
 done:
+	/* Lock PCSR */
+	XPm_LockPcsr(BaseAddress);
+
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
@@ -602,17 +608,15 @@ static XStatus Cpm5MbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		if (0U == GtyAddresses[i]) {
 			continue;
 		}
-		XPmPlDomain_UnlockGtyPcsr(GtyAddresses[i]);
+
 		/* Mbist */
 		XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (Cpm5GtypMbist), (GtyAddresses[i]));
 		XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
 		/* Required for redundancy */
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != LocalStatus)) {
 			DbgErr = XPM_INT_ERR_MBIST;
-			XPmPlDomain_LockGtyPcsr(GtyAddresses[i]);
 			goto done;
 		}
-		XPmPlDomain_LockGtyPcsr(GtyAddresses[i]);
 	}
 
 	if (ARRAY_SIZE(GtyAddresses) != i) {

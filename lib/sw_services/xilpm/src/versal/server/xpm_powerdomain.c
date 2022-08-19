@@ -234,7 +234,7 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 	EfuseCacheBaseAddress = EfuseCache->Node.BaseAddress;
 
 	/* Unlock writes */
-	XPmNpDomain_UnlockNpiPcsr(DestAddress);
+	XPm_UnlockPcsr(DestAddress);
 
 	if (0U == CacheRead) {
 		/* Read EFUSE_CACHE.TSENS_INT_OFFSET_5_0*/
@@ -299,7 +299,7 @@ XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 Sate
 
 fail:
 	/* Lock writes */
-	XPmNpDomain_LockNpiPcsr(DestAddress);
+	XPm_LockPcsr(DestAddress);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -382,8 +382,7 @@ XStatus XPm_PowerDwnLPD(void)
 	}
 
 	/* Unlock configuration and system registers for write operation */
-	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET,
-		PCSR_UNLOCK_VAL);
+	XPm_UnlockPcsr(AmsRoot->Node.BaseAddress);
 
 	/* Disable the SSC interface to PS LPD satellite */
 	PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_TOKEN_MNGR_OFFSET,
@@ -391,7 +390,7 @@ XStatus XPm_PowerDwnLPD(void)
 		AMS_ROOT_TOKEN_MNGR_BYPASS_LPD_MASK);
 
 	/* Lock configuration and system registers */
-	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET, 1);
+	XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 
 	/**
 	 * Isolate LPD <-> PL interface and mark the isolations pending for removal
@@ -537,8 +536,7 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 	}
 
 	/* Unlock configuration and system registers for write operation */
-	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET,
-		PCSR_UNLOCK_VAL);
+	XPm_UnlockPcsr(AmsRoot->Node.BaseAddress);
 
 	/* Disable the SSC interface to PS FPD satellite */
 	PmRmw32(AmsRoot->Node.BaseAddress + AMS_ROOT_TOKEN_MNGR_OFFSET,
@@ -546,7 +544,7 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 		AMS_ROOT_TOKEN_MNGR_BYPASS_FPD_MASK);
 
 	/* Lock configuration and system registers */
-	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET, 1);
+	XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 
 	/* Isolate FPD-NoC */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
@@ -845,7 +843,7 @@ XStatus XPm_PowerDwnCPM5(const XPm_Node *Node)
 
 	/** Assert Reset to CPM5 **/
 	/* Unlock the PCSR*/
-	XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
+	XPm_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 	/* Assert the INITSTATE bit and release open the clock gates in CPM */
 	PmOut32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_MASK_OFFSET,
 		CPM_PCSR_MASK_SCAN_CLEAR_INITSTATE_WEN_MASK);
@@ -862,7 +860,7 @@ XStatus XPm_PowerDwnCPM5(const XPm_Node *Node)
 	/* Assert lpd_cpm_por_n reset to CPM5. (Write 1 to CRL.RST_OCM2.POR) */
 	PmRmw32(CRL_RST_OCM2_CTRL, CRL_RST_OCM2_CTRL_POR_MASK, 0x1);
 	/* Lock PCSR*/
-	XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
+	XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 
 	/** Turn on isolation **/
 	/* Isolate PL-CPM5 */
@@ -1009,8 +1007,7 @@ XStatus XPm_PowerDwnNoC(void)
 	}
 
 	/* Unlock configuration and system registers for write operation */
-	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET,
-		PCSR_UNLOCK_VAL);
+	XPm_UnlockPcsr(AmsRoot->Node.BaseAddress);
 
 	/* PL satellite depends on NPD and not PLD so disable the SSC interface to PL satellite
 		while powering down NPD*/
@@ -1019,7 +1016,7 @@ XStatus XPm_PowerDwnNoC(void)
 		AMS_ROOT_TOKEN_MNGR_BYPASS_PL_MASK);
 
 	/* Lock configuration and system registers */
-	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET, 1);
+	XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 
 	/* Isolate FPD-NoC domain */
 	Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_FPD_SOC, TRUE_VALUE);
@@ -1195,14 +1192,13 @@ static XStatus XPmPower_SysmonCheckPower(const XPm_Rail *Rail)
 	}
 
 	/* Unlock Root SysMon registers */
-	PmOut32((PMC_SYSMON_BASEADDR + AMS_ROOT_REG_PCSR_LOCK_OFFSET),
-			PCSR_UNLOCK_VAL);
+	XPm_UnlockPcsr(PMC_SYSMON_BASEADDR);
 
 	/* Clear New Data Flag */
 	PmOut32(NewDataFlagReg, BIT32(Offset));
 
 	/* Lock Root SysMon registers */
-	PmOut32((PMC_SYSMON_BASEADDR + AMS_ROOT_REG_PCSR_LOCK_OFFSET), 1U);
+	XPm_LockPcsr(PMC_SYSMON_BASEADDR);
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -1475,8 +1471,7 @@ XStatus XPmPowerDomain_SecureEfuseTransfer(const u32 NodeId)
 	}
 
 	/* Unlock configuration and system registers for write operation */
-	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET,
-		PCSR_UNLOCK_VAL);
+	XPm_UnlockPcsr(AmsRoot->Node.BaseAddress);
 
 	if ((PM_POWER_PLD == NodeId) || (PM_POWER_NOC == NodeId)) {
 		/* Store the current state of bypass */
@@ -1573,7 +1568,7 @@ restore_bypass_state:
 	}
 
 	/* Lock configuration and system registers */
-	PmOut32(AmsRoot->Node.BaseAddress + AMS_ROOT_REG_PCSR_LOCK_OFFSET, 1);
+	XPm_LockPcsr(AmsRoot->Node.BaseAddress);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
