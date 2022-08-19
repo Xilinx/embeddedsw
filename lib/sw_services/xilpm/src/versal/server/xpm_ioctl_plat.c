@@ -247,14 +247,14 @@ XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value)
 			goto done;
 		}
 		/* Unlock the AIE PCSR register to allow register writes */
-		XPmAieDomain_UnlockPcsr(Aie->Node.BaseAddress);
+		XPm_UnlockPcsr(Aie->Node.BaseAddress);
 
 		/* Clear ISR */
 		IntrClear = Value & ME_NPI_ME_ISR_MASK;
 		XPm_Out32(Aie->Node.BaseAddress + ME_NPI_ME_ISR_OFFSET, IntrClear);
 
 		/* Re-lock the AIE PCSR register for protection */
-		XPmAieDomain_LockPcsr(Aie->Node.BaseAddress);
+		XPm_LockPcsr(Aie->Node.BaseAddress);
 	}
 
 	Status = XST_SUCCESS;

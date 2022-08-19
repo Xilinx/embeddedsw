@@ -153,12 +153,12 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 				continue;
 			}
 
-			XPmNpDomain_UnlockNpiPcsr(NpdMemIcAddresses[i]);
+			XPm_UnlockPcsr(NpdMemIcAddresses[i]);
 			PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_MASK_OFFSET,
 				NPI_PCSR_CONTROL_ODISABLE_NPP_MASK);
 			PmOut32(NpdMemIcAddresses[i] + NPI_PCSR_CONTROL_OFFSET,
 				NPI_PCSR_CONTROL_ODISABLE_NPP_MASK);
-			XPmNpDomain_LockNpiPcsr(NpdMemIcAddresses[i]);
+			XPm_LockPcsr(NpdMemIcAddresses[i]);
 	}
 
 	/* Deassert UB_INITSTATE for DDR blocks */
@@ -166,11 +166,11 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Device = XPmDevice_GetById(DDRMC_DEVID(i));
 		if (NULL != Device) {
 			BaseAddress = Device->Node.BaseAddress;
-			XPmNpDomain_UnlockNpiPcsr(BaseAddress);
+			XPm_UnlockPcsr(BaseAddress);
 			PmOut32(BaseAddress + NPI_PCSR_MASK_OFFSET,
 				NPI_DDRMC_PSCR_CONTROL_UB_INITSTATE_MASK);
 			PmOut32(BaseAddress + NPI_PCSR_CONTROL_OFFSET, 0);
-			XPmNpDomain_LockNpiPcsr(BaseAddress);
+			XPm_LockPcsr(BaseAddress);
 			/* Only UB0 for non sillicon platforms */
 			if (PLATFORM_VERSION_SILICON != XPm_GetPlatform()) {
 				Status = XST_SUCCESS;
@@ -193,7 +193,7 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	/* Assert pcomplete to indicate HC is done and NoC is ready to use */
 	/* Unlock PCSR Register*/
-	XPmNpDomain_UnlockNpiPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
+	XPm_UnlockPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
 
 	/* Unmask the pcomplete bit */
 	PmOut32(NPI_BASEADDR + NPI_NIR_0_OFFSET + NPI_PCSR_MASK_OFFSET,
@@ -204,7 +204,7 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		NPI_PCSR_CONTROL_PCOMPLETE_MASK);
 
 	/*Lock PCSR Register */
-	XPmNpDomain_LockNpiPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
+	XPm_LockPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
 
 	Status = XPmPowerDomain_SecureEfuseTransfer(PM_POWER_NOC);
 
@@ -440,7 +440,7 @@ static void AssertPcsrLockMem(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 			continue;
 		}
 
-		XPmNpDomain_LockNpiPcsr(NpdMemIcAddresses[i]);
+		XPm_LockPcsr(NpdMemIcAddresses[i]);
 	}
 
 	for (i = 0U; i < DdrMcAddrLength; i++) {
@@ -448,7 +448,7 @@ static void AssertPcsrLockMem(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 			continue;
 		}
 
-		XPmNpDomain_LockNpiPcsr(DdrMcAddresses[i]);
+		XPm_LockPcsr(DdrMcAddresses[i]);
 	}
 }
 
@@ -488,7 +488,7 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			continue;
 		}
 
-		XPmNpDomain_UnlockNpiPcsr(NpdMemIcAddresses[i]);
+		XPm_UnlockPcsr(NpdMemIcAddresses[i]);
 	}
 
 	/* Enable ILA clock for DDR blocks*/
@@ -496,7 +496,7 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		if (0U == DdrMcAddresses[i]) {
 			continue;
 		}
-		XPmNpDomain_UnlockNpiPcsr(DdrMcAddresses[i]);
+		XPm_UnlockPcsr(DdrMcAddresses[i]);
 		PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 			NOC_DDRMC_UB_CLK_GATE_ILA_EN_MASK,
 			NOC_DDRMC_UB_CLK_GATE_ILA_EN_MASK);
@@ -585,7 +585,7 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 				continue;
 			}
 			/* Unlock writes */
-			XPmNpDomain_UnlockNpiPcsr(DdrMcAddresses[i]);
+			XPm_UnlockPcsr(DdrMcAddresses[i]);
 			PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK,
 				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK);
@@ -606,7 +606,7 @@ static XStatus NpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 				NOC_DDRMC_UB_CLK_GATE_BISR_EN_MASK, 0);
 			/* Lock writes */
-			XPmNpDomain_LockNpiPcsr(DdrMcAddresses[i]);
+			XPm_LockPcsr(DdrMcAddresses[i]);
 		}
 
 		/* NIDB Lane Repair */
@@ -627,7 +627,7 @@ fail:
 			continue;
 		}
 		/* Lock writes */
-		XPmNpDomain_LockNpiPcsr(DdrMcAddresses[i]);
+		XPm_LockPcsr(DdrMcAddresses[i]);
 	}
 
 done:
@@ -840,8 +840,7 @@ XStatus XPmNpDomain_ClockGate(const XPm_Node *Node, u8 State)
 
 	/* Unlock NOC_NPS_0 */
 	BaseAddress = NOC_PACKET_SWITCH_BASEADDR;
-	Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-	XPm_Out32(Reg, NPI_PCSR_UNLOCK_VAL);
+	XPm_UnlockPcsr(BaseAddress);
 
 	/* Current state of the NOC clock */
 	Reg = BaseAddress + NOC_NPS_0_REG_CLOCK_MUX_OFFSET;
@@ -873,8 +872,7 @@ XStatus XPmNpDomain_ClockGate(const XPm_Node *Node, u8 State)
 	}
 
 	/* Lock NOC_NPS_0 */
-	Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-	XPm_Out32(Reg, 0U);
+	XPm_LockPcsr(BaseAddress);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

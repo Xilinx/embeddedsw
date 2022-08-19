@@ -331,12 +331,14 @@ XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsyste
 	TempDiv = TempDiv << AIE_DIVISOR0_SHIFT;
 
 	/* Unlock NPI space */
-	XPm_Out32(BaseAddress + NPI_PCSR_LOCK_OFFSET, NPI_PCSR_UNLOCK_VAL);
+	XPm_UnlockPcsr(BaseAddress);
+
 	/* Update clock divider with new value */
 	/* TODO: Get clock address from topology */
 	XPm_RMW32(BaseAddress + ME_CORE_REF_CTRL_OFFSET, AIE_DIVISOR0_MASK, TempDiv);
+
 	/* Lock NPI space */
-	XPm_Out32(BaseAddress + NPI_PCSR_LOCK_OFFSET, 0U);
+	XPm_LockPcsr(BaseAddress);
 
 	Status = XST_SUCCESS;
 

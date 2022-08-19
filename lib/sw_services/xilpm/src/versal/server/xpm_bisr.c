@@ -300,7 +300,7 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 	BisrDataDestAddr = BaseAddr + GTY_CACHE_DATA_REGISTER_OFFSET;
 
 	/* Unlock PCSR */
-	XPmPlDomain_UnlockGtyPcsr(BaseAddr);
+	XPm_UnlockPcsr(BaseAddr);
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
@@ -325,7 +325,7 @@ static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional,
 
 fail:
 	/* Lock PCSR */
-	XPmPlDomain_LockGtyPcsr(BaseAddr);
+	XPm_LockPcsr(BaseAddr);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -617,7 +617,7 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 					    BisrDataDestAddr);
 
 	/* Unlock PCSR */
-	XPmNpDomain_UnlockNpiPcsr(BaseAddr);
+	XPm_UnlockPcsr(BaseAddr);
 
 	/* Enable Bisr clock */
 	PmRmw32(BaseAddr + DDRMC_NPI_CLK_GATE_REGISTER_OFFSET, DDRMC_NPI_CLK_GATE_BISREN_MASK, DDRMC_NPI_CLK_GATE_BISREN_MASK);
@@ -647,7 +647,7 @@ static XStatus XPmBisr_RepairDdrMc(u32 EfuseTagAddr, u32 TagSize, u32 TagOptiona
 
 fail:
 	/* Lock PCSR */
-	XPmNpDomain_LockNpiPcsr(BaseAddr);
+	XPm_LockPcsr(BaseAddr);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1030,7 +1030,7 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	BisrDataDestAddr = BaseAddr + (u64)XRAM_SLCR_BISR_CACHE_DATA_0_OFFSET;
 
 	/* Write unlock code to PCSR_LOCK register */
-	XPmPsLpDomain_UnlockPcsr(BaseAddr);
+	XPm_UnlockPcsr(BaseAddr);
 
 	/* Clear the BISR Test Data */
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET,
@@ -1072,7 +1072,7 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 
 done:
 	/* Write lock code to PCSR_LOCK register */
-	XPmPsLpDomain_LockPcsr(BaseAddr);
+	XPm_LockPcsr(BaseAddr);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1327,7 +1327,7 @@ static XStatus XPmBisr_RepairVdu(u32 EfuseTagAddr, u32 TagSize,
 			BisrDataDestAddr);
 
 	/* Unlock PCSR */
-	XPmPlDomain_UnlockVduPcsr(BaseAddr);
+	XPm_UnlockPcsr(BaseAddr);
 
 	/* Trigger BISR */
 	PmOut32(BaseAddr + NPI_PCSR_MASK_OFFSET, VDU_PCSR_BISR_TRIGGER_MASK);
@@ -1351,7 +1351,7 @@ static XStatus XPmBisr_RepairVdu(u32 EfuseTagAddr, u32 TagSize,
 
 done:
 	/* Lock PCSR */
-	XPmPlDomain_LockVduPcsr(BaseAddr);
+	XPm_LockPcsr(BaseAddr);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -1661,7 +1661,7 @@ static XStatus XPmBisr_NidbRepairLane(u32 RepairLeftMostNIDBOnly)
 		NidbAddr = (NidbAddr << 16U) + NPI_ROOT_BASEADDR;
 
 		/* Unlock PCSR */
-		XPm_Out32(NidbAddr + NIDB_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+		XPm_UnlockPcsr(NidbAddr);
 
 		/* Unlock Lane Repair Registers */
 		XPm_Out32(NidbAddr + NIDB_REG_REPAIR_LOCK_OFFSET,
@@ -1703,7 +1703,7 @@ static XStatus XPmBisr_NidbRepairLane(u32 RepairLeftMostNIDBOnly)
 		XPm_Out32(NidbAddr + NIDB_REG_PCSR_MASK_OFFSET,
 			NIDB_REG_PCSR_MASK_ODISABLE_MASK);
 		XPm_Out32(NidbAddr + NIDB_REG_PCSR_CONTROL_OFFSET, 0x0U);
-		XPm_Out32(NidbAddr + NIDB_REG_PCSR_LOCK_OFFSET, 0x0U);
+		XPm_LockPcsr(NidbAddr);
 	}
 	Status = XST_SUCCESS;
 

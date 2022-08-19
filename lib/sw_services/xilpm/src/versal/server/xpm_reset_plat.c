@@ -197,7 +197,7 @@ static XStatus AieResetAssert(const XPm_ResetNode *Rst)
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* Unlock the AIE PCSR register to allow register writes */
-	XPmAieDomain_UnlockPcsr(AieDev->Node.BaseAddress);
+	XPm_UnlockPcsr(AieDev->Node.BaseAddress);
 
 	/* Set array or shim reset bit in mask register */
 	XPm_RMW32((AieDev->Node.BaseAddress) + NPI_PCSR_MASK_OFFSET, Mask, Mask);
@@ -209,7 +209,7 @@ static XStatus AieResetAssert(const XPm_ResetNode *Rst)
 	usleep(1U);
 
 	/* Re-lock the AIE PCSR registers for protection */
-	XPmAieDomain_LockPcsr(AieDev->Node.BaseAddress);
+	XPm_LockPcsr(AieDev->Node.BaseAddress);
 
 	Status = XST_SUCCESS;
 
@@ -229,7 +229,7 @@ static XStatus AieResetRelease(const XPm_ResetNode *Rst)
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 
 	/* Unlock the AIE PCSR register to allow register writes */
-	XPmAieDomain_UnlockPcsr(AieDev->Node.BaseAddress);
+	XPm_UnlockPcsr(AieDev->Node.BaseAddress);
 
 	/* Set array or shim reset bit in mask register */
 	XPm_RMW32((AieDev->Node.BaseAddress) + NPI_PCSR_MASK_OFFSET, Mask, Mask);
@@ -241,7 +241,7 @@ static XStatus AieResetRelease(const XPm_ResetNode *Rst)
 	usleep(1U);
 
 	/* Re-lock the AIE PCSR registers for protection */
-	XPmAieDomain_LockPcsr(AieDev->Node.BaseAddress);
+	XPm_LockPcsr(AieDev->Node.BaseAddress);
 
 	Status = XST_SUCCESS;
 
@@ -286,7 +286,7 @@ static XStatus CpmResetSetState(const u32 State)
 			goto done;
 		}
 
-		XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
+		XPm_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 
 		/* TODO: Remove this when topology have CPM reset register */
 		CpmPcsrReg = Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET;
@@ -296,7 +296,7 @@ static XStatus CpmResetSetState(const u32 State)
 			PmRmw32(CpmPcsrReg, CPM_POR_MASK, CPM_POR_MASK);
 		}
 
-		XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
+		XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 	}
 
 	Status = XST_SUCCESS;
@@ -355,7 +355,7 @@ static u32 GetCpmPorResetStatus(void)
 			goto done;
 		}
 
-		XPmCpmDomain_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
+		XPm_UnlockPcsr(Cpm->CpmPcsrBaseAddr);
 
 		/* TODO: Remove this when topology have CPM reset register */
 		PmIn32(Cpm->CpmPcsrBaseAddr + CPM_PCSR_PCR_OFFSET, PcrValue);
@@ -365,7 +365,7 @@ static u32 GetCpmPorResetStatus(void)
 			ResetStatus = XPM_RST_STATE_ASSERTED;
 		}
 
-		XPmCpmDomain_LockPcsr(Cpm->CpmPcsrBaseAddr);
+		XPm_LockPcsr(Cpm->CpmPcsrBaseAddr);
 	}
 
 done:

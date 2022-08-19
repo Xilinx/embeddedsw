@@ -32,50 +32,6 @@ typedef struct XPm_PlDomain {
 #define XPM_PL_TRIM_BRAM         (0x3U)
 #define XPM_PL_TRIM_URAM         (0x4U)
 
-/*****************************************************************************/
-/**
- * @brief This function unlocks the GTY PCSR registers.
- *
- *****************************************************************************/
-static inline void XPmPlDomain_UnlockGtyPcsr(u32 BaseAddr)
-{
-	PmOut32(BaseAddr + GTY_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-}
-
-/*****************************************************************************/
-/**
- * @brief This function locks the GTY PCSR registers.
- *
- *****************************************************************************/
-static inline void XPmPlDomain_LockGtyPcsr(u32 BaseAddr)
-{
-	PmOut32(BaseAddr + GTY_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
-}
-
-/*****************************************************************************/
-/**
- * @brief This function unlocks the VDU PCSR registers.
- *
- * @param BaseAddr		Base address of VDU
- *
- *****************************************************************************/
-static inline void XPmPlDomain_UnlockVduPcsr(u32 BaseAddr)
-{
-	PmOut32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-}
-
-/*****************************************************************************/
-/**
- * @brief This function locks the VDU PCSR registers.
- *
- * @param BaseAddr      Base address of VDU
- *
- *****************************************************************************/
-static inline void XPmPlDomain_LockVduPcsr(u32 BaseAddr)
-{
-	PmOut32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
-}
-
 /************************** Function Prototypes ******************************/
 XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent, const u32 *OtherBaseAddresses,

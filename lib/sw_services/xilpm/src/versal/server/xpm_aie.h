@@ -89,28 +89,6 @@ typedef struct XPm_AieNode {
 	u32 DefaultClockDiv;            /**< Default AIE clock divider at boot */
 } XPm_AieNode;
 
-/*****************************************************************************/
-/**
- * @brief This function unlocks the AIE PCSR registers.
- *
- *****************************************************************************/
-static inline void XPmAieDomain_UnlockPcsr(u32 BaseAddress)
-{
-	u32 NpiPcsrLockReg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-	PmOut32(NpiPcsrLockReg, NPI_PCSR_UNLOCK_VAL);
-}
-
-/*****************************************************************************/
-/**
- * @brief This function locks the AIE PCSR registers.
- *
- *****************************************************************************/
-static inline void XPmAieDomain_LockPcsr(u32 BaseAddress)
-{
-	u32 NpiPcsrLockReg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-	PmOut32(NpiPcsrLockReg, 0x00000000U);
-}
-
 /************************** Function Prototypes ******************************/
 XStatus XPmAieDomain_Init(XPm_AieDomain *AieDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, const u32 *Args, u32 NumArgs);

@@ -486,7 +486,7 @@ static XStatus XramMbist(void)
 	BaseAddr = Device->Node.BaseAddress;
 
 	/* Unlock PCSR */
-	XPmPsLpDomain_UnlockPcsr(BaseAddr);
+	XPm_UnlockPcsr(BaseAddr);
 
 	/* Write to Memclear Trigger */
 	PmOut32(BaseAddr + XRAM_SLCR_PCSR_MASK_OFFSET, XRAM_MEM_CLEAR_TRIGGER_0_MASK);
@@ -538,7 +538,7 @@ static XStatus XramMbist(void)
 
 fail:
 	/* Lock PCSR */
-	XPmPsLpDomain_LockPcsr(BaseAddr);
+	XPm_LockPcsr(BaseAddr);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);

@@ -58,7 +58,6 @@ static XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	return Status;
 }
 
-
 static XStatus PldGtyMbist(u32 BaseAddress)
 {
 	XStatus Status = XST_FAILURE;
@@ -145,11 +144,12 @@ done:
  * This function is used to set/clear bits in VDU PCSR
  *
  * @param BaseAddress	BaseAddress of VDU device
- * @param Mask			Mask to be written into PCSR_MASK register
- * @param Value			Value to be written into PCSR_CONTROL register
+ * @param Mask		Mask to be written into PCSR_MASK register
+ * @param Value		Value to be written into PCSR_CONTROL register
  *
- * note:	Blind writes are not performed for VDU PCSR writes because some VDU
- *		PCSR registers are self clearing.
+ * note:	Blind writes are not performed for VDU PCSR writes because
+ *		VDU PCSR registers behave differently. There is a delay until
+ *		some set bits are accurately updated in the registers.
  *
  * @return None
  *****************************************************************************/
@@ -174,7 +174,7 @@ static XStatus VduInit(u32 BaseAddress)
 	}
 
 	/* Unlock PCSR */
-	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+	XPm_UnlockPcsr(BaseAddress);
 
 	/* Release VDU internal POR */
 	VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_VDU_IPOR_MASK, 0U);
@@ -186,7 +186,7 @@ static XStatus VduInit(u32 BaseAddress)
 
 done:
 	/* Lock PCSR */
-	XPmPlDomain_LockVduPcsr(BaseAddress);
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -198,7 +198,7 @@ static XStatus VduScanClear(u32 BaseAddress)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Unlock PCSR */
-	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+	XPm_UnlockPcsr(BaseAddress);
 
 	/* Trigger Scan Clear */
 	VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_SCAN_CLEAR_TRIGGER_MASK,
@@ -226,7 +226,7 @@ static XStatus VduScanClear(u32 BaseAddress)
 
 done:
 	/* Lock PCSR */
-	XPmPlDomain_LockVduPcsr(BaseAddress);
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -238,7 +238,7 @@ static XStatus VduMbist(u32 BaseAddress)
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
 	/* Unlock PCSR */
-	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+	XPm_UnlockPcsr(BaseAddress);
 
 	/* Assert Mem Clear Trigger */
 	VduPcsrWrite(BaseAddress, VDU_NPI_PCSR_MASK_MEM_CLEAR_TRIGGER_MASK,
@@ -265,7 +265,7 @@ static XStatus VduMbist(u32 BaseAddress)
 
 done:
 	/* Lock PCSR */
-	XPmPlDomain_LockVduPcsr(BaseAddress);
+	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
@@ -274,7 +274,7 @@ done:
 static void VduClearInterrupts(u32 BaseAddress)
 {
 	/* Unlock PCSR */
-	XPmPlDomain_UnlockVduPcsr(BaseAddress);
+	XPm_UnlockPcsr(BaseAddress);
 
 	/*
 	 * VDU interrupts are unable to be masked until after INITSTATE is
@@ -295,7 +295,7 @@ static void VduClearInterrupts(u32 BaseAddress)
 	XPm_Out32((PMC_GLOBAL_BASEADDR + PMC_GLOBAL_ERR1_STATUS_OFFSET), PMC_GLOBAL_ERR1_STATUS_NPI_ALL_MASK);
 
 	/* Lock PCSR */
-	XPmPlDomain_LockVduPcsr(BaseAddress);
+	XPm_LockPcsr(BaseAddress);
 }
 
 static XStatus VduHouseClean(void)
@@ -617,12 +617,12 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 			goto done;
 		}
 
-		XPmPlDomain_UnlockGtyPcsr(GtyAddrs[i]);
+		XPm_UnlockPcsr(GtyAddrs[i]);
 		/* Deassert INITCTRL */
 		PmOut32(GtyAddrs[i] + GTY_PCSR_MASK_OFFSET,
 			GTY_PCSR_INITCTRL_MASK);
 		PmOut32(GtyAddrs[i] + GTY_PCSR_CONTROL_OFFSET, 0);
-		XPmPlDomain_LockGtyPcsr(GtyAddrs[i]);
+		XPm_LockPcsr(GtyAddrs[i]);
 	}
 
 	u32 LocalPlpdHCBypass = PlpdHouseCleanBypassTmp; /* Copy volatile to local to avoid MISRA */
@@ -658,7 +658,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 				if (0U == GtyAddrs[i]) {
 					continue;
 				}
-				XPmPlDomain_UnlockGtyPcsr(GtyAddrs[i]);
+				XPm_UnlockPcsr(GtyAddrs[i]);
 				/* Mbist */
 				XSECURE_TEMPORAL_IMPL((Status), (StatusTmp), (PldGtyMbist), (GtyAddrs[i]));
 				XStatus LocalStatus = StatusTmp; /* Copy volatile to local to avoid MISRA */
@@ -668,7 +668,7 @@ static XStatus GtyHouseClean(const XPm_PlDomain *Pld)
 					Just print message and return not to break execution */
 					PmErr("ERROR: GT Mem clear Failed for 0x%x\r\n", GtyAddrs[i]);
 				}
-				XPmPlDomain_LockGtyPcsr(GtyAddrs[i]);
+				XPm_LockPcsr(GtyAddrs[i]);
 			}
 
 			if (i != ARRAY_SIZE(GtyAddrs)) {

@@ -32,7 +32,7 @@ static XStatus XPmMem_GetTempData(u32 BaseAddress, u32 *TempData)
 	u32 TempVal = 0U;
 
 	/* Unlock PCSR */
-	XPm_Out32(BaseAddress + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
+	XPm_UnlockPcsr(BaseAddress);
 
 	/* Write CFG2 */
 	XPm_Out32(BaseAddress + HBM_PHY_MS_CFG2_OFFSET, 0x200U);
@@ -66,7 +66,7 @@ done:
 	*TempData = (TempVal & HBM_PHY_MS_CFG66_DATA_MASK);
 
 	/* Lock PCSR */
-	XPm_Out32(BaseAddress + NPI_PCSR_LOCK_OFFSET, 0U);
+	XPm_LockPcsr(BaseAddress);
 
 	return Status;
 }
@@ -299,8 +299,7 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 		}
 
 		/* Unlock DDRMC UB */
-		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-		XPm_Out32(Reg, NPI_PCSR_UNLOCK_VAL);
+		XPm_UnlockPcsr(BaseAddress);
 
 		/* Enable self-refresh */
 		Reg = BaseAddress + DDRMC_UB_PMC2UB_INTERRUPT_OFFSET;
@@ -310,8 +309,8 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to enter self-refresh controller %x!\r\n",i);
-			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-			XPm_Out32(Reg, 0);
+			/* Lock PCSR */
+			XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		XPm_Out32(Reg, 0);
@@ -321,14 +320,14 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to enter self-refresh controller %x!\r\n",i);
-			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-			XPm_Out32(Reg, 0);
+			/* Lock PCSR */
+			XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		XPm_Out32(Reg, 0);
 
-		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-		XPm_Out32(Reg, 0);
+		/* Lock PCSR */
+		XPm_LockPcsr(BaseAddress);
 	}
 
 	Device = XPmDevice_GetById(DDRMC_DEVID((u32)XPM_NODEIDX_DEV_DDRMC_MIN));
@@ -371,8 +370,7 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 		}
 
 		/* Unlock DDRMC UB */
-		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-		XPm_Out32(Reg, NPI_PCSR_UNLOCK_VAL);
+		XPm_UnlockPcsr(BaseAddress);
 
 		/* Disable self-refresh */
 		Reg = BaseAddress + DDRMC_UB_PMC2UB_INTERRUPT_OFFSET;
@@ -382,8 +380,8 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to exit self-refresh controller %x!\r\n",i);
-			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-			XPm_Out32(Reg, 0);
+			/* Lock PCSR */
+			XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		XPm_Out32(Reg, 0);
@@ -393,14 +391,14 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
 			PmErr("Failed to exit self-refresh controller %x!\r\n",i);
-			Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-			XPm_Out32(Reg, 0);
+			/* Lock PCSR */
+			XPm_LockPcsr(BaseAddress);
 			goto done;
 		}
 		XPm_Out32(Reg, 0);
 
-		Reg = BaseAddress + NPI_PCSR_LOCK_OFFSET;
-		XPm_Out32(Reg, 0);
+		/* Lock PCSR */
+		XPm_LockPcsr(BaseAddress);
 	}
 
 done:
