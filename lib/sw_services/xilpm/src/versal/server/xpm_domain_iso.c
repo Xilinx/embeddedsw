@@ -460,7 +460,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			goto done;
 		}
 
-		XPmPsLpDomain_UnlockPcsr(Device->Node.BaseAddress);
+		XPm_UnlockPcsr(Device->Node.BaseAddress);
 	}
 
 	/*
@@ -703,7 +703,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 done:
 	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) &&
 		(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
-		XPmPsLpDomain_LockPcsr(Device->Node.BaseAddress);
+		XPm_LockPcsr(Device->Node.BaseAddress);
 	}
 
 	return Status;

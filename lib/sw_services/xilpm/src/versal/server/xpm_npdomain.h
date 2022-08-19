@@ -22,26 +22,6 @@ typedef struct XPm_NpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 } XPm_NpDomain;
 
-/*****************************************************************************/
-/**
- * @brief This function unlocks the NPI PCSR registers.
- *
- *****************************************************************************/
-static inline void XPmNpDomain_UnlockNpiPcsr(u32 BaseAddr)
-{
-	PmOut32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-}
-
-/*****************************************************************************/
-/**
- * @brief This function locks the NPI PCSR registers.
- *
- *****************************************************************************/
-static inline void XPmNpDomain_LockNpiPcsr(u32 BaseAddr)
-{
-	PmOut32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
-}
-
 /************************** Function Prototypes ******************************/
 XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
 			 XPm_Power *Parent);
