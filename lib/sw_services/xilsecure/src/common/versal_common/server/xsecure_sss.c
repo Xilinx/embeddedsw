@@ -28,6 +28,8 @@
 * 4.5   am      11/24/20 Resolved Coverity warnings
 * 4.6   har     07/14/21 Fixed doxygen warnings
 * 4.9   bm      07/06/22 Refactor versal and versal_net code
+*       am      08/18/22 Added volatile keyword and reset the Status variable
+*                        to failure before reuse
 *
 * </pre>
 *
@@ -95,7 +97,7 @@ END:
 int XSecure_SssAes(const XSecure_Sss *InstancePtr,
 	XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Mask = 0U;
 	u32 RegVal;
 
@@ -125,6 +127,7 @@ int XSecure_SssAes(const XSecure_Sss *InstancePtr,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XSecure_SssCfg(InstancePtr, XSECURE_SSS_AES,
 			InputSrc, OutputSrc);
 
@@ -150,7 +153,7 @@ END:
 int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
 		XSecure_SssSrc Resource)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
 	u32 Mask = 0U;
 	u32 RegVal;
@@ -177,6 +180,7 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XSecure_SssCfg(InstancePtr, Resource, InputSrc,
 			XSECURE_SSS_INVALID);
 
@@ -200,7 +204,7 @@ END:
  *****************************************************************************/
 int XSecure_SssDmaLoopBack(const XSecure_Sss *InstancePtr, u16 DmaId)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XSecure_SssSrc Resource = XSECURE_SSS_INVALID;
 
 	/* Validate the input arguments */
