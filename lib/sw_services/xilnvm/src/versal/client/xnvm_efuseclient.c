@@ -25,6 +25,8 @@
 *                     user
 *       am   02/28/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 1.2   kal  08/22/22 Corrected revoke id column mask in
+*                     XNvm_EfuseWriteRevocationId funcion
 *
 * </pre>
 *
@@ -38,6 +40,8 @@
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
+#define XNVM_REVOKE_ID_COL_MASK		(0x1FU)
+#define XNVM_REVOKE_ID_ROW_SHIFT	(5U)
 
 /**************************** Type Definitions *******************************/
 
@@ -260,8 +264,8 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 		goto END;
 	}
 
-	RevokeIdRow = RevokeId >> (XNVM_WORD_LEN + 1U);
-	RevokeIdBit = RevokeId & (XNVM_WORD_LEN - 1U);
+	RevokeIdRow = RevokeId >> XNVM_REVOKE_ID_ROW_SHIFT;
+	RevokeIdBit = RevokeId & XNVM_REVOKE_ID_COL_MASK;
 
 	if (RevokeIdRow > (XNVM_NUM_OF_REVOKE_ID_FUSES - 1U)) {
 		goto END;
