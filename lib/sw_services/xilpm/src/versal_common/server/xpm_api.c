@@ -2433,11 +2433,6 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
-
-	Status = XPm_PlatRequestDevice(DeviceId);
-	if(XST_SUCCESS != Status){
-		PmErr("Err Code 0x%x\n",Status);
-	}
 	return Status;
 
 }
