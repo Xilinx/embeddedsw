@@ -219,7 +219,7 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	XSecure_EllipticSignVerifyParams *EcdsaParams = NULL;
 	u64 Buffer;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	volatile u32 Payload[XSECURE_PAYLOAD_LEN_3U] = {0U};
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -246,7 +246,7 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	Payload[1U] = (u32)Buffer;
 	Payload[2U] = (u32)(Buffer >> 32);
 
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
