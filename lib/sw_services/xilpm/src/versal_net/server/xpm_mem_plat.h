@@ -26,8 +26,6 @@ maybe_unused static inline void XPm_AssignDdrFsm(XPm_MemDevice *MemDevice)
 	return;
 }
 
-XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState);
-
 #ifdef __cplusplus
 }
 #endif
