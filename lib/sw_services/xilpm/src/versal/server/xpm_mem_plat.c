@@ -450,49 +450,7 @@ static const XPm_DeviceFsm XPmDDRDeviceFsm = {
 	.EnterState = HandleDDRDeviceState,
 };
 
-static const XPm_StateCap XPmMemDeviceStates[] = {
-	{
-		.State = (u8)XPM_DEVSTATE_UNUSED,
-		.Cap = XPM_MIN_CAPABILITY,
-	}, {
-		.State = (u8)XPM_DEVSTATE_RUNNING,
-		.Cap = PM_CAP_ACCESS | PM_CAP_CONTEXT,
-	},
-};
-
-static const XPm_StateTran XPmMemDevTransitions[] = {
-	{
-		.FromState = (u32)XPM_DEVSTATE_RUNNING,
-		.ToState = (u32)XPM_DEVSTATE_UNUSED,
-		.Latency = XPM_DEF_LATENCY,
-	}, {
-		.FromState = (u32)XPM_DEVSTATE_UNUSED,
-		.ToState = (u32)XPM_DEVSTATE_RUNNING,
-		.Latency = XPM_DEF_LATENCY,
-	},
-};
-
-static void TcmEccInit(const XPm_MemDevice *Tcm, u32 Mode)
-{
-	u32 Size = Tcm->EndAddress - Tcm->StartAddress;
-	u32 Id = Tcm->Device.Node.Id;
-	u32 Base = Tcm->StartAddress;
-
-	if ((PM_DEV_TCM_1_A == Id) || (PM_DEV_TCM_1_B == Id)) {
-		if (XPM_RPU_MODE_LOCKSTEP == Mode) {
-			Base -= XPM_TCM_BASEADDRESS_MODE_OFFSET;
-		}
-	}
-	if (0U != Size) {
-		s32 Status = XPlmi_EccInit(Base, Size);
-		if (XST_SUCCESS != Status) {
-			PmWarn("Error %d in EccInit of 0x%x\r\n", Status, Tcm->Device.Node.Id);
-		}
-	}
-	return;
-}
-
-static XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
+XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 			   const u32 Id, u32 *RpuMode)
 {
 	XStatus Status = XST_FAILURE;
@@ -535,76 +493,29 @@ done:
 	return Status;
 }
 
-static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_Device *Rpu0Device = XPmDevice_GetById(PM_DEV_RPU0_0);
-	const XPm_Device *Rpu1Device = XPmDevice_GetById(PM_DEV_RPU0_1);
-	u32 Id = Device->Node.Id;
-	u32 Mode;
-
-	switch (Device->Node.State) {
-	case (u8)XPM_DEVSTATE_UNUSED:
-		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {
-			Status = XPmDevice_BringUp(Device);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-
-			/* Request the RPU clocks. Here both core having same RPU clock */
-			Status = XPmClock_Request(Rpu0Device->ClkHandles);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-
-			/* TCM is only accessible when the RPU is powered on and out of reset and is in halted state
-			 * so bring up RPU too when TCM is requested*/
-			Status = HaltRpuCore(Rpu0Device, Rpu1Device, Id, &Mode);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-
-			/* Tcm should be ecc initialized */
-			TcmEccInit((XPm_MemDevice *)Device, Mode);
-		}
-		Status = XST_SUCCESS;
-		break;
-	case (u8)XPM_DEVSTATE_RUNNING:
-		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
-			Status = Device->HandleEvent(&Device->Node,
-						     XPM_DEVEVENT_SHUTDOWN);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-
-			/* Release the RPU clocks. Here both core having same RPU clock */
-			Status = XPmClock_Release(Rpu0Device->ClkHandles);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		}
-		Status = XST_SUCCESS;
-		break;
-	default:
-		Status = XST_FAILURE;
-		break;
-	}
-
-done:
-	return Status;
+void XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Device,
+	const u32 Id){
+	/*warning fix*/
+	(void)Id;
+	(void)Rpu0Device;
+	(void)Rpu1Device;
+	*Rpu0Device = XPmDevice_GetById(PM_DEV_RPU0_0);
+	*Rpu1Device = XPmDevice_GetById(PM_DEV_RPU0_1);
+	return;
 }
 
-static const XPm_DeviceFsm XPmTcmDeviceFsm = {
-	DEFINE_DEV_STATES(XPmMemDeviceStates),
-	DEFINE_DEV_TRANS(XPmMemDevTransitions),
-	.EnterState = HandleTcmDeviceState,
-};
+u32 XPm_CombTcm(const u32 Id, const u32 Mode)
+{
+	u32 Offset = 0;
+	if ((PM_DEV_TCM_1_A == Id) || (PM_DEV_TCM_1_B == Id)) {
+		if (XPM_RPU_MODE_LOCKSTEP == Mode) {
+			Offset = XPM_TCM_BASEADDRESS_MODE_OFFSET;
+		}
+	}
+	return Offset;
+}
 
 void XPm_AssignDdrFsm(XPm_MemDevice *MemDevice)
 {
 	MemDevice->Device.DeviceFsm = &XPmDDRDeviceFsm;
-}
-void XPm_AssignTcmFsm(XPm_MemDevice *MemDevice)
-{
-	MemDevice->Device.DeviceFsm = &XPmTcmDeviceFsm;
 }

@@ -42,6 +42,11 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		u32 BaseAddress,
 		XPm_Power *Power, XPm_ClockNode *Clock, XPm_ResetNode *Reset,
 		u32 MemStartAddress, u32 MemEndAddress);
+XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
+			   const u32 Id, u32 *RpuMode);
+void XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1Device,
+				const u32 Id);
+u32 XPm_CombTcm(const u32 Id, const u32 Mode);
 
 #ifdef __cplusplus
 }
