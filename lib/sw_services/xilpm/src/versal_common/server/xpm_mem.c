@@ -65,6 +65,12 @@ static const XPm_DeviceFsm XPmMemDeviceFsm = {
 	.EnterState = HandleMemDeviceState,
 };
 
+static const XPm_DeviceFsm XPmTcmDeviceFsm = {
+	DEFINE_DEV_STATES(XPmMemDeviceStates),
+	DEFINE_DEV_TRANS(XPmMemDevTransitions),
+	.EnterState = HandleTcmDeviceState,
+};
+
 XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		u32 Id,
 		u32 BaseAddress,
@@ -88,7 +94,7 @@ XStatus XPmMemDevice_Init(XPm_MemDevice *MemDevice,
 		XPm_AssignDdrFsm(MemDevice);
 		break;
 	case (u32)XPM_NODETYPE_DEV_TCM:
-		XPm_AssignTcmFsm(MemDevice);
+		MemDevice->Device.DeviceFsm = &XPmTcmDeviceFsm;
 		break;
 	default:
 		MemDevice->Device.DeviceFsm = &XPmMemDeviceFsm;
