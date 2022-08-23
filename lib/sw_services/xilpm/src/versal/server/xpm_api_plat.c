@@ -1472,56 +1472,6 @@ done:
 	return Status;
 }
 
-static XStatus AddPlDevice(const u32 *Args, u32 PowerId)
-{
-	XStatus Status = XST_FAILURE;
-	u32 DeviceId;
-	u32 Index;
-	XPm_Power *Power;
-	u32 BaseAddr;
-	XPm_PlDevice *PlDevice;
-
-	DeviceId = Args[0];
-	BaseAddr = Args[2];
-
-	Index = NODEINDEX(DeviceId);
-
-	Power = XPmPower_GetById(PowerId);
-
-	if ((u32)XPM_NODEIDX_DEV_PLD_MAX <= Index) {
-		Status = XST_DEVICE_NOT_FOUND;
-		goto done;
-	}
-
-	/*
-	 * Note: This function is executed as part of pm_add_node cmd triggered
-	 * through CDO. Since there's a possibility of the same RM (hence CDO)
-	 * being executed multiple times, we should not error out on addition
-	 * of same node multiple times. Memory is allocated only if node is not
-	 * present in database. Since PLD0 represents static image and
-	 * not RM, we shouldn't allow it to be re-added.
-	 */
-	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(DeviceId);
-	if (NULL == PlDevice) {
-		PlDevice = (XPm_PlDevice *)XPm_AllocBytes(sizeof(XPm_PlDevice));
-		if (NULL == PlDevice) {
-			Status = XST_BUFFER_TOO_SMALL;
-			goto done;
-		}
-	} else {
-		if ((u32)XPM_NODEIDX_DEV_PLD_0 == Index) {
-			Status = XST_DEVICE_BUSY;
-			goto done;
-		}
-		PmInfo("0x%x Device is already added\r\n", DeviceId);
-	}
-
-	Status = XPmPlDevice_Init(PlDevice, DeviceId, BaseAddr, Power, NULL, NULL);
-
-done:
-	return Status;
-}
-
 static XStatus AddAieDevice(const u32 *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -1609,9 +1559,6 @@ XStatus XPm_PlatAddDevice(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODESUBCL_DEV_PHY:
 		Status = AddPhyDevice(Args, PowerId);
-		break;
-	case (u32)XPM_NODESUBCL_DEV_PL:
-		Status = AddPlDevice(Args, PowerId);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_AIE:
 	/* PowerId is not passed by topology */
