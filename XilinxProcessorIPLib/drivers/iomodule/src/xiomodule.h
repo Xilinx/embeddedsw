@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule.h
-* @addtogroup iomodule_v2_13
+* @addtogroup iomodule Overview
 * @{
 * @details
 *
@@ -233,6 +233,7 @@
 * 2.12	sk   06/08/21  Fix misra_c_8_2 coverity warning.
 * 2.13	sk   10/04/21  Update functions return type to fix misra-c violation.
 * 2.13	sk   10/30/21  Add function declaration for XIOModule_Intc_SelfTest.
+* 2.14  dp   08/08/22  Fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -378,9 +379,9 @@ typedef struct {
  * for internal use only.
  */
 typedef struct {
-	u8 *NextBytePtr;
-	u32 RequestedBytes;
-	u32 RemainingBytes;
+	u8 *NextBytePtr;    /**< Pointer to Next byte */
+	u32 RequestedBytes; /**< Requested number of bytes */
+	u32 RemainingBytes; /**<  Remaining number of bytes */
 } XIOModule_Buffer;
 
 /**
@@ -509,16 +510,11 @@ s32 XIOModule_IsSending(XIOModule *InstancePtr);
 s32 XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate);
 
 /*
- * Functions for statistics, in file xiomodule_stats.c
- */
-void XIOModule_GetStats(XIOModule *InstancePtr,
-                        XIOModule_Uart_Stats *StatsPtr);
-void XIOModule_ClearStats(XIOModule *InstancePtr);
-
-/*
  * Interrupt functions in xiomodule_intr.c
  */
+#ifdef XPAR_IOMODULE_SINGLE_DEVICE_ID
 void XIOModule_VoidInterruptHandler(void);
+#endif
 void XIOModule_InterruptHandler(XIOModule * InstancePtr);
 
 void XIOModule_Uart_EnableInterrupt(XIOModule *InstancePtr);
@@ -564,16 +560,9 @@ void XIOModule_Timer_SetOptions(XIOModule * InstancePtr, u8 TimerNumber,
 u32 XIOModel_Timer_GetOptions(XIOModule * InstancePtr, u8 TimerNumber);
 
 /*
- * Functions for statistics, in file xiomodule_stats.c
- */
-void XIOModule_Timer_GetStats(XIOModule * InstancePtr,
-			      XIOModule_Timer_Stats * StatsPtr);
-void XIOModule_Timer_ClearStats(XIOModule * InstancePtr);
-
-/*
  * Functions for self-test, in file xiomodule_selftest.c
  */
-s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 IOModuleNumber);
+s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber);
 int XIOModule_Intc_SelfTest(XIOModule * InstancePtr);
 
 /*

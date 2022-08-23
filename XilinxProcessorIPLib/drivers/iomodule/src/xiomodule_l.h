@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule_l.h
-* @addtogroup iomodule_v2_13
+* @addtogroup iomodule Overview
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
@@ -46,6 +46,7 @@
 * 2.11  mus  05/07/21 Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
 * 2.12	sk   06/08/21 Fix coverity warnings.
+* 2.14  dp   08/08/22 Fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -206,8 +207,8 @@ extern "C" {
  * driver interface given in xintc.h file.
  */
 typedef struct {
-	XInterruptHandler Handler;
-	void *CallBackRef;
+	XInterruptHandler Handler; /**< Holds the Interrupt handler */
+	void *CallBackRef;         /**< Data to be passed while invoking handler */
 } XIOModule_VectorTableEntry;
 
 typedef void (*XFastInterruptHandler) (void);
@@ -408,7 +409,9 @@ u8 XIOModule_RecvByte(UINTPTR BaseAddress);
  * Interrupt controller handlers, to be connected to processor exception
  * handling code.
  */
+#ifdef XPAR_IOMODULE_SINGLE_DEVICE_ID
 void XIOModule_LowLevelInterruptHandler(void);
+#endif
 void XIOModule_DeviceInterruptHandler(void *DeviceId);
 
 /* Various configuration functions */

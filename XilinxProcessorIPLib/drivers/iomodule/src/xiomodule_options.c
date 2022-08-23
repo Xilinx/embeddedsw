@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule_options.c
-* @addtogroup iomodule_v2_13
+* @addtogroup iomodule Overview
 * @{
 *
 * Contains option functions for the XIOModule driver. These functions allow the
@@ -22,6 +22,7 @@
 * 1.00a sa   07/15/11 First release
 * 2.4   mi   09/20/16 Fixed compilation warnings
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
+* 2.14  dp   08/08/22 Fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -35,7 +36,9 @@
 
 
 /**************************** Type Definitions *******************************/
-
+/**
+ *@cond nocomments
+ */
 /*
  * The following data type maps an option to a register mask such that getting
  * and setting the options may be table driven.
@@ -66,6 +69,9 @@ static Mapping OptionsTable[] = {
 
 /* Create a constant for the number of entries in the table */
 #define XTC_NUM_OPTIONS   (sizeof(OptionsTable) / sizeof(Mapping))
+/**
+ *@endcond
+ */
 
 
 /*****************************************************************************/
