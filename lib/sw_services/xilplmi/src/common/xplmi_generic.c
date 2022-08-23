@@ -73,6 +73,7 @@
 *       ma   07/20/2022 Print XPlmi_MaskPoll failures in all cases
 *       bm   07/20/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
+*       bsv  08/23/2022 Clear BoardParams instance in case of failure
 *
 * </pre>
 *
@@ -1215,6 +1216,9 @@ static u8* XPlmi_BoardNameRW(const XPlmi_Cmd *Cmd, u8 GetFlag, u32 *Len)
 		Status = XPlmi_DmaXfr((u64)(u32)&Cmd->Payload[0U],
 				(u64)(u32)BoardParams->Name, *Len, XPLMI_PMCDMA_0);
 		if (Status != XST_SUCCESS) {
+			(void)XPlmi_MemSetBytes((void *)BoardParams,
+				sizeof(XPlmi_BoardParams), 0U,
+				sizeof(XPlmi_BoardParams));
 			goto END;
 		}
 
