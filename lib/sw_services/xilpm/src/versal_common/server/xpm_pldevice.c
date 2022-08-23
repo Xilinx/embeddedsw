@@ -7,7 +7,6 @@
 #include "xpm_debug.h"
 #include "xpm_defs.h"
 #include "xpm_mem.h"
-#include "xpm_aiedevice.h"
 
 #define PWR_DOMAIN_UNUSED_BITMASK		0U
 #define PWR_DOMAIN_NOC_BITMASK			BIT(0)
@@ -151,8 +150,6 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 	XStatus Status = XST_FAILURE;
 	XPm_PlDevice *PldChild;
 	XPm_PlDevice *PldToUnlink;
-	XPm_AieDevice *AieToUnlink;
-
 	if (NULL == PlDevice) {
 		Status = XPM_ERR_DEVICE;
 		goto done;
@@ -179,7 +176,6 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 		if(XST_SUCCESS != Status) {
 			goto done;
 		}
-
 		PldToUnlink = PldChild;
 		PldChild = PldChild->NextPeer;
 		PldToUnlink->Parent = NULL;
@@ -187,12 +183,7 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 	}
 
 	PlDevice->Child = NULL;
-	AieToUnlink = PlDevice->AieDevice;
-	if (NULL != AieToUnlink) {
-		AieToUnlink->Parent = NULL;
-		PlDevice->AieDevice = NULL;
-	}
-
+	XPmPlDevice_ReleaseAieDevice(PlDevice);
 	Status = XST_SUCCESS;
 
 done:
@@ -809,7 +800,7 @@ XStatus XPmPlDevice_GetParent(u32 NodeId, u32 *Resp)
 	}
 
 	if ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(NodeId)) {
-		Parent = ((XPm_AieDevice *)Device)->Parent;
+		XPmPlDevice_GetAieParent(Device, &Parent);
 	} else if ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) {
 		/* For PLD0 Node parent returned value will be 0U */
 		Parent = ((XPm_PlDevice *)Device)->Parent;
