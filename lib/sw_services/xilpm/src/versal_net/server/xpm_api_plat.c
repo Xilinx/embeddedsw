@@ -43,6 +43,7 @@
 #include "xpm_requirement.h"
 #include "xpm_mem.h"
 #include "xpm_debug.h"
+#include "xpm_pldevice.h"
 
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
@@ -325,6 +326,56 @@ done:
 	return Status;
 }
 
+static XStatus PldInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_PlDevice *PlDevice = NULL;
+
+	PlDevice = (XPm_PlDevice *)XPmDevice_GetById(NodeId);
+	if (NULL == PlDevice) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE;
+		goto done;
+	}
+
+	if (NULL == PlDevice->Ops) {
+		DbgErr = XPM_INT_ERR_NO_FEATURE;
+		goto done;
+	}
+
+	switch (Function) {
+	case (u32)FUNC_INIT_START:
+		if (NULL == PlDevice->Ops->InitStart) {
+			DbgErr = XPM_INT_ERR_NO_FEATURE;
+			goto done;
+		}
+		Status = PlDevice->Ops->InitStart(PlDevice, Args, NumArgs);
+		break;
+	case (u32)FUNC_INIT_FINISH:
+		if (NULL == PlDevice->Ops->InitFinish) {
+			DbgErr = XPM_INT_ERR_NO_FEATURE;
+			goto done;
+		}
+		Status = PlDevice->Ops->InitFinish(PlDevice, Args, NumArgs);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+		Status = XPmDomainIso_ProcessPending();
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DOMAIN_ISO;
+			goto done;
+		}
+		break;
+	default:
+		DbgErr = XPM_INT_ERR_INVALID_FUNC;
+		break;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function allows to initialize the node.
@@ -346,10 +397,6 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 	//changed to support minimum boot time xilpm
 
 	XStatus Status = XST_FAILURE;
-	(void)NodeId;
-	(void)Function;
-	(void)Args;
-	(void)NumArgs;
 	PmDbg("NodeId: %x,Function %x\n",NodeId,Function);
 	if((XPM_NODEIDX_POWER_LPD == NODEINDEX(NodeId))&&(FUNC_INIT_FINISH == Function)){
 		/*
@@ -365,6 +412,12 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 	#else
 		PmWarn("IPI is not enabled in design\r\n");
 	#endif /* XPLMI_IPI_DEVICE_ID */
+	}else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
+		  ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) &&
+		  ((u32)XPM_NODEIDX_DEV_PLD_MAX > NODEINDEX(NodeId))) {
+		Status = PldInitNode(NodeId, Function, Args, NumArgs);
+		Status = XST_SUCCESS;
+		goto done;
 	}else{
 		PmErr("UnSupported Node %x\n",NodeId);
 		Status = XPM_PM_INVALID_NODE;
