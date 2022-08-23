@@ -408,6 +408,31 @@ int32_t lReturn;
 }
 /*-----------------------------------------------------------*/
 
+BaseType_t xPortInstallFastInterruptHandler( uint8_t ucInterruptID, XFastInterruptHandler pxHandler)
+{
+int32_t lReturn;
+
+	/* An API function is provided to install an interrupt handler because the
+	interrupt controller instance variable is private to this file. */
+
+	lReturn = prvEnsureInterruptControllerIsInitialised();
+
+	if( lReturn == pdPASS )
+	{
+		lReturn = XIntc_ConnectFastHandler( &xInterruptControllerInstance, ucInterruptID, pxHandler );
+	}
+
+	if( lReturn == XST_SUCCESS )
+	{
+		lReturn = pdPASS;
+	}
+
+	configASSERT( lReturn == pdPASS );
+
+	return lReturn;
+}
+/*-----------------------------------------------------------*/
+
 static int32_t prvEnsureInterruptControllerIsInitialised( void )
 {
 static int32_t lInterruptControllerInitialised = pdFALSE;

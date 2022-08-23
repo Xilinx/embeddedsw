@@ -36,6 +36,7 @@ extern "C" {
 /* BSP includes. */
 #include <mb_interface.h>
 #include <xparameters.h>
+#include <xintc_l.h>
 
 /*-----------------------------------------------------------
  * Port specific definitions.
@@ -266,6 +267,35 @@ typedef struct PORT_REGISTER_DUMP
  */
 BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
 
+
+/*
+ * Installs pxHandler as the fast interrupt handler for the peripheral
+ * specified by the ucInterruptID parameter.
+ *
+ * ucInterruptID:
+ *
+ * The ID of the peripheral that will have pxHandler assigned as its interrupt
+ * handler.  Peripheral IDs are defined in the xparameters.h header file, which
+ * is itself part of the BSP project.  For example, in the official demo
+ * application for this port, xparameters.h defines the following IDs for the
+ * four possible interrupt sources:
+ *
+ * XPAR_INTC_0_UARTLITE_1_VEC_ID  -  for the UARTlite peripheral.
+ * XPAR_INTC_0_TMRCTR_0_VEC_ID    -  for the AXI Timer 0 peripheral.
+ * XPAR_INTC_0_EMACLITE_0_VEC_ID  -  for the Ethernet lite peripheral.
+ * XPAR_INTC_0_GPIO_1_VEC_ID      -  for the button inputs.
+ *
+ *
+ * pxHandler:
+ *
+ * A pointer to the interrupt handler function itself.  This must be a void
+ * function that takes a (void *) parameter and must have
+ * __attribute__ ((fast_interrupt)) in the function declaration.
+ *
+ * pdPASS is returned if the function executes successfully.  Any other value
+ * being returned indicates that the function did not execute correctly.
+ */
+BaseType_t xPortInstallFastInterruptHandler( uint8_t ucInterruptID, XFastInterruptHandler pxHandler);
 
 /*
  * Enables the interrupt, within the interrupt controller, for the peripheral
