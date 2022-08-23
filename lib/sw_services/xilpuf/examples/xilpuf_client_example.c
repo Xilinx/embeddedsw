@@ -96,7 +96,7 @@
 						XPUF_RED_KEY_LEN_IN_BYTES)
 #define XNVM_TOTAL_SHARED_MEM			(XNVM_SHARED_MEM_SIZE + XNVM_SHARED_BUF_SIZE)
 #if defined (VERSAL_NET)
-#define XPUF_PUF_DIS_SHIFT				(18U)
+#define XPUF_PUF_DIS_SHIFT			(18U)
 #define XPUF_PUF_SYN_LK_SHIFT			(16U)
 #define XPUF_PUF_REGEN_DIS_SHIFT		(31U)
 #define XPUF_PUF_HD_INVLD_SHIFT			(30U)
@@ -771,15 +771,15 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 	}
 
 #if defined (VERSAL_NET)
-	u32 SecCtrlBits = (PUF_REGEN_DIS << XPUF_PUF_REGEN_DIS_SHIFT) | (PUF_HD_INVLD << XPUF_PUF_HD_INVLD_SHIFT);
-	SecCtrlBits = SecCtrlBits | (PUF_REGIS_DIS << XPUF_PUF_REGIS_DIS_SHIFT);
+	u32 SecCtrlBits = (PUF_DIS << XPUF_PUF_DIS_SHIFT) | (PUF_SYN_LK << XPUF_PUF_SYN_LK_SHIFT);
 	Status = XNvm_EfuseWriteSecCtrlBits(InstancePtr, SecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
 		goto END;
 	}
 
-	PrgmPufHelperData.PufSecCtrlBits = (PUF_DIS << XPUF_PUF_DIS_SHIFT) | (PUF_SYN_LK << XPUF_PUF_SYN_LK_SHIFT);
+	PrgmPufHelperData.PufSecCtrlBits = (PUF_REGEN_DIS << XPUF_PUF_REGEN_DIS_SHIFT) | (PUF_HD_INVLD << XPUF_PUF_HD_INVLD_SHIFT);
+	PrgmPufHelperData.PufSecCtrlBits = PrgmPufHelperData.PufSecCtrlBits | (PUF_REGIS_DIS << XPUF_PUF_REGIS_DIS_SHIFT);
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
 	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {

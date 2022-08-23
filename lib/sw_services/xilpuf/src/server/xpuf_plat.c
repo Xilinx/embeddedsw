@@ -116,6 +116,9 @@ int XPuf_IsRegistrationEnabled(u32 PufEccCtrlValue)
 	if ((PufEccCtrlValue & XPUF_PUF_REGIS_DIS) == XPUF_PUF_REGIS_DIS) {
 		Status = XST_FAILURE;
 	}
+	else {
+		Status = XST_SUCCESS;
+	}
 #else
 	PufEccCtrlValue = PufEccCtrlValue;
 	Status = XST_SUCCESS;

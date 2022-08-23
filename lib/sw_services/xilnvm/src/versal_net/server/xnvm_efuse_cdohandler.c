@@ -65,7 +65,7 @@ static int XNvm_EfuseWriteDmeKeyFromPload(u32 *Pload);
 static int XNvm_EfuseWriteDmeRevokeBits(u32 Pload);
 static int XNvm_EfuseWritePlmUpdate(u32 EnvMonDisFlag);
 static int XNvm_EfuseWriteBootModeDis(u32 Pload);
-static int XNvm_EfuseWritePufInfo(u32 *Pload);
+static int XNvm_EfuseWritePufDataFromCdoPload(u32 *Pload);
 static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh);
 static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 
@@ -189,7 +189,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		Status = XNvm_EfuseWriteBootModeDis(Pload[0U]);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_FROM_PLOAD):
-		Status = XNvm_EfuseWritePufInfo(Pload);
+		Status = XNvm_EfuseWritePufDataFromCdoPload(Pload);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -717,7 +717,7 @@ static int XNvm_EfuseWriteBootModeDis(u32 Pload)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePufInfo(u32 *Pload)
+static int XNvm_EfuseWritePufDataFromCdoPload(u32 *Pload)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_EfusePufHdAddr PufData = {0U};

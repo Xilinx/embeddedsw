@@ -311,6 +311,9 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 		}
 	}
 
+	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XNVM_PAYLOAD_LEN_1U);
+
 END:
 	return Status;
 }
@@ -341,8 +344,13 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Secure Control Bits write failed;"
 			"Error Code = %x\r\n", Status);
+		goto END;
 	}
 
+	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XNVM_PAYLOAD_LEN_1U);
+
+END:
 	return Status;
 }
 
@@ -374,6 +382,14 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 			(u32)((UINTPTR)EfusePuf >> XNVM_ADDR_HIGH_SHIFT));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32*)PufWrCdo, XNVM_PAYLOAD_LEN_3U);
+	if (Status != XST_SUCCESS) {
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "Writing PUF data failed;"
+			"Error Code = %x\r\n", Status);
+		goto END;
+	}
+
+	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XNVM_PAYLOAD_LEN_1U);
 
 END:
 	return Status;
