@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule_stats.c
-* @addtogroup iomodule_v2_13
+* @addtogroup iomodule Overview
 * @{
 *
 * This file contains the statistics functions for the UART module

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xiomodule_selftest.c
-* @addtogroup iomodule_v2_13
+* @addtogroup iomodule Overview
 * @{
 *
 * Contains diagnostic self-test functions for the XIOModule component. This

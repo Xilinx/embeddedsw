@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
 *
 * @file xiomodule_uart.c
-* @addtogroup iomodule_v2_13
+* @addtogroup iomodule Overview
 * @{
 *
 * Contains required functions for the XIOModule UART driver. See the
@@ -26,6 +26,7 @@
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
+* 2.14  dp   08/08/22 Fix doxygen warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -38,13 +39,18 @@
 #include "xiomodule_l.h"
 
 /************************** Constant Definitions ****************************/
-
+/**
+ *@cond nocomments
+ */
 /* The following constant defines the amount of error that is allowed for
  * a specified baud rate. This error is the difference between the actual
  * baud rate that will be generated using the specified clock and the
  * desired baud rate.
  */
 #define XUN_MAX_BAUD_ERROR_RATE		3	 /* max % error allowed */
+/**
+ *@endcond
+ */
 
 /**************************** Type Definitions ******************************/
 
