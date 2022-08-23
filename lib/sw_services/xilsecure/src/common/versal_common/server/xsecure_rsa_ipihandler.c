@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 4.6  gm    07/16/21 Added 64-bit address support
 * 4.7  kpt   03/18/21 Replaced XPlmi_DmaXfr with XPlmi_MemCpy64
 * 4.9  kpt   07/24/22 Moved XSecure_RsaKat into xsecure_kat_plat_ipihanlder.c
+*      dc    08/22/22 Fixed RSA key accesses address based on RSA key size
 *
 * </pre>
 *
@@ -117,7 +118,7 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	u64 Modulus = RsaParams.KeyAddr;
-	u64 PublicExp = RsaParams.KeyAddr + XSECURE_RSA_4096_KEY_SIZE;
+	u64 PublicExp = RsaParams.KeyAddr + RsaParams.Size;
 
 	Status = XSecure_RsaInitialize_64Bit(XSecureRsaInstPtr, Modulus, 0U,
 			PublicExp);
@@ -167,7 +168,7 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	u64 Modulus = RsaParams.KeyAddr;
-	u64 PublicExp = RsaParams.KeyAddr + XSECURE_RSA_4096_KEY_SIZE;
+	u64 PublicExp = RsaParams.KeyAddr + RsaParams.Size;
 
 	Status = XSecure_RsaInitialize_64Bit(XSecureRsaInstPtr, Modulus, 0U,
 			PublicExp);
