@@ -529,12 +529,6 @@ PmSlave pmSlaveCan1_g = {
 #define ETH_RECV_Q1_PTR_OFFSET		0x480U
 #define ETH_RECV_HIGH_PTR_OFFSET	0x4D4U
 
-/* Default base address */
-#define PM_ETH_0_DEF_BASEADDR	0xFF0B0000U
-#define PM_ETH_1_DEF_BASEADDR	0xFF0C0000U
-#define PM_ETH_2_DEF_BASEADDR	0xFF0D0000U
-#define PM_ETH_3_DEF_BASEADDR	0xFF0E0000U
-
 static u32 ocmData[ETH_OCM_REQ_SIZE];
 static bool ocmStored;
 

@@ -75,6 +75,15 @@ typedef struct PmWakeEventEth {
 	PmWakeEvent* const subWake;
 } PmWakeEventEth;
 
+/* Default base address */
+#define PM_ETH_0_DEF_BASEADDR	0xFF0B0000U
+#define PM_ETH_1_DEF_BASEADDR	0xFF0C0000U
+#define PM_ETH_2_DEF_BASEADDR	0xFF0D0000U
+#define PM_ETH_3_DEF_BASEADDR	0xFF0E0000U
+
+#define PM_GEM_NETWORK_CONFIG_OFFSET		(0x00000004U)
+#define PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK	(0x00000800U)
+
 s32 PmSetEthBaseAddr(u32 nodeId);
 
 #ifdef __cplusplus
