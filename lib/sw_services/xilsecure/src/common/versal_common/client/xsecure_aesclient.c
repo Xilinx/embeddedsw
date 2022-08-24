@@ -29,6 +29,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 4.9   kpt  07/24/22 Moved XSecure_AesDecryptKat and XSecure_AesDecryptCMKat
 *                     into XSecure_Katclient.c
+*       kpt  08/19/22 Added GMAC support
 *
 * </pre>
 * @note
@@ -180,8 +181,8 @@ END:
  * @brief	This function sends IPI request to update AAD to AES engine
  *
  * @param	InstancePtr	Pointer to the client instance
- * @param	AadSize		Size of the Aad data
  * @param	AadAddr		Address of the Aad
+ * @param	AadSize		Size of the Aad data
  *
  * @return
  *	-	XST_SUCCESS - If the Aad update is successful
@@ -191,7 +192,36 @@ END:
 int XSecure_AesUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 AadSize)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_4U];
+
+	Status = XSecure_AesGmacUpdateAad(InstancePtr, AadAddr, AadSize, FALSE);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to update AAD data to AES engine
+ *
+ * @param	InstancePtr		Pointer to the client instance
+ * @param	AadAddr			Address of the Aad
+ * @param	AadSize			Size of the Aad data
+ * @param   IsLastChunkSrc	If this is the last update of data, this parameter
+ *                          should be set to TRUE otherwise FALSE
+ *
+ * @return
+ *	-	XST_SUCCESS - If the Aad update is successful
+ *	-	XST_FAILURE - If there is a failure
+ *
+ * @note
+ *      To generate GMAC, this API must be called by setting IsLastChunkSrc as TRUE for
+ *      the last update followed by XSecure_AesEncryptFinal or XSecure_AesDecryptFinal API
+ *      call to generate or validate GMAC tag
+ *
+ ******************************************************************************/
+int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 AadSize, u32 IsLastChunkSrc)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -202,6 +232,7 @@ int XSecure_AesUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 A
 	Payload[1U] = (u32)AadAddr;
 	Payload[2U] = (u32)(AadAddr >> 32U);
 	Payload[3U] = (u32)AadSize;
+	Payload[4U] = IsLastChunkSrc;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 

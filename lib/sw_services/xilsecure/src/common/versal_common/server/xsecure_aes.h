@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +36,7 @@
 * 4.5   har  03/02/2021 Added prototype for XSecure_AesUpdateAad
 * 4.6   har  07/14/2021 Fixed doxygen warnings
 * 4.9   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c
+*       kpt  08/19/2022 Added GMAC support
 *
 * </pre>
 *
@@ -155,6 +156,7 @@ typedef struct {
 	XSecure_AesState AesState; /**< Current Aes State  */
 	XSecure_AesKeySrc KeySrc;  /**< Key Source */
 	u32 NextBlkLen;		   /**< Next Block Length */
+	u32 IsGmacEn;          /**< GMAC enable or disable */
 } XSecure_Aes;
 /** @}
  * @endcond
@@ -200,6 +202,8 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance);
 
 int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize);
+
+int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn);
 
 #ifdef __cplusplus
 }

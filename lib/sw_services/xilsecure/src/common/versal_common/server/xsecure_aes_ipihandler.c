@@ -31,6 +31,7 @@
 *       kpt   03/18/2022 Replaced XPlmi_Dmaxfr with XPlmi_MemCpy64
 * 4.9   kpt   07/24/2022 Moved XSecure_AesExecuteDecKat, XSecure_AesExecuteDecCMKat
 *                        into xsecure_kat_plat_ipihandler.c
+*       kpt   08/19/2022 Added GMAC support
 *
 * </pre>
 *
@@ -61,7 +62,7 @@
 /************************** Function Prototypes *****************************/
 static int XSecure_AesInit(void);
 static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh);
-static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
+static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 IsGmacEn);
 static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u32 DstAddrLow, u32 DstAddrHigh);
 static int XSecure_AesEncFinal(u32 DstAddrLow, u32 DstAddrHigh);
@@ -98,7 +99,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XSecure_AesOperationInit(Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):
-		Status = XSecure_AesAadUpdate(Pload[0], Pload[1], Pload[2]);
+		Status = XSecure_AesAadUpdate(Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_UPDATE):
 		Status = XSecure_AesEncUpdate(Pload[0], Pload[1], Pload[2],
@@ -219,25 +220,34 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief       This function handler calls XSecure_AesUpdateAad server API
+ * @brief       This function handler calls XSecure_AesGmacCfg and XSecure_AesUpdateAad
+ *				server API
  *
  * @param	SrcAddrLow	- Lower 32 bit address of the AAD data
  * 		SrcAddrHigh	- Higher 32 bit address of the AAD data
  *		Size		- AAD Size
+ *      IsGmacEn    - User choice to enable/disable GMAC
  *
  * @return
- *	-	XST_SUCCESS - If the encrypt update is successful
+ *	-	XST_SUCCESS - If the AAD update is successful
  *	-	ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size)
+static int XSecure_AesAadUpdate(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size, u32 IsGmacEn)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
+	Status = XSecure_AesGmacCfg(XSecureAesInstPtr, IsGmacEn);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
 	Status = XSecure_AesUpdateAad(XSecureAesInstPtr, Addr, Size);
 
+END:
 	return Status;
 }
 
@@ -276,6 +286,7 @@ static int XSecure_AesEncUpdate(u32 SrcAddrLow, u32 SrcAddrHigh,
 	Status = XST_FAILURE;
 	Status = XSecure_AesEncryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
+
 END:
 	return Status;
 }
