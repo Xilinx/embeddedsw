@@ -60,21 +60,6 @@ extern "C" {
 /** @cond xpuf_internal
 @{
 */
-#define XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS		(350U)
-		/**< Maximum length of PUF syndrome data in words */
-#define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
-		/**< Length of PUF syndrome data using 4K mode in words */
-#define XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS		(127U)
-		/**< Length of syndrome data stored in eFuse after trimming */
-#define XPUF_ID_LEN_IN_WORDS				(0x8U)
-		/**< Length of PUF ID in words */
-#define XPUF_WORD_LENGTH				(0x4U)
-		/**< Length of word in bytes */
-
-#define XPUF_4K_PUF_SYN_LEN_IN_BYTES			(XPUF_4K_PUF_SYN_LEN_IN_WORDS * \
-								XPUF_WORD_LENGTH)
-		/**< Length of PUF syndrome data using 4K mode in bytes */
-
 #define XPUF_EFUSE_TRIM_MASK				(0xFFFFF000U)
 		/**< Mask for trimming syndrome data to be stored in eFuses */
 #define XPUF_LAST_WORD_OFFSET				(126U)
