@@ -75,6 +75,7 @@
 * 4.9   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c and fixed bug in
 *                       XSecure_AesDecryptCmKat
 *       kpt  08/02/2022 Zeroized user key in XSecure_AesDecryptCmKat
+*       kpt  08/19/2022 Added GMAC support
 *
 * </pre>
 *
@@ -444,6 +445,7 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 	InstancePtr->BaseAddress = XSECURE_AES_BASEADDR;
 	InstancePtr->PmcDmaPtr = PmcDmaPtr;
 	InstancePtr->NextBlkLen = 0U;
+	InstancePtr->IsGmacEn = FALSE;
 
 	/* Clear all key zeroization register */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -689,7 +691,17 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 
 	AesDmaCfg.SrcDataAddr = AadAddr;
 	AesDmaCfg.SrcChannelCfg = TRUE;
-	AesDmaCfg.IsLastChunkSrc = FALSE;
+	AesDmaCfg.IsLastChunkSrc = (u8)InstancePtr->IsGmacEn;
+
+	/*
+     * Enable destination channel swapping to read
+     * GMAC tag in correct order from hardware.
+     */
+	if (InstancePtr->IsGmacEn == TRUE) {
+		XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+            XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
+		InstancePtr->IsGmacEn = FALSE;
+	}
 
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg, AadSize);
 	if (Status != XST_SUCCESS) {
@@ -709,9 +721,11 @@ END_AAD:
 END_RST:
 	if (Status != XST_SUCCESS) {
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+		InstancePtr->IsGmacEn = FALSE;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
+
 END:
 	return Status;
 }
@@ -1781,11 +1795,13 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 	}
 
 	Status = XST_SUCCESS;
+
 END_CLR:
 	SStatus = XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
 	if((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
+
 END:
 	return Status;
 }
@@ -2235,6 +2251,62 @@ static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 		/* Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(InstancePtr->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 			XPMCDMA_IXR_DONE_MASK);
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief
+ * This function enables or disables the GMAC configuration
+ *
+ * @param	InstancePtr	- Pointer to the XSecure_Aes instance
+ * @param	IsGmacEn    - User choice to enable/disable GMAC
+ *
+ * @return
+ *	-	XST_SUCCESS on success
+ *	-	Error code on failure
+ *
+ * @note
+ *      To generate GMAC on AAD data, this API must be called with IsGmacEn
+ *      set to TRUE just before the last AAD update. After the last AAD update
+ *      XSecure_AesEncryptFinal or XSecure_AesDecryptFinal must be called to
+ *      generate or validate the GMAC tag.
+ *
+ ******************************************************************************/
+int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn)
+{
+	volatile int Status = XST_FAILURE;
+
+	/* Validate the input arguments */
+	if (InstancePtr == NULL) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((IsGmacEn != TRUE) && (IsGmacEn != FALSE)) {
+		Status = (int)XSECURE_AES_INVALID_PARAM;
+		goto END_RST;
+	}
+
+	if ((InstancePtr->AesState != XSECURE_AES_ENCRYPT_INITIALIZED) &&
+		(InstancePtr->AesState != XSECURE_AES_DECRYPT_INITIALIZED)) {
+		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
+		goto END_RST;
+	}
+
+	InstancePtr->IsGmacEn = IsGmacEn;
+	Status = XST_SUCCESS;
+
+END_RST:
+	if (Status != XST_SUCCESS) {
+		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
+		InstancePtr->IsGmacEn = FALSE;
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
 END:
