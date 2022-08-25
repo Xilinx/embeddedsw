@@ -7,6 +7,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0   kal  08/01/19 Initial Release
+# 1.6   kpt  08/25/22  Changed user configurable parameter names
 #
 ##############################################################################
 
@@ -21,6 +22,6 @@ BEGIN LIBRARY xilpuf
   OPTION desc = "Xilinx PUF Library provides interface for registration and regeneration";
   OPTION VERSION = 1.6;
   OPTION NAME = xilpuf;
-  PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilPuf library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
-  PARAM name = cache_disable, desc = "Enables/Disables Cache", type = bool, default = true;
+  PARAM name = xpuf_mode, desc = "Enables A72/R5 server and client mode support for XilPuf library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
+  PARAM name = xpuf_cache_disable, desc = "Enables/Disables Cache for XilPuf client library", type = bool, default = true;
 END LIBRARY
