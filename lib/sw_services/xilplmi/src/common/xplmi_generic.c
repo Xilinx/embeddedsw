@@ -74,6 +74,8 @@
 *       bm   07/20/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
 *       bsv  08/23/2022 Clear BoardParams instance in case of failure
+*       bm   08/24/2022 Support Begin, Break and End commands across chunk
+*                       boundaries
 *
 * </pre>
 *
@@ -121,9 +123,10 @@
 #define XPLMI_DEST_ALIGN_REQ	(1U)
 #define XPLMI_LEN_ALIGN_REQ	(2U)
 
-#define XPLMI_BEGIN_MAX_LOG_STR_LEN			(28U)
+#define XPLMI_BEGIN_MAX_LOG_STR_LEN			(24U)
 #define XPLMI_BEGIN_OFFSET_STACK_SIZE			(10U)
 #define XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL	(1U)
+#define XPLMI_BEGIN_CMD_EXTRA_OFFSET			(2U)
 
 /* Maximum procs supported */
 #define XPLMI_MAX_PSM_PROCS		(10U)
@@ -1805,7 +1808,7 @@ static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
  * @brief	This function provides start of the block.
  *  		Command payload parameters are
  *		- Offset : specifies no. of words until "end" of the block
- *		- String : optional for debugging purpose (max. 7 words)
+ *		- String : optional for debugging purpose (max. 6 words)
  *
  * @param	Cmd is pointer to the command structure
  *
@@ -1815,9 +1818,7 @@ static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
 static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 CurAddr = (u32)Cmd->Payload;
-	u32 EndOffSet = (Cmd->Payload[0U] + 1U) * XPLMI_WORD_LEN;
-	u32 EndAddr = CurAddr + EndOffSet;
+	u32 EndOffSet = Cmd->ProcessedCdoLen + Cmd->Payload[0U] + XPLMI_BEGIN_CMD_EXTRA_OFFSET;
 	u8  LogString[XPLMI_BEGIN_MAX_LOG_STR_LEN] __attribute__ ((aligned(4U)));
 	u32 StrLen = 0U;
 
@@ -1828,21 +1829,20 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/* Max 7 word (28 characters) long string supported */
-	if (Cmd->PayloadLen > XPLMI_CMD_RESP_SIZE) {
+	/* Max 6 word (24 characters) long string supported */
+	if (Cmd->PayloadLen >= XPLMI_CMD_RESP_SIZE) {
 		XPlmi_Printf(DEBUG_GENERAL,
 				"Max %d characters long string supported\n",
 				XPLMI_BEGIN_MAX_LOG_STR_LEN);
 		goto END;
 	}
 
-	/* Push "end" Address to stack */
-	Status = XPlmi_StackPush(&EndAddr);
+	/* Push "end" Offset to stack */
+	Status = XPlmi_StackPush(&EndOffSet);
 	if ( Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* TODO Check on CmdResume Logic */
 	if (Cmd->PayloadLen > 1U) {
 		StrLen = Cmd->PayloadLen - 1U;
 
@@ -1880,8 +1880,7 @@ END:
  *****************************************************************************/
 static int XPlmi_End(XPlmi_Cmd *Cmd)
 {
-	u32 CurAddr = (u32)Cmd->Payload;
-	u32 PopAddr = 0U;
+	u32 EndLength = 0U;
 	int Status = XST_FAILURE;
 
 	/* Stack empty, End does not have begin */
@@ -1890,18 +1889,15 @@ static int XPlmi_End(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/* Get the address of end command */
-	CurAddr -= XPLMI_WORD_LEN;
-
-	/* Popped "end" addr from stack should match with current addr */
+	/* Popped "end" length from stack should match with current ProcessedCdoLen */
 	Status = XPlmi_StackPop(XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL,
-			&PopAddr);
-	if ( Status != XST_SUCCESS) {
+			&EndLength);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	if (CurAddr == PopAddr) {
-		Status = XST_SUCCESS;
+	if (EndLength != Cmd->ProcessedCdoLen) {
+		Status = XST_FAILURE;
 	}
 
 END:
@@ -2470,7 +2466,6 @@ END:
 int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
 {
 	int Status = XST_FAILURE;
-	u32 CurAddr = (u32)Cmd->Payload;
 	u32 PopAddr = 0U;
 
 	/*
@@ -2483,10 +2478,7 @@ int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
 		goto END;
 	}
 
-	/* Get the address of command */
-	CurAddr -= XPLMI_WORD_LEN;
-
-	/* If level > 1, then remove (Level - 1) address from stack */
+	/* If level > 1, then remove (Level - 1) lengths from stack */
 	if (Level > XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL) {
 		Status = XPlmi_StackPop(--Level, &PopAddr);
 		if ( Status != XST_SUCCESS) {
@@ -2495,10 +2487,10 @@ int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
 	}
 
 	/*
-	 * Calculate jump offset using "end" address available at the top of
-	 * the stack and current addr
+	 * Calculate jump offset using "end" length available at the top of
+	 * the stack
 	 */
-	Cmd->BreakOffSet = ((OffsetList[OffsetListTop] - CurAddr) / XPLMI_WORD_LEN);
+	Cmd->BreakLength = OffsetList[OffsetListTop];
 
 	Status = XST_SUCCESS;
 END:

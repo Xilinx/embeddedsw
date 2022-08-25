@@ -41,6 +41,8 @@
 *       ma   01/31/2022 Removed unused defines
 *       rj   05/25/2022 Added a new AckInPLM member in XPlmi_Cmd structure
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       bm   08/24/2022 Support Begin, Break and End commands across chunk
+*                       boundaries
 *
 * </pre>
 *
@@ -93,7 +95,8 @@ struct XPlmi_Cmd {
 	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN];
 	XPlmi_KeyHoleParams KeyHoleParams;
 	u32 IpiReqType;
-	u32 BreakOffSet;
+	u32 BreakLength;
+	u32 ProcessedCdoLen;
 	u8 DeferredError;
 	u8 AckInPLM;
 };
