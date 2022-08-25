@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxis_switch.h
-* @addtogroup axis_switch_v1_4
+* @addtogroup axis_switch_v1_5
 * @{
 * @details
 *
