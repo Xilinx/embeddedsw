@@ -14,8 +14,9 @@
  * ----  ----  ----------  ---------------------------------------------------
  * 0.1   hb    07/03/2022  Initial Creation
  * 0.2   hv    08/08/2022  Fixed build error due to updated macros
- * 0.3	 hv    08/15/2022  Updated broadcast APIs to check status of all SLRs
- *						   seperately
+ * 0.3   hv    08/15/2022  Updated broadcast APIs to check status of all SLRs
+ *                         separately
+ * 0.4   hb    08/22/2022  Updated to use XSem_Ssit_CmdGetStatus API
  * </pre>
  *
  *****************************************************************************/
@@ -24,21 +25,29 @@
 #include "sleep.h"
 #include "xsem_ipi.h"
 #include "xsem_gic_setup.h"
+#include "xil_cache.h"
+#include "xil_util.h"
 
 #define DataMaskShift(Data, Mask, Shift)	(((Data) & (Mask)) >> (Shift))
-#define XSEM_CUR_SLR_MASK		(0x00000001U)
-#define XSEM_NPI_SCAN_TIME_MASK	(0x0003FF00U)
+#define XSEM_CUR_SLR_MASK			(0x00000001U)
+#define XSEM_NPI_SCAN_TIME_MASK		(0x0003FF00U)
 #define XSEM_NPI_SCAN_TIME_SHIFT	(8U)
 #define XSEM_STARTUP_CONFIG_MASK	(0x00000030U)
 #define XSEM_STARTUP_CONFIG_SHIFT	(4U)
-#define XSEM_NPI_ENABLED_MASK	(0x00000003U)
-#define XSEM_NPI_ENABLED_SHIFT (0U)
+#define XSEM_NPI_ENABLED_MASK		(0x00000003U)
+#define XSEM_NPI_ENABLED_SHIFT		(0U)
+#define XSEM_NPI_SCAN_STATUS_MASK	(0xFFFU)
+#define XSEM_NPI_SCAN_ACTIVE		(0xA04U)
+#define XSEM_NPI_SCAN_IDLE			(0xA01U)
 
+/* IPI instance */
 static XIpiPsu IpiInst;
+/* Interrupt Instance */
 static XScuGic GicInst;
+/* NPI Notifier */
 XSem_Notifier Notifier = {
-        .Module = XSEM_NOTIFY_CRAM,
-        .Event = XSEM_EVENT_NPI_CRC_ERR | XSEM_EVENT_NPI_DESC_FMT_ERR |
+		.Module = XSEM_NOTIFY_NPI,
+		.Event = XSEM_EVENT_NPI_CRC_ERR | XSEM_EVENT_NPI_DESC_FMT_ERR |
 		XSEM_EVENT_NPI_DESC_ABSNT_ERR | XSEM_EVENT_NPI_SHA_IND_ERR |
 		XSEM_EVENT_NPI_SHA_ENGINE_ERR | XSEM_EVENT_NPI_PSCAN_MISSED_ERR |
 		XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR | XSEM_EVENT_NPI_SFTY_WR_ERR |
@@ -46,7 +55,10 @@ XSem_Notifier Notifier = {
 		XSEM_EVENT_NPI_GT_ARB_FAIL,
 	.Flag = 1U,
 };
-
+/* Global value to store the SLR source during event notification */
+static u32 EventSrcSlr = 0U;
+/* Global value to store information on startup */
+u32 ImmediateStartupEn = 0U;
 /* Global variables to hold the event count when notified */
 struct XSem_Npi_Events_t{
 	u32 CrcEventCnt;
@@ -61,9 +73,85 @@ struct XSem_Npi_Events_t{
 	u32 GpioEventCnt;
 	u32 SelfDiagFailEventCnt;
 	u32 GtArbFailEventCnt;
-} NpiEvents;
+} NpiEvents[XSEM_SSIT_MAX_SLR_CNT];
 
-u32 ImmediateStartupEn = 0U;
+/******************************************************************************
+ * @brief	IpiCallback to receive event messages
+ *
+ * @param[in]	InstancePtr : Pointer to IPI driver instance
+ *
+ *****************************************************************************/
+void XSem_IpiCallback(XIpiPsu *const InstancePtr)
+{
+	int Status;
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
+
+	Status = XIpiPsu_ReadMessage(&IpiInst, SRC_IPI_MASK, Payload, \
+			PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR #%d while reading IPI buffer\n", Status);
+		return;
+	}
+
+	EventSrcSlr = Payload[3];
+
+	if ((XSEM_EVENT_ERROR == Payload[0]) && (XSEM_NOTIFY_NPI == Payload[1])) {
+		if (XSEM_EVENT_NPI_CRC_ERR == Payload[2]) {
+			NpiEvents[EventSrcSlr].CrcEventCnt = 1U;
+			xil_printf("[ALERT] Received Crc error event notification"
+					" from XilSEM on SLR-%u\n\r", EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_DESC_FMT_ERR == Payload[2]) {
+			NpiEvents[EventSrcSlr].DescFmtEventCnt = 1U;
+			xil_printf("[ALERT] Received Descriptor Format error event"
+					" notification from XilSEM on SLR-%u\n\r", EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_DESC_ABSNT_ERR == Payload[2]) {
+			NpiEvents[EventSrcSlr].DescAbsntEventCnt = 1U;
+			xil_printf("[ALERT] Received Descriptor Absent error event"
+					" notification from XilSEM on SLR-%u\n\r", EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_SHA_IND_ERR == Payload[2]) {
+			NpiEvents[EventSrcSlr].ShaIndEventCnt = 1U;
+			xil_printf("[ALERT] Received SHA indicator error event"
+					" notification from XilSEM on SLR-%u\n\r", EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_SHA_ENGINE_ERR == Payload[2]) {
+			NpiEvents[EventSrcSlr].ShaEngineEventCnt = 1U;
+			xil_printf("[ALERT] Received SHA engine error event notification"
+					" from XilSEM on SLR-%u\n\r", EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_PSCAN_MISSED_ERR == Payload[2]) {
+			NpiEvents[EventSrcSlr].PscanMissedEventCnt = 1U;
+			xil_printf("[ALERT] Received Periodic Scan missed error event"
+					" notification from XilSEM on SLR-%u\n\r", EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR == Payload[2]) {
+			NpiEvents[EventSrcSlr].CryptoExportSetEventCnt = 1U;
+			xil_printf("[ALERT] Received Cryptographic Accelerator Disabled"
+					" event notification from XilSEM on SLR-%u\n\r",
+					EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_SFTY_WR_ERR == Payload[2]) {
+			NpiEvents[EventSrcSlr].SftyWrEventCnt = 1U;
+			xil_printf("[ALERT] Received Safety Write error event"
+					" notification from XilSEM on SLR-%u\n\r", EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_GPIO_ERR == Payload[2]) {
+			NpiEvents[EventSrcSlr].GpioEventCnt = 1U;
+			xil_printf("[ALERT] Received GPIO error event notification from"
+					" XilSEM on SLR-%u\n\r", EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_SELF_DIAG_FAIL == Payload[2]) {
+			NpiEvents[EventSrcSlr].SelfDiagFailEventCnt = 1U;
+			xil_printf("[ALERT] Received NPI Self-diagnosis fail event"
+					" notification from XilSEM on SLR-%u\n\r",EventSrcSlr);
+		} else if (XSEM_EVENT_NPI_GT_ARB_FAIL == Payload[2]) {
+			NpiEvents[EventSrcSlr].GtArbFailEventCnt = 1U;
+			xil_printf("[ALERT] Received GT arbitration failure event"
+					" notification from XilSEM on SLR-%u\n\r", EventSrcSlr);
+		} else {
+			xil_printf("%s Some other callback received: %d:%d:%d\n",
+					__func__, Payload[0], Payload[1], Payload[2],
+					Payload[3]);
+		}
+	} else {
+		xil_printf("%s Some other callback received: %d\n", __func__,
+				Payload[0]);
+	}
+}
+
 /*****************************************************************************
  * @brief	Initialize XilSEM IPI instance to process XilSEM
  * 			notifications from PLM.
@@ -121,81 +209,6 @@ static int XSem_NpiEventRegisterNotifier(u32 Enable)
 	Status = XSem_RegisterEvent(&IpiInst, &Notifier);
 
 	return Status;
-}
-
-/******************************************************************************
- * @brief	IpiCallback to receive event messages
- *
- * @param[in]	InstancePtr : Pointer to IPI driver instance
- *
- *****************************************************************************/
-void XSem_IpiCallback(XIpiPsu *const InstancePtr)
-{
-	int Status;
-	u32 Payload[PAYLOAD_ARG_CNT] = {0};
-
-	Status = XIpiPsu_ReadMessage(&IpiInst, SRC_IPI_MASK, Payload, \
-			PAYLOAD_ARG_CNT, XIPIPSU_BUF_TYPE_MSG);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ERROR #%d while reading IPI buffer\n", Status);
-		return;
-	}
-
-	if ((XSEM_EVENT_ERROR == Payload[0]) && (XSEM_NOTIFY_NPI == Payload[1])) {
-		if (XSEM_EVENT_NPI_CRC_ERR == Payload[2]) {
-			NpiEvents.CrcEventCnt = 1U;
-			xil_printf("[ALERT] Received Crc error event notification"
-					" from XilSEM on SLR-%u\n\r", Payload[3]);
-		} else if (XSEM_EVENT_NPI_DESC_FMT_ERR == Payload[2]) {
-			NpiEvents.DescFmtEventCnt = 1U;
-			xil_printf("[ALERT] Received Descriptor Format error event"
-					" notification from XilSEM on SLR-%u\n\r", Payload[3]);
-		} else if (XSEM_EVENT_NPI_DESC_ABSNT_ERR == Payload[2]) {
-			NpiEvents.DescAbsntEventCnt = 1U;
-			xil_printf("[ALERT] Received Descriptor Absent error event"
-					" notification from XilSEM on SLR-%u\n\r", Payload[3]);
-		} else if (XSEM_EVENT_NPI_SHA_IND_ERR == Payload[2]) {
-			NpiEvents.ShaIndEventCnt = 1U;
-			xil_printf("[ALERT] Received SHA indicator error event"
-					" notification from XilSEM on SLR-%u\n\r", Payload[3]);
-		} else if (XSEM_EVENT_NPI_SHA_ENGINE_ERR == Payload[2]) {
-			NpiEvents.ShaEngineEventCnt = 1U;
-			xil_printf("[ALERT] Received SHA engine error event notification"
-					" from XilSEM on SLR-%u\n\r", Payload[3]);
-		} else if (XSEM_EVENT_NPI_PSCAN_MISSED_ERR == Payload[2]) {
-			NpiEvents.PscanMissedEventCnt = 1U;
-			xil_printf("[ALERT] Received Periodic Scan missed error event"
-					" notification from XilSEM on SLR-%u\n\r", Payload[3]);
-		} else if (XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR == Payload[2]) {
-			NpiEvents.CryptoExportSetEventCnt = 1U;
-			xil_printf("[ALERT] Received Cryptographic Accelerator Disabled"
-					" event notification from XilSEM on SLR-%u\n\r",
-					Payload[3]);
-		} else if (XSEM_EVENT_NPI_SFTY_WR_ERR == Payload[2]) {
-			NpiEvents.SftyWrEventCnt = 1U;
-			xil_printf("[ALERT] Received Safety Write error event"
-					" notification from XilSEM on SLR-%u\n\r", Payload[3]);
-		} else if (XSEM_EVENT_NPI_GPIO_ERR == Payload[2]) {
-			NpiEvents.GpioEventCnt = 1U;
-			xil_printf("[ALERT] Received GPIO error event notification from"
-					" XilSEM on SLR-%u\n\r", Payload[3]);
-		} else if (XSEM_EVENT_NPI_SELF_DIAG_FAIL == Payload[2]) {
-			NpiEvents.SelfDiagFailEventCnt = 1U;
-			xil_printf("[ALERT] Received NPI Self-diagnosis fail event"
-					" notification from XilSEM on SLR-%u\n\r", Payload[3]);
-		} else if (XSEM_EVENT_NPI_GT_ARB_FAIL == Payload[2]) {
-			NpiEvents.GtArbFailEventCnt = 1U;
-			xil_printf("[ALERT] Received GT arbitration failure event"
-					" notification from XilSEM on SLR-%u\n\r", Payload[3]);
-		} else {
-			xil_printf("%s Some other callback received: %d:%d:%d\n",
-					__func__, Payload[0], Payload[1], Payload[2],
-					Payload[3]);
-		}
-	} else {
-		xil_printf("%s Some other callback received: %d\n", __func__,
-				Payload[0]);
-	}
 }
 
 /*****************************************************************************
@@ -355,18 +368,19 @@ static XStatus XSem_ApiNpiGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 	u32 NpiScanAvailable = 0U;
 	u32 NpiScanTime = 0U;
 
+	xil_printf("-------------- NPI Scan Configuration --------------\n\r");
 	/* Check NPI scan configuration on each SLRs */
 	for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
 		Status = XSem_Ssit_CmdGetConfig(IpiInst, Resp, SlrCnt);
 		if (Status != XST_SUCCESS) {
-			xil_printf("%s Failed to get NPI configuration\n\r", \
-					__func__);
+			xil_printf("Failed to get NPI configuration\n\r");
+
 			goto END;
 		}
 
 		if (Resp->RespMsg3 != 0U) {
-			xil_printf("[%s] Getting Npi scan configuration for SLR-%u:\n\r", \
-					__func__, SlrCnt);
+			xil_printf("Getting Npi scan configuration for SLR-%u:\n\r",
+					SlrCnt);
 
 			/* Get NPI config for SLR */
 			NpiConfig = Resp->RespMsg3;
@@ -402,17 +416,65 @@ static XStatus XSem_ApiNpiGetConfig(XIpiPsu *IpiInst, XSemIpiResp *Resp)
 					XSEM_NPI_SCAN_TIME_MASK, XSEM_NPI_SCAN_TIME_SHIFT);
 
 			if (NpiScanTime == 0U) {
-				xil_printf("Npi scan interval invalid %ums\n\r", NpiScanTime);
+				xil_printf("Npi scan interval invalid %ums\n\n\r", NpiScanTime);
 			} else {
-				xil_printf("Npi scan interval: %ums\n\r", NpiScanTime);
+				xil_printf("Npi scan interval: %ums\n\n\r", NpiScanTime);
 			}
 
 		} else {
-			xil_printf("[%s] Device not configured for NPI scan on Slr-%u" \
-					"\n\r", __func__, SlrCnt);
+			xil_printf("Device not configured for NPI scan on Slr-%u" \
+					"\n\r", SlrCnt);
 		}
 	}
 END:
+	return Status;
+}
+
+/*****************************************************************************
+ * @brief	This function gets NPI scan status and checks if NPI scan is
+ *          actively running on all SLRs serially using XSem_Ssit_CmdGetStatus
+ *
+ * @return	XST_SUCCESS : When NPI scan is active on all SLRs
+ * 			XST_FAILURE : NPI scan failure in any of the the SLRs
+ *
+ *****************************************************************************/
+XStatus XSem_ApiNpiGetAllStatus(XSemIpiResp *Resp)
+{
+	XStatus Status = XST_FAILURE;
+	XSemStatus NpiStatus;
+	u32 PassCnt = 0U;
+	u32 TempVal = 0U;
+	u32 SlrCnt;
+
+	xil_printf("-------------- NPI Scan Status --------------\n\r");
+	/* Get Status of all SLRs */
+	for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
+		Status = XSem_Ssit_CmdGetStatus(&IpiInst, Resp, SlrCnt, &NpiStatus);
+		TempVal = DataMaskShift(NpiStatus.NpiStatus,
+				XSEM_NPI_SCAN_STATUS_MASK, 0U);
+		if ((TempVal == XSEM_NPI_SCAN_ACTIVE) ||
+				(TempVal == XSEM_NPI_SCAN_IDLE)) {
+			xil_printf("Npi scan is successfully running on SLR-%u\n\r",
+					SlrCnt);
+			/* Increase pass count */
+			PassCnt++;
+			/* Clear TempVal for next read */
+			TempVal = 0U;
+		} else {
+			Status = XST_FAILURE;
+			xil_printf("Npi scan is not running on SLR-%u,"
+					" Status = 0x%08x\n\r", SlrCnt, NpiStatus.NpiStatus);
+		}
+		xil_printf("\n\r");
+		/* Clear structure NpiStatus before reading again */
+		Xil_SMemSet(&NpiStatus, sizeof(NpiStatus), 0x00U, sizeof(NpiStatus));
+		/* Small delay before sending command */
+		usleep(1000);
+	}
+
+	if (PassCnt == XSEM_SSIT_MAX_SLR_CNT) {
+		Status = XST_SUCCESS;
+	}
 	return Status;
 }
 
@@ -439,6 +501,14 @@ int main(void)
 {
 	XStatus Status = XST_FAILURE;
 	XSemIpiResp IpiResp = {0};
+	u32 XSem_TotalTestCnt = 9U;
+	u32 XSem_PassCnt = 0U;
+	u32 SlrCnt;
+
+	xil_printf("\nStarting NPI scan example demo for SSIT device\n\r");
+
+	/* Disable cache before using get status API */
+	Xil_DCacheDisable();
 
 	/* Initialize IPI Driver
 	 * This initialization is required to get XilSEM event notifications
@@ -464,17 +534,20 @@ int main(void)
 	/* The following sequence demonstrates how to inject errors in CRAM
 	 * 1. Check NPI configuration validity
 	 * 2. Start scan if scan is configured for deferred startup
-	 * 3. Stop scan
-	 * 4. Inject error
-	 * 5. Start scan
-	 * 6. Wait for notification from PLM
+	 * 3. Check if NPI scan is actively running on all SLRs
+	 * 4. Stop scan on all SLRs
+	 * 5. Inject error on all SLRs
+	 * 6. Start scan on all SLRs
+	 * 7. Wait for notification from PLM
 	 */
 
 	/* Get NPI configuration */
-	XSem_ApiNpiGetConfig(&IpiInst, &IpiResp);
+	Status = XSem_ApiNpiGetConfig(&IpiInst, &IpiResp);
 	if (Status != XST_SUCCESS) {
 		xil_printf("[%s] Failed to get NPI configuration with status " \
 				"0x%x\n\r", __func__, Status);
+	} else {
+		XSem_PassCnt++;
 	}
 
 	/* If configured for deferred startup, start scan */
@@ -483,7 +556,21 @@ int main(void)
 		if (Status != XST_SUCCESS) {
 			xil_printf("[%s] Failed to start NPI scan with status 0x%x\n\r", \
 					__func__, Status);
+		} else {
+			XSem_PassCnt++;
+			XSem_TotalTestCnt++;
+			/* Small delay to wait for NPI scan to startup */
+			sleep(1U);
 		}
+	}
+
+	/* Check if NPI scan is functional on all SLRs */
+	Status = XSem_ApiNpiGetAllStatus(&IpiResp);
+	if (Status != XST_SUCCESS) {
+		xil_printf("[%s] NPI scan is not running successfully on all SLRs: " \
+				"0x%x\n\r", __func__, Status);
+	} else {
+		XSem_PassCnt++;
 	}
 
 	/* Stop NPI scan before injecting error */
@@ -491,6 +578,8 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("[%s] Failed to stop NPI scan with status 0x%x\n\r", \
 				__func__, Status);
+	} else {
+		XSem_PassCnt++;
 	}
 
 	/* Inject error in all SLRs */
@@ -498,6 +587,8 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("[%s] Failed to inject error with status 0x%x\n\r", \
 				__func__, Status);
+	} else {
+		XSem_PassCnt++;
 	}
 
 	/* Restart NPI scan for errors to be detected */
@@ -505,16 +596,29 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		xil_printf("[%s] Failed to start NPI scan with status 0x%x\n\r", \
 				__func__, Status);
+	} else {
+		XSem_PassCnt++;
 	}
 
 	/* Wait for error to be detected and reported */
 	sleep(1U);
 
-	if (NpiEvents.CrcEventCnt == 1U) {
-		xil_printf("Success: Crc error detected\n\r");
+	for (SlrCnt = 0U; SlrCnt < XSEM_SSIT_MAX_SLR_CNT; SlrCnt++) {
+		if (NpiEvents[SlrCnt].CrcEventCnt == 1U) {
+			xil_printf("\nCrc error detected on SLR-%u\n\r", \
+					SlrCnt);
+			XSem_PassCnt++;
+		}
 	}
 
 END:
-
+	xil_printf("\n---------------------------------------------\n\r");
+	if (XSem_PassCnt == XSem_TotalTestCnt) {
+		xil_printf("Success: NPI example test completed\n\r");
+	} else {
+		xil_printf("\nFailure: NPI example test failed\n\r");
+	}
+	/* Re-enable cache */
+	Xil_DCacheEnable();
 	return Status;
 }
