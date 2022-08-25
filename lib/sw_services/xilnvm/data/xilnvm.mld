@@ -8,6 +8,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0   mmd  05/06/19 Initial Release
 # 1.1   kpt  12/07/21 Rectified library version to 2.5
+# 2.6   kpt  08/25/22 Changed user configurable parameter names
 #
 ##############################################################################
 
@@ -22,7 +23,7 @@ BEGIN LIBRARY xilnvm
   OPTION desc = "Xilinx NVM Library provides interface to accessing eFUSE and BBRAM of Versal";
   OPTION VERSION = 2.6;
   OPTION NAME = xilnvm;
-  PARAM name = use_puf_hd_as_user_efuse, desc = "Enables API's to use PUF Helper data efuses as user efuses ", type = bool, default = false;
-  PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilNvm library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
-  PARAM name = cache_disable, desc = "Enables/Disables Cache", type = bool, default = true;
+  PARAM name = xnvm_use_puf_hd_as_user_efuse, desc = "Enables API's to use PUF Helper data efuses as user efuses ", type = bool, default = false;
+  PARAM name = xnvm_mode, desc = "Enables A72/R5 server and client mode support for XilNvm library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
+  PARAM name = xnvm_cache_disable, desc = "Enables/Disables Cache for XilNvm client library", type = bool, default = true;
 END LIBRARY

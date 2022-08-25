@@ -7,6 +7,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0  mmd  05/06/19 Initial Release
+# 2.6  kpt  08/25/22 Changed user configurable parameter names
 #
 ##############################################################################
 
@@ -18,7 +19,7 @@ proc nvm_drc {libhandle} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set compiler [common::get_property CONFIG.compiler $proc_instance]
-	set mode [common::get_property CONFIG.mode $libhandle]
+	set mode [common::get_property CONFIG.xnvm_mode $libhandle]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
 
@@ -169,7 +170,7 @@ proc xgen_opts_file {libhandle} {
 	# Copy the include files to the include directory
 	set srcdir src
 	set dstdir [file join .. .. include]
-	set access_puf_efuse [common::get_property CONFIG.use_puf_hd_as_user_efuse $libhandle]
+	set access_puf_efuse [common::get_property CONFIG.xnvm_use_puf_hd_as_user_efuse $libhandle]
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
@@ -192,7 +193,7 @@ proc xgen_opts_file {libhandle} {
 		puts $file_handle "\n#define XNVM_ACCESS_PUF_USER_DATA \n"
 	}
 	# Get cache_disable value set by user, by default it is FALSE
-	set value [common::get_property CONFIG.cache_disable $libhandle]
+	set value [common::get_property CONFIG.xnvm_cache_disable $libhandle]
 	if {$value == true} {
 		#Open xparameters.h file
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
