@@ -25,6 +25,8 @@
 *       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/22/2022 Shutdown modules gracefully during update
 *       ma   07/25/2022 Enhancements to secure lockdown code
+*       bm   08/24/2022 Support Begin, Break and End commands across chunk
+*                       boundaries
 *
 * </pre>
 *
@@ -219,6 +221,8 @@ typedef enum {
 	                    the command */
 	XPLMI_INVALID_TAMPER_RESPONSE, /**< 0x13F - Invalid tamper response received for
 		                TamperTrigger IPI call */
+	XPLMI_INVALID_BREAK_LENGTH, /**< 0x140 - Error when the break length required to jump
+				      is less than the processed CDO length */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_ERR_PLM_UPDATE_COMPATIBILITY = 0x1A0, /**< 0x1A0 - Error in compatibility check

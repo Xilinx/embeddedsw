@@ -98,6 +98,8 @@
 *       dc   07/12/2022 Moved buffer clear status to here from xilloader
 *       ma   07/25/2022 Enhancements to secure lockdown code
 *       ma   08/10/2022 Added error code XPLMI_SSIT_INTR_NOT_ENABLED
+*       bm   08/24/2022 Support Begin, Break and End commands across chunk
+*                       boundaries
 *
 * </pre>
 *
@@ -292,6 +294,8 @@ typedef enum {
 	                    the command */
 	XPLMI_INVALID_TAMPER_RESPONSE, /**< 0x13F - Invalid tamper response received for
 		                TamperTrigger IPI call */
+	XPLMI_INVALID_BREAK_LENGTH, /**< 0x140 - Error when the break length required to jump
+				      is less than the processed CDO length */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL = 0x1A0, /**< 0x1A0 - Error when the SSIT event

@@ -48,6 +48,8 @@
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
 *       ma   07/25/2022 Enhancements to secure lockdown code
+*       bm   08/24/2022 Support Begin, Break and End commands across chunk
+*                       boundaries
 *
 * </pre>
 *
@@ -248,12 +250,13 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 	CmdPtr->SubsystemId = CdoPtr->SubsystemId;
 	CmdPtr->IpiMask = 0U;
 	CmdPtr->Payload = BufPtr;
+	CmdPtr->ProcessedCdoLen = CdoPtr->ProcessedCdoLen;
 	*Size = CmdPtr->PayloadLen;
 	Status = XPlmi_CmdResume(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
 			"CMD: 0x%08x Resume failed, Processed Cdo Length 0x%0x\n\r",
-			CmdPtr->CmdId, CdoPtr->ProcessedCdoLen);
+			CmdPtr->CmdId, CdoPtr->ProcessedCdoLen * XPLMI_WORD_LEN);
 		PrintLen = CmdPtr->PayloadLen;
 		if (PrintLen > XPLMI_CMD_LEN_TEMPBUF) {
 			PrintLen = XPLMI_CMD_LEN_TEMPBUF;
@@ -261,6 +264,8 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 		XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)CmdPtr->Payload, PrintLen,
 				 "CMD payload");
 	}
+
+	CdoPtr->ProcessedCdoLen += *Size;
 
 	return Status;
 }
@@ -331,17 +336,17 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	/* Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->SubsystemId;
 	CmdPtr->IpiMask = 0U;
-	CmdPtr->BreakOffSet = 0U;
+	CmdPtr->BreakLength = 0U;
 
 	/* Execute the command */
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);
 	CmdPtr->DeferredError = (u8)FALSE;
+	CmdPtr->ProcessedCdoLen = CdoPtr->ProcessedCdoLen;
 	Status = XPlmi_CmdExecute(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
 			"CMD: 0x%08x execute failed, Processed Cdo Length 0x%0x\n\r",
-			CmdPtr->CmdId, (CdoPtr->ProcessedCdoLen + CdoPtr->BufLen
-			- BufLen + XPLMI_CDO_HDR_LEN) * XPLMI_WORD_LEN);
+			CmdPtr->CmdId, (CdoPtr->ProcessedCdoLen + XPLMI_CDO_HDR_LEN) * XPLMI_WORD_LEN);
 		PrintLen = CmdPtr->PayloadLen;
 		if (PrintLen > XPLMI_CMD_LEN_TEMPBUF) {
 			PrintLen = XPLMI_CMD_LEN_TEMPBUF;
@@ -351,21 +356,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 		goto END;
 	}
 
-	/*
-	 * If Cdo command is either break or it support break, update "Size" of
-	 * current command to jump at the "end" command
-	 */
-	if (CmdPtr->BreakOffSet != 0) {
-		if (BufLen > CmdPtr->BreakOffSet) {
-			*Size = CmdPtr->BreakOffSet;
-		} else {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"Break does not support cdo chunking yet.\n");
-			Status = XPlmi_UpdateStatus(XPLMI_ERR_CDO_CMD_BREAK_CHUNKS_NOT_SUPPORTED, 0);
-			goto END;
-		}
-	}
-
+	CdoPtr->ProcessedCdoLen += *Size;
 	if(CmdPtr->Len == (CmdPtr->PayloadLen - 1U)) {
 		CdoPtr->ProcessedCdoLen +=  CdoPtr->Cmd.KeyHoleParams.ExtraWords;
 		CmdPtr->PayloadLen = CmdPtr->Len;
@@ -392,6 +383,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 Size = 0U;
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
+	u32 RemainingLen;
 	u32 SldInitiated = XPlmi_IsSldInitiated();
 
 	/* Verify the header for the first chunk of CDO */
@@ -414,8 +406,8 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	 * Mainly for PLM CDO where BufLen is not present and is
 	 * given as Max PRAM len.
 	 */
-	if ((BufLen + CdoPtr->ProcessedCdoLen) > (CdoPtr->CdoLen)) {
-		BufLen = CdoPtr->CdoLen - CdoPtr->ProcessedCdoLen;
+	if ((BufLen + CdoPtr->ProcessedCdoLen + CdoPtr->CopiedCmdLen) > (CdoPtr->CdoLen)) {
+		BufLen = CdoPtr->CdoLen - CdoPtr->ProcessedCdoLen - CdoPtr->CopiedCmdLen;
 		CdoPtr->BufLen = BufLen;
 	}
 
@@ -438,6 +430,24 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		BufPtr = CdoPtr->TempCmdBuf;
 		BufLen += CdoPtr->CopiedCmdLen;
 		CdoPtr->CopiedCmdLen = 0x0U;
+	}
+
+	/* Handle the break command occured in previous chunk */
+	if (CdoPtr->Cmd.BreakLength != 0U) {
+		RemainingLen = CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
+		if (RemainingLen >= BufLen) {
+			/* If the end is not present in current chunk, skip this chunk */
+			CdoPtr->ProcessedCdoLen += BufLen;
+			Status = XST_SUCCESS;
+			goto END;
+		}
+		else {
+			/* If the end is present in current chunk, jump to end command */
+			CdoPtr->ProcessedCdoLen += RemainingLen;
+			BufLen -= RemainingLen;
+			BufPtr = &BufPtr[RemainingLen];
+			CdoPtr->Cmd.BreakLength = 0U;
+		}
 	}
 
 	/* Execute the commands in the Cdo Buffer */
@@ -468,12 +478,30 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 			goto END;
 		}
 
+		/* Handle the break command processed in current chunk */
+		if (CdoPtr->Cmd.BreakLength != 0U) {
+			if (CdoPtr->Cmd.BreakLength < CdoPtr->ProcessedCdoLen) {
+				Status = XPLMI_INVALID_BREAK_LENGTH;
+				goto END;
+			}
+			if (BufLen > (Size + CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen)) {
+				/* If the end is present in current chunk, jump to it */
+				Size += CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
+				CdoPtr->ProcessedCdoLen += CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
+				CdoPtr->Cmd.BreakLength = 0U;
+			}
+			else {
+				/* If the end is not present in current chunk, skip processing rest of the chunk */
+				CdoPtr->ProcessedCdoLen += BufLen - Size;
+				break;
+			}
+		}
+
 		/* Update the parameters for next iteration */
 		BufPtr = &BufPtr[Size];
 		BufLen -= Size;
 	}
 
-	CdoPtr->ProcessedCdoLen += CdoPtr->BufLen;
 	Status = XST_SUCCESS;
 
 END:
