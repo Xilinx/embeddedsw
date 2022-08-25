@@ -297,6 +297,12 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		}
 	}
 
+	/* Add reset permissions */
+	Status = XPmReset_AddPermForGlobalResets(Subsystem);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	Status = XST_SUCCESS;
 
 done:
