@@ -2013,6 +2013,55 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function add monitor node to the topology database
+ *
+ * @param Args		arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   None
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodeMonitor(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeId, BaseAddress, NodeType;
+
+	if (NumArgs < 3U) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	NodeId = Args[0];
+	BaseAddress = Args[2];
+
+
+	if ((u32)XPM_NODESUBCL_MONITOR_SYSMON != NODESUBCLASS(NodeId)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	NodeType = NODETYPE(NodeId);
+
+	if ((((u32)XPM_NODETYPE_MONITOR_SYSMON_PMC != NodeType) &&
+	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_PS != NodeType) &&
+	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_CPM5N != NodeType) &&
+	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_NPD != NodeType)) ||
+	    ((u32)XPM_NODEIDX_MONITOR_MAX <= NODEINDEX(NodeId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPm_SetSysmonNode(NodeId, BaseAddress);
+
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
  * @brief  This function allows adding node to clock, power, reset, mio
  *			or device topology
  *
@@ -2042,6 +2091,9 @@ XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODECLASS_DEVICE:
 		Status = XPm_AddDevice(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_MONITOR:
+		Status = XPm_AddNodeMonitor(Args, NumArgs);
 		break;
 	default:
 		Status = XPm_PlatAddNode(Args, NumArgs);
