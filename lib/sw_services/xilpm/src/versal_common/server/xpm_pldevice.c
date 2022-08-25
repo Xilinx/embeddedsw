@@ -37,6 +37,44 @@ static const XPm_NodeIdBitMap PmPwrBitMap[] = {
 	},
 };
 
+#ifdef XSEM_NPISCAN_EN
+static void (*SemCbHandler)(u32 DeviceId);
+static inline void XPmPlDevice_TriggerSemHandler(u32 DeviceId)
+{
+	if (NULL != SemCbHandler) {
+		SemCbHandler(DeviceId);
+	}
+}
+
+/****************************************************************************/
+/**
+ * @brief  Set XilSEM callback handler to clear the PLD node descriptors
+ *
+ * @param  Handler: Pointer to XilSEM callback handler
+ *
+ * @return None
+ *
+ * @note None
+ *
+ ****************************************************************************/
+void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId))
+{
+	if (NULL == SemCbHandler) {
+		SemCbHandler = Handler;
+	}
+}
+#else
+static inline void XPmPlDevice_TriggerSemHandler(u32 DeviceId)
+{
+	(void)DeviceId;
+}
+
+void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId))
+{
+	(void)Handler;
+}
+#endif /* XSEM_NPISCAN_EN */
+
 static XStatus Pld_SetBitPwrBitMask(u8 *BitMask, const u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
@@ -164,6 +202,10 @@ static XStatus Pld_ReleaseChildren(XPm_PlDevice *PlDevice)
 				goto done;
 			}
 		}
+
+		/* Trigger Xilsem handler to release child PLD nodes */
+		XPmPlDevice_TriggerSemHandler(PldChild->Device.Node.Id);
+
 		/* Release any DDRMCs linked to this PLD */
 		Status = Pld_ReleaseMemCtrlr(PldChild);
 		if (XST_SUCCESS != Status) {
@@ -521,6 +563,9 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 		DbgErr = XPM_INT_ERR_INVALID_STATE;
 		goto done;
 	}
+
+	/* Trigger Xilsem handler to clear previous descriptors */
+	XPmPlDevice_TriggerSemHandler(PlDevice->Device.Node.Id);
 
 	/*
 	 * PL Init Start indicates that a new RM or static image has been
