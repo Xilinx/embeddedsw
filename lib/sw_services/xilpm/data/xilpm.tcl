@@ -57,6 +57,7 @@ proc generate {libhandle} {
 	set versal_net_server_dir "$versal_net_dir/server"
 	set versal_net_common_dir "$versal_net_dir/common"
 	set versal_server_common_dir "$common_dir/server"
+	set common_header_dir "$common_dir/common"
 
 
 	switch $proctype {
@@ -77,6 +78,7 @@ proc generate {libhandle} {
 				copy_files_to_src $versal_client_dir
 				copy_files_to_src $versal_client_common_dir
 				copy_files_to_src $versal_common_dir
+				copy_files_to_src $common_header_dir
 			} else {
 				error "Error: Processor type $proctype is not supported in ZynqMP\n"
 			}
@@ -90,6 +92,7 @@ proc generate {libhandle} {
 				copy_files_to_src $versal_net_client_dir
 				copy_files_to_src $versal_client_common_dir
 				copy_files_to_src $versal_net_common_dir
+				copy_files_to_src $common_header_dir
 			} else {
 				error "Error: Processor type $proctype is not supported in ZynqMP\n"
 			}
@@ -100,12 +103,14 @@ proc generate {libhandle} {
 			copy_files_to_src $versal_server_dir
 			copy_files_to_src $versal_server_common_dir
 			copy_files_to_src $versal_common_dir
+			copy_files_to_src $common_header_dir
 		}
 		"psxl_pmc" -
 		"psx_pmc" {
 			copy_files_to_src $versal_net_server_dir
 			copy_files_to_src $versal_server_common_dir
 			copy_files_to_src $versal_net_common_dir
+			copy_files_to_src $common_header_dir
 		}
 
 		"default"  {error "Error: Processor type $proctype is not supported\n"}

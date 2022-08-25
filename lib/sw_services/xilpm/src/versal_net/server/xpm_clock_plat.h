@@ -14,9 +14,9 @@ extern "C" {
 #endif
 
 #define ISCPMCLK(idx)	((idx == (u32)XPM_NODEIDX_CLK_CPLL) ||			\
-			(idx == (u32)XPM_NODEIDX_CLK_CPLL_PRE_SRC) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPLL_POST_SRC) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPLL_OUT) ||		\
+			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_PRESRC) ||		\
+			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_POSTCLK) ||		\
+			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_PLL_OUT) ||		\
 			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_CORE_REF) ||		\
 			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_DBG_REF) ||		\
 			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_AUX0_REF) ||		\
