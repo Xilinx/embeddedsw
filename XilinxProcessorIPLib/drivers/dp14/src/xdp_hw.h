@@ -429,6 +429,8 @@
 							streams. */
 #define XDP_TX_SOFT_RESET_HDCP_MASK \
 				0x00000100	/**< Reset HDCP logic. */
+#define XDP_TX_SOFT_RESET_DISABLE_MASK \
+				0x00000000	/**< Release Reset. */
 
 /* 0x0D0: TX_MST_CONFIG */
 #define XDP_TX_MST_CONFIG_MST_EN_MASK \
