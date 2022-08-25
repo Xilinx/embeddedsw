@@ -237,6 +237,10 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 		MuxAddress = (u16)Regulator->Config.CmdArr[j];
 		j++;
 		BytesLen = Regulator->Config.CmdArr[j];
+		if (BytesLen > 3) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
 		j++;
 		for (k = 0; k < BytesLen; k++) {
 			WriteBuffer[k] = Regulator->Config.CmdArr[j];
@@ -253,6 +257,10 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 	i = 0; j = 0; k = 0;
 	for (i = 0; i < Rail->I2cModes[Mode].CmdLen; i++) {
 		BytesLen = Rail->I2cModes[Mode].CmdArr[j];
+		if (BytesLen > 3) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
 		j++;
 		for (k = 0; k < BytesLen; k++) {
 			WriteBuffer[k] = Rail->I2cModes[Mode].CmdArr[j];
