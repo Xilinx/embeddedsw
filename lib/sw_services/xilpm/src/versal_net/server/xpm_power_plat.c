@@ -17,6 +17,9 @@ XStatus XPmPower_PlatSendPowerUpReq(XPm_Node *Node)
 	case (u32)XPM_NODEIDX_POWER_CPM5N:
 		Status = XPm_PowerUpCPM5N(Node);
 		break;
+	case (u32)XPM_NODEIDX_POWER_HNICX:
+		Status = XPm_PowerUpHnicx();
+		break;
 	default:
 		Status = XST_INVALID_PARAM;
 		break;
@@ -32,6 +35,9 @@ XStatus XPmPower_PlatSendPowerDownReq(const XPm_Node *Node)
 	switch (NODEINDEX(Node->Id)) {
 	case (u32)XPM_NODEIDX_POWER_CPM5N:
 		Status = XPm_PowerDwnCPM5N(Node);
+		break;
+	case (u32)XPM_NODEIDX_POWER_HNICX:
+		Status = XPm_PowerDwnHnicx();
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
