@@ -79,7 +79,7 @@ XStatus ResetAPUGic(const u32 DeviceId)
 			}
 		}
 		if (PM_POWER_ACPU_3_3 < NodeId) {
-			Status = XPmReset_AssertbyId(PM_RST_GIC, (u32)PM_RESET_ACTION_PULSE);
+			Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_PULSE);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
