@@ -465,6 +465,11 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:MST:Config done!"
 			"\n\r\n\r");
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
+			     XDP_TX_SOFT_RESET_VIDEO_STREAM_ALL_MASK |
+			     XDP_TX_SOFT_RESET_HDCP_MASK);
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET,
+			     XDP_TX_SOFT_RESET_DISABLE_MASK);
 	}
 	/* SST */
 	else {
