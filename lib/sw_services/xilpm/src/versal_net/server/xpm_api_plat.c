@@ -29,6 +29,7 @@
 #include "xpm_pslpdomain.h"
 #include "xpm_psfpdomain.h"
 #include "xpm_cpmdomain.h"
+#include "xpm_hnicxdomain.h"
 #include "xpm_pldomain.h"
 #include "xpm_npdomain.h"
 #include "xpm_notifier.h"
@@ -590,6 +591,72 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 
 	Status = XPmDomainIso_NodeInit(NodeId, BaseAddr, Mask, \
 				       Psm, Polarity, Dependencies, NumDependencies);
+done:
+	return Status;
+}
+
+XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 PowerId;
+	u32 PowerType;
+	u8 Width;
+	u8 Shift;
+	u32 BitMask;
+	u32 ParentId;
+	XPm_Power *PowerParent = NULL;
+	XPm_HnicxDomain *HnicxDomain;
+
+	if (1U > NumArgs) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	PowerId = Args[0];
+	PowerType = NODETYPE(PowerId);
+	Width = (u8)(Args[1] >> 8) & 0xFFU;
+	Shift = (u8)(Args[1] & 0xFFU);
+	ParentId = Args[2];
+
+	if ((NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	BitMask = BITNMASK(Shift, Width);
+
+	if ((ParentId != (u32)XPM_NODEIDX_POWER_MIN)) {
+		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		} else if (NODEINDEX(ParentId) >= (u32)XPM_NODEIDX_POWER_MAX) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		} else {
+			/* Required by MISRA */
+		}
+
+		PowerParent = XPmPower_GetById(ParentId);
+		if (NULL == PowerParent) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+	}
+
+	switch (PowerType) {
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_HNICX:
+		HnicxDomain = (XPm_HnicxDomain *)XPm_AllocBytes(sizeof(XPm_HnicxDomain));
+		if (NULL == HnicxDomain) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmHnicxDomain_Init(HnicxDomain, PowerId, BitMask, PowerParent);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
 done:
 	return Status;
 }
