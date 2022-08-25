@@ -54,6 +54,7 @@ XStatus XPmPlDevice_IfNocClkEnable(XPlmi_Cmd *Cmd, u32 BitArrayIdx, u16 State,
 		        u16 Mask, u32 Level);
 void XPmPlDevice_ReleaseAieDevice(XPm_PlDevice *PlDevice);
 void XPmPlDevice_GetAieParent(const XPm_Device* Device, const XPm_PlDevice **OutParent);
+void XPmPlDevice_SetSemCallback(void (*Handler)(u32 DeviceId));
 #ifdef __cplusplus
 }
 #endif
