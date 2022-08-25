@@ -1619,54 +1619,6 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  This function add monitor node to the topology database
- *
- * @param Args		arguments
- * @param NumArgs	number of arguments
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-static XStatus XPm_AddNodeMonitor(const u32 *Args, u32 NumArgs)
-{
-	XStatus Status = XST_FAILURE;
-	u32 NodeId, BaseAddress, NodeType;
-
-	if (NumArgs < 3U) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	NodeId = Args[0];
-	BaseAddress = Args[2];
-
-
-	if ((u32)XPM_NODESUBCL_MONITOR_SYSMON != NODESUBCLASS(NodeId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	NodeType = NODETYPE(NodeId);
-
-	if ((((u32)XPM_NODETYPE_MONITOR_SYSMON_PMC != NodeType) &&
-	    ((u32)XPM_NODETYPE_MONITOR_SYSMON_PS != NodeType)
-		&& ((u32)XPM_NODETYPE_MONITOR_SYSMON_NPD != NodeType)) ||
-	    ((u32)XPM_NODEIDX_MONITOR_MAX <= NODEINDEX(NodeId))) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Status = XPm_SetSysmonNode(NodeId, BaseAddress);
-
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
  * @brief  This function add xmpu/xppu node to the topology database
  *
  * @param Args		Node arguments
@@ -1929,9 +1881,6 @@ XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODECLASS_PROTECTION:
 		Status = XPm_AddNodeProt(Args, NumArgs);
-		break;
-	case (u32)XPM_NODECLASS_MONITOR:
-		Status = XPm_AddNodeMonitor(Args, NumArgs);
 		break;
 	case (u32)XPM_NODECLASS_REGNODE:
 		Status = XPm_AddNodeRegnode(Args, NumArgs);
