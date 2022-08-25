@@ -138,6 +138,7 @@
 *       dc   07/20/2022 Added Data measurement, supports only for Versal Net
 *       dc   07/27/2022 Added goto END in error case for header failures
 *       ma   08/08/2022 Check EAM errors between each image load
+*       ng   18/08/2022 Modified DelayedHandoffCpus condition to handle all possible values
 *
 * </pre>
 *
@@ -750,7 +751,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 				goto END;
 			}
 
-			if (NoOfDelayedHandoffCpus == XLOADER_MAX_HANDOFF_CPUS) {
+			if (NoOfDelayedHandoffCpus >= XLOADER_MAX_HANDOFF_CPUS) {
 				Status = XPlmi_UpdateStatus(
 						XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
 				goto END;
