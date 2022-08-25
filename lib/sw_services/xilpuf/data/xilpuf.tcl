@@ -7,6 +7,8 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0   kal  08/01/19 Initial Release
+# 1.6   kpt  08/25/22 Changed user configurable parameter names
+#
 ##############################################################################
 
 #---------------------------------------------
@@ -17,7 +19,7 @@ proc puf_drc {libhandle} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set compiler [common::get_property CONFIG.compiler $proc_instance]
-	set mode [common::get_property CONFIG.mode $libhandle]
+	set mode [common::get_property CONFIG.xpuf_mode $libhandle]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
 	set server "src/server/"
@@ -117,7 +119,7 @@ proc xgen_opts_file {libhandle} {
 	}
 
 	# Get cache_disable value set by user, by default it is FALSE
-	set value [common::get_property CONFIG.cache_disable $libhandle]
+	set value [common::get_property CONFIG.xpuf_cache_disable $libhandle]
 	if {$value == true} {
 		#Open xparameters.h file
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
