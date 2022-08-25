@@ -200,3 +200,23 @@ XStatus XPm_PowerDwnNoC(void)
 
 	return Status;
 }
+
+XStatus XPm_PowerDwnHnicx(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power down sequence for HNICX */
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+XStatus XPm_PowerUpHnicx(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* TODO: Add Power up sequence for HNICX */
+	Status = XST_SUCCESS;
+
+        return Status;
+}

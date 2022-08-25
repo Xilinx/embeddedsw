@@ -52,6 +52,8 @@ XStatus XPm_PowerUpCPM5N(const XPm_Node *Node);
 XStatus XPm_PowerDwnCPM5N(const XPm_Node *Node);
 XStatus XPm_PowerUpNoC(XPm_Node *Node);
 XStatus XPm_PowerDwnNoC(void);
+XStatus XPm_PowerUpHnicx(void);
+XStatus XPm_PowerDwnHnicx(void);
 
 #ifdef __cplusplus
 }

@@ -41,6 +41,8 @@ XStatus XPm_PlatQuery(const u32 Qid, const u32 Arg1, const u32 Arg2,
 XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 				     u32 ReqFlags, const u32 *Args, u32 NumArgs);
 
+XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs);
+
 maybe_unused static inline XStatus XPm_PlatAddRequirement(const u32 *Args, const u32 NumArgs)
 {
 	(void)Args;
@@ -48,12 +50,6 @@ maybe_unused static inline XStatus XPm_PlatAddRequirement(const u32 *Args, const
 	return XST_INVALID_PARAM;
 }
 maybe_unused static inline XStatus XPm_PlatAddDevice(const u32 *Args, u32 NumArgs)
-{
-	(void)Args;
-	(void)NumArgs;
-	return XST_INVALID_PARAM;
-}
-maybe_unused static inline XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 {
 	(void)Args;
 	(void)NumArgs;
