@@ -61,7 +61,7 @@ typedef enum
 #define NUMBER_OF_WRITE_FRAMES   XPAR_AXIVDMA_0_NUM_FSTORES
 #define BPC (XPAR_DPRXSS_0_BITS_PER_COLOR * 3 * 4/8)
 #define DDR_MEMORY               \
-		(XPAR_MEMORY_SUBSYSTEM_DDR4_0_BASEADDR +  0x1000000)
+		(XPAR_MEMORY_SUBSYSTEM_DDR4_0_C0_DDR4_MEMORY_MAP_BASEADDR +  0x1000000)
 
 
 int WriteSetup(struct dma_chan_parms define_function[1], u32 dp_hres,

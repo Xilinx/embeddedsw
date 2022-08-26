@@ -54,6 +54,9 @@
 * 							App will work for both configurations of MMCM.
 * 1.14 ND 07/21/22 2022.2 - Updated the LMK03318 address.
 * 1.15 ND 08/05/22 2022.2 - Added support for gpio to monitor gt_powergood
+* 1.16 ND 08/26/22 2022.2 - Added DELAY macro to increase delay in IDT_8T49N24x_SetClock()
+* 					   		if encountering iic race condition.
+*
 * </pre>
 *
 ******************************************************************************/

@@ -25,6 +25,9 @@
  * 1.6   ND   02/01/22 Corrected XDP_RX_AUDIO_INFO_DATA to XDP_RX_AUDIO_EXT_DATA
  * 					   in DpRxSs_ExtPacketHandler()
  * 1.7   ND   07/21/22 Updated the LMK03318 address.
+ * 1.8   ND   08/26/22 Address updation for DDR_MEMORY macro.
+ * 					   Added DELAY macro to increase delay in IDT_8T49N24x_SetClock()
+ * 					   if encountering iic race condition.
 *******************************************************************************/
 
 #include "dppt.h"

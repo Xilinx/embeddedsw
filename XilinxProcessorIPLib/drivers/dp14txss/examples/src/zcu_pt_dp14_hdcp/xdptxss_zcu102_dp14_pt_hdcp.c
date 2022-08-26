@@ -34,6 +34,9 @@
 * 1.09 ND 01/31/21 Updated the code with new api names corresponding to the changes
 * 				   in hdcp tx and rx drivers. No change in functionality.
 * 1.10 ND 07/21/22 Updated the LMK03318 address.
+* 1.11 ND 08/26/22 Added DELAY macro to increase delay in IDT_8T49N24x_SetClock()
+* 				   if encountering iic race condition.
+*
 * </pre>
 *
 ******************************************************************************/
