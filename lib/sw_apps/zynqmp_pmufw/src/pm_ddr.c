@@ -913,6 +913,9 @@ static void store_state(PmRegisterContext *context)
 		} else if (context->addr == DDRPHY_PGCR(0U)) {
 			/* assert FIFO reset */
 			context->value &= ~DDRPHY_PGCR0_PHYFRST;
+		} else if (context->addr == DDRC_CRCPARCTL1) {
+			/* Disable Parity Retry */
+			context->value &= ~(BIT(8));
 		} else if ((context->addr == DDRPHY_DX8SLNOSC(0U)) ||
 			   (context->addr == DDRPHY_DX8SLNOSC(1U)) ||
 			   (context->addr == DDRPHY_DX8SLNOSC(2U)) ||
