@@ -662,7 +662,7 @@ static void PmWakeEventEthSet(PmWakeEvent* const wake, const u32 ipiMask,
 
 s32 PmSetEthBaseAddr(u32 nodeId) {
 	s32 status = XST_SUCCESS;
-	PmSlave* slave;
+	const PmSlave* slave;
 	PmWakeEventEth *ethWake;
 
 	slave = (PmSlave*)PmNodeGetSlave(nodeId);
