@@ -52,6 +52,7 @@
 * 			  directive_4_6 violations.
 *      mmd       02/28/22 Added Xil_SMemMove function prototype
 * 8.0  adk       04/18/22 Added Xil_WaitForEventSet function prototype.
+*      ssc       08/25/22 Added Xil_SecureRMW32 prototype
 *
 * </pre>
 *
@@ -225,6 +226,9 @@ int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 
 /* Waits for event timeout */
 u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, ...);
+
+/* Implements Read Modify Writes securely */
+s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value);
 
 #ifdef __cplusplus
 }

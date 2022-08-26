@@ -17,6 +17,7 @@
  * ----- ---- -------- -----------------------------------------------------------------------------
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 Minor updates related to security best practices
+ * 1.2   ssc  08/25/22 Minor fix in print message
  *
  *</pre>
  **************************************************************************************************/
@@ -194,7 +195,7 @@ int Trngpsv_Drng_Example(u16 DeviceId)
 	/* Reseed with new entropy and DFLenMul of 0 */
 	Status = XTrngpsv_Reseed(&Trngpsv, ReseedEntropy, 0U);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Instantiate failed, Status: 0x%08x\n\r", Status);
+		xil_printf("Reseed failed, Status: 0x%08x\n\r", Status);
 		goto END;
 	}
 
