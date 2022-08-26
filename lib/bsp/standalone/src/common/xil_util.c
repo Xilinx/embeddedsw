@@ -78,6 +78,7 @@
 * 8.0   adk      04/18/22 Added Xil_WaitForEventSet function.
 *       adk	 07/15/22 Updated the Xil_WaitForEventSet() API to
 *			  support variable number of events.
+*	ssc	 08/25/22 Added Xil_SecureRMW32 API
 *
 * </pre>
 *
@@ -1288,6 +1289,42 @@ u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, .
 
 END:
 	if (LoopCnt == NumOfEvents) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief
+ * Performs a Read Modify Write operation for a memory location by writing the
+ * 32 bit value to the the specified address and then reading it back to
+ * verify the value written in the register.
+ *
+ * @param	Addr contains the address to perform the output operation
+ * @param	Mask indicates the bits to be modified
+ * @param	Value contains 32 bit Value to be written at the specified address
+ *
+ * @return
+ *         XST_SUCCESS on success
+ *         XST_FAILURE on failure
+ *
+ *****************************************************************************/
+s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value)
+{
+	s32 Status = XST_FAILURE;
+	u32 ReadReg;
+	u32 Val;
+
+	Val = Xil_In32(Addr);
+	Val = (Val & (~Mask)) | (Mask & Value);
+	Xil_Out32(Addr, Val);
+
+	/* verify value written to specified address */
+	ReadReg = Xil_In32(Addr) & Mask;
+
+	if(ReadReg == (Mask & Value)) {
 		Status = XST_SUCCESS;
 	}
 
