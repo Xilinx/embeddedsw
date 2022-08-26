@@ -31,6 +31,9 @@
 * 					Disabling the av pat gen before start of new training
 * 					sequence.
 * 					Updation of the LMK03318 address.
+* 1.09 ND  08/26/22 Added DELAY macro to increase delay in IDT_8T49N24x_SetClock()
+* 					if encountering iic race condition.
+*
 *
 * </pre>
 *

@@ -33,6 +33,8 @@
 * 1.06 ND 	    07/21/22    Updated the LMK03318 address.
 * 1.07 ND       08/11/22    Added support for gpio to monitor gtpowergood
 *                           for versal GT
+* 1.08 ND 		08/26/22    Added DELAY macro to increase delay in IDT_8T49N24x_SetClock()
+* 					   		if encountering iic race condition.
 * </pre>
 *
 ******************************************************************************/
