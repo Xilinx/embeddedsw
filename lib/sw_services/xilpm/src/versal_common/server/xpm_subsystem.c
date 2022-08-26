@@ -193,7 +193,8 @@ XStatus XPmSubsystem_InitFinalize(const u32 SubsystemId)
                 }
 
                 /* Power down the device if device is unused */
-                if (0U == DeviceInUse) {
+                if ((0U == DeviceInUse) &&
+		    (1U == XPmDevice_IsRequestable(Device->Node.Id))) {
                         /*
                          * Here device needs to be requested and released to handle
                          * the use count of its clock and power. This makes unused
