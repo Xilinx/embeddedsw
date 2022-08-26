@@ -25,9 +25,9 @@ maybe_unused static XStatus IsDevExcluded(const u32 DevId)
 
 	if ((((u32)PM_DEV_L2_BANK_0 == DevId) ||
 	    ((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(DevId)) ||
-	    ((u32)XPM_NODETYPE_DEV_GT == NODETYPE(DevId)) ||
 	    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(DevId)) ||
 	    ((u32)XPM_NODETYPE_DEV_EFUSE == NODETYPE(DevId)) ||
+	    ((u32)XPM_NODESUBCL_DEV_PHY == NODESUBCLASS(DevId)) ||
 	    ((u32)XPM_NODEIDX_DEV_AMS_ROOT == NODEINDEX(DevId))) ||
 	    (((u32)PM_DEV_GPIO == DevId) &&
 	    ((u32)PLATFORM_VERSION_SILICON == Platform) &&
