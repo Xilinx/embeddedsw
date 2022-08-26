@@ -17,6 +17,7 @@
  * 1.2   KI   02/17/17 Added compliance related for Rx
  * 1.01  ND   04/03/21 Moved all global variables declaration from .h to .c
  * 					   files due to gcc compiler compilation error.
+ * 1.02  ND   08/26/22 Address updation for DDR_MEMORY macro.
  *
 *******************************************************************************/
 
