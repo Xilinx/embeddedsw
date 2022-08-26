@@ -54,6 +54,8 @@ extern "C" {
 #define IDT_8T49N24X_P_MAX pow(2,22)  //!< Maximum P divider value
 #define IDT_8T49N24X_M_MAX pow(2,24)  //!< Maximum M multiplier value
 
+#define DELAY	0	//increase delay if encountering iic race condition
+
 /* 
  * This configuration was created with the IDT timing commander.
  * IT configures the clock device in synthesizer mode.

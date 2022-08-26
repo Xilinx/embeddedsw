@@ -699,8 +699,11 @@ int IDT_8T49N24x_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	/* Disable DPLL and APLL calibration */
 	Result = IDT_8T49N24x_Enable(I2CBaseAddress, I2CSlaveAddress, FALSE);
 
+#if DELAY
+	usleep(500000);
+#else
 	usleep(300000);
-
+#endif
 /*
 	if (!FreeRun) {
 		// Configure device

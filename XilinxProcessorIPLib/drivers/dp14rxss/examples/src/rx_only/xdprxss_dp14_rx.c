@@ -22,6 +22,9 @@
 * 1.3  ND 04/02/21 Moved all global variables declaration from .h to .c
 * 				   files due to gcc compiler compilation error.
 * 1.4  ND 07/21/22 Updated LMK03318 address.
+* 1.5  ND 08/26/22 Added DELAY macro to increase delay in IDT_8T49N24x_SetClock()
+* 					if encountering iic race condition.
+*
 * </pre>
 *
 ******************************************************************************/
