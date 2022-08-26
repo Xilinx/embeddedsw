@@ -18,6 +18,7 @@
 #include "pm_node.h"
 #include "pm_system.h"
 #include "pm_pll.h"
+#include "pm_periph.h"
 
 typedef s32 (*const PmConfigSectionHandler)(u32* const addr);
 
