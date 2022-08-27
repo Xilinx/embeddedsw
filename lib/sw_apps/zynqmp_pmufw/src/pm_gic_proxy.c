@@ -34,6 +34,10 @@ static void PmWakeEventGicProxySet(PmWakeEvent* const wake, const u32 ipiMask,
 				   const u32 enable)
 {
 	PmWakeEventGicProxy* gicWake = (PmWakeEventGicProxy*)wake->derived;
+	const PmWakeEventEth *eth0Wake = pmSlaveEth0_g.wake->derived;
+	const PmWakeEventEth *eth1Wake = pmSlaveEth1_g.wake->derived;
+	const PmWakeEventEth *eth2Wake = pmSlaveEth2_g.wake->derived;
+	const PmWakeEventEth *eth3Wake = pmSlaveEth3_g.wake->derived;
 	u32 regVal;
 
 	/* Only APU's interrupts are routed through GIC Proxy */
@@ -57,6 +61,36 @@ static void PmWakeEventGicProxySet(PmWakeEvent* const wake, const u32 ipiMask,
 			if (0U == (regVal & USB3_0_FPD_PIPE_CLK_OPTION_MASK)) {
 				pmPowerDomainFpd_g.power.useCount++;
 			}
+		} else if (eth0Wake->subWake->derived == gicWake) {
+			/* Keep FPD ON if WOL is set as wakeup source in ETH0 mode */
+			regVal = XPfw_Read32(PM_ETH_0_DEF_BASEADDR + PM_GEM_NETWORK_CONFIG_OFFSET);
+			if ((PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK) ==
+			    (regVal & PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK)) {
+				pmPowerDomainFpd_g.power.useCount++;
+			}
+		} else if (eth1Wake->subWake->derived == gicWake) {
+			/* Keep FPD ON if WOL is set as wakeup source in ETH1 mode */
+			regVal = XPfw_Read32(PM_ETH_1_DEF_BASEADDR + PM_GEM_NETWORK_CONFIG_OFFSET);
+			if ((PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK) ==
+			    (regVal & PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK)) {
+				pmPowerDomainFpd_g.power.useCount++;
+			}
+		} else if (eth2Wake->subWake->derived == gicWake) {
+			/* Keep FPD ON if WOL is set as wakeup source in ETH2 mode */
+			regVal = XPfw_Read32(PM_ETH_2_DEF_BASEADDR + PM_GEM_NETWORK_CONFIG_OFFSET);
+			if ((PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK) ==
+			    (regVal & PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK)) {
+				pmPowerDomainFpd_g.power.useCount++;
+			}
+		} else if (eth3Wake->subWake->derived == gicWake) {
+			/* Keep FPD ON if WOL is set as wakeup source in ETH3 mode */
+			regVal = XPfw_Read32(PM_ETH_3_DEF_BASEADDR + PM_GEM_NETWORK_CONFIG_OFFSET);
+			if ((PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK) ==
+			    (regVal & PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK)) {
+				pmPowerDomainFpd_g.power.useCount++;
+			}
+		} else {
+			/* Required by MISRA */
 		}
 
 		u32 addr = GIC_PROXY_BASE_ADDR +
@@ -143,6 +177,10 @@ static void PmGicProxyClear(void)
 {
 	u32 g, regVal;
 	const PmWakeEventGicProxy* usbWake = (PmWakeEventGicProxy*) pmSlaveUsb0_g.slv.wake->derived;
+	const PmWakeEventGicProxy* eth0Wake = (PmWakeEventGicProxy*) pmSlaveEth0_g.wake->derived;
+	const PmWakeEventGicProxy* eth1Wake = (PmWakeEventGicProxy*) pmSlaveEth1_g.wake->derived;
+	const PmWakeEventGicProxy* eth2Wake = (PmWakeEventGicProxy*) pmSlaveEth2_g.wake->derived;
+	const PmWakeEventGicProxy* eth3Wake = (PmWakeEventGicProxy*) pmSlaveEth3_g.wake->derived;
 
 	for (g = 0U; g < pmGicProxy.groupsCnt; g++) {
 
@@ -160,6 +198,32 @@ static void PmGicProxyClear(void)
 			if (0U == (regVal & USB3_0_FPD_PIPE_CLK_OPTION_MASK)) {
 				pmPowerDomainFpd_g.power.useCount--;
 			}
+		} else if ((g == eth0Wake->group) && (0U != (pmGicProxy.groups[g].setMask & eth0Wake->mask))) {
+			regVal = XPfw_Read32(PM_ETH_0_DEF_BASEADDR + PM_GEM_NETWORK_CONFIG_OFFSET);
+			if ((PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK) ==
+			    (regVal & PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK)) {
+				pmPowerDomainFpd_g.power.useCount--;
+			}
+		} else if ((g == eth1Wake->group) && (0U != (pmGicProxy.groups[g].setMask & eth1Wake->mask))) {
+			regVal = XPfw_Read32(PM_ETH_1_DEF_BASEADDR + PM_GEM_NETWORK_CONFIG_OFFSET);
+			if ((PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK) ==
+			    (regVal & PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK)) {
+				pmPowerDomainFpd_g.power.useCount--;
+			}
+		} else if ((g == eth2Wake->group) && (0U != (pmGicProxy.groups[g].setMask & eth2Wake->mask))) {
+			regVal = XPfw_Read32(PM_ETH_2_DEF_BASEADDR + PM_GEM_NETWORK_CONFIG_OFFSET);
+			if ((PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK) ==
+			    (regVal & PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK)) {
+				pmPowerDomainFpd_g.power.useCount--;
+			}
+		} else if ((g == eth3Wake->group) && (0U != (pmGicProxy.groups[g].setMask & eth3Wake->mask))) {
+			regVal = XPfw_Read32(PM_ETH_3_DEF_BASEADDR + PM_GEM_NETWORK_CONFIG_OFFSET);
+			if ((PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK) ==
+			    (regVal & PM_GEM_NETWORK_CONFIG_PCS_SELECT_MASK)) {
+				pmPowerDomainFpd_g.power.useCount--;
+			}
+		} else {
+			/* Required by MISRA */
 		}
 		pmGicProxy.groups[g].setMask = 0U;
 	}
