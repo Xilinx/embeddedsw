@@ -35,7 +35,6 @@ extern "C" {
 #include "psm_local.h"
 #include "psm_global.h"
 #include "xpsmfw_gic.h"
-#include "xpsmfw_default.h"
 
 /**
  * IPI Base Address

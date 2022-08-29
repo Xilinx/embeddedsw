@@ -34,7 +34,6 @@ extern "C" {
 #include "xstatus.h"
 #include "psmx_local.h"
 #include "psmx_global.h"
-#include "xpsmfw_default.h"
 
 /**
  * IPI Base Address

@@ -41,7 +41,6 @@ extern "C" {
 #include "mb_interface.h"
 #include "xstatus.h"
 /* REGDB Headers */
-#include "xpsmfw_plat.h"
 #include "ipi.h"
 
 /* Register Access Macros */
