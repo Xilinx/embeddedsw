@@ -82,7 +82,8 @@ typedef struct {
 } XNvm_RdCacheCdo;
 
 typedef struct {
-	u32 KeyType;
+	u16 EnvDisFlag;
+	u16 KeyType;
 	u32 AddrLow;
 	u32 AddrHigh;
 } XNvm_AesKeyWritePload;
@@ -93,7 +94,8 @@ typedef struct {
 } XNvm_AesKeyWriteCdo;
 
 typedef struct {
-	u32 PpkType;
+	u16 EnvDisFlag;
+	u16 PpkType;
 	u32 AddrLow;
 	u32 AddrHigh;
 } XNvm_PpkWritePload;
@@ -104,7 +106,8 @@ typedef struct {
 } XNvm_PpkWriteCdo;
 
 typedef struct {
-	u32 IvType;
+	u16 EnvDisFlag;
+	u16 IvType;
 	u32 AddrLow;
 	u32 AddrHigh;
 } XNvm_IvWritePload;
@@ -115,8 +118,133 @@ typedef struct {
 } XNvm_IvWriteCdo;
 
 typedef struct {
+	u16 EnvDisFlag;
+	u16 KeyType;
+	XNvm_AesKey EfuseKey;
+} XNvm_AesKeyWriteDirectPload;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 PpkType;
+	XNvm_PpkHash EfuseHash;
+} XNvm_PpkWriteDirectPload;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 IvType;
+	XNvm_Iv EfuseIv;
+} XNvm_IvWriteDirectPload;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 GlitchConfigVal;
+} XNvm_GlitchConfig;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+} XNvm_DecOnly;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 RevokeIdNum;
+} XNvm_RevodeId;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 OffChipIdNum;
+} XNvm_OffChipId;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 MiscCtrlBitsVal;
+} XNvm_MiscCtrlBits;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 SecCtrlBitsVal;
+} XNvm_SecCtrlBits;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 Misc1CtrlBitsVal;
+} XNvm_Misc1CtrlBits;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 BootEnvCtrlVal;
+} XNvm_BootEnvCtrlBits;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u16 FipsMode;
+	u16 FipsVersion;
+} XNvm_FipsInfo;
+
+typedef struct {
 	u32 Uds[XNVM_UDS_SIZE_IN_WORDS];
 } XNvm_Uds;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	XNvm_Uds EfuseUds;
+} XNvm_UdsDirectPload;
+
+typedef struct {
+	u32 Key[XNVM_DME_USER_KEY_SIZE_IN_WORDS];
+} XNvm_DmeKey;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 KeyType;
+	XNvm_DmeKey EfuseDmeKey;
+} XNvm_DmeKeyDirectPload;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 DmeRevokeNum;
+} XNvm_DmeRevokeDirectPload;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+} XNvm_DisPlmUpdate;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 EfuseCrc;
+} XNvm_Crc;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 EfuseDmeMode;
+} XNvm_DmeMode;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 PufCtrlBits;
+	u32 Chash;
+	u32 Aux;
+	u32 RoSwap;
+	u32 *SynData;
+} XNvm_PufInfoDirectPload;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 BootModeDisVal;
+} XNvm_BootModeDis;
 
 typedef enum {
 	XNVM_EFUSE_DME_USER_KEY_0 = 0,
@@ -124,10 +252,6 @@ typedef enum {
 	XNVM_EFUSE_DME_USER_KEY_2,
 	XNVM_EFUSE_DME_USER_KEY_3
 } XNvm_DmeKeyType;
-
-typedef struct {
-	u32 Key[XNVM_DME_USER_KEY_SIZE_IN_WORDS];
-} XNvm_DmeKey;
 
 typedef enum {
 	XNVM_EFUSE_DME_REVOKE_0 = 0,
@@ -195,6 +319,8 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_DME_REVOKE,
 	XNVM_API_ID_EFUSE_WRITE_PLM_UPDATE,
 	XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE,
+	XNVM_API_ID_EFUSE_WRITE_CRC,
+	XNVM_API_ID_EFUSE_WRITE_DME_MODE,
 	XNVM_API_ID_EFUSE_WRITE_PUF_FROM_PLOAD,
 	XNVM_API_ID_EFUSE_WRITE_PUF,
 	XNVM_API_ID_EFUSE_READ_CACHE = 47,

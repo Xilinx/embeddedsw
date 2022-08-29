@@ -1,0 +1,134 @@
+/******************************************************************************
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+
+/*****************************************************************************/
+/**
+ *
+ * @file xnvm_efuse.h
+ *
+ * Header file for xnvm_efuse.c
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date        Changes
+ * ----- ---- ---------- -------------------------------------------------------
+ * 1.0   kal  12/07/2022 Initial release
+ *
+ * </pre>
+ *
+ * @note
+ *
+ ******************************************************************************/
+#ifndef XNVM_EFUSE_ERROR_PLAT_H
+#define XNVM_EFUSE_ERROR_PLAT_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/***************************** Include Files *********************************/
+
+/************************** Constant Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
+/**
+ * @addtogroup xilnvm_versal_common_error_codes XilNvm Error Codes
+ * @{
+ */
+
+/**
+ The following table lists the Versal common eFuse library error codes.
+ */
+typedef enum {
+	XNVM_EFUSE_ERR_WRITE_MISC_CTRL_BITS = 0x8B00,/**< 0x8B00
+						* Error in MiscCtrl Bits
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_SEC_CTRL_BITS = 0x8C00, /**< 0x8C00
+						* Error in SecCtrl Bits
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_MISC1_CTRL_BITS = 0x8D00, /**< 0x8D00
+						* Error in Misc1Ctrl Bits
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_UDS = 0x8E00, /**< 0x8E00
+						* Error in Uds
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_PLM_UPDATE = 0x8F00, /**< 0x8F00
+						* Error in PLM_UPDATE
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_BOOT_MODE_DISABLE = 0xA000, /**< 0xA000
+						* Error in BootModeDisable
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_DME_MODE = 0xA100, /**< 0xA100
+						* Error in DmeMode
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_RO_SWAP = 0xA200, /**< 0xA200
+						* Error in RO_SWAP_EN
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_DME_REVOKE_0 = 0xA300, /**< 0xA300
+						* Error in DME_REVOKE_0
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_DME_REVOKE_1 = 0xA400, /**< 0xA400
+						* Error in DME_REVOKE_1
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_DME_REVOKE_2 = 0xA500, /**< 0xA500
+						* Error in DME_REVOKE_2
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_DME_REVOKE_3 = 0xA600, /**< 0xA600
+						* Error in DME_REVOKE_3
+						* programming */
+	XNVM_EFUSE_ERR_DME_MODE_SET = 0xA700, /**< 0xA700
+						* Error in DME_MODE
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_CRC_SALT = 0xA800, /**< 0xA800
+						 * Error in CRC_SALT
+						 * programming */
+	XNVM_EFUSE_ERR_WRITE_CRC = 0xA900, /**< 0xA900
+						* Error in CRC
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_0_PROT = 0xC300, /**< 0xC300
+								* Error in SEC_CTRL_0_PROT
+								* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_1_PROT = 0xC400, /**< 0xC400
+								* Error in SEC_CTRL_1_PROT
+								* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_0_PROT = 0xC500, /**< 0xC500
+								* Error in SEC_MISC0_0_PROT
+								* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_1_PROT = 0xC600, /**< 0xC600
+								* Error in SEC_MISC0_1_PROT
+								* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_0_PROT = 0xC700, /**< 0xC700
+								* Error in PPK_HASH_0_PROT
+								* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_1_PROT = 0xC800, /**< 0xC800
+								* Error in PPK_HASH_1_PROT
+								* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_0_PROT = 0xC900, /**< 0xC900
+								* Error in METAHEADER_0_PROT
+								* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_1_PROT = 0xCA00, /**< 0xCA00
+								* Error in METAHEADER_1_PROT
+								* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_0_PROT = 0xCB00, /**< 0xCB00
+							* Error in CRC_0_PROT
+							* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_1_PROT = 0xCC00, /**< 0xCC00
+							* Error in CRC_1_PROT
+							* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_PUF_CHASH_PROT = 0xCD00, /**< 0xCD00
+								* Error in PUF_CHASH_PROT
+								* programming */
+	XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC1_PROT = 0xCE00, /**< 0xCE00
+								* Error in SEC_MISC1_PROT
+								* programming */
+
+} XNvm_EfuseVersalNetErrorCodes;
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XNVM_EFUSE_ERROR_PLAT_H */

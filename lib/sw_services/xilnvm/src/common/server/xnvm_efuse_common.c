@@ -85,6 +85,7 @@
 int XNvm_EfuseCacheReload(void)
 {
 	int Status = XST_FAILURE;
+	int LockStatus = XST_FAILURE;
 	u32 RegStatus;
 	u32 CacheStatus;
 
@@ -92,8 +93,8 @@ int XNvm_EfuseCacheReload(void)
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
 	/* Check the unlock status */
 	if (RegStatus != 0U) {
-		Status = XNvm_EfuseUnlockController();
-		if (Status != XST_SUCCESS) {
+		LockStatus = XNvm_EfuseUnlockController();
+		if (LockStatus != XST_SUCCESS) {
 			goto END;
 		}
 	}
@@ -124,6 +125,14 @@ END:
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_ISR_REG_OFFSET,
 			XNVM_EFUSE_ISR_CACHE_ERROR);
+	RegStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+				XNVM_EFUSE_WR_LOCK_REG_OFFSET);
+	if (RegStatus == 0U) {
+		LockStatus = XNvm_EfuseLockController();
+		if (Status == XST_SUCCESS) {
+			Status = LockStatus;
+		}
+	}
 	return Status;
 
 }

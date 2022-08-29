@@ -43,31 +43,33 @@
 #define XNVM_EFUSE_CACHE_END_OFFSET		(0x00000BFCU)
 
 /************************** Function Prototypes *****************************/
-static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 *Pload);
-static int XNvm_EfuseWritePpkHashFromCdoPload(u32 *Pload);
-static int XNvm_EfuseWriteIvFromCdoPload(u32 *Pload);
-static int XNvm_EfuseWriteAesKeys(XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseWritePpk(XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh);
-static int XNvm_EfuseWriteIvs(XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *Key);
+static int XNvm_EfuseWritePpkHashFromCdoPload(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *Hash);
+static int XNvm_EfuseWriteIvFromCdoPload(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *Iv);
+static int XNvm_EfuseWriteAesKeys(u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWritePpk(u32 EnvDisFlag, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh);
+static int XNvm_EfuseWriteIvs(u32 EnvDisFlag, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseRead(u16 RegCount, u16 StartOffset, u32 AddrLow, u32 AddrHigh);
 static int XNvm_EfuseCacheLoadNPrgmProtBits(void);
-static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvMonDisFlag, u32 GlitchConfig);
-static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvMonDisFlag);
-static int XNvm_EfuseWriteRevocationId(u32 EnvMonDisFlag, u32 RevokeIdNum);
-static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvMonDisFlag, u32 OffChipId);
-static int XNvm_EfuseWriteMiscCtrl(u32 EnvMonDisFlag, u32 MiscCtrlBits);
-static int XNvm_EfuseWriteSecCtrl(u32 EnvMonDisFlag, u32 SecCtrlBits);
-static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvMonDisFlag, u32 Misc1CtrlBits);
-static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvMonDisFlag, u32 BootEnvCtrlBits);
-static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvMonDisFlag, u32 FipsInfo);
-static int XNvm_EfuseWriteDiceUds(u32 *Pload);
-static int XNvm_EfuseWriteDmeKeyFromPload(u32 *Pload);
-static int XNvm_EfuseWriteDmeRevokeBits(u32 Pload);
-static int XNvm_EfuseWritePlmUpdate(u32 EnvMonDisFlag);
-static int XNvm_EfuseWriteBootModeDis(u32 Pload);
-static int XNvm_EfuseWritePufDataFromCdoPload(u32 *Pload);
+static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvDisFlag, u32 GlitchConfig);
+static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvDisFlag);
+static int XNvm_EfuseWriteRevocationId(u32 EnvDisFlag, u32 RevokeIdNum);
+static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvDisFlag, u32 OffChipId);
+static int XNvm_EfuseWriteMiscCtrl(u32 EnvDisFlag, u32 MiscCtrlBits);
+static int XNvm_EfuseWriteSecCtrl(u32 EnvDisFlag, u32 SecCtrlBits);
+static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvDisFlag, u32 Misc1CtrlBits);
+static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvDisFlag, u32 BootEnvCtrlBits);
+static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion);
+static int XNvm_EfuseWriteDiceUds(u32 EnvDisFlag, XNvm_Uds *Uds);
+static int XNvm_EfuseWriteDmeKeyFromPload(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeKey *Key);
+static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum);
+static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag);
+static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask);
+static int XNvm_EfuseWritePufDataFromPload(XNvm_PufInfoDirectPload *PufData);
 static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh);
 static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
+static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc);
+static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode);
 
 /*************************** Function Definitions *****************************/
 
@@ -106,90 +108,150 @@ static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
 int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = Cmd->Payload;
+	XNvm_AesKeyWriteDirectPload *KeyWrDirectPload = NULL;
+	XNvm_PpkWriteDirectPload *HashWrDirectPload = NULL;
+	XNvm_IvWriteDirectPload *IvWrDirectPload = NULL;
+	XNvm_AesKeyWritePload *KeyWrPload = NULL;
+	XNvm_PpkWritePload *PpkWrPload = NULL;
+	XNvm_IvWritePload *IvWrPload = NULL;
+	XNvm_RdCachePload *RdCachePload = NULL;
+	XNvm_PufWritePload *WrPufPload = NULL;
+	XNvm_GlitchConfig *GlitchConfig = NULL;
+	XNvm_DecOnly *DecOnly = NULL;
+	XNvm_RevodeId *RevokeId = NULL;
+	XNvm_OffChipId *OffChipId = NULL;
+	XNvm_MiscCtrlBits *MiscCtrlData = NULL;
+	XNvm_SecCtrlBits *SecCtrlData = NULL;
+	XNvm_Misc1CtrlBits *Misc1CtrlData = NULL;
+	XNvm_BootEnvCtrlBits *BootEnvCtrlData = NULL;
+	XNvm_FipsInfo *FipsInfo = NULL;
+	XNvm_UdsDirectPload *DiceUds = NULL;
+	XNvm_DmeKeyDirectPload *DmeKey = NULL;
+	XNvm_DmeRevokeDirectPload *DmeRevoke = NULL;
+	XNvm_DisPlmUpdate *DisPlmUpdate = NULL;
+	XNvm_BootModeDis *BootModeDisMask = NULL;
+	XNvm_Crc *Crc = NULL;
+	XNvm_DmeMode *DmeMode = NULL;
+	XNvm_PufInfoDirectPload *PufData = NULL;
 
-	if (Pload == NULL) {
+	if (Cmd == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEY_FROM_PLOAD):
-		Status = XNvm_EfuseWriteAesKeyFromCdoPload(Pload);
+		KeyWrDirectPload = (XNvm_AesKeyWriteDirectPload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteAesKeyFromCdoPload((u32)KeyWrDirectPload->EnvDisFlag,
+			(XNvm_AesKeyType)KeyWrDirectPload->KeyType, &KeyWrDirectPload->EfuseKey);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PPK_HASH_FROM_PLOAD):
-		Status = XNvm_EfuseWritePpkHashFromCdoPload(Pload);
+		HashWrDirectPload = (XNvm_PpkWriteDirectPload *)Cmd->Payload;
+		Status = XNvm_EfuseWritePpkHashFromCdoPload((u32)HashWrDirectPload->EnvDisFlag,
+			(XNvm_PpkType)HashWrDirectPload->PpkType, &HashWrDirectPload->EfuseHash);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_IV_FROM_PLOAD):
-		Status = XNvm_EfuseWriteIvFromCdoPload(Pload);
+		IvWrDirectPload = (XNvm_IvWriteDirectPload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteIvFromCdoPload((u32)IvWrDirectPload->EnvDisFlag,
+			(XNvm_IvType)IvWrDirectPload->IvType, &IvWrDirectPload->EfuseIv);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEY):
-		XNvm_AesKeyWritePload *KeyWrPload = (XNvm_AesKeyWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteAesKeys(KeyWrPload->KeyType, KeyWrPload->AddrLow, KeyWrPload->AddrHigh);
+		KeyWrPload = (XNvm_AesKeyWritePload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteAesKeys((u32)KeyWrPload->EnvDisFlag,
+				(XNvm_AesKeyType)KeyWrPload->KeyType, KeyWrPload->AddrLow,
+				KeyWrPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PPK_HASH):
-		XNvm_PpkWritePload *PpkWrPload = (XNvm_PpkWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWritePpk(PpkWrPload->PpkType, PpkWrPload->AddrLow, PpkWrPload->AddrHigh);
+		PpkWrPload = (XNvm_PpkWritePload *)Cmd->Payload;
+		Status = XNvm_EfuseWritePpk((u32)PpkWrPload->EnvDisFlag,
+				(XNvm_PpkType)PpkWrPload->PpkType, PpkWrPload->AddrLow,
+				PpkWrPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_IV):
-		XNvm_IvWritePload *IvWrPload = (XNvm_IvWritePload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteIvs(IvWrPload->IvType, IvWrPload->AddrLow, IvWrPload->AddrHigh);
+		IvWrPload = (XNvm_IvWritePload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteIvs((u32)IvWrPload->EnvDisFlag,
+				(XNvm_IvType)IvWrPload->IvType, IvWrPload->AddrLow,
+				IvWrPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_CACHE):
-		XNvm_RdCachePload *RdCachePload = (XNvm_RdCachePload *)Cmd->Payload;
+		RdCachePload = (XNvm_RdCachePload *)Cmd->Payload;
 		Status = XNvm_EfuseRead(RdCachePload->RegCount, RdCachePload->StartOffset, RdCachePload->AddrLow,
 			RdCachePload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
-		XNvm_PufWritePload *WrPufPload = (XNvm_PufWritePload *)Cmd->Payload;
+		WrPufPload = (XNvm_PufWritePload *)Cmd->Payload;
 		Status = XNvm_EfuseWritePufData(WrPufPload->AddrLow, WrPufPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS):
 		Status =  XNvm_EfuseCacheLoadNPrgmProtBits();
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_GLITCH_CONFIG):
-		Status = XNvm_EfuseWriteGlitchConfiguration(Pload[0U], Pload[1U]);
+		GlitchConfig = (XNvm_GlitchConfig *)Cmd->Payload;
+		Status = XNvm_EfuseWriteGlitchConfiguration((u32)GlitchConfig->EnvDisFlag, GlitchConfig->GlitchConfigVal);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DEC_ONLY):
-		Status = XNvm_EfuseWriteDecOnlyFuse(Pload[0U]);
+		DecOnly = (XNvm_DecOnly *)Cmd->Payload;
+		Status = XNvm_EfuseWriteDecOnlyFuse((u32)DecOnly->EnvDisFlag);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID):
-		Status = XNvm_EfuseWriteRevocationId(Pload[0U], Pload[1U]);
+		RevokeId = (XNvm_RevodeId *)Cmd->Payload;
+		Status = XNvm_EfuseWriteRevocationId((u32)RevokeId->EnvDisFlag, RevokeId->RevokeIdNum);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_OFFCHIP_REVOKE_ID):
-		Status = XNvm_EfuseWriteOffchipRevocationId(Pload[0U], Pload[1U]);
+		OffChipId = (XNvm_OffChipId *)Cmd->Payload;
+		Status = XNvm_EfuseWriteOffchipRevocationId((u32)OffChipId->EnvDisFlag, OffChipId->OffChipIdNum);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_MISC_CTRL_BITS):
-		Status = XNvm_EfuseWriteMiscCtrl(Pload[0U], Pload[1U]);
+		MiscCtrlData = (XNvm_MiscCtrlBits *)Cmd->Payload;
+		Status = XNvm_EfuseWriteMiscCtrl((u32)MiscCtrlData->EnvDisFlag, MiscCtrlData->MiscCtrlBitsVal);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_SEC_CTRL_BITS):
-		Status = XNvm_EfuseWriteSecCtrl(Pload[0U], Pload[1U]);
+		SecCtrlData = (XNvm_SecCtrlBits *)Cmd->Payload;
+		Status = XNvm_EfuseWriteSecCtrl((u32)SecCtrlData->EnvDisFlag, SecCtrlData->SecCtrlBitsVal);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_MISC1_CTRL_BITS):
-		Status = XNvm_EfuseWriteMisc1Ctrl(Pload[0U], Pload[1U]);
+		Misc1CtrlData = (XNvm_Misc1CtrlBits *)Cmd->Payload;
+		Status = XNvm_EfuseWriteMisc1Ctrl((u32)Misc1CtrlData->EnvDisFlag, Misc1CtrlData->Misc1CtrlBitsVal);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL_BITS):
-		Status = XNvm_EfuseWriteBootEnvCtrl(Pload[0U], Pload[1U]);
+		BootEnvCtrlData = (XNvm_BootEnvCtrlBits *)Cmd->Payload;
+		Status = XNvm_EfuseWriteBootEnvCtrl((u32)BootEnvCtrlData->EnvDisFlag, BootEnvCtrlData->BootEnvCtrlVal);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_FIPS_INFO):
-		Status = XNvm_EfuseWriteFipsInfoFuses(Pload[0U], Pload[1U]);
+		FipsInfo = (XNvm_FipsInfo *)Cmd->Payload;
+		Status = XNvm_EfuseWriteFipsInfoFuses((u32)FipsInfo->EnvDisFlag, FipsInfo->FipsMode, FipsInfo->FipsVersion);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_UDS_FROM_PLOAD):
-		Status = XNvm_EfuseWriteDiceUds(Pload);
+		DiceUds = (XNvm_UdsDirectPload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteDiceUds((u32)DiceUds->EnvDisFlag, &DiceUds->EfuseUds);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_KEY_FROM_PLOAD):
-		Status = XNvm_EfuseWriteDmeKeyFromPload(Pload);
+		DmeKey = (XNvm_DmeKeyDirectPload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteDmeKeyFromPload((u32)DmeKey->EnvDisFlag, (XNvm_DmeKeyType)DmeKey->KeyType, &DmeKey->EfuseDmeKey);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_REVOKE):
-		Status = XNvm_EfuseWriteDmeRevokeBits(Pload[0U]);
+		DmeRevoke = (XNvm_DmeRevokeDirectPload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteDmeRevokeBits(DmeRevoke->EnvDisFlag, DmeRevoke->DmeRevokeNum);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PLM_UPDATE):
-		Status = XNvm_EfuseWritePlmUpdate(Pload[0U]);
+		DisPlmUpdate = (XNvm_DisPlmUpdate *)Cmd->Payload;
+		Status = XNvm_EfuseWritePlmUpdate((u32)DisPlmUpdate->EnvDisFlag);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE):
-		Status = XNvm_EfuseWriteBootModeDis(Pload[0U]);
+		BootModeDisMask = (XNvm_BootModeDis *)Cmd->Payload;
+		Status = XNvm_EfuseWriteBootModeDis((u32)BootModeDisMask->EnvDisFlag, (u32)BootModeDisMask->BootModeDisVal);
+		break;
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_CRC):
+		Crc = (XNvm_Crc *)Cmd->Payload;
+		Status = XNvm_EfuseWriteCrcVal((u32)Crc->EnvDisFlag, Crc->EfuseCrc);
+		break;
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_MODE):
+		DmeMode = (XNvm_DmeMode *)Cmd->Payload;
+		Status = XNvm_EfuseWriteDmeModeVal((u32)DmeMode->EnvDisFlag, DmeMode->EfuseDmeMode);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_FROM_PLOAD):
-		Status = XNvm_EfuseWritePufDataFromCdoPload(Pload);
+		PufData = (XNvm_PufInfoDirectPload *)Cmd->Payload;
+		Status = XNvm_EfuseWritePufDataFromPload(PufData);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -205,19 +267,21 @@ END:
 /**
  * @brief       This function programs Efuse Aes key from the CDO
  *
- * @param 	Pload is pointer to the CDO payload
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param 	KeyType	- Type of the AesKey
+ * @param	Key - Pointer to the Aes key
  *
  * @return	- XST_SUCCESS - If the programming is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 *Pload)
+static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *Key)
 {
 	volatile int Status = XST_FAILURE;
-	XNvm_AesKeyType KeyType = (XNvm_AesKeyType)(Pload[0U] &
-					XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK);
 
-	Status = XNvm_EfuseWriteAesKey(KeyType, (XNvm_AesKey *)&Pload[1U]);
+	Status = XNvm_EfuseWriteAesKey(EnvDisFlag, KeyType, Key);
 
 	return Status;
 }
@@ -226,19 +290,21 @@ static int XNvm_EfuseWriteAesKeyFromCdoPload(u32 *Pload)
 /**
  * @brief       This function programs Efuse PpkHash from the CDO
  *
- * @param 	Pload is pointer to the CDO payload
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param 	PpkType	- Type of the PpkHash
+ * @param	Hash - Pointer to the PpkHash
  *
  * @return	- XST_SUCCESS - If the programming is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePpkHashFromCdoPload(u32 *Pload)
+static int XNvm_EfuseWritePpkHashFromCdoPload(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *Hash)
 {
 	volatile int Status = XST_FAILURE;
-	XNvm_PpkType HashType = (XNvm_PpkType)(Pload[0U] &
-					XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK);
 
-	Status = XNvm_EfuseWritePpkHash(HashType, (XNvm_PpkHash *)&Pload[1U]);
+	Status = XNvm_EfuseWritePpkHash(EnvDisFlag, PpkType, Hash);
 
 	return Status;
 }
@@ -247,18 +313,21 @@ static int XNvm_EfuseWritePpkHashFromCdoPload(u32 *Pload)
 /**
  * @brief       This function programs Efuse IV from the CDO
  *
- * @param 	Pload is pointer to the CDO payload
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param 	IvType	- Type of the Iv
+ * @param	Iv - Pointer to the Iv
  *
  * @return	- XST_SUCCESS - If the programming is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteIvFromCdoPload(u32 *Pload)
+static int XNvm_EfuseWriteIvFromCdoPload(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *Iv)
 {
 	volatile int Status = XST_FAILURE;
-	XNvm_IvType IvType = (XNvm_IvType)Pload[0U];
 
-	Status = XNvm_EfuseWriteIv(IvType, (XNvm_Iv *)&Pload[1U]);
+	Status = XNvm_EfuseWriteIv(EnvDisFlag, IvType, Iv);
 
 	return Status;
 }
@@ -267,6 +336,9 @@ static int XNvm_EfuseWriteIvFromCdoPload(u32 *Pload)
 /**
  * @brief       This function programs keys received via IPI into eFUSEs.
  *
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
  * @param	KeyType		Type of the Key
  * @param	AddrLow		Lower Address of the key buffer
  * @param	AddrHigh	Higher Address of the key buffer
@@ -275,7 +347,7 @@ static int XNvm_EfuseWriteIvFromCdoPload(u32 *Pload)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteAesKeys(XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseWriteAesKeys(u32 EnvDisFlag, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_AesKey AesKeys __attribute__ ((aligned (32U))) = {0U};
@@ -286,7 +358,7 @@ static int XNvm_EfuseWriteAesKeys(XNvm_AesKeyType KeyType, u32 AddrLow, u32 Addr
 		goto END;
 	}
 
-	Status = XNvm_EfuseWriteAesKey(KeyType, &AesKeys);
+	Status = XNvm_EfuseWriteAesKey(EnvDisFlag, KeyType, &AesKeys);
 
 END:
 	return Status;
@@ -297,7 +369,7 @@ END:
  * @brief       This function programs Glitch Configuration eFuses with the
  * 		data sent through CDO
  *
- * @param	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  * @param 	GlitchConfig - Glitch configuration to be programmed
@@ -306,11 +378,11 @@ END:
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvMonDisFlag, u32 GlitchConfig)
+static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvDisFlag, u32 GlitchConfig)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteGlitchConfigBits(EnvMonDisFlag, GlitchConfig);
+	Status = XNvm_EfuseWriteGlitchConfigBits(EnvDisFlag, GlitchConfig);
 
 	return Status;
 }
@@ -319,7 +391,7 @@ static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvMonDisFlag, u32 GlitchConfi
 /**
  * @brief       This function programs DecOnly eFuses
  *
- * @param 	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  *
@@ -327,11 +399,11 @@ static int XNvm_EfuseWriteGlitchConfiguration(u32 EnvMonDisFlag, u32 GlitchConfi
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvMonDisFlag)
+static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteDecOnly(EnvMonDisFlag);
+	Status = XNvm_EfuseWriteDecOnly(EnvDisFlag);
 
 	return Status;
 }
@@ -340,7 +412,7 @@ static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvMonDisFlag)
 /**
  * @brief       This function programs Revocation id eFuses
  *
- * @param 	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  * @param 	RevokeIdNum - Revoke Id eFuse number to be programmed
@@ -349,11 +421,11 @@ static int XNvm_EfuseWriteDecOnlyFuse(u32 EnvMonDisFlag)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteRevocationId(u32 EnvMonDisFlag, u32 RevokeIdNum)
+static int XNvm_EfuseWriteRevocationId(u32 EnvDisFlag, u32 RevokeIdNum)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteRevocationID(EnvMonDisFlag, RevokeIdNum);
+	Status = XNvm_EfuseWriteRevocationID(EnvDisFlag, RevokeIdNum);
 
 	return Status;
 }
@@ -362,7 +434,7 @@ static int XNvm_EfuseWriteRevocationId(u32 EnvMonDisFlag, u32 RevokeIdNum)
 /**
  * @brief       This function programs Offchip revocation id eFuses
  *
- * @param 	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  * @param 	OffChipId - Offchip eFuse number to be programmed
@@ -371,11 +443,11 @@ static int XNvm_EfuseWriteRevocationId(u32 EnvMonDisFlag, u32 RevokeIdNum)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvMonDisFlag, u32 OffChipId)
+static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvDisFlag, u32 OffChipId)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteOffChipRevokeID(EnvMonDisFlag, OffChipId);
+	Status = XNvm_EfuseWriteOffChipRevokeID(EnvDisFlag, OffChipId);
 
 	return Status;
 }
@@ -384,6 +456,9 @@ static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvMonDisFlag, u32 OffChipId)
 /**
  * @brief       This function programs PPK Hash received via IPI into eFUSEs.
  *
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
  * @param	PpkType		Type of PPK
  * @param	AddrLow		Lower Address of the PPK Hash buffer
  * @param	AddrHigh	Higher Address of the PPK Hash buffer
@@ -392,7 +467,7 @@ static int XNvm_EfuseWriteOffchipRevocationId(u32 EnvMonDisFlag, u32 OffChipId)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePpk(XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseWritePpk(u32 EnvDisFlag, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_PpkHash PpkHash __attribute__ ((aligned (32U))) = {0U};
@@ -403,7 +478,7 @@ static int XNvm_EfuseWritePpk(XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh)
 		goto END;
 	}
 
-	Status = XNvm_EfuseWritePpkHash(PpkType, &PpkHash);
+	Status = XNvm_EfuseWritePpkHash(EnvDisFlag, PpkType, &PpkHash);
 
 END:
 	return Status;
@@ -413,7 +488,7 @@ END:
 /**
  * @brief       This function programs MiscCtrl eFuses
  *
- * @param 	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  * @param 	MiscCtrlBits - MiscCtrlBits input to be programmed
@@ -422,11 +497,11 @@ END:
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteMiscCtrl(u32 EnvMonDisFlag, u32 MiscCtrlBits)
+static int XNvm_EfuseWriteMiscCtrl(u32 EnvDisFlag, u32 MiscCtrlBits)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteMiscCtrlBits(EnvMonDisFlag, MiscCtrlBits);
+	Status = XNvm_EfuseWriteMiscCtrlBits(EnvDisFlag, MiscCtrlBits);
 
 	return Status;
 }
@@ -435,7 +510,7 @@ static int XNvm_EfuseWriteMiscCtrl(u32 EnvMonDisFlag, u32 MiscCtrlBits)
 /**
  * @brief       This function programs SecCtrlBits eFuses
  *
- * @param 	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  * @param 	SecCtrlBits - SecCtrlBits input to be programmed
@@ -444,11 +519,11 @@ static int XNvm_EfuseWriteMiscCtrl(u32 EnvMonDisFlag, u32 MiscCtrlBits)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteSecCtrl(u32 EnvMonDisFlag, u32 SecCtrlBits)
+static int XNvm_EfuseWriteSecCtrl(u32 EnvDisFlag, u32 SecCtrlBits)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteSecCtrlBits(EnvMonDisFlag, SecCtrlBits);
+	Status = XNvm_EfuseWriteSecCtrlBits(EnvDisFlag, SecCtrlBits);
 
 	return Status;
 }
@@ -457,6 +532,9 @@ static int XNvm_EfuseWriteSecCtrl(u32 EnvMonDisFlag, u32 SecCtrlBits)
 /**
  * @brief       This function programs IV received via IPI into eFUSEs.
  *
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
  * @param	IvType		Type of IV
  * @param	AddrLow		Lower Address of the IV buffer
  * @param	AddrHigh	Higher Address of the IV buffer
@@ -465,7 +543,7 @@ static int XNvm_EfuseWriteSecCtrl(u32 EnvMonDisFlag, u32 SecCtrlBits)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteIvs(XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
+static int XNvm_EfuseWriteIvs(u32 EnvDisFlag, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_Iv Iv __attribute__ ((aligned (32U))) = {0U};
@@ -476,7 +554,7 @@ static int XNvm_EfuseWriteIvs(XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh)
 		goto END;
 	}
 
-	Status = XNvm_EfuseWriteIv(IvType, &Iv);
+	Status = XNvm_EfuseWriteIv(EnvDisFlag, IvType, &Iv);
 
 END:
 	return Status;
@@ -486,7 +564,7 @@ END:
 /**
  ** @brief       This function programs Misc1Ctrl eFuses
  *
- * @param 	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  * @param 	Misc1CtrlBits - Misc1CtrlBits input to be programmed
@@ -495,11 +573,11 @@ END:
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvMonDisFlag, u32 Misc1CtrlBits)
+static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvDisFlag, u32 Misc1CtrlBits)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteMisc1Bits(EnvMonDisFlag, Misc1CtrlBits);
+	Status = XNvm_EfuseWriteMisc1Bits(EnvDisFlag, Misc1CtrlBits);
 
 	return Status;
 }
@@ -508,7 +586,7 @@ static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvMonDisFlag, u32 Misc1CtrlBits)
 /**
  * @brief       This function programs BootEnvCtrl eFuses
  *
- * @param 	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  * @param 	BootEnvCtrl - BootEnvCtrl input to be programmed
@@ -517,11 +595,11 @@ static int XNvm_EfuseWriteMisc1Ctrl(u32 EnvMonDisFlag, u32 Misc1CtrlBits)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvMonDisFlag, u32 BootEnvCtrlBits)
+static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteBootEnvCtrlBits(EnvMonDisFlag, BootEnvCtrlBits);
+	Status = XNvm_EfuseWriteBootEnvCtrlBits(EnvDisFlag, BootEnvCtrlBits);
 
 	return Status;
 }
@@ -530,7 +608,7 @@ static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvMonDisFlag, u32 BootEnvCtrlBits)
 /**
  * @brief       This function programs Fips mode and Fips version eFuses
  *
- * @param 	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  * @param 	FipsInfo - FipsMode and FipsVersion input to be programmed
@@ -539,13 +617,11 @@ static int XNvm_EfuseWriteBootEnvCtrl(u32 EnvMonDisFlag, u32 BootEnvCtrlBits)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvMonDisFlag, u32 FipsInfo)
+static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 {
 	volatile int Status = XST_FAILURE;
-	u32 FipsMode = FipsInfo & XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK;
-	u32 FipsVersion = (FipsInfo & (~XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK)) >> 16U;
 
-	Status = XNvm_EfuseWriteFipsInfo(EnvMonDisFlag, FipsMode, FipsVersion);
+	Status = XNvm_EfuseWriteFipsInfo(EnvDisFlag, FipsMode, FipsVersion);
 
 	return Status;
 }
@@ -554,17 +630,20 @@ static int XNvm_EfuseWriteFipsInfoFuses(u32 EnvMonDisFlag, u32 FipsInfo)
 /**
  * @brief       This function programs DICE UDS eFuses
  *
- * @param 	Pload is pointer to the CDO payload
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param	Uds - Pointer to the Uds
  *
  * @return	- XST_SUCCESS - If the programming is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteDiceUds(u32 *Pload)
+static int XNvm_EfuseWriteDiceUds(u32 EnvDisFlag, XNvm_Uds *Uds)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteUds(Pload[0U], (XNvm_Uds *)&Pload[1U]);
+	Status = XNvm_EfuseWriteUds(EnvDisFlag, Uds);
 
 	return Status;
 }
@@ -631,17 +710,21 @@ END:
 /**
  * @brief       This function programs DmeKey eFuses
  *
- * @param 	Pload is pointer to the CDO payload
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param	KeyType - Type of DME user key
+ * @param 	Key - Pointer to the DME key
  *
  * @return	- XST_SUCCESS - If the programming is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteDmeKeyFromPload(u32 *Pload)
+static int XNvm_EfuseWriteDmeKeyFromPload(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeKey *Key)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteDmeUserKey((XNvm_DmeKeyType)Pload[0U], (XNvm_DmeKey *)&Pload[1U]);
+	Status = XNvm_EfuseWriteDmeUserKey(EnvDisFlag, KeyType,(XNvm_DmeKey *)Key);
 
 	return Status;
 }
@@ -650,18 +733,20 @@ static int XNvm_EfuseWriteDmeKeyFromPload(u32 *Pload)
 /**
  * @brief       This function programs DmeRevoke eFuses
  *
- * @param 	Pload is pointer to the CDO payload
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param 	DmeRevokeNum - Dme revoke number to programmed
  *
  * @return	- XST_SUCCESS - If the programming is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteDmeRevokeBits(u32 Pload)
+static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum)
 {
 	volatile int Status = XST_FAILURE;
-	u32 DmeRevokeNum = Pload & XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK;
-	u32 EnvMonDisFlag = Pload & ~XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK;
-	Status = XNvm_EfuseWriteDmeRevoke(EnvMonDisFlag, DmeRevokeNum);
+
+	Status = XNvm_EfuseWriteDmeRevoke(EnvDisFlag, DmeRevokeNum);
 
 	return Status;
 }
@@ -670,7 +755,7 @@ static int XNvm_EfuseWriteDmeRevokeBits(u32 Pload)
 /**
  * @brief       This function programs PLM_UPDATE eFuses
  *
- * @param 	EnvMonDisFlag - Environmental monitoring flag set by the user,
+ * @param 	EnvDisFlag - Environmental monitoring flag set by the user,
  * 				when set to true it will not check for voltage
  * 				and temperature limits.
  *
@@ -678,11 +763,11 @@ static int XNvm_EfuseWriteDmeRevokeBits(u32 Pload)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePlmUpdate(u32 EnvMonDisFlag)
+static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XNvm_EfuseWriteDisableInplacePlmUpdate(EnvMonDisFlag);
+	Status = XNvm_EfuseWriteDisableInplacePlmUpdate(EnvDisFlag);
 
 	return Status;
 }
@@ -691,19 +776,64 @@ static int XNvm_EfuseWritePlmUpdate(u32 EnvMonDisFlag)
 /**
  * @brief       This function programs BootModeDisable eFuses
  *
- * @param 	Pload is pointer to the CDO payload
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param 	BootModeDisMask - BootMode disable mask to be programmed
  *
  * @return	- XST_SUCCESS - If the programming is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWriteBootModeDis(u32 Pload)
+static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask)
 {
 	volatile int Status = XST_FAILURE;
-	u32 BootModeDisMask = Pload & XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK;
-	u32 EnvMonDisFlag = Pload & (~XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK);
 
-	Status = XNvm_EfuseWriteBootModeDisable(EnvMonDisFlag, BootModeDisMask);
+	Status = XNvm_EfuseWriteBootModeDisable(EnvDisFlag, BootModeDisMask);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function programs CRC eFuses
+ *
+ * @param 	EnvDisFlag 	Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * 		Crc		Crc to be programmed into eFuses
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- ErrorCode - If there is a failure
+ *
+ ******************************************************************************/
+static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XNvm_EfuseWriteCrc(EnvDisFlag, Crc);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function programs DmeMode eFuses
+ *
+ * @param 	EnvDisFlag 	Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * 		DmeMode		DmeMode to be programmed into eFuses
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- ErrorCode - If there is a failure
+ *
+ ******************************************************************************/
+static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XNvm_EfuseWriteDmeMode(EnvDisFlag, EfuseDmeMode);
 
 	return Status;
 }
@@ -713,27 +843,29 @@ static int XNvm_EfuseWriteBootModeDis(u32 Pload)
  * @brief       This function programs Puf helper data, Chash, Aux, Puf Ctrl
  * 		bits. RoSwap eFuses
  *
+ * @param	PufData - Pointer to the XNvm_PufInfoDirectPload structure
+ *
  * @return	- XST_SUCCESS - If the write is successful
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePufDataFromCdoPload(u32 *Pload)
+static int XNvm_EfuseWritePufDataFromPload(XNvm_PufInfoDirectPload *PufData)
 {
 	volatile int Status = XST_FAILURE;
-	XNvm_EfusePufHdAddr PufData = {0U};
+	XNvm_EfusePufHdAddr EfusePufData = {0U};
 	u32 Index = 0U;
-	PufData.PufSecCtrlBits = Pload[1U];
-	PufData.PrgmPufHelperData = 1U;
-	PufData.EnvMonitorDis = (u8)Pload[0U];
-	PufData.Chash = Pload[2U];
-	PufData.Aux = Pload[3U];
-	PufData.RoSwap = Pload[4U];
+	EfusePufData.PrgmPufHelperData = 1U;
+	EfusePufData.EnvMonitorDis = (u32)PufData->EnvDisFlag;
+	EfusePufData.PufSecCtrlBits = PufData->PufCtrlBits;
+	EfusePufData.Chash = PufData->Chash;
+	EfusePufData.Aux = PufData->Aux;
+	EfusePufData.RoSwap = PufData->RoSwap;
 
 	for (Index = 0U; Index < XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS; Index++) {
-		PufData.EfuseSynData[Index] = Pload[Index + 5U];
+		EfusePufData.EfuseSynData[Index] = *(u32 *)(UINTPTR)PufData->SynData[Index];
 	}
 
-	Status = XNvm_EfuseWritePuf(&PufData);
+	Status = XNvm_EfuseWritePuf(&EfusePufData);
 
 	return Status;
 }
