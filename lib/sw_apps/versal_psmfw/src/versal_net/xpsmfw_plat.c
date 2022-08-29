@@ -3,6 +3,7 @@
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
+#include "xpsmfw_default.h"
 #include "xpsmfw_plat.h"
 #include "xpsmfw_power.h"
 
