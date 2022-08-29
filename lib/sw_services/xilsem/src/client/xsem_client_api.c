@@ -47,6 +47,7 @@
 * 2.0	hv   08/08/2022   Fixed Misra C violations
 * 2.1	hv   08/15/2022   Updated APIs to read status of all SLRs seperately
 *						  in case of broadcast
+* 2.2	rama 08/28/2022   Updated CRAM & NPI status bit information
 * </pre>
 *
 * @note
@@ -136,6 +137,10 @@ END:
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM Initialization(0x10301)
  *		- Resp->RespMsg2: Status of CRAM Initialization
+ *						  0x01000000U - ECC/CRC error detected during
+ *						  calibration in case of SWECC
+ *						  0X00000080U - Calibration timeout
+ *						  0X00002000U - Internal error
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On CRAM Initialization failure
@@ -196,6 +201,10 @@ END:
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM start scan(0x10302)
  *		- Resp->RespMsg2: Status of CRAM start scan
+ *						  0x2000 – Null pointer error
+ *						  0x00F00000 – Active crc/uncor error
+ *						  0x00500000 – CRAM init not done
+ *						  0x00600000 – Start scan failed
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On CRAM start scan failure
@@ -256,6 +265,8 @@ END:
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM stop scan(0x10303)
  *		- Resp->RespMsg2: Status of CRAM stop scan
+ *						  0x00500000 – CRAM init not done
+ *						  0x00700000 – Stop scan failed
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On CRAM stop scan failure
@@ -325,6 +336,16 @@ END:
  * @param[out]	Resp	Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM error injection(0x10304)
  *		- Resp->RespMsg2: Status of CRAM error injection
+ *						  0x00002000 – Null pointer error
+ *						  0x00500000 – CRAM init not done
+ *						  0x00800000 – Invalid row
+ *						  0x00900000 – Invalid qword
+ *						  0x00A00000 – Invalid bit
+ *						  0x00B00000 – Invalid frame address
+ *						  0x00C00000 – Unexpected bits flipped
+ *						  0x00D00000 – Masked bit
+ *						  0x00E00000 – Invalid block type
+ *						  0x00F00000 – Active crc/uncor ecc error in CRAM
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On CRAM error injection failure
@@ -427,29 +448,66 @@ END:
  *				- 10000: ECC or CRC Error detected during
  *				CRAM Calibration in case of SWECC
  *			- Bit [19-18]: Reserved
- *			- Bit [17]: CRAM scan is disabled in design
- *			- Bit [16]: CRAM Initialization is completed
+ *			- Bit [17]: 0: CRAM scan is enabled in design
+ *						1: CRAM scan is disabled in design
+ *			- Bit [16]: 0: CRAM scan is not initialized
+ *						1: CRAM Initialization is completed
  *			- Bit [15-14]: CRAM Correctable ECC error status
  *				- 00: No Correctable error encountered
- *				- 01: Correctable error detected and
+ *				- 01: Correctable error is detected and
  *				corrected
- *				- 10: Correctable error detected but not
+ *				- 10: Correctable error is detected but not
  *				corrected (Correction is disabled)
  *				- 11: Reserved
- *			- Bit [13]: CRAM Scan internal error
- *			- Bit [12]: CRAM Invalid Error Location detected
- *			- Bit [11]: CRAM Correctable ECC error detected
- *			- Bit [10]: CRAM CRC error detected
- *			- Bit [09]: CRAM Uncorrectable ECC error detected
- *			- Bit [08]: CRAM Start-up test failure
- *			- Bit [07]: CRAM Calibration Timeout error
- *			- Bit [06]: CRAM Fatal/Error State
- *			- Bit [05]: CRAM Error Injection State
- *			- Bit [04]: CRAM Idle State
- *			- Bit [03]: CRAM Correction State
- *			- Bit [02]: CRAM Observation State
- *			- Bit [01]: CRAM Initialization State
+ *			- Bit [13]: 0: No error in CRAM scan
+ *						1: CRAM scan has internal error
+ *						(Null pointer access/Safety write error)
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [12]: 0: No error in error decoding
+ *						1: Invalid Error Location is reported
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [11]: 0: No correctable error detected
+ *						1: Correctable ECC error detected
+ *						In this condition, an event will be sent to R5.
+ *						If correction is disabled, then scan will be
+ *						stopped. Else, scan will continue to run.
+ *			- Bit [10]: 0: No CRC error
+ *						1: CRC error is detected by CRAM.
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [09]: 0: No uncorrectable error
+ *						1: Uncorrectable ECC error is detected
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [08]: 0: No error in CRAM scan start-up test
+ *						1: CRAM start-up test failure
+ *						In this error condition, scan will be stopped.
+ *			- Bit [07]: 0: No error during CRAM calibration`
+ *						1: CRAM Calibration Timeout error
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [06]: 0: CRAM scan is not in the fatal state
+ *						1: CRAM scan is in the fatal state
+ *						This bit is for CRAM scan state.
+ *			- Bit [05]: 0: CRAM scan is not in the error injection state
+ *						1: CRAM scan is in the error injection state
+ *						This bit is for CRAM scan state.
+ *			- Bit [04]: 0: CRAM scan is not in the idle state
+ *						1: CRAM scan is in the idle state
+ *						This bit is for CRAM scan state.
+ *			- Bit [03]: 0: CRAM scan is not in the correction state
+ *						1: CRAM scan is in the correction state
+ *						This bit is for CRAM scan state.
+ *			- Bit [02]: 0: CRAM scan is not in the observation state
+ *						1: CRAM scan is in the observation state
+ *						This bit is for CRAM scan state.
+ *			- Bit [01]: 0: CRAM scan is not in the Initialization state
+ *						1: CRAM scan is in the Initialization state
+ *						This bit is for CRAM scan state.
  *			- Bit [00]: CRAM Scan is included in design
+ *						This bit is for CRAM scan state.
  *		- CfrStatusInfo->ErrAddrL: This stores the low address of
  *		the last 7 corrected error details if correction is enabled
  *		in design.
@@ -597,7 +655,7 @@ END:
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of NPI start scan(0x10305)
- *		- Resp->RespMsg2: Status of NPI start scan
+ *		- Resp->RespMsg2: Status of NPI start scan (0: Success, 1: Failure)
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On NPI start scan failure
@@ -656,7 +714,7 @@ END:
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of NPI stop scan(0x10306)
- *		- Resp->RespMsg2: Status of NPI stop scan
+ *		- Resp->RespMsg2: Status of NPI stop scan (0: Success, 1: Failure)
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On NPI stop scan failure
@@ -716,7 +774,7 @@ END:
  * @param[in]	IpiInst		Pointer to IPI driver instance
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of NPI error injection(0x10307)
- *		- Resp->RespMsg2: Status of NPI error injection
+ *		- Resp->RespMsg2: Status of NPI error injection (0: Success, 1: Failure)
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On NPI error injection failure
@@ -835,37 +893,106 @@ END:
  *
  * @param[out]	NpiStatusInfo Structure Pointer with NPI Status details
  *		- NpiStatusInfo->Status: Provides details about NPI scan
- *			- Bit [31]: Cryptographic acceleration blocks are disabled for
- *			export compliance
- *			- Bit [30]: Periodic scan missed
- *			- Bit [29]: Pulse Check failed. NPI scan skipped descriptors
- *			- Bit [28]: Execution time exceeded. NPI scan exceeded 20ms
- *			budget time
- *			- Bit [27-26]: Reserved
- *			- Bit [25]: NPI GPIO write failure
- *			- Bit [24]: NPI SHA engine failure
- *			- Bit [23]: NPI Safety register write failure
- *			- Bit [22]: NPI GT slave arbitration failure
- *			- Bit [21]: NPI DDRMC Main slave arbitration failure
- *			- Bit [20]: NPI Slave Address is not valid
- *			- Bit [19]: NPI Descriptor SHA header is not valid
- *			- Bit [18]: NPI Descriptor header is not valid
- *			- Bit [17]: NPI SHA mismatch error is detected during
- *			scan
- *			- Bit [16]: NPI SHA mismatch error is detected in
- *			first scan
+ *			- Bit [31]: 0 - No error, SHA-3 engine is present
+ *						1 - Cryptographic acceleration blocks are disabled for
+ *						export compliance. No support for NPI scan,
+ *						an event will be sent to R5
+ *			- Bit [30]: 0 - NPI scan is running for scheduled interval
+ *						1 - Indicates NPI scan failed to run on scheduled interval.
+ *						If NPI scan is not executed as per the configured periodicity,
+ *						the error will notified to R5 user. The scan will
+ *						continue to run
+ *			- Bit [29]: 0- No descriptor missed during scanning
+ *						1- Indicates NPI scan failed to scan all descriptors completely
+ *						(excluding arbitration failures). This will be notified to R5
+ *						user and the scan will continue to run.
+ *			- Bit [28]: 0 - NPI scan executing within budget time
+ *						1 - Indicates NPI scan has exceeded maximum budget
+ *						execution time of 20ms. This will be notified to R5
+ *						user and the scan will continue to run.
+ *			- Bit [27]: 0 - No error in SLR to SLR communication
+ *						1 - Indicates failure in SSIT internal communication channel
+ *						This bit is applicable for SSIT devices.
+ *			- Bit [26]: Reserved
+ *			- Bit [25]: 0 - No error in PMC_PL_GPO
+ *						1 - Indicates GPO Initialization or write failed.
+ *						This is HW failure. In this condition, the scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [24]: 0 - No error SHA-3 engine
+ *						1 - Indicates SHA engine failed to function during
+ *						initialization or start or DMA transfer.
+ *						This is HW failure. In this condition, the scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [23]: 0 - No error in register writes
+ *						1 - Indicates the register write and read back failure
+ *						occurred during the scan. This is HW failure.
+ *						In this condition, the scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [22]: Reserved
+ *			- Bit [21]: 0 - No error in DDR calibration
+ *						1 - Indicates NPI DDRMC Main Slave Arbitration
+ *						Timeout occurred during the scan. If the DDRMC calibration
+ *						is not done, the descriptor will be skipped and scan
+ *						will continue to run for next descriptor
+ *			- Bit [20]: 0 - No error in descriptor format
+ *						1 - Indicates NPI Descriptor has invalid format.
+ *						This failure indicates that there is some corruption
+ *						in the XilSEM NPI descriptor data. The scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [19]: 0 - No error in NPI Descriptor SHA header
+ *						1 - Indicates NPI Descriptor SHA Header mismatch occurred
+ *						during the scan. This failure indicates that there is some corruption
+ *						in the XilSEM NPI descriptor data. The scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [18]: 0 - NPI descriptors are present in the memory
+ *						1 - Indicates the absence of NPI Descriptor (Zero descriptors)
+ *						This failure indicates that there is some corruption
+ *						in the XilSEM NPI descriptor data. The scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [17]: 0 - No error in SHA comparison during run time
+ *						1-  Indicates SHA comparison failure occurred during run time.
+ *						This failure indicates that there is some bit flip in the NPI
+ *						registers. The scan will be stopped and an event will be
+ *						sent to R5
+ *			- Bit [16]: 0 - No error in SHA comparison during first scan
+ *						1-  Indicates SHA comparison failure occurred during initialization.
+ *						This failure indicates that there is some bit flip in the NPI
+ *						registers. The scan will be stopped and an event will be sent to R5
  *			- Bit [15-12]: Reserved
- *			- Bit [11]: NPI periodic scan is enabled
+ *			- Bit [11]: 0 - NPI scan task is not added to PLM Scheduler
+ *						to run periodically
+ *						1 - NPI scan task is added to PLM Scheduler to run periodically
+ *						This bit is for NPI scan state information.
  *			- Bit [10]: NPI scan is suspended
- *			- Bit [09]: NPI completed the first scan
- *			- Bit [08]: NPI Scan is disabled in design
+ *			 			0 - NPI scan is not suspended
+ *						1 - NPI scan is suspended due to errors
+ *						This bit is for NPI scan state information.
+ *			- Bit [09]: 0 - NPI scan initialization is not done
+ *						1 - NPI scan initialization is done
+ *						This bit is for NPI scan state information.
+ *			- Bit [08]: 0 - NPI scan is present in the design
+ *						1 - NPI scan disabled in the design
+ *						This bit is for NPI scan state information.
  *			- Bit [07-06]: Reserved
- *			- Bit [05]: NPI Internal Error State
- *			- Bit [04]: NPI SHA mismatch Error State
- *			- Bit [03]: NPI SHA Error Injection State
- *			- Bit [02]: NPI Scan State
- *			- Bit [01]: NPI Initialization State
- *			- Bit [00]: NPI Idle State
+ *			- Bit [05]: 0 - No internal error
+ *						1 - NPI scan is in error state (due to timeouts,
+ *						invalid descriptors)
+ *						This bit is for NPI scan state information.
+ *			- Bit [04]: 0 - No error in NPI Scan
+ *						1 - NPI scan in SHA comparison mismatch error state.
+ *						This bit is for NPI scan state information.
+ *			- Bit [03]: 0 - NPI scan is not in SHA error inject state
+ *						1 - NPI scan is in SHA error inject state.
+ *						This bit is for NPI scan state information.
+ *			- Bit [02]: 0 - NPI scan is not in scan state
+ *						1 - NPI scan is in scan state.
+ *						This bit is for NPI scan state information.
+ *			- Bit [01]: 0 - NPI scan is not in initialization state
+ *						1 - NPI scan is in initialization state
+ *						This bit is for NPI scan state information.
+ *			- Bit [00]: 0 - NPI scan is not in idle state
+ *						1 - NPI scan is in idle state
+ *						This bit is for NPI scan state information.
  *		- NpiStatusInfo->SlvSkipCnt: Provides NPI descriptor slave skip
  *		counter value if arbitration failure. This is 8 words result
  *		to accommodate 32 1-Byte skip counters for individual slaves
@@ -1152,12 +1279,17 @@ void XSem_CmdCfrGetTotalFrames(u32 RowIndex, u32 *FrameCntPtr)
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM Initialization(0x10301)
  *		- Resp->RespMsg2:
- *			- if Broadcast	: is updated with Status of Cfr Init in Master
- *			- else			: is updated with Status of Cfr Init in Target SLR
+ *			- if Broadcast	Status of Cfr Init in Master
+ *			- else			: Status of Cfr Init in Target SLR
  *		- RespMsg3, 4 and 5 are updated only in case of broadcast
- *		- Resp->RespMsg3: Status of Cfr Init in Slave 1
- *		- Resp->RespMsg4: Status of Cfr Init in Slave 2
- *		- Resp->RespMsg5: Status of Cfr Init in Slave 3
+ *		- Resp->RespMsg3: Status of CfrInit in Slave 1
+ *		- Resp->RespMsg4: Status of CfrInit in Slave 2
+ *		- Resp->RespMsg5: Status of CfrInit in Slave 3
+ *		Status of CRAM initialization:
+ *						0x01000000U - ECC/CRC error detected during
+ *						calibration in case of SWECC
+ *						0X00000080U - Calibration timeout
+ *						0X00002000U - Internal error
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1210,8 +1342,8 @@ XStatus XSem_Ssit_CmdCfrInit(XIpiPsu *IpiInst, XSemIpiResp *Resp,
 	Resp->RespMsg1 = Response[1U];
 	/**
 	 * Response[2U]:
-	 * 		if Broadcast- is updated with Status of Cfr Init in Master
-	 * 		else		- is updated with Status of Cfr Init in Target SLR
+	 * 		if Broadcast- Status of Cfr Init in Master
+	 * 		else		- Status of Cfr Init in Target SLR
 	 */
 	Resp->RespMsg2 = Response[2U];
 	/* Response[3], [4] and [5] are updated only in case of Broadcast */
@@ -1240,13 +1372,17 @@ END:
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM start scan(0x10302)
  *		- Resp->RespMsg2:
- *			- if Broadcast	: is updated with Status of CfrStartScan in Master
- *			- else			: is updated with Status of CfrStartScan in Target
- *							  SLR
+ *			- if Broadcast	: Status of CfrStartScan in Master
+ *			- else			: Status of CfrStartScan in Target SLR
  *		- RespMsg3, 4 and 5 are updated only in case of broadcast
  *		- Resp->RespMsg3: Status of CfrStartScan in Slave 1
  *		- Resp->RespMsg4: Status of CfrStartScan in Slave 2
  *		- Resp->RespMsg5: Status of CfrStartScan in Slave 3
+ *		Status of CRAM start scan:
+ *						0x2000 – Null pointer error
+ *						0x00F00000 – Active crc/uncor error
+ *						0x00500000 – CRAM init not done
+ *						0x00600000 – Start scan failed
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1329,13 +1465,15 @@ END:
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of CRAM stop scan(0x10303)
  *		- Resp->RespMsg2:
- *			- if Broadcast	: is updated with Status of CfrStoptScan in Master
- *			- else			: is updated with Status of CfrStoptScan in Target
- *							  SLR
+ *			- if Broadcast	: Status of CfrStoptScan in Master
+ *			- else			: Status of CfrStoptScan in Target SLR
  *		- RespMsg3, 4 and 5 are updated only in case of broadcast
  *		- Resp->RespMsg3: Status of CfrStoptScan in Slave 1
  *		- Resp->RespMsg4: Status of CfrStoptScan in Slave 2
  *		- Resp->RespMsg5: Status of CfrStoptScan in Slave 3
+ *		Status of CRAM stop scan:
+ *						0x00500000 – CRAM init not done
+ *						0x00700000 – Stop scan failed
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1431,6 +1569,17 @@ END:
  * 		- 0x2 : Target is slave 1 only
  * 		- 0x3 : Target is slave 2 only
  * 		- 0xF : Broadcast not supported for this API
+ * 		Status of CRAM error injection:
+ *						0x00002000 – Null pointer error
+ *						0x00500000 – CRAM init not done
+ *						0x00800000 – Invalid row
+ *						0x00900000 – Invalid qword
+ *						0x00A00000 – Invalid bit
+ *						0x00B00000 – Invalid frame address
+ *						0x00C00000 – Unexpected bits flipped
+ *						0x00D00000 – Masked bit
+ *						0x00E00000 – Invalid block type
+ *						0x00F00000 – Active crc/uncor ecc error in CRAM
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On CRAM error injection failure
@@ -1603,38 +1752,107 @@ END:
  * 		- 0x2 : Target is slave 1 only
  * 		- 0x3 : Target is slave 2 only
  * @param[out]	StatusInfo Structure Pointer with SEM Status details
- **		- StatusInfo->NpiStatus: Provides details about NPI scan
- *			- Bit [31]: Cryptographic acceleration blocks are disabled for
- *			export compliance
- *			- Bit [30]: Periodic scan missed
- *			- Bit [29]: Pulse Check failed. NPI scan skipped descriptors
- *			- Bit [28]: Execution time exceeded. NPI scan exceeded 20ms
- *			budget time
- *			- Bit [27-26]: Reserved
- *			- Bit [25]: NPI GPIO write failure
- *			- Bit [24]: NPI SHA engine failure
- *			- Bit [23]: NPI Safety register write failure
- *			- Bit [22]: NPI GT slave arbitration failure
- *			- Bit [21]: NPI DDRMC Main slave arbitration failure
- *			- Bit [20]: NPI Slave Address is not valid
- *			- Bit [19]: NPI Descriptor SHA header is not valid
- *			- Bit [18]: NPI Descriptor header is not valid
- *			- Bit [17]: NPI SHA mismatch error is detected during
- *			scan
- *			- Bit [16]: NPI SHA mismatch error is detected in
- *			first scan
+ *		- StatusInfo->NpiStatus: Provides details about NPI scan
+ *			- Bit [31]: 0 - No error, SHA-3 engine is present
+ *						1 - Cryptographic acceleration blocks are disabled for
+ *						export compliance. No support for NPI scan,
+ *						an event will be sent to R5
+ *			- Bit [30]: 0 - NPI scan is running for scheduled interval
+ *						1 - Indicates NPI scan failed to run on scheduled interval.
+ *						If NPI scan is not executed as per the configured periodicity,
+ *						the error will notified to R5 user. The scan will
+ *						continue to run
+ *			- Bit [29]: 0- No descriptor missed during scanning
+ *						1- Indicates NPI scan failed to scan all descriptors completely
+ *						(excluding arbitration failures). This will be notified to R5
+ *						user and the scan will continue to run.
+ *			- Bit [28]: 0 - NPI scan executing within budget time
+ *						1 - Indicates NPI scan has exceeded maximum budget
+ *						execution time of 20ms. This will be notified to R5
+ *						user and the scan will continue to run.
+ *			- Bit [27]: 0 - No error in SLR to SLR communication
+ *						1 - Indicates failure in SSIT internal communication channel
+ *						This bit is applicable for SSIT devices.
+ *			- Bit [26]: Reserved
+ *			- Bit [25]: 0 - No error in PMC_PL_GPO
+ *						1 - Indicates GPO Initialization or write failed.
+ *						This is HW failure. In this condition, the scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [24]: 0 - No error SHA-3 engine
+ *						1 - Indicates SHA engine failed to function during
+ *						initialization or start or DMA transfer.
+ *						This is HW failure. In this condition, the scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [23]: 0 - No error in register writes
+ *						1 - Indicates the register write and read back failure
+ *						occurred during the scan. This is HW failure.
+ *						In this condition, the scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [22]: Reserved
+ *			- Bit [21]: 0 - No error in DDR calibration
+ *						1 - Indicates NPI DDRMC Main Slave Arbitration
+ *						Timeout occurred during the scan. If the DDRMC calibration
+ *						is not done, the descriptor will be skipped and scan
+ *						will continue to run for next descriptor
+ *			- Bit [20]: 0 - No error in descriptor format
+ *						1 - Indicates NPI Descriptor has invalid format.
+ *						This failure indicates that there is some corruption
+ *						in the XilSEM NPI descriptor data. The scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [19]: 0 - No error in NPI Descriptor SHA header
+ *						1 - Indicates NPI Descriptor SHA Header mismatch occurred
+ *						during the scan. This failure indicates that there is some corruption
+ *						in the XilSEM NPI descriptor data. The scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [18]: 0 - NPI descriptors are present in the memory
+ *						1 - Indicates the absence of NPI Descriptor (Zero descriptors)
+ *						This failure indicates that there is some corruption
+ *						in the XilSEM NPI descriptor data. The scan will be stopped,
+ *						and notification will be sent to R5
+ *			- Bit [17]: 0 - No error in SHA comparison during run time
+ *						1-  Indicates SHA comparison failure occurred during run time.
+ *						This failure indicates that there is some bit flip in the NPI
+ *						registers. The scan will be stopped and an event will be
+ *						sent to R5
+ *			- Bit [16]: 0 - No error in SHA comparison during first scan
+ *						1-  Indicates SHA comparison failure occurred during initialization.
+ *						This failure indicates that there is some bit flip in the NPI
+ *						registers. The scan will be stopped and an event will be sent to R5
  *			- Bit [15-12]: Reserved
- *			- Bit [11]: NPI periodic scan is enabled
+ *			- Bit [11]: 0 - NPI scan task is not added to PLM Scheduler
+ *						to run periodically
+ *						1 - NPI scan task is added to PLM Scheduler to run periodically
+ *						This bit is for NPI scan state information.
  *			- Bit [10]: NPI scan is suspended
- *			- Bit [09]: NPI completed the first scan
- *			- Bit [08]: NPI Scan is disabled in design
+ *			 			0 - NPI scan is not suspended
+ *						1 - NPI scan is suspended due to errors
+ *						This bit is for NPI scan state information.
+ *			- Bit [09]: 0 - NPI scan initialization is not done
+ *						1 - NPI scan initialization is done
+ *						This bit is for NPI scan state information.
+ *			- Bit [08]: 0 - NPI scan is present in the design
+ *						1 - NPI scan disabled in the design
+ *						This bit is for NPI scan state information.
  *			- Bit [07-06]: Reserved
- *			- Bit [05]: NPI Internal Error State
- *			- Bit [04]: NPI SHA mismatch Error State
- *			- Bit [03]: NPI SHA Error Injection State
- *			- Bit [02]: NPI Scan State
- *			- Bit [01]: NPI Initialization State
- *			- Bit [00]: NPI Idle State
+ *			- Bit [05]: 0 - No internal error
+ *						1 - NPI scan is in error state (due to timeouts,
+ *						invalid descriptors)
+ *						This bit is for NPI scan state information.
+ *			- Bit [04]: 0 - No error in NPI Scan
+ *						1 - NPI scan in SHA comparison mismatch error state.
+ *						This bit is for NPI scan state information.
+ *			- Bit [03]: 0 - NPI scan is not in SHA error inject state
+ *						1 - NPI scan is in SHA error inject state.
+ *						This bit is for NPI scan state information.
+ *			- Bit [02]: 0 - NPI scan is not in scan state
+ *						1 - NPI scan is in scan state.
+ *						This bit is for NPI scan state information.
+ *			- Bit [01]: 0 - NPI scan is not in initialization state
+ *						1 - NPI scan is in initialization state
+ *						This bit is for NPI scan state information.
+ *			- Bit [00]: 0 - NPI scan is not in idle state
+ *						1 - NPI scan is in idle state
+ *						This bit is for NPI scan state information.
  *		- StatusInfo->SlvSkipCnt: Provides NPI descriptor slave skip
  *		counter value if arbitration failure. This is 8 words result
  *		to accommodate 32 1-Byte skip counters for individual slaves
@@ -1679,8 +1897,11 @@ END:
  *				- 10000: ECC or CRC Error detected during
  *				CRAM Calibration in case of SWECC
  *			- Bit [19-18]: Reserved
- *			- Bit [17]: CRAM scan is disabled in design
- *			- Bit [16]: CRAM Initialization is completed
+ *			- Bit [17]: 0: CRAM scan is enabled in design
+ *						1: CRAM scan is disabled in design
+ *			- Bit [16]: 0: CRAM scan is not initialized
+ *						1: CRAM Initialization is completed
+ *						This bit is for CRAM scan state
  *			- Bit [15-14]: CRAM Correctable ECC error status
  *				- 00: No Correctable error encountered
  *				- 01: Correctable error detected and
@@ -1688,20 +1909,55 @@ END:
  *				- 10: Correctable error detected but not
  *				corrected (Correction is disabled)
  *				- 11: Reserved
- *			- Bit [13]: CRAM Scan internal error
- *			- Bit [12]: CRAM Invalid Error Location detected
- *			- Bit [11]: CRAM Correctable ECC error detected
- *			- Bit [10]: CRAM CRC error detected
- *			- Bit [09]: CRAM Uncorrectable ECC error detected
- *			- Bit [08]: CRAM Start-up test failure
- *			- Bit [07]: CRAM Calibration Timeout error
- *			- Bit [06]: CRAM Fatal/Error State
- *			- Bit [05]: CRAM Error Injection State
- *			- Bit [04]: CRAM Idle State
- *			- Bit [03]: CRAM Correction State
- *			- Bit [02]: CRAM Observation State
- *			- Bit [01]: CRAM Initialization State
+ *			- Bit [13]: 0: No error in CRAM scan
+ *						1: CRAM scan has internal error
+ *						(Null pointer access/Safety write error)
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [12]: 0: No error in error decoding
+ *						1: Invalid Error Location is reported
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [11]: 0: No correctable error detected
+ *						1: Correctable ECC error detected
+ *						In this condition, an event will be sent to R5.
+ *						If correection is disabled, then scan will be
+ *						stopped. Else, scan will continue to run.
+ *			- Bit [10]: 0: No CRC error
+ *						1: CRC error is detected by CRAM.
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [09]: 0: No uncorrectable error
+ *						1: Uncorrectable ECC error is detected
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [08]: 0: No error in CRAM scan start-up test
+ *						1: CRAM start-up test failure
+ *						In this error condition, scan will be stopped.
+ *			- Bit [07]: 0: No error during CRAM calibration`
+ *						1: CRAM Calibration Timeout error
+ *						In this error condition, scan will be stopped
+ *						and an event will be sent to R5.
+ *			- Bit [06]: 0: CRAM scan is not in the fatal state
+ *						1: CRAM scan is in the fatal state
+ *						This bit is for CRAM scan state.
+ *			- Bit [05]: 0: CRAM scan is not in the error injection state
+ *						1: CRAM scan is in the error injection state
+ *						This bit is for CRAM scan state.
+ *			- Bit [04]: 0: CRAM scan is not in the idle state
+ *						1: CRAM scan is in the idle state
+ *						This bit is for CRAM scan state.
+ *			- Bit [03]: 0: CRAM scan is not in the correction state
+ *						1: CRAM scan is in the correction state
+ *						This bit is for CRAM scan state.
+ *			- Bit [02]: 0: CRAM scan is not in the observation state
+ *						1: CRAM scan is in the observation state
+ *						This bit is for CRAM scan state.
+ *			- Bit [01]: 0: CRAM scan is not in the Initialization state
+ *						1: CRAM scan is in the Initialization state
+ *						This bit is for CRAM scan state.
  *			- Bit [00]: CRAM Scan is included in design
+ *						This bit is for CRAM scan state.
  *		- StatusInfo->ErrAddrL: This stores the low address of
  *		the last 7 corrected error details if correction is enabled
  *		in design.
@@ -1785,13 +2041,13 @@ END:
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of NPI start scan(0x10305)
  *		- Resp->RespMsg2:
- *			- if Broadcast	: is updated with Status of NpiStarttScan in Master
- *			- else			: is updated with Status of NpiStarttScan in Target
- *							  SLR
+ *			- if Broadcast	: Status of NpiStartScan in Master
+ *			- else			: Status of NpiStartScan in Target SLR
  *		- RespMsg3, 4 and 5 are updated only in case of broadcast
  *		- Resp->RespMsg3: Status of NpiStarttScan in Slave 1
  *		- Resp->RespMsg4: Status of NpiStarttScan in Slave 2
  *		- Resp->RespMsg5: Status of NpiStarttScan in Slave 3
+ *		Status of start scan: 0: Success, 1: Failure
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1872,13 +2128,13 @@ END:
  * @param[out]	Resp		Structure Pointer of IPI response
  *		- Resp->RespMsg1: Acknowledgment ID of NPI stop scan(0x10306)
  *		- Resp->RespMsg2:
- *			- if Broadcast	: is updated with Status of NpiStoptScan in Master
- *			- else			: is updated with Status of NpiStoptScan in Target
- *							  SLR
+ *			- if Broadcast	: Status of NpiStoptScan in Master
+ *			- else			: Status of NpiStoptScan in Target SLR
  *		- RespMsg3, 4 and 5 are updated only in case of broadcast
  *		- Resp->RespMsg3: Status of NpiStoptScan in Slave 1
  *		- Resp->RespMsg4: Status of NpiStoptScan in Slave 2
  *		- Resp->RespMsg5: Status of NpiStoptScan in Slave 3
+ *		Status of stop scan: 0: Success, 1: Failure
  * @param[in]	TargetSlr	Target SLR index on which command is to be executed
  * 		- 0x0 : Target is master only
  * 		- 0x1 : Target is slave 0 only
@@ -1965,6 +2221,7 @@ END:
  * 		- 0x2 : Target is slave 1 only
  * 		- 0x3 : Target is slave 2 only
  * 		- 0xF : Broadcast not supported for this API
+ *		Status of NPI scan error injection: 0: Success, 1: Failure
  *
  * @return	This API returns the success or failure.
  *		- XST_FAILURE: On NPI error injection failure
@@ -2209,4 +2466,4 @@ XStatus XSem_Ssit_CmdCfrGetCrc(XIpiPsu *IpiInst, u32 RowIndex,
 END:
 	return Status;
 }
-#endif
+#endif /* XILSEM_ENABLE_SSIT */
