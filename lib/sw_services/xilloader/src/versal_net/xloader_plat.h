@@ -18,6 +18,7 @@
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/18/2022 Shutdown modules gracefully during update
 *       dc   07/20/2022 Added support for data measurement.
+*       har  08/29/2022 Updated secure chunk size from 16K to 32K
 *
 * </pre>
 *
@@ -39,7 +40,7 @@ extern "C" {
 #include "xloader_auth_enc.h"
 
 /************************** Constant Definitions *****************************/
-#define XLOADER_SECURE_CHUNK_SIZE	(0x4000U) /* 16K */
+#define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /* 32K */
 
 /* Boot Modes */
 #define XLOADER_PDI_SRC_JTAG		(0x0U)
