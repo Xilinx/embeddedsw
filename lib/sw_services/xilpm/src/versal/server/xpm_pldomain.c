@@ -339,7 +339,7 @@ static XStatus VduHouseClean(void)
 		 */
 		if ((PLATFORM_VERSION_SILICON == XPm_GetPlatform()) &&
 		    (PLATFORM_VERSION_SILICON_ES1 == XPm_GetPlatformVersion()) &&
-		    (PMC_TAP_IDCODE_DEV_SBFMLY_VC2802 == (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_SBFMLY_MASK))) {
+		    (XPM_PMC_TAP_IDCODE_SBFMLY_SV == (XPm_GetIdCode() & PMC_TAP_IDCODE_SBFMLY_MASK))) {
 			VduClearInterrupts(VduAddresses[i]);
 		}
 	}
