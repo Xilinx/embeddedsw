@@ -147,6 +147,8 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_IV):
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_CACHE):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_CRC):
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_MODE):
 		Status = XNvm_EfuseCdoHandler(Cmd);
 		break;
 	default:
