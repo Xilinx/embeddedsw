@@ -502,7 +502,7 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	if (1U < NumArgs) {
+	if (3U < NumArgs) {
 		Type = Args[1];
 		switch (Type) {
 		case (u32)XPM_RAILTYPE_MODE_PMBUS:
@@ -527,16 +527,27 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 			 *             0x02000002 0x01021a02 0x80
 			 */
 			for (i = 0U; i < Rail->NumModes; i++) {
+				if (k >= NumArgs) {
+					Status = XST_INVALID_PARAM;
+					goto done;
+				}
+
 				Rail->I2cModes[i].CmdLen = (u8)(Args[k] >> 8) &
 							   0xFFU;
 				k++;
 				for (j = 0; j < Rail->I2cModes[i].CmdLen; j++) {
+					if (k >= NumArgs) {
+						Status = XST_INVALID_PARAM;
+						goto done;
+					}
+
 					Status = Xil_SMemCpy(&Rail->I2cModes[i].CmdArr[j * 4U],
 							     CopySize, &Args[k], CopySize, CopySize);
-					k++;
 					if (XST_SUCCESS != Status) {
 						goto done;
 					}
+
+					k++;
 				}
 			}
 
