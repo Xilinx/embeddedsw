@@ -19,6 +19,7 @@
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+* 1.4   dc     08/19/22 Update register map
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -174,9 +175,9 @@ int XDfeMix_MultiAddCCExample()
 
 	Return = XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, &CurrentCCCfg);
 	if (Return == XST_SUCCESS) {
-		printf("XDfeCcf_SetNextCCCfgAndTrigger done!\n\r");
+		printf("XDfeMix_SetNextCCCfgAndTrigger done!\n\r");
 	} else {
-		printf("XDfeCcf_SetNextCCCfgAndTrigger failed!\n\r");
+		printf("XDfeMix_SetNextCCCfgAndTrigger failed!\n\r");
 		printf("Mixer \"Pass Through\" Example: Fail\r\n");
 		return XST_FAILURE;
 	}
