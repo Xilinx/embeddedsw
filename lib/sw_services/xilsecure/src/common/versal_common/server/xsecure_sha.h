@@ -47,6 +47,7 @@
 * 4.5   bm   01/13/21 Added support for 64-bit input data address
 * 4.9   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
+*       dc   08/26/22 Changed u8 to u32 type for size optimization
 *
 * </pre>
 *
@@ -106,7 +107,7 @@ typedef enum {
 typedef struct {
 	XSecure_SssSrc SssShaCfg;
 	u32 BaseAddress;
-	u8 DeviceId;
+	u32 DeviceId;
 }XSecure_Sha3Config;
 
 /**
@@ -154,7 +155,7 @@ int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
 
 int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 
-int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u8 DeviceId);
+int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId);
 
 /***************************** Variable Prototypes ***************************/
 extern const XSecure_Sha3Config Sha3ConfigTable[XSECURE_SHA3_NUM_OF_INSTANCES];
