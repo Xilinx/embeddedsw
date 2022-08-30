@@ -44,6 +44,7 @@
 *       dc   07/13/22 Modified static function XSecure_EllipticGetCrvData()
 *                     to non static
 * 4.9   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
+*       dc   08/26/22 Removed initializations of arrays
 *
 *
 * </pre>
@@ -103,8 +104,8 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	EcdsaCrvInfo *Crv = NULL;
 	u8 PubKey[XSECURE_ECC_P521_SIZE_IN_BYTES +
 	XSECURE_ECDSA_P521_ALIGN_BYTES +
-	XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
-	u8 D[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	XSECURE_ECC_P521_SIZE_IN_BYTES];
+	u8 D[XSECURE_ECC_P521_SIZE_IN_BYTES];
 	EcdsaKey Key;
 	u32 Size = 0U;
 	u32 OffSet = 0U;
@@ -227,14 +228,14 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	volatile int ClearStatus = XST_FAILURE;
 	volatile int ClearStatusTmp = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
-	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
-	u8 D[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
-	u8 K[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES];
+	u8 D[XSECURE_ECC_P521_SIZE_IN_BYTES];
+	u8 K[XSECURE_ECC_P521_SIZE_IN_BYTES];
 	u8 Signature[XSECURE_ECC_P521_SIZE_IN_BYTES +
 	XSECURE_ECDSA_P521_ALIGN_BYTES +
-	XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	XSECURE_ECC_P521_SIZE_IN_BYTES];
 
-	EcdsaSign Sign = {0};
+	EcdsaSign Sign;
 	volatile u32 HashLenTmp = 0xFFFFFFFFU;
 	u32 OffSet = 0U;
 
@@ -394,7 +395,7 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	EcdsaKey Key;
 	u8 PubKey[XSECURE_ECC_P521_SIZE_IN_BYTES +
 	XSECURE_ECDSA_P521_ALIGN_BYTES +
-	XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	XSECURE_ECC_P521_SIZE_IN_BYTES];
 	u32 Size = 0U;
 	u32 OffSet = 0U;
 
@@ -518,14 +519,14 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	volatile int VerifyStatus = XST_FAILURE;
 	volatile int VerifyStatusTmp = XST_FAILURE;
 	EcdsaCrvInfo *Crv = NULL;
-	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 PaddedHash[XSECURE_ECC_P521_SIZE_IN_BYTES];
 	volatile u32 HashLenTmp = 0xFFFFFFFFU;
 	u8 PubKey[XSECURE_ECC_P521_SIZE_IN_BYTES +
 	XSECURE_ECDSA_P521_ALIGN_BYTES +
-	XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	XSECURE_ECC_P521_SIZE_IN_BYTES];
 	u8 Signature[XSECURE_ECC_P521_SIZE_IN_BYTES +
 	XSECURE_ECDSA_P521_ALIGN_BYTES +
-	XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	XSECURE_ECC_P521_SIZE_IN_BYTES];
 	EcdsaKey Key;
 	EcdsaSign Sign;
 	u32 OffSet = 0U;
