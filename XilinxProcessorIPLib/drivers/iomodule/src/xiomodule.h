@@ -234,6 +234,7 @@
 * 2.13	sk   10/04/21  Update functions return type to fix misra-c violation.
 * 2.13	sk   10/30/21  Add function declaration for XIOModule_Intc_SelfTest.
 * 2.14  dp   08/08/22  Fix doxygen warnings.
+* 2.14  dp   08/30/22  Add missing declaration for Get and Clear Stats.
 * </pre>
 *
 ******************************************************************************/
@@ -508,6 +509,13 @@ u32 XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
 s32 XIOModule_IsSending(XIOModule *InstancePtr);
 
 s32 XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate);
+
+/*
+ * Functions for statistics, in file xiomodule_stats.c
+ */
+void XIOModule_GetStats(XIOModule *InstancePtr,
+                        XIOModule_Uart_Stats *StatsPtr);
+void XIOModule_ClearStats(XIOModule *InstancePtr);
 
 /*
  * Interrupt functions in xiomodule_intr.c
