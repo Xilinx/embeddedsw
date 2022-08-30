@@ -76,6 +76,7 @@
 *                       XSecure_AesDecryptCmKat
 *       kpt  08/02/2022 Zeroized user key in XSecure_AesDecryptCmKat
 *       kpt  08/19/2022 Added GMAC support
+*       dc   08/26/2022 Optimized the code
 *
 * </pre>
 *
@@ -184,6 +185,10 @@ static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
 static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg AesDmaCfg, u32 Size);
+static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
+static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
+	const u32 *S);
 
 /************************** Variable Definitions *****************************/
 static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
@@ -987,7 +992,6 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
-	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -1006,21 +1010,9 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END_RST;
 	}
 
-	AesDmaCfg.SrcDataAddr = InDataAddr;
-	AesDmaCfg.DestDataAddr = OutDataAddr;
-	AesDmaCfg.SrcChannelCfg = TRUE;
-	AesDmaCfg.DestChannelCfg = TRUE;
-	AesDmaCfg.IsLastChunkSrc = IsLastChunk;
-	AesDmaCfg.IsLastChunkDest = FALSE;
-
-	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg, Size);
+	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 
 END_RST:
-	/* Clear endianness */
-	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
-	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-				XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 	if (Status != XST_SUCCESS) {
 		/*
 		 * Issue a soft to reset to AES engine and
@@ -1308,7 +1300,6 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
-	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) ) {
@@ -1327,24 +1318,9 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END_RST;
 	}
 
-	AesDmaCfg.SrcDataAddr = InDataAddr;
-	AesDmaCfg.DestDataAddr = OutDataAddr;
-	AesDmaCfg.SrcChannelCfg = TRUE;
-	AesDmaCfg.DestChannelCfg = TRUE;
-	AesDmaCfg.IsLastChunkSrc = IsLastChunk;
-	AesDmaCfg.IsLastChunkDest = FALSE;
-
-	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg, Size);
-	if (Status != XST_SUCCESS) {
-		goto END_RST;
-	}
+	Status = XSecureAesUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, IsLastChunk);
 
 END_RST:
-	/* Clear endianness */
-	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
-	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
-				XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 	if (Status != XST_SUCCESS) {
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 		XSecure_SetReset(InstancePtr->BaseAddress,
@@ -1733,51 +1709,29 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 	}
 
 	Status = XST_FAILURE;
-
-	if (((RM0[0U] == 0U) && (RM0[1U] == 0U) && (RM0[2U] == 0U) &&
-				(RM0[3U] == 0U)) ||
-			((RM0[0U] == RM1[0U]) && (RM0[1U] == RM1[1U]) &&
-				(RM0[2U] == RM1[2U]) && (RM0[3U] == RM1[3U])) ||
-			((RM0[0U] == Mm0[0U]) && (RM0[1U] == Mm0[1U]) &&
-				(RM0[2U] == Mm0[2U]) && (RM0[3U] == Mm0[3U])) ||
-			((RM0[0U] == Mm1[0U]) && (RM0[1U] == Mm1[1U]) &&
-				(RM0[2U] == Mm1[2U]) && (RM0[3U] == Mm1[3U]))) {
+	Status = XSecure_AesDecCmChecks(RM0, RM1, Mm0, Mm1);
+	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR;
 		goto END_CLR;
 	}
 
-	if (((RM1[0U] == 0U) && (RM1[1U] == 0U) && (RM1[2U] == 0U) &&
-				(RM1[3U] == 0U)) ||
-			((RM1[0U] == RM0[0U]) && (RM1[1U] == RM0[1U]) &&
-				(RM1[2U] == RM0[2U]) && (RM1[3U] == RM0[3U])) ||
-			((RM1[0U] == Mm0[0U]) && (RM1[1U] == Mm0[1U]) &&
-				(RM1[2U] == Mm0[2U]) && (RM1[3U] == Mm0[3U])) ||
-			((RM1[0U] == Mm1[0U]) && (RM1[1U] == Mm1[1]) &&
-				(RM1[2U] == Mm1[2U]) && (RM1[3U] == Mm1[3U]))) {
+	Status = XST_FAILURE;
+	Status = XSecure_AesDecCmChecks(RM1, RM0, Mm0, Mm1);
+	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR;
 		goto END_CLR;
 	}
 
-	if (((Mm0[0U] == 0U) && (Mm0[1U] == 0U) && (Mm0[2U] == 0U) &&
-				(Mm0[3U] == 0U)) ||
-			((Mm0[0U] == RM0[0U]) && (Mm0[1U] == RM0[1U]) &&
-				(Mm0[2U] == RM0[2U]) && (Mm0[3U] == RM0[3U])) ||
-			((Mm0[0U] == RM1[0U]) && (Mm0[1U] == RM1[1U]) &&
-				(Mm0[2U] == RM1[2U]) && (Mm0[3U] == RM1[3U])) ||
-			((Mm0[0U] == Mm1[0U]) && (Mm0[1U] == Mm1[1U]) &&
-				(Mm0[2U] == Mm1[2U]) && (Mm0[3U] == Mm1[3U]))) {
+	Status = XST_FAILURE;
+	Status = XSecure_AesDecCmChecks(Mm0, RM0, RM1, Mm1);
+	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR;
 		goto END_CLR;
 	}
 
-	if (((Mm1[0U] == 0U) && (Mm1[1U] == 0U) && (Mm1[2U] == 0U) &&
-				(Mm1[3U] == 0U)) ||
-			((Mm1[0U] == RM0[0U]) && (Mm1[1U] == RM0[1U]) &&
-				(Mm1[2U] == RM0[2U]) && (Mm1[3U] == RM0[3U])) ||
-			((Mm1[0U] == RM1[0U]) && (Mm1[1U] == RM1[1U]) &&
-				(Mm1[2U] == RM1[2U]) && (Mm1[3U] == RM1[3U])) ||
-			((Mm1[0U] == Mm0[0U]) && (Mm1[1U] == Mm0[1U]) &&
-				(Mm1[2U] == Mm0[2U]) && (Mm1[3U] == Mm0[3U]))) {
+	Status = XST_FAILURE;
+	Status = XSecure_AesDecCmChecks(Mm1, RM0, RM1, Mm0);
+	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR;
 		goto END_CLR;
 	}
@@ -1803,6 +1757,41 @@ END_CLR:
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function performs checks for AES DPA CM KAT ouptut.
+ *
+ * @param 	P is the pointer to the data array of size 4 words.
+ * @param 	Q is the pointer to the data array of size 4 words.
+ * @param 	R is the pointer to the data array of size 4 words.
+ * @param 	S is the pointer to the data array of size 4 words.
+ *
+ * @return
+ *	- XST_SUCCESS - When check is passed
+ *  - XST_FAILURE - when check is failed
+ *****************************************************************************/
+static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
+	const u32 *S)
+{
+	volatile int Status = XST_FAILURE;
+
+	if (((P[0U] == 0U) && (P[1U] == 0U) && (P[2U] == 0U) &&
+				(P[3U] == 0U)) ||
+			((P[0U] == Q[0U]) && (P[1U] == Q[1U]) &&
+				(P[2U] == Q[2U]) && (P[3U] == Q[3U])) ||
+			((P[0U] == R[0U]) && (P[1U] == R[1U]) &&
+				(P[2U] == R[2U]) && (P[3U] == R[3U])) ||
+			((P[0U] == S[0U]) && (P[1U] == S[1U]) &&
+				(P[2U] == S[2U]) && (P[3U] == S[3U]))) {
+		Status = XST_FAILURE;
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
 	return Status;
 }
 
@@ -2112,6 +2101,9 @@ static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 {
 	XPmcDma_Configure ConfigValues;
 
+	Xil_SMemSet(&ConfigValues, sizeof(ConfigValues), 0U,
+			 sizeof(ConfigValues));
+
 	/* Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
 
@@ -2310,5 +2302,46 @@ END_RST:
 	}
 
 END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to update the AES engine with
+ * 		provided input and output addresses.
+ *
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	InDataAddr	Address of the input buffer.
+ * @param	OutDataAddr	Address of output buffer.
+ * @param	Size		Size of data to be updated by AES engine.
+ * @param	IsLastChunk	 If this is the last update of data to be processed,
+ *		 		  this parameter should be set to TRUE otherwise FALSE
+ *
+ * @return
+ *	-	XST_SUCCESS - On success
+ *	-	XST_FAILURE - On failure
+ *
+ ******************************************************************************/
+static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
+	u64 OutDataAddr, u32 Size, u8 IsLastChunk)
+{
+	int Status = XST_FAILURE;
+	XSecure_AesDmaCfg AesDmaCfg = {0U, 0U, 0U, 0U, 0U, 0U};
+
+	AesDmaCfg.SrcDataAddr = InDataAddr;
+	AesDmaCfg.DestDataAddr = OutDataAddr;
+	AesDmaCfg.SrcChannelCfg = TRUE;
+	AesDmaCfg.DestChannelCfg = TRUE;
+	AesDmaCfg.IsLastChunkSrc = IsLastChunk;
+	AesDmaCfg.IsLastChunkDest = FALSE;
+
+	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg, Size);
+
+	/* Clear endianness */
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
+				XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
+
 	return Status;
 }
