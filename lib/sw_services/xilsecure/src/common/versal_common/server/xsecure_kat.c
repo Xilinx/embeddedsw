@@ -17,7 +17,9 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 4.9   kpt  07/15/2022 Initial release
-*       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization of loop redundancy checks
+*       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization
+*                       of loop redundancy checks
+*       dc   08/26/2022 Removed initializations of arrays
 *
 * </pre>
 *
@@ -426,7 +428,7 @@ XSecure_EllipticKey* XSecure_GetKatEccPublicKey(XSecure_EllipticCrvClass CrvClas
 		0xB1, 0xBE, 0xAA, 0x05, 0x92, 0x96, 0x52, 0xAC,
 		0xE9, 0xBD, 0xFF, 0x0E, 0x44, 0x1B, 0xDA, 0x2A
 	};
-	static XSecure_EllipticKey ExpPubKey = {0U};
+	static XSecure_EllipticKey ExpPubKey;
 
 	if (CrvClass == XSECURE_ECC_PRIME) {
 		ExpPubKey.Qx = &Pubkey_P384[0U];
@@ -467,7 +469,7 @@ XSecure_EllipticSign* XSecure_GetKatEccExpSign(XSecure_EllipticCrvClass CrvClass
 		0x62, 0x1D, 0x88, 0x9A, 0x8C, 0xD8, 0x5D, 0x50,
 		0xF2, 0xCE, 0xB2, 0x65, 0xE7, 0x28, 0x5E, 0x64
 	};
-	static XSecure_EllipticSign ExpSign = {0U};
+	static XSecure_EllipticSign ExpSign;
 
 	if (CrvClass == XSECURE_ECC_PRIME) {
 		ExpSign.SignR = &Sign_P384[0U];
@@ -576,7 +578,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 	u8 *AesAad = (u8*)XSecure_GetKatAesAad();
 	u8 *AesGcmTag = (u8*)XSecure_GetKatAesGcmTag();
 	u32 *AesExpPt = (u32*)XSecure_GetKatMessage();
-	u32 DstVal[XSECURE_KAT_MSG_LEN_IN_WORDS] = {0U};
+	u32 DstVal[XSECURE_KAT_MSG_LEN_IN_WORDS];
 
 	if (AesInstance == NULL) {
 		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
@@ -683,7 +685,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 	volatile int Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 	volatile int SStatus = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 	volatile u32 Index;
-	XSecure_Sha3Hash OutVal = {0U};
+	XSecure_Sha3Hash OutVal;
 	u8 *KatMessage = (u8*)XSecure_GetKatMessage();
 	u8 *ExpectedHash = (u8*)XSecure_GetKatSha3ExpHash();
 
@@ -759,8 +761,8 @@ int XSecure_RsaPublicEncryptKat(void)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	volatile u32 Index;
-	XSecure_Rsa XSecureRsaInstance = {0U};
-	u32 RsaOutput[XSECURE_RSA_4096_SIZE_WORDS] = {0U};
+	XSecure_Rsa XSecureRsaInstance;
+	u32 RsaOutput[XSECURE_RSA_4096_SIZE_WORDS];
 	u32 *PubMod = (u32*)XSecure_GetKatRsaModulus();
 	u32 *PubModExt = (u32*)XSecure_GetKatRsaModExt();
 	u32 PubExp = (u32)XSecure_GetKatRsaPubExponent();
@@ -853,7 +855,7 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	u8 Sign[XSECURE_ECC_P521_SIZE_IN_BYTES +
-				XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+				XSECURE_ECC_P521_SIZE_IN_BYTES];
 	XSecure_EllipticSign GeneratedSign;
 	XSecure_EllipticSign *ExpSign = XSecure_GetKatEccExpSign(CrvClass);
 	u8 *D = XSecure_GetKatEccPrivateKey(CrvClass);
@@ -907,7 +909,7 @@ END:
 int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u8 *D, XSecure_EllipticKey *PubKey) {
 	int Status = XST_FAILURE;
 	int SStatus = XST_FAILURE;
-	u8 Sign[XSECURE_ECC_P521_SIZE_IN_BYTES + XSECURE_ECC_P521_SIZE_IN_BYTES] = {0U};
+	u8 Sign[XSECURE_ECC_P521_SIZE_IN_BYTES + XSECURE_ECC_P521_SIZE_IN_BYTES];
 	XSecure_EllipticSign GeneratedSign;
 	u8 *K = XSecure_GetKatEccEphimeralKey(Curvetype);
 	u8 *Hash = XSecure_GetKatEccSha3ExpHash();
@@ -968,7 +970,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 	u8 *AesPt = (u8*)XSecure_GetKatMessage();
 	u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE];
 	u32 *AesExpCt = (u32*)XSecure_GetKatAesCt();
-	u32 DstVal[XSECURE_KAT_MSG_LEN_IN_WORDS] = {0U};
+	u32 DstVal[XSECURE_KAT_MSG_LEN_IN_WORDS];
 
 	if (AesInstance == NULL) {
 		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
@@ -1076,8 +1078,8 @@ int XSecure_RsaPrivateDecryptKat(void)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 	volatile u32 Index;
-	XSecure_Rsa XSecureRsaInstance = {0U};
-	u32 RsaOutput[XSECURE_RSA_4096_SIZE_WORDS] = {0U};
+	XSecure_Rsa XSecureRsaInstance;
+	u32 RsaOutput[XSECURE_RSA_4096_SIZE_WORDS];
 	u32 *Mod = (u32*)XSecure_GetKatRsaModulus();
 	u32 *ModExt = (u32*)XSecure_GetKatRsaModExt();
 	u32 *RsaExpOutput = (u32*)XSecure_GetKatRsaData();

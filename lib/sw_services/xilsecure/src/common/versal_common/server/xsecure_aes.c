@@ -569,7 +569,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	volatile int ClearStatusTmp = XST_FAILURE;
 	u32 Offset;
 	u32 Index = 0U;
-	u32 Key[XSECURE_AES_KEY_SIZE_256BIT_WORDS] = {0U};
+	u32 Key[XSECURE_AES_KEY_SIZE_256BIT_WORDS];
 	u32 KeySizeInWords;
 
 	/* Validate the input arguments */
@@ -1691,8 +1691,8 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 
-	u32 Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] = {0U};
-	u32 Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] = {0U};
+	u32 Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
+	u32 Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
 
 	const u32 *RM0 = &Output0[0U];
 	const u32 *R0 = &Output0[4U];
@@ -2110,7 +2110,7 @@ static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
 static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 	XPmcDma_Channel Channel, u8 EndianType)
 {
-	XPmcDma_Configure ConfigValues = {0U};
+	XPmcDma_Configure ConfigValues;
 
 	/* Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
