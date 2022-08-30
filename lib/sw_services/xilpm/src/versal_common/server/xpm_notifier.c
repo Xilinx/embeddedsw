@@ -250,12 +250,13 @@ static void XPmNotifier_SendPendingSuspendCb(XPm_Subsystem *SubSystem)
 
 static void XPmNotifier_RmvFromEventSeq(const u32 Index)
 {
-	u32 Idx = 0;
+	u32 Idx = Index;
 
 	/* remove from list */
-	for (Idx = Index; Idx < (PosEmptySpace - 1U); Idx++) {
+	while (Idx < (PosEmptySpace - 1U)) {
 		/* Doing left shifting of data in list by 1 position */
 		EventSeq[Idx] = EventSeq[Idx + 1U];
+		Idx++;
 	}
 
 	EventSeq[Idx] = 0U; /* clear the data in list */
@@ -296,7 +297,7 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 	u32 NodeId;
 	u32 Event;
 	u32 Index = 0U;
-	u32 Idx;
+	u32 Idx = 0;
 	XPmNotifier* Notifier = NULL;
 	const XPm_Subsystem *TempSubSystem = NULL;
 
@@ -306,7 +307,7 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 		/* Serch and get pending event for given SubSystem from event
 		 * sequence.
 		 */
-		for (Idx = 0; Idx < PosEmptySpace; Idx++) {
+		while (Idx < PosEmptySpace) {
 			Index = ((u32)EventSeq[Idx] - 1U);
 			Notifier = &PmNotifiers[Index];
 			TempSubSystem = Notifier->Subsystem;
@@ -314,6 +315,7 @@ static void XPmNotifier_SendPendingNotifyEvent(const XPm_Subsystem *SubSystem)
 			    (0U != Notifier->PendEventCnt)) {
 				break;
 			}
+			Idx++;
 		}
 
 		if (Idx != PosEmptySpace) {
