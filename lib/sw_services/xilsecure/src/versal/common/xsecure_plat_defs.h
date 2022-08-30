@@ -15,8 +15,9 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   bm   07/06/22 Initial release
-* 4.9   kpt  07/24/22 Added XSECURE_API_KAT and additional KAT ids
+* 4.9   bm   07/06/22 Initial release
+*       kpt  07/24/22 Added XSECURE_API_KAT and additional KAT ids
+*       dc   08/26/22 Removed gaps between the API IDs
 *
 * </pre>
 * @note
@@ -45,30 +46,25 @@ typedef enum {
 	XSECURE_API_RSA_SIGN_VERIFY,		/**< 1U */
 	XSECURE_API_RSA_PUBLIC_ENCRYPT,		/**< 2U */
 	XSECURE_API_RSA_PRIVATE_DECRYPT,	/**< 3U */
-	XSECURE_API_SHA3_UPDATE = 32U,		/**< 32U */
-	XSECURE_API_ELLIPTIC_GENERATE_KEY = 64U,/**< 64U */
-	XSECURE_API_ELLIPTIC_GENERATE_SIGN,	/**< 65U */
-	XSECURE_API_ELLIPTIC_VALIDATE_KEY,	/**< 66U */
-	XSECURE_API_ELLIPTIC_VERIFY_SIGN,	/**< 67U */
-	XSECURE_API_AES_INIT = 96U,		/**< 96U */
-	XSECURE_API_AES_OP_INIT,		/**< 97U */
-	XSECURE_API_AES_UPDATE_AAD,		/**< 98U */
-	XSECURE_API_AES_ENCRYPT_UPDATE,		/**< 99U */
-	XSECURE_API_AES_ENCRYPT_FINAL,		/**< 100U */
-	XSECURE_API_AES_DECRYPT_UPDATE,		/**< 101U */
-	XSECURE_API_AES_DECRYPT_FINAL,		/**< 102U */
-	XSECURE_API_AES_KEY_ZERO,		/**< 103U */
-	XSECURE_API_AES_WRITE_KEY,		/**< 104U */
-	XSECURE_API_AES_LOCK_USER_KEY,		/**< 105U */
-	XSECURE_API_AES_KEK_DECRYPT,		/**< 106U */
-	XSECURE_API_AES_SET_DPA_CM,		/**< 107U */
-
-	/**
-	 * API id 128 - 144 resevered for versal net
-	 */
-
-	XSECURE_API_KAT = 144U, /**< 144U */
-	XSECURE_API_MAX,			/**< 145U */
+	XSECURE_API_SHA3_UPDATE,			/**< 4U */
+	XSECURE_API_ELLIPTIC_GENERATE_KEY,	/**< 5U */
+	XSECURE_API_ELLIPTIC_GENERATE_SIGN,	/**< 6U */
+	XSECURE_API_ELLIPTIC_VALIDATE_KEY,	/**< 7U */
+	XSECURE_API_ELLIPTIC_VERIFY_SIGN,	/**< 8U */
+	XSECURE_API_AES_INIT,				/**< 9U */
+	XSECURE_API_AES_OP_INIT,			/**< 10U */
+	XSECURE_API_AES_UPDATE_AAD,		/**< 11U */
+	XSECURE_API_AES_ENCRYPT_UPDATE,		/**< 12U */
+	XSECURE_API_AES_ENCRYPT_FINAL,		/**< 13U */
+	XSECURE_API_AES_DECRYPT_UPDATE,		/**< 14U */
+	XSECURE_API_AES_DECRYPT_FINAL,		/**< 15U */
+	XSECURE_API_AES_KEY_ZERO,		/**< 16U */
+	XSECURE_API_AES_WRITE_KEY,		/**< 17U */
+	XSECURE_API_AES_LOCK_USER_KEY,		/**< 18U */
+	XSECURE_API_AES_KEK_DECRYPT,		/**< 19U */
+	XSECURE_API_AES_SET_DPA_CM,		/**< 20U */
+	XSECURE_API_KAT,				/**< 21U */
+	XSECURE_API_MAX,			/**< 22U */
 } XSecure_ApiId;
 
 typedef enum {
