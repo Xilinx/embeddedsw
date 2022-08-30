@@ -16,7 +16,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/21/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
-*       dc     02/15/21 align driver to curent specification
+*       dc     02/15/21 align driver to current specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/18/21 New model parameter list
 *       dc     04/06/21 Register with full node name
@@ -47,6 +47,7 @@
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/04/22 Correct conversion rate calculation
 *       dc     04/06/22 Update documentation
+*       dc     08/19/22 Update register map
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -477,7 +478,7 @@ static u32 XDfeMix_NCOArch4ModeInMoveOrUpdateCC(const XDfeMix *InstancePtr,
 /**
 *
 * Adds the specified CCID, to the CC sequence. The sequence is defined with
-* CCSeqBitmap where bit0 coresponds to CC[0], bit1 to CC[1], and so on.
+* CCSeqBitmap where bit0 corresponds to CC[0], bit1 to CC[1], and so on.
 *
 * Sequence data that is returned in the CCIDSequence is not the same as what is
 * written in the registers. The translation is:
@@ -522,7 +523,7 @@ static u32 XDfeMix_AddCCIDAndTranslateSeq(XDfeMix *InstancePtr, s32 CCID,
 		return XST_FAILURE;
 	}
 
-	/* Check are bits set in CCSeqBitmap to 1 avaliable (-1)*/
+	/* Check are bits set in CCSeqBitmap to 1 available (-1)*/
 	Mask = 1U;
 	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
 		if (0U != (CCSeqBitmap & Mask)) {
@@ -1442,6 +1443,10 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_MIXER_CPS_WIDTH,
 				   XDFEMIX_MODEL_PARAM_1_MIXER_CPS_OFFSET,
 				   ModelParam);
+	InstancePtr->Config.NumAuxiliary =
+		XDfeMix_RdBitField(XDFEMIX_MODEL_PARAM_1_NUM_AUXILIARY_WIDTH,
+				   XDFEMIX_MODEL_PARAM_1_NUM_AUXILIARY_OFFSET,
+				   ModelParam);
 
 	ModelParam = XDfeMix_ReadReg(InstancePtr, XDFEMIX_MODEL_PARAM_2_OFFSET);
 	InstancePtr->Config.DataIWidth =
@@ -1466,6 +1471,7 @@ void XDfeMix_Configure(XDfeMix *InstancePtr, XDfeMix_Cfg *Cfg)
 	Cfg->ModelParams.AntennaInterleave =
 		InstancePtr->Config.AntennaInterleave;
 	Cfg->ModelParams.MixerCps = InstancePtr->Config.MixerCps;
+	Cfg->ModelParams.NumAuxiliary = InstancePtr->Config.NumAuxiliary;
 	Cfg->ModelParams.DataIWidth = InstancePtr->Config.DataIWidth;
 	Cfg->ModelParams.DataOWidth = InstancePtr->Config.DataOWidth;
 	Cfg->ModelParams.TUserWidth = InstancePtr->Config.TUserWidth;
@@ -2359,7 +2365,7 @@ u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId, u32 AntennaGain)
 /****************************************************************************/
 /**
 *
-* Updates antenna cofiguration of all antennas.
+* Updates antenna configuration of all antennas.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    AntennaCfg Array of all antenna configurations.

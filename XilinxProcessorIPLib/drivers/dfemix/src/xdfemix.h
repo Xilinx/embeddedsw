@@ -54,7 +54,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/22/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
-*       dc     02/15/21 align driver to curent specification
+*       dc     02/15/21 align driver to current specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/18/21 New model parameter list
 *       dc     04/06/21 Register with full node name
@@ -76,6 +76,7 @@
 * 1.3   dc     02/10/22 Add latency information
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     03/28/22 Update documentation
+*       dc     08/19/22 Update register map
 *
 * </pre>
 * @endcond
@@ -265,6 +266,7 @@ typedef struct {
 	u32 Lanes; /**< [1-8] Number of lanes */
 	u32 AntennaInterleave; /**< [1,2,4,8] Number of Antenna slots */
 	u32 MixerCps; /**< [1,2,4] */
+	u32 NumAuxiliary; /**< [0-3] */
 	u32 DataIWidth; /**< [16,24] 16 for 16-bit sample data and 24 for
 		18-bit sample data.*/
 	u32 DataOWidth; /**< [16,24] 16 for 16-bit sample data and 24 for
@@ -428,8 +430,13 @@ typedef struct {
 typedef struct {
 	u32 DUCDDCOverflow; /**< [0,1] Mask overflow in DUC/DDC */
 	u32 MixerOverflow; /**< [0,1] Mask overflow in mixer */
-	u32 CCUpdate; /**< [0,1] Mask update interrupt */
+	u32 CCUpdate; /**< [0,1] Mask CC update interrupt */
+	u32 LowPower; /**< [0,1] Mask low power interrupt */
+	u32 Switchable; /**< [0,1] Mask switchable interrupt */
 	u32 CCSequenceError; /**< [0,1] Mask sequence error */
+	u32 CCUpdateError; /**< [0,1] Mask CC update error */
+	u32 LowPowerError; /**< [0,1] Mask low power error */
+	u32 SwitchableError; /**< [0,1] Mask switchable error */
 } XDfeMix_Status;
 
 typedef XDfeMix_Status XDfeMix_InterruptMask;
@@ -446,6 +453,7 @@ typedef struct {
 	u32 Lanes; /**< [1-8] */
 	u32 AntennaInterleave; /**< [1,2,4,8] */
 	u32 MixerCps; /**< [1,2,4] */
+	u32 NumAuxiliary; /**< [0-3] */
 	u32 DataIWidth; /**< [16,24] 16 for 16-bit sample data and 24 for
 		18-bit sample data.*/
 	u32 DataOWidth; /**< [16,24] 16 for 16-bit sample data and 24 for

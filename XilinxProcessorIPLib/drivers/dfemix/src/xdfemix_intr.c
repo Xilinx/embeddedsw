@@ -15,7 +15,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/21/20 Initial version
-*       dc     02/15/21 align driver to curent specification
+*       dc     02/15/21 align driver to current specification
 *       dc     03/18/21 New model parameter list
 *       dc     04/18/21 Update trigger and event handlers
 *       dc     04/20/21 Doxygen documentation update
@@ -23,6 +23,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+* 1.4   dc     08/19/22 Update register map
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -72,9 +73,24 @@ void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
 	Mask->CCUpdate =
 		XDfeMix_RdBitField(XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,
 				   XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET, Val);
+	Mask->LowPower =
+		XDfeMix_RdBitField(XDFEMIX_LOW_POWER_TRIGGERED_WIDTH,
+				   XDFEMIX_LOW_POWER_TRIGGERED_OFFSET, Val);
+	Mask->Switchable =
+		XDfeMix_RdBitField(XDFEMIX_SWITCHABLE_TRIGGERED_WIDTH,
+				   XDFEMIX_SWITCHABLE_TRIGGERED_OFFSET, Val);
 	Mask->CCSequenceError =
 		XDfeMix_RdBitField(XDFEMIX_CC_SEQUENCE_ERROR_WIDTH,
 				   XDFEMIX_CC_SEQUENCE_ERROR_OFFSET, Val);
+	Mask->CCUpdateError =
+		XDfeMix_RdBitField(XDFEMIX_CC_UPDATE_ERROR_WIDTH,
+				   XDFEMIX_CC_UPDATE_ERROR_OFFSET, Val);
+	Mask->LowPowerError =
+		XDfeMix_RdBitField(XDFEMIX_LOW_POWER_ERROR_WIDTH,
+				   XDFEMIX_LOW_POWER_ERROR_OFFSET, Val);
+	Mask->SwitchableError =
+		XDfeMix_RdBitField(XDFEMIX_SWITCHABLE_ERROR_WIDTH,
+				   XDFEMIX_SWITCHABLE_ERROR_OFFSET, Val);
 }
 /****************************************************************************/
 /**
@@ -83,8 +99,8 @@ void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    Mask Interrupt mask flags container.
-*           - 0 - does not mask coresponding interrupt
-*           - 1 - masks coresponding interrupt
+*           - 0 - does not mask corresponding interrupt
+*           - 1 - masks corresponding interrupt
 *
 ****************************************************************************/
 void XDfeMix_SetInterruptMask(const XDfeMix *InstancePtr,
@@ -118,10 +134,40 @@ void XDfeMix_SetInterruptMask(const XDfeMix *InstancePtr,
 		ValIDR |= (1U << XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET);
 	}
 
+	if (Mask->LowPower == XDFEMIX_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEMIX_LOW_POWER_TRIGGERED_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEMIX_LOW_POWER_TRIGGERED_OFFSET);
+	}
+
+	if (Mask->Switchable == XDFEMIX_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEMIX_SWITCHABLE_TRIGGERED_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEMIX_SWITCHABLE_TRIGGERED_OFFSET);
+	}
+
 	if (Mask->CCSequenceError == XDFEMIX_IMR_INTERRUPT) {
 		ValIER |= (1U << XDFEMIX_CC_SEQUENCE_ERROR_OFFSET);
 	} else {
 		ValIDR |= (1U << XDFEMIX_CC_SEQUENCE_ERROR_OFFSET);
+	}
+
+	if (Mask->CCUpdateError == XDFEMIX_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEMIX_CC_UPDATE_ERROR_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEMIX_CC_UPDATE_ERROR_OFFSET);
+	}
+
+	if (Mask->LowPowerError == XDFEMIX_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEMIX_LOW_POWER_ERROR_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEMIX_LOW_POWER_ERROR_OFFSET);
+	}
+
+	if (Mask->SwitchableError == XDFEMIX_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEMIX_SWITCHABLE_ERROR_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEMIX_SWITCHABLE_ERROR_OFFSET);
 	}
 
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_IER, ValIER);
@@ -154,9 +200,24 @@ void XDfeMix_GetEventStatus(const XDfeMix *InstancePtr, XDfeMix_Status *Status)
 	Status->CCUpdate =
 		XDfeMix_RdBitField(XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,
 				   XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET, Val);
+	Status->LowPower =
+		XDfeMix_RdBitField(XDFEMIX_LOW_POWER_TRIGGERED_WIDTH,
+				   XDFEMIX_LOW_POWER_TRIGGERED_OFFSET, Val);
+	Status->Switchable =
+		XDfeMix_RdBitField(XDFEMIX_SWITCHABLE_TRIGGERED_WIDTH,
+				   XDFEMIX_SWITCHABLE_TRIGGERED_OFFSET, Val);
 	Status->CCSequenceError =
 		XDfeMix_RdBitField(XDFEMIX_CC_SEQUENCE_ERROR_WIDTH,
 				   XDFEMIX_CC_SEQUENCE_ERROR_OFFSET, Val);
+	Status->CCUpdateError =
+		XDfeMix_RdBitField(XDFEMIX_CC_UPDATE_ERROR_WIDTH,
+				   XDFEMIX_CC_UPDATE_ERROR_OFFSET, Val);
+	Status->LowPowerError =
+		XDfeMix_RdBitField(XDFEMIX_LOW_POWER_ERROR_WIDTH,
+				   XDFEMIX_LOW_POWER_ERROR_OFFSET, Val);
+	Status->SwitchableError =
+		XDfeMix_RdBitField(XDFEMIX_SWITCHABLE_ERROR_WIDTH,
+				   XDFEMIX_SWITCHABLE_ERROR_OFFSET, Val);
 }
 
 /****************************************************************************/
@@ -166,8 +227,8 @@ void XDfeMix_GetEventStatus(const XDfeMix *InstancePtr, XDfeMix_Status *Status)
 *
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    Status Clear event status container.
-*           - 0 - does not clear coresponding event status
-*           - 1 - clear coresponding event status
+*           - 0 - does not clear corresponding event status
+*           - 1 - clear corresponding event status
 *
 ****************************************************************************/
 void XDfeMix_ClearEventStatus(const XDfeMix *InstancePtr,
@@ -191,9 +252,29 @@ void XDfeMix_ClearEventStatus(const XDfeMix *InstancePtr,
 	Data = XDfeMix_WrBitField(XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,
 				  XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET, Data,
 				  Status->CCUpdate);
+	Data =
+		XDfeMix_WrBitField(XDFEMIX_LOW_POWER_TRIGGERED_WIDTH,
+				   XDFEMIX_LOW_POWER_TRIGGERED_OFFSET, Data,
+				   Status->LowPower);
+	Data =
+		XDfeMix_WrBitField(XDFEMIX_SWITCHABLE_TRIGGERED_WIDTH,
+				   XDFEMIX_SWITCHABLE_TRIGGERED_OFFSET, Data,
+				   Status->Switchable);
 	Data = XDfeMix_WrBitField(XDFEMIX_CC_SEQUENCE_ERROR_WIDTH,
 				  XDFEMIX_CC_SEQUENCE_ERROR_OFFSET, Data,
 				  Status->CCSequenceError);
+	Data =
+		XDfeMix_WrBitField(XDFEMIX_CC_UPDATE_ERROR_WIDTH,
+				   XDFEMIX_CC_UPDATE_ERROR_OFFSET, Data,
+				   Status->CCUpdateError);
+	Data =
+		XDfeMix_WrBitField(XDFEMIX_LOW_POWER_ERROR_WIDTH,
+				   XDFEMIX_LOW_POWER_ERROR_OFFSET, Data,
+				   Status->LowPowerError);
+	Data =
+		XDfeMix_WrBitField(XDFEMIX_SWITCHABLE_ERROR_WIDTH,
+				   XDFEMIX_SWITCHABLE_ERROR_OFFSET, Data,
+				   Status->SwitchableError);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_ISR, Data);
 }
 
