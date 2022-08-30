@@ -44,6 +44,7 @@
 *       am   03/08/22 Replaced memset() with Xil_SMemSet()
 * 4.9   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
+*       dc   08/26/22 Optimization of size, changed type of variables u8 to u32
 *
 * </pre>
 * @note
@@ -725,10 +726,10 @@ END:
  * 		XST_FAILURE On failure
  *
  ******************************************************************************/
-int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u8 DeviceId) {
+int XSecure_Sha3LookupConfig(XSecure_Sha3 *InstancePtr, u32 DeviceId) {
 	int Status = XST_FAILURE;
 	const XSecure_Sha3Config *CfgPtr = NULL;
-	u8 Index;
+	u32 Index;
 
 	for (Index = 0U; Index < XSECURE_SHA3_NUM_OF_INSTANCES; Index++) {
 		if (Sha3ConfigTable[Index].DeviceId == DeviceId) {
