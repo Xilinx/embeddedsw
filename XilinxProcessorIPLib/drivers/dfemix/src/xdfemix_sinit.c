@@ -20,7 +20,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     07/22/20 Initial release
 *       dc     02/02/21 Remove hard coded device node name
-*       dc     02/15/21 align driver to curent specification
+*       dc     02/15/21 align driver to current specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/18/21 New model parameter list
 *       dc     04/06/21 Register with full node name
@@ -31,6 +31,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/19/21 Update doxygen documentation
+* 1.4   dc     08/18/22 Update IP version number
 *
 * </pre>
 *
@@ -59,7 +60,7 @@
 * @endcond
 */
 #define XDFEMIX_COMPATIBLE_STRING                                              \
-	"xlnx,xdfe-cc-mixer-1.0" /**< Device name property. */
+	"xlnx,xdfe-cc-mixer-2.0" /**< Device name property. */
 #define XDFEMIX_PLATFORM_DEVICE_DIR                                            \
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
 #define XDFEMIX_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
