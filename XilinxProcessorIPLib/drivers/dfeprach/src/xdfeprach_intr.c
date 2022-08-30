@@ -20,6 +20,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+* 1.4   dc     08/18/22 Correct event status read
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -93,8 +94,8 @@ void XDfePrach_GetInterruptMask(const XDfePrach *InstancePtr,
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    Mask Interrupt mask flags container.
-*           - 0 - does not mask coresponding interrupt
-*           - 1 - masks coresponding interrupt
+*           - 0 - does not mask corresponding interrupt
+*           - 1 - masks corresponding interrupt
 *
 ****************************************************************************/
 void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
@@ -207,7 +208,7 @@ void XDfePrach_GetEventStatus(const XDfePrach *InstancePtr,
 		XDfePrach_RdBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
 				     XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET,
 				     Val);
-	Status->FrameInitTrigger = XDfePrach_RdBitField(
+	Status->FrameError = XDfePrach_RdBitField(
 		XDFEPRACH_FRAME_ERROR_WIDTH, XDFEPRACH_FRAME_ERROR_OFFSET, Val);
 }
 
@@ -218,8 +219,8 @@ void XDfePrach_GetEventStatus(const XDfePrach *InstancePtr,
 *
 * @param    InstancePtr Pointer to the PRACH instance.
 * @param    Status Clear event status container.
-*           - 0 - does not clear coresponding event status
-*           - 1 - clear coresponding event status
+*           - 0 - does not clear corresponding event status
+*           - 1 - clear corresponding event status
 *
 ****************************************************************************/
 void XDfePrach_ClearEventStatus(const XDfePrach *InstancePtr,
