@@ -43,7 +43,7 @@
 #define XDFESI570_CURRENT_FREQUENCY 156.25
 #define XDFESI570_NEW_FREQUENCY 122.88
 #else
-#define XDFEPRACH_NODE_NAME "a7d40000.xdfe_nr_prach"
+#define XDFEPRACH_NODE_NAME "a7e00000.xdfe_nr_prach"
 #endif
 
 /************************** Function Prototypes *****************************/

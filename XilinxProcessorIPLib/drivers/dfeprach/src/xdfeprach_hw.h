@@ -11,7 +11,7 @@
 * @{
 * @cond nocomments
 * Contains the register definitions for xdfeprach. This is
-* created to be used initialy while waiting for IP.
+* created to be used initially while waiting for IP.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,6 +27,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 * 1.3   dc     01/31/22 Add CORE_SETTINGS register
+* 1.4   dc     08/18/22 Update register fields
 *
 * </pre>
 *
@@ -57,10 +58,10 @@ extern "C" {
 #define XDFEPRACH_MODEL_PARAM_OFFSET 0x08U /**< Register offset */
 #define XDFEPRACH_MODEL_PARAM_NUM_ANTENNA_WIDTH 4U
 #define XDFEPRACH_MODEL_PARAM_NUM_ANTENNA_OFFSET 0U
-#define XDFEPRACH_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH 4U
+#define XDFEPRACH_MODEL_PARAM_NUM_CC_PER_ANTENNA_WIDTH 5U
 #define XDFEPRACH_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET 4U
 #define XDFEPRACH_MODEL_PARAM_NUM_SLOT_CHANNELS_WIDTH 3U
-#define XDFEPRACH_MODEL_PARAM_NUM_SLOT_CHANNELS_OFFSET 8U
+#define XDFEPRACH_MODEL_PARAM_NUM_SLOT_CHANNELS_OFFSET 9U
 #define XDFEPRACH_MODEL_PARAM_NUM_SLOTS_WIDTH 4U
 #define XDFEPRACH_MODEL_PARAM_NUM_SLOTS_OFFSET 12U
 #define XDFEPRACH_MODEL_PARAM_NUM_RACH_CHANNELS_WIDTH 5U
@@ -154,8 +155,14 @@ extern "C" {
 
 /* Core settings */
 #define XDFEPRACH_CORE_SETTINGS 0x88U /**< Register offset */
+#define XDFEPRACH_USE_FREQ_OFFSET_WIDTH 1U
+#define XDFEPRACH_USE_FREQ_OFFSET_OFFSET 0U
 #define XDFEPRACH_USE_FREQ_OFFSET_ENABLE 1U
 #define XDFEPRACH_USE_FREQ_OFFSET_DISABLE 0U
+#define XDFEPRACH_USE_FRAME_ID_WIDTH 1U
+#define XDFEPRACH_USE_FRAME_ID_OFFSET 1U
+#define XDFEPRACH_USE_FRAME_ID_ENABLE 1U
+#define XDFEPRACH_USE_FRAME_ID_DISABLE 0U
 
 /* RACH configuration */
 
