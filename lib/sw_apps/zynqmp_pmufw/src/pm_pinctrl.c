@@ -1048,6 +1048,12 @@ s32 PmPinCtrlSetParam(const u32 pinId, const u32 paramId, const u32 value)
 	s32 status = XST_INVALID_PARAM;
 	u32 addr, shift;
 
+	if ((paramId >= ARRAY_SIZE(pmPinParams)) ||
+	    (pinId >= ARRAY_SIZE(pmPinMuxCtrl))) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	if (0U != (PM_PIN_PARAM_RO & pmPinParams[paramId].flags)) {
 		goto done;
 	}
