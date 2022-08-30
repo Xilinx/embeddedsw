@@ -24,6 +24,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/19/21 Update doxygen documentation
+* 1.4   dc     08/18/22 Update IP version number
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -53,7 +54,7 @@
 * @endcond
 */
 #define XDFEPRACH_COMPATIBLE_STRING                                            \
-	"xlnx,xdfe-nr-prach-1.0" /**< Device name property. */
+	"xlnx,xdfe-nr-prach-1.1" /**< Device name property. */
 #define XDFEPRACH_PLATFORM_DEVICE_DIR                                          \
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
 #define XDFEPRACH_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
