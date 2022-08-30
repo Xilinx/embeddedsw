@@ -76,6 +76,8 @@
 *       bsv  08/23/2022 Clear BoardParams instance in case of failure
 *       bm   08/24/2022 Support Begin, Break and End commands across chunk
 *                       boundaries
+*       bm   08/30/2022 Ignore strings in begin command beyond 24 characters
+*                       instead of erroring out
 *
 * </pre>
 *
@@ -127,6 +129,7 @@
 #define XPLMI_BEGIN_OFFSET_STACK_SIZE			(10U)
 #define XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL	(1U)
 #define XPLMI_BEGIN_CMD_EXTRA_OFFSET			(2U)
+#define XPLMI_BEGIN_MAX_STRING_WORD_LEN		(XPLMI_BEGIN_MAX_LOG_STR_LEN /  XPLMI_WORD_LEN)
 
 /* Maximum procs supported */
 #define XPLMI_MAX_PSM_PROCS		(10U)
@@ -1822,18 +1825,14 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 	u8  LogString[XPLMI_BEGIN_MAX_LOG_STR_LEN] __attribute__ ((aligned(4U)));
 	u32 StrLen = 0U;
 
+	if (Cmd->ProcessedLen != 0U) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 	/* Max 10 nested begin supported */
 	if (OffsetListTop == (int)(XPLMI_BEGIN_OFFSET_STACK_SIZE - 1U)) {
 		XPlmi_Printf(DEBUG_GENERAL,"Max %d nested begin supported\n",
 				XPLMI_BEGIN_OFFSET_STACK_SIZE);
-		goto END;
-	}
-
-	/* Max 6 word (24 characters) long string supported */
-	if (Cmd->PayloadLen >= XPLMI_CMD_RESP_SIZE) {
-		XPlmi_Printf(DEBUG_GENERAL,
-				"Max %d characters long string supported\n",
-				XPLMI_BEGIN_MAX_LOG_STR_LEN);
 		goto END;
 	}
 
@@ -1844,10 +1843,16 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 	}
 
 	if (Cmd->PayloadLen > 1U) {
-		StrLen = Cmd->PayloadLen - 1U;
+		/* Truncate string if its length exceeds 6 words (24 characters) */
+		if (Cmd->PayloadLen >= XPLMI_CMD_RESP_SIZE) {
+			StrLen = XPLMI_BEGIN_MAX_STRING_WORD_LEN;
+		}
+		else {
+			StrLen = Cmd->PayloadLen - 1U;
+		}
 
 		Status = XPlmi_MemSet((u64)(UINTPTR)LogString, 0U,
-				(XPLMI_BEGIN_MAX_LOG_STR_LEN /  XPLMI_WORD_LEN));
+				XPLMI_BEGIN_MAX_STRING_WORD_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -1860,7 +1865,6 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 
-		/* Print the string only when complete payload is received */
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s\n\r", LogString);
 	}
 	Status = XST_SUCCESS;
