@@ -19,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   har  07/04/2022 Initial release
+*       kpt  08/31/2022 Fixed logical error in XPuf_CheckGlobalVariationFilter
 *
 * </pre>
 *
@@ -67,6 +68,9 @@ inline int XPuf_CheckGlobalVariationFilter(XPuf_Data *PufData)
 	if (((PufData->ShutterValue >> XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT) ^
 		PufData->GlobalVarFilter) == TRUE) {
 		Status = XPUF_SHUTTER_GVF_MISMATCH;
+	}
+	else {
+		Status = XST_SUCCESS;
 	}
 #else
 	PufData = PufData;
