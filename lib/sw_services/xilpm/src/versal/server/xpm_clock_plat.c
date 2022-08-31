@@ -5,6 +5,16 @@
 
 #include "xpm_clock.h"
 
+#define VERSAL_MAX_CLK_IDX		(0x7CU)
+
+/* TODO: update this logic to return maximum node index for versal automatically instead of hard coding */
+XStatus XPmClock_GetNumClocks(u32 *Resp)
+{
+	*Resp = VERSAL_MAX_CLK_IDX;
+
+	return XST_SUCCESS;
+}
+
 void XPmClock_SetPlClockAsReadOnly(void)
 {
 	XPm_ClockNode *Clk = NULL;
