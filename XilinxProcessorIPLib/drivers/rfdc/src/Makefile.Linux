@@ -3,8 +3,8 @@ APP = rfdc
 LIBSOURCES=*.c
 OUTS = *.o
 NAME := rfdc
-MAJOR = 1
-MINOR = 1
+MAJOR = 12
+MINOR = 0
 VERSION = $(MAJOR).$(MINOR)
 
 all: lib$(NAME).so
