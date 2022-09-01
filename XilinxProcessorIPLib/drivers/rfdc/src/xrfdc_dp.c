@@ -26,6 +26,8 @@
 *                       inverse sinc filter.
 *       cog    01/18/22 Added safety checks.
 *       cog    01/24/22 Metal log change.
+* 12.0  cog    09/01/22 Gen 3 devices now allowed to divide fabric clock
+*                       by 1.
 *
 * </pre>
 *
@@ -929,7 +931,8 @@ u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u16 FabClkD
 
 	BaseAddr = XRFDC_DRP_BASE(Type, Tile_Id) + XRFDC_HSCOM_ADDR;
 
-	if ((Type == XRFDC_ADC_TILE) && (FabClkDiv == XRFDC_FAB_CLK_DIV1)) {
+	if ((Type == XRFDC_ADC_TILE) && (FabClkDiv == XRFDC_FAB_CLK_DIV1) &&
+		(InstancePtr->RFdc_Config.IPType < XRFDC_GEN3)) {
 		Status = XRFDC_FAILURE;
 		metal_log(METAL_LOG_ERROR, "\n Invalid clock divider (%u) for ADC %u in %s\r\n", FabClkDiv, Tile_Id,
 			  __func__);
