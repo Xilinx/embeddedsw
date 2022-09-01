@@ -34,6 +34,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Move ScatterWrite and ScatterWrite2 APIs to common code
 *       jd   08/11/2022 Increase command argument count macros from 6 to 12
+*       jd   08/31/2022 Typecasting CmdIdVal to u8 in XPLMI_EXPORT_CMD
 * </pre>
 *
 * @note
@@ -99,7 +100,7 @@ typedef struct {
 #define XPLMI_EXPORT_CMD(CmdIdVal, ModuleIdVal, MinArgCntVal, MaxArgCntVal) {	\
 		static volatile const XPlmi_CmdInfo CmdInfo_##ModuleIdVal##_##CmdIdVal __attribute__((unused)) \
 		__attribute__((section (".xplm_modules"))) = {	\
-		.CmdId = CmdIdVal,\
+		.CmdId = (u8)CmdIdVal,\
 		.ModuleId = ModuleIdVal,\
 		.Reserved = 0U,\
 		.MinArgCnt = MinArgCntVal,\
