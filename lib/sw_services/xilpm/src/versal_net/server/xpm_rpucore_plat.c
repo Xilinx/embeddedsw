@@ -29,16 +29,16 @@ void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u
 	}
 }
 
-void XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 Val)
+void XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val)
 {
 	if (Mode == XPM_RPU_MODE_SPLIT) {
-		Val |= XPM_RPU_SLSPLIT_MASK;
+		*Val |= XPM_RPU_SLSPLIT_MASK;
 	} else if (Mode == XPM_RPU_MODE_LOCKSTEP) {
-		Val &= ~XPM_RPU_SLSPLIT_MASK;
+		*Val &= ~XPM_RPU_SLSPLIT_MASK;
 	} else {
 		/* Required by MISRA */
 	}
-	PmOut32(RpuCore->ClusterBaseAddr + XPM_CLUSTER_CFG_OFFSET, Val);
+	PmOut32(RpuCore->ClusterBaseAddr + XPM_CLUSTER_CFG_OFFSET, *Val);
 }
 
 XStatus XPm_PlatRpuBootAddrConfig(const struct XPm_RpuCore *RpuCore, const u32 BootAddr)
