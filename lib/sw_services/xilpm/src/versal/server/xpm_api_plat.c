@@ -312,9 +312,9 @@ done:
 	return Status;
 }
 
-u32 IsOnSecondarySLR(u32 SubsystemId)
+XStatus IsOnSecondarySLR(u32 SubsystemId)
 {
-	u32 Status = FALSE;
+	XStatus Status = XST_FAILURE;
 	(void)SubsystemId;
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
@@ -327,7 +327,7 @@ u32 IsOnSecondarySLR(u32 SubsystemId)
 	 * commands will not get executed.
 	 */
 	if ((0U == SubsystemId) && XPLMI_SSIT_MASTER_SLR_INDEX != XPlmi_GetSlrIndex()) {
-		Status = TRUE;
+		Status = XST_SUCCESS;
 	}
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
