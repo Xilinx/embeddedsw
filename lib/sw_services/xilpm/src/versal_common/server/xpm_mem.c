@@ -82,7 +82,7 @@ static void TcmEccInit(const XPm_MemDevice *Tcm, u32 Mode)
 	return;
 }
 
-static XStatus HandleTcmDeviceState(XPm_Device* Device, u32 NextState)
+static XStatus HandleTcmDeviceState(XPm_Device* const Device, u32 const NextState)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *Rpu0Device = NULL,*Rpu1Device = NULL;
