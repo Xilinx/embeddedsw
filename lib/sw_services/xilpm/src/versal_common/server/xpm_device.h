@@ -51,7 +51,6 @@ typedef enum {
 	XPM_DEVEVENT_RUNTIME_SUSPEND,
 } XPm_DeviceEvent;
 
-typedef struct XPm_DeviceNode XPm_Device;
 typedef struct XPm_DeviceOps XPm_DeviceOps;
 typedef struct XPm_DeviceAttr XPm_DeviceAttr;
 
