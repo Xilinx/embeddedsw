@@ -1,5 +1,123 @@
 Changes for 2022.2
 ===============================
+
+axicdma_v4_10:
+Update MIG BASE NAME property for DMA driver examples
+Fix infinite loops in DMA driver examples
+
+axidma_v9_15:
+Update BD helper functions to pass correct value in case of 64 bit addressing and fix syntax error
+Fix indentation
+Update MIG BASE NAME property for DMA driver examples
+Fix infinite loops in DMA driver examples
+
+axivdma_v6_12:
+Update MIG BASE NAME property for DMA driver examples
+Fix infinite loops in DMA driver examples
+
+canfd_v2_7:
+canfd: Add support for VERSAL NET
+drivers: Add support of new naming convention psx_ for VERSAL NET
+
+bram_v4_8:
+Fixed tcl to prevent redefinition if multiple lmb_bram_if_cntlr instances are present.
+
+clk_wiz_v1_5:
+Prevent non void return in void function  XClk_Wiz_SetMinErr
+
+csudma_v1_12:
+Updated mdd for VERSAL NET
+
+emacps_v3_17:
+Use HwTail while popping BDs from BD ring
+Fix indentation
+
+gpiops_v3_10:
+gpiops: Enable gpiops driver support to psxl gpio
+
+iicps_v3_16:
+Added smbus slave mode support.
+Handled slave receive without byte count.
+Added examples for smbus master mode and slave mode.
+
+ipipsu_v2_12:
+Added support for VERSAL NET
+
+mcdma_v1_7:
+Update MIG BASE NAME property for DMA driver examples
+Fix infinite loops in DMA driver examples
+
+nandpsu_v1_11:
+Replace driver version in addtogroup with overview
+Fix unused parameter warnings in nandpsu driver
+Fix misleading-indentation gcc warning
+
+ospipsv_v1_7:
+Updated mdd to support VERSAL NET.
+Updated ospipsv_flash_polled_example.c example to support Block Protection test.
+Fixed doxygen warnings.
+
+qspips_v3_10:
+Fix logical error in NumSect calculation
+
+qspipsu_v1_16:
+Add support of new naming convention psx_ for VERSAL NET
+Fix logical error in NumSect calculation
+Fixed Doxygen Warnings
+
+rtcpsu_v1_12:
+rtcpsu: Enable rtc driver support to psxl rtc
+
+sdps_v4_0:
+Added support for eMMC 5.1 (HS400, DLL and Delay Chain mode support), this feature is disabled by default.
+Updated mdd to support VERSAL NET.
+Added support to read custom tap delay values from design/xsa.
+Fixed issue in SD clock divider calculation logic.
+Fixed doxygen warnings.
+
+spips_v3_8:
+Replace driver version with overview in addtogroup
+Add support of new naming convention psx_ for VERSAL NET
+Updated SPI enable and chip selection sequence
+
+uartpsv_v1_7:
+Updated support for VERSAL NET.
+Fix issue with the loop in XUartPsv_ReceiveBuffer
+
+usbpsu_v1_12:
+Updated doxygen tags for doxygen documentation
+
+xilfpga_v6_3:
+Skip eFUSE checks for non-secure bit/bin files
+Updated Doxygen tags for src files
+
+xilffs_v4_8:
+Updated tcl file to support VERSAL NET.
+Replace standard library functions with Xilinx functions.
+Removed SUPPORTED_PERIPHERAL option from mld.
+Fixed compilation warning.
+
+xilsem_v1_6:
+Added support for SSIT devices in client & server
+Added XilSem error notification to A72 Linux users using PLM SW triggered event management framework
+Improved PLD node ID clearing logic during XilSEM table processing based on PM init commands
+Improved GT arbitration timeout handling
+Added NPI Table CDO command version information
+for BootGen to perform a compatibility check
+before building PDI
+Provided examples for SSIT client interface
+Provided example for Essential bit data classification
+
+xiltimer_v1_1:
+Add support for VERSAL NET
+
+lwip211_v1_8 :
+Make the BD space non-cacheable on all processors for PL ethernet
+Deprecate MCDMA support on lwip
+Add socket_debug Flag in BSP settings
+Fix race condition in PHY link polling
+
+
 New Files Added for 2022.2:
 SPDX-License-Identifier:MIT
 lib/sw_services/xilsem/examples/xsem_npi_ssit_example.c
