@@ -14,8 +14,6 @@
 extern "C" {
 #endif
 
-typedef struct XPm_RpuCore XPm_RpuCore;
-
 /**
  * The RPU core class.
  */
