@@ -29,6 +29,8 @@ extern "C" {
 				       (u32)XPM_NODESUBCL_DEV_MEM_CTRLR, \
 				       (u32)XPM_NODETYPE_DEV_DDR, (IDX))
 
+typedef struct XPm_DeviceNode XPm_Device;
+
 /************************** Function Prototypes ******************************/
 maybe_unused static u8 XPmDevice_IsRequestable(u32 NodeId)
 {
@@ -55,7 +57,7 @@ maybe_unused static inline void XPmDevice_ConfigureADMA(const u32 Id)
 {
 	(void)Id;
 }
-maybe_unused static inline XStatus XPmDevice_SdResetWorkaround(const struct XPm_DeviceNode *Device)
+maybe_unused static inline XStatus XPmDevice_SdResetWorkaround(const XPm_Device *Device)
 {
 	(void)Device;
 	return XST_SUCCESS;
@@ -69,7 +71,7 @@ maybe_unused static inline XStatus HandleDeviceAttr(struct XPm_Reqm *Reqm, u32 R
 	(void)Enable;
 	return XST_SUCCESS;
 }
-maybe_unused static inline XStatus XPmAieDevice_UpdateClockDiv(const struct XPm_DeviceNode *Device, const XPm_Subsystem *Subsystem,
+maybe_unused static inline XStatus XPmAieDevice_UpdateClockDiv(const XPm_Device *Device, const XPm_Subsystem *Subsystem,
 		const u32 Divider)
 {
 	(void)Device;
@@ -77,14 +79,14 @@ maybe_unused static inline XStatus XPmAieDevice_UpdateClockDiv(const struct XPm_
 	(void)Divider;
 	return XST_SUCCESS;
 }
-maybe_unused static inline XStatus XPmDevice_PlatSetNode(const u32 Id, struct XPm_DeviceNode *Device, u16 *DbgErr)
+maybe_unused static inline XStatus XPmDevice_PlatSetNode(const u32 Id, XPm_Device *Device, u16 *DbgErr)
 {
 	(void)Id;
 	(void)Device;
 	(void)DbgErr;
 	return XST_DEVICE_NOT_FOUND;
 }
-maybe_unused static inline struct XPm_DeviceNode **XPmDevice_PlatGetById(const u32 DeviceId)
+maybe_unused static inline XPm_Device **XPmDevice_PlatGetById(const u32 DeviceId)
 {
 	(void)DeviceId;
 	return NULL;
@@ -95,7 +97,7 @@ maybe_unused static inline XStatus XPmDevice_PlatAddParent(const u32 Id, const u
 	(void)ParentId;
 	return XST_SUCCESS;
 }
-maybe_unused static inline struct XPm_Reqm *XPmDevice_GetAieReqm(struct XPm_DeviceNode *Device,
+maybe_unused static inline struct XPm_Reqm *XPmDevice_GetAieReqm(XPm_Device *Device,
 						    XPm_Subsystem *Subsystem)
 {
 	(void)Device;
@@ -103,7 +105,7 @@ maybe_unused static inline struct XPm_Reqm *XPmDevice_GetAieReqm(struct XPm_Devi
 
 	return NULL;
 }
-maybe_unused static inline void PlatDevRequest(struct XPm_DeviceNode *Device,
+maybe_unused static inline void PlatDevRequest(XPm_Device *Device,
 				   const XPm_Subsystem *Subsystem, const u32 QoS,
 				   XStatus *Status)
 {

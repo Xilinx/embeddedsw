@@ -20,7 +20,7 @@ extern "C" {
 
 typedef struct XPm_ApuCore XPm_ApuCore;
 /************************** Function Prototypes ******************************/
-XStatus XPmApuCore_AssignRegisterMask(struct XPm_ApuCore *ApuCore, const u32 Id);
+XStatus XPmApuCore_AssignRegisterMask(XPm_ApuCore *ApuCore, const u32 Id);
 
 #ifdef __cplusplus
 }

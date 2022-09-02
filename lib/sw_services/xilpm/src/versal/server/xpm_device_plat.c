@@ -25,8 +25,7 @@
 #define DEV_SECURE			(0U)
 
 #define SD_DLL_DIV_MAP_RESET_VAL	(0x50505050U)
-
-XPm_Requirement *XPmDevice_GetAieReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
+struct XPm_Reqm *XPmDevice_GetAieReqm(XPm_Device *Device, XPm_Subsystem *Subsystem)
 {
 	XPm_Requirement *Reqm = NULL;
 
@@ -252,7 +251,7 @@ done:
 	return Status;
 }
 
-XStatus HandleDeviceAttr(XPm_Requirement *Reqm, u32 ReqCaps,
+XStatus HandleDeviceAttr(struct XPm_Reqm *Reqm, u32 ReqCaps,
 				u32 PrevState, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
