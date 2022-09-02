@@ -130,7 +130,7 @@ XStatus XPm_RpuSetOperMode(const u32 DeviceId, const u32 Mode)
 
 	XPm_PlatRpuSetOperMode(RpuCore, Mode, &Val);
 
-	XPM_GET_CORE_ID(Rpu0, Rpu1, DeviceId);
+	XPm_GetCoreId(&Rpu0, &Rpu1, DeviceId);
 
 	/* Add or remove R50_1 core in default subsystem according to its mode */
 	if (NULL != DefSubsystem) {
