@@ -13,18 +13,18 @@
 extern "C" {
 #endif
 
-#define ISCPMCLK(idx)	((idx == (u32)XPM_NODEIDX_CLK_CPLL) ||			\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_PRESRC) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_POSTCLK) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_PLL_OUT) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_CORE_REF) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_DBG_REF) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_AUX0_REF) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_AUX1_REF) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM_TOPSW) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_TOPSW_REF) ||	\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_DMA_ALT) ||		\
-			(idx == (u32)XPM_NODEIDX_CLK_CPM5N_AUX2_REF))
+#define ISCPMCLK(idx)	(((idx) == (u32)XPM_NODEIDX_CLK_CPLL) ||			\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PRESRC) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_POSTCLK) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PLL_OUT) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_CORE_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_DBG_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_AUX0_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_AUX1_REF) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM_TOPSW) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_TOPSW_REF) ||	\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_DMA_ALT) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_AUX2_REF))
 #define CLK_DUMMY_PARENT	(0xFFFFFFFFU)
 
 #ifdef __cplusplus

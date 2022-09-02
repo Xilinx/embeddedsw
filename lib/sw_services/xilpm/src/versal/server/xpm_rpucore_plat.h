@@ -27,8 +27,8 @@ extern "C" {
 						~XPM_RPU_NCPUHALT_MASK)
 #define XPM_RPU_CORE_RUN(ResumeCfg)		PmRmw32(ResumeCfg, XPM_RPU_NCPUHALT_MASK,\
 						XPM_RPU_NCPUHALT_MASK)
-#define XPM_GET_CORE_ID(Rpu0, Rpu1, DeviceId)	(Rpu0 = PM_DEV_RPU0_0, \
-						Rpu1 = PM_DEV_RPU0_1)
+#define XPM_GET_CORE_ID(Rpu0, Rpu1, DeviceId)	((Rpu0) = PM_DEV_RPU0_0, \
+						(Rpu1) = PM_DEV_RPU0_1)
 
 typedef struct XPm_RpuCore XPm_RpuCore;
 /************************** Function Prototypes ******************************/

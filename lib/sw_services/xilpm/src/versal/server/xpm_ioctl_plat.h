@@ -32,7 +32,7 @@ extern "C" {
 #define PROBE_COUNTER_LPD_MAX_REQ_TYPE		(7U)
 #define PROBE_COUNTER_FPD_MAX_REQ_TYPE		(3U)
 
-#define IS_DEV_USB(DeviceId)			(PM_DEV_USB_0 == DeviceId)
+#define IS_DEV_USB(DeviceId)			(PM_DEV_USB_0 == (DeviceId))
 
 maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, const u32 DeviceId)
 {
