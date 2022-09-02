@@ -104,6 +104,7 @@
 *                       secure lockdown is in progress
 *       ma   08/08/2022 Handle EAM errors at task level
 *       ma   08/08/2022 Fix SW-BP-MAGIC-NUM warning
+*       ma   09/02/2022 Print EAM errors only if they are enabled
 *
 * </pre>
 *
@@ -581,7 +582,7 @@ int XPlmi_ErrorTaskHandler(void *Data)
 		ErrStatus[Index] = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS +
 					(Index * PMC_GLOBAL_REG_PMC_ERR_OFFSET));
 		ErrIrqMask[Index] = XPlmi_In32(GET_PMC_IRQ_MASK(GET_PMC_ERR_ACTION_OFFSET(Index)));
-		if (ErrStatus[Index] != 0x0U) {
+		if ((ErrStatus[Index] & ~ErrIrqMask[Index]) != 0x0U) {
 			XPlmi_Printf(DEBUG_GENERAL, "PMC EAM ERR%d: 0x%0x\r\n", Index, ErrStatus[Index]);
 		}
 	}
