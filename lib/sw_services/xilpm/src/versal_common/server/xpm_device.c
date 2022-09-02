@@ -454,7 +454,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				if (TRUE /* Hack: Clock enabled */) {
 					Node->State = (u8)XPM_DEVSTATE_RST_OFF;
 
-					XPmDevice_ConfigureADMA(Device->Node.Id);
+					(void)XPmDevice_ConfigureADMA(Device->Node.Id);
 
 					/* De-assert reset for peripheral devices */
 					if ((u32)XPM_NODESUBCL_DEV_PERIPH ==

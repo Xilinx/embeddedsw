@@ -439,7 +439,11 @@ XStatus HaltRpuCore(const XPm_Device *Rpu0, const XPm_Device *Rpu1,
 	XStatus Status = XST_FAILURE;
 	u32 Mode;
 
-	XPm_RpuGetOperMode(PM_DEV_RPU0_0, &Mode);
+	Status = XPm_RpuGetOperMode(PM_DEV_RPU0_0, &Mode);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
 	if (XPM_RPU_MODE_SPLIT == Mode) {
 		if (((PM_DEV_TCM_0_A == Id) || (PM_DEV_TCM_0_B == Id)) &&
 		    ((u8)XPM_DEVSTATE_RUNNING != Rpu0->Node.State)) {
