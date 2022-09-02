@@ -13,7 +13,6 @@
 extern "C" {
 #endif
 
-typedef struct XPm_MemDevice XPm_MemDevice;
 typedef struct XPm_MemCtrlrDevice XPm_MemCtrlrDevice;
 
 /* Generic memory device with associated memory address */
