@@ -278,7 +278,7 @@ XStatus XPm_PlatAddRequirement(const u32 *Args, const u32 NumArgs)
 		XPLMI_CMD_ARG_CNT_SIX);
 	XStatus Status = XST_FAILURE;
 	u32 SubsysId, DevId;
-	XPm_Subsystem *Subsys;
+	const XPm_Subsystem *Subsys;
 
 	/* Check the minimum basic arguments required for this command */
 	if (3U > NumArgs) {

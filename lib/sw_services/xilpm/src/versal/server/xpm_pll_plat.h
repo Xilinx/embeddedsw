@@ -15,7 +15,7 @@
 extern "C" {
 #endif
 void XPm_PllClearLockError(const XPm_PllClockNode* Pll);
-void XPmClockPll_PlatReset(XPm_PllClockNode* Pll);
+void XPmClockPll_PlatReset(const XPm_PllClockNode* Pll);
 
 #ifdef __cplusplus
 }
