@@ -15,8 +15,6 @@
 extern "C" {
 #endif
 
-typedef struct XPm_Subsystem XPm_Subsystem;
-
 maybe_unused static XStatus IsDevExcluded(const u32 DevId)
 {
 	XStatus Status = XST_FAILURE;

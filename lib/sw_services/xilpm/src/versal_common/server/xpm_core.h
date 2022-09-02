@@ -18,7 +18,6 @@ extern "C" {
 #define MAX_CORE_REGS 3
 #define XPM_INVAL_OPER_MODE		(0xFFFFFFFFU)
 
-typedef struct XPm_Core XPm_Core;
 extern volatile struct PsmToPlmEvent_t *PsmToPlmEvent;
 extern u32 ProcDevList[PROC_DEV_MAX];
 
