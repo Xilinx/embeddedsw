@@ -105,3 +105,11 @@ u32 XPm_PlatRpuGetOperMode(const XPm_RpuCore *RpuCore)
 
 	return Val;
 }
+
+void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId)
+{
+	(void)DeviceId;
+
+	*Rpu0 = PM_DEV_RPU0_0;
+	*Rpu1 = PM_DEV_RPU0_1;
+}
