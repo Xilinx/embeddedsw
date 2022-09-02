@@ -20,7 +20,7 @@ static u32 Reset_GetStatusCommon(const XPm_ResetNode *Rst);
 static u32 Reset_GetStatusCustom(const XPm_ResetNode *Rst);
 static XStatus SetResetNode(u32 Id, XPm_ResetNode *Rst);
 
-const u32 PermissionResets[] = {
+static const u32 PermissionResets[] = {
 	PM_RST_PMC_POR,
 	PM_RST_PMC,
 	PM_RST_SYS_RST_1,
