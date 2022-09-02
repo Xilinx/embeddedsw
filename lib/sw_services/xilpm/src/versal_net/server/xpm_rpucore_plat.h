@@ -30,12 +30,12 @@ extern "C" {
 							XPM_RPU_CPUHALT_MASK)
 #define XPM_RPU_CORE_RUN(ResumeCfg)		PmRmw32(ResumeCfg, XPM_RPU_CPUHALT_MASK,\
 							~XPM_RPU_CPUHALT_MASK)
-#define XPM_GET_CORE_ID(Rpu0, Rpu1, DeviceId)	if (PM_DEV_RPU_A_0 == DeviceId || PM_DEV_RPU_A_1 == DeviceId) { \
-							Rpu0 = PM_DEV_RPU_A_0; 					\
-							Rpu1 = PM_DEV_RPU_A_1;					\
+#define XPM_GET_CORE_ID(Rpu0, Rpu1, DeviceId)	if (PM_DEV_RPU_A_0 == (DeviceId) || PM_DEV_RPU_A_1 == (DeviceId)) { \
+							(Rpu0) = PM_DEV_RPU_A_0; 					\
+							(Rpu1) = PM_DEV_RPU_A_1;					\
 						} else {							\
-							Rpu0 = PM_DEV_RPU_B_0;					\
-							Rpu1 = PM_DEV_RPU_B_1;					\
+							(Rpu0) = PM_DEV_RPU_B_0;					\
+							(Rpu1) = PM_DEV_RPU_B_1;					\
 						}
 
 typedef struct XPm_RpuCore XPm_RpuCore;
