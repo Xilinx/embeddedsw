@@ -81,10 +81,10 @@ maybe_unused static inline void XPm_ClearScanClear(void)
 	XPm_Out32(PSMX_GLOBAL_SCAN_CLEAR_TRIGGER, 0U);
 	XPm_Out32(PSMX_GLOBAL_MEM_CLEAR_TRIGGER, 0U);
 }
-maybe_unused static inline u32 IsOnSecondarySLR(u32 SubsystemId)
+maybe_unused static inline XStatus IsOnSecondarySLR(u32 SubsystemId)
 {
 	(void)SubsystemId;
-	return FALSE;
+	return XST_FAILURE;
 }
 #ifdef __cplusplus
 }
