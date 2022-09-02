@@ -44,7 +44,7 @@ XPm_Requirement *XPmDevice_GetAieReqm(XPm_Device *Device, XPm_Subsystem *Subsyst
 	return Reqm;
 }
 
-void PlatDevRequest(XPm_Device *Device, const XPm_Subsystem *Subsystem, const u32 QoS, XStatus *Status)
+void PlatDevRequest(const XPm_Device *Device, const XPm_Subsystem *Subsystem, const u32 QoS, XStatus *Status)
 {
 	if (IS_DEV_AIE(Device->Node.Id)) {
 		*Status = XPmAieDevice_UpdateClockDiv(Device, Subsystem, QoS);

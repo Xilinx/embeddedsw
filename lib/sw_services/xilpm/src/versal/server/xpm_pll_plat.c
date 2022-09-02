@@ -25,7 +25,7 @@ void XPm_PllClearLockError(const XPm_PllClockNode* Pll)
 	}
 }
 
-void XPmClockPll_PlatReset(XPm_PllClockNode *Pll)
+void XPmClockPll_PlatReset(const XPm_PllClockNode *Pll)
 {
 	u32 ControlReg = Pll->ClkNode.Node.BaseAddress;
 	u32 PlatformVersion = XPm_GetPlatformVersion();
