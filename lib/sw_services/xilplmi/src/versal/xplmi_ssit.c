@@ -33,6 +33,8 @@
 *                       by other components when the feature is not enabled
 *                       Also, check if SSIT interrupts are enabled before
 *                       triggering any event
+*       ma   09/02/2022 Clear SSIT Errors in PMC_ERR2_STATUS register in
+*                       Slave SLRs after completing synchronization
 *
 * </pre>
 *
@@ -1409,6 +1411,9 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd)
 	} else {
 		XPlmi_Printf(DEBUG_GENERAL, "SSIT sync master error. Unknown SLR type.\n\r");
 	}
+
+	/* Clear existing status */
+	XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, PMC_GLOBAL_SSIT_ERR_MASK);
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 END:
