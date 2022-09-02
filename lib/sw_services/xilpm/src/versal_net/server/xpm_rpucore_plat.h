@@ -30,13 +30,6 @@ extern "C" {
 							XPM_RPU_CPUHALT_MASK)
 #define XPM_RPU_CORE_RUN(ResumeCfg)		PmRmw32(ResumeCfg, XPM_RPU_CPUHALT_MASK,\
 							~XPM_RPU_CPUHALT_MASK)
-#define XPM_GET_CORE_ID(Rpu0, Rpu1, DeviceId)	if (PM_DEV_RPU_A_0 == (DeviceId) || PM_DEV_RPU_A_1 == (DeviceId)) { \
-							(Rpu0) = PM_DEV_RPU_A_0; 					\
-							(Rpu1) = PM_DEV_RPU_A_1;					\
-						} else {							\
-							(Rpu0) = PM_DEV_RPU_B_0;					\
-							(Rpu1) = PM_DEV_RPU_B_1;					\
-						}
 
 typedef struct XPm_RpuCore XPm_RpuCore;
 /************************** Function Prototypes ******************************/
@@ -44,6 +37,7 @@ void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u
 void XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val);
 XStatus XPm_PlatRpuBootAddrConfig(const struct XPm_RpuCore *RpuCore, const u32 BootAddr);
 u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore);
+void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId);
 
 #ifdef __cplusplus
 }
