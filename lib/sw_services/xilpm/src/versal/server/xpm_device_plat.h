@@ -63,7 +63,7 @@ XStatus HandleDeviceAttr(struct XPm_Reqm *Reqm, u32 ReqCaps,
 				u32 PrevState, u32 Enable);
 XStatus XPmDevice_PlatAddParent(const u32 Id, const u32 ParentId);
 struct XPm_Reqm *XPmDevice_GetAieReqm(struct XPm_DeviceNode *Device, XPm_Subsystem *Subsystem);
-void PlatDevRequest(struct XPm_DeviceNode *Device, const XPm_Subsystem *Subsystem, const u32 QoS, XStatus *Status);
+void PlatDevRequest(const struct XPm_DeviceNode *Device, const XPm_Subsystem *Subsystem, const u32 QoS, XStatus *Status);
 
 #ifdef __cplusplus
 }
