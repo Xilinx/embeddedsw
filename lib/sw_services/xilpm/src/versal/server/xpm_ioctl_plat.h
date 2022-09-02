@@ -38,10 +38,10 @@ maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, cons
 {
 	XStatus Status = XST_FAILURE;
 
-	if ((IOCTL_GET_RPU_OPER_MODE == IoctlId) ||
-	    (IOCTL_SET_RPU_OPER_MODE == IoctlId) ||
-	    (IOCTL_RPU_BOOT_ADDR_CONFIG == IoctlId) ||
-	    (IOCTL_TCM_COMB_CONFIG == IoctlId)) {
+	if (((u32)IOCTL_GET_RPU_OPER_MODE == IoctlId) ||
+	    ((u32)IOCTL_SET_RPU_OPER_MODE == IoctlId) ||
+	    ((u32)IOCTL_RPU_BOOT_ADDR_CONFIG == IoctlId) ||
+	    ((u32)IOCTL_TCM_COMB_CONFIG == IoctlId)) {
 		if ((PM_DEV_RPU0_0 != DeviceId) &&
 		    (PM_DEV_RPU0_1 != DeviceId)) {
 			Status = XPM_INVALID_DEVICEID;
