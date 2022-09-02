@@ -564,12 +564,10 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 
 	switch (IoctlId) {
 	case IOCTL_GET_RPU_OPER_MODE:
-		XPm_RpuGetOperMode(DeviceId, Response);
-		Status = XST_SUCCESS;
+		Status = XPm_RpuGetOperMode(DeviceId, Response);
 		break;
 	case IOCTL_SET_RPU_OPER_MODE:
-		XPm_RpuSetOperMode(DeviceId, Arg1);
-		Status = XST_SUCCESS;
+		Status = XPm_RpuSetOperMode(DeviceId, Arg1);
 		break;
 	case IOCTL_RPU_BOOT_ADDR_CONFIG:
 		Status = XPm_RpuBootAddrConfig(DeviceId, Arg1);
