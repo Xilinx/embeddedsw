@@ -963,11 +963,26 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 	/* Add requirement for each requestable device on PMC subsystem */
 	if (1U == XPmDevice_IsRequestable(Id)) {
 		u32 Flags = REQUIREMENT_FLAGS(0U, (u32)REQ_ACCESS_SECURE_NONSECURE, (u32)REQ_NO_RESTRICTION);
-		Status = XPmRequirement_Add(XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC),
-					    Device, Flags, 0U, XPM_DEF_QOS);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
-			goto done;
+		XPm_Subsystem *PmcSubsys = XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC);
+
+		/*
+		 * Note: There are various reloading usecases for PLDx/AIEx images for partial
+		 * reconfiguration. In such cases, pm_add_node command for PLDx/AIEx for the same
+		 * node will be called multiple times. As a result, XPmDevice_Init() will be
+		 * called multiple times for the same node. We need to be careful here and avoid
+		 * allocating new memory except for the first time.
+		 */
+		XPm_Requirement *Reqm = FindReqm(Device, PmcSubsys);
+		if (NULL == Reqm) {
+			/* Add it, since it doesn't exist */
+			Status = XPmRequirement_Add(PmcSubsys, Device, Flags, 0U, XPM_DEF_QOS);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_ADD_REQUIREMENT;
+				goto done;
+			}
+		} else {
+			/* Clear existing requirement caps */
+			XPmRequirement_Clear(Reqm);
 		}
 	}
 
