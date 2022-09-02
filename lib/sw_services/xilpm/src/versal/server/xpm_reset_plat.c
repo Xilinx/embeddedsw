@@ -372,7 +372,7 @@ done:
 	return ResetStatus;
 }
 
-const struct ResetCustomOps Reset_Custom[] = {
+static const struct ResetCustomOps Reset_Custom[] = {
 	{
 		.ResetIdx = (u32)XPM_NODEIDX_RST_PS_SRST,
 		.ActionAssert = &PsOnlyResetAssert,
