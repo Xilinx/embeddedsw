@@ -15,12 +15,12 @@
 extern "C" {
 #endif
 
-#define INVALID_RST_SUBCLASS(Subcls)	(((u32)XPM_NODETYPE_RESET_PERIPHERAL != Subcls) && \
-					((u32)XPM_NODETYPE_RESET_POR != Subcls) && \
-					((u32)XPM_NODETYPE_RESET_DBG != Subcls) && \
-					((u32)XPM_NODETYPE_RESET_SRST != Subcls) && \
-					((u32)XPM_NODETYPE_RESET_WARM != Subcls) && \
-					((u32)XPM_NODETYPE_RESET_COLD != Subcls))
+#define INVALID_RST_SUBCLASS(Subcls)	(((u32)XPM_NODETYPE_RESET_PERIPHERAL != (Subcls)) && \
+					((u32)XPM_NODETYPE_RESET_POR != (Subcls)) && \
+					((u32)XPM_NODETYPE_RESET_DBG != (Subcls)) && \
+					((u32)XPM_NODETYPE_RESET_SRST != (Subcls)) && \
+					((u32)XPM_NODETYPE_RESET_WARM != (Subcls)) && \
+					((u32)XPM_NODETYPE_RESET_COLD != (Subcls)))
 
 /************************** Function Prototypes ******************************/
 

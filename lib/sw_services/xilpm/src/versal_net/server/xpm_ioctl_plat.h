@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-#define IS_DEV_USB(DeviceId)			((PM_DEV_USB_0 == DeviceId) || (PM_DEV_USB_1 == DeviceId))
+#define IS_DEV_USB(DeviceId)			((PM_DEV_USB_0 == (DeviceId)) || (PM_DEV_USB_1 == (DeviceId)))
 
 maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, const u32 DeviceId)
 {
