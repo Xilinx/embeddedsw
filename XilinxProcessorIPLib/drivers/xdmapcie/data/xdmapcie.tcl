@@ -422,12 +422,31 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
         set comma ",\n"
 
 	#Base Address
-	if {($processor_type == "psv_cortexr5")} {
-		set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_S_AXI_BASEADDR"]
-		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+
+	#CPM REVISION PARAMETER is not present in older designs. Ensure design
+	#backward compatibility by checking for the CPM IP string match
+	set cpm_ip_str "versal_cips_0_cpm_0_psv_cpm"
+	set cpm_ip_name [::hsi::get_cells -hier $cpm_ip_str]
+	set cpm_rev "0"
+	if {($cpm_ip_name == $cpm_ip_str)} {
+	    set cpm_rev [::hsi::utils::get_param_value $cpm_ip_name "CPM_REVISION_NUMBER"]
+	}
+	#Revision is CPM5
+	if {($cpm_rev == "1")} {
+	    #Bridge base address for CPM5 QDMA defined seperately
+	    set cpm5_qdma_bridge_off 0xe20000
+	    set arg_val [::hsi::utils::get_param_value [hsi::get_cells -hier versal_cips_0_cpm_0_psv_cpm] "C_S_AXI_BASEADDR"]
+	    set arg_val [expr {$arg_val + $cpm5_qdma_bridge_off}]
+	    puts -nonewline $config_file [format "%s\t\t0x%x" $comma $arg_val]
+	#Revision is CPM4
 	} else {
-		set arg_name [get_parameter $periphs "*psv_noc_pcie_1" "C_S_AXI_BASEADDR"]
+	    if {($processor_type == "psv_cortexr5")} {
+	        set arg_name [get_parameter $periphs "*psv_noc_pcie_0" "C_S_AXI_BASEADDR"]
 		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+	    } else {
+	        set arg_name [get_parameter $periphs "*psv_noc_pcie_1" "C_S_AXI_BASEADDR"]
+		puts -nonewline $config_file [format "%s\t\t%s" $comma $arg_name]
+	    }
 	}
 
 	#Number of Bars
