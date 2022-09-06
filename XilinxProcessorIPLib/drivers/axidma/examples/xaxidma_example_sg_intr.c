@@ -66,7 +66,6 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xdebug.h"
-#include "xil_util.h"
 
 #ifdef __aarch64__
 #include "xil_mmu.h"
@@ -152,7 +151,6 @@ extern void xil_printf(const char *format, ...);
 #define NUMBER_OF_PKTS_TO_TRANSFER 	11
 #define NUMBER_OF_BDS_TO_TRANSFER	(NUMBER_OF_PKTS_TO_TRANSFER * \
 						NUMBER_OF_BDS_PER_PKT)
-#define POLL_TIMEOUT_COUNTER         	1000000U /* Wait for 1 sec */
 
 /* The interrupt coalescing threshold and delay timer threshold
  * Valid range is 1 to 255
@@ -316,34 +314,36 @@ int main(void)
 	}
 
 	/*
-	 * Wait for TX done
+	 * Wait TX done and RX done
 	 */
-	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&TxDone);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Failed test transmit%s done\r\n", TxDone? "":" not");
-		goto Done;
-
+	while (((TxDone < NUMBER_OF_BDS_TO_TRANSFER) ||
+			(RxDone < NUMBER_OF_BDS_TO_TRANSFER)) && !Error) {
+		/* NOP */
 	}
 
-	/*
-	 * Wait for RX done
-	 */
-	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&RxDone);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Failed test receive%s done\r\n", RxDone? "":" not");
-		goto Done;
-	}
+	if (Error) {
+		xil_printf("Failed test transmit%s done, "
+			"receive%s done\r\n", TxDone? "":" not",
+					RxDone? "":" not");
 
-	/*
-	 * Test finished, check data
-	 */
-	Status = CheckData(MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER, 0xC);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Data check failed\r\n");
 		goto Done;
-	}
 
-	xil_printf("Successfully ran AXI DMA SG interrupt Example\r\n");
+	}else {
+
+		/*
+		 * Test finished, check data
+		 */
+		Status = CheckData(MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER,
+									0xC);
+		if (Status != XST_SUCCESS) {
+
+			xil_printf("Data check failed\r\n");
+
+			goto Done;
+		}
+
+		xil_printf("Successfully ran AXI DMA SG interrupt Example\r\n");
+	}
 
 	/* Disable TX and RX Ring interrupts and return success */
 
