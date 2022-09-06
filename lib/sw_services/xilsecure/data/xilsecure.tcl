@@ -113,6 +113,8 @@ proc secure_drc {libhandle} {
 					    $proc_type == "psx_cortexr52"} {
 						file delete -force ./src/xsecure_trng_ipihandler.c
 						file delete -force ./src/xsecure_trng_ipihandler.h
+						file delete -force ./src/xsecure_plat_kat_ipihandler.c
+						file delete -force ./src/xsecure_plat_kat_ipihandler.h
 					}
 				}
 			}

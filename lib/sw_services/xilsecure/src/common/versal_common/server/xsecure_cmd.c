@@ -35,12 +35,12 @@
 /***************************** Include Files *********************************/
 #include "xplmi_hw.h"
 #include "xplmi.h"
+#include "xplmi_tamper.h"
 #include "xsecure_error.h"
 #include "xplmi_cmd.h"
 #include "xplmi_generic.h"
 #include "xplmi_modules.h"
 #include "xsecure_aes_ipihandler.h"
-#include "xsecure_defs.h"
 #include "xsecure_elliptic_ipihandler.h"
 #include "xsecure_rsa_ipihandler.h"
 #include "xsecure_sha_ipihandler.h"
@@ -127,7 +127,8 @@ static int XSecure_FeaturesCmd(u32 ApiId)
  *****************************************************************************/
 static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
@@ -164,7 +165,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 #endif
 	case XSECURE_API(XSECURE_API_KAT):
-		Status = XSecure_KatIpiHandler(Cmd);
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_KatIpiHandler, Cmd)
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");

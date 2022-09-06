@@ -6,11 +6,11 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_kat_ipihandler.h
+* @file xsecure_plat_kat_ipihandler.h
 * @addtogroup xsecure_apis XilSecure versal net Handler APIs
 * @{
 * @cond xsecure_internal
-* This file contains the xilsecure KAT IPI handler declaration.
+* This file contains the xilsecure KAT platform IPI handler declaration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -26,8 +26,8 @@
 *
 ******************************************************************************/
 
-#ifndef XSECURE_KAT_IPIHANDLER_H_
-#define XSECURE_KAT_IPIHANDLER_H_
+#ifndef XSECURE_PLAT_KAT_IPIHANDLER_H_
+#define XSECURE_PLAT_KAT_IPIHANDLER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,10 +41,10 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd);
+int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XSECURE_KAT_PLAT_IPIHANDLER_H_ */
+#endif /* XSECURE_PLAT_KAT_IPIHANDLER_H_ */

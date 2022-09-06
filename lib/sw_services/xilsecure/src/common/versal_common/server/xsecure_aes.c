@@ -105,49 +105,13 @@
 											features for KUP */
 
 #define XSECURE_ENABLE_BYTE_SWAP		(0x1U)	/**< Enables data swap in AES */
-#define XSECURE_DISABLE_BYTE_SWAP		(0x0U)	/**< Disables data swap in AES */
 
-/**
- * @name AES KAT parameters
- * @{
- */
-/**< AES KAT parameters */
-#define XSECURE_KAT_AES_SPLIT_DATA_SIZE		(4U)
-#define XSECURE_KAT_KEY_SIZE_IN_WORDS		(8U)
-#define XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS	(16U)
-/** @} */
+#define XSECURE_DISABLE_BYTE_SWAP		(0x0U)	/**< Disables data swap in AES */
 
 #define XSECURE_AES_AAD_ENABLE			(0x1U)	/**< Enables authentication of
 													data pushed in AES engine*/
 #define XSECURE_AES_AAD_DISABLE			(0x0U)	/**< Disables authentication of
 													data pushed in AES engine*/
-
-static const u32 Key0[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
-							{0x98076956U, 0x4f158c97U, 0x78ba50f2U, 0x5f7663e4U,
-                             0x97e60c2fU, 0x1b55a409U, 0xdd3acbd8U, 0xb687a0edU};
-
-static const u32 Data0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
-							  {0U, 0U, 0U, 0U, 0x86c237cfU, 0xead48ac1U,
-                               0xa0a60b3dU, 0U, 0U, 0U, 0U, 0U, 0x2481322dU,
-                               0x568dd5a8U, 0xed5e77d0U, 0x881ade93U};
-
-static const u32 Key1[XSECURE_KAT_KEY_SIZE_IN_WORDS] =
-							{0x3ba3028aU, 0x84e787dfU, 0xe38a7a5dU, 0x707e72c8U,
-                             0x8cd04f4fU, 0x2883201fU, 0xa5b38c2dU, 0xe9deced3U};
-
-static const u32 Data1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS] =
-							{0x0U, 0x0U, 0x0U, 0x0U, 0x96589f59U, 0x8e961c85U,
-                               0x3b3208d8U, 0x0U, 0x0U, 0x0U, 0x0U, 0x0U,
-                               0x328bde4aU, 0xfb2367d5U, 0x40ce658fU, 0xc9275e82U};
-
-static const u32 Ct0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x67020a3bU, 0x3adeecf6U, 0x0309b378U, 0x6ecad4ebU};
-static const u32 Ct1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x793391cbU, 0x6575906bU, 0x1a424078U, 0x632b0246U};
-static const u32 MiC0[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x6400d21fU, 0x6363fc09U, 0x06d4f379U, 0x8809ca7eU};
-static const u32 MiC1[XSECURE_KAT_AES_SPLIT_DATA_SIZE] =
-							{0x3c459ea7U, 0x5a8aad6fU, 0x878e2a4cU, 0x887f1c82U};
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -179,16 +143,12 @@ static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
 static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 	XPmcDma_Channel Channel, u8 EndianType);
 static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr);
-static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
-	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
 static int XSecure_AesOpInit(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc, XSecure_AesKeySize KeySize, u64 IvAddr);
 static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 	XSecure_AesDmaCfg AesDmaCfg, u32 Size);
 static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u8 IsLastChunk);
-static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
-	const u32 *S);
 
 /************************** Variable Definitions *****************************/
 static const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
@@ -1639,162 +1599,6 @@ END:
 	return Status;
 }
 
-
-/*****************************************************************************/
-/**
- * @brief	This function performs known answer test(KAT) on AES engine to
- * 		confirm DPA counter measures is working fine
- *
- * @param 	AesInstance	Pointer to the XSecure_Aes instance
- *
- * @return
- *	-	XST_SUCCESS - When KAT Pass
- *	-	XSECURE_AESKAT_INVALID_PARAM - On invalid argument
- *	-	XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR - Error when AESDPACM data
- *						not matched with expected data
- *	-	XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR - Error when AESDPACM data
- *						not matched with expected data
- *	-	XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR - Error when AESDPACM data
- *						not matched with expected data
- *	-	XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR - Error when AESDPACM data
- *						not matched with expected data
- *	-	XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR - Error when AESDPACM data
- *						not matched with expected data
- *
- *****************************************************************************/
-int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int SStatus = XST_FAILURE;
-
-	u32 Output0[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
-	u32 Output1[XSECURE_KAT_OPER_DATA_SIZE_IN_WORDS];
-
-	const u32 *RM0 = &Output0[0U];
-	const u32 *R0 = &Output0[4U];
-	const u32 *Mm0 = &Output0[8U];
-	const u32 *M0 = &Output0[12U];
-	const u32 *RM1 = &Output1[0U];
-	const u32 *R1 = &Output1[4U];
-	const u32 *Mm1 = &Output1[8U];
-	const u32 *M1 = &Output1[12U];
-
-	if (AesInstance == NULL) {
-		Status = (int)XSECURE_AESKAT_INVALID_PARAM;
-		goto END;
-	}
-
-	if ((AesInstance->AesState == XSECURE_AES_ENCRYPT_INITIALIZED) ||
-		(AesInstance->AesState == XSECURE_AES_DECRYPT_INITIALIZED)) {
-		Status = (int)XSECURE_AES_KAT_BUSY;
-		goto END;
-	}
-
-	if (AesInstance->AesState != XSECURE_AES_INITIALIZED) {
-		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
-		goto END;
-	}
-
-	/* Test 1 */
-	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key0, Data0, Output0);
-	if (Status != XST_SUCCESS) {
-		goto END_CLR;
-	}
-
-	Status = XST_FAILURE;
-
-	Status = XSecure_AesDpaCmDecryptKat(AesInstance, Key1, Data1, Output1);
-	if (Status != XST_SUCCESS) {
-		goto END_CLR;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_AesDecCmChecks(RM0, RM1, Mm0, Mm1);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AESDPACM_KAT_CHECK1_FAILED_ERROR;
-		goto END_CLR;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_AesDecCmChecks(RM1, RM0, Mm0, Mm1);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AESDPACM_KAT_CHECK2_FAILED_ERROR;
-		goto END_CLR;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_AesDecCmChecks(Mm0, RM0, RM1, Mm1);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AESDPACM_KAT_CHECK3_FAILED_ERROR;
-		goto END_CLR;
-	}
-
-	Status = XST_FAILURE;
-	Status = XSecure_AesDecCmChecks(Mm1, RM0, RM1, Mm0);
-	if (Status != XST_SUCCESS) {
-		Status = (int)XSECURE_AESDPACM_KAT_CHECK4_FAILED_ERROR;
-		goto END_CLR;
-	}
-
-	if ((((R0[0U] ^ RM0[0U]) != Ct0[0U])  || ((R0[1U] ^ RM0[1U]) != Ct0[1U]) ||
-		 ((R0[2U] ^ RM0[2U]) != Ct0[2U])  || ((R0[3U] ^ RM0[3U]) != Ct0[3U])) ||
-		(((M0[0U] ^ Mm0[0U]) != MiC0[0U]) || ((M0[1U] ^ Mm0[1U]) != MiC0[1U]) ||
-		 ((M0[2U] ^ Mm0[2U]) != MiC0[2U]) || ((M0[3U] ^ Mm0[3U]) != MiC0[3U])) ||
-		(((R1[0U] ^ RM1[0U]) != Ct1[0U])  || ((R1[1U] ^ RM1[1U]) != Ct1[1U]) ||
-		((R1[2U] ^ RM1[2U]) != Ct1[2U])  || ((R1[3U] ^ RM1[3U]) != Ct1[3U])) ||
-		(((M1[0U] ^ Mm1[0U]) != MiC1[0U]) || ((M1[1U] ^ Mm1[1U]) != MiC1[1U]) ||
-		 ((M1[2U] ^ Mm1[2U]) != MiC1[2U]) || ((M1[3U] ^ Mm1[3U]) != MiC1[3U]))) {
-		Status = (int)XSECURE_AESDPACM_KAT_CHECK5_FAILED_ERROR;
-		goto END_CLR;
-	}
-
-	Status = XST_SUCCESS;
-
-END_CLR:
-	SStatus = XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
-	if((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
-		Status = SStatus;
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function performs checks for AES DPA CM KAT ouptut.
- *
- * @param 	P is the pointer to the data array of size 4 words.
- * @param 	Q is the pointer to the data array of size 4 words.
- * @param 	R is the pointer to the data array of size 4 words.
- * @param 	S is the pointer to the data array of size 4 words.
- *
- * @return
- *	- XST_SUCCESS - When check is passed
- *  - XST_FAILURE - when check is failed
- *****************************************************************************/
-static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
-	const u32 *S)
-{
-	volatile int Status = XST_FAILURE;
-
-	if (((P[0U] == 0U) && (P[1U] == 0U) && (P[2U] == 0U) &&
-				(P[3U] == 0U)) ||
-			((P[0U] == Q[0U]) && (P[1U] == Q[1U]) &&
-				(P[2U] == Q[2U]) && (P[3U] == Q[3U])) ||
-			((P[0U] == R[0U]) && (P[1U] == R[1U]) &&
-				(P[2U] == R[2U]) && (P[3U] == R[3U])) ||
-			((P[0U] == S[0U]) && (P[1U] == S[1U]) &&
-				(P[2U] == S[2U]) && (P[3U] == S[3U]))) {
-		Status = XST_FAILURE;
-	}
-	else {
-		Status = XST_SUCCESS;
-	}
-
-	return Status;
-}
-
 /*****************************************************************************/
 /**
  * @brief	This function performs KAT on AES core with DPACM enabled
@@ -1817,7 +1621,7 @@ static int XSecure_AesDecCmChecks(const u32 *P, const u32 *Q, const u32 *R,
  * 	-	XST_FAILURE - On failure
  *
  *****************************************************************************/
-static int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
+int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
 	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr)
 {
 	volatile int Status = XST_FAILURE;
