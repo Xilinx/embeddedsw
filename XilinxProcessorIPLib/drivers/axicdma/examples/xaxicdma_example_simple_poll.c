@@ -53,8 +53,6 @@
 #include "xdebug.h"
 #include "xil_cache.h"
 #include "xparameters.h"
-#include "xil_util.h"
-
 #ifdef __aarch64__
 #include "xil_mmu.h"
 #endif
@@ -86,7 +84,6 @@ extern void xil_printf(const char *format, ...);
 #define RESET_LOOP_COUNT	10	/* Number of times to check reset is
 					 * done
 					 */
-#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -270,12 +267,8 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 
 	/* Wait until the DMA transfer is done
 	 */
-	Status = (int)Xil_WaitForEvent(InstancePtr->BaseAddr + XAXICDMA_SR_OFFSET,
-                       XAXICDMA_SR_IDLE_MASK, XAXICDMA_SR_IDLE_MASK, POLL_TIMEOUT_COUNTER);
-	if (Status != XST_SUCCESS) {
-		xdbg_printf(XDBG_DEBUG_ERROR,
-				"Failed to complete the transfer with %d\r\n", Status);
-		return XST_FAILURE;
+	while (XAxiCdma_IsBusy(InstancePtr)) {
+		/* Wait */
 	}
 
 	/* If the hardware has errors, this example fails
