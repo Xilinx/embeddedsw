@@ -62,7 +62,6 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xdebug.h"
-#include "xil_util.h"
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 #include "xuartns550_l.h"       /* to use uartns550 */
@@ -139,7 +138,6 @@
 #define MAX_PKT_LEN		0x100
 
 #define NUMBER_OF_TRANSFERS	10
-#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
 
 /* The interrupt coalescing threshold and delay timer threshold
  * Valid range is 1 to 255
@@ -322,22 +320,19 @@ int main(void)
 
 
 		/*
-		 * Wait for TX done
+		 * Wait TX done and RX done
 		 */
-		Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&TxDone);
-		if (Status != XST_SUCCESS) {
-			xil_printf("Failed test transmit%s done\r\n", TxDone? "":" not");
-			goto Done;
-
+		while (!TxDone && !RxDone && !Error) {
+				/* NOP */
 		}
 
-		/*
-		 * Wait for RX done
-		 */
-		Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&RxDone);
-                if (Status != XST_SUCCESS) {
-			xil_printf("Failed test receive%s done\r\n", RxDone? "":" not");
+		if (Error) {
+			xil_printf("Failed test transmit%s done, "
+			"receive%s done\r\n", TxDone? "":" not",
+							RxDone? "":" not");
+
 			goto Done;
+
 		}
 
 		/*
@@ -360,10 +355,6 @@ int main(void)
 
 Done:
 	xil_printf("--- Exiting main() --- \r\n");
-
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
 
 	return XST_SUCCESS;
 }
