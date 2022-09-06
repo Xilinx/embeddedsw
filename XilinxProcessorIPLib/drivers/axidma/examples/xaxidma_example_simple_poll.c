@@ -98,7 +98,6 @@
 #define TEST_START_VALUE	0xC
 
 #define NUMBER_OF_TRANSFERS	10
-#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -209,7 +208,6 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	u8 *TxBufferPtr;
 	u8 *RxBufferPtr;
 	u8 Value;
-	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	TxBufferPtr = (u8 *)TX_BUFFER_BASE ;
 	RxBufferPtr = (u8 *)RX_BUFFER_BASE;
@@ -270,11 +268,9 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 			return XST_FAILURE;
 		}
 
-		while (TimeOut) {
-			if (!(XAxiDma_Busy(&AxiDma,XAXIDMA_DEVICE_TO_DMA)) &&
-			!(XAxiDma_Busy(&AxiDma,XAXIDMA_DMA_TO_DEVICE)))
-				break;
-			TimeOut--;
+		while ((XAxiDma_Busy(&AxiDma,XAXIDMA_DEVICE_TO_DMA)) ||
+			(XAxiDma_Busy(&AxiDma,XAXIDMA_DMA_TO_DEVICE))) {
+				/* Wait */
 		}
 
 		Status = CheckData();
