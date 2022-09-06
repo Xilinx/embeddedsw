@@ -87,8 +87,7 @@ static XPm_ClkTopology ClkTopologies[ ] = {
 };
 
 static XPm_ClockNode *ClkNodeList[(u32)XPM_NODEIDX_CLK_MAX];
-static const u32 MaxClkNodes = (u32)XPM_NODEIDX_CLK_MAX;
-static u32 PmNumClocks;
+static u32 MaxClkNodes;
 
 static XStatus XPmClock_Init(XPm_ClockNode *Clk, u32 Id, u32 ControlReg,
 			     u8 TopologyType, u8 NumCustomNodes, u8 NumParents,
@@ -380,7 +379,7 @@ XPm_ClockNode* XPmClock_GetById(u32 ClockId)
 		(~((u32)NODE_TYPE_MASK)) : ((~(u32)0x0));
 
 	if (((u32)XPM_NODECLASS_CLOCK != NODECLASS(ClockId)) ||
-	    (MaxClkNodes <= ClockIndex)) {
+	    ((u32)XPM_NODEIDX_CLK_MAX <= ClockIndex)) {
 		goto done;
 	}
 
@@ -430,9 +429,11 @@ XStatus XPmClock_SetById(u32 ClockId, XPm_ClockNode *Clk)
 	 * We assume that the Node ID class, subclass and type has _already_
 	 * been validated before, so only check bounds here against index
 	 */
-	if ((NULL != Clk) && (MaxClkNodes > NodeIndex)) {
+	if ((NULL != Clk) && ((u32)XPM_NODEIDX_CLK_MAX > NodeIndex)) {
 		ClkNodeList[NodeIndex] = Clk;
-		PmNumClocks++;
+		if (NodeIndex > MaxClkNodes) {
+			MaxClkNodes = NodeIndex;
+		}
 		Status = XST_SUCCESS;
 	}
 
@@ -1003,7 +1004,7 @@ done:
 
 XStatus XPmClock_GetNumClocks(u32 *Resp)
 {
-	*Resp = (u32)XPM_NODEIDX_CLK_MAX;
+	*Resp = MaxClkNodes;
 
 	return XST_SUCCESS;
 }
