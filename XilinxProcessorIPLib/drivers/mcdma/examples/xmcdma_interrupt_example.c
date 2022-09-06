@@ -47,7 +47,6 @@
 #include "xparameters.h"
 #include "xdebug.h"
 #include "xmcdma_hw.h"
-#include "xil_util.h"
 
 #ifdef __aarch64__
 #include "xil_mmu.h"
@@ -130,8 +129,6 @@
  #define INTC		XScuGic
  #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif
-
-#define POLL_TIMEOUT_COUNTER     1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -250,15 +247,19 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&RxDone);
-	if (Status != XST_SUCCESS) {
-		xil_printf("AXI MCDMA SG Interrupt Test failed\r\n");
-		return XST_FAILURE;
-	}
+	 while (1) {
+	        if ((RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels) && !Error)
+	              break;
+	 }
 
-	xil_printf("AXI MCDMA SG Interrupt Test passed\r\n");
+	xil_printf("AXI MCDMA SG Interrupt Test %s\r\n",
+		(Status == XST_SUCCESS)? "passed":"failed");
 
 	xil_printf("--- Exiting main() --- \r\n");
+
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	return XST_SUCCESS;
 }
