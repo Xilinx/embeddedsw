@@ -1001,6 +1001,13 @@ done:
 	return Status;
 }
 
+XStatus XPmClock_GetNumClocks(u32 *Resp)
+{
+	*Resp = (u32)XPM_NODEIDX_CLK_MAX;
+
+	return XST_SUCCESS;
+}
+
 XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 {
 	XStatus Status = XST_FAILURE;
