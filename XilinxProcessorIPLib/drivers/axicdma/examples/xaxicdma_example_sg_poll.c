@@ -58,7 +58,6 @@
 #include "xenv.h"	/* memset */
 #include "xil_cache.h"
 #include "xparameters.h"
-
 #ifdef __aarch64__
 #include "xil_mmu.h"
 #endif
@@ -110,7 +109,6 @@ extern void xil_printf(const char *format, ...);
 #define NUMBER_OF_BDS_TO_TRANSFER	1
 
 #define RESET_LOOP_COUNT	10 /* Number of times to check reset is done */
-#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
@@ -498,7 +496,6 @@ int XAxiCdma_SgPollExample(u16 DeviceId)
 	int Status;
 	u8 *SrcPtr;
 	u8 *DstPtr;
-	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	SrcPtr = (u8 *)TransmitBufferPtr;
 	DstPtr = (u8 *)ReceiveBufferPtr;
@@ -552,11 +549,9 @@ int XAxiCdma_SgPollExample(u16 DeviceId)
 
 	/* Wait until the DMA transfer is done or error occurs
 	 */
-	while (TimeOut) {
-		if ((CheckCompletion(&AxiCdmaInstance) >=
-		     NUMBER_OF_BDS_TO_TRANSFER) && !Error)
-			break;
-		TimeOut --;
+	while ((CheckCompletion(&AxiCdmaInstance) < NUMBER_OF_BDS_TO_TRANSFER)
+		&& !Error) {
+		/* Wait */
 	}
 
 	if(Error) {
