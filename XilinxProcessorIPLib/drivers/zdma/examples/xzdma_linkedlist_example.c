@@ -42,7 +42,6 @@
 #include "xparameters.h"
 #include "xscugic.h"
 #include "bspconfig.h"
-#include "xil_util.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -68,7 +67,6 @@ static void DoneHandler(void *CallBackRef);
 #define DESCRIPTOR1_DATA_SIZE	1024 /**< Descriptor 1 data in bytes */
 #define DESCRIPTOR2_DATA_SIZE	64   /**< Descriptor 2 data in bytes */
 
-#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
 /**************************** Type Definitions *******************************/
 
 
@@ -244,11 +242,7 @@ int XZDma_LinkedListExample(u16 DeviceId)
 	XZDma_EnableIntr(&ZDma, XZDMA_IXR_DMA_DONE_MASK);
 	XZDma_Start(&ZDma, Data, 2); /* Initiates the data transfer */
 
-	/* Wait till DMA done interrupt generated */
-	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&Done);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
+	while (Done == 0); /* Wait till DMA done interrupt generated */
 
 	XZDma_DisableIntr(&ZDma, XZDMA_IXR_DMA_DONE_MASK);
 

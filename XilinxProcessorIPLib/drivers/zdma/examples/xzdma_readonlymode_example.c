@@ -35,7 +35,7 @@
 #include "xzdma.h"
 #include "xparameters.h"
 #include "xscugic.h"
-#include "xil_util.h"
+
 /************************** Function Prototypes ******************************/
 
 int XZDma_SimpleReadOnlyExample(u16 DeviceId);
@@ -57,7 +57,7 @@ static void DoneHandler(void *CallBackRef);
 
 #define SIZE 			100	/**< Size of the data to be
 					  *  transferred */
-#define POLL_TIMEOUT_COUNTER    1000000U /* Wait for 1 sec */
+
 /**************************** Type Definitions *******************************/
 
 
@@ -201,10 +201,7 @@ int XZDma_SimpleReadOnlyExample(u16 DeviceId)
 
 	XZDma_Start(&ZDma, &Data, 1); /* Initiates the data transfer */
 	/* Wait till DMA Source done interrupt generated */
-	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&Done);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
+	while (Done == 0);
 
 	/*
 	 * Validation of read only mode cannot be performed as it will not

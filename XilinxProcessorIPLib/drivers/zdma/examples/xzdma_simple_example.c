@@ -48,7 +48,6 @@
 #include "xzdma.h"
 #include "xparameters.h"
 #include "xil_cache.h"
-#include "xil_util.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -83,7 +82,6 @@
 
 #define TESTVALUE	0x1230 /**< For writing into source buffer */
 
-#define POLL_TIMEOUT_COUNTER         1000000U /* Wait for 1 sec */
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -264,10 +262,7 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 	XZDma_Start(ZdmaInstPtr, &Data, 1); /* Initiates the data transfer */
 
 	/* Wait till DMA error or done interrupt generated */
-	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, 1, (u32*)&Done);
-	if (Status != XST_SUCCESS) {
-		xil_printf("ZDMA transfer failure\n\r");
-	}
+	while (!ErrorStatus && (Done == 0));
 
 	/* Enable required interrupts */
 	XZDma_DisableIntr(ZdmaInstPtr, (XZDMA_IXR_ALL_INTR_MASK));
