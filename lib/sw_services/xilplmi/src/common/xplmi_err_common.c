@@ -105,6 +105,7 @@
 *       ma   08/08/2022 Handle EAM errors at task level
 *       ma   08/08/2022 Fix SW-BP-MAGIC-NUM warning
 *       ma   09/02/2022 Print EAM errors only if they are enabled
+*       ma   09/07/2022 Print ERR number as per the register database
 *
 * </pre>
 *
@@ -455,7 +456,8 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 		ErrNcrMask[Index] = XPlmi_In32(PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK +
 					(Index * PMC_GLOBAL_PSM_ERR_ACTION_OFFSET));
 		ErrMask[Index] = ErrCrMask[Index] & ErrNcrMask[Index];
-		XPlmi_Printf_WoTS(DEBUG_GENERAL, "ERR%d: 0x%0x ", Index, ErrStatus[Index]);
+		XPlmi_Printf_WoTS(DEBUG_GENERAL, "ERR%d: 0x%0x ", (Index + 1U),
+					ErrStatus[Index]);
 	}
 	XPlmi_Printf_WoTS(DEBUG_GENERAL, "\n\r");
 
@@ -583,7 +585,8 @@ int XPlmi_ErrorTaskHandler(void *Data)
 					(Index * PMC_GLOBAL_REG_PMC_ERR_OFFSET));
 		ErrIrqMask[Index] = XPlmi_In32(GET_PMC_IRQ_MASK(GET_PMC_ERR_ACTION_OFFSET(Index)));
 		if ((ErrStatus[Index] & ~ErrIrqMask[Index]) != 0x0U) {
-			XPlmi_Printf(DEBUG_GENERAL, "PMC EAM ERR%d: 0x%0x\r\n", Index, ErrStatus[Index]);
+			XPlmi_Printf(DEBUG_GENERAL, "PMC EAM ERR%d: 0x%0x\r\n", (Index + 1U),
+					ErrStatus[Index]);
 		}
 	}
 
