@@ -117,6 +117,45 @@ Deprecate MCDMA support on lwip
 Add socket_debug Flag in BSP settings
 Fix race condition in PHY link polling
 
+cpu_v2_16:
+Added support for VERSAL NET
+
+intc_v3_15:
+Included xil_exception.h to xintc_l.h to fix compilation errors observed with few HW designs.
+
+iomodule_v2_14:
+Added support for VERSAL NET
+Fixed doxygen warnings
+
+pmonpsv_v2_2:
+Added support for VERSAL NET
+
+ttcps_v3_16:
+Added support for VERSAL NET
+Fixed infinite loops in driver examples
+
+wdttb_v5_5:
+wdttb: Enable wdttb driver support to psxl wdttb
+wdttb: Add XWdtTb_SetGenericWdtWindowTimeOut API
+wdttb:data: Update driver tcl file to support C_WDT_CLK_FREQ_HZ
+
+zdma_v1_15:
+Fix infinite loops in DMA driver examples
+
+standalone_v8_0:
+Added support for CortexA78 and CortexR52 to support VERSAL NE
+Added a new API Xil_WaitForEventSet(), it can be used to periodically poll an event until event OR timeout occurs.
+Added new mld parameter pmu_sleep_timer to use PMU counter in delay routines
+Update cache maintenance APIs Xil_DCacheFlushRange and Xil_DCacheInvalidateRange in CortexA9 BSP to ensure that clean and invalidation of outer cache (L2) is completely separated out from clean and invalidation of inner cache (L1). Also minimized use of barriers (dsb) as per ARM guidance.
+Added PMU support for ARMv8 processors supported in standalone BSP.
+
+freertos10_xilinx_v1_12:
+Added support for CortexR52 (VERSAL NET RPU) and CortexA78 (VERSAL NET APU).
+Added new API
+xPortInstallFastInterruptHandler() for handling the
+Microblaze AXI INTC fast interrupt configuration. If specific interrupt is confgured as "fast" in HW design,
+handler for that interrupt needs to be installed through this new API
+
 
 New Files Added for 2022.2:
 SPDX-License-Identifier:MIT
