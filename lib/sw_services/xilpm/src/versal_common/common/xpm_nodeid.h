@@ -2,13 +2,16 @@
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 /*
  * This is an automatically generated file from script.
  * Please do not modify this!
  */
 #ifndef XPM_NODEID_H_
 #define XPM_NODEID_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
  * @name Versal Power Nodes
@@ -972,6 +975,11 @@
  * Versal Miscellaneous Nodes
  */
 #define PM_MISC_MJTAG_WA_IMG			(0x34000000U)
+#define PM_MISC_READBACK_PDI_IMG		(0x34000001U)
 /** @} */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XPM_NODEID_H_ */

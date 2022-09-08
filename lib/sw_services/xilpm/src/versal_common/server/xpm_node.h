@@ -1479,7 +1479,8 @@ typedef enum {
 
 /* Misc node indexes */
 typedef enum {
-	XPM_NODEIDX_MISC_MJTAG_WA_IMG = 0x0
+	XPM_NODEIDX_MISC_MJTAG_WA_IMG = 0x0,
+	XPM_NODEIDX_MISC_READBACK_PDI_IMG = 0x1
 } XPm_MiscIdx;
 
 
