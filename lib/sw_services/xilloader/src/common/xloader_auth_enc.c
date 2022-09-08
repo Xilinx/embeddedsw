@@ -1574,7 +1574,8 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 				&XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN],
 				XLOADER_SHA3_LEN,
 				XLOADER_SHA3_LEN);
-	if (Status != XST_SUCCESS) {
+	/* Checking Status twice to avoid returning success in case of glitch */
+	if ((Status != XST_SUCCESS) || (Status != XST_SUCCESS)) {
 		goto END;
 	}
 	Status = XSecure_Sha3Initialize(Sha3InstPtr, PmcDmaInstPtr);
@@ -1633,7 +1634,8 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 				&Buffer[XLOADER_RSA_PSS_DB_LEN],
 				XLOADER_RSA_PSS_SALT_LEN,
 				XLOADER_RSA_PSS_SALT_LEN);
-	if (Status != XST_SUCCESS) {
+	/* Checking Status twice to avoid returning success in case of glitch */
+	if ((Status != XST_SUCCESS) || (Status != XST_SUCCESS)) {
 		goto END;
 	}
 
