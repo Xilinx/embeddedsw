@@ -2101,7 +2101,7 @@ static void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 {
 	XPmcDma_Configure ConfigValues;
 
-	Xil_SMemSet(&ConfigValues, sizeof(ConfigValues), 0U,
+	(void)Xil_SMemSet(&ConfigValues, sizeof(ConfigValues), 0U,
 			 sizeof(ConfigValues));
 
 	/* Assert validates the input arguments */
