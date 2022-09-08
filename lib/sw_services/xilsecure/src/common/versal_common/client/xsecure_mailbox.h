@@ -34,8 +34,8 @@
 * @endcond
 ******************************************************************************/
 
-#ifndef XSECURE_IPI_H
-#define XSECURE_IPI_H
+#ifndef XSECURE_MAILBOX_H
+#define XSECURE_MAILBOX_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -100,4 +100,4 @@ int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* cons
 }
 #endif
 
-#endif  /* XSECURE_IPI_H */
+#endif  /* XSECURE_MAILBOX_H */
