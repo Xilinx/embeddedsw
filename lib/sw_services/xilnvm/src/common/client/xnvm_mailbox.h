@@ -28,8 +28,8 @@
 * @endcond
 ******************************************************************************/
 
-#ifndef XNVM_IPI_H
-#define XNVM_IPI_H
+#ifndef XNVM_MAILBOX_H
+#define XNVM_MAILBOX_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -97,4 +97,4 @@ int XNvm_ClientInit(XNvm_ClientInstance* const InstancePtr, XMailbox* const Mail
 }
 #endif
 
-#endif  /* XNVM_IPI_H */
+#endif  /* XNVM_MAILBOX_H */
