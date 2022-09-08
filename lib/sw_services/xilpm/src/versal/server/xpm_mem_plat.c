@@ -78,7 +78,6 @@ static int XPmMem_HBMTempMonitor(void *data)
 {
 	int Status = XST_FAILURE;
 	u32 S0Temp = 0U, S1Temp = 0U;
-	u32 S0Done = 0U, S1Done = 0U;
 	u32 TempVal = 0U, TempMax = 0U;
 	const u32 *HbmPhyMs = (u32 *)data;
 
@@ -98,7 +97,6 @@ static int XPmMem_HBMTempMonitor(void *data)
 			goto done;
 		}
 		TempVal = S0Temp;
-		S0Done = 1U;
 	}
 
 	/* HBM Stack 1 must be configured and temp monitoring must be enabled for it to read data */
@@ -110,7 +108,6 @@ static int XPmMem_HBMTempMonitor(void *data)
 			goto done;
 		}
 		TempVal |= (S1Temp << XPM_RTCA_HBM_TEMP_VAL_STACK1_TEMP_SHIFT);
-		S1Done = 1U;
 	}
 
 	/* Calculate max temp among both stacks */
@@ -121,18 +118,6 @@ static int XPmMem_HBMTempMonitor(void *data)
 	XPm_RMW32(XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX,
 		  XPM_RTCA_HBM_TEMP_CONFIG_STACKS_MAX_TEMP_MASK,
 		  (TempMax << XPM_RTCA_HBM_TEMP_CONFIG_STACKS_MAX_TEMP_SHIFT));
-
-	/* No stack is configured and no temp monitoring is enabled for it */
-	if ((0U == S0Done) && (0U == S1Done)) {
-		/* Remove the task */
-		Status = XPlmi_SchedulerRemoveTask(XPM_HBM_TEMP_MON_SCHED_ID, XPmMem_HBMTempMonitor,
-				HBM_TEMP_MON_PERIOD, data);
-		/* Clear out the contents since the temperature values will now be stale */
-		XPm_Out32(XPLMI_RTCFG_HBM_TEMP_VAL, 0U);
-		XPm_RMW32(XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX,
-				XPM_RTCA_HBM_TEMP_CONFIG_STACKS_MAX_TEMP_MASK, 0U);
-		goto done;
-	}
 
 	Status = XST_SUCCESS;
 
