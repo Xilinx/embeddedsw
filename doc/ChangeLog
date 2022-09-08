@@ -3,17 +3,14 @@ Changes for 2022.2
 
 axicdma_v4_10:
 Update MIG BASE NAME property for DMA driver examples
-Fix infinite loops in DMA driver examples
 
 axidma_v9_15:
 Update BD helper functions to pass correct value in case of 64 bit addressing and fix syntax error
 Fix indentation
 Update MIG BASE NAME property for DMA driver examples
-Fix infinite loops in DMA driver examples
 
 axivdma_v6_12:
 Update MIG BASE NAME property for DMA driver examples
-Fix infinite loops in DMA driver examples
 
 canfd_v2_7:
 canfd: Add support for VERSAL NET
@@ -45,7 +42,6 @@ Added support for VERSAL NET
 
 mcdma_v1_7:
 Update MIG BASE NAME property for DMA driver examples
-Fix infinite loops in DMA driver examples
 
 nandpsu_v1_11:
 Replace driver version in addtogroup with overview
@@ -140,7 +136,7 @@ wdttb: Add XWdtTb_SetGenericWdtWindowTimeOut API
 wdttb:data: Update driver tcl file to support C_WDT_CLK_FREQ_HZ
 
 zdma_v1_15:
-Fix infinite loops in DMA driver examples
+Updated mdd to support VERSAL NET
 
 standalone_v8_0:
 Added support for CortexA78 and CortexR52 to support VERSAL NE
@@ -156,6 +152,21 @@ xPortInstallFastInterruptHandler() for handling the
 Microblaze AXI INTC fast interrupt configuration. If specific interrupt is confgured as "fast" in HW design,
 handler for that interrupt needs to be installed through this new API
 
+usbpsu_v1_12:
+Added support for VERSAL NET
+updated doxygen tags for doxygen documentation
+
+xilpm_v4_1:
+Refactor code to support Versal and Versal-Net
+Add HBM runtime temperature monitoring
+Add SSIT support for IOCTL Secure Register R/W APIs
+Add new CDO commands to facilitate NoC clock gating for DFX designs
+Add DDR modelling to track DDRMC usage and mapping
+
+axis_switch_v1_5:
+Remove the incorrect check in the API XAxisScr_IsMiPortEnabled.
+Because of the incorrect check the API can return a false TRUE for an failure case. As an example,
+if a MI is configured for SI[7] and the API is called to check if the MI is configured for SI[3], the API will return TRUE.
 
 New Files Added for 2022.2:
 SPDX-License-Identifier:MIT
@@ -871,7 +882,7 @@ Removed all HDCP macros in the driver
 Fix compilation issue with multiple DPTXSS
 Updated the api name according to the changes in hdcp rx and tx driver.No changes in functionality.
 Corrected XDP_RX_AUDIO_INFO_DATA to XDP_RX_AUDIO_EXT_DATA in DpRxSs_ExtPacketHandler().
-Added support for very long hpd to initiate retraining due to behaviour of some gpu's response to short hpd.
+Added support for very long hpd to initiate retraining due to behaviour of some gpus response to short hpd.
 
 hdcp22_cipher_dp_v2_0:
 HDCP cipher configurations on both RX and TX will get enable only when
