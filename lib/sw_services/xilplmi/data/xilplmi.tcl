@@ -202,16 +202,19 @@ proc xgen_opts_file {libhandle} {
 
 	# Get ssit_plm_to_plm_comm_en value set by user, by default it is TRUE(Valid only for Versal)
 	set value [common::get_property CONFIG.ssit_plm_to_plm_comm_en $libhandle]
-	# Get number of SLRs from the design
-	set part [::hsi::get_current_part]
-	set SlrCount [common::get_property NUM_OF_SLRS $part]
-	puts $file_handle "\n/* Number of SLRs */"
-	puts $file_handle "#define NUMBER_OF_SLRS       $SlrCount"
-	# Based on ssit_plm_to_plm_comm_en value set by user and the Number Of SLRs present
-	# in the design, enable SSIT PLM-PLM communication
-	if {($value == true) && ($SlrCount > 1)} {
-		puts $file_handle "\n/* SSIT PLM to PLM Communication enable */"
-		puts $file_handle "#define PLM_ENABLE_PLM_TO_PLM_COMM"
+	# Check if hsi::get_current_part is available before reading NUM_OF_SLRS property
+	if { [info commands ::hsi::get_current_part] != ""} {
+		# Get number of SLRs from the design
+		set part [::hsi::get_current_part]
+		set SlrCount [common::get_property NUM_OF_SLRS $part]
+		puts $file_handle "\n/* Number of SLRs */"
+		puts $file_handle "#define NUMBER_OF_SLRS       $SlrCount"
+		# Based on ssit_plm_to_plm_comm_en value set by user and the Number Of SLRs present
+		# in the design, enable SSIT PLM-PLM communication
+		if {($value == true) && ($SlrCount > 1)} {
+			puts $file_handle "\n/* SSIT PLM to PLM Communication enable */"
+			puts $file_handle "#define PLM_ENABLE_PLM_TO_PLM_COMM"
+		}
 	}
 
 	puts $file_handle "\n"
