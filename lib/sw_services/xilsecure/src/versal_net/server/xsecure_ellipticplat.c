@@ -19,6 +19,7 @@
 * 4.9   dc   07/10/22 Initial release
 *       am   07/23/22 Removed Ecdsa_ModEccOrder function defination, as it is
 *                     declared in Ecdsa.h file
+*       dc   09/04/22 set TRNG to HRNG mode after Private key ECC mod order
 *
 *
 * </pre>
@@ -83,7 +84,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 
 	if ((CrvType == XSECURE_ECC_NIST_P521) || (PrivateKey == NULL)) {
 		Status = XSECURE_ELLIPTIC_INVALID_PARAM;
-		goto END;
+		goto RET;
 	}
 
 	Status = XSecure_TrngPreOperationalSelfTests(TrngInstancePtr);
@@ -139,6 +140,7 @@ END:
 	if (Status == XST_SUCCESS) {
 		Status = ClearStatus;
 	}
+
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 				XSECURE_ECDSA_RSA_RESET_OFFSET);
 	ClearStatus = Xil_SMemSet((void *)RandBuf,
@@ -146,7 +148,8 @@ END:
 				0U, XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
 	if (Status == XST_SUCCESS) {
 		Status = ClearStatus;
+		Status |= XSecure_TrngSetHrngMode();
 	}
-
+RET:
 	return Status;
 }

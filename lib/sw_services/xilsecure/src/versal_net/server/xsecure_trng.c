@@ -20,6 +20,7 @@
 * 1.0   kpt  05/05/22 Initial release
 *       dc   07/13/22 Modified XSECURE_TRNG_DF_MIN_LENGTH to 2
 *       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
+*       dc   09/04/22 Add an API to set HRNG mode
 *
 * </pre>
 *
@@ -33,6 +34,7 @@
 #include "xstatus.h"
 #include "xsecure_trng_hw.h"
 #include "xsecure_error.h"
+#include "xsecure_plat_kat.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_TRNG_RESEED_TIMEOUT		1500000U	/**< Reseed timeout in micro-seconds */
@@ -631,6 +633,40 @@ XSecure_TrngInstance *XSecure_GetTrngInstance(void)
 	return &TrngInstance;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function sets the TRNG into HRNG mode of operation.
+ *
+ * @return
+ *			- XST_SUCCESS upon success.
+ *			- Error code on failure.
+ *
+ *****************************************************************************/
+int XSecure_TrngSetHrngMode(void)
+{
+	int Status = XST_FAILURE;
+	XSecure_TrngUserConfig UsrCfg;
+	XSecure_TrngInstance *TrngInstancePtr = XSecure_GetTrngInstance();
+
+	Status = XSecure_TrngPreOperationalSelfTests(TrngInstancePtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Initiate TRNG */
+	UsrCfg.Mode = XSECURE_TRNG_HRNG_MODE;
+	UsrCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
+	UsrCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
+	UsrCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH;
+	UsrCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE;
+	Status = XSecure_TrngInstantiate(TrngInstancePtr, NULL, 0U, NULL, &UsrCfg);
+END:
+	if (Status != XST_SUCCESS) {
+		(void)XSecure_TrngUninstantiate(TrngInstancePtr);
+	}
+
+	return Status;
+}
 /*************************************************************************************************/
 /**
  * @brief

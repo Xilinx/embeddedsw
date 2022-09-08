@@ -108,6 +108,7 @@ int XSecure_TrngReseed(XSecure_TrngInstance *InstancePtr, const u8 *Seed, u8 DLe
 int XSecure_TrngGenerate(XSecure_TrngInstance *InstancePtr, u8 *RandBuf, u32 RandBufSize);
 int XSecure_TrngUninstantiate(XSecure_TrngInstance *InstancePtr);
 XSecure_TrngInstance *XSecure_GetTrngInstance(void);
+int XSecure_TrngSetHrngMode(void);
 
 #ifdef __cplusplus
 }

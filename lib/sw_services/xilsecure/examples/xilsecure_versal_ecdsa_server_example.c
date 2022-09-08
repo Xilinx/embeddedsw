@@ -17,6 +17,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kal  04/21/21 Initial release
 * 4.5   kal  04/21/21 Updated file version to sync with library version
+* 4.9   dc   09/04/22 Initialized TRNG for Versal Net
 *
 * </pre>
 *
@@ -27,6 +28,10 @@
 #include "xsecure_elliptic.h"
 #include "xstatus.h"
 #include "xil_printf.h"
+#if defined (VERSAL_NET)
+#include "xsecure_trng.h"
+#include "xsecure_plat_kat.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #define TEST_NIST_P384
@@ -44,6 +49,22 @@ static int XSecure_TestP521();
  int main()
 {
 	int Status = XST_FAILURE;
+#if defined (VERSAL_NET)
+	XSecure_TrngInstance *TrngInstancePtr = XSecure_GetTrngInstance();
+
+	Status = XSecure_TrngUninstantiate(TrngInstancePtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XSecure_TrngPreOperationalSelfTests(TrngInstancePtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = XSecure_TrngSetHrngMode();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 #ifdef TEST_NIST_P384
 	xil_printf("Test P384 curve started \r\n");
 	Status = XSecure_TestP384();
