@@ -19,6 +19,7 @@
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/18/2022 Shutdown modules gracefully during update
 *       dc   07/20/2022 Added support for data measurement
+*       dc   09/04/2022 Initialized TRNG
 *
 * </pre>
 *
@@ -42,6 +43,9 @@
 #include "xsecure_sha.h"
 #endif
 #include "xplmi_scheduler.h"
+#include "xsecure_trng.h"
+#include "xsecure_plat_kat.h"
+#include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U)
@@ -1020,9 +1024,27 @@ END:
 int XLoader_PlatInit(void)
 {
 	int Status = XST_FAILURE;
+	XSecure_TrngInstance *TrngInstancePtr = XSecure_GetTrngInstance();
 
 	Status = XLoader_InitSha1Instance();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
+	if (XPLMI_PLATFORM != PMC_TAP_VERSION_QEMU) {
+		Status = XSecure_TrngPreOperationalSelfTests(TrngInstancePtr);
+		if (Status != XST_SUCCESS) {
+			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+			goto END;
+		}
+		else {
+			XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+		}
+
+		Status = XSecure_TrngSetHrngMode();
+	}
+
+END:
 	return Status;
 }
 

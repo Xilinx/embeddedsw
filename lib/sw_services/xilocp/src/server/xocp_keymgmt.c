@@ -174,7 +174,7 @@ static int XOcp_KeyGenerateDevIk(void)
 	/* Generate the DEV IK public and private keys */
 	KeyGenParams.SeedAddr = (u32)Seed;
 	KeyGenParams.SeedLength = XOCP_CDI_SIZE_IN_BYTES;
-	KeyGenParams.PerStringAddr = (u32)Seed;
+	KeyGenParams.PerStringAddr = (u32)PersString;
 	KeyGenParams.KeyOutPutAddr = (u32)EccPrvtKey;
 	Status = XSecure_EllipticPrvtKeyGenerate(XSECURE_ECC_NIST_P384,
 				&KeyGenParams);
