@@ -25,9 +25,9 @@
  * 1.5   dp   22/11/21    Update XIpiPs_RegisterIrq() to check whether GIC has
  *                        already been setup or not and if it was setup skip
  *                        initalizing GIC again and just register handlers.
- * 1.6   sd   28/02/21    Add support for microblaze
- *       kpt  03/16/21    Fixed compilation warning on microblaze
- * 1.7   sd   01/04/22    Replace memset with Xil_SMemSet
+ * 1.6   sd   28/02/22    Add support for microblaze
+ *       kpt  03/16/22    Fixed compilation warning on microblaze
+ *       sd   01/04/22    Replace memset with Xil_SMemSet
  *</pre>
  *
  *@note
