@@ -118,6 +118,10 @@ static XStatus XPsmFw_ProcessCdo(u32 CdoStartAddr, u32 Len)
 				XPsmFw_UtilWait(CmdPtr[1]);
 				Status = XST_SUCCESS;
 				break;
+			case XPSMFW_PROC_MARKER:
+				/* If command is "marker", ignore */
+				Status = XST_SUCCESS;
+				break;
 			default:
 				Status = XST_FAILURE;
 				Len = 0U;

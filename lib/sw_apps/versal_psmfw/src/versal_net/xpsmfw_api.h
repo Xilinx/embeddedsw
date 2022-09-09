@@ -130,6 +130,7 @@ void XPsmFw_ProcessIpi(const u32 *Payload, u32 *Response);
 #define XPSMFW_PROC_MASK_WRITE		(0x02U)
 #define XPSMFW_PROC_WRITE		(0x03U)
 #define XPSMFW_PROC_DELAY		(0x04U)
+#define XPSMFW_PROC_MARKER		(0x19U)
 #define XPSMFW_PROC_LOCATION_ADDRESS	(0xEBC26000U)
 #define XPSMFW_PROC_LOCATION_LENGTH	(0x2000U)
 typedef union {
