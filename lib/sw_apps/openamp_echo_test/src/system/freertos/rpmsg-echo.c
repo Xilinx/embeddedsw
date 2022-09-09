@@ -78,6 +78,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	/* On reception of a shutdown we signal the application to terminate */
 	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
 		ML_INFO("shutdown message is received.\r\n");
+		shutdown_req = 1;
 		return RPMSG_SUCCESS;
 	}
 
@@ -92,6 +93,7 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
 	ML_INFO("unexpected Remote endpoint destroy\r\n");
+	shutdown_req = 1;
 }
 
 /*-----------------------------------------------------------------------------*
@@ -134,6 +136,11 @@ int app(struct rpmsg_device *rdev, void *priv)
 	ML_DBG("out of platform_poll loop\r\n");
 
 	for (i = 0; i < ECHO_NUM_EPTS; i++)
+		/*
+		 * Ensure that kernel does not destroy endpoint twice
+		 * by disabling NS announcement. Kernel will handle it.
+		 */
+		(&lept[i])->rdev->support_ns = 0;
 		rpmsg_destroy_ept(&lept[i]);
 
 	return 0;
