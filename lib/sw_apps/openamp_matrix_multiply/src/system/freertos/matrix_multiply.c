@@ -67,6 +67,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 
 	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
 		ML_INFO("shutdown message is received.\r\n");
+		shutdown_req = 1;
 		return RPMSG_SUCCESS;
 	}
 
@@ -85,6 +86,7 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
 	ML_ERR("Endpoint is destroyed\r\n");
+	shutdown_req = 1;
 }
 
 /*-----------------------------------------------------------------------------*
@@ -111,6 +113,11 @@ int app(struct rpmsg_device *rdev, void *priv)
 			break;
 		}
 	}
+	/*
+	 * Ensure that kernel does not destroy endpoint twice
+	 * by disabling NS announcement. Kernel will handle it.
+	 */
+	(&lept)->rdev->support_ns = 0;
 	rpmsg_destroy_ept(&lept);
 
 	return 0;
