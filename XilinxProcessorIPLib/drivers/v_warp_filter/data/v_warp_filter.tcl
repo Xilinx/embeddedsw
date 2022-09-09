@@ -11,7 +11,8 @@ proc generate {drv_handle} {
 	"MAX_COLS" \
 	"MAX_ROWS" \
 	"AXI_MM_READ_DATA_WIDTH" \
-	"BITS_PER_COMPONENTS"
+	"PERFORMANCE_LEVEL" \
+	"BITS_PER_COMPONENT"
 
     xdefine_config_file $drv_handle "xv_warp_filter_g.c" "XV_warp_filter" \
         "DEVICE_ID" \
@@ -19,7 +20,8 @@ proc generate {drv_handle} {
 	"MAX_COLS" \
 	"MAX_ROWS" \
 	"AXI_MM_READ_DATA_WIDTH" \
-	"BITS_PER_COMPONENTS"
+	"PERFORMANCE_LEVEL" \
+	"BITS_PER_COMPONENT"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_warp_filter" \
         "DEVICE_ID" \
@@ -28,5 +30,6 @@ proc generate {drv_handle} {
 	"MAX_COLS" \
 	"MAX_ROWS" \
 	"AXI_MM_READ_DATA_WIDTH" \
-	"BITS_PER_COMPONENTS"
+	"PERFORMANCE_LEVEL" \
+	"BITS_PER_COMPONENT"
 }
