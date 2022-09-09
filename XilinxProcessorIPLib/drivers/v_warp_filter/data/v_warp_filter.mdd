@@ -10,6 +10,6 @@ BEGIN driver v_warp_filter
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = v_warp_filter;
- OPTION version = 1.1;
+ OPTION version = 1.2;
 
 END driver

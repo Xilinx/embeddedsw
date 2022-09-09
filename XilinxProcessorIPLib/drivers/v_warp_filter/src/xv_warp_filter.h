@@ -1,5 +1,5 @@
 // ==============================================================
-// Copyright (c) 1986 - 2021 Xilinx Inc. All rights reserved.
+// Copyright (c) 1986 - 2022 Xilinx Inc. All rights reserved.
 // SPDX-License-Identifier: MIT
 // ==============================================================
 #ifndef XV_WARP_FILTER_H
@@ -42,6 +42,7 @@ typedef struct {
     u16 max_width; 			/*Maximum width*/
     u16 max_height;			/*Maximum height*/
     u16 axi_mm_data_width;	/*Axi MM port data width*/
+    u16 perf_level; 		/*Performance Level*/
     u16 bpc;				/*Max bits per component supported*/
 } XV_warp_filter_Config;
 #endif
