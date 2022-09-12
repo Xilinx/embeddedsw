@@ -19,6 +19,7 @@
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
+* 1.5   dc     09/12/22 Update handling overflow status
 *
 * </pre>
 *
@@ -123,7 +124,7 @@ int XDfeCcf_PassThroughExample()
 	XDfeCcf_LoadCoefficients(InstancePtr, 1, Shift, &Coeffs);
 
 	/* Clear event status */
-	Status.OverflowCCID = XDFECCF_ISR_CLEAR;
+	Status.Overflow = XDFECCF_ISR_CLEAR;
 	Status.CCUpdate = XDFECCF_ISR_CLEAR;
 	Status.CCSequenceError = XDFECCF_ISR_CLEAR;
 	XDfeCcf_ClearEventStatus(InstancePtr, &Status);

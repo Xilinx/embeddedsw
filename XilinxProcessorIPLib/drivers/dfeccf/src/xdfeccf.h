@@ -80,6 +80,7 @@
 *       dc     01/27/22 Get calculated TDataDelay
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/08/22 Update documentation
+* 1.5   dc     09/12/22 Update handling overflow status
 *
 * </pre>
 * @endcond
@@ -352,23 +353,30 @@ typedef struct {
 		the GAIN stage of the filter on the real channel */
 	u32 OverflowAfterGainImag; /**< [0,1] Overflow or underflow occurred in
 		the GAIN stage of the filter on the imaginary channel */
-	u32 OverflowAntenna; /**< [0,7] Lowest number antenna on which first
+	u32 OverflowAntenna; /**< [0,15] Lowest number antenna on which first
 		overflow, or underflow, occurred */
-	u32 OverflowCCID; /**< [0,7] CCID on which first overflow, or
+	u32 OverflowCCID; /**< [0,15] CCID on which first overflow, or
 		underflow, occurred */
-	u32 CCUpdate; /**< [0,1] CC update event has occurred */
-	u32 CCSequenceError; /**< [0, 1] CC sequence mismatch has been
-		detected */
-} XDfeCcf_Status;
+	u32 OverflowSwitch; /**< In SWITCHABLE mode the channel in which
+		overflow first occurred. This register is ignored in
+		NON-SWITCHABLE mode.
+		- 0 = DOWNLINK: Overflow occurred in the downlink channel.
+		- 1 = UPLINK: Overflow occurred in the uplink channel. */
+} XDfeCcf_OverflowStatus;
 
 /**
- * Interrupt mask.
+ * Event status and interrupt mask.
+ *
+ * @note The structure for XDfeCcf_InterruptMask is the same as that of
+ *       XDfeCcf_Status
  */
 typedef struct {
 	u32 Overflow; /**< [0,1] Mask overflow events */
 	u32 CCUpdate; /**< [0,1] Mask CC update events */
 	u32 CCSequenceError; /**< [0,1] Mask CC sequence mismatch events */
-} XDfeCcf_InterruptMask;
+} XDfeCcf_Status;
+
+typedef XDfeCcf_Status XDfeCcf_InterruptMask;
 
 /**
  * CCF Config Structure.
@@ -451,6 +459,8 @@ void XDfeCcf_GetCC(const XDfeCcf *InstancePtr, s32 CCID,
 void XDfeCcf_GetActiveSets(const XDfeCcf *InstancePtr, u32 *IsActive);
 void XDfeCcf_LoadCoefficients(XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 			      const XDfeCcf_Coefficients *Coeffs);
+void XDfeCcf_GetOverflowStatus(const XDfeCcf *InstancePtr,
+			       XDfeCcf_OverflowStatus *Status);
 void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status);
 void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr,
 			      const XDfeCcf_Status *Status);

@@ -22,6 +22,7 @@
 * 1.2   dc     10/29/21 Update doxygen comments
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+* 1.5   dc     09/12/22 Update handling overflow status
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -47,26 +48,19 @@ extern u32 XDfeCcf_WrBitField(u32 FieldWidth, u32 FieldOffset, u32 Data,
 /****************************************************************************/
 /**
 *
-* Gets event status.
+* Gets overflow event status.
 *
 * @param    InstancePtr Pointer to the channel filter instance.
-* @param    Status Pointer to a returned event status.
+* @param    Status Pointer to a returned overflow event status.
 *
 ****************************************************************************/
-void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
+void XDfeCcf_GetOverflowStatus(const XDfeCcf *InstancePtr,
+			       XDfeCcf_OverflowStatus *Status)
 {
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Status != NULL);
-
-	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_ISR);
-	Status->CCUpdate =
-		XDfeCcf_RdBitField(XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,
-				   XDFECCF_CC_UPDATE_TRIGGERED_OFFSET, Val);
-	Status->CCSequenceError =
-		XDfeCcf_RdBitField(XDFECCF_CC_SEQUENCE_ERROR_WIDTH,
-				   XDFECCF_CC_SEQUENCE_ERROR_OFFSET, Val);
 
 	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_OVERFLOW);
 	Status->OverflowBeforeGainReal =
@@ -89,6 +83,35 @@ void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
 		XDFECCF_ANTENNA_WIDTH, XDFECCF_ANTENNA_OFFSET, Val);
 	Status->OverflowCCID = XDfeCcf_RdBitField(XDFECCF_CCID_WIDTH,
 						  XDFECCF_CCID_OFFSET, Val);
+	Status->OverflowSwitch =
+		XDfeCcf_RdBitField(XDFECCF_OVERFLOW_SWITCH_WIDTH,
+				   XDFECCF_OVERFLOW_SWITCH_OFFSET, Val);
+}
+
+/****************************************************************************/
+/**
+*
+* Gets event status.
+*
+* @param    InstancePtr Pointer to the channel filter instance.
+* @param    Status Pointer to a returned event status.
+*
+****************************************************************************/
+void XDfeCcf_GetEventStatus(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)
+{
+	u32 Val;
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Status != NULL);
+
+	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_ISR);
+	Status->Overflow = XDfeCcf_RdBitField(XDFECCF_OVERFLOW_WIDTH,
+					      XDFECCF_OVERFLOW_OFFSET, Val);
+	Status->CCUpdate =
+		XDfeCcf_RdBitField(XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,
+				   XDFECCF_CC_UPDATE_TRIGGERED_OFFSET, Val);
+	Status->CCSequenceError =
+		XDfeCcf_RdBitField(XDFECCF_CC_SEQUENCE_ERROR_WIDTH,
+				   XDFECCF_CC_SEQUENCE_ERROR_OFFSET, Val);
 }
 
 /****************************************************************************/
@@ -109,13 +132,13 @@ void XDfeCcf_ClearEventStatus(const XDfeCcf *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Status != NULL);
-	Xil_AssertVoid(Status->OverflowCCID <= 1U);
+	Xil_AssertVoid(Status->Overflow <= 1U);
 	Xil_AssertVoid(Status->CCUpdate <= 1U);
 	Xil_AssertVoid(Status->CCSequenceError <= 1U);
 
 	Val = XDfeCcf_WrBitField(XDFECCF_OVERFLOW_WIDTH,
 				 XDFECCF_OVERFLOW_OFFSET, Val,
-				 Status->OverflowCCID);
+				 Status->Overflow);
 	Val = XDfeCcf_WrBitField(XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,
 				 XDFECCF_CC_UPDATE_TRIGGERED_OFFSET, Val,
 				 Status->CCUpdate);

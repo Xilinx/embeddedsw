@@ -30,6 +30,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/30/21 Convert AntennaCfg to structure
 * 1.3   dc     01/31/22 CCF IP MODEL_PARAM register change
+* 1.5   dc     09/12/22 Update handling overflow status
 *
 * </pre>
 *
@@ -149,6 +150,8 @@ extern "C" {
 #define XDFECCF_ANTENNA_OFFSET 8U
 #define XDFECCF_CCID_WIDTH 4U
 #define XDFECCF_CCID_OFFSET 12U
+#define XDFECCF_OVERFLOW_SWITCH_WIDTH 1U
+#define XDFECCF_OVERFLOW_SWITCH_OFFSET 16U
 
 /* CC Configuration */
 #define XDFECCF_SEQUENCE_LENGTH_CURRENT 0x1000U /**< Register offset */

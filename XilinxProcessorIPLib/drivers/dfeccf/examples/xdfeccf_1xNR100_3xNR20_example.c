@@ -21,6 +21,7 @@
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
+* 1.5   dc     09/12/22 Update handling overflow status
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -155,7 +156,7 @@ int XDfeCcf_1xNR100_3xNR20_Example()
 
 	for (Index = 0; Index < NUM_CARRIER; Index++) {
 		/* Clear event status */
-		Status.OverflowCCID = XDFECCF_ISR_CLEAR;
+		Status.Overflow = XDFECCF_ISR_CLEAR;
 		Status.CCUpdate = XDFECCF_ISR_CLEAR;
 		Status.CCSequenceError = XDFECCF_ISR_CLEAR;
 		printf("Clear Event Status\n\r");
