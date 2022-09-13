@@ -22,6 +22,7 @@
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
+*       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 *
 * </pre>
 *
@@ -52,6 +53,10 @@
 
 /* IPI Max Timeout */
 #define IPI_MAX_TIMEOUT			(~0U)
+
+/* Command related macros */
+#define XPLMI_SCATTER_WRITE_PAYLOAD_LEN			(2U)
+#define XPLMI_SCATTER_WRITE2_PAYLOAD_LEN		(3U)
 
 /**************************** Type Definitions *******************************/
 
@@ -310,6 +315,115 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 
 	/* Update destination address to handle resume case */
 	Cmd->ResumeData[0U] += (CurrPayloadLen * XPLMI_WORD_LEN);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will write single 32 bit value to multiple addresses
+ * 		which are specified in the payload.
+ *  		Command payload parameters are
+ *			- Value
+ *			- Address[N]: array of N addresses
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 StartIndex;
+	u32 Index;
+
+	XPLMI_EXPORT_CMD(XPLMI_SCATTER_WRITE_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+			XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
+
+	/* Take care of resume case when long command can be split */
+	if (Cmd->ProcessedLen == 0U) {
+		/*
+		 * Sanity check Arguments
+		 */
+		if (Cmd->PayloadLen < XPLMI_SCATTER_WRITE_PAYLOAD_LEN) {
+			XPlmi_Print(DEBUG_GENERAL, "Scatter_write: invalid "
+				"payload length 0x%x which is less than 2", Cmd->PayloadLen);
+			Status = (int)XPLMI_ERR_INVALID_PAYLOAD_LEN;
+			goto END;
+		}
+
+		/* Save value at very first part of the split */
+		Cmd->ResumeData[0U] = Cmd->Payload[0U];
+		/* Also the start index of the address[i] is 1 in first part */
+		StartIndex = 1U;
+	} else {
+		/* Start index of the address[i] in other parts is 0 */
+		StartIndex = 0U;
+	}
+
+	/* Start writing out to the addresses */
+	for (Index = StartIndex; Index < Cmd->PayloadLen; Index++) {
+		XPlmi_Out32(Cmd->Payload[Index], Cmd->ResumeData[0U]);
+	}
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will write 2 32-bit values to multiple addresses
+ * 		which are specified by the payload.
+ *  		Command payload parameters are
+ *			- Value1
+ * 			- Value2
+ *			- Address[N]: array of N addresses
+ *			where Address[i] = Value1 and Address[i] + 4 = Value2
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 StartIndex;
+	u32 Index;
+
+	XPLMI_EXPORT_CMD(XPLMI_SCATTER_WRITE2_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+			XPLMI_CMD_ARG_CNT_FOUR, XPLMI_UNLIMITED_ARG_CNT);
+
+	/* Take care of resume case when long command can be split */
+	if (Cmd->ProcessedLen == 0U) {
+		/*
+		* Sanity check Arguments
+		*/
+		if (Cmd->PayloadLen < XPLMI_SCATTER_WRITE2_PAYLOAD_LEN) {
+			XPlmi_Print(DEBUG_GENERAL, "Scatter_write2: invalid "
+				"payload length 0x%x which is less than 3", Cmd->PayloadLen);
+			Status = (int)XPLMI_ERR_INVALID_PAYLOAD_LEN;
+			goto END;
+		}
+
+		/* Save values at very first part of the split */
+		Cmd->ResumeData[0U] = Cmd->Payload[0U];
+		Cmd->ResumeData[1U] = Cmd->Payload[1U];
+		/* Also the start index of the address[i] is 2 in first part */
+		StartIndex = 2U;
+	} else {
+		/* Start index of the address[i] in other parts is 0 */
+		StartIndex = 0U;
+	}
+
+	/* Start writing out to the address */
+	for (Index = StartIndex; Index < Cmd->PayloadLen; Index++) {
+		XPlmi_Out32(Cmd->Payload[Index], Cmd->ResumeData[0U]);
+		XPlmi_Out32(Cmd->Payload[Index] + XPLMI_WORD_LEN, Cmd->ResumeData[1U]);
+	}
+	Status = XST_SUCCESS;
+
 END:
 	return Status;
 }
