@@ -45,7 +45,7 @@
 * 2.4   kal  07/25/2021 Moved common structures between client and server
 *                       to xnvm_defs.h
 * 2.5   har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
-* 2.6	kal  12/07/2022	Moved common code to xnvm_efuse_common.h
+* 3.0	kal  07/12/2022	Moved common code to xnvm_efuse_common.h
 *
 * </pre>
 *

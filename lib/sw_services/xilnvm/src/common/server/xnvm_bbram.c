@@ -27,7 +27,7 @@
 *			Zeroize BBRAM User Data in case of write failure
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 *       kal  08/03/2021 Removed clearing BBRAM UsrData in case for write failure
-* 2.6   kal  08/01/2022 Added redundancy to XNvm_BbramEnablePgmMode function
+* 3.0   kal  08/01/2022 Added redundancy to XNvm_BbramEnablePgmMode function
 *
 * </pre>
 *

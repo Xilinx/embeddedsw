@@ -26,7 +26,7 @@
 *       kpt  01/19/2022 Cleared AesKeys structure and added redundancy
 *       kpt  01/31/2022 Removed redundant code in XNvm_EfuseMemCopy
 *       am   02/28/2022 Fixed MISRA C violation rule 4.5
-* 2.6   kal  08/01/2022 Added volatile keyword to ClearStatus and
+* 3.0   kal  08/01/2022 Added volatile keyword to ClearStatus and
 * 			ClearStatusTmp
 *
 * </pre>
