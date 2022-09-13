@@ -19,7 +19,7 @@
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 * 4.6   har  07/14/21 Fixed doxygen warnings
 * 4.7   kpt  11/29/21 Added macro XSecure_DCacheFlushRange
-* 4.9   bm   07/06/22 Refactor versal and versal_net code
+* 5.0   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Added XSecure_EccCrvClass
 *
 * </pre>

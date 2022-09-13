@@ -18,7 +18,7 @@
 * 4.2   har  03/20/20 Updated file version to sync with library version
 * 4.3   am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
-* 4.9   bm   07/06/22 Refactor versal and versal_net code
+* 5.0   bm   07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 *

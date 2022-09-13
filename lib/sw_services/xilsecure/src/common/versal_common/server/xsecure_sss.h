@@ -23,7 +23,7 @@
 *       am      09/24/20 Resolved MISRA C violations
 *       har     10/12/20 Addressed security review comments
 *       bsv     10/19/20 Changed register writes to PMC SSS Cfg to mask writes
-* 4.9   bm      07/06/22 Refactor versal and versal_net code
+* 5.0   bm      07/06/22 Refactor versal and versal_net code
 *
 * </pre>
 * @endcond

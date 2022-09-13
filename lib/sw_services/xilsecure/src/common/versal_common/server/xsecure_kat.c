@@ -16,7 +16,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
-* 4.9   kpt  07/15/2022 Initial release
+* 5.0   kpt  07/15/2022 Initial release
 *       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization
 *                       of loop redundancy checks
 *       dc   08/26/2022 Removed initializations of arrays

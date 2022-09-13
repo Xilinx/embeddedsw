@@ -39,7 +39,7 @@
 *       am   10/10/20 Resolved Coverity warnings
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added support for 64-bit address
-* 4.9   kpt  07/24/21 Moved XSecure_RsaPublicEncrypt KAT into xsecure_kat.c
+* 5.0   kpt  07/24/21 Moved XSecure_RsaPublicEncrypt KAT into xsecure_kat.c
 *       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of
 *                     loop redundancy check
 *       dc   08/26/22 Optimization of size by changing u8 to u32

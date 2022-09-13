@@ -29,7 +29,7 @@
 * 4.5   har  01/18/21 Updated prototype for XSecure_EllipticKat
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added support for 64-bit address
-* 4.9   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
+* 5.0   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
 *
 * </pre>
 *

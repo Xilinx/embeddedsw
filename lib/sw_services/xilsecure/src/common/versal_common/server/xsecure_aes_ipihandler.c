@@ -29,7 +29,7 @@
 *       har   09/14/2021 Added check for DecKeySrc in XSecure_AesKekDecrypt
 * 4.7   am    03/08/2022 Fixed MISRA C violations
 *       kpt   03/18/2022 Replaced XPlmi_Dmaxfr with XPlmi_MemCpy64
-* 4.9   kpt   07/24/2022 Moved XSecure_AesExecuteDecKat, XSecure_AesExecuteDecCMKat
+* 5.0   kpt   07/24/2022 Moved XSecure_AesExecuteDecKat, XSecure_AesExecuteDecCMKat
 *                        into xsecure_kat_plat_ipihandler.c
 *       kpt   08/19/2022 Added GMAC support
 *

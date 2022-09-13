@@ -43,7 +43,7 @@
 *       har  02/16/22 Updated Status with ClearStatus only in case of success
 *       dc   07/13/22 Modified static function XSecure_EllipticGetCrvData()
 *                     to non static
-* 4.9   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
+* 5.0   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
 *       dc   08/26/22 Removed initializations of arrays
 *
 *

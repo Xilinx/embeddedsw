@@ -23,7 +23,7 @@
 *                       XSecure_FeaturesCmd API
 *       rb   08/11/2021 Fix compilation warnings
 * 4.7   am   03/08/2022 Fixed MISRA C violations
-* 4.9   bm   07/06/2022 Refactor versal and versal_net code
+* 5.0   bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/24/2022 Added XSecure_KatIpiHandler
 *
 * </pre>

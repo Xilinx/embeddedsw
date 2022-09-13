@@ -15,7 +15,7 @@
 *
 * Ver   Who Date     Changes
 * ----- --- -------- -------------------------------------------------------
-* 4.9   vns 05/30/22 Initial release
+* 5.0   vns 05/30/22 Initial release
 *       kpt 07/24/22 Moved XSecure_HmacKat into xsecure_kat_plat.c
 *
 * </pre>

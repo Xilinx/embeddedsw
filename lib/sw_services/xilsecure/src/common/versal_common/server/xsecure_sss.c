@@ -27,7 +27,7 @@
 *       kpt     11/12/20 Fixed SSS Cfg issue
 * 4.5   am      11/24/20 Resolved Coverity warnings
 * 4.6   har     07/14/21 Fixed doxygen warnings
-* 4.9   bm      07/06/22 Refactor versal and versal_net code
+* 5.0   bm      07/06/22 Refactor versal and versal_net code
 *       am      08/18/22 Added volatile keyword and reset the Status variable
 *                        to failure before reuse
 *

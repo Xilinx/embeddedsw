@@ -22,7 +22,7 @@
 *       kal  08/16/2021 Fixed magic number usage comment and fixed bug in
 *                       XSecure_FeaturesCmd API
 *       rb   08/11/2021 Fix compilation warnings
-* 4.9   kpt  07/24/2022 Added XSecure_KatIpiHandler and support to go into
+* 5.0   kpt  07/24/2022 Added XSecure_KatIpiHandler and support to go into
 *                       secure lockdown when KAT fails
 *
 *

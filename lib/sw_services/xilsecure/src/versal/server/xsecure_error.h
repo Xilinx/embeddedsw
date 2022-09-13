@@ -30,7 +30,7 @@
  *                       Added error code XSECURE_AES_DEVICE_KEY_NOT_ALLOWED
  * 4.8   ma   07/08/2022 Added support for secure lockdown
  *       dc   07/13/2022 Reserved error codes reservation for Versal net
- * 4.9   kpt  07/24/2022 Added error codes for KAT
+ * 5.0   kpt  07/24/2022 Added error codes for KAT
  *
  * </pre>
  *

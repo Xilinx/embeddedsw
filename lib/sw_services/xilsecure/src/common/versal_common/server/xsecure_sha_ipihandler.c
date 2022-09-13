@@ -24,7 +24,7 @@
 *       am    05/22/2021 Resolved MISRA C violation rule 17.8
 * 4.6   har   07/14/2021 Fixed doxygen warnings
 *       gm    07/16/2021 Added support for 64-bit address
-* 4.9   kpt   07/24/2022 Moved XSecure_ShaKat into xsecure_kat_plat_ipihandler.c
+* 5.0   kpt   07/24/2022 Moved XSecure_ShaKat into xsecure_kat_plat_ipihandler.c
 *
 * </pre>
 *
