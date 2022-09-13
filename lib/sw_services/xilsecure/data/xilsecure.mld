@@ -29,7 +29,6 @@
 #       har 05/17/21  Added nonsecure_ipi_access parameter
 #       har 07/14/21  Updated library version to 4.6
 #       am  11/26/21  Updated library version to 4.7
-# 4.9   kpt 08/25/22  Changed user configurable parameter names
 #
 ##############################################################################
 
@@ -46,11 +45,11 @@ BEGIN LIBRARY xilsecure
   OPTION NAME = xilsecure;
   PARAM name = secure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
   PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \nthen writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks \nvalid only for ZynqMP FSBL BSP", type = bool, default = false;
-  PARAM name = xsecure_mode, desc = "Enables A72/R5 server and client mode support for XilSecure library for \n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
-  PARAM name = nonsecure_ipi_access, desc = "Enables non secure access for XilSecure IPI commands for Versal", type = bool, default = false;
-  PARAM name = xsecure_cache_disable, desc = "Enables/Disables cache for XilSecure client library for Versal", type = bool, default = true;
-  PARAM name = xsecure_seedlife, desc = "Number of generates required before reseeding and the value ranging from 1 - 2^19 bits \nvalid only for versal net", type = int, default = 256;
-  PARAM name = xsecure_dlen, desc = "Seed length in multiples of TRNG block size i.e 16 bytes and the value ranging from 7 - 31 \nvalid only for versal net", type = int, default = 7;
-  PARAM name = xsecure_adaptproptestcutoff, desc = "Cutoff value to run adaptive health tests \nvalid only for versal net", type = int, default = 612;
-  PARAM name = xsecure_repcounttestcutoff, desc = " Cutoff value to run repetitive health tests \nvalid only for versal net", type = int, default = 33;
+  PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilSecure library for \n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
+  PARAM name = nonsecure_ipi_access, desc = "Enables non secure access for Xilsecure IPI commands for Versal", type = bool, default = false;
+  PARAM name = cache_disable, desc = "Enables/Disables cache", type = bool, default = true;
+  PARAM name = seedlife, desc = "Number of generates required before reseeding and the value ranging from 1 - 2^19 bits", type = int, default = 256;
+  PARAM name = dlen, desc = "Seed length in multiples of TRNG block size i.e 16 bytes and the value ranging from 7 - 31", type = int, default = 7;
+  PARAM name = adaptproptestcutoff, desc = "Cutoff value to run adaptive health tests", type = int, default = 612;
+  PARAM name = repcounttestcutoff, desc = " Cutoff value to run repetitive health tests", type = int, default = 33;
 END LIBRARY
