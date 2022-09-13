@@ -472,7 +472,7 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{TX_R3_FRL, 0x1D, 0x03},
 	{TX_R3_FRL, 0x1E, 0x00},
 
-    {RX_R3_TMDS_14, 0x0A, 0x1C},
+    {RX_R3_TMDS_14, 0x0A, 0x34},
     {RX_R3_TMDS_14, 0x0B, 0x0D},
     {RX_R3_TMDS_14, 0x0C, 0x00},
     {RX_R3_TMDS_14, 0x0D, 0x00},
@@ -495,7 +495,7 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
     {RX_R3_TMDS_14, 0x1E, 0x00},
 
 
-    {RX_R3_TMDS_20, 0x0A, 0x1C},
+    {RX_R3_TMDS_20, 0x0A, 0x34},
     {RX_R3_TMDS_20, 0x0B, 0x0D},
     {RX_R3_TMDS_20, 0x0C, 0x00},
     {RX_R3_TMDS_20, 0x0D, 0x00},
