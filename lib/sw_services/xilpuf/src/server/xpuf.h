@@ -36,7 +36,7 @@
 *                       as XPUF_ERROR_PUF_DONE_KEY_NT_RDY
 * 1.4   kpt  12/02/2021 Added macro XPUF_4K_PUF_SYN_LEN_IN_BYTES
 * 1.5   kpt  03/23/2022 Added macro's and error code related to IRO frequency
-* 1.6   har  06/09/2022 Added support for Versal_Net
+* 2.0   har  06/09/2022 Added support for Versal_Net
 *                       Removed support for 12K mode
 *
 * </pre>
