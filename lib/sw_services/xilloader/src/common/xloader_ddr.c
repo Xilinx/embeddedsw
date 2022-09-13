@@ -30,6 +30,7 @@
 * 1.04  bsv  08/31/2021 Code clean up
 * 1.05  bsv  10/26/2021 Code clean up
 *       bm   07/06/2022 Refactor versal and versal_net code
+*       is   09/12/2022 Remove PM_CAP_SECURE capability when requesting DDR_0
 *
 * </pre>
 *
@@ -70,12 +71,12 @@ static u8 DdrRequested = (u8)FALSE;
 int XLoader_DdrInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
-	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+	u32 CapAccess = (u32)PM_CAP_ACCESS;
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
 
 	if (DdrRequested == (u8)FALSE) {
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_DDR_0,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
 			XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
