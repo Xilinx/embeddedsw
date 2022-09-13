@@ -28,10 +28,10 @@
  *       kpt  02/04/2021 Added error code for tamper response
  *       har  05/18/2021 Added error code XSECURE_IPI_ACCESS_NOT_ALLOWED
  *                       Added error code XSECURE_AES_DEVICE_KEY_NOT_ALLOWED
- * 4.8   kpt  06/06/2022 Added error codes for TRNG
+ * 5.0   kpt  06/06/2022 Added error codes for TRNG
  *       ma   07/08/2022 Added support for secure lockdown
  *       dc   07/13/2022 Added error codes for VersalNet
- * 4.9   kpt  07/24/2022 Added error codes for KAT
+ *       kpt  07/24/2022 Added error codes for KAT
  *
  * </pre>
  *

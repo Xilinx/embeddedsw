@@ -19,7 +19,7 @@
 *      bm    05/13/21 Updated code to use common crypto instance
 * 4.6  gm    07/16/21 Added 64-bit address support
 * 4.7  kpt   03/18/21 Replaced XPlmi_DmaXfr with XPlmi_MemCpy64
-* 4.9  kpt   07/24/22 Moved XSecure_RsaKat into xsecure_kat_plat_ipihanlder.c
+* 5.0  kpt   07/24/22 Moved XSecure_RsaKat into xsecure_kat_plat_ipihanlder.c
 *      dc    08/22/22 Fixed RSA key accesses address based on RSA key size
 *
 * </pre>

@@ -35,7 +35,7 @@
 *       ana  10/15/2020 Updated doxygen tags
 * 4.5   har  03/02/2021 Added prototype for XSecure_AesUpdateAad
 * 4.6   har  07/14/2021 Fixed doxygen warnings
-* 4.9   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c
+* 5.0   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c
 *       kpt  08/19/2022 Added GMAC support
 *
 * </pre>

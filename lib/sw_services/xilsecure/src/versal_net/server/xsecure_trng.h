@@ -20,7 +20,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   kpt  05/05/22 Initial release
+* 5.0   kpt  05/05/22 Initial release
 *       dc   07/12/22 Corrected comments
 *       kpt  07/24/22 Moved KAT related code to xsecure_kat_plat.c
 *

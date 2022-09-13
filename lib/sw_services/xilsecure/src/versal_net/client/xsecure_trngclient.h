@@ -18,7 +18,7 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   am   06/13/22 Initial release
+* 5.0   am   06/13/22 Initial release
 *       kpt  07/24/22 moved XSecure_TrngKat into xsecure_katclient_plat.c
 *
 * </pre>

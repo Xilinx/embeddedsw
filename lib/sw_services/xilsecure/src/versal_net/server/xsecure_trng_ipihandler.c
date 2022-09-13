@@ -17,8 +17,8 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  kpt  05/15/2022 Initial release
-* 4.9   kpt  07/24/2022 Moved XSecure_TrngKat to xsecure_kat_plat.c
+* 5.0   kpt  05/15/2022 Initial release
+*       kpt  07/24/2022 Moved XSecure_TrngKat to xsecure_kat_plat.c
 *
 * </pre>
 *

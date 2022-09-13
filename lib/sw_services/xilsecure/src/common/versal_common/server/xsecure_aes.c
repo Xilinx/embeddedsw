@@ -72,7 +72,7 @@
 *       har  01/20/2022 Added glitch checks for clearing keys in
 *                       XSecure_AesWriteKey()
 *       har  02/16/2022 Updated Status with ClearStatus only in case of success
-* 4.9   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c and fixed bug in
+* 5.0   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c and fixed bug in
 *                       XSecure_AesDecryptCmKat
 *       kpt  08/02/2022 Zeroized user key in XSecure_AesDecryptCmKat
 *       kpt  08/19/2022 Added GMAC support

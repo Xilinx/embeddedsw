@@ -21,7 +21,7 @@
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       har  04/14/21 Added XSecure_AesEncryptData and XSecure_AesDecryptData
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
-* 4.9   kpt  07/24/22 Moved XSecure_AesDecryptKat and XSecure_AesDecryptCMKat
+* 5.0   kpt  07/24/22 Moved XSecure_AesDecryptKat and XSecure_AesDecryptCMKat
 *                     into xsecure_katclient.c
 *       kpt  08/19/22 Added GMAC support
 *

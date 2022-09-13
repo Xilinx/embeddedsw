@@ -16,7 +16,7 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 4.9   dc   07/10/22 Initial release
+* 5.0   dc   07/10/22 Initial release
 *       am   07/23/22 Removed Ecdsa_ModEccOrder function defination, as it is
 *                     declared in Ecdsa.h file
 *       dc   09/04/22 set TRNG to HRNG mode after Private key ECC mod order

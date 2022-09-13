@@ -17,7 +17,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   kpt  05/05/22 Initial release
+* 5.0   kpt  05/05/22 Initial release
 *       dc   07/13/22 Modified XSECURE_TRNG_DF_MIN_LENGTH to 2
 *       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
 *       dc   09/04/22 Add an API to set HRNG mode
