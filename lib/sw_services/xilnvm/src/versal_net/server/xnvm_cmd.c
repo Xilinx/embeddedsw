@@ -15,8 +15,9 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   kal  07/05/2022 Initial release
-*       har  07/19/2022 Added support for writing keys, PPK hash, IV and reading eFUSE cache via IPI
+* 3.0   kal  07/05/2022 Initial release
+*       har  07/19/2022 Added support for writing keys, PPK hash,
+*                       IV and reading eFUSE cache via IPI
 *
 * </pre>
 *

@@ -7,7 +7,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0  mmd  05/06/19 Initial Release
-# 2.6  kpt  08/25/22 Changed user configurable parameter names
+# 3.0  kpt  08/25/22 Changed user configurable parameter names
 #
 ##############################################################################
 

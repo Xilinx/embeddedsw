@@ -31,7 +31,7 @@
 *                   PUF cache read
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 *       har  09/16/2021 Added macro for offset for ANLG TRIM 2 register
-* 2.6	kal  12/07/2022	Moved common hw definitions to xnvm_efuse_common_hw.h
+* 3.0	kal  07/12/2022	Moved common hw definitions to xnvm_efuse_common_hw.h
 *
 * </pre>
 *

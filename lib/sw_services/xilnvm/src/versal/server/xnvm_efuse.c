@@ -80,8 +80,8 @@
 *                       Added checks for return value for
 *                       XNvm_EfuseDisableProgramming() and XNvm_EfuseResetReadMode()
 *       am   02/28/2022 Resolved MISRA C violations
-* 2.6   kal  12/07/2022 Moved common code to xnvm_efuse_common.c in common directory
-*       kal  05/08/2022 Fix Row37 protection check in XNvm_EfuseProtectionChecks API
+* 3.0   kal  07/12/2022 Moved common code to xnvm_efuse_common.c in common directory
+*       kal  08/02/2022 Fix Row37 protection check in XNvm_EfuseProtectionChecks API
 *       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization of loop redundancy check
 *
 * </pre>

@@ -31,7 +31,7 @@
 * 2.3	kal  01/27/2021 Added XNvm_ZeroizeAndVerify API
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 * 2.5   kpt  12/07/2021 Replace memset with Xil_SMemSet
-* 2.6   kal  08/01/2022 Reset Status to XST_FAILURE before for loop in
+* 3.0   kal  08/01/2022 Reset Status to XST_FAILURE before for loop in
 * 			XNvm_ZeroizeAndVerify
 *       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization
 *                       of loop redundancy check
