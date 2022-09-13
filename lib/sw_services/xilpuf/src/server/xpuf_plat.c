@@ -18,7 +18,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
-* 1.0   har  07/04/2022 Initial release
+* 2.0   har  07/04/2022 Initial release
 *       kpt  08/31/2022 Fixed logical error in XPuf_CheckGlobalVariationFilter
 *
 * </pre>

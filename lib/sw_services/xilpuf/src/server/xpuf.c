@@ -47,7 +47,7 @@
 *       har  03/21/2022 Disabled SLV_ERR for PUF on demand regeneration
 *       kpt  03/23/2022 Added code to change IRO frequency to 320MHZ when IRO frequency
 *                       is 400MHZ to make PUF work at nominal voltage
-* 1.6   har  06/09/2022 Added support for Versal_net
+* 2.0   har  06/09/2022 Added support for Versal_net
 *                       Removed support for 12K mode
 *            08/02/2022 Modified if check for XPuf_ChangeIroFreq to avoid returning XST_SUCCESS
 *                       incase of glitch attack
