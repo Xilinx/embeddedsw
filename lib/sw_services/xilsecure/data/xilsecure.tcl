@@ -19,7 +19,7 @@
 #       kal  04/21/21 Added server side support for A72/R5 processors for
 #                     Versal
 #       har  05/17/21 Added support for non-secure access of Xilsecure IPIs
-# 4.9   bm   07/06/22 Refactor versal and versal_net code
+# 5.0   bm   07/06/22 Refactor versal and versal_net code
 #       am   07/24/22 Added support for a78 and r52 processors of VersalNet
 #
 ##############################################################################

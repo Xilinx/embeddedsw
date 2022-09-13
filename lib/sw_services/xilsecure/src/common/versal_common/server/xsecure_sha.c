@@ -42,7 +42,7 @@
 * 4.7   kpt  12/01/21 Replaced library specific,standard utility functions
 *                     with xilinx maintained functions
 *       am   03/08/22 Replaced memset() with Xil_SMemSet()
-* 4.9   bm   07/06/22 Refactor versal and versal_net code
+* 5.0   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
 *       dc   08/26/22 Optimization of size, changed type of variables u8 to u32
 *

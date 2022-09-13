@@ -45,7 +45,7 @@
 *       har  10/12/20 Addressed security review comments
 *       ana  10/15/20 Updated doxygen tags
 * 4.5   bm   01/13/21 Added support for 64-bit input data address
-* 4.9   bm   07/06/22 Refactor versal and versal_net code
+* 5.0   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_kat.c
 *       dc   08/26/22 Changed u8 to u32 type for size optimization
 *

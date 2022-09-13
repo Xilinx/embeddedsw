@@ -30,7 +30,7 @@
 *       ana  10/15/20 Updated doxygen tags
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added 64-bit address support
-* 4.9   kpt  07/24/21 Moved XSecure_RsaPublicEncrypt KAT into xsecure_kat.c
+* 5.0   kpt  07/24/21 Moved XSecure_RsaPublicEncrypt KAT into xsecure_kat.c
 *
 * </pre>
 *

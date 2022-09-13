@@ -17,7 +17,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   kal  04/21/21 Initial release
 * 4.5   kal  04/21/21 Updated file version to sync with library version
-* 4.9   dc   09/04/22 Initialized TRNG for Versal Net
+* 5.0   dc   09/04/22 Initialized TRNG for Versal Net
 *
 * </pre>
 *

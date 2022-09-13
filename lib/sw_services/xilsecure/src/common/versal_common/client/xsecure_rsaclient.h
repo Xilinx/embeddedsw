@@ -20,7 +20,7 @@
 * 1.0   kal  03/23/21 Initial release
 * 4.5   kal  03/23/20 Updated file version to sync with library version
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
-* 4.9   kpt  07/24/22 Moved XSecure_RsaKat into xsecure_katclient.c
+* 5.0   kpt  07/24/22 Moved XSecure_RsaKat into xsecure_katclient.c
 *
 * </pre>
 * @note

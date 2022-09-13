@@ -21,7 +21,7 @@
 *       am   09/24/20 Resolved MISRA C violations
 *       har  10/12/20 Addressed security review comments
 * 4.6   har  07/14/21 Fixed doxygen warnings
-* 4.9   am   07/23/22 Initialized EcdsaCrvInfo structure members(d14 and d15)
+* 5.0   am   07/23/22 Initialized EcdsaCrvInfo structure members(d14 and d15)
 *                     with NULL
 *
 * </pre>

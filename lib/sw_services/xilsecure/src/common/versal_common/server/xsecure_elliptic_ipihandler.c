@@ -19,7 +19,7 @@
 * 4.6  gm    07/16/2021 Added support for 64-bit address
 *      rb    08/11/2021 Fix compilation warnings
 * 4.7  kpt   03/18/2022 Replaced XPlmi_Dmaxfr with XPlmi_MemCpy64
-* 4.9  kpt   07/24/2022 Moved XSecure_EllipticExecuteKat in to xsecure_kat_plat_ipihandler.c
+* 5.0  kpt   07/24/2022 Moved XSecure_EllipticExecuteKat in to xsecure_kat_plat_ipihandler.c
 *
 * </pre>
 *

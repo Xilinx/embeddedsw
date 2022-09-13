@@ -27,7 +27,7 @@
 *                     user
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
-* 4.9   kpt  07/24/22 Moved XSecure_AesDecryptKat and XSecure_AesDecryptCMKat
+* 5.0   kpt  07/24/22 Moved XSecure_AesDecryptKat and XSecure_AesDecryptCMKat
 *                     into XSecure_Katclient.c
 *       kpt  08/19/22 Added GMAC support
 *

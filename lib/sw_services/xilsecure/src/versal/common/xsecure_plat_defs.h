@@ -15,7 +15,7 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 4.9   bm   07/06/22 Initial release
+* 5.0   bm   07/06/22 Initial release
 *       kpt  07/24/22 Added XSECURE_API_KAT and additional KAT ids
 *       dc   08/26/22 Removed gaps between the API IDs
 *
