@@ -21,7 +21,6 @@
 #       har  05/17/21 Added support for non-secure access of Xilsecure IPIs
 # 4.9   bm   07/06/22 Refactor versal and versal_net code
 #       am   07/24/22 Added support for a78 and r52 processors of VersalNet
-#       kpt  08/25/22 Changed user configurable parameter names
 #
 ##############################################################################
 
@@ -33,7 +32,7 @@ proc secure_drc {libhandle} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set compiler [common::get_property CONFIG.compiler $proc_instance]
-	set mode [common::get_property CONFIG.xsecure_mode $libhandle]
+	set mode [common::get_property CONFIG.mode $libhandle]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
 	set common "src/common/"
@@ -273,7 +272,7 @@ proc xgen_opts_file {libhandle} {
 		close $file_handle
 	}
 	# Get cache_disable value set by user, by default it is FALSE
-	set value [common::get_property CONFIG.xsecure_cache_disable $libhandle]
+	set value [common::get_property CONFIG.cache_disable $libhandle]
 	if {$value == true} {
 		#Open xparameters.h file
 		if {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
@@ -290,16 +289,16 @@ proc xgen_opts_file {libhandle} {
 	if {$proc_type == "psxl_pmc"} {
 		set file_handle [hsi::utils::open_include_file "xparameters.h"]
 		puts $file_handle "\n/* Xilinx Secure library TRNG User Settings */"
-		set value [common::get_property CONFIG.xsecure_seedlife $libhandle]
+		set value [common::get_property CONFIG.seedlife $libhandle]
 		puts $file_handle "\n/* TRNG seed life */"
 		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_USER_CFG_SEED_LIFE " [expr $value]  "U"]
-		set value [common::get_property CONFIG.xsecure_dlen $libhandle]
+		set value [common::get_property CONFIG.dlen $libhandle]
 		puts $file_handle "\n/* TRNG DF length */"
 		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_USER_CFG_DF_LENGTH " [expr $value]  "U"]
-		set value [common::get_property CONFIG.xsecure_adaptproptestcutoff $libhandle]
+		set value [common::get_property CONFIG.adaptproptestcutoff $libhandle]
 		puts $file_handle "\n/* TRNG adaptive prop test cutoff value*/"
 		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_ADAPT_TEST_CUTOFF " [expr $value]  "U"]
-		set value [common::get_property CONFIG.xsecure_repcounttestcutoff $libhandle]
+		set value [common::get_property CONFIG.repcounttestcutoff $libhandle]
 		puts $file_handle "\n/* TRNG repetitive prop test cutoff value*/"
 		puts $file_handle [format %s%d%s "#define XSECURE_TRNG_REP_TEST_CUTOFF " [expr $value]  "U"]
 	}
