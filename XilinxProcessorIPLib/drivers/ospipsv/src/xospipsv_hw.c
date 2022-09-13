@@ -276,6 +276,11 @@ void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
 			Instxfer_Type = DQ0_7;
 			Dataxfer_Type = DQ0;
 			break;
+		case XOSPIPSV_WRITE_8_0_8:
+			Addrxfer_Type = DQ0;
+			Instxfer_Type = DQ0_7;
+			Dataxfer_Type = DQ0_7;
+			break;
 		default :
 			Dataxfer_Type = DQ0;
 			Addrxfer_Type = DQ0;
