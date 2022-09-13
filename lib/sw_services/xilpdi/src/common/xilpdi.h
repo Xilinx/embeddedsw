@@ -55,6 +55,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bsv  07/08/2022 Code changes related to Optional data in IHT
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
+*       bm   09/13/2022 Reduce maximum number of partitions and images
 *
 * </pre>
 *
@@ -83,9 +84,7 @@ extern "C" {
  * @{
  */
 #define XIH_MIN_PRTNS			(1U)
-#define XIH_MAX_PRTNS			(32U)
 #define XIH_MIN_IMGS			(1U)
-#define XIH_MAX_IMGS			(32U)
 
 /**
  * Boot header identification string
@@ -304,7 +303,7 @@ typedef struct {
 typedef struct {
 	const XilPdi_BootHdr *BootHdrPtr; /**< Boot Header Pointer */
 	XilPdi_ImgHdrTbl ImgHdrTbl; /**< Img header table structure */
-	XilPdi_ImgHdr ImgHdr[XIH_MAX_PRTNS]; /**< Prtn header */
+	XilPdi_ImgHdr ImgHdr[XIH_MAX_IMGS]; /**< Image header */
 	XilPdi_PrtnHdr PrtnHdr[XIH_MAX_PRTNS]; /**< Prtn header */
 	u64 FlashOfstAddr; /**< Start of DPI start address in Flash */
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,

@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+*       bm   09/13/2022 Reduce maximum number of partitions and images
 *
 * </pre>
 *
@@ -40,6 +41,9 @@ extern "C" {
  *
  * @{
  */
+
+#define XIH_MAX_PRTNS			(20U)
+#define XIH_MAX_IMGS			(10U)
 
 /**
  * Secondary Boot Device (SBD) in IHT Attributes

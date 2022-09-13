@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
+*       bm   09/13/2022 Added macros for maximum number of partitions and images
 *
 * </pre>
 *
@@ -41,6 +42,9 @@ extern "C" {
  *
  * @{
  */
+
+#define XIH_MAX_PRTNS			(32U)
+#define XIH_MAX_IMGS			(32U)
 
 /* Secondary Boot Device (SBD) in IHT Attributes */
 #define XIH_IHT_ATTR_SBD_MASK	        (0xFC0U)
