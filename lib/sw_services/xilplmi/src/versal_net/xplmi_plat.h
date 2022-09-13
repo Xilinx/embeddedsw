@@ -24,6 +24,7 @@
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/22/2022 Shutdown modules gracefully during update
 *       ma   07/27/2022 Added XPlmi_SsitEventsInit function
+*       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 *
 * </pre>
 *
@@ -400,6 +401,8 @@ int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
 int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId);
 int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd);
 int XPlmi_PsmSequence(XPlmi_Cmd *Cmd);
+int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd);
+int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd);
 
 int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq);
 

@@ -24,6 +24,7 @@
 *       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/22/2022 Shutdown modules gracefully during update
+*       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 *
 * </pre>
 *
@@ -212,6 +213,8 @@ enum {
 
 #define XPlmi_InPlacePlmUpdate		NULL
 #define XPlmi_PsmSequence		NULL
+#define XPlmi_ScatterWrite		NULL
+#define XPlmi_ScatterWrite2		NULL
 
 #define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U))
 #define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U))
