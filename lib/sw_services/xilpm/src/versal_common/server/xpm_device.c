@@ -676,16 +676,29 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32 ReqCaps,
 				   u32 CmdType)
 {
-	XStatus Status = XST_SUCCESS;
+	XStatus Status = XPM_PM_NO_ACCESS;
+	struct XPm_SecPolicy { u16 CmdType; u16 Allowed; };
+	u16 SlaveTz = SECURITY_POLICY(Reqm->Flags);
+	u16 MasterTz = (0U != (ReqCaps & (u32)PM_CAP_SECURE)) ? 1U : 0U;
 
-	/**
-	 * Check if requirement policy allows non-secure master and
-	 * non-secure master can only make device to non-secure
-	 */
-	if ((XPLMI_CMD_SECURE != CmdType) &&
-	    (((u16)REQ_ACCESS_SECURE == SECURITY_POLICY(Reqm->Flags)) ||
-	     (0U != (ReqCaps & (u32)(PM_CAP_SECURE))))) {
-		Status = XPM_PM_NO_ACCESS;
+	static const struct XPm_SecPolicy SecPolicy[2U][2U] = {
+		[REQ_ACCESS_SECURE] = {
+			/* Slave: secure, master: non-secure, allowed for S/NS commands */
+			[0U] = { .CmdType = BIT16(XPLMI_CMD_SECURE) | BIT16(XPLMI_CMD_NON_SECURE), .Allowed = 1U },
+			/* Slave: secure, master: secure, allowed for only S commands */
+			[1U] = { .CmdType = BIT16(XPLMI_CMD_SECURE), .Allowed = 1U },
+		},
+		[REQ_ACCESS_SECURE_NONSECURE] = {
+			/* Slave: non-secure, master: non-secure, allowed for S/NS commands */
+			[0U] = { .CmdType = BIT16(XPLMI_CMD_SECURE) | BIT16(XPLMI_CMD_NON_SECURE), .Allowed = 1U },
+			/* Slave: non-secure, master: secure, not allowed */
+			[1U] = { .CmdType = 0U, .Allowed = 0U },
+		},
+	};
+
+	if ((0U != (BIT16(CmdType) & SecPolicy[SlaveTz][MasterTz].CmdType)) &&
+	    (0U != SecPolicy[SlaveTz][MasterTz].Allowed)) {
+		Status = XST_SUCCESS;
 	}
 
 	return Status;
@@ -962,7 +975,12 @@ XStatus XPmDevice_Init(XPm_Device *Device,
 
 	/* Add requirement for each requestable device on PMC subsystem */
 	if (1U == XPmDevice_IsRequestable(Id)) {
-		u32 Flags = REQUIREMENT_FLAGS(0U, (u32)REQ_ACCESS_SECURE_NONSECURE, (u32)REQ_NO_RESTRICTION);
+		/**
+		 * Since PMC subsystem is hard-coded, add security policy for all peripherals
+		 * as REQ_ACCESS_SECURE. This allows any device with a _master_ port to be
+		 * requested in secure mode if the topology supports it.
+		 */
+		u32 Flags = REQUIREMENT_FLAGS(0U, (u32)REQ_ACCESS_SECURE, (u32)REQ_NO_RESTRICTION);
 		XPm_Subsystem *PmcSubsys = XPmSubsystem_GetByIndex((u32)XPM_NODEIDX_SUBSYS_PMC);
 
 		/*

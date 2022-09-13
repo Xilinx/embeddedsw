@@ -287,9 +287,15 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 					break;
 				}
 			}
+			/**
+			 * Since default subsystem is hard-coded for now, add security policy
+			 * for all peripherals as REQ_ACCESS_SECURE. This allows any device
+			 * with a _master_ port to be requested in secure mode if the topology
+			 * supports it.
+			 */
 			Status = XPmRequirement_Add(Subsystem, Device,
 					REQUIREMENT_FLAGS(Prealloc,
-						(u32)REQ_ACCESS_SECURE_NONSECURE,
+						(u32)REQ_ACCESS_SECURE,
 						(u32)REQ_NO_RESTRICTION),
 					Capability, XPM_DEF_QOS);
 			if (XST_SUCCESS != Status) {
