@@ -696,9 +696,19 @@
  *                      holes in between the regions.
  *     asa     03/22/22 Updated FIQ handling in ARMv8 vectors (arm/ARMv8/64bit/<gcc/armclang>/asm_vectors.S) to save and
  *                      restore the SIMD register contexts.
- *     adk     05/18/22 Added pmu_sleep_timer config parameter to perform sleep
- * 			functionality from PMU counters for CortexR5 BSP.
+ * 8.0 mus     02/28/22 Added support for VERSAL NET APU(CortexA78) and RPU(CortexR52)
+ *     dp      03/31/22 Updated lib/bsp/standalone/src/arm/cortexr5/platform/ZynqMP/mpu.c to fix
+ *                      compilation warning in CortexR5 BSP.
+ *     adk     04/18/22 Added new API Xil_WaitForEventSet to lib/bsp/standalone/src/common/xil_util.c file.
+ *                      This API Periodically poll an event until an event is
+ *                      set or timeout occurs.
+ *     adk     05/18/22 Added pmu_sleep_timer mld parameter to perform sleep functionality from
+ *                      PMU counters for CortexR5 BSP.
+ *     asa     05/25/22 Updated Xil_DCacheFlushRange and Xil_DCacheInvalidateRange API's in
+ *                      CortexA9 BSP, to ensure that clean and invalidation of
+ *                      outer cache (L2 cache) is separated out and is
+ *                      independent from inner cache (L1 cache). It is inline
+ *                      with ARM recommendation, and fixes CR#1130368.
  *
  *
- *
- *****************************************************************************************/
+ ******************************************************************************************/
