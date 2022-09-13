@@ -18,6 +18,8 @@
 * 1.00  bm   07/06/2022 Initial release
 *       bsv  07/21/2022 DDR modelling related changes
 *       bm   07/21/2022 Retain critical data structures after In-Place PLM Update
+*       is   09/12/2022 Remove PM_CAP_SECURE capability when requesting PSM_PROC,
+*                       TCM memory banks
 *
 * </pre>
 *
@@ -532,7 +534,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams)
 {
 	int Status = XST_FAILURE;
-	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+	u32 CapAccess = (u32)PM_CAP_ACCESS;
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
 	u32 Len = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
 	u64 EndAddr = PrtnParams->DeviceCopy.DestAddr + Len - 1U;
@@ -564,7 +566,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	 */
 	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
+			(CapAccess | CapContext), XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_PSM_PROC, 0);
 			goto END;
@@ -714,26 +716,26 @@ END:
 static int XLoader_RequestTCM(u8 TcmId)
 {
 	int Status = XST_FAILURE;
-	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
+	u32 CapAccess = (u32)PM_CAP_ACCESS;
 	u32 CapContext = (u32)PM_CAP_CONTEXT;
 	u32 ErrorCode;
 
 	if (TcmId == XLOADER_TCM_0) {
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_0_A,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
 			XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_A;
 			goto END;
 		}
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_0_B,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
 			XPLMI_CMD_SECURE);
 		ErrorCode = XLOADER_ERR_PM_DEV_TCM_0_B;
 	}
 	else if (TcmId == XLOADER_TCM_1) {
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_A,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
 			XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			ErrorCode = XLOADER_ERR_PM_DEV_TCM_1_A;
@@ -741,7 +743,7 @@ static int XLoader_RequestTCM(u8 TcmId)
 		}
 
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_TCM_1_B,
-			(CapSecureAccess | CapContext), XPM_DEF_QOS, 0U,
+			(CapAccess | CapContext), XPM_DEF_QOS, 0U,
 			XPLMI_CMD_SECURE);
 		ErrorCode = (u32)XLOADER_ERR_PM_DEV_TCM_1_B;
 	}
