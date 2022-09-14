@@ -168,6 +168,69 @@ Remove the incorrect check in the API XAxisScr_IsMiPortEnabled.
 Because of the incorrect check the API can return a false TRUE for an failure case. As an example,
 if a MI is configured for SI[7] and the API is called to check if the MI is configured for SI[3], the API will return TRUE.
 
+csi_v1_6:
+Added APIs to control the VCSelection register for supporting
+virtual channel selection based on user input
+
+dp12_v7_3:
+Added user level API to change the polarity of Hsync and Vsync
+
+dp12rxss_v4_6:
+KCU105 application's modified for change in ddr memory
+
+dp12txss_v5_6:
+KCU105 application's modified for change in ddr memory
+
+dp14_v7_7:
+Add soft reset disable mask macro defination
+
+dp14rxss_v8_1:
+Added tmrctr as dependency flag in DP14Rx SS drivers
+Updated dp1.4 app by adding delay macro for iic race condition.
+Updated the DDR_MEMORY macro in KCU105 pt application due to address changes.
+
+dp14txss_v6_8:
+Added tmrctr as dependency flag in DP14Tx SS drivers
+Updated dp1.4 app by adding delay macro for iic race condition.
+Updated the DDR_MEMORY macro in KCU105 pt application due to address changes.
+
+dsi_v1_4:
+Add extended vertical front porch support
+
+v_hdmi_common_v1_7:
+Add support for DSC in TX subsystem
+
+v_hdmiphy1_v2_5:
+Declared the Hdmi21_frl_refclk variable on top of the function
+
+v_hdmirx1_v1_5:
+Add support for Class1 VTEM Packets
+
+v_hdmirxss1_v3_2:
+Add support for Class1 VTEM Packets
+
+v_hdmitx1_v2_1:
+Add support for DSC in TX subsystem
+
+v_hdmitxss1_v3_2:
+Add support for DSC in TX subsystem
+
+v_mix_v6_4:
+Correction of Mixer coefficient calculation
+Added 4K support to overlay layers in example application
+
+v_warp_init_v1_3:
+Driver version increment
+
+vphy_v1_12:
+This patch adds DP2.0 support
+
+libmetal_v2_4:
+Add support for Libmetal A72 Versal support
+
+vprocss_2_11:
+vprocss tcl fix for IP instances more than 10
+
 New Files Added for 2022.2:
 SPDX-License-Identifier:MIT
 lib/sw_services/xilsem/examples/xsem_npi_ssit_example.c
