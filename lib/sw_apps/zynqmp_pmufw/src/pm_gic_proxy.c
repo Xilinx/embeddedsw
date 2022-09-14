@@ -177,10 +177,14 @@ static void PmGicProxyClear(void)
 {
 	u32 g, regVal;
 	const PmWakeEventGicProxy* usbWake = (PmWakeEventGicProxy*) pmSlaveUsb0_g.slv.wake->derived;
-	const PmWakeEventGicProxy* eth0Wake = (PmWakeEventGicProxy*) pmSlaveEth0_g.wake->derived;
-	const PmWakeEventGicProxy* eth1Wake = (PmWakeEventGicProxy*) pmSlaveEth1_g.wake->derived;
-	const PmWakeEventGicProxy* eth2Wake = (PmWakeEventGicProxy*) pmSlaveEth2_g.wake->derived;
-	const PmWakeEventGicProxy* eth3Wake = (PmWakeEventGicProxy*) pmSlaveEth3_g.wake->derived;
+	const PmWakeEventEth *eth0WakeEvent = pmSlaveEth0_g.wake->derived;
+	const PmWakeEventEth *eth1WakeEvent = pmSlaveEth1_g.wake->derived;
+	const PmWakeEventEth *eth2WakeEvent = pmSlaveEth2_g.wake->derived;
+	const PmWakeEventEth *eth3WakeEvent = pmSlaveEth3_g.wake->derived;
+	const PmWakeEventGicProxy* eth0Wake = (PmWakeEventGicProxy*) eth0WakeEvent->subWake->derived;
+	const PmWakeEventGicProxy* eth1Wake = (PmWakeEventGicProxy*) eth1WakeEvent->subWake->derived;
+	const PmWakeEventGicProxy* eth2Wake = (PmWakeEventGicProxy*) eth2WakeEvent->subWake->derived;
+	const PmWakeEventGicProxy* eth3Wake = (PmWakeEventGicProxy*) eth3WakeEvent->subWake->derived;
 
 	for (g = 0U; g < pmGicProxy.groupsCnt; g++) {
 
