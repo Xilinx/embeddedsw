@@ -35,6 +35,8 @@
 *                       triggering any event
 *       ma   09/02/2022 Clear SSIT Errors in PMC_ERR2_STATUS register in
 *                       Slave SLRs after completing synchronization
+*       ma   09/17/2022 Check SlavesMask before checking for sync initiation
+*                       from Slave SLRs in XPlmi_SsitSyncEventHandler
 *
 * </pre>
 *
@@ -1039,17 +1041,26 @@ static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait)
 		while (((SlavesReady & SlavesMask) != SlavesMask) && (TimeOutVal != 0x0U)) {
 			usleep(1U);
 			XPlmi_SetPlmLiveStatus();
-			if (XPlmi_SsitIsEventPending(XPLMI_SSIT_SLAVE0_SLR_INDEX,
-					XPLMI_SLRS_SYNC_EVENT_INDEX) == (u8)TRUE) {
-				SlavesReady |= SSIT_SLAVE_0_MASK;
+			if ((SlavesMask & SSIT_SLAVE_0_MASK) == SSIT_SLAVE_0_MASK) {
+				/* Check if Slave SLR0 initiated a sync */
+				if (XPlmi_SsitIsEventPending(XPLMI_SSIT_SLAVE0_SLR_INDEX,
+						XPLMI_SLRS_SYNC_EVENT_INDEX) == (u8)TRUE) {
+					SlavesReady |= SSIT_SLAVE_0_MASK;
+				}
 			}
-			if (XPlmi_SsitIsEventPending(XPLMI_SSIT_SLAVE1_SLR_INDEX,
-					XPLMI_SLRS_SYNC_EVENT_INDEX) == (u8)TRUE) {
-				SlavesReady |= SSIT_SLAVE_1_MASK;
+			if ((SlavesMask & SSIT_SLAVE_1_MASK) == SSIT_SLAVE_1_MASK) {
+				/* Check if Slave SLR1 initiated a sync */
+				if (XPlmi_SsitIsEventPending(XPLMI_SSIT_SLAVE1_SLR_INDEX,
+						XPLMI_SLRS_SYNC_EVENT_INDEX) == (u8)TRUE) {
+					SlavesReady |= SSIT_SLAVE_1_MASK;
+				}
 			}
-			if (XPlmi_SsitIsEventPending(XPLMI_SSIT_SLAVE2_SLR_INDEX,
-					XPLMI_SLRS_SYNC_EVENT_INDEX) == (u8)TRUE) {
-				SlavesReady |= SSIT_SLAVE_2_MASK;
+			if ((SlavesMask & SSIT_SLAVE_2_MASK) == SSIT_SLAVE_2_MASK) {
+				/* Check if Slave SLR2 initiated a sync */
+				if (XPlmi_SsitIsEventPending(XPLMI_SSIT_SLAVE2_SLR_INDEX,
+						XPLMI_SLRS_SYNC_EVENT_INDEX) == (u8)TRUE) {
+					SlavesReady |= SSIT_SLAVE_2_MASK;
+				}
 			}
 			--TimeOutVal;
 		}
