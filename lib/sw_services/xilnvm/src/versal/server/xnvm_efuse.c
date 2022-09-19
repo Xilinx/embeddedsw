@@ -83,6 +83,7 @@
 * 3.0   kal  07/12/2022 Moved common code to xnvm_efuse_common.c in common directory
 *       kal  08/02/2022 Fix Row37 protection check in XNvm_EfuseProtectionChecks API
 *       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization of loop redundancy check
+*       dc   08/29/2022 Changed u8 to u32 type
 *
 * </pre>
 *
@@ -145,7 +146,7 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col);
 static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col);
 static int XNvm_EfusePgmAndVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col);
 static int XNvm_EfuseCacheLoadAndProtectionChecks(void);
-static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
+static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u32 RowCount,
 			XNvm_EfuseType EfuseType, const u32* RowData);
 static int XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd);
 static int XNvm_EfuseComputeProgrammableBits(const u32 *ReqData, u32 *PrgmData,
@@ -3845,7 +3846,7 @@ static int XNvm_EfusePrgmUserFuses(const XNvm_EfuseUserData *WriteUserFuses)
 		goto END;
 	}
 	Status = XNvm_EfusePgmAndVerifyRows(StartRow,
-		(u8)(WriteUserFuses->NumOfUserFuses),
+		WriteUserFuses->NumOfUserFuses,
 		XNVM_EFUSE_PAGE_0, UserFusesDataToPrgm);
 END:
 	return Status;
@@ -4269,13 +4270,13 @@ END:
  *  		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
  *
  ******************************************************************************/
-static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u8 RowCount,
+static int XNvm_EfusePgmAndVerifyRows(u32 StartRow, u32 RowCount,
 			XNvm_EfuseType EfuseType, const u32* RowData)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Data;
 	u32 Row = StartRow;
-	volatile u8 Count = 0U;
+	volatile u32 Count = 0U;
 	const u32* DataPtr = RowData;
 	u32 Idx;
 
@@ -4382,7 +4383,7 @@ static int XNvm_EfuseReadCacheRange(u32 StartRow, u8 RowCount, u32* RowData)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Row = StartRow;
-	u8 Count;
+	u32 Count;
 	u32* Data = RowData;
 
 	for (Count = 0; Count < RowCount; Count++) {
@@ -5225,7 +5226,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 	StartRow = XNVM_EFUSE_PUF_SYN_START_ROW +
 				WritePufFuses->StartPufFuseRow - 1;
 	Status = XNvm_EfusePgmAndVerifyRows(StartRow,
-		(u8)WritePufFuses->NumOfPufFusesRows,
+		WritePufFuses->NumOfPufFusesRows,
 		XNVM_EFUSE_PAGE_2, PufFusesDataToPrgm);
 END:
 	return Status;

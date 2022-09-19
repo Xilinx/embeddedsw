@@ -28,6 +28,7 @@
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 *       kal  08/03/2021 Removed clearing BBRAM UsrData in case for write failure
 * 3.0   kal  08/01/2022 Added redundancy to XNvm_BbramEnablePgmMode function
+*       dc   08/29/2022 Changed u8 to u32 type
 *
 * </pre>
 *
@@ -116,7 +117,7 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	int ZeroizeStatus = XST_FAILURE;
 	const u32 *AesKey = NULL;
 	u32 BbramKeyAddr;
-	u8 Idx;
+	u32 Idx;
 
 	if ((KeyLen != XNVM_256_BITS_AES_KEY_LEN_IN_BYTES) ||
 		(Key == NULL)) {

@@ -18,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 3.0   kal  07/16/2022 Initial release
+*       dc   08/29/2022 Changed u8 to u32 type
 *
 * </pre>
 *
@@ -176,8 +177,8 @@ int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 	int Status = XST_FAILURE;
 	u32 RegVal = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 	u32 NewRegVal = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
-	u8 RdModeVal = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
-	u8 Mask = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
+	u32 RdModeVal = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
+	u32 Mask = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
 
 	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_CFG_REG_OFFSET);
@@ -199,7 +200,7 @@ int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 		goto END;
 	}
 
-	RdModeVal = (u8)(NewRegVal & XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK);
+	RdModeVal = NewRegVal & XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK;
 	if (RdModeVal != Mask) {
 		goto END;
 	}
