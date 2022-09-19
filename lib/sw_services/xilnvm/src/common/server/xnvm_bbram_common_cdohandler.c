@@ -24,6 +24,7 @@
 *       kpt   01/19/2022 Added redundancy for XNvm_ZeroizeAndVerify in
 *                        XNvm_BbramKeyWrite
 *       am    02/28/2022 Fixed MISRA C violation rule 4.5
+* 3.0   dc    08/29/2022 Removed initialization
 *
 * </pre>
 *
@@ -121,7 +122,7 @@ static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 	volatile int ClearStatus = XST_FAILURE;
 	volatile int ClearStatusTmp = XST_FAILURE;
 	u64 Addr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
-	u8 Key[XNVM_BBRAM_AES_KEY_SIZE] = {0U};
+	u8 Key[XNVM_BBRAM_AES_KEY_SIZE];
 
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)Key, Size / XNVM_WORD_LEN,
 			XPLMI_PMCDMA_0);
