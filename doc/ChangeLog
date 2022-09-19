@@ -231,6 +231,13 @@ Add support for Libmetal A72 Versal support
 vprocss_2_11:
 vprocss tcl fix for IP instances more than 10
 
+pciepsu_v1_5:
+Set Command Register bits in example application
+
+xdmapcie_v1_6:
+Determine CPM5 QDMA base address through hsi flow
+
+
 New Files Added for 2022.2:
 SPDX-License-Identifier:MIT
 lib/sw_services/xilsem/examples/xsem_npi_ssit_example.c
