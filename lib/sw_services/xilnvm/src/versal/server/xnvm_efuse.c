@@ -2731,7 +2731,7 @@ END:
 static int XNvm_EfusePrgmIVs(const XNvm_EfuseIvs *Ivs)
 {
 	volatile int Status = XST_FAILURE;
-	u32 PrgmIv[XNVM_EFUSE_IV_NUM_OF_ROWS] = {0U};
+	u32 PrgmIv[XNVM_EFUSE_IV_NUM_OF_ROWS];
 
 	if (Ivs == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -2891,7 +2891,7 @@ END:
 static int XNvm_EfusePrgmRevocationIdFuses(const XNvm_EfuseRevokeIds *RevokeIds)
 {
 	volatile int Status = XST_FAILURE;
-	u32 PrgmRevokeIds[XNVM_NUM_OF_REVOKE_ID_FUSES] = {0U};
+	u32 PrgmRevokeIds[XNVM_NUM_OF_REVOKE_ID_FUSES];
 
 	if (RevokeIds == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -2942,7 +2942,7 @@ END:
 static int XNvm_EfusePrgmOffChipRevokeFuses(const XNvm_EfuseOffChipIds *OffChipIds)
 {
 	int Status = XST_FAILURE;
-	u32 PrgmOffChipIds[XNVM_NUM_OF_REVOKE_ID_FUSES] = {0U};
+	u32 PrgmOffChipIds[XNVM_NUM_OF_REVOKE_ID_FUSES];
 
 	if (OffChipIds == NULL) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
@@ -3408,7 +3408,7 @@ END:
 static int XNvm_EfuseValidateIV(const u32 *Iv, u32 Row)
 {
 	int Status = XST_FAILURE;
-	u32 IvRowsRd[XNVM_EFUSE_IV_LEN_IN_WORDS] = {0U};
+	u32 IvRowsRd[XNVM_EFUSE_IV_LEN_IN_WORDS];
 	u32 IvRow;
 
 	if (Iv == NULL) {
@@ -3465,7 +3465,7 @@ END:
 static int XNvm_EfuseValidateAesWriteReq(const XNvm_EfuseAesKeys *Keys)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits = {0U};
+	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits;
 
 	Status = XNvm_EfuseReadSecCtrlBits(
 			&ReadBackSecCtrlBits);
@@ -3553,7 +3553,7 @@ END:
 static int XNvm_EfuseValidatePpkWriteReq(const XNvm_EfusePpkHash *Hash)
 {
 	int Status = XST_FAILURE;
-	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits = {0U};
+	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits;
 
 	if (Hash->PrgmPpk0Hash == TRUE) {
 		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_0_HASH_START_ROW,
@@ -3714,7 +3714,7 @@ static int XNvm_EfuseCheckZeros(u32 RowStart, u32 RowEnd)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Row;
-	u32 RowDataVal = 0U;
+	u32 RowDataVal = 0x0U;
 
 	for (Row = RowStart; Row < RowEnd; Row++) {
 		Status = XST_FAILURE;
@@ -3825,7 +3825,7 @@ END:
 static int XNvm_EfusePrgmUserFuses(const XNvm_EfuseUserData *WriteUserFuses)
 {
 	int Status = XST_FAILURE;
-	u32 UserFusesDataToPrgm[XNVM_NUM_OF_USER_FUSES] = {0U};
+	u32 UserFusesDataToPrgm[XNVM_NUM_OF_USER_FUSES];
 	u32 StartRow;
 	u32 EndRow;
 
@@ -4994,7 +4994,7 @@ static u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
 	UINTPTR BaseAddr = SysmonpsvSatBaseAddr;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
 	u32 SupplyReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
-	u32 Index = 0U;
+	u32 Index;
 	u32 AbusSw0;
 	u32 AbusSw1;
 	u32 AmuxCtrl;

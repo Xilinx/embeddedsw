@@ -298,7 +298,7 @@ int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask,
 {
 	int Status = XST_FAILURE;
 	int LockStatus = XST_FAILURE;
-	u32 ReadReg = 0U;
+	u32 ReadReg;
 	u32 IsUnlocked = FALSE;
 
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,

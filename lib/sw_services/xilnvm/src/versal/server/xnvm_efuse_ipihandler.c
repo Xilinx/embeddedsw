@@ -28,6 +28,7 @@
 *       am   02/28/2022 Fixed MISRA C violation rule 4.5
 * 3.0   kal  08/01/2022 Added volatile keyword to ClearStatus and
 * 			ClearStatusTmp
+*       dc   08/29/2022 Removed initializations for optimization
 *
 * </pre>
 *
@@ -191,30 +192,27 @@ static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
 	volatile int ClearStatus = XST_FAILURE;
 	volatile int ClearStatusTmp = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-	XNvm_EfuseIvs Ivs __attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseGlitchCfgBits GlitchData
-		__attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseAesKeys AesKeys __attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfusePpkHash PpkHash __attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseDecOnly DecOnly __attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseMiscCtrlBits MiscCtrlBits
-		__attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseSecCtrlBits SecCtrlBits
-		__attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseRevokeIds RevokeIds __attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseOffChipIds OffChipIds __attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseBootEnvCtrlBits BootEnvCtrl
-		__attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseSecMisc1Bits SecMisc1Bits
-		__attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseUserDataAddr UserFusesAddr
-		__attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseUserData UserData __attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseData EfuseData __attribute__ ((aligned (32U))) = {0U};
-	XNvm_EfuseDataAddr EfuseDataAddr
-		__attribute__ ((aligned (32U))) = {0U};
-	u32 UserFuseArr[XNVM_NUM_OF_USER_FUSES]
-		__attribute__ ((aligned (32U))) = {0U};
+	XNvm_EfuseIvs Ivs __attribute__ ((aligned (32U)));
+	XNvm_EfuseGlitchCfgBits GlitchData __attribute__ ((aligned (32U)));
+	XNvm_EfuseAesKeys AesKeys __attribute__ ((aligned (32U)));
+	XNvm_EfusePpkHash PpkHash __attribute__ ((aligned (32U)));
+	XNvm_EfuseDecOnly DecOnly __attribute__ ((aligned (32U)));
+	XNvm_EfuseMiscCtrlBits MiscCtrlBits __attribute__ ((aligned (32U)));
+	XNvm_EfuseSecCtrlBits SecCtrlBits __attribute__ ((aligned (32U)));
+	XNvm_EfuseRevokeIds RevokeIds __attribute__ ((aligned (32U)));
+	XNvm_EfuseOffChipIds OffChipIds __attribute__ ((aligned (32U)));
+	XNvm_EfuseBootEnvCtrlBits BootEnvCtrl __attribute__ ((aligned (32U)));
+	XNvm_EfuseSecMisc1Bits SecMisc1Bits	__attribute__ ((aligned (32U)));
+	XNvm_EfuseUserDataAddr UserFusesAddr __attribute__ ((aligned (32U)));
+	XNvm_EfuseUserData UserData __attribute__ ((aligned (32U)));
+	XNvm_EfuseData EfuseData __attribute__ ((aligned (32U)));
+	XNvm_EfuseDataAddr EfuseDataAddr __attribute__ ((aligned (32U)));
+	u32 UserFuseArr[XNVM_NUM_OF_USER_FUSES]	__attribute__ ((aligned (32U)));
+
+	Status = Xil_SMemSet(&EfuseData, sizeof(XNvm_EfuseData), 0U, sizeof(XNvm_EfuseData));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&EfuseDataAddr,
 			sizeof(EfuseDataAddr));
@@ -387,9 +385,9 @@ static int XNvm_EfusePufUserDataWrite(u32 AddrLow, u32 AddrHigh)
 {
 	int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-	XNvm_EfusePufFuseAddr PufFuseAddr = {0U};
-	XNvm_EfusePufFuse PufUserFuse = {0U};
-	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES] = {0U};
+	XNvm_EfusePufFuseAddr PufFuseAddr;
+	XNvm_EfusePufFuse PufUserFuse;
+	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES];
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufFuseAddr,
 			sizeof(PufFuseAddr));
@@ -441,9 +439,9 @@ static int XNvm_EfusePufUserFusesRead(u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-	XNvm_EfusePufFuseAddr PufFusesAddr = {0U};
-	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES] = {0U};
-	XNvm_EfusePufFuse PufUserFuse = {0U};
+	XNvm_EfusePufFuseAddr PufFusesAddr;
+	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES];
+	XNvm_EfusePufFuse PufUserFuse;
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufFusesAddr,
 			sizeof(PufFusesAddr));
@@ -484,7 +482,7 @@ END:
 int XNvm_EfusePufWrite(u32 AddrLow, u32 AddrHigh) {
 	int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-	XNvm_EfusePufHdAddr PufHdAddr = {0};
+	XNvm_EfusePufHdAddr PufHdAddr;
 	XNvm_EfusePufHd PufHd;
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufHdAddr,
@@ -542,7 +540,7 @@ END:
 static int XNvm_EfusePufRead(u32 AddrLow, u32 AddrHigh) {
 	int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32) | (u64)AddrLow;
-	XNvm_EfusePufHdAddr PufHdAddr = {0};
+	XNvm_EfusePufHdAddr PufHdAddr;
 	XNvm_EfusePufHd PufHd;
 
 	Status = XNvm_EfuseReadPuf(&PufHd);
@@ -652,8 +650,8 @@ static int XNvm_EfuseUserFusesRead(u32 AddrLow, u32 AddrHigh)
 {
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-	XNvm_EfuseUserDataAddr UserFuses = {0U};
-	u32 UserFuseData[XNVM_NUM_OF_USER_FUSES] = {0U};
+	XNvm_EfuseUserDataAddr UserFuses;
+	u32 UserFuseData[XNVM_NUM_OF_USER_FUSES];
 	XNvm_EfuseUserData UserData;
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&UserFuses,
