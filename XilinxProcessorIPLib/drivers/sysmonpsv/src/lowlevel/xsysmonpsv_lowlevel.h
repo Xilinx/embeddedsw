@@ -7,7 +7,7 @@
 /**
  *
 * @file xsysmonpsv_lowlevel.h
-* @addtogroup sysmonpsv_v3_0
+* @addtogroup Overview
 *
 * The user should refer to the hardware device specification for detailed
 * information about the device.

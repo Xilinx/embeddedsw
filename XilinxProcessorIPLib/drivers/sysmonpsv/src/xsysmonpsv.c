@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv.c
-* @addtogroup sysmonpsv_v3_0
+* @addtogroup Overview
 * @{
 *
 * Functions in this file are the minimum required functions for the XSysMonPsv
@@ -29,7 +29,7 @@
 *                       silicon.
 * 2.3   aad    07/26/21 Fixed doxygen comments.
 * 3.0   cog    03/25/21 Driver Restructure
-*       cog    04/09/22 Remove GIC standalone related functionality for
+* 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 *
 * </pre>

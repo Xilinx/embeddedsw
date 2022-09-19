@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv_hw.h
-* @addtogroup sysmonpsv_v3_0
+* @addtogroup Overview
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or

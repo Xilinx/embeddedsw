@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsv_common.h
-* @addtogroup sysmonpsv_v3_0
+* @addtogroup Overview
 *
 * Functions in this file are basic driver functions which will be used in the
 * in servies or directly by the user.

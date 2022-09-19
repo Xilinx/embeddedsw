@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsv_services.h
-* @addtogroup sysmonpsv_v3_0
+* @addtogroup Overview
 *
 * Services layers provide APIs to which a user can subscribe to like Temperature,
 * voltage alarms.
@@ -17,7 +17,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
-*       cog    04/09/22 Remove GIC standalone related functionality for
+* 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 *
 * </pre>

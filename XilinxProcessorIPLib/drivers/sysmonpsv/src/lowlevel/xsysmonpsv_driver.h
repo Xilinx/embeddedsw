@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xsysmonpsv_driver.h
-* @addtogroup sysmonpsv_v3_0
+* @addtogroup Overview
 *
 * The SysMon driver supports the Xilinx System Monitor device on Versal
 *
@@ -27,7 +27,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
-*       cog    04/09/22 Remove GIC standalone related functionality for
+* 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 *
 * </pre>

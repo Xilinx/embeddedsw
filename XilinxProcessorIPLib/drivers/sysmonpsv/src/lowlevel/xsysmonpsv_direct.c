@@ -7,7 +7,7 @@
 /**
 *
 * @file xsysmonpsv_direct.c
-* @addtogroup sysmonpsv_v3_0
+* @addtogroup Overview
 *
 * This file contains the function implementation for low level sysmon APIs.
 *
