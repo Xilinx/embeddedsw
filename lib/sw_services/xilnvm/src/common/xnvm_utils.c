@@ -35,6 +35,7 @@
 * 			XNvm_ZeroizeAndVerify
 *       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization
 *                       of loop redundancy check
+*       dc   08/29/2022 Changed u8 to u32 type
 *
 * </pre>
 *
@@ -199,8 +200,8 @@ u32 XNvm_AesCrcCalc(const u32 *Key)
 {
 	u32 Crc = 0U;
 	u32 Value;
-	u8 Idx;
-	u8 BitNo;
+	u32 Idx;
+	u32 BitNo;
 	volatile u32 Temp1Crc;
 	volatile u32 Temp2Crc;
 
@@ -298,7 +299,7 @@ int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask,
 	int Status = XST_FAILURE;
 	int LockStatus = XST_FAILURE;
 	u32 ReadReg = 0U;
-	u8 IsUnlocked = FALSE;
+	u32 IsUnlocked = FALSE;
 
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
