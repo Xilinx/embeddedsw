@@ -27,7 +27,7 @@
 * 1.1   aad    07/21/19 Added Temperature measurement
 * 2.0   aad    10/29/20 Graceful exit when no supplies enabled
 * 3.0   cog    03/25/22 Driver Restructure
-*       cog    04/09/22 Fix supply iterator
+* 3.1   cog    04/09/22 Fix supply iterator
 *
 * </pre>
 *
