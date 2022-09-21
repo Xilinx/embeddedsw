@@ -48,8 +48,6 @@
 #include "xil_util.h"
 #include "xsecure_init.h"
 #include "xsecure_error.h"
-#include "xplmi.h"
-#include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_AES_DEC_KEY_SRC_MASK	0x000000FFU
@@ -186,7 +184,6 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_AesInitOps AesParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	volatile u32 KatMask = 0U;
 
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
@@ -200,18 +197,6 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 		(AesParams.KeySrc == (u32)XSECURE_AES_BH_KEY) ||
 		(AesParams.KeySrc == (u32)XSECURE_AES_BH_RED_KEY)) {
 		Status = (int)XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
-		goto END;
-	}
-
-	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
-		KatMask = XPLMI_SECURE_ENC_KAT_MASK;
-	}
-	else {
-		KatMask = XPLMI_SECURE_AES_DEC_KAT_MASK;
-	}
-
-	if (XPlmi_IsKatRan(KatMask) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
 		goto END;
 	}
 
@@ -525,12 +510,7 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	if (XPlmi_IsKatRan(XPLMI_SECURE_AES_CMKAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
-
 	Status = XSecure_AesSetDpaCm(XSecureAesInstPtr, DpaCmCfg);
-END:
+
 	return Status;
 }

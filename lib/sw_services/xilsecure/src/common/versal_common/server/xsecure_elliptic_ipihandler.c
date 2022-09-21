@@ -34,10 +34,6 @@
 #include "xsecure_elliptic.h"
 #include "xsecure_elliptic_ipihandler.h"
 #include "xstatus.h"
-#include "xplmi.h"
-#include "xplmi_tamper.h"
-#include "xsecure_error.h"
-#include "xsecure_kat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -117,7 +113,6 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 	u32 SrcAddrHigh, u32 DstAddrLow, u32 DstAddrHigh)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	u32 OffSet = 0U;
@@ -137,18 +132,6 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 	Status = XSecure_EllipticGenerateKey_64Bit(
 			(XSecure_EllipticCrvTyp)CurveType,
 			SrcAddr, (XSecure_EllipticKeyAddr *) &KeyAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	if (XPlmi_IsCryptoKatEn() == TRUE) {
-		XPlmi_ClearKatMask(XPLMI_SECURE_ECC_PWCT_KAT_MASK);
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_EllipticPwct, CurveType,
-			SrcAddr, (XSecure_EllipticKeyAddr *)&KeyAddr);
-		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
-			XPlmi_SetKatMask(XPLMI_SECURE_ECC_PWCT_KAT_MASK);
-		}
-	}
 
 END:
 	return Status;
@@ -181,11 +164,6 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u64 SrcAddr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_EllipticSignGenParams EcdsaParams;
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
 
 	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, SrcAddr, sizeof(EcdsaParams));
 	if (Status != XST_SUCCESS) {
@@ -270,11 +248,6 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 	volatile int Status = XST_FAILURE;
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_EllipticSignVerifyParams EcdsaParams;
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
 
 	Status = XPlmi_MemCpy64((UINTPTR)&EcdsaParams, Addr, sizeof(EcdsaParams));
 	if (Status != XST_SUCCESS) {

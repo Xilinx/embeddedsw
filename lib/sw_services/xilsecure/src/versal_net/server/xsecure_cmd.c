@@ -44,7 +44,7 @@
 #include "xsecure_rsa_ipihandler.h"
 #include "xsecure_sha_ipihandler.h"
 #include "xsecure_trng_ipihandler.h"
-#include "xsecure_plat_kat_ipihandler.h"
+#include "xsecure_kat_ipihandler.h"
 #include "xsecure_cmd.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
@@ -68,6 +68,11 @@ static XPlmi_Module XPlmi_Secure =
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+#define XILSECURE_MODULE_ID			(0x05U)
+#define XSECURE_KAT_API_ERR_ID		((XILSECURE_MODULE_ID << 8U) | ((u32)XSECURE_API_KAT))
+#define XSECURE_KAT_MAJOR_ERROR 	(((u32)XPLMI_ERR_CDO_CMD + (XSECURE_KAT_API_ERR_ID & \
+										XPLMI_ERR_CDO_CMD_MASK)))
 
 /************************** Function Definitions ******************************/
 
@@ -169,7 +174,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 #endif
 	case XSECURE_API(XSECURE_API_KAT):
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_KatPlatIpiHandler, Cmd)
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_KatIpiHandler, Cmd)
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");

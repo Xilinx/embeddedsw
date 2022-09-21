@@ -35,7 +35,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xplmi_cmd.h"
-#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -43,7 +42,6 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd);
-void XSecure_KatOp(XSecure_KatId KatOp, u32 KatMask);
 
 #ifdef __cplusplus
 }

@@ -35,8 +35,6 @@
 #include "xsecure_rsa.h"
 #include "xsecure_rsa_ipihandler.h"
 #include "xsecure_init.h"
-#include "xplmi.h"
-#include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -114,11 +112,6 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_RsaInParam RsaParams;
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
-	if (XPlmi_IsKatRan(XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
-
 	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -168,11 +161,6 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	u64 DstAddr = ((u64)DstAddrHigh << 32U) | (u64)DstAddrLow;
 	XSecure_RsaInParam RsaParams;
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
-
-	if (XPlmi_IsKatRan(XPLMI_SECURE_RSA_KAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
 
 	Status = XPlmi_MemCpy64((UINTPTR)&RsaParams, Addr, sizeof(RsaParams));
 	if (Status != XST_SUCCESS) {

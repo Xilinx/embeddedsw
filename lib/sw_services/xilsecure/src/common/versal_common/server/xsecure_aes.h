@@ -199,12 +199,11 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr);
 int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 	u64 OutDataAddr, u32 Size, u64 GcmTagAddr);
 
+int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance);
+
 int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize);
 
 int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn);
-
-int XSecure_AesDpaCmDecryptKat(const XSecure_Aes *AesInstance,
-	const u32 *KeyPtr, const u32 *DataPtr, u32 *OutputPtr);
 
 #ifdef __cplusplus
 }

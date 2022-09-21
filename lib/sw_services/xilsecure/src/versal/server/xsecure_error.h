@@ -179,9 +179,7 @@ typedef enum {
 						Kat can't be executed */
 	XSECURE_AES_KAT_BUSY,			/**< 0xF3 - AES busy with earlier operation,
 						Kat can't be executed */
-	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED, /**< 0xF4 - Crypto Accelerators are disabled */
-	XSECURE_ERR_KAT_NOT_EXECUTED		    /**< 0xF5 - Error when KAT is not executed when
-												crypto kat efuse bit is enabled */
+	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED /**< 0xF4 - Crypto Accelerators are disabled */
 } XSecure_ErrorCodes;
 /**
  * @}
