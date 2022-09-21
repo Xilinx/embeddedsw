@@ -264,7 +264,7 @@ static int XLoader_RsaPssSignVeirfyKat(XPmcDma *PmcDmaPtr) {
 	XSecure_Rsa *RsaInstance = XSecure_GetRsaInstance();
 	u32 *RsaModulus = XSecure_GetKatRsaModulus();
 	u32 *RsaModExt = XSecure_GetKatRsaModExt();
-	u32 RsaPubExp = XSECURE_KAT_RSA_PUB_EXP;
+	u32 PubExponent = XSecure_GetKatRsaPubExponent();
 	u8 *MsgHash = XSecure_GetKatSha3ExpHash();
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
@@ -305,7 +305,7 @@ static int XLoader_RsaPssSignVeirfyKat(XPmcDma *PmcDmaPtr) {
 	};
 
 	Status = XSecure_RsaInitialize(RsaInstance, (u8 *)RsaModulus,
-		(u8 *)RsaModExt, (u8 *)&RsaPubExp);
+		(u8 *)RsaModExt, (u8 *)&PubExponent);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
