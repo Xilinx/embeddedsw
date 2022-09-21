@@ -371,8 +371,8 @@ static XStatus PowerEvent(XPm_Node *Node, u32 Event)
 	const XPm_Power *Power = (XPm_Power *)Node;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	PmDbg("Id:0x%x, UseCount:%d, State=%x, Event=%x\n\r",
-				Node->Id, Power->UseCount, Node->State, Event);
+	PmDbg("[IN] Id:0x%x, UseCount:%d, State=%x, Event=%x\r\n",
+			Node->Id, Power->UseCount, Node->State, Event);
 
 	switch (Node->State)
 	{
@@ -399,6 +399,9 @@ static XStatus PowerEvent(XPm_Node *Node, u32 Event)
 			Status = XST_FAILURE;
 			break;
 	}
+
+	PmDbg("[OUT] Id:0x%x, UseCount:%d, State=%x, Event=%x\r\n",
+			Node->Id, Power->UseCount, Node->State, Event);
 
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
