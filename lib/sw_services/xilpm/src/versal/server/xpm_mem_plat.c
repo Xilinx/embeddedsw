@@ -222,43 +222,50 @@ static const XPm_StateTran XPmDDRDevTransitions[] = {
 /**
  * @brief  This function checks whether DRAMs are in self-refresh mode
  *
- * @return XST_SUCCESS if DRAMs are in self-refresh mode or no DDRMC is
- *	   configured for the design, XST_FAILURE if DRAMs are not in
- *	   self-refresh mode
+ * @return XST_SUCCESS if at least one DDRMC is enabled in the design and
+ *         all the active DRAMs are in self-refresh mode,
+ *         XST_FAILURE if no DDRMCs are enabled in the design or no DRAMs are
+ *         in self-refresh mode
  *
  * @note   None
  *
  ****************************************************************************/
 XStatus XPmDDRDevice_IsInSelfRefresh(void)
 {
-	XStatus Status = XST_SUCCESS;
-	const XPm_Device *Device;
-	u32 BaseAddress;
-	u32 Reg, IsActive;
-	u32 i;
+	XStatus Status = XST_FAILURE;
+	u32 IsActive = 0, IsInSelfRefresh = 0;
 
-	for (i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX;
-	     i++) {
-		Device = XPmDevice_GetById(DDRMC_DEVID(i));
-		if (NULL == Device) {
+	for (u32 i = (u32)XPM_NODEIDX_DEV_DDRMC_MIN; i <= (u32)XPM_NODEIDX_DEV_DDRMC_MAX; i++) {
+		const XPm_Device *Device = XPmDevice_GetById(DDRMC_DEVID(i));
+		if ((NULL == Device) ||
+		    ((u32)XPM_DEVSTATE_UNUSED == Device->Node.State)) {
 			continue;
 		}
 
-		BaseAddress = Device->Node.BaseAddress;
-		PmIn32((BaseAddress + NPI_PCSR_CONTROL_OFFSET), IsActive);
-		if (DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK !=
-		    (IsActive & DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK)) {
+		u32 BaseAddress = Device->Node.BaseAddress;
+		u32 PcsrCntrl = XPm_In32(BaseAddress + NPI_PCSR_CONTROL_OFFSET);
+		/* Check if DDRMC is enabled in the design */
+		if (DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK != (PcsrCntrl & DDRMC_UB_PCSR_CONTROL_PCOMPLETE_MASK)) {
 			continue;
 		}
+		IsActive++;
 
-		Reg = XPm_In32(BaseAddress + DDRMC_MAIN_UB_OFFSET + DDRMC_MAIN_REG_COM_4_OFFSET);
-		if ((Reg & DDRMC_MAIN_DRAM_MODE_REPORT_MASK) != DDRMC_MAIN_SELF_REFRESH_MODE) {
-			Status = XST_FAILURE;
-			goto done;
+		u32 DramMode = XPm_In32(BaseAddress + DDRMC_MAIN_UB_OFFSET + DDRMC_MAIN_REG_COM_4_OFFSET);
+		/* Check if DRAM is in self refresh mode */
+		if (DDRMC_MAIN_SELF_REFRESH_MODE == (DramMode & DDRMC_MAIN_DRAM_MODE_REPORT_MASK)) {
+			IsInSelfRefresh++;
 		}
 	}
 
-done:
+	/**
+	 * DRAMs are in self-refresh, if:
+	 *  - At least one DDRMC is enabled in the design
+	 *  - All the active DRAMs are in self-refresh mode
+	 */
+	if ((IsActive > 0) && (IsActive == IsInSelfRefresh)) {
+		Status = XST_SUCCESS;
+	}
+
 	return Status;
 }
 
@@ -293,7 +300,6 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_ACK_SPARE_0_MASK,
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
-			PmErr("Failed to enter self-refresh controller %x!\r\n",i);
 			/* Lock PCSR */
 			XPm_LockPcsr(BaseAddress);
 			goto done;
@@ -304,7 +310,6 @@ static XStatus XPmDDRDevice_EnterSelfRefresh(void)
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_DONE_SPARE_0_MASK,
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
-			PmErr("Failed to enter self-refresh controller %x!\r\n",i);
 			/* Lock PCSR */
 			XPm_LockPcsr(BaseAddress);
 			goto done;
@@ -364,7 +369,6 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_ACK_SR_EXIT_MASK,
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
-			PmErr("Failed to exit self-refresh controller %x!\r\n",i);
 			/* Lock PCSR */
 			XPm_LockPcsr(BaseAddress);
 			goto done;
@@ -375,7 +379,6 @@ static XStatus XPmDDRDevice_ExitSelfRefresh(void)
 		Status = XPm_PollForMask(Reg, DDRMC_UB_UB2PMC_DONE_SR_EXIT_MASK,
 					XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
-			PmErr("Failed to exit self-refresh controller %x!\r\n",i);
 			/* Lock PCSR */
 			XPm_LockPcsr(BaseAddress);
 			goto done;
@@ -399,19 +402,16 @@ static XStatus HandleDDRDeviceState(XPm_Device* const Device, const u32 NextStat
 	case (u8)XPM_DEVSTATE_UNUSED:
 		if ((u32)XPM_DEVSTATE_RUNNING == NextState) {
 			Status = XPmDevice_BringUp(Device);
-		} else {
-			Status = XST_SUCCESS;
 		}
 		break;
 	case (u8)XPM_DEVSTATE_RUNNING:
 		if ((u32)XPM_DEVSTATE_UNUSED == NextState) {
 			Status = Device->HandleEvent(&Device->Node,
 						     XPM_DEVEVENT_SHUTDOWN);
-		} else {
-			Status = XST_SUCCESS;
-		}
-		if ((u32)XPM_DEVSTATE_RUNTIME_SUSPEND == NextState) {
+		} else if ((u32)XPM_DEVSTATE_RUNTIME_SUSPEND == NextState) {
 			Status = XPmDDRDevice_EnterSelfRefresh();
+		} else {
+			Status = XST_FAILURE;
 		}
 		break;
 	case (u8)XPM_DEVSTATE_RUNTIME_SUSPEND:
