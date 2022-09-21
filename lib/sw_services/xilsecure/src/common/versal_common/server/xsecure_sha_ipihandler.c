@@ -41,6 +41,8 @@
 #include "xsecure_init.h"
 #include "xsecure_error.h"
 #include "xplmi_hw.h"
+#include "xplmi.h"
+#include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_IPI_CONTINUE_MASK		(0x80000000U)
@@ -100,6 +102,11 @@ static int XSecure_ShaInitialize(void)
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
 
 	if (NULL == PmcDmaInstPtr) {
+		goto END;
+	}
+
+	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
+		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
 		goto END;
 	}
 

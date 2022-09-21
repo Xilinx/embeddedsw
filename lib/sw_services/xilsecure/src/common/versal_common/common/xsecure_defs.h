@@ -74,6 +74,14 @@ extern "C" {
 #define XSECURE_API_ID_MASK	0xFFU
 				/**< Mask for API ID in Secure IPI command */
 
+#define XILSECURE_MODULE_ID			(0x05U)
+				/**< XilSecure Module Id */
+#define XSECURE_KAT_API_ERR_ID		((XILSECURE_MODULE_ID << 8U) | ((u32)XSECURE_API_KAT))
+				/**< XilSecure KAT API error id */
+#define XSECURE_KAT_MAJOR_ERROR 	(((u32)XPLMI_ERR_CDO_CMD + (XSECURE_KAT_API_ERR_ID & \
+										XPLMI_ERR_CDO_CMD_MASK)))
+				/**< Xilsecure KAT major error for client APIs */
+
 /************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
