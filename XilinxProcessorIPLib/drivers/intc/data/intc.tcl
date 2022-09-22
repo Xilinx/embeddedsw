@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -90,8 +90,9 @@
 ##    03/12/21  mus xredefine_intc prints message in case of unconnected pins
 ##                  in HW design, replace "ERROR" in that message with
 ##                  "WARNING". It fixes CR#1091294.
-##
-##
+##    21/09/22  adk Fixed race condition in the interrupt mask and id generation
+##		    in case multiple interrupt source port names having the
+##		    same name. It fixes CR#1139393.
 ## @END_CHANGELOG
 
 ############################################################
@@ -381,22 +382,35 @@ proc intc_define_vector_table {periph config_inc config_file} {
 	    set source_xparam_name [::hsi::utils::format_xparam_name $sname]
 	    set pname [string toupper $periph_name]
 	    set periph_xparam_name [::hsi::utils::format_xparam_name $pname]
-	    if {[lcount $instance_list $source_name_port_name] != 0} {
-	        puts $config_inc [format "#define XPAR_%s_%s_LOW_PRIORITY_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $source_interrupt_id($i)]]
+	    set instance_dup_indx [lcount $instance_list $source_name_port_name]
+	    if {$instance_dup_indx != 0} {
+		if {$instance_dup_indx == 1} {
+	            puts $config_inc [format "#define XPAR_%s_%s_LOW_PRIORITY_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $source_interrupt_id($i)]]
+		} else {
+	            puts $config_inc [format "#define XPAR_%s_%s_%s_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] $instance_dup_indx [expr 1 << $source_interrupt_id($i)]]
+		}
 	    } else {
 	        puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $source_interrupt_id($i)]]
 	    }
 	    if {$cascade ==1} {
-	       if {[lcount $instance_list $source_name_port_name] == 0} {
+	       if {$instance_dup_indx == 0} {
                 puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
 	       } else {
-	           puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
+		    if {$instance_dup_indx == 1} {
+	               puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
+		    } else {
+	               puts $config_inc [format "#define XPAR_%s_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $instance_dup_indx $source_interrupt_id($i)]
+		    }
 	       }
             } else {
-                 if {[lcount $instance_list $source_name_port_name] == 0} {
+                 if {$instance_dup_indx == 0} {
                      puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
                  } else {
-                     puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
+		     if {$instance_dup_indx == 1} {
+                         puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
+		     } else {
+                        puts $config_inc [format "#define XPAR_%s_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $instance_dup_indx $source_interrupt_id($i)]
+		     }
                  }
 
             }
