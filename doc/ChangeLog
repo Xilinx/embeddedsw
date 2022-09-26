@@ -237,6 +237,124 @@ Set Command Register bits in example application
 xdmapcie_v1_6:
 Determine CPM5 QDMA base address through hsi flow
 
+trngpsv_v1_2:
+Added Security best practice related changes
+Fixed logical error in XTrngpsv_Generate
+Enhanced KAT to include explicit Reseed before Generate
+
+xilloader_v1_7:
+Refactor code to support Versal and Versal Net
+Added In-Place PLM update support
+Added IPI example for multiboot update command
+Added IPI example for Add Image Store PDI command
+Enable SSIT interrupts once the boot is done to support PLM - PLM communication for SSIT devices
+Added XilLoader commands to separate section in PLM linker script
+Added support for Get Handoff Parameters IPI command
+Added IPI example for Load PDI command
+Remove usage of bitfields in XilLoader to avoid compiler or portability issues
+Added support to read Optional Data in slave boot modes
+Updated KAT status based on CDO config for Partial PDI
+Copy IHT and Optional data to PMC RAM
+Removed 12K mode support. Only 4K mode will be supported for PUF operations in Versal and Versal Net
+Added support to find device state change in Versal Net
+Added check to verify if a particular DDR is enabled or not before dumping the DDR registers
+Added a routine to request service to the ROM in Versal Net
+Handle security related run-times tasks during In-Place PLM update
+Added KATs and related FIPS changes
+Added clearing the intermediate hashs
+Set PlmLiveStatus during boot time
+Added CDO command for Cframe data clear check for PL secure lockdown
+Fixed A78 lockstep issue in Versal Net
+Modified DelayedHandoffCpus condition to handle all possible values
+Added support for requesting TCM device in Versal Net
+Updated secure chunk size from 16K to 32K
+Added support for initializing TRNG during PLM init and ECDSA examples in Versal Net
+Added redundancy checks to handle glitch attacks
+Removed PM_CAP_SECURE capability for PSM, DDR and TCM banks
+
+xilnvm_v3_0:
+Refactored code to add support for Versal Net
+Enhanced the code for size optimization
+Changed param name in mld file
+Fixed bug in calculating the revocation id mask used to extract column information
+Added check for TRIM2 instead of TRIM3 for Row 37 protection
+Addressed Security best practices
+
+xilplmi_v1_7:
+Refactor code to support Versal and Versal Net
+Updated XPlmi_SchedulerAddTask to error out only if the task node of the task instance is not delete
+Added In-Place PLM update support for Versal Net
+Fix IPI device ID issue by checking the base address of the PMC IPI
+Added support for PMC WDT for Versal Net
+Added support for Versal SSIT PLM - PLM communication
+Added "PLM Print to Log" as a new EAM error action and set this as default error action to some of the errors
+Added PLMI commands to separate section in PLM linker script
+Added SSIT event for SEM error notifications
+Added new SW error event for XilSem to the EAM SW errors list
+Added support for storing proc commands to PMC RAM
+Added support for secure lockdown for tamper events, for boot failures if HALT_BOOT_ERROR_1_0 eFuse is programmed and when TamperTrigger IPI command is generated to PLM
+Added support for finding device state change for Versal Net
+Fix bug in enabling SLVERR for RTC registers as Battery_Disable is a write-only bit in RTC_CONTROL register
+Added support for HBM temperature monitoring in PLM
+Added partition measure support for Versal Net
+Set PlmLiveStatus during boot time
+Change IPI tasks priority to low
+Handle EAM errors at task level
+Fixed SW-BP-MAGIC-NUM warning
+Clear XPlmi_BoardParams instance in case of command failure
+Support Begin, End and Break commands across chunk boundaries
+Clear SSIT errors in PMC_ERR2_STATUS in Slave SLRs after SSIT Sync Master is complete
+Check for SlavesMask during SSIT Sync event in master
+Replace XPAR_XIPIPSU_0_DEVICE_ID macro with XPLMI_IPI_DEVICE_ID
+
+versal_plm:
+Add tri state support for mio pins
+Re-organize directory structure for xilsecure in misc folder
+Set the default base address for ethernet slave
+Clear MIO tri-state for power control pins
+Replace DEBUG_DETAILED with DEBUG_ERROR for XPPU/XMPU
+Add check for overlay config object permission
+Do not turn off FPD for ETH wakeup source
+Disable parity retry during DDR self-refresh
+Add check for pinId and paramId before accessing
+Read proper GIC wake event data type from ETH slave
+Fixed Misra C violations
+
+zynqmp_fsbl:
+Updated versionless files for SOM with k26-som bsp
+Updated som misc folder
+Updated psu_init files for SOM with VPLL
+Fix build issue for R5 FSBL when DDR self refresh is enabled
+Modify Qspi copy functions to handle unaligned DestAddr
+Fix reboot issue on k26 starter kits
+Replace memcpy with Xil_MemCpy in xfsbl_qspi.c
+Re-organize directory structure for xilsecure in misc folder
+Ecc Initialize DDR completely for R5 FSBL
+
+xilsecure_v5_0:
+Refactored code to add support for Versal Net
+Fixed bug in accessing RSA 3072 and 2048 bit key size for client requests
+Added GMAC support
+Enhanced the code for size optimization
+Provided access to clear PUF kek
+Removed tamper related code
+Addressed Security best practices
+
+xilpuf_v2_0:
+Refactored code to add support for Versal Net
+Removed 12K mode support
+Changed param name in mld file
+Addressed Security best practices
+
+xilpdi_v1_6:
+Refactor code to support Versal and Versal Net
+Updated XilPdi_ReadBootHdr prototype to improve readability
+Added Optional data len in Image Header Table
+Copy IHT and Optional data to PMC RAM
+Add compatibility check for In-Place PLM Update
+Reduce maximum number of partitions from 32 to 20 and images from 32 to 10 for Versal
+
+
 
 New Files Added for 2022.2:
 SPDX-License-Identifier:MIT
