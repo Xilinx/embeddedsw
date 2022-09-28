@@ -1,6 +1,74 @@
 Changes for 2022.2
 ===============================
 
+mipicsiss_v1_8:
+Added APIs to control VCSelection register for supporting
+virtual channel selection based on user input
+
+cframe_v1_4:
+Updated the driver to support Versal Net
+Added CFRAME related defines used for secure lockdown of PL
+
+cfupmc_v1_5:
+Updated the driver to support Versal Net
+Added CFU related defines used for secure lockdown of PL
+
+dfeccf_v1_4:
+Update IP version number
+Update documentation
+
+dfeequ_v1_4:
+Update documentation
+
+dfemix_v1_4:
+Update register map
+Update IP version number
+Update documentation
+
+dfeprach_v1_4:
+Update IP version number
+Update register fields
+Correct event status read
+Add dynamic config example
+Update documentation
+
+v_warp_filter_v1_2:
+Fixed TCL issue in exporting a value
+
+sysmonpsu_v2_8:
+Changed addtogroup to Overview
+Fixed issues where ADCCLK divisor was not updated
+
+scugic_v5_0:
+Added support for CortexR52 and CortexA78 GIC
+Updated xscugic_example.c  to suport it for all CPU instances
+
+xilsecure_v5_0:
+Refactored code to add support for Versal Net
+Fixed bug in accessing RSA 3072 and 2048 bit key size for client requests
+Added GMAC support
+Enhanced the code for size optimization
+Provided access to clear PUF kek
+Removed tamper related code
+Removed KAT support for ECC P521 curve
+Addressed Security best practices
+
+xilpuf_v2_0:
+Refactored code to add support for Versal Net
+Removed 12K mode support
+Changed param name in mld file
+Addressed Security best practices
+
+sysmonpsv_v3_1:
+Changed addtogroup to Overview
+Remove GIC standalone related functionality for arch64 architecture
+
+xilmailbox_v1_6:
+Add support for Microblaze
+Added shared memory APIs for IPI
+Fix Doxygen warnings
+Update GIC intilaization sequence
+
 axicdma_v4_10:
 Update MIG BASE NAME property for DMA driver examples
 
