@@ -1299,9 +1299,15 @@ u32 XDp_TxRemoteIicWrite(XDp *InstancePtr, u8 LinkCountTotal,
 	}
 	/* Send remote I2C sideband message. */
 	else {
-		Status = XDp_TxSendSbMsgRemoteIicWrite(InstancePtr,
-			LinkCountTotal, RelativeAddress, IicAddress,
-			BytesToWrite, WriteData);
+		/*
+		 * Status = XDp_TxSendSbMsgRemoteIicWrite(InstancePtr,
+		 * LinkCountTotal, RelativeAddress, IicAddress,
+		 * BytesToWrite, WriteData);
+		 */
+		/* currently UCD400/500 doesn't support this remote i2c writes, So this sideband
+		 * message is removed. This will be re-visited once UCD fixes its internal issues
+		 * TBD.
+		 */
 	}
 
 	return Status;
