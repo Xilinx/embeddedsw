@@ -106,6 +106,8 @@
 *       ma   08/08/2022 Fix SW-BP-MAGIC-NUM warning
 *       ma   09/02/2022 Print EAM errors only if they are enabled
 *       ma   09/07/2022 Print ERR number as per the register database
+* 1.09  bsv  09/30/2022 Make XPlmi_SoftResetHandler non-static so that
+*                       it can be used in Image Selector
 *
 * </pre>
 *
@@ -154,7 +156,6 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask);
 static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId);
-static void XPlmi_SoftResetHandler(void);
 static void XPlmi_DumpRegisters(void);
 static void XPlmi_ErrOutNClearFwCR(u32 ErrorId);
 static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType);
@@ -1258,7 +1259,7 @@ static void XPlmi_DumpRegisters(void)
  * @return	None
  *
  *****************************************************************************/
-static void XPlmi_SoftResetHandler(void)
+void XPlmi_SoftResetHandler(void)
 {
 	XPlmi_SysmonClkSetIro();
 	/* Make sure every thing completes */
