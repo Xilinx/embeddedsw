@@ -1321,7 +1321,13 @@
 #define XPAR_PSU_SD_1_BUS_WIDTH 8
 #define XPAR_PSU_SD_1_MIO_BANK 1
 #define XPAR_PSU_SD_1_HAS_EMIO 0
-#define XPAR_PSU_SD_1_SLOT_TYPE 0
+#define XPAR_PSU_SD_1_SLOT_TYPE 3
+#define XPAR_PSU_SD_1_CLK_50_SDR_ITAP_DLY 0x15
+#define XPAR_PSU_SD_1_CLK_50_SDR_OTAP_DLY 0x5
+#define XPAR_PSU_SD_1_CLK_50_DDR_ITAP_DLY 0x3D
+#define XPAR_PSU_SD_1_CLK_50_DDR_OTAP_DLY 0x4
+#define XPAR_PSU_SD_1_CLK_100_SDR_OTAP_DLY 0x3
+#define XPAR_PSU_SD_1_CLK_200_SDR_OTAP_DLY 0x3
 
 
 /******************************************************************/
@@ -1338,8 +1344,14 @@
 #define XPAR_XSDPS_0_BUS_WIDTH 8
 #define XPAR_XSDPS_0_MIO_BANK 1
 #define XPAR_XSDPS_0_HAS_EMIO 0
-#define XPAR_XSDPS_0_SLOT_TYPE 0
+#define XPAR_XSDPS_0_SLOT_TYPE 3
 #define XPAR_XSDPS_0_IS_CACHE_COHERENT 0
+#define XPAR_XSDPS_0_CLK_50_SDR_ITAP_DLY 0x15
+#define XPAR_XSDPS_0_CLK_50_SDR_OTAP_DLY 0x5
+#define XPAR_XSDPS_0_CLK_50_DDR_ITAP_DLY 0x3D
+#define XPAR_XSDPS_0_CLK_50_DDR_OTAP_DLY 0x4
+#define XPAR_XSDPS_0_CLK_100_SDR_OTAP_DLY 0x3
+#define XPAR_XSDPS_0_CLK_200_SDR_OTAP_DLY 0x3
 
 
 /******************************************************************/
