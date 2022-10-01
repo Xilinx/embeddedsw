@@ -14,7 +14,7 @@ BOARD=$1
 PROC_DIRNAME="cpu_cortexa53"
 
 # present working dir
-WORKING_DIR=../misc
+WORKING_DIR=../../misc
 
 #bsp dir where files will be copied
 BSP_DIR=$WORKING_DIR/imgsel_bsp/psu_cortexa53_0
@@ -23,7 +23,7 @@ BSP_DIR=$WORKING_DIR/imgsel_bsp/psu_cortexa53_0
 EMBEDDED_SW_DIR=$WORKING_DIR/../../../..
 
 # selection of drivers is based on the board selected
-DRIVERS_LIST="../misc/$BOARD/drivers.txt"
+DRIVERS_LIST="../../misc/$BOARD/drivers.txt"
 
 # drivers directory
 DRIVERS_DIR=$EMBEDDED_SW_DIR/XilinxProcessorIPLib/drivers
@@ -62,8 +62,8 @@ cp -f $STANDALONE_DIR/arm/common/*.h $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/arm/common/*.c $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/common/*.c $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/common/*.h $BSP_DIR/libsrc/standalone/src/
-cp ../misc/inbyte.c $BSP_DIR/libsrc/standalone/src/
-cp ../misc/outbyte.c $BSP_DIR/libsrc/standalone/src/
+cp ../../misc/inbyte.c $BSP_DIR/libsrc/standalone/src/
+cp ../../misc/outbyte.c $BSP_DIR/libsrc/standalone/src/
 if [ $BOARD = "som" ]; then
 	cp -f $STANDALONE_DIR/common/clocking/*.c $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/common/clocking/*.h $BSP_DIR/libsrc/standalone/src/
@@ -75,8 +75,8 @@ cp -f $STANDALONE_DIR/arm/ARMv8/64bit/*.h $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/arm/ARMv8/64bit/gcc/* $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/arm/ARMv8/64bit/platform/ZynqMP/gcc/* $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
-cp ../misc/bspconfig.h $BSP_DIR/include
-cp ../misc/bspconfig.h $BSP_DIR/libsrc/standalone/src/
+cp ../../misc/bspconfig.h $BSP_DIR/include
+cp ../../misc/bspconfig.h $BSP_DIR/libsrc/standalone/src/
 cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/includes_ps/
 cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/include/
 
@@ -110,7 +110,7 @@ fi
 cp -r $DRIVERS_DIR/$PROC_DIRNAME/src $BSP_DIR/libsrc/$PROC_DIRNAME/src
 
 #copy the xparameters.h
-cp ../misc/$BOARD/xparameters*.h $BSP_DIR/include/
+cp ../../misc/$BOARD/xparameters*.h $BSP_DIR/include/
 
 # other dependencies which are required
 cp $WORKING_DIR/config.make $BSP_DIR/libsrc/standalone/src/

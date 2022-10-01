@@ -1,5 +1,5 @@
 #/******************************************************************************
-#* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+#* Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -79,6 +79,24 @@ proc swapp_generate {} {
     # Update compiler and linker flags
     common::set_property -name {APP_COMPILER_FLAGS} -value $new_flags -objects [hsi::current_sw_design]
     common::set_property -name {APP_LINKER_FLAGS} -value $new_link_flags -objects [hsi::current_sw_design]
+
+    set zynqmp "zynqmp/"
+    set common "common/"
+
+    foreach entry [glob -nocomplain -types f [file join . *]] {
+	file delete -force $entry
+    }
+
+    foreach entry [glob -nocomplain -types f [file join $common *]] {
+	file copy -force $entry "."
+    }
+
+    foreach entry [glob -nocomplain -types f [file join $zynqmp *]] {
+	file copy -force $entry "."
+    }
+
+    file delete -force $zynqmp
+    file delete -force $common
 }
 
 proc swapp_get_linker_constraints {} {
