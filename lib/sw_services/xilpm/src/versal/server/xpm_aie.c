@@ -2030,16 +2030,16 @@ static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColE
 	       (XST_SUCCESS != CoreZeroStatus) ||
 	       (XST_SUCCESS != MemZeroStatus)) {
 
-		if (0U == AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Mrow) +
-				    AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)) {
+		if (0U == (AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+			   (AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Mrow) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)))) {
 			MemTileZeroStatus = XST_SUCCESS;
 		}
-		if (0U == AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) +
-				    AIE2_CORE_MODULE_MEM_CTRL_OFFSET)) {
+		if (0U == (AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+			   (AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET)))) {
 			CoreZeroStatus = XST_SUCCESS;
 		}
-		if (0U == AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) +
-				    AIE2_MEM_MODULE_MEM_CTRL_OFFSET)) {
+		if (0U == (AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+			   (AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET)))) {
 			MemZeroStatus = XST_SUCCESS;
 		}
 
