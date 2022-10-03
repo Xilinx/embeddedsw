@@ -175,7 +175,7 @@ Provided example for Essential bit data classification
 xiltimer_v1_1:
 Add support for VERSAL NET
 
-lwip211_v1_8 :
+lwip211_v1_8:
 Make the BD space non-cacheable on all processors for PL ethernet
 Deprecate MCDMA support on lwip
 Add socket_debug Flag in BSP settings
@@ -296,7 +296,7 @@ This patch adds DP2.0 support
 libmetal_v2_4:
 Add support for Libmetal A72 Versal support
 
-vprocss_2_11:
+vprocss_v2_11:
 vprocss tcl fix for IP instances more than 10
 
 pciepsu_v1_5:
