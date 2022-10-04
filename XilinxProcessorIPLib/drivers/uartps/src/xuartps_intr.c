@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartps_intr.c
-* @addtogroup uartps_v3_11
+* @addtogroup uartps Overview
 * @{
 *
 * This file contains the functions for interrupt handling

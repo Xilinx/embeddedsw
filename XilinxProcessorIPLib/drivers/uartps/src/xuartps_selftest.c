@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartps_selftest.c
-* @addtogroup uartps_v3_11
+* @addtogroup uartps Overview
 * @{
 *
 * This file contains the self-test functions for the XUartPs driver.

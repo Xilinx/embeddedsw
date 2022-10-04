@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartps_hw.h
-* @addtogroup uartps_v3_11
+* @addtogroup uartps Overview
 * @{
 *
 * This header file contains the hardware interface of an XUartPs device.

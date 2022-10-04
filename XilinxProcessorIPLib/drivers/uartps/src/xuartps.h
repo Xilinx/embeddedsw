@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartps.h
-* @addtogroup uartps_v3_11
+* @addtogroup uartps Overview
 * @{
 * @details
 *
