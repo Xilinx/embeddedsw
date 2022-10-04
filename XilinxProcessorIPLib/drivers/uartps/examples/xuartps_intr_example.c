@@ -33,6 +33,7 @@
 * 3.1   mus     01/14/16 Added support for intc interrupt controller
 * 3.8   adk     10/05/19 Don't update the DeviceId variable in peripheral test
 *			 app case.
+* 3.12	gm	09/26/22 Corrected SetRecvTimeout description details.
 *
 * </pre>
 ****************************************************************************/
@@ -244,7 +245,7 @@ int UartPsIntrExample(INTC *IntcInstPtr, XUartPs *UartInstPtr,
 	 * of data do not trigger the over-water or full interrupt, the bytes
 	 * will not be received. By default it is disabled.
 	 *
-	 * The setting of 8 will timeout after 8 x 4 = 32 character times.
+	 * The setting of 8 will timeout after 8 x 4 = 32 bit periods.
 	 * Increase the time out value if baud rate is high, decrease it if
 	 * baud rate is low.
 	 */
