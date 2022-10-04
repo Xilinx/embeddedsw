@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartlite.h
-* @addtogroup uartlite_v3_7
+* @addtogroup uartlite Overview
 * @{
 * @details
 *

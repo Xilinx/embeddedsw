@@ -7,7 +7,7 @@
 /**
 *
 * @file xuartlite_i.h
-* @addtogroup uartlite_v3_7
+* @addtogroup uartlite Overview
 * @{
 *
 * Contains data which is shared between the files of the XUartLite component.
