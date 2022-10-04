@@ -50,6 +50,8 @@
 *                     Changed the prototype of XUartLite_CfgInitialize API.
 * 3.6   rna  02/19/21 Added 'XUartLite_GetSR' internal API to read Status
 *                     register and update the error stats.
+* 3.8	gm   09/25/22 Use XUartLite_GetSR instead of accessing status register
+*                     directly.
 *
 * </pre>
 *
@@ -346,8 +348,7 @@ void XUartLite_ResetFifos(XUartLite *InstancePtr)
 	 * Read the status register 1st such that the next write to the control
 	 * register won't destroy the state of the interrupt enable bit
 	 */
-	Register = XUartLite_ReadReg(InstancePtr->RegBaseAddress,
-					XUL_STATUS_REG_OFFSET);
+	Register = XUartLite_GetSR(InstancePtr);
 
 	/*
 	 * Mask off the interrupt enable bit to maintain it's state.
@@ -387,8 +388,7 @@ int XUartLite_IsSending(XUartLite *InstancePtr)
 	/*
 	 * Read the status register to determine if the transmitter is empty
 	 */
-	StatusRegister = XUartLite_ReadReg(InstancePtr->RegBaseAddress,
-						XUL_STATUS_REG_OFFSET);
+	StatusRegister = XUartLite_GetSR(InstancePtr);
 
 	/*
 	 * If the transmitter is not empty then indicate that the UART is still

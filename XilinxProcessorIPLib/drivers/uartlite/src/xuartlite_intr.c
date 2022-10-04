@@ -25,6 +25,8 @@
 *			callback invocations)
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs. The macros have been
 *		      renamed to remove _m from the name.
+* 3.8	gm   09/25/22 Use XUartLite_GetSR instead of accessing status register
+*                     directly.
 * </pre>
 *
 *****************************************************************************/
@@ -143,8 +145,7 @@ void XUartLite_InterruptHandler(XUartLite *InstancePtr)
 	 * Read the status register to determine which, coulb be both
 	 * interrupt is active
 	 */
-	IsrStatus = XUartLite_ReadReg(InstancePtr->RegBaseAddress,
-					XUL_STATUS_REG_OFFSET);
+	IsrStatus = XUartLite_GetSR(InstancePtr);
 
 	if ((IsrStatus & (XUL_SR_RX_FIFO_FULL |
 		XUL_SR_RX_FIFO_VALID_DATA)) != 0) {
