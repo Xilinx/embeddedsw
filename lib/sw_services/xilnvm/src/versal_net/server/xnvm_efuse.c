@@ -1897,6 +1897,13 @@ int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 RegCount, u32* Data)
 int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
 {
 	int Status = XST_FAILURE;
+	int CloseStatus = XST_FAILURE;
+
+	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
+					XNVM_EFUSE_MARGIN_RD);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
 	if (Status != XST_SUCCESS) {
@@ -1911,6 +1918,10 @@ int XNvm_EfuseCacheLoadNPrgmProtectionBits(void)
 	Status = XNvm_EfuseCacheReloadAndProtectionChecks();
 
 END:
+	CloseStatus = XNvm_EfuseCloseController();
+	if (XST_SUCCESS == Status) {
+		Status = CloseStatus;
+	}
 	return Status;
 }
 
@@ -1952,18 +1963,11 @@ END:
 static int XNvm_EfusePrgmProtectionBits(void)
 {
 	volatile int Status = XST_FAILURE;
-	int CloseStatus = XST_FAILURE;
 	u32 SecurityCtrlData;
 	u32 SecurityMisc0Data;
 	u32 SecurityMisc1Data;
 	u32 CrcSaltData;
 	u32 PufChashData;
-
-	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
-					XNVM_EFUSE_MARGIN_RD);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
 	SecurityCtrlData  = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR,
 				XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET);
@@ -2115,11 +2119,6 @@ static int XNvm_EfusePrgmProtectionBits(void)
 	Status = XST_SUCCESS;
 
 END:
-	CloseStatus = XNvm_EfuseCloseController();
-	if (XST_SUCCESS == Status) {
-		Status = CloseStatus;
-	}
-
 	return Status;
 }
 

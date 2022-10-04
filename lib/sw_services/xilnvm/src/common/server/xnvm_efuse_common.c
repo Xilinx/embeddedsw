@@ -19,6 +19,8 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 3.0   kal  07/16/2022 Initial release
 *       dc   08/29/2022 Changed u8 to u32 type
+*       kal  09/29/2022 Removed unlock and lock of eFuse controller
+*                       from the XNvm_EfuseCacheReload function
 *
 * </pre>
 *
@@ -86,19 +88,8 @@
 int XNvm_EfuseCacheReload(void)
 {
 	int Status = XST_FAILURE;
-	int LockStatus = XST_FAILURE;
-	u32 RegStatus;
 	u32 CacheStatus;
 
-	RegStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-					XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	/* Check the unlock status */
-	if (RegStatus != 0U) {
-		LockStatus = XNvm_EfuseUnlockController();
-		if (LockStatus != XST_SUCCESS) {
-			goto END;
-		}
-	}
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_CACHE_LOAD_REG_OFFSET,
 			XNVM_EFUSE_CACHE_LOAD_MASK);
@@ -126,14 +117,6 @@ END:
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_ISR_REG_OFFSET,
 			XNVM_EFUSE_ISR_CACHE_ERROR);
-	RegStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
-				XNVM_EFUSE_WR_LOCK_REG_OFFSET);
-	if (RegStatus == 0U) {
-		LockStatus = XNvm_EfuseLockController();
-		if (Status == XST_SUCCESS) {
-			Status = LockStatus;
-		}
-	}
 	return Status;
 
 }
