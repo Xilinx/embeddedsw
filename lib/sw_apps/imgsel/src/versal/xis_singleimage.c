@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 * @file xis_singleimage.c
 *
-* This is the file which contains code for the ImgSel single image.
+* This is the file which contains code for Versal Image Selector single image.
 *
 *
 * @note
@@ -17,9 +17,9 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  		Date     Changes
+* Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
-* 1.00  Ana   	24/06/20 	First release
+* 1.00  bsv  10/03/22 Initial release
 *
 * </pre>
 *
@@ -27,35 +27,28 @@
 
 /***************************** Include Files *********************************/
 #include "xis_main.h"
+#include "xplmi_err_common.h"
+#include "xplmi_util.h"
+#include "xplmi_hw.h"
 
-#ifdef XIS_GET_BOARD_PARAMS
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XIS_MAX_BOARDS 				(6U)
+#define XIS_MAX_BOARDS 				(3U)
 #define XIS_BOARDNAME_SIZE 			(6U)
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
 Boards_List Board[XIS_MAX_BOARDS] = {
-	{"ZCU102" , 1020U},
-
-	{"ZCU104" , 1040U},
-
-	{"ZCU106" , 1060U},
-
-	{"ZCU111" , 1110U},
-
-	{"ZCU208" , 2080U},
-
-	{"ZCU216" , 2160U}
-
+	{"VPK120" , 120},
+	{"VPK180" , 180},
+	{"VCK190",  190},
 };
 
-static u8 ReadBuffer[XIS_MAX_SIZE]; /* Read buffer for reading a page. */
+static u8 ReadBuffer[256]; /* Read buffer for reading a page. */
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -86,7 +79,7 @@ int XIs_GetBoardName(u16 ReadAddress, u16 *Offset,u32 WrBfrOffset)
 	}
 
 	for(BoardIndex = 0U; BoardIndex < XIS_MAX_BOARDS; BoardIndex++) {
-		if(strncmp((char *)ReadBuffer, Board[BoardIndex].Name,
+		if(strncmp((char *)(ReadBuffer + 0x16U), Board[BoardIndex].Name,
 				XIS_BOARDNAME_SIZE) == 0U) {
 			*Offset = Board[BoardIndex].Offset;
 			goto END;
@@ -100,8 +93,7 @@ END:
 
 /*****************************************************************************/
 /**
- * This function is used to update the multiboot value
- * @param	None.
+ * This function is used to update the multiboot value.
  *
  * @return	returns XIS_BOARD_NAME_NOTFOUND on failure
  *				returns XST_SUCCESS on success
@@ -125,13 +117,33 @@ int XIs_ImageSelBoardParam(void)
 		Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET_2,
 					&BoardOffset, XIS_EEPROM_OFFSET_2_WRITE_BYTES);
 		if(Status != XST_SUCCESS) {
-			XIs_Printf(DEBUG_GENERAL, "Board Name NotFound\r\n");
+			XPlmi_Printf(DEBUG_GENERAL, "Board Name NotFound\r\n");
 			goto END;
 		}
 	}
+
+	sleep(1);
 	XIs_UpdateMultiBootValue(BoardOffset);
 
+	if (Status == XST_SUCCESS) {
+		XPlmi_SoftResetHandler();
+	}
+
 END:
+	/* Ideally code should not reach here */
 	return Status;
 }
-#endif
+
+/*****************************************************************************/
+/**
+ * This functions updates the multiboot value into CSU_MULTIBOOT register.
+ *
+ * @param	Multiboot offset Value.
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+void XIs_UpdateMultiBootValue(u32 Offset)
+{
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_MULTI_BOOT, 0xFFFFFFFU, Offset);
+}

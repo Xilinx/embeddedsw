@@ -82,6 +82,7 @@ proc swapp_generate {} {
 
     set zynqmp "zynqmp/"
     set common "common/"
+    set versal "versal/"
 
     foreach entry [glob -nocomplain -types f [file join . *]] {
 	file delete -force $entry
@@ -97,6 +98,7 @@ proc swapp_generate {} {
 
     file delete -force $zynqmp
     file delete -force $common
+    file delete -force $versal
 }
 
 proc swapp_get_linker_constraints {} {

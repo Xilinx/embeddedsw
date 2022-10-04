@@ -94,8 +94,8 @@ do
 	cp -rf $DRIVERS_DIR/$line/src/*.h $BSP_DIR/include/
 
 	# copy all the HSM generated driver files DRIVER_g.c
-	if [ -f ../misc/x"$line"_g.c ]; then
-		cp ../misc/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
+	if [ -f ../../misc/x"$line"_g.c ]; then
+		cp ../../misc/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
 	fi
 	BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/$line/src/Makefile"
 

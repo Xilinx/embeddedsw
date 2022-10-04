@@ -1,53 +1,50 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xis_gpio.h
 *
-* This is the main header file which contains definitions for the gpio.
+* @file xis_pm.h
 *
+* This file contains the header functions of wrapper xilpm
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who             Date     Changes
-* ----- ---- -------- ---------------------------------------------------------
-* 1.00  Ana            10/11/20   First release
+* Ver   Who  Date        Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.00  bsv  10/03/2022 Initial release
 *
 * </pre>
 *
+* @note
+*
 ******************************************************************************/
-
-#ifndef XIS_GPIO_H
-#define XIS_GPIO_H
+#ifndef XIS_PM_H
+#define XIS_PM_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xis_main.h"
 
-#if defined(XIS_UPDATE_A_B_MECHANISM) && defined(XPAR_XGPIOPS_NUM_INSTANCES)
-#include "xgpiops.h"
-
-/************************** Variable Definitions *****************************/
+/************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define FW_UPDATE_BUTTON	(12U)
 
 /************************** Function Prototypes ******************************/
-int GpioInit(void);
-u8 GetGpioStatus(void);
-#endif /* end of XIS_UPDATE_A_B_MECHANISM */
+int XPlm_PmInit(void);
+int XPlm_ProcessPmcCdo(void);
+
+/************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif  /* XIS_PM_H */

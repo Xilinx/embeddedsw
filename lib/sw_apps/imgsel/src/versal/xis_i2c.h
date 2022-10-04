@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,9 +13,9 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who             Date     Changes
+* Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
-* 1.00  Ana       07/02/20      First release
+* 1.00  bsv  10/03/22 First release
 *
 * </pre>
 *
@@ -47,18 +47,16 @@ typedef struct board
 typedef u16 AddressType;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/* Board Parameters will present at 0xD0 Address location
- * for ZCU102,104,106,111 boards
+/* Board Parameters will present at 0x16 Address location
+ * for VCK190, VPK120, VPK180 and VMK180 boards
  */
-#define XIS_EEPROM_BOARD_ADDR_OFFSET_1			(0xD0U)
-#define XIS_EEPROM_OFFSET_1_WRITE_BYTES   		(0x01U)
-/* Board Parameters will present at 0x00 Address location
- * for ZCU208,216 boards
- */
-#define XIS_EEPROM_BOARD_ADDR_OFFSET_2	        (0x00U)
-#define XIS_EEPROM_OFFSET_2_WRITE_BYTES  		(0x02U)
+#define XIS_EEPROM_BOARD_ADDR_OFFSET_1			(0x0U)
+#define XIS_EEPROM_OFFSET_1_WRITE_BYTES   		(0x2U)
+
+#define XIS_EEPROM_BOARD_ADDR_OFFSET_2	        (0x0U)
+#define XIS_EEPROM_OFFSET_2_WRITE_BYTES  		(0x1U)
 #define XIS_IIC_SCLK_RATE						(100000U)
-#define XIS_PAGE_SIZE_16						(16U)
+#define XIS_PAGE_SIZE_16						(32U)
 #define XIS_DELAY								(10000U)
 
 /************************** Function Prototypes ******************************/

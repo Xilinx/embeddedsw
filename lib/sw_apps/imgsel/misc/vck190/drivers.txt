@@ -1,0 +1,15 @@
+canfd
+cfupmc
+cframe
+csudma
+emacps
+gpiops
+iicps
+iomodule
+qspipsu
+rtcpsu
+sdps
+sysmonpsv
+uartpsv
+usbpsu
+zdma

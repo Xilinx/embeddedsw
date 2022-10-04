@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,16 +7,15 @@
 /**
  * @file xis_i2c.c
  *
- * This file used to Read the Board Name from IIC EEPROM from 0xD0 location, Based
- * on the Board Name it will update the corresponding multiboot offset value.
- *
+ * This file used to Read the Board Name from IIC EEPROM. Based on the Board
+ * name, multiboot offset value will get updated.
  *
  * <pre>
  * MODIFICATION HISTORY:
  *
- * Ver   Who  		Date     Changes
+ * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------
- * 1.00  Ana     07/02/20 	First release
+ * 1.00  bsv  10/03/22 First release
  *
  * </pre>
  *
@@ -24,6 +23,8 @@
 
 /***************************** Include Files *********************************/
 #include "xis_main.h"
+#include "xplmi_debug.h"
+
 
 #ifdef XIS_GET_BOARD_PARAMS
 /************************** Constant Definitions *****************************/
@@ -139,8 +140,9 @@ int XIs_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 	 */
 	WriteBuffer[0U] = (u8)(Address);
 
-	Status = XIs_EepromWriteData(&IicInstance, WrBfrOffset);
+	Status = XIs_EepromWriteData(&IicInstance, 1);
 	if (Status != XST_SUCCESS) {
+		xil_printf("write error\n\r");
 		Status = XIS_EEPROM_WRITE_ERROR;
 		goto END;
 	}
@@ -150,6 +152,7 @@ int XIs_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 	Status = XIicPs_MasterRecvPolled(&IicInstance, BufferPtr,
 			ByteCount, XIS_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
+		xil_printf("recv poled eror %0x %0x %0x %0x\n\r", ByteCount, XIS_EEPROM_ADDRESS, Address, WrBfrOffset);
 		Status = XIS_IICPS_MASTER_RECV_POLLED_ERROR;
 		goto END;
 	}
@@ -321,7 +324,7 @@ END:
 int XIs_IicPsMuxInit(void)
 {
 	int Status = XST_FAILURE;
-	u8 MuxChannel = XIS_I2C_MUX_INDEX;
+	u8 MuxChannel = 1;
 	u16 DeviceId = XIS_I2C_EEPROM_INDEX;
 
 	Status = XIs_IicPsConfig(DeviceId);
@@ -332,7 +335,7 @@ int XIs_IicPsMuxInit(void)
 
 	Status = XIs_MuxInitChannel(XIS_MUX_ADDR, MuxChannel);
 	if (Status != XST_SUCCESS) {
-		XIs_Printf(DEBUG_INFO,"Failed to enable the MUX channel\r\n");
+		XPlmi_Printf(DEBUG_INFO,"Failed to enable the MUX channel\r\n");
 		Status = XIS_IICPS_MUX_ERROR;
 		goto END;
 	}
