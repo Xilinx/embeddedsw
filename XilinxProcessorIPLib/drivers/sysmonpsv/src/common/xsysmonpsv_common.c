@@ -20,7 +20,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
-*
+* 4.0   se     10/04/22 Update return value definitions
 *
 * </pre>
 *
@@ -30,6 +30,7 @@
 #include "xsysmonpsv_hw.h"
 #include "xsysmonpsv_lowlevel.h"
 #include "xsysmonpsv_common.h"
+#include "xstatus.h"
 
 /****************************************************************************/
 /**
@@ -38,7 +39,7 @@
 *
 * @param	Type is Max or Min Temperature Type
 *
-* @return	-XSYSMONPSV_EINVAL when fails
+* @return	-XST_FAILURE when fails
 *		Register offset
 *
 ***************************************************************************/
@@ -56,7 +57,7 @@ int XSysMonPsv_TempOffset(XSysMonPsv_TempType Type)
 		RetValue = XSYSMONPSV_DEVICE_TEMP_MIN_MIN;
 		break;
 	default:
-		RetValue = -XSYSMONPSV_EINVAL;
+		RetValue = -XST_FAILURE;
 		break;
 	}
 	return RetValue;
@@ -71,14 +72,14 @@ int XSysMonPsv_TempOffset(XSysMonPsv_TempType Type)
 * @param	Dir is falling or rising direction
 * @param	Offset is the upper or lower threshold offset.
 *
-* @return	-XSYSMONPSV_EINVAL when fails
-*		XSYSMONPSV_SUCCESS when correct params are used.
+* @return	-XST_FAILURE when fails
+*		XST_SUCCESS when correct params are used.
 *
 ***************************************************************************/
 int XSysMonPsv_TempThreshOffset(XSysMonPsv_TempEvt Event,
 				XSysMonPsv_EventDir Dir, u32 *Offset)
 {
-	int RetValue = XSYSMONPSV_SUCCESS;
+	int RetValue = XST_SUCCESS;
 	switch (Event) {
 	case XSYSMONPSV_TEMP_EVENT:
 		*Offset = (Dir == XSYSMONPSV_EV_DIR_RISING) ?
@@ -91,7 +92,7 @@ int XSysMonPsv_TempThreshOffset(XSysMonPsv_TempEvt Event,
 				  XSYSMONPSV_OT_TEMP_TH_FALLING;
 		break;
 	default:
-		RetValue = -XSYSMONPSV_EINVAL;
+		RetValue = -XST_FAILURE;
 		break;
 	}
 	return RetValue;
@@ -132,8 +133,7 @@ u32 XSysMonPsv_SupplyOffset(XSysMonPsv *InstancePtr, int Supply)
 * @param    Supply is an enum which indicates the desired supply.
 * @param	Dir is Falling or rising direction.
 *
-* @return	-XSYSMONPSV_EINVAL when fails
-* 		Upper or lower threshold offset.
+* @return	Upper or lower threshold offset.
 *
 ***************************************************************************/
 u32 XSysMonPsv_SupplyThreshOffset(XSysMonPsv *InstancePtr, int Supply,
@@ -351,7 +351,7 @@ u32 XSysMonPsv_ClearAlarm(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 	XSysMonPsv_WriteReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
 			    Status);
 
-	return XSYSMONPSV_SUCCESS;
+	return (u32)XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -366,8 +366,8 @@ u32 XSysMonPsv_ClearAlarm(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 *		XSYSMON_IER_*  bits defined in InstancePtr.h.
 * @param	IntrNum is the interrupt enable register to be used
 *
-* @return	- -XSYSMONPSV_EINVAL if error
-*		- XSYSMONPSV_SUCCESS if successful
+* @return	- -XST_FAILURE if error
+*		- XST_SUCCESS if successful
 *
 *****************************************************************************/
 int XSysMonPsv_InterruptEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
@@ -375,7 +375,7 @@ int XSysMonPsv_InterruptEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 	u32 Offset;
 
 	if (InstancePtr == NULL) {
-		return -XSYSMONPSV_EINVAL;
+		return -XST_FAILURE;
 	}
 
 	/* Calculate the offset of the IER register to be written to */
@@ -385,7 +385,7 @@ int XSysMonPsv_InterruptEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 	/* Enable the specified interrupts in the AMS Interrupt Enable Register. */
 	XSysMonPsv_WriteReg32(InstancePtr, Offset, Mask);
 
-	return XSYSMONPSV_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -400,8 +400,8 @@ int XSysMonPsv_InterruptEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 *		XSYSMONPSV_IDR_*  bits defined in InstancePtr.h.
 * @param	IntrNum is the interrupt disable register to be used
 *
-* @return	- -XSYSMONPSV_EINVAL if error
-*		- XSYSMONPSV_SUCCESS if successful
+* @return	- -XST_FAILURE if error
+*		- XST_SUCCESS if successful
 *
 *****************************************************************************/
 int XSysMonPsv_InterruptDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
@@ -409,17 +409,17 @@ int XSysMonPsv_InterruptDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 	u32 Offset;
 
 	if (InstancePtr == NULL) {
-		return -XSYSMONPSV_EINVAL;
+		return -XST_FAILURE;
 	}
 
 	/* Calculate the offset of the IDR register to be written to */
 	Offset = (XSYSMONPSV_IDR0_OFFSET +
 		  ((u32)IntrNum * XSYSMONPSV_PCSR_LOCK));
 
-	/* Disable the specified interrupts in the AMXSYSMONPSV_SUCCESS Interrupt Disable Register. */
+	/* Disable the specified interrupts in the AMS Interrupt Disable Register. */
 	XSysMonPsv_WriteReg32(InstancePtr, Offset, Mask);
 
-	return XSYSMONPSV_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -433,18 +433,18 @@ int XSysMonPsv_InterruptDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 * @param	A 32-bit value representing the contents of the Interrupt Status
 *		Register (ISR).
 *
-* @return	-XSYSMONPSV_EINVAL when NULL Instance is passed
-*               XSYSMONPSV_SUCCESS if succeeds
+* @return	-XST_FAILURE when NULL Instance is passed
+*               XST_SUCCESS if succeeds
 *
 *****************************************************************************/
 int XSysMonPsv_InterruptGetStatus(XSysMonPsv *InstancePtr, u32 *IntrStatus)
 {
 	if (InstancePtr == NULL) {
-		return -XSYSMONPSV_EINVAL;
+		return -XST_FAILURE;
 	}
 	/* Return the value read from the AMS ISR. */
 	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_ISR_OFFSET, IntrStatus);
-	return XSYSMONPSV_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
