@@ -785,13 +785,19 @@ u32 XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 		Status = 0U;
 	} else {
 
+        /* If packets arrive fast enough (a flood ping, say), the entire ring will be full
+         * of packets that have been processed by hardware, but not yet by the PS. In this
+         * case the flag check won't stop us.
+         * Set the limit at the actual number of buffers available before starting the loop. */
+        u32 BdLimitLoc = (BdLimit > RingPtr->HwCnt) ? RingPtr->HwCnt : BdLimit;
+
 	/* Starting at HwHead, keep moving forward in the list until:
 	 *  - A BD is encountered with its new/used bit set which means
 	 *    hardware has completed processing of that BD.
 	 *  - RingPtr->HwTail is reached and RingPtr->HwCnt is reached.
 	 *  - The number of requested BDs has been processed
 	 */
-	while (BdCount < BdLimit) {
+        while (BdCount < BdLimitLoc) {
 
 		/* Read the status */
 			if(CurBdPtr!=NULL){
