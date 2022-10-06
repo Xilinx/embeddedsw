@@ -8,12 +8,12 @@ proc swapp_get_name {} {
 }
 
 proc swapp_get_description {} {
-    return "ImgSel for Zynq Ultrascale+ MPSoC. The Image Selector \
+    return "ImgSel for Zynq Ultrascale+ MPSoC / Versal. The Image Selector \
 	selects the image based on configuration parameters";
 }
 
 proc swapp_get_supported_processors {} {
-    return "psu_cortexa53";
+    return "psu_cortexa53 psu_pmc psv_pmc";
 }
 
 proc swapp_get_supported_os {} {
@@ -43,10 +43,15 @@ proc swapp_is_supported_hw {} {
 
     # check processor type
     set proc_instance [hsi::get_sw_processor];
-    set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+    set hw_processor [common::get_property HW_INSTANCE $proc_instance];
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
     if { $proc_instance != "psu_cortexa53_0" } {
-                error "This application is supported only for CortexA53_0.";
+		if { $proc_type != "psu_pmc" } {
+			if { $proc_type != "psv_pmc" } {
+                error "This application is supported only for CortexA53_0 and MicroBlaze.";
+			}
+		}
     }
 
     return 1;
@@ -65,20 +70,8 @@ proc check_stdout_hw {} {
 
 proc swapp_generate {} {
     set proc_instance [hsi::get_sw_processor];
-    set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+    set hw_processor [common::get_property HW_INSTANCE $proc_instance];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
-
-    # get the compiler flags, if set already
-    set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
-    set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
-
-    set new_flags "-Wall -fmessage-length=0 -DARMA53_64 -O2 $def_flags"
-
-    set new_link_flags "-n $def_link_flags"
-
-    # Update compiler and linker flags
-    common::set_property -name {APP_COMPILER_FLAGS} -value $new_flags -objects [hsi::current_sw_design]
-    common::set_property -name {APP_LINKER_FLAGS} -value $new_link_flags -objects [hsi::current_sw_design]
 
     set zynqmp "zynqmp/"
     set common "common/"
@@ -92,13 +85,40 @@ proc swapp_generate {} {
 	file copy -force $entry "."
     }
 
-    foreach entry [glob -nocomplain -types f [file join $zynqmp *]] {
-	file copy -force $entry "."
-    }
+	if { $proc_type == "psu_cortexa53" } {
+		foreach entry [glob -nocomplain -types f [file join $zynqmp *]] {
+			file copy -force $entry "."
+		}
+		# get the compiler flags, if set already
+		set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]];
+		set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]];
+		set new_flags "-Wall -fmessage-length=0 -DARMA53_64 -O2 $def_flags";
+		set new_link_flags "-n $def_link_flags";
 
-    file delete -force $zynqmp
-    file delete -force $common
-    file delete -force $versal
+		# Update compiler and linker flags
+		common::set_property -name {APP_COMPILER_FLAGS} -value $new_flags -objects [hsi::current_sw_design];
+		common::set_property -name {APP_LINKER_FLAGS} -value $new_link_flags -objects [hsi::current_sw_design];
+    } else {
+		foreach entry [glob -nocomplain -types f [file join $versal *]] {
+			file copy -force $entry "."
+		}
+		# disable global optimizations through --no-relax flag
+		set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
+		set new_link_flags "-Wl,--no-relax "
+		append new_link_flags $def_link_flags
+		common::set_property -name {APP_LINKER_FLAGS} -value $new_link_flags -objects [hsi::current_sw_design]
+
+		set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
+		set new_flags " -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare"
+		append new_flags " -mno-xl-soft-div -mcpu=v10.0 -mno-xl-soft-mul -mxl-multiply-high -Os -flto -ffat-lto-objects"
+		append new_flags $def_flags
+		# Set PMC Microblaze HW related compiler flags
+		set_property -name APP_COMPILER_FLAGS -value $new_flags -objects [current_sw_design]
+	}
+
+	file delete -force $common
+	file delete -force $zynqmp
+	file delete -force $versal
 }
 
 proc swapp_get_linker_constraints {} {
