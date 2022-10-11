@@ -61,6 +61,7 @@
  *                        XilNvm_EfuseInitSecCtrl
  *       kpt   01/13/2022 Added support for PL microblaze
  *       kpt   03/16/2022 Removed IPI related code and added mailbox support
+ * 3.1   skg   10/04/2022 Added API to set SlrIndex
  *
  * </pre>
  *
@@ -167,6 +168,7 @@ static void XilNvm_FormatData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
 static int XilNvm_PrepareRevokeIdsForWrite(const char *RevokeIdStr,
 	u32 *Dst, u32 Len);
 static int XNvm_ValidateAesKey(const char *Key);
+static int XNvm_InputSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 static int XilNvm_EfuseWritePufFuses(void);
 static int XilNvm_EfuseReadPufFuses(void);
@@ -200,6 +202,12 @@ int main(void)
 		xil_printf("\r\n shared memory initialization failed");
 		goto END;
 	}
+
+    Status = XNvm_InputSlrIndex(&NvmClientInstance, XNVM_SLR_INDEX_0);
+	if (Status != XST_SUCCESS) {
+			xil_printf("invalid SlrIndex \r\n");
+			goto END;
+    }
 
 	Status = XilNvm_EfuseWriteFuses();
 	if (Status != XST_SUCCESS) {
@@ -2327,7 +2335,27 @@ static int XNvm_ValidateAesKey(const char *Key)
 END:
 	return Status;
 }
-
+/******************************************************************************/
+/**
+ * @brief	Adds the SLR Index.
+ *
+ * @param  InstancePtr is a pointer to instance XNvm_ClientInstance
+ *
+ * @param   SlrIndex - Number for slrId
+ *
+ *@return	- XST_SUCCESS - On valid input SlrIndex.
+ *		    - XST_FAILURE - On non valid input SlrIndex
+ *
+ *******************************************************************************/
+static int XNvm_InputSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)
+{
+	if(SlrIndex >= XNVM_SLR_INDEX_0 && SlrIndex <= XNVM_SLR_INDEX_3){
+		InstancePtr->SlrIndex = SlrIndex;
+	    return XST_SUCCESS;
+	}
+	else
+		return  XST_FAILURE;
+}
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 /****************************************************************************/
 /**

@@ -19,6 +19,7 @@
 * 1.0   kal  07/05/21 Initial release
 * 1.1   kpt  01/13/21 Added API's to set and get the shared memory
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 3.1   skg  10/04/22 Initialized SlrIndex to default value
 *
 * </pre>
 *
@@ -98,6 +99,7 @@ int XNvm_ClientInit(XNvm_ClientInstance* const InstancePtr, XMailbox* const Mail
 
 	if (InstancePtr != NULL) {
 			InstancePtr->MailboxPtr = MailboxPtr;
+			InstancePtr->SlrIndex = 0U;
 			Status = XST_SUCCESS;
 	}
 

@@ -49,6 +49,7 @@ static XPlmi_Module XPlmi_Nvm =
 	XNVM_API(XNVM_API_MAX),
 	NULL,
 	NULL,
+	NULL,
 };
 
 /**************************** Type Definitions *******************************/

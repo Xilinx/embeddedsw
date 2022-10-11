@@ -21,6 +21,7 @@
 * 1.0   kal  07/05/21 Initial release
 * 1.1   kpt  01/13/21 Added macro XNVM_SHARED_MEM_SIZE
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 3.1   skg  10/04/22 Added SlrIndex as member to XNvm_ClientInstance
 *
 * </pre>
 * @note
@@ -73,6 +74,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 typedef struct {
 	XMailbox *MailboxPtr;
+	u32 SlrIndex;
 } XNvm_ClientInstance;
 
 /***************** Macros (Inline Functions) Definitions *********************/

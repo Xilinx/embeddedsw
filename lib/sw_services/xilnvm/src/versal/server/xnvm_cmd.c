@@ -21,6 +21,7 @@
 *                       programming
 * 2.4   bsv  09/09/2021 Added PLM_NVM macro
 * 2.5   am   02/28/2022 Fixed MISRA C violation rule 4.5
+* 3.1   skg  10/04/2022 Added invalid hidden handler for PLM to PLM communication
 *
 * </pre>
 *
@@ -43,7 +44,7 @@
 #include "xnvm_cmd.h"
 
 /************************** Function Prototypes ******************************/
-
+static int XNvm_InvalidCmdHandler(XPlmi_Cmd *Cmd, u32 *RespBuf);
 /************************** Constant Definitions *****************************/
 static XPlmi_ModuleCmd XNvm_Cmds[XNVM_API_MAX];
 
@@ -52,6 +53,7 @@ static XPlmi_Module XPlmi_Nvm =
 	XPLMI_MODULE_XILNVM_ID,
 	XNvm_Cmds,
 	XNVM_API(XNVM_API_MAX),
+	XNvm_InvalidCmdHandler,
 	NULL,
 };
 
@@ -60,7 +62,22 @@ static XPlmi_Module XPlmi_Nvm =
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Definitions *****************************/
-
+/*****************************************************************************/
+/**
+ * @brief	This function calls the handler for invalid commands
+ *
+ *
+ * @param	Cmd	   is pointer to XPlmi_Cmd instance
+ *
+ * @param   RespBuf buffer to store response of slaves
+ *
+ * @return 	XST_SUCCESS		    on successful communication
+ * 		    error code      	On failure
+ *
+ *****************************************************************************/
+static int XNvm_InvalidCmdHandler(XPlmi_Cmd *Cmd, u32 *RespBuf){
+	return XPlmi_SendIpiCmdToSlaveSlr(Cmd, RespBuf);
+}
 /*****************************************************************************/
 /**
  * @brief	This function checks for the supported features based on the

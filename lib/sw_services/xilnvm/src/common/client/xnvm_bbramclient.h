@@ -20,6 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  07/05/21 Initial release
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 3.1   skg  10/04/22 Added macro for SlrIndex shifting
 *
 * </pre>
 *
@@ -41,6 +42,13 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+#define XNVM_SLR_INDEX_SHIFT (6U)
+
+/**< SlrIndexs constants*/
+#define XNVM_SLR_INDEX_0 (0U)
+#define XNVM_SLR_INDEX_1 (1U)
+#define XNVM_SLR_INDEX_2 (2U)
+#define XNVM_SLR_INDEX_3 (3U)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -51,6 +59,7 @@ int XNvm_BbramZeroize(XNvm_ClientInstance *InstancePtr);
 int XNvm_BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, const u32 UsrData);
 int XNvm_BbramReadUsrData(XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr);
 int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr);
+
 
 /************************** Variable Definitions *****************************/
 

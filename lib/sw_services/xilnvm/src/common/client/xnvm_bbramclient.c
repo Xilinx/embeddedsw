@@ -19,6 +19,7 @@
 * 1.0   kal  07/05/21 Initial release
 * 1.1   am   02/28/22 Fixed MISRA C violation rule 4.5
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 3.1   skg  10/04/22 Added SlrIndex as part of payload based on user input
 *
 * </pre>
 *
@@ -63,7 +64,7 @@ int XNvm_BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, const u64 KeyAddr,
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_WRITE_AES_KEY);
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_WRITE_AES_KEY));
 	Payload[1U] = KeyLen;
 	Payload[2U] = (u32)KeyAddr;
 	Payload[3U] = (u32)(KeyAddr >> 32U);
@@ -95,7 +96,7 @@ int XNvm_BbramZeroize(XNvm_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_ZEROIZE);
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_ZEROIZE));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 END:
@@ -123,7 +124,7 @@ int XNvm_BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, const u32 UsrData)
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_WRITE_USER_DATA);
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_WRITE_USER_DATA));
 	Payload[1U] = UsrData;
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
@@ -152,7 +153,7 @@ int XNvm_BbramReadUsrData(XNvm_ClientInstance *InstancePtr, const u64 OutDataAdd
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_READ_USER_DATA);
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_READ_USER_DATA));
 	Payload[1U] = (u32)OutDataAddr;
 	Payload[2U] = (u32)(OutDataAddr >> 32U);
 
@@ -182,7 +183,7 @@ int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA);
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA));
 
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 END:

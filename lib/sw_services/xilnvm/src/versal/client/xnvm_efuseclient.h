@@ -22,6 +22,7 @@
 *       kpt  08/27/21 Added client API's to support puf helper data efuse
 *                     programming
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 3.1   skg  10/04/22 Added SlrIndex Constants
 *
 * </pre>
 *
@@ -42,6 +43,14 @@ extern "C" {
 #include "xnvm_mailbox.h"
 
 /************************** Constant Definitions *****************************/
+
+#define XNVM_SLR_INDEX_SHIFT (6U)
+
+/**< SlrIndexs constants*/
+#define XNVM_SLR_INDEX_0 (0U)
+#define XNVM_SLR_INDEX_1 (1U)
+#define XNVM_SLR_INDEX_2 (2U)
+#define XNVM_SLR_INDEX_3 (3U)
 
 /**************************** Type Definitions *******************************/
 
