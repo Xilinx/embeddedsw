@@ -17,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/2022 Initial release
 *       bm   07/06/2022 Refactor versal and versal_net code
+* 2.1   skg  10/04/2022 Added NULL to hidden handler in Xplmi_module structure
 *
 * </pre>
 *
@@ -46,6 +47,7 @@ static XPlmi_Module XPlmi_Puf =
 	XPLMI_MODULE_XILPUF_ID,
 	XPuf_Cmds,
 	XPUF_API(XPUF_API_MAX),
+	NULL,
 	NULL,
 #ifdef VERSAL_NET
 	NULL
