@@ -25,6 +25,7 @@
 * 1.4  rna  03/12/21  Add read,write of LCR in 'XUartPsv_SetBaudRate' from TRM
 *           03/15/21  Improve the accuracy of FBRD value
 * 1.5  sd   05/04/22  Update the loop XUartPsv_ReceiveBuffer
+* 1.8  sd   10/11/22  Update the XUartPsv_Cleanup to reset the recieve buffers
 * </pre>
 *
 ******************************************************************************/
@@ -659,7 +660,12 @@ void XUartPsv_Cleanup(XUartPsv *InstancePtr)
 	InstancePtr->SendBuffer.NextBytePtr = NULL;
 	InstancePtr->SendBuffer.RemainingBytes = 0U;
 	InstancePtr->SendBuffer.RequestedBytes = 0U;
+
+	InstancePtr->ReceiveBuffer.NextBytePtr = NULL;
+	InstancePtr->ReceiveBuffer.RemainingBytes = 0U;
+	InstancePtr->ReceiveBuffer.RequestedBytes = 0U;
 }
+
 /*****************************************************************************/
 /**
 *
