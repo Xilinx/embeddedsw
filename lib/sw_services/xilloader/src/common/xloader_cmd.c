@@ -971,6 +971,7 @@ static XPlmi_Module XPlmi_Loader =
 	XPLMI_MODULE_LOADER_ID,
 	XLoader_Cmds,
 	XPLMI_ARRAY_SIZE(XLoader_Cmds),
+	NULL,
 	XLoader_CheckIpiAccess,
 #ifdef VERSAL_NET
 	XLoader_UpdateHandler
