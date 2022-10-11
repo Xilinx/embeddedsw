@@ -37,6 +37,7 @@
 *                       Slave SLRs after completing synchronization
 *       ma   09/17/2022 Check SlavesMask before checking for sync initiation
 *                       from Slave SLRs in XPlmi_SsitSyncEventHandler
+* 1.8   skg  10/04/2022 Added logic to handle invalid commads
 *
 * </pre>
 *
@@ -77,8 +78,7 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 #define XPLMI_SLR_EVENT_RESP_BUFFER_ADDR			0xF2015A00U
 /* Space between SLR event buffers */
 #define XPLMI_SLR_REQ_AND_RESP_MAX_SIZE_IN_WORDS	0x80U
-/* SSIT Maximum message length */
-#define XPLMI_SSIT_MAX_MSG_LEN		0x8U
+
 
 /**************************** Type Definitions *******************************/
 #define XPLMI_GET_EVENT_ARRAY_INDEX(EventIndex)		(u8)(EventIndex/XPLMI_SSIT_MAX_BITS)
@@ -1592,3 +1592,51 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 END:
 	return Status;
 }
+/*****************************************************************************/
+/**
+ * @brief	This function handles invalid commands
+ *
+ *
+ * @param	Cmd      is pointer to Xplmi_Cmd Instance
+ * @param	RespBuf  Stores the response of the slaves
+ *
+ * @return	Status   XST_SUCCESS on success failure code upon failure
+ *
+ *****************************************************************************/
+ int  XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf)
+ {
+	int Status = XST_FAILURE;
+
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+	u32 SlrIndex = 0U;
+    u32 SlrType = (XPlmi_In32(PMC_TAP_SLR_TYPE) &
+			PMC_TAP_SLR_TYPE_VAL_MASK);
+
+    if(RespBuf == NULL){
+		goto END;
+	}
+
+	SlrIndex = (Payload[0U] & XPLMI_CMD_SLR_ID_MASK) >> XPLMI_SLR_INDEX_SHIFT;
+	Payload[0U] =  Payload[0U] & XPLMI_SLR_ID_ZEROISE;
+
+    if(((SlrIndex >= 1U) && (SlrIndex <= 3U)) && (SlrType != XPLMI_SSIT_MONOLITIC)){
+	Status = XPlmi_SsitSendMsgEventAndGetResp(SlrIndex, Payload, XPLMI_SSIT_MAX_MSG_LEN,
+			RespBuf, XPLMI_SSIT_MAX_MSG_LEN, XPLMI_SLV_EVENT_TIMEOUT);
+	}
+	else{
+	       Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
+	}
+	if(Status != XST_SUCCESS){
+		goto END;
+	}
+
+	Status = (int)RespBuf[0U];
+
+END:
+#else
+    (void)Payload;
+    (void)RespBuf;
+    Status = XPLMI_SSIT_INTR_NOT_ENABLED;
+#endif
+       return Status;
+ }

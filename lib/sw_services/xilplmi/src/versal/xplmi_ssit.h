@@ -29,6 +29,7 @@
 *       is   07/10/2022 Added support for XPlmi_SsitSendMsgEventAndGetResp API
 *       ma   08/10/2022 Added dummy PLM to PLM communication APIs to be used
 *                       by other components when the feature is not enabled
+* 1.8   skg  10/04/2022 Added logic to handle invalid commads
 *
 * </pre>
 *
@@ -86,7 +87,8 @@ typedef int (*XPlmi_EventHandler_t)(void *Data);
 #define XPLMI_SSIT_MAX_SLAVE_SLRS			0x3U
 /* SSIT Maximum events per each array index*/
 #define XPLMI_SSIT_MAX_BITS					32U
-
+/* SSIT Maximum message length */
+#define XPLMI_SSIT_MAX_MSG_LEN		0x8U
 /**
  * SSIT SLR global base addresses
  *  - PMC Local Address - 0xF0000000U
@@ -122,6 +124,9 @@ enum SsitEventIndex {
 #define XPLMI_SSIT_SLAVE_SLR2_MASK		0x8U
 #define XPLMI_SSIT_ALL_SLAVE_SLRS_MASK	0xEU
 #define XPLMI_SSIT_ALL_SLRS_MASK		0xFU
+
+#define XPLMI_SLV_EVENT_TIMEOUT        (0x5000U)
+#define XPLMI_SLR_INDEX_SHIFT          (6U)
 /**
  * @}
  * @endcond
@@ -176,6 +181,7 @@ int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex);
 u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex);
 int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
 		u32 *RespBuf, u32 RespBufSize, u32 WaitForEventCompletion);
+int  XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf);
 
 /* SSIT Sync Related functions */
 int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);

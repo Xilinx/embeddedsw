@@ -67,6 +67,7 @@
  *       bm   07/06/2022 Refactor versal and versal_net code
  *       bm   07/18/2022 Shutdown modules gracefully during update
  *       sk   08/08/2022 Set IPI task's to low priority
+ * 1.8   skg  10/04/2022 Added support to handle valid and invalid commands
  *
  * </pre>
  *
@@ -82,6 +83,7 @@
 #include "xil_util.h"
 
 #ifdef XPLMI_IPI_DEVICE_ID
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -98,6 +100,7 @@ static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex);
 static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 	XPlmi_SubsystemHandler SubsystemHandler);
 static int XPlmi_IpiDispatchHandler(void *Data);
+static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload);
 
 /************************** Variable Definitions *****************************/
 
@@ -312,7 +315,7 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 				IPI_PMC_ISR_PSM_BIT_MASK);
 		}
 
-		Status = XPlmi_CmdExecute(&Cmd);
+		Status = XPlmi_IpiCmdExecute(&Cmd, Payload);
 
 END:
 		/*
@@ -567,5 +570,51 @@ static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex)
 
 END:
 	return IpiReqType;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function resumes the command after being partially executed.
+ * Resume handler shall execute the command till the payload length.
+ *
+ * @param	CmdPtr is pointer to command structure
+ *
+ * @param   Payload message buf from client
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)
+{
+	volatile int Status = XST_FAILURE;
+	u32 ModuleId = (CmdPtr->CmdId & XPLMI_CMD_MODULE_ID_MASK) >> XPLMI_CMD_MODULE_ID_SHIFT;
+	u32 ApiId = CmdPtr->CmdId & XPLMI_CMD_API_ID_MASK;
+	const XPlmi_Module *Module = NULL;
+
+
+	/* Assign Module */
+	if (ModuleId < XPLMI_MAX_MODULES) {
+		Module = Modules[ModuleId];
+	}
+	else {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_MAX, 0);
+		goto END;
+	}
+
+	/* Check if it is within the commands registered */
+	if (ApiId >= Module->CmdCnt) {
+		if(Module->InvalidCmdHandler != NULL){
+			Status = Module->InvalidCmdHandler(Payload, (u32 *)CmdPtr->Response);
+		}
+		else{
+			Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
+		}
+	}
+	else{
+		 Status = XPlmi_CmdExecute(CmdPtr);
+	}
+
+END:
+      return Status;
 }
 #endif /* XPLMI_IPI_DEVICE_ID */

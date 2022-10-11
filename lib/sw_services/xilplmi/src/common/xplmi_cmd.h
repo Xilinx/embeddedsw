@@ -43,6 +43,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   08/24/2022 Support Begin, Break and End commands across chunk
 *                       boundaries
+* 1.8   skg  10/04/2022 Added masks for SLR ID and Zeriozing the SLR ID
 *
 * </pre>
 *
@@ -70,6 +71,8 @@ extern "C" {
 #define XPLMI_CMD_RESP_SIZE			(8U)
 #define XPLMI_CMD_RESUME_DATALEN		(8U)
 #define XPLMI_CMD_MODULE_ID_SHIFT		(8U)
+#define XPLMI_CMD_SLR_ID_MASK           (0X000000C0U)              /* Mask for extracting SlrIndex */
+#define XPLMI_SLR_ID_ZEROISE            ~(XPLMI_CMD_SLR_ID_MASK)  /* Mask for making SlrIndex Zero after use*/
 
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_Cmd XPlmi_Cmd;
@@ -106,6 +109,7 @@ struct XPlmi_Cmd {
 /************************** Function Prototypes ******************************/
 int XPlmi_CmdExecute(XPlmi_Cmd * CmdPtr);
 int XPlmi_CmdResume(XPlmi_Cmd * CmdPtr);
+
 
 /**
  * @}
