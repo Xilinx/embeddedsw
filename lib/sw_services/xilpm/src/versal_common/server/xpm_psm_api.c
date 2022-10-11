@@ -25,6 +25,7 @@ static XPlmi_Module XPlmi_Psm =
         XPLMI_MODULE_XILPSM_ID,
         XPlmi_PsmCmds,
         PSM_API_MAX+1,
+		NULL,
 #ifdef VERSAL_NET
         NULL,
 #endif
