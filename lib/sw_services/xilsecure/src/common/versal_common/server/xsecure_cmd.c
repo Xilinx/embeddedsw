@@ -25,7 +25,7 @@
 * 4.7   am   03/08/2022 Fixed MISRA C violations
 * 5.0   bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/24/2022 Added XSecure_KatIpiHandler
-*
+* 5.1   skg  10/04/2022 Added NULL to invalid hidden handler of xilsecure
 * </pre>
 *
 * @note
@@ -59,6 +59,7 @@ static XPlmi_Module XPlmi_Secure =
 	XPLMI_MODULE_XILSECURE_ID,
 	XSecure_Cmds,
 	XSECURE_API(XSECURE_API_MAX),
+	NULL,
 	XSecure_CheckIpiAccess,
 #ifdef VERSAL_NET
 	NULL
