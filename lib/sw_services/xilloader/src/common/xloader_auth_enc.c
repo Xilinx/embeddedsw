@@ -88,6 +88,7 @@
 *       bsv  07/08/22 Changes related to Optional data in Image header table
 *       kpt  07/24/22 Added support to go into secure lockdown when KAT fails
 *       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
+* 1.05  har  10/11/22 Used temporal check macro for redundancy checks for Xil_SMemCpy
 *
 * </pre>
 *
@@ -1570,14 +1571,9 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	Status = Xil_SMemCpy(Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
-				&XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN],
-				XLOADER_SHA3_LEN,
-				XLOADER_SHA3_LEN);
-	/* Checking Status twice to avoid returning success in case of glitch */
-	if ((Status != XST_SUCCESS) || (Status != XST_SUCCESS)) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, Xsecure_Varsocm.EmHash, XLOADER_SHA3_LEN,
+		&XSecure_RsaSha3Array[XLOADER_RSA_PSS_MASKED_DB_LEN], XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+
 	Status = XSecure_Sha3Initialize(Sha3InstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
@@ -1630,14 +1626,8 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 	}
 
 	/* As PMCDMA can't accept unaligned addresses */
-	Status = Xil_SMemCpy(Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
-				&Buffer[XLOADER_RSA_PSS_DB_LEN],
-				XLOADER_RSA_PSS_SALT_LEN,
-				XLOADER_RSA_PSS_SALT_LEN);
-	/* Checking Status twice to avoid returning success in case of glitch */
-	if ((Status != XST_SUCCESS) || (Status != XST_SUCCESS)) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
+		&Buffer[XLOADER_RSA_PSS_DB_LEN], XLOADER_RSA_PSS_SALT_LEN, XLOADER_RSA_PSS_SALT_LEN);
 
 	/* Hash on M prime */
 	Status = XSecure_Sha3Start(Sha3InstPtr);
