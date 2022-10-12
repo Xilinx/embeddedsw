@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -64,6 +64,9 @@ extern "C" {
 #define XVPHY_HDMI_GTHE4_DRU_REFCLK			156250000LL
 #define XVPHY_HDMI_GTHE4_DRU_REFCLK_MIN		156240000LL
 #define XVPHY_HDMI_GTHE4_DRU_REFCLK_MAX		156260000LL
+#define XVPHY_HDMI_GTHE4_DRU_REFCLK1		400000000LL
+#define XVPHY_HDMI_GTHE4_DRU_REFCLK1_MIN	399990000LL
+#define XVPHY_HDMI_GTHE4_DRU_REFCLK1_MAX	400010000LL
 #define XVPHY_HDMI_GTHE4_PLL_SCALE			1000
 #define XVPHY_HDMI_GTHE4_QPLL0_REFCLK_MIN	61250000LL
 #define XVPHY_HDMI_GTHE4_QPLL1_REFCLK_MIN	50000000LL

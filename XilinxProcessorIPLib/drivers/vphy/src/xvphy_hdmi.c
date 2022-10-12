@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -64,6 +64,7 @@
  *                        obtained from CH1 instead of QPLL0/1
  * 1.9   gm   14/05/18 Added TX and RX MMCM lock event logging
  *                     Removed deprecated XVphy_HdmiInitialize API
+ * 1.10  ssh  13/10/22 Added support for 400 MHz DRU clock for GTHE4
  *
  * </pre>
  *
@@ -813,6 +814,9 @@ u32 XVphy_DruGetRefClkFreqHz(XVphy *InstancePtr)
 		if (DruFreqHz > XVPHY_HDMI_GTHE4_DRU_REFCLK_MIN &&
 				DruFreqHz < XVPHY_HDMI_GTHE4_DRU_REFCLK_MAX){
 			return XVPHY_HDMI_GTHE4_DRU_REFCLK;
+		} else if (DruFreqHz > XVPHY_HDMI_GTHE4_DRU_REFCLK1_MIN &&
+				DruFreqHz < XVPHY_HDMI_GTHE4_DRU_REFCLK1_MAX){
+			return XVPHY_HDMI_GTHE4_DRU_REFCLK1;
 		}
 	}
 	else {
