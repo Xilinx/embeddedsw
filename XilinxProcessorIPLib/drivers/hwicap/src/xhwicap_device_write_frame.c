@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2003 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_device_write_frame.c
-* @addtogroup hwicap_v11_4
+* @addtogroup hwicap Overview
 * @{
 *
 * This file contains the function that writes the frame stored in the
@@ -30,6 +30,7 @@
 *		      (CR560534)
 * 6.00a hvm  08/01/11 Added support for K7
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
+* 11.5  Nava 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 *
 *
 * </pre>

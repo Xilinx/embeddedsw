@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_l.h
-* @addtogroup hwicap_v11_4
+* @addtogroup hwicap Overview
 * @{
 *
 * This header file contains identifiers and basic driver functions (or
@@ -36,6 +36,7 @@
 * 8.00a bss  06/20/12 Deleted Hang mask definition as per CR 656162
 * 9.0   bss  02/20/14 Added Kintex 8 and Virtex72000T device Idcodes.
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
+* 11.5  Nava 09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 *
 * </pre>
 *

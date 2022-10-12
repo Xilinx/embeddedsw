@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2003 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2003 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_i.h
-* @addtogroup hwicap_v11_4
+* @addtogroup hwicap Overview
 * @{
 *
 * This head file contains internal identifiers, which are those shared
@@ -45,6 +45,7 @@
 *                     Updated XHI_NUM_FRAME_BYTES to 404
 *                     Updated XHI_NUM_FRAME_WORDS to 101
 *                     Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
+* 11.5 Nava  09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 *
 * </pre>
 *

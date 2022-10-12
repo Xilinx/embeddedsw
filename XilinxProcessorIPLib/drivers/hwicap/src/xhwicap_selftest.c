@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_selftest.c
-* @addtogroup hwicap_v11_4
+* @addtogroup hwicap Overview
 * @{
 *
 * This file contains a diagnostic self test function for the XHwIcap driver.
@@ -26,6 +26,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a sv     09/17/07 First release
 * 4.00a hvm    12/1/09  Updated with HAL phase 1 modifications
+* 11.5  Nava   09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 *
 * </pre>
 *

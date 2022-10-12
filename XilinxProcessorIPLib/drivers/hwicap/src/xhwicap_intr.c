@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap_intr.c
-* @addtogroup hwicap_v11_4
+* @addtogroup hwicap Overview
 * @{
 *
 * This file contains interrupt handling API functions of the HwIcap device.
@@ -28,6 +28,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 2.00a  sv    09/22/07 First release
 * 4.00a  hvm   12/1/09  Updated with HAL phase 1 changes
+* 11.5   Nava  09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 *
 * </pre>
 *

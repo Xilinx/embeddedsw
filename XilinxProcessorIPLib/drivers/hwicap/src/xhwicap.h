@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /**
 *
 * @file xhwicap.h
-* @addtogroup hwicap_v11_4
+* @addtogroup hwicap Overview
 * @{
 * @details
 *
@@ -161,6 +161,7 @@
 * 11.2 Nava   02/08/19 The current version of the driver is not supported for
 *                      families older than 7 series.So removed .o referenced
 *                      function prototypes from the header file.
+* 11.5 Nava   09/30/22 Added new IDCODE's as mentioned in the ug570 Doc.
 *
 * </pre>
 *
