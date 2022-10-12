@@ -306,7 +306,7 @@ extern "C" {
 #define PM_RST_APU2_CLUSTER_WARM		(0xC5140C3U)
 #define PM_RST_CMN_CXS				(0xC4100C4U)
 #define PM_RST_CMN_CGL				(0xC4100C5U)
-#define PM_RST_USB_1				(0xC4100C6U)
+#define PM_RST_USB_1				(0xC1040C6U)
 #define PM_RST_SWDT_1				(0xC4100C7U)
 #define PM_RST_SWDT_0				(0xC4100C8U)
 #define PM_RST_RPU_A_GD				(0xC4100C9U)
