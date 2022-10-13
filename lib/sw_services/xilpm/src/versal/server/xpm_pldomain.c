@@ -325,11 +325,15 @@ static XStatus VduHouseClean(void)
 			goto done;
 		}
 
-		/* Trigger scan clear */
-		Status = VduScanClear(VduAddresses[i]);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_VDU_SCAN_CLEAR;
-			goto done;
+		if (PM_HOUSECLEAN_CHECK(VDU, SCAN)) {
+			PmInfo("Triggering ScanClear for VDU\r\n");
+
+			/* Trigger scan clear */
+			Status = VduScanClear(VduAddresses[i]);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_VDU_SCAN_CLEAR;
+				goto done;
+			}
 		}
 
 		/*
@@ -344,10 +348,20 @@ static XStatus VduHouseClean(void)
 		}
 	}
 
-	/* Trigger VDU BISR */
-	Status = XPmBisr_Repair(VDU_TAG_ID);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_VDU_BISR_REPAIR;
+	if (PM_HOUSECLEAN_CHECK(VDU, BISR)) {
+		PmInfo("Triggering BISR for VDU\r\n");
+
+		/* Trigger VDU BISR */
+		Status = XPmBisr_Repair(VDU_TAG_ID);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_VDU_BISR_REPAIR;
+			goto done;
+		}
+	}
+
+	if (!(PM_HOUSECLEAN_CHECK(VDU, MBIST))) {
+		PmInfo("Skipping MBIST for VDU\r\n");
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
