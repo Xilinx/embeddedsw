@@ -2863,6 +2863,222 @@ done:
 }
 
 /**
+ * ACPU2_Core0Sleep() - Direct power down ACPU2 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus ACPU2_Core0Sleep(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_8] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_8]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core0PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_8] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * ACPU2_Core1Sleep() - Direct power down ACPU2 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus ACPU2_Core1Sleep(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_9] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_9]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core1PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_9] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * ACPU2_Core2Sleep() - Direct power down ACPU2 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus ACPU2_Core2Sleep(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_10] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_10]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core2PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_10] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * ACPU2_Core3Sleep() - Direct power down ACPU2 Core3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus ACPU2_Core3Sleep(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_11] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_11]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core3PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_11] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * ACPU3_Core0Sleep() - Direct power down ACPU3 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus ACPU3_Core0Sleep(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_12] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_12]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core0PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_12] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * ACPU3_Core1Sleep() - Direct power down ACPU3 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus ACPU3_Core1Sleep(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_13] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_13]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core1PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_13] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * ACPU3_Core2Sleep() - Direct power down ACPU3 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus ACPU3_Core2Sleep(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_14] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_14]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core2PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_14] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
+ * ACPU3_Core3Sleep() - Direct power down ACPU3 Core3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus ACPU3_Core3Sleep(void)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* Check for any pending event */
+	assert(PsmToPlmEvent.Event[ACPU_15] == 0U);
+
+	if (1U == PsmToPlmEvent.CpuIdleFlag[ACPU_15]) {
+		Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core3PwrCtrl);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	/* Set the event bit for PLM */
+	PsmToPlmEvent.Event[ACPU_15] = PWR_DWN_EVT;
+	Status = XPsmFw_NotifyPlmEvent();
+
+done:
+	return Status;
+}
+
+/**
  * RPU0_Core0Wakeup() - Wake up Rpu0 Core0
  *
  * @return    XST_SUCCESS or error code
@@ -3281,6 +3497,14 @@ static struct PwrCtlWakeupHandlerTable_t SleepHandlerTable[] = {
 	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU1_CORE1_PWRDWN_MASK, ACPU1_Core1Sleep},
 	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU1_CORE2_PWRDWN_MASK, ACPU1_Core2Sleep},
 	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU1_CORE3_PWRDWN_MASK, ACPU1_Core3Sleep},
+	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU2_CORE0_PWRDWN_MASK, ACPU2_Core0Sleep},
+	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU2_CORE1_PWRDWN_MASK, ACPU2_Core1Sleep},
+	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU2_CORE2_PWRDWN_MASK, ACPU2_Core2Sleep},
+	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU2_CORE3_PWRDWN_MASK, ACPU2_Core3Sleep},
+	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU3_CORE0_PWRDWN_MASK, ACPU3_Core0Sleep},
+	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU3_CORE1_PWRDWN_MASK, ACPU3_Core1Sleep},
+	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU3_CORE2_PWRDWN_MASK, ACPU3_Core2Sleep},
+	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS_APU3_CORE3_PWRDWN_MASK, ACPU3_Core3Sleep},
 	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_MASK_RPU_A_CORE0_PWRDWN_MASK, RPU0_Core0Sleep},
 	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_MASK_RPU_A_CORE1_PWRDWN_MASK, RPU0_Core1Sleep},
 	{ PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_MASK_RPU_B_CORE0_PWRDWN_MASK, RPU1_Core0Sleep},
