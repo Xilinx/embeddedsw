@@ -1822,6 +1822,86 @@ static XStatus PowerUp_ACPU1_3(void)
 }
 
 /**
+ * PowerUp_ACPU2_0() - Power up ACPU2 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU2_0(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu2_Core0PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU2_1() - Power up ACPU2 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU2_1(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu2_Core1PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU2_2() - Power up ACPU2 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU2_2(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu2_Core2PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU2_3() - Power up ACPU2 Core3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU2_3(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu2_Core3PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU3_0() - Power up ACPU3 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU3_0(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu3_Core0PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU3_1() - Power up ACPU3 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU3_1(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu3_Core1PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU3_2() - Power up ACPU3 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU3_2(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu3_Core2PwrCtrl);
+}
+
+/**
+ * PowerUp_ACPU3_3() - Power up ACPU3 Core3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerUp_ACPU3_3(void)
+{
+	return XPsmFwACPUxReqPwrUp(&Acpu3_Core3PwrCtrl);
+}
+
+/**
  * PowerDwn_ACPU0_0() - Power down ACPU0 Core0
  *
  * @return    XST_SUCCESS or error code
@@ -1899,6 +1979,86 @@ static XStatus PowerDwn_ACPU1_2(void)
 static XStatus PowerDwn_ACPU1_3(void)
 {
 	return XPsmFwACPUxReqPwrDwn(&Acpu1_Core3PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU2_0() - Power down ACPU2 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU2_0(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu2_Core0PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU2_1() - Power down ACPU2 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU2_1(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu2_Core1PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU2_2() - Power down ACPU2 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU2_2(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu2_Core2PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU2_3() - Power down ACPU2 Core3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU2_3(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu2_Core3PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU3_0() - Power down ACPU3 Core0
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU3_0(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu3_Core0PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU3_1() - Power down ACPU3 Core1
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU3_1(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu3_Core1PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU3_2() - Power down ACPU3 Core2
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU3_2(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu3_Core2PwrCtrl);
+}
+
+/**
+ * PowerDwn_ACPU3_3() - Power down ACPU3 Core3
+ *
+ * @return    XST_SUCCESS or error code
+ */
+static XStatus PowerDwn_ACPU3_3(void)
+{
+	return XPsmFwACPUxReqPwrDwn(&Acpu3_Core3PwrCtrl);
 }
 
 static XStatus XPsmFwRPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
@@ -2036,6 +2196,14 @@ static struct PwrHandlerTable_t PwrUpDwn0HandlerTable[] = {
 	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU1_CORE1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU1_CORE1_MASK, PowerUp_ACPU1_1, PowerDwn_ACPU1_1},
 	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU1_CORE2_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU1_CORE2_MASK, PowerUp_ACPU1_2, PowerDwn_ACPU1_2},
 	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU1_CORE3_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU1_CORE3_MASK, PowerUp_ACPU1_3, PowerDwn_ACPU1_3},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU2_CORE0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU2_CORE0_MASK, PowerUp_ACPU2_0, PowerDwn_ACPU2_0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU2_CORE1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU2_CORE1_MASK, PowerUp_ACPU2_1, PowerDwn_ACPU2_1},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU2_CORE2_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU2_CORE2_MASK, PowerUp_ACPU2_2, PowerDwn_ACPU2_2},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU2_CORE3_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU2_CORE3_MASK, PowerUp_ACPU2_3, PowerDwn_ACPU2_3},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU3_CORE0_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU3_CORE0_MASK, PowerUp_ACPU3_0, PowerDwn_ACPU3_0},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU3_CORE1_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU3_CORE1_MASK, PowerUp_ACPU3_1, PowerDwn_ACPU3_1},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU3_CORE2_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU3_CORE2_MASK, PowerUp_ACPU3_2, PowerDwn_ACPU3_2},
+	{PSMX_GLOBAL_REG_REQ_PWRUP0_STATUS_APU3_CORE3_MASK, PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS_APU3_CORE3_MASK, PowerUp_ACPU3_3, PowerDwn_ACPU3_3},
 };
 
 static struct PwrHandlerTable_t PwrUpDwn1HandlerTable[] = {
