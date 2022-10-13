@@ -276,6 +276,230 @@ static struct XPsmFwPwrCtrl_t Acpu1_Core3PwrCtrl = {
 	.ClusterId = CLUSTER_1,
 };
 
+static struct XPsmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
+	.Id = ACPU_8,
+	.ResetCfgAddr = APU_CLUSTER2_RVBARADDR0L,
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_APU2_CORE0_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_APU2_CORE0_PWR_CNTRL,
+	.PwrStatusAddr = PSMX_LOCAL_REG_APU2_CORE0_PWR_STATUS,
+	.ClkCtrlAddr = PSX_CRF_ACPU2_CLK_CTRL,
+	.ClkCtrlMask = PSX_CRF_ACPU_CTRL_CLKACT_MASK,
+	.ClkPropTime = XPSMFW_ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSX_CRF_RST_APU2,
+	.WarmRstMask = PSX_CRF_RST_APU_CORE0_WARM_RST_MASK,
+	.ClusterPstate = APU_PCLI_CLUSTER_2_PSTATE,
+	.ClusterPstateMask = APU_PCLI_CLUSTER_PSTATE_MASK,
+	.ClusterPstateValue = APU_PCLI_CLUSTER_PSTATE_VAL,
+	.ClusterPreq = APU_PCLI_CLUSTER_2_PREQ,
+	.ClusterPreqMask = APU_PCLI_CLUSTER_PREQ_MASK,
+	.CorePstate = APU_PCLI_CORE_8_PSTATE,
+	.CorePstateMask = APU_PCLI_CORE_PSTATE_MASK,
+	.CorePstateVal = APU_PCLI_CORE_PSTATE_VAL,
+	.CorePreq = APU_PCLI_CORE_8_PREQ,
+	.CorePreqMask = APU_PCLI_CORE_PREQ_MASK,
+	.CorePactive = APU_PCLI_CORE_8_PACTIVE,
+	.CorePacceptMask = APU_PCLI_CORE_PACCEPT_MASK,
+	.ClusterPactive = APU_PCLI_CLUSTER_2_PACTIVE,
+	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
+	.ClusterId = CLUSTER_2,
+};
+
+static struct XPsmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
+	.Id = ACPU_9,
+	.ResetCfgAddr = APU_CLUSTER2_RVBARADDR1L,
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_APU2_CORE1_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_APU2_CORE1_PWR_CNTRL,
+	.PwrStatusAddr = PSMX_LOCAL_REG_APU2_CORE1_PWR_STATUS,
+	.ClkCtrlAddr = PSX_CRF_ACPU2_CLK_CTRL,
+	.ClkCtrlMask = PSX_CRF_ACPU_CTRL_CLKACT_MASK,
+	.ClkPropTime = XPSMFW_ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSX_CRF_RST_APU2,
+	.WarmRstMask = PSX_CRF_RST_APU_CORE1_WARM_RST_MASK,
+	.ClusterPstate = APU_PCLI_CLUSTER_2_PSTATE,
+	.ClusterPstateMask = APU_PCLI_CLUSTER_PSTATE_MASK,
+	.ClusterPstateValue = APU_PCLI_CLUSTER_PSTATE_VAL,
+	.ClusterPreq = APU_PCLI_CLUSTER_2_PREQ,
+	.ClusterPreqMask = APU_PCLI_CLUSTER_PREQ_MASK,
+	.CorePstate = APU_PCLI_CORE_9_PSTATE,
+	.CorePstateMask = APU_PCLI_CORE_PSTATE_MASK,
+	.CorePstateVal = APU_PCLI_CORE_PSTATE_VAL,
+	.CorePreq = APU_PCLI_CORE_9_PREQ,
+	.CorePreqMask = APU_PCLI_CORE_PREQ_MASK,
+	.CorePactive = APU_PCLI_CORE_9_PACTIVE,
+	.CorePacceptMask = APU_PCLI_CORE_PACCEPT_MASK,
+	.ClusterPactive = APU_PCLI_CLUSTER_2_PACTIVE,
+	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
+	.ClusterId = CLUSTER_2,
+};
+
+static struct XPsmFwPwrCtrl_t Acpu2_Core2PwrCtrl = {
+	.Id = ACPU_10,
+	.ResetCfgAddr = APU_CLUSTER2_RVBARADDR2L,
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_APU2_CORE2_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_APU2_CORE2_PWR_CNTRL,
+	.PwrStatusAddr = PSMX_LOCAL_REG_APU2_CORE2_PWR_STATUS,
+	.ClkCtrlAddr = PSX_CRF_ACPU2_CLK_CTRL,
+	.ClkCtrlMask = PSX_CRF_ACPU_CTRL_CLKACT_MASK,
+	.ClkPropTime = XPSMFW_ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSX_CRF_RST_APU2,
+	.WarmRstMask = PSX_CRF_RST_APU_CORE2_WARM_RST_MASK,
+	.ClusterPstate = APU_PCLI_CLUSTER_2_PSTATE,
+	.ClusterPstateMask = APU_PCLI_CLUSTER_PSTATE_MASK,
+	.ClusterPstateValue = APU_PCLI_CLUSTER_PSTATE_VAL,
+	.ClusterPreq = APU_PCLI_CLUSTER_2_PREQ,
+	.ClusterPreqMask = APU_PCLI_CLUSTER_PREQ_MASK,
+	.CorePstate = APU_PCLI_CORE_10_PSTATE,
+	.CorePstateMask = APU_PCLI_CORE_PSTATE_MASK,
+	.CorePstateVal = APU_PCLI_CORE_PSTATE_VAL,
+	.CorePreq = APU_PCLI_CORE_10_PREQ,
+	.CorePreqMask = APU_PCLI_CORE_PREQ_MASK,
+	.CorePactive = APU_PCLI_CORE_10_PACTIVE,
+	.CorePacceptMask = APU_PCLI_CORE_PACCEPT_MASK,
+	.ClusterPactive = APU_PCLI_CLUSTER_2_PACTIVE,
+	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
+	.ClusterId = CLUSTER_2,
+};
+
+static struct XPsmFwPwrCtrl_t Acpu2_Core3PwrCtrl = {
+	.Id = ACPU_11,
+	.ResetCfgAddr = APU_CLUSTER2_RVBARADDR3L,
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_APU2_CORE3_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_APU2_CORE3_PWR_CNTRL,
+	.PwrStatusAddr = PSMX_LOCAL_REG_APU2_CORE3_PWR_STATUS,
+	.ClkCtrlAddr = PSX_CRF_ACPU2_CLK_CTRL,
+	.ClkCtrlMask = PSX_CRF_ACPU_CTRL_CLKACT_MASK,
+	.ClkPropTime = XPSMFW_ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSX_CRF_RST_APU2,
+	.WarmRstMask = PSX_CRF_RST_APU_CORE3_WARM_RST_MASK,
+	.ClusterPstate = APU_PCLI_CLUSTER_2_PSTATE,
+	.ClusterPstateMask = APU_PCLI_CLUSTER_PSTATE_MASK,
+	.ClusterPstateValue = APU_PCLI_CLUSTER_PSTATE_VAL,
+	.ClusterPreq = APU_PCLI_CLUSTER_2_PREQ,
+	.ClusterPreqMask = APU_PCLI_CLUSTER_PREQ_MASK,
+	.CorePstate = APU_PCLI_CORE_11_PSTATE,
+	.CorePstateMask = APU_PCLI_CORE_PSTATE_MASK,
+	.CorePstateVal = APU_PCLI_CORE_PSTATE_VAL,
+	.CorePreq = APU_PCLI_CORE_11_PREQ,
+	.CorePreqMask = APU_PCLI_CORE_PREQ_MASK,
+	.CorePactive = APU_PCLI_CORE_11_PACTIVE,
+	.CorePacceptMask = APU_PCLI_CORE_PACCEPT_MASK,
+	.ClusterPactive = APU_PCLI_CLUSTER_2_PACTIVE,
+	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
+	.ClusterId = CLUSTER_2,
+};
+
+static struct XPsmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
+	.Id = ACPU_12,
+	.ResetCfgAddr = APU_CLUSTER3_RVBARADDR0L,
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_APU3_CORE0_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_APU3_CORE0_PWR_CNTRL,
+	.PwrStatusAddr = PSMX_LOCAL_REG_APU3_CORE0_PWR_STATUS,
+	.ClkCtrlAddr = PSX_CRF_ACPU3_CLK_CTRL,
+	.ClkCtrlMask = PSX_CRF_ACPU_CTRL_CLKACT_MASK,
+	.ClkPropTime = XPSMFW_ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSX_CRF_RST_APU3,
+	.WarmRstMask = PSX_CRF_RST_APU_CORE0_WARM_RST_MASK,
+	.ClusterPstate = APU_PCLI_CLUSTER_3_PSTATE,
+	.ClusterPstateMask = APU_PCLI_CLUSTER_PSTATE_MASK,
+	.ClusterPstateValue = APU_PCLI_CLUSTER_PSTATE_VAL,
+	.ClusterPreq = APU_PCLI_CLUSTER_3_PREQ,
+	.ClusterPreqMask = APU_PCLI_CLUSTER_PREQ_MASK,
+	.CorePstate = APU_PCLI_CORE_12_PSTATE,
+	.CorePstateMask = APU_PCLI_CORE_PSTATE_MASK,
+	.CorePstateVal = APU_PCLI_CORE_PSTATE_VAL,
+	.CorePreq = APU_PCLI_CORE_12_PREQ,
+	.CorePreqMask = APU_PCLI_CORE_PREQ_MASK,
+	.CorePactive = APU_PCLI_CORE_12_PACTIVE,
+	.CorePacceptMask = APU_PCLI_CORE_PACCEPT_MASK,
+	.ClusterPactive = APU_PCLI_CLUSTER_3_PACTIVE,
+	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
+	.ClusterId = CLUSTER_3,
+};
+
+static struct XPsmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
+	.Id = ACPU_13,
+	.ResetCfgAddr = APU_CLUSTER3_RVBARADDR1L,
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_APU3_CORE1_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_APU3_CORE1_PWR_CNTRL,
+	.PwrStatusAddr = PSMX_LOCAL_REG_APU3_CORE1_PWR_STATUS,
+	.ClkCtrlAddr = PSX_CRF_ACPU3_CLK_CTRL,
+	.ClkCtrlMask = PSX_CRF_ACPU_CTRL_CLKACT_MASK,
+	.ClkPropTime = XPSMFW_ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSX_CRF_RST_APU3,
+	.WarmRstMask = PSX_CRF_RST_APU_CORE1_WARM_RST_MASK,
+	.ClusterPstate = APU_PCLI_CLUSTER_3_PSTATE,
+	.ClusterPstateMask = APU_PCLI_CLUSTER_PSTATE_MASK,
+	.ClusterPstateValue = APU_PCLI_CLUSTER_PSTATE_VAL,
+	.ClusterPreq = APU_PCLI_CLUSTER_3_PREQ,
+	.ClusterPreqMask = APU_PCLI_CLUSTER_PREQ_MASK,
+	.CorePstate = APU_PCLI_CORE_13_PSTATE,
+	.CorePstateMask = APU_PCLI_CORE_PSTATE_MASK,
+	.CorePstateVal = APU_PCLI_CORE_PSTATE_VAL,
+	.CorePreq = APU_PCLI_CORE_13_PREQ,
+	.CorePreqMask = APU_PCLI_CORE_PREQ_MASK,
+	.CorePactive = APU_PCLI_CORE_13_PACTIVE,
+	.CorePacceptMask = APU_PCLI_CORE_PACCEPT_MASK,
+	.ClusterPactive = APU_PCLI_CLUSTER_3_PACTIVE,
+	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
+	.ClusterId = CLUSTER_3,
+};
+
+static struct XPsmFwPwrCtrl_t Acpu3_Core2PwrCtrl = {
+	.Id = ACPU_14,
+	.ResetCfgAddr = APU_CLUSTER3_RVBARADDR2L,
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_APU3_CORE2_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_APU3_CORE2_PWR_CNTRL,
+	.PwrStatusAddr = PSMX_LOCAL_REG_APU3_CORE2_PWR_STATUS,
+	.ClkCtrlAddr = PSX_CRF_ACPU3_CLK_CTRL,
+	.ClkCtrlMask = PSX_CRF_ACPU_CTRL_CLKACT_MASK,
+	.ClkPropTime = XPSMFW_ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSX_CRF_RST_APU3,
+	.WarmRstMask = PSX_CRF_RST_APU_CORE2_WARM_RST_MASK,
+	.ClusterPstate = APU_PCLI_CLUSTER_3_PSTATE,
+	.ClusterPstateMask = APU_PCLI_CLUSTER_PSTATE_MASK,
+	.ClusterPstateValue = APU_PCLI_CLUSTER_PSTATE_VAL,
+	.ClusterPreq = APU_PCLI_CLUSTER_3_PREQ,
+	.ClusterPreqMask = APU_PCLI_CLUSTER_PREQ_MASK,
+	.CorePstate = APU_PCLI_CORE_14_PSTATE,
+	.CorePstateMask = APU_PCLI_CORE_PSTATE_MASK,
+	.CorePstateVal = APU_PCLI_CORE_PSTATE_VAL,
+	.CorePreq = APU_PCLI_CORE_14_PREQ,
+	.CorePreqMask = APU_PCLI_CORE_PREQ_MASK,
+	.CorePactive = APU_PCLI_CORE_14_PACTIVE,
+	.CorePacceptMask = APU_PCLI_CORE_PACCEPT_MASK,
+	.ClusterPactive = APU_PCLI_CLUSTER_3_PACTIVE,
+	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
+	.ClusterId = CLUSTER_3,
+};
+
+static struct XPsmFwPwrCtrl_t Acpu3_Core3PwrCtrl = {
+	.Id = ACPU_15,
+	.ResetCfgAddr = APU_CLUSTER3_RVBARADDR3L,
+	.PwrStateMask = PSMX_LOCAL_REG_LOC_PWR_STATE0_APU3_CORE3_MASK,
+	.PwrCtrlAddr = PSMX_LOCAL_REG_APU3_CORE3_PWR_CNTRL,
+	.PwrStatusAddr = PSMX_LOCAL_REG_APU3_CORE3_PWR_STATUS,
+	.ClkCtrlAddr = PSX_CRF_ACPU3_CLK_CTRL,
+	.ClkCtrlMask = PSX_CRF_ACPU_CTRL_CLKACT_MASK,
+	.ClkPropTime = XPSMFW_ACPU_CTRL_CLK_PROP_TIME,
+	.RstAddr = PSX_CRF_RST_APU3,
+	.WarmRstMask = PSX_CRF_RST_APU_CORE3_WARM_RST_MASK,
+	.ClusterPstate = APU_PCLI_CLUSTER_3_PSTATE,
+	.ClusterPstateMask = APU_PCLI_CLUSTER_PSTATE_MASK,
+	.ClusterPstateValue = APU_PCLI_CLUSTER_PSTATE_VAL,
+	.ClusterPreq = APU_PCLI_CLUSTER_3_PREQ,
+	.ClusterPreqMask = APU_PCLI_CLUSTER_PREQ_MASK,
+	.CorePstate = APU_PCLI_CORE_15_PSTATE,
+	.CorePstateMask = APU_PCLI_CORE_PSTATE_MASK,
+	.CorePstateVal = APU_PCLI_CORE_PSTATE_VAL,
+	.CorePreq = APU_PCLI_CORE_15_PREQ,
+	.CorePreqMask = APU_PCLI_CORE_PREQ_MASK,
+	.CorePactive = APU_PCLI_CORE_15_PACTIVE,
+	.CorePacceptMask = APU_PCLI_CORE_PACCEPT_MASK,
+	.ClusterPactive = APU_PCLI_CLUSTER_3_PACTIVE,
+	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
+	.ClusterId = CLUSTER_3,
+};
+
 static struct XPsmFwPwrCtrl_t Rpu0_Core0PwrCtrl = {
 	.Id = RPU0_0,
 	.ResetCfgAddr = RPU_RPU0_CORE0_CFG0,
@@ -2737,6 +2961,30 @@ XStatus XPsmFw_DirectPwrUp(const u32 DeviceId)
 			break;
 		case XPSMFW_DEV_CLUSTER1_ACPU_3:
 			Status = XPsmFwACPUxDirectPwrUp(&Acpu1_Core3PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER2_ACPU_0:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu2_Core0PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER2_ACPU_1:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu2_Core1PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER2_ACPU_2:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu2_Core2PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER2_ACPU_3:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu2_Core3PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER3_ACPU_0:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu3_Core0PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER3_ACPU_1:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu3_Core1PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER3_ACPU_2:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu3_Core2PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER3_ACPU_3:
+			Status = XPsmFwACPUxDirectPwrUp(&Acpu3_Core3PwrCtrl);
 			break;
 		case XPSMFW_DEV_CLUSTER0_RPU0_0:
 			Status = XPsmFwRPUxDirectPwrUp(&Rpu0_Core0PwrCtrl);
