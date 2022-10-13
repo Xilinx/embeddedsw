@@ -2902,6 +2902,30 @@ XStatus XPsmFw_DirectPwrDwn(const u32 DeviceId)
 		case XPSMFW_DEV_CLUSTER1_ACPU_3:
 			Status = XPsmFwACPUxDirectPwrDwn(&Acpu1_Core3PwrCtrl);
 			break;
+		case XPSMFW_DEV_CLUSTER2_ACPU_0:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core0PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER2_ACPU_1:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core1PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER2_ACPU_2:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core2PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER2_ACPU_3:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu2_Core3PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER3_ACPU_0:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core0PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER3_ACPU_1:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core1PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER3_ACPU_2:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core2PwrCtrl);
+			break;
+		case XPSMFW_DEV_CLUSTER3_ACPU_3:
+			Status = XPsmFwACPUxDirectPwrDwn(&Acpu3_Core3PwrCtrl);
+			break;
 		case XPSMFW_DEV_CLUSTER0_RPU0_0:
 			Status = XPsmFwRPUxDirectPwrDwn(&Rpu0_Core0PwrCtrl);
 			break;
