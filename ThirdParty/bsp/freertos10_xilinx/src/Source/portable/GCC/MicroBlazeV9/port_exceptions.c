@@ -234,39 +234,39 @@ static uint32_t ulHandlersAlreadyInstalled = pdFALSE;
 	{
 		ulHandlersAlreadyInstalled = pdTRUE;
 
-		#if XPAR_MICROBLAZE_UNALIGNED_EXCEPTIONS == 1
+		#if defined (XPAR_MICROBLAZE_UNALIGNED_EXCEPTIONS) && XPAR_MICROBLAZE_UNALIGNED_EXCEPTIONS == 1
 			microblaze_register_exception_handler( XEXC_ID_UNALIGNED_ACCESS, vPortExceptionHandlerEntry, ( void * ) XEXC_ID_UNALIGNED_ACCESS );
 		#endif /* XPAR_MICROBLAZE_UNALIGNED_EXCEPTIONS*/
 
-		#if XPAR_MICROBLAZE_ILL_OPCODE_EXCEPTION == 1
+		#if defined (XPAR_MICROBLAZE_ILL_OPCODE_EXCEPTION) && XPAR_MICROBLAZE_ILL_OPCODE_EXCEPTION == 1
 			microblaze_register_exception_handler( XEXC_ID_ILLEGAL_OPCODE, vPortExceptionHandlerEntry, ( void * ) XEXC_ID_ILLEGAL_OPCODE );
 		#endif /* XPAR_MICROBLAZE_ILL_OPCODE_EXCEPTION */
 
-		#if XPAR_MICROBLAZE_M_AXI_I_BUS_EXCEPTION == 1
+		#if defined (XPAR_MICROBLAZE_M_AXI_I_BUS_EXCEPTION) && XPAR_MICROBLAZE_M_AXI_I_BUS_EXCEPTION == 1
 			microblaze_register_exception_handler( XEXC_ID_M_AXI_I_EXCEPTION, vPortExceptionHandlerEntry, ( void * ) XEXC_ID_M_AXI_I_EXCEPTION );
 		#endif /* XPAR_MICROBLAZE_M_AXI_I_BUS_EXCEPTION */
 
-		#if XPAR_MICROBLAZE_M_AXI_D_BUS_EXCEPTION == 1
+		#if defined (XPAR_MICROBLAZE_M_AXI_D_BUS_EXCEPTION) && XPAR_MICROBLAZE_M_AXI_D_BUS_EXCEPTION == 1
 			microblaze_register_exception_handler( XEXC_ID_M_AXI_D_EXCEPTION, vPortExceptionHandlerEntry, ( void * ) XEXC_ID_M_AXI_D_EXCEPTION );
 		#endif /* XPAR_MICROBLAZE_M_AXI_D_BUS_EXCEPTION */
 
-		#if XPAR_MICROBLAZE_IPLB_BUS_EXCEPTION == 1
+		#if defined (XPAR_MICROBLAZE_IPLB_BUS_EXCEPTION) && XPAR_MICROBLAZE_IPLB_BUS_EXCEPTION == 1
 			microblaze_register_exception_handler( XEXC_ID_IPLB_EXCEPTION, vPortExceptionHandlerEntry, ( void * ) XEXC_ID_IPLB_EXCEPTION );
 		#endif /* XPAR_MICROBLAZE_IPLB_BUS_EXCEPTION */
 
-		#if XPAR_MICROBLAZE_DPLB_BUS_EXCEPTION == 1
+		#if defined (XPAR_MICROBLAZE_DPLB_BUS_EXCEPTION) && XPAR_MICROBLAZE_DPLB_BUS_EXCEPTION == 1
 			microblaze_register_exception_handler( XEXC_ID_DPLB_EXCEPTION, vPortExceptionHandlerEntry, ( void * ) XEXC_ID_DPLB_EXCEPTION );
 		#endif /* XPAR_MICROBLAZE_DPLB_BUS_EXCEPTION */
 
-		#if XPAR_MICROBLAZE_DIV_ZERO_EXCEPTION == 1
+		#if defined (XPAR_MICROBLAZE_DIV_ZERO_EXCEPTION) && XPAR_MICROBLAZE_DIV_ZERO_EXCEPTION == 1
 			microblaze_register_exception_handler( XEXC_ID_DIV_BY_ZERO, vPortExceptionHandlerEntry, ( void * ) XEXC_ID_DIV_BY_ZERO );
 		#endif /* XPAR_MICROBLAZE_DIV_ZERO_EXCEPTION */
 
-		#if XPAR_MICROBLAZE_FPU_EXCEPTION == 1
+		#if defined (XPAR_MICROBLAZE_FPU_EXCEPTION) && XPAR_MICROBLAZE_FPU_EXCEPTION == 1
 			microblaze_register_exception_handler( XEXC_ID_FPU, vPortExceptionHandlerEntry, ( void * ) XEXC_ID_FPU );
 		#endif /* XPAR_MICROBLAZE_FPU_EXCEPTION */
 
-		#if XPAR_MICROBLAZE_FSL_EXCEPTION == 1
+		#if defined (XPAR_MICROBLAZE_FSL_EXCEPTION) && XPAR_MICROBLAZE_FSL_EXCEPTION == 1
 			microblaze_register_exception_handler( XEXC_ID_FSL, vPortExceptionHandlerEntry, ( void * ) XEXC_ID_FSL );
 		#endif /* XPAR_MICROBLAZE_FSL_EXCEPTION */
 
