@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc_selftest.c
-* @addtogroup intc_v3_15
+* @addtogroup intc Overview
 * @{
 *
 * Contains diagnostic self-test functions for the XIntc component. This file

@@ -7,7 +7,7 @@
 /**
 *
 * @file xintc.h
-* @addtogroup intc_v3_15
+* @addtogroup intc Overview
 * @{
 * @details
 *
