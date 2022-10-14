@@ -57,6 +57,8 @@
 *                     Xil_ExceptionEnable/Xil_ExceptionDisable calls with
 *                     microblaze_enable_interrupts/microblaze_disable_interrupts
 *                     in case of microbalze. It fixes CR#1120158.
+* 3.16  mus  10/04/22 Fixed warnings reported with "-Wundef" compiler flag.
+*                     It fixes CR#1142085.
 *
 * </pre>
 *
@@ -175,7 +177,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 	/* Get the configuration data using the device ID */
 	CfgPtr = &XIntc_ConfigTable[(UINTPTR)DeviceId];
 
-#if XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE
+#if defined (XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE)
 	if (CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
 		XIntc_CascadeHandler(DeviceId);
 	}
@@ -183,7 +185,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 #endif
 	{ /* This extra brace is required for compilation in Cascade Mode */
 
-#if XPAR_XINTC_HAS_ILR == TRUE
+#if defined (XPAR_XINTC_HAS_ILR) &&  (XPAR_XINTC_HAS_ILR == TRUE)
 #ifdef __MICROBLAZE__
 		volatile u32 R14_register;
 		/* Save r14 register */
@@ -210,7 +212,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 								IntrNumber++) {
 			if (IntrStatus & 1) {
 				XIntc_VectorTableEntry *TablePtr;
-#if XPAR_XINTC_HAS_ILR == TRUE
+#if defined (XPAR_XINTC_HAS_ILR) && (XPAR_XINTC_HAS_ILR == TRUE)
 				/* Write to ILR the current interrupt
 				* number
 				*/
@@ -257,7 +259,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 								IntrMask);
 				}
 
-#if XPAR_XINTC_HAS_ILR == TRUE
+#if defined (XPAR_XINTC_HAS_ILR) && (XPAR_XINTC_HAS_ILR == TRUE)
 				/* Disable interrupts */
 #ifdef __MICROBLAZE__
 				microblaze_disable_interrupts();
@@ -282,7 +284,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 				 */
 				if (CfgPtr->Options == XIN_SVC_SGL_ISR_OPTION) {
 
-#if XPAR_XINTC_HAS_ILR == TRUE
+#if defined (XPAR_XINTC_HAS_ILR) && (XPAR_XINTC_HAS_ILR == TRUE)
 #ifdef __MICROBLAZE__
 					/* Restore r14 */
 					mtgpr(r14, R14_register);
@@ -303,7 +305,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 				break;
 			}
 		}
-#if XPAR_XINTC_HAS_ILR == TRUE
+#if defined (XPAR_XINTC_HAS_ILR) && (XPAR_XINTC_HAS_ILR == TRUE)
 #ifdef __MICROBLAZE__
 		/* Restore r14 */
 		mtgpr(r14, R14_register);
@@ -572,7 +574,7 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 	}
 }
 
-#if XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE
+#if defined (XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE)
 /*****************************************************************************/
 /**
 *

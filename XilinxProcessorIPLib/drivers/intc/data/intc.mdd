@@ -9,6 +9,9 @@
 # 3.0     adk    10/12/13  Removed support for dcr_intc intc_core xps_intc
 # 3.15    mus    05/10/22  Included xil_exception.h to xintc_l.h to fix
 #                          compilation failures.
+# 3.16    mus    10/04/22  Updated driver source code to fix warnings
+#                          generated with "-Wundef" compiler flag.It fixes
+#                          CR#1142085.
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_M
@@ -32,7 +35,7 @@ OPTION DRC = intc_drc;
 OPTION supported_peripherals = (axi_intc);
 OPTION driver_state = ACTIVE;
 OPTION copyfiles = all;
-OPTION VERSION = 3.15;
+OPTION VERSION = 3.16;
 OPTION NAME = intc;
 OPTION INTC_TYPE = XIntc;
 
