@@ -8,12 +8,13 @@
 # -------- ------ --------- ----------------------------------------------------
 # 1.0      dc     02/12/20  Initial Version.
 #          dc     03/18/21  New model parameter list
+# 1.5      dc     09/28/22  Auxiliary NCO support
 ###############################################################################
 
 proc generate {drv_handle} {
-    mix_define_include_file $drv_handle "xparameters.h" "XDfeMix" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_MODE" "C_NUM_ANTENNA" "C_MAX_USEABLE_CCIDS" "C_LANES" "C_ANTENNA_INTERLEAVE" "C_MIXER_CPS" "C_DATA_IWIDTH" "C_DATA_OWIDTH" "C_TUSER_WIDTH"
-    ::hsi::utils::define_config_file $drv_handle "xdfemix_g.c" "XDfeMix" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_MODE" "C_NUM_ANTENNA" "C_MAX_USEABLE_CCIDS" "C_LANES" "C_ANTENNA_INTERLEAVE" "C_MIXER_CPS" "C_DATA_IWIDTH" "C_DATA_OWIDTH" "C_TUSER_WIDTH"
-    mix_define_canonical_xpars $drv_handle "xparameters.h" "XDfeMix" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_MODE" "C_NUM_ANTENNA" "C_MAX_USEABLE_CCIDS" "C_LANES" "C_ANTENNA_INTERLEAVE" "C_MIXER_CPS" "C_DATA_IWIDTH" "C_DATA_OWIDTH" "C_TUSER_WIDTH"
+    mix_define_include_file $drv_handle "xparameters.h" "XDfeMix" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_MODE" "C_NUM_ANTENNA" "C_MAX_USEABLE_CCIDS" "C_LANES" "C_ANTENNA_INTERLEAVE" "C_MIXER_CPS" "C_NUM_AUXILIARY" "C_DATA_IWIDTH" "C_DATA_OWIDTH" "C_TUSER_WIDTH"
+    ::hsi::utils::define_config_file $drv_handle "xdfemix_g.c" "XDfeMix" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_MODE" "C_NUM_ANTENNA" "C_MAX_USEABLE_CCIDS" "C_LANES" "C_ANTENNA_INTERLEAVE" "C_MIXER_CPS" "C_NUM_AUXILIARY" "C_DATA_IWIDTH" "C_DATA_OWIDTH" "C_TUSER_WIDTH"
+    mix_define_canonical_xpars $drv_handle "xparameters.h" "XDfeMix" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_MODE" "C_NUM_ANTENNA" "C_MAX_USEABLE_CCIDS" "C_LANES" "C_ANTENNA_INTERLEAVE" "C_MIXER_CPS" "C_NUM_AUXILIARY" "C_DATA_IWIDTH" "C_DATA_OWIDTH" "C_TUSER_WIDTH"
 }
 
 proc mix_define_include_file {drv_handle file_name drv_string args} {
@@ -65,8 +66,10 @@ proc mix_define_include_file {drv_handle file_name drv_string args} {
             } elseif {[string compare -nocase "C_MODE" $arg] == 0} {
                 if {[string compare -nocase "downlink" [common::get_property CONFIG.C_MODE $periph]] == 0} {
                     set value 0
-                } else {
+                } elseif {[string compare -nocase "uplink" [common::get_property CONFIG.C_MODE $periph]] == 0} {
                     set value 1
+                } else {
+                    set value 2
                 }
             } else {
                 set value [common::get_property CONFIG.$arg $periph]
@@ -144,8 +147,10 @@ proc mix_define_canonical_xpars {drv_handle file_name drv_string args} {
                 } elseif {[string compare -nocase "C_MODE" $arg] == 0} {
                     if {[string compare -nocase "downlink" [common::get_property CONFIG.C_MODE $periph]] == 0} {
                         set rvalue 0
-                    } else {
+                    } elseif {[string compare -nocase "uplink" [common::get_property CONFIG.C_MODE $periph]] == 0} {
                         set rvalue 1
+                    } else {
+                        set rvalue 2
                     }
                 } else {
                     set rvalue [::hsi::utils::get_param_value $periph $arg]

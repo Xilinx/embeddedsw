@@ -32,6 +32,7 @@
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/18/22 Update IP version number
+* 1.5   dc     09/28/22 Auxiliary NCO support
 *
 * </pre>
 *
@@ -39,6 +40,7 @@
 
 /***************************** Include Files *********************************/
 #include "xdfemix.h"
+#include "xdfemix_hw.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -78,6 +80,8 @@
 	"xlnx,antenna-interleave" /**< Number of TDM antenna.. */
 #define XDFEMIX_MIXER_CPS_CFG                                                  \
 	"xlnx,mixer-cps" /**< Mixer clock per sample property. */
+#define XDFEMIX_NUM_AUXILIARY                                                  \
+	"xlnx,num-auxiliary" /**< Number of auxiliary NCO. */
 #define XDFEMIX_DATA_IWIDTH_CFG                                                \
 	"xlnx,data-iwidth" /**< Input stream data bit width. */
 #define XDFEMIX_DATA_OWIDTH_CFG                                                \
@@ -87,7 +91,7 @@
 /**
 * @cond nocomments
 */
-#define XDFEMIX_MODE_SIZE 10U
+#define XDFEMIX_MODE_SIZE 15U
 #define XDFEMIX_WORD_SIZE 4U
 #else
 #define XDFEMIX_BUS_NAME "generic"
@@ -334,6 +338,13 @@ s32 XDfeMix_LookupConfig(XDfeMix *InstancePtr)
 	InstancePtr->Config.DataIWidth = ntohl(d);
 
 	if (XST_SUCCESS !=
+	    metal_linux_get_device_property(Dev, Name = XDFEMIX_NUM_AUXILIARY,
+					    &d, XDFEMIX_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumAuxiliary = ntohl(d);
+
+	if (XST_SUCCESS !=
 	    metal_linux_get_device_property(Dev, Name = XDFEMIX_MIXER_CPS_CFG,
 					    &d, XDFEMIX_WORD_SIZE)) {
 		goto end_failure;
@@ -376,9 +387,11 @@ s32 XDfeMix_LookupConfig(XDfeMix *InstancePtr)
 	}
 
 	if (0 == strncmp(str, "downlink", 8)) {
-		InstancePtr->Config.Mode = 0;
+		InstancePtr->Config.Mode = XDFEMIX_MODEL_PARAM_1_DOWNLINK;
 	} else if (0 == strncmp(str, "uplink", 6)) {
-		InstancePtr->Config.Mode = 1;
+		InstancePtr->Config.Mode = XDFEMIX_MODEL_PARAM_1_UPLINK;
+	} else if (0 == strncmp(str, "switchable", 10)) {
+		InstancePtr->Config.Mode = XDFEMIX_MODEL_PARAM_1_SWITCHABLE;
 	} else {
 		goto end_failure;
 	}
@@ -406,6 +419,7 @@ end_failure:
 	InstancePtr->Config.Lanes = ConfigTable->Lanes;
 	InstancePtr->Config.AntennaInterleave = ConfigTable->AntennaInterleave;
 	InstancePtr->Config.MixerCps = ConfigTable->MixerCps;
+	InstancePtr->Config.NumAuxiliary = ConfigTable->NumAuxiliary;
 	InstancePtr->Config.DataIWidth = ConfigTable->DataIWidth;
 	InstancePtr->Config.DataOWidth = ConfigTable->DataOWidth;
 	InstancePtr->Config.TUserWidth = ConfigTable->TUserWidth;

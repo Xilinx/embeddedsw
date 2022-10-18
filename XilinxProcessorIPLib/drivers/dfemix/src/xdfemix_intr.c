@@ -24,6 +24,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/19/22 Update register map
+* 1.5   dc     09/28/22 Auxiliary NCO support
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -252,29 +253,24 @@ void XDfeMix_ClearEventStatus(const XDfeMix *InstancePtr,
 	Data = XDfeMix_WrBitField(XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,
 				  XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET, Data,
 				  Status->CCUpdate);
-	Data =
-		XDfeMix_WrBitField(XDFEMIX_LOW_POWER_TRIGGERED_WIDTH,
-				   XDFEMIX_LOW_POWER_TRIGGERED_OFFSET, Data,
-				   Status->LowPower);
-	Data =
-		XDfeMix_WrBitField(XDFEMIX_SWITCHABLE_TRIGGERED_WIDTH,
-				   XDFEMIX_SWITCHABLE_TRIGGERED_OFFSET, Data,
-				   Status->Switchable);
+	Data = XDfeMix_WrBitField(XDFEMIX_LOW_POWER_TRIGGERED_WIDTH,
+				  XDFEMIX_LOW_POWER_TRIGGERED_OFFSET, Data,
+				  Status->LowPower);
+	Data = XDfeMix_WrBitField(XDFEMIX_SWITCHABLE_TRIGGERED_WIDTH,
+				  XDFEMIX_SWITCHABLE_TRIGGERED_OFFSET, Data,
+				  Status->Switchable);
 	Data = XDfeMix_WrBitField(XDFEMIX_CC_SEQUENCE_ERROR_WIDTH,
 				  XDFEMIX_CC_SEQUENCE_ERROR_OFFSET, Data,
 				  Status->CCSequenceError);
-	Data =
-		XDfeMix_WrBitField(XDFEMIX_CC_UPDATE_ERROR_WIDTH,
-				   XDFEMIX_CC_UPDATE_ERROR_OFFSET, Data,
-				   Status->CCUpdateError);
-	Data =
-		XDfeMix_WrBitField(XDFEMIX_LOW_POWER_ERROR_WIDTH,
-				   XDFEMIX_LOW_POWER_ERROR_OFFSET, Data,
-				   Status->LowPowerError);
-	Data =
-		XDfeMix_WrBitField(XDFEMIX_SWITCHABLE_ERROR_WIDTH,
-				   XDFEMIX_SWITCHABLE_ERROR_OFFSET, Data,
-				   Status->SwitchableError);
+	Data = XDfeMix_WrBitField(XDFEMIX_CC_UPDATE_ERROR_WIDTH,
+				  XDFEMIX_CC_UPDATE_ERROR_OFFSET, Data,
+				  Status->CCUpdateError);
+	Data = XDfeMix_WrBitField(XDFEMIX_LOW_POWER_ERROR_WIDTH,
+				  XDFEMIX_LOW_POWER_ERROR_OFFSET, Data,
+				  Status->LowPowerError);
+	Data = XDfeMix_WrBitField(XDFEMIX_SWITCHABLE_ERROR_WIDTH,
+				  XDFEMIX_SWITCHABLE_ERROR_OFFSET, Data,
+				  Status->SwitchableError);
 	XDfeMix_WriteReg(InstancePtr, XDFEMIX_ISR, Data);
 }
 

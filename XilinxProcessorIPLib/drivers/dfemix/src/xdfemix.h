@@ -77,6 +77,7 @@
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     03/28/22 Update documentation
 *       dc     08/19/22 Update register map
+* 1.5   dc     09/28/22 Auxiliary NCO support
 *
 * </pre>
 * @endcond
@@ -139,7 +140,8 @@ extern "C" {
 /**
 * @endcond
 */
-#define XDFEMIX_NCO_MAX (7U) /**< Maximum NCO number */
+#define XDFEMIX_AUX_NCO_MAX (4) /**< Maximum Fabric NCO number */
+#define XDFEMIX_NCO_MAX (20) /**< Maximum NCO number, 16 CC NCO + 4 aux NCO */
 #define XDFEMIX_CC_GAIN_MAX (3U) /**< Maximum CC gain */
 
 /**************************** Type Definitions *******************************/
@@ -305,6 +307,12 @@ typedef struct {
 	u32 SingleModCount; /**< [0-2^32-1] Single modulus cycle count (S) */
 	u32 DualModCount; /**< [0-2^32-1] Dual modulus cycle count (T-S) */
 	XDfeMix_PhaseOffset PhaseOffset; /**< [0-2^17-1] Phase offset */
+	u32 TriggerUpdateFlag; /**< Update the associated accumulator from
+		the FREQUENCY registers:
+		- 0 = NO_UPDATE: Do not update
+		- 1 = IMMEDIATE_UPDATE: Apply an immediate update
+		- 2 = TRIGGER_UPDATE: Apply an update on the next CC_UPDATE
+		      trigger */
 } XDfeMix_Frequency;
 
 /**
@@ -314,6 +322,12 @@ typedef struct {
 	u32 PhaseAcc; /**< [0-2^32-1] Phase accumulator value */
 	u32 DualModCount; /**< [0-2^32-1] Dual modulus count value (T-S)*/
 	u32 DualModSel; /**< [0,1] Dual modulus select value */
+	u32 TriggerUpdateFlag; /**< Update the associated accumulator from
+		the PHASE registers:
+		- 0 = NO_UPDATE: Do not update
+		- 1 = IMMEDIATE_UPDATE: Apply an immediate update
+		- 2 = TRIGGER_UPDATE: Apply an update on the next CC_UPDATE
+		      trigger */
 } XDfeMix_Phase;
 
 /**
@@ -322,8 +336,11 @@ typedef struct {
 typedef struct {
 	XDfeMix_Frequency FrequencyCfg; /**< Frequency configuration */
 	XDfeMix_Phase PhaseCfg; /**< Phase configuration */
-	u32 NCOGain; /**< [0,1,2,3] Scaling of NCO output (0=0dB, 1=-3dB,
-		2=-6dB, 3=-9dB) */
+	u32 NCOGain; /**< [0,1,2,3] Scaling of NCO output:
+		- 0 = 0dB
+		- 1 = -3dB
+		- 2 = -6dB
+		- 3 =- 9dB */
 } XDfeMix_NCO;
 
 /**
@@ -360,6 +377,20 @@ typedef struct {
 } XDfeMix_DUCDDCCfg;
 
 /**
+ * Defines settings for single auxiliary NCO.
+ */
+typedef struct {
+	u32 Enable; /**< [0,1] Auxiliary NCO Enable:
+		- 0 = disabled
+		- 1 = enabled */
+	u32 AuxGain; /**< [0-3] Auxiliary NCO gain.
+		- 0 = MINUS18DB: Apply -18dB gain.
+		- 1 = MINUS12DB: Apply -12dB gain.
+		- 2 = MINUS6DB: Apply -6dB gain.
+		- 3 = ZERODB: Apply -0dB gain. */
+} XDfeMix_AuxiliaryCfg;
+
+/**
  * Configuration for a single CC (implementation note: notice that there are
  * two parts, one part (DUCDDCCfg) mapping to the CCCfg state, and another that
  * is written directly to NCO registers (XDfeMix_NCO).
@@ -381,10 +412,12 @@ typedef struct {
  */
 typedef struct {
 	XDfeMix_CCSequence Sequence; /**< CCID sequence */
-	XDfeMix_InternalDUCDDCCfg DUCDDCCfg[16]; /**< DUC/DDC configurations
-		for all CCs */
-	XDfeMix_NCO NCO[XDFEMIX_NCO_MAX + 1]; /**< Defines settings for all
-		CC's NCO */
+	XDfeMix_InternalDUCDDCCfg DUCDDCCfg[XDFEMIX_CC_NUM]; /**< DUC/DDC
+		configurations for all CCs */
+	XDfeMix_NCO NCO[XDFEMIX_NCO_MAX]; /**< Defines settings for all
+		CC's and Auxiliary's NCO */
+	XDfeMix_AuxiliaryCfg AuxiliaryCfg[XDFEMIX_AUX_NCO_MAX]; /**< Auxiliary
+		configuration */
 	XDfeMix_AntennaCfg AntennaCfg; /**< Antenna configuration */
 } XDfeMix_CCCfg;
 
@@ -513,6 +546,12 @@ u32 XDfeMix_AddCCtoCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg, s32 CCID,
 			 const XDfeMix_NCO *NCO);
 void XDfeMix_RemoveCCfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 			       s32 CCID);
+void XDfeMix_AddAuxNCOtoCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
+			      const s32 AuxId, const XDfeMix_NCO *NCO,
+			      const XDfeMix_AuxiliaryCfg *AuxCfg);
+void XDfeMix_RemoveAuxNCOfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
+				   const s32 AuxId);
+
 u32 XDfeMix_UpdateCCinCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 			    s32 CCID, const XDfeMix_CarrierCfg *CarrierCfg);
 u32 XDfeMix_SetNextCCCfgAndTrigger(const XDfeMix *InstancePtr,
