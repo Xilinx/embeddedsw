@@ -852,6 +852,12 @@ extern "C" {
 #define PM_DEV_TCM_B_1C				(0x183180D6U)
 #define PM_DEV_USB_1				(0x182240D7U)
 #define PM_DEV_PMC_WWDT				(0x182240D8U)
+#define PM_DEV_LPD_SWDT_0			(0x182240D9U)
+#define PM_DEV_LPD_SWDT_1			(0x182240DAU)
+#define PM_DEV_FPD_SWDT_0			(0x182240DBU)
+#define PM_DEV_FPD_SWDT_1			(0x182240DCU)
+#define PM_DEV_FPD_SWDT_2			(0x182240DDU)
+#define PM_DEV_FPD_SWDT_3			(0x182240DEU)
 /** @} */
 
 /**
