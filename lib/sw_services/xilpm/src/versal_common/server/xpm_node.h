@@ -151,13 +151,13 @@ typedef enum {
 typedef enum {
 	XPM_NODESUBCL_SUBSYSTEM = 0x0,
 	XPM_NODESUBCL_SUBSYSTEM_MAX = 0x1
-} XPm_SubsystemSubclass;
+} XPm_SubsystemNodeSubclass;
 
 /* Isolation subclasses */
 typedef enum {
 	XPM_NODESUBCL_ISOLATION = 0x0,
 	XPM_NODESUBCL_ISOLATION_MAX = 0x1
-} XPm_IsolationSubclass;
+} XPm_IsolationNodeSubclass;
 
 /* Protection node subclasses */
 typedef enum {
@@ -170,20 +170,20 @@ typedef enum {
 typedef enum {
 	XPM_NODESUBCL_MONITOR_SYSMON = 0x0,
 	XPM_NODESUBCL_MONITOR_MAX = 0x1
-} XPm_MonitorSubclass;
+} XPm_MonitorNodeSubclass;
 
 /* Register node subclasses */
 typedef enum {
 	XPM_NODESUBCL_REGNODE_PREDEF = 0x0,
 	XPM_NODESUBCL_REGNODE_USERDEF = 0x1,
 	XPM_NODESUBCL_REGNODE_MAX = 0x2
-} XPm_RegnodeSubclass;
+} XPm_RegNodeSubclass;
 
 /* Misc node subclasses */
 typedef enum {
 	XPM_NODESUBCL_MISC = 0x0,
 	XPM_NODESUBCL_MISC_MAX = 0x1
-} XPm_MiscSubclass;
+} XPm_MiscNodeSubclass;
 
 
 /* Node types */
@@ -273,13 +273,13 @@ typedef enum {
 typedef enum {
 	XPM_NODETYPE_SUBSYSTEM = 0x0,
 	XPM_NODETYPE_SUBSYSTEM_MAX = 0x1
-} XPm_SubsystemType;
+} XPm_SubsystemNodeType;
 
 /* Isolation node type */
 typedef enum {
 	XPM_NODETYPE_ISOLATION = 0x0,
 	XPM_NODETYPE_ISOLATION_MAX = 0x1
-} XPm_IsolationType;
+} XPm_IsolationNodeType;
 
 /* Protection node typees */
 typedef enum {
@@ -294,19 +294,19 @@ typedef enum {
 	XPM_NODETYPE_MONITOR_SYSMON_NPD = 0x2,
 	XPM_NODETYPE_MONITOR_SYSMON_CPM5N = 0x3,
 	XPM_NODETYPE_MONITOR_MAX = 0x4
-} XPm_MonitorType;
+} XPm_MonitorNodeType;
 
 /* Register node typees */
 typedef enum {
 	XPM_NODETYPE_REGNODE_GENERIC = 0x0,
 	XPM_NODETYPE_REGNODE_MAX = 0x1
-} XPm_RegnodeType;
+} XPm_RegNodeType;
 
 /* Misc node typees */
 typedef enum {
 	XPM_NODETYPE_MISC = 0x0,
 	XPM_NODETYPE_MISC_MAX = 0x1
-} XPm_MiscType;
+} XPm_MiscNodeType;
 
 
 /* Node index */
@@ -383,14 +383,22 @@ typedef enum {
 	XPM_NODEIDX_POWER_RPU_A_1 = 0x44,
 	XPM_NODEIDX_POWER_RPU_B_0 = 0x45,
 	XPM_NODEIDX_POWER_RPU_B_1 = 0x46,
-	XPM_NODEIDX_POWER_MAX = 0x47
+	XPM_NODEIDX_POWER_OCM_0_0 = 0x47,
+	XPM_NODEIDX_POWER_OCM_0_1 = 0x48,
+	XPM_NODEIDX_POWER_OCM_0_2 = 0x49,
+	XPM_NODEIDX_POWER_OCM_0_3 = 0x4A,
+	XPM_NODEIDX_POWER_OCM_1_0 = 0x4B,
+	XPM_NODEIDX_POWER_OCM_1_1 = 0x4C,
+	XPM_NODEIDX_POWER_OCM_1_2 = 0x4D,
+	XPM_NODEIDX_POWER_OCM_1_3 = 0x4E,
+	XPM_NODEIDX_POWER_MAX = 0x4F
 } XPm_PowerNodeIdx;
 
 /* Power regulator node index */
 typedef enum {
 	XPM_NODEIDX_POWER_REGULATOR_0 = 0x0,
 	XPM_NODEIDX_POWER_REGULATOR_MAX = 0x8
-} XPm_RegulatorNodeIndex;
+} XPm_RegulatorNodeIdx;
 
 /* Clock node index */
 typedef enum {
@@ -1285,7 +1293,7 @@ typedef enum {
 typedef enum {
 	XPM_NODEIDX_DEV_PLD_0 = 0x0,
 	XPM_NODEIDX_DEV_PLD_MAX = 0x10
-} XPm_PlDeviceNodeIndex;
+} XPm_PlDeviceNodeIdx;
 
 /* Virtual device node index */
 typedef enum {
@@ -1320,7 +1328,7 @@ typedef enum {
 	XPM_NODEIDX_SUBSYS_DEFAULT = 0x0,
 	XPM_NODEIDX_SUBSYS_PMC = 0x1,
 	XPM_NODEIDX_SUBSYS_MAX = 0x10
-} XPm_SubsystemIdx;
+} XPm_SubsystemNodeIdx;
 
 /* Isolation node index */
 typedef enum {
@@ -1382,7 +1390,7 @@ typedef enum {
 	XPM_NODEIDX_ISO_LPD_OCM2 = 0x37,
 	XPM_NODEIDX_ISO_CPM5_LPD = 0x38,
 	XPM_NODEIDX_ISO_MAX = 0x39
-} XPm_IsolationIdx;
+} XPm_IsolationNodeIdx;
 
 /* Protection node indexes */
 typedef enum {
@@ -1475,13 +1483,13 @@ typedef enum {
 	XPM_NODEIDX_MONITOR_SYSMON_FPD_2 = 0x46,
 	XPM_NODEIDX_MONITOR_SYSMON_FPD_3 = 0x47,
 	XPM_NODEIDX_MONITOR_MAX = 0x48
-} XPm_MonitorIdx;
+} XPm_MonitorNodeIdx;
 
 /* Misc node indexes */
 typedef enum {
 	XPM_NODEIDX_MISC_MJTAG_WA_IMG = 0x0,
 	XPM_NODEIDX_MISC_READBACK_PDI_IMG = 0x1
-} XPm_MiscIdx;
+} XPm_MiscNodeIdx;
 
 
 #ifdef __cplusplus
