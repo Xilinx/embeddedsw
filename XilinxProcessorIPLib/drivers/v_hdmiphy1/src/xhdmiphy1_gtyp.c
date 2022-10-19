@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -50,6 +50,28 @@ u32 XHdmiphy1_GtypTxChReconfig(XHdmiphy1 *InstancePtr, u8 QuadId,
 #define XHDMIPHY1_RPLL_MIN_REFCLK  		120000000LL
 #define XHDMIPHY1_HDMI_GTYP_DRU_LRATE  3000000000U
 
+/*PLL Line Rate Config*/
+#if (XPAR_HDMIPHY1_0_NIDRU == 1)
+#define XHDMIPHY1_LRCFG1	1
+#define XHDMIPHY1_LRCFG2	2
+#define XHDMIPHY1_LRCFG3	3
+#define XHDMIPHY1_LRCFG4	4
+#define XHDMIPHY1_LRCFG5	5
+#define XHDMIPHY1_LRCFG6	6
+#define XHDMIPHY1_LRCFG7	7
+#define XHDMIPHY1_LRCFG8	8
+#define XHDMIPHY1_LRCFG9	9
+#else
+#define XHDMIPHY1_LRCFG1	0
+#define XHDMIPHY1_LRCFG2	1
+#define XHDMIPHY1_LRCFG3	2
+#define XHDMIPHY1_LRCFG4	3
+#define XHDMIPHY1_LRCFG5	4
+#define XHDMIPHY1_LRCFG6	5
+#define XHDMIPHY1_LRCFG7	6
+#define XHDMIPHY1_LRCFG8	7
+#define XHDMIPHY1_LRCFG9	8
+#endif
 
 const XHdmiphy1_GtConfig GtypConfig = {
 /*  .CfgSetCdr = XHdmiphy1_Gtye4CfgSetCdr,
@@ -198,12 +220,12 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		if (!TmdsClockRatio) {
 			if ((119990000 <= (*RefClkPtr)) &&
 					((*RefClkPtr) <= 204687500)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 1;
+				InstancePtr->Quads[0].Lcpll.LineRateCfg = XHDMIPHY1_LRCFG1;
 			}
 			else if ((204687500 <= (*RefClkPtr)) &&
 						/* 297 MHz + 0.5% + 10 KHz error */
 						((*RefClkPtr) <= 298500000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 2;
+				InstancePtr->Quads[0].Lcpll.LineRateCfg = XHDMIPHY1_LRCFG2;
 			}
 			else{
 				Status = XST_FAILURE;
@@ -213,11 +235,11 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		else {
 			if ((84570000 <= (*RefClkPtr)) &&
 						((*RefClkPtr) <= 102343750)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 3;
+				InstancePtr->Quads[0].Lcpll.LineRateCfg = XHDMIPHY1_LRCFG3;
 			}
 			else if ((102343750 <= (*RefClkPtr)) &&
 						((*RefClkPtr) <= 149500000)) {
-				InstancePtr->Quads[0].Lcpll.LineRateCfg = 4;
+				InstancePtr->Quads[0].Lcpll.LineRateCfg = XHDMIPHY1_LRCFG4;
 			}
 			else{
 				Status = XST_FAILURE;
@@ -227,19 +249,19 @@ u32 XHdmiphy1_HdmiLcpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Check for HDMI 2.1 GT LineRate Config */
 	else if (IsHdmi21) {
 		if (LineRate == 3000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 5;
+			InstancePtr->Quads[0].Lcpll.LineRateCfg = XHDMIPHY1_LRCFG5;
 		}
 		else if (LineRate == 6000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 6;
+			InstancePtr->Quads[0].Lcpll.LineRateCfg = XHDMIPHY1_LRCFG6;
 		}
 		else if (LineRate == 8000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 7;
+			InstancePtr->Quads[0].Lcpll.LineRateCfg = XHDMIPHY1_LRCFG7;
 		}
 		else if (LineRate == 10000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 8;
+			InstancePtr->Quads[0].Lcpll.LineRateCfg = XHDMIPHY1_LRCFG8;
 		}
 		else if (LineRate == 12000000000) {
-			InstancePtr->Quads[0].Lcpll.LineRateCfg = 9;
+			InstancePtr->Quads[0].Lcpll.LineRateCfg = XHDMIPHY1_LRCFG9;
 		}
 		else {
 			Status = XST_FAILURE;
@@ -382,12 +404,12 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		if (!TmdsClockRatio) {
 			if ((119990000 <= (*RefClkPtr)) &&
 					((*RefClkPtr) <= 200000000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 1;
+				InstancePtr->Quads[0].Rpll.LineRateCfg = XHDMIPHY1_LRCFG1;
 			}
 			else if ((200000000 <= (*RefClkPtr)) &&
 						/* 297 MHz + 0.5% + 10 KHz error */
 						((*RefClkPtr) <= 298500000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 2;
+				InstancePtr->Quads[0].Rpll.LineRateCfg = XHDMIPHY1_LRCFG2;
 			}
 			else{
 				Status = XST_FAILURE;
@@ -397,11 +419,11 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 		else {
 			if ((84570000 <= (*RefClkPtr)) &&
 						((*RefClkPtr) <= 100000000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 3;
+				InstancePtr->Quads[0].Rpll.LineRateCfg = XHDMIPHY1_LRCFG3;
 			}
 			else if ((100000000 <= (*RefClkPtr)) &&
 						((*RefClkPtr) <= 149500000)) {
-				InstancePtr->Quads[0].Rpll.LineRateCfg = 4;
+				InstancePtr->Quads[0].Rpll.LineRateCfg = XHDMIPHY1_LRCFG4;
 			}
 			else{
 				Status = XST_FAILURE;
@@ -411,19 +433,19 @@ u32 XHdmiphy1_HdmiRpllParam(XHdmiphy1 *InstancePtr, u8 QuadId,
 	/* Check for HDMI 2.1 GT LineRate Config */
 	else if (IsHdmi21) {
 		if (LineRate == 3000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 5;
+			InstancePtr->Quads[0].Rpll.LineRateCfg = XHDMIPHY1_LRCFG5;
 		}
 		else if (LineRate == 6000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 6;
+			InstancePtr->Quads[0].Rpll.LineRateCfg = XHDMIPHY1_LRCFG6;
 		}
 		else if (LineRate == 8000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 7;
+			InstancePtr->Quads[0].Rpll.LineRateCfg = XHDMIPHY1_LRCFG7;
 		}
 		else if (LineRate == 10000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 8;
+			InstancePtr->Quads[0].Rpll.LineRateCfg = XHDMIPHY1_LRCFG8;
 		}
 		else if (LineRate == 12000000000) {
-			InstancePtr->Quads[0].Rpll.LineRateCfg = 9;
+			InstancePtr->Quads[0].Rpll.LineRateCfg = XHDMIPHY1_LRCFG9;
 		}
 		else {
 			Status = XST_FAILURE;

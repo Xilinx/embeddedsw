@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +26,8 @@
  * 1.1   ku   27/07/20 Removed GTHE3 related code
  * 1.2   ssh  22/07/22 Added multi gt support and updated the frl and
  * 		       dru clk freq to 200MHz for -1 GTHE4 and GTYE4 device
+ * 1.3   ssh  18/10/22 Updated the extended txdiffctrl mask and added
+ * 		       support for NI-DRU diabled case
  * </pre>
  *
 *******************************************************************************/
@@ -733,7 +735,7 @@ void XHdmiphy1_SetTxVoltageSwing(XHdmiphy1 *InstancePtr, u8 QuadId,
 				XHDMIPHY1_TX_DRIVER_EXT_REG);
 	MaskVal = XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_MASK(ChId);
 	RegVal &= ~MaskVal;
-	RegVal |= ((Vs && 0x10) <<
+	RegVal |= (((Vs & 0x10) >> 4) <<
 			XHDMIPHY1_TX_DRIVER_EXT_TXDIFFCTRL_SHIFT(ChId));
 	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr,
 			XHDMIPHY1_TX_DRIVER_EXT_REG, RegVal);
