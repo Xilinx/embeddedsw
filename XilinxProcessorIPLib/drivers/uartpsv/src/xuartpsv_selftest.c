@@ -71,7 +71,6 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 	s32 Status = (s32)XST_SUCCESS;
 	u32 CtrlRegister;
 	u8 Index;
-	u32 ReceiveDataResult;
 
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -96,15 +95,13 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 		 * Wait until the byte is received. This can hang if the HW
 		 * is broken. Watch for the FIFO empty flag to be false.
 		 */
-		ReceiveDataResult = Xil_In32((InstancePtr->Config.
-					BaseAddress) +
-					XUARTPSV_UARTFR_OFFSET) &
-					XUARTPSV_UARTFR_RXFE;
-		while (ReceiveDataResult == (u32)XUARTPSV_UARTFR_RXFE) {
-			ReceiveDataResult = Xil_In32((InstancePtr->Config.
-						BaseAddress) +
-						XUARTPSV_UARTFR_OFFSET) &
-						XUARTPSV_UARTFR_RXFE;
+		Status = (int)Xil_WaitForEvent(
+				((InstancePtr->Config.BaseAddress)+
+				XUARTPSV_UARTFR_OFFSET), XUARTPSV_UARTFR_RXFE,
+				0, TIMEOUT_COUNTER);
+		if (Status != XST_SUCCESS) {
+			Status = (s32)XST_UART_TEST_FAIL;
+			goto TESTEND;
 		}
 
 		/* Receive the byte */
@@ -124,6 +121,7 @@ s32 XUartPsv_SelfTest(XUartPsv *InstancePtr)
 	/* Reprogram the control Register with the saved value */
 	XUartPsv_ProgramCtrlReg(InstancePtr, CtrlRegister);
 
+TESTEND:
 	return (s32)Status;
 }
 /** @} */

@@ -320,14 +320,16 @@ u32 XUartPsv_Recv(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 u32 XUartPsv_SendBuffer(XUartPsv *InstancePtr)
 {
 	u32 SentCount = 0U;
-	u32 IsBusy;
+	s32 Status;
 
 	/*
 	 * Check is TX busy
 	 */
-	IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
-	while (IsBusy == (u32)TRUE) {
-		IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	Status = (int)Xil_WaitForEvent(((InstancePtr->Config.BaseAddress) +
+			XUARTPSV_UARTFR_OFFSET), XUARTPSV_UARTFR_BUSY, 0,
+			TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/*
@@ -351,6 +353,7 @@ u32 XUartPsv_SendBuffer(XUartPsv *InstancePtr)
 	InstancePtr->SendBuffer.NextBytePtr += SentCount;
 	InstancePtr->SendBuffer.RemainingBytes -= SentCount;
 
+END:
 	return SentCount;
 }
 

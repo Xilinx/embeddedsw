@@ -132,6 +132,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xuartpsv_hw.h"
 #include "xplatform_info.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -227,6 +228,8 @@ extern "C" {
 					/**< A receive parity, frame,break error detected */
 #define XUARTPSV_EVENT_RECV_ORERR	7U /**< A receive overrun error detected */
 /** @} */
+
+#define TIMEOUT_COUNTER			1000000U /* Wait for 1 sec */
 
 /**************************** Type Definitions *******************************/
 
