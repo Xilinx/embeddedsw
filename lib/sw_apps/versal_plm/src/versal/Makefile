@@ -20,7 +20,7 @@ LSCRIPT := -Tlscript.ld
 
 CURRENT_DIR = $(shell pwd)
 DEPFILES := $(patsubst %.o, %.d, $(OBJS))
-LIBS := ../../misc/versal_plm_bsp/psv_pmc_0/lib/libxil.a
+LIBS := ../../misc/versal/versal_plm_bsp/psv_pmc_0/lib/libxil.a
 EXEC := plm.elf
 
 INCLUDEPATH := -I../../misc/versal/versal_plm_bsp/psv_pmc_0/include -I. -I../common/
