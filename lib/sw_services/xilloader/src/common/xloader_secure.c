@@ -113,6 +113,7 @@
 *       bsv  02/14/22 Added comments for better readability
 *       kpt  02/18/22 Fixed copy to memory issue
 * 1.09  bm   07/06/22 Refactor versal and versal_net code
+* 1.10  sk   10/19/22 Fix security review comments
 *
 * </pre>
 *
@@ -400,7 +401,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u32 HashAddr = SecurePtr->ChunkAddr + Size;
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
-	int ClearStatus = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
 
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		goto END;

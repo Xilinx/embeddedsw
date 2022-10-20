@@ -101,7 +101,7 @@ void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index);
 void XPlmi_EnableSsitErrors(void);
 #endif
 u32 *XPlmi_GetNumErrOuts(void);
-u32 *XPlmi_GetPsmChanged(void);
+u32 *XPlmi_GetPsmCrState(void);
 
 /************************** Variable Definitions *****************************/
 

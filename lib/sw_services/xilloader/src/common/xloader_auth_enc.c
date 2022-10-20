@@ -89,6 +89,7 @@
 *       kpt  07/24/22 Added support to go into secure lockdown when KAT fails
 *       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
 * 1.05  har  10/11/22 Used temporal check macro for redundancy checks for Xil_SMemCpy
+*       sk   10/19/22 Fix security review comments
 *
 * </pre>
 *
@@ -1029,7 +1030,7 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr)
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3Hash SpkHash;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
-	int ClearStatus = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
 
 	XPlmi_Printf(DEBUG_INFO, "Performing SPK verification\n\r");
 	/* Initialize sha3 */
@@ -1265,7 +1266,7 @@ static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	int ClearStatus = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 	u32 ReadReg;
@@ -1472,7 +1473,7 @@ END:
 static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature) {
 
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XSecure_Rsa *RsaInstPtr = XSecure_GetRsaInstance();
 
 	/* Initialize RSA instance */

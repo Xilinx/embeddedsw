@@ -385,7 +385,7 @@ XPlmi_Error_t *XPlmi_GetErrorTable(void)
  * @return	Pointer to IsPsmCrChanged
  *
  *****************************************************************************/
-u32 *XPlmi_GetPsmChanged(void)
+u32 *XPlmi_GetPsmCrState(void)
 {
 	static u32 IsPsmCrChanged __attribute__ ((aligned(4U))) = (u32)FALSE;
 

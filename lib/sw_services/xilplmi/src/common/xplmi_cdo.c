@@ -50,6 +50,7 @@
 *       ma   07/25/2022 Enhancements to secure lockdown code
 *       bm   08/24/2022 Support Begin, Break and End commands across chunk
 *                       boundaries
+* 1.07  sk   10/19/2022 Fix security review comments
 *
 * </pre>
 *
@@ -426,14 +427,14 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	 * Check if cmd data is copied
 	 * partially during the last iteration
 	 */
-	if (CdoPtr->CopiedCmdLen != 0U) {
+	if (CdoPtr->CopiedCmdLen > 0U) {
 		BufPtr = CdoPtr->TempCmdBuf;
 		BufLen += CdoPtr->CopiedCmdLen;
 		CdoPtr->CopiedCmdLen = 0x0U;
 	}
 
 	/* Handle the break command occured in previous chunk */
-	if (CdoPtr->Cmd.BreakLength != 0U) {
+	if (CdoPtr->Cmd.BreakLength > 0U) {
 		RemainingLen = CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 		if (RemainingLen >= BufLen) {
 			/* If the end is not present in current chunk, skip this chunk */
@@ -479,7 +480,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		}
 
 		/* Handle the break command processed in current chunk */
-		if (CdoPtr->Cmd.BreakLength != 0U) {
+		if (CdoPtr->Cmd.BreakLength > 0U) {
 			if (CdoPtr->Cmd.BreakLength < CdoPtr->ProcessedCdoLen) {
 				Status = XPLMI_INVALID_BREAK_LENGTH;
 				goto END;

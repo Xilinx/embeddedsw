@@ -124,7 +124,7 @@ static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
 
-	u32 *IsPsmCrChanged = XPlmi_GetPsmChanged();
+	u32 *IsPsmCrChanged = XPlmi_GetPsmCrState();
 	XPlmi_EventType NodeType =
 			(XPlmi_EventType)XPlmi_EventNodeType(Cmd->Payload[0U]);
 	u32 ErrorAction = Cmd->Payload[1U];

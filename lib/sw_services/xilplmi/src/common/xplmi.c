@@ -290,7 +290,7 @@ void XPlmi_SetLpdInitialized(u32 Flag)
 
 /*****************************************************************************/
 /**
- * @brief	This function sets LpdInitialized variable with given flag.
+ * @brief	This function clears LpdInitialized variable with given flag.
  *
  * @return	None
  *

@@ -300,7 +300,7 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
 		goto END;
 	}
 	/**
-	 * Read the Optinal data from Metaheader
+	 * Read the Optional data from Metaheader
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 		MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst + XIH_IHT_LEN,

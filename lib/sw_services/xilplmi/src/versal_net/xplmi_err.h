@@ -138,7 +138,7 @@ void XPlmi_DisablePmcErrAction(u32 ErrIndex, u32 RegMask);
 void XPlmi_DumpErrNGicStatus(void);
 void XPlmi_ReconfigErrActions(void);
 u32 *XPlmi_GetNumErrOuts(void);
-u32 *XPlmi_GetPsmChanged(void);
+u32 *XPlmi_GetPsmCrState(void);
 
 /************************** Variable Definitions *****************************/
 
