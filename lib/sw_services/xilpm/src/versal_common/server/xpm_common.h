@@ -211,6 +211,9 @@ u32 XPm_ComputeParity(u32 CalParity);
 /* Dump Memory Related Data like Total Mem, Usaged Mem, Free Mem */
 void XPm_DumpMemUsage(void);
 
+#define PMC_VERSION_SILICON_ES1			(0x10U)
+#define PMC_VERSION_SILICON_PROD		(0x20U)
+
 #ifdef __cplusplus
 }
 #endif

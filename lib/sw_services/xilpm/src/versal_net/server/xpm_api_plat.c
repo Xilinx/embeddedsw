@@ -197,6 +197,14 @@ END:
 	return Status;
 }
 
+XStatus XPm_PlatInit(void)
+{
+	/*TODO: Enable domain isolations*/
+	/*TODO: Add repair NoC if required*/
+
+	return XST_SUCCESS;
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function is to link devices to the default subsystem.

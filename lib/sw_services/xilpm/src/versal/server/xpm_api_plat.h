@@ -59,6 +59,7 @@ XStatus XPm_PlatQuery(const u32 Qid, const u32 Arg1, const u32 Arg2,
 		  const u32 Arg3, u32 *const Output);
 XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version);
 XStatus IsOnSecondarySLR(u32 SubsystemId);
+void XPm_DisableSkipHC(void);
 
 maybe_unused static inline XStatus XPm_PlatRequestDevice(const u32 DeviceId)
 {

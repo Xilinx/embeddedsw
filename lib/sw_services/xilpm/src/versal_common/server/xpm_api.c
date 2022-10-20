@@ -574,9 +574,44 @@ XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId
 	/* Check last reset reason */
 	XPm_CheckLastResetReason();
 
-	Status = XPm_PlatInit();
-	if (XST_SUCCESS != Status) {
-		goto done;
+	u32 PmcIPORMask = (CRP_RESET_REASON_ERR_POR_MASK |
+			   CRP_RESET_REASON_SLR_POR_MASK |
+			   CRP_RESET_REASON_SW_POR_MASK);
+	u32 SysResetMask = (CRP_RESET_REASON_SLR_SYS_MASK |
+			    CRP_RESET_REASON_SW_SYS_MASK |
+			    CRP_RESET_REASON_ERR_SYS_MASK |
+			    CRP_RESET_REASON_DAP_SYS_MASK);
+	u32 NoCResetsMask = CRP_RST_NONPS_NOC_POR_MASK |
+			CRP_RST_NONPS_NPI_RESET_MASK |
+			CRP_RST_NONPS_NOC_RESET_MASK |
+			CRP_RST_NONPS_SYS_RST_1_MASK |
+			CRP_RST_NONPS_SYS_RST_2_MASK |
+			CRP_RST_NONPS_SYS_RST_3_MASK;
+
+	if (0U != (ResetReason & SysResetMask)) {
+
+		XPm_DisableSkipHC();
+
+		/* Assert PL and PS POR */
+		PmRmw32(CRP_RST_PS, CRP_RST_PS_PL_POR_MASK | CRP_RST_PS_PS_POR_MASK,
+					CRP_RST_PS_PL_POR_MASK | CRP_RST_PS_PS_POR_MASK);
+
+		/* Assert NOC POR, NPI Reset, Sys Resets */
+		PmRmw32(CRP_RST_NONPS, NoCResetsMask, NoCResetsMask);
+
+		Status = XPm_PlatInit();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+	}
+
+	/*
+	 * Clear DomainInitStatusReg in case of internal PMC_POR. Since PGGS0
+	 * value is not cleared in case of internal POR.
+	 */
+	if (0U != (ResetReason & PmcIPORMask)) {
+		XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0);
 	}
 
 	PmRequestCb = RequestCb;

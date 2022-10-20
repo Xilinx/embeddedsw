@@ -460,6 +460,11 @@ END:
 	return Status;
 }
 
+void XPm_DisableSkipHC(void){
+	/* Don't skip house cleaning sequence */
+	XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0U);
+}
+
 /****************************************************************************/
 /**
  * @brief  Initialize XilPM library
@@ -473,23 +478,9 @@ END:
 XStatus XPm_PlatInit(void)
 {
 	XStatus Status = XST_FAILURE;
+	u32 i;
 	u32 Platform = 0;
 	u32 PmcVersion;
-	u32 i;
-
-	u32 PmcIPORMask = (CRP_RESET_REASON_ERR_POR_MASK |
-			   CRP_RESET_REASON_SLR_POR_MASK |
-			   CRP_RESET_REASON_SW_POR_MASK);
-	u32 SysResetMask = (CRP_RESET_REASON_SLR_SYS_MASK |
-			    CRP_RESET_REASON_SW_SYS_MASK |
-			    CRP_RESET_REASON_ERR_SYS_MASK |
-			    CRP_RESET_REASON_DAP_SYS_MASK);
-	u32 NoCResetsMask = CRP_RST_NONPS_NOC_POR_MASK |
-			CRP_RST_NONPS_NPI_RESET_MASK |
-			CRP_RST_NONPS_NOC_RESET_MASK |
-			CRP_RST_NONPS_SYS_RST_1_MASK |
-			CRP_RST_NONPS_SYS_RST_2_MASK |
-			CRP_RST_NONPS_SYS_RST_3_MASK;
 
 	const u32 IsolationIdx[] = {
 		(u32)XPM_NODEIDX_ISO_VCCAUX_VCCRAM,
@@ -510,46 +501,23 @@ XStatus XPm_PlatInit(void)
 	PmcVersion = XPm_GetPmcVersion();
 	Platform = XPm_GetPlatform();
 
-	if (0U != (ResetReason & SysResetMask)) {
-
-		/* Don't skip house cleaning sequence */
-		XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0U);
-
-		/* Assert PL and PS POR */
-		PmRmw32(CRP_RST_PS, CRP_RST_PS_PL_POR_MASK | CRP_RST_PS_PS_POR_MASK,
-					CRP_RST_PS_PL_POR_MASK | CRP_RST_PS_PS_POR_MASK);
-
-		/* Assert NOC POR, NPI Reset, Sys Resets */
-		PmRmw32(CRP_RST_NONPS, NoCResetsMask, NoCResetsMask);
-
-		/* Enable domain isolations after system reset */
-		for (i = 0; i < ARRAY_SIZE(IsolationIdx); i++) {
-			Status = XPmDomainIso_Control(IsolationIdx[i], TRUE_VALUE);
-			if (Status != XST_SUCCESS) {
-				goto done;
-			}
-		}
-
-		/* Add repair NoC which is reset by NoC POR above*/
-		Status = XPm_NoCConfig();
-
-		/* For some boards, vccaux workaround is implemented using gpio to control vccram supply.
-		During system reset, when gpio goes low, delay is required for system controller to process
-		vccram rail off, before pdi load is started */
-		if ((PLATFORM_VERSION_SILICON == Platform) && (PMC_VERSION_SILICON_ES1 == PmcVersion)) {
-			usleep(300000);
+	/* Enable domain isolations after system reset */
+	for (i = 0; i < ARRAY_SIZE(IsolationIdx); i++) {
+		Status = XPmDomainIso_Control(IsolationIdx[i], TRUE_VALUE);
+		if (Status != XST_SUCCESS) {
+			goto done;
 		}
 	}
 
-	/*
-	 * Clear DomainInitStatusReg in case of internal PMC_POR. Since PGGS0
-	 * value is not cleared in case of internal POR.
-	 */
-	if (0U != (ResetReason & PmcIPORMask)) {
-		XPm_Out32(XPM_DOMAIN_INIT_STATUS_REG, 0);
-	}
+	/* Add repair NoC which is reset by NoC POR above*/
+	Status = XPm_NoCConfig();
 
-	Status = XST_SUCCESS;
+	/* For some boards, vccaux workaround is implemented using gpio to control vccram supply.
+	During system reset, when gpio goes low, delay is required for system controller to process
+	vccram rail off, before pdi load is started */
+	if ((PLATFORM_VERSION_SILICON == Platform) && (PMC_VERSION_SILICON_ES1 == PmcVersion)) {
+		usleep(300000);
+	}
 
 done:
 	return Status;
