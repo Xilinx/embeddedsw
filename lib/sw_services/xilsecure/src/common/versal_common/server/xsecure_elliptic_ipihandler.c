@@ -38,6 +38,7 @@
 #include "xplmi_tamper.h"
 #include "xsecure_error.h"
 #include "xsecure_kat.h"
+#include "xsecure_init.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -68,6 +69,15 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
+	/*
+	 * For VersalNet, To generate random mask, ECC library internally uses TRNG hardware.
+	 * if TNRG hardware is not initialized then XSecure_TrngInit API initializes it to HRNG mode
+	 */
+	Status = XSecure_TrngInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
 		Status = XSecure_EllipticGenKey(Pload[0], Pload[1], Pload[2],
@@ -90,6 +100,7 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	}
 
+END:
 	return Status;
 }
 

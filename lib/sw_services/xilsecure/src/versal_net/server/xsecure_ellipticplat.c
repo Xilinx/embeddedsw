@@ -17,7 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   dc   07/10/22 Initial release
-*       am   07/23/22 Removed Ecdsa_ModEccOrder function defination, as it is
+*       am   07/23/22 Removed Ecdsa_ModEccOrder function definition, as it is
 *                     declared in Ecdsa.h file
 *       dc   09/04/22 set TRNG to HRNG mode after Private key ECC mod order
 *
@@ -59,13 +59,17 @@ extern EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
  * @return	XST_SUCCESS on success
  *		Error code otherwise
  *
+ * @note
+ *      This API expects TRNG HW to be in HEALTHY state, This can
+ *      be achieved by running preoperational health tests.
+ *
  *****************************************************************************/
 int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ElliptcPrivateKeyGen *PrivateKey)
 {
 	int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
 	int ClearStatus = XST_FAILURE;
-	XSecure_TrngInstance *TrngInstancePtr = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	XSecure_TrngUserConfig TrngUserCfg;
 	/* The random ephimeral/Private key should be between 1 to ecc order
 	 * of the curve. EK can be obtained by using mod operation over
@@ -87,34 +91,35 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 		goto RET;
 	}
 
-	Status = XSecure_TrngPreOperationalSelfTests(TrngInstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	Status = Xil_SMemSet(&TrngUserCfg, sizeof(XSecure_TrngUserConfig), 0U,
 					sizeof(XSecure_TrngUserConfig));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	if (TrngInstance->State != XSECURE_TRNG_UNINITIALIZED_STATE) {
+		Status = XSecure_TrngUninstantiate(TrngInstance);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
 	TrngUserCfg.Mode = XSECURE_TRNG_DRNG_MODE;
 	TrngUserCfg.DFLength = XSECURE_ECC_TRNG_DF_LENGTH;
-	TrngUserCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
-	TrngUserCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
 	TrngUserCfg.SeedLife = XSECURE_TRNG_DEFAULT_SEED_LIFE;
-	Status = XSecure_TrngInstantiate(TrngInstancePtr,
+	Status = XSecure_TrngInstantiate(TrngInstance,
 			(u8 *)(UINTPTR)PrivateKey->SeedAddr, PrivateKey->SeedLength,
 			(u8 *)(UINTPTR)PrivateKey->PerStringAddr, &TrngUserCfg);
 	if (Status  != XST_SUCCESS) {
 		goto END;
 	}
 
-	Status = XSecure_TrngGenerate(TrngInstancePtr, RandBuf,
+	Status = XSecure_TrngGenerate(TrngInstance, RandBuf,
 			XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XSecure_TrngGenerate(TrngInstancePtr,
+	Status = XSecure_TrngGenerate(TrngInstance,
 			RandBuf + XSECURE_TRNG_SEC_STRENGTH_IN_BYTES,
 			XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN -
 			XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
@@ -136,7 +141,8 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 			(u8 *)(UINTPTR)PrivateKey->KeyOutPutAddr);
 
 END:
-	ClearStatus = XSecure_TrngUninstantiate(TrngInstancePtr);
+	ClearStatus = XSecure_TrngUninstantiate(TrngInstance);
+	ClearStatus |= XSecure_TrngInitNCfgHrngMode();
 	if (Status == XST_SUCCESS) {
 		Status = ClearStatus;
 	}
@@ -148,7 +154,6 @@ END:
 				0U, XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
 	if (Status == XST_SUCCESS) {
 		Status = ClearStatus;
-		Status |= XSecure_TrngSetHrngMode();
 	}
 RET:
 	return Status;

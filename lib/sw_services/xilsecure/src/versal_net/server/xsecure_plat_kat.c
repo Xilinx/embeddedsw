@@ -188,8 +188,6 @@ int XSecure_TrngDRBGKat(XSecure_TrngInstance *InstancePtr) {
 	UsrCfg.DFLength = XSECURE_TRNG_KAT_DEFAULT_DF_lENGTH;
 	UsrCfg.Mode = XSECURE_TRNG_DRNG_MODE;
 	UsrCfg.SeedLife = XSECURE_TRNG_KAT_DEFAULT_SEED_LIFE;
-	UsrCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
-	UsrCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
 
 	Status = XSecure_TrngInstantiate(InstancePtr, ExtSeed, XSECURE_TRNG_KAT_SEED_LEN_IN_BYTES, PersString,
 			&UsrCfg);

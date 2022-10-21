@@ -71,7 +71,6 @@ static inline int XSecure_TrngWaitForEvent(u32 Addr, u32 EventMask, u32 Event,
 static inline void XSecure_TrngWriteReg(UINTPTR Address, u32 RegValue);
 static inline u32 XSecure_TrngReadReg(UINTPTR RegAddress);
 static inline void XSecure_TrngUtilRMW32(UINTPTR RegAddress, u32 Mask, u32 Value);
-static inline int XSecure_TrngSecureUtilRMW32(UINTPTR RegAddress, u32 Mask, u32 Value);
 static void XSecure_TrngSet(void);
 static void XSecure_TrngReset(void);
 static void XSecure_TrngPrngReset(void);
@@ -122,34 +121,6 @@ static inline u32 XSecure_TrngReadReg(UINTPTR RegAddress)
  **************************************************************************************************/
 static inline void XSecure_TrngUtilRMW32(UINTPTR RegAddress, u32 Mask, u32 Value) {
 	Xil_UtilRMW32((u32)RegAddress, Mask, Value);
-}
-
-/*************************************************************************************************/
-/**
- * @brief
- * This function reads, modifies and writes in to the register and then verifies the
- * written value.
- *
- * @param	RegAddress Address of the register.
- * @param	Mask Indicates the bits to be modified
- * @param	Value Contains 32 bit Value to be written at the specified address
- *
- * @return
- *		- XST_SUCCESS On successful write
- *		- XSECURE_TRNG_WRITE_ERROR On failure
- *
- **************************************************************************************************/
-static inline int XSecure_TrngSecureUtilRMW32(UINTPTR RegAddress, u32 Mask, u32 Value) {
-	int Status = XSECURE_TRNG_WRITE_ERROR;
-	u32 ReadReg = 0U;
-
-	Xil_UtilRMW32((u32)RegAddress, Mask, Value);
-	ReadReg = XSecure_TrngReadReg(RegAddress) & Mask;
-	if (ReadReg == (Mask & Value)) {
-		Status = XST_SUCCESS;
-	}
-
-	return Status;
 }
 
 /*************************************************************************************************/
@@ -334,14 +305,14 @@ int XSecure_TrngInstantiate(XSecure_TrngInstance *InstancePtr, const u8 *Seed, u
 		goto END;
 	}
 
-	if ((UserCfg->AdaptPropTestCutoff < 1U) ||
-		(UserCfg->AdaptPropTestCutoff > XSECURE_TRNG_ADAPTPROPTESTCUTOFF_MAX_VAL)) {
+	if ((UserCfg->Mode != XSECURE_TRNG_DRNG_MODE) && ((UserCfg->AdaptPropTestCutoff < 1U) ||
+		(UserCfg->AdaptPropTestCutoff > XSECURE_TRNG_ADAPTPROPTESTCUTOFF_MAX_VAL))) {
 		Status = XSECURE_TRNG_INVALID_ADAPTPROPTEST_CUTOFF_VALUE;
 		goto END;
 	}
 
-	if ((UserCfg->RepCountTestCutoff < 1U) ||
-		(UserCfg->RepCountTestCutoff > XSECURE_TRNG_REPCOUNTTESTCUTOFF_MAX_VAL)) {
+	if ((UserCfg->Mode != XSECURE_TRNG_DRNG_MODE) && ((UserCfg->RepCountTestCutoff < 1U) ||
+		(UserCfg->RepCountTestCutoff > XSECURE_TRNG_REPCOUNTTESTCUTOFF_MAX_VAL))) {
 		Status = XSECURE_TRNG_INVALID_REPCOUNTTEST_CUTOFF_VALUE;
 		goto END;
 	}
@@ -536,10 +507,10 @@ int XSecure_TrngGenerate(XSecure_TrngInstance *InstancePtr, u8 *RandBuf, u32 Ran
 	}
 	else if (InstancePtr->UserCfg.Mode == XSECURE_TRNG_PTRNG_MODE) {
 		/* Enable ring oscillators for random seed source */
-		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_OSC_EN,
+		XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, XSECURE_TRNG_OSC_EN,
 			XSECURE_TRNG_OSC_EN_VAL_MASK, XSECURE_TRNG_OSC_EN_VAL_MASK);
 
-		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_CTRL,
+		XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, XSECURE_TRNG_CTRL,
 			XSECURE_TRNG_CTRL_TRSSEN_MASK | XSECURE_TRNG_CTRL_EUMODE_MASK |
 			XSECURE_TRNG_CTRL_PRNGXS_MASK, XSECURE_TRNG_CTRL_TRSSEN_MASK |
 			XSECURE_TRNG_CTRL_EUMODE_MASK);
@@ -596,7 +567,7 @@ int XSecure_TrngUninstantiate(XSecure_TrngInstance *InstancePtr) {
 	XSecure_TrngPrngReset();
 
 	/* Disable ring oscillators as a random seed source */
-	Status = XSecure_TrngSecureUtilRMW32(XSECURE_TRNG_OSC_EN, XSECURE_TRNG_OSC_EN_VAL_MASK,
+	Status = Xil_SecureRMW32(XSECURE_TRNG_OSC_EN, XSECURE_TRNG_OSC_EN_VAL_MASK,
 			XSECURE_TRNG_OSC_EN_VAL_DEFVAL);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -635,36 +606,37 @@ XSecure_TrngInstance *XSecure_GetTrngInstance(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function sets the TRNG into HRNG mode of operation.
+ * @brief	This function initialize and configures the TRNG into HRNG mode of operation.
  *
  * @return
  *			- XST_SUCCESS upon success.
  *			- Error code on failure.
  *
  *****************************************************************************/
-int XSecure_TrngSetHrngMode(void)
+int XSecure_TrngInitNCfgHrngMode (void)
 {
 	int Status = XST_FAILURE;
 	XSecure_TrngUserConfig UsrCfg;
-	XSecure_TrngInstance *TrngInstancePtr = XSecure_GetTrngInstance();
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
-	Status = XSecure_TrngPreOperationalSelfTests(TrngInstancePtr);
-	if (Status != XST_SUCCESS) {
-		goto END;
+	if (TrngInstance->State != XSECURE_TRNG_UNINITIALIZED_STATE) {
+		Status = XSecure_TrngUninstantiate(TrngInstance);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
-
 	/* Initiate TRNG */
 	UsrCfg.Mode = XSECURE_TRNG_HRNG_MODE;
 	UsrCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
 	UsrCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
 	UsrCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH;
 	UsrCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE;
-	Status = XSecure_TrngInstantiate(TrngInstancePtr, NULL, 0U, NULL, &UsrCfg);
-END:
+	Status = XSecure_TrngInstantiate(TrngInstance, NULL, 0U, NULL, &UsrCfg);
 	if (Status != XST_SUCCESS) {
-		(void)XSecure_TrngUninstantiate(TrngInstancePtr);
+		(void)XSecure_TrngUninstantiate(TrngInstance);
 	}
 
+END:
 	return Status;
 }
 /*************************************************************************************************/
@@ -701,19 +673,19 @@ static int XSecure_TrngReseedInternal(XSecure_TrngInstance *InstancePtr, const u
 		PersMask = XSECURE_TRNG_CTRL_PERSODISABLE_DEFVAL;
 	}
 
-	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_CTRL,
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, XSECURE_TRNG_CTRL,
 		XSECURE_TRNG_CTRL_PERSODISABLE_MASK | XSECURE_TRNG_CTRL_PRNGSTART_MASK, PersMask);
 
 	/* DRNG Mode */
 	if (Seed != NULL) {
 		/* Enable TST mode and set PRNG mode for reseed operation*/
-		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_CTRL,
+		XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, XSECURE_TRNG_CTRL,
 			XSECURE_TRNG_CTRL_PRNGMODE_MASK | XSECURE_TRNG_CTRL_TSTMODE_MASK |
 			XSECURE_TRNG_CTRL_TRSSEN_MASK, XSECURE_TRNG_CTRL_TSTMODE_MASK |
 			XSECURE_TRNG_CTRL_TRSSEN_MASK);
 
 		/* Start reseed operation */
-		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_CTRL,
+		XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, XSECURE_TRNG_CTRL,
 			XSECURE_TRNG_CTRL_PRNGSTART_MASK, XSECURE_TRNG_CTRL_PRNGSTART_MASK);
 
 		/* For writing seed as an input to DF, PRNG start needs to be set */
@@ -722,16 +694,16 @@ static int XSecure_TrngReseedInternal(XSecure_TrngInstance *InstancePtr, const u
 	}
 	else { /* HTRNG Mode */
 		/* Enable ring oscillators for random seed source */
-		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_OSC_EN,
+		XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, XSECURE_TRNG_OSC_EN,
 			XSECURE_TRNG_OSC_EN_VAL_MASK, XSECURE_TRNG_OSC_EN_VAL_MASK);
 
 		/* Enable TRSSEN and set PRNG mode for reseed operation */
-		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_CTRL,
+		XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, XSECURE_TRNG_CTRL,
 			XSECURE_TRNG_CTRL_PRNGMODE_MASK | XSECURE_TRNG_CTRL_TRSSEN_MASK |
 			XSECURE_TRNG_CTRL_PRNGXS_MASK, XSECURE_TRNG_CTRL_TRSSEN_MASK);
 
 		/* Start reseed operation */
-		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_CTRL,
+		XSECURE_TEMPORAL_CHECK(END, Status, Xil_SecureRMW32, XSECURE_TRNG_CTRL,
 			XSECURE_TRNG_CTRL_PRNGSTART_MASK, XSECURE_TRNG_CTRL_PRNGSTART_MASK);
 	}
 
@@ -812,13 +784,13 @@ static int XSecure_TrngTriggerGenerate(XSecure_TrngInstance *InstancePtr, u8 *Ra
 	u32 Size = RandBufSize / XSECURE_TRNG_WORD_LEN_IN_BYTES;
 
 	/* Set PRNG mode to generate */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_CTRL,
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SecureRMW32, XSECURE_TRNG_CTRL,
 		XSECURE_TRNG_CTRL_PRNGMODE_MASK, XSECURE_TRNG_CTRL_PRNGMODE_MASK);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		goto END;
 	}
 
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngSecureUtilRMW32, XSECURE_TRNG_CTRL,
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SecureRMW32, XSECURE_TRNG_CTRL,
 		XSECURE_TRNG_CTRL_PRNGSTART_MASK, XSECURE_TRNG_CTRL_PRNGSTART_MASK);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		goto END;

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,7 +60,7 @@ static int XSecure_TestP521();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XSecure_TrngSetHrngMode();
+	Status = XSecure_TrngInitNCfgHrngMode();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

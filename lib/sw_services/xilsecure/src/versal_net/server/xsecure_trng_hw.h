@@ -7,7 +7,7 @@
 /**
 *
 * @file xsecure_trng_hw.h
-* This file contains trng core hardware definitions of keystone-B.
+* This file contains trng core hardware definitions of VersalNet.
 * @addtogroup Overview
 * @{
 *

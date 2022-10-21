@@ -48,6 +48,7 @@ int XSecure_Init(void);
 XSecure_Sha3 *XSecure_GetSha3Instance(void);
 XSecure_Aes *XSecure_GetAesInstance(void);
 XSecure_Rsa *XSecure_GetRsaInstance(void);
+int XSecure_TrngInit(void);
 
 #ifdef __cplusplus
 }

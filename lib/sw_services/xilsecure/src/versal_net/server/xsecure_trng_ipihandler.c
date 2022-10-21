@@ -39,7 +39,6 @@
 
 /************************** Function Prototypes *****************************/
 static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
-static int XSecure_TrngSetOperationalMode(XSecure_TrngInstance *TrngInstance);
 
 /*****************************************************************************/
 /**
@@ -92,7 +91,7 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 
 	if ((TrngInstance->State == XSECURE_TRNG_UNINITIALIZED_STATE) ||
 		(TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE)) {
-		Status = XSecure_TrngSetOperationalMode(TrngInstance);
+		Status = XSecure_TrngInitNCfgHrngMode();
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -104,41 +103,6 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 	}
 
 	Status = XPlmi_DmaXfr((u64)(UINTPTR)&RandBuf, RandAddr, Size, XPLMI_PMCDMA_0);
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief       This function handler initializes the TRNG driver
- *
- * @param	InstancePtr Pointer to the XSecure_TrngInstance.
- *
- * @return	- XST_SUCCESS - If the initialization is successful
- * 		- ErrorCode - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_TrngSetOperationalMode(XSecure_TrngInstance *TrngInstance)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_TrngUserConfig UsrCfg;
-
-	if ((TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) &&
-		(TrngInstance->State != XSECURE_TRNG_UNINITIALIZED_STATE)){
-		Status = XSecure_TrngUninstantiate(TrngInstance);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
-
-	UsrCfg.Mode = XSECURE_TRNG_HRNG_MODE;
-	UsrCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
-	UsrCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
-	UsrCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH;
-	UsrCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE;
-
-	Status = XSecure_TrngInstantiate(TrngInstance, NULL, 0U, NULL, &UsrCfg);
 
 END:
 	return Status;

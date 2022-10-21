@@ -35,6 +35,10 @@
 /***************************** Include Files *********************************/
 #include "xsecure_init.h"
 #include "xsecure_cmd.h"
+#ifdef VERSAL_NET
+#include "xsecure_plat_kat.h"
+#include "xplmi.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions *******************************/
@@ -110,4 +114,44 @@ XSecure_Rsa *XSecure_GetRsaInstance(void)
 	static XSecure_Rsa RsaInstance = {0U};
 
 	return &RsaInstance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the trng in HRNG mode if it is not initialized
+ *          and it is applicable only for VersalNet
+ *
+ * @return
+ *		- XST_SUCCESS On Successful initialization
+ *      - XST_FAILURE On Failure
+ *
+ *****************************************************************************/
+int XSecure_TrngInit(void)
+{
+	int Status = XST_FAILURE;
+#if defined(VERSAL_NET)
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+
+	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
+		(TrngInstance->ErrorState != XSECURE_TRNG_HEALTHY)) {
+		Status = XSecure_TrngPreOperationalSelfTests(TrngInstance);
+		if (Status != XST_SUCCESS) {
+			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+			goto END;
+		}
+		else {
+			XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+		}
+	}
+	if ((TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
+		(TrngInstance->State == XSECURE_TRNG_UNINITIALIZED_STATE)) {
+		Status = XSecure_TrngInitNCfgHrngMode();
+	}
+	Status = XST_SUCCESS;
+END:
+#else
+	Status = XST_SUCCESS;
+#endif
+
+	return Status;
 }
