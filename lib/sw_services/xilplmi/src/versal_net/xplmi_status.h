@@ -20,7 +20,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *       dc   07/12/2022 Moved buffer clear status to here from xilloader and
-*                       added errror codes for OCP
+*                       added error codes for OCP
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/22/2022 Shutdown modules gracefully during update
@@ -699,6 +699,8 @@ typedef enum {
 	XOCP_PCR_ERR_GLITCH,		/**< 0x6A3 PCR operation error */
 
 	XOCP_DME_ERR = 0x6B0,		/**< 0x6B0 DME signing error */
+
+	XOCP_ERR_KAT_FAILED = 0x6C0, /**< 0x6C0 Error when KAT fails */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

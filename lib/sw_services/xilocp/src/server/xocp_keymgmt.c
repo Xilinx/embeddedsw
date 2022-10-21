@@ -26,13 +26,16 @@
 #include "xocp_keymgmt.h"
 #include "xocp_hw.h"
 #include "xplmi_dma.h"
+#include "xplmi.h"
+#include "xplmi_tamper.h"
 #include "xsecure_sha.h"
 #include "xsecure_hmac.h"
 #include "xsecure_elliptic.h"
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_ellipticplat.h"
 #include "xil_util.h"
-#include "xsecure_trng.h"
+#include "xsecure_init.h"
+#include "xsecure_plat_kat.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -63,14 +66,28 @@ static int XOcp_KeyGenerateDevAk(void);
  ******************************************************************************/
 int XOcp_KeyInit(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	int ClearStatus;
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+
+	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
+		(TrngInstance->ErrorState != XSECURE_TRNG_HEALTHY)) {
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status,
+			StatusTmp, XSecure_TrngPreOperationalSelfTests, TrngInstance);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+			goto END;
+		}
+		XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+	}
 
 	/* Generate private and public key pair for ECC */
 	Status = XOcp_KeyGenerateDevIk();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
 	Status = XOcp_KeyGenerateDevAk();
 
 END:

@@ -31,6 +31,8 @@
 #include "xil_util.h"
 #include "xsecure_sha.h"
 #include "xplmi_status.h"
+#include "xsecure_init.h"
+#include "xsecure_trng.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -131,7 +133,7 @@ int XOcp_GetPcr(XOcp_RomHwPcr PcrNum, u64 PcrBuf)
  * @brief	This function generates the response to DME challenge request.
  *
  * @param	NonceAddr holds the address of 48 bytes buffer Nonce,
- *		which shall be used to fill one of the member of DME sturcture
+ *		which shall be used to fill one of the member of DME structure
  * @param	DmeResPtr is the pointer to the 224 bytes buffer,
  *		which is used to store the response to DME challenge request of
  *		type XOcp_DmeResponse.
@@ -144,12 +146,14 @@ int XOcp_GetPcr(XOcp_RomHwPcr PcrNum, u64 PcrBuf)
 int XOcp_GenerateDmeResponse(u32 NonceAddr, XOcp_DmeResponse *DmeResPtr)
 {
 	int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	int ClearStatus = XST_FAILURE;
 	u32 *DevIkPubKey = (u32 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 Sha3Instance = {0U};
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
 	XOcp_Dme *DmePtr = &DmeResPtr->Dme;
+	XSecure_TrngInstance *TrngInstance = NULL;
 
 	/* Fill the DME structure with DEVICE ID */
 	Status = XSecure_Sha3Initialize(&Sha3Instance, PmcDmaInstPtr);
@@ -216,6 +220,18 @@ END:
 			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
 		}
 		Status = Status | XOCP_DME_ERR;
+	}
+	/*
+	 * ROM uses TRNG for DME service and resets the core after the usage
+	 * in this case TRNG state should be set to uninitialized state
+	 * so that PLM can re-initialize during runtime requests.
+	 */
+	TrngInstance = XSecure_GetTrngInstance();
+	if (TrngInstance->State != XSECURE_TRNG_UNINITIALIZED_STATE){
+		SStatus = XSecure_TrngUninstantiate(TrngInstance);
+		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
+			Status = SStatus | XOCP_DME_ERR;
+		}
 	}
 
 	return Status;
