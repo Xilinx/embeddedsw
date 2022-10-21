@@ -45,8 +45,6 @@
 #include "xsecure_sha.h"
 #endif
 #include "xplmi_scheduler.h"
-#include "xsecure_trng.h"
-#include "xsecure_plat_kat.h"
 #include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
@@ -908,7 +906,7 @@ END:
 /**
  * @brief	This function checks if MJTAG workaround is required
  *
- * @return	Error Code of Deferred Erorr
+ * @return	Error Code of Deferred Error
  *
  *****************************************************************************/
 int XLoader_ProcessDeferredError(void)
@@ -1026,27 +1024,9 @@ END:
 int XLoader_PlatInit(void)
 {
 	int Status = XST_FAILURE;
-	XSecure_TrngInstance *TrngInstancePtr = XSecure_GetTrngInstance();
 
 	Status = XLoader_InitSha1Instance();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
 
-	if (XPLMI_PLATFORM != PMC_TAP_VERSION_QEMU) {
-		Status = XSecure_TrngPreOperationalSelfTests(TrngInstancePtr);
-		if (Status != XST_SUCCESS) {
-			XPlmi_ClearKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
-			goto END;
-		}
-		else {
-			XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
-		}
-
-		Status = XSecure_TrngSetHrngMode();
-	}
-
-END:
 	return Status;
 }
 
@@ -1109,7 +1089,7 @@ END:
  * @param	DataAddr is the address of the data to be measured.
  * @param	DataSize is the size of the data to be measured.
  * @param	PcrInfo provides the PCR number to be extended.
- * @param	Flags - The hash calcualtion flags
+ * @param	Flags - The hash calculation flags
  * 			- XLOADER_MEASURE_START : Sha3 start
  * 			- XLOADER_MEASURE_UPDATE: Sha3 update
  * 			- XLOADER_MEASURE_FINISH: Sha3Finish
