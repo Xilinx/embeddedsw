@@ -108,7 +108,7 @@
 *       ma   09/07/2022 Print ERR number as per the register database
 * 1.09  bsv  09/30/2022 Make XPlmi_SoftResetHandler non-static so that
 *                       it can be used in Image Selector
-*
+*       sk   10/27/2022 Updated logic to handle invalid node id
 * </pre>
 *
 * @note
@@ -1002,6 +1002,11 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 	XPLMI_EXPORT_CMD(XPLMI_EM_SET_ACTION_CMD_ID, XPLMI_MODULE_ERROR_ID,
 		XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 
+	if ((ErrorNodeId  & (~XPLMI_NODE_TYPE_MASK)) != XIL_NODETYPE_EVENT_ERROR_ID_ENCODING) {
+		Status = XPLMI_INVALID_NODE_ID;
+		goto END1;
+	}
+
 	for ( ; ErrMasks != 0U; ErrMasks >>= 1U) {
 		if ((ErrMasks & 0x1U) == 0U) {
 			goto END;
@@ -1046,7 +1051,7 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 END:
 		++ErrorId;
 	}
-
+END1:
 	return Status;
 }
 

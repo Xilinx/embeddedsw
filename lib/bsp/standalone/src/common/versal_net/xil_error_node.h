@@ -36,6 +36,9 @@ extern "C" {
  * @ingroup xilnodeids
  * @{
  */
+
+#define XIL_NODETYPE_EVENT_ERROR_ID_ENCODING	(0x28100000U)
+
  /**
  * Error Event Node Ids
  */
