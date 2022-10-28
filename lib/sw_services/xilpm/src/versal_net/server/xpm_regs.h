@@ -295,6 +295,25 @@ extern "C" {
 #define CRP_RST_PS_PL_POR_MASK			(0x00000020U)
 #define CRP_RST_PS_PS_POR_MASK			(0x00000040U)
 
+/*
+ * Definitions required for NPI
+ */
+#define NPI_PCSR_UNLOCK_VAL                                     (0xF9E8D7C6U)
+#define NPI_PCSR_LOCK_OFFSET                                    (0x0000000CU)
+#define NPI_PCSR_MASK_OFFSET                                    (0x00000000U)
+#define NPI_PCSR_CONTROL_OFFSET                                 (0x00000004U)
+#define NPI_PCSR_STATUS_OFFSET                                  (0x00000008U)
+
+/*
+ * GTY PCSR Module
+ */
+#define GTY_PCSR_MASK_OFFSET					(0x00000000U)
+#define GTY_PCSR_CONTROL_OFFSET					(0x00000004U)
+#define GTY_PCSR_STATUS_OFFSET					(0x00000008U)
+#define GTY_PCSR_BISR_TRIGGER_MASK				(0x20000000U)
+#define GTY_PCSR_STATUS_BISR_DONE_MASK				(0x00080000U)
+#define GTY_PCSR_STATUS_BISR_PASS_MASK				(0x00100000U)
+
 #ifdef __cplusplus
 }
 #endif

@@ -11,15 +11,6 @@
 #include "xpm_debug.h"
 
 /* Defines */
-#define PMC_EFUSE_BISR_EXIT_CODE			(0U)
-#define PMC_EFUSE_BISR_SKIP_CODE			(0xFFFFFFFFU)
-#define PMC_EFUSE_BISR_TAG_ID_MASK			(0xFF000000U)
-#define PMC_EFUSE_BISR_TAG_ID_SHIFT			(24U)
-#define PMC_EFUSE_BISR_SIZE_MASK			(0x00FF0000U)
-#define PMC_EFUSE_BISR_SIZE_SHIFT			(16U)
-#define PMC_EFUSE_BISR_OPTIONAL_MASK			(0x0000FFFFU)
-#define PMC_EFUSE_BISR_OPTIONAL_SHIFT			(0U)
-
 #define TAG_ID_VALID_MASK				(0x80000000U)
 #define TAG_ID_TYPE_MASK				(0x7FFFFFFFU)
 
@@ -38,13 +29,7 @@
 #define TAG_ID_TYPE_GTM					(13U)
 #define TAG_ID_TYPE_XRAM				(14U)
 #define TAG_ID_TYPE_LAGUNA             (15U)
-#define TAG_ID_TYPE_VDU                 (16U)
 #define TAG_ID_ARRAY_SIZE				(256U)
-
-#define PMC_EFUSE_BISR_UNKN_TAG_ID			(0x1U)
-#define PMC_EFUSE_BISR_INVLD_TAG_ID			(0x2U)
-#define PMC_EFUSE_BISR_BAD_TAG_TYPE			(0x3U)
-#define PMC_EFUSE_BISR_UNSUPPORTED_ID			(0x4U)
 
 typedef struct XPm_NidbEfuseGrpInfo {
 	u8 RdnCntl;
@@ -78,11 +63,9 @@ static void XPmBisr_InitTagIdList(
 	XPmTagIdWhiteList[GTM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_GTM;
 	XPmTagIdWhiteList[XRAM_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_XRAM;
 	XPmTagIdWhiteList[LAGUNA_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_LAGUNA;
-	XPmTagIdWhiteList[VDU_TAG_ID] = TAG_ID_VALID_MASK | TAG_ID_TYPE_VDU;
 
 	return;
 }
-
 
 static XStatus XPmBisr_TagSupportCheck(u32 TagId,
 			const u32 (*XPmTagIdWhiteList)[TAG_ID_ARRAY_SIZE])
@@ -95,57 +78,6 @@ static XStatus XPmBisr_TagSupportCheck(u32 TagId,
 
 	return Status;
 }
-
-static void XPmBisr_SwError(u32 ErrorCode)
-{
-	XPm_Out32(PMC_GLOBAL_BASEADDR + PMC_GLOBAL_PMC_GSW_ERR_OFFSET,
-		  XPm_In32(PMC_GLOBAL_BASEADDR + PMC_GLOBAL_PMC_GSW_ERR_OFFSET) |
-			   ((u32)1U << ErrorCode) |
-			   (1UL << PMC_GLOBAL_PMC_GSW_ERR_CR_FLAG_SHIFT));
-	return;
-}
-
-static u32 __attribute__((__unused__)) XPmBisr_CopyStandard(u32 EfuseTagAddr, u32 TagSize, u64 BisrDataDestAddr)
-{
-	u64 TagRow;
-	u32 TagData;
-	u32 TagDataAddr;
-
-	u32 EfuseTagBitS1Addr;
-	u32 EfuseTagBitS2Addr;
-
-	//EFUSE Tag Data start pos
-	TagDataAddr = EfuseTagAddr + 4U;
-
-	EfuseTagBitS1Addr = (EFUSE_CACHE_BASEADDR + EFUSE_CACHE_TBITS1_BISR_RSVD_OFFSET);
-	EfuseTagBitS2Addr = (EFUSE_CACHE_BASEADDR + EFUSE_CACHE_TBITS2_BISR_RSVD_OFFSET);
-
-	//Collect Repair data from EFUSE and write to endpoint base + word offset
-	TagRow = 0U;
-	while (TagRow < (u64)TagSize) {
-		if ((TagDataAddr == EfuseTagBitS1Addr) || (TagDataAddr == EfuseTagBitS2Addr)) {
-			TagDataAddr += 4U;
-		}
-		TagData = XPm_In32(TagDataAddr);
-		swea(BisrDataDestAddr + (TagRow << 2U), TagData);
-		TagRow++;
-		TagDataAddr += 4U;
-	}
-	return TagDataAddr;
-}
-
-static XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr, u32 TagType)
-{
-	XStatus Status = XPM_ERR_BISR;
-	(void)EfuseTagAddr;
-	(void)TagSize;
-	(void)TagOptional;
-	(void)TagDataAddr;
-	(void)TagType;
-	PmErr("Not implemented");
-	return Status;
-}
-
 
 static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
@@ -212,24 +144,6 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	return Status;
 }
 
-static XStatus XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize)
-{
-	XStatus Status = XPM_ERR_BISR;
-	(void)EfuseTagAddr;
-	(void)TagSize;
-	PmErr("Not implemented");
-	return Status;
-}
-
-static XStatus XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize)
-{
-	XStatus Status = XPM_ERR_BISR;
-	(void)EfuseTagAddr;
-	(void)TagSize;
-	PmErr("Not implemented");
-	return Status;
-}
-
 static XStatus XPmBisr_RepairHardBlock(u32 EfuseTagAddr, u32 TagSize)
 {
 	XStatus Status = XPM_ERR_BISR;
@@ -249,24 +163,11 @@ static XStatus XPmBisr_RepairXram(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAdd
 	return Status;
 }
 
-
 static XStatus XPmBisr_RepairLaguna(u32 EfuseTagAddr, u32 TagSize)
 {
 	XStatus Status = XPM_ERR_BISR;
 	(void)EfuseTagAddr;
 	(void)TagSize;
-	PmErr("Not implemented");
-	return Status;
-}
-
-static XStatus XPmBisr_RepairVdu(u32 EfuseTagAddr, u32 TagSize,
-		u32 TagOptional, u32 *TagDataAddr)
-{
-	XStatus Status = XPM_ERR_BISR;
-	(void)EfuseTagAddr;
-	(void)TagSize;
-	(void)TagOptional;
-	(void)TagDataAddr;
 	PmErr("Not implemented");
 	return Status;
 }
@@ -350,7 +251,7 @@ XStatus XPmBisr_Repair(u32 TagId)
 					case TAG_ID_TYPE_GTYP:
 					case TAG_ID_TYPE_GTM:
 					case TAG_ID_TYPE_CPM5_GTYP:
-						Status = XPmBisr_RepairGty(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr, TagType);
+						Status = XPmBisr_RepairGty(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr, TagId);
 						break;
 					case TAG_ID_TYPE_DDRMC:
 						Status = XPmBisr_RepairDdrMc(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
@@ -384,9 +285,6 @@ XStatus XPmBisr_Repair(u32 TagId)
 						if (EfuseNextAddr != ~0U) {
 							Status = XST_SUCCESS;
 						}
-						break;
-					case TAG_ID_TYPE_VDU:
-						Status = XPmBisr_RepairVdu(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
 						break;
 					default: //block type not recognized, no function to handle it
 						XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);

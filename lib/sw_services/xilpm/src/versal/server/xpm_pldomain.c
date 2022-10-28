@@ -352,7 +352,7 @@ static XStatus VduHouseClean(void)
 		PmInfo("Triggering BISR for VDU\r\n");
 
 		/* Trigger VDU BISR */
-		Status = XPmBisr_Repair(VDU_TAG_ID);
+		Status = XPmBisr_Repair2(VDU_TAG_ID);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_VDU_BISR_REPAIR;
 			goto done;
@@ -947,7 +947,7 @@ static XStatus BfrbHouseClean(void)
 	}
 
 	/* Run BFRB BISR */
-	Status = XPmBisr_Repair(BFRB_TAG_ID);
+	Status = XPmBisr_Repair2(BFRB_TAG_ID);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BFRB_BISR_REPAIR;
 		goto done;

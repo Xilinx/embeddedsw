@@ -16,34 +16,6 @@
 
 /*****************************************************************************/
 /**
- * @brief This function unlocks the NPI PCSR registers.
- *
- * @param BaseAddr		Base address of the device
- *
- *****************************************************************************/
-inline void XPm_UnlockPcsr(u32 BaseAddr)
-{
-	XPm_Out32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_UNLOCK_VAL);
-}
-
-/*****************************************************************************/
-/**
- * @brief This function locks the NPI PCSR registers.
- *
- * @param BaseAddr      Base address of the device
- *
- *****************************************************************************/
-inline void XPm_LockPcsr(u32 BaseAddr)
-{
-	/*
-	 * Any value that is not the unlock value will lock the PCSR. For
-	 * consistency across all blocks, PCSR_LOCK_VAL is 0.
-	 */
-	XPm_Out32(BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
-}
-
-/*****************************************************************************/
-/**
  *  This function is used to set/clear bits in any NPI PCSR
  *
  *  @param BaseAddress	BaseAddress of device
