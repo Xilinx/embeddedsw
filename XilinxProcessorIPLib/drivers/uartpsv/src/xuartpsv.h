@@ -432,7 +432,9 @@ s32 XUartPsv_SetBaudRate(XUartPsv *InstancePtr, u32 BaudRate);
 
 void XUartPsv_ProgramCtrlReg(XUartPsv *InstancePtr, u32 CtrlRegister);
 
-void XUartPsv_Cleanup(XUartPsv *InstancePtr);
+void XUartPsv_CleanupRx(XUartPsv *InstancePtr);
+
+void XUartPsv_CleanupTx(XUartPsv *InstancePtr);
 
 /* Options functions in xuartpsv_options.c */
 void XUartPsv_SetOptions(XUartPsv *InstancePtr, u16 Options);
