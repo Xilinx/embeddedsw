@@ -329,6 +329,14 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Polarity = (u8)PM_ACTIVE_LOW,
 		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_CPM5 },
 	},
+	[XPM_NODEIDX_ISO_XRAM_PL_MAIN_CLK] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_XRAM_PL_MAIN_CLK),
+		.Node.BaseAddress = XRAM_SLCR_BASEADDR + XRAM_SLCR_MAIN_CLK_OFFSET,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = 0U,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_LPD },
+	},
 };
 
 static XStatus XPmDomainIso_CheckDependencies(u32 IsoIdx)
@@ -695,6 +703,16 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 					  XRAM_SLCR_APB_CLK_SRC_AXI_LITE_CLK_MASK);
 			}
 		}
+
+		if ((u32)XPM_NODEIDX_ISO_XRAM_PL_MAIN_CLK == IsoIdx) {
+			/* Set XRAM MAIN_CLK to PL clock */
+			XPm_Out32(XRAM_SLCR_BASEADDR + XRAM_SLCR_MAIN_CLK_OFFSET,
+				  XRAM_SLCR_MAIN_CLK_SRC_PL_CLK_MASK);
+			/* Set XRAM SRST source to PL SRST */
+			XPm_Out32(XRAM_SLCR_BASEADDR + XRAM_SLCR_RST_OFFSET,
+				  XRAM_SLCR_RST_SRC_PL_SRST_MASK);
+		}
+
 		XPmDomainIso_List[IsoIdx].Node.State = (u8)PM_ISOLATION_OFF;
 	}
 
