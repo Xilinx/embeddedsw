@@ -275,8 +275,8 @@ END:
 static void XSecure_ShowData(const u8* Data, u32 Len)
 {
 	u32 Index;
-	for (Index = 0U; Index < Len; Index++) {
-		xil_printf("%02x", Data[Index]);
+	for (Index = Len; Index > 0; Index--) {
+		xil_printf("%02x", Data[Index-1]);
 	}
 	xil_printf("\r\n");
 }

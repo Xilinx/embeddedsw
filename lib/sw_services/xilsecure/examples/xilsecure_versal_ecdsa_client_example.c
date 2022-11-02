@@ -379,7 +379,6 @@ int XSecure_TestP521(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 	xil_printf("\r\n");
 	xil_printf("Qy :");
 	XSecure_ShowData(Q +
-		XSECURE_ECC_P521_WORD_ALIGN_BYTES +
 		XSECURE_ECC_P521_SIZE_IN_BYTES, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
@@ -404,7 +403,6 @@ int XSecure_TestP521(XSecure_ClientInstance *InstancePtr, u8 *Q, u8 *R)
 	xil_printf("\r\n");
 	xil_printf("S :");
 	XSecure_ShowData(R +
-		XSECURE_ECC_P521_WORD_ALIGN_BYTES +
 		XSECURE_ECC_P521_SIZE_IN_BYTES, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
@@ -440,8 +438,8 @@ END:
 static void XSecure_ShowData(const u8* Data, u32 Len)
 {
 	u32 Index;
-	for (Index = 0U; Index < Len; Index++) {
-		xil_printf("%02x", Data[Index]);
+	for (Index = Len; Index > 0; Index--) {
+		xil_printf("%02x", Data[Index-1]);
 	}
 	xil_printf("\r\n");
 }
