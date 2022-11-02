@@ -862,7 +862,7 @@ static int XNvm_EfuseWritePufDataFromPload(XNvm_PufInfoDirectPload *PufData)
 	EfusePufData.RoSwap = PufData->RoSwap;
 
 	for (Index = 0U; Index < XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS; Index++) {
-		EfusePufData.EfuseSynData[Index] = *(u32 *)(UINTPTR)PufData->SynData[Index];
+		EfusePufData.EfuseSynData[Index] = PufData->SynData[Index];
 	}
 
 	Status = XNvm_EfuseWritePuf(&EfusePufData);

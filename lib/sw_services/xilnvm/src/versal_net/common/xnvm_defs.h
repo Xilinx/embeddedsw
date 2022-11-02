@@ -238,7 +238,7 @@ typedef struct {
 	u32 Chash;
 	u32 Aux;
 	u32 RoSwap;
-	u32 *SynData;
+	u32 SynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
 } XNvm_PufInfoDirectPload;
 
 typedef struct {
