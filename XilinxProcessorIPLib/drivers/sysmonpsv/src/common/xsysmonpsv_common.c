@@ -21,6 +21,7 @@
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     10/04/22 Update return value definitions
+*		se	   10/27/22 Secure and Non-Secure mode integration
 *
 * </pre>
 *
@@ -301,8 +302,8 @@ u32 XSysMonPsv_IsAlarmPresent(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 	Shift = SupplyReg % 32U;
 
 	/* Read the New data flag */
-	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
-			   &Status);
+	XSysMonPsv_Read_Reg(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
+			    &Status);
 
 	Status &= ((u32)1U << Shift);
 
@@ -342,14 +343,14 @@ u32 XSysMonPsv_ClearAlarm(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 	Shift = SupplyReg % 32U;
 
 	/* Read the New data flag */
-	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
-			   &Status);
+	XSysMonPsv_Read_Reg(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
+			    &Status);
 
 	Status &= ((u32)1U << Shift);
 
 	/* Clear the New data flag if its set */
-	XSysMonPsv_WriteReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
-			    Status);
+	XSysMonPsv_Write_Reg(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
+			     Status);
 
 	return (u32)XST_SUCCESS;
 }
@@ -383,7 +384,7 @@ int XSysMonPsv_InterruptEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 		  ((u32)IntrNum * XSYSMONPSV_PCSR_LOCK));
 
 	/* Enable the specified interrupts in the AMS Interrupt Enable Register. */
-	XSysMonPsv_WriteReg32(InstancePtr, Offset, Mask);
+	XSysMonPsv_Write_Reg(InstancePtr, Offset, Mask);
 
 	return XST_SUCCESS;
 }
@@ -417,7 +418,7 @@ int XSysMonPsv_InterruptDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 		  ((u32)IntrNum * XSYSMONPSV_PCSR_LOCK));
 
 	/* Disable the specified interrupts in the AMS Interrupt Disable Register. */
-	XSysMonPsv_WriteReg32(InstancePtr, Offset, Mask);
+	XSysMonPsv_Write_Reg(InstancePtr, Offset, Mask);
 
 	return XST_SUCCESS;
 }
@@ -443,7 +444,7 @@ int XSysMonPsv_InterruptGetStatus(XSysMonPsv *InstancePtr, u32 *IntrStatus)
 		return -XST_FAILURE;
 	}
 	/* Return the value read from the AMS ISR. */
-	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_ISR_OFFSET, IntrStatus);
+	XSysMonPsv_Read_Reg(InstancePtr, XSYSMONPSV_ISR_OFFSET, IntrStatus);
 	return XST_SUCCESS;
 }
 
@@ -465,7 +466,7 @@ void XSysMonPsv_InterruptClear(XSysMonPsv *InstancePtr, u32 Mask)
 	/* Assert the input arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_ISR_OFFSET, Mask);
+	XSysMonPsv_Write_Reg(InstancePtr, XSYSMONPSV_ISR_OFFSET, Mask);
 }
 
 /****************************************************************************/
@@ -483,6 +484,6 @@ void XSysMonPsv_UnlockRegspace(XSysMonPsv *InstancePtr)
 	/* Assert the input arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_LOCK,
-			    XSYSMONPSV_LOCK_CODE);
+	XSysMonPsv_Write_Reg(InstancePtr, XSYSMONPSV_PCSR_LOCK,
+			     XSYSMONPSV_LOCK_CODE);
 }

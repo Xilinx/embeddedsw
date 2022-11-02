@@ -19,6 +19,7 @@
 * 3.0   cog    03/25/21 Driver Restructure
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
+* 4.0   se     10/27/22 Secure and Non-Secure mode integration
 *
 * </pre>
 *
@@ -33,7 +34,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xil_assert.h"
-#include "xsysmonpsv_lowlevel.h"
 #if defined (ARMR5) || defined (__aarch64__)
 #include "xscugic.h"
 #endif
