@@ -16,6 +16,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- --------   -------------------------------------------------------
 * 3.0   kal  07/12/2022 Initial release
+* 3.1   kal  11/01/2022 Make Revocation id number 0 as valid to align with ROM
+*                       behaviour
 *
 * </pre>
 *
@@ -78,6 +80,7 @@ static int XNvm_EfuseProtectionChecks(void);
 #define XNVM_EFUSE_SKIP_VERIFY			(1U)
 #define XNVM_EFUSE_PROGRAM_VERIFY		(0U)
 #define XNVM_EFUSE_CRC_SALT			(0x000000FFU)
+#define XNVM_EFUSE_REVOKE_ID_127	(127U)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -459,8 +462,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 	u32 RevokeIdRow;
 	u32 RevokeIdCol;
 
-	if ((RevokeIdNum == 0U) ||
-		(RevokeIdNum > XNVM_MAX_REVOKE_ID_FUSES)) {
+	if (RevokeIdNum > (XNVM_MAX_REVOKE_ID_FUSES - 1U)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
@@ -475,15 +477,15 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 		goto END;
 	}
 
-	if (RevokeIdNum >= 1U && RevokeIdNum <= 128U) {
+	if (RevokeIdNum <= XNVM_EFUSE_REVOKE_ID_127) {
 		RevokeIdRow = XNVM_EFUSE_REVOKE_ID_0_TO_127_START_ROW;
 		RevokeIdCol = XNVM_EFUSE_REVOKE_ID_0_TO_127_START_COL_NUM;
 	} else {
 		RevokeIdRow = XNVM_EFUSE_REVOKE_ID_128_TO_255_START_ROW;
 		RevokeIdCol = XNVM_EFUSE_REVOKE_ID_128_TO_255_START_COL_NUM;
 	}
-	RevokeIdRow = RevokeIdRow + ((RevokeIdNum - 1U) / XNVM_EFUSE_BITS_IN_A_BYTE);
-	RevokeIdCol = RevokeIdCol + ((RevokeIdNum - 1U) % XNVM_EFUSE_BITS_IN_A_BYTE);
+	RevokeIdRow = RevokeIdRow + (RevokeIdNum / XNVM_EFUSE_BITS_IN_A_BYTE);
+	RevokeIdCol = RevokeIdCol + (RevokeIdNum % XNVM_EFUSE_BITS_IN_A_BYTE);
 
 	Status = XST_FAILURE;
 	Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
