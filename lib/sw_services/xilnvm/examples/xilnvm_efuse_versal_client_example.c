@@ -18,7 +18,7 @@
  * ------------------------------------------------------------------------------------------------------------
  * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
  * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
- * which is acccessible to both client and server.
+ * which is accessible to both client and server.
  *
  * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
  *
@@ -820,7 +820,7 @@ END:
 /****************************************************************************/
 /**
  * This function is used to initialize XNvm_EfuseAesKeys structure with user
- * provided data and assign it to global struture XNvm_EfuseDataAddr to program
+ * provided data and assign it to global structure XNvm_EfuseDataAddr to program
  * below eFuses.
  * - AES key
  * - AES User keys
@@ -893,7 +893,7 @@ END:
 /****************************************************************************/
 /**
  * This function is used to initialize the XNvm_EfusePpkHash structure with
- * user provided data and assign it to global struture XNvm_EfuseDataAddr to
+ * user provided data and assign it to global structure XNvm_EfuseDataAddr to
  * program PPK0/PPK1/PPK2 hash eFuses
  *
  * typedef struct {
@@ -983,7 +983,7 @@ END:
 /****************************************************************************/
 /**
  * This function is used to initialize the XNvm_EfuseDecOnly structure with
- * user provided data and assign the same to global struture XNvm_EfuseDataAddr
+ * user provided data and assign the same to global structure XNvm_EfuseDataAddr
  * to program DEC_ONLY eFuses.
  *
  * typedef struct {

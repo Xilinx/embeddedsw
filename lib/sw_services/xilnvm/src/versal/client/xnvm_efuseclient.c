@@ -26,7 +26,7 @@
 *       am   02/28/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 1.2   kal  08/22/22 Corrected revoke id column mask in
-*                     XNvm_EfuseWriteRevocationId funcion
+*                     XNvm_EfuseWriteRevocationId function
 * 3.1   skg  10/04/22 Added SlrIndex as part of payload based on user input
 *
 * </pre>

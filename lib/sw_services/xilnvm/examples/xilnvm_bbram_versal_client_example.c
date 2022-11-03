@@ -47,7 +47,7 @@
 * ------------------------------------------------------------------------------------------------------------
 * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
 * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
-* which is acccessible to both client and server.
+* which is accessible to both client and server.
 *
 * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
 *
@@ -141,9 +141,9 @@ static int XNvm_InputSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex);
 * @return
 *		- XST_FAILURE if the BBRAM programming failed.
 *
-* @note		By default PLM doesnt include the NVM client code, it is
+* @note		By default PLM does not include the NVM client code, it is
 * 		disabled by a macro PLM_NVM_EXCLUDE. So, to run this
-* 		client application succesfully we need to enable NVM code in
+* 		client application successfully we need to enable NVM code in
 * 		PLM before executing this application.
 *
 ******************************************************************************/
