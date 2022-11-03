@@ -45,7 +45,7 @@
 #include "xpm_mem.h"
 #include "xpm_debug.h"
 #include "xpm_pldevice.h"
-
+#include "xpm_powerdomain.h"
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
 		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
@@ -395,28 +395,33 @@ done:
 	return Status;
 }
 
-/****************************************************************************/
-/**
- * @brief  This function allows to initialize the node.
- *
- * @param  NodeId	Supported power domain nodes, PLD, AIE & Protection
- * nodes
- * @param  Function	Function id
- * @param  Args		Arguments speicifc to function
- * @param  NumArgs  Number of arguments
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   none
- *
- ****************************************************************************/
-XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
-{
-	//changed to support minimum boot time xilpm
 
+static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
+{
 	XStatus Status = XST_FAILURE;
-	PmDbg("NodeId: %x,Function %x\n",NodeId,Function);
+	XPm_PowerDomain *PwrDomainNode;
+
+	PwrDomainNode = (XPm_PowerDomain *)XPmPower_GetById(NodeId);
+	if (NULL == PwrDomainNode) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	switch (NODEINDEX(NodeId)) {
+	case (u32)XPM_NODEIDX_POWER_LPD:
+	case (u32)XPM_NODEIDX_POWER_FPD:
+	case (u32)XPM_NODEIDX_POWER_NOC:
+	case (u32)XPM_NODEIDX_POWER_PLD:
+	case (u32)XPM_NODEIDX_POWER_HNICX:
+	case (u32)XPM_NODEIDX_POWER_CPM5N:
+		Status = XPmPowerDomain_InitDomain(PwrDomainNode, Function,
+						   Args, NumArgs);
+		break;
+	default:
+		Status = XPM_INVALID_PWRDOMAIN;
+		break;
+	}
+
 	if((XPM_NODEIDX_POWER_LPD == NODEINDEX(NodeId))&&(FUNC_INIT_FINISH == Function)){
 		/*
 		 * Mark domain init status bit in DomainInitStatusReg
@@ -431,22 +436,53 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 	#else
 		PmWarn("IPI is not enabled in design\r\n");
 	#endif /* XPLMI_IPI_DEVICE_ID */
-	}else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
+	}
+done:
+	if (XST_SUCCESS != Status) {
+		PmErr("0x%x in InitNode for NodeId: 0x%x Function: 0x%x\r\n",
+		       Status, NodeId, Function);
+	}
+	return Status;
+}
+/****************************************************************************/
+/**
+ * @brief  This function allows to initialize the node.
+ *
+ * @param  NodeId	Supported power domain nodes, PLD
+ * @param  Function	Function id
+ * @param  Args		Arguments speicifc to function
+ * @param  NumArgs  Number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   none
+ *
+ ****************************************************************************/
+XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	if (((u32)XPM_NODECLASS_POWER == NODECLASS(NodeId)) &&
+	    ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(NodeId)) &&
+	    ((u32)XPM_NODEIDX_POWER_MAX > NODEINDEX(NodeId))) {
+		Status = PwrDomainInitNode(NodeId, Function, Args, NumArgs);
+		/*TODO: remove this asap*/
+		Status = XST_SUCCESS;
+	} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(NodeId)) &&
 		  ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(NodeId)) &&
 		  ((u32)XPM_NODEIDX_DEV_PLD_MAX > NODEINDEX(NodeId))) {
 		Status = PldInitNode(NodeId, Function, Args, NumArgs);
+		/* TODO: remove this asap*/
 		Status = XST_SUCCESS;
-		goto done;
-	}else{
-		PmErr("UnSupported Node %x\n",NodeId);
+	} else {
 		Status = XPM_PM_INVALID_NODE;
-		goto done;
+		DbgErr = XPM_INT_ERR_INITNODE;
 	}
 
-	Status = XST_SUCCESS;
-done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
-
 }
 
 /****************************************************************************/

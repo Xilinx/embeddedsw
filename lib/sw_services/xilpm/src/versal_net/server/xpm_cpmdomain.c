@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +15,31 @@
 #include "xpm_pldomain.h"
 #include "xpm_psm_api.h"
 #include "xpm_api.h"
+static XStatus Cpm5nInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	(void)PwrDomain;
+	(void)Args;
+	(void)NumOfArgs;
+	Status = XST_SUCCESS;
+	return Status;
+}
 
+static XStatus Cpm5nInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+	(void)PwrDomain;
+	(void)Args;
+	(void)NumOfArgs;
+	Status = XST_SUCCESS;
+	return Status;
+}
+static const struct XPm_PowerDomainOps Cpm5nOps = {
+		.InitStart = Cpm5nInitStart,
+		.InitFinish = Cpm5nInitFinish
+};
 
 XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 			  XPm_Power *Parent, const u32 *OtherBaseAddresses,
@@ -24,7 +48,7 @@ XStatus XPmCpmDomain_Init(XPm_CpmDomain *CpmDomain, u32 Id, u32 BaseAddress,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Status = XPmPowerDomain_Init(&CpmDomain->Domain, Id, BaseAddress, Parent, NULL);
+	Status = XPmPowerDomain_Init(&CpmDomain->Domain, Id, BaseAddress, Parent, &Cpm5nOps);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;

@@ -17,7 +17,7 @@
 #include "xpm_api.h"
 #include "xpm_debug.h"
 #include "xpm_err.h"
-
+#include "xpm_domain_iso.h"
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
 			    const struct XPm_PowerDomainOps *Ops)
@@ -219,4 +219,59 @@ XStatus XPm_PowerUpHnicx(void)
 	Status = XST_SUCCESS;
 
         return Status;
+}
+XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
+				  const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	const struct XPm_PowerDomainOps *Ops = PwrDomain->DomainOps;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	switch (Function) {
+	case (u32)FUNC_INIT_START:
+		PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_INITIALIZING;
+		if ((NULL != Ops) && (NULL != Ops->InitStart)) {
+			Status = Ops->InitStart(PwrDomain, Args, NumArgs);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_INIT_START;
+				goto done;
+			}
+		}
+
+		Status = XST_SUCCESS;
+		break;
+	case (u32)FUNC_INIT_FINISH:
+		if ((u8)XPM_POWER_STATE_INITIALIZING != PwrDomain->Power.Node.State) {
+			DbgErr = XPM_INT_ERR_INVALID_PWR_STATE;
+			PmWarn("[INIT_FINISH]Skip. PwrDomain 0x%X is in wrong state 0x%X\n\r", \
+				PwrDomain->Power.Node.Id, PwrDomain->Power.Node.State);
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		if ((NULL != Ops) && (NULL != Ops->InitFinish)) {
+			Status = Ops->InitFinish(PwrDomain, Args, NumArgs);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
+				goto done;
+			}
+			PwrDomain->Power.Node.State = (u8)XPM_POWER_STATE_ON;
+		}
+
+		Status = XPmDomainIso_ProcessPending();
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DOMAIN_ISO;
+			goto done;
+		}
+
+		Status = XST_SUCCESS;
+		break;
+	default:
+		DbgErr = XPM_INT_ERR_INVALID_FUNC;
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }

@@ -20,6 +20,39 @@ static XCframe CframeIns = {0};
  */
 #define CRAM_TRIM_RW_READ_VOLTAGE	0x08000B80U
 
+
+static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+
+	(void)PwrDomain;
+	(void)Args;
+	(void)NumOfArgs;
+
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+
+static XStatus PldInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
+		u32 NumOfArgs)
+{
+	XStatus Status = XST_FAILURE;
+
+	(void)PwrDomain;
+	(void)Args;
+	(void)NumOfArgs;
+
+	Status = XST_SUCCESS;
+
+	return Status;
+}
+static const struct XPm_PowerDomainOps PlDomainOps = {
+	.InitStart = PldInitStart,
+	.InitFinish = PldInitFinish,
+};
+
 XStatus XPmPlDomain_RetriggerPlHouseClean(void)
 {
 	/**
@@ -38,7 +71,7 @@ XStatus XPmPlDomain_Init(XPm_PlDomain *PlDomain, u32 Id, u32 BaseAddress,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	Status = XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, NULL);
+	Status = XPmPowerDomain_Init(&PlDomain->Domain, Id, BaseAddress, Parent, &PlDomainOps);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
 		goto done;

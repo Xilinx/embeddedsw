@@ -25,7 +25,6 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 struct XPm_PowerDomainOps {
 	XStatus (*InitStart)(XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
 	XStatus (*InitFinish)(const XPm_PowerDomain *PwrDomain, const u32 *Args, u32 NumOfArgs);
-	const u16 InitMask;	/**< Mask to indicate which Ops are present */
 };
 
 struct XPm_PowerDomain {
@@ -54,7 +53,8 @@ XStatus XPm_PowerUpNoC(XPm_Node *Node);
 XStatus XPm_PowerDwnNoC(void);
 XStatus XPm_PowerUpHnicx(void);
 XStatus XPm_PowerDwnHnicx(void);
-
+XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
+				  const u32 *Args, u32 NumArgs);
 #ifdef __cplusplus
 }
 #endif
