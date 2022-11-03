@@ -1,5 +1,6 @@
 #/******************************************************************************
-#* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -94,7 +95,7 @@ proc get_mem_type { mem } {
 	return "OCM"
     }
     if { $mem_type == "MEMORY_CNTLR"} {
-       if { 0xFFFC0000 == [lindex $base_addr 0] || 0xBBF80000 == [lindex $base_addr 0]} {
+       if { 0xFFFC0000 == [lindex $base_addr 0] || 0xBBF80000 == [lindex $base_addr 0] || 0xBBF00000 == [lindex $base_addr 0] } {
 	return "OCM"
        }
     }
