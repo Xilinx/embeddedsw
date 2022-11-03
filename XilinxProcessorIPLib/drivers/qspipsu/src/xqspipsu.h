@@ -167,6 +167,7 @@
  * 1.13 sne 04/23/21 Fixed doxygen warnings.
  * 1.14 akm 06/24/21 Allow enough time for the controller to reset the FIFOs.
  * 1.14 akm 08/12/21 Perform Dcache invalidate at the end of the DMA transfer.
+ * 1.17 akm 10/31/22 Add support for Winbond flash w25q02nw.
  *
  * </pre>
  *

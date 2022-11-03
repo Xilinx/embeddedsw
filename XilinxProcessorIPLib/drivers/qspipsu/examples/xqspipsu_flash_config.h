@@ -27,6 +27,7 @@
 * 1.13  akm 12/10/20 Set Read command as per the qspi bus width.
 * 1.14  akm 07/16/21 Enable Quad Mode for Winbond flashes.
 * 1.15  akm 11/19/21 Fix read/write failures on Spansion flash parts.
+* 1.17  akm 10/31/22 Add support for Winbond flash w25q02nw.
 *
 *</pre>
 *
@@ -264,6 +265,9 @@ FlashInfo Flash_Config_Table[] = {
 		0x10000, 0x1000000, 0xFFFF0000, 1},
 	/*w25h02jv*/
 	{0xef9022, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
+		0x100000, 0x10000000, 0xFFFF0000, 4},
+	/*w25q02nw*/
+	{0xef8022, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
 		0x100000, 0x10000000, 0xFFFF0000, 4},
 	/* Macronix */
 	/*mx66l1g45g*/
