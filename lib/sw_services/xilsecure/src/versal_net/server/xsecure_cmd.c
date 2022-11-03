@@ -24,7 +24,7 @@
 *       rb   08/11/2021 Fix compilation warnings
 * 5.0   kpt  07/24/2022 Added XSecure_KatIpiHandler and support to go into
 *                       secure lockdown when KAT fails
-*
+* 5.1   skg  10/17/2022 Added Null to invalid command handler of secure module
 *
 * </pre>
 *
@@ -61,6 +61,7 @@ static XPlmi_Module XPlmi_Secure =
 	XPLMI_MODULE_XILSECURE_ID,
 	XSecure_Cmds,
 	XSECURE_API(XSECURE_API_MAX),
+	NULL,
 	XSecure_CheckIpiAccess,
 	NULL,
 };
