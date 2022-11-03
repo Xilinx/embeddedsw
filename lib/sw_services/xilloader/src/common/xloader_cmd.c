@@ -62,6 +62,7 @@
 *       bm   07/18/2022 Shutdown modules gracefully during update
 *       ma   07/27/2022 Added support for CFrame data clear check which is
 *                       required during PL secure lockdown
+*       skg  10/17/2022 Added Null to invalid command handler of xilloader cmd module
 *
 * </pre>
 *
