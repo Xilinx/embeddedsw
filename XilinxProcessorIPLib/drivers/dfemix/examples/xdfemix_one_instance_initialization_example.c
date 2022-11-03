@@ -17,6 +17,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.1   dc     07/21/21 Add and reorganise examples
+* 1.5   dc     10/24/22 Switching Uplink/Downlink support
 *
 * </pre>
 *
@@ -80,6 +81,7 @@ int XDfeMix_SelfTestExample()
 	/* Go through initialization states of the state machine */
 	XDfeMix_Reset(InstancePtr);
 	XDfeMix_Configure(InstancePtr, &Cfg);
+	Init.TuserSelect = XDFEMIX_SWITCHABLE_CONTROL_TUSER_SEL_DOWNLINK;
 	XDfeMix_Initialize(InstancePtr, &Init);
 	XDfeMix_Activate(InstancePtr, false);
 

@@ -78,6 +78,7 @@
 * 1.4   dc     03/28/22 Update documentation
 *       dc     08/19/22 Update register map
 * 1.5   dc     09/28/22 Auxiliary NCO support
+*       dc     10/24/22 Switching Uplink/Downlink support
 *
 * </pre>
 * @endcond
@@ -245,6 +246,8 @@ typedef struct {
 		and "Operational" state. */
 	XDfeMix_Trigger CCUpdate; /**< Transition to next CC
 		configuration. Will initiate flush based on CC configuration. */
+	XDfeMix_Trigger Switch; /**< Switch between Downlink and Uplink datapth
+		configuration. Will initiate flush based on CC configuration. */
 } XDfeMix_TriggerCfg;
 
 /**
@@ -255,6 +258,7 @@ typedef struct {
 	s32 CCID[XDFEMIX_SEQ_LENGTH_MAX]; /**< [0-15].Array of CCID's
 		arranged in the order the CCIDs are required to be processed
 		in the DUC/DDC Mixer. */
+	s32 NotUsedCCID; /**< Lowest CCID number not allocated */
 } XDfeMix_CCSequence;
 
 /*********** end - common code to all Logiccores ************/
@@ -290,6 +294,7 @@ typedef struct {
  */
 typedef struct {
 	XDfeMix_CCSequence Sequence; /**< CCID Sequence. */
+	u32 TuserSelect; /**< [0,1] Select DL or UL TUSER */
 } XDfeMix_Init;
 
 /**
@@ -433,6 +438,10 @@ typedef struct {
 		overflow has occurred. */
 	u32 FirstCCIDOverflowing; /**< [0-15] Lowest CCID in which overflow has
 		occurred. */
+	u32 Mode; /** [0-1] In Switchable the mode of core when the overflow
+		occured.
+		- 0 = DOWNLINK: Overflow occured while core is in downlink.
+		- 1 = UPLINK: Overflow occured while core is in uplink. */
 } XDfeMix_DUCDDCStatus;
 
 /**
@@ -452,6 +461,10 @@ typedef struct {
 		in mixer. */
 	u32 MixAntenna; /**< [0-7] Lowest antenna in which overflow has
 		occurred. */
+	u32 Mode; /** [0-1] In Switchable the mode of core when the overflow
+		occured.
+		- 0 = DOWNLINK: Overflow occured while core is in downlink.
+		- 1 = UPLINK: Overflow occured while core is in uplink. */
 } XDfeMix_MixerStatus;
 
 /**
@@ -480,7 +493,7 @@ typedef XDfeMix_Status XDfeMix_InterruptMask;
 typedef struct {
 	u32 DeviceId; /**< Device Id */
 	metal_phys_addr_t BaseAddr; /**< Device base address */
-	u32 Mode; /**< [0,1] 0=downlink, 1=uplink */
+	u32 Mode; /**< [0,1] 0=downlink, 1=uplink, 2=switchable */
 	u32 NumAntenna; /**< [1,2,4,8] */
 	u32 MaxUseableCcids; /**< [2,4,8] */
 	u32 Lanes; /**< [1-8] */
@@ -500,7 +513,10 @@ typedef struct {
 typedef struct {
 	XDfeMix_Config Config; /**< Config Structure */
 	XDfeMix_StateId StateId; /**< StateId */
-	s32 NotUsedCCID; /**< Lowest CCID number not allocated */
+	s32 NotUsedCCID; /**< Lowest CCID number not allocated, in
+		non-switchable mode, also for DL in switchable mode */
+	s32 NotUsedCCID_UL; /**< Lowest CCID number not allocated for UL in
+		switchable mode */
 	u32 SequenceLength; /**< Exact sequence length */
 	char NodeName[XDFEMIX_NODE_NAME_MAX_LENGTH]; /**< Node name */
 	struct metal_io_region *Io; /**< Libmetal IO structure */
@@ -532,6 +548,9 @@ XDfeMix_StateId XDfeMix_GetStateID(XDfeMix *InstancePtr);
 
 /* User APIs */
 void XDfeMix_GetCurrentCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg);
+void XDfeMix_GetCurrentCCCfgSwitchable(const XDfeMix *InstancePtr,
+				       XDfeMix_CCCfg *CCCfgDownlink,
+				       XDfeMix_CCCfg *CCCfgUplink);
 void XDfeMix_GetEmptyCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg);
 void XDfeMix_GetCarrierCfgAndNCO(const XDfeMix *InstancePtr,
 				 XDfeMix_CCCfg *CCCfg, s32 CCID,
@@ -554,8 +573,11 @@ void XDfeMix_RemoveAuxNCOfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 
 u32 XDfeMix_UpdateCCinCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 			    s32 CCID, const XDfeMix_CarrierCfg *CarrierCfg);
-u32 XDfeMix_SetNextCCCfgAndTrigger(const XDfeMix *InstancePtr,
+u32 XDfeMix_SetNextCCCfgAndTrigger(XDfeMix *InstancePtr,
 				   const XDfeMix_CCCfg *CCCfg);
+u32 XDfeMix_SetNextCCCfgAndTriggerSwitchable(XDfeMix *InstancePtr,
+					     XDfeMix_CCCfg *CCCfgDownlink,
+					     XDfeMix_CCCfg *CCCfgUplink);
 u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 		  const XDfeMix_CarrierCfg *CarrierCfg, const XDfeMix_NCO *NCO);
 u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID);
@@ -586,6 +608,7 @@ void XDfeMix_SetTUserDelay(const XDfeMix *InstancePtr, u32 Delay);
 u32 XDfeMix_GetTUserDelay(const XDfeMix *InstancePtr);
 u32 XDfeMix_GetTDataDelay(const XDfeMix *InstancePtr, u32 Tap, u32 *TDataDelay);
 u32 XDfeMix_GetCenterTap(const XDfeMix *InstancePtr, u32 Rate, u32 *CenterTap);
+void XDfeMix_SetRegBank(const XDfeMix *InstancePtr, u32 RegBank);
 void XDfeMix_GetVersions(const XDfeMix *InstancePtr, XDfeMix_Version *SwVersion,
 			 XDfeMix_Version *HwVersion);
 

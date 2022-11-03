@@ -20,6 +20,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/19/22 Update register map
+* 1.5   dc     10/24/22 Switching Uplink/Downlink support
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -109,6 +110,7 @@ int XDfeMix_MultiAddCCExample()
 	XDfeMix_Configure(InstancePtr, &Cfg);
 	/* Initialise */
 	Init.Sequence.Length = 16;
+	Init.TuserSelect = XDFEMIX_SWITCHABLE_CONTROL_TUSER_SEL_DOWNLINK;
 	XDfeMix_Initialize(InstancePtr, &Init);
 
 	/* Set trigger */
