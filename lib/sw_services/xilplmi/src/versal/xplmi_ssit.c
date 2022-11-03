@@ -37,7 +37,7 @@
 *                       Slave SLRs after completing synchronization
 *       ma   09/17/2022 Check SlavesMask before checking for sync initiation
 *                       from Slave SLRs in XPlmi_SsitSyncEventHandler
-* 1.8   skg  10/04/2022 Added logic to handle invalid commads
+* 1.8   skg  10/04/2022 Added logic to handle invalid commands
 *
 * </pre>
 *
@@ -1343,7 +1343,7 @@ int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
  * @brief	This function checks which Slave SLR this code is running on and
  * 	returns corresponding SSIT mask of PMC GLOBAL PMC_ERROR2_STATUS register
  *
- * @return	return 0 if error occured. Else return one of the ERR_MASK.
+ * @return	return 0 if error occurred. Else return one of the ERR_MASK.
  *
  *****************************************************************************/
 static u32 XPlmi_SsitGetSlaveErrorMask(void)

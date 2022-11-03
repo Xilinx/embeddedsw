@@ -29,7 +29,7 @@
 *       is   07/10/2022 Added support for XPlmi_SsitSendMsgEventAndGetResp API
 *       ma   08/10/2022 Added dummy PLM to PLM communication APIs to be used
 *                       by other components when the feature is not enabled
-* 1.8   skg  10/04/2022 Added logic to handle invalid commads
+* 1.8   skg  10/04/2022 Added logic to handle invalid commands
 *
 * </pre>
 *

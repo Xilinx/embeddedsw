@@ -35,7 +35,7 @@
 *       ma   07/08/2022 Move ScatterWrite and ScatterWrite2 APIs to common code
 *       jd   08/11/2022 Increase command argument count macros from 6 to 12
 *       jd   08/31/2022 Typecasting CmdIdVal to u8 in XPLMI_EXPORT_CMD
-* 1.8   skg  10/04/2022 Added Inavlid hidden handler to handle inavalid Commads which includes SlrIndex
+* 1.8   skg  10/04/2022 Added Invalid command handler to handle invalid Commands which includes SlrIndex in cmd id
 * </pre>
 *
 * @note

@@ -35,6 +35,7 @@
 *       ma   08/19/2021 Renamed error related macros
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/13/2022 Update EAM logic for In-Place PLM Update
+* 1.08  skg  10/17/2022 Added Null to invalid cmd handler of xplmi_ErrModule
 *
 * </pre>
 *
@@ -244,6 +245,7 @@ static XPlmi_Module XPlmi_ErrModule =
 	XPLMI_MODULE_ERROR_ID,
 	XPlmi_ErrCmds,
 	XPLMI_ARRAY_SIZE(XPlmi_ErrCmds),
+	NULL,
 	NULL,
 #ifdef VERSAL_NET
 	NULL
