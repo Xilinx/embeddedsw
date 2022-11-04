@@ -24,6 +24,7 @@
 #                         proc to read those parameters.
 # 2.11  sd  01/07/22 Updated tcl to support microblaze
 # 2.12  sd  02/24/22 Added support for VERSAL NET
+# 2.13  sd  11/03/22 Add hack to support cores
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -74,6 +75,9 @@ proc ipi_find_cpu {ipi_list param hw_proc} {
 		}
 		if {[string match -nocase $ip_name "psv_cortexr5"] || [string match -nocase $ip_name "psxl_cortexr52"] || [string match -nocase $ip_name "psx_cortexr52"]} {
 			set ip_name "${ip_name}_$index"
+		}
+		if { [string match -nocase  "*A78*"  "*$param_value*" ] } {
+			set param_value "A78"
 		}
 		if { [string match -nocase "*$param_value*" $ip_name] } {
 			lappend proc_ipi_slave $ipi
