@@ -858,6 +858,10 @@ extern "C" {
 #define PM_DEV_FPD_SWDT_1			(0x182240DCU)
 #define PM_DEV_FPD_SWDT_2			(0x182240DDU)
 #define PM_DEV_FPD_SWDT_3			(0x182240DEU)
+#define PM_DEV_DDRMC_4				(0x185200DFU)
+#define PM_DEV_DDRMC_5				(0x185200E0U)
+#define PM_DEV_DDRMC_6				(0x185200E1U)
+#define PM_DEV_DDRMC_7				(0x185200E2U)
 /** @} */
 
 /**
