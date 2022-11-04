@@ -1680,6 +1680,61 @@ static XStatus AddPlDevice(const u32 *Args, u32 PowerId)
 done:
 	return Status;
 }
+
+static XStatus AddMemCtrlrDevice(const u32 *Args, u32 PowerId)
+{
+	XStatus Status = XST_FAILURE;
+	u32 DeviceId;
+	u32 Type;
+	XPm_Device *Device;
+	XPm_MemCtrlrDevice *MemCtrlr;
+	XPm_Power *Power;
+	u32 BaseAddr;
+
+	DeviceId = Args[0];
+	BaseAddr = Args[2];
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Type = NODETYPE(DeviceId);
+
+	if (NULL != XPmDevice_GetById(DeviceId)) {
+		Status = XST_DEVICE_BUSY;
+		goto done;
+	}
+
+	switch (Type) {
+	case (u32)XPM_NODETYPE_DEV_HBM:
+		Device = (XPm_Device *)XPm_AllocBytes(sizeof(XPm_Device));
+		if (NULL == Device) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmDevice_Init(Device, DeviceId, BaseAddr,
+					Power, NULL, NULL);
+		break;
+	case (u32)XPM_NODETYPE_DEV_DDR:
+		MemCtrlr = (XPm_MemCtrlrDevice *)XPm_AllocBytes(sizeof(XPm_MemCtrlrDevice));
+		if (NULL == MemCtrlr) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		Status = XPmDevice_Init(&MemCtrlr->Device, DeviceId, BaseAddr,
+					Power, NULL, NULL);
+		break;
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+	}
+
+done:
+	return Status;
+}
+
 /****************************************************************************/
 /**
  * @brief  This function adds device node to device topology database
@@ -1736,6 +1791,9 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODESUBCL_DEV_PL:
 		Status = AddPlDevice(Args, PowerId);
+		break;
+	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
+		Status = AddMemCtrlrDevice(Args, PowerId);
 		break;
 	default:
 		Status = XPm_PlatAddDevice(Args, NumArgs);
