@@ -43,6 +43,7 @@
 *       bm   01/20/2022 Fix compilation warnings in Xil_SMemCpy
 *       skd  03/03/2022 Minor bug fix in XPlmi_MemCpy64
 * 1.07  bm   07/06/2022 Refactor versal and versal_net code
+* 1.08  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *
 * </pre>
 *
@@ -243,6 +244,11 @@ static void XPlmi_SSSCfgSbiDma(u32 Flags)
 	} else {
 		/* MISRA-C compliance */
 	}
+	/*
+	 * Clear SSS Cfg Error set during ROM PCR Extension
+	 * Applicable only for Versal Net
+	 */
+	XPlmi_ClearSSSCfgErr();
 }
 
 /*****************************************************************************/

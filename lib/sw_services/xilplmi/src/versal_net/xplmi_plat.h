@@ -25,6 +25,7 @@
 *       bm   07/22/2022 Shutdown modules gracefully during update
 *       ma   07/27/2022 Added XPlmi_SsitEventsInit function
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
+* 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *
 * </pre>
 *
@@ -395,6 +396,7 @@ u8 XPlmi_IsFipsModeEn(void);
 u32 XPlmi_GetRomKatStatus(void);
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
 void XPlmi_IpiIntrHandler(void *CallbackRef);
+void XPlmi_ClearSSSCfgErr(void);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);

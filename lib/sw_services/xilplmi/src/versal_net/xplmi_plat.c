@@ -22,6 +22,7 @@
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/22/2022 Shutdown modules gracefully during update
+* 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *
 * </pre>
 *
@@ -876,5 +877,27 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 		XPlmi_UpdateKatStatus(*PlmKatStatus);
 	} else {
 		*PlmKatStatus = XPLMI_KAT_MASK;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears SSS Cfg error set during ROM PCR Extension
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_ClearSSSCfgErr(void)
+{
+	static u32 SSSCfgErrCleared = (u32)FALSE;
+	u32 PmcIsr;
+
+	if ((SSSCfgErrCleared != TRUE) && (XPlmi_IsPlmUpdateDone() != TRUE)) {
+		PmcIsr = XPlmi_In32(PMC_GLOBAL_ISR);
+		if ((PmcIsr & PMC_GLOBAL_SSS_CFG_ERR_MASK) ==
+				PMC_GLOBAL_SSS_CFG_ERR_MASK) {
+			XPlmi_Out32(PMC_GLOBAL_ISR, PMC_GLOBAL_SSS_CFG_ERR_MASK);
+			SSSCfgErrCleared = (u32)TRUE;
+		}
 	}
 }

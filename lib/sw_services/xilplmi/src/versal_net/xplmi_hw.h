@@ -26,6 +26,7 @@
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 *       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *       ma   07/25/2022 Enhancements to secure lockdown code
+* 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *
 * </pre>
 *
@@ -458,6 +459,11 @@ extern "C" {
  * TAMPER_INT mask value
  */
 #define PMC_GLOBAL_TAMPER_INT_MASK	(0x00000008U)
+
+/*
+ * SSS_CFG_ERR mask value
+ */
+#define PMC_GLOBAL_SSS_CFG_ERR_MASK	(0x00000002U)
 
 /*
  * Register: PMC_GLOBAL_TAMPER_RESP_0

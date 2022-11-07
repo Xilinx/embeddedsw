@@ -25,6 +25,7 @@
 *       bm   07/22/2022 Retain critical data structures after In-Place PLM Update
 *       bm   07/22/2022 Shutdown modules gracefully during update
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
+* 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *
 * </pre>
 *
@@ -304,6 +305,19 @@ static inline int XPlmi_UpdateInit(void *CompatibilityHandler)
 static inline void XPlmi_IpiIntrHandler(void *CallbackRef)
 {
 	(void)CallbackRef;
+	/* Not Applicable for Versal */
+	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for versal
+ *
+ * @return 	None
+ *
+ *****************************************************************************/
+static inline void XPlmi_ClearSSSCfgErr(void)
+{
 	/* Not Applicable for Versal */
 	return;
 }
