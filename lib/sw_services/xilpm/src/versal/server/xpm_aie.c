@@ -247,8 +247,8 @@ static void TriggerEccScrub(const XPm_AieDomain *AieDomain, u32 Action)
  *****************************************************************************/
 static void AieClkGateByCol(const XPm_AieDomain *AieDomain)
 {
-	u16 StartCol = AieDomain->Array.StartCol;
-	u16 EndCol = StartCol + AieDomain->Array.NumColsAdjusted;
+	u16 StartCol = 0;	/* always start from col 0 */
+	u16 EndCol = StartCol + AieDomain->Array.NumCols;	/* always use total no. of cols */
 	u16 StartRow = 0U;	/* Shim row is always row zero */
 	u16 EndRow = AieDomain->Array.NumShimRows;
 
