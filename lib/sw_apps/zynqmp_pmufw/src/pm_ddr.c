@@ -729,12 +729,10 @@ static void ddr_disable_rd_drift(void)
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLC;
-	r |= (1U << DDRPHY_DQSDR1_DFTRDIDLC_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(1U), r);
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLF;
-	r |= ((u32)10U << DDRPHY_DQSDR1_DFTRDIDLF_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(1U), r);
 }
 
@@ -807,10 +805,12 @@ static void ddr_enable_rd_drift(void)
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLC;
+	r |= (1U << DDRPHY_DQSDR1_DFTRDIDLC_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(1U), r);
 
 	r = Xil_In32(DDRPHY_DQSDR(1U));
 	r &= ~DDRPHY_DQSDR1_DFTRDIDLF;
+	r |= ((u32)10U << DDRPHY_DQSDR1_DFTRDIDLF_SHIFT);
 	Xil_Out32(DDRPHY_DQSDR(1U), r);
 
 	r = Xil_In32(DDRPHY_DQSDR(0U));
@@ -1270,8 +1270,6 @@ static void DDR_reinit(bool ddrss_is_reset)
 					      PM_DDR_POLL_PERIOD);
 		REPORT_IF_ERROR(status);
 
-		ddr_enable_drift();
-
 		/* FIFO reset */
 		readVal = Xil_In32(DDRPHY_PGCR(0U));
 		readVal |= DDRPHY_PGCR0_PHYFRST;
@@ -1285,8 +1283,6 @@ static void DDR_reinit(bool ddrss_is_reset)
 
 		Xil_Out32(DDRC_DFIMISC, DDRC_DFIMISC_DFI_INIT_COMP_EN);
 		Xil_Out32(DDRC_SWCTL, DDRC_SWCTL_SW_DONE);
-	} else {
-		ddr_enable_drift();
 	}
 
 	Xil_Out32(DDRC_PWRCTL, 0U);
@@ -1457,6 +1453,11 @@ static void DDR_reinit(bool ddrss_is_reset)
 				      DDRPHY_PIR_RDEYE |
 				      DDRPHY_PIR_WRDSKW |
 				      DDRPHY_PIR_RDDSKW);
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_WREYE |
+				      DDRPHY_PIR_RDEYE |
+				      DDRPHY_PIR_WRDSKW |
+				      DDRPHY_PIR_RDDSKW |
+					  DDRPHY_PIR_INIT);
 		status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
 					      DDRPHY_PGSR0_IDONE,
 					      PM_DDR_POLL_PERIOD);
@@ -1477,6 +1478,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 			Xil_Out32(DDRC_PCTRL(i), readVal);
 		}
 	}
+	ddr_enable_drift();
 }
 
 static inline u32 get_old_map_offset(void)
