@@ -12,7 +12,11 @@
 
 static XPm_Iso* XPmDomainIso_List[XPM_NODEIDX_ISO_MAX];
 
-#define ISO_ON(ISO_NODE) ((ISO_NODE)->Polarity == ACTIVE_HIGH) ? (ISO_NODE)->Mask : 0
+#define IS_PSM_ISO(ISO_NODE) ((((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_LOW) || \
+			      (((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_HIGH)) ? 1U : 0U
+#define GET_POLARITY(ISO_NODE) ((((ISO_NODE)->Format) == (u32)SINGLE_WORD_ACTIVE_HIGH) || \
+				(((ISO_NODE)->Format) == (u32)PSM_SINGLE_WORD_ACTIVE_HIGH)) ? ACTIVE_HIGH : ACTIVE_LOW
+#define ISO_ON(ISO_NODE) (GET_POLARITY(ISO_NODE) == ACTIVE_HIGH) ? (ISO_NODE)->Mask : 0U
 #define ISO_OFF(ISO_NODE) ~(ISO_ON(ISO_NODE))
 
 static XStatus XPmDomainIso_PsmSetValue(XPm_Iso* IsoNode, u32 Value)
@@ -45,12 +49,24 @@ done:
 	return Status;
 }
 
+static void XPmDomainIso_AfifmControl(XPm_Iso *IsoNode, u32 Value)
+{
+	/* Write RD_CTRL port */
+	XPm_RMW32(IsoNode->Node.BaseAddress, IsoNode->Mask, Value);
+
+	/* Write WR_CTRL port */
+	XPm_RMW32(IsoNode->Node.BaseAddress + AFI_FM_WR_CTRL_OFFSET, IsoNode->Mask, Value);
+}
+
 static XStatus XPmDomainIso_SetValue(XPm_Iso* IsoNode, u32 Value){
 	XStatus Status = XST_FAILURE;
 
-	if (0U != IsoNode->IsPsmLocal) {
+	if (0U != IS_PSM_ISO(IsoNode)) {
 		Status = XPmDomainIso_PsmSetValue(IsoNode, Value);
-	}else{
+	} else if ((u32)PM_ISO_FORMAT_AFI_FM == IsoNode->Format) {
+		XPmDomainIso_AfifmControl(IsoNode, Value);
+		Status = XST_SUCCESS;
+	} else {
 		XPm_RMW32(IsoNode->Node.BaseAddress, IsoNode->Mask, Value);
 		Status = XST_SUCCESS;
 	}
@@ -132,9 +148,7 @@ done:
  * @brief	Isolation Node initializing function
  * @param NodeId	Node unique identification number
  * @param Mask		Mask of bits field that control isolation
- * @param IsPsmLocal	A non-zero value indicate if register control isolation
- * 			is belong to PSM local registers
- * @param Polarity	Isolation control polarity
+ * @param Format	Isolation control format
  * @param Dependencies	List of power domain node id that this isolation control
  * 			depends on.
  * @param NumDependencies	Number of dependencies.
@@ -145,8 +159,8 @@ done:
  *
  ****************************************************************************/
 
-XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, \
-	u8 IsPsmLocal, u8 Polarity, const u32* Dependencies, u32 NumDependencies)
+XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format,
+			      const u32* Dependencies, u32 NumDependencies)
 {
 	XStatus Status = XST_FAILURE;
 	u32 NodeIdx = NODEINDEX(NodeId);
@@ -160,9 +174,8 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, \
 	}
 
 	XPmNode_Init(&IsoNode->Node, NodeId, (u8)PM_ISOLATION_ON, BaseAddress);
-	IsoNode->IsPsmLocal = IsPsmLocal;
+	IsoNode->Format = Format;
 	IsoNode->Mask = Mask;
-	IsoNode->Polarity = Polarity;
 
 	for (u32 i =0; i < NumDependencies; i++) {
 		IsoNode->Dependencies[i] = Dependencies[i];
@@ -282,6 +295,7 @@ XStatus XPmDomainIso_ProcessPending()
 done:
 	return Status;
 }
+
 /****************************************************************************/
 /**
  * @brief	Get state of isolation node
@@ -313,9 +327,9 @@ XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State)
 
 	Mask = IsoNode->Mask;
 	BaseAddress = IsoNode->Node.BaseAddress;
-	Polarity = IsoNode->Polarity;
+	Polarity = GET_POLARITY(IsoNode);
 
-	if(0U != IsoNode->IsPsmLocal){
+	if (0U != IS_PSM_ISO(IsoNode)) {
 		Status = XPmDomainIso_PsmGetValue(IsoNode, &RegVal);
 		if (XST_SUCCESS != Status){
 			goto done;

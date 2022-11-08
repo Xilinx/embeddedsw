@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,11 +26,15 @@ extern "C" {
 #define CDO_ISO_DEP_COUNT(ARG) ((ARG & CDO_ISO_DEP_COUNT_MASK) >> (CDO_ISO_DEP_COUNT_SHIFT))
 #define PM_ISO_MAX_NUM_DEPENDENCIES	(2U)
 
+#define ACP_APU_GET_MASK(NodeID)	(u32)(ACP_APU0_PORT_EN_MASK << \
+					      (NODEINDEX(NodeID) - (u32)XPM_NODEIDX_ISO_PL_ACP_APU0))
+#define PS_DTI_GET_MASK(NodeID)		(u32)(PS_DTI0_PORT_EN_MASK << \
+					      (NODEINDEX(NodeID) - (u32)XPM_NODEIDX_ISO_PL_PS_DTI0))
+
 typedef struct XPm_Iso {
 	XPm_Node Node; 	/**< Node: Node base class */
 	u32 Mask;
-	u8 IsPsmLocal;		/* a Non-zero value indicates the node address is belong to PSM local address */
-	u8 Polarity;
+	u32 Format;
 	u32 NumDependencies;
 	u32 Dependencies[PM_ISO_MAX_NUM_DEPENDENCIES];
 }XPm_Iso;
@@ -47,6 +51,11 @@ typedef enum {
 	PSM_SINGLE_WORD_ACTIVE_HIGH,
 	PSM_SINGLE_WORD_ACTIVE_LOW,
 	POWER_DOMAIN_DEPENDENCY,
+	PM_ISO_FORMAT_AFI_FM,
+	PM_ISO_FORMAT_AFI_FS,
+	PM_ISO_FORMAT_CHI_FPD,
+	PM_ISO_FORMAT_ACP_APU,
+	PM_ISO_FORMAT_PS_DTI,
 }XPm_IsoCdoArgsFormat;
 
 /* Isolation states */
@@ -59,8 +68,8 @@ typedef enum {
 #define ISOID(x) \
 	NODEID(XPM_NODECLASS_ISOLATION, XPM_NODESUBCL_ISOLATION, XPM_NODETYPE_ISOLATION, x)
 
-XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u8 Psm, \
-	u8 Polarity, const u32* Dependencies, u32 NumDependencies);
+XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format,
+			      const u32* Dependencies, u32 NumDependencies);
 XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable);
 XStatus XPmDomainIso_ProcessPending(void);
 XStatus XPmDomainIso_GetState(u32 IsoIdx, XPm_IsoStates *State);

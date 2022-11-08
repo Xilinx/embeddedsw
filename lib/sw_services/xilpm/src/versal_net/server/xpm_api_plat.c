@@ -572,6 +572,13 @@ XStatus XPm_PlatQuery(const u32 Qid, const u32 Arg1, const u32 Arg2,
  * |                           ...                                      |
  * +--------------------------------------------------------------------+
  *
+ * Format entry for AFI interface control:
+ * +--------------------------------------------+-----------------------+
+ * |               rsvd[31:8]                   |      Format[7:0]      |
+ * +--------------------------------------------+-----------------------+
+ * |                           BaseAddress                              |
+ * +--------------------------------------------------------------------+
+ *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
@@ -589,11 +596,10 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 	u32 Index = 0U;
 	/* NodeID is always at the first word in payload*/
 	u32 NodeId = Args[Index++];
+	u32 IsoFormat = 0U;
 
 	u32 Dependencies[PM_ISO_MAX_NUM_DEPENDENCIES] = {0U};
 	u32 BaseAddr = 0U, Mask = 0U, NumDependencies = 0U;
-	XPm_IsoPolarity Polarity = ACTIVE_HIGH;
-	u8 Psm = (u8)0;
 
 	XPm_IsoCdoArgsFormat Format = SINGLE_WORD_ACTIVE_LOW;
 	while(Index < NumArgs) {
@@ -606,20 +612,39 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 		case SINGLE_WORD_ACTIVE_HIGH:
 		case PSM_SINGLE_WORD_ACTIVE_LOW:
 		case PSM_SINGLE_WORD_ACTIVE_HIGH:
-			/* Format for isolation control by single word*/
-			if (Format == SINGLE_WORD_ACTIVE_LOW || \
-			    Format == PSM_SINGLE_WORD_ACTIVE_LOW){
-				Polarity = ACTIVE_LOW;
-			}
-
-			if (Format == PSM_SINGLE_WORD_ACTIVE_HIGH || \
-			    Format == PSM_SINGLE_WORD_ACTIVE_LOW){
-				Psm =  (u8)1;
-			}
-
+			IsoFormat = Format;
 			/* Extract BaseAddress and Mask*/
 			BaseAddr = Args[Index++];
 			Mask = Args[Index++];
+			break;
+		case PM_ISO_FORMAT_AFI_FM:
+			IsoFormat = Format;
+			BaseAddr = Args[Index++];
+			Mask = AFI_FM_PORT_EN_MASK;
+			break;
+		case PM_ISO_FORMAT_AFI_FS:
+			IsoFormat = Format;
+			/* Extract BaseAddress */
+			BaseAddr = Args[Index++];
+			Mask = AFI_FS_PORT_EN_MASK;
+			break;
+		case PM_ISO_FORMAT_CHI_FPD:
+			IsoFormat = Format;
+			/* Extract BaseAddress */
+			BaseAddr = Args[Index++];
+			Mask = CHI_FPD_PORT_EN_MASK;
+			break;
+		case PM_ISO_FORMAT_ACP_APU:
+			IsoFormat = Format;
+			/* Extract BaseAddress */
+			BaseAddr = Args[Index++];
+			Mask = ACP_APU_GET_MASK(NodeId);
+			break;
+		case PM_ISO_FORMAT_PS_DTI:
+			IsoFormat = Format;
+			/* Extract BaseAddress */
+			BaseAddr = Args[Index++];
+			Mask = PS_DTI_GET_MASK(NodeId);
 			break;
 		case POWER_DOMAIN_DEPENDENCY:
 			/* Format power domain dependencies*/
@@ -639,8 +664,8 @@ static XStatus XPm_AddNodeIsolation(const u32 *Args, u32 NumArgs)
 		}
 	}
 
-	Status = XPmDomainIso_NodeInit(NodeId, BaseAddr, Mask, \
-				       Psm, Polarity, Dependencies, NumDependencies);
+	Status = XPmDomainIso_NodeInit(NodeId, BaseAddr, Mask, IsoFormat, Dependencies,
+					NumDependencies);
 done:
 	return Status;
 }
