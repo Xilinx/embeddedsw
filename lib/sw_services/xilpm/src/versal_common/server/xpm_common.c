@@ -14,7 +14,11 @@
 #include "xpm_debug.h"
 #include <stdarg.h>
 
+#ifdef VERSAL_NET
+#define MAX_BYTEBUFFER_SIZE	(33U * 1024U)
+#else
 #define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
+#endif
 #define NOT_INITIALIZED 0xFFFFFFFFU
 #define DBG_STR_IDX(DebugType) ((((DebugType) & XPM_DEBUG_MASK) >> \
 					XPM_DEBUG_SHIFT) - 1U)
