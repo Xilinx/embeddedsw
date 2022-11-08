@@ -1,5 +1,6 @@
 ###############################################################################
-# Copyright (C) 2022  Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2021 - 2022  Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -9,6 +10,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0	mus  12/07/21 Initial version
+# 1.1   mus  11/07/22 Updated logic to handle -DENABLE_MINIMAL_XLAT_TBL flag.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -29,13 +31,22 @@ proc xdefine_cortexa78_params {drvhandle} {
     set proctype [common::get_property IP_NAME $hw_proc_handle]
     set procdrv [get_sw_processor]
     set compiler [common::get_property CONFIG.compiler $procdrv]
+    set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+
     if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-	set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
 	set new_flags "-DARMA72_32  -mfpu=vfpv3 -mfloat-abi=hard $extra_flags"
 	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $new_flags -objects [hsi::get_sw_processor]
 
     }
 
+    set enable_minimal_xlat_tbl [common::get_property CONFIG.enable_minimal_xlat_tbl [hsi::get_os]]
+    if {$enable_minimal_xlat_tbl == "true"} {
+            set flagindex [string first {-DENABLE_MINIMAL_XLAT_TBL} $extra_flags 0]
+            if { $flagindex == -1 } {
+                        set new_flags "$extra_flags -DENABLE_MINIMAL_XLAT_TBL"
+			common::set_property -name {EXTRA_COMPILER_FLAGS} -value $new_flags -objects [hsi::get_sw_processor]
+            }
+     }
 
     if {[string compare -nocase $compiler "armclang"] == 0} {
 	set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
