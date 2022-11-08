@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -76,7 +77,8 @@
 * 8.0   mus  10/05/21 Updated VERSAL NET translation table to configure 1 TB address
 *                     space (default is 256 TB) when OCM_ELF flag is defined
 *                     in compiler flags.
-*
+* 8.1   mus  11/08/22 Used ENABLE_MINIMAL_XLAT_TBL flag to reduce translation
+*                     table size. OCM_ELF flag checking would be removed later.
 *
 ******************************************************************************/
 #include "xparameters.h"
@@ -187,7 +189,7 @@ MMUTableL1:
 .set SECT, SECT + 0x40000000
 .endr
 
-#if ! defined (OCM_ELF)
+#if ! defined (OCM_ELF) && ! defined (ENABLE_MINIMAL_XLAT_TBL)
 .rept   0x234                   /* 0x80_0000_0000 - 0xBF_FFFF_FFFF */
 .8byte  SECT + reserved         /* 790GB reserved */
 .set SECT, SECT + 0x40000000

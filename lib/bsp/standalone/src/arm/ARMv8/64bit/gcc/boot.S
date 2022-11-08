@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -71,6 +72,8 @@
 *                         compiler flags, translation table would be configured
 *                         for 1 TB address space. It would help to reduce
 *                         executable size.
+* 8.1   mus      11/08/22 Used ENABLE_MINIMAL_XLAT_TBL for reducing translation
+*                         table size. OCM_ELF flag would be removed later.
 *
 * </pre>
 *
@@ -275,7 +278,7 @@ InitEL3:
 	ldr      x1, =0x000000BB0400FF44
 	msr      MAIR_EL3, x1
 
-#if defined (VERSAL_NET) && defined (OCM_ELF)
+#if defined (VERSAL_NET) && (defined (OCM_ELF) || defined (ENABLE_MINIMAL_XLAT_TBL))
         /**********************************************
          * Set up TCR_EL3
          * Physical Address Size PS =  010 -> 40bits 1TB
