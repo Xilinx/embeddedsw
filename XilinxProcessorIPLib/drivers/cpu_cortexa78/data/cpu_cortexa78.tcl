@@ -77,9 +77,9 @@ proc xdefine_cortexa78_params {drvhandle} {
                    set temp_flag "$temp_flag -Dversal"
               }
 
-              set flagindex [string first {-DARMA72_EL3} $temp_flag 0]
+              set flagindex [string first {-DARMA78_EL3} $temp_flag 0]
               if { $flagindex == -1 } {
-                   set temp_flag "$temp_flag -DARMA72_EL3"
+                   set temp_flag "$temp_flag -DARMA78_EL3"
               }
 
 	      set extra_flags $temp_flag
