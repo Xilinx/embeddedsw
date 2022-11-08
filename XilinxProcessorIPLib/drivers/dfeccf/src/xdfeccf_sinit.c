@@ -28,6 +28,7 @@
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/18/22 Update IP version number
+* 1.5   dc     10/28/22 Switching Uplink/Downlink support
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -40,6 +41,7 @@
 
 /***************************** Include Files *********************************/
 #include "xdfeccf.h"
+#include "xdfeccf_hw.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -68,21 +70,18 @@
 #define XDFECCF_BUS_NAME "platform" /**< System bus name. */
 #define XDFECCF_BASEADDR_PROPERTY "reg" /**< Base address property. */
 #define XDFECCF_BASEADDR_SIZE 8U /**< Base address bit-size. */
-#define XDFECCF_DATA_IWIDTH_CFG "xlnx,data-iwidth" /**< Data IWIDTH property. */
-#define XDFECCF_DATA_OWIDTH_CFG "xlnx,data-owidth" /**< Data OWIDTH property. */
 #define XDFECCF_NUM_ANTENNA_CFG                                                \
 	"xlnx,num-antenna" /**< Number of antenna property. */
 #define XDFECCF_NUM_CC_PER_ANTENNA_CFG                                         \
 	"xlnx,num-cc-per-antenna" /**< Maximum number of CC's per antenna. */
-#define XDFECCF_NUM_SLOT_CHANNELS_CFG                                          \
-	"xlnx,num-slot-channels" /**< Number of slot channels property. */
 #define XDFECCF_ANTENNA_INTERLEAVE_CFG                                         \
 	"xlnx,antenna-interleave" /**< Number of Antenna TDM slots, per CC. */
+#define XDFECCF_SWITCHABLE_CFG "xlnx,switchable" /**< DL/UL switching support.*/
 #define XDFECCF_TUSER_WIDTH_CFG "xlnx,tuser-width" /**< TUSER width property. */
 /*
 * @cond nocomments
 */
-#define XDFECCF_MODE_SIZE 10U
+#define XDFECCF_SWITCHABLE_SIZE 15U
 #define XDFECCF_WORD_SIZE 4U
 
 #else
@@ -329,6 +328,20 @@ s32 XDfeCcf_LookupConfig(XDfeCcf *InstancePtr)
 	}
 	InstancePtr->Config.AntennaInterleave = ntohl(d);
 
+	char str[20];
+	if (XST_SUCCESS !=
+	    metal_linux_get_device_property(Dev, Name = XDFECCF_SWITCHABLE_CFG,
+					    str, XDFECCF_SWITCHABLE_SIZE)) {
+		goto end_failure;
+	}
+	if (0 == strncmp(str, "false", 5)) {
+		InstancePtr->Config.Switchable = XDFECCF_SWITCHABLE_NO;
+	} else if (0 == strncmp(str, "true", 4)) {
+		InstancePtr->Config.Switchable = XDFECCF_SWITCHABLE_YES;
+	} else {
+		goto end_failure;
+	}
+
 	return XST_SUCCESS;
 
 end_failure:
@@ -349,6 +362,7 @@ end_failure:
 	InstancePtr->Config.NumAntenna = ConfigTable->NumAntenna;
 	InstancePtr->Config.NumCCPerAntenna = ConfigTable->NumCCPerAntenna;
 	InstancePtr->Config.AntennaInterleave = ConfigTable->AntennaInterleave;
+	InstancePtr->Config.Switchable = ConfigTable->Switchable;
 	InstancePtr->Config.BaseAddr = ConfigTable->BaseAddr;
 
 	return XST_SUCCESS;

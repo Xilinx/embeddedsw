@@ -19,7 +19,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/27/20 Initial version
-*       dc     02/08/21 align driver to curent specification
+*       dc     02/08/21 align driver to current specification
 *       dc     03/16/21 update activate & deactivate api
 *       dc     03/25/21 Device tree item name change
 *       dc     04/20/21 Doxygen documentation update
@@ -31,6 +31,7 @@
 *       dc     11/30/21 Convert AntennaCfg to structure
 * 1.3   dc     01/31/22 CCF IP MODEL_PARAM register change
 * 1.5   dc     09/12/22 Update handling overflow status
+*       dc     10/28/22 Switching Uplink/Downlink support
 *
 * </pre>
 *
@@ -66,6 +67,11 @@ extern "C" {
 #define XDFECCF_MODEL_PARAM_NUM_CC_PER_ANTENNA_OFFSET 8U
 #define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH 4U
 #define XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET 16U
+#define XDFECCF_MODEL_PARAM_SWITCHABLE_WIDTH 1U
+#define XDFECCF_MODEL_PARAM_SWITCHABLE_OFFSET 20U
+#define XDFECCF_SWITCHABLE_NO 0U
+#define XDFECCF_SWITCHABLE_YES 1U
+
 #define XDFECCF_GAIN_STG_EN_OFFSET 0x0CU /**< Register offset */
 #define XDFECCF_GAIN_STG_EN_DISABLED 0x00U
 #define XDFECCF_GAIN_STG_EN_ENABLED 0x01U
@@ -76,6 +82,17 @@ extern "C" {
 #define XDFECCF_DATA_LATENCY_OFFSET 0x14U /**< Register offset */
 #define XDFECCF_DATA_LATENCY_VALUE_WIDTH 4U
 #define XDFECCF_DATA_LATENCY_VALUE_OFFSET 0U
+#define XDFECCF_REG_BANK_OFFSET 0x18U /**< Register offset */
+#define XDFECCF_REG_BANK_DL_UL_WIDTH 1U
+#define XDFECCF_REG_BANK_DL_UL_OFFSET 0U
+#define XDFECCF_REG_BANK_DOWNLINK 0U
+#define XDFECCF_REG_BANK_UPLINK 1U
+#define XDFECCF_TUSER_SEL_OFFSET 0x1CU /**< Register offset */
+#define XDFECCF_TUSER_SEL_DL_UL_WIDTH 1U
+#define XDFECCF_TUSER_SEL_DL_UL_OFFSET 0U
+#define XDFECCF_TUSER_SEL_DOWNLINK 0U
+#define XDFECCF_TUSER_SEL_UPLINK 1U
+
 /* State */
 #define XDFECCF_STATE_OPERATIONAL_OFFSET 0x20U /**< Register offset */
 #define XDFECCF_STATE_OPERATIONAL_BITFIELD_WIDTH 1U
@@ -83,9 +100,15 @@ extern "C" {
 #define XDFECCF_STATE_OPERATIONAL_NO 0U
 #define XDFECCF_STATE_OPERATIONAL_YES 1U
 #define XDFECCF_STATE_LOW_POWER_OFFSET 0x24U /**< Register offset */
+#define XDFECCF_SWITCH_OFFSET 0x28U /**< Register offset */
+#define XDFECCF_SWITCH_DL_UL_WIDTH 1U
+#define XDFECCF_SWITCH_DL_UL_OFFSET 0U
+#define XDFECCF_SWITCH_DOWNLINK 0U
+#define XDFECCF_SWITCH_UPLINK 1U
 
 /* Triggers */
 #define XDFECCF_TRIGGERS_ACTIVATE_OFFSET 0x30U /**< Register offset */
+#define XDFECCF_TRIGGERS_SWITCH_OFFSET 0x34U /**< Register offset */
 #define XDFECCF_TRIGGERS_LOW_POWER_OFFSET 0x38U /**< Register offset */
 #define XDFECCF_TRIGGERS_CC_UPDATE_OFFSET 0x3CU /**< Register offset */
 /* Bit fields */
@@ -109,6 +132,8 @@ extern "C" {
 #define XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET 12U
 #define XDFECCF_TRIGGERS_STATE_OUTPUT_DISABLED 0U
 #define XDFECCF_TRIGGERS_STATE_OUTPUT_ENABLED 1U
+#define XDFECCF_TRIGGERS_STATE_OUTPUT_DOWNLINK 0U
+#define XDFECCF_TRIGGERS_STATE_OUTPUT_UPLINK 1U
 #define XDFECCF_TRIGGERS_TUSER_BIT_WIDTH 8U
 #define XDFECCF_TRIGGERS_TUSER_BIT_OFFSET 16U
 
@@ -178,6 +203,8 @@ extern "C" {
 #define XDFECCF_ANTENNA_CONFIGURATION_NEXT 0x1304U /**< Register offset */
 #define XDFECCF_ANTENNA_DISABLE 0U
 #define XDFECCF_ANTENNA_ENABLE 1U
+/* Note: In SWITCHABLE mode use REG_BANK to select between Uplink
+   and Downlink registers */
 
 /* Filter */
 #define XDFECCF_COEFF_LOAD 0x3000U /**< Register offset */

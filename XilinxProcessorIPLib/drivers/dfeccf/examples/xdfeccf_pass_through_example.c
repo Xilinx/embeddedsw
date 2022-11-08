@@ -20,6 +20,7 @@
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/05/21 Align event handlers
 * 1.5   dc     09/12/22 Update handling overflow status
+*       dc     10/28/22 Switching Uplink/Downlink support
 *
 * </pre>
 *
@@ -101,6 +102,7 @@ int XDfeCcf_PassThroughExample()
 	/* Initialise */
 	Init.GainStage = 1;
 	Init.Sequence.Length = 16;
+	Init.TuserSelect = XDFECCF_TUSER_SEL_DOWNLINK;
 	XDfeCcf_Initialize(InstancePtr, &Init);
 
 	/* Set trigger */
@@ -115,7 +117,7 @@ int XDfeCcf_PassThroughExample()
 	/* Activate - disable low power */
 	XDfeCcf_Activate(InstancePtr, false);
 
-	/* Set coefficents */
+	/* Set coefficients */
 	Shift = 5;
 	Coeffs.Num = 7U;
 	Coeffs.Symmetric = 1U;

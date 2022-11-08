@@ -19,6 +19,7 @@
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/19/21 Update doxygen documentation
+* 1.5   dc     10/28/22 Switching Uplink/Downlink support
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -88,11 +89,13 @@ int XDfeCcf_MultiInstancesExample()
 	/* Go through initialization states of the state machine */
 	XDfeCcf_Reset(InstancePtr1);
 	XDfeCcf_Configure(InstancePtr1, &Cfg);
+	Init.TuserSelect = XDFECCF_TUSER_SEL_UPLINK;
 	XDfeCcf_Initialize(InstancePtr1, &Init);
 	XDfeCcf_Activate(InstancePtr1, false);
 
 	XDfeCcf_Reset(InstancePtr2);
 	XDfeCcf_Configure(InstancePtr2, &Cfg);
+	Init.TuserSelect = XDFECCF_TUSER_SEL_DOWNLINK;
 	XDfeCcf_Initialize(InstancePtr2, &Init);
 	XDfeCcf_Activate(InstancePtr2, false);
 

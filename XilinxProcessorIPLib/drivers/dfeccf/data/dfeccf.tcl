@@ -8,12 +8,13 @@
 # -------- ------ -------- ----------------------------------------------------
 # 1.0      dc     10/29/20 Initial version
 #          dc     03/16/21 update activate & deactivate api
+# 1.5      dc     10/28/22 Switching Uplink/Downlink support
 ###############################################################################
 
 proc generate {drv_handle} {
-    mix_define_include_file $drv_handle "xparameters.h" "XDfeCcf" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_NUM_ANT_SLOTS"
-    ::hsi::utils::define_config_file $drv_handle "xdfeccf_g.c" "XDfeCcf" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_NUM_ANT_SLOTS"
-    mix_define_canonical_xpars $drv_handle "xparameters.h" "XDfeCcf" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_NUM_ANT_SLOTS"
+    mix_define_include_file $drv_handle "xparameters.h" "XDfeCcf" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_ANTENNA_INTERLEAVE" "C_SWITCHABLE"
+    ::hsi::utils::define_config_file $drv_handle "xdfeccf_g.c" "XDfeCcf" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_ANTENNA_INTERLEAVE" "C_SWITCHABLE"
+    mix_define_canonical_xpars $drv_handle "xparameters.h" "XDfeCcf" "DEVICE_ID" "C_BASEADDR" "C_NUM_ANTENNA" "C_NUM_CC_PER_ANTENNA" "C_ANTENNA_INTERLEAVE" "C_SWITCHABLE"
 }
 
 proc mix_define_include_file {drv_handle file_name drv_string args} {
@@ -61,6 +62,12 @@ proc mix_define_include_file {drv_handle file_name drv_string args} {
                 set value [common::get_property CONFIG.$arg $periph]
                 if {[llength $value] == 0} {
                     set value [common::get_property CONFIG.C_BASEADDR $periph]
+                }
+            } elseif {[string compare -nocase "C_SWITCHABLE" $arg] == 0} {
+                if {[string compare -nocase "true" [common::get_property CONFIG.C_SWITCHABLE $periph]] == 0} {
+                    set value 1
+                } else {
+                    set value 0
                 }
             } else {
                 set value [common::get_property CONFIG.$arg $periph]
@@ -134,6 +141,12 @@ proc mix_define_canonical_xpars {drv_handle file_name drv_string args} {
                     set rvalue [::hsi::utils::get_param_value $periph $arg]
                     if {[llength $rvalue] == 0} {
                         set rvalue [common::get_property CONFIG.C_BASEADDR $periph]
+                    }
+                } elseif {[string compare -nocase "C_SWITCHABLE" $arg] == 0} {
+                    if {[string compare -nocase "true" [common::get_property CONFIG.C_SWITCHABLE $periph]] == 0} {
+                        set rvalue 1
+                    } else {
+                        set rvalue 0
                     }
                 } else {
                     set rvalue [::hsi::utils::get_param_value $periph $arg]

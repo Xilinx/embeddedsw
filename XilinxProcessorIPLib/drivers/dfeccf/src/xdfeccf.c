@@ -16,7 +16,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     10/29/20 Initial version
 *       dc     02/02/21 Remove hard coded device node name
-*       dc     02/08/21 align driver to curent specification
+*       dc     02/08/21 align driver to current specification
 *       dc     02/22/21 include HW in versioning
 *       dc     03/16/21 update activate & deactivate api
 *       dc     03/25/21 Device tree item name change
@@ -47,6 +47,7 @@
 *       dc     01/31/22 CCF IP MODEL_PARAM register change
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/08/22 Update documentation
+* 1.5   dc     10/28/22 Switching Uplink/Downlink support
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -84,6 +85,8 @@
 #define XDFECCF_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
+static void XDfeCcf_GetCurrentCCCfgLocal(const XDfeCcf *InstancePtr,
+					 XDfeCcf_CCCfg *CurrCCCfg);
 
 /************************** Variable Definitions ****************************/
 /**
@@ -273,7 +276,6 @@ static s32 XDfeCcf_GetNotUsedCCID(XDfeCcf_CCSequence *Sequence)
 * @param    InstancePtr Pointer to the XDfeCcf instance.
 * @param    CCSeqBitmap maps the sequence.
 *
-*
 ****************************************************************************/
 static u32 XDfeCcf_CountOnesInBitmap(const XDfeCcf *InstancePtr,
 				     u32 CCSeqBitmap)
@@ -294,8 +296,8 @@ static u32 XDfeCcf_CountOnesInBitmap(const XDfeCcf *InstancePtr,
 /**
 *
 * Adds the specified CCID, to the CC sequence. The sequence is defined with
-* CCSeqBitmap where bit0 coresponds to CC[0], bit1 to CC[1], bit2 to CC[2], and
-* so on.
+* CCSeqBitmap where bit0 corresponds to CC[0], bit1 to CC[1], and so on. Also
+* it saves the smallest not used CC Id.
 *
 * Sequence data that is returned in the CCIDSequence is not the same as what is
 * written in the registers. The translation is:
@@ -340,7 +342,7 @@ static u32 XDfeCcf_AddCCIDAndTranslateSeq(XDfeCcf *InstancePtr, s32 CCID,
 		return XST_FAILURE;
 	}
 
-	/* Check are bits set in CCSeqBitmap to 1 avaliable (-1)*/
+	/* Check are bits set in CCSeqBitmap to 1 available (-1) */
 	Mask = 1U;
 	for (Index = 0U; Index < CCIDSequence->Length; Index++) {
 		if (0U != (CCSeqBitmap & Mask)) {
@@ -365,7 +367,7 @@ static u32 XDfeCcf_AddCCIDAndTranslateSeq(XDfeCcf *InstancePtr, s32 CCID,
 	}
 
 	/* Set not used CCID */
-	InstancePtr->NotUsedCCID = XDfeCcf_GetNotUsedCCID(CCIDSequence);
+	CCIDSequence->NotUsedCCID = XDfeCcf_GetNotUsedCCID(CCIDSequence);
 
 	return XST_SUCCESS;
 }
@@ -373,44 +375,17 @@ static u32 XDfeCcf_AddCCIDAndTranslateSeq(XDfeCcf *InstancePtr, s32 CCID,
 /****************************************************************************/
 /**
 *
-* Translate the sequence back to SEQUENCE register format.
+* Removes the specified CCID from the CC sequence, replaces the CCID entries
+* with null (-1) and saves the smallest not used CC Id.
 *
-* @param    InstancePtr Pointer to the XDfeCcf instance.
-* @param    CCIDSequence CC sequence array in CCCfg.
-* @param    NextCCID Returned CC sequence array.
-*
-****************************************************************************/
-static void XDfeCcf_TranslateSeq(const XDfeCcf *InstancePtr,
-				 const s32 *CCIDSequence, s32 *NextCCID)
-{
-	u32 Index;
-
-	/* Prepare NextCCID[] to be written to registers */
-	for (Index = 0U; Index < XDFECCF_CC_NUM; Index++) {
-		if ((CCIDSequence[Index] == XDFECCF_SEQUENCE_ENTRY_NULL) ||
-		    (Index >= InstancePtr->SequenceLength)) {
-			NextCCID[Index] = InstancePtr->NotUsedCCID;
-		} else {
-			NextCCID[Index] = CCIDSequence[Index];
-		}
-	}
-}
-
-/****************************************************************************/
-/**
-*
-* Removes the specified CCID from the CC sequence and replaces the CCID
-* entries with null (-1).
-*
-* @param    InstancePtr Pointer to the XDfeCcf instance.
 * @param    CCID CC ID.
 * @param    CCIDSequence CC sequence array.
 *
 ****************************************************************************/
-static void XDfeCcf_RemoveCCID(XDfeCcf *InstancePtr, s32 CCID,
-			       XDfeCcf_CCSequence *CCIDSequence)
+static void XDfeCcf_RemoveCCID(s32 CCID, XDfeCcf_CCSequence *CCIDSequence)
 {
 	u32 Index;
+
 	/* Replace each CCID entry with null (8) */
 	for (Index = 0; Index < CCIDSequence->Length; Index++) {
 		if (CCIDSequence->CCID[Index] == CCID) {
@@ -419,7 +394,7 @@ static void XDfeCcf_RemoveCCID(XDfeCcf *InstancePtr, s32 CCID,
 	}
 
 	/* Set not used CCID */
-	InstancePtr->NotUsedCCID = XDfeCcf_GetNotUsedCCID(CCIDSequence);
+	CCIDSequence->NotUsedCCID = XDfeCcf_GetNotUsedCCID(CCIDSequence);
 }
 
 /************************ Low Level Functions *******************************/
@@ -478,7 +453,15 @@ static void XDfeCcf_SetNextCCCfg(const XDfeCcf *InstancePtr,
 	s32 NextCCID[XDFECCF_SEQ_LENGTH_MAX];
 
 	/* Prepare NextCCID[] to be written to registers */
-	XDfeCcf_TranslateSeq(InstancePtr, NextCCCfg->Sequence.CCID, NextCCID);
+	for (Index = 0U; Index < XDFECCF_CC_NUM; Index++) {
+		if ((NextCCCfg->Sequence.CCID[Index] ==
+		     XDFECCF_SEQUENCE_ENTRY_NULL) ||
+		    (Index >= InstancePtr->SequenceLength)) {
+			NextCCID[Index] = NextCCCfg->Sequence.NotUsedCCID;
+		} else {
+			NextCCID[Index] = NextCCCfg->Sequence.CCID[Index];
+		}
+	}
 
 	/* Sequence Length should remain the same, so copy the sequence length
 	   from CURRENT to NEXT, does not take from NextCCCfg. The reason
@@ -711,6 +694,45 @@ static void XDfeCcf_DisableLowPowerTrigger(const XDfeCcf *InstancePtr)
 				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_DISABLED);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET, Data);
 }
+
+/****************************************************************************/
+/**
+*
+* Enables switch triggers.
+*
+* @param    InstancePtr Pointer to the Channel Filter instance.
+*
+****************************************************************************/
+static void XDfeCcf_EnableSwitchTrigger(const XDfeCcf *InstancePtr)
+{
+	u32 Data;
+
+	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_SWITCH_OFFSET);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_ENABLED);
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_SWITCH_OFFSET, Data);
+}
+
+/****************************************************************************/
+/**
+*
+* Disables switch triggers.
+*
+* @param    InstancePtr Pointer to the Channel Filter instance.
+*
+****************************************************************************/
+static void XDfeCcf_DisableSwitchTrigger(const XDfeCcf *InstancePtr)
+{
+	u32 Data;
+
+	Data = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET);
+	Data = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
+				  XDFECCF_TRIGGERS_TRIGGER_ENABLE_DISABLED);
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_LOW_POWER_OFFSET, Data);
+}
+
 /**
 * @endcond
 */
@@ -924,12 +946,17 @@ void XDfeCcf_Configure(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)
 	InstancePtr->Config.AntennaInterleave = XDfeCcf_RdBitField(
 		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_WIDTH,
 		XDFECCF_MODEL_PARAM_ANTENNA_INTERLEAVE_OFFSET, ModelParam);
+	InstancePtr->Config.Switchable =
+		XDfeCcf_RdBitField(XDFECCF_MODEL_PARAM_SWITCHABLE_WIDTH,
+				   XDFECCF_MODEL_PARAM_SWITCHABLE_OFFSET,
+				   ModelParam);
 
 	/* Copy configs model parameters from InstancePtr */
 	Cfg->ModelParams.NumAntenna = InstancePtr->Config.NumAntenna;
 	Cfg->ModelParams.NumCCPerAntenna = InstancePtr->Config.NumCCPerAntenna;
 	Cfg->ModelParams.AntennaInterleave =
 		InstancePtr->Config.AntennaInterleave;
+	Cfg->ModelParams.Switchable = InstancePtr->Config.Switchable;
 
 	/* Release RESET */
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_RESET_OFFSET, XDFECCF_RESET_OFF);
@@ -957,15 +984,30 @@ void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFECCF_STATE_CONFIGURED);
 	Xil_AssertVoid(Init != NULL);
+	Xil_AssertVoid(Init->TuserSelect <= XDFECCF_TUSER_SEL_UPLINK);
 
 	/* Write "one-time" configuration */
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_GAIN_STG_EN_OFFSET,
 			 Init->GainStage);
 
+	if (InstancePtr->Config.Switchable == XDFECCF_SWITCHABLE_YES) {
+		/* Write "one-time" tuser select. If the core is configured for
+		   non-switchable mode override tuser select so that the default tuser
+		   channel is used */
+		if (InstancePtr->Config.Switchable == XDFECCF_SWITCHABLE_NO) {
+			Init->TuserSelect = 0U;
+		}
+		XDfeCcf_WriteReg(InstancePtr, XDFECCF_TUSER_SEL_OFFSET,
+				 Init->TuserSelect);
+	}
+
+	/* Not used CC index for DL (NotUsedCCID) and UL (NotUsedCCID_UL) in
+	   switchable mode otherwise just NotUsedCCID will be relevant */
+	InstancePtr->NotUsedCCID = 0;
+	InstancePtr->NotUsedCCID_UL = 0;
 	/* Write "one-time" Sequence length. InstancePtr->SequenceLength holds
 	   the exact sequence length value as register sequence length value 0
 	   can be understod as length 0 or 1 */
-	InstancePtr->NotUsedCCID = 0;
 	InstancePtr->SequenceLength = Init->Sequence.Length;
 	if (Init->Sequence.Length == 0) {
 		SequenceLength = 0U;
@@ -974,7 +1016,28 @@ void XDfeCcf_Initialize(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)
 	}
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_SEQUENCE_LENGTH_NEXT,
 			 SequenceLength);
+	if (InstancePtr->Config.Switchable == XDFECCF_SWITCHABLE_YES) {
+		/* Set default sequence and ensure all CCs are disabled for UPLINK. */
+		XDfeCcf_SetRegBank(InstancePtr, XDFECCF_REG_BANK_UPLINK);
+		for (Index = 0; Index < XDFECCF_SEQ_LENGTH_MAX; Index++) {
+			Offset = XDFECCF_SEQUENCE_NEXT + (sizeof(u32) * Index);
+			XDfeCcf_WriteReg(InstancePtr, Offset,
+					 XDFECCF_SEQUENCE_ENTRY_DEFAULT);
+			Init->Sequence.CCID[Index] =
+				XDFECCF_SEQUENCE_ENTRY_NULL;
+		}
+		for (Index = 0; Index < XDFECCF_CC_NUM; Index++) {
+			Offset = XDFECCF_CARRIER_CONFIGURATION_NEXT +
+				 (sizeof(u32) * Index);
+			XDfeCcf_WrRegBitField(InstancePtr, Offset,
+					      XDFECCF_ENABLE_WIDTH,
+					      XDFECCF_ENABLE_OFFSET,
+					      XDFECCF_ENABLE_DISABLED);
+		}
 
+		/* Set default sequence and ensure all CCs are disabled for DOWNLINK. */
+		XDfeCcf_SetRegBank(InstancePtr, XDFECCF_REG_BANK_DOWNLINK);
+	}
 	/* Set default sequence and ensure all CCs are disabled. Not all
 	   registers will be cleared by reset as they are implemented using
 	   DRAM. This step sets all CC_CONFIGURATION.CARRIER_CONFIGURATION.
@@ -1048,6 +1111,10 @@ void XDfeCcf_Activate(XDfeCcf *InstancePtr, bool EnableLowPower)
 		XDfeCcf_EnableLowPowerTrigger(InstancePtr);
 	}
 
+	if (InstancePtr->Config.Switchable == XDFECCF_SWITCHABLE_YES) {
+		XDfeCcf_EnableSwitchTrigger(InstancePtr);
+	}
+
 	/* Channel filter is operational now, change a state */
 	InstancePtr->StateId = XDFECCF_STATE_OPERATIONAL;
 }
@@ -1083,6 +1150,11 @@ void XDfeCcf_Deactivate(XDfeCcf *InstancePtr)
 	/* Disable Activate trigger */
 	XDfeCcf_EnableDeactivateTrigger(InstancePtr);
 
+	/* Disable Switch trigger (may not be enabled) */
+	if (InstancePtr->Config.Switchable == XDFECCF_SWITCHABLE_YES) {
+		XDfeCcf_DisableSwitchTrigger(InstancePtr);
+	}
+
 	InstancePtr->StateId = XDFECCF_STATE_INITIALISED;
 }
 
@@ -1107,8 +1179,9 @@ XDfeCcf_StateId XDfeCcf_GetStateID(XDfeCcf *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Returns the current CC configuration. Not used slot ID in a sequence
-* (Sequence.CCID[Index]) are represented as (-1), not the value in registers.
+* Returns the current CC configuration in non-switchable mode. Not used slot
+* ID in a sequence (Sequence.CCID[Index]) are represented as (-1), not
+* the value in registers.
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CurrCCCfg CC configuration container.
@@ -1119,11 +1192,31 @@ XDfeCcf_StateId XDfeCcf_GetStateID(XDfeCcf *InstancePtr)
 void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 			     XDfeCcf_CCCfg *CurrCCCfg)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CurrCCCfg != NULL);
+
+	CurrCCCfg->Sequence.NotUsedCCID = InstancePtr->NotUsedCCID;
+	XDfeCcf_GetCurrentCCCfgLocal(InstancePtr, CurrCCCfg);
+}
+
+/****************************************************************************/
+/**
+*
+* Returns the current CC configuration. Not used slot ID in a sequence
+* (Sequence.CCID[Index]) are represented as (-1), not the value in registers.
+*
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CurrCCCfg CC configuration container.
+*
+* @note     For a sequence conversion see XDfeCcf_AddCCtoCCCfg() comment.
+*
+****************************************************************************/
+static void XDfeCcf_GetCurrentCCCfgLocal(const XDfeCcf *InstancePtr,
+					 XDfeCcf_CCCfg *CurrCCCfg)
+{
 	u32 SeqLen;
 	u32 AntennaCfg = 0U;
 	u32 Index;
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CurrCCCfg != NULL);
 
 	/* Read CCID sequence and carrier configurations */
 	for (Index = 0; Index < XDFECCF_CC_NUM; Index++) {
@@ -1145,7 +1238,7 @@ void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 	/* Convert not used CC to -1 */
 	for (Index = 0U; Index < XDFECCF_CC_NUM; Index++) {
 		if ((CurrCCCfg->Sequence.CCID[Index] ==
-		     InstancePtr->NotUsedCCID) ||
+		     CurrCCCfg->Sequence.NotUsedCCID) ||
 		    (Index >= InstancePtr->SequenceLength)) {
 			CurrCCCfg->Sequence.CCID[Index] =
 				XDFECCF_SEQUENCE_ENTRY_NULL;
@@ -1164,6 +1257,47 @@ void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 	for (Index = 0U; Index < XDFECCF_CC_NUM; Index++) {
 		CurrCCCfg->CarrierCfg[Index].Flush = 0U;
 	}
+}
+
+/****************************************************************************/
+/**
+*
+* Returns the current CC and NCO configuration for Downlink and Uplink in
+* switchable mode.  Not used slot ID in a sequence (Sequence.CCID[Index]) are
+* represented as (-1), not the value in registers.
+*
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    CCCfgDownlink Downlink CC configuration container.
+* @param    CCCfgUplink Uplink CC configuration container.
+*
+****************************************************************************/
+void XDfeCcf_GetCurrentCCCfgSwitchable(const XDfeCcf *InstancePtr,
+				       XDfeCcf_CCCfg *CCCfgDownlink,
+				       XDfeCcf_CCCfg *CCCfgUplink)
+{
+	u32 RegBank;
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CCCfgDownlink != NULL);
+	Xil_AssertVoid(CCCfgUplink != NULL);
+	Xil_AssertVoid(InstancePtr->Config.Switchable ==
+		       XDFECCF_SWITCHABLE_YES);
+
+	RegBank = XDfeCcf_RdRegBitField(InstancePtr, XDFECCF_REG_BANK_OFFSET,
+					XDFECCF_REG_BANK_DL_UL_WIDTH,
+					XDFECCF_REG_BANK_DL_UL_OFFSET);
+
+	/* Set Downlink register bank */
+	XDfeCcf_SetRegBank(InstancePtr, XDFECCF_SWITCH_DOWNLINK);
+	CCCfgDownlink->Sequence.NotUsedCCID = InstancePtr->NotUsedCCID;
+	XDfeCcf_GetCurrentCCCfgLocal(InstancePtr, CCCfgDownlink);
+
+	/* Set Uplink register bank */
+	XDfeCcf_SetRegBank(InstancePtr, XDFECCF_SWITCH_UPLINK);
+	CCCfgUplink->Sequence.NotUsedCCID = InstancePtr->NotUsedCCID_UL;
+	XDfeCcf_GetCurrentCCCfgLocal(InstancePtr, CCCfgUplink);
+
+	/* Set to the current register bank */
+	XDfeCcf_SetRegBank(InstancePtr, RegBank);
 }
 
 /****************************************************************************/
@@ -1206,7 +1340,8 @@ void XDfeCcf_GetEmptyCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg)
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CCCfg Component carrier (CC) configuration container.
-* @param    CCID CC ID.
+* @param    CCID Channel ID for which configuration parameters are returned,
+*           range [0-15].
 * @param    CCSeqBitmap CC slot position container.
 * @param    CarrierCfg CC configuration container.
 *
@@ -1332,7 +1467,7 @@ u32 XDfeCcf_AddCCtoCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID,
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CCCfg Component carrier (CC) configuration container.
-* @param    CCID CC ID.
+* @param    CCID Channel ID to be removed, range [0-15].
 *
 * @note     For a sequence conversion see XDfeCcf_AddCCtoCCCfg comment.
 *
@@ -1346,7 +1481,7 @@ void XDfeCcf_RemoveCCfromCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 
 	/* Remove CCID from sequence and mark carrier configuration as
 	   disabled */
-	XDfeCcf_RemoveCCID(InstancePtr, CCID, &CCCfg->Sequence);
+	XDfeCcf_RemoveCCID(CCID, &CCCfg->Sequence);
 	CCCfg->CarrierCfg[CCID].Enable = 0U;
 	CCCfg->CarrierCfg[CCID].MappedId = 0U;
 }
@@ -1361,7 +1496,7 @@ void XDfeCcf_RemoveCCfromCCCfg(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    CCCfg Component carrier (CC) configuration container.
-* @param    CCID CC ID.
+* @param    CCID Channel ID to be updated, range [0-15].
 * @param    CarrierCfg CC configuration container.
 *
 ****************************************************************************/
@@ -1406,15 +1541,83 @@ void XDfeCcf_UpdateCCinCCCfg(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg,
 *           - XST_FAILURE if error occurs.
 *
 ****************************************************************************/
-u32 XDfeCcf_SetNextCCCfgAndTrigger(const XDfeCcf *InstancePtr,
-				   XDfeCcf_CCCfg *CCCfg)
+u32 XDfeCcf_SetNextCCCfgAndTrigger(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CCCfg != NULL);
 
 	/* If add is successful update next configuration and trigger update */
 	XDfeCcf_SetNextCCCfg(InstancePtr, CCCfg);
-	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+
+	/* Trigger the update */
+	if (XST_SUCCESS == XDfeCcf_EnableCCUpdateTrigger(InstancePtr)) {
+		InstancePtr->NotUsedCCID = CCCfg->Sequence.NotUsedCCID;
+		return XST_SUCCESS;
+	}
+	metal_log(METAL_LOG_ERROR,
+		  "CC Update Trigger failed in %s. Restart the system\n",
+		  __func__);
+	return XST_FAILURE;
+}
+
+/****************************************************************************/
+/**
+*
+* Writes local CC configuration to the shadow (NEXT) registers and triggers
+* copying from shadow to operational (CURRENT) registers for both Downlink
+* and Upling in switchable mode.
+*
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    CCCfgDownlink Downlink CC configuration container.
+* @param    CCCfgUplink Uplink CC configuration container.
+*
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
+****************************************************************************/
+u32 XDfeCcf_SetNextCCCfgAndTriggerSwitchable(XDfeCcf *InstancePtr,
+					     XDfeCcf_CCCfg *CCCfgDownlink,
+					     XDfeCcf_CCCfg *CCCfgUplink)
+{
+	u32 RegBank;
+	u32 Return;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CCCfgDownlink != NULL);
+	Xil_AssertNonvoid(CCCfgUplink != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.Switchable ==
+			  XDFECCF_SWITCHABLE_YES);
+
+	RegBank = XDfeCcf_RdRegBitField(InstancePtr, XDFECCF_REG_BANK_OFFSET,
+					XDFECCF_REG_BANK_DL_UL_WIDTH,
+					XDFECCF_REG_BANK_DL_UL_OFFSET);
+
+	/* If adding is successful, set next configuration and trigger update */
+	/* Set the downlink CCCfg */
+	XDfeCcf_SetRegBank(InstancePtr, XDFECCF_REG_BANK_DOWNLINK);
+	XDfeCcf_SetNextCCCfg(InstancePtr, CCCfgDownlink);
+
+	/* Set the uplink CCCfg */
+	XDfeCcf_SetRegBank(InstancePtr, XDFECCF_REG_BANK_UPLINK);
+	XDfeCcf_SetNextCCCfg(InstancePtr, CCCfgUplink);
+
+	/* Trigger update */
+	if (XST_SUCCESS == XDfeCcf_EnableCCUpdateTrigger(InstancePtr)) {
+		InstancePtr->NotUsedCCID = CCCfgDownlink->Sequence.NotUsedCCID;
+		InstancePtr->NotUsedCCID_UL = CCCfgUplink->Sequence.NotUsedCCID;
+		Return = XST_SUCCESS;
+	} else {
+		metal_log(
+			METAL_LOG_ERROR,
+			"CC Update Trigger failed in %s. Restart the system\n",
+			__func__);
+		Return = XST_FAILURE;
+	}
+
+	/* Set to the current register bank */
+	XDfeCcf_SetRegBank(InstancePtr, RegBank);
+
+	return Return;
 }
 
 /****************************************************************************/
@@ -1531,7 +1734,7 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 
 	/* Remove CCID from sequence and mark carrier configuration as
 	   disabled */
-	XDfeCcf_RemoveCCID(InstancePtr, CCID, &CCCfg.Sequence);
+	XDfeCcf_RemoveCCID(CCID, &CCCfg.Sequence);
 	CCCfg.CarrierCfg[CCID].Enable = 0U;
 	CCCfg.CarrierCfg[CCID].MappedId = 0U;
 
@@ -1637,7 +1840,7 @@ u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 /****************************************************************************/
 /**
 *
-* Updates antenna cofiguration to all antennas.
+* Updates antenna configuration to all antennas.
 *
 * @param    InstancePtr Pointer to the Ccf instance.
 * @param    AntennaCfg Array of all antenna configurations.
@@ -1663,6 +1866,52 @@ u32 XDfeCcf_UpdateAntennaCfg(XDfeCcf *InstancePtr,
 	/* Update next configuration and trigger update */
 	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
 	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+}
+
+/****************************************************************************/
+/**
+*
+* Updates antenna configuration of all antennas. Applies gain to downlink only
+* in switchable mode.
+*
+* @param    InstancePtr Pointer to the Ccf instance.
+* @param    AntennaCfgDownlink Array of all downlink antenna configurations.
+* @param    AntennaCfgUplink Array of all uplink antenna configurations.
+*
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
+* @note     Clear event status with XDfeCcf_ClearEventStatus() before
+*           running this API.
+*
+****************************************************************************/
+u32 XDfeCcf_UpdateAntennaCfgSwitchable(XDfeCcf *InstancePtr,
+				       XDfeCcf_AntennaCfg *AntennaCfgDownlink,
+				       XDfeCcf_AntennaCfg *AntennaCfgUplink)
+{
+	XDfeCcf_CCCfg CCCfgDownlink;
+	XDfeCcf_CCCfg CCCfgUplink;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(AntennaCfgDownlink != NULL);
+	Xil_AssertNonvoid(AntennaCfgUplink != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.Switchable ==
+			  XDFECCF_SWITCHABLE_YES);
+
+	/* Get the Current downlink and uplink CCCfg */
+	XDfeCcf_GetCurrentCCCfgSwitchable(InstancePtr, &CCCfgDownlink,
+					  &CCCfgUplink);
+
+	/* Update the downlink antenna in CCCfg */
+	CCCfgDownlink.AntennaCfg = *AntennaCfgDownlink;
+
+	/* Update the uplink antenna in CCCfg */
+	CCCfgUplink.AntennaCfg = *AntennaCfgUplink;
+
+	/* Set CCCfg to Next registers and trigger CC_UPDAT */
+	return XDfeCcf_SetNextCCCfgAndTriggerSwitchable(
+		InstancePtr, &CCCfgDownlink, &CCCfgUplink);
 }
 
 /****************************************************************************/
@@ -1734,6 +1983,24 @@ void XDfeCcf_GetTriggersCfg(const XDfeCcf *InstancePtr,
 				   XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
 				   Val);
 	TriggerCfg->CCUpdate.StateOutput =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				   XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
+
+	/* Read SWITCH triggers */
+	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_SWITCH_OFFSET);
+	TriggerCfg->Switch.TriggerEnable =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				   XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val);
+	TriggerCfg->Switch.Mode = XDfeCcf_RdBitField(
+		XDFECCF_TRIGGERS_MODE_WIDTH, XDFECCF_TRIGGERS_MODE_OFFSET, Val);
+	TriggerCfg->Switch.TUSERBit =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
+				   XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val);
+	TriggerCfg->Switch.TuserEdgeLevel =
+		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				   XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET,
+				   Val);
+	TriggerCfg->Switch.StateOutput =
 		XDfeCcf_RdBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
 				   XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val);
 }
@@ -1830,6 +2097,29 @@ void XDfeCcf_SetTriggersCfg(const XDfeCcf *InstancePtr,
 				 XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
 				 TriggerCfg->CCUpdate.StateOutput);
 	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_CC_UPDATE_OFFSET, Val);
+
+	/* Switch defined as Continuous */
+	TriggerCfg->Switch.TriggerEnable =
+		XDFECCF_TRIGGERS_TRIGGER_ENABLE_DISABLED;
+	TriggerCfg->Switch.Mode = XDFECCF_TRIGGERS_MODE_TUSER_CONTINUOUS;
+	/* Read SWITCH triggers */
+	Val = XDfeCcf_ReadReg(InstancePtr, XDFECCF_TRIGGERS_SWITCH_OFFSET);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TRIGGER_ENABLE_WIDTH,
+				 XDFECCF_TRIGGERS_TRIGGER_ENABLE_OFFSET, Val,
+				 TriggerCfg->Switch.TriggerEnable);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_MODE_WIDTH,
+				 XDFECCF_TRIGGERS_MODE_OFFSET, Val,
+				 TriggerCfg->Switch.Mode);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_WIDTH,
+				 XDFECCF_TRIGGERS_TUSER_EDGE_LEVEL_OFFSET, Val,
+				 TriggerCfg->Switch.TuserEdgeLevel);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_TUSER_BIT_WIDTH,
+				 XDFECCF_TRIGGERS_TUSER_BIT_OFFSET, Val,
+				 TriggerCfg->Switch.TUSERBit);
+	Val = XDfeCcf_WrBitField(XDFECCF_TRIGGERS_STATE_OUTPUT_WIDTH,
+				 XDFECCF_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
+				 TriggerCfg->Switch.StateOutput);
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_TRIGGERS_SWITCH_OFFSET, Val);
 }
 
 /****************************************************************************/
@@ -1970,7 +2260,7 @@ void XDfeCcf_LoadCoefficients(XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 		}
 	}
 
-	/* Nuber of units */
+	/* Number of units */
 	NumUnits = (NumValues + (XDFECCF_COEFF_UNIT_SIZE - 1)) /
 		   XDFECCF_COEFF_UNIT_SIZE;
 
@@ -2005,7 +2295,7 @@ void XDfeCcf_LoadCoefficients(XDfeCcf *InstancePtr, u32 Set, u32 Shift,
 				XDFECCF_COEFF_VALUE + (sizeof(u32) * Index), 0);
 		}
 	} else {
-		/* Symetric filter: Zero-padding at the begining of array */
+		/* Symmetric filter: Zero-padding at the beginning of array */
 		for (Index = 0; Index < NumPadding; Index++) {
 			XDfeCcf_WriteReg(
 				InstancePtr,
@@ -2168,6 +2458,21 @@ u32 XDfeCcf_GetTDataDelayFromCCCfg(XDfeCcf *InstancePtr, u32 Tap, s32 CCID,
 		      DataLatency;
 
 	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* Sets uplink/downlink register bank.
+*
+* @param    InstancePtr Pointer to the Channel Filter instance.
+* @param    RegBank Register bank value to be set.
+*
+****************************************************************************/
+void XDfeCcf_SetRegBank(const XDfeCcf *InstancePtr, u32 RegBank)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	XDfeCcf_WriteReg(InstancePtr, XDFECCF_REG_BANK_OFFSET, RegBank);
 }
 
 /*****************************************************************************/

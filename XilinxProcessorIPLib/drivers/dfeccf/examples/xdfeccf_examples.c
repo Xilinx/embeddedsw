@@ -25,7 +25,7 @@
 * 1.0   dc     12/06/20 Initial version
 *       dc     01/04/21 Set mgt si570 oscillator to 122.88MHz
 *       dc     02/02/21 Remove hard coded device node name
-*       dc     02/08/21 align driver to curent specification
+*       dc     02/08/21 align driver to current specification
 *       dc     02/22/21 include HW in versioning
 *       dc     04/06/21 Register with full node name
 *       dc     04/07/21 Fix bare metal initialisation
@@ -34,6 +34,7 @@
 *       dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 * 1.3   dc     03/21/22 Add prefix to global variables
+* 1.5   dc     10/28/22 Switching Uplink/Downlink support
 *
 * </pre>
 *
@@ -106,14 +107,6 @@ int main(void)
 	 */
 	if (XST_SUCCESS != XDfeCcf_PassThroughExample()) {
 		printf("Pass through Example failed\r\n");
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Run the DFE Channel Filter 1xNR100 and 3xNR20 example.
-	 */
-	if (XST_SUCCESS != XDfeCcf_1xNR100_3xNR20_Example()) {
-		printf("1xNR100 and 3xNR20 Example failed\r\n");
 		return XST_FAILURE;
 	}
 
