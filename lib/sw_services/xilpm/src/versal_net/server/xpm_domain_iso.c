@@ -176,6 +176,7 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, u32 Format,
 	XPmNode_Init(&IsoNode->Node, NodeId, (u8)PM_ISOLATION_ON, BaseAddress);
 	IsoNode->Format = Format;
 	IsoNode->Mask = Mask;
+	IsoNode->NumDependencies = NumDependencies;
 
 	for (u32 i =0; i < NumDependencies; i++) {
 		IsoNode->Dependencies[i] = Dependencies[i];
