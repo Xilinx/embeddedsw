@@ -1,5 +1,6 @@
 ##############################################################################
 # Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ##############################################################################
 
@@ -11,7 +12,7 @@ OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lgcc,-lc,--end-group";
 OPTION DESC = "Standalone is a simple, low-level software layer. It provides access to basic processor features such as caches, interrupts and exceptions as well as the basic features of a hosted environment, such as standard input and output, profiling, abort and exit.";
 OPTION copyfiles = all;
 OPTION OS_STATE = ACTIVE;
-OPTION VERSION = 8.0;
+OPTION VERSION = 8.1;
 OPTION NAME = standalone;
 
 PARAM name = zynqmp_fsbl_bsp, type = bool, default = false, desc = "Disable or Enable Optimization for FSBL's BSP. ZynqMP FSBL will set this to true";
@@ -40,4 +41,5 @@ PARAM name = lockstep_mode_debug, type = bool, default = false, desc = "Enable d
 PARAM name = clocking, type = bool, default = false, desc = "Enable clocking support", permit = user;
 PARAM name = xil_interrupt, type = bool, default = false, desc = "Enable xilinx interrupt wrapper API support", permit = user;
 PARAM name = pmu_sleep_timer, type = bool, default = false, desc = "Use PMU counters for sleep functionality applicable only for CortexR5 processor", permit = user;
+PARAM name = enable_minimal_xlat_tbl, type = bool, default = false, desc = "Configures translation table only for initial 1 TB address space. Translation table size will be reduced by ~1 MB. It is applicable only for CortexA78 BSP. Enable it to fit executable in OCM memory", permit = user;
 END OS
