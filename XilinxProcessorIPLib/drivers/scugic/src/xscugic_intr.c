@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xscugic_intr.c
-* @addtogroup scugic_v5_0
+* @addtogroup scugic Overview
 * @{
 *
 * This file contains the interrupt processing for the driver for the Xilinx
