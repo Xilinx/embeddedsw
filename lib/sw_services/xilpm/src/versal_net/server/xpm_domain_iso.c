@@ -159,7 +159,7 @@ XStatus XPmDomainIso_NodeInit(u32 NodeId, u32 BaseAddress, u32 Mask, \
 		goto done;
 	}
 
-	XPmNode_Init(&IsoNode->Node, NodeIdx, (u8)PM_ISOLATION_ON, BaseAddress);
+	XPmNode_Init(&IsoNode->Node, NodeId, (u8)PM_ISOLATION_ON, BaseAddress);
 	IsoNode->IsPsmLocal = IsPsmLocal;
 	IsoNode->Mask = Mask;
 	IsoNode->Polarity = Polarity;
