@@ -138,7 +138,8 @@ proc ipi_find_cpu {ipi_list param hw_proc} {
 		set param_name [string range $param [string length "CONFIG."] [string length $param]]
 		set param_value [common::get_property $param [hsi::get_cells -hier $ipi]]
 		set ip_name [common::get_property IP_NAME [hsi::get_cells -hier $hw_proc]]
-		if { [string match -nocase "*$param_value*" $ip_name] } {
+		set trimmed_param [string trim [string trim $param_value "[0-15]"] "_"]
+		if { [string match -nocase "*$trimmed_param*" $ip_name] } {
 			lappend proc_ipi_slave $ipi
 		}
 	}
