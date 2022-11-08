@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,6 +11,7 @@
 ## ----- ---- -------- ----------------------------------------------------
 ## 1.00a sdm  05/24/11 First release
 ## 3.0   adk  12/10/13 Updated as per the New Tcl API's
+## 5.1   mus  11/08/22 Add support for VERSAL NET
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -70,7 +72,11 @@ proc gen_testfunc_call {swproj mhsinst} {
 	    (([string compare -nocase $proctype "psu_cortexa53"] == 0)&&([string compare -nocase $ipname "psu_acpu_gic"] == 0))||
 	    (([string compare -nocase $proctype "psu_cortexr5"] == 0)&&([string compare -nocase $ipname "psu_rcpu_gic"] == 0)) ||
 	    (([string compare -nocase $proctype "psv_cortexa72"] == 0)&&([string compare -nocase $ipname "psv_acpu_gic"] == 0))||
-	    (([string compare -nocase $proctype "psv_cortexr5"] == 0)&&([string compare -nocase $ipname "psv_rcpu_gic"] == 0))} {
+	    (([string compare -nocase $proctype "psv_cortexr5"] == 0)&&([string compare -nocase $ipname "psv_rcpu_gic"] == 0)) ||
+	    (([string compare -nocase $proctype "psxl_cortexa78"] == 0) && ([string compare -nocase $ipname "psxl_acpu_gic"] == 0)) ||
+	    (([string compare -nocase $proctype "psx_cortexa78"] == 0) && ([string compare -nocase $ipname "psx_acpu_gic"] == 0)) ||
+	    (([string compare -nocase $proctype "psxl_cortexr52"] == 0) && ([string compare -nocase $ipname "psxl_rcpu_gic"] == 0)) ||
+	    (([string compare -nocase $proctype "psx_cortexr52"] == 0) && ([string compare -nocase $ipname "psx_rcpu_gic"] == 0))} {
 
 	 if { $stdout == "" || $stdout == "none" } {
 	     set hasStdout 0
