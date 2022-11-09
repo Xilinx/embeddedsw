@@ -87,7 +87,8 @@
 	(1ULL << (u64)XPM_QID_CLOCK_GET_MUXSOURCES) | \
 	(1ULL << (u64)XPM_QID_CLOCK_GET_ATTRIBUTES) | \
 	(1ULL << (u64)XPM_QID_CLOCK_GET_NUM_CLOCKS) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_MAX_DIVISOR))
+	(1ULL << (u64)XPM_QID_CLOCK_GET_MAX_DIVISOR) | \
+	(1ULL << (u64)XPM_QID_PLD_GET_PARENT))
 
 XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 				     u32 ReqFlags, const u32 *Args, u32 NumArgs)
@@ -517,8 +518,10 @@ XStatus XPm_PlatQuery(const u32 Qid, const u32 Arg1, const u32 Arg2,
 	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_NAME:
 	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
 	case (u32)XPM_QID_PINCTRL_GET_PIN_GROUPS:
-	case (u32)XPM_QID_PLD_GET_PARENT:
 		Status = XST_NO_FEATURE;
+		break;
+	case (u32)XPM_QID_PLD_GET_PARENT:
+		Status = XPmPlDevice_GetParent(Arg1, Output);
 		break;
 	default:
 		Status = XST_INVALID_PARAM;

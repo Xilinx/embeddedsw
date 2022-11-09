@@ -17,6 +17,7 @@
 #include "xpm_psfpdomain.h"
 #include "xpm_requirement.h"
 #include "xpm_debug.h"
+#include "xpm_pldevice.h"
 
 static const char *PmDevStates[] = {
 	"UNUSED",
@@ -1705,8 +1706,34 @@ XStatus XPmDevice_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 				}
 				Status = XST_SUCCESS;
 			}
+		} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Parents[i])) &&
+			((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Parents[i]))) {
+			if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Id)) &&
+			((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Id))) {
+				XPm_PlDevice *PlDevice = (XPm_PlDevice *)DevPtr;
+				XPm_PlDevice *Parent = (XPm_PlDevice *)XPmDevice_GetById(Parents[i]);
+				/*
+				* Along with checking validity of parent, check if parent has
+				* a parent with exception being PLD_0. This is to prevent
+				* broken trees
+				*/
+				Status = XPmPlDevice_IsValidPld(Parent);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+
+				PlDevice->Parent = Parent;
+				PlDevice->NextPeer = Parent->Child;
+				Parent->Child = PlDevice;
+				Status = XST_SUCCESS;
+			} else {
+				Status = XPmDevice_PlatAddParent(Id, Parents[i]);
+				if (XST_SUCCESS != Status) {
+					goto done;
+				}
+			}
 		} else {
-			Status = XPmDevice_PlatAddParent(Id, Parents[i]);
+			Status = XPM_INVALID_DEVICEID;
 			goto done;
 		}
 	}

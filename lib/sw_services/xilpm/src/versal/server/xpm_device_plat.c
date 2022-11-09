@@ -378,46 +378,25 @@ XStatus XPmDevice_PlatAddParent(const u32 Id, const u32 ParentId)
 	XStatus Status = XST_FAILURE;
 	XPm_Device *DevPtr = XPmDevice_GetById(Id);
 
-	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(ParentId)) &&
-	   ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(ParentId))) {
-		if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Id)) &&
-		    ((u32)XPM_NODESUBCL_DEV_PL == NODESUBCLASS(Id))) {
-			XPm_PlDevice *PlDevice = (XPm_PlDevice *)DevPtr;
-			XPm_PlDevice *Parent = (XPm_PlDevice *)XPmDevice_GetById(ParentId);
-			/*
-			 * Along with checking validity of parent, check if parent has
-			 * a parent with exception being PLD_0. This is to prevent
-			 * broken trees
-			 */
-			Status = XPmPlDevice_IsValidPld(Parent);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-
-			PlDevice->Parent = Parent;
-			PlDevice->NextPeer = Parent->Child;
-			Parent->Child = PlDevice;
-			Status = XST_SUCCESS;
-		} else if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Id)) &&
-		           ((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(Id))) {
-			XPm_AieDevice *AieDevice = (XPm_AieDevice *)DevPtr;
-			XPm_PlDevice *Parent = (XPm_PlDevice *)XPmDevice_GetById(ParentId);
-			/*
-			 * Along with checking validity of parent, check if parent has
-			 * a parent with exception being PLD_0. This is to prevent
-			 * broken trees
-			 */
-			Status = XPmPlDevice_IsValidPld(Parent);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-
-			AieDevice->Parent = Parent;
-			Parent->AieDevice = AieDevice;
-			Status = XST_SUCCESS;
-		} else {
-			Status = XPM_INVALID_DEVICEID;
+	if (((u32)XPM_NODECLASS_DEVICE == NODECLASS(Id)) &&
+		((u32)XPM_NODESUBCL_DEV_AIE == NODESUBCLASS(Id))) {
+		XPm_AieDevice *AieDevice = (XPm_AieDevice *)DevPtr;
+		XPm_PlDevice *Parent = (XPm_PlDevice *)XPmDevice_GetById(ParentId);
+		/*
+		 * Along with checking validity of parent, check if parent has
+		 * a parent with exception being PLD_0. This is to prevent
+		 * broken trees
+		 */
+		Status = XPmPlDevice_IsValidPld(Parent);
+		if (XST_SUCCESS != Status) {
+			goto done;
 		}
+
+		AieDevice->Parent = Parent;
+		Parent->AieDevice = AieDevice;
+		Status = XST_SUCCESS;
+	} else {
+		Status = XPM_INVALID_DEVICEID;
 	}
 
 done:
