@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -11,6 +12,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 7.7   adk  24/11/21 First release
 # 8.0   adk  09/08/22 Added support for versal net
+# 8.1	adk  09/11/22 Fix interrupt parent address for versal net
 ##############################################################################
 
 #generate interrupt id and interrupt parent info
@@ -60,7 +62,7 @@ proc gen_intr {drv_handle file_name args} {
 			set intc_parent_addr [common::get_property CONFIG.C_S_AXI_BASEADDR $intc]
 		    }
                     if {($processor_type == "psxl_cortexa78" && $ipname == "psxl_acpu_gic") || ($processor_type == "psx_cortexa78" && $ipname == "psx_acpu_gic") || ($processor_type == "psxl_cortexr52" && $ipname == "psxl_rcpu_gic") || ($processor_type == "psx_cortexr52" && $ipname == "psx_rcpu_gic")} {
-                        set intc_parent_addr [common::get_property CONFIG.C_S_AXI_BASEADDR $intc]
+                        set intc_parent_addr 0xE2000000U
                     }
 		    if {$ipname == "axi_intc"} {
 			set intc_parent_addr [common::get_property CONFIG.C_BASEADDR $intc]
