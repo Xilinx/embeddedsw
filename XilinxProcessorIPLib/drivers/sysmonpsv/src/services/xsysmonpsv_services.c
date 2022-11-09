@@ -23,7 +23,6 @@
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 * 4.0   se     10/04/22 Update return value definitions
-*		se	   10/27/22 Secure and Non-Secure mode integration
 * </pre>
 *
 ******************************************************************************/
@@ -63,11 +62,11 @@ int XSysMonPsv_EnableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply,
 	Event = ALARM_REG(SupplyReg);
 	AlarmRegOffset = XSYSMONPSV_ALARM_REG0 + (Event * 4U);
 
-	XSysMonPsv_Read_Reg(InstancePtr, AlarmRegOffset, &Val);
+	XSysMonPsv_ReadReg32(InstancePtr, AlarmRegOffset, &Val);
 	Val = Val | (1U << Bit);
 	Ier = GET_BIT(Event);
 	XSysMonPsv_InterruptEnable(InstancePtr, Ier, IntrNum);
-	XSysMonPsv_Write_Reg(InstancePtr, AlarmRegOffset, Val);
+	XSysMonPsv_WriteReg32(InstancePtr, AlarmRegOffset, Val);
 
 	return XST_SUCCESS;
 }
@@ -98,10 +97,10 @@ int XSysMonPsv_DisableVoltageEvents(XSysMonPsv *InstancePtr, u32 Supply)
 	Event = ALARM_REG(SupplyReg);
 	AlarmRegOffset = XSYSMONPSV_ALARM_REG0 + (Event * 4U);
 
-	XSysMonPsv_Read_Reg(InstancePtr, AlarmRegOffset, &Val);
+	XSysMonPsv_ReadReg32(InstancePtr, AlarmRegOffset, &Val);
 	Val = Val & (~(1U << Bit));
 
-	XSysMonPsv_Write_Reg(InstancePtr, AlarmRegOffset, Val);
+	XSysMonPsv_WriteReg32(InstancePtr, AlarmRegOffset, Val);
 
 	return XST_SUCCESS;
 }
@@ -281,7 +280,7 @@ void XSysMonPsv_IntrHandler(XSysMonPsv *InstancePtr)
 
 	/* Clear interrupt status register */
 	XSysMonPsv_InterruptClear(InstancePtr, IntrStatus);
-	XSysMonPsv_Read_Reg(InstancePtr, XSYSMONPSV_IMR0_OFFSET, &IntrMask);
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_IMR0_OFFSET, &IntrMask);
 
 	IntrStatus &= ~IntrMask;
 	SupplyAlarm = IntrStatus &
@@ -295,7 +294,7 @@ void XSysMonPsv_IntrHandler(XSysMonPsv *InstancePtr)
 	/* Handle OT Event */
 	if ((OTTempDetected != 0U) &&
 	    (InstancePtr->OTEvent.IsCallbackSet == 1U)) {
-		XSysMonPsv_Write_Reg(InstancePtr, XSYSMONPSV_IDR0_OFFSET,
+		XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_IDR0_OFFSET,
 				    GET_BIT(XSYSMONPSV_BIT_OT));
 		InstancePtr->OTEvent.Handler(InstancePtr->OTEvent.CallbackRef);
 	}
@@ -303,7 +302,7 @@ void XSysMonPsv_IntrHandler(XSysMonPsv *InstancePtr)
 	/* Handle Dev Temp Event */
 	if ((DevTempDetected != 0U) &&
 	    (InstancePtr->TempEvent.IsCallbackSet == 1U)) {
-		XSysMonPsv_Write_Reg(InstancePtr, XSYSMONPSV_IDR0_OFFSET,
+		XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_IDR0_OFFSET,
 				    GET_BIT(XSYSMONPSV_BIT_TEMP));
 		InstancePtr->TempEvent.Handler(
 			InstancePtr->TempEvent.CallbackRef);

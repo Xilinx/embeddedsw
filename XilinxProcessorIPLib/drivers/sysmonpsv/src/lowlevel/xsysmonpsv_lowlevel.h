@@ -21,7 +21,6 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
-* 4.0   se     10/27/22 Secure and Non-Secure mode integration
 *
 * </pre>
 *
@@ -39,10 +38,11 @@ extern "C" {
 #include "xsysmonpsv_driver.h"
 
 /************************** Function Prototypes ******************************/
-void XSysMonPsv_Read_Reg(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data);
-void XSysMonPsv_Write_Reg(XSysMonPsv *InstancePtr, u32 Offset, u32 Data);
-void XSysMonPsv_Update_Reg(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
-			   u32 Data);
+
+void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data);
+void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data);
+void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
+			  u32 Data);
 
 #ifdef __cplusplus
 }

@@ -26,7 +26,6 @@
 * 1.2   aad    3/19/20  Fixed the interrupt disable flag
 * 2.3   aad    9/28/21  Force generate of interrupt.
 * 3.0   cog    03/25/21 Driver Restructure
-* 4.0   se     10/27/22 Secure and Non-Secure mode integration
 *
 * </pre>
 *
@@ -37,18 +36,6 @@
 #include <stdio.h>
 #include "xsysmonpsv.h"
 
-/************************** Constant Definitions ****************************/
-
-/*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-#if	defined(XSYSMONPSV_SECURE_MODE)
-	#define XSYSMONPSV_IPI_INT_ID (XPAR_XIPIPSU_0_INT_ID)
-	#define XSYSMONPSV_IPI_DEVICE_ID XPAR_XIPIPSU_0_DEVICE_ID
-#endif
-/****************************************************************************/
 /************************** Function Prototypes *****************************/
 int SysMonPsvIntrExample();
 void Temp_CallbackFunc(void *data);
@@ -130,11 +117,6 @@ int SysMonPsvIntrExample()
 	u32 ThresholdValue;
 	u32 Val;
 	XSysMonPsv_Supply Supply = (XSysMonPsv_Supply)0;
-
-#if defined(XSYSMONPSV_SECURE_MODE)
-	InstancePtr->IpiIntrid = XSYSMONPSV_IPI_INT_ID;
-	InstancePtr->IpiDeviceId = XSYSMONPSV_IPI_DEVICE_ID;
-#endif
 
 	XSysMonPsv_Init(&InstancePtr, &IntcInst);
 	printf("Entering the SysMon Intr Example\r\n");
@@ -240,16 +222,14 @@ int SysMonPsvIntrExample()
 						   &ThresholdValue);
 		printf("\tSupply Lower Threshold Value = 0x%x\r\n\n",
 		       (unsigned int)ThresholdValue);
+		XSysMonPsv_EnableVoltageEvents(&InstancePtr, Supply, 0);
 
 		ret = XSysMonPsv_RegisterSupplyOps(
 			&InstancePtr, Supply, &Supply_CallbackFunc, &Supply);
 		if (ret) {
 			printf("\tXSysMonPsv_RegisterSupplyOps failed\r\n");
 		}
-
 		SupplyInterruptOccured = 0;
-		XSysMonPsv_EnableVoltageEvents(&InstancePtr, Supply, 0);
-
 		/* To Trigger Interrupt for supply*/
 		XSysMonPsv_SetSupplyThresholdUpper(&InstancePtr, Supply, 0);
 		xil_printf("\tWaiting for Supply Interrupt\r\n");

@@ -19,7 +19,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
-* 4.0   se     10/27/22 Secure and Non-Secure mode integration
+*
 *
 * </pre>
 *
@@ -29,7 +29,6 @@
 #include "xsysmonpsv_lowlevel.h"
 #include "xil_io.h"
 
-#if !defined(XSYSMONPSV_SECURE_MODE)
 /******************************************************************************/
 /**
  * This function reads register value.
@@ -41,7 +40,7 @@
  * @return	None.
  *
 *******************************************************************************/
-void XSysMonPsv_Read_Reg(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
+void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
 {
 	*Data = Xil_In32(InstancePtr->Config.BaseAddress + Offset);
 }
@@ -57,7 +56,7 @@ void XSysMonPsv_Read_Reg(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data)
  * @return	None.
  *
 *******************************************************************************/
-void XSysMonPsv_Write_Reg(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
+void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
 {
 	Xil_Out32(InstancePtr->Config.BaseAddress + Offset, Data);
 }
@@ -74,13 +73,11 @@ void XSysMonPsv_Write_Reg(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
  * @return	None.
  *
 *******************************************************************************/
-void XSysMonPsv_Update_Reg(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
-			   u32 Data)
+void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
+			  u32 Data)
 {
 	u32 Val;
 
-	XSysMonPsv_Read_Reg(InstancePtr, Offset, &Val);
-	XSysMonPsv_Write_Reg(InstancePtr, Offset,
-			     (Val & ~Mask) | (Mask & Data));
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Val);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, (Val & ~Mask) | (Mask & Data));
 }
-#endif

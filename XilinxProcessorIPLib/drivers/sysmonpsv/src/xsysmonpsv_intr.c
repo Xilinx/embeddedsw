@@ -30,7 +30,6 @@
 * 3.0   cog    03/25/21 Driver Restructure
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
-* 4.0   se     10/27/22 Secure and Non-Secure mode integration
 *
 * </pre>
 *
@@ -86,7 +85,7 @@ void XSysMonPsv_IntrEnable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 		  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
 
 	/* Enable the specified interrupts in the AMS Interrupt Enable Register. */
-	XSysMonPsv_Write_Reg(InstancePtr, Offset, Mask);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Mask);
 }
 
 /****************************************************************************/
@@ -119,7 +118,7 @@ u32 XSysMonPsv_IntrGetEnabled(XSysMonPsv *InstancePtr, u8 IntrNum)
 	Offset = (XSYSMONPSV_IMR0_OFFSET +
 		  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
 	/* Return the value read from the AMS Interrupt Mask Register. */
-	XSysMonPsv_Read_Reg(InstancePtr, Offset, &Interrupts);
+	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Interrupts);
 
 	return ~(Interrupts);
 }
@@ -155,7 +154,7 @@ void XSysMonPsv_IntrDisable(XSysMonPsv *InstancePtr, u32 Mask, u8 IntrNum)
 		  ((u32)IntrNum * XSYSMONPSV_INTR_OFFSET));
 
 	/* Disable the specified interrupts in the AMS Interrupt Disable Register. */
-	XSysMonPsv_Write_Reg(InstancePtr, Offset, Mask);
+	XSysMonPsv_WriteReg32(InstancePtr, Offset, Mask);
 }
 
 /****************************************************************************/
@@ -181,7 +180,7 @@ u32 XSysMonPsv_IntrGetStatus(XSysMonPsv *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	XSysMonPsv_Read_Reg(InstancePtr, XSYSMONPSV_ISR_OFFSET, &IntrStatus);
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_ISR_OFFSET, &IntrStatus);
 
 	return IntrStatus;
 }
@@ -208,7 +207,7 @@ void XSysMonPsv_IntrClear(XSysMonPsv *InstancePtr, u32 Mask)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Clear the specified interrupts in the Interrupt Status register. */
-	XSysMonPsv_Write_Reg(InstancePtr, XSYSMONPSV_ISR_OFFSET, Mask);
+	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_ISR_OFFSET, Mask);
 }
 
 /****************************************************************************/
@@ -234,7 +233,7 @@ void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((Mask & XSYSMONPSV_INTR_NEW_DATA_MASK) != 0U);
 
-	XSysMonPsv_Read_Reg(InstancePtr, XSYSMONPSV_NEW_DATA_INT_SRC, &Reg);
+	XSysMonPsv_ReadReg32(InstancePtr, XSYSMONPSV_NEW_DATA_INT_SRC, &Reg);
 	Val = (Mask & XSYSMONPSV_INTR_NEW_DATA_MASK) >>
 	      XSYSMONPSV_INTR_NEW_DATA_SHIFT;
 
@@ -251,7 +250,7 @@ void XSysMonPsv_SetNewDataIntSrc(XSysMonPsv *InstancePtr,
 
 	if (Index < 4U) {
 		Reg |= Val << Shift;
-		XSysMonPsv_Write_Reg(InstancePtr, XSYSMONPSV_NEW_DATA_INT_SRC,
+		XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_NEW_DATA_INT_SRC,
 				    Reg);
 	}
 }
