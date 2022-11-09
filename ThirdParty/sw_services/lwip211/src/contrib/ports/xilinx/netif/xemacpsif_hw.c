@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -31,12 +32,6 @@
 #include "netif/xemacpsif.h"
 #include "lwipopts.h"
 
-#if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1 || \
-	XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1
-#define PCM_PMA_CORE_PRESENT
-#else
-#undef PCM_PMA_CORE_PRESENT
-#endif
 
 u32_t link_speed = 100;
 extern XEmacPs_Config XEmacPs_ConfigTable[];
@@ -100,13 +95,7 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
  *  in phymapemac0 or phymapemac1.
  *  phy_setup_emacps is then called for each PHY present on the MDIO bus.
  */
-#ifdef PCM_PMA_CORE_PRESENT
-#ifdef  XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT
-	link_speed = phy_setup_emacps(xemacpsp, XPAR_PCSPMA_1000BASEX_PHYADDR);
-#elif XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT
-	link_speed = phy_setup_emacps(xemacpsp, XPAR_PCSPMA_SGMII_PHYADDR);
-#endif
-#else
+
 	detect_phy(xemacpsp);
 	for (i = 31; i > 0; i--) {
 		if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR) {
@@ -131,7 +120,6 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 		if (phyfoundforemac1 == FALSE)
 			link_speed = phy_setup_emacps(xemacpsp, 0);
 	}
-#endif
 
 	if (link_speed == XST_FAILURE) {
 		eth_link_status = ETH_LINK_DOWN;

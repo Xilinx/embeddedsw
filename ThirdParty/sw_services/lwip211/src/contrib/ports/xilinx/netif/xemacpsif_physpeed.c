@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -155,22 +156,12 @@
 #define SLCR_ADDR_GEM_RST_CTRL	(XPS_SYS_CTRL_BASEADDR + 0x214)
 #define EMACPS_SLCR_DIV_MASK	0xFC0FC0FF
 
-#if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1 || \
-	XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1
-#define PCM_PMA_CORE_PRESENT
-#else
-#undef PCM_PMA_CORE_PRESENT
-#endif
-
-#ifdef PCM_PMA_CORE_PRESENT
-#define IEEE_CTRL_RESET                         0x9140
 #define IEEE_CTRL_ISOLATE_DISABLE               0xFBFF
-#endif
 
 u32_t phymapemac0[32];
 u32_t phymapemac1[32];
 
-#if defined (PCM_PMA_CORE_PRESENT) || defined (CONFIG_LINKSPEED_AUTODETECT)
+#if defined (CONFIG_LINKSPEED_AUTODETECT)
 static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr);
 #endif
 static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed);
@@ -179,49 +170,14 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed);
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed);
 #endif
 
-#ifdef PCM_PMA_CORE_PRESENT
-u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr)
+static u32_t get_Xilinx_pcs_pma_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 {
-	u32_t link_speed;
-	u16_t regval;
-	u16_t phy_id;
-
-	if(phy_addr == 0) {
-		for (phy_addr = 31; phy_addr > 0; phy_addr--) {
-			XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
-					&phy_id);
-
-			if (phy_id == PHY_XILINX_PCS_PMA_ID1) {
-				XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_2_REG,
-						&phy_id);
-				if (phy_id == PHY_XILINX_PCS_PMA_ID2) {
-					/* Found a valid PHY address */
-					LWIP_DEBUGF(NETIF_DEBUG, ("XEmacPs detect_phy: PHY detected at address %d.\r\n",
-							phy_addr));
-					break;
-				}
-			}
-		}
-	}
-
-	link_speed = get_IEEE_phy_speed(xemacpsp, phy_addr);
-	if (link_speed == 1000)
-		SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,1000);
-	else if (link_speed == 100)
-		SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,100);
-	else
-		SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,10);
-
-	xil_printf("link speed for phy address %d: %d\r\n", phy_addr, link_speed);
-	return link_speed;
-}
-
-static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
-{
+#if XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1 || \
+    XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1
 	u16_t temp;
+#endif
 	u16_t control;
 	u16_t status;
-	u16_t partner_capabilities;
 
 	xil_printf("Start PHY autonegotiation \r\n");
 
@@ -274,15 +230,15 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		return 10;
 	}
 #endif
-
+	return 0;
 }
 
-#else /*PCM_PMA_CORE_PRESENT not defined, GMII/RGMII case*/
 void detect_phy(XEmacPs *xemacpsp)
 {
 	u16_t phy_reg;
 	u32_t phy_addr;
 	u32_t emacnum;
+	u16_t phy_id;
 
 	if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR)
 		emacnum = 0;
@@ -291,9 +247,12 @@ void detect_phy(XEmacPs *xemacpsp)
 	for (phy_addr = 31; phy_addr > 0; phy_addr--) {
 		XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_DETECT_REG,
 							&phy_reg);
+		XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
+				&phy_id);
 
-		if ((phy_reg != 0xFFFF) &&
-			((phy_reg & PHY_DETECT_MASK) == PHY_DETECT_MASK)) {
+		if (((phy_reg != 0xFFFF) &&
+			((phy_reg & PHY_DETECT_MASK) == PHY_DETECT_MASK)) ||
+			(phy_id == PHY_XILINX_PCS_PMA_ID1)) {
 			/* Found a valid PHY address */
 			LWIP_DEBUGF(NETIF_DEBUG, ("XEmacPs detect_phy: PHY detected at address %d.\r\n",
 																	phy_addr));
@@ -306,8 +265,9 @@ void detect_phy(XEmacPs *xemacpsp)
 							&phy_reg);
 			if ((phy_reg != PHY_MARVELL_IDENTIFIER) &&
 				(phy_reg != PHY_TI_IDENTIFIER) &&
-				(phy_reg != PHY_REALTEK_IDENTIFIER)) {
-				xil_printf("WARNING: Not a Marvell or TI or Realtek Ethernet PHY. Please verify the initialization sequence\r\n");
+				(phy_reg != PHY_REALTEK_IDENTIFIER) &&
+				(phy_reg != PHY_XILINX_PCS_PMA_ID1)) {
+				xil_printf("WARNING: Not a Marvell or TI or Realtek or Xilinx PCS PMA Ethernet PHY. Please verify the initialization sequence\r\n");
 			}
 		}
 	}
@@ -687,6 +647,8 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		RetStatus = get_TI_phy_speed(xemacpsp, phy_addr);
 	} else if (phy_identity == PHY_REALTEK_IDENTIFIER) {
 		RetStatus = get_Realtek_phy_speed(xemacpsp, phy_addr);
+	} else if (phy_identity == PHY_XILINX_PCS_PMA_ID1) {
+		RetStatus = get_Xilinx_pcs_pma_phy_speed(xemacpsp, phy_addr);
 	} else {
 		RetStatus = get_Marvell_phy_speed(xemacpsp, phy_addr);
 	}
@@ -785,7 +747,6 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 	return 0;
 }
 #endif
-#endif /*PCM_PMA_CORE_PRESENT*/
 
 static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 {
