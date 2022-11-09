@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xttcps_options.c
-* @addtogroup ttcps_v3_15
+* @addtogroup ttcps Overview
 * @{
 *
 * This file contains functions to get or set option features for the device.

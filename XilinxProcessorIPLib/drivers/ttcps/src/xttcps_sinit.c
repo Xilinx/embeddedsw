@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xttcps_sinit.c
-* @addtogroup ttcps_v3_15
+* @addtogroup ttcps Overview
 * @{
 *
 * The implementation of the XTtcPs driver's static initialization functionality.
