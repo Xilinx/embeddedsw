@@ -38,6 +38,7 @@
 * 1.06  am   11/24/2021 Fixed doxygen warning
 * 1.07  skd  04/21/2022 Misra-C violation Rule 8.3 fixed
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
+* 1.09  sk   11/09/2022 Added Timeout settings info for JTAG_SBI Bootmode
 *
 * </pre>
 *
@@ -57,6 +58,11 @@
 #include "xplmi_status.h"
 #include "xplmi_hw.h"
 #include <stdarg.h>
+
+#ifdef PLM_DEBUG_DETAILED
+#warning "Log Level set to Detailed,for JTAG_SBI Bootmode device program may timeout refer PLM wiki to change xsdb timeout"
+#endif
+
 
 /************************** Constant Definitions *****************************/
 
