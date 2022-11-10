@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +25,7 @@
  * 1.4   sd   23/06/21    Fix MISRA-C warnings
  * 1.5   dp   22/11/21    Update XIpiPs_RegisterIrq() to check whether GIC has
  *                        already been setup or not and if it was setup skip
- *                        initalizing GIC again and just register handlers.
+ *                        initializing GIC again and just register handlers.
  * 1.6   sd   28/02/21    Add support for microblaze
  *       kpt  03/16/21    Fixed compilation warning on microblaze
  * 1.7   sd   01/04/22    Replace memset with Xil_SMemSet

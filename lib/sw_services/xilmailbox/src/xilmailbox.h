@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +45,7 @@
  * 1.3   sd   03/03/21    Doxygen Fixes
  * 1.6   sd   28/02/21    Add support for microblaze
  *       kpt  03/16/22    Added shared memory API's for IPI utilization
+ * 1.7   sd   10/11/22    Fix a typo
  *</pre>
  *
  *@note
@@ -96,7 +98,7 @@ typedef struct XMboxTag {
 				  u32 MsgLen, u8 BufferType, u8 Is_Blocking); /**< Sends an IPI message to a destination CPU */
 	u32 (*XMbox_IPI_Recv)(struct XMboxTag *InstancePtr, void *BufferPtr,
 			      u32 MsgLen, u8 BufferType); /**< Reads an IPI message */
-	XMailbox_RecvHandler RecvHandler;   /**< Recieve handler */
+	XMailbox_RecvHandler RecvHandler;   /**< Receive handler */
 	XMailbox_ErrorHandler ErrorHandler; /**< Callback for rx IPI event */
 	void *ErrorRefPtr; /**<  To be passed to the error interrupt callback */
 	void *RecvRefPtr;  /**< To be passed to the receive interrupt callback */
