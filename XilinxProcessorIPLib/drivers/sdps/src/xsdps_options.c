@@ -63,6 +63,7 @@
 * 3.12  sk     01/28/21 Added support for non-blocking write.
 * 3.14  mn     11/28/21 Fix MISRA-C violations.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
+* 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 *
 * </pre>
 *
@@ -96,6 +97,9 @@
 s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 {
 	s32 Status;
+#ifdef VERSAL_NET
+	u32 Reg;
+#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -104,6 +108,32 @@ s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
 		/* Program the Tap delays */
 		XSdPs_SetTapDelay(InstancePtr);
+	}
+#else
+	if (InstancePtr->CardType == XSDPS_CARD_SD) {
+		XSdPs_SetTapDelay(InstancePtr);
+	} else {
+		Reg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress, XSDPS_PHYCTRLREG1_OFFSET);
+		Reg &= ~(XSDPS_PHYREG1_STROBE_SEL_MASK | XSDPS_PHYREG1_OTAP_DLY_MASK |
+				XSDPS_PHYREG1_OTAP_EN_MASK | XSDPS_PHYREG1_ITAP_EN_MASK |
+				XSDPS_PHYREG1_ITAP_DLY_MASK);
+		if (InstancePtr->OTapDelay != 0U) {
+			Reg |= (InstancePtr->OTapDelay << XSDPS_PHYREG1_OTAP_DLY_SHIFT);
+			Reg |= XSDPS_PHYREG1_OTAP_EN_MASK;
+		}
+
+		Reg |= XSDPS_PHYREG1_ITAP_CHGWIN_MASK;
+		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_PHYCTRLREG1_OFFSET, Reg);
+		if (InstancePtr->ITapDelay != 0U) {
+			Reg |= (InstancePtr->ITapDelay << XSDPS_PHYREG1_ITAP_DLY_SHIFT);
+			Reg |= XSDPS_PHYREG1_ITAP_EN_MASK;
+		}
+
+		Reg &= ~XSDPS_PHYREG1_ITAP_CHGWIN_MASK;
+		if (InstancePtr->Mode == XSDPS_HS400_MODE)
+			Reg |= (PHY_STRB_SEL_SIG | PHY_STRB_SEL_SIG) << XSDPS_PHYREG1_STROBE_SEL_SHIFT;
+
+		XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_PHYCTRLREG1_OFFSET, Reg);
 	}
 #endif
 

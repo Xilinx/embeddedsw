@@ -35,6 +35,7 @@
 *       sk     04/07/22 Add support to read custom tap delay values from design
 *                       for SD/eMMC.
 *       sk     06/03/22 Fix issue in internal clock divider calculation logic.
+* 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 *
 * </pre>
 *
@@ -1769,6 +1770,7 @@ u32 XSdPs_FrameCmd(XSdPs *InstancePtr, u32 Cmd)
 u32 XSdPs_Select_HS400(XSdPs *InstancePtr)
 {
 	u32 Status;
+	u32 StatusReg;
 
 	InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 	Status = XSdPs_Change_MmcBusSpeed(InstancePtr);
@@ -1777,6 +1779,7 @@ u32 XSdPs_Select_HS400(XSdPs *InstancePtr)
 		goto RETURN_PATH;
 	}
 
+	InstancePtr->OTapDelay = SD_OTAPDLYSEL_EMMC_HSD;
 	Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
@@ -1796,11 +1799,19 @@ u32 XSdPs_Select_HS400(XSdPs *InstancePtr)
 		goto RETURN_PATH;
 	}
 
+	InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS400;
 	Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
 	}
+
+	StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_HOST_CTRL2_OFFSET);
+	StatusReg &= (~(u32)XSDPS_HC2_UHS_MODE_MASK);
+	StatusReg |= XSDPS_HC2_HS400_MASK;
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_HOST_CTRL2_OFFSET, (u16)StatusReg);
 
 RETURN_PATH:
 	return Status;

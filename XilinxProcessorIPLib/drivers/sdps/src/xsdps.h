@@ -157,6 +157,7 @@
 *       sk     04/07/22 Add support to read custom tap delay values from design
 *                       for SD/eMMC.
 *       sk     06/03/22 Fix issue in internal clock divider calculation logic.
+* 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 *
 * </pre>
 *

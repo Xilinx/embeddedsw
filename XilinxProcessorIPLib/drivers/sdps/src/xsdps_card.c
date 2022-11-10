@@ -33,6 +33,7 @@
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 *       sk     04/07/22 Add support to read custom tap delay values from design
 *                       for SD/eMMC.
+* 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 *
 * </pre>
 *
@@ -348,7 +349,7 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 
 	}
 
-	if (InstancePtr->Mode != XSDPS_DDR52_MODE) {
+	if (InstancePtr->Mode != XSDPS_DDR52_MODE && InstancePtr->Mode != XSDPS_HS400_MODE) {
 		Status = XSdPs_SetBlkSize(InstancePtr, XSDPS_BLK_SIZE_512_MASK);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
@@ -1374,11 +1375,7 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 				EXT_CSD_DEVICE_TYPE_DDR_1V2_HS400)) != 0U) {
 			InstancePtr->Mode = XSDPS_HS400_MODE;
 			InstancePtr->IsTuningDone = 0U;
-			if (InstancePtr->Config.BankNumber == 2U) {
-				InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B2;
-			} else {
-				InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
-			}
+			InstancePtr->OTapDelay = SD_OTAPDLYSEL_HS200_B0;
 		} else {
 #endif
 			if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
@@ -1413,7 +1410,7 @@ void XSdPs_IdentifyEmmcMode(XSdPs *InstancePtr, const u8 *ExtCsd)
 					InstancePtr->ITapDelay = InstancePtr->Config.ITapDly_SDR_Clk50;
 				} else {
 					InstancePtr->OTapDelay = SD_OTAPDLYSEL_EMMC_HSD;
-					InstancePtr->ITapDelay = SD_ITAPDLYSEL_HSD;
+					InstancePtr->ITapDelay = SD_ITAPDLYSEL_EMMC_HSD;
 				}
 			} else {
 				InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
@@ -1509,7 +1506,7 @@ s32 XSdPs_SetClock(XSdPs *InstancePtr, u32 SelFreq)
 					XSDPS_PHYCTRLREG2_OFFSET);
 		Reg &= ~XSDPS_PHYREG2_DLL_EN_MASK;
 		if ((InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
-			(InstancePtr->Config.InputClockHz >= XSDPD_MIN_DLL_MODE_CLK)) {
+			(SelFreq > XSDPD_MIN_DLL_MODE_CLK)) {
 			XSdPs_WriteReg(InstancePtr->Config.BaseAddress,
 					XSDPS_PHYCTRLREG2_OFFSET, Reg);
 			Reg &= ~XSDPS_PHYREG2_FREQ_SEL_MASK;
@@ -1522,6 +1519,7 @@ s32 XSdPs_SetClock(XSdPs *InstancePtr, u32 SelFreq)
 				Reg |= (XSDPS_FREQ_SEL_50MHZ_79MHz <<
 							XSDPS_PHYREG2_FREQ_SEL_SHIFT);
 			}
+
 			XSdPs_WriteReg(InstancePtr->Config.BaseAddress,
 					XSDPS_PHYCTRLREG2_OFFSET, Reg);
 		} else {
@@ -1545,7 +1543,7 @@ s32 XSdPs_SetClock(XSdPs *InstancePtr, u32 SelFreq)
 #ifdef VERSAL_NET
 	if ((InstancePtr->CardType == XSDPS_CHIP_EMMC) &&
 		(InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
-			(InstancePtr->Config.InputClockHz >= XSDPD_MIN_DLL_MODE_CLK)) {
+			(SelFreq > XSDPD_MIN_DLL_MODE_CLK)) {
 		Reg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 					XSDPS_PHYCTRLREG2_OFFSET);
 		Reg |= XSDPS_PHYREG2_DLL_EN_MASK;

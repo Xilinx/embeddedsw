@@ -44,6 +44,7 @@
 * 3.14  mn     11/28/21 Fix MISRA-C violations.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 *       sk     04/07/22 Fix typo in 'XSDPS_MMC_1_BIT_BUS_ARG' macro definition.
+* 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 *
 * </pre>
 *
@@ -150,6 +151,7 @@ extern "C" {
 #define XSDPS_HOST_CTRL_VER_OFFSET	0xFEU	/**< Host Controller Version
 							Register */
 #ifdef VERSAL_NET
+#define XSDPS_PHYCTRLREG1_OFFSET	0x270U	/**< PHY Control register2 */
 #define XSDPS_PHYCTRLREG2_OFFSET	0x274U	/**< PHY Control register2 */
 #endif
 
@@ -385,6 +387,7 @@ extern "C" {
 #define XSDPS_HC2_UHS_MODE_SDR50_MASK	0x0002U /**< SDR50 UHS Mode */
 #define XSDPS_HC2_UHS_MODE_SDR104_MASK	0x0003U /**< SDR104 UHS Mode */
 #define XSDPS_HC2_UHS_MODE_DDR50_MASK	0x0004U /**< DDR50 UHS Mode */
+#define XSDPS_HC2_HS400_MASK		0x0005U /**< HS400 Mode */
 #define XSDPS_HC2_1V8_EN_MASK		0x0008U /**< 1.8V Signal Enable */
 #define XSDPS_HC2_DRV_STR_SEL_MASK	0x0030U /**< Driver Strength
 							Selection */
@@ -619,6 +622,24 @@ extern "C" {
 #define XSDPS_HC_SPEC_V3		0x0002U	/**< HC spec version 3 */
 #define XSDPS_HC_SPEC_V2		0x0001U	/**< HC spec version 2 */
 #define XSDPS_HC_SPEC_V1		0x0000U	/**< HC spec version 1 */
+/** @} */
+
+/** @name PHYCTRL Register1 - OTAP, ITAP and SROBE SEL
+ *
+ * This register contains bits for input tap, output tap and strobe sel.
+ * @{
+ */
+
+#define XSDPS_PHYREG1_STROBE_SEL_MASK		0xFF0000U /**< STROBE Sel Mask */
+#define XSDPS_PHYREG1_STROBE_SEL_SHIFT		16U /**< STROBE Sel Shift */
+#define XSDPS_PHYREG1_ITAP_CHGWIN_MASK		0x40U /**< Input Tap Change Window */
+#define XSDPS_PHYREG1_ITAP_EN_MASK		0x1U /**< Input Tap Enable Mask */
+#define XSDPS_PHYREG1_ITAP_DLY_MASK		0x2EU /**< Input Tap Delay Mask */
+#define XSDPS_PHYREG1_ITAP_DLY_SHIFT		1U /**< Input Tap Delay Shift */
+#define XSDPS_PHYREG1_OTAP_EN_MASK		0x100U /**< Output Tap Enable Mask */
+#define XSDPS_PHYREG1_OTAP_DLY_MASK		0xF000U /**< Output Tap Delay Mask */
+#define XSDPS_PHYREG1_OTAP_DLY_SHIFT		12U /**< Output Tap Delay Shift */
+
 /** @} */
 
 /** @name PHYCTRL Register2 - DLL enable, FREQ_SEL, Tx and Rx Dly Chain Sel
@@ -1164,7 +1185,35 @@ extern "C" {
  * SD/eMMC ITAP and OTAP delays for different operating modes
  * for both Versal and ZynqMP platforms.
  */
-#ifdef versal
+#ifdef VERSAL_NET
+#define SD_ITAPDLY_SEL_MASK		0x000000FFU
+#define SD_OTAPDLY_SEL_MASK		0x0000003FU
+#define SD_ITAPDLY			0x0000F0F8U
+#define SD_OTAPDLY			0x0000F0FCU
+#define SD0_DLL_CTRL 			0x00000448U
+#define SD1_DLL_CTRL 			0x000004C8U
+#define SD_DLL_RST			0x00000004U
+#define SD_ITAPCHGWIN			0x00000200U
+#define SD_ITAPDLYENA			0x00000100U
+#define SD_OTAPDLYENA			0x00000040U
+#define SD_OTAPDLYSEL_HS200_B0		0x00000007U
+#define SD_OTAPDLYSEL_HS200_B2		0x00000007U
+#define SD_OTAPDLYSEL_HS400		0x00000004U
+#define SD_ITAPDLYSEL_SD50		0x0000000EU
+#define SD_OTAPDLYSEL_SD50		0x00000003U
+#define SD_ITAPDLYSEL_SD_DDR50		0x00000036U
+#define SD_ITAPDLYSEL_EMMC_DDR50	0x00000003U
+#define SD_OTAPDLYSEL_SD_DDR50		0x00000003U
+#define SD_OTAPDLYSEL_EMMC_DDR50	0x00000005U
+#define SD_ITAPDLYSEL_HSD		0x0000002CU
+#define SD_ITAPDLYSEL_EMMC_HSD		0x00000000U
+#define SD_OTAPDLYSEL_SD_HSD		0x00000004U
+#define SD_OTAPDLYSEL_EMMC_HSD		0x00000005U
+#define SD_AUTODIR_ITAPDLYSEL_HSD	0x00000025U
+#define SD_AUTODIR_ITAPDLYSEL_SDR25	0x00000026U
+#define SD_AUTODIR_ITAPDLYSEL_DDR50	0x0000002AU
+#define PHY_STRB_SEL_SIG			0x00000077U
+#elif defined (versal)
 #define SD_ITAPDLY_SEL_MASK			0x000000FFU
 #define SD_OTAPDLY_SEL_MASK			0x0000003FU
 #define SD_ITAPDLY					0x0000F0F8U
@@ -1184,6 +1233,7 @@ extern "C" {
 #define SD_OTAPDLYSEL_SD_DDR50		0x00000003U
 #define SD_OTAPDLYSEL_EMMC_DDR50	0x00000005U
 #define SD_ITAPDLYSEL_HSD			0x0000002CU
+#define SD_ITAPDLYSEL_EMMC_HSD		0x0000002CU
 #define SD_OTAPDLYSEL_SD_HSD		0x00000004U
 #define SD_OTAPDLYSEL_EMMC_HSD		0x00000005U
 #define SD_AUTODIR_ITAPDLYSEL_HSD	0x00000025U
@@ -1214,6 +1264,7 @@ extern "C" {
 #define SD_OTAPDLYSEL_SD_DDR50		0x00000004U
 #define SD_OTAPDLYSEL_EMMC_DDR50	0x00000006U
 #define SD_ITAPDLYSEL_HSD			0x00000015U
+#define SD_ITAPDLYSEL_EMMC_HSD		0x00000015U
 #define SD_OTAPDLYSEL_SD_HSD		0x00000005U
 #define SD_OTAPDLYSEL_EMMC_HSD		0x00000006U
 #define SD_AUTODIR_ITAPDLYSEL_HSD	0x00000028U
