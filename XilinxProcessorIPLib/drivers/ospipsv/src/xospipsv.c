@@ -40,6 +40,7 @@
 *       sk   05/07/21 Fixed MISRAC violations.
 * 1.5   sk   08/17/21 Added DCache invalidate after non-blocking DMA read.
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
+* 1.8   sk   11/11/22 Enable Master DLL mode by default for Versal Net.
 *
 * </pre>
 *
@@ -129,14 +130,18 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 		InstancePtr->DllMode = XOSPIPSV_DLL_BYPASS_MODE;
 		InstancePtr->DualByteOpcodeEn = 0U;
 
+#if defined (versal) && !defined (VERSAL_NET)
 		if (XGetPSVersion_Info() != SILICON_VERSION_1) {
+#endif
 			InstancePtr->DllMode = XOSPIPSV_DLL_MASTER_MODE;
 			if (InstancePtr->Config.InputClockHz >=
 							XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ) {
 				XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 						XOSPIPSV_ECO_REG, 0x1);
 			}
+#if defined (versal) && !defined (VERSAL_NET)
 		}
+#endif
 
 		/*
 		 * Reset the OSPIPSV device to get it into its initial state. It is

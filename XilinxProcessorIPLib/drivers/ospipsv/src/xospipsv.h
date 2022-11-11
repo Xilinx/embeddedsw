@@ -82,6 +82,7 @@
 *       sk   02/07/22 Added driver details to Overview section.
 *       sk   02/07/22 Restructured the XOspiPsv_ExecuteRxTuning() API to meet
 *                     safety guidelines for CCM metric.
+* 1.8   sk   11/11/22 Enable Master DLL mode by default for Versal Net.
 *
 * </pre>
 *
