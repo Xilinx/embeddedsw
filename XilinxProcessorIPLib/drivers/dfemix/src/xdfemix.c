@@ -51,6 +51,7 @@
 * 1.5   dc     09/28/22 Auxiliary NCO support
 *       dc     10/24/22 Switching Uplink/Downlink support
 *       dc     11/08/22 NCO assignment in arch5 mode
+*       dc     11/10/22 Align AddCC to switchable UL/DL algorithm
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -2867,7 +2868,15 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 	 *  NCOs not running.
 	 *  Antenna contribution disabled.
 	 */
-	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
+	/* Trigger the update */
+	if (XST_SUCCESS == XDfeMix_EnableCCUpdateTrigger(InstancePtr)) {
+		InstancePtr->NotUsedCCID = CCCfg.Sequence.NotUsedCCID;
+		return XST_SUCCESS;
+	}
+	metal_log(METAL_LOG_ERROR,
+		  "CC Update Trigger failed in %s. Restart the system\n",
+		  __func__);
+	return XST_FAILURE;
 }
 
 /****************************************************************************/
@@ -2906,7 +2915,15 @@ u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 
 	/* Update next configuration and trigger update */
 	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
-	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
+	/* Trigger the update */
+	if (XST_SUCCESS == XDfeMix_EnableCCUpdateTrigger(InstancePtr)) {
+		InstancePtr->NotUsedCCID = CCCfg.Sequence.NotUsedCCID;
+		return XST_SUCCESS;
+	}
+	metal_log(METAL_LOG_ERROR,
+		  "CC Update Trigger failed in %s. Restart the system\n",
+		  __func__);
+	return XST_FAILURE;
 }
 
 /****************************************************************************/
@@ -2997,7 +3014,15 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 	XDfeMix_SetPhaseOffset(&Freq, &PhaseDiff);
 	XDfeMix_SetNCOFrequency(InstancePtr, XDFEMIXER_NEXT, CCID, &Freq);
 
-	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
+	/* Trigger the update */
+	if (XST_SUCCESS == XDfeMix_EnableCCUpdateTrigger(InstancePtr)) {
+		InstancePtr->NotUsedCCID = CCCfg.Sequence.NotUsedCCID;
+		return XST_SUCCESS;
+	}
+	metal_log(METAL_LOG_ERROR,
+		  "CC Update Trigger failed in %s. Restart the system\n",
+		  __func__);
+	return XST_FAILURE;
 }
 
 /****************************************************************************/
@@ -3021,7 +3046,7 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 * @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
 *
 ****************************************************************************/
-u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
+u32 XDfeMix_UpdateCC(XDfeMix *InstancePtr, s32 CCID,
 		     const XDfeMix_CarrierCfg *CarrierCfg)
 {
 	XDfeMix_CCCfg CCCfg;
@@ -3069,7 +3094,16 @@ u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
 	 *  NCOs not running.
 	 *  Antenna contribution disabled.
 	 */
-	return XDfeMix_EnableCCUpdateTrigger(InstancePtr);
+
+	/* Trigger the update */
+	if (XST_SUCCESS == XDfeMix_EnableCCUpdateTrigger(InstancePtr)) {
+		InstancePtr->NotUsedCCID = CCCfg.Sequence.NotUsedCCID;
+		return XST_SUCCESS;
+	}
+	metal_log(METAL_LOG_ERROR,
+		  "CC Update Trigger failed in %s. Restart the system\n",
+		  __func__);
+	return XST_FAILURE;
 }
 
 /****************************************************************************/

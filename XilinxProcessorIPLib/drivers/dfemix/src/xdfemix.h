@@ -79,6 +79,7 @@
 *       dc     08/19/22 Update register map
 * 1.5   dc     09/28/22 Auxiliary NCO support
 *       dc     10/24/22 Switching Uplink/Downlink support
+*       dc     11/10/22 Align AddCC to switchable UL/DL algorithm
 *
 * </pre>
 * @endcond
@@ -583,7 +584,7 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID);
 u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 		   u32 ToNCO);
-u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
+u32 XDfeMix_UpdateCC(XDfeMix *InstancePtr, s32 CCID,
 		     const XDfeMix_CarrierCfg *CarrierCfg);
 u32 XDfeMix_SetAntennaGain(XDfeMix *InstancePtr, u32 AntennaId,
 			   u32 AntennaGain);
