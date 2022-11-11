@@ -50,6 +50,7 @@
 *       dc     08/19/22 Update register map
 * 1.5   dc     09/28/22 Auxiliary NCO support
 *       dc     10/24/22 Switching Uplink/Downlink support
+*       dc     11/08/22 NCO assignment in arch5 mode
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -86,6 +87,9 @@
 	((InstancePtr->Config.MaxUseableCcids == 8U) &&                        \
 	 (InstancePtr->Config.Lanes >                                          \
 	  1U)) /**< Arch4 mode logical statement */
+#define XDFEMIX_IS_ARCH5_MODE                                                  \
+	(InstancePtr->Config.MaxUseableCcids ==                                \
+	 16U) /* Arch5 mode logical statement */
 #define XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE (4U) /**< NCO low sub-block size */
 #define XDFEMIX_DOWNLINK 0U /**< Downlink flag used in switchable mode */
 #define XDFEMIX_UPLINK 1U /**< Uplink flag used in switchable mode */
@@ -475,6 +479,223 @@ static u32 XDfeMix_NCOArch4ModeInMoveOrUpdateCC(const XDfeMix *InstancePtr,
 	if (NCOSubBlockUsage * 2U > InstancePtr->SequenceLength) {
 		metal_log(METAL_LOG_ERROR,
 			  "NCO usage overflow 50%% of NCO sub-block for "
+			  "CCID=%d, NCOIdx=%d in %s\n",
+			  CCID, NCOIdx, __func__);
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* Basic calculation for NCO sub-block in ARCH5 mode.
+*
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    NCOIdx New NCO Id.
+* @param    NCOBank0SubBlockUsage.
+* @param    NCOBank1SubBlockUsage.
+* @param    NCOBank2SubBlockUsage.
+* @param    NCOBank3SubBlockUsage.
+*
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
+****************************************************************************/
+static u32 XDfeMix_NCOArch5Mode(const XDfeMix *InstancePtr,
+				XDfeMix_CCCfg *CCCfg, u32 NCOIdx,
+				u32 *NCOBank0SubBlockUsage,
+				u32 *NCOBank1SubBlockUsage,
+				u32 *NCOBank2SubBlockUsage,
+				u32 *NCOBank3SubBlockUsage)
+{
+	u32 Index;
+	u32 CCSeqBitmapTmp;
+	XDfeMix_CarrierCfg CarrierCfgTmp;
+	XDfeMix_NCO NCOIdxTmp;
+
+	for (Index = 0U; Index < XDFEMIX_CC_NUM; Index++) {
+		/* Check is this CCID disabled */
+		if (CCCfg->DUCDDCCfg[Index].Rate == 0) {
+			continue;
+		}
+
+		/* Check is NCOIdx already used */
+		if (NCOIdx == CCCfg->DUCDDCCfg[Index].NCOIdx) {
+			metal_log(METAL_LOG_ERROR, "NCOIdx is already used%s\n",
+				  __func__);
+			return XST_FAILURE;
+		}
+
+		/* get CCSeqBitmapTmp for CCID=Index */
+		XDfeMix_GetCarrierCfgAndNCO(InstancePtr, CCCfg, Index,
+					    &CCSeqBitmapTmp, &CarrierCfgTmp,
+					    &NCOIdxTmp);
+
+		/* Is NCOIdx for (0-3), (4-7), (8-11) or (12-15) sub-block */
+		if (CCCfg->DUCDDCCfg[Index].NCOIdx <
+		    1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+			*NCOBank0SubBlockUsage += XDfeMix_CountOnesInBitmap(
+				InstancePtr, CCSeqBitmapTmp);
+		} else if (CCCfg->DUCDDCCfg[Index].NCOIdx <
+			   2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+			*NCOBank1SubBlockUsage += XDfeMix_CountOnesInBitmap(
+				InstancePtr, CCSeqBitmapTmp);
+		} else if (CCCfg->DUCDDCCfg[Index].NCOIdx <
+			   3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+			*NCOBank2SubBlockUsage += XDfeMix_CountOnesInBitmap(
+				InstancePtr, CCSeqBitmapTmp);
+		} else {
+			*NCOBank3SubBlockUsage += XDfeMix_CountOnesInBitmap(
+				InstancePtr, CCSeqBitmapTmp);
+		}
+	}
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* ARCH5 check is NCO usage over 25% of maximum for NCO sub_block
+*
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
+* @param    CCSeqBitmap CC slot position container.
+* @param    NCOIdx New NCO Id to be used from now on.
+*
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
+****************************************************************************/
+static u32 XDfeMix_NCOArch5ModeInAddCC(const XDfeMix *InstancePtr,
+				       XDfeMix_CCCfg *CCCfg, s32 CCID,
+				       u32 CCSeqBitmap, u32 NCOIdx)
+{
+	u32 NCOBank0SubBlockUsage = 0; /* 0-3 NCOs */
+	u32 NCOBank1SubBlockUsage = 0; /* 4-7 NCOs */
+	u32 NCOBank2SubBlockUsage = 0; /* 8-11 NCOs */
+	u32 NCOBank3SubBlockUsage = 0; /* 12-15 NCOs */
+	u32 NCOSubBlockUsage = 0;
+
+	if (XST_FAILURE == XDfeMix_NCOArch5Mode(InstancePtr, CCCfg, NCOIdx,
+						&NCOBank0SubBlockUsage,
+						&NCOBank1SubBlockUsage,
+						&NCOBank2SubBlockUsage,
+						&NCOBank3SubBlockUsage)) {
+		return XST_FAILURE;
+	}
+
+	/* Add new CCID usage to NCO sub-block usage */
+	if (NCOIdx < 1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+		NCOSubBlockUsage =
+			NCOBank0SubBlockUsage +
+			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmap);
+	} else if (NCOIdx < 2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+		NCOSubBlockUsage =
+			NCOBank1SubBlockUsage +
+			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmap);
+	} else if (NCOIdx < 3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+		NCOSubBlockUsage =
+			NCOBank2SubBlockUsage +
+			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmap);
+	} else {
+		NCOSubBlockUsage =
+			NCOBank3SubBlockUsage +
+			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmap);
+	}
+
+	/* Check is usage over 25% for this NCO sub-block */
+	if (NCOSubBlockUsage * 4U > InstancePtr->SequenceLength) {
+		metal_log(
+			METAL_LOG_ERROR,
+			"NCO usage NCOSubBlockUsage=%d overflow 25%% of NCO sub-block for "
+			"CCID=%d, NCOIdx=%d\n",
+			NCOSubBlockUsage, CCID, NCOIdx);
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* ARCH5 check is NCO usage over 25% of maximum for NCO sub-block.
+*
+* @param    InstancePtr Pointer to the Mixer instance.
+* @param    CCCfg Component carrier (CC) configuration container.
+* @param    CCID Channel ID.
+* @param    NCOIdx New NCO Id to be used from now on.
+*
+* @return
+*           - XST_SUCCESS if successful.
+*           - XST_FAILURE if error occurs.
+*
+****************************************************************************/
+static u32 XDfeMix_NCOArch5ModeInMoveOrUpdateCC(const XDfeMix *InstancePtr,
+						XDfeMix_CCCfg *CCCfg, s32 CCID,
+						u32 NCOIdx)
+{
+	u32 Return;
+	u32 CCSeqBitmapTmp;
+	XDfeMix_CarrierCfg CarrierCfgTmp;
+	XDfeMix_NCO NCOTmp;
+	u32 NCOBank0SubBlockUsage = 0; /* 0-3 NCOs */
+	u32 NCOBank1SubBlockUsage = 0; /* 4-7 NCOs */
+	u32 NCOBank2SubBlockUsage = 0; /* 8-11 NCOs */
+	u32 NCOBank3SubBlockUsage = 0; /* 12-15 NCOs */
+	u32 NCOSubBlockUsage;
+
+	Return = XDfeMix_NCOArch5Mode(InstancePtr, CCCfg, NCOIdx,
+				      &NCOBank0SubBlockUsage,
+				      &NCOBank1SubBlockUsage,
+				      &NCOBank2SubBlockUsage,
+				      &NCOBank3SubBlockUsage);
+	if (Return == XST_FAILURE) {
+		return XST_FAILURE;
+	}
+
+	/* get CCSeqBitmapTmp for CCID */
+	XDfeMix_GetCarrierCfgAndNCO(InstancePtr, CCCfg, CCID, &CCSeqBitmapTmp,
+				    &CarrierCfgTmp, &NCOTmp);
+
+	/* Add new CCID usage to NCO sub-block usage */
+	if ((NCOIdx < 1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) &&
+	    (CCCfg->DUCDDCCfg[CCID].NCOIdx >=
+	     1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
+		NCOSubBlockUsage =
+			NCOBank0SubBlockUsage +
+			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmapTmp);
+	} else if ((NCOIdx < 2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) &&
+		   (CCCfg->DUCDDCCfg[CCID].NCOIdx >=
+		    2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
+		NCOSubBlockUsage =
+			NCOBank1SubBlockUsage +
+			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmapTmp);
+	} else if ((NCOIdx < 3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) &&
+		   (CCCfg->DUCDDCCfg[CCID].NCOIdx >=
+		    3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
+		NCOSubBlockUsage =
+			NCOBank2SubBlockUsage +
+			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmapTmp);
+	} else if (NCOIdx < 4 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+		NCOSubBlockUsage =
+			NCOBank3SubBlockUsage +
+			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmapTmp);
+	} else {
+		return XST_SUCCESS;
+	}
+
+	/* Check is usage over 25% for this NCO sub-block */
+	if (NCOSubBlockUsage * 4U > InstancePtr->SequenceLength) {
+		metal_log(METAL_LOG_ERROR,
+			  "NCO usage overflow 25%% of NCO sub-block for "
 			  "CCID=%d, NCOIdx=%d in %s\n",
 			  CCID, NCOIdx, __func__);
 		return XST_FAILURE;
@@ -2159,6 +2380,12 @@ void XDfeMix_SetAntennaCfgInCCCfg(const XDfeMix *InstancePtr,
 * - CCIDSequence.CCID[i] = CCID  - if [i] is used slot
 * - a returned CCIDSequence->Length = length in register + 1
 *
+* The hardware is implemented in ARCH4 if MAX_USEABLE_CCIDS == 8 and LANES > 1
+* also, the hardware is implemented in ARCH5 if MAX_USEABLE_CCIDS == 16.
+* When ARCH4 or ARCH5 is implemented NCO to channel allocation will be
+* verified. Each sub-block (4 NCOs in width) can only be allocated a certain
+* percentage of the chosen sequence length, 50% for ARCH4 or 25% for ARCH5.
+*
 * @param    InstancePtr Pointer to the Mixer instance.
 * @param    CCCfg Component carrier (CC) configuration container.
 * @param    CCID Channel ID to be added to configuration, range [0-15].
@@ -2182,14 +2409,32 @@ u32 XDfeMix_AddCCtoCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg, s32 CCID,
 	Xil_AssertNonvoid(CarrierCfg != NULL);
 	Xil_AssertNonvoid(NCO != NULL);
 
-	/* Check is Mixer in ARCH4 mode */
+	/* Check is NCOIdx already used */
+	if (CCCfg->DUCDDCCfg[CCID].Rate != XDFEMIX_CC_CONFIG_DISABLED) {
+		metal_log(METAL_LOG_ERROR, "NCOIdx is already used %s\n",
+			  __func__);
+		return XST_FAILURE;
+	}
+
 	if (XDFEMIX_IS_ARCH4_MODE) {
+		/* Mixer is in ARCH4 mode */
 		if (XST_FAILURE ==
 		    XDfeMix_NCOArch4ModeInAddCC(InstancePtr, CCCfg, CCID,
 						CCSeqBitmap,
 						CarrierCfg->DUCDDCCfg.NCOIdx)) {
 			metal_log(METAL_LOG_ERROR,
 				  "NCO failure in ARCH4 mode in %s\n",
+				  __func__);
+			return XST_FAILURE;
+		}
+	} else if (XDFEMIX_IS_ARCH5_MODE) {
+		/* Mixer is in ARCH5 mode */
+		if (XST_FAILURE ==
+		    XDfeMix_NCOArch5ModeInAddCC(InstancePtr, CCCfg, CCID,
+						CCSeqBitmap,
+						CarrierCfg->DUCDDCCfg.NCOIdx)) {
+			metal_log(METAL_LOG_ERROR,
+				  "NCO failure in ARCH5 mode in %s\n",
 				  __func__);
 			return XST_FAILURE;
 		}
@@ -2312,6 +2557,8 @@ void XDfeMix_RemoveAuxNCOfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 *           - XST_SUCCESS if successful.
 *           - XST_FAILURE if error occurs.
 *
+* @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
+*
 ****************************************************************************/
 u32 XDfeMix_UpdateCCinCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 			    s32 CCID, const XDfeMix_CarrierCfg *CarrierCfg)
@@ -2321,13 +2568,23 @@ u32 XDfeMix_UpdateCCinCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 	Xil_AssertNonvoid(CCID < XDFEMIX_CC_NUM);
 	Xil_AssertNonvoid(CarrierCfg != NULL);
 
-	/* Check is Mixer in ARCH4 mode */
 	if (XDFEMIX_IS_ARCH4_MODE) {
+		/* Mixer is in ARCH4 mode */
 		if (XST_FAILURE == XDfeMix_NCOArch4ModeInMoveOrUpdateCC(
 					   InstancePtr, CCCfg, CCID,
 					   CarrierCfg->DUCDDCCfg.NCOIdx)) {
 			metal_log(METAL_LOG_ERROR,
 				  "NCO failure in ARCH4 mode in %s\n",
+				  __func__);
+			return XST_FAILURE;
+		}
+	} else if (XDFEMIX_IS_ARCH5_MODE) {
+		/* Mixer is in ARCH5 mode */
+		if (XST_FAILURE == XDfeMix_NCOArch5ModeInMoveOrUpdateCC(
+					   InstancePtr, CCCfg, CCID,
+					   CarrierCfg->DUCDDCCfg.NCOIdx)) {
+			metal_log(METAL_LOG_ERROR,
+				  "NCO failure in ARCH5 mode in %s\n",
 				  __func__);
 			return XST_FAILURE;
 		}
@@ -2533,6 +2790,7 @@ u32 XDfeMix_SetNextCCCfgAndTriggerSwitchable(XDfeMix *InstancePtr,
 *
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
+* @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
 *
 ****************************************************************************/
 u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
@@ -2561,14 +2819,25 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 	   a NULL CC sequence to H/W */
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 
-	/* Check is Mixer in ARCH4 mode */
 	if (XDFEMIX_IS_ARCH4_MODE) {
+		/* Mixer is in ARCH4 mode */
 		if (XST_FAILURE ==
 		    XDfeMix_NCOArch4ModeInAddCC(InstancePtr, &CCCfg, CCID,
 						CCSeqBitmap,
 						CarrierCfg->DUCDDCCfg.NCOIdx)) {
 			metal_log(METAL_LOG_ERROR,
 				  "NCO failure in ARCH4 mode in %s\n",
+				  __func__);
+			return XST_FAILURE;
+		}
+	} else if (XDFEMIX_IS_ARCH5_MODE) {
+		/* Mixer is in ARCH5 mode */
+		if (XST_FAILURE ==
+		    XDfeMix_NCOArch5ModeInAddCC(InstancePtr, &CCCfg, CCID,
+						CCSeqBitmap,
+						CarrierCfg->DUCDDCCfg.NCOIdx)) {
+			metal_log(METAL_LOG_ERROR,
+				  "NCO failure in ARCH5 mode in %s\n",
 				  __func__);
 			return XST_FAILURE;
 		}
@@ -2659,6 +2928,7 @@ u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 *
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
+* @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
 *
 ****************************************************************************/
 u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
@@ -2690,8 +2960,8 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 		return XST_FAILURE;
 	}
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
-	/* Check is Mixer in ARCH4 mode */
 	if (XDFEMIX_IS_ARCH4_MODE) {
+		/* Mixer is in ARCH4 mode */
 		if (XST_FAILURE == XDfeMix_NCOArch4ModeInMoveOrUpdateCC(
 					   InstancePtr, &CCCfg, CCID, ToNCO)) {
 			metal_log(METAL_LOG_ERROR,
@@ -2699,7 +2969,17 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 				  __func__);
 			return XST_FAILURE;
 		}
+	} else if (XDFEMIX_IS_ARCH5_MODE) {
+		/* Mixer is in ARCH5 mode */
+		if (XST_FAILURE == XDfeMix_NCOArch5ModeInMoveOrUpdateCC(
+					   InstancePtr, &CCCfg, CCID, ToNCO)) {
+			metal_log(METAL_LOG_ERROR,
+				  "NCO failure in ARCH5 mode in %s\n",
+				  __func__);
+			return XST_FAILURE;
+		}
 	}
+
 	XDfeMix_SetNextCCCfg(InstancePtr, &CCCfg);
 	/* Copy NCO */
 	NCOGain = XDfeMix_GetNCOGain(InstancePtr, XDFEMIXER_CURRENT, CCID);
@@ -2738,6 +3018,7 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 *
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
+* @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
 *
 ****************************************************************************/
 u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
@@ -2755,13 +3036,23 @@ u32 XDfeMix_UpdateCC(const XDfeMix *InstancePtr, s32 CCID,
 	   a NULL CC sequence to H/W */
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CCCfg);
 
-	/* Check is Mixer in ARCH4 mode */
 	if (XDFEMIX_IS_ARCH4_MODE) {
+		/* Mixer is in ARCH4 mode */
 		if (XST_FAILURE == XDfeMix_NCOArch4ModeInMoveOrUpdateCC(
 					   InstancePtr, &CCCfg, CCID,
 					   CarrierCfg->DUCDDCCfg.NCOIdx)) {
 			metal_log(METAL_LOG_ERROR,
 				  "NCO failure in ARCH4 mode in %s\n",
+				  __func__);
+			return XST_FAILURE;
+		}
+	} else if (XDFEMIX_IS_ARCH5_MODE) {
+		/* Mixer is in ARCH5 mode */
+		if (XST_FAILURE == XDfeMix_NCOArch5ModeInMoveOrUpdateCC(
+					   InstancePtr, &CCCfg, CCID,
+					   CarrierCfg->DUCDDCCfg.NCOIdx)) {
+			metal_log(METAL_LOG_ERROR,
+				  "NCO failure in ARCH5 mode in %s\n",
 				  __func__);
 			return XST_FAILURE;
 		}

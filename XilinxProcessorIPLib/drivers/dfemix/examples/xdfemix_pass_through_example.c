@@ -21,6 +21,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
 * 1.5   dc     10/24/22 Switching Uplink/Downlink support
+*       dc     11/08/22 NCO assignment in arch5 mode
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -67,7 +68,7 @@ int XDfeMix_AddCCExample()
 	XDfeMix *InstancePtr = NULL;
 	XDfeMix_Init Init;
 	u32 CCID;
-	u32 BitSequence = 0xffff;
+	u32 BitSequence;
 	u32 AntennaId;
 	u32 AntennaGain;
 	double FreqMhz;
@@ -148,6 +149,15 @@ int XDfeMix_AddCCExample()
 	XDfeMix_ClearEventStatus(InstancePtr, &Status);
 	/* Add CC */
 	CCID = 0;
+
+	if (InstancePtr->Config.MaxUseableCcids == 8U) {
+		BitSequence = 0xff; /* 50% occupataion max. in ARCH4 mode */
+	} else if (InstancePtr->Config.MaxUseableCcids == 16U) {
+		BitSequence = 0xf; /* 25% occupataion max. in ARCH5 mode */
+	} else {
+		BitSequence = 0xffff;
+	}
+
 	CarrierCfg.DUCDDCCfg.NCOIdx = 0;
 	CarrierCfg.DUCDDCCfg.CCGain = 3U;
 	NCO.NCOGain = 0;
@@ -155,6 +165,7 @@ int XDfeMix_AddCCExample()
 	NcoFreqMhz = 491.52;
 	FrequencyControlWord = floor((FreqMhz / NcoFreqMhz) * 0x100000000);
 	NCO.FrequencyCfg.FrequencyControlWord = FrequencyControlWord;
+
 	XDfeMix_AddCC(InstancePtr, CCID, BitSequence, &CarrierCfg, &NCO);
 
 	/* Close and exit */

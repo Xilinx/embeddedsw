@@ -21,6 +21,7 @@
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/19/22 Update register map
 * 1.5   dc     10/24/22 Switching Uplink/Downlink support
+*       dc     11/08/22 NCO assignment in arch5 mode
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -70,7 +71,7 @@ int XDfeMix_MultiAddCCExample()
 	XDfeMix *InstancePtr = NULL;
 	XDfeMix_Init Init;
 	u32 CCID;
-	u32 CCSeqBitmap = 0xffff;
+	u32 CCSeqBitmap;
 	u32 AntennaId;
 	u32 AntennaGain;
 	double FreqMhz;
@@ -156,6 +157,15 @@ int XDfeMix_MultiAddCCExample()
 	XDfeMix_ClearEventStatus(InstancePtr, &Status);
 	/* Add CC */
 	CCID = 0;
+
+	if (InstancePtr->Config.MaxUseableCcids == 8U) {
+		CCSeqBitmap = 0xff; /* 50% occupataion max. in ARCH4 mode */
+	} else if (InstancePtr->Config.MaxUseableCcids == 16U) {
+		CCSeqBitmap = 0xf; /* 25% occupataion max. in ARCH5 mode */
+	} else {
+		CCSeqBitmap = 0xffff;
+	}
+
 	CarrierCfg.DUCDDCCfg.NCOIdx = 0;
 	CarrierCfg.DUCDDCCfg.CCGain = 3U;
 	NCO.NCOGain = 0;
