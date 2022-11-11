@@ -11,8 +11,15 @@
 #define PWR_DOMAIN_UNUSED_BITMASK		0U
 #define PWR_DOMAIN_NOC_BITMASK			BIT(0)
 #define PWR_DOMAIN_PL_BITMASK			BIT(1)
+#ifdef VERSAL_NET
+#define PWR_DOMAIN_HNIC_BITMASK			BIT(2)
+#define MAX_PWR_DOMAIN_BITMASK			(PWR_DOMAIN_NOC_BITMASK |\
+						  PWR_DOMAIN_PL_BITMASK |\
+						  PWR_DOMAIN_HNIC_BITMASK)
+#else
 #define MAX_PWR_DOMAIN_BITMASK			(PWR_DOMAIN_NOC_BITMASK |\
 						  PWR_DOMAIN_PL_BITMASK)
+#endif
 #define NOT_INITIALIZED			0xFFU
 
 /* NoC clock gating definitions */
@@ -35,6 +42,12 @@ static const XPm_NodeIdBitMap PmPwrBitMap[] = {
 		.BitMask = PWR_DOMAIN_PL_BITMASK,
 		.NodeId = PM_POWER_PLD,
 	},
+#ifdef VERSAL_NET
+	{
+		.BitMask = PWR_DOMAIN_HNIC_BITMASK,
+		.NodeId = PM_POWER_HNICX,
+	},
+#endif
 };
 
 #ifdef XSEM_NPISCAN_EN
@@ -529,7 +542,6 @@ static XStatus PlInitStart(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumArgs)
 	}
 
 	PlDevice->WfPowerBitMask = PWR_DOMAIN_UNUSED_BITMASK;
-
 	for (i = 0; i < NumArgs; ++i) {
 		Status = Pld_SetBitPwrBitMask(&PlDevice->WfPowerBitMask, Args[i]);
 		if (XST_SUCCESS != Status) {
