@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,6 +53,7 @@
 *       dc     10/24/22 Switching Uplink/Downlink support
 *       dc     11/08/22 NCO assignment in arch5 mode
 *       dc     11/10/22 Align AddCC to switchable UL/DL algorithm
+*       dc     11/11/22 Update get overflow status API
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -411,7 +413,7 @@ static u32 XDfeMix_NCOArch4ModeInAddCC(const XDfeMix *InstancePtr,
 	}
 
 	/* Check is usage over 50% for this NCO sub-block */
-	if (NCOSubBlockUsage * 2U > InstancePtr->SequenceLength) {
+	if ((NCOSubBlockUsage * 2U) > InstancePtr->SequenceLength) {
 		metal_log(METAL_LOG_ERROR,
 			  "NCO usage overflow 50%% of NCO sub-block for "
 			  "CCID=%d, NCOIdx=%d in %s\n",
@@ -477,7 +479,7 @@ static u32 XDfeMix_NCOArch4ModeInMoveOrUpdateCC(const XDfeMix *InstancePtr,
 	}
 
 	/* Check is usage over 50% for this NCO sub-block */
-	if (NCOSubBlockUsage * 2U > InstancePtr->SequenceLength) {
+	if ((NCOSubBlockUsage * 2U) > InstancePtr->SequenceLength) {
 		metal_log(METAL_LOG_ERROR,
 			  "NCO usage overflow 50%% of NCO sub-block for "
 			  "CCID=%d, NCOIdx=%d in %s\n",
@@ -538,15 +540,15 @@ static u32 XDfeMix_NCOArch5Mode(const XDfeMix *InstancePtr,
 
 		/* Is NCOIdx for (0-3), (4-7), (8-11) or (12-15) sub-block */
 		if (CCCfg->DUCDDCCfg[Index].NCOIdx <
-		    1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+		    (1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
 			*NCOBank0SubBlockUsage += XDfeMix_CountOnesInBitmap(
 				InstancePtr, CCSeqBitmapTmp);
 		} else if (CCCfg->DUCDDCCfg[Index].NCOIdx <
-			   2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+			   (2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
 			*NCOBank1SubBlockUsage += XDfeMix_CountOnesInBitmap(
 				InstancePtr, CCSeqBitmapTmp);
 		} else if (CCCfg->DUCDDCCfg[Index].NCOIdx <
-			   3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+			   (3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
 			*NCOBank2SubBlockUsage += XDfeMix_CountOnesInBitmap(
 				InstancePtr, CCSeqBitmapTmp);
 		} else {
@@ -597,11 +599,11 @@ static u32 XDfeMix_NCOArch5ModeInAddCC(const XDfeMix *InstancePtr,
 		NCOSubBlockUsage =
 			NCOBank0SubBlockUsage +
 			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmap);
-	} else if (NCOIdx < 2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+	} else if (NCOIdx < (2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
 		NCOSubBlockUsage =
 			NCOBank1SubBlockUsage +
 			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmap);
-	} else if (NCOIdx < 3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+	} else if (NCOIdx < (3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
 		NCOSubBlockUsage =
 			NCOBank2SubBlockUsage +
 			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmap);
@@ -612,7 +614,7 @@ static u32 XDfeMix_NCOArch5ModeInAddCC(const XDfeMix *InstancePtr,
 	}
 
 	/* Check is usage over 25% for this NCO sub-block */
-	if (NCOSubBlockUsage * 4U > InstancePtr->SequenceLength) {
+	if ((NCOSubBlockUsage * 4U) > InstancePtr->SequenceLength) {
 		metal_log(
 			METAL_LOG_ERROR,
 			"NCO usage NCOSubBlockUsage=%d overflow 25%% of NCO sub-block for "
@@ -667,25 +669,25 @@ static u32 XDfeMix_NCOArch5ModeInMoveOrUpdateCC(const XDfeMix *InstancePtr,
 				    &CarrierCfgTmp, &NCOTmp);
 
 	/* Add new CCID usage to NCO sub-block usage */
-	if ((NCOIdx < 1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) &&
+	if ((NCOIdx < (1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) &&
 	    (CCCfg->DUCDDCCfg[CCID].NCOIdx >=
-	     1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
+	     (1 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE))) {
 		NCOSubBlockUsage =
 			NCOBank0SubBlockUsage +
 			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmapTmp);
-	} else if ((NCOIdx < 2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) &&
+	} else if ((NCOIdx < (2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) &&
 		   (CCCfg->DUCDDCCfg[CCID].NCOIdx >=
-		    2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
+		    (2 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE))) {
 		NCOSubBlockUsage =
 			NCOBank1SubBlockUsage +
 			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmapTmp);
-	} else if ((NCOIdx < 3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) &&
+	} else if ((NCOIdx < (3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) &&
 		   (CCCfg->DUCDDCCfg[CCID].NCOIdx >=
-		    3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
+		    (3 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE))) {
 		NCOSubBlockUsage =
 			NCOBank2SubBlockUsage +
 			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmapTmp);
-	} else if (NCOIdx < 4 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE) {
+	} else if (NCOIdx < (4 * XDFEMIX_NCO_LOW_SUB_BLOCK_SIZE)) {
 		NCOSubBlockUsage =
 			NCOBank3SubBlockUsage +
 			XDfeMix_CountOnesInBitmap(InstancePtr, CCSeqBitmapTmp);
@@ -694,7 +696,7 @@ static u32 XDfeMix_NCOArch5ModeInMoveOrUpdateCC(const XDfeMix *InstancePtr,
 	}
 
 	/* Check is usage over 25% for this NCO sub-block */
-	if (NCOSubBlockUsage * 4U > InstancePtr->SequenceLength) {
+	if ((NCOSubBlockUsage * 4U) > InstancePtr->SequenceLength) {
 		metal_log(METAL_LOG_ERROR,
 			  "NCO usage overflow 25%% of NCO sub-block for "
 			  "CCID=%d, NCOIdx=%d in %s\n",
@@ -3425,17 +3427,15 @@ void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Gets DUC/DDC status for a specified CCID.
+* Gets DUC/DDC overflow status.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
-* @param    CCID Channel ID, range [0-15].
 * @param    DUCDDCStatus DUC/DDC status container.
 *
 ****************************************************************************/
-void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
+void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr,
 			     XDfeMix_DUCDDCStatus *DUCDDCStatus)
 {
-	(void)CCID;
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3443,14 +3443,14 @@ void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_MIXER_STATUS_OVERFLOW);
-	DUCDDCStatus->RealOverflowStage =
+	DUCDDCStatus->Stage =
 		XDfeMix_RdBitField(XDFEMIX_DUC_DDC_STATUS_OVERFLOW_STAGE_WIDTH,
 				   XDFEMIX_DUC_DDC_STATUS_OVERFLOW_STAGE_OFFSET,
 				   Val);
-	DUCDDCStatus->FirstAntennaOverflowing = XDfeMix_RdBitField(
+	DUCDDCStatus->Antenna = XDfeMix_RdBitField(
 		XDFEMIX_DUC_DDC_STATUS_OVERFLOW_ANTENNA_WIDTH,
 		XDFEMIX_DUC_DDC_STATUS_OVERFLOW_ANTENNA_OFFSET, Val);
-	DUCDDCStatus->FirstCCIDOverflowing = XDfeMix_RdBitField(
+	DUCDDCStatus->NcoId = XDfeMix_RdBitField(
 		XDFEMIX_DUC_DDC_STATUS_OVERFLOW_ASSOCIATED_NCO_WIDTH,
 		XDFEMIX_DUC_DDC_STATUS_OVERFLOW_ASSOCIATED_NCO_OFFSET, Val);
 	DUCDDCStatus->Mode = XDfeMix_RdBitField(
@@ -3461,17 +3461,15 @@ void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
 /****************************************************************************/
 /**
 *
-* Gets Mixer status  for a specified CCID.
+* Gets Mixer overflow status.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
-* @param    CCID Channel ID, range [0-15].
 * @param    MixerStatus Mixer status container.
 *
 ****************************************************************************/
-void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, s32 CCID,
+void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr,
 			    XDfeMix_MixerStatus *MixerStatus)
 {
-	(void)CCID;
 	u32 Val;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3479,15 +3477,15 @@ void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, s32 CCID,
 	Xil_AssertVoid(InstancePtr->StateId == XDFEMIX_STATE_OPERATIONAL);
 
 	Val = XDfeMix_ReadReg(InstancePtr, XDFEMIX_MIXER_STATUS_OVERFLOW);
-	MixerStatus->AdderStage =
+	MixerStatus->Stage =
 		XDfeMix_RdBitField(XDFEMIX_MIXER_STATUS_OVERFLOW_STAGE_WIDTH,
 				   XDFEMIX_MIXER_STATUS_OVERFLOW_STAGE_OFFSET,
 				   Val);
-	MixerStatus->AdderAntenna =
+	MixerStatus->Antenna =
 		XDfeMix_RdBitField(XDFEMIX_MIXER_STATUS_OVERFLOW_ANTENNA_WIDTH,
 				   XDFEMIX_MIXER_STATUS_OVERFLOW_ANTENNA_OFFSET,
 				   Val);
-	MixerStatus->MixAntenna =
+	MixerStatus->NcoId =
 		XDfeMix_RdBitField(XDFEMIX_MIXER_STATUS_OVERFLOW_NCO_WIDTH,
 				   XDFEMIX_MIXER_STATUS_OVERFLOW_NCO_OFFSET,
 				   Val);

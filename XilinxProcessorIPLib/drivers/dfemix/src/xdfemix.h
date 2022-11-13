@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -80,6 +81,7 @@
 * 1.5   dc     09/28/22 Auxiliary NCO support
 *       dc     10/24/22 Switching Uplink/Downlink support
 *       dc     11/10/22 Align AddCC to switchable UL/DL algorithm
+*       dc     11/11/22 Update get overflow status API
 *
 * </pre>
 * @endcond
@@ -431,14 +433,11 @@ typedef struct {
  * DUC/DDC status.
  */
 typedef struct {
-	u32 RealOverflowStage; /**< [0-3] First stage in which overflow
-		in real data has occurred. */
-	u32 ImagOverflowStage; /**< [0-3] First stage in which overflow
-		in imaginary data has occurred. */
-	u32 FirstAntennaOverflowing; /**< [0-7] Lowest antenna in which
-		overflow has occurred. */
-	u32 FirstCCIDOverflowing; /**< [0-15] Lowest CCID in which overflow has
-		occurred. */
+	u32 Stage; /**< [0-3] Earliest stage in which overflow occurred. */
+	u32 Antenna; /**< [0-7] Antenna on which overflow occured, with lowest
+		antenna taking priority. */
+	u32 NcoId; /**< [0-15] Number of NCO associated with overflowing channel,
+		with lowest taking priority. */
 	u32 Mode; /** [0-1] In Switchable the mode of core when the overflow
 		occured.
 		- 0 = DOWNLINK: Overflow occured while core is in downlink.
@@ -449,19 +448,20 @@ typedef struct {
  * Mixer status.
  */
 typedef struct {
-	u32 AdderStage; /**< [0,1] Earliest stage in which overflow occurred.
+	u32 Stage; /**< [0-3] Earliest stage in which overflow occurred.
 		- 0 = COMPLEX_MULT: Complex multiplier output overflowed and
 			has been saturated.
 		- 1 = FIRST_ADDER: First antenna adder output overflowed and
-			has been saturated.
+			has been saturated. Downlink Only.
 		- 2 = SECOND_ADDER: Second antenna adder output overflowed
-			 and has been saturated. */
-	u32 AdderAntenna; /**< [0-7] Lowest antenna in which overflow has
+			 and has been saturated. Downlink MAX_CCIDs > 4 Only.
+		- 3 = THIRD_ADDER: Third antenna adder output overflowed
+			and has been saturated. Downlink MAX_CCIDs > 8 Only. */
+	u32 Antenna; /**< [0-7] Lowest numbered antenna in which overflow
 		occurred. */
-	u32 MixCCID; /**< [0-15] Lowest CCID on which overflow has occurred
-		in mixer. */
-	u32 MixAntenna; /**< [0-7] Lowest antenna in which overflow has
-		occurred. */
+	u32 NcoId; /**< [0-15] NCO on which overflow occured, with lowest
+		antenna taking priority (only relevant to overflow in
+		COMPLEX_MULT stage). */
 	u32 Mode; /** [0-1] In Switchable the mode of core when the overflow
 		occured.
 		- 0 = DOWNLINK: Overflow occured while core is in downlink.
@@ -594,9 +594,9 @@ void XDfeMix_GetTriggersCfg(const XDfeMix *InstancePtr,
 			    XDfeMix_TriggerCfg *TriggerCfg);
 void XDfeMix_SetTriggersCfg(const XDfeMix *InstancePtr,
 			    XDfeMix_TriggerCfg *TriggerCfg);
-void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr, s32 CCID,
+void XDfeMix_GetDUCDDCStatus(const XDfeMix *InstancePtr,
 			     XDfeMix_DUCDDCStatus *DUCDDCStatus);
-void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr, s32 CCID,
+void XDfeMix_GetMixerStatus(const XDfeMix *InstancePtr,
 			    XDfeMix_MixerStatus *MixerStatus);
 void XDfeMix_GetInterruptMask(const XDfeMix *InstancePtr,
 			      XDfeMix_InterruptMask *Mask);
