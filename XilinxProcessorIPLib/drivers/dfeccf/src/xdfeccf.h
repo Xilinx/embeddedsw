@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -82,6 +83,7 @@
 * 1.4   dc     04/08/22 Update documentation
 * 1.5   dc     09/12/22 Update handling overflow status
 *       dc     10/28/22 Switching Uplink/Downlink support
+*       dc     11/11/22 Align AddCC to switchable UL/DL algorithm
 *
 * </pre>
 * @endcond
@@ -460,9 +462,9 @@ u32 XDfeCcf_SetNextCCCfgAndTriggerSwitchable(XDfeCcf *InstancePtr,
 u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 		  const XDfeCcf_CarrierCfg *CarrierCfg);
 u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID);
-u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
+u32 XDfeCcf_UpdateCC(XDfeCcf *InstancePtr, s32 CCID,
 		     const XDfeCcf_CarrierCfg *CarrierCfg);
-u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
+u32 XDfeCcf_UpdateAntenna(XDfeCcf *InstancePtr, u32 Ant, bool Enabled);
 u32 XDfeCcf_UpdateAntennaCfg(XDfeCcf *InstancePtr,
 			     XDfeCcf_AntennaCfg *AntennaCfg);
 u32 XDfeCcf_UpdateAntennaCfgSwitchable(XDfeCcf *InstancePtr,

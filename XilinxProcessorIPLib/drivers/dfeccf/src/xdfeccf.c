@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +49,7 @@
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/08/22 Update documentation
 * 1.5   dc     10/28/22 Switching Uplink/Downlink support
+*       dc     11/11/22 Align AddCC to switchable UL/DL algorithm
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -1199,6 +1201,9 @@ void XDfeCcf_GetCurrentCCCfg(const XDfeCcf *InstancePtr,
 	XDfeCcf_GetCurrentCCCfgLocal(InstancePtr, CurrCCCfg);
 }
 
+/**
+* @cond nocomments
+*/
 /****************************************************************************/
 /**
 *
@@ -1258,6 +1263,9 @@ static void XDfeCcf_GetCurrentCCCfgLocal(const XDfeCcf *InstancePtr,
 		CurrCCCfg->CarrierCfg[Index].Flush = 0U;
 	}
 }
+/**
+* @endcond
+*/
 
 /****************************************************************************/
 /**
@@ -1700,8 +1708,7 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 	}
 
 	/* If add is successful update next configuration and trigger update */
-	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
-	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, &CCCfg);
 }
 
 /****************************************************************************/
@@ -1739,8 +1746,7 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 	CCCfg.CarrierCfg[CCID].MappedId = 0U;
 
 	/* Update next configuration and trigger update */
-	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
-	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, &CCCfg);
 }
 
 /****************************************************************************/
@@ -1762,7 +1768,7 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 *           running this API.
 *
 ****************************************************************************/
-u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
+u32 XDfeCcf_UpdateCC(XDfeCcf *InstancePtr, s32 CCID,
 		     const XDfeCcf_CarrierCfg *CarrierCfg)
 {
 	XDfeCcf_CCCfg CCCfg;
@@ -1791,8 +1797,7 @@ u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 	CCCfg.CarrierCfg[CCID].RealCoeffSet = CarrierCfg->RealCoeffSet;
 
 	/* Update next configuration and trigger update */
-	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
-	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, &CCCfg);
 }
 
 /****************************************************************************/
@@ -1814,7 +1819,7 @@ u32 XDfeCcf_UpdateCC(const XDfeCcf *InstancePtr, s32 CCID,
 *           running this API.
 *
 ****************************************************************************/
-u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
+u32 XDfeCcf_UpdateAntenna(XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 {
 	XDfeCcf_CCCfg CCCfg;
 
@@ -1833,8 +1838,7 @@ u32 XDfeCcf_UpdateAntenna(const XDfeCcf *InstancePtr, u32 Ant, bool Enabled)
 	}
 
 	/* Update next configuration and trigger update */
-	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
-	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, &CCCfg);
 }
 
 /****************************************************************************/
@@ -1864,8 +1868,7 @@ u32 XDfeCcf_UpdateAntennaCfg(XDfeCcf *InstancePtr,
 	XDfeCcf_GetCurrentCCCfg(InstancePtr, &CCCfg);
 	CCCfg.AntennaCfg = *AntennaCfg;
 	/* Update next configuration and trigger update */
-	XDfeCcf_SetNextCCCfg(InstancePtr, &CCCfg);
-	return XDfeCcf_EnableCCUpdateTrigger(InstancePtr);
+	return XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, &CCCfg);
 }
 
 /****************************************************************************/
