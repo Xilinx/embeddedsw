@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,8 @@
 * 2.00  bsv   03/13/22   Added error prints for unrecognized Eeprom
 * 3.00  skd   07/28/22   Added support to work with kv260 and kr260
 *                        starter kit xsa
+* 4.0   skd   09/11/22   Added Image recovery support for vhk158, vek280
+*                        system controllers
 *
 * </pre>
 *
@@ -62,14 +65,6 @@
 #define XBIR_SYS_PRODUCT_TYPE_LEN	(2U)
 #define XBIR_SYS_PRODUCT_NAME_LEN	(3U)
 #define XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET	(4U)
-#if defined(XPAR_XIICPS_NUM_INSTANCES)
-#if defined(XPS_BOARD_K26I) || defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
-	|| defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
-#define XBIR_SYS_PRODUCT_NAME		"SMK"
-#else
-#define XBIR_SYS_PRODUCT_NAME		"VPK"
-#endif
-#endif
 
 /* GEM clock related macros */
 #define CRL_APB_GEM1_REF_CTRL_OFFSET	(0XFF5E0054U)
@@ -1059,6 +1054,9 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	int Ret = XST_FAILURE;
 	u32 MaxSize = sizeof(SysInfo.UUID);
 	Xbir_SysBoardEepromData SysBoardEepromData = {0U};
+	u8 BoardIndex = 0U;
+	char *BoardList[] = {"SM-", "SMK", "VPK", "VHK", "VEK"};
+	u8 BoardNum = sizeof(BoardList)/sizeof(char*);
 #if defined(XPS_BOARD_K26I) || defined(XPS_BOARD_KV260_SOM_SOM240_1_CONNECTOR_KV260_CARRIER_SOM240_1_CONNECTOR) \
 	|| defined(XPS_BOARD_KR260_SOM_SOM240_2_CONNECTOR_KR260_CARRIER_SOM240_2_CONNECTOR_SOM240_1_CONNECTOR_KR260_CARRIER_SOM240_1_CONNECTOR)
 	Xbir_CCEepromData CCEepromData = {0U};
@@ -1075,14 +1073,21 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	memcpy(SysInfo.BoardPrdName,
 		SysBoardEepromData.SysBoardInfo.BoardPrdName,
 		sizeof(SysBoardEepromData.SysBoardInfo.BoardPrdName));
-	if ((strncmp((char *)&SysInfo.BoardPrdName, "SM-",
-		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) &&
-		(strncmp((char *)&SysInfo.BoardPrdName, XBIR_SYS_PRODUCT_NAME,
-		XBIR_SYS_PRODUCT_NAME_LEN) != 0U)) {
+
+	for(BoardIndex = 0U; BoardIndex < BoardNum; BoardIndex++) {
+		if((strncmp((char *)&SysInfo.BoardPrdName, BoardList[BoardIndex],
+			XBIR_SYS_PRODUCT_NAME_LEN) == 0U)){
+				Xbir_Printf("Board Detected: %s\n\r", (char *)&SysInfo.BoardPrdName);
+				break;
+			}
+	}
+
+	if(BoardIndex >= BoardNum) {
 		Xbir_Printf("Unrecognized SOM Eeprom contents...");
 		Status = XBIR_ERR_SOM_EEPROM_CONTENTS;
 		goto END;
 	}
+
 	memcpy(SysInfo.RevNum,
 		SysBoardEepromData.SysBoardInfo.RevNum,
 		sizeof(SysBoardEepromData.SysBoardInfo.RevNum));
