@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     10/04/22 Update return value definitions
+*		se	   10/27/22 Secure and Non-Secure mode integration
 *
 * </pre>
 *
@@ -302,7 +304,7 @@ u32 XSysMonPsv_IsAlarmPresent(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 
 	/* Read the New data flag */
 	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
-			   &Status);
+			    &Status);
 
 	Status &= ((u32)1U << Shift);
 
@@ -343,13 +345,13 @@ u32 XSysMonPsv_ClearAlarm(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 
 	/* Read the New data flag */
 	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
-			   &Status);
+			    &Status);
 
 	Status &= ((u32)1U << Shift);
 
 	/* Clear the New data flag if its set */
 	XSysMonPsv_WriteReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
-			    Status);
+			     Status);
 
 	return (u32)XST_SUCCESS;
 }
@@ -484,5 +486,5 @@ void XSysMonPsv_UnlockRegspace(XSysMonPsv *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_LOCK,
-			    XSYSMONPSV_LOCK_CODE);
+			     XSYSMONPSV_LOCK_CODE);
 }

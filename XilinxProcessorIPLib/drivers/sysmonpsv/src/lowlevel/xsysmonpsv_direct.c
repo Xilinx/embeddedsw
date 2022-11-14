@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,7 +20,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------
 * 3.0   cog    03/25/21 Driver Restructure
-*
+* 4.0   se     11/10/22 Secure and Non-Secure mode integration
 *
 * </pre>
 *
@@ -29,6 +30,7 @@
 #include "xsysmonpsv_lowlevel.h"
 #include "xil_io.h"
 
+#if !defined(XSYSMONPSV_SECURE_MODE)
 /******************************************************************************/
 /**
  * This function reads register value.
@@ -74,10 +76,12 @@ void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data)
  *
 *******************************************************************************/
 void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
-			  u32 Data)
+			   u32 Data)
 {
 	u32 Val;
 
 	XSysMonPsv_ReadReg32(InstancePtr, Offset, &Val);
-	XSysMonPsv_WriteReg32(InstancePtr, Offset, (Val & ~Mask) | (Mask & Data));
+	XSysMonPsv_WriteReg32(InstancePtr, Offset,
+			     (Val & ~Mask) | (Mask & Data));
 }
+#endif

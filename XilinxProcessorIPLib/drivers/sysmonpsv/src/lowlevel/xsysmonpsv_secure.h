@@ -1,5 +1,4 @@
 /******************************************************************************
-* Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -7,7 +6,7 @@
 /*****************************************************************************/
 /**
  *
-* @file xsysmonpsv_lowlevel.h
+* @file xsysmonpsv_secure.h
 * @addtogroup Overview
 *
 * The user should refer to the hardware device specification for detailed
@@ -21,15 +20,14 @@
 * MODIFICATION HISTORY:
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------
-* 3.0   cog    03/25/21 Driver Restructure
 * 4.0   se     11/10/22 Secure and Non-Secure mode integration
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef _XSYSMONPSV_LOWLEVEL_H_
-#define _XSYSMONPSV_LOWLEVEL_H_
+#ifndef _XSYSMONPSV_SECURE_H_
+#define _XSYSMONPSV_SECURE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,15 +35,22 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xsysmonpsv_driver.h"
+#include "xipipsu_hw.h"
+#include "xipipsu.h"
+#include "xscugic.h"
+#include "xsysmonpsv_lowlevel.h"
+#include "pm_api_sys.h"
+
+#define XSYSMONPSV_SECURE_WRITE_DEFAULT 0xFFFFFFFF
+#define XSYSMONPSV_SECURE_READ_DEFAULT 0x0
+
+#define XSYSMONPSV_SECURE_DEFAULT_PAYLOAD_SIZE 3U
 
 /************************** Function Prototypes ******************************/
-void XSysMonPsv_ReadReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 *Data);
-void XSysMonPsv_WriteReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Data);
-void XSysMonPsv_UpdateReg32(XSysMonPsv *InstancePtr, u32 Offset, u32 Mask,
-			   u32 Data);
+int XSysMonPsv_Xilpm_Init(XSysMonPsv *Instanceptr, XScuGic *const GicInst, XIpiPsu *const IpiInst);
+
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* _XSYSMONPSV_LOWLEVEL_H_ */
+#endif /* _XSYSMONPSV_SECURE_H_ */

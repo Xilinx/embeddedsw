@@ -1,5 +1,6 @@
 /******************************************************************************
  * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -26,6 +27,7 @@
 * 1.2   aad    3/19/20  Fixed the interrupt disable flag
 * 2.3   aad    9/28/21  Force generate of interrupt.
 * 3.0   cog    03/25/21 Driver Restructure
+* 4.0   se     11/10/22 Secure and Non-Secure mode integration
 *
 * </pre>
 *
@@ -36,6 +38,18 @@
 #include <stdio.h>
 #include "xsysmonpsv.h"
 
+/************************** Constant Definitions ****************************/
+
+/*
+ * The following constants map to the XPAR parameters created in the
+ * xparameters.h file. They are defined here such that a user can easily
+ * change all the needed parameters in one place.
+ */
+#if	defined(XSYSMONPSV_SECURE_MODE)
+	#define XSYSMONPSV_IPI_INT_ID (XPAR_XIPIPSU_0_INT_ID)
+	#define XSYSMONPSV_IPI_DEVICE_ID XPAR_XIPIPSU_0_DEVICE_ID
+#endif
+/****************************************************************************/
 /************************** Function Prototypes *****************************/
 int SysMonPsvIntrExample();
 void Temp_CallbackFunc(void *data);
@@ -112,16 +126,22 @@ int SysMonPsvIntrExample()
 {
 	int ret;
 	float ProcessedValue;
-	XSysMonPsv InstancePtr;
+	XSysMonPsv Instance;
+	XSysMonPsv *InstancePtr = &Instance;
 	XScuGic IntcInst;
 	u32 ThresholdValue;
 	u32 Val;
 	XSysMonPsv_Supply Supply = (XSysMonPsv_Supply)0;
 
-	XSysMonPsv_Init(&InstancePtr, &IntcInst);
+#if defined(XSYSMONPSV_SECURE_MODE)
+	InstancePtr->IpiIntrId = XSYSMONPSV_IPI_INT_ID;
+	InstancePtr->IpiDeviceId = XSYSMONPSV_IPI_DEVICE_ID;
+#endif
+
+	XSysMonPsv_Init(InstancePtr, &IntcInst);
 	printf("Entering the SysMon Intr Example\r\n");
 
-	ret = XSysMonPsv_ReadTempProcessed(&InstancePtr, XSYSMONPSV_TEMP_MAX,
+	ret = XSysMonPsv_ReadTempProcessed(InstancePtr, XSYSMONPSV_TEMP_MAX,
 					   &ProcessedValue);
 	if (ret) {
 		printf("\tXSysMonPsv_ReadTempProcessed failed\r\n");
@@ -130,7 +150,7 @@ int SysMonPsvIntrExample()
 		       ProcessedValue);
 	}
 
-	ret = XSysMonPsv_ReadTempProcessed(&InstancePtr, XSYSMONPSV_TEMP_MIN,
+	ret = XSysMonPsv_ReadTempProcessed(InstancePtr, XSYSMONPSV_TEMP_MIN,
 					   &ProcessedValue);
 	if (ret) {
 		printf("\tXSysMonPsv_ReadTempProcessed failed\r\n");
@@ -139,59 +159,59 @@ int SysMonPsvIntrExample()
 		       ProcessedValue);
 	}
 
-	ret = XSysMonPsv_ReadTempRaw(&InstancePtr, XSYSMONPSV_TEMP_MAX, &Val);
+	ret = XSysMonPsv_ReadTempRaw(InstancePtr, XSYSMONPSV_TEMP_MAX, &Val);
 	if (ret) {
 		printf("\tXSysMonPsv_ReadTempRaw failed\r\n");
 	} else {
 		printf("\tTemperature Max Raw Value 0x%x\r\n", (unsigned int)Val);
 	}
 
-	ret = XSysMonPsv_ReadTempRaw(&InstancePtr, XSYSMONPSV_TEMP_MIN, &Val);
+	ret = XSysMonPsv_ReadTempRaw(InstancePtr, XSYSMONPSV_TEMP_MIN, &Val);
 	if (ret) {
 		printf("\tXSysMonPsv_ReadTempRaw failed\r\n");
 	} else {
 		printf("\tTemperature Min Raw Value 0x%x\r\n\n", (unsigned int)Val);
 	}
 
-	ret = XSysMonPsv_SetTempThresholdUpper(&InstancePtr,
+	ret = XSysMonPsv_SetTempThresholdUpper(InstancePtr,
 					       XSYSMONPSV_TEMP_EVENT, 0x7FFF);
 	if (ret) {
 		printf("\tXSysMonPsv_SetTempThresholdUpper failed\r\n");
 	}
 
-	ret = XSysMonPsv_SetTempThresholdLower(&InstancePtr,
+	ret = XSysMonPsv_SetTempThresholdLower(InstancePtr,
 					       XSYSMONPSV_TEMP_EVENT, 0x0);
 	if (ret) {
 		printf("\tXSysMonPsv_SetTempThresholdLower failed\r\n");
 	}
 
-	XSysMonPsv_GetTempThresholdUpper(&InstancePtr, XSYSMONPSV_TEMP_EVENT,
+	XSysMonPsv_GetTempThresholdUpper(InstancePtr, XSYSMONPSV_TEMP_EVENT,
 					 &ThresholdValue);
 	printf("\tTemperature Upper Threshold Value = 0x%x\r\n", (unsigned int)ThresholdValue);
-	XSysMonPsv_GetTempThresholdLower(&InstancePtr, XSYSMONPSV_TEMP_EVENT,
+	XSysMonPsv_GetTempThresholdLower(InstancePtr, XSYSMONPSV_TEMP_EVENT,
 					 &ThresholdValue);
 	printf("\tTemperature Lower Threshold Value = 0x%x\r\n\n",
 	       (unsigned int)ThresholdValue);
 
-	ret = XSysMonPsv_RegisterDeviceTempOps(&InstancePtr, &Temp_CallbackFunc,
+	ret = XSysMonPsv_RegisterDeviceTempOps(InstancePtr, &Temp_CallbackFunc,
 					       &Val);
 	if (ret) {
 		printf("\tXSysMonPsv_RegisterDeviceTempOps failed\r\n");
 	}
 
 	/*Set Window Mode*/
-	XSysMonPsv_SetTempMode(&InstancePtr, 0);
+	XSysMonPsv_SetTempMode(InstancePtr, 0);
 
 	/* To Trigger Interrupt for temp*/
 	TempInterruptOccured = 0;
-	XSysMonPsv_SetTempThresholdUpper(&InstancePtr, XSYSMONPSV_TEMP_EVENT,
+	XSysMonPsv_SetTempThresholdUpper(InstancePtr, XSYSMONPSV_TEMP_EVENT,
 					 0x0);
 	xil_printf("\tWaiting for Temperature Interrupt\r\n");
 	while(TempInterruptOccured == 0);
 	xil_printf("\tInterrupt Triggered for Temperature\r\n");
 
 	if (Supply != EndList) {
-		ret = XSysMonPsv_ReadSupplyProcessed(&InstancePtr, Supply,
+		ret = XSysMonPsv_ReadSupplyProcessed(InstancePtr, Supply,
 						     &ProcessedValue);
 		if (ret) {
 			printf("\tXSysMonPsv_ReadSupplyProcessed(%d) failed\r\n",
@@ -201,7 +221,7 @@ int SysMonPsvIntrExample()
 			       XSysMonPsv_Supply_Arr[Supply], ProcessedValue);
 		}
 
-		ret = XSysMonPsv_ReadSupplyRaw(&InstancePtr, Supply, &Val);
+		ret = XSysMonPsv_ReadSupplyRaw(InstancePtr, Supply, &Val);
 		if (ret) {
 			printf("\tXSysMonPsv_ReadSupplyRaw(%d) failed\r\n",
 			       Supply);
@@ -211,27 +231,29 @@ int SysMonPsvIntrExample()
 		}
 
 		/* Reset the thresholds to their saturation levels */
-		XSysMonPsv_SetSupplyThresholdLower(&InstancePtr, Supply, 0x0);
-		XSysMonPsv_SetSupplyThresholdUpper(&InstancePtr, Supply,
+		XSysMonPsv_SetSupplyThresholdLower(InstancePtr, Supply, 0x0);
+		XSysMonPsv_SetSupplyThresholdUpper(InstancePtr, Supply,
 						   0x7fff);
-		XSysMonPsv_GetSupplyThresholdUpper(&InstancePtr, Supply,
+		XSysMonPsv_GetSupplyThresholdUpper(InstancePtr, Supply,
 						   &ThresholdValue);
 		printf("\tSupply Upper Threshold Value = 0x%x\r\n",
 		       (unsigned int)ThresholdValue);
-		XSysMonPsv_GetSupplyThresholdLower(&InstancePtr, Supply,
+		XSysMonPsv_GetSupplyThresholdLower(InstancePtr, Supply,
 						   &ThresholdValue);
 		printf("\tSupply Lower Threshold Value = 0x%x\r\n\n",
 		       (unsigned int)ThresholdValue);
-		XSysMonPsv_EnableVoltageEvents(&InstancePtr, Supply, 0);
 
 		ret = XSysMonPsv_RegisterSupplyOps(
-			&InstancePtr, Supply, &Supply_CallbackFunc, &Supply);
+			InstancePtr, Supply, &Supply_CallbackFunc, &Supply);
 		if (ret) {
 			printf("\tXSysMonPsv_RegisterSupplyOps failed\r\n");
 		}
+
 		SupplyInterruptOccured = 0;
+		XSysMonPsv_EnableVoltageEvents(InstancePtr, Supply, 0);
+
 		/* To Trigger Interrupt for supply*/
-		XSysMonPsv_SetSupplyThresholdUpper(&InstancePtr, Supply, 0);
+		XSysMonPsv_SetSupplyThresholdUpper(InstancePtr, Supply, 0);
 		xil_printf("\tWaiting for Supply Interrupt\r\n");
 		while(SupplyInterruptOccured == 0);
 		xil_printf("\tInterrupt Triggered for Supply\r\n");

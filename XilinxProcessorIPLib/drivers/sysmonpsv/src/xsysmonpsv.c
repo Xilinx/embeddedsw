@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +33,7 @@
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 * 4.0   se     10/04/22 Update return value definitions
+*		se	   11/10/22 Secure and Non-Secure mode integration
 * </pre>
 *
 ******************************************************************************/
@@ -42,8 +44,11 @@
 #include "xsysmonpsv_lowlevel.h"
 #include "xil_assert.h"
 #include "xstatus.h"
+#if defined(XSYSMONPSV_SECURE_MODE)
+#include "xsysmonpsv_secure.h"
 /************************** Constant Definitions ****************************/
-
+static XIpiPsu IpiInst;
+#endif
 /*****************************************************************************/
 /**
 *
@@ -103,11 +108,11 @@ void XSysMonPsv_SystemReset(XSysMonPsv *InstancePtr)
 
 	/* Mask PCSR Register */
 	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_MASK,
-			    XSYSMONPSV_PCSR_MASK_SYS_RST_MASK_MASK);
+			     XSYSMONPSV_PCSR_MASK_SYS_RST_MASK_MASK);
 
 	/* RESET the SYSMON */
 	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_CONTROL,
-			    XSYSMONPSV_PCSR_CONTROL_SYS_RST_MASK_MASK);
+			     XSYSMONPSV_PCSR_CONTROL_SYS_RST_MASK_MASK);
 }
 
 /*****************************************************************************/
@@ -132,7 +137,7 @@ void XSysMonPsv_EnRegGate(XSysMonPsv *InstancePtr, u8 Enable)
 
 	/* Mask PCSR Register */
 	XSysMonPsv_WriteReg32(InstancePtr, XSYSMONPSV_PCSR_MASK,
-			    XSYSMONPSV_PCSR_MASK_GATEREG_MASK);
+			     XSYSMONPSV_PCSR_MASK_GATEREG_MASK);
 
 	RegVal = ((u32)Enable << XSYSMONPSV_PCSR_CONTROL_GATEREG_SHIFT);
 	/* RESET the SYSMON */
@@ -578,12 +583,12 @@ u32 XSysMonPsv_IsNewData(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply)
 
 	/* Read the New data flag */
 	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_NEW_DATA_FLAG0,
-			   &Status);
+			    &Status);
 	Status &= ((u32)1U << Shift);
 
 	/* Clear the New data flag if its set */
 	XSysMonPsv_WriteReg32(InstancePtr, Offset + XSYSMONPSV_NEW_DATA_FLAG0,
-			    Status);
+			     Status);
 
 	return ((Status > 0U) ? 1U : 0U);
 }
@@ -626,12 +631,12 @@ u32 XSysMonPsv_IsAlarmCondition(XSysMonPsv *InstancePtr,
 
 	/* Read the New data flag */
 	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
-			   &Status);
+			    &Status);
 	Status &= ((u32)1U << Shift);
 
 	/* Clear the New data flag if its set */
 	XSysMonPsv_WriteReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_FLAG0,
-			    Status);
+			     Status);
 
 	return ((Status > 0U) ? 1U : 0U);
 }
@@ -803,7 +808,7 @@ u32 XSysMonPsv_ReadAlarmConfig(XSysMonPsv *InstancePtr,
 
 	/* Read the Alarm flag */
 	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_REG0,
-			   &Status);
+			    &Status);
 	Status = Status >> Shift;
 
 	return (Status & 1U);
@@ -847,12 +852,12 @@ u32 XSysMonPsv_SetAlarmConfig(XSysMonPsv *InstancePtr, XSysMonPsv_Supply Supply,
 
 	/* Read the Alarm flag */
 	XSysMonPsv_ReadReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_REG0,
-			   &Status);
+			    &Status);
 	Status &= ~((u32)1U << Shift);
 	Status |= (Config << Shift);
 
 	XSysMonPsv_WriteReg32(InstancePtr, Offset + XSYSMONPSV_ALARM_REG0,
-			    Status);
+			     Status);
 
 	return (u32)XST_SUCCESS;
 }
@@ -1469,6 +1474,14 @@ int XSysMonPsv_Init(XSysMonPsv *InstancePtr, XScuGic *IntcInst)
 	if (InstancePtr == NULL) {
 		return -XST_FAILURE;
 	}
+
+	/* XilPM Initialize */
+#if defined(XSYSMONPSV_SECURE_MODE)
+	Status = XSysMonPsv_Xilpm_Init(InstancePtr, NULL, &IpiInst);
+	if (XST_SUCCESS != Status) {
+		xil_printf("XSysMonPsv_Xilpm_Init() failed with error: %d\r\n", Status);
+	}
+#endif
 
 	/* Initialize the SysMon driver. */
 	ConfigPtr = XSysMonPsv_LookupConfig();

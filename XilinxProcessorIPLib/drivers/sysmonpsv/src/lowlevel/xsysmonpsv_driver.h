@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +31,7 @@
 * 3.1   cog    04/09/22 Remove GIC standalone related functionality for
 *                       arch64 architecture
 * 4.0   se     10/04/22 Update return value definitions
+*		se	   11/10/22 Secure and Non-Secure mode integration
 * </pre>
 *
 ******************************************************************************/
@@ -110,6 +112,10 @@ typedef struct {
 	XSysMonPsv_EventHandler OTEvent; /**< OT event handler information */
 #endif
 	u32 IsReady; /**< Is device ready */
+#if defined (XSYSMONPSV_SECURE_MODE)
+	u32 IpiIntrId; /**< Secure mode IPI Interrupt ID*/
+	u32 IpiDeviceId; /**< Secure mode IPI Device ID*/
+#endif
 } XSysMonPsv;
 
 #ifdef __cplusplus
