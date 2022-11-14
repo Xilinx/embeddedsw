@@ -865,14 +865,14 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
 	CryptoKatEnTmp = CryptoKatEn;
 	if((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
-		*PlmKatStatus = 0U;
+		*PlmKatStatus = XPlmi_GetKatStatus();
 		FipsModeEn = XPlmi_IsFipsModeEn();
 		FipsModeEnTmp = FipsModeEn;
 		if ((FipsModeEn == TRUE) || (FipsModeEnTmp == TRUE)) {
-			*PlmKatStatus = 0U;
+			*PlmKatStatus|= 0U;
 		}
 		else {
-			*PlmKatStatus = XPlmi_GetRomKatStatus();
+			*PlmKatStatus|= XPlmi_GetRomKatStatus();
 		}
 		XPlmi_UpdateKatStatus(*PlmKatStatus);
 	} else {

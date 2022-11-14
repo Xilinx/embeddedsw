@@ -151,13 +151,16 @@ static int XOcp_KeyZeroize(u32 CtrlReg, u32 StatusReg)
  ******************************************************************************/
 static int XOcp_KeyGenerateDevIk(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u8 Seed[XOCP_CDI_SIZE_IN_BYTES];
 	u8 PersString[XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES];
-	XSecure_EllipticKey PublicKey;
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
+	XSecure_EllipticKeyAddr PubKeyAddr;
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES];
 	u32 ClrStatus = XST_FAILURE;
+	u8 CryptoKatEn = TRUE;
+	u8 CryptoKatEnTmp = TRUE;
 
 	/* Copy CDI from PMC global registers to Seed buffer */
 	Status = Xil_SMemCpy((void *)Seed, XOCP_CDI_SIZE_IN_BYTES,
@@ -199,6 +202,26 @@ static int XOcp_KeyGenerateDevIk(void)
 		goto END;
 	}
 
+	PubKeyAddr.Qx = (UINTPTR)(u8*)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
+	PubKeyAddr.Qy = (UINTPTR)(u8*)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_Y_0;
+	Status = XSecure_EllipticGenerateKey_64Bit(XSECURE_ECC_NIST_P384,
+			(u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	CryptoKatEn = XPlmi_IsCryptoKatEn();
+	CryptoKatEnTmp = CryptoKatEn;
+	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+		XPlmi_ClearKatMask(XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK);
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_EllipticPwct,
+			XSECURE_ECC_NIST_P384, (u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+		XPlmi_SetKatMask(XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK);
+	}
+
 	/* Copy Private key to PMC global registers */
 	Status = Xil_SMemCpy((void *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0,
 				XOCP_ECC_P384_SIZE_BYTES, (const void *)EccPrvtKey,
@@ -206,11 +229,6 @@ static int XOcp_KeyGenerateDevIk(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
-	PublicKey.Qx = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
-	PublicKey.Qy = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_Y_0;
-	Status = XSecure_EllipticGenerateKey(XSECURE_ECC_NIST_P384,
-			(const u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0, &PublicKey);
 
 END:
 	ClrStatus = Xil_SMemSet(EccPrvtKey, XOCP_ECC_P384_SIZE_BYTES,
@@ -244,16 +262,19 @@ END:
  ******************************************************************************/
 static int XOcp_KeyGenerateDevAk(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u8 CerberusHash[XSECURE_HASH_SIZE_IN_BYTES] = {0U};
 	u8 Seed[XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES];
 	u8 PersString[XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES];
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES];
-	XSecure_EllipticKey PublicKey;
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
+	XSecure_EllipticKeyAddr PubKeyAddr;
 	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];
 	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];
 	int ClrStatus = XST_FAILURE;
+	u8 CryptoKatEn = TRUE;
+	u8 CryptoKatEnTmp = TRUE;
 
 	Status = XOcp_KeyGenDevAkSeed(XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
 				XOCP_CDI_SIZE_IN_BYTES, (u32)CerberusHash,
@@ -262,6 +283,7 @@ static int XOcp_KeyGenerateDevAk(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
 	/*
 	 * For time being the personalized string is taken as DNA and this will be
 	 * an input in future and is open item for now.
@@ -274,6 +296,7 @@ static int XOcp_KeyGenerateDevAk(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
 	Status = Xil_SMemCpy((void *)PersString,
 				XOCP_EFUSE_DEVICE_DNA_SIZE_BYTES,
 				(const void *)XOCP_EFUSE_DEVICE_DNA_CACHE,
@@ -292,31 +315,46 @@ static int XOcp_KeyGenerateDevAk(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	/* Copy to private key to PMC global registers */
+
+	PubKeyAddr.Qx = (UINTPTR)(u8*)EccX;
+	PubKeyAddr.Qy = (UINTPTR)(u8*)EccY;
+	Status = XSecure_EllipticGenerateKey_64Bit(XSECURE_ECC_NIST_P384,
+			(u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	CryptoKatEn = XPlmi_IsCryptoKatEn();
+	CryptoKatEnTmp = CryptoKatEn;
+	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
+		XPlmi_ClearKatMask(XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK);
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_EllipticPwct,
+			XSECURE_ECC_NIST_P384, (u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+		XPlmi_SetKatMask(XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK);
+	}
+
+	/* Copy Public key to PMC global registers */
+	Status = Xil_SMemCpy((void *)XOCP_PMC_GLOBAL_DEV_AK_PUBLIC_X_0,
+			XOCP_ECC_P384_SIZE_BYTES, (const void *)(UINTPTR)PubKeyAddr.Qx,
+			XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = Xil_SMemCpy((void *)XOCP_PMC_GLOBAL_DEV_AK_PUBLIC_Y_0,
+			XOCP_ECC_P384_SIZE_BYTES, (const void *)(UINTPTR)PubKeyAddr.Qy,
+			XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Copy Private key to PMC global registers */
 	Status = Xil_SMemCpy((void *)XOCP_PMC_GLOBAL_DEV_AK_PRIVATE_0,
 			XOCP_ECC_P384_SIZE_BYTES, (const void *)EccPrvtKey,
 			XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	PublicKey.Qx = EccX;
-	PublicKey.Qy = EccY;
-	Status = XSecure_EllipticGenerateKey(XSECURE_ECC_NIST_P384,
-			(const u8 *)XOCP_PMC_GLOBAL_DEV_AK_PRIVATE_0,
-			 &PublicKey);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SMemCpy((void *)XOCP_PMC_GLOBAL_DEV_AK_PUBLIC_X_0,
-			XOCP_ECC_P384_SIZE_BYTES, (const void *)PublicKey.Qx,
-			XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SMemCpy((void *)XOCP_PMC_GLOBAL_DEV_AK_PUBLIC_Y_0,
-			XOCP_ECC_P384_SIZE_BYTES, (const void *)PublicKey.Qy,
-			XOCP_ECC_P384_SIZE_BYTES, XOCP_ECC_P384_SIZE_BYTES);
-
 END:
 	ClrStatus = Xil_SMemSet(EccPrvtKey, XOCP_ECC_P384_SIZE_BYTES,
 				0U, XOCP_ECC_P384_SIZE_BYTES);
@@ -363,7 +401,8 @@ END:
 static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
 			 u32 DataLen, XSecure_HmacRes *Out)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
 	XSecure_Sha3 Sha3Instance = {0U};
 	XSecure_Hmac HmacInstance;
@@ -372,6 +411,25 @@ static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_Sha3Kat,
+				&Sha3Instance);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+		XPlmi_SetKatMask(XPLMI_SECURE_SHA3_KAT_MASK);
+	}
+
+	if (XPlmi_IsKatRan(XPLMI_SECURE_HMAC_KAT_MASK) != TRUE) {
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_HmacKat,
+				&Sha3Instance);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+		XPlmi_SetKatMask(XPLMI_SECURE_HMAC_KAT_MASK);
+	}
+
 	Status = XSecure_HmacInit(&HmacInstance, &Sha3Instance, KeyAddr, KeyLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
