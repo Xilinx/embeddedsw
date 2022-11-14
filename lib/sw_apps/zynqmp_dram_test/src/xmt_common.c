@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -30,6 +31,7 @@
  *       mn   05/24/21 Fixed Eye Test issue with higher rank
  * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  * 1.4   mn   11/29/21 Usability Enhancements for 2D Read/Write Eye
+ * 		 sg   11/11/22 Added 2D Read Eye support for LPDDR4
  *
  * </pre>
  *
@@ -894,7 +896,12 @@ void XMt_Print2DReadEyeResults(XMt_CfgData *XMtPtr, u32 VRef)
 	float VrefPercentDecimalF;
 	u32 VrefPercentDecimal;
 
-	VrefPercent = 2.0 * ((((float) VRef) * XMT_RD_VREF_INTERVAL) + XMT_RD_MIN_VREF);
+	if (XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) {
+		VrefPercent = 2.0
+				* ((((float) VRef) * XMT_RD_VREF_INTERVAL) + XMT_RD_MIN_VREF);
+	} else {
+		VrefPercent = (((float) VRef) * XMT_RD_VREF_INTERVAL) + XMT_RD_MIN_VREF;
+	}
 
 	VrefPercentInteger = (int) VrefPercent;
 	VrefPercentDecimalF = (VrefPercent - VrefPercentInteger) * 10;
