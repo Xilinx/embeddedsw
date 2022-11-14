@@ -6,8 +6,10 @@
 /*****************************************************************************/
 /**
  *
- * @file xnvm_cmd.h
+ * @file net/server/xnvm_cmd.h
  *
+ * @addtogroup xnvm_versal_net_api_ids XilNvm Versal Net API IDs
+ * @{
  * Header file for xnvm_cmd.c
  *
  * <pre>

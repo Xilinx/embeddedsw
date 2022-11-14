@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_efuseclient.h
-* @addtogroup xnvm_efuse_client_apis XilNvm eFUSE Versal Client APIs
+* @file versal/client/xnvm_efuseclient.h
+* @addtogroup xnvm_efuse_versal_client_apis XilNvm eFUSE Versal Client APIs
 * @{
 * @cond xnvm_internal
 * This file Contains the client function prototypes, defines and macros for
@@ -28,6 +28,7 @@
 *
 * @note
 *
+* @endcond
 ******************************************************************************/
 
 #ifndef XNVM_EFUSECLIENT_H
@@ -44,6 +45,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/**< Slr index shift constant*/
 #define XNVM_SLR_INDEX_SHIFT (6U)
 
 /**< SlrIndexs constants*/

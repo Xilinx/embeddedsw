@@ -6,10 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_efuse_cdohandler.c
-* @addtogroup xnvm_apis XilNvm Versal_Net eFuse APIs
-* @{
-* @cond xnvm_internal
+* @file net/server/xnvm_efuse_cdohandler.c
+*
 * This file contains the Versal_Net XilNvm EFUSE CDO Handler definition.
 *
 * <pre>
@@ -18,11 +16,11 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 3.0  kal   07/12/2022 Initial release
+* 3.1  skg   10/25/2022 Added in body comments for APIs
 *
 * </pre>
 *
 * @note
-* @endcond
 *
 ******************************************************************************/
 
@@ -134,11 +132,17 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_DmeMode *DmeMode = NULL;
 	XNvm_PufInfoDirectPload *PufData = NULL;
 
+    /**
+	 *  Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
+	 */
 	if (Cmd == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+    /**
+	 *  Calls the respective handler based on API ID. Return error code upon failure
+	 */
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEY_FROM_PLOAD):
 		KeyWrDirectPload = (XNvm_AesKeyWriteDirectPload *)Cmd->Payload;

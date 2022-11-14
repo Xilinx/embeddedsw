@@ -20,6 +20,7 @@
 * 1.1   am   02/28/22 Fixed MISRA C violation rule 4.5
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 3.1   skg  10/04/22 Added SlrIndex as part of payload based on user input
+*       skg  10/23/22 Added In body comments for APIs
 *
 * </pre>
 *
@@ -60,6 +61,9 @@ int XNvm_BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, const u64 KeyAddr,
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_PAYLOAD_LEN_4U];
 
+    /**
+	 *  Performs input parameters validation. Return error code if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
@@ -69,6 +73,10 @@ int XNvm_BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, const u64 KeyAddr,
 	Payload[2U] = (u32)KeyAddr;
 	Payload[3U] = (u32)(KeyAddr >> 32U);
 
+    /**
+	 *  @{ Sends BBRAM Write CDO command to PLM through IPI.
+	 *     Waits for the response from PLM. Returns the response of BBRAM write aes key status of PLM.
+	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "BBRAM programming Failed \r\n");
@@ -92,12 +100,18 @@ int XNvm_BbramZeroize(XNvm_ClientInstance *InstancePtr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_PAYLOAD_LEN_1U];
 
+    /**
+	 *  Performs input parameters validation. Return error code if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_ZEROIZE));
 
+    /**
+	 *  Sends BBRAM Zeroize CDO command to PLM through IPI. Returns the response of the Zeroize operation in PLM
+	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 END:
 	return Status;
@@ -120,6 +134,9 @@ int XNvm_BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, const u32 UsrData)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_PAYLOAD_LEN_2U];
 
+    /**
+	 *  Performs input parameters validation. Return error code if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
@@ -127,6 +144,9 @@ int XNvm_BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, const u32 UsrData)
 	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_WRITE_USER_DATA));
 	Payload[1U] = UsrData;
 
+    /**
+	 *  Sends BBRAM WRITE USER DATA CDO command to PLM IPI. Returns the response of Bbram write user data status in PLM.
+	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 END:
 	return Status;
@@ -149,6 +169,9 @@ int XNvm_BbramReadUsrData(XNvm_ClientInstance *InstancePtr, const u64 OutDataAdd
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_PAYLOAD_LEN_3U];
 
+    /**
+	 *  Performs input parameters validation. Return error code if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
@@ -157,6 +180,9 @@ int XNvm_BbramReadUsrData(XNvm_ClientInstance *InstancePtr, const u64 OutDataAdd
 	Payload[1U] = (u32)OutDataAddr;
 	Payload[2U] = (u32)(OutDataAddr >> 32U);
 
+    /**
+	 *  Sends BBRAM READ USER DATA CDO command to PLM through IPI. Returns the response of Bbram Read user data status in PLM.
+	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 END:
 	return Status;
@@ -179,12 +205,18 @@ int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XNVM_PAYLOAD_LEN_1U];
 
+    /**
+	 *  Performs input parameters validation. Return error code if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA));
 
+    /**
+	 *  Sends BBRAM LOCK USER DATA WRITE CDO command to PLM through IPI. Returns the response of BBram lock user data write status in PLM.
+	 */
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 END:
 	return Status;

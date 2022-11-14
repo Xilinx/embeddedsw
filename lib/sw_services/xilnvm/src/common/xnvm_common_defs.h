@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_commondefs.h
+* @file xnvm_common_defs.h
 * @addtogroup xnvm_api_ids XilNvm API IDs
 * @{
 *
@@ -40,25 +40,25 @@ extern "C" {
 /**@cond xnvm_internal
  * @{
  */
-#define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
-#define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)
-#define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)
-#define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)
-#define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)
-#define XNVM_EFUSE_DNA_IN_WORDS				(4U)
-#define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)
-#define XNVM_EFUSE_IV_LEN_IN_BYTES			(12U)
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)
-#define XNVM_IV_STRING_LEN				(24U)
-#define XNVM_WORD_LEN					(4U)
-#define XNVM_EFUSE_CRC_AES_ZEROS			(0x6858A3D5U)
-#define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)
+#define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)   /**< formated synq data length in words*/
+#define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)             /**< number of revoke id efuses*/
+#define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)         /**< number of offchip id efuses*/
+#define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)          /**< Aes key length in words*/
+#define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)  /**< IV length in words*/
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)           /**< PPK hash length in words*/
+#define XNVM_EFUSE_DNA_IN_WORDS				(4U)               /**< DNA in words*/
+#define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)               /**< IV length in bits*/
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)         /**< Aes key length in bits*/
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)           /**< PPK hash length in words*/
+#define XNVM_EFUSE_IV_LEN_IN_BYTES			(12U)                 /**< IV length in bytes*/
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)             /**< Aes key length in bytes*/
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)             /**< PPK hash length in bytes*/
+#define XNVM_IV_STRING_LEN				(24U)                      /**< IV string length*/
+#define XNVM_WORD_LEN					(4U)                        /**< word length*/
+#define XNVM_EFUSE_CRC_AES_ZEROS			(0x6858A3D5U)             /**< CRC aes zeros*/
+#define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)                     /**< maximum number of bits in a row in efuse*/
 #define XNVM_MAX_REVOKE_ID_FUSES		(XNVM_NUM_OF_REVOKE_ID_FUSES	\
-						* XNVM_EFUSE_MAX_BITS_IN_ROW)
+						* XNVM_EFUSE_MAX_BITS_IN_ROW)                      /**< maximum number of revoke ids in efuse*/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

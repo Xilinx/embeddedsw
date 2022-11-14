@@ -7,9 +7,7 @@
 /**
 *
 * @file xnvm_bbram_common_cdohandler.c
-* @addtogroup xnvm_apis XilNvm Versal Common BBRAM APIs
-* @{
-* @cond xnvm_internal
+*
 * This file contains the XilNvm BBRAM IPI Handler definition.
 *
 * <pre>
@@ -25,11 +23,11 @@
 *                        XNvm_BbramKeyWrite
 *       am    02/28/2022 Fixed MISRA C violation rule 4.5
 * 3.0   dc    08/29/2022 Removed initialization
+* 3.1   skg   10/23/2022 Added In body comments for APIs
 *
 * </pre>
 *
 * @note
-* @endcond
 *
 ******************************************************************************/
 
@@ -72,11 +70,17 @@ int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
+    /**
+	 *  Performs input parameters validation. Return error code if input parameters are invalid
+	 */
 	if (Pload == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+   /**
+    *  Calls the respected API handler according to API ID
+	*/
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY):
 		Status = XNvm_BbramKeyWrite(Pload[0], Pload[1], Pload[2]);

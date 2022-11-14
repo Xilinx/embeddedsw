@@ -5,23 +5,28 @@
 
 /*****************************************************************************/
 /**
- *
- * @file xnvm_cmd.h
- *
- * Header file for xnvm_cmd.c
- *
- * <pre>
- * MODIFICATION HISTORY:
- *
- * Ver   Who  Date        Changes
- * ----- ---- ---------- -------------------------------------------------------
- * 1.0   kal  07/05/2021 Initial release
- * 2.4   bsv  09/09/2021 Added PLM_NVM macro
- *
- * </pre>
- *
- * @note
- *
+*
+* @file versal/server/xnvm_cmd.h
+* @addtogroup xnvm_versal_server_apis XilNvm Versal Server APIs
+* @{
+*
+* @cond xnvm_internal
+* This file Contains the client function prototypes, defines and macros for
+* the NVM programming.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date        Changes
+* ----- ---- ---------- -------------------------------------------------------
+* 1.0   kal  07/05/2021 Initial release
+* 2.4   bsv  09/09/2021 Added PLM_NVM macro
+*
+* </pre>
+*
+* @note
+*
+* @endcond
  ******************************************************************************/
 #ifndef XNVM_CMD_H_
 #define XNVM_CMD_H_
@@ -48,3 +53,5 @@ void XNvm_CmdsInit(void);
 #endif
 
 #endif /* XNVM_CMD_H_ */
+
+/* @} */

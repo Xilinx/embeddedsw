@@ -6,8 +6,9 @@
 /*****************************************************************************/
 /**
  *
- * @file xnvm_efuse.h
- *
+ * @file net/server/xnvm_efuse.h
+ * @addtogroup xnvm_versal_net_efuse_apis XilNvm Versal Net eFuse APIs
+ * @{
  * Header file for xnvm_efuse.c
  *
  * <pre>

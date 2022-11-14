@@ -7,8 +7,8 @@
 /******************************************************************************/
 /**
 *
-* @file xnvm_efuse.h
-* @addtogroup xnvm_efuse_apis XilNvm eFuse APIs
+* @file versal/server/xnvm_efuse_error_plat.h
+* @addtogroup xnvm_versal_efuse_apis XilNvm versal eFuse APIs
 * @{
 *
 * @cond xnvm_internal
@@ -40,7 +40,7 @@ extern "C" {
 
 /***************************** Type Definitions *******************************/
 /**
- * @addtogroup xilnvm_versal_error_codes XilNvm Error Codes
+ * @addtogroup xilnvm_versal_error_codes XilNvm Versal Error Codes
  * @{
  */
 

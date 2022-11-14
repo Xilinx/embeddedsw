@@ -6,11 +6,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_commondefs.h
-* @addtogroup xnvm_api_ids XilNvm API IDs
+* @file xnvm_efuse_error.h
+* @addtogroup xnvm_efuse_api_ids XilNvm Efuse API IDs
 * @{
 *
-* @cond xnvm_internal
 * This file contains the xilnvm Versal_Net API IDs
 *
 * <pre>
@@ -19,11 +18,12 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kal  01/05/22 Initial release
+* 3.1   skg  10/25/22 Added comments for macros and enums
 *
 * </pre>
 * @note
 *
-* @endcond
+*
 ******************************************************************************/
 
 #ifndef XNVM_EFUSE_ERROR_H
@@ -44,7 +44,7 @@ extern "C" {
  */
 
 /**
- The following table lists the Versal common eFuse library error codes.
+ *  The following table lists the Versal common eFuse library error codes.
  */
 typedef enum {
 	XNVM_EFUSE_ERR_NONE = 0,/**< 0 - No error. */

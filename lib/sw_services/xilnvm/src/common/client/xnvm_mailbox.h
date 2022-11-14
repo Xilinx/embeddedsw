@@ -22,6 +22,7 @@
 * 1.1   kpt  01/13/21 Added macro XNVM_SHARED_MEM_SIZE
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 3.1   skg  10/04/22 Added SlrIndex as member to XNvm_ClientInstance
+*       skg  10/28/22 Added comments for macros
 *
 * </pre>
 * @note
@@ -51,16 +52,20 @@ extern "C" {
 #define PAYLOAD_ARG_CNT			(8U)
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
 #define RESPONSE_ARG_CNT		(8U)
+/**< IPI timeout */
 #define XNVM_IPI_TIMEOUT		(0xFFFFFFFFU)
-					/**< IPI timeout */
+/**< Target PMC IPI interrupt mask */
 #define XNVM_TARGET_IPI_INT_MASK	(0x00000002U)
-					/**< Target PMC IPI interrupt mask */
+/**< IPI unused parameters*/
 #define XNVM_IPI_UNUSED_PARAM		(0U)
+/**< Module Id shift*/
 #define XNVM_MODULE_ID_SHIFT		(8U)
+/**< Length shift mask*/
 #define XNVM_PAYLOAD_LEN_SHIFT		(16U)
+/**< Module id mask*/
 #define XILNVM_MODULE_ID_MASK		(XILNVM_MODULE_ID << XNVM_MODULE_ID_SHIFT)
 
-/* Max size of shared memory used to store the CDO command */
+/**< Max size of shared memory used to store the CDO command */
 #define XNVM_SHARED_MEM_SIZE		(256U)
 
 #define XNVM_PAYLOAD_LEN_1U		(1U)
@@ -72,9 +77,10 @@ extern "C" {
 #define XNVM_PAYLOAD_LEN_7U		(7U)
 
 /**************************** Type Definitions *******************************/
+/**< xilnvm client instance*/
 typedef struct {
-	XMailbox *MailboxPtr;
-	u32 SlrIndex;
+	XMailbox *MailboxPtr; /**< pointer to mailbox for IPI communication*/
+	u32 SlrIndex;         /**< Slr index to trigger the slave PLM*/
 } XNvm_ClientInstance;
 
 /***************** Macros (Inline Functions) Definitions *********************/

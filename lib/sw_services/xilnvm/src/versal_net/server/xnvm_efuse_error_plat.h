@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xnvm_efuse.h
+ * @file net/server/xnvm_efuse_error_plat.h
  *
  * Header file for xnvm_efuse.c
  *
@@ -35,7 +35,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
- * @addtogroup xilnvm_versal_common_error_codes XilNvm Error Codes
+ * @addtogroup xilnvm_versal_net_common_error_codes XilNvm Net Error Codes
  * @{
  */
 

@@ -7,7 +7,7 @@
 /**
 *
 * @file xnvm_bbram_cdohandler.h
-* @addtogroup xnvm_apis XilNvm Versal_Net APIs
+* @addtogroup xnvm_versal_net_apis XilNvm Versal Net APIs
 * @{
 * @cond xnvm_internal
 * This file contains the Versal_Net XilNvm BBRAM Cdo handler declaration.
@@ -19,11 +19,12 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 3.0   kal  07/12/2022 Initial release
 *
+*
 * </pre>
 *
 * @note
-* @endcond
 *
+* @endcond
 ******************************************************************************/
 
 #ifndef XNVM_BBRAM_CDOHANDLER_H_
@@ -39,7 +40,7 @@ extern "c" {
 #ifdef PLM_NVM
 #include "xplmi_cmd.h"
 
-/************************** Constant Definitions *****************************/
+/************************** Function Prototypes *****************************/
 int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd);
 
 #endif /* PLM_NVM */
@@ -49,3 +50,5 @@ int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XNVM_BBRAM_CDOHANDLER_H_ */
+
+/* @} */

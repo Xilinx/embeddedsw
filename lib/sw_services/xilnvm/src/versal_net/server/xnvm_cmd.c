@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_cmd.c
+* @file net/server/xnvm_cmd.c
 *
 * This file contains the xilnvm IPI/CDO handler implementation.
 *

@@ -20,6 +20,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 3.0   kal  07/16/2022 Initial release
+* 3.1   skg  10/25/2022 Added comments for macros and enums
 *
 * </pre>
 *
@@ -43,10 +44,10 @@ extern "C" {
 #include "xnvm_efuse_error.h"
 
 /*************************** Constant Definitions *****************************/
-/**@cond xnvm_internal
- * @{
+/**
+ *  @name Enable printfs
  */
-/* Enable printfs by setting XNVM_DEBUG to 1 */
+/**< Enable printfs by setting XNVM_DEBUG to 1 */
 #define XNVM_DEBUG	(0U)
 
 #if (XNVM_DEBUG)
@@ -54,10 +55,15 @@ extern "C" {
 #else
 #define XNVM_DEBUG_GENERAL (0U)
 #endif
+/** @} */
 
-/*Macros for eFUSE CTRL WRITE LOCKED and UNLOCKED */
+/**
+ *  @name eFuse ctrls constants
+ */
+/**< Macros for eFUSE CTRL WRITE LOCKED and UNLOCKED */
 #define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U)
 #define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U)
+/** @} */
 
 /***************************** Type Definitions *******************************/
 /**
@@ -78,16 +84,16 @@ typedef enum {
 } XNvm_EfuseRdMode;
 /** @} */
 
+/**
+ * @name  eFuse Page
+ */
 typedef enum {
 	XNVM_EFUSE_PAGE_0 = 0,
 	XNVM_EFUSE_PAGE_1,
 	XNVM_EFUSE_PAGE_2
 } XNvm_EfuseType;
+/** @} */
 
-/**
-* @}
-* @endcond
-*/
 
 
 /*************************** Function Prototypes ******************************/

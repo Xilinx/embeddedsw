@@ -7,7 +7,7 @@
 /**
 *
 * @file xnvm_bbramclient.h
-* @addtogroup xnvm_bbram_client_apis XilNvm BBRAM Versal Client APIs
+* @addtogroup xnvm_bbram_client_apis XilNvm BBram Client APIs
 * @{
 * @cond xnvm_internal
 * This file Contains the client function prototypes, defines and macros for
@@ -21,10 +21,12 @@
 * 1.0   kal  07/05/21 Initial release
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 3.1   skg  10/04/22 Added macro for SlrIndex shifting
+*       skg  10/23/22 Added In body comments for APIs
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 
@@ -42,6 +44,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/**< shift constant to place slr id*/
 #define XNVM_SLR_INDEX_SHIFT (6U)
 
 /**< SlrIndexs constants*/
@@ -68,3 +71,4 @@ int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr);
 #endif
 
 #endif  /* XNVM_BBRAMCLIENT_H */
+/* @} */

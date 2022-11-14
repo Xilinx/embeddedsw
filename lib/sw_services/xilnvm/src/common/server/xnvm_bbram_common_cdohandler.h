@@ -3,12 +3,14 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+
 /*****************************************************************************/
 /**
 *
 * @file xnvm_bbarm_common_cdohandler.h
-* @addtogroup xnvm_apis XilNvm Versal Common BBRAM APIs
+* @addtogroup xnvm_apis XilNvm bbram APIs
 * @{
+*
 * @cond xnvm_internal
 * This file contains the xilnvm BBRAM common cdo handler declaration.
 *
@@ -19,14 +21,14 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kal   07/05/2021 Initial release
 * 2.4   bsv  09/09/2021 Added PLM_NVM macro
+* 3.1   skg  10/23/2022 Added In body comments for APIs
 *
 * </pre>
 *
 * @note
-* @endcond
 *
+* @endcond
 ******************************************************************************/
-
 #ifndef XNVM_BBRAM_COMMON_CDOHANDLER_H_
 #define XNVM_BBRAM_COMMON_CDOHANDLER_H_
 
@@ -41,7 +43,12 @@ extern "c" {
 #include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
+
+/***************************** Type Definitions *******************************/
+
+/*************************** Function Prototypes ******************************/
 int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd);
+
 
 #endif /* PLM_NVM */
 
@@ -50,3 +57,4 @@ int XNvm_BbramCommonCdoHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XNVM_BBRAM_COMMON_CDOHANDLER_H_ */
+/* @} */

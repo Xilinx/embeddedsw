@@ -6,9 +6,11 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_cmd.c
+* @file versal/server/xnvm_cmd.c
 *
 * This file contains the xilnvm IPI handler implementation.
+*
+* @cond xnvm_internal
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,6 +29,7 @@
 *
 * @note
 *
+* @endcond
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -40,8 +43,8 @@
 #include "xplmi_modules.h"
 #include "xnvm_defs.h"
 #include "xnvm_bbram_common_cdohandler.h"
-#include "xnvm_efuse_ipihandler.h"
 #include "xnvm_cmd.h"
+#include "xnvm_efuse_ipihandler.h"
 
 /************************** Function Prototypes ******************************/
 static int XNvm_InvalidCmdHandler(XPlmi_Cmd *Cmd, u32 *RespBuf);
@@ -62,6 +65,7 @@ static XPlmi_Module XPlmi_Nvm =
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Definitions *****************************/
+
 /*****************************************************************************/
 /**
  * @brief	This function calls the handler for invalid commands
@@ -78,6 +82,7 @@ static XPlmi_Module XPlmi_Nvm =
 static int XNvm_InvalidCmdHandler(XPlmi_Cmd *Cmd, u32 *RespBuf){
 	return XPlmi_SendIpiCmdToSlaveSlr(Cmd, RespBuf);
 }
+
 /*****************************************************************************/
 /**
  * @brief	This function checks for the supported features based on the
@@ -202,7 +207,9 @@ void XNvm_CmdsInit(void)
 {
 	u32 Idx;
 
-	/* Register command handlers with XilPlmi */
+	/**
+     *	Register command handlers with XilPlmi
+	 */
 	for (Idx = 0U; Idx < XPlmi_Nvm.CmdCnt; Idx++) {
 		XNvm_Cmds[Idx].Handler = XNvm_ProcessCmd;
 	}

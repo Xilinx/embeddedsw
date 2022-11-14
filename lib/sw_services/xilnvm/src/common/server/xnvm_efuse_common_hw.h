@@ -7,7 +7,10 @@
 /**
 *
 * @file xnvm_efuse_common_hw.h
+* @addtogroup xnvm_efuse_hw XilNvm eFuse controller registers
+* @{
 *
+* @cond xnvm_internal
 * This file contains eFUSE controller register definitions which are common
 * for Versal and Versal_Net
 *
@@ -22,6 +25,7 @@
 *
 * @note
 *
+* @endcond
 *******************************************************************************/
 #ifndef XNVM_EFUSE_COMMON_HW_H
 #define XNVM_EFUSE_COMMON_HW_H
@@ -42,7 +46,7 @@ extern "C" {
 /** @} */
 
 /**
- * @name CRP eFUSE Clock Control Register
+ * @name CRP eFuse Clock Control Register
  */
 /**< CRP REF_CLK offset and definition */
 #define XNVM_CRP_EFUSE_REF_CLK_REG_OFFSET		(0x00000134U)
@@ -53,16 +57,16 @@ extern "C" {
 /** @} */
 
 /**
- * @name eFUSE Controller base address
+ * @name eFuse Controller base address
  */
-/**< eFUSE Control Base Address */
+/**< eFuse Control Base Address */
 #define XNVM_EFUSE_CTRL_BASEADDR			(0xF1240000U)
 /** @} */
 
 /**
- * @name eFUSE Controller Register Offsets
+ * @name eFuse Controller Register Offsets
  */
-/**< eFUSE CTRL Register Offsets */
+/**< eFuse CTRL Register Offsets */
 #define XNVM_EFUSE_WR_LOCK_REG_OFFSET			(0x00000000U)
 #define XNVM_EFUSE_CFG_REG_OFFSET			(0x00000004U)
 #define XNVM_EFUSE_STATUS_REG_OFFSET			(0x00000008U)
@@ -87,7 +91,7 @@ extern "C" {
 /**
  * @name Register: EFUSE_CTRL_CFG
  */
-/**< eFUSE CTRL STATUS Register Masks */
+/**< eFuse CTRL STATUS Register Masks */
 #define XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK    		(0x00000004U)
 
 /* access_type: ro  */
@@ -102,52 +106,54 @@ extern "C" {
 /**
  * @name  EFUSE_CACHE Base Address
  */
-/**< eFUSE Cache Base Address */
+/**< eFuse Cache Base Address */
 #define XNVM_EFUSE_CACHE_BASEADDR				(0xF1250000U)
 /** @} */
 
-/*
+/**
  * @name Register: EFUSE_CACHE_PUF_ECC_CTRL
  */
-/**< eFUSE CACHE PUF ECC CTRL Register Masks And Shifts */
+/**< eFuse CACHE PUF ECC CTRL Register Masks And Shifts */
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_REGEN_DIS_MASK	(0x80000000U)
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_HD_INVLD_MASK		(0x40000000U)
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK		(0x00ffffffU)
 
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_REGEN_DIS_SHIFT		(31U)
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_HD_INVLD_SHIFT		(30U)
+/** @} */
 
 /**
  * @name  Register: EFUSE_CACHE_SECURITY_MISC_0
  */
-/**< eFUSE Cache DEC_EFUSE_ONLY Mask */
+/**< eFuse Cache DEC_EFUSE_ONLY Mask */
 #define XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK			(0x0000ffffU)
 
-/**< EFUSE row count numbers */
+/**< eFuse row count numbers */
 #define XNVM_EFUSE_PUF_SYN_DATA_NUM_OF_ROWS		(127U)
 #define XNVM_EFUSE_PUF_CHASH_NUM_OF_ROWS		(1U)
 #define XNVM_EFUSE_PUF_AUX_NUM_OF_ROWS			(1U)
+/** @} */
 
 /**
  * @name  WR_UNLOCK Code
  */
-/**< eFUSE Write Unlock Passcode */
+/**< eFuse Write Unlock Passcode */
 #define XNVM_EFUSE_WR_UNLOCK_PASSCODE			(0xDF0DU)
 /** @} */
 
 /**
- * @name eFUSE Controller CFG register
+ * @name eFuse Controller CFG register
  */
-/**< eFUSE CFG Modes */
+/**< eFuse CFG Modes */
 #define XNVM_EFUSE_CFG_ENABLE_PGM			(0x01U << 1U)
 #define XNVM_EFUSE_CFG_MARGIN_RD			(0x01U << 2U)
 #define XNVM_EFUSE_CFG_NORMAL_RD			(0x00U << 2U)
 /** @} */
 
 /**
- * @name eFUSE STATUS register
+ * @name eFuse STATUS register
  */
-/**< eFUSE Status Register Masks */
+/**< eFuse Status Register Masks */
 #define XNVM_EFUSE_STATUS_TBIT_0			(0x01U << 0U)
 #define XNVM_EFUSE_STATUS_TBIT_1			(0x01U << 1U)
 #define XNVM_EFUSE_STATUS_TBIT_2			(0x01U << 2U)
@@ -155,23 +161,23 @@ extern "C" {
 /** @} */
 
 /**
- * @name eFUSE Controller PGM_ADDR register
+ * @name eFuse Controller PGM_ADDR register
  */
-/**< eFUSE Addres Shifts */
+/**< eFuse Addres Shifts */
 #define XNVM_EFUSE_ADDR_COLUMN_SHIFT			(0U)
 #define XNVM_EFUSE_ADDR_ROW_SHIFT			(5U)
 #define XNVM_EFUSE_ADDR_PAGE_SHIFT			(13U)
 /** @} */
 
-/**< eFUse Cache load mask */
+/**< eFuse Cache load mask */
 #define XNVM_EFUSE_CACHE_LOAD_MASK			(0x01U)
 
-
-#define XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK		(0x1FFFU)
 /**< eFuse Protection Row Mask */
+#define XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK		(0x1FFFU)
+
 
 /**
- * @name eFUSE ISR Register
+ * @name eFuse ISR Register
  */
 /**< eFuse ISR registers masks */
 #define XNVM_EFUSE_ISR_PGM_DONE				(0x01U << 0U)
@@ -180,15 +186,15 @@ extern "C" {
 #define XNVM_EFUSE_ISR_CACHE_ERROR			(0x01U << 4U)
 /** @} */
 
-/**< eFUSE Controller PD register definition */
+/**< eFuse Controller PD register definition */
 #define XNVM_EFUSE_PD_ENABLE				(0x01U << 0U)
 
-
+/**< PS Ref clock definition in Hz */
 #define XNVM_PS_REF_CLK_FREQ			(XPAR_PSU_PSS_REF_CLK_FREQ_HZ)
-					/**< PS Ref clock definition in Hz */
 
+/**< Number of Rows per Page */
 #define XNVM_NUM_OF_ROWS_PER_PAGE			(256U)
-					/**< Number of Rows per Page */
+
 
 /**
  * @name Timeout values
@@ -219,3 +225,4 @@ extern "C" {
 #endif
 
 #endif	/* XNVM_EFUSE_COMMON_HW_H */
+/* @} */

@@ -7,9 +7,7 @@
 /**
 *
 * @file xnvm_bbram_cdohandler.c
-* @addtogroup xnvm_apis XilNvm Versal_Net APIs
-* @{
-* @cond xnvm_internal
+*
 * This file contains the Versal_Net XilNvm BBRAM CDO Handler definition.
 *
 * <pre>
@@ -18,11 +16,11 @@
 * Ver   Who  Date        Changes
 * ----- ---- --------   -------------------------------------------------------
 * 3.0   kal  07/12/2022 Initial release
+* 3.1   skg  10/23/2022 Added In body comments for APIs
 *
 * </pre>
 *
 * @note
-* @endcond
 *
 ******************************************************************************/
 
@@ -58,11 +56,17 @@ int XNvm_BbramCdoHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
+    /**
+	 * Perform input parameters validation. Return error code if input parameters are invalid
+	 */
 	if (Pload == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+    /**
+	 *  Calls the respected API handler from API ID
+	 */
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_BBRAM_WRITE_AES_KEY_FROM_PLOAD):
 		Status = XNvm_BbramWriteKeyFromCdoPload(Pload);

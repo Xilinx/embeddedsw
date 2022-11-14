@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_defs.h
-* @addtogroup xnvm_api_ids XilNvm API IDs
+* @file net/common/xnvm_defs.h
+* @addtogroup xnvm_versal_net_api_ids XilNvm Versal Net API IDs
 * @{
 *
 * @cond xnvm_internal

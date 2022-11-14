@@ -29,6 +29,7 @@
 *       kal  08/03/2021 Removed clearing BBRAM UsrData in case for write failure
 * 3.0   kal  08/01/2022 Added redundancy to XNvm_BbramEnablePgmMode function
 *       dc   08/29/2022 Changed u8 to u32 type
+* 3.1   skg  10/23/2022 Added In body comments for APIs
 *
 * </pre>
 *
@@ -63,6 +64,9 @@
  ******************************************************************************/
 static INLINE u32 XNvm_BbramReadReg(u32 Offset)
 {
+	/**
+	 *  Performs Reading the BBRAM register at the given offset
+	 */
 	return Xil_In32((UINTPTR)(XNVM_BBRAM_BASE_ADDR + Offset));
 }
 
@@ -76,6 +80,9 @@ static INLINE u32 XNvm_BbramReadReg(u32 Offset)
  ******************************************************************************/
 static INLINE void XNvm_BbramWriteReg(u32 Offset, u32 Data)
 {
+	/**
+	 *  Writes the data in to BBRAM register at given offset
+	 */
 	Xil_Out32((UINTPTR)(XNVM_BBRAM_BASE_ADDR + Offset), Data);
 }
 
@@ -119,15 +126,21 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	u32 BbramKeyAddr;
 	u32 Idx;
 
+    /**
+	 *  Perform input parameter validation. Return appropriate error code if input parameters are invalid
+	 */
 	if ((KeyLen != XNVM_256_BITS_AES_KEY_LEN_IN_BYTES) ||
 		(Key == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+    /**
+	 * Assign the Key address to local pointer
+	 */
 	AesKey = (const u32 *) Key;
 
-	/*
+	/**
 	 * As per hardware design, zeroization is must between two BBRAM
 	 * AES CRC Check requests
 	 */
@@ -136,12 +149,18 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 		goto END;
 	}
 
+    /**
+	 *  Bring BBRAM to programming mode by writing Magic Word 0x757BDF0D to PGM_MODE register
+	 */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XNvm_BbramEnablePgmMode);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = (Status | StatusTmp);
 		goto END;
 	}
 
+    /**
+	 * 	Write 256-bit AES Key to BBRAM registers BBRAM_0 to BBRAM_8
+	 */
 	BbramKeyAddr = XNVM_BBRAM_0_REG;
 	for (Idx = 0U; Idx < XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS; Idx++) {
 
@@ -149,6 +168,11 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 		BbramKeyAddr += sizeof(u32);
 	}
 
+    /**
+	 *  @{ Calculate CRC on input AES Key and write it to BBRAM_AES_CRC which triggers BBRAM CRC integrity check.
+     *     Wait for AES_CRC_DONE bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timout error.
+     *     If AES_CRC_PASS bit is set in BBRAM_STATUS register, return XST_SUCCESS else return CRC mismatch error
+	 */
 	Status = XNvm_BbramValidateAesKeyCrc(AesKey);
 	if (Status != XST_SUCCESS) {
 		ZeroizeStatus = XNvm_BbramZeroize();
@@ -159,6 +183,9 @@ int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
 	}
 
 END:
+    /**
+	 *  Disable BBRAM programming mode by writing 0x00 to PGM_MODE register
+	 */
 	DisableStatus = XNvm_BbramDisablePgmMode();
 	if ((DisableStatus != XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = DisableStatus;
@@ -180,6 +207,10 @@ int XNvm_BbramLockUsrDataWrite(void)
 	int Status = XST_FAILURE;
 	u32 LockStatus = 0U;
 
+    /**
+	 *  Write to BBRAM Lock register and readback to confirm lock is successful.
+	 *  Reads the 32 bit User Data from the BBRAM and returns it
+	 */
 	XNvm_BbramWriteReg(XNVM_BBRAM_MSW_LOCK_REG, XNVM_BBRAM_MSW_LOCK);
 	LockStatus = XNvm_BbramReadReg(XNVM_BBRAM_MSW_LOCK_REG);
 	if((LockStatus & XNVM_BBRAM_MSW_LOCK) == XNVM_BBRAM_MSW_LOCK) {
@@ -209,12 +240,20 @@ int XNvm_BbramWriteUsrData(u32 UsrData)
 	u32 LockStatus;
 	u32 ReadReg;
 
+    /**
+	 * @{ Check for BBRAM Lock register for Lock.
+     *	  If it Locked then returns XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED
+	 */
 	LockStatus = XNvm_BbramReadReg(XNVM_BBRAM_MSW_LOCK_REG);
 
 	if((LockStatus & XNVM_BBRAM_MSW_LOCK) == XNVM_BBRAM_MSW_LOCK) {
 		Status = (int)XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED;
 	}
 	else {
+
+		/**
+		 * 	Else writes User data to BBRAM and Return XST_SUCCESS
+		 */
 		XNvm_BbramWriteReg(XNVM_BBRAM_8_REG, UsrData);
 		ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
 		if (ReadReg == UsrData) {
@@ -234,6 +273,9 @@ int XNvm_BbramWriteUsrData(u32 UsrData)
  ******************************************************************************/
 u32 XNvm_BbramReadUsrData(void)
 {
+	/**
+	 * 	Reads the 32 bit User Data from the BBRAM and returns it
+	 */
 	return XNvm_BbramReadReg(XNVM_BBRAM_8_REG);
 }
 
@@ -251,6 +293,12 @@ int XNvm_BbramZeroize(void)
 	int Status = XST_FAILURE;
 
 	/* Initiate zeroization */
+
+	/**
+	 * @{ Write 1 to BBRAM_CTRL register.
+     *	  Wait for BBRAM_ZEROIZED bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timout error.
+     *	  Return XST_SUCCESS
+     */
 	XNvm_BbramWriteReg(XNVM_BBRAM_CTRL_REG, XNVM_BBRAM_CTRL_START_ZEROIZE);
 	Status = (int)Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
 		XNVM_BBRAM_STATUS_ZEROIZED,
@@ -299,9 +347,11 @@ static int XNvm_BbramEnablePgmMode(void)
 static inline int XNvm_BbramDisablePgmMode(void)
 {
 	int Status = XST_FAILURE;
+
 	u32 ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_PGM_MODE_REG);
 
 	XNvm_BbramWriteReg(XNVM_BBRAM_PGM_MODE_REG, 0x00U);
+
 	ReadReg = XNvm_BbramReadReg(XNVM_BBRAM_PGM_MODE_REG);
 	if (ReadReg == 0x00U) {
 		Status = XST_SUCCESS;
@@ -330,6 +380,7 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key)
 	u32 BbramStatus;
 
 	Crc = XNvm_AesCrcCalc(Key);
+
 	XNvm_BbramWriteReg(XNVM_BBRAM_AES_CRC_REG, Crc);
 	Status = (int)Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
 	        XNVM_BBRAM_STATUS_AES_CRC_DONE,

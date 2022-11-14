@@ -7,7 +7,7 @@
 /******************************************************************************/
 /**
 *
-* @file xnvm_efuseclient_hw.h
+* @file net/client/xnvm_efuseclient_hw.h
 *
 * This file contains register offsets for EFUSE_CACHE module and other related
 * definitions.
@@ -24,6 +24,7 @@
 * @note
 *
 *******************************************************************************/
+
 #ifndef XNVM_EFUSECLIENT_HW_H
 #define XNVM_EFUSECLIENT_HW_H
 

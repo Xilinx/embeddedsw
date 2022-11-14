@@ -7,7 +7,7 @@
 /******************************************************************************/
 /**
 *
-* @file xnvm_efuse.c
+* @file common/server/xnvm_efuse_common.c
 *
 * This file contains eFuse functions of xilnvm library
 * and provides the access to program eFUSE
@@ -21,6 +21,7 @@
 *       dc   08/29/2022 Changed u8 to u32 type
 *       kal  09/29/2022 Removed unlock and lock of eFuse controller
 *                       from the XNvm_EfuseCacheReload function
+* 3.1   skg  10/25/2022 Added in body comments for APIs
 *
 * </pre>
 *
@@ -90,6 +91,11 @@ int XNvm_EfuseCacheReload(void)
 	int Status = XST_FAILURE;
 	u32 CacheStatus;
 
+    /**
+	 * @{ Write 1 to load bit of eFuse_CACHE_LOAD register.
+     *	  Wait for CACHE_DONE bit to set in EFUSE_STATUS register . If timed out return timout error.
+     *	  Return XST_SUCCESS
+     */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_CACHE_LOAD_REG_OFFSET,
 			XNVM_EFUSE_CACHE_LOAD_MASK);
@@ -104,6 +110,10 @@ int XNvm_EfuseCacheReload(void)
 		goto END;
 	}
 
+    /**
+	 *  @{ Read EFUSE_ISR_REG. If EFUSE_ISR_CHACE_ERROR set return cache load error.
+	 *     Return XST_SUCCES.
+	 */
 	CacheStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_ISR_REG_OFFSET);
 	if ((CacheStatus & XNVM_EFUSE_ISR_CACHE_ERROR) ==
@@ -114,6 +124,9 @@ int XNvm_EfuseCacheReload(void)
 
 	Status = XST_SUCCESS;
 END:
+    /**
+	 *  Reset EFUSE_ISR_CACHE_ERROR bit to 1
+	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_ISR_REG_OFFSET,
 			XNVM_EFUSE_ISR_CACHE_ERROR);
@@ -130,12 +143,15 @@ void XNvm_EfuseDisablePowerDown(void)
 {
 	volatile u32 PowerDownStatus = ~XNVM_EFUSE_PD_ENABLE;
 
+    /**
+	 *  Read EFUSE_PD_REG. If enable disable by writing EFUSE_PD_REG to 0
+	 */
 	PowerDownStatus = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 						XNVM_EFUSE_PD_REG_OFFSET);
 	if(XNVM_EFUSE_PD_ENABLE == PowerDownStatus) {
-		/*
-		 * When changing the Power Down state, wait a separation period
-		 * of 1us, before and after accessing the eFuse-Macro.
+		/**
+		 * @{ When changing the Power Down state, wait a separation period
+		 *    of 1us, before and after accessing the eFuse-Macro.
 		 */
 		usleep(XNVM_ONE_MICRO_SECOND);
 		XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
@@ -163,6 +179,9 @@ int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 	u32 RdModeVal = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
 	u32 Mask = XNVM_EFUSE_SEC_DEF_VAL_BYTE_SET;
 
+    /**
+	 *  Read EFUSE_CFG_REG register
+	 */
 	RegVal = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_CFG_REG_OFFSET);
 	if(XNVM_EFUSE_NORMAL_RD == RdMode) {
@@ -172,6 +191,9 @@ int XNvm_EfuseSetReadMode(XNvm_EfuseRdMode RdMode)
 		Mask = XNVM_EFUSE_CFG_MARGIN_RD;
 	}
 
+    /**
+	 *  Read modify and write to EFUSE_CFG_REG
+	 */
 	Xil_UtilRMW32((XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_CFG_REG_OFFSET),
 				XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK,
@@ -201,6 +223,9 @@ END:
  ******************************************************************************/
 void XNvm_EfuseSetRefClk(void)
 {
+	/**
+	 *  Set Reference clock for efuse by writing to EFUSE_REF_CLK_REG
+	 */
 	XNvm_EfuseWriteReg(XNVM_CRP_BASE_ADDR,
 				XNVM_CRP_EFUSE_REF_CLK_REG_OFFSET,
 				XNVM_CRP_EFUSE_REF_CLK_SELSRC);
@@ -214,9 +239,15 @@ void XNvm_EfuseSetRefClk(void)
  ******************************************************************************/
 void XNvm_EfuseEnableProgramming(void)
 {
+	/**
+	 *  Read EFUSE_CFG_REG
+	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
+    /**
+	 *  Enable eFuse program mode by writing EFUSE_CFG_REG register
+	 */
 	Cfg = Cfg | XNVM_EFUSE_CFG_ENABLE_PGM;
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
@@ -233,9 +264,15 @@ void XNvm_EfuseEnableProgramming(void)
 int XNvm_EfuseDisableProgramming(void)
 {
 	int Status = XST_FAILURE;
+	/**
+	 *  Read EFUSE_CFG_REG
+	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
+	/**
+	 *  disable eFuse program mode by writing EFUSE_CFG_REG register
+	 */
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_ENABLE_PGM;
 	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
@@ -254,9 +291,16 @@ int XNvm_EfuseDisableProgramming(void)
 int XNvm_EfuseResetReadMode(void)
 {
 	int Status = XST_FAILURE;
+
+	/**
+	 *  Read EFUSE_CFG_REG
+	 */
 	u32 Cfg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 					XNVM_EFUSE_CFG_REG_OFFSET);
 
+	/**
+	 *  Reset Read mode from margin read mode by writing the EFUSE_CFG_REG
+	 */
 	Cfg = Cfg & ~XNVM_EFUSE_CFG_MARGIN_RD;
 	Status = Xil_SecureOut32(XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_CFG_REG_OFFSET, Cfg);
@@ -337,11 +381,17 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 {
 	int Status = XST_FAILURE;
 
+    /**
+	 *  Unlock eFuse controller to write into eFuse registers
+	 */
 	Status = XNvm_EfuseUnlockController();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 *  Disable power down mode and set refernce clock to eFuse
+	 */
 	XNvm_EfuseDisablePowerDown();
 	XNvm_EfuseSetRefClk();
 
@@ -349,17 +399,28 @@ int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 		XNvm_EfuseEnableProgramming();
 	}
 
+    /**
+	 *  Set Read mode
+	 */
 	Status = XNvm_EfuseSetReadMode(RdMode);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+    /**
+	 *   Intialize eFuse Timers
+	 */
 	XNvm_EfuseInitTimers();
 
-	/* Enable programming of Xilinx reserved EFUSE */
+	/**
+     *	Enable programming of Xilinx reserved eFuse
+	 */
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 			XNVM_EFUSE_TEST_CTRL_REG_OFFSET, 0x00U);
 
+    /**
+	 *   Check for T bits enabled
+	 */
 	Status = XNvm_EfuseCheckForTBits();
 
 END:
@@ -384,6 +445,9 @@ int XNvm_EfuseCheckForTBits(void)
 			XNVM_EFUSE_STATUS_TBIT_1 |
 			XNVM_EFUSE_STATUS_TBIT_2 );
 
+    /**
+	 *  Read EFUSE_STATUS_REG. Return error code if Read register value not equals to Tbit mask
+	 */
 	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_STATUS_REG_OFFSET);
 	if ((ReadReg & TbitMask) != TbitMask)

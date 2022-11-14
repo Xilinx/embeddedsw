@@ -7,12 +7,12 @@
 /******************************************************************************/
 /**
 *
-* @file xnvm_efuse.h
-* @addtogroup xnvm_efuse_apis XilNvm eFuse APIs
+* @file versal/server/xnvm_efuse.h
+* @addtogroup xnvm_versal_efuse_apis XilNvm Versal eFuse APIs
 * @{
 *
 * @cond xnvm_internal
-* This file contains function declarations of eFUSE APIs
+* This file contains function declarations of eFuse APIs
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,7 +25,7 @@
 *                       eFuse Cache values.
 *       kal  03/03/2020 Added protection eFuse row programming.
 * 2.1   rpo  06/06/2020 Support added to write glitch configuration data.
-*       rpo  06/08/2020 Support added to program eFUSE halt boot bits to stop
+*       rpo  06/08/2020 Support added to program eFuse halt boot bits to stop
 *                       at ROM stage.
 * 	am   08/19/2020 Resolved MISRA C violations.
 * 	kal  09/03/2020 Fixed Security CoE review comments
@@ -46,6 +46,7 @@
 *                       to xnvm_defs.h
 * 2.5   har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
 * 3.0	kal  07/12/2022	Moved common code to xnvm_efuse_common.h
+* 3.1   skg  10/25/2022 Added comments for macros
 *
 * </pre>
 *
@@ -69,20 +70,22 @@ extern "C" {
 #include "xnvm_efuse_common.h"
 
 /*************************** Constant Definitions *****************************/
-/**@cond xnvm_internal
- * @{
- */
 
-/* PUF syndrome length definitions for Versal eFuse */
+/**< PUF syndrome length definations for Versal eFuse*/
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
 #define XNVM_PUF_ROW_UPPER_NIBBLE_MASK              (0xF0000000U)
 
+/**< User efuses start, end and number of efuses definations*/
 #define XNVM_USER_FUSE_START_NUM			(1U)
 #define XNVM_USER_FUSE_END_NUM				(63U)
 #define XNVM_NUM_OF_USER_FUSES				(63U)
 
+/**< Maximum revoke id defination for versal*/
 #define XNVM_MAX_REVOKE_ID_FUSES			(XNVM_NUM_OF_REVOKE_ID_FUSES	\
 											* XNVM_EFUSE_MAX_BITS_IN_ROW)
+/**
+ *  @{ Temaperature limits defination for versal Efuses
+ */
 #define XNVM_EFUSE_FULL_RANGE_TEMP_MIN	(-55.0f)
 #define XNVM_EFUSE_FULL_RANGE_TEMP_MAX	(125.0f)
 
@@ -93,11 +96,13 @@ extern "C" {
 #define XNVM_EFUSE_TEMP_HP_MIN		(-55.0f)
 #define XNVM_EFUSE_TEMP_HP_MAX		(125.0f)
 
+/**< eFuse Range check  definations*/
 #define XNVM_EFUSE_FULL_RANGE_CHECK		(0U)
 #define XNVM_EFUSE_LP_RANGE_CHECK		(1U)
 #define XNVM_EFUSE_MP_RANGE_CHECK		(2U)
 #define XNVM_EFUSE_HP_RANGE_CHECK		(3U)
 
+/**< eFuse volatage limits definations*/
 #define XNVM_EFUSE_VCC_PMC_LP_MIN		(0.676f)
 #define XNVM_EFUSE_VCC_PMC_LP_MAX		(0.724f)
 #define XNVM_EFUSE_VCC_PMC_MP_MIN		(0.775f)
@@ -109,18 +114,15 @@ extern "C" {
 
 /**
 * @}
-* @endcond
 */
 
 /***************************** Type Definitions *******************************/
 
-/**
-* @}
-*/
 
-/**@cond xnvm_internal
- * @{
+/**
+ * @{ eFuse control bits
  */
+ /**< This structer defines Security control bits*/
 typedef enum {
 	XNVM_EFUSE_SEC_AES_DIS = 0,
 	XNVM_EFUSE_SEC_JTAG_ERROUT_DIS,
@@ -155,6 +157,7 @@ typedef enum {
 	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_1
 }XNvm_SecCtrlBitColumns;
 
+/**< This enum defines Miscellaneous control bits*/
 typedef enum {
 	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_0 = 2,
 	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_1,
@@ -174,6 +177,7 @@ typedef enum {
 	XNVm_EFUSE_MISC_GD_HALT_BOOT_EN_BIT_1
 }XNvm_MiscCtrlBitColumns;
 
+/**< user efuses details*/
 typedef struct {
 	u32 StartUserFuseNum;
 	u32 NumOfUserFuses;
@@ -191,6 +195,7 @@ typedef struct {
 }XNvm_EfusePufFuse;
 #endif
 
+/**< Defines Puf helper data*/
 typedef struct {
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 	u8 PrgmPufHelperData;
@@ -201,6 +206,7 @@ typedef struct {
 	u32 Aux;
 }XNvm_EfusePufHd;
 
+/**< This structure defines sub structures of versal to be blown*/
 typedef struct {
 	u8 EnvMonitorDis;
 	XSysMonPsv *SysMonInstPtr;
@@ -218,11 +224,6 @@ typedef struct {
 	XNvm_EfuseOffChipIds *OffChipIds;
 
 }XNvm_EfuseData;
-
-/**
-* @}
-* @endcond
-*/
 
 /*************************** Function Prototypes ******************************/
 int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm);

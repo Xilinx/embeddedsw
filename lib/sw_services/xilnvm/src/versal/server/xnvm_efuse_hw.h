@@ -7,9 +7,12 @@
 /******************************************************************************/
 /**
 *
-* @file xnvm_efuse_hw.h
-*
+* @file versal/server/xnvm_efuse_hw.h
+* @addtogroup xnvm_versal_Efuse_HW XilNvm Versal Efuse HW Reg
+* @{
 * This file contains NVM library eFUSE controller register definitions
+*
+* @cond xnvm_internal
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -37,7 +40,9 @@
 *
 * @note
 *
+* @endcond
 *******************************************************************************/
+
 #ifndef XNVM_EFUSE_HW_H
 #define XNVM_EFUSE_HW_H
 

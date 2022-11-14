@@ -6,9 +6,10 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_efuse_ipihandler.h
-* @addtogroup xnvm_apis XilNvm Versal APIs
+* @file versal/server/xnvm_efuse_ipihandler.h
+* @addtogroup xnvm_versal_apis XilNvm Versal APIs
 * @{
+*
 * @cond xnvm_internal
 * This file contains the xilnvm eFUSE IPI handler declaration.
 *
@@ -23,8 +24,8 @@
 * </pre>
 *
 * @note
-* @endcond
 *
+* @endcond
 ******************************************************************************/
 
 #ifndef XNVM_EFUSE_IPIHANDLER_H_

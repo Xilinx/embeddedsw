@@ -6,10 +6,9 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_efuse_cdohandler.h
-* @addtogroup xnvm_apis XilNvm Versal_Net APIs
+* @file net/server/xnvm_efuse_cdohandler.h
+* @addtogroup xnvm_versal_net_apis XilNvm Versal Net APIs
 * @{
-* @cond xnvm_internal
 * This file contains the Versal_Net XilNvm eFUSE Cdo handler declaration.
 *
 * <pre>
@@ -22,7 +21,6 @@
 * </pre>
 *
 * @note
-* @endcond
 *
 ******************************************************************************/
 

@@ -24,6 +24,7 @@
 *       am   10/13/2020 Resolved MISRA C violations
 *       ana  10/15/2020 Updated doxygen comments
 * 2.3   am   11/23/2020 Resolved MISRA C violation
+* 3.1   skg  10/23/2022 Added In body comments for APIs
 *
 * </pre>
 *
@@ -42,15 +43,18 @@ extern "C" {
 #include "xil_types.h"
 
 /*************************** Constant Definitions *****************************/
-/**@cond xnvm_internal
- * @{
+/**
+ * @{ AES Key size
  */
 
-/* AES Key size in bytes */
+/**< AES Key size in bytes */
 #define XNVM_BBRAM_AES_KEY_SIZE          XNVM_256_BITS_AES_KEY_LEN_IN_BYTES
 #define XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS (XNVM_BBRAM_AES_KEY_SIZE / sizeof(u32))
 
-/* BBRAM API error codes */
+/**
+ * @{ BBRAM error codes
+ */
+/**< BBRAM API error codes */
 #define XNVM_EFUSE_BBRAM_TAG                       (u32)(0x8100U)
 #define XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT  (XNVM_EFUSE_BBRAM_TAG | 0x00U)
 #define XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT     (XNVM_EFUSE_BBRAM_TAG | 0x02U)
@@ -58,11 +62,6 @@ extern "C" {
 #define XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE      (XNVM_EFUSE_BBRAM_TAG | 0x04U)
 #define XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED    (XNVM_EFUSE_BBRAM_TAG | 0x05U)
 #define XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT          (XNVM_EFUSE_BBRAM_TAG | 0x10U)
-
-/**
- * @}
- * @endcond
- */
 
 /***************************** Type Definitions *******************************/
 

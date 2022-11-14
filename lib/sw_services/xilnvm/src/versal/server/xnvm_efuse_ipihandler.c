@@ -6,10 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_efuse_ipihandler.c
-* @addtogroup xnvm_apis XilNvm Versal APIs
-* @{
-* @cond xnvm_internal
+* @file versal/server/xnvm_efuse_ipihandler.c
+*
 * This file contains the XilNvm eFUSE IPI Handler definition.
 *
 * <pre>
@@ -29,11 +27,11 @@
 * 3.0   kal  08/01/2022 Added volatile keyword to ClearStatus and
 * 			ClearStatusTmp
 *       dc   08/29/2022 Removed initializations for optimization
+* 3.1   skg  10/25/2022 Added in body comments for APIs
 *
 * </pre>
 *
 * @note
-* @endcond
 *
 ******************************************************************************/
 
@@ -98,11 +96,17 @@ int XNvm_EfuseIpiHandler(XPlmi_Cmd *Cmd)
 	volatile int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
 
+    /**
+	 *  Validate the input parameters. Return error code if input parameters are not valid
+	 */
 	if (Pload == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+    /**
+	 *  Calls the function according to API ID
+	 */
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE):
 		Status = XNvm_EfuseDataWrite(Pload[0U], Pload[1U]);

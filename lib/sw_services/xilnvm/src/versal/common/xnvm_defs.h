@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_defs.h
-* @addtogroup xnvm_api_ids XilNvm API IDs
+* @file versal/common/xnvm_defs.h
+* @addtogroup xnvm_versal_api_ids XilNvm Versal API IDs
 * @{
 *
 * @cond xnvm_internal
@@ -28,6 +28,7 @@
 *       am   02/28/22 Fixed MISRA C violation rule 4.5
 *       kpt  03/03/22 Fixed alignment issue in XNvm_EfusePufFuseAddr
 *                     by rearranging the structure elements
+* 3.1   skg  10/28/22 Added comments
 *
 * </pre>
 * @note
@@ -51,7 +52,7 @@ extern "C" {
 /**@cond xnvm_internal
  * @{
  */
-/* Enable client printfs by setting XNVM_DEBUG to 1 */
+/**< Enable client printfs by setting XNVM_DEBUG to 1 */
 #define XNVM_DEBUG	(0U)
 
 #if (XNVM_DEBUG)
@@ -74,7 +75,7 @@ extern "C" {
 	#define XNvm_DCacheFlushRange(SrcAddr, Len) {}
 #endif /**< Cache Invalidate function */
 
-/* Macro to typecast XILSECURE API ID */
+/**< Macro to typecast XILSECURE API ID */
 #define XNVM_API(ApiId)	((u32)ApiId)
 
 #define XNVM_API_ID_MASK	(0xFFU)
@@ -91,6 +92,7 @@ typedef struct {
 	u8 PrgmPufFuse;
 } XNvm_EfusePufFuseAddr;
 #else
+/**< Puf helper data*/
 typedef struct {
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 	u8 PrgmPufHelperData;
@@ -101,7 +103,7 @@ typedef struct {
 }XNvm_EfusePufHdAddr;
 #endif
 
-/* XilNVM API ids */
+/**< XilNVM API ids */
 typedef enum {
 	XNVM_API_FEATURES = 0,
 	XNVM_API_ID_BBRAM_WRITE_AES_KEY,

@@ -6,8 +6,9 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_validate.h
-*
+* @file net/common/xnvm_validate.h
+* @addtogroup xnvm_versal_net_api_ids XilNvm Versal Net API IDs
+* @{
 * @cond xnvm_internal
 * This file contains the APIs used to validate write request for different eFUSEs.
 *
