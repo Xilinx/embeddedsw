@@ -7,7 +7,9 @@
 /**
 *
 * @file xpuf_hw.h
-*
+* @addtogroup xpuf_apis XilPuf APIs
+* @{
+* @cond xpuf_internal
 * This file contains PUF hardware interface.
 *
 * <pre>
@@ -31,6 +33,9 @@
 *
 * </pre>
 *
+* @note
+*
+* @endcond
 ******************************************************************************/
 #ifndef XPUF_HW_H
 #define XPUF_HW_H

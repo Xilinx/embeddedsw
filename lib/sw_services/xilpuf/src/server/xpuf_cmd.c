@@ -140,7 +140,9 @@ void XPuf_CmdsInit(void)
 {
 	u32 Idx;
 
-	/* Register command handlers with XilPlmi */
+	/**
+     *	Register command handlers of XilPUF with XilPlmi
+	 */
 	for (Idx = 0U; Idx < XPlmi_Puf.CmdCnt; Idx++) {
 		XPuf_Cmds[Idx].Handler = XPuf_ProcessCmd;
 	}

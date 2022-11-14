@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xnvm_init.c
+* @file xpuf_init.c
 *
 * This file contains the initialization functions to be called by PLM. This
 * file will only be part of XilPuf when it is compiled with PLM.
@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt 01/04/2022 Initial release
+* 2.1   skg 10/29/2022 Added In Body comments
 *
 * </pre>
 *
@@ -49,6 +50,9 @@
  *****************************************************************************/
 void XPuf_Init(void)
 {
+	/**
+	 *  Intialize XilPUF commands
+	 */
 	XPuf_CmdsInit();
 }
 #endif

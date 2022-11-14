@@ -21,8 +21,9 @@
 *
 * </pre>
 *
-* @endcond
+* @note
 *
+* @endcond
 *******************************************************************************/
 #ifndef XPUF_PLAT_H
 #define XPUF_PLAT_H

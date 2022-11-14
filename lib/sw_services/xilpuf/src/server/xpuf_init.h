@@ -7,7 +7,9 @@
 /**
  *
  * @file xpuf_init.h
- *
+ * @addtogroup xpuf_init_apis XilPuf Intialize APIs
+ * @{
+ * @cond xpuf_internal
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -19,6 +21,7 @@
  *
  * @note
  *
+ * @endcond
  ******************************************************************************/
 #ifndef XPUF_INIT_H_
 #define XPUF_INIT_H_

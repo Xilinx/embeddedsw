@@ -7,9 +7,7 @@
 /**
 *
 * @file xpuf_ipihandler.c
-* @addtogroup xpuf_apis XilPuf Versal APIs
-* @{
-* @cond xnvm_internal
+*
 * This file contains the XilPuf IPI Handler definition.
 *
 * <pre>
@@ -19,11 +17,11 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kpt  01/04/2022 Initial release
 *       kpt  01/31/2022 Removed redundant code in XNvm_EfuseMemCopy
+* 2.10  skg  10/29/2022 Added In Body comments
 *
 * </pre>
 *
 * @note
-* @endcond
 *
 ******************************************************************************/
 
@@ -64,10 +62,16 @@ int XPuf_IpiHandler(XPlmi_Cmd *Cmd) {
 	volatile int Status = XST_INVALID_PARAM;
 	u32 *Pload = Cmd->Payload;
 
+    /**
+	 *  Validate the input parameters. Return XST_FAILURE if input parameters are invalid
+	 */
 	if (Pload == NULL) {
 		goto END;
 	}
 
+    /**
+	 *  Calls the respective handler based on the API Id
+	 */
 	switch (Cmd->CmdId & XPUF_API_ID_MASK) {
 		case XPUF_API(XPUF_PUF_REGISTRATION):
 			Status = XPuf_PufRegistration(Pload[0], Pload[1]);

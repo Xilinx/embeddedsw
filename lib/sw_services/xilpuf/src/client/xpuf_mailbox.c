@@ -20,6 +20,7 @@
 *       kpt  01/13/22 Removed hardcoded IPI device id
 *       am   02/18/22 Fixed COMF code complexity violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 2.1   skg  11/07/22 Added In Body comments
 *
 * </pre>
 *
@@ -63,12 +64,19 @@ int XPuf_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	int Status = XST_FAILURE;
 	u32 Response[RESPONSE_ARG_CNT];
 
+    /**
+	 *  Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed
+	 */
 	Status = (int)XMailbox_SendData(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,
 				XILMBOX_MSG_TYPE_REQ, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+    /**
+	 *  @{ Wait for IPI response from PLM  with a default timeout of 300 seconds.
+     *     If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = (int)XMailbox_Recv(MailboxPtr, XPUF_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,
 				XILMBOX_MSG_TYPE_RESP);
 	if (Status != XST_SUCCESS) {

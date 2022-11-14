@@ -5,11 +5,8 @@
 
 /*****************************************************************************/
 /**
-*
 * @file xpuf_plat.c
-* @addtogroup xpuf_plat_apis XilPuf Platform specific APIs
-* @{
-* @cond xpuf_internal
+*
 * This file contains platform specific APIs for PUF. In case the API is not
 * supported for the platform it will be treated as a dummy call.
 *
@@ -23,7 +20,7 @@
 *
 * </pre>
 *
-* @endcond
+* @note
 *
 *******************************************************************************/
 /****************************** Include Files *********************************/
