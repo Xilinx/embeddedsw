@@ -38,6 +38,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include <Ecdsa.h>
+#include "xsecure_defs.h"
 
 /************************** Constant Definitions ****************************/
 /**
@@ -50,10 +51,6 @@ extern "C" {
 /** @} */
 
 /***************************** Type Definitions ******************************/
-typedef enum {
-	XSECURE_ECC_NIST_P384 = 4,		/**< NIST P-384 curve value in Ecdsa.h */
-	XSECURE_ECC_NIST_P521 = 5		/**< NIST P-521 curve value in Ecdsa.h */
-} XSecure_EllipticCrvTyp;
 
 typedef enum {
 	XSECURE_ECC_PRIME = 0,		/**< Prime curve value in Ecdsa.h */

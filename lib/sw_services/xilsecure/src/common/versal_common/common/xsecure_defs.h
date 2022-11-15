@@ -132,6 +132,11 @@ typedef enum {
 } XSecure_AesOp;
 
 typedef enum {
+      XSECURE_ECC_NIST_P384 = 4,              /**< NIST P-384 curve value in Ecdsa.h */
+      XSECURE_ECC_NIST_P521 = 5               /**< NIST P-521 curve value in Ecdsa.h */
+} XSecure_EllipticCrvTyp;
+
+typedef enum {
 	XSECURE_ECDSA_PRIME = 0,	/**< Prime curve */
 	XSECURE_ECDSA_BINARY = 1,	/**< Binary curve */
 }XSecure_EccCrvClass;
