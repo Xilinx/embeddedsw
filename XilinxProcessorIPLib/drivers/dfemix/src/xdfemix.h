@@ -82,6 +82,7 @@
 *       dc     10/24/22 Switching Uplink/Downlink support
 *       dc     11/10/22 Align AddCC to switchable UL/DL algorithm
 *       dc     11/11/22 Update get overflow status API
+*       dc     11/11/22 Update NCOIdx and CCID check
 *
 * </pre>
 * @endcond
@@ -572,7 +573,7 @@ void XDfeMix_AddAuxNCOtoCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 void XDfeMix_RemoveAuxNCOfromCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 				   const s32 AuxId);
 
-u32 XDfeMix_UpdateCCinCCCfg(const XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
+u32 XDfeMix_UpdateCCinCCCfg(XDfeMix *InstancePtr, XDfeMix_CCCfg *CCCfg,
 			    s32 CCID, const XDfeMix_CarrierCfg *CarrierCfg);
 u32 XDfeMix_SetNextCCCfgAndTrigger(XDfeMix *InstancePtr,
 				   const XDfeMix_CCCfg *CCCfg);
