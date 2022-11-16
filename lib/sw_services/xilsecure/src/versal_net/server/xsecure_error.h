@@ -130,6 +130,7 @@ typedef enum {
 															final fails */
 	XSECURE_KAT_GCM_TAG_MISMATCH_ERROR,/**< 0x5A - Error when GCM mismatch occurs */
 	XSECURE_AES_ZERO_PUF_KEY_NOT_ALLOWED,	/**< 0x5B - Error when PUF Key is selected as key source and PUF key is zeroized */
+    XSECURE_AES_UNALIGNED_SIZE_ERROR,      /**< 0x5C - Error when data is unaligned*/
 
 	XSECURE_RSA_KAT_ENCRYPT_FAILED_ERROR = 0x80, /**< 0x80 - RSA KAT fails  */
 

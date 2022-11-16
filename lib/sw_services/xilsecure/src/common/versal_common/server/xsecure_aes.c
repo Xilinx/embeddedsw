@@ -79,6 +79,7 @@
 *       dc   08/26/2022 Optimized the code
 * 5.1   kal  09/27/2022 Pass AesDmCfg structure as reference instead of value to
 *                       XSecure_AesPmcDmaCfgAndXfer function
+*       skg  10/13/2022 Added Encrypt/Decrypt update error handling check
 *
 * </pre>
 *
@@ -938,8 +939,9 @@ END:
  *				  decrypted
  * @param	OutDataAddr	Address of output buffer where the decrypted
  *				  to be updated
- * @param	Size		Size of data to be decrypted in bytes, whereas
- *			 	  number of bytes provided should be multiples of 4
+ * @param	Size   Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
+ *                  - 16 byte aligned when it is not the last chunk
+ *                  - 4 byte aligned when the data is the last chunk
  * @param	IsLastChunk	If this is the last update of data to be decrypted,
  *				  this parameter should be set to TRUE otherwise FALSE
  *
@@ -963,7 +965,13 @@ int XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) ||
 		((Size % XSECURE_WORD_SIZE) != 0x00U)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
+		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
+		goto END_RST;
+	}
+
+    if ((IsLastChunk != TRUE) &&
+		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
+		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END_RST;
 	}
 
@@ -1246,8 +1254,9 @@ END:
  *				  encrypted
  * @param	OutDataAddr	Address of output buffer where the encrypted data
  *				  to be updated
- * @param	Size		Size of data to be encrypted in bytes, whereas number
- *			 	  of bytes provided should be multiples of 4
+ * @param	Size    Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
+ *                  - 16 byte aligned when it is not the last chunk
+ *                  - 4 byte aligned when the data is the last chunk
  * @param	IsLastChunk	 If this is the last update of data to be encrypted,
  *		 		  this parameter should be set to TRUE otherwise FALSE
  *
@@ -1271,7 +1280,13 @@ int XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	if (((IsLastChunk != TRUE) && (IsLastChunk != FALSE)) ||
 		((Size % XSECURE_WORD_SIZE) != 0x00U)) {
-		Status = (int)XSECURE_AES_INVALID_PARAM;
+		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
+		goto END_RST;
+	}
+
+    if ((IsLastChunk != TRUE) &&
+		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
+		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END_RST;
 	}
 
