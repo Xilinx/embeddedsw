@@ -106,7 +106,6 @@ proc secure_drc {libhandle} {
 					file delete -force ./src/xsecure_kat_ipihandler.h
 					file delete -force ./src/xsecure_cmd.c
 					file delete -force ./src/xsecure_cmd.h
-					file delete -force ./src/xsecure_defs.h
 					if {$proc_type == "psxl_cortexa78" ||
 					    $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexa78" ||
 					    $proc_type == "psx_cortexr52"} {
