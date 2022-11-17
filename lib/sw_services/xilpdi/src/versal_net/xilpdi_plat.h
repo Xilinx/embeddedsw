@@ -20,6 +20,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       bm   09/13/2022 Added macros for maximum number of partitions and images
+* 1.01  har  11/17/2022 Added macros for Signed Image attribute in Bootheader
 *
 * </pre>
 *
@@ -42,6 +43,13 @@ extern "C" {
  *
  * @{
  */
+
+/**
+ * Boot header Attr fields
+ */
+#define XIH_BH_IMG_ATTRB_SIGNED_IMG_MASK	(0xC0000U)
+#define XIH_BH_IMG_ATTRB_SIGNED_IMG_SHIFT	(18U)
+#define XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE	(0x3U)
 
 #define XIH_MAX_PRTNS			(32U)
 #define XIH_MAX_IMGS			(32U)

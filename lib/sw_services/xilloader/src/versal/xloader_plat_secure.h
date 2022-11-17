@@ -18,6 +18,7 @@
 *       dc   07/12/2022 Added XLoader_AddDeviceStateChangeToScheduler()
 *                       applicable only for Versalnet
 *       kpt  07/24/2022 Added XLoader_RsaKat
+* 1.01  har  11/17/2022 Added XLoader_CheckSecureStateAuth
 *
 * </pre>
 *
@@ -144,6 +145,7 @@ static inline int XLoader_AddDeviceStateChangeToScheduler(void)
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
 int XLoader_RsaKat(XPmcDma *PmcDmaPtr);
+int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 
 /************************** Variable Definitions *****************************/
 

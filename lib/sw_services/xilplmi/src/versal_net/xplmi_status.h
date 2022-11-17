@@ -27,6 +27,7 @@
 *       ma   07/25/2022 Enhancements to secure lockdown code
 *       bm   08/24/2022 Support Begin, Break and End commands across chunk
 *                       boundaries
+* 1.01  har  11/17/2022 Removed XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED error code
 *
 * </pre>
 *
@@ -631,8 +632,8 @@ typedef enum {
 
 	XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY,
 		/**< 0x61A PPK Programmed but eFuse authentication is disabled */
-	XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED,
-		/**< 0x61B PPK Programmed and BH authentication is enabled */
+	XLOADER_ERR_RESERVED4,
+		/**< 0x61B XLoader Reserved Error 4 */
 	XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO,
 		/**< 0x61C PPK not programmed and authentication is enabled */
 	XLOADER_ERR_ENCONLY_ENC_COMPULSORY,

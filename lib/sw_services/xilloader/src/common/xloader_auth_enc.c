@@ -90,6 +90,7 @@
 *       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
 * 1.05  har  10/11/22 Used temporal check macro for redundancy checks for Xil_SMemCpy
 *       sk   10/19/22 Fix security review comments
+*       har  11/17/22 Made XLoader_CheckNonZeroPpk as non-static and moved here from xloader_secure.c file
 *
 * </pre>
 *
@@ -3716,4 +3717,42 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+* @brief	This function checks if PPK is programmed.
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+int XLoader_CheckNonZeroPpk(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 Index;
+
+	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
+		Index <= XLOADER_EFUSE_PPK2_END_OFFSET;
+		Index = Index + XIH_PRTN_WORD_LEN) {
+		/* Any bit of PPK hash are non-zero break and return success */
+		if (XPlmi_In32(Index) != 0x0U) {
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+	if (Index > (XLOADER_EFUSE_PPK2_END_OFFSET + XIH_PRTN_WORD_LEN)) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+	}
+	else if (Index < XLOADER_EFUSE_PPK0_START_OFFSET) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+	}
+	else if (Index <= XLOADER_EFUSE_PPK2_END_OFFSET) {
+		Status = XST_SUCCESS;
+	}
+	else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
+
 #endif /* END OF PLM_SECURE_EXCLUDE */

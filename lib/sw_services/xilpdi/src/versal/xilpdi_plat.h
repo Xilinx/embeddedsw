@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       bm   09/13/2022 Reduce maximum number of partitions and images
+* 1.01  har  11/17/2022 Added macros for bh_auth attribute in Bootheader
 *
 * </pre>
 *
@@ -41,6 +42,13 @@ extern "C" {
  *
  * @{
  */
+
+/**
+ * Boot header Attr fields
+ */
+#define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
+#define XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT	(14U)
+#define XIH_BH_IMG_ATTRB_BH_AUTH_VALUE	(0x3U)
 
 #define XIH_MAX_PRTNS			(20U)
 #define XIH_MAX_IMGS			(10U)

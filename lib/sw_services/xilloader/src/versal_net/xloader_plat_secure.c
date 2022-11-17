@@ -19,7 +19,8 @@
 * 1.00  bm   07/06/2022 Initial release
 *       kpt  07/05/2022 Added support to update KAT status
 *       dc   07/12/2022 Added Device state change support
-*       kpt  07/05/2022 Added XLoader_RsaPssSignVeirfyKat
+*       kpt  07/05/2022 Added XLoader_RsaPssSignVeirfyKati
+* 1.01  har  11/17/2022 Added XLoader_CheckSecureStateAuth
 *
 * </pre>
 *
@@ -40,6 +41,7 @@
 #include "xil_error_node.h"
 #include "xsecure_init.h"
 #include "xsecure_error.h"
+#include "xilpdi_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /* eFuse Obfuscated Key */
@@ -321,6 +323,59 @@ END:
 	SStatus = Xil_SMemSet(RsaInstance, sizeof(XSecure_Rsa), 0U, sizeof(XSecure_Rsa));
 	if (Status == XST_SUCCESS) {
 		Status = SStatus;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function checks Secure State for Authentication
+*
+* @param	AHWRoT - Buffer to store Secure state for authentication
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	volatile u8 IsSignedImg;
+	volatile u8 IsSignedImgTmp;
+
+	IsSignedImg = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+		XIH_BH_IMG_ATTRB_SIGNED_IMG_MASK) >> XIH_BH_IMG_ATTRB_SIGNED_IMG_SHIFT);
+	IsSignedImgTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+		XIH_BH_IMG_ATTRB_SIGNED_IMG_MASK) >> XIH_BH_IMG_ATTRB_SIGNED_IMG_SHIFT);
+
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
+	if ((Status == XST_SUCCESS) || (StatusTmp == XST_SUCCESS)) {
+		/**
+		 * If PPK hash is programmed in eFUSEs, then Secure State of boot is A-HWRoT
+		 */
+		*AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
+			" Asymmetric HWRoT\r\n");
+	}
+	else if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		if ((IsSignedImg == XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE) ||
+			(IsSignedImgTmp == XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE)) {
+			/**
+			 * If PPK hash is not programmed in eFUSEs and PLM is authenticated then Secure State of boot is
+			 * emulated A-HWRoT
+			 */
+			*AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
+			" Emulated Asymmetric HWRoT\r\n");
+		}
+		else {
+			*AHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
+		}
+		Status = XST_SUCCESS;
+	}
+	else {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
 	}
 
 	return Status;

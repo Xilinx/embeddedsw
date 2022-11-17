@@ -114,6 +114,8 @@
 *       kpt  02/18/22 Fixed copy to memory issue
 * 1.09  bm   07/06/22 Refactor versal and versal_net code
 * 1.10  sk   10/19/22 Fix security review comments
+*       har  11/17/22 Removed XLoader_CheckNonZeroPpk and moved code to set
+*                     Secure State(Auth) in xloader_plat_secure files
 *
 * </pre>
 *
@@ -133,6 +135,7 @@
 #include "xplmi_scheduler.h"
 #include "xsecure_init.h"
 #include "xloader_plat.h"
+#include "xloader_plat_secure.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -153,7 +156,6 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	u64 DestAddr, u32 BlockSize, u8 Last);
 static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u64 DataAddr, u32 Size, u8 Last);
-static int XLoader_CheckNonZeroPpk(void);
 
 /************************** Variable Definitions *****************************/
 
@@ -705,43 +707,6 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function checks if PPK is programmed.
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
-static int XLoader_CheckNonZeroPpk(void)
-{
-	volatile int Status = XST_FAILURE;
-	volatile u32 Index;
-
-	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
-		Index <= XLOADER_EFUSE_PPK2_END_OFFSET;
-		Index = Index + XIH_PRTN_WORD_LEN) {
-		/* Any bit of PPK hash are non-zero break and return success */
-		if (XPlmi_In32(Index) != 0x0U) {
-			Status = XST_SUCCESS;
-			break;
-		}
-	}
-	if (Index > (XLOADER_EFUSE_PPK2_END_OFFSET + XIH_PRTN_WORD_LEN)) {
-		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
-	}
-	else if (Index < XLOADER_EFUSE_PPK0_START_OFFSET) {
-		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
-	}
-	else if (Index <= XLOADER_EFUSE_PPK2_END_OFFSET) {
-		Status = XST_SUCCESS;
-	}
-	else {
-		Status = XST_FAILURE;
-	}
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
 * @brief	This function returns the state of authenticated boot
 *
 * @param	AHWRoTPtr - Always NULL except at time of initialization of
@@ -806,11 +771,8 @@ u32 XLoader_GetSHWRoT(const u32* SHWRoTPtr)
 int XLoader_SetSecureState(void)
 {
 	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
 	volatile u32 ReadReg;
 	volatile u32 ReadRegTmp;
-	volatile u8 IsBhdrAuth;
-	volatile u8 IsBhdrAuthTmp;
 	volatile u32 PlmEncStatus;
 	volatile u32 PlmEncStatusTmp;
 	volatile u32 AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
@@ -819,42 +781,9 @@ int XLoader_SetSecureState(void)
 	/*
 	 * Checks for secure state for authentication
 	 */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
-	IsBhdrAuth = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
-			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
-			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
-	IsBhdrAuthTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
-		XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
-		XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
-	if ((Status == XST_SUCCESS) || (StatusTmp == XST_SUCCESS)) {
-		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
-		(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, 0);
-			goto END;
-		}
-		/*
-		 * PPK fuses are programmed
-		 */
-		AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
-			" Asymmetric HWRoT\r\n");
-	}
-	else {
-		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
-			(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
-			/*
-			 * BHDR authentication is enabled
-			 */
-			AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
-			" Emulated Asymmetric HWRoT\r\n");
-		}
-		else {
-			/*
-			 * Authentication is not enabled in efuse or BHDR.
-			 */
-			AHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
-		}
+	Status = XLoader_CheckSecureStateAuth(&AHWRoT);
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 	/*

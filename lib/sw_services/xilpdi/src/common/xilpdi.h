@@ -56,6 +56,7 @@
 *       bsv  07/08/2022 Code changes related to Optional data in IHT
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       bm   09/13/2022 Reduce maximum number of partitions and images
+* 1.09  har  11/17/2022 Removed macros for bh_auth attribute in Bootheader
 *
 * </pre>
 *
@@ -107,13 +108,6 @@ extern "C" {
  */
 #define XIH_BH_AES_KEYSRC_OFFSET	(0x08U)
 #define XIH_BH_IMG_ATTRB_OFFSET		(0x24U)
-
-/**
- * Boot header Attr fields
- */
-#define XIH_BH_IMG_ATTRB_BH_AUTH_MASK	(0xC000U)
-#define XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT	(14U)
-#define XIH_BH_IMG_ATTRB_BH_AUTH_VALUE	(0x3U)
 
 /**
  * Boot header PUF fields

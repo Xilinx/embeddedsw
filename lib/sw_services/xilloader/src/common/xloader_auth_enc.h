@@ -48,6 +48,7 @@
 *       kpt  07/05/2022 Added support to update KAT status
 *       ma   07/08/22 Removed EFUSE_CACHE_MISC_CTRL as it is defined in xplmi_hw.h
 *       kpt  07/24/22 Added XLoader_RsaPssSignVerify to support KAT for versal net
+*       har  11/17/22 Added function declaration for XLoader_CheckNonZeroPpk
 *
 * </pre>
 *
@@ -530,6 +531,7 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature);
 void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
+int XLoader_CheckNonZeroPpk(void);
 
 #endif
 
