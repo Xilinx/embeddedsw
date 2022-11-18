@@ -290,8 +290,8 @@ extern "C" {
 *		u32 XAxiDma_ReadReg(u32 BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
-#define XAxiDma_ReadReg(BaseAddress, RegOffset)             \
-    XAxiDma_In32((BaseAddress) + (RegOffset))
+#define XAxiDma_ReadReg(Instance, BaseAddress, RegOffset)             \
+    XAxiDma_In32(Instance->io, (BaseAddress) + (RegOffset))
 
 /*****************************************************************************/
 /**
@@ -309,8 +309,8 @@ extern "C" {
 *		void XAxiDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 *
 ******************************************************************************/
-#define XAxiDma_WriteReg(BaseAddress, RegOffset, Data)          \
-    XAxiDma_Out32((BaseAddress) + (RegOffset), (Data))
+#define XAxiDma_WriteReg(Instance, BaseAddress, RegOffset, Data)          \
+    XAxiDma_Out32(Instance->io, (BaseAddress) + (RegOffset), (Data))
 
 #ifdef __cplusplus
 }

@@ -466,13 +466,15 @@
 extern "C" {
 #endif
 
+#include "metal/io.h"
+
 /***************************** Include Files *********************************/
 #include "xaxidma_bdring.h"
 #ifdef __MICROBLAZE__
 #include "xenv.h"
 #else
 #include <string.h>
-#include "xil_cache.h"
+//#include "xil_cache.h"
 #endif
 
 /************************** Constant Definitions *****************************/
@@ -485,7 +487,7 @@ extern "C" {
  * engine in use.
  */
 typedef struct XAxiDma {
-	UINTPTR RegBase;		/* Virtual base address of DMA engine */
+	metal_phys_addr_t RegBase;		/* Virtual base address of DMA engine */
 
 	int HasMm2S;		/* Has transmit channel */
 	int HasS2Mm;		/* Has receive channel */
@@ -498,6 +500,9 @@ typedef struct XAxiDma {
 	int RxNumChannels;
 	int MicroDmaMode;
 	int AddrWidth;		  /**< Address Width */
+
+	struct metal_io_region *io; /* Libmetal IO structure */
+	struct metal_device *device; /* Libmetal device structure */
 } XAxiDma;
 
 /**
@@ -507,7 +512,7 @@ typedef struct XAxiDma {
  */
 typedef struct {
 	u32 DeviceId;
-	UINTPTR BaseAddr;
+	metal_phys_addr_t  BaseAddr;
 
 	int HasStsCntrlStrm;
 	int HasMm2S;

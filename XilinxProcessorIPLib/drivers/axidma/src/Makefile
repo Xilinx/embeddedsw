@@ -1,39 +1,34 @@
-DRIVER_LIB_VERSION = 1.0
-COMPILER=
-ARCHIVER=
-CP=cp
-COMPILER_FLAGS=
-EXTRA_COMPILER_FLAGS=
-LIB=libxil.a
+APP = axidma
 
-CC_FLAGS = $(COMPILER_FLAGS)
-ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
+AR=ar
+LIBSOURCES=*.c
+OUTS = *.o
+NAME := axidma
+MAJOR = 1
+MINOR = 1
+VERSION = $(MAJOR).$(MINOR)
 
-RELEASEDIR=../../../lib/
-INCLUDEDIR=../../../include/
-INCLUDES=-I./. -I$(INCLUDEDIR)
+INCLUDES = -I"../../../../../embeddedsw/lib/bsp/standalone/src/arm/cortexr5/"
+INCLUDES += -I"../../../../../embeddedsw/lib/bsp/standalone/src/arm/common/gcc/"
+INCLUDES += -I"./."
 
-SRCFILES:=$(wildcard *.c)
+#all: lib$(NAME).so
+all: lib$(NAME).a
 
-OBJECTS = $(addprefix $(RELEASEDIR), $(addsuffix .o, $(basename $(wildcard *.c))))
+#lib$(NAME).so.$(VERSION): $(OUTS)
+#	$(CC) $(LDFLAGS) $(OUTS) -shared -Wl,-soname,lib$(NAME).so.$(MAJOR) -o lib$(NAME).so.$(VERSION) -lmetal
 
-libs: $(OBJECTS)
+lib$(NAME).a: $(OUTS)
+	$(AR) -rcs lib$(NAME).a $(LDFLAGS) $(OUTS)
 
-DEPFILES := $(SRCFILES:%.c=$(RELEASEDIR)%.d)
 
-include $(wildcard $(DEPFILES))
+#lib$(NAME).so: lib$(NAME).so.$(VERSION)
+#	rm -f lib$(NAME).so.$(MAJOR) lib$(NAME).so
+#	ln -s lib$(NAME).so.$(VERSION) lib$(NAME).so.$(MAJOR)
+#	ln -s lib$(NAME).so.$(MAJOR) lib$(NAME).so
 
-include $(wildcard ../../../../dep.mk)
-
-$(RELEASEDIR)%.o: %.c
-	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(DEPENDENCY_FLAGS) $< -o $@
-
-.PHONY: include
-include: $(addprefix $(INCLUDEDIR),$(wildcard *.h))
-
-$(INCLUDEDIR)%.h: %.h
-	$(CP) $< $@
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(LIBSOURCES)
 
 clean:
-	rm -rf ${OBJECTS}
-	rm -rf $(DEPFILES)
+	rm -rf *.o *.so *.so.* *.a*

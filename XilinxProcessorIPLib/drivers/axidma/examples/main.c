@@ -71,7 +71,7 @@ XAxiDma AxiDma;
 
 s32 XDMA_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId);
 XAxiDma_Config *XDMA_LookupConfig(struct metal_device **Deviceptr, u16 DeviceId);
-u32 XRFdc_RegisterMetal(XAxiDma *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr);
+u32 XAxiDma_RegisterMetal(XAxiDma *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr);
 
 
 /*****************************************************************************/
@@ -110,17 +110,6 @@ static s32 XRFdc_Strrncmp(const char *Str1Ptr, const char *Str2Ptr, size_t Count
 	return (Len1 - Len2);
 }
 
-void XDMA_simpleTest(XAxiDma *dma)
-{
-	u32 *ptr = dma->RegBase;
-
-	printf("Reading ptr=%p\r\n", ptr);
-
-	for (u32 i = 0; i < 32; i++) {
-		printf("*** %08x\r\n", Xil_In32(dma->io, ptr + i*4));
-	}	
-}
-
 /*****************************************************************************/
 /**
 * The entry point for this example. It invokes the example function,
@@ -142,14 +131,11 @@ int main(int argc, char **argv)
 	char deviceName[NAME_MAX];
 	struct metal_device *DevicePtr;
 
-	if (argc == 2) {
-		deviceId = ((char *)argv[1])[0] - '0';
-		//sscanf("0", "%d", &deviceId);
-	} else {
-		return -1;
-	}
-
-	printf("--- Device id = %d ---\r\n", deviceId);
+	// if (argc == 2) {
+	// 	deviceId = ((char *)argv[1])[0] - '0';
+	// } else {
+	// 	return -1;
+	// }
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
@@ -162,10 +148,10 @@ int main(int argc, char **argv)
 
 	if (NULL == CfgPtr) {
 		printf("ERROR: Failed to run XDMA_LookupConfig\n");
-		return XST_FAILURE;		
+		return XST_FAILURE;
 	}
 
-	Status = XRFdc_RegisterMetal(&AxiDma, deviceId, &DevicePtr);
+	Status = XAxiDma_RegisterMetal(&AxiDma, deviceId, &DevicePtr);
 	if (Status != XST_SUCCESS) {
 		printf("Register metal failed %d\r\n", Status);
 		metal_device_close(DevicePtr);
@@ -179,12 +165,17 @@ int main(int argc, char **argv)
 		return XST_FAILURE;
 	}
 
+	//Actually does nothing, just sets the registers
 	Status = XAxiDma_SimpleTransfer(&AxiDma,(UINTPTR) 0x0,
 					0x10000, XAXIDMA_DEVICE_TO_DMA);
 
-	XDMA_simpleTest(&AxiDma);
+	if (Status != XST_SUCCESS) {
+		printf("XAxiDma_SimpleTransfer failed %d\r\n", Status);
+		metal_device_close(DevicePtr);
+		return XST_FAILURE;
+	}
 
-	printf("OK \r\n");
+	printf("Test Passed \r\n");
 	metal_device_close(DevicePtr);
 	return XST_SUCCESS;
 }
@@ -195,7 +186,6 @@ XAxiDma_Config *XDMA_LookupConfig(struct metal_device **Deviceptr, u16 DeviceId)
 {
 	XAxiDma_Config *CfgPtr = NULL;
 	s32 Status = 0;
-	__u32 regs[4];
 	u32 NumInstances = 1;
 	u32 AddrWidth = 0;
 	char DeviceName[NAME_MAX];
@@ -206,14 +196,11 @@ XAxiDma_Config *XDMA_LookupConfig(struct metal_device **Deviceptr, u16 DeviceId)
 		return NULL;
 	}
 
-	printf("XDMA_GetDeviceNameByDeviceId-\r\n");
 	Status = metal_device_open("platform", DeviceName, Deviceptr);
 	if (Status != XST_SUCCESS) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to open device %s.\n", DeviceName);
 		return NULL;
 	}
-
-	printf("metal_device_open-\r\n");
 
 	CfgPtr = (XAxiDma_Config *)malloc(sizeof(XAxiDma_Config));
 	if (CfgPtr == NULL) {
@@ -224,13 +211,7 @@ XAxiDma_Config *XDMA_LookupConfig(struct metal_device **Deviceptr, u16 DeviceId)
 
 	Status = metal_linux_get_device_property(*Deviceptr, "xlnx,addrwidth", &AddrWidth, sizeof(AddrWidth));
 
-	Status = metal_linux_get_device_property(*Deviceptr, "reg", regs,
-						 sizeof(regs));
-
-	printf("metal_linux_get_device_property-\r\n");
-
 	AddrWidth = ntohl(AddrWidth);
-	u32 baseAddress = ntohl(regs[1]);
 
 	if (Status == XST_SUCCESS) {
 		//TODO:
@@ -250,7 +231,7 @@ XAxiDma_Config *XDMA_LookupConfig(struct metal_device **Deviceptr, u16 DeviceId)
 		CfgPtr->S2MmBurstSize = 0x100;
 		CfgPtr->S2MmDataWidth = 0x100;
 		CfgPtr->S2MmNumChannels = 1;
-		CfgPtr->SgLengthWidth = 0;
+		CfgPtr->SgLengthWidth = 20;
 	} else {
 		metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property \"reg\"");
 		metal_device_close(*Deviceptr);
@@ -260,13 +241,12 @@ XAxiDma_Config *XDMA_LookupConfig(struct metal_device **Deviceptr, u16 DeviceId)
 	return CfgPtr;
 }
 
-u32 XRFdc_RegisterMetal(XAxiDma *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr)
+u32 XAxiDma_RegisterMetal(XAxiDma *InstancePtr, u16 DeviceId, struct metal_device **DevicePtr)
 {
 	s32 Status;
 
-	printf("XRFdc_RegisterMetal+ *DevicePtr=%p\t\n", *DevicePtr);
 	/* Map RFDC device IO region */
-	InstancePtr->io = metal_device_io_region(*DevicePtr, DeviceId);
+	InstancePtr->io = metal_device_io_region(*DevicePtr, 0);
 	if (InstancePtr->io == NULL) {
 		metal_log(METAL_LOG_ERROR, "\n Failed to map AXIDMA region for %s.\n", (*DevicePtr)->name);
 		return XST_DMA_ERROR;
@@ -274,10 +254,7 @@ u32 XRFdc_RegisterMetal(XAxiDma *InstancePtr, u16 DeviceId, struct metal_device 
 	}
 	InstancePtr->device = *DevicePtr;
 
-	Status = XST_SUCCESS;
-	printf("XRFdc_RegisterMetal- *DevicePtr=%p\t\n", *DevicePtr);
-
-	return (u32)Status;
+	return XST_SUCCESS;
 }
 
 
@@ -307,13 +284,13 @@ s32 XDMA_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 			if (XRFdc_Strrncmp(DirentPtr->d_name, XAXIDMA_SIGNATURE, SignLen) == 0) {
 				Status = metal_device_open("platform", DirentPtr->d_name, &DevicePtr);
 				if (Status) {
-					//metal_log(METAL_LOG_ERROR, "\n Failed to open device %s", DirentPtr->d_name);
+					metal_log(METAL_LOG_ERROR, "\n Failed to open device %s", DirentPtr->d_name);
 					continue;
 				}
 				Status = metal_linux_get_device_property(DevicePtr, XRFDC_COMPATIBLE_PROPERTY,
 									 CompatibleString, Len);
 				if (Status < 0) {
-					//metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property");
+					metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property");
 				} else if (strncmp(CompatibleString, XAXIDMA_COMPATIBLE_STRING, Len) == 0) {
 					//FIXME:
 					{
@@ -326,7 +303,7 @@ s32 XDMA_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 										 DeviceName, XRFDC_DEVICE_ID_SIZE);
 					printf("Data=%s, Status=%d\r\n", DeviceName, Status);
 					if (Status < 0) {
-						//metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property");
+						metal_log(METAL_LOG_ERROR, "\n Failed to read device tree property");
 					} else if (Data == DevId) {
 						strcpy(DevNamePtr, DirentPtr->d_name);
 						Status = 0;
@@ -341,7 +318,7 @@ s32 XDMA_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 
    Status = (s32)closedir(DirPtr);
    if (Status < 0) {
-      //metal_log(METAL_LOG_ERROR, "\n Failed to close directory");
+      metal_log(METAL_LOG_ERROR, "\n Failed to close directory");
    }
 
 	return Status;
