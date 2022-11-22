@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +40,8 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/21/2022 Added XPlmi_GetBootKatStatus
 *       bm   07/22/2022 Shutdown modules gracefully during update
+* 1.09  sk   11/22/2022 Removed Subsystems ValidHeader member variable init
+*                       from XPlm_LoadBootPdi to unify for In-Place Update
 *
 * </pre>
 *
@@ -126,7 +129,6 @@ int XPlm_LoadBootPdi(void *Arg)
 	PdiInstPtr->PdiType = XLOADER_PDI_TYPE_FULL;
 	PdiInstPtr->IpiMask = 0U;
 	PdiInstPtr->ValidHeader = (u8)TRUE;
-	SubsystemPdiIns.ValidHeader = (u8)TRUE;
 	Status = XLoader_LoadPdi(PdiInstPtr, BootMode, 0U);
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;

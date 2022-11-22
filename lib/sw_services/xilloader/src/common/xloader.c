@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -139,6 +140,8 @@
 *       dc   07/27/2022 Added goto END in error case for header failures
 *       ma   08/08/2022 Check EAM errors between each image load
 *       ng   18/08/2022 Modified DelayedHandoffCpus condition to handle all possible values
+* 1.07  sk   11/22/2022 Added Subsystems ValidHeader member variable init to
+*                       XLoader_Init function to handle in-place update scenerio
 *
 * </pre>
 *
@@ -251,6 +254,9 @@ int XLoader_Init(void)
 
 	/* Initialize the loader commands */
 	XLoader_CmdsInit();
+
+	/* Initialize SubsystemPdiIns ValidHeader variable */
+	SubsystemPdiIns.ValidHeader = (u8)TRUE;
 
 	/* Initialize the loader interrupts */
 	Status = XLoader_IntrInit();
