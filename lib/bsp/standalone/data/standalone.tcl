@@ -77,6 +77,8 @@
 #       	      functionality from PMU counters for CortexR5 BSP.
 #       bm   07/06/22 Added logic to include files from versal_net directory
 #       adk  09/08/22 When xiltimer is enabled don't pull xpm_counter.c file.
+# 8.1   sd   21/11/22 Export XPAR_PSU_PSS_REF_CLK_FREQ_HZ macro in
+#                     xparameters.h file for microblaze processors.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -351,7 +353,7 @@ proc generate {os_handle} {
 
     set cortexa72proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
     set cortexa78proc [hsi::get_cells -hier -filter {IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
-
+    set cortexa53proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa53"}]
 
 
     # Only processor specific file should be copied to specified standalone folder
@@ -364,6 +366,18 @@ proc generate {os_handle} {
             }
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
+            if {[llength $cortexa53proc] > 0} {
+               set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
+               if { $pss_ref_clk_mhz == "" } {
+                    puts "WARNING: CONFIG.C_PSS_REF_CLK_FREQ not found. Using default value for XPAR_PSU_PSS_REF_CLK_FREQ_HZ."
+                    set pss_ref_clk_mhz 33333000
+               }
+               set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+               puts $file_handle " /* Definition for PSS REF CLK FREQUENCY */"
+               puts $file_handle [format %s%.0f%s "#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ " [expr $pss_ref_clk_mhz]  "U"]
+               puts $file_handle ""
+               close $file_handle
+           }
         }
 	"psu_pmc" -
 	"psv_pmc" -
@@ -759,7 +773,6 @@ proc generate {os_handle} {
 
     set clocking_supported [common::get_property CONFIG.clocking $os_handle ]
     set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
-    set cortexa53proc [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa53"}]
     #Currently clocking is supported for zynqmp only
     if {$is_zynqmp_fsbl_bsp != true &&  $clocking_supported == true  &&  [llength $cortexa53proc] > 0} {
         foreach slave $slaves {
