@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +43,7 @@
 *       ma   07/13/2022 Fix bug in enabling SLVERR for RTC
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
+* 1.07  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -98,8 +100,12 @@ int XPlm_AddStartUpTasks(void)
 #endif /* XPLMI_IPI_DEVICE_ID */
 
 	/**
-	 * Start up tasks of the PLM.
-	 * Current they point to the loading of the Boot PDI.
+	 * Add the following tasks to startup list.
+     *  - PreBoot
+     *  - Load Boot PDI
+     *  - Hook after boot PDI
+     *  - Keep alive task
+     *  - SEM scan init
 	 */
 	const StartupTaskHandler StartUpTaskList[] = {
 		{XPlm_PreBootTasks, NULL},
@@ -113,6 +119,9 @@ int XPlm_AddStartUpTasks(void)
 #endif
 	};
 
+	/**
+	 * Create the Tasks of the PLM from the Task List
+	 */
 	for (Index = 0U; Index < XPLMI_ARRAY_SIZE(StartUpTaskList); Index++) {
 		Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0,
 			StartUpTaskList[Index].Handler,
@@ -140,30 +149,30 @@ END:
 *****************************************************************************/
 static void XPlm_EnableSlaveErrors(void)
 {
-	/* Enable SLVERR for PMC_IOU_SLCR registers */
+	/** Enable SLVERR for PMC_IOU_SLCR registers */
 	XPlmi_Out32(PMC_IOU_SLCR_CTRL, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for PMC_GLOBAL registers */
+	/** Enable SLVERR for PMC_GLOBAL registers */
 	XPlmi_UtilRMW(PMC_GLOBAL_BASEADDR,
 			PMC_GLOBAL_GLOBAL_CNTRL_SLVERR_ENABLE_MASK,
 			PMC_GLOBAL_GLOBAL_CNTRL_SLVERR_ENABLE_MASK);
-	/* Enable SLVERR for PMC_IOU_SECURE_SLCR registers */
+	/** Enable SLVERR for PMC_IOU_SECURE_SLCR registers */
 	XPlmi_Out32(PMC_IOU_SECURE_SLCR_CTRL, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for PMC_RAM_CFG registers */
+	/** Enable SLVERR for PMC_RAM_CFG registers */
 	XPlmi_UtilRMW(PMC_RAM_CFG_BASEADDR, XPLMI_SLAVE_ERROR_ENABLE_MASK,
 			XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for PMC_ANALOG registers */
+	/** Enable SLVERR for PMC_ANALOG registers */
 	XPlmi_Out32(PMC_ANALOG_SLVERR_CTRL, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for PMC_TAP registers */
+	/** Enable SLVERR for PMC_TAP registers */
 	XPlmi_Out32(PMC_TAP_SLVERR_CTRL, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for AES registers */
+	/** Enable SLVERR for AES registers */
 	XPlmi_Out32(AES_SLV_ERR_CTRL, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for BBRAM registers */
+	/** Enable SLVERR for BBRAM registers */
 	XPlmi_Out32(BBRAM_CTRL_SLV_ERR_CTRL, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for ECDSA_RSA registers */
+	/** Enable SLVERR for ECDSA_RSA registers */
 	XPlmi_Out32(ECDSA_RSA_APB_SLV_ERR_CTRL, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for SHA3 registers */
+	/** Enable SLVERR for SHA3 registers */
 	XPlmi_Out32(SHA3_SHA_SLV_ERR_CTRL, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/*
+	/**
 	 * Enable SLVERR for EFUSE registers. EFUSE registers need to be unlocked
 	 * to enable writes to these registers
 	 */
@@ -171,22 +180,22 @@ static void XPlm_EnableSlaveErrors(void)
 	XPlmi_UtilRMW(EFUSE_CTRL_CFG, EFUSE_CTRL_CFG_SLVERR_ENABLE_MASK,
 			EFUSE_CTRL_CFG_SLVERR_ENABLE_MASK);
 	XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_LOCK_VAL);
-	/* Enable SLVERR for CRP registers */
+	/** Enable SLVERR for CRP registers */
 	XPlmi_Out32(CRP_BASEADDR, XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/*
+	/**
 	 * Enable SLVERR for RTC registers
 	 * Bit 31 in RTC_CONTROL is to disable the battery which is write-only.
 	 * When writing to this register, bit 31 should also be set to 1.
 	 */
 	XPlmi_UtilRMW(RTC_CONTROL, RTC_CONTROL_SLVERR_EN_MASK,
 			RTC_CONTROL_SLVERR_EN_MASK);
-	/* Enable SLVERR for PMC_XMPU registers */
+	/** Enable SLVERR for PMC_XMPU registers */
 	XPlmi_Out32((PMC_XMPU_BASEADDR + XMPU_IEN), XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for PMC_XPPU_NPI registers */
+	/** Enable SLVERR for PMC_XPPU_NPI registers */
 	XPlmi_Out32((PMC_XPPU_NPI_BASEADDR + XPPU_IEN), XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable SLVERR for PMC_XPPU registers */
+	/** Enable SLVERR for PMC_XPPU registers */
 	XPlmi_Out32((PMC_XPPU_BASEADDR + XPPU_IEN), XPLMI_SLAVE_ERROR_ENABLE_MASK);
-	/* Enable Platform specific Slave Errors */
+	/** Enable Platform specific Slave Errors */
 	XPlm_EnablePlatformSlaveErrors();
 }
 

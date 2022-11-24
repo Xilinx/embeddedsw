@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +46,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/08/2022 Added support for secure lockdown
 *       dc   07/13/2022 Added OCP init calls
+* 1.08  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -111,14 +113,18 @@ int XPlm_ModuleInit(void *Arg)
 
 	(void) Arg;
 
-	/*
-	 * Call initialization function for the below modules:
-	 * 	-PLMI
-	 * 	-Error manager
-	 * 	-PM
-	 * 	-Loader
-	 * 	-Secure
-	 * 	-STL
+	/**
+	 * Initialize the below modules:
+	 *  - PLMI
+	 *  - PM
+	 *  - Error manager
+	 *  - Loader
+	 *  - Secure
+	 *  - NVM
+	 *  - Puf
+	 *  - STL
+	 *  - SEM
+	 *  - OCP (only for Versal_net)
 	 */
 
 	Status = XPlmi_Init();

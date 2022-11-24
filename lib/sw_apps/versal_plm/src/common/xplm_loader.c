@@ -42,6 +42,7 @@
 *       bm   07/22/2022 Shutdown modules gracefully during update
 * 1.09  sk   11/22/2022 Removed Subsystems ValidHeader member variable init
 *                       from XPlm_LoadBootPdi to unify for In-Place Update
+*       ng   11/23/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -98,8 +99,8 @@ int XPlm_LoadBootPdi(void *Arg)
 	XPlmi_Printf(DEBUG_PRINT_PERF, "PLM Initialization Time \n\r");
 
 	/**
-	 * 1. Read Boot mode register and multiboot offset register
-	 * 2. Load subsystem present in PDI
+	 * Read Boot mode register and multiboot offset register.
+	 * Load subsystem present in PDI
 	 */
 	PdiInstPtr->SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
 					PMC_TAP_SLR_TYPE_VAL_MASK);
@@ -143,14 +144,12 @@ int XPlm_LoadBootPdi(void *Arg)
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Done***********\n\r");
 
-	/** Print ROM time and PLM time stamp */
+	/* Print ROM time and PLM time stamp */
 	XPlmi_PrintRomTime();
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Total PLM Boot Time \n\r");
 
 END:
-	/**
-	 * This is used to identify PLM has completed boot PDI
-	 */
+	/* This is used to identify PLM has completed boot PDI */
 	XPlmi_SetBootPdiDone();
 	XLoader_ClearIntrSbiDataRdy();
 

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplm_plat.h
+* @file versal/xplm_plat.h
 *
 * This file contains versal specific declarations PLM module.
 *
@@ -20,6 +21,7 @@
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

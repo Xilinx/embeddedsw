@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xplm_hooks.c
+* @file versal/xplm_hooks.c
 *
 * This file contains the hook functions for the user in versal platform
 *
@@ -23,6 +24,7 @@
 * 1.03  bm   01/08/2021 Updated PmcCdo function names and related comments
 *       bsv  08/13/2021 Removed unnecessary header file
 * 1.04  skd  04/20/2022 Misra-C violation Rule 2.7 fixed
+* 1.05  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

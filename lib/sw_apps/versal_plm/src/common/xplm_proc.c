@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,7 @@
 *                       devices
 *       kpt  09/09/2021 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 * 1.05  ma   01/17/2022 Trigger SW Error when exception occurs
+* 1.06  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -67,7 +69,7 @@ static void XPlm_ExceptionInit(void)
 	int Status = XST_FAILURE;
 	u16 Index;
 
-	/* Register exception handlers */
+	/** Register exception handlers */
 	for (Index = XIL_EXCEPTION_ID_FIRST;
 	     Index <= XIL_EXCEPTION_ID_LAST; Index++) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_EXCEPTION, (int)Index);
@@ -111,20 +113,20 @@ static void XPlm_ExceptionHandler(void *Data)
 			"status:0x%08x \r\n", Status);
 	}
 
-	/* Trigger SW error */
+	/** Trigger SW error */
 	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 			XIL_EVENT_ERROR_MASK_PLM_EXCEPTION);
 
 	Status = (int)Data;
 	XPlmi_ErrMgr(Status);
 
-	/*
+	/**
 	 * Check if SLR Type is Master or Monolithic
 	 * and take error action accordingly.
 	 */
 	if ((SlrType == XPLMI_SSIT_MASTER_SLR) ||
 		(SlrType == XPLMI_SSIT_MONOLITIC)) {
-		/*
+		/**
 		 * Trigger FW_NCR error for post boot exceptions if
 		 * boot mode is other than JTAG
 		 */

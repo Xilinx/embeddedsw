@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xplm_hooks.c
+* @file versal_net/xplm_hooks.c
 *
 * This file contains the hook functions for the user in versal_net platform
 *
@@ -18,6 +19,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

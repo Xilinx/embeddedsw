@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,7 +39,7 @@
 * 1.05  am   11/24/2021 Fixed doxygen warning
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
-*
+* 1.07  ng   11/11/2022 Updated doxygen comments
 * </pre>
 *
 * @note
@@ -80,15 +81,14 @@ int main(void)
 {
 	int Status = XST_FAILURE;
 
-	/** Initialize the processor, tasks lists */
+	/** Initialize the processor, timers and tasks list */
 	Status = XPlm_Init();
 	if (Status != XST_SUCCESS)
 	{
 		XPlmi_ErrMgr(Status);
 	}
 
-	/** Timestamps are enabled now */
-	/** Print PLM banner */
+    /** Print PLM banner since timestamps are enabled now */
 	XPlmi_PrintPlmBanner();
 
 	/** Initialize the start up events */
@@ -101,7 +101,7 @@ int main(void)
 	/** Run the handlers in task loop based on the priority */
 	XPlmi_TaskDispatchLoop();
 
-	/** Should never reach here */
+	/* Should never reach here */
 	while (TRUE) {
 		;
 	}
@@ -138,7 +138,7 @@ static int XPlm_Init(void)
 	 */
 	XPlmi_PpuWakeUpDis();
 
-	/* Initialize debug log structure */
+	/** Initialize debug log buffer structure */
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
 		XPlmi_InitDebugLogBuffer();
 	}
@@ -149,7 +149,7 @@ static int XPlm_Init(void)
 		goto END;
 	}
 
-	/* Initializes the DMA pointers */
+	/** Initializes PMC DMA */
 	Status = XPlmi_DmaInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -164,14 +164,14 @@ static int XPlm_Init(void)
 	}
 
 #ifdef DEBUG_UART_MDM
-	/** If MDM UART, banner can be printed before any initialization */
+	/* If MDM UART, banner can be printed before any initialization */
 	XPlmi_InitUart();
 #endif
 
 	/** Do Internal POR if any specific case */
 	XLoader_PerformInternalPOR();
 
-	/** Initialize the tasks lists */
+	/** Initialize the tasks list */
 	XPlmi_TaskInit();
 
 END:

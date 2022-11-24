@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +43,7 @@
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
+* 1.09  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -217,7 +219,7 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	Status = XPlmi_SysMonInit();
 
 END:
-	/* Clear PMC CDO memory irrespective of success or failure */
+	/** Clear PMC CDO memory irrespective of success or failure */
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_BASEADDR, XPLMI_DATA_INIT_PZM,
 			XPLMI_PMC_CDO_MAX_WORD_LEN);
 	if (XST_SUCCESS != SStatus) {
@@ -244,10 +246,10 @@ static int XPlm_SendKeepAliveEvent(void)
 	int Status = XST_FAILURE;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 
-	/* Assign PSM keep alive API ID to IPI payload[0] */
+	/** Assign PSM keep alive API ID to IPI payload[0] */
 	Payload[0U] = XPLM_PSM_API_KEEP_ALIVE;
 
-	/* Send IPI for keep alive event to PSM */
+	/** Send IPI for keep alive event to PSM */
 	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 	if (XST_SUCCESS != Status) {
 		XPlmi_Printf(DEBUG_GENERAL, "%s Error in IPI send: %0x\r\n",
@@ -320,7 +322,7 @@ static int XPlm_KeepAliveTask(void *Arg)
 			}
 		}
 
-		/* Send keep alive IPI event to PSM */
+		/** Send keep alive IPI event to PSM */
 		Status = XPlm_SendKeepAliveEvent();
 		if (XST_SUCCESS != Status) {
 			/* Remove Keep alive task in case of error */
