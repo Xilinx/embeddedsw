@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ****************************************************************************/
 
@@ -15,15 +16,16 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00   bsv 02/10/2019 First release
-*        bsv 04/09/2020 Code clean up
-* 1.01   bsv 07/08/2020 Moved Ch9Handler APIs to xloader_dfu_util.c
-*        skd 07/14/2020 XLoader_UsbCopy prototype changed
-*        td  08/19/2020 Fixed MISRA C violations Rule 10.3
-* 1.02   bsv 08/31/2021 Code clean up
-* 1.03   ma  01/17/2022 Enable SLVERR for USB registes
-*        bsv 01/21/2022 Reduce stack usage
-* 1.04   bm  07/06/2022 Refactor versal and versal_net code
+* 1.00  bsv  02/10/2019 First release
+*       bsv  04/09/2020 Code clean up
+* 1.01  bsv  07/08/2020 Moved Ch9Handler APIs to xloader_dfu_util.c
+*       skd  07/14/2020 XLoader_UsbCopy prototype changed
+*       td   08/19/2020 Fixed MISRA C violations Rule 10.3
+* 1.02  bsv  08/31/2021 Code clean up
+* 1.03  ma   01/17/2022 Enable SLVERR for USB registes
+*       bsv  01/21/2022 Reduce stack usage
+* 1.04  bm   07/06/2022 Refactor versal and versal_net code
+* 1.05  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -115,7 +117,7 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/* Enable SLVERR */
+	/** Enable SLVERR */
 	XPlmi_UtilRMW((VENDOR_BASE_ADDRESS + XLOADER_USB2_REG_CTRL_OFFSET),
 			XPLMI_SLAVE_ERROR_ENABLE_MASK, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 
@@ -124,23 +126,23 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/* Hook up chapter9 handler */
+	/** Hook up chapter9 handler */
 	XUsbPsu_set_ch9handler((struct XUsbPsu*)UsbInstancePtr->PrivateData,
 		XLoader_Ch9Handler);
 
-	/* Set the reset event handler */
+	/** Set the reset event handler */
 	XUsbPsu_set_rsthandler((struct XUsbPsu*)UsbInstancePtr->PrivateData,
 		XLoader_DfuReset);
 
 	DfuObj.InstancePtr = UsbInstancePtr;
 
-	/* Set DFU state to APP_IDLE */
+	/** Set DFU state to APP_IDLE */
 	XLoader_DfuSetState(UsbInstancePtr, XLOADER_STATE_APP_IDLE);
 
-	/* Assign the data to usb driver */
+	/** Assign the data to usb driver */
 	XUsbPsu_set_drvdata((struct XUsbPsu*)UsbInstancePtr->PrivateData, &Dfu_data);
 
-	/*
+	/**
 	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
 	 * Wakeup and Overflow events.
 	 */
@@ -149,7 +151,7 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		| XUSBPSU_DEVTEN_ULSTCNGEN | XUSBPSU_DEVTEN_CONNECTDONEEN
 		| XUSBPSU_DEVTEN_USBRSTEN | XUSBPSU_DEVTEN_DISCONNEVTEN);
 
-	/* Start the controller so that Host can see our device */
+	/** Start the controller so that Host can see our device */
 	Status = XUsbPsu_Start((struct XUsbPsu*)UsbInstancePtr->PrivateData);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_START, Status);

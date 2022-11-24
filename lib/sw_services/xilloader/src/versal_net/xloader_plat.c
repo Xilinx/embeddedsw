@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xloader_plat.c
+* @file versal_net/xloader_plat.c
 *
 * This file contains the versal_net specific code related to PDI image loading.
 *
@@ -22,6 +23,7 @@
 *       dc   09/04/2022 Initialized TRNG
 *       is   09/12/2022 Remove PM_CAP_SECURE capability when requesting PSM_PROC,
 *                       TCM memory banks
+* 1.01  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -180,7 +182,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
 
-	/* Handoff to the cpus */
+	/** Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
 		CpuId = PdiPtr->HandoffParam[Index].CpuSettings &
 			XIH_PH_ATTRB_DSTN_CPU_MASK;
@@ -189,6 +191,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		ClusterId >>= XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT;
 		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
 		Status = XST_FAILURE;
+		/** Wake up each processor */
 		switch (CpuId)
 		{
 			case XIH_PH_ATTRB_DSTN_CPU_R52_0:
@@ -284,7 +287,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	Status = XST_SUCCESS;
 
 END:
-	/*
+	/**
 	 * Make Number of handoff CPUs to zero
 	 */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
@@ -312,6 +315,9 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 
 	PrtnAttrbs = PrtnHdr->PrtnAttrb;
 
+	/**
+	 * Read partition header and deduce entry point and partition flags.
+	 */
 	PrtnFlags =
 		(((PrtnAttrbs & XIH_PH_ATTRB_A78_EXEC_ST_MASK)
 				>> XIH_ATTRB_A78_EXEC_ST_SHIFT_DIFF) |
@@ -323,7 +329,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF));
 
 	PrtnAttrbs &= XIH_PH_ATTRB_DSTN_CPU_MASK;
-	/* Update CPU number based on destination CPU */
+	/** Update CPU number based on destination CPU */
 	if (PrtnAttrbs == XIH_PH_ATTRB_DSTN_CPU_A78_0) {
 		PrtnFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A78_0;
 	}
@@ -395,6 +401,9 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 {
 	int Status = XST_FAILURE;
 
+	/**
+	 * Get the PDI source address for the secondary boot device.
+	 */
 	switch(SecBootMode)
 	{
 		case XIH_IHT_ATTR_SBD_SDLS_B0:

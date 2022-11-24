@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +36,7 @@
 *       bsv  08/31/2021 Code clean up
 * 1.06  ma   01/17/2022 Enable SLVERR for QSPI registers
 * 1.07  bm   07/06/2022 Refactor versal and versal_net code
+* 1.08  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -99,7 +101,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	u8 TxBfr;
 	u8 ReadBuffer[4U] __attribute__ ((aligned(32U)));
 
-	/*
+	/**
 	 * Read ID
 	 */
 	TxBfr = XLOADER_READ_ID_CMD;
@@ -125,7 +127,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		"FlashID=0x%x 0x%x 0x%x\n\r",
 		ReadBuffer[0U], ReadBuffer[1U], ReadBuffer[2U]);
 
-	/*
+	/**
 	 * Deduce flash make
 	 */
 	if (ReadBuffer[0U] == XLOADER_MICRON_ID) {
@@ -156,7 +158,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Deduce flash Size
 	 */
 	if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_64M) {
@@ -241,7 +243,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Initialize the QSPI driver so that it's ready to use
 	 */
 	if (NULL == QspiConfig) {
@@ -258,13 +260,13 @@ int XLoader_QspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/* Enable SLVERR */
+	/** Enable SLVERR */
 	XPlmi_UtilRMW((QspiPsuInstance.Config.BaseAddress +
 			XQSPIPSU_QSPIDMA_DST_CTRL_OFFSET),
 			XQSPIPSU_QSPIDMA_DST_CTRL_APB_ERR_RESP_MASK,
 			XQSPIPSU_QSPIDMA_DST_CTRL_APB_ERR_RESP_MASK);
 
-	/*
+	/**
 	 * Set Manual Start
 	 */
 	Status = XQspiPsu_SetOptions(&QspiPsuInstance,
@@ -275,7 +277,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Set the pre-scaler for QSPI clock
 	 */
 	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance,
@@ -350,7 +352,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/* Read Flash ID and extract Manufacture and Size information */
+	/** Read Flash ID and extract Manufacture and Size information. */
 	Status = FlashReadID(&QspiPsuInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -381,6 +383,7 @@ int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 	u32 QspiWidthBuffer[4U];
 
 	/* Qspi width detection for 1x, 2x and 4x */
+	/** Update the flash ReadCommand. */
 	if (QspiBootMode == XLOADER_PDI_SRC_QSPI24) {
 		if (QspiFlashMake == XLOADER_MACRONIX_ID) {
 			ReadCommand = XLOADER_QUAD_READ_CMD_24BIT2;
@@ -393,6 +396,7 @@ int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress)
 		ReadCommand = XLOADER_QUAD_READ_CMD_32BIT;
 	}
 	QspiBusWidth = XQSPIPSU_SELECT_MODE_QUADSPI;
+	/** Detect the QSPI bus width from the boot header. */
 	Status = XLoader_QspiCopy((ImageOffsetAddress +
 				XLOADER_QSPI_BUSWIDTH_PDI_OFFSET),
 				(u64)(UINTPTR)(&QspiWidthBuffer),
@@ -473,20 +477,20 @@ static u32 XLoader_GetQspiAddr(u32 Addr)
 			RealAddr = Addr;
 			break;
 		case XQSPIPSU_CONNECTION_MODE_STACKED:
-			/*
+			/**
 			 * Select lower or upper Flash based on sector address
 			 */
 			if (Addr >= (QspiFlashSize / 2U)) {
 				XQspiPsu_SelectFlash(&QspiPsuInstance,
 					XQSPIPSU_SELECT_FLASH_CS_UPPER,
 					XQSPIPSU_SELECT_FLASH_BUS_LOWER);
-				/*
+				/**
 				 * Subtract first flash size when accessing second flash
 				 */
 				RealAddr = Addr - (QspiFlashSize / 2U);
 			}
 			else {
-				/*
+				/**
 				 * Set selection to L_PAGE
 				 */
 				XQspiPsu_SelectFlash(&QspiPsuInstance,
@@ -496,7 +500,7 @@ static u32 XLoader_GetQspiAddr(u32 Addr)
 			}
 			break;
 		case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-			/*
+			/**
 			 * The effective address in each flash is the actual
 			 * address / 2
 			 */
@@ -506,7 +510,7 @@ static u32 XLoader_GetQspiAddr(u32 Addr)
 			RealAddr = Addr / 2U;
 			break;
 		default:
-			/*
+			/**
 			 * We should never reach here as error will be triggered during
 			 * QSPI Init for invalid connection mode. Hence, assign a value (0)
 			 * to RealAddr, to avoid warning.
@@ -535,13 +539,13 @@ static int SendBankSelect(u32 BankSel)
 	u8 ReadBuffer[10U] __attribute__ ((aligned(32U))) = {0U};
 	u8 WriteBuffer[10U] __attribute__ ((aligned(32U)));
 
-	/*
+	/**
 	 * Bank select commands for Micron and Spansion are different.
 	 * Macronix bank select is same as Micron
 	 */
 	if ((QspiFlashMake == XLOADER_MICRON_ID) ||
 		(QspiFlashMake == XLOADER_MACRONIX_ID))	{
-		/*
+		/**
 		 * For micron command WREN should be sent first
 		 * except for some specific feature set
 		 */
@@ -559,7 +563,7 @@ static int SendBankSelect(u32 BankSel)
 			goto END;
 		}
 
-		/*
+		/**
 		 * Send the Extended address register write command
 		 * written, no receive buffer required
 		 */
@@ -581,7 +585,7 @@ static int SendBankSelect(u32 BankSel)
 			goto END;
 		}
 
-		/*
+		/**
 		 * For testing - Read bank to verify
 		 * Extended address register read command
 		 */
@@ -609,7 +613,7 @@ static int SendBankSelect(u32 BankSel)
 		}
 	}
 	else if (QspiFlashMake == XLOADER_SPANSION_ID) {
-		/*
+		/**
 		 * Send the Extended address register write command
 		 * written, no receive buffer required
 		 */
@@ -631,7 +635,7 @@ static int SendBankSelect(u32 BankSel)
 			goto END;
 		}
 
-		/*
+		/**
 		 * For testing - Read bank to verify
 		 * Bank register read command
 		 */
@@ -725,7 +729,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Check the read length with Qspi flash size
 	 */
 	if ((SrcAddrLow + Length) > QspiFlashSize) {
@@ -772,7 +776,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		BankMask *= 2U;
 	}
 
-	/*
+	/**
 	 * Update no of bytes to be copied
 	 */
 	RemainingBytes = Length;
@@ -785,7 +789,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			TransferBytes = RemainingBytes;
 		}
 
-		/*
+		/**
 		 * Translate address based on type of connection
 		 * If stacked assert the slave select based on address
 		 */
@@ -794,7 +798,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		if ((QspiBootMode == XLOADER_PDI_SRC_QSPI24) ||
 			(QspiFlashMake == XLOADER_WINBOND_ID)) {
 
-			/*
+			/**
 			 * Multiply address by 2 in case of Dual Parallel
 			 * This address is used to calculate the bank crossing
 			 * condition
@@ -807,7 +811,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				OrigAddr = QspiAddr;
 			}
 
-			/*
+			/**
 			 * Select bank check logic for DualQspi
 			 */
 			if (QspiFlashSize > BankSize) {
@@ -827,7 +831,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				}
 			}
 
-			/*
+			/**
 			 * If data to be read spans beyond the current bank, then
 			 * calculate Transfer Bytes in current bank. Else
 			 * transfer bytes are same
@@ -844,7 +848,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				QspiAddr, (u32)((DestAddr + DestOffset) >> 32U),
 				(u32)(DestAddr + DestOffset), TransferBytes);
 
-		/*
+		/**
 		 * Setup the read command with the specified address
 		 * and data for the Flash
 		 */
@@ -869,7 +873,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		FlashMsg[2U].RxAddr64bit = DestAddr + DestOffset;
 		FlashMsg[2U].ByteCount = TransferBytes;
 
-		/*
+		/**
 		 * Send the read command to the Flash to read the specified number
 		 * of bytes from the Flash, send the read command and address and
 		 * receive the specified number of bytes of data in the data buffer

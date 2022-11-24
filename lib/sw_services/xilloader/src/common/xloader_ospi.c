@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +34,7 @@
 * 1.04  bsv  07/16/2021 Added Macronix flash support
 *       bsv  08/31/2021 Code clean up
 * 1.05  ma   01/17/2022 Enable SLVERR for OSPI registers
+* 1.06  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -91,7 +93,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	XOspiPsv_Msg FlashMsg = {0U};
 	u32 TempVal;
 
-	/*
+	/**
 	 * Read ID
 	 */
 	FlashMsg.Opcode = READ_ID;
@@ -109,7 +111,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	XLoader_Printf(DEBUG_GENERAL, "FlashID=0x%x 0x%x 0x%x\n\r",
 		ReadBuffer[0U], ReadBuffer[1U], ReadBuffer[2U]);
 
-	/*
+	/**
 	 * Deduce flash make
 	 */
 	if (ReadBuffer[0U] == MICRON_OCTAL_ID_BYTE0) {
@@ -134,7 +136,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Deduce flash Size
 	 */
 	OspiFlashSize = 0U;
@@ -179,7 +181,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 			"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
 		goto END;
 	}
-	/* Populate Device Id Data */
+	/** Populate Device Id Data */
 	OspiPsvPtr->DeviceIdData = 0U;
 	if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
 		for (Index = 0U, TempVal = 0U; Index < 4U;
@@ -236,9 +238,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/*
-	 * Initialize the OSPI driver so that it's ready to use
-	 */
+	/** Initialize the OSPI driver so that it's ready to use */
 	OspiConfig = XOspiPsv_LookupConfig(XLOADER_OSPI_DEVICE_ID);
 	if (NULL == OspiConfig) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_INIT, 0);
@@ -253,7 +253,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/* Enable SLVERR */
+	/** Enable SLVERR */
 	XPlmi_UtilRMW((OspiConfig->BaseAddress + XOSPIPSV_OSPIDMA_SRC_CTRL),
 			XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK,
 			XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK);
@@ -261,14 +261,10 @@ int XLoader_OspiInit(u32 DeviceFlags)
 			XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK,
 			XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK);
 
-	/*
-	 * Enable IDAC controller in OSPI
-	 */
+	/** Enable IDAC controller in OSPI */
 	XOspiPsv_SetOptions(&OspiPsvInstance, XOSPIPSV_IDAC_EN_OPTION);
-	
-	/*
-	 * Set the prescaler for OSPIPSV clock
-	 */
+
+	/** Set the prescaler for OSPIPSV clock */
 	XOspiPsv_SetClkPrescaler(&OspiPsvInstance, XOSPIPSV_CLK_PRESCALE_6);
 	Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
 	if (Status != XST_SUCCESS) {
@@ -277,7 +273,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Read flash ID and obtain all flash related information
 	 * It is important to call the read id function before
 	 * performing proceeding to any operation, including
@@ -305,7 +301,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 
 	/* OSPI DDR mode is not supported on SPP, EMU and FCV platforms */
 	if(XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) {
-		/* Set Flash device and Controller modes */
+		/** Set Flash device and Controller modes */
 		Status = XLoader_FlashSetDDRMode(&OspiPsvInstance);
 		if (Status != XST_SUCCESS) {
 			goto END1;
@@ -389,7 +385,7 @@ END1:
 		OspiPsvInstance.Extra_DummyCycle = 0U;
 	}
 
-	/*
+	/**
 	 * Enter 4B address mode
 	 */
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
@@ -451,12 +447,17 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		goto END1;
 	}
 	FlagsTmp = Flags;
+	/** Check OSPI connection mode */
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
 		if ((SrcAddrLow + Length) > (2U * OspiFlashSize)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_COPY_OVERFLOW, Status);
 			goto END;
 		}
 		else {
+			/**
+			 * For stacked mode connection select upper flash or lower flash
+			 * depending on source address.
+			 */
 			if (SrcAddrLow < OspiFlashSize) {
 				/*
 				 * Select lower flash
@@ -506,9 +507,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		TrfLen = Length;
 	}
 
-	/*
-	 * Read cmd
-	 */
+	/** Generate the Read cmd */
 	FlashMsg.Addrsize = XLOADER_OSPI_READ_ADDR_SIZE;
 	FlashMsg.Addrvalid = TRUE;
 	FlashMsg.TxBfrPtr = NULL;
@@ -557,6 +556,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 	}
 
+	/** Start the Transfer operation */
 	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		Status = (int)XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
 		if (Status != XST_SUCCESS) {
@@ -802,7 +802,7 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		Dummy = XLOADER_MACRONIX_OSPI_SET_DDR_DUMMY_CYCLES;
 		TxData = &MacronixData[0U];
 	}
-	/* Write enable command */
+	/** Write enable command */
 	FlashMsg.Opcode = OSPI_WRITE_ENABLE_CMD;
 	FlashMsg.Addrsize = 0U;
 	FlashMsg.Addrvalid = FALSE;
@@ -820,7 +820,7 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		goto END;
 	}
 
-	/* Write Config register */
+	/** Write Config register */
 	FlashMsg.Opcode = WriteRegOpcode;
 	FlashMsg.Addrvalid = TRUE;
 	FlashMsg.Addrsize = AddrSize;
@@ -855,7 +855,7 @@ static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
 		goto END;
 	}
 
-	/* Read Configuration register */
+	/** Read Configuration register */
 	FlashMsg.Opcode = ReadRegOpcode;
 	FlashMsg.Addrsize = XLOADER_OSPI_READ_CFG_REG_CMD_ADDR_SIZE;
 	FlashMsg.Addr = 0U;

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,6 +91,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       dc   07/19/2022 Added support for data measurement in VersalNet
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
+* 1.10  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -172,11 +174,15 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
-	/* Validate and load the image partitions */
+	/**
+	 * Validate and load the image partitions
+	 */
 	for (PrtnIndex = 0U;
 		PrtnIndex < PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 		++PrtnIndex) {
-		/* Clear NPI errors before loading each partition */
+		/**
+		 * Clear NPI errors before loading each partition
+		 */
 		if (XPlmi_NpiOutOfReset() == (u8)TRUE) {
 			Status = XPlmi_ClearNpiErrors();
 			if (XST_SUCCESS != Status) {
@@ -203,10 +209,14 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		}
 
 		PrtnLoadTime = XPlmi_GetTimerValue();
-		/* Prtn Hdr Validation */
+		/**
+		 * Prtn Hdr Validation
+		 */
 		Status = XLoader_PrtnHdrValidation(
 				&(PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum]), PdiPtr->PrtnNum);
-		/* PLM is not partition owner and skip this partition */
+		/**
+		 * PLM is not partition owner and skip this partition
+		 */
 		if (Status == (int)XLOADER_SUCCESS_NOT_PRTN_OWNER) {
 			Status = XST_SUCCESS;
 			continue;
@@ -217,7 +227,9 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 
 		XPlmi_SetPlmLiveStatus();
 
-		/* Process Partition */
+		/**
+		 * Process Partition
+		 */
 		Status = XLoader_ProcessPrtn(PdiPtr);
 		if (XST_SUCCESS != Status) {
 			goto END;
@@ -265,15 +277,21 @@ static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr * PrtnHdr, u32 PrtnNum
 {
 	int Status = (int)XLOADER_SUCCESS_NOT_PRTN_OWNER;
 
-	/* Check if partition belongs to PLM */
+	/**
+	 * Check if partition belongs to PLM
+	 */
 	if (XilPdi_GetPrtnOwner(PrtnHdr) != XIH_PH_ATTRB_PRTN_OWNER_PLM) {
-		/* If the partition doesn't belong to PLM, skip the partition */
+		/**
+		 * - If the partition doesn't belong to PLM, skip the partition
+		 */
 		XPlmi_Printf(DEBUG_GENERAL, "Not owned by PLM,"
 				"skipping the Partition# 0x%08x\n\r", PrtnNum);
 		goto END;
 	}
 
-	/* Validate the fields of partition */
+	/**
+	 * Validate the fields of partition
+	 */
 	Status = XilPdi_ValidatePrtnHdr(PrtnHdr);
 
 END:
@@ -381,9 +399,8 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 #endif
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
-	/*
-	 * Initialize the Cdo Pointer and
-	 * check CDO header contents
+	/**
+	 * Initialize the Cdo Pointer and check CDO header contents
 	 */
 	Status = XPlmi_InitCdo(&Cdo);
 	if (Status != XST_SUCCESS) {
@@ -406,7 +423,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 		}
 	}
 	while (DeviceCopy->Len > 0U) {
-		/* Update the len for last chunk */
+		/** Update the len for last chunk */
 		if (DeviceCopy->Len <= ChunkLen) {
 			LastChunk = (u8)TRUE;
 			ChunkLen = DeviceCopy->Len;
@@ -427,18 +444,18 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			if (Status != XST_SUCCESS) {
 					goto END;
 			}
-			/* Update variables for next chunk */
+			/** Update variables for next chunk */
 			Cdo.BufPtr = (u32 *)ChunkAddr;
 			Cdo.BufLen = ChunkLen >> XPLMI_WORD_LEN_SHIFT;
 			ChunkLenTemp = ChunkLen;
 			DeviceCopy->SrcAddr += ChunkLen;
 			DeviceCopy->Len -= ChunkLen;
 			Cdo.Cmd.KeyHoleParams.SrcAddr = DeviceCopy->SrcAddr;
-			/*
+			/**
 			 * Start the copy of the next chunk for increasing performance
 			 */
 			if (LastChunk != (u8)TRUE) {
-				/* Update the next chunk address to other part */
+				/** Update the next chunk address to other part */
 				ChunkAddr += ChunkLen;
 				if (ChunkAddr > XPLMI_PMCRAM_CHUNK_MEMORY_1) {
 					ChunkAddr =
@@ -447,14 +464,14 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 				else {
 					ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY_1;
 				}
-				/* Update the len for last chunk */
+				/** Update the len for last chunk */
 				if (DeviceCopy->Len <= ChunkLen) {
 					LastChunk = (u8)TRUE;
 					ChunkLen = DeviceCopy->Len;
 				}
 				Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted = (u8)TRUE;
 				Cdo.NextChunkAddr = ChunkAddr;
-				/* Initiate the data copy */
+				/** Initiate the data copy */
 				Status = PdiPtr->MetaHdr.DeviceCopy(
 					DeviceCopy->SrcAddr, ChunkAddr,
 					ChunkLen, DeviceCopy->Flags |
@@ -484,7 +501,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 #ifdef PLM_PRINT_PERF_CDO_PROCESS
 		CdoProcessTimeStart = XPlmi_GetTimerValue();
 #endif
-		/* Process the chunk */
+		/** Process the chunk */
 		Status = XPlmi_ProcessCdo(&Cdo);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -499,7 +516,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 					(Cdo.Cmd.KeyHoleParams.ExtraWords < ChunkLen)) {
 				DeviceCopy->Len -= ChunkLen;
 				DeviceCopy->SrcAddr += ChunkLen;
-				/*
+				/**
 				 * There are some CDO commands to be processed in
 				 * memory pointed to by ChunkAddr
 				 */
@@ -539,7 +556,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 		}
 	}
 
-	/* If deferred error, flagging it after CDO process complete */
+	/** If deferred error, flagging it after CDO process complete */
 	if (Cdo.DeferredError == (u8)TRUE) {
 		Status = XLoader_ProcessDeferredError();
 		goto END;
@@ -584,7 +601,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	/* Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 
-	/* Read Partition Type */
+	/** Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
 
 	PrtnParams.DeviceCopy.DestAddr = PrtnHdr->DstnLoadAddr;
@@ -603,6 +620,9 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 			goto END;
 		}
 
+		/**
+		 * Load/Copy the partition from device.
+		 */
 		Status = PdiPtr->MetaHdr.DeviceCopy(PrtnParams.DeviceCopy.SrcAddr,
 			PdiPtr->CopyToMemAddr, PrtnParams.DeviceCopy.Len -
 			SecureParams.SecureHdrLen, PrtnParams.DeviceCopy.Flags);
@@ -670,18 +690,16 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		PdiPtr->CopyToMemAddr += ((u64)PrtnParams.DeviceCopy.Len - SecureParams.SecureHdrLen);
 	}
 
-	/*
+	/**
 	 * ProcessCdo, ProcessElf and PrtnCopy APIs expected unencrypted
-	 * length that is 16 byte aligned
-	 */
-	/*
-	 * Make unencrypted length 16 byte aligned.
+	 * length that is 16 byte aligned. Make unencrypted length 16 byte aligned.
 	 */
 	TempVal = (u8)(XLOADER_DMA_LEN_ALIGN -
 		(u8)((PrtnParams.DeviceCopy.Len & XLOADER_DMA_LEN_ALIGN_MASK)));
 	PrtnParams.DeviceCopy.Len += TempVal & XLOADER_DMA_LEN_ALIGN_MASK;
 
-	/* To make sure total data length passed is without authentication
+	/**
+	 * To make sure total data length passed is without authentication
 	 * certificate size when authentication is enabled.
 	 */
 	PrtnParams.DeviceCopy.Len -= SecureParams.ProcessedLen;

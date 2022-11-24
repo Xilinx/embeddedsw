@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xloader_secure.h
+* @file xloader_auth_enc.h
 *
 * This file contains all common security related data.
 *
@@ -49,6 +50,7 @@
 *       ma   07/08/22 Removed EFUSE_CACHE_MISC_CTRL as it is defined in xplmi_hw.h
 *       kpt  07/24/22 Added XLoader_RsaPssSignVerify to support KAT for versal net
 *       har  11/17/22 Added function declaration for XLoader_CheckNonZeroPpk
+* 1.04  ng   11/23/22 Fixed doxygen file name error
 *
 * </pre>
 *

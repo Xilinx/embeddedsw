@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -116,6 +117,7 @@
 * 1.10  sk   10/19/22 Fix security review comments
 *       har  11/17/22 Removed XLoader_CheckNonZeroPpk and moved code to set
 *                     Secure State(Auth) in xloader_plat_secure files
+*       ng   11/23/22 Updated doxygen comments
 *
 * </pre>
 *
@@ -273,7 +275,7 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 	u8 LastChunk = (u8)FALSE;
 
 	while (Len > 0U) {
-		/* Update the length for last chunk */
+		/** Update the length for last chunk */
 		if (Len <= ChunkLen) {
 			LastChunk = (u8)TRUE;
 			ChunkLen = Len;
@@ -281,14 +283,14 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 
 		SecurePtr->RemainingDataLen = Len;
 
-		/* Call security function */
+		/** Call security function */
 		Status = SecurePtr->ProcessPrtn(SecurePtr, LoadAddr,
 					ChunkLen, LastChunk);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Update variables for next chunk */
+		/** Update variables for next chunk */
 		LoadAddr = LoadAddr + SecurePtr->SecureDataLen;
 		Len = Len - SecurePtr->ProcessedLen;
 		SecurePtr->ChunkAddr = SecurePtr->NextChunkAddr;
@@ -296,7 +298,7 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 
 END:
 	if (Status != XST_SUCCESS) {
-		/* On failure clear data at destination address */
+		/** On failure clear data at destination address */
 		ClrStatus = XPlmi_InitNVerifyMem(DestAddr, Size);
 		if (ClrStatus != XST_SUCCESS) {
 			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
@@ -370,7 +372,7 @@ int XLoader_SecureClear(void)
 #else
 	Status = XST_SUCCESS;
 #endif
-	/* Place SHA3 in reset */
+	/** Place SHA3 in reset */
 	SStatus = Xil_SecureOut32(XLOADER_SHA3_RESET_REG, XLOADER_SHA3_RESET_VAL);
 	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_CLEAR_FAIL,
@@ -413,6 +415,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		DataLen += XLOADER_SHA3_LEN;
 	}
 
+	/** Calculate Sha3 digest */
 	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL,
@@ -463,7 +466,7 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
-	/* Update the next expected hash  and data location */
+	/** Update the next expected hash and data location */
 	if (Last != (u8)TRUE) {
 		Status = Xil_SMemCpy(ExpHash, XLOADER_SHA3_LEN,
 			(u8 *)HashAddr, XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
@@ -497,12 +500,12 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 	u64 ChecksumOffset;
 
 	ChecksumType = XilPdi_GetChecksumType(PrtnHdr);
-	/* Check if checksum is enabled */
+	/** Verify if checksum is enabled */
 	if (ChecksumType != 0x00U) {
 		 XPlmi_Printf(DEBUG_INFO,
 			 "Checksum verification is enabled\n\r");
 
-		/* Check checksum type */
+		/** Validate checksum type is SHA3 else return checksum error */
 		if(ChecksumType == XIH_PH_ATTRB_HASH_SHA3) {
 			SecurePtr->IsCheckSumEnabled = (u8)TRUE;
 		}
@@ -513,7 +516,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 			goto END;
 		}
 
-		/* Copy checksum hash */
+		/** Copy checksum hash */
 		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
 			Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(
 					SecurePtr->PdiPtr->CopyToMemAddr,
@@ -580,7 +583,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	XPlmi_Printf(DEBUG_INFO,
 			"Processing Block %u\n\r", SecurePtr->BlockNum);
 	SecurePtr->ProcessedLen = 0U;
-	/* 1st block */
+	/** Process 1st block */
 	if (SecurePtr->BlockNum == 0x0U) {
 		SrcAddr = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
 			((u64)(SecurePtr->PrtnHdr->DataWordOfst) << XPLMI_WORD_LEN_SHIFT);
@@ -601,7 +604,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 
 	SecurePtr->SecureData = SecurePtr->ChunkAddr;
 	if (Last != (u8)TRUE) {
-		/* Here Checksum overhead is removed in the chunk */
+		/** Remove Checksum overhead in the chunk */
 		SecurePtr->SecureDataLen = TotalSize - XLOADER_SHA3_LEN;
 	}
 	else {
@@ -613,7 +616,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 		DataAddr = (u64)SecurePtr->ChunkAddr;
 	}
 	else {
-		/* Copy to destination address */
+		/** Copy to destination address */
 		Status = XPlmi_DmaXfr((u64)SecurePtr->SecureData, DestAddr,
 				SecurePtr->SecureDataLen >> XPLMI_WORD_LEN_SHIFT,
 				XPLMI_PMCDMA_0);
@@ -624,7 +627,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 		}
 		DataAddr = DestAddr;
 	}
-	/* Verify hash on the data */
+	/** Verify hash on the data */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyHashNUpdateNext,
 		SecurePtr, DataAddr, SecurePtr->SecureDataLen, Last);
 
@@ -684,16 +687,17 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 		goto END;
 	}
 	/* The below if condition is important, it has been added since
-         * authentication certificate and Puf data are now stored in PMC RAM
-         * instead of PPU1 RAM. What this means is that while processing
-         * first chunk of any partition, the second 32K chunk of PMC RAM
-         * starting from 0xf2008120 contains authentication certificate and
-         * PufData as applicable. This means second chunk of partition
-         * must get loaded at 0xf2000020 and not at 0xf2008120. This means
-         * double buffering should be disabled when first chunk is processed
-         * and only enabled from second chunk onwards. Third chunk gets loaded
-         * at 0xf2008120 and from then on chunks alternatively get loaded to
-	 * the two 32KB chunks of PMC RAM. */
+	 * authentication certificate and Puf data are now stored in PMC RAM
+	 * instead of PPU1 RAM. What this means is that while processing
+	 * first chunk of any partition, the second 32K chunk of PMC RAM
+	 * starting from 0xf2008120 contains authentication certificate and
+	 * PufData as applicable. This means second chunk of partition
+	 * must get loaded at 0xf2000020 and not at 0xf2008120. This means
+	 * double buffering should be disabled when first chunk is processed
+	 * and only enabled from second chunk onwards. Third chunk gets loaded
+	 * at 0xf2008120 and from then on chunks alternatively get loaded to
+	 * the two 32KB chunks of PMC RAM.
+	 */
 
 	if ((Last != (u8)TRUE) && (SecurePtr->BlockNum != 0U) &&
 	((SecurePtr->DmaFlags & XPLMI_PMCDMA_0) != XPLMI_PMCDMA_0)) {
@@ -778,9 +782,7 @@ int XLoader_SetSecureState(void)
 	volatile u32 AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
 	volatile u32 SHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT;
 
-	/*
-	 * Checks for secure state for authentication
-	 */
+	/* Checks for secure state for authentication */
 	Status = XLoader_CheckSecureStateAuth(&AHWRoT);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -796,17 +798,13 @@ int XLoader_SetSecureState(void)
 		goto END;
 	}
 
-	/*
-	 * Checks for secure state for encryption.
-	 */
+	/** Check secure state for encryption. */
 	ReadReg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
 		XLOADER_EFUSE_SEC_DEC_MASK;
 	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
 		XLOADER_EFUSE_SEC_DEC_MASK;
 	if ((ReadReg != 0x0U) || (ReadRegTmp != 0x0U)) {
-		/*
-		 * One or more DEC_ONLY efuse bits are programmed
-		 */
+		/* Program one or more DEC_ONLY efuse bits */
 		SHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT;
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Encryption):"
 			" Symmetric HWRoT\r\n");
@@ -815,9 +813,7 @@ int XLoader_SetSecureState(void)
 		XSECURE_TEMPORAL_IMPL(PlmEncStatus, PlmEncStatusTmp,
 		XilPdi_GetPlmKeySrc);
 		if ((PlmEncStatus != 0x0U) || (PlmEncStatusTmp != 0x0U)) {
-			/*
-			 * PLM is encrypted
-			 */
+			/* PLM is encrypted */
 			SHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT;
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Encryption):"
 			" Emulated Symmetric HWRoT\r\n");

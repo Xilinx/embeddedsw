@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 * 1.07  ma    01/17/2022 Enable SLVERR for CFU_APB registers
 * 1.08  ma    07/27/2022 Added support for CFrame data clear check which is
 *                        required during PL secure lockdown
+* 1.09  ng    11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -243,35 +245,35 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 	XPLMI_EXPORT_CMD(XLOADER_CFRAME_DATACLEAR_CHECK_CMD_ID, XPLMI_MODULE_LOADER_ID,
 			XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 
-	/* Check if the block type is valid */
+	/** Check if the block type is valid */
 	if (BlockType >= CFRAME_MAX_BLOCK_TYPE_COUNT) {
 		Status = (int)XLOADER_INVALID_BLOCKTYPE;
 		goto END;
 	}
 
-	/* Initialize Cframe driver */
+	/** Initialize Cframe driver */
 	Status = XLoader_CframeInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Enable CRAM Self Check */
+	/** Enable CRAM Self Check */
 	CframeData.Word0 = CFRAME_BCAST_REG_TESTMODE_CRAM_SELF_CHECK_MASK;
 	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_TESTMODE_OFFSET,
 			XCFRAME_FRAME_BCAST, &CframeData);
 
-	/* Reset CRC */
+	/** Reset CRC */
 	XCframe_WriteCmd(&XLoader_CframeIns, XCFRAME_FRAME_BCAST, XCFRAME_CMD_REG_RCRC);
 
-	/* Set Frame Address Register with the Block type */
+	/** Set Frame Address Register with the Block type */
 	CframeData.Word0 = BlockType << CFRAME_BCAST_REG_FAR_BLOCKTYPE_SHIFT;
 	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_FAR_OFFSET,
 			XCFRAME_FRAME_BCAST, &CframeData);
 
-	/* RDALL */
+	/** Send RDALL command */
 	XCframe_WriteCmd(&XLoader_CframeIns, XCFRAME_FRAME_BCAST, XCFRAME_CMD_REG_RDALL);
 
-	/* Check if Cframe is busy */
+	/** Check if Cframe is busy */
 	Status = XPlmi_UtilPoll(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK,
 			XPLMI_ZERO, CFRAME_CRC_POLL_TIMEOUT);
 	if (Status != XST_SUCCESS) {
@@ -280,7 +282,7 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 	}
 
 	for (RowRange = 0; RowRange < MaxRowRange; RowRange++) {
-		/* Check CRC */
+		/** Check CRC */
 		XCframe_ReadReg(&XLoader_CframeIns, XCFRAME_CRC_OFFSET, RowRange, (u32 *)&CframeData);
 		if (CframeData.Word0 != XPLMI_ZERO) {
 			Status = (int)XLOADER_CFRAME_CRC_CHECK_FAILED;
@@ -288,7 +290,7 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 		}
 	}
 
-	/* Clear CRAM Self Check */
+	/** Clear CRAM Self Check */
 	CframeData.Word0 = XPLMI_ZERO;
 	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_TESTMODE_OFFSET,
 			XCFRAME_FRAME_BCAST, &CframeData);

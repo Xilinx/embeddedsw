@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xloader_plat.h
+* @file versal_net/xloader_plat.h
 * @addtogroup xloader_apis XilLoader versal_net specific APIs
 *
 * <pre>
@@ -19,11 +20,12 @@
 *       bm   07/18/2022 Shutdown modules gracefully during update
 *       dc   07/20/2022 Added support for data measurement.
 *       har  08/29/2022 Updated secure chunk size from 16K to 32K
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *
 * @note
-* @endcond
+*
 *
 ******************************************************************************/
 

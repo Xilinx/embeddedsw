@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xloader_plat_secure.c
+* @file versal_net/xloader_plat_secure.c
 *
 * This file contains the versal_net specific secure code related to PDI image
 * loading.
@@ -21,6 +22,7 @@
 *       dc   07/12/2022 Added Device state change support
 *       kpt  07/05/2022 Added XLoader_RsaPssSignVeirfyKati
 * 1.01  har  11/17/2022 Added XLoader_CheckSecureStateAuth
+*       ng   11/23/2022 Fixed doxygen file name error
 *
 * </pre>
 *

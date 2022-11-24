@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xloader_plat_secure.h
+* @file versal/xloader_plat_secure.h
 * @addtogroup xloader_apis XilLoader Versal specific APIs
 *
 * <pre>
@@ -19,6 +20,7 @@
 *                       applicable only for Versalnet
 *       kpt  07/24/2022 Added XLoader_RsaKat
 * 1.01  har  11/17/2022 Added XLoader_CheckSecureStateAuth
+*       ng   11/23/2022 Fixed doxygen file name error
 *
 * </pre>
 *

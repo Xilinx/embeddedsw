@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xloader_plat.h
+* @file versal/xloader_plat.h
 * @addtogroup xloader_plat_apis XilLoader Versal specific APIs
 *
 * <pre>
@@ -16,6 +17,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

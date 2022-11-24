@@ -142,6 +142,7 @@
 *       ng   18/08/2022 Modified DelayedHandoffCpus condition to handle all possible values
 * 1.07  sk   11/22/2022 Added Subsystems ValidHeader member variable init to
 *                       XLoader_Init function to handle in-place update scenerio
+*       ng   11/23/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -252,13 +253,13 @@ int XLoader_Init(void)
 {
 	volatile int Status = XST_FAILURE;
 
-	/* Initialize the loader commands */
+	/** Initialize the loader commands */
 	XLoader_CmdsInit();
 
 	/* Initialize SubsystemPdiIns ValidHeader variable */
 	SubsystemPdiIns.ValidHeader = (u8)TRUE;
 
-	/* Initialize the loader interrupts */
+	/** Initialize the loader interrupts */
 	Status = XLoader_IntrInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -271,18 +272,18 @@ int XLoader_Init(void)
 	}
 #endif
 
-	/* Setting the secure state of boot in registers and global variables */
+	/** Set the secure state of boot in registers and global variables */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SetSecureState);
 
 #ifndef PLM_SECURE_EXCLUDE
-	/* Adding task to the scheduler to handle Authenticated JTAG message */
+	/** Add task to the scheduler to handle Authenticated JTAG message */
 	Status = XLoader_AddAuthJtagToScheduler();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/*
-	 * Adding task to the scheduler to check DAP status
+	/**
+	 * Add DAP status check task to the scheduler
 	 * Applicable only for VersalNet
 	 */
 	Status = XLoader_AddDeviceStateChangeToScheduler();
@@ -319,12 +320,12 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	const char *RawString = "";
 	const PdiSrcMap PdiSourceMap[] = XLOADER_GET_PDISRC_INFO();
 
-	/*
+	/**
 	 * Mark PDI loading is started.
 	 */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_STARTED);
 
-	/*
+	/**
 	 * Store address of the structure in PMC_GLOBAL.GLOBAL_GEN_STORAGE4.
 	 */
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE4,
@@ -334,6 +335,9 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		goto END1;
 	}
 
+	/**
+	 * Read the PDI source.
+	*/
 	PdiPtr->PdiIndex = PdiSourceMap[DeviceFlags].Index;
 	if (PdiPtr->PdiIndex == XLOADER_SD_INDEX) {
 		if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
@@ -369,8 +373,10 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	}
 	XPlmi_Printf(DEBUG_GENERAL, "Loading PDI from %s%s\n\r",
 		PdiSourceMap[DeviceFlags].Name, RawString);
+
 	/*
-	 * Update PDI Ptr with source and address
+	 * Update the PDI instance with the PDI device source and the PDI address
+	 * received
 	 */
 	PdiPtr->PdiSrc = PdiSrc;
 	PdiPtr->SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
@@ -388,6 +394,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		}
 	}
 
+	/** Get the device copy function for the given boot mode. */
 	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[PdiPtr->PdiIndex].Copy;
 
 	Status = XST_FAILURE;
@@ -436,23 +443,25 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 #endif
 
 	SecureParams.PdiPtr = PdiPtr;
-	/* Read Boot header */
+	/** Read Boot header */
 	XilPdi_ReadBootHdr(&PdiPtr->MetaHdr.BootHdrPtr);
 	XPlmi_Printf(DEBUG_INFO, "Boot Header Attributes: 0x%x\n\r",
 		PdiPtr->MetaHdr.BootHdrPtr->ImgAttrb);
 
-	/*
+	/**
 	 * Read meta header from PDI source
 	 */
 	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) ||
 			(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER)) {
-		/*
-		 * Print FW Rsvd fields Details
-		 */
+		/* Print FW Rsvd fields Details */
 		XPlmi_Printf(DEBUG_INFO, "Meta Header Offset: 0x%x\n\r",
 			PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst);
 		PdiPtr->ImageNum = 1U;
 		PdiPtr->PrtnNum = 1U;
+		/**
+		 * Update the flash offset address in PDI instance if the boot mode is
+		 * QSPI, OSPI or SD_RAW.
+		*/
 		if ((PdiPtr->PdiIndex == XLOADER_QSPI_INDEX) ||
 			(PdiPtr->PdiIndex == XLOADER_OSPI_INDEX) ||
 			(PdiPtr->PdiIndex == XLOADER_SD_RAW_INDEX)) {
@@ -460,6 +469,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 			PdiPtr->MetaHdr.FlashOfstAddr = PdiAddr + \
 				((u64)RegVal * XLOADER_IMAGE_SEARCH_OFFSET);
 #ifdef XLOADER_QSPI
+			/**
+			 * - If boot mode is QSPI, then get the QSPI bus width.
+			*/
 			if (PdiPtr->PdiIndex == XLOADER_QSPI_INDEX) {
 				Status = XLoader_QspiGetBusWidth(
 					PdiPtr->MetaHdr.FlashOfstAddr);
@@ -491,20 +503,20 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		}
 	}
 
-	/* Read image header */
+	/** Read image header table from Meta Header */
 	Status = XilPdi_ReadImgHdrTbl(&PdiPtr->MetaHdr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMGHDR_TBL, Status);
 		goto END;
 	}
 
-	/*
+	/**
 	 * Check the validity of Img Hdr Table fields
 	 */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTemp,
 			XilPdi_ValidateImgHdrTbl, &(PdiPtr->MetaHdr.ImgHdrTbl));
 
-	/*
+	/**
 	 * Update the PDI ID in the RTC area of PMC RAM
 	 */
 	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, PdiPtr->MetaHdr.ImgHdrTbl.PdiId);
@@ -553,7 +565,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	}
 
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		/* Update KEK red key availability status */
+		/**
+		 * Update KEK red key availability status if PLM is encrypted with
+		 * Black key
+		 */
 		XLoader_UpdateKekSrc(PdiPtr);
 	}
 	else {
@@ -563,6 +578,10 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		XLoader_UpdateKatStatus(&SecureParams, 0U);
 	}
 
+	/**
+	 * Read Image Header Table to know if authentication is enabled for
+	 * Meta header
+	 */
 	SecureParams.IsAuthenticated =
 		XilPdi_IsAuthEnabled(&PdiPtr->MetaHdr.ImgHdrTbl);
 	SecureTempParams->IsAuthenticated =
@@ -591,7 +610,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		goto END;
 	}
 
-	/* Validates if authentication/encryption is compulsory */
+	/**
+	 * Validate if authentication/encryption is compulsory
+	 */
 	Status = XST_FAILURE;
 	Status = XLoader_SecureValidations(&SecureParams);
 	if (Status != XST_SUCCESS) {
@@ -599,7 +620,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		goto END;
 	}
 
-	/* Authentication of IHT */
+	/**
+	 * Authenticate Image Header Table
+	 */
 	if ((SecureParams.IsAuthenticated == (u8)TRUE) ||
 		(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ImgHdrTblAuth,
@@ -616,7 +639,9 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	}
 #endif
 
-	/* Perform IDCODE and Extended IDCODE checks */
+	/**
+	 * Perform IDCODE and Extended IDCODE checks
+	 */
 	if(XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) {
 		Status = XLoader_IdCodeCheck(&(PdiPtr->MetaHdr.ImgHdrTbl));
 		if (XST_SUCCESS != Status) {
@@ -627,7 +652,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		}
 	}
 
-	/*
+	/**
 	 * Read and verify image headers and partition headers
 	 */
 	if (SecureParams.SecureEn != (u8)TRUE) {
@@ -714,7 +739,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u8 PrtnNum;
 	u8 PrtnIndex;
 
-	/*
+	/**
 	 * From the meta header present in PDI pointer, read the subsystem
 	 * image details and load, start all the images
 	 *
@@ -798,7 +823,7 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		(void)XPlmi_ErrorTaskHandler(NULL);
 	}
 
-	/* Delay Handoff starts here */
+	/** Execute Delay Handoff after all images are loaded. */
 	for (Index = 0U; Index < NoOfDelayedHandoffCpus; ++Index) {
 		ImageNum = DelayHandoffImageNum[Index];
 		PrtnNum = DelayHandoffPrtnNum[Index];
@@ -1016,7 +1041,9 @@ XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID)
 	XLoader_ImageInfo *ImageInfoTblPtr = (XLoader_ImageInfo *)
 		XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
 
-	/* Check for a existing valid image entry matching given ImgID */
+	/**
+	 * Check for a existing valid image entry matching given ImgID
+	 */
 	for (Index = 0U; Index < ImageInfoTbl->Count; Index++) {
 		if (ImageInfoTblPtr[Index].ImgID == ImgID) {
 			ImageEntry = &ImageInfoTblPtr[Index];
@@ -1060,6 +1087,10 @@ static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 
 	if ((ImageInfo->UID != XLOADER_INVALID_UID) &&
 		(XLoader_IsDFxApplicable(NodeId) == (u8)TRUE)) {
+		/**
+		 * Check if there is a valid image Entry which is matching
+		 * with the ImgID
+		 */
 		Status = XLoader_InvalidateChildImgInfo(ImageInfo->ImgID,
 				&ChangeCount);
 		if (Status != XST_SUCCESS) {
@@ -1080,6 +1111,9 @@ static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 		ImageInfoTbl->Count++;
 	}
 	ChangeCount++;
+	/**
+	 * Store the Image Info if the provided Image is valid
+	 */
 	Status = Xil_SMemCpy(ImageEntry, sizeof(XLoader_ImageInfo), ImageInfo,
 			sizeof(XLoader_ImageInfo), sizeof(XLoader_ImageInfo));
 	if (Status != XST_SUCCESS) {
@@ -1118,11 +1152,18 @@ int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
 	u32 SrcAddr = XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR;
 	XLoader_ImageInfoTbl *ImageInfoTbl = XLoader_GetImageInfoTbl();
 
+	/**
+	 * Validate the available length of ImageInfoTable is in the range of
+	 * Maximum buffer size available
+	 */
 	if (ImageInfoTbl->Count > MaxLen) {
 		Status = (int)XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE;
 		goto END;
 	}
 
+	/**
+	 * Copy the ImageInfoTable for the given length of table
+	*/
 	Len = ImageInfoTbl->Count * sizeof(XLoader_ImageInfo);
 	Status = XPlmi_DmaXfr((u64)SrcAddr, DestAddr, (Len >> XPLMI_WORD_LEN_SHIFT),
 		XPLMI_PMCDMA_0);
@@ -1157,6 +1198,10 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 	u32 ParentImgID = XLOADER_INVALID_IMG_ID;
 	u32 NodeId = NODESUBCLASS(ImageInfo->ImgID);
 
+	/**
+	 * Validate both the Image ID and UID are Non-Zero and perform the
+	 * compatibility check
+	*/
 	if ((ImageInfo->ImgID != XLOADER_INVALID_IMG_ID) &&
 		(ImageInfo->UID != XLOADER_INVALID_UID) &&
 		(XLoader_IsDFxApplicable(NodeId) == (u8)TRUE)) {
@@ -1169,6 +1214,9 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 		}
 
 		if (ImageInfo->PUID != XLOADER_INVALID_UID) {
+			/**
+			 * Query the parent Image ID for compatibility check using XilPM API
+			 */
 			Status = XPm_Query((u32)XPM_QID_PLD_GET_PARENT,
 				ImageInfo->ImgID, 0U, 0U, &ParentImgID);
 			if (Status != XST_SUCCESS) {
@@ -1183,6 +1231,10 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 				goto END;
 			}
 
+			/**
+			 * Get the ImageEntry stored in the ImageInfoTable using
+			 * parent Image ID
+			*/
 			ParentImageInfo = XLoader_GetImageInfoEntry(ParentImgID);
 			if (ParentImageInfo == NULL) {
 				Status = XPlmi_UpdateStatus(
@@ -1190,6 +1242,9 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 				goto END;
 			}
 
+			/**
+			 * Validate the Parent Image UID with the current Image PUID
+			*/
 			if (ParentImageInfo->UID != ImageInfo->PUID) {
 				Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE, 0);
@@ -1329,7 +1384,7 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 	int Index;
 	u64 PdiAddr;
 
-	/*
+	/**
 	 * Scan through PdiList for the given ImageId and restart image from
 	 * that respective PDI if ImageId is found
 	 */
@@ -1368,9 +1423,9 @@ END1:
 		}
 	}
 
-	/*
+	/**
 	 * Load image from BootPdi if the image is not found or loading is
-	 * unsuccessful in the above PdiList
+	 * unsuccessful from the PdiList
 	 */
 	PdiPtr = BootPdiPtr;
 	XPlmi_Printf(DEBUG_GENERAL, "Loading from BootPdi\n\r");
@@ -1506,6 +1561,10 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	u8 IsVC1902Es1; /**< Flag to indicate IsVC1902-ES1 device */
 	u8 IsExtIdCodeZero; /**< Flag to indicate Extended IdCode is valid */
 
+	/**
+	 * Read IdCode and extended Id Code from the image header table and
+	 * from PMC_TAP register
+	*/
 	IdCodeIHT = ImgHdrTbl->Idcode;
 	IdCodeRd = XPlmi_In32(PMC_TAP_IDCODE);
 	ExtIdCodeIHT = ImgHdrTbl->ExtIdCode &
@@ -1513,7 +1572,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	ExtIdCodeRd = Xil_In32(EFUSE_CACHE_IP_DISABLE_0)
 			& EFUSE_CACHE_IP_DISABLE_0_EID_MASK;
 
-	/* Determine and fetch the Extended IDCODE (out of two) for checks */
+	/** Determine and fetch the Extended IDCODE (out of two) for checks */
 	if (0U == ExtIdCodeRd) {
 		IsExtIdCodeZero = (u8)TRUE;
 	}
@@ -1533,7 +1592,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 		}
 	}
 
-	/* Check if VC1902 ES1 */
+	/** Check if the IdCode read is VC1902 ES1 */
 	if ((IdCodeRd & PMC_TAP_IDCODE_SIREV_DVCD_MASK) ==
 			PMC_TAP_IDCODE_ES1_VC1902) {
 		IsVC1902Es1 = (u8)TRUE;
@@ -1542,7 +1601,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 		IsVC1902Es1 = (u8)FALSE;
 	}
 
-	/* Check if a subset of checks to be bypassed */
+	/** Check if a subset of checks to be bypassed */
 	if (0x1U == (ImgHdrTbl->Attr & XIH_IHT_ATTR_BYPS_MASK)) {
 		BypassChkIHT = (u8)TRUE;
 	}
@@ -1563,7 +1622,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	 *  --------------------------------------------------------------------
 	 */
 
-	/*
+	/**
 	 * Error out for the invalid combination of Extended IDCODE - Device.
 	 * Assumption is that only VC1902-ES1 device can have Extended IDCODE value 0
 	 */

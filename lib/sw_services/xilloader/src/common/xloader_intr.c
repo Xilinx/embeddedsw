@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +40,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/18/2022 Shutdown modules gracefully during update
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
+* 1.08  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -91,7 +93,7 @@ int XLoader_IntrInit(void)
 {
 	int Status = XST_FAILURE;
 
-	/*
+	/**
 	 * Register the SBI RDY interrupt to enable the PDI loading from
 	 * SBI interface.
 	 */
@@ -133,7 +135,7 @@ static int XLoader_SbiLoadPdi(void *Data)
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
-	/*
+	/**
 	 * Disable the SBI RDY interrupt so that PDI load does not
 	 * interrupt itself
 	 */
@@ -203,7 +205,7 @@ END1:
  *****************************************************************************/
 void XLoader_ClearIntrSbiDataRdy(void)
 {
-	/* Clear the SBI interrupt */
+	/** Clear the SBI interrupt */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS,
 		SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
 		SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK);
@@ -211,7 +213,7 @@ void XLoader_ClearIntrSbiDataRdy(void)
 		SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
 		SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 
-	/* Clear and Enable GIC interrupt */
+	/** Clear and Enable GIC interrupt */
 	XPlmi_GicIntrClearStatus(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 	XPlmi_GicIntrEnable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 }

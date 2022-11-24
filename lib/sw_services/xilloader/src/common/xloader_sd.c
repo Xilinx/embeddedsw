@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +42,7 @@
 * 1.07  skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
 *       skg  06/20/2022 Fixed MISRA C Rule 7.4 violation
 *       bm   07/06/2022 Refactor versal and versal_net code
+* 1.08  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -143,7 +145,7 @@ END:
 static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 {
 	u8 DrvNum;
-	/*
+	/**
 	 * If design has both SD0 and SD1, select drive number based on bootmode
 	 * If design has ONLY SD0 or ONLY SD1, drive number should be "0"
 	 */
@@ -153,7 +155,7 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 		DrvNum = XLOADER_SD_DRV_NUM_0;
 	}
 	else {
-		/*
+		/**
 		 * For XLOADER_SD1_BOOT_MODE or XLOADER_SD1_LS_BOOT_MODE
 		 * or XLOADER_EMMC_BOOT_MODE
 		 */
@@ -215,7 +217,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	SdCdnVal = XPlmi_In32(SdCdnReg);
 	XPlmi_Out32(SdCdnReg, PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
 
-	/*
+	/**
 	 * Filesystem boot modes require the filename extension as well as
 	 * the logical drive in which the secondary pdi file is present.
 	 * To meet these requirements and to reuse the same code for primary
@@ -233,8 +235,8 @@ int XLoader_SdInit(u32 DeviceFlags)
 	DeviceFlags >>= XLOADER_LOGICAL_DRV_SHIFT;
 	DrvNum += (u8)(DeviceFlags & XLOADER_LOGICAL_DRV_MASK);
 
-	/* Set logical drive number */
-	/* Register volume work area, initialize device */
+	/** Set logical drive number */
+	/** Register volume work area, initialize device */
 	BootFile[0U] = (char)DrvNum + 48;
 	BootFile[1U] = ':';
 	BootFile[2U] = '/';
@@ -249,7 +251,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Create boot image name
 	 */
 	Status = XLoader_MakeSdFileName(MultiBootOffset);

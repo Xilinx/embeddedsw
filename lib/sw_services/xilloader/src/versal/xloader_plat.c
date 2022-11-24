@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xloader_plat.c
+* @file versal/xloader_plat.c
 *
 * This file contains the versal specific code related to PDI image loading.
 *
@@ -20,6 +21,7 @@
 *       bm   07/21/2022 Retain critical data structures after In-Place PLM Update
 *       is   09/12/2022 Remove PM_CAP_SECURE capability when requesting PSM_PROC,
 *                       TCM memory banks
+* 1.01  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -162,7 +164,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
 
-	/* Handoff to the cpus */
+	/** Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
 		CpuId = PdiPtr->HandoffParam[Index].CpuSettings &
 			XIH_PH_ATTRB_DSTN_CPU_MASK;
@@ -173,6 +175,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		VInitHi = PdiPtr->HandoffParam[Index].CpuSettings &
 				XIH_PH_ATTRB_HIVEC_MASK;
 		Status = XST_FAILURE;
+		/** Wake up each processor */
 		switch (CpuId)
 		{
 			case XIH_PH_ATTRB_DSTN_CPU_A72_0:
@@ -233,9 +236,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	Status = XST_SUCCESS;
 
 END:
-	/*
-	 * Make Number of handoff CPUs to zero
-	 */
+	/* Make Number of handoff CPUs to zero */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
 	return Status;
 }
@@ -261,6 +262,9 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 
 	PrtnAttrbs = PrtnHdr->PrtnAttrb;
 
+	/**
+	 * Read partition header and deduce entry point and partition flags.
+	 */
 	PrtnFlags =
 		(((PrtnAttrbs & XIH_PH_ATTRB_A72_EXEC_ST_MASK)
 				>> XIH_ATTRB_A72_EXEC_ST_SHIFT_DIFF) |
@@ -272,7 +276,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF));
 
 	PrtnAttrbs &= XIH_PH_ATTRB_DSTN_CPU_MASK;
-	/* Update CPU number based on destination CPU */
+	/** Update CPU number based on destination CPU */
 	if (PrtnAttrbs == XIH_PH_ATTRB_DSTN_CPU_A72_0) {
 		PrtnFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
 	}
@@ -351,7 +355,7 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 		default:
 			break;
 	}
-	/* Set Aarch state 64 Vs 32 bit and vection location for 32 bit */
+	/** Set Aarch state 64 Vs 32 bit and vection location for 32 bit */
 	if (ExecState == XIH_PH_ATTRB_A72_EXEC_ST_AA64) {
 		RegVal |= ExecMask;
 	}
@@ -364,7 +368,7 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 			RegVal &= ~(VInitHiMask);
 		}
 	}
-	/* Update the APU configuration */
+	/** Update the APU configuration */
 	XPlmi_Out32(XLOADER_FPD_APU_CONFIG_0, RegVal);
 }
 
@@ -383,7 +387,7 @@ void XLoader_SetJtagTapToReset(void)
 	u32 Flag = 0U;
 	u32 Val = 0U;
 
-	/*
+	/**
 	 * Based on Vivado property, check whether to apply MJTAG workaround
 	 * or not. By default vivado property disables MJTAG workaround.
 	 */
@@ -393,23 +397,23 @@ void XLoader_SetJtagTapToReset(void)
 		goto END;
 	}
 
-	/* Skip applying MJTAG workaround if already applied */
+	/** Skip applying MJTAG workaround if already applied */
 	Flag = ((Val & XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_MASK) >>
 			XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_SHIFT);
 	if (Flag != 0U) {
 		goto END;
 	}
 
-	/* Check if End of PL Startup is asserted or not */
+	/** Check if End of PL Startup is asserted or not */
 	Flag = ((XPlmi_In32(CFU_APB_CFU_FGCR) & CFU_APB_CFU_FGCR_EOS_MASK));
 	if (Flag != CFU_APB_CFU_FGCR_EOS_MASK) {
 		goto END;
 	}
 
-	/* Enable MJTAG */
+	/** Enable MJTAG */
 	XPlmi_Out32(PMC_TAP_JTAG_TEST, 1U);
 
-	/* Toggle MJTAG ISO to generate clock pulses, default 10 clock pulses */
+	/** Toggle MJTAG ISO to generate clock pulses, default 10 clock pulses */
 	for (Index = 0U; Index < XPLMI_MJTAG_WA_GASKET_TOGGLE_CNT; Index++) {
 		XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
 				PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK,
@@ -432,7 +436,7 @@ void XLoader_SetJtagTapToReset(void)
 		usleep(XPLMI_MJTAG_WA_DELAY_USED_IN_GASKET_TOGGLE);
 	}
 
-	/* Disable MJTAG */
+	/** Disable MJTAG */
 	XPlmi_Out32(PMC_TAP_JTAG_TEST, 0U);
 
 	XPlmi_UtilRMW(XPLMI_RTCFG_PLM_MJTAG_WA,
@@ -460,6 +464,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 	int Status = XST_FAILURE;
 	(void)PdiPtr;
 
+	/** Get the PDI source address for the secondary boot device. */
 	switch(SecBootMode)
 	{
 		case XIH_IHT_ATTR_SBD_SD_0:
@@ -929,7 +934,7 @@ static int XLoader_DumpDdrmcRegisters(void)
 
 	for (DevId = PM_DEV_DDRMC_0; DevId <= PM_DEV_DDRMC_3; DevId++) {
 		DevStatus.Status = XPM_DEVSTATE_UNUSED;
-		/* Get DDRMC UB Base address */
+		/** Get DDRMC UB Base address */
 		Status = XPm_GetDeviceStatus(PM_SUBSYS_PMC, DevId, &DevStatus);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -948,30 +953,30 @@ static int XLoader_DumpDdrmcRegisters(void)
 		XPlmi_Printf(DEBUG_GENERAL,
 				"DDRMC_%u (UB 0x%08x)\n\r", Ub, BaseAddr);
 
-		/* Read PCSR Control */
+		/** Read PCSR Control */
 		PcsrCtrl = XPlmi_In32(BaseAddr + DDRMC_PCSR_CONTROL_OFFSET);
 
-		/* Skip DDRMC dump if PComplete is zero */
+		/** Skip DDRMC dump if PComplete is zero */
 		if (0U == (PcsrCtrl & DDRMC_PCSR_CONTROL_PCOMPLETE_MASK)) {
 			XPlmi_Printf(DEBUG_GENERAL, "PComplete not set\n\r");
 			++Ub;
 			continue;
 		}
 
-		/* Read PCSR Status */
+		/** Read PCSR Status */
 		PcsrStatus = XPlmi_In32(BaseAddr + DDRMC_PCSR_STATUS_OFFSET);
-		/* Read Calibration Error */
+		/** Read Calibration Error */
 		CalibErr = XPlmi_In32(BaseAddr + DDRMC_OFFSET_CALIB_ERR);
-		/* Read Error Nibble 1 */
+		/** Read Error Nibble 1 */
 		CalibErrNibble1 = XPlmi_In32(BaseAddr +
 				DDRMC_OFFSET_CALIB_ERR_NIBBLE_1);
-		/* Read Error Nibble 2 */
+		/** Read Error Nibble 2 */
 		CalibErrNibble2 = XPlmi_In32(BaseAddr +
 				DDRMC_OFFSET_CALIB_ERR_NIBBLE_2);
-		/* Read Error Nibble 3 */
+		/** Read Error Nibble 3 */
 		CalibErrNibble3 = XPlmi_In32(BaseAddr +
 				DDRMC_OFFSET_CALIB_ERR_NIBBLE_3);
-		/* Read calibration stage */
+		/** Read calibration stage */
 		CalibStage = XPlmi_In32(BaseAddr +
 				DDRMC_OFFSET_CALIB_STAGE_PTR);
 
@@ -1020,7 +1025,7 @@ u8 XLoader_SkipMJtagWorkAround(XilPdi *PdiPtr)
 	if (PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID ==
 			PM_MISC_MJTAG_WA_IMG) {
 		RstReason = XPlmi_In32(PMC_GLOBAL_PERS_GEN_STORAGE2);
-		/*
+		/**
 		 * Skip MJTAG WA2 partitions if boot mode is JTAG and
 		 * Reset Reason is not external POR
 		 */

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,6 +64,7 @@
 *       ma   07/27/2022 Added support for CFrame data clear check which is
 *                       required during PL secure lockdown
 *       skg  10/17/2022 Added Null to invalid command handler of xilloader cmd module
+* 1.09  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -181,6 +183,9 @@ static XPlmi_Module XPlmi_Loader;
  *****************************************************************************/
 static int XLoader_Features(XPlmi_Cmd *Cmd)
 {
+	/**
+	 * Verify if Command ID received is valid or not.
+	*/
 	if (Cmd->Payload[XLOADER_CMD_FEATURES_CMD_ID_INDEX] <
 		XPlmi_Loader.CmdCnt) {
 		Cmd->Response[XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED] = XLOADER_SUCCESS;
@@ -255,13 +260,13 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
-	/* Store the command fields in resume data */
+	/** Read the command payload fields to get PDI source and address */
 	PdiSrc = (PdiSrc_t)(Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDISRC_INDEX]);
 	PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_HIGH_INDEX];
 	PdiAddr = ((u64)(Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_LOW_INDEX]) |
 			(PdiAddr << 32U));
 
-	/* Input parameter validation */
+	/** Validate PDI soruce */
 	if (!((PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
 		(PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
 		(PdiSrc == XLOADER_PDI_SRC_OSPI) ||
@@ -275,6 +280,8 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 	PdiPtr->IpiMask = Cmd->IpiMask;
+
+	/** Load Partial PDI */
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */
@@ -317,6 +324,9 @@ static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
+	/**
+	 * Get the matching valid Image Entry stored in the ImageInfoTable.
+	 */
 	ImageInfo = XLoader_GetImageInfoEntry(
 		Cmd->Payload[XLOADER_CMD_GET_IMG_INFO_IMGID_INDEX]);
 	if (ImageInfo == NULL) {
@@ -493,6 +503,14 @@ static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
 			XLOADER_CMD_MULTIBOOT_PDISRC_SHIFT);
 	ImageLocation = Cmd->Payload[XLOADER_CMD_MULTIBOOT_IMG_LOCATION_INDEX];
 
+	/**
+	 * In case of SD/eMMC File System, use the Image location as the
+	 * file number which will get appended to the BOOT.BIN file name.
+	 *
+	 * In remaining cases where raw mode is present, use the image location
+	 * as the offset of the pdi present in the device. Divide the image
+	 * location by 32K and write the value into the multiboot register.
+	 */
 	if (XLoader_IsPdiSrcSD(PdiSrc) == (u8)TRUE) {
 		if (FlashType == XLOADER_FLASHTYPE_RAW) {
 			RawBootVal = XLOADER_SD_RAWBOOT_VAL;
@@ -585,6 +603,10 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 	u8 Index;
 
+	/**
+	 * Add the given PDI address to the list or table of PDI addresses
+	 * that are maintained in PLM.
+	 */
 	if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_FULL, 0);
 		goto END;
@@ -639,7 +661,7 @@ static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 
 	PdiAddr = ((u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX]) |
 			(PdiAddr << 32U);
-	/* If PdiAddr matches with any entry in the List, remove it */
+	/** If PdiAddr matches with any entry in the List, remove it */
 	for (Index = 0U; Index < PdiList->Count; Index++) {
 		if (PdiList->PdiAddr[Index] == PdiAddr) {
 			for (ShiftIdx = Index; ShiftIdx < (PdiList->Count - 1U);
@@ -752,7 +774,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/* Check if Metaheader offset is pointing to a valid location */
+	/** Check if Metaheader offset is pointing to a valid location */
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
 		MetaHdrOfst = SrcAddr + (u64)XPlmi_In64(SrcAddr +
 				XIH_BH_META_HDR_OFFSET);
@@ -772,7 +794,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	}
 
 	PdiPtr->IpiMask = Cmd->IpiMask;
-	/* Extract Metaheader using PdiInit */
+	/** Extract Metaheader using PdiInit */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
 			XLOADER_PDI_SRC_DDR, SrcAddr);
 
@@ -783,21 +805,21 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/* Zeroize non-exportable fields of image header table */
+	/** Zeroize non-exportable fields of image header table */
 	XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdrTbl,
 		XLOADER_IMG_HDR_TBL_EXPORT_MASK0, XIH_IHT_LEN);
-	/* Zeroize non-exportable fields of image headers */
+	/** Zeroize non-exportable fields of image headers */
 	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs; Index++) {
 		XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.ImgHdr[Index],
 			XLOADER_IMG_HDR_EXPORT_MASK0, XIH_IH_LEN);
 	}
-	/* Zeroize non-exportable fields of partition headers */
+	/** Zeroize non-exportable fields of partition headers */
 	for (Index = 0U; Index < PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns; Index++) {
 		XLoader_GetExportableBuffer((u32 *)&PdiPtr->MetaHdr.PrtnHdr[Index],
 			XLOADER_PRTN_HDR_EXPORT_MASK0, XIH_PH_LEN);
 	}
 
-	/* Copy image header table to destination address*/
+	/** Copy image header table to destination address*/
 	DataSize = XIH_IHT_LEN;
 	Status = XPlmi_DmaXfr((u64)(UINTPTR)&PdiPtr->MetaHdr.ImgHdrTbl, DestAddr,
 			 DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
@@ -806,7 +828,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	}
 	TotalDataSize += DataSize;
 	DestAddr += DataSize;
-	/* Copy image headers to destination address*/
+	/** Copy image headers to destination address*/
 	DataSize = XIH_IH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
 	Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.ImgHdr, DestAddr,
 			DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
@@ -815,7 +837,7 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	}
 	TotalDataSize += DataSize;
 	DestAddr += DataSize;
-	/* Copy partition headers to destination address*/
+	/** Copy partition headers to destination address*/
 	DataSize = XIH_PH_LEN * PdiPtr->MetaHdr.ImgHdrTbl.NoOfPrtns;
 	Status = XPlmi_DmaXfr((u64)(UINTPTR)PdiPtr->MetaHdr.PrtnHdr, DestAddr,
 			DataSize / XPLMI_WORD_LEN, XPLMI_PMCDMA_0);
@@ -861,26 +883,26 @@ static int XLoader_GetATFHandOffParams(XPlmi_Cmd *Cmd)
 	Size = Cmd->Payload[XLOADER_CMD_GET_HANDOFF_PARAM_DEST_SIZE_INDEX] &
 			XLOADER_GET_HANDOFF_PARAM_SIZE_MASK;
 
-	/* Verify destination address and the size */
+	/** Verify destination address and the size */
 	Status = XPlmi_VerifyAddrRange(DestAddr, (DestAddr + Size - 1U));
 	if (Status != XST_SUCCESS) {
 		Status = (int)XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR;
 		goto END;
 	}
 
-	/* Get ATF Handoff parameters structure address */
+	/** Get ATF Handoff parameters structure address */
 	HandoffParams = XLoader_GetATFHandoffParamsAddr();
 
 	HandoffParamsSize = XLOADER_ATF_HANDOFF_FORMAT_SIZE +
 			(HandoffParams->NumEntries * XLOADER_ATF_HANDOFF_PRTN_ENTRIES_SIZE);
 
-	/* Verify the Handoff parameters size */
+	/** Verify the Handoff parameters size */
 	if (Size < HandoffParamsSize) {
 		Status = (int)XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE;
 		goto END;
 	}
 
-	/* Write the ATF handoff parameters data to the given address */
+	/** Write the ATF handoff parameters data to the given address */
 	Status = XPlmi_MemCpy64(DestAddr, (u64)(UINTPTR)HandoffParams,
 			HandoffParamsSize);
 
@@ -915,7 +937,7 @@ static int XLoader_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
 	volatile u32 IpiRequestType = IpiReqType;
 	volatile u32 IpiRequestTypeTmp = IpiReqType;
 
-	/* Secure check for Loader IPI commands */
+	/** Secure check for Loader IPI commands */
 	if (((ModuleCmdId == XLOADER_CMD_READBACK_CMD_ID) &&
 		(ModuleCmdIdTmp == XLOADER_CMD_READBACK_CMD_ID)) ||
 		((ModuleCmdId == XLOADER_CMD_UPDATE_MULTIBOOT_CMD_ID) &&

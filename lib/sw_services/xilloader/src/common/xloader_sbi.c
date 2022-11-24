@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +34,7 @@
 * 1.05  bsv  11/08/2021 Skip SbiRecovery for SMAP and PCIe boot modes
 *       ma   01/17/2022 Enable SLVERR for SLAVE_BOOT registers
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
+* 1.07  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -79,7 +81,7 @@ int XLoader_SbiInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 
-	/* Release reset of SBI */
+	/** Release reset of SBI */
 	XPlmi_UtilRMW(CRP_RST_SBI,
 	       CRP_RST_SBI_RESET_MASK, ~CRP_RST_SBI_RESET_MASK);
 
@@ -103,14 +105,14 @@ int XLoader_SbiInit(u32 DeviceFlags)
 
 	Status = XST_SUCCESS;
 
-	/*
+	/**
 	 * Enable the SBI. This is required for
 	 * error cases and PCIe boot modes.
 	 */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
 		SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
 
-	/* Enable SLVERR */
+	/** Enable SLVERR */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 			SLAVE_BOOT_SBI_CTRL_APB_ERR_RES_MASK,
 			SLAVE_BOOT_SBI_CTRL_APB_ERR_RES_MASK);
@@ -175,7 +177,7 @@ int XLoader_SbiRecovery(void)
 		goto END;
 	}
 	SbiCtrl = XPlmi_In32(SLAVE_BOOT_SBI_CTRL);
-	/* Reset DMA1, SBI */
+	/** Reset DMA1, SBI */
 	XPlmi_Out32(CRP_RST_SBI, CRP_RST_SBI_RESET_MASK);
 	XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK,
 		      CRP_RST_PDMA_RESET1_MASK);
@@ -183,7 +185,7 @@ int XLoader_SbiRecovery(void)
 	XPlmi_Out32(CRP_RST_SBI, 0x0U);
 	XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, 0x0U);
 
-	/* Restore the interface setting */
+	/** Restore the interface setting */
 	XPlmi_Out32(SLAVE_BOOT_SBI_CTRL, SbiCtrl);
 
 END:
