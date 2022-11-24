@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_hw.h
+* @file versal_net/xplmi_hw.h
 *
 * This is the header file which contains definitions for the versal_net hardware
 * registers.
@@ -27,6 +28,7 @@
 *       bm   07/22/2022 Added compatibility check for In-Place PLM Update
 *       ma   07/25/2022 Enhancements to secure lockdown code
 * 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
+*       ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *
@@ -46,6 +48,10 @@ extern "C" {
 #include "xparameters.h"
 #include "xil_io.h"
 #include "xil_hw.h"
+
+/**@cond xplmi_internal
+ * @{
+ */
 
 /************************** Constant Definitions *****************************/
 
@@ -1294,6 +1300,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+
+/**
+ * @}
+ * @endcond
+ */
 
 #ifdef __cplusplus
 }

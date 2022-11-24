@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +42,7 @@
 *                       same priority
 *       bsv  03/11/2022 Restore race condition fix that got disturbed by
 *                       previous patch
+* 1.08  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -214,9 +216,13 @@ void XPlmi_TaskDispatchLoop(void)
 		XPlmi_SetPlmLiveStatus();
 
 		microblaze_disable_interrupts();
-		/* Priority based task handling */
+		/**
+		 * Perform Priority based task handling
+		 */
 		for (Index = 0U; Index < XPLMI_TASK_PRIORITIES; Index++) {
-			/* If no pending tasks are present, go to sleep */
+			/**
+			 * If no pending tasks are present, go to sleep
+			 */
 			if (metal_list_is_empty(&TaskQueue[Index]) != (int)FALSE) {
 				XPlmi_Printf(DEBUG_DETAILED,
 				 "No pending tasks in Priority%d Queue\n\r",
@@ -230,7 +236,9 @@ void XPlmi_TaskDispatchLoop(void)
 					(Node[Index] == &TaskQueue[Index])) {
 					Node[Index] = TaskQueue[Index].next;
 				}
-				/* Get the next task in round robin */
+				/**
+				 * - Get the next task in round robin
+				 */
 				Task = metal_container_of(Node[Index],
 					XPlmi_TaskNode, TaskNode);
 				Node[Index] = Node[Index]->next;
@@ -257,7 +265,7 @@ void XPlmi_TaskDispatchLoop(void)
 			continue;
 		}
 
-		/*
+		/**
 		 * Goto sleep when all queues are empty
 		 */
 		XPlmi_Printf(DEBUG_DETAILED,

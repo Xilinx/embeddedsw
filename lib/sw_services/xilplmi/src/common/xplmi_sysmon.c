@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
  * 1.05  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
  *       bsv  07/20/2022 Removed magic number usage
  *       bm   07/24/2022 Set PlmLiveStatus during boot time
+ * 1.07  ng   11/11/2022 Updated doxygen comments
  *
  * </pre>
  *
@@ -109,7 +111,9 @@ static void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value)
 int XPlmi_SysMonInit(void)
 {
 	int Status = XST_FAILURE;
-	/* Instance of SysMon Driver */
+	/**
+	 * Get Instance of SysMon Driver
+	 */
 	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 	XSysMonPsv_Config *ConfigPtr;
 
@@ -120,7 +124,7 @@ int XPlmi_SysMonInit(void)
 			goto END;
 		}
 
-		/*
+		/**
 		* Enable Over-temperature handling.  We need to unlock PCSR to
 		* enable SysMon interrupt.  Lock it back in after write.
 		*/
@@ -129,16 +133,22 @@ int XPlmi_SysMonInit(void)
 		XSysMonPsv_IntrEnable(SysMonInstPtr, (u32)XSYSMONPSV_IER0_OT_MASK, 0U);
 		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK, 0U);
 
-		/* Enable SLVERR for Sysmon */
+		/**
+		 * Enable SLVERR for Sysmon
+		 */
 		XPlmi_WriteSysmonCtrlReg(ConfigPtr->BaseAddress,
 				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
 
-		/* Enable SLVERR for Sysmon SAT0 */
+		/**
+		 * Enable SLVERR for Sysmon SAT0
+		 */
 		XPlmi_WriteSysmonCtrlReg((ConfigPtr->BaseAddress +
 				(u32)XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET),
 				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
 
-		/* Enable SLVERR for Sysmon SAT1 */
+		/**
+		 * Enable SLVERR for Sysmon SAT1
+		 */
 		XPlmi_WriteSysmonCtrlReg((ConfigPtr->BaseAddress +
 				(u32)XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET),
 				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
@@ -165,9 +175,8 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSec)
 	u32 Val;
 	u32 Count;
 
-	/*
-	 * If Interrupt Status Register does not indicate an over-temperature
-	 * condition, we are done.
+	/**
+	 * Check for over-temperature condition in Interrupt Status Regiser.
 	 */
 	Val = XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET);
 	if (0U == (Val & (u32)XSYSMONPSV_ISR_OT_MASK)) {
@@ -177,7 +186,9 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSec)
 	XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_PCSR_LOCK,
 		PCSR_UNLOCK_VAL);
 
-	/* Wait until over-temperature condition is resolved. */
+	/**
+	 * Wait until over-temperature condition is resolved.
+	 */
 	Count = 1000U;
 	while (0U != (Val & (u32)XSYSMONPSV_ISR_OT_MASK)) {
 		XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET,
@@ -193,9 +204,9 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSec)
 		Val = XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET);
 	}
 
-	/*
-	 * In case of boot after an OT event, wait for this additional time after OT clears
-	 * to allow the temperature across the chip to cool down
+	/**
+	 * In case of boot after an OT event, wait for this additional time after
+	 * OT clears to allow the temperature across the chip to cool down
 	 */
 	while (WaitInMSec-- > 0U) {
 		usleep(1000U);

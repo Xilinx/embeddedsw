@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xplmi_config.h
+* @file versal_net/xplmi_config.h
 *
 * This is the header file which contains versal_net PLM configuration for users.
 * All key configuration options are now made available through Vitis GUI and
@@ -24,6 +25,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       dc   07/17/2022 Added PLM_OCP configuration
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

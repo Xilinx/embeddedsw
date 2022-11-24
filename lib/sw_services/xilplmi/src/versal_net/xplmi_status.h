@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_status.h
+* @file versal_net/xplmi_status.h
 *
 * This is the header file which contains status codes for the PLM, PLMI
 * and loader in versal_net platform.
@@ -28,6 +29,7 @@
 *       bm   08/24/2022 Support Begin, Break and End commands across chunk
 *                       boundaries
 * 1.01  har  11/17/2022 Removed XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED error code
+*       ng   11/23/2022 Fixed doxygen file name error
 *
 * </pre>
 *

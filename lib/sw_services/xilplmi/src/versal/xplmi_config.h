@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xplmi_config.h
+* @file versal/xplmi_config.h
 *
 * This is the header file which contains versal PLM configuration for users.
 * All key configuration options are now made available through Vitis GUI and
@@ -44,7 +45,7 @@
 *       ssc  03/05/2022 Moved default config definitions to xparameters.h
 *       ma   05/24/2022 Added PLM_ENABLE_PLM_TO_PLM_COMM macro for SSIT
 *                       PLM to PLM communication
-*
+* 1.09  ng   11/11/2022 Fixed doxygen file name error
 * </pre>
 *
 * @note

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +44,7 @@
 * 1.06  skg  06/20/2022 Misra-C violation Rule 10.4 fixed
 *       sk   06/27/2022 Updated logic in XPlmi_SchedulerAddTask to fix task
 *                       creation error
+* 1.07  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -185,31 +187,39 @@ void XPlmi_SchedulerHandler(void *Data)
 	Sched.Tick++;
 	XPlmi_UtilRMW(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_IRQ_ACK, 0x20U);
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
-		/* Check if the task is active and has a valid Callback */
+		/**
+		 * Check if the task is active and has a valid Callback
+		 */
 		if (XPlmi_IsTaskActive(&Sched, Idx) == (u8)TRUE) {
 			Task = Sched.TaskList[Idx].Task;
-			/* Skip the task, if its already present in the queue */
+			/**
+			 * Skip the task, if its already present in the queue
+			 */
 			if (metal_list_is_empty(&Task->TaskNode) == (int)TRUE) {
 				Task->State &= (u8)(~XPLMI_SCHED_TASK_MISSED);
 				XPlmi_TaskTriggerNow(Task);
 			} else {
-				/*
+				/**
 				 * Check if a module has registered ErrorFunc for the task and
 				 * the previously scheduled task is executed or not
 				 */
 				if ((Sched.TaskList[Idx].ErrorFunc != NULL) &&
 					((Task->State & (u8)(XPLMI_SCHED_TASK_MISSED)) ==
 							(u8)0x0U)) {
-					/* Update scheduler task state with task missed flag */
+					/**
+					 * - Update scheduler task state with task missed flag
+					 */
 					Task->State |= (u8)XPLMI_SCHED_TASK_MISSED;
-					/*
-					 * Call the task specific ErrorFunc if
-					 * previously scheduled task is not executed
+					/**
+					 * - Call the task specific ErrorFunc if
+					 *   previously scheduled task is not executed
 					 */
 					Sched.TaskList[Idx].ErrorFunc(XPLMI_ERR_SCHED_TASK_MISSED);
 				}
 			}
-			/* Remove the task from scheduler if it is non-periodic*/
+			/**
+			 * Remove the task from scheduler if it is non-periodic
+			 */
 			if (Sched.TaskList[Idx].Type == XPLMI_NON_PERIODIC_TASK) {
 				Sched.TaskList[Idx].OwnerId = 0U;
 				Sched.TaskList[Idx].CustomerFunc = NULL;
@@ -274,17 +284,23 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 		}
 	}
 
-	/* Get the Next Free Task Index */
+	/**
+	 * Get the Next Free Task Index
+	 */
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
 		if (NULL == Sched.TaskList[Idx].CustomerFunc) {
-			/* Add Interval as a factor of TICK_MILLISECONDS */
+			/**
+			 * - Add Interval as a factor of TICK_MILLISECONDS
+			 */
 			Sched.TaskList[Idx].Interval = MilliSeconds / XPLMI_SCHED_TICK;
 			Sched.TaskList[Idx].OwnerId = OwnerId;
 			Sched.TaskList[Idx].CustomerFunc = CallbackFn;
 			Sched.TaskList[Idx].ErrorFunc = ErrorFunc;
 			Sched.TaskList[Idx].Type = TaskType;
 			Sched.TaskList[Idx].Data = Data;
-			/* Create a new task if task instance not found */
+			/**
+			 * - Create a new task if task instance not found
+			 */
 			if (TaskNodePresent == (u8)FALSE) {
 				Task = XPlmi_TaskCreate(Priority, CallbackFn, Data);
 			}

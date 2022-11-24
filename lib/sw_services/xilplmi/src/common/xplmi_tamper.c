@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 *                       and continue secure lockdown irrespective of the status
 *       kpt  07/21/2022 Added XPlmi_IfHaltBootTriggerSLD
 *       ma   07/25/2022 Enhancements to secure lockdown code
+* 1.01  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -91,25 +93,37 @@ void XPlmi_ProcessTamperResponse(u32 TamperResp)
 	u32 CfuRefCtrl;
 
 	if ((TamperResp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) {
-		/* Reset LpdInitialized variable */
+		/**
+		 * Reset LpdInitialized variable
+		 */
 		XPlmi_ResetLpdInitialized();
-		/* Disable interrupts to Microblaze */
+		/**
+		 * Disable interrupts to Microblaze
+		 */
 		microblaze_disable_interrupts();
-		/* Disable PMC EAM interrupts */
+		/**
+		 * Disable PMC EAM interrupts
+		 */
 		XPlmi_EmDisablePmcErrors(XPLMI_PMC_PSM_ERR1_REG_OFFSET,
 			MASK32_ALL_HIGH);
 		XPlmi_EmDisablePmcErrors(XPLMI_PMC_PSM_ERR2_REG_OFFSET,
 			MASK32_ALL_HIGH);
-		/* Reduce PL frequency by half */
+		/**
+		 * Reduce PL frequency by half
+		 */
 		CfuRefCtrl = XPlmi_In32(CRP_CFU_REF_CTRL);
 		CfuDivisor = (CfuRefCtrl & CRP_CFU_REF_CTRL_DIVISOR_MASK) *
 				CFU_REF_CTRL_DIVISOR_INCREASE;
 		CfuRefCtrl = (CfuRefCtrl & ~CRP_CFU_REF_CTRL_DIVISOR_MASK) | CfuDivisor;
 		XPlmi_Out32(CRP_CFU_REF_CTRL, CfuRefCtrl);
-		/* Set XPlmiSldInitiated to TRUE */
+		/**
+		 * Set XPlmiSldInitiated to TRUE
+		 */
 		XPlmiSldInitiated = TRUE;
 
-		/* Execute secure lockdown proc */
+		/**
+		 * Execute secure lockdown proc
+		 */
 		Status = XPlmi_ExecuteProc(XPLMI_SLD_PROC_ID);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "Secure Lockdown failed with 0x%x "

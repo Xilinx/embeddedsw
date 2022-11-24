@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +41,7 @@
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
+* 1.07  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -116,28 +118,28 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	u32 TimeLapsed = 0U;
 	u32 TimeOut = TimeOutInUs;
 
-	/*
+	/**
 	 * If timeout value is zero, max time out value is taken
 	 */
 	if (TimeOut == 0U) {
 		TimeOut = XPLMI_TIME_OUT_DEFAULT;
 	}
-	/*
+	/**
 	 * Read the Register value
 	 */
 	RegValue = XPlmi_In32(RegAddr);
-	/*
-	 * Loop while the MAsk is not set or we timeout
+	/**
+	 * Loop while the Mask is not set or we timeout
 	 */
 	while (((RegValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
-		/*
-		 * Latch up the Register value again
+		/**
+		 * - Latch up the Register value again
 		 */
 		RegValue = XPlmi_In32(RegAddr);
-		/*
-		 * Decrement the TimeOut Count
+		/**
+		 * - Decrement the TimeOut Count
 		 */
 		TimeLapsed++;
 		if ((TimeLapsed % XPLMI_MASK_PRINT_PERIOD) == 0U) {
@@ -172,28 +174,28 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	u32 TimeLapsed = 0U;
 	u32 TimeOut = TimeOutInUs;
 
-	/*
+	/**
 	 * If timeout value is zero, max time out value is taken
 	 */
 	if (TimeOut == 0U) {
 		TimeOut = XPLMI_TIME_OUT_DEFAULT;
 	}
-	/*
+	/**
 	 * Read the Register value
 	 */
 	ReadValue = XPlmi_In64(RegAddr);
-	/*
+	/**
 	 * Loop while the Mask is not set or we timeout
 	 */
 	while (((ReadValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
-		/*
-		 * Latch up the value again
+		/**
+		 * - Latch up the value again
 		 */
 		ReadValue = XPlmi_In64(RegAddr);
-		/*
-		 * Decrement the TimeOut Count
+		/**
+		 * - Decrement the TimeOut Count
 		 */
 		TimeLapsed++;
 		if ((TimeLapsed % XPLMI_MASK_PRINT_PERIOD) == 0U) {
@@ -227,23 +229,23 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
 	u32 RegValue;
 	u32 TimeOut = TimeOutInUs;
 
-	/*
+	/**
 	 * Read the Register value
 	 */
 	RegValue = XPlmi_In32(RegAddr);
 
-	/*
+	/**
 	 * Loop while the MAsk is not set or we timeout
 	 */
 	while (((RegValue & Mask) != Mask) && (TimeOut > 0U)) {
-		/*
-		 * Latch up the Register value again
+		/**
+		 * - Latch up the Register value again
 		 */
 		RegValue = XPlmi_In32(RegAddr);
 		XPlmi_SetPlmLiveStatus();
 
-		/*
-		 * Decrement the TimeOut Count
+		/**
+		 * - Decrement the TimeOut Count
 		 */
 		TimeOut--;
 	}
@@ -275,22 +277,22 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 TimeOutInUs
 	u32 ReadValue;
 	u32 TimeOut = TimeOutInUs;
 
-	/*
+	/**
 	 * Read the Register value
 	 */
 	ReadValue = lwea(Addr);
-	 /*
+	 /**
 	 * Loop while the Mask is not set or we timeout
 	 */
 	while (((ReadValue & Mask) != Mask) && (TimeOut > 0U)) {
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
-		/*
-		 * Latch up the value again
+		/**
+		 * - Latch up the value again
 		 */
 		ReadValue = lwea(Addr);
-		/*
-		 * Decrement the TimeOut Count
+		/**
+		 * - Decrement the TimeOut Count
 		 */
 		TimeOut--;
 	}

@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xplmi_error_node.h
+* @file versal_net/xplmi_error_node.h
 *
 * This is the file which contains node IDs information for versal_net error
 * events.
@@ -18,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 *       dc   07/12/2022 Added XPLMI_ERROR_DEV_STATE_CHANGE
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

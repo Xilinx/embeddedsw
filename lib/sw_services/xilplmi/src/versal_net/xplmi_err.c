@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_err_plat.c
+* @file versal_net/xplmi_err.c
 *
 * This file contains the PLMI versal_net platform specific code.
 *
@@ -19,6 +20,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       dc   07/12/2022 Added support to device state change
 *       bm   07/13/2022 Update EAM logic for In-Place PLM Update
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

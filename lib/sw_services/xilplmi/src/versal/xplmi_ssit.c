@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_ssit.c
+* @file versal/xplmi_ssit.c
 *
 * This file contains the SSIT related code and is applicable only for versal
 *
@@ -37,7 +38,8 @@
 *                       Slave SLRs after completing synchronization
 *       ma   09/17/2022 Check SlavesMask before checking for sync initiation
 *                       from Slave SLRs in XPlmi_SsitSyncEventHandler
-* 1.8   skg  10/04/2022 Added logic to handle invalid commands
+* 1.06  skg  10/04/2022 Added logic to handle invalid commands
+*       ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

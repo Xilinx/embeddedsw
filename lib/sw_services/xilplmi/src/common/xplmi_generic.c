@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,6 +80,7 @@
 *       bm   08/30/2022 Ignore strings in begin command beyond 24 characters
 *                       instead of erroring out
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
+* 1.09  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -695,7 +697,9 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 	u64 Dest = DestAddr;
 	u64 Src = SrcAddr;
 
-	/* Check if Readback Dest Addr is Overriden */
+	/**
+	 * Check if Readback Dest Addr is Overriden
+	 */
 	if ((XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) &&
 			(XPLMI_SBI_DEST_ADDR != Dest)) {
 		Dest = ReadBackPtr->DestAddr;
@@ -707,7 +711,8 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 		}
 	}
 
-	/* For NPI READ command, the source address needs to be
+	/**
+	 * For NPI READ command, the source address needs to be
 	 * 16 byte aligned. Use XPlmi_Out64 till the destination address
 	 * becomes 16 byte aligned.
 	 */
@@ -730,7 +735,8 @@ static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
 		goto END;
 	}
 
-	/* For NPI_READ command, Offset variable should
+	/**
+	 *  For NPI_READ command, Offset variable should
 	 *  be updated with the unaligned bytes.
 	 */
 	Offset = XferLen * XPLMI_WORD_LEN;
@@ -964,10 +970,17 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	XPLMI_EXPORT_CMD(XPLMI_CFI_READ_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_UNLIMITED_ARG_CNT);
 
+	/**
+	 * Read the destination interface and destination address
+	*/
 	XPlmi_GetReadbackSrcDest(SlrType, &SrcAddr, &DestAddrRead);
 	ReadLen = XPlmi_GetReadbackLen(Len);
 	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_MIN_VAL);
 
+	/**
+	 * If the destination interface is not DDR, write to the SLAVE BOOT REGISTER
+	 * to set the SBI mode correctly.
+	*/
 	if (SrcType == XPLMI_READBK_INTF_TYPE_DDR) {
 		/* Check if Readback Dest Addr is Overriden */
 		if (XPLMI_READBACK_DEF_DST_ADDR != ReadBackPtr->DestAddr) {
@@ -1009,6 +1022,7 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+	/** Set MaxOutCommands of PMC_DMA1 to 1 */
 	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_DEF_VAL);
 
 	Status = XPlmi_DmaXfr((u64)CfiPayloadSrcAddr, DestAddrRead,

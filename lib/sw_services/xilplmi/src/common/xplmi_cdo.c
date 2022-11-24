@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +52,7 @@
 *       bm   08/24/2022 Support Begin, Break and End commands across chunk
 *                       boundaries
 * 1.07  sk   10/19/2022 Fix security review comments
+*       ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -291,7 +293,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	u32 PrintLen;
 	u32 BufSize;
 
-	/*
+	/**
 	 * Break if CMD says END of commands,
 	 * irrespective of the CDO length
 	 */
@@ -304,7 +306,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 
 	*Size = XPlmi_CmdSize(BufPtr, BufLen);
 	CmdPtr->Len = *Size;
-	/*
+	/**
 	 * Check if Cmd payload is less than buffer size, then copy to
 	 * the starting of the next chunk address.
 	 */
@@ -312,7 +314,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 		BufSize = BufLen * XPLMI_WORD_LEN;
 		CdoPtr->TempCmdBuf = (u32 *)(CdoPtr->NextChunkAddr - BufSize);
 
-		/* Copy Cmd to temporary buffer */
+		/** Copy Cmd to temporary buffer */
 		Status = Xil_SMemCpy(CdoPtr->TempCmdBuf, BufSize,
 				BufPtr, BufSize,
 				BufSize);
@@ -326,7 +328,7 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 		goto END;
 	}
 
-	/*
+	/**
 	 * If size is greater than tempbuf, execute partially
 	 * and resume the cmd in next iteration
 	 */
@@ -334,12 +336,12 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 		*Size = BufLen;
 		CdoPtr->CmdState = XPLMI_CMD_STATE_RESUME;
 	}
-	/* Copy the image id to cmd subsystem ID */
+	/** Copy the image id to cmd subsystem ID */
 	CmdPtr->SubsystemId = CdoPtr->SubsystemId;
 	CmdPtr->IpiMask = 0U;
 	CmdPtr->BreakLength = 0U;
 
-	/* Execute the command */
+	/** Execute the command */
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);
 	CmdPtr->DeferredError = (u8)FALSE;
 	CmdPtr->ProcessedCdoLen = CdoPtr->ProcessedCdoLen;
@@ -387,7 +389,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 RemainingLen;
 	u32 SldInitiated = XPlmi_IsSldInitiated();
 
-	/* Verify the header for the first chunk of CDO */
+	/** Verify the header for the first chunk of CDO */
 	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
 		Status = XPlmi_CdoVerifyHeader(CdoPtr);
 		if (Status != XST_SUCCESS) {
@@ -401,7 +403,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		CdoPtr->BufLen -= XPLMI_CDO_HDR_LEN;
 	}
 
-	/*
+	/**
 	 * Check if BufLen is greater than CdoLen
 	 * This is required if more buffer is copied than CDO len.
 	 * Mainly for PLM CDO where BufLen is not present and is
@@ -412,7 +414,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		CdoPtr->BufLen = BufLen;
 	}
 
-	/*
+	/**
 	 * In case CmdEnd is detected in previous iteration,
 	 * it just returns
 	 */
@@ -423,7 +425,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 
 	XPlmi_Printf(DEBUG_INFO,
 			"Processing CDO, Chunk Len 0x%08x\n\r", BufLen);
-	/*
+	/**
 	 * Check if cmd data is copied
 	 * partially during the last iteration
 	 */
@@ -433,17 +435,17 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		CdoPtr->CopiedCmdLen = 0x0U;
 	}
 
-	/* Handle the break command occured in previous chunk */
+	/** Handle the break command occured in previous chunk */
 	if (CdoPtr->Cmd.BreakLength > 0U) {
 		RemainingLen = CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 		if (RemainingLen >= BufLen) {
-			/* If the end is not present in current chunk, skip this chunk */
+			/** If the end is not present in current chunk, skip this chunk */
 			CdoPtr->ProcessedCdoLen += BufLen;
 			Status = XST_SUCCESS;
 			goto END;
 		}
 		else {
-			/* If the end is present in current chunk, jump to end command */
+			/** If the end is present in current chunk, jump to end command */
 			CdoPtr->ProcessedCdoLen += RemainingLen;
 			BufLen -= RemainingLen;
 			BufPtr = &BufPtr[RemainingLen];
@@ -451,9 +453,9 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		}
 	}
 
-	/* Execute the commands in the Cdo Buffer */
+	/** Execute the commands in the Cdo Buffer */
 	while (BufLen > 0U) {
-		/* Check if cmd has to be resumed */
+		/** Check if cmd has to be resumed */
 		if (CdoPtr->CmdState == XPLMI_CMD_STATE_RESUME) {
 			Status =
 				XPlmi_CdoCmdResume(CdoPtr, BufPtr, BufLen, &Size);
@@ -463,7 +465,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		}
 		CdoPtr->DeferredError |= CdoPtr->Cmd.DeferredError;
 		if (Status != XST_SUCCESS) {
-			/*
+			/**
 			 * In case of any error, check if secure lockdown proc is running
 			 * and continue executing the proc further without exiting the loop.
 			 * Otherwise, exit the loop.
@@ -474,31 +476,34 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 				goto END;
 			}
 		}
-		/* If command end is detected, exit the loop */
+		/** If command end is detected, exit the loop */
 		if (CdoPtr->CmdEndDetected == (u8)TRUE) {
 			goto END;
 		}
 
-		/* Handle the break command processed in current chunk */
+		/** Handle the break command processed in current chunk */
 		if (CdoPtr->Cmd.BreakLength > 0U) {
 			if (CdoPtr->Cmd.BreakLength < CdoPtr->ProcessedCdoLen) {
 				Status = XPLMI_INVALID_BREAK_LENGTH;
 				goto END;
 			}
 			if (BufLen > (Size + CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen)) {
-				/* If the end is present in current chunk, jump to it */
+				/** If the end is present in current chunk, jump to it */
 				Size += CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 				CdoPtr->ProcessedCdoLen += CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 				CdoPtr->Cmd.BreakLength = 0U;
 			}
 			else {
-				/* If the end is not present in current chunk, skip processing rest of the chunk */
+				/**
+				 * If the end is not present in current chunk, skip processing
+				 * rest of the chunk
+				 */
 				CdoPtr->ProcessedCdoLen += BufLen - Size;
 				break;
 			}
 		}
 
-		/* Update the parameters for next iteration */
+		/** Update the parameters for next iteration */
 		BufPtr = &BufPtr[Size];
 		BufLen -= Size;
 	}

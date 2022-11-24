@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,9 +46,10 @@
 *       ma   09/13/2021 Set PLM prints log level during RTCA init
 *       tnt  11/11/2021 Add RTCA initialization for MIO Flush routine
 *       tnt  12/17/2021 Add RTCA initialization for PL_POR HDIO WA
-*1.06   bm   07/06/2022 Refactor versal and versal_net code
+* 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/19/2022 Added APIs to update or get KAT status from RTC area
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
+* 1.07  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -109,6 +111,9 @@ int XPlmi_RunTimeConfigInit(void)
 	int Status = XST_FAILURE;
 	u32 DevSecureState = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
 
+	/**
+	 * Clear the Runtime configuration area
+	*/
 	Status = XPlmi_MemSet((u64)XPLMI_RTCFG_BASEADDR, 0U,
 		(XPLMI_RTCFG_DBG_LOG_BUF_OFFSET >> XPLMI_WORD_LEN_SHIFT));
 	if (Status != XST_SUCCESS) {
@@ -122,6 +127,9 @@ int XPlmi_RunTimeConfigInit(void)
 		goto END;
 	}
 
+	/**
+	 * Set the default PLM Run time configuration values
+	*/
 	XPlmi_Out32(XPLMI_RTCFG_RTCA_ADDR, XPLMI_RTCFG_IDENTIFICATION);
 	XPlmi_Out32(XPLMI_RTCFG_VERSION_ADDR, XPLMI_RTCFG_VER);
 	XPlmi_Out32(XPLMI_RTCFG_SIZE_ADDR, XPLMI_RTCFG_SIZE);
@@ -138,7 +146,9 @@ int XPlmi_RunTimeConfigInit(void)
 	XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR, XPLMI_RTCFG_PDI_ID);
 	XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, DevSecureState);
 
-	/* Initialize platform specific RTCA Registers */
+	/**
+	 * Initialize platform specific RTCA Registers
+	 */
 	XPlmi_RtcaPlatInit();
 
 	/* Set PLM prints log level */

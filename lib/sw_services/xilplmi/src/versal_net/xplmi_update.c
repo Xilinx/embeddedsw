@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_plm_update.c
+* @file versal_net/xplmi_update.c
 * This is the file which contains PLM update process. This code in this file
 * is applicable only for versal_net platform.
 *
@@ -20,6 +21,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/18/2022 Shutdown modules gracefully during update
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

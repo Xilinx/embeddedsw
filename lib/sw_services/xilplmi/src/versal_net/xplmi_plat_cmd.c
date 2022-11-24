@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xplmi_plat_cmd.c
+* @file versal_net/xplmi_plat_cmd.c
 * @addtogroup xplmi_apis XilPlmi versal_net APIs
 * @{
 * @cond xplmi_internal
@@ -23,6 +24,7 @@
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

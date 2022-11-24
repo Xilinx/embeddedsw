@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 *       bm   10/14/2020 Code clean up
 *       td   10/19/2020 MISRA C Fixes
 * 1.03  td   07/08/2021 Fix doxygen warnings
+* 1.04  ng   11/11/2022 Updated doxygen comments
 * </pre>
 *
 * @note
@@ -65,7 +67,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 	const XPlmi_ModuleCmd *ModuleCmd = NULL;
 
 	XPlmi_Printf(DEBUG_DETAILED, "CMD Execute \n\r");
-	/* Assign Module */
+	/** Assign Module */
 	if (ModuleId < XPLMI_MAX_MODULES) {
 		Module = Modules[ModuleId];
 	}
@@ -74,13 +76,13 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 		goto END;
 	}
 
-	/* Check if it is within the commands registered */
+	/** Check if it is within the commands registered */
 	if (ApiId >= Module->CmdCnt) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
 		goto END;
 	}
 
-	/* Check if proper handler is registered */
+	/** Check if proper handler is registered */
 	ModuleCmd = &Module->CmdAry[ApiId];
 	if (ModuleCmd->Handler == NULL) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_HANDLER_NULL, 0);
@@ -89,7 +91,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 	XPlmi_Printf(DEBUG_DETAILED, "CMD 0x%0x, Len 0x%0x, PayloadLen 0x%0x \n\r",
 			CmdPtr->CmdId, CmdPtr->Len, CmdPtr->PayloadLen);
 
-	/* Run the command handler */
+	/** Run the command handler */
 	Status = ModuleCmd->Handler(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		CdoErr = (u32)XPLMI_ERR_CDO_CMD + (CmdPtr->CmdId & XPLMI_ERR_CDO_CMD_MASK);
@@ -97,9 +99,9 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 		goto END;
 	}
 
-	/* Increment the processed length and it can be used during resume */
+	/** Increment the processed length and it can be used during resume */
 	CmdPtr->ProcessedLen += CmdPtr->PayloadLen;
-	/* Assign the same handler for Resume */
+	/** Assign the same handler for Resume */
 	CmdPtr->ResumeHandler = ModuleCmd->Handler;
 
 END:

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_err_plat.h
+* @file versal_net/xplmi_err.h
 *
 * This file contains declarations versal_net PLMI module.
 *
@@ -19,6 +20,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       ma   07/20/2022 Rename PMC_PSM_ERR_REG_OFFSET macro
 *       bm   07/20/2022 Update EAM logic for In-Place PLM Update
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

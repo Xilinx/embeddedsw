@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +45,7 @@
 *       bm   03/16/2022 Fix ROM time calculation
 * 1.07  skd  04/21/2022 Misra-C violation Rule 18.1 fixed
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
+* 1.09  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -129,7 +131,7 @@ static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
 				XTC_AUTO_RELOAD_OPTION);
 	}
 
-	/*
+	/**
 	 * Set a reset value for the Programmable Interval Timers such that
 	 * they will expire earlier than letting them roll over from 0, the
 	 * reset value is loaded into the Programmable Interval Timers when
@@ -161,10 +163,10 @@ u64 XPlmi_GetTimerValue(void)
 	TPit1 = XIOModule_GetValue(&IOModule, (u8)XPLMI_PIT1);
 	TPit2 = XIOModule_GetValue(&IOModule, (u8)XPLMI_PIT2);
 
-	/*
+	/**
 	 * Pit1 starts at 0 and preload the full value
 	 * after pit2 expires. So, recasting TPit1 0 value
-	 * to highest so that u64 comparison works fo
+	 * to highest so that u64 comparison works for
 	 * Tpit1 0 and TPit1 0xfffffffe
 	 */
 	if (TPit1 == 0U) {
@@ -276,13 +278,15 @@ int XPlmi_StartTimer(void)
 	u32 Pit2ResetValue;
 	u32 Pit3ResetValue;
 
-	/* Get Pit1 and Pit2 reset values */
+	/**
+	 * Get Pit1 and Pit2 reset values
+	 */
 	Status = XPlmi_GetPitResetValues(&Pit1ResetValue, &Pit2ResetValue);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/*
+	/**
 	 * Initialize the IO Module so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
 	 */
@@ -316,9 +320,10 @@ int XPlmi_StartTimer(void)
 
 	XPlmi_SchedulerInit();
 
-	/* Initialize and start the timer
-	 *  Use PIT1 and PIT2 in prescaler mode
-	 *  Setting for Prescaler mode
+	/**
+	 * Initialize and start the timer
+	 * - Use PIT1 and PIT2 in prescaler mode
+	 * - Set the Prescaler mode
 	 */
 	XPlmi_Out32(IOModule.BaseAddress + (u32)XGO_OUT_OFFSET,
 		MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
@@ -348,7 +353,7 @@ int XPlmi_SetUpInterruptSystem(void)
 	u8 Size = XPlmi_GetTopLevelIntrTblSize();
 
 	microblaze_disable_interrupts();
-	/*
+	/**
 	 * Connect a device driver handler that will be called when an interrupt
 	 * for the device occurs, the device driver handler performs the specific
 	 * interrupt processing for the device
@@ -382,14 +387,14 @@ int XPlmi_SetUpInterruptSystem(void)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Register the IO module interrupt handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 		(Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
 		(void*) IOMODULE_DEVICE_ID);
 
-	/*
+	/**
 	 * Enable interrupts
 	 */
 	XPlmi_EnableIomoduleIntr();

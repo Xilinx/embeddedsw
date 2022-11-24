@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -109,6 +110,7 @@
 * 1.09  bsv  09/30/2022 Make XPlmi_SoftResetHandler non-static so that
 *                       it can be used in Image Selector
 *       sk   10/27/2022 Updated logic to handle invalid node id
+*       ng   11/11/2022 Updated doxygen comments
 * </pre>
 *
 * @note
@@ -189,19 +191,19 @@ void XPlmi_ErrMgr(int ErrStatus)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Check if SLR Type is Master or Monolithic
 	 * and take error action accordingly.
 	 */
 	if ((SlrType == XPLMI_SSIT_MASTER_SLR) ||
 		(SlrType == XPLMI_SSIT_MONOLITIC)) {
-		/*
+		/**
 		 * Fallback if boot PDI is not done
 		 * else just return, so that we receive next requests
 		 */
 		if (XPlmi_IsLoadBootPdiDone() == FALSE) {
 			XPlmi_DumpRegisters();
-			/*
+			/**
 			 * If boot mode is jtag, donot reset. This is to keep
 			 * the system state intact for further debug.
 			 */
@@ -216,7 +218,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 			}
 
 #ifndef PLM_DEBUG_MODE
-		   /*
+		   /**
 		    * If Halt Boot eFuses are blown, then trigger secure lockdown.
 		    * XPlmi_TriggerSLDOnHaltBoot function will run secure lockdown on domains other than PMC
 			* and triggers TAMPER_RESP_0 to ROM for running secure lockdown on PMC domain.
@@ -224,7 +226,9 @@ void XPlmi_ErrMgr(int ErrStatus)
 			* If Halt Boot eFuses are not blown, update multiboot register and trigger FW NCR.
 			*/
 			XPlmi_TriggerSLDOnHaltBoot();
-			/* Update Multiboot register */
+			/**
+			 * Update Multiboot register
+			 */
 			RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 			XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, RegVal + 1U);
 
@@ -542,7 +546,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 
 	(void)CallbackRef;
 
-	/* Check if the task is already created */
+	/** Check if the task is already created */
 	Task = XPlmi_GetTaskInstance(XPlmi_ErrorTaskHandler, NULL,
 				XPLMI_INVALID_INTR_ID);
 	if (Task == NULL) {
@@ -550,7 +554,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 		goto END;
 	}
 
-	/*
+	/**
 	 * Add the EAM task to the queue and disable interrupts
 	 * at IOMODULE level
 	 */
@@ -591,7 +595,7 @@ int XPlmi_ErrorTaskHandler(void *Data)
 		}
 	}
 
-	/*
+	/**
 	 * Interrupt is selected as response for Custom, subsystem shutdown
 	 * and subsystem restart actions. For these actions, error will be
 	 * disabled. Agent should clear the source and enable the error again
@@ -631,7 +635,9 @@ int XPlmi_ErrorTaskHandler(void *Data)
 		}
 	}
 
-	/* Clear and enable EAM errors at IOMODULE level */
+	/**
+	 * Clear and enable EAM errors at IOMODULE level
+	 */
 	XPlmi_PlmIntrClear(XPLMI_IOMODULE_ERR_IRQ);
 	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_ERR_IRQ);
 
@@ -1089,7 +1095,7 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		Task->IntrId = XPLMI_INVALID_INTR_ID;
 	}
 
-	/* Register Error module commands */
+	/** Register Error module commands */
 	XPlmi_ErrModuleInit();
 
 	PmSystemShutdown = SystemShutdown;
@@ -1104,31 +1110,31 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		goto END;
 	}
 
-	/* Detect if we are in over-temperature condition */
+	/** Detect if we are in over-temperature condition */
 	XPlmi_SysMonOTDetect(XPLMI_SYSMON_NO_WAIT_TIME);
 
-	/* Clear SSIT_ERR register to stop error propagation to other SLRs */
+	/** Clear SSIT_ERR register to stop error propagation to other SLRs */
 	XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, 0x0U);
 
-	/* Save FW_ERR register value to RTCA and clear it */
+	/** Save FW_ERR register value to RTCA and clear it */
 	FwErr = XPlmi_In32(PMC_GLOBAL_PMC_FW_ERR);
 	XPlmi_Out32(XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR, FwErr);
 	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, 0x0U);
 
 	for (ErrIndex = 0U; ErrIndex < XPLMI_PMC_MAX_ERR_CNT; ErrIndex++) {
-		/* Disable all the Error Actions */
+		/** Disable all the Error Actions */
 		(void)XPlmi_EmDisablePmcErrors(GET_PMC_ERR_ACTION_OFFSET(ErrIndex),
 				MASK32_ALL_HIGH);
 		PmcErrStatus[ErrIndex] = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS +
 					(ErrIndex * PMC_GLOBAL_REG_PMC_ERR_OFFSET));
-		/* Ignore SSIT Errors for Versal ES1 silicon */
+		/** Ignore SSIT Errors for Versal ES1 silicon */
 		XPlmi_ClearSsitErrors(PmcErrStatus, ErrIndex);
 		XPlmi_Out32(GET_RTCFG_PMC_ERR_ADDR(ErrIndex), PmcErrStatus[ErrIndex]);
 		if (PmcErrStatus[ErrIndex] != 0U) {
 			XPlmi_Printf(DEBUG_INFO, "PMC_GLOBAL_PMC_ERR%d_STATUS: "
 				"0x%08x\n\r", ErrIndex + 1U, PmcErrStatus[ErrIndex]);
 		}
-		/* Clear the error status registers */
+		/** Clear the error status registers */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS +
 			(ErrIndex * PMC_GLOBAL_REG_PMC_ERR_OFFSET), MASK32_ALL_HIGH);
 
@@ -1155,7 +1161,7 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		}
 	}
 
-	/* Register Tamper Interrupt Handler */
+	/** Register Tamper Interrupt Handler */
 	Status = XPlmi_RegisterTamperIntrHandler();
 
 END:
@@ -1381,17 +1387,17 @@ int XPlmi_ClearNpiErrors(void)
 {
 	int Status = XST_FAILURE;
 
-	/* Unlock NPI address space */
+	/** Unlock NPI address space */
 	XPlmi_Out32(NPI_NIR_REG_PCSR_LOCK, NPI_NIR_REG_PCSR_UNLOCK_VAL);
-	/* Clear ISR */
+	/** Clear ISR */
 	XPlmi_UtilRMW(NPI_NIR_REG_ISR, NPI_NIR_REG_ISR_ERR_MASK,
 		NPI_NIR_REG_ISR_ERR_MASK);
-	/* Clear error type registers */
+	/** Clear error type registers */
 	XPlmi_UtilRMW(NPI_NIR_ERR_TYPE, NPI_NIR_ERR_TYPE_ERR_MASK,
 		~(NPI_NIR_ERR_TYPE_ERR_MASK));
 	XPlmi_Out32(NPI_NIR_ERR_LOG_P0_INFO_0, 0U);
 	XPlmi_Out32(NPI_NIR_ERR_LOG_P0_INFO_1, 0U);
-	/* Lock NPI address space */
+	/** Lock NPI address space */
 	Status = Xil_SecureOut32(NPI_NIR_REG_PCSR_LOCK, 1U);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NPI_LOCK, Status);

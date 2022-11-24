@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi.h
+* @file versal/xplmi_plat.h
 *
 * This file contains declarations of versal specific APIs
 *
@@ -26,6 +27,7 @@
 *       bm   07/22/2022 Shutdown modules gracefully during update
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 * 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
+*       ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

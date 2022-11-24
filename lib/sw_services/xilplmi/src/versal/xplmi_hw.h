@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_hw.h
+* @file versal/xplmi_hw.h
 *
 * This is the header file which contains definitions for the versal hardware
 * registers.
@@ -77,6 +78,7 @@
 *       ma   07/20/2022 Move PMC_PSM_ERR_REG_OFFSET to xplmi_error_common.h
 *       bm   07/20/2022 Added compatibility check for In-Place PLM Update
 *       ma   07/25/2022 Enhancements to secure lockdown code
+* 1.09  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

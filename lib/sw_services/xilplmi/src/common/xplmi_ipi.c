@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,7 +68,8 @@
  *       bm   07/06/2022 Refactor versal and versal_net code
  *       bm   07/18/2022 Shutdown modules gracefully during update
  *       sk   08/08/2022 Set IPI task's to low priority
- * 1.8   skg  10/04/2022 Added support to handle valid and invalid commands
+ * 1.07  skg  10/04/2022 Added support to handle valid and invalid commands
+ *       ng   11/11/2022 Updated doxygen comments
  *
  * </pre>
  *
@@ -143,13 +145,17 @@ int XPlmi_IpiDrvInit(void)
 {
 	int Status = XST_FAILURE;
 
-	/* Load Config for Processor IPI Channel */
+	/**
+	 * Load Config for Processor IPI Channel
+	 */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPLMI_IPI_DEVICE_ID);
 	if (IpiCfgPtr == NULL) {
 		goto END;
 	}
 
-	/* Initialize the Instance pointer */
+	/**
+	 * Initialize the Instance pointer
+	 */
 	Status = XIpiPsu_CfgInitialize(&IpiInst, IpiCfgPtr,
 			IpiCfgPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
@@ -183,7 +189,9 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 		goto END;
 	}
 
-	/* Enable IPI from all Masters */
+	/**
+	 * Enable IPI from all Masters
+	 */
 	for (Index = 0U; Index < XPLMI_IPI_MASK_COUNT; Index++) {
 		XIpiPsu_InterruptEnable(&IpiInst,
 			IpiCfgPtr->TargetList[Index].Mask);
@@ -214,7 +222,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 		XPlmi_IpiIntrHandler(NULL);
 	}
 
-	/*
+	/**
 	 *  Register and Enable the IPI IRQ
 	 */
 	Status = XPlmi_RegisterNEnableIpi();
@@ -285,6 +293,10 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 		if (IPI_PMC_ISR_PSM_BIT_MASK == Cmd.IpiMask) {
 			PendingPsmIpi = (u8)TRUE;
 		}
+
+		/**
+		 * Read the IPI command and arguments
+		*/
 		Status = XPlmi_IpiRead(IpiInst.Config.TargetList[MaskIndex].Mask,
 				&Payload[0U], XPLMI_IPI_MAX_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
 
@@ -294,6 +306,10 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 
 		Cmd.CmdId = Payload[0U];
 		Status = XST_FAILURE;
+
+		/**
+		 * Validate the IPI command
+		*/
 		Status = XPlmi_ValidateIpiCmd(&Cmd,
 				IpiInst.Config.TargetList[MaskIndex].BufferIndex);
 		if (Status != XST_SUCCESS) {
@@ -315,19 +331,26 @@ static int XPlmi_IpiDispatchHandler(void *Data)
 				IPI_PMC_ISR_PSM_BIT_MASK);
 		}
 
+		/**
+		 * Execute the IPI command
+		*/
 		Status = XPlmi_IpiCmdExecute(&Cmd, Payload);
 
 END:
-		/*
+		/**
 		 *  Skip providing ack if it is handled in the command handler.
 		 */
 		if ((u8)TRUE == Cmd.AckInPLM) {
 			Cmd.Response[0U] = (u32)Status;
-			/* Send response to caller */
+			/**
+			 * Send response to caller
+			 */
 			(void)XPlmi_IpiWrite(Cmd.IpiMask, Cmd.Response,
 					XPLMI_CMD_RESP_SIZE,
 					XIPIPSU_BUF_TYPE_RESP);
-			/* Ack all IPIs */
+			/**
+			 * Ack all IPIs
+			 */
 			if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
 				if ((IPI_PMC_ISR_PSM_BIT_MASK != Cmd.IpiMask) ||
 				    (PendingPsmIpi == (u8)TRUE)) {
@@ -345,7 +368,9 @@ END:
 		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
 	}
 
-	/* Clear and enable the IPI interrupt */
+	/**
+	 * Clear and enable the IPI interrupt
+	 */
 	XPlmi_ClearIpiIntr();
 	XPlmi_EnableIpiIntr();
 
@@ -478,7 +503,9 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 			XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = Cmd->CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
 
-	/* Validate module number and source IPI index*/
+	/**
+	 * Validate module number and source IPI inde
+	 */
 	if ((CmdHndlr >= XPLMI_MAX_MODULES) ||
 		(SrcIndex == IPI_NO_BUF_CHANNEL_INDEX)) {
 		/* Return error code if IPI validation failed */
@@ -486,7 +513,9 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 		goto END;
 	}
 
-	/* Validate IPI Command */
+	/**
+	 * Validate IPI Command
+	 */
 	Status = XPlmi_ValidateCmd(CmdHndlr, ApiId);
 	if (XST_SUCCESS != Status) {
 		/* Return error code if IPI validation failed */
@@ -494,7 +523,9 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 		goto END;
 	}
 
-	/* Get Subsystem Id */
+	/**
+	 * Get Subsystem Id
+	 */
 	if (Cmd->IpiMask == XPLMI_IPI_XSDB_MASTER_MASK) {
 		Cmd->SubsystemId = XPLMI_PMC_IMAGE_ID;
 	}
@@ -503,9 +534,11 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 			(*XPlmi_GetPmSubsystemHandler(NULL))(Cmd->IpiMask);
 	}
 
-	/* Get IPI request type */
+	/**
+	 * Get IPI request type
+	 */
 	Cmd->IpiReqType = XPlmi_GetIpiReqType(Cmd->CmdId, SrcIndex);
-	/*
+	/**
 	 * Check command IPI access if module has registered the handler
 	 * If handler is not registered, do nothing
 	 */
@@ -543,12 +576,14 @@ static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex)
 	volatile u32 ChannelPermTmp = XPLMI_CMD_NON_SECURE;
 	u32 IpiReqType = XPLMI_CMD_NON_SECURE;
 
-	/* Treat command as non-secure if Command type is non-secure */
+	/**
+	 * Treat command as non-secure if Command type is non-secure
+	 */
 	if (XPLMI_CMD_SECURE != CmdPerm) {
 		goto END;
 	}
 
-	/*
+	/**
 	 * Read source agent IPI aperture TZ register
 	 * and check source to PMC request type
 	 */
@@ -559,7 +594,7 @@ static u32 XPlmi_GetIpiReqType(u32 CmdId, u32 SrcIndex)
 	ChannelPerm &= IPI_APER_TZ_PMC_REQ_BUF_MASK;
 	ChannelPermTmp &= IPI_APER_TZ_PMC_REQ_BUF_MASK;
 
-	/*
+	/**
 	 * Request type is secure if both Channel type and Command type
 	 * are secure
 	 */

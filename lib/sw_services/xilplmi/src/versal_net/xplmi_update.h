@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xplmi_update.h
+* @file versal_net/xplmi_update.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -16,6 +17,7 @@
 * 1.00  bm   01/30/2022 Initial release
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

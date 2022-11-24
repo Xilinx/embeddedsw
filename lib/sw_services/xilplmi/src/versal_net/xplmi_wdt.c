@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xplmi_wdt.c
+* @file versal_net/xplmi_wdt.c
 *
 * This file contains the PLMI WDT functionality related code for versal_net.
 *
@@ -16,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
+* 1.01  ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *

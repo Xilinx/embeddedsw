@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xplmi_ssit.h
+* @file versal/xplmi_ssit.h
 * @addtogroup xplmi_apis XilPlmi Versal APIs
 * @{
 * @cond xplmi_internal
@@ -29,7 +30,8 @@
 *       is   07/10/2022 Added support for XPlmi_SsitSendMsgEventAndGetResp API
 *       ma   08/10/2022 Added dummy PLM to PLM communication APIs to be used
 *                       by other components when the feature is not enabled
-* 1.8   skg  10/04/2022 Added logic to handle invalid commands
+* 1.06  skg  10/04/2022 Added logic to handle invalid commads
+*       ng   11/11/2022 Fixed doxygen file name error
 *
 * </pre>
 *
