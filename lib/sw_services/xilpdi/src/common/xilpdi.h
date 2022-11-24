@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +58,8 @@
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       bm   09/13/2022 Reduce maximum number of partitions and images
 * 1.09  har  11/17/2022 Removed macros for bh_auth attribute in Bootheader
+*       ng   11/23/2022 Added macros to replace magic numbers in
+*                       XilPdi_ValidateChecksum
 *
 * </pre>
 *
@@ -210,6 +213,16 @@ extern "C" {
  * Array size for image name
  */
 #define XILPDI_IMG_NAME_ARRAY_SIZE				(16U)
+
+/**
+ * Minimun buffer length for checksum
+ */
+#define XILPDI_CHECKSUM_MIN_BUF_LEN				(0X2U)
+
+/**
+ * Invert checksum
+ */
+#define XILPDI_INVERT_CHECKSUM					(0xFFFFFFFFU)
 
 /**************************** Type Definitions *******************************/
 

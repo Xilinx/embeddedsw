@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +45,7 @@
 *       bsv  07/06/2022 Added API to read Optional data from Metaheader
 *       bsv  07/08/2022 Code changes related to Optional data in IHT
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
+* 1.09  ng   11/11/2022 Updated doxygen comments
 *
 * </pre>
 *
@@ -90,16 +92,17 @@ int XilPdi_ValidateChecksum(const void *Buffer, u32 Len)
 	const u32 *BufferPtr = (const u32 *)Buffer;
 
 	Len >>= XIH_PRTN_WORD_LEN_SHIFT;
-
-	/* Len has to be at least equal to 2 */
-	if (Len < 2U)
+    /**
+     * Verify the buffer is not empty and has atleast 2 values
+     */
+	if (Len < XILPDI_CHECKSUM_MIN_BUF_LEN)
 	{
 		goto END;
 	}
 	--Len;
-	/*
+	/**
+	 * Calculate the checksum with the below formula
 	 * Checksum = ~(X1 + X2 + X3 + .... + Xn)
-	 * Calculate the checksum
 	 */
 	for (Count = 0U; Count < Len; Count++) {
 		/*
@@ -109,9 +112,11 @@ int XilPdi_ValidateChecksum(const void *Buffer, u32 Len)
 	}
 
 	/* Invert checksum */
-	Checksum ^= 0xFFFFFFFFU;
+	Checksum ^= XILPDI_INVERT_CHECKSUM;
 
-	/* Validate the checksum */
+	/**
+	 * Verify the calculated checksum with the checksum in buffer
+	 */
 	if (BufferPtr[Len] != Checksum) {
 		XilPdi_Printf("Error: Checksum 0x%0lx != %0lx\r\n", Checksum,
 			BufferPtr[Len]);
@@ -139,21 +144,30 @@ int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 {
 	int Status = XST_FAILURE;
 
-	/* Check the check sum of the Image Header Table */
+	/**
+     * Calculate the checksum of Image Header Table and compare it with the
+	 * value in Image Header Table
+     */
 	Status = XilPdi_ValidateChecksum(ImgHdrTbl, XIH_IHT_LEN);
 	if (XST_SUCCESS != Status) {
 		Status = XILPDI_ERR_IHT_CHECKSUM;
 		XilPdi_Printf("XILPDI_ERR_IHT_CHECKSUM\n\r");
 		goto END;
 	}
-	/* Check for number of images */
+	/**
+     * Verify the number of images are greater than zero and less than or
+	 * equal to 32
+     */
 	if ((ImgHdrTbl->NoOfImgs < XIH_MIN_IMGS) ||
 		(ImgHdrTbl->NoOfImgs > XIH_MAX_IMGS)) {
 		Status = XILPDI_ERR_NO_OF_IMGS;
 		XilPdi_Printf("XILPDI_ERR_NO_OF_IMAGES\n\r");
 		goto END;
 	}
-	/* Check for number of partitions */
+	/**
+     * Verify the number of partitions are greater than zero and less than or
+	 * equal to 32
+     */
 	if ((ImgHdrTbl->NoOfPrtns < XIH_MIN_PRTNS) ||
 		(ImgHdrTbl->NoOfPrtns > XIH_MAX_PRTNS)) {
 		Status = XILPDI_ERR_NO_OF_PRTNS;
@@ -179,6 +193,9 @@ int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr)
 	int Status = XST_FAILURE;
 	u32 PrtnType;
 
+	/**
+	 * Verify the partition length
+	 */
 	if ((PrtnHdr->UnEncDataWordLen == 0U) || (PrtnHdr->EncDataWordLen == 0U)
 	   || (PrtnHdr->TotalDataWordLen == 0U)) {
 		XilPdi_Printf("Error: Zero length field \n\r");
@@ -193,6 +210,9 @@ int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr)
 		goto END;
 	}
 
+	/**
+	 * Verify the partition type
+	 */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
 	if ((PrtnType == XIH_PH_ATTRB_PRTN_TYPE_RSVD) ||
 	   (PrtnType > XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK)) {
@@ -216,6 +236,9 @@ END:
 *****************************************************************************/
 void XilPdi_ReadBootHdr(const XilPdi_BootHdr **BootHdrPtr)
 {
+	/**
+	 * Copy boot header to local variable from PRAM address
+	 */
 	*BootHdrPtr = (XilPdi_BootHdr *)(UINTPTR)XIH_BH_PRAM_ADDR;
 }
 
@@ -235,7 +258,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	u32 SmapBusWidthCheck[SMAP_BUS_WIDTH_WORD_LEN];
 	u32 Offset;
 
-	/*
+	/**
 	 * Read the Img header table of 64 bytes
 	 * and update the Image Header Table structure
 	 */
@@ -248,6 +271,9 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 		goto END;
 	}
 
+	/**
+	 * Discard or ignore SMAP header when detected in partial PDIs
+	 */
 	if ((SMAP_BUS_WIDTH_8_WORD1 == SmapBusWidthCheck[0U]) ||
 		(SMAP_BUS_WIDTH_16_WORD1 == SmapBusWidthCheck[0U]) ||
 		(SMAP_BUS_WIDTH_32_WORD1 == SmapBusWidthCheck[0U])) {
@@ -300,7 +326,7 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
 		goto END;
 	}
 	/**
-	 * Read the Optional data from Metaheader
+	 * Read the IHT Optinal data from Metaheader
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 		MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst + XIH_IHT_LEN,
@@ -329,12 +355,10 @@ int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	int Status = XST_FAILURE;
 	u32 TotalLen = MetaHdrPtr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN;
 
-	/*
+	/**
 	 * Read the Img headers of 64 bytes
 	 * and update the Image Header structure for all images
 	 */
-
-	/* Performs device copy */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			((u64)MetaHdrPtr->ImgHdrTbl.ImgHdrAddr * XIH_PRTN_WORD_LEN),
 			(u64)(UINTPTR)MetaHdrPtr->ImgHdr, TotalLen, 0x0U);
@@ -357,12 +381,10 @@ int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	int Status = XST_FAILURE;
 	u32 TotalLen = MetaHdrPtr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN;
 
-	/*
-	 * Read the Img headers of 64 bytes
+	/**
+	 * Read the Partition headers of 64 bytes
 	 * and update the Image Header structure for all images
 	 */
-
-	/* Performs device copy */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 			((u64)MetaHdrPtr->ImgHdrTbl.PrtnHdrAddr * XIH_PRTN_WORD_LEN),
 			(u64)(UINTPTR)MetaHdrPtr->PrtnHdr, TotalLen, 0x0U);
@@ -385,6 +407,9 @@ int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	int Status = XST_FAILURE;
 	u32 PrtnIndex;
 
+	/**
+	 * Verify checksum of all Partition Headers
+	 */
 	for (PrtnIndex = 0U; PrtnIndex < MetaHdrPtr->ImgHdrTbl.NoOfPrtns;
 		PrtnIndex++) {
 		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->PrtnHdr[PrtnIndex],
@@ -416,6 +441,9 @@ int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	int Status = XST_FAILURE;
 	u32 ImgIndex;
 
+	/**
+	 * Verify checksum of all image Headers
+	 */
 	for (ImgIndex = 0U; ImgIndex < MetaHdrPtr->ImgHdrTbl.NoOfImgs;
 		ImgIndex++) {
 		Status = XilPdi_ValidateChecksum(&MetaHdrPtr->ImgHdr[ImgIndex],

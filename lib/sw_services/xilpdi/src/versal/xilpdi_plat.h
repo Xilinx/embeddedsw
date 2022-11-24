@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xilpdi_plat.h
+* @file versal/xilpdi_plat.h
 *
 * This is the header file which contains versal specific definitions
 * for the PDI.
@@ -20,6 +21,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       bm   09/13/2022 Reduce maximum number of partitions and images
 * 1.01  har  11/17/2022 Added macros for bh_auth attribute in Bootheader
+*       ng   11/23/2022 Fixed doxygen file name error
 *
 * </pre>
 *
