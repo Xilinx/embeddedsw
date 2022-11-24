@@ -204,7 +204,7 @@ int main(void)
 		xil_printf("PUF KEY generation failed %x\r\n", Status);
 		goto END;
 	}
-
+#if (XPUF_GENERATE_KEK_N_ID == TRUE)
 	/* Encrypt red key using PUF KEY to generate black key*/
 	Status = XPuf_GenerateBlackKey(&MailboxInstance);
 	if (Status == XST_SUCCESS) {
@@ -214,14 +214,13 @@ int main(void)
 		xil_printf("Encryption/Decryption failed %x\r\n", Status);
 		goto END;
 	}
-
 	/* Program black key and IV into NVM */
 	Status = XPuf_ProgramBlackKeynIV(&NvmClientInstance);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Programming into NVM failed %x\r\n", Status);
 		goto END;
 	}
-
+#endif
 #if (XPUF_WRITE_SEC_CTRL_BITS == TRUE)
 	/* Program PUF security control bits */
 	Status = XPuf_WritePufSecCtrlBits(&NvmClientInstance);
@@ -479,6 +478,12 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 
 #elif (XPUF_KEY_GENERATE_OPTION == XPUF_REGEN_ON_DEMAND)
 	PufData.ReadOption = XPUF_READ_HD_OPTION;
+	if(XPUF_GENERATE_KEK_N_ID == TRUE){
+		PufData.PufOperation = XPUF_REGEN_ON_DEMAND;
+	}
+	else{
+		PufData.PufOperation = XPUF_REGEN_ID_ONLY;
+	}
 	PufData.PufIDAddr = (u64)(UINTPTR)PufArr.PufID;
 	if (PufData.ReadOption == XPUF_READ_FROM_RAM) {
 		PufArr.Chash = XPUF_CHASH;
@@ -503,7 +508,12 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 		xil_printf("Puf Regeneration failed with error:%x\r\n", Status);
 		goto END;
 	}
-
+	if(PufData.PufOperation == XPUF_REGEN_ON_DEMAND){
+		xil_printf("PUF On Demand regeneration is done!!\r\n");
+	}
+	else{
+		xil_printf("PUF ID only regeneration is done!!\r\n");
+	}
 	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 	xil_printf("PUF ID : ");
 	XPuf_ShowData((u8*)PufArr.PufID, XPUF_ID_LEN_IN_BYTES);
@@ -515,7 +525,7 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 END:
 	return Status;
 }
-
+#if (XPUF_GENERATE_KEK_N_ID == TRUE)
 /******************************************************************************/
 /**
  * @brief	This function encrypts the red key with PUF KEY and IV.
@@ -608,7 +618,8 @@ static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr)
 END:
 	return Status;
 }
-
+#endif
+#if (XPUF_GENERATE_KEK_N_ID == TRUE)
 /******************************************************************************/
 /**
  * @brief	This function programs black key into efuse or BBRAM.
@@ -737,7 +748,7 @@ static int XPuf_ProgramBlackKeynIV(XNvm_ClientInstance *InstancePtr)
 END:
 	return Status;
 }
-
+#endif
 #if (XPUF_WRITE_SEC_CTRL_BITS == TRUE)
 /******************************************************************************/
 /**
@@ -856,7 +867,7 @@ static void XPuf_ShowPufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 		}
 	}
 }
-
+#if (XPUF_GENERATE_KEK_N_ID == TRUE)
 /******************************************************************************/
 /**
  *
@@ -904,7 +915,8 @@ static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen)
 END:
 	return Status;
 }
-
+#endif
+#if (XPUF_GENERATE_KEK_N_ID == TRUE)
 /******************************************************************************/
 /**
  *
@@ -928,7 +940,7 @@ static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len)
 		ReverseIndex--;
 	}
 }
-
+#endif
 /******************************************************************************/
 /**
  *
