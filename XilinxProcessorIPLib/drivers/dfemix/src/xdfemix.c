@@ -55,6 +55,7 @@
 *       dc     11/10/22 Align AddCC to switchable UL/DL algorithm
 *       dc     11/11/22 Update get overflow status API
 *       dc     11/11/22 Update NCOIdx and CCID check
+*       dc     11/25/22 Update macro of SW version Minor number
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -100,7 +101,7 @@
 /**
 * @endcond
 */
-#define XDFEMIX_DRIVER_VERSION_MINOR (4U) /**< Driver's minor version number */
+#define XDFEMIX_DRIVER_VERSION_MINOR (5U) /**< Driver's minor version number */
 #define XDFEMIX_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/

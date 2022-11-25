@@ -50,6 +50,7 @@
 * 1.4   dc     04/08/22 Update documentation
 * 1.5   dc     10/28/22 Switching Uplink/Downlink support
 *       dc     11/11/22 Align AddCC to switchable UL/DL algorithm
+*       dc     11/25/22 Update macro of SW version Minor number
 *
 * </pre>
 * @addtogroup dfeccf Overview
@@ -83,7 +84,7 @@
 #define XDFECCF_ACTIVE_SET_NUM (8U) /**< Maximum number of active sets */
 #define XDFECCF_U32_NUM_BITS (32U) /**< Number of bits in register */
 #define XDFECCF_TAP_NUMBER_MAX (256U) /**< Maximum tap number */
-#define XDFECCF_DRIVER_VERSION_MINOR (4U) /**< Driver's minor version number */
+#define XDFECCF_DRIVER_VERSION_MINOR (5U) /**< Driver's minor version number */
 #define XDFECCF_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
