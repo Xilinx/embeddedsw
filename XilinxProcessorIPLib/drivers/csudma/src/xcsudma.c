@@ -111,7 +111,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 /**
 *
 * This function sets the starting address and amount(size) of the data to be
-* transfered from/to the memory through the AXI interface.
+* transferred from/to the memory through the AXI interface.
 *
 * @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
 * @param	Channel represents the type of channel either it is Source or
@@ -122,7 +122,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 * 		data which needs to write into the memory(DST) (or read	from
 * 		the memory(SRC)).
 * @param	Size is a 32 bit variable which represents the number of 4 byte
-* 		words needs to be transfered from starting address.
+* 		words needs to be transferred from starting address.
 * @param	EnDataLast is to trigger an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
@@ -211,7 +211,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /**
 *
 * This function sets the starting address and amount(size) of the data to be
-* transfered from/to the memory through the AXI interface.
+* transferred from/to the memory through the AXI interface.
 * This function is useful for pmu processor when it wishes to do
 * a 64-bit DMA transfer.
 *
@@ -225,9 +225,9 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 * 		the memory(SRC)).
 * @param    AddrHigh is a 32 bit variable which holds the higher address of data
 * 			which needs to write into the memory(DST) (or read from
-* 			the memroy(SRC)).
+* 			the memoroy(SRC)).
 * @param	Size is a 32 bit variable which represents the number of 4 byte
-* 		words needs to be transfered from starting address.
+* 		words needs to be transferred from starting address.
 * @param	EnDataLast is to trigger an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
@@ -241,7 +241,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 * 		data_inp_valid signal associated with the final 32-bit word
 *		transfer
 *		This API won't do flush/invalidation for the DMA buffer.
-*		It is recommened to call this API only through PMU processor.
+*		It is recommended to call this API only through PMU processor.
 *
 ******************************************************************************/
 void XCsuDma_64BitTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
@@ -330,7 +330,7 @@ u64 XCsuDma_GetAddr(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 /*****************************************************************************/
 /**
 *
-* This function returns the size of the data yet to be transfered from memory
+* This function returns the size of the data yet to be transferred from memory
 * to CSU_DMA or CSU_DMA to memory based on the channel selection.
 *
 * @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -364,7 +364,7 @@ u32 XCsuDma_GetSize(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 /*****************************************************************************/
 /**
 *
-* This function pause the Channel data tranfer to/from memory or to/from stream
+* This function pause the Channel data transfer to/from memory or to/from stream
 * based on pause type.
 *
 * @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -611,8 +611,8 @@ void XCsuDma_ClearCheckSum(XCsuDma *InstancePtr)
 *		Source channel      - XCSUDMA_SRC_CHANNEL
 *		Destination Channel - XCSUDMA_DST_CHANNEL
 *
-* @return	XST_SUCCESS - Incase of Success
-*		XST_FAILURE - Incase of Timeout.
+* @return	XST_SUCCESS - In case of Success
+*		XST_FAILURE - In case of Timeout.
 *
 * @note		None.
 *
@@ -649,7 +649,7 @@ done:
 }
 /*****************************************************************************/
 /**
-* This function cofigures all the values of CSU_DMA's Channels with the values
+* This function configures all the values of CSU_DMA's Channels with the values
 * of updated XCsuDma_Configure structure.
 *
 * @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
@@ -788,7 +788,7 @@ void XCsuDma_SetConfig(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 /*****************************************************************************/
 /**
 *
-* This function updates XCsuDma_Configure structure members with the cofigured
+* This function updates XCsuDma_Configure structure members with the configured
 * values of CSU_DMA's Channel.
 *
 * @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
