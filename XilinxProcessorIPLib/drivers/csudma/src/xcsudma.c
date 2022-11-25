@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,7 +51,8 @@
 #include <stdbool.h>
 
 /************************** Constant Definitions *****************************/
-#define XCSUDMA_WORD_SIZE	(4U)
+#define XCSUDMA_WORD_SIZE	(4U)	/**< Transfer size conversion to
+					 * bytes for Versal Net */
 /************************** Function Prototypes ******************************/
 
 
