@@ -93,7 +93,7 @@ static int DpTxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs);
 static u32 DpTxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq);
 static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
 static void DpTxSs_TimerHdcp22Callback(void *InstancePtr, u8 TmrCtrNumber);
-
+static u8 DpTxSs_EncodeLinkBandwidth(XDpTxSs *InstancePtr, u8 LinkRate);
 /************************** Variable Definitions *****************************/
 
 XDpTxSs_SubCores DpTxSsSubCores[XPAR_XDPTXSS_NUM_INSTANCES];
@@ -867,48 +867,43 @@ u32 XDpTxSs_GetLinkRate(XDpTxSs *InstancePtr)
 u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate)
 {
 	u32 Status;
+	u8 LinkRateSw;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
+	LinkRateSw = DpTxSs_EncodeLinkBandwidth(InstancePtr, LinkRate);
 	/* Application should set Display Core maximum supported rate.
 	Here we should check weather sink device rate is higher than
 	display Core maximum rate, and if it is higher we should train sink
 	device at Display core's maximum supported rate */
-	if (LinkRate > InstancePtr->DpPtr->Config.MaxLinkRate) {
+	if (LinkRateSw > InstancePtr->DpPtr->Config.MaxLinkRate) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS info: This link rate is "
 			"not supported by Source/Sink.\n\rMax Supported link "
 			"rate is 0x%x.\n\rSetting maximum supported link "
 			"rate.\n\r", InstancePtr->DpPtr->Config.MaxLinkRate);
-		LinkRate = InstancePtr->DpPtr->Config.MaxLinkRate;
+		LinkRateSw = InstancePtr->DpPtr->Config.MaxLinkRate;
 	}
 
 	/* Verify arguments. */
-	Xil_AssertNonvoid((LinkRate == XDPTXSS_LINK_BW_SET_162GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_270GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_540GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_810GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_10GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_20GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_135GBPS));
+	Xil_AssertNonvoid(LinkRateSw == XDPTXSS_LINK_BW_SET_162GBPS ||
+			  LinkRateSw == XDPTXSS_LINK_BW_SET_270GBPS ||
+			  LinkRateSw == XDPTXSS_LINK_BW_SET_540GBPS ||
+			  LinkRateSw == XDPTXSS_LINK_BW_SET_810GBPS ||
+			  LinkRateSw == XDPTXSS_LINK_BW_SET_SW_10GBPS ||
+			  LinkRateSw == XDPTXSS_LINK_BW_SET_SW_20GBPS ||
+			  LinkRateSw == XDPTXSS_LINK_BW_SET_SW_135GBPS ||
+			  LinkRateSw == XDPTXSS_LINK_BW_SET_10GBPS ||
+			  LinkRateSw == XDPTXSS_LINK_BW_SET_20GBPS ||
+			  LinkRateSw == XDPTXSS_LINK_BW_SET_135GBPS);
 
-	if (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
 		/* Set link rate */
-		Status = XDp_Tx_2x_SetLinkRate(InstancePtr->DpPtr, LinkRate);
+		Status = XDp_TxSetLinkRate(InstancePtr->DpPtr, LinkRateSw);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
 				    "SS ERR: Setting link rate failed.\n\r");
 			Status = XST_FAILURE;
 		}
-	} else {
-		/* Set link rate */
-		Status = XDp_TxSetLinkRate(InstancePtr->DpPtr, LinkRate);
-		if (Status != XST_SUCCESS) {
-			xdbg_printf(XDBG_DEBUG_GENERAL,
-				    "SS ERR: Setting link rate failed.\n\r");
-			Status = XST_FAILURE;
-		}
-	}
 	return Status;
 }
 
@@ -2033,6 +2028,25 @@ void XDpTxSs_HandleTimeout(XDpTxSs *InstancePtr)
 
 	/* Handle timeout */
 	XHdcp1x_HandleTimeout(InstancePtr->Hdcp1xPtr);
+}
+
+static u8 DpTxSs_EncodeLinkBandwidth(XDpTxSs *InstancePtr, u8 LinkRate)
+{
+	u8 LinkRateSw;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (LinkRate == XDPTXSS_LINK_BW_SET_10GBPS)
+		LinkRateSw = XDPTXSS_LINK_BW_SET_SW_10GBPS;
+	else if (LinkRate == XDPTXSS_LINK_BW_SET_20GBPS)
+		LinkRateSw = XDPTXSS_LINK_BW_SET_SW_20GBPS;
+	else if (LinkRate == XDPTXSS_LINK_BW_SET_135GBPS)
+		LinkRateSw = XDPTXSS_LINK_BW_SET_SW_135GBPS;
+	else
+		LinkRateSw = LinkRate;
+
+	return LinkRateSw;
 }
 
 /*****************************************************************************/
