@@ -2349,7 +2349,7 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 	u8 LinkRate;
 
 	MsaConfig = &InstancePtr->DpPtr->TxInstance.MsaConfig[Stream - 1];
-	LinkRate = InstancePtr->DpPtr->TxInstance.LinkConfig.LinkRate;
+	LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr->DpPtr);
 
 	/*Calculate pixel clock in HZ */
 	ClkFreq = (((u64)(LinkRate * 27 * MsaConfig->MVid)) * 1000000) /
