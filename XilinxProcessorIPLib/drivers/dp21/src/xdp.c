@@ -4611,6 +4611,7 @@ static u32 XDp_Tx_2x_LaneEqualizationdone(XDp *InstancePtr, u8 LaneCount)
 			return XST_FAILURE;
 		}
 		InstancePtr->TxInstance.LinkConfig.CeDoneLaneCnt = XDP_LANE_ALL_CE_DONE;
+		/* FALLTHRU */
 		/* Drop through and check lane 1. */
 	case XDP_TX_LANE_COUNT_SET_2:
 		if (!(LaneStatus[0] & XDP_DPCD_STATUS_LANE_0_CE_DONE_MASK)) {
@@ -4623,6 +4624,7 @@ static u32 XDp_Tx_2x_LaneEqualizationdone(XDp *InstancePtr, u8 LaneCount)
 		}
 		InstancePtr->TxInstance.LinkConfig.CeDoneLaneCnt = XDP_LANE_ALL_CE_DONE;
 		/* Drop through and check lane 0. */
+		/* FALLTHRU */
 	case XDP_TX_LANE_COUNT_SET_1:
 		if (!(LaneStatus[0] & XDP_DPCD_STATUS_LANE_0_CE_DONE_MASK)) {
 			InstancePtr->TxInstance.LinkConfig.CeDoneLaneCnt = XDP_LANE_0_CE_DONE;
