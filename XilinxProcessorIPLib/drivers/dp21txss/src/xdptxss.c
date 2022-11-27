@@ -818,6 +818,34 @@ void XDpTxSs_OverrideSyncPolarity(XDpTxSs *InstancePtr, u8 Stream)
 
 /*****************************************************************************/
 /**
+ *
+ * This function gets the data rate to be used by the DisplayPort TX Subsystem
+ * core.
+ *
+ * @param	InstancePtr is a pointer to the XDpTxSs instance.
+ * @param	LinkRate is the rate at which link needs to be driven.
+ *		- XDPTXSS_LINK_BW_SET_162GBPS = 0x06(for a 1.62 Gbps data rate)
+ *		- XDPTXSS_LINK_BW_SET_270GBPS = 0x0A(for a 2.70 Gbps data rate)
+ *		- XDPTXSS_LINK_BW_SET_540GBPS = 0x14(for a 5.40 Gbps data rate)
+ *
+ * @return
+ *		- XST_SUCCESS if setting the new lane rate was successful.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	Maximum supported link rate is used if given link rate is
+ *		greater than the maximum supported link rate.
+ *
+ ******************************************************************************/
+u32 XDpTxSs_GetLinkRate(XDpTxSs *InstancePtr)
+{
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XDp_TxGetLinkRate(InstancePtr->DpPtr);
+}
+
+/*****************************************************************************/
+/**
 *
 * This function sets the data rate to be used by the DisplayPort TX Subsystem
 * core.

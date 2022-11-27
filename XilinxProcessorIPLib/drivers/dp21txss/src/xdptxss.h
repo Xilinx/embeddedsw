@@ -422,6 +422,7 @@ void XDpTxSs_OverrideSyncPolarity(XDpTxSs *InstancePtr, u8 Stream);
 u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc);
 u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode);
 u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate);
+u32 XDpTxSs_GetLinkRate(XDpTxSs *InstancePtr);
 u32 XDpTxSs_SetLaneCount(XDpTxSs *InstancePtr, u8 LaneCount);
 u32 XDpTxSs_SetTransportMode(XDpTxSs *InstancePtr, u8 Mode);
 u32 XDpTxSs_IsConnected(XDpTxSs *InstancePtr);
