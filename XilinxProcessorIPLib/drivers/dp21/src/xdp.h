@@ -1731,6 +1731,7 @@ void XDp_TxHdcp22Disable(XDp *InstancePtr);
 #if XPAR_XDPTXSS_NUM_INSTANCES
 void XDp_Tx_2x_ChannelCodingSet(XDp *InstancePtr, u8 dp_protocol);
 u32 XDp_Tx_2x_SetLinkRate(XDp *InstancePtr, u8 LinkRate);
+u32 XDp_TxGetLinkRate(XDp *InstancePtr);
 #endif
 /******************* Macros (Inline Functions) Definitions ********************/
 

@@ -1361,6 +1361,37 @@ u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 
 /******************************************************************************/
 /**
+ * This function gets the data rate to be used by the main link for both the
+ * DisplayPort TX core and the RX device.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	LinkRate is the link rate to be used over the main link based on
+ *		one of the following selects:
+ *		- XDP_TX_LINK_BW_SET_162GBPS = 0x06 (for a 1.62 Gbps data rate)
+ *		- XDP_TX_LINK_BW_SET_270GBPS = 0x0A (for a 2.70 Gbps data rate)
+ *		- XDP_TX_LINK_BW_SET_540GBPS = 0x14 (for a 5.40 Gbps data rate)
+ *
+ * @return
+ *		- XST_SUCCESS if setting the new link rate was successful.
+ *		- XST_DEVICE_NOT_FOUND if no RX device is connected.
+ *		- XST_FAILURE otherwise.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+u32 XDp_TxGetLinkRate(XDp *InstancePtr)
+{
+	u8 LinkRate;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
+	return LinkRate;
+}
+
+/******************************************************************************/
+/**
  * This function sets the data rate to be used by the main link for both the
  * DisplayPort TX core and the RX device.
  *
