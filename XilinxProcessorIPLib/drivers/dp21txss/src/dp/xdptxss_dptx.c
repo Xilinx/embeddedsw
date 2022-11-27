@@ -815,9 +815,10 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 	u32 MstCapable;
 	u32 LinkBw;
 	u8 BitsPerPixel;
+	u8 LinkRate;
 
-	LinkBw = (InstancePtr->TxInstance.LinkConfig.LaneCount *
-		  InstancePtr->TxInstance.LinkConfig.LinkRate * 27);
+	LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
+	LinkBw = (InstancePtr->TxInstance.LinkConfig.LaneCount * LinkRate * 27);
 	if (InstancePtr->TxInstance.MsaConfig[0].ComponentFormat ==
 	    XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 		/* YCbCr 4:2:2 color component format. */
@@ -833,7 +834,7 @@ static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc, XVidC_VideoMode VidMode)
 
 	/* Check for maximum link rate supported */
 	if (InstancePtr->TxInstance.LinkConfig.MaxLinkRate <
-				InstancePtr->TxInstance.LinkConfig.LinkRate) {
+			LinkRate) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS:INFO:Requested link rate "
 			"exceeds maximum capabilities.\n\rMaximum link "
 				"rate = ");
@@ -1176,8 +1177,10 @@ static void Dp_ConfigVideoPackingClockControl(XDp *InstancePtr, u8 Bpc)
 			 InstancePtr->TxInstance.MsaConfig[0].UserPixelWidth);
 		u32 LinkClk;
 		long long DpLinkRateHz;
+		u8 LinkRate;
 
-		switch (InstancePtr->TxInstance.LinkConfig.LinkRate) {
+		LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
+		switch (LinkRate) {
 		case XDP_TX_LINK_BW_SET_540GBPS:
 			DpLinkRateHz = DP_LINK_RATE_HZ_540GBPS;
 			break;
