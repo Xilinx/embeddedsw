@@ -782,13 +782,19 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	if (VidMode == XVIDC_VM_UHD_60_P &&
-	    InstancePtr->UsrOpt.MstSupport) {
-		InstancePtr->UsrOpt.VmId = XVIDC_VM_UHD2_60_P;
-	} else {
-		/* Set video mode */
+	if (InstancePtr->Config.DpSubCore.DpConfig.DpProtocol ==
+	    XDP_PROTOCOL_DP_2_1) {
 		InstancePtr->UsrOpt.VmId = VidMode;
+	} else {
+		if (VidMode == XVIDC_VM_UHD_60_P &&
+		    InstancePtr->UsrOpt.MstSupport) {
+			InstancePtr->UsrOpt.VmId = XVIDC_VM_UHD2_60_P;
+		} else {
+			/* Set video mode */
+			InstancePtr->UsrOpt.VmId = VidMode;
+		}
 	}
+
 	return XST_SUCCESS;
 }
 
