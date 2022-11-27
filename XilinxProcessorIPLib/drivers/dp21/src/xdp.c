@@ -273,6 +273,29 @@ u32 XDp_Initialize(XDp *InstancePtr)
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
+ * This function enables the link channel coding to determine whether downstream
+ * supports 128b or 8b .
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+static void XDp_TxSet_MainLinkChannelCoding(XDp *InstancePtr, u8 LinkRate)
+{
+	if (InstancePtr->TxInstance.LinkConfig.LinkTraining2x) {
+		if (((LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR10) ||
+		   (LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR20) ||
+		   (LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR135))) {
+			XDp_Tx_2x_ChannelCodingSet(InstancePtr, 0x02);
+			return;
+		}
+	}
+	XDp_Tx_2x_ChannelCodingSet(InstancePtr, 0x01);
+}
+
+/******************************************************************************/
+/**
  * This function encodes dp2.1 link bandwidth to internal constants to align
  * with lower protocols like dp1.4/dp1.2
  *
@@ -1398,16 +1421,7 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 
 	InstancePtr->TxInstance.LinkConfig.LinkRate = LinkRate;
 
-	if (LinkRate == XDP_LINK_BW_SET_162GBPS ||
-	    LinkRate == XDP_LINK_BW_SET_270GBPS ||
-	    LinkRate == XDP_LINK_BW_SET_540GBPS ||
-	    LinkRate == XDP_LINK_BW_SET_810GBPS) {
-		XDp_Tx_2x_ChannelCodingSet(InstancePtr,
-					   XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_8B_10B_MASK);
-	} else if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
-		XDp_Tx_2x_ChannelCodingSet(InstancePtr,
-					   XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK);
-	}
+	XDp_TxSet_MainLinkChannelCoding(InstancePtr, LinkRate);
 
 	/* Invoke callback, if defined. */
 	if (InstancePtr->TxInstance.LinkRateChangeCallback)

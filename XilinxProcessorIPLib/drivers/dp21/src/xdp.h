@@ -601,6 +601,7 @@ typedef struct {
 						clock recovery */
 	u8 cr_done_oldstate;		/**< Restores the number of lanes done
 						with clock recovery. */
+	u8 LinkTraining2x;		/**< indicates link training in DP 2.1 mode. */
 	u8 Downstream2xSupported;	/**< indicates dp2.1 capability from downstream receiver. */
 	u8 ProtocolSwitch;		/*switch from Dp21. to Dp1.4 */
 	u8 Downstream1xSupported;	/**< indicates dp1.4 capability from downstream receiver */
