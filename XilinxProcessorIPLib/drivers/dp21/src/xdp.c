@@ -4525,7 +4525,7 @@ static u32 XDp_Tx_2x_GetLinkTrainingFailureReason(XDp *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (LinkStatus != XST_SUCCESS || loopCounter > 15)
+	if (LinkStatus != XST_SUCCESS && loopCounter > 15)
 		return XST_FAILURE;
 
 	return XST_SUCCESS;
