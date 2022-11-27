@@ -102,6 +102,7 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	u32 WordsPerLine;
 	u8 LinkRate;
 	u8 BitsPerPixel;
+	u8 LaneCount;
 	XDp_TxMainStreamAttributes *MsaConfig;
 	XDp_TxLinkConfig *LinkConfig;
 
@@ -114,6 +115,9 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 
 	MsaConfig = &InstancePtr->TxInstance.MsaConfig[Stream - 1];
 	LinkConfig = &InstancePtr->TxInstance.LinkConfig;
+	LaneCount = (InstancePtr->TxInstance.MstEnable) ?
+		     XDP_TX_MAX_NUM_OF_USER_DATA_LANES : LinkConfig->LaneCount;
+
 	LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
 
 	/* Verify the rest of the values used. */
@@ -210,10 +214,10 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	}
 	WordsPerLine /= 16;
 
-	MsaConfig->DataPerLane = WordsPerLine - LinkConfig->LaneCount;
-	if ((WordsPerLine % LinkConfig->LaneCount) != 0) {
+	MsaConfig->DataPerLane = WordsPerLine - LaneCount;
+	if ((WordsPerLine % LaneCount) != 0) {
 		MsaConfig->DataPerLane +=
-					(WordsPerLine % LinkConfig->LaneCount);
+					(WordsPerLine % LaneCount);
 	}
 
 	if (InstancePtr->TxInstance.MstEnable == 1) {
