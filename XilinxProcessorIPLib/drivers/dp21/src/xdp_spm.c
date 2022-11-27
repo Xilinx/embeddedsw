@@ -1532,7 +1532,7 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	Target_Average_StreamSymbolTimeSlotsPerMTP =
 				(u32)Average_StreamSymbolTimeSlotsPerMTP;
 	/* Find the greatest multiple that is less than the maximum. */
-	Target_Average_StreamSymbolTimeSlotsPerMTP += ((1.0 / 8.0) * (u32)(8.0 *
+	Target_Average_StreamSymbolTimeSlotsPerMTP += ((1.0 / 8.0) * (8.0 *
 			(MaximumTarget_Average_StreamSymbolTimeSlotsPerMTP -
 			Target_Average_StreamSymbolTimeSlotsPerMTP)));
 
@@ -1540,14 +1540,10 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	 * slots that will be allocated for the stream. */
 
 	TsInt = Target_Average_StreamSymbolTimeSlotsPerMTP;
-	TsFrac = (((double)(Target_Average_StreamSymbolTimeSlotsPerMTP * 1000)) -
-								(TsInt * 1000));
-
-	/* Store TsInt and TsFrac in AvgBytesPerTU. */
-	MsaConfig->AvgBytesPerTU = TsInt * 1000 + TsFrac;
-
 	/* Set the number of time slots to allocate for this stream. */
 	MsaConfig->TransferUnitSize = TsInt;
+	TsFrac = (((double)(Target_Average_StreamSymbolTimeSlotsPerMTP * 1000)) -
+								(TsInt * 1000));
 	if (TsFrac != 0) {
 		/* Round up. */
 		MsaConfig->TransferUnitSize++;
@@ -1563,6 +1559,9 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 			MsaConfig->TransferUnitSize++;
 		}
 	}
+	/* Store TsInt and TsFrac in AvgBytesPerTU. */
+	MsaConfig->AvgBytesPerTU = TsInt * 1000 + TsFrac;
+
 }
 
 /******************************************************************************/
