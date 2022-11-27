@@ -224,6 +224,18 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 			InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
 		InstancePtr->TxInstance.LinkConfig.CeDoneOldState =
 			InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+
+		if (InstancePtr->Config.MaxLinkRate == XDP_LINK_BW_SET_UHBR10)
+			InstancePtr->Config.MaxLinkRate =
+						XDP_TX_LINK_BW_SET_SW_UHBR10;
+		else if (InstancePtr->Config.MaxLinkRate ==
+							XDP_LINK_BW_SET_UHBR20)
+			InstancePtr->Config.MaxLinkRate =
+						XDP_TX_LINK_BW_SET_SW_UHBR20;
+		else if (InstancePtr->Config.MaxLinkRate ==
+						XDP_LINK_BW_SET_UHBR135)
+			InstancePtr->Config.MaxLinkRate =
+						XDP_TX_LINK_BW_SET_SW_UHBR135;
 	}
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
