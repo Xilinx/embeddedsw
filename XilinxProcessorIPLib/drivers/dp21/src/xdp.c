@@ -2860,7 +2860,8 @@ static XDp_TxTrainingState XDp_TxTrainingStateChannelEqualization(XDp *InstanceP
 
 	/* Tried 5 times with no success. Try a reduced bitrate first, then
 	 * reduce the number of lanes. */
-	if (InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4) {
+	if (InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_1_4 ||
+	    InstancePtr->Config.DpProtocol != XDP_PROTOCOL_DP_2_1) {
 		return XDP_TX_TS_ADJUST_LINK_RATE;
 	} else {
 		if (cr_failure) {
@@ -2910,7 +2911,8 @@ static XDp_TxTrainingState XDp_TxTrainingStateAdjustLinkRate(XDp *InstancePtr)
 
 	switch (InstancePtr->TxInstance.LinkConfig.LinkRate) {
 	case XDP_TX_LINK_BW_SET_810GBPS:
-		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+		if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4 ||
+		    InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
 			Status = XDp_TxSetLinkRate(InstancePtr,
 						XDP_TX_LINK_BW_SET_540GBPS);
 			/* UCD400 expects the Lane to be set here
@@ -3467,7 +3469,8 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern)
 			InstancePtr->TxInstance.LinkConfig.ScramblerEn = 0;
 			break;
 		case XDP_TX_TRAINING_PATTERN_SET_TP4:
-			if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
+			if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4 ||
+			    InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
 				XDp_WriteReg(InstancePtr->Config.BaseAddr,
 					     XDP_TX_SCRAMBLING_DISABLE, 0);
 				InstancePtr->TxInstance.LinkConfig.ScramblerEn = 1;
