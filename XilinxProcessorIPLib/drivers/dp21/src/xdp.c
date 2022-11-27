@@ -366,14 +366,20 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 
 	/*Reading the Ext capability for compliance */
 	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_EXT_DPCD_REV,
-			16, Dpcd_ext);
+			       16, Dpcd_ext);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	if ((Dpcd_ext[6] & 0x1) == 0x1)
+		Status = XDp_TxAuxRead(InstancePtr, 0x0080, 16, Dpcd_ext);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
 	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_RECEIVER_CAP_FIELD_START,
-								16, Dpcd);
+			       16, Dpcd);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
+
 	RxMaxLinkRate = Dpcd[XDP_DPCD_MAX_LINK_RATE];
 	RxMaxLaneCount = Dpcd[XDP_DPCD_MAX_LANE_COUNT] &
 						XDP_DPCD_MAX_LANE_COUNT_MASK;
@@ -381,62 +387,61 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
 
 	/* set MaxLinkRate to TX rate, if sink provides a non-standard value */
-	if ((RxMaxLinkRate != XDP_TX_LINK_BW_SET_810GBPS) &&
-	    (RxMaxLinkRate != XDP_TX_LINK_BW_SET_540GBPS) &&
-	    (RxMaxLinkRate != XDP_TX_LINK_BW_SET_270GBPS) &&
-	    (RxMaxLinkRate != XDP_TX_LINK_BW_SET_162GBPS) && /*dp2.1 linkrates */
-	    (RxMaxLinkRate != XDP_TX_LINK_BW_SET_UHBR10) &&
-	    (RxMaxLinkRate != XDP_TX_LINK_BW_SET_UHBR20) &&
-	    (RxMaxLinkRate != XDP_TX_LINK_BW_SET_UHBR135)) {
+	if (RxMaxLinkRate != XDP_TX_LINK_BW_SET_810GBPS &&
+	    RxMaxLinkRate != XDP_TX_LINK_BW_SET_540GBPS &&
+	    RxMaxLinkRate != XDP_TX_LINK_BW_SET_270GBPS &&
+	    RxMaxLinkRate != XDP_TX_LINK_BW_SET_162GBPS &&
+	    RxMaxLinkRate != XDP_TX_LINK_BW_SET_UHBR10 &&
+	    RxMaxLinkRate != XDP_TX_LINK_BW_SET_UHBR20 &&
+	    RxMaxLinkRate != XDP_TX_LINK_BW_SET_UHBR135) {
 		LinkConfig->MaxLinkRate = ConfigPtr->MaxLinkRate;
 	}
+
 	/* this can be referred from page 270 from displayPort_v2.0_e9.pdf*/
-	if ((Dpcd_ext[6] & 0x2) && LinkConfig->LinkRate < XDP_LINK_BW_SET_162GBPS) {
-		LinkConfig->Downstream2xSupported = 1;
-		LinkConfig->ProtocolSwitch = 0;
-		LinkConfig->Downstream1xSupported = 0;
-	} else if (Dpcd_ext[6] & 0x1) {
-		Status = XDp_TxAuxRead(InstancePtr, 0x0080, 16, Dpcd_ext);
-		LinkConfig->Downstream2xSupported = 0;
-		LinkConfig->Downstream1xSupported = 1;
-		LinkConfig->ProtocolSwitch = 0;
-	} else {
-		LinkConfig->Downstream2xSupported = 0;
-		LinkConfig->Downstream1xSupported = 1;
-		LinkConfig->ProtocolSwitch = 0;
-	}
-	/* This is the check if the monitor is not
-	 * setting 0x001 to 0x1E, but only setting it
-	 * in 0x2201 as maxLinkRate.
-	 */
-	if (LinkConfig->Downstream2xSupported) {
-		/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
-		if(Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
-		   XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
-			LinkConfig->ExtendedCapPresent = 1;
-			/* Check the supported link rates*/
-			XDp_TxAuxRead(InstancePtr, XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE,
-				      1, &Data);
-			if (Data == XDP_TX_LINK_BW_SET_UHBR10) {
-				RxMaxLinkRate = XDP_TX_LINK_BW_SET_UHBR10;
-				LinkConfig->MaxLinkRate =
-				(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
-				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
-			} else if (Data == XDP_TX_LINK_BW_SET_UHBR20) {
-				RxMaxLinkRate = XDP_TX_LINK_BW_SET_UHBR20;
-				LinkConfig->MaxLinkRate =
-				(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
-				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
-			} else if (Data == XDP_TX_LINK_BW_SET_UHBR135) {
-				RxMaxLinkRate = XDP_TX_LINK_BW_SET_UHBR135;
-				LinkConfig->MaxLinkRate =
-				(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
-				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
-			}
+	if (Dpcd_ext[6] & 0x2) {
+		Status = XDp_TxAuxRead(InstancePtr,
+				       XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE,
+				       1, &RxMaxLinkRate);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+
+		if (RxMaxLinkRate & XDP_TX_LINK_BW_SET_UHBR20) {
+			RxMaxLinkRate = XDP_TX_LINK_BW_SET_SW_UHBR20;
+			LinkConfig->MaxLinkRate =
+			(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
+			ConfigPtr->MaxLinkRate : XDP_TX_LINK_BW_SET_SW_UHBR20;
+		} else if (RxMaxLinkRate & XDP_TX_LINK_BW_SET_UHBR135) {
+			RxMaxLinkRate = XDP_TX_LINK_BW_SET_SW_UHBR135;
+			LinkConfig->MaxLinkRate =
+			(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
+			ConfigPtr->MaxLinkRate : XDP_TX_LINK_BW_SET_SW_UHBR135;
+		} else if (RxMaxLinkRate & XDP_TX_LINK_BW_SET_UHBR10) {
+			RxMaxLinkRate = XDP_TX_LINK_BW_SET_SW_UHBR10;
+			LinkConfig->MaxLinkRate =
+			(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
+			ConfigPtr->MaxLinkRate : XDP_TX_LINK_BW_SET_SW_UHBR10;
+		} else {
+			RxMaxLinkRate = Dpcd[XDP_DPCD_MAX_LINK_RATE];
+			LinkConfig->MaxLinkRate =
+			(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
+			ConfigPtr->MaxLinkRate : RxMaxLinkRate;
+			LinkConfig->LinkTraining2x = 0;
 		}
-	} else {
-		if (LinkConfig->Downstream1xSupported) {
-		/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
+
+		if ((LinkConfig->MaxLinkRate == XDP_TX_LINK_BW_SET_SW_UHBR10 ||
+		     LinkConfig->MaxLinkRate == XDP_TX_LINK_BW_SET_SW_UHBR20 ||
+		     LinkConfig->MaxLinkRate == XDP_TX_LINK_BW_SET_SW_UHBR135) &&
+		     LinkConfig->LinkRate >= XDP_TX_LINK_BW_SET_SW_UHBR10) {
+			LinkConfig->LinkTraining2x = 1;
+			LinkConfig->ProtocolSwitch = 0;
+			/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
+			if (Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
+			    XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
+				LinkConfig->ExtendedCapPresent = 1;
+			}
+		} else {
+			LinkConfig->LinkTraining2x = 0;
+			/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
 			if (Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
 			   XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
 				LinkConfig->ExtendedCapPresent = 1;
@@ -445,7 +450,9 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 				 * in 0x2201 as maxLinkRate.
 				 */
 				/* Check extended capability register */
-				XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE, 1, &Data);
+				XDp_TxAuxRead(InstancePtr,
+					      XDP_EDID_DPCD_MAX_LINK_RATE,
+					      1, &Data);
 				if (Data == XDP_TX_LINK_BW_SET_810GBPS) {
 					RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
 					LinkConfig->MaxLinkRate =
@@ -453,13 +460,40 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 					ConfigPtr->MaxLinkRate : RxMaxLinkRate;
 				}
 			}
+			if ((Dpcd_ext[6] & 0x1) == 0x1) {
+				Status = XDp_TxAuxRead(InstancePtr, 0x0080,
+						       16, Dpcd_ext);
+				if (Status != XST_SUCCESS)
+					return XST_FAILURE;
+			}
+		}
+	} else	{
+		/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
+		if (Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
+		    XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
+			LinkConfig->ExtendedCapPresent = 1;
+			/* This is the check if the monitor is not
+			 * setting 0x001 to 0x1E, but only setting it
+			 * in 0x2201 as maxLinkRate.
+			 */
+			/* Check extended capability register */
+			XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE,
+				      1, &Data);
+			if (Data == XDP_TX_LINK_BW_SET_810GBPS) {
+				RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
+				LinkConfig->MaxLinkRate =
+				(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
+				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
+			}
 		}
 	}
+
 	if (!XDp_IsLinkRateValid(InstancePtr, LinkConfig->MaxLinkRate)) {
 		return XST_FAILURE;
 	}
+
 	LinkConfig->MaxLaneCount = (RxMaxLaneCount > ConfigPtr->MaxLaneCount) ?
-				ConfigPtr->MaxLaneCount : RxMaxLaneCount;
+		ConfigPtr->MaxLaneCount : RxMaxLaneCount;
 	if (!XDp_IsLaneCountValid(InstancePtr, LinkConfig->MaxLaneCount)) {
 		return XST_FAILURE;
 	}
@@ -471,6 +505,10 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 					Dpcd[XDP_DPCD_MAX_DOWNSPREAD] &
 					XDP_DPCD_MAX_DOWNSPREAD_MASK;
 
+	InstancePtr->TxInstance.LinkConfig.LinkRate =
+		InstancePtr->TxInstance.LinkConfig.LinkRate > RxMaxLinkRate ?
+		RxMaxLinkRate : InstancePtr->TxInstance.LinkConfig.LinkRate;
+
 	/* Set default to Max lane count */
 	InstancePtr->TxInstance.LinkConfig.cr_done_cnt =
 		InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
@@ -480,6 +518,7 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 		InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
 	InstancePtr->TxInstance.LinkConfig.CeDoneOldState =
 		InstancePtr->TxInstance.LinkConfig.MaxLaneCount;
+
 	return XST_SUCCESS;
 }
 
@@ -633,10 +672,9 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	if (LinkConfig->Downstream2xSupported &&
-	    LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_UHBR10 ||
-	    LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_UHBR135 ||
-	    LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_UHBR20) {
+
+	if (LinkConfig->LinkTraining2x &&
+	    LinkConfig->LinkRate >= XDP_TX_LINK_BW_SET_SW_UHBR10) {
 		/* Train DP2.1 main link. */
 		Status = XDp_Tx_Run_2x_LinkTraining(InstancePtr);
 		LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
@@ -653,13 +691,17 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 			Status = XST_SUCCESS;
 		}
 	} else {
-		XDp_Tx_2x_ChannelCodingSet(InstancePtr,
-					   XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_8B_10B_MASK);
 		/* Train DP1.4/DP1.2 main link. */
 		Status = XDp_TxRunTraining(InstancePtr);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 	}
+
+	Status = XDp_TxCheckLinkStatus(InstancePtr,
+				       InstancePtr->TxInstance.LinkConfig.LaneCount);
+	if (Status != XST_SUCCESS)
+		return Status;
+
 	/* Turn off the training pattern and enable scrambler. */
 	Status2 = XDp_TxSetTrainingPattern(InstancePtr,
 					XDP_TX_TRAINING_PATTERN_SET_OFF);
@@ -1425,29 +1467,38 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 		return XST_DEVICE_NOT_FOUND;
 	}
 
-	/* Write a corresponding clock frequency to the DisplayPort TX core. */
-	switch (LinkRate) {
-	case XDP_TX_LINK_BW_SET_162GBPS:
-		Status = XDp_TxSetClkSpeed(InstancePtr,
-					XDP_TX_PHY_CLOCK_SELECT_162GBPS);
-		break;
-	case XDP_TX_LINK_BW_SET_270GBPS:
-		Status = XDp_TxSetClkSpeed(InstancePtr,
-					XDP_TX_PHY_CLOCK_SELECT_270GBPS);
-		break;
-	case XDP_TX_LINK_BW_SET_540GBPS:
-		Status = XDp_TxSetClkSpeed(InstancePtr,
-					XDP_TX_PHY_CLOCK_SELECT_540GBPS);
-		break;
-	case XDP_TX_LINK_BW_SET_810GBPS:
-		Status = XDp_TxSetClkSpeed(InstancePtr, XDP_TX_PHY_CLOCK_SELECT_810GBPS);
-		break;
-	default:
-		Status = XDp_TxSetClkSpeed(InstancePtr, XDP_TX_PHY_CLOCK_SELECT_810GBPS);
-		break;
-	}
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (!InstancePtr->TxInstance.LinkConfig.LinkTraining2x) {
+		/* Write a corresponding clock frequency to the DisplayPort TX core. */
+		switch (LinkRate) {
+		case XDP_TX_LINK_BW_SET_162GBPS:
+			Status = XDp_TxSetClkSpeed(InstancePtr,
+						   XDP_TX_PHY_CLOCK_SELECT_162GBPS);
+			break;
+		case XDP_TX_LINK_BW_SET_270GBPS:
+			Status = XDp_TxSetClkSpeed(InstancePtr,
+						   XDP_TX_PHY_CLOCK_SELECT_270GBPS);
+			break;
+		case XDP_TX_LINK_BW_SET_540GBPS:
+			Status = XDp_TxSetClkSpeed(InstancePtr,
+						   XDP_TX_PHY_CLOCK_SELECT_540GBPS);
+			break;
+		case XDP_TX_LINK_BW_SET_810GBPS:
+			if (InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4 ||
+			    InstancePtr->Config.DpProtocol == XDP_PROTOCOL_DP_2_1) {
+				Status = XDp_TxSetClkSpeed(InstancePtr,
+							   XDP_TX_PHY_CLOCK_SELECT_810GBPS);
+			} else {
+				Status = XST_FAILURE;
+			}
+			break;
+		default:
+			Status = XDp_TxSetClkSpeed(InstancePtr,
+						   XDP_TX_PHY_CLOCK_SELECT_810GBPS);
+			break;
+		}
+
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
 	}
 
 	InstancePtr->TxInstance.LinkConfig.LinkRate = LinkRate;
@@ -3459,7 +3510,7 @@ static u32 XDp_TxSetTrainingPattern(XDp *InstancePtr, u32 Pattern)
 				break;
 		}
 		/* Write to the DisplayPort TX core. */
-		if (LinkConfig->Downstream2xSupported &&
+		if (LinkConfig->LinkTraining2x &&
 		    LinkConfig->ProtocolSwitch == 0) {
 			if (Pattern == XDP_TX_TRAINING_PATTERN_SET_TP3)
 				XDp_WriteReg(InstancePtr->Config.BaseAddr,
