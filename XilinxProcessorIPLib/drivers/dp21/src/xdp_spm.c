@@ -1420,14 +1420,14 @@ double XDp_TxGetPBN_Values(XDp *InstancePtr)
 	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 	double Dp2xLinkBW;
 
-	if (LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_UHBR10) {
+	if (LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR10) {
 		if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_1)
 			Dp2xLinkBW = 1208.9;
 		else if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_2)
 			Dp2xLinkBW = 2417.8;
 		else
 			Dp2xLinkBW = 4835.5;
-	} else if (LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_UHBR20) {
+	} else if (LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_SW_UHBR20) {
 		if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_1)
 			Dp2xLinkBW = 2417.8;
 		else if (LinkConfig->LaneCount == XDP_DPCD_LANE_COUNT_SET_2)

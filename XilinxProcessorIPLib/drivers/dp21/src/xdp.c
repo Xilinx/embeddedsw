@@ -2223,7 +2223,10 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 	if ((LinkRate != XDP_LINK_BW_SET_162GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_540GBPS) &&
-		(LinkRate != XDP_LINK_BW_SET_810GBPS) &&/*dp2.1 linkrates to be considered*/
+		(LinkRate != XDP_LINK_BW_SET_810GBPS) &&
+		(LinkRate != XDP_TX_LINK_BW_SET_SW_UHBR10) &&
+		(LinkRate != XDP_TX_LINK_BW_SET_SW_UHBR20) &&
+		(LinkRate != XDP_TX_LINK_BW_SET_SW_UHBR135) &&
 		(LinkRate != XDP_LINK_BW_SET_UHBR10) &&
 		(LinkRate != XDP_LINK_BW_SET_UHBR20) &&
 		(LinkRate != XDP_LINK_BW_SET_UHBR135)
@@ -4850,39 +4853,34 @@ static XDp_TxTrainingState XDp_Tx_2x_ClockData_Switch(XDp *InstancePtr)
 	u32 Status;
 	u8 loop = 0;
 
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
 	/*clear training pattern to zero*/
 	Status = XDp_TxSetTrainingPattern(InstancePtr,
 					  XDP_TX_TRAINING_PATTERN_SET_TP3);
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
 
-	/*wait 3msec of time*/
-	XDp_WaitUs(InstancePtr, 3000);
-
 	while (loop < 20) {
+		/*wait 3msec of time*/
+		XDp_WaitUs(InstancePtr, 3000);
 		loop++;
-		XDp_WaitUs(InstancePtr, 20000);
-		XDp_TxGetCdsInterlaneAlignStatus(InstancePtr);
 
+		Status = XDp_TxGetCdsInterlaneAlignStatus(InstancePtr);
 		if (Status != XST_SUCCESS)
 			return XDP_TX_TS_FAILURE;
 
 		/*recheck align status after waiting 3msec of time*/
-		Status =
-		XDp_TxCheckCdsInterlaneAlignDone(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			/* The AUX read failed. */
-			Status = XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, Status);
-			return Status;
-		} else {
+		Status = XDp_TxCheckCdsInterlaneAlignDone(InstancePtr);
+		if (Status == XST_SUCCESS)
 			return XDP_TX_TS_SUCCESS;
-		}
+
+		XDp_WaitUs(InstancePtr, 20000);
 	}
-	return XDP_TX_TS_FAILURE;
+	/* The AUX read failed. or status fail*/
+	Status = XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, Status);
+	if (Status != XST_SUCCESS)
+		return XDP_TX_TS_FAILURE;
+	else
+		return Status;
 }
 
 /******************************************************************************/
@@ -4917,7 +4915,6 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr)
 	u32 DelayUs;
 	u32 loopCounter = 0;
 	u8 ce_failure = 0;
-	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -4929,12 +4926,6 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr)
 
 	if (Status != XST_SUCCESS)
 		return XDP_TX_TS_FAILURE;
-
-	XDp_Tx_2x_ChannelCodingSet(InstancePtr,
-				   XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK);
-	XDp_Tx_2x_SetLinkRate(InstancePtr, LinkConfig->MaxLinkRate);
-	XDp_TxSetLaneCount(InstancePtr,
-			   InstancePtr->TxInstance.LinkConfig.LaneCount);
 
 	Status = XDp_TxSetTrainingPattern(InstancePtr,
 					  XDP_TX_TRAINING_PATTERN_SET_TP1);
@@ -5019,9 +5010,7 @@ static XDp_TxTrainingState XDp_Tx_2x_ChannelEqualization(XDp *InstancePtr)
 			}
 	} while (loopCounter < 20);
 
-	Status = XDp_Tx_2x_GetLinkTrainingFailureReason(InstancePtr, loopCounter);
-	if (Status == XST_SUCCESS)
-		return XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, ce_failure);
+	return XDp_Tx_2x_AdjustLinkTrainparams(InstancePtr, ce_failure);
 
 	return XDP_TX_TS_FAILURE;
 }
@@ -5053,31 +5042,32 @@ static XDp_TxTrainingState XDp_Tx_2x_AdjustLinkRate(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	switch (InstancePtr->TxInstance.LinkConfig.LinkRate) {
-	case XDP_TX_LINK_BW_SET_UHBR20:
-		Status = XDp_Tx_2x_SetLinkRate(InstancePtr, XDP_TX_LINK_BW_SET_UHBR135);
+	case XDP_TX_LINK_BW_SET_SW_UHBR20:
+		Status = XDp_TxSetLinkRate(InstancePtr,
+					   XDP_TX_LINK_BW_SET_SW_UHBR135);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
 		}
 		/* UCD400 expects the Lane to be set here it has to match the max cap of Sink */
 		Status = XDp_TxSetLaneCount(InstancePtr,
-					    InstancePtr->TxInstance.LinkConfig.cr_done_oldstate);
+					    InstancePtr->TxInstance.LinkConfig.CeDoneOldState);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
 		}
 		Status = XDP_TX_TS_CHANNEL_EQ_DONE;
 		break;
-	case XDP_TX_LINK_BW_SET_UHBR135:
-		Status = XDp_Tx_2x_SetLinkRate(InstancePtr,
-					       XDP_TX_LINK_BW_SET_UHBR10);
+	case XDP_TX_LINK_BW_SET_SW_UHBR135:
+		Status = XDp_TxSetLinkRate(InstancePtr,
+					   XDP_TX_LINK_BW_SET_SW_UHBR10);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
 		}
 		/* UCD400 expects the Lane to be set here it has to match the max cap of Sink */
 		Status = XDp_TxSetLaneCount(InstancePtr,
-					    InstancePtr->TxInstance.LinkConfig.cr_done_oldstate);
+					    InstancePtr->TxInstance.LinkConfig.CeDoneOldState);
 
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
@@ -5085,9 +5075,9 @@ static XDp_TxTrainingState XDp_Tx_2x_AdjustLinkRate(XDp *InstancePtr)
 		}
 		Status = XDP_TX_TS_CHANNEL_EQ_DONE;
 		break;
-	case XDP_TX_LINK_BW_SET_UHBR10:
-		Status = XDp_Tx_2x_SetLinkRate(InstancePtr,
-					       XDP_TX_LINK_BW_SET_810GBPS);
+	case XDP_TX_LINK_BW_SET_SW_UHBR10:
+		Status = XDp_TxSetLinkRate(InstancePtr,
+					   XDP_TX_LINK_BW_SET_810GBPS);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
@@ -5096,7 +5086,7 @@ static XDp_TxTrainingState XDp_Tx_2x_AdjustLinkRate(XDp *InstancePtr)
 		 * it has to match the max cap of Sink
 		 */
 		Status = XDp_TxSetLaneCount(InstancePtr,
-					    InstancePtr->TxInstance.LinkConfig.cr_done_oldstate);
+					    InstancePtr->TxInstance.LinkConfig.CeDoneOldState);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
@@ -5145,12 +5135,14 @@ static XDp_TxTrainingState XDp_Tx_2x_AdjustLaneCount(XDp *InstancePtr)
 
 	switch (LinkConfig->LaneCount) {
 	case XDP_TX_LANE_COUNT_SET_4:
-		Status = XDp_TxSetLaneCount(InstancePtr, XDP_TX_LANE_COUNT_SET_2);
+		Status = XDp_TxSetLaneCount(InstancePtr,
+					    XDP_TX_LANE_COUNT_SET_2);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
 		}
-		Status = XDp_Tx_2x_SetLinkRate(InstancePtr, LinkConfig->MaxLinkRate);
+		Status = XDp_TxSetLinkRate(InstancePtr,
+					   LinkConfig->MaxLinkRate);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
@@ -5158,12 +5150,15 @@ static XDp_TxTrainingState XDp_Tx_2x_AdjustLaneCount(XDp *InstancePtr)
 		Status = XDP_TX_TS_CHANNEL_EQ_DONE;
 		break;
 	case XDP_TX_LANE_COUNT_SET_2:
-		Status = XDp_TxSetLaneCount(InstancePtr, XDP_TX_LANE_COUNT_SET_1);
+		Status = XDp_TxSetLaneCount(InstancePtr,
+					    XDP_TX_LANE_COUNT_SET_1);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
 		}
-		Status = XDp_Tx_2x_SetLinkRate(InstancePtr, LinkConfig->MaxLinkRate);
+
+		Status = XDp_TxSetLinkRate(InstancePtr,
+					   LinkConfig->MaxLinkRate);
 		if (Status != XST_SUCCESS) {
 			Status = XDP_TX_TS_FAILURE;
 			break;
