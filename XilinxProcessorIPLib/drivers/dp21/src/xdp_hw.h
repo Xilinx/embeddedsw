@@ -720,6 +720,8 @@
 							attribute. */
 #define XDP_TX_MAIN_STREAMX_MISC1_Y_ONLY_EN_MASK \
 				0x00000080	/* Y-only enable. */
+#define XDP_TX_MAX_NUM_OF_TIMESLOTS \
+				64	/**< Maximum number of time slots. */
 #define XDP_TX_MAX_NUM_OF_USER_DATA_LANES	\
 				4	/**< Maximum user data per lane. */
 

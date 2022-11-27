@@ -230,7 +230,7 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	else {
 		/* Allocate a fixed size for single-stream transport (SST)
 		 * operation. */
-		MsaConfig->TransferUnitSize = 64;
+		MsaConfig->TransferUnitSize = XDP_TX_MAX_NUM_OF_TIMESLOTS;
 		MsaConfig->StartTs = 1;
 
 		/* Calculate the average number of bytes per transfer unit.
@@ -248,7 +248,7 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 		MsaConfig->InitWait = MsaConfig->TransferUnitSize -
 				      MinBytesPerTu;
 		if (MinBytesPerTu <= 4) {
-			MsaConfig->InitWait = 64;
+			MsaConfig->InitWait = XDP_TX_MAX_NUM_OF_TIMESLOTS;
 		}
 		/* Y-only color component format. */
 		else if (XDP_TX_MAIN_STREAMX_MISC1_Y_ONLY_EN_MASK &
@@ -962,7 +962,7 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
                         (MsaConfig->AvgBytesPerTU % 1000));
         }
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_TU_SIZE +
-			StreamOffset[Stream - 1], MsaConfig->TransferUnitSize);
+			StreamOffset[Stream - 1], XDP_TX_MAX_NUM_OF_TIMESLOTS);
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MIN_BYTES_PER_TU +
 		StreamOffset[Stream - 1], MsaConfig->AvgBytesPerTU / 1000);
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_FRAC_BYTES_PER_TU +
