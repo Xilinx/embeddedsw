@@ -273,6 +273,37 @@ u32 XDp_Initialize(XDp *InstancePtr)
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
+ * This function encodes dp2.1 link bandwidth to internal constants to align
+ * with lower protocols like dp1.4/dp1.2
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ *
+ * * @return
+ *		- Linkrate Link bandwidth for 128b encoding
+ * @note	None.
+ *
+ ******************************************************************************/
+u8 XDp_Tx_DecodeLinkBandwidth(XDp *InstancePtr)
+{
+	u8 LinkRate;
+
+	if (InstancePtr->TxInstance.LinkConfig.LinkRate ==
+	    XDP_TX_LINK_BW_SET_SW_UHBR10)
+		LinkRate = XDP_TX_LINK_BW_SET_UHBR10;
+	else if (InstancePtr->TxInstance.LinkConfig.LinkRate ==
+		 XDP_TX_LINK_BW_SET_SW_UHBR20)
+		LinkRate = XDP_TX_LINK_BW_SET_UHBR20;
+	else if (InstancePtr->TxInstance.LinkConfig.LinkRate ==
+		 XDP_TX_LINK_BW_SET_SW_UHBR135)
+		LinkRate = XDP_TX_LINK_BW_SET_UHBR135;
+	else
+		LinkRate = InstancePtr->TxInstance.LinkConfig.LinkRate;
+
+	return LinkRate;
+}
+
+/******************************************************************************/
+/**
  * This function retrieves the RX device's capabilities from the RX device's
  * DisplayPort Configuration Data (DPCD).
  *
@@ -551,6 +582,7 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 	u32 Status;
 	u32 Status2;
 	u32 ReenableMainLink;
+	u8 LinkRate;
 	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 
 	/* Verify arguments. */
@@ -584,8 +616,9 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 	    LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_UHBR20) {
 		/* Train DP2.1 main link. */
 		Status = XDp_Tx_Run_2x_LinkTraining(InstancePtr);
+		LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
 		if (Status == XDP_TX_TS_FAILURE &&
-		    LinkConfig->LinkRate == XDP_TX_LINK_BW_SET_810GBPS) {
+			LinkRate == XDP_TX_LINK_BW_SET_810GBPS) {
 			LinkConfig->ProtocolSwitch = 1;
 			/* Train DP1.4/DP1.2 main link. */
 			XDp_Tx_2x_ChannelCodingSet(InstancePtr,
@@ -1326,6 +1359,7 @@ u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount)
 u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 {
 	u32 Status;
+	u8 linkrate;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1380,13 +1414,14 @@ u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate)
 		InstancePtr->TxInstance.LinkRateChangeCallback(InstancePtr->TxInstance.
 			LinkRateChangeCallbackRef);
 
+	linkrate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
 	/* Write new link rate to the DisplayPort TX core. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_LINK_BW_SET,
-				InstancePtr->TxInstance.LinkConfig.LinkRate);
+		     linkrate);
 
 	/* Write new link rate to the RX device. */
 	Status = XDp_TxAuxWrite(InstancePtr, XDP_DPCD_LINK_BW_SET, 1,
-				&InstancePtr->TxInstance.LinkConfig.LinkRate);
+				&linkrate);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

@@ -100,6 +100,7 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	u32 VideoBw;
 	u32 LinkBw;
 	u32 WordsPerLine;
+	u8 LinkRate;
 	u8 BitsPerPixel;
 	XDp_TxMainStreamAttributes *MsaConfig;
 	XDp_TxLinkConfig *LinkConfig;
@@ -113,9 +114,10 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 
 	MsaConfig = &InstancePtr->TxInstance.MsaConfig[Stream - 1];
 	LinkConfig = &InstancePtr->TxInstance.LinkConfig;
+	LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
 
 	/* Verify the rest of the values used. */
-	Xil_AssertVoid(XDp_IsLinkRateValid(InstancePtr, LinkConfig->LinkRate));
+	Xil_AssertVoid(XDp_IsLinkRateValid(InstancePtr, LinkRate));
 	Xil_AssertVoid(XDp_IsLaneCountValid(InstancePtr,
 				LinkConfig->LaneCount));
 	Xil_AssertVoid((MsaConfig->SynchronousClockMode == 0) ||
@@ -149,7 +151,7 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	}
 
 	/* Compute the rest of the MSA values. */
-	MsaConfig->NVid = 27 * 1000 * LinkConfig->LinkRate;
+	MsaConfig->NVid = 27 * 1000 * LinkRate;
 	MsaConfig->HStart = MsaConfig->Vtm.Timing.HSyncWidth +
 					MsaConfig->Vtm.Timing.HBackPorch;
 	MsaConfig->VStart = MsaConfig->Vtm.Timing.F0PVSyncWidth +
@@ -231,7 +233,7 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 		 * Note: Both the integer and the fractional part is stored in
 		 * AvgBytesPerTU. */
 		VideoBw = ((MsaConfig->PixelClockHz / 1000) * BitsPerPixel) / 8;
-		LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
+		LinkBw = (LinkConfig->LaneCount * LinkRate * 27);
 		MsaConfig->AvgBytesPerTU = (VideoBw *
 					MsaConfig->TransferUnitSize) / LinkBw;
 
@@ -1471,10 +1473,12 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 	double TsFrac;
 	double pbn;
 	double Dp2xLinkBW;
+	u8 LinkRate;
 
 	PeakPixelBw = ((double)MsaConfig->PixelClockHz / 1000000) *
 						((double)BitsPerPixel / 8);
-	LinkBw = (LinkConfig->LaneCount * LinkConfig->LinkRate * 27);
+	LinkRate = XDp_Tx_DecodeLinkBandwidth(InstancePtr);
+	LinkBw = (LinkConfig->LaneCount * LinkRate * 27);
 
 	/*PBN Value Calculation by a Source Device Payload Bandwidth Manager,
 	 * The PBN value has the unit of 54/64MBps.

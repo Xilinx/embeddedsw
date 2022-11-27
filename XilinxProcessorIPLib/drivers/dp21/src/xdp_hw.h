@@ -398,6 +398,10 @@
 #define XDP_TX_LINK_BW_SET_UHBR10	0x01	/**< 10Gbps link rate. */
 #define XDP_TX_LINK_BW_SET_UHBR20	0x02	/**< 20Gbps link rate. */
 #define XDP_TX_LINK_BW_SET_UHBR135	0x04	/**< 13.5Gbps link rate. */
+/*Link rate*/
+#define XDP_TX_LINK_BW_SET_SW_UHBR10	0x20	/**< 10Gbps link rate. */
+#define XDP_TX_LINK_BW_SET_SW_UHBR20	0x22	/**< 20Gbps link rate. */
+#define XDP_TX_LINK_BW_SET_SW_UHBR135	0x24	/**< 13.5Gbps link rate. */
 
 /* 0x001: LANE_COUNT_SET */
 #define XDP_TX_LANE_COUNT_SET_1		0x01	/**< Lane count of 1. */
