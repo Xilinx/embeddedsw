@@ -4763,7 +4763,7 @@ static u32 XDp_TxCheckCdsInterlaneAlignDone(XDp *InstancePtr)
 	u32 *CdsAlignStatus = InstancePtr->TxInstance.RxConfig.CdsAlignStatus;
 
 	if (CdsAlignStatus[0] &
-	    XDP_DPCD_LANE_ALIGN_STATUS_UPDATED_LINK_STATUS_UPDATED_MASK)
+			XDP_DPCD_LANE_ALIGN_STATUS_128B_CDS_INTERALIGN_DONE)
 		return XST_SUCCESS;
 
 	return XST_FAILURE;
