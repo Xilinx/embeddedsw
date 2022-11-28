@@ -1,7 +1,8 @@
 /*
- * FreeRTOS Kernel V10.4.6
+ * FreeRTOS Kernel V10.5.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
+ * Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -79,6 +80,7 @@ typedef uint64_t TickType_t;
 #define portSTACK_GROWTH			( -1 )
 #define portTICK_PERIOD_MS			( ( TickType_t ) 1000 / configTICK_RATE_HZ )
 #define portBYTE_ALIGNMENT			16
+#define portPOINTER_SIZE_TYPE 		uint64_t
 
 /*-----------------------------------------------------------*/
 
@@ -312,4 +314,5 @@ number of bits implemented by the interrupt controller. */
 #define portICCBPR_BINARY_POINT_REGISTER 					( *( ( const volatile uint32_t * ) ( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCBPR_BINARY_POINT_OFFSET ) ) )
 #define portICCRPR_RUNNING_PRIORITY_REGISTER 				( *( ( const volatile uint32_t * ) ( portINTERRUPT_CONTROLLER_CPU_INTERFACE_ADDRESS + portICCRPR_RUNNING_PRIORITY_OFFSET ) ) )
 #endif
+#define portMEMORY_BARRIER() __asm volatile( "" ::: "memory" )
 #endif /* PORTMACRO_H */

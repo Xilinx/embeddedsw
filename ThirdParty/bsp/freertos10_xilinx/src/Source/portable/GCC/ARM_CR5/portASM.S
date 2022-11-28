@@ -1,7 +1,8 @@
 /*
- * FreeRTOS Kernel V10.4.6
+ * FreeRTOS Kernel V10.5.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Copyright (C) 2022 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
+ * Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *

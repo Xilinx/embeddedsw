@@ -1,5 +1,5 @@
 /*
- * FreeRTOS Kernel V10.4.6
+ * FreeRTOS Kernel V10.5.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
@@ -978,7 +978,7 @@ void vQueueDelete( QueueHandle_t xQueue ) PRIVILEGED_FUNCTION;
  * void vBufferISR( void )
  * {
  * char cIn;
- * BaseType_t xHigherPrioritTaskWoken;
+ * BaseType_t xHigherPriorityTaskWoken;
  *
  *  // We have not woken a task at the start of the ISR.
  *  xHigherPriorityTaskWoken = pdFALSE;
@@ -1400,12 +1400,12 @@ BaseType_t xQueueGiveFromISR( QueueHandle_t xQueue,
  *      vOutputCharacter( cRxedChar );
  *
  *      // If removing the character from the queue woke the task that was
- *      // posting onto the queue cTaskWokenByReceive will have been set to
+ *      // posting onto the queue xTaskWokenByReceive will have been set to
  *      // pdTRUE.  No matter how many times this loop iterates only one
  *      // task will be woken.
  *  }
  *
- *  if( cTaskWokenByPost != ( char ) pdFALSE;
+ *  if( xTaskWokenByReceive != ( char ) pdFALSE;
  *  {
  *      taskYIELD ();
  *  }
@@ -1420,7 +1420,7 @@ BaseType_t xQueueReceiveFromISR( QueueHandle_t xQueue,
 
 /*
  * Utilities to query queues that are safe to use from an ISR.  These utilities
- * should be used only from witin an ISR, or within a critical section.
+ * should be used only from within an ISR, or within a critical section.
  */
 BaseType_t xQueueIsQueueEmptyFromISR( const QueueHandle_t xQueue ) PRIVILEGED_FUNCTION;
 BaseType_t xQueueIsQueueFullFromISR( const QueueHandle_t xQueue ) PRIVILEGED_FUNCTION;
@@ -1478,7 +1478,7 @@ BaseType_t xQueueGiveMutexRecursive( QueueHandle_t xMutex ) PRIVILEGED_FUNCTION;
  * Reset a queue back to its original empty state.  The return value is now
  * obsolete and is always set to pdPASS.
  */
-#define xQueueReset( xQueue )    xQueueGenericReset( xQueue, pdFALSE )
+#define xQueueReset( xQueue )    xQueueGenericReset( ( xQueue ), pdFALSE )
 
 /*
  * The registry is provided as a means for kernel aware debuggers to
@@ -1490,7 +1490,7 @@ BaseType_t xQueueGiveMutexRecursive( QueueHandle_t xMutex ) PRIVILEGED_FUNCTION;
  * configQUEUE_REGISTRY_SIZE defines the maximum number of handles the
  * registry can hold.  configQUEUE_REGISTRY_SIZE must be greater than 0
  * within FreeRTOSConfig.h for the registry to be available.  Its value
- * does not effect the number of queues, semaphores and mutexes that can be
+ * does not affect the number of queues, semaphores and mutexes that can be
  * created - just the number that the registry can hold.
  *
  * If vQueueAddToRegistry is called more than once with the same xQueue
