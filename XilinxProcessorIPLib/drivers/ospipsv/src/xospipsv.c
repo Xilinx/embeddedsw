@@ -41,6 +41,7 @@
 * 1.5   sk   08/17/21 Added DCache invalidate after non-blocking DMA read.
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.8   sk   11/11/22 Enable Master DLL mode by default for Versal Net.
+*       sk   11/29/22 Added support for Indirect Non-Dma write.
 *
 * </pre>
 *
@@ -392,7 +393,13 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 				(InstancePtr->TxBytes != 0U)) {
 			Status = XOspiPsv_Dac_Write(InstancePtr, Msg);
 		} else {
-			Status = XOspiPsv_Stig_Write(InstancePtr, Msg);
+			if (InstancePtr->TxBytes > 8U) {
+				XOspiPsv_ConfigureMux_Linear(InstancePtr);
+				Status = XOspiPsv_IDac_Write(InstancePtr, Msg);
+				XOspiPsv_ConfigureMux_Dma(InstancePtr);
+			} else {
+				Status = XOspiPsv_Stig_Write(InstancePtr, Msg);
+			}
 		}
 	}
 

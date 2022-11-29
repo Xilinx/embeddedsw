@@ -24,6 +24,7 @@
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
 *       sk   02/18/21 Updated RX Tuning algorithm for Master DLL mode.
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
+* 1.8   sk   11/29/22 Added support for Indirect Non-Dma write.
 *
 * </pre>
 *
@@ -36,6 +37,7 @@
 /************************** Constant Definitions *****************************/
 /**< Maximum delay count */
 #define MAX_DELAY_CNT	10000U
+#define MAX_IDAC_DELAY_CNT	10000000U	/**< Max INDAC delay count */
 
 /**************************** Type Definitions *******************************/
 
@@ -418,6 +420,80 @@ u32 XOspiPsv_CheckOspiIdle(const XOspiPsv *InstancePtr)
 					XOSPIPSV_CONFIG_REG);
 		}
 	}
+
+	Status = (u32)XST_SUCCESS;
+ERROR_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This function Write the data in Non-DMA Indirect mode.
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+* @param	Msg is a pointer to the structure containing transfer data.
+*
+* @return   - XST_SUCCESS if successful.
+*			- XST_FAILURE if fails.
+*
+******************************************************************************/
+u32 XOspiPsv_IDac_Write(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
+{
+	u32 ReadReg;
+	u32 Status;
+	u32 DelayCount;
+	u32 *Addr = (u32 *)XOSPIPSV_IND_TRIGGAHB_BASE;
+
+	/* SRAM Partition configuration for write transfer */
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress, XOSPIPSV_SRAM_PARTITION_CFG_REG,
+						0x80U);
+
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_INDIRECT_WRITE_XFER_WATERMARK_REG, 0xFFFFFFFF);
+
+	/* Configure Address */
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_INDIRECT_WRITE_XFER_START_REG, Msg->Addr);
+
+	/* Configure number of bytes to write and indirect address*/
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_INDIRECT_WRITE_XFER_NUM_BYTES_REG, Msg->ByteCount);
+
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_IND_AHB_ADDR_TRIGGER_REG, XOSPIPSV_IND_TRIGGAHB_BASE);
+
+	/* configure trigger range */
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_INDIRECT_TRIGGER_ADDR_RANGE_REG, XOSPIPSV_IND_TRIGGER_RANGE);
+
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG);
+	ReadReg |= (XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_START_FLD_MASK);
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+			XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG, (ReadReg));
+
+	Xil_MemCpy(Addr, Msg->TxBfrPtr, Msg->ByteCount);
+
+	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG);
+	DelayCount = 0U;
+	while((ReadReg & XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK) == 0U) {
+		if (DelayCount == MAX_IDAC_DELAY_CNT) {
+			Status = (u32)XST_FAILURE;
+			goto ERROR_PATH;
+		} else {
+			/* Wait for 1 usec */
+			usleep(1);
+			DelayCount++;
+			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
+					XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG);
+		}
+	}
+
+	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
+		XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG,
+		(XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));
 
 	Status = (u32)XST_SUCCESS;
 ERROR_PATH:

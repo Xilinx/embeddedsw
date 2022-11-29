@@ -21,6 +21,7 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.2   sk  02/20/20 First release
 * 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
+* 1.8   sk   11/29/22 Added support for Indirect Non-Dma write.
 *
 * </pre>
 *
@@ -81,6 +82,71 @@ static inline void XOspiPsv_Enable(const XOspiPsv *InstancePtr)
 		XOSPIPSV_CONFIG_REG, ConfigReg);
 }
 
+/*****************************************************************************/
+/**
+* @brief
+* Configures the OSPI MUX to Linear mode
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+*
+* @return	None.
+*
+******************************************************************************/
+static inline void XOspiPsv_ConfigureMux_Linear(const XOspiPsv *InstancePtr)
+{
+	XOspiPsv_Disable(InstancePtr);
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	/*
+	 * Execution is happening in non secure world, configure MUX
+	 * settings through SMC calls
+	 */
+
+	/* Request for OSPI node */
+	Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+	/* Change MUX settings to select LINEAR mode */
+	Xil_Smc(PM_IOCTL_SMC_FID, (((u64)PM_IOCTL_OSPI_MUX_SELECT << 32) | OSPI_NODE_ID) , PM_OSPI_MUX_SEL_LINEAR, 0,0,0,0,0);
+	/* Release OSPI node */
+	Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0,0,0,0,0);
+#else
+	XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR, XPMC_IOU_SLCR_OSPI_MUX_SEL,
+		XOspiPsv_ReadReg(XPMC_IOU_SLCR_BASEADDR, XPMC_IOU_SLCR_OSPI_MUX_SEL) |
+			(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);
+#endif
+
+	XOspiPsv_Enable(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* Configures the OSPI MUX to DMA mode
+*
+* @param	InstancePtr is a pointer to the XOspiPsv instance.
+*
+* @return	None.
+*
+******************************************************************************/
+static inline void XOspiPsv_ConfigureMux_Dma(const XOspiPsv *InstancePtr)
+{
+	XOspiPsv_Disable(InstancePtr);
+
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+	/* Request for OSPI node */
+	Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0, 0, 0, 0, 0, 0);
+	/* Change MUX settings to select DMA mode */
+	Xil_Smc(PM_IOCTL_SMC_FID, (((u64)PM_IOCTL_OSPI_MUX_SELECT << 32) | OSPI_NODE_ID), PM_OSPI_MUX_SEL_DMA, 0, 0, 0, 0, 0);
+	/* Release OSPI node */
+	Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID, 0, 0, 0, 0, 0, 0);
+#else
+	XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR, XPMC_IOU_SLCR_OSPI_MUX_SEL,
+			XOspiPsv_ReadReg(XPMC_IOU_SLCR_BASEADDR, XPMC_IOU_SLCR_OSPI_MUX_SEL) &
+					~(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);
+#endif
+
+	XOspiPsv_Enable(InstancePtr);
+}
+
 /************************** Function Prototypes ******************************/
 
 u32 XOspiPsv_Stig_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
@@ -114,6 +180,7 @@ u32 XOspiPsv_ExecuteRxTuning(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 u32 XOspiPsv_CalculateRxTap(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg,
 		u8 *AvgRXTap, u8 *MaxWindowSize, u8 DummyIncr, u32 TXTap);
 u32 XOspiPsv_ConfigureTaps(const XOspiPsv *InstancePtr, u32 RxTap, u32 TxTap);
+u32 XOspiPsv_IDac_Write(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg);
 
 #ifdef __cplusplus
 }
