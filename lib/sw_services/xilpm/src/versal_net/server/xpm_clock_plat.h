@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +16,7 @@ extern "C" {
 
 #define ISCPMCLK(idx)	(((idx) == (u32)XPM_NODEIDX_CLK_CPLL) ||			\
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PRESRC) ||		\
+			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PLL) ||		\
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_POSTCLK) ||		\
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_PLL_OUT) ||		\
 			((idx) == (u32)XPM_NODEIDX_CLK_CPM5N_CORE_REF) ||		\
