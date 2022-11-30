@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -409,7 +410,7 @@ XPm_ClockNode* XPmClock_GetByIdx(u32 ClockIdx)
 {
         XPm_ClockNode *Clk = NULL;
 
-        if(MaxClkNodes <= ClockIdx) {
+        if(MaxClkNodes < ClockIdx) {
                 goto done;
         }
 
@@ -951,7 +952,7 @@ XStatus XPmClock_QueryAttributes(u32 ClockIndex, u32 *Resp)
 	u32 ClockId = 0;
 	const XPm_ClockNode *Clk;
 
-	if (ClockIndex >= MaxClkNodes) {
+	if (ClockIndex > MaxClkNodes) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -1004,7 +1005,7 @@ done:
 
 XStatus XPmClock_GetNumClocks(u32 *Resp)
 {
-	*Resp = MaxClkNodes;
+	*Resp = MaxClkNodes + 1;
 
 	return XST_SUCCESS;
 }
