@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +42,7 @@
 #define AIE1_DATA_MEM_SIZE		(0x8000U)
 
 static XPm_AieDomain *PmAieDomain;
+static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd);
 
 static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
 {
@@ -1340,19 +1342,13 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
-	XStatus CoreZeroStatus = XST_FAILURE;
-	XStatus MemZeroStatus = XST_FAILURE;
-	XStatus MemTileZeroStatus = XST_FAILURE;
-	u32 AieZeroizationTime = 0U;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 BaseAddress, row, col, mrow;
+	u32 BaseAddress;
 
 	const XPm_AieArray *Array = &((const XPm_AieDomain *)PwrDomain)->Array;
 	u16 StartCol = Array->StartCol;
-	u16 EndCol = StartCol + Array->NumColsAdjusted;
-	u16 StartRow = Array->StartRow;
-	u16 EndRow = StartRow + Array->NumRowsAdjusted;
-	u16 StartTileRow = StartRow + Array->NumMemRows;
+	/* Adjust EndCol value as the StartCol will start from index 0 */
+	u16 EndCol = (u16)(StartCol + Array->NumColsAdjusted - 1U);
 
 	/* This function does not use the args */
 	(void)Args;
@@ -1365,71 +1361,13 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
-
-	/* Enable privileged write access */
-	XPm_RMW32(BaseAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET,
-			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK,
-			ME_PROT_REG_CTRL_PROTECTED_REG_EN_MASK);
-
-	/*
-	 * Enable memory zeroization for all mem tiles, core module tiles,
-	 * and memory module tiles.
-	 */
-	for (col = StartCol; col < EndCol; col++) {
-		for (row = StartRow; row < StartTileRow; row++) {
-			u64 MemTileBaseAddress = AIE2_TILE_BADDR(Array->NocAddress, col, row);
-
-			AieRMW64(MemTileBaseAddress + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
-					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
-					AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
-		}
-		for (row = StartTileRow; row < EndRow; row++) {
-			u64 TileBaseAddress = AIE2_TILE_BADDR(Array->NocAddress, col, row);
-
-			AieWrite64(TileBaseAddress + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
-					AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
-
-			AieWrite64(TileBaseAddress + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
-					AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
-		}
-
+	Status = Aie2_Zeroization(AieDev, (u32)StartCol, (u32)EndCol);
+	if (XST_SUCCESS != Status) {
+		/* Lock ME PCSR */
+		XPm_LockPcsr(BaseAddress);
+		DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
+		goto done;
 	}
-
-	col = (u32)(Array->StartCol + Array->NumColsAdjusted - 1U);
-	row = (u32)(Array->StartRow + Array->NumRowsAdjusted - 1U);
-	mrow = (u32)(Array->StartRow + Array->NumMemRows - 1U);
-
-	/* Poll the last cell for each tile type for memory zeroization complete */
-	while ((XST_SUCCESS != MemTileZeroStatus) ||
-	       (XST_SUCCESS != CoreZeroStatus) ||
-	       (XST_SUCCESS != MemZeroStatus)) {
-
-		if (0U == (AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
-				(AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, mrow) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)))) {
-			MemTileZeroStatus = XST_SUCCESS;
-		}
-
-		if (0U == (AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
-				(AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET)))) {
-			CoreZeroStatus = XST_SUCCESS;
-		}
-
-		if (0U == (AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
-				(AieRead64(AIE2_TILE_BADDR(Array->NocAddress, col, row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET)))) {
-			MemZeroStatus = XST_SUCCESS;
-		}
-
-		AieZeroizationTime++;
-		if (AieZeroizationTime > XPLMI_TIME_OUT_DEFAULT) {
-			/* Lock ME PCSR */
-			XPm_LockPcsr(BaseAddress);
-			DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
-			Status = XST_FAILURE;
-			goto done;
-		}
-	}
-
-	Status = XST_SUCCESS;
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
@@ -2046,7 +1984,7 @@ static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColE
 		AieZeroizationTime++;
 		if (AieZeroizationTime > XPLMI_TIME_OUT_DEFAULT) {
 			DbgErr = XPM_INT_ERR_AIE_MEMORY_ZEROISATION;
-			Status = XST_FAILURE;
+			Status = XPM_ERR_AIE_OPS_ZEROIZATION;
 			goto done;
 		}
 	}
@@ -2280,7 +2218,6 @@ static XStatus Aie2_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 	if (0U != (AIE_OPS_ZEROIZATION & Ops)) {
 		Status = Aie2_Zeroization(AieDev, ColStart, ColEnd);
 		if (XST_SUCCESS != Status) {
-			Status = XPM_ERR_AIE_OPS_ZEROIZATION;
 			goto done;
 		}
 	}
