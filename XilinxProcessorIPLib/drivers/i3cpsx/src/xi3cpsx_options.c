@@ -1,6 +1,7 @@
 
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------
 * 1.00  sd  06/10/22 First release
+* 1.01  sd  12/01/22 REmove the hardcoding of timing values
 *
 * </pre>
 *
@@ -64,15 +66,13 @@ s32 XI3cPsx_SetSClk(XI3cPsx *InstancePtr)
 		Lcnt = SCL_I3C_TIMING_CNT_MIN;
 
 	SclTiming = SCL_I3C_TIMING_HCNT(Hcnt) | Lcnt & XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_MASK;
-	SclTiming = 0x00050005;
 	XI3cPsx_WriteReg(BaseAddress, XI3CPSX_SCL_I3C_PP_TIMING, SclTiming);
 	SclTiming = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_SCL_I3C_PP_TIMING);
 
 	Lcnt = XI3CPSX_CEIL_DIV(I3C_BUS_TLOW_OD_MIN_NS, CorePeriod);
 	SclTiming = SCL_I3C_TIMING_HCNT(Hcnt) | SCL_I3C_TIMING_LCNT(Lcnt);
 
-	/* RE-VISIT - Hard coding for the time being */
-	XI3cPsx_WriteReg(BaseAddress, XI3CPSX_SCL_I3C_OD_TIMING, 0x00200020);
+	XI3cPsx_WriteReg(BaseAddress, XI3CPSX_SCL_I3C_OD_TIMING, SclTiming);
 
 	return 0;
 }
