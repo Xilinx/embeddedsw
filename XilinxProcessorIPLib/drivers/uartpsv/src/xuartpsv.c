@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -235,6 +236,115 @@ u32 XUartPsv_Send(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
 	BytesSent = XUartPsv_SendBuffer(InstancePtr);
 
 	return BytesSent;
+}
+
+/*****************************************************************************/
+/**
+ * *
+ * * This function sends a buffer that has been previously specified by setting
+ * * up the instance variables of the instance.
+ * *
+ * * This function implemented for RTOS environment and it is an internal
+ * * function for the XUartPsv driver such that it's being called from
+ * * XUartPsv_Send_NoWait function that sets up the buffer.
+ * *
+ * * This function sends the specified buffer in polled mode. This function
+ * * only sends as much data as the TX FIFO can buffer. The application may
+ * * need to call it repeatedly to send the entire buffer.
+ * *
+ * * @param        InstancePtr is a pointer to the XUartPsv instance
+ * *
+ * * @return       The number of bytes actually sent
+ * *
+ * * @note         None.
+ * *
+ * ******************************************************************************/
+static u32 XUartPsv_SendBuffer_NoWait(XUartPsv *InstancePtr)
+{
+	u32 SentCount = 0U;
+
+	/*
+	 * If the TX FIFO is full, send nothing.
+	 * Otherwise put bytes into the TX FIFO until it is full, or all of
+	 * the data has been put into the FIFO.
+	 */
+	while ((!XUartPsv_IsTransmitFull(InstancePtr->Config.BaseAddress)) &&
+			(InstancePtr->SendBuffer.RemainingBytes > SentCount)) {
+
+		/* Fill the FIFO from the buffer */
+		XUartPsv_WriteReg(InstancePtr->Config.BaseAddress,
+				XUARTPSV_UARTDR_OFFSET, ((u32)InstancePtr->
+				SendBuffer.NextBytePtr[SentCount]));
+
+		/* Increment the send count. */
+		SentCount++;
+	}
+
+	/* Update the buffer to reflect the bytes that were sent from it */
+	InstancePtr->SendBuffer.NextBytePtr += SentCount;
+	InstancePtr->SendBuffer.RemainingBytes -= SentCount;
+
+	return SentCount;
+}
+
+/*****************************************************************************/
+/**
+ * *
+ * * This functions sends the specified buffer using the device in polled mode.
+ * * This function is non-blocking, if the device is busy sending data, it will
+ * * return and indicate zero bytes were sent. Otherwise, it fills the TX FIFO
+ * * as much as it can, and return the number of bytes sent. The application may
+ * * need to call it repeatedly to send the entire buffer.
+ * *
+ * * This function implemented for RTOS environment, it will check status and
+ * * return without waiting. The caller of XUartPsv_Send_NoWait can wait
+ * * based on return value.
+ * *
+ * * @param        InstancePtr is a pointer to the XUartPsv instance.
+ * * @param        BufferPtr is pointer to a buffer of data to be sent.
+ * * @param        NumBytes contains the number of bytes to be sent. A value of
+ * *               zero will stop a previous send operation that is in progress
+ * *               in interrupt mode. Any data that was already put into the
+ * *               transmit FIFO will be sent.
+ * *
+ * * @return       - The number of bytes actually sent, if data successfully sent
+ * *		   - 0, if TX is busy. The caller of XUartPsv_Send_NoWait can
+ * *		     wait if return 0.
+ * *
+ * * @note
+ * * The number of bytes is not asserted so that this function may be called with
+ * * a value of zero to stop an operation that is already in progress.
+ * * <br><br>
+ * *
+ * ******************************************************************************/
+u32 XUartPsv_Send_NoWait(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes)
+{
+        u32 BytesSent;
+	u32 IsBusy;
+
+        /* Asserts validate the input arguments */
+        Xil_AssertNonvoid(InstancePtr != NULL);
+        Xil_AssertNonvoid(BufferPtr != NULL);
+        Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/*
+	 * Check TX busy, return 0 if TX busy.
+	 */
+
+	IsBusy = (u32)XUartPsv_IsTransmitbusy(InstancePtr->Config.BaseAddress);
+	if (IsBusy == (u32)TRUE) {
+		return 0;
+	}
+
+        /* Setup the buffer parameters */
+        InstancePtr->SendBuffer.RequestedBytes = NumBytes;
+        InstancePtr->SendBuffer.RemainingBytes = NumBytes;
+        InstancePtr->SendBuffer.NextBytePtr = BufferPtr;
+
+        /* Send data to the device */
+        BytesSent = XUartPsv_SendBuffer_NoWait(InstancePtr);
+
+        return BytesSent;
 }
 
 /*****************************************************************************/

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +44,8 @@ extern "C" {
 u32  XUartPsv_SendBuffer(XUartPsv *InstancePtr);
 
 u32  XUartPsv_ReceiveBuffer(XUartPsv *InstancePtr);
+
+u32 XUartPsv_Send_NoWait(XUartPsv *InstancePtr, u8 *BufferPtr, u32 NumBytes);
 
 /************************** Variable Definitions *****************************/
 
