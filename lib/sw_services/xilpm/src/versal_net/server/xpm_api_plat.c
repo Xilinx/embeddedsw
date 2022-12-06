@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -250,6 +251,20 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		{PM_DEV_IPI_4, (u32)PM_CAP_ACCESS},
 		{PM_DEV_IPI_5, (u32)PM_CAP_ACCESS},
 		{PM_DEV_IPI_6, (u32)PM_CAP_ACCESS},
+		{PM_DEV_SDIO_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE},
+		{PM_DEV_I2C_0, (u32)PM_CAP_ACCESS},
+		{PM_DEV_I2C_1, (u32)PM_CAP_ACCESS},
+		{PM_DEV_GEM_0, (u32)XPM_MAX_CAPABILITY | (u32)PM_CAP_SECURE},
+		{PM_DEV_GEM_1, (u32)XPM_MAX_CAPABILITY | (u32)PM_CAP_SECURE},
+		{PM_DEV_OCM_0_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_0_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_0_2, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_0_3, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_1_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_1_1, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_1_2, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_OCM_1_3, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
+		{PM_DEV_DDR_0, (u32)PM_CAP_ACCESS | (u32)PM_CAP_CONTEXT},
 	};
 
 	/*
@@ -423,20 +438,51 @@ static XStatus PwrDomainInitNode(u32 NodeId, u32 Function, const u32 *Args, u32 
 		break;
 	}
 
-	if((XPM_NODEIDX_POWER_LPD == NODEINDEX(NodeId))&&(FUNC_INIT_FINISH == Function)){
+	/*
+	 * Call LPD init to initialize required components
+	 */
+	if (((u32)XPM_NODEIDX_POWER_LPD == NODEINDEX(NodeId)) &&
+	    ((u32)FUNC_INIT_FINISH == Function)
+	    /* TODO: Comment out below condition once INIT_START call added for LPD */
+	    /* && (XST_SUCCESS == Status) */) {
 		/*
 		 * Mark domain init status bit in DomainInitStatusReg
 		 */
 		XPm_RMW32(XPM_DOMAIN_INIT_STATUS_REG,0x2,0x2);
+#ifdef DEBUG_UART_PS
+		/**
+		 * PLM needs to request UART if debug is enabled, else XilPM
+		 * will turn it off when it is not used by other processor.
+		 * During such scenario when PLM tries to print debug message,
+		 * system may not work properly.
+		 */
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, NODE_UART,
+					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0,
+					   XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+#endif
+		/**
+		 * PLM needs to request PMC IPI, else XilPM will reset IPI
+		 * when it is not used by other processor. Because of that PLM
+		 * hangs when it tires to communicate through IPI.
+		 */
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_IPI_PMC,
+					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0,
+					   XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			PmErr("Error %d in request IPI PMC\r\n", Status);
+		}
 		XPlmi_LpdInit();
-	#ifdef XPLMI_IPI_DEVICE_ID
+#ifdef XPLMI_IPI_DEVICE_ID
 		Status = XPlmi_IpiInit(XPmSubsystem_GetSubSysIdByIpiMask);
 		if (XST_SUCCESS != Status) {
 			PmErr("Error %u in IPI initialization\r\n", Status);
 		}
-	#else
+#else
 		PmWarn("IPI is not enabled in design\r\n");
-	#endif /* XPLMI_IPI_DEVICE_ID */
+#endif /* XPLMI_IPI_DEVICE_ID */
 	}
 done:
 	if (XST_SUCCESS != Status) {
