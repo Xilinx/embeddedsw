@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -2970,6 +2971,7 @@
 #define XDP_TX_VFREQ_STREAM4 0x6DC	/**< Vfreq for MST stream4. */
 
 #define XDP_TX_V2_0_CONFIG 0x6E0	/**< DP v2.1 Config Params */
+#define XDP_TX_V2_0_CONFIG_RESET_MASK	0x1003F
 
 #define XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE		0x02215	/*< 128B/132B Supported LinkRates.*/
 #define XDP_DPCD_TRAINING_AUX_RD_INTERVAL		0x02216	/*< AUX Read Interval Set. */
