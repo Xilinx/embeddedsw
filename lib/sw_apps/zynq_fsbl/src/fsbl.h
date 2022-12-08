@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -216,6 +217,7 @@
 * 						to enable level shifters in jtag boot mode.
 * 18.00a ka  10/29/18   Fix for CR# 1006294 Added macro for FORCE_USE_AES_EXCLUDE
 * 19.0   vns 03/18/22   Fixed CR#1125470, added FsblPrintArray() prototype
+* 20.0   ng  12/08/22   Updated SDK release version
 *
 * </pre>
 *
@@ -313,8 +315,8 @@ extern "C" {
 /*
  * SDK release version
  */
-#define SDK_RELEASE_YEAR	2022
-#define SDK_RELEASE_QUARTER	2
+#define SDK_RELEASE_YEAR	2023
+#define SDK_RELEASE_QUARTER	1
 
 #define WORD_LENGTH_SHIFT	2
 

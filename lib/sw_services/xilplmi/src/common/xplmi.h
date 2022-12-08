@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,7 +56,7 @@
 *       kpt  07/05/2022 Added XPLMI_RTCFG_SECURE_CTRL_ADDR
 *       ma   07/08/2022 Added support for secure lockdown
 *       kpt  07/19/2022 Added APIs and macros related to KAT
-*
+* 1.08  ng   12/08/2022 Updated SDK release version
 * </pre>
 *
 * @note
@@ -74,8 +75,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* SDK release version */
-#define SDK_RELEASE_YEAR	"2022" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_YEAR	"2023" /**< Specifies the SDK release year */
+#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
 
 /*
  * Device Copy flag related macros

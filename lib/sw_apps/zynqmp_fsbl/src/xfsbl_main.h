@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,7 @@
 *                     non-secure when RSA_EN is not programmed
 * 4.00  bsv  10/15/21 Fixed bug to support secondary boot with non-zero
 *                     multiboot offset
+* 5.00  ng   12/08/22 Updated SDK release version
 *
 * </pre>
 *
@@ -96,8 +98,8 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* SDK release version */
-#define SDK_RELEASE_YEAR	2022
-#define SDK_RELEASE_QUARTER	2
+#define SDK_RELEASE_YEAR	2023
+#define SDK_RELEASE_QUARTER	1
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)
