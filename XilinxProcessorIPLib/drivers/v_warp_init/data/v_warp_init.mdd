@@ -1,6 +1,7 @@
 # ==============================================================
 # Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
 # Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+# Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 # ==============================================================
 OPTION psf_version = 2.1;
 
