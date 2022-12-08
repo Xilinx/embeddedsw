@@ -1,0 +1,7 @@
+###############################################################################
+# Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+xdfeofdm_examples.c=xdfesi570_mgt.c,xdfeofdm_examples.h,xdfeofdm_AddCC_example.c,xdfeofdm_multiAddCC_example.c

@@ -1,0 +1,17 @@
+
+APP =
+APPSOURCES=*.c
+OUTS =
+OFDM_OBJS =
+INCLUDES =
+BOARD_FLAG =
+OBJS =
+
+%.o: %.c
+	$(CC) ${LDFLAGS} ${BOARD_FLAG} $(INCLUDES) ${CFLAGS} -c $(APPSOURCES)
+
+all: $(OFDM_OBJS)
+	$(CC) ${LDFLAGS} $(INCLUDES) $(OBJS) $(OFDM_OBJS) -o $(OUTS) -ldfeofdm
+
+clean:
+	rm -rf $(OUTS) *.o
