@@ -26,6 +26,7 @@
  * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  * 1.4   mn   11/29/21 Updated print information for read/write eye tests
  *       mn   11/29/21 Usability Enhancements for 2D Read/Write Eye
+ *       sg	  12/07/22 Updated 2D Write Eye sequence for LPDDR4
  *
  * </pre>
  *
@@ -799,7 +800,6 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 			Range = 1U - Range;
 			if (Range == 0U) {
 				MaxWrVRef = XMT_MAX_WR_VREF_LPDDR4_R1;
-				VRefStart = VRefStart + 0x16U;
 			} else {
 				MaxWrVRef = XMT_MAX_WR_VREF;
 			}
@@ -853,6 +853,10 @@ u32 XMt_MeasureWrEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		/* Exit the Calibration Mode */
 		XMt_SetWrVref(XMtPtr, XMT_DDR_VREF_CALIB_MODE_DIS);
 
+		if (XMtPtr->DdrType != XMT_DDR_TYPE_DDR4)
+		{
+			Range = !Range;
+		}
 	}
 
 	XMt_PrintLine(XMtPtr, 5);

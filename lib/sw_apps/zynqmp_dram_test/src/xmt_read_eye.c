@@ -601,9 +601,6 @@ u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 
 	for (VRef = VRefMax; VRef >= VRefMin; VRef--) {
 
-		if(VRef == 0)
-			break;
-
 		XMt_SetVrefVal(XMtPtr, VRef);
 
 		/* Initialize Eye Parameters with zero */
@@ -635,6 +632,9 @@ u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
+
+		if(VRef == 0)
+			break;
 	}
 
 	XMt_PrintLine(XMtPtr, 5);
