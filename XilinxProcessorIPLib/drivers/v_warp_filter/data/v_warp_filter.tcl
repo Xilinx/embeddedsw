@@ -1,6 +1,7 @@
 # ==============================================================
 # Vivado(TM) HLS - High-Level Synthesis from C, C++ and SystemC v2020.1 (64-bit)
 # Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+# Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 # ==============================================================
 proc generate {drv_handle} {
     xdefine_include_file $drv_handle "xparameters.h" "XV_warp_filter" \
@@ -11,7 +12,8 @@ proc generate {drv_handle} {
 	"MAX_COLS" \
 	"MAX_ROWS" \
 	"AXI_MM_READ_DATA_WIDTH" \
-	"BITS_PER_COMPONENTS"
+	"PERFORMANCE_LEVEL" \
+	"BITS_PER_COMPONENT"
 
     xdefine_config_file $drv_handle "xv_warp_filter_g.c" "XV_warp_filter" \
         "DEVICE_ID" \
@@ -19,7 +21,8 @@ proc generate {drv_handle} {
 	"MAX_COLS" \
 	"MAX_ROWS" \
 	"AXI_MM_READ_DATA_WIDTH" \
-	"BITS_PER_COMPONENTS"
+	"PERFORMANCE_LEVEL" \
+	"BITS_PER_COMPONENT"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_warp_filter" \
         "DEVICE_ID" \
@@ -28,5 +31,6 @@ proc generate {drv_handle} {
 	"MAX_COLS" \
 	"MAX_ROWS" \
 	"AXI_MM_READ_DATA_WIDTH" \
-	"BITS_PER_COMPONENTS"
+	"PERFORMANCE_LEVEL" \
+	"BITS_PER_COMPONENT"
 }

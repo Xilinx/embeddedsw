@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -197,6 +198,10 @@ int main(void)
 	filter_configs_ptr = &warp_drv_configs.filterConfigs;
 	filter_configs_ptr->src_buf_addr = SRC_BUF_START_ADDR;
 	filter_configs_ptr->dest_buf_addr = DST_BUF_START_ADDR;
+	if(WarpInst.config->perf_level == 0)
+	{
+		lblock_count = 	valid_seg ;
+	}
 	XVWarpFilter_ProgramDescriptor(&WarpInst, 0, filter_configs_ptr,
 			valid_seg, lblock_count, line_num);
 
