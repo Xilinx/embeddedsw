@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +52,7 @@
  * 		       relevant to this driver version.
  * 9.15  sa   08/12/22 Updated the example to use latest MIG cannoical define
  * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 9.16  sa   09/29/22 Fix infinite loops in the example.
  * </pre>
  *
  * ***************************************************************************
@@ -59,6 +61,7 @@
 #include "xaxidma.h"
 #include "xparameters.h"
 #include "xdebug.h"
+#include "sleep.h"
 
 #ifdef __aarch64__
 #include "xil_mmu.h"
@@ -111,6 +114,7 @@ extern void xil_printf(const char *format, ...);
 #define MARK_UNCACHEABLE        0x701
 
 #define TEST_START_VALUE	0xC
+#define POLL_TIMEOUT_COUNTER	1000000U
 
 /**************************** Type Definitions *******************************/
 
@@ -612,14 +616,22 @@ static int CheckDmaResult(XAxiDma * AxiDmaInstPtr)
 	int ProcessedBdCount;
 	int FreeBdCount;
 	int Status;
+	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	TxRingPtr = XAxiDma_GetTxRing(AxiDmaInstPtr);
 	RxRingPtr = XAxiDma_GetRxRing(AxiDmaInstPtr);
 
-	/* Wait until the one BD TX transaction is done */
-	while ((ProcessedBdCount = XAxiDma_BdRingFromHw(TxRingPtr,
-						       XAXIDMA_ALL_BDS,
-						       &BdPtr)) == 0) {
+	/*
+	 * Wait until the one BD TX transaction is done or
+	 * 1usec * 10^6 iterations of timeout occurs.
+	 */
+	while (TimeOut) {
+		if ((ProcessedBdCount = XAxiDma_BdRingFromHw(TxRingPtr,
+							    XAXIDMA_ALL_BDS,
+							    &BdPtr)) != 0)
+			break;
+		TimeOut--;
+		usleep(1U);
 	}
 
 	/* Free all processed TX BDs for future transmission */
@@ -630,10 +642,19 @@ static int CheckDmaResult(XAxiDma * AxiDmaInstPtr)
 		return XST_FAILURE;
 	}
 
-	/* Wait until the data has been received by the Rx channel */
-	while ((ProcessedBdCount = XAxiDma_BdRingFromHw(RxRingPtr,
-						       XAXIDMA_ALL_BDS,
-						       &BdPtr)) == 0) {
+	TimeOut = POLL_TIMEOUT_COUNTER;
+
+	/*
+	 * Wait until the data has been received by the Rx channel or
+	 * 1usec * 10^6 iterations of timeout occurs.
+	 */
+	while (TimeOut) {
+		if ((ProcessedBdCount = XAxiDma_BdRingFromHw(RxRingPtr,
+							    XAXIDMA_ALL_BDS,
+							    &BdPtr)) != 0)
+			break;
+		TimeOut--;
+		usleep(1U);
 	}
 
 	/* Check received data */

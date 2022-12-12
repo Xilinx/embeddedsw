@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +52,7 @@
  * 		       relevant to this driver version.
  * 9.15  sa   08/12/22 Updated the example to use latest MIG cannoical define
  * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 9.16  sa   09/29/22 Fix infinite loops in the example.
  * </pre>
  *
  * ***************************************************************************
@@ -62,6 +64,7 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xdebug.h"
+#include "xil_util.h"
 
 #ifdef XPAR_UARTNS550_0_BASEADDR
 #include "xuartns550_l.h"       /* to use uartns550 */
@@ -138,6 +141,8 @@
 #define MAX_PKT_LEN		0x100
 
 #define NUMBER_OF_TRANSFERS	10
+#define POLL_TIMEOUT_COUNTER    1000000U
+#define NUMBER_OF_EVENTS	1
 
 /* The interrupt coalescing threshold and delay timer threshold
  * Valid range is 1 to 255
@@ -188,9 +193,9 @@ static INTC Intc;	/* Instance of the Interrupt Controller */
 /*
  * Flags interrupt handlers use to notify the application context the events.
  */
-volatile int TxDone;
-volatile int RxDone;
-volatile int Error;
+volatile u32 TxDone;
+volatile u32 RxDone;
+volatile u32 Error;
 
 /*****************************************************************************/
 /**
@@ -318,21 +323,34 @@ int main(void)
 			return XST_FAILURE;
 		}
 
-
-		/*
-		 * Wait TX done and RX done
-		 */
-		while (!TxDone && !RxDone && !Error) {
-				/* NOP */
+		Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &Error);
+		if (Status == XST_SUCCESS) {
+			if (!TxDone) {
+				xil_printf("Transmit error %d\r\n", Status);
+				goto Done;
+			} else if (Status == XST_SUCCESS && !RxDone) {
+				xil_printf("Receive error %d\r\n", Status);
+				goto Done;
+			}
 		}
 
-		if (Error) {
-			xil_printf("Failed test transmit%s done, "
-			"receive%s done\r\n", TxDone? "":" not",
-							RxDone? "":" not");
-
+		/*
+		 * Wait for TX done or timeout
+		 */
+		Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &TxDone);
+		if (Status != XST_SUCCESS) {
+			xil_printf("Transmit failed %d\r\n", Status);
 			goto Done;
 
+		}
+
+		/*
+		 * Wait for RX done or timeout
+		 */
+		Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &RxDone);
+		if (Status != XST_SUCCESS) {
+			xil_printf("Receive failed %d\r\n", Status);
+			goto Done;
 		}
 
 		/*
@@ -355,6 +373,10 @@ int main(void)
 
 Done:
 	xil_printf("--- Exiting main() --- \r\n");
+
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	return XST_SUCCESS;
 }

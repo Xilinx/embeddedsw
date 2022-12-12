@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +58,7 @@
  * 		       relevant to this driver version.
  * 9.15  sa   08/12/22 Updated the example to use latest MIG cannoical define
  * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 9.16  sa   09/29/22 Fix infinite loops in the example.
  * </pre>
  *
  * ***************************************************************************
@@ -66,6 +68,7 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xdebug.h"
+#include "xil_util.h"
 
 #ifdef __aarch64__
 #include "xil_mmu.h"
@@ -151,7 +154,8 @@ extern void xil_printf(const char *format, ...);
 #define NUMBER_OF_PKTS_TO_TRANSFER 	11
 #define NUMBER_OF_BDS_TO_TRANSFER	(NUMBER_OF_PKTS_TO_TRANSFER * \
 						NUMBER_OF_BDS_PER_PKT)
-
+#define POLL_TIMEOUT_COUNTER         	1000000U
+#define NUMBER_OF_EVENTS		1
 /* The interrupt coalescing threshold and delay timer threshold
  * Valid range is 1 to 255
  *
@@ -209,9 +213,9 @@ static INTC Intc;	/* Instance of the Interrupt Controller */
 /*
  * Flags interrupt handlers use to notify the application context the events.
  */
-volatile int TxDone;
-volatile int RxDone;
-volatile int Error;
+volatile u32 TxDone;
+volatile u32 RxDone;
+volatile u32 Error;
 
 /*
  * Buffer for transmit packet. Must be 32-bit aligned to be used by DMA.
@@ -314,36 +318,48 @@ int main(void)
 	}
 
 	/*
-	 * Wait TX done and RX done
+	 * Check for any error events to occur.
+	 * Upon error, check the error path (Tx/Rx)
 	 */
-	while (((TxDone < NUMBER_OF_BDS_TO_TRANSFER) ||
-			(RxDone < NUMBER_OF_BDS_TO_TRANSFER)) && !Error) {
-		/* NOP */
-	}
-
-	if (Error) {
-		xil_printf("Failed test transmit%s done, "
-			"receive%s done\r\n", TxDone? "":" not",
-					RxDone? "":" not");
-
-		goto Done;
-
-	}else {
-
-		/*
-		 * Test finished, check data
-		 */
-		Status = CheckData(MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER,
-									0xC);
-		if (Status != XST_SUCCESS) {
-
-			xil_printf("Data check failed\r\n");
-
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &Error);
+	if (Status == XST_SUCCESS) {
+		if (!TxDone) {
+			xil_printf("Transmit error %d\r\n", Status);
+			goto Done;
+		} else if (!RxDone) {
+			xil_printf("Receive error %d\r\n", Status);
 			goto Done;
 		}
-
-		xil_printf("Successfully ran AXI DMA SG interrupt Example\r\n");
 	}
+
+	/*
+	 * Wait for TX done to complete transfer for all the BDs or timeout
+	 */
+	Status = Xil_WaitForEvent((UINTPTR)&TxDone, NUMBER_OF_BDS_TO_TRANSFER, NUMBER_OF_BDS_TO_TRANSFER, POLL_TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Transmit failure\r\n");
+		goto Done;
+	}
+
+	/*
+	 * Wait for RX done to be rceived for all the BDs or timeout
+	 */
+	Status = Xil_WaitForEvent((UINTPTR)&RxDone, NUMBER_OF_BDS_TO_TRANSFER, NUMBER_OF_BDS_TO_TRANSFER, POLL_TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Receive failure\r\n");
+		goto Done;
+	}
+
+	/*
+	 * Test finished, check data
+	 */
+	Status = CheckData(MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER, 0xC);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Data check failed\r\n");
+		goto Done;
+	}
+
+	xil_printf("Successfully ran AXI DMA SG interrupt Example\r\n");
 
 	/* Disable TX and RX Ring interrupts and return success */
 

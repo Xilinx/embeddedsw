@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +50,7 @@
  * 		       relevant to this driver version.
  * 9.15  sa   08/12/22 Updated the example to use latest MIG cannoical define
  * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 9.16  sa   09/29/22 Fix infinite loops in the example.
  * </pre>
  *
  * ***************************************************************************
@@ -58,6 +60,7 @@
 #include "xaxidma.h"
 #include "xparameters.h"
 #include "xdebug.h"
+#include "sleep.h"
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 #include "xuartns550_l.h"       /* to use uartns550 */
@@ -98,6 +101,7 @@
 #define TEST_START_VALUE	0xC
 
 #define NUMBER_OF_TRANSFERS	10
+#define POLL_TIMEOUT_COUNTER    1000000U
 
 /**************************** Type Definitions *******************************/
 
@@ -208,6 +212,7 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 	u8 *TxBufferPtr;
 	u8 *RxBufferPtr;
 	u8 Value;
+	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	TxBufferPtr = (u8 *)TX_BUFFER_BASE ;
 	RxBufferPtr = (u8 *)RX_BUFFER_BASE;
@@ -268,9 +273,13 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 			return XST_FAILURE;
 		}
 
-		while ((XAxiDma_Busy(&AxiDma,XAXIDMA_DEVICE_TO_DMA)) ||
-			(XAxiDma_Busy(&AxiDma,XAXIDMA_DMA_TO_DEVICE))) {
-				/* Wait */
+		/*Wait till tranfer is done or 1usec * 10^6 iterations of timeout occurs*/
+		while (TimeOut) {
+			if (!(XAxiDma_Busy(&AxiDma,XAXIDMA_DEVICE_TO_DMA)) &&
+			!(XAxiDma_Busy(&AxiDma,XAXIDMA_DMA_TO_DEVICE)))
+				break;
+			TimeOut--;
+			usleep(1U);
 		}
 
 		Status = CheckData();
