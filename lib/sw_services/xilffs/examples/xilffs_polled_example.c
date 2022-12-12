@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -81,7 +82,7 @@ u8 SourceAddress[10*1024] __attribute__ ((aligned(32)));
 #endif
 
 #define TEST 7
-
+MKFS_PARM mkfs_parm;
 /*****************************************************************************/
 /**
 *
@@ -155,11 +156,12 @@ int FfsSdPolledExample(void)
 		return XST_FAILURE;
 	}
 
+	 mkfs_parm.fmt = FM_FAT32;
 	/*
 	 * Path - Path to logical driver, 0 - FDISK format.
 	 * 0 - Cluster size is automatically determined based on Vol size.
 	 */
-	Res = f_mkfs(Path, FM_FAT32, 0, work, sizeof work);
+	Res = f_mkfs(Path, &mkfs_parm , work, sizeof work);
 	if (Res != FR_OK) {
 		return XST_FAILURE;
 	}
