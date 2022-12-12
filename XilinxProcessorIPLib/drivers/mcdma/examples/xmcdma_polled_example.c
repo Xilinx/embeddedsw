@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +56,7 @@
  *                       for all supported architectures.
  * 1.7   sa   08/12/22  Updated the example to use latest MIG cannoical define
  * 		        i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 1.8   sa   09/29/22  Fix infinite loops in the example.
  * </pre>
  *
  * ***************************************************************************
@@ -64,6 +66,7 @@
 #include "xparameters.h"
 #include "xdebug.h"
 #include "xmcdma_hw.h"
+#include "sleep.h"
 
 #ifdef __aarch64__
 #include "xil_mmu.h"
@@ -120,6 +123,8 @@
 #define NUM_MAX_CHANNELS	16
 
 #define TEST_START_VALUE	0xC
+
+#define POLL_TIMEOUT_COUNTER    1000000U
 
 int TxPattern[NUM_MAX_CHANNELS + 1];
 int RxPattern[NUM_MAX_CHANNELS + 1];
@@ -180,6 +185,7 @@ int main(void)
 	RxDone = 0;
 
 	XMcdma_Config *Mcdma_Config;
+	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
 
@@ -230,12 +236,14 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	/* Check DMA transfer result */
-    while (1) {
-        Mcdma_Poll(&AxiMcdma);
-        if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels)
-              break;
-   }
+	/* Wait for transfer to complete or 1usec * 10^6 iterations of timeout occurs */
+	while (TimeOut) {
+		Mcdma_Poll(&AxiMcdma);
+		if (RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels)
+			break;
+		TimeOut--;
+		usleep(1U);
+	}
 
 
 	xil_printf("AXI MCDMA SG Polling Test %s\r\n",

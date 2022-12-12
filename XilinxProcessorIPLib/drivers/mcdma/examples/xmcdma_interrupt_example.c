@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +39,7 @@
  *                      for all supported architectures.
  * 1.7   sa   08/12/22  Updated the example to use latest MIG cannoical define
  * 		        i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 1.8	 sa   09/29/22  Fix infinite loops in the example.
  * </pre>
  *
  * ***************************************************************************
@@ -47,6 +49,7 @@
 #include "xparameters.h"
 #include "xdebug.h"
 #include "xmcdma_hw.h"
+#include "xil_util.h"
 
 #ifdef __aarch64__
 #include "xil_mmu.h"
@@ -130,6 +133,8 @@
  #define INTC_HANDLER	XScuGic_InterruptHandler
 #endif
 
+#define POLL_TIMEOUT_COUNTER     1000000U
+#define NUMBER_OF_EVENTS	 1
 /**************************** Type Definitions *******************************/
 
 
@@ -157,9 +162,9 @@ XMcdma AxiMcdma;
 
 volatile int RxChanDone;
 volatile int TxChanDone;
-volatile int RxDone;
+volatile u32 RxDone;
 volatile int TxDone;
-volatile int Error;
+volatile u32 Error;
 int num_channels;
 
 
@@ -247,19 +252,23 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	 while (1) {
-	        if ((RxDone >= NUMBER_OF_BDS_TO_TRANSFER * num_channels) && !Error)
-	              break;
-	 }
-
-	xil_printf("AXI MCDMA SG Interrupt Test %s\r\n",
-		(Status == XST_SUCCESS)? "passed":"failed");
-
-	xil_printf("--- Exiting main() --- \r\n");
-
-	if (Status != XST_SUCCESS) {
+	/* Check for any error events to occur */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &Error);
+	if (Status == XST_SUCCESS) {
+		xil_printf("AXI MCDMA SG Interrupt Test error %d\r\n", Status);
 		return XST_FAILURE;
 	}
+
+	/* Wait for dma transfer or timeout */
+	Status = Xil_WaitForEvent((UINTPTR)&RxDone, NUMBER_OF_BDS_TO_TRANSFER * num_channels, NUMBER_OF_BDS_TO_TRANSFER * num_channels, POLL_TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		xil_printf("AXI MCDMA SG Interrupt Test failed %d\r\n", Status);
+		return XST_FAILURE;
+	}
+
+	xil_printf("AXI MCDMA SG Interrupt Test passed\r\n");
+
+	xil_printf("--- Exiting main() --- \r\n");
 
 	return XST_SUCCESS;
 }
