@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -85,7 +86,7 @@
  *****************************************************************************/
 static inline int XPuf_WaitForPufSynWordRdy(void)
 {
-	return (int)Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
+	return (int)Xil_WaitForEvent((UINTPTR)(XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET),
 		XPUF_STATUS_SYNDROME_WORD_RDY, XPUF_STATUS_SYNDROME_WORD_RDY,
 		XPUF_STATUS_WAIT_TIMEOUT);
@@ -102,7 +103,7 @@ static inline int XPuf_WaitForPufSynWordRdy(void)
  *****************************************************************************/
 static inline int XPuf_WaitForPufDoneStatus(void)
 {
-	return (int)Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
+	return (int)Xil_WaitForEvent((UINTPTR)(XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_PUF_DONE,
 		XPUF_STATUS_PUF_DONE, XPUF_STATUS_WAIT_TIMEOUT);
 }
@@ -506,7 +507,7 @@ int XPuf_ClearPufID(void)
 	 *  @{ The API waits for ID_ZERO bit to be set in PUF Status register.
 	 *     If id zero bit is not set within 1 second then returns XPUF_ERROR_PUF_ID_ZERO_TIMEOUT else returns XST_SUCCESS
 	 */
-	WaitStatus = (int)Xil_WaitForEvent((XPUF_PMC_GLOBAL_BASEADDR +
+	WaitStatus = (int)Xil_WaitForEvent((UINTPTR)(XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_ID_ZERO,
 		XPUF_STATUS_ID_ZERO, XPUF_STATUS_WAIT_TIMEOUT);
 	if (WaitStatus != XST_SUCCESS) {

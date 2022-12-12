@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -116,7 +117,7 @@ typedef struct {
  * instance.
  */
 typedef struct {
-	u32 BaseAddress;  /**< Device Base Address */
+	UINTPTR BaseAddress;  /**< Device Base Address */
 	XPmcDma *DmaPtr; /**< Pointer to PMC DMA Instance */
 	u32 Sha3Len; /**< SHA3 Input Length */
 	u32 PartialLen; /**< Partial Length */

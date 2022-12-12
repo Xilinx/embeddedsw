@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -100,7 +101,7 @@ int XNvm_EfuseCacheReload(void)
 			XNVM_EFUSE_CACHE_LOAD_REG_OFFSET,
 			XNVM_EFUSE_CACHE_LOAD_MASK);
 
-	CacheStatus = Xil_WaitForEvent((XNVM_EFUSE_CTRL_BASEADDR +
+	CacheStatus = Xil_WaitForEvent((UINTPTR)(XNVM_EFUSE_CTRL_BASEADDR +
 				XNVM_EFUSE_STATUS_REG_OFFSET),
 				XNVM_EFUSE_STATUS_CACHE_DONE,
 				XNVM_EFUSE_STATUS_CACHE_DONE,

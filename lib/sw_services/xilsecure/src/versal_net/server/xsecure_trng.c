@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -66,7 +67,7 @@ static int XSecure_TrngWritePersString(const u8 *PersString);
 static int XSecure_TrngWaitForReseed(XSecure_TrngInstance *InstancePtr);
 static int XSecure_TrngTriggerGenerate(XSecure_TrngInstance *InstancePtr, u8 *RandBuf, u32 RandBufSize);
 static int XSecure_TrngWriteSeed(const u8 *Seed, u8 DLen);
-static inline int XSecure_TrngWaitForEvent(u32 Addr, u32 EventMask, u32 Event,
+static inline int XSecure_TrngWaitForEvent(UINTPTR Addr, u32 EventMask, u32 Event,
 		u32 Timeout);
 static inline void XSecure_TrngWriteReg(UINTPTR Address, u32 RegValue);
 static inline u32 XSecure_TrngReadReg(UINTPTR RegAddress);
@@ -739,7 +740,7 @@ static int XSecure_TrngWaitForReseed(XSecure_TrngInstance *InstancePtr) {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngWaitForEvent, XSECURE_TRNG_STATUS,
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngWaitForEvent, (UINTPTR)XSECURE_TRNG_STATUS,
 			XSECURE_TRNG_STATUS_DONE_MASK, XSECURE_TRNG_STATUS_DONE_MASK,
 			XSECURE_TRNG_RESEED_TIMEOUT);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
@@ -797,7 +798,7 @@ static int XSecure_TrngTriggerGenerate(XSecure_TrngInstance *InstancePtr, u8 *Ra
 	}
 
 	for (NumofBursts = 0; NumofBursts < XSECURE_TRNG_SEC_STRENGTH_IN_BURSTS; NumofBursts++) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngWaitForEvent, XSECURE_TRNG_STATUS,
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngWaitForEvent, (UINTPTR)XSECURE_TRNG_STATUS,
 			XSECURE_TRNG_STATUS_QCNT_MASK,
 			(XSECURE_TRNG_STATUS_QCNT_VAL << XSECURE_TRNG_STATUS_QCNT_SHIFT),
 			XSECURE_TRNG_GENERATE_TIMEOUT);
@@ -929,7 +930,7 @@ static int XSecure_TrngWritePersString(const u8 *PersString) {
  *          XST_FAILURE - Event did not occur before counter reaches 0.
  *
  **************************************************************************************************/
-static inline int XSecure_TrngWaitForEvent(u32 Addr, u32 EventMask, u32 Event,
+static inline int XSecure_TrngWaitForEvent(UINTPTR Addr, u32 EventMask, u32 Event,
 		u32 Timeout)
 {
 	return (int)Xil_WaitForEvent(Addr, EventMask, Event, Timeout);

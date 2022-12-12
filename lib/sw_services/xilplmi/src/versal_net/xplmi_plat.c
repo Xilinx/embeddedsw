@@ -803,7 +803,7 @@ int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq)
 		XPlmi_DisableClearIOmodule();
 		mb_sleep();
 	}
-	Status = (int)Xil_WaitForEvent(PMC_GLOBAL_ROM_INT_REASON,
+	Status = (int)Xil_WaitForEvent((UINTPTR)PMC_GLOBAL_ROM_INT_REASON,
 		IntrMask, IntrMask, XPLMI_ROM_SERVICE_TIMEOUT);
 
 	if (RomServiceReq == XPLMI_DME_CHL_SIGN_GEN) {

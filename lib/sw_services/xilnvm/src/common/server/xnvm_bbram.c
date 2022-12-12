@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -300,7 +301,7 @@ int XNvm_BbramZeroize(void)
      *	  Return XST_SUCCESS
      */
 	XNvm_BbramWriteReg(XNVM_BBRAM_CTRL_REG, XNVM_BBRAM_CTRL_START_ZEROIZE);
-	Status = (int)Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
+	Status = (int)Xil_WaitForEvent((UINTPTR)(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG),
 		XNVM_BBRAM_STATUS_ZEROIZED,
 		XNVM_BBRAM_STATUS_ZEROIZED,
 		XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL);
@@ -326,7 +327,7 @@ static int XNvm_BbramEnablePgmMode(void)
 
 	XNvm_BbramWriteReg(XNVM_BBRAM_PGM_MODE_REG,
 	                   XNVM_EFUSE_PGM_MODE_PASSCODE);
-	Status = (int)Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
+	Status = (int)Xil_WaitForEvent((UINTPTR)(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG),
 	        XNVM_BBRAM_STATUS_PGM_MODE_DONE,
 	        XNVM_BBRAM_STATUS_PGM_MODE_DONE,
 	        XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL);
@@ -382,7 +383,7 @@ static int XNvm_BbramValidateAesKeyCrc(const u32* Key)
 	Crc = XNvm_AesCrcCalc(Key);
 
 	XNvm_BbramWriteReg(XNVM_BBRAM_AES_CRC_REG, Crc);
-	Status = (int)Xil_WaitForEvent(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG,
+	Status = (int)Xil_WaitForEvent((UINTPTR)(XNVM_BBRAM_BASE_ADDR + XNVM_BBRAM_STATUS_REG),
 	        XNVM_BBRAM_STATUS_AES_CRC_DONE,
 	        XNVM_BBRAM_STATUS_AES_CRC_DONE,
 	        XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL);

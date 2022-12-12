@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -692,7 +693,7 @@ static u32 XFpga_PcapInit(u32 Flags)
 	/*
 	 *  Wait for PL_init completion
 	 */
-	Status = Xil_WaitForEvent(CSU_PCAP_STATUS,
+	Status = Xil_WaitForEvent((UINTPTR)(CSU_PCAP_STATUS),
 				CSU_PCAP_STATUS_PL_INIT_MASK,
 				CSU_PCAP_STATUS_PL_INIT_MASK,
 				PL_DONE_POLL_COUNT);
@@ -714,7 +715,7 @@ static u32 XFpga_PcapWaitForDone(void)
 {
 	u32 Status = XFPGA_FAILURE;
 
-	Status = Xil_WaitForEvent(CSU_PCAP_STATUS,
+	Status = Xil_WaitForEvent((UINTPTR)(CSU_PCAP_STATUS),
 				PCAP_STATUS_PCAP_WR_IDLE_MASK,
 				PCAP_STATUS_PCAP_WR_IDLE_MASK,
 				PL_DONE_POLL_COUNT);
@@ -776,7 +777,7 @@ static u32 XFpga_PcapWaitForidle(void)
 {
 	u32 Status = XFPGA_FAILURE;
 
-	Status = Xil_WaitForEvent(CSU_PCAP_STATUS,
+	Status = Xil_WaitForEvent((UINTPTR)(CSU_PCAP_STATUS),
 				PCAP_STATUS_PCAP_RD_IDLE_MASK,
 				PCAP_STATUS_PCAP_RD_IDLE_MASK,
 				PL_DONE_POLL_COUNT);
@@ -1948,7 +1949,7 @@ static u32 XFpga_PLWaitForDone(void)
 	volatile u32 Status = XFPGA_FAILURE;
 	u32 RegVal = 0U;
 
-	Status = Xil_WaitForEvent(CSU_PCAP_STATUS,
+	Status = Xil_WaitForEvent((UINTPTR)(CSU_PCAP_STATUS),
 				  CSU_PCAP_STATUS_PL_DONE_MASK,
 				  CSU_PCAP_STATUS_PL_DONE_MASK,
 				  PL_DONE_POLL_COUNT);
@@ -1963,7 +1964,7 @@ static u32 XFpga_PLWaitForDone(void)
 	Xil_Out32(CSU_PCAP_RESET, RegVal);
 
 	Status = XFPGA_ERROR_PCAP_PL_DONE;
-	Status = Xil_WaitForEvent(CSU_PCAP_RESET,
+	Status = Xil_WaitForEvent((UINTPTR)CSU_PCAP_RESET,
 				  CSU_PCAP_RESET_RESET_MASK,
 				  CSU_PCAP_RESET_RESET_MASK,
 				  PL_DONE_POLL_COUNT);
@@ -1993,7 +1994,7 @@ static u32 XFpga_PowerUpPl(void)
 	Xil_Out32(PMU_GLOBAL_PWRUP_EN, PMU_GLOBAL_PWR_PL_MASK);
 	Xil_Out32(PMU_GLOBAL_PWRUP_TRIG, PMU_GLOBAL_PWR_PL_MASK);
 
-	Status = Xil_WaitForEvent(PMU_GLOBAL_PWRUP_STATUS,
+	Status = Xil_WaitForEvent((UINTPTR)PMU_GLOBAL_PWRUP_STATUS,
 				  PMU_GLOBAL_PWR_PL_MASK, 0U,
 				  PL_DONE_POLL_COUNT);
 	if (Status != (u32)XST_SUCCESS) {
@@ -2031,7 +2032,7 @@ static u32 XFpga_IsolationRestore(void)
 	Xil_Out32(PMU_GLOBAL_ISO_TRIG, PMU_GLOBAL_ISO_NONPCAP_MASK);
 
 	/* Poll for Isolation complete */
-	Status = Xil_WaitForEvent(PMU_GLOBAL_ISO_STATUS,
+	Status = Xil_WaitForEvent((UINTPTR)PMU_GLOBAL_ISO_STATUS,
 				  PMU_GLOBAL_ISO_NONPCAP_MASK, 0U,
 				  PL_DONE_POLL_COUNT);
 	if (Status != (u32)XST_SUCCESS) {

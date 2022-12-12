@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1019,7 +1020,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 	EventsMask = XSK_ZYNQMP_EFUSEPS_ISR_RD_ERR_MASK |
 				XSK_ZYNQMP_EFUSEPS_ISR_RD_DONE_MASK;
 
-	Status = Xil_WaitForEvents((XSK_ZYNQMP_EFUSEPS_BASEADDR +
+	Status = Xil_WaitForEvents((UINTPTR)(XSK_ZYNQMP_EFUSEPS_BASEADDR +
 		(u32)XSK_ZYNQMP_EFUSEPS_ISR_OFFSET),
 		EventsMask, EventsMask, (u32)XSK_POLL_TIMEOUT, &Events);
 
@@ -1078,7 +1079,7 @@ static INLINE u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 	EventsMask = XSK_ZYNQMP_EFUSEPS_ISR_PGM_ERR_MASK |
 				XSK_ZYNQMP_EFUSEPS_ISR_PGM_DONE_MASK;
 
-	Status = Xil_WaitForEvents((XSK_ZYNQMP_EFUSEPS_BASEADDR +
+	Status = Xil_WaitForEvents((UINTPTR)(XSK_ZYNQMP_EFUSEPS_BASEADDR +
 		(u32)XSK_ZYNQMP_EFUSEPS_ISR_OFFSET),
 		EventsMask, EventsMask, (u32)XSK_POLL_TIMEOUT, &Events);
 

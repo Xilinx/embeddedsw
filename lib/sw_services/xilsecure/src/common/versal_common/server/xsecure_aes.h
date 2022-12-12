@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -150,7 +151,7 @@ typedef enum {
 } XSecure_AesState;
 
 typedef struct {
-	u32 BaseAddress;	   /**< AES Base address */
+	UINTPTR BaseAddress;	   /**< AES Base address */
 	XPmcDma *PmcDmaPtr;	   /**< PMCDMA Instance Pointer */
 	XSecure_Sss SssInstance;   /**< Secure stream switch instance */
 	XSecure_AesState AesState; /**< Current Aes State  */

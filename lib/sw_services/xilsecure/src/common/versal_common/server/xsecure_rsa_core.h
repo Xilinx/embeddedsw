@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -130,7 +131,7 @@ typedef enum {
  */
 
 typedef struct {
-	u32 BaseAddress; /**< Device Base Address */
+	UINTPTR BaseAddress; /**< Device Base Address */
 	u64 ModAddr; /**< Modulus */
 	u64 ModExtAddr; /**< Precalc. R sq. mod N */
 	u64 ModExpoAddr; /**< Exponent */

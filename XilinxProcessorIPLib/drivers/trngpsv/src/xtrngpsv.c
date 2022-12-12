@@ -1,5 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -78,7 +79,7 @@ static s32 XTrngpsv_CheckSeedPattern(u8 *EntropyData, u32 EntropyLength);
 static inline u32 XTrngpsv_ReadReg(UINTPTR BaseAddress, u32 RegOffset);
 static inline void XTrngpsv_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 RegValue);
 static inline void XTrngpsv_RMW32(UINTPTR BaseAddress, u32 RegOffset, u32 RegMask, u32 RegValue);
-static inline s32 XTrngpsv_WaitForEvent(u32 BaseAddr, u32 RegOffset, u32 EventMask, u32 Event,
+static inline s32 XTrngpsv_WaitForEvent(UINTPTR BaseAddr, u32 RegOffset, u32 EventMask, u32 Event,
 		u32 Timeout);
 
 /************************************ Variable Definitions ***************************************/
@@ -761,7 +762,7 @@ static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u8 *RandGenBuf, u32 N
 	for (BurstCount = 0U; BurstCount < NumBursts; BurstCount++) {
 
 		Status = XTRNGPSV_FAILURE;
-		Status = XTrngpsv_WaitForEvent((u32)InstancePtr->Config.BaseAddress,
+		Status = XTrngpsv_WaitForEvent(InstancePtr->Config.BaseAddress,
 				TRNG_STATUS, TRNG_STATUS_QCNT_MASK,
 				(u32)XTRNGPSV_MAX_QCNT << TRNG_STATUS_QCNT_SHIFT,
 				XTRNGPSV_GENERATE_TIMEOUT);
@@ -1053,7 +1054,7 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, 
 	XTrngpsv_RMW32(InstancePtr->Config.BaseAddress, TRNG_CTRL, TRNG_CTRL_PRNGSTART_MASK,
 			TRNG_CTRL_PRNGSTART_MASK);
 
-	Status = XTrngpsv_WaitForEvent((u32)InstancePtr->Config.BaseAddress, TRNG_STATUS,
+	Status = XTrngpsv_WaitForEvent(InstancePtr->Config.BaseAddress, TRNG_STATUS,
 			TRNG_STATUS_DONE_MASK, TRNG_STATUS_DONE_MASK, XTRNGPSV_RESEED_TIMEOUT);
 	if (Status != XTRNGPSV_SUCCESS) {
 		Status = (s32)XTRNGPSV_ERROR_RESEED_TIMEOUT;
@@ -1243,7 +1244,7 @@ static inline void XTrngpsv_RMW32(UINTPTR BaseAddress, u32 RegOffset, u32 RegMas
  *          XTRNGPSV_FAILURE - Event did not occur before counter reaches 0.
  *
  **************************************************************************************************/
-static inline s32 XTrngpsv_WaitForEvent(u32 BaseAddr, u32 RegOffset, u32 EventMask, u32 Event,
+static inline s32 XTrngpsv_WaitForEvent(UINTPTR BaseAddr, u32 RegOffset, u32 EventMask, u32 Event,
 		u32 Timeout)
 {
 	return (s32)Xil_WaitForEvent(BaseAddr + RegOffset, EventMask, Event, Timeout);

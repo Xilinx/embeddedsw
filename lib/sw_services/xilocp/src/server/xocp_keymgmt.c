@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -46,7 +47,7 @@
 /************************** Function Prototypes ******************************/
 static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
 			 u32 DataLen, XSecure_HmacRes *Out);
-static int XOcp_KeyZeroize(u32 CtrlReg, u32 StatusReg);
+static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg);
 static int XOcp_KeyGenerateDevIk(void);
 static int XOcp_KeyGenerateDevAk(void);
 
@@ -93,12 +94,12 @@ int XOcp_KeyInit(void)
 END:
 	/* Zeroize private keys */
 	ClearStatus = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
-			XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
+			(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
 	if (Status == XST_SUCCESS) {
 		Status = ClearStatus;
 	}
 	ClearStatus = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_AK_PRIVATE_ZEROIZE_CTRL,
-			XOCP_PMC_GLOBAL_DEV_AK_PRIVATE_ZEROIZE_STATUS);
+			(UINTPTR)XOCP_PMC_GLOBAL_DEV_AK_PRIVATE_ZEROIZE_STATUS);
 	if (Status == XST_SUCCESS) {
 		Status = ClearStatus;
 	}
@@ -118,7 +119,7 @@ END:
  *		- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-static int XOcp_KeyZeroize(u32 CtrlReg, u32 StatusReg)
+static int XOcp_KeyZeroize(u32 CtrlReg, UINTPTR StatusReg)
 {
 	int Status = XST_FAILURE;
 	u32 ReadReg;

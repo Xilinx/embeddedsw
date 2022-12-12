@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -3120,7 +3121,7 @@ static int XNvm_EfusePgmBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 		XNVM_EFUSE_PGM_ADDR_REG_OFFSET, PgmAddr);
 
-	Status = (int)Xil_WaitForEvents((XNVM_EFUSE_CTRL_BASEADDR + XNVM_EFUSE_ISR_REG_OFFSET),
+	Status = (int)Xil_WaitForEvents((UINTPTR)(XNVM_EFUSE_CTRL_BASEADDR + XNVM_EFUSE_ISR_REG_OFFSET),
 			(XNVM_EFUSE_ISR_PGM_DONE | XNVM_EFUSE_ISR_PGM_ERROR),
 			(XNVM_EFUSE_ISR_PGM_DONE | XNVM_EFUSE_ISR_PGM_ERROR),
 			XNVM_EFUSE_PGM_TIMEOUT_VAL,
@@ -3170,7 +3171,7 @@ static int XNvm_EfuseVerifyBit(XNvm_EfuseType Page, u32 Row, u32 Col)
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 		XNVM_EFUSE_RD_ADDR_REG_OFFSET, RdAddr);
 
-	Status = (int)Xil_WaitForEvents((XNVM_EFUSE_CTRL_BASEADDR +
+	Status = (int)Xil_WaitForEvents((UINTPTR)(XNVM_EFUSE_CTRL_BASEADDR +
 		XNVM_EFUSE_ISR_REG_OFFSET),
 		XNVM_EFUSE_ISR_RD_DONE,
 		XNVM_EFUSE_ISR_RD_DONE,

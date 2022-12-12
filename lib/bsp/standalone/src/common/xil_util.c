@@ -1,6 +1,7 @@
 /******************************************************************************/
 /**
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,7 +80,10 @@
 *       adk	 07/15/22 Updated the Xil_WaitForEventSet() API to
 *			  support variable number of events.
 *	ssc	 08/25/22 Added Xil_SecureRMW32 API
-*
+* 8.1	sa       09/29/22 Change the type of first argument passed to Xil_WaitForEvent
+*			  API from u32 to UINTPTR for supporting 64 bit addressing.
+* 8.1   sa       10/20/22 Change the type of first argument passed to Xil_WaitForEvents
+*                         API from u32 to UINTPTR for supporting 64 bit addressing.
 * </pre>
 *
 *****************************************************************************/
@@ -246,7 +250,7 @@ END:
  * @note    None.
  *
  *****************************************************************************/
-u32 Xil_WaitForEvent(u32 RegAddr, u32 EventMask, u32 Event, u32 Timeout)
+u32 Xil_WaitForEvent(UINTPTR RegAddr, u32 EventMask, u32 Event, u32 Timeout)
 {
 	u32 EventStatus;
 	u32 PollCount = Timeout;
@@ -283,7 +287,7 @@ u32 Xil_WaitForEvent(u32 RegAddr, u32 EventMask, u32 Event, u32 Timeout)
  *          XST_FAILURE - Event did not occur before counter reaches 0
  *
  ******************************************************************************/
-u32 Xil_WaitForEvents(u32 EventsRegAddr, u32 EventsMask, u32 WaitEvents,
+u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 			 u32 Timeout, u32* Events)
 {
 	u32 EventStatus;
