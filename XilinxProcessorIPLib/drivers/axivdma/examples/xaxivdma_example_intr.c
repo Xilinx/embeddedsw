@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +58,7 @@
  *                     and then do data comparison.
  * 6.12  sa   08/12/22 Updated the example to use latest MIG cannoical define
  * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 6.13	 sa   09/29/22 Fix infinite loops in the example.
  * </pre>
  *
  * ***************************************************************************
@@ -67,6 +69,7 @@
 #include "xil_exception.h"
 #include "xil_printf.h"
 #include "sleep.h"
+#include "xil_util.h"
 
 #include "xil_cache.h"
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -185,7 +188,8 @@
 /* Default reset timeout
  */
 #define XAXIVDMA_RESET_TIMEOUT_USEC	500
-
+#define POLL_TIMEOUT_COUNTER            1100000U
+#define NUMBER_OF_EVENTS		1
 /*
  * Device instance definitions
  */
@@ -219,10 +223,10 @@ static XAxiVdma_DmaSetup WriteCfg;
 
 /* Transfer statics
  */
-volatile static int ReadDone;
-volatile static int ReadError;
-volatile static int WriteDone;
-volatile static int WriteError;
+volatile static u32 ReadDone;
+volatile static u32 ReadError;
+volatile static u32 WriteDone;
+volatile static u32 WriteError;
 
 /******************* Function Prototypes ************************************/
 
@@ -456,11 +460,34 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	/* Every set of frame buffer finish causes a completion interrupt
-	 */
-	while (((ReadDone < NUM_TEST_FRAME_SETS) || (WriteDone < NUM_TEST_FRAME_SETS))
-	       && !ReadError && !WriteError) {
-		/* NOP */
+	/* Check for any error events to occur */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &ReadError);
+	if (Status == XST_SUCCESS) {
+                xil_printf("Test has read error %d\r\n", ReadError);
+                Status = XST_FAILURE;
+                goto Done;
+	}
+
+	/* Wait for dma tranfer to complete or timeout */
+	Status = Xil_WaitForEvent((UINTPTR)&ReadDone, NUM_TEST_FRAME_SETS, NUM_TEST_FRAME_SETS, POLL_TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		xil_printf("DMA read failed %d\r\n", Status);
+                goto Done;
+	}
+
+	/* Check for any error events to occur */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &WriteError);
+	if (Status == XST_SUCCESS) {
+                xil_printf("Test has write error %d\r\n", WriteError);
+                Status = XST_FAILURE;
+                goto Done;
+	}
+
+	/* Wait for dma tranfer to complete or timeout */
+	Status = Xil_WaitForEvent((UINTPTR)&WriteDone, NUM_TEST_FRAME_SETS, NUM_TEST_FRAME_SETS, POLL_TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		xil_printf("DMA write failed %d\r\n", Status);
+                goto Done;
 	}
 
 	/* Soft reset for AXI VDMA channels which causes the AXI VDMA
@@ -494,23 +521,14 @@ int main(void)
 		            (unsigned int)XAxiVdma_GetStatus(&AxiVdma,XAXIVDMA_WRITE));
 	}
 
-	if (ReadError || WriteError) {
-		xil_printf("Test has transfer error %d/%d, Failed\r\n",
-		    ReadError, WriteError);
-
-		Status = XST_FAILURE;
-		goto Done;
-	}
-	else {
-		for(Index = 0; Index < ReadCount; Index++) {
-			Status = CheckFrame(Index);
-			if (Status != XST_SUCCESS) {
-				xil_printf("Check frame %d failed %d\n\r", Index, Status);
-				goto Done;
-			}
+	for(Index = 0; Index < ReadCount; Index++) {
+		Status = CheckFrame(Index);
+		if (Status != XST_SUCCESS) {
+			xil_printf("Check frame %d failed %d\n\r", Index, Status);
+			goto Done;
 		}
-		xil_printf("Successfully ran axivdma intr Example\r\n");
 	}
+	xil_printf("Successfully ran axivdma intr Example\r\n");
 
 Done:
 	DisableIntrSystem(READ_INTR_ID, WRITE_INTR_ID);
