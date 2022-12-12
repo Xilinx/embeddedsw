@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +58,7 @@
  * 4.8	 sk   09/30/20 Modify the buffer length to make it cache-line aligned.
  * 4.10  sa   08/12/22 Updated the example to use latest MIG cannoical define
  * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 4.11  sa   09/29/22 Fix infinite loops in the examples.
  * </pre>
  *
  ****************************************************************************/
@@ -65,6 +67,8 @@
 #include "xil_cache.h"
 #include "xenv.h"	/* memset */
 #include "xparameters.h"
+#include "xil_util.h"
+#include "sleep.h"
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 #include "xuartns550_l.h"       /* to use uartns550 */
@@ -115,6 +119,7 @@ extern void xil_printf(const char *format, ...);
 #define NUMBER_OF_BDS_TO_TRANSFER	30
 
 #define RESET_LOOP_COUNT    10 /* Number of times to check reset is done */
+#define POLL_TIMEOUT_COUNTER      1000000U
 
 /**************************** Type Definitions *******************************/
 
@@ -153,8 +158,8 @@ static u32 *ReceiveBufferPtr = (u32 *) RX_BUFFER_BASE;
 
 /* Shared variables used to test the callbacks.
  */
-volatile static int Done = 0;    /* Dma transfer is done */
-volatile static int Error = 0;   /* Dma Error occurs */
+volatile static u32 Done = 0;    /* Dma transfer is done */
+volatile static u32 Error = 0;   /* Dma Error occurs */
 
 
 /*****************************************************************************/
@@ -542,11 +547,15 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 		return XST_FAILURE;
 	}
 
-	/* Wait until the DMA transfer is done
+	/* Wait until the DMA transfer is done or timeout
 	 */
-	while (XAxiCdma_IsBusy(InstancePtr)) {
-		/* Wait */
-	}
+	Status = Xil_WaitForEvent(InstancePtr->BaseAddr + XAXICDMA_SR_OFFSET,
+			XAXICDMA_SR_IDLE_MASK, XAXICDMA_SR_IDLE_MASK, POLL_TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+				"Failed to complete the transfer with %d\r\n", Status);
+		return XST_FAILURE;
+        }
 
 	/* If the hardware has errors, this example fails
 	 * This is a poll example, no interrupt handler is involved.
@@ -614,6 +623,7 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 	int Status;
 	u8 *SrcPtr;
 	u8 *DstPtr;
+	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	SrcPtr = (u8 *)TransmitBufferPtr;
 	DstPtr = (u8 *)ReceiveBufferPtr;
@@ -631,11 +641,16 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 		return XST_FAILURE;
 	}
 
-	/* Wait until the DMA transfer is done or error occurs
+	/*
+	 * Wait until the DMA transfer is done or 1usec * 10^6 iterations
+	 * of timeout occurs.
 	 */
-	while ((CheckSgCompletion(InstancePtr) < NUMBER_OF_BDS_TO_TRANSFER) &&
-		!Error) {
-		/* Wait */
+	while (TimeOut) {
+		if ((CheckSgCompletion(InstancePtr) >=
+		     NUMBER_OF_BDS_TO_TRANSFER) && !Error)
+			break;
+		TimeOut--;
+		usleep(1U);
 	}
 
 	if(Error) {

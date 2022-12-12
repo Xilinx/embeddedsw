@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +47,7 @@
  * 4.6   rsp  09/13/19 Add error prints for failing scenarios.
  *                     Fix cache maintenance ops for source and dest buffer.
  * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
+ * 4.11  sa   09/29/22 Fix infinite loops in the example.
  * </pre>
  *
  ****************************************************************************/
@@ -53,6 +55,8 @@
 #include "xdebug.h"
 #include "xil_cache.h"
 #include "xparameters.h"
+#include "xil_util.h"
+
 #ifdef __aarch64__
 #include "xil_mmu.h"
 #endif
@@ -84,6 +88,7 @@ extern void xil_printf(const char *format, ...);
 #define RESET_LOOP_COUNT	10	/* Number of times to check reset is
 					 * done
 					 */
+#define POLL_TIMEOUT_COUNTER    1000000U
 
 /**************************** Type Definitions *******************************/
 
@@ -109,8 +114,8 @@ volatile static u8 DestBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
 
 /* Shared variables used to test the callbacks.
  */
-volatile static int Done = 0;	/* Dma transfer is done */
-volatile static int Error = 0;	/* Dma Error occurs */
+volatile static u32 Done = 0;	/* Dma transfer is done */
+volatile static u32 Error = 0;	/* Dma Error occurs */
 
 
 /*****************************************************************************/
@@ -265,10 +270,14 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 		return XST_FAILURE;
 	}
 
-	/* Wait until the DMA transfer is done
+	/* Wait until the DMA transfer is done or timeout
 	 */
-	while (XAxiCdma_IsBusy(InstancePtr)) {
-		/* Wait */
+	Status = Xil_WaitForEvent(InstancePtr->BaseAddr + XAXICDMA_SR_OFFSET,
+                       XAXICDMA_SR_IDLE_MASK, XAXICDMA_SR_IDLE_MASK, POLL_TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR,
+				"Failed to complete the transfer with %d\r\n", Status);
+		return XST_FAILURE;
 	}
 
 	/* If the hardware has errors, this example fails

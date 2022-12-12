@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +56,7 @@
  * 		       preprocessor on R5 processor.
  * 4.10  sa   08/12/22 Updated the example to use latest MIG cannoical define
  * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 4.11  sa   09/29/22 Fix infinite loops in the example.
  * </pre>
  *
  ****************************************************************************/
@@ -63,6 +65,7 @@
 #include "xil_exception.h"
 #include "xil_cache.h"
 #include "xparameters.h"
+#include "xil_util.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -139,7 +142,8 @@ extern void xil_printf(const char *format, ...);
  */
 #define COALESCING_COUNT	5
 #define DELAY_COUNT		5
-
+#define POLL_TIMEOUT_COUNTER         1000000U
+#define NUMBER_OF_EVENTS	1
 /**************************** Type Definitions *******************************/
 
 
@@ -196,8 +200,8 @@ static u32 *ReceiveBufferPtr = (u32 *) RX_BUFFER_BASE;
 
 /* Shared variables used to test the callbacks.
  */
-volatile static int Done = 0;	/* Dma transfer is done */
-volatile static int Error = 0;	/* Dma Bus Error occurs */
+volatile static u32 Done = 0;	/* Dma transfer is done */
+volatile static u32 Error = 0;	/* Dma Bus Error occurs */
 
 
 /*****************************************************************************/
@@ -843,20 +847,23 @@ int XAxiCdma_SgIntrExample(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 		return XST_FAILURE;
 	}
 
-	/* Wait until the DMA transfer is done
-	 */
-
-	while ((Done < NUMBER_OF_BDS_TO_TRANSFER) && !Error) {
-		/* Wait */
-	}
-
-	if(Error) {
+	/* Check for any error events to occur */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &Error);
+	if (Status == XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Transfer has error %x\r\n",
 		    (unsigned int)XAxiCdma_GetError(InstancePtr));
 
 		DisableIntrSystem(IntcInstancePtr, IntrId);
 
 		return XST_FAILURE;
+	}
+
+	/* Wait until the DMA transfer is done or timeout */
+	Status = Xil_WaitForEvent((UINTPTR)&Done, NUMBER_OF_BDS_TO_TRANSFER, NUMBER_OF_BDS_TO_TRANSFER, POLL_TIMEOUT_COUNTER);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "Transfer failed %d\r\n",Status);
+
+                return XST_FAILURE;
 	}
 
 	/* Transfer completes successfully, check data

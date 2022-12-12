@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,6 +51,7 @@
  * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
  * 4.10  sa   08/12/22 Updated the example to use latest MIG cannoical define
  * 		       i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR.
+ * 4.11  sa   09/29/22 Fix infinite loops in the example.
  * </pre>
  *
  ****************************************************************************/
@@ -58,6 +60,8 @@
 #include "xenv.h"	/* memset */
 #include "xil_cache.h"
 #include "xparameters.h"
+#include "sleep.h"
+
 #ifdef __aarch64__
 #include "xil_mmu.h"
 #endif
@@ -109,6 +113,7 @@ extern void xil_printf(const char *format, ...);
 #define NUMBER_OF_BDS_TO_TRANSFER	1
 
 #define RESET_LOOP_COUNT	10 /* Number of times to check reset is done */
+#define POLL_TIMEOUT_COUNTER    1000000U
 
 /**************************** Type Definitions *******************************/
 
@@ -496,6 +501,7 @@ int XAxiCdma_SgPollExample(u16 DeviceId)
 	int Status;
 	u8 *SrcPtr;
 	u8 *DstPtr;
+	int TimeOut = POLL_TIMEOUT_COUNTER;
 
 	SrcPtr = (u8 *)TransmitBufferPtr;
 	DstPtr = (u8 *)ReceiveBufferPtr;
@@ -547,11 +553,16 @@ int XAxiCdma_SgPollExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	/* Wait until the DMA transfer is done or error occurs
+	/*
+	 * Wait until the DMA transfer is done or 1usec * 10^6 iterations
+	 * of timeout occurs.
 	 */
-	while ((CheckCompletion(&AxiCdmaInstance) < NUMBER_OF_BDS_TO_TRANSFER)
-		&& !Error) {
-		/* Wait */
+	while (TimeOut) {
+		if ((CheckCompletion(&AxiCdmaInstance) >=
+		     NUMBER_OF_BDS_TO_TRANSFER) && !Error)
+			break;
+		TimeOut--;
+		usleep(1U);
 	}
 
 	if(Error) {

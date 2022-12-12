@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,6 +52,7 @@
  * 4.7   rsp  12/06/19 For aarch64 include xil_mmu.h. Fixes gcc warning.
  * 4.8	 sk   09/28/20 Fix the compilation error for xreg_cortexa9.h
  * 		       preprocessor on R5 processor.
+ * 4.11  sa   09/29/22 Fix infinite loops in the example.
  * </pre>
  *
  ****************************************************************************/
@@ -59,6 +61,7 @@
 #include "xil_exception.h"
 #include "xil_cache.h"
 #include "xparameters.h"
+#include "xil_util.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -100,7 +103,8 @@
 					 */
 
 #define NUMBER_OF_TRANSFERS	4	/* Number of simple transfers to do */
-
+#define POLL_TIMEOUT_COUNTER    1000000U
+#define NUMBER_OF_EVENTS	1
 /**************************** Type Definitions *******************************/
 
 
@@ -154,8 +158,8 @@ volatile static u8 DestBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
 
 /* Shared variables used to test the callbacks.
  */
-volatile static int Done = 0;	/* Dma transfer is done */
-volatile static int Error = 0;	/* Dma Bus Error occurs */
+volatile static u32 Done = 0;	/* Dma transfer is done */
+volatile static u32 Error = 0;	/* Dma Bus Error occurs */
 
 
 /*****************************************************************************/
@@ -332,14 +336,18 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 		return XST_FAILURE;
 	}
 
-	/* Wait until the DMA transfer is done
-	 */
-	while (!Done && !Error) {
-		/* Wait */
+	/* Check for any error events to occur */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &Error);
+	if (Status == XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "DMA transfer error\r\n");
+		return XST_FAILURE;
 	}
 
-	if (Error) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "DMA transfer error\r\n");
+	/* Wait until the DMA transfer is done or timeout
+	 */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUMBER_OF_EVENTS, &Done);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "DMA transfer failed\r\n");
 		return XST_FAILURE;
 	}
 
