@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,6 +40,7 @@
 *                        being read.
 *                        Changes were done for other cleanups and also to
 *                        ensure that the DMA is reset before the program exits.
+* 1.16  sa     09/29/22  Fix infinite loops in the example.
 * </pre>
 *
 ******************************************************************************/
@@ -48,6 +50,7 @@
 #include "xzdma.h"
 #include "xparameters.h"
 #include "xil_cache.h"
+#include "xil_util.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -82,6 +85,8 @@
 
 #define TESTVALUE	0x1230 /**< For writing into source buffer */
 
+#define POLL_TIMEOUT_COUNTER		1000000U
+#define NUM_OF_EVENTS			1
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -110,8 +115,8 @@ static INTC Intc;	/**< XIntc Instance */
 	u8 ZDmaDstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
 	u8 ZDmaSrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
 #endif
-volatile static int Done = 0;				/**< Done flag */
-volatile static int ErrorStatus = 0;			/**< Error Status flag*/
+volatile static u32 Done = 0;				/**< Done flag */
+volatile static u32 ErrorStatus = 0;			/**< Error Status flag*/
 
 #ifndef TESTAPP_GEN
 /*****************************************************************************/
@@ -261,8 +266,20 @@ int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
 
 	XZDma_Start(ZdmaInstPtr, &Data, 1); /* Initiates the data transfer */
 
-	/* Wait till DMA error or done interrupt generated */
-	while (!ErrorStatus && (Done == 0));
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUM_OF_EVENTS, &ErrorStatus);
+	if (Status == XST_SUCCESS) {
+		if (ErrorStatus & XZDMA_IXR_AXI_WR_DATA_MASK)
+			xil_printf("Error occurred on write data channel\n\r");
+		if (ErrorStatus & XZDMA_IXR_AXI_RD_DATA_MASK)
+			xil_printf("Error occurred on read data channel\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Wait till done interrupt generated or timeout */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUM_OF_EVENTS, &Done);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ZDMA transfer failure\n\r");
+	}
 
 	/* Enable required interrupts */
 	XZDma_DisableIntr(ZdmaInstPtr, (XZDMA_IXR_ALL_INTR_MASK));

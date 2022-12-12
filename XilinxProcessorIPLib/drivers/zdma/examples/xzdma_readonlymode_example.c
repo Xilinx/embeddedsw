@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 *			 compiler.
 * 1.13	sk     08/02/21	 Make Done variable as volatile to fix failure at
 * 			 optimization level 2.
+* 1.16  sa     09/29/22  Fix infinite loops in the example.
 * </pre>
 *
 ******************************************************************************/
@@ -35,7 +37,7 @@
 #include "xzdma.h"
 #include "xparameters.h"
 #include "xscugic.h"
-
+#include "xil_util.h"
 /************************** Function Prototypes ******************************/
 
 int XZDma_SimpleReadOnlyExample(u16 DeviceId);
@@ -57,7 +59,8 @@ static void DoneHandler(void *CallBackRef);
 
 #define SIZE 			100	/**< Size of the data to be
 					  *  transferred */
-
+#define POLL_TIMEOUT_COUNTER    1000000U
+#define NUM_OF_EVENTS           1
 /**************************** Type Definitions *******************************/
 
 
@@ -66,7 +69,7 @@ static void DoneHandler(void *CallBackRef);
 XZDma ZDma;		/**<Instance of the ZDMA Device */
 XScuGic Intc;		/**< XIntc Instance */
 u32 SrcBuf[256];	/**< Source buffer */
-volatile static u8 Done = 0;	/**< Done flag */
+volatile static u32 Done = 0;	/**< Done flag */
 
 /*****************************************************************************/
 /**
@@ -200,8 +203,12 @@ int XZDma_SimpleReadOnlyExample(u16 DeviceId)
 	}
 
 	XZDma_Start(&ZDma, &Data, 1); /* Initiates the data transfer */
-	/* Wait till DMA Source done interrupt generated */
-	while (Done == 0);
+
+	/* Wait till DMA Source done interrupt generated or timeout */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUM_OF_EVENTS, &Done);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	/*
 	 * Validation of read only mode cannot be performed as it will not

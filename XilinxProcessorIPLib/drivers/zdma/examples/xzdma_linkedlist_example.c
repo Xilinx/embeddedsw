@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +33,7 @@
 *                        properly.
 *                        Changes were done for other cleanups and also to
 *                        ensure that the DMA is reset before the program exits.
+* 1.16  sa     09/29/22  Fix infinite loops in the example.
 * </pre>
 *
 ******************************************************************************/
@@ -42,6 +44,7 @@
 #include "xparameters.h"
 #include "xscugic.h"
 #include "bspconfig.h"
+#include "xil_util.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -67,6 +70,8 @@ static void DoneHandler(void *CallBackRef);
 #define DESCRIPTOR1_DATA_SIZE	1024 /**< Descriptor 1 data in bytes */
 #define DESCRIPTOR2_DATA_SIZE	64   /**< Descriptor 2 data in bytes */
 
+#define POLL_TIMEOUT_COUNTER    1000000U
+#define NUM_OF_EVENTS           1
 /**************************** Type Definitions *******************************/
 
 
@@ -94,7 +99,7 @@ u32 Dst1Buf[256] __attribute__ ((aligned (64)));
 u32 AlloMem[256] __attribute__ ((aligned (64)));
 #endif
 
-volatile static u8 Done = 0;
+volatile static u32 Done = 0;
 
 /*****************************************************************************/
 /**
@@ -242,7 +247,11 @@ int XZDma_LinkedListExample(u16 DeviceId)
 	XZDma_EnableIntr(&ZDma, XZDMA_IXR_DMA_DONE_MASK);
 	XZDma_Start(&ZDma, Data, 2); /* Initiates the data transfer */
 
-	while (Done == 0); /* Wait till DMA done interrupt generated */
+	/* Wait till DMA done interrupt generated or timeout */
+	Status = Xil_WaitForEventSet(POLL_TIMEOUT_COUNTER, NUM_OF_EVENTS, &Done);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 	XZDma_DisableIntr(&ZDma, XZDMA_IXR_DMA_DONE_MASK);
 
