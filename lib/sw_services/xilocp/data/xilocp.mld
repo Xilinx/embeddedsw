@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -19,6 +20,6 @@ BEGIN LIBRARY xilocp
   OPTION REQUIRES_OS = (standalone);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilocp,-lxilplmi,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Open Compute Platform(OCP) support Library";
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = xilocp;
 END LIBRARY
