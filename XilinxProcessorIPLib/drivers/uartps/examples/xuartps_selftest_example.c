@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +9,9 @@
 *
 * @file xuartps_selftest_example.c
 *
-* This file contains an example using the XUartPs driver to do self test
-* on the device.
+* This example runs on zynqmp evaluation board (zcu102), it performs self test
+* on the device by using XUartPs driver.
+*
 *
 * @note
 *

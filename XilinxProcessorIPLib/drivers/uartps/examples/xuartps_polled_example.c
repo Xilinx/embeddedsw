@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +9,9 @@
 *
 * @file     xuartps_polled_example.c
 *
-* This file contains an example using the XUartPs driver in polled mode.
-*
-* This function sends data and expects to receive the data through the device
-* using the local loopback mode.
+* This example runs on zynqmp evaluation board (zcu102), it sends data and
+* expects to receive the same data through the device using the local loopback
+* mode in polled mode by using XUartPs driver.
 *
 * @note
 * If the device does not work properly, the example may hang.

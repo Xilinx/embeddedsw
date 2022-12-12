@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +9,9 @@
 *
 * @file		xuartps_intr_example.c
 *
-* This file contains a design example using the XUartPs driver in interrupt
-* mode. It sends data and expects to receive the same data through the device
-* using the local loopback mode.
+* This example runs on zynqmp evaluation board (zcu102), it sends data and
+* expects to receive the same data through the device using the local loopback
+* mode in interrupt mode by using XUartPs driver.
 *
 *
 * @note
