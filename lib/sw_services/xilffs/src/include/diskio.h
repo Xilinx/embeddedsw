@@ -1,9 +1,9 @@
 /*-----------------------------------------------------------------------/
-/  Low level disk interface module include file   (C)ChaN, 2014          /
+/  Low level disk interface modlue include file   (C)ChaN, 2022         /
 /-----------------------------------------------------------------------*/
 
-#ifndef DISKIO_DEFINED
-#define DISKIO_DEFINED
+#ifndef _DISKIO_DEFINED
+#define _DISKIO_DEFINED
 
 #ifdef __cplusplus
 extern "C" {
@@ -12,7 +12,7 @@ extern "C" {
 #define USE_WRITE	1	/* 1: Enable disk_write function */
 #define USE_IOCTL	1	/* 1: Enable disk_ioctl function */
 
-#include "integer.h"
+#include "ff.h"
 #include "xil_types.h"
 
 /* Status of Disk Functions */
@@ -31,10 +31,11 @@ typedef enum {
 /*---------------------------------------*/
 /* Prototypes for disk control functions */
 
+
 DSTATUS disk_initialize (BYTE pdrv);
 DSTATUS disk_status (BYTE pdrv);
-DRESULT disk_read (BYTE pdrv, BYTE* buff, DWORD sector, UINT count);
-DRESULT disk_write (BYTE pdrv, const BYTE* buff, DWORD sector, UINT count);
+DRESULT disk_read (BYTE pdrv, BYTE* buff, LBA_t sector, UINT count);
+DRESULT disk_write (BYTE pdrv, const BYTE* buff, LBA_t sector, UINT count);
 DRESULT disk_ioctl (BYTE pdrv, BYTE cmd, void* buff);
 
 
@@ -45,16 +46,16 @@ DRESULT disk_ioctl (BYTE pdrv, BYTE cmd, void* buff);
 #define STA_PROTECT		0x04U	/* Write protected */
 
 
-/* Command code for disk_ioctrl function */
+/* Command code for disk_ioctrl fucntion */
 
-/* Generic command (used by FatFs) */
-#define CTRL_SYNC			0U	/* Flush disk cache (for write functions) */
-#define GET_SECTOR_COUNT	1U	/* Get media size (for only f_mkfs()) */
-#define GET_SECTOR_SIZE		2U	/* Get sector size (for multiple sector size (_MAX_SS >= 1024)) */
-#define GET_BLOCK_SIZE		3U	/* Get erase block size (for only f_mkfs()) */
+/* Generic command (Used by FatFs) */
+#define CTRL_SYNC			0U	/* Complete pending write process (needed at FF_FS_READONLY == 0) */
+#define GET_SECTOR_COUNT	1U	/* Get media size (needed at FF_USE_MKFS == 1) */
+#define GET_SECTOR_SIZE		2U	/* Get sector size (needed at FF_MAX_SS != FF_MIN_SS) */
+#define GET_BLOCK_SIZE		3U	/* Get erase block size (needed at FF_USE_MKFS == 1) */
 #define CTRL_TRIM			4U	/* Inform device that the data on the block of sectors is no longer used (needed at FF_USE_TRIM == 1) */
 
-/* Generic command (not used by FatFs) */
+/* Generic command (Not used by FatFs) */
 #define CTRL_POWER			5U	/* Get/Set power status */
 #define CTRL_LOCK			6U	/* Lock/Unlock media removal */
 #define CTRL_EJECT			7U	/* Eject media */
@@ -66,6 +67,9 @@ DRESULT disk_ioctl (BYTE pdrv, BYTE cmd, void* buff);
 #define MMC_GET_CID			12U	/* Get CID */
 #define MMC_GET_OCR			13U	/* Get OCR */
 #define MMC_GET_SDSTAT		14U	/* Get SD status */
+#define ISDIO_READ			55	/* Read data form SD iSDIO register */
+#define ISDIO_WRITE			56	/* Write data to SD iSDIO register */
+#define ISDIO_MRITE			57	/* Masked write data to SD iSDIO register */
 
 /* ATA/CF specific ioctl command */
 #define ATA_GET_REV			20U	/* Get F/W revision */

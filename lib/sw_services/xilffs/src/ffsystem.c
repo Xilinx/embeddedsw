@@ -1,171 +1,207 @@
 /*------------------------------------------------------------------------*/
-/* Sample Code of OS Dependent Functions for FatFs                        */
-/* (C)ChaN, 2017                                                          */
+/* A Sample Code of User Provided OS Dependent Functions for FatFs        */
 /*------------------------------------------------------------------------*/
-
 
 #include "ff.h"
 
 
-
-#if FF_USE_LFN == 3	/* Dynamic memory allocation */
+#if FF_USE_LFN == 3	/* Use dynamic memory allocation */
 
 /*------------------------------------------------------------------------*/
-/* Allocate a memory block                                                */
+/* Allocate/Free a Memory Block                                           */
 /*------------------------------------------------------------------------*/
 
-void* ff_memalloc (	/* Returns pointer to the allocated memory block (null on not enough core) */
+#include <stdlib.h>		/* with POSIX API */
+
+
+void* ff_memalloc (	/* Returns pointer to the allocated memory block (null if not enough core) */
 	UINT msize		/* Number of bytes to allocate */
 )
 {
-	return malloc(msize);	/* Allocate a new memory block with POSIX API */
+	return malloc((size_t)msize);	/* Allocate a new memory block */
 }
 
 
-/*------------------------------------------------------------------------*/
-/* Free a memory block                                                    */
-/*------------------------------------------------------------------------*/
-
 void ff_memfree (
-	void* mblock	/* Pointer to the memory block to free (nothing to do for null) */
+	void* mblock	/* Pointer to the memory block to free (no effect if null) */
 )
 {
-	free(mblock);	/* Free the memory block with POSIX API */
+	free(mblock);	/* Free the memory block */
 }
 
 #endif
+
 
 
 
 #if FF_FS_REENTRANT	/* Mutal exclusion */
-
 /*------------------------------------------------------------------------*/
-/* Create a Synchronization Object                                        */
+/* Definitions of Mutex                                                   */
 /*------------------------------------------------------------------------*/
-/* This function is called in f_mount() function to create a new
-/  synchronization object for the volume, such as semaphore and mutex.
-/  When a 0 is returned, the f_mount() function fails with FR_INT_ERR.
-*/
 
-//const osMutexDef_t Mutex[FF_VOLUMES];	/* CMSIS-RTOS */
+#define OS_TYPE	0	/* 0:Win32, 1:uITRON4.0, 2:uC/OS-II, 3:FreeRTOS, 4:CMSIS-RTOS */
 
 
-int ff_cre_syncobj (	/* 1:Function succeeded, 0:Could not create the sync object */
-	BYTE vol,			/* Corresponding volume (logical drive number) */
-	FF_SYNC_t* sobj		/* Pointer to return the created sync object */
-)
-{
-	/* Win32 */
-	*sobj = CreateMutex(NULL, FALSE, NULL);
-	return (int)(*sobj != INVALID_HANDLE_VALUE);
+#if   OS_TYPE == 0	/* Win32 */
+#include <windows.h>
+static HANDLE Mutex[FF_VOLUMES + 1];	/* Table of mutex handle */
 
-	/* uITRON */
-//	T_CSEM csem = {TA_TPRI,1,1};
-//	*sobj = acre_sem(&csem);
-//	return (int)(*sobj > 0);
+#elif OS_TYPE == 1	/* uITRON */
+#include "itron.h"
+#include "kernel.h"
+static mtxid Mutex[FF_VOLUMES + 1];		/* Table of mutex ID */
 
-	/* uC/OS-II */
-//	OS_ERR err;
-//	*sobj = OSMutexCreate(0, &err);
-//	return (int)(err == OS_NO_ERR);
+#elif OS_TYPE == 2	/* uc/OS-II */
+#include "includes.h"
+static OS_EVENT *Mutex[FF_VOLUMES + 1];	/* Table of mutex pinter */
 
-	/* FreeRTOS */
-//	*sobj = xSemaphoreCreateMutex();
-//	return (int)(*sobj != NULL);
+#elif OS_TYPE == 3	/* FreeRTOS */
+#include "FreeRTOS.h"
+#include "semphr.h"
+static SemaphoreHandle_t Mutex[FF_VOLUMES + 1];	/* Table of mutex handle */
 
-	/* CMSIS-RTOS */
-//	*sobj = osMutexCreate(Mutex + vol);
-//	return (int)(*sobj != NULL);
-}
-
-
-/*------------------------------------------------------------------------*/
-/* Delete a Synchronization Object                                        */
-/*------------------------------------------------------------------------*/
-/* This function is called in f_mount() function to delete a synchronization
-/  object that created with ff_cre_syncobj() function. When a 0 is returned,
-/  the f_mount() function fails with FR_INT_ERR.
-*/
-
-int ff_del_syncobj (	/* 1:Function succeeded, 0:Could not delete due to an error */
-	FF_SYNC_t sobj		/* Sync object tied to the logical drive to be deleted */
-)
-{
-	/* Win32 */
-	return (int)CloseHandle(sobj);
-
-	/* uITRON */
-//	return (int)(del_sem(sobj) == E_OK);
-
-	/* uC/OS-II */
-//	OS_ERR err;
-//	OSMutexDel(sobj, OS_DEL_ALWAYS, &err);
-//	return (int)(err == OS_NO_ERR);
-
-	/* FreeRTOS */
-//  vSemaphoreDelete(sobj);
-//	return 1;
-
-	/* CMSIS-RTOS */
-//	return (int)(osMutexDelete(sobj) == osOK);
-}
-
-
-/*------------------------------------------------------------------------*/
-/* Request Grant to Access the Volume                                     */
-/*------------------------------------------------------------------------*/
-/* This function is called on entering file functions to lock the volume.
-/  When a 0 is returned, the file function fails with FR_TIMEOUT.
-*/
-
-int ff_req_grant (	/* 1:Got a grant to access the volume, 0:Could not get a grant */
-	FF_SYNC_t sobj	/* Sync object to wait */
-)
-{
-	/* Win32 */
-	return (int)(WaitForSingleObject(sobj, FF_FS_TIMEOUT) == WAIT_OBJECT_0);
-
-	/* uITRON */
-//	return (int)(wai_sem(sobj) == E_OK);
-
-	/* uC/OS-II */
-//	OS_ERR err;
-//	OSMutexPend(sobj, FF_FS_TIMEOUT, &err));
-//	return (int)(err == OS_NO_ERR);
-
-	/* FreeRTOS */
-//	return (int)(xSemaphoreTake(sobj, FF_FS_TIMEOUT) == pdTRUE);
-
-	/* CMSIS-RTOS */
-//	return (int)(osMutexWait(sobj, FF_FS_TIMEOUT) == osOK);
-}
-
-
-/*------------------------------------------------------------------------*/
-/* Release Grant to Access the Volume                                     */
-/*------------------------------------------------------------------------*/
-/* This function is called on leaving file functions to unlock the volume.
-*/
-
-void ff_rel_grant (
-	FF_SYNC_t sobj	/* Sync object to be signaled */
-)
-{
-	/* Win32 */
-	ReleaseMutex(sobj);
-
-	/* uITRON */
-//	sig_sem(sobj);
-
-	/* uC/OS-II */
-//	OSMutexPost(sobj);
-
-	/* FreeRTOS */
-//	xSemaphoreGive(sobj);
-
-	/* CMSIS-RTOS */
-//	osMutexRelease(sobj);
-}
+#elif OS_TYPE == 4	/* CMSIS-RTOS */
+#include "cmsis_os.h"
+static osMutexId Mutex[FF_VOLUMES + 1];	/* Table of mutex ID */
 
 #endif
 
+
+
+/*------------------------------------------------------------------------*/
+/* Create a Mutex                                                         */
+/*------------------------------------------------------------------------*/
+/* This function is called in f_mount function to create a new mutex
+/  or semaphore for the volume. When a 0 is returned, the f_mount function
+/  fails with FR_INT_ERR.
+*/
+
+int ff_mutex_create (	/* Returns 1:Function succeeded or 0:Could not create the mutex */
+	int vol				/* Mutex ID: Volume mutex (0 to FF_VOLUMES - 1) or system mutex (FF_VOLUMES) */
+)
+{
+#if OS_TYPE == 0	/* Win32 */
+	Mutex[vol] = CreateMutex(NULL, FALSE, NULL);
+	return (int)(Mutex[vol] != INVALID_HANDLE_VALUE);
+
+#elif OS_TYPE == 1	/* uITRON */
+	T_CMTX cmtx = {TA_TPRI,1};
+
+	Mutex[vol] = acre_mtx(&cmtx);
+	return (int)(Mutex[vol] > 0);
+
+#elif OS_TYPE == 2	/* uC/OS-II */
+	OS_ERR err;
+
+	Mutex[vol] = OSMutexCreate(0, &err);
+	return (int)(err == OS_NO_ERR);
+
+#elif OS_TYPE == 3	/* FreeRTOS */
+	Mutex[vol] = xSemaphoreCreateMutex();
+	return (int)(Mutex[vol] != NULL);
+
+#elif OS_TYPE == 4	/* CMSIS-RTOS */
+	osMutexDef(cmsis_os_mutex);
+
+	Mutex[vol] = osMutexCreate(osMutex(cmsis_os_mutex));
+	return (int)(Mutex[vol] != NULL);
+
+#endif
+}
+
+
+/*------------------------------------------------------------------------*/
+/* Delete a Mutex                                                         */
+/*------------------------------------------------------------------------*/
+/* This function is called in f_mount function to delete a mutex or
+/  semaphore of the volume created with ff_mutex_create function.
+*/
+
+void ff_mutex_delete (	/* Returns 1:Function succeeded or 0:Could not delete due to an error */
+	int vol				/* Mutex ID: Volume mutex (0 to FF_VOLUMES - 1) or system mutex (FF_VOLUMES) */
+)
+{
+#if OS_TYPE == 0	/* Win32 */
+	CloseHandle(Mutex[vol]);
+
+#elif OS_TYPE == 1	/* uITRON */
+	del_mtx(Mutex[vol]);
+
+#elif OS_TYPE == 2	/* uC/OS-II */
+	OS_ERR err;
+
+	OSMutexDel(Mutex[vol], OS_DEL_ALWAYS, &err);
+
+#elif OS_TYPE == 3	/* FreeRTOS */
+	vSemaphoreDelete(Mutex[vol]);
+
+#elif OS_TYPE == 4	/* CMSIS-RTOS */
+	osMutexDelete(Mutex[vol]);
+
+#endif
+}
+
+
+/*------------------------------------------------------------------------*/
+/* Request a Grant to Access the Volume                                   */
+/*------------------------------------------------------------------------*/
+/* This function is called on enter file functions to lock the volume.
+/  When a 0 is returned, the file function fails with FR_TIMEOUT.
+*/
+
+int ff_mutex_take (	/* Returns 1:Succeeded or 0:Timeout */
+	int vol			/* Mutex ID: Volume mutex (0 to FF_VOLUMES - 1) or system mutex (FF_VOLUMES) */
+)
+{
+#if OS_TYPE == 0	/* Win32 */
+	return (int)(WaitForSingleObject(Mutex[vol], FF_FS_TIMEOUT) == WAIT_OBJECT_0);
+
+#elif OS_TYPE == 1	/* uITRON */
+	return (int)(tloc_mtx(Mutex[vol], FF_FS_TIMEOUT) == E_OK);
+
+#elif OS_TYPE == 2	/* uC/OS-II */
+	OS_ERR err;
+
+	OSMutexPend(Mutex[vol], FF_FS_TIMEOUT, &err));
+	return (int)(err == OS_NO_ERR);
+
+#elif OS_TYPE == 3	/* FreeRTOS */
+	return (int)(xSemaphoreTake(Mutex[vol], FF_FS_TIMEOUT) == pdTRUE);
+
+#elif OS_TYPE == 4	/* CMSIS-RTOS */
+	return (int)(osMutexWait(Mutex[vol], FF_FS_TIMEOUT) == osOK);
+
+#endif
+}
+
+
+
+/*------------------------------------------------------------------------*/
+/* Release a Grant to Access the Volume                                   */
+/*------------------------------------------------------------------------*/
+/* This function is called on leave file functions to unlock the volume.
+*/
+
+void ff_mutex_give (
+	int vol			/* Mutex ID: Volume mutex (0 to FF_VOLUMES - 1) or system mutex (FF_VOLUMES) */
+)
+{
+#if OS_TYPE == 0	/* Win32 */
+	ReleaseMutex(Mutex[vol]);
+
+#elif OS_TYPE == 1	/* uITRON */
+	unl_mtx(Mutex[vol]);
+
+#elif OS_TYPE == 2	/* uC/OS-II */
+	OSMutexPost(Mutex[vol]);
+
+#elif OS_TYPE == 3	/* FreeRTOS */
+	xSemaphoreGive(Mutex[vol]);
+
+#elif OS_TYPE == 4	/* CMSIS-RTOS */
+	osMutexRelease(Mutex[vol]);
+
+#endif
+}
+
+#endif	/* FF_FS_REENTRANT */

@@ -3,6 +3,7 @@
 /*-----------------------------------------------------------------------*/
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -338,10 +339,10 @@ DSTATUS disk_initialize (
 *
 ******************************************************************************/
 DRESULT disk_read (
-		BYTE pdrv,	/* Physical drive number (0) */
-		BYTE *buff,	/* Pointer to the data buffer to store read data */
-		DWORD sector,	/* Start sector number (LBA) */
-		UINT count	/* Sector count (1..128) */
+	BYTE pdrv,		/* Physical drive nmuber to identify the drive */
+	BYTE *buff,		/* Data buffer to store read data */
+	LBA_t sector,	/* Start sector in LBA */
+	UINT count		/* Number of sectors to read */
 )
 {
 	DSTATUS s;
@@ -507,10 +508,11 @@ DWORD get_fattime (void)
 * @note
 *
 ******************************************************************************/
+#if FF_FS_READONLY == 0
 DRESULT disk_write (
 	BYTE pdrv,			/* Physical drive nmuber (0..) */
 	const BYTE *buff,	/* Data to be written */
-	DWORD sector,		/* Sector address (LBA) */
+	LBA_t sector,		/* Sector address (LBA) */
 	UINT count			/* Number of sectors to write (1..128) */
 )
 {
@@ -553,3 +555,4 @@ DRESULT disk_write (
 
 	return RES_OK;
 }
+#endif
