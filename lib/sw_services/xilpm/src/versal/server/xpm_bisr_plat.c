@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1232,10 +1233,14 @@ static XStatus XPmBisr_NidbRepairLane(u32 RepairLeftMostNIDBOnly)
 		}
 		if (SLR_TYPE_SSIT_DEV_MASTER_SLR != SlrType) {
 			if (NidbEfuseGrpInfo[i].NpiBase == RomRepairAddr) {
-				if(0U == RepairLeftMostNIDBOnly) continue;
+				if(0U == RepairLeftMostNIDBOnly) {
+					continue;
+				}
 			}
 			else {
-				if (0U != RepairLeftMostNIDBOnly) continue;
+				if (0U != RepairLeftMostNIDBOnly) {
+					continue;
+				}
 			}
 		}
 		/* Calculate Absolute Base Address */
