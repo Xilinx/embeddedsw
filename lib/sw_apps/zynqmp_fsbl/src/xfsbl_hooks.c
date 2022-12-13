@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +20,7 @@
 * 1.00  kc   04/21/14 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 *       ssc  03/25/17 Set correct value for SYSMON ANALOG_BUS register
+*       sp   12/12/22 Remove DDR IO retention during boot
 *
 * </pre>
 *
@@ -34,6 +36,11 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/**
+ * Register: PMU_GLOBAL_DDR_CNTRL
+ */
+#define PMU_GLOBAL_DDR_CNTRL             ( ( PMU_GLOBAL_BASEADDR ) + ((u32)0X00000070U) )
+#define PMU_GLOBAL_DDR_CNTRL_RET_MASK    ((u32)0X00000001U)
 
 /************************** Function Prototypes ******************************/
 
@@ -99,6 +106,23 @@ u32 XFsbl_HookBeforeFallback(void)
 
 /*****************************************************************************/
 /**
+ * Remove DDR IOs from retention
+ *
+ * @param none
+ *
+ * @return none
+ *****************************************************************************/
+static void XFsbl_IoRetentionClear(void)
+{
+	u32 RegVal = Xil_In32(PMU_GLOBAL_DDR_CNTRL);
+
+	RegVal &= ~PMU_GLOBAL_DDR_CNTRL_RET_MASK;
+
+	Xil_Out32(PMU_GLOBAL_DDR_CNTRL, RegVal);
+}
+
+/*****************************************************************************/
+/**
  * This function facilitates users to define different variants of psu_init()
  * functions based on different configurations in Vivado. The default call to
  * psu_init() can then be swapped with the alternate variant based on the
@@ -126,9 +150,13 @@ u32 XFsbl_HookPsuInit(void)
 	if (RegVal) {
 		Status = (u32)psu_init_ddr_self_refresh();
 	} else {
+		/* Remove DDR IOs from retention */
+		XFsbl_IoRetentionClear();
 		Status = (u32)psu_init();
 	}
 #else
+	/* Remove DDR IOs from retention */
+	XFsbl_IoRetentionClear();
 	Status = (u32)psu_init();
 #endif
 
