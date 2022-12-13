@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -695,6 +696,7 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	XStatus Status = XST_FAILURE;
 	u32 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_MemCtrlrDevice *MCDev = NULL;
+	u32 Offset = 2U;
 
 	if ((6U != NumArgs) && (10U != NumArgs)) {
 
@@ -753,10 +755,10 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	MCDev->IntlvIndex = (u8)((Args[1U] >> 16U) & 0xFU);
 
 	/* Annotate DDRMC regions */
-	for (u32 Cnt = 0U, Off = 2U; Cnt < MCDev->RegionCount; Cnt++) {
-		MCDev->Region[Cnt].Address = ((u64)Args[Off + 1U] << 32U) | (u64)(Args[Off]);
-		MCDev->Region[Cnt].Size = ((u64)Args[Off + 3U] << 32U) | (u64)(Args[Off + 2U]);
-		Off += 4U;
+	for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
+		MCDev->Region[Cnt].Address = ((u64)Args[Offset + 1U] << 32U) | (u64)(Args[Offset]);
+		MCDev->Region[Cnt].Size = ((u64)Args[Offset + 3U] << 32U) | (u64)(Args[Offset + 2U]);
+		Offset += 4U;
 	}
 
 	/* Request DDRMC for this PLD */
