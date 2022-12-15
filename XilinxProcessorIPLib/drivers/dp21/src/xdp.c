@@ -416,7 +416,8 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 	}
 
 	/* this can be referred from page 270 from displayPort_v2.0_e9.pdf*/
-	if (Dpcd[6] & 0x2) {
+	if (Dpcd[XDP_DPCD_ML_CH_CODING_CAP] &
+	    XDP_TX_MAIN_LINK_CHANNEL_CODING_SET_128B_132B_MASK) {
 		Status = XDp_TxAuxRead(InstancePtr,
 				       XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE,
 				       1, &RxMaxLinkRate);
