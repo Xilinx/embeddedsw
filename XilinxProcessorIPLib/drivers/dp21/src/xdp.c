@@ -387,6 +387,15 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 				       Dpcd);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
+
+		LinkConfig->ExtendedCapPresent = 1;
+		/* This is the check if the monitor is not
+		 * setting 0x001 to 0x1E, but only setting it
+		 * in 0x2201 as maxLinkRate.
+		 */
+		/* Check extended capability register */
+		XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE, 1,
+			      &Data);
 	}
 
 	RxMaxLinkRate = Dpcd[XDP_DPCD_MAX_LINK_RATE];
@@ -443,32 +452,16 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 		     LinkConfig->LinkRate >= XDP_TX_LINK_BW_SET_SW_UHBR10) {
 			LinkConfig->LinkTraining2x = 1;
 			LinkConfig->ProtocolSwitch = 0;
-			/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
-			if (Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
-			    XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
-				LinkConfig->ExtendedCapPresent = 1;
-			}
 		} else {
 			LinkConfig->LinkTraining2x = 0;
-			/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
-			if (Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
-			   XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
-				LinkConfig->ExtendedCapPresent = 1;
-				/* This is the check if the monitor is not
-				 * setting 0x001 to 0x1E, but only setting it
-				 * in 0x2201 as maxLinkRate.
-				 */
-				/* Check extended capability register */
-				XDp_TxAuxRead(InstancePtr,
-					      XDP_EDID_DPCD_MAX_LINK_RATE,
-					      1, &Data);
-				if (Data == XDP_TX_LINK_BW_SET_810GBPS) {
-					RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
-					LinkConfig->MaxLinkRate =
-					(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
-					ConfigPtr->MaxLinkRate : RxMaxLinkRate;
-				}
+			/* Maxlinkrate from extended capability register */
+			if (Data == XDP_TX_LINK_BW_SET_810GBPS) {
+				RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
+				LinkConfig->MaxLinkRate =
+				(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
+				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
 			}
+
 			if ((Dpcd[6] & 0x1) == 0x1) {
 				Status = XDp_TxAuxRead(InstancePtr, 0x0080,
 						       16, Dpcd);
@@ -477,23 +470,12 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 			}
 		}
 	} else	{
-		/* Check the EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT bit */
-		if (Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
-		    XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
-			LinkConfig->ExtendedCapPresent = 1;
-			/* This is the check if the monitor is not
-			 * setting 0x001 to 0x1E, but only setting it
-			 * in 0x2201 as maxLinkRate.
-			 */
-			/* Check extended capability register */
-			XDp_TxAuxRead(InstancePtr, XDP_EDID_DPCD_MAX_LINK_RATE,
-				      1, &Data);
-			if (Data == XDP_TX_LINK_BW_SET_810GBPS) {
-				RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
-				LinkConfig->MaxLinkRate =
-				(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
-				ConfigPtr->MaxLinkRate : RxMaxLinkRate;
-			}
+		/* Maxlinkrate from extended capability register */
+		if (Data == XDP_TX_LINK_BW_SET_810GBPS) {
+			RxMaxLinkRate = XDP_TX_LINK_BW_SET_810GBPS;
+			LinkConfig->MaxLinkRate =
+			(RxMaxLinkRate > ConfigPtr->MaxLinkRate) ?
+			ConfigPtr->MaxLinkRate : RxMaxLinkRate;
 		}
 	}
 
