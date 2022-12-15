@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -357,7 +358,6 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 {
 	u32 Status;
 	u8 *Dpcd = InstancePtr->TxInstance.RxConfig.DpcdRxCapsField;
-	u8 *Dpcd_ext = InstancePtr->TxInstance.RxConfig.DpcdRxCapsField;
 	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 	XDp_Config *ConfigPtr = &InstancePtr->Config;
 	u8 RxMaxLinkRate;
@@ -376,21 +376,18 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 		return XST_DEVICE_NOT_FOUND;
 	}
 
-	/*Reading the Ext capability for compliance */
-	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_EXT_DPCD_REV,
-			       16, Dpcd_ext);
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
-
-	if ((Dpcd_ext[6] & 0x1) == 0x1)
-		Status = XDp_TxAuxRead(InstancePtr, 0x0080, 16, Dpcd_ext);
-	if (Status != XST_SUCCESS)
-		return XST_FAILURE;
-
 	Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_RECEIVER_CAP_FIELD_START,
 			       16, Dpcd);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
+
+	if (Dpcd[XDP_DPCD_TRAIN_AUX_RD_INTERVAL] &
+	    XDP_DPCD_TRAIN_AUX_RD_EXT_RX_CAP_FIELD_PRESENT_MASK) {
+		Status = XDp_TxAuxRead(InstancePtr, XDP_DPCD_EXT_DPCD_REV, 16,
+				       Dpcd);
+		if (Status != XST_SUCCESS)
+			return XST_FAILURE;
+	}
 
 	RxMaxLinkRate = Dpcd[XDP_DPCD_MAX_LINK_RATE];
 	RxMaxLaneCount = Dpcd[XDP_DPCD_MAX_LANE_COUNT] &
@@ -410,7 +407,7 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 	}
 
 	/* this can be referred from page 270 from displayPort_v2.0_e9.pdf*/
-	if (Dpcd_ext[6] & 0x2) {
+	if (Dpcd[6] & 0x2) {
 		Status = XDp_TxAuxRead(InstancePtr,
 				       XDP_DPCD_128B_132B_SUPPORTED_LINK_RATE,
 				       1, &RxMaxLinkRate);
@@ -472,9 +469,9 @@ u32 XDp_TxGetRxCapabilities(XDp *InstancePtr)
 					ConfigPtr->MaxLinkRate : RxMaxLinkRate;
 				}
 			}
-			if ((Dpcd_ext[6] & 0x1) == 0x1) {
+			if ((Dpcd[6] & 0x1) == 0x1) {
 				Status = XDp_TxAuxRead(InstancePtr, 0x0080,
-						       16, Dpcd_ext);
+						       16, Dpcd);
 				if (Status != XST_SUCCESS)
 					return XST_FAILURE;
 			}
