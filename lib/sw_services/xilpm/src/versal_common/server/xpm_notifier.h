@@ -1,8 +1,8 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 #ifndef XPM_NOTIFIER_H_
 #define XPM_NOTIFIER_H_
@@ -12,7 +12,7 @@ extern "C" {
 #endif
 
 #include "xpm_subsystem.h"
-#include "xpm_device.h"
+#include "xpm_notifier_plat.h"
 
 extern void (* PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
 

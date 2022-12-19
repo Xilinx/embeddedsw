@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +43,7 @@
 #include "xpm_subsystem.h"
 #include "xsysmonpsv.h"
 #include "xpm_pldevice.h"
+
 /* Macro to typecast PM API ID */
 #define PM_API(ApiId)			((u32)ApiId)
 
@@ -2387,6 +2389,13 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem* Subsystem = NULL;
 
+	/* Register/Unregister on secondary SLRs */
+	Status = XPmNotifier_PlatHandleSsit(SubsystemId, NodeId, Event, Enable);
+	if ((XST_SUCCESS != Status) ||
+	    (/* XPLMI_SSIT_MASTER_SLR_INDEX */ 0U != XPm_PlatGetSlrIndex())) {
+		/* Return on secondary SLRs, regardless of status */
+		goto done;
+	}
 
 	/* Validate SubsystemId */
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
