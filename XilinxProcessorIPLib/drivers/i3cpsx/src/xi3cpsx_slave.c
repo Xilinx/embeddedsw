@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---  -------- ---------------------------------------------
 * 1.00  sd  06/10/22 First release
+* 1.1   sd  14/12/22 Fix warnings
 * </pre>
 *
 ******************************************************************************/
@@ -181,6 +182,7 @@ void XI3cPsx_SlaveRecv(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MsgPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(ByteCount != 0);
 
 }
 
@@ -219,6 +221,7 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	/* Send command part to controller. It triggers the transfer */
 	XI3cPsx_WrCmdFifo(InstancePtr, &Cmds);
 
+	return (s32)XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -265,7 +268,7 @@ s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
 
 	Reg = Reg & XI3CPSX_DATA_LEN;
 
-	XI3cPsx_SlvRdRxFifo(InstancePtr, MsgPtr,
+	XI3cPsx_SlvRdRxFifo(InstancePtr, (u32 *)MsgPtr,
 				  Reg);
 
 	return (s32)XST_SUCCESS;

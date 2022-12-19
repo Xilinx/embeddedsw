@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---  -------- ---------------------------------------------
 * 1.00  sd  06/10/22 First release
+* 1.01  sd  12/14/22 Fix warnings
 * </pre>
 *
 ******************************************************************************/
@@ -281,7 +282,7 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	XI3cPsixl_WrCmdFifo(InstancePtr, Cmds);
 	/* Wait until response buffer is filled up */
 	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
-	while((Rbuf_level  != InstancePtr->RecvByteCount) && !(IntrStatusReg)) {
+	while(((s32)Rbuf_level  != InstancePtr->RecvByteCount) && !(IntrStatusReg)) {
 		Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 					XI3CPSX_QUEUE_STATUS_LEVEL);
 		Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
@@ -383,7 +384,7 @@ s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 	/* Wait until response buffer is filled up */
 	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
-	while((Rbuf_level  != ByteCount) && !(Intr_status)) {
+	while(((s32)Rbuf_level  != ByteCount) && !(Intr_status)) {
 		Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 					XI3CPSX_QUEUE_STATUS_LEVEL);
 		Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
@@ -399,7 +400,7 @@ s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 	/* If rx command, read data from FIFO */
 	if ((RxLen) && !(Cmds->Error)) {
-		XI3cPsx_RdRxFifo(InstancePtr, MsgPtr,
+		XI3cPsx_RdRxFifo(InstancePtr, (u32 *)MsgPtr,
 				  RxLen);
 	}
 
@@ -458,7 +459,7 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 
 	/* Wait until response buffer is filled up */
 	Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
-	while((Rbuf_level  != InstancePtr->RecvByteCount) && !(IntrStatusReg)) {
+	while((Rbuf_level  != (u32)InstancePtr->RecvByteCount) && !(IntrStatusReg)) {
 		Rbuf_level = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 					XI3CPSX_QUEUE_STATUS_LEVEL);
 		Rbuf_level = (Rbuf_level & XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_MASK) >> XI3CPSX_QUEUE_STATUS_LEVEL_RESP_BUF_BLR_SHIFT;
@@ -475,7 +476,7 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 
 	/* If rx command, read data from FIFO */
 	if ((RxLen) && !(InstancePtr->Error)) {
-		XI3cPsx_RdRxFifo(InstancePtr, InstancePtr->RecvBufferPtr,
+		XI3cPsx_RdRxFifo(InstancePtr, (u32 *)InstancePtr->RecvBufferPtr,
 				  RxLen);
 	}
 	xil_printf("Rbuf_level, Intr_status after Cmd write %x\t%x\n", Rbuf_level, IntrStatusReg);

@@ -20,6 +20,7 @@
 * ----- ------  -------- -----------------------------------------------
 * 1.00  sd  06/10/22 First release
 * 1.01  sd  12/01/22 REmove the hardcoding of timing values
+*	    12/14/22 Fix the warnings
 *
 * </pre>
 *
@@ -65,7 +66,7 @@ s32 XI3cPsx_SetSClk(XI3cPsx *InstancePtr)
 	if (Lcnt < SCL_I3C_TIMING_CNT_MIN)
 		Lcnt = SCL_I3C_TIMING_CNT_MIN;
 
-	SclTiming = SCL_I3C_TIMING_HCNT(Hcnt) | Lcnt & XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_MASK;
+	SclTiming = SCL_I3C_TIMING_HCNT(Hcnt) | (Lcnt & XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_MASK);
 	XI3cPsx_WriteReg(BaseAddress, XI3CPSX_SCL_I3C_PP_TIMING, SclTiming);
 	SclTiming = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_SCL_I3C_PP_TIMING);
 
