@@ -40,6 +40,7 @@
 *                       from Slave SLRs in XPlmi_SsitSyncEventHandler
 * 1.06  skg  10/04/2022 Added logic to handle invalid commands
 *       ng   11/11/2022 Fixed doxygen file name error
+*       is   12/13/2022 Formatting, warning fixes in XPlmi_SendIpiCmdToSlaveSlr
 *
 * </pre>
 *
@@ -1594,6 +1595,7 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 END:
 	return Status;
 }
+
 /*****************************************************************************/
 /**
  * @brief	This function handles invalid commands
@@ -1605,30 +1607,28 @@ END:
  * @return	Status   XST_SUCCESS on success failure code upon failure
  *
  *****************************************************************************/
- int  XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf)
- {
+int XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf)
+{
 	int Status = XST_FAILURE;
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	u32 SlrIndex = 0U;
-    u32 SlrType = (XPlmi_In32(PMC_TAP_SLR_TYPE) &
-			PMC_TAP_SLR_TYPE_VAL_MASK);
+	u32 SlrType = (XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
 
-    if(RespBuf == NULL){
+	if (RespBuf == NULL) {
 		goto END;
 	}
 
 	SlrIndex = (Payload[0U] & XPLMI_CMD_SLR_ID_MASK) >> XPLMI_SLR_INDEX_SHIFT;
 	Payload[0U] =  Payload[0U] & XPLMI_SLR_ID_ZEROISE;
 
-    if(((SlrIndex >= 1U) && (SlrIndex <= 3U)) && (SlrType != XPLMI_SSIT_MONOLITIC)){
-	Status = XPlmi_SsitSendMsgEventAndGetResp(SlrIndex, Payload, XPLMI_SSIT_MAX_MSG_LEN,
-			RespBuf, XPLMI_SSIT_MAX_MSG_LEN, XPLMI_SLV_EVENT_TIMEOUT);
+	if (((SlrIndex >= 1U) && (SlrIndex <= 3U)) && (SlrType != XPLMI_SSIT_MONOLITIC)) {
+		Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex, Payload, XPLMI_SSIT_MAX_MSG_LEN,
+				RespBuf, XPLMI_SSIT_MAX_MSG_LEN, XPLMI_SLV_EVENT_TIMEOUT);
+	} else {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
 	}
-	else{
-	       Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
-	}
-	if(Status != XST_SUCCESS){
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -1636,9 +1636,10 @@ END:
 
 END:
 #else
-    (void)Payload;
-    (void)RespBuf;
-    Status = XPLMI_SSIT_INTR_NOT_ENABLED;
-#endif
-       return Status;
- }
+	(void)Payload;
+	(void)RespBuf;
+	Status = XPLMI_SSIT_INTR_NOT_ENABLED;
+#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
+
+	return Status;
+}
