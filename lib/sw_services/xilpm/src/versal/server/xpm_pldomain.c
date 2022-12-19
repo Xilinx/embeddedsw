@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1403,12 +1404,14 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = VduHouseClean();
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_VDU_HC;
+		goto fail;
 	}
 
 	/* Run houseclean sequence for BFR-B */
 	Status = BfrbHouseClean();
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BFRB_HC;
+		goto fail;
 	}
 
 	/* Set init_complete */
