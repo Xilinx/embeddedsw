@@ -32,6 +32,7 @@
 *                       by other components when the feature is not enabled
 * 1.06  skg  10/04/2022 Added logic to handle invalid commads
 *       ng   11/11/2022 Fixed doxygen file name error
+*       is   12/19/2022 Added support for XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX
 *
 * </pre>
 *
@@ -48,6 +49,7 @@ extern "C" {
 #endif
 
 #include "xplmi.h"
+#include "xil_error_node.h"
 
 /************************** Constant Definitions *****************************/
 /**
@@ -110,6 +112,7 @@ enum SsitEventIndex {
 	XPLMI_SLRS_SYNC_EVENT_INDEX,
 	XPLMI_SLRS_MESSAGE_EVENT_INDEX,
 	XPLMI_SEM_NOTIFY_ERR_EVENT_INDEX,
+	XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX,
 	XPLMI_SSIT_MAX_EVENTS
 };
 
@@ -134,18 +137,34 @@ enum SsitEventIndex {
  * @endcond
  */
 
+/**
+ * SSIT Single EAM Event Macros
+ *
+ * Enable SSIT Single EAM Event forwarding from Slave SLRs to Master SLR
+ * for this specific error interrupt
+ *  - XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_ID is the Error NodeId
+ *  - XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_MASK is the Error Event Mask
+ *  - XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_TRIG is the trigger register address
+ *
+ * On Master SLR, this interrupt will trigger the same error in the local EAM
+ */
+#define XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_ID	(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1)
+#define XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_MASK	(XIL_EVENT_ERROR_MASK_AIE_CR)
+#define XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_TRIG	(PMC_GLOBAL_PMC_ERR1_TRIG)
+
 /**************************** Type Definitions *******************************/
 /*
  * SSIT events related structure definitions
  */
 typedef struct {
-	u8 EventOrigin;
+	u32 EventOrigin;
 	XPlmi_EventHandler_t EventHandler;
 }XPlmi_SsitEvents_t;
 
 typedef struct {
 	u8 SlrIndex;
 	u8 IsIntrEnabled;
+	u32 SlavesMask;
 	XPlmi_SsitEvents_t Events[XPLMI_SSIT_MAX_EVENTS];
 	XPlmi_TaskNode *Task1;
 	XPlmi_TaskNode *Task2;
@@ -165,11 +184,12 @@ typedef struct {
 /* Functions related to SSIT events between SLRs */
 int XPlmi_SsitEventsInit(void);
 u8 XPlmi_SsitIsIntrEnabled(void);
-u8 XPlmi_GetSlrIndex(void);
 void XPlmi_SsitSetIsIntrEnabled(u8 Value);
 void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask);
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
+u8 XPlmi_GetSlrIndex(void);
+u32 XPlmi_GetSlavesSlrMask(void);
 int XPlmi_SsitRegisterEvent(u32 EventIndex, XPlmi_EventHandler_t Handler,
 		u8 EventOrigin);
 int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
@@ -183,7 +203,8 @@ int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex);
 u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex);
 int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
 		u32 *RespBuf, u32 RespBufSize, u32 WaitForEventCompletion);
-int  XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf);
+int XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf);
+int XPlmi_SsitSingleEamEventHandler(void *Data);
 
 /* SSIT Sync Related functions */
 int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd);

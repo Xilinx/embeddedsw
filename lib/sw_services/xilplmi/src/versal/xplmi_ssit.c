@@ -40,7 +40,8 @@
 *                       from Slave SLRs in XPlmi_SsitSyncEventHandler
 * 1.06  skg  10/04/2022 Added logic to handle invalid commands
 *       ng   11/11/2022 Fixed doxygen file name error
-*       is   12/13/2022 Formatting, warning fixes in XPlmi_SendIpiCmdToSlaveSlr
+*       is   12/19/2022 Formatting, warning fixes in XPlmi_SendIpiCmdToSlaveSlr
+*       is   12/19/2022 Added support for XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX
 *
 * </pre>
 *
@@ -132,6 +133,30 @@ u8 XPlmi_GetSlrIndex(void)
 
 /****************************************************************************/
 /**
+* @brief    This function is used to get the combined mask of all slave SLRs
+*
+* @return   Returns combined mask of all slave SLRs
+*
+****************************************************************************/
+u32 XPlmi_GetSlavesSlrMask(void)
+{
+	return SsitEvents->SlavesMask;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to accumulate the mask of all slave SLRs
+*
+* @return   None
+*
+****************************************************************************/
+static void XPlmi_UpdateSlavesSlrMask(u32 SlavesMask)
+{
+	SsitEvents->SlavesMask |= SlavesMask;
+}
+
+/****************************************************************************/
+/**
 * @brief    This function is used to set the SSIT interrupts enabled status
 *
 * @param    Value is interrupts enabled status
@@ -190,6 +215,12 @@ int XPlmi_SsitEventsInit(void)
 		SsitEvents->Events[Idx].EventHandler = NULL;
 	}
 
+	/*
+	 * Accumulated mask of all Slave SLRs
+	 *  - will be non-zero on Master SLR
+	 *  - 0x0 on Slave SLRs
+	 */
+	SsitEvents->SlavesMask = 0U;
 	SsitEvents->IsIntrEnabled = (u8)FALSE;
 	/* Read SLR Type */
 	SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
@@ -269,6 +300,13 @@ int XPlmi_SsitEventsInit(void)
 	/* Register Message Event */
 	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_MESSAGE_EVENT_INDEX,
 			XPlmi_SsitMsgEventHandler, XPLMI_SSIT_MASTER_SLR_MASK);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Register Single EAM Event (SEE) */
+	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX,
+			XPlmi_SsitSingleEamEventHandler, XPLMI_SSIT_ALL_SLAVE_SLRS_MASK);
 
 END:
 	return Status;
@@ -971,6 +1009,48 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief   This function is the event handler for the SSIT Single EAM Event
+ *          between Master and Slave SLRs.
+ *
+ * @param   Data is the SLR index where the event occurred
+ *
+ * @return  Returns the Status of SSIT Single EAM event
+ *
+ *****************************************************************************/
+int XPlmi_SsitSingleEamEventHandler(void *Data)
+{
+	int Status = XST_FAILURE;
+	u8 SlrIndex = (u8)(UINTPTR)Data;
+
+	/* This API can be called only in Master SLR */
+	if (SsitEvents->SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) {
+		Status = (int)XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
+		goto END;
+	}
+
+	XPlmi_Printf(DEBUG_INFO, "Acknowledging SSIT EAM event from master for Slr %d\r\n",
+			SlrIndex);
+	/*
+	 * Acknowledge the sync event once it is received
+	 * from a Slave SLR
+	 */
+	Status = XPlmi_SsitAcknowledgeEvent(SlrIndex, XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/*
+	 * Trigger EAM event locally in Master SLR
+	 */
+	XPlmi_Out32(XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_TRIG,
+			XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_MASK);
+
+END:
+	return Status;
+}
+
 /****************************************************************************/
 /**
 * @brief    This function handles SSIT Errors 0/1/2 in Master and Slave SLRs.
@@ -1126,6 +1206,30 @@ END:
 	return Status;
 }
 #else
+/****************************************************************************/
+/**
+* @brief    This function is used to get the local SLR index
+*
+* @return   Returns Local SLR index
+*
+****************************************************************************/
+u8 XPlmi_GetSlrIndex(void)
+{
+	return 0x0U;
+}
+
+/****************************************************************************/
+/**
+* @brief    This function is used to get the combined mask of all slave SLRs
+*
+* @return   Returns combined mask of all slave SLRs
+*
+****************************************************************************/
+u32 XPlmi_GetSlavesSlrMask(void)
+{
+	return 0x0U;
+}
+
 /****************************************************************************/
 /**
 * @brief    This function is used to register any event between Master and
@@ -1460,6 +1564,9 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+	/* Accumulate slaves mask to track the number of slave SLRs */
+	XPlmi_UpdateSlavesSlrMask(SlavesMask);
+
 	/* If SSIT interrupts are enabled, treat SSIT sync command as event */
 	if (SsitEvents->IsIntrEnabled == (u8)TRUE) {
 		Status = XPlmi_SsitSyncEventHandler(SlavesMask, TimeOut, (u8)FALSE);
