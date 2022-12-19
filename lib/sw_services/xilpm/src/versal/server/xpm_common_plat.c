@@ -1,18 +1,14 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 #include "xil_io.h"
-
-#include "xpm_common.h"
 #include "xpm_regs.h"
-#include "xpm_pmc.h"
-#include "xpm_psfpdomain.h"
-#include "xpm_pslpdomain.h"
+#include "xpm_common.h"
 #include "xpm_debug.h"
-#include <stdarg.h>
+#include "xplmi_ssit.h"
 
 /*****************************************************************************/
 /**
@@ -50,4 +46,9 @@ XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value)
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
+}
+
+u8 XPm_PlatGetSlrIndex(void)
+{
+	return XPlmi_GetSlrIndex();
 }

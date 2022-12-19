@@ -1,8 +1,8 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 #ifndef XPM_COMMON_PLAT_H_
 #define XPM_COMMON_PLAT_H_
@@ -139,6 +139,8 @@ extern "C" {
 
 /* NPI PCSR related general functions */
 XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value);
+
+u8 XPm_PlatGetSlrIndex(void);
 
 #ifdef __cplusplus
 }
