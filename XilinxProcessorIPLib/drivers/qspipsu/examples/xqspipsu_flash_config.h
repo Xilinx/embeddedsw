@@ -45,6 +45,7 @@ extern "C" {
 
 #include "xparameters.h"	/* SDK generated parameters */
 #include "xqspipsu.h"		/* QSPIPSU device driver */
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -183,6 +184,9 @@ extern "C" {
 #define WINBOND_ID_BYTE0	0xEF
 #define MACRONIX_ID_BYTE0	0xC2
 #define ISSI_ID_BYTE0		0x9D
+
+/**< Maximum delay count */
+#define MAX_DELAY_CNT	1000000000U
 
 /**************************** Type Definitions *******************************/
 
