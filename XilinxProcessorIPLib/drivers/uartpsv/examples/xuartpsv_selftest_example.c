@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +9,8 @@
 *
 * @file xuartpsv_selftest_example.c
 *
-* This file contains an example using the XUartPsv driver to do self test
-* on the device.
+* This example runs on versal evaluation board (vck190), it performs self test
+* by using XUartPsv driver.
 *
 * @note
 *

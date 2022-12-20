@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,9 +9,9 @@
 *
 * @file	xuartpsv_intr_example.c
 *
-* This file contains a design example using the XUartPsv driver in interrupt
-* mode. It sends data and expects to receive the same data through the device
-* using the local loopback mode.
+* This example runs on versal evaluation board (vck190), it sends data and
+* expects to receive the same data through the device using the local loopback
+* mode in interrupt mode by using XUartPsv driver.
 *
 *
 * @note
