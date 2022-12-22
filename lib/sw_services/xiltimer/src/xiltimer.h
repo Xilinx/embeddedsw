@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 *  			  selected as default timer.
 *  1.1	adk      08/08/22 Added support for versal net.
 *  	adk      08/08/22 Added doxygen tags.
+*  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
 * </pre>
 ******************************************************************************/
 #ifndef XILTIMER_H

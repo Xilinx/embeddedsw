@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,7 @@
 *  			  XTimer_SetHandler() API instead of a new API.
 *  1.1	adk      08/08/22 Added support for versal net.
 *  	adk      08/08/22 Added doxygen tags.
+*  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
 * </pre>
 ******************************************************************************/
 
@@ -40,7 +42,7 @@ void XilTimer_Sleep(unsigned long delay, XTimer_DelayType DelayType);
 *
 * This API gives delay in sec
 *
-* @param            seconds - delay time in seconds
+* @param            seconds Delay time in seconds
 *
 * @return           none
 *
@@ -56,7 +58,7 @@ void sleep(unsigned int seconds) {
 *
 * This API gives delay in msec
 *
-* @param            mseconds - delay time in mseconds
+* @param            mseconds Delay time in milliseconds
 *
 * @return           none
 *
@@ -72,7 +74,7 @@ void msleep(unsigned long mseconds) {
 *
 * This API gives delay in usec
 *
-* @param            useconds - delay time in useconds
+* @param            useconds Delay time in microseconds
 *
 * @return           none
 *
@@ -88,7 +90,7 @@ void usleep(unsigned long useconds) {
 *
 * This API contains common delay implementation using library API's.
 *
-* @param            useconds - delay time in useconds
+* @param            useconds Delay time in microseconds
 *
 * @return           none
 *
@@ -156,7 +158,7 @@ void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
 *
 * This API sets the elapse interval for the timer instance.
 *
-* @param            delay - delay time in milli seconds
+* @param            delay Delay time in milliseconds
 *
 * @return           none
 *

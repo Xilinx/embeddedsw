@@ -1,6 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2021 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 ******************************************************************************/
@@ -17,6 +18,7 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -------------------------------------------------------
 *  1.0  adk	 24/11/21 Initial release.
+*  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
 *
 * </pre>
 *
@@ -49,8 +51,9 @@ extern "C" {
 * @param            COND - Condition to checked (usually involves VALUE)
 * @param            TIMEOUT_US - timeout in micro seconds
 *
-* @return           0 - when the condition is met
-*                   -1 - when the condition is not met till the timeout period
+* @return
+*		    - 0 - when the condition is met
+*		    - 1 - when the condition is not met till the timeout period
 *
 * @note             none
 *
