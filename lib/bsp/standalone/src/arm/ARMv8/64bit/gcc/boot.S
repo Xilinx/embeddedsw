@@ -74,6 +74,10 @@
 *                         executable size.
 * 8.1   mus      11/08/22 Used ENABLE_MINIMAL_XLAT_TBL for reducing translation
 *                         table size. OCM_ELF flag would be removed later.
+* 8.1   mus      12/22/22 Updated TCR_EL3 to configure CortexA78 MMU for 4 TB
+*                         address space.
+* 8.1   mus      12/22/22 Updated TCR_EL3 to configure translation table walks
+*                         as cacheable.
 *
 * </pre>
 *
@@ -281,12 +285,12 @@ InitEL3:
 #if defined (VERSAL_NET) && (defined (OCM_ELF) || defined (ENABLE_MINIMAL_XLAT_TBL))
         /**********************************************
          * Set up TCR_EL3
-         * Physical Address Size PS =  010 -> 40bits 1TB
+         * Physical Address Size PS =  011 -> 42 bits 4TB
          * Granual Size TG0 = 00 -> 4KB
-         * Attributes for page table walks = 00 -> non cacheable
-         * size offset of the memory region T0SZ = 24 -> (region size 2^(64-24) = 2^40)
+         * Attributes for page table walks = 01 -> cacheable
+         * size offset of the memory region T0SZ = 22 -> (region size 2^(64-22) = 2^42)
          ***************************************************/
-        ldr     x1,=0x80823018
+        ldr     x1,=0x80833516
 
 #elif defined (VERSAL_NET)
         /**********************************************

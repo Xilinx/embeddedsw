@@ -41,5 +41,5 @@ PARAM name = lockstep_mode_debug, type = bool, default = false, desc = "Enable d
 PARAM name = clocking, type = bool, default = false, desc = "Enable clocking support", permit = user;
 PARAM name = xil_interrupt, type = bool, default = false, desc = "Enable xilinx interrupt wrapper API support", permit = user;
 PARAM name = pmu_sleep_timer, type = bool, default = false, desc = "Use PMU counters for sleep functionality applicable only for CortexR5 processor", permit = user;
-PARAM name = enable_minimal_xlat_tbl, type = bool, default = false, desc = "Configures translation table only for initial 1 TB address space. Translation table size will be reduced by ~1 MB. It is applicable only for CortexA78 BSP. Enable it to fit executable in OCM memory", permit = user;
+PARAM name = enable_minimal_xlat_tbl, type = bool, default = true, desc = "Configures translation table only for initial 4 TB address space. Translation table size will be reduced by ~1 MB. It is applicable only for CortexA78 BSP. Enable it by deafult to fit executable in OCM memory. It needs to be disabled if you want access peripheral/Memory mapped beyond 4 TB.", permit = user;
 END OS

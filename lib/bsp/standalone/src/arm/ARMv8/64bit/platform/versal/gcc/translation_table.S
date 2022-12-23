@@ -79,6 +79,10 @@
 *                     in compiler flags.
 * 8.1   mus  11/08/22 Used ENABLE_MINIMAL_XLAT_TBL flag to reduce translation
 *                     table size. OCM_ELF flag checking would be removed later.
+* 8.1   mus  12/22/22 Updated VERSAL NET translation table to configure 4 TB
+*                     address space when ENABLE_MINIMAL_XLAT_TBL is defined.
+*                     This is default behavior, since ENABLE_MINIMAL_XLAT_TBL
+*                     would be defined by default.
 *
 ******************************************************************************/
 #include "xparameters.h"
@@ -122,14 +126,16 @@ MMUTableL0:
 .set SECT, MMUTableL1		/* 0x0000_0000 -  0x7F_FFFF_FFFF */
 .8byte	SECT + 0x3
 
-#if ! defined  (OCM_ELF)
+#if ! defined  (OCM_ELF) && ! defined (ENABLE_MINIMAL_XLAT_TBL)
 .rept	0xff
 .set SECT, SECT + 0x1000	/* 0x80_0000_0000 - 0xFFF_FFFF_FFFF */
 .8byte	SECT + 0x3
 .endr
 #else
+.rept	0x7
 .set SECT, SECT + 0x1000        /* 0x80_0000_0000 - 0xFFF_FFFF_FFFF */
 .8byte  SECT + 0x3
+.endr
 #endif
 
 	.section .mmu_tbl1,"a"
@@ -151,49 +157,54 @@ MMUTableL1:
 
 .set SECT,0x100000000
 
-.rept	0x1C			/* 0x1_0000_0000 - 0x1_FFFF_FFFF */
+.rept	0x1C			/* 0x1_0000_0000 - 0x7_FFFF_FFFF */
 .8byte	SECT + reserved		/* 28GB Reserved */
 .set SECT, SECT + 0x40000000
 .endr
 
 /* TODO: Mark DDR_CH0_MED as normal memory based on HW design */
-.rept	0x20			/* 0x2_0000_0000 - 0x2_FFFF_FFFF */
+.rept	0x20			/* 0x8_0000_0000 - 0xF_FFFF_FFFF */
 .8byte	SECT + reserved		/* 32GB DDR_CH0_MED marked as reserved for now */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x40			/* 0x3_0000_0000 - 0x3_FFFF_FFFF */
+.rept	0x40			/* 0x10_0000_0000 - 0x1F_FFFF_FFFF */
 .8byte	SECT + reserved		/* 64GB Reserved */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x80			/* 0x4_0000_0000 - 0x7_FFFF_FFFF */
+.rept	0x80			/* 0x20_0000_0000 - 0x3F_FFFF_FFFF */
 .8byte	SECT + Device		/* 128GB C2C_MED */
 .set SECT, SECT + 0x40000000
 .endr
 
 /* TODO: Mark HBM regions as normal memory based on the HW design */
-.rept	0x100			/* 0x10_0000_0000 - 0x3F_FFFF_FFFF */
+.rept	0x100			/* 0x40_0000_0000 - 0x7F_FFFF_FFFF */
 .8byte	SECT + reserved		/* 256GB device */
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept	0x100			/* 0x40_0000_0000 - 0x7F_FFFF_FFFF */
+.rept	0x100			/* 0x80_0000_0000 - 0xBF_FFFF_FFFF */
 .8byte	SECT + reserved		/* 256GB reserved */
 .set SECT, SECT + 0x40000000
 .endr
 
 /* TODO: Mark this region as normal memory based on HW design */
-.rept	0x100			/* 0x80_0000_0000 - 0xBF_FFFF_FFFF */
-.8byte	SECT + reserved		/* 790GB DDR (DDR_CH0_HIGH_0: 256GB + DDR_CH0_HIGH_1: 734GB) */
+.rept	0x100			/* 0xC0_0000_0000 - 0xFF_FFFF_FFFF */
+.8byte	SECT + reserved		/* 256GB DDR (DDR_CH0_HIGH_0: 256GB + DDR_CH0_HIGH_1: 734GB) */
 .set SECT, SECT + 0x40000000
 .endr
 
-#if ! defined (OCM_ELF) && ! defined (ENABLE_MINIMAL_XLAT_TBL)
-.rept   0x234                   /* 0x80_0000_0000 - 0xBF_FFFF_FFFF */
-.8byte  SECT + reserved         /* 790GB reserved */
+.rept   0x2DE                   /* 0x100_0000_0000 - 0x1B7_7FFF_FFFF */
+.8byte  SECT + reserved         /* 790GB DDR (DDR_CH0_HIGH_1) */
 .set SECT, SECT + 0x40000000
 .endr
+
+.rept   0x122                   /* 0x1B8_0000_0000 - 0x1FF_FFFF_FFFF */
+.8byte  SECT + reserved         /* 290GB DDR */
+.set SECT, SECT + 0x40000000
+.endr
+
 
 .rept	0x4			/* 0x200_0000_0000 - 0x200_FFFF_FFFF */
 .8byte	SECT + Device		/* 4GB ME Programming */
@@ -210,21 +221,18 @@ MMUTableL1:
 .set SECT, SECT + 0x40000000
 .endr
 
-.rept   0x1                     /* 0x203_C000_0000 - 0x203_FFFF_FFFF */
-.8byte  SECT + reserved         /* 1GB reserved */
+.8byte  SECT + reserved         /* 1GB reserved  0x203_C000_0000 - 0x203_FFFF_FFFF */
 .set SECT, SECT + 0x40000000
-.endr
 
-.rept   0x1                     /* 0x204_0000_0000 - 0x204_3FFF_FFFF */
-.8byte  SECT + Device           /* 8MB PKI, 1016MB reserved from next section */
+.8byte  SECT + Device           /* 8MB PKI, 1016MB reserved from next section  0x204_0000_0000 - 0x204_3FFF_FFFF */
 .set SECT, SECT + 0x40000000
-.endr
 
 .rept	0x7EF			/* 0x204_4000_0000 - 0x3ffffffffff */
 .8byte	SECT + Device		/* 2031GB reserved */
 .set SECT, SECT + 0x40000000
 .endr
 
+#if ! defined (OCM_ELF) && ! defined (ENABLE_MINIMAL_XLAT_TBL)
 .rept	0x400			/* 0x400_0000_0000 - 0x4FF_FFFF_FFFF */
 .8byte	SECT + Device		/* 1TB PS_FPD_AFI_FS_HIGH */
 .set SECT, SECT + 0x40000000
