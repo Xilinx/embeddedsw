@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +38,8 @@
 * 7.7	sk   01/10/22 Add unsigned to hexadecimal value to fix misra_c_2012_rule_7_2
 * 		      violation.
 * 8.0   mus  07/06/21 Added support for VERSAL NET
+* 8.0   mus  22/12/22 Updated default VERSAL NET MPU table to configure DDR and OCM
+*                     as cacheable memory.
 * </pre>
 *
 * @note
@@ -151,7 +154,7 @@ void Init_MPU(void)
 	/* 2 GB DDR */
 	Addr = 0x00000000U;
         RegSize = 0x7FFFFFFF;
-        Attrib = NORM_NSHARED_NCACHE | PRIV_RW_USER_RW;
+        Attrib = NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW;
         Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
         Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
         RegNum++;
@@ -175,7 +178,7 @@ void Init_MPU(void)
 	/* 1 MB OCM */
         Addr = 0xBBF00000U;
         RegSize = 0xFFFFF;
-	Attrib = NORM_NSHARED_NCACHE | PRIV_RW_USER_RW;
+	Attrib = NORM_NSHARED_WT_NWA | PRIV_RW_USER_RW;
         Xil_SetAttribute(Addr,RegSize,RegNum, Attrib);
         Update_MpuConfig_Array(Addr,RegSize,RegNum, Attrib);
         RegNum++;
