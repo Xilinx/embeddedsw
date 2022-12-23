@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,6 +62,8 @@
 *                    macro. Xil_DCacheFlushRange macro points to the
 *                    Xil_DCacheInvalidateRange API to avoid code duplication.
 * 8.0 mus  02/24/22  Added support for CortexA78 processor in VERSAL NET SoC
+* 8.1 mus  12/22/22  Removed workaround added to Xil_DCacheInvalidateRange for
+*                    VERSAL NET.
 *
 * </pre>
 *
@@ -487,79 +490,6 @@ void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 		while (adr < end) {
 			mtcpdc(CIVAC,adr);
 			adr += cacheline;
-	#if defined (VERSAL_NET)
-	/*
-	 * Note: "NOP" instructions added below is workaround to avoid processor
-	 * halts observed during execution of cache integration test. Issue is
-	 * observed with O2 optimization level, adding 60 NOP instructions between
-	 * consecutive CIVAC instruction prevents it.  Below are the observations,
-	 *   - Issue observed only with cache integration test, which does stress
-	 *     testing on cache APIs
-	 *   - Issue was not reproduced with O0 optimization level
-	 *   - This issue has been observed from IPP_PSXL_0_9_1 release.
-	 * These NOP instruction would be removed, once said issue is resolved.
-	 */
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-			 __asm volatile( "NOP" );
-	#endif
 		}
 	}
 	/* Wait for invalidate to complete */
