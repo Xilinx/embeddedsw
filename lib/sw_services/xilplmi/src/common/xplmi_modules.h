@@ -1,8 +1,8 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022, Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 
 /*****************************************************************************/
 /**
@@ -35,7 +35,9 @@
 *       ma   07/08/2022 Move ScatterWrite and ScatterWrite2 APIs to common code
 *       jd   08/11/2022 Increase command argument count macros from 6 to 12
 *       jd   08/31/2022 Typecasting CmdIdVal to u8 in XPLMI_EXPORT_CMD
-* 1.8   skg  10/04/2022 Added Invalid command handler to handle invalid Commands which includes SlrIndex in cmd id
+* 1.08  skg  10/04/2022 Added Invalid command handler to handle invalid Commands which includes SlrIndex in cmd id
+*       am   12/21/2022 Added XilOcp module Id
+*
 * </pre>
 *
 * @note
@@ -59,7 +61,7 @@ extern "C" {
  */
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_MAX_MODULES			(13U)
+#define XPLMI_MAX_MODULES			(14U)
 #define XPLMI_MODULE_GENERIC_ID			(1U)
 #define XPLMI_MODULE_XILPM_ID			(2U)
 #define XPLMI_MODULE_SEM_ID			(3U)
@@ -70,6 +72,7 @@ extern "C" {
 #define XPLMI_MODULE_STL_ID			(10U)
 #define XPLMI_MODULE_XILNVM_ID			(11U)
 #define XPLMI_MODULE_XILPUF_ID			(12U)
+#define XPLMI_MODULE_XILOCP_ID			(13U)
 #define XPLMI_MODULE_COMMAND(FUNC)		{ (FUNC) }
 
 /**************************** Type Definitions *******************************/

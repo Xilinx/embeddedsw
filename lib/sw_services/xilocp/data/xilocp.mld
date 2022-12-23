@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -8,6 +8,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0   vns  06/27/22 Initial Release
+# 1.1   am   12/21/22 Changed user configurable parameter names
 #
 ##############################################################################
 
@@ -16,9 +17,9 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilocp
   OPTION drc = ocp_drc;
   OPTION copyfiles = all;
-  OPTION SUPPORTED_PERIPHERALS = (psx_pmc psxl_pmc);
-  OPTION REQUIRES_OS = (standalone);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilocp,-lxilplmi,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
+  OPTION SUPPORTED_PERIPHERALS = (psx_pmc psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52);
+  OPTION REQUIRES_OS = (standalone freertos10_xilinx);
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilocp,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Open Compute Platform(OCP) support Library";
   OPTION VERSION = 1.1;
   OPTION NAME = xilocp;
