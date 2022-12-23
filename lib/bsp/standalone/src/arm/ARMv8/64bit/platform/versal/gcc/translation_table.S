@@ -85,6 +85,8 @@
 *                     would be defined by default.
 * 8.1   mus  12/22/22 Updated VERSAL NET translation table to configure lower
 *                     DDR and OCM as cacheable memory.
+* 8.1   mus  12/22/22 Updated VERSAL NET translation table to configure PCIE
+*                     region as device memory.
 *
 ******************************************************************************/
 #include "xparameters.h"
@@ -301,7 +303,7 @@ MMUTableL2:
 .endr
 
 .rept	0x080			/* 0xA000_0000 - 0xAFFF_FFFF */
-.8byte	SECT + reserved		/* 256MB PCIE_REGION */
+.8byte	SECT + Device		/* 256MB PCIE_REGION */
 .set	SECT, SECT+0x200000
 .endr
 
