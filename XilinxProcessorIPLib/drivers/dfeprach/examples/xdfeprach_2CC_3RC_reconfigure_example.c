@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
+* 1.5   dc     12/14/22 Update multiband register arithmetic
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -111,7 +113,7 @@ int XDfePrach_2CC3RCReconfigureTestExample()
 
 	/* set up "second" CC */
 	CCID[1] = 3; /* different CCID */
-	CarrierCfg[1].SCS = 0; /*  Configure this CC: 15kHz SCS */
+	CarrierCfg[1].SCS = 0; /* Configure this CC: 15kHz SCS */
 	CCSeqBitmap[1] = 0x0002U; /* Also single slot, but in second location */
 
 	/* set up an RCID "2" from CCID 5 */
@@ -156,7 +158,7 @@ int XDfePrach_2CC3RCReconfigureTestExample()
 	/* set up decimation and demodulation structures: */
 	for (Index = 0; Index < XDFEPRACH_NUMBER_RC; Index++) {
 		DdcCfg[Index].DecimationRate = PRACHDecimation[Index];
-		DdcCfg[Index].SCS = PRACHSCS[Index];
+		DdcCfg[Index].UserSCS = PRACHSCS[Index];
 		for (fir_stg = 0; fir_stg < 6; fir_stg++) {
 			DdcCfg[Index].RachGain[fir_stg] = 0; /* 0dB FIR gain */
 		}
@@ -270,9 +272,9 @@ int XDfePrach_2CC3RCReconfigureTestExample()
 			    PhysRachChannel[RC_idx], /* physical channel number */
 			    &DdcCfg[RC_idx], /* Decimation Configuration */
 			    &NcoCfg[RC_idx], /* NCO Configuration */
-			    &StaticSchedule)) /* Static schedule(all, always
+			    &StaticSchedule, /* Static schedule(all, always
 				on for this test */
-		{
+			    &CCCfg)) {
 			printf("Adding Configuration for RCID %0d to PRACH\n\r",
 			       RCID[RC_idx]);
 		} else {
@@ -292,7 +294,7 @@ int XDfePrach_2CC3RCReconfigureTestExample()
 	/* Rebuild RCID[2], from "format 0" to "format 4" */
 	DdcCfg[2].DecimationRate = 4U; /* decimation by 16 changed from 24
 		for F0 */
-	DdcCfg[2].SCS = 15U; /* PRACH SCS becomes 7.5kHz */
+	DdcCfg[2].UserSCS = 15U; /* PRACH SCS becomes 7.5kHz */
 	for (fir_stg = 0; fir_stg < 6; fir_stg++) {
 		DdcCfg[2].RachGain[fir_stg] = 0; /* 0dB FIR gain */
 	}
@@ -310,8 +312,8 @@ int XDfePrach_2CC3RCReconfigureTestExample()
 		    PhysRachChannel[2], /*physical channel number*/
 		    &DdcCfg[2], /*Decimation Configuration*/
 		    &NcoCfg[2], /*NCO Configuration*/
-		    &StaticSchedule)) /* Static schedule(all, always on for this test.*/
-	{
+		    &StaticSchedule, /* Static schedule(all, always on for this test.*/
+		    &CCCfg)) {
 		printf("Adding reconfiguration for RCID 2 to PRACH\n\r");
 	} else {
 		printf("ERROR: Failed to reconfigure RCID 2 to PRACH\n\r");

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +43,7 @@
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/04/22 Correct PatternPeriod represantion
 *       dc     04/06/22 Update documentation
+* 1.5   dc     12/14/22 Update multiband register arithmetic
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -73,9 +75,28 @@
 */
 
 #define XDFEPRACH_DRIVER_VERSION_MINOR                                         \
-	(4U) /**< Driver's minor version number */
+	(5U) /**< Driver's minor version number */
 #define XDFEPRACH_DRIVER_VERSION_MAJOR                                         \
 	(1U) /**< Driver's major version number */
+
+#define XDFEPRACH_PHASE_INCREMENT_PER_HZ                                       \
+	((double)((u64)1 << 32) /                                              \
+	 30720000) /**< 30720000 is the base sample rate */
+#define XDFEPRACH_ERROR_MARGIN                                                 \
+	(0.01) /**< Error margin in frequncy calculation */
+#define XDFEPRACH_FREQ_MIN (-(1 << 23)) /**< Minimum frequency value */
+#define XDFEPRACH_FREQ_MAX (1 << 23) /**< Maximum frequency value */
+#define XDFEPRACH_MAX_CCRATE (3) /**< CCRate maxixmum value */
+
+#define XDFEPRACH_SCS_15KHZ 0U
+#define XDFEPRACH_SCS_30KHZ 1U
+#define XDFEPRACH_SCS_60KHZ 2U
+#define XDFEPRACH_SCS_120KHZ 3U
+#define XDFEPRACH_SCS_1_25KHZ 12U
+#define XDFEPRACH_SCS_3_75KHZ 13U
+#define XDFEPRACH_SCS_5KHZ 14U
+#define XDFEPRACH_SCS_7_5KHZ 15U
+#define XDFEPRACH_SCS_MAX 15U
 
 /************************** Function Prototypes *****************************/
 /**
@@ -83,10 +104,11 @@
 */
 static void XDfePrach_GetRC(const XDfePrach *InstancePtr, bool Next, u32 RCId,
 			    XDfePrach_RCCfg *RCCfg);
-static void XDfePrach_AddRC(u32 RCId, u32 RachChan, s32 CCID,
-			    XDfePrach_RCCfg *RCCfg, XDfePrach_DDCCfg *DdcCfg,
-			    XDfePrach_NCO *NcoCfg,
-			    XDfePrach_Schedule *Schedule);
+static void XDfePrach_AddRC(const XDfePrach *InstancePtr, u32 RCId,
+			    u32 RachChan, s32 CCID, XDfePrach_RCCfg *RCCfg,
+			    XDfePrach_DDCCfg *DdcCfg, XDfePrach_NCO *NcoCfg,
+			    XDfePrach_Schedule *Schedule,
+			    XDfePrach_CCCfg *NextCCCfg);
 static void XDfePrach_RemoveOneRC(XDfePrach_InternalChannelCfg *InternalRCCfg);
 static void XDfePrach_SetRC(const XDfePrach *InstancePtr,
 			    XDfePrach_RCCfg *RCCfg, u32 RCId);
@@ -594,11 +616,107 @@ static void XDfePrach_GetRC(const XDfePrach *InstancePtr, bool Next, u32 RCId,
 	XDfePrach_GetSchedule(InstancePtr, Next, RCId,
 			      &RCCfg->StaticSchedule[RCId]);
 }
+
+/****************************************************************************/
+/**
+*
+* Calculate frequency.
+*
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    RCId RC Id.
+* @param    CCID CC Id.
+* @param    RCCfg RC config container.
+* @param    NcoCfg NCO data container.
+* @param    CCRate Sample rate for CCId.
+*
+****************************************************************************/
+static void XDfePrach_FreqCalculation(const XDfePrach *InstancePtr, u32 RCId,
+				      u32 CCId, XDfePrach_RCCfg *RCCfg,
+				      XDfePrach_NCO *NcoCfg, u32 CCRate)
+{
+	double NegativeFrequency;
+	double PhaseIncFp = 0;
+	double FractionFp;
+	u32 UserSCS;
+	s64 TmpFreq;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CCId < XDFEPRACH_CC_NUM_MAX);
+	Xil_AssertVoid(RCId < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertVoid(RCCfg != NULL);
+	Xil_AssertVoid(NcoCfg != NULL);
+	Xil_AssertVoid(NcoCfg->UserFreq < XDFEPRACH_FREQ_MAX);
+	Xil_AssertVoid(NcoCfg->UserFreq > XDFEPRACH_FREQ_MIN);
+	Xil_AssertVoid(CCRate <= XDFEPRACH_MAX_CCRATE);
+	UserSCS = RCCfg->DdcCfg[RCId].UserSCS;
+	Xil_AssertVoid(((UserSCS <= XDFEPRACH_SCS_7_5KHZ) &&
+			(UserSCS >= XDFEPRACH_SCS_1_25KHZ)) ||
+		       (UserSCS <= XDFEPRACH_SCS_120KHZ));
+
+	/* Required frequency is the product of the SCS and the frequency */
+	switch (UserSCS) {
+	case XDFEPRACH_SCS_1_25KHZ:
+		PhaseIncFp = 1250 / 2;
+		break;
+	case XDFEPRACH_SCS_3_75KHZ:
+		PhaseIncFp = 3750 / 2;
+		break;
+	case XDFEPRACH_SCS_5KHZ:
+		PhaseIncFp = 5000 / 2;
+		break;
+	case XDFEPRACH_SCS_7_5KHZ:
+		PhaseIncFp = 7500 / 2;
+		break;
+	case XDFEPRACH_SCS_15KHZ:
+		PhaseIncFp = 15000 / 2;
+		break;
+	case XDFEPRACH_SCS_30KHZ:
+		PhaseIncFp = 30000 / 2;
+		break;
+	case XDFEPRACH_SCS_60KHZ:
+		PhaseIncFp = 60000 / 2;
+		break;
+	case XDFEPRACH_SCS_120KHZ:
+		PhaseIncFp = 120000 / 2;
+		break;
+	}
+	NegativeFrequency = -((double)NcoCfg->UserFreq);
+	PhaseIncFp *= XDFEPRACH_PHASE_INCREMENT_PER_HZ * NegativeFrequency;
+
+	if (CCRate == 0) {
+		PhaseIncFp = PhaseIncFp / 1;
+	} else if (CCRate == 1) {
+		PhaseIncFp = PhaseIncFp / 2;
+	} else if (CCRate == 2) {
+		PhaseIncFp = PhaseIncFp / 4;
+	} else if (CCRate == 3) {
+		PhaseIncFp = PhaseIncFp / 8;
+	}
+
+	/* Write FREQUENCE_CONTROL_WORD */
+	TmpFreq = floor(PhaseIncFp);
+	NcoCfg->Frequency = TmpFreq;
+
+	/* Write SINGLE & DUAL_MOD_COUNT */
+	FractionFp = PhaseIncFp - NcoCfg->Frequency;
+	if (fabs(FractionFp - (1.0 / 3)) < XDFEPRACH_ERROR_MARGIN) {
+		NcoCfg->FreqSingleModCount = 1;
+		NcoCfg->FreqDualModCount = 2;
+	} else if (fabs(FractionFp - (2.0 / 3)) < XDFEPRACH_ERROR_MARGIN) {
+		NcoCfg->FreqSingleModCount = 2;
+		NcoCfg->FreqDualModCount = 1;
+	} else {
+		NcoCfg->FreqSingleModCount = 0;
+		NcoCfg->FreqDualModCount = 0;
+	}
+}
+
 /****************************************************************************/
 /**
 *
 * Adds a single instance of an RCCfg.
 *
+* @param    InstancePtr Pointer to the PRACH instance.
 * @param    RCId RC Id.
 * @param    RachChan RACH channel Id.
 * @param    CCID CC Id.
@@ -606,11 +724,14 @@ static void XDfePrach_GetRC(const XDfePrach *InstancePtr, bool Next, u32 RCId,
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
 * @param    Schedule Schedule data container.
+* @param    NextCCCfg CC configuration container.
 *
 ****************************************************************************/
-static void XDfePrach_AddRC(u32 RCId, u32 RachChan, s32 CCID,
-			    XDfePrach_RCCfg *RCCfg, XDfePrach_DDCCfg *DdcCfg,
-			    XDfePrach_NCO *NcoCfg, XDfePrach_Schedule *Schedule)
+static void XDfePrach_AddRC(const XDfePrach *InstancePtr, u32 RCId,
+			    u32 RachChan, s32 CCID, XDfePrach_RCCfg *RCCfg,
+			    XDfePrach_DDCCfg *DdcCfg, XDfePrach_NCO *NcoCfg,
+			    XDfePrach_Schedule *Schedule,
+			    XDfePrach_CCCfg *NextCCCfg)
 {
 	RCCfg->InternalRCCfg[RCId].RCId = RCId;
 	/* Set the physical channel first so the physicla channels are loaded
@@ -618,6 +739,11 @@ static void XDfePrach_AddRC(u32 RCId, u32 RachChan, s32 CCID,
 	XDfePrach_AddRachChannel(RachChan, &RCCfg->InternalRCCfg[RCId]);
 	/* Add the DDC cfg */
 	XDfePrach_AddDDC(RCCfg, DdcCfg, RCId);
+
+	/* Calculate frequency */
+	XDfePrach_FreqCalculation(InstancePtr, RCId, CCID, RCCfg, NcoCfg,
+				  NextCCCfg->CarrierCfg[CCID].CCRate);
+
 	/* Add the NCO */
 	XDfePrach_AddNCO(RCCfg, NcoCfg, RCId);
 	/* Add the schedule */
@@ -885,9 +1011,7 @@ static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RCId,
 {
 	u32 Offset;
 
-	Offset = XDFEPRACH_PHASE_PHASE_OFFSET +
-		 (RachChan * XDFEPRACH_NCO_CTRL_ADDR_STEP);
-	NcoCfg->PhaseOffset = XDfePrach_ReadReg(InstancePtr, Offset);
+	/* Set NCO_CTRL PHASE */
 	Offset = XDFEPRACH_PHASE_PHASE_ACC +
 		 (RachChan * XDFEPRACH_NCO_CTRL_ADDR_STEP);
 	NcoCfg->PhaseAcc = XDfePrach_ReadReg(InstancePtr, Offset);
@@ -897,12 +1021,24 @@ static void XDfePrach_GetNCO(const XDfePrach *InstancePtr, u32 RCId,
 	Offset = XDFEPRACH_PHASE_DUAL_MOD_SEL +
 		 (RachChan * XDFEPRACH_NCO_CTRL_ADDR_STEP);
 	NcoCfg->DualModSel = XDfePrach_ReadReg(InstancePtr, Offset);
+
+	/* Set NCO_CTRL GAIN */
 	Offset = XDFEPRACH_NCO_GAIN + (RachChan * XDFEPRACH_NCO_CTRL_ADDR_STEP);
 	NcoCfg->NcoGain = XDfePrach_ReadReg(InstancePtr, Offset);
 
+	/* Set NCO_CTRL Frequency */
 	Offset = XDFEPRACH_FREQUENCY_CONTROL_WORD +
 		 (RCId * XDFEPRACH_NCO_CTRL_ADDR_STEP);
 	NcoCfg->Frequency = XDfePrach_ReadReg(InstancePtr, Offset);
+	Offset = XDFEPRACH_FREQUENCY_SINGLE_MOD_COUNT +
+		 (RCId * XDFEPRACH_NCO_CTRL_ADDR_STEP);
+	NcoCfg->FreqSingleModCount = XDfePrach_ReadReg(InstancePtr, Offset);
+	Offset = XDFEPRACH_FREQUENCY_DUAL_MOD_COUNT +
+		 (RCId * XDFEPRACH_NCO_CTRL_ADDR_STEP);
+	NcoCfg->FreqDualModCount = XDfePrach_ReadReg(InstancePtr, Offset);
+	Offset = XDFEPRACH_FREQUENCY_PHASE_OFFSET +
+		 (RCId * XDFEPRACH_NCO_CTRL_ADDR_STEP);
+	NcoCfg->FreqPhaseOffset = XDfePrach_ReadReg(InstancePtr, Offset);
 }
 
 /****************************************************************************/
@@ -923,6 +1059,9 @@ static void XDfePrach_AddNCO(XDfePrach_RCCfg *RCCfg,
 	RCCfg->NcoCfg[RCId].DualModCount = NcoCfg->DualModCount;
 	RCCfg->NcoCfg[RCId].DualModSel = NcoCfg->DualModSel;
 	RCCfg->NcoCfg[RCId].Frequency = NcoCfg->Frequency;
+	RCCfg->NcoCfg[RCId].FreqSingleModCount = NcoCfg->FreqSingleModCount;
+	RCCfg->NcoCfg[RCId].FreqDualModCount = NcoCfg->FreqDualModCount;
+	RCCfg->NcoCfg[RCId].FreqPhaseOffset = NcoCfg->FreqPhaseOffset;
 	RCCfg->NcoCfg[RCId].NcoGain = NcoCfg->NcoGain;
 }
 
@@ -941,12 +1080,7 @@ static void XDfePrach_SetNCO(const XDfePrach *InstancePtr,
 {
 	u32 Offset;
 
-	/* Set RACH_MIXER.NCO_CTRL[RCCfg->RachChan].PHASE */
-	Offset = XDFEPRACH_PHASE_PHASE_OFFSET +
-		 (RCCfg->InternalRCCfg[RCId].RachChannel *
-		  XDFEPRACH_NCO_CTRL_ADDR_STEP);
-	XDfePrach_WriteReg(InstancePtr, Offset,
-			   RCCfg->NcoCfg[RCId].PhaseOffset);
+	/* Set NCO_CTRL PHASE */
 	Offset = XDFEPRACH_PHASE_PHASE_ACC +
 		 (RCCfg->InternalRCCfg[RCId].RachChannel *
 		  XDFEPRACH_NCO_CTRL_ADDR_STEP);
@@ -961,13 +1095,31 @@ static void XDfePrach_SetNCO(const XDfePrach *InstancePtr,
 		  XDFEPRACH_NCO_CTRL_ADDR_STEP);
 	XDfePrach_WriteReg(InstancePtr, Offset, RCCfg->NcoCfg[RCId].DualModSel);
 
+	/* Set NCO_CTRL GAIN */
 	Offset = XDFEPRACH_NCO_GAIN + (RCCfg->InternalRCCfg[RCId].RachChannel *
 				       XDFEPRACH_NCO_CTRL_ADDR_STEP);
 	XDfePrach_WriteReg(InstancePtr, Offset, RCCfg->NcoCfg[RCId].NcoGain);
 
+	/* Set NCO_CTRL FREQUENCY */
 	Offset = XDFEPRACH_FREQUENCY_CONTROL_WORD +
-		 (RCCfg->InternalRCCfg[RCId].RachChannel * sizeof(u32));
+		 (RCCfg->InternalRCCfg[RCId].RachChannel *
+		  XDFEPRACH_NCO_CTRL_ADDR_STEP);
 	XDfePrach_WriteReg(InstancePtr, Offset, RCCfg->NcoCfg[RCId].Frequency);
+	Offset = XDFEPRACH_FREQUENCY_SINGLE_MOD_COUNT +
+		 (RCCfg->InternalRCCfg[RCId].RachChannel *
+		  XDFEPRACH_NCO_CTRL_ADDR_STEP);
+	XDfePrach_WriteReg(InstancePtr, Offset,
+			   RCCfg->NcoCfg[RCId].FreqSingleModCount);
+	Offset = XDFEPRACH_FREQUENCY_DUAL_MOD_COUNT +
+		 (RCCfg->InternalRCCfg[RCId].RachChannel *
+		  XDFEPRACH_NCO_CTRL_ADDR_STEP);
+	XDfePrach_WriteReg(InstancePtr, Offset,
+			   RCCfg->NcoCfg[RCId].FreqDualModCount);
+	Offset = XDFEPRACH_FREQUENCY_PHASE_OFFSET +
+		 (RCCfg->InternalRCCfg[RCId].RachChannel *
+		  XDFEPRACH_NCO_CTRL_ADDR_STEP);
+	XDfePrach_WriteReg(InstancePtr, Offset,
+			   RCCfg->NcoCfg[RCId].FreqPhaseOffset);
 }
 
 /****************************************************************************/
@@ -986,36 +1138,34 @@ static void XDfePrach_GetDDC(const XDfePrach *InstancePtr, u32 RCId,
 	u32 Offset;
 	u32 Data;
 
-	Offset = XDFEPRACH_CHANNEL_CONFIG_RATE + (RCId * sizeof(u32));
+	Offset = XDFEPRACH_DECIMATION_RATE +
+		 (RCId * XDFEPRACH_CONFIG_DEC_ADDR_STEP);
 	Data = XDfePrach_ReadReg(InstancePtr, Offset);
 
-	DdcCfg->DecimationRate = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_OFFSET, Data);
-	DdcCfg->SCS =
-		XDfePrach_RdBitField(XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_WIDTH,
-				     XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_OFFSET,
-				     Data);
-	Offset = XDFEPRACH_CHANNEL_CONFIG_GAIN + (RCId * sizeof(u32));
+	DdcCfg->DecimationRate =
+		XDfePrach_RdBitField(XDFEPRACH_DECIMATION_RATE_WIDTH,
+				     XDFEPRACH_DECIMATION_RATE_OFFSET, Data);
+	Offset = XDFEPRACH_DECIMATION_GAIN +
+		 (RCId * XDFEPRACH_CONFIG_DEC_ADDR_STEP);
 	Data = XDfePrach_ReadReg(InstancePtr, Offset);
-	DdcCfg->RachGain[0] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_OFFSET, Data);
-	DdcCfg->RachGain[1] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN1_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN1_OFFSET, Data);
-	DdcCfg->RachGain[2] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN2_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN2_OFFSET, Data);
-	DdcCfg->RachGain[3] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN3_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN3_OFFSET, Data);
-	DdcCfg->RachGain[4] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN4_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN4_OFFSET, Data);
-	DdcCfg->RachGain[5] = XDfePrach_RdBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_OFFSET, Data);
+	DdcCfg->RachGain[0] =
+		XDfePrach_RdBitField(XDFEPRACH_DECIMATION_GAIN0_WIDTH,
+				     XDFEPRACH_DECIMATION_GAIN0_OFFSET, Data);
+	DdcCfg->RachGain[1] =
+		XDfePrach_RdBitField(XDFEPRACH_DECIMATION_GAIN1_WIDTH,
+				     XDFEPRACH_DECIMATION_GAIN1_OFFSET, Data);
+	DdcCfg->RachGain[2] =
+		XDfePrach_RdBitField(XDFEPRACH_DECIMATION_GAIN2_WIDTH,
+				     XDFEPRACH_DECIMATION_GAIN2_OFFSET, Data);
+	DdcCfg->RachGain[3] =
+		XDfePrach_RdBitField(XDFEPRACH_DECIMATION_GAIN3_WIDTH,
+				     XDFEPRACH_DECIMATION_GAIN3_OFFSET, Data);
+	DdcCfg->RachGain[4] =
+		XDfePrach_RdBitField(XDFEPRACH_DECIMATION_GAIN4_WIDTH,
+				     XDFEPRACH_DECIMATION_GAIN4_OFFSET, Data);
+	DdcCfg->RachGain[5] =
+		XDfePrach_RdBitField(XDFEPRACH_DECIMATION_GAIN5_WIDTH,
+				     XDFEPRACH_DECIMATION_GAIN5_OFFSET, Data);
 }
 
 /****************************************************************************/
@@ -1032,7 +1182,7 @@ static void XDfePrach_AddDDC(XDfePrach_RCCfg *RCCfg,
 			     const XDfePrach_DDCCfg *DdcCfg, u32 RCId)
 {
 	RCCfg->DdcCfg[RCId].DecimationRate = DdcCfg->DecimationRate;
-	RCCfg->DdcCfg[RCId].SCS = DdcCfg->SCS;
+	RCCfg->DdcCfg[RCId].UserSCS = DdcCfg->UserSCS;
 	RCCfg->DdcCfg[RCId].RachGain[0] = DdcCfg->RachGain[0];
 	RCCfg->DdcCfg[RCId].RachGain[1] = DdcCfg->RachGain[1];
 	RCCfg->DdcCfg[RCId].RachGain[2] = DdcCfg->RachGain[2];
@@ -1058,41 +1208,33 @@ static void XDfePrach_SetDDC(const XDfePrach *InstancePtr,
 	u32 Data;
 
 	/* Set RACH_MIXER.CHANNEL[RCCfg->RachChan].CONFIG */
-	Data = XDfePrach_WrBitField(XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_WIDTH,
-				    XDFEPRACH_CHANNEL_CONFIG_RATE_SCS_OFFSET,
-				    0U, RCCfg->DdcCfg[RCId].SCS);
-	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_RATE_DECIMATION_RATE_OFFSET, Data,
-		RCCfg->DdcCfg[RCId].DecimationRate);
-	Offset = XDFEPRACH_CHANNEL_CONFIG_RATE + (RCId * sizeof(u32));
+	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATION_RATE_WIDTH,
+				    XDFEPRACH_DECIMATION_RATE_OFFSET, 0U,
+				    RCCfg->DdcCfg[RCId].DecimationRate);
+	Offset = XDFEPRACH_DECIMATION_RATE +
+		 (RCId * XDFEPRACH_CONFIG_DEC_ADDR_STEP);
 	XDfePrach_WriteReg(InstancePtr, Offset, Data);
 
-	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN0_OFFSET, 0U,
-		RCCfg->DdcCfg[RCId].RachGain[0]);
-	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN1_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN1_OFFSET, Data,
-		RCCfg->DdcCfg[RCId].RachGain[1]);
-	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN2_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN2_OFFSET, Data,
-		RCCfg->DdcCfg[RCId].RachGain[2]);
-	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN3_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN3_OFFSET, Data,
-		RCCfg->DdcCfg[RCId].RachGain[3]);
-	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN4_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN4_OFFSET, Data,
-		RCCfg->DdcCfg[RCId].RachGain[4]);
-	Data = XDfePrach_WrBitField(
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_WIDTH,
-		XDFEPRACH_CHANNEL_CONFIG_GAIN_DECIMATION_GAIN5_OFFSET, Data,
-		RCCfg->DdcCfg[RCId].RachGain[5]);
-	Offset = XDFEPRACH_CHANNEL_CONFIG_GAIN + (RCId * sizeof(u32));
+	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATION_GAIN0_WIDTH,
+				    XDFEPRACH_DECIMATION_GAIN0_OFFSET, 0U,
+				    RCCfg->DdcCfg[RCId].RachGain[0]);
+	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATION_GAIN1_WIDTH,
+				    XDFEPRACH_DECIMATION_GAIN1_OFFSET, Data,
+				    RCCfg->DdcCfg[RCId].RachGain[1]);
+	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATION_GAIN2_WIDTH,
+				    XDFEPRACH_DECIMATION_GAIN2_OFFSET, Data,
+				    RCCfg->DdcCfg[RCId].RachGain[2]);
+	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATION_GAIN3_WIDTH,
+				    XDFEPRACH_DECIMATION_GAIN3_OFFSET, Data,
+				    RCCfg->DdcCfg[RCId].RachGain[3]);
+	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATION_GAIN4_WIDTH,
+				    XDFEPRACH_DECIMATION_GAIN4_OFFSET, Data,
+				    RCCfg->DdcCfg[RCId].RachGain[4]);
+	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATION_GAIN5_WIDTH,
+				    XDFEPRACH_DECIMATION_GAIN5_OFFSET, Data,
+				    RCCfg->DdcCfg[RCId].RachGain[5]);
+	Offset = XDFEPRACH_DECIMATION_GAIN +
+		 (RCId * XDFEPRACH_CONFIG_DEC_ADDR_STEP);
 	XDfePrach_WriteReg(InstancePtr, Offset, Data);
 }
 
@@ -1375,12 +1517,12 @@ static void XDfePrach_EnableFrameMarkerTrigger(const XDfePrach *InstancePtr)
 	u32 Data;
 
 	Data = XDfePrach_ReadReg(InstancePtr,
-				 XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET);
+				 XDFEPRACH_TRIGGERS_FRAME_INIT0_OFFSET);
 	Data = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
 				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
 				    Data,
 				    XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_ENABLED);
-	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET,
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_FRAME_INIT0_OFFSET,
 			   Data);
 }
 /**
@@ -2411,17 +2553,22 @@ void XDfePrach_GetChannelCfg(const XDfePrach *InstancePtr,
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
 * @param    StaticSchedule Schedule data container.
+* @param    NextCCCfg CC configuration container.
 *
 * @return
 *	- XST_SUCCESS on succes
 *	- XST_FAILURE on failure
+*
+* @note     This API must be executed only after all CC configuration are done
+*           with the API XDfePrach_AddCCtoCCCfg.
 *
 ****************************************************************************/
 u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 			   XDfePrach_RCCfg *CurrentRCCfg, s32 CCID, u32 RCId,
 			   u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
 			   XDfePrach_NCO *NcoCfg,
-			   XDfePrach_Schedule *StaticSchedule)
+			   XDfePrach_Schedule *StaticSchedule,
+			   XDfePrach_CCCfg *NextCCCfg)
 {
 	u32 Index;
 
@@ -2437,6 +2584,7 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 	Xil_AssertNonvoid(NcoCfg != NULL);
 	Xil_AssertNonvoid(StaticSchedule != NULL);
 	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(NextCCCfg != NULL);
 
 	/* Check  RachChan" is not in use. */
 	for (Index = 0; Index < XDFEPRACH_RC_NUM_MAX; Index++) {
@@ -2454,8 +2602,8 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
-	XDfePrach_AddRC(RCId, RachChan, CCID, CurrentRCCfg, DdcCfg, NcoCfg,
-			StaticSchedule);
+	XDfePrach_AddRC(InstancePtr, RCId, RachChan, CCID, CurrentRCCfg, DdcCfg,
+			NcoCfg, StaticSchedule, NextCCCfg);
 
 	return XST_SUCCESS;
 }
@@ -2501,13 +2649,18 @@ u32 XDfePrach_RemoveRCfromRCCfg(const XDfePrach *InstancePtr,
 * @param    DdcCfg DDC data container.
 * @param    NcoCfg NCO data container.
 * @param    StaticSchedule Schedule data container.
+* @param    NextCCCfg CC configuration container.
+*
+* @note     This API must be executed only after all CC configuration are done
+*           with the API XDfePrach_AddCCtoCCCfg and XDfePrach_UpdateCCinCCCfg.
 *
 ****************************************************************************/
 void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 			       XDfePrach_RCCfg *CurrentRCCfg, s32 CCID,
 			       u32 RCId, u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
 			       XDfePrach_NCO *NcoCfg,
-			       XDfePrach_Schedule *StaticSchedule)
+			       XDfePrach_Schedule *StaticSchedule,
+			       XDfePrach_CCCfg *NextCCCfg)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(CurrentRCCfg != NULL);
@@ -2518,11 +2671,12 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(NcoCfg != NULL);
 	Xil_AssertVoid(StaticSchedule != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertVoid(NextCCCfg != NULL);
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
-	XDfePrach_AddRC(RCId, RachChan, CCID, CurrentRCCfg, DdcCfg, NcoCfg,
-			StaticSchedule);
+	XDfePrach_AddRC(InstancePtr, RCId, RachChan, CCID, CurrentRCCfg, DdcCfg,
+			NcoCfg, StaticSchedule, NextCCCfg);
 }
 
 /****************************************************************************/
@@ -2545,6 +2699,9 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 *
 * @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
+*
+* @note     This API must be executed only after all CC configuration are done
+*           with the API XDfePrach_AddCCCfg.
 *
 ****************************************************************************/
 u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
@@ -2586,8 +2743,8 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
-	XDfePrach_AddRC(RCId, RachChan, CCID, &CurrentRCCfg, DdcCfg, NcoCfg,
-			StaticSchedule);
+	XDfePrach_AddRC(InstancePtr, RCId, RachChan, CCID, &CurrentRCCfg,
+			DdcCfg, NcoCfg, StaticSchedule, &CurrentCCCfg);
 
 	/* Update next configuration and trigger update. */
 	if (XST_FAILURE ==
@@ -2663,6 +2820,9 @@ u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 * @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
 *
+* @note     This API must be executed only after all CC configuration are done
+*           with the API XDfePrach_AddCCCfg and XDfePrach_UpdateCCCfg.
+*
 ****************************************************************************/
 u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 			  u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
@@ -2688,8 +2848,8 @@ u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 
 	/* Load the new channel's data into the RCID configuration, will be
 	   marked as needing a restart. */
-	XDfePrach_AddRC(RCId, RachChan, CCID, &CurrentRCCfg, DdcCfg, NcoCfg,
-			StaticSchedule);
+	XDfePrach_AddRC(InstancePtr, RCId, RachChan, CCID, &CurrentRCCfg,
+			DdcCfg, NcoCfg, StaticSchedule, &CurrentCCCfg);
 
 	/* Update next configuration and trigger update. */
 	if (XST_FAILURE ==
@@ -2866,7 +3026,7 @@ void XDfePrach_GetTriggersCfg(const XDfePrach *InstancePtr,
 
 	/* Read FRAME_INIT triggers */
 	Val = XDfePrach_ReadReg(InstancePtr,
-				XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET);
+				XDFEPRACH_TRIGGERS_FRAME_INIT0_OFFSET);
 	TriggerCfg->FrameInit.TriggerEnable =
 		XDfePrach_RdBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
 				     XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
@@ -2990,7 +3150,7 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	TriggerCfg->FrameInit.TriggerEnable =
 		XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_DISABLED;
 	Val = XDfePrach_ReadReg(InstancePtr,
-				XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET);
+				XDFEPRACH_TRIGGERS_FRAME_INIT0_OFFSET);
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_WIDTH,
 				   XDFEPRACH_TRIGGERS_TRIGGER_ENABLE_OFFSET,
 				   Val, TriggerCfg->FrameInit.TriggerEnable);
@@ -3006,7 +3166,7 @@ void XDfePrach_SetTriggersCfg(const XDfePrach *InstancePtr,
 	Val = XDfePrach_WrBitField(XDFEPRACH_TRIGGERS_STATE_OUTPUT_WIDTH,
 				   XDFEPRACH_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
 				   TriggerCfg->FrameInit.StateOutput);
-	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_FRAME_INIT_OFFSET,
+	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_TRIGGERS_FRAME_INIT0_OFFSET,
 			   Val);
 }
 

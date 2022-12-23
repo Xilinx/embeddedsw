@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
 * 1.4   dc     04/26/22 Add dynamic config example
+* 1.5   dc     12/14/22 Update multiband register arithmetic
 *
 * </pre>
 * @addtogroup Overview
@@ -132,7 +134,7 @@ int XDfePrach_2CC3RCDynamicTestExample()
 	for (Index = 0; Index < XDFEPRACH_NUMBER_RC; Index++) {
 		DdcCfg[Index].DecimationRate =
 			0; /* Not needed in Dynamic mode.*/
-		DdcCfg[Index].SCS = 0; /* Not needed in Dynamic mode.*/
+		DdcCfg[Index].UserSCS = 0;
 		for (fir_stg = 0; fir_stg < 6; fir_stg++) {
 			DdcCfg[Index].RachGain[fir_stg] = 0; /* 0dB FIR gain */
 		}
@@ -254,9 +256,9 @@ int XDfePrach_2CC3RCDynamicTestExample()
 			                        don't care for Dynamic */
 			    &NcoCfg[RC_idx], /* NCO Configuration - dont care
 			                        for Dynamic */
-			    &StaticSchedule)) /* Static schedule - dont care
+			    &StaticSchedule, /* Static schedule - dont care
 			                         for Dynamic */
-		{
+			    &CCCfg)) {
 			printf("Adding Configuration for RCID %0d to PRACH\n\r",
 			       RCID[RC_idx]);
 		} else {

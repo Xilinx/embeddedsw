@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -21,7 +22,7 @@ BEGIN driver dfeprach
   OPTION supported_peripherals = (xdfe_nr_prach);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.4;
+  OPTION VERSION = 1.5;
   OPTION NAME = dfeprach;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";

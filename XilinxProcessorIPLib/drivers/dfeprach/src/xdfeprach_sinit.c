@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,7 @@
 *       dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/18/22 Update IP version number
+* 1.5   dc     12/14/22 Update multiband register arithmetic
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -54,7 +56,7 @@
 * @endcond
 */
 #define XDFEPRACH_COMPATIBLE_STRING                                            \
-	"xlnx,xdfe-nr-prach-1.1" /**< Device name property. */
+	"xlnx,xdfe-nr-prach-2.0" /**< Device name property. */
 #define XDFEPRACH_PLATFORM_DEVICE_DIR                                          \
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
 #define XDFEPRACH_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
@@ -63,13 +65,13 @@
 #define XDFEPRACH_BASEADDR_PROPERTY "reg" /**< Base address property. */
 #define XDFEPRACH_BASEADDR_SIZE 8U
 #define XDFEPRACH_NUM_ANTENNA_CFG                                              \
-	"xlnx,num-antenna" /**< Number of antenna 1-8. */
+	"xlnx,num-antenna0" /**< Number of antenna 1-8. */
 #define XDFEPRACH_NUM_CC_PER_ANTENNA_CFG                                       \
-	"xlnx,num-cc-per-antenna" /**< Maximum number of CC's per antenna 1-8. */
+	"xlnx,num-cc-per-antenna0" /**< Maximum number of CC's per antenna 1-8. */
 #define XDFEPRACH_NUM_SLOT_CHANNELS_CFG                                        \
-	"xlnx,num-slot-channels" /**< Number of Parallel Data Channels 1-4. */
+	"xlnx,num-slot-channels0" /**< Number of Parallel Data Channels 1-4. */
 #define XDFEPRACH_NUM_SLOTS_CFG                                                \
-	"xlnx,num-slots" /**< Number of Antenna TDM slots, per CC 1-8. */
+	"xlnx,num-slots0" /**< Number of Antenna TDM slots, per CC 1-8. */
 #define XDFEPRACH_NUM_RACH_LINES_CFG                                           \
 	"xlnx,num-rach-lanes" /**< Number of RACH output Lanes 1-2. */
 #define XDFEPRACH_NUM_RACH_CHANNELS_CFG                                        \

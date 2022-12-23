@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,6 +74,7 @@
 *       dc     03/21/22 Add prefix to global variables
 * 1.4   dc     04/04/22 Correct PatternPeriod represantion
 *       dc     03/28/22 Update documentation
+* 1.5   dc     12/14/22 Update multiband register arithmetic
 *
 * </pre>
 * @endcond
@@ -346,8 +348,11 @@ typedef struct {
 		a known value */
 	u32 DualModSel; /**< [0,1] Allows initialisation of the Dual mod select
 		to a known value */
-	u32 Frequency; /**< [0-2^24-1] The frequency of the NCO. Specified in
-		multiples of half the PRACH SCS  */
+	s32 UserFreq; /**< [-(2^23)-2^23] User defined frequency container */
+	s32 Frequency; /**< [0-2^32-1] Frequency control word (FCW) */
+	u32 FreqSingleModCount; /**< [0-2^32-1] Single modulus cycle count (S) */
+	u32 FreqDualModCount; /**< [0-2^32-1] Dual modulus cycle count (T-S) */
+	u32 FreqPhaseOffset; /**< [0-2^18-1] Phase offset */
 	u32 NcoGain; /**< [0-3] Scaling of NCO output (0=0dB, 1=-3dB,
 		2=-6dB, 3=-9dB) */
 } XDfePrach_NCO;
@@ -374,9 +379,9 @@ typedef struct {
 				- 11: 24x decimation(not allowed when
 					XDfePrach_CarrierCfg.CCRate==3 or
 					XDfePrach_CarrierCfg.CCRate==2) */
-	u32 SCS; /**< [0-4,12-15] SubCarrier spacing of the RACH transmission
-			this DDC is decimating. Required to determine phase
-			increment:
+	u32 UserSCS; /**< [0-4,12-15] SubCarrier spacing of the RACH
+			transmission this DDC is decimating and set by user.
+			Required to determine phase increment:
 				- 0: 15KHz spacing
 				- 1: 30KHz spacing
 				- 2: 60KHz spacing
@@ -646,14 +651,16 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 			   XDfePrach_RCCfg *CurrentRCCfg, s32 CCID, u32 RCId,
 			   u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
 			   XDfePrach_NCO *NcoCfg,
-			   XDfePrach_Schedule *StaticSchedule);
+			   XDfePrach_Schedule *StaticSchedule,
+			   XDfePrach_CCCfg *NextCCCfg);
 u32 XDfePrach_RemoveRCfromRCCfg(const XDfePrach *InstancePtr,
 				XDfePrach_RCCfg *CurrentRCCfg, u32 RCId);
 void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 			       XDfePrach_RCCfg *CurrentRCCfg, s32 CCID,
 			       u32 RCId, u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
 			       XDfePrach_NCO *NcoCfg,
-			       XDfePrach_Schedule *StaticSchedule);
+			       XDfePrach_Schedule *StaticSchedule,
+			       XDfePrach_CCCfg *NextCCCfg);
 u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 		       u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
 		       XDfePrach_NCO *NcoCfg,

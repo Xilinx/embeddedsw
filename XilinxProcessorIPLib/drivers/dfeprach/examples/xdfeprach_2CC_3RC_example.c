@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
+* 1.5   dc     12/14/22 Update multiband register arithmetic
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -109,7 +111,7 @@ int XDfePrach_2CC3RCTestExample()
 
 	/* set up "second" CC */
 	CCID[1] = 3; /* different CCID */
-	CarrierCfg[1].SCS = 0; /*  Configure this CC: 15kHz SCS */
+	CarrierCfg[1].SCS = 0; /* Configure this CC: 15kHz SCS */
 	CCSeqBitmap[1] = 0x0002U; /* Also single slot, but in second location */
 
 	/* set up an RCID "2" from CCID 5 */
@@ -153,12 +155,12 @@ int XDfePrach_2CC3RCTestExample()
 	/* set up decimation and demodulation structures: */
 	for (Index = 0; Index < XDFEPRACH_NUMBER_RC; Index++) {
 		DdcCfg[Index].DecimationRate = PRACHDecimation[Index];
-		DdcCfg[Index].SCS = PRACHSCS[Index];
+		DdcCfg[Index].UserSCS = PRACHSCS[Index];
 		for (fir_stg = 0; fir_stg < 6; fir_stg++) {
 			DdcCfg[Index].RachGain[fir_stg] = 0; /* 0dB FIR gain */
 		}
 		/* demodulation configuration: */
-		NcoCfg[Index].Frequency = Foffset[Index];
+		NcoCfg[Index].UserFreq = Foffset[Index];
 		NcoCfg[Index].PhaseOffset = 0; /* 0 phase offset */
 		NcoCfg[Index].PhaseAcc = 0; /* 0 initial phase */
 		NcoCfg[Index].NcoGain = 0; /* 0dB NCO gain */
@@ -267,9 +269,9 @@ int XDfePrach_2CC3RCTestExample()
 			    PhysRachChannel[RC_idx], /* physical channel number */
 			    &DdcCfg[RC_idx], /* Decimation Configuration */
 			    &NcoCfg[RC_idx], /* NCO Configuration */
-			    &StaticSchedule)) /* Static schedule(all, always
+			    &StaticSchedule, /* Static schedule(all, always
 				on for this test */
-		{
+			    &CCCfg)) {
 			printf("Adding Configuration for RCID %0d to PRACH\n\r",
 			       RCID[RC_idx]);
 		} else {
