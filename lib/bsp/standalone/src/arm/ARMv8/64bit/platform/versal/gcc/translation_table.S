@@ -83,6 +83,8 @@
 *                     address space when ENABLE_MINIMAL_XLAT_TBL is defined.
 *                     This is default behavior, since ENABLE_MINIMAL_XLAT_TBL
 *                     would be defined by default.
+* 8.1   mus  12/22/22 Updated VERSAL NET translation table to configure lower
+*                     DDR and OCM as cacheable memory.
 *
 ******************************************************************************/
 #include "xparameters.h"
@@ -289,7 +291,7 @@ MMUTableL2:
 
 /* TODO: Configure this region as normal memory/reserved based on HW design */
 .rept	0x400			/* 2GB DDR 0x0 - 0x80000000 */
-.8byte	SECT + Memory_NonCacheable
+.8byte	SECT + Memory
 .set	SECT, SECT+0x200000
 .endr
 
@@ -320,7 +322,7 @@ MMUTableL2:
  * memory incorrectly due to 2 MB granularity limitation
  */
 .rept	0x01			   /* 0xBBE0_0000 - 0xBBFF_FFFF */
-.8byte	SECT + Memory_NonCacheable /* 1 MB OCM 0xBBF0_0000 - 0xBBFF_FFFF, 0xBBE0_0000 - 0XBBEF_FFFF marked as normal memory incorrectly  */
+.8byte	SECT + Memory              /* 1 MB OCM 0xBBF0_0000 - 0xBBFF_FFFF, 0xBBE0_0000 - 0XBBEF_FFFF marked as normal memory incorrectly  */
 .set	SECT, SECT+0x200000
 .endr
 

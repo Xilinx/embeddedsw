@@ -300,7 +300,7 @@ InitEL3:
          * size offset of the memory region T0SZ = 16 -> (region size 2^(64-16) = 2^48)
          ***************************************************/
         /* ldr     x1,=0x80853510 */
-        ldr     x1,=0x80853010
+        ldr     x1,=0x80853510
 #elif defined (versal)
 	/**********************************************
 	 * Set up TCR_EL3
