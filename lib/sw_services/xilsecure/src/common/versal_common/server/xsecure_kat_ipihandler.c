@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kpt   07/15/2022 Initial release
+* 1.01  kpt   12/13/2022 Added Trng initialization in XSecure_EllipticSignGenKat
 *
 * </pre>
 *
@@ -293,6 +295,15 @@ static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
 	volatile int Status = XST_FAILURE;
 	volatile XSecure_KatId KatOp = XSECURE_API_KAT_CLEAR;
 
+   /*
+	* Initialize TRNG if it is not initialized as VersalNet ECC library internally
+	* uses TRNG API to generate random mask.
+	*/
+	Status = XSecure_TrngInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XSecure_EllipticSignGenerateKat((XSecure_EllipticCrvClass)CurveClass);
 	if (Status != XST_SUCCESS) {
 		KatOp = XSECURE_API_KAT_CLEAR;
@@ -304,6 +315,7 @@ static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
 	/* Update KAT status in to RTC area */
 	XSecure_KatOp(KatOp, XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
 
+END:
 	return Status;
 }
 
