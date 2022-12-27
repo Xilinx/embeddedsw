@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   vns  07/08/22 Initial release
+* 1.1   vns  12/27/22 Skips the device key generation if CDI is not valid
 *
 * </pre>
 * @note
@@ -72,6 +73,14 @@ int XOcp_KeyInit(void)
 	int ClearStatus;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
+	/* If CDI is not valid device key generation is skipped */
+	if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_VALID) == 0x0U) {
+	XPlmi_Printf(DEBUG_GENERAL, "Device key init is skipped"
+		" as no valid CDI is found\n\r");
+	Status = XST_SUCCESS;
+	        goto RET;
+	}
+
 	if ((XPlmi_IsKatRan(XPLMI_SECURE_TRNG_KAT_MASK) != TRUE) ||
 		(TrngInstance->ErrorState != XSECURE_TRNG_HEALTHY)) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status,
@@ -103,7 +112,7 @@ END:
 	if (Status == XST_SUCCESS) {
 		Status = ClearStatus;
 	}
-
+RET:
 	return Status;
 }
 
