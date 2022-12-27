@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmr_manager_i.h
-* @addtogroup tmr_manager_v1_3
+* @addtogroup Overview
 * @{
 *
 * Contains data which is shared between the files of the XTMR_Manager component.

@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmr_manager_g.c
-* @addtogroup tmr_manager_v1_3
+* @addtogroup Overview
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

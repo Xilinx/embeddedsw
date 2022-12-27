@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmr_manager_recover.c
-* @addtogroup tmr_manager_v1_3
+* @addtogroup Overview
 * @{
 *
 * This file contains the recovery handling functions for the TMR Manager

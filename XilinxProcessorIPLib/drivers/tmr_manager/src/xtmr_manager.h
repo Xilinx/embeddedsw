@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmr_manager.h
-* @addtogroup tmr_manager_v1_3
+* @addtogroup Overview
 * @{
 * @details
 *
@@ -70,6 +70,7 @@
 *       	      hardware configuration.
 *       adk  02/23/22 Added new API XTMR_Manager_Configure_BrkDelay()
 *       	      for configuring break delay.
+* 1.4   adk  27/12/22 Updated addtogroup tag.
 * </pre>
 *
 *****************************************************************************/

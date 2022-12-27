@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmr_manager_l.h
-* @addtogroup tmr_manager_v1_3
+* @addtogroup Overview
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
