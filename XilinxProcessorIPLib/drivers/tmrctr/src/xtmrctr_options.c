@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmrctr_options.c
-* @addtogroup tmrctr_v4_9
+* @addtogroup Overview
 * @{
 *
 * Contains configuration options functions for the XTmrCtr component.

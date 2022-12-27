@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmrctr_selftest.c
-* @addtogroup tmrctr_v4_9
+* @addtogroup Overview
 * @{
 *
 * Contains diagnostic/self-test functions for the XTmrCtr component.

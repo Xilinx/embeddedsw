@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmrctr.h
-* @addtogroup tmrctr_v4_9
+* @addtogroup Overview
 * @{
 * @details
 *
@@ -145,6 +145,7 @@
 *                     compilation time.
 * 4.8   dp   02/12/21 Fix compilation errors that arise when -Werror=conversion
 *                     is enabled in compilation flags.
+* 4.10  adk  27/12/22 Updated addtogroup tag.
 * </pre>
 *
 ******************************************************************************/

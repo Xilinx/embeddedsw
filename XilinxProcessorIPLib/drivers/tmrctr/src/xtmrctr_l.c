@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmrctr_l.c
-* @addtogroup tmrctr_v4_9
+* @addtogroup Overview
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
