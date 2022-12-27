@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -192,6 +193,18 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN = 0xAF00,/**<0xAF00 - Error in
 							 * CRYPTO_KAT_EN
 							 * efuse programming */
+	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0 = 0xB000,/**<0xB000 - Error in
+								* PPK3_INVALID_BIT_0
+								* efuse programming */
+	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1 = 0xB100,/**<0xB100 - Error in
+							* PPK3_INVALID_BIT_1
+							* efuse programming */
+	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0 = 0xB200,/**<0xB200 - Error in
+								* PPK4_INVALID_BIT_0
+								* efuse programming */
+	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1 = 0xB300,/**<0xB300 - Error in
+								* PPK4_INVALID_BIT_1
+								* efuse programming */
 	XNVM_ERR_WRITE_PUF_USER_DATA = 0x10000, /**< 0x10000
 						* When user chooses PUF efuses as user efuses
 						* data provided for last row

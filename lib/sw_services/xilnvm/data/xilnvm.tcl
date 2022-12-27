@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -8,6 +9,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0  mmd  05/06/19 Initial Release
 # 3.0  kpt  08/25/22 Changed user configurable parameter names
+# 3.1  skg  12/07/22 Added a user configuration parameter
 #
 ##############################################################################
 
@@ -171,6 +173,7 @@ proc xgen_opts_file {libhandle} {
 	set srcdir src
 	set dstdir [file join .. .. include]
 	set access_puf_efuse [common::get_property CONFIG.xnvm_use_puf_hd_as_user_efuse $libhandle]
+	set add_en_ppks [common::get_property CONFIG.xnvm_en_add_ppks $libhandle]
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
@@ -191,6 +194,10 @@ proc xgen_opts_file {libhandle} {
 
 	if {$access_puf_efuse == true} {
 		puts $file_handle "\n#define XNVM_ACCESS_PUF_USER_DATA \n"
+	}
+
+	if {$add_en_ppks == true} {
+		puts $file_handle "\n#define XNVM_EN_ADD_PPKS \n"
 	}
 	# Get cache_disable value set by user, by default it is FALSE
 	set value [common::get_property CONFIG.xnvm_cache_disable $libhandle]

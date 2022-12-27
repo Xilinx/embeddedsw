@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,7 @@
 * 			ClearStatusTmp
 *       dc   08/29/2022 Removed initializations for optimization
 * 3.1   skg  10/25/2022 Added in body comments for APIs
+*       skg  12/07/2022 Added Additonal PPKs support
 *
 * </pre>
 *
@@ -212,6 +214,9 @@ static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
 	XNvm_EfuseData EfuseData __attribute__ ((aligned (32U)));
 	XNvm_EfuseDataAddr EfuseDataAddr __attribute__ ((aligned (32U)));
 	u32 UserFuseArr[XNVM_NUM_OF_USER_FUSES]	__attribute__ ((aligned (32U)));
+#ifdef XNVM_EN_ADD_PPKS
+	XNvm_EfuseAdditionalPpkHash AdditionalPpkHash __attribute__ ((aligned (32U)));
+#endif
 
 	Status = Xil_SMemSet(&EfuseData, sizeof(XNvm_EfuseData), 0U, sizeof(XNvm_EfuseData));
 	if (Status != XST_SUCCESS) {
@@ -278,6 +283,17 @@ static int XNvm_EfuseDataWrite(u32 AddrLow, u32 AddrHigh)
 		}
 		EfuseData.MiscCtrlBits = &MiscCtrlBits;
 	}
+
+#ifdef XNVM_EN_ADD_PPKS
+	if (EfuseDataAddr.AdditionalPpkHashAddr != 0U) {
+		Status = XNvm_EfuseMemCopy(EfuseDataAddr.AdditionalPpkHashAddr,
+				(u64)(UINTPTR)&AdditionalPpkHash, sizeof(AdditionalPpkHash));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		EfuseData.AdditionalPpkHash = &AdditionalPpkHash;
+	}
+#endif
 
 	if (EfuseDataAddr.RevokeIdAddr != 0U) {
 		Status = XNvm_EfuseMemCopy(EfuseDataAddr.RevokeIdAddr,
@@ -704,7 +720,7 @@ static int XNvm_EfusePpkHashRead(XNvm_PpkType PpkHashType,
 	Status = XNvm_EfuseReadPpkHash(&PpkHash, PpkHashType);
 	if (Status != XST_SUCCESS) {
 		goto END;
-	}
+	  }
 
 	Status = XNvm_EfuseMemCopy((u64)(UINTPTR)&PpkHash, Addr,
 			sizeof(PpkHash));

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +48,7 @@
 * 2.5   har  01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
 * 3.0	kal  07/12/2022	Moved common code to xnvm_efuse_common.h
 * 3.1   skg  10/25/2022 Added comments for macros
+*       skg  12/07/2022 Added Additional PPKs related enums and macros
 *
 * </pre>
 *
@@ -112,6 +114,12 @@ extern "C" {
 
 #define XNVM_EFUSE_SYSMON_LOCK_CODE	(0xF9E8D7C6U)
 
+#define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0
+#ifdef XNVM_EN_ADD_PPKS
+#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK4
+#else
+#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK2
+#endif
 /**
 * @}
 */
@@ -166,6 +174,12 @@ typedef enum {
 	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0,
 	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1,
 	XNVM_EFUSE_MISC_SAFETY_MISSION_EN,
+#ifdef XNVM_EN_ADD_PPKS
+	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_0 = 9,
+	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_1,
+	XNVM_EFUSE_MISC_PPK4_INVALID_BIT_0,
+	XNVM_EFUSE_MISC_PPK4_INVALID_BIT_1,
+#endif /* END OF XNVM_EN_ADD_PPKS */
 	XNVM_EFUSE_MISC_LBIST_EN = 14,
 	XNVM_EFUSE_MISC_CRYPTO_KAT_EN,
 	XNVM_EFUSE_MISC_HALT_BOOT_ENV_BIT_0 = 19,
@@ -222,7 +236,9 @@ typedef struct {
 	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl;
 	XNvm_EfuseSecMisc1Bits *Misc1Bits;
 	XNvm_EfuseOffChipIds *OffChipIds;
-
+#ifdef XNVM_EN_ADD_PPKS
+	XNvm_EfuseAdditionalPpkHash *AdditionalPpkHash;
+#endif /* END OF XNVM_EN_ADD_PPKS*/
 }XNvm_EfuseData;
 
 /*************************** Function Prototypes ******************************/
@@ -255,6 +271,9 @@ int XNvm_EfuseWritePufAsUserFuses(XNvm_EfusePufFuse *PufFuse);
 int XNvm_EfuseReadPufAsUserFuses(XNvm_EfusePufFuse *PufFuse);
 #endif
 
+#ifdef XNVM_EN_ADD_PPKS
+int XNvm_EfuseReadAdditionalPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType);
+#endif /* END OF XNVM_EN_ADD_PPKS*/
 #ifdef __cplusplus
 }
 #endif

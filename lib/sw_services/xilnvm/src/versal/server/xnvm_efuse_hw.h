@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +36,7 @@
 * 2.4   kal  07/13/2021 Fixed doxygen warnings
 *       har  09/16/2021 Added macro for offset for ANLG TRIM 2 register
 * 3.0	kal  07/12/2022	Moved common hw definitions to xnvm_efuse_common_hw.h
+* 3.1   skg  12/07/2022 Added Additional PPKs related macros
 *
 * </pre>
 *
@@ -198,6 +200,8 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_MASK		(0x000000c0U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_PPK1_INVLD_1_0_MASK		(0x00000030U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_MASK		(0x0000000cU)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_PPK3_INVLD_1_0_MASK		(0x00000600U)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_PPK4_INVLD_1_0_MASK		(0x00001800U)
 
 #define XNVM_EFUSE_CACHE_MISC_CTRL_GD_HALT_BOOT_EN_1_0_SHIFT	   	(30U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_SHIFT   		(29U)
@@ -206,9 +210,13 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_SHIFT   		(15U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_LBIST_EN_SHIFT   			(14U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_SAFETY_MISSION_EN_SHIFT   		(8U)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_PPK4_INVLD_1_0_SHIFT			(11U)
+#define XNVM_EFUSE_CACHE_MISC_CTRL_PPK3_INVLD_1_0_SHIFT			(9U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_SHIFT			(6U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_PPK1_INVLD_1_0_SHIFT			(4U)
 #define XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_SHIFT			(2U)
+
+
 /** @} */
 
 /**
@@ -288,6 +296,8 @@ extern "C" {
 #define XNVM_EFUSE_PPK_0_HASH_START_ROW			(64U)
 #define XNVM_EFUSE_PPK_1_HASH_START_ROW			(72U)
 #define XNVM_EFUSE_PPK_2_HASH_START_ROW			(80U)
+#define XNVM_EFUSE_PPK_3_HASH_START_ROW			(176U)
+#define XNVM_EFUSE_PPK_4_HASH_START_ROW			(184U)
 #define XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW			(88U)
 #define XNVM_EFUSE_META_HEADER_IV_START_ROW		(96U)
 #define XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW		(116U)

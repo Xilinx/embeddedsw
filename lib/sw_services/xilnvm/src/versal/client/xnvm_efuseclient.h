@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -53,6 +54,14 @@ extern "C" {
 #define XNVM_SLR_INDEX_1 (1U)
 #define XNVM_SLR_INDEX_2 (2U)
 #define XNVM_SLR_INDEX_3 (3U)
+
+/**< PPK Read Offsets constants*/
+#define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0
+#ifdef XNVM_EN_ADD_PPKS
+#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK4
+#else
+#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK2
+#endif
 
 /**************************** Type Definitions *******************************/
 

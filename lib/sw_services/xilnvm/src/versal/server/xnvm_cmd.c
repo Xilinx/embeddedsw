@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,13 +42,14 @@
 #include "xplmi_cmd.h"
 #include "xplmi_generic.h"
 #include "xplmi_modules.h"
+#include "xplmi_ssit.h"
 #include "xnvm_defs.h"
 #include "xnvm_bbram_common_cdohandler.h"
 #include "xnvm_cmd.h"
 #include "xnvm_efuse_ipihandler.h"
 
 /************************** Function Prototypes ******************************/
-static int XNvm_InvalidCmdHandler(XPlmi_Cmd *Cmd, u32 *RespBuf);
+static int XNvm_InvalidCmdHandler(u32 *Payload, u32 *RespBuf);
 /************************** Constant Definitions *****************************/
 static XPlmi_ModuleCmd XNvm_Cmds[XNVM_API_MAX];
 
@@ -71,7 +73,7 @@ static XPlmi_Module XPlmi_Nvm =
  * @brief	This function calls the handler for invalid commands
  *
  *
- * @param	Cmd	   is pointer to XPlmi_Cmd instance
+ * @param	Payload	   is pointer to payload data
  *
  * @param   RespBuf buffer to store response of slaves
  *
@@ -79,8 +81,8 @@ static XPlmi_Module XPlmi_Nvm =
  * 		    error code      	On failure
  *
  *****************************************************************************/
-static int XNvm_InvalidCmdHandler(XPlmi_Cmd *Cmd, u32 *RespBuf){
-	return XPlmi_SendIpiCmdToSlaveSlr(Cmd, RespBuf);
+static int XNvm_InvalidCmdHandler(u32 *Payload, u32 *RespBuf){
+	return XPlmi_SendIpiCmdToSlaveSlr(Payload, RespBuf);
 }
 
 /*****************************************************************************/

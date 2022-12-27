@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -86,6 +86,7 @@
 *       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization of loop redundancy check
 *       dc   08/29/2022 Changed u8 to u32 type
 * 3.1   skg  10/25/2022 Added in body comments for APIs
+*       skg  12/07/2022 Added Additional PPKs hash and invalid support
 *
 * </pre>
 *
@@ -135,6 +136,8 @@
 #define XNVM_EFUSE_FRACTION_MUL_VALUE		(1000000U)
 
 #define XNVM_NUM_OF_CACHE_ADDR_PER_PAGE		(0x400U)
+/**< PPK3 and PPK4 enable bits mask*/
+#define XNVM_EFUSE_PPK_3_PPK_4_ENABLE       (0x00030000U)
 /** @} */
 
 /***************************** Type Definitions *******************************/
@@ -197,7 +200,11 @@ static u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses);
 #endif
-
+#ifdef XNVM_EN_ADD_PPKS
+static int XNvm_EfusePrgmAdditionalPpkHash(const XNvm_EfuseAdditionalPpkHash *Hash);
+static int XNvm_EfusePrgmAdditionalPpksInvalidBits(const XNvm_EfuseMiscCtrlBits *PpkSelect);
+static int XNvm_IsAdditionalPpkFeatureEnabled(void);
+#endif
 /*************************** Variable Definitions *****************************/
 
 /*************************** Function Definitions *****************************/
@@ -208,7 +215,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses);
  * 		AES key
  * 		User key 0
  * 		User key 1
- * 		PPK0/PPK1/PPK2 hash
+ * 		PPK0/PPK1/PPK2/PPK3/PPK4 hash
  * 		IVs
  * 		Revocation Ids
  * 		User Fuses
@@ -259,6 +266,9 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		(WriteNvm->GlitchCfgBits == NULL) &&
 		(WriteNvm->BootEnvCtrl == NULL) &&
 		(WriteNvm->Misc1Bits == NULL) &&
+#ifdef XNVM_EN_ADD_PPKS
+		(WriteNvm->AdditionalPpkHash == NULL) &&
+#endif
 		(WriteNvm->OffChipIds == NULL)) {
 		Status = (int)XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED;
 		goto END;
@@ -385,7 +395,24 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+	}
+#ifdef XNVM_EN_ADD_PPKS
+    if (WriteNvm->MiscCtrlBits != NULL) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePrgmAdditionalPpksInvalidBits(WriteNvm->MiscCtrlBits);
+		if (Status != XST_SUCCESS) {
+			goto END;
+	   }
+	}
 
+	if (WriteNvm->AdditionalPpkHash != NULL) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePrgmAdditionalPpkHash(WriteNvm->AdditionalPpkHash);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+#endif
 		if(WriteNvm->MiscCtrlBits->HaltBootError == TRUE) {
 			Status = XST_FAILURE;
 			Status = XNvm_EfusePrgmHaltBootonError(WriteNvm->MiscCtrlBits);
@@ -425,7 +452,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 				goto END;
 			}
 		}
-	}
+
 
 	if (WriteNvm->UserFuses != NULL) {
 		Status = XST_FAILURE;
@@ -1295,6 +1322,16 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_EfuseMiscCtrlBits *MiscCtrlBits)
 		(u8)((ReadReg &
 		XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_MASK) >>
 		XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_SHIFT);
+#ifdef XNVM_EN_ADD_PPKS
+	MiscCtrlBits->Ppk3Invalid =
+		(u8)((ReadReg &
+		XNVM_EFUSE_CACHE_MISC_CTRL_PPK3_INVLD_1_0_MASK) >>
+		XNVM_EFUSE_CACHE_MISC_CTRL_PPK3_INVLD_1_0_SHIFT);
+	MiscCtrlBits->Ppk4Invalid =
+		(u8)((ReadReg &
+		XNVM_EFUSE_CACHE_MISC_CTRL_PPK4_INVLD_1_0_MASK) >>
+		XNVM_EFUSE_CACHE_MISC_CTRL_PPK4_INVLD_1_0_SHIFT);
+#endif
 END:
 	return Status;
 }
@@ -1630,19 +1667,26 @@ int XNvm_EfuseReadPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType)
 		goto END;
 	}
 
-	if ((PpkType != XNVM_EFUSE_PPK0) &&
-		(PpkType != XNVM_EFUSE_PPK1) &&
-		(PpkType != XNVM_EFUSE_PPK2)) {
+	if(PpkType < XNVM_EFUSE_PPK_READ_START || PpkType > XNVM_EFUSE_PPK_READ_END){
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
+				goto END;
 	}
+
 	if (PpkType == XNVM_EFUSE_PPK0) {
 		PpkRow = XNVM_EFUSE_PPK_0_HASH_START_ROW;
 	} else if (PpkType == XNVM_EFUSE_PPK1) {
 		PpkRow = XNVM_EFUSE_PPK_1_HASH_START_ROW;
-	} else {
+	} else if (PpkType == XNVM_EFUSE_PPK2){
 		PpkRow = XNVM_EFUSE_PPK_2_HASH_START_ROW;
 	}
+#ifdef XNVM_EN_ADD_PPKS
+	else if (PpkType == XNVM_EFUSE_PPK3){
+		PpkRow = XNVM_EFUSE_PPK_3_HASH_START_ROW;
+	}
+	else {
+		PpkRow = XNVM_EFUSE_PPK_4_HASH_START_ROW;
+	}
+#endif
 
      /**
 	  *  Read directly from cache offset of the mentioned ppk type to fill the ppk hash array. Return XST_SUCCESS if read success
@@ -5746,3 +5790,250 @@ END:
 }
 
 #endif
+#ifdef XNVM_EN_ADD_PPKS
+/******************************************************************************/
+/**
+ * @brief	This function is used to program below eFuses -
+ * 			PPK3/PPK4 hash.
+ *
+ * @param	Hash - Pointer to the XNvm_EfuseAdditionalPpkHash structure which holds
+ * 			ppk hash data to be programmed to eFuse.
+ *
+ * @return	- XST_SUCCESS - Specified data read.
+ *		- XNVM_EFUSE_ERR_WRITE_PPK3_HASH - Error while writing PPK3 Hash.
+ *		- XNVM_EFUSE_ERR_WRITE_PPK4_HASH - Error while writing PPK4 Hash.
+ *
+ ******************************************************************************/
+static int XNvm_EfusePrgmAdditionalPpkHash(const XNvm_EfuseAdditionalPpkHash *Hash)
+{
+	int Status = XST_FAILURE;
+
+	if (Hash == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/**< Read PPK3 and PPK4 enable bits*/
+	Status = XNvm_IsAdditionalPpkFeatureEnabled();
+	if(Status != XST_SUCCESS){
+		goto END;
+	}
+
+	if (Hash->PrgmPpk3Hash == TRUE) {
+		Status = XNvm_EfusePgmAndVerifyRows(
+				XNVM_EFUSE_PPK_3_HASH_START_ROW,
+				XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS,
+				XNVM_EFUSE_PAGE_0,
+				Hash->Ppk3Hash);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PPK3_HASH);
+			goto END;
+		}
+	}
+	if (Hash->PrgmPpk4Hash == TRUE) {
+		Status = XNvm_EfusePgmAndVerifyRows(
+				XNVM_EFUSE_PPK_4_HASH_START_ROW,
+				XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS,
+				XNVM_EFUSE_PAGE_0,
+				Hash->Ppk4Hash);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PPK4_HASH);
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+/******************************************************************************/
+/**
+ * @brief	This function revokes the Ppk.
+ *
+ * @param	PpkSelect - Pointer to XNvm_EfuseMiscCtrlExtraBits structure which
+ * 			holds PPK_INVALID bits data to be programmed to eFuse.
+ *
+ * @return	- XST_SUCCESS - On Successful write of Ppk revoke efuses.
+ *		- XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0 - Error in writing
+ *							PPK3 Invalid bit0.
+ *		- XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1 - Error in writing
+ *							PPK3 Invalid bit1.
+ *		- XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0 - Error in writing
+ *							PPK4 Invalid bit0.
+ *		- XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1 - Error in writing
+ *							PPK4 Invalid bit1.
+ *
+ ******************************************************************************/
+static int XNvm_EfusePrgmAdditionalPpksInvalidBits(const XNvm_EfuseMiscCtrlBits *PpkSelect)
+{
+	volatile int Status = XST_FAILURE;
+	u32 RowData = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+
+
+	if (PpkSelect == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((PpkSelect->Ppk3Invalid != FALSE) ||
+		(PpkSelect->Ppk4Invalid != FALSE)) {
+		Status = XNvm_EfuseReadCache(XNVM_EFUSE_MISC_CTRL_ROW,
+						&RowData);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS);
+			goto END;
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+
+	/**< Read PPK3 and PPK4 enable bits*/
+	Status = XNvm_IsAdditionalPpkFeatureEnabled();
+	if(Status != XST_SUCCESS){
+		goto END;
+	}
+
+	if ((PpkSelect->Ppk3Invalid != FALSE) &&
+		((RowData & XNVM_EFUSE_CACHE_MISC_CTRL_PPK3_INVLD_1_0_MASK) ==
+		0x00U)) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_MISC_CTRL_ROW,
+				(u32)XNVM_EFUSE_MISC_PPK3_INVALID_BIT_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0);
+			goto END;
+		}
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePgmAndVerifyBit(
+				XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_MISC_CTRL_ROW,
+				(u32)XNVM_EFUSE_MISC_PPK3_INVALID_BIT_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1);
+			goto END;
+		}
+	}
+
+	if ((PpkSelect->Ppk4Invalid != FALSE) &&
+		((RowData & XNVM_EFUSE_CACHE_MISC_CTRL_PPK4_INVLD_1_0_MASK) ==
+		0x00U)) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_MISC_CTRL_ROW,
+				(u32)XNVM_EFUSE_MISC_PPK4_INVALID_BIT_0);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0);
+			goto END;
+		}
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
+				XNVM_EFUSE_MISC_CTRL_ROW,
+				(u32)XNVM_EFUSE_MISC_PPK4_INVALID_BIT_1);
+		if (Status != XST_SUCCESS) {
+			Status = (Status |
+				XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1);
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+/******************************************************************************/
+/**
+ * @brief	This function is used to read the miscellaneous eFUSE control
+ *		Enable bits from cache.
+ *
+ * @return	- XST_SUCCESS - On Successful read.
+ *          - XST_FAILURE - on Read failure
+ *		    - XNVM_EFUSE_5_PPKs_DISABLE_ERROR - on enable bits are not set.
+ *
+ ******************************************************************************/
+static int XNvm_IsAdditionalPpkFeatureEnabled(void)
+{
+	int Status = XST_FAILURE;
+	volatile u32 ReadReg;
+	volatile u32 ReadRegTmp;
+
+	/* Read PPK3 and PPK4 enable set bits */
+		Status = XNvm_EfuseReadCache(XNVM_EFUSE_MISC_CTRL_ROW, (u32*)&ReadReg);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XNvm_EfuseReadCache(XNVM_EFUSE_MISC_CTRL_ROW, (u32*)&ReadRegTmp);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		ReadReg = ReadReg & XNVM_EFUSE_PPK_3_PPK_4_ENABLE;
+		ReadRegTmp = ReadRegTmp & XNVM_EFUSE_PPK_3_PPK_4_ENABLE;
+
+		if ((ReadReg == 0x0U) || (ReadRegTmp == 0x0U)) {
+			Status = (int)XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED;
+			goto END;
+		}
+END:
+	return Status;
+}
+/******************************************************************************/
+/**
+ * @brief	This function reads the Additional Ppk Hash from eFUSE cache.
+ *
+ * @param	EfusePpk - Pointer to XNvm_PpkHash which holds the PpkHash from
+ * 					   eFUSE Cache.
+ * @param 	PpkType - Type of the Ppk to be programmed.
+ *
+ * @return	- XST_SUCCESS - On Successful read.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM - On Invalid Parameter.
+ * 		- XNVM_EFUSE_ERR_RD_PPK_HASH   - Error while reading PPK Hash.
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadAdditionalPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType)
+{
+	int Status = XST_FAILURE;
+	u32 PpkRow;
+
+    /**
+	 *  validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
+	 */
+	if (EfusePpk == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((PpkType != XNVM_EFUSE_PPK3) &&
+		(PpkType != XNVM_EFUSE_PPK4)) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+	if (PpkType == XNVM_EFUSE_PPK3) {
+		PpkRow = XNVM_EFUSE_PPK_3_HASH_START_ROW;
+	} else {
+		PpkRow = XNVM_EFUSE_PPK_4_HASH_START_ROW;
+	}
+
+     /**
+	  *  Read directly from cache offset of the mentioned ppk type to fill the ppk hash array. Return XST_SUCCESS if read success
+	  */
+	Status = XNvm_EfuseReadCacheRange(PpkRow,
+					XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS,
+					EfusePpk->Hash);
+	if (Status != XST_SUCCESS) {
+		Status = (Status | XNVM_EFUSE_ERR_RD_PPK_HASH);
+		goto END;
+	}
+END:
+	return Status;
+}
+#endif /* END OF XNVM_EN_ADD_PPKS */

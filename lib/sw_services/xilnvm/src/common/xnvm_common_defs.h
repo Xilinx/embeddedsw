@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -40,25 +41,25 @@ extern "C" {
 /**@cond xnvm_internal
  * @{
  */
-#define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)   /**< formated synq data length in words*/
-#define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)             /**< number of revoke id efuses*/
-#define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)         /**< number of offchip id efuses*/
-#define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)          /**< Aes key length in words*/
-#define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)  /**< IV length in words*/
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)           /**< PPK hash length in words*/
-#define XNVM_EFUSE_DNA_IN_WORDS				(4U)               /**< DNA in words*/
-#define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)               /**< IV length in bits*/
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)         /**< Aes key length in bits*/
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)           /**< PPK hash length in words*/
-#define XNVM_EFUSE_IV_LEN_IN_BYTES			(12U)                 /**< IV length in bytes*/
-#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)             /**< Aes key length in bytes*/
-#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)             /**< PPK hash length in bytes*/
-#define XNVM_IV_STRING_LEN				(24U)                      /**< IV string length*/
-#define XNVM_WORD_LEN					(4U)                        /**< word length*/
-#define XNVM_EFUSE_CRC_AES_ZEROS			(0x6858A3D5U)             /**< CRC aes zeros*/
-#define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)                     /**< maximum number of bits in a row in efuse*/
+#define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)
+#define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)
+#define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)
+#define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)
+#define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS		(8U)
+#define XNVM_EFUSE_DNA_IN_WORDS				(4U)
+#define XNVM_EFUSE_IV_LEN_IN_BITS			(96U)
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BITS			(256U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BITS			(256U)
+#define XNVM_EFUSE_IV_LEN_IN_BYTES			(12U)
+#define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES			(32U)
+#define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)
+#define XNVM_IV_STRING_LEN				(24U)
+#define XNVM_WORD_LEN					(4U)
+#define XNVM_EFUSE_CRC_AES_ZEROS			(0x6858A3D5U)
+#define XNVM_EFUSE_MAX_BITS_IN_ROW			(32U)
 #define XNVM_MAX_REVOKE_ID_FUSES		(XNVM_NUM_OF_REVOKE_ID_FUSES	\
-						* XNVM_EFUSE_MAX_BITS_IN_ROW)                      /**< maximum number of revoke ids in efuse*/
+						* XNVM_EFUSE_MAX_BITS_IN_ROW)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -91,7 +92,11 @@ typedef enum {
 typedef enum {
 	XNVM_EFUSE_PPK0 = 0,
 	XNVM_EFUSE_PPK1,
-	XNVM_EFUSE_PPK2
+	XNVM_EFUSE_PPK2,
+#ifdef XNVM_EN_ADD_PPKS
+	XNVM_EFUSE_PPK3,
+	XNVM_EFUSE_PPK4
+#endif
 } XNvm_PpkType;
 
 typedef enum {
@@ -161,6 +166,10 @@ typedef struct {
 	u8 Ppk0Invalid;
 	u8 Ppk1Invalid;
 	u8 Ppk2Invalid;
+#ifdef XNVM_EN_ADD_PPKS
+	u8 Ppk3Invalid;
+	u8 Ppk4Invalid;
+#endif
 } XNvm_EfuseMiscCtrlBits;
 
 typedef struct {
@@ -211,6 +220,15 @@ typedef struct {
 	u32 Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
 } XNvm_EfusePpkHash;
 
+#ifdef XNVM_EN_ADD_PPKS
+typedef struct {
+	u8 PrgmPpk3Hash;
+	u8 PrgmPpk4Hash;
+	u32 Ppk3Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+	u32 Ppk4Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+} XNvm_EfuseAdditionalPpkHash;
+#endif
+
 typedef struct {
 	u8 PrgmMetaHeaderIv;
 	u8 PrgmBlkObfusIv;
@@ -257,6 +275,9 @@ typedef struct {
 	u64 BootEnvCtrlAddr;
 	u64 Misc1CtrlAddr;
 	u64 OffChipIdAddr;
+#ifdef XNVM_EN_ADD_PPKS
+	u64 AdditionalPpkHashAddr;
+#endif
 } XNvm_EfuseDataAddr;
 
 /**

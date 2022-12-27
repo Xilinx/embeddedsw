@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -705,7 +706,8 @@
 * 2.3	kal    01/07/21 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
 *			and remaining eFuses in SecCtrl eFuse rows programming
 *			and reading
-*	kal    02/20/21 Added new macro for Environmental Monitor Disable
+*	    kal    02/20/21 Added new macro for Environmental Monitor Disable
+* 3.1   skg    12/07/22 Added additional PPKs related macros
 *
 * </pre>
 *
@@ -764,6 +766,8 @@ extern "C" {
 #define XNVM_EFUSE_PPK0_INVLD			FALSE
 #define XNVM_EFUSE_PPK1_INVLD			FALSE
 #define XNVM_EFUSE_PPK2_INVLD			FALSE
+#define XNVM_EFUSE_PPK3_INVLD			FALSE
+#define XNVM_EFUSE_PPK4_INVLD			FALSE
 
 /**
  * Following is the define to select if the user wants to program
@@ -805,6 +809,8 @@ extern "C" {
 #define XNVM_EFUSE_WRITE_PPK0_HASH		FALSE
 #define XNVM_EFUSE_WRITE_PPK1_HASH		FALSE
 #define XNVM_EFUSE_WRITE_PPK2_HASH		FALSE
+#define XNVM_EFUSE_WRITE_PPK3_HASH		FALSE
+#define XNVM_EFUSE_WRITE_PPK4_HASH		FALSE
 
 #define XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY		FALSE
 
@@ -854,6 +860,10 @@ extern "C" {
 #define XNVM_EFUSE_PPK1_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XNVM_EFUSE_PPK2_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
+
+#define XNVM_EFUSE_PPK3_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
+
+#define XNVM_EFUSE_PPK4_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XNVM_EFUSE_META_HEADER_IV	"000000000000000000000000"
 

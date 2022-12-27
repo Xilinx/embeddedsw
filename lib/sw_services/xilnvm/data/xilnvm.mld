@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -10,6 +11,7 @@
 # 1.1   kpt  12/07/21 Rectified library version to 2.5
 # 3.0   kpt  08/25/22 Changed user configurable parameter names
 # 3.1   skg  10/04/22 Changed library version to 3.1
+#       skg  12/07/22 Added a user configuration parameter
 #
 ##############################################################################
 
@@ -27,4 +29,5 @@ BEGIN LIBRARY xilnvm
   PARAM name = xnvm_use_puf_hd_as_user_efuse, desc = "Enables API's to use PUF Helper data efuses as user efuses ", type = bool, default = false;
   PARAM name = xnvm_mode, desc = "Enables A72/R5 server and client mode support for XilNvm library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
   PARAM name = xnvm_cache_disable, desc = "Enables/Disables Cache for XilNvm client library", type = bool, default = true;
+  PARAM name = xnvm_en_add_ppks, desc = "Enables/Disables Additional PPKs provisioning support", type = bool, default = false;
 END LIBRARY

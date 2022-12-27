@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +47,7 @@
  *       har   01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
  *       kpt   01/07/2022 Added check to program RegInitDis in
  *                        XilNvm_EfuseInitSecCtrl
+ * 3.1   skg   12/07/2022 Added Additional PPks support
  *
  * </pre>
  *
@@ -121,7 +123,10 @@ static int XilNvm_EfuseWritePufFuses(void);
 static int XilNvm_EfuseReadPufFuses(void);
 static int XilNvm_EfuseInitPufFuses(XNvm_EfusePufFuse *PufFuse);
 #endif
-
+#ifdef XNVM_EN_ADD_PPKS
+static int XilNvm_EfuseInitAdditionalPpkHash(XNvm_EfuseData *WriteEfuse,
+		XNvm_EfuseAdditionalPpkHash *PpkHash);
+#endif
 /*****************************************************************************/
 int main(void)
 {
@@ -216,6 +221,9 @@ static int XilNvm_EfuseWriteFuses(void)
 	XNvm_EfuseSecMisc1Bits SecMisc1Bits = {0U};
 	XNvm_EfuseUserData UserFuses = {0U};
 	u32 UserFusesArr[XNVM_EFUSE_NUM_OF_USER_FUSES];
+#ifdef XNVM_EN_ADD_PPKS
+	XNvm_EfuseAdditionalPpkHash AdditionalPpkHash __attribute__ ((aligned (32U)))= {0U};
+#endif
 
 	Status = XilNvm_EfuseInitGlitchData(&WriteEfuse, &GlitchData);
 	if (Status != XST_SUCCESS) {
@@ -246,7 +254,12 @@ static int XilNvm_EfuseWriteFuses(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
+#ifdef XNVM_EN_ADD_PPKS
+	Status = XilNvm_EfuseInitAdditionalPpkHash(&WriteEfuse, &AdditionalPpkHash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#endif
 	Status = XilNvm_EfuseInitBootEnvCtrl(&WriteEfuse, &BootEnvCtrl);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -331,16 +344,16 @@ static int XilNvm_EfuseReadFuses(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	xil_printf("\r\nDNA:%08x%08x%08x%08x", EfuseDna.Dna[3],
+	xil_printf("\r\nDNA:%08x%08x%08x%08x\n\r", EfuseDna.Dna[3],
 						EfuseDna.Dna[2],
 						EfuseDna.Dna[1],
 						EfuseDna.Dna[0]);
 
-	for (Index = XNVM_EFUSE_PPK0; Index <= XNVM_EFUSE_PPK2; Index++) {
-		Status = XNvm_EfuseReadPpkHash(&EfusePpk, (XNvm_PpkType)Index);
+	for (Index = XNVM_EFUSE_PPK_READ_START; Index <= XNVM_EFUSE_PPK_READ_END; Index++){
+	Status = XNvm_EfuseReadPpkHash(&EfusePpk, (XNvm_PpkType)Index);
 		if (Status != XST_SUCCESS) {
 			goto END;
-		}
+		  }
 		else {
 
 			xil_printf("\n\rPPK%d:", Index);
@@ -918,7 +931,10 @@ static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 	MiscCtrlBits->CryptoKatEn = XNVM_EFUSE_CRYPTO_KAT_EN;
 	MiscCtrlBits->LbistEn = XNVM_EFUSE_LBIST_EN;
 	MiscCtrlBits->SafetyMissionEn = XNVM_EFUSE_SAFETY_MISSION_EN;
-
+#ifdef XNVM_EN_ADD_PPKS
+	MiscCtrlBits->Ppk3Invalid = XNVM_EFUSE_PPK3_INVLD;
+	MiscCtrlBits->Ppk4Invalid = XNVM_EFUSE_PPK4_INVLD;
+#endif
 	if ((MiscCtrlBits->Ppk0Invalid == TRUE) ||
 		(MiscCtrlBits->Ppk1Invalid == TRUE) ||
 		(MiscCtrlBits->Ppk2Invalid == TRUE) ||
@@ -926,6 +942,10 @@ static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 		(MiscCtrlBits->HaltBootEnv == TRUE) ||
 		(MiscCtrlBits->CryptoKatEn == TRUE) ||
 		(MiscCtrlBits->LbistEn == TRUE) ||
+#ifdef XNVM_EN_ADD_PPKS
+		(MiscCtrlBits->Ppk3Invalid == TRUE )||
+		(MiscCtrlBits->Ppk4Invalid == TRUE) ||
+#endif
 		(MiscCtrlBits->SafetyMissionEn == TRUE)) {
 		WriteEfuse->MiscCtrlBits = MiscCtrlBits;
 	}
@@ -1740,7 +1760,20 @@ static int XilNvm_EfuseShowCtrlBits(void)
 	else {
 		xil_printf("Ppk2 hash stored in efuse is valid\n\r");
 	}
-
+#ifdef XNVM_EN_ADD_PPKS
+	if(MiscCtrlBits.Ppk3Invalid != FALSE) {
+		xil_printf("Ppk3 hash stored in efuse is not valid\n\r");
+	}
+	else {
+		xil_printf("Ppk3 hash stored in efuse is valid\n\r");
+	}
+	if(MiscCtrlBits.Ppk4Invalid != FALSE) {
+		xil_printf("Ppk4 hash stored in efuse is not valid\n\r");
+	}
+	else {
+		xil_printf("Ppk4 hash stored in efuse is valid\n\r");
+	}
+#endif
 	xil_printf("\r\nSecurity Misc1 eFuses:\n\r");
 
 	if (SecMisc1Bits.LpdMbistEn != FALSE) {
@@ -2166,5 +2199,78 @@ END:
 }
 
 #endif
+#ifdef XNVM_EN_ADD_PPKS
+/****************************************************************************/
+/**
+ * This function is used to initialize the XNvm_EfuseAdditionalPpkHash structure with
+ * user provided data and assign it to global structure XNvm_EfuseDataAddr to
+ * program PPK3/PPK4 hash eFuses and PPK invalid eFuses
+ *
+ * typedef struct {
+ *	u8 PrgmPpk3Hash;
+ *	u8 PrgmPpk4Hash;
+ *	u32 Ppk3Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+ *	u32 Ppk4Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+ *  } XNvm_EfuseAdditionalPpkHash;
+ *
+ * @param	WriteEfuse	Pointer to XNvm_EfuseDataAddr structure.
+ *
+ * @param 	PpkHash		Pointer to XNvm_EfuseAdditionalPpkHash structure.
+ *
+ * @return
+ *		- XST_SUCCESS - If initialization of XNvm_EfuseAdditionalPpkHash structure
+ *				is successful
+ *		- ErrorCode - On Failure
+ *
+ ******************************************************************************/
+static int XilNvm_EfuseInitAdditionalPpkHash(XNvm_EfuseData *WriteEfuse,
+		XNvm_EfuseAdditionalPpkHash *PpkHash)
+{
+	int Status = XST_FAILURE;
+
+	PpkHash->PrgmPpk3Hash = XNVM_EFUSE_WRITE_PPK3_HASH;
+	PpkHash->PrgmPpk4Hash = XNVM_EFUSE_WRITE_PPK4_HASH;
+
+	if (PpkHash->PrgmPpk3Hash == TRUE) {
+		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK3_HASH,
+					XNVM_EFUSE_PPK_HASH_STRING_LEN);
+		if(Status != XST_SUCCESS) {
+			xil_printf("Ppk3Hash string validation failed\r\n");
+			goto END;
+		}
+		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK3_HASH,
+						(u8 *)PpkHash->Ppk3Hash,
+			XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	if (PpkHash->PrgmPpk4Hash == TRUE) {
+		Status = XilNvm_ValidateHash((char *)XNVM_EFUSE_PPK4_HASH,
+					XNVM_EFUSE_PPK_HASH_STRING_LEN);
+		if(Status != XST_SUCCESS) {
+			xil_printf("Ppk4Hash string validation failed\r\n");
+			goto END;
+		}
+		Status = Xil_ConvertStringToHexBE((char *)XNVM_EFUSE_PPK4_HASH,
+					(u8 *)PpkHash->Ppk4Hash,
+					XNVM_EFUSE_PPK_HASH_LEN_IN_BITS);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
+	if (Status == XST_SUCCESS){
+		WriteEfuse->AdditionalPpkHash = PpkHash;
+	}
+
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+#endif /* END OF XNVM_EN_ADD_PPKS*/
 /** //! [XNvm eFuse example] */
 /**@}*/
