@@ -149,6 +149,22 @@ static XStatus XPmBisr_TagSupportCheck(u32 TagId,
 	return Status;
 }
 
+static XStatus XPmBisr_TagSupportCheck2(u32 TagId)
+{
+	XStatus Status = XST_FAILURE;
+	switch(TagId) {
+	case VDU_TAG_ID:
+	case BFRB_TAG_ID:
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XST_FAILURE;
+		break;
+	}
+
+	return Status;
+}
+
 static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
 	XStatus Status = XST_FAILURE;
@@ -1104,7 +1120,11 @@ XStatus XPmBisr_Repair(u32 TagId)
 						EfuseNextAddr += 4U;
 					}
 				}
-			} else { 	//Not supported
+			} else {	//check bisr2 supported TAG_ID else return error
+				Status = XPmBisr_TagSupportCheck2(EfuseBisrTagId);
+				if (XST_SUCCESS == Status) {
+					goto done;
+				}
 				XPmBisr_SwError(PMC_EFUSE_BISR_UNSUPPORTED_ID);
 				DbgErr = XPM_INT_ERR_BISR_UNSUPPORTED_ID;
 				Status = XST_FAILURE;

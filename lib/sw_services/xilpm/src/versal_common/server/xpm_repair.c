@@ -1,5 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 #include "xpm_repair.h"
@@ -22,11 +23,11 @@ XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize,
 	BaseAddr = NPI_FIXED_BASEADDR + (TagOptional << NPI_EFUSE_ENDPOINT_SHIFT);
 	BisrDataDestAddr = BaseAddr + (u64)VDU_NPI_CACHE_DATA_REGISTER_OFFSET;
 
-	/* Copy repair data */
-	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
-
 	/* Unlock PCSR */
 	XPm_UnlockPcsr(BaseAddr);
+
+	/* Copy repair data */
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
 
 	/* Trigger BISR */
 	XPm_Out32(BaseAddr + NPI_PCSR_MASK_OFFSET, VDU_PCSR_BISR_TRIGGER_MASK);
