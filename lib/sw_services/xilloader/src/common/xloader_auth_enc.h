@@ -51,6 +51,7 @@
 *       kpt  07/24/22 Added XLoader_RsaPssSignVerify to support KAT for versal net
 *       har  11/17/22 Added function declaration for XLoader_CheckNonZeroPpk
 * 1.04  ng   11/23/22 Fixed doxygen file name error
+* 1.8   skg  12/07/22 Added Additional PPKs related macros and enums
 *
 * </pre>
 *
@@ -227,6 +228,20 @@ extern "C" {
 					/**< PPK2 end register address */
 #define XLOADER_EFUSE_PPK_HASH_LEN			(32U)
 					/**< PPK hash length stored in eFUSE */
+#ifdef PLM_EN_ADD_PPKS
+#define XLOADER_EFUSE_ADDITIONAL_PPK_ENABLE_BITS_MASK       (0X00030000U)
+                    /**< PPK 3&4 Enable bits mask*/
+#define XLOADER_EFUSE_PPK3_START_OFFSET			(0xF12502C0U)
+                    /**< PPK3 start register address */
+#define XLOADER_EFUSE_PPK4_START_OFFSET			(0xF12502E0U)
+                    /**< PPK4 start register address */
+#define XLOADER_EFUSE_PPK4_END_OFFSET			(0xF12502FCU)
+                    /**< PPK4 start register address */
+#define XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD		(0x00000600U)
+					/**< PPK3 invalid value */
+#define XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD		(0x00001800U)
+					/**< PPK4 invalid value */
+#endif /**< END OF PLM_EN_ADD_PPKS*/
 
 #define XLOADER_SECURE_IV_LEN				(4U)
 				/**< Secure IV length in words */
@@ -403,7 +418,11 @@ typedef enum {
 typedef enum {
 	XLOADER_PPK_SEL_0,	/**< 0 - PPK 0 */
 	XLOADER_PPK_SEL_1,	/**< 1 - PPK 1 */
-	XLOADER_PPK_SEL_2	/**< 2 - PPK 2 */
+	XLOADER_PPK_SEL_2,	/**< 2 - PPK 2 */
+#ifdef PLM_EN_ADD_PPKS
+	XLOADER_PPK_SEL_3,	/**< 3 - PPK 3 */
+	XLOADER_PPK_SEL_4	/**< 4 - PPK 4 */
+#endif
 } XLoader_PpkSel;
 
 /**< RSA signature vars */
@@ -534,7 +553,9 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
 int XLoader_CheckNonZeroPpk(void);
-
+int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
+int XLoader_IsAdditionalPpkValid(const u8 *PpkHash);
+int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset);
 #endif
 
 #ifdef __cplusplus

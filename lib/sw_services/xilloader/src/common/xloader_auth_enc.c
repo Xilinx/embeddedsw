@@ -94,6 +94,7 @@
 *       sk   10/19/22 Fix security review comments
 *       har  11/17/22 Made XLoader_CheckNonZeroPpk as non-static and moved here from xloader_secure.c file
 *       ng   11/23/22 Updated doxygen comments
+* 1.8   skg  12/07/22 Added Additional PPKs support
 *
 * </pre>
 *
@@ -187,7 +188,6 @@ static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
 static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 	XLoader_AesKekInfo *KeyDetails, XSecure_AesKeySrc *KeySrc);
 static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr);
-static int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
 static int XLoader_VerifyRevokeId(u32 RevokeId);
 static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash);
 static int XLoader_AuthHdrs(const XLoader_SecureParams *SecurePtr,
@@ -1211,7 +1211,7 @@ static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
 * @return	XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
-static int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
+int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int HashStatus = XST_FAILURE;
@@ -1222,7 +1222,7 @@ static int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 	u32 PpkOffset;
 	u32 InvalidMask;
 
-	switch (PpkSelect) {
+	switch ((u32)PpkSelect) {
 		case XLOADER_PPK_SEL_0:
 			InvalidMask = XLOADER_EFUSE_MISC_CTRL_PPK0_INVLD;
 			PpkOffset = XLOADER_EFUSE_PPK0_START_OFFSET;
@@ -1239,7 +1239,7 @@ static int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash)
 			Status = XST_SUCCESS;
 			break;
 		default:
-			Status = XST_FAILURE;
+			Status = XLoader_AdditionalPpkSelect(PpkSelect, &InvalidMask, &PpkOffset);
 			break;
 	}
 	if (Status != XST_SUCCESS) {
@@ -1344,36 +1344,39 @@ static int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr)
 	}
 
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
-		XLOADER_PPK_SEL_0, Sha3Hash.Hash);
-	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
-			XLOADER_PPK_SEL_1, Sha3Hash.Hash);
-		if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			XLOADER_PPK_SEL_0, Sha3Hash.Hash);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
-				XLOADER_PPK_SEL_2, Sha3Hash.Hash);
-			if ((Status == XST_SUCCESS) &&
-				(StatusTmp == XST_SUCCESS)) {
-				/* Selection matched with PPK2 HASH */
-				XPlmi_Printf(DEBUG_INFO, "PPK2 is valid\n\r");
+				XLOADER_PPK_SEL_1, Sha3Hash.Hash);
+			if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+				XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
+					XLOADER_PPK_SEL_2, Sha3Hash.Hash);
+				if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+					XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsAdditionalPpkValid,
+						Sha3Hash.Hash);
+					if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+						XPlmi_Printf(DEBUG_INFO, "No PPK is valid\n\r");
+						Status = XLoader_UpdateMinorErr(XLOADER_SEC_ALL_PPK_INVALID_ERR,
+							0x0);
+					}
+				}
+				else {
+					/* Selection matched with PPK2 HASH */
+					XPlmi_Printf(DEBUG_INFO, "PPK2 is valid\n\r");
+
+				}
 			}
 			else {
-				/* No PPK is valid */
-				XPlmi_Printf(DEBUG_INFO, "No PPK is valid\n\r");
-				Status = XLoader_UpdateMinorErr(XLOADER_SEC_ALL_PPK_INVALID_ERR,
-					0x0);
+					/* Selection matched with PPK1 HASH */
+					XPlmi_Printf(DEBUG_INFO, "PPK1 is valid\n\r");
+
 			}
 		}
 		else {
-			/* Selection matched with PPK1 HASH */
-			XPlmi_Printf(DEBUG_INFO, "PPK1 is valid\n\r");
-		}
-	}
-	else {
-		/* Selection matched with PPK0 HASH */
-		XPlmi_Printf(DEBUG_INFO, "PPK0 is valid\n\r");
+				/* Selection matched with PPK0 HASH */
+				XPlmi_Printf(DEBUG_INFO, "PPK0 is valid\n\r");
 
-	}
-
+	    }
 END:
 	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XLOADER_SHA3_LEN, 0U,
                         XLOADER_SHA3_LEN);
@@ -3809,5 +3812,4 @@ int XLoader_CheckNonZeroPpk(void)
 
 	return Status;
 }
-
 #endif /* END OF PLM_SECURE_EXCLUDE */
