@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmr_inject_i.h
-* @addtogroup tmr_inject_v1_4
+* @addtogroup Overview
 * @{
 *
 * Contains data which is shared between the files of the XTMR_Inject component.

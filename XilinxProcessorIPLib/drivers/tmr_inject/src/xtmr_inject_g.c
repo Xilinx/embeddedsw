@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmr_inject_g.c
-* @addtogroup tmr_inject_v1_4
+* @addtogroup Overview
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

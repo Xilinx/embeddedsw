@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmr_inject_l.h
-* @addtogroup tmr_inject_v1_4
+* @addtogroup Overview
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or

@@ -8,7 +8,7 @@
 /**
 *
 * @file xtmr_inject.h
-* @addtogroup tmr_inject_v1_4
+* @addtogroup Overview
 * @{
 * @details
 *
@@ -55,6 +55,7 @@
 *                          incremental builds. It would help to reduce
 *                          compilation time.
 * 1.4   adk  02/24/22 While updating the IIR offset apply the mask.
+* 1.5   adk  27/12/22 Updated addtogroup tag.
 * </pre>
 *
 *****************************************************************************/
