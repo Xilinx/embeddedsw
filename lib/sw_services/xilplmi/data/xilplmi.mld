@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -12,6 +13,7 @@
 #       ma   7/27/2022 Added configurable option for SSIT PLM to PLM
 #                      communication feature
 #       ma   8/10/2022 Changed ssit_plm_to_plm_comm_en default value to true
+# 1.8   skg  12/07/2022 Added plm_add_ppks_en user configuration
 #
 ##############################################################################
 
@@ -40,5 +42,6 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_puf_en, desc = "Enables or Disables PUF handlers", type = bool, default = false;
   PARAM name = plm_stl_en, desc = "Enables or Disables STL", type = bool, default = false;
   PARAM name = plm_ocp_en, desc = "Enables or Disables OCP", type = bool, default = false;
+  PARAM name = plm_add_ppks_en, desc = "Enables or Disables additional PPKs", type = bool, default = false;
   PARAM name = ssit_plm_to_plm_comm_en, desc = "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)", type = bool, default = true;
 END LIBRARY

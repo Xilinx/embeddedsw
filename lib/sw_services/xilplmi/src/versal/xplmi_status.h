@@ -102,6 +102,7 @@
 *       bm   08/24/2022 Support Begin, Break and End commands across chunk
 *                       boundaries
 * 1.09  ng   11/11/2022 Fixed doxygen file name error
+* 1.8   skg  12/07/2022 Added error code for additional PPKs
 *
 * </pre>
 *
@@ -722,6 +723,8 @@ typedef enum {
 		/**< 0x635 Failed to place either AES,RSA,SHA3 engine in reset */
 
 	/* Security error codes specific to platform are from 0x6A0 to 0x6FF */
+	XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED,
+	    /**< 0x6A0 Additional PPks are not enabled*/
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

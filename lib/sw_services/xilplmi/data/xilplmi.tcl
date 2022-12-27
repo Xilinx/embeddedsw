@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -14,6 +15,8 @@
 #                     communication feature
 #       ma   08/10/22 Enable SSIT PLM to PLM communication feature based on
 #                     user option and Number of SLRs from the design
+# 1.8   skg  12/07/2022 Added plm_add_ppks_en user configuration
+#
 ##############################################################################
 
 #---------------------------------------------
@@ -198,6 +201,13 @@ proc xgen_opts_file {libhandle} {
 	if {$value == false} {
 		puts $file_handle "\n/* OCP code disable */"
 		puts $file_handle "#define PLM_OCP_EXCLUDE"
+	}
+
+    # Get plm_add_ppks_en value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.plm_add_ppks_en $libhandle]
+	if {$value == true} {
+		puts $file_handle "\n/* Additional ppks code enable */"
+		puts $file_handle "#define PLM_EN_ADD_PPKS"
 	}
 
 	# Get ssit_plm_to_plm_comm_en value set by user, by default it is TRUE(Valid only for Versal)
