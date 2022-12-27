@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +25,8 @@
 * 4.5   ma  04/05/2021 Use error mask instead of ID to set an error action
 *       bm  05/13/2021 Add common crypto instances
 * 4.6   har 07/14/2021 Fixed doxygen warnings
-* 4.7   ma   07/08/2022 Added support for secure lockdown
+* 4.7   ma  07/08/2022 Added support for secure lockdown
+* 5.1   dc  12/27/2022 Added SHA1 instance
 *
 * </pre>
 *
@@ -82,6 +84,30 @@ XSecure_Sha3 *XSecure_GetSha3Instance(void)
 	static XSecure_Sha3 Sha3Instance = {0U};
 
 	return &Sha3Instance;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function provides the pointer to the common Sha3_1 instance
+ * which has to be used between PLM and xilsecure server
+ *
+ * @return
+ *      -       Pointer to the XSecure_Sha3 instance for Versal Net
+ *      -	NULL for non versal Net platforms
+ *
+ * @note	This is applicable only for Versal Net
+ *
+ ******************************************************************************/
+XSecure_Sha3 *XSecure_GetSha1Instance(void)
+{
+	XSecure_Sha3 *Sha1Ptr = NULL;
+#if defined (VERSAL_NET)
+	static XSecure_Sha3 Sha1Instance = {0U};
+
+	Sha1Ptr = &Sha1Instance;
+#endif
+
+        return Sha1Ptr;
 }
 
 /*****************************************************************************/

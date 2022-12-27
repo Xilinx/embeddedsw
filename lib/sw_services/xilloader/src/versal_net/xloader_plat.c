@@ -24,6 +24,7 @@
 *       is   09/12/2022 Remove PM_CAP_SECURE capability when requesting PSM_PROC,
 *                       TCM memory banks
 * 1.01  ng   11/11/2022 Updated doxygen comments
+*       dc   12/27/2022 Added SHA1 instance
 *
 * </pre>
 *
@@ -44,7 +45,7 @@
 #include "xilpdi.h"
 #include "xplmi_gic_interrupts.h"
 #ifdef PLM_OCP
-#include "xsecure_sha.h"
+#include "xsecure_init.h"
 #endif
 #include "xplmi_scheduler.h"
 #include "xplmi_plat.h"
@@ -77,9 +78,6 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u32 DstnCluster, u64 *LoadAddrPtr,
 static int XLoader_InitSha1Instance(void);
 
 /************************** Variable Definitions *****************************/
-#ifdef PLM_OCP
-static XSecure_Sha3 Sha1Instance;
-#endif
 
 /*****************************************************************************/
 /**
@@ -1111,19 +1109,20 @@ int XLoader_DataMeasurement(u64 DataAddr, u32 DataSize, u32 PcrInfo, u8 Flags)
 {
 	int Status = XLOADER_ERR_DATA_MEASUREMENT;
 #ifdef PLM_OCP
+	XSecure_Sha3 *Sha1Instance = XSecure_GetSha1Instance();
 	XSecure_Sha3Hash Sha3Hash;
 	(void)PcrInfo;
 
 	switch(Flags) {
 	case XLOADER_MEASURE_START:
-		Status = XSecure_Sha3Start(&Sha1Instance);
+		Status = XSecure_Sha3Start(Sha1Instance);
 		break;
 	case XLOADER_MEASURE_UPDATE:
-		Status = XSecure_Sha3Update64Bit(&Sha1Instance,
+		Status = XSecure_Sha3Update64Bit(Sha1Instance,
 				DataAddr, DataSize);
 		break;
 	case XLOADER_MEASURE_FINISH:
-		Status = XSecure_Sha3Finish(&Sha1Instance, &Sha3Hash);
+		Status = XSecure_Sha3Finish(Sha1Instance, &Sha3Hash);
 		break;
 	default:
 		break;
@@ -1154,12 +1153,13 @@ static int XLoader_InitSha1Instance(void)
 	int Status = XLOADER_ERR_SHA1_INIT;
 #ifdef PLM_OCP
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
+	XSecure_Sha3 *Sha1Instance = XSecure_GetSha1Instance();
 
-	Status = XSecure_Sha3LookupConfig(&Sha1Instance, XLOADER_SHA1_DEVICE_ID);
+	Status = XSecure_Sha3LookupConfig(Sha1Instance, XLOADER_SHA1_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XSecure_Sha3Initialize(&Sha1Instance, PmcDmaPtr);
+	Status = XSecure_Sha3Initialize(Sha1Instance, PmcDmaPtr);
 END:
 	if (Status != XST_SUCCESS) {
 		Status = XLOADER_ERR_SHA1_INIT;

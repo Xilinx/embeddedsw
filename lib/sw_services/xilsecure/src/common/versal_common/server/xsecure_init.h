@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -49,6 +50,7 @@ XSecure_Sha3 *XSecure_GetSha3Instance(void);
 XSecure_Aes *XSecure_GetAesInstance(void);
 XSecure_Rsa *XSecure_GetRsaInstance(void);
 int XSecure_TrngInit(void);
+XSecure_Sha3 *XSecure_GetSha1Instance(void);
 
 #ifdef __cplusplus
 }
