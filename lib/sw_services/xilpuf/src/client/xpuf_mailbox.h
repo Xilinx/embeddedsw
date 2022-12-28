@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -65,6 +66,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 typedef struct {
 	XMailbox *MailboxPtr;
+	u32 SlrIndex;
 } XPuf_ClientInstance;
 
 /***************** Macros (Inline Functions) Definitions *********************/

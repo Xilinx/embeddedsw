@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -20,6 +21,7 @@
  * 1.1   har     01/31/20 Updated file version to 1.1 to sync with library version
  * 1.2   am      08/14/20 Changed unsigned to signed enum object.
  * 1.3   har     05/20/21 Added option to program Black IV
+ * 2.1   skg     12/14/22 Added enum for slr indexs
  *
  * </pre>
  *
@@ -127,6 +129,15 @@
  * This option should be configured as TRUE to disable the temparature and voltage
  * checks before eFuses programming.
  *
+ * #define SLR_INDEX	   (XPUF_SLR_INDEX_0)
+ *							(or)
+ *						(XPUF_SLR_INDEX_1)
+ *							(or)
+ *						(XPUF_SLR_INDEX_2)
+ *							(or)
+ *						(XPUF_SLR_INDEX_3)
+ * This option selects the Slave Slr for provisioning.
+ *
  ******************************************************************************/
 #ifndef XILPUF_EXAMPLE_H
 #define XILPUF_EXAMPLE_H
@@ -178,6 +189,9 @@ extern "C" {
 
 #define XPUF_WRITE_BLACK_KEY_OPTION		(FALSE)
 
+/**< Input SlrIndex*/
+#define SLR_INDEX     XPUF_SLR_INDEX_0
+
 /* For programming Secure control eFUSE bits of PUF */
 #define XPUF_WRITE_SEC_CTRL_BITS			(FALSE)
 #if (XPUF_WRITE_SEC_CTRL_BITS == TRUE)
@@ -204,6 +218,13 @@ typedef enum {
 	XPUF_EFUSE_USER_1_KEY
 } XPuf_WriteBlackKeyOption;
 
+/**< Enumeration constants for SlrIndex*/
+typedef enum{
+	XPUF_SLR_INDEX_0 = 0,
+	XPUF_SLR_INDEX_1,
+	XPUF_SLR_INDEX_2,
+	XPUF_SLR_INDEX_3
+} XPuf_GetSlrIndex;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #ifdef __cplusplus

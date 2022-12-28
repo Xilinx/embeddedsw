@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +58,7 @@
   *       har  03/04/22 Added comment to specify mode of libraries
   *       kpt  03/16/22 Removed IPI related code and added mailbox support
   *       kpt  04/08/22 Added comment on usage of shared memory
+  * 2.1   skg  12/14/22 Added SSIT Provisioning support
   *
   *@note
   *
@@ -150,6 +152,9 @@ static void XPuf_ShowPufSecCtrlBits(XNvm_ClientInstance *InstancePtr);
 static void XPuf_ShowData(const u8* Data, u32 Len);
 static int XPuf_FormatAesKey(const u8* Key, u8* FormattedKey, u32 KeyLen);
 static void XPuf_ReverseData(const u8 *OrgDataPtr, u8* SwapPtr, u32 Len);
+static int XNvm_SetSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex);
+static int XPuf_SetSlrIndex(XPuf_ClientInstance *InstancePtr, u32 SlrIndex);
+static int XSecure_SetSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex);
 
 #if (XPUF_WRITE_SEC_CTRL_BITS == TRUE)
 static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr);
@@ -186,6 +191,11 @@ int main(void)
 		goto END;
 	}
 
+    Status = XNvm_SetSlrIndex(&NvmClientInstance, SLR_INDEX);
+	if (Status != XST_SUCCESS) {
+			xil_printf("invalid SlrIndex \r\n");
+			goto END;
+	}
 	Status = XPuf_ValidateUserInput(&NvmClientInstance);
 	if (Status == XST_SUCCESS) {
 		xil_printf("Successfully validated user input %x\r\n", Status);
@@ -399,6 +409,11 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 		goto END;
 	}
 
+    Status = XPuf_SetSlrIndex(&PufClientInstance, SLR_INDEX);
+	if (Status != XST_SUCCESS) {
+			xil_printf("Invalid SlrIndex %x\r\n", Status);
+			goto END;
+	}
 	PufData.ShutterValue = XPUF_SHUTTER_VALUE;
 	PufData.PufOperation = XPUF_KEY_GENERATE_OPTION;
 	PufData.GlobalVarFilter = XPUF_GLBL_VAR_FLTR_OPTION;
@@ -549,6 +564,13 @@ static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr)
 		goto END;
 	}
 
+    Status = XSecure_SetSlrIndex(&SecureClientInstance, SLR_INDEX);
+	if (Status != XST_SUCCESS) {
+			xil_printf("Invalid SlrIndex %x\r\n", Status);
+			goto END;
+	}
+
+
 	if (Xil_Strnlen(XPUF_IV, (XPUF_IV_LEN_IN_BYTES * 2U)) ==
 		(XPUF_IV_LEN_IN_BYTES * 2U)) {
 		Status = Xil_ConvertStringToHexBE((const char *)(XPUF_IV), Iv,
@@ -649,6 +671,21 @@ static int XPuf_ProgramBlackKeynIV(XNvm_ClientInstance *InstancePtr)
 	u8 *FlashBlackKey = (u8*)(UINTPTR)((u8*)WriteData + Align(sizeof(XNvm_EfuseDataAddr)));
 	XPuf_WriteBlackKeyOption BlackKeyWriteOption =
 			(XPuf_WriteBlackKeyOption)XPUF_WRITE_BLACK_KEY_OPTION;
+
+    Status = Xil_SMemSet(WriteAesKeys, sizeof(XNvm_EfuseAesKeys), 0U, sizeof(XNvm_EfuseAesKeys));
+	if(Status != XST_SUCCESS){
+		goto END;
+	}
+
+	Status = Xil_SMemSet(WriteIvs, sizeof(XNvm_EfuseIvs), 0U, sizeof(XNvm_EfuseIvs));
+	if(Status != XST_SUCCESS){
+			goto END;
+	}
+
+	Status = Xil_SMemSet(WriteData, sizeof(XNvm_EfuseDataAddr), 0U, sizeof(XNvm_EfuseDataAddr));
+	if(Status != XST_SUCCESS){
+			goto END;
+	}
 
 	XPuf_ReverseData(FormattedBlackKey, FlashBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
 
@@ -960,4 +997,76 @@ static void XPuf_ShowData(const u8* Data, u32 Len)
 		xil_printf("%02x", Data[Index]);
 	}
 	xil_printf("\r\n");
+}
+/******************************************************************************/
+/**
+ * @brief	This function Inputs SlrIndex.
+ *
+ * @param  InstancePtr is a pointer to instance XNvm_ClientInstance
+ *
+ * @param   SlrId - Number for slrIndex
+ *
+ *@return	- XST_SUCCESS   - On valid input SlrIndex.
+ *		    - XST_FAILURE	- On invalid SlrIndex.
+ *
+ *******************************************************************************/
+int XNvm_SetSlrIndex(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)
+{
+	int Status = XST_FAILURE;
+
+	if((SlrIndex >= XPUF_SLR_INDEX_0) && (SlrIndex <= XPUF_SLR_INDEX_3)){
+		/**< Assigns SlrIndex to Instance pointer after checking valid SlrIndex*/
+		InstancePtr->SlrIndex = SlrIndex;
+	    Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+/******************************************************************************/
+/**
+ * @brief	This function Inputs SlrIndex.
+ *
+ * @param  InstancePtr is a pointer to instance XPuf_ClientInstance
+ *
+ * @param   SlrId - Number for slrIndex
+ *
+ *@return	- XST_SUCCESS   - On valid input SlrIndex.
+ *		    - XST_FAILURE	- On invalid SlrIndex.
+ *
+ *******************************************************************************/
+int XPuf_SetSlrIndex(XPuf_ClientInstance *InstancePtr, u32 SlrIndex)
+{
+	int Status = XST_FAILURE;
+
+	if((SlrIndex >= XPUF_SLR_INDEX_0) && (SlrIndex <= XPUF_SLR_INDEX_3)){
+		/**< Assigns SlrIndex to Instance pointer after checking valid SlrIndex*/
+		InstancePtr->SlrIndex = SlrIndex;
+	    Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+/******************************************************************************/
+/**
+ * @brief	This function Inputs SlrIndex..
+ *
+ * @param  InstancePtr is a pointer to instance XSecure_ClientInstance
+ *
+ * @param   SlrId - Number for slrId
+ *
+ *@return	- XST_SUCCESS - On valid input SlrIndex.
+ *		- XST_FAILURE	- On invalid SlrIndex.
+ *
+ *******************************************************************************/
+int XSecure_SetSlrIndex(XSecure_ClientInstance *InstancePtr, u32 SlrIndex)
+{
+	int Status = XST_FAILURE;
+
+	if((SlrIndex >= XPUF_SLR_INDEX_0) && (SlrIndex <= XPUF_SLR_INDEX_3)){
+		/**< Assigns SlrIndex to Instance pointer after checking valid SlrIndex*/
+		InstancePtr->SlrIndex = SlrIndex;
+	    Status = XST_SUCCESS;
+	}
+
+	return Status;
 }

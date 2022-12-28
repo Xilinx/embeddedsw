@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * 1.0   kpt  01/04/2022 Initial release
 *       bm   07/06/2022 Refactor versal and versal_net code
 * 2.1   skg  10/04/2022 Added NULL to hidden handler in Xplmi_module structure
+*       skg  12/14/2022 Added invalid command handler in Xplmi_module structure
 *
 * </pre>
 *
@@ -36,8 +38,10 @@
 #include "xpuf_ipihandler.h"
 #include "xpuf_defs.h"
 #include "xpuf_cmd.h"
+#include "xplmi_ssit.h"
 
 /************************** Function Prototypes ******************************/
+static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf);
 
 /************************** Constant Definitions *****************************/
 static XPlmi_ModuleCmd XPuf_Cmds[XPUF_API_MAX];
@@ -47,6 +51,7 @@ static XPlmi_Module XPlmi_Puf =
 	XPLMI_MODULE_XILPUF_ID,
 	XPuf_Cmds,
 	XPUF_API(XPUF_API_MAX),
+	XPuf_InvalidCmdHandler,
 	NULL,
 	NULL,
 #ifdef VERSAL_NET
@@ -59,7 +64,21 @@ static XPlmi_Module XPlmi_Puf =
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Definitions *****************************/
-
+/*****************************************************************************/
+/**
+ * @brief	This function calls the handler for invalid commands
+ *
+ * @param	Payload  payload data
+ * @param   RespBuf buffer to store response of slaves
+ *
+ * @return 	XST_SUCCESS		    on successful communication
+ * 		    error code      	On failure
+ *
+ *****************************************************************************/
+static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
+{
+	return XPlmi_SendIpiCmdToSlaveSlr(Payload, RespBuf);
+}
 /*****************************************************************************/
 /**
  * @brief	This function checks for the supported features based on the

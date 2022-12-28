@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -20,6 +21,7 @@
 *       am   02/28/22 Fixed MISRA C violation rule 10.3
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 2.1   skg  10/29/22 Added In Body comments
+*       skg  12/14/22 Added Slr index as part of payload
 *
 * </pre>
 *
@@ -31,6 +33,8 @@
 #include "xpuf_client.h"
 
 /************************** Constant Definitions *****************************/
+/**< Slr index shift constant*/
+#define XPUF_SLR_INDEX_SHIFT (6U)
 
 /**************************** Type Definitions *******************************/
 
@@ -62,6 +66,7 @@ int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const Mail
 	 */
 	if (InstancePtr != NULL) {
 			InstancePtr->MailboxPtr = MailboxPtr;
+			InstancePtr->SlrIndex = 0U;
 			Status = XST_SUCCESS;
 	}
 
@@ -92,7 +97,7 @@ int XPuf_Registration(XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
 		goto END;
 	}
 
-	Payload[0U] = PufHeader(0, (u32)XPUF_PUF_REGISTRATION);
+	Payload[0U] = PufHeader(0, (InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT) | XPUF_PUF_REGISTRATION);
 	Payload[1U] = (u32)DataAddr;
 	Payload[2U] = (u32)(DataAddr >> 32U);
 
@@ -135,7 +140,7 @@ int XPuf_Regeneration(XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
 		goto END;
 	}
 
-	Payload[0U] = PufHeader(0, (u32)XPUF_PUF_REGENERATION);
+	Payload[0U] = PufHeader(0, (InstancePtr->SlrIndex<< XPUF_SLR_INDEX_SHIFT) | XPUF_PUF_REGENERATION);
 	Payload[1U] = (u32)DataAddr;
 	Payload[2U] = (u32)(DataAddr >> 32U);
 
@@ -176,7 +181,7 @@ int XPuf_ClearPufID(XPuf_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	Payload[0U] = PufHeader(0, (u32)XPUF_PUF_CLEAR_PUF_ID);
+	Payload[0U] = PufHeader(0, (InstancePtr->SlrIndex<< XPUF_SLR_INDEX_SHIFT) | XPUF_PUF_CLEAR_PUF_ID);
 
     /**
 	 * @{ Send an IPI request to the PLM by using the XPuf_ClearPufID CDO command.
