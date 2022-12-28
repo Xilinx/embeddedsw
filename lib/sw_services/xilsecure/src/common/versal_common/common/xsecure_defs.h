@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +22,7 @@
 * 4.7   kpt  11/29/21 Added macro XSecure_DCacheFlushRange
 * 5.0   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Added XSecure_EccCrvClass
+* 5.1   skg  12/16/22 Added XSecure_AesAllParams
 *
 * </pre>
 * @note
@@ -125,6 +127,18 @@ typedef struct {
 	u32 Size;	/**< Length of input data*/
 	u32 IsLast;	/**< Flag to indicate last update of data*/
 } XSecure_AesInParams;
+
+typedef struct {
+	u64 IvAddr;	/**< IV address */
+	u64 InDataAddr;	/**< Address of input data*/
+	u64 OutDataAddr;
+	u64 GcmTagAddr;
+	u32 OperationId;/**< Operation type - Encrypt or decrypt */
+	u32 KeySrc;	/**< AES Key source */
+	u32 KeySize;	/**< Size of AES key*/
+	u32 Size;	/**< Length of input data*/
+	u32 IsLast;	/**< Flag to indicate last update of data*/
+} XSecure_AesDataBlockParams;
 
 typedef enum {
 	XSECURE_ENCRYPT,	/**< Encrypt operation */

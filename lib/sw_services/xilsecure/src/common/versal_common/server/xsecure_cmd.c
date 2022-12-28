@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 * 5.0   bm   07/06/2022 Refactor versal and versal_net code
 *       kpt  07/24/2022 Added XSecure_KatIpiHandler
 * 5.1   skg  10/04/2022 Added NULL to invalid hidden handler of xilsecure
+*       skg  12/16/2022 Added XSecure_InvalidCmdHandler to invalid cmd Handler
 * </pre>
 *
 * @note
@@ -46,9 +48,11 @@
 #include "xsecure_sha_ipihandler.h"
 #include "xsecure_kat_ipihandler.h"
 #include "xsecure_cmd.h"
+#include "xplmi_ssit.h"
 
 /************************** Function Prototypes ******************************/
 static int XSecure_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
+static int XSecure_InvalidCmdHandler(u32 *Payload, u32 *RespBuf);
 
 /************************** Constant Definitions *****************************/
 static XPlmi_Module XPlmi_Secure;
@@ -59,7 +63,7 @@ static XPlmi_Module XPlmi_Secure =
 	XPLMI_MODULE_XILSECURE_ID,
 	XSecure_Cmds,
 	XSECURE_API(XSECURE_API_MAX),
-	NULL,
+	XSecure_InvalidCmdHandler,
 	XSecure_CheckIpiAccess,
 #ifdef VERSAL_NET
 	NULL
@@ -71,6 +75,25 @@ static XPlmi_Module XPlmi_Secure =
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Definitions ******************************/
+
+/*****************************************************************************/
+/**
+ * @brief	This function calls the handler for invalid commands
+ *
+ *
+ * @param	Cmd	   is pointer to XPlmi_Cmd instance
+ *
+ * @param   RespBuf buffer to store response of slaves
+ *
+ * @return 	XST_SUCCESS		    on successful communication
+ * 		    error code      	On failure
+ *
+ *****************************************************************************/
+static int XSecure_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
+{
+	return XPlmi_SendIpiCmdToSlaveSlr(Payload, RespBuf);
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function checks if a particular Secure API ID is supported
@@ -109,6 +132,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 	case XSECURE_API(XSECURE_API_KAT):
+	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 #endif
 		Status = XST_SUCCESS;
 		break;
@@ -162,6 +186,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
+	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 		Status = XSecure_AesIpiHandler(Cmd);
 		break;
 #endif

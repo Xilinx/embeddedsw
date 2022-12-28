@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -99,11 +100,13 @@ END:
 * 	- XST_FAILURE	On failure
 *
 ******************************************************************************/
-int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr) {
+int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr)
+{
 	int Status = XST_FAILURE;
 
-	if (InstancePtr != NULL) {
+	if (InstancePtr != NULL){
 			InstancePtr->MailboxPtr = MailboxPtr;
+			InstancePtr->SlrIndex = 0U;
 			Status = XST_SUCCESS;
 	}
 

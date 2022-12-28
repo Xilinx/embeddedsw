@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -30,6 +31,7 @@
 * 5.0   kpt  07/24/22 Moved XSecure_AesDecryptKat and XSecure_AesDecryptCMKat
 *                     into XSecure_Katclient.c
 *       kpt  08/19/22 Added GMAC support
+* 5.1   skg  12/14/22 Added SSIT Provisioning support
 *
 * </pre>
 * @note
@@ -40,6 +42,7 @@
 #include "xsecure_aesclient.h"
 
 /************************** Constant Definitions *****************************/
+#define XSECURE_SLR_INDEX_SHIFT (6U)
 
 /**************************** Type Definitions *******************************/
 
@@ -69,7 +72,7 @@ int XSecure_AesInitialize(XSecure_ClientInstance *InstancePtr)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_INIT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_INIT);
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr ,Payload, sizeof(Payload)/sizeof(u32));
 
@@ -117,7 +120,7 @@ int XSecure_AesEncryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesInitOps));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_OP_INIT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_OP_INIT);
 	Payload[1U] = (u32)Buffer;
 	Payload[2U] = (u32)(Buffer >> 32U);
 
@@ -167,7 +170,7 @@ int XSecure_AesDecryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesInitOps));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_OP_INIT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_OP_INIT);
 	Payload[1U] = (u32)Buffer;
 	Payload[2U] = (u32)(Buffer >> 32U);
 
@@ -228,7 +231,7 @@ int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_UPDATE_AAD);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_UPDATE_AAD);
 	Payload[1U] = (u32)AadAddr;
 	Payload[2U] = (u32)(AadAddr >> 32U);
 	Payload[3U] = (u32)AadSize;
@@ -289,7 +292,7 @@ int XSecure_AesEncryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 	XSecure_DCacheFlushRange(EncInAddr, sizeof(XSecure_AesInParams));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_ENCRYPT_UPDATE);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_ENCRYPT_UPDATE);
 	Payload[1U] = (u32)SrcAddr;
 	Payload[2U] = (u32)(SrcAddr >> 32U);
 	Payload[3U] = (u32)(OutDataAddr);
@@ -326,7 +329,7 @@ int XSecure_AesEncryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_ENCRYPT_FINAL);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_ENCRYPT_FINAL);
 	Payload[1U] = (u32)GcmTagAddr;
 	Payload[2U] = (u32)(GcmTagAddr >> 32);
 
@@ -385,7 +388,7 @@ int XSecure_AesDecryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 	XSecure_DCacheFlushRange(DecInParams, sizeof(XSecure_AesInParams));
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_DECRYPT_UPDATE);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_DECRYPT_UPDATE);
 	Payload[1U] = (u32)SrcAddr;
 	Payload[2U] = (u32)(SrcAddr >> 32);
 	Payload[3U] = (u32)(OutDataAddr);
@@ -423,7 +426,7 @@ int XSecure_AesDecryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_DECRYPT_FINAL);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_DECRYPT_FINAL);
 	Payload[1U] = (u32)GcmTagAddr;
 	Payload[2U] = (u32)(GcmTagAddr >> 32);
 
@@ -457,7 +460,7 @@ int XSecure_AesKeyZero(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource
 		goto END;
 	}
 
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_KEY_ZERO);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_KEY_ZERO);
 	Payload[1U] = KeySrc;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
@@ -496,7 +499,7 @@ int XSecure_AesWriteKey(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySourc
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_WRITE_KEY);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_WRITE_KEY);
 	Payload[1U] = Size;
 	Payload[2U] = KeySrc;
 	Payload[3U] = (u32)KeyAddr;
@@ -546,7 +549,7 @@ int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr,
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_KEK_DECRYPT);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_KEK_DECRYPT);
 	Payload[1U] = (((u32)Size << 16) | ((u32)DstKeySrc << 8) | DecKeySrc);
 	Payload[2U] = (u32)IvAddr;
 	Payload[3U] = (u32)(IvAddr >> 32);
@@ -583,7 +586,7 @@ int XSecure_AesSetDpaCm(XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg)
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_AES_SET_DPA_CM);
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_SET_DPA_CM);
 	Payload[1U] = DpaCmCfg;
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
@@ -619,25 +622,45 @@ int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_AesDataBlockParams *AesParams = NULL;
+	u64 Buffer;
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptInit(InstancePtr, KeySrc, KeySize, IvAddr);
-	if (Status != XST_SUCCESS) {
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&AesParams);
+	if ((AesParams == NULL) || (MemSize < sizeof(XSecure_AesDataBlockParams))) {
 		goto END;
 	}
 
-	Status = XSecure_AesEncryptUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, TRUE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	/**<AES Init operation*/
+	AesParams->IvAddr = IvAddr;
+	AesParams->OperationId = (u32)XSECURE_ENCRYPT;
+	AesParams->KeySrc = (u32)KeySrc;
+	AesParams->KeySize = KeySize;
 
-	Status = XSecure_AesEncryptFinal(InstancePtr, GcmTagAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	/**<AES Encrypt Update*/
+	AesParams->InDataAddr = InDataAddr;
+	AesParams->Size = Size;
+	AesParams->IsLast = TRUE;
+	AesParams->OutDataAddr = OutDataAddr;
+
+	/**<AES Encrypt Final*/
+	AesParams->GcmTagAddr = GcmTagAddr;
+
+	Buffer = (u64)(UINTPTR)AesParams;
+
+	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesDataBlockParams));
+
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_PERFORM_OPERATION);
+	Payload[1U] = (u32)Buffer;
+	Payload[2U] = (u32)(Buffer >> 32U);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
@@ -670,25 +693,45 @@ int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	u64 InDataAddr, u64 OutDataAddr, u32 Size, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
+	XSecure_AesDataBlockParams *AesParams = NULL;
+	u64 Buffer;
+	u32 MemSize;
+	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptInit(InstancePtr, KeySrc, KeySize, IvAddr);
-	if (Status != XST_SUCCESS) {
+	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&AesParams);
+	if ((AesParams == NULL) || (MemSize < sizeof(XSecure_AesDataBlockParams))) {
 		goto END;
 	}
 
-	Status = XSecure_AesDecryptUpdate(InstancePtr, InDataAddr, OutDataAddr, Size, TRUE);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	/**<AES Decrypt Init operation*/
+	AesParams->IvAddr = IvAddr;
+	AesParams->OperationId = (u32)XSECURE_DECRYPT;
+	AesParams->KeySrc = (u32)KeySrc;
+	AesParams->KeySize = KeySize;
 
-	Status = XSecure_AesDecryptFinal(InstancePtr, GcmTagAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	/**<AES Decrypt Update*/
+	AesParams->InDataAddr = InDataAddr;
+	AesParams->Size = Size;
+	AesParams->IsLast = TRUE;
+	AesParams->OutDataAddr = OutDataAddr;
+
+	/**<AES Decrypt Final*/
+	AesParams->GcmTagAddr = GcmTagAddr;
+
+	Buffer = (u64)(UINTPTR)AesParams;
+
+	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesDataBlockParams));
+
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, (InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_AES_PERFORM_OPERATION);
+	Payload[1U] = (u32)Buffer;
+	Payload[2U] = (u32)(Buffer >> 32U);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;

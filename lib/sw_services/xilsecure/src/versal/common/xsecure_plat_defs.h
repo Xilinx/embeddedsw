@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +19,7 @@
 * 5.0   bm   07/06/22 Initial release
 *       kpt  07/24/22 Added XSECURE_API_KAT and additional KAT ids
 *       dc   08/26/22 Removed gaps between the API IDs
+* 5.1   skg  12/16/22 Added IPI commands for Encrypt/Decrypt Init,update,Final
 *
 * </pre>
 * @note
@@ -64,7 +66,9 @@ typedef enum {
 	XSECURE_API_AES_KEK_DECRYPT,		/**< 19U */
 	XSECURE_API_AES_SET_DPA_CM,		/**< 20U */
 	XSECURE_API_KAT,				/**< 21U */
-	XSECURE_API_MAX,			/**< 22U */
+	/**< 22U reserved for versal_net*/
+	XSECURE_API_AES_PERFORM_OPERATION = 23U, /**< 23U */
+	XSECURE_API_MAX,			/**< 24U */
 } XSecure_ApiId;
 
 typedef enum {

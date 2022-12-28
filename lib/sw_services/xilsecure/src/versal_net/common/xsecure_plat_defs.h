@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -65,7 +66,8 @@ typedef enum {
 	XSECURE_API_AES_SET_DPA_CM,		/**< 20U */
 	XSECURE_API_KAT,			/**< 21U */
 	XSECURE_API_TRNG_GENERATE,		/**< 22U */
-	XSECURE_API_MAX,			/**< 23U */
+	XSECURE_API_AES_PERFORM_OPERATION, /**< 23U */
+	XSECURE_API_MAX,			/**< 24U */
 } XSecure_ApiId;
 
 typedef enum {

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +33,7 @@
 * 5.0   kpt   07/24/2022 Moved XSecure_AesExecuteDecKat, XSecure_AesExecuteDecCMKat
 *                        into xsecure_kat_plat_ipihandler.c
 *       kpt   08/19/2022 Added GMAC support
+* 5.1   skg   12/16/2022 Added XSecure_AesEncrypt/DecryptInitUpdateFinal
 *
 * </pre>
 *
@@ -76,6 +78,8 @@ static int XSecure_AesKeyWrite(u8  KeySize, u8 KeySrc,
 	u32 KeyAddrLow, u32 KeyAddrHigh);
 static int XSecure_AesDecryptKek(u32 KeyInfo, u32 IvAddrLow, u32 IvAddrHigh);
 static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg);
+static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh);
+static int XSecure_IsKeySrcValid(u32 KeySrc);
 
 /*****************************************************************************/
 /**
@@ -129,6 +133,9 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 		Status = XSecure_AesSetDpaCmConfig((u8)Pload[0]);
+		break;
+	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
+		Status = XSecure_AesPerformOperation(Pload[0], Pload[1]);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -193,13 +200,8 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	if ((AesParams.KeySrc == (u32)XSECURE_AES_BBRAM_KEY) ||
-		(AesParams.KeySrc == (u32)XSECURE_AES_BBRAM_RED_KEY) ||
-		(AesParams.KeySrc == (u32)XSECURE_AES_EFUSE_KEY) ||
-		(AesParams.KeySrc == (u32)XSECURE_AES_EFUSE_RED_KEY) ||
-		(AesParams.KeySrc == (u32)XSECURE_AES_BH_KEY) ||
-		(AesParams.KeySrc == (u32)XSECURE_AES_BH_RED_KEY)) {
-		Status = (int)XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
+	Status = XSecure_IsKeySrcValid(AesParams.KeySrc);
+	if(Status != XST_SUCCESS){
 		goto END;
 	}
 
@@ -534,3 +536,113 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 END:
 	return Status;
 }
+/*****************************************************************************/
+/**
+ * @brief       This function handler calls XSecure_AesPerformOperation
+ *
+ *
+ * @param	SrcAddrLow	- Lower 32 bit address of the XSecure_AesDataBlockParams
+ * 				structure.
+ * 		SrcAddrHigh	- Higher 32 bit address of the XSecure_AesDataBlockParams
+ * 				structure.
+ *
+ * @return
+ *	-	XST_SUCCESS - If the initialization is successful
+ *	-	ErrorCode - If there is a failure
+ *
+ ******************************************************************************/
+static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
+	XSecure_AesDataBlockParams AesParams;
+	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
+	volatile u32 KatMask = 0U;
+
+	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSecure_IsKeySrcValid(AesParams.KeySrc);
+	if(Status != XST_SUCCESS){
+		goto END;
+	}
+
+	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
+		KatMask = XPLMI_SECURE_ENC_KAT_MASK;
+	}
+	else {
+		KatMask = XPLMI_SECURE_AES_DEC_KAT_MASK;
+	}
+
+	if (XPlmi_IsKatRan(KatMask) != TRUE) {
+		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+		goto END;
+	}
+
+
+	Status = XST_FAILURE;
+	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
+		/**<AES Encrypt Init*/
+		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
+				(XSecure_AesKeySrc)AesParams.KeySrc,
+				(XSecure_AesKeySize)AesParams.KeySize,
+				AesParams.IvAddr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/**<AES Decrypt Data*/
+		Status = XSecure_AesEncryptData(XSecureAesInstPtr, AesParams.InDataAddr,
+					AesParams.OutDataAddr, AesParams.Size, AesParams.GcmTagAddr);
+	}
+    else {
+		/**<AES Decrypt Init*/
+		Status = XSecure_AesDecryptInit(XSecureAesInstPtr,
+			(XSecure_AesKeySrc)AesParams.KeySrc,
+			(XSecure_AesKeySize)AesParams.KeySize,
+			AesParams.IvAddr);
+		if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
+		/**<AES Decrypt Data*/
+		Status = XSecure_AesDecryptData(XSecureAesInstPtr, AesParams.InDataAddr,
+					AesParams.OutDataAddr, AesParams.Size, AesParams.GcmTagAddr);
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function checks for valid KeySrc
+ *
+ *
+ * @param	KeySrc	- Aes key source
+ *
+ * @return
+ *	-	XST_SUCCESS - If KeySrc is Valid
+ *	-	XSECURE_AES_DEVICE_KEY_NOT_ALLOWED - If KeySrc is Invalid
+ *
+ ******************************************************************************/
+ static int XSecure_IsKeySrcValid(u32 KeySrc)
+ {
+	 int Status = XST_FAILURE;
+
+	 if ((KeySrc == (u32)XSECURE_AES_BBRAM_KEY) ||
+		(KeySrc == (u32)XSECURE_AES_BBRAM_RED_KEY) ||
+		(KeySrc == (u32)XSECURE_AES_EFUSE_KEY) ||
+		(KeySrc == (u32)XSECURE_AES_EFUSE_RED_KEY) ||
+		(KeySrc == (u32)XSECURE_AES_BH_KEY) ||
+		(KeySrc == (u32)XSECURE_AES_BH_RED_KEY)) {
+		Status = (int)XSECURE_AES_DEVICE_KEY_NOT_ALLOWED;
+	}
+	else{
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+ }
