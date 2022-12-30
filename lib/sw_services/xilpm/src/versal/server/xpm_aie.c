@@ -1704,7 +1704,7 @@ static XStatus Aie1_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 ColStart, u32
 		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
 
 		/* Set L2 controller NPI INTR */
-		AieWrite64(BaseAddress + AIE_NOC_MODULE_INTR_CTRL_L2_INTR_OFFSET, 2U);
+		AieWrite64(BaseAddress + AIE_NOC_MODULE_INTR_CTRL_L2_INTR_OFFSET, 1U);
 	}
 
 	/* Disable protect register */
@@ -2066,7 +2066,7 @@ static XStatus Aie2_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 ColStart, u32
 		BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, 0U);
 
 		/* Set L2 controller NPI INTR */
-		AieWrite64(BaseAddress + AIE2_NOC_MODULE_INTR_CTRL_L2_INTR_OFFSET, 2U);
+		AieWrite64(BaseAddress + AIE2_NOC_MODULE_INTR_CTRL_L2_INTR_OFFSET, 1U);
 	}
 
 	/* Disable privileged write access */
