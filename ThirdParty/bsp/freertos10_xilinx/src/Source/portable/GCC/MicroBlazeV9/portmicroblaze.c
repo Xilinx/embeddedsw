@@ -2,6 +2,7 @@
  * FreeRTOS Kernel V10.4.6
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2012 - 2022 Xilinx, Inc. All rights reserved.
+ * Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -307,6 +308,9 @@ volatile char *pcOverflowingTaskName = pcTaskName;
 void vApplicationSetupTimerInterrupt( void )
 {
 	extern void vPortTickISR( void *pvUnused , u32 TmrCtrNumber);
+	/* Limit the configTICK_RATE_HZ to 1000 if user configured greater than 1000 */
+	uint32_t Tick_Rate = (configTICK_RATE_HZ > 1000) ? 1000 : configTICK_RATE_HZ;
+
 	/*
 	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
 	 * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
@@ -316,12 +320,12 @@ void vApplicationSetupTimerInterrupt( void )
 	/* XTimer_SetInterval() API expects delay in milli seconds
          * Convert the user provided tick rate to milli seconds.
          */
-	XTimer_SetInterval((configTICK_RATE_HZ * 10)/10);
+	XTimer_SetInterval(XTIMER_DELAY_MSEC/(Tick_Rate * 10));
 #else
 	/* XTimer_SetInterval() API expects delay in milli seconds
          * Convert the user provided tick rate to milli seconds.
          */
-	XTimer_SetInterval(configTICK_RATE_HZ/10);
+	XTimer_SetInterval(XTIMER_DELAY_MSEC/Tick_Rate);
 #endif
 	XTimer_SetHandler(vPortTickISR, 0, XINTERRUPT_DEFAULT_PRIORITY);
 }
