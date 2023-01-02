@@ -60,6 +60,7 @@
 * 1.09  har  11/17/2022 Removed macros for bh_auth attribute in Bootheader
 *       ng   11/23/2022 Added macros to replace magic numbers in
 *                       XilPdi_ValidateChecksum
+*       ng   01/02/2023 Added macros to detect IDCodeCheck disable bits in IHT
 *
 * </pre>
 *
@@ -145,6 +146,7 @@ extern "C" {
 #define XIH_IHT_ATTR_DPA_CM_MASK		(0x3000U)
 #define XIH_IHT_ATTR_DPA_CM_SHIFT		(12U)
 #define XIH_IHT_ATTR_BYPS_MASK				(0x1U) /**< IDCODE checks bypass */
+#define XIH_IHT_ATTR_BYPS_ID_CODE_MASK  (0x30000U) /**< Check [17:16] bits to bypass ID Code*/
 
 #define XIH_IHT_EXT_IDCODE_MASK			(0x3FU)
 

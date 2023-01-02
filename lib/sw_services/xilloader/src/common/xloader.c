@@ -139,11 +139,11 @@
 *       dc   07/20/2022 Added Data measurement, supports only for Versal Net
 *       dc   07/27/2022 Added goto END in error case for header failures
 *       ma   08/08/2022 Check EAM errors between each image load
-*       ng   18/08/2022 Modified DelayedHandoffCpus condition to handle all possible values
+*       ng   08/18/2022 Modified DelayedHandoffCpus condition to handle all possible values
 * 1.07  sk   11/22/2022 Added Subsystems ValidHeader member variable init to
 *                       XLoader_Init function to handle in-place update scenerio
 *       ng   11/23/2022 Updated doxygen comments
-*
+*       ng   01/02/2023 Check to bypass entire ID Code Check
 * </pre>
 *
 * @note
@@ -1560,6 +1560,13 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	u8 BypassChkIHT; /**< Flag to bypass checks */
 	u8 IsVC1902Es1; /**< Flag to indicate IsVC1902-ES1 device */
 	u8 IsExtIdCodeZero; /**< Flag to indicate Extended IdCode is valid */
+
+	/** check to bypass entire ID Code Check */
+	if ((ImgHdrTbl->Attr & XIH_IHT_ATTR_BYPS_ID_CODE_MASK)
+					== XIH_IHT_ATTR_BYPS_ID_CODE_MASK) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
 	/**
 	 * Read IdCode and extended Id Code from the image header table and
