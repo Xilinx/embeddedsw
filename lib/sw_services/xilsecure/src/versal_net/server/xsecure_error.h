@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +33,7 @@
  *       ma   07/08/2022 Added support for secure lockdown
  *       dc   07/13/2022 Added error codes for VersalNet
  *       kpt  07/24/2022 Added error codes for KAT
+ * 5.1   har  01/02/2023 Added error code for SHA 2
  *
  * </pre>
  *
@@ -71,6 +73,8 @@ typedef enum {
 	XSECURE_SSS_INVALID_PARAM,		/**< 0x09 - Invalid Argument */
 
 	XSECURE_SHA3_STATE_MISMATCH_ERROR,	/**< 0x0A - State mismatch */
+
+	XSECURE_SHA384_INVALID_PARAM,		/**< 0x0B - Invalid Param for SHA2 digest calculation*/
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */

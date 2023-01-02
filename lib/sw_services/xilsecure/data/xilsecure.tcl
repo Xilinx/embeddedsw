@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -113,6 +114,8 @@ proc secure_drc {libhandle} {
 						file delete -force ./src/xsecure_trng_ipihandler.h
 						file delete -force ./src/xsecure_plat_kat_ipihandler.c
 						file delete -force ./src/xsecure_plat_kat_ipihandler.h
+						file delete -force ./src/xsecure_sha384.c
+						file delete -force ./src/xsecure_sha384.h
 					}
 				}
 			}
