@@ -1,7 +1,7 @@
 /******************************************************************************/
 /**
 * Copyright (c) 2019 - 2022  Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,6 +58,7 @@
 *			  API from u32 to UINTPTR for supporting 64 bit addressing.
 * 8.1  sa        10/20/22 Change the type of first argument passed to Xil_WaitForEvents
 *                         API from u32 to UINTPTR for supporting 64 bit addressing.
+* 8.1  akm       01/02/23 Added Xil_RegisterPlmHandler() & Xil_PlmStubHandler() APIs.
 * </pre>
 *
 *****************************************************************************/
@@ -146,6 +147,14 @@ u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num);
 
 /* Convert input hex string to array of 32-bits integers */
 u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u8 Len);
+
+#ifdef VERSAL_PLM
+/* Register PLM handler */
+void Xil_RegisterPlmHandler(void (*PlmAlive) (void));
+
+/* Call PLM handler */
+void Xil_PlmStubHandler(void);
+#endif
 
 /* Waits for specified event */
 u32 Xil_WaitForEvent(UINTPTR RegAddr, u32 EventMask, u32 Event, u32 Timeout);

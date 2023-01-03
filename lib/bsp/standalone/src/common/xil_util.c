@@ -1,7 +1,7 @@
 /******************************************************************************/
 /**
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -84,6 +84,7 @@
 *			  API from u32 to UINTPTR for supporting 64 bit addressing.
 * 8.1   sa       10/20/22 Change the type of first argument passed to Xil_WaitForEvents
 *                         API from u32 to UINTPTR for supporting 64 bit addressing.
+* 8.1   akm      01/02/23 Added Xil_RegisterPlmHandler() & Xil_PlmStubHandler() APIs.
 * </pre>
 *
 *****************************************************************************/
@@ -96,6 +97,7 @@
 #define MAX_NIBBLES			8U
 
 /************************** Function Prototypes *****************************/
+void (*fptr)(void) = NULL;
 
 #ifdef __ARMCC_VERSION
 /******************************************************************************/
@@ -234,6 +236,36 @@ END:
 	return Status;
 }
 
+#ifdef VERSAL_PLM
+/****************************************************************************/
+/*
+ * Register PLM Alive Handler.
+ *
+ * @param   PlmAlive	- Pointer to PlmAlive API.
+ *
+ * @return    None.
+ *
+ *****************************************************************************/
+void Xil_RegisterPlmHandler(void (*PlmAlive) (void)) {
+	fptr = PlmAlive;
+}
+
+/****************************************************************************/
+/*
+ * PLM Stub Handler called while waiting for event.
+ *
+ * @param   None.
+ *
+ * @return    None.
+ *
+ *****************************************************************************/
+void Xil_PlmStubHandler(void) {
+	if (fptr != NULL) {
+		fptr();
+	}
+}
+#endif
+
 /****************************************************************************/
 /*
  * Waits for the event
@@ -263,6 +295,9 @@ u32 Xil_WaitForEvent(UINTPTR RegAddr, u32 EventMask, u32 Event, u32 Timeout)
 			break;
 		}
 		PollCount--;
+#ifdef VERSAL_PLM
+		Xil_PlmStubHandler();
+#endif
 		usleep(1U);
 	}
 
@@ -304,6 +339,9 @@ u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 			break;
 		}
 		PollCount--;
+#ifdef VERSAL_PLM
+		Xil_PlmStubHandler();
+#endif
 		usleep(1U);
 	}
 	while(PollCount > 0U);
@@ -1281,6 +1319,9 @@ u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, .
 				break;
 			}
 			PollCount--;
+#ifdef VERSAL_PLM
+			Xil_PlmStubHandler();
+#endif
 			usleep(1U);
 		}
 		if (PollCount == 0U) {
