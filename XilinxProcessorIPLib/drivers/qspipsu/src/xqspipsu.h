@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -170,6 +170,7 @@
  * 1.14 akm 08/12/21 Perform Dcache invalidate at the end of the DMA transfer.
  * 1.17 akm 10/31/22 Add support for Winbond flash w25q02nw.
  * 1.17 akm 12/16/22 Add timeout in QSPIPSU driver operation.
+ * 1.17 akm 01/02/23 Use Xil_WaitForEvent() API for register bit polling.
  *
  * </pre>
  *
@@ -188,6 +189,7 @@ extern "C" {
 #include "xqspipsu_hw.h"
 #include "xil_cache.h"
 #include "xil_mem.h"
+#include "xil_util.h"
 #if defined  (XCLOCKING)
 #include "xil_clocking.h"
 #endif
