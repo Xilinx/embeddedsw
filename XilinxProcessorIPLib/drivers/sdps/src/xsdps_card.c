@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,7 +34,7 @@
 *       sk     04/07/22 Add support to read custom tap delay values from design
 *                       for SD/eMMC.
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
-*
+* 4.1   sa     01/03/23	Report error if Transfer size is greater than 2MB.
 * </pre>
 *
 ******************************************************************************/
@@ -70,6 +70,13 @@
 s32 XSdPs_Read(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 {
 	s32 Status;
+
+	if ((BlkCnt * InstancePtr->BlkSize) > (32U * XSDPS_DESC_MAX_LENGTH)) {
+#ifdef XSDPS_DEBUG
+		xil_printf("Max transfer length supported is 2MB\n");
+#endif
+		return XST_FAILURE;
+	}
 
 	XSdPs_SetupReadDma(InstancePtr, (u16)BlkCnt, (u16)InstancePtr->BlkSize, Buff);
 
@@ -110,6 +117,13 @@ s32 XSdPs_Read(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 s32 XSdPs_Write(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 {
 	s32 Status;
+
+	if ((BlkCnt * InstancePtr->BlkSize) > (32U * XSDPS_DESC_MAX_LENGTH)) {
+#ifdef XSDPS_DEBUG
+		xil_printf("Max transfer length supported is 2MB\n");
+#endif
+		return XST_FAILURE;
+        }
 
 	XSdPs_SetupWriteDma(InstancePtr, (u16)BlkCnt, (u16)InstancePtr->BlkSize, Buff);
 

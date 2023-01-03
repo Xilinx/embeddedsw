@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -158,6 +158,7 @@
 *                       for SD/eMMC.
 *       sk     06/03/22 Fix issue in internal clock divider calculation logic.
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
+* 4.1   sa     01/03/23 Report error if Transfer size is greater than 2MB.
 *
 * </pre>
 *
