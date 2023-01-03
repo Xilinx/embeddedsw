@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.2   sk  02/20/20 First release
 * 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.8   sk   11/29/22 Added support for Indirect Non-Dma write.
+* 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 *
 * </pre>
 *
@@ -35,7 +36,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xospipsv.h"
-
+#include "xil_util.h"
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

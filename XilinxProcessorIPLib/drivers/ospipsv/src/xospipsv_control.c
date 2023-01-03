@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *       sk   02/18/21 Updated RX Tuning algorithm for Master DLL mode.
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.8   sk   11/29/22 Added support for Indirect Non-Dma write.
+* 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 *
 * </pre>
 *
@@ -401,24 +402,14 @@ u32 XOspiPsv_ConfigureTaps(const XOspiPsv *InstancePtr, u32 RxTap, u32 TxTap)
 ******************************************************************************/
 u32 XOspiPsv_CheckOspiIdle(const XOspiPsv *InstancePtr)
 {
-	u32 ReadReg;
 	u32 Status;
-	u32 DelayCount;
 
-	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_CONFIG_REG);
-	DelayCount = 0U;
-	while ((ReadReg & XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK) == 0U) {
-		if (DelayCount == MAX_DELAY_CNT) {
-			Status = XST_FAILURE;
-			goto ERROR_PATH;
-		} else {
-			/* Wait for 1 usec */
-			usleep(1);
-			DelayCount++;
-			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_CONFIG_REG);
-		}
+	if (Xil_WaitForEvent((InstancePtr->Config.BaseAddress + XOSPIPSV_CONFIG_REG),
+				XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK,
+				XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK,
+				MAX_DELAY_CNT) != (u32)XST_SUCCESS) {
+		Status = (s32)XST_FAILURE;
+		goto ERROR_PATH;
 	}
 
 	Status = (u32)XST_SUCCESS;
@@ -442,7 +433,6 @@ u32 XOspiPsv_IDac_Write(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 {
 	u32 ReadReg;
 	u32 Status;
-	u32 DelayCount;
 	u32 *Addr = (u32 *)XOSPIPSV_IND_TRIGGAHB_BASE;
 
 	/* SRAM Partition configuration for write transfer */
@@ -475,20 +465,12 @@ u32 XOspiPsv_IDac_Write(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 
 	Xil_MemCpy(Addr, Msg->TxBfrPtr, Msg->ByteCount);
 
-	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG);
-	DelayCount = 0U;
-	while((ReadReg & XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK) == 0U) {
-		if (DelayCount == MAX_IDAC_DELAY_CNT) {
-			Status = (u32)XST_FAILURE;
-			goto ERROR_PATH;
-		} else {
-			/* Wait for 1 usec */
-			usleep(1);
-			DelayCount++;
-			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG);
-		}
+	if (Xil_WaitForEvent((InstancePtr->Config.BaseAddress + XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG),
+				XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK,
+				XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK,
+				MAX_IDAC_DELAY_CNT) != (u32)XST_SUCCESS) {
+		Status = (s32)XST_FAILURE;
+		goto ERROR_PATH;
 	}
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,

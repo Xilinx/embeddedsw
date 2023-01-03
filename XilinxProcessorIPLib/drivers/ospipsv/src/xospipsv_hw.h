@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.0   nsk  02/19/18 First release
 *       sk   02/04/19 Added support for SDR+PHY and DDR+PHY modes.
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
+* 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 *
 * </pre>
 *

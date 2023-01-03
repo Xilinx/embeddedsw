@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *       sk  08/19/20 Reduced the usleep delay while checking transfer done.
 * 1.4   sk   02/18/21 Added support for Dual byte opcode.
 * 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
+* 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 *
 * </pre>
 *
@@ -126,7 +127,6 @@ u32 XOspiPsv_Exec_Flash_Cmd(const XOspiPsv *InstancePtr)
 {
 	u32 Cmd_ctrl;
 	u32 Status;
-	u32 DelayCount;
 
 	Cmd_ctrl = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_FLASH_CMD_CTRL_REG);
@@ -134,21 +134,12 @@ u32 XOspiPsv_Exec_Flash_Cmd(const XOspiPsv *InstancePtr)
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 		XOSPIPSV_FLASH_CMD_CTRL_REG, Cmd_ctrl);
 
-	Cmd_ctrl = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-		XOSPIPSV_FLASH_CMD_CTRL_REG);
-	DelayCount = 0U;
-	while ((Cmd_ctrl & XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_STATUS_FLD_MASK)
-		!= 0U) {
-		if (DelayCount == MAX_STIG_DELAY_CNT) {
-			Status = (u32)XST_FAILURE;
-			goto ERROR_PATH;
-		} else {
-			/* Wait for 1 usec */
-			usleep(1);
-			DelayCount++;
-			Cmd_ctrl = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-						XOSPIPSV_FLASH_CMD_CTRL_REG);
-		}
+	if (Xil_WaitForEvent((InstancePtr->Config.BaseAddress + XOSPIPSV_FLASH_CMD_CTRL_REG),
+				XOSPIPSV_FLASH_CMD_CTRL_REG_CMD_EXEC_STATUS_FLD_MASK,
+				0x00,
+				MAX_STIG_DELAY_CNT) != (u32)XST_SUCCESS) {
+		Status = (s32)XST_FAILURE;
+		goto ERROR_PATH;
 	}
 	Status = (u32)XST_SUCCESS;
 
@@ -585,7 +576,6 @@ u32 XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr)
 {
 	u32 ReadReg;
 	u32 Status;
-	u32 DelayCount;
 
 	/* Start the transfer */
 	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
@@ -595,21 +585,13 @@ u32 XOspiPsv_Exec_Dma(const XOspiPsv *InstancePtr)
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
 			XOSPIPSV_INDIRECT_READ_XFER_CTRL_REG, (ReadReg));
 
-	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-				XOSPIPSV_OSPIDMA_DST_I_STS);
 	/* Wait for max delay of 10sec to complete the transfer */
-	DelayCount = 0U;
-	while((ReadReg & XOSPIPSV_OSPIDMA_DST_I_STS_DONE_MASK) == 0U) {
-		if (DelayCount == MAX_DMA_DELAY_CNT) {
-			Status = (u32)XST_FAILURE;
-			goto ERROR_PATH;
-		} else {
-			/* Wait for 1 usec */
-			usleep(1);
-			DelayCount++;
-			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-								XOSPIPSV_OSPIDMA_DST_I_STS);
-		}
+	if (Xil_WaitForEvent((InstancePtr->Config.BaseAddress + XOSPIPSV_OSPIDMA_DST_I_STS),
+				XOSPIPSV_OSPIDMA_DST_I_STS_DONE_MASK,
+				XOSPIPSV_OSPIDMA_DST_I_STS_DONE_MASK,
+				MAX_DMA_DELAY_CNT) != (u32)XST_SUCCESS) {
+		Status = (s32)XST_FAILURE;
+		goto ERROR_PATH;
 	}
 
 	XOspiPsv_WriteReg(InstancePtr->Config.BaseAddress,
@@ -643,24 +625,14 @@ ERROR_PATH:
 ******************************************************************************/
 u32 XOspiPsv_WaitForLock(const XOspiPsv *InstancePtr, u32 Mask)
 {
-	u32 ReadReg;
 	u32 Status;
-	u32 DelayCount;
 
-	ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-			XOSPIPSV_DLL_OBSERVABLE_LOWER_REG);
-	DelayCount = 0U;
-	while ((ReadReg & Mask) == 0U) {
-		if (DelayCount == LOCK_MAX_DELAY_CNT) {
-			Status = XST_FAILURE;
-			goto ERROR_PATH;
-		} else {
-			/* Wait for 1 usec */
-			usleep(1);
-			DelayCount++;
-			ReadReg = XOspiPsv_ReadReg(InstancePtr->Config.BaseAddress,
-					XOSPIPSV_DLL_OBSERVABLE_LOWER_REG);
-		}
+	if (Xil_WaitForEvent((InstancePtr->Config.BaseAddress + XOSPIPSV_DLL_OBSERVABLE_LOWER_REG),
+				Mask,
+				Mask,
+				LOCK_MAX_DELAY_CNT) != (u32)XST_SUCCESS) {
+		Status = (s32)XST_FAILURE;
+		goto ERROR_PATH;
 	}
 
 	Status = (u32)XST_SUCCESS;
