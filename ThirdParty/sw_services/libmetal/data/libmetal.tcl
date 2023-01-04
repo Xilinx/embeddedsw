@@ -1,5 +1,6 @@
 ###############################################################################
-# Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -45,7 +46,7 @@ proc generate {libhandle} {
 	set toolchain_cmake "toolchain"
 	set fd [open "src/libmetal/cmake/platforms/${toolchain_cmake}.cmake" w]
 
-	if { "${proc_type}" == "psu_cortexr5" || "${proc_type}" == "psv_cortexr5"} {
+	if { "${proc_type}" == "psu_cortexr5" || "${proc_type}" == "psv_cortexr5" || "${proc_type}" == "psx_cortexr52" || "${proc_type}" == "psxl_cortexr52" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynqmp_r5\")"
 	} elseif { "${proc_type}" == "psu_cortexa53" } {

@@ -1,5 +1,6 @@
 #/******************************************************************************
-#* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+#** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -82,8 +83,9 @@ proc swapp_is_supported_hw {} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
 
-    if { ($proc_type != "psu_cortexr5") && ($proc_type != "psv_cortexr5") } {
-        error "This application is supported only for Cortex-R5 processors."
+    if { ($proc_type != "psu_cortexr5") && ($proc_type != "psv_cortexr5") &&
+    ( $proc_type != "psxl_cortexr52" ) && ( $proc_type != "psx_cortexr52" ) } {
+        error "This application is supported only for Cortex-R5 and Cortex-R52 processors."
     }
 
     check_stdout_hw
@@ -158,7 +160,7 @@ proc swapp_generate {} {
         error "Invalid OS: $os"
     }
 
-    if { ($proc_type == "psu_cortexr5") || ($proc_type == "psv_cortexr5")} {
+    if { $proc_type == "psu_cortexr5" || $proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52" } {
         set procdir "zynqmp_r5"
     } else {
         error "Invalid processor type: $proc_type"
@@ -191,7 +193,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "psu_cortexr5 psv_cortexr5"
+    return "psu_cortexr5 psv_cortexr5 psxl_cortexr52 psx_cortexr52"
 }
 
 proc swapp_get_supported_os {} {

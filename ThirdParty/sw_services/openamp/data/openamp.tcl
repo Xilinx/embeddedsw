@@ -1,5 +1,6 @@
 ###############################################################################
-# Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -18,7 +19,9 @@ proc openamp_drc {libhandle} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
-    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) && ( $proc_type != "psv_cortexr5" )} {
+    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) && ( $proc_type != "psv_cortexr5" ) &&
+         ( $proc_type != "psx_cortexr52" ) && ( $proc_type != "psxl_cortexr52" )    } {
+
                 error "ERROR: This library is supported only for CortexR5 and CortexA9 processors."
                 return
     }
@@ -79,7 +82,7 @@ proc generate {libhandle} {
 	set toolchain_cmake "toolchain"
 	set fd [open "src/open-amp/cmake/platforms/${toolchain_cmake}.cmake" w]
 
-	if { "${proc_type}" == "psu_cortexr5" || "${proc_type}" == "psv_cortexr5"} {
+        if { "${proc_type}" == "psu_cortexr5" || "${proc_type}" == "psv_cortexr5" || "${proc_type}" == "psx_cortexr52" || "${proc_type}" == "psxl_cortexr52" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynqmp_r5\")"
 	} elseif { "${proc_type}" == "ps7_cortexa9" } {
