@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,8 @@
 * 7.00  mus  01/07/19 Add cpp extern macro
 * 7.1   aru  08/19/19 Shift the value in UPPER_32_BITS only if it
 *                     is 64-bit processor
+* 8.1    dp  12/23/22 Updated UINTPTR and INTPTR to point to 64bit data types
+*                     incase of microblaze 32-bit with extended address enabled
 * </pre>
 *
 ******************************************************************************/
@@ -42,6 +45,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <stddef.h>
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -123,8 +127,15 @@ typedef int64_t s64;
 typedef uint64_t u64;
 typedef int sint32;
 
-typedef intptr_t INTPTR;
+#if defined(__MICROBLAZE__) && !defined(__arch64__) && \
+    (XPAR_MICROBLAZE_ADDR_SIZE > 32)
+typedef uint64_t UINTPTR;
+typedef int64_t INTPTR;
+#else
 typedef uintptr_t UINTPTR;
+typedef intptr_t INTPTR;
+#endif
+
 typedef ptrdiff_t PTRDIFF;
 /** @}*/
 #if !defined(LONG) || !defined(ULONG)
