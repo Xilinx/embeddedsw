@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -10,7 +11,7 @@
 struct memory_range_s {
     char8 *name;
     char8 *ip;
-    u64 base;
+    UINTPTR base;
     u32 size;
 };
 
