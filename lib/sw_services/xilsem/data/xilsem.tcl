@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -15,7 +15,8 @@
 # 1.05  rb   03/16/21 Created server directory and handling
 # 1.06  rb   03/16/21 Created R5 client directory and handling
 # 1.07	hv   06/06/22 Added support for P80
-# 1.08  gm   22/11/22 Added support for A72
+# 1.08  gm   11/22/22 Added support for A72
+# 1.09	hv   11/16/22 Added support for PL microblaze
 ##############################################################################
 
 #---------------------------------------------
@@ -46,11 +47,13 @@ proc generate {libhandle} {
 		"psv_cortexr5" -
 		"psxl_cortexr52" -
 		"psx_cortexr52" -
-                "psu_cortexa72" -
-                "psv_cortexa72" {
+        "psu_cortexa72" -
+        "psv_cortexa72" {
 			copy_files_to_src $client_dir
 		}
-
+		"microblaze" {
+			copy_files_to_src $client_dir
+		}
 		"default"  {error "Error: Processor type $proctype is not supported\n"}
 	}
 }

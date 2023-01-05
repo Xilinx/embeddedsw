@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -15,7 +15,8 @@
 # 1.05  rb   03-17-21 Adds psv_cortexr5 in supported peripherals
 # 1.06  hb   07-14-21 Uprev library to v1.4.
 # 1.07	hv   10-27-21 Uprev library to v1.5.
-# 1.08  gm   22-11-22 Added support for A72 and Uprev library to v1.7
+# 1.08  gm   11-22-22 Added support for A72 and Uprev library to v1.7
+# 1.09	hv   11-16-22 Adds PL microblaze in supported peripherals
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -24,7 +25,7 @@ BEGIN LIBRARY xilsem
   OPTION drc = sem_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone);
-  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psxl_pmc psx_pmc psv_cortexr5 psxl_cortexr52 psx_cortexr52 psu_cortexa72 psv_cortexa72);
+  OPTION SUPPORTED_PERIPHERALS = (psu_pmc psv_pmc psxl_pmc psx_pmc psv_cortexr5 psxl_cortexr52 psx_cortexr52 psu_cortexa72 psv_cortexa72 microblaze);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsem,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Soft Error Mitigation Library";
   OPTION VERSION = 1.7;
