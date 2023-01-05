@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -343,7 +344,7 @@ void XFsbl_PrintFsblBanner(void )
 #if !defined(XFSBL_PERF) || defined(FSBL_DEBUG) || defined(FSBL_DEBUG_INFO) \
 			|| defined(FSBL_DEBUG_DETAILED)
 	XFsbl_Printf(DEBUG_PRINT_ALWAYS,
-                 "Xilinx Zynq MP First Stage Boot Loader \n\r");
+                 "Zynq MP First Stage Boot Loader \n\r");
 	XFsbl_Printf(DEBUG_PRINT_ALWAYS,
                  "Release %d.%d   %s  -  %s\r\n",
                  SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER,__DATE__,__TIME__);
