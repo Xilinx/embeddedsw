@@ -51,6 +51,10 @@
 #include "lwipopts.h"
 #include "lwip/debug.h"
 
+#ifdef __MICROBLAZE__
+#include "mb_interface.h"
+#endif
+
 /**
  * @defgroup lwip_opts Options (lwipopts.h)
  * @ingroup lwip
@@ -2791,7 +2795,7 @@
  *         the first 'opt1len' bytes and the rest starts at 'opt2'. opt2len can
  *         be simply calculated: 'opt2len = optlen - opt1len;'
  * - p: input packet, p->payload points to application data (that's why tcp hdr
- *      and options are passed in seperately)
+ *      and options are passed in separately)
  * Return value:
  * - ERR_OK: continue input of this packet as normal
  * - != ERR_OK: drop this packet for input (don't continue input processing)

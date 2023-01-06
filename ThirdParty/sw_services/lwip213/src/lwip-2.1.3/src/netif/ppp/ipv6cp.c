@@ -913,7 +913,7 @@ static int ipv6cp_reqci(fsm *f, u_char *inp, int *len, int reject_if_disagree) {
     next = inp;
     while (l) {
 	orc = CONFACK;			/* Assume success */
-	cip = p = next;			/* Remember begining of CI */
+	cip = p = next;			/* Remember beginning of CI */
 	if (l < 2 ||			/* Not enough data for CI header or */
 	    p[1] < 2 ||			/*  CI length too small or */
 	    p[1] > l) {			/*  CI length too big? */
@@ -1006,7 +1006,7 @@ endswitch:
 	IPV6CPDEBUG((" (%s)\n", CODENAME(orc)));
 
 	if (orc == CONFACK &&		/* Good CI */
-	    rc != CONFACK)		/*  but prior CI wasnt? */
+	    rc != CONFACK)		/*  but prior CI wasn't? */
 	    continue;			/* Don't send this one */
 
 	if (orc == CONFNAK) {		/* Nak this CI? */

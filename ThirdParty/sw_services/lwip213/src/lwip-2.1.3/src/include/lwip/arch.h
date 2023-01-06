@@ -74,7 +74,7 @@
 
 /** Platform specific diagnostic output.\n
  * Note the default implementation pulls in printf, which may
- * in turn pull in a lot of standard libary code. In resource-constrained
+ * in turn pull in a lot of standard library code. In resource-constrained
  * systems, this should be defined to something less resource-consuming.
  */
 #ifndef LWIP_PLATFORM_DIAG
@@ -85,7 +85,7 @@
 
 /** Platform specific assertion handling.\n
  * Note the default implementation pulls in printf, fflush and abort, which may
- * in turn pull in a lot of standard libary code. In resource-constrained
+ * in turn pull in a lot of standard library code. In resource-constrained
  * systems, this should be defined to something less resource-consuming.
  */
 #ifndef LWIP_PLATFORM_ASSERT
@@ -199,8 +199,8 @@ typedef uintptr_t mem_ptr_t;
 #include <unistd.h>
 #endif
 #else /* SSIZE_MAX */
-typedef int ssize_t;
-#define SSIZE_MAX INT_MAX
+//typedef int ssize_t;
+#define SSIZE_MAX LONG_MAX
 #endif /* SSIZE_MAX */
 
 /* some maximum values needed in lwip code */

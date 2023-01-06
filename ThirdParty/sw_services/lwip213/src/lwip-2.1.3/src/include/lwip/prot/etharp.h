@@ -99,6 +99,19 @@ PACK_STRUCT_END
 #  include "arch/epstruct.h"
 #endif
 
+#ifdef PACK_STRUCT_USE_INCLUDES
+#  include "arch/bpstruct.h"
+#endif
+PACK_STRUCT_BEGIN
+struct ethip_hdr {
+  PACK_STRUCT_FIELD(struct eth_hdr eth);
+  PACK_STRUCT_FIELD(struct ip_hdr ip);
+} PACK_STRUCT_STRUCT;
+PACK_STRUCT_END
+
+#ifdef PACK_STRUCT_USE_INCLUDES
+#  include "arch/epstruct.h"
+#endif
 #define SIZEOF_ETHARP_HDR 28
 
 /* ARP message types (opcodes) */

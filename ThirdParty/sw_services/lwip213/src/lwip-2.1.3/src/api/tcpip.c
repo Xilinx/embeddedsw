@@ -570,6 +570,7 @@ tcpip_callbackmsg_trycallback(struct tcpip_callback_msg *msg)
   return sys_mbox_trypost(&tcpip_mbox, msg);
 }
 
+#if LWIP_XMBOX
 /**
  * @ingroup lwip_os
  * Try to post a callback-message to the tcpip_thread mbox.
@@ -588,6 +589,7 @@ tcpip_callbackmsg_trycallback_fromisr(struct tcpip_callback_msg *msg)
   LWIP_ASSERT("Invalid mbox", sys_mbox_valid_val(tcpip_mbox));
   return sys_mbox_trypost_fromisr(&tcpip_mbox, msg);
 }
+#endif
 
 /**
  * @ingroup lwip_os
@@ -601,7 +603,9 @@ tcpip_callbackmsg_trycallback_fromisr(struct tcpip_callback_msg *msg)
 void
 tcpip_init(tcpip_init_done_fn initfunc, void *arg)
 {
+#if LWIP_XINIT
   lwip_init();
+#endif
 
   tcpip_init_done = initfunc;
   tcpip_init_done_arg = arg;

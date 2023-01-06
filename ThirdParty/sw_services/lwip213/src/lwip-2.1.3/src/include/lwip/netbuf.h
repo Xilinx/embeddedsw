@@ -55,14 +55,19 @@ extern "C" {
 #define NETBUF_FLAG_DESTADDR    0x01
 /** This netbuf includes a checksum */
 #define NETBUF_FLAG_CHKSUM      0x02
+#if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
+#define NETBUF_FLAG_UDP_BLOCL_TX_TILL_COMPLETE 0x04
+#endif
 
 /** "Network buffer" - contains data and addressing info */
 struct netbuf {
   struct pbuf *p, *ptr;
   ip_addr_t addr;
   u16_t port;
-#if LWIP_NETBUF_RECVINFO || LWIP_CHECKSUM_ON_COPY
+#if LWIP_NETBUF_RECVINFO || LWIP_CHECKSUM_ON_COPY || LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
   u8_t flags;
+#endif
+#if LWIP_NETBUF_RECVINFO || LWIP_CHECKSUM_ON_COPY
   u16_t toport_chksum;
 #if LWIP_NETBUF_RECVINFO
   ip_addr_t toaddr;
