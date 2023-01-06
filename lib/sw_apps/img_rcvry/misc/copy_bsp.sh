@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 # SPDX-License-Identifier: MIT
 
 # this script will copy the required bsp directories
@@ -59,13 +60,13 @@ cp -r $SERVICES_DIR/xilffs/src $BSP_DIR/libsrc/xilffs/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
 BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilffs/src/Makefile"
 
-mkdir -p $BSP_DIR/libsrc/lwip211/src/
-cp -rf $THIRD_PARTY_SERVICES_DIR/lwip211/src/* $BSP_DIR/libsrc/lwip211/src/
-cp $WORKING_DIR/tools/xtopology_g.c $BSP_DIR/libsrc/lwip211/src/contrib/ports/xilinx/netif/
-cp $WORKING_DIR/tools/Makefile.config $BSP_DIR/libsrc/lwip211/src/
-cp $WORKING_DIR/tools/lwipopts.h $BSP_DIR/libsrc/lwip211/src/contrib/ports/xilinx/include/
-cp $WORKING_DIR/tools/xlwipconfig.h $BSP_DIR/libsrc/lwip211/src/contrib/ports/xilinx/include/
-BSP_SEQUENTIAL_MAKEFILES="BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/lwip211/src/Makefile"
+mkdir -p $BSP_DIR/libsrc/lwip213/src/
+cp -rf $THIRD_PARTY_SERVICES_DIR/lwip213/src/* $BSP_DIR/libsrc/lwip213/src/
+cp $WORKING_DIR/tools/xtopology_g.c $BSP_DIR/libsrc/lwip213/src/contrib/ports/xilinx/netif/
+cp $WORKING_DIR/tools/Makefile.config $BSP_DIR/libsrc/lwip213/src/
+cp $WORKING_DIR/tools/lwipopts.h $BSP_DIR/libsrc/lwip213/src/contrib/ports/xilinx/include/
+cp $WORKING_DIR/tools/xlwipconfig.h $BSP_DIR/libsrc/lwip213/src/contrib/ports/xilinx/include/
+BSP_SEQUENTIAL_MAKEFILES="BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/lwip213/src/Makefile"
 
 # copy bsp standalone code
 mkdir -p $BSP_DIR/libsrc/standalone/src/includes_ps
