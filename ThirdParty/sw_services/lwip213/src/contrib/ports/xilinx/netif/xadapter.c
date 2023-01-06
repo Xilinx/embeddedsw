@@ -150,6 +150,8 @@ xemac_add(struct netif *netif,
 #else
 				nif = NULL;
 #endif
+				break;
+
 			case xemac_type_axi_ethernet:
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET
 					nif = netif_add(netif, ipaddr, netmask, gw,
@@ -164,6 +166,8 @@ xemac_add(struct netif *netif,
 #else
 				nif = NULL;
 #endif
+				break;
+
 #if defined (__arm__) || defined (__aarch64__)
 			case xemac_type_emacps:
 #ifdef XLWIP_CONFIG_INCLUDE_GEM
@@ -178,6 +182,7 @@ xemac_add(struct netif *netif,
 
 						);
 #endif
+				break;
 #endif
 			default:
 				xil_printf("unable to determine type of EMAC with baseaddress 0x%08x\r\n",
