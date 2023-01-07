@@ -155,12 +155,9 @@ static int XPlm_Init(void)
 		goto END;
 	}
 
-	/* In-Place PLM Update is applicable only for versalnet */
-	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
-		Status = XPlmi_RunTimeConfigInit();
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	Status = XPlmi_RunTimeConfigInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
 	}
 
 #ifdef DEBUG_UART_MDM
