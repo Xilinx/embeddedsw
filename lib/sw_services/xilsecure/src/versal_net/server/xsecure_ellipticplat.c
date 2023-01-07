@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 *       am   07/23/22 Removed Ecdsa_ModEccOrder function definition, as it is
 *                     declared in Ecdsa.h file
 *       dc   09/04/22 set TRNG to HRNG mode after Private key ECC mod order
+* 5.1   har  01/06/23 Add support to generate ephemeral key
 *
 *
 * </pre>
@@ -147,6 +149,83 @@ END:
 		Status = ClearStatus;
 	}
 
+	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
+				XSECURE_ECDSA_RSA_RESET_OFFSET);
+	ClearStatus = Xil_SMemSet((void *)RandBuf,
+				 XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN,
+				0U, XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
+	if (Status == XST_SUCCESS) {
+		Status = ClearStatus;
+	}
+RET:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function generates 48-byte ephemeral key for P-384 curve using TRNG.
+ *
+ * @param	CrvType specifies the type of the ECC curve.
+ * @param	EphemeralKeyAddr Address of ephemeral key
+ *
+ * @return	XST_SUCCESS on success
+ *		Error code otherwise
+ *
+ * @note
+ *      This API expects TRNG HW to be in HEALTHY state, This can
+ *      be achieved by running preoperational health tests.
+ *
+ *****************************************************************************/
+int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
+	u32 EphemeralKeyAddr)
+{
+	int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
+	int ClearStatus = XST_FAILURE;
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+	XSecure_TrngUserConfig TrngUserCfg;
+
+	u8 RandBuf[XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN] = {0x00};
+	EcdsaCrvInfo *Crv = NULL;
+
+	if (CrvType == XSECURE_ECC_NIST_P521) {
+		Status = XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto RET;
+	}
+
+	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemSet, &TrngUserCfg, sizeof(XSecure_TrngUserConfig), 0U,
+		sizeof(XSecure_TrngUserConfig));
+
+	if (TrngInstance->State != XSECURE_TRNG_UNINITIALIZED_STATE) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngUninstantiate, TrngInstance);
+	}
+
+	TrngUserCfg.Mode = XSECURE_TRNG_HRNG_MODE;
+	TrngUserCfg.AdaptPropTestCutoff = XSECURE_TRNG_USER_CFG_ADAPT_TEST_CUTOFF;
+	TrngUserCfg.RepCountTestCutoff = XSECURE_TRNG_USER_CFG_REP_TEST_CUTOFF;
+	TrngUserCfg.DFLength = XSECURE_TRNG_USER_CFG_DF_LENGTH;
+	TrngUserCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE;
+
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngInstantiate, TrngInstance, NULL, 0U, NULL, &TrngUserCfg);
+
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngGenerate, TrngInstance, RandBuf, XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
+
+	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngGenerate, TrngInstance, RandBuf + XSECURE_TRNG_SEC_STRENGTH_IN_BYTES,
+		XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN - XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
+
+	/* Take ECDSA core out if reset */
+	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
+			XSECURE_ECDSA_RSA_RESET_OFFSET);
+
+	Crv = XSecure_EllipticGetCrvData(XSECURE_ECC_NIST_P384);
+	if (Crv == NULL) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	/* IPCores library expects MSB bit to be 0 always */
+	XSECURE_TEMPORAL_CHECK(END, Status, Ecdsa_ModEccOrder, Crv, RandBuf, (u8 *)(UINTPTR)EphemeralKeyAddr);
+
+END:
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
 				XSECURE_ECDSA_RSA_RESET_OFFSET);
 	ClearStatus = Xil_SMemSet((void *)RandBuf,

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -17,6 +18,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   dc   07/09/22 Initial version
+* 5.1   har  01/06/23 Added prototype for XSecure_EllipticGenerateEphemeralKey
 *
 * </pre>
 *
@@ -48,6 +50,8 @@ typedef struct {
 /***************************** Function Prototypes ***************************/
 int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ElliptcPrivateKeyGen *PrivateKey);
+int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
+	u32 EphemeralKeyAddr);
 
 #ifdef __cplusplus
 }
