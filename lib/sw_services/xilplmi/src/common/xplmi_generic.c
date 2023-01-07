@@ -2034,6 +2034,7 @@ void XPlmi_GenericInit(void)
 		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite),
 		XPLMI_MODULE_COMMAND(XPlmi_ScatterWrite2),
 		XPLMI_MODULE_COMMAND(XPlmi_TamperTrigger),
+		XPLMI_MODULE_COMMAND(XPlmi_SetFipsKatMask),
 	};
 	/* This is to store CMD_END in xplm_modules section */
 	XPLMI_EXPORT_CMD(XPLMI_END_CMD_ID, XPLMI_MODULE_GENERIC_ID,

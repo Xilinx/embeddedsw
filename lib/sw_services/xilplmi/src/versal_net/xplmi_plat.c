@@ -25,6 +25,7 @@
 *       bm   07/22/2022 Shutdown modules gracefully during update
 * 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *       ng   11/11/2022 Fixed doxygen file name error
+*       kpt  01/04/2023 Added XPlmi_CheckandUpdateFipsState to update FIPS state
 *
 * </pre>
 *
@@ -89,6 +90,7 @@ static void XPlmi_StopTimer(u8 Timer);
 static void XPlmi_HwIntrHandler(void *CallbackRef);
 static u32 XPlmi_GetIoIntrMask(void);
 static void XPlmi_SetIoIntrMask(u32 Mask);
+static int XPlmi_UpdateFipsState(void);
 
 /************************** Variable Definitions *****************************/
 /* Structure for Top level interrupt table */
@@ -326,6 +328,10 @@ int XPlmi_GenericHandler(XPlmi_ModuleOp Op)
 			Status = XST_SUCCESS;
 			goto END;
 		}
+
+		/* Clear KAT status */
+		XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, 0U);
+		XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_PLM_ADDR, 0U);
 
 		/* Disable all the Error Actions */
 		for (Index = 0U; Index < XPLMI_PMC_MAX_ERR_CNT; Index++) {
@@ -870,13 +876,10 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 		*PlmKatStatus = XPlmi_GetKatStatus();
 		FipsModeEn = XPlmi_IsFipsModeEn();
 		FipsModeEnTmp = FipsModeEn;
-		if ((FipsModeEn == TRUE) || (FipsModeEnTmp == TRUE)) {
-			*PlmKatStatus|= 0U;
+		if ((FipsModeEn != TRUE) && (FipsModeEnTmp != TRUE)) {
+			*PlmKatStatus |= XPlmi_GetRomKatStatus();
+			XPlmi_UpdateKatStatus(*PlmKatStatus);
 		}
-		else {
-			*PlmKatStatus|= XPlmi_GetRomKatStatus();
-		}
-		XPlmi_UpdateKatStatus(*PlmKatStatus);
 	} else {
 		*PlmKatStatus = XPLMI_KAT_MASK;
 	}
@@ -902,4 +905,80 @@ void XPlmi_ClearSSSCfgErr(void)
 			SSSCfgErrCleared = (u32)TRUE;
 		}
 	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns XPlmi_FipsKatMask instance.
+ *
+ * @return	pointer to the XPlmi_FipsKatMask instance
+ *
+ *****************************************************************************/
+XPlmi_FipsKatMask* XPlmi_GetFipsKatMaskInstance(void)
+{
+	static XPlmi_FipsKatMask FipsKatMask = {0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU,
+					0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU};
+
+	return &FipsKatMask;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function monitors the KAT status and updates the FIPS state in
+ *          RTCA.
+ *
+ * @return	XST_SUCCESS on Success
+ *          XST_FAILURE on Failure
+ *
+ *****************************************************************************/
+static int XPlmi_UpdateFipsState(void)
+{
+	int Status = XST_FAILURE;
+	XPlmi_FipsKatMask *FipsKatMask = XPlmi_GetFipsKatMaskInstance();
+	u32 RomKatStatus = XPlmi_GetRomKatStatus();
+	u32 PlmKatStatus = XPlmi_GetKatStatus();
+	u32 DDRKatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_DDR_KAT_ADDR);
+	u32 HnicCpm5nPcideKatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_HNIC_CPM5N_PCIDE_KAT_ADDR);
+	u32 PKI0KatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_0);
+	u32 PKI1KatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_1);
+	u32 PKI2KatStatus = XPlmi_In32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2);
+
+	if (((FipsKatMask->RomKatMask & RomKatStatus) == FipsKatMask->RomKatMask) &&
+		((FipsKatMask->PlmKatMask & PlmKatStatus) == FipsKatMask->PlmKatMask) &&
+		((FipsKatMask->DDRKatMask & DDRKatStatus) == FipsKatMask->DDRKatMask) &&
+		((FipsKatMask->HnicCpm5NPcideKatMask & HnicCpm5nPcideKatStatus) == FipsKatMask->HnicCpm5NPcideKatMask) &&
+		((FipsKatMask->PKI0KatMask & PKI0KatStatus) == FipsKatMask->PKI0KatMask) &&
+		((FipsKatMask->PKI1KatMask & PKI1KatStatus) == FipsKatMask->PKI1KatMask) &&
+		((FipsKatMask->PKI2KatMask & PKI2KatStatus) == FipsKatMask->PKI2KatMask)) {
+		Status = Xil_SecureRMW32(XPLMI_RTCFG_PLM_KAT_ADDR, XPLMI_SECURE_FIPS_STATE_MASK, XPLMI_SECURE_FIPS_STATE_MASK);
+	}
+	else {
+		Status = Xil_SecureRMW32(XPLMI_RTCFG_PLM_KAT_ADDR, XPLMI_SECURE_FIPS_STATE_MASK, 0x0U);
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks and updates the FIPS state in RTCA
+ *
+ * @return	XST_SUCCESS on Success
+ *          XST_FAILURE on Failure
+ *
+ *****************************************************************************/
+int XPlmi_CheckAndUpdateFipsState(void)
+{
+	int Status = XST_FAILURE;
+	u8 FipsModeEn = XPlmi_IsFipsModeEn();
+	u8 FipsModeEnTmp = XPlmi_IsFipsModeEn();
+
+	if ((FipsModeEn == TRUE) || (FipsModeEnTmp == TRUE)) {
+		Status = XPlmi_UpdateFipsState();
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }

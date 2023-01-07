@@ -28,6 +28,7 @@
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 * 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *       ng   11/11/2022 Fixed doxygen file name error
+*       kpt  01/04/2023 Added APIs and macros related to FIPS
 *
 * </pre>
 *
@@ -56,11 +57,16 @@ extern "C" {
 /* PLM RunTime Configuration Area Base Address */
 #define XPLMI_RTCFG_BASEADDR			(0xF2014000U)
 
-#define XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x154U)
-#define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x15CU)
-#define XPLMI_RTCFG_PMC_ERR3_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x190U)
-#define XPLMI_RTCFG_PSM_ERR3_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x1A0U)
-#define XPLMI_RTCFG_SECURE_STATE_PLM_ADDR	(XPLMI_RTCFG_BASEADDR + 0x280U)
+#define XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR				(XPLMI_RTCFG_BASEADDR + 0x154U)
+#define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR				(XPLMI_RTCFG_BASEADDR + 0x15CU)
+#define XPLMI_RTCFG_PMC_ERR3_STATUS_ADDR				(XPLMI_RTCFG_BASEADDR + 0x190U)
+#define XPLMI_RTCFG_PSM_ERR3_STATUS_ADDR				(XPLMI_RTCFG_BASEADDR + 0x1A0U)
+#define XPLMI_RTCFG_SECURE_STATE_PLM_ADDR				(XPLMI_RTCFG_BASEADDR + 0x280U)
+#define XPLMI_RTCFG_SECURE_DDR_KAT_ADDR					(XPLMI_RTCFG_BASEADDR + 0x284U)
+#define XPLMI_RTCFG_SECURE_HNIC_CPM5N_PCIDE_KAT_ADDR	(XPLMI_RTCFG_BASEADDR + 0x288U)
+#define XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_0				(XPLMI_RTCFG_BASEADDR + 0x28CU)
+#define XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_1				(XPLMI_RTCFG_BASEADDR + 0x290U)
+#define XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2				(XPLMI_RTCFG_BASEADDR + 0x294U)
 
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U)
 
@@ -81,6 +87,16 @@ enum {
 typedef struct {
 	u8 Mode;
 } XPlmi_ModuleOp;
+
+typedef struct {
+	u32 RomKatMask;
+	u32 PlmKatMask;
+	u32 DDRKatMask;
+	u32 HnicCpm5NPcideKatMask;
+	u32 PKI0KatMask;
+	u32 PKI1KatMask;
+	u32 PKI2KatMask;
+}XPlmi_FipsKatMask;
 
 typedef int (*XPlmi_UpdateHandler_t)(XPlmi_ModuleOp Op);
 
@@ -261,17 +277,32 @@ typedef enum {
 #define XPLMI_SECURE_ECC_PWCT_KAT_MASK					(0x00080000U)
 #define XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK            (0x00100000U)
 #define XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK            (0x00200000U)
+#define XPLMI_SECURE_FIPS_STATE_MASK					(0xC0000000U)
 
 #define XPLMI_ROM_KAT_MASK		(XPLMI_SECURE_SHA3_KAT_MASK | XPLMI_SECURE_RSA_KAT_MASK |\
 								XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK | XPLMI_SECURE_AES_DEC_KAT_MASK | \
 								XPLMI_SECURE_AES_CMKAT_MASK | XPLMI_SECURE_TRNG_KAT_MASK | \
 								XPLMI_SECURE_ENC_KAT_MASK | XPLMI_SECURE_HMAC_KAT_MASK)
 
-#define XPLMI_KAT_MASK			(XPLMI_ROM_KAT_MASK | XPLMI_SECURE_CPM5N_AES_XTS_KAT_MASK | \
-								XPLMI_SECURE_CPM5N_PCI_IDE_KAT_MASK | XPLMI_SECURE_NICSEC_KAT_MASK | \
+#define XPLMI_KAT_MASK			(XPLMI_ROM_KAT_MASK | \
 								XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK | XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK | \
 								XPLMI_SECURE_ECC_PWCT_KAT_MASK | XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK | \
 								XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK)
+
+
+#define XPLMI_DDR_0_KAT_MASK			(0x0FU)
+#define XPLMI_DDR_1_KAT_MASK			(0x0FU << 4U)
+#define XPLMI_DDR_2_KAT_MASK			(0x0FU << 8U)
+#define XPLMI_DDR_3_KAT_MASK			(0x0FU << 12U)
+#define XPLMI_DDR_4_KAT_MASK			(0x0FU << 16U)
+#define XPLMI_DDR_5_KAT_MASK			(0x0FU << 20U)
+#define XPLMI_DDR_6_KAT_MASK			(0x0FU << 24U)
+#define XPLMI_DDR_7_KAT_MASK			(0x0FU << 28U)
+#define XPLMI_HNIC_KAT_MASK				(0xFFU)
+#define XPLMI_CPM5N_KAT_MASK			(0xFFU << 8U)
+#define XPLMI_PCIDE_KAT_MASK			(0x3 << 16U)
+#define XPLMI_HNIC_CPM5N_PCIDE_KAT_MASK	(XPLMI_HNIC_KAT_MASK | XPLMI_CPM5N_KAT_MASK | XPLMI_PCIDE_KAT_MASK)
+#define XPLMI_PKI_KAT_MASK				(0x01FFFFFFU)
 
 
 #define GET_RTCFG_PMC_ERR_ADDR(Index)	(Index > 1U) ? \
@@ -402,6 +433,8 @@ u32 XPlmi_GetRomKatStatus(void);
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
 void XPlmi_IpiIntrHandler(void *CallbackRef);
 void XPlmi_ClearSSSCfgErr(void);
+XPlmi_FipsKatMask* XPlmi_GetFipsKatMaskInstance(void);
+int XPlmi_CheckAndUpdateFipsState(void);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
@@ -410,6 +443,8 @@ int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd);
 int XPlmi_PsmSequence(XPlmi_Cmd *Cmd);
 int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd);
 int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd);
+int XPlmi_SetFipsKatMask(XPlmi_Cmd *Cmd);
+
 
 int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq);
 

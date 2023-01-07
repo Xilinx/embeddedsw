@@ -160,6 +160,8 @@ typedef struct {
 #define XPLMI_OT_CHECK_CMD_ID		(30U)
 #define XPLMI_SCATTER_WRITE_CMD_ID	(33U)
 #define XPLMI_SCATTER_WRITE2_CMD_ID	(34U)
+#define XPLMI_TAMPER_TRIGGER_CMD_ID	(35U)
+#define XPLMI_SET_FIPS_MASK_CMD_ID  (36U)
 #define XPLMI_END_CMD_ID		(0xFFU)
 
 /************************** Function Prototypes ******************************/

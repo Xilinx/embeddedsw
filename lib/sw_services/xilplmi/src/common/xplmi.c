@@ -50,6 +50,7 @@
 *       kpt  07/19/2022 Added APIs to update or get KAT status from RTC area
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 * 1.07  ng   11/11/2022 Updated doxygen comments
+*       kpt  01/04/2023 Added XPlmi_SetFipsKatMask command
 *
 * </pre>
 *
@@ -110,6 +111,13 @@ int XPlmi_RunTimeConfigInit(void)
 {
 	int Status = XST_FAILURE;
 	u32 DevSecureState = XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);
+
+	/* In-Place PLM Update is applicable only for versalnet */
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR, DevSecureState);
+		Status = XST_SUCCESS;
+		goto END;
+	}
 
 	/**
 	 * Clear the Runtime configuration area
@@ -325,6 +333,8 @@ void XPlmi_UnSetLpdInitialized(u32 Flag)
 void XPlmi_UpdateKatStatus(u32 PlmKatStatus)
 {
 	XPlmi_UtilRMW(XPLMI_RTCFG_PLM_KAT_ADDR, XPLMI_KAT_MASK, PlmKatStatus);
+	/* Applicable only for VersalNet */
+	(void)XPlmi_CheckAndUpdateFipsState();
 }
 
 /*****************************************************************************/

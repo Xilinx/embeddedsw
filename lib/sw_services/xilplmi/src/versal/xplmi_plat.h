@@ -218,6 +218,7 @@ enum {
 #define XPlmi_PsmSequence		NULL
 #define XPlmi_ScatterWrite		NULL
 #define XPlmi_ScatterWrite2		NULL
+#define XPlmi_SetFipsKatMask	NULL
 
 #define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U))
 #define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U))
@@ -322,6 +323,19 @@ static inline void XPlmi_ClearSSSCfgErr(void)
 {
 	/* Not Applicable for Versal */
 	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for versal
+ *
+ * @return 	None
+ *
+ *****************************************************************************/
+static inline int XPlmi_CheckAndUpdateFipsState(void)
+{
+	/* Not Applicable for Versal */
+	return XST_SUCCESS;
 }
 
 /************************** Function Prototypes ******************************/

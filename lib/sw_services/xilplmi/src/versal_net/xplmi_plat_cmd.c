@@ -25,6 +25,7 @@
 *                       XPLMI_IPI_DEVICE_ID
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       kpt  01/04/2023 Added XPlmi_SetFipsKatMask command
 *
 * </pre>
 *
@@ -59,6 +60,7 @@
 /* Command related macros */
 #define XPLMI_SCATTER_WRITE_PAYLOAD_LEN			(2U)
 #define XPLMI_SCATTER_WRITE2_PAYLOAD_LEN		(3U)
+#define XPLMI_FIPS_WRITE_KATMASK_PAYLOAD_LEN	(7U)
 
 /**************************** Type Definitions *******************************/
 
@@ -428,4 +430,50 @@ int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will store the KAT mask set by the user so that PLM
+ *          can monitor the RTCA and compare it with KAT masks before going into
+ *          FIPS operational state
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XPlmi_SetFipsKatMask(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	XPlmi_FipsKatMask *FipsKatMask = XPlmi_GetFipsKatMaskInstance();
+
+	XPLMI_EXPORT_CMD(XPLMI_SET_FIPS_MASK_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+			XPLMI_CMD_ARG_CNT_SEVEN, XPLMI_CMD_ARG_CNT_SEVEN);
+
+	if (Cmd->PayloadLen != XPLMI_FIPS_WRITE_KATMASK_PAYLOAD_LEN) {
+		XPlmi_Print(DEBUG_GENERAL, "FIPS_SetKatMask: invalid "
+				"payload length %d which is less than 7", Cmd->PayloadLen);
+		Status = (int)XPLMI_ERR_INVALID_PAYLOAD_LEN;
+		goto END;
+	}
+
+	Status = Xil_SMemSet(FipsKatMask, sizeof(XPlmi_FipsKatMask), 0U,
+				sizeof(XPlmi_FipsKatMask));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	FipsKatMask->RomKatMask = Cmd->Payload[0U] & XPLMI_ROM_KAT_MASK;
+	FipsKatMask->PlmKatMask = Cmd->Payload[1U] & XPLMI_KAT_MASK;
+	FipsKatMask->DDRKatMask = Cmd->Payload[2U];
+	FipsKatMask->HnicCpm5NPcideKatMask = Cmd->Payload[3U] & XPLMI_HNIC_CPM5N_PCIDE_KAT_MASK;
+	FipsKatMask->PKI0KatMask = Cmd->Payload[4U];
+	FipsKatMask->PKI1KatMask = Cmd->Payload[5U];
+	FipsKatMask->PKI2KatMask = Cmd->Payload[6U] & XPLMI_PKI_KAT_MASK;
+
+	Status = XPlmi_CheckAndUpdateFipsState();
+END:
+	return Status;
+
 }
