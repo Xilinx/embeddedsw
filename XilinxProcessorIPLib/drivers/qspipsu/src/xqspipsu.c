@@ -77,6 +77,7 @@
  * 1.15 akm 10/21/21 Fix MISRA-C violations.
  * 1.17 akm 12/16/22 Add timeout in QSPIPSU driver operation.
  * 1.17 akm 01/02/23 Use Xil_WaitForEvent() API for register bit polling.
+ * 1.17 akm 01/07/23 Fixed hang issue while reading large data chuncks.
  *
  * </pre>
  *
@@ -487,9 +488,8 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 					/* Transmit more data if left */
 					XQspiPsu_FillTxFifo(InstancePtr, &Msg[Index], (u32)XQSPIPSU_TXD_DEPTH);
 				}
-				QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
-			} else if ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE) {
-				QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
+			}
+			if ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE) {
 				if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 					 /* Check if DMA RX is complete */
 					if (Xil_WaitForEvent((InstancePtr->Config.BaseAddress + XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET),
@@ -504,26 +504,28 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 											XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
 						XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 								XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrSts);
-					}
-					/* DMA transfer done, Invalidate Data Cache */
-					if (!((Msg[Index].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
-						(Msg[Index].Xfer64bit != (u8)0U)) &&
-						(InstancePtr->Config.IsCacheCoherent == 0U)) {
-						Xil_DCacheInvalidateRange((INTPTR)Msg[Index].RxBfrPtr,
-									(INTPTR)Msg[Index].ByteCount);
-					}
-					IOPending = XQspiPsu_SetIOMode(InstancePtr, &Msg[Index]);
-					InstancePtr->RxBytes = 0;
-					if (IOPending == (u32)TRUE) {
-						break;
-					}
+						/* DMA transfer done, Invalidate Data Cache */
+						if (!((Msg[Index].RxAddr64bit >= XQSPIPSU_RXADDR_OVER_32BIT) ||
+							(Msg[Index].Xfer64bit != (u8)0U)) &&
+							(InstancePtr->Config.IsCacheCoherent == 0U)) {
+							Xil_DCacheInvalidateRange((INTPTR)Msg[Index].RxBfrPtr,
+										(INTPTR)Msg[Index].ByteCount);
+						}
 
+						IOPending = XQspiPsu_SetIOMode(InstancePtr, &Msg[Index]);
+						InstancePtr->RxBytes = 0;
+						if (IOPending == (u32)TRUE) {
+							break;
+						}
+					}
 				} else {
+					QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
 					XQspiPsu_IORead(InstancePtr, &Msg[Index], QspiPsuStatusReg);
 				}
-			} else {
-				QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
 			}
+
+			QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
+
 		} while (((QspiPsuStatusReg &
 			XQSPIPSU_ISR_GENFIFOEMPTY_MASK) == (u32)FALSE) ||
 			(InstancePtr->TxBytes != 0) ||
