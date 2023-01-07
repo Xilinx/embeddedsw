@@ -179,7 +179,6 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 			" Emulated Asymmetric HWRoT\r\n");
 		}
 		else {
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "secure auth fail\r\n");
 			*AHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
 		}
 		Status = XST_SUCCESS;

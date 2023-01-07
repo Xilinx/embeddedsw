@@ -144,6 +144,8 @@
 *                       XLoader_Init function to handle in-place update scenerio
 *       ng   11/23/2022 Updated doxygen comments
 *       ng   01/02/2023 Check to bypass entire ID Code Check
+*       kpt  01/04/2023 Added check to update FIPS state
+*
 * </pre>
 *
 * @note
@@ -1323,6 +1325,12 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 
 	/* This is applicable only for Versal Net */
 	Status = XLoader_DataMeasurement(0U, 0U, 0U, XLOADER_MEASURE_FINISH);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* This is applicable only for VersalNet */
+	Status = XPlmi_CheckAndUpdateFipsState();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
