@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kpt   07/15/2022 Initial release
+* 5.1   kpt   01/04/2023 Added API to set or clear KAT status for external modules
 *
 * </pre>
 *
@@ -38,11 +40,14 @@
 #include "xplmi.h"
 
 /************************** Constant Definitions *****************************/
+
+#define XSECURE_KAT_MAX_CMD_LEN     6U
+
 /************************** Function Prototypes *****************************/
 #ifndef PLM_SECURE_EXCLUDE
 static int XSecure_TrngKat(void);
 #endif
-static int XSecure_UpdateKatStatus(XSecure_KatId KatOp, XSecure_KatId KatId);
+static int XSecure_UpdateKatStatus(XSecure_KatOp KatOp, u32 NodeId, u32 CmdLen, u32 *KatMask);
 
 /*****************************************************************************/
 /**
@@ -66,9 +71,8 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 		Status = XSecure_TrngKat();
 		break;
 #endif
-	case XSECURE_API(XSECURE_API_KAT_CLEAR):
-	case XSECURE_API(XSECURE_API_KAT_SET):
-		Status = XSecure_UpdateKatStatus(Pload[1U], Pload[2U]);
+	case XSECURE_API(XSECURE_API_UPDATE_KAT_STATUS):
+		Status = XSecure_UpdateKatStatus(Pload[1U], Pload[2U], Cmd->Len, &Pload[3U]);
 		break;
 	default:
 		/* Common IPI handler for versal devices */
@@ -92,7 +96,7 @@ static int XSecure_TrngKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-	XSecure_KatId KatOp = XSECURE_API_KAT_CLEAR;
+	XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	Status = XSecure_TrngPreOperationalSelfTests(TrngInstance);
 	if (Status != XST_SUCCESS) {
@@ -103,7 +107,7 @@ static int XSecure_TrngKat(void)
 	}
 
 	/* Update KAT status in to RTC area */
-	XSecure_KatOp(KatOp, XPLMI_SECURE_TRNG_KAT_MASK);
+	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_TRNG_KAT_MASK);
 
 	return Status;
 }
@@ -111,40 +115,129 @@ static int XSecure_TrngKat(void)
 
 /*****************************************************************************/
 /**
- * @brief       This function sets or clears KAT mask of given KatId
+ * @brief       This function sets or clears KAT mask of given NodeId
+ *
+ * @param   KatOp		- Operation to set or clear KAT mask
+ * @param   NodeId		- Nodeid of the module
+ * @param   KatMaskLen  - Length of the KAT mask
+ * @param   KatMask     - Pointer to the KAT mask
  *
  * @return
 	-	XST_SUCCESS - If set or clear is successful
  *	-	XST_FAILURE - On failure
  *
  ******************************************************************************/
-static int XSecure_UpdateKatStatus(XSecure_KatId KatOp, XSecure_KatId KatId) {
+static int XSecure_UpdateKatStatus(XSecure_KatOp KatOp, u32 NodeId, u32 CmdLen, u32 *KatMask) {
 	int Status = XST_FAILURE;
-	u32 KatMask = 0U;
+	u32 KatAddr = 0U;
+	u32 KatVal[XSECURE_MAX_KAT_MASK_LEN] = {0U};
+	u32 KatMaskLen = 0U;
 
 	if ((KatOp != XSECURE_API_KAT_CLEAR) && (KatOp != XSECURE_API_KAT_SET)) {
 			goto END;
 	}
 
-	switch((u32)KatId) {
-		case XSECURE_API_CPM5N_AES_XTS:
-			KatMask = XPLMI_SECURE_CPM5N_AES_XTS_KAT_MASK;
+	if ((CmdLen <= XSECURE_KAT_HDR_LEN) || (CmdLen > XSECURE_KAT_MAX_CMD_LEN)) {
+		goto END;
+	}
+
+	KatMaskLen = CmdLen - XSECURE_KAT_HDR_LEN;
+	if (((KatMaskLen > XSECURE_MIN_KAT_MASK_LEN) && (NodeId != XSECURE_PKI_NODE_ID)) ||
+			(KatMaskLen == 0U)) {
+		goto END;
+	}
+
+	if ((KatMaskLen != XSECURE_MAX_KAT_MASK_LEN) && (NodeId == XSECURE_PKI_NODE_ID)) {
+		goto END;
+	}
+
+	/** TODO - Validate NodeId */
+
+	switch(NodeId) {
+		case XSECURE_DDR_0_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_DDR_KAT_ADDR;
+			KatMask[0U] &= XPLMI_DDR_0_KAT_MASK;
 			break;
-		case XSECURE_API_CPM5N_AES_PCI_IDE:
-			KatMask = XPLMI_SECURE_CPM5N_PCI_IDE_KAT_MASK;
+		case XSECURE_DDR_1_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_DDR_KAT_ADDR;
+			KatMask[0U] &= XPLMI_DDR_1_KAT_MASK;
 			break;
-		case XSECURE_API_NICSEC_KAT:
-			KatMask = XPLMI_SECURE_NICSEC_KAT_MASK;
+		case XSECURE_DDR_2_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_DDR_KAT_ADDR;
+			KatMask[0U] &= XPLMI_DDR_2_KAT_MASK;
+			break;
+		case XSECURE_DDR_3_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_DDR_KAT_ADDR;
+			KatMask[0U] &= XPLMI_DDR_3_KAT_MASK;
+			break;
+		case XSECURE_DDR_4_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_DDR_KAT_ADDR;
+			KatMask[0U] &= XPLMI_DDR_4_KAT_MASK;
+			break;
+		case XSECURE_DDR_5_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_DDR_KAT_ADDR;
+			KatMask[0U] &= XPLMI_DDR_5_KAT_MASK;
+			break;
+		case XSECURE_DDR_6_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_DDR_KAT_ADDR;
+			KatMask[0U] &= XPLMI_DDR_6_KAT_MASK;
+			break;
+		case XSECURE_DDR_7_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_DDR_KAT_ADDR;
+			KatMask[0U] &= XPLMI_DDR_7_KAT_MASK;
+			break;
+		case XSECURE_HNIC_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_HNIC_CPM5N_PCIDE_KAT_ADDR;
+			KatMask[0U] &= XPLMI_HNIC_KAT_MASK;
+			break;
+		case XSECURE_CPM5N_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_HNIC_CPM5N_PCIDE_KAT_ADDR;
+			KatMask[0U] &= XPLMI_CPM5N_KAT_MASK;
+			break;
+		case XSECURE_PCIDE_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_HNIC_CPM5N_PCIDE_KAT_ADDR;
+			KatMask[0U] &= XPLMI_PCIDE_KAT_MASK;
+			break;
+		case XSECURE_PKI_NODE_ID:
+			KatAddr = XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_0;
+			KatMask[2U] &= XPLMI_PKI_KAT_MASK;
 			break;
 		default:
-			XSecure_Printf(XSECURE_DEBUG_GENERAL,"Invalid KATId for operation");
+			XSecure_Printf(XSECURE_DEBUG_GENERAL,"Invalid NodeId for KAT operation");
 			break;
 	}
-	if (KatMask != 0U) {
-		/* Update KAT status in RTC area */
-		XSecure_KatOp(KatOp, KatMask);
-		Status = XST_SUCCESS;
+	if (KatOp != XSECURE_API_KAT_CLEAR) {
+		KatVal[0U] = KatMask[0U];
+		if (NodeId == XSECURE_PKI_NODE_ID) {
+			KatVal[1U] = KatMask[1U];
+			KatVal[2U] = KatMask[2U];
+		}
 	}
+	else {
+		KatVal[0U] = ~KatMask[0U];
+		if (NodeId == XSECURE_PKI_NODE_ID) {
+			KatVal[1U] = ~KatMask[1U];
+			KatVal[2U] = ~KatMask[2U];
+		}
+	}
+
+	Status = Xil_SecureRMW32(KatAddr, KatMask[0U], KatVal[0U]);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	if (NodeId == XSECURE_PKI_NODE_ID) {
+		Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_1, KatMask[1U], KatVal[1U]);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2, KatMask[2U], KatVal[2U]);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+	}
+
+	Status = XPlmi_CheckAndUpdateFipsState();
 
 END:
 	return Status;

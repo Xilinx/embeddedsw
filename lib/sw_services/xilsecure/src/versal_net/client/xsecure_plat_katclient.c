@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +27,7 @@
 /***************************** Include Files *********************************/
 #include "xsecure_plat_katclient.h"
 #include "xsecure_plat_defs.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -76,16 +78,20 @@ END:
  *
  * @param	InstancePtr - Pointer to the client instance
  * @param   KatOp		- Operation to set or clear KAT mask
- * @param   KatId		- KAT id to be set or cleared
+ * @param   NodeId		- Nodeid of the module
+ * @param   KatMaskLen  - Length of the KAT mask
+ * @param   KatMask     - Pointer to the KAT mask
  *
  * @return
  *	-	XST_SUCCESS - On Success
  *	-	Errorcode - On failure
  *
  ******************************************************************************/
-int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatId KatOp, XSecure_KatId KatId) {
+int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp, u32 NodeId,
+	u32 KatMaskLen, u32 *KatMask)
+{
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	u32 Payload[XSECURE_PAYLOAD_LEN_7U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -95,14 +101,21 @@ int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatId K
 		goto END;
 	}
 
-	if ((KatId < XSECURE_API_CPM5N_AES_XTS) || (KatId > XSECURE_API_NICSEC_KAT)) {
+	if ((KatMaskLen < XSECURE_MIN_KAT_MASK_LEN) || (KatMaskLen > XSECURE_MAX_KAT_MASK_LEN)) {
 		goto END;
 	}
 
 	/* Fill IPI Payload */
-	Payload[0U] = HEADER(0U, XSECURE_API_KAT);
-	Payload[1U] = (u32)KatOp;
-	Payload[2U] = (u32)KatId;
+	Payload[0U] = HEADER((KatMaskLen + XSECURE_KAT_HDR_LEN), XSECURE_API_KAT);
+	Payload[1U] = (u32)XSECURE_API_UPDATE_KAT_STATUS;
+	Payload[2U] = (u32)KatOp;
+	Payload[3U] = NodeId;
+
+	Status = Xil_SMemCpy((u8*)&Payload[4U], (KatMaskLen * XSECURE_WORD_LEN), (u8*)KatMask, (KatMaskLen * XSECURE_WORD_LEN),
+				(KatMaskLen * XSECURE_WORD_LEN));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 END:

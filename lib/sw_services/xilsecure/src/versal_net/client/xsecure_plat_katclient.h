@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -43,8 +44,10 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /************************** Function Definitions *****************************/
+
 int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr);
-int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatId KatOp, XSecure_KatId KatId);
+int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp KatOp, u32 NodeId,
+	u32 KatMaskLen, u32 *KatMask);
 
 #ifdef __cplusplus
 }

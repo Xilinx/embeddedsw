@@ -153,8 +153,12 @@ typedef enum {
 typedef enum {
 	XSECURE_ECDSA_PRIME = 0,	/**< Prime curve */
 	XSECURE_ECDSA_BINARY = 1,	/**< Binary curve */
-}XSecure_EccCrvClass;
+} XSecure_EccCrvClass;
 
+typedef enum {
+	XSECURE_API_KAT_SET = 0U,				/**< 0U */
+	XSECURE_API_KAT_CLEAR					/**< 1U */
+} XSecure_KatOp;
 
 #ifdef __cplusplus
 }

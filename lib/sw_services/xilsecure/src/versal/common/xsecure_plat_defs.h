@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -80,9 +80,7 @@ typedef enum {
 	XSECURE_API_AES_ENCRYPT_KAT,			/**< 5U */
 	XSECURE_API_RSA_PRIVATE_DEC_KAT,		/**< 6U */
 	XSECURE_API_ELLIPTIC_SIGN_GEN_KAT,		/**< 7U */
-	XSECURE_API_KAT_SET,					/**< 8U */
-	XSECURE_API_KAT_CLEAR,					/**< 9U */
-}XSecure_KatId;
+} XSecure_KatId;
 
 #ifdef __cplusplus
 }

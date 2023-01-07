@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,7 +44,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd);
-void XSecure_KatOp(XSecure_KatId KatOp, u32 KatMask);
+void XSecure_PerformKatOperation(XSecure_KatOp KatOp, u32 KatMask);
 
 #ifdef __cplusplus
 }
