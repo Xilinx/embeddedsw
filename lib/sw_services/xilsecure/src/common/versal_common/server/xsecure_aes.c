@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1018,6 +1019,7 @@ END:
 int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
+	int SStatus = XST_FAILURE;
 	volatile u32 RegVal;
 	volatile u32 RegValTmp;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
@@ -1088,14 +1090,23 @@ END_RST:
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 	if ((InstancePtr->NextBlkLen == 0U) || (Status != XST_SUCCESS)) {
+		InstancePtr->NextBlkLen = 0U;
+		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
+		if (Status == XST_SUCCESS) {
+		Status = SStatus;
+		}
+
+		SStatus = XST_FAILURE;
+		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_EXPANDED_KEYS);
+		if (Status == XST_SUCCESS) {
+			Status = SStatus;
+		}
 		/*
 		 * Issue a soft to reset to AES engine
 		 */
-		InstancePtr->NextBlkLen = 0U;
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
-
 END:
 	return Status;
 }
@@ -1372,9 +1383,6 @@ END_RST:
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
 
-	XSecure_SetReset(InstancePtr->BaseAddress,
-			XSECURE_AES_SOFT_RST_OFFSET);
-
 	SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_KEY);
 	if (Status == XST_SUCCESS) {
 		Status = SStatus;
@@ -1385,6 +1393,8 @@ END_RST:
 	if (Status == XST_SUCCESS) {
 		Status = SStatus;
 	}
+	XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
 
 END:
 	return Status;
@@ -1565,6 +1575,7 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 {
 	int Status = XST_FAILURE;
 	u32 Mask;
+	u32 RstState;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -1595,7 +1606,11 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 		Status = XST_INVALID_PARAM;
 		goto END_CLR;
 	}
-
+	RstState = XSecure_ReadReg(InstancePtr->BaseAddress,XSECURE_AES_SOFT_RST_OFFSET);
+	if (RstState == XSECURE_RESET_SET){
+		XSecure_ReleaseReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
 					 Mask);
 
@@ -1611,6 +1626,10 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 END_CLR:
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
 		XSECURE_AES_KEY_CLR_REG_CLR_MASK);
+	if (RstState == XSECURE_RESET_SET){
+		XSecure_SetReset(InstancePtr->BaseAddress,
+			XSECURE_AES_SOFT_RST_OFFSET);
+	}
 
 END:
 	return Status;
