@@ -287,6 +287,8 @@
 *       cog    01/18/22 Added safety checks.
 * 12.0  cog    10/26/22 Added API XRFdc_GetCoupling(), this gets the ADC or
 *                       DAC coupling.
+*       cog    01/07/23 Added VOP support for DC coupled DACs and removed VOP
+*                       support for ES1 Parts.
 *
 * </pre>
 *
@@ -1252,14 +1254,6 @@ typedef struct {
 
 #define XRFDC_GEN1_LOW_I 20000U
 #define XRFDC_GEN1_HIGH_I 32000U
-#define XRFDC_MIN_I_UA(X) ((X == XRFDC_ES1_SI) ? 6425U : 2250U)
-#define XRFDC_MAX_I_UA(X) ((X == XRFDC_ES1_SI) ? 32000U : 40500U)
-#define XRFDC_MIN_I_UA_INT(X) ((X == XRFDC_ES1_SI) ? 6425U : 1400U)
-#define XRFDC_MAX_I_UA_INT(X) ((X == XRFDC_ES1_SI) ? 32000U : 46000U)
-#define XRFDC_STEP_I_UA(X) ((X == XRFDC_ES1_SI) ? 25.0 : 43.75)
-#define XRFDC_BLDR_GAIN 0x0000U
-#define XRFDC_CSCAS_BLDR 0xE000U
-#define XRFDC_OPCAS_BIAS 0x001BU
 
 #define XRFDC_MAX_ATTEN(X) ((X == 0) ? 11.0 : 27.0)
 #define XRFDC_MIN_ATTEN 0

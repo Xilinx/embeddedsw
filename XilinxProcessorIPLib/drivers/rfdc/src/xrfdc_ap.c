@@ -38,6 +38,8 @@
 *       cog    01/18/22 Added safety checks.
 * 12.0  cog    10/26/22 Added API XRFdc_GetCoupling(), this gets the ADC or
 *                       DAC coupling.
+*       cog    01/07/23 Added VOP support for DC coupled DACs and removed VOP
+*                       support for ES1 Parts.
 *
 * </pre>
 *
@@ -52,6 +54,17 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XRFDC_DAC_LINK_COUPLING_AC 0x0U
+#define XRFDC_VOP_ES1_AC_MIN_UA 6435U
+#define XRFDC_VOP_ES1_AC_MAX_UA 32000U
+#define XRFDC_VOP_AC_MIN_UA 2250U
+#define XRFDC_VOP_AC_MAX_UA 40500U
+#define XRFDC_VOP_DC_MIN_UA 6400U
+#define XRFDC_VOP_DC_MAX_UA 32000U
+#define XRFDC_MIN_I_UA_INT 1400U
+#define XRFDC_STEP_I_UA 43.75
+#define XRFDC_BLDR_GAIN 0x0000U
+#define XRFDC_CSCAS_BLDR 0xE000U
+#define XRFDC_OPCAS_BIAS 0x001BU
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************/
@@ -1127,9 +1140,7 @@ u32 XRFdc_GetOutputCurr(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Outp
 			goto RETURN_PATH;
 		}
 	} else {
-		*OutputCurrPtr = ((ReadReg_Cfg3 >> XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) *
-				  XRFDC_STEP_I_UA(InstancePtr->RFdc_Config.SiRevision)) +
-				 XRFDC_MIN_I_UA_INT(InstancePtr->RFdc_Config.SiRevision);
+		*OutputCurrPtr = ((ReadReg_Cfg3 >> XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) * XRFDC_STEP_I_UA) + XRFDC_MIN_I_UA_INT;
 	}
 
 	Status = XRFDC_SUCCESS;
@@ -2683,28 +2694,34 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 	u32 BaseAddr;
 	u16 Gen1CompatibilityMode;
 	u32 OptIdx;
+	u32 MaxCurrent;
+	u32 MinCurrent;
 	float uACurrentInt;
 	float uACurrentNext;
 	u32 Code;
 	u32 LinkCoupling;
+	u32 *BldrOPCBiasPtr;
+	u32 *CSCBldrPtr;
+	u32 *CSCBiasPtr;
 
 	/* Tuned optimization values*/
-	u32 BldrOPCBias[64] = { 22542, 26637, 27661, 27661, 28686, 28686, 29710, 29711, 30735, 30735, 31760,
+	u32 BldrOPCBiasAC[64] = { 22542, 26637, 27661, 27661, 28686, 28686, 29710, 29711, 30735, 30735, 31760,
 				31760, 32784, 32785, 33809, 33809, 34833, 34833, 35857, 36881, 37906, 38930,
 				38930, 39954, 40978, 42003, 43027, 43027, 44051, 45075, 46100, 47124, 48148,
 				49172, 50196, 51220, 52245, 53269, 53269, 54293, 55317, 56342, 57366, 58390,
 				58390, 58390, 59415, 59415, 59415, 59415, 60439, 60439, 60439, 60439, 60439,
 				60440, 62489, 62489, 63514, 63514, 63514, 64539, 64539, 64539 };
-	u32 CSCBldr[64] = { 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152,
+	u32 BldrOPCBiasDC[64] = { 0, 0, 0, 0, 0, 0, 0, 21526, 22550, 23574, 24598, 25622, 26646, 27670, 28694, 29718, 30742, 31766, 32790, 33814, 34838, 35862, 36886, 37910, 38934, 39958, 40982, 42006, 43030, 44054, 45078, 46102, 47126, 48150, 49174, 50198, 51222, 52246, 53270, 54294, 55318, 56342, 57366, 58390, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	u32 CSCBldrAC[64] = { 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152,
 			    49152, 49152, 49152, 40960, 40960, 40960, 40960, 40960, 40960, 40960, 40960, 40960, 40960,
 			    40960, 40960, 40960, 40960, 40960, 40960, 32768, 32768, 32768, 32768, 32768, 32768, 32768,
 			    32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 24576, 24576, 24576, 24576,
 			    24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576 };
-	u32 CSCBiasProd[64] = { 0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  2,  2,  2,  2,  2,  2,  3,  3,  3,  3,
+	u32 CSCBldrDC[64] = { 0, 0, 0, 0, 0, 0, 0, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 49152, 40960, 40960, 40960, 40960, 40960, 40960, 40960, 40960, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 32768, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 24576, 16384, 16384, 16384, 16384, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	u32 CSCBiasAC[64] = { 0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  2,  2,  2,  2,  2,  2,  3,  3,  3,  3,
 				5,  5,  5,  5,  5,  5,  6,  7,  8,  9,  10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16,
 				16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 31, 31, 31, 31 };
-	u32 CSCBiasES1[32] = { 5, 5, 5,  5,  5,  6,  6,  6,  6,  7,  7,  7,  8,  8,  8,  9,
-			       9, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 19, 19, 20, 20 };
+	u32 CSCBiasDC[64] = { 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 5, 5, 5, 5, 5, 5, 6, 7, 8, 9, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
@@ -2721,25 +2738,34 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 		goto RETURN_PATH;
 	}
 
-	if (uACurrent > XRFDC_MAX_I_UA(InstancePtr->RFdc_Config.SiRevision)) {
+	BaseAddr = XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, Tile_Id);
+	LinkCoupling = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_CPL_TYPE_OFFSET);
+
+	if (LinkCoupling == XRFDC_DAC_LINK_COUPLING_AC) {
+		MinCurrent = XRFDC_VOP_AC_MIN_UA;
+		MaxCurrent = XRFDC_VOP_AC_MAX_UA;
+		BldrOPCBiasPtr = BldrOPCBiasAC;
+		CSCBldrPtr = CSCBldrAC;
+		CSCBiasPtr = CSCBiasAC;
+	} else {
+		MinCurrent = XRFDC_VOP_DC_MIN_UA;
+		MaxCurrent = XRFDC_VOP_DC_MAX_UA;
+		BldrOPCBiasPtr = BldrOPCBiasDC;
+		CSCBldrPtr = CSCBldrDC;
+		CSCBiasPtr = CSCBiasDC;
+	}
+
+	if (uACurrent > MaxCurrent) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too high - %u) for DAC %u block %u in %s\r\n",
 			  uACurrent, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
 		goto RETURN_PATH;
 	}
-	if (uACurrent < XRFDC_MIN_I_UA(InstancePtr->RFdc_Config.SiRevision)) {
+
+	if (uACurrent < MinCurrent) {
 		metal_log(METAL_LOG_ERROR, "\n Invalid current selection (too low - %u) for DAC %u block %u in %s\r\n",
 			  uACurrent, Tile_Id, Block_Id, __func__);
 		Status = XRFDC_FAILURE;
-		goto RETURN_PATH;
-	}
-
-	BaseAddr = XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, Tile_Id);
-	LinkCoupling = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_CPL_TYPE_OFFSET);
-	if (LinkCoupling != XRFDC_DAC_LINK_COUPLING_AC) {
-		Status = XRFDC_FAILURE;
-		metal_log(METAL_LOG_ERROR,
-			  "\n Requested functionality not available DC coupled configuration in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
 
@@ -2758,19 +2784,9 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 	XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_VOP_CTRL_OFFSET,
 			(XRFDC_DAC_VOP_CTRL_REG_UPDT_MASK | XRFDC_DAC_VOP_CTRL_TST_BLD_MASK), XRFDC_DISABLED);
 
-	if (InstancePtr->RFdc_Config.SiRevision == XRFDC_ES1_SI) {
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET, XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK,
-				XRFDC_CSCAS_BLDR);
-		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
-				(XRFDC_DAC_MC_CFG2_BLDGAIN_MASK | XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK),
-				(XRFDC_BLDR_GAIN | XRFDC_OPCAS_BIAS));
-	}
-
 	uACurrentNext =
 		((float)(XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_CSGAIN_MASK) >>
-			 XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) *
-		 XRFDC_STEP_I_UA(InstancePtr->RFdc_Config.SiRevision)) +
-		(float)XRFDC_MIN_I_UA_INT(InstancePtr->RFdc_Config.SiRevision);
+			 XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) * XRFDC_STEP_I_UA + (float)XRFDC_MIN_I_UA_INT);
 
 	while (uACurrentInt != uACurrentNext) {
 		if (uACurrentNext < uACurrentInt) {
@@ -2782,26 +2798,18 @@ u32 XRFdc_SetDACVOP(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 uACurrent
 			if (uACurrentNext < uACurrentInt)
 				uACurrentNext = uACurrentInt;
 		}
-		Code = (u32)((uACurrentNext - XRFDC_MIN_I_UA_INT(InstancePtr->RFdc_Config.SiRevision)) /
-			     XRFDC_STEP_I_UA(InstancePtr->RFdc_Config.SiRevision));
+		Code = (u32)((uACurrentNext - XRFDC_MIN_I_UA_INT) / XRFDC_STEP_I_UA);
 
-		OptIdx = (Code & XRFDC_DAC_MC_CFG3_OPT_LUT_MASK(InstancePtr->RFdc_Config.SiRevision)) >>
-			 XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT(InstancePtr->RFdc_Config.SiRevision);
-		if (InstancePtr->RFdc_Config.SiRevision == XRFDC_ES1_SI) {
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET,
-					(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG3_OPT_MASK),
-					((Code << XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) | CSCBiasES1[OptIdx]));
-		} else {
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET,
-					XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK, CSCBldr[OptIdx]);
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
-					(XRFDC_DAC_MC_CFG2_BLDGAIN_MASK | XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK),
-					(BldrOPCBias[OptIdx] | ((Code & XRFDC_DAC_VOP_BLDR_LOW_BITS_MASK)
-								<< XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT)));
-			XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET,
-					(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG3_OPT_MASK),
-					((Code << XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) | CSCBiasProd[OptIdx]));
-		}
+		OptIdx = (Code & XRFDC_DAC_MC_CFG3_OPT_LUT_MASK) >> XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT;
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG0_OFFSET,
+				XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK, CSCBldrPtr[OptIdx]);
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_ADC_DAC_MC_CFG2_OFFSET,
+				(XRFDC_DAC_MC_CFG2_BLDGAIN_MASK | XRFDC_DAC_MC_CFG2_CAS_BIAS_MASK),
+				(BldrOPCBiasPtr[OptIdx] | ((Code & XRFDC_DAC_VOP_BLDR_LOW_BITS_MASK)
+							<< XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT)));
+		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET,
+				(XRFDC_DAC_MC_CFG3_CSGAIN_MASK | XRFDC_DAC_MC_CFG3_OPT_MASK),
+				((Code << XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT) | CSCBiasPtr[OptIdx]));
 
 		XRFdc_ClrSetReg(InstancePtr, BaseAddr, XRFDC_DAC_MC_CFG3_OFFSET, XRFDC_DAC_MC_CFG3_UPDATE_MASK,
 				XRFDC_DAC_MC_CFG3_UPDATE_MASK);

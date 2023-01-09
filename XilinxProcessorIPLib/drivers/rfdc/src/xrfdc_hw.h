@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -107,6 +108,8 @@
 *       cog    11/26/21 Reset clock gaters when setting decimation rate.
 *       cog    12/21/21 Read DAC coupling from a register rather than from
 *                       the config structure.
+* 12.0  cog    01/07/23 Added VOP support for DC coupled DACs and removed VOP
+*                       support for ES1 Parts.
 *
 *</pre>
 *
@@ -2194,7 +2197,7 @@ extern "C" {
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_32MA 0x0000A0D8U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_32MA 0x0000FFC0U
 #define XRFDC_DAC_MC_CFG2_GEN1_COMP_MASK 0x0020U
-#define XRFDC_DAC_MC_CFG3_OPT_LUT_MASK(X) ((X == 0) ? 0x03E0U : 0x03F0U)
+#define XRFDC_DAC_MC_CFG3_OPT_LUT_MASK 0x03F0U
 #define XRFDC_DAC_MC_CFG3_OPT_MASK 0x001FU
 #define XRFDC_DAC_MC_CFG3_UPDATE_MASK 0x0020U
 #define XRFDC_DAC_MC_CFG0_CAS_BLDR_MASK 0xE000U
@@ -2205,7 +2208,7 @@ extern "C" {
 
 #define XRFDC_DAC_MC_CFG2_BLDGAIN_SHIFT 6U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_SHIFT 6U
-#define XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT(X) ((X == 0) ? 5U : 4U)
+#define XRFDC_DAC_MC_CFG3_OPT_LUT_SHIFT 4U
 #define XRFDC_ADC_OVR_VOL_RANGE_SHIFT 24U
 #define XRFDC_ADC_DAT_FIFO_OVR_SHIFT 16U
 #define XRFDC_DAT_FIFO_OVR_SHIFT 16U
