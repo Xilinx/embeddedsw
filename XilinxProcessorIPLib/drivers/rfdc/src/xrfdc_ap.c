@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +36,8 @@
 *                       the config structure.
 *       cog    01/18/22 Refactor connected data components.
 *       cog    01/18/22 Added safety checks.
+* 12.0  cog    10/26/22 Added API XRFdc_GetCoupling(), this gets the ADC or
+*                       DAC coupling.
 *
 * </pre>
 *
@@ -1546,6 +1549,87 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
+ *
+ * This function is used to get the Coupling mode.
+ *
+ * @param    InstancePtr is a pointer to the XRfdc instance.
+ * @param    Type is ADC or DAC. 0 for ADC and 1 for DAC.
+ * @param    Tile_Id indicates Tile number.
+ * @param    Block_Id indicates Block number.
+ * @param    ModePtr pointer to get link coupling mode.
+ *
+ * @return
+ *           - XRFDC_SUCCESS if successful.
+ *           - XRFDC_FAILURE if error occurs.
+ *
+ * @note     None.
+ *
+ ******************************************************************************/
+u32 XRFdc_GetCoupling(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, u32 Block_Id,
+                      u32 *ModePtr)
+{
+  u32 Status;
+  u16 ReadReg;
+  u32 BaseAddr;
+
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(ModePtr != NULL);
+  Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+  if ((Type == XRFDC_DAC_TILE) &&
+      (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3)) {
+    Status = XRFDC_FAILURE;
+    metal_log(METAL_LOG_ERROR,
+              "\n DAC coupling for Gen 1/2 devices is not available in %s\r\n",
+              __func__);
+    goto RETURN_PATH;
+  }
+
+  Status =
+      XRFdc_CheckBlockEnabled(InstancePtr, Type, Tile_Id, Block_Id);
+  if (Status != XRFDC_SUCCESS) {
+    metal_log(METAL_LOG_ERROR, "\n %s %u block %u not available in %s\r\n",
+              ((Type == XRFDC_ADC_TILE) ? "ADC" : "DAC"), Tile_Id, Block_Id,
+              __func__);
+    goto RETURN_PATH;
+  }
+
+  if (Type == XRFDC_ADC_TILE) {
+    if ((XRFdc_IsHighSpeedADC(InstancePtr, Tile_Id) == 1) &&
+        (Block_Id == XRFDC_BLK_ID1)) {
+      Block_Id = XRFDC_BLK_ID2;
+    }
+
+    BaseAddr = XRFDC_BLOCK_BASE(XRFDC_ADC_TILE, Tile_Id, Block_Id);
+
+    ReadReg = XRFdc_RDReg(InstancePtr, BaseAddr, XRFDC_ADC_RXPR_MC_CFG0_OFFSET,
+                          XRFDC_RX_MC_CFG0_CM_MASK);
+    if (ReadReg == XRFDC_RX_MC_CFG0_CM_MASK) {
+      *ModePtr = XRFDC_LINK_COUPLING_AC;
+    } else {
+      *ModePtr = XRFDC_LINK_COUPLING_DC;
+    }
+
+    if (InstancePtr->RFdc_Config.IPType >= XRFDC_GEN3) {
+      *ModePtr = !(*ModePtr); /*logic is inverted for GEN3 devices */
+    }
+  } else {
+    BaseAddr = XRFDC_CTRL_STS_BASE(XRFDC_DAC_TILE, Tile_Id);
+    ReadReg = XRFdc_ReadReg(InstancePtr, BaseAddr, XRFDC_CPL_TYPE_OFFSET);
+    if (ReadReg == XRFDC_DAC_LINK_COUPLING_AC) {
+      *ModePtr = XRFDC_LINK_COUPLING_AC;
+    } else {
+      *ModePtr = XRFDC_LINK_COUPLING_DC;
+    }
+  }
+
+  Status = XRFDC_SUCCESS;
+RETURN_PATH:
+  return Status;
+}
+
+/*****************************************************************************/
+/**
 *
 * This function is used to get the Link Coupling mode.
 *
@@ -1570,6 +1654,9 @@ u32 XRFdc_GetLinkCoupling(XRFdc *InstancePtr, u32 Tile_Id, u32 Block_Id, u32 *Mo
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ModePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+
+	metal_log(METAL_LOG_WARNING,
+		"\n %s API Scheduled for deprication in 2024.1, please use the XRFdc_GetCoupling() API\r\n", __func__);
 
 	Status = XRFdc_CheckBlockEnabled(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id);
 	if (Status != XRFDC_SUCCESS) {
