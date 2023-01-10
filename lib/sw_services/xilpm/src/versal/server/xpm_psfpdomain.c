@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,9 +43,9 @@ static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	(void)Args;
-	(void)NumOfArgs;
+
 	(void)PwrDomain;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 	const XPm_Rail *VccintPsfpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSFP);
 
 	/* Check vccint_fpd first to make sure power is on */
@@ -60,7 +61,12 @@ static XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		Status = XST_NOT_ENABLED;
 		goto done;
 	}
-
+	if (IS_SECLOCKDOWN(SecLockDownInfo)){
+		Status = SendFpdHouseCleanReqToPsm((u32)FUNC_SECLOCKDOWN, &DbgErr);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
 	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_INIT_START, &DbgErr);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -182,6 +188,7 @@ static XStatus FpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	    (u32)PSM_GLOBAL_SCAN_CLEAR_PASS_STATUS) !=
 	    (u32)PSM_GLOBAL_SCAN_CLEAR_PASS_STATUS) {
 		DbgErr = XPM_INT_ERR_SCAN_PASS;
+		Status = XST_FAILURE;
                 goto done;
 	}
 
@@ -230,7 +237,7 @@ done:
 	return Status;
 }
 
-static XStatus TriggerMemClearFpd(const XPm_Psm *Psm, u16 *DbgErr)
+static XStatus TriggerMemClearFpd(const XPm_Psm *Psm, u16 *DbgErr, u32 SecLockDownInfo)
 {
 	XStatus Status = XST_FAILURE;
 
@@ -241,7 +248,7 @@ static XStatus TriggerMemClearFpd(const XPm_Psm *Psm, u16 *DbgErr)
 			PSM_GLOBAL_MBIST_RST_FPD_MASK, PSM_GLOBAL_MBIST_RST_FPD_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		*DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_RST;
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_SETUP_OFFSET,
@@ -251,7 +258,7 @@ static XStatus TriggerMemClearFpd(const XPm_Psm *Psm, u16 *DbgErr)
 			PSM_GLOBAL_MBIST_SETUP_FPD_MASK, PSM_GLOBAL_MBIST_SETUP_FPD_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		*DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_SETUP;
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	PmRmw32(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_PG_EN_OFFSET,
@@ -261,7 +268,7 @@ static XStatus TriggerMemClearFpd(const XPm_Psm *Psm, u16 *DbgErr)
 			PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, PSM_GLOBAL_MBIST_PG_EN_FPD_MASK, Status);
 	if (XPM_REG_WRITE_FAILED == Status) {
 		*DbgErr = XPM_INT_ERR_REG_WRT_FPDMBISTCLR_PGEN;
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	Status = XPm_PollForMask(Psm->PsmGlobalBaseAddr + PSM_GLOBAL_MBIST_DONE_OFFSET,
@@ -279,6 +286,15 @@ static XStatus TriggerMemClearFpd(const XPm_Psm *Psm, u16 *DbgErr)
 	}
 
 done:
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		if ((*DbgErr == XPM_INT_ERR_MBIST_GO) || \
+			(*DbgErr == XPM_INT_ERR_MBIST_DONE_TIMEOUT) || \
+			(*DbgErr == XPM_INT_ERR_REG_WRT_FPDMBISTCLR_PGEN) || \
+			(*DbgErr == XPM_INT_ERR_REG_WRT_FPDMBISTCLR_SETUP) || \
+			(*DbgErr == XPM_INT_ERR_REG_WRT_FPDMBISTCLR_RST)){
+			Status = XST_FAILURE;
+			}
+	}
 	return Status;
 }
 
@@ -290,9 +306,7 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	const XPm_Psm *Psm;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
-	(void)Args;
-	(void)NumOfArgs;
-
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
         Status = XPM_STRICT_CHECK_IF_NOT_NULL(StatusTmp, Psm, XPm_Psm, XPmDevice_GetById, PM_DEV_PSM_PROC);
         if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
                 DbgErr = XPM_INT_ERR_INVALID_DEVICE;
@@ -303,13 +317,14 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_SRST_FPD;
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_MBIST_CLEAR, &DbgErr);
 	if (XST_SUCCESS != Status) {
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
+
 	if (!(PM_HOUSECLEAN_CHECK(FPD, MBIST))) {
 		PmInfo("Skipping MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 		Status = XST_SUCCESS;
@@ -318,9 +333,9 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	PmInfo("Triggering MBIST for power node 0x%x\r\n", PwrDomain->Power.Node.Id);
 
-	Status = TriggerMemClearFpd(Psm, &DbgErr);
+	Status = TriggerMemClearFpd(Psm, &DbgErr, SecLockDownInfo);
 	if (XST_SUCCESS != Status) {
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	/* Unwrite trigger bits */
@@ -347,6 +362,16 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 done:
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		if ((DbgErr == XPM_INT_ERR_MBIST_GO) || \
+			(DbgErr == XPM_INT_ERR_MBIST_DONE_TIMEOUT) || \
+			(DbgErr == XPM_INT_ERR_REG_WRT_FPDMBISTCLR_PGEN) || \
+			(DbgErr == XPM_INT_ERR_REG_WRT_FPDMBISTCLR_SETUP) || \
+			(DbgErr == XPM_INT_ERR_REG_WRT_FPDMBISTCLR_RST) || \
+			(DbgErr == XPM_INT_ERR_SRST_FPD)) {
+			Status = XST_FAILURE;
+			}
+	}
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,8 @@ extern "C" {
 #define PSM_API_CCIX_EN				(4U)
 #define PSM_API_DOMAIN_ISO			(6U)
 #define PSM_API_GET_PSM_TO_PLM_EVENT_ADDR	(7U)
+
+#define FUNC_SECLOCKDOWN	(11U)
 
 #define PSM_TO_PLM_EVENT_VERSION		(0x2U)
 #define PWR_UP_EVT				(0x1U)
