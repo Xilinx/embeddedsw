@@ -82,6 +82,7 @@ static void XOcp_PrintData(const u8 *Data, u32 size);
 /************************** Variable Definitions *****************************/
 static u8 PCRBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PCRBuf")));
 static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] __attribute__ ((section (".data.ExtendHash")));
+static XOcp_HwPcrLog PcrLog;
 
 /*****************************************************************************/
 /**
@@ -99,6 +100,7 @@ int main(void)
 	XMailbox MailboxInstance;
 	XOcp_ClientInstance OcpClientInstance;
 	XOcp_RomHwPcr PcrNum = (XOcp_RomHwPcr)XOCP_SELECT_PCR_NUM;
+	u32 PcrMask = (u32)XOCP_READ_PCR_MASK;
 
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
@@ -120,13 +122,15 @@ int main(void)
 		goto END;
 	}
 
-	Status = XOcp_ExtendPcr(&OcpClientInstance, PcrNum, (u64)(UINTPTR)ExtendHash);
+	Status = XOcp_ExtendPcr(&OcpClientInstance, PcrNum,
+		(u64)(UINTPTR)ExtendHash, sizeof(ExtendHash));
 	if (Status != XST_SUCCESS) {
 		xil_printf("Extend PCR failed Status: 0x%02x\n\r", Status);
 		goto END;
 	}
 
-	Status = XOcp_GetPcr(&OcpClientInstance, PcrNum, (u64)(UINTPTR)PCRBuf);
+	Status = XOcp_GetPcr(&OcpClientInstance, PcrMask,
+		(u64)(UINTPTR)PCRBuf, sizeof(PCRBuf));
 	if (Status != XST_SUCCESS) {
 		xil_printf("Get PCR failed Status: 0x%02x\n\r", Status);
 		goto END;
@@ -134,6 +138,14 @@ int main(void)
 
 	xil_printf("Requested PCR contents:\n\r");
 	XOcp_PrintData((const u8*)PCRBuf, XOCP_PCR_SIZE_BYTES);
+
+	Status = XOcp_GetHwPcrLog(&OcpClientInstance, (u64)(UINTPTR)&PcrLog,
+		XOCP_READ_NUM_OF_LOG_ENTRIES);
+	if (Status != XST_SUCCESS) {
+                xil_printf("Get PCR Log failed Status: 0x%02x OverFlowStatus: %x\n\r",
+			Status, PcrLog.OverFlowFlag);
+                goto END;
+        }
 
 	xil_printf("\r\n Successfully ran OCP Client Example");
 	Status = XST_SUCCESS;

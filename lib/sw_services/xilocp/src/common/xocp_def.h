@@ -96,7 +96,8 @@ typedef enum {
 	XOCP_API_FEATURES = 0U,	/**< 0U */
 	XOCP_API_EXTENDPCR,	/**< 1U */
 	XOCP_API_GETPCR,	/**< 2U */
-	XOCP_API_MAX		/**< 3U */
+	XOCP_API_GETPCRLOG,	/**< 3U */
+	XOCP_API_MAX		/**< 4U */
 } XOcp_ApiId;
 /** @} */
 

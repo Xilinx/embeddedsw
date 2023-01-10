@@ -33,6 +33,18 @@
  * XOCP_SELECT_PCR_NUM can be configured as one of the seven provided PCR
  * number from XOcp_RomHwPcr enum in xocp_common.h file.
  *
+ * XOCP_READ_PCR_MASK	(0x00000004)
+ * The lower 8 bits of XOCP_READ_PCR_MASK indicates 8 PCRs, user can set
+ * the corresponding bit to read the specific PCR
+ * Example: XOCP_READ_PCR_MASK (0x00000004) , 2nd bit of the Mask is set means
+ * user want to read the PCR 2
+ * XOCP_READ_PCR_MASK (0x0000000B), 2nd and 3rd bitsof the Mask are set, which
+ * means user wants to read PCR 2 and PCR 3.
+ * Default value is (0x00000004)
+ *
+ * XOCP_READ_NUM_OF_LOG_ENTRIES Number of PcrLog entries to read into buffer.
+ * Default value is (0x00000001)
+ *
  ******************************************************************************/
 #ifndef XILOCP_INPUT_H
 #define XILOCP_INPUT_H
@@ -54,6 +66,10 @@ extern "C" {
  * Following is the define to select PCR number by the user.
  */
 #define XOCP_SELECT_PCR_NUM	(XOCP_PCR_2)
+
+#define XOCP_READ_PCR_MASK	(0x00000004)
+
+#define XOCP_READ_NUM_OF_LOG_ENTRIES	(0x00000001)
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -51,6 +52,9 @@ extern "C" {
 #define XOCP_ECC_P384_SIZE_BYTES		(48U)
 #define XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES	(96U)
 
+#define XOCP_MAX_NUM_OF_HWPCR_EVENTS		(32U)
+#define XOCP_SHA3_LEN_IN_BYTES          	(48U)
+
 /**************************** Type Definitions *******************************/
 
 /*
@@ -84,6 +88,19 @@ typedef struct {
 	u32 DmeSignatureR[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp R */
 	u32 DmeSignatureS[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp S */
 } XOcp_DmeResponse;
+
+typedef struct {
+	u8 PcrNo;
+	u8 Hash[XOCP_SHA3_LEN_IN_BYTES];
+	u8 PcrValue[XOCP_SHA3_LEN_IN_BYTES];
+} XOcp_HwPcrEvent;
+
+typedef struct {
+	XOcp_HwPcrEvent Buffer[XOCP_MAX_NUM_OF_HWPCR_EVENTS];
+	u32 HeadIndex;
+	u32 TailIndex;
+	u32 OverFlowFlag;
+} XOcp_HwPcrLog;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

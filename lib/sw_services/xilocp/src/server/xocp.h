@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -41,6 +42,12 @@ extern "C" {
 #define XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL	(0x00000003U)
 #define XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE	(0x31U)
 #define XOcp_MemCopy								XPlmi_DmaXfr
+#define XOCP_MAX_NUM_OF_SWPCR_DIGESTS			(0x20U)
+#define XOCP_WORD_LEN					(0x4U)
+#define XOCP_PCR_NUMBER_MASK 				(0x0000FFFFU)
+#define XOCP_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)
+#define XOCP_PCR_INVALID_VALUE 				(0xFFFFFFFFU)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -48,8 +55,9 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-int XOcp_ExtendPcr(XOcp_RomHwPcr PcrNum, u64 ExtHashAddr);
-int XOcp_GetPcr(XOcp_RomHwPcr PcrNum, u64 PcrBuf);
+int XOcp_ExtendHwPcr(XOcp_RomHwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
+int XOcp_GetHwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
+int XOcp_GetHwPcrLog(u64 LogAddr, u32 NumOfLogEntries);
 int XOcp_GenerateDmeResponse(u32 NonceAddr, XOcp_DmeResponse *DmeResPtr);
 
 #ifdef __cplusplus

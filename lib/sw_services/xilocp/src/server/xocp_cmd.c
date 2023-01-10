@@ -74,6 +74,7 @@ static int XOcp_FeaturesCmd(u32 ApiId)
 	switch (ApiId) {
 		case XOCP_API(XOCP_API_EXTENDPCR):
 		case XOCP_API(XOCP_API_GETPCR):
+		case XOCP_API(XOCP_API_GETPCRLOG):
 			Status = XST_SUCCESS;
 			break;
 		default:
@@ -112,6 +113,7 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 			break;
 		case XOCP_API(XOCP_API_EXTENDPCR):
 		case XOCP_API(XOCP_API_GETPCR):
+		case XOCP_API(XOCP_API_GETPCRLOG):
 			Status = XOcp_IpiHandler(Cmd);
 			break;
 		default:
