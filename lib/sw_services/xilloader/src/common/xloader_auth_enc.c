@@ -95,6 +95,7 @@
 *       har  11/17/22 Made XLoader_CheckNonZeroPpk as non-static and moved here from xloader_secure.c file
 *       ng   11/23/22 Updated doxygen comments
 * 1.8   skg  12/07/22 Added Additional PPKs support
+*       kal  01/05/23 Moved XLoader_GetAuthPubAlgo function to header file
 *
 * </pre>
 *
@@ -153,23 +154,6 @@ typedef struct {
                     /**< ECDSA RSA Reset register address */
 #define XLOADER_ECDSA_RSA_RESET_VAL			(0x1U)
 					/**< ECDSA RSA Reset value */
-
-/*****************************************************************************/
-/**
-* @brief	This function returns the public algorithm used for authentication
-*
-* @param	AuthHdrPtr is a pointer to the Authentication header of the AC.
-*
-* @return	- XLOADER_PUB_STRENGTH_ECDSA_P384
-*		- XLOADER_PUB_STRENGTH_RSA_4096
-*		- XLOADER_PUB_STRENGTH_ECDSA_P521
-*
-******************************************************************************/
-static INLINE u32 XLoader_GetAuthPubAlgo(const u32 *AuthHdrPtr)
-{
-	return (((*AuthHdrPtr) & XLOADER_AC_AH_PUB_STRENGTH_MASK) >>
-		XLOADER_AC_AH_PUB_STRENGTH_SHIFT);
-}
 
 /************************** Function Prototypes ******************************/
 

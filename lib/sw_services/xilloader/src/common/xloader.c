@@ -1278,6 +1278,8 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 NodeId = NODESUBCLASS(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
+	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
 
 #ifdef XPLM_SEM
 	/* Stop the SEM scan before PL load */
@@ -1291,7 +1293,6 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 		}
 	}
 #endif
-
 	Status = XLoader_VerifyImgInfo((const XLoader_ImageInfo *)
 		&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 	if (Status != XST_SUCCESS) {
@@ -1312,8 +1313,11 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 	PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName[XILPDI_IMG_NAME_ARRAY_SIZE - 1U] = 0;
 	/* Update current subsystem ID for EM */
 	XPlmi_SetEmSubsystemId(&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+
+	ImageMeasureInfo.PcrInfo = PcrInfo;
+	ImageMeasureInfo.Flags = XLOADER_MEASURE_START;
 	/* This is applicable only for Versal Net */
-	Status = XLoader_DataMeasurement(0U, 0U, 0U, XLOADER_MEASURE_START);
+	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1323,8 +1327,9 @@ static int XLoader_LoadImage(XilPdi *PdiPtr)
 		goto END;
 	}
 
+	ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
 	/* This is applicable only for Versal Net */
-	Status = XLoader_DataMeasurement(0U, 0U, 0U, XLOADER_MEASURE_FINISH);
+	Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

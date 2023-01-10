@@ -21,6 +21,7 @@
 *       dc   07/20/2022 Added support for data measurement.
 *       har  08/29/2022 Updated secure chunk size from 16K to 32K
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       kal  01/05/2023 Added XLoader_SecureConfigMeasurement function
 *
 * </pre>
 *
@@ -229,7 +230,8 @@ XLoader_ImageStore* XLoader_GetPdiList(void);
 int XLoader_UpdateHandler(XPlmi_ModuleOp Op);
 int XLoader_PlatInit(void);
 int XLoader_HdrMeasurement(XilPdi* PdiPtr);
-int XLoader_DataMeasurement(u64 DataAddr, u32 DataSize, u32 PcrInfo, u8 Flags);
+int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
+int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecureParams, u32 PcrInfo);
 
 /************************** Variable Definitions *****************************/
 

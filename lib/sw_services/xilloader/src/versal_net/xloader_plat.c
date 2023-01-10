@@ -25,6 +25,7 @@
 *                       TCM memory banks
 * 1.01  ng   11/11/2022 Updated doxygen comments
 *       dc   12/27/2022 Added SHA1 instance
+*       kal  01/05/2023 Added PCR Extend functions for secure images
 *
 * </pre>
 *
@@ -45,6 +46,8 @@
 #include "xilpdi.h"
 #include "xplmi_gic_interrupts.h"
 #ifdef PLM_OCP
+#include "xocp.h"
+#include "xsecure_sha.h"
 #include "xsecure_init.h"
 #endif
 #include "xplmi_scheduler.h"
@@ -76,6 +79,13 @@ static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 static int XLoader_GetLoadAddr(u32 DstnCpu, u32 DstnCluster, u64 *LoadAddrPtr,
 	u32 Len);
 static int XLoader_InitSha1Instance(void);
+#ifdef PLM_OCP
+static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
+	XSecure_Sha3Hash* Sha3Hash);
+static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrInfo);
+static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrInfo);
+static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -1051,30 +1061,41 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 {
 	int Status = XLOADER_ERR_HDR_MEASUREMENT;
 #ifdef PLM_OCP
+	XLoader_ImageMeasureInfo ImageInfo = {0U};
 	XilPdi_MetaHdr * MetaHdrPtr = &PdiPtr->MetaHdr;
 
-	Status = XLoader_DataMeasurement(0U, 0U, 0U, XLOADER_MEASURE_START);
+	ImageInfo.PcrInfo = XOCP_PCR_INVALID_VALUE;
+	ImageInfo.Flags = XLOADER_MEASURE_START;
+	Status = XLoader_DataMeasurement(&ImageInfo);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XLoader_DataMeasurement((u64)(UINTPTR)&(MetaHdrPtr->ImgHdrTbl),
-			sizeof(XilPdi_ImgHdrTbl), 0U, XLOADER_MEASURE_UPDATE);
+
+	ImageInfo.DataAddr = (u64)(UINTPTR)&(MetaHdrPtr->ImgHdrTbl);
+	ImageInfo.DataSize = sizeof(XilPdi_ImgHdrTbl);
+	ImageInfo.Flags = XLOADER_MEASURE_UPDATE;
+	Status = XLoader_DataMeasurement(&ImageInfo);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XLoader_DataMeasurement((u64)(UINTPTR)(MetaHdrPtr->ImgHdr),
-			(MetaHdrPtr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN), 0U,
-			 XLOADER_MEASURE_UPDATE);
+
+	ImageInfo.DataAddr = (u64)(UINTPTR)(MetaHdrPtr->ImgHdr);
+	ImageInfo.DataSize = (MetaHdrPtr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN);
+	Status = XLoader_DataMeasurement(&ImageInfo);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XLoader_DataMeasurement((u64)(UINTPTR)(MetaHdrPtr->PrtnHdr),
-			(MetaHdrPtr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN), 0U,
-			 XLOADER_MEASURE_UPDATE);
+
+	ImageInfo.DataAddr = (u64)(UINTPTR)(MetaHdrPtr->PrtnHdr);
+	ImageInfo.DataSize = (MetaHdrPtr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN);
+	Status = XLoader_DataMeasurement(&ImageInfo);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XLoader_DataMeasurement(0U, 0U, 0U, XLOADER_MEASURE_FINISH);
+
+	ImageInfo.Flags = XLOADER_MEASURE_FINISH;
+	Status = XLoader_DataMeasurement(&ImageInfo);
+
 	XPlmi_Printf(DEBUG_GENERAL, "INFO: Measurement may not be accurate when"
 		" CDO is enabled with key whole write\n\r");
 END:
@@ -1093,33 +1114,32 @@ END:
 /**
  * @brief	This function measures the data by calculating SHA3 hash.
  *
- * @param	DataAddr is the address of the data to be measured.
- * @param	DataSize is the size of the data to be measured.
- * @param	PcrInfo provides the PCR number to be extended.
- * @param	Flags - The hash calculation flags
- * 			- XLOADER_MEASURE_START : Sha3 start
- * 			- XLOADER_MEASURE_UPDATE: Sha3 update
- * 			- XLOADER_MEASURE_FINISH: Sha3Finish
- * 			- Any other option will be an error.
+ * @param	ImageInfo Pointer to the XLoader_ImageMeasureInfo structure.
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XLoader_DataMeasurement(u64 DataAddr, u32 DataSize, u32 PcrInfo, u8 Flags)
+int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
 	int Status = XLOADER_ERR_DATA_MEASUREMENT;
 #ifdef PLM_OCP
 	XSecure_Sha3 *Sha1Instance = XSecure_GetSha1Instance();
 	XSecure_Sha3Hash Sha3Hash;
-	(void)PcrInfo;
+	u32 PcrNo;
 
-	switch(Flags) {
+	if (ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+	PcrNo = ImageInfo->PcrInfo & XOCP_PCR_NUMBER_MASK;
+
+	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
 		Status = XSecure_Sha3Start(Sha1Instance);
 		break;
 	case XLOADER_MEASURE_UPDATE:
 		Status = XSecure_Sha3Update64Bit(Sha1Instance,
-				DataAddr, DataSize);
+				ImageInfo->DataAddr, ImageInfo->DataSize);
 		break;
 	case XLOADER_MEASURE_FINISH:
 		Status = XSecure_Sha3Finish(Sha1Instance, &Sha3Hash);
@@ -1129,12 +1149,20 @@ int XLoader_DataMeasurement(u64 DataAddr, u32 DataSize, u32 PcrInfo, u8 Flags)
 	}
 	if (Status != XST_SUCCESS) {
 		Status |= XLOADER_ERR_DATA_MEASUREMENT;
+		goto END;
+	}
+
+	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
+		Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
+				XLOADER_SHA3_LEN);
+	}
+
+END:
+	if (Status != XST_SUCCESS) {
+		Status |= XLOADER_ERR_DATA_MEASUREMENT;
 	}
 #else
-	(void)DataAddr;
-	(void)DataSize;
-	(void)PcrInfo;
-	(void)Flags;
+	(void)ImageInfo;
 	Status = XST_SUCCESS;
 #endif
 
@@ -1169,3 +1197,175 @@ END:
 #endif
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the Secure Configuration that is
+ * 		SPK, SPK ID and Encryption Revoke ID and extends to the
+ * 		specified PCR
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	PcrInfo provides the PCR number and Measurement Index
+ * 		to be extended.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo)
+{
+	int Status = XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
+#ifdef PLM_OCP
+	u32 IsAuthenticated = SecurePtr->IsAuthenticated;
+	u32 IsEncrypted = SecurePtr->IsEncrypted;
+	XSecure_Sha3Hash Sha3Hash;
+
+	if (PcrInfo == XOCP_PCR_INVALID_VALUE) {
+                Status = XST_SUCCESS;
+                goto END;
+        }
+	if(IsAuthenticated == (u8)TRUE) {
+		Status = XLoader_SpkMeasurement(SecurePtr, &Sha3Hash);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XLoader_ExtendSpkHash(&Sha3Hash, PcrInfo);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XLoader_ExtendSpkId(SecurePtr->AcPtr->SpkId, PcrInfo);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	if (IsEncrypted == (u8)TRUE) {
+		if (IsAuthenticated != (u8)TRUE) {
+			Status = XLoader_ExtendEncRevokeId(
+				SecurePtr->PrtnHdr->EncRevokeID, PcrInfo);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	if (Status != XST_SUCCESS) {
+		Status |= XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
+	}
+#else
+	(void)SecurePtr;
+	(void)PcrInfo;
+	Status = XST_SUCCESS;
+#endif
+	return Status;
+}
+
+#ifdef PLM_OCP
+/*****************************************************************************/
+/**
+ * @brief	This function measures the SPK by calculating SHA3 hash.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	Sha3Hash  is pointer to the XSecure_Sha3Hash.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
+	XSecure_Sha3Hash* Sha3Hash)
+{
+	int Status = XST_FAILURE;
+	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
+	u32 AuthType;
+	u32 SpkLen = 0U;
+
+	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+
+	Status = XSecure_Sha3Initialize(Sha3InstPtr, SecurePtr->PmcDmaInstPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+		SpkLen = XLOADER_SPK_SIZE - XOCP_WORD_LEN;
+	}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
+		SpkLen = (XLOADER_ECDSA_P384_KEYSIZE + XLOADER_ECDSA_P384_KEYSIZE);
+	}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+		SpkLen = (XLOADER_ECDSA_P521_KEYSIZE + XLOADER_ECDSA_P521_KEYSIZE);
+	}
+
+	Status = XSecure_Sha3Digest(Sha3InstPtr, (UINTPTR)&SecurePtr->AcPtr->Spk,
+			SpkLen, Sha3Hash);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function extends the SPK Hash into specified PCR.
+ *
+ * @param	SpkHash SPK key hash measured
+ * @param	PcrInfo provides the PCR number and Measurement Index
+ * 		to be extended.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrInfo)
+{
+	int Status = XST_FAILURE;
+	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
+
+	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkHash->Hash,
+			XLOADER_SHA3_LEN);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function extends the Partition AC SPK ID into specified
+ * 		PCR.
+ *
+ * @param	SpkId Partition AC SPK ID
+ * @param	PcrInfo provides the PCR number and Measurement Index
+ * 		to be extended.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrInfo)
+{
+	int Status = XST_FAILURE;
+	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
+
+	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkId, sizeof(SpkId));
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function extends the Partition Header Revoke ID into
+ * 		specified PCR.
+ *
+ * @param	SpkId Partition Header Revocation ID
+ * @param	PcrInfo provides the PCR number and Measurement Index
+ * 		to be extended.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo)
+{
+	int Status = XST_FAILURE;
+	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
+
+	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&EncRevokeId, sizeof(EncRevokeId));
+
+	return Status;
+}
+#endif

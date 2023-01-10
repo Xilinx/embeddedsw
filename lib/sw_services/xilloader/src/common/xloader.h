@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,6 +102,7 @@
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *       ma   07/27/2022 Added support for CFrame data clear check which is
 *                        required during PL secure lockdown
+*       kal  01/05/2023 Added XLOADER_PCR_INVALID_VALUE macro
 *
 * </pre>
 *
@@ -357,6 +359,13 @@ typedef struct {
 	u64 PdiAddr[XLOADER_MAX_PDI_LIST];
 	u8 Count;
 } XLoader_ImageStore;
+
+typedef struct {
+	u64 DataAddr;
+	u32 DataSize;
+	u32 PcrInfo;
+	u8 Flags;
+} XLoader_ImageMeasureInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/

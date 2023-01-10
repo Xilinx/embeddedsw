@@ -204,13 +204,27 @@ static inline int XLoader_HdrMeasurement(XilPdi* PdiPtr)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static inline int XLoader_DataMeasurement(u64 DataAddr, u32 DataSize,
-				u32 PcrInfo, u8 Flags)
+static inline int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
-	(void)DataAddr;
-	(void)DataSize;
+	(void)ImageInfo;
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function measures the Secure Config by calculating SHA3 hash.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	PcrInfo provides the PCR number and Measurement Index
+ * 		to be extended.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static inline int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo)
+{
+	(void)SecurePtr;
 	(void)PcrInfo;
-	(void)Flags;
 	return XST_SUCCESS;
 }
 

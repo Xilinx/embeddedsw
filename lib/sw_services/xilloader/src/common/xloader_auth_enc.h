@@ -52,6 +52,7 @@
 *       har  11/17/22 Added function declaration for XLoader_CheckNonZeroPpk
 * 1.04  ng   11/23/22 Fixed doxygen file name error
 * 1.8   skg  12/07/22 Added Additional PPKs related macros and enums
+*       kal  01/05/23 Added XLoader_GetAuthPubAlgo definition
 *
 * </pre>
 *
@@ -533,6 +534,23 @@ static inline int XLoader_UpdateMinorErr(XLoader_SecErrCodes Minor1, int Minor2)
 	UMinor1 = (UMinor1 << 8U) | UMinor2;
 
 	return (int)UMinor1;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function returns the public algorithm used for authentication
+*
+* @param	AuthHdrPtr is a pointer to the Authentication header of the AC.
+*
+* @return	- XLOADER_PUB_STRENGTH_ECDSA_P384
+*		- XLOADER_PUB_STRENGTH_RSA_4096
+*		- XLOADER_PUB_STRENGTH_ECDSA_P521
+*
+******************************************************************************/
+static INLINE u32 XLoader_GetAuthPubAlgo(const u32 *AuthHdrPtr)
+{
+	return ((*AuthHdrPtr & XLOADER_AC_AH_PUB_STRENGTH_MASK) >>
+		XLOADER_AC_AH_PUB_STRENGTH_SHIFT);
 }
 
 /***************************** Function Prototypes ***************************/

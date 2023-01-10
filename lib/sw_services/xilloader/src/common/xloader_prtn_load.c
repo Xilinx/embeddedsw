@@ -92,6 +92,8 @@
 *       dc   07/19/2022 Added support for data measurement in VersalNet
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
 * 1.10  ng   11/11/2022 Updated doxygen comments
+*       kal  01/05/2023 Added XLoader_SecureConfigMeasurement function for
+*                       secure images measurement
 *
 * </pre>
 *
@@ -127,7 +129,7 @@
 
 /************************** Function Prototypes ******************************/
 static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr* PrtnHdr, u32 PrtnNum);
-static int XLoader_ProcessPrtn(XilPdi* PdiPtr);
+static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex);
 static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams* SecureParams);
 
@@ -230,7 +232,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		/**
 		 * Process Partition
 		 */
-		Status = XLoader_ProcessPrtn(PdiPtr);
+		Status = XLoader_ProcessPrtn(PdiPtr, PrtnIndex);
 		if (XST_SUCCESS != Status) {
 			goto END;
 		}
@@ -337,6 +339,8 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	XLoader_SecureParams *SecureParams = (XLoader_SecureParams *)SecureParamsPtr;
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
 			(SecureTempParams->SecureEn == (u8)FALSE) &&
@@ -356,10 +360,12 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 		XPlmi_Printf(DEBUG_GENERAL, "Device Copy Failed\n\r");
 	}
 	else {
+		ImageMeasureInfo.DataAddr = DeviceCopy->DestAddr;
+		ImageMeasureInfo.DataSize = PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT;
+		ImageMeasureInfo.PcrInfo = PcrInfo;
+		ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 		/* Update the data for measurement, only VersalNet */
-		Status = XLoader_DataMeasurement(DeviceCopy->DestAddr,
-			PrtnHdr->UnEncDataWordLen << XPLMI_WORD_LEN_SHIFT,
-			0U, XLOADER_MEASURE_UPDATE);
+		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 	}
 
 	return Status;
@@ -397,6 +403,8 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	u64 CdoProcessTime = 0U;
 	XPlmi_PerfTime PerfTime;
 #endif
+	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
+	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 
 	XPlmi_Printf(DEBUG_INFO, "Processing CDO partition \n\r");
 	/**
@@ -547,9 +555,12 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			}
 		}
 		else {
+			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)Cdo.BufPtr;
+			ImageMeasureInfo.DataSize = ChunkLenTemp;
+			ImageMeasureInfo.PcrInfo = PcrInfo;
+			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
 			/* Update the data for measurement, only VersalNet */
-			Status = XLoader_DataMeasurement((u64)(UINTPTR)Cdo.BufPtr, ChunkLenTemp,
-					0U, XLOADER_MEASURE_UPDATE);
+			Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -583,7 +594,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
+static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 {
 	int Status = XST_FAILURE;
 	u32 PdiSrc = PdiPtr->PdiSrc;
@@ -600,6 +611,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	u64 CopyToMemAddr = PdiPtr->CopyToMemAddr;
 	/* Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
+	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
 
 	/** Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
@@ -724,6 +736,10 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 		XPlmi_Printf(DEBUG_INFO, "Copying data partition\n\r");
 		/* Partition Copy */
 		Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
+	}
+
+	if ((Status == XST_SUCCESS) && (PrtnIndex == 0x00U)) {
+		Status = XLoader_SecureConfigMeasurement(&SecureParams, PcrInfo);
 	}
 
 END:
