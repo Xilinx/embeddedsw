@@ -109,7 +109,7 @@
 #endif
 #include "xplmi_plat.h"
 #include "xplmi_tamper.h"
-
+#include "xpm_nodeid.h"
 /**@cond xplmi_internal
  * @{
  */
@@ -1641,6 +1641,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 		ProcCdo.BufLen = (ProcList->ProcData[ProcIndex + 1U].Addr -
 			ProcList->ProcData[ProcIndex].Addr) / XPLMI_WORD_LEN;
 		ProcCdo.CdoLen = ProcCdo.BufLen;
+		ProcCdo.SubsystemId = PM_SUBSYS_PMC;
 		/* Execute Proc */
 		Status = XPlmi_ProcessCdo(&ProcCdo);
 	} else {
