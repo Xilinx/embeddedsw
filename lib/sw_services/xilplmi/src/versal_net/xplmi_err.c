@@ -21,6 +21,7 @@
 *       dc   07/12/2022 Added support to device state change
 *       bm   07/13/2022 Update EAM logic for In-Place PLM Update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       kal  01/05/2022 Added support to PCR log update
 *
 * </pre>
 *
@@ -437,6 +438,8 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_PLM_EXCEPTION] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_DEV_STATE_CHANGE] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_PCR_LOG_UPDATE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 

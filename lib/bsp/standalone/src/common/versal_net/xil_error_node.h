@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * ----- -------- -------- -----------------------------------------------------
 * 8.0   bm       07/06/2022 Initial release
 *       dc       07/12/2022 Added XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE
+* 8.1   kal      01/05/2023 Added XIL_EVENT_ERROR_PCR_LOG_UPDATE
 *
 * </pre>
 *
@@ -713,6 +715,7 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_HB_MON_3		(0x00000008U)
 #define XIL_EVENT_ERROR_MASK_PLM_EXCEPTION	(0x00000010U)
 #define XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE 	(0x00000020U)
+#define XIL_EVENT_ERROR_PCR_LOG_UPDATE		(0x00000040U)
 /**
  * @}
  */

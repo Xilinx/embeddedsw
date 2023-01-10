@@ -30,6 +30,7 @@
 *                       boundaries
 * 1.01  har  11/17/2022 Removed XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED error code
 *       ng   11/23/2022 Fixed doxygen file name error
+*       kal  01/05/2023 Added XLOADER_ERR_IN_SECURE_CONFIG_MEASUREMENT error code
 *
 * </pre>
 *
@@ -567,6 +568,7 @@ typedef enum {
 	XLOADER_ERR_HDR_MEASUREMENT,	/**< 0x3A7 - Error in meta header measurement */
 	XLOADER_ERR_DATA_MEASUREMENT,   /**< 0x3A8 - Error in data measurement */
 	XLOADER_ERR_SHA1_INIT,		/**< 0x3A9 - Error when SHA1 initialization fails */
+	XLOADER_ERR_SECURE_CONFIG_MEASUREMENT,    /**< 0x3AA - Error in Secure config measurement */
 
 
 	/**< Security Major error codes */
@@ -700,6 +702,10 @@ typedef enum {
 	XOCP_PCR_ERR_NOT_COMPLETED,	/**< 0x6A1 PCR operation not completed */
 	XOCP_PCR_ERR_OPERATION,		/**< 0x6A2 PCR operation error */
 	XOCP_PCR_ERR_GLITCH,		/**< 0x6A3 PCR operation error */
+	XOCP_PCR_ERR_IN_UPDATE_LOG,	/**< 0x6A4 PCR log update error */
+	XOCP_PCR_ERR_IN_GET_PCR,	/**< 0x6A5 Error in GetPcr */
+	XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST,
+					/**< 0x6A6 PCR log read request is invalid */
 
 	XOCP_DME_ERR = 0x6B0,		/**< 0x6B0 DME signing error */
 
