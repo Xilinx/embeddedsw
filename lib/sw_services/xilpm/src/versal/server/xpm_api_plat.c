@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1940,6 +1941,31 @@ XStatus XPm_IfNocClockEnable(XPlmi_Cmd *Cmd, const u32 *Args, u32 NumArgs)
 
 	Status = XPmPlDevice_IfNocClkEnable(Cmd, BitArrayIdx, State, Mask, Level);
 
+done:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function performs house cleaning for a power domain
+ *
+ * @param NodeId	Node ID of a power domain to be forced house clean
+ * @return 		XST_SUCCESS if successful else error code.
+ *
+ ****************************************************************************/
+XStatus XPm_ForceHouseClean(u32 NodeId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_PowerDomain* PwrDomainNode = (XPm_PowerDomain *)XPmPower_GetById(NodeId);
+	if (NULL == PwrDomainNode) {
+		PmErr("Unable to find Power Domain for given Node Id\n\r");
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+	XPM_HOUSECLEAN(PwrDomainNode, ScanClear, NULL, 0, Status);
+	XPM_HOUSECLEAN(PwrDomainNode, Bisr, NULL, 0, Status);
+	XPM_HOUSECLEAN(PwrDomainNode, Mbist, NULL, 0, Status);
+	Status = XST_SUCCESS;
 done:
 	return Status;
 }

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -71,6 +72,7 @@ maybe_unused static inline void XPm_ClearScanClear(void)
 }
 XStatus XPm_EnableDdrSr(const u32 SubsystemId);
 XStatus XPm_DisableDdrSr(const u32 SubsystemId);
+XStatus XPm_ForceHouseClean(u32 NodeId);
 
 #ifdef __cplusplus
 }

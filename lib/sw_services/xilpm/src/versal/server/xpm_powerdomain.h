@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,14 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 #define XPM_POLL_TIMEOUT			(0X1000000U)
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 #define MAX_POWERDOMAINS			6U
+
+#define XPM_HOUSECLEAN(PwrDomainNode, Func, Args, Num_Args, OutStatus) {\
+	if (PwrDomainNode->DomainOps->Func != NULL) { \
+		OutStatus = PwrDomainNode->DomainOps->Func(PwrDomainNode, Args, Num_Args);\
+	} else {\
+		OutStatus = XST_FAILURE;\
+	}\
+}
 
 /**
  * The power domain node class.  This is the base class for all the power domain
