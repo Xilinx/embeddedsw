@@ -30,6 +30,15 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 	}\
 }
 
+#define IS_SECLOCKDOWN(SecLockDownInfo) ((SecLockDownInfo) & 0x1U)
+
+maybe_unused static inline u32 GetSecLockDownInfoFromArgs(const u32* Args, u32 NumOfArgs){
+	if ((NULL == Args) || (0U == NumOfArgs)) {
+		return 0U;
+	}
+	return Args[0U];
+}
+
 /**
  * The power domain node class.  This is the base class for all the power domain
  * classes.

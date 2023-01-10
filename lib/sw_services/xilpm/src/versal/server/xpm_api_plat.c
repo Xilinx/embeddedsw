@@ -1895,7 +1895,7 @@ done:
 }
 
 /****************************************************************************/
-/**
+/*
  * @brief  This function checks current and previous NoC clock enablement
  *
  * @param  Cmd		Pointer to CDO command
@@ -1946,7 +1946,7 @@ done:
 }
 
 /****************************************************************************/
-/**
+/*
  * @brief  This function performs house cleaning for a power domain
  *
  * @param NodeId	Node ID of a power domain to be forced house clean
@@ -1956,16 +1956,23 @@ done:
 XStatus XPm_ForceHouseClean(u32 NodeId)
 {
 	XStatus Status = XST_FAILURE;
+	XStatus Status_st= XST_FAILURE;
+	XStatus Status_sc = XST_FAILURE;
+	XStatus Status_mc = XST_FAILURE;
+	XStatus Status_sr = XST_FAILURE;
+	u32 Args[1]={1};
 	XPm_PowerDomain* PwrDomainNode = (XPm_PowerDomain *)XPmPower_GetById(NodeId);
 	if (NULL == PwrDomainNode) {
 		PmErr("Unable to find Power Domain for given Node Id\n\r");
 		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
-	XPM_HOUSECLEAN(PwrDomainNode, ScanClear, NULL, 0, Status);
-	XPM_HOUSECLEAN(PwrDomainNode, Bisr, NULL, 0, Status);
-	XPM_HOUSECLEAN(PwrDomainNode, Mbist, NULL, 0, Status);
-	Status = XST_SUCCESS;
+	XPM_HOUSECLEAN(PwrDomainNode, InitStart, Args, 1, Status_st);
+	XPM_HOUSECLEAN(PwrDomainNode, ScanClear, Args, 1, Status_sc);
+	XPM_HOUSECLEAN(PwrDomainNode, Bisr, Args, 1, Status_sr);
+	XPM_HOUSECLEAN(PwrDomainNode, Mbist, Args, 1, Status_mc);
+	Status = Status_st + (Status_sc << 1U) + (Status_sr << 2U) \
+		+ (Status_mc << 3U);
 done:
 	return Status;
 }

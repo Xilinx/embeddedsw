@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -230,9 +231,7 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	XPm_OutClockNode *Clk;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	volatile u32 SlrTypeTemp;
-
-	(void)Args;
-	(void)NumOfArgs;
+	u32 SecLockDownInfo = GetSecLockDownInfoFromArgs(Args, NumOfArgs);
 
 	SlrType = XPm_GetSlrType();
 	SlrTypeTemp = ~(XPm_GetSlrType());
@@ -269,7 +268,7 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			 PMC_ANALOG_SCAN_CLEAR_TRIGGER_NOC_MASK, Status);
 		if (XPM_REG_WRITE_FAILED == Status) {
 			DbgErr = XPM_INT_ERR_REG_WRT_NPDLSCNCLR_TRIGGER;
-			goto done;
+			XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 		}
 
 		/* 200 us is not enough and scan clear pass status is updated
@@ -285,14 +284,14 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = XPmClock_SetGate((XPm_OutClockNode *)Clk, 1);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_CLK_ENABLE;
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	/* Release NPI Reset */
 	Status = XPmReset_AssertbyId(PM_RST_NPI, (u32)PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto done;
+		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
 	}
 
 	PmIn32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
@@ -307,6 +306,14 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	Status = XST_SUCCESS;
 
 done:
+	if (IS_SECLOCKDOWN(SecLockDownInfo)) {
+		if ((DbgErr == XPM_INT_ERR_NOC_DDRMC_STATUS) || \
+			(DbgErr == XPM_INT_ERR_CLK_ENABLE) || \
+			(DbgErr == XPM_INT_ERR_RST_RELEASE) || \
+			(DbgErr == XPM_INT_ERR_REG_WRT_NPDLSCNCLR_TRIGGER)) {
+			Status = XST_FAILURE;
+		}
+	}
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }

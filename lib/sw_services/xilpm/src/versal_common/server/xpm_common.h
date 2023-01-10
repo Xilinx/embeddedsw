@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -474,6 +475,12 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 		}                                               \
 		STSTMP;                                         \
 	})
+
+#define XPM_GOTO_LABEL_ON_CONDITION(condition, label) { \
+	if (condition) { \
+		goto label;\
+	}\
+}
 
 void *XPm_AllocBytes(u32 SizeInBytes);
 
