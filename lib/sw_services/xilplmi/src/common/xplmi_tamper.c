@@ -96,7 +96,7 @@ void XPlmi_ProcessTamperResponse(u32 TamperResp)
 		/**
 		 * Reset LpdInitialized variable
 		 */
-		XPlmi_ResetLpdInitialized();
+		XPlmi_UnSetLpdInitialized(UART_INITIALIZED);
 		/**
 		 * Disable interrupts to Microblaze
 		 */
