@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -282,6 +283,7 @@ XStatus XPsmFw_FpdPreHouseClean(void);
 void XPsmFw_FpdPostHouseClean(void);
 void XPsmFw_FpdMbisr(void);
 void XPsmFw_FpdMbistClear(void);
+void XPsmFw_SecLockDown(void);
 void XPsmFw_GetPsmToPlmEventAddr(u32 *EventAddr);
 
 #ifdef __cplusplus

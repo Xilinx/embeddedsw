@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -44,6 +45,10 @@ static XStatus XPsmFw_FpHouseClean(u32 FunctionId)
 		break;
 	case (u32)FUNC_MBIST_CLEAR:
 		XPsmFw_FpdMbistClear();
+		Status = XST_SUCCESS;
+		break;
+	case (u32)FUNC_SECLOCKDOWN:
+		XPsmFw_SecLockDown();
 		Status = XST_SUCCESS;
 		break;
 	default:

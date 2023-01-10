@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -111,6 +112,7 @@ enum XPmInitFunctions {
 	FUNC_MBIST_LBIST,
 	FUNC_ME_INITREG,
 	FUNC_MBIST_CLEAR,
+	FUNC_SECLOCKDOWN = 11U
 };
 
 XStatus XPsmFw_NotifyPlmEvent(void);

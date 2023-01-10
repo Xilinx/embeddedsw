@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -347,6 +348,13 @@ void XPsmFw_FpdMbistClear(void)
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
+}
+
+void XPsmFw_SecLockDown(void)
+{
+	/* Reset all group isolation */
+	XPsmFw_Write32(PSM_LOCAL_DOMAIN_ISO_CNTRL, 0x1FU);
+	XPsmFw_Write32(PSM_LOCAL_MISC_CNTRL, 0xFC000000U);
 }
 
 XStatus XPsmFw_FpdPreHouseClean(void)
