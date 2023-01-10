@@ -9,5 +9,5 @@ xsem_npi_example.c=xsem_gic_setup.c,xsem_gic_setup.h,xsem_ipi.c, xsem_ipi.h
 xsem_ebd_example.c=xsem_ebd_search.c,xsem_ebd_search.h,xsem_ebdgoldendata.c
 xsem_cram_ssit_example.c=xsem_gic_setup.c,xsem_gic_setup.h,xsem_ipi.c, xsem_ipi.h
 xsem_npi_ssit_example.c=xsem_gic_setup.c,xsem_gic_setup.h,xsem_ipi.c, xsem_ipi.h
-xsem_cram_example_pl_mb.c
-xsem_npi_example_pl_mb.c
+xsem_cram_example_pl_mb.c=NULL
+xsem_npi_example_pl_mb.c=NULL
