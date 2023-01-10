@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -674,7 +675,8 @@ typedef enum {
 	PM_SET_NODE_ACCESS,				/**< 0x42 */
 	PM_NOC_CLOCK_ENABLE = 0x45,			/**< 0x45 */
 	PM_IF_NOC_CLOCK_ENABLE,				/**< 0x46 */
-	PM_API_MAX					/**< 0x47 */
+	PM_FORCE_HOUSECLEAN,				/*< 0x47*/
+	PM_API_MAX					/**< 0x48 */
 } XPm_ApiId;
 
 /**

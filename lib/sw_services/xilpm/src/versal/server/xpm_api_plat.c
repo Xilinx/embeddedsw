@@ -9,6 +9,7 @@
 #include "xplmi_util.h"
 #include "xplmi_ssit.h"
 #include "xpm_api.h"
+#include "xpm_api_plat.h"
 #include "xpm_defs.h"
 #include "xpm_psm_api.h"
 #include "xpm_pldomain.h"
@@ -373,6 +374,9 @@ int XPm_PlatProcessCmd(XPlmi_Cmd * Cmd, u32 *ApiResponse)
 		break;
 	case PM_API(PM_IF_NOC_CLOCK_ENABLE):
 		Status = XPm_IfNocClockEnable(Cmd, &Pload[0], Len);
+		break;
+	case PM_API(PM_FORCE_HOUSECLEAN):
+		Status = XPm_ForceHouseClean(Pload[0]);
 		break;
 	default:
 		PmErr("CMD: INVALID PARAM\r\n");
@@ -835,7 +839,7 @@ static XStatus XPm_CosimInit(void)
 
 	BaseAddress = AieDev->Device.Node.BaseAddress;
 
-	/* Store initial clock devider value */
+	/* Store initial clock divider value */
 	ClkDivider = XPm_In32(BaseAddress + ME_CORE_REF_CTRL_OFFSET) & AIE_DIVISOR0_MASK;
 	ClkDivider = ClkDivider >> AIE_DIVISOR0_SHIFT;
 
