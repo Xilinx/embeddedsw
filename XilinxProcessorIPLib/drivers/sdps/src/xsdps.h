@@ -159,6 +159,7 @@
 *       sk     06/03/22 Fix issue in internal clock divider calculation logic.
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 * 4.1   sa     01/03/23 Report error if Transfer size is greater than 2MB.
+* 4.1	sa     12/19/22 Enable eMMC HS400 mode for Versal Net.
 *
 * </pre>
 *
@@ -339,6 +340,11 @@ typedef struct {
 #define SD_HS_MODE_ENABLE	1
 #endif
 /** @} */
+
+/**
+ * Enable eMMC HS400 mode for Versal Net platform
+ */
+#define ENABLE_HS400_MODE
 
 /************************** Function Prototypes ******************************/
 XSdPs_Config *XSdPs_LookupConfig(u16 DeviceId);
