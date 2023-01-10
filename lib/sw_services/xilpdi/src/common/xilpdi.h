@@ -60,7 +60,7 @@
 * 1.09  har  11/17/2022 Removed macros for bh_auth attribute in Bootheader
 *       ng   11/23/2022 Added macros to replace magic numbers in
 *                       XilPdi_ValidateChecksum
-*       ng   01/02/2023 Added macros to detect IDCodeCheck disable bits in IHT
+*       kal  01/05/2023 Added PcrInfo attribute in XilPdi_ImgHdr
 *
 * </pre>
 *
@@ -300,7 +300,7 @@ typedef struct {
 	u32 PUID; /**< Parent UID */
 	u32 FuncID; /**< Function ID */
 	u64 CopyToMemoryAddr; /**< Address at which image is backed up in DDR */
-	u32 Rsvd; /**< Reserved */
+	u32 PcrInfo;/**< PCR information only applicable for Versal Net */
 	u32 Checksum; /**< Checksum of the image header */
 } XilPdi_ImgHdr __attribute__ ((aligned(16U)));
 
