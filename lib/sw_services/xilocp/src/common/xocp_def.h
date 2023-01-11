@@ -41,23 +41,8 @@ extern "C" {
 #include "xil_cache.h"
 
 /************************** Constant Definitions ****************************/
-/**
- * @name  Debug related macros
- * @{
- */
-/**< Enable client printfs by setting XOCP_DEBUG to 1 */
-#define XOCP_DEBUG	(0U)
-
-#if (XOCP_DEBUG)
-#define XOCP_DEBUG_GENERAL (1U)
-#else
-#define XOCP_DEBUG_GENERAL (0U)
-#endif
-/** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XOcp_Printf(DebugType, ...)	\
-	if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);} /**< For prints in XOCP library */
 
 #ifndef XOCP_CACHE_DISABLE
 	#if defined(__microblaze__)
@@ -101,7 +86,8 @@ typedef enum {
 	XOCP_API_GETPCR,	/**< 2U */
 	XOCP_API_GETPCRLOG,	/**< 3U */
 	XOCP_API_GENDMERESP,	/**< 4U */
-	XOCP_API_MAX		/**< 5U */
+	XOCP_API_DEVAKINPUT,/**< 5U */
+	XOCP_API_MAX		/**< 6U */
 } XOcp_ApiId;
 /** @} */
 

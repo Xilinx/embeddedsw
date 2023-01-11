@@ -36,6 +36,7 @@
 #include "xocp_ipihandler.h"
 #include "xocp_def.h"
 #include "xocp_cmd.h"
+#include "xocp_keymgmt.h"
 
 /************************** Constant Definitions *****************************/
 static XPlmi_ModuleCmd XOcp_Cmds[XOCP_API_MAX];
@@ -53,6 +54,9 @@ static XPlmi_Module XPlmi_Ocp =
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Function Prototypes ******************************/
+static int XOcp_DevAkInput(XPlmi_Cmd *Cmd);
 
 /************************** Function Definitions ******************************/
 
@@ -77,10 +81,11 @@ static int XOcp_FeaturesCmd(u32 ApiId)
 		case XOCP_API(XOCP_API_GETPCR):
 		case XOCP_API(XOCP_API_GETPCRLOG):
 		case XOCP_API(XOCP_API_GENDMERESP):
+		case XOCP_API(XOCP_API_DEVAKINPUT):
 			Status = XST_SUCCESS;
 			break;
 		default:
-			XOcp_Printf(XOCP_DEBUG_GENERAL, "Cmd not supported\r\n");
+			XOcp_Printf(DEBUG_GENERAL, "Cmd not supported\r\n");
 			Status = XST_INVALID_PARAM;
 			break;
 	}
@@ -119,8 +124,11 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GENDMERESP):
 			Status = XOcp_IpiHandler(Cmd);
 			break;
+		case XOCP_API(XOCP_API_DEVAKINPUT):
+			Status = XOcp_DevAkInput(Cmd);
+			break;
 		default:
-			XOcp_Printf(XOCP_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
+			XOcp_Printf(DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 			Status = XST_INVALID_PARAM;
 			break;
 	}
@@ -145,4 +153,27 @@ void XOcp_CmdsInit(void)
 
 	XPlmi_ModuleRegister(&XPlmi_Ocp);
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function processes XilOcp DEVAK input personalised string and
+ *			corresponding subsystem IDs
+ *
+ * @param	Cmd - Pointer to the XPlmi_Cmd structure
+ *
+ * @return
+ *			- XST_SUCCESS - On successful processing
+ *          - Error Code - On Failure
+ *
+ *****************************************************************************/
+static int XOcp_DevAkInput(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 *Pload = Cmd->Payload;
+
+	Status = XOcp_DevAkInputStore(Pload[0], (u8 *)(UINTPTR)&Pload[1]);
+
+	return Status;
+}
+
 #endif

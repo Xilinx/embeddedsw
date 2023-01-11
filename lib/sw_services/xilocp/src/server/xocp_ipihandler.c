@@ -78,7 +78,7 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 			Status = XOcp_GenDmeRespIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
 		default:
-			XOcp_Printf(XOCP_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
+			XOcp_Printf(DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 			Status = XST_INVALID_PARAM;
 			break;
 	}

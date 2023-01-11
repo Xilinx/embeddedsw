@@ -709,6 +709,9 @@ typedef enum {
 	XOCP_PCR_ERR_IN_GET_PCR,	/**< 0x6A5 Error in GetPcr */
 	XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST,
 					/**< 0x6A6 PCR log read request is invalid */
+	XOCP_DICE_CDI_PARITY_ERROR,	/**< 0x6A7 CDI parity error */
+	XOCP_DEVAK_MAX_COUNT_EXCEED,	/**< 0x6A8 DEVAK MAX count exceeded */
+
 
 	XOCP_DME_ERR = 0x6B0,		/**< 0x6B0 DME signing error */
 

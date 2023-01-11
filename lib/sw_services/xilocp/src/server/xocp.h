@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -36,6 +36,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xstatus.h"
 #include "xocp_common.h"
+#include "xplmi_debug.h"
 
 /************************** Constant Definitions *****************************/
 #define XOCP_XPPU_MASTER_ID0_CONFIG_VAL			(0x03FF0246U)
@@ -46,6 +47,7 @@ extern "C" {
 #define XOCP_XPPU_EN_PPU0_PPU1_APERPERM_CONFIG_VAL	(0x00000003U)
 #define XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE	(0x31U)
 #define XOcp_MemCopy								XPlmi_DmaXfr
+#define XOcp_Printf								XPlmi_Printf
 #define XOCP_MAX_NUM_OF_SWPCR_DIGESTS			(0x20U)
 #define XOCP_WORD_LEN					(0x4U)
 #define XOCP_PCR_NUMBER_MASK 				(0x0000FFFFU)
