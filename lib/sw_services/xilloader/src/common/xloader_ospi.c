@@ -35,6 +35,7 @@
 *       bsv  08/31/2021 Code clean up
 * 1.05  ma   01/17/2022 Enable SLVERR for OSPI registers
 * 1.06  ng   11/11/2022 Updated doxygen comments
+*       bm   01/11/2023 Added support for Gigadevice 512M, 1G, 2G parts
 *
 * </pre>
 *
@@ -157,6 +158,23 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	else if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
 		if (ReadBuffer[2U] == MACRONIX_OCTAL_ID_BYTE2_512) {
 			OspiFlashSize = XLOADER_FLASH_SIZE_512M;
+		}
+	}
+	else if (OspiFlashMake == GIGADEVICE_OCTAL_ID_BYTE0) {
+		if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_256) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_256M;
+		}
+		else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_512) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_512M;
+		}
+		else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_1G) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_1G;
+		}
+		else if (ReadBuffer[2U] == GIGADEVICE_OCTAL_ID_BYTE2_2G) {
+			OspiFlashSize = XLOADER_FLASH_SIZE_2G;
+		}
+		else {
+			/* Do nothing */
 		}
 	}
 	else if (ReadBuffer[2U] == XLOADER_FLASH_SIZE_ID_256M) {

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +30,7 @@
 *       bsv  10/13/2020 Code clean up
 * 1.03  bsv  07/16/2021 Added Macronix flash support
 *       bsv  08/31/2021 Code clean up
+*       bm   01/11/2023 Added support for Gigadevice 512M, 1G, 2G parts
 *
 * </pre>
 *
@@ -79,6 +81,10 @@ extern "C" {
 #define MICRON_OCTAL_ID_BYTE2_1G	(0x1BU)
 #define MICRON_OCTAL_ID_BYTE2_2G	(0x1CU)
 #define MACRONIX_OCTAL_ID_BYTE2_512	(0x3AU)
+#define GIGADEVICE_OCTAL_ID_BYTE2_256	(0x19U)
+#define GIGADEVICE_OCTAL_ID_BYTE2_512	(0x1AU)
+#define GIGADEVICE_OCTAL_ID_BYTE2_1G	(0x1BU)
+#define GIGADEVICE_OCTAL_ID_BYTE2_2G	(0x1CU)
 
 /**************************** Type Definitions *******************************/
 
