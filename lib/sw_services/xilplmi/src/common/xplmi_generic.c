@@ -81,6 +81,7 @@
 *                       instead of erroring out
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 * 1.09  ng   11/11/2022 Updated doxygen comments
+*       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *
 * </pre>
 *
@@ -1974,7 +1975,11 @@ static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd)
 	}
 
 	/* Execute secure lockdown */
-	XPlmi_ProcessTamperResponse(TamperResp);
+	XPlmi_TriggerTamperResponse(TamperResp, XPLMI_TRIGGER_TAMPER_TASK);
+
+	if (Cmd->IpiMask) {
+		Status = XST_SUCCESS;
+	}
 
 END:
 	return Status;

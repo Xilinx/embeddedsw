@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,6 +31,7 @@
 *       bsv  08/15/2021 Replaced enums with macros
 * 1.05  bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
 *                       same priority
+* 1.06  bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *
 * </pre>
 *
@@ -56,14 +58,15 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_TASK_MAX			(72U)
-#define XPLMI_TASK_PRIORITIES		(2U)
+#define XPLMI_TASK_PRIORITIES		(3U)
 #define XPLMI_INVALID_INTR_ID		(0xFFFFFFFFU)
 
 
 #define XPLMI_SCHED_TASK_MISSED				(0x1U)
 
-#define XPLM_TASK_PRIORITY_0		(0U)
-#define XPLM_TASK_PRIORITY_1		(1U)
+#define XPLM_TASK_PRIORITY_CRITICAL	(0U)
+#define XPLM_TASK_PRIORITY_0		(1U)
+#define XPLM_TASK_PRIORITY_1		(2U)
 #define TaskPriority_t u8
 
 /**************************** Type Definitions *******************************/

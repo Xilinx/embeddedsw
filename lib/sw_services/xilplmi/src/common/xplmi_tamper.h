@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
  *       kpt  07/19/2022 Added temporal macro to trigger secure lockdown
  *						 if haltboot efuses are programmed
  *       ma   07/25/2022 Enhancements to secure lockdown code
+ * 1.1   bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
  *
  * </pre>
  *
@@ -36,6 +38,14 @@ extern "C" {
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
+/* Flags for Triggering Tamper */
+#define XPLMI_TRIGGER_TAMPER_TASK	(0U) /* Trigger Tamper as a Task */
+#define XPLMI_TRIGGER_TAMPER_IMMEDIATE	(1U) /* Trigger Tamper immediately */
+
+/* Secure Lockdown State */
+#define XPLMI_SLD_NOT_TRIGGERED		(0U) /* Secure Lockdown Not Triggered */
+#define XPLMI_SLD_TRIGGERED		(1U) /* Secure Lockdown Triggered */
+#define XPLMI_SLD_IN_PROGRESS		(2U) /* Secure Lockdown is In Progress */
 
 /**************************** Type Definitions *******************************/
 
@@ -66,15 +76,15 @@ extern "C" {
 				Status = XPlmi_UpdateStatus((XPlmiStatus_t)MajorError, Status); \
 				XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK, \
 					(u32)Status); \
-				XPlmi_TriggerSLDOnHaltBoot(); \
+				XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_TASK); \
 			} \
 		}
 
 /************************** Function Prototypes ******************************/
 int XPlmi_RegisterTamperIntrHandler(void);
-void XPlmi_ProcessTamperResponse(u32 TamperResp);
-void XPlmi_TriggerSLDOnHaltBoot(void);
-u32 XPlmi_IsSldInitiated(void);
+void XPlmi_TriggerTamperResponse(u32 Response, u32 Flag);
+void XPlmi_TriggerSLDOnHaltBoot(u32 Flag);
+u32 XPlmi_SldState(void);
 
 #ifdef __cplusplus
 }

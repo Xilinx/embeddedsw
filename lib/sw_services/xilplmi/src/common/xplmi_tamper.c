@@ -22,6 +22,7 @@
 *       kpt  07/21/2022 Added XPlmi_IfHaltBootTriggerSLD
 *       ma   07/25/2022 Enhancements to secure lockdown code
 * 1.01  ng   11/11/2022 Updated doxygen comments
+*       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *
 * </pre>
 *
@@ -60,39 +61,76 @@
 /************************** Function Prototypes ******************************/
 static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 		const u32 ErrorMask);
+static int XPlmi_ProcessTamperResponse(void *Data);
+
 /************************** Variable Definitions *****************************/
-static u32 XPlmiSldInitiated = FALSE;
+static u32 SldState = XPLMI_SLD_NOT_TRIGGERED;
+static u32 TamperResponse;
+static XPlmi_TaskNode *TamperTask = NULL;
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
- * @brief	This function checks and returns if SLD is initiated
+ * @brief	This function returns Secure Lockdown State
  *
- * @return  TRUE or FALSE based on XPlmiSldInitiated state
+ * @return	Secure Lockdown State
  *
  *****************************************************************************/
-u32 XPlmi_IsSldInitiated(void)
+u32 XPlmi_SldState(void)
 {
-	return ((XPlmiSldInitiated == TRUE) ? TRUE : FALSE);
+	return SldState;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This functions Triggers Tamper Response processing immediately
+ *		or as a task.
+ *
+ * @param	Response is the Tamper Response that has to occur
+ * @param	Flag denotes whether processing has to occur immediately or as
+ *		a task. The possible values are: XPLMI_TRIGGER_TAMPER_TASK,
+ *		XPLMI_TRIGGER_TAMPER_IMMEDIATE.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_TriggerTamperResponse(u32 Response, u32 Flag)
+{
+	TamperResponse = Response;
+	SldState = XPLMI_SLD_TRIGGERED;
+
+	if (Flag == XPLMI_TRIGGER_TAMPER_TASK) {
+		if (TamperTask != NULL) {
+			XPlmi_TaskTriggerNow(TamperTask);
+		}
+		else {
+			XPlmi_Printf(DEBUG_GENERAL, "Tamper Trigger Task not created yet\n\r");
+		}
+	}
+	else {
+		(void)XPlmi_ProcessTamperResponse(NULL);
+	}
 }
 
 /*****************************************************************************/
 /**
  * @brief	This function processes the tamper response
  *
- * @param   TamperResp is the tamper response
+ * @param	Data is unused
  *
- * @return  None
+ * @return	None
  *
  *****************************************************************************/
-void XPlmi_ProcessTamperResponse(u32 TamperResp)
+static int XPlmi_ProcessTamperResponse(void *Data)
 {
 	int Status = XST_FAILURE;
 	u32 CfuDivisor;
 	u32 CfuRefCtrl;
 
-	if ((TamperResp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) {
+	(void)Data;
+
+	if ((TamperResponse & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) {
 		/**
 		 * Reset LpdInitialized variable
 		 */
@@ -117,9 +155,9 @@ void XPlmi_ProcessTamperResponse(u32 TamperResp)
 		CfuRefCtrl = (CfuRefCtrl & ~CRP_CFU_REF_CTRL_DIVISOR_MASK) | CfuDivisor;
 		XPlmi_Out32(CRP_CFU_REF_CTRL, CfuRefCtrl);
 		/**
-		 * Set XPlmiSldInitiated to TRUE
+		 * Set SldState to XPLMI_SLD_IN_PROGRESS
 		 */
-		XPlmiSldInitiated = TRUE;
+		SldState = XPLMI_SLD_IN_PROGRESS;
 
 		/**
 		 * Execute secure lockdown proc
@@ -134,7 +172,7 @@ void XPlmi_ProcessTamperResponse(u32 TamperResp)
 	/**
 	 * Configure TAMPER_RESP_0 with the received response
 	 */
-	Xil_Out32(PMC_GLOBAL_TAMPER_RESP_0, TamperResp);
+	Xil_Out32(PMC_GLOBAL_TAMPER_RESP_0, TamperResponse);
 
 	/**
 	 * Trigger software tamper event to ROM to execute lockdown
@@ -148,6 +186,8 @@ void XPlmi_ProcessTamperResponse(u32 TamperResp)
 	while(1U) {
 		;
 	}
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -163,6 +203,16 @@ void XPlmi_ProcessTamperResponse(u32 TamperResp)
 int XPlmi_RegisterTamperIntrHandler(void)
 {
 	int Status = XST_FAILURE;
+
+	/* Check if the task is already created */
+	TamperTask = XPlmi_GetTaskInstance(XPlmi_ProcessTamperResponse, NULL,
+				XPLMI_INVALID_INTR_ID);
+	if (TamperTask == NULL) {
+		/* Create task if it is not already created */
+		TamperTask = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_CRITICAL,
+				XPlmi_ProcessTamperResponse, NULL);
+		TamperTask->IntrId = XPLMI_INVALID_INTR_ID;
+	}
 
 	/**
 	 * Register handler
@@ -217,7 +267,7 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 		TamperRespTmp = Xil_In32(XPLMI_RTCFG_TAMPER_RESP);
 		if (((TamperResp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) ||
 			((TamperRespTmp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U)) {
-			XPlmi_ProcessTamperResponse(TamperResp);
+			XPlmi_TriggerTamperResponse(TamperResp, XPLMI_TRIGGER_TAMPER_TASK);
 		} else {
 			XPlmi_Printf(DEBUG_GENERAL, "Warning: Invalid Tamper Response. "
 					"Configured Tamper Response at RTCA: 0x%x\r\n"
@@ -254,13 +304,14 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
  * @return	None
  *
  ******************************************************************************/
-void XPlmi_TriggerSLDOnHaltBoot(void) {
+void XPlmi_TriggerSLDOnHaltBoot(u32 Flag)
+{
 	u32 HaltBoot = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
 			EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK;
 	u32 HaltBootTmp = XPlmi_In32(EFUSE_CACHE_MISC_CTRL) &
 			EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK;
 
 	if ((HaltBoot != 0U) || (HaltBootTmp != 0U)) {
-		XPlmi_ProcessTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK);
+		XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK, Flag);
 	}
 }

@@ -53,6 +53,7 @@
 *                       boundaries
 * 1.07  sk   10/19/2022 Fix security review comments
 *       ng   11/11/2022 Updated doxygen comments
+*       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *
 * </pre>
 *
@@ -387,7 +388,6 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 *BufPtr = CdoPtr->BufPtr;
 	u32 BufLen = CdoPtr->BufLen;
 	u32 RemainingLen;
-	u32 SldInitiated = XPlmi_IsSldInitiated();
 
 	/** Verify the header for the first chunk of CDO */
 	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
@@ -470,7 +470,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 			 * and continue executing the proc further without exiting the loop.
 			 * Otherwise, exit the loop.
 			 */
-			if (SldInitiated == TRUE) {
+			if (XPlmi_SldState() == XPLMI_SLD_IN_PROGRESS) {
 				XPlmi_ErrMgr(Status);
 			} else {
 				goto END;

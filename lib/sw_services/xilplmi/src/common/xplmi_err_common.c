@@ -113,6 +113,7 @@
 *       ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
 *                       Master SLR
+*       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 * </pre>
 *
 * @note
@@ -182,14 +183,13 @@ void XPlmi_ErrMgr(int ErrStatus)
 	u32 RegVal;
 #endif
 	u8 SlrType = XPlmi_GetSlrType();
-	u32 SldInitiated = XPlmi_IsSldInitiated();
 
 	/* Print the PLM error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
 	XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
 			(u32)ErrStatus);
 
-	if (SldInitiated == TRUE) {
+	if (XPlmi_SldState() != XPLMI_SLD_NOT_TRIGGERED) {
 		goto END;
 	}
 
@@ -227,7 +227,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 			* The function will not return if eFuses are blown.
 			* If Halt Boot eFuses are not blown, update multiboot register and trigger FW NCR.
 			*/
-			XPlmi_TriggerSLDOnHaltBoot();
+			XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_IMMEDIATE);
 			/**
 			 * Update Multiboot register
 			 */
