@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 # This script will copy the required bsp directories
@@ -109,6 +110,11 @@ mkdir -p $BSP_DIR/libsrc/xilocp/src
 cp -r $SERVICES_DIR/xilocp/src/Makefile $BSP_DIR/libsrc/xilocp/src/
 cp -r $SERVICES_DIR/xilocp/src/common/* $BSP_DIR/libsrc/xilocp/src/
 cp -r $SERVICES_DIR/xilocp/src/server/* $BSP_DIR/libsrc/xilocp/src/
+
+BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilcert/src/Makefile"
+mkdir -p $BSP_DIR/libsrc/xilcert/src
+cp -r $SERVICES_DIR/xilcert/src/Makefile $BSP_DIR/libsrc/xilcert/src/
+cp -r $SERVICES_DIR/xilcert/src/* $BSP_DIR/libsrc/xilcert/src/
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src
