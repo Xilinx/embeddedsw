@@ -17,6 +17,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   vns  06/26/22 Initial release
 * 1.1   kal  01/05/23 Added PCR Extend and Pcr Logging functions
+*       am   01/10/23 Modified function argument type to u64 in
+*                     XOcp_GenerateDmeResponse().
 *
 * </pre>
 * @note
@@ -230,7 +232,7 @@ END:
  *
  * @param	NonceAddr holds the address of 48 bytes buffer Nonce,
  *		which shall be used to fill one of the member of DME structure
- * @param	DmeResPtr is the pointer to the 224 bytes buffer,
+ * @param	DmeStructResAddr is the address to the 224 bytes buffer,
  *		which is used to store the response to DME challenge request of
  *		type XOcp_DmeResponse.
  *
@@ -239,7 +241,7 @@ END:
  *		- XST_FAILURE - Upon failure
  *
  ******************************************************************************/
-int XOcp_GenerateDmeResponse(u32 NonceAddr, XOcp_DmeResponse *DmeResPtr)
+int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 {
 	int Status = XST_FAILURE;
 	int SStatus = XST_FAILURE;
@@ -248,6 +250,7 @@ int XOcp_GenerateDmeResponse(u32 NonceAddr, XOcp_DmeResponse *DmeResPtr)
 	XSecure_Sha3Hash Sha3Hash;
 	XSecure_Sha3 Sha3Instance = {0U};
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
+	XOcp_DmeResponse *DmeResPtr = (XOcp_DmeResponse *)(UINTPTR)DmeStructResAddr;
 	XOcp_Dme *DmePtr = &DmeResPtr->Dme;
 	XSecure_TrngInstance *TrngInstance = NULL;
 
@@ -326,10 +329,11 @@ END:
 	if (TrngInstance->State != XSECURE_TRNG_UNINITIALIZED_STATE){
 		SStatus = XSecure_TrngUninstantiate(TrngInstance);
 		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
-			Status = SStatus | XOCP_DME_ERR;
+			if(SStatus != XST_SUCCESS) {
+				Status = SStatus | XOCP_DME_ERR;
+			}
 		}
 	}
-
 	return Status;
 }
 

@@ -9,6 +9,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0   vns  06/27/22 Initial Release
 # 1.1   am   12/21/22 Changed user configurable parameter names
+#       am   01/10/23 Added xocp_cache_disable configurable parameter
 #
 ##############################################################################
 
@@ -76,6 +77,10 @@ proc xgen_opts_file {libhandle} {
 	# Copy the include files to the include directory
 	set srcdir src
 	set dstdir [file join .. .. include]
+	# check processor type
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
 	# Create dstdir if it does not exist
 	if { ! [file exists $dstdir] } {
@@ -88,5 +93,21 @@ proc xgen_opts_file {libhandle} {
 	# Copy each of the files in the list to dstdir
 	foreach source $sources {
 		file copy -force $source $dstdir
+	}
+
+	# Get cache_disable value set by user, by default it is TRUE
+	set value [common::get_property CONFIG.xocp_cache_disable $libhandle]
+	if {$value == true} {
+		#Open xparameters.h file
+		if {$proc_type == "psxl_cortexa78" || $proc_type == "psx_cortexa78" ||
+			$proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52" ||
+			$proc_type == "microblaze"} {
+			set file_handle [hsi::utils::open_include_file "xparameters.h"]
+
+			puts $file_handle "\n/* XilOcp library User Settings */"
+			puts $file_handle "#define XOCP_CACHE_DISABLE\n"
+
+			close $file_handle
+		}
 	}
 }

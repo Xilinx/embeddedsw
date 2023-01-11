@@ -20,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.1   am   12/21/22 Initial release
+*       am   01/10/23 Added client side API for dme
 *
 * </pre>
 *
@@ -54,6 +55,7 @@ int XOcp_ClientInit(XOcp_ClientInstance* const InstancePtr, XMailbox* const Mail
 int XOcp_ExtendPcr(XOcp_ClientInstance *InstancePtr, XOcp_RomHwPcr PcrNum, u64 ExtHashAddr, u32 Size);
 int XOcp_GetPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr, u32 PcrBufSize);
 int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrLogAddr, u32 Size);
+int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr, u64 DmeStructResAddr);
 
 #ifdef __cplusplus
 }

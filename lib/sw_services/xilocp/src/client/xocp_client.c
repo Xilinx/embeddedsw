@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.1   am   12/21/22 Initial release
+*       am   01/10/23 Added client side API for dme
 *
 * </pre>
 *
@@ -186,4 +187,44 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 LogAddr, u32 NumOfLog
 
 END:
         return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function sends IPI request to fill the DME structure and
+ *          generates the response with signature
+ *
+ * @param   InstancePtr - Pointer to the client instance
+ * @param   NonceAddr - pointer to 48 bytes buffer which holds the Nonce,
+ *          which shall be used to fill one of the member of DME sturcture
+ * @param   DmeStructResAddr - pointer to 224 bytes buffer, which is used to
+ *          store the response DME structure of type XOcp_DmeResponseStructure
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr,
+	u64 DmeStructResAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XOCP_PAYLOAD_LEN_5U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/** Fill IPI Payload */
+	Payload[0U] = OcpHeader(0U, XOCP_API_GENDMERESP);
+	Payload[1U] = (u32)NonceAddr;
+	Payload[2U] = (u32)(NonceAddr >> 32);
+	Payload[3U] = (u32)DmeStructResAddr;
+	Payload[4U] = (u32)(DmeStructResAddr >> 32);
+
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+		sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
 }

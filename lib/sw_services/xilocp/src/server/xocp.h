@@ -17,10 +17,14 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   vns  06/26/2022 Initial release
+* 1.1   am   01/10/2023 Modified function argument type to u64 in
+*                       XOcp_GenerateDmeResponse().
 *
 * </pre>
 *
+* @note
 *
+* @endcond
 ******************************************************************************/
 #ifndef XOCP_H
 #define XOCP_H
@@ -58,10 +62,9 @@ extern "C" {
 int XOcp_ExtendHwPcr(XOcp_RomHwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
 int XOcp_GetHwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
 int XOcp_GetHwPcrLog(u64 LogAddr, u32 NumOfLogEntries);
-int XOcp_GenerateDmeResponse(u32 NonceAddr, XOcp_DmeResponse *DmeResPtr);
+int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr);
 
 #ifdef __cplusplus
 }
 #endif
 #endif  /* XOCP_H */
-/* @} */

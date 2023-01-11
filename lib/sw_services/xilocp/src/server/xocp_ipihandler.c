@@ -17,6 +17,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.1   am   12/21/22 Initial release
+*       am   01/10/23 Added handler API for dme
 *
 * </pre>
 *
@@ -39,6 +40,7 @@
 static int XOcp_ExtendPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size);
 static int XOcp_GetPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PurBufSize);
 static int XOcp_GetPcrLogIpi(u32 AddrLow, u32 AddrHigh, u32 NumOfLogEntries);
+static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStructResAddrLow, u32 DmeStructResAddrHigh);
 
 /*************************** Function Definitions *****************************/
 
@@ -71,6 +73,9 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 			break;
 		case XOCP_API(XOCP_API_GETPCRLOG):
 			Status = XOcp_GetPcrLogIpi(Pload[0], Pload[1], Pload[2]);
+			break;
+		case XOCP_API(XOCP_API_GENDMERESP):
+			Status = XOcp_GenDmeRespIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
 		default:
 			XOcp_Printf(XOCP_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -181,6 +186,42 @@ static int XOcp_GetPcrLogIpi(u32 AddrLow, u32 AddrHigh, u32 NumOfLogEntries)
 	Log->HeadIndex = PcrLog.HeadIndex;
 	Log->TailIndex = PcrLog.TailIndex;
 	Log->OverFlowFlag = PcrLog.OverFlowFlag;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function handler calls XOcp_GenerateDmeResponse server API to
+ *          generate response with the DME signature
+ *
+ * @param   NonceAddrLow - Lower 32 bit address of the nonce buffer address
+ *
+ * @param   NonceAddrHigh - Higher 32 bit address of the nonce buffer address
+ *
+ * @param   DmeStructResAddrLow - Lower 32 bit address of the
+ *          XOcp_DmeResponseAddr structure
+ *
+ * @param   DmeStructResAddrHigh - Higher 32 bit address of the
+ *          XOcp_DmeResponseAddr structure
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - ErrorCode - Upon any failure
+ *
+ ******************************************************************************/
+static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh,
+	u32 DmeStructResAddrLow, u32 DmeStructResAddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	u64 NonceBufAddr = ((u64)NonceAddrHigh << 32U) | (u64)NonceAddrLow;
+	u64 DmeStructResAddr = ((u64)DmeStructResAddrHigh << 32U) | (u64)DmeStructResAddrLow;
+
+	Status = XOcp_GenerateDmeResponse(NonceBufAddr, DmeStructResAddr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 END:
 	return Status;

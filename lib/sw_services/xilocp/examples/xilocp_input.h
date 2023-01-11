@@ -18,6 +18,7 @@
  * Ver   Who     Date     Changes
  * ----- -----  -------- ------------------------------------------------------
  * 1.1   am     12/21/22 Initial release
+ *       am     01/10/23 Added nonce buffer macro for dme client support
  *
  * </pre>
  *
@@ -26,10 +27,15 @@
  * #define XOCP_EXTEND_HASH
  *   "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
  * XOCP_EXTEND_HASH should be provided in string format. It should be
- * 48 characters long, which is used to extend hash for requesting ROM services.
+ * 96 characters long, which is used to extend hash for requesting ROM services.
  *
+ * #define XOCP_NONCE_BUFFER
+ * 	      "0000000000000000000000000000000000000000000000000000000000000000"
+ * XOCP_NONCE_BUFFER should be provided in string format. It should be
+ * 64 characters long, which is used to generate the response to
+ * DME challenge request.
  *
- * XOCP_SELECT_PCR_NUM	(XOCP_PCR_0)
+ * XOCP_SELECT_PCR_NUM	(XOCP_PCR_2)
  * XOCP_SELECT_PCR_NUM can be configured as one of the seven provided PCR
  * number from XOcp_RomHwPcr enum in xocp_common.h file.
  *
@@ -61,6 +67,12 @@ extern "C" {
  */
 #define XOCP_EXTEND_HASH	\
 	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+
+/**
+ * Nonce buffer
+ */
+#define XOCP_NONCE_BUFFER	\
+	"0000000000000000000000000000000000000000000000000000000000000000"
 
 /**
  * Following is the define to select PCR number by the user.

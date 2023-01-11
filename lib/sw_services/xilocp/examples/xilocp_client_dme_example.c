@@ -7,10 +7,10 @@
 /*****************************************************************************/
 /**
 *
-* @file	xilocp_client_pcr_example.c
+* @file	xilocp_client_dme_example.c
 * @addtogroup xocp_example_apis XilOcp API Example Usage
 * @{
-* This example illustrates the extension and get PCR by requesting ROM services.
+* This example illustrates the generation of response to DME challenge request.
 * To build this application, xilmailbox library must be included in BSP and
 * xilocp must be in client mode.
 *
@@ -42,12 +42,12 @@
 * 		2. In this example ".data" section elements that are passed by reference to the server-side should
 * 		   be stored in the above shared memory section. To make it happen in below example,
 *		   replace ".data" in attribute section with ".sharedmemory". For example,
-* 		   static u8 PCRBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PCRBuf")));
+* 		   static u8 NonceBuffer[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.NonceBuffer")));
 * 					should be changed to
-* 		   static u8 PCRBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".sharedmemory.PCRBuf")));
-* 		   static u8 ExtendHash[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.ExtendHash")));
+* 		   static u8 NonceBuffer[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".sharedmemory.NonceBuffer")));
+* 		   static XOcp_DmeResponse DmeResp __attribute__ ((section (".data.DmeResp")));
 * 					should be changed to
-* 		   static u8 ExtendHash[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".sharedmemory.ExtendHash")));
+* 		   static XOcp_DmeResponse DmeResp __attribute__ ((section (".sharedmemory.DmeResp")));
 *
 * To keep things simple, by default the cache is disabled for this example
 *
@@ -56,8 +56,7 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
-* 1.1   am     12/21/22 Initial release
-*       am     01/10/23 Added configurable cache disable support
+* 1.1   am     01/10/23 Initial release
 *
 * </pre>
 * @note
@@ -81,14 +80,13 @@
 static void XOcp_PrintData(const u8 *Data, u32 size);
 
 /************************** Variable Definitions *****************************/
-static u8 PCRBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PCRBuf")));
-static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] __attribute__ ((section (".data.ExtendHash")));
-static XOcp_HwPcrLog PcrLog;
+static u8 NonceBuffer[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] __attribute__ ((section (".data.NonceBuffer")));
+static XOcp_DmeResponse DmeResp __attribute__ ((section (".data.DmeResp")));
 
 /*****************************************************************************/
 /**
-* @brief   Main function to call the OCP functions to extend and get PCR for
-*          requesting ROM services.
+* @brief   Main function to call the OCP function to generate response to
+*          DME challenge request.
 *
 * @return
 *          - XST_SUCCESS - On success
@@ -100,8 +98,7 @@ int main(void)
 	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XOcp_ClientInstance OcpClientInstance;
-	XOcp_RomHwPcr PcrNum = (XOcp_RomHwPcr)XOCP_SELECT_PCR_NUM;
-	u32 PcrMask = (u32)XOCP_READ_PCR_MASK;
+
 #ifdef XOCP_CACHE_DISABLE
 	Xil_DCacheDisable();
 #endif
@@ -118,47 +115,41 @@ int main(void)
 		goto END;
 	}
 
-	/** Convert Hash given in macro and assign it to the variable */
-	Status = Xil_ConvertStringToHexLE((char *)XOCP_EXTEND_HASH,
-		ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BITS);
+	/** Convert Nonce buffer given in macro and assign it to the variable */
+	Status = Xil_ConvertStringToHexLE((char *)XOCP_NONCE_BUFFER,
+		NonceBuffer, XOCP_DME_NONCE_SIZE_IN_BITS);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Convert string to Hex failed Status: 0x%x\n\r", Status);
 		goto END;
 	}
 
-	xil_printf("Extended hash:\n");
-	XOcp_PrintData((const u8*)ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
-
 #ifndef XOCP_CACHE_DISABLE
-	Xil_DCacheInvalidateRange((UINTPTR)ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
-	Xil_DCacheInvalidateRange((UINTPTR)PCRBuf, XOCP_PCR_SIZE_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)NonceBuffer, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)&DmeResp, (int)sizeof(XOcp_DmeResponse));
 #endif
-	Status = XOcp_ExtendPcr(&OcpClientInstance, PcrNum,
-		(u64)(UINTPTR)ExtendHash, sizeof(ExtendHash));
+
+	Status = XOcp_GenDmeResp(&OcpClientInstance, (u64)(UINTPTR)NonceBuffer, (u64)(UINTPTR)&DmeResp);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Extend PCR failed Status: 0x%02x\n\r", Status);
+		xil_printf("Response to DME challenge failed Status: 0x%02x\n\r", Status);
 		goto END;
 	}
 
-	Status = XOcp_GetPcr(&OcpClientInstance, PcrMask,
-		(u64)(UINTPTR)PCRBuf, sizeof(PCRBuf));
-	if (Status != XST_SUCCESS) {
-		xil_printf("Get PCR failed Status: 0x%02x\n\r", Status);
-		goto END;
-	}
+	xil_printf("\r\n DME Signature comp R:");
+	XOcp_PrintData((const u8*)DmeResp.DmeSignatureR, XOCP_ECC_P384_SIZE_BYTES);
 
-	xil_printf("Requested PCR contents:\n\r");
-	XOcp_PrintData((const u8*)PCRBuf, XOCP_PCR_SIZE_BYTES);
+	xil_printf("\r\n DME Signature comp S:");
+	XOcp_PrintData((const u8*)DmeResp.DmeSignatureS, XOCP_ECC_P384_SIZE_BYTES);
 
-	Status = XOcp_GetHwPcrLog(&OcpClientInstance, (u64)(UINTPTR)&PcrLog,
-		XOCP_READ_NUM_OF_LOG_ENTRIES);
-	if (Status != XST_SUCCESS) {
-                xil_printf("Get PCR Log failed Status: 0x%02x OverFlowStatus: %x\n\r",
-			Status, PcrLog.OverFlowFlag);
-                goto END;
-        }
+	xil_printf("\r\n Nonce:");
+	XOcp_PrintData((const u8*)DmeResp.Dme.Nonce, XOCP_DME_NONCE_SIZE_BYTES);
 
-	xil_printf("\r\n Successfully ran OCP Client Example");
+	xil_printf("\r\n Device Id:");
+	XOcp_PrintData((const u8*)DmeResp.Dme.DeviceID, XOCP_DME_DEVICE_ID_SIZE_BYTES);
+
+	xil_printf("\r\n Measurement:");
+	XOcp_PrintData((const u8*)DmeResp.Dme.Measurement, XOCP_DME_MEASURE_SIZE_BYTES);
+
+	xil_printf("\r\n Successfully ran OCP DME Client Example");
 	Status = XST_SUCCESS;
 
 END:
@@ -179,7 +170,7 @@ static void XOcp_PrintData(const u8 *Data, u32 Size)
 	u32 Index;
 
 	for (Index = 0U; Index < Size; Index++) {
-		xil_printf("%02x", Data[Index]);
+		xil_printf(" %02x ", Data[Index]);
 	}
 	xil_printf("\r\n");
  }

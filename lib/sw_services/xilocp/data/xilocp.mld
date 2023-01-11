@@ -9,6 +9,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0   vns  06/27/22 Initial Release
 # 1.1   am   12/21/22 Changed user configurable parameter names
+#       am   01/10/23 Added xocp_cache_disable configurable parameter
 #
 ##############################################################################
 
@@ -23,4 +24,5 @@ BEGIN LIBRARY xilocp
   OPTION desc = "Xilinx Open Compute Platform(OCP) support Library";
   OPTION VERSION = 1.1;
   OPTION NAME = xilocp;
+  PARAM name = xocp_cache_disable, desc = "Enables/Disables Cache for XilOcp client library", type = bool, default = true;
 END LIBRARY

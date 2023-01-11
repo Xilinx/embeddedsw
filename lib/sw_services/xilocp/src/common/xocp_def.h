@@ -20,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.1   am   12/21/22 Initial release
+*       am   01/10/23 Added XOCP_DME_NONCE_SIZE_IN_BITS macro for dme
 *
 * </pre>
 * @note
@@ -78,6 +79,8 @@ extern "C" {
 
 #define XOCP_EXTENDED_HASH_SIZE_IN_BITS	(384U) /**< Extended hash buffer size in bits */
 
+#define XOCP_DME_NONCE_SIZE_IN_BITS		(256U) /**< Nonce buffer size in bits */
+
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions ****************************/
@@ -97,7 +100,8 @@ typedef enum {
 	XOCP_API_EXTENDPCR,	/**< 1U */
 	XOCP_API_GETPCR,	/**< 2U */
 	XOCP_API_GETPCRLOG,	/**< 3U */
-	XOCP_API_MAX		/**< 4U */
+	XOCP_API_GENDMERESP,	/**< 4U */
+	XOCP_API_MAX		/**< 5U */
 } XOcp_ApiId;
 /** @} */
 

@@ -19,6 +19,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   vns  06/27/2022 Initial release
+* 1.1   am   01/10/2023 Added XOCP_DME_DEVICE_ID_SIZE_BYTES macro for dme
 *
 * </pre>
 *
@@ -41,6 +42,7 @@ extern "C" {
 #define XOCP_PCR_SIZE_BYTES			(48U)
 
 #define XOCP_DME_DEVICE_ID_SIZE_WORDS		(12U)
+#define XOCP_DME_DEVICE_ID_SIZE_BYTES		(XOCP_DME_DEVICE_ID_SIZE_WORDS << 2U)
 
 #define XOCP_DME_NONCE_SIZE_WORDS		(8U)
 #define XOCP_DME_NONCE_SIZE_BYTES		(XOCP_DME_NONCE_SIZE_WORDS << 2U)
