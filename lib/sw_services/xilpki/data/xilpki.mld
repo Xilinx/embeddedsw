@@ -1,0 +1,24 @@
+###############################################################################
+# Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+# Modification History
+#
+# Ver   Who   Date       Changes
+# ----- ----  ---------  -----------------------------------------------
+# 1.0   Nava  12/05/22   First release
+#
+##############################################################################
+
+OPTION psf_version = 2.1;
+
+BEGIN LIBRARY xilpki
+  OPTION drc = pki_drc;
+  OPTION copyfiles = all;
+  OPTION REQUIRES_OS = (standalone);
+  OPTION SUPPORTED_PERIPHERALS = (psx_cortexa78);
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpki,-lxil,-lgcc,-lc,--end-group";
+  OPTION desc = "XilPKI library provides an interface to the PKI engine to perform the secure operations";
+  OPTION VERSION = 1.0;
+  OPTION NAME = xilpki;
+END LIBRARY
