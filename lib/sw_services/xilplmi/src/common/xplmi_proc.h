@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +36,7 @@
 *       bsv  07/16/2021 Fix doxygen warnings
 *       bsv  08/02/2021 Removed unnecessary structure
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
+* 1.07  bm   01/03/2023 Remove usage of double data type
 *
 * </pre>
 *
@@ -79,9 +81,8 @@ extern "C" {
 #define XPLMI_IOMODULE_PMC_PIT3_IRQ	(0x5U)
 #define XPLMI_PIT_FREQ_DIVISOR_QEMU	(10U)
 #define XPLMI_PIT_FREQ_DIVISOR		(100U)
-#define XPLMI_GIGA			(1e9)
-#define XPLMI_MEGA			(1e6)
-#define XPLMI_MILLI			(1e3)
+#define XPLMI_MEGA			(1000000U)
+#define XPLMI_KILO			(1000U)
 
 #define XPLMI_EFUSE_IRO_TRIM_320MHZ	(0U)
 #define XPLMI_EFUSE_IRO_TRIM_400MHZ	(1U)

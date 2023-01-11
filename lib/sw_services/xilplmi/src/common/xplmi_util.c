@@ -391,8 +391,8 @@ int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
 	u64 TimeDiff = 0U;
 	u64 TimeStart = XPlmi_GetTimerValue();
 	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
-	u32 PmcIroFreqMHz = *PmcIroFreq / 1000000U;
-	u64 TimeOutTicks = ((TimeOutInNs * PmcIroFreqMHz) + 999U) / 1000U;
+	u32 PmcIroFreqMHz = *PmcIroFreq / XPLMI_MEGA;
+	u64 TimeOutTicks = ((TimeOutInNs * PmcIroFreqMHz) + XPLMI_KILO - 1U) / XPLMI_KILO;
 
 	/* Read the Register value */
 	RegValue = XPlmi_In32(RegAddr);

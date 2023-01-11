@@ -46,6 +46,7 @@
 * 1.07  skd  04/21/2022 Misra-C violation Rule 18.1 fixed
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
 * 1.09  ng   11/11/2022 Updated doxygen comments
+*       bm   01/03/2023 Remove usage of double data type
 *
 * </pre>
 *
@@ -193,17 +194,14 @@ u64 XPlmi_GetTimerValue(void)
 static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
 		XPlmi_PerfTime *PerfTime)
 {
-	u64 PerfNs;
+	u64 PerfUs;
 	u64 TDiff = TCur - TStart;
-	double PerfTemp;
+	u32 PmcIroFreqMHz = IroFreq / XPLMI_MEGA;
 
-	/* Convert TPerf into nanoseconds */
-	PerfTemp = ((double)TDiff * XPLMI_GIGA) / (double)IroFreq;
-	PerfNs = (u64)PerfTemp;
-	PerfTemp /= XPLMI_MEGA;
-	PerfTime->TPerfMs = (u64)PerfTemp;
-	PerfTime->TPerfMsFrac = PerfNs % (u64)XPLMI_MEGA;
-	PerfTime->TPerfMsFrac /= (u64)XPLMI_MILLI;
+	/* Convert TPerf into microseconds */
+	PerfUs = TDiff / (u64)PmcIroFreqMHz;
+	PerfTime->TPerfMsFrac = PerfUs % (u64)XPLMI_KILO;
+	PerfTime->TPerfMs = PerfUs / (u64)XPLMI_KILO;
 }
 
 /*****************************************************************************/
