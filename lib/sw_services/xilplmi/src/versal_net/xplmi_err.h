@@ -21,6 +21,8 @@
 *       ma   07/20/2022 Rename PMC_PSM_ERR_REG_OFFSET macro
 *       bm   07/20/2022 Update EAM logic for In-Place PLM Update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
+*                       Master SLR
 *
 * </pre>
 *
@@ -66,20 +68,6 @@ extern "C" {
 
 #define GET_PMC_SRST_MASK(RegOffset) (RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_SRST3_MASK) :\
 					(PMC_GLOBAL_PMC_SRST1_MASK + RegOffset)
-
-/*****************************************************************************/
-/**
- * @brief	This function triggers SSIT_ERR to slave SLRS and is not
- *		applicable for versal_net
- *
- * @return	None
- *
- *****************************************************************************/
-static inline void XPlmi_TriggerSsitErrToMaster(void)
-{
-	/* Not applicable for versal net */
-	return;
-}
 
 /*****************************************************************************/
 /**

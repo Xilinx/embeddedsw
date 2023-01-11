@@ -19,6 +19,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
+*                       Master SLR
 *
 * </pre>
 *
@@ -445,25 +447,6 @@ void XPlmi_DisablePmcErrAction(u32 ErrIndex, u32 RegMask)
 		(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
 			(ErrIndex * XPLMI_EVENT_ERROR_OFFSET), RegMask);
 	}
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function triggers SSIT error to Master
- *
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_TriggerSsitErrToMaster(void)
-{
-	/*
-	 * Trigger SSIT error to Master SLR if SLR Type is Slave SLR
-	 * And clear it immediately
-	 */
-	XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
-			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
-	XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK,
-			0x0U);
 }
 
 /*****************************************************************************/

@@ -111,6 +111,8 @@
 *                       it can be used in Image Selector
 *       sk   10/27/2022 Updated logic to handle invalid node id
 *       ng   11/11/2022 Updated doxygen comments
+*       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
+*                       Master SLR
 * </pre>
 *
 * @note
@@ -235,8 +237,6 @@ void XPlmi_ErrMgr(int ErrStatus)
 			XPlmi_TriggerFwNcrError();
 #endif
 		}
-	} else {
-		XPlmi_TriggerSsitErrToMaster();
 	}
 
 END:

@@ -21,6 +21,8 @@
 *       ma   07/20/2022 Rename PMC_PSM_ERR_REG_OFFSET macro
 *       bm   07/20/2022 Update EAM logic for In-Place PLM Update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
+*                       Master SLR
 *
 * </pre>
 *
@@ -91,7 +93,6 @@ static inline void XPlmi_ReconfigErrActions(void)
 
 /************************** Function Prototypes ******************************/
 XPlmi_Error_t *XPlmi_GetErrorTable(void);
-void XPlmi_TriggerSsitErrToMaster(void);
 void XPlmi_SysmonClkSetIro(void);
 void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 		u32 Cpm5DmaCsrIntDecReg, u32 ProcId);
