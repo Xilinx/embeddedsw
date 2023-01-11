@@ -33,6 +33,7 @@
 * 1.06  skg  10/04/2022 Added logic to handle invalid commads
 *       ng   11/11/2022 Fixed doxygen file name error
 *       is   12/19/2022 Added support for XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX
+*       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *
 * </pre>
 *
@@ -185,7 +186,7 @@ typedef struct {
 int XPlmi_SsitEventsInit(void);
 u8 XPlmi_SsitIsIntrEnabled(void);
 void XPlmi_SsitSetIsIntrEnabled(u8 Value);
-void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask);
+void XPlmi_SsitErrHandler(void *Data);
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 u8 XPlmi_GetSlrIndex(void);

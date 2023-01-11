@@ -79,6 +79,7 @@
 *       bm   07/20/2022 Added compatibility check for In-Place PLM Update
 *       ma   07/25/2022 Enhancements to secure lockdown code
 * 1.09  ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *
 * </pre>
 *
@@ -1075,8 +1076,13 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_IOMODULE_ERR_IRQ			(18U)
 #define XPLMI_IOMODULE_CFRAME_SEU		(20U)
 #define XPLMI_IOMODULE_PMC_GPI			(22U)
+#define XPLMI_IOMODULE_SSIT_ERR2		(24U)
+#define XPLMI_IOMODULE_SSIT_ERR1		(25U)
+#define XPLMI_IOMODULE_SSIT_ERR0		(26U)
 
 #define PMC_PMC_MB_IO_IRQ_ACK			(0xF028003CU)
+#define PMC_PMC_MB_IO_IRQ_ISR			(0xF0280030U)
+#define PMC_PMC_MB_IO_SSIT_IRQ_MASK		(0x7000000U)
 
 #define XPLMI_PSM_RAM_BASE_ADDR		(0xFFC00000U)
 

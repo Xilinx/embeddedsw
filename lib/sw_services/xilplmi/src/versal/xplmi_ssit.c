@@ -42,6 +42,7 @@
 *       ng   11/11/2022 Fixed doxygen file name error
 *       is   12/19/2022 Formatting, warning fixes in XPlmi_SendIpiCmdToSlaveSlr
 *       is   12/19/2022 Added support for XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX
+*       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *
 * </pre>
 *
@@ -1061,11 +1062,10 @@ END:
 * @return   None
 *
 ****************************************************************************/
-void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask)
+void XPlmi_SsitErrHandler(void *Data)
 {
 	XPlmi_TaskNode *Task = NULL;
-
-	(void)ErrorNodeId;
+	u32 Id = (u32)(UINTPTR)Data;
 
 	/*
 	 * If the SLR Type is Master,
@@ -1080,19 +1080,17 @@ void XPlmi_SsitErrHandler(u32 ErrorNodeId, u32 RegMask)
 	 *     Master SLR to Slave SLR
 	 */
 	if (SsitEvents->SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
-		if (RegMask == XIL_EVENT_ERROR_MASK_SSIT0) {
+		if (Id == XPLMI_IOMODULE_SSIT_ERR0) {
 			Task = SsitEvents->Task1;
-		} else if (RegMask == XIL_EVENT_ERROR_MASK_SSIT1) {
+		} else if (Id == XPLMI_IOMODULE_SSIT_ERR1) {
 			Task = SsitEvents->Task2;
-		} else if (RegMask == XIL_EVENT_ERROR_MASK_SSIT2) {
+		} else if (Id == XPLMI_IOMODULE_SSIT_ERR2) {
 			Task = SsitEvents->Task3;
 		} else {
 			/* Do nothing */
 		}
 	} else {
-		if ((RegMask & PMC_GLOBAL_SSIT_ERR_MASK) != 0x0U) {
-			Task = SsitEvents->Task1;
-		}
+		Task = SsitEvents->Task1;
 	}
 
 	if (Task != NULL) {

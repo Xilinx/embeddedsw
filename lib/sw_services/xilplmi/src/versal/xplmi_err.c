@@ -21,6 +21,7 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
 *                       Master SLR
+*       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *
 * </pre>
 *
@@ -755,6 +756,23 @@ u32 *XPlmi_GetNumErrOuts(void)
 }
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+/*****************************************************************************/
+/**
+ * @brief	This function registers SSIT Err handlers and also enables
+ *		the interrupts.
+ *
+ * @param	Id is the IoModule Intr ID
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_RegisterSsitErrHandlers(u32 Id)
+{
+	(void)XPlmi_RegisterHandler(Id,
+		(GicIntHandler_t)(void *)XPlmi_SsitErrHandler, (void *)Id);
+	XPlmi_PlmIntrEnable(Id);
+}
+
 /****************************************************************************/
 /**
 * @brief    This function enables the SSIT interrupts
@@ -783,29 +801,19 @@ void XPlmi_EnableSsitErrors(void)
 		goto END;
 	}
 
+	/* Clear the SSIT IRQ bits */
+	XPlmi_Out32(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_SSIT_IRQ_MASK);
 	SlrIndex = XPlmi_GetSlrIndex();
 	if (SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
-		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
-				XIL_EVENT_ERROR_MASK_SSIT0, XPLMI_EM_ACTION_CUSTOM,
-				XPlmi_SsitErrHandler);
-		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
-				XIL_EVENT_ERROR_MASK_SSIT1, XPLMI_EM_ACTION_CUSTOM,
-				XPlmi_SsitErrHandler);
-		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
-				XIL_EVENT_ERROR_MASK_SSIT2, XPLMI_EM_ACTION_CUSTOM,
-				XPlmi_SsitErrHandler);
+		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR0);
+		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR1);
+		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR2);
 	} else if (SlrIndex == XPLMI_SSIT_SLAVE0_SLR_INDEX) {
-		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
-				XIL_EVENT_ERROR_MASK_SSIT0, XPLMI_EM_ACTION_CUSTOM,
-				XPlmi_SsitErrHandler);
+		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR0);
 	} else if (SlrIndex == XPLMI_SSIT_SLAVE1_SLR_INDEX) {
-		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
-				XIL_EVENT_ERROR_MASK_SSIT1, XPLMI_EM_ACTION_CUSTOM,
-				XPlmi_SsitErrHandler);
+		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR1);
 	} else if (SlrIndex == XPLMI_SSIT_SLAVE2_SLR_INDEX) {
-		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
-				XIL_EVENT_ERROR_MASK_SSIT2, XPLMI_EM_ACTION_CUSTOM,
-				XPlmi_SsitErrHandler);
+		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR2);
 	} else {
 		goto END;
 	}
