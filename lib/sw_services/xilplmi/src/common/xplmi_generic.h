@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +46,7 @@
 *       ma   07/08/2022 Add support for storing procs to PMC RAM based on ID
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
+*       bm   01/03/2023 Clear End Stack before processing a CDO partition
 *
 * </pre>
 *
@@ -174,6 +176,7 @@ int XPlmi_SetProcList(u32 Address, u16 Size);
 XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType);
 int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags);
 int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level);
+void XPlmi_ClearEndStack(void);
 
 /* xplmi_plat.c definitions */
 XPlmi_BoardParams *XPlmi_GetBoardParams(void);

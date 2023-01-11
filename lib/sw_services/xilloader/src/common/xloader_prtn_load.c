@@ -94,6 +94,7 @@
 * 1.10  ng   11/11/2022 Updated doxygen comments
 *       kal  01/05/2023 Added XLoader_SecureConfigMeasurement function for
 *                       secure images measurement
+*       bm   01/05/2023 Clear End Stack before processing a CDO partition
 *
 * </pre>
 *
@@ -430,6 +431,9 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 			Cdo.Cmd.KeyHoleParams.Func = PdiPtr->MetaHdr.DeviceCopy;
 		}
 	}
+	/* Clear previous End Stack before processing any CDO */
+	XPlmi_ClearEndStack();
+
 	while (DeviceCopy->Len > 0U) {
 		/** Update the len for last chunk */
 		if (DeviceCopy->Len <= ChunkLen) {

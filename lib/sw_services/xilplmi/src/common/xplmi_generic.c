@@ -82,6 +82,7 @@
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 * 1.09  ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
+*       bm   01/03/2023 Clear End Stack before processing a CDO partition
 *
 * </pre>
 *
@@ -2406,6 +2407,18 @@ int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
 	Status = XST_SUCCESS;
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears the end stack
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_ClearEndStack(void)
+{
+	OffsetListTop = -1;
 }
 
 /**
