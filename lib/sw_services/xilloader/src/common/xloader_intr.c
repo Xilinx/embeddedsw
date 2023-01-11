@@ -41,6 +41,8 @@
 *       bm   07/18/2022 Shutdown modules gracefully during update
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
 * 1.08  ng   11/11/2022 Updated doxygen comments
+*       bm   01/03/2023 Switch to SSIT Events as soon as basic Noc path is
+*                       configured
 *
 * </pre>
 *
@@ -168,13 +170,6 @@ static int XLoader_SbiLoadPdi(void *Data)
 		goto END;
 	}
 
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-	/* Enable SSIT interrupts for Slave SLRs */
-	if ((PdiPtr->SlrType != XLOADER_SSIT_MONOLITIC) &&
-		(PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR)) {
-		XPlmi_EnableSsitErrors();
-	}
-#endif
 	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Done\n\r");
 
 END:

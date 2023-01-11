@@ -146,6 +146,8 @@
 *       ng   01/02/2023 Check to bypass entire ID Code Check
 *       kpt  01/04/2023 Added check to update FIPS state
 *
+*       bm   01/04/2023 Switch to SSIT Events as soon as basic Noc path is
+*                       configured
 * </pre>
 *
 * @note
@@ -175,6 +177,7 @@
 #include "xplmi_event_logging.h"
 #include "xplmi_wdt.h"
 #include "xloader_plat.h"
+#include "xplmi_err.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -811,6 +814,14 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			}
 			goto END;
 		}
+
+		/** Enable Ssit Events once the basic NoC has been configured in SSIT devices */
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+		if ((PdiPtr->SlrType != XLOADER_SSIT_MONOLITIC) &&
+			(PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID == PM_DEV_PLD_0)) {
+			XPlmi_EnableSsitErrors();
+		}
+#endif
 
 		if ((PdiPtr->DelayLoad == (u8)TRUE) ||
 			(PdiPtr->DelayHandoff == (u8)TRUE)) {

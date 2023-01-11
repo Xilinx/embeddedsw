@@ -43,6 +43,8 @@
 * 1.09  sk   11/22/2022 Removed Subsystems ValidHeader member variable init
 *                       from XPlm_LoadBootPdi to unify for In-Place Update
 *       ng   11/23/2022 Updated doxygen comments
+*       bm   01/03/2023 Switch to SSIT Events as soon as basic Noc path is
+*                       configured
 *
 * </pre>
 *
@@ -56,7 +58,6 @@
 #include "xloader_sbi.h"
 #include "xplmi_err_common.h"
 #include "xloader_plat.h"
-#include "xplmi_err.h"
 #include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
@@ -134,13 +135,6 @@ int XPlm_LoadBootPdi(void *Arg)
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
-
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-	/* Enable SSIT interrupts for Master SLR */
-	if (PdiInstPtr->SlrType == XLOADER_SSIT_MASTER_SLR) {
-		XPlmi_EnableSsitErrors();
-	}
-#endif
 
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Done***********\n\r");
 
