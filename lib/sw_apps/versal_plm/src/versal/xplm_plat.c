@@ -84,7 +84,7 @@ int XPlm_ConfigureDefaultNPll(void)
 	Status = XPlmi_UtilPoll(CRP_PLL_STATUS,
 			CRP_PLL_STATUS_NOCPLL_LOCK_MASK,
 			CRP_PLL_STATUS_NOCPLL_LOCK_MASK,
-			NOCPLL_TIMEOUT);
+			NOCPLL_TIMEOUT, NULL);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_NPLL_LOCK, 0);
 		goto END;

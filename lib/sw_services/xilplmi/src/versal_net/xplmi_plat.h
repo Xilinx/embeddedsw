@@ -29,6 +29,7 @@
 * 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *       ng   11/11/2022 Fixed doxygen file name error
 *       kpt  01/04/2023 Added APIs and macros related to FIPS
+*       bm   01/04/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -400,6 +401,32 @@ static inline void XPlmi_EnableIpiIntr(void)
  *
  *****************************************************************************/
 static inline void XPlmi_ClearIpiIntr(void)
+{
+	/* Not Applicable for Versal Net */
+	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for Versal Net
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static inline void XPlmi_NotifySldSlaveSlrs(void)
+{
+	/* Not Applicable for Versal Net */
+	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for Versal Net
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static inline void XPlmi_InterSlrSldHandshake(void)
 {
 	/* Not Applicable for Versal Net */
 	return;

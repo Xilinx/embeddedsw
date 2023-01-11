@@ -43,6 +43,7 @@
 *       is   12/19/2022 Formatting, warning fixes in XPlmi_SendIpiCmdToSlaveSlr
 *       is   12/19/2022 Added support for XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -57,6 +58,9 @@
 #include "sleep.h"
 #include "xplmi_modules.h"
 #include "xplmi_wdt.h"
+#include "xplmi_util.h"
+#include "xplmi_proc.h"
+#include "xplmi_tamper.h"
 
 /************************** Function Prototypes ******************************/
 static u32 XPlmi_SsitGetSlaveErrorMask(void);
@@ -84,6 +88,11 @@ static u32 XPlmi_SsitGetSlaveErrorMask(void);
 /* Space between SLR event buffers */
 #define XPLMI_SLR_REQ_AND_RESP_MAX_SIZE_IN_WORDS	0x80U
 
+/* Timeout to wait for Slave SLRs ack during SLD Handshake - 1ms */
+#define XPLMI_WAIT_FOR_SLAVE_SLRS_ACK_TIMEOUT	(1000U)
+#define XPLMI_WAIT_FOR_ALL_SLRS_READY_TIMEOUT	(1000U)
+#define XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_US		(1U)
+#define XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_NS		(XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_US * 1000)
 
 /**************************** Type Definitions *******************************/
 #define XPLMI_GET_EVENT_ARRAY_INDEX(EventIndex)		(u8)(EventIndex/XPLMI_SSIT_MAX_BITS)
@@ -101,6 +110,7 @@ static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait);
 static int XPlmi_SsitMsgEventHandler(void *Data);
 static void XPlmi_GetEventTableIndex(u8 SlrIndex, u8 *LocalEvTableIndex,
 		u8 *RemoteEvTableIndex);
+static u32 XPlmi_IsSldNotification(void);
 
 /************************** Variable Definitions *****************************/
 static XPlmi_SsitEventStruct_t *SsitEvents =
@@ -1056,8 +1066,7 @@ END:
 /**
 * @brief    This function handles SSIT Errors 0/1/2 in Master and Slave SLRs.
 *
-* @param    ErrorNodeId is the node ID for the error event
-* @param    RegMask is the register mask of the error received
+* @param    Data is the IoModule interrupt ID which is passed to the handler
 *
 * @return   None
 *
@@ -1066,6 +1075,11 @@ void XPlmi_SsitErrHandler(void *Data)
 {
 	XPlmi_TaskNode *Task = NULL;
 	u32 Id = (u32)(UINTPTR)Data;
+
+	XPlmi_PlmIntrClear(Id);
+	if (SsitEvents->IsIntrEnabled != (u8)TRUE) {
+		goto END;
+	}
 
 	/*
 	 * If the SLR Type is Master,
@@ -1089,7 +1103,13 @@ void XPlmi_SsitErrHandler(void *Data)
 		} else {
 			/* Do nothing */
 		}
-	} else {
+	} else if (SsitEvents->SlrIndex != XPLMI_SSIT_INVALID_SLR_INDEX) {
+		/* For Slave SLRs, detect SLD notification if it's a long pulse */
+		if (XPlmi_IsSldNotification() == TRUE) {
+			XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK,
+				XPLMI_TRIGGER_TAMPER_TASK);
+			goto END;
+		}
 		Task = SsitEvents->Task1;
 	}
 
@@ -1097,6 +1117,9 @@ void XPlmi_SsitErrHandler(void *Data)
 		/* Trigger the task */
 		XPlmi_TaskTriggerNow(Task);
 	}
+
+END:
+	return;
 }
 
 /*****************************************************************************/
@@ -1203,6 +1226,62 @@ static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief	This function acknowledges all SSIT ERR IRQ bits in iomodule
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_AckrSsitIrq(void)
+{
+	XPlmi_Out32(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_SSIT_IRQ_MASK);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function clears latched SSIT errors in PMC_ERROR2_STATUS
+ *		register
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_ClearSsitErrs(void)
+{
+	/* Clear latched SSIT Errors */
+	XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
+			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function detects SLD notification on slave SLRs
+ *
+ * @return	TRUE if SLD notification is detected, else FALSE
+ *
+ *****************************************************************************/
+static u32 XPlmi_IsSldNotification(void)
+{
+	int Status = XST_FAILURE;
+	u32 IsSld = FALSE;
+	u32 IoModuleIsr;
+
+	if (XPlmi_SldState() != XPLMI_SLD_NOT_TRIGGERED) {
+		goto END;
+	}
+	IoModuleIsr = XPlmi_In32(PMC_PMC_MB_IO_IRQ_ISR);
+	if ((IoModuleIsr & PMC_PMC_MB_IO_SSIT_IRQ_MASK) == PMC_PMC_MB_IO_SSIT_IRQ_MASK) {
+		Status = XPlmi_UtilPollNs(PMC_PMC_MB_IO_IRQ_ISR, PMC_PMC_MB_IO_SSIT_IRQ_MASK,
+				0x0, XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_NS, XPlmi_AckrSsitIrq);
+		if (Status != XST_SUCCESS) {
+			IsSld = TRUE;
+		}
+	}
+END:
+	return IsSld;
+}
+
 #else
 /****************************************************************************/
 /**
@@ -1747,4 +1826,97 @@ END:
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 	return Status;
+}
+/*****************************************************************************/
+/**
+ * @brief	This function notifies other SLRs about Secure Lockdown or tamper
+ *		condition in SSIT devices.
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_NotifySldSlaveSlrs(void)
+{
+	u32 SlrType= XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK;
+
+	/* Do nothing for monolithic devices */
+	if (SlrType == XPLMI_SSIT_MONOLITIC) {
+		goto END;
+	}
+
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+	/* From Master SLR, Notify Other SLRs about Tamper */
+	if ((SlrType == XPLMI_SSIT_MASTER_SLR) &&
+		(XPlmi_SsitIsIntrEnabled() == (u8)TRUE)) {
+		XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, SSIT_SLAVE_0_MASK |
+				SSIT_SLAVE_1_MASK | SSIT_SLAVE_2_MASK);
+	}
+#endif
+
+END:
+	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function performs handshake between SLRs on SSIT ERR lines.
+ *		This has to be done on SSIT devices before doing secure lockdown
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_InterSlrSldHandshake(void)
+{
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+	u32 SlrType= XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK;
+
+	if ((SlrType == XPLMI_SSIT_MONOLITIC) ||
+		(XPlmi_SsitIsIntrEnabled() != (u8)TRUE)) {
+		goto END;
+	}
+
+	if (SlrType == XPLMI_SSIT_MASTER_SLR) {
+		/* Clear latched SSIT Errors */
+		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS,
+			PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERRX_MASK);
+		/* Wait for all SLRs to be ready */
+		XPlmi_UtilPollForMask(PMC_GLOBAL_PMC_ERR1_STATUS,
+				PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERRX_MASK,
+				XPLMI_WAIT_FOR_SLAVE_SLRS_ACK_TIMEOUT);
+		/*
+		 * Wait for twice the minimal long pulse time used to
+		 * identify SLD notification.
+		 */
+		usleep(2 * XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_US);
+		/*
+		 * De-Assert all SSIT ERR lines to indicate Slave SLRs
+		 * can start the SLD
+		 */
+		XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, 0x0);
+	}
+	else {
+		/* Indicate ready to start secure lockdown */
+		XPlmi_Out32(PMC_GLOBAL_SSIT_ERR,
+			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
+		/* Clear latched SSIT Errors */
+		XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
+			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK);
+		/* Wait for primary SLR to be ready */
+		XPlmi_UtilPollNs(PMC_GLOBAL_PMC_ERR2_STATUS,
+			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK,
+			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK,
+			XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_NS, NULL);
+		/* Clear latched SSIT Errors */
+		XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
+			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK);
+		/* Wait for all SLRs to be ready */
+		XPlmi_UtilPoll(PMC_GLOBAL_PMC_ERR2_STATUS,
+			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK, 0U,
+			XPLMI_WAIT_FOR_ALL_SLRS_READY_TIMEOUT,
+			XPlmi_ClearSsitErrs);
+	}
+
+END:
+#endif
+	return;
 }

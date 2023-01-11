@@ -102,7 +102,8 @@
 *       bm   08/24/2022 Support Begin, Break and End commands across chunk
 *                       boundaries
 * 1.09  ng   11/11/2022 Fixed doxygen file name error
-* 1.8   skg  12/07/2022 Added error code for additional PPKs
+* 1.08  skg  12/07/2022 Added error code for additional PPKs
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -593,6 +594,8 @@ typedef enum {
 	XLOADER_INVALID_BLOCKTYPE, /**< 0x36E - Invalid Blocktype to Cframe data clear check */
 	XLOADER_CFI_CFRAME_IS_BUSY, /**< 0x36F - CRAM self check failed as CFI CFrame is busy */
 	XLOADER_CFRAME_CRC_CHECK_FAILED, /**< 0x370 - CFRAME CRC check failed */
+	XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, /**< 0x371 - Skip processing rest of the partitions
+						as secure lockdown has been triggered */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

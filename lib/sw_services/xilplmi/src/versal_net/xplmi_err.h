@@ -23,6 +23,7 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
 *                       Master SLR
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -124,7 +125,6 @@ static inline void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index)
 XPlmi_Error_t *XPlmi_GetErrorTable(void);
 u8 XPlmi_GetEventIndex(u32 ErrorNodeType);
 int XPlmi_RestrictErrActions(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAction);
-void XPlmi_DisablePmcErrAction(u32 ErrIndex, u32 RegMask);
 void XPlmi_DumpErrNGicStatus(void);
 void XPlmi_ReconfigErrActions(void);
 u32 *XPlmi_GetNumErrOuts(void);

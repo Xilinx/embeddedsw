@@ -83,6 +83,7 @@
 * 1.09  ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *       bm   01/03/2023 Clear End Stack before processing a CDO partition
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -309,7 +310,7 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 		DebugLevel = DEBUG_GENERAL;
 	}
 
-	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs);
+	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs, NULL);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DebugLevel,
 			"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
@@ -890,7 +891,7 @@ static int XPlmi_DmaXfer(XPlmi_Cmd *Cmd)
 		Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
 				SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK,
 				SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_VAL,
-				XPLMI_TIME_OUT_DEFAULT);
+				XPLMI_TIME_OUT_DEFAULT, NULL);
 		if (Status != XST_SUCCESS) {
 			XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
 				SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
@@ -900,7 +901,7 @@ static int XPlmi_DmaXfer(XPlmi_Cmd *Cmd)
 		Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
 				SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_MASK,
 				SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_VAL,
-				XPLMI_TIME_OUT_DEFAULT);
+				XPLMI_TIME_OUT_DEFAULT, NULL);
 		XPlmi_UtilRMW(SLAVE_BOOT_SBI_MODE,
 				SLAVE_BOOT_SBI_MODE_SELECT_MASK, 0U);
 	} else {
@@ -1069,7 +1070,7 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
 		SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_MASK,
 		SLAVE_BOOT_SBI_STATUS_CMN_BUF_SPACE_VAL,
-		XPLMI_TIME_OUT_DEFAULT);
+		XPLMI_TIME_OUT_DEFAULT, NULL);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -1078,12 +1079,12 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 		Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
 			SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_MASK,
 			SLAVE_BOOT_SBI_STATUS_SMAP_DOUT_FIFO_SPACE_VAL,
-			XPLMI_TIME_OUT_DEFAULT);
+			XPLMI_TIME_OUT_DEFAULT, NULL);
 	} else {
 		Status = XPlmi_UtilPoll(SLAVE_BOOT_SBI_STATUS,
 			SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_MASK,
 			SLAVE_BOOT_SBI_STATUS_JTAG_DOUT_FIFO_SPACE_VAL,
-			XPLMI_TIME_OUT_DEFAULT);
+			XPLMI_TIME_OUT_DEFAULT, NULL);
 	}
 
 END:

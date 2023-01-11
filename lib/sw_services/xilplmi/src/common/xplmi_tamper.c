@@ -23,6 +23,7 @@
 *       ma   07/25/2022 Enhancements to secure lockdown code
 * 1.01  ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -97,11 +98,21 @@ u32 XPlmi_SldState(void)
  *****************************************************************************/
 void XPlmi_TriggerTamperResponse(u32 Response, u32 Flag)
 {
+	/** If Tamper Task is already triggered, Do nothing */
+	if (XPlmi_SldState() != XPLMI_SLD_NOT_TRIGGERED) {
+		goto END;
+	}
 	TamperResponse = Response;
 	SldState = XPLMI_SLD_TRIGGERED;
 
+	/** For versal SSIT devices, Notify slave SLRs about SLD */
+	if ((TamperResponse & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) {
+		XPlmi_NotifySldSlaveSlrs();
+	}
+
 	if (Flag == XPLMI_TRIGGER_TAMPER_TASK) {
 		if (TamperTask != NULL) {
+			/** Trigger tamper response task */
 			XPlmi_TaskTriggerNow(TamperTask);
 		}
 		else {
@@ -109,8 +120,11 @@ void XPlmi_TriggerTamperResponse(u32 Response, u32 Flag)
 		}
 	}
 	else {
+		/** Process tamper response immediately */
 		(void)XPlmi_ProcessTamperResponse(NULL);
 	}
+END:
+	return;
 }
 
 /*****************************************************************************/
@@ -131,6 +145,16 @@ static int XPlmi_ProcessTamperResponse(void *Data)
 	(void)Data;
 
 	if ((TamperResponse & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) {
+		/**
+		 * Set SldState to XPLMI_SLD_IN_PROGRESS
+		 */
+		SldState = XPLMI_SLD_IN_PROGRESS;
+		/*
+		 * For versal SSIT devices, Handshake on SSIT ERR lines has to be
+		 * performed before performing secure lockdown.
+		 */
+		XPlmi_InterSlrSldHandshake();
+
 		/**
 		 * Reset LpdInitialized variable
 		 */
@@ -155,13 +179,9 @@ static int XPlmi_ProcessTamperResponse(void *Data)
 		CfuRefCtrl = (CfuRefCtrl & ~CRP_CFU_REF_CTRL_DIVISOR_MASK) | CfuDivisor;
 		XPlmi_Out32(CRP_CFU_REF_CTRL, CfuRefCtrl);
 		/**
-		 * Set SldState to XPLMI_SLD_IN_PROGRESS
-		 */
-		SldState = XPLMI_SLD_IN_PROGRESS;
-
-		/**
 		 * Execute secure lockdown proc
 		 */
+
 		Status = XPlmi_ExecuteProc(XPLMI_SLD_PROC_ID);
 		if (Status != XST_SUCCESS) {
 			XPlmi_Printf(DEBUG_GENERAL, "Secure Lockdown failed with 0x%x "

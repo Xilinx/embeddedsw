@@ -98,9 +98,9 @@ void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
 		u32 Cpm5DmaCsrIntDecReg, u32 ProcId);
 void XPlmi_DumpErrNGicStatus(void);
 u8 XPlmi_GetEventIndex(u32 ErrorNodeType);
-void XPlmi_DisablePmcErrAction(u32 ErrIndex, u32 RegMask);
 void XPlmi_ClearSsitErrors(u32 *PmcErrStatus, u32 Index);
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+void XPlmi_DetectSlaveSlrTamper(void);
 void XPlmi_EnableSsitErrors(void);
 #endif
 u32 *XPlmi_GetNumErrOuts(void);

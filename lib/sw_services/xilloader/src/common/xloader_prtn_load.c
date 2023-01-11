@@ -95,6 +95,7 @@
 *       kal  01/05/2023 Added XLoader_SecureConfigMeasurement function for
 *                       secure images measurement
 *       bm   01/05/2023 Clear End Stack before processing a CDO partition
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -245,6 +246,13 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 			XPLMI_WORD_LEN);
 
 		++PdiPtr->PrtnNum;
+
+		/* Skip processing rest of the partitions if SLD is triggered */
+		if (XPlmi_SldState() != XPLMI_SLD_NOT_TRIGGERED) {
+			Status = XPlmi_UpdateStatus(XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, 0U);
+			goto END1;
+		}
+
 		if (XPlmi_NpiOutOfReset() == (u8)TRUE) {
 			Status = XPlmi_CheckNpiErrors();
 			if (Status != XST_SUCCESS) {

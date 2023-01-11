@@ -515,7 +515,7 @@ void XPm_Wait(u32 TimeOutCount);
 maybe_unused static inline XStatus XPm_PollForMask(u32 RegAddress, u32 Mask,
 				      u32 TimeOut)
 {
-	return XPlmi_UtilPoll(RegAddress, Mask, Mask, TimeOut);
+	return XPlmi_UtilPoll(RegAddress, Mask, Mask, TimeOut, NULL);
 }
 
 /**
@@ -533,7 +533,7 @@ maybe_unused static inline XStatus XPm_PollForMask64(u64 RegAddress, u32 Mask,
 maybe_unused static inline XStatus XPm_PollForZero(u32 RegAddress, u32 Mask,
 				      u32 TimeOut)
 {
-	return XPlmi_UtilPoll(RegAddress, Mask, 0, TimeOut);
+	return XPlmi_UtilPoll(RegAddress, Mask, 0, TimeOut, NULL);
 }
 
 /**

@@ -275,7 +275,7 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 
 	/** Check if Cframe is busy */
 	Status = XPlmi_UtilPoll(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK,
-			XPLMI_ZERO, CFRAME_CRC_POLL_TIMEOUT);
+			XPLMI_ZERO, CFRAME_CRC_POLL_TIMEOUT, NULL);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XLOADER_CFI_CFRAME_IS_BUSY;
 		goto END;

@@ -22,6 +22,7 @@
 *       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
 *                       Master SLR
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -34,6 +35,7 @@
 #include "xplmi_err_common.h"
 #include "xplmi_err.h"
 #include "xplmi_ssit.h"
+#include "xplmi_tamper.h"
 
 /************************** Constant Definitions *****************************/
 #define XPLMI_SYSMON_CLK_SRC_IRO_VAL	(0U)
@@ -432,26 +434,6 @@ u8 XPlmi_GetEventIndex(u32 ErrorNodeType)
 
 /*****************************************************************************/
 /**
- * @brief	This function disables PMC EAM Errors
- *
- * @param	ErrIndex is the Index of PMC EAM regiser
- * @param	RegMask is the register mask of the Error
-
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_DisablePmcErrAction(u32 ErrIndex, u32 RegMask)
-{
-	/* PMC ERR2 SSIT errors will not be disabled for PLM to PLM communication */
-	if ((ErrIndex != XPLMI_NODETYPE_EVENT_PMC_ERR2) ||
-		((RegMask & PMC_GLOBAL_SSIT_ERR_MASK) == 0x0U)) {
-		(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
-			(ErrIndex * XPLMI_EVENT_ERROR_OFFSET), RegMask);
-	}
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function sets the sysmon clock to IRO for ES1 silicon
  *
  * @return	None
@@ -760,6 +742,38 @@ u32 *XPlmi_GetNumErrOuts(void)
 /**
  * @brief	This function registers SSIT Err handlers and also enables
  *		the interrupts.
+ * @brief	This function detects and handles tamper condition occured on
+ *		slave SLRs
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+void XPlmi_DetectSlaveSlrTamper(void)
+{
+	u32 PmcErr1Status;
+
+	if ((XPlmi_GetSlrIndex() == XPLMI_SSIT_MASTER_SLR_INDEX) &&
+			(XPlmi_SsitIsIntrEnabled() == (u8)TRUE)) {
+		PmcErr1Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS);
+		PmcErr1Status &= XPLMI_PMC_ERR_SSIT_MASK;
+		/** Detect if SSIT ERR is set in PMC_ERR1_STATUS */
+		if (PmcErr1Status) {
+			/** Disable SSIT Error */
+			(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
+				PmcErr1Status);
+			/** Trigger Tamper Response as a task */
+			XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK,
+				XPLMI_TRIGGER_TAMPER_TASK);
+			/** Clear SSIT Errors */
+			XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, PmcErr1Status);
+		}
+	}
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function registers SSIT Err handlers and also Enables the
+ *		interrupts.
  *
  * @param	Id is the IoModule Intr ID
  *
@@ -768,9 +782,31 @@ u32 *XPlmi_GetNumErrOuts(void)
  *****************************************************************************/
 static void XPlmi_RegisterSsitErrHandlers(u32 Id)
 {
+	/** Register XPlmi_SsitErrHandler to IoModule */
 	(void)XPlmi_RegisterHandler(Id,
 		(GicIntHandler_t)(void *)XPlmi_SsitErrHandler, (void *)Id);
+	/** Enable SSIT Irq on IoModule */
 	XPlmi_PlmIntrEnable(Id);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function handles the SSIT ERR2 IRQs coming from the slave
+ *
+ * @param	ErrorNodeId is the node ID for the error event
+ * @param	RegMask is the register mask of the error received
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_HandleSsitErr2(u32 ErrorNodeId, u32 RegMask)
+{
+	(void)ErrorNodeId;
+	(void)RegMask;
+
+	/** Trigger SLD1 Tamper Response as a task */
+	XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK,
+		XPLMI_TRIGGER_TAMPER_TASK);
 }
 
 /****************************************************************************/
@@ -789,12 +825,15 @@ void XPlmi_EnableSsitErrors(void)
 	 *   - SSIT_ERR0 is for the events from Slave SLR0
 	 *   - SSIT_ERR1 is for the events from Slave SLR1
 	 *   - SSIT_ERR2 is for the events from Slave SLR2
+	 *   - SSIT_ERR3 is for the SLD notification from Slave SLR0
+	 *   - SSIT_ERR4 is for the SLD notification from Slave SLR1
+	 *   - SSIT_ERR5 is for the SLD notification from Slave SLR2
 	 * For Slave SLRs:
 	 *   - SSIT_ERR0 in Slave SLR0 is for the events from Master SLR
 	 *   - SSIT_ERR1 in Slave SLR1 is for the events from Master SLR
 	 *   - SSIT_ERR2 in Slave SLR2 is for the events from Master SLR
 	 *
-	 * Other SSIT errors in Master/Slave SLRs are not configured
+	 * Other SSIT errors in Slave SLRs are not configured
 	 */
 	if (XPlmi_SsitIsIntrEnabled() == (u8)TRUE) {
 		/* Interrupts are enabled already. No need to enable again. */
@@ -803,11 +842,22 @@ void XPlmi_EnableSsitErrors(void)
 
 	/* Clear the SSIT IRQ bits */
 	XPlmi_Out32(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_SSIT_IRQ_MASK);
+
 	SlrIndex = XPlmi_GetSlrIndex();
 	if (SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
+		/* Register Handlers for SSIT ERR IRQ in master */
 		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR0);
 		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR1);
 		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR2);
+		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
+			XIL_EVENT_ERROR_MASK_SSIT3, XPLMI_EM_ACTION_CUSTOM,
+			XPlmi_HandleSsitErr2);
+		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
+			XIL_EVENT_ERROR_MASK_SSIT4, XPLMI_EM_ACTION_CUSTOM,
+			XPlmi_HandleSsitErr2);
+		(void)XPlmi_EmSetAction(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1,
+			XIL_EVENT_ERROR_MASK_SSIT5, XPLMI_EM_ACTION_CUSTOM,
+			XPlmi_HandleSsitErr2);
 	} else if (SlrIndex == XPLMI_SSIT_SLAVE0_SLR_INDEX) {
 		XPlmi_RegisterSsitErrHandlers(XPLMI_IOMODULE_SSIT_ERR0);
 	} else if (SlrIndex == XPLMI_SSIT_SLAVE1_SLR_INDEX) {

@@ -114,6 +114,7 @@
 *       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
 *                       Master SLR
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 * </pre>
 *
 * @note
@@ -530,6 +531,43 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
 	}
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function detects and handles tamper condition in EAM IRQ
+ *		interrupt handler
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static void XPlmi_DetectAndHandleTamper(void)
+{
+	u32 PmcErr2Status;
+	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
+
+	/** Handle Tamper condition triggered by ROM */
+	if (ErrorTable[XPLMI_ERROR_PMCAPB].Handler) {
+		PmcErr2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
+		PmcErr2Status &= XIL_EVENT_ERROR_MASK_PMCAPB;
+		/** Check if PMC APB error is set */
+		if (PmcErr2Status) {
+			/** Disable PMC APB Error */
+			(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
+					XIL_EVENT_ERROR_MASK_PMCAPB);
+			/** Handle PMC APB Error */
+			ErrorTable[XPLMI_ERROR_PMCAPB].Handler(
+				XIL_NODETYPE_EVENT_ERROR_PMC_ERR2,
+				XIL_EVENT_ERROR_MASK_PMCAPB);
+			/** Clear PMC APB Error */
+			XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, PmcErr2Status);
+		}
+	}
+
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+	/** For SSIT devices, Handle Tamper condition triggered by slave SLRs */
+	XPlmi_DetectSlaveSlrTamper();
+#endif
+}
+
 /****************************************************************************/
 /**
 * @brief    This function is default interrupt handler for EAM error which
@@ -545,6 +583,12 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	XPlmi_TaskNode *Task = NULL;
 
 	(void)CallbackRef;
+
+	/**
+	 * Detect Tamper in interrupt context and trigger the task which
+	 * processes the tamper response
+	 */
+	XPlmi_DetectAndHandleTamper();
 
 	/** Check if the task is already created */
 	Task = XPlmi_GetTaskInstance(XPlmi_ErrorTaskHandler, NULL,
@@ -621,7 +665,8 @@ int XPlmi_ErrorTaskHandler(void *Data)
 					(ErrorTable[Index].Action != XPLMI_EM_ACTION_NONE)) {
 				/* PSM errors are handled in PsmErrHandler */
 				if (Index != XPLMI_ERROR_PMC_PSM_NCR) {
-					(void)XPlmi_DisablePmcErrAction(ErrIndex, RegMask);
+					(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
+						(ErrIndex * XPLMI_EVENT_ERROR_OFFSET), RegMask);
 					ErrorTable[Index].Handler(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
 						(ErrIndex * XPLMI_EVENT_ERROR_OFFSET), RegMask);
 				}

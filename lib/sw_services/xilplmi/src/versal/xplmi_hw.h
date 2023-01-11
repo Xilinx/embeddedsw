@@ -80,6 +80,7 @@
 *       ma   07/25/2022 Enhancements to secure lockdown code
 * 1.09  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -204,6 +205,7 @@ extern "C" {
 #define PMC_GLOBAL_PMC_ERR1_STATUS    (PMC_GLOBAL_BASEADDR + 0X00020000U)
 #define PMC_GLOBAL_PMC_ERR1_STATUS_CFRAME_MASK   (0X00000080U)
 #define PMC_GLOBAL_PMC_ERR1_STATUS_CFU_MASK   (0X00000040U)
+#define PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERRX_MASK   (0xE0000000U)
 
 /*
  * Register: PMC_GLOBAL_PMC_ERR2_STATUS
@@ -213,6 +215,7 @@ extern "C" {
 #define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR1_MASK   (0X40000000U)
 #define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_SHIFT  (29U)
 #define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_MASK   (0X20000000U)
+#define PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK   (0xE0000000U)
 #define PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK   (0X00020000U)
 
 /*

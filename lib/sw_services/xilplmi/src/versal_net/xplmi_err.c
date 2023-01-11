@@ -22,6 +22,7 @@
 *       bm   07/13/2022 Update EAM logic for In-Place PLM Update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       kal  01/05/2022 Added support to PCR log update
+*       bm   01/05/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -546,22 +547,6 @@ u8 XPlmi_GetEventIndex(u32 ErrorNodeType)
 	}
 
 	return Index;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function disables PMC EAM Errors
- *
- * @param	ErrIndex is the Index of PMC EAM regiser
- * @param	RegMask is the register mask of the Error
-
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_DisablePmcErrAction(u32 ErrIndex, u32 RegMask)
-{
-	(void)XPlmi_EmDisable(XIL_NODETYPE_EVENT_ERROR_PMC_ERR1 +
-		(ErrIndex * XPLMI_EVENT_ERROR_OFFSET), RegMask);
 }
 
 /****************************************************************************/

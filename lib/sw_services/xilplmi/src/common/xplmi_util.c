@@ -42,6 +42,7 @@
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
 * 1.07  ng   11/11/2022 Updated doxygen comments
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -56,6 +57,7 @@
 #include "xplmi_debug.h"
 #include "sleep.h"
 #include "xplmi_wdt.h"
+#include "xplmi_proc.h"
 
 /**@cond xplmi_internal
  * @{
@@ -107,11 +109,14 @@ void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
  * @param	ExpectedValue is the value for which the register is polled
  * @param	TimeOutInUs is the max time in microseconds for which the register
  *			would be polled for the expected value
+ * @param	ClearHandler is the handler to clear the latched values if required
+ *		before reading them
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
+int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
+		void (*ClearHandler)(void))
 {
 	int Status = XST_FAILURE;
 	u32 RegValue;
@@ -134,6 +139,10 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	while (((RegValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
+		/** Clear the Latched Status if any */
+		if (ClearHandler) {
+			ClearHandler();
+		}
 		/**
 		 * - Latch up the Register value again
 		 */
@@ -354,4 +363,55 @@ void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len,
 		XPlmi_Printf((DebugType), "%s END\r\n", Str);
 	}
 	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function polls a register till the masked bits are set to
+ *		expected value or till timeout occurs. The timeout is specified
+ *		in nanoseconds. Also provides a clearhandler to clear the latched
+ *		values before reading them.
+ *
+ * @param	RegAddr is the address of the register
+ * @param	Mask denotes the bits to be modified
+ * @param	ExpectedValue is the value for which the register is polled
+ * @param	TimeOutInNs is the max time in nanoseconds for which the register
+ *		would be polled for the expected value
+ * @param	ClearHandler is the handler to clear the latched values if required
+ *		before reading them
+ *
+ * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ *
+ *****************************************************************************/
+int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
+		void (*ClearHandler)(void))
+{
+	int Status = XST_FAILURE;
+	u32 RegValue;
+	u64 TimeDiff = 0U;
+	u64 TimeStart = XPlmi_GetTimerValue();
+	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
+	u32 PmcIroFreqMHz = *PmcIroFreq / 1000000U;
+	u64 TimeOutTicks = ((TimeOutInNs * PmcIroFreqMHz) + 999U) / 1000U;
+
+	/* Read the Register value */
+	RegValue = XPlmi_In32(RegAddr);
+
+	/* Loop while the value does not match with expected value or we timeout */
+	while ((RegValue & Mask) != ExpectedValue) {
+		if (ClearHandler) {
+			ClearHandler();
+		}
+		RegValue = XPlmi_In32(RegAddr);
+		TimeDiff = TimeStart - XPlmi_GetTimerValue();
+		if (TimeDiff >= TimeOutTicks) {
+			break;
+		}
+	}
+	/* Return XST_SUCCESS if TimeDiff is less than timeout */
+	if (TimeDiff < TimeOutTicks) {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }

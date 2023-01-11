@@ -28,6 +28,7 @@
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 * 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *       ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -362,6 +363,8 @@ void XPlmi_ClearIpiIntr(void);
 void XPlmi_DisableCFrameIso(void);
 u32 *XPlmi_GetUartBaseAddr(void);
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus);
+void XPlmi_NotifySldSlaveSlrs(void);
+void XPlmi_InterSlrSldHandshake(void);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);

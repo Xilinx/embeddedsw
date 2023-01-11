@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 *       bsv  08/15/2021 Removed unwanted goto statements
 *       bsv  09/05/2021 Disable prints in slave boot modes in case of error
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
+* 1.07  bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -69,12 +71,15 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs);
-int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
+int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
+		void (*ClearHandler)(void));
 int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs);
 void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value);
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask,
 	u32 TimeOutInUs);
 void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len, const char *Str);
+int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
+		void (*ClearHandler)(void));
 
 /**
  * @}

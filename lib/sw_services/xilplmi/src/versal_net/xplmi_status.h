@@ -31,6 +31,7 @@
 * 1.01  har  11/17/2022 Removed XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED error code
 *       ng   11/23/2022 Fixed doxygen file name error
 *       kal  01/05/2023 Added XLOADER_ERR_IN_SECURE_CONFIG_MEASUREMENT error code
+*       bm   01/05/2023 Notify Other SLRs about Secure Lockdown
 *
 * </pre>
 *
@@ -549,6 +550,8 @@ typedef enum {
 	XLOADER_INVALID_BLOCKTYPE, /**< 0x36E - Invalid Blocktype to Cframe data clear check */
 	XLOADER_CFI_CFRAME_IS_BUSY, /**< 0x36F - CRAM self check failed as CFI CFrame is busy */
 	XLOADER_CFRAME_CRC_CHECK_FAILED, /**< 0x370 - CFRAME CRC check failed */
+	XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, /**< 0x371 - Skip processing rest of the partitions
+						as secure lockdown has been triggered */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 	XLOADER_ERR_WAKEUP_A78_0 = 0x3A0,	/**< 0x3A0 - Error waking up the A78-0 during handoff. */
