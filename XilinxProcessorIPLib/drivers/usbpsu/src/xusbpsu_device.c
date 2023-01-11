@@ -22,6 +22,7 @@
 * 1.8	pm    22/08/20 Configure register bits when CCI is enable
 *	pm    24/08/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm    10/08/22 Update doxygen tag and addtogroup version
+* 1.13	pm    04/01/23 Use Xil_WaitForEvent() API for register bit polling
 *
 * </pre>
 *
@@ -62,23 +63,9 @@ void XUsbPsu_PhyReset(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_WaitClearTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 		u32 BitMask, u32 Timeout)
 {
-	u32 RegVal;
-	u32 LocalTimeout = Timeout;
-
-	while (LocalTimeout > 0U) {
-		RegVal = XUsbPsu_ReadReg(InstancePtr, Offset);
-		if ((RegVal & BitMask) == 0U) {
-			break;
-		}
-
-		LocalTimeout = LocalTimeout - 1U;
-
-		XUsbPsu_Sleep(1U);
-	}
-
-	if (LocalTimeout == 0U) {
+	if (Xil_WaitForEvent(InstancePtr->ConfigPtr->BaseAddress + Offset,
+			     BitMask, 0x00U, Timeout) != (u32)XST_SUCCESS)
 		return (s32)XST_FAILURE;
-	}
 
 	return (s32)XST_SUCCESS;
 }
@@ -100,23 +87,9 @@ s32 XUsbPsu_WaitClearTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 s32 XUsbPsu_WaitSetTimeout(struct XUsbPsu *InstancePtr, u32 Offset,
 		u32 BitMask, u32 Timeout)
 {
-	u32 RegVal;
-	u32 LocalTimeout = Timeout;
-
-	while (LocalTimeout > 0U) {
-		RegVal = XUsbPsu_ReadReg(InstancePtr, Offset);
-		if ((RegVal & BitMask) != 0U) {
-			break;
-		}
-
-		LocalTimeout = LocalTimeout - 1U;
-
-		XUsbPsu_Sleep(1U);
-	}
-
-	if (LocalTimeout == 0U) {
+	if (Xil_WaitForEvent(InstancePtr->ConfigPtr->BaseAddress + Offset,
+			     BitMask, BitMask, Timeout) != (u32)XST_SUCCESS)
 		return (s32)XST_FAILURE;
-	}
 
 	return (s32)XST_SUCCESS;
 }

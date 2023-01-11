@@ -92,6 +92,7 @@
 * 1.8	pm    24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.9	pm    03/21/21 Fixed doxygen warnings
 * 1.10	pm    08/30/21 Update MACRO to fix plm compilation warnings
+* 1.13	pm    01/05/23 Added "xil_util.h" header to use polling logic API
 *
 * </pre>
 *
@@ -114,6 +115,7 @@ extern "C" {
 #include "xusbpsu_hw.h"
 #include "xusbpsu_endpoint.h"
 #include "xil_io.h"
+#include "xil_util.h"
 #if defined (XCLOCKING)
 #include "xil_clocking.h"
 #endif

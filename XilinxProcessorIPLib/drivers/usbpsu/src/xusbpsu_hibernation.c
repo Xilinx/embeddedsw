@@ -28,6 +28,7 @@
 * 1.8	pm     01/07/20 Add versal hibernation support
 *	pm     24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm     10/08/22 Update doxygen tag and addtogroup version
+* 1.13	pm     04/01/23 Use Xil_WaitForEvent() API for register bit polling
 *
 * </pre>
 *
@@ -194,7 +195,6 @@ s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 {
 	u8 EpNum;
 	u32 RegVal;
-	u32 Retries;
 	XusbPsuLinkState LinkState;
 	s32 RetVal;
 #if defined (versal)
@@ -297,27 +297,23 @@ s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 
 
 	/* wait till current state is changed to D3 */
-	Retries = (u32)XUSBPSU_PWR_STATE_RETRIES;
-
-	while (Retries > 0U) {
 #if defined (PLATFORM_ZYNQMP)
-		RegVal = XUsbPsu_ReadVendorReg(XIL_CUR_PWR_STATE);
+	if (Xil_WaitForEvent(VENDOR_BASE_ADDRESS + XIL_CUR_PWR_STATE,
+			     XIL_CUR_PWR_STATE_BITMASK,
+			     XIL_CUR_PWR_STATE_D3,
+			     (u32)XUSBPSU_PWR_STATE_RETRIES) !=
+			     (u32)XST_SUCCESS) {
 #else
-		RegVal = XUsbPsu_ReadVslPwrStateReg(XIL_CUR_PWR_STATE);
+	if (Xil_WaitForEvent(VSL_CUR_PWR_ST_REG + XIL_CUR_PWR_STATE,
+			     XIL_CUR_PWR_STATE_BITMASK,
+			     XIL_CUR_PWR_STATE_D3,
+			     (u32)XUSBPSU_PWR_STATE_RETRIES) !=
+			     (u32)XST_SUCCESS) {
 #endif
-		if ((RegVal & XIL_CUR_PWR_STATE_BITMASK) ==
-					XIL_CUR_PWR_STATE_D3) {
-			break;
-		}
-
-		XUsbPsu_Sleep(XUSBPSU_TIMEOUT);
-		Retries = Retries - 1U;
-	}
-
-	if (Retries == 0U) {
 		xil_printf("Failed to change power state to D3\r\n");
 		return (s32)XST_FAILURE;
 	}
+
 	XUsbPsu_Sleep(XUSBPSU_TIMEOUT);
 
 #if defined (versal)
