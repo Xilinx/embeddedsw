@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -10,7 +11,7 @@ BEGIN driver usbpsu
   OPTION supported_peripherals = (psu_usb_xhci psv_usb_xhci psxl_usb_xhci psx_usb_xhci);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.12;
+  OPTION VERSION = 1.13;
   OPTION NAME = usbpsu;
 
 END driver
