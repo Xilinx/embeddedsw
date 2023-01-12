@@ -19,6 +19,7 @@ typedef struct XPm_Core XPm_Core;
 XStatus ResetAPUGic(const u32 DeviceId);
 void EnableWake(const struct XPm_Core *Core);
 void DisableWake(const struct XPm_Core *Core);
+XStatus XPm_PlatSendDirectPowerDown(XPm_Core *Core);
 
 #ifdef __cplusplus
 }

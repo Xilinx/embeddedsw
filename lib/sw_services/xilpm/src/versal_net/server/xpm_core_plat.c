@@ -77,16 +77,6 @@ XStatus XPmCore_PwrDwn(XPm_Core *Core)
 		DISABLE_WFI(Core->SleepMask);
 	}
 
-	/* If parent is on, then only send sleep request */
-	if ((Core->Device.Power->Parent->Node.State == (u8)XPM_POWER_STATE_ON) &&
-	    ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
-		/* Power down the core */
-		Status = XPm_DirectPwrDwn(Core->Device.Node.Id);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
 	Status = XPmCore_AfterDirectPwrDwn(Core);
 
 done:
@@ -134,6 +124,22 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 	XPmNotifier_Event(Core->Device.Node.Id, (u32)EVENT_STATE_CHANGE);
 
 done:
+	return Status;
+}
+
+XStatus XPm_PlatSendDirectPowerDown(XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+
+	/* If parent is on, then only send sleep request */
+	if ((Core->Device.Power->Parent->Node.State == (u8)XPM_POWER_STATE_ON) &&
+	    ((u32)XPM_NODETYPE_DEV_CORE_RPU != NODETYPE(Core->Device.Node.Id))) {
+		/* Power down the core */
+		Status = XPm_DirectPwrDwn(Core->Device.Node.Id);
+	} else {
+		Status = XST_SUCCESS;
+	}
+
 	return Status;
 }
 

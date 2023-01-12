@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -223,6 +224,15 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	/* Update the state and its parent use counts in case of CPU idle */
 	if (1U == CpuIdleFlag) {
 		Status = XPmCore_AfterDirectPwrDwn(Core);
+		goto done;
+	}
+
+	/**
+	 * Call direct power down for Versal NET since it needs to be call from
+	 * only PSM power down event.
+	 */
+	Status = XPm_PlatSendDirectPowerDown(Core);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
