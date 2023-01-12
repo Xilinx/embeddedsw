@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -981,6 +982,12 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/*Disable the Scan Clear and Mem Clear triggers*/
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_SCAN_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_MEM_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
+
+	/* Set the PSTATE field to power off the core */
+	XPsmFw_RMW32(Args->CorePstate, Args->CorePstateMask, 0U);
+
+	/* Set PREQ field */
+	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, Args->CorePreqMask);
 
 	/* poll for power state change */
 	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
