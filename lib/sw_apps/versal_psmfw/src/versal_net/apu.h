@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -152,6 +153,8 @@ extern "C" {
 #define APU_PCLI_CORE_PSTATE_VAL        ((u32)0x00000008U)
 #define APU_PCLI_CORE_PREQ_MASK        ((u32)0x00000001U)
 #define APU_PCLI_CORE_PACCEPT_MASK        ((u32)0x01000000U)
+
+#define APU_PCLI_CORE_IDS_POWER_OFFSET		((u32)0x00000014U)
 
 /**
  * CORESIGHT_APU0CORE0_DBG Base Address

@@ -966,6 +966,9 @@ done:
 
 static void XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
+	/* Disable CORE_x_POWER interrupt */
+	XPsmFw_RMW32(Args->CorePstate + APU_PCLI_CORE_IDS_POWER_OFFSET, Args->CorePreqMask, Args->CorePreqMask);
+
 	/*TBD: check for emulated power down/debug recovery pwrdwn*/
 	XPsmFw_RMW32(Args->RstAddr,Args->WarmRstMask&PSX_CRF_RST_APU_WARM_RST_MASK,
 			Args->WarmRstMask);
