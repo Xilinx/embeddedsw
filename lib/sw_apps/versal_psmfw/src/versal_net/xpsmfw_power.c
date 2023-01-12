@@ -1098,7 +1098,8 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(Args->RstAddr, Args->WarmRstMask, ~Args->WarmRstMask);
 
 	/* poll for power state change */
-	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
+	/* TODO: Remove workaround to poll for power down state instead of PACCEPT */
+	Status = XPsmFw_UtilPollForMask(Args->CorePactive, 0x1U , ACPU_PACCEPT_TIMEOUT);
 	if (Status != XST_SUCCESS) {
 		XPsmFw_Printf(DEBUG_ERROR,"A78 Core PACCEPT timeout..\n");
 		goto done;
