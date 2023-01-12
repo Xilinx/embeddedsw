@@ -1078,15 +1078,9 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_SCAN_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_MEM_CLEAR_TRIGGER, Args->PwrStateMask, ~Args->PwrStateMask);
 
-	u32 Edprcr = (CORESIGHT_APU0CORE0_DBG_EDPRCR + (Args->Id*0x20000) + (Args->ClusterId*0x100000));
-	/*check for emulated pwr down*/
-	if(CORESIGHT_APU0CORE0_DBG_EDPRCR_CORENPDRQ_MASK == (XPsmFw_Read32(Edprcr)&CORESIGHT_APU0CORE0_DBG_EDPRCR_CORENPDRQ_MASK)){
-		/*Set the PSTATE field for emulated pwrdwn*/
-		XPsmFw_RMW32(Args->CorePstate, Args->CorePstateMask, 0x1);
-	}else{
-		/*Set the PSTATE field*/
-		XPsmFw_RMW32(Args->CorePstate, Args->CorePstateMask, 0);
-	}
+	/* TODO: Check for emulated power down */
+	/* Set the PSTATE field */
+	XPsmFw_RMW32(Args->CorePstate, Args->CorePstateMask, 0U);
 
 	/* APU core assert warm reset */
 	XPsmFw_RMW32(Args->RstAddr, Args->WarmRstMask, Args->WarmRstMask);
