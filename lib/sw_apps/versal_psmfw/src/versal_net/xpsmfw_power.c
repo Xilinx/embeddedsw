@@ -884,6 +884,8 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 			XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
 			goto done;
 		}
+		/* Clear PREQ bit */
+		XPsmFw_RMW32(Args->ClusterPreq, Args->ClusterPreqMask, 0U);
 		ApuClusterState[Args->ClusterId] = A78_CLUSTER_CONFIGURED;
 	}
 
@@ -903,6 +905,9 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
 		goto done;
 	}
+
+	/* Clear PREQ bit */
+	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
 
 	/* Mark ACPUx powered up in LOCAL_PWR_STATUS register */
 	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, Args->PwrStateMask);
@@ -948,6 +953,9 @@ static XStatus XPsmFwACPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
 		goto done;
 	}
+
+	/* Clear PREQ bit */
+	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
 
 	/* Mark ACPUx powered up in LOCAL_PWR_STATUS register */
 	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, Args->PwrStateMask);
@@ -995,6 +1003,9 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_Printf(DEBUG_ERROR,"A78 Core PACCEPT timeout..\n");
 		goto done;
 	}
+
+	/* Clear PREQ bit */
+	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
 
 	XPsmFwACPUxPwrDwn(Args);
 
@@ -1047,6 +1058,9 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
+	/* Clear PREQ bit */
+	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
+
 	XPsmFwACPUxPwrDwn(Args);
 
 	/* Unmask the Power Up Interrupt */
@@ -1098,6 +1112,9 @@ static XStatus XPsmFwRPUxPwrUp(struct XPsmFwPwrCtrl_t *Args){
 		XPsmFw_Printf(DEBUG_ERROR,"R52 Core PACCEPT timeout..\n");
         goto done;
 	}
+
+	/* Clear PREQ bit */
+	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
 
 	/*Mark RPUx powered up in LOCAL_PWR_STATE register */
     XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0,Args->PwrStateMask,Args->PwrStateMask);
