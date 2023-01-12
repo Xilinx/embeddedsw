@@ -846,8 +846,31 @@ enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_REQUEST,
 };
 
-static void XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
+static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
+	XStatus Status = XST_FAILURE;
+
+	if (A78_CLUSTER_CONFIGURED != ApuClusterState[Args->ClusterId]) {
+		/* APU PSTATE, PREQ configuration */
+		XPsmFw_RMW32(Args->ClusterPstate, Args->ClusterPstateMask, Args->ClusterPstateValue);
+		XPsmFw_RMW32(Args->ClusterPreq, Args->ClusterPreqMask, Args->ClusterPreqMask);
+
+		/* ACPU clock config */
+		XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask, Args->ClkCtrlMask);
+
+		/* APU cluster release cold & warm reset */
+		XPsmFw_RMW32(Args->RstAddr, ACPU_CLUSTER_COLD_WARM_RST_MASK, 0U);
+
+		Status = XPsmFw_UtilPollForMask(Args->ClusterPactive, Args->ClusterPacceptMask, ACPU_PACCEPT_TIMEOUT);
+		if (Status != XST_SUCCESS) {
+			XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
+			goto done;
+		}
+		/* Clear PREQ bit */
+		XPsmFw_RMW32(Args->ClusterPreq, Args->ClusterPreqMask, 0U);
+		ApuClusterState[Args->ClusterId] = A78_CLUSTER_CONFIGURED;
+	}
+
 	/*TBD: ignore below 2 steps if it is powering up from emulated
 		pwrdwn or debug recovery pwrdwn*/
 	/*Enables Power to the Core*/
@@ -860,6 +883,10 @@ static void XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XPsmFw_RMW32(Args->CorePstate,Args->CorePstateMask,Args->CorePstateVal);
 	XPsmFw_RMW32(Args->CorePreq,Args->CorePreqMask,Args->CorePreqMask);
 
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
@@ -867,28 +894,10 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	XStatus Status = XST_FAILURE;
 	u32 LowAddress, HighAddress;
 
-	if(ApuClusterState[Args->ClusterId] != A78_CLUSTER_CONFIGURED){
-		/* APU PSTATE, PREQ configuration */
-		XPsmFw_RMW32(Args->ClusterPstate,Args->ClusterPstateMask,Args->ClusterPstateValue);
-		XPsmFw_RMW32(Args->ClusterPreq,Args->ClusterPreqMask,Args->ClusterPreqMask);
-
-		/* ACPU clock config */
-		XPsmFw_RMW32(Args->ClkCtrlAddr,Args->ClkCtrlMask,Args->ClkCtrlMask);
-
-		/* APU cluster release cold & warm reset */
-		XPsmFw_RMW32(Args->RstAddr,ACPU_CLUSTER_COLD_WARM_RST_MASK,0);
-
-		Status = XPsmFw_UtilPollForMask(Args->ClusterPactive,Args->ClusterPacceptMask,ACPU_PACCEPT_TIMEOUT);
-		if (Status != XST_SUCCESS) {
-			XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
-			goto done;
-		}
-		/* Clear PREQ bit */
-		XPsmFw_RMW32(Args->ClusterPreq, Args->ClusterPreqMask, 0U);
-		ApuClusterState[Args->ClusterId] = A78_CLUSTER_CONFIGURED;
+	Status = XPsmFwACPUxPwrUp(Args);
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
-
-	XPsmFwACPUxPwrUp(Args);
 
 	/*set start address*/
 	LowAddress = (u32)(PsmToPlmEvent.ResumeAddress[Args->Id] & 0xfffffffeULL);
@@ -943,7 +952,10 @@ static XStatus XPsmFwACPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
-	XPsmFwACPUxPwrUp(Args);
+	Status = XPsmFwACPUxPwrUp(Args);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* APU core release warm reset */
 	XPsmFw_RMW32(Args->RstAddr,Args->WarmRstMask,~Args->WarmRstMask);
