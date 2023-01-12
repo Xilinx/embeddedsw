@@ -868,6 +868,12 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		}
 		/* Clear PREQ bit */
 		XPsmFw_RMW32(Args->ClusterPreq, Args->ClusterPreqMask, 0U);
+		/* Clear power down and wake interrupt status */
+		XPsmFw_RMW32(Args->ClusterPstate + APU_PCLI_CLUSTER_ISR_POWER_OFFSET,
+			     Args->ClusterPreqMask, Args->ClusterPreqMask);
+		XPsmFw_RMW32(Args->ClusterPstate + APU_PCLI_CLUSTER_ISR_WAKE_OFFSET,
+			     Args->ClusterPreqMask, Args->ClusterPreqMask);
+
 		ApuClusterState[Args->ClusterId] = A78_CLUSTER_CONFIGURED;
 	}
 
@@ -913,6 +919,10 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
 		goto done;
 	}
+
+	/* Clear power down and wake interrupt status */
+	XPsmFw_RMW32(Args->CorePstate + APU_PCLI_CORE_ISR_POWER_OFFSET, Args->CorePreqMask, Args->CorePreqMask);
+	XPsmFw_RMW32(Args->CorePstate + APU_PCLI_CORE_ISR_WAKE_OFFSET, Args->CorePreqMask, Args->CorePreqMask);
 
 	/* Clear PREQ bit */
 	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
@@ -964,6 +974,11 @@ static XStatus XPsmFwACPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
 		goto done;
 	}
+
+	/* Clear power down and wake interrupt status */
+	XPsmFw_RMW32(Args->CorePstate + APU_PCLI_CORE_ISR_POWER_OFFSET, Args->CorePreqMask, Args->CorePreqMask);
+	XPsmFw_RMW32(Args->CorePstate + APU_PCLI_CORE_ISR_WAKE_OFFSET, Args->CorePreqMask, Args->CorePreqMask);
+
 
 	/* Clear PREQ bit */
 	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
