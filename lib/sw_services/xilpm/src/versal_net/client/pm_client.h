@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -85,6 +86,10 @@ extern char ProcName[7];
 #define pm_read			XPm_Read
 #define pm_write		XPm_Write
 
+/**
+ * Read Modify Write a register
+ */
+void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value);
 XStatus XPm_SetPrimaryProc(void);
 struct XPm_Proc *XPm_GetProcByDeviceId(u32 DeviceId);
 void XPm_ClientSuspend(const struct XPm_Proc *const Proc);

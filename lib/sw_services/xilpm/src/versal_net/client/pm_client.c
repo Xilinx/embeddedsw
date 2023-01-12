@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,88 +25,145 @@
 #endif
 
 #if defined (__aarch64__)
+#define ISB				__asm__ ("isb")
 #define PM_APU_CORE_COUNT_PER_CLUSTER	(4U)
 #define CORE_PWRDN_EN_BIT_MASK		(0x1U)
 #define MPIDR_AFF1_SHIFT		(8U)
 #define MPIDR_AFF2_SHIFT		(16U)
+#define APU_PCIL_BASEADDR		(0xECB10000U)
+#define CORE_0_PWRDWN_OFFSET		(0x0U)
+#define CORE_1_PWRDWN_OFFSET		(0x30U)
+#define CORE_2_PWRDWN_OFFSET		(0x60U)
+#define CORE_3_PWRDWN_OFFSET		(0x90U)
+#define CORE_4_PWRDWN_OFFSET		(0xC0U)
+#define CORE_5_PWRDWN_OFFSET		(0xF0U)
+#define CORE_6_PWRDWN_OFFSET		(0x120U)
+#define CORE_7_PWRDWN_OFFSET		(0x150U)
+#define CORE_8_PWRDWN_OFFSET		(0x180U)
+#define CORE_9_PWRDWN_OFFSET		(0x1B0U)
+#define CORE_10_PWRDWN_OFFSET		(0x1E0U)
+#define CORE_11_PWRDWN_OFFSET		(0x210U)
+#define CORE_12_PWRDWN_OFFSET		(0x240U)
+#define CORE_13_PWRDWN_OFFSET		(0x270U)
+#define CORE_14_PWRDWN_OFFSET		(0x2A0U)
+#define CORE_15_PWRDWN_OFFSET		(0x2D0U)
+#define APU_PWRDWN_EN_MASK		(0x00000001U)
+#define CORE_ISR_POWER_OFFSET		(0x10U)
+#define CORE_IEN_POWER_OFFSET		(0x18U)
+#define CORE_ISR_POWER_OFFSET		(0x20U)
+#define CORE_IEN_POWER_OFFSET		(0x28U)
+#define CORE_IDS_POWER_OFFSET		(0x1CU)
+#define CORE_IDS_WAKE_OFFSET		(0x2CU)
 
 static struct XPm_Proc Proc_APU0_0 = {
 	.DevId = PM_DEV_ACPU_0_0,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_0_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU0_1 = {
 	.DevId = PM_DEV_ACPU_0_1,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_1_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU0_2 = {
 	.DevId = PM_DEV_ACPU_0_2,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_2_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU0_3 = {
 	.DevId = PM_DEV_ACPU_0_3,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_3_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU1_0 = {
 	.DevId = PM_DEV_ACPU_1_0,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_4_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU1_1 = {
 	.DevId = PM_DEV_ACPU_1_1,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_5_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU1_2 = {
 	.DevId = PM_DEV_ACPU_1_2,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_6_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU1_3 = {
 	.DevId = PM_DEV_ACPU_1_3,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_7_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU2_0 = {
 	.DevId = PM_DEV_ACPU_2_0,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_8_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU2_1 = {
 	.DevId = PM_DEV_ACPU_2_1,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_9_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU2_2 = {
 	.DevId = PM_DEV_ACPU_2_2,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_10_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU2_3 = {
 	.DevId = PM_DEV_ACPU_2_3,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_11_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU3_0 = {
 	.DevId = PM_DEV_ACPU_3_0,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_12_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU3_1 = {
 	.DevId = PM_DEV_ACPU_3_1,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_13_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU3_2 = {
 	.DevId = PM_DEV_ACPU_3_2,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_14_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
 static struct XPm_Proc Proc_APU3_3 = {
 	.DevId = PM_DEV_ACPU_3_3,
+	.PwrCtrl = APU_PCIL_BASEADDR + CORE_15_PWRDWN_OFFSET,
+	.PwrDwnMask = APU_PWRDWN_EN_MASK,
 	.Ipi = NULL,
 };
 
@@ -188,6 +246,16 @@ static char RPU_A1[] = "RPU_A1";
 static char RPU_B0[] = "RPU_B0";
 static char RPU_B1[] = "RPU_B1";
 #endif
+
+void XPm_RMW32(u32 RegAddress, u32 Mask, u32 Value)
+{
+	u32 l_Val;
+
+	l_Val = XPm_Read(RegAddress);
+	l_Val = (l_Val & (~Mask)) | (Mask & Value);
+
+	XPm_Write(RegAddress, l_Val);
+}
 
 /**
  *  XPm_SetPrimaryProc() - Set primary processor based on processor ID
@@ -305,7 +373,11 @@ void XPm_ClientSuspend(const struct XPm_Proc *const Proc)
 	Val = mfcp(S3_0_C15_C2_7);
 	Val |= CORE_PWRDN_EN_BIT_MASK;
 	mtcp(S3_0_C15_C2_7, Val);
-	(void)Proc;
+	ISB;
+	XPm_RMW32(Proc->PwrCtrl + CORE_ISR_POWER_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
+	XPm_RMW32(Proc->PwrCtrl + CORE_IEN_POWER_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
+	XPm_RMW32(Proc->PwrCtrl + CORE_ISR_WAKE_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
+	XPm_RMW32(Proc->PwrCtrl + CORE_IEN_WAKE_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 #endif
 }
 
@@ -324,7 +396,9 @@ void XPm_ClientWakeUp(const struct XPm_Proc *const Proc)
 	Val = mfcp(S3_0_C15_C2_7);
 	Val &= ~CORE_PWRDN_EN_BIT_MASK;
 	mtcp(S3_0_C15_C2_7, Val);
-	(void)Proc;
+	ISB;
+	XPm_RMW32(Proc->PwrCtrl + CORE_IDS_POWER_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
+	XPm_RMW32(Proc->PwrCtrl + CORE_IDS_WAKE_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 #endif
 }
 
@@ -366,6 +440,11 @@ void XPm_ClientAbortSuspend(void)
 	Val = mfcp(S3_0_C15_C2_7);
 	Val &= ~CORE_PWRDN_EN_BIT_MASK;
 	mtcp(S3_0_C15_C2_7, Val);
+	ISB;
+	XPm_RMW32(PrimaryProc->PwrCtrl + CORE_IDS_POWER_OFFSET, PrimaryProc->PwrDwnMask,
+		  PrimaryProc->PwrDwnMask);
+	XPm_RMW32(PrimaryProc->PwrCtrl + CORE_IDS_WAKE_OFFSET, PrimaryProc->PwrDwnMask,
+		  PrimaryProc->PwrDwnMask);
 #endif
 
 	/* Enable interrupts at processor level */
