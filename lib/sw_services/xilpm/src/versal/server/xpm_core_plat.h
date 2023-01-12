@@ -9,6 +9,7 @@
 #define XPM_CORE_PLAT_H_
 
 #include "xpm_common.h"
+#include "xpm_clock.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,6 +24,10 @@ maybe_unused static inline  XStatus XPm_PlatSendDirectPowerDown(XPm_Core *Core)
 {
 	(void)Core;
 	return XST_SUCCESS;
+}
+static inline XStatus XPmCore_PlatClkReq(const XPm_ClockHandle *ClkHandles)
+{
+	return XPmClock_Request(ClkHandles);
 }
 
 #ifdef __cplusplus

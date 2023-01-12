@@ -9,61 +9,6 @@
 #include "xpm_notifier.h"
 #include "xpm_psm.h"
 
-static XStatus SkipRpuReset(const XPm_Core *Core)
-{
-	XStatus Status = XST_FAILURE;
-	const XPm_Device *DevTcmA0A = XPmDevice_GetById(PM_DEV_TCM_A_0A);
-	const XPm_Device *DevTcmA0B = XPmDevice_GetById(PM_DEV_TCM_A_0B);
-	const XPm_Device *DevTcmA0C = XPmDevice_GetById(PM_DEV_TCM_A_0C);
-	const XPm_Device *DevTcmA1A = XPmDevice_GetById(PM_DEV_TCM_A_1A);
-	const XPm_Device *DevTcmA1B = XPmDevice_GetById(PM_DEV_TCM_A_1B);
-	const XPm_Device *DevTcmA1C = XPmDevice_GetById(PM_DEV_TCM_A_1C);
-	const XPm_Device *DevTcmB0A = XPmDevice_GetById(PM_DEV_TCM_B_0A);
-	const XPm_Device *DevTcmB0B = XPmDevice_GetById(PM_DEV_TCM_B_0B);
-	const XPm_Device *DevTcmB0C = XPmDevice_GetById(PM_DEV_TCM_B_0C);
-	const XPm_Device *DevTcmB1A = XPmDevice_GetById(PM_DEV_TCM_B_1A);
-	const XPm_Device *DevTcmB1B = XPmDevice_GetById(PM_DEV_TCM_B_1B);
-	const XPm_Device *DevTcmB1C = XPmDevice_GetById(PM_DEV_TCM_B_1C);
-
-	if ((u32)XPM_NODETYPE_DEV_CORE_RPU == NODETYPE(Core->Device.Node.Id)) {
-		if ((XPM_DSTN_CLUSTER_0 == GET_RPU_CLUSTER_ID(Core->Device.Node.Id)) &&
-		    (NULL != DevTcmA0A) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmA0A->Node.State) &&
-		    (NULL != DevTcmA0B) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmA0B->Node.State) &&
-		    (NULL != DevTcmA0C) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmA0C->Node.State) &&
-		    (NULL != DevTcmA1A) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmA1A->Node.State) &&
-		    (NULL != DevTcmA1B) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmA1B->Node.State) &&
-		    (NULL != DevTcmA1C) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmA1C->Node.State)) {
-			Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_ASSERT);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		} else if ((XPM_DSTN_CLUSTER_1 == GET_RPU_CLUSTER_ID(Core->Device.Node.Id)) &&
-		    (NULL != DevTcmB0A) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmB0A->Node.State) &&
-		    (NULL != DevTcmB0B) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmB0B->Node.State) &&
-		    (NULL != DevTcmB0C) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmB0C->Node.State) &&
-		    (NULL != DevTcmB1A) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmB1A->Node.State) &&
-		    (NULL != DevTcmB1B) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmB1B->Node.State) &&
-		    (NULL != DevTcmB1C) && ((u8)XPM_DEVSTATE_RUNNING != DevTcmB1C->Node.State)) {
-			Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_ASSERT);
-			if (XST_SUCCESS != Status) {
-				goto done;
-			}
-		} else {
-			/* Required for MISRA */
-		}
-	} else {
-		Status = XPmDevice_Reset(&Core->Device, PM_RESET_ACTION_ASSERT);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
-	Status = XST_SUCCESS;
-
-done:
-	return Status;
-}
-
 XStatus XPmCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
@@ -87,19 +32,6 @@ XStatus XPmCore_AfterDirectPwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Power *PwrNode;
-
-	if (NULL != Core->Device.ClkHandles) {
-		Status = XPmClock_Release(Core->Device.ClkHandles);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
-	}
-
-	/* Skip reset for RPU cores if any of the TCM is ON */
-	Status = SkipRpuReset(Core);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
 
 	if (NULL != Core->Device.Power) {
 		PwrNode = Core->Device.Power;

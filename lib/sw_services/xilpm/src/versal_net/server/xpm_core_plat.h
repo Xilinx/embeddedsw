@@ -8,6 +8,7 @@
 #ifndef XPM_CORE_PLAT_H_
 #define XPM_CORE_PLAT_H_
 
+#include "xpm_clock.h"
 #include "xpm_common.h"
 
 #ifdef __cplusplus
@@ -20,6 +21,11 @@ XStatus ResetAPUGic(const u32 DeviceId);
 void EnableWake(const struct XPm_Core *Core);
 void DisableWake(const struct XPm_Core *Core);
 XStatus XPm_PlatSendDirectPowerDown(XPm_Core *Core);
+maybe_unused static inline XStatus XPmCore_PlatClkReq(const XPm_ClockHandle *ClkHandles)
+{
+	(void)ClkHandles;
+	return XST_SUCCESS;
+}
 
 #ifdef __cplusplus
 }

@@ -165,7 +165,7 @@ XStatus XPmCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 
 	if (((u32)XPM_DEVSTATE_RUNNING != Core->Device.Node.State)
 	    && (NULL != Core->Device.ClkHandles)) {
-		Status = XPmClock_Request(Core->Device.ClkHandles);
+		Status = XPmCore_PlatClkReq(Core->Device.ClkHandles);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
@@ -205,7 +205,7 @@ XStatus XPmCore_AfterDirectWakeUp(XPm_Core *Core)
 	}
 
 	if (NULL != Core->Device.ClkHandles) {
-		Status = XPmClock_Request(Core->Device.ClkHandles);
+		Status = XPmCore_PlatClkReq(Core->Device.ClkHandles);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
