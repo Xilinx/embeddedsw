@@ -123,6 +123,7 @@
 #define PHY_DETECT_MASK 					0x1808
 #define PHY_MARVELL_IDENTIFIER				0x0141
 #define PHY_TI_IDENTIFIER					0x2000
+#define PHY_ADI_IDENTIFIER				0x0283
 #define PHY_REALTEK_IDENTIFIER				0x001c
 #define PHY_XILINX_PCS_PMA_ID1			0x0174
 #define PHY_XILINX_PCS_PMA_ID2			0x0C00
@@ -266,8 +267,8 @@ void detect_phy(XEmacPs *xemacpsp)
 			if ((phy_reg != PHY_MARVELL_IDENTIFIER) &&
 				(phy_reg != PHY_TI_IDENTIFIER) &&
 				(phy_reg != PHY_REALTEK_IDENTIFIER) &&
-				(phy_reg != PHY_XILINX_PCS_PMA_ID1)) {
-				xil_printf("WARNING: Not a Marvell or TI or Realtek or Xilinx PCS PMA Ethernet PHY. Please verify the initialization sequence\r\n");
+				(phy_reg != PHY_ADI_IDENTIFIER)) {
+				xil_printf("WARNING: Not a Marvell or TI or Realtek or Xilinx PCS PMA Ethernet PHY or ADI Ethernet PHY. Please verify the initialization sequence\r\n");
 			}
 		}
 	}
@@ -636,6 +637,151 @@ static u32_t get_Realtek_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	return XST_FAILURE;
 }
 
+#define ADIN1300_PHY_CTRL1	0x0012
+#define ADIN1300_PHY_CTRL2	0x0016
+#define ADIN1300_PHY_CTRL3	0x0017
+#define ADIN1300_EXT_ADDR	0x0010
+#define ADIN1300_EXT_DATA	0x0011
+#define ADIN1300_PHY_STS1	0x001A
+
+#define ADIN1300_RGMII_CFG	0xFF23
+#define ADIN1300_RMII_CFG	0xFF24
+
+#define ADIN1300_AUTO_MDI_EN	0x400
+#define ADIN1300_MAN_MDIX_EN	0x200
+#define ADIN1300_DIAG_CLK_EN	0x4
+
+#define ADIN1300_LINKING_EN	0x2000
+
+#define ADIN1300_RGMII_EN		0x0001
+#define ADIN1300_RGMII_TXRX_TUNING_EN	0x0006
+#define ADIN1300_RGMII_RX_DELAY_MASK	0x01C0
+#define ADIN1300_RGMII_TX_DELAY_MASK	0x0038
+#define ADIN1300_RGMII_RX_DELAY_VAL_2000PS	0x0
+#define ADIN1300_RGMII_TX_DELAY_VAL_2000PS	0x0
+
+#define ADIN1300_SPEED_RETRY_MASK	0x1C00
+#define ADIN1300_SPEED_RETRY_FOUR	0x1000
+#define ADIN1300_DOWNSPEED_EN		0x0C00
+
+#define ADIN1300_AN_DONE	0x1000
+#define ADIN1300_SPEED_MASK	0x0380
+#define ADIN1300_SPEED_1G	0x0280
+#define ADIN1300_SPEED_100M	0x0180
+#define ADIN1300_SPEED_10M	0x0080
+
+static u32_t get_Adi_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
+{
+	u16_t temp;
+	u16_t control;
+	u16_t status;
+	u16_t status_speed;
+	u16_t phyreg;
+	u32_t timeout_counter = 0;
+	u32_t temp_speed;
+
+	xil_printf("Start PHY autonegotiation \r\n");
+
+	/* PHY soft reset */
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
+	control |= IEEE_CTRL_RESET_MASK;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, control);
+
+	/* Delay for PHY to be accessible */
+	sleep(1);
+
+	/* RGMII TX/RX tuning */
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, ADIN1300_EXT_ADDR, ADIN1300_RGMII_CFG);
+	XEmacPs_PhyRead(xemacpsp, phy_addr, ADIN1300_EXT_DATA, &phyreg);
+	phyreg |= (ADIN1300_RGMII_EN | ADIN1300_RGMII_TXRX_TUNING_EN);
+	phyreg &= ~(ADIN1300_RGMII_RX_DELAY_MASK | ADIN1300_RGMII_TX_DELAY_MASK);
+	phyreg |= ((ADIN1300_RGMII_RX_DELAY_VAL_2000PS << 6) | (ADIN1300_RGMII_TX_DELAY_VAL_2000PS << 3));
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, ADIN1300_EXT_ADDR, ADIN1300_RGMII_CFG);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, ADIN1300_EXT_DATA, phyreg);
+
+	/* Downspeed */
+	XEmacPs_PhyRead(xemacpsp, phy_addr, ADIN1300_PHY_CTRL3, &phyreg);
+	phyreg &= ~(ADIN1300_SPEED_RETRY_MASK);
+	phyreg |= ADIN1300_SPEED_RETRY_FOUR;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, ADIN1300_PHY_CTRL3, phyreg);
+	XEmacPs_PhyRead(xemacpsp, phy_addr, ADIN1300_PHY_CTRL2, &phyreg);
+	phyreg |= ADIN1300_DOWNSPEED_EN;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, ADIN1300_PHY_CTRL2, phyreg);
+
+	/* Diag clock disable */
+	XEmacPs_PhyRead(xemacpsp, phy_addr, ADIN1300_PHY_CTRL1, &phyreg);
+	phyreg &= ~ADIN1300_DIAG_CLK_EN;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, ADIN1300_PHY_CTRL1, phyreg);
+	/* Linking Enable */
+	XEmacPs_PhyRead(xemacpsp, phy_addr, ADIN1300_PHY_CTRL3, &phyreg);
+	phyreg |= ADIN1300_LINKING_EN;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, ADIN1300_PHY_CTRL3, phyreg);
+	/* Auto MDIX by default */
+	XEmacPs_PhyRead(xemacpsp, phy_addr, ADIN1300_PHY_CTRL1, &phyreg);
+	phyreg &= ~ADIN1300_MAN_MDIX_EN;
+	phyreg |= ADIN1300_AUTO_MDI_EN;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, ADIN1300_PHY_CTRL1, phyreg);
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &control);
+	control |= IEEE_ASYMMETRIC_PAUSE_MASK;
+	control |= IEEE_PAUSE_MASK;
+	control |= ADVERTISE_100;
+	control |= ADVERTISE_10;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, control);
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+					&control);
+	control |= ADVERTISE_1000;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_1000_ADVERTISE_REG_OFFSET,
+					control);
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
+	control |= IEEE_CTRL_AUTONEGOTIATE_ENABLE;
+	control |= IEEE_STAT_AUTONEGOTIATE_RESTART;
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, control);
+
+	while (1) {
+		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_CONTROL_REG_OFFSET, &control);
+		if (control & IEEE_CTRL_RESET_MASK)
+			continue;
+		else
+			break;
+	}
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+
+	xil_printf("Waiting for PHY to complete autonegotiation.\r\n");
+
+	while ( !(status & IEEE_STAT_AUTONEGOTIATE_COMPLETE) ) {
+		sleep(1);
+		XEmacPs_PhyRead(xemacpsp, phy_addr,
+						IEEE_COPPER_SPECIFIC_STATUS_REG_2,  &temp);
+		timeout_counter++;
+
+		if (timeout_counter == 30) {
+			xil_printf("Auto negotiation error \r\n");
+			return XST_FAILURE;
+		}
+		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
+	}
+	xil_printf("autonegotiation complete \r\n");
+
+	XEmacPs_PhyRead(xemacpsp, phy_addr,ADIN1300_PHY_STS1,
+					&status_speed);
+	if (status_speed & ADIN1300_AN_DONE) {
+		temp_speed = status_speed & ADIN1300_SPEED_MASK;
+
+		if (temp_speed == ADIN1300_SPEED_1G)
+			return 1000;
+		else if(temp_speed == ADIN1300_SPEED_100M)
+			return 100;
+		else
+			return 10;
+	}
+
+	return XST_SUCCESS;
+}
+
 static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 {
 	u16_t phy_identity;
@@ -649,6 +795,8 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		RetStatus = get_Realtek_phy_speed(xemacpsp, phy_addr);
 	} else if (phy_identity == PHY_XILINX_PCS_PMA_ID1) {
 		RetStatus = get_Xilinx_pcs_pma_phy_speed(xemacpsp, phy_addr);
+	} else if (phy_identity == PHY_ADI_IDENTIFIER) {
+		RetStatus = get_Adi_phy_speed(xemacpsp, phy_addr);
 	} else {
 		RetStatus = get_Marvell_phy_speed(xemacpsp, phy_addr);
 	}
