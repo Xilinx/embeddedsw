@@ -1,0 +1,17 @@
+###############################################################################
+# Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+#
+###############################################################################
+OPTION psf_version = 2.1;
+
+BEGIN driver trngpsx
+
+  OPTION supported_peripherals = (psx_pmc_trng psxl_pmc_trng psx_pmc psx_cortexa78 psxl_cortexa78);
+  OPTION driver_state = ACTIVE;
+  OPTION copyfiles = all;
+  OPTION VERSION = 1.0;
+  OPTION NAME = trngpsx;
+
+END driver
