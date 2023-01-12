@@ -1031,8 +1031,14 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_RMW32(Args->CorePstate, Args->CorePstateMask, 0);
 	}
 
+	/* APU core assert warm reset */
+	XPsmFw_RMW32(Args->RstAddr, Args->WarmRstMask, Args->WarmRstMask);
+
 	/*set PREQ field*/
 	XPsmFw_RMW32(Args->CorePreq,Args->CorePreqMask,Args->CorePreqMask);
+
+	/* APU core release warm reset */
+	XPsmFw_RMW32(Args->RstAddr, Args->WarmRstMask, ~Args->WarmRstMask);
 
 	/* poll for power state change */
 	Status = XPsmFw_UtilPollForMask(Args->CorePactive,Args->CorePacceptMask,ACPU_PACCEPT_TIMEOUT);
