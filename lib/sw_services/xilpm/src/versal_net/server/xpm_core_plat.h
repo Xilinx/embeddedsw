@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,7 +17,6 @@ extern "C" {
 typedef struct XPm_Core XPm_Core;
 /************************** Function Prototypes ******************************/
 XStatus ResetAPUGic(const u32 DeviceId);
-XStatus SkipRpuReset(const struct XPm_Core *Core);
 void EnableWake(const struct XPm_Core *Core);
 void DisableWake(const struct XPm_Core *Core);
 
