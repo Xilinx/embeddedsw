@@ -24,6 +24,7 @@
 *       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
 *                       Master SLR
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+*       sk   01/13/2023 CPM5N Link UP Event handler declaration
 *
 * </pre>
 *
@@ -82,27 +83,6 @@ static inline void XPlmi_SysmonClkSetIro(void) {
 	return;
 }
 
-/****************************************************************************/
-/**
-* @brief    This function handles the CPM_NCR PCIE link down error.
-*
-* @param    Cpm5PcieIrStatusReg is the PCIE0/1 IR status register address
-* @param    Cpm5DmaCsrIntDecReg is the DMA0/1 CSR INT DEC register address
-* @param    ProcId is the ProcId for PCIE0/1 link down error
-*
-* @return   None
-*
-****************************************************************************/
-static inline void XPlmi_HandleLinkDownError(u32 Cpm5PcieIrStatusReg,
-		u32 Cpm5DmaCsrIntDecReg, u32 ProcId)
-{
-	(void)Cpm5PcieIrStatusReg;
-	(void)Cpm5DmaCsrIntDecReg;
-	(void)ProcId;
-	/* Not applicable for versal net */
-	return;
-}
-
 /*****************************************************************************/
 /**
  * @brief	This function clears Ssit errors for ES1 silicon
@@ -129,6 +109,7 @@ void XPlmi_DumpErrNGicStatus(void);
 void XPlmi_ReconfigErrActions(void);
 u32 *XPlmi_GetNumErrOuts(void);
 u32 *XPlmi_GetPsmCrState(void);
+void XPlmi_HandleLinkUpEvent(u32 Cpm5NPcieCdxIrStatusReg, u32 Cpm5NCdxPcieBReg, u32 ProcId);
 
 /************************** Variable Definitions *****************************/
 
