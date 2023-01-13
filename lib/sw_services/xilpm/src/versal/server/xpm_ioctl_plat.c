@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -16,6 +17,7 @@
 #include "xpm_access.h"
 #include "xpm_aiedevice.h"
 #include "xpm_requirement.h"
+#include "xpm_common.h"
 
 static XStatus XPm_GetRegProbeCounterLpd(u32 CounterIdx, u32 ReqType, u32 *Reg,
 					 u32 *ReqTypeOffset)
@@ -263,23 +265,52 @@ done:
 	return Status;
 }
 
-XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, u32 Part, u32 Ops)
+XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part, u32 Ops)
 {
 	XStatus Status = XST_FAILURE;
 	(void)Id;
 	(void)SubsystemId;
 
+	u32 NumArgs = 4U;
+	u32 ArgBuf[4U];
+	ArgBuf[0] = Id;
+	ArgBuf[1] = (u32)IoctlId;
+	ArgBuf[2] = Part;
+	ArgBuf[3] = Ops;
+
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_IOCTL, ArgBuf, NumArgs,
+				    (u32)NO_HEADER_CMDTYPE, NULL);
+	if (XST_DEVICE_NOT_FOUND != Status){
+		/* API is forwarded, nothing else to be done */
+		goto done;
+	}
+
 	/* To-Do: Add Permission Check */
 
 	Status = Aie_Operations(Part, Ops);
 
+done:
 	return Status;
 }
 
-XStatus XPm_GetQos(const u32 DeviceId, u32 *Response)
+XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Device *Device;
+
+	u32 NumArgs = 2U;
+	u32 ArgBuf[2U];
+	ArgBuf[0] = DeviceId;
+	ArgBuf[1] = (u32)IoctlId;
+
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_IOCTL, ArgBuf, NumArgs,
+				    (u32)NO_HEADER_CMDTYPE, Response);
+	if (XST_DEVICE_NOT_FOUND != Status){
+		/* API is forwarded, nothing else to be done */
+		goto done;
+	}
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		Status = XPM_PM_INVALID_NODE;

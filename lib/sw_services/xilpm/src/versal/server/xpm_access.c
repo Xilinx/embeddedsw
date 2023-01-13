@@ -1,5 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -9,7 +10,6 @@
 #include "xpm_device.h"
 #include "xpm_subsystem.h"
 #include "xplmi.h"
-#include "xplmi_ssit.h"
 
 static XPm_RegNode *PmRegnodes;
 static XPm_NodeAccess *PmNodeAccessTable;
@@ -19,26 +19,6 @@ typedef struct XPm_NodeAccessMatch {
 	XPm_NodeAccess *Entry;
 	XPm_NodeAper *Aper;
 } XPm_NodeAccessMatch;
-
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-
-#define NODE_SLR_IDX_SHIFT	12U
-#define NODE_SLR_IDX_MASK_BITS	0x3U
-
-#define NODE_SLR_IDX_MASK	((u32)NODE_SLR_IDX_MASK_BITS << NODE_SLR_IDX_SHIFT)
-
-/* Timeout for event completion (in microseconds) */
-#define TIMEOUT_IOCTL_COMPL	(10000U)
-
-/* Check if given device is on secondary SLR, if so, return which SLR */
-static inline u32 IsNodeOnSecondarySLR(u32 DeviceId, u32 *SlrIndex)
-{
-	*SlrIndex = (DeviceId >> NODE_SLR_IDX_SHIFT) & NODE_SLR_IDX_MASK_BITS;
-
-	return (*SlrIndex != 0) ? TRUE : FALSE;
-}
-
-#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 static XStatus XPmAccess_LookupEntry(u32 NodeId, u32 Offset,
 				     XPm_NodeAccessMatch *const Match)
@@ -395,46 +375,21 @@ XStatus XPmAccess_ReadReg(u32 SubsystemId, u32 DeviceId,
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
 	u32 DataIn = 0U;
-	u32 SlrIndex = 0U;
 	(void)Count;
-	(void)SlrIndex;
 
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-	/**
-	 * If we're on primary SLR, check if this command is intended for a
-	 * secondary SLR; forward it if applicable
-	 */
-	if ((XPLMI_SSIT_MASTER_SLR_INDEX == XPlmi_GetSlrIndex()) &&
-		(TRUE == IsNodeOnSecondarySLR(DeviceId, &SlrIndex))) {
+	u32 NumArgs = 4U;
+	u32 ArgBuf[4];
+	ArgBuf[0] = DeviceId;
+	ArgBuf[1] = (u32)IoctlId;
+	ArgBuf[2] = Offset;
+	ArgBuf[3] = 1U;
 
-		u32 ReqBuf[6U] = { 0 };
-		u32 RespBuf[2U] = { 0 };
-
-		/* Clear SLR index bits from the node id */
-		u32 DevId = DeviceId & ~NODE_SLR_IDX_MASK;
-
-		XPM_PACK_PAYLOAD4(ReqBuf, PM_IOCTL, DevId, IoctlId, Offset, 1U);
-		XPM_HEADER_SET_CMDTYPE(ReqBuf, CmdType);
-
-		/* Forward message event to secondary SLR */
-		PmDbg("Sending PM_IOCTL to SLR: <%u>\r\n", SlrIndex);
-		Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex,
-				ReqBuf, ARRAY_SIZE(ReqBuf), RespBuf, ARRAY_SIZE(RespBuf),
-				TIMEOUT_IOCTL_COMPL);
-		if (XST_SUCCESS != Status) {
-			PmDbg("Failed: 0x%x\r\n", Status);
-			goto done;
-		}
-
-		Status = (XStatus)RespBuf[0];	/* First word contains status */
-		*Response = RespBuf[1];	/* Second word contains response */
-
-		PmDbg("Received: Status: 0x%x | Payload: 0x%x\r\n", Status, *Response);
-
-		/* Finished, nothing to do */
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_IOCTL, ArgBuf, NumArgs, CmdType, Response);
+	if (XST_DEVICE_NOT_FOUND != Status) {
+		/* API is forwarded, nothing else to be done */
 		goto done;
 	}
-#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 	Status = XPmAccess_IsAllowed(SubsystemId, DeviceId, IoctlId,
 				     Offset, CmdType);
@@ -480,44 +435,21 @@ XStatus XPmAccess_MaskWriteReg(u32 SubsystemId, u32 DeviceId,
 {
 	XStatus Status = XST_FAILURE;
 	u32 BaseAddress = 0U;
-	u32 SlrIndex = 0U;
-	(void)SlrIndex;
 
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-	/**
-	 * If we're on primary SLR, check if this command is intended for a
-	 * secondary SLR; forward it if applicable
-	 */
-	if ((XPLMI_SSIT_MASTER_SLR_INDEX == XPlmi_GetSlrIndex()) &&
-		(TRUE == IsNodeOnSecondarySLR(DeviceId, &SlrIndex))) {
+	u32 NumArgs = 5U;
+	u32 ArgBuf[5U];
+	ArgBuf[0] = DeviceId;
+	ArgBuf[1] = (u32)IoctlId;
+	ArgBuf[2] = Offset;
+	ArgBuf[3] = Mask;
+	ArgBuf[4] = Value;
 
-		u32 ReqBuf[6U] = { 0 };
-		u32 RespBuf[2U] = { 0 };
-
-		/* Clear SLR index bits from the node id */
-		u32 DevId = DeviceId & ~NODE_SLR_IDX_MASK;
-
-		XPM_PACK_PAYLOAD5(ReqBuf, PM_IOCTL, DevId, IoctlId, Offset, Mask, Value);
-		XPM_HEADER_SET_CMDTYPE(ReqBuf, CmdType);
-
-		/* Forward message event to secondary SLR */
-		PmDbg("Sending PM_IOCTL to SLR: <%u>\r\n", SlrIndex);
-		Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex,
-				ReqBuf, ARRAY_SIZE(ReqBuf), RespBuf, ARRAY_SIZE(RespBuf),
-				TIMEOUT_IOCTL_COMPL);
-		if (XST_SUCCESS != Status) {
-			PmDbg("Failed: 0x%x\r\n", Status);
-			goto done;
-		}
-
-		Status = (XStatus)RespBuf[0];	/* First word contains status */
-
-		PmDbg("Received: Status: 0x%x\r\n", Status);
-
-		/* Finished, nothing to do */
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_IOCTL, ArgBuf, NumArgs, CmdType, NULL);
+	if (XST_DEVICE_NOT_FOUND != Status) {
+		/* API is forwarded, nothing else to be done */
 		goto done;
 	}
-#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 	Status = XPmAccess_IsAllowed(SubsystemId, DeviceId, IoctlId,
 				     Offset, CmdType);

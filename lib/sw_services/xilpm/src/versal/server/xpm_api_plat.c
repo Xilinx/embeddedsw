@@ -328,7 +328,7 @@ XStatus IsOnSecondarySLR(u32 SubsystemId)
 	 * slave SLR will check validity of SubsystemId so unauthorized
 	 * commands will not get executed.
 	 */
-	if ((0U == SubsystemId) && XPLMI_SSIT_MASTER_SLR_INDEX != XPlmi_GetSlrIndex()) {
+	if ((0U == SubsystemId) && (XPLMI_SSIT_MASTER_SLR_INDEX != XPlmi_GetSlrIndex())) {
 		Status = XST_SUCCESS;
 	}
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */

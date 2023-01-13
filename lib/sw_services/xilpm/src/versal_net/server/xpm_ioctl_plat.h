@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,17 +51,20 @@ done:
 	return Status;
 }
 
-maybe_unused static inline XStatus XPm_GetQos(const u32 DeviceId, u32 *Response)
+maybe_unused static inline XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response)
 {
 	(void)DeviceId;
+	(void)IoctlId;
 	(void)Response;
 
 	return XPM_ERR_IOCTL;
 }
-maybe_unused static inline XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, u32 Part, u32 Ops)
+maybe_unused static inline XStatus XPm_AieOperation(u32 SubsystemId, u32 Id,
+						    pm_ioctl_id IoctlId, u32 Part, u32 Ops)
 {
 	(void)SubsystemId;
 	(void)Id;
+	(void)IoctlId;
 	(void)Part;
 	(void)Ops;
 

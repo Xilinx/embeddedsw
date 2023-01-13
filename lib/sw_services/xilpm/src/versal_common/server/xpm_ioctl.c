@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #include "xplmi.h"
@@ -593,7 +594,8 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPm_AieISRClear(SubsystemId, DeviceId, Arg1);
 		break;
 	case IOCTL_AIE_OPS:
-		Status = XPm_AieOperation(SubsystemId, DeviceId, Arg1, Arg2);
+		Status = XPm_AieOperation(SubsystemId, DeviceId, IoctlId, Arg1,
+					  Arg2);
 		break;
 	case IOCTL_READ_REG:
 		Status = XPmAccess_ReadReg(SubsystemId, DeviceId, IoctlId,
@@ -606,7 +608,7 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 						CmdType);
 		break;
 	case IOCTL_GET_QOS:
-		Status = XPm_GetQos(DeviceId, Response);
+		Status = XPm_GetQos(DeviceId, IoctlId, Response);
 		break;
 	case IOCTL_SET_TAPDELAY_BYPASS:
 	case IOCTL_SD_DLL_RESET:

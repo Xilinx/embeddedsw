@@ -150,6 +150,12 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #define PLATFORM_VERSION_QEMU			(0x3U)
 #define PLATFORM_VERSION_FCV			(0x4U)
 
+/*
+ * SSIT forwarding API supports CmdType. In case of certain APIs which do not
+ * pass this argument this macro can be passed in place.
+ */
+#define NO_HEADER_CMDTYPE     0xFFU
+
 /**
  * Adds redundancy while comparing the return value of called function.
  * based on NULL == RHS comparison wants to skip some part from execution.

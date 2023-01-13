@@ -12,6 +12,7 @@
 #include "xil_util.h"
 #include "xpm_err.h"
 #include "xplmi_debug.h"
+#include "xpm_defs.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -139,8 +140,27 @@ extern "C" {
 
 /* NPI PCSR related general functions */
 XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value);
-
 u8 XPm_PlatGetSlrIndex(void);
+
+/******************************************************************************
+ * SSIT PLM to PLM communication related APIs and Macros
+ *****************************************************************************/
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+
+#define NODE_SLR_IDX_SHIFT      12U
+#define NODE_SLR_IDX_MASK_BITS  0x3U
+
+#define NODE_SLR_IDX_MASK       ((u32)NODE_SLR_IDX_MASK_BITS << NODE_SLR_IDX_SHIFT)
+
+/* Timeout for event completion (in microseconds) */
+#define TIMEOUT_IOCTL_COMPL     (10000U)
+
+u32 IsNodeOnSecondarySLR(u32 DeviceId, u32 *SlrIndex);
+#endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
+
+XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
+                                u32 CmdType, u32 *const Response);
+
 
 #ifdef __cplusplus
 }

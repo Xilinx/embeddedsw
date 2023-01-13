@@ -326,6 +326,15 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		goto done;
 	}
 
+	if (XST_SUCCESS == IsOnSecondarySLR(SubsystemId)) {
+		/*
+		 * If API has been forwarded the Subsystem ID is set to 0 by
+		 * default. This is a temporary solution to set the
+		 * Subsystem ID on a secondary SLR.
+		 */
+		SubsystemId = PM_SUBSYS_PMC;
+	}
+
 	switch (CmdId) {
 	case PM_API(PM_SET_WAKEUP_SOURCE):
 		Status = XPm_SetWakeUpSource(SubsystemId, Pload[0], Pload[1], Pload[2]);
@@ -2583,14 +2592,28 @@ XStatus XPm_RequestDevice(const u32 SubsystemId, const u32 DeviceId,
 	/* Warning Fix */
 	(void) (Ack);
 
+	u32 NumArgs = 3U;
+	u32 ArgBuf[3U];
+	ArgBuf[0] = DeviceId;
+	ArgBuf[1] = Capabilities;
+	ArgBuf[2] = QoS;
+
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_REQUEST_NODE, ArgBuf, NumArgs,
+				    CmdType, NULL);
+	if (XST_DEVICE_NOT_FOUND != Status){
+		/* API is forwarded, nothing else to be done */
+		goto done;
+	}
+
 	Status = XPmDevice_Request(SubsystemId, DeviceId, Capabilities,
 				   QoS, CmdType);
 
+done:
 	if (XST_SUCCESS != Status) {
 		PmErr("0x%x\n\r", Status);
 	}
 	return Status;
-
 }
 
 /****************************************************************************/
@@ -2618,6 +2641,18 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 	const XPm_Subsystem* Subsystem = NULL;
 	const XPm_Device* Device = NULL;
 	u32 Usage = 0U;
+
+	u32 NumArgs = 1U;
+	u32 ArgBuf[1U];
+	ArgBuf[0] = DeviceId;
+
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_RELEASE_NODE, ArgBuf, NumArgs,
+				    CmdType, NULL);
+	if (XST_DEVICE_NOT_FOUND != Status) {
+		/* API is forwarded, nothing else to be done */
+		goto done;
+	}
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
@@ -2681,6 +2716,20 @@ XStatus XPm_SetRequirement(const u32 SubsystemId, const u32 DeviceId,
 
 	/* Warning Fix */
 	(void) (Ack);
+
+	u32 NumArgs = 3U;
+	u32 ArgBuf[3U];
+	ArgBuf[0] = DeviceId;
+	ArgBuf[1] = Capabilities;
+	ArgBuf[2] = QoS;
+
+	/* Forward message event to secondary SLR if required */
+	Status = XPm_SsitForwardApi(PM_SET_REQUIREMENT, ArgBuf, NumArgs,
+				    NO_HEADER_CMDTYPE, NULL);
+	if (XST_DEVICE_NOT_FOUND != Status) {
+		/* API is forwarded, nothing else to be done */
+		goto done;
+	}
 
 	Status = XPm_IsAccessAllowed(SubsystemId, DeviceId);
 	if (XST_SUCCESS != Status) {

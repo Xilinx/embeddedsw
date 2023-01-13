@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,8 +55,8 @@ done:
 	return Status;
 }
 
-XStatus XPm_GetQos(const u32 DeviceId, u32 *Response);
-XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, u32 Part, u32 Ops);
+XStatus XPm_GetQos(const u32 DeviceId, pm_ioctl_id IoctlId, u32 *Response);
+XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part, u32 Ops);
 XStatus XPm_AieISRClear(u32 SubsystemId, u32 AieDeviceId, u32 Value);
 XStatus XPm_ProbeCounterAccess(u32 DeviceId, u32 Arg1, u32 Value,
 				  u32 *const Response, u8 Write);
