@@ -35,6 +35,8 @@
 *                       for SD/eMMC.
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 * 4.1   sa     01/03/23	Report error if Transfer size is greater than 2MB.
+* 	sa     01/04/23 Update register bit polling logic to use Xil_WaitForEvent/
+* 			Xil_WaitForEvents API.
 * </pre>
 *
 ******************************************************************************/
@@ -508,6 +510,7 @@ s32 XSdPs_CardOpCond(XSdPs *InstancePtr)
 	u32 RespOCR;
 	s32 Status;
 	u32 Arg;
+	u32 Count = 10000U;
 
 	/* Send ACMD41 while card is still busy with power up */
 	do {
@@ -538,9 +541,18 @@ s32 XSdPs_CardOpCond(XSdPs *InstancePtr)
 		}
 
 		/* Response with card capacity */
-		RespOCR = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XSDPS_RESP0_OFFSET);
-	} while ((RespOCR & XSDPS_RESPOCR_READY) == 0U);
+		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_RESP0_OFFSET, XSDPS_RESPOCR_READY, XSDPS_RESPOCR_READY, 1U);
+		if (Status == XST_SUCCESS) {
+			RespOCR = XSdPs_ReadReg(InstancePtr->Config.BaseAddress, XSDPS_RESP0_OFFSET);
+			break;
+		}
+		Count = Count - 1U;
+	} while (Count != 0U);
+
+	if (Count == 0U) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
 
 	/* Update HCS support flag based on card capacity response */
 	if ((RespOCR & XSDPS_ACMD41_HCS) != 0U) {
@@ -575,6 +587,7 @@ RETURN_PATH:
 s32 XSdPs_GetCardId(XSdPs *InstancePtr)
 {
 	s32 Status;
+	u32 Count = 50U;
 
 	/* CMD2 for Card ID */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD2, 0U, 0U);
@@ -608,10 +621,14 @@ s32 XSdPs_GetCardId(XSdPs *InstancePtr)
 			 * Relative card address is stored as the upper 16 bits
 			 * This is to avoid shifting when sending commands
 			 */
-			InstancePtr->RelCardAddr =
-					XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+			Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_RESP0_OFFSET, 0xFFFF0000, 0U, 1U);
+			if (Status != XST_SUCCESS) {
+				InstancePtr->RelCardAddr = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 						XSDPS_RESP0_OFFSET) & 0xFFFF0000U;
-		} while (InstancePtr->RelCardAddr == 0U);
+				break;
+			}
+			Count = Count - 1U;
+		} while (Count != 0U);
 	} else {
 		/* Set relative card address */
 		InstancePtr->RelCardAddr = 0x12340000U;
@@ -620,6 +637,10 @@ s32 XSdPs_GetCardId(XSdPs *InstancePtr)
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
+	}
+	if (Count == 0U) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	Status = XST_SUCCESS;
@@ -766,16 +787,9 @@ s32 XSdPs_ResetConfig(XSdPs *InstancePtr)
 	if ((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK)
 			!= XSDPS_CAPS_EMB_SLOT) {
 		u32 Timeout = 200000U;
-		u32 PresentStateReg;
 
 		/* Check for SD Bus Lines low */
-		do {
-			PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-					XSDPS_PRES_STATE_OFFSET);
-			Timeout = Timeout - 1U;
-			usleep(1);
-		} while (((PresentStateReg & XSDPS_PSR_DAT30_SG_LVL_MASK) != 0U)
-				&& (Timeout != 0U));
+		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PRES_STATE_OFFSET, XSDPS_PSR_DAT30_SG_LVL_MASK, 0U, Timeout);
 	}
 #endif
 
@@ -835,19 +849,13 @@ void XSdPs_HostConfig(XSdPs *InstancePtr)
 s32 XSdPs_CheckResetDone(XSdPs *InstancePtr, u8 Value)
 {
 	u32 Timeout = 1000000U;
-	u32 ReadReg;
 	s32 Status;
 
 	/* Proceed with initialization only after reset is complete */
-	do {
-		ReadReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
-				XSDPS_SW_RST_OFFSET);
-		Timeout = Timeout - 1U;
-		usleep(1);
-	} while (((ReadReg & Value) != 0U)
-			&& (Timeout != 0U));
-
-	if (Timeout == 0U) {
+	/* Using XSDPS_CLK_CTRL_OFFSET(0x2C) in place of XSDPS_SW_RST_OFFSET(0x2F) for 32bit address aligned reading */
+	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_CLK_CTRL_OFFSET,
+			Value << 24, 0U, Timeout);
+	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH ;
 	}
@@ -872,7 +880,6 @@ s32 XSdPs_SetupVoltageSwitch(XSdPs *InstancePtr)
 {
 	u32 Timeout = 10000;
 	s32 Status;
-	u32 ReadReg;
 
 	/* Send switch voltage command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD11, 0U, 0U);
@@ -882,16 +889,9 @@ s32 XSdPs_SetupVoltageSwitch(XSdPs *InstancePtr)
 	}
 
 	/* Wait for CMD and DATA line to go low */
-	do {
-		ReadReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XSDPS_PRES_STATE_OFFSET);
-		Timeout = Timeout - 1U;
-		usleep(1);
-	} while (((ReadReg & (XSDPS_PSR_CMD_SG_LVL_MASK |
-			XSDPS_PSR_DAT30_SG_LVL_MASK)) != 0U)
-			&& (Timeout != 0U));
-
-	if (Timeout == 0U) {
+	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PRES_STATE_OFFSET,
+			XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK, 0U, Timeout);
+	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH ;
 	}
@@ -912,22 +912,14 @@ RETURN_PATH:
 ******************************************************************************/
 s32 XSdPs_CheckBusHigh(XSdPs *InstancePtr)
 {
-	u32 Timeout;
+	u32 Timeout = MAX_TIMEOUT;
 	s32 Status;
-	u32 ReadReg;
 
 	/* Wait for CMD and DATA line to go high */
-	Timeout = MAX_TIMEOUT;
-	do {
-		ReadReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-				XSDPS_PRES_STATE_OFFSET);
-		Timeout = Timeout - 1U;
-		usleep(1);
-	} while (((ReadReg & (XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK))
-			!= (XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK))
-			&& (Timeout != 0U));
-
-	if (Timeout == 0U) {
+	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PRES_STATE_OFFSET,
+			XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK,
+			XSDPS_PSR_CMD_SG_LVL_MASK | XSDPS_PSR_DAT30_SG_LVL_MASK, Timeout);
+	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH ;
 	}
@@ -1565,15 +1557,9 @@ s32 XSdPs_SetClock(XSdPs *InstancePtr, u32 SelFreq)
 					XSDPS_PHYCTRLREG2_OFFSET, Reg);
 
 		/* Wait for 1000 micro sec for DLL READY */
-		do {
-			Reg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-					XSDPS_PHYCTRLREG2_OFFSET);
-			Timeout = Timeout - 1U;
-			usleep(1);
-		} while (((Reg & XSDPS_PHYREG2_DLL_RDY_MASK) == 0U)
-					&& (Timeout != 0U));
-
-		if (Timeout == 0U) {
+		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PHYCTRLREG2_OFFSET,
+				XSDPS_PHYREG2_DLL_RDY_MASK, XSDPS_PHYREG2_DLL_RDY_MASK, Timeout);
+		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH ;
 		}

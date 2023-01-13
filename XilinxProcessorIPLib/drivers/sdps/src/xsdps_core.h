@@ -26,7 +26,7 @@
 * 3.14  sk     10/22/21 Add support for Erase feature.
 *       mn     11/28/21 Fix MISRA-C violations.
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
-*
+* 4.1   sa     01/06/23 Include xil_util.h in this file.
 * </pre>
 *
 ******************************************************************************/
@@ -43,6 +43,8 @@ extern "C" {
 #if defined (__aarch64__)
 #include "xil_smc.h"
 #endif
+
+#include "xil_util.h"
 
 s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr);

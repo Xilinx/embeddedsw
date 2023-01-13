@@ -36,7 +36,8 @@
 *                       for SD/eMMC.
 *       sk     06/03/22 Fix issue in internal clock divider calculation logic.
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
-*
+* 	sa     01/04/23	Update register bit polling logic to use Xil_WaitForEvent/
+* 			Xil_WaitForEvents API.
 * </pre>
 *
 ******************************************************************************/
@@ -754,7 +755,6 @@ s32 XSdPs_EnableClock(XSdPs *InstancePtr, u16 ClockReg)
 {
 	u32 Timeout = 150000U;
 	s32 Status;
-	u16 ReadReg;
 	u16 ClkReg = ClockReg;
 
 	ClkReg |= (u16)XSDPS_CC_INT_CLK_EN_MASK;
@@ -762,15 +762,9 @@ s32 XSdPs_EnableClock(XSdPs *InstancePtr, u16 ClockReg)
 			XSDPS_CLK_CTRL_OFFSET, ClkReg);
 
 	/* Wait for 150ms for internal clock to stabilize */
-	do {
-		ReadReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_CLK_CTRL_OFFSET);
-		Timeout = Timeout - 1U;
-		usleep(1);
-	} while (((ReadReg & XSDPS_CC_INT_CLK_STABLE_MASK) == 0U)
-				&& (Timeout != 0U));
-
-	if (Timeout == 0U) {
+	Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_CLK_CTRL_OFFSET,
+			XSDPS_CC_INT_CLK_STABLE_MASK, XSDPS_CC_INT_CLK_STABLE_MASK, Timeout);
+	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH ;
 	}
@@ -1486,6 +1480,7 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 	u32 Timeout = 10000000U;
 	u32 StatusReg;
 	s32 Status;
+	u32 Mask;
 
 	Status = XSdPs_SetupCmd(InstancePtr, Arg, BlkCnt);
 	if (Status != XST_SUCCESS) {
@@ -1500,33 +1495,34 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 	}
 
 	/* Polling for response for now */
-	do {
-		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_NORM_INTR_STS_OFFSET);
-		if ((Cmd == CMD21) || (Cmd == CMD19)) {
-			if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_NORM_INTR_STS_OFFSET) & XSDPS_INTR_BRR_MASK) != 0U){
-				XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_BRR_MASK);
-				break;
-			}
-		}
+	Mask = XSDPS_INTR_ERR_MASK | XSDPS_INTR_CC_MASK;
+	if ((Cmd == CMD21) || (Cmd == CMD19))
+		Mask |= XSDPS_INTR_BRR_MASK;
 
-		if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
-			Status = (s32)XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-									XSDPS_ERR_INTR_STS_OFFSET);
-			if (((u32)Status & ~XSDPS_INTR_ERR_CT_MASK) == 0U) {
-				Status = XSDPS_CT_ERROR;
-			}
-			 /* Write to clear error bits */
-			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_ERR_INTR_STS_OFFSET,
-					XSDPS_ERROR_INTR_ALL_MASK);
-			goto RETURN_PATH;
+	Status = Xil_WaitForEvents(InstancePtr->Config.BaseAddress + XSDPS_NORM_INTR_STS_OFFSET,
+			Mask, Mask, Timeout, &StatusReg);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+        }
+
+	if (((Cmd == CMD21) || (Cmd == CMD19)) && (StatusReg & XSDPS_INTR_BRR_MASK)) {
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_BRR_MASK);
+	}
+	if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0) {
+		Status = (s32)XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_ERR_INTR_STS_OFFSET);
+		if (((u32)Status & ~XSDPS_INTR_ERR_CT_MASK) == 0U) {
+			Status = XSDPS_CT_ERROR;
 		}
-		Timeout = Timeout - 1U;
-	} while (((StatusReg & XSDPS_INTR_CC_MASK) == 0U)
-				&& (Timeout != 0U));
+		/* Write to clear error bits */
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_ERR_INTR_STS_OFFSET,
+				XSDPS_ERROR_INTR_ALL_MASK);
+		goto RETURN_PATH;
+	}
+
 	/* Write to clear bit */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_NORM_INTR_STS_OFFSET,
@@ -1551,32 +1547,29 @@ RETURN_PATH:
 s32 XSdps_CheckTransferDone(XSdPs *InstancePtr)
 {
 	u32 Timeout = 5000000U;
-	u16 StatusReg;
+	u32 StatusReg;
 	s32 Status;
+	u32 Mask;
 
 	/*
 	 * Check for transfer complete
 	 * Polling for response for now
 	 */
-	do {
-		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_NORM_INTR_STS_OFFSET);
-		if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
-			/* Write to clear error bits */
-			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-					XSDPS_ERR_INTR_STS_OFFSET,
-					XSDPS_ERROR_INTR_ALL_MASK);
-			Status = XST_FAILURE;
-			goto RETURN_PATH;
-		}
-		Timeout = Timeout - 1U;
-		usleep(1);
-	} while (((StatusReg & XSDPS_INTR_TC_MASK) == 0U)
-			&& (Timeout != 0U));
-
-	if (Timeout == 0U) {
+	Mask = XSDPS_INTR_ERR_MASK | XSDPS_INTR_TC_MASK;
+	Status = Xil_WaitForEvents(InstancePtr->Config.BaseAddress + XSDPS_NORM_INTR_STS_OFFSET,
+			Mask, Mask, Timeout, &StatusReg);
+	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
-		goto RETURN_PATH ;
+		goto RETURN_PATH;
+	}
+
+	if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0) {
+		/* Write to clear error bits */
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_ERR_INTR_STS_OFFSET,
+				XSDPS_ERROR_INTR_ALL_MASK);
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
 	}
 
 	/* Write to clear bit */
@@ -1604,7 +1597,6 @@ s32 XSdPs_CheckBusIdle(XSdPs *InstancePtr, u32 Value)
 {
 	u32 Timeout = 10000000U;
 	u32 PresentStateReg;
-	u32 StatusReg;
 	s32 Status;
 
 	PresentStateReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
@@ -1612,20 +1604,13 @@ s32 XSdPs_CheckBusIdle(XSdPs *InstancePtr, u32 Value)
 	/* Check for Card Present */
 	if ((PresentStateReg & XSDPS_PSR_CARD_INSRT_MASK) != 0U) {
 		/* Check for SD idle */
-		do {
-			StatusReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
-					XSDPS_PRES_STATE_OFFSET);
-			Timeout = Timeout - 1U;
-			usleep(1);
-		} while (((StatusReg & Value) != 0U)
-				&& (Timeout != 0U));
+		Status = Xil_WaitForEvent(InstancePtr->Config.BaseAddress + XSDPS_PRES_STATE_OFFSET,
+				Value, 0U, Timeout);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH ;
+		}
 	}
-
-	if (Timeout == 0U) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH ;
-	}
-
 	Status = XST_SUCCESS;
 
 RETURN_PATH:
