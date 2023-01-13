@@ -145,6 +145,7 @@
 *       ng   11/23/2022 Updated doxygen comments
 *       ng   01/02/2023 Check to bypass entire ID Code Check
 *       kpt  01/04/2023 Added check to update FIPS state
+*       sk   01/11/2023 Added Image Store support as secondary boot media
 *
 *       bm   01/04/2023 Switch to SSIT Events as soon as basic Noc path is
 *                       configured
@@ -1415,7 +1416,7 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 	 PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 	 PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
 	for (Index = (int)PdiList->Count - 1; Index >= 0; Index--) {
-		PdiAddr = PdiList->PdiAddr[Index];
+		PdiAddr = PdiList->ImgList[Index].PdiAddr;
 		Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, PdiAddr);
 		if (Status != XST_SUCCESS) {
 			goto END1;
@@ -1703,9 +1704,12 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 {
 	int Status = XST_FAILURE;
 	u32 PdiSrc;
-	u32 PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
+	u64 PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
 	u32 SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTbl)) >>
 		XIH_IHT_ATTR_SBD_SHIFT;
+	const XLoader_ImageStore *PdiList = XLoader_GetPdiList();
+	u32 PdiId;
+	int Index;
 
 	if ((SecBootMode == XIH_IHT_ATTR_SBD_SAME) ||
 		((PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR) &&
@@ -1764,6 +1768,27 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 				case XIH_IHT_ATTR_SBD_EMMC_0_RAW:
 					PdiSrc = XLOADER_SD_RAWBOOT_VAL | XLOADER_PDI_SRC_EMMC0;
 					break;
+				case XIH_IHT_ATTR_IMAGE_STORE:
+					PdiId = (u32)PdiAddr;
+					if (PdiList->Count == 0U) {
+						Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_EMPTY, 0);
+						goto END;
+					}
+					for (Index = (int)PdiList->Count - 1; Index >= 0; Index--) {
+						if (PdiList->ImgList[Index].PdiId  == PdiId) {
+							PdiAddr = PdiList->ImgList[Index].PdiAddr;
+							break;
+						}
+					}
+					if (Index < 0) {
+						Status = XPlmi_UpdateStatus(
+							XLOADER_ERR_PDI_ADDR_NOT_FOUND, 0);
+						XPlmi_Printf(DEBUG_GENERAL, "Image Store PdiId:0x%x Not Found\n\r",PdiId);
+						goto END;
+					}
+
+					PdiSrc = XLOADER_PDI_SRC_DDR;
+					break;
 				default:
 					Status = XLoader_GetSDPdiSrcNAddr(SecBootMode,
 							PdiPtr, &PdiSrc, &PdiAddr);
@@ -1792,4 +1817,42 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to read the Image Store DDR Memory Addr
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+int XLoader_ReadImageStoreCfg(void)
+{
+	int Status = XST_FAILURE;
+	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
+	u32 Unaligned;
+
+	/* Read & Populate Image Store base address,size from RTCA Area*/
+	PdiList->PdiImgStrAddr = XPlmi_In32(XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH);
+	PdiList->PdiImgStrAddr = XPlmi_In32(XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW) | (PdiList->PdiImgStrAddr << 32U);
+	PdiList->PdiImgStrSize = XPlmi_In32(XPLMI_RTCFG_IMG_STORE_SIZE);
+
+	/* Check if address is unaligned */
+	Unaligned = PdiList->PdiImgStrAddr % XPLMI_WORD_LEN;
+
+	if((PdiList->PdiImgStrAddr == XLOADER_IMG_STORE_INVALID_ADDR) ||
+			(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) || Unaligned) {
+		XPlmi_Printf(DEBUG_INFO,"Image Store Configuration not Set\n\r");
+		PdiList->PdiImgStrSize = XLOADER_IMG_STORE_INVALID_SIZE;
+		goto END;
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+	/* Init the first element */
+	PdiList->ImgList[0U].PdiAddr = PdiList->PdiImgStrAddr;
+
+END:
+	return Status;
+
 }

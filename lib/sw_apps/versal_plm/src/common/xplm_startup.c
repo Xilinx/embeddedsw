@@ -44,6 +44,7 @@
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
 * 1.07  ng   11/11/2022 Updated doxygen comments
+*       sk   01/11/2023 Added Image Store Config init function
 *
 * </pre>
 *
@@ -228,6 +229,10 @@ static int XPlm_PreBootTasks(void* Arg)
 	Status = XPlm_ProcessPmcCdo(Arg);
 	if (Status != XST_SUCCESS) {
 		goto END;
+	}
+
+	if (XPlmi_IsPlmUpdateDone() == (u8)FALSE) {
+		XLoader_ReadImageStoreCfg();
 	}
 
 	Status = XPlm_HookAfterPmcCdo(Arg);

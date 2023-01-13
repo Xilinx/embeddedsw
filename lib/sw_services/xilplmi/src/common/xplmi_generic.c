@@ -84,6 +84,7 @@
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *       bm   01/03/2023 Clear End Stack before processing a CDO partition
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+*       sk   01/11/2023 Update XPlmi_MoveProc to handle 64 bit Address
 *
 * </pre>
 *
@@ -1467,11 +1468,11 @@ static int XPlmi_Marker(XPlmi_Cmd *Cmd)
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
+int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
 {
 	int Status = XST_FAILURE;
-	u32 DestAddr;
-	u32 SrcAddr;
+	u64 DestAddr;
+	u64 SrcAddr;
 	u32 Len;
 	u8 Index = ProcIndex;
 	u32 DeletedProcLen;
@@ -1492,11 +1493,11 @@ static int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
 	 */
 	DestAddr = ProcList->ProcData[Index].Addr;
 	SrcAddr = ProcList->ProcData[Index + 1U].Addr;
-	Len = (ProcList->ProcData[ProcList->ProcCount].Addr -
-			SrcAddr)/XPLMI_WORD_LEN;
+	Len = (u32)((ProcList->ProcData[ProcList->ProcCount].Addr -
+			SrcAddr)/XPLMI_WORD_LEN);
 	/* Length of the proc that is removed */
-	DeletedProcLen = ProcList->ProcData[Index + 1U].Addr -
-			ProcList->ProcData[Index].Addr;
+	DeletedProcLen = (u32)(ProcList->ProcData[Index + 1U].Addr -
+			ProcList->ProcData[Index].Addr);
 
 	/* Call XPlmi_DmaTransfer with flags DMA0 and INCR */
 	Status = XPlmi_DmaTransfer(DestAddr, SrcAddr, Len, XPLMI_PMCDMA_0);
@@ -1641,8 +1642,8 @@ int XPlmi_ExecuteProc(u32 ProcId)
 		}
 		/* Fill ProcCdo structure with Proc related parameters */
 		ProcCdo.BufPtr = (u32 *)(UINTPTR)ProcList->ProcData[ProcIndex].Addr;
-		ProcCdo.BufLen = (ProcList->ProcData[ProcIndex + 1U].Addr -
-			ProcList->ProcData[ProcIndex].Addr) / XPLMI_WORD_LEN;
+		ProcCdo.BufLen = (u32)((ProcList->ProcData[ProcIndex + 1U].Addr -
+			ProcList->ProcData[ProcIndex].Addr) / XPLMI_WORD_LEN);
 		ProcCdo.CdoLen = ProcCdo.BufLen;
 		ProcCdo.SubsystemId = PM_SUBSYS_PMC;
 		/* Execute Proc */
@@ -1723,8 +1724,8 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 			 */
 			if (CmdLenInBytes > (ProcList->ProcData[Index + 1U].Addr -
 					ProcList->ProcData[Index].Addr)) {
-				LenDiff = CmdLenInBytes - (ProcList->ProcData[Index + 1U].Addr -
-						ProcList->ProcData[Index].Addr);
+				LenDiff = (u32)(CmdLenInBytes - (ProcList->ProcData[Index + 1U].Addr -
+						ProcList->ProcData[Index].Addr));
 			}
 			/* Check if new proc length fits in the proc allocated memory */
 			if ((LenDiff + (ProcList->ProcData[ProcList->ProcCount].Addr -
@@ -1752,7 +1753,7 @@ static int XPlmi_Proc(XPlmi_Cmd *Cmd)
 		}
 
 		/* New proc address where the proc data need to be copied */
-		Cmd->ResumeData[0U] = ProcList->ProcData[ProcList->ProcCount].Addr;
+		Cmd->ResumeData[0U] = (u32)ProcList->ProcData[ProcList->ProcCount].Addr;
 
 		/* Check if new proc length fits in the proc allocated memory */
 		if ((Cmd->ResumeData[0U] + CmdLenInBytes) > (ProcList->ProcData[0U].Addr +

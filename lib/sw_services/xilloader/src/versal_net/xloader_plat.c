@@ -405,7 +405,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
  *
  *****************************************************************************/
 int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
-		u32 *PdiAddr)
+		u64 *PdiAddr)
 {
 	int Status = XST_FAILURE;
 

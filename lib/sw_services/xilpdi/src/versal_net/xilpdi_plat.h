@@ -23,7 +23,7 @@
 *       bm   09/13/2022 Added macros for maximum number of partitions and images
 * 1.01  har  11/17/2022 Added macros for Signed Image attribute in Bootheader
 *       ng   11/23/2022 Fixed doxygen file name error
-*
+*       sk   01/11/2023 Added macro for Image Store as SBD
 * </pre>
 *
 * @note
@@ -76,6 +76,7 @@ extern "C" {
 #define XIH_IHT_ATTR_SBD_EMMC_RAW		(0x12U)
 #define XIH_IHT_ATTR_SBD_EMMC_0			(0x13U)
 #define XIH_IHT_ATTR_SBD_EMMC_0_RAW		(0x14U)
+#define XIH_IHT_ATTR_IMAGE_STORE		(0x15U)
 
 /**
  *  Prtn Attribute fields

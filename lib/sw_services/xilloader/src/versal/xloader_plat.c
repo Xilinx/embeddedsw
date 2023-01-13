@@ -459,7 +459,7 @@ END:
  *
  *****************************************************************************/
 int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
-		u32 *PdiAddr)
+		u64 *PdiAddr)
 {
 	int Status = XST_FAILURE;
 	(void)PdiPtr;

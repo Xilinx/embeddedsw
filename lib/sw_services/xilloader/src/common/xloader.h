@@ -103,7 +103,8 @@
 *       ma   07/27/2022 Added support for CFrame data clear check which is
 *                        required during PL secure lockdown
 *       kal  01/05/2023 Added XLOADER_PCR_INVALID_VALUE macro
-*
+* 1.06  sk   01/11/2023 Updated XLoader_ImageStore structure to support
+*                       image store feature
 * </pre>
 *
 * @note
@@ -206,6 +207,8 @@ extern "C" {
 
 /* Macro for Image Index Not found */
 #define XLOADER_IMG_INDEX_NOT_FOUND		(0xFFFFFFFFU)
+#define XLOADER_IMG_STORE_INVALID_ADDR		(0xFFFFFFFFFFFFFFFFUL)
+#define XLOADER_IMG_STORE_INVALID_SIZE		(0x0U)
 
 #define XLOADER_SBI_INDEX		(0U)
 #define XLOADER_QSPI_INDEX		(1U)
@@ -356,7 +359,14 @@ typedef struct {
 } XLoader_ImageInfoTbl;
 
 typedef struct {
-	u64 PdiAddr[XLOADER_MAX_PDI_LIST];
+	u32 PdiId;
+	u64 PdiAddr;
+} XLoader_PdiInfo;
+
+typedef struct {
+	u64 PdiImgStrAddr; /**< Image Store address */
+	u32 PdiImgStrSize;/**< Image Store Memory Size */
+	XLoader_PdiInfo ImgList[XLOADER_MAX_PDI_LIST + 1];
 	u8 Count;
 } XLoader_ImageStore;
 
@@ -406,6 +416,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr);
 XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
+int XLoader_ReadImageStoreCfg(void);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);

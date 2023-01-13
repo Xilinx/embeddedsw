@@ -57,6 +57,7 @@
 *       ma   07/08/2022 Added support for secure lockdown
 *       kpt  07/19/2022 Added APIs and macros related to KAT
 * 1.08  ng   12/08/2022 Updated SDK release version
+*       sk   01/13/2023 Added defines for Image Store
 * </pre>
 *
 * @note
@@ -189,6 +190,10 @@ static inline u8 XPlmi_IsUartPrintInitialized(void)
 #define XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_MASK  (0X00008000U)
 #define XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_SHIFT (15U)
 
+/* Default value for Image Store */
+#define XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH_INVALID   (0xFFFFFFFFU)
+#define XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW_INVALID    (0xFFFFFFFFU)
+#define XPLMI_RTCFG_IMG_STORE_SIZE_INVALID 	     (0x0U)
 
 /*
  * Using FW_IS_PRESENT to indicate Boot PDI loading is completed

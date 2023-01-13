@@ -286,7 +286,7 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 	if (Cmd->ProcessedLen == 0){
 		/* This is the beggining of the CMD execution. */
 		/* Latch on the first address of psm_sequence */
-		Cmd->ResumeData[1U] = ProcList->ProcData[ProcList->ProcCount].Addr;
+		Cmd->ResumeData[1U] = (u32)ProcList->ProcData[ProcList->ProcCount].Addr;
 		/* Check if new proc length fits in the proc allocated memory */
 		if ((Cmd->ResumeData[1U] + (Cmd->Len * XPLMI_WORD_LEN)) >
 			(ProcList->ProcData[0U].Addr + ProcList->ProcMemSize)) {
@@ -296,7 +296,7 @@ int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 		/* Store the destination of the DMA to Resume Data to handle resume case*/
-		Cmd->ResumeData[0U] = ProcList->ProcData[ProcList->ProcCount].Addr;
+		Cmd->ResumeData[0U] = (u32)ProcList->ProcData[ProcList->ProcCount].Addr;
 	}
 
 	/* Copy the received proc to proc memory */

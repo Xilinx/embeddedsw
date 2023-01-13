@@ -47,6 +47,7 @@
 *       ma   07/08/2022 Add support for Tamper Trigger over IPI
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *       bm   01/03/2023 Clear End Stack before processing a CDO partition
+* 1.09  sk   01/11/2023 Added Declaration for XPlmi_MoveProc
 *
 * </pre>
 *
@@ -100,7 +101,7 @@ typedef struct {
 
 typedef struct {
 	u32 Id;
-	u32 Addr;
+	u64 Addr;
 } XPlmi_ProcData;
 
 typedef struct {
@@ -177,6 +178,7 @@ XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType);
 int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags);
 int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level);
 void XPlmi_ClearEndStack(void);
+int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList);
 
 /* xplmi_plat.c definitions */
 XPlmi_BoardParams *XPlmi_GetBoardParams(void);

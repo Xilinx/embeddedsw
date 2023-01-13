@@ -104,6 +104,7 @@
 * 1.09  ng   11/11/2022 Fixed doxygen file name error
 * 1.08  skg  12/07/2022 Added error code for additional PPKs
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+*       sk   01/11/2023 Updated error code for image store
 *
 * </pre>
 *
@@ -573,7 +574,7 @@ typedef enum {
 	XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC,	/**< 0x362 - Error when
 						unsupported PdiSrc is used for
 						subsystem load */
-	XLOADER_ERR_PDI_LIST_FULL,		/**< 0x363 - Error when PdiList is full and user
+	XLOADER_ERR_PDI_IMG_STORE_FULL,		/**< 0x363 - Error when PdiList is full and user
 							is trying to add a new PdiAddr */
 	XLOADER_ERR_PDI_ADDR_EXISTS,		/**< 0x364 - Error when PdiAddr that is being
 							added already exists in the PdiList */
@@ -596,6 +597,7 @@ typedef enum {
 	XLOADER_CFRAME_CRC_CHECK_FAILED, /**< 0x370 - CFRAME CRC check failed */
 	XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, /**< 0x371 - Skip processing rest of the partitions
 						as secure lockdown has been triggered */
+	XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET, /**< 0x372 - Image Store configuration is not enabled/error */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

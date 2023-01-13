@@ -232,7 +232,7 @@ static inline int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePt
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);
 void XLoader_SetJtagTapToReset(void);
 int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
-		u32 *PdiAddr);
+		u64 *PdiAddr);
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
 int XLoader_UpdateHandoffParam(XilPdi* PdiPtr);

@@ -65,6 +65,7 @@
 *                       required during PL secure lockdown
 *       skg  10/17/2022 Added Null to invalid command handler of xilloader cmd module
 * 1.09  ng   11/11/2022 Updated doxygen comments
+*       sk   01/11/2023 Added new image store feature
 *
 * </pre>
 *
@@ -121,8 +122,10 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_READBACK_MAXLEN_INDEX		(5U)
 #define XLOADER_CMD_MULTIBOOT_BOOTMODE_INDEX		(0U)
 #define XLOADER_CMD_MULTIBOOT_IMG_LOCATION_INDEX	(1U)
-#define XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX		(0U)
-#define XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX		(1U)
+#define XLOADER_CMD_IMGSTORE_PDI_ID_INDEX		(0U)
+#define XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX		(1U)
+#define XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX		(2U)
+#define XLOADER_CMD_IMGSTORE_PDI_SIZE_INDEX		(3U)
 #define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX	(0U)
 #define XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX	(1U)
 #define XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX	(2U)
@@ -166,6 +169,8 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_ATF_HANDOFF_FORMAT_SIZE		(8U)
 #define XLOADER_ATF_HANDOFF_PRTN_ENTRIES_SIZE	(16U)
 
+/* Image Store Loader Command */
+#define XLOADER_WRITE_IMAGE_STORE_CMD_ID	(13U)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -586,10 +591,12 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function adds PdiAddress to ImageStore PdiList
+ * @brief	This function adds Pdi to ImageStore PdiList
  *  Command payload parameters are
+ *  	- PDI ID
  *	- High PdiAddr - Upper 32 bit value of PdiAddr
  *	- Low PdiAddr - Lower 32 bit value of PdiAddr
+ *	- PDI Size (in words)
  *
  * @param	Cmd is pointer to the command structure
  *
@@ -599,35 +606,85 @@ END:
 static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
+	u32 PdiId = Cmd->Payload[XLOADER_CMD_IMGSTORE_PDI_ID_INDEX];
 	u64 PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX];
+	u64 SrcAddr, DestAddr;
+	u32 PdiSize = Cmd->Payload[XLOADER_CMD_IMGSTORE_PDI_SIZE_INDEX];
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
-	u8 Index;
+	XPlmi_ProcList ProcList;
+	u32 FreeImgStoreSpace;
+	u64 ImgStoreEndAddr;
+	u32 Index = 0U;
+
+	if(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) {
+		XPlmi_Printf(DEBUG_INFO,"Image Store Configuration not Set\n\r");
+		Status = XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
+		goto END;
+	}
+
+	ImgStoreEndAddr = (PdiList->PdiImgStrAddr + PdiList->PdiImgStrSize);
 
 	/**
 	 * Add the given PDI address to the list or table of PDI addresses
 	 * that are maintained in PLM.
 	 */
 	if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_FULL, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_IMG_STORE_FULL, 0);
 		goto END;
 	}
+
 	PdiAddr = ((u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX]) |
 			(PdiAddr << 32U);
 	for (Index = 0U; Index < PdiList->Count; Index++) {
-		if (PdiList->PdiAddr[Index] == PdiAddr) {
+		if (PdiList->ImgList[Index].PdiId == PdiId) {
 			break;
 		}
 	}
+
+	FreeImgStoreSpace = (u32)(ImgStoreEndAddr - PdiList->ImgList[PdiList->Count].PdiAddr);
 	if (Index < PdiList->Count) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_ADDR_EXISTS, 0);
-		goto END;
+		XPlmi_Printf(DEBUG_DETAILED, "Image Store PdiId:0x%x exists... updating\n\r",PdiId);
+		FreeImgStoreSpace += (u32)(PdiList->ImgList[Index + 1U].PdiAddr - PdiList->ImgList[Index].PdiAddr);
+		/* Check if free space to accomodate new PDI */
+		if ((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_IMG_STORE_FULL, 0);
+			goto END;
+		} else {
+			ProcList.ProcCount = PdiList->Count;
+			XPlmi_Printf(DEBUG_DETAILED, "Img Store add PdiId: 0x%x\n\r",PdiId);
+			ProcList.ProcData = (XPlmi_ProcData*)&PdiList->ImgList[0];
+			/* Re-Purpose MoveProc func to handle memory re-organisation */
+			Status = XPlmi_MoveProc((u8)Index,&ProcList);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			PdiList->Count--;
+		}
+	} else {
+
+		if((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_IMG_STORE_FULL, 0);
+			goto END;
+		}
 	}
+
+	Index = PdiList->Count;
+	DestAddr = PdiList->ImgList[Index].PdiAddr;
+	SrcAddr = PdiAddr;
 
 	Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	PdiList->PdiAddr[Index] = PdiAddr;
+
+	/* Call XPlmi_DmaTransfer with flags DMA0 and INCR */
+	Status = XPlmi_DmaTransfer(DestAddr, SrcAddr, PdiSize, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	PdiList->ImgList[Index].PdiId = PdiId;
+	PdiList->ImgList[Index + 1].PdiAddr = PdiList->ImgList[Index].PdiAddr + (PdiSize * XPLMI_WORD_LEN);
 	PdiList->Count++;
 
 END:
@@ -636,47 +693,160 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function removes PdiAddress from ImageStore PdiList
+ * @brief	This function adds Pdi to ImageStore PdiList
  *  Command payload parameters are
- *	- High PdiAddr - Upper 32 bit value of PdiAddr
- *	- Low PdiAddr - Lower 32 bit value of PdiAddr
+ *  	- PDI ID
+ *	- PDI Data
  *
  * @param	Cmd is pointer to the command structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
+static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 PdiId = Cmd->Payload[XLOADER_CMD_IMGSTORE_PDI_ID_INDEX];
+	u64 SrcAddr, DestAddr;
+	u32 PdiSize = (Cmd->Len - 1U);
+	u32 CurrPayloadLen;
+	u64 ImgStoreEndAddr;
+	u32 Index = 0U;
+	u32 FreeImgStoreSpace;
+	XPlmi_ProcList ProcList;
+	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
+
+	XPLMI_EXPORT_CMD(XLOADER_WRITE_IMAGE_STORE_CMD_ID, XPLMI_MODULE_LOADER_ID,
+				XPLMI_CMD_ARG_CNT_TWO, XPLMI_UNLIMITED_ARG_CNT);
+
+	if(PdiList->PdiImgStrSize == XLOADER_IMG_STORE_INVALID_SIZE) {
+		XPlmi_Printf(DEBUG_INFO,"Image Store Configuration not Set\n\r");
+		Status = XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET;
+		goto END;
+	}
+
+	ImgStoreEndAddr = PdiList->PdiImgStrAddr + PdiList->PdiImgStrSize;
+
+	if(Cmd->ProcessedLen == 0U) {
+		/**
+		 * Add the given PDI to the Image store PDI table
+		 * that are maintained in PLM.
+		 */
+		if (PdiList->Count >= XLOADER_MAX_PDI_LIST) {
+			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
+			goto END;
+		}
+
+		for (Index = 0U; Index < PdiList->Count; Index++) {
+			if (PdiList->ImgList[Index].PdiId == PdiId) {
+				break;
+			}
+		}
+
+		FreeImgStoreSpace = (u32)(ImgStoreEndAddr - PdiList->ImgList[PdiList->Count].PdiAddr);
+		if (Index < PdiList->Count) {
+			XPlmi_Printf(DEBUG_DETAILED, "%s:PdiId:0x%x exists... updating\n\r", __func__,PdiId);
+			FreeImgStoreSpace += (u32)(PdiList->ImgList[Index + 1U].PdiAddr - PdiList->ImgList[Index].PdiAddr);
+			if ((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
+				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
+				goto END;
+			} else {
+				ProcList.ProcCount = PdiList->Count;
+				XPlmi_Printf(DEBUG_DETAILED, "Img Store PdiId : 0x%x\n\r",PdiId);
+				ProcList.ProcData = (XPlmi_ProcData*)&PdiList->ImgList[0];
+				/* Re-Purpose MoveProc func to handle memory re-organisation */
+				Status = XPlmi_MoveProc((u8)Index,&ProcList);
+				if (Status != XST_SUCCESS) {
+					goto END;
+				}
+				PdiList->Count--;
+			}
+		} else {
+			if((PdiSize * XPLMI_WORD_LEN) > FreeImgStoreSpace) {
+				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
+				goto END;
+			}
+		}
+		Index = PdiList->Count;
+		CurrPayloadLen = Cmd->PayloadLen - 1U;
+		SrcAddr = (u64)(UINTPTR)(&Cmd->Payload[1U]);
+		DestAddr = PdiList->ImgList[Index].PdiAddr;
+		/* Save the dest address to process remaining payload */
+		Cmd->ResumeData[0U] = (u32)((DestAddr >> 32U)& 0xFFFFFFFFU);
+		Cmd->ResumeData[1U] = (u32)(DestAddr & 0xFFFFFFFFU);
+		PdiList->ImgList[Index].PdiId = PdiId;
+		PdiList->ImgList[Index + 1].PdiAddr = PdiList->ImgList[Index].PdiAddr + (PdiSize * XPLMI_WORD_LEN);
+		PdiList->Count++;
+		Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	} else {
+		SrcAddr = (u64)(UINTPTR)(&Cmd->Payload[0U]);
+		DestAddr = (u64)(Cmd->ResumeData[0U]);
+		DestAddr = ((u64)Cmd->ResumeData[1U] | (DestAddr << 32U));
+		CurrPayloadLen = Cmd->PayloadLen;
+	}
+
+	/* Call XPlmi_DmaTransfer with flags DMA0 and INCR */
+	Status = XPlmi_DmaTransfer(DestAddr, SrcAddr, CurrPayloadLen, XPLMI_PMCDMA_0);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/* Update destination address to handle resume case */
+	DestAddr += ((u64)CurrPayloadLen * XPLMI_WORD_LEN);
+	Cmd->ResumeData[0U] = (u32)((DestAddr >> 32U)& 0xFFFFFFFFU);
+	Cmd->ResumeData[1U] = (u32)(DestAddr & 0xFFFFFFFFU);
+
+END:
+	return Status;
+}
+/*****************************************************************************/
+/**
+ * @brief	This function removes Pdi from ImageStore PdiList
+ *  Command payload parameters are
+ *	- PdiId - Id of the PDI to be removed from Image Store
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+*****************************************************************************/
 static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u64 PdiAddr = (u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_HIGH_INDEX];
+	u32 PdiId = (u32)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDI_ID_INDEX];
 	u8 Index;
-	u8 ShiftIdx;
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
+	XPlmi_ProcList ProcList;
 
 	if (PdiList->Count == 0U) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_EMPTY, 0);
 		goto END;
 	}
 
-	PdiAddr = ((u64)Cmd->Payload[XLOADER_CMD_IMGSTORE_PDIADDR_LOW_INDEX]) |
-			(PdiAddr << 32U);
-	/** If PdiAddr matches with any entry in the List, remove it */
+	/** If PdiId matches with any entry in the List, remove it */
 	for (Index = 0U; Index < PdiList->Count; Index++) {
-		if (PdiList->PdiAddr[Index] == PdiAddr) {
-			for (ShiftIdx = Index; ShiftIdx < (PdiList->Count - 1U);
-				ShiftIdx++) {
-				PdiList->PdiAddr[ShiftIdx] =
-					PdiList->PdiAddr[ShiftIdx + 1U];
+		if (PdiList->ImgList[Index].PdiId  == PdiId) {
+			ProcList.ProcCount = PdiList->Count;
+			XPlmi_Printf(DEBUG_DETAILED, "Removing PdiId: 0x%x\n\r",PdiId);
+			ProcList.ProcData = (XPlmi_ProcData*)&PdiList->ImgList[0];
+			/* Re-Purpose MoveProc func to handle memory re-organisation */
+			Status = XPlmi_MoveProc(Index,&ProcList);
+			if (Status != XST_SUCCESS) {
+				goto END;
 			}
 			break;
 		}
 	}
+
 	if (Index == PdiList->Count) {
 		Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_PDI_ADDR_NOT_FOUND, 0);
 		goto END;
 	}
+
 	PdiList->Count--;
 	if (PdiList->Count == 0U) {
 		Status = XLoader_DdrRelease();
@@ -981,7 +1151,8 @@ static const XPlmi_ModuleCmd XLoader_Cmds[] =
 	XPLMI_MODULE_COMMAND(XLoader_AddImageStorePdi),
 	XPLMI_MODULE_COMMAND(XLoader_RemoveImageStorePdi),
 	XPLMI_MODULE_COMMAND(XLoader_GetATFHandOffParams),
-	XPLMI_MODULE_COMMAND(XLoader_CframeDataClearCheck)
+	XPLMI_MODULE_COMMAND(XLoader_CframeDataClearCheck),
+	XPLMI_MODULE_COMMAND(XLoader_WriteImageStorePdi)
 };
 
 /*****************************************************************************/

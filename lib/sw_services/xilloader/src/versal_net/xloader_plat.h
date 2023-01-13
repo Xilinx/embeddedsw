@@ -220,7 +220,7 @@ static inline void XLoader_SetJtagTapToReset(void)
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);
 int XLoader_StartImage(XilPdi *PdiPtr);
 int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
-		u32 *PdiAddr);
+		u64 *PdiAddr);
 int XLoader_UpdateHandoffParam(XilPdi* PdiPtr);
 int XLoader_ProcessDeferredError(void);
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
