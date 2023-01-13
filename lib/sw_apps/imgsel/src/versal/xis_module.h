@@ -7,9 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xis_proc.h
-*
-* This file contains declarations for PROC C file in Versal Image Selector.
+* @file xis_module.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,9 +21,8 @@
 * @note
 *
 ******************************************************************************/
-
-#ifndef XIS_PROC_H
-#define XIS_PROC_H
+#ifndef XIS_MODULE_H
+#define XIS_MODULE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,10 +37,14 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_InitProc(void);
+int XPlm_ModuleInit(void);
+
+/************************** Variable Definitions *****************************/
+
+/*****************************************************************************/
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XIS_PROC_H */
+#endif  /* XIS_MODULE_H */

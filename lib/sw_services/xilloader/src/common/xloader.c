@@ -646,6 +646,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	}
 #endif
 
+#ifndef VERSAL_IMAGE_SEL
 	/**
 	 * Perform IDCODE and Extended IDCODE checks
 	 */
@@ -658,6 +659,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 			goto END;
 		}
 	}
+#endif
 
 	/**
 	 * Read and verify image headers and partition headers

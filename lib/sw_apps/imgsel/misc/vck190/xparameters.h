@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -1827,7 +1828,7 @@
 #define PLM_DEBUG
 
 /* Boot time measurement enable */
-#define PLM_PRINT_PERF
+//#define PLM_PRINT_PERF
 
 /* USB Boot mode support disable */
 #define PLM_USB_EXCLUDE
@@ -1839,5 +1840,5 @@
 #define PLM_PUF_EXCLUDE
 
 
-#define XPAR_XILPM_ENABLED
+//#define XPAR_XILPM_ENABLED
 #endif  /* end of protection macro */

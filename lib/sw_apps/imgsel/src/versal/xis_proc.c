@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +16,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  bsv  10/03/2022 Initial release
+* 1.00  skd  01/13/23 Initial release
 *
 * </pre>
 *
@@ -83,9 +84,6 @@ static void XPlm_ExceptionInit(void)
  *****************************************************************************/
 static void XPlm_ExceptionHandler(void *Data)
 {
-	int Status = XST_FAILURE;
-	u8 SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) &
-			PMC_TAP_SLR_TYPE_VAL_MASK);
 
 	XPlmi_Printf(DEBUG_GENERAL, "Received Exception \n\r"
 		"MSR: 0x%08x, EAR: 0x%08x, EDR: 0x%08x, ESR: 0x%08x, \n\r"

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,38 +20,55 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
-* 1.00  bsv  10/03/22 Initial release
+* 1.00  skd  01/13/23 Initial release
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xis_main.h"
+#include "xis_config.h"
+#include "xis_i2c.h"
+#include "xis_error.h"
 #include "xplmi_err_common.h"
-#include "xplmi_util.h"
-#include "xplmi_hw.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XIS_MAX_BOARDS 				(3U)
+#define XIS_MAX_BOARDS 				(5U)
 #define XIS_BOARDNAME_SIZE 			(6U)
 
 /************************** Function Prototypes ******************************/
+static void XIs_UpdateMultiBootValue(u32 Offset);
 
 /************************** Variable Definitions *****************************/
 Boards_List Board[XIS_MAX_BOARDS] = {
-	{"VPK120" , 120},
-	{"VPK180" , 180},
-	{"VCK190",  190},
+	{"VPK120" , 1200},
+	{"VPK180" , 1800},
+	{"VCK190" , 1900},
+	{"VMK180" , 1801},
+	{"VEK280" , 2800}
 };
 
-static u8 ReadBuffer[256]; /* Read buffer for reading a page. */
+static u8 ReadBuffer[XIS_MAX_SIZE]; /* Read buffer for reading a page. */
 
 /************************** Function Definitions *****************************/
+/*****************************************************************************/
+/**
+ * This functions updates the multiboot value into CSU_MULTIBOOT register.
+ *
+ * @param	Multiboot offset Value.
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+static void XIs_UpdateMultiBootValue(u32 Offset)
+{
+	XPlmi_UtilRMW(PMC_GLOBAL_PMC_MULTI_BOOT, 0xFFFFFFFU, Offset);
+}
+
 /*****************************************************************************/
 /**
  * This function is used to Get the board specific information from IIC EEPROM
@@ -93,7 +111,8 @@ END:
 
 /*****************************************************************************/
 /**
- * This function is used to update the multiboot value.
+ * This function is used to update the multiboot value
+ * @param	None.
  *
  * @return	returns XIS_BOARD_NAME_NOTFOUND on failure
  *				returns XST_SUCCESS on success
@@ -111,19 +130,21 @@ int XIs_ImageSelBoardParam(void)
 		goto END;
 	}
 
-	Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET_1,
+	Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET,
 					&BoardOffset, XIS_EEPROM_OFFSET_1_WRITE_BYTES);
 	if(Status != XST_SUCCESS) {
-		Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET_2,
+		Status = XIs_GetBoardName(XIS_EEPROM_BOARD_ADDR_OFFSET,
 					&BoardOffset, XIS_EEPROM_OFFSET_2_WRITE_BYTES);
 		if(Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "Board Name NotFound\r\n");
+			XPlmi_Printf(DEBUG_GENERAL, "Board not found\r\n");
 			goto END;
 		}
 	}
 
-	sleep(1);
 	XIs_UpdateMultiBootValue(BoardOffset);
+
+	XPlmi_Printf(DEBUG_GENERAL, "Board found with imge multiboot offset at %x\r\n ",BoardOffset);
+	sleep(1);
 
 	if (Status == XST_SUCCESS) {
 		XPlmi_SoftResetHandler();
@@ -134,16 +155,3 @@ END:
 	return Status;
 }
 
-/*****************************************************************************/
-/**
- * This functions updates the multiboot value into CSU_MULTIBOOT register.
- *
- * @param	Multiboot offset Value.
- *
- * @return	None.
- *
- ******************************************************************************/
-void XIs_UpdateMultiBootValue(u32 Offset)
-{
-	XPlmi_UtilRMW(PMC_GLOBAL_PMC_MULTI_BOOT, 0xFFFFFFFU, Offset);
-}

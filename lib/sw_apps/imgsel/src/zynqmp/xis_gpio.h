@@ -1,49 +1,54 @@
 /******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2020-2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
+* @file xis_gpio.h
 *
-* @file xis_proc.h
+* This is the main header file which contains definitions for the gpio.
 *
-* This file contains declarations for PROC C file in Versal Image Selector.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date        Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00  skd  01/13/23 Initial release
+* Ver   Who  Date     Changes
+* ----- ---- -------- ---------------------------------------------------------
+* 1.00  Ana  10/11/20 First release
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
 
-#ifndef XIS_PROC_H
-#define XIS_PROC_H
+#ifndef XIS_GPIO_H
+#define XIS_GPIO_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xis_main.h"
 
-/************************** Constant Definitions *****************************/
+#if defined(XIS_UPDATE_A_B_MECHANISM) && defined(XPAR_XGPIOPS_NUM_INSTANCES)
+#include "xgpiops.h"
+
+/************************** Variable Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define FW_UPDATE_BUTTON	(12U)
 
 /************************** Function Prototypes ******************************/
-int XPlm_InitProc(void);
+int GpioInit(void);
+u8 GetGpioStatus(void);
+#endif /* end of XIS_UPDATE_A_B_MECHANISM */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XIS_PROC_H */
+#endif

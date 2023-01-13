@@ -44,7 +44,7 @@ $(PROCESSOR)/lib/libxil.a: $(PROCESSOR)/lib/libxil_init.a
 
 %/make.libs: include
 	@echo "Running Make libs in $(subst /make.libs,,$@)"
-	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=$(COMPILER)" "ASSEMBLER=$(ASSEMBLER)" "ARCHIVER=$(ARCHIVER)" "COMPILER_FLAGS=  -O2 -c -mcpu=v10.0 -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-sections -Wall -Wextra -Os -flto -ffat-lto-objects"
+	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=$(COMPILER)" "ASSEMBLER=$(ASSEMBLER)" "ARCHIVER=$(ARCHIVER)" "COMPILER_FLAGS= -DVERSAL_IMAGE_SEL -O2 -c -mcpu=v10.0 -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare" "EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-sections -Wall -Wextra -Os -flto -ffat-lto-objects"
 
 %/make.clean:
 	$(MAKE) -C $(subst /make.clean,,$@) -s clean

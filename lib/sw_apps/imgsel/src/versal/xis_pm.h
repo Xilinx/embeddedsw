@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,7 +16,7 @@
 *
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  bsv  10/03/2022 Initial release
+* 1.00  skd  01/13/23 Initial release
 *
 * </pre>
 *
@@ -32,7 +33,9 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
-
+#define XPLM_NOCPLL_CFG_VAL		(0x7E5DCC65U)
+#define XPLM_NOCPLL_CTRL_VAL		(0x34809U)
+#define NOCPLL_TIMEOUT			(100000U)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -40,6 +43,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XPlm_PmInit(void);
 int XPlm_ProcessPmcCdo(void);
+int XPlm_ConfigureDefaultNPll(void);
 
 /************************** Variable Definitions *****************************/
 

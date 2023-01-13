@@ -1,5 +1,6 @@
 #/******************************************************************************
-#* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2020-2022 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -11,13 +12,11 @@ BOARD   ?= zcu102
 EXEC := imgsel.elf
 LIBS = libxil.a
 c_SOURCES := $(wildcard *.c)
-c_SOURCES += $(wildcard ../common/*.c)
-INCLUDES := $(wildcard ../common/*.h)
 INCLUDES += $(wildcard *.h)
 S_SOURCES := xis_translation_table_a53_64.S
 OBJS := $(patsubst %.c, %.o, $(c_SOURCES))
 LSCRIPT :=  -Tlscript.ld
-INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I. -I../common -I../../misc -I../../misc/$(BOARD)
+INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I. -I../../misc -I../../misc/$(BOARD)
 
 CC      :=      aarch64-none-elf-gcc
 AS      :=      aarch64-none-elf-gcc

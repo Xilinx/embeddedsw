@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2020-2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,10 +18,10 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  		Date     Changes
+* Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
-* 1.00  Ana       07/02/20 	First release
-* 1.01  Ana		  18/06/20 	Added QSPI support
+* 1.00  Ana  07/02/20 First release
+* 1.01  Ana  18/06/20 Added QSPI support
 *
 * </pre>
 *

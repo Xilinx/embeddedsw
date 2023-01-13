@@ -1,28 +1,31 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
- * @file xis_i2c.c
- *
- * This file used to Read the Board Name from IIC EEPROM. Based on the Board
- * name, multiboot offset value will get updated.
- *
- * <pre>
- * MODIFICATION HISTORY:
- *
- * Ver   Who  Date     Changes
- * ----- ---- -------- ---------------------------------------------------------
- * 1.00  bsv  10/03/22 First release
- *
- * </pre>
- *
- ******************************************************************************/
+* @file xis_i2c.c
+*
+* This file used to Read the Board Name from IIC EEPROM. Based on the Board
+* name, multiboot offset value will get updated.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- ---------------------------------------------------------
+* 1.00  skd  01/13/23 Initial release
+*
+* </pre>
+*
+******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xis_main.h"
+#include "xis_config.h"
+#include "xis_i2c.h"
+#include "xis_error.h"
 #include "xplmi_debug.h"
 
 
@@ -140,9 +143,8 @@ int XIs_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 	 */
 	WriteBuffer[0U] = (u8)(Address);
 
-	Status = XIs_EepromWriteData(&IicInstance, 1);
+	Status = XIs_EepromWriteData(&IicInstance, WrBfrOffset);
 	if (Status != XST_SUCCESS) {
-		xil_printf("write error\n\r");
 		Status = XIS_EEPROM_WRITE_ERROR;
 		goto END;
 	}
@@ -152,7 +154,6 @@ int XIs_EepromReadData(u8 *BufferPtr, u16 ReadAddress, u16 ByteCount,
 	Status = XIicPs_MasterRecvPolled(&IicInstance, BufferPtr,
 			ByteCount, XIS_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
-		xil_printf("recv poled eror %0x %0x %0x %0x\n\r", ByteCount, XIS_EEPROM_ADDRESS, Address, WrBfrOffset);
 		Status = XIS_IICPS_MASTER_RECV_POLLED_ERROR;
 		goto END;
 	}
@@ -324,7 +325,6 @@ END:
 int XIs_IicPsMuxInit(void)
 {
 	int Status = XST_FAILURE;
-	u8 MuxChannel = 1;
 	u16 DeviceId = XIS_I2C_EEPROM_INDEX;
 
 	Status = XIs_IicPsConfig(DeviceId);
@@ -333,11 +333,10 @@ int XIs_IicPsMuxInit(void)
 		goto END;
 	}
 
-	Status = XIs_MuxInitChannel(XIS_MUX_ADDR, MuxChannel);
+	Status = XIs_MuxInitChannel(XIS_MUX_ADDR, XIS_I2C_MUX_INDEX);
 	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_INFO,"Failed to enable the MUX channel\r\n");
-		Status = XIS_IICPS_MUX_ERROR;
-		goto END;
+		XPlmi_Printf(DEBUG_INFO,"Failed to enable MUX channel, this expected for VEK280\r\n");
+		Status = XST_SUCCESS;
 	}
 
 END:

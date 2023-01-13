@@ -1,8 +1,8 @@
 /******************************************************************************
- *
- * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
- * SPDX-License-Identifier: MIT
- *****************************************************************************/
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+*****************************************************************************/
 
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;

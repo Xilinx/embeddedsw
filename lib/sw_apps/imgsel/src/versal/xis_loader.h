@@ -7,9 +7,9 @@
 /*****************************************************************************/
 /**
 *
-* @file xis_proc.h
+* @file xis_loader.h
 *
-* This file contains declarations for PROC C file in Versal Image Selector.
+* This file contains the wrapper code xilloader
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,14 +24,16 @@
 *
 ******************************************************************************/
 
-#ifndef XIS_PROC_H
-#define XIS_PROC_H
+#ifndef XIS_LOADER_H
+#define XIS_LOADER_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_hw.h"
+#include "xloader.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -40,10 +42,12 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_InitProc(void);
+int XPlm_LoadBootPdi(void);
+
+/************************** Variable Definitions *****************************/
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* XIS_PROC_H */
+#endif  /* XIS_LOADER_H */
