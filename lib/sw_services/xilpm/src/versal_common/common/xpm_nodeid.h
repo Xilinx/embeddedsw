@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*
@@ -102,6 +103,8 @@ extern "C" {
 #define PM_POWER_OCM_1_1			(0x410404CU)
 #define PM_POWER_OCM_1_2			(0x410404DU)
 #define PM_POWER_OCM_1_3			(0x410404EU)
+#define PM_POWER_FPD_DOMAIN_CTRL	(0x453404FU)
+#define PM_POWER_PLD_DOMAIN_CTRL	(0x4534050U)
 /** @} */
 
 /**

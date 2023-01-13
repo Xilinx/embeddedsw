@@ -21,6 +21,7 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 #define XPM_POLL_TIMEOUT			(0X1000000U)
 #define XPM_DOMAIN_INIT_STATUS_REG		PMC_GLOBAL_PERS_GLOB_GEN_STORAGE0
 #define MAX_POWERDOMAINS			6U
+#define MAX_DOMAIN_CONTROL_MODES	2U
 
 #define XPM_HOUSECLEAN(PwrDomainNode, Func, Args, Num_Args, OutStatus) {\
 	if (PwrDomainNode->DomainOps->Func != NULL) { \
@@ -66,6 +67,20 @@ struct XPm_PowerDomain {
 	u32 HcDisableMask; /**< Mask for skipping housecleaning operations */
 };
 
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+typedef struct {
+	u16 Offset;			/* GPIO Register address offset */
+	u32 Mask;			/* GPIO pin mask */
+	u32 Value;			/* GPIO pin value */
+} XPmDomainCtrl_GPIO;
+
+typedef struct {
+	XPm_Power Power;
+	u32 ParentId;		/* Parent GPIO ID */
+	XPmDomainCtrl_GPIO GpioCtrl[MAX_DOMAIN_CONTROL_MODES];
+} XPm_DomainCtrl;
+#endif
+
 /************************** Function Prototypes ******************************/
 XStatus XPmPowerDomain_Init(XPm_PowerDomain *PowerDomain, u32 Id,
 			    u32 BaseAddress, XPm_Power *Parent,
@@ -91,6 +106,10 @@ XStatus XPmPower_CheckPower(const XPm_Rail *Rail, u32 VoltageRailMask);
 XStatus XPmPowerDomain_ApplyAmsTrim(u32 DestAddress, u32 PowerDomainId, u32 SateliteIdx);
 XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State);
 XStatus XPmPowerDomain_SecureEfuseTransfer(const u32 NodeId);
+
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u32 *Args, u32 NumArgs);
+#endif
 
 #ifdef __cplusplus
 }

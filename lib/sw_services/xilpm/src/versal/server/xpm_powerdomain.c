@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,6 +44,10 @@
 static u8 SystemResetFlag;
 static u8 DomainPORFlag;
 static u32 PsmApuPwrState;
+
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+static u32 RequestDomainId = 0U; /* Request domain to keep power up */
+#endif
 
 /*
  * Power rail index map
@@ -1286,12 +1291,222 @@ done:
 	return Status;
 }
 
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+/****************************************************************************/
+/**
+ * @brief  Initialize domainctrl node base class
+ *
+ * @param  DomainCtrl: Pointer to power domainctrl struct
+ * @param  DomainCtrlId: Node Id assigned to a Power DomainCtrl node
+ * @param  Args: Arguments for power domain control
+ * @param  NumArgs: Number of arguments for power domain
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ * @note Args is dependent on the domainctrl type. Passed arguments will be
+ *		 different for mode type.
+ *
+ ****************************************************************************/
+XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 BaseAddress = 0U;
+	u32 Mode, CmdLen, ArgIndex = 1U;
+	u8 ModeId;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Device* Device;
+
+	if ((u32)XPM_NODEIDX_POWER_MAX <= NODEINDEX(DomainCtrlId)) {
+		DbgErr = XPM_INT_ERR_INVALID_NODE_IDX;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((3U < NumArgs) &&
+		(2U == Args[ArgIndex])) { /* GPIO Type */
+		ArgIndex++;
+		DomainCtrl->ParentId = Args[ArgIndex];
+		ArgIndex++;
+		/* Check number of modes */
+		if (MAX_DOMAIN_CONTROL_MODES != Args[ArgIndex]) {
+			DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		/* Format as below:
+		 * add node domain controller, type, gpio id, num_modes,
+		 * mode0 id | mode1 id
+		 *
+		 * e.g.
+		 * pm_add_node 0x4534053 0x2 0x18224023 0x2 0x300 0x0040 0x100000 0x000000
+		 *                                          0x301 0x0040 0x100000 0x100000
+		 * arg0: power domain controller id = 0x4534053 (PL Domain Controller)
+		 * arg1: type = 2 (GPIO)
+		 * arg2: GPIO id = 0x18224023 (PM_DEV_GPIO)
+		 * arg3: num of modes = 0x02 (0:OFF; 1:ON;)
+		 * arg4: len | mode0 = 0x300 0x0040 0x100000 0x000000
+		 * arg5: len | mode1 = 0x301 0x0040 0x100000 0x100000
+		 */
+		for (Mode = 0; MAX_DOMAIN_CONTROL_MODES > Mode; Mode++) {
+			/* 4U: Command len | modid + offset + mask + value */
+			ArgIndex++;
+			if ((ArgIndex + 4U) > NumArgs) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			CmdLen = (u8)((Args[ArgIndex] >> 8U) & 0xFFU);
+			CmdLen = (u8)(CmdLen * 4U);	/* 4U: Num bytes in 32-bit word */
+			ModeId = (u8)(Args[ArgIndex] & 0xFFU);
+
+			if ((sizeof(XPmDomainCtrl_GPIO) != CmdLen) || (1U < ModeId)) {
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+			ArgIndex++;
+			DomainCtrl->GpioCtrl[ModeId].Offset = (u16)Args[ArgIndex];
+			ArgIndex++;
+			DomainCtrl->GpioCtrl[ModeId].Mask = Args[ArgIndex];
+			ArgIndex++;
+			DomainCtrl->GpioCtrl[ModeId].Value = Args[ArgIndex];
+		}
+
+		/* Get parent power domain and save it.
+		 * This is to request GPIO device during power domain init.
+		 * Request device prevents power domain powering down and
+		 * keeps the GPIO configuration (direction, oen) live.
+		 */
+		Device = (XPm_Device *)XPmDevice_GetById(DomainCtrl->ParentId);
+		if (NULL == Device) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+		RequestDomainId = Device->Power->Node.Id;
+		Status = XST_SUCCESS;
+	} else {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+	if (NULL == XPmPower_GetById(DomainCtrlId)) {
+		Status = XPmPower_Init(&DomainCtrl->Power, DomainCtrlId, BaseAddress, NULL);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_POWER_DOMAIN_INIT;
+		}
+	}
+	DomainCtrl->Power.Node.State = (u8)XPM_POWER_STATE_ON;
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  DomainCtrl control
+ *
+ * @param  DomainCtrlId: Domain Control ID
+ * @param  State: Domain power state
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *
+ ****************************************************************************/
+static XStatus XPmDomainCtrl_Control(u32 DomainCtrlId, u8 State)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u8 Mode, PowerState;
+	u32 NodeIdx;
+	u32 BaseAddress = 0U;
+	const XPm_Rail *Rail;
+	XPm_DomainCtrl *DomainCtrl;
+
+	DomainCtrl = (XPm_DomainCtrl *)XPmPower_GetById(DomainCtrlId);
+
+	if ((u8)XPM_POWER_STATE_ON == State) {
+		Mode = 1U;
+		PowerState = (u8)XPM_POWER_STATE_ON;
+		PmDbg("Turning %x domain on now\r\n", DomainCtrl->Power.Node.Id);
+	} else {
+		/* Turn off domain if it is the last one */
+		if (1U >= DomainCtrl->Power.UseCount) {
+			Mode = 0U;
+			DomainCtrl->Power.UseCount = 0U;
+			PowerState = (u8)XPM_POWER_STATE_OFF;
+			PmDbg("Turning %x domain off now\r\n", DomainCtrl->Power.Node.Id);
+		} else {
+			DomainCtrl->Power.UseCount--;
+			Status = XST_SUCCESS;
+			goto done;
+		}
+	}
+
+	/* Get the GPIO device base address */
+	Status = XPm_GetDeviceBaseAddr(DomainCtrl->ParentId, &BaseAddress);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Set GPIO value */
+	XPm_RMW32(BaseAddress + DomainCtrl->GpioCtrl[Mode].Offset,
+		DomainCtrl->GpioCtrl[Mode].Mask, DomainCtrl->GpioCtrl[Mode].Value);
+
+	if ((u8)XPM_POWER_STATE_ON == PowerState) {
+		/* Check if the power is on */
+		NodeIdx = NODEINDEX(DomainCtrl->Power.Node.Id);
+
+		if ((u32)XPM_NODEIDX_POWER_FPD_DOMAIN_CTRL == NodeIdx) {
+			Rail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSFP);
+			Status = XPmPower_CheckPower(Rail,
+							PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_FPD_MASK);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+				goto done;
+			}
+		} else if ((u32)XPM_NODEIDX_POWER_PLD_DOMAIN_CTRL == NodeIdx) {
+			Rail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PL);
+			Status = XPmPower_CheckPower(Rail,
+							PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_PL_MASK);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+				goto done;
+			}
+		} else {
+			/* Required by MISRA */
+		}
+	}
+
+	if ((u8)XPM_POWER_STATE_ON == PowerState) {
+		DomainCtrl->Power.UseCount++;
+	} else {
+		/* Required by MISRA */
+	}
+	DomainCtrl->Power.Node.State = PowerState;
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+#endif
+
 XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 {
 	XStatus Status = XST_FAILURE;
 	u32 i=0, j=0;
 	const XPm_PowerDomain *ParentDomain;
 	XPm_Rail *ParentRail;
+
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+	u8 ParentDomainCtrl = 0U;
+
+	/* Scan parents for a domain control node */
+	for (i = 0; ((i < MAX_POWERDOMAINS) && (0U != PwrDomain->Parents[i])); i++) {
+		if ((u32)XPM_NODESUBCL_POWER_DOMAIN_CTRL == NODESUBCLASS(PwrDomain->Parents[i])) {
+			ParentDomainCtrl = 1U;	/* Parent domain control exists */
+			break;
+		} else {
+			/* Required by MISRA */
+		}
+	}
+#endif
 
 	/* Update rail node usecounts */
 	for (i = 0; ((i < MAX_POWERDOMAINS) && (0U != PwrDomain->Parents[i])); i++) {
@@ -1309,17 +1524,24 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 				}
 			}
 		} else if ((u32)XPM_NODESUBCL_POWER_RAIL == NODESUBCLASS(PwrDomain->Parents[i])) {
-			ParentDomain = (XPm_PowerDomain *)XPmPower_GetById(PwrDomain->Parents[i]);
 			ParentRail = (XPm_Rail *)XPmPower_GetById(PwrDomain->Parents[i]);
 			if ((u8)XPM_POWER_STATE_ON == State) {
 				if (PM_POWER_PMC == PwrDomain->Power.Node.Id) {
 					ParentRail->Power.Node.State = (u8)XPM_POWER_STATE_ON;
 				} else if ((u8)XPM_POWER_STATE_ON != ParentRail->Power.Node.State) {
-					PmDbg("Turning %x rail on now\r\n", ParentRail->Power.Node.Id);
-					Status = XPmRail_Control(ParentRail,
-								 (u8)XPM_POWER_STATE_ON, 1U);
-					if (XST_SUCCESS != Status) {
-						goto done;
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+					/* If a parent domain control exists, then set the rail state on */
+					if (0U != ParentDomainCtrl) {
+						ParentRail->Power.Node.State = (u8)XPM_POWER_STATE_ON;
+					} else
+#endif
+					{
+						PmDbg("Turning %x rail on now\r\n", ParentRail->Power.Node.Id);
+						Status = XPmRail_Control(ParentRail,
+									(u8)XPM_POWER_STATE_ON, 1U);
+						if (XST_SUCCESS != Status) {
+							goto done;
+						}
 					}
 				} else {
 					/* Required by MISRA */
@@ -1328,14 +1550,29 @@ XStatus XPmPower_UpdateRailStats(const XPm_PowerDomain *PwrDomain, u8 State)
 			} else {
 				ParentRail->Power.UseCount--;
 				if (ParentRail->Power.UseCount <= 0U) {
-					PmDbg("Turning %x rail off now\r\n", ParentRail->Power.Node.Id);
-					Status = XPmRail_Control(ParentRail,
-								 (u8)XPM_POWER_STATE_OFF, 0U);
-					if (XST_SUCCESS != Status) {
-						goto done;
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+					/* If a parent domain control exists, then set rail state off */
+					if (0U != ParentDomainCtrl) {
+						ParentRail->Power.Node.State = (u8)XPM_POWER_STATE_OFF;
+					} else
+#endif
+					{
+						PmDbg("Turning %x rail off now\r\n", ParentRail->Power.Node.Id);
+						Status = XPmRail_Control(ParentRail,
+									(u8)XPM_POWER_STATE_OFF, 0U);
+						if (XST_SUCCESS != Status) {
+							goto done;
+						}
 					}
 				}
 			}
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+		} else if ((u32)XPM_NODESUBCL_POWER_DOMAIN_CTRL == NODESUBCLASS(PwrDomain->Parents[i])) {
+			Status = XPmDomainCtrl_Control(PwrDomain->Parents[i], State);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+#endif
 		} else {
 			PmDbg("Power parent error.\r\n");
 			Status = XST_FAILURE;
@@ -1685,6 +1922,22 @@ XStatus XPmPowerDomain_InitDomain(XPm_PowerDomain *PwrDomain, u32 Function,
 				DbgErr = XPM_INT_ERR_REQ_ME_DEVICE;
 				break;
 			}
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+		} else if (PM_POWER_LPD == PwrDomain->Power.Node.Id) {
+			if (PM_POWER_LPD == RequestDomainId) {
+				/* Request LPD GPIO device domainctrl initialization is done.
+				 * This is required to keep the LPD power domain up.
+				 */
+				Status = XPmDevice_Request(PM_SUBSYS_PMC, PM_DEV_GPIO,
+							XPM_MAX_CAPABILITY,
+							XPM_MAX_QOS,
+							XPLMI_CMD_SECURE);
+				if (XST_SUCCESS != Status) {
+					DbgErr = XPM_INT_ERR_REQ_GPIO;
+					break;
+				}
+			}
+#endif
 		} else {
 			/* Required for MISRA */
 		}

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -96,7 +97,8 @@ typedef enum {
 	XPM_NODESUBCL_POWER_DOMAIN = 0x2,
 	XPM_NODESUBCL_POWER_RAIL = 0x3,
 	XPM_NODESUBCL_POWER_REGULATOR = 0x4,
-	XPM_NODESUBCL_POWER_MAX = 0x5
+	XPM_NODESUBCL_POWER_DOMAIN_CTRL = 0x5,
+	XPM_NODESUBCL_POWER_MAX = 0x6
 } XPm_PowerNodeSubclass;
 
 /* Clock node subclass */
@@ -202,7 +204,8 @@ typedef enum {
 	XPM_NODETYPE_POWER_RAIL = 0xA,
 	XPM_NODETYPE_POWER_REGULATOR = 0xB,
 	XPM_NODETYPE_POWER_DOMAIN_HNICX = 0xC,
-	XPM_NODETYPE_POWER_MAX = 0xD
+	XPM_NODETYPE_POWER_DOMAIN_CTRL = 0xD,
+	XPM_NODETYPE_POWER_MAX = 0xE
 } XPm_PowerNodeType;
 
 /* Clock node type */
@@ -391,7 +394,9 @@ typedef enum {
 	XPM_NODEIDX_POWER_OCM_1_1 = 0x4C,
 	XPM_NODEIDX_POWER_OCM_1_2 = 0x4D,
 	XPM_NODEIDX_POWER_OCM_1_3 = 0x4E,
-	XPM_NODEIDX_POWER_MAX = 0x4F
+	XPM_NODEIDX_POWER_FPD_DOMAIN_CTRL = 0x4F,
+	XPM_NODEIDX_POWER_PLD_DOMAIN_CTRL = 0x50,
+	XPM_NODEIDX_POWER_MAX = 0x51
 } XPm_PowerNodeIdx;
 
 /* Power regulator node index */

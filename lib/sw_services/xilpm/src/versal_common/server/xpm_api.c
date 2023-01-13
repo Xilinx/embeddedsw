@@ -2015,6 +2015,9 @@ static XStatus XPm_AddNodePower(const u32 *Args, u32 NumArgs)
 
 	if ((ParentId != (u32)XPM_NODEIDX_POWER_MIN) &&
 	    ((u32)XPM_NODETYPE_POWER_RAIL != PowerType) &&
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+		((u32)XPM_NODETYPE_POWER_DOMAIN_CTRL != PowerType) &&
+#endif
 	    ((u32)XPM_NODETYPE_POWER_REGULATOR != PowerType)) {
 		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
 			Status = XST_INVALID_PARAM;

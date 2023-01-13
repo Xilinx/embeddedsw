@@ -1687,7 +1687,9 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 	XPm_AieDomain *AieDomain;
 	XPm_Rail *Rail;
 	XPm_Regulator *Regulator;
-
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+	XPm_DomainCtrl *DomainCtrl;
+#endif
 
 	if (1U > NumArgs) {
 		Status = XST_INVALID_PARAM;
@@ -1712,6 +1714,9 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 
 	if ((ParentId != (u32)XPM_NODEIDX_POWER_MIN) &&
 	    ((u32)XPM_NODETYPE_POWER_RAIL != PowerType) &&
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+		((u32)XPM_NODETYPE_POWER_DOMAIN_CTRL != PowerType) &&
+#endif
 	    ((u32)XPM_NODETYPE_POWER_REGULATOR != PowerType)) {
 		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
 			Status = XST_INVALID_PARAM;
@@ -1751,6 +1756,19 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 		}
 		Status = XPmRail_Init(Rail, PowerId, Args, NumArgs);
 		break;
+#ifdef VERSAL_ENABLE_DOMAIN_CONTROL_GPIO
+	case (u32)XPM_NODETYPE_POWER_DOMAIN_CTRL:
+		DomainCtrl = (XPm_DomainCtrl *)XPmPower_GetById(PowerId);
+		if (NULL == DomainCtrl) {
+			DomainCtrl = (XPm_DomainCtrl *)XPm_AllocBytes(sizeof(XPm_DomainCtrl));
+			if (NULL == DomainCtrl) {
+				Status = XST_BUFFER_TOO_SMALL;
+				goto done;
+			}
+		}
+		Status = XPmDomainCtrl_Init(DomainCtrl, PowerId, Args, NumArgs);
+		break;
+#endif
 	case (u32)XPM_NODETYPE_POWER_REGULATOR:
 		Regulator = (XPm_Regulator *)XPmRegulator_GetById(PowerId);
 		if (Regulator == NULL) {
