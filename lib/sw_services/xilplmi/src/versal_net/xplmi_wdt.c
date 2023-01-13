@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *
 * </pre>
 *
@@ -63,7 +64,6 @@
 typedef struct {
 	u8 PlmLiveStatus; /**< PLM sets this bit to indicate it is alive */
 	u8 IsEnabled; /**< Used to indicate if WDT is enabled or not */
-	u8 PlmMode; /**< Indicates PLM configuration / operational mode */
 	u32 Periodicity; /**< WDT period at which PLM should set the
 			   live status */
 	u32 GpioAddr; /**< GPIO address corresponding to MIO used for WDT */
@@ -83,7 +83,6 @@ static int XPlmi_WdtDrvInit(void);
 static XPlmi_Wdt WdtInstance = {
 	.PlmLiveStatus = (u8)FALSE,
 	.IsEnabled = (u8)FALSE,
-	.PlmMode = XPLMI_MODE_CONFIGURATION,
 	.Periodicity = XPLMI_WDT_PERIODICITY,
 	.GpioAddr = 0U,
 	.GpioMask = 0U,
@@ -100,7 +99,6 @@ typedef struct {
 static XPlmi_PmcWdt PmcWdtInstance __attribute__ ((aligned(4U))) = {
 	.WdtInst.PlmLiveStatus = (u8)FALSE,
 	.WdtInst.IsEnabled = (u8)FALSE,
-	.WdtInst.PlmMode = XPLMI_MODE_CONFIGURATION,
 	.WdtInst.Periodicity = XPLMI_WDT_PERIODICITY,
 	.WdtInst.GpioAddr = 0U,
 	.WdtInst.GpioMask = 0U,
@@ -323,24 +321,6 @@ void XPlmi_StopWdt(u32 NodeId)
 
 /*****************************************************************************/
 /**
- * @brief	This function sets the PLM mode to configuration or Operation
- *		Mode
- *
- * @param	Mode to be set.
- *
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_SetPlmMode(u8 Mode)
-{
-#ifdef XPLMI_PMC_WDT
-	PmcWdtInstance.WdtInst.PlmMode = Mode;
-#endif
-	WdtInstance.PlmMode = Mode;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function Sets the PLM Status.
  *
  * @param	None
@@ -410,8 +390,7 @@ static void XPlmi_RefreshWdt(u32 NodeId)
 	/** Toggle MIO only when last reset period exceeds periodicity */
 	if (WdtPtr->LastResetPeriod >
 	    (WdtPtr->Periodicity - MinPeriodicity)) {
-		if ((WdtPtr->PlmMode == XPLMI_MODE_CONFIGURATION) ||
-		    (WdtPtr->PlmLiveStatus == (u8)TRUE)) {
+		if (WdtPtr->PlmLiveStatus == (u8)TRUE) {
 			XPlmi_KickWdt(NodeId);
 			WdtPtr->PlmLiveStatus = (u8)FALSE;
 		}

@@ -66,6 +66,7 @@
 *       skg  10/17/2022 Added Null to invalid command handler of xilloader cmd module
 * 1.09  ng   11/11/2022 Updated doxygen comments
 *       sk   01/11/2023 Added new image store feature
+*       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *
 * </pre>
 *
@@ -230,15 +231,12 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd *Cmd)
 	PdiPtr->IpiMask = Cmd->IpiMask;
 	XPlmi_Printf(DEBUG_INFO, "%s \n\r", __func__);
 
-	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
-
 	Status = XLoader_RestartImage(ImgId, FuncID);
 	if (Status != XST_SUCCESS) {
 		/* Update the error code */
 		XPlmi_ErrMgr(Status);
 	}
 
-	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 	return Status;
 }
@@ -916,7 +914,6 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	u64 MetaHdrOfst;
 	u32 Index;
 
-	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
 	SrcAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_LOW_INDEX]) |
 			(SrcAddr << 32U);
 	DestAddr = ((u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_LOW_INDEX]) |
@@ -1018,7 +1015,6 @@ static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_GENERAL, "Extracted Metaheader Successfully\n\r");
 
 END:
-	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
 	Cmd->Response[XLOADER_RESP_CMD_EXTRACT_METAHDR_SIZE_INDEX] = TotalDataSize;
 

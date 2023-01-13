@@ -20,6 +20,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  bm   07/06/2022 Initial release
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *
 * </pre>
 *
@@ -44,8 +45,6 @@ extern "C" {
  * @{
  * @cond xplmi_internal
  */
-#define XPLMI_MODE_OPERATIONAL		(1U)
-#define XPLMI_MODE_CONFIGURATION	(2U)
 
 /* WDT Timeout (in ms) to be used in In-Place Update */
 #define XPLMI_INPLACE_UPDATE_WDT_TIMEOUT	(100U)
@@ -75,7 +74,6 @@ static inline u8 XPlmi_RomSwdtUsage(void) {
 }
 
 /************************** Function Prototypes ******************************/
-void XPlmi_SetPlmMode(u8 Mode);
 void XPlmi_SetPlmLiveStatus(void);
 void XPlmi_ClearPlmLiveStatus(void);
 /**

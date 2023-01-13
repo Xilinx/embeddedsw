@@ -51,6 +51,7 @@
 *       bm   07/22/2022 Update EAM logic for In-Place PLM Update
 * 1.07  ng   11/11/2022 Updated doxygen comments
 *       kpt  01/04/2023 Added XPlmi_SetFipsKatMask command
+*       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *
 * </pre>
 *
@@ -64,6 +65,8 @@
 #include "xplmi_wdt.h"
 #include "xplmi_hw.h"
 #include "xplmi_plat.h"
+#include "xplmi_wdt.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -94,6 +97,7 @@ int XPlmi_Init(void)
 		goto END;
 	}
 	XPlmi_GenericInit();
+	Xil_RegisterPlmHandler(XPlmi_SetPlmLiveStatus);
 
 END:
 	return Status;

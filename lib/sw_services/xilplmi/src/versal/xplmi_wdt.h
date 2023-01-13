@@ -23,6 +23,7 @@
 * 1.01  bsv  08/13/2021 Code clean up
 * 1.02  bm   07/06/2022 Refactor versal and versal_net code
 * 1.03  ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *
 * </pre>
 *
@@ -46,8 +47,6 @@ extern "C" {
  * @{
  * @cond xplmi_internal
  */
-#define XPLMI_MODE_OPERATIONAL		(1U)
-#define XPLMI_MODE_CONFIGURATION	(2U)
 
 #define XPLMI_WDT_EXTERNAL		(0x14104001U)
 
@@ -56,7 +55,6 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XPlmi_SetPlmMode(u8 Mode);
 void XPlmi_SetPlmLiveStatus(void);
 void XPlmi_ClearPlmLiveStatus(void);
 /**

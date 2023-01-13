@@ -23,6 +23,7 @@
 *       bsv  08/13/2021 Code clean up
 * 1.02  bm   07/06/2022 Refactor versal and versal_net code
 * 1.03  ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *
 * </pre>
 *
@@ -58,7 +59,6 @@
 typedef struct {
 	u8 PlmLiveStatus; /**< PLM sets this bit to indicate it is alive */
 	u8 IsEnabled; /**< Used to indicate if WDT is enabled or not */
-	u8 PlmMode; /**< Indicates PLM configuration / operational mode */
 	u32 Periodicity; /**< WDT period at which PLM should set the
 			   live status */
 	u32 GpioAddr; /**< GPIO address corresponding to MIO used for WDT */
@@ -73,7 +73,6 @@ typedef struct {
 static XPlmi_Wdt WdtInstance = {
 	.PlmLiveStatus = (u8)FALSE,
 	.IsEnabled = (u8)FALSE,
-	.PlmMode = XPLMI_MODE_CONFIGURATION,
 	.Periodicity = XPLMI_WDT_PERIODICITY,
 	.GpioAddr = 0U,
 	.GpioMask = 0U
@@ -162,21 +161,6 @@ void XPlmi_DisableWdt(u32 NodeId)
 
 /*****************************************************************************/
 /**
- * @brief	This function sets the PLM mode to configuration or Operation
- *		Mode
- *
- * @param	Mode to be set.
- *
- * @return	None
- *
- *****************************************************************************/
-void XPlmi_SetPlmMode(u8 Mode)
-{
-	WdtInstance.PlmMode = Mode;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function Sets the PLM Status.
  *
  * @return	None
@@ -222,8 +206,7 @@ void XPlmi_WdtHandler(void)
 	/** Toggle MIO only when last reset period exceeds periodicity */
 	if (WdtLastResetPeriod >
 	    (u32)(WdtInstance.Periodicity - XPLMI_WDT_PERIODICITY_MIN)) {
-		if ((WdtInstance.PlmMode == XPLMI_MODE_CONFIGURATION) ||
-		    (WdtInstance.PlmLiveStatus == (u8)TRUE)) {
+		if (WdtInstance.PlmLiveStatus == (u8)TRUE) {
 			XPlmi_Out32(WdtInstance.GpioAddr,
 			XPlmi_In32(WdtInstance.GpioAddr) ^ WdtInstance.GpioMask);
 			WdtInstance.PlmLiveStatus = (u8)FALSE;

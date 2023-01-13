@@ -149,6 +149,7 @@
 *
 *       bm   01/04/2023 Switch to SSIT Events as soon as basic Noc path is
 *                       configured
+*       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 * </pre>
 *
 * @note
@@ -926,8 +927,6 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
-	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
-
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
 			PdiSrc, PdiAddr);
 	Status = XLoader_LoadAndStartSubSystemPdi(PdiPtr);
@@ -936,7 +935,6 @@ int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	}
 
 END:
-	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	return Status;
 }
 
@@ -1491,8 +1489,6 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 	u8 PrtnNum = 0U;
 	u8 Index;
 
-	XPlmi_SetPlmMode(XPLMI_MODE_CONFIGURATION);
-
 	for (Index = 0U; Index < (u8)PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
 		++Index) {
 		if (PdiPtr->MetaHdr.ImgHdr[Index].ImgID == ImageId) {
@@ -1550,7 +1546,6 @@ END:
 			Status = SStatus;
 		}
 	}
-	XPlmi_SetPlmMode(XPLMI_MODE_OPERATIONAL);
 	PdiPtr->PdiSrc = PdiSrc;
 	PdiPtr->PdiIndex = PdiIndex;
 	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[PdiPtr->PdiIndex].Copy;
