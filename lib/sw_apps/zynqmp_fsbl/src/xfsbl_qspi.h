@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +28,7 @@
 * 5.0   bsv  11/15/20 Added Macronix 2G flash support
 * 6.0   bsv  07/29/21 Added Winbond 2G flash support
 *       bsv  09/08/21 Added MultiDie read support for Micron 2G flash part
-*
+*	 	dd   13/01/23 Added Gigadevice flash support
 * </pre>
 *
 * @note
@@ -156,6 +157,7 @@ extern "C" {
 #define WINBOND_ID		(0xEFU)
 #define MACRONIX_ID		(0xC2U)
 #define ISSI_ID			(0x9DU)
+#define GIGADEVICE_ID  	(0xC8U)
 
 #define FLASH_SIZE_ID_8M		(0x14U)
 #define FLASH_SIZE_ID_16M		(0x15U)
@@ -174,6 +176,10 @@ extern "C" {
 #define MACRONIX_FLASH_1_8_V_SIZE_ID_1G  	(0x3BU)
 #define MACRONIX_FLASH_1_8_V_MX25_ID_256	(0x39U)
 #define MACRONIX_FLASH_1_8_V_MX66_ID_512	(0x3AU)
+/* GIGADEVICE size constants are different for 512M and 1G */
+#define GIGADEVICE_FLASH_SIZE_ID_512M          (0x1AU)
+#define GIGADEVICE_FLASH_SIZE_ID_1G            (0x1BU)
+#define GIGADEVICE_FLASH_SIZE_ID_2G            (0x1CU)
 
 /*
  * Size in bytes

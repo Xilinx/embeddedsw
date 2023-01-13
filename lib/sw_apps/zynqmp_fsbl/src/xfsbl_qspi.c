@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2015 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,7 @@
 *                     64 byte aligned
 *       bsv  05/03/22 Replace memcpy with Xil_MemCpy to avoid non-word aligned
 *                     access to memory
+*       dd   13/01/23 Added Gigadevice flash support
 *
 * </pre>
 *
@@ -144,6 +146,9 @@ static u32 FlashReadID(XQspiPsu *QspiPsuPtr)
 	} else if(ReadBuffer[0] == ISSI_ID) {
 		QspiFlashMake = ISSI_ID;
 		XFsbl_Printf(DEBUG_INFO, "ISSI ");
+	} else if(ReadBuffer[0] == GIGADEVICE_ID) {
+		QspiFlashMake = GIGADEVICE_ID;
+		XFsbl_Printf(DEBUG_INFO, "GIGADEVICE ");
 	} else {
 		UStatus = XFSBL_ERROR_UNSUPPORTED_QSPI;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_UNSUPPORTED_QSPI\r\n");
@@ -173,16 +178,19 @@ static u32 FlashReadID(XQspiPsu *QspiPsuPtr)
 		QspiFlashSize = FLASH_SIZE_256M;
 		XFsbl_Printf(DEBUG_INFO, "256M Bits\r\n");
 	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_512M)
+		    || (ReadBuffer[2] == GIGADEVICE_FLASH_SIZE_ID_512M)
 			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_512M)
 			|| (ReadBuffer[2] == MACRONIX_FLASH_1_8_V_MX66_ID_512)) {
 		QspiFlashSize = FLASH_SIZE_512M;
 		XFsbl_Printf(DEBUG_INFO, "512M Bits\r\n");
 	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_1G)
+			|| (ReadBuffer[2] == GIGADEVICE_FLASH_SIZE_ID_1G)
 			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_1G)
 			|| (ReadBuffer[2] == MACRONIX_FLASH_1_8_V_SIZE_ID_1G)) {
 		QspiFlashSize = FLASH_SIZE_1G;
 		XFsbl_Printf(DEBUG_INFO, "1G Bits\r\n");
 	} else if ((ReadBuffer[2] == FLASH_SIZE_ID_2G)
+			|| (ReadBuffer[2] == GIGADEVICE_FLASH_SIZE_ID_2G)
 			|| (ReadBuffer[2] == MACRONIX_FLASH_SIZE_ID_2G)
 			|| (ReadBuffer[2] == MACRONIX_FLASH_1_8_V_SIZE_ID_2G)) {
                 QspiFlashSize = FLASH_SIZE_2G;
