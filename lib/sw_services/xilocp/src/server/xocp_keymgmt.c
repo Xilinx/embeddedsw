@@ -26,6 +26,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
 #include "xocp_keymgmt.h"
 #include "xocp_hw.h"
 #include "xocp_def.h"
@@ -33,9 +34,11 @@
 #include "xplmi.h"
 #include "xplmi_tamper.h"
 #include "xsecure_hmac.h"
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_elliptic.h"
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_ellipticplat.h"
+#endif
 #include "xil_util.h"
 #include "xsecure_init.h"
 #include "xsecure_plat_kat.h"
@@ -204,8 +207,10 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
 	u8 Seed[XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES];
+#ifndef PLM_ECDSA_EXCLUDE
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
+#endif
 	int ClrStatus = XST_FAILURE;
 	u8 CryptoKatEn = TRUE;
 	u8 CryptoKatEnTmp = TRUE;
@@ -221,6 +226,7 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 		goto END;
 	}
 
+#ifndef PLM_ECDSA_EXCLUDE
 	/* Generate the DEV AK public and private keys */
 	KeyGenParams.SeedAddr = (u32)Seed;
 	KeyGenParams.SeedLength = XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES;
@@ -238,7 +244,6 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
 	CryptoKatEnTmp = CryptoKatEn;
 	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
@@ -257,6 +262,13 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 		XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY X");
 	XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)DevAkData->EccY,
 		XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY Y");
+
+#else
+	(void)CryptoKatEn;
+    (void)CryptoKatEnTmp;
+	(void)StatusTmp;
+	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
+#endif
 
 END:
 	ClrStatus = Xil_SMemSet(Seed, XOCP_CDI_SIZE_IN_BYTES,
@@ -353,9 +365,11 @@ static int XOcp_KeyGenerateDevIk(void)
 	volatile int StatusTmp = XST_FAILURE;
 	u8 Seed[XOCP_CDI_SIZE_IN_BYTES];
 	u8 PersString[XSECURE_TRNG_PERS_STRING_LEN_IN_BYTES];
+#ifndef PLM_ECDSA_EXCLUDE
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES];
+#endif
 	u32 ClrStatus = XST_FAILURE;
 	u8 CryptoKatEn = TRUE;
 	u8 CryptoKatEnTmp = TRUE;
@@ -389,6 +403,7 @@ static int XOcp_KeyGenerateDevIk(void)
 		goto END;
 	}
 
+#ifndef PLM_ECDSA_EXCLUDE
 	/* Generate the DEV IK public and private keys */
 	KeyGenParams.SeedAddr = (u32)Seed;
 	KeyGenParams.SeedLength = XOCP_CDI_SIZE_IN_BYTES;
@@ -428,12 +443,21 @@ static int XOcp_KeyGenerateDevIk(void)
 		goto END;
 	}
 
+#else
+	(void)CryptoKatEn;
+	(void)CryptoKatEnTmp;
+	(void)StatusTmp;
+	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
+#endif
+
 END:
+#ifndef PLM_ECDSA_EXCLUDE
 	ClrStatus = Xil_SMemSet(EccPrvtKey, XOCP_ECC_P384_SIZE_BYTES,
 				0U, XOCP_ECC_P384_SIZE_BYTES);
 	if (ClrStatus != XST_SUCCESS) {
 		Status |= ClrStatus;
 	}
+#endif
 	ClrStatus = Xil_SMemSet(Seed, XOCP_CDI_SIZE_IN_BYTES,
 				0U, XOCP_CDI_SIZE_IN_BYTES);
 	if (ClrStatus != XST_SUCCESS) {

@@ -55,8 +55,9 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-
+#ifndef PLM_RSA_EXCLUDE
 static int XLoader_RsaPssSignVeirfyKat(XPmcDma *PmcDmaPtr);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -201,6 +202,7 @@ int XLoader_AddDeviceStateChangeToScheduler(void)
 	return Status;
 }
 
+#ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
 * @brief    This function runs the KAT for RSA
@@ -217,6 +219,7 @@ int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
 
 	return Status;
 }
+#endif
 
 /******************************************************************************/
 /**
@@ -255,6 +258,7 @@ int XLoader_CheckDeviceStateChange(void *Arg)
 	return XST_SUCCESS;
 }
 
+#ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
 * @brief    This function runs the KAT for RSA PSS verification
@@ -329,6 +333,7 @@ END:
 
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**

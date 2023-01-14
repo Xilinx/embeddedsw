@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,8 +29,11 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 #include "xsecure_error.h"
+#ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa.h"
+#endif
 #include "xsecure_kat.h"
 #include "xil_util.h"
 
@@ -117,6 +121,7 @@ static const u8 ExpSha3Hash[XSECURE_HASH_SIZE_IN_BYTES] = {
 	0x9CU, 0x45U, 0x89U, 0x72U, 0x5CU, 0x58U, 0xBFU, 0x02U
 };
 
+#ifndef PLM_RSA_EXCLUDE
 static const u32 RsaModulus[XSECURE_RSA_4096_SIZE_WORDS] = {
 	0x6DABEC96U, 0x097DBAFCU, 0xF6361AA5U, 0x77245773U,
 	0x6197AFF4U, 0x5A8BC11AU, 0x5CB32F2EU, 0xADF8F12AU,
@@ -256,7 +261,9 @@ static const u32 RsaExpCtData[XSECURE_RSA_4096_SIZE_WORDS] = {
 	0x56BD0228U, 0x51D760BFU, 0x573D39D2U, 0x83100F6DU,
 	0x578DB621U, 0xF6FD8218U, 0x9262BBCBU, 0xE04381CDU
 };
+#endif
 
+#ifndef PLM_ECDSA_EXCLUDE
 static const u8 Pubkey_P384[XSECURE_ECC_P384_SIZE_IN_BYTES +
 			XSECURE_ECC_P384_SIZE_IN_BYTES] = {
 	0x39U, 0x73U, 0x5BU, 0xD7U, 0x8AU, 0x33U, 0x23U, 0x2AU,
@@ -330,7 +337,7 @@ static const u8 ExpEccSha3Hash[XSECURE_KAT_ECC_P521_SHA3_HASH_SIZE_IN_BYTES] = {
 	0X00, 0X00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00
 };
-
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -379,6 +386,7 @@ u8* XSecure_GetKatSha3ExpHash(void) {
 	return (u8*)&ExpSha3Hash[0U];
 }
 
+#ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function returns modulus for RSA KAT
@@ -414,7 +422,9 @@ u32* XSecure_GetKatRsaModExt(void) {
 u32* XSecure_GetKatRsaData(void) {
 	return (u32*)&RsaData[0U];
 }
+#endif
 
+#ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function returns ECC public key to perform KAT
@@ -524,6 +534,7 @@ u8* XSecure_GetKatEccEphimeralKey(XSecure_EllipticCrvTyp CrvType) {
 
 	return K;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -989,6 +1000,7 @@ END:
 	return Status;
 }
 
+#ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function performs KAT on RSA core
@@ -1135,7 +1147,9 @@ END_CLR:
 END:
 	return Status;
 }
+#endif
 
+#ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function performs ECC sign verify known answer test(KAT) on ECC core
@@ -1282,3 +1296,4 @@ END_CLR:
 END:
 	return Status;
 }
+#endif

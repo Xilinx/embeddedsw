@@ -26,6 +26,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xil_util.h"
 #include "xsecure_elliptic.h"
 #include "xsecure_ellipticplat.h"
@@ -693,3 +696,4 @@ static void XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen)
 	*BitStrLenIdx = Curr - BitStrValIdx;
 	*SignLen = Curr - X509CertBuf;
 }
+#endif

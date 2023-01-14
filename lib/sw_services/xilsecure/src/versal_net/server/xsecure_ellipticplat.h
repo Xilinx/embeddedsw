@@ -33,6 +33,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_ellipticcrvs.h"
 #include "xsecure_trng.h"
 
@@ -52,6 +55,8 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ElliptcPrivateKeyGen *PrivateKey);
 int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 	u32 EphemeralKeyAddr);
+
+#endif
 
 #ifdef __cplusplus
 }

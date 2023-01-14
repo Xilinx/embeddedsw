@@ -598,6 +598,8 @@ typedef enum {
 	XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, /**< 0x371 - Skip processing rest of the partitions
 						as secure lockdown has been triggered */
 	XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET, /**< 0x372 - Image Store configuration is not enabled/error */
+	XLOADER_ERR_ECDSA_NOT_ENABLED, /**< 0x373 - ECDSA code is excluded */
+	XLOADER_ERR_RSA_NOT_ENABLED, /**< 0x374 - RSA code is excluded */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 

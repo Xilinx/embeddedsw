@@ -126,6 +126,7 @@ XSecure_Aes *XSecure_GetAesInstance(void)
 	return &AesInstance;
 }
 
+#ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function provides the pointer to the common Rsa instance
@@ -141,6 +142,7 @@ XSecure_Rsa *XSecure_GetRsaInstance(void)
 
 	return &RsaInstance;
 }
+#endif
 
 /*****************************************************************************/
 /**

@@ -37,7 +37,9 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xsecure_aes.h"
+#ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa_core.h"
+#endif
 #include "xsecure_sha.h"
 
 /************************** Constant Definitions *****************************/
@@ -48,7 +50,9 @@ extern "C" {
 int XSecure_Init(void);
 XSecure_Sha3 *XSecure_GetSha3Instance(void);
 XSecure_Aes *XSecure_GetAesInstance(void);
+#ifndef PLM_RSA_EXCLUDE
 XSecure_Rsa *XSecure_GetRsaInstance(void);
+#endif
 int XSecure_TrngInit(void);
 XSecure_Sha3 *XSecure_GetSha1Instance(void);
 

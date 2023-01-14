@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +30,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xplmi_dma.h"
 #include "xsecure_defs.h"
 #include "xsecure_elliptic.h"
@@ -309,3 +313,5 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 END:
 	return Status;
 }
+
+#endif

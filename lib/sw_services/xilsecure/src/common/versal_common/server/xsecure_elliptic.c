@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +55,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_error.h"
 #include "xsecure_elliptic.h"
 #include "xsecure_ecdsa_rsa_hw.h"
@@ -750,3 +754,5 @@ static void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
 		XSecure_OutByte64((DstAddr + Index), Src[Index]);
 	}
 }
+
+#endif

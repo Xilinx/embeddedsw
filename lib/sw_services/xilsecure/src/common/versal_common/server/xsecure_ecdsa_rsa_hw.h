@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +36,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 
+#if (!defined(PLM_ECDSA_EXCLUDE) || !defined(PLM_RSA_EXCLUDE))
 /************************** Constant Definitions *****************************/
 #define XSECURE_ECDSA_RSA_BASEADDR			(0xF1200000U)
 					/**< Base address of ECDSA RSA core */
@@ -95,6 +98,7 @@ extern "C" {
 #define XSECURE_ECDSA_RSA_RSA_CFG_WR_ENDIANNESS_MASK	(0x00000001U)
 #define XSECURE_ECDSA_RSA_CFG_CLEAR_ENDIANNESS_MASK	(0U)
 /** @} */
+#endif
 
 #ifdef __cplusplus
 }

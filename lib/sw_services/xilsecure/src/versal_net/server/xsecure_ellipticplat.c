@@ -31,6 +31,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_ellipticplat.h"
 #include "xsecure_plat_kat.h"
 #include "xsecure_error.h"
@@ -237,3 +240,5 @@ END:
 RET:
 	return Status;
 }
+
+#endif

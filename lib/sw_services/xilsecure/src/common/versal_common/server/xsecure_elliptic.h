@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -43,6 +44,9 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xil_types.h"
 #include "xsecure_ellipticcrvs.h"
 
@@ -99,6 +103,8 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_EllipticHashData *HashInfo, XSecure_EllipticKeyAddr *KeyAddr,
 	XSecure_EllipticSignAddr *SignAddr);
+
+#endif
 
 #ifdef __cplusplus
 }

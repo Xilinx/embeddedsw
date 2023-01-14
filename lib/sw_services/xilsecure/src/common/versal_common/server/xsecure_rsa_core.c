@@ -52,6 +52,8 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+#ifndef PLM_RSA_EXCLUDE
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_rsa.h"
 #include "xil_util.h"
@@ -628,3 +630,5 @@ u8* XSecure_RsaGetTPadding(void)
 {
 	return (u8 *)XSecure_Silicon2_TPadSha3;
 }
+
+#endif

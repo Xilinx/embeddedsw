@@ -128,6 +128,8 @@ extern "C" {
  *	- PLM_SECURE_EXCLUDE secure code will be excluded (included by default)
  *	- PLM_NVM_EXCLUDE NVM handlers will be excluded (excluded by default)
  *	- PLM_PUF_EXCLUDE PUF handlers will be excluded (excluded by default)
+ *	- PLM_ECDSA_EXCLUDE handlers will be excluded (included by default)
+ *	- PLM_RSA_EXCLUDE handlers will be excluded (included by default)
  *
  * Please note that below are defined in xparameters.h based on the
  * xilplmi library configuration, hence all the below are commented out here.
@@ -140,6 +142,8 @@ extern "C" {
 //#define PLM_SECURE_EXCLUDE
 //#define PLM_NVM_EXCLUDE
 //#define PLM_PUF_EXCLUDE
+//#define PLM_ECDSA_EXCLUDE
+//#define PLM_RSA_EXCLUDE
 
 #if (!defined(PLM_NVM_EXCLUDE)) && (!defined(PLM_NVM))
 #define PLM_NVM

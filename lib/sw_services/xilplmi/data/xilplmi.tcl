@@ -80,6 +80,9 @@ proc xgen_opts_file {libhandle} {
 	# Copy the include files to the include directory
 	set srcdir src
 	set dstdir [file join .. .. include]
+	set proc_instance [hsi::get_sw_processor];
+	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
 	# Create dstdir if it does not exist
 	if { ! [file exists $dstdir] } {
@@ -224,6 +227,26 @@ proc xgen_opts_file {libhandle} {
 		if {($value == true) && ($SlrCount > 1)} {
 			puts $file_handle "\n/* SSIT PLM to PLM Communication enable */"
 			puts $file_handle "#define PLM_ENABLE_PLM_TO_PLM_COMM"
+		}
+	}
+
+	# Get plm_ecdsa_en value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.plm_ecdsa_en $libhandle]
+	if {$value == false} {
+		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $proc_type == "psv_pmc"} {
+			set file_handle [hsi::utils::open_include_file "xparameters.h"]
+			puts $file_handle "\n/* ECDSA code disable */"
+			puts $file_handle "#define PLM_ECDSA_EXCLUDE"
+		}
+	}
+
+	# Get plm_rsa_en value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.plm_rsa_en $libhandle]
+	if {$value == false} {
+		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $proc_type == "psv_pmc"} {
+			set file_handle [hsi::utils::open_include_file "xparameters.h"]
+			puts $file_handle "\n/* RSA code disable */"
+			puts $file_handle "#define PLM_RSA_EXCLUDE"
 		}
 	}
 

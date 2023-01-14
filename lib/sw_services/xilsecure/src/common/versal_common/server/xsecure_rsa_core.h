@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -46,6 +46,8 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+#ifndef PLM_RSA_EXCLUDE
 #include "xsecure_utils.h"
 /************************** Constant Definitions ****************************/
 #define XSECURE_RSA_DATA_VALUE_ERROR	(0x2U) /**< for RSA private decryption
@@ -152,6 +154,7 @@ int XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u64 Input,
 /* Versal specific function for selection of PKCS padding */
 u8* XSecure_RsaGetTPadding(void);
 int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr);
+#endif
 
 #ifdef __cplusplus
 }

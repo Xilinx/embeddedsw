@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,9 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_ellipticcrvs.h"
 #include "xparameters.h"
 
@@ -391,3 +395,5 @@ u32 XSecure_EllipticCrvsGetCount(void)
 {
 	return sizeof(XSecure_EllipticCrvsDb) / sizeof(EcdsaCrvInfo);
 }
+
+#endif

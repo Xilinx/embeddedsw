@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,9 +36,12 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 #include "xsecure_aes.h"
 #include "xsecure_sha.h"
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_elliptic.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -55,22 +59,27 @@ extern "C" {
 u8* XSecure_GetKatMessage(void);
 u8* XSecure_GetKatAesKey(void);
 u8* XSecure_GetKatSha3ExpHash(void);
+#ifndef PLM_RSA_EXCLUDE
 u32* XSecure_GetKatRsaModulus(void);
 u32* XSecure_GetKatRsaModExt(void);
 u32* XSecure_GetKatRsaData(void);
+int XSecure_RsaPublicEncryptKat(void);
+int XSecure_RsaPrivateDecryptKat(void);
+#endif
+
+#ifndef PLM_ECDSA_EXCLUDE
 XSecure_EllipticKey* XSecure_GetKatEccPublicKey(XSecure_EllipticCrvClass CrvClass);
 XSecure_EllipticSign* XSecure_GetKatEccExpSign(XSecure_EllipticCrvClass CrvClass);
 u8* XSecure_GetKatEccPrivateKey(XSecure_EllipticCrvClass CrvClass);
 u8* XSecure_GetKatEccEphimeralKey(XSecure_EllipticCrvTyp Curvetype);
-int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance);
-int XSecure_AesDecryptKat(XSecure_Aes *AesInstance);
-int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
-int XSecure_RsaPublicEncryptKat(void);
 int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass);
 int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass);
 int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_EllipticKeyAddr *PubKeyAddr);
+#endif
+int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance);
+int XSecure_AesDecryptKat(XSecure_Aes *AesInstance);
 int XSecure_AesEncryptKat(XSecure_Aes *AesInstance);
-int XSecure_RsaPrivateDecryptKat(void);
+int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
 
 #ifdef __cplusplus
 }

@@ -46,10 +46,14 @@
 static int XSecure_AesDecKat(void);
 static int XSecure_AesDecCmKat(void);
 static int XSecure_AesEncKat(void);
+#ifndef PLM_RSA_EXCLUDE
 static int XSecure_RsaPubEncKat(void);
 static int XSecure_RsaPrivateDecKat(void);
+#endif
+#ifndef PLM_ECDSA_EXCLUDE
 static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass);
 static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass);
+#endif
 #endif
 static int XSecure_ShaKat(void);
 
@@ -77,21 +81,25 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
 		Status = XSecure_AesDecCmKat();
 		break;
-	case XSECURE_API(XSECURE_API_RSA_PUB_ENC_KAT):
-		Status = XSecure_RsaPubEncKat();
-		break;
-	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT):
-		Status = XSecure_EllipticSignVerifyKat(Pload[1U]);
-		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_KAT):
 		Status = XSecure_AesEncKat();
+		break;
+#ifndef PLM_RSA_EXCLUDE
+	case XSECURE_API(XSECURE_API_RSA_PUB_ENC_KAT):
+		Status = XSecure_RsaPubEncKat();
 		break;
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DEC_KAT):
 		Status = XSecure_RsaPrivateDecKat();
 		break;
+#endif
+#ifndef PLM_ECDSA_EXCLUDE
+	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT):
+		Status = XSecure_EllipticSignVerifyKat(Pload[1U]);
+		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_GEN_KAT):
 		Status = XSecure_EllipticSignGenKat(Pload[1U]);
 		break;
+#endif
 #endif
 	case XSECURE_API(XSECURE_API_SHA3_KAT):
 		Status = XSecure_ShaKat();
@@ -247,6 +255,7 @@ END:
 	return Status;
 }
 
+#ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief       This function handler calls XSecure_EllipticVerifySignKat
@@ -318,7 +327,9 @@ static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
 END:
 	return Status;
 }
+#endif
 
+#ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief       This function handler calls XSecure_RsaPublicEncryptKat server
@@ -376,6 +387,7 @@ static int XSecure_RsaPrivateDecKat(void)
 
 	return Status;
 }
+#endif
 
 #endif
 

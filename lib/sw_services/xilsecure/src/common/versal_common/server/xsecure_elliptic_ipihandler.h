@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,10 +36,15 @@ extern "c" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
+
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
 int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd);
+
+#endif
 
 #ifdef __cplusplus
 }

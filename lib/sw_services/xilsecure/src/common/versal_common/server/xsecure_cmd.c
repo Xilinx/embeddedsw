@@ -35,6 +35,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xplmi_config.h"
 #include "xplmi_hw.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
@@ -43,8 +44,12 @@
 #include "xplmi_generic.h"
 #include "xplmi_modules.h"
 #include "xsecure_aes_ipihandler.h"
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_elliptic_ipihandler.h"
+#endif
+#ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa_ipihandler.h"
+#endif
 #include "xsecure_sha_ipihandler.h"
 #include "xsecure_kat_ipihandler.h"
 #include "xsecure_cmd.h"
@@ -113,13 +118,17 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	switch (ApiId) {
 	case XSECURE_API(XSECURE_API_SHA3_UPDATE):
 #ifndef PLM_SECURE_EXCLUDE
+#ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
+#endif
+#ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
+#endif
 	case XSECURE_API(XSECURE_API_AES_INIT):
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):
@@ -164,17 +173,21 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		Status = XSecure_Sha3IpiHandler(Cmd);
 		break;
 #ifndef PLM_SECURE_EXCLUDE
+#ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
 		Status = XSecure_RsaIpiHandler(Cmd);
 		break;
+#endif
+#ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
 		Status = XSecure_EllipticIpiHandler(Cmd);
 		break;
+#endif
 	case XSECURE_API(XSECURE_API_AES_INIT):
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):

@@ -31,6 +31,11 @@
 extern "C" {
 #endif
 
+/***************************** Include Files *********************************/
+#include "xparameters.h"
+
+#ifndef PLM_ECDSA_EXCLUDE
+
 /**************************** Type Definitions *******************************/
 typedef struct {
 	u8* Issuer;
@@ -52,6 +57,7 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, XCert_Config Cfg);
 
+#endif
 #ifdef __cplusplus
 }
 #endif

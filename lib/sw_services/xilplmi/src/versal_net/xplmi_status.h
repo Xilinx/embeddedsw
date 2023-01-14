@@ -554,6 +554,8 @@ typedef enum {
 	XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, /**< 0x371 - Skip processing rest of the partitions
 						as secure lockdown has been triggered */
 	XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET, /**< 0x372 - Image Store configuration is not enabled/error */
+	XLOADER_ERR_ECDSA_NOT_ENABLED, /**< 0x373 - ECDSA code is excluded */
+	XLOADER_ERR_RSA_NOT_ENABLED, /**< 0x374 - RSA code is excluded */
 
 	/* Xilloader error codes specific to platform are from 0x3A0 to 0x3FF */
 	XLOADER_ERR_WAKEUP_A78_0 = 0x3A0,	/**< 0x3A0 - Error waking up the A78-0 during handoff. */
@@ -713,9 +715,10 @@ typedef enum {
 					/**< 0x6A6 PCR log read request is invalid */
 	XOCP_DICE_CDI_PARITY_ERROR,	/**< 0x6A7 CDI parity error */
 	XOCP_DEVAK_MAX_COUNT_EXCEED,	/**< 0x6A8 DEVAK MAX count exceeded */
-
+	XOCP_ECDSA_NOT_ENABLED_ERR,	/**< 0x6A9 ECDSA code is diabled */
 
 	XOCP_DME_ERR = 0x6B0,		/**< 0x6B0 DME signing error */
+
 
 	XOCP_ERR_KAT_FAILED = 0x6C0, /**< 0x6C0 Error when KAT fails */
 

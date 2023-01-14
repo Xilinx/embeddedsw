@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -57,6 +58,8 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
+#ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa.h"
 #include "xsecure_utils.h"
 
@@ -486,3 +489,4 @@ int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	return XSecure_RsaPrivateDecrypt_64Bit(InstancePtr, (u64)(UINTPTR)Input,
 			Size, (u64)(UINTPTR)Result);
 }
+#endif

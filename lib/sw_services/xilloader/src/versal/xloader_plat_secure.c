@@ -108,6 +108,7 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr)
 	return XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, 0U);
 }
 
+#ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
 * @brief    This function runs the KAT for RSA
@@ -126,6 +127,7 @@ int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
 
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**

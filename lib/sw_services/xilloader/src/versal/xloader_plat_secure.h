@@ -146,7 +146,9 @@ static inline int XLoader_AddDeviceStateChangeToScheduler(void)
 /************************** Function Prototypes ******************************/
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
+#ifndef XSECURE_RSA_EXCLUDE
 int XLoader_RsaKat(XPmcDma *PmcDmaPtr);
+#endif
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 
 /************************** Variable Definitions *****************************/

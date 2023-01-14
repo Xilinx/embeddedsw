@@ -70,7 +70,9 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xloader.h"
 #ifndef PLM_SECURE_EXCLUDE
+#ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa.h"
+#endif
 #include "xsecure_aes.h"
 #include "xplmi_util.h"
 #include "xil_util.h"
@@ -107,20 +109,21 @@ extern "C" {
 #define XLOADER_PPDI_KAT_MASK		(0x03U)
 
 /** @} */
+#define XLOADER_RSA_4096_KEY_SIZE	(4096U/8U) /**< RSA 4096 key size */
 
-#define XLOADER_SPK_SIZE		(XSECURE_RSA_4096_KEY_SIZE + \
-						XSECURE_RSA_4096_KEY_SIZE \
+#define XLOADER_SPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
+						XLOADER_RSA_4096_KEY_SIZE \
 						+ 4U +4U)
 /**< Size of Secondary Public Key(in bytes) in Authentication Certificate */
-#define XLOADER_PPK_SIZE		(XSECURE_RSA_4096_KEY_SIZE + \
-						XSECURE_RSA_4096_KEY_SIZE \
+#define XLOADER_PPK_SIZE		(XLOADER_RSA_4096_KEY_SIZE + \
+						XLOADER_RSA_4096_KEY_SIZE \
 						+ 4U +12U)
 /**< Size of Primary Public Key(in bytes) in Authentication Certificate */
-#define XLOADER_SPK_SIG_SIZE		XSECURE_RSA_4096_KEY_SIZE
+#define XLOADER_SPK_SIG_SIZE		XLOADER_RSA_4096_KEY_SIZE
 /**< Size of SPK signature(in bytes) in Authentication Certificate */
-#define XLOADER_BHDR_SIG_SIZE		XSECURE_RSA_4096_KEY_SIZE
+#define XLOADER_BHDR_SIG_SIZE		XLOADER_RSA_4096_KEY_SIZE
 /**< Size of Bootheader signature(in bytes) in Authentication Certificate */
-#define XLOADER_PARTITION_SIG_SIZE	XSECURE_RSA_4096_KEY_SIZE
+#define XLOADER_PARTITION_SIG_SIZE	XLOADER_RSA_4096_KEY_SIZE
 /**< Size of Partition signature(in bytes) in Authentication Certificate */
 
 #define XLOADER_AUTH_HEADER_SIZE	(8U)
@@ -502,7 +505,7 @@ typedef struct XLoader_SecureParams {
 #ifndef PLM_SECURE_EXCLUDE
 typedef struct {
 	XLoader_AuthCertificate AuthCert;
-	u8 RsaSha3Array[XSECURE_RSA_4096_KEY_SIZE];
+	u8 RsaSha3Array[XLOADER_RSA_4096_KEY_SIZE];
 	u8 Buffer[XLOADER_RSA_PSS_BUFFER_LEN] __attribute__ ((aligned(32U)));
 	XPuf_Data PufData;
 } XLoader_StoreSecureData;
@@ -566,8 +569,10 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 int XLoader_AuthEncClear(void);
 int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 	u32 BlockSize, u8 Last);
+#ifndef PLM_RSA_EXCLUDE
 int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature);
+#endif
 void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
 int XLoader_CheckNonZeroPpk(void);

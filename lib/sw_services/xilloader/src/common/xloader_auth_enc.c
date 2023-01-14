@@ -134,10 +134,12 @@ typedef struct {
 } XLoader_AuthJtagStatus;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifndef PLM_RSA_EXCLUDE
 #define XLOADER_RSA_PSS_MSB_PADDING_MASK	(u8)(0x80U)
 					/**< RSA PSS MSB padding mask */
 #define XLOADER_RSA_EM_MSB_INDEX		(0x0U)
 					/**< RSA EM MSB Index */
+#endif
 #define XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT	(31U)
 		/**< Shift for Global Variation Filter in PUF shutter value */
 #define XLOADER_AES_KEY_CLR_REG			(0xF11E0014U)
@@ -150,10 +152,12 @@ typedef struct {
 					/**< AES Reset value */
 #define XLOADER_AES_RESET_REG			(0xF11E0010U)
 					/**< AES Reset register address */
+#ifndef PLM_RSA_EXCLUDE
 #define XLOADER_ECDSA_RSA_RESET_REG     (0xF1200040U)
                     /**< ECDSA RSA Reset register address */
 #define XLOADER_ECDSA_RSA_RESET_VAL			(0x1U)
 					/**< ECDSA RSA Reset value */
+#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -161,10 +165,14 @@ static int XLoader_SpkAuthentication(const XLoader_SecureParams *SecurePtr);
 static int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
+#ifndef PLM_ECDSA_EXCLUDE
 static int XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u8 *DataHash,
 	const u8 *Key, const u32 KeySize, const u8 *Signature);
+#endif
+#ifndef PLM_RSA_EXCLUDE
 static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 	u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature);
+#endif
 static int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_RsaKey *Key, u8 *Signature);
 static int XLoader_AesDecryption(XLoader_SecureParams *SecurePtr,
@@ -992,26 +1000,50 @@ static int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 
 	/* RSA authentication */
 	if (AuthType ==	XLOADER_PUB_STRENGTH_RSA_4096) {
+#ifndef PLM_RSA_EXCLUDE
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_RsaSignVerify, SecurePtr,
 			Hash, Key, Signature);
+#else
+
+		XPlmi_Printf(DEBUG_INFO, "RSA code is excluded\n\r");
+		XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, 0U);
+		goto END;
+#endif
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
+#ifndef PLM_ECDSA_EXCLUDE
 		/* ECDSA P384 authentication */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_EcdsaSignVerify,
 			XSECURE_ECC_NIST_P384, Hash, (u8 *)Key->PubModulus,
 			XLOADER_ECDSA_P384_KEYSIZE, Signature);
+#else
+		XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
+		XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+		goto END;
+#endif
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+#ifndef PLM_ECDSA_EXCLUDE
 		/* ECDSA P521 authentication */
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_EcdsaSignVerify,
 			XSECURE_ECC_NIST_P521, Hash, (u8 *)Key->PubModulus,
 			XLOADER_ECDSA_P521_KEYSIZE, Signature);
+#else
+		XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
+		XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+		goto END;
+#endif
 	}
 	else {
 		/* Not supported */
 		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
 	}
+#if (defined(PLM_RSA_EXCLUDE) && defined(PLM_ECDSA_EXCLUDE))
+	(void)Hash;
+	(void)Key;
+	(void)Signature;
+#endif
 
 END:
 	return Status;
@@ -1389,6 +1421,7 @@ static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert)
 	}
 }
 
+#ifndef PLM_RSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	Mask generation function with SHA3.
@@ -1459,43 +1492,6 @@ END:
 		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
 	}
 	return Status;
-}
-
-/*****************************************************************************/
-/**
- *
- * @brief	This function initializes the RSA module with provided key and
- *			verifies the signature
- *
- * @param   SecurePtr is pointer to the XLoader_SecureParams instance
- * @param   MsgHash of the data to be authenticated.
- * @param   Key is pointer to the XSecure_Rsa instance.
- * @param   Signature is pointer to RSA signature for data to be
- *		authenticated.
- *
- * @return	XST_SUCCESS on success and error code on failure
- *
- ******************************************************************************/
-static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
-		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature) {
-
-	volatile int Status = XST_FAILURE;
-	XSecure_Rsa *RsaInstPtr = XSecure_GetRsaInstance();
-
-	/* Initialize RSA instance */
-	Status = XSecure_RsaInitialize(RsaInstPtr, (u8 *)Key->PubModulus,
-			(u8 *)Key->PubModulusExt, (u8 *)&Key->PubExponent);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_AUTH_FAIL,
-					 Status);
-		goto END;
-	}
-
-	Status = XLoader_RsaPssSignVerify(SecurePtr->PmcDmaInstPtr, MsgHash, RsaInstPtr,
-				Signature);
-END:
-	return Status;
-
 }
 
 /*****************************************************************************/
@@ -1721,6 +1717,45 @@ END:
 
 /*****************************************************************************/
 /**
+ *
+ * @brief	This function initializes the RSA module with provided key and
+ *			verifies the signature
+ *
+ * @param   SecurePtr is pointer to the XLoader_SecureParams instance
+ * @param   MsgHash of the data to be authenticated.
+ * @param   Key is pointer to the XSecure_Rsa instance.
+ * @param   Signature is pointer to RSA signature for data to be
+ *		authenticated.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ ******************************************************************************/
+static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
+		u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature) {
+
+	volatile int Status = XST_FAILURE;
+	XSecure_Rsa *RsaInstPtr = XSecure_GetRsaInstance();
+
+	/* Initialize RSA instance */
+	Status = XSecure_RsaInitialize(RsaInstPtr, (u8 *)Key->PubModulus,
+			(u8 *)Key->PubModulusExt, (u8 *)&Key->PubExponent);
+	if (Status != XST_SUCCESS) {
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_AUTH_FAIL,
+					 Status);
+		goto END;
+	}
+
+	Status = XLoader_RsaPssSignVerify(SecurePtr->PmcDmaInstPtr, MsgHash, RsaInstPtr,
+				Signature);
+END:
+	return Status;
+
+}
+#endif
+
+#ifndef PLM_ECDSA_EXCLUDE
+/*****************************************************************************/
+/**
  * @brief	This function encrypts the ECDSA signature provided with
  * key components.
  *
@@ -1787,6 +1822,7 @@ static int XLoader_EcdsaSignVerify(const XSecure_EllipticCrvTyp CrvType, const u
 
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -3257,8 +3293,9 @@ int XLoader_AuthEncClear(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
+#ifndef PLM_RSA_EXCLUDE
 	XSecure_Rsa *RsaInstPtr = XSecure_GetRsaInstance();
-
+#endif
 	/** Clear AES keys if AES is out of reset */
 	XPlmi_Out32(XLOADER_AES_KEY_CLR_REG, XLOADER_AES_ALL_KEYS_CLR_VAL);
 	(void)XPlmi_UtilPollForMask(XLOADER_AES_KEY_ZEROED_STATUS_REG,
@@ -3268,6 +3305,7 @@ int XLoader_AuthEncClear(void)
 	Status = Xil_SecureOut32(XLOADER_AES_RESET_REG,
 				XLOADER_AES_RESET_VAL);
 
+#ifndef PLM_RSA_EXCLUDE
 	/** Clear Rsa memory */
 	(void)XSecure_RsaCfgInitialize(RsaInstPtr);
 	XSecure_ReleaseReset(RsaInstPtr->BaseAddress,
@@ -3277,7 +3315,9 @@ int XLoader_AuthEncClear(void)
 	/** Place ECDSA RSA in reset */
 	SStatus |= Xil_SecureOut32(XLOADER_ECDSA_RSA_RESET_REG,
 				XLOADER_ECDSA_RSA_RESET_VAL);
-
+#else
+	Status = XST_SUCCESS;
+#endif
 	return (Status | SStatus);
 }
 
@@ -3659,8 +3699,9 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	const char* ErrorString = "";
+#ifndef PLM_ECDSA_EXCLUDE
 	XSecure_EllipticCrvClass CrvClass = XSECURE_ECC_PRIME;
-
+#endif
 	/** Get the Authentication type. */
 	AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
 	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
@@ -3668,11 +3709,15 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
 		AuthKatMask = XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK;
+#ifndef PLM_ECDSA_EXCLUDE
 		CrvClass = XSECURE_ECC_PRIME;
+#endif
 	}
 	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
 		AuthKatMask = XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK;
+#ifndef PLM_ECDSA_EXCLUDE
 		CrvClass = XSECURE_ECC_PRIME;
+#endif
 	}
 	else {
 		/* Not supported */
@@ -3691,15 +3736,29 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 	 */
 	if ((SecurePtr->PdiPtr->PlmKatStatus & AuthKatMask) == 0U) {
 		if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+#ifndef PLM_RSA_EXCLUDE
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 					XLoader_RsaKat, SecurePtr->PmcDmaInstPtr);
 			ErrorString = "RSA KAT";
+#else
+			XPlmi_Printf(DEBUG_GENERAL, "RSA code is excluded\n\r");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, 0U);
+			goto END;
+#endif
+
 		}
 		else if ((AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
 			(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+#ifndef PLM_ECDSA_EXCLUDE
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 					XSecure_EllipticVerifySignKat, CrvClass);
 			ErrorString = "ECC KAT";
+#else
+                        XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
+                        Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+                        goto END;
+#endif
+
 		}
 		else {
 			/* Not supported */
@@ -3716,6 +3775,9 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 		/* Update KAT status */
 		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 	}
+#if (defined(PLM_RSA_EXCLUDE) && defined(PLM_ECDSA_EXCLUDE))
+	(void)StatusTmp;
+#endif
 	Status = XST_SUCCESS;
 END:
 	return Status;
