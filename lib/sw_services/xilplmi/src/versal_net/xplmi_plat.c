@@ -846,7 +846,7 @@ u8 XPlmi_IsFipsModeEn(void)
 /**
  * @brief	This function returns ROM KAT status.
  *
- * @return	None
+ * @return	ROM KAT status
  *
  *****************************************************************************/
 u32 XPlmi_GetRomKatStatus(void)
@@ -981,4 +981,31 @@ int XPlmi_CheckAndUpdateFipsState(void)
 	}
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sets or clears crypto bit in RTCA based on mask
+ *
+ * @param	Mask Mask to set or clear crypto status
+ * @param   Val  Value to set or clear crypto status
+ *
+ *****************************************************************************/
+void XPlmi_UpdateCryptoStatus(u32 Mask, u32 Val)
+{
+	XPlmi_UtilRMW(XPLMI_RTCFG_PLM_CRYPTO_STATUS_ADDR, Mask, Val);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function returns crypto status flag
+ *
+ * @param	Mask Mask to read crypto status
+ *
+ * @return  Crypto status value
+ *
+ *****************************************************************************/
+u32 XPlmi_GetCryptoStatus(u32 Mask)
+{
+	return (XPlmi_In32(XPLMI_RTCFG_PLM_CRYPTO_STATUS_ADDR) & Mask);
 }
