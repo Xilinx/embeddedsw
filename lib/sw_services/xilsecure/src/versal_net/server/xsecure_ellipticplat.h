@@ -55,6 +55,8 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ElliptcPrivateKeyGen *PrivateKey);
 int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 	u32 EphemeralKeyAddr);
+int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
+		const u8* Hash, u32 HashLen, u8 *PrvtKey, u8* Signature);
 
 #endif
 

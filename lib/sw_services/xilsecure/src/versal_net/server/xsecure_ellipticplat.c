@@ -41,6 +41,7 @@
 #include "xsecure_utils.h"
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_error.h"
+#include "xsecure_init.h"
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
@@ -238,6 +239,70 @@ END:
 		Status = ClearStatus;
 	}
 RET:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function generates the signature on provided hash using ecc.
+ *
+ * @param	Hash is the pointer to the hash of the data to be signed
+ * @param	HashLen is the length of the hash.
+ * @param	PrvtKey is the pointer to ECC private key.
+ * @param	Signature is the pointer to the buffer where the ECC signature
+ *		shall be stored.
+ *
+ ******************************************************************************/
+int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
+		const u8* Hash, u32 HashLen, u8 *PrvtKey, u8* Signature)
+{
+	int Status = XST_FAILURE;
+	volatile int ClearStatus = XST_FAILURE;
+	volatile int ClearStatusTmp = XST_FAILURE;
+	u8 EphemeralKey[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
+	u8 *SigR = Signature;
+	u8 *SigS = &Signature[XSECURE_ECC_P384_SIZE_IN_BYTES];
+	XSecure_EllipticSign Sign = {SigR, SigS};
+
+	if ((CrvType == XSECURE_ECC_NIST_P521) ||
+			(HashLen != XSECURE_ECC_P384_SIZE_IN_BYTES)) {
+		Status = XSECURE_ELLIPTIC_INVALID_PARAM;
+		goto END;
+	}
+	/**
+	 * Initialize TRNG to generate Ephemeral Key
+	 */
+	Status =  XSecure_TrngInit();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * Generate Ephemeral Key using TRNG for generating ECDSA signature
+	 */
+	Status = XSecure_EllipticGenerateEphemeralKey(CrvType,
+							(UINTPTR)&EphemeralKey);
+	if (Status != XST_SUCCESS) {
+		goto CLEAR;
+	}
+
+	/**
+	 * Generate Signature using Private Key to the provided hash
+	 */
+	Status = XSecure_EllipticGenerateSignature(CrvType, Hash,
+		XSECURE_ECC_P384_SIZE_IN_BYTES, PrvtKey, EphemeralKey, &Sign);
+
+CLEAR:
+	/**
+	 * Clear ephemeral key and private key
+	 */
+	ClearStatus = Xil_SecureZeroize(EphemeralKey, XSECURE_ECC_P384_SIZE_IN_BYTES);
+	ClearStatusTmp = Xil_SecureZeroize(EphemeralKey, XSECURE_ECC_P384_SIZE_IN_BYTES);
+	if ((ClearStatus != XST_SUCCESS) || (ClearStatusTmp != XST_SUCCESS)) {
+		Status = (ClearStatus | ClearStatusTmp);
+	}
+
+END:
 	return Status;
 }
 
