@@ -32,7 +32,6 @@
 #include "xil_util.h"
 #include "xsecure_elliptic.h"
 #include "xsecure_ellipticplat.h"
-#include "xsecure_init.h"
 #include "xsecure_sha384.h"
 #include "xsecure_utils.h"
 #include "xcert_genX509cert.h"
@@ -45,21 +44,87 @@
 
 #define XCERT_HASH_SIZE_IN_BYTES			(48U)
 #define XCERT_SERIAL_FIELD_LEN				(22U)
+#define XCERT_BIT7_MASK 				(0x80)
 
 /************************** Function Prototypes ******************************/
 static void XCert_GenVersionField(u8* TBSCertBuf, u32 *VersionLen);
 static void XCert_GenSerialField(u8* TBSCertBuf, u8* Serial, u32 *SerialLen);
 static int XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen);
-static int XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, u32 *IssuerLen);
-static int XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, u32 *ValidityLen);
-static int XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, u32 *SubjectLen);
+static void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, u32 *IssuerLen);
+static void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, u32 *ValidityLen);
+static void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, u32 *SubjectLen);
 static int XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len);
 static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey,u32 *PubKeyInfoLen);
 static int XCert_GenTBSCertificate(u8* X509CertBuf, XCert_Config Cfg, u32 *DataLen);
-static int XCert_CalculateSign(u8* Data, u32 DataLen, XCert_Config Cfg, u8* Signature);
 static void XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen);
 
 /************************** Function Definitions *****************************/
+/*****************************************************************************/
+/**
+ * @brief	This function provides the pointer to the common XCert_UserCfg
+ *		instance which has to be used across the project to store
+ *		user configuration for X.509 certificate
+ *
+ * @return
+ *	-	Pointer to the XCert_UserCfg instance
+ *
+ ******************************************************************************/
+XCert_UserCfg *XCert_GetCertUserInput(void)
+{
+	static XCert_UserCfg CertUsrCfg = {0U};
+
+	return &CertUsrCfg;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function stores the user provided value for the user configurable
+ *		fields in the certificate as per the provided FieldType.
+ *
+ * @param	FieldType is to identify the field for which input is provided
+ * @param	Val is the value of the field provided by the user
+ * @param	Len is the length of the value in bytes
+ *
+ * @return
+ *		- XST_SUCCESS - If whole operation is success
+ *		- XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XCert_StoreCertUserInput(XCert_UserCfgFields FieldType, u8* Val, u32 Len)
+{
+	int Status = XST_FAILURE;
+	XCert_UserCfg *CertUserCfg = XCert_GetCertUserInput();
+
+	if (Len > XCERT_USERCFG_MAX_SIZE) {
+		Status = XST_INVALID_PARAM;
+	}
+
+	if (FieldType > XCERT_VALIDITY) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (FieldType == XCERT_ISSUER) {
+		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg->Issuer,
+			(u64)(UINTPTR)Val, Len);
+		CertUserCfg->IssuerLen = Len;
+	}
+	else if (FieldType == XCERT_SUBJECT) {
+		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg->Subject,
+			(u64)(UINTPTR)Val, Len);
+		CertUserCfg->SubjectLen = Len;
+	}
+	else {
+		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg->Validity,
+			(u64)(UINTPTR)Val, Len);
+		CertUserCfg->ValidityLen = Len;
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function creates the X.509 Certificate.
@@ -86,6 +151,7 @@ int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, 
 	u32 SignAlgoLen;
 	u32 SignLen;
 	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES + XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
+	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	(void)MaxCertSize;
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
@@ -115,9 +181,17 @@ int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, 
 	}
 
 	/**
+	 * Calcualte SHA2 Digest of the TBS certificate
+	 */
+	Status = XSecure_Sha384Digest(Start, TBSCertLen, Hash);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	/**
 	 * Calculate signature of the TBS certificate using the private key
 	 */
-	Status = XCert_CalculateSign(Start, TBSCertLen, Cfg, Sign);
+	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
+				Cfg.AppCfg.PrvtKey, Sign);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -186,7 +260,14 @@ static void XCert_GenSerialField(u8* TBSCertBuf, u8* DataHash, u32 *SerialLen)
 {
 	u8 Serial[XCERT_LEN_OF_VALUE_OF_SERIAL] = {0U};
 
-	XSecure_MemCpy64((u64)(UINTPTR)Serial, (u64)(UINTPTR)DataHash, XCERT_LEN_OF_VALUE_OF_SERIAL);
+	if ((*DataHash & XCERT_BIT7_MASK) == XCERT_BIT7_MASK) {
+		XSecure_MemCpy64((u64)(UINTPTR)Serial, (u64)(UINTPTR)DataHash,
+			XCERT_LEN_OF_VALUE_OF_SERIAL - 1);
+	}
+	else {
+		XSecure_MemCpy64((u64)(UINTPTR)Serial, (u64)(UINTPTR)DataHash,
+			XCERT_LEN_OF_VALUE_OF_SERIAL);
+	}
 
 	XCert_CreateInteger(TBSCertBuf, Serial, XCERT_LEN_OF_VALUE_OF_SERIAL, SerialLen);
 }
@@ -228,7 +309,7 @@ static int XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen)
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	Status = XCert_CreateRawData(Curr, (u8*)XCERT_OID_SIGN_ALGO, &OidLen);
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_SIGN_ALGO, &OidLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -259,13 +340,9 @@ END:
  *		encoded format and it will be updated in the TBS Certificate buffer.
  *
  ******************************************************************************/
-static int XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, u32 *IssuerLen)
+static void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, u32 *IssuerLen)
 {
-	int Status = XST_FAILURE;
-
-	Status = XCert_CreateRawData(TBSCertBuf, Issuer, IssuerLen);
-
-	return Status;
+	XCert_CreateRawDataFromByteArray(TBSCertBuf, Issuer, IssuerLen);
 }
 
 /*****************************************************************************/
@@ -281,13 +358,9 @@ static int XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, u32 *IssuerLen)
  *		encoded format and it will be updated in the TBS Certificate buffer.
  *
  ******************************************************************************/
-static int XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, u32 *ValidityLen)
+static void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, u32 *ValidityLen)
 {
-	int Status = XST_FAILURE;
-
-	Status = XCert_CreateRawData(TBSCertBuf, Validity, ValidityLen);
-
-	return Status;
+	XCert_CreateRawDataFromByteArray(TBSCertBuf, Validity, ValidityLen);
 }
 
 /*****************************************************************************/
@@ -303,13 +376,9 @@ static int XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, u32 *ValidityLen
  *		encoded format and it will be updated in the TBS Certificate buffer.
  *
  ******************************************************************************/
-static int XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, u32 *SubjectLen)
+static void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, u32 *SubjectLen)
 {
-	int Status = XST_FAILURE;
-
-	Status = XCert_CreateRawData(TBSCertBuf, Subject, SubjectLen);
-
-	return Status;
+	XCert_CreateRawDataFromByteArray(TBSCertBuf, Subject, SubjectLen);
 }
 
 /*****************************************************************************/
@@ -349,7 +418,7 @@ static int XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len)
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
 
-	Status = XCert_CreateRawData(Curr, (u8*)XCERT_OID_EC_PUBLIC_KEY, &OidLen);
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_EC_PUBLIC_KEY, &OidLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -357,7 +426,7 @@ static int XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len)
 		Curr = Curr + OidLen;
 	}
 
-	Status = XCert_CreateRawData(Curr, (u8*)XCERT_OID_P384, &OidLen);
+	Status = XCert_CreateRawDataFromStr(Curr, XCERT_OID_P384, &OidLen);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -409,13 +478,8 @@ static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey, u32
 		Curr = Curr + Len;
 	}
 
-	Status = XCert_CreateBitString(Curr, SubjectPublicKey, KeyLen, &Len);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	else {
-		Curr = Curr + Len;
-	}
+	XCert_CreateBitString(Curr, SubjectPublicKey, KeyLen, &Len);
+	Curr = Curr + Len;
 
 	*SequenceLenIdx = Curr - SequenceValIdx;
 	*PubKeyInfoLen = Curr - TBSCertBuf;
@@ -487,35 +551,20 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 	/**
 	 * Generate Issuer field
 	 */
-	Status = XCert_GenIssuerField(Curr, Cfg.UserCfg.Issuer, &Len);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	else {
-		Curr = Curr + Len;
-	}
+	XCert_GenIssuerField(Curr, Cfg.UserCfg->Issuer, &Len);
+	Curr = Curr + Len;
 
 	/**
 	 * Generate Validity field
 	 */
-	Status = XCert_GenValidityField(Curr, Cfg.UserCfg.Validity, &Len);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	else {
-		Curr = Curr + Len;
-	}
+	XCert_GenValidityField(Curr, Cfg.UserCfg->Validity, &Len);
+	Curr = Curr + Len;
 
 	/**
 	 * Generate Subject field
 	 */
-	Status = XCert_GenSubjectField(Curr, Cfg.UserCfg.Subject, &Len);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	else {
-		Curr = Curr + Len;
-	}
+	XCert_GenSubjectField(Curr, Cfg.UserCfg->Subject, &Len);
+	Curr = Curr + Len;
 
 	/**
 	 * Generate Public Key Info field
@@ -572,85 +621,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function calcualtes the SHA2 hash of the TBS certificate
- *		and then signs it by using the provided private key.
- *
- * @param	Data is the pointer buffer which has to be signed
- * @param	DataLen is the length of the buffer which has to be signed.
- * @param	Cfg is structure which includes the required configuration
- * @param	Signature is the pointer to the buffer where the signature of the
- *		TBS certificate shall be stored.
- *
- * @note	For Dev IK self-signed certificates and DevAK certificates, DevIK
- *		private key should be provided for calculating the signature.
- *
- ******************************************************************************/
-static int XCert_CalculateSign(u8* Data, u32 DataLen, XCert_Config Cfg, u8* Signature)
-{
-	int Status = XST_FAILURE;
-	volatile int ClearStatus = XST_FAILURE;
-	volatile int ClearStatusTmp = XST_FAILURE;
-	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
-	u8 EphemeralKey[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
-	u8 *SigR = Signature;
-	u8 *SigS = &Signature[XSECURE_ECC_P384_SIZE_IN_BYTES];
-	XSecure_EllipticSign Sign = {SigR, SigS};
-
-	/**
-	 * Calcualte SHA2 Digest of the TBS certificate
-	 */
-	Status = XSecure_Sha384Digest(Data, DataLen, Hash);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/**
-	 * Initialize TRNG to generate Ephemeral Key
-	 */
-	Status =  XSecure_TrngInit();
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/**
-	 * Generate Ephemeral Key using TRNG for generating ECDSA signature
-	 */
-	Status = XSecure_EllipticGenerateEphemeralKey(XSECURE_ECC_NIST_P384, (UINTPTR)&EphemeralKey);
-	if (Status != XST_SUCCESS) {
-		goto CLEAR;
-	}
-
-	/**
-	 * Generate Signature using Private Key on the SHA2 hash of the TBS certificate
-	 */
-	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P384, Hash,
-		XSECURE_ECC_P384_SIZE_IN_BYTES, Cfg.AppCfg.PrvtKey, EphemeralKey, &Sign);
-	if (Status != XST_SUCCESS) {
-		goto CLEAR;
-	}
-
-CLEAR:
-	/**
-	 * Clear ephemeral key and private key
-	 */
-	ClearStatus = Xil_SecureZeroize(EphemeralKey, XSECURE_ECC_P384_SIZE_IN_BYTES);
-	ClearStatusTmp = Xil_SecureZeroize(EphemeralKey, XSECURE_ECC_P384_SIZE_IN_BYTES);
-	if ((ClearStatus != XST_SUCCESS) || (ClearStatusTmp != XST_SUCCESS)) {
-		Status = (ClearStatus | ClearStatusTmp);
-	}
-
-	ClearStatus = Xil_SecureZeroize(Cfg.AppCfg.PrvtKey, XSECURE_ECC_P384_SIZE_IN_BYTES);
-	ClearStatusTmp = Xil_SecureZeroize(Cfg.AppCfg.PrvtKey, XSECURE_ECC_P384_SIZE_IN_BYTES);
-	if ((ClearStatus != XST_SUCCESS) || (ClearStatusTmp != XST_SUCCESS)) {
-		Status = (ClearStatus | ClearStatusTmp);
-	}
-
-END:
-	return Status;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function creates the Signature field in the X.509 certificate
  *
  * @param	X509CertBuf is the pointer to the X.509 Certificate buffer
@@ -696,4 +666,5 @@ static void XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen)
 	*BitStrLenIdx = Curr - BitStrValIdx;
 	*SignLen = Curr - X509CertBuf;
 }
+
 #endif

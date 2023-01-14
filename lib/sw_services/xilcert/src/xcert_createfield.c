@@ -101,32 +101,17 @@ void XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32*
  * @note	ASN.1 tag for BitString is 0x03
  *
  ******************************************************************************/
-int XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32* FieldLen)
+void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32* FieldLen)
 {
-	int Status = XST_FAILURE;
 	u8* Curr = DataBuf;
-	u8 FieldVal[XCERT_MAX_FIELD_VAL_LENGTH] = {0U};
 
 	*(Curr++) = XCERT_ASN1_TAG_BITSTRING;
 	*(Curr++) = BitStringLen;
 
-	Status =  Xil_ConvertStringToHexBE((char*)BitStringVal, FieldVal,
-		Xil_Strnlen((char *)BitStringVal, XCERT_MAX_FIELD_VAL_LENGTH) * 4);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)BitStringVal, BitStringLen);
 
-	Status = Xil_SStrCpy(Curr, Xil_Strnlen((char*)FieldVal, XCERT_MAX_FIELD_VAL_LENGTH) + 1,
-		(u8*)FieldVal, Xil_Strnlen((char*)FieldVal, XCERT_MAX_FIELD_VAL_LENGTH) + 1);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Curr = Curr + Xil_Strnlen((char*)FieldVal, XCERT_MAX_FIELD_VAL_LENGTH);
+	Curr = Curr + BitStringLen;
 	*FieldLen = Curr - DataBuf;
-
-END:
-	return Status;
 }
 
 /*****************************************************************************/
@@ -155,28 +140,28 @@ void XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStr
 
 /*****************************************************************************/
 /**
- * @brief	This function takes DER encoded data as input and updates it in
- * 		the provided buffer.
+ * @brief	This function takes DER encoded data as input in form of string and
+ *			updates it in the provided buffer.
  *
  * @param	DataBuf is the pointer to the buffer where the encoded data
-		needs to be updated
- * @param	RawData is the DER encoded value to be updated in buffer
+			needs to be updated
+ * @param	RawData is the DER encoded value as string to be updated in buffer
  * @param	RawDataLen is the length of the DER encoded value
  *
  * @return
- *		- XST_SUCCESS - If update is successful
- *		- XST_FAILURE - Upon any failure
+ *			- XST_SUCCESS - If update is successful
+ *			- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XCert_CreateRawData(u8* DataBuf, const u8* RawData, u32* RawDataLen)
+int XCert_CreateRawDataFromStr(u8* DataBuf, const char* RawData, u32* RawDataLen)
 {
 	int Status = XST_FAILURE;
 	u8* Curr = DataBuf;
 	u8 FieldVal[XCERT_MAX_FIELD_VAL_LENGTH] = {0U};
-	u32 Len = Xil_Strnlen((char* )RawData, XCERT_MAX_FIELD_VAL_LENGTH);
+	u32 Len = Xil_Strnlen(RawData, XCERT_MAX_FIELD_VAL_LENGTH);
 
-	Status =  Xil_ConvertStringToHexBE((char* )RawData, FieldVal,
-		Xil_Strnlen((char*)RawData, XCERT_MAX_FIELD_VAL_LENGTH) * 4);
+	Status =  Xil_ConvertStringToHexBE(RawData, FieldVal,
+		Xil_Strnlen(RawData, XCERT_MAX_FIELD_VAL_LENGTH) * 4);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -187,6 +172,31 @@ int XCert_CreateRawData(u8* DataBuf, const u8* RawData, u32* RawDataLen)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function takes DER encoded data as input in form of byte array
+ *			and updates it in the provided buffer.
+ *
+ * @param	DataBuf is the pointer to the buffer where the encoded data
+			needs to be updated
+ * @param	RawData is the DER encoded value as byte array to be updated in buffer
+ * @param	RawDataLen is the length of the DER encoded value
+ *
+ * @return
+ *		- XST_SUCCESS - If update is successful
+ *		- XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+void XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, u32* RawDataLen)
+{
+	u8* Curr = DataBuf;
+	u32 Len = Xil_Strnlen((char* )RawData, XCERT_MAX_FIELD_VAL_LENGTH);
+
+	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)RawData, Len);
+	Curr = Curr + Len;
+	*RawDataLen = Curr - DataBuf;
 }
 
 /*****************************************************************************/

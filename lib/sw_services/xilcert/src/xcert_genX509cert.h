@@ -37,10 +37,21 @@ extern "C" {
 #ifndef PLM_ECDSA_EXCLUDE
 
 /**************************** Type Definitions *******************************/
+#define XCERT_USERCFG_MAX_SIZE						(32U)
+
+typedef enum {
+	XCERT_ISSUER = 0U,	/**< 0U */
+	XCERT_SUBJECT,		/**< 1U */
+	XCERT_VALIDITY		/**< 2U */
+} XCert_UserCfgFields;
+
 typedef struct {
-	u8* Issuer;
-	u8* Subject;
-	u8* Validity;
+	u8 Issuer[XCERT_USERCFG_MAX_SIZE];
+	u32 IssuerLen;
+	u8 Subject[XCERT_USERCFG_MAX_SIZE];
+	u32 SubjectLen;
+	u8 Validity[XCERT_USERCFG_MAX_SIZE];
+	u32 ValidityLen;
 } XCert_UserCfg;
 
 typedef struct {
@@ -50,12 +61,14 @@ typedef struct {
 }XCert_AppCfg;
 
 typedef struct {
-	XCert_UserCfg UserCfg;
+	XCert_UserCfg *UserCfg;
 	XCert_AppCfg AppCfg;
 }XCert_Config;
 
 /************************** Function Prototypes ******************************/
 int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, XCert_Config Cfg);
+XCert_UserCfg *XCert_GetCertUserInput(void);
+int XCert_StoreCertUserInput(XCert_UserCfgFields FieldType, u8* Val, u32 Len);
 
 #endif
 #ifdef __cplusplus

@@ -49,10 +49,11 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 void XCert_CreateInteger(u8* DataBuf, const u8* IntegerVal, u32 IntegerLen, u32 *Len);
-int XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32* FieldLen);
+void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen, u32* FieldLen);
 void XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStringLen,
 	u32* FieldLen);
-int XCert_CreateRawData(u8* DataBuf, const u8* RawData, u32* RawDataLen);
+int XCert_CreateRawDataFromStr(u8* DataBuf, const char* RawData, u32* RawDataLen);
+void XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, u32* RawDataLen);
 int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIndex);
 
 #ifdef __cplusplus
