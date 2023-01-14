@@ -228,3 +228,70 @@ int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr,
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief   This function sends IPI request to get 509 certificate.
+ *
+ * @param   InstancePtr - Pointer to the client instance
+ * @param   GetX509CertAddr - Address of XOcp_X509Cert structure.
+  *
+ * @return
+ *          - XST_SUCCESS - If PCR contents are copied
+ *          - XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_GetX509Cert(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/** Fill IPI Payload */
+	Payload[0U] = OcpHeader(0U, XOCP_API_GetX509Cert);
+	Payload[1U] = (u32)GetX509CertAddr;
+	Payload[2U] = (u32)(GetX509CertAddr >> 32);
+
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+					sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function sends IPI request to get 509 certificate.
+ *
+ * @param   InstancePtr - Pointer to the client instance
+ * @param   AttestWithDevAk - Address of XOcp_AttestWithDevAk structure.
+ *
+ * @return
+ *          - XST_SUCCESS - If PCR contents are copied
+ *          - XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr,
+				u64 AttestWithDevAk)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/** Fill IPI Payload */
+	Payload[0U] = OcpHeader(0U, XOCP_API_AttestWithDevAk);
+	Payload[1U] = (u32)AttestWithDevAk;
+	Payload[2U] = (u32)(AttestWithDevAk >> 32);
+
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+			sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}

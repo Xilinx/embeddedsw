@@ -56,6 +56,8 @@ int XOcp_ExtendPcr(XOcp_ClientInstance *InstancePtr, XOcp_RomHwPcr PcrNum, u64 E
 int XOcp_GetPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr, u32 PcrBufSize);
 int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrLogAddr, u32 Size);
 int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr, u64 DmeStructResAddr);
+int XOcp_GetX509Cert(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr);
+int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr, u64 AttestWithDevAk);
 
 #ifdef __cplusplus
 }

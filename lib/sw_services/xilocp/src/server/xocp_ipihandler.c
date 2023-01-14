@@ -31,6 +31,8 @@
 #ifdef PLM_OCP
 #include "xocp.h"
 #include "xocp_ipihandler.h"
+#include "xocp_keymgmt.h"
+#include "xocp_common.h"
 #include "xocp_def.h"
 #include "xocp_init.h"
 #include "xplmi_dma.h"
@@ -41,7 +43,10 @@ static int XOcp_ExtendPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh
 static int XOcp_GetPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PurBufSize);
 static int XOcp_GetPcrLogIpi(u32 AddrLow, u32 AddrHigh, u32 NumOfLogEntries);
 static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStructResAddrLow, u32 DmeStructResAddrHigh);
-
+static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow,
+				u32 GetX509CertAddrHigh, u32 SubSystemID);
+static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow,
+			u32 AttestWithDevAkHigh, u32 SubSystemID);
 /*************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -76,6 +81,14 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 			break;
 		case XOCP_API(XOCP_API_GENDMERESP):
 			Status = XOcp_GenDmeRespIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
+			break;
+		case XOCP_API(XOCP_API_GetX509Cert):
+			Status = XOcp_GetX509CertificateIpi(Pload[0], Pload[1],
+					Cmd->SubsystemId);
+			break;
+		case XOCP_API(XOCP_API_AttestWithDevAk):
+			Status = XOcp_AttestWithDevAkIpi(Pload[0], Pload[1],
+					Cmd->SubsystemId);
 			break;
 		default:
 			XOcp_Printf(DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -226,4 +239,73 @@ static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh,
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief   This function handler calls XOcp_GetX509Certificate server API to
+ *          generate the 509 certificate.
+ *
+ * @param   GetX509CertAddrLow - Lower 32 bit address of XOcp_GetX509Cert
+ *
+ * @param   GetX509CertAddrHigh - Higher 32 bit address of XOcp_GetX509Cert
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - ErrorCode - Upon any failure
+ ******************************************************************************/
+static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow,
+				u32 GetX509CertAddrHigh, u32 SubSystemID)
+{
+	volatile int Status = XST_FAILURE;
+	u64 GetX509CertAddr = ((u64)GetX509CertAddrHigh << 32U) |
+				(u64)GetX509CertAddrLow;
+	XOcp_X509Cert X509Cert __attribute__ ((aligned (32U)));
+
+	XPlmi_MemCpy64((u64)(UINTPTR)&X509Cert, GetX509CertAddr,
+				sizeof(XOcp_X509Cert));
+
+	Status = XOcp_GetX509Certificate(&X509Cert, SubSystemID);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function handler calls XOcp_GenerateDmeResponse server API to
+ *          generate response with the DME signature
+ *
+ * @param   AttestWithDevAkLow - Lower 32 bit address of
+ *			XOcp_AttestWithDevAk strucure
+ *
+ * @param   AttestWithDevAkHigh - Higher 32 bit address of
+ *			XOcp_AttestWithDevAk strucure
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - ErrorCode - Upon any failure
+ ******************************************************************************/
+static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow,
+			u32 AttestWithDevAkHigh, u32 SubSystemID)
+{
+	volatile int Status = XST_FAILURE;
+	u64 AttestWithDevAkAddr = ((u64)AttestWithDevAkHigh << 32U) |
+			(u64)AttestWithDevAkLow;
+	XOcp_Attest AttestInstance __attribute__ ((aligned (32U)));
+
+	XPlmi_MemCpy64((u64)(UINTPTR)&AttestInstance, AttestWithDevAkAddr,
+				sizeof(XOcp_Attest));
+
+	Status = XOcp_AttestWithDevAk(&AttestInstance, SubSystemID);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
 #endif /* PLM_OCP */
