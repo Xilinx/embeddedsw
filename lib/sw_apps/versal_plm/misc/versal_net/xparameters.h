@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XPARAMETERS_H   /* prevent circular inclusions */
@@ -240,6 +241,7 @@
 
 /* Platform specific definitions */
 #define VERSAL_PLM
+#define VERSALNET_PLM
 #ifndef versal
 #define versal
 #endif
