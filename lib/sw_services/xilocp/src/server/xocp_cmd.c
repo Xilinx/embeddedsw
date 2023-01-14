@@ -37,6 +37,7 @@
 #include "xocp_def.h"
 #include "xocp_cmd.h"
 #include "xocp_keymgmt.h"
+#include "xcert_genX509cert.h"
 
 /************************** Constant Definitions *****************************/
 static XPlmi_ModuleCmd XOcp_Cmds[XOCP_API_MAX];
@@ -51,12 +52,16 @@ static XPlmi_Module XPlmi_Ocp =
 	NULL
 };
 
+#define XOCP_CERT_USERIN_FIELD_MASK			(0x0000FF00U)
+#define XOCP_CERT_USERIN_FIELD_SHIFT			(8U)
+#define XOCP_CERT_USERIN_LEN_MASK			(0x000000FFU)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 static int XOcp_DevAkInput(XPlmi_Cmd *Cmd);
+static int XOcp_GetCertUserCfg(XPlmi_Cmd *Cmd);
 
 /************************** Function Definitions ******************************/
 
@@ -82,6 +87,9 @@ static int XOcp_FeaturesCmd(u32 ApiId)
 		case XOCP_API(XOCP_API_GETPCRLOG):
 		case XOCP_API(XOCP_API_GENDMERESP):
 		case XOCP_API(XOCP_API_DEVAKINPUT):
+		case XOCP_API(XOCP_API_GETCERTUSERCFG):
+		case XOCP_API(XOCP_API_GetX509Cert):
+		case XOCP_API(XOCP_API_AttestWithDevAk):
 			Status = XST_SUCCESS;
 			break;
 		default:
@@ -122,10 +130,15 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GETPCR):
 		case XOCP_API(XOCP_API_GETPCRLOG):
 		case XOCP_API(XOCP_API_GENDMERESP):
+		case XOCP_API(XOCP_API_GetX509Cert):
+		case XOCP_API(XOCP_API_AttestWithDevAk):
 			Status = XOcp_IpiHandler(Cmd);
 			break;
 		case XOCP_API(XOCP_API_DEVAKINPUT):
 			Status = XOcp_DevAkInput(Cmd);
+			break;
+		case XOCP_API(XOCP_API_GETCERTUSERCFG):
+			Status = XOcp_GetCertUserCfg(Cmd);
 			break;
 		default:
 			XOcp_Printf(DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -172,6 +185,31 @@ static int XOcp_DevAkInput(XPlmi_Cmd *Cmd)
 	u32 *Pload = Cmd->Payload;
 
 	Status = XOcp_DevAkInputStore(Pload[0], (u8 *)(UINTPTR)&Pload[1]);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function gets values for user configurable fields for creating
+ *		x.509 certificate.
+ *
+ * @param	Cmd - Pointer to the XPlmi_Cmd structure
+ *
+ * @return
+ *		- XST_SUCCESS - On success
+ *		- Error Code - On Failure
+ *
+ *****************************************************************************/
+static int XOcp_GetCertUserCfg(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+	u32 *Pload = Cmd->Payload;
+	u8 FieldType = (Pload[0] & XOCP_CERT_USERIN_FIELD_MASK) >>
+				XOCP_CERT_USERIN_FIELD_SHIFT;
+	u8 LenInBytes = Pload[0] & XOCP_CERT_USERIN_LEN_MASK;
+
+	Status = XCert_StoreCertUserInput(FieldType, (u8 *)(UINTPTR)&Pload[1], LenInBytes);
 
 	return Status;
 }

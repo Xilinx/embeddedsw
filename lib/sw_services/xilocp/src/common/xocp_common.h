@@ -59,6 +59,11 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
+typedef enum {
+	XOCP_DEVIK = 0, /**< Device Identity key */
+	XOCP_DEVAK		/**< Device attestation key */
+}XOcp_DevKey;
+
 /*
  * Hardware PCR selection
  */
@@ -103,6 +108,20 @@ typedef struct {
 	u32 TailIndex;
 	u32 OverFlowFlag;
 } XOcp_HwPcrLog;
+
+typedef struct {
+	u64 CertAddr;
+	u64 ActualLenAddr;
+	u32 CertSize;
+	XOcp_DevKey DevKeySel;
+} XOcp_X509Cert;
+
+typedef struct {
+	u64 HashAddr;
+	u64 SignatureAddr;
+	u32 Reserved;
+	u32 HashLen;
+} XOcp_Attest;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

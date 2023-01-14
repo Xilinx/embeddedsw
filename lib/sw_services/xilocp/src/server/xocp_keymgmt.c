@@ -30,6 +30,7 @@
 #include "xocp_keymgmt.h"
 #include "xocp_hw.h"
 #include "xocp_def.h"
+#include "xocp_common.h"
 #include "xplmi_dma.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
@@ -42,6 +43,7 @@
 #include "xil_util.h"
 #include "xsecure_init.h"
 #include "xsecure_plat_kat.h"
+#include "xcert_genX509cert.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -314,6 +316,96 @@ u32 XOcp_GetSubSysReqDevAkIndex(u32 SubSystemId)
 
 END:
 	return DevAkIndex;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function generates the X.509 Certificate for device keys
+ *
+ * @param	SubSystemId is the ID of the subsystem from which certificate is
+ *		requested.
+ * @param   GetX509CertAddr - Address of XOcp_X509Cert structure
+ *
+ * @return
+ *		- XST_SUCCESS - If X.509 certificate generation is success
+ *		- Error code - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
+{
+	int Status = XST_FAILURE;
+	u32 DevAkIndex;
+	XOcp_DevAkData *DevAkData = NULL;
+	XCert_Config CertConfig;
+	XCert_UserCfg *UserCfg = XCert_GetCertUserInput();
+
+	if ((XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVIK) &&
+			(XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVAK)) {
+		goto END;
+	}
+
+	CertConfig.UserCfg = UserCfg;
+	if (XOcp_GetX509CertPtr->DevKeySel == XOCP_DEVIK) {
+		CertConfig.AppCfg.IsSelfSigned = TRUE;
+		CertConfig.AppCfg.SubjectPublicKey =
+				(u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
+		CertConfig.AppCfg.PrvtKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
+		(void)SubSystemId;
+	}
+	else {
+		DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+		DevAkData = XOcp_GetDevAkData();
+		DevAkData = DevAkData + DevAkIndex;
+		CertConfig.AppCfg.IsSelfSigned = FALSE;
+		CertConfig.AppCfg.SubjectPublicKey = (u8 *)DevAkData->EccX;
+		CertConfig.AppCfg.PrvtKey = (u8 *)DevAkData->EccPrvtKey;
+	}
+
+	Status = XCert_GenerateX509Cert((u8 *)(UINTPTR)XOcp_GetX509CertPtr->CertAddr,
+			(u32)(UINTPTR)XOcp_GetX509CertPtr->CertSize,
+			(u32 *)(UINTPTR)XOcp_GetX509CertPtr->ActualLenAddr, CertConfig);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function allows user to sign his own data using device
+ *	attestation key. The PLM signs the hash of the data (SHA384/SHA3-384)
+ *	supplied by the user as input. The PLM uses ECC P-384 DevAK private key to
+ * sign the input hash
+ *
+ * @param   AttestWithDevAk - Address of XOcp_AttestWithDevAk structure.
+ * @param	SubSystemId holds the image ID.
+ *
+ * @return
+ *		- XST_SUCCESS - Upon successful attestation
+ *		- XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
+{
+	int Status = XST_FAILURE;
+	u32 DevAkIndex;
+	XOcp_DevAkData *DevAkData = NULL;
+
+	if ((SubSystemId == 0x0U) || (AttestWithDevAkPtr->HashAddr == 0x0U) ||
+				(AttestWithDevAkPtr->SignatureAddr == 0x0U)) {
+		goto END;
+	}
+
+	DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+	DevAkData = XOcp_GetDevAkData();
+	DevAkData = DevAkData + DevAkIndex;
+
+	/* Generate the signature using DEVAK */
+	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384,
+			(u8 *)(UINTPTR)AttestWithDevAkPtr->HashAddr,
+			AttestWithDevAkPtr->HashLen,
+			(u8 *)(UINTPTR)DevAkData->EccPrvtKey,
+			(u8 *)(UINTPTR)AttestWithDevAkPtr->SignatureAddr);
+END:
+	return Status;
 }
 
 /*****************************************************************************/

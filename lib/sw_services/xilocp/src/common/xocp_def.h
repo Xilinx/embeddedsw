@@ -86,8 +86,11 @@ typedef enum {
 	XOCP_API_GETPCR,	/**< 2U */
 	XOCP_API_GETPCRLOG,	/**< 3U */
 	XOCP_API_GENDMERESP,	/**< 4U */
-	XOCP_API_DEVAKINPUT,/**< 5U */
-	XOCP_API_MAX		/**< 6U */
+	XOCP_API_DEVAKINPUT,	/**< 5U */
+	XOCP_API_GETCERTUSERCFG,/**< 6U */
+	XOCP_API_GetX509Cert,	/**< 7U */
+	XOCP_API_AttestWithDevAk,/**< 8U */
+	XOCP_API_MAX		/**< 9U */
 } XOcp_ApiId;
 /** @} */
 

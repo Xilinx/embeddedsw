@@ -36,6 +36,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xocp.h"
+#include "xocp_common.h"
 #include "xsecure_sha.h"
 #include "xsecure_trng.h"
 
@@ -88,7 +89,8 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString);
 u32 XOcp_GetSubSysReqDevAkIndex(u32 SubSystemId);
 XOcp_DevAkData *XOcp_GetDevAkData(void);
 int XOcp_GenerateDevAk(u32 SubSystemId);
-
+int XOcp_GetX509Certificate(XOcp_X509Cert *GetX509CertAddr, u32 SubSystemId);
+int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId);
 #ifdef __cplusplus
 }
 #endif
