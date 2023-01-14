@@ -114,6 +114,8 @@ proc secure_drc {libhandle} {
 						file delete -force ./src/xsecure_trng_ipihandler.h
 						file delete -force ./src/xsecure_plat_kat_ipihandler.c
 						file delete -force ./src/xsecure_plat_kat_ipihandler.h
+						file delete -force ./src/xsecure_plat_ipihandler.c
+						file delete -force ./src/xsecure_plat_ipihandler.h
 						file delete -force ./src/xsecure_sha384.c
 						file delete -force ./src/xsecure_sha384.h
 					}

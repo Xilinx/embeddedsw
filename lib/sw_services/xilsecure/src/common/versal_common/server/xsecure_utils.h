@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,28 +15,7 @@
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
-* 4.0   vns     03/12/19 Initial Release
-* 4.1   kal     05/20/19 Updated doxygen tags
-*       psl     08/05/19 Fixed MISRA-C violation
-* 4.2   har     01/06/20 Added macro XSecure_Out32
-*       kpt     01/07/20 Added Macro XSECURE_WORD_SIZE common for
-*                        both AES and RSA
-*       rpo     04/02/20 Replaced function like macros with inline functions
-*                        Redefined macros for reading and writing into registers
-*       har     04/13/20 Removed code for SSS configuration
-* 4.3   rpo     09/01/20 Asserts are not compiled by default for
-*                        secure libraries
-*       am      09/24/20 Resolved MISRA C violations
-*       har     10/12/20 Addressed security review comments
-*       am      10/10/20 Resolved Coverity warning
-* 4.5   am      11/24/20 Resolved MISRA C violations
-*       bm      01/13/21 Added 64 bit In and Out apis
-*       har     02/01/21 Removed Status variable from XSecure_ReadReg
-*       bm      05/19/21 Added macro for word aligned mask
-* 4.6   har     07/14/21 Fixed doxygen warnings
-*       gm      07/16/21 Support added to read 32 bit data from 64bit address
-*       har     08/14/21 Added macro for QWord
-*       am      09/17/21 Resolved compiler warnings
+* 5.1   kpt     01/13/23 Initial Release
 *
 * </pre>
 *
@@ -57,12 +37,14 @@ extern "C" {
 #include "xil_mem.h"
 
 /************************** Constant Definitions ****************************/
-#define XSECURE_RESET_SET		(1U) /**< To set the core into reset */
-#define XSECURE_RESET_UNSET		(0U) /**< To take the core out of reset */
-#define XSECURE_WORD_SIZE		(4U) /**< WORD size in BYTES */
-#define XSECURE_QWORD_SIZE		(16U) /**< QWORD size in BYTES */
-#define XSECURE_WORD_IN_BITS		(32U)/**< WORD size in BITS */
-#define XSECURE_WORD_ALIGN_MASK		(XSECURE_WORD_SIZE - 1U)/**< WORD alignment */
+#define XSECURE_RESET_SET			(1U) /**< To set the core into reset */
+#define XSECURE_RESET_UNSET			(0U) /**< To take the core out of reset */
+#define XSECURE_WORD_SIZE			(4U) /**< WORD size in BYTES */
+#define XSECURE_QWORD_SIZE			(16U) /**< QWORD size in BYTES */
+#define XSECURE_WORD_IN_BITS			(32U)/**< WORD size in BITS */
+#define XSECURE_WORD_ALIGN_MASK			(XSECURE_WORD_SIZE - 1U)/**< WORD alignment */
+#define XSECURE_SET_BIT				(0x0U) /**< To set bit */
+#define XSECURE_CLEAR_BIT			(0xFFFFFFFFU) /**< To clear bit */
 
 /***************************** Type Definitions******************************/
 
@@ -104,9 +86,9 @@ extern "C" {
  * @return	The value read from the register
  *
  ******************************************************************************/
-static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
+static inline u32 XSecure_ReadReg(UINTPTR BaseAddress, u16 RegOffset)
 {
-	return Xil_In32((UINTPTR)(BaseAddress + RegOffset));
+	return Xil_In32((BaseAddress + RegOffset));
 }
 
 /***************************************************************************/
@@ -119,10 +101,10 @@ static inline u32 XSecure_ReadReg(u32 BaseAddress, u16 RegOffset)
  * @param	RegisterValue - Is the value to be written to the register
  *
  ******************************************************************************/
-static inline void XSecure_WriteReg(u32 BaseAddress,
+static inline void XSecure_WriteReg(UINTPTR BaseAddress,
 					u32 RegOffset, u32 RegisterValue)
 {
-	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), RegisterValue);
+	Xil_Out32((BaseAddress + RegOffset), RegisterValue);
 }
 
 /*****************************************************************************/
@@ -218,8 +200,8 @@ static inline void XSecure_OutByte64(u64 Addr, u8 Data)
 												and checks for blind writes*/
 
 /************************** Function Prototypes ******************************/
-void XSecure_SetReset(u32 BaseAddress, u32 Offset);
-void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset);
+void XSecure_SetReset(UINTPTR BaseAddress, u32 Offset);
+void XSecure_ReleaseReset(UINTPTR BaseAddress, u32 Offset);
 void XSecure_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt);
 
 #ifdef __cplusplus

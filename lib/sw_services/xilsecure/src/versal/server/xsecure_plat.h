@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -63,6 +64,28 @@ typedef enum {
 }XSecure_SssSrc;
 
 /***************************** Function Prototypes ***************************/
+
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for versal
+ *
+ *****************************************************************************/
+static inline void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op)
+{
+	/* Not applicable for versal */
+	(void)BaseAddress;
+	(void)Op;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for versal
+ *
+ *****************************************************************************/
+static inline void XSecure_SetRsaCryptoStatus(void)
+{
+	/* Not applicable for versal */
+}
 
 /***************************** Variable Prototypes  ***************************/
 

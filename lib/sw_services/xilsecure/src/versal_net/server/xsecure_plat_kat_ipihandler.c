@@ -206,38 +206,39 @@ static int XSecure_UpdateKatStatus(XSecure_KatOp KatOp, u32 NodeId, u32 CmdLen, 
 			XSecure_Printf(XSECURE_DEBUG_GENERAL,"Invalid NodeId for KAT operation");
 			break;
 	}
-	if (KatOp != XSECURE_API_KAT_CLEAR) {
-		KatVal[0U] = KatMask[0U];
-		if (NodeId == XSECURE_PKI_NODE_ID) {
-			KatVal[1U] = KatMask[1U];
-			KatVal[2U] = KatMask[2U];
+	if (KatAddr != 0U) {
+		if (KatOp != XSECURE_API_KAT_CLEAR) {
+			KatVal[0U] = KatMask[0U];
+			if (NodeId == XSECURE_PKI_NODE_ID) {
+				KatVal[1U] = KatMask[1U];
+				KatVal[2U] = KatMask[2U];
+			}
 		}
-	}
-	else {
-		KatVal[0U] = ~KatMask[0U];
-		if (NodeId == XSECURE_PKI_NODE_ID) {
-			KatVal[1U] = ~KatMask[1U];
-			KatVal[2U] = ~KatMask[2U];
+		else {
+			KatVal[0U] = ~KatMask[0U];
+			if (NodeId == XSECURE_PKI_NODE_ID) {
+				KatVal[1U] = ~KatMask[1U];
+				KatVal[2U] = ~KatMask[2U];
+			}
 		}
-	}
 
-	Status = Xil_SecureRMW32(KatAddr, KatMask[0U], KatVal[0U]);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	if (NodeId == XSECURE_PKI_NODE_ID) {
-		Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_1, KatMask[1U], KatVal[1U]);
+		Status = Xil_SecureRMW32(KatAddr, KatMask[0U], KatVal[0U]);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2, KatMask[2U], KatVal[2U]);
-		if (Status != XST_SUCCESS) {
-			goto END;
+		if (NodeId == XSECURE_PKI_NODE_ID) {
+			Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_1, KatMask[1U], KatVal[1U]);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			Status = Xil_SecureRMW32(XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2, KatMask[2U], KatVal[2U]);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+
 		}
-
+		Status = XPlmi_CheckAndUpdateFipsState();
 	}
-
-	Status = XPlmi_CheckAndUpdateFipsState();
 
 END:
 	return Status;

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +46,7 @@
 #include "xsecure_sha_ipihandler.h"
 #include "xsecure_trng_ipihandler.h"
 #include "xsecure_plat_kat_ipihandler.h"
+#include "xsecure_plat_ipihandler.h"
 #include "xsecure_cmd.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
@@ -110,6 +112,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
 	case XSECURE_API(XSECURE_API_KAT):
+	case XSECURE_API(XSECURE_API_UPDATE_CRYPTO_STATUS):
 #endif
 		Status = XST_SUCCESS;
 		break;
@@ -171,6 +174,9 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 #endif
 	case XSECURE_API(XSECURE_API_KAT):
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_KatPlatIpiHandler, Cmd)
+		break;
+	case XSECURE_API(XSECURE_API_UPDATE_CRYPTO_STATUS):
+		Status = XSecure_PlatIpiHandler(Cmd);
 		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");

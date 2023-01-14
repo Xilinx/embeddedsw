@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,8 +26,15 @@
 #include "xsecure_sha_hw.h"
 #include "xsecure_sss.h"
 #include "xsecure_sha.h"
+#ifdef VERSALNET_PLM
+#include "xplmi_plat.h"
+#endif
 
 /************************** Constant Definitions *****************************/
+
+#define XSECURE_AES_ADDRESS			  (0xF11E0000U) /**< AES BaseAddress */
+#define XSECURE_SHA_ADDRESS			  (0xF1210000U) /**< SHA BaseAddress */
+#define XSECURE_RSA_ECDSA_RSA_ADDRESS (0xF1200000U) /**< RSA ECDSA BaseAddress */
 
 /************************** Variable Definitions *****************************/
 
@@ -66,6 +74,8 @@ const XSecure_Sha3Config Sha3ConfigTable[XSECURE_SHA3_NUM_OF_INSTANCES] =
 };
 
 /************************** Function Prototypes ******************************/
+
+static void XSecure_UpdateEcdsaCryptoStatus(u32 Op);
 
 /************************** Function Definitions *****************************/
 
@@ -125,4 +135,86 @@ const XSecure_Sha3Config Sha3ConfigTable[XSECURE_SHA3_NUM_OF_INSTANCES] =
 	}
 
 	return Mask;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates TRNG crypto indicator
+ *
+ *****************************************************************************/
+void XSecure_UpdateTrngCryptoStatus(u32 Op)
+{
+#ifdef VERSALNET_PLM
+	XPlmi_UpdateCryptoStatus(XPLMI_SECURE_TRNG_MASK, (XPLMI_SECURE_TRNG_MASK & ~Op));
+#else
+	(void)Op;
+#endif
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates RSA crypto indicator
+ *
+ *****************************************************************************/
+void XSecure_SetRsaCryptoStatus()
+{
+#ifdef VERSALNET_PLM
+	XPlmi_UpdateCryptoStatus(XPLMI_SECURE_RSA_MASK, XPLMI_SECURE_RSA_MASK);
+#endif
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates the crypto indicator bit of AES, SHA and ECC
+ *
+ * @param	BaseAddress	- Base address of the core
+ * @param   Op          - To set or clear the bit
+ *
+ *****************************************************************************/
+void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op)
+{
+#ifdef VERSALNET_PLM
+	if (BaseAddress == XSECURE_AES_ADDRESS) {
+		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_AES_MASK, (XPLMI_SECURE_AES_MASK & ~Op));
+	}
+	else if (BaseAddress == XSECURE_RSA_ECDSA_RSA_ADDRESS) {
+		XSecure_UpdateEcdsaCryptoStatus(Op);
+	}
+	else if (BaseAddress == XSECURE_SHA_ADDRESS) {
+		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_SHA3_384_MASK, (XPLMI_SECURE_SHA3_384_MASK & ~Op));
+	}
+	else {
+		/* Do Nothing */
+	}
+#else
+	(void)BaseAddress;
+	(void)Op;
+#endif
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates ECC crypto indicator
+ *
+ *****************************************************************************/
+static void XSecure_UpdateEcdsaCryptoStatus(u32 Op)
+{
+#ifdef VERSALNET_PLM
+	u32 RsaInUseFlag = 0U;
+
+
+	if (Op == XSECURE_SET_BIT) {
+		RsaInUseFlag = XPlmi_GetCryptoStatus(XPLMI_SECURE_RSA_MASK);
+		if (RsaInUseFlag == 0U) {
+			XPlmi_UpdateCryptoStatus(XPLMI_SECURE_ECDSA_MASK, XPLMI_SECURE_ECDSA_MASK);
+		}
+	}
+	else {
+		/* Clear both RSA and ECDSA bits */
+		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_ECDSA_MASK, 0U);
+		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_RSA_MASK, 0U);
+	}
+#else
+	(void)Op;
+#endif
 }

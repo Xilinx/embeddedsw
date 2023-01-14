@@ -40,25 +40,25 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**< KAT macros */
-#define XSECURE_KAT_HDR_LEN                 (3U)
-#define XSECURE_MAX_KAT_MASK_LEN			(3U)
-#define XSECURE_MIN_KAT_MASK_LEN			(1U)
+#define XSECURE_KAT_HDR_LEN		(3U)
+#define XSECURE_MAX_KAT_MASK_LEN	(3U)
+#define XSECURE_MIN_KAT_MASK_LEN	(1U)
 
 /**< Node ids */
-#define XSECURE_DDR_0_NODE_ID				(0x18320010U)
-#define XSECURE_DDR_1_NODE_ID				(0x18320011U)
-#define XSECURE_DDR_2_NODE_ID				(0x18320012U)
-#define XSECURE_DDR_3_NODE_ID				(0x18320013U)
-#define XSECURE_DDR_4_NODE_ID				(0x18320014U)
-#define XSECURE_DDR_5_NODE_ID				(0x18320015U)
-#define XSECURE_DDR_6_NODE_ID				(0x18320016U)
-#define XSECURE_DDR_7_NODE_ID				(0x18320017U)
-#define XSECURE_HNIC_NODE_ID				(0x4230031U)
-#define XSECURE_CPM5N_NODE_ID				(0x4218032U)
-#define XSECURE_PCIDE_NODE_ID				(0xc410053U)
-#define XSECURE_PKI_NODE_ID					(0xC410089U)
+#define XSECURE_DDR_0_NODE_ID		(0x18320010U)
+#define XSECURE_DDR_1_NODE_ID		(0x18320011U)
+#define XSECURE_DDR_2_NODE_ID		(0x18320012U)
+#define XSECURE_DDR_3_NODE_ID		(0x18320013U)
+#define XSECURE_DDR_4_NODE_ID		(0x18320014U)
+#define XSECURE_DDR_5_NODE_ID		(0x18320015U)
+#define XSECURE_DDR_6_NODE_ID		(0x18320016U)
+#define XSECURE_DDR_7_NODE_ID		(0x18320017U)
+#define XSECURE_HNIC_NODE_ID		(0x4230031U)
+#define XSECURE_CPM5N_NODE_ID		(0x4218032U)
+#define XSECURE_PCIDE_NODE_ID		(0xc410053U)
+#define XSECURE_PKI_NODE_ID		(0xC410089U)
 
-#define XSECURE_WORD_LEN                    (4U)
+#define XSECURE_WORD_LEN		(4U)
 
 /************************** Variable Definitions *****************************/
 
@@ -89,7 +89,8 @@ typedef enum {
 	XSECURE_API_KAT,			/**< 21U */
 	XSECURE_API_TRNG_GENERATE,		/**< 22U */
 	XSECURE_API_AES_PERFORM_OPERATION, /**< 23U */
-	XSECURE_API_MAX,			/**< 24U */
+	XSECURE_API_UPDATE_CRYPTO_STATUS,  /**< 24U */
+	XSECURE_API_MAX,			/**< 25U */
 } XSecure_ApiId;
 
 /**< XilSecure KAT ids */
@@ -255,6 +256,11 @@ typedef enum {
 	XSECURE_PKI_SHA2_384_KAT,
 	XSECURE_PKI_SHA2_512_KAT,
 } XSecure_PkiKatId;
+
+typedef enum {
+	XSECURE_CRYPTO_STATUS_SET = 0U,
+	XSECURE_CRYPTO_STATUS_CLEAR,
+}XSecure_CryptoStatusOp;
 
 #ifdef __cplusplus
 }

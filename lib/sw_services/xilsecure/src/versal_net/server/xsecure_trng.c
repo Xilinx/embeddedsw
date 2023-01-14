@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -36,6 +36,7 @@
 #include "xsecure_trng_hw.h"
 #include "xsecure_error.h"
 #include "xsecure_plat_kat.h"
+#include "xsecure_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_TRNG_RESEED_TIMEOUT		1500000U	/**< Reseed timeout in micro-seconds */
@@ -136,6 +137,8 @@ static void XSecure_TrngSet(void) {
 	XSecure_TrngUtilRMW32(XSECURE_TRNG_RESET, XSECURE_TRNG_RESET_VAL_MASK, 0U);
 	/* Soft reset PRNG unit */
 	XSecure_TrngPrngSet();
+	/* Update crypto indicator */
+	XSecure_UpdateTrngCryptoStatus(XSECURE_SET_BIT);
 }
 
 /*************************************************************************************************/
@@ -147,6 +150,8 @@ static void XSecure_TrngSet(void) {
 static void XSecure_TrngReset(void) {
 	XSecure_TrngUtilRMW32(XSECURE_TRNG_RESET, XSECURE_TRNG_RESET_VAL_MASK,
 		XSECURE_TRNG_RESET_DEFVAL);
+	/* Update crypto indicator */
+	XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
 }
 
 /*************************************************************************************************/

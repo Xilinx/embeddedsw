@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +57,7 @@
 #include "xil_util.h"
 #include "xsecure_error.h"
 #include "xsecure_cryptochk.h"
+#include "xsecure_plat.h"
 
 /************************** Constant Definitions ****************************/
 /* PKCS padding for SHA-3 in Versal */
@@ -114,6 +116,9 @@ int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 		Status = (int)XSECURE_RSA_INVALID_PARAM;
 		goto END;
 	}
+
+	/* Set RSA in use flag */
+	XSecure_SetRsaCryptoStatus();
 
 	InstancePtr->BaseAddress = XSECURE_ECDSA_RSA_BASEADDR;
 	Status = XST_SUCCESS;

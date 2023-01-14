@@ -1575,7 +1575,7 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 {
 	int Status = XST_FAILURE;
 	u32 Mask;
-	u32 RstState;
+	u32 RstState = XSECURE_RESET_SET;
 
 	/* Validate the input arguments */
 	if (InstancePtr == NULL) {
@@ -1610,6 +1610,7 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	if (RstState == XSECURE_RESET_SET){
 		XSecure_ReleaseReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
+		 RstState = XSECURE_RESET_UNSET;
 	}
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
 					 Mask);
@@ -1626,7 +1627,7 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 END_CLR:
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
 		XSECURE_AES_KEY_CLR_REG_CLR_MASK);
-	if (RstState == XSECURE_RESET_SET){
+	if (RstState == XSECURE_RESET_UNSET){
 		XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
