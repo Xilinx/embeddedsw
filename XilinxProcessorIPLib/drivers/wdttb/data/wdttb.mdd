@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -13,6 +14,7 @@
 # 4.4     aru     11/15/18  Fixed compiler warning
 # 4.4     sne     03/04/19  Added versal support.
 # 4.5     mus     04/10/19  Support hierarchical designs. Fix for CR#1020269
+# 5.6     asa     01/13/23  Add support for Q&A Mode in version 5.6.
 ###############################################################################
 
 ## @BEGIN_CHANGELOG EDK_M
@@ -33,7 +35,7 @@ BEGIN driver wdttb
   OPTION supported_peripherals = (axi_timebase_wdt psv_wwdt psxl_wwdt psxl_pmc_wwdt psx_wwdt psx_pmc_wwdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 5.5;
+  OPTION VERSION = 5.6;
   OPTION NAME = wdttb;
 
 END driver
