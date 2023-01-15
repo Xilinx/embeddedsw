@@ -697,25 +697,31 @@ void XWdtTb_ClearResetPending(const XWdtTb *InstancePtr)
 void XWdtTb_IntrClear(const XWdtTb *InstancePtr)
 {
 	u32 RegValue;
+	u32 RegValue1;
 	u32 SecWindow;
 
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->EnableWinMode == (u32)TRUE);
 
-        /* Read enable status register and update WINT bit */
+    /* Read enable status register and update WINT bit */
 	RegValue = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
 		XWT_ESR_OFFSET) | XWT_ESR_WINT_MASK;
 
-	SecWindow = (RegValue & XWT_ESR_WSW_MASK) >> XWT_ESR_WSW_SHIFT;
+	/* Find if the WWDT is in Q&A mode */
+	RegValue1 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_FCR_OFFSET)
+			& XWT_FCR_WM_MASK;
+	if (RegValue1 == 0x0) { /* Only if in Basic mode, worry about WSW bit */
+		SecWindow = (RegValue & XWT_ESR_WSW_MASK) >> XWT_ESR_WSW_SHIFT;
 
-	/*
-	 * Check WDT in second window. If WDT is in second window, toggle WSW
-	 * bit to avoid restart kick before clearing interrupt programmed
-	 * point
-	 */
-	if (SecWindow == (u32)XWT_ONE) {
-		RegValue &= ~((u32)XWT_ESR_WSW_MASK);
+		/*
+		 * Check WDT in second window. If WDT is in second window, toggle WSW
+		 * bit to avoid restart kick before clearing interrupt programmed
+		 * point
+		 */
+		if (SecWindow == (u32)XWT_ONE) {
+			RegValue &= ~((u32)XWT_ESR_WSW_MASK);
+		}
 	}
 
 	/* Write enable status register with updated WINT and WSW bit */
@@ -1281,4 +1287,91 @@ u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width)
         }
         return Status;
 }
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This routine generates responses based on input token in QA mode
+*
+* @param	TokenVal : Token value read from TVAL
+* @param	AnsByteCnt : Byte on which response is generated
+* @param	TokenFdbkVal: Token feedback value read from TFR
+*
+* @return	Response byte (calculated based on logic given WWDT architecture)
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XWdtTb_GenAnswer(u8 TokenVal, u8 AnsByteCnt, u8 TokenFdbk)
+{
+	u8 Val = 0U;
+	u8 Token[4] = {0,0,0,0};
+	u8 AnsCnt[2] = {0, 0};
+	u8 Pos;
+	u8 Temp;
+
+	/* Extract Token bits */
+	Temp = TokenVal;
+	Pos = 0U;
+	while((Temp != 0U) && (Pos < 4U)) {
+		if((Temp & 0x01U) != 0U) {
+			Token[Pos]= 0x01U;
+		}
+		Pos++;
+		Temp >>= 1U;
+	}
+
+	/* Extract Answer byte count bits */
+	Temp = AnsByteCnt;
+	Pos = 0U;
+	while((Temp != 0U) && (Pos < 2U)) {
+		if((Temp & 0x01U) != 0U) {
+			AnsCnt[Pos]= 0x01U;
+		}
+		Pos++;
+		Temp >>= 1U;
+	}
+	if(TokenFdbk == 0x00U) {
+		Val = ((Token[2] ^ AnsCnt[0]) << 7 |
+			  (Token[0] ^ AnsCnt[0]) << 6 |
+			  (Token[3] ^ AnsCnt[0]) << 5 |
+			  (Token[1] ^ AnsCnt[0]) << 4 |
+			  (Token[2] ^ AnsCnt[1] ^ Token[0] ^ Token[3]) << 3 |
+			  (Token[0] ^ AnsCnt[1] ^ Token[3] ^ Token[1]) << 2 |
+			  (Token[0] ^ AnsCnt[1] ^ Token[2] ^ Token[1]) << 1 |
+			  (Token[0] ^ AnsCnt[1] ^ Token[3]));
+	}
+	else if (TokenFdbk == 0x01U) {
+		Val = ((Token[0] ^ AnsCnt[0]) << 7 |
+			  (Token[1] ^ AnsCnt[0]) << 6 |
+			  (Token[0] ^ AnsCnt[0]) << 5 |
+			  (Token[0] ^ AnsCnt[0]) << 4 |
+			  (Token[0] ^ AnsCnt[1] ^ Token[1] ^ Token[3]) << 3 |
+			  (Token[1] ^ AnsCnt[1] ^ Token[0] ^ Token[1]) << 2 |
+			  (Token[1] ^ AnsCnt[1] ^ Token[0] ^ Token[1]) << 1 |
+			  (Token[0] ^ AnsCnt[1] ^ Token[1]));
+	}
+	else if (TokenFdbk == 0x02U) {
+		Val = ((Token[1] ^ AnsCnt[0]) << 7 |
+			  (Token[2] ^ AnsCnt[0]) << 6 |
+			  (Token[1] ^ AnsCnt[0]) << 5 |
+			  (Token[2] ^ AnsCnt[0]) << 4 |
+			  (Token[1] ^ AnsCnt[1] ^ Token[2] ^ Token[3]) << 3 |
+			  (Token[2] ^ AnsCnt[1] ^ Token[1] ^ Token[1]) << 2 |
+			  (Token[2] ^ AnsCnt[1] ^ Token[1] ^ Token[1]) << 1 |
+			  (Token[2] ^ AnsCnt[1] ^ Token[1]));
+	} else {
+		Val = ((Token[2] ^ AnsCnt[0]) << 7 |
+			  (Token[3] ^ AnsCnt[0]) << 6 |
+			  (Token[2] ^ AnsCnt[0]) << 5 |
+			  (Token[3] ^ AnsCnt[0]) << 4 |
+			  (Token[3] ^ AnsCnt[1] ^ Token[3] ^ Token[3]) << 3 |
+			  (Token[3] ^ AnsCnt[1] ^ Token[2] ^ Token[1]) << 2 |
+			  (Token[3] ^ AnsCnt[1] ^ Token[3] ^ Token[1]) << 1 |
+			  (Token[3] ^ AnsCnt[1] ^ Token[2]));
+	}
+	return Val;
+}
+
 /** @} */

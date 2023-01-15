@@ -65,25 +65,54 @@ s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 	u32 FailCounterVal;
 	u32 SecWindow;
 	u32 RegValue;
+	u32 RegValue1;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->EnableWinMode == (u32)TRUE);
 
-	/* Read enable status register and get second window value */
-	SecWindow = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-			XWT_ESR_OFFSET) & XWT_ESR_WSW_MASK) >>
-			XWT_ESR_WSW_SHIFT;
+	/* Check for Q&A Mode */
+	RegValue1 = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,XWT_FCR_OFFSET)
+				& XWT_FCR_WM_MASK;
+	/* Basic Mode */
+	if (RegValue1 == 0x0) {
+		/* Read enable status register and get second window value */
+		SecWindow = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+				XWT_ESR_OFFSET) & XWT_ESR_WSW_MASK) >>
+				XWT_ESR_WSW_SHIFT;
 
-	/* Check whether FC is enabled */
-	if (InstancePtr->EnableFailCounter == (u32)XWT_ONE) {
-		/* Read enable status register and get FC value */
-		FailCounterVal = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-					XWT_ESR_OFFSET) & XWT_ESR_FCV_MASK) >>
-					XWT_ESR_FCV_SHIFT;
-		/* Check whether FC is zero and WDT is in second window */
-		if ((FailCounterVal == (u32)XWT_ZERO) &&
-				(SecWindow == (u32)XWT_ONE)) {
+		/* Check whether FC is enabled */
+		if (InstancePtr->EnableFailCounter == (u32)XWT_ONE) {
+			/* Read enable status register and get FC value */
+			FailCounterVal = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+						XWT_ESR_OFFSET) & XWT_ESR_FCV_MASK) >>
+						XWT_ESR_FCV_SHIFT;
+			/* Check whether FC is zero and WDT is in second window */
+			if ((FailCounterVal == (u32)XWT_ZERO) &&
+					(SecWindow == (u32)XWT_ONE)) {
+				/* Read enable status register and update WEN bit */
+				RegValue = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+							  XWT_ESR_OFFSET) &
+							  (~XWT_ESR_WEN_MASK);
+
+				/* Set WSW bit to zero. It is RW1C bit */
+				RegValue &= ~((u32)XWT_ESR_WSW_MASK);
+
+				/*
+				 * Write enable status register with updated WEN and
+				 * WSW value
+				 */
+				XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
+						XWT_ESR_OFFSET, RegValue);
+
+				InstancePtr->IsStarted = (u32)0U;
+				Status = (s32)XST_SUCCESS;
+			} else {
+				Status = (s32)XST_FAILURE;
+			}
+		}
+		/* Check whether watchdog in second window */
+		else if (SecWindow == (u32)XWT_ONE) {
 			/* Read enable status register and update WEN bit */
 			RegValue = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
 						  XWT_ESR_OFFSET) &
@@ -93,39 +122,35 @@ s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 			RegValue &= ~((u32)XWT_ESR_WSW_MASK);
 
 			/*
-			 * Write enable status register with updated WEN and
-			 * WSW value
+			 * Write enable status register with updated WEN and WSW
+			 * value
 			 */
-			XWdtTb_WriteReg(InstancePtr->Config.BaseAddr,
-					XWT_ESR_OFFSET, RegValue);
+			XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
+					RegValue);
 
 			InstancePtr->IsStarted = (u32)0U;
 			Status = (s32)XST_SUCCESS;
 		} else {
 			Status = (s32)XST_FAILURE;
 		}
-	}
-	/* Check whether watchdog in second window */
-	else if (SecWindow == (u32)XWT_ONE) {
-		/* Read enable status register and update WEN bit */
-		RegValue = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
-					  XWT_ESR_OFFSET) &
-					  (~XWT_ESR_WEN_MASK);
-
-		/* Set WSW bit to zero. It is RW1C bit */
-		RegValue &= ~((u32)XWT_ESR_WSW_MASK);
-
-		/*
-		 * Write enable status register with updated WEN and WSW
-		 * value
-		 */
-		XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
-				RegValue);
-
-		InstancePtr->IsStarted = (u32)0U;
-		Status = (s32)XST_SUCCESS;
-	} else {
-		Status = (s32)XST_FAILURE;
+	} else { /* Q&A Mode */
+		/* Read enable status register and get FC value */
+		FailCounterVal = (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+					XWT_ESR_OFFSET) & XWT_ESR_FCV_MASK) >>
+					XWT_ESR_FCV_SHIFT;
+		if (FailCounterVal == (u32)XWT_ZERO) {
+			/* Read enable status register and update WEN bit */
+			RegValue = XWdtTb_ReadReg(InstancePtr->Config.BaseAddr,
+						  XWT_ESR_OFFSET) &
+						  (~XWT_ESR_WEN_MASK);
+			/* Write enable status register with updated WEN value */
+			XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET,
+					RegValue);
+			InstancePtr->IsStarted = (u32)0U;
+			Status = (s32)XST_SUCCESS;
+		} else {
+			Status = (s32)XST_FAILURE;
+		}
 	}
 
 	return Status;

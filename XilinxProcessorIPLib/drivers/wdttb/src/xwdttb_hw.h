@@ -162,8 +162,8 @@ extern "C" {
 *  @{
 */
 #define XWT_MWR_AEN_MASK	0x00000002U	/**< Always Enable Mask */
-#define XWT_MWR_MWC_MASK	0x00000001U	/**< Master Write Control
-						   * Mask */
+#define XWT_MWR_MWC_MASK	0x00000001U	/**< Master Write Control Mask */
+
 /** @} */
 
 /** @name Enable & Status Register bits
@@ -171,25 +171,21 @@ extern "C" {
 */
 #define XWT_ESR_LBE_MASK	0x07000000U	/**< Last Bad Event Mask */
 #define XWT_ESR_FCV_MASK	0x00700000U	/**< Fail Counter Value Mask */
-#define XWT_ESR_WRP_MASK	0x00020000U	/**< Watchdog Reset Pending
-						  *  Mask */
+#define XWT_ESR_WRP_MASK	0x00020000U	/**< Watchdog Reset Pending Mask */
 #define XWT_ESR_WINT_MASK	0x00010000U	/**< Watchdog Interrupt Mask */
-#define XWT_ESR_WSW_MASK	0x00000100U	/**< Watchdog Second Window
-						  *  Mask */
-#define XWT_ESR_WCFG_MASK	0x00000002U	/**< Wrong Configuration
-						  *  Mask */
+#define XWT_ESR_ACNT_MASK	0x0000C000U	/**< Answer Count Mask */
+#define XWT_ESR_WSW_MASK	0x00000100U	/**< Watchdog Second Window Mask */
+#define XWT_TOKEN_VAL_MASK	0x0000003CU /**< Token Value Mask */
+#define XWT_ESR_WCFG_MASK	0x00000002U	/**< Wrong Configuration Mask */
 #define XWT_ESR_WEN_MASK	0x00000001U	/**< Window WDT Enable Mask */
 #define XWT_ESR_LBE_SHIFT	24U		/**< Last Bad Event Shift */
-#define XWT_ESR_FCV_SHIFT	20U		/**< Fail Counter Value
-						  *  Shift */
-#define XWT_ESR_WRP_SHIFT	17U		/**< Watchdog Reset Pending
-						  *  Shift */
-#define XWT_ESR_WINT_SHIFT	16U		/**< Watchdog Interrupt
-						  *  Shift */
-#define XWT_ESR_WSW_SHIFT	8U		/**< Watchdog Second Window
-						  *  Shift */
-#define XWT_ESR_WCFG_SHIFT	1U		/**< Wrong Configuration
-						  *  Shift */
+#define XWT_ESR_FCV_SHIFT	20U		/**< Fail Counter Value Shift */
+#define XWT_ESR_WRP_SHIFT	17U		/**< Watchdog Reset Pending Shift */
+#define XWT_ESR_WINT_SHIFT	16U		/**< Watchdog Interrupt Shift */
+#define XWT_ESR_ACNT_SHIFT	14U		/**< Watchdog Answer Cnt Shift */
+#define XWT_ESR_WSW_SHIFT	8U		/**< Watchdog Second Window Shift */
+#define XWT_ESR_TOKENVAL_SHIFT	2U	/**< Token Value Shift */
+#define XWT_ESR_WCFG_SHIFT	1U		/**< Wrong Configuration Shift */
 /** @} */
 
 /** @name Function Control Register bits
@@ -217,6 +213,22 @@ extern "C" {
 #define XWT_FCR_WM_SHIFT	1U		/**< Window WDT Mode Shift */
 /** @} */
 
+/** @name Token feedback register bits
+*  @{
+*/
+#define XWT_TFR_FDBK_MASK	0x00000F00U	/**< feedback bit */
+#define XWT_TFR_SEED_MASK	0x0000000FU	/**< seed bit */
+
+#define XWT_TFR_FDBK_SHIFT	8U	/**< feedback bit shift*/
+/** @} */
+
+/** @name Token response register bits
+*  @{
+*/
+#define XWT_TRR_ANS_MASK		0x000000FFU	/**< ANS bit */
+
+/** @} */
+
 /** @name Generic Watchdog Control and Status Register  bits
  *  @{
  */
@@ -240,9 +252,10 @@ extern "C" {
 #define XWT_ZERO                0U                  /**< Flag for 0 value*/
 #define XWT_ONE                 1U                  /**< Flag for 1 value */
 #define XWT_MAX_BYTE_SEGMENT    4U                  /**< Max Byte segment value */
-#define XWT_GWDT		0U		    /**< Flag for GWDT */
-#define XWT_WWDT		1U		    /**< Flag for WWDT */
-#define XWT_MAX_TIMEOUT		30000U		    /**< GWDT max timeout */
+#define XWT_GWDT				0U    				/**< Flag for GWDT */
+#define XWT_WWDT				1U   				/**< Flag for WWDT */
+#define XWT_ENABLE_QA_MODE		0x2		    		/**< Flag for WWDT */
+#define XWT_MAX_TIMEOUT		30000U		    		/**< GWDT max timeout */
 #define XWT_KILO_HZ		1000U		    /**< Flag for Kilo Hz */
 /* @} */
 /**************************** Type Definitions *******************************/

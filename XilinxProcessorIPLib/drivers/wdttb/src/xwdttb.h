@@ -536,6 +536,213 @@ static inline u32 XWdtTb_ConfigureWDTMode(XWdtTb *InstancePtr, u32 Mode)
 	}
 }
 
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function starts the Q&A mode sequence.
+*
+* @param     InstancePtr is a pointer to the XWdtTb instance to be
+*            worked on.
+* @param     Value specifies the value to be written to token resp register.
+*
+* @return    None
+*
+******************************************************************************/
+static inline void XWdtTb_StartQASequence(XWdtTb *InstancePtr, u32 Value)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_TRR_OFFSET, Value);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function sets the first feedback value for the TFR .
+*
+* @param     InstancePtr pointer to the XWdtTb instance to be worked on.
+* @param     First feedback to be programmed.
+* @return    None.
+*
+* @note
+*            This function must be called before Window WDT QA start/enable
+*            or after Window WDT QA stop/disable.
+*
+******************************************************************************/
+static inline void XWdtTb_SetFeedbackVal(XWdtTb *InstancePtr, u32 Feedback)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_TFR_OFFSET,
+				(XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_TFR_OFFSET)
+				& ~(XWT_TFR_FDBK_MASK)) | Feedback);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function reads the Token Feedback Register to return the feedback value.
+*
+* @param     InstancePtr is a pointer to the XWdtTb instance to be
+*            worked on.
+*
+* @return    Feedback value programmed in TFR register.
+*
+******************************************************************************/
+static inline u32 XWdtTb_GetFeedbackVal(XWdtTb *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return ((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_TFR_OFFSET)
+			& XWT_TFR_FDBK_MASK) >> XWT_TFR_FDBK_SHIFT);
+
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function reads the ESR Register to return the token value.
+*
+* @param     InstancePtr is a pointer to the XWdtTb instance to be
+*            worked on.
+*
+* @return    Token value from ESR.
+*
+******************************************************************************/
+static inline u32 XWdtTb_GetTokenVal(XWdtTb *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return ((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET)
+				& XWT_TOKEN_VAL_MASK) >> XWT_ESR_TOKENVAL_SHIFT);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function sets the seed value for the TFR .
+*
+* @param     InstancePtr pointer to the XWdtTb instance to be worked on.
+* @param     SeedValue used for Input of Seed.
+* @return    None.
+*
+* @note
+*            This function must be called before Window WDT QA start/enable
+*            or after Window WDT QA stop/disable.
+*
+******************************************************************************/
+static inline void XWdtTb_SetSeedValue(const XWdtTb *InstancePtr,
+																u32 SeedValue)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_TFR_OFFSET,
+			(XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_TFR_OFFSET)
+			& ~(XWT_TFR_SEED_MASK)) | SeedValue);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function returns true if the watchdog is in second window.
+*
+* @param     InstancePtr is a pointer to the XWdtTb instance to be
+*            worked on.
+*
+* @return    TRUE if in second window, otherwise FALSE.
+*
+******************************************************************************/
+static inline u32 XWdtTb_InSecondWindow(XWdtTb *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	if (XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET)
+			& XWT_ESR_WSW_MASK) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function updates the Token Resp Register (TRR) with the answer value
+* provided from user.
+*
+* @param     InstancePtr is a pointer to the XWdtTb instance to be
+*            worked on.
+* @param     Answer Value to be programmed.
+*
+* @return    None
+*
+******************************************************************************/
+static inline void XWdtTb_UpdateAnsByte(XWdtTb *InstancePtr, u32 Ans)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_TRR_OFFSET, Ans);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function reads the Answer byte count from the ESR register.
+*
+* @param	InstancePtr is a pointer to the XWdtTb instance to be
+*		worked on.
+*
+* @return	Answer count value
+*
+* @note		None.
+*
+******************************************************************************/
+static inline u32 XWdtTb_GetAnsByteCnt(const XWdtTb *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	return ((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_ESR_OFFSET)
+					& XWT_ESR_ACNT_MASK) >> XWT_ESR_ACNT_SHIFT);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function enables the Q&A mode by writing Func_Ctrl register .
+*
+* @param     InstancePtr pointer to the XWdtTb instance to be worked on.
+* @return    None.
+*
+******************************************************************************/
+static inline void XWdtTb_EnableQAMode(XWdtTb *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_FCR_OFFSET,
+		((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_FCR_OFFSET)
+				& ~(XWT_FCR_WM_MASK))) | XWT_ENABLE_QA_MODE);
+}
+
+/*****************************************************************************/
+/**
+* @brief
+*
+* This function disables the Q&A mode by writing Func_Ctrl register .
+*
+* @param     InstancePtr pointer to the XWdtTb instance to be worked on.
+* @return    None.
+*
+******************************************************************************/
+static inline void XWdtTb_DisableQAMode(XWdtTb *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_FCR_OFFSET,
+		((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_FCR_OFFSET)
+					& ~(XWT_ENABLE_QA_MODE))));
+}
+
 /************************** Function Prototypes ******************************/
 
 /*
@@ -575,12 +782,12 @@ void XWdtTb_EnableFailCounter(XWdtTb *InstancePtr);
 void XWdtTb_DisableFailCounter(XWdtTb *InstancePtr);
 void XWdtTb_EnableExtraProtection(const XWdtTb *InstancePtr);
 void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr);
-
 void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 				u32 SecondWinCount);
 void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr, u32 GWOR_config);
 void XWdtTb_SetGenericWdtWindowTimeOut(const XWdtTb *InstancePtr, u32 MilliSeconds);
 u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width);
+u8 XWdtTb_GenAnswer(u8 TokenVal, u8 AnsByteCnt, u8 TokenFdbk);
 
 /*
  * Self-test functions in xwdttb_selftest.c
