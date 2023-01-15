@@ -112,11 +112,11 @@ extern "C" {
 						Offset */
 #define XWT_TRR_OFFSET          0x0028U    /**< Token Response Register
 						offset */
-#define XWT_IENR_OFFSET         0x002CU    /**< Interrupt Enable Register
+#define XWT_IENR_OFFSET         0x0030U    /**< Interrupt Enable Register
 						Offset */
-#define XWT_IDR_OFFSET          0x0030U    /**< Interrupt Disable Register
+#define XWT_IDR_OFFSET          0x0034U    /**< Interrupt Disable Register
 						Offset */
-#define XWT_IMR_OFFSET          0x0034U    /**< Interrupt Mask Register
+#define XWT_IMR_OFFSET          0x0038U    /**< Interrupt Mask Register
 						Offset */
 #define XWT_GWRR_OFFSET         0x1000U    /**< Generic Watchdog Refresh
 						Register Offset */
