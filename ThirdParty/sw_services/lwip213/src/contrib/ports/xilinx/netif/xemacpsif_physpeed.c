@@ -468,7 +468,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		sleep(1);
 		timeout_counter++;
 
-		if (timeout_counter == 30) {
+		if (timeout_counter == 5) {
 			xil_printf("Auto negotiation error \r\n");
 			return XST_FAILURE;
 		}
@@ -553,7 +553,7 @@ static u32_t get_Marvell_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 						IEEE_COPPER_SPECIFIC_STATUS_REG_2,  &temp);
 		timeout_counter++;
 
-		if (timeout_counter == 30) {
+		if (timeout_counter == 5) {
 			xil_printf("Auto negotiation error \r\n");
 			return XST_FAILURE;
 		}
@@ -625,7 +625,7 @@ static u32_t get_Realtek_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		sleep(1);
 		timeout_counter++;
 
-		if (timeout_counter == 30) {
+		if (timeout_counter == 5) {
 			xil_printf("Auto negotiation error \r\n");
 			return XST_FAILURE;
 		}
