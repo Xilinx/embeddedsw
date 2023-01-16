@@ -106,7 +106,7 @@ typedef struct {
 extern xaxiemacif_s xaxiemacif;
 
 #ifndef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_FIFO
-s32_t is_tx_space_available(xaxiemacif_s *emac);
+s32_t xaxiemac_is_tx_space_available(xaxiemacif_s *emac);
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA
 s32_t process_sent_bds(XMcdma_ChanCtrl *Tx_Chan);
 #else

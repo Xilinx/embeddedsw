@@ -266,53 +266,6 @@ xemacif_input(struct netif *netif)
 	return n_packets;
 }
 
-#if defined(XLWIP_CONFIG_INCLUDE_GEM) && !defined(SGMII_FIXED_LINK)
-static u32_t phy_link_detect(XEmacPs *xemacp, u32_t phy_addr)
-{
-	u16_t status;
-
-	/* Read Phy Status register twice to get the confirmation of the current
-	 * link status.
-	 */
-	XEmacPs_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-	XEmacPs_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-
-	if (status & IEEE_STAT_LINK_STATUS)
-		return 1;
-	return 0;
-}
-#elif defined(XLWIP_CONFIG_INCLUDE_AXI_ETHERNET)
-static u32_t phy_link_detect(XAxiEthernet *xemacp, u32_t phy_addr)
-{
-	u16_t status;
-
-	/* Read Phy Status register twice to get the confirmation of the current
-	 * link status.
-	 */
-	XAxiEthernet_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-	XAxiEthernet_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-
-	if (status & IEEE_STAT_LINK_STATUS)
-		return 1;
-	return 0;
-}
-#elif defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
-static u32_t phy_link_detect(XEmacLite *xemacp, u32_t phy_addr)
-{
-	u16_t status;
-
-	/* Read Phy Status register twice to get the confirmation of the current
-	 * link status.
-	 */
-	XEmacLite_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-	XEmacLite_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-
-	if (status & IEEE_STAT_LINK_STATUS)
-		return 1;
-	return 0;
-}
-#endif
-
 #ifdef SGMII_FIXED_LINK
 static u32_t pcs_link_detect(XEmacPs *xemacp)
 {
@@ -329,73 +282,30 @@ static u32_t pcs_link_detect(XEmacPs *xemacp)
 #endif
 
 #if defined(XLWIP_CONFIG_INCLUDE_GEM)
-static u32_t phy_autoneg_status(XEmacPs *xemacp, u32_t phy_addr)
+void emacps_link_status(struct netif *netif, xemacpsif_s *xemacs, XEmacPs *xemacp)
 {
+	u32_t link_speed, phy_link_status, phy_autoneg_status;
 	u16_t status;
-
-	/* Read Phy Status register twice to get the confirmation of the current
-	 * link status.
-	 */
-	XEmacPs_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-	XEmacPs_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-
-	if (status & IEEE_STAT_AUTONEGOTIATE_COMPLETE)
-		return 1;
-	return 0;
-}
-#elif defined(XLWIP_CONFIG_INCLUDE_AXI_ETHERNET)
-static u32_t phy_autoneg_status(XAxiEthernet *xemacp, u32_t phy_addr)
-{
-	u16_t status;
-
-	/* Read Phy Status register twice to get the confirmation of the current
-	 * link status.
-	 */
-	XAxiEthernet_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-	XAxiEthernet_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-
-	if (status & IEEE_STAT_AUTONEGOTIATE_COMPLETE)
-		return 1;
-	return 0;
-}
-#elif defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
-static u32_t phy_autoneg_status(XEmacLite *xemacp, u32_t phy_addr)
-{
-	u16_t status;
-
-	/* Read Phy Status register twice to get the confirmation of the current
-	 * link status.
-	 */
-	XEmacLite_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-	XEmacLite_PhyRead(xemacp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
-
-	if (status & IEEE_STAT_AUTONEGOTIATE_COMPLETE)
-		return 1;
-	return 0;
-}
-#endif
-
-void eth_link_detect(struct netif *netif)
-{
-	u32_t link_speed, phy_link_status;
-	struct xemac_s *xemac = (struct xemac_s *)(netif->state);
-
-#if defined(XLWIP_CONFIG_INCLUDE_GEM)
-	xemacpsif_s *xemacs = (xemacpsif_s *)(xemac->state);
-	XEmacPs *xemacp = &xemacs->emacps;
-#elif defined(XLWIP_CONFIG_INCLUDE_AXI_ETHERNET)
-	xaxiemacif_s *xemacs = (xaxiemacif_s *)(xemac->state);
-	XAxiEthernet *xemacp = &xemacs->axi_ethernet;
-#elif defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
-	xemacliteif_s *xemacs = (xemacliteif_s *)(xemac->state);
-	XEmacLite *xemacp = xemacs->instance;
-#endif
 
 	if ((xemacp->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
 			(xemacs->eth_link_status == ETH_LINK_UNDEFINED))
 		return;
 #ifndef SGMII_FIXED_LINK
-	phy_link_status = phy_link_detect(xemacp, phyaddrforemac);
+	/* Read Phy Status register twice to get the confirmation of the current
+	 * link status.
+	 */
+	XEmacPs_PhyRead(xemacp, phyaddrforemac, IEEE_STATUS_REG_OFFSET, &status);
+	XEmacPs_PhyRead(xemacp, phyaddrforemac, IEEE_STATUS_REG_OFFSET, &status);
+	if (status & IEEE_STAT_LINK_STATUS)
+		phy_link_status = 1;
+	else
+		phy_link_status = 0;
+
+	if (status & IEEE_STAT_AUTONEGOTIATE_COMPLETE)
+		phy_autoneg_status = 1;
+	else
+		phy_autoneg_status = 0;
+
 #else
 	phy_link_status = pcs_link_detect(xemacp);
 #endif
@@ -413,23 +323,159 @@ void eth_link_detect(struct netif *netif)
 			xil_printf("Ethernet Link down\r\n");
 			break;
 		case ETH_LINK_NEGOTIATING:
-			if (phy_link_status &&
-				phy_autoneg_status(xemacp, phyaddrforemac)) {
+			if (phy_link_status && phy_autoneg_status) {
 
-				/* Initiate Phy setup to get link speed */
-#if defined(XLWIP_CONFIG_INCLUDE_GEM)
 				link_speed = phy_setup_emacps(xemacp,
-								phyaddrforemac);
+						phyaddrforemac);
 				XEmacPs_SetOperatingSpeed(xemacp, link_speed);
-#elif defined(XLWIP_CONFIG_INCLUDE_AXI_ETHERNET)
-				link_speed = phy_setup_axiemac(xemacp);
-				XAxiEthernet_SetOperatingSpeed(xemacp,
-							       link_speed);
-#endif
 				netif_set_link_up(netif);
 				xemacs->eth_link_status = ETH_LINK_UP;
 				xil_printf("Ethernet Link up\r\n");
 			}
+			break;
+	}
+	return;
+}
+#endif
+
+#if defined(XLWIP_CONFIG_INCLUDE_AXI_ETHERNET)
+void axieth_link_status(struct netif *netif, xaxiemacif_s *xemacs, XAxiEthernet *xemacp)
+{
+	u32_t link_speed, phy_link_status, phy_autoneg_status;
+	u16_t status;
+
+	if ((xemacp->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
+			(xemacs->eth_link_status == ETH_LINK_UNDEFINED))
+		return;
+#ifndef SGMII_FIXED_LINK
+	/* Read Phy Status register twice to get the confirmation of the current
+	 * link status.
+	 */
+	XAxiEthernet_PhyRead(xemacp, phyaddrforemac, IEEE_STATUS_REG_OFFSET, &status);
+	XAxiEthernet_PhyRead(xemacp, phyaddrforemac, IEEE_STATUS_REG_OFFSET, &status);
+	if (status & IEEE_STAT_LINK_STATUS)
+		phy_link_status = 1;
+	else
+		phy_link_status = 0;
+
+	if (status & IEEE_STAT_AUTONEGOTIATE_COMPLETE)
+		phy_autoneg_status = 1;
+	else
+		phy_autoneg_status = 0;
+#else
+	phy_link_status = pcs_link_detect(xemacp);
+#endif
+
+	if ((xemacs->eth_link_status == ETH_LINK_UP) && (!phy_link_status))
+		xemacs->eth_link_status = ETH_LINK_DOWN;
+
+	switch (xemacs->eth_link_status) {
+		case ETH_LINK_UNDEFINED:
+		case ETH_LINK_UP:
+			return;
+		case ETH_LINK_DOWN:
+			netif_set_link_down(netif);
+			xemacs->eth_link_status = ETH_LINK_NEGOTIATING;
+			xil_printf("Ethernet Link down\r\n");
+			break;
+		case ETH_LINK_NEGOTIATING:
+			if (phy_link_status && phy_autoneg_status) {
+
+				link_speed = phy_setup_axiemac(xemacp);
+				XAxiEthernet_SetOperatingSpeed(xemacp,link_speed);
+				netif_set_link_up(netif);
+				xemacs->eth_link_status = ETH_LINK_UP;
+				xil_printf("Ethernet Link up\r\n");
+			}
+			break;
+	}
+	return;
+}
+#endif
+#if defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
+void emaclite_link_status(struct netif *netif, xemacliteif_s *xemacs, XEmacLite *xemacp)
+{
+	u32_t phy_link_status, status, phy_autoneg_status;
+	u16_t status;
+
+	if ((xemacp->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
+			(xemacs->eth_link_status == ETH_LINK_UNDEFINED))
+		return;
+#ifndef SGMII_FIXED_LINK
+	/* Read Phy Status register twice to get the confirmation of the current
+	 * link status.
+	 */
+	XEmacLite_PhyRead(xemacp, phyaddrforemac, IEEE_STATUS_REG_OFFSET, &status);
+	XEmacLite_PhyRead(xemacp, phyaddrforemac, IEEE_STATUS_REG_OFFSET, &status);
+	if (status & IEEE_STAT_LINK_STATUS)
+		phy_link_status = 1;
+	else
+		phy_link_status = 0;
+
+	if (status & IEEE_STAT_AUTONEGOTIATE_COMPLETE)
+		phy_autoneg_status = 1;
+	else
+		phy_autoneg_status = 0;
+#else
+	phy_link_status = pcs_link_detect(xemacp);
+#endif
+
+	if ((xemacs->eth_link_status == ETH_LINK_UP) && (!phy_link_status))
+		xemacs->eth_link_status = ETH_LINK_DOWN;
+
+	switch (xemacs->eth_link_status) {
+		case ETH_LINK_UNDEFINED:
+		case ETH_LINK_UP:
+			return;
+		case ETH_LINK_DOWN:
+			netif_set_link_down(netif);
+			xemacs->eth_link_status = ETH_LINK_NEGOTIATING;
+			xil_printf("Ethernet Link down\r\n");
+			break;
+		case ETH_LINK_NEGOTIATING:
+			if (phy_link_status && phy_autoneg_status) {
+				netif_set_link_up(netif);
+				xemacs->eth_link_status = ETH_LINK_UP;
+				xil_printf("Ethernet Link up\r\n");
+			}
+			break;
+	}
+	return;
+}
+#endif
+
+void eth_link_detect(struct netif *netif)
+{
+	struct xemac_s *xemac = (struct xemac_s *)(netif->state);
+
+#if defined(XLWIP_CONFIG_INCLUDE_GEM)
+	xemacpsif_s *xemacps = (xemacpsif_s *)(xemac->state);
+	XEmacPs *xemacpsp = &xemacps->emacps;
+#endif
+#if defined(XLWIP_CONFIG_INCLUDE_AXI_ETHERNET)
+	xaxiemacif_s *xaxiemac = (xaxiemacif_s *)(xemac->state);
+	XAxiEthernet *xaxiemacp = &xaxiemac->axi_ethernet;
+#endif
+#if defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
+	xemacliteif_s *xemaclite = (xemacliteif_s *)(xemac->state);
+	XEmacLite *xemaclitep = xemaclite->instance;
+#endif
+
+	switch (xemac->type) {
+		case xemac_type_emacps:
+#if defined(XLWIP_CONFIG_INCLUDE_GEM)
+	emacps_link_status(netif, xemacps, xemacpsp);
+#endif
+			break;
+		case xemac_type_xps_emaclite:
+#if defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
+	emaclite_link_status(netif, xemaclite, xemaclitep);
+#endif
+			break;
+		case xemac_type_axi_ethernet:
+#ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET
+	axieth_link_status(netif, xaxiemac, xaxiemacp);
+#endif
 			break;
 	}
 }

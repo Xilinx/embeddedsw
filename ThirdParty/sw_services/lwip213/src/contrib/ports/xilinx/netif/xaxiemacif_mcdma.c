@@ -444,7 +444,7 @@ static void axi_mcdma_recv_handler(void *CallBackRef, u32 ChanId)
 #endif
 }
 
-s32_t is_tx_space_available(xaxiemacif_s *xaxiemacif)
+s32_t xaxiemac_is_tx_space_available(xaxiemacif_s *xaxiemacif)
 {
 	XMcdma_ChanCtrl *Tx_Chan;
 	u8_t ChanId;

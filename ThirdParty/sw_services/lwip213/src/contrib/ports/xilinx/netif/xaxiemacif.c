@@ -184,7 +184,7 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
         while (count) {
 
 		/* check if space is available to send */
-		if (is_tx_space_available(xaxiemacif)) {
+		if (xaxiemac_is_tx_space_available(xaxiemacif)) {
 #if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
     if (netif_is_opt_block_tx_set(netif, NETIF_ENABLE_BLOCKING_TX_FOR_PACKET)) {
         err = _unbuffered_low_level_output(xaxiemacif, p, 1, &to_block_index);

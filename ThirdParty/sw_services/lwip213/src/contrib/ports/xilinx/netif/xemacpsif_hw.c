@@ -262,7 +262,7 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 			}
 			if (ErrorWord & XEMACPS_TXSR_FRAMERX_MASK) {
 				LWIP_DEBUGF(NETIF_DEBUG, ("Transmit collision\r\n"));
-				process_sent_bds(xemacpsif, txring);
+				xemacps_process_sent_bds(xemacpsif, txring);
 			}
 			break;
 		}

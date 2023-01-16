@@ -113,9 +113,9 @@ volatile u32_t notifyinfo[4*XLWIP_CONFIG_N_TX_DESC];
  *********************************************************************************/
 
 #if defined __aarch64__
-u8_t bd_space[0x200000] __attribute__ ((aligned (0x200000)));
+u8_t emac_bd_space[0x200000] __attribute__ ((aligned (0x200000)));
 #else
-u8_t bd_space[0x100000] __attribute__ ((aligned (0x100000)));
+u8_t emac_bd_space[0x100000] __attribute__ ((aligned (0x100000)));
 #endif
 static volatile u32_t bd_space_index = 0;
 static volatile u32_t bd_space_attr_set = 0;
@@ -128,7 +128,7 @@ long xInsideISR = 0;
 	(((UINTPTR)bdptr - (UINTPTR)(ringptr)->BaseBdAddr) / (ringptr)->Separation)
 
 
-s32_t is_tx_space_available(xemacpsif_s *emac)
+s32_t xemacps_is_tx_space_available(xemacpsif_s *emac)
 {
 	XEmacPs_BdRing *txring;
 	s32_t freecnt = 0;
@@ -224,7 +224,7 @@ u32_t get_base_index_rxpbufsstorage (xemacpsif_s *xemacpsif)
 	return index;
 }
 
-void process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
+void xemacps_process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring)
 {
 	XEmacPs_Bd *txbdset;
 	XEmacPs_Bd *curbdpntr;
@@ -302,7 +302,7 @@ void emacps_send_handler(void *arg)
 	XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress,XEMACPS_TXSR_OFFSET, regval);
 
 	/* If Transmit done interrupt is asserted, process completed BD's */
-	process_sent_bds(xemacpsif, txringptr);
+	xemacps_process_sent_bds(xemacpsif, txringptr);
 #if !NO_SYS
 	xInsideISR--;
 #endif
@@ -630,12 +630,12 @@ XStatus init_dma(struct xemac_s *xemac)
 	 */
 	if (bd_space_attr_set == 0) {
 #if defined (ARMR5)
-	Xil_SetTlbAttributes((s32_t)bd_space, STRONG_ORDERD_SHARED | PRIV_RW_USER_RW); // addr, attr
+	Xil_SetTlbAttributes((s32_t)emac_bd_space, STRONG_ORDERD_SHARED | PRIV_RW_USER_RW); // addr, attr
 #else
 #if defined __aarch64__
-	Xil_SetTlbAttributes((u64)bd_space, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((u64)emac_bd_space, NORM_NONCACHE | INNER_SHAREABLE);
 #else
-	Xil_SetTlbAttributes((s32_t)bd_space, DEVICE_MEMORY); // addr, attr
+	Xil_SetTlbAttributes((s32_t)emac_bd_space, DEVICE_MEMORY); // addr, attr
 #endif
 #endif
 		bd_space_attr_set = 1;
@@ -647,17 +647,17 @@ XStatus init_dma(struct xemac_s *xemac)
 	LWIP_DEBUGF(NETIF_DEBUG, ("txringptr: 0x%08x\r\n", txringptr));
 
 	/* Allocate 64k for Rx and Tx bds each to take care of extreme cases */
-	tempaddress = (UINTPTR)&(bd_space[bd_space_index]);
+	tempaddress = (UINTPTR)&(emac_bd_space[bd_space_index]);
 	xemacpsif->rx_bdspace = (void *)tempaddress;
 	bd_space_index += 0x10000;
-	tempaddress = (UINTPTR)&(bd_space[bd_space_index]);
+	tempaddress = (UINTPTR)&(emac_bd_space[bd_space_index]);
 	xemacpsif->tx_bdspace = (void *)tempaddress;
 	bd_space_index += 0x10000;
 	if (gigeversion > 2) {
-		tempaddress = (UINTPTR)&(bd_space[bd_space_index]);
+		tempaddress = (UINTPTR)&(emac_bd_space[bd_space_index]);
 		bdrxterminate = (XEmacPs_Bd *)tempaddress;
 		bd_space_index += 0x10000;
-		tempaddress = (UINTPTR)&(bd_space[bd_space_index]);
+		tempaddress = (UINTPTR)&(emac_bd_space[bd_space_index]);
 		bdtxterminate = (XEmacPs_Bd *)tempaddress;
 		bd_space_index += 0x10000;
 	}

@@ -82,7 +82,7 @@ xaxiemacif_s *xaxiemacif_fast;
 unsigned int xInsideISR = 0;
 #endif
 
-int is_tx_space_available(xaxiemacif_s *emac)
+int xaxiemac_is_tx_space_available(xaxiemacif_s *emac)
 {
 	return ((XLlFifo_TxVacancy(&emac->axififo) * 4) > XAE_MAX_FRAME_SIZE);
 }

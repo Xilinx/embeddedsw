@@ -160,13 +160,13 @@ static err_t low_level_output(struct netif *netif, struct pbuf *p)
 
 	SYS_ARCH_PROTECT(lev);
 	/* check if space is available to send */
-    freecnt = is_tx_space_available(xemacpsif);
+    freecnt = xemacps_is_tx_space_available(xemacpsif);
     if (freecnt <= 5) {
 	txring = &(XEmacPs_GetTxRing(&xemacpsif->emacps));
-		process_sent_bds(xemacpsif, txring);
+		xemacps_process_sent_bds(xemacpsif, txring);
 	}
 
-    if (is_tx_space_available(xemacpsif)) {
+    if (xemacps_is_tx_space_available(xemacpsif)) {
 #if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 		if (netif_is_opt_block_tx_set(netif, NETIF_ENABLE_BLOCKING_TX_FOR_PACKET)) {
 			err = _unbuffered_low_level_output(xemacpsif, p, 1, &to_block_index);

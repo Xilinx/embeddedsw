@@ -480,7 +480,7 @@ static void axidma_recv_handler(void *arg)
 
 }
 
-s32_t is_tx_space_available(xaxiemacif_s *emac)
+s32_t xaxiemac_is_tx_space_available(xaxiemacif_s *emac)
 {
 	XAxiDma_BdRing *txring;
 

@@ -1291,11 +1291,9 @@ proc generate_adapterconfig_makefile {libhandle} {
 		}
 	}
 	if {$force_axieth_on_zynq == 1 && $have_axi_ethernet == 1} {
-		set have_ps_ethernet 0
 		set have_axi_ethernet 1
 	}
 	if {$force_emaclite_on_zynq == 1 && $have_emaclite == 1} {
-		set have_ps_ethernet 0
 		set have_axi_ethernet 0
 	}
 
@@ -1373,7 +1371,8 @@ proc generate_adapterconfig_makefile {libhandle} {
 		if {$have_axi_ethernet_fifo == 1} {
 			puts $fd "CONFIG_AXI_ETHERNET_FIFO=y"
 		}
-	} elseif {$have_ps_ethernet == 1} {
+	}
+	if {$have_ps_ethernet == 1} {
 		puts $fd "CONFIG_PS_ETHERNET=y"
 	}
 
@@ -1461,7 +1460,6 @@ proc generate_adapterconfig_include {libhandle} {
 		}
 	}
 	if {$force_emaclite_on_zynq == 1 && $have_emaclite == 1} {
-		set have_ps_ethernet 0
 		set have_axi_ethernet 0
 	}
 
@@ -1506,7 +1504,8 @@ proc generate_adapterconfig_include {libhandle} {
 		if {$have_axi_ethernet_mcdma == 1} {
 			puts $fd "\#define XLWIP_CONFIG_INCLUDE_AXI_ETHERNET_MCDMA 1"
 		}
-	} elseif {$have_ps_ethernet == 1} {
+	}
+	if {$have_ps_ethernet == 1} {
 			puts $fd "\#define XLWIP_CONFIG_INCLUDE_GEM 1"
 	}
 
