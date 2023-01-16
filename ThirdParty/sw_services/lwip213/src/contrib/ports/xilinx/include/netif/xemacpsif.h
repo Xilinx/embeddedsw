@@ -135,6 +135,9 @@ s32_t	is_tx_space_available(xemacpsif_s *emac);
 
 void  process_sent_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *txring);
 u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr);
+#ifdef SGMII_FIXED_LINK
+u32_t pcs_setup_emacps (XEmacPs *xemacps);
+#endif
 void detect_phy(XEmacPs *xemacpsp);
 void emacps_send_handler(void *arg);
 #if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE

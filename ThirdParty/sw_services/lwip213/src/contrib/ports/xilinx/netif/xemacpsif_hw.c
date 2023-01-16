@@ -77,6 +77,13 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 	XEmacPs_SetOptions(xemacpsp, XEMACPS_MULTICAST_OPTION);
 #endif
 
+#ifdef SGMII_FIXED_LINK
+	XEmacPs_SetOptions(xemacpsp, XEMACPS_SGMII_ENABLE_OPTION);
+	status = XEmacPs_ReadReg(xemacpsp->Config.BaseAddress, XEMACPS_PCS_CONTROL_OFFSET);
+	status &= ~XEMACPS_PCS_CON_AUTO_NEG_MASK;
+	XEmacPs_WriteReg(xemacps->emacps.Config.BaseAddress, XEMACPS_PCS_CONTROL_OFFSET, status);
+#endif
+
 	/* set mac address */
 	status = XEmacPs_SetMacAddress(xemacpsp, (void*)(netif->hwaddr), 1);
 	if (status != XST_SUCCESS) {
@@ -95,7 +102,7 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
  *  in phymapemac0 or phymapemac1.
  *  phy_setup_emacps is then called for each PHY present on the MDIO bus.
  */
-
+#ifndef SGMII_FIXED_LINK
 	detect_phy(xemacpsp);
 	for (i = 31; i > 0; i--) {
 		if (xemacpsp->Config.BaseAddress == XPAR_XEMACPS_0_BASEADDR) {
@@ -120,6 +127,9 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 		if (phyfoundforemac1 == FALSE)
 			link_speed = phy_setup_emacps(xemacpsp, 0);
 	}
+#else
+	link_speed = pcs_setup_emacps(xemacpsp);
+#endif
 
 	if (link_speed == XST_FAILURE) {
 		eth_link_status = ETH_LINK_DOWN;

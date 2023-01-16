@@ -581,6 +581,12 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd "\#define LWIP_TCP_KEEPALIVE $lwip_tcp_keepalive"
 	puts $lwipopts_fd ""
 
+	set sgmii_fixed_link	[expr [common::get_property CONFIG.sgmii_fixed_link $libhandle] == true]
+	if {$sgmii_fixed_link == 1} {
+		puts $lwipopts_fd "\#define SGMII_FIXED_LINK $sgmii_fixed_link"
+		puts $lwipopts_fd ""
+	}
+
 	# memory options
 	set mem_size 		[common::get_property CONFIG.mem_size $libhandle]
 	set memp_n_pbuf 	[common::get_property CONFIG.memp_n_pbuf $libhandle]

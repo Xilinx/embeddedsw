@@ -274,6 +274,18 @@ void detect_phy(XEmacPs *xemacpsp)
 	}
 }
 
+#ifdef SGMII_FIXED_LINK
+u32_t pcs_setup_emacps (XEmacPs *xemacps)
+{
+	u32_t link_speed;
+
+	SetUpSLCRDivisors(xemacps->Config.BaseAddress,1000);
+	link_speed = 1000;
+	sleep(1);
+	return link_speed;
+}
+#endif
+
 u32_t phy_setup_emacps (XEmacPs *xemacpsp, u32_t phy_addr)
 {
 	u32_t link_speed;

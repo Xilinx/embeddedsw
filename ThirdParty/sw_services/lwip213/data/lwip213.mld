@@ -22,6 +22,7 @@ BEGIN LIBRARY lwip213
   PARAM name = use_axieth_on_zynq, desc = "Option if set to 1 ensures axiethernet adapter being used in Zynq. Valid only for Zynq", type = int, default = 1;
   PARAM name = use_emaclite_on_zynq, desc = "Option if set to 1 ensures emaclite adapter being used in Zynq. Valid only for Zynq", type = int, default = 1;
   PARAM name = lwip_tcp_keepalive, desc = "Enable keepalive processing with default interval", type = bool, default = false;
+  PARAM name = sgmii_fixed_link, desc = "Enable fixed link for GEM SGMII at 1Gbps", type = bool, default = false;
 
   BEGIN CATEGORY temac_adapter_options
 	PARAM name = temac_adapter_options, desc = "Settings for xps-ll-temac/Axi-Ethernet/Gem lwIP adapter", type = bool, default = true, permit = none;

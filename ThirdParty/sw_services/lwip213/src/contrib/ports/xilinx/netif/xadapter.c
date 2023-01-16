@@ -267,7 +267,7 @@ xemacif_input(struct netif *netif)
 	return n_packets;
 }
 
-#if defined(XLWIP_CONFIG_INCLUDE_GEM)
+#if defined(XLWIP_CONFIG_INCLUDE_GEM) && !defined(SGMII_FIXED_LINK)
 static u32_t phy_link_detect(XEmacPs *xemacp, u32_t phy_addr)
 {
 	u16_t status;
@@ -310,6 +310,21 @@ static u32_t phy_link_detect(XEmacLite *xemacp, u32_t phy_addr)
 
 	if (status & IEEE_STAT_LINK_STATUS)
 		return 1;
+	return 0;
+}
+#endif
+
+#ifdef SGMII_FIXED_LINK
+static u32_t pcs_link_detect(XEmacPs *xemacp)
+{
+	u16_t status;
+
+	status = XEmacPs_ReadReg(xemacp->Config.BaseAddress, XEMACPS_PCS_STATUS_OFFSET);
+	status = XEmacPs_ReadReg(xemacp->Config.BaseAddress, XEMACPS_PCS_STATUS_OFFSET);
+	status &= XEMACPS_PCS_STATUS_LINK_STATUS_MASK;
+	if (status)
+		return 1;
+
 	return 0;
 }
 #endif
@@ -380,9 +395,11 @@ void eth_link_detect(struct netif *netif)
 	if ((xemacp->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
 			(eth_link_status == ETH_LINK_UNDEFINED))
 		return;
-
+#ifndef SGMII_FIXED_LINK
 	phy_link_status = phy_link_detect(xemacp, phyaddrforemac);
-
+#else
+	phy_link_status = pcs_link_detect(xemacp);
+#endif
 	if ((eth_link_status == ETH_LINK_UP) && (!phy_link_status))
 		eth_link_status = ETH_LINK_DOWN;
 
