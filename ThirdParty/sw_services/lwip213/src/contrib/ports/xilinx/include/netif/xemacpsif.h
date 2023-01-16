@@ -124,7 +124,7 @@ typedef struct {
 	void *tx_bdspace;
 
 	unsigned int last_rx_frms_cntr;
-
+	enum ethernet_link_status eth_link_status;
 } xemacpsif_s;
 
 extern xemacpsif_s xemacpsif;

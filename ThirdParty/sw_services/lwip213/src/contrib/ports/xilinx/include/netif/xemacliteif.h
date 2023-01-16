@@ -52,6 +52,8 @@ typedef struct {
 	/* queue to store overflow packets */
 	pq_queue_t *recv_q;
 	pq_queue_t *send_q;
+
+	enum ethernet_link_status eth_link_status;
 } xemacliteif_s;
 
 void 	xemacliteif_setmac(u32_t index, u8_t *addr);

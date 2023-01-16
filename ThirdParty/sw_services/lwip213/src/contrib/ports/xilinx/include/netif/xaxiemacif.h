@@ -99,6 +99,8 @@ typedef struct {
 	/* pointers to memory holding buffer descriptors (used only with SDMA) */
 	void *rx_bdspace;
 	void *tx_bdspace;
+
+	enum ethernet_link_status eth_link_status;
 } xaxiemacif_s;
 
 extern xaxiemacif_s xaxiemacif;

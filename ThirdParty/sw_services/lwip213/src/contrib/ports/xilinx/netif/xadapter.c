@@ -71,7 +71,6 @@ void link_detect_thread(void *p);
 /* global lwip debug variable used for debugging */
 int lwip_runtime_debug = 0;
 
-enum ethernet_link_status eth_link_status = ETH_LINK_UNDEFINED;
 u32_t phyaddrforemac;
 
 void
@@ -393,23 +392,24 @@ void eth_link_detect(struct netif *netif)
 #endif
 
 	if ((xemacp->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
-			(eth_link_status == ETH_LINK_UNDEFINED))
+			(xemacs->eth_link_status == ETH_LINK_UNDEFINED))
 		return;
 #ifndef SGMII_FIXED_LINK
 	phy_link_status = phy_link_detect(xemacp, phyaddrforemac);
 #else
 	phy_link_status = pcs_link_detect(xemacp);
 #endif
-	if ((eth_link_status == ETH_LINK_UP) && (!phy_link_status))
-		eth_link_status = ETH_LINK_DOWN;
 
-	switch (eth_link_status) {
+	if ((xemacs->eth_link_status == ETH_LINK_UP) && (!phy_link_status))
+		xemacs->eth_link_status = ETH_LINK_DOWN;
+
+	switch (xemacs->eth_link_status) {
 		case ETH_LINK_UNDEFINED:
 		case ETH_LINK_UP:
 			return;
 		case ETH_LINK_DOWN:
 			netif_set_link_down(netif);
-			eth_link_status = ETH_LINK_NEGOTIATING;
+			xemacs->eth_link_status = ETH_LINK_NEGOTIATING;
 			xil_printf("Ethernet Link down\r\n");
 			break;
 		case ETH_LINK_NEGOTIATING:
@@ -427,7 +427,7 @@ void eth_link_detect(struct netif *netif)
 							       link_speed);
 #endif
 				netif_set_link_up(netif);
-				eth_link_status = ETH_LINK_UP;
+				xemacs->eth_link_status = ETH_LINK_UP;
 				xil_printf("Ethernet Link up\r\n");
 			}
 			break;

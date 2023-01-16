@@ -38,7 +38,6 @@ extern XEmacPs_Config XEmacPs_ConfigTable[];
 extern u32_t phymapemac0[32];
 extern u32_t phymapemac1[32];
 extern u32_t phyaddrforemac;
-extern enum ethernet_link_status eth_link_status;
 
 #if !NO_SYS
 extern long xInsideISR;
@@ -132,11 +131,11 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 #endif
 
 	if (link_speed == XST_FAILURE) {
-		eth_link_status = ETH_LINK_DOWN;
+		xemacps->eth_link_status = ETH_LINK_DOWN;
 		xil_printf("Phy setup failure %s \n\r",__func__);
 		return;
 	} else {
-		eth_link_status = ETH_LINK_UP;
+		xemacps->eth_link_status = ETH_LINK_UP;
 	}
 
 	XEmacPs_SetOperatingSpeed(xemacpsp, link_speed);

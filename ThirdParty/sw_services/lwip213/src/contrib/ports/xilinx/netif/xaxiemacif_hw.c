@@ -32,8 +32,6 @@
 #include "netif/xaxiemacif.h"
 #include "lwipopts.h"
 
-extern enum ethernet_link_status eth_link_status;
-
 XAxiEthernet_Config *xaxiemac_lookup_config(unsigned mac_base)
 {
 	extern XAxiEthernet_Config XAxiEthernet_ConfigTable[];
@@ -78,9 +76,9 @@ void init_axiemac(xaxiemacif_s *xaxiemac, struct netif *netif)
 	XAxiEthernet_SetOperatingSpeed(xaxiemacp, link_speed);
 
 	if (link_speed == 0)
-		eth_link_status = ETH_LINK_DOWN;
+		xaxiemac->eth_link_status = ETH_LINK_DOWN;
 	else
-		eth_link_status = ETH_LINK_UP;
+		xaxiemac->eth_link_status = ETH_LINK_UP;
 
 	/* Setting the operating speed of the MAC needs a delay. */
 	{
