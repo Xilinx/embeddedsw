@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -109,7 +110,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "xhdmi_menu.h"
-#include "xhdmi_hdcp_keys_table.h"
 #include "xhdmi_example.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -147,13 +147,6 @@ void CloneTxEdid(void);
 #endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-#ifdef XPAR_XV_TPG_NUM_INSTANCES
-void XV_ConfigTpg(XV_tpg *InstancePtr);
-void ResetTpg(void);
-#endif
-#endif
-
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 void TxConnectCallback(void *CallbackRef);
 void TxToggleCallback(void *CallbackRef);
 void TxVsCallback(void *CallbackRef);
@@ -163,14 +156,6 @@ void TxStreamDownCallback(void *CallbackRef);
 void Hdmiphy1HdmiTxInitCallback(void *CallbackRef);
 void Hdmiphy1HdmiTxReadyCallback(void *CallbackRef);
 void TxInfoFrameReset(void);
-#endif
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-void RxConnectCallback(void *CallbackRef);
-void RxBrdgOverflowCallback(void *CallbackRef);
-void RxStreamUpCallback(void *CallbackRef);
-void RxStreamDownCallback(void *CallbackRef);
-void Hdmiphy1HdmiRxInitCallback(void *CallbackRef);
-void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef);
 #endif
 void Hdmiphy1ErrorCallback(void *CallbackRef);
 void Hdmiphy1ProcessError(void);
@@ -196,11 +181,6 @@ XV_HdmiTxSs_Config *XV_HdmiTxSs_ConfigPtr;
 
 EdidHdmi20 EdidHdmi20_t;
 
-#ifdef USE_HDMI_AUDGEN
-/* Audio Generator structure */
-XhdmiAudioGen_t    AudioGen;
-#endif
-
 XHdmiC_Aux         AuxFifo[AUXFIFOSIZE];
 u8                 AuxFifoStartIndex;
 u8                 AuxFifoEndIndex;
@@ -219,30 +199,12 @@ u8                 TxRestartColorbar = (FALSE);
 /* TX Stream Up Status Flag, Avoiding Race condition */
 u8                 IsStreamUp = (FALSE);
 u64                TxLineRate = 0;
-#ifdef USE_HDCP
-u8                 IsStreamUpHDCP = (FALSE);
-#endif
 /* Sink Ready: Become true when the EDID parsing is completed
  * upon cable connect */
 u8                 SinkReady = (FALSE);
 
 /* Variable for pass-through operation */
 u8                 AuxFifoStartFlag = (FALSE);
-#endif
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-/* HDMI RX SS structure */
-XV_HdmiRxSs        HdmiRxSs;
-XV_HdmiRxSs_Config *XV_HdmiRxSs_ConfigPtr;
-#endif
-
-
-#ifdef VIDEO_FRAME_CRC_EN
-Video_CRC_Config   VidFrameCRC;
-#endif
-
-#ifdef USE_HDCP
-XHdcp_Repeater     HdcpRepeater;
 #endif
 
 /* Interrupt Controller Data Structure */
@@ -285,105 +247,8 @@ u8                 StartTxAfterRxFlag = (FALSE);
 ******************************************************************************/
 void CloneTxEdid(void)
 {
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-    u8 Buffer[256];
-    u32 Status;
-
-    /* Read TX edid */
-    Status = XV_HdmiTxSs_ReadEdid(&HdmiTxSs, (u8*)&Buffer);
-
-    /* Check if read was successful */
-    if (Status == (XST_SUCCESS)) {
-        /* Load new EDID */
-        XV_HdmiRxSs_LoadEdid(&HdmiRxSs, (u8*)&Buffer, sizeof(Buffer));
-
-        /* Toggle HPD after loading new HPD */
-        ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
-
-        xil_printf("\r\n");
-        xil_printf("Successfully cloned EDID and toggled HPD.\r\n");
-    }
-#else
     xil_printf("\r\nEdid Cloning no possible with HDMI RX SS.\r\n");
-#endif
 }
-/*****************************************************************************/
-/**
-*
-* This function generates video pattern.
-*
-* @param  IsPassThrough specifies either pass-through or colorbar mode.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void XV_ConfigTpg()
-{
-
-	XVidC_VideoStream     *HdmiTxSsVidStreamPtr;
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
-#endif
-
-	HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
-
-	u32 width, height;
-	XVidC_VideoMode VideoMode;
-	VideoMode = HdmiTxSsVidStreamPtr->VmId;
-
-	/* If Color bar, the 480i/576i HActive need to be divided by 2 */
-	/* 1440x480i/1440x576i --> 720x480i/720x576i */
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	if(!IsPassThrough) {
-#endif
-		/* NTSC/PAL Support */
-		if ((VideoMode == XVIDC_VM_1440x480_60_I) ||
-				(VideoMode == XVIDC_VM_1440x576_50_I) ) {
-
-			width  = HdmiTxSsVidStreamPtr->Timing.HActive/2;
-			height = HdmiTxSsVidStreamPtr->Timing.VActive;
-		} else {
-			/* If not NTSC/PAL, the HActive,
-			 * and VActive remain as it is
-			 */
-			width  = HdmiTxSsVidStreamPtr->Timing.HActive;
-			height = HdmiTxSsVidStreamPtr->Timing.VActive;
-		}
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	} else {
-		/* Get the Current HDMI RX AVI Info Frame
-		 * As this design is pass-through, is save to read the incoming
-		 * stream Info frame
-		 */
-		AVIInfoFramePtr = XV_HdmiRxSs_GetAviInfoframe(&HdmiRxSs);
-
-		/* If the incoming (HDMI RX) info frame (pixel repetition) = 2
-		 * The 480i/576i HActive need to be divided by 2
-		 */
-		if (AVIInfoFramePtr->PixelRepetition ==
-					XHDMIC_PIXEL_REPETITION_FACTOR_2){
-			width  = HdmiTxSsVidStreamPtr->Timing.HActive/2;
-			height = HdmiTxSsVidStreamPtr->Timing.VActive;
-		} else {
-			/* If Pixel Repetition != 2, the HActive, and VActive
-			 * remain as it is */
-			width  = HdmiTxSsVidStreamPtr->Timing.HActive;
-			height = HdmiTxSsVidStreamPtr->Timing.VActive;
-		}
-	}
-#endif
-
-	/* Work around:
-	 * Can't set TPG to pass-through mode if the width or height = 0
-	 */
-	if (!((width == 0 || height == 0) && IsPassThrough)) {
-
-	}
-}
-
-
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 /*****************************************************************************/
 /**
@@ -965,13 +830,6 @@ void Info(void)
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	XV_HdmiTxSs_ReportInfo(&HdmiTxSs);
 #endif
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	XV_HdmiRxSs_ReportInfo(&HdmiRxSs);
-#endif
-#ifdef VIDEO_FRAME_CRC_EN
-	XVidFrameCrc_Report();
-#endif
-
 	/* GT */
 	xil_printf("------------\r\n");
 	xil_printf("HDMI PHY\r\n");
@@ -988,29 +846,8 @@ void Info(void)
 	xil_printf("TX reference clock frequency: %0d Hz\r\n",
 	   XHdmiphy1_ClkDetGetRefClkFreqHz(&Hdmiphy1, XHDMIPHY1_DIR_TX));
 #endif
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	xil_printf("RX reference clock frequency: %0d Hz\r\n",
-	   XHdmiphy1_ClkDetGetRefClkFreqHz(&Hdmiphy1, XHDMIPHY1_DIR_RX));
-	if(Hdmiphy1.Config.DruIsPresent == (TRUE)) {
-		xil_printf("DRU reference clock frequency: %0d Hz\r\n",
-		   (XHdmiphy1_DruGetRefClkFreqHz(&Hdmiphy1) == XST_FAILURE) ?
-			   XHdmiphy1_ReadReg(Hdmiphy1.Config.BaseAddr,
-					XHDMIPHY1_CLKDET_FREQ_DRU_REG) :
-				XHdmiphy1_DruGetRefClkFreqHz(&Hdmiphy1));
-	}
-#endif
 	XHdmiphy1_HdmiDebugInfo(&Hdmiphy1, 0, XHDMIPHY1_CHANNEL_ID_CH1);
 
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-               defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-	xil_printf("------------\r\n");
-	xil_printf("Debugging\r\n");
-	xil_printf("------------\r\n");
-#endif
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-   defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-	xil_printf("AuxFifo Overflow Count: %d\r\n", AuxFifoOvrFlowCnt);
-#endif
 }
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -1039,13 +876,6 @@ void TxConnectCallback(void *CallbackRef) {
 			ResetAuxFifo();
 			/* Clearing the Restarting the TX after RX up flag */
 			StartTxAfterRxFlag = (FALSE);
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			/* Mute/Stop the HDMI RX SS Output
-			 * Enable only when the downstream is ready
-			 * (TPG & HDMI TX)
-			 */
-			XV_HdmiRxSs_VRST(&HdmiRxSs,TRUE);
-#endif
 		}
 
 		/* Cable is disconnected, don't restart colorbar */
@@ -1055,10 +885,6 @@ void TxConnectCallback(void *CallbackRef) {
 
 
 
-#ifdef USE_HDCP
-		/* Call HDCP disconnect callback */
-		XHdcp_StreamDisconnectCallback(&HdcpRepeater);
-#endif
 	} else {
 		/* Set TX Cable Connect Flag to (TRUE) as the cable is
 		 * connected
@@ -1089,10 +915,6 @@ void TxConnectCallback(void *CallbackRef) {
 		/* Read the EDID and the SCDC */
 		EdidScdcCheck(HdmiTxSsPtr, &EdidHdmi20_t);
 
-#ifdef USE_HDCP
-		/* Call HDCP connect callback */
-		XHdcp_StreamConnectCallback(&HdcpRepeater);
-#endif
 	}
 }
 
@@ -1111,10 +933,6 @@ void TxConnectCallback(void *CallbackRef) {
 void TxToggleCallback(void *CallbackRef) {
 	XV_HdmiTxSs_StreamStart(&HdmiTxSs);
 
-#ifdef USE_HDCP
-	/* Call HDCP connect callback */
-	XHdcp_Authenticate(&HdcpRepeater);
-#endif
 }
 
 /*****************************************************************************/
@@ -1146,177 +964,6 @@ void Hdmiphy1HdmiTxInitCallback(void *CallbackRef) {
 *
 ******************************************************************************/
 void Hdmiphy1HdmiTxReadyCallback(void *CallbackRef) {
-}
-#endif
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-/*****************************************************************************/
-/**
-*
-* This function is used to toggle RX's HPD Line
-*
-* @param  Hdmiphy1Ptr is a pointer to the VPHY instance.
-* @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void ToggleHdmiRxHpd(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs *HdmiRxSsPtr) {
-	SetHdmiRxHpd(Hdmiphy1Ptr, HdmiRxSsPtr, FALSE);
-	/* Wait 500 ms */
-	usleep(500000);
-	SetHdmiRxHpd(Hdmiphy1Ptr, HdmiRxSsPtr, TRUE);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function sets the HPD on the HDMI RXSS.
-*
-* @param  Hdmiphy1Ptr is a pointer to the VPHY instance.
-* @param  HdmiRxSsPtr is a pointer to the HDMI RX Subsystem instance.
-* @param  Hpd is a flag used to set the HPD.
-*   - TRUE drives HPD high
-*   - FALSE drives HPD low
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void SetHdmiRxHpd(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd) {
-	if (Hpd == TRUE) {
-		XV_HdmiRxSs_Start(HdmiRxSsPtr);
-		XHdmiphy1_IBufDsEnable(Hdmiphy1Ptr, 0, XHDMIPHY1_DIR_RX, (TRUE));
-	} else {
-		XHdmiphy1_MmcmPowerDown(Hdmiphy1Ptr, 0, XHDMIPHY1_DIR_RX, FALSE);
-		XHdmiphy1_Clkout1OBufTdsEnable(Hdmiphy1Ptr, XHDMIPHY1_DIR_RX, (FALSE));
-		XHdmiphy1_IBufDsEnable(Hdmiphy1Ptr, 0, XHDMIPHY1_DIR_RX, (FALSE));
-		XV_HdmiRxSs_Stop(HdmiRxSsPtr);
-	}
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when a RX connect event has occurred.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxConnectCallback(void *CallbackRef) {
-	XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
-
-	/* RX cable is disconnected */
-	if(HdmiRxSsPtr->IsStreamConnected == (FALSE)) {
-		/* Clear GT RX TMDS clock ratio */
-		Hdmiphy1.HdmiRxTmdsClockRatio = 0;
-
-#if(LOOPBACK_MODE_EN != 1)
-		/* Check for Pass-through:
-		 * Doesnt require to restart colorbar
-		 * if the system is in colorbar mode
-		 */
-		if (IsPassThrough) {
-			/* Clear pass-through flag
-			 * as the system is in TX-Only
-			 * mode
-			 */
-			IsPassThrough = (FALSE);
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-			/* Start colorbar with same
-			 * video parameters
-			 */
-			if (TxCableConnect) {
-				TxRestartColorbar = (TRUE);
-				TxBusy = (FALSE);
-			} else {
-				TxRestartColorbar = (FALSE);
-				TxBusy = (TRUE);
-			}
-#endif
-		}
-#endif
-
-		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX, (FALSE));
-
-#ifdef USE_HDCP
-		/* Call HDCP disconnect callback */
-		XHdcp_StreamDisconnectCallback(&HdcpRepeater);
-#endif
-	} else {
-		XHdmiphy1_IBufDsEnable(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX, (TRUE));
-
-#ifdef USE_HDCP
-		/* Call HDCP connect callback */
-		XHdcp_StreamConnectCallback(&HdcpRepeater);
-#endif
-	}
-
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when the GT RX reference input clock has changed.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void Hdmiphy1HdmiRxInitCallback(void *CallbackRef) {
-	XHdmiphy1 *Hdmiphy1Ptr = (XHdmiphy1 *)CallbackRef;
-
-	XV_HdmiRxSs_RefClockChangeInit(&HdmiRxSs);
-	Hdmiphy1Ptr->HdmiRxTmdsClockRatio = HdmiRxSs.TMDSClockRatio;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when the GT RX has been initialized.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef) {
-	XHdmiphy1 *Hdmiphy1Ptr = (XHdmiphy1 *)CallbackRef;
-	XHdmiphy1_PllType RxPllType;
-
-	/* Reset the menu to main */
-	XHdmi_MenuReset(&HdmiMenu);
-
-	RxPllType = XHdmiphy1_GetPllType(Hdmiphy1Ptr,
-	                             0,
-				     XHDMIPHY1_DIR_RX,
-				     XHDMIPHY1_CHANNEL_ID_CH1);
-
-	if ((RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
-		XV_HdmiRxSs_SetStream(&HdmiRxSs,
-		        Hdmiphy1Ptr->HdmiRxRefClkHz,
-			(XHdmiphy1_GetLineRateHz(&Hdmiphy1,
-				             0,
-					     XHDMIPHY1_CHANNEL_ID_CMN0)/1000000));
-
-	} else {
-		XV_HdmiRxSs_SetStream(&HdmiRxSs, Hdmiphy1Ptr->HdmiRxRefClkHz,
-			 (XHdmiphy1_GetLineRateHz(&Hdmiphy1,
-			                      0,
-					      XHDMIPHY1_CHANNEL_ID_CMN1)/1000000));
-	}
 }
 #endif
 
@@ -1379,14 +1026,6 @@ void Hdmiphy1ProcessError(void) {
 *
 ******************************************************************************/
 void TxVsCallback(void *CallbackRef) {
-#ifdef USE_HDCP
-	if (IsStreamUpHDCP == TRUE) {
-		/* Call HDCP stream-up callback */
-		XHdcp_StreamUpCallback(&HdcpRepeater);
-		IsStreamUpHDCP = FALSE;
-	}
-#endif
-
 	/* When the TX stream is confirmed to have started, start accepting
 	 * Aux from RxAuxCallback
 	 */
@@ -1422,379 +1061,6 @@ void TxBrdgUnlockedCallback(void *CallbackRef) {
 }
 #endif
 
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-/*****************************************************************************/
-/**
-*
-* This function is called when a RX aux irq has occurred.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxAuxCallback(void *CallbackRef) {
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-	XHdmiC_Aux *AuxPtr;
-	AuxPtr = XV_HdmiRxSs_GetAuxiliary(&HdmiRxSs);
-
-	/* In pass-through mode copy some aux packets into local buffer.
-	 * GCP does not need to be sent out because GCP packets on the TX side
-	 * is handled by the HDMI TX core fully. Starts storing Aux only
-	 * when TX stream has started to prevent AuxFifo Overflow.
-	 */
-	if (IsPassThrough && AuxPtr->Header.Byte[0] !=
-			AUX_GENERAL_CONTROL_PACKET_TYPE &&
-						AuxFifoStartFlag == TRUE) {
-		memcpy(&(AuxFifo[AuxFifoEndIndex]),
-		       AuxPtr,
-		       sizeof(XHdmiC_Aux));
-
-		if(AuxFifoEndIndex < (AUXFIFOSIZE - 1)) {
-			AuxFifoEndIndex++;
-		} else {
-			AuxFifoEndIndex = 0;
-		}
-
-		if(AuxFifoCount >= AUXFIFOSIZE) {
-			AuxFifoOvrFlowCnt++;
-		}
-
-		AuxFifoCount++;
-	}
-#endif
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when a RX audio irq has occurred.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxAudCallback(void *CallbackRef) {
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-	XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
-
-	if (IsPassThrough) {
-		/* Set TX Audio params:
-		 * Audio Channels:
-		 */
-		XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs,
-				XV_HdmiRxSs_GetAudioChannels(HdmiRxSsPtr));
-
-		/* HBR audio */
-		if (XV_HdmiRxSs_GetAudioFormat(HdmiRxSsPtr) ==
-						XV_HDMIRX_AUDFMT_HBR) {
-			XV_HdmiTxSs_SetAudioFormat(&HdmiTxSs,
-						   XV_HDMITX_AUDFMT_HBR);
-		}
-		/* L-PCM */
-		else {
-			XV_HdmiTxSs_SetAudioFormat(&HdmiTxSs,
-						   XV_HDMITX_AUDFMT_LPCM);
-		}
-
-	}
-#endif
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when a RX link status irq has occurred.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxLnkStaCallback(void *CallbackRef) {
-	XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
-
-	if (IsPassThrough) {
-		/* Reset RX when the link error has reached its maximum */
-		if ((HdmiRxSsPtr->IsLinkStatusErrMax) &&
-				(Hdmiphy1.Quads[0].Plls[0].RxState ==
-						XHDMIPHY1_GT_STATE_READY)) {
-
-			/* Pulse RX PLL reset */
-			XHdmiphy1_ClkDetFreqReset(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX);
-		}
-	}
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when the RX DDC irq has occurred.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxDdcCallback(void *CallbackRef) {
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when the RX HDCP irq has occurred.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxHdcpCallback(void *CallbackRef) {
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when the RX stream is down.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxStreamDownCallback(void *CallbackRef) {
-
-#if(LOOPBACK_MODE_EN != 1)
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-	ResetAuxFifo();
-	/* Check for Pass-through
-	* Doesnt require to restart colorbar
-	* if the system is in colorbar mode
-	*/
-	if (IsPassThrough) {
-		/* RX Stream Down happen due to 2 possible scenarios
-		* 1 - When resolution change
-		* 2 - When the source stops sending stream even the RX cable
-		*     is connected
-		* In this example, The color bar should happen only for 2
-		* scenarios, when the TX Cable is still connected
-		* 1 - When pressing "c" by forcing the color bar
-		* 2 - When RX cable is disconnected
-		* Hence, when the stream change, the example design
-		* wouldn't enter to color bar mode unless both scenario's32
-		* above
-		*/
-		TxRestartColorbar = (FALSE);
-		TxBusy = (TRUE);
-	}
-#endif
-#endif
-
-#ifdef USE_HDCP
-	/* Call HDCP stream-down callback */
-	XHdcp_StreamDownCallback(&HdcpRepeater);
-#endif
-
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when the RX stream init
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxStreamInitCallback(void *CallbackRef) {
-	XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
-	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
-	u32 Status;
-
-	/* Calculate RX MMCM parameters
-	 * In the application the YUV422 colordepth is 12 bits
-	 * However the HDMI transports YUV422 in 8 bits.
-	 * Therefore force the colordepth to 8 bits when the
-	 * colorspace is YUV422
-	 */
-
-	HdmiRxSsVidStreamPtr = XV_HdmiRxSs_GetVideoStream(HdmiRxSsPtr);
-
-	if (HdmiRxSsVidStreamPtr->ColorFormatId == XVIDC_CSF_YCRCB_422) {
-		Status =
-			XHdmiphy1_HdmiCfgCalcMmcmParam(&Hdmiphy1,
-					       0,
-					       XHDMIPHY1_CHANNEL_ID_CH1,
-					       XHDMIPHY1_DIR_RX,
-					       HdmiRxSsVidStreamPtr->PixPerClk,
-					       XVIDC_BPC_8);
-	}
-
-	/* Other colorspaces */
-	else {
-		Status = XHdmiphy1_HdmiCfgCalcMmcmParam(&Hdmiphy1,
-					     0,
-					     XHDMIPHY1_CHANNEL_ID_CH1,
-					     XHDMIPHY1_DIR_RX,
-					     HdmiRxSsVidStreamPtr->PixPerClk,
-					     HdmiRxSsVidStreamPtr->ColorDepth);
-	}
-
-	if (Status == XST_FAILURE) {
-		return;
-	}
-
-	/* Enable and configure RX MMCM */
-	XHdmiphy1_MmcmStart(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX);
-
-	usleep(10000);
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when the RX stream is up.
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxStreamUpCallback(void *CallbackRef) {
-	XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
-	xil_printf("RX stream is up\r\n");
-#if(LOOPBACK_MODE_EN != 1 && XPAR_XV_HDMITXSS_NUM_INSTANCES > 0)
-	u32 Status;
-	u64 LineRate;
-	XHdmiphy1_PllType RxPllType;
-	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
-	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
-
-	HdmiRxSsVidStreamPtr = XV_HdmiRxSs_GetVideoStream(HdmiRxSsPtr);
-	HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
-
-	/* Copy video parameters */
-	*HdmiTxSsVidStreamPtr = *HdmiRxSsVidStreamPtr;
-	XV_HdmiTxSs_SetVideoIDCode(&HdmiTxSs,
-				XV_HdmiRxSs_GetVideoIDCode(HdmiRxSsPtr));
-	XV_HdmiTxSs_SetVideoStreamType(&HdmiTxSs,
-				XV_HdmiRxSs_GetVideoStreamType(HdmiRxSsPtr));
-
-	RxPllType = XHdmiphy1_GetPllType(&Hdmiphy1,
-				     0,
-				     XHDMIPHY1_DIR_RX,
-				     XHDMIPHY1_CHANNEL_ID_CH1);
-
-	if (RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL) {
-		LineRate = Hdmiphy1.Quads[0].Plls[XHDMIPHY1_CHANNEL_ID_CMN0 -
-			XHDMIPHY1_CHANNEL_ID_CH1].LineRateHz;
-	} else {
-		LineRate = Hdmiphy1.Quads[0].Plls[XHDMIPHY1_CHANNEL_ID_CMN1 -
-			XHDMIPHY1_CHANNEL_ID_CH1].LineRateHz;
-	}
-
-
-	/* Check GT line rate
-	 * For 4k60p the reference clock must be multiplied by four
-	 */
-	if ((LineRate / 1000000) > 3400) {
-		/* TX reference clock */
-		Hdmiphy1.HdmiTxRefClkHz = Hdmiphy1.HdmiRxRefClkHz * 4;
-		XV_HdmiTxSs_SetTmdsClockRatio(&HdmiTxSs, 1);
-
-		XV_HdmiTxSs_SetVideoStreamScramblingFlag(&HdmiTxSs, (TRUE));
-	}
-
-	/* Other resolutions */
-	else {
-		Hdmiphy1.HdmiTxRefClkHz = Hdmiphy1.HdmiRxRefClkHz;
-		XV_HdmiTxSs_SetTmdsClockRatio(&HdmiTxSs, 0);
-
-		XV_HdmiTxSs_SetVideoStreamScramblingFlag(&HdmiTxSs, (FALSE));
-	}
-
-	/* Set GT TX parameters */
-	Status = XHdmiphy1_SetHdmiTxParam(&Hdmiphy1,
-	                              0,
-				      XHDMIPHY1_CHANNEL_ID_CHA,
-				      HdmiTxSsVidStreamPtr->PixPerClk,
-				      HdmiTxSsVidStreamPtr->ColorDepth,
-				      HdmiTxSsVidStreamPtr->ColorFormatId);
-
-	if (Status == XST_FAILURE) {
-		return;
-	}
-
-	/* Disable the Colorbar */
-	TxRestartColorbar = (FALSE);
-	if (TxCableConnect) {
-		/* Restart the TX if the TX Cable Connected */
-		StartTxAfterRxFlag = (TRUE);
-
-		/* Mute/Stop the HDMI RX SS Output
-		 * Enable only when the downstream is ready
-		 * (TPG & HDMI TX)
-		 */
-		XV_HdmiRxSs_VRST(HdmiRxSsPtr,TRUE);
-	}
-
-	/* Enable pass-through */
-	IsPassThrough = (TRUE);
-
-#else
-	XVidC_ReportStreamInfo(&HdmiRxSsPtr->HdmiRxPtr->Stream.Video);
-
-#endif
-
-#ifdef USE_HDCP
-	/* Call HDCP stream-up callback */
-	XHdcp_StreamUpCallback(&HdcpRepeater);
-#endif
-
-#ifdef VIDEO_FRAME_CRC_EN
-	/* Reset Video Frame CRC */
-	XVidFrameCrc_Reset();
-#endif
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is called when a RX Bridge Overflow event has occurred.
-* RX Video Bridge Debug Utility
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void RxBrdgOverflowCallback(void *CallbackRef) {
-
-	/* xil_printf(ANSI_COLOR_YELLOW "RX Video Bridge Overflow"
-			ANSI_COLOR_RESET "\r\n"); */
-}
-#endif
-
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 /*****************************************************************************/
 /**
@@ -1814,31 +1080,10 @@ void TxStreamUpCallback(void *CallbackRef) {
 	XHdmiC_AVI_InfoFrame  *AVIInfoFramePtr;
 #endif
 	IsStreamUp = TRUE;
-#ifdef USE_HDCP
-	IsStreamUpHDCP = TRUE;
-#endif
 
 	XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
 	XHdmiphy1_PllType TxPllType;
 	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	XVidC_VideoStream *HdmiRxSsVidStreamPtr;
-
-	HdmiRxSsVidStreamPtr = XV_HdmiRxSs_GetVideoStream(&HdmiRxSs);
-
-	/* In passthrough copy the RX stream parameters to the TX stream */
-	if (IsPassThrough) {
-		XV_HdmiTxSs_SetVideoStream(HdmiTxSsPtr, *HdmiRxSsVidStreamPtr);
-		/* If the Start TX after RX Flag is (TRUE), hence,
-		 * no need to set thethe TX, let the StartTxAfterRX API
-		 * executed which will trigger TX Stream up eventually
-		 */
-		if (StartTxAfterRxFlag) {
-			return;
-		}
-	}
-#endif
-
 
 	/* Obtain the stream information:
 	 * Notes: XV_HdmiTxSs_GetVideoStream are with updated value, either
@@ -1889,20 +1134,6 @@ void TxStreamUpCallback(void *CallbackRef) {
 					XHDMIC_PIXEL_REPETITION_FACTOR_1;
 		}
 	}
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	else {
-		/* Parse RX AVI Infoframe to TX AVI Infoframe
-		 * as parameters from AVI Infoframe are used
-		 * in TX Subsystem
-		 */
-		AVIInfoFramePtr = XV_HdmiRxSs_GetAviInfoframe(&HdmiRxSs);
-		(void)memset((void *) &(HdmiTxSsPtr->AVIInfoframe),
-				0x00, sizeof(XHdmiC_AVI_InfoFrame));
-		memcpy (&(HdmiTxSsPtr->AVIInfoframe),
-				AVIInfoFramePtr,
-				sizeof(XHdmiC_AVI_InfoFrame));
-	}
-#endif
 	TxPllType = XHdmiphy1_GetPllType(&Hdmiphy1,
 	                             0,
 				     XHDMIPHY1_DIR_TX,
@@ -1923,77 +1154,11 @@ xil_printf("TxLineRate RPLL %d Kbps\r\n",(TxLineRate/1000));
 	/* Copy Sampling Rate */
 	XV_HdmiTxSs_SetSamplingRate(HdmiTxSsPtr, Hdmiphy1.HdmiTxSampleRate);
 
-	/* Config and Run the TPG */
-	XV_ConfigTpg();
-
-#if defined(XPAR_XV_HDMITXSS_NUM_INSTANCES)
-#if defined(USE_HDMI_AUDGEN)
-	XhdmiACRCtrl_TMDSClkRatio(&AudioGen,
-				HdmiTxSsPtr->HdmiTxPtr->Stream.TMDSClockRatio);
-	/* Select the Audio source */
-	if (IsPassThrough) {
-
-		/* Disable audio generator */
-		XhdmiAudGen_Start(&AudioGen, FALSE);
-
-		/* Select ACR from RX */
-		XhdmiACRCtrl_Sel(&AudioGen, ACR_SEL_IN);
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		/* Set TX Audio Channels (From HDMI RX Audio) */
-		XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs,
-				XV_HdmiRxSs_GetAudioChannels(&HdmiRxSs));
-#endif
-		/* Re-program audio clock */
-		XhdmiAudGen_SetAudClk(&AudioGen, XAUD_SRATE_192K);
-	} else {
-		AudioInfoFramePtr = XV_HdmiTxSs_GetAudioInfoframe(&HdmiTxSs);
-
-		/* Reset Audio InfoFrame */
-		(void)memset((void *)AudioInfoFramePtr,
-			0,
-			sizeof(XHdmiC_AudioInfoFrame));
-
-		/* Enable audio generator */
-		XhdmiAudGen_Start(&AudioGen, TRUE);
-
-		/* Select ACR from ACR Ctrl */
-		XhdmiACRCtrl_Sel(&AudioGen, ACR_SEL_GEN);
-
-		/* Enable 2-channel audio */
-		XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs, 2);
-		XhdmiAudGen_SetEnabChannels(&AudioGen, 2);
-		XhdmiAudGen_SetPattern(&AudioGen, 1, XAUD_PAT_PING);
-		XhdmiAudGen_SetPattern(&AudioGen, 2, XAUD_PAT_PING);
-		XhdmiAudGen_SetSampleRate(&AudioGen,
-				   XV_HdmiTxSs_GetTmdsClockFreqHz(HdmiTxSsPtr),
-				   XAUD_SRATE_48K);
-		/* Refer to CEA-861-D for Audio InfoFrame Channel Allocation
-		 * - - - - - - FR FL
-		 */
-		AudioInfoFramePtr->ChannelAllocation = 0x0;
-		/* Refer to Stream Header */
-		AudioInfoFramePtr->SampleFrequency = 0x0;
-	}
-#endif
-#endif
-
 	ReportStreamMode(HdmiTxSsPtr, IsPassThrough);
-
-#ifdef VIDEO_FRAME_CRC_EN
-	/* Reset Video Frame CRC */
-	XVidFrameCrc_Reset();
-#endif
 
 	/* Clear TX busy flag */
 	TxBusy = (FALSE);
 
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	/* Release RX Video Bridge Reset */
-	if (IsPassThrough) {
-		XV_HdmiRxSs_VRST(&HdmiRxSs,FALSE);
-	}
-#endif
 }
 
 /*****************************************************************************/
@@ -2015,21 +1180,10 @@ void TxStreamDownCallback(void *CallbackRef) {
 	 */
 	if (IsPassThrough) {
 		ResetAuxFifo();
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		/* Mute/Stop the HDMI RX SS Output
-		 * Enable only when the downstream is ready
-		 * (TPG & HDMI TX)
-		 */
-		XV_HdmiRxSs_VRST(&HdmiRxSs,TRUE);
-#endif
 	}
 
 	xil_printf("TX stream is down\r\n");
 
-#ifdef USE_HDCP
-	/* Call HDCP stream-down callback */
-	XHdcp_StreamDownCallback(&HdcpRepeater);
-#endif
 }
 
 /*****************************************************************************/
@@ -2312,11 +1466,6 @@ void EnableColorBar(XHdmiphy1                *Hdmiphy1Ptr,
 
 	/* Check if the TX isn't busy already */
 	if (!CheckTxBusy()) {
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		/* Stop HDMI RX Video AXI-4 Stream */
-		XV_HdmiRxSs_VRST(&HdmiRxSs,TRUE);
-#endif
-
 		IsPassThrough = (FALSE); /* Set Color Bar */
 		TxBusy = (TRUE);         /* Set TX busy flag */
 #if(CUSTOM_RESOLUTION_ENABLE == 1)
@@ -2531,144 +1680,10 @@ int config_hdmi() {
                          I2C_CLK_ADDR);
 	}
 #endif
-#if !defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-		defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if XPAR_VPHY_0_TRANSCEIVER == XHDMIPHY1_GTYE4
-	/* Initialize DRU Clock Source */
-	I2cClk(0, 156250000);
-	/* Delay 50ms to allow SI chip to lock */
-	usleep (50000);
-#endif
-#endif
-
 	/* Disable TMDS181 HPD passthrough for ZCU106 Rev B and below */
 	/* E.g.:
 	 *	Disable_TMDS181_HPD_passthrough();
 	 */
-
-	/* Load HDCP keys from EEPROM */
-#if defined (XPAR_XHDCP_NUM_INSTANCES) || \
-		defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || \
-				defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-	if (XHdcp_LoadKeys(Hdcp22Lc128,
-			sizeof(Hdcp22Lc128),
-			Hdcp22RxPrivateKey,
-			sizeof(Hdcp22RxPrivateKey),
-			Hdcp14KeyA,
-			sizeof(Hdcp14KeyA),
-			Hdcp14KeyB,
-			sizeof(Hdcp14KeyB)) == XST_SUCCESS) {
-
-		/* Set pointers to HDCP 2.2 Keys */
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-#if XPAR_XHDCP22_TX_NUM_INSTANCES
-		XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs,
-				XV_HDMITXSS_KEY_HDCP22_LC128,
-				Hdcp22Lc128);
-		XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs,
-				XV_HDMITXSS_KEY_HDCP22_SRM,
-				Hdcp22Srm);
-#endif
-#endif
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-#if XPAR_XHDCP22_RX_NUM_INSTANCES
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
-				XV_HDMIRXSS_KEY_HDCP22_LC128,
-				Hdcp22Lc128);
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
-				XV_HDMIRXSS_KEY_HDCP22_PRIVATE,
-				Hdcp22RxPrivateKey);
-#endif
-#endif
-
-		/* Set pointers to HDCP 1.4 keys */
-#if XPAR_XHDCP_NUM_INSTANCES
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-		XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs,
-				XV_HDMITXSS_KEY_HDCP14,
-				Hdcp14KeyA);
-#endif
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
-				XV_HDMIRXSS_KEY_HDCP14,
-				Hdcp14KeyB);
-#endif
-
-		/* Initialize key manager */
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-		Status =
-			XHdcp_KeyManagerInit(XPAR_HDCP_KEYMNGMT_BLK_0_BASEADDR,
-					HdmiTxSs.Hdcp14KeyPtr);
-		if (Status != XST_SUCCESS) {
-			xil_printf
-			("HDCP 1.4 TX Key Manager Initialization error\r\n");
-			return XST_FAILURE;
-		}
-#endif
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		Status =
-			XHdcp_KeyManagerInit(XPAR_HDCP_KEYMNGMT_BLK_1_BASEADDR,
-					HdmiRxSs.Hdcp14KeyPtr);
-		if (Status != XST_SUCCESS) {
-			xil_printf
-			("HDCP 1.4 RX Key Manager Initialization error\r\n");
-			return XST_FAILURE;
-		}
-#endif
-#endif
-
-	}
-
-	/* Clear pointers */
-	else {
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-		/* Set pointer to NULL */
-		XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs,
-				XV_HDMITXSS_KEY_HDCP22_LC128,
-				(NULL));
-
-		/* Set pointer to NULL */
-		XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs,
-				XV_HDMITXSS_KEY_HDCP14,
-				(NULL));
-
-		/* Set pointer to NULL */
-		XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs,
-				XV_HDMITXSS_KEY_HDCP22_SRM,
-				(NULL));
-#endif
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-		/* Set pointer to NULL */
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
-				XV_HDMIRXSS_KEY_HDCP22_LC128,
-				(NULL));
-
-		/* Set pointer to NULL */
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
-				XV_HDMIRXSS_KEY_HDCP22_PRIVATE,
-				(NULL));
-
-		/* Set pointer to NULL */
-		XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs,
-				XV_HDMIRXSS_KEY_HDCP14,
-				(NULL));
-#endif
-
-
-	}
-#endif
-
-#if defined(XPAR_XV_HDMITXSS_NUM_INSTANCES)
-#if defined(USE_HDMI_AUDGEN)
-	/* Initialize the Audio Generator */
-	XhdmiAudGen_Init(&AudioGen,
-			XPAR_AUDIO_SS_0_AUD_PAT_GEN_0_BASEADDR,
-			XPAR_AUDIO_SS_0_HDMI_ACR_CTRL_0_BASEADDR,
-			XPAR_AUDIO_SS_0_CLK_WIZ_BASEADDR);
-#endif
-#endif
 
 #if defined (__arm__) && (!defined(ARMR5))
 	/* Initialize on-board clock generator */
@@ -2679,10 +1694,6 @@ int config_hdmi() {
 #endif
 
 
-
-#ifdef VIDEO_FRAME_CRC_EN
-	XVidFrameCrc_Initialize(&VidFrameCRC);
-#endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 
@@ -2724,29 +1735,6 @@ int config_hdmi() {
 #endif
 
 
-/* HDCP 1.4 */
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-	/* HDCP 1.4 Cipher interrupt */
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
-			(void *)&HdmiTxSs);
-
-	/* HDCP 1.4 Timer interrupt */
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
-			(void *)&HdmiTxSs);
-#endif
-
-/* HDCP 2.2 */
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
-			(void *)&HdmiTxSs);
-#endif
-
 #else
 	/* Register HDMI TX SS Interrupt Handler with Interrupt Controller */
 	Status |= XIntc_Connect(&Intc,
@@ -2757,29 +1745,6 @@ int config_hdmi() {
 #endif
 			(XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
 			(void *)&HdmiTxSs);
-
-/* HDCP 1.4 */
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-	/* HDCP 1.4 Cipher interrupt */
-	Status |= XIntc_Connect(&Intc,
-			XPAR_INTC_0_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
-			(void *)&HdmiTxSs);
-
-	/* HDCP 1.4 Timer interrupt */
-	Status |= XIntc_Connect(&Intc,
-			XPAR_INTC_0_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
-			(void *)&HdmiTxSs);
-#endif
-
-/* HDCP 2.2 */
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
-	Status |= XIntc_Connect(&Intc,
-			XPAR_INTC_0_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
-			(void *)&HdmiTxSs);
-#endif
 
 #endif
 
@@ -2794,22 +1759,6 @@ int config_hdmi() {
 		XScuGic_Enable(&Intc,
 			XPAR_FABRIC_V_HDMITXSS_0_IRQ_VEC_ID);
 #endif
-/* HDCP 1.4 */
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-		/* HDCP 1.4 Cipher interrupt */
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID);
-
-		/* HDCP 1.4 Timer interrupt */
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
-#endif
-
-/* HDCP 2.2 */
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
-#endif
 
 #else
 		XIntc_Enable(&Intc,
@@ -2819,23 +1768,6 @@ int config_hdmi() {
 			XPAR_INTC_0_V_HDMITXSS_0_VEC_ID
 #endif
 			);
-
-/* HDCP 1.4 */
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-		/* HDCP 1.4 Cipher interrupt */
-		XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID);
-
-		/* HDCP 1.4 Timer interrupt */
-		XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
-#endif
-
-/* HDCP 2.2 */
-#if (XPAR_XHDCP22_TX_NUM_INSTANCES)
-		XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
-#endif
 
 #endif
 	} else {
@@ -2886,210 +1818,6 @@ int config_hdmi() {
 				(void *)TxStreamDownCallback,
 				(void *)&HdmiTxSs);
 
-#ifdef USE_HDCP
-	if (XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
-		/* Initialize the HDCP instance */
-		XHdcp_Initialize(&HdcpRepeater);
-
-		/* Set HDCP downstream interface(s) */
-		XHdcp_SetDownstream(&HdcpRepeater, &HdmiTxSs);
-	}
-#endif
-#endif
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-
-	/* Initialize HDMI RX Subsystem */
-
-	/* Get User Edid Info */
-	XV_HdmiRxSs_SetEdidParam(&HdmiRxSs, (u8*)&Edid, sizeof(Edid));
-	XV_HdmiRxSs_ConfigPtr =
-		XV_HdmiRxSs_LookupConfig(XPAR_XV_HDMIRX_0_DEVICE_ID);
-
-	if(XV_HdmiRxSs_ConfigPtr == NULL) {
-		HdmiRxSs.IsReady = 0;
-		return (XST_DEVICE_NOT_FOUND);
-	}
-
-	/* Initialize top level and all included sub-cores */
-	Status = XV_HdmiRxSs_CfgInitialize(&HdmiRxSs,
-					XV_HdmiRxSs_ConfigPtr,
-					XV_HdmiRxSs_ConfigPtr->BaseAddress);
-	if(Status != XST_SUCCESS) {
-		xil_printf
-		("ERR:: HDMI RX Subsystem Initialization failed %d\r\n",
-		Status);
-		return(XST_FAILURE);
-	}
-
-	/* Set the Application version in RXSs driver structure */
-	XV_HdmiRxSS_SetAppVersion(&HdmiRxSs, APP_MAJ_VERSION, APP_MIN_VERSION);
-
-	/* Register HDMI RX SS Interrupt Handler with Interrupt Controller */
-#if defined(__arm__) || (__aarch64__)
-#ifndef USE_HDCP
-#if USE_INTERRUPT
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID,
-			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-			(void *)&HdmiRxSs);
-#endif
-#else
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-			(void *)&HdmiRxSs);
-#endif
-
-
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-	/* HDCP 1.4 Cipher interrupt */
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
-			(void *)&HdmiRxSs);
-
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
-			(void *)&HdmiRxSs);
-#endif
-
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES)
-	/* HDCP 2.2 Timer interrupt */
-	Status |= XScuGic_Connect(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
-			(void *)&HdmiRxSs);
-#endif
-
-#else
-	Status |= XIntc_Connect(&Intc,
-#if defined(USE_HDCP)
-			XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID,
-#else
-			XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID,
-#endif
-			(XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-			(void *)&HdmiRxSs);
-
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-	/* HDCP 1.4 Cipher interrupt */
-	Status |= XIntc_Connect(&Intc,
-				XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
-				(XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
-				(void *)&HdmiRxSs);
-
-	/* HDCP 1.4 Timer interrupt */
-	Status |= XIntc_Connect(&Intc,
-			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
-			(void *)&HdmiRxSs);
-#endif
-
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES)
-	/* HDCP 2.2 Timer interrupt */
-	Status |= XIntc_Connect(&Intc,
-			XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
-			(XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
-			(void *)&HdmiRxSs);
-#endif
-
-#endif
-
-	if (Status == XST_SUCCESS) {
-#if defined(__arm__) || (__aarch64__)
-#ifndef USE_HDCP
-#if USE_INTERRUPT
-		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMIRXSS_0_VEC_ID);
-#endif
-#else
-		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMIRXSS_0_IRQ_VEC_ID);
-#endif
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-		XScuGic_Enable(&Intc,
-				XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
-#endif
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES)
-		XScuGic_Enable(&Intc,
-			XPAR_FABRIC_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
-#endif
-
-#else
-		XIntc_Enable(&Intc,
-#if defined(USE_HDCP)
-			XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID
-#else
-			XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID
-#endif
-			);
-
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-		/* HDCP 1.4 Cipher interrupt */
-		XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
-
-		/* HDCP 1.4 Timer interrupt */
-		XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
-#endif
-
-#if (XPAR_XHDCP22_RX_NUM_INSTANCES)
-		/* HDCP 2.2 Timer interrupt */
-		XIntc_Enable(&Intc,
-			XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
-#endif
-
-#endif
-	} else {
-		xil_printf
-			("ERR:: Unable to register HDMI RX interrupt handler");
-		xil_printf("HDMI RX SS initialization error\r\n");
-		return XST_FAILURE;
-	}
-
-	/* RX callback setup */
-	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-				XV_HDMIRXSS_HANDLER_CONNECT,
-				(void *)RxConnectCallback,
-				(void *)&HdmiRxSs);
-	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-				XV_HDMIRXSS_HANDLER_BRDGOVERFLOW,
-				(void *)RxBrdgOverflowCallback,
-				(void *)&HdmiRxSs);
-	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-				XV_HDMIRXSS_HANDLER_AUX,
-				(void *)RxAuxCallback,
-				(void *)&HdmiRxSs);
-	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-				XV_HDMIRXSS_HANDLER_AUD,
-				(void *)RxAudCallback,
-				(void *)&HdmiRxSs);
-	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-				XV_HDMIRXSS_HANDLER_LNKSTA,
-				(void *)RxLnkStaCallback,
-				(void *)&HdmiRxSs);
-	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-				XV_HDMIRXSS_HANDLER_STREAM_DOWN,
-				(void *)RxStreamDownCallback,
-				(void *)&HdmiRxSs);
-	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-				XV_HDMIRXSS_HANDLER_STREAM_INIT,
-				(void *)RxStreamInitCallback,
-				(void *)&HdmiRxSs);
-	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
-				XV_HDMIRXSS_HANDLER_STREAM_UP,
-				(void *)RxStreamUpCallback,
-				(void *)&HdmiRxSs);
-
-#ifdef USE_HDCP
-	/* Set HDCP upstream interface */
-	XHdcp_SetUpstream(&HdcpRepeater, &HdmiRxSs);
-#endif
 #endif
 
 	/*
@@ -3154,17 +1882,6 @@ int config_hdmi() {
 				(void *)Hdmiphy1HdmiTxReadyCallback,
 				(void *)&Hdmiphy1);
 #endif
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	XHdmiphy1_SetHdmiCallback(&Hdmiphy1,
-				XHDMIPHY1_HDMI_HANDLER_RXINIT,
-				(void *)Hdmiphy1HdmiRxInitCallback,
-				(void *)&Hdmiphy1);
-	XHdmiphy1_SetHdmiCallback(&Hdmiphy1,
-				XHDMIPHY1_HDMI_HANDLER_RXREADY,
-				(void *)Hdmiphy1HdmiRxReadyCallback,
-				(void *)&Hdmiphy1);
-#endif
-
 	XHdmiphy1_SetErrorCallback(&Hdmiphy1,
 				(void *)Hdmiphy1ErrorCallback,
 				(void *)&Hdmiphy1);
@@ -3192,17 +1909,6 @@ int start_hdmi(XVidC_VideoMode VideoMode)
 		NULL);
 #endif
 
-#if defined (USE_HDCP) && defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-   defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
-	if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs) &&
-					XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
-		/* Set HDCP upstream interface */
-		XHdcp_SetRepeater(&HdcpRepeater, FALSE);
-	}
-#endif
-#endif
-
 	/* Enable Scrambling Override
 	 * Note: Setting the override to TRUE will allow scrambling to be
 	 *       disabled for video where TMDS Clock > 340 MHz which breaks the
@@ -3217,21 +1923,6 @@ int start_hdmi(XVidC_VideoMode VideoMode)
 
 	/* Main loop */
 	{
-
-#ifdef USE_HDCP
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-		if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs) &&
-					XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
-#elif defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
-		if (XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
-#elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-		if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs)) {
-#endif
-			/* Poll HDCP */
-			XHdcp_Poll(&HdcpRepeater);
-		}
-#endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 		SinkReady = SinkReadyCheck(&HdmiTxSs, &EdidHdmi20_t);
@@ -3255,7 +1946,6 @@ int start_hdmi(XVidC_VideoMode VideoMode)
 		if (IsStreamUp && SinkReady) {
 			IsStreamUp = FALSE;
 
-			i2c_dp159(&Hdmiphy1, 0, TxLineRate);
 			XHdmiphy1_Clkout1OBufTdsEnable
 				(&Hdmiphy1, XHDMIPHY1_DIR_TX, (TRUE));
 		}

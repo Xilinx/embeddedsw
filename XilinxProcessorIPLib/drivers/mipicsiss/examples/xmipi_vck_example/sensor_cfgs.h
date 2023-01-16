@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -32,7 +33,6 @@ extern "C" {
 typedef enum
 {
 	XVIDSRC_SENSOR,
-	XVIDSRC_TPG
 } XVideo_Source;
 
 typedef enum

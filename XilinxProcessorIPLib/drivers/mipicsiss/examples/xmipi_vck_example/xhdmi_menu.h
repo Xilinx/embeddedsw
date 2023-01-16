@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -78,12 +79,8 @@ extern "C" {
 
 #include "xhdmiphy1.h"
 #include "xhdmi_edid.h"
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-#include "xv_hdmirxss.h"
-#endif
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #include "xv_hdmitxss.h"
-#include "audiogen_drv.h"
 #endif
 #include "xhdmi_example.h"
 /************************** Variable Definitions *****************************/
@@ -111,20 +108,7 @@ typedef enum {
 		XHDMI_FRAMERATE_MENU,
 		XHDMI_COLORDEPTH_MENU,
 		XHDMI_COLORSPACE_MENU,
-#ifdef USE_HDMI_AUDGEN
-		XHDMI_AUDIO_MENU,
-		XHDMI_AUDIO_CHANNEL_MENU,
-#endif
 		XHDMI_VIDEO_MENU,
-#endif
-#ifdef USE_HDCP
-		XHDMI_HDCP_MAIN_MENU,
-#if (HDCP_DEBUG_MENU_EN == 1)
-		XHDMI_HDCP_DEBUG_MENU,
-#endif
-#endif
-#if (HDMI_DEBUG_TOOLS == 1)
-		XHDMI_DEBUG_MAIN_MENU,
 #endif
 		XHDMI_NUM_MENUS
 	} XHdmi_MenuType;

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,26 +61,14 @@ extern "C" {
 #include "xvidc.h"
 #include "xv_hdmic.h"
 #include "xv_hdmic_vsif.h"
-#include "dp159.h"
 #include "sleep.h"
 #include "xhdmi_edid.h"
 #include "xhdmi_menu.h"
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-#include "xv_hdmirxss.h"
-#endif
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #include "xv_hdmitxss.h"
-#include "audiogen_drv.h"
-#ifdef XPAR_AUDIO_SS_0_AUD_PAT_GEN_0_BASEADDR
-/* This is only required for the audio over HDMI */
-//#define USE_HDMI_AUDGEN
-#endif
 #endif
 #include "xhdmiphy1.h"
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-#ifdef XPAR_XV_TPG_NUM_INSTANCES
-#include "xv_tpg.h"
-#endif
 #endif
 #ifdef XPAR_XGPIO_NUM_INSTANCES
 #include "xgpio.h"
@@ -89,9 +78,6 @@ extern "C" {
 #else
 #include "xintc.h"
 #endif
-#include "xhdmi_hdcp_keys.h"
-#include "xhdcp.h"
-#include "xvidframe_crc.h"
 
 /* AUXFIFOSIZE: Must be set to 3 or higher*/
 #define AUXFIFOSIZE 10
@@ -130,23 +116,6 @@ extern "C" {
  */
 #define CUSTOM_RESOLUTION_ENABLE 1
 
-#if defined (XPAR_XHDCP_NUM_INSTANCES) || \
-	defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || \
-	defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
-
-/* If HDCP 1.4 or HDCP 2.2 is in the system
- * then use the HDCP abstraction layer */
-#define USE_HDCP
-
-#if defined XPAR_XV_HDMITXSS_NUM_INSTANCES && \
-	defined XPAR_XV_HDMIRXSS_NUM_INSTANCES
-/* Option to enable or disable HDCP Repeater , if
- * HDCP 1.4 or HDCP 2.2 is in the system */
-#define ENABLE_HDCP_REPEATER		0
-#endif
-
-#endif
-
 /* Enabling this will enable HDCP Debug menu */
 #define HDCP_DEBUG_MENU_EN 0
 
@@ -163,27 +132,9 @@ extern int I2cClk(u32 InFreq, u32 OutFreq);
 /* HDMI TX SS structure */
 extern XV_HdmiTxSs HdmiTxSs;
 
-#ifdef USE_HDMI_AUDGEN
-extern XhdmiAudioGen_t AudioGen;
-#endif
-
-#ifdef XPAR_XV_TPG_NUM_INSTANCES
-/* TPG structure */
-extern XV_tpg Tpg;
-extern XTpg_PatternId Pattern;
-#endif
-
 extern u8 TxCableConnect;
 #endif
 
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-/* HDMI RX SS structure */
-extern XV_HdmiRxSs HdmiRxSs;
-#endif
-
-#ifdef USE_HDCP
-extern XHdcp_Repeater HdcpRepeater;
-#endif
 
 /* TX busy flag. This flag is set while the TX is initialized*/
 extern u8 TxBusy;
@@ -193,16 +144,8 @@ extern u8 IsPassThrough;
 extern XIicPs Ps_Iic0, Ps_Iic1;
 #define PS_IIC_CLK 100000
 #endif
-/*#ifdef versal
-XIic Iic0;
-#endif*/
 
 /************************** Function Prototypes ******************************/
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-void ToggleHdmiRxHpd (XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs *HdmiRxSsPtr);
-void SetHdmiRxHpd(XHdmiphy1 *Hdmiphy1Ptr, XV_HdmiRxSs *HdmiRxSsPtr, u8 Hpd);
-#endif
-
 #ifdef __cplusplus
 }
 #endif

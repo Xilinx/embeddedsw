@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -60,7 +61,6 @@
 
 /***************************** Include Files *********************************/
 #include "xhdmi_menu.h"
-#include "xhdcp.h"
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #include "xv_hdmitxss.h"
 #endif
@@ -101,21 +101,7 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_FrameRateMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input);
 static XHdmi_MenuType XHdmi_ColorSpaceMenu(XHdmi_Menu *InstancePtr, u8 Input);
-#ifdef USE_HDMI_AUDGEN
-static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input);
-static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr,
-                                                              u8 Input);
-#endif
 static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input);
-#endif
-#ifdef USE_HDCP
-static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input);
-#if (HDCP_DEBUG_MENU_EN == 1)
-static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr,u8 Input);
-#endif
-#endif
-#if(HDMI_DEBUG_TOOLS == 1)
-static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr,u8 Input);
 #endif
 
 static void XHdmi_DisplayMainMenu(void);
@@ -125,20 +111,7 @@ static void XHdmi_DisplayResolutionMenu(void);
 static void XHdmi_DisplayFrameRateMenu(void);
 static void XHdmi_DisplayColorDepthMenu(void);
 static void XHdmi_DisplayColorSpaceMenu(void);
-#ifdef USE_HDMI_AUDGEN
-static void XHdmi_DisplayAudioMenu(void);
-static void XHdmi_DisplayAudioChannelMenu(void);
-#endif
 static void XHdmi_DisplayVideoMenu(void);
-#endif
-#ifdef USE_HDCP
-static void XHdmi_DisplayHdcpMainMenu(void);
-#if (HDCP_DEBUG_MENU_EN == 1)
-static void XHdmi_DisplayHdcpDebugMenu(void);
-#endif
-#endif
-#if(HDMI_DEBUG_TOOLS == 1)
-static void XHdmi_DisplayDebugMainMenu(void);
 #endif
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 extern u8 PLLBondedCheck (void);
@@ -158,13 +131,6 @@ extern void UpdateFrameRate(XHdmiphy1 *Hdmiphy1Ptr,
                    XV_HdmiTxSs *pHdmiTxSs, XVidC_FrameRate FrameRate);
 extern void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);
 extern void CloneTxEdid(void);
-extern void XV_ConfigTpg();
-#endif
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-extern void XV_HdmiRxSs_LoadEdid(XV_HdmiRxSs *InstancePtr,
-                                       u8 *EdidData, u16 Length);
-extern void XV_HdmiRxSs_ToggleRxHpd(XV_HdmiRxSs *InstancePtr);
-extern void HDCPXILCMD_ProcessKey(char theCmdKey);
 #endif
 
 /************************* Variable Definitions *****************************/
@@ -181,36 +147,18 @@ static XHdmi_MenuFuncType* const XHdmi_MenuTable[XHDMI_NUM_MENUS] = {
 	XHdmi_FrameRateMenu,
 	XHdmi_ColorDepthMenu,
 	XHdmi_ColorSpaceMenu,
-#ifdef USE_HDMI_AUDGEN
-	XHdmi_AudioMenu,
-	XHdmi_AudioChannelMenu,
-#endif
 	XHdmi_VideoMenu,
-#endif
-#ifdef USE_HDCP
-	XHdmi_HdcpMainMenu,
-#if (HDCP_DEBUG_MENU_EN == 1)
-	XHdmi_HdcpDebugMenu,
-#endif
-#endif
-#if(HDMI_DEBUG_TOOLS == 1)
-	XHdmi_DebugMainMenu,
 #endif
 };
 
 extern XHdmiphy1 Hdmiphy1;               /* VPhy structure */
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 extern XV_HdmiTxSs HdmiTxSs;       /* HDMI TX SS structure */
-extern XhdmiAudioGen_t AudioGen;
 
 extern u8 TxCableConnect;
 #endif
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-extern XV_HdmiRxSs HdmiRxSs;       /* HDMI RX SS structure */
-#endif
 extern u8 IsPassThrough;         /**< Demo mode 0-colorbar 1-pass through */
 extern u8 TxBusy;// TX busy flag. This flag is set while the TX is initialized
-extern XHdcp_Repeater HdcpRepeater;
 
 /*HDMI EDID*/
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -313,14 +261,6 @@ void XHdmi_DisplayMainMenu(void)
 	xil_printf("s - Color space\r\n");
 	xil_printf("       => Change the color space of the colorbar.\r\n");
 #endif
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-	xil_printf("p - Pass-through\r\n");
-	xil_printf("       => Passes the sink input to source output.\r\n");
-#elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-	xil_printf("p - Toggle HPD\r\n");
-	xil_printf("       => Toggles the HPD of HDMI RX.\r\n");
-#endif
 	xil_printf("z - GT & HDMI TX/RX log\r\n");
 	xil_printf("     => Shows log information for GT & HDMI TX/RX.\r\n");
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -332,26 +272,6 @@ void XHdmi_DisplayMainMenu(void)
 	xil_printf("       => Video pattern options.\r\n");
 	xil_printf("m - Set HDMI Mode\r\n");
 	xil_printf("n - Set DVI Mode\r\n");
-#endif
-
-#if defined(USE_HDCP)
-	/* Show HDCP menu option when HDCP is ready */
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-	if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs) &&
-                          XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
-#elif defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
-	if (XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
-#elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-	if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs)) {
-#endif
-		xil_printf("h - HDCP\r\n");
-		xil_printf("       => Goto HDCP menu.\r\n");
-#if(HDMI_DEBUG_TOOLS == 1)
-		xil_printf("x - Debug Tools\r\n");
-		xil_printf("       => Goto Debug menu.\r\n");
-#endif
-	}
 #endif
 
 	xil_printf("\r\n\r\n");
@@ -384,30 +304,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			Info();
 			Menu = XHDMI_MAIN_MENU;
 			break;
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			// Pass-through
-		case ('p') :
-		case ('P') :
-			// Check if a source is connected
-			if (HdmiRxSs.IsStreamConnected == (TRUE)) {
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-				xil_printf("Force pass-through\r\n");
-#elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-				xil_printf("Toggle HDMI RX HPD\r\n");
-#endif
-				ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
-			}
-
-			// No source
-			else {
-        xil_printf(ANSI_COLOR_YELLOW "No source device detected.\r\n"
-							ANSI_COLOR_RESET);
-			}
-			Menu = XHDMI_MAIN_MENU;
-			break;
-#endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 			// Colorbar
@@ -517,9 +413,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 			XV_HdmiTxSs_LogDisplay(&HdmiTxSs);
 #endif
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			XV_HdmiRxSs_LogDisplay(&HdmiRxSs);
-#endif
 			Menu = XHDMI_MAIN_MENU;
 			break;
 
@@ -551,15 +444,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			Menu = XHDMI_EDID_MENU;
 			break;
 
-#ifdef USE_HDMI_AUDGEN
-			// Audio
-		case ('a') :
-		case ('A') :
-			XHdmi_DisplayAudioMenu();
-			Menu = XHDMI_AUDIO_MENU;
-			break;
-#endif
-
 			// Video
 		case ('v') :
 		case ('V') :
@@ -568,32 +452,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			break;
 #endif
 
-#if defined(USE_HDCP)
-			// HDCP
-		case ('h') :
-		case ('H') :
-			/* Enable HDCP menu option when HDCP is ready */
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-			if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs) &&
-                               XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
-#elif defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
-			if (XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
-#elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-			if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs)) {
-#endif
-				XHdmi_DisplayHdcpMainMenu();
-				Menu = XHDMI_HDCP_MAIN_MENU;
-			}
-			break;
-#endif
-#if(HDMI_DEBUG_TOOLS == 1)
-		case ('x') :
-		case ('X') :
-			XHdmi_DisplayDebugMainMenu();
-			Menu = XHDMI_DEBUG_MAIN_MENU;
-			break;
-#endif
 		case ('o') :
 		case ('O') :
 			/* Toggle GTWiz_RESET_ALL */
@@ -1169,11 +1027,6 @@ void XHdmi_DisplayEdidMenu(void) {
 	xil_printf("---   EDID MENU   ---\r\n");
 	xil_printf("---------------------\r\n");
 	xil_printf("1 - Display the edid of the connected sink device.\r\n");
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-	xil_printf("  2 - Clone the edid of the connected \\
-                                                sink edid to HDMI Rx.\r\n");
-	xil_printf("  3 - Load default edid to HDMI Rx.\r\n");
-#endif
 	xil_printf(" 99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -1218,21 +1071,6 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 			xil_printf("Enter Selection -> ");
 			break;
 
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			// Clone edid
-		case 2 :
-			CloneTxEdid();
-			break;
-
-			// Load edid
-		case 3 :
-			XV_HdmiRxSs_LoadDefaultEdid(&HdmiRxSs);
-			/* Toggle HPD after loading new HPD */
-			ToggleHdmiRxHpd(&Hdmiphy1, &HdmiRxSs);
-			xil_printf("HPD is toggled.\r\n");
-			break;
-#endif
-
 			// Exit
 		case 99 :
 			xil_printf("Returning to main menu.\r\n");
@@ -1265,34 +1103,6 @@ void XHdmi_DisplayVideoMenu(void) {
 	xil_printf("----------------------\r\n");
 	xil_printf("---   VIDEO MENU   ---\r\n");
 	xil_printf("----------------------\r\n");
-#if (XPAR_XV_TPG_0_COLOR_BAR == 1)
-	xil_printf("  1 - Color bars\r\n");
-#endif
-#if (XPAR_XV_TPG_0_SOLID_COLOR == 1)
-	xil_printf("  2 - Solid red\r\n");
-	xil_printf("  3 - Solid green\r\n");
-	xil_printf("  4 - Solid blue\r\n");
-	xil_printf("  5 - Solid black\r\n");
-	xil_printf("  6 - Solid white\r\n");
-#endif
-#if (XPAR_XV_TPG_0_RAMP == 1)
-	xil_printf("  7 - Horizontal ramp\r\n");
-	xil_printf("  8 - Vertical ramp\r\n");
-#endif
-#if (XPAR_XV_TPG_0_COLOR_SWEEP == 1)
-	xil_printf("  9 - Rainbow color\r\n");
-#endif
-	xil_printf(" 10 - Checker board\r\n");
-	xil_printf(" 11 - Cross hatch\r\n");
-	xil_printf(" 12 - Noise\r\n");
-#if (VIDEO_MASKING_MENU_EN == 1)
-	xil_printf(" 13 - Black (Video Mask)\r\n");
-	xil_printf(" 14 - White (Video Mask)\r\n");
-	xil_printf(" 15 - Red (Video Mask)\r\n");
-	xil_printf(" 16 - Green (Video Mask)\r\n");
-	xil_printf(" 17 - Blue (Video Mask)\r\n");
-	xil_printf(" 18 - Noise (Video Mask)\r\n");
-#endif
 	xil_printf(" 99 - Exit\r\n");
 	xil_printf("Enter Selection -> ");
 }
@@ -1322,625 +1132,7 @@ static XHdmi_MenuType XHdmi_VideoMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 
 	return Menu;
 }
-#ifdef USE_HDMI_AUDGEN
-/*****************************************************************************/
-/**
-*
-* This function displays the audio menu.
-*
-* @param None
-*
-* @return None
-*
-*
-******************************************************************************/
-void XHdmi_DisplayAudioMenu(void) {
-	xil_printf("\r\n");
-	xil_printf("----------------------\r\n");
-	xil_printf("---   AUDIO MENU   ---\r\n");
-	xil_printf("----------------------\r\n");
-	xil_printf("  1 - Mute audio.\r\n");
-	xil_printf("  2 - Unmute audio.\r\n");
-	xil_printf("  3 - Configure audio channels.\r\n");
-	xil_printf(" 99 - Exit\r\n");
-	xil_printf("Enter Selection -> ");
-}
 
-/*****************************************************************************/
-/**
-*
-* This function implements the HDMI audio menu state.
-*
-* @param input is the value used for the next menu state decoder.
-*
-* @return The next menu state.
-*
-******************************************************************************/
-static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input) {
-	// Variables
-	XHdmi_MenuType 	Menu;
-
-	// Default
-	Menu = XHDMI_AUDIO_MENU;
-
-	switch (Input) {
-			// Mute
-		case 1 :
-			xil_printf("Mute audio.\r\n");
-			XV_HdmiTxSs_AudioMute(&HdmiTxSs, TRUE);
-			// Display the prompt for the next input
-			xil_printf("Enter Selection -> ");
-			break;
-
-			// Unmute
-		case 2 :
-			xil_printf("Unmute audio.\r\n");
-			XV_HdmiTxSs_AudioMute(&HdmiTxSs, FALSE);
-			// Display the prompt for the next input
-			xil_printf("Enter Selection -> ");
-			break;
-
-			// Audio channels
-		case 3 :
-			xil_printf("Display Audio Channels menu.\r\n");
-			XHdmi_DisplayAudioChannelMenu();
-			Menu = XHDMI_AUDIO_CHANNEL_MENU;
-			break;
-
-			// Exit
-		case 99 :
-			xil_printf("Returning to main menu.\r\n");
-			Menu = XHDMI_MAIN_MENU;
-			break;
-
-		default :
-			xil_printf("Unknown option\r\n");
-			XHdmi_DisplayAudioMenu();
-			break;
-	}
-
-	return Menu;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function displays the audio channel menu.
-*
-* @param None
-*
-* @return None
-*
-*
-******************************************************************************/
-void XHdmi_DisplayAudioChannelMenu(void) {
-	xil_printf("\r\n");
-	xil_printf("----------------------\r\n");
-	xil_printf("- AUDIO CHANNEL MENU -\r\n");
-	xil_printf("----------------------\r\n");
-	xil_printf("  1 - 2 Audio Channels.\r\n");
-	xil_printf("  2 - 8 Audio Channels.\r\n");
-	xil_printf(" 99 - Exit\r\n");
-	xil_printf("Enter Selection -> ");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function implements the HDMI audio channel menu state.
-*
-* @param input is the value used for the next menu state decoder.
-*
-* @return The next menu state.
-*
-******************************************************************************/
-static XHdmi_MenuType XHdmi_AudioChannelMenu(XHdmi_Menu *InstancePtr,u8 Input){
-	// Variables
-	XHdmi_MenuType 	Menu;
-	XHdmiC_AudioInfoFrame *AudioInfoframePtr;
-
-	AudioInfoframePtr = XV_HdmiTxSs_GetAudioInfoframe(&HdmiTxSs);
-
-	// Default
-	Menu = XHDMI_AUDIO_CHANNEL_MENU;
-
-	switch (Input) {
-			// 2 Audio Channels
-		case 1 :
-			print("2 Audio Channels.\r\n");
-			XhdmiAudGen_SetEnabChannels(&AudioGen, 2);
-			XhdmiAudGen_SetPattern(&AudioGen, 1, XAUD_PAT_SINE);
-			XhdmiAudGen_SetPattern(&AudioGen, 2, XAUD_PAT_PING);
-			XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs, 2);
-	// Refer to CEA-861-D for Audio InfoFrame Channel Allocation
-			// - - - - - - FR FL
-			AudioInfoframePtr->ChannelAllocation = 0x0;
-			// Display the prompt for the next input
-			xil_printf("Enter Selection -> ");
-			break;
-
-			// 8 Audio Channels
-		case 2 :
-			print("8 Audio Channels.\r\n");
-			XhdmiAudGen_SetEnabChannels(&AudioGen, 8);
-			XhdmiAudGen_SetPattern(&AudioGen, 1, XAUD_PAT_SINE);
-			XhdmiAudGen_SetPattern(&AudioGen, 2, XAUD_PAT_PING);
-			XhdmiAudGen_SetPattern(&AudioGen, 3, XAUD_PAT_RAMP);
-			XhdmiAudGen_SetPattern(&AudioGen, 4, XAUD_PAT_SINE);
-			XhdmiAudGen_SetPattern(&AudioGen, 5, XAUD_PAT_PING);
-			XhdmiAudGen_SetPattern(&AudioGen, 6, XAUD_PAT_RAMP);
-			XhdmiAudGen_SetPattern(&AudioGen, 7, XAUD_PAT_SINE);
-			XhdmiAudGen_SetPattern(&AudioGen, 8, XAUD_PAT_PING);
-			XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs, 8);
-		// Refer to CEA-861-D for Audio InfoFrame Channel Allocation
-			// RRC RLC RR RL FC LFE FR FL
-			AudioInfoframePtr->ChannelAllocation = 0x13;
-			// Display the prompt for the next input
-			xil_printf("Enter Selection -> ");
-			break;
-
-			// Exit
-		case 99 :
-			xil_printf("Returning to audio menu.\r\n");
-			Menu = XHDMI_AUDIO_MENU;
-			break;
-
-		default :
-			xil_printf("Unknown option\r\n");
-			XHdmi_DisplayAudioChannelMenu();
-			break;
-	}
-
-	return Menu;
-}
-#endif
-#endif
-
-
-#if defined(USE_HDCP)
-/*****************************************************************************/
-/**
-*
-* This function displays the HDCP main menu.
-*
-* @param None
-*
-* @return None
-*
-******************************************************************************/
-void XHdmi_DisplayHdcpMainMenu(void) {
-	xil_printf("\r\n");
-	xil_printf("--------------------------\r\n");
-	xil_printf("---   HDCP Main Menu   ---\r\n");
-	xil_printf("--------------------------\r\n");
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
-	xil_printf(" 1 - Enable repeater\r\n");
-	xil_printf(" 2 - Disable repeater\r\n");
-	xil_printf(" 3 - Enable detailed logging\r\n");
-	xil_printf(" 4 - Disable detailed logging\r\n");
-	xil_printf(" 5 - Display log\r\n");
-	xil_printf(" 6 - Display repeater info\r\n");
-#else
-	xil_printf(" 1 - Enable detailed logging\r\n");
-	xil_printf(" 2 - Disable detailed logging\r\n");
-	xil_printf(" 3 - Display log\r\n");
-	xil_printf(" 4 - Display info\r\n");
-#endif
-#if (HDCP_DEBUG_MENU_EN == 1)
-#if ENABLE_HDCP_REPEATER
-	xil_printf(" 7 - Display HDCP Debug menu\r\n");
-#else
-	xil_printf(" 5 - Display HDCP Debug menu\r\n");
-#endif
-#endif
-#else
-	xil_printf(" 1 - Enable detailed logging\r\n");
-	xil_printf(" 2 - Disable detailed logging\r\n");
-	xil_printf(" 3 - Display log\r\n");
-	xil_printf(" 4 - Display info\r\n");
-#if (HDCP_DEBUG_MENU_EN == 1)
-	xil_printf(" 5 - Display HDCP Debug menu\r\n");
-#endif
-#endif
-	xil_printf("99 - Exit\r\n");
-	xil_printf("Enter Selection -> ");
-}
-#endif
-
-#if defined(USE_HDCP)
-/*****************************************************************************/
-/**
-*
-* This function implements the HDCP main menu state.
-*
-* @param Input is the value used for the next menu state decoder.
-*
-* @return The next menu state.
-*
-******************************************************************************/
-static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
-	// Variables
-	XHdmi_MenuType 	Menu;
-
-	// Default
-	Menu = XHDMI_HDCP_MAIN_MENU;
-
-	// Insert carriage return
-	xil_printf("\r\n");
-
-	switch (Input) {
-
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-   defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
-			/* 1 - Enable repeater*/
-		case 1:
-			xil_printf("Enable repeater.\r\n");
-			XHdcp_SetRepeater(&HdcpRepeater, TRUE);
-			break;
-
-			/* 2 - Disable repeater*/
-		case 2:
-			xil_printf("Disable repeater.\r\n");
-			XHdcp_SetRepeater(&HdcpRepeater, FALSE);
-			break;
-#endif
-#endif
-
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
-			/* 3 - Enable detailed logging */
-		case 3 :
-#else
-			/* 1 - Enable detailed logging [no repeater] */
-		case 1 :
-#endif
-#else
-			/* 1 - Enable detailed logging */
-		case 1 :
-#endif
-			xil_printf("Enable detailed logging.\r\n");
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			XV_HdmiRxSs_HdcpSetInfoDetail(&HdmiRxSs, TRUE);
-#endif
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-			XV_HdmiTxSs_HdcpSetInfoDetail(&HdmiTxSs, TRUE);
-#endif
-			break;
-
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
-			/* 4 - Disable detailed logging */
-		case 4 :
-#else
-			/* 2 - Disabled detailed logging [no repeater] */
-		case 2 :
-#endif
-#else
-			/* 2 - Disable detailed logging */
-		case 2 :
-#endif
-			xil_printf("Disable detailed logging.\r\n");
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			XV_HdmiRxSs_HdcpSetInfoDetail(&HdmiRxSs, FALSE);
-#endif
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-			XV_HdmiTxSs_HdcpSetInfoDetail(&HdmiTxSs, FALSE);
-#endif
-			break;
-
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
-			/* 5 - Display log */
-		case 5 :
-#else
-			/* 3 - Display log [no repeater] */
-		case 3 :
-#endif
-#else
-			/* 3 - Display log */
-		case 3 :
-#endif
-			xil_printf("Display log.\r\n");
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			XV_HdmiRxSs_HdcpInfo(&HdmiRxSs);
-#endif
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-			XV_HdmiTxSs_HdcpInfo(&HdmiTxSs);
-#endif
-			break;
-
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
-			/* 6 - Display repeater info */
-		case 6 :
-			xil_printf("Display repeater info.\r\n");
-#else
-			/* 4 - Display Info [no repeater] */
-		case 4 :
-			xil_printf("Display Info [no repeater].\r\n");
-#endif
-#else
-			/* 4 - Display repeater info */
-		case 4 :
-			xil_printf("Display info.\r\n");
-#endif
-			XHdcp_DisplayInfo(&HdcpRepeater, TRUE);
-			break;
-
-#if (HDCP_DEBUG_MENU_EN == 1)
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-    defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-#if ENABLE_HDCP_REPEATER
-			/* 7 - HDCP Debug Menu */
-		case 7 :
-#else
-			/* 5 - HDCP Debug Menu [no repeater] */
-		case 5 :
-#endif
-#else
-			/* 5 - HDCP Debug Menu */
-		case 5 :
-#endif
-			xil_printf("Display HDCP Debug menu.\r\n");
-			XHdmi_DisplayHdcpDebugMenu();
-			Menu = XHDMI_HDCP_DEBUG_MENU;
-			break;
-#endif
-
-			// Exit
-		case 99 :
-			xil_printf("Returning to main menu.\r\n");
-			Menu = XHDMI_MAIN_MENU;
-			break;
-
-		default :
-			xil_printf("Unknown command\r\n");
-			XHdmi_DisplayHdcpMainMenu();
-			break;
-	}
-	return Menu;
-}
-#endif
-
-#if (HDCP_DEBUG_MENU_EN == 1)
-#if defined(USE_HDCP)
-/*****************************************************************************/
-/**
-*
-* This function displays the HDCP Debug menu.
-*
-* @param None
-*
-* @return None
-*
-******************************************************************************/
-void XHdmi_DisplayHdcpDebugMenu(void) {
-	xil_printf("\r\n");
-	xil_printf("--------------------------\r\n");
-	xil_printf("---   HDCP Debug Menu   ---\r\n");
-	xil_printf("--------------------------\r\n");
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && \
-                             defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-	xil_printf(" 1 - Set upstream capability to none\r\n");
-	xil_printf(" 2 - Set upstream capability to both\r\n");
-	xil_printf(" 3 - Set downstream capability to none\r\n");
-	xil_printf(" 4 - Set downstream capability to 1.4\r\n");
-	xil_printf(" 5 - Set downstream capability to 2.2\r\n");
-	xil_printf(" 6 - Set downstream capability to both\r\n");
-	/*xil_printf(" 7 - Toggle downstream content blocking \r\n");*/
-#elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
-	xil_printf(" 1 - Set upstream capability to none\r\n");
-	xil_printf(" 2 - Set upstream capability to both\r\n");
-#elif defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
-	xil_printf(" 1 - Set downstream capability to none\r\n");
-	xil_printf(" 2 - Set downstream capability to 1.4\r\n");
-	xil_printf(" 3 - Set downstream capability to 2.2\r\n");
-	xil_printf(" 4 - Set downstream capability to both\r\n");
-#endif
-	xil_printf("99 - Exit\r\n");
-	xil_printf("Enter Selection -> ");
-}
-#endif
-#endif
-
-#if (HDCP_DEBUG_MENU_EN == 1)
-#if defined(USE_HDCP)
-/*****************************************************************************/
-/**
-*
-* This function implements the HDCP main menu state.
-*
-* @param Input is the value used for the next menu state decoder.
-*
-* @return The next menu state.
-*
-******************************************************************************/
-static XHdmi_MenuType XHdmi_HdcpDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
-	// Variables
-	XHdmi_MenuType 	Menu;
-
-	// Default
-	Menu = XHDMI_HDCP_DEBUG_MENU;
-
-	// Insert carriage return
-	xil_printf("\r\n");
-
-	switch (Input) {
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			/* 1 - Set upstream capability to none */
-		case 1:
-			xil_printf("Set upstream capability to none.\r\n");
-			XHdcp_SetUpstreamCapability(&HdcpRepeater,
-                                                     XV_HDMIRXSS_HDCP_NONE);
-			break;
-
-			/* 2 - Set upstream capability to both */
-		case 2:
-			xil_printf("Set upstream capability to both.\r\n");
-			XHdcp_SetUpstreamCapability(&HdcpRepeater,
-                                                    XV_HDMIRXSS_HDCP_BOTH);
-			break;
-#endif
-
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			/* 3 - Set downstream capability to none */
-		case 3:
-#else
-			/* 1 - Set downstream capability to none */
-		case 1:
-#endif
-		      xil_printf("Set downstream capability to none.\r\n");
-			XHdcp_SetDownstreamCapability(&HdcpRepeater,
-                                                   XV_HDMITXSS_HDCP_NONE);
-			break;
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			/* 4 - Set downstream capability to 1.4 */
-		case 4:
-#else
-			/* 2 - Set downstream capability to 1.4 */
-		case 2:
-#endif
-			xil_printf("Set downstream capability to 1.4\r\n");
-			XHdcp_SetDownstreamCapability(&HdcpRepeater,
-                                                      XV_HDMITXSS_HDCP_14);
-			break;
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			/* 4 - Set downstream capability to 2.2 */
-		case 5:
-#else
-			/* 3 - Set downstream capability to 2.2 */
-		case 3:
-#endif
-			xil_printf("Set downstream capability to 2.2\r\n");
-			XHdcp_SetDownstreamCapability(&HdcpRepeater,
-                                                     XV_HDMITXSS_HDCP_22);
-			break;
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			/* 6 - Set downstream capability to both */
-		case 6:
-#else
-			/* 4 - Set downstream capability to both */
-		case 4:
-#endif
-			xil_printf("Set downstream capability to both\r\n");
-			XHdcp_SetDownstreamCapability(&HdcpRepeater,
-                                                    XV_HDMITXSS_HDCP_BOTH);
-			break;
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-			/* 7 - Toggle downstream content blocking */
-		case 7:
-#else
-			/* 5 - Toggle downstream content blocking */
-		case 5:
-#endif
-	HdcpRepeater.EnforceBlocking = !(HdcpRepeater.EnforceBlocking);
-		if (HdcpRepeater.EnforceBlocking) {
-		    xil_printf("Enable downstream content blocking\r\n");
-			} else {
-		xil_printf("Disable downstream content blocking\r\n");
-			}
-			break;
-#endif
-
-			// Exit
-		case 99 :
-			xil_printf("Returning to main menu.\r\n");
-			Menu = XHDMI_HDCP_MAIN_MENU;
-			break;
-
-		default :
-			xil_printf("Unknown command\r\n");
-			XHdmi_DisplayHdcpDebugMenu();
-			break;
-	}
-	return Menu;
-}
-#endif
-#endif
-
-#if(HDMI_DEBUG_TOOLS == 1)
-/*****************************************************************************/
-/**
-*
-* This function displays the debug menu.
-*
-* @param None
-*
-* @return None
-*
-*
-******************************************************************************/
-static void XHdmi_DisplayDebugMainMenu(void) {
-	xil_printf("\r\n");
-	xil_printf("----------------------\r\n");
-	xil_printf("---   DEBUG MENU   ---\r\n");
-	xil_printf("----------------------\r\n");
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
-	xil_printf("  1 - Enable Scrambler.\r\n");
-	xil_printf("  2 - Disable Scrambler.\r\n");
-#endif
-	xil_printf(" 99 - Exit\r\n");
-	xil_printf("Enter Selection -> ");
-}
-
-/*****************************************************************************/
-/**
-*
-* This function implements the HDMI debug menu state.
-*
-* @param input is the value used for the next menu state decoder.
-*
-* @return The next menu state.
-*
-******************************************************************************/
-static XHdmi_MenuType XHdmi_DebugMainMenu(XHdmi_Menu *InstancePtr, u8 Input) {
-	// Variables
-	XHdmi_MenuType 	Menu;
-
-	// Default
-	Menu = XHDMI_DEBUG_MAIN_MENU;
-
-	switch (Input) {
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
-		case 1 :
-			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, TRUE);
-			// Display the prompt for the next input
-			xil_printf("Enter Selection -> ");
-			break;
-
-		case 2 :
-			XV_HdmiTxSs_SetScrambler(&HdmiTxSs, FALSE);
-			// Display the prompt for the next input
-			xil_printf("Enter Selection -> ");
-			break;
-#endif
-
-			// Exit
-		case 99 :
-			xil_printf("Returning to main menu.\r\n");
-			Menu = XHDMI_MAIN_MENU;
-			break;
-
-		default :
-			xil_printf("Unknown option\r\n");
-			XHdmi_DisplayDebugMainMenu();
-			break;
-	}
-
-	return Menu;
-}
 #endif
 
 /*****************************************************************************/
