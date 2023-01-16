@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,6 +41,7 @@
 * 1.11	sk	03/03/22 Replace driver version in addtogroup with Overview.
 * 1.11	sk	03/03/22 Update Overview section based on review comments.
 * 1.11	sk	03/03/22 Update XCsuDma_GetSize return type description.
+* 1.14	ab	01/16/23 Added Xil_WaitForEvent() to XcsuDma_WaitForDoneTimeout.
 * </pre>
 *
 ******************************************************************************/
@@ -619,9 +620,6 @@ void XCsuDma_ClearCheckSum(XCsuDma *InstancePtr)
 ******************************************************************************/
 u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 {
-	volatile u32 Regval;
-	u32 Timeout = XCSUDMA_DONE_TIMEOUT_VAL;
-	u32 status;
 	UINTPTR Addr;
 	u32 TimeoutFlag = (u32)XST_FAILURE;
 
@@ -633,18 +631,9 @@ u32 XCsuDma_WaitForDoneTimeout(XCsuDma *InstancePtr, XCsuDma_Channel Channel)
 			(u32)XCSUDMA_I_STS_OFFSET +
 			 ((u32)Channel * (u32)XCSUDMA_OFFSET_DIFF);
 
-	while(Timeout != 0U) {
-		Regval = Xil_In32(Addr);
-		status = Regval;
-		if ((status & XCSUDMA_IXR_DONE_MASK) == XCSUDMA_IXR_DONE_MASK) {
-			TimeoutFlag = (u32)XST_SUCCESS;
-			goto done;
-		}
-		usleep(1U);
-		Timeout--;
-	}
+	TimeoutFlag = Xil_WaitForEvent(Addr, XCSUDMA_IXR_DONE_MASK,
+			XCSUDMA_IXR_DONE_MASK, XCSUDMA_DONE_TIMEOUT_VAL);
 
-done:
 	return TimeoutFlag;
 }
 /*****************************************************************************/

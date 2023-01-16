@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -105,6 +106,7 @@
 * 1.11	sk	03/03/22 Update overview section based on review comments.
 * 1.11	adk	03/15/22 Fixed syntax errors in csudma_tapp.tcl file, when stdout
 * 			 is configured as none.
+* 1.14	ab	01/16/23 Added Xil_PlmStubHandler() to XCsuDma_WaitForDone
 * </pre>
 *
 ******************************************************************************/
@@ -125,6 +127,7 @@ extern "C" {
 #include "xstatus.h"
 #include "xil_cache.h"
 #include "sleep.h"
+#include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -223,12 +226,21 @@ typedef enum {
 *						XCsuDma_Channel Channel)
 *
 ******************************************************************************/
+#ifdef VERSAL_PLM
 #define XCsuDma_WaitForDone(InstancePtr,Channel) \
 		while((XCsuDma_ReadReg(((InstancePtr)->Config.BaseAddress), \
 			((u32)(XCSUDMA_I_STS_OFFSET) + \
 			((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))) & \
-		(u32)(XCSUDMA_IXR_DONE_MASK)) != (XCSUDMA_IXR_DONE_MASK))
-
+			(u32)(XCSUDMA_IXR_DONE_MASK)) != (XCSUDMA_IXR_DONE_MASK)) { \
+			Xil_PlmStubHandler(); \
+		}
+#else
+#define XCsuDma_WaitForDone(InstancePtr,Channel) \
+		while((XCsuDma_ReadReg(((InstancePtr)->Config.BaseAddress), \
+			((u32)(XCSUDMA_I_STS_OFFSET) + \
+			((u32)(Channel) * (u32)(XCSUDMA_OFFSET_DIFF)))) & \
+			(u32)(XCSUDMA_IXR_DONE_MASK)) != (XCSUDMA_IXR_DONE_MASK))
+#endif
 
 /*****************************************************************************/
 /**
