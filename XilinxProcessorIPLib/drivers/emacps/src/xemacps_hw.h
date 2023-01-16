@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +39,7 @@
 * 3.8  hk   09/17/18 Fix PTP interrupt masks.
 * 3.9  hk   01/23/19 Add RX watermark support
 * 3.10 hk   05/16/19 Clear status registers properly in reset
+* 3.18  sne 01/11/23 Add PCS control and status registers information.
 * </pre>
 *
 ******************************************************************************/
@@ -274,6 +276,8 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 						      second counter */
 #define XEMACPS_PTPP_RXNANOSEC_OFFSET 0x000001FCU /**< 1588 PTP peer receive
 						      nanosecond counter */
+#define XEMACPS_PCS_CONTROL_OFFSET	0x00000200U /** PCS control register */
+#define XEMACPS_PCS_STATUS_OFFSET	0x00000204U /** PCS status register */
 
 #define XEMACPS_INTQ1_STS_OFFSET     0x00000400U /**< Interrupt Q1 Status
 							reg */
@@ -437,6 +441,20 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 
 #define XEMACPS_SR_ALL_MASK	0xFFFFFFFFU /**< Mask for full register */
 
+/*@}*/
+
+/**
+ * @name PCS control register bit definitions
+ * @{
+ */
+#define XEMACPS_PCS_CON_AUTO_NEG_MASK	0x00001000U /**< Auto-negotiation */
+/*@}*/
+
+/**
+ * @name PCS status register bit definitions
+ * @{
+ */
+#define XEMACPS_PCS_STATUS_LINK_STATUS_MASK	0x00000004U /**< Link status */
 /*@}*/
 
 /**
