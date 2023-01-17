@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -1802,6 +1803,12 @@ static void pm_ddr_sr_exit(bool ddrss_is_reset)
 	DDR_reinit(ddrss_is_reset);
 
 	restore_training_data();
+
+#ifdef ENABLE_DDR_SR_WR
+	/* Clear self refresh mode indication flag */
+	XPfw_RMW32(XPFW_DDR_STATUS_REGISTER_OFFSET, DDR_STATUS_FLAG_MASK,
+		   ~DDR_STATUS_FLAG_MASK);
+#endif
 }
 
 #ifdef ENABLE_DDR_SR_WR
