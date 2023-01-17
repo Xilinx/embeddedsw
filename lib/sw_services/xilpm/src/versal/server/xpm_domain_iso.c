@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -721,7 +722,11 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 done:
 	if ((IsoIdx <= (u32)XPM_NODEIDX_ISO_XRAM_PL_FABRIC) &&
 		(IsoIdx >= (u32)XPM_NODEIDX_ISO_XRAM_PL_AXI0)) {
-		XPm_LockPcsr(Device->Node.BaseAddress);
+		if(NULL != Device) {
+			XPm_LockPcsr(Device->Node.BaseAddress);
+		} else {
+			Status = XST_DEVICE_NOT_FOUND;
+		}
 	}
 
 	return Status;
