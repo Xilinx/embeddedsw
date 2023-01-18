@@ -128,11 +128,14 @@ extern "C" {
  ******************************************************************************/
 #define XSECURE_TEMPORAL_CHECK(Label, Status, Function, ...)   \
 	{ \
-		volatile int StatusTmp = XST_FAILURE; \
+		volatile int StatusTmp; \
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Function, __VA_ARGS__); \
 		if ((Status != XST_SUCCESS) || \
 			(StatusTmp != XST_SUCCESS)) { \
-			Status |= StatusTmp;\
+			if (((Status) != (StatusTmp)) || \
+				(Status == XST_SUCCESS)) { \
+				Status = XST_GLITCH_ERROR; \
+			}\
 			goto Label; \
 		} \
 	 }

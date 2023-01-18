@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved. *
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -93,6 +94,7 @@ extern "C" {
 						   been enabled */
 #define XST_NO_ACCESS			30L	/* Generic access error */
 #define XST_TIMEOUT                     31L	/*!< Event timeout occurred */
+#define XST_GLITCH_ERROR		32L     /*!< Used when a glitch occurs*/
 
 /** @} */
 /***************** Utility Component statuses 401 - 500  *********************/
