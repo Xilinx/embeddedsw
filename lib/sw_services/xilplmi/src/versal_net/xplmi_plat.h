@@ -31,6 +31,7 @@
 *       kpt  01/04/2023 Added APIs and macros related to FIPS
 *       bm   01/04/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Added Config Space for Image Store in RTCA
+*       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *
 * </pre>
 *
@@ -347,20 +348,6 @@ typedef enum {
 static inline u8 XPlmi_GetSlrType(void)
 {
 	return XPLMI_SSIT_MONOLITIC;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function processes and provides readback length
- *
- * @param	Len is the current readback length
-
- * @return	Readback length
- *
- *****************************************************************************/
-static inline u32 XPlmi_GetReadbackLen(u32 Len)
-{
-	return Len;
 }
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM

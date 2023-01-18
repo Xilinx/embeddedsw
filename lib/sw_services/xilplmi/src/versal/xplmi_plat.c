@@ -25,6 +25,7 @@
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *
 * </pre>
 *
@@ -53,9 +54,6 @@
 #define XPLMI_ROM_VERSION_1_0		(0x10U) /**< ROM version 1 */
 #define XPLMI_ROM_VERSION_2_0		(0x20U) /**< ROM version 2 */
 #define XPLMI_INVALID_ROM_VERSION	(0x0U) /**< Invalid ROM version */
-
-/* SSIT readback max length in words */
-#define XPLMI_SSIT_MAX_READBACK_SIZE	(0x10000U)
 
 /* SSIT SLR related macros */
 #define XPLMI_CFU_STREAM_2_SLR_OFFSET	\
@@ -337,28 +335,6 @@ XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void)
 	};
 
 	return &TraceLog;
-}
-
-/*****************************************************************************/
-/**
- * @brief	This function processes and provides readback length
- *
- * @param	Len is the current readback length
-
- * @return	Readback length
- *
- *****************************************************************************/
-u32 XPlmi_GetReadbackLen(u32 Len)
-{
-	u32 ReadLen;
-
-	if (Len > XPLMI_SSIT_MAX_READBACK_SIZE) {
-		ReadLen = XPLMI_SSIT_MAX_READBACK_SIZE;
-	} else {
-		ReadLen = Len;
-	}
-
-	return ReadLen;
 }
 
 /*****************************************************************************/

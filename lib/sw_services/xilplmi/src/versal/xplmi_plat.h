@@ -30,6 +30,7 @@
 *       ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Added Config Space for Image Store in RTCA
+*       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *
 * </pre>
 *
@@ -350,7 +351,6 @@ void XPlmi_PrintRomVersion(void);
 void XPlmi_PreInit(void);
 XPlmi_WaitForDmaDone_t XPlmi_GetPlmiWaitForDone(u64 DestAddr);
 XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void);
-u32 XPlmi_GetReadbackLen(u32 Len);
 void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead);
 void XPlmi_GicAddTask(u32 PlmIntrId);
 XInterruptHandler *XPlmi_GetTopLevelIntrTbl(void);

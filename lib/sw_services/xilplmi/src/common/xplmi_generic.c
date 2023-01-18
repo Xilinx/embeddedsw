@@ -85,6 +85,7 @@
 *       bm   01/03/2023 Clear End Stack before processing a CDO partition
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Update XPlmi_MoveProc to handle 64 bit Address
+*       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *
 * </pre>
 *
@@ -144,6 +145,9 @@
 
 /* Secure Lockdown and SRST Tamper response mask */
 #define XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK	(0xEU)
+
+/* CFU keyhole size in words */
+#define XPLMI_CFU_KEYHOLE_SIZE		(0x10000U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
@@ -939,6 +943,29 @@ static int XPlmi_InitSeq(XPlmi_Cmd *Cmd)
 	(void)Cmd;
 
 	return XPLMI_ERR_CMD_NOT_SUPPORTED;
+}
+
+
+/*****************************************************************************/
+/**
+ * @brief	This function processes and provides readback length
+ *
+ * @param	Len is the current readback length
+
+ * @return	Readback length
+ *
+ *****************************************************************************/
+static u32 XPlmi_GetReadbackLen(u32 Len)
+{
+	u32 ReadLen;
+
+	if (Len > XPLMI_CFU_KEYHOLE_SIZE) {
+		ReadLen = XPLMI_CFU_KEYHOLE_SIZE;
+	} else {
+		ReadLen = Len;
+	}
+
+	return ReadLen;
 }
 
 /*****************************************************************************/
