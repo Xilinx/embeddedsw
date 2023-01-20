@@ -19,6 +19,7 @@
 * 8.0   bm       07/06/2022 Initial release
 *       dc       07/12/2022 Added XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE
 * 8.1   kal      01/05/2023 Added XIL_EVENT_ERROR_PCR_LOG_UPDATE
+*       rama     01/19/2023 Add XilSem errors to SW error events
 *
 * </pre>
 *
@@ -716,6 +717,10 @@ extern "C" {
 #define XIL_EVENT_ERROR_MASK_PLM_EXCEPTION	(0x00000010U)
 #define XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE 	(0x00000020U)
 #define XIL_EVENT_ERROR_PCR_LOG_UPDATE		(0x00000040U)
+/** XilSem errors */
+#define XIL_EVENT_ERROR_MASK_XSEM_CRAM_CE	(0x00000080U)
+#define XIL_EVENT_ERROR_MASK_XSEM_CRAM_UE	(0x00000100U)
+#define XIL_EVENT_ERROR_MASK_XSEM_NPI_UE	(0x00000200U)
 /**
  * @}
  */
