@@ -251,7 +251,7 @@ int XOcp_GetX509Cert(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr)
 	}
 
 	/** Fill IPI Payload */
-	Payload[0U] = OcpHeader(0U, XOCP_API_GetX509Cert);
+	Payload[0U] = OcpHeader(0U, XOCP_API_GETX509CERT);
 	Payload[1U] = (u32)GetX509CertAddr;
 	Payload[2U] = (u32)(GetX509CertAddr >> 32);
 
@@ -285,7 +285,7 @@ int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr,
 	}
 
 	/** Fill IPI Payload */
-	Payload[0U] = OcpHeader(0U, XOCP_API_AttestWithDevAk);
+	Payload[0U] = OcpHeader(0U, XOCP_API_ATTESTWITHDEVAK);
 	Payload[1U] = (u32)AttestWithDevAk;
 	Payload[2U] = (u32)(AttestWithDevAk >> 32);
 

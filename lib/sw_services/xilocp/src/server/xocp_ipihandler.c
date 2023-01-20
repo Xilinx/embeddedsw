@@ -82,11 +82,11 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GENDMERESP):
 			Status = XOcp_GenDmeRespIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
-		case XOCP_API(XOCP_API_GetX509Cert):
+		case XOCP_API(XOCP_API_GETX509CERT):
 			Status = XOcp_GetX509CertificateIpi(Pload[0], Pload[1],
 					Cmd->SubsystemId);
 			break;
-		case XOCP_API(XOCP_API_AttestWithDevAk):
+		case XOCP_API(XOCP_API_ATTESTWITHDEVAK):
 			Status = XOcp_AttestWithDevAkIpi(Pload[0], Pload[1],
 					Cmd->SubsystemId);
 			break;

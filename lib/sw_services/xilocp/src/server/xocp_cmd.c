@@ -88,8 +88,8 @@ static int XOcp_FeaturesCmd(u32 ApiId)
 		case XOCP_API(XOCP_API_GENDMERESP):
 		case XOCP_API(XOCP_API_DEVAKINPUT):
 		case XOCP_API(XOCP_API_GETCERTUSERCFG):
-		case XOCP_API(XOCP_API_GetX509Cert):
-		case XOCP_API(XOCP_API_AttestWithDevAk):
+		case XOCP_API(XOCP_API_GETX509CERT):
+		case XOCP_API(XOCP_API_ATTESTWITHDEVAK):
 			Status = XST_SUCCESS;
 			break;
 		default:
@@ -130,8 +130,8 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_GETPCR):
 		case XOCP_API(XOCP_API_GETPCRLOG):
 		case XOCP_API(XOCP_API_GENDMERESP):
-		case XOCP_API(XOCP_API_GetX509Cert):
-		case XOCP_API(XOCP_API_AttestWithDevAk):
+		case XOCP_API(XOCP_API_GETX509CERT):
+		case XOCP_API(XOCP_API_ATTESTWITHDEVAK):
 			Status = XOcp_IpiHandler(Cmd);
 			break;
 		case XOCP_API(XOCP_API_DEVAKINPUT):
