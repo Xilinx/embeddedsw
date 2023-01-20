@@ -47,6 +47,7 @@
 #include "xplmi_gic_interrupts.h"
 #ifdef PLM_OCP
 #include "xocp.h"
+#include "xocp_keymgmt.h"
 #include "xsecure_sha.h"
 #include "xsecure_init.h"
 #endif
@@ -85,6 +86,7 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
 static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrInfo);
 static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrInfo);
 static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo);
+static int XLoader_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -1064,6 +1066,7 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 	XLoader_ImageMeasureInfo ImageInfo = {0U};
 	XilPdi_MetaHdr * MetaHdrPtr = &PdiPtr->MetaHdr;
 
+	ImageInfo.SubsystemID = 0U;
 	ImageInfo.PcrInfo = XOCP_PCR_INVALID_VALUE;
 	ImageInfo.Flags = XLOADER_MEASURE_START;
 	Status = XLoader_DataMeasurement(&ImageInfo);
@@ -1126,8 +1129,10 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	XSecure_Sha3 *Sha1Instance = XSecure_GetSha1Instance();
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
+	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(ImageInfo->SubsystemID);
 
-	if (ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) {
+	if ((ImageInfo->PcrInfo == XOCP_PCR_INVALID_VALUE) &&
+			(DevAkIndex == XOCP_INVALID_DEVAK_INDEX)) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
@@ -1153,8 +1158,20 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 	}
 
 	if (ImageInfo->Flags == XLOADER_MEASURE_FINISH) {
-		Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
+		if (DevAkIndex != XOCP_INVALID_DEVAK_INDEX) {
+			/* Generate DEVAK */
+			Status = XLoader_GenSubSysDevAk(ImageInfo->SubsystemID,
+						(u64)(UINTPTR)Sha3Hash.Hash);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		if (ImageInfo->PcrInfo != XOCP_PCR_INVALID_VALUE) {
+			/* Extend HW PCR */
+			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
 				XLOADER_SHA3_LEN);
+		}
 	}
 
 END:
@@ -1366,6 +1383,40 @@ static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo)
 
 	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&EncRevokeId, sizeof(EncRevokeId));
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function generates the DEVAK for requested subsystem by user.
+ *
+ * @param	SubsystemID is the ID of image.
+ *
+ * @return	XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XLoader_GenSubSysDevAk(u32 SubsystemID, u64 InHash)
+{
+	int Status = XST_FAILURE;
+	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubsystemID);
+	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
+
+	if (DevAkIndex != XOCP_INVALID_DEVAK_INDEX)  {
+		DevAkData = DevAkData + DevAkIndex;
+		Status = XPlmi_MemCpy64((u64)(UINTPTR)DevAkData->SubSysHash,
+					InHash, XLOADER_SHA3_LEN);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Status = XOcp_GenerateDevAk(SubsystemID);
+		XPlmi_Printf(DEBUG_DETAILED, "DEV AK of subsystem is generated %x\n\r",
+					SubsystemID);
+	}
+	else {
+		XPlmi_Printf(DEBUG_DETAILED, "DEV AK of subsystem is not generated \n\r");
+		Status = XST_SUCCESS;
+	}
+END:
 	return Status;
 }
 #endif

@@ -374,7 +374,8 @@ typedef struct {
 	u64 DataAddr;
 	u32 DataSize;
 	u32 PcrInfo;
-	u8 Flags;
+	u32 Flags;
+	u32 SubsystemID;
 } XLoader_ImageMeasureInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
