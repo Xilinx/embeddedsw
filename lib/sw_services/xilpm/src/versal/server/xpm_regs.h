@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -710,6 +711,7 @@ extern "C" {
  */
 #define HBM_PHY_MS_CFG1_OFFSET					(0x38U)
 #define HBM_PHY_MS_CFG2_OFFSET					(0x3CU)
+#define HBM_PHY_MS_CFG6_OFFSET					(0x4CU)
 #define HBM_PHY_MS_CFG64_OFFSET					(0xF0U)
 #define HBM_PHY_MS_CFG66_OFFSET					(0xF8U)
 

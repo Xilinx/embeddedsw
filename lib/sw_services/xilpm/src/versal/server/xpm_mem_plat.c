@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,8 +51,13 @@ static XStatus XPmMem_GetTempData(u32 BaseAddress, u32 *TempData)
 	}
 
 	/* Read data */
-	TempVal = XPm_In32(BaseAddress + HBM_PHY_MS_CFG66_OFFSET) >>
-		HBM_PHY_MS_CFG66_DATA_SHIFT;
+	TempVal = XPm_In32(BaseAddress + HBM_PHY_MS_CFG66_OFFSET);
+
+	/* Write a copy to CFG6 */
+	XPm_Out32(BaseAddress + HBM_PHY_MS_CFG6_OFFSET, TempVal);
+
+	/* Shift and extract data */
+	TempVal >>= HBM_PHY_MS_CFG66_DATA_SHIFT;
 
 	/* Check for data validity (valid bit must be 0) */
 	if (0U != (TempVal & HBM_PHY_MS_CFG66_DATA_VALID_BIT)) {
@@ -92,10 +98,7 @@ static int XPmMem_HBMTempMonitor(void *data)
 	if ((NPI_PCSR_CONTROL_PCOMPLETE_MASK == (S0PcsrCntrl & NPI_PCSR_CONTROL_PCOMPLETE_MASK)) &&
 	    (0U != (HbmCfgAndMax & XPM_RTCA_HBM_TEMP_CONFIG_STACK0_EN_MASK))) {
 		/* Read the temperature data */
-		Status = XPmMem_GetTempData(HbmPhyMs[0], &S0Temp);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		(void)XPmMem_GetTempData(HbmPhyMs[0], &S0Temp);
 		TempVal = S0Temp;
 	}
 
@@ -103,10 +106,7 @@ static int XPmMem_HBMTempMonitor(void *data)
 	if ((NPI_PCSR_CONTROL_PCOMPLETE_MASK == (S1PcsrCntrl & NPI_PCSR_CONTROL_PCOMPLETE_MASK)) &&
 	    (0U != (HbmCfgAndMax & XPM_RTCA_HBM_TEMP_CONFIG_STACK1_EN_MASK))) {
 		/* Read the temperature data */
-		Status = XPmMem_GetTempData(HbmPhyMs[1], &S1Temp);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		(void)XPmMem_GetTempData(HbmPhyMs[1], &S1Temp);
 		TempVal |= (S1Temp << XPM_RTCA_HBM_TEMP_VAL_STACK1_TEMP_SHIFT);
 	}
 
@@ -121,7 +121,6 @@ static int XPmMem_HBMTempMonitor(void *data)
 
 	Status = XST_SUCCESS;
 
-done:
 	return Status;
 }
 
