@@ -51,6 +51,11 @@
  * XOCP_READ_NUM_OF_LOG_ENTRIES Number of PcrLog entries to read into buffer.
  * Default value is (0x00000001)
  *
+ * #define XOCP_ATTESTATION_HASH
+ *	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+ * The hash of the data to be attested with Device AK shall be provided in string
+ * format. It should be 96 characters long.
+ *
  ******************************************************************************/
 #ifndef XILOCP_INPUT_H
 #define XILOCP_INPUT_H
@@ -62,17 +67,20 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /************************** Constant Definitions *****************************/
-/**
- * Hash to be extended for requesting ROM services.
- */
-#define XOCP_EXTEND_HASH	\
-	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 
+/*********************** Input(s) to DME example *****************************/
 /**
  * Nonce buffer
  */
 #define XOCP_NONCE_BUFFER	\
 	"0000000000000000000000000000000000000000000000000000000000000000"
+
+/*********************** Input(s) to PCR example *****************************/
+/**
+ * Hash to be extended for requesting ROM services.
+ */
+#define XOCP_EXTEND_HASH	\
+	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 
 /**
  * Following is the define to select PCR number by the user.
@@ -82,6 +90,10 @@ extern "C" {
 #define XOCP_READ_PCR_MASK	(0x00000004)
 
 #define XOCP_READ_NUM_OF_LOG_ENTRIES	(0x00000001)
+
+/*********************** Input(s) to device attestation example *****************************/
+#define XOCP_ATTESTATION_HASH	\
+	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 
 #ifdef __cplusplus
 }

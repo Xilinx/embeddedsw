@@ -6,3 +6,4 @@
 
 xilocp_client_pcr_example.c = xilocp_input.h
 xilocp_client_dme_example.c = xilocp_input.h
+xilocp_client_devicekey_example.c = xilocp_input.h
