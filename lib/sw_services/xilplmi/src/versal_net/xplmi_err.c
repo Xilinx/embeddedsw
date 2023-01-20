@@ -25,6 +25,7 @@
 *       bm   01/05/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/13/2023 Updated Error Handler and Action table
 *                       CPM5N,XMPU,XPPU error/event handling
+*       rama 01/19/2023 Updated ErrorTable to support XilSem errors
 *
 * </pre>
 *
@@ -453,6 +454,12 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_DEV_STATE_CHANGE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 	[XPLMI_ERROR_PCR_LOG_UPDATE] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_CRAM_CE] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_CRAM_UE] =
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
+	[XPLMI_ERROR_NPI_UE] =
 	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_NONE, .SubsystemId = 0U, },
 };
 
