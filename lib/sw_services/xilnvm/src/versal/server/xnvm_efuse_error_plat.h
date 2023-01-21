@@ -21,6 +21,7 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   kal  08/16/2019 Initial release
+* 3.1   kpt  01/21/2023 Added error codes for Additional PPKs
 *
 * </pre>
 *
@@ -191,20 +192,27 @@ typedef enum {
 						* LBIST_EN
 						* efuse programming */
 	XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN = 0xAF00,/**<0xAF00 - Error in
-							 * CRYPTO_KAT_EN
-							 * efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0 = 0xB000,/**<0xB000 - Error in
-								* PPK3_INVALID_BIT_0
-								* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1 = 0xB100,/**<0xB100 - Error in
-							* PPK3_INVALID_BIT_1
-							* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0 = 0xB200,/**<0xB200 - Error in
-								* PPK4_INVALID_BIT_0
-								* efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1 = 0xB300,/**<0xB300 - Error in
-								* PPK4_INVALID_BIT_1
-								* efuse programming */
+						     * CRYPTO_KAT_EN
+						     * efuse programming */
+	XNVM_EFUSE_ERR_WRITE_PPK3_HASH = 0xB000,/**<0xB000 - Error in
+						 * PPK3hash programming */
+	XNVM_EFUSE_ERR_WRITE_PPK4_HASH = 0xB100,/**<0xB100 - Error in
+						 * PPK4hash programming */
+	XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED = 0xB200,/**<0xB200 - Error
+							  * PPK3 and PPK4 are not
+							  * enable */
+	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0 = 0xB300,/**<0xB300 - Error in
+							  * PPK3_INVALID_BIT_0
+							  * efuse programming */
+	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1 = 0xB400,/**<0xB400 - Error in
+							  * PPK3_INVALID_BIT_1
+							  * efuse programming */
+	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0 = 0xB500,/**<0xB500 - Error in
+							  * PPK4_INVALID_BIT_0
+							  * efuse programming */
+	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1 = 0xB600,/**<0xB600 - Error in
+							  * PPK4_INVALID_BIT_1
+							  * efuse programming */
 	XNVM_ERR_WRITE_PUF_USER_DATA = 0x10000, /**< 0x10000
 						* When user chooses PUF efuses as user efuses
 						* data provided for last row

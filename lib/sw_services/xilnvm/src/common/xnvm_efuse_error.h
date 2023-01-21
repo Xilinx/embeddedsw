@@ -21,6 +21,7 @@
 * 1.0   kal  01/05/22 Initial release
 * 3.1   skg  10/25/22 Added comments for macros and enums
 *       skg  12/07/22 Added error codes for Additional PPKs
+*       kpt  01/21/23 Removed error codes for Additional PPKs
 *
 * </pre>
 * @note
@@ -151,12 +152,6 @@ typedef enum {
 						* Error in
 						* Data Partition IV
 						* programming */
-	XNVM_EFUSE_ERR_WRITE_PPK3_HASH = 0x8B00,/**<0x8B00 - Error in PPK3hash
-								* programming */
-	XNVM_EFUSE_ERR_WRITE_PPK4_HASH = 0x8C00,/**<0x8C00 - Error in PPK4hash
-								* programming */
-	XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED = 0x8D00,/**<0x8D00 - Error PPK3 and PPK4 are not
-		                        * enable*/
 	XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA = 0xB000,/**<0xB000 - Error in
 						* Writing Puf helper data
 						* efuse programming */
