@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -179,7 +180,7 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	XSecure_RsaSignParams *SignParams = NULL;
 	u64 BufferAddr;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	volatile u32 Payload[XSECURE_PAYLOAD_LEN_3U] = {0U};
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -203,7 +204,7 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	Payload[1U] = (u32)BufferAddr;
 	Payload[2U] = (u32)(BufferAddr >> 32);
 
-	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, sizeof(Payload)/sizeof(u32));
 
 END:
 	return Status;
