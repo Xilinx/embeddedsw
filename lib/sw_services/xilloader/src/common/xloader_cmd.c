@@ -67,6 +67,7 @@
 * 1.09  ng   11/11/2022 Updated doxygen comments
 *       sk   01/11/2023 Added new image store feature
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
+*       bm   01/23/2023 Send Load PDI response in Payload[1]
 *
 * </pre>
 *
@@ -136,6 +137,7 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_LOW_INDEX	(1U)
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DEST_SIZE_INDEX	(2U)
 #define XLOADER_RESP_CMD_EXEC_STATUS_INDEX	(0U)
+#define XLOADER_RESP_CMD_LOAD_PDI_STATUS_INDEX	(1U)
 #define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
 #define XLOADER_RESP_CMD_READBACK_PROCESSED_LEN_INDEX	(1U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_UID_INDEX		(1U)
@@ -295,7 +297,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_GENERAL, "Subsystem PDI Load: Done\n\r");
 
 END:
-	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+	Cmd->Response[XLOADER_RESP_CMD_LOAD_PDI_STATUS_INDEX] = (u32)Status;
 	return Status;
 }
 
