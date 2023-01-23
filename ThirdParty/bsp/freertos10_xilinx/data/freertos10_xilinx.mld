@@ -1,6 +1,6 @@
 #
-# Copyright (C) 2015 - 2021 Xilinx, Inc.
-# Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2015 - 2022 Xilinx, Inc.
+# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -78,7 +78,7 @@ BEGIN CATEGORY kernel_features
 	PARAM name = check_for_stack_overflow, type = int, default = 2, desc = "Set to 0 for no overflow checking.  Set to 1 to include basic run time task stack checking.  Set to 2 to include more comprehensive run time task stack checking.";
 	PARAM name = use_stats_formatting_functions, type = bool, default = true, desc = "Set to 1 to include the vTaskList() and vTaskGetRunTimeStats() functions, which format run-time data into human readable text.";
 	PARAM name = num_thread_local_storage_pointers, type = int, default = 0, desc ="Sets the number of pointers each task has to store thread local values.";
-        PARAM name = use_task_fpu_support, type = int, default = 1, desc ="Set to 1 to create tasks without FPU context, set to 2 to have tasks with FPU context by default.";
+        PARAM name = use_task_fpu_support, type = int, default = 2, desc ="Set to 1 to create tasks without FPU context, set to 2 to have tasks with FPU context by default.";
         PARAM name = generate_runtime_stats, type = int, default = 0, desc ="Set to 1 generate runtime stats for tasks.";
 END CATEGORY
 
