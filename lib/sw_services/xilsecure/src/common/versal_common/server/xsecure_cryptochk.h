@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +20,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   har     09/16/21 Initial Release
 * 4.6   har     09/16/21 Updated relase version to 4.6
+* 5.1   har     01/23/23 Corrected the value of XSECURE_CRP_RST_PS_PS_SRST_MASK
 *
 * </pre>
 * @endcond
@@ -59,7 +61,7 @@ extern "C" {
  */
 /**< RST_PS register address and definitions */
 #define XSECURE_CRP_RST_PS				(0xF126031CU)
-#define XSECURE_CRP_RST_PS_PS_SRST_MASK			(0x00000002U)
+#define XSECURE_CRP_RST_PS_PS_SRST_MASK			(0x00000004U)
 /** @} */
 
 /***************** Macros (Inline Functions) Definitions *********************/
