@@ -8,6 +8,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.0   har  01/11/23 Initial Release
+#       har  01/20/23 Removed dependency on XilOCP
 #
 ##############################################################################
 
@@ -18,8 +19,8 @@ BEGIN LIBRARY xilcert
   OPTION copyfiles = all;
   OPTION SUPPORTED_PERIPHERALS = (psx_pmc psxl_pmc);
   OPTION REQUIRES_OS = (standalone);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilocp,-lxilplmi,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "Xilinx X.509 certificate generation library";
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilcert,-lxilplmi,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
+  OPTION desc = "Xilinx X.509 certificate generation library. Supported only for Versal Net";
   OPTION VERSION = 1.0;
   OPTION NAME = xilcert;
 END LIBRARY

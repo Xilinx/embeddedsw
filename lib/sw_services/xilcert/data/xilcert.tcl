@@ -7,7 +7,8 @@
 #
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
-# 1.0   har  06/27/22 Initial Release
+# 1.0   har  01/11/23 Initial Release
+#       har  01/20/23 Fixed XSCT build issue
 #
 ##############################################################################
 
@@ -21,16 +22,10 @@ proc cert_drc {libhandle} {
 	set os_type [hsi::get_os];
 	set src "src"
 
-	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
-		foreach entry [glob -nocomplain -types f [file join "$src" *]] {
-			file copy -force $entry "./src"
-		}
-	} else {
+	if {$proc_type != "psxl_pmc" && $proc_type != "psx_pmc"} {
 		error "ERROR: XilCert library is supported only for psxl_pmc and psx_pmc processors.";
 		return;
 	}
-	file delete -force $src
-
 }
 
 proc generate {libhandle} {
