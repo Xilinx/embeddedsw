@@ -73,8 +73,8 @@ extern EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
 int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ElliptcPrivateKeyGen *PrivateKey)
 {
-	int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
-	int ClearStatus = XST_FAILURE;
+	volatile int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
+	volatile int ClearStatus = XST_FAILURE;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	XSecure_TrngUserConfig TrngUserCfg;
 	/* The random ephimeral/Private key should be between 1 to ecc order
@@ -183,8 +183,8 @@ RET:
 int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 	u32 EphemeralKeyAddr)
 {
-	int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
-	int ClearStatus = XST_FAILURE;
+	volatile int Status = XSECURE_ECC_PRVT_KEY_GEN_ERR;
+	volatile int ClearStatus = XST_FAILURE;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	XSecure_TrngUserConfig TrngUserCfg;
 
@@ -256,7 +256,7 @@ RET:
 int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 		const u8* Hash, u32 HashLen, u8 *PrvtKey, u8* Signature)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	volatile int ClearStatus = XST_FAILURE;
 	volatile int ClearStatusTmp = XST_FAILURE;
 	u8 EphemeralKey[XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};

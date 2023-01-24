@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -67,7 +68,7 @@ static void XSecure_HmacXor(const u32 *Data, const u8 Value, u32 *Result);
 int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
 		XSecure_Sha3 *Sha3InstancePtr, u64 KeyAddr, u32 KeyLen)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u8 K0[XSECURE_SHA3_BLOCK_LEN];
 
 	if ((InstancePtr == NULL) || (KeyLen == 0x0U)) {
@@ -132,8 +133,7 @@ RET:
  ******************************************************************************/
 int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len)
 {
-
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	if ((InstancePtr == NULL) || (InstancePtr->Sha3InstPtr == NULL) ||
 			(Len == 0x0U)) {
@@ -174,7 +174,6 @@ END:
  ******************************************************************************/
 int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 {
-
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 *Sha3InstancePtr;
 	u8 IntHash[XSECURE_HASH_SIZE_IN_BYTES];
@@ -241,7 +240,7 @@ RET:
 static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
 		u64 KeyAddr, u32 KeyLen, u64 KeyOut)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	volatile u8 Index;
 	u32 *K0Ptr = (u32 *)(UINTPTR)KeyOut;
 	u8 *K0 = (u8 *)K0Ptr;

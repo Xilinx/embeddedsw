@@ -250,7 +250,7 @@ void XSecure_CmdsInit(void)
  *****************************************************************************/
 static int XSecure_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u8 NonSecureIpiAccess;
 	(void)CmdId;
 
