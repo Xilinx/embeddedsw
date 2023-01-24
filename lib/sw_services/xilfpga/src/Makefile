@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 ###############################################################################
 DRIVER_LIB_VERSION = v1.0

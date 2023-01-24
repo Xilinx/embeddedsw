@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2016 - 20222 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -43,6 +44,7 @@
 #                       to provide the access to the xilfpga library to get the
 #                       xilfpga version and supported feature list info.
 # 6.2  Nava   01/19/22  Added build time flag to skip eFUSE checks.
+# 6.4  Nava   01/23/22  Added Versalnet support.
 #
 ##############################################################################
 
@@ -84,9 +86,11 @@ proc generate {lib_handle} {
     set cortexa53proc [hsi::get_cells -hier -filter "IP_NAME==psu_cortexa53"]
     set cortexa72proc [hsi::get_cells -hier -filter "IP_NAME==psv_cortexa72"]
     set cortexr5proc  [hsi::get_cells -hier -filter "IP_NAME==psv_cortexr5"]
+    set cortexa78proc [hsi::get_cells -hier -filter "IP_NAME==psx_cortexa78"]
+    set cortexr52proc  [hsi::get_cells -hier -filter "IP_NAME==psx_cortexr52"]
     if {[llength $cortexa53proc] > 0} {
 	set iszynqmp 1
-    } elseif {([llength $cortexa72proc] > 0) || ([llength $cortexr5proc] > 0)} {
+    } elseif {([llength $cortexa72proc] > 0) || ([llength $cortexr5proc] > 0) || ([llength $cortexa78proc] > 0) || ([llength $cortexr52proc] > 0)} {
 	set iszynqmp 0
 	set isversal 1
     } else {
