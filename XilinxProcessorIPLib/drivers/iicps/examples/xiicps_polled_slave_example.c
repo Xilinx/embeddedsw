@@ -8,7 +8,9 @@
 /**
  * @file xiicps_polled_slave_example.c
  *
- * A design example of using the device as slave in polled mode.
+ * This example can run on zynqmp / versal platform evaluation board and
+ * IIC controller configured slave in polled mode and Aardvark Analyzer used as
+ * master.
  *
  * This example uses buffer of size 250. Please set the send buffer of the
  * Aardvark device to be continuous data from 0x00 to 0xF9.

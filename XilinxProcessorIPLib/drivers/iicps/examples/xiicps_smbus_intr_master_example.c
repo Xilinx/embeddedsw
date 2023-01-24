@@ -7,8 +7,10 @@
 /**
  * @file xiicps_smbus_intr_master_example.c
  *
- * A design example of using the IIC device as master for SMBus interrupt-driven
- * transfers
+ * This example can run on zynqmp / versal platform evaluation board and
+ * IIC controller configured as master in interrupt-driven mode and Aardvark
+ * Analyzer used as slave.
+ * It sends and receives the data using IIC master device for SMBus transfers.
  *
  * <pre> MODIFICATION HISTORY:
  *

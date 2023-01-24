@@ -8,7 +8,10 @@
 /**
  * @file xiicps_smbus_polled_master_example.c
  *
- * A design example of using the device as master for SMBus transfers in polled mode.
+ * This example can run on zynqmp / versal platform evaluation board and
+ * IIC controller configured as master in polled mode and loopback setup used
+ * for slave.
+ * It sends and receives the data using IIC master device for SMBus transfers.
  *
  * <pre> MODIFICATION HISTORY:
  *

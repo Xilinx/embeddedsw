@@ -8,8 +8,8 @@
 /**
  * @file xiicps_selftest_example.c
  *
- * This file contains a example for using the IIC hardware device and
- * XIicPs driver.
+ * This example runs on zynqmp / versal evaluation boards using the IIC hardware
+ * device and XIicPs driver.
  *
  *
  * <pre> MODIFICATION HISTORY:

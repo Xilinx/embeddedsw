@@ -15,8 +15,10 @@
  * This example tested on ZCU102 board and slave address needs to be
  * changed based on board design
  *
- * This example sends 18 buffers of data to slave and expects to receive the
- * same data through the IIC using the Aardvark test hardware.
+ * This example can run on zynqmp / versal IIC device as master and Aardvark
+ * test hardware used as slave.
+ * It sends 18 buffers of data to slave and expects to receive the same data
+ * through the IIC.
  *
  * <pre> MODIFICATION HISTORY:
  *

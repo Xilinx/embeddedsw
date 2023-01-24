@@ -9,10 +9,11 @@
 *
 * @file xiicps_intr_slave_example.c
 *
-* A design example of using the IIC device as slave for interrupt-driven
-* transfers using the external Aardvark IIC analyzer as the master.
+* This example can run on zynqmp / versal platform evaluation board and
+* IIC controller configured slave in interrupt-driven mode and Aardvark Analyzer
+* used as master.
 *
-* This example uses buffer size of 250. Set the send buffer of the
+* It uses buffer size of 250. Set the send buffer of the
 * Aardvark device as continuous data from 0x00 to 0xF9.
 *
 * @note	None.

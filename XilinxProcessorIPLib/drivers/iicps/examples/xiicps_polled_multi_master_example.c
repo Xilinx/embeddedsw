@@ -11,13 +11,16 @@
 * Design example is to demonstrate multi-master support in polled mode.
 * In case arbitration lost there will be retry..
 *
-* * The XIicPs_MasterSendPolled() API is used to transmit the data and the
- * XIicPs_MasterRecvPolled() API is used to receive the data.
- * This example tested on ZCU102 board and slave address needs to be
- * changed based on board design
- *
-* The example uses buffer size 132. Please set the send buffer of the
-* Aardvark device to be continuous 64 bytes from 0x00 to 0x3F.
+* The XIicPs_MasterSendPolled() API is used to transmit the data and the
+* XIicPs_MasterRecvPolled() API is used to receive the data.
+* This example tested on ZCU102 board and slave address needs to be
+* changed based on board design
+*
+* This example can run on zynqmp / versal IIC device as master in polled mode
+* and Aardvark test hardware used as slave.
+*
+* It uses buffer size 132. Please set the send buffer of the Aardvark device to
+* be continuous 64 bytes from 0x00 to 0x3F.
  *
  * <pre> MODIFICATION HISTORY:
  *

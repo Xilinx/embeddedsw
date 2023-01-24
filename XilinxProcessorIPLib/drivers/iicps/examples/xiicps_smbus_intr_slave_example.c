@@ -8,8 +8,10 @@
 *
 * @file xiicps_smbus_intr_slave_example.c
 *
-* A design example of using the IIC device as slave for SMBus interrupt-driven
-* transfers.
+* This example can run on zynqmp / versal platform evaluation board and
+* IIC controller configured slave in interrupt-driven mode and loopback setup
+* used for master.
+* It sends and receives the data using IIC device as slave for SMBus transfers.
 *
 * @note	None.
 *

@@ -8,8 +8,8 @@
 /**
 * @file xiicps_repeated_start_example.c
 *
-* This file consists of a repeated start example using xiicps driver
-* in polled mode. The slave used is an EEPROM.
+* This is a repeated start example runs on zynqmp / versal evaluation boards
+* using xiicps driver in polled mode. The slave used is an EEPROM.
 *
 * The example is tested with a 2Kb/8Kb serial IIC EEPROM (ST M24C02/M24C08).
 * The WP pin of this EEPROM is hardwired to ground in the HW in which this

@@ -10,6 +10,7 @@
 *
 * This file consists of a interrutp mode design example which uses the Xilinx
 * PS IIC device and XIicPs driver to exercise the EEPROM.
+* This example runs on zynqmp evaluation board (zcu102).
 *
 * The XIicPs_MasterSend() API is used to transmit the data and the
 * XIicPs_MasterRecv() API is used to receive the data.

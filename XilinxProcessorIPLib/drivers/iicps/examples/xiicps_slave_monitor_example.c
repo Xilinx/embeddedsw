@@ -8,8 +8,8 @@
 /**
  * @file xiicps_slave_monitor_example.c
  *
- * A design example of using the device as master to check slave's
- * availability.
+ * This example runs on zynqmp / versal evaluation boards using the IIC device
+ * as master to check slave's availability.
  *
  * @note
  * Please set the slave address to 0x3FB, which tests the device's ability

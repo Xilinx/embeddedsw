@@ -8,9 +8,11 @@
 /**
  * @file xiicps_intr_master_example.c
  *
- * Design example to use the IIC device as master in interrupt-driven mode.
+ * This example can run on zynqmp / versal platform evaluation board and
+ * IIC controller configured master in interrupt-driven mode and Aardvark
+ * Analyzer used as slave.
  *
- * This example sends 18 buffers of data to slave and expects to receive the
+ * It sends 18 buffers of data to slave and expects to receive the
  * same data through the IIC using the Aardvark test hardware.
  *
  * <pre> MODIFICATION HISTORY:
