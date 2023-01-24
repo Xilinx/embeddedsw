@@ -41,7 +41,7 @@ BEGIN LIBRARY xilplmi
   PARAM name = plm_nvm_en, desc = "Enables or Disables NVM handlers", type = bool, default = false;
   PARAM name = plm_puf_en, desc = "Enables or Disables PUF handlers", type = bool, default = false;
   PARAM name = plm_stl_en, desc = "Enables or Disables STL", type = bool, default = false;
-  PARAM name = plm_ocp_en, desc = "Enables or Disables OCP", type = bool, default = false;
+  PARAM name = plm_ocp_en, desc = "Enables or Disables OCP", type = bool, default = true;
   PARAM name = plm_add_ppks_en, desc = "Enables or Disables additional PPKs", type = bool, default = false;
   PARAM name = ssit_plm_to_plm_comm_en, desc = "Enables or Disables SSIT PLM to PLM communication (valid only for Versal)", type = bool, default = true;
   PARAM name = plm_ecdsa_en, desc = "Enables or Disables ECDSA handlers", type = bool, default = true;

@@ -1,5 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2018-2021 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -36,6 +37,14 @@ END
 
 BEGIN LIBRARY
  PARAMETER LIBRARY_NAME = xilpm
+END
+
+BEGIN LIBRARY
+ PARAMETER LIBRARY_NAME = xilocp
+END
+
+BEGIN LIBRARY
+ PARAMETER LIBRARY_NAME = xilcert
 END
 
 BEGIN LIBRARY

@@ -202,8 +202,10 @@ proc xgen_opts_file {libhandle} {
 	# Get plm_ocp_en value set by user, by default it is FALSE(Valid only for VersalNet)
 	set value [common::get_property CONFIG.plm_ocp_en $libhandle]
 	if {$value == false} {
-		puts $file_handle "\n/* OCP code disable */"
-		puts $file_handle "#define PLM_OCP_EXCLUDE"
+		if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
+			puts $file_handle "\n/* OCP code disable */"6
+			puts $file_handle "#define PLM_OCP_EXCLUDE"
+		}
 	}
 
     # Get plm_add_ppks_en value set by user, by default it is FALSE

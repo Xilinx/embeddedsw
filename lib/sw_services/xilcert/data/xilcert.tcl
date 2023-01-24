@@ -22,6 +22,14 @@ proc cert_drc {libhandle} {
 	set os_type [hsi::get_os];
 	set src "src"
 
+	#For Versal devices PLM BSP contains dummy OCP library
+	if { $proc_type == "psv_pmc" } {
+		foreach entry [glob -nocomplain -types f [file join "$src" *.c]] {
+			file delete -force $entry
+		}
+		return;
+	}
+
 	if {$proc_type != "psxl_pmc" && $proc_type != "psx_pmc"} {
 		error "ERROR: XilCert library is supported only for psxl_pmc and psx_pmc processors.";
 		return;

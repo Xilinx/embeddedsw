@@ -1,5 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -9,7 +10,7 @@ proc swapp_get_name {} {
 }
 
 proc swapp_get_description {} {
-	return "Platform Loader and Manager for versal.";
+	return "Platform Loader and Manager for versal and versal net.";
 }
 
 proc check_standalone_os {} {
@@ -33,7 +34,7 @@ proc swapp_is_supported_sw {} {
     set has_missing_libs 0
 
     # make sure all required libraries are available
-    set lib_needed "xilffs xilpdi xilplmi xilloader xilpm xilsecure xilpuf"
+    set lib_needed "xilffs xilpdi xilplmi xilloader xilpm xilocp xilcert xilsecure xilpuf"
     set lib_list [hsi::get_libs];
 
     foreach libs ${lib_needed} {

@@ -26,6 +26,14 @@ proc ocp_drc {libhandle} {
 	set client "src/client/"
 	set common "src/common"
 
+	#For Versal devices PLM BSP contains dummy OCP library
+	if { $proc_type == "psv_pmc" } {
+		foreach entry [glob -nocomplain -types f [file join $common *]] {
+			file copy -force $entry "./src"
+		}
+		return;
+	}
+
 	if { $proc_type != "psxl_pmc" && $proc_type != "psxl_cortexa78" &&
 		$proc_type != "psxl_cortexr52" && $proc_type != "psx_pmc" &&
 		$proc_type != "psx_cortexa78" && $proc_type != "psx_cortexr52"} {

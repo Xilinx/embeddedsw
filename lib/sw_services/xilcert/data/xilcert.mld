@@ -17,7 +17,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilcert
   OPTION drc = cert_drc;
   OPTION copyfiles = all;
-  OPTION SUPPORTED_PERIPHERALS = (psx_pmc psxl_pmc);
+  OPTION SUPPORTED_PERIPHERALS = (psv_pmc psx_pmc psxl_pmc);
   OPTION REQUIRES_OS = (standalone);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilcert,-lxilplmi,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx X.509 certificate generation library. Supported only for Versal Net";

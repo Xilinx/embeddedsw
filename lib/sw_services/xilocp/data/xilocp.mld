@@ -18,10 +18,10 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilocp
   OPTION drc = ocp_drc;
   OPTION copyfiles = all;
-  OPTION SUPPORTED_PERIPHERALS = (psx_pmc psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52);
+  OPTION SUPPORTED_PERIPHERALS = (psv_pmc psx_pmc psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52);
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilocp,-lxil,-lgcc,-lc,--end-group";
-  OPTION desc = "Xilinx Open Compute Platform(OCP) support Library";
+  OPTION desc = "Xilinx Open Compute Platform(OCP) support Library. Supported only for Versal Net";
   OPTION VERSION = 1.1;
   OPTION NAME = xilocp;
   PARAM name = xocp_cache_disable, desc = "Enables/Disables Cache for XilOcp client library", type = bool, default = true;
