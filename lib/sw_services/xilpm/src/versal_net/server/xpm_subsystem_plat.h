@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +22,11 @@ maybe_unused static XStatus IsDevExcluded(const u32 DevId)
 	XStatus Status = XST_FAILURE;
 
 	if (((u32)XPM_NODETYPE_DEV_SOC == NODETYPE(DevId)) ||
-	    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(DevId))) {
+	    ((u32)XPM_NODETYPE_DEV_CORE_PMC == NODETYPE(DevId)) ||
+	    ((u32)XPM_NODETYPE_DEV_EFUSE == NODETYPE(DevId)) ||
+	    ((u32)XPM_NODETYPE_DEV_XRAM == NODETYPE(DevId)) ||
+	    ((u32)XPM_NODESUBCL_DEV_PHY == NODESUBCLASS(DevId)) ||
+	    ((u32)XPM_NODEIDX_DEV_AMS_ROOT == NODEINDEX(DevId))) {
 		Status = XST_SUCCESS;
 	}
 
