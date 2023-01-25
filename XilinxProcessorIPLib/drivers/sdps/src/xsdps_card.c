@@ -37,6 +37,7 @@
 * 4.1   sa     01/03/23	Report error if Transfer size is greater than 2MB.
 * 	sa     01/04/23 Update register bit polling logic to use Xil_WaitForEvent/
 * 			Xil_WaitForEvents API.
+* 	sa     01/25/23 Use instance structure to store DMA descriptor tables.
 * </pre>
 *
 ******************************************************************************/
@@ -1253,12 +1254,6 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 ******************************************************************************/
 void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 {
-#ifdef __ICCARM__
-#pragma data_alignment = 32
-	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32];
-#else
-	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
-#endif
 	u32 TotalDescLines;
 	u32 DescNum;
 	u32 BlkSize;
@@ -1282,29 +1277,29 @@ void XSdPs_SetupADMA2DescTbl64Bit(XSdPs *InstancePtr, u32 BlkCnt)
 	}
 
 	for (DescNum = 0U; DescNum < (TotalDescLines - 1U); DescNum++) {
-		Adma2_DescrTbl[DescNum].Address =
+		InstancePtr->Adma2_DescrTbl64[DescNum].Address =
 				InstancePtr->Dma64BitAddr +
 				((u64)DescNum*XSDPS_DESC_MAX_LENGTH);
-		Adma2_DescrTbl[DescNum].Attribute =
+		InstancePtr->Adma2_DescrTbl64[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
-		Adma2_DescrTbl[DescNum].Length = 0U;
+		InstancePtr->Adma2_DescrTbl64[DescNum].Length = 0U;
 	}
 
-	Adma2_DescrTbl[TotalDescLines - 1U].Address =
+	InstancePtr->Adma2_DescrTbl64[TotalDescLines - 1U].Address =
 				InstancePtr->Dma64BitAddr +
 				((u64)DescNum*XSDPS_DESC_MAX_LENGTH);
 
-	Adma2_DescrTbl[TotalDescLines - 1U].Attribute =
+	InstancePtr->Adma2_DescrTbl64[TotalDescLines - 1U].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
 
-	Adma2_DescrTbl[TotalDescLines - 1U].Length =
+	InstancePtr->Adma2_DescrTbl64[TotalDescLines - 1U].Length =
 			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
-			(u32)((UINTPTR)&(Adma2_DescrTbl[0]) & ~(u32)0x0U));
+			(u32)((UINTPTR)&(InstancePtr->Adma2_DescrTbl64[0]) & ~(u32)0x0U));
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
+		Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl64[0]),
 			(INTPTR)sizeof(XSdPs_Adma2Descriptor64) * (INTPTR)32U);
 	}
 

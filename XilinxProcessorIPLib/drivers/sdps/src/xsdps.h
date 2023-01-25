@@ -160,6 +160,7 @@
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 * 4.1   sa     01/03/23 Report error if Transfer size is greater than 2MB.
 * 4.1	sa     12/19/22 Enable eMMC HS400 mode for Versal Net.
+* 	sa     01/25/23	Use instance structure to store DMA descriptor tables.
 *
 * </pre>
 *
@@ -322,6 +323,14 @@ typedef struct {
 	u8  IsBusy;			/**< Busy Flag*/
 	u32 BlkSize;		/**< Block Size*/
 	u8  IsTuningDone;	/**< Flag to indicate HS200 tuning complete */
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+	XSdPs_Adma2Descriptor32 Adma2_DescrTbl32[32];
+	XSdPs_Adma2Descriptor64 Adma2_DescrTbl64[32];
+#else
+	XSdPs_Adma2Descriptor32 Adma2_DescrTbl32[32] __attribute__ ((aligned(32)));
+	XSdPs_Adma2Descriptor64 Adma2_DescrTbl64[32] __attribute__ ((aligned(32)));
+#endif
 } XSdPs;
 
 /***************** Macros (Inline Functions) Definitions *********************/

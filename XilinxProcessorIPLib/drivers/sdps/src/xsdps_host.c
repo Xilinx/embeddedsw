@@ -38,6 +38,7 @@
 * 4.1   sk     11/10/22 Add SD/eMMC Tap delay support for Versal Net.
 * 	sa     01/04/23	Update register bit polling logic to use Xil_WaitForEvent/
 * 			Xil_WaitForEvents API.
+* 	sa     01/25/23 Use instance structure to store DMA descriptor tables.
 * </pre>
 *
 ******************************************************************************/
@@ -965,12 +966,6 @@ void XSdPs_SetupWriteDma(XSdPs *InstancePtr, u16 BlkCnt, u16 BlkSize, const u8 *
 ******************************************************************************/
 void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 {
-#ifdef __ICCARM__
-#pragma data_alignment = 32
-	static XSdPs_Adma2Descriptor32 Adma2_DescrTbl[32];
-#else
-	static XSdPs_Adma2Descriptor32 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
-#endif
 	u32 TotalDescLines;
 	u32 DescNum;
 	u32 BlkSize;
@@ -990,27 +985,27 @@ void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	}
 
 	for (DescNum = 0U; DescNum < (TotalDescLines - 1U); DescNum++) {
-		Adma2_DescrTbl[DescNum].Address =
+		InstancePtr->Adma2_DescrTbl32[DescNum].Address =
 				(u32)((UINTPTR)Buff + ((UINTPTR)DescNum*XSDPS_DESC_MAX_LENGTH));
-		Adma2_DescrTbl[DescNum].Attribute =
+		InstancePtr->Adma2_DescrTbl32[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
-		Adma2_DescrTbl[DescNum].Length = 0U;
+		InstancePtr->Adma2_DescrTbl32[DescNum].Length = 0U;
 	}
 
-	Adma2_DescrTbl[TotalDescLines - 1U].Address =
+	InstancePtr->Adma2_DescrTbl32[TotalDescLines - 1U].Address =
 			(u32)((UINTPTR)Buff + ((UINTPTR)DescNum*XSDPS_DESC_MAX_LENGTH));
 
-	Adma2_DescrTbl[TotalDescLines - 1U].Attribute =
+	InstancePtr->Adma2_DescrTbl32[TotalDescLines - 1U].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
 
-	Adma2_DescrTbl[TotalDescLines - 1U].Length =
+	InstancePtr->Adma2_DescrTbl32[TotalDescLines - 1U].Length =
 			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
-			(u32)((UINTPTR)&(Adma2_DescrTbl[0]) & ~(u32)0x0U));
+			(u32)((UINTPTR)&(InstancePtr->Adma2_DescrTbl32[0]) & ~(u32)0x0U));
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
+		Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl32[0]),
 			(INTPTR)sizeof(XSdPs_Adma2Descriptor32) * (INTPTR)32U);
 	}
 }
@@ -1033,12 +1028,6 @@ void XSdPs_Setup32ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 ******************************************************************************/
 void XSdPs_Setup64ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 {
-#ifdef __ICCARM__
-#pragma data_alignment = 32
-	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32];
-#else
-	static XSdPs_Adma2Descriptor64 Adma2_DescrTbl[32] __attribute__ ((aligned(32)));
-#endif
 	u32 TotalDescLines;
 	u32 DescNum;
 	u32 BlkSize;
@@ -1058,32 +1047,32 @@ void XSdPs_Setup64ADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	}
 
 	for (DescNum = 0U; DescNum < (TotalDescLines - 1U); DescNum++) {
-		Adma2_DescrTbl[DescNum].Address =
+		InstancePtr->Adma2_DescrTbl64[DescNum].Address =
 				((UINTPTR)Buff + ((UINTPTR)DescNum*XSDPS_DESC_MAX_LENGTH));
-		Adma2_DescrTbl[DescNum].Attribute =
+		InstancePtr->Adma2_DescrTbl64[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
-		Adma2_DescrTbl[DescNum].Length = 0U;
+		InstancePtr->Adma2_DescrTbl64[DescNum].Length = 0U;
 	}
 
-	Adma2_DescrTbl[TotalDescLines - 1U].Address =
+	InstancePtr->Adma2_DescrTbl64[TotalDescLines - 1U].Address =
 			(u64)((UINTPTR)Buff + ((UINTPTR)DescNum*XSDPS_DESC_MAX_LENGTH));
 
-	Adma2_DescrTbl[TotalDescLines - 1U].Attribute =
+	InstancePtr->Adma2_DescrTbl64[TotalDescLines - 1U].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
 
-	Adma2_DescrTbl[TotalDescLines - 1U].Length =
+	InstancePtr->Adma2_DescrTbl64[TotalDescLines - 1U].Length =
 			(u16)((BlkCnt*BlkSize) - (u32)(DescNum*XSDPS_DESC_MAX_LENGTH));
 
 #if defined(__aarch64__) || defined(__arch64__)
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
-			(u32)((UINTPTR)(Adma2_DescrTbl)>>32U));
+			(u32)((UINTPTR)(InstancePtr->Adma2_DescrTbl64)>>32U));
 #endif
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
-			(u32)((UINTPTR)&(Adma2_DescrTbl[0]) & ~(u32)0x0U));
+			(u32)((UINTPTR)&(InstancePtr->Adma2_DescrTbl64[0]) & ~(u32)0x0U));
 
 	if (InstancePtr->Config.IsCacheCoherent == 0U) {
-		Xil_DCacheFlushRange((INTPTR)&(Adma2_DescrTbl[0]),
+		Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl64[0]),
 			(INTPTR)sizeof(XSdPs_Adma2Descriptor64) * (INTPTR)32U);
 	}
 }
