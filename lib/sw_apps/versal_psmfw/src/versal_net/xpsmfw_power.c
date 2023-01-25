@@ -89,6 +89,7 @@ static struct XPsmFwPwrCtrl_t Acpu0_Core0PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
@@ -127,6 +128,7 @@ static struct XPsmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu0_Core2PwrCtrl = {
@@ -165,6 +167,7 @@ static struct XPsmFwPwrCtrl_t Acpu0_Core2PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu0_Core3PwrCtrl = {
@@ -203,6 +206,7 @@ static struct XPsmFwPwrCtrl_t Acpu0_Core3PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
@@ -241,6 +245,7 @@ static struct XPsmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1_Core1PwrCtrl = {
@@ -279,6 +284,7 @@ static struct XPsmFwPwrCtrl_t Acpu1_Core1PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1_Core2PwrCtrl = {
@@ -317,6 +323,7 @@ static struct XPsmFwPwrCtrl_t Acpu1_Core2PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1_Core3PwrCtrl = {
@@ -355,6 +362,7 @@ static struct XPsmFwPwrCtrl_t Acpu1_Core3PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
@@ -393,6 +401,7 @@ static struct XPsmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
@@ -431,6 +440,7 @@ static struct XPsmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu2_Core2PwrCtrl = {
@@ -469,6 +479,7 @@ static struct XPsmFwPwrCtrl_t Acpu2_Core2PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu2_Core3PwrCtrl = {
@@ -507,6 +518,7 @@ static struct XPsmFwPwrCtrl_t Acpu2_Core3PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
@@ -545,6 +557,7 @@ static struct XPsmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
@@ -583,6 +596,7 @@ static struct XPsmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu3_Core2PwrCtrl = {
@@ -621,6 +635,7 @@ static struct XPsmFwPwrCtrl_t Acpu3_Core2PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Acpu3_Core3PwrCtrl = {
@@ -659,6 +674,7 @@ static struct XPsmFwPwrCtrl_t Acpu3_Core3PwrCtrl = {
 		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
 		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
+	.PwrDwnAckTimeout = XPSMFW_PWRDWN_ACPU_TO,
 };
 
 static struct XPsmFwPwrCtrl_t Rpu0_Core0PwrCtrl = {
@@ -1179,8 +1195,10 @@ done:
 	return Status;
 }
 
-static void XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
+static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 {
+	XStatus Status = XST_FAILURE;
+
 	/* Disable CORE_x_POWER interrupt */
 	XPsmFw_RMW32(Args->CorePstate + APU_PCLI_CORE_IDS_POWER_OFFSET, Args->CorePreqMask, Args->CorePreqMask);
 
@@ -1196,9 +1214,18 @@ static void XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* disable power to the core */
 	XPsmFw_RMW32(Args->PwrCtrlAddr,PSM_LOCAL_PWR_CTRL_GATES_MASK,~PSM_LOCAL_PWR_CTRL_GATES_MASK);
 
+	/* Poll the power stage status */
+	Status = XPsmFw_UtilPollForZero(Args->PwrStatusAddr, PSM_LOCAL_PWR_CTRL_GATES_MASK, Args->PwrDwnAckTimeout);
+	if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_ERROR,"A78 core island power down ack timeout..\n");
+		goto done;
+	}
+
 	/* unmask the wakeup interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_EN,Args->PwrStateMask);
 
+done:
+	return Status;
 }
 
 static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
@@ -1225,7 +1252,10 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Clear PREQ bit */
 	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
 
-	XPsmFwACPUxPwrDwn(Args);
+	Status = XPsmFwACPUxPwrDwn(Args);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Unmask the Power Up Interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_EN,Args->PwrStateMask);
@@ -1291,7 +1321,10 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Clear PREQ bit */
 	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
 
-	XPsmFwACPUxPwrDwn(Args);
+	Status = XPsmFwACPUxPwrDwn(Args);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/* Unmask the Power Up Interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_EN,Args->PwrStateMask);
