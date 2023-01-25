@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,6 +9,19 @@
 #include "xil_types.h"
 #include "xpm_common.h"
 #include "xpm_regs.h"
+
+static u8 IsCorePowerNode(XPm_Power *Power)
+{
+	u8 Val = 0U;
+	u32 NodeIdx = NODEINDEX(Power->Node.Id);
+
+	if ((NodeIdx >= (u32)XPM_NODEIDX_POWER_ACPU_0_0) &&
+	    (NodeIdx <= (u32)XPM_NODEIDX_POWER_RPU_B_1)) {
+		Val = 1U;
+	}
+
+	return Val;
+}
 
 XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power)
 {
@@ -28,7 +42,7 @@ XStatus XPmPsm_SendPowerUpReq(XPm_Power *Power)
 
 	/* Check if already powered up */
 	PmIn32(Psm->PsmGlobalBaseAddr + Power->PwrStatOffset, Reg);
-	if (Power->PwrStatMask == (Reg & Power->PwrStatMask)) {
+	if ((Power->PwrStatMask == (Reg & Power->PwrStatMask)) || (1U == IsCorePowerNode(Power))) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
