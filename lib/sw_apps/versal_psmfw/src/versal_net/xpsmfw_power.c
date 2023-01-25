@@ -1061,6 +1061,9 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		/* ACPU clock config */
 		XPsmFw_RMW32(Args->ClkCtrlAddr, Args->ClkCtrlMask, Args->ClkCtrlMask);
 
+		/* Allow the clock to propagate */
+		XPsmFw_UtilWait(Args->ClkPropTime);
+
 		/* APU cluster release cold & warm reset */
 		XPsmFw_RMW32(Args->RstAddr, ACPU_CLUSTER_COLD_WARM_RST_MASK, 0U);
 
@@ -1341,6 +1344,9 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	if (0U == PwrState) {
 		/* ACPU clock config */
 		XPsmFw_RMW32(Args->ClkCtrlAddr,Args->ClkCtrlMask,~Args->ClkCtrlMask);
+
+		/* Allow the clock to propagate */
+		XPsmFw_UtilWait(Args->ClkPropTime);
 
 		/* APU cluster release cold & warm reset */
 		XPsmFw_RMW32(Args->RstAddr,ACPU_CLUSTER_COLD_WARM_RST_MASK,ACPU_CLUSTER_COLD_WARM_RST_MASK);
