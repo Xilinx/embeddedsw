@@ -79,6 +79,16 @@ static struct XPsmFwPwrCtrl_t Acpu0_Core0PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_0_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_0,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
@@ -107,6 +117,16 @@ static struct XPsmFwPwrCtrl_t Acpu0_Core1PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_0_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_0,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu0_Core2PwrCtrl = {
@@ -135,6 +155,16 @@ static struct XPsmFwPwrCtrl_t Acpu0_Core2PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_0_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_0,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu0_Core3PwrCtrl = {
@@ -163,6 +193,16 @@ static struct XPsmFwPwrCtrl_t Acpu0_Core3PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_0_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_0,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
@@ -191,6 +231,16 @@ static struct XPsmFwPwrCtrl_t Acpu1_Core0PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_1_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_1,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1_Core1PwrCtrl = {
@@ -219,6 +269,16 @@ static struct XPsmFwPwrCtrl_t Acpu1_Core1PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_1_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_1,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1_Core2PwrCtrl = {
@@ -247,6 +307,16 @@ static struct XPsmFwPwrCtrl_t Acpu1_Core2PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_1_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_1,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu1_Core3PwrCtrl = {
@@ -275,6 +345,16 @@ static struct XPsmFwPwrCtrl_t Acpu1_Core3PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_1_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_1,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
@@ -303,6 +383,16 @@ static struct XPsmFwPwrCtrl_t Acpu2_Core0PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_2_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_2,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
@@ -331,6 +421,16 @@ static struct XPsmFwPwrCtrl_t Acpu2_Core1PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_2_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_2,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu2_Core2PwrCtrl = {
@@ -359,6 +459,16 @@ static struct XPsmFwPwrCtrl_t Acpu2_Core2PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_2_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_2,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu2_Core3PwrCtrl = {
@@ -387,6 +497,16 @@ static struct XPsmFwPwrCtrl_t Acpu2_Core3PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_2_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_2,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
@@ -415,6 +535,16 @@ static struct XPsmFwPwrCtrl_t Acpu3_Core0PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_3_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_3,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
@@ -443,6 +573,16 @@ static struct XPsmFwPwrCtrl_t Acpu3_Core1PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_3_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_3,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu3_Core2PwrCtrl = {
@@ -471,6 +611,16 @@ static struct XPsmFwPwrCtrl_t Acpu3_Core2PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_3_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_3,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Acpu3_Core3PwrCtrl = {
@@ -499,6 +649,16 @@ static struct XPsmFwPwrCtrl_t Acpu3_Core3PwrCtrl = {
 	.ClusterPactive = APU_PCLI_CLUSTER_3_PACTIVE,
 	.ClusterPacceptMask = APU_PCLI_CLUSTER_PACCEPT_MASK,
 	.ClusterId = CLUSTER_3,
+	.PwrUpAckTimeout = {
+		XPSMFW_PWRUP_ACPU_CHN0_TO,
+		XPSMFW_PWRUP_ACPU_CHN1_TO,
+		XPSMFW_PWRUP_ACPU_CHN2_TO,
+		XPSMFW_PWRUP_ACPU_CHN3_TO },
+	.PwrUpWaitTime = {
+		XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM,
+		XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM },
 };
 
 static struct XPsmFwPwrCtrl_t Rpu0_Core0PwrCtrl = {
@@ -846,6 +1006,33 @@ enum XPsmFWPwrUpDwnType {
 	XPSMFW_PWR_UPDWN_REQUEST,
 };
 
+static XStatus XPsmFwIslandPwrUp(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Index;
+	u32 Bit = PSM_LOCAL_PWR_CTRL_GATES_SHIFT;
+
+	/* Power up island */
+	for (Index = 0; Index < PSM_LOCAL_PWR_CTRL_GATES_WIDTH; Index++) {
+		/* Enable this power stage */
+		XPsmFw_RMW32(Args->PwrCtrlAddr, ((u32)1U << Bit), ((u32)1U << Bit));
+
+		/* Poll the power stage status */
+		Status = XPsmFw_UtilPollForMask(Args->PwrStatusAddr, ((u32)1U << Bit), Args->PwrUpAckTimeout[Index]);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+
+		/* Wait for power to ramp up */
+		XPsmFw_UtilWait(Args->PwrUpWaitTime[Index]);
+
+		Bit++;
+	}
+
+done:
+	return Status;
+}
+
 static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
@@ -880,7 +1067,10 @@ static XStatus XPsmFwACPUxPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	/*TBD: ignore below 2 steps if it is powering up from emulated
 		pwrdwn or debug recovery pwrdwn*/
 	/*Enables Power to the Core*/
-	XPsmFw_Write32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_PWR_GATES_MASK);
+	Status = XPsmFwIslandPwrUp(Args);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 	/*Removes Isolation to the APU*/
 	XPsmFw_RMW32(Args->PwrCtrlAddr,PSMX_LOCAL_REG_APU0_CORE0_PWR_CNTRL_ISOLATION_MASK,
@@ -919,7 +1109,6 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_Printf(DEBUG_ERROR,"A78 Cluster PACCEPT timeout..\n");
 		goto done;
 	}
-
 	/* Clear power down and wake interrupt status */
 	XPsmFw_RMW32(Args->CorePstate + APU_PCLI_CORE_ISR_POWER_OFFSET, Args->CorePreqMask, Args->CorePreqMask);
 	XPsmFw_RMW32(Args->CorePstate + APU_PCLI_CORE_ISR_WAKE_OFFSET, Args->CorePreqMask, Args->CorePreqMask);

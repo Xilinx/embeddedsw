@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,6 +80,16 @@ extern "C" {
 
 //TODO: TBD
 #define XPSMFW_RPU_CTRL_CLK_PROP_TIME                 ((u32)2000)
+
+#define XPSMFW_PWRUP_ACPU_CHN0_TO                    MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_PWRUP_ACPU_CHN1_TO                    MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_PWRUP_ACPU_CHN2_TO                    MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_PWRUP_ACPU_CHN3_TO                    MICROSECOND_TO_TICKS(5U)
+#define XPSMFW_PWRUP_ACPU_CHN0_WAIT_TM               NANOSECOND_TO_TICKS(100U)
+#define XPSMFW_PWRUP_ACPU_CHN1_WAIT_TM               NANOSECOND_TO_TICKS(25U)
+#define XPSMFW_PWRUP_ACPU_CHN2_WAIT_TM               NANOSECOND_TO_TICKS(25U)
+#define XPSMFW_PWRUP_ACPU_CHN3_WAIT_TM               NANOSECOND_TO_TICKS(0U)
+#define XPSMFW_PWRDWN_ACPU_TO                        MICROSECOND_TO_TICKS(5U)
 
 #define ACPU_CLUSTER_COLD_WARM_RST_MASK                        ((u32)0x00000300U)
 #define ACPU_PACCEPT_TIMEOUT				(1000U)
