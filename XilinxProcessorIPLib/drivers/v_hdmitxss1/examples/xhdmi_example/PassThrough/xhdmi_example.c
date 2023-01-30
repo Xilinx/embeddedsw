@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,6 +38,7 @@
 * 1.08  ssh    02/01/22 Updated Enable CTS Conversion Function
 * 1.09	ssh    02/04/22 Added param to support Tx to train at the same rate as Rx
 * 1.10  ssh    03/02/22 Added LCPLL and RPLL config for VCK190 Exdes
+* 1.11	ssh    01/25/23 Added support for VEK280
 *
 * </pre>
 *
@@ -175,6 +177,10 @@ void Exdes_StartSysTmr(XHdmi_Exdes *InstancePtr, u32 IntervalInMs);
 void Exdes_SysTmrCallback(void *CallbackRef, u8 TmrCtrNumber);
 void Exdes_SysTimerIntrHandler(void *CallbackRef);
 u8 Exdes_LookupVic(XVidC_VideoMode VideoMode);
+#if (defined XPS_BOARD_VEK280_ES)
+unsigned Vfmc_I2cSend_RC(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
+		unsigned ByteCount, u8 Option);
+#endif
 
 /************************* Variable Definitions *****************************/
 /* VPHY structure */
@@ -3725,6 +3731,11 @@ int I2cMuxSel(void *IicPtr, XOnBoard_IicDev Dev)
 		Iic_Mux_Addr = VCU118_U80_MUX_I2C_ADDR;
 		Buffer = VCU118_U80_MUX_SEL_FMCP;
 	}
+#elif defined (XPS_BOARD_VEK280_ES)
+	if (Dev == VCK190_MGT_SI570) {
+		Iic_Mux_Addr = VCK190_U34_MUX_I2C_ADDR;
+		Buffer = VCK190_U135_MUX_I2C_ADDR;
+	}
 #else
 
 	if (Dev == KCU105_SI570) {
@@ -3759,6 +3770,13 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 {
 	int Status;
 
+#if defined (XPS_BOARD_VEK280_ES)
+	if (OutFreq != 0) {
+	/* VFMC TX Clock Source */
+		Status = IDT_8T49N24x_I2cClk(&Iic, I2C_CLK_ADDR1,
+						InFreq, OutFreq);
+	}
+#else
 	Vfmc_I2cMuxSelect(&Vfmc[0]);
 
 	if (OutFreq != 0) {
@@ -3766,6 +3784,7 @@ int I2cClk(u32 InFreq, u32 OutFreq)
 		Status = IDT_8T49N24x_I2cClk(&Iic, I2C_CLK_ADDR,
 						InFreq, OutFreq);
 	}
+#endif
 
 	/* To profile the in frequency and out frequency, each time a new
 	 * clock is set, do,
@@ -4447,7 +4466,7 @@ void XV_Tx_HdmiTrigCb_GetFRLClk(void *InstancePtr)
 void XV_Tx_HdmiTrigCb_SetupTxFrlRefClk(void *InstancePtr)
 {
 	int Status;
-
+#if (!defined XPS_BOARD_VEK280_ES)
 	Status = XST_FAILURE;
 	xil_printf("XV_Tx_HdmiTrigCb_SetupTxFrlRefClk\r\n");
 	Status = Vfmc_Mezz_HdmiTxRefClock_Sel(&Vfmc[0],
@@ -4457,6 +4476,8 @@ void XV_Tx_HdmiTrigCb_SetupTxFrlRefClk(void *InstancePtr)
 		EXDES_DBG_PRINT("I2cClk " ANSI_COLOR_RED
 				"Program Failure!\r\n" ANSI_COLOR_RESET);
 	}
+#endif
+
 }
 
 /*****************************************************************************/
@@ -4812,6 +4833,8 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 
 	TxLineRate = XV_Tx_GetLineRate(XV_TxInst);
 
+	u8 Lanes = XV_TxInst->HdmiTxSs->HdmiTx1Ptr->Stream.Frl.Lanes;
+
 	if (SinkReadyCheck(XV_TxInst->HdmiTxSs, &EdidHdmi_t)) {
 		EXDES_DBG_PRINT("Setting Cable Driver, TxLineRate = %d%d\r\n",
 				(u32)(TxLineRate >> 32), (u32)TxLineRate);
@@ -4824,12 +4847,13 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 				FALSE) {
 			Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(&Vfmc[0],
 							     FALSE,
-							     TxLineRate);
+							     TxLineRate, Lanes);
 
 #if defined (XPS_BOARD_ZCU106) || \
 	defined (XPS_BOARD_VCU118) || \
 	defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_VCK190)
+	defined (XPS_BOARD_VCK190) || \
+	defined (XPS_BOARD_VEK280_ES)
 			/* Adjust GT TX Diff Swing based on Line rate */
 			if (Vfmc[0].TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R0 &&
 				Vfmc[0].TxMezzType <  VFMC_MEZZ_INVALID) {
@@ -4843,25 +4867,25 @@ void XV_Tx_HdmiTrigCb_EnableCableDriver(void *InstancePtr)
 						VFMC_MEZZ_HDMI_ONSEMI_R0) {
 						/* Set Tx Diff Swing to
 						 * 963 mV */
-						TxDiffSwingVal = 0xE;
+						TxDiffSwingVal = 0x1F;
 					}
 					else if (Vfmc[0].TxMezzType >=
 						VFMC_MEZZ_HDMI_ONSEMI_R1) {
 						/* Set Tx Diff Swing to
 						 * 1000 mV */
-						TxDiffSwingVal = 0xF;
+						TxDiffSwingVal = 0x1F;
 					}
 				}
 				/* HDMI 1.4 1.65-3.4 Gbps */
 				else if ((TxLineRate >= 1650) &&
 				         (TxLineRate < 3400)) {
 					/* Set Tx Diff Swing to 1000 mV */
-					TxDiffSwingVal = 0xF;
+					TxDiffSwingVal = 0x17;
 				}
 				/* HDMI 1.4 0.25-1.65 Gbps */
 				else {
 					/* Set Tx Diff Swing to 822 mV */
-					TxDiffSwingVal = 0xB;
+					TxDiffSwingVal = 0x17;
 				}
 
 				for (int ChId=1; ChId <= 4; ChId++) {
@@ -4938,16 +4962,20 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 	u64 LineRate =
 		((u64)(XV_TxInst->HdmiTxSs->HdmiTx1Ptr->Stream.Frl.LineRate)) *
 			((u64)(1e9));
+
+	u8 Lanes = XV_TxInst->HdmiTxSs->HdmiTx1Ptr->Stream.Frl.Lanes;
+
 	Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(&Vfmc[0],
 					     TRUE,
-					     LineRate);
+					     LineRate, Lanes);
 
 	/* Adjust GT TX Diff Swing based on Mode */
 	for (int ChId=1; ChId <= 4; ChId++) {
 		if (Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_ONSEMI_R0) {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU106) || \
-	defined (XPS_BOARD_VCK190)
+	defined (XPS_BOARD_VCK190) || \
+	defined (XPS_BOARD_VEK280_ES)
 			Data = 0xD;
 #elif defined (XPS_BOARD_VCU118)
 			Data = ChId==4 ? 0x1C : 0x1A;
@@ -4976,12 +5004,15 @@ void XV_Tx_HdmiTrigCb_FrlConfigDeviceSetup(void *InstancePtr)
 			Data = 0xD;
 #elif defined (XPS_BOARD_VCK190)
 			Data = 0xD;
+#elif defined (XPS_BOARD_VEK280_ES)
+			Data = 0xD;
 #endif
 		}
 #if defined (XPS_BOARD_ZCU106) || \
 	defined (XPS_BOARD_VCU118) || \
 	defined (XPS_BOARD_ZCU102) || \
-	defined (XPS_BOARD_VCK190)
+	defined (XPS_BOARD_VCK190) || \
+	defined (XPS_BOARD_VEK280_ES)
 		XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, Data);
 #endif
 	}
@@ -5619,18 +5650,24 @@ void XV_Rx_HdmiTrigCb_VfmcRxClkSel(void *InstancePtr)
 		((u64)(XV_RxInst->HdmiRxSs->HdmiRx1Ptr->Stream.Frl.LineRate)) *
 			((u64)(1e9));
 
+	u8 Lanes = XV_RxInst->HdmiRxSs->HdmiRx1Ptr->Stream.Frl.Lanes;
+
 	if (xhdmi_exdes_ctrlr.hdmi_rx_ctlr->HdmiRxSs->HdmiRx1Ptr->Stream.IsFrl ==
 	    TRUE) {
+#if (!defined XPS_BOARD_VEK280_ES)
 		Vfmc_Mezz_HdmiRxRefClock_Sel(&Vfmc[0],
 			VFMC_MEZZ_RxRefclk_From_Si5344);
 		XHdmiphy1_ClkDetFreqReset(&Hdmiphy1, 0, XHDMIPHY1_DIR_RX);
+#endif
 
-		Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(&Vfmc[0], 1, LineRate);
+		Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(&Vfmc[0], 1, LineRate, Lanes);
 	} else if (xhdmi_exdes_ctrlr.hdmi_rx_ctlr->HdmiRxSs->HdmiRx1Ptr->
 			Stream.IsFrl == FALSE) {
+#if (!defined XPS_BOARD_VEK280_ES)
 		Vfmc_Mezz_HdmiRxRefClock_Sel(&Vfmc[0],
 			VFMC_MEZZ_RxRefclk_From_Cable);
-		Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(&Vfmc[0], 0, LineRate);
+#endif
+		Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(&Vfmc[0], 0, LineRate, Lanes);
 	}
 }
 #endif /* XPAR_XV_HDMIRXSS1_NUM_INSTANCES */
@@ -5914,6 +5951,7 @@ void Xil_AssertCallbackRoutine(u8 *File, s32 Line)
 u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 {
 	u32 Status = XST_SUCCESS;
+	u8 Buffer;
 #if (defined XPS_BOARD_ZCU102) || (defined XPS_BOARD_ZCU106) || \
 	    defined (XPS_BOARD_VCK190)
 
@@ -5965,11 +6003,54 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 	I2cMuxSel(&Ps_Iic0, VCK190_MGT_SI570);
 #endif
 
-#else /* VCU118 */
+#elif defined(XPS_BOARD_VEK280_ES) /* VEK280*/
+	XIicPs_Config *XIic0Ps_ConfigPtr;
+	/* Initialize IIC */
+	/* Initialize PS IIC0 */
+	XIic0Ps_ConfigPtr = XIicPs_LookupConfig(ps_iic0_deviceid);
+	if (NULL == XIic0Ps_ConfigPtr) {
+		return XST_FAILURE;
+	}
+
+	Status = XIicPs_CfgInitialize(&Ps_Iic0, XIic0Ps_ConfigPtr,
+				XIic0Ps_ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	XIicPs_Reset(&Ps_Iic0);
+	/*
+	 * Set the IIC serial clock rate.
+	 */
+	XIicPs_SetSClk(&Ps_Iic0, PS_IIC_CLK);
+
+	XIicPs *Ps_IicPtr = &Ps_Iic0;
+
+	/*RC21008A Initialization */
+	Buffer = 0x20;
+	Status = Vfmc_I2cSend_RC(Ps_IicPtr, 0x74,
+				   (u8 *)&Buffer, 1, (I2C_STOP));
+
+	Status = RC21008A_Init(Ps_IicPtr, RC21008A_ADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed to initialize RC21008A.\r\n");
+		return XST_FAILURE;
+	} else if (Status == XST_SUCCESS){
+		xil_printf("RC21008A initialization done.\r\n");
+	}
+
 	Status = XIic_Initialize(&Iic, XPAR_IIC_0_DEVICE_ID);
 	Status |= XIic_Start(&Iic);
 
+#else
+	Status = XIic_Initialize(&Iic, XPAR_IIC_0_DEVICE_ID);
+	Status |= XIic_Start(&Iic);
+
+#if defined (XPS_BOARD_VEK280_ES)
+	I2cMuxSel(&Iic, VCK190_MGT_SI570);
+#else
 	I2cMuxSel(&Iic, VCU118_FMCP);
+#endif
 #endif
 
 
@@ -5981,7 +6062,7 @@ u32 Exdes_SetupClkSrc(u32 ps_iic0_deviceid, u32 ps_iic1_deviceid)
 	/* Delay 50ms to allow SI chip to lock */
 	usleep (50000);
 #endif
-#elif (!defined XPS_BOARD_VCU118)
+#elif (!defined XPS_BOARD_VCU118) && (!defined XPS_BOARD_VEK280_ES)
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES
 	/* Set DRU MGT REFCLK Frequency */
 	Si570_SetFreq(&Iic, 0x5D, 400.00);
@@ -6448,7 +6529,8 @@ int main()
 #if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
 #if defined(USE_HDMI_AUDGEN)
 	xil_printf("Initializing Audio Generator. \r\n");
-#if defined (XPS_BOARD_VCK190)
+#if defined (XPS_BOARD_VCK190) ||\
+	defined (XPS_BOARD_VEK280_ES)
 	XhdmiAudGen_Init(&AudioGen,
 			XPAR_AUDIO_SS_0_AUD_PAT_GEN_BASEADDR,
 			XPAR_AUDIO_SS_0_HDMI_ACR_CTRL_BASEADDR,
@@ -6556,18 +6638,25 @@ int main()
 					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x3);/*1, B */
 #elif defined (XPS_BOARD_VCK190)
 			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xC : 0xD);/*0xc 0xb */
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xD : 0xD);/*0xc 0xb */
 			XHdmiphy1_SetTxPreEmphasis(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x5);/*1, A */
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x1);/*1, A */
 			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x5);/*1, B */
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x2);/*1, B */
+#elif defined (XPS_BOARD_VEK280_ES)
+			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId,
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0xD : 0xD);/*0xc 0xb */
+			XHdmiphy1_SetTxPreEmphasis(&Hdmiphy1, 0, ChId,
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x1);/*1, A */
+			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x2);/*1, B */
 #else
 /* Place holder for future board support, Below Value just a random value */
-			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, 0xB);
+			XHdmiphy1_SetTxVoltageSwing(&Hdmiphy1, 0, ChId, 0xD);
 			XHdmiphy1_SetTxPreEmphasis(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x9);
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x5);
 			XHdmiphy1_SetTxPostCursor(&Hdmiphy1, 0, ChId,
-					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x9);
+					(Vfmc[0].TxMezzType == VFMC_MEZZ_HDMI_PASSIVE) ? 0x1 : 0x5);
 #endif
 #endif
 		}

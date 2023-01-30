@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,9 +39,15 @@ extern "C" {
 	defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190)
 #include "xiicps.h"
+#elif (defined XPS_BOARD_VEK280_ES)
+#include "xiicps.h"
+#include "xiic.h"
 #else
 #include "xiic.h"
+#ifdef XPS_BOARD_VEK280_ES
+#else
 #define XPS_BOARD_VCU118
+#endif
 #endif
 
 #include "xil_io.h"
@@ -197,6 +204,15 @@ typedef enum {
 /* TCA9528 (U34) Definitions */
 #define VCK190_U135_MUX_I2C_ADDR	0x75
 #define VCK190_U135_MUX_SEL_HPC0	0x02
+#elif defined (XPS_BOARD_VEK280_ES)
+/* TCA9528 (U34) Definitions */
+#define VCK190_U34_MUX_I2C_ADDR		0x74
+#define VCK190_U34_MUX_SEL_NONE		0x80
+#define VCK190_U34_MUX_MGTSI570_ADDR	0x5D
+#define VCK190_U34_MUX_SEL_SI570	0x40
+/* TCA9528 (U34) Definitions */
+#define VCK190_U135_MUX_I2C_ADDR	0x75
+#define VCK190_U135_MUX_SEL_HPC0	0x02
 #else
 /* TCA9528 (U28) Definitions */
 #define KCU105_U28_MUX_I2C_ADDR		0x74
@@ -211,6 +227,7 @@ typedef enum {
 
 #define I2C_MUX_ADDR		0x74  /**< I2C Mux Address */
 #define I2C_CLK_ADDR		0x7C  /**< I2C Clk Address IDT_8T49N241*/
+#define I2C_CLK_ADDR1		0x6C  /**< I2C Clk Address IDT_8T49N241*/
 
 #define VRR_MODE   1  /** 0 - NO VRR , 1 - MANUAL STRETCH , 2 - AUTO STRETCH */
                       /** Note : In Auto Stretch Mode, Enable/Disable VRR is not supported.
@@ -220,6 +237,7 @@ typedef enum {
 #define CNMVRR     1
 #define EDID_INIT  1 // 0 - Default, 1- 2.1 VRR EDID, 2 - AMD FreeSync EDID, 3 - HDMI 2.1 VRR TMDS
 
+#define RC21008A_ADDR   0x09 /**<I2C RC21008A Address */
 
 //#define  VTEM2FSYNC 1 // Enable When RX is VRR and TX is Fsync
 /* Defining constants for colors in printing */
@@ -358,7 +376,12 @@ extern u8 AuxFifoStartFlag;
 XIicPs Ps_Iic0, Iic;
 #define PS_IIC_CLK 100000
 #else
+//XIicPs Ps_Iic0, Iic1;
+XIicPs Ps_Iic0;
+#define PS_IIC_CLK 100000
 XIic Iic;
+#define I2C_REPEATED_START 0x01
+#define I2C_STOP 0x00
 #endif
 
 #define TX_RX_RATE 0

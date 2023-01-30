@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -367,13 +368,13 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 #endif
 	{RX_R2_FRL, 0x1E, 0x00},
 
-	{TX_R3_TMDS_14_L, 0x0A, 0x1C},
+	{TX_R3_TMDS_14_L, 0x0A, 0x04},
 	{TX_R3_TMDS_14_L, 0x0B, 0x0F},
-	{TX_R3_TMDS_14_L, 0x0C, 0x0B},
-	{TX_R3_TMDS_14_L, 0x0D, 0x30},
-	{TX_R3_TMDS_14_L, 0x0E, 0x4A},
-	{TX_R3_TMDS_14_L, 0x0F, 0x30},
-	{TX_R3_TMDS_14_L, 0x10, 0x4A},
+	{TX_R3_TMDS_14_L, 0x0C, 0x00},
+	{TX_R3_TMDS_14_L, 0x0D, 0x31},
+	{TX_R3_TMDS_14_L, 0x0E, 0x03},
+	{TX_R3_TMDS_14_L, 0x0F, 0x31},
+	{TX_R3_TMDS_14_L, 0x10, 0x03},
 	{TX_R3_TMDS_14_L, 0x11, 0x0F},
 	{TX_R3_TMDS_14_L, 0x12, 0xAA},
 	{TX_R3_TMDS_14_L, 0x13, 0x30},
@@ -381,7 +382,7 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{TX_R3_TMDS_14_L, 0x15, 0x00},
 	{TX_R3_TMDS_14_L, 0x16, 0x02},
 	{TX_R3_TMDS_14_L, 0x17, 0x63},
-	{TX_R3_TMDS_14_L, 0x18, 0x0B},
+	{TX_R3_TMDS_14_L, 0x18, 0x00},
 	{TX_R3_TMDS_14_L, 0x19, 0x00},
 	{TX_R3_TMDS_14_L, 0x1A, 0x03},
 	{TX_R3_TMDS_14_L, 0x1B, 0x00},
@@ -389,13 +390,13 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{TX_R3_TMDS_14_L, 0x1D, 0x03},
 	{TX_R3_TMDS_14_L, 0x1E, 0x00},
 
-	{TX_R3_TMDS_14_H, 0x0A, 0x1C},
+	{TX_R3_TMDS_14_H, 0x0A, 0x0C},
 	{TX_R3_TMDS_14_H, 0x0B, 0x0F},
-	{TX_R3_TMDS_14_H, 0x0C, 0x0B},
-	{TX_R3_TMDS_14_H, 0x0D, 0x30},
-	{TX_R3_TMDS_14_H, 0x0E, 0x4A},
-	{TX_R3_TMDS_14_H, 0x0F, 0x30},
-	{TX_R3_TMDS_14_H, 0x10, 0x4A},
+	{TX_R3_TMDS_14_H, 0x0C, 0x00},
+	{TX_R3_TMDS_14_H, 0x0D, 0x31},
+	{TX_R3_TMDS_14_H, 0x0E, 0x03},
+	{TX_R3_TMDS_14_H, 0x0F, 0x31},
+	{TX_R3_TMDS_14_H, 0x10, 0x03},
 	{TX_R3_TMDS_14_H, 0x11, 0x0F},
 	{TX_R3_TMDS_14_H, 0x12, 0xAA},
 	{TX_R3_TMDS_14_H, 0x13, 0x30},
@@ -403,7 +404,7 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{TX_R3_TMDS_14_H, 0x15, 0x00},
 	{TX_R3_TMDS_14_H, 0x16, 0x02},
 	{TX_R3_TMDS_14_H, 0x17, 0x63},
-	{TX_R3_TMDS_14_H, 0x18, 0x0B},
+	{TX_R3_TMDS_14_H, 0x18, 0x00},
 	{TX_R3_TMDS_14_H, 0x19, 0x00},
 	{TX_R3_TMDS_14_H, 0x1A, 0x03},
 	{TX_R3_TMDS_14_H, 0x1B, 0x00},
@@ -414,10 +415,10 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{TX_R3_TMDS_20, 0x0A, 0x1C},
 	{TX_R3_TMDS_20, 0x0B, 0x0F},
 	{TX_R3_TMDS_20, 0x0C, 0x00},
-	{TX_R3_TMDS_20, 0x0D, 0x30},
-	{TX_R3_TMDS_20, 0x0E, 0x4A},
-	{TX_R3_TMDS_20, 0x0F, 0x30},
-	{TX_R3_TMDS_20, 0x10, 0x4A},
+	{TX_R3_TMDS_20, 0x0D, 0x31},
+	{TX_R3_TMDS_20, 0x0E, 0x23},
+	{TX_R3_TMDS_20, 0x0F, 0x31},
+	{TX_R3_TMDS_20, 0x10, 0x03},
 	{TX_R3_TMDS_20, 0x11, 0x0F},
 	{TX_R3_TMDS_20, 0x12, 0xAA},
 	{TX_R3_TMDS_20, 0x13, 0x02},
@@ -425,7 +426,7 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{TX_R3_TMDS_20, 0x15, 0x00},
 	{TX_R3_TMDS_20, 0x16, 0x02},
 	{TX_R3_TMDS_20, 0x17, 0x63},
-	{TX_R3_TMDS_20, 0x18, 0x0B},
+	{TX_R3_TMDS_20, 0x18, 0x00},
 	{TX_R3_TMDS_20, 0x19, 0x00},
 	{TX_R3_TMDS_20, 0x1A, 0x03},
 	{TX_R3_TMDS_20, 0x1B, 0x00},
@@ -453,9 +454,9 @@ const Onsemi_RegisterField OnsemiRegisterFields[] = {
 	{TX_R3_FRL, 0x10, 0x00},
 #elif defined XPS_BOARD_VCK190
 	{TX_R3_FRL, 0x0D, 0x31}, /*Onsemi 0x10},*/
-	{TX_R3_FRL, 0x0E, 0x0A}, /*Onsemi 0x2A},*/
+	{TX_R3_FRL, 0x0E, 0x03}, /*Onsemi 0x2A},*/
 	{TX_R3_FRL, 0x0F, 0x31}, /*Onsemi 0x02},*/
-	{TX_R3_FRL, 0x10, 0x00},
+	{TX_R3_FRL, 0x10, 0x03},
 #endif
 	{TX_R3_FRL, 0x11, 0x0F},
 	{TX_R3_FRL, 0x12, 0xAA},

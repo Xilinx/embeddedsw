@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +47,10 @@
 #include "ti_lmk03318.h"
 #include "onsemi_nb7nq621m.h"
 #include "si5344drv.h"
+#if defined (XPS_BOARD_VEK280_ES)
+#include "ti_tmds1204.h"
+#include "rc21008adrv.h"
+#endif
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
 #define XPS_BOARD_VCU118
 #else
@@ -67,6 +72,9 @@ typedef enum {
 	VFMC_MEZZ_HDMI_ONSEMI_R1   = 0x70000101,	/* ONSEMI Pass 2 */
 	VFMC_MEZZ_HDMI_ONSEMI_R2   = 0x70000102,	/* ONSEMI Pass 3 */
 	VFMC_MEZZ_HDMI_ONSEMI_R3   = 0x70000103,	/* ONSEMI Pass 4 */
+	VFMC_MEZZ_HDMI_TI_R0       = 0x70000200,	/* TI Dummy */
+	VFMC_MEZZ_HDMI_TI_R1       = 0x70000201,	/* TI Rev1 */
+	VFMC_MEZZ_HDMI_TI_R3       = 0x70000201,	/* TI Rev1 */
 	VFMC_MEZZ_INVALID          = 0x70000999,
 } XVfmc_MezzType;
 
@@ -103,6 +111,8 @@ typedef struct {
 	XVfmc_MezzType TxMezzType; /**< Mezzanine Type */
 	XVfmc_MezzType RxMezzType; /**< Mezzanine Type */
 	u32 IsReady;		 /**< Is Ready */
+	u8 isTxTi;
+	u8 isRxTi;
 } XVfmc;
 
 
@@ -116,9 +126,9 @@ void Vfmc_Gpio_Ch4_DataClock_Sel(XVfmc *VfmcPtr,
 void Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(XVfmc *VfmcPtr, u8 Enable);
 void Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(XVfmc *VfmcPtr, u8 Enable);
 void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
-		u64 LineRate);
+		u64 LineRate, u8 Lanes);
 void Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
-		u64 LineRate);
+		u64 LineRate, u8 Lanes);
 u32 Vfmc_Mezz_HdmiRxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_RxRefClkSel Sel);
 u32 Vfmc_Mezz_HdmiTxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_TxRefClkSel Sel);
 #endif /* VIDEO_FMC_H_ */
