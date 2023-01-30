@@ -261,12 +261,6 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	Status = Xil_SMemSet(PaddedHash, XSECURE_ECC_P521_SIZE_IN_BYTES,
-				0U, XSECURE_ECC_P521_SIZE_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/* Store Hash,D,K to local buffers */
 	XSecure_PutData(HashInfo->Len, (u8 *)PaddedHash, HashInfo->Addr);
 	XSecure_PutData(HashInfo->Len, (u8 *)D, DAddr);
@@ -563,12 +557,6 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	if ((HashInfo->Len > XSECURE_ECC_P521_SIZE_IN_BYTES) ||
 		(HashLenTmp > XSECURE_ECC_P521_SIZE_IN_BYTES)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
-		goto END;
-	}
-
-	Status = Xil_SMemSet(PaddedHash, XSECURE_ECC_P521_SIZE_IN_BYTES,
-				0U, XSECURE_ECC_P521_SIZE_IN_BYTES);
-	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
