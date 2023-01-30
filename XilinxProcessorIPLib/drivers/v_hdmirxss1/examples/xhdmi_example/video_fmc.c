@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,10 +47,15 @@
 #define VFMC_I2C_IOEXP_0_ADDR 	0x64 /**< I2C IO Expander 0 address */
 #define VFMC_I2C_LMK03318_ADDR  0x51 /**< I2C TI LMK03318 Address */
 #define VFMC_I2C_SI5344_ADDR    0x68 /**< I2C SI5344 Address */
+#define VFMC_I2C_IDT8N49_ADDR1  0x6C /**< I2C IDT 8N49N241 Address */
+#define RC21008A_ADDR   		0x09 /**<PS I2C RC21008A Address */
 
 /* MEZZANINE CARD I2C ADDRESSES */
 #define VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR   0x5B  /**< I2C Address NB7NQ621M*/
 #define VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR   0x5C  /**< I2C Address NB7NQ621M*/
+
+#define VFMC_MEZZ_I2C_TMDS1204_TX_ADDR   0x5E  /**< I2C Address NB7NQ621M*/
+#define VFMC_MEZZ_I2C_TMDS1204_RX_ADDR   0x5B  /**< I2C Address NB7NQ621M*/
 
 
 static int  Vfmc_ModifyRegister(void *IicPtr, u8 SlaveAddr, u8 Value, u8 Mask);
@@ -116,6 +122,45 @@ static unsigned Vfmc_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 #endif
 }
 
+#if (defined XPS_BOARD_VEK280_ES)
+
+unsigned Vfmc_I2cSend_RC(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
+		unsigned ByteCount, u8 Option)
+{
+#if defined (XPS_BOARD_ZCU102) || \
+	defined (XPS_BOARD_ZCU104) || \
+	defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190) || \
+	defined (XPS_BOARD_VEK280_ES)
+	XIicPs *Iic_Ptr = IicPtr;
+	u32 Status;
+
+	XIicPs_SetOptions(Iic_Ptr, XIICPS_7_BIT_ADDR_OPTION);
+	XIicPs_ClearOptions(Iic_Ptr, XIICPS_10_BIT_ADDR_OPTION);
+	if (Option == I2C_REPEATED_START) {
+		XIicPs_SetOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
+	} else {
+		XIicPs_ClearOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
+	}
+
+	Status = XIicPs_MasterSendPolled(Iic_Ptr, MsgPtr, ByteCount,
+			SlaveAddr);
+
+	/*
+	 * Wait until bus is idle to start another transfer.
+	 */
+	if (!(Iic_Ptr->IsRepeatedStart)) {
+		while (XIicPs_BusIsBusy(Iic_Ptr));
+	}
+
+	if (Status == XST_SUCCESS) {
+		return ByteCount;
+	} else {
+		return 0;
+	}
+#endif
+}
+#endif
 /*****************************************************************************/
 /**
 *
@@ -368,7 +413,9 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 		return(XST_FAILURE);
 	}
 
+#if !defined (XPS_BOARD_VEK280_ES)
 	Vfmc_I2cMuxSelect(VfmcPtr);
+#endif
 
 	/* Configure VFMC IO Expander 0:
 	 * Enabled SI5344, To Disable SI5344 set Buffer[0] = 0x52
@@ -385,6 +432,7 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 		Buffer[0] = 0x41;
 #endif
 
+#if !defined (XPS_BOARD_VEK280_ES)
 	ByteCount = Vfmc_I2cSend(IicPtr, VFMC_I2C_IOEXP_0_ADDR,
 			(u8*)Buffer, 1, I2C_STOP);
 	if (ByteCount != 1) {
@@ -418,14 +466,24 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 	 *	return XST_FAILURE;
 	 * }
 	 */
-
+#endif
+#if defined (XPS_BOARD_VEK280_ES)
+	Status |= IDT_8T49N24x_Init(Iic_Ptr, VFMC_I2C_IDT8N49_ADDR1);
+	Status |= IDT_8T49N24x_GpioLolEnable(Iic_Ptr,
+					VFMC_I2C_IDT8N49_ADDR1);
+#else
 	Status |= IDT_8T49N24x_Init(Iic_Ptr, VFMC_I2C_IDT8N49_ADDR);
 	Status |= IDT_8T49N24x_GpioLolEnable(Iic_Ptr,
 					VFMC_I2C_IDT8N49_ADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Failed to initialize IDT 8T49N241.\r\n");
 		return XST_FAILURE;
 	}
+
+#if defined (XPS_BOARD_VEK280_ES)
+
+#else
 
 	Status = TI_LMK03318_Init(Iic_Ptr, VFMC_I2C_LMK03318_ADDR);
 	if (Status != XST_SUCCESS) {
@@ -439,6 +497,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 		xil_printf("Failed to initialize SI5344.\r\n");
 		return XST_FAILURE;
 	}
+#endif
+
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	/* Check if mezzanine card is with an active device */
 	if (ONSEMI_NB7NQ621M_CheckDeviceID(Iic_Ptr,
@@ -466,8 +526,31 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 		Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(VfmcPtr, TRUE);
 		xil_printf("VFMC Active HDMI TX Mezz (R%d) Detected\r\n",
 				RevisionNumber);
+		VfmcPtr->isTxTi = 0;
+#if defined (XPS_BOARD_VEK280_ES)
+	} else if (TI_TMDS1204_CheckDeviceID(Iic_Ptr,
+			VFMC_MEZZ_I2C_TMDS1204_TX_ADDR) == XST_SUCCESS) {
+		RevisionNumber = TI_TMDS1204_CheckDeviceVersion(Iic_Ptr,
+				VFMC_MEZZ_I2C_TMDS1204_TX_ADDR);
+		if (RevisionNumber == 0x01) {
+			VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_TI_R1;
+		} else if (RevisionNumber == 0x03) {
+			/* Revision Pass4 Silicon */
+			VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_TI_R3;
+		} else {
+			VfmcPtr->TxMezzType = VFMC_MEZZ_INVALID;
+			xil_printf("VFMC TX Mezz Not Supported!\r\n");
+		}
+		TI_TMDS1204_Init(Iic_Ptr, VFMC_MEZZ_I2C_TMDS1204_TX_ADDR,
+				VfmcPtr->TxMezzType - VFMC_MEZZ_HDMI_TI_R0, 1);
+		Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(VfmcPtr, TRUE);
+		xil_printf("VFMC Active HDMI TX (TI) Mezz (R%d) Detected\r\n",
+				RevisionNumber);
+		VfmcPtr->isTxTi = 1;
+#endif
 	} else {
 		VfmcPtr->TxMezzType = VFMC_MEZZ_HDMI_PASSIVE;
+		VfmcPtr->isTxTi = 0;
 		xil_printf("VFMC Passive HDMI TX Mezz Detected\r\n");
 	}
 	/* TX Mezzanine Init Done */
@@ -501,7 +584,30 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
 		Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(VfmcPtr, TRUE);
 		xil_printf("VFMC Active HDMI RX Mezz (R%d) Detected\r\n",
 				RevisionNumber);
+		VfmcPtr->isRxTi = 0;
+#if defined (XPS_BOARD_VEK280_ES)
+	} else if (TI_TMDS1204_CheckDeviceID(Iic_Ptr,
+			VFMC_MEZZ_I2C_TMDS1204_RX_ADDR) == XST_SUCCESS) {
+		RevisionNumber = TI_TMDS1204_CheckDeviceVersion(Iic_Ptr,
+				VFMC_MEZZ_I2C_TMDS1204_RX_ADDR);
+		if (RevisionNumber == 0x01) {
+			VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_TI_R1;
+		} else if (RevisionNumber == 0x03) {
+			/* Revision Pass4 Silicon */
+			VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_TI_R3;
+		} else {
+			VfmcPtr->RxMezzType = VFMC_MEZZ_INVALID;
+			xil_printf("VFMC RX Mezz Not Supported!\r\n");
+		}
+		TI_TMDS1204_Init(Iic_Ptr, VFMC_MEZZ_I2C_TMDS1204_RX_ADDR,
+				VfmcPtr->RxMezzType - VFMC_MEZZ_HDMI_TI_R0, 0);
+		Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(VfmcPtr, TRUE);
+		xil_printf("VFMC Active HDMI RX (TI) Mezz (R%d) Detected\r\n",
+				RevisionNumber);
+		VfmcPtr->isRxTi = 1;
+#endif
 	} else {
+		VfmcPtr->isRxTi = 0;
 		VfmcPtr->RxMezzType = VFMC_MEZZ_HDMI_PASSIVE;
 		xil_printf("VFMC Passive HDMI RX Mezz Detected\r\n");
 	}
@@ -699,14 +805,26 @@ void Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(XVfmc *VfmcPtr, u8 Enable)
 *
 ******************************************************************************/
 void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
-		u64 LineRate)
+		u64 LineRate, u8 Lanes)
 {
 	if (VfmcPtr->TxMezzType != VFMC_MEZZ_HDMI_PASSIVE) {
-		ONSEMI_NB7NQ621M_LineRateReconfig(VfmcPtr->IicPtr,
+#if defined (XPS_BOARD_VEK280_ES)
+		if (VfmcPtr->isTxTi) {
+			TI_TMDS1204_LineRateReconfig(VfmcPtr->IicPtr,
+				VFMC_MEZZ_I2C_TMDS1204_TX_ADDR,
+				(VfmcPtr->TxMezzType -
+						VFMC_MEZZ_HDMI_TI_R0),
+				IsFRL, LineRate, Lanes, 1);
+		} else {
+#endif
+			ONSEMI_NB7NQ621M_LineRateReconfig(VfmcPtr->IicPtr,
 				VFMC_MEZZ_I2C_NB7NQ621M_TX_ADDR,
 				(VfmcPtr->TxMezzType -
 						VFMC_MEZZ_HDMI_ONSEMI_R0),
 				IsFRL, LineRate, 1);
+#if defined (XPS_BOARD_VEK280_ES)
+		}
+#endif
 	}
 }
 
@@ -722,15 +840,30 @@ void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 *
 ******************************************************************************/
 void Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
-		u64 LineRate)
+		u64 LineRate, u8 Lanes)
 {
-	if (VfmcPtr->TxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R1) {
-		ONSEMI_NB7NQ621M_LineRateReconfig(VfmcPtr->IicPtr,
+#if defined (XPS_BOARD_VEK280_ES)
+	if (VfmcPtr->isRxTi) {
+		xil_printf ("programming rx ti\r\n");
+		if (VfmcPtr->RxMezzType == VFMC_MEZZ_HDMI_TI_R3) {
+				TI_TMDS1204_LineRateReconfig(VfmcPtr->IicPtr,
+				VFMC_MEZZ_I2C_TMDS1204_RX_ADDR,
+				(VfmcPtr->RxMezzType -
+						VFMC_MEZZ_HDMI_TI_R0),
+				IsFRL, LineRate, Lanes, 0);
+		}
+	} else {
+#endif
+		if (VfmcPtr->RxMezzType >= VFMC_MEZZ_HDMI_ONSEMI_R1) {
+				ONSEMI_NB7NQ621M_LineRateReconfig(VfmcPtr->IicPtr,
 				VFMC_MEZZ_I2C_NB7NQ621M_RX_ADDR,
 				(VfmcPtr->RxMezzType -
 						VFMC_MEZZ_HDMI_ONSEMI_R0),
 				IsFRL, LineRate, 0);
+		}
+#if defined (XPS_BOARD_VEK280_ES)
 	}
+#endif
 }
 
 /*****************************************************************************/
@@ -785,6 +918,22 @@ u32 Vfmc_Mezz_HdmiTxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_TxRefClkSel Sel)
 	void *IicPtr = VfmcPtr->IicPtr;
 	Vfmc_I2cMuxSelect(VfmcPtr);
 
+#if defined (XPS_BOARD_VEK280_ES)
+	if (Sel == VFMC_MEZZ_TxRefclk_From_IDT) {
+		Status = Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IDT8N49_ADDR1,
+						0x1A, 0x08);
+		Status |= Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IDT8N49_ADDR1,
+						0x41, 0x60);
+	} else {
+		xil_printf("Invalid TX Ref clock selected.\r\n");
+		return XST_FAILURE;
+	}
+
+	if (Status == XST_FAILURE) {
+		xil_printf("Failed to select TX Ref clock.\r\n");
+	}
+	return Status;
+#else
 	if (Sel == VFMC_MEZZ_TxRefclk_From_IDT) {
 		Status = Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IOEXP_1_ADDR,
 						0x1A, 0x08);
@@ -805,4 +954,5 @@ u32 Vfmc_Mezz_HdmiTxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_TxRefClkSel Sel)
 		xil_printf("Failed to select TX Ref clock.\r\n");
 	}
 	return Status;
+#endif
 }

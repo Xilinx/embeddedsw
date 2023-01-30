@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2018 – 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -407,7 +408,7 @@ void XHdmi_DisplayMainMenu(void)
     xil_printf("       => Goto Debug menu.\r\n");
 #endif
     xil_printf("y - HDMI PHY Debug Menu\r\n");
-    xil_printf("o - OnSemi NB7NQ621M Debug\r\n");
+    xil_printf("o - OnSemi NB7NQ621M/ TI TMDS1204 Debug\r\n");
 
 
 
@@ -3257,6 +3258,73 @@ static unsigned ONSEMI_NB7NQ621M_I2cSend(void *IicPtr,
 /*****************************************************************************/
 /**
 *
+* This function send the IIC data to TI TMDS1204
+*
+* @param  IicPtr IIC instance pointer.
+* @param  SlaveAddr contains the 7 bit IIC address of the device to send the
+*          specified data to.
+* @param MsgPtr points to the data to be sent.
+* @param ByteCount is the number of bytes to be sent.
+* @param Option indicates whether to hold or free the bus after
+*         transmitting the data.
+*
+* @return   The number of bytes sent.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static unsigned TI_TMDS1204_I2cSend(void *IicPtr,
+						u16 SlaveAddr,
+						u8 *MsgPtr,
+						unsigned ByteCount,
+						u8 Option)
+{
+#if (defined (XPS_BOARD_ZCU102) || \
+    defined (XPS_BOARD_ZCU104) || \
+    defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190))
+    XIicPs *Iic_Ptr = IicPtr;
+    u32 Status;
+
+    /* Set operation to 7-bit mode */
+    XIicPs_SetOptions(Iic_Ptr, XIICPS_7_BIT_ADDR_OPTION);
+    XIicPs_ClearOptions(Iic_Ptr, XIICPS_10_BIT_ADDR_OPTION);
+
+    /* Set Repeated Start option */
+    if (Option == I2C_REPEATED_START) {
+	XIicPs_SetOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
+    } else {
+	XIicPs_ClearOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
+    }
+
+    Status = XIicPs_MasterSendPolled(Iic_Ptr, MsgPtr, ByteCount, SlaveAddr);
+
+    /*
+     * Wait until bus is idle to start another transfer.
+     */
+    if (!(Iic_Ptr->IsRepeatedStart)) {
+	while (XIicPs_BusIsBusy(Iic_Ptr));
+    }
+
+    if (Status == XST_SUCCESS) {
+	return ByteCount;
+    } else {
+	return 0;
+    }
+#else
+    XIic *Iic_Ptr = IicPtr;
+	/* This delay prevents IIC access from hanging */
+	usleep(350);
+    return XIic_Send(Iic_Ptr->BaseAddress, SlaveAddr, MsgPtr,
+		    ByteCount, Option);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
 * This function send the IIC data to ONSEMI_NB7NQ621M
 *
 * @param  IicPtr IIC instance pointer.
@@ -3284,6 +3352,68 @@ static unsigned ONSEMI_NB7NQ621M_I2cRecv(void *IicPtr,
     defined (XPS_BOARD_ZCU104) || \
     defined (XPS_BOARD_ZCU106) || \
     defined (XPS_BOARD_VCK190)
+    XIicPs *Iic_Ptr = IicPtr;
+    u32 Status;
+
+    XIicPs_SetOptions(Iic_Ptr, XIICPS_7_BIT_ADDR_OPTION);
+    XIicPs_ClearOptions(Iic_Ptr, XIICPS_10_BIT_ADDR_OPTION);
+    if (Option == I2C_REPEATED_START) {
+	XIicPs_SetOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
+    } else {
+	XIicPs_ClearOptions(Iic_Ptr, XIICPS_REP_START_OPTION);
+    }
+
+    Status = XIicPs_MasterRecvPolled(Iic_Ptr, BufPtr, ByteCount, SlaveAddr);
+
+    /*
+     * Wait until bus is idle to start another transfer.
+     */
+    if (!(Iic_Ptr->IsRepeatedStart)) {
+	while (XIicPs_BusIsBusy(Iic_Ptr));
+    }
+
+    if (Status == XST_SUCCESS) {
+	return ByteCount;
+    } else {
+	return 0;
+    }
+#else
+    XIic *Iic_Ptr = IicPtr;
+    return XIic_Recv(Iic_Ptr->BaseAddress, SlaveAddr, BufPtr,
+		    ByteCount, Option);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function send the IIC data to TI_TMDS1204
+*
+* @param  IicPtr IIC instance pointer.
+* @param  SlaveAddr contains the 7 bit IIC address of the device to send the
+*          specified data to.
+* @param BufPtr points to the memory to write the data.
+* @param ByteCount is the number of bytes to be sent.
+* @param Option indicates whether to hold or free the bus after
+*         transmitting the data.
+*
+* @return   The number of bytes sent.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static unsigned TI_TMDS1204_I2cRecv(void *IicPtr,
+						u16 SlaveAddr,
+						u8 *BufPtr,
+						unsigned ByteCount,
+						u8 Option)
+{
+#if (defined (XPS_BOARD_ZCU102) || \
+    defined (XPS_BOARD_ZCU104) || \
+    defined (XPS_BOARD_ZCU106) || \
+    defined (XPS_BOARD_VCK190))
     XIicPs *Iic_Ptr = IicPtr;
     u32 Status;
 
@@ -3351,6 +3481,38 @@ static int ONSEMI_NB7NQ621M_SetRegister(void *IicPtr, u8 I2CSlaveAddress,
 /*****************************************************************************/
 /**
 *
+* This function send a single byte to the TI TMDS1204
+*
+* @param I2CBaseAddress is the baseaddress of the I2C core.
+* @param I2CSlaveAddress is the 7-bit I2C slave address.
+*
+* @return
+*    - XST_SUCCESS Initialization was successful.
+*    - XST_FAILURE I2C write error.
+*
+* @note None.
+*
+******************************************************************************/
+static int TI_TMDS1204_SetRegister(void *IicPtr, u8 I2CSlaveAddress,
+		u8 RegisterAddress, u8 Value)
+{
+    u32 ByteCount = 0;
+    u8 Buffer[2];
+
+    Buffer[0] = RegisterAddress;
+    Buffer[1] = Value;
+    ByteCount = TI_TMDS1204_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
+				2, I2C_STOP);
+    if (ByteCount != 2) {
+	return XST_FAILURE;
+    }
+
+    return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function send a single byte to the ONSEMI NB7NQ621M
 *
 * @param I2CBaseAddress is the baseaddress of the I2C core.
@@ -3375,6 +3537,35 @@ static u8 ONSEMI_NB7NQ621M_GetRegister(void *IicPtr, u8 I2CSlaveAddress,
 		    (u8*)Buffer, 1, I2C_STOP);
     return Buffer[0];
 }
+
+/*****************************************************************************/
+/**
+*
+* This function send a single byte to the TI TMDS1204
+*
+* @param I2CBaseAddress is the baseaddress of the I2C core.
+* @param I2CSlaveAddress is the 7-bit I2C slave address.
+*
+* @return
+*    - XST_SUCCESS Initialization was successful.
+*    - XST_FAILURE I2C write error.
+*
+* @note None.
+*
+******************************************************************************/
+static u8 TI_TMDS1204_GetRegister(void *IicPtr, u8 I2CSlaveAddress,
+	    u8 RegisterAddress)
+{
+    u8 Buffer[2];
+
+    Buffer[0] = RegisterAddress;
+    TI_TMDS1204_I2cSend(IicPtr, I2CSlaveAddress, (u8*)Buffer,
+				1, I2C_REPEATED_START);
+    TI_TMDS1204_I2cRecv(IicPtr, I2CSlaveAddress,
+		    (u8*)Buffer, 1, I2C_STOP);
+    return Buffer[0];
+}
+
 
 #if defined (XPAR_XV_FRMBUFWR_NUM_INSTANCES) && \
                       (XPAR_XV_FRMBUFWR_NUM_INSTANCES)
@@ -3485,7 +3676,7 @@ static XHdmi_MenuType XHdmi_8kQuadMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 static void XHdmi_DisplayOnSemiDebugMenu(void) {
     xil_printf("\r\n");
     xil_printf("---------------------------\r\n");
-    xil_printf("---   ONSEMI DEBUG MENU   ---\r\n");
+    xil_printf("---   ONSEMI/TI DEBUG MENU   ---\r\n");
     xil_printf("---------------------------\r\n");
     xil_printf(" TX \r\n");
     xil_printf("  1 - TX I2C READ\r\n");
@@ -3529,10 +3720,17 @@ static XHdmi_MenuType XHdmi_OnSemiDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	xil_printf("\r\n");
 
 	for (i=0; i < Data; i++) {
-	xil_printf("Addr 0x%02x: 0x%02x\r\n", (Addr+i),
-	    ONSEMI_NB7NQ621M_GetRegister(Vfmc[0].IicPtr,
-			0x5B,
-			(Addr+i)));
+		if (Vfmc[0].isTxTi == 1) {
+			xil_printf("Addr 0x%02x: 0x%02x\r\n", (Addr+i),
+					TI_TMDS1204_GetRegister(Vfmc[0].IicPtr,
+							0x5E,
+							(Addr+i)));
+		} else {
+			xil_printf("Addr 0x%02x: 0x%02x\r\n", (Addr+i),
+					ONSEMI_NB7NQ621M_GetRegister(Vfmc[0].IicPtr,
+							0x5B,
+							(Addr+i)));
+		}
 	}
 	break;
 
@@ -3544,8 +3742,13 @@ static XHdmi_MenuType XHdmi_OnSemiDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	Data = XHdmi_OneSemiMenuProcess(1);
 	xil_printf("\r\n");
 
-	ONSEMI_NB7NQ621M_SetRegister(Vfmc[0].IicPtr,
+	if (Vfmc[0].isTxTi == 1) {
+		TI_TMDS1204_SetRegister(Vfmc[0].IicPtr,
+			    0x5E, Addr, Data);
+	} else {
+		ONSEMI_NB7NQ621M_SetRegister(Vfmc[0].IicPtr,
 		    0x5B, Addr, Data);
+	}
 
 	break;
 
@@ -3558,10 +3761,17 @@ static XHdmi_MenuType XHdmi_OnSemiDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	xil_printf("\r\n");
 
 	for (i=0; i < Data; i++) {
-	xil_printf("Addr 0x%02x: 0x%02x\r\n", (Addr+i),
-	    ONSEMI_NB7NQ621M_GetRegister(Vfmc[0].IicPtr,
-			0x5C,
-			(Addr+i)));
+		if (Vfmc[0].isRxTi == 1) {
+			xil_printf("Addr 0x%02x: 0x%02x\r\n", (Addr+i),
+			    TI_TMDS1204_GetRegister(Vfmc[0].IicPtr,
+					0x5B,
+					(Addr+i)));
+		} else {
+			xil_printf("Addr 0x%02x: 0x%02x\r\n", (Addr+i),
+					ONSEMI_NB7NQ621M_GetRegister(Vfmc[0].IicPtr,
+							0x5C,
+							(Addr+i)));
+		}
 	}
 	break;
 
@@ -3573,15 +3783,36 @@ static XHdmi_MenuType XHdmi_OnSemiDebugMenu(XHdmi_Menu *InstancePtr, u8 Input) {
 	Data = XHdmi_OneSemiMenuProcess(1);
 	xil_printf("\r\n");
 
-	ONSEMI_NB7NQ621M_SetRegister(Vfmc[0].IicPtr,
+	if (Vfmc[0].isRxTi == 1) {
+		TI_TMDS1204_SetRegister(Vfmc[0].IicPtr,
+		    0x5B, Addr, Data);
+	} else {
+		ONSEMI_NB7NQ621M_SetRegister(Vfmc[0].IicPtr,
 		    0x5C, Addr, Data);
+	}
 	break;
 
     case 5 :
 	xil_printf("-----TX Reg dump -------\r\n");
-	ONSEMI_NB7NQ621M_RegisterDump(&Iic,0x5B);
+#if defined (XPS_BOARD_VEK280_ES)
+	if (Vfmc[0].isTxTi == 1) {
+		TI_TMDS1204_RegisterDump(&Iic,0x5E);
+	} else {
+#endif
+		ONSEMI_NB7NQ621M_RegisterDump(&Iic,0x5B);
+#if defined (XPS_BOARD_VEK280_ES)
+	}
+#endif
 	xil_printf("-----RX Reg dump -------\r\n");
-	ONSEMI_NB7NQ621M_RegisterDump(&Iic,0x5C);
+#if defined (XPS_BOARD_VEK280_ES)
+	if (Vfmc[0].isRxTi == 1) {
+		TI_TMDS1204_RegisterDump(&Iic,0x5B);
+	} else {
+#endif
+		ONSEMI_NB7NQ621M_RegisterDump(&Iic,0x5C);
+#if defined (XPS_BOARD_VEK280_ES)
+	}
+#endif
 	break;
 
     case 99 :
