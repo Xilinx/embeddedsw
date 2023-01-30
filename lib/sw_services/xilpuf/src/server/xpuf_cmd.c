@@ -38,7 +38,9 @@
 #include "xpuf_ipihandler.h"
 #include "xpuf_defs.h"
 #include "xpuf_cmd.h"
+#ifndef VERSAL_NET
 #include "xplmi_ssit.h"
+#endif
 
 /************************** Function Prototypes ******************************/
 static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf);
@@ -52,7 +54,6 @@ static XPlmi_Module XPlmi_Puf =
 	XPuf_Cmds,
 	XPUF_API(XPUF_API_MAX),
 	XPuf_InvalidCmdHandler,
-	NULL,
 	NULL,
 #ifdef VERSAL_NET
 	NULL
@@ -77,7 +78,17 @@ static XPlmi_Module XPlmi_Puf =
  *****************************************************************************/
 static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
 {
-	return XPlmi_SendIpiCmdToSlaveSlr(Payload, RespBuf);
+	volatile int Status = XST_FAILURE;
+
+#ifndef VERSAL_NET
+	Status = XPlmi_SendIpiCmdToSlaveSlr(Payload, RespBuf);
+#else
+	(void)Payload;
+	(void)RespBuf;
+	Status = XST_SUCCESS;
+#endif
+
+	return Status;
 }
 /*****************************************************************************/
 /**
