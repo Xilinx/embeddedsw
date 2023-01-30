@@ -114,7 +114,13 @@ proc swapp_generate {} {
 
 	set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
 	set new_flags " -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare"
-	append new_flags " -mno-xl-soft-div -mcpu=v10.0 -mno-xl-soft-mul -mxl-multiply-high -Os -flto -ffat-lto-objects"
+	append new_flags " -mno-xl-soft-div"
+	if {$proc_type == "psxl_pmc" || $proc_type == "psx_pmc"} {
+		append new_flags " -mcpu=v11.0"
+	} elseif {$proc_type == "psv_pmc"} {
+		append new_flags " -mcpu=v10.0"
+	}
+	append new_flags " -mno-xl-soft-mul -mxl-multiply-high -Os -flto -ffat-lto-objects"
 	append new_flags $def_flags
 	# Set PMC Microblaze HW related compiler flags
 	set_property -name APP_COMPILER_FLAGS -value $new_flags -objects [current_sw_design]

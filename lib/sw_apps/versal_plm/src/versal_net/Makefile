@@ -1,12 +1,12 @@
 #/******************************************************************************
 #* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
+#* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
 
 CC := mb-gcc
-CC_FLAGS := -MMD -MP    -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v10.0 -mno-xl-soft-mul -mxl-multiply-high
+CC_FLAGS := -MMD -MP    -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v11.0 -mno-xl-soft-mul -mxl-multiply-high
 CFLAGS := -Os -flto -ffat-lto-objects
 LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilffs,-lxilpdi,-lxilplmi,-lxilpuf,-lxilloader,-lxilpm,-lxilsecure,-lxilsem,-lxilnvm,-lxilocp,-lxilcert,-lxil,-lgcc,-lc,--end-group -Wl,--gc-sections
 

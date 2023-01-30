@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -68,6 +69,7 @@
 ## 2.17  adk  30/09/22 Updated tcl to copy proper libraries when fpu is enabled
 ##		       (C_USE_FPU > 0) and when processor is configured with
 ##		       MUL64 support(C_USE_HW_MUL = 2).
+##      bm    01/25/22 Update mcpu version of versal_net microblaze to v11
 # uses xillib.tcl
 
 ########################################
@@ -450,8 +452,10 @@ proc generate {drv_handle} {
 	}
     }
 
-    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0 || [string compare "psxl_pmc" $proctype] == 0 || [string compare "psx_pmc" $proctype] == 0} {
+    if {[string compare "psu_pmc" $proctype] == 0 || [string compare "psv_pmc" $proctype] == 0} {
         append compiler_flags " -mcpu=v10.0"
+    } elseif {[string compare "psxl_pmc" $proctype] == 0 || [string compare "psx_pmc" $proctype] == 0} {
+        append compiler_flags " -mcpu=v11.0"
     } else {
         append compiler_flags " -mcpu=v" $cpu_version
     }
