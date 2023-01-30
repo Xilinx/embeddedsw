@@ -1,7 +1,8 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
- * Copyright (c) 2017 Xilinx, Inc.
+ * Copyright (c) 2017 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -33,16 +34,21 @@ extern "C" {
 		__func__, __LINE__, ##args)
 
 /* Interrupt vectors */
-#ifdef versal
+#ifdef VERSAL_NET
+#define IPI_IRQ_VECT_ID     90
+#define POLL_BASE_ADDR      0xEB340000
+#define IPI_CHN_BITMASK     0x0000020
+
+#elif defined(versal) /* Versal case */
 #define IPI_IRQ_VECT_ID     63
 #define POLL_BASE_ADDR       0xFF340000 /* IPI base address*/
 #define IPI_CHN_BITMASK     0x0000020 /* IPI channel bit mask for IPI from/to
 					   APU */
-#else
+#else /* ZynqMP case */
 #define IPI_IRQ_VECT_ID     XPAR_XIPIPSU_0_INT_ID
 #define POLL_BASE_ADDR      XPAR_XIPIPSU_0_BASE_ADDRESS
 #define IPI_CHN_BITMASK     0x01000000
-#endif /* versal */
+#endif /* VERSAL_NET */
 
 #ifdef RPMSG_NO_IPI
 #undef POLL_BASE_ADDR
