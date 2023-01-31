@@ -57,7 +57,7 @@
 /* Very crude mechanism used to determine if the critical section handling
 functions are being called from an interrupt context or not.  This relies on
 the interrupt handler setting this variable manually. */
-extern u32 xInsideISR;
+u32 xInsideISR;
 
 /*---------------------------------------------------------------------------*
  * Routine:  sys_mbox_new

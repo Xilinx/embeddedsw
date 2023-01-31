@@ -98,7 +98,7 @@ static u8_t bd_space[BD_SIZE] __attribute__ ((aligned (BLOCK_SIZE_1MB)));
 static u8_t *bd_mem_ptr = bd_space;
 
 #if !NO_SYS
-u32 xInsideISR = 0;
+extern u32 xInsideISR;
 #endif
 
 static inline void bd_csum_enable(XMcdma_Bd *bd)

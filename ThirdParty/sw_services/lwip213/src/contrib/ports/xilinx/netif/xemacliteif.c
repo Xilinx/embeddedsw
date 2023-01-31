@@ -132,7 +132,7 @@ unsigned configure_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep, unsigned speed
 unsigned char xemac_tx_frame[XEL_MAX_FRAME_SIZE] __attribute__((aligned(64)));
 
 #if !NO_SYS
-unsigned int xInsideISR = 0;
+extern u32 xInsideISR;
 #endif
 
 #ifndef XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ

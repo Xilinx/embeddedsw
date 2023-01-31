@@ -79,7 +79,7 @@ xaxiemacif_s *xaxiemacif_fast;
 #endif
 
 #if !NO_SYS
-unsigned int xInsideISR = 0;
+extern u32 xInsideISR;
 #endif
 
 int xaxiemac_is_tx_space_available(xaxiemacif_s *emac)

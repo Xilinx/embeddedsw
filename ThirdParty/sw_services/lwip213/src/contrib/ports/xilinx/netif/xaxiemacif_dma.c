@@ -97,7 +97,7 @@ xaxiemacif_s *xaxiemacif_fast;
 #endif
 
 #if !NO_SYS
-u32 xInsideISR = 0;
+extern u32 xInsideISR;
 #endif
 
 #define BD_SIZE_2MB                 0x200000

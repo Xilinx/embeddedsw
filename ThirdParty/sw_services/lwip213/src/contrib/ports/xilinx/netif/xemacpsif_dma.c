@@ -121,7 +121,7 @@ static volatile u32_t bd_space_index = 0;
 static volatile u32_t bd_space_attr_set = 0;
 
 #if !NO_SYS
-long xInsideISR = 0;
+extern u32 xInsideISR;
 #endif
 
 #define XEMACPS_BD_TO_INDEX(ringptr, bdptr)				\
