@@ -41,7 +41,6 @@
 #include "xsecure_utils.h"
 #include "xsecure_ecdsa_rsa_hw.h"
 #include "xsecure_error.h"
-#include "xsecure_init.h"
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
@@ -272,7 +271,7 @@ int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 	/**
 	 * Initialize TRNG to generate Ephemeral Key
 	 */
-	Status =  XSecure_TrngInit();
+	Status = XSecure_TrngInitNCfgHrngMode();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
