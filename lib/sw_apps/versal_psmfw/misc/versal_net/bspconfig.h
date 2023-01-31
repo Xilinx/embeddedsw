@@ -5,6 +5,7 @@
 * DO NOT EDIT.
 *
 * Copyright (C) 2010-2022 Xilinx, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 * Description: Configurations for Standalone BSP
