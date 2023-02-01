@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -86,7 +87,7 @@ struct XPm_PllClockNode {
 	},				\
 	[PM_PLL_PARAM_ID_FBDIV] = {	\
 		.Shift = 8U,		\
-		.Width = 7U,		\
+		.Width = 8U,		\
 	},				\
 	[PM_PLL_PARAM_ID_DATA] = {	\
 		.Shift = 0U,		\
