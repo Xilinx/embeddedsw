@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,7 +63,7 @@ int Xbir_NwCfgNetwork (struct netif *NetIf)
 	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(NetIf, NULL, NULL, NULL,
 			(u8 *)Xbir_NwMacEthAddr, EmacBaseAddr)) {
-		Xbir_Printf("ERROR: Error adding N/W interface\n\r");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Error adding N/W interface\n\r");
 		goto END;
 	}
 
@@ -104,24 +105,24 @@ static int Xbir_NwSetDefaultIp (ip_addr_t *Ip, ip_addr_t *Mask, ip_addr_t *Gw)
 	int Error;
 	int InvalidCfg = FALSE;
 
-	Xbir_Printf("Configuring default IP %s\r\n", XBIR_NW_DEFAULT_IP_ADDRESS);
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "Configuring default IP %s\r\n", XBIR_NW_DEFAULT_IP_ADDRESS);
 
 	Error = inet_aton(XBIR_NW_DEFAULT_IP_ADDRESS, Ip);
 	if (Error == 0) {
 		InvalidCfg = TRUE;
-		Xbir_Printf("ERROR: Invalid default IP address: %d\r\n", Error);
+		Xbir_Printf(DEBUG_INFO, " ERROR: Invalid default IP address: %d\r\n", Error);
 	}
 
 	Error = inet_aton(XBIR_NW_DEFAULT_IP_MASK, Mask);
 	if (Error == 0) {
 		InvalidCfg = TRUE;
-		Xbir_Printf("ERROR: Invalid default IP MASK: %d\r\n", Error);
+		Xbir_Printf(DEBUG_INFO, " ERROR: Invalid default IP MASK: %d\r\n", Error);
 	}
 
 	Error = inet_aton(XBIR_NW_DEFAULT_GW_ADDRESS, Gw);
 	if (Error == 0) {
 		InvalidCfg = TRUE;
-		Xbir_Printf("ERROR: Invalid default gateway address: %d\r\n",
+		Xbir_Printf(DEBUG_INFO, " ERROR: Invalid default gateway address: %d\r\n",
 			Error);
 	}
 
@@ -146,14 +147,14 @@ static int Xbir_NwSetDefaultIp (ip_addr_t *Ip, ip_addr_t *Mask, ip_addr_t *Gw)
  *****************************************************************************/
 void Xbir_NwPrintIpCfg (ip_addr_t *Ip, ip_addr_t *Mask, ip_addr_t *Gw)
 {
-	Xbir_Printf("\r\n-[Network Interface]------------------------\r\n");
-	Xbir_Printf("\tBoard IP: %u.%u.%u.%u\r\n", ip4_addr1(Ip), ip4_addr2(Ip),
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\r\n-[Network Interface]------------------------\r\n");
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\tBoard IP: %u.%u.%u.%u\r\n", ip4_addr1(Ip), ip4_addr2(Ip),
 		ip4_addr3(Ip), ip4_addr4(Ip));
-	Xbir_Printf("\tNetmask : %u.%u.%u.%u\r\n", ip4_addr1(Mask), ip4_addr2(Mask),
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\tNetmask : %u.%u.%u.%u\r\n", ip4_addr1(Mask), ip4_addr2(Mask),
 		ip4_addr3(Mask), ip4_addr4(Mask));
-	Xbir_Printf("\tGateway : %u.%u.%u.%u\r\n", ip4_addr1(Gw), ip4_addr2(Gw),
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\tGateway : %u.%u.%u.%u\r\n", ip4_addr1(Gw), ip4_addr2(Gw),
 		ip4_addr3(Gw), ip4_addr4(Gw));
-	Xbir_Printf("\r\n");
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\r\n");
 }
 
 /*****************************************************************************/

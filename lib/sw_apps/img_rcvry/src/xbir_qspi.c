@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.00  bsv   07/02/20   First release
 * 2.00  bsv   03/15/22   Fix bug in stacked mode
+* 3.00  skd   01/31/23   Added debug print levels
 *
 * </pre>
 *
@@ -134,12 +136,12 @@ static int Xbir_QspiFlashReadID(XQspiPsu *QspiPsuPtr)
 		FsrFlag = 0U;
 	}
 
-	Xbir_Printf("[Flash Image Info]\r\n");
-	Xbir_Printf("\t Flash size : %uMB\r\n",
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "[Flash Image Info]\r\n");
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\t Flash size : %uMB\r\n",
 		FlashInfo.FlashSize / (1024U * 1024U));
-	Xbir_Printf("\tSector size : %uKB\r\n",
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\tSector size : %uKB\r\n",
 		FlashInfo.SectSize / 1024U);
-	Xbir_Printf("\tPageSize in bytes: 0x%08X\r\n\r\n",
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\tPageSize in bytes: 0x%08X\r\n\r\n",
 			FlashInfo.PageSize);
 
 END:

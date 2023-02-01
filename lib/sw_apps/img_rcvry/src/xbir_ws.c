@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -62,20 +63,20 @@ int Xbir_WsStart (void)
 	/* Initialize RAM based file system for web pages */
 	Status = Xbir_WsInitFs();
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: Can't run webserver as FS init failed\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Can't run webserver as FS init failed\r\n");
 		goto END;
 	}
 
 	Status = XST_FAILURE;
 	TcpPcb = tcp_new();
 	if (TcpPcb == NULL) {
-		Xbir_Printf("Error: Creating PCB. Out of Memory\r\n");
+		Xbir_Printf(DEBUG_INFO, " Error: Creating PCB. Out of Memory\r\n");
 		goto END;
 	}
 
 	Error = tcp_bind(TcpPcb, IP_ADDR_ANY, XBIR_NW_HTTP_PORT);
 	if (Error != ERR_OK) {
-		Xbir_Printf("ERROR: Unable to bind to port 80: err = %d\r\n",
+		Xbir_Printf(DEBUG_INFO, " ERROR: Unable to bind to port 80: err = %d\r\n",
 			Error);
 		goto END;
 	}
@@ -85,7 +86,7 @@ int Xbir_WsStart (void)
 
 	TcpPcb = tcp_listen(TcpPcb);
 	if (TcpPcb == NULL) {
-		Xbir_Printf("ERROR: Out of memory while tcp_listen\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Out of memory while tcp_listen\r\n");
 		goto END;
 	}
 
@@ -123,14 +124,14 @@ static int Xbir_WsInitFs (void)
 	if (Result != FR_OK) {
 
 		/* TBD: Do we need to format FAT? What about files */
-		Xbir_Printf("ERROR: Failed to mount FAT FS\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Failed to mount FAT FS\r\n");
 		goto END;
 	}
 
 	/* Try to open default html file */
 	Result = f_open(&FilObj, "index.htm", FA_READ);
 	if (Result != FR_OK) {
-		Xbir_Printf("ERROR: Unable to locate index.htm in FS\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Unable to locate index.htm in FS\r\n");
 		goto END;
 	}
 
@@ -165,12 +166,12 @@ static err_t Xbir_WsHttpSentCallback (void *Arg, struct tcp_pcb *Tpcb,
 	Xbir_HttpArg *HttpArg = (Xbir_HttpArg *) Arg;
 
 #if XBIR_WS_ENABLE_DEBUG
-		Xbir_Printf("%u (%u): S%u..\r\n", HttpArg ? HttpArg->Count : 0U,
+		Xbir_Printf(DEBUG_INFO, " %u (%u): S%u..\r\n", HttpArg ? HttpArg->Count : 0U,
 			Tpcb->state, Len);
 #endif
 
 	if (Tpcb->state > ESTABLISHED) {
-		Xbir_Printf("TCP connection is dropped\r\n");
+		Xbir_Printf(DEBUG_INFO, " TCP connection is dropped\r\n");
 		if (HttpArg != NULL) {
 			f_close(&HttpArg->Fil);
 			Xbir_HttpPfreeArg(HttpArg);
@@ -195,14 +196,14 @@ static err_t Xbir_WsHttpSentCallback (void *Arg, struct tcp_pcb *Tpcb,
 			goto END;
 		}
 
-		Xbir_Printf("Attempting to read %u bytes, left = %u bytes\r\n",
+		Xbir_Printf(DEBUG_INFO, " Attempting to read %u bytes, left = %u bytes\r\n",
 			   XBIR_WS_SND_BUF_SIZE, HttpArg->Fsize);
 
 		f_read(&HttpArg->Fil, Buffer, XBIR_WS_SND_BUF_SIZE,
 			(unsigned int *)&DataLen);
 		Error = tcp_write(Tpcb, Buffer, DataLen, TCP_WRITE_FLAG_COPY);
 		if (Error != ERR_OK) {
-			Xbir_Printf("ERROR: Failed to write data; aborting\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Failed to write data; aborting\r\n");
 			Xbir_HttpClose(Tpcb);
 			break;
 		}
@@ -244,7 +245,7 @@ static err_t Xbir_WsHttpRecvCallback (void *Arg, struct tcp_pcb *Tpcb,
 	}
 
 #if XBIR_WS_ENABLE_DEBUG
-		Xbir_Printf("%u (%u): R%u %u..\r\n",
+		Xbir_Printf(DEBUG_INFO, " %u (%u): R%u %u..\r\n",
 			(HttpArg != NULL) ? HttpArg->Count : 0U,
 			Tpcb->state, Pkt->len, Pkt->tot_len);
 #endif

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,13 +55,13 @@ int main (void)
 
 	Status = Xbir_SysInit();
 	if (XST_SUCCESS != Status) {
-		Xbir_Printf("ERROR: System intialization failed....");
+		Xbir_Printf(DEBUG_INFO, " ERROR: System intialization failed....");
 		goto END;
 	}
 
 	Status = Xbir_NwCfgNetwork(&NetIf);
 	if (XST_SUCCESS != Status) {
-		Xbir_Printf("ERROR: Network configuration failed....");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Network configuration failed....");
 		goto END;
 	}
 
@@ -70,11 +71,11 @@ int main (void)
 		Xbir_NwProcessPkts(&NetIf);
 	}
 	else {
-		Xbir_Printf("ERROR: Web server setup failed....");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Web server setup failed....");
 	}
 
 END:
-	Xbir_Printf("\r\n\r\nApplication closed..........\r\n");
+	Xbir_Printf(DEBUG_INFO, " \r\n\r\nApplication closed..........\r\n");
 	return Status;
 }
 
@@ -90,12 +91,12 @@ END:
  *****************************************************************************/
 static void Xbir_PrintAppBanner (struct netif *NetIf)
 {
-	Xbir_Printf("Xilinx boot image recovery tool web server is running on port %d\r\n",
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "Xilinx boot image recovery tool web server is running on port %d\r\n",
 		XBIR_NW_HTTP_PORT);
-	Xbir_Printf("Please point your web browser to http://%u.%u.%u.%u",
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "Please point your web browser to http://%u.%u.%u.%u",
 		ip4_addr1(&NetIf->ip_addr),
 		ip4_addr2(&NetIf->ip_addr),
 		ip4_addr3(&NetIf->ip_addr),
 		ip4_addr4(&NetIf->ip_addr));
-	Xbir_Printf("\r\n");
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\r\n");
 }

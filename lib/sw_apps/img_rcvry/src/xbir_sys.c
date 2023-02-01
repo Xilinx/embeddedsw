@@ -27,6 +27,7 @@
 *                        starter kit xsa
 * 4.0   skd   09/11/22   Added Image recovery support for vhk158, vek280
 *                        system controllers
+*       skd   01/31/23   Added debug print levels
 *
 * </pre>
 *
@@ -234,7 +235,7 @@ int Xbir_SysInit (void)
 
 	Status = Xbir_SysReadSysInfoFromEeprom();
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf(" defaulting to GEM1\n\r");
+		Xbir_Printf(DEBUG_INFO, "  defaulting to GEM1\n\r");
 	}
 
 	Xbir_SysReadAndCorrectBootImgInfo();
@@ -322,8 +323,8 @@ static int Xbir_KVEthInit (void)
 
 	/* GEM clock settings */
 #ifdef XPS_BOARD_K26I
-	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
-	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010400U);
+	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010C00U);
+	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
 #else
 	Xbir_MaskWrite(CRL_APB_GEM3_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010C00U);
 	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010600U);
@@ -340,13 +341,13 @@ static int Xbir_KVEthInit (void)
 #endif
 	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
 	if (ConfigPtr == NULL) {
-		Xbir_Printf("ERROR: GPIO look up config failed\n\r");
+		Xbir_Printf(DEBUG_INFO, " ERROR: GPIO look up config failed\n\r");
 		goto END;
 	}
 
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr, ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: GPIO config initialize failed\n\r");
+		Xbir_Printf(DEBUG_INFO, " ERROR: GPIO config initialize failed\n\r");
 		goto END;
 	}
 
@@ -445,13 +446,13 @@ static int Xbir_SCEthInit (void)
 #endif
 	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
 	if (ConfigPtr == NULL) {
-		Xbir_Printf("ERROR: GPIO look up config failed\n\r");
+		Xbir_Printf(DEBUG_INFO, " ERROR: GPIO look up config failed\n\r");
 		goto END;
 	}
 
 	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr, ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: GPIO config initialize failed\n\r");
+		Xbir_Printf(DEBUG_INFO, " ERROR: GPIO config initialize failed\n\r");
 		goto END;
 	}
 
@@ -552,7 +553,7 @@ int Xbir_SysGetBootImgOffset (Xbir_SysBootImgId BootImgId, u32 *Offset)
 		*Offset = 0U;
 	}
 	else {
-		Xbir_Printf("ERROR: Invalid Boot Image ID\n\r");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Invalid Boot Image ID\n\r");
 		goto END;
 	}
 
@@ -610,7 +611,7 @@ int Xbir_SysUpdateBootImgStatus (u8 ImgABootable, u8 ImgBBootable,
 		Status = Xbir_QspiRead(Addr, (u8 *)&RdBootImgInfo,
 			sizeof(RdBootImgInfo));
 		if (Status != XST_SUCCESS) {
-			Xbir_Printf("ERROR: Failed during readback\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Failed during readback\r\n");
 			Status = XBIR_ERROR_BOOT_IMG_ID;
 			goto END;
 		}
@@ -660,7 +661,7 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 
 	if (PrevPendingDataLen > 0U) {
 		if ((Size + PrevPendingDataLen) > sizeof(WriteBuffer)) {
-			Xbir_Printf("ERROR: Invalid image size\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Invalid image size\r\n");
 			Status = XBIR_ERROR_IMAGE_SIZE;
 			goto END;
 		}
@@ -673,7 +674,7 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 	while (DataSize >= PageSize) {
 		Status = Xbir_QspiWrite(WrAddr, WrBuff, PageSize);
 		if (Status != XST_SUCCESS) {
-			Xbir_Printf("ERROR: Image write failed\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Image write failed\r\n");
 			Status = XBIR_ERROR_IMAGE_WRITE;
 			goto END;
 		}
@@ -691,7 +692,7 @@ int Xbir_SysWriteFlash (u32 Offset, u8 *Data, u32 Size,
 		if (DataSize > 0U) {
 			Status = Xbir_QspiWrite(WrAddr, WrBuff, DataSize);
 			if (Status != XST_SUCCESS) {
-				Xbir_Printf("ERROR: Image write failed\r\n");
+				Xbir_Printf(DEBUG_INFO, " ERROR: Image write failed\r\n");
 				Status = XBIR_ERROR_IMAGE_WRITE;
 			}
 		}
@@ -746,7 +747,7 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 	}
 #endif
 	else {
-		Xbir_Printf("ERROR: Invalid image ID\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Invalid image ID\r\n");
 		goto END;
 	}
 
@@ -754,7 +755,7 @@ int Xbir_SysEraseBootImg (Xbir_SysBootImgId BootImgId)
 			 FlashEraseStats->SectorSize),
 			 FlashEraseStats->SectorSize);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: Flash erase failed during Boot Image "
+		Xbir_Printf(DEBUG_INFO, " ERROR: Flash erase failed during Boot Image "
 			"update\r\n", Status);
 		Status = XBIR_ERROR_SECTOR_ERASE;
 		goto END;
@@ -809,48 +810,48 @@ static void Xbir_SysReadAndCorrectBootImgInfo (void)
 	if (XST_SUCCESS == StatusA) {
 		memcpy(&BootImgStatus, &BootImgInfoA, sizeof(BootImgInfoA));
 		if ((StatusB != XST_SUCCESS) || (ChksumB != ChksumA)) {
-			Xbir_Printf("Boot image backup info corrupted...\r\n");
+			Xbir_Printf(DEBUG_INFO, " Boot image backup info corrupted...\r\n");
 			Status = Xbir_SysWrvBootImgInfo(&BootImgStatus,
 					XBIR_QSPI_MM_BOOT_IMG_INFO_BKP_ADDR);
 			if (Status == XST_SUCCESS) {
-				Xbir_Printf("Boot image backup info recovered...\r\n");
+				Xbir_Printf(DEBUG_INFO, " Boot image backup info recovered...\r\n");
 			}
 			else {
-				Xbir_Printf("ERROR: Boot image backup recovery failed...\r\n");
+				Xbir_Printf(DEBUG_INFO, " ERROR: Boot image backup recovery failed...\r\n");
 			}
 		}
 	}
 	else if (XST_SUCCESS == StatusB) {
 		memcpy(&BootImgStatus, &BootImgInfoB, sizeof(BootImgInfoB));
-		Xbir_Printf("Boot image info corrupted...\r\n");
+		Xbir_Printf(DEBUG_INFO, " Boot image info corrupted...\r\n");
 		Status = Xbir_SysWrvBootImgInfo(&BootImgStatus,
 			XBIR_QSPI_MM_BOOT_IMG_INFO_ADDR);
 		if (Status == XST_SUCCESS) {
-			Xbir_Printf("Boot image info recovered...\r\n");
+			Xbir_Printf(DEBUG_INFO, " Boot image info recovered...\r\n");
 		}
 		else {
-			Xbir_Printf("ERROR: Boot image recovery failed...\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Boot image recovery failed...\r\n");
 		}
 	}
 	else {
-		Xbir_Printf("Use default Boot image info\r\n");
+		Xbir_Printf(DEBUG_INFO, " Use default Boot image info\r\n");
 		memcpy(&BootImgInfoA, &BootImgStatus, sizeof(BootImgStatus));
 		Status = Xbir_SysWrvBootImgInfo(&BootImgStatus,
 			XBIR_QSPI_MM_BOOT_IMG_INFO_ADDR);
 		if (Status == XST_SUCCESS) {
-			Xbir_Printf("Boot image info recovered...\r\n");
+			Xbir_Printf(DEBUG_INFO, " Boot image info recovered...\r\n");
 		}
 		else {
-			Xbir_Printf("ERROR: Boot image recovery failed...\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Boot image recovery failed...\r\n");
 		}
 
 		Status = Xbir_SysWrvBootImgInfo(&BootImgStatus,
 					XBIR_QSPI_MM_BOOT_IMG_INFO_BKP_ADDR);
 		if (Status == XST_SUCCESS) {
-			Xbir_Printf("Boot image backup info recovered...\r\n");
+			Xbir_Printf(DEBUG_INFO, " Boot image backup info recovered...\r\n");
 		}
 		else {
-			Xbir_Printf("ERROR: Boot image backup recovery failed...\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Boot image backup recovery failed...\r\n");
 		}
 	}
 
@@ -882,7 +883,7 @@ static int Xbir_SysWriteBootImageInfo (Xbir_SysBootImgInfo *BootImgInfo,
 
 	Status = Xbir_QspiFlashErase(Offset, XBIR_QSPI_MAX_BOOT_IMG_INFO_SIZE);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: Qspi Flash erase failed during persistent"
+		Xbir_Printf(DEBUG_INFO, " ERROR: Qspi Flash erase failed during persistent"
 			"registers update\r\n", Status);
 		Status = XBIR_ERROR_PERSISTENT_REG_ERASE;
 		goto END;
@@ -890,7 +891,7 @@ static int Xbir_SysWriteBootImageInfo (Xbir_SysBootImgInfo *BootImgInfo,
 
 	Status = Xbir_QspiWrite(Offset, WriteBuffer, PageSize);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("ERROR: Qspi Flash WRITE failed during persistent"
+		Xbir_Printf(DEBUG_INFO, " ERROR: Qspi Flash WRITE failed during persistent"
 			"registers update\r\n", Status);
 		Status = XBIR_ERROR_PERSISTENT_REG_WRITE;
 	}
@@ -929,7 +930,7 @@ static int Xbir_SysValidateBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo,
 		}
 		else {
 			Status = XBIR_ERROR_PERSISTENT_REG_VAL_CHKSUM;
-			Xbir_Printf("ERROR: Boot Img Info validation failed\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Boot Img Info validation failed\r\n");
 		}
 
 		if(Checksum != NULL) {
@@ -1018,17 +1019,17 @@ END:
  *****************************************************************************/
 static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo)
 {
-	Xbir_Printf("[Boot Image Info]\r\n");
-	Xbir_Printf("\t                 Ver: %u\r\n", BootImgInfo->Ver);
-	Xbir_Printf("\t              Length: %u\r\n", BootImgInfo->Len);
-	Xbir_Printf("\t            Checksum: 0x%08x\r\n", BootImgInfo->Checksum);
-	Xbir_Printf("\tPersistent State Reg: 0x%08X\r\n",
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "[Boot Image Info]\r\n");
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\t                 Ver: %u\r\n", BootImgInfo->Ver);
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\t              Length: %u\r\n", BootImgInfo->Len);
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\t            Checksum: 0x%08x\r\n", BootImgInfo->Checksum);
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\tPersistent State Reg: 0x%08X\r\n",
 		 *(u32 *)&BootImgInfo->PersistentState);
-	Xbir_Printf("\t        Img A Offset: 0x%08X\r\n",
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\t        Img A Offset: 0x%08X\r\n",
 		 BootImgInfo->BootImgAOffset);
-	Xbir_Printf("\t        Img B Offset: 0x%08X\r\n",
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\t        Img B Offset: 0x%08X\r\n",
 		 BootImgInfo->BootImgBOffset);
-	Xbir_Printf("\t Recovery Img Offset: 0x%08x\r\n\r\n",
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "\t Recovery Img Offset: 0x%08x\r\n\r\n",
 		 BootImgInfo->RecoveryImgOffset);
 }
 
@@ -1065,8 +1066,8 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	Status = Xbir_IicEepromReadData((u8 *)&SysBoardEepromData,
 		sizeof(Xbir_SysBoardEepromData), XBIR_IIC_SYS_BOARD_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("Unable to access System Board Eeprom\n\r");
-		Xbir_Printf("Unrecognized Eeprom contents...");
+		Xbir_Printf(DEBUG_INFO, " Unable to access System Board Eeprom\n\r");
+		Xbir_Printf(DEBUG_INFO, " Unrecognized Eeprom contents...");
 		goto END;
 	}
 
@@ -1077,13 +1078,13 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	for(BoardIndex = 0U; BoardIndex < BoardNum; BoardIndex++) {
 		if((strncmp((char *)&SysInfo.BoardPrdName, BoardList[BoardIndex],
 			XBIR_SYS_PRODUCT_NAME_LEN) == 0U)){
-				Xbir_Printf("Board Detected: %s\n\r", (char *)&SysInfo.BoardPrdName);
+				Xbir_Printf(DEBUG_PRINT_ALWAYS, " Board Detected: %s\n\r", (char *)&SysInfo.BoardPrdName);
 				break;
 			}
 	}
 
 	if(BoardIndex >= BoardNum) {
-		Xbir_Printf("Unrecognized SOM Eeprom contents...");
+		Xbir_Printf(DEBUG_PRINT_ALWAYS, " Unrecognized SOM Eeprom contents...");
 		Status = XBIR_ERR_SOM_EEPROM_CONTENTS;
 		goto END;
 	}
@@ -1104,7 +1105,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
 			SysBoardEepromData.SysBoardInfo.UUID[LoopIndex]);
 		if (Ret != XBIR_BYTE_HEX_LEN) {
-			Xbir_Printf("Unrecognized Eeprom contents...");
+			Xbir_Printf(DEBUG_INFO, " Unrecognized Eeprom contents...");
 			Status = XST_FAILURE;
 			goto END;
 		}
@@ -1116,8 +1117,8 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	Status = Xbir_IicEepromReadData((u8 *)&CCEepromData,
 		sizeof(Xbir_CCEepromData), XBIR_IIC_CC_EEPROM_ADDRESS);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("Unable to access CC Eeprom\n\r");
-		Xbir_Printf("Unrecognized Eeprom contents...");
+		Xbir_Printf(DEBUG_INFO, " Unable to access CC Eeprom\n\r");
+		Xbir_Printf(DEBUG_INFO, " Unrecognized Eeprom contents...");
 		goto END;
 	}
 
@@ -1126,10 +1127,12 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		sizeof(CCEepromData.SysBoardInfo.BoardPrdName));
 	if (strncmp((char *)&CCInfo.BoardPrdName, "SCK",
 		XBIR_SYS_PRODUCT_NAME_LEN) != 0U) {
-		Xbir_Printf("Unrecognized CC Eeprom contents...");
+		Xbir_Printf(DEBUG_INFO, " Unrecognized CC Eeprom contents...");
 		Status = XBIR_ERR_CC_EEPROM_CONTENTS;
 		goto END;
 	}
+
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, " Carrier Card Detected: %s\n\r", (char *)&CCInfo.BoardPrdName);
 	memcpy(CCInfo.RevNum, CCEepromData.SysBoardInfo.RevNum,
 		sizeof(CCEepromData.SysBoardInfo.RevNum));
 	memcpy(CCInfo.BoardSerialNumber,
@@ -1146,7 +1149,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		Ret = snprintf(UUIDStrPtr, MaxSize, "%02X",
 			CCEepromData.SysBoardInfo.UUID[LoopIndex]);
 		if (Ret != XBIR_BYTE_HEX_LEN) {
-			Xbir_Printf("Unrecognized Eeprom contents...");
+			Xbir_Printf(DEBUG_INFO, " Unrecognized Eeprom contents...");
 			Status = XST_FAILURE;
 			goto END;
 		}
@@ -1255,15 +1258,15 @@ int Xbir_SysValidateCrc (Xbir_SysBootImgId BootImgId, u32 Size, u32 InCrc)
 	}
 	Crc = CalcCrc ^ 0xFFFFFFFFU;
 	if ((Status == XST_SUCCESS) && (Crc == InCrc)) {
-		Xbir_Printf("CRC matches\r\n");
+		Xbir_Printf(DEBUG_INFO, " CRC matches\r\n");
 		Status = XST_SUCCESS;
 	}
 	else {
-		Xbir_Printf("ERROR: Crc mismatch\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Crc mismatch\r\n");
 		Status = XBIR_ERROR_IMAGE_CHKSUM;
 	}
 
-	Xbir_Printf("Flash Img CRC = %08X, Sender Crc = %08X\r\n", Crc, InCrc);
+	Xbir_Printf(DEBUG_INFO, " Flash Img CRC = %08X, Sender Crc = %08X\r\n", Crc, InCrc);
 
 END:
 	Crc = 0U;
@@ -1312,7 +1315,7 @@ int Xbir_SysWriteSD (u32 Offset, u8 *Data, u32 Size, Xbir_ImgDataStatus IsLast)
 
 	if (PrevPendingDataLen > 0U) {
 		if ((Size + PrevPendingDataLen) > sizeof(WriteBuffer)) {
-			Xbir_Printf("ERROR: Invalid image size\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Invalid image size\r\n");
 			Status = XBIR_ERROR_IMAGE_SIZE;
 			goto END;
 		}
@@ -1326,14 +1329,14 @@ int Xbir_SysWriteSD (u32 Offset, u8 *Data, u32 Size, Xbir_ImgDataStatus IsLast)
 		Status = Xbir_SdWrite(WrAddr, WrBuff,
 			XBIR_SDPS_CHUNK_SIZE);
 		if (Status != XST_SUCCESS) {
-			Xbir_Printf("ERROR: Image write failed\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Image write failed\r\n");
 			Status = XBIR_ERROR_IMAGE_WRITE;
 			goto END;
 		}
 		Status = Xbir_SysCalculateCrc32(WrAddr,
 			XBIR_SDPS_CHUNK_SIZE, Xbir_SdRead);
 		if (Status != XST_SUCCESS) {
-			Xbir_Printf("ERROR: Image read failed\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Image read failed\r\n");
 			Status = XBIR_ERROR_IMAGE_READ;
 			goto END;
 		}
@@ -1351,14 +1354,14 @@ int Xbir_SysWriteSD (u32 Offset, u8 *Data, u32 Size, Xbir_ImgDataStatus IsLast)
 		if (DataSize > 0U) {
 			Status = Xbir_SdWrite(WrAddr, WrBuff, DataSize);
 			if (Status != XST_SUCCESS) {
-				Xbir_Printf("ERROR: Image write failed\r\n");
+				Xbir_Printf(DEBUG_INFO, " ERROR: Image write failed\r\n");
 				Status = XBIR_ERROR_IMAGE_WRITE;
 				goto END;
 			}
 			Status = Xbir_SysCalculateCrc32(WrAddr, DataSize,
 				Xbir_SdRead);
 			if (Status != XST_SUCCESS) {
-				Xbir_Printf("ERROR: Image read failed\r\n");
+				Xbir_Printf(DEBUG_INFO, " ERROR: Image read failed\r\n");
 				Status = XBIR_ERROR_IMAGE_READ;
 				goto END;
 			}

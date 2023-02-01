@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -87,12 +88,12 @@ int Xbir_Platform_SetupTimer (void)
 
 	Config = XTtcPs_LookupConfig(TIMER_DEVICE_ID);
 	if (Config == NULL) {
-		Xbir_Printf("In %s: Look up config failed\r\n", __func__);
+		Xbir_Printf(DEBUG_INFO, " In %s: Look up config failed\r\n", __func__);
 		goto END;
 	}
 	Status = XTtcPs_CfgInitialize(Timer, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		Xbir_Printf("In %s: Timer Cfg initialization failed...\r\n",
+		Xbir_Printf(DEBUG_INFO, " In %s: Timer Cfg initialization failed...\r\n",
 			__func__);
 		goto END;
 	}

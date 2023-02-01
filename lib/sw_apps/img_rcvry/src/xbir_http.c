@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -119,7 +120,7 @@ int Xbir_HttpProcessReq (struct tcp_pcb *Tpcb, u8 *HttpReq, u16 HttpReqLen)
 		break;
 
 	default:
-		Xbir_Printf("ERROR: RequestType != GET|POST\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: RequestType != GET|POST\r\n");
 		Status = Xbir_HttpSendResponse404(Tpcb, HttpReq, HttpReqLen);
 		break;
 	}
@@ -181,7 +182,7 @@ int Xbir_HttpSendResponseJson (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	HdrLen = Xbir_HttpGenerateHdr(Buffer, "jsn", JsonStrLen);
 
 	if (Tpcb->state > ESTABLISHED) {
-		Xbir_Printf("ERROR :TCP connection is dropped\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR :TCP connection is dropped\r\n");
 		Xbir_HttpClose(Tpcb);
 		goto END;
 	}
@@ -189,11 +190,11 @@ int Xbir_HttpSendResponseJson (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	Error = tcp_write(Tpcb, Buffer, HdrLen,
 		TCP_WRITE_FLAG_COPY | TCP_WRITE_FLAG_MORE);
 	if (Error != ERR_OK) {
-		Xbir_Printf("ERROR: (%d) writing http header to socket\r\n",
+		Xbir_Printf(DEBUG_INFO, " ERROR: (%d) writing http header to socket\r\n",
 			Error);
-		Xbir_Printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n",
+		Xbir_Printf(DEBUG_INFO, " attempted to write #bytes = %d, tcp_sndbuf = %d\r\n",
 			HdrLen, tcp_sndbuf(Tpcb));
-		Xbir_Printf("HTTP header = %s\r\n", Buffer);
+		Xbir_Printf(DEBUG_INFO, " HTTP header = %s\r\n", Buffer);
 		Xbir_HttpClose(Tpcb);
 		goto END;
 	}
@@ -201,7 +202,7 @@ int Xbir_HttpSendResponseJson (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	Error = tcp_write(Tpcb, JsonStr, JsonStrLen,
 		TCP_WRITE_FLAG_COPY | TCP_WRITE_FLAG_MORE);
 	if (Error != ERR_OK) {
-		Xbir_Printf("Attempted to lwip_write %d bytes,"
+		Xbir_Printf(DEBUG_INFO, " Attempted to lwip_write %d bytes,"
 			" tcp write error = %d\r\n", JsonStrLen, Error);
 		Xbir_HttpClose(Tpcb);
 		goto END;
@@ -446,7 +447,7 @@ static int Xbir_HttpSendResponse404 (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	Hlen = Xbir_HttpGenerateHdr(Buffer, "html", Len);
 
 	if (tcp_sndbuf(Tpcb) < Hlen) {
-		Xbir_Printf("ERROR : Cannot send 404 message, "
+		Xbir_Printf(DEBUG_INFO, " ERROR : Cannot send 404 message, "
 			"tcp_sndbuf = %d bytes, message length = %d bytes\r\n",
 			tcp_sndbuf(Tpcb), Hlen);
 		goto END;
@@ -454,27 +455,27 @@ static int Xbir_HttpSendResponse404 (struct tcp_pcb *Tpcb, u8 *HttpReq,
 
 	Error = tcp_write(Tpcb, Buffer, Hlen, TCP_WRITE_FLAG_COPY);
 	if (Error != ERR_OK) {
-		Xbir_Printf("ERROR: (%d) writing 404 http header\r\n", Error);
+		Xbir_Printf(DEBUG_INFO, " ERROR: (%d) writing 404 http header\r\n", Error);
 		goto END;
 	}
 
 	Error = tcp_write(Tpcb, Xbir_HttpNotFoundHdr,
 		strlen(Xbir_HttpNotFoundHdr), TCP_WRITE_FLAG_COPY);
 	if (Error != ERR_OK) {
-		Xbir_Printf("ERROR: (%d) writing not found header\r\n", Error);
+		Xbir_Printf(DEBUG_INFO, " ERROR: (%d) writing not found header\r\n", Error);
 		goto END;
 	}
 
 	Error = tcp_write(Tpcb, HttpReq, HttpReqLen, TCP_WRITE_FLAG_COPY);
 	if (Error != ERR_OK) {
-		Xbir_Printf("ERROR: (%d) writing org req\r\n", Error);
+		Xbir_Printf(DEBUG_INFO, " ERROR: (%d) writing org req\r\n", Error);
 		goto END;
 	}
 
 	Error = tcp_write(Tpcb, Xbir_HttpNotFoundFooter,
 		strlen(Xbir_HttpNotFoundFooter), TCP_WRITE_FLAG_COPY);
 	if (Error != ERR_OK) {
-		Xbir_Printf("ERROR: (%d) writing not found footer\r\n", Error);
+		Xbir_Printf(DEBUG_INFO, " ERROR: (%d) writing not found footer\r\n", Error);
 		goto END;
 	}
 
@@ -576,13 +577,13 @@ static int Xbir_HttpProcessGetFileReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	/* Check if specified file present in web server's FAT file system */
 	Result = f_open(&Fil, FileName, FA_READ);
 	if (Result) {
-		Xbir_Printf("Error: Requested file %s not found, returning 404\r\n",
+		Xbir_Printf(DEBUG_INFO, " Error: Requested file %s not found, returning 404\r\n",
 			   FileName);
 		Xbir_HttpSendResponse404(Tpcb, HttpReq, HttpReqLen);
 		goto END;
 	}
 
-	Xbir_Printf("\r\n HTTP GET: %s\r\n", FileName);
+	Xbir_Printf(DEBUG_INFO, " \r\n HTTP GET: %s\r\n", FileName);
 	FileExt = Xbir_UtilGetFileExt(FileName);
 	FileSize = f_size(&Fil);
 
@@ -591,11 +592,11 @@ static int Xbir_HttpProcessGetFileReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	Error = tcp_write(Tpcb, Buffer, HdrLen,
 		TCP_WRITE_FLAG_COPY | TCP_WRITE_FLAG_MORE);
 	if (Error != ERR_OK) {
-		Xbir_Printf("ERROR: (%d) writing http header to socket\r\n",
+		Xbir_Printf(DEBUG_INFO, " ERROR: (%d) writing http header to socket\r\n",
 				Error);
-		Xbir_Printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n",
+		Xbir_Printf(DEBUG_INFO, " attempted to write #bytes = %d, tcp_sndbuf = %d\r\n",
 			HdrLen, tcp_sndbuf(Tpcb));
-		Xbir_Printf("HTTP header = %s\r\n", Buffer);
+		Xbir_Printf(DEBUG_INFO, " HTTP header = %s\r\n", Buffer);
 		f_close(&Fil);
 		Xbir_HttpClose(Tpcb);
 		goto END;
@@ -620,10 +621,10 @@ static int Xbir_HttpProcessGetFileReq (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		Error = tcp_write(Tpcb, Buffer, DataReadLen,
 			TCP_WRITE_FLAG_COPY | TCP_WRITE_FLAG_MORE);
 		if (Error != ERR_OK) {
-			Xbir_Printf("Error: writing file (%s) to socket,"
+			Xbir_Printf(DEBUG_INFO, " Error: writing file (%s) to socket,"
 				"remaining unwritten bytes = %d\r\n",
 				FileName, FileSize - DataReadLen);
-			Xbir_Printf("Attempted to lwip_write %d bytes,"
+			Xbir_Printf(DEBUG_INFO, " Attempted to lwip_write %d bytes,"
 				" tcp write error = %d\r\n", DataReadLen, Error);
 			Xbir_HttpClose(Tpcb);
 			break;
@@ -691,7 +692,7 @@ static void Xbir_HttpExtractFileName(char *HttpReq, u16 HttpReqLen,
 		((End - Start) > FileNameSize)) {
 		*End = 0;
 		strcpy(FileName, "404.htm");
-		Xbir_Printf("ERROR: Request filename is too long, length = %d,"
+		Xbir_Printf(DEBUG_INFO, " ERROR: Request filename is too long, length = %d,"
 			"file = %s (truncated), max = %d\r\n",
 			(int)(End - Start), Start, FileNameSize);
 		goto END;

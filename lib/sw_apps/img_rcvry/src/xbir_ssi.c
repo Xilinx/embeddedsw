@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -216,7 +217,7 @@ int Xbir_SsiJsonBuildSysInfo (char *JsonStr, u16 JsonStrLen)
 		XBIR_SSI_JSON_OBJ_END,
 		XBIR_SSI_JSON_OBJ_END);
 	Status = XST_SUCCESS;
-	Xbir_Printf("\r\n[SysInfo] %s\r\n", JsonStr);
+	Xbir_Printf(DEBUG_INFO, " \r\n[SysInfo] %s\r\n", JsonStr);
 
 END:
 	return Status;
@@ -254,7 +255,7 @@ int Xbir_SsiJsonBuildBootImgStatus (char *JsonStr, u16 JsonStrLen)
 		1U /*JSON_OBJ_EN */ + 12U;
 
 	if (TotalLen > JsonStrLen) {
-		Xbir_Printf("ERROR: Invalid Len of Boot Image Status data\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Invalid Len of Boot Image Status data\r\n");
 		goto END;
 	}
 
@@ -284,7 +285,7 @@ int Xbir_SsiJsonBuildBootImgStatus (char *JsonStr, u16 JsonStrLen)
 		XBIR_SSI_JSON_OBJ_END);
 	Status = XST_SUCCESS;
 
-	Xbir_Printf("[BootImgInfo] %s\r\n", JsonStr);
+	Xbir_Printf(DEBUG_INFO, " [BootImgInfo] %s\r\n", JsonStr);
 
 END:
 	return Status;
@@ -321,7 +322,7 @@ int Xbir_SsiJsonBuildFlashEraseStatus(char *JsonStr, u16 JsonStrLen)
 		1U /*JSON_OBJ_EN */ + 12U;
 
 	if (TotalLen > JsonStrLen) {
-		Xbir_Printf("ERROR: Invalid Len of Boot Image Status data\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Invalid Len of Boot Image Status data\r\n");
 		goto END;
 	}
 
@@ -335,9 +336,9 @@ int Xbir_SsiJsonBuildFlashEraseStatus(char *JsonStr, u16 JsonStrLen)
 
 	if (FlashEraseStats->State == XBIR_FLASH_ERASE_REQUESTED) {
 		FlashEraseStats->State = XBIR_FLASH_ERASE_STARTED;
-		Xbir_Printf("FlashEraseStatus Progress: \n\r");
+		Xbir_Printf(DEBUG_INFO, " FlashEraseStatus Progress: \n\r");
 	}
-	Xbir_Printf("%3u %%\r", Progress);
+	Xbir_Printf(DEBUG_INFO, " %3u %%\r", Progress);
 
 	Status = XST_SUCCESS;
 
@@ -402,7 +403,7 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 			break;
 		}
 
-		Xbir_Printf("[%s = %s]\r\n", Name, Val);
+		Xbir_Printf(DEBUG_INFO, " [%s = %s]\r\n", Name, Val);
 		if (strcmp(Name, XBIR_SSI_JSON_IMG_A_BOOTABLE_NAME) == 0U) {
 			if (strcmp(Val, "true") == 0U) {
 				ImgABootable = 1U;
@@ -411,7 +412,7 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 				ImgABootable = 0U;
 			}
 			else {
-				Xbir_Printf("ERROR: Invalid value for ImageA Bootable (%s)\r\n", Val);
+				Xbir_Printf(DEBUG_INFO, " ERROR: Invalid value for ImageA Bootable (%s)\r\n", Val);
 				Status = XBIR_ERROR_JSON_IMG_A_BOOTABLE_VAL;
 				break;
 			}
@@ -424,7 +425,7 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 				ImgBBootable = 0U;
 			}
 			else {
-				Xbir_Printf("ERROR: Invalid value for ImageB Bootable (%s)\r\n", Val);
+				Xbir_Printf(DEBUG_INFO, " ERROR: Invalid value for ImageB Bootable (%s)\r\n", Val);
 				Status = XBIR_ERROR_JSON_IMG_B_BOOTABLE_VAL;
 				break;
 			}
@@ -437,7 +438,7 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 				ReqBootImg = 0x01U;
 			}
 			else {
-				Xbir_Printf("ERROR: Invalid Requested Image name (%s)\r\n", Val);
+				Xbir_Printf(DEBUG_INFO, " ERROR: Invalid Requested Image name (%s)\r\n", Val);
 				Status = XBIR_ERROR_JSON_REQ_IMG_NAME;
 				break;
 			}
@@ -450,14 +451,14 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 				Status = XST_SUCCESS;
 			}
 			else {
-				Xbir_Printf("Incomplete boot image cfg request\r\n");
+				Xbir_Printf(DEBUG_INFO, " Incomplete boot image cfg request\r\n");
 				Status = XBIR_ERROR_JSON_INCOMPLETE_IMG_CFG_REQ;
 			}
 			break;
 		}
 
 		if (Seperator != XBIR_SSI_JSON_OBJ_SEPERATOR) {
-			Xbir_Printf("ERROR: Invalid JSON OBJ Separator\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Invalid JSON OBJ Separator\r\n");
 			Status = XBIR_ERROR_JSON_OBJ_SEPARATOR;
 			break;
 		}
@@ -465,7 +466,7 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 	while (JsonStr != NULL);
 
 	if (XST_SUCCESS == Status) {
-		Xbir_Printf("Updating boot image status %d %d %d\r\n",
+		Xbir_Printf(DEBUG_INFO, " Updating boot image status %d %d %d\r\n",
 			ImgABootable, ImgBBootable, ReqBootImg);
 		Status = Xbir_SysUpdateBootImgStatus(ImgABootable, ImgBBootable,
 			ReqBootImg);
@@ -473,7 +474,7 @@ int Xbir_SsiJsonCfgBootImgStatus (char *JsonStr, u16 JsonStrLen)
 
 END:
 	if (XBIR_ERROR_INVALID_JSON_OBJ == Status) {
-		Xbir_Printf("ERROR: Invalid JSON format\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Invalid JSON format\r\n");
 	}
 	return Status;
 }
@@ -497,20 +498,20 @@ int Xbir_SsiUpdateImgA (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	int Status = XST_FAILURE;
 	const Xbir_SysPersistentState *BootImgStatus;
 
-	Xbir_Printf("\r\n[Image Update Request]\r\n");
+	Xbir_Printf(DEBUG_INFO, " \r\n[Image Update Request]\r\n");
 
 	BootImgStatus = Xbir_SysGetBootImgStatus();
 
-	Xbir_Printf("Making the boot img A non-bootable\r\n");
+	Xbir_Printf(DEBUG_INFO, " Making the boot img A non-bootable\r\n");
 	Status = Xbir_SysUpdateBootImgStatus(XBIR_SSI_IMG_NON_BOOTABLE,
 		BootImgStatus->ImgBBootable, BootImgStatus->RequestedBootImg);
 	if (XST_SUCCESS == Status) {
-		Xbir_Printf("Initiating Img A upload\r\n");
+		Xbir_Printf(DEBUG_INFO, " Initiating Img A upload\r\n");
 		Status = Xbir_SsiInitiateImgUpdate(Tpcb, HttpReq, HttpReqLen,
 			XBIR_SYS_BOOT_IMG_A_ID);
 	}
 	else {
-		Xbir_Printf("ERROR: Failed to make Img A non bootable\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Failed to make Img A non bootable\r\n");
 		Status = XBIR_ERROR_IMG_A_UPLOAD;
 	}
 
@@ -536,20 +537,20 @@ int Xbir_SsiUpdateImgB (struct tcp_pcb *Tpcb, u8 *HttpReq,
 	int Status = XST_FAILURE;
 	const Xbir_SysPersistentState *BootImgStatus;
 
-	Xbir_Printf("\r\n[Image Update Request]\r\n");
+	Xbir_Printf(DEBUG_INFO, " \r\n[Image Update Request]\r\n");
 
 	BootImgStatus = Xbir_SysGetBootImgStatus();
-	Xbir_Printf("Making the boot img B non-bootable\r\n");
+	Xbir_Printf(DEBUG_INFO, " Making the boot img B non-bootable\r\n");
 	Status = Xbir_SysUpdateBootImgStatus(BootImgStatus->ImgABootable,
 		XBIR_SSI_IMG_NON_BOOTABLE,
 		BootImgStatus->RequestedBootImg);
 	if (XST_SUCCESS == Status) {
-		Xbir_Printf("Initiating Img B upload\r\n");
+		Xbir_Printf(DEBUG_INFO, " Initiating Img B upload\r\n");
 		Status = Xbir_SsiInitiateImgUpdate(Tpcb, HttpReq, HttpReqLen,
 			XBIR_SYS_BOOT_IMG_B_ID);
 	}
 	else {
-		Xbir_Printf("ERROR: Failed to make Img B non bootable\r\n");
+		Xbir_Printf(DEBUG_INFO, " ERROR: Failed to make Img B non bootable\r\n");
 		Status = XBIR_ERROR_IMG_B_UPLOAD;
 	}
 	return Status;
@@ -572,8 +573,8 @@ int Xbir_SsiUpdateImgWIC (struct tcp_pcb *Tpcb, u8 *HttpReq, u16 HttpReqLen)
 {
 	int Status = XST_FAILURE;
 
-	Xbir_Printf("\r\n[Image Update Request]\r\n");
-	Xbir_Printf("Initiating Img WIC upload\r\n");
+	Xbir_Printf(DEBUG_INFO, " \r\n[Image Update Request]\r\n");
+	Xbir_Printf(DEBUG_INFO, " Initiating Img WIC upload\r\n");
 	Status = Xbir_SsiInitiateImgUpdate(Tpcb, HttpReq, HttpReqLen,
 		XBIR_SYS_BOOT_IMG_WIC);
 
@@ -628,9 +629,9 @@ int Xbir_SsiProcessAdditionalPayload (struct tcp_pcb *Tpcb, u8 *HttpReq,
 			ImgSizeInThisPkt = HttpReqLen - (u16)(ImgData - HttpReq);
 			ImgSize = HttpArg->Fsize;
 
-			Xbir_Printf("Starting img update\r\n");
+			Xbir_Printf(DEBUG_INFO, " Starting img update\r\n");
 
-			Xbir_Printf("Starting img upload to flash\r\n");
+			Xbir_Printf(DEBUG_INFO, " Starting img upload to flash\r\n");
 			Status = Xbir_SsiUpdateImg(Tpcb, ImgData, ImgSizeInThisPkt);
 			Xbir_SsiLastUploadSize = ImgSize;
 		}
@@ -695,20 +696,20 @@ u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen)
 		goto END;
 	}
 
-	Xbir_Printf("Validating CRC\r\n");
+	Xbir_Printf(DEBUG_INFO, " Validating CRC\r\n");
 	Status = Xbir_SysValidateCrc(Xbir_SsiLastImgUpload,
 		Xbir_SsiLastUploadSize, atol(Val));
 	if (XST_SUCCESS == Status) {
 		if (XBIR_SYS_BOOT_IMG_A_ID == Xbir_SsiLastImgUpload) {
 			BootImgStatus = Xbir_SysGetBootImgStatus();
-			Xbir_Printf("Making the boot image A requested image\r\n");
+			Xbir_Printf(DEBUG_INFO, " Making the boot image A requested image\r\n");
 			Status = Xbir_SysUpdateBootImgStatus(XBIR_SSI_IMG_BOOTABLE,
 				 BootImgStatus->ImgBBootable,
 				 XBIR_SYS_BOOT_IMG_A_ID);
 		}
 		else if (XBIR_SYS_BOOT_IMG_B_ID == Xbir_SsiLastImgUpload) {
 			BootImgStatus = Xbir_SysGetBootImgStatus();
-			Xbir_Printf("Making the boot image B requested image\r\n");
+			Xbir_Printf(DEBUG_INFO, " Making the boot image B requested image\r\n");
 			Status = Xbir_SysUpdateBootImgStatus(BootImgStatus->ImgABootable,
 				 XBIR_SSI_IMG_BOOTABLE,
 				 XBIR_SYS_BOOT_IMG_B_ID);
@@ -717,12 +718,12 @@ u32 Xbir_SsiValidateLastUpdate (char *JsonStr, u16 JsonStrLen)
 			Status = XST_SUCCESS;
 		}
 		else {
-			Xbir_Printf("ERROR: Invalid img verification request\r\n");
+			Xbir_Printf(DEBUG_INFO, " ERROR: Invalid img verification request\r\n");
 			goto END;
 		}
 
 		if (Status == XST_SUCCESS) {
-			Xbir_Printf("Download Complete....\r\n");
+			Xbir_Printf(DEBUG_INFO, " Download Complete....\r\n");
 		}
 	}
 
@@ -977,7 +978,7 @@ int Xbir_SsiFindImgInHttpReq(Xbir_HttpArg *HttpArg, u8 *HttpReq,
 					(u64)(Line - FileInfo) - 2U -
 					HttpArg->BoundaryLen - 5U;
 				*ImgData = (u8 *)Line + 2U;
-				Xbir_Printf ("Size of Image to be downloaded = %u\r\n",
+				Xbir_Printf(DEBUG_INFO, " Size of Image to be downloaded = %u\r\n",
 					HttpArg->Fsize);
 				Status = XST_SUCCESS;
 			}
@@ -1049,7 +1050,7 @@ static int Xbir_SsiUpdateImg (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		Status = Xbir_HttpSendResponseJson(Tpcb, HttpReq, HttpReqLen,
 				XBIR_SSI_JSON_SUCCESS_RESPONSE,
 				strlen(XBIR_SSI_JSON_SUCCESS_RESPONSE));
-		Xbir_Printf("Img upload to flash complete\r\n");
+		Xbir_Printf(DEBUG_INFO, " Img upload to flash complete\r\n");
 	}
 	else {
 		Status = XST_SUCCESS;
@@ -1108,7 +1109,7 @@ static int Xbir_SsiInitiateImgUpdate (struct tcp_pcb *Tpcb, u8 *HttpReq,
 		Xbir_SsiLastImgUpload = BootImgId;
 		ImgSizeInThisPkt = HttpReqLen - (u16)(ImgData - HttpReq);
 		ImgSize = HttpArg->Fsize;
-		Xbir_Printf("Starting image update\r\n");
+		Xbir_Printf(DEBUG_INFO, " Starting image update\r\n");
 		Status = Xbir_SsiUpdateImg (Tpcb, ImgData, ImgSizeInThisPkt);
 		Xbir_SsiLastUploadSize = ImgSize;
 	}
