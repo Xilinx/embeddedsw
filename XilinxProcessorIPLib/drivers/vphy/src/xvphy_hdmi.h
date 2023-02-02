@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -149,6 +150,7 @@ void XVphy_ClkDetEnable(XVphy *InstancePtr, u8 Enable);
 void XVphy_ClkDetTimerClear(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir);
 void XVphy_ClkDetSetFreqLockThreshold(XVphy *InstancePtr, u16 ThresholdVal);
+void XVphy_ClkDetAccuracyRange(XVphy *InstancePtr, u16 ThresholdVal);
 u8 XVphy_ClkDetCheckFreqZero(XVphy *InstancePtr, XVphy_DirectionType Dir);
 void XVphy_ClkDetSetFreqTimeout(XVphy *InstancePtr, u32 TimeoutVal);
 void XVphy_ClkDetTimerLoad(XVphy *InstancePtr, u8 QuadId,

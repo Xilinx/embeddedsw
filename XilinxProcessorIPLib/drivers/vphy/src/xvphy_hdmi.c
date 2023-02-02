@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -65,6 +66,7 @@
  * 1.9   gm   14/05/18 Added TX and RX MMCM lock event logging
  *                     Removed deprecated XVphy_HdmiInitialize API
  * 1.10  ssh  13/10/22 Added support for 400 MHz DRU clock for GTHE4
+ * 1.11  ssh  02/02/23 Added API for Clock Detector Accuracy Range
  *
  * </pre>
  *
@@ -196,6 +198,7 @@ u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
 	XVphy_ClkDetSetFreqTimeout(InstancePtr,
                 InstancePtr->Config.AxiLiteClkFreq);
 	XVphy_ClkDetSetFreqLockThreshold(InstancePtr, 40);
+	XVphy_ClkDetAccuracyRange(InstancePtr, 8);
 
 	/* Start capturing logs. */
 	XVphy_LogReset(InstancePtr);
@@ -643,6 +646,36 @@ void XVphy_ClkDetSetFreqLockThreshold(XVphy *InstancePtr, u16 ThresholdVal)
 
 	/* Update with new threshold. */
 	RegVal |= (ThresholdVal << XVPHY_CLKDET_CTRL_FREQ_LOCK_THRESH_SHIFT);
+
+	/* Write new value to clkdet ctrl register. */
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_CLKDET_CTRL_REG,
+			RegVal);
+}
+
+/*****************************************************************************/
+/**
+* This function sets the clock detector accuracy range value.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	ThresholdVal is the threshold value to be set.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_ClkDetAccuracyRange(XVphy *InstancePtr, u16 ThresholdVal)
+{
+	u32 RegVal;
+
+	/* Read clkdet ctrl register. */
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+			XVPHY_CLKDET_CTRL_REG);
+
+	RegVal &= ~XVPHY_CLKDET_CTRL_ACC_RANGE_MASK;
+
+	/* Update with new threshold. */
+	RegVal |= (ThresholdVal << XVPHY_CLKDET_CTRL_ACC_RANGE_SHIFT);
 
 	/* Write new value to clkdet ctrl register. */
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_CLKDET_CTRL_REG,
