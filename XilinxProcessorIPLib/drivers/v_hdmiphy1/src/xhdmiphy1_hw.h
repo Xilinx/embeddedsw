@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -609,6 +610,8 @@ extern "C" {
 #define XHDMIPHY1_CLKDET_CTRL_RX_FREQ_RST_MASK       0x10
 #define XHDMIPHY1_CLKDET_CTRL_FREQ_LOCK_THRESH_MASK      0x1FE0
 #define XHDMIPHY1_CLKDET_CTRL_FREQ_LOCK_THRESH_SHIFT 5
+#define XHDMIPHY1_CLKDET_CTRL_ACCURACY_RANGE_MASK      0x1E000
+#define XHDMIPHY1_CLKDET_CTRL_ACCURACY_RANGE_SHIFT 13
 /* 0x204: CLKDET_STAT */
 #define XHDMIPHY1_CLKDET_STAT_TX_FREQ_ZERO_MASK      0x1
 #define XHDMIPHY1_CLKDET_STAT_RX_FREQ_ZERO_MASK      0x2

@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -220,6 +221,8 @@ void XHdmiphy1_ClkDetTimerClear(XHdmiphy1 *InstancePtr, u8 QuadId,
         XHdmiphy1_DirectionType Dir);
 void XHdmiphy1_ClkDetSetFreqLockThreshold(XHdmiphy1 *InstancePtr,
         u16 ThresholdVal);
+void XHdmiphy1_ClkDetAccuracyRange(XHdmiphy1 *InstancePtr,
+                u16 ThresholdVal);
 u8 XHdmiphy1_ClkDetCheckFreqZero(XHdmiphy1 *InstancePtr,
         XHdmiphy1_DirectionType Dir);
 void XHdmiphy1_ClkDetSetFreqTimeout(XHdmiphy1 *InstancePtr, u32 TimeoutVal);

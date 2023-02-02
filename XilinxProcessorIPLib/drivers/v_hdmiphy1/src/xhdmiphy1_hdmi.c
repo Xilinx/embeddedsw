@@ -1,5 +1,6 @@
 /*******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -22,6 +23,7 @@
  * 1.0   gm   10/12/18 Initial release.
  * 1.1   ku   24/07/20 Program MMCM params based on max line rate
  *                     configured in IP GUI
+ * 1.2   ssh  02/02/23 Added API for Clock Detector Accuracy Range
  * </pre>
  *
 *******************************************************************************/
@@ -166,6 +168,7 @@ u32 XHdmiphy1_Hdmi_CfgInitialize(XHdmiphy1 *InstancePtr, u8 QuadId,
 	XHdmiphy1_ClkDetSetFreqTimeout(InstancePtr,
                 InstancePtr->Config.AxiLiteClkFreq);
 	XHdmiphy1_ClkDetSetFreqLockThreshold(InstancePtr, 40);
+	XHdmiphy1_ClkDetAccuracyRange(InstancePtr, 8);
 
 	/* Start capturing logs. */
 	XHdmiphy1_LogReset(InstancePtr);
@@ -610,6 +613,35 @@ void XHdmiphy1_ClkDetSetFreqLockThreshold(XHdmiphy1 *InstancePtr,
 
 /*****************************************************************************/
 /**
+* This function sets the clock detector accuracy range value.
+*
+* @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
+* @param	ThresholdVal is the threshold value to be set.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XHdmiphy1_ClkDetAccuracyRange(XHdmiphy1 *InstancePtr,
+        u16 ThresholdVal)
+{
+	u32 RegVal;
+
+	/* Read clkdet ctrl register. */
+	RegVal = XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr,
+			XHDMIPHY1_CLKDET_CTRL_REG);
+	RegVal &= ~XHDMIPHY1_CLKDET_CTRL_ACCURACY_RANGE_MASK;
+
+	/* Update with new threshold. */
+	RegVal |= (ThresholdVal << XHDMIPHY1_CLKDET_CTRL_ACCURACY_RANGE_SHIFT);
+
+	/* Write new value to clkdet ctrl register. */
+	XHdmiphy1_WriteReg(InstancePtr->Config.BaseAddr, XHDMIPHY1_CLKDET_CTRL_REG,
+			RegVal);
+}
+/*****************************************************************************/
+/**
 * This function checks clock detector RX/TX frequency zero indicator bit.
 *
 * @param	InstancePtr is a pointer to the XHdmiphy1 core instance.
@@ -715,10 +747,28 @@ u32 XHdmiphy1_ClkDetGetRefClkFreqHz(XHdmiphy1 *InstancePtr,
 	u32 RegOffset;
 
 	if (Dir == XHDMIPHY1_DIR_TX) {
-		RegOffset = XHDMIPHY1_CLKDET_FREQ_TX_REG;
+		if (InstancePtr->TxHdmi21Cfg.IsEnabled == 1) {
+			if (InstancePtr->Config.TxFrlRefClkSel ==
+					InstancePtr->Config.DruRefClkSel) {
+				RegOffset = XHDMIPHY1_CLKDET_FREQ_DRU_REG;
+			} else {
+				RegOffset = XHDMIPHY1_CLKDET_FREQ_TX_REG;
+			}
+		} else {
+			RegOffset = XHDMIPHY1_CLKDET_FREQ_TX_REG;
+		}
 	}
 	else {
-		RegOffset = XHDMIPHY1_CLKDET_FREQ_RX_REG;
+		if (InstancePtr->RxHdmi21Cfg.IsEnabled == 1) {
+			if (InstancePtr->Config.RxFrlRefClkSel ==
+					InstancePtr->Config.DruRefClkSel) {
+				RegOffset = XHDMIPHY1_CLKDET_FREQ_DRU_REG;
+			} else {
+				RegOffset = XHDMIPHY1_CLKDET_FREQ_RX_REG;
+			}
+		} else {
+			RegOffset = XHDMIPHY1_CLKDET_FREQ_RX_REG;
+		}
 	}
 
 	return XHdmiphy1_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
