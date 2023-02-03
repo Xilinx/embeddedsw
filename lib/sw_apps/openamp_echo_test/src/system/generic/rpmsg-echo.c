@@ -2,10 +2,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/* This is a sample demonstration application that showcases usage of rpmsg
-This application is meant to run on the remote CPU running baremetal code.
-This application echoes back data that was sent to it by the master core.
-
+/*
+ * This is a sample demonstration application that showcases usage of rpmsg
+ * This application is meant to run on the remote CPU running baremetal code.
+ * This application echoes back data that was sent to it by the host core.
+ */
+/*
 In addition this application supports multiple endpoints. If the
 macro ECHO_NUM_EPTS is set to a number >1, then this application
 echoes back via one of N endpoints that correspond 1:1 with endpoints
@@ -38,14 +40,15 @@ Note that in the case of multiple endpoints, the 0th endpoint has the
 original name of "rpmsg-openamp-demo-channel".
 */
 
+#include <stdio.h>
 #include "xil_printf.h"
 #include <openamp/open_amp.h>
 #include <openamp/version.h>
 #include <metal/alloc.h>
+#include <metal/log.h>
 #include <metal/version.h>
 #include "platform_info.h"
 #include "rpmsg-echo.h"
-#include <stdio.h>
 
 #define SHUTDOWN_MSG	0xEF56A55A
 
@@ -80,7 +83,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 		return RPMSG_SUCCESS;
 	}
 
-	/* Send data back to master */
+	/* Send data back to host */
 	if (rpmsg_send(ept, data, len) < 0) {
 		ML_ERR("rpmsg_send failed\r\n");
 	}
@@ -167,7 +170,7 @@ int main(int argc, char *argv[])
 		ret = -1;
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
-						   VIRTIO_DEV_SLAVE,
+						   VIRTIO_DEV_DEVICE,
 						   NULL, NULL);
 		if (!rpdev) {
 			ML_ERR("Failed to create rpmsg virtio device.\r\n");

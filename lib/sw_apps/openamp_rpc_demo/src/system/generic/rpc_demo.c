@@ -2,9 +2,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/* This is a sample demonstration application that showcases usage of proxy from the remote core.
- This application is meant to run on the remote CPU running baremetal.
- This application can print to the master console and perform file I/O using proxy mechanism. */
+/*
+ * This sample code demonstrates how to use file system of host processor
+ * using proxy mechanism. Proxy service is implemented on host processor.
+ * This application can print to the host console, take input from host console
+ * and perform regular file I/O such as open, read, write and close.
+ */
 
 #include <stdio.h>
 #include <string.h>
@@ -67,10 +70,10 @@ int app(struct rpmsg_device *rdev, void *priv)
 
 	printf("\nRemote>Rpmsg based retargetting to proxy initialized..\r\n");
 
-	/* Remote performing file IO on Master */
+	/* Remote performing file IO on Host */
 	printf("\nRemote>FileIO demo ..\r\n");
 
-	printf("\nRemote>Creating a file on master and writing to it..\r\n");
+	printf("\nRemote>Creating a file on host and writing to it..\r\n");
 	fd = open(fname, REDEF_O_CREAT | REDEF_O_WRONLY | REDEF_O_APPEND,
 		  S_IRUSR | S_IWUSR);
 	printf("\nRemote>Opened file '%s' with fd = %d\r\n", fname, fd);
@@ -82,8 +85,8 @@ int app(struct rpmsg_device *rdev, void *priv)
 	close(fd);
 	printf("\nRemote>Closed fd = %d\r\n", fd);
 
-	/* Remote performing file IO on Master */
-	printf("\nRemote>Reading a file on master and displaying its contents..\r\n");
+	/* Remote performing file IO on Host */
+	printf("\nRemote>Reading a file on host and displaying its contents..\r\n");
 	fd = open(fname, REDEF_O_RDONLY, S_IRUSR | S_IWUSR);
 	printf("\nRemote>Opened file '%s' with fd = %d\r\n", fname, fd);
 	bytes_read = read(fd, rbuff, 1024);
@@ -94,9 +97,9 @@ int app(struct rpmsg_device *rdev, void *priv)
 	printf("\nRemote>Closed fd = %d\r\n", fd);
 
 	while (1) {
-		/* Remote performing STDIO on Master */
+		/* Remote performing STDIO on Host */
 		printf("\nRemote>Remote firmware using scanf and printf ..\r\n");
-		printf("\nRemote>Scanning user input from master..\r\n");
+		printf("\nRemote>Scanning user input from host..\r\n");
 		printf("\nRemote>Enter name\r\n");
 		ret = scanf("%s", ubuff);
 		if (ret) {
@@ -154,7 +157,7 @@ int main(int argc, char *argv[])
 		ret = -1;
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
-						   VIRTIO_DEV_SLAVE,
+						   VIRTIO_DEV_DEVICE,
 						   NULL, NULL);
 		if (!rpdev) {
 			LPERROR("Failed to create rpmsg virtio device.\r\n");

@@ -2,10 +2,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/* This is a sample demonstration application that showcases usage of rpmsg
-This application is meant to run on the remote CPU running baremetal code.
-This application echoes back data that was sent to it by the master core.
-
+/*
+ * This is a sample demonstration application that showcases usage of rpmsg
+ * This application is meant to run on the remote CPU running baremetal code.
+ * This application echoes back data that was sent to it by the host core.
+ */
+/*
 In addition this application supports multiple endpoints. If the
 macro ECHO_NUM_EPTS is set to a number >1, then this application
 echoes back via one of N endpoints that correspond 1:1 with endpoints
@@ -38,12 +40,15 @@ Note that in the case of multiple endpoints, the 0th endpoint has the
 original name of "rpmsg-openamp-demo-channel".
 */
 
+#include <stdio.h>
 #include "xil_printf.h"
 #include <openamp/open_amp.h>
+#include <openamp/version.h>
 #include <metal/alloc.h>
+#include <metal/log.h>
+#include <metal/version.h>
 #include "platform_info.h"
 #include "rpmsg-echo.h"
-#include <stdio.h>
 #include "FreeRTOS.h"
 #include "task.h"
 
@@ -70,7 +75,7 @@ static TaskHandle_t comm_task;
  *  RPMSG endpoint callbacks
  *-----------------------------------------------------------------------------*/
 static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
-				 uint32_t src, void *priv)
+			     uint32_t src, void *priv)
 {
 	(void)priv;
 	(void)src;
@@ -82,7 +87,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 		return RPMSG_SUCCESS;
 	}
 
-	/* Send data back to master */
+	/* Send data back to host */
 	if (rpmsg_send(ept, data, len) < 0) {
 		ML_ERR("rpmsg_send failed\r\n");
 	}
@@ -135,14 +140,14 @@ int app(struct rpmsg_device *rdev, void *priv)
 	}
 	ML_DBG("out of platform_poll loop\r\n");
 
-	for (i = 0; i < ECHO_NUM_EPTS; i++)
+	for (i = 0; i < ECHO_NUM_EPTS; i++) {
 		/*
 		 * Ensure that kernel does not destroy endpoint twice
 		 * by disabling NS announcement. Kernel will handle it.
 		 */
 		(&lept[i])->rdev->support_ns = 0;
 		rpmsg_destroy_ept(&lept[i]);
-
+	}
 	return 0;
 }
 
@@ -155,13 +160,24 @@ static void processing(void *unused_arg)
 	struct rpmsg_device *rpdev;
 
 	/* can't use ML_INFO, metal_log setup is in init_system */
+	LPRINTF("openamp lib version: %s (", openamp_version());
+	LPRINTF("Major: %d, ", openamp_version_major());
+	LPRINTF("Minor: %d, ", openamp_version_minor());
+	LPRINTF("Patch: %d)\r\n", openamp_version_patch());
+
+	LPRINTF("libmetal lib version: %s (", metal_ver());
+	LPRINTF("Major: %d, ", metal_ver_major());
+	LPRINTF("Minor: %d, ", metal_ver_minor());
+	LPRINTF("Patch: %d)\r\n", metal_ver_patch());
+
 	LPRINTF("Starting application...\r\n");
+
 	/* Initialize platform */
 	if (platform_init(0, NULL, &platform)) {
 		LPERROR("Failed to initialize platform.\r\n");
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
-						   VIRTIO_DEV_SLAVE,
+						   VIRTIO_DEV_DEVICE,
 						   NULL, NULL);
 		if (!rpdev){
 			ML_ERR("Failed to create rpmsg virtio device.\r\n");

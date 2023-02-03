@@ -2,10 +2,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/* This is a sample demonstration application that showcases usage of remoteproc
-and rpmsg APIs on the remote core. This application is meant to run on the remote CPU
-running baremetal code. This applicationr receives two matrices from the master,
-multiplies them and returns the result to the master core. */
+/*
+ * This is a sample demonstration application that showcases usage of remoteproc
+ * and rpmsg APIs on the remote core. This application is meant to run on the remote CPU
+ * running baremetal code. This applicationr receives two matrices from the host,
+ * multiplies them and returns the result to the host core.
+ */
 
 #include "xil_printf.h"
 #include "openamp/open_amp.h"
@@ -47,7 +49,8 @@ static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r)
 	for (i = 0; i < m->size; ++i) {
 		for (j = 0; j < n->size; ++j) {
 			for (k = 0; k < r->size; ++k) {
-				r->elements[i][j] += m->elements[i][k] * n->elements[k][j];
+				r->elements[i][j] +=
+					m->elements[i][k] * n->elements[k][j];
 			}
 		}
 	}
@@ -57,7 +60,7 @@ static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r)
  *  RPMSG callbacks setup by remoteproc_resource_init()
  *-----------------------------------------------------------------------------*/
 static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
-				 uint32_t src, void *priv)
+			     uint32_t src, void *priv)
 {
 	matrix matrix_array[NUM_MATRIX];
 	matrix matrix_result;
@@ -75,7 +78,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	/* Process received data and multiple matrices. */
 	Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
 
-	/* Send the result of matrix multiplication back to master. */
+	/* Send the result of matrix multiplication back to host. */
 	if (rpmsg_send(ept, &matrix_result, sizeof(matrix)) < 0) {
 		ML_ERR("rpmsg_send failed\r\n");
 	}
@@ -97,9 +100,9 @@ int app(struct rpmsg_device *rdev, void *priv)
 	int ret;
 
 	ret = rpmsg_create_ept(&lept, rdev, RPMSG_SERVICE_NAME,
-				   RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
-				   rpmsg_endpoint_cb,
-				   rpmsg_service_unbind);
+			       RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
+			       rpmsg_endpoint_cb,
+			       rpmsg_service_unbind);
 	if (ret) {
 		ML_ERR("Failed to create endpoint.\r\n");
 		return -1;
@@ -137,7 +140,7 @@ static void processing(void *unused_arg)
 		LPERROR("Failed to initialize platform.\r\n");
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
-						   VIRTIO_DEV_SLAVE,
+						   VIRTIO_DEV_DEVICE,
 						   NULL, NULL);
 		if (!rpdev){
 			ML_ERR("Failed to create rpmsg virtio device.\r\n");

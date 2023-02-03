@@ -6,8 +6,10 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/* This file populates resource table for BM remote
- * for use by the Linux Master */
+/*
+ * This file populates resource table for BM remote
+ * for use by the Linux host
+ */
 
 #include <openamp/open_amp.h>
 #include "rsc_table.h"
@@ -16,18 +18,19 @@
 #define __section_t(S)          __attribute__((__section__(#S)))
 #define __resource              __section_t(.resource_table)
 
-#define RPMSG_IPU_C0_FEATURES        1
+#define RPMSG_VDEV_DFEATURES        (1 << VIRTIO_RPMSG_F_NS)
 
 /* VirtIO rpmsg device id */
 #define VIRTIO_ID_RPMSG_             7
 
-/* Remote supports Name Service announcement */
-#define VIRTIO_RPMSG_F_NS           0
-
 #define NUM_VRINGS                  0x02
 #define VRING_ALIGN                 0x1000
+#ifndef RING_TX
 #define RING_TX                     FW_RSC_U32_ADDR_ANY
+#endif /* !RING_TX */
+#ifndef RING_RX
 #define RING_RX                     FW_RSC_U32_ADDR_ANY
+#endif /* RING_RX */
 #define VRING_SIZE                  256
 
 #define NUM_TABLE_ENTRIES           2
@@ -48,7 +51,7 @@ struct remote_resource_table __resource resources = {
 		.type =		RSC_VDEV,
 		.id =		VIRTIO_ID_RPMSG_,
 		.notifyid =	0,
-		.dfeatures =	RPMSG_IPU_C0_FEATURES,
+		.dfeatures =	RPMSG_VDEV_DFEATURES,
 		.gfeatures =	0,
 		.config_len =	0,
 		.status =	0,

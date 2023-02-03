@@ -7,8 +7,10 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/* This file populates resource table for BM remote
- * for use by the Linux Master */
+/*
+ * This file populates resource table for BM remote
+ * for use by the Linux host
+ */
 
 #ifndef RSC_TABLE_H_
 #define RSC_TABLE_H_

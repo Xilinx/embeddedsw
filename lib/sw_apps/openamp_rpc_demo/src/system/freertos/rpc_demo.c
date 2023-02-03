@@ -2,11 +2,15 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/* This is a sample demonstration application that showcases usage of proxy from the remote core.
- This application is meant to run on the remote CPU running baremetal.
- This application can print to the master console and perform file I/O using proxy mechanism. */
+/*
+ * This sample code demonstrates how to use file system of host processor
+ * using proxy mechanism. Proxy service is implemented on host processor.
+ * This application can print to the host console, take input from host console
+ * and perform regular file I/O such as open, read, write and close.
+ */
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -28,9 +32,6 @@
 #define REDEF_O_APPEND  0002000
 #define REDEF_O_ACCMODE 0000003
 
-#define RPC_CHANNEL_READY_TO_CLOSE "rpc_channel_ready_to_close"
-
-/* xil_printf goes directly to serial port */
 #define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
 #define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
 
@@ -41,7 +42,6 @@ static void rpmsg_rpc_shutdown(struct rpmsg_rpc_data *rpc)
 	(void)rpc;
 	LPRINTF("RPMSG RPC is shutting down.\r\n");
 }
-
 
 /*-----------------------------------------------------------------------------*
  *  Application specific
@@ -62,8 +62,8 @@ int app(struct rpmsg_device *rdev, void *priv)
 	/* redirect I/Os */
 	LPRINTF("Initializating I/Os redirection...\r\n");
 	ret = rpmsg_rpc_init(&rpc, rdev, RPMSG_SERVICE_NAME,
-				 RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
-				 priv, platform_poll, rpmsg_rpc_shutdown);
+			     RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
+			     priv, platform_poll, rpmsg_rpc_shutdown);
 	rpmsg_set_default_rpc(&rpc);
 	if (ret) {
 		LPRINTF("Failed to initialize rpmsg rpc\r\n");
@@ -75,10 +75,10 @@ int app(struct rpmsg_device *rdev, void *priv)
 
 	printf("\nRemote>Rpmsg based retargetting to proxy initialized..\r\n");
 
-	/* Remote performing file IO on Master */
+	/* Remote performing file IO on Host */
 	printf("\nRemote>FileIO demo ..\r\n");
 
-	printf("\nRemote>Creating a file on master and writing to it..\r\n");
+	printf("\nRemote>Creating a file on host and writing to it..\r\n");
 	fd = open(fname, REDEF_O_CREAT | REDEF_O_WRONLY | REDEF_O_APPEND,
 		  S_IRUSR | S_IWUSR);
 	printf("\nRemote>Opened file '%s' with fd = %d\r\n", fname, fd);
@@ -86,12 +86,12 @@ int app(struct rpmsg_device *rdev, void *priv)
 	sprintf(wbuff, "This is a test string being written to file..");
 	bytes_written = write(fd, wbuff, strlen(wbuff));
 	printf("\nRemote>Wrote to fd = %d, size = %d, content = %s\r\n", fd,
-		   bytes_written, wbuff);
+	       bytes_written, wbuff);
 	close(fd);
 	printf("\nRemote>Closed fd = %d\r\n", fd);
 
-	/* Remote performing file IO on Master */
-	printf("\nRemote>Reading a file on master and displaying its contents..\r\n");
+	/* Remote performing file IO on Host */
+	printf("\nRemote>Reading a file on host and displaying its contents..\r\n");
 	fd = open(fname, REDEF_O_RDONLY, S_IRUSR | S_IWUSR);
 	printf("\nRemote>Opened file '%s' with fd = %d\r\n", fname, fd);
 	bytes_read = read(fd, rbuff, 1024);
@@ -102,9 +102,9 @@ int app(struct rpmsg_device *rdev, void *priv)
 	printf("\nRemote>Closed fd = %d\r\n", fd);
 
 	while (1) {
-		/* Remote performing STDIO on Master */
+		/* Remote performing STDIO on Host */
 		printf("\nRemote>Remote firmware using scanf and printf ..\r\n");
-		printf("\nRemote>Scanning user input from master..\r\n");
+		printf("\nRemote>Scanning user input from host..\r\n");
 		printf("\nRemote>Enter name\r\n");
 		ret = scanf("%s", ubuff);
 		if (ret) {
@@ -153,14 +153,15 @@ static void processing(void *unused_arg)
 	struct rpmsg_device *rpdev;
 
 	LPRINTF("Starting application...\r\n");
+
 	/* Initialize platform */
 	if (platform_init(NULL, NULL, &platform)) {
 		LPERROR("Failed to initialize platform.\r\n");
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
-						   VIRTIO_DEV_SLAVE,
+						   VIRTIO_DEV_DEVICE,
 						   NULL, NULL);
-		if (!rpdev){
+		if (!rpdev) {
 			LPERROR("Failed to create rpmsg virtio device.\r\n");
 		} else {
 			app(rpdev, platform);
