@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -2023,7 +2024,7 @@ XStatus XPmPin_SetPinFunction(u32 PinId, u32 FuncId)
 		goto done;
 	}
 
-	PinBaseAddr = (Pin->Node.BaseAddress + (PINNUM(Pin->Node.Id) * 4U));
+	PinBaseAddr = (Pin->Node.BaseAddress + (ABS_PINNUM(Pin->Node.Id, Pin->Bank) * 4U));
 	if ((u32)XPM_NODETYPE_LPD_MIO == NODETYPE(PinId)) {
 		PmOut32(PinBaseAddr, PinFunc->LmioRegMask);
 	} else if ((u32)XPM_NODETYPE_PMC_MIO == NODETYPE(PinId)) {

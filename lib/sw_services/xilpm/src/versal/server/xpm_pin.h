@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@ extern "C" {
 #define PINS_PER_BANK			(26U)
 #define BNK_OFFSET			(0x200U)
 #define PINNUM(Id)	   		((NODEINDEX(Id) - (u32)XPM_NODEIDX_STMIC_LMIO_0) % PINS_PER_BANK)
+#define ABS_PINNUM(Id, Bank)	 	(PINNUM(Id) + ((Bank) * PINS_PER_BANK))
 #define SEL_SLEW			(0x00000120U)
 #define EN_WK_PD			(0x00000110U)
 #define EN_WK_PU			(0x00000114U)
