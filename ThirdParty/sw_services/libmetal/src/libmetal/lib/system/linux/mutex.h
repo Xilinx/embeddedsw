@@ -31,7 +31,7 @@ typedef struct {
 } metal_mutex_t;
 
 /*
- * METAL_MUTEX_INIT - used for initializing an mutex elmenet in a static struct
+ * METAL_MUTEX_INIT - used for initializing an mutex element in a static struct
  * or global
  */
 #define METAL_MUTEX_INIT(m) { ATOMIC_VAR_INIT(0) }

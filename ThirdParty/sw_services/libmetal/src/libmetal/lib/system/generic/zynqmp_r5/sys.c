@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2016 - 2019, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (C) 2022, Advanced Micro Devices, Inc.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -66,7 +67,9 @@ void metal_weak metal_generic_default_poll(void)
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 			       size_t size, unsigned int flags)
 {
-	void* __attribute__((unused)) physaddr = Xil_MemMap(pa, size, flags);
+	void *__attribute__((unused)) physaddr;
+
+	physaddr = Xil_MemMap(pa, size, flags);
 	metal_assert(physaddr == (void *)pa);
 	return va;
 }

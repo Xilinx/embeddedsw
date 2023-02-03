@@ -65,7 +65,7 @@ if (WITH_DEFAULT_LOGGER)
   add_definitions (-DDEFAULT_LOGGER_ON)
 endif (WITH_DEFAULT_LOGGER)
 
-get_property (_ec_flags GLOBAL PROPERTY "PROJECT_EC_FLAGS")
+get_property (_ec_flgs GLOBAL PROPERTY "PROJECT_EC_FLAGS")
 
 if (WITH_ZEPHYR)
   zephyr_library_named(metal)
@@ -79,7 +79,7 @@ else (WITH_ZEPHYR)
     add_library (${_lib} SHARED ${_sources})
     target_link_libraries (${_lib} ${_deps})
     install (TARGETS ${_lib} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-    target_compile_options (${_lib} PUBLIC ${_ec_flags})
+    target_compile_options (${_lib} PUBLIC ${_ec_flgs})
     set_target_properties (${_lib} PROPERTIES
       OUTPUT_NAME       "${PROJECT_NAME}"
       VERSION           "${PROJECT_VERSION}"
@@ -92,7 +92,7 @@ else (WITH_ZEPHYR)
     set (_lib ${PROJECT_NAME}-static)
     add_library (${_lib} STATIC ${_sources})
     install (TARGETS ${_lib} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
-    target_compile_options (${_lib} PUBLIC ${_ec_flags})
+    target_compile_options (${_lib} PUBLIC ${_ec_flgs})
     set_target_properties (${_lib} PROPERTIES
       OUTPUT_NAME       "${PROJECT_NAME}"
     )

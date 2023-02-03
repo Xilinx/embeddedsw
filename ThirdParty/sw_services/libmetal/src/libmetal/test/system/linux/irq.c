@@ -5,7 +5,7 @@
  */
 
 #include <stdlib.h>
-#include <errno.h>
+#include <metal/errno.h>
 #include <sys/eventfd.h>
 
 /* We need to find the internal MAX_IRQS limit */

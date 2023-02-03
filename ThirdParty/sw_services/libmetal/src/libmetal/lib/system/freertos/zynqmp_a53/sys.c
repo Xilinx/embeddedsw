@@ -77,7 +77,7 @@ void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 	if (!flags)
 		return va;
 
-	/* Ensure alignement on a section boundary */
+	/* Ensure alignment on a section boundary */
 	pa &= ~(ttb_size-1UL);
 
 	/*

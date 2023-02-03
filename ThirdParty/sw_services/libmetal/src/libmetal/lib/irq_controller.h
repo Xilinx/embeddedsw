@@ -69,7 +69,7 @@ struct metal_irq_controller {
 		 	*/
 	int irq_num; /**< Number of IRQs managed by the IRQ controller */
 	void *arg; /**< Argument to pass to interrupt controller function */
-	metal_irq_set_enable irq_set_enable; /**< function to set IRQ eanble */
+	metal_irq_set_enable irq_set_enable; /**< function to set IRQ enable */
 	metal_cntr_irq_register irq_register; /**< function to register IRQ
 						* handler
 						*/

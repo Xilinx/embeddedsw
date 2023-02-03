@@ -5,6 +5,8 @@
 *.map
 *.out
 *.log
+*.swp
+*.swo
 *.d
 build*/
 

@@ -7,8 +7,7 @@ if (WITH_ZEPHYR)
   if (NOT WITH_ZEPHYR_LIB)
     include($ENV{ZEPHYR_BASE}/cmake/app/boilerplate.cmake NO_POLICY_SCOPE)
   endif()
-  if (CONFIG_ARM)
-    set (MACHINE "arm" CACHE STRING "")
-  endif(CONFIG_ARM)
+  # map zephyr arch to libmetal machine
+  set (MACHINE "${CONFIG_ARCH}" CACHE STRING "")
 
 endif (WITH_ZEPHYR)

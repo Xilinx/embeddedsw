@@ -219,7 +219,7 @@ int metal_linux_irq_init(void)
 
 	memset(&irqs, 0, sizeof(irqs));
 
-	irq_notify_fd = eventfd(0, 0);
+	irq_notify_fd = eventfd(0, EFD_CLOEXEC);
 	if (irq_notify_fd < 0) {
 		metal_log(METAL_LOG_ERROR,
 			  "Failed to create eventfd for IRQ handling.\n");

@@ -6,7 +6,7 @@
 
 /*
  * @file	cpu.h
- * @brief	CPU specific primatives on microblaze platform.
+ * @brief	CPU specific primitives on microblaze platform.
  */
 
 #ifndef __METAL_MICROBLAZE__H__

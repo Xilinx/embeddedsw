@@ -31,8 +31,6 @@ static inline int __metal_sleep_usec(unsigned int usec)
 	return 0;
 }
 
-/** @} */
-
 #ifdef __cplusplus
 }
 #endif

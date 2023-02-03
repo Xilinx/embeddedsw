@@ -364,12 +364,12 @@ int metal_io_block_write(struct metal_io_region *io, unsigned long offset,
 int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
 		       unsigned char value, int len);
 
-#include <metal/system/@PROJECT_SYSTEM@/io.h>
-
 /** @} */
 
 #ifdef __cplusplus
 }
 #endif
+
+#include <metal/system/@PROJECT_SYSTEM@/io.h>
 
 #endif /* __METAL_IO__H__ */

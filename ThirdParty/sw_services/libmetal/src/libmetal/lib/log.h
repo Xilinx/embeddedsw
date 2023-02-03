@@ -63,7 +63,7 @@ extern enum metal_log_level metal_get_log_level(void);
 
 /**
  * @brief	Default libmetal log handler.  This handler prints libmetal log
- *		mesages to stderr.
+ *		messages to stderr.
  * @param[in]	level	log message level.
  * @param[in]	format	log message format string.
  * @return	0 on success, or -errno on failure.

@@ -27,8 +27,6 @@ static inline int __metal_sleep_usec(unsigned int usec)
 	return usleep(usec);
 }
 
-/** @} */
-
 #ifdef __cplusplus
 }
 #endif

@@ -6,7 +6,7 @@
 
 /*
  * @file	cpu.h
- * @brief	CPU specific primatives
+ * @brief	CPU specific primitives
  */
 
 #ifndef __METAL_ARM_CPU__H__
