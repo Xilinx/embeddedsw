@@ -66,5 +66,3 @@ endif (WITH_ZEPHYR)
 
 install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/openamp" DESTINATION include)
 install (DIRECTORY "${PROJECT_BINARY_DIR}/include/generated/openamp" DESTINATION include)
-
-# vim: expandtab:ts=2:sw=2:smartindent

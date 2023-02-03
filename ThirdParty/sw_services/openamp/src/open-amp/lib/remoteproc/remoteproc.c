@@ -18,7 +18,7 @@
 /******************************************************************************
  *  static functions
  *****************************************************************************/
-static struct loader_ops *
+static const struct loader_ops *
 remoteproc_check_fw_format(const void *img_data, size_t img_len)
 {
 	if (img_len <= 0)
@@ -48,21 +48,21 @@ remoteproc_get_mem(struct remoteproc *rproc, const char *name,
 	metal_list_for_each(&rproc->mems, node) {
 		mem = metal_container_of(node, struct remoteproc_mem, node);
 		if (name) {
-			if (!strncmp(name, mem->name, strlen(name)))
+			if (!strncmp(name, mem->name, RPROC_MAX_NAME_LEN))
 				return mem;
 		} else if (pa != METAL_BAD_PHYS) {
 			metal_phys_addr_t pa_start, pa_end;
 
 			pa_start = mem->pa;
 			pa_end = pa_start + mem->size;
-			if (pa >= pa_start && (pa + size) <= pa_end)
+			if (pa >= pa_start && (pa + size) <= pa_end && pa < pa_end)
 				return mem;
 		} else if (da != METAL_BAD_PHYS) {
 			metal_phys_addr_t da_start, da_end;
 
 			da_start = mem->da;
 			da_end = da_start + mem->size;
-			if (da >= da_start && (da + size) <= da_end)
+			if (da >= da_start && (da + size) <= da_end && da < da_end)
 				return mem;
 		} else if (va) {
 			if (metal_io_virt_to_offset(mem->io, va) !=
@@ -100,7 +100,7 @@ remoteproc_patoda(struct remoteproc_mem *mem, metal_phys_addr_t pa)
 
 static void *remoteproc_get_rsc_table(struct remoteproc *rproc,
 				      void *store,
-				      struct image_store_ops *store_ops,
+				      const struct image_store_ops *store_ops,
 				      size_t offset,
 				      size_t len)
 {
@@ -120,21 +120,20 @@ static void *remoteproc_get_rsc_table(struct remoteproc *rproc,
 	if (ret < 0 || ret < (int)len || !img_data) {
 		metal_log(METAL_LOG_ERROR,
 			  "get rsc failed: 0x%llx, 0x%llx\r\n", offset, len);
-		rsc_table = RPROC_ERR_PTR(-RPROC_EINVAL);
+		ret = -RPROC_EINVAL;
 		goto error;
 	}
 	memcpy(rsc_table, img_data, len);
 
 	ret = handle_rsc_table(rproc, rsc_table, len, NULL);
 	if (ret < 0) {
-		rsc_table = RPROC_ERR_PTR(ret);
 		goto error;
 	}
 	return rsc_table;
 
 error:
 	metal_free_memory(rsc_table);
-	return rsc_table;
+	return RPROC_ERR_PTR(ret);
 }
 
 static int remoteproc_parse_rsc_table(struct remoteproc *rproc,
@@ -142,6 +141,9 @@ static int remoteproc_parse_rsc_table(struct remoteproc *rproc,
 				      size_t rsc_size)
 {
 	struct metal_io_region *io;
+
+	if (!rsc_table)
+		return -RPROC_EINVAL;
 
 	io = remoteproc_get_io_with_va(rproc, rsc_table);
 	return handle_rsc_table(rproc, rsc_table, rsc_size, io);
@@ -153,6 +155,9 @@ int remoteproc_set_rsc_table(struct remoteproc *rproc,
 {
 	int ret;
 	struct metal_io_region *io;
+
+	if (!rproc || !rsc_table || rsc_size == 0)
+		return -RPROC_EINVAL;
 
 	io = remoteproc_get_io_with_va(rproc, rsc_table);
 	if (!io)
@@ -167,15 +172,16 @@ int remoteproc_set_rsc_table(struct remoteproc *rproc,
 }
 
 struct remoteproc *remoteproc_init(struct remoteproc *rproc,
-				   struct remoteproc_ops *ops, void *priv)
+				   const struct remoteproc_ops *ops, void *priv)
 {
-	if (rproc) {
-		memset(rproc, 0, sizeof(*rproc));
-		rproc->state = RPROC_OFFLINE;
-		metal_mutex_init(&rproc->lock);
-		metal_list_init(&rproc->mems);
-		metal_list_init(&rproc->vdevs);
-	}
+	if (!rproc || !ops)
+		return NULL;
+
+	memset(rproc, 0, sizeof(*rproc));
+	rproc->state = RPROC_OFFLINE;
+	metal_mutex_init(&rproc->lock);
+	metal_list_init(&rproc->mems);
+	metal_list_init(&rproc->vdevs);
 	rproc = ops->init(rproc, ops, priv);
 	return rproc;
 }
@@ -184,18 +190,17 @@ int remoteproc_remove(struct remoteproc *rproc)
 {
 	int ret = 0;
 
-	if (rproc) {
-		metal_mutex_acquire(&rproc->lock);
-		if (rproc->state == RPROC_OFFLINE) {
+	if (!rproc)
+		return -RPROC_EINVAL;
+
+	metal_mutex_acquire(&rproc->lock);
+	if (rproc->state == RPROC_OFFLINE) {
+		if (rproc->ops->remove)
 			rproc->ops->remove(rproc);
-			ret = 0;
-		}
-		else
-			ret = -RPROC_EAGAIN;
-		metal_mutex_release(&rproc->lock);
 	} else {
-		ret = -RPROC_EINVAL;
+		ret = -RPROC_EAGAIN;
 	}
+	metal_mutex_release(&rproc->lock);
 	return ret;
 }
 
@@ -291,12 +296,15 @@ remoteproc_get_io_with_name(struct remoteproc *rproc,
 	struct remoteproc_mem *mem;
 	struct remoteproc_mem buf;
 
+	if (!rproc)
+		return NULL;
+
 	mem = remoteproc_get_mem(rproc, name,
 				 METAL_BAD_PHYS, METAL_BAD_PHYS, NULL, 0, &buf);
 	if (mem)
 		return mem->io;
-	else
-		return NULL;
+
+	return NULL;
 }
 
 struct metal_io_region *
@@ -306,11 +314,14 @@ remoteproc_get_io_with_pa(struct remoteproc *rproc,
 	struct remoteproc_mem *mem;
 	struct remoteproc_mem buf;
 
+	if (!rproc)
+		return NULL;
+
 	mem = remoteproc_get_mem(rproc, NULL, pa, METAL_BAD_PHYS, NULL, 0, &buf);
 	if (mem)
 		return mem->io;
-	else
-		return NULL;
+
+	return NULL;
 }
 
 struct metal_io_region *
@@ -321,6 +332,9 @@ remoteproc_get_io_with_da(struct remoteproc *rproc,
 	struct remoteproc_mem *mem;
 	struct remoteproc_mem buf;
 
+	if (!rproc || !offset)
+		return NULL;
+
 	mem = remoteproc_get_mem(rproc, NULL, METAL_BAD_PHYS, da, NULL, 0, &buf);
 	if (mem) {
 		struct metal_io_region *io;
@@ -330,9 +344,9 @@ remoteproc_get_io_with_da(struct remoteproc *rproc,
 		pa = remoteproc_datopa(mem, da);
 		*offset = metal_io_phys_to_offset(io, pa);
 		return io;
-	} else {
-		return NULL;
 	}
+
+	return NULL;
 }
 
 struct metal_io_region *
@@ -341,12 +355,15 @@ remoteproc_get_io_with_va(struct remoteproc *rproc, void *va)
 	struct remoteproc_mem *mem;
 	struct remoteproc_mem buf;
 
+	if (!rproc)
+		return NULL;
+
 	mem = remoteproc_get_mem(rproc, NULL, METAL_BAD_PHYS, METAL_BAD_PHYS,
 				 va, 0, &buf);
 	if (mem)
 		return mem->io;
-	else
-		return NULL;
+
+	return NULL;
 }
 
 void *remoteproc_mmap(struct remoteproc *rproc,
@@ -359,9 +376,7 @@ void *remoteproc_mmap(struct remoteproc *rproc,
 	struct remoteproc_mem *mem;
 	struct remoteproc_mem buf;
 
-	if (!rproc)
-		return NULL;
-	else if (!pa && !da)
+	if (!rproc || size == 0 || (!pa && !da))
 		return NULL;
 	if (pa)
 		lpa = *pa;
@@ -392,11 +407,11 @@ void *remoteproc_mmap(struct remoteproc *rproc,
 }
 
 int remoteproc_load(struct remoteproc *rproc, const char *path,
-		    void *store, struct image_store_ops *store_ops,
+		    void *store, const struct image_store_ops *store_ops,
 		    void **img_info)
 {
 	int ret;
-	struct loader_ops *loader;
+	const struct loader_ops *loader;
 	const void *img_data;
 	void *limg_info = NULL;
 	size_t offset, noffset;
@@ -670,7 +685,7 @@ int remoteproc_load_noblock(struct remoteproc *rproc,
 			    size_t *nmlen, unsigned char *padding)
 {
 	int ret;
-	struct loader_ops *loader;
+	const struct loader_ops *loader;
 	void *limg_info = NULL;
 	int last_load_state;
 	metal_phys_addr_t da, rsc_da;
@@ -856,20 +871,21 @@ unsigned int remoteproc_allocate_id(struct remoteproc *rproc,
 				    unsigned int start,
 				    unsigned int end)
 {
-	unsigned int notifyid;
+	unsigned int notifyid = RSC_NOTIFY_ID_ANY;
 
 	if (start == RSC_NOTIFY_ID_ANY)
 		start = 0;
-	if (end == 0)
+	if (end == RSC_NOTIFY_ID_ANY)
 		end = METAL_BITS_PER_ULONG;
-
-	notifyid = metal_bitmap_next_clear_bit(&rproc->bitmap,
-					       start, end);
-	if (notifyid != end)
-		metal_bitmap_set_bit(&rproc->bitmap, notifyid);
-	else
-		notifyid = RSC_NOTIFY_ID_ANY;
-
+	if ((start < (8U * sizeof(rproc->bitmap))) &&
+	    (end <= (8U * sizeof(rproc->bitmap)))) {
+		notifyid = metal_bitmap_next_clear_bit(&rproc->bitmap,
+						       start, end);
+		if (notifyid != end)
+			metal_bitmap_set_bit(&rproc->bitmap, notifyid);
+		else
+			notifyid = RSC_NOTIFY_ID_ANY;
+	}
 	return notifyid;
 }
 
@@ -877,7 +893,10 @@ static int remoteproc_virtio_notify(void *priv, uint32_t id)
 {
 	struct remoteproc *rproc = priv;
 
-	return rproc->ops->notify(rproc, id);
+	if (rproc->ops->notify)
+		return rproc->ops->notify(rproc, id);
+
+	return 0;
 }
 
 struct virtio_device *
@@ -894,6 +913,17 @@ remoteproc_create_virtio(struct remoteproc *rproc,
 	unsigned int notifyid;
 	unsigned int num_vrings, i;
 	struct metal_list *node;
+
+#ifdef VIRTIO_DRIVER_ONLY
+	role = (role != VIRTIO_DEV_DRIVER) ? 0xFFFFFFFFUL : role;
+#endif
+
+#ifdef VIRTIO_DEVICE_ONLY
+	role = (role != VIRTIO_DEV_DEVICE) ? 0xFFFFFFFFUL : role;
+#endif
+
+	if (!rproc || (role != VIRTIO_DEV_DEVICE && role != VIRTIO_DEV_DRIVER))
+		return NULL;
 
 	metal_assert(rproc);
 	metal_mutex_acquire(&rproc->lock);
@@ -970,9 +1000,12 @@ void remoteproc_remove_virtio(struct remoteproc *rproc,
 
 	(void)rproc;
 	metal_assert(vdev);
-	rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
-	metal_list_del(&rpvdev->node);
-	rproc_virtio_remove_vdev(&rpvdev->vdev);
+
+	if (vdev) {
+		rpvdev = metal_container_of(vdev, struct remoteproc_virtio, vdev);
+		metal_list_del(&rpvdev->node);
+		rproc_virtio_remove_vdev(&rpvdev->vdev);
+	}
 }
 
 int remoteproc_get_notification(struct remoteproc *rproc, uint32_t notifyid)
@@ -981,6 +1014,9 @@ int remoteproc_get_notification(struct remoteproc *rproc, uint32_t notifyid)
 	struct metal_list *node;
 	int ret;
 
+	if (!rproc)
+		return 0;
+
 	metal_list_for_each(&rproc->vdevs, node) {
 		rpvdev = metal_container_of(node, struct remoteproc_virtio,
 					    node);
@@ -988,5 +1024,6 @@ int remoteproc_get_notification(struct remoteproc *rproc, uint32_t notifyid)
 		if (ret)
 			return ret;
 	}
+
 	return 0;
 }

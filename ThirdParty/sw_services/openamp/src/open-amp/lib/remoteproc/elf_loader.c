@@ -697,7 +697,7 @@ int elf_get_load_state(void *img_info)
 	return *load_state;
 }
 
-struct loader_ops elf_ops = {
+const struct loader_ops elf_ops = {
 	.load_header = elf_load_header,
 	.load_data = elf_load,
 	.locate_rsc_table = elf_locate_rsc_table,

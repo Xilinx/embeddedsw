@@ -42,25 +42,61 @@ struct rpmsg_virtio_shm_pool {
 };
 
 /**
+ * struct rpmsg_virtio_config - configuration of rpmsg device based on virtio
+ *
+ * This structure is used by the rpmsg virtio host to configure the virtiio
+ * layer.
+ *
+ * @h2r_buf_size: the size of the buffer used to send data from host to remote
+ * @r2h_buf_size: the size of the buffer used to send data from remote to host
+ * @split_shpool: the flag that splitting share memory pool to TX and RX
+ */
+struct rpmsg_virtio_config {
+	uint32_t h2r_buf_size;
+	uint32_t r2h_buf_size;
+	bool split_shpool;
+};
+
+/**
  * struct rpmsg_virtio_device - representation of a rpmsg device based on virtio
  * @rdev: rpmsg device, first property in the struct
+ * @config: structure containing virtio configuration
  * @vdev: pointer to the virtio device
  * @rvq: pointer to receive virtqueue
  * @svq: pointer to send virtqueue
  * @shbuf_io: pointer to the shared buffer I/O region
  * @shpool: pointer to the shared buffers pool
+ * @reclaimer: Rpmsg buffer reclaimer that contains buffers released by
+ *             the rpmsg_virtio_release_tx_buffer function.
  */
 struct rpmsg_virtio_device {
 	struct rpmsg_device rdev;
+	struct rpmsg_virtio_config config;
 	struct virtio_device *vdev;
 	struct virtqueue *rvq;
 	struct virtqueue *svq;
 	struct metal_io_region *shbuf_io;
 	struct rpmsg_virtio_shm_pool *shpool;
+	struct metal_list reclaimer;
 };
 
-#define RPMSG_REMOTE	VIRTIO_DEV_SLAVE
-#define RPMSG_MASTER	VIRTIO_DEV_MASTER
+#define RPMSG_REMOTE	VIRTIO_DEV_DEVICE
+#define RPMSG_HOST	VIRTIO_DEV_DRIVER
+
+#define RPMSG_SLAVE        deprecated_rpmsg_slave()
+#define RPMSG_MASTER       deprecated_rpmsg_master()
+
+__deprecated static inline int deprecated_rpmsg_master(void)
+{
+	/* "RPMSG_MASTER is deprecated, please use RPMSG_HOST" */
+	return RPMSG_HOST;
+}
+
+__deprecated static inline int deprecated_rpmsg_slave(void)
+{
+	/* "RPMSG_SLAVE is deprecated, please use RPMSG_REMOTE" */
+	return RPMSG_REMOTE;
+}
 
 static inline unsigned int
 rpmsg_virtio_get_role(struct rpmsg_virtio_device *rvdev)
@@ -120,14 +156,14 @@ int rpmsg_virtio_get_buffer_size(struct rpmsg_device *rdev);
 
 /**
  * rpmsg_init_vdev - initialize rpmsg virtio device
- * Master side:
+ * Host side:
  * Initialize RPMsg virtio queues and shared buffers, the address of shm can be
  * ANY. In this case, function will get shared memory from system shared memory
- * pools. If the vdev has RPMsg name service feature, this API will create an
+ * pools. If the vdev has the RPMsg name service feature, this API will create a
  * name service endpoint.
  *
- * Slave side:
- * This API will not return until the driver ready is set by the master side.
+ * Remote side:
+ * This API will not return until the driver ready is set by the host side.
  *
  * @param rvdev  - pointer to the rpmsg virtio device
  * @param vdev   - pointer to the virtio device
@@ -144,6 +180,44 @@ int rpmsg_init_vdev(struct rpmsg_virtio_device *rvdev,
 		    rpmsg_ns_bind_cb ns_bind_cb,
 		    struct metal_io_region *shm_io,
 		    struct rpmsg_virtio_shm_pool *shpool);
+
+/**
+ * rpmsg_init_vdev_with_config - initialize rpmsg virtio device with config
+ * Host side:
+ * Initialize RPMsg virtio queues and shared buffers, the address of shm can be
+ * ANY. In this case, function will get shared memory from system shared memory
+ * pools. If the vdev has the RPMsg name service feature, this API will create a
+ * name service endpoint.
+ * Sizes of virtio data buffers used by the initialized RPMsg instance are set
+ * to values read from the passed configuration structure.
+ *
+ * Remote side:
+ * This API will not return until the driver ready is set by the host side.
+ * Sizes of virtio data buffers are set by the host side. Values passed in the
+ * configuration structure have no effect.
+ *
+ * @param rvdev  - pointer to the rpmsg virtio device
+ * @param vdev   - pointer to the virtio device
+ * @param ns_bind_cb  - callback handler for name service announcement without
+ *                      local endpoints waiting to bind.
+ * @param shm_io - pointer to the share memory I/O region.
+ * @param shpool - pointer to shared memory pool array.
+ *                 If the config->split_shpool is turn on, the array will contain
+ *                 two elements, the shpool of txshpool and rxshpool, Otherwise,
+ *                 the array has only one element, and txshpool rxshpool shares
+ *                 a shpool.
+ *                 And rpmsg_virtio_init_shm_pool has to be called first to fill
+ *                 each shpool in this array.
+ * @param config - pointer to configuration structure
+ *
+ * @return - status of function execution
+ */
+int rpmsg_init_vdev_with_config(struct rpmsg_virtio_device *rvdev,
+				struct virtio_device *vdev,
+				rpmsg_ns_bind_cb ns_bind_cb,
+				struct metal_io_region *shm_io,
+				struct rpmsg_virtio_shm_pool *shpool,
+				const struct rpmsg_virtio_config *config);
 
 /**
  * rpmsg_deinit_vdev - deinitialize rpmsg virtio device
@@ -176,6 +250,9 @@ void rpmsg_virtio_init_shm_pool(struct rpmsg_virtio_shm_pool *shpool,
 static inline struct rpmsg_device *
 rpmsg_virtio_get_rpmsg_device(struct rpmsg_virtio_device *rvdev)
 {
+	if (!rvdev)
+		return NULL;
+
 	return &rvdev->rdev;
 }
 

@@ -308,7 +308,7 @@ struct elf64_info {
 #define ELF_STATE_MASK              0xFF00L
 #define ELF_NEXT_SEGMENT_MASK       0x00FFL
 
-extern struct loader_ops elf_ops;
+extern const struct loader_ops elf_ops;
 
 /**
  * elf_identify - check if it is an ELF file

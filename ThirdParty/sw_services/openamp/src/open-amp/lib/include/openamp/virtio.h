@@ -34,8 +34,33 @@ extern "C" {
 #define VIRTIO_CONFIG_STATUS_FAILED    0x80
 
 /* Virtio device role */
-#define VIRTIO_DEV_MASTER	0UL
-#define VIRTIO_DEV_SLAVE	1UL
+#define VIRTIO_DEV_DRIVER	0UL
+#define VIRTIO_DEV_DEVICE	1UL
+
+#define VIRTIO_DEV_MASTER	deprecated_virtio_dev_master()
+#define VIRTIO_DEV_SLAVE	deprecated_virtio_dev_slave()
+
+__deprecated static inline int deprecated_virtio_dev_master(void)
+{
+	/* "VIRTIO_DEV_MASTER is deprecated, please use VIRTIO_DEV_DRIVER" */
+	return VIRTIO_DEV_DRIVER;
+}
+
+__deprecated static inline int deprecated_virtio_dev_slave(void)
+{
+	/* "VIRTIO_DEV_SLAVE is deprecated, please use VIRTIO_DEV_DEVICE" */
+	return VIRTIO_DEV_DEVICE;
+}
+
+#ifdef VIRTIO_MASTER_ONLY
+#define VIRTIO_DRIVER_ONLY
+#warning "VIRTIO_MASTER_ONLY is deprecated, please use VIRTIO_DRIVER_ONLY"
+#endif
+
+#ifdef VIRTIO_SLAVE_ONLY
+#define VIRTIO_DEVICE_ONLY
+#warning "VIRTIO_SLAVE_ONLY is deprecated, please use VIRTIO_DEVICE_ONLY"
+#endif
 
 struct virtio_device_id {
 	uint32_t device;

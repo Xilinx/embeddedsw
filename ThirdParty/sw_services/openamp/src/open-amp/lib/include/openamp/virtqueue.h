@@ -222,6 +222,7 @@ void virtqueue_notification(struct virtqueue *vq);
 uint32_t virtqueue_get_desc_size(struct virtqueue *vq);
 
 uint32_t virtqueue_get_buffer_length(struct virtqueue *vq, uint16_t idx);
+void *virtqueue_get_buffer_addr(struct virtqueue *vq, uint16_t idx);
 
 #if defined __cplusplus
 }

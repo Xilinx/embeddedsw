@@ -36,5 +36,3 @@ endfunction (collect)
 collector_create (PROJECT_INC_DIRS    "")
 collector_create (PROJECT_LIB_DIRS    "")
 collector_create (PROJECT_LIB_DEPS    "")
-
-# vim: expandtab:ts=2:sw=2:smartindent

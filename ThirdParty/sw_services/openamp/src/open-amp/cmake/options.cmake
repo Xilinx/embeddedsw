@@ -13,6 +13,11 @@ set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_
 
 message(STATUS "open-amp version: ${PROJECT_VERSION} (${OPENAMP_ROOT_DIR})")
 
+add_definitions( -DOPENAMP_VERSION_MAJOR=${PROJECT_VERSION_MAJOR} )
+add_definitions( -DOPENAMP_VERSION_MINOR=${PROJECT_VERSION_MINOR} )
+add_definitions( -DOPENAMP_VERSION_PATCH=${PROJECT_VERSION_PATCH} )
+add_definitions( -DOPENAMP_VERSION="${PROJECT_VERSION}" )
+
 if (NOT DEFINED CMAKE_BUILD_TYPE)
   set (CMAKE_BUILD_TYPE Debug)
 endif (NOT DEFINED CMAKE_BUILD_TYPE)
@@ -45,8 +50,8 @@ string (TOUPPER ${MACHINE}                PROJECT_MACHINE_UPPER)
 
 # Select which components are in the openamp lib
 option (WITH_PROXY          "Build with proxy(access device controlled by other processor)" ON)
-option (WITH_APPS           "Build with sample applicaitons" OFF)
-option (WITH_PROXY_APPS     "Build with proxy sample applicaitons" OFF)
+option (WITH_APPS           "Build with sample applications" OFF)
+option (WITH_PROXY_APPS     "Build with proxy sample applications" OFF)
 if (WITH_APPS)
   if (WITH_PROXY)
     set (WITH_PROXY_APPS ON)
@@ -58,16 +63,25 @@ if (NOT ${MACHINE} STREQUAL "zynqmp_r5")
  set (WITH_LOAD_FW OFF)
 endif(NOT ${MACHINE} STREQUAL "zynqmp_r5")
 
-option (WITH_VIRTIO_MASTER "Build with virtio master enabled" ON)
-option (WITH_VIRTIO_SLAVE "Build with virtio slave enabled" ON)
+option (WITH_VIRTIO_DRIVER "Build with virtio driver (front end)  enabled" ON)
+option (WITH_VIRTIO_DEVICE "Build with virtio device (back end)  enabled" ON)
+option (WITH_VIRTIO_MASTER "Build with virtio driver (front end)  enabled" OFF)
+option (WITH_VIRTIO_SLAVE "Build with virtio device (back end)  enabled" OFF)
 
-if (NOT WITH_VIRTIO_MASTER)
-  add_definitions(-DVIRTIO_SLAVE_ONLY)
-endif (NOT WITH_VIRTIO_MASTER)
+if (WITH_VIRTIO_MASTER)
+  message(DEPRECATION "deprecated cmake option replaced by WITH_VIRTIO_DRIVER" ...)
+endif (WITH_VIRTIO_MASTER)
+if (WITH_VIRTIO_SLAVE)
+  message(DEPRECATION "deprecated cmake option replaced by WITH_VIRTIO_DEVICE" ...)
+endif (WITH_VIRTIO_SLAVE)
 
-if (NOT WITH_VIRTIO_SLAVE)
-  add_definitions(-DVIRTIO_MASTER_ONLY)
-endif (NOT WITH_VIRTIO_SLAVE)
+if (NOT WITH_VIRTIO_DRIVER AND NOT WITH_VIRTIO_MASTER)
+	add_definitions(-DVIRTIO_DEVICE_ONLY)
+endif (NOT WITH_VIRTIO_DRIVER AND NOT WITH_VIRTIO_MASTER)
+
+if (NOT WITH_VIRTIO_DEVICE AND NOT WITH_VIRTIO_SLAVE)
+	add_definitions(-DVIRTIO_DRIVER_ONLY)
+endif (NOT WITH_VIRTIO_DEVICE AND NOT WITH_VIRTIO_SLAVE)
 
 option (WITH_DCACHE_VRINGS "Build with vrings cache operations enabled" OFF)
 
@@ -101,4 +115,3 @@ if (DEFINED RPMSG_BUFFER_SIZE)
 endif (DEFINED RPMSG_BUFFER_SIZE)
 
 message ("-- C_FLAGS : ${CMAKE_C_FLAGS}")
-# vim: expandtab:ts=2:sw=2:smartindent

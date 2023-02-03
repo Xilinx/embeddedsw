@@ -178,7 +178,7 @@ int _open(const char *filename, int flags, int mode)
 		return -EINVAL;
 
 	/* Construct rpc payload */
-	syscall = (struct rpmsg_rpc_syscall *)tmpbuf;
+	syscall = (void *)tmpbuf;
 	syscall->id = OPEN_SYSCALL_ID;
 	syscall->args.int_field1 = flags;
 	syscall->args.int_field2 = mode;
@@ -228,7 +228,7 @@ int _read(int fd, char *buffer, int buflen)
 	syscall.args.int_field2 = buflen;
 	syscall.args.data_len = 0;	/*not used */
 
-	resp = (struct rpmsg_rpc_syscall *)tmpbuf;
+	resp = (void *)tmpbuf;
 	resp->id = 0;
 	ret = rpmsg_rpc_send(rpc, (void *)&syscall, payload_size,
 			     tmpbuf, sizeof(tmpbuf));
@@ -281,7 +281,7 @@ int _write(int fd, const char *ptr, int len)
 	if (fd == 1)
 		null_term = 1;
 
-	syscall = (struct rpmsg_rpc_syscall *)tmpbuf;
+	syscall = (void *)tmpbuf;
 	syscall->id = WRITE_SYSCALL_ID;
 	syscall->args.int_field1 = fd;
 	syscall->args.int_field2 = len;

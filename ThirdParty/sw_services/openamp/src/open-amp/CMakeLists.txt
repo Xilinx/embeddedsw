@@ -35,5 +35,3 @@ add_subdirectory (lib)
 if (WITH_APPS)
   add_subdirectory (apps)
 endif (WITH_APPS)
-
-# vim: expandtab:ts=2:sw=2:smartindent

@@ -4,8 +4,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include "version_def.h"
-
 int openamp_version_major(void)
 {
 	return OPENAMP_VERSION_MAJOR;

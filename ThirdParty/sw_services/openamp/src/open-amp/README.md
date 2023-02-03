@@ -11,9 +11,9 @@ enable development of software applications for Asymmetric Multiprocessing
    environments
 3. Compatibility with upstream Linux remoteproc and rpmsg components
 4. Following AMP configurations supported
-	a. Linux master/Generic(Baremetal) remote
-	b. Generic(Baremetal) master/Linux remote
-5. Proxy infrastructure and supplied demos showcase ability of proxy on master
+	a. Linux host/Generic(Baremetal) remote
+	b. Generic(Baremetal) host/Linux remote
+5. Proxy infrastructure and supplied demos showcase ability of proxy on host
    to handle printf, scanf, open, close, read, write calls from Bare metal
    based remote contexts.
 
@@ -82,10 +82,10 @@ library for it project:
 * **WITH_PROXY** (default OFF): Include proxy support in the library.
 * **WITH APPS** (default OFF): Build with sample applications.
 * **WITH_PROXY_APPS** (default OFF):Build with proxy sample applications.
-* **WITH_VIRTIO_MASTER** (default ON): Build with virtio master enabled.
+* **WITH_VIRTIO_DRIVER** (default ON): Build with virtio driver enabled.
   This option can be set to OFF if the only the remote mode is implemented.
-* **WITH_VIRTIO_SLAVE** (default ON): Build with virtio slave enabled.
-  This option can be set to OFF if the only the master mode is implemented.
+* **WITH_VIRTIO_DEVICE** (default ON): Build with virtio device enabled.
+  This option can be set to OFF if the only the driver mode is implemented.
 * **WITH_STATIC_LIB** (default ON): Build with a static library.
 * **WITH_SHARED_LIB** (default ON): Build with a shared library.
 * **WITH_ZEPHYR** (default OFF): Build open-amp as a zephyr library. This option
@@ -96,7 +96,7 @@ library for it project:
   enabled on buffers.
 * **RPMSG_BUFFER_SIZE** (default 512): adjust the size of the RPMsg buffers.
   The default value of the RPMsg size is compatible with the Linux Kernel hard
-  coded value. If you AMP configuration is Linux kernel master/ OpenAMP remote,
+  coded value. If you AMP configuration is Linux kernel host/ OpenAMP remote,
   this option must not be used.
 
 ### Example to compile OpenAMP for Zephyr
@@ -104,24 +104,10 @@ The [Zephyr open-amp repo](https://github.com/zephyrproject-rtos/open-amp)
 implements the open-amp library for the Zephyr project. It is mainly a fork of
 this repository, with some add-ons for integration in the Zephyr project.
 The standard way to compile OpenAMP for a Zephyr project is to use Zephyr build
-environment. Please refer to [Zephyr OpenAMP samples](https://github.com/zephyrproject-rtos/zephyr/tree/master/samples/subsys/ipc) for examples.
-
-Nevertheless you can compile the OpenAMP project for Zephyr.
-As OpenAMP uses libmetal, please refer to libmetal README to build libmetal
-for Zephyr before building OpenAMP library for Zephyr.
-As Zephyr uses CMake, we build OpenAMP library as a target of Zephyr CMake
-project. Here is how to build libmetal for Zephyr:
-```
-    $ export ZEPHRY_GCC_VARIANT=zephyr
-    $ export ZEPHRY_SDK_INSTALL_DIR=<where Zephyr SDK is installed>
-    $ source <git_clone_zephyr_project_source_root>/zephyr-env.sh
-
-    $ cmake <OpenAMP_source_root> \
-      -DWITH_ZEPHYR=on -DBOARD=qemu_cortex_m3 \
-      -DCMAKE_INCLUDE_PATH="<libmetal_zephyr_build_dir>/lib/include" \
-      -DCMAKE_LIBRARY_PATH="<libmetal_zephyr_build_dir>/lib" \
-    $ make VERBOSE=1 all
-```
+environment. Please refer to
+[Zephyr OpenAMP samples](https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/subsys/ipc)
+for examples and [Zephyr documentation](https://docs.zephyrproject.org/latest/) for the build
+process.
 
 ### Example to compile OpenAMP for communication between Linux processes:
 * Install libsysfs devel and libhugetlbfs devel packages on your Linux host.
@@ -252,34 +238,29 @@ https://github.com/OpenAMP/meta-openamp
   `IMAGE_INSTALL_append` in the `local.conf` file.
 * You can also add OpenAMP demos Linux applications packages to your yocto packages list. OpenAMP
   demo examples recipes are also in `meta-openamp`:
-  https://github.com/OpenAMP/meta-openamp/tree/master/recipes-openamp/openamp-examples
+  https://github.com/OpenAMP/meta-openamp/tree/master/recipes-openamp/rpmsg-examples
 
 In order to user OpenAMP(RPMsg) in Linux userspace, you will need to have put the IPI device,
   vring memory and shared buffer memory to your Linux kernel device tree. The device tree example
   can be found here:
-  https://github.com/OpenAMP/open-amp/blob/master/apps/machine/zynqmp/openamp-linux-userspace.dtsi
+  https://github.com/OpenAMP/open-amp/blob/main/apps/machine/zynqmp/openamp-linux-userspace.dtsi
 
 ## Version
 The OpenAMP version follows the set of rule proposed in [Semantic Versioning specification](https://semver.org/).
 
 ## Supported System and Machines
 For now, it supports:
-* Zynq generic slave
-* Zynq UltraScale+ MPSoC R5 generic slave
+* Zynq generic remote
+* Zynq UltraScale+ MPSoC R5 generic remote
 * Linux host OpenAMP between Linux userspace processes
-* Linux userspace OpenAMP RPMsg master
-* Linux userspace OpenAMP RPMsg slave
+* Linux userspace OpenAMP RPMsg host
+* Linux userspace OpenAMP RPMsg remote
+* Linux userspace OpenAMP RPMsg and MicroBlaze bare metal remote
 
 ## Known Limitations:
-1. OpenAMP framework supports OpenAMP firmware running as master, however,
-   the example to show this ability is not ready yet.
-2. In case of OpenAMP on Linux userspace for inter processors communication,
-   life cycle management with remoteproc is not supported yet, that is for now,
-   it is not able to load the remote firmware with OpenAMP running on Linux
-   userspace.
-3. In case of OpenAMP on Linux userspace for inter processors communication,
+1. In case of OpenAMP on Linux userspace for inter processors communication,
    it only supports static vrings and shared buffers.
-4. `sudo` is required to run the OpenAMP demos between Linux processes, as
+2. `sudo` is required to run the OpenAMP demos between Linux processes, as
    it doesn't work on some systems if you are normal users.
 
 ## How to contribute:
@@ -287,7 +268,7 @@ As an open-source project, we welcome and encourage the community to submit patc
 Then following points should be rescpected to facilitate the review process.
 
 ### Licencing
-Code is contributed to the Linux kernel under a number of licenses, but all code must be compatible with version the [BSD License](https://github.com/OpenAMP/open-amp/blob/master/LICENSE.md), which is the license covering the OpenAMP distribution as a whole. In practice, use the following tag instead of the full license text in the individual files:
+Code is contributed to the Linux kernel under a number of licenses, but all code must be compatible with version the [BSD License](https://github.com/OpenAMP/open-amp/blob/main/LICENSE.md), which is the license covering the OpenAMP distribution as a whole. In practice, use the following tag instead of the full license text in the individual files:
 
     ```
     SPDX-License-Identifier:    BSD-3-Clause

@@ -101,8 +101,8 @@ int virtio_create_virtqueues(struct virtio_device *vdev, unsigned int flags,
 		vring_info = &vdev->vrings_info[i];
 
 		vring_alloc = &vring_info->info;
-#ifndef VIRTIO_SLAVE_ONLY
-		if (vdev->role == VIRTIO_DEV_MASTER) {
+#ifndef VIRTIO_DEVICE_ONLY
+		if (vdev->role == VIRTIO_DEV_DRIVER) {
 			size_t offset;
 			struct metal_io_region *io = vring_info->io;
 

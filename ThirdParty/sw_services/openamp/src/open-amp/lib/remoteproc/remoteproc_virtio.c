@@ -45,7 +45,7 @@ static unsigned char rproc_virtio_get_status(struct virtio_device *vdev)
 	return status;
 }
 
-#ifndef VIRTIO_SLAVE_ONLY
+#ifndef VIRTIO_DEVICE_ONLY
 static void rproc_virtio_set_status(struct virtio_device *vdev,
 				    unsigned char status)
 {
@@ -97,7 +97,7 @@ static uint32_t rproc_virtio_get_features(struct virtio_device *vdev)
 	return dfeatures & gfeatures;
 }
 
-#ifndef VIRTIO_SLAVE_ONLY
+#ifndef VIRTIO_DEVICE_ONLY
 static void rproc_virtio_set_features(struct virtio_device *vdev,
 				      uint32_t features)
 {
@@ -144,7 +144,7 @@ static void rproc_virtio_read_config(struct virtio_device *vdev,
 				dst, length);
 }
 
-#ifndef VIRTIO_SLAVE_ONLY
+#ifndef VIRTIO_DEVICE_ONLY
 static void rproc_virtio_write_config(struct virtio_device *vdev,
 				      uint32_t offset, void *src, int length)
 {
@@ -168,7 +168,7 @@ static void rproc_virtio_write_config(struct virtio_device *vdev,
 
 static void rproc_virtio_reset_device(struct virtio_device *vdev)
 {
-	if (vdev->role == VIRTIO_DEV_MASTER)
+	if (vdev->role == VIRTIO_DEV_DRIVER)
 		rproc_virtio_set_status(vdev,
 					VIRTIO_CONFIG_STATUS_NEEDS_RESET);
 }
@@ -179,10 +179,10 @@ static const struct virtio_dispatch remoteproc_virtio_dispatch_funcs = {
 	.get_features = rproc_virtio_get_features,
 	.read_config = rproc_virtio_read_config,
 	.notify = rproc_virtio_virtqueue_notify,
-#ifndef VIRTIO_SLAVE_ONLY
+#ifndef VIRTIO_DEVICE_ONLY
 	/*
 	 * We suppose here that the vdev is in a shared memory so that can
-	 * be access only by one core: the master. In this case salve core has
+	 * be access only by one core: the host. In this case salve core has
 	 * only read access right.
 	 */
 	.set_status = rproc_virtio_set_status,
@@ -219,13 +219,17 @@ rproc_virtio_create_vdev(unsigned int role, unsigned int notifyid,
 
 	for (i = 0; i < num_vrings; i++) {
 		struct virtqueue *vq;
+#ifndef VIRTIO_DEVICE_ONLY
 		struct fw_rsc_vdev_vring *vring_rsc;
+#endif
 		unsigned int num_extra_desc = 0;
 
+#ifndef VIRTIO_DEVICE_ONLY
 		vring_rsc = &vdev_rsc->vring[i];
-		if (role == VIRTIO_DEV_MASTER) {
+		if (role == VIRTIO_DEV_DRIVER) {
 			num_extra_desc = vring_rsc->num;
 		}
+#endif
 		vq = virtqueue_allocate(num_extra_desc);
 		if (!vq)
 			goto err1;
@@ -247,10 +251,10 @@ rproc_virtio_create_vdev(unsigned int role, unsigned int notifyid,
 	vdev->vrings_num = num_vrings;
 	vdev->func = &remoteproc_virtio_dispatch_funcs;
 
-#ifndef VIRTIO_SLAVE_ONLY
-	if (role == VIRTIO_DEV_MASTER) {
+#ifndef VIRTIO_DEVICE_ONLY
+	if (role == VIRTIO_DEV_DRIVER) {
 		uint32_t dfeatures = rproc_virtio_get_dfeatures(vdev);
-		/* Assume the master support all slave features */
+		/* Assume the virtio driver support all remote features */
 		rproc_virtio_negotiate_features(vdev, dfeatures);
 	}
 #endif
@@ -283,7 +287,8 @@ void rproc_virtio_remove_vdev(struct virtio_device *vdev)
 		if (vq)
 			metal_free_memory(vq);
 	}
-	metal_free_memory(vdev->vrings_info);
+	if (vdev->vrings_info)
+		metal_free_memory(vdev->vrings_info);
 	metal_free_memory(rpvdev);
 }
 
@@ -296,7 +301,7 @@ int rproc_virtio_init_vring(struct virtio_device *vdev, unsigned int index,
 	unsigned int num_vrings;
 
 	num_vrings = vdev->vrings_num;
-	if (index >= num_vrings)
+	if ((index >= num_vrings) || (num_descs > RPROC_MAX_VRING_DESC))
 		return -RPROC_EINVAL;
 	vring_info = &vdev->vrings_info[index];
 	vring_info->io = io;
@@ -335,14 +340,15 @@ void rproc_virtio_wait_remote_ready(struct virtio_device *vdev)
 {
 	uint8_t status;
 
+#ifndef VIRTIO_DEVICE_ONLY
 	/*
-	 * No status available for slave. As Master has not to wait
-	 * slave action, we can return. Behavior should be updated
-	 * in future if a slave status is added.
+	 * No status available for remote. As virtio driver has not to wait
+	 * remote action, we can return. Behavior should be updated
+	 * in future if a remote status is added.
 	 */
-	if (vdev->role == VIRTIO_DEV_MASTER)
+	if (vdev->role == VIRTIO_DEV_DRIVER)
 		return;
-
+#endif
 	while (1) {
 		status = rproc_virtio_get_status(vdev);
 		if (status & VIRTIO_CONFIG_STATUS_DRIVER_OK)

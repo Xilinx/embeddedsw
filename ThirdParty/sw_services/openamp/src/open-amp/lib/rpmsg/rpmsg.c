@@ -115,7 +115,7 @@ int rpmsg_send_offchannel_raw(struct rpmsg_endpoint *ept, uint32_t src,
 {
 	struct rpmsg_device *rdev;
 
-	if (!ept || !ept->rdev || !data || dst == RPMSG_ADDR_ANY)
+	if (!ept || !ept->rdev || !data || dst == RPMSG_ADDR_ANY || len < 0)
 		return RPMSG_ERR_PARAM;
 
 	rdev = ept->rdev;
@@ -170,6 +170,21 @@ void rpmsg_release_rx_buffer(struct rpmsg_endpoint *ept, void *rxbuf)
 		rdev->ops.release_rx_buffer(rdev, rxbuf);
 }
 
+int rpmsg_release_tx_buffer(struct rpmsg_endpoint *ept, void *buf)
+{
+	struct rpmsg_device *rdev;
+
+	if (!ept || !ept->rdev || !buf)
+		return RPMSG_ERR_PARAM;
+
+	rdev = ept->rdev;
+
+	if (rdev->ops.release_tx_buffer)
+		return rdev->ops.release_tx_buffer(rdev, buf);
+
+	return RPMSG_ERR_PERM;
+}
+
 void *rpmsg_get_tx_payload_buffer(struct rpmsg_endpoint *ept,
 				  uint32_t *len, int wait)
 {
@@ -191,7 +206,7 @@ int rpmsg_send_offchannel_nocopy(struct rpmsg_endpoint *ept, uint32_t src,
 {
 	struct rpmsg_device *rdev;
 
-	if (!ept || !ept->rdev || !data || dst == RPMSG_ADDR_ANY)
+	if (!ept || !ept->rdev || !data || dst == RPMSG_ADDR_ANY || len < 0)
 		return RPMSG_ERR_PARAM;
 
 	rdev = ept->rdev;
@@ -216,9 +231,6 @@ struct rpmsg_endpoint *rpmsg_get_endpoint(struct rpmsg_device *rdev,
 		ept = metal_container_of(node, struct rpmsg_endpoint, node);
 		/* try to get by local address only */
 		if (addr != RPMSG_ADDR_ANY && ept->addr == addr)
-			return ept;
-		/* try to find match on local end remote address */
-		if (addr == ept->addr && dest_addr == ept->dest_addr)
 			return ept;
 		/* else use name service and destination address */
 		if (name)
@@ -250,8 +262,17 @@ static void rpmsg_unregister_endpoint(struct rpmsg_endpoint *ept)
 }
 
 void rpmsg_register_endpoint(struct rpmsg_device *rdev,
-			     struct rpmsg_endpoint *ept)
+			     struct rpmsg_endpoint *ept,
+			     const char *name,
+			     uint32_t src, uint32_t dest,
+			     rpmsg_ept_cb cb,
+			     rpmsg_ns_unbind_cb ns_unbind_cb)
 {
+	strncpy(ept->name, name ? name : "", sizeof(ept->name));
+	ept->addr = src;
+	ept->dest_addr = dest;
+	ept->cb = cb;
+	ept->ns_unbind_cb = ns_unbind_cb;
 	ept->rdev = rdev;
 	metal_list_add_tail(&rdev->endpoints, &ept->node);
 }
@@ -263,7 +284,7 @@ int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 	int status = RPMSG_SUCCESS;
 	uint32_t addr = src;
 
-	if (!ept)
+	if (!ept || !rdev || !cb)
 		return RPMSG_ERR_PARAM;
 
 	metal_mutex_acquire(&rdev->lock);
@@ -293,8 +314,7 @@ int rpmsg_create_ept(struct rpmsg_endpoint *ept, struct rpmsg_device *rdev,
 		 */
 	}
 
-	rpmsg_initialize_ept(ept, name, addr, dest, cb, unbind_cb);
-	rpmsg_register_endpoint(rdev, ept);
+	rpmsg_register_endpoint(rdev, ept, name, addr, dest, cb, unbind_cb);
 	metal_mutex_release(&rdev->lock);
 
 	/* Send NS announcement to remote processor */
@@ -323,12 +343,10 @@ void rpmsg_destroy_ept(struct rpmsg_endpoint *ept)
 {
 	struct rpmsg_device *rdev;
 
-	if (!ept)
+	if (!ept || !ept->rdev)
 		return;
 
 	rdev = ept->rdev;
-	if (!rdev)
-		return;
 
 	if (ept->name[0] && rdev->support_ns &&
 	    ept->addr >= RPMSG_RESERVED_ADDRESSES)

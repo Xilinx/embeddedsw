@@ -19,5 +19,3 @@ endif ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
 if (NOT HAVE_FCNTL_H)
   unset (WITH_PROXY CACHE)
 endif (NOT HAVE_FCNTL_H)
-
-# vim: expandtab:ts=2:sw=2:smartindent

@@ -7,6 +7,7 @@
  */
 
 #include <metal/io.h>
+#include <metal/utilities.h>
 #include <openamp/rsc_table_parser.h>
 
 static int handle_dummy_rsc(struct remoteproc *rproc, void *rsc);
@@ -23,8 +24,8 @@ int handle_rsc_table(struct remoteproc *rproc,
 		     struct resource_table *rsc_table, size_t size,
 		     struct metal_io_region *io)
 {
-	char *rsc_start;
-	unsigned int rsc_type;
+	struct fw_rsc_hdr *hdr;
+	uint32_t rsc_type;
 	unsigned int idx, offset;
 	int status = 0;
 
@@ -55,18 +56,15 @@ int handle_rsc_table(struct remoteproc *rproc,
 
 	/* Loop through the offset array and parse each resource entry */
 	for (idx = 0; idx < rsc_table->num; idx++) {
-		rsc_start = (char *)rsc_table;
-		rsc_start += rsc_table->offset[idx];
-		if (io &&
-		    metal_io_virt_to_offset(io, rsc_start) == METAL_BAD_OFFSET)
+		hdr = (void *)((char *)rsc_table + rsc_table->offset[idx]);
+		if (io && metal_io_virt_to_offset(io, hdr) == METAL_BAD_OFFSET)
 			return -RPROC_ERR_RSC_TAB_TRUNC;
-		rsc_type = *((uint32_t *)rsc_start);
+		rsc_type = hdr->type;
 		if (rsc_type < RSC_LAST)
-			status = rsc_handler_table[rsc_type](rproc,
-							     rsc_start);
+			status = rsc_handler_table[rsc_type](rproc, hdr);
 		else if (rsc_type >= RSC_VENDOR_START &&
 			 rsc_type <= RSC_VENDOR_END)
-			status = handle_vendor_rsc(rproc, rsc_start);
+			status = handle_vendor_rsc(rproc, hdr);
 		if (status == -RPROC_ERR_RSC_TAB_NS) {
 			status = 0;
 			continue;
@@ -129,29 +127,45 @@ int handle_vendor_rsc(struct remoteproc *rproc, void *rsc)
 int handle_vdev_rsc(struct remoteproc *rproc, void *rsc)
 {
 	struct fw_rsc_vdev *vdev_rsc = rsc;
-	unsigned int notifyid, i, num_vrings;
+	int i, num_vrings;
+	unsigned int notifyid;
+	struct fw_rsc_vdev_vring *vring_rsc;
 
 	/* only assign notification IDs but do not initialize vdev */
 	notifyid = vdev_rsc->notifyid;
 	notifyid = remoteproc_allocate_id(rproc,
-					  notifyid, notifyid + 1);
+					  notifyid,
+					  notifyid == RSC_NOTIFY_ID_ANY ?
+					  RSC_NOTIFY_ID_ANY : notifyid + 1);
 	if (notifyid != RSC_NOTIFY_ID_ANY)
 		vdev_rsc->notifyid = notifyid;
+	else
+		return -RPROC_ERR_RSC_TAB_NP;
 
 	num_vrings = vdev_rsc->num_of_vrings;
 	for (i = 0; i < num_vrings; i++) {
-		struct fw_rsc_vdev_vring *vring_rsc;
-
 		vring_rsc = &vdev_rsc->vring[i];
 		notifyid = vring_rsc->notifyid;
 		notifyid = remoteproc_allocate_id(rproc,
 						  notifyid,
-						  notifyid + 1);
+						  notifyid == RSC_NOTIFY_ID_ANY ?
+						  RSC_NOTIFY_ID_ANY : notifyid + 1);
 		if (notifyid != RSC_NOTIFY_ID_ANY)
-			vdev_rsc->notifyid = notifyid;
+			vring_rsc->notifyid = notifyid;
+		else
+			goto err;
 	}
 
 	return 0;
+
+err:
+	for (i--; i >= 0; i--) {
+		vring_rsc = &vdev_rsc->vring[i];
+		metal_bitmap_clear_bit(&rproc->bitmap, vring_rsc->notifyid);
+	}
+	metal_bitmap_clear_bit(&rproc->bitmap, vdev_rsc->notifyid);
+
+	return -RPROC_ERR_RSC_TAB_NP;
 }
 
 /**
@@ -172,7 +186,7 @@ int handle_trace_rsc(struct remoteproc *rproc, void *rsc)
 
 	if (vdev_rsc->da != FW_RSC_U32_ADDR_ANY && vdev_rsc->len != 0)
 		return 0;
-	/* FIXME: master should allocated a memory used by slave */
+	/* FIXME: The host should allocated a memory used by remote */
 
 	return -RPROC_ERR_RSC_TAB_NS;
 }
@@ -199,17 +213,19 @@ static int handle_dummy_rsc(struct remoteproc *rproc, void *rsc)
 size_t find_rsc(void *rsc_table, unsigned int rsc_type, unsigned int index)
 {
 	struct resource_table *r_table = rsc_table;
+	struct fw_rsc_hdr *hdr;
 	unsigned int i, rsc_index;
 	unsigned int lrsc_type;
-	char *rsc_start;
 
 	metal_assert(r_table);
+	if (!r_table)
+		return 0;
+
 	/* Loop through the offset array and parse each resource entry */
 	rsc_index = 0;
 	for (i = 0; i < r_table->num; i++) {
-		rsc_start = (char *)r_table;
-		rsc_start += r_table->offset[i];
-		lrsc_type = *((uint32_t *)rsc_start);
+		hdr = (void *)((char *)r_table + r_table->offset[i]);
+		lrsc_type = hdr->type;
 		if (lrsc_type == rsc_type) {
 			if (rsc_index++ == index)
 				return r_table->offset[i];

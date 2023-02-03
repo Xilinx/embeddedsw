@@ -20,7 +20,10 @@
 extern "C" {
 #endif
 
-/* define vdev notification funciton user should implement */
+/* maximum number of vring descriptors for a vdev limited by 16-bit data type */
+#define	RPROC_MAX_VRING_DESC	USHRT_MAX
+
+/* define vdev notification function user should implement */
 typedef int (*rpvdev_notify_func)(void *priv, uint32_t id);
 
 /**
@@ -46,7 +49,7 @@ struct remoteproc_virtio {
  *
  * Create rproc virtio vdev
  *
- * @role: 0 - virtio master, 1 - virtio slave
+ * @role: VIRTIO_DEV_DRIVER or VIRTIO_DEV_DEVICE
  * @notifyid: virtio device notification id
  * @rsc: pointer to the virtio device resource
  * @rsc_io: pointer to the virtio device resource I/O region
