@@ -51,12 +51,17 @@
 *
 * To keep things simple, by default the cache is disabled for this example
 *
+* User configurable parameters for Dme example
+* NonceBuffer[XOCP_DME_NONCE_SIZE_BYTES] can be configured with a 32 byte nonce
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.1   am     01/10/23 Initial release
+*       kal    02/01/23 Moved configurable parameters from input.h file to
+*                       this file
 *
 * </pre>
 * @note
@@ -67,7 +72,6 @@
 #include "xocp_client.h"
 #include "xil_util.h"
 #include "xil_cache.h"
-#include "xilocp_input.h"
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
@@ -80,8 +84,14 @@
 static void XOcp_PrintData(const u8 *Data, u32 size);
 
 /************************** Variable Definitions *****************************/
-static u8 NonceBuffer[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] __attribute__ ((section (".data.NonceBuffer")));
 static XOcp_DmeResponse DmeResp __attribute__ ((section (".data.DmeResp")));
+static u8 NonceBuffer[XOCP_DME_NONCE_SIZE_BYTES] __attribute__ ((section (".data.NonceBuffer"))) =
+						{0x70,0x69,0x77,0x35,0x0b,0x93,
+						0x92,0xa0,0x48,0x2c,0xd8,0x23,
+						0x38,0x47,0xd2,0xd9,0x2d,0x1a,
+						0x95,0x0c,0xad,0xa8,0x60,0xc0,
+						0x9b,0x70,0xc6,0xad,0x6e,0xf1,
+						0x5d,0x49};
 
 /*****************************************************************************/
 /**
@@ -115,16 +125,8 @@ int main(void)
 		goto END;
 	}
 
-	/** Convert Nonce buffer given in macro and assign it to the variable */
-	Status = Xil_ConvertStringToHexLE((char *)XOCP_NONCE_BUFFER,
-		NonceBuffer, XOCP_DME_NONCE_SIZE_IN_BITS);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Convert string to Hex failed Status: 0x%x\n\r", Status);
-		goto END;
-	}
-
 #ifndef XOCP_CACHE_DISABLE
-	Xil_DCacheInvalidateRange((UINTPTR)NonceBuffer, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)NonceBuffer, XOCP_DME_NONCE_SIZE_BYTES);
 	Xil_DCacheInvalidateRange((UINTPTR)&DmeResp, (int)sizeof(XOcp_DmeResponse));
 #endif
 

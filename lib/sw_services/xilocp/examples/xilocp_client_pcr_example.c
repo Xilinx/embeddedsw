@@ -51,6 +51,24 @@
 *
 * To keep things simple, by default the cache is disabled for this example
 *
+* User configurable parameters for OCP
+* ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] can be configured with a 48 byte hash
+* XOCP_SELECT_PCR_NUM	(XOCP_PCR_2)
+* XOCP_SELECT_PCR_NUM can be configured as one of the seven provided PCR
+* number from XOcp_RomHwPcr enum in xocp_common.h file.
+*
+* XOCP_READ_PCR_MASK	(0x00000004)
+* The lower 8 bits of XOCP_READ_PCR_MASK indicates 8 PCRs, user can set
+* the corresponding bit to read the specific PCR
+* Example: XOCP_READ_PCR_MASK (0x00000004) , 2nd bit of the Mask is set means
+* user want to read the PCR 2
+* XOCP_READ_PCR_MASK (0x0000000B), 2nd and 3rd bitsof the Mask are set, which
+* means user wants to read PCR 2 and PCR 3.
+* Default value is (0x00000004)
+*
+* XOCP_READ_NUM_OF_LOG_ENTRIES Number of PcrLog entries to read into buffer.
+* Default value is (0x00000001)
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -58,6 +76,8 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.1   am     12/21/22 Initial release
 *       am     01/10/23 Added configurable cache disable support
+*       kal    02/01/23 Moved configurable parameters from input.h file to
+*                       this file.
 *
 * </pre>
 * @note
@@ -68,7 +88,6 @@
 #include "xocp_client.h"
 #include "xil_util.h"
 #include "xil_cache.h"
-#include "xilocp_input.h"
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
@@ -76,14 +95,27 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XOCP_SELECT_PCR_NUM	(XOCP_PCR_2)
+
+#define XOCP_READ_PCR_MASK	(0x00000004)
+
+#define XOCP_READ_NUM_OF_LOG_ENTRIES	(0x00000001)
 
 /************************** Function Prototypes ******************************/
 static void XOcp_PrintData(const u8 *Data, u32 size);
 
 /************************** Variable Definitions *****************************/
 static u8 PCRBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PCRBuf")));
-static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] __attribute__ ((section (".data.ExtendHash")));
-static XOcp_HwPcrLog PcrLog;
+static XOcp_HwPcrLog PcrLog __attribute__ ((section (".data.PcrLog")));
+static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] =
+						{0x70,0x69,0x77,0x35,0x0b,0x93,
+						0x92,0xa0,0x48,0x2c,0xd8,0x23,
+						0x38,0x47,0xd2,0xd9,0x2d,0x1a,
+						0x95,0x0c,0xad,0xa8,0x60,0xc0,
+						0x9b,0x70,0xc6,0xad,0x6e,0xf1,
+						0x5d,0x49,0x68,0xa3,0x50,0x75,
+						0x06,0xbb,0x0b,0x9b,0x03,0x7d,
+						0xd5,0x93,0x76,0x50,0xdb,0xd4};
 
 /*****************************************************************************/
 /**
@@ -102,6 +134,7 @@ int main(void)
 	XOcp_ClientInstance OcpClientInstance;
 	XOcp_RomHwPcr PcrNum = (XOcp_RomHwPcr)XOCP_SELECT_PCR_NUM;
 	u32 PcrMask = (u32)XOCP_READ_PCR_MASK;
+	u8 Index;
 #ifdef XOCP_CACHE_DISABLE
 	Xil_DCacheDisable();
 #endif
@@ -118,20 +151,13 @@ int main(void)
 		goto END;
 	}
 
-	/** Convert Hash given in macro and assign it to the variable */
-	Status = Xil_ConvertStringToHexLE((char *)XOCP_EXTEND_HASH,
-		ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BITS);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Convert string to Hex failed Status: 0x%x\n\r", Status);
-		goto END;
-	}
-
-	xil_printf("Extended hash:\n");
+	xil_printf("Hash to be extended:\n");
 	XOcp_PrintData((const u8*)ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
 
 #ifndef XOCP_CACHE_DISABLE
 	Xil_DCacheInvalidateRange((UINTPTR)ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
 	Xil_DCacheInvalidateRange((UINTPTR)PCRBuf, XOCP_PCR_SIZE_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)PcrLog, sizeof(PcrLog));
 #endif
 	Status = XOcp_ExtendPcr(&OcpClientInstance, PcrNum,
 		(u64)(UINTPTR)ExtendHash, sizeof(ExtendHash));
@@ -157,7 +183,15 @@ int main(void)
 			Status, PcrLog.OverFlowFlag);
                 goto END;
         }
-
+	xil_printf("\n\rPCR Log contents:\n\r");
+	for (Index = 0U; Index < XOCP_READ_NUM_OF_LOG_ENTRIES; Index++) {
+		xil_printf("Pcr Number: %x\r\n", PcrLog.Buffer[Index].PcrNo);
+		xil_printf("Hash to be extended:\n\r");
+		XOcp_PrintData((const u8*)PcrLog.Buffer[Index].Hash, XOCP_PCR_SIZE_BYTES);
+		xil_printf("Pcr Extended Value:\n\r");
+		XOcp_PrintData((const u8*)PcrLog.Buffer[Index].PcrValue, XOCP_PCR_SIZE_BYTES);
+		xil_printf("\n\r");
+	}
 	xil_printf("\r\n Successfully ran OCP Client Example");
 	Status = XST_SUCCESS;
 

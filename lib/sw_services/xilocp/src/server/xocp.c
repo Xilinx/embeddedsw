@@ -148,9 +148,8 @@ int XOcp_GetHwPcrLog(u64 LogAddr, u32 NumOfLogEntries)
 		goto END;
        }
 
-	Status = XOcp_MemCopy((u64)(UINTPTR)&HwPcrLog, LogAddr,
-		(NumOfLogEntries * sizeof(XOcp_HwPcrEvent)) / XOCP_WORD_LEN,
-		XPLMI_PMCDMA_0);
+	Status = XPlmi_MemCpy64(LogAddr, (u64)(UINTPTR)&HwPcrLog,
+		(NumOfLogEntries * sizeof(XOcp_HwPcrEvent)));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

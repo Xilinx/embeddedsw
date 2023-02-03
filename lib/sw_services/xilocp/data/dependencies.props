@@ -1,9 +1,0 @@
-###############################################################################
-# Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
-# SPDX-License-Identifier: MIT
-##############################################################################
-
-xilocp_client_pcr_example.c = xilocp_input.h
-xilocp_client_dme_example.c = xilocp_input.h
-xilocp_client_devicekey_example.c = xilocp_input.h

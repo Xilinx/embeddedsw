@@ -54,12 +54,17 @@
 *
 * To keep things simple, by default the cache is disabled for this example
 *
+* User configurable parameters for OCP device key example
+* Data[XOCP_SHA3_HASH_LEN_IN_BYTES] can be configured with a 48 byte hash
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.1   vns    01/19/22 Initial release
+*       kal    02/01/23 Moved configurable parameters from input.h file to
+*	                this file
 *
 * </pre>
 * @note
@@ -70,7 +75,6 @@
 #include "xocp_client.h"
 #include "xil_util.h"
 #include "xil_cache.h"
-#include "xilocp_input.h"
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
@@ -88,7 +92,6 @@ static int XOcp_GetX509DevIK(XOcp_ClientInstance *OcpClientInsPtr);
 static int XOcp_GetX509DevAK(XOcp_ClientInstance *OcpClientInsPtr);
 /************************** Variable Definitions *****************************/
 #if defined (__GNUC__)
-static u8 Data[XOCP_SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Data")));
 static u8 Signature[XOCP_ECC_SIGN_TOTAL_LEN] __attribute__ ((section (".data.Signature")));
 static u8 X509Cert[XOCP_X509_CERT_BUF_SIZE]__attribute__ ((section (".data.X509Cert")));
 static XOcp_X509Cert DataX509 __attribute__ ((section (".data.DataX509")));
@@ -96,7 +99,6 @@ static u32 ActualCertSize __attribute__ ((section (".data.ActualCertSize")));
 static XOcp_Attest AttestData __attribute__((aligned(64U)))
 				__attribute__ ((section (".data.AttestData")));
 #elif defined (__ICCARM__)
-static u8 Data[XOCP_SHA3_HASH_LEN_IN_BYTES];
 static u8 Signature[XOCP_ECC_SIGN_TOTAL_LEN];
 static u8 X509Cert[XOCP_X509_CERT_BUF_SIZE];
 static XOcp_X509Cert DataX509;
@@ -105,6 +107,15 @@ static u32 ActualCertSize;
 static XOcp_Attest AttestData;
 #endif
 
+static u8 Data[XOCP_SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Data"))) =
+						{0x70,0x69,0x77,0x35,0x0b,0x93,
+						0x92,0xa0,0x48,0x2c,0xd8,0x23,
+						0x38,0x47,0xd2,0xd9,0x2d,0x1a,
+						0x95,0x0c,0xad,0xa8,0x60,0xc0,
+						0x9b,0x70,0xc6,0xad,0x6e,0xf1,
+						0x5d,0x49,0x68,0xa3,0x50,0x75,
+						0x06,0xbb,0x0b,0x9b,0x03,0x7d,
+						0xd5,0x93,0x76,0x50,0xdb,0xd4};
 /*****************************************************************************/
 /**
 * @brief   Main function to call the OCP functions to get X.509 certificate(s)
@@ -250,16 +261,8 @@ static int XOcp_AttestationExample(XOcp_ClientInstance *OcpClientInsPtr)
 {
 	int Status = XST_FAILURE;
 
-	/** Convert the Data string */
-	Status = Xil_ConvertStringToHexLE((char *)XOCP_ATTESTATION_HASH,
-		Data, XOCP_EXTENDED_HASH_SIZE_IN_BITS);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Convert string to Hex failed Status: 0x%x\n\r", Status);
-		goto END;
-	}
-
 	xil_printf("Extended hash:\n");
-	XOcp_PrintData((const u8*)Data, 48);
+	XOcp_PrintData((const u8*)Data, XOCP_SHA3_HASH_LEN_IN_BYTES);
 
 #ifndef XOCP_CACHE_DISABLE
 	Xil_DCacheInvalidateRange((UINTPTR)Data, XOCP_ATTESTATION_DATA_SIZE_IN_BYTES);
