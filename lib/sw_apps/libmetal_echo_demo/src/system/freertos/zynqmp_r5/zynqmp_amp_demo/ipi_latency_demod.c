@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2017, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (C) 2022, Advanced Micro Devices, Inc.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -44,7 +45,7 @@ struct channel_s {
 	struct metal_io_region *shm_io; /* Shared memory metal i/o region */
 	struct metal_io_region *ttc_io; /* TTC metal i/o region */
 	uint32_t ipi_mask; /* RPU IPI mask */
-	atomic_int remote_nkicked; /* 0 - kicked from remote */
+	atomic_flag remote_nkicked; /* 0 - kicked from remote */
 };
 
 /**
@@ -200,7 +201,8 @@ int ipi_latency_demod()
 	metal_irq_register(ipi_irq, ipi_irq_handler, &ch);
 	metal_irq_enable(ipi_irq);
 	/* initialize remote_nkicked */
-	atomic_init(&ch.remote_nkicked, 1);
+	ch.remote_nkicked = (atomic_flag)ATOMIC_FLAG_INIT;
+	atomic_flag_test_and_set(&ch.remote_nkicked);
 	/* Enable IPI interrupt */
 	metal_io_write32(ch.ipi_io, IPI_IER_OFFSET, IPI_MASK);
 

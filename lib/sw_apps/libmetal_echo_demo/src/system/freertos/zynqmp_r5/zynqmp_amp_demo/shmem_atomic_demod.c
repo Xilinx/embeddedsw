@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2017, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (C) 2022, Advanced Micro Devices, Inc.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
@@ -27,7 +28,7 @@
 #define ATOMIC_INT_OFFSET 0x0 /* shared memory offset for atomic operation */
 #define ITERATIONS 5000
 
-static atomic_int remote_nkicked; /* is remote kicked, 0 - kicked,
+static atomic_flag remote_nkicked; /* is remote kicked, 0 - kicked,
 				       1 - not-kicked */
 
 static int ipi_irq_handler (int vect_id, void *priv)
@@ -132,7 +133,8 @@ int atomic_shmem_demod()
 	metal_irq_register(ipi_irq, ipi_irq_handler, ipi_io);
 	metal_irq_enable(ipi_irq);
 	/* initialize remote_nkicked */
-	atomic_init(&remote_nkicked, 1);
+	remote_nkicked = (atomic_flag)ATOMIC_FLAG_INIT;
+	atomic_flag_test_and_set(&remote_nkicked);
 	/* Enable IPI interrupt */
 	metal_io_write32(ipi_io, IPI_IER_OFFSET, IPI_MASK);
 
