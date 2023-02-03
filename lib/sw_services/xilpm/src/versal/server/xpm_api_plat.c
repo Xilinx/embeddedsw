@@ -880,19 +880,16 @@ done:
 
 XStatus XPm_HookAfterBootPdi(void)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 Platform = XPm_GetPlatform();
 
 	/* If platform is COSIM, run setup for PL and AIE devices */
 	if (PLATFORM_VERSION_COSIM == Platform) {
-		Status = XPm_CosimInit();
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XSECURE_TEMPORAL_CHECK(done, Status, XPm_CosimInit);
 	}
 
 	/* Start HBM temperature monitoring task, if applicable */
-	Status = XPmMem_HBMTempMonInitTask();
+	XSECURE_TEMPORAL_CHECK(done, Status, XPmMem_HBMTempMonInitTask);
 
 done:
 	return Status;
