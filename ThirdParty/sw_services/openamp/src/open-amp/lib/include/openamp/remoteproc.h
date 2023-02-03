@@ -1,10 +1,11 @@
 /*
  * Remoteproc Framework
  *
- * Copyright(c) 2018 Xilinx Ltd.
  * Copyright(c) 2011 Texas Instruments, Inc.
  * Copyright(c) 2011 Google, Inc.
  * All rights reserved.
+ * Copyright (c) 2018-2022 Xilinx, Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */

@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
- * Copyright (c) 2018, Xilinx Inc.
+ * Copyright (c) 2018-2022 Xilinx, Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause

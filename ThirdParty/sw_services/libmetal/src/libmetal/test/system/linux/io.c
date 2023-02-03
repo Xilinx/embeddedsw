@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
