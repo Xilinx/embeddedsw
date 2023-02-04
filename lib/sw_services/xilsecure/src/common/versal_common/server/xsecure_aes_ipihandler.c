@@ -206,7 +206,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	}
 
 	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
-		KatMask = XPLMI_SECURE_ENC_KAT_MASK;
+		KatMask = XPLMI_SECURE_AES_ENC_KAT_MASK;
 	}
 	else {
 		KatMask = XPLMI_SECURE_AES_DEC_KAT_MASK;
@@ -570,7 +570,7 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 	}
 
 	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
-		KatMask = XPLMI_SECURE_ENC_KAT_MASK;
+		KatMask = XPLMI_SECURE_AES_ENC_KAT_MASK;
 	}
 	else {
 		KatMask = XPLMI_SECURE_AES_DEC_KAT_MASK;
