@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -143,6 +144,8 @@ END:
  * @param	InstancePtr	- Instance pointer to the XSecure_Sss
  * @param	DmaId		- Device ID of DMA which is to be used as an input to
  *				  the SHA engine
+ * @param	Resource	- SHA resource for which input and output paths to be
+ *				  configured
  *
  * @return
  *	-	XST_SUCCESS - On successful configuration of the switch
