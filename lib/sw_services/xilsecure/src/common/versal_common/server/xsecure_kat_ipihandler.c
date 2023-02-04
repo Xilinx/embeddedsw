@@ -251,7 +251,7 @@ static int XSecure_AesEncKat(void)
 	}
 END:
 	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_ENC_KAT_MASK);
+	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_AES_ENC_KAT_MASK);
 	return Status;
 }
 
