@@ -404,7 +404,7 @@ static int XSecure_ShaKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
+	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
 	volatile XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	if (NULL == PmcDmaInstPtr) {
