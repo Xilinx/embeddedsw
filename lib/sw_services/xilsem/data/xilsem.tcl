@@ -17,6 +17,8 @@
 # 1.07	hv   06/06/22 Added support for P80
 # 1.08  gm   11/22/22 Added support for A72
 # 1.09	hv   11/16/22 Added support for PL microblaze
+# 1.10	hv   02/03/23 Added support for versal_net and get number of
+#		      SLRs from the design
 ##############################################################################
 
 #---------------------------------------------
@@ -38,10 +40,17 @@ proc generate {libhandle} {
 
 	switch $proctype {
 		"psu_pmc" -
-		"psv_pmc" -
+		"psv_pmc" {
+			copy_files_to_src $server_dir
+			file delete -force ./src/libxilsem_versal_net.a
+			file rename -force ./src/libxilsem_versal.a ./src/libxilsem.a
+		}
+
 		"psxl_pmc" -
 		"psx_pmc" {
 			copy_files_to_src $server_dir
+			file delete -force ./src/libxilsem_versal.a
+			file rename -force ./src/libxilsem_versal_net.a ./src/libxilsem.a
 		}
 
 		"psv_cortexr5" -
@@ -128,9 +137,15 @@ proc xgen_opts_file {libhandle} {
 	    puts $file_handle "\#define XSEM_NPISCAN_EN"
 	  }
 
+	  #Get number of SLRs from the design
+	  set part [::hsi::get_current_part]
+	  set SlrCount [common::get_property NUM_OF_SLRS $part]
+	  puts $file_handle "\n/** Maximum number of SLRs on SSIT device */"
+	  puts $file_handle "#define XSEM_SSIT_MAX_SLR_CNT       $SlrCount"
+
 	  puts $file_handle ""
 	  close $file_handle
-        }
+    }
 
 	# Copy the include files to the include directory
 	set srcdir src
