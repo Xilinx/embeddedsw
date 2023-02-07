@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -87,6 +87,12 @@
 *                     DDR and OCM as cacheable memory.
 * 8.1   mus  12/22/22 Updated VERSAL NET translation table to configure PCIE
 *                     region as device memory.
+* 8.1   mus  02/06/23 Few registers in CMN space needs to be set up for OCM
+*                     cacheability. Existing firmware is not doing that. Hence,
+*                     OCM cacheability is broken for VERSAL NET SoC.
+*                     Updated VERSAL NET translation table to configure OCM
+*                     as non cacheable, till that support is added in firmware.
+*                     It fixes CR#1150456.
 *
 ******************************************************************************/
 #include "xparameters.h"
@@ -324,7 +330,7 @@ MMUTableL2:
  * memory incorrectly due to 2 MB granularity limitation
  */
 .rept	0x01			   /* 0xBBE0_0000 - 0xBBFF_FFFF */
-.8byte	SECT + Memory              /* 1 MB OCM 0xBBF0_0000 - 0xBBFF_FFFF, 0xBBE0_0000 - 0XBBEF_FFFF marked as normal memory incorrectly  */
+.8byte	SECT + Memory_NonCacheable              /* 1 MB OCM 0xBBF0_0000 - 0xBBFF_FFFF, 0xBBE0_0000 - 0XBBEF_FFFF marked as normal memory incorrectly  */
 .set	SECT, SECT+0x200000
 .endr
 

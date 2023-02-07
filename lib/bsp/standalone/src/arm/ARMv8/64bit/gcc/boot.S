@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -78,6 +78,13 @@
 *                         address space.
 * 8.1   mus      12/22/22 Updated TCR_EL3 to configure translation table walks
 *                         as cacheable.
+* 8.1   mus      02/06/23 Few registers in CMN space needs to be set up for OCM
+*                         cacheability. Existing firmware is not doing that. Hence
+*                         OCM cacheability is broken for VERSAL NET SoC.
+*                         As user can keep translation tables in OCM, translation
+*                         tables needs to be configured as non cacheable, till
+*                         cacheability settings are supported from firmware end.
+*                         It fixes CR#1150456.
 *
 * </pre>
 *
@@ -287,20 +294,21 @@ InitEL3:
          * Set up TCR_EL3
          * Physical Address Size PS =  011 -> 42 bits 4TB
          * Granual Size TG0 = 00 -> 4KB
-         * Attributes for page table walks = 01 -> cacheable
+         * Attributes for page table walks = 00 -> non cacheable
          * size offset of the memory region T0SZ = 22 -> (region size 2^(64-22) = 2^42)
          ***************************************************/
-        ldr     x1,=0x80833516
+        ldr     x1,=0x80833016
 
 #elif defined (VERSAL_NET)
         /**********************************************
          * Set up TCR_EL3
          * Physical Address Size PS =  101 -> 48bits 256 TB
          * Granual Size TG0 = 00 -> 4KB
+         * Attributes for page table walks = 00 -> non cacheable
          * size offset of the memory region T0SZ = 16 -> (region size 2^(64-16) = 2^48)
          ***************************************************/
         /* ldr     x1,=0x80853510 */
-        ldr     x1,=0x80853510
+        ldr     x1,=0x80853010
 #elif defined (versal)
 	/**********************************************
 	 * Set up TCR_EL3
