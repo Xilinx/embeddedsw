@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -95,6 +96,8 @@ extern "C" {
 					/**< Security Misc0 register address */
 #define XLOADER_EFUSE_SEC_DEC_MASK			(0x0000FFFFU)
 			/**< DEC_ONLY fuse mask in Security Misc0 register */
+#define XLOADER_EFUSE_MISC_CTRL_OFFSET			(0xF12500A0U)
+			/**< Misc CTRL register */
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -112,6 +115,7 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size);
 int XLoader_SecureClear(void);
 int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 			u8 Last, u32 BlockSize, u32 TotalSize);
+int XLoader_CheckNonZeroPpk(void);
 u32 XLoader_GetAHWRoT(const u32* AHWRoTPtr);
 u32 XLoader_GetSHWRoT(const u32* SHWRoTPtr);
 int XLoader_SetSecureState(void);

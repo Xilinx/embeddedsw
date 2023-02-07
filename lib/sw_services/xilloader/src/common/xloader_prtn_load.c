@@ -121,6 +121,7 @@
 #include "xplmi_plat.h"
 #include "xloader_plat.h"
 #include "xplmi_wdt.h"
+#include "xplmi_tamper.h"
 
 /************************** Constant Definitions *****************************/
 

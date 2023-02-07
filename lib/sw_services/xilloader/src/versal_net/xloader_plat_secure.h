@@ -41,6 +41,7 @@ extern "C" {
 #include "xplmi_config.h"
 #ifndef PLM_SECURE_EXCLUDE
 #include "xsecure_kat.h"
+#include "xloader.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -144,7 +145,6 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
 int XLoader_AddDeviceStateChangeToScheduler(void);
 int XLoader_CheckDeviceStateChange(void *Arg);
 int XLoader_RsaKat(XPmcDma *PmcDmaPtr);
-int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 
 /************************** Variable Definitions *****************************/
 
