@@ -3081,6 +3081,11 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 		goto done;
 	}
 
+	if ((Reason < ABORT_REASON_MIN) || (Reason > ABORT_REASON_MAX)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	DISABLE_WFI(Core->SleepMask);
 
 	Status = XPmSubsystem_SetState(SubsystemId, (u32)ONLINE);
