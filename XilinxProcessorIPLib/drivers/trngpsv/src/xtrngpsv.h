@@ -1,5 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -93,6 +94,7 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 #define XTRNGPSV_SEC_STRENGTH_BYTES	32U 	/**< Security strength in bytes */
+#define XTRNGPSV_SEC_STRENGTH_LEN	8U 	/**< Security strength in Words */
 #define XTRNGPSV_PERS_STR_LEN		12U 	/**< Personalization string length in dwords */
 #define XTRNGPSV_PERS_STR_LEN_BYTES	48U 	/**< Personalization string length in bytes */
 #define XTRNGPSV_SEED_LEN		12U 	/**< Seed length in dwords */
@@ -158,6 +160,7 @@ typedef enum {
 	XTRNGPSV_ERROR_CATASTROPHIC_DTF, /**< 0x45 */
 	XTRNGPSV_ERROR_CATASTROPHIC_DTF_SW, /**< 0x46 */
 	XTRNGPSV_ERROR_GENERATE_TIMEOUT, /**< 0x47 */
+	XTRNGPSV_ERROR_INVALID_RANDBUF_ADDR, /**< 0x48 */
 
 	/* Derivative Function related Error codes */
 	XTRNGPSV_ERROR_DF_CPY = 0x50, /**< 0x50 */
