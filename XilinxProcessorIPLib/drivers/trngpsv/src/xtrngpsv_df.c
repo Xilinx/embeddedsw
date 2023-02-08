@@ -1,5 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -21,6 +22,7 @@
  * 1.00  ssc  09/05/21 First release
  * 1.1   ssc  03/24/22 Updates based on Security best practices
  * 1.2   kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy check
+ * 1.3   kpt  01/31/23 Fixed issue when DF length is greater than 5
  *
  * </pre>
  *
@@ -154,7 +156,7 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 
 	if (DiffSize > 0U) {
 		/* Move the block up */
-		Status = Xil_SMemCpy((u8*)DestAddr, TransferSize, (u8*)SrcAddr, TransferSize, TransferSize);
+		Status = Xil_SMemMove((u8*)DestAddr, TransferSize, (u8*)SrcAddr, TransferSize, TransferSize);
 		if (Status != XTRNGPSV_SUCCESS) {
 			Status = (s32)XTRNGPSV_ERROR_DF_CPY;
 			goto SET_ERR;
