@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020  Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -981,8 +982,25 @@ typedef struct {
 ******************************************************************************/
 #define XV_HdmiRx_DdcScdcClear(InstancePtr) \
 { \
-	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK)); \
 	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_CLR_OFFSET), (XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK)); \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro Sets the SCDC registers in the DDC peripheral
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx_DdcScdcClear(XV_HdmiRx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx_DdcScdcSet(InstancePtr) \
+{ \
+	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK)); \
 }
 
 /*****************************************************************************/
@@ -1281,6 +1299,7 @@ XVidC_VideoMode XV_HdmiRx_LookupVmId(u8 Vic);
 int XV_HdmiRx_GetVideoProperties(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr);
 u32 XV_HdmiRx_Divide(u32 Dividend, u32 Divisor);
+void XV_HdmiRx_WriteScdcRegister(XV_HdmiRx *InstancePtr, u8 address, u8 data);
 
 /* Log specific functions */
 void XV_HdmiRx_DebugInfo(XV_HdmiRx *InstancePtr);
