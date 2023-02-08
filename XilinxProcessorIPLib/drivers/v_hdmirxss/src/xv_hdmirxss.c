@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1680,6 +1681,23 @@ void XV_HdmiRxSs_ToggleHpd(XV_HdmiRxSs *InstancePtr)
 XHdmiC_Aux *XV_HdmiRxSs_GetAuxiliary(XV_HdmiRxSs *InstancePtr)
 {
     return (&(InstancePtr->HdmiRxPtr->Aux));
+}
+
+/*****************************************************************************/
+/**
+*
+* This function writes to SCDC registers
+*
+* @param  InstancePtr pointer to XV_HdmiRXSs instance
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiRxSs_Write_ScdcRegister(XV_HdmiRxSs *InstancePtr, u8 address, u8 data)
+{
+    XV_HdmiRx_WriteScdcRegister(InstancePtr,address,data);
 }
 
 /*****************************************************************************/

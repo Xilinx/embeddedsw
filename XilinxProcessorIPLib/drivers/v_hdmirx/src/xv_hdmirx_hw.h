@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020  Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -307,6 +308,9 @@ extern "C" {
 #define XV_HDMIRX_SHIFT_16      16  /**< 16 shift value */
 #define XV_HDMIRX_MASK_16       0xFFFF  /**< 16 bit mask value */
 #define XV_HDMIRX_PIO_ID            0x2200  /**< PIO ID */
+
+// SCDC BRAM Offset register
+#define XV_HDMIRX_SCDC_BRAM_OFFSET 0x138 /**<SCDC BRAM Offset */
 
 /**************************** Type Definitions *******************************/
 
