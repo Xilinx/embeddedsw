@@ -992,6 +992,8 @@ extern "C" {
 #define PM_ISO_PL_ACP_APU3			(0x20000045U)
 #define PM_ISO_PL_PS_DTI0			(0x20000046U)
 #define PM_ISO_PL_PS_DTI1			(0x20000047U)
+#define PM_ISO_CPM5_NOC_DFX			(0x20000048U)
+#define PM_ISO_CPM5_NOC				(0x20000049U)
 /** @} */
 /** @endcond */
 
