@@ -115,6 +115,7 @@
 *                       Master SLR
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+*       ng   02/07/2023 Check to skip the multiboot reg update and SRST
 * </pre>
 *
 * @note
@@ -144,6 +145,11 @@
 
 /* Command IDs supported in CDOs */
 #define XPLMI_EM_SET_ACTION_CMD_ID	(1U)
+
+/* BOOT modes */
+#define XPLMI_PDI_SRC_JTAG		(0x0U)
+#define XPLMI_PDI_SRC_USB		(0x7U)
+#define XPLMI_PDI_SRC_SMAP		(0xAU)
 
 /**
  * @}
@@ -184,6 +190,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 	u32 RegVal;
 #endif
 	u8 SlrType = XPlmi_GetSlrType();
+	u32 BootMode;
 
 	/* Print the PLM error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
@@ -205,14 +212,16 @@ void XPlmi_ErrMgr(int ErrStatus)
 		 * else just return, so that we receive next requests
 		 */
 		if (XPlmi_IsLoadBootPdiDone() == FALSE) {
+
+			BootMode = XPlmi_In32(CRP_BOOT_MODE_USER) & CRP_BOOT_MODE_USER_BOOT_MODE_MASK;
+
 			XPlmi_DumpRegisters();
 			/**
 			 * If boot mode is jtag, donot reset. This is to keep
 			 * the system state intact for further debug.
 			 */
 #ifndef PLM_DEBUG_MODE
-			if((XPlmi_In32(CRP_BOOT_MODE_USER) &
-					CRP_BOOT_MODE_USER_BOOT_MODE_MASK) == 0U)
+			if(BootMode == XPLMI_PDI_SRC_JTAG)
 #endif
 			{
 				while (TRUE) {
@@ -229,9 +238,19 @@ void XPlmi_ErrMgr(int ErrStatus)
 			* If Halt Boot eFuses are not blown, update multiboot register and trigger FW NCR.
 			*/
 			XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_IMMEDIATE);
+
 			/**
-			 * Update Multiboot register
+			 * Update Multiboot register and perform SRST.
+			 * Skip for slave boot modes.
 			 */
+			if((BootMode == XPLMI_PDI_SRC_USB) || (BootMode == XPLMI_PDI_SRC_SMAP)) {
+				/**
+				 * - PLM should not process remaining tasks in slave boot modes.
+				*/
+				while(TRUE) {
+					;
+				}
+			}
 			RegVal = XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);
 			XPlmi_Out32(PMC_GLOBAL_PMC_MULTI_BOOT, RegVal + 1U);
 
