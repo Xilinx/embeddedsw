@@ -1,6 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -24,6 +24,7 @@
  * 1.2   kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
  *       ssc  08/25/22 Updates based on Security best practices, error handling fix in
  * 					XTrngpsv_Generate, moved Xil_SecureRMW32 to BSP.
+ * 1.3   kpt  01/31/23 Fixed RGRG sequence
  *
  * </pre>
  *
@@ -36,11 +37,12 @@
 /************************************ Constant Definitions ***************************************/
 
 #define XTRNGPSV_BURST_SIZE		16U	/**< QCNT of 4 * 4 bytes (reg width)= 16 bytes */
-#define XTRNGPSV_BURST_SIZE_BITS	128U	/**< Burst size in bits */
 #define XTRNGPSV_NUM_INIT_REGS		12U	/**< No. of SEED and PERS STRING registers each */
-#define XTRNGPSV_REG_SIZE		32U	/**< Size of TRNG registers */
 #define XTRNGPSV_BYTES_PER_REG		4U	/**< Number of bytes register (i.e. 32/8) */
-#define XTRNGPSV_MAX_QCNT		4U	/**< Max value of QCNT field in STATUS register */
+#define XTRNGPSV_ENTROPY_SEED_LEN_BYTES 64U	/**< Entropy SEED length in terms of security strength */
+#define XTRNGPSV_SEC_STRENGTH_SHIFT     5U	/**< Shift value in terms of security strength */
+#define XTRNGPSV_MAX_QCNT_MASK          0x800U	/**< Mask value for maximum QCNT (i.e 4U << 9U) */
+#define XTRNGPSV_WORD_ALIGN_MASK        0x03U   /**< Mask to check whether the address is word aligned */
 
 #define XTRNGPSV_RESEED_TIMEOUT		15000U	/**< Reseed timeout in micro-seconds */
 #define XTRNGPSV_GENERATE_TIMEOUT	8000U	/**< Generate timeout in micro-seconds */
@@ -70,7 +72,7 @@
 static void XTrngpsv_Reset(const XTrngpsv *InstancePtr);
 static void XTrngpsv_SoftReset(const XTrngpsv *InstancePtr);
 static void XTrngpsv_HoldReset(const XTrngpsv *InstancePtr);
-static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u8 *RandGenBuf, u32 NumBytes);
+static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u32 *RandGenBuf, u32 NumOfRandBytes);
 static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, u8 *PersStrPtr,
 		u32 DFLenMul);
 static s32 XTrngpsv_WriteRegs(const XTrngpsv *InstancePtr, u32 StartRegOffset, u32 NumRegs,
@@ -81,6 +83,10 @@ static inline void XTrngpsv_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Reg
 static inline void XTrngpsv_RMW32(UINTPTR BaseAddress, u32 RegOffset, u32 RegMask, u32 RegValue);
 static inline s32 XTrngpsv_WaitForEvent(UINTPTR BaseAddr, u32 RegOffset, u32 EventMask, u32 Event,
 		u32 Timeout);
+static void XTrngpsv_ChangeEndianness(u32 *SrcBuf);
+static s32 XTrngpsv_CheckRandDataPattern(XTrngpsv *InstancePtr, u32 *RandBuf);
+static inline s32 __attribute__((always_inline))  XTrngpsv_WaitForData(const XTrngpsv *InstancePtr);
+static s32 __attribute__ ((noinline)) XTrngpsv_WaitAndCollectData(XTrngpsv *InstancePtr, u32 *RandBuf, u32 CtrlVal);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -282,6 +288,13 @@ s32 XTrngpsv_Instantiate(XTrngpsv *InstancePtr, const XTrngpsv_UsrCfg *ConfigurV
 			(u8*)InstancePtr->UsrCfg.PersString : NULL;
 
 	Status = XTRNGPSV_FAILURE;
+	Status = Xil_SMemSet((u8*)InstancePtr->RandBitBuf, sizeof(InstancePtr->RandBitBuf), 0U,
+			sizeof(InstancePtr->RandBitBuf));
+	if (Status != XTRNGPSV_SUCCESS) {
+		goto SET_ERR;
+	}
+
+	Status = XTRNGPSV_FAILURE;
 	/* Reseed device with initial seed and personalization string */
 	if ((InstancePtr->UsrCfg.Mode == XTRNGPSV_HRNG)
 			|| (InstancePtr->UsrCfg.Mode == XTRNGPSV_DRNG)) {
@@ -406,9 +419,10 @@ END:
  * multiple times accordingly.
  *
  * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
- * @param	RandBufPtr points to the address of the buffer in to which the random data
- * 		generated has to be copied.
- * @param	RandBufSize is size of the buffer to which RandBufPtr points to
+ * @param	RandBufPtr points to memory address where generated random data will be stored and
+ *      the memory address should be word aligned.
+ * @param	RandBufSize is size of the buffer to which RandBufPtr points to and it should
+ *      be always greater than or equal to XTRNGPSV_SEC_STRENGTH_BYTES.
  * @param	PredResistanceEn is the flag that controls Generate level Prediction Resistance.
  * 		When enabled, it mandates fresh seed for every Generate operation.
  *
@@ -441,6 +455,11 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 
 	if (RandBufPtr == NULL) {
 		Status = (s32)XTRNGPSV_ERROR_INVALID_PARAM;
+		goto SET_ERR;
+	}
+
+	if (((UINTPTR)RandBufPtr & XTRNGPSV_WORD_ALIGN_MASK) != 0U) {
+		Status = (s32)XTRNGPSV_ERROR_INVALID_RANDBUF_ADDR;
 		goto SET_ERR;
 	}
 
@@ -493,9 +512,9 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 				goto SET_ERR;
 			}
 		}
-
 		Status = XTRNGPSV_FAILURE;
-		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL, PRNGMODE_GEN);
+		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL, PRNGMODE_GEN |
+				TRNG_CTRL_PRNGXS_MASK);
 		if (Status != XTRNGPSV_SUCCESS) {
 			Status = (s32)XTRNGPSV_ERROR_GLITCH;
 			goto SET_ERR;
@@ -520,7 +539,8 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 			goto SET_ERR;
 		}
 
-		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL, PRNGMODE_GEN);
+		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL, PRNGMODE_GEN |
+				TRNG_CTRL_PRNGXS_MASK);
 		if (Status != XTRNGPSV_SUCCESS) {
 			Status = (s32)XTRNGPSV_ERROR_GLITCH;
 			goto SET_ERR;
@@ -569,7 +589,7 @@ s32 XTrngpsv_Generate(XTrngpsv *InstancePtr, u8 *RandBufPtr, u32 RandBufSize, u8
 
 	/* Collect random data based on above configuration*/
 	XSECURE_TEMPORAL_CHECK(SET_ERR, Status, XTrngpsv_CollectRandData,
-			InstancePtr, RandGenBuf, NumBytes);
+			InstancePtr, (u32*)RandGenBuf, NumBytes);
 
 	InstancePtr->TrngStats.RandBytesReseed += NumBytes;
 	InstancePtr->TrngStats.RandBytes += NumBytes;
@@ -729,7 +749,7 @@ static void XTrngpsv_HoldReset(const XTrngpsv *InstancePtr)
  * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
  * @param	RandGenBuf points to the address of the buffer in to which the random data
  * 		generated has to be copied.
- * @param	NumBytes is number of bytes to be collected.
+ * @param	NumOfRandBytes is number of bytes to be collected.
  *
  * @return
  *		- XTRNGPSV_SUCCESS if Random number collection was successful.
@@ -738,103 +758,226 @@ static void XTrngpsv_HoldReset(const XTrngpsv *InstancePtr)
  *		- XTRNGPSV_ERROR_CATASTROPHIC_DTF_SW if DTF error detected in software.
  *		- XTRNGPSV_ERROR_GLITCH if error caused due to glitch conditions.
  *
+ * @note
+ * In case of entropy data collection mode this function utilizes the additional 4 words of
+ * EntropyData buffer when NumOfRandBytes is not 32byte aligned.
+ *
  *************************************************************************************************/
-static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u8 *RandGenBuf, u32 NumBytes)
+static s32 XTrngpsv_CollectRandData(XTrngpsv *InstancePtr, u32 *RandGenBuf, u32 NumOfRandBytes)
 {
 	volatile s32 Status = XTRNGPSV_FAILURE;
-	u32 BufIndex = 0U;
-	u32 WordCount;
-	volatile u32 BurstCount;
+	volatile s32 StatusTmp = XTRNGPSV_FAILURE;
+	volatile u32 CtrlVal;
 	volatile u32 RegVal;
-	volatile u32 RegValTmp;
-	u32 PatternMatch;
-	u32 NumBursts = NumBytes / XTRNGPSV_BURST_SIZE;
+	volatile u32 NumOfGenerates;
 
-	Status = Xil_SecureRMW32(InstancePtr->Config.BaseAddress + TRNG_CTRL,
-			TRNG_CTRL_PRNGSTART_MASK, TRNG_CTRL_PRNGSTART_MASK);
+	/* Calculate number of generates */
+	NumOfGenerates = (NumOfRandBytes + XTRNGPSV_SEC_STRENGTH_BYTES - 1U) >>
+			XTRNGPSV_SEC_STRENGTH_SHIFT;
+
+	/* Read TRNG_CTRL register and update it and start the generate */
+	CtrlVal = Xil_In32(InstancePtr->Config.BaseAddress + TRNG_CTRL);
+	CtrlVal |= TRNG_CTRL_PRNGSTART_MASK;
+	Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL, CtrlVal);
 	if (Status != XTRNGPSV_SUCCESS) {
+		Status = (s32)XTRNGPSV_ERROR_GLITCH;
 		goto END;
 	}
 
-	/* Loop as many times based on NumBytes requested. In each burst 128 bits are generated,
-	 * which is reflected in QCNT value of 4 by hardware.
-	 */
-	for (BurstCount = 0U; BurstCount < NumBursts; BurstCount++) {
+	/* De-assert PRNGMODE when prediction resistance is TRUE */
+	if (InstancePtr->UsrCfg.PredResistanceEn == TRUE){
+		CtrlVal = CtrlVal & ~PRNGMODE_GEN;
+	}
 
-		Status = XTRNGPSV_FAILURE;
-		Status = XTrngpsv_WaitForEvent(InstancePtr->Config.BaseAddress,
-				TRNG_STATUS, TRNG_STATUS_QCNT_MASK,
-				(u32)XTRNGPSV_MAX_QCNT << TRNG_STATUS_QCNT_SHIFT,
-				XTRNGPSV_GENERATE_TIMEOUT);
-		if (Status != XTRNGPSV_SUCCESS) {
-			Status = (s32)XTRNGPSV_ERROR_GENERATE_TIMEOUT;
-			goto END;
-		}
+	/* Loop as many times based on NumOfRandBytes requested. In each burst 256 bits are generated */
+	 do {
+		 XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XTrngpsv_WaitAndCollectData, InstancePtr,
+				RandGenBuf, CtrlVal);
+		 if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
+			 Status = (s32)XTRNGPSV_ERROR_GENERATE_TIMEOUT;
+			 goto END;
+		 }
 
-		if ((InstancePtr->UsrCfg.Mode == XTRNGPSV_DRNG)
-				|| (InstancePtr->UsrCfg.Mode == XTRNGPSV_HRNG)) {
+		/* Check DTF flag */
+		if ((InstancePtr->UsrCfg.Mode == XTRNGPSV_DRNG) || (InstancePtr->UsrCfg.Mode == XTRNGPSV_HRNG)) {
 			/* DTF flag set during generate indicates catastrophic condition, which
 			 * needs to be checked for every time
 			 */
-			RegVal = XTrngpsv_ReadReg(InstancePtr->Config.BaseAddress, TRNG_STATUS);
-
-			if ((RegVal & TRNG_STATUS_DTF_MASK) ==
-			TRNG_STATUS_DTF_MASK) {
+			RegVal = Xil_In32(InstancePtr->Config.BaseAddress + TRNG_STATUS);
+			if ((RegVal & TRNG_STATUS_DTF_MASK) == TRNG_STATUS_DTF_MASK) {
 				InstancePtr->State = XTRNGPSV_CATASTROPHIC;
 				Status = (s32)XTRNGPSV_ERROR_CATASTROPHIC_DTF;
 				goto END;
 			}
 		}
 
-		/* Read the core output register 4 times to consume the random data generated
-		 * for every burst.
-		 */
-		PatternMatch = XTRNGPSV_TRUE;
-
-		for (WordCount = 0U; WordCount < XTRNGPSV_BURST_SIZE_BITS / XTRNGPSV_REG_SIZE;
-				WordCount++) {
-
-			XSECURE_TEMPORAL_IMPL(RegVal, RegValTmp, XTrngpsv_ReadReg,
-					InstancePtr->Config.BaseAddress, TRNG_CORE_OUTPUT);
-
-			/* Check if the value to be stored is same as the previous value stored
-			 * in RandBitBuf, if this is TRUE for all the 4 words, it means the data
-			 * generated by current burst and previous burst (128 bit) are same, which
-			 * is an error (which is checked at end of the current burst)
-			 */
-			if ((InstancePtr->RandBitBuf[WordCount] != RegVal)
-					&& (InstancePtr->RandBitBuf[WordCount] != RegValTmp)) {
-				PatternMatch = XTRNGPSV_FALSE;
-			}
-
-			InstancePtr->RandBitBuf[WordCount] = RegVal;
-
-			/* Skip loading to final buffer if the generated data need not be consumed
-			 * (e.g. for entropy testing)
-			 */
-			if (RandGenBuf != NULL) {
-				/* Random data to be stored with reversed endianness */
-				*((u32*)RandGenBuf + BufIndex) = XTRNGPSV_SWAP_ENDIAN(RegVal);
-			}
-
-			BufIndex++;
-		}
-
-		if ((NumBursts > 1U) && (BurstCount > 0U) && (PatternMatch == XTRNGPSV_TRUE )) {
-			InstancePtr->State = XTRNGPSV_CATASTROPHIC;
+		/* Check for SW DTF error */
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XTrngpsv_CheckRandDataPattern, InstancePtr, RandGenBuf);
+		if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
 			Status = (s32)XTRNGPSV_ERROR_CATASTROPHIC_DTF_SW;
 			goto END;
 		}
-	}
 
-	if (BurstCount != NumBursts)
-	{
+		/* Change endianness and store generated random data */
+		XTrngpsv_ChangeEndianness(RandGenBuf);
+
+		RandGenBuf += XTRNGPSV_SEC_STRENGTH_LEN;
+		NumOfGenerates--;
+	} while (NumOfGenerates > 0U);
+
+	if (NumOfGenerates != 0U) {
 		Status = (s32)XTRNGPSV_ERROR_GLITCH;
 		goto END;
 	}
 
+	/* De-assert the PRNGStart and PRNGxs bits when prediction resistance is true */
+	if (InstancePtr->UsrCfg.PredResistanceEn == TRUE) {
+		usleep(20U);
+		Status = Xil_SecureOut32(InstancePtr->Config.BaseAddress + TRNG_CTRL, 0U);
+		if (Status != XTRNGPSV_SUCCESS) {
+			Status = (s32)XTRNGPSV_ERROR_GLITCH;
+			goto END;
+		}
+	}
+
 	Status = XTRNGPSV_SUCCESS;
 
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief
+ * This function waits and collects 256-bit random data from core output.
+ *
+ * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
+ * @param	RandBuf points to the address of the buffer in to which the random data
+ * 		generated has to be copied.
+ * @param   CtrlVal contains the value that needs to be written in to TRNG_CTRL register
+ *      i.e After collection of 256-bit data it will de-assert the generate bit when
+ *      prediction resistance is enabled.
+ *
+ *
+ * @return
+ *		- XTRNGPSV_SUCCESS if random data is copied successfully.
+ *		- XTRNGPSV_ERROR_GENERATE_TIMEOUT if timeout occurred waiting for QCNT to become 4.
+ *
+ *************************************************************************************************/
+static s32 __attribute__ ((noinline)) XTrngpsv_WaitAndCollectData(XTrngpsv *InstancePtr, u32 *RandBuf, u32 CtrlVal)
+{
+	volatile s32 Status = XST_FAILURE;
+	u32 *RandGenBuf = RandBuf;
+	u32 CtrlValue = CtrlVal;
+	UINTPTR CoreOutputAddr = InstancePtr->Config.BaseAddress + TRNG_CORE_OUTPUT;
+	UINTPTR CtrlAddr = InstancePtr->Config.BaseAddress + TRNG_CTRL;
+
+	/* Wait for 4 words */
+	Status = XTrngpsv_WaitForData(InstancePtr);
+	if (Status != XTRNGPSV_SUCCESS) {
+		Status = (s32)XTRNGPSV_ERROR_GENERATE_TIMEOUT;
+		goto END;
+	}
+
+	/*
+	 * TIME CRITICAL:
+	 * When prediction resistance is enabled, it is required to stop generate operation before
+	 * the completion of the update phase of the generation. The below write performs this
+	 * operation. Its time critical operation and to achieve that 32-bit random data reading is
+	 * unrolled instead of for loop.
+	 */
+
+	/* Read 128-bit Burst */
+	RandGenBuf[0U] = Xil_In32(CoreOutputAddr);
+	RandGenBuf[1U] = Xil_In32(CoreOutputAddr);
+	RandGenBuf[2U] = Xil_In32(CoreOutputAddr);
+	RandGenBuf[3U] = Xil_In32(CoreOutputAddr);
+
+	/* Wait for 4 words */
+	Status = XTrngpsv_WaitForData(InstancePtr);
+
+	/* De-assert PRNGMODE when prediction resistance is TRUE */
+	Xil_Out32(CtrlAddr, CtrlValue);
+
+	if (Status != XTRNGPSV_SUCCESS) {
+		Status = (s32)XTRNGPSV_ERROR_GENERATE_TIMEOUT;
+		goto END;
+	}
+
+	/* Read 128-bit Burst */
+	RandGenBuf[4U] = Xil_In32(CoreOutputAddr);
+	RandGenBuf[5U] = Xil_In32(CoreOutputAddr);
+	RandGenBuf[6U] = Xil_In32(CoreOutputAddr);
+	RandGenBuf[7U] = Xil_In32(CoreOutputAddr);
+END:
+      return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief
+ * This function changes the endianness of each word in source buffer.
+ *
+ * @param	SrcBuf points to the address of the buffer in which random data is stored.
+ *
+ *************************************************************************************************/
+static void XTrngpsv_ChangeEndianness(u32 *SrcBuf)
+{
+	SrcBuf[0U] = XTRNGPSV_SWAP_ENDIAN(SrcBuf[0U]);
+	SrcBuf[1U] = XTRNGPSV_SWAP_ENDIAN(SrcBuf[1U]);
+	SrcBuf[2U] = XTRNGPSV_SWAP_ENDIAN(SrcBuf[2U]);
+	SrcBuf[3U] = XTRNGPSV_SWAP_ENDIAN(SrcBuf[3U]);
+	SrcBuf[4U] = XTRNGPSV_SWAP_ENDIAN(SrcBuf[4U]);
+	SrcBuf[5U] = XTRNGPSV_SWAP_ENDIAN(SrcBuf[5U]);
+	SrcBuf[6U] = XTRNGPSV_SWAP_ENDIAN(SrcBuf[6U]);
+	SrcBuf[7U] = XTRNGPSV_SWAP_ENDIAN(SrcBuf[7U]);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief
+ * This function detects the back to back same burst pattern and stores the last burst in to the
+ * RandBitBuf buffer so that it can be compared with next generated burst.
+ *
+ * @param	InstancePtr is a pointer to the XTrngpsv instance to be worked on.
+ * @param	RandBuf points to the address of the buffer in to which the random data
+ * 		generated has to be copied.
+ *
+ * @return
+ *		- XTRNGPSV_SUCCESS if Random pattern check was successful.
+ *		- XTRNGPSV_ERROR_CATASTROPHIC_DTF_SW if DTF error detected in software.
+ *
+ *************************************************************************************************/
+static s32 XTrngpsv_CheckRandDataPattern(XTrngpsv *InstancePtr, u32 *RandBuf)
+{
+	volatile s32 Status = XTRNGPSV_SUCCESS;
+	volatile s32 StausTmp = XTRNGPSV_SUCCESS;
+
+	/* Compare previous Burst filled in last generate with current Burst */
+	Status = Xil_SMemCmp_CT(&InstancePtr->RandBitBuf[0U], XTRNGPSV_BURST_SIZE,
+			&RandBuf[0U], XTRNGPSV_BURST_SIZE, XTRNGPSV_BURST_SIZE);
+	StausTmp = Status;
+	if ((Status == XTRNGPSV_SUCCESS) || (StausTmp == XTRNGPSV_SUCCESS)) {
+		Status = (s32)XTRNGPSV_ERROR_CATASTROPHIC_DTF_SW;
+		goto END;
+	}
+
+	Status = XTRNGPSV_SUCCESS;
+	/* Compare bursts on current generated data */
+	Status = Xil_SMemCmp_CT(&RandBuf[0U], XTRNGPSV_BURST_SIZE,
+			&RandBuf[4U], XTRNGPSV_BURST_SIZE, XTRNGPSV_BURST_SIZE);
+	StausTmp = Status;
+	if ((Status == XTRNGPSV_SUCCESS) || (StausTmp == XTRNGPSV_SUCCESS)) {
+		Status = (s32)XTRNGPSV_ERROR_CATASTROPHIC_DTF_SW;
+		goto END;
+	}
+
+	/* Fill current 128-bit burst in RandBitBuf */
+	InstancePtr->RandBitBuf[0U] = RandBuf[4U];
+	InstancePtr->RandBitBuf[1U] = RandBuf[5U];
+	InstancePtr->RandBitBuf[2U] = RandBuf[6U];
+	InstancePtr->RandBitBuf[3U] = RandBuf[7U];
+	Status = XTRNGPSV_SUCCESS;
 END:
 	return Status;
 }
@@ -871,7 +1014,7 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, 
 	volatile s32 StatusTemp = XTRNGPSV_FAILURE;
 	volatile u32 RegVal;
 	volatile u32 RegValTmp;
-	u8 EntropyOutput[XTRNGPSV_SEED_LEN_BYTES];
+	u8 EntropyOutput[XTRNGPSV_ENTROPY_SEED_LEN_BYTES];
 	const volatile u8 *SeedPtr = NULL;
 	volatile XTrngpsv_Mode Mode = XTRNGPSV_HRNG;
 
@@ -922,10 +1065,10 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, 
 			/* TRNG_CTRL.PRNGstart will be asserted in XTrngpsv_CollectRandData() */
 
 			XSECURE_TEMPORAL_CHECK(SET_ERR, Status, XTrngpsv_CollectRandData,
-					InstancePtr, EntropyOutput, XTRNGPSV_SEED_LEN_BYTES);
+					InstancePtr, (u32*)EntropyOutput, XTRNGPSV_ENTROPY_SEED_LEN_BYTES);
 
 			XSECURE_TEMPORAL_IMPL(Status, StatusTemp, XTrngpsv_CheckSeedPattern,
-					EntropyOutput, XTRNGPSV_SEED_LEN_BYTES);
+					EntropyOutput, XTRNGPSV_ENTROPY_SEED_LEN_BYTES);
 
 			if ((Status != XTRNGPSV_SUCCESS) || (StatusTemp != XTRNGPSV_SUCCESS)) {
 				Status = (s32)XTRNGPSV_ERROR_CERTF_SW_A5_PATTERN;
@@ -998,7 +1141,7 @@ static s32 XTrngpsv_ReseedInternal(XTrngpsv *InstancePtr, const u8 *ExtSeedPtr, 
 			/* TRNG_CTRL.PRNGstart will be asserted in XTrngpsv_CollectRandData() */
 
 			XSECURE_TEMPORAL_CHECK(SET_ERR, Status, XTrngpsv_CollectRandData,
-					InstancePtr, InstancePtr->DFInput.EntropyData, InstancePtr->EntropySize);
+					InstancePtr, (u32*)InstancePtr->DFInput.EntropyData, InstancePtr->EntropySize);
 
 			XSECURE_TEMPORAL_IMPL(Status, StatusTemp, XTrngpsv_CheckSeedPattern,
 					InstancePtr->DFInput.EntropyData, InstancePtr->EntropySize);
@@ -1083,6 +1226,21 @@ SET_ERR:
 	}
 
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief
+ * This function waits for 4 words of data to be available in core ouput
+ *
+ * @param	InstancePtr is a pointer to the XTrngpsv instance to be
+ *			worked on
+ *
+ *************************************************************************************************/
+static inline s32 __attribute__((always_inline)) XTrngpsv_WaitForData(const XTrngpsv *InstancePtr)
+{
+	return (s32)Xil_WaitForEvent(InstancePtr->Config.BaseAddress + TRNG_STATUS, TRNG_STATUS_QCNT_MASK,
+				XTRNGPSV_MAX_QCNT_MASK, XTRNGPSV_GENERATE_TIMEOUT);
 }
 
 /*************************************************************************************************/
