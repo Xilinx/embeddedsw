@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -457,6 +458,7 @@ void XV_HdmiRxSS_HdmiRxIntrHandler(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
     XV_HdmiRxSs_Config *CfgPtr,
     UINTPTR EffectiveAddr);
+void XV_HdmiRxSs_Write_ScdcRegister(XV_HdmiRxSs *InstancePtr, u8 address, u8 data);
 void XV_HdmiRxSS_SetAppVersion(XV_HdmiRxSs *InstancePtr, u8 maj, u8 min);
 void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr);

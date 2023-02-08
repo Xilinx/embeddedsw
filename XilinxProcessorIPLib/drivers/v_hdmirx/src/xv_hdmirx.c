@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,6 +59,8 @@
 #include "string.h"
 
 /************************** Constant Definitions *****************************/
+
+#define MAXSCDCADDRESS    256
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -247,6 +250,11 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
 
     // Enable SCDC
     XV_HdmiRx_DdcScdcEnable(InstancePtr);
+
+    // Clear BRAM address
+    for(int bramaddress = 0; bramaddress < MAXSCDCADDRESS; bramaddress++) {
+        XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,XV_HDMIRX_SCDC_BRAM_OFFSET,bramaddress);
+    }
 
     /*
         AUX peripheral
@@ -637,13 +645,43 @@ int XV_HdmiRx_SetHpd(XV_HdmiRx *InstancePtr, u8 SetClr)
     if (SetClr) {
         /* Set HPD */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_SET_OFFSET), (XV_HDMIRX_PIO_OUT_HPD_MASK));
+        /* Clear SCDC */
+        XV_HdmiRx_DdcScdcClear(InstancePtr);
     }
     else {
         /* Clear HPD */
         XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_CLR_OFFSET), (XV_HDMIRX_PIO_OUT_HPD_MASK));
+        /* Set SCDC */
+        XV_HdmiRx_DdcScdcSet(InstancePtr);
     }
 
     return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function write data to SCDC register
+*
+* @param    InstancePtr is a pointer to the XV_HdmiRx core instance.
+* @param    data specifies address of BRAM, and data to be written
+*
+* @return  None
+*
+*
+* @note    SCDC register 0x01,0x02,0x10,0x20,0x21,0x40 are handled by H/W directly
+*          These registers should not be written by User application
+*
+******************************************************************************/
+void XV_HdmiRx_WriteScdcRegister(XV_HdmiRx *InstancePtr, u8 address, u8 data)
+{
+    /* Verify arguments. */
+    u16 scdcdata = 0;
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(address != 0x01 && address != 0x02 && address != 0x010 && address != 0x20 &&
+                      address != 0x21 && address != 0x40);
+    scdcdata = data << 8 | address;
+    XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, XV_HDMIRX_SCDC_BRAM_OFFSET, scdcdata);
 }
 
 /*****************************************************************************/
