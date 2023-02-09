@@ -118,6 +118,8 @@ extern "C" {
 #define XPM_INT_ERR_FUNC_HOUSECLEAN_COMPLETE	0x3125U
 /* Required clocks are not found in LPD MBIST */
 #define XPM_INT_ERR_LPD_MBIST_CLK_NOT_FOUND	0x3126U
+/* CFU clock divider is in unexpected state */
+#define XPM_INT_ERR_CFU_CLK_DIVIDER		0x3127U
 
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
@@ -444,7 +446,7 @@ extern "C" {
 #define XPM_INT_ERR_ARRAY_RESET			0x4109U
 /* Error during ARRAY reset release */
 #define XPM_INT_ERR_ARRAY_RESET_RELEASE		0x410AU
-/* Error durring INITSTATE release */
+/* Error during INITSTATE release */
 #define XPM_INT_ERR_AIE_INITSTATE_RELEASE	0x410BU
 /* Error during Memory Zeroization */
 #define XPM_INT_ERR_AIE_MEMORY_ZEROISATION	0x410CU
@@ -593,7 +595,7 @@ extern "C" {
 #define XPM_INT_ERR_AIE_UNDEF_INIT_NODE				0x4980U
 /* Uninitialized Init Node Start function pointer for AIE Device */
 #define XPM_INT_ERR_AIE_UNDEF_INIT_NODE_START			0x4981U
-/* Unitialized Init Node finish function pointer for AIE Device */
+/* Uninitialized Init Node finish function pointer for AIE Device */
 #define XPM_INT_ERR_AIE_UNDEF_INIT_NODE_FINISH			0x4982U
 /* Error: PM_DEV_AIE is not present in topology */
 #define XPM_INT_ERR_DEV_AIE					0x4983U
