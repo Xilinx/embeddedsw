@@ -36,6 +36,7 @@
 #              which dma is not connected to one of the axieth instance.
 # 08/18/20 rsp Add versal support.
 # 10/08/20 rsp In versal for PMC and PSM processor generate dummy interrupt IDs.
+# 02/08/23 sne Updated tcl script to support ila connected designs.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -172,16 +173,16 @@ proc xdefine_axi_target_params {periphs file_handle} {
 		set periph_name [string toupper [get_property NAME $periph]]
         puts $file_handle ""
         puts $file_handle "/* Canonical Axi parameters for $periph_name */"
-	set target_periph [get_connected_ip $periph]
-
-	if {$target_periph != ""} {
-		set target_periph_type [get_property IP_NAME $target_periph]
-		set tartget_per_name [get_property NAME $target_periph]
-		if {$target_periph_type == "axi_fifo_mm_s" || $target_periph_type == "axi_dma" || $target_periph_type == "axi_mcdma"} {
-			set validentry 1
-			set canonical_tag [string toupper [format "AXIETHERNET_%d" $device_id ]]
+	set connect_ip [get_connected_ip $periph]
+	foreach target_periph $connect_ip {
+		if {[llength $target_periph] != 0} {
+			set target_periph_type [get_property IP_NAME $target_periph]
+			set tartget_per_name [get_property NAME $target_periph]
+			if {$target_periph_type == "axi_fifo_mm_s" || $target_periph_type == "axi_dma" || $target_periph_type == "axi_mcdma"} {
+				set validentry 1
+				set canonical_tag [string toupper [format "AXIETHERNET_%d" $device_id ]]
+			}
 		}
-	}
 
 	if {$validentry == 1} {
 		if {$target_periph_type == "axi_fifo_mm_s"} {
@@ -287,6 +288,7 @@ proc xdefine_axi_target_params {periphs file_handle} {
 		}
 		incr device_id
 
+	}
 	}
 
        if {$validentry !=1} {
@@ -1039,20 +1041,21 @@ proc get_mactype {value} {
 	return $value
 }
 
-proc is_ethsupported_target {connected_ip} {
+proc is_ethsupported_target {connected_ip1} {
    set connected_ipname ""
-   if {$connected_ip == ""} {
-      return "false"
-   }
-   set ipname [get_cells -hier $connected_ip]
-   if {$ipname != ""} {
-      set connected_ipname [get_property IP_NAME $ipname]
-   }
-   if {$connected_ipname == "axi_dma" || $connected_ipname == "axi_fifo_mm_s" || $connected_ipname == "axi_mcdma"} {
-      return "true"
-   } else {
-      return "false"
-   }
+   foreach connected_ip $connected_ip1 {
+	if {$connected_ip == ""} {
+		return "false"
+	}
+	set ipname [get_cells -hier $connected_ip]
+	if {$ipname != ""} {
+		set connected_ipname [get_property IP_NAME $ipname]
+	}
+	if {$connected_ipname == "axi_dma" || $connected_ipname == "axi_fifo_mm_s" || $connected_ipname == "axi_mcdma"} {
+		return "true"
+	}
+  }
+		return "false"
 }
 
 proc get_targetip {ip} {
