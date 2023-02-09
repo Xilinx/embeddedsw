@@ -33,6 +33,7 @@
 *       kal  01/05/2023 Added XLOADER_ERR_IN_SECURE_CONFIG_MEASUREMENT error code
 *       bm   01/05/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Updated error code for Image Store
+*       bm   02/04/2023 Added support to return warnings
 *
 * </pre>
 *
@@ -60,10 +61,24 @@ extern "C" {
  * YYYY - Minor error code - Libraries / Drivers error code
  *		as defined in respective modules
  */
-#define XPLMI_STATUS_MODULE_MASK			(0xFFFFU)
+#define XPLMI_STATUS_MODULE_MASK			(0x4000FFFFU)
 #define XPLMI_ERR_CDO_CMD_MASK				(0x1FFFU)
 #define XPLMI_STATUS_SHIFT				(16U)
 #define XPLMI_ERR_CODE_MASK				(0x7FFFFFFFU)
+
+#define XPLMI_WARNING_STATUS_MASK			(0x40000000)
+
+/*
+ * Use these masks to change any major error or minor error into a warning.
+ * It's expected to OR the error code with any of these masks as required.
+ * This will set the 30th bit of Status which is ultimately used to classify
+ * between error and warning. Note that this bit will be cleared before
+ * printing or writing to the FW_ERR register.
+ */
+typedef enum {
+	XPLMI_WARNING_MAJOR_MASK = 0x4000, /* To Set Warning in Major Error Code */
+	XPLMI_WARNING_MINOR_MASK = 0x40000000 /* To Set Warning in Minor Error Code */
+} XPlmiWarningMasks_t ;
 
 /*
  * In case of failure of any security operation, the buffer must be

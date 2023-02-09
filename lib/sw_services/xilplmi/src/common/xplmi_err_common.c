@@ -116,6 +116,7 @@
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       ng   02/07/2023 Check to skip the multiboot reg update and SRST
+*       bm   02/09/2023 Added support to return warnings
 * </pre>
 *
 * @note
@@ -192,7 +193,14 @@ void XPlmi_ErrMgr(int ErrStatus)
 	u8 SlrType = XPlmi_GetSlrType();
 	u32 BootMode;
 
-	/* Print the PLM error */
+	/* Print the PLM Warning */
+	if ((ErrStatus & XPLMI_WARNING_STATUS_MASK) == XPLMI_WARNING_STATUS_MASK) {
+		ErrStatus &= ~XPLMI_WARNING_STATUS_MASK;
+		XPlmi_Printf(DEBUG_GENERAL, "PLM Warning Status: 0x%08lx\n\r", ErrStatus);
+		goto END;
+	}
+
+	/* Print the PLM Error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
 	XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
 			(u32)ErrStatus);

@@ -70,6 +70,7 @@
  *       sk   08/08/2022 Set IPI task's to low priority
  * 1.07  skg  10/04/2022 Added support to handle valid and invalid commands
  *       ng   11/11/2022 Updated doxygen comments
+ *       bm   02/04/2023 Added support to return warnings
  *
  * </pre>
  *
@@ -362,8 +363,14 @@ END:
 	}
 
 	if (XST_SUCCESS != Status) {
-		XPlmi_Printf(DEBUG_GENERAL, "%s: Error: IPI command failed for "
-				"Command ID: 0x%x\r\n", __func__, Cmd.CmdId);
+		if ((Status & XPLMI_WARNING_STATUS_MASK) == XPLMI_WARNING_STATUS_MASK) {
+			XPlmi_Printf(DEBUG_GENERAL, "%s: Warning: IPI command failed for "
+					"Command ID: 0x%x\r\n", __func__, Cmd.CmdId);
+		}
+		else {
+			XPlmi_Printf(DEBUG_GENERAL, "%s: Error: IPI command failed for "
+					"Command ID: 0x%x\r\n", __func__, Cmd.CmdId);
+		}
 	} else {
 		XPlmi_Printf(DEBUG_DETAILED, "%s: IPI processed.\n\r", __func__);
 	}
@@ -549,7 +556,7 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 		/* Return error code if IPI access failed */
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 			Status |= StatusTmp;
-			Status = XPlmi_UpdateStatus(XPLMI_IPI_ACCESS_ERR,
+			Status = XPlmi_UpdateStatus(XPLMI_IPI_ACCESS_ERR | XPLMI_WARNING_MAJOR_MASK,
 				Status);
 		}
 	}
