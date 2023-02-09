@@ -97,6 +97,7 @@
 * 1.8   skg  12/07/22 Added Additional PPKs support
 *       kal  01/05/23 Moved XLoader_GetAuthPubAlgo function to header file
 *       sk   02/08/23 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
+*       sk   02/09/23 Fixed Sec Review comments in XLoader_RsaSignVerify function
 *
 * </pre>
 *
@@ -1746,6 +1747,7 @@ static int XLoader_RsaSignVerify(const XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XLoader_RsaPssSignVerify(SecurePtr->PmcDmaInstPtr, MsgHash, RsaInstPtr,
 				Signature);
 END:
