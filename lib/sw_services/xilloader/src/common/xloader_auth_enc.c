@@ -96,6 +96,7 @@
 *       ng   11/23/22 Updated doxygen comments
 * 1.8   skg  12/07/22 Added Additional PPKs support
 *       kal  01/05/23 Moved XLoader_GetAuthPubAlgo function to header file
+*       sk   02/08/23 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
 *
 * </pre>
 *
@@ -2748,7 +2749,7 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 	u32 PlmDpacmKatStatus;
 
 	/* Update KAT status based on the user configuration */
-	XLoader_UpdateKatStatus(SecurePtr, XPLMI_SECURE_AES_CMKAT_MASK);
+	XLoader_ClearKatOnPPDI(SecurePtr, XPLMI_SECURE_AES_CMKAT_MASK);
 
 	/*
 	 * Skip running the KAT for AES DPACM or AES if it is already run
@@ -2773,7 +2774,7 @@ static int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 	}
 
 	/* Update KAT status based on the user configuration */
-	XLoader_UpdateKatStatus(SecurePtr, XPLMI_SECURE_AES_DEC_KAT_MASK);
+	XLoader_ClearKatOnPPDI(SecurePtr, XPLMI_SECURE_AES_DEC_KAT_MASK);
 
 	if((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SECURE_AES_DEC_KAT_MASK) == 0U) {
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
@@ -3331,7 +3332,7 @@ int XLoader_AuthEncClear(void)
  * @return	None
  *
  *****************************************************************************/
-void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask) {
+void XLoader_ClearKatOnPPDI(XLoader_SecureParams *SecurePtr, u32 PlmKatMask) {
 	if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_PARTIAL) {
 		XLoader_ClearKatStatusOnCfg(SecurePtr, PlmKatMask);
 	}
@@ -3727,7 +3728,7 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 	}
 
 	/** Update KAT status based on the user configuration. */
-	XLoader_UpdateKatStatus(SecurePtr, AuthKatMask);
+	XLoader_ClearKatOnPPDI(SecurePtr, AuthKatMask);
 
 	/**
 	 * Skip running the KAT for ECDSA or RSA if it is already run.
@@ -3798,7 +3799,7 @@ static int XLoader_Sha3Kat(XLoader_SecureParams *SecurePtr) {
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance();
 
 	/* Update KAT status */
-	XLoader_UpdateKatStatus(SecurePtr, XPLMI_SECURE_SHA3_KAT_MASK);
+	XLoader_ClearKatOnPPDI(SecurePtr, XPLMI_SECURE_SHA3_KAT_MASK);
 
 	if ((SecurePtr->PdiPtr->PlmKatStatus & XPLMI_SECURE_SHA3_KAT_MASK) == 0U) {
 		/*

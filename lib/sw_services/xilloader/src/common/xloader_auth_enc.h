@@ -53,6 +53,7 @@
 * 1.04  ng   11/23/22 Fixed doxygen file name error
 * 1.8   skg  12/07/22 Added Additional PPKs related macros and enums
 *       kal  01/05/23 Added XLoader_GetAuthPubAlgo definition
+*       sk   02/08/23 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
 *
 * </pre>
 *
@@ -573,7 +574,7 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 		u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature);
 #endif
-void XLoader_UpdateKatStatus(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
+void XLoader_ClearKatOnPPDI(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
 int XLoader_CheckNonZeroPpk(void);
 int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
