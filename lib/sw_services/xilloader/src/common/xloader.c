@@ -150,6 +150,7 @@
 *       bm   01/04/2023 Switch to SSIT Events as soon as basic Noc path is
 *                       configured
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
+*       sk   02/08/2023 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
 * </pre>
 *
 * @note
@@ -582,7 +583,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
 		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
 		/* Update KAT status */
-		XLoader_UpdateKatStatus(&SecureParams, 0U);
+		XLoader_ClearKatOnPPDI(&SecureParams, 0U);
 	}
 
 	/**
