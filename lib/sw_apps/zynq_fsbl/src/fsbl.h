@@ -218,6 +218,7 @@
 * 18.00a ka  10/29/18   Fix for CR# 1006294 Added macro for FORCE_USE_AES_EXCLUDE
 * 19.0   vns 03/18/22   Fixed CR#1125470, added FsblPrintArray() prototype
 * 20.0   ng  12/08/22   Updated SDK release version
+* 21.0   skd 02/10/22   SDK release version updated
 *
 * </pre>
 *
@@ -316,7 +317,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2023
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define WORD_LENGTH_SHIFT	2
 

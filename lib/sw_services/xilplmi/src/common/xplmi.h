@@ -58,6 +58,7 @@
 *       kpt  07/19/2022 Added APIs and macros related to KAT
 * 1.08  ng   12/08/2022 Updated SDK release version
 *       sk   01/13/2023 Added defines for Image Store
+* 1.09  skd  02/10/2023 SDK release version updated
 * </pre>
 *
 * @note
@@ -77,7 +78,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* SDK release version */
 #define SDK_RELEASE_YEAR	"2023" /**< Specifies the SDK release year */
-#define SDK_RELEASE_QUARTER	"1"    /**< Specifies the SDK release quarter */
+#define SDK_RELEASE_QUARTER	"2"    /**< Specifies the SDK release quarter */
 
 /*
  * Device Copy flag related macros
