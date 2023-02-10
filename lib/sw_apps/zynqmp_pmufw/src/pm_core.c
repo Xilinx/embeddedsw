@@ -1,6 +1,7 @@
 /*
-* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+ * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
  */
 
 #include "xpfw_config.h"
@@ -2166,6 +2167,8 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_REGISTER_ACCESS):
 	case PM_API(PM_EFUSE_ACCESS):
 	case PM_API(PM_QUERY_DATA):
+	case PM_API(PM_FPGA_GET_VERSION):
+	case PM_API(PM_FPGA_GET_FEATURE_LIST):
 		retPayload[0] = PM_API_BASE_VERSION;
 		status = XST_SUCCESS;
 		break;
