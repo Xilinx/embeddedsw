@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -29,6 +30,7 @@
 #       har 05/17/21  Added nonsecure_ipi_access parameter
 #       har 07/14/21  Updated library version to 4.6
 #       am  11/26/21  Updated library version to 4.7
+# 5.1   vns 02/09/23  Changed secure_environment to xsecure_environment
 #
 ##############################################################################
 
@@ -43,7 +45,7 @@ BEGIN LIBRARY xilsecure
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal";
   OPTION VERSION = 5.1;
   OPTION NAME = xilsecure;
-  PARAM name = secure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
+  PARAM name = xsecure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
   PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \nthen writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks \nvalid only for ZynqMP FSBL BSP", type = bool, default = false;
   PARAM name = mode, desc = "Enables A72/R5 server and client mode support for XilSecure library for \n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
   PARAM name = nonsecure_ipi_access, desc = "Enables non secure access for Xilsecure IPI commands for Versal", type = bool, default = false;
