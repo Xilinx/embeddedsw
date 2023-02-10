@@ -22,6 +22,7 @@
 *       dc     11/05/21 Align event handlers
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/18/22 Correct event status read
+* 1.5   dc     01/02/23 Multiband registers update
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -57,6 +58,7 @@ void XDfePrach_GetInterruptMask(const XDfePrach *InstancePtr,
 				XDfePrach_InterruptMask *Mask)
 {
 	u32 Val;
+	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Mask != NULL);
@@ -78,15 +80,17 @@ void XDfePrach_GetInterruptMask(const XDfePrach *InstancePtr,
 		XDfePrach_RdBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
 				     XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,
 				     Val);
-	Mask->CCSequenceError =
-		XDfePrach_RdBitField(XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
-				     XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET, Val);
-	Mask->FrameInitTrigger =
-		XDfePrach_RdBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
-				     XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET,
-				     Val);
-	Mask->FrameError = XDfePrach_RdBitField(
-		XDFEPRACH_FRAME_ERROR_WIDTH, XDFEPRACH_FRAME_ERROR_OFFSET, Val);
+	for (Index = 0; Index < XDFEPRACH_BAND_ID_MAX; Index++) {
+		Mask->CCSequenceError[Index] = XDfePrach_RdBitField(
+			XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
+			XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(Index), Val);
+		Mask->FrameInitTrigger[Index] = XDfePrach_RdBitField(
+			XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
+			XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(Index), Val);
+		Mask->FrameError[Index] = XDfePrach_RdBitField(
+			XDFEPRACH_FRAME_ERROR_WIDTH,
+			XDFEPRACH_FRAME_ERROR_OFFSET(Index), Val);
+	}
 }
 /****************************************************************************/
 /**
@@ -104,6 +108,7 @@ void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
 {
 	u32 ValIER = 0U;
 	u32 ValIDR = 0U;
+	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Mask != NULL);
@@ -112,9 +117,11 @@ void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(Mask->DecimatorOverrun <= 1U);
 	Xil_AssertVoid(Mask->SelectorOverrun <= 1U);
 	Xil_AssertVoid(Mask->RachUpdate <= 1U);
-	Xil_AssertVoid(Mask->CCSequenceError <= 1U);
-	Xil_AssertVoid(Mask->FrameInitTrigger <= 1U);
-	Xil_AssertVoid(Mask->FrameError <= 1U);
+	for (Index = 0; Index < XDFEPRACH_BAND_ID_MAX; Index++) {
+		Xil_AssertVoid(Mask->CCSequenceError[Index] <= 1U);
+		Xil_AssertVoid(Mask->FrameInitTrigger[Index] <= 1U);
+		Xil_AssertVoid(Mask->FrameError[Index] <= 1U);
+	}
 
 	if (Mask->DecimatorOverflow == XDFEPRACH_IMR_INTERRUPT) {
 		ValIER |= (1U << XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET);
@@ -146,22 +153,28 @@ void XDfePrach_SetInterruptMask(const XDfePrach *InstancePtr,
 		ValIDR |= (1U << XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET);
 	}
 
-	if (Mask->CCSequenceError == XDFEPRACH_IMR_INTERRUPT) {
-		ValIER |= (1U << XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET);
-	} else {
-		ValIDR |= (1U << XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET);
-	}
+	for (Index = 0; Index < XDFEPRACH_BAND_ID_MAX; Index++) {
+		if (Mask->CCSequenceError[Index] == XDFEPRACH_IMR_INTERRUPT) {
+			ValIER |= (1U << XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(
+					   Index));
+		} else {
+			ValIDR |= (1U << XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(
+					   Index));
+		}
 
-	if (Mask->FrameInitTrigger == XDFEPRACH_IMR_INTERRUPT) {
-		ValIER |= (1U << XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET);
-	} else {
-		ValIDR |= (1U << XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET);
-	}
+		if (Mask->FrameInitTrigger[Index] == XDFEPRACH_IMR_INTERRUPT) {
+			ValIER |= (1U << XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(
+					   Index));
+		} else {
+			ValIDR |= (1U << XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(
+					   Index));
+		}
 
-	if (Mask->FrameError == XDFEPRACH_IMR_INTERRUPT) {
-		ValIER |= (1U << XDFEPRACH_FRAME_ERROR_OFFSET);
-	} else {
-		ValIDR |= (1U << XDFEPRACH_FRAME_ERROR_OFFSET);
+		if (Mask->FrameError[Index] == XDFEPRACH_IMR_INTERRUPT) {
+			ValIER |= (1U << XDFEPRACH_FRAME_ERROR_OFFSET(Index));
+		} else {
+			ValIDR |= (1U << XDFEPRACH_FRAME_ERROR_OFFSET(Index));
+		}
 	}
 
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_IER, ValIER);
@@ -181,6 +194,7 @@ void XDfePrach_GetEventStatus(const XDfePrach *InstancePtr,
 			      XDfePrach_StatusMask *Status)
 {
 	u32 Val;
+	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Status != NULL);
@@ -202,15 +216,17 @@ void XDfePrach_GetEventStatus(const XDfePrach *InstancePtr,
 		XDfePrach_RdBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
 				     XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,
 				     Val);
-	Status->CCSequenceError =
-		XDfePrach_RdBitField(XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
-				     XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET, Val);
-	Status->FrameInitTrigger =
-		XDfePrach_RdBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
-				     XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET,
-				     Val);
-	Status->FrameError = XDfePrach_RdBitField(
-		XDFEPRACH_FRAME_ERROR_WIDTH, XDFEPRACH_FRAME_ERROR_OFFSET, Val);
+	for (Index = 0; Index < XDFEPRACH_BAND_ID_MAX; Index++) {
+		Status->CCSequenceError[Index] = XDfePrach_RdBitField(
+			XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
+			XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(Index), Val);
+		Status->FrameInitTrigger[Index] = XDfePrach_RdBitField(
+			XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
+			XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(Index), Val);
+		Status->FrameError[Index] = XDfePrach_RdBitField(
+			XDFEPRACH_FRAME_ERROR_WIDTH,
+			XDFEPRACH_FRAME_ERROR_OFFSET(Index), Val);
+	}
 }
 
 /****************************************************************************/
@@ -228,6 +244,7 @@ void XDfePrach_ClearEventStatus(const XDfePrach *InstancePtr,
 				const XDfePrach_StatusMask *Status)
 {
 	u32 Data = 0;
+	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Status != NULL);
@@ -236,10 +253,11 @@ void XDfePrach_ClearEventStatus(const XDfePrach *InstancePtr,
 	Xil_AssertVoid(Status->DecimatorOverrun <= 1U);
 	Xil_AssertVoid(Status->SelectorOverrun <= 1U);
 	Xil_AssertVoid(Status->RachUpdate <= 1U);
-	Xil_AssertVoid(Status->CCSequenceError <= 1U);
-	Xil_AssertVoid(Status->FrameInitTrigger <= 1U);
-	Xil_AssertVoid(Status->FrameError <= 1U);
-
+	for (Index = 0; Index < XDFEPRACH_BAND_ID_MAX; Index++) {
+		Xil_AssertVoid(Status->CCSequenceError[Index] <= 1U);
+		Xil_AssertVoid(Status->FrameInitTrigger[Index] <= 1U);
+		Xil_AssertVoid(Status->FrameError[Index] <= 1U);
+	}
 	Data = XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,
 				    XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET, Data,
 				    Status->DecimatorOverflow);
@@ -255,15 +273,19 @@ void XDfePrach_ClearEventStatus(const XDfePrach *InstancePtr,
 	Data = XDfePrach_WrBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,
 				    XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,
 				    Data, Status->RachUpdate);
-	Data = XDfePrach_WrBitField(XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
-				    XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET, Data,
-				    Status->CCSequenceError);
-	Data = XDfePrach_WrBitField(XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
-				    XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET, Data,
-				    Status->FrameInitTrigger);
-	Data = XDfePrach_WrBitField(XDFEPRACH_FRAME_ERROR_WIDTH,
-				    XDFEPRACH_FRAME_ERROR_OFFSET, Data,
-				    Status->FrameError);
+	for (Index = 0; Index < XDFEPRACH_BAND_ID_MAX; Index++) {
+		Data = XDfePrach_WrBitField(
+			XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,
+			XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(Index), Data,
+			Status->CCSequenceError[Index]);
+		Data = XDfePrach_WrBitField(
+			XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,
+			XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(Index), Data,
+			Status->FrameInitTrigger[Index]);
+		Data = XDfePrach_WrBitField(XDFEPRACH_FRAME_ERROR_WIDTH,
+					    XDFEPRACH_FRAME_ERROR_OFFSET(Index),
+					    Data, Status->FrameError[Index]);
+	}
 	XDfePrach_WriteReg(InstancePtr, XDFEPRACH_ISR, Data);
 }
 

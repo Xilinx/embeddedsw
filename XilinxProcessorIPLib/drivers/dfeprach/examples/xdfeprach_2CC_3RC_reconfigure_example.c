@@ -19,9 +19,10 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
 * 1.5   dc     12/14/22 Update multiband register arithmetic
+*       dc     01/02/23 Multiband registers update
 *
 * </pre>
-* @addtogroup dfeprach Overview
+* @addtogroup Overview
 * @{
 *
 *****************************************************************************/
@@ -68,17 +69,21 @@
 int XDfePrach_2CC3RCReconfigureTestExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
-	XDfePrach_Cfg Cfg;
+	XDfePrach_Cfg Cfg = {
+		{ 0, 0, 0, 0 },
+	};
 	XDfePrach *InstancePtr = NULL;
-	XDfePrach_Version SwVersion;
-	XDfePrach_Version HwVersion;
+	XDfePrach_Version SwVersion = { 0 };
+	XDfePrach_Version HwVersion = { 0 };
 	XDfePrach_TriggerCfg TriggerCfg = { 0 };
 	XDfePrach_StatusMask StatusMask = { 0 };
 	/* Sequence: length 4, ID=0, Use static Schedule, length may depend
 	   on core generics (antenna interleave) */
-	XDfePrach_Init Init = { { 0, { 0 } }, 1 };
+	XDfePrach_Init Init = { { { 0, { 0 } }, { 0, { 0 } }, { 0, { 0 } } },
+				1,
+				0 };
 	/* Full CC config structure */
-	XDfePrach_CCCfg CCCfg;
+	XDfePrach_CCCfg CCCfg = { 0 };
 	/* Full RC config structure */
 	XDfePrach_RCCfg RCCfg = { 0 };
 	int Index;
@@ -163,7 +168,7 @@ int XDfePrach_2CC3RCReconfigureTestExample()
 			DdcCfg[Index].RachGain[fir_stg] = 0; /* 0dB FIR gain */
 		}
 		/* demodulation configuration: */
-		NcoCfg[Index].Frequency = Foffset[Index];
+		NcoCfg[Index].UserFreq = Foffset[Index];
 		NcoCfg[Index].PhaseOffset = 0; /* 0 phase offset */
 		NcoCfg[Index].PhaseAcc = 0; /* 0 initial phase */
 		NcoCfg[Index].NcoGain = 0; /* 0dB NCO gain */
@@ -211,7 +216,7 @@ int XDfePrach_2CC3RCReconfigureTestExample()
 	   what can be sent */
 	XDfePrach_Configure(InstancePtr, &Cfg);
 	/* Set the sequence length based upon the AntennaInterleave: */
-	Init.Sequence.Length = 16U / Cfg.ModelParams.NumAntennaSlot;
+	Init.Sequence[0].Length = 16U / Cfg.ModelParams.NumAntennaSlots[0];
 	/* Initialise the core */
 	XDfePrach_Initialize(InstancePtr, &Init);
 
@@ -219,10 +224,12 @@ int XDfePrach_2CC3RCReconfigureTestExample()
 	   bit to mark the frame timing. Setting the trigger can occur later
 	   in the programme flow, as long as it is set before the tuser bit
 	   arrives */
-	TriggerCfg.FrameInit.TUSERBit = 1U;
-	TriggerCfg.FrameInit.TuserEdgeLevel = 3U;
-	TriggerCfg.FrameInit.StateOutput = 1U;
-	TriggerCfg.FrameInit.Mode = 1U;
+	TriggerCfg.FrameInit[0].TUSERBit = 1U;
+	TriggerCfg.FrameInit[0].TuserEdgeLevel = 3U;
+	TriggerCfg.FrameInit[0].StateOutput = 1U;
+	TriggerCfg.FrameInit[0].Mode = 1U;
+	TriggerCfg.FrameInit[1].Mode = 1U;
+	TriggerCfg.FrameInit[2].Mode = 1U;
 	XDfePrach_SetTriggersCfg(InstancePtr, &TriggerCfg);
 	printf("Frame Init Trigger Configured\n\r");
 
