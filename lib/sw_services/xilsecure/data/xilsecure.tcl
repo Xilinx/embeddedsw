@@ -22,6 +22,7 @@
 #       har  05/17/21 Added support for non-secure access of Xilsecure IPIs
 # 5.0   bm   07/06/22 Refactor versal and versal_net code
 #       am   07/24/22 Added support for a78 and r52 processors of VersalNet
+# 5.1   vns  02/09/23 Modified secure_environment to xsecure_environment
 #
 ##############################################################################
 
@@ -245,7 +246,7 @@ proc xgen_opts_file {libhandle} {
 	}
 
 	# Get secure_environment value set by user, by default it is FALSE
-	set value [common::get_property CONFIG.secure_environment $libhandle]
+	set value [common::get_property CONFIG.xsecure_environment $libhandle]
 	if {$value == true} {
 		# Open xparameters.h file
 		set file_handle [hsi::utils::open_include_file "xparameters.h"]
