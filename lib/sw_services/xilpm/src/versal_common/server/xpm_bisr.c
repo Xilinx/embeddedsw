@@ -367,6 +367,8 @@ done:
 
 static XStatus XPmBisr_RepairBfrb(void)
 {
+	PmDbg("WARNING: BFRB BISR repair not implemented\r\n");
+
 	/* TODO: Synchronize repair with GOQ and move to xpm_repair.c */
 	return XST_SUCCESS;
 }
@@ -453,6 +455,13 @@ XStatus XPmBisr_Repair2(u32 TagId)
 				break;
 			case BFRB_TAG_ID:
 				Status = XPmBisr_RepairBfrb();
+				/*
+				 * Temporary workaround until BFRB BISR is
+				 * implemented. Without incrementing the address
+				 * BISR repair sequence gets stuck in forever
+				 * loop calling XPmBisr_RepairBfrb
+				 */
+				EfuseNextAddr += 4U;
 				break;
 			default:
 				XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
