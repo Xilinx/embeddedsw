@@ -25,6 +25,7 @@
 * 4.00  bsv  10/15/21 Fixed bug to support secondary boot with non-zero
 *                     multiboot offset
 * 5.00  ng   12/08/22 Updated SDK release version
+* 6.00  skd  02/10/22 SDK release version updated
 *
 * </pre>
 *
@@ -99,7 +100,7 @@ typedef struct {
 
 /* SDK release version */
 #define SDK_RELEASE_YEAR	2023
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)
