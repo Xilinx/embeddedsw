@@ -1600,11 +1600,86 @@ done:
 	return Status;
 }
 
+static XStatus XPsmFwRPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegVal;
+
+	/* Check if already power up */
+	RegVal = XPsmFw_Read32(PSMX_GLOBAL_REG_PWR_STATE0);
+	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* mask powerup interrupt */
+	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_EN,
+		     Args->PwrStateMask >> 18U, 0U);
+
+	/* reset assert */
+	XPsmFw_RMW32(PSX_CRL_RST_RPU, Args->RstCtrlMask, Args->RstCtrlMask);
+
+	Status = XPsmFwRPUxPwrUp(Args);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+done:
+	return Status;
+}
+
+static XStatus XPsmFwTcmRpuPwrUp(struct XPsmTcmPwrCtrl_t *Args)
+{
+	XStatus Status = XST_FAILURE;
+	u32 Mode;
+	u32 RegVal;
+
+	/* Check if already power up */
+	RegVal = XPsmFw_Read32(PSMX_GLOBAL_REG_PWR_STATE0);
+
+	if ((TCM_A_0 == Args->Id) &&
+	    !CHECK_BIT(RegVal, Rpu0_Core0PwrCtrl.PwrStateMask)) {
+		Status = XPsmFwRPUxReqPwrUp(&Rpu0_Core0PwrCtrl);
+	} else if ((TCM_A_1 == Args->Id) &&
+		   !CHECK_BIT(RegVal, Rpu0_Core1PwrCtrl.PwrStateMask)) {
+		/* Power up core 1 if RPU cluster A is in split mode */
+		Mode = XPsmFw_Read32(RPU_A_CLUSTER_CFG) & RPU_CLUSTER_CFG_SLSPLIT_MASK;
+		if (RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
+			Status = XPsmFwRPUxReqPwrUp(&Rpu0_Core1PwrCtrl);
+		} else {
+			Status = XST_SUCCESS;
+		}
+	} else if ((TCM_B_0 == Args->Id) &&
+		   !CHECK_BIT(RegVal, Rpu1_Core0PwrCtrl.PwrStateMask)) {
+		Status = XPsmFwRPUxReqPwrUp(&Rpu1_Core0PwrCtrl);
+	} else if ((TCM_B_1 == Args->Id) &&
+		   !CHECK_BIT(RegVal, Rpu1_Core1PwrCtrl.PwrStateMask)) {
+		/* Power up core 1 if RPU cluster B is in split mode */
+		Mode = XPsmFw_Read32(RPU_B_CLUSTER_CFG) & RPU_CLUSTER_CFG_SLSPLIT_MASK;
+		if (RPU_CLUSTER_CFG_SLSPLIT_MASK == Mode) {
+			Status = XPsmFwRPUxReqPwrUp(&Rpu1_Core1PwrCtrl);
+		} else {
+			Status = XST_SUCCESS;
+		}
+	} else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
+
 static XStatus XTcmPwrUp(struct XPsmTcmPwrCtrl_t *Args)
 {
 	XStatus Status = XST_FAILURE;
 
 	struct XPsmFwMemPwrCtrl_t *Tcm = &Args->TcmMemPwrCtrl;
+
+	/* RPU needs to be power up to access TCM since TCM is in RPU island */
+	Status = XPsmFwTcmRpuPwrUp(Args);
+	if (XST_SUCCESS != Status) {
+		XPsmFw_Printf(DEBUG_ERROR, "RPU power up failed for TCM ID %d", Args->Id);
+		goto done;
+	}
 
 	/*Clear the interrupt*/
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP1_STATUS, Tcm->GlobPwrStatusMask);
@@ -2383,33 +2458,6 @@ static XStatus PowerDwn_ACPU3_2(void)
 static XStatus PowerDwn_ACPU3_3(void)
 {
 	return XPsmFwACPUxReqPwrDwn(&Acpu3_Core3PwrCtrl);
-}
-
-static XStatus XPsmFwRPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
-{
-	XStatus Status = XST_FAILURE;
-	u32 RegVal;
-
-	/* Check if already power up */
-	RegVal = XPsmFw_Read32(PSMX_GLOBAL_REG_PWR_STATE0);
-	if (CHECK_BIT(RegVal, Args->PwrStateMask)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/*mask powerup interrupt*/
-	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_EN , Args->PwrStateMask >> 18,0);
-
-	/*reset assert*/
-	XPsmFw_RMW32(PSX_CRL_RST_RPU,Args->RstCtrlMask,Args->RstCtrlMask);
-
-	Status = XPsmFwRPUxPwrUp(Args);
-	if(XST_SUCCESS != Status){
-		goto done;
-	}
-
-done:
-	return Status;
 }
 
 /**
