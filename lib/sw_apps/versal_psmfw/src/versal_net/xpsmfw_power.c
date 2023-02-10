@@ -2400,6 +2400,9 @@ static XStatus XPsmFwRPUxReqPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	/*mask powerup interrupt*/
 	XPsmFw_RMW32(PSMX_GLOBAL_REG_REQ_PWRUP1_INT_EN , Args->PwrStateMask >> 18,0);
 
+	/*reset assert*/
+	XPsmFw_RMW32(PSX_CRL_RST_RPU,Args->RstCtrlMask,Args->RstCtrlMask);
+
 	Status = XPsmFwRPUxPwrUp(Args);
 	if(XST_SUCCESS != Status){
 		goto done;
