@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -183,6 +184,12 @@ extern "C" {
 #define PSX_RPU_CLUSTER_A1_CORE_1_VECTABLE    ( ( RPU_BASEADDR ) + 0x0000C010U )
 #define PSX_RPU_CLUSTER_B0_CORE_0_VECTABLE    ( ( RPU_BASEADDR ) + 0x00018010U )
 #define PSX_RPU_CLUSTER_B1_CORE_1_VECTABLE    ( ( RPU_BASEADDR ) + 0x0001C010U )
+
+#define RPU_A_BASEADDR				(0xEB580000U)
+#define RPU_B_BASEADDR				(0xEB590000U)
+#define RPU_A_CLUSTER_CFG			(RPU_A_BASEADDR)
+#define RPU_B_CLUSTER_CFG			(RPU_B_BASEADDR)
+#define RPU_CLUSTER_CFG_SLSPLIT_MASK		(0x00000001U)
 
 #ifdef __cplusplus
 }
