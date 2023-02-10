@@ -27,6 +27,7 @@
 *       dc     11/19/21 Update doxygen documentation
 * 1.4   dc     08/18/22 Update IP version number
 * 1.5   dc     12/14/22 Update multiband register arithmetic
+*       dc     01/02/23 Multiband registers update
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -64,14 +65,30 @@
 #define XDFEPRACH_DEVICE_ID_SIZE 4U
 #define XDFEPRACH_BASEADDR_PROPERTY "reg" /**< Base address property. */
 #define XDFEPRACH_BASEADDR_SIZE 8U
-#define XDFEPRACH_NUM_ANTENNA_CFG                                              \
+#define XDFEPRACH_NUM_ANTENNA0_CFG                                             \
 	"xlnx,num-antenna0" /**< Number of antenna 1-8. */
-#define XDFEPRACH_NUM_CC_PER_ANTENNA_CFG                                       \
-	"xlnx,num-cc-per-antenna0" /**< Maximum number of CC's per antenna 1-8. */
-#define XDFEPRACH_NUM_SLOT_CHANNELS_CFG                                        \
+#define XDFEPRACH_NUM_ANTENNA1_CFG                                             \
+	"xlnx,num-antenna1" /**< Number of antenna 1-8. */
+#define XDFEPRACH_NUM_ANTENNA2_CFG                                             \
+	"xlnx,num-antenna2" /**< Number of antenna 1-8. */
+#define XDFEPRACH_NUM_CC_PER_ANTENNA0_CFG                                      \
+	"xlnx,num-cc-per-antenna0" /**< Maximum number of CC's per antenna 16.*/
+#define XDFEPRACH_NUM_CC_PER_ANTENNA1_CFG                                      \
+	"xlnx,num-cc-per-antenna1" /**< Maximum number of CC's per antenna 16.*/
+#define XDFEPRACH_NUM_CC_PER_ANTENNA2_CFG                                      \
+	"xlnx,num-cc-per-antenna2" /**< Maximum number of CC's per antenna 16.*/
+#define XDFEPRACH_NUM_SLOT_CHANNELS0_CFG                                       \
 	"xlnx,num-slot-channels0" /**< Number of Parallel Data Channels 1-4. */
-#define XDFEPRACH_NUM_SLOTS_CFG                                                \
+#define XDFEPRACH_NUM_SLOT_CHANNELS1_CFG                                       \
+	"xlnx,num-slot-channels1" /**< Number of Parallel Data Channels 1-4. */
+#define XDFEPRACH_NUM_SLOT_CHANNELS2_CFG                                       \
+	"xlnx,num-slot-channels2" /**< Number of Parallel Data Channels 1-4. */
+#define XDFEPRACH_NUM_SLOTS0_CFG                                               \
 	"xlnx,num-slots0" /**< Number of Antenna TDM slots, per CC 1-8. */
+#define XDFEPRACH_NUM_SLOTS1_CFG                                               \
+	"xlnx,num-slots1" /**< Number of Antenna TDM slots, per CC 1-8. */
+#define XDFEPRACH_NUM_SLOTS2_CFG                                               \
+	"xlnx,num-slots2" /**< Number of Antenna TDM slots, per CC 1-8. */
 #define XDFEPRACH_NUM_RACH_LINES_CFG                                           \
 	"xlnx,num-rach-lanes" /**< Number of RACH output Lanes 1-2. */
 #define XDFEPRACH_NUM_RACH_CHANNELS_CFG                                        \
@@ -79,6 +96,8 @@
 #define XDFEPRACH_HAS_AXIS_CTRL_CFG                                            \
 	"xlnx,has-axis-ctrl" /**< The AXIS dynamic scheduling control interface is present */
 #define XDFEPRACH_HAS_IRQ_CFG                                                  \
+	"xlnx,has-irq" /**< The core has an IRQ port enabled. */
+#define XDFEPRACH_NUM_BANDS_CFG                                                \
 	"xlnx,has-irq" /**< The core has an IRQ port enabled. */
 /**
 * @cond nocomments
@@ -310,32 +329,93 @@ s32 XDfePrach_LookupConfig(XDfePrach *InstancePtr)
 
 	/* Get a config data from devicetree */
 	if (XST_SUCCESS != metal_linux_get_device_property(
-				   Dev, Name = XDFEPRACH_NUM_ANTENNA_CFG, &d,
+				   Dev, Name = XDFEPRACH_NUM_ANTENNA0_CFG, &d,
 				   XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	InstancePtr->Config.NumAntenna = ntohl(d);
+	InstancePtr->Config.NumAntenna[0] = ntohl(d);
+
+	/* Get a config data from devicetree */
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev, Name = XDFEPRACH_NUM_ANTENNA1_CFG, &d,
+				   XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumAntenna[1] = ntohl(d);
+
+	/* Get a config data from devicetree */
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev, Name = XDFEPRACH_NUM_ANTENNA2_CFG, &d,
+				   XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumAntenna[2] = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
-				   Dev, Name = XDFEPRACH_NUM_CC_PER_ANTENNA_CFG,
+				   Dev,
+				   Name = XDFEPRACH_NUM_CC_PER_ANTENNA0_CFG, &d,
+				   XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumCCPerAntenna[0] = ntohl(d);
+
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev,
+				   Name = XDFEPRACH_NUM_CC_PER_ANTENNA1_CFG, &d,
+				   XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumCCPerAntenna[1] = ntohl(d);
+
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev,
+				   Name = XDFEPRACH_NUM_CC_PER_ANTENNA2_CFG, &d,
+				   XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumCCPerAntenna[2] = ntohl(d);
+
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev, Name = XDFEPRACH_NUM_SLOT_CHANNELS0_CFG,
 				   &d, XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	InstancePtr->Config.NumCCPerAntenna = ntohl(d);
+	InstancePtr->Config.NumAntennaChannels[0] = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
-				   Dev, Name = XDFEPRACH_NUM_SLOT_CHANNELS_CFG,
+				   Dev, Name = XDFEPRACH_NUM_SLOT_CHANNELS1_CFG,
 				   &d, XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	InstancePtr->Config.NumAntennaChannels = ntohl(d);
+	InstancePtr->Config.NumAntennaChannels[1] = ntohl(d);
 
-	if (XST_SUCCESS !=
-	    metal_linux_get_device_property(Dev, Name = XDFEPRACH_NUM_SLOTS_CFG,
-					    &d, XDFEPRACH_WORD_SIZE)) {
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev, Name = XDFEPRACH_NUM_SLOT_CHANNELS2_CFG,
+				   &d, XDFEPRACH_WORD_SIZE)) {
 		goto end_failure;
 	}
-	InstancePtr->Config.NumAntennaSlot = ntohl(d);
+	InstancePtr->Config.NumAntennaChannels[2] = ntohl(d);
+
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev, Name = XDFEPRACH_NUM_SLOTS0_CFG, &d,
+				   XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumAntennaSlots[0] = ntohl(d);
+
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev, Name = XDFEPRACH_NUM_SLOTS1_CFG, &d,
+				   XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumAntennaSlots[1] = ntohl(d);
+
+	if (XST_SUCCESS != metal_linux_get_device_property(
+				   Dev, Name = XDFEPRACH_NUM_SLOTS2_CFG, &d,
+				   XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumAntennaSlots[2] = ntohl(d);
 
 	if (XST_SUCCESS != metal_linux_get_device_property(
 				   Dev, Name = XDFEPRACH_NUM_RACH_LINES_CFG, &d,
@@ -365,6 +445,13 @@ s32 XDfePrach_LookupConfig(XDfePrach *InstancePtr)
 	}
 	InstancePtr->Config.HasIrq = ntohl(d);
 
+	if (XST_SUCCESS !=
+	    metal_linux_get_device_property(Dev, Name = XDFEPRACH_NUM_BANDS_CFG,
+					    &d, XDFEPRACH_WORD_SIZE)) {
+		goto end_failure;
+	}
+	InstancePtr->Config.NumBands = ntohl(d);
+
 	return XST_SUCCESS;
 
 end_failure:
@@ -383,15 +470,32 @@ end_failure:
 		return XST_FAILURE;
 	}
 
-	InstancePtr->Config.NumAntenna = ConfigTable->NumAntenna;
-	InstancePtr->Config.NumCCPerAntenna = ConfigTable->NumCCPerAntenna;
-	InstancePtr->Config.NumAntennaChannels =
-		ConfigTable->NumAntennaChannels;
-	InstancePtr->Config.NumAntennaSlot = ConfigTable->NumAntennaSlot;
+	InstancePtr->Config.NumAntenna[0] = ConfigTable->NumAntenna[0];
+	InstancePtr->Config.NumAntenna[1] = ConfigTable->NumAntenna[1];
+	InstancePtr->Config.NumAntenna[2] = ConfigTable->NumAntenna[1];
+	InstancePtr->Config.NumCCPerAntenna[0] =
+		ConfigTable->NumCCPerAntenna[0];
+	InstancePtr->Config.NumCCPerAntenna[1] =
+		ConfigTable->NumCCPerAntenna[1];
+	InstancePtr->Config.NumCCPerAntenna[2] =
+		ConfigTable->NumCCPerAntenna[2];
+	InstancePtr->Config.NumAntennaChannels[0] =
+		ConfigTable->NumAntennaChannels[0];
+	InstancePtr->Config.NumAntennaChannels[1] =
+		ConfigTable->NumAntennaChannels[1];
+	InstancePtr->Config.NumAntennaChannels[2] =
+		ConfigTable->NumAntennaChannels[2];
+	InstancePtr->Config.NumAntennaSlots[0] =
+		ConfigTable->NumAntennaSlots[0];
+	InstancePtr->Config.NumAntennaSlots[1] =
+		ConfigTable->NumAntennaSlots[1];
+	InstancePtr->Config.NumAntennaSlots[2] =
+		ConfigTable->NumAntennaSlots[2];
 	InstancePtr->Config.NumRachLanes = ConfigTable->NumRachLanes;
 	InstancePtr->Config.NumRachChannels = ConfigTable->NumRachChannels;
 	InstancePtr->Config.HasAxisCtrl = ConfigTable->HasAxisCtrl;
 	InstancePtr->Config.HasIrq = ConfigTable->HasIrq;
+	InstancePtr->Config.NumBands = ConfigTable->NumBands;
 
 	InstancePtr->Config.BaseAddr = ConfigTable->BaseAddr;
 

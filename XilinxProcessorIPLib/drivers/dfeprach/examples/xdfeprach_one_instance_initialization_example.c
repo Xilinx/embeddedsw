@@ -20,9 +20,10 @@
 * 1.1   dc     07/21/21 Add and reorganise examples
 * 1.2   dc     11/19/21 Update doxygen documentation
 * 1.3   dc     02/07/22 Configure 2 CC and 3 RC examples
+* 1.5   dc     01/02/23 Multiband registers update
 *
 * </pre>
-* @addtogroup dfeprach Overview
+* @addtogroup Overview
 * @{
 *
 *****************************************************************************/
@@ -48,7 +49,7 @@
 *	- Configure the device.
 *	- Initialize the device.
 *	- Activate the device.
-*	- DeActivate the device.
+*	- Deactivate the device.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
@@ -59,11 +60,15 @@
 int XDfePrach_SelfTestExample()
 {
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
-	XDfePrach_Cfg Cfg;
+	XDfePrach_Cfg Cfg = {
+		{ 0, 0, 0, 0 },
+	};
 	XDfePrach *InstancePtr = NULL;
-	XDfePrach_Version SwVersion;
-	XDfePrach_Version HwVersion;
-	XDfePrach_Init Init;
+	XDfePrach_Version SwVersion = { 0 };
+	XDfePrach_Version HwVersion = { 0 };
+	XDfePrach_Init Init = { { { 0, { 0 } }, { 0, { 0 } }, { 0, { 0 } } },
+				1,
+				0 };
 
 	printf("\n\rPrach \"One Instance Initialization\" Example - Start\n\n\r");
 
