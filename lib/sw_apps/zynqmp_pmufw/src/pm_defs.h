@@ -1,6 +1,7 @@
 /*
-* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* SPDX-License-Identifier: MIT
+ * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * SPDX-License-Identifier: MIT
  */
 
 
@@ -125,10 +126,10 @@ typedef enum {
 	PM_PLL_GET_MODE,		/* 0x33 */
 	PM_REGISTER_ACCESS,		/* 0x34 */
 	PM_EFUSE_ACCESS,		/* 0x35 */
-	PM_FPGA_GET_VERSION,            /* 0x36 */
-	PM_FPGA_GET_FEATURE_LIST,       /* 0x37 */
 	PM_FEATURE_CHECK = 0x3F,	/* 0x3F */
-	PM_API_MAX,			/* 0x40 */
+	PM_FPGA_GET_VERSION = 0x48,	/* 0x48 */
+	PM_FPGA_GET_FEATURE_LIST,	/* 0x49 */
+	PM_API_MAX,			/* 0x4A */
 } XPm_ApiId;
 
 #ifdef ENABLE_IOCTL
