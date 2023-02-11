@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,10 +51,15 @@
 extern "C" {
 #endif
 
+/**************************** Type Definitions *******************************/
+
+/**
+ * This typedef contains different measures of time for the device.
+ */
 typedef enum {
-	XTIMER_DELAY_SEC = 1,
-	XTIMER_DELAY_MSEC = 1000,
-	XTIMER_DELAY_USEC = 1000 * 1000,
+	XTIMER_DELAY_SEC = 1,            /**< Time delay in seconds*/
+	XTIMER_DELAY_MSEC = 1000,        /**< Time delay in milliseconds*/
+	XTIMER_DELAY_USEC = 1000 * 1000, /**< Time delay in microseconds*/
 } XTimer_DelayType;
 
 typedef void (*XTimer_TickHandler) (void *CallBackRef, u32 StatusEvent);
@@ -78,14 +83,20 @@ typedef void (*XTimer_TickHandler) (void *CallBackRef, u32 StatusEvent);
  * @param ScuTimer_TickInst Tick Instance for Scutimer
  */
 typedef struct XTimerTag {
-	void (*XTimer_ModifyInterval)(struct XTimerTag *InstancePtr, u32 delay, XTimer_DelayType Delaytype);
-	void (*XTimer_TickIntrHandler)(struct XTimerTag *InstancePtr, u8 Priority);
+	void (*XTimer_ModifyInterval)(struct XTimerTag *InstancePtr, u32 delay,
+               XTimer_DelayType Delaytype); /**<Modifies the timer interval*/
+	void (*XTimer_TickIntrHandler)(struct XTimerTag *InstancePtr,
+               u8 Priority);                /**< Tick interrupt handler */
 	void (*XTimer_TickInterval)(struct XTimerTag *InstancePtr, u32 Delay);
+                                            /**< Configures the tick interval */
 	void (*XSleepTimer_Stop)(struct XTimerTag *InstancePtr);
+                                            /**< Stops the sleep timer */
 	void (*XTickTimer_Stop)(struct XTimerTag *InstancePtr);
+                                            /**< Stops the tick timer */
 	void (*XTickTimer_ClearInterrupt)(struct XTimerTag *InstancePtr);
-	XTimer_TickHandler Handler; /**< Callback function */
-	void *CallBackRef;       /**< Callback reference for handler */
+	                                    /**< Clears the Tick timer interrupt status */
+	XTimer_TickHandler Handler;         /**< Callback function */
+	void *CallBackRef;                  /**< Callback reference for handler */
 #ifdef XSLEEPTIMER_IS_AXITIMER
 	XTmrCtr AxiTimer_SleepInst;
 #endif
@@ -109,8 +120,17 @@ typedef struct XTimerTag {
 typedef u64 XTime;
 extern XTimer TimerInst;
 /************************** Function Prototypes ******************************/
+/**
+ * This API is used for initializing sleep timer
+ */
 u32 XilSleepTimer_Init(XTimer *InstancePtr);
+/**
+ * This API is used for initializing Tick timer
+ */
 u32 XilTickTimer_Init(XTimer *InstancePtr);
+/**
+ * Get the time
+ */
 void XTime_GetTime(XTime *Xtime_Global);
 void XTimer_SetInterval(unsigned long delay);
 void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
