@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,8 +90,6 @@ void usleep(unsigned long useconds) {
 *
 * This API contains common delay implementation using library API's.
 *
-* @param            useconds Delay time in microseconds
-*
 * @return           none
 *
 * @note             none
@@ -110,8 +108,6 @@ void XilTimer_Sleep(unsigned long delay, XTimer_DelayType DelayType) {
 /**
 *
 * This API initializes the xiltimer library through constructor.
-*
-* @param            none
 *
 * @return           none
 *
@@ -178,8 +174,6 @@ void XTimer_SetInterval(unsigned long delay)
 /**
 *
 * This API clears the interrupt status of the tick timer instance.
-*
-* @param            none
 *
 * @return           none
 *
