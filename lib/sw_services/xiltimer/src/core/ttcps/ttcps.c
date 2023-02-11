@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -75,7 +76,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
  * @param	InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
-
+ */
 /****************************************************************************/
 u32 XilTickTimer_Init(XTimer *InstancePtr)
 {
@@ -93,7 +94,6 @@ u32 XilTickTimer_Init(XTimer *InstancePtr)
  *
  * @param	BaseAddress is the Scutimer Instance baseaddress to be
  * 		worked on
- * @param	ScuTimerInstPtr is a pointer to the XScuTimer Instance
  *
  * @return	XST_SUCCESS if initialization was successful
  * 		XST_FAILURE in case of failure
