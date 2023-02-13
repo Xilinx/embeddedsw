@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -48,6 +49,8 @@
 * 7.7  sk   01/10/22  Add braces for the if statement to make it a compound
 * 		      statement to fix misra_c_2012_rule_15_6 violation.
 * 8.0  mus  05/09/22  Updated MPU related APIs to support CortexR52 processor.
+* 8.1  asa  02/13/23  Updated xdbg_printf arguments to have the correct debug
+*                     type.
 * </pre>
 *
 *
@@ -227,7 +230,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 
 	NextAvailableMemRegion = Xil_GetNextMPURegion();
 	if (NextAvailableMemRegion == 0xFFU) {
-		xdbg_printf(DEBUG, "No regions available\r\n");
+		xdbg_printf(XDBG_DEBUG_ERROR, "No regions available\r\n");
 		return XST_FAILURE;
 	}
 
@@ -399,7 +402,7 @@ u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
 	u32 Index;
 
 	if (reg_num >=  MAX_POSSIBLE_MPU_REGS) {
-		xdbg_printf(DEBUG, "Invalid region number\r\n");
+		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid region number\r\n");
 		ReturnVal = XST_FAILURE;
 		goto exit;
 	}
@@ -517,7 +520,7 @@ u32 Xil_DisableMPURegionByRegNum (u32 reg_num) {
 	u32 ReturnVal = XST_FAILURE;
 
 	if (reg_num >= 16U) {
-		xdbg_printf(DEBUG, "Invalid region number\r\n");
+		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid region number\r\n");
 		goto exit1;
 	}
 	Xil_DCacheFlush();
@@ -565,13 +568,13 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 #endif
 
 	if (reg_num >= 16U) {
-		xdbg_printf(DEBUG, "Invalid region number\r\n");
+		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid region number\r\n");
 		ReturnVal = XST_FAILURE;
 		goto exit2;
 	}
 
 	if (Mpu_Config[reg_num].RegionStatus == MPU_REG_ENABLED) {
-		xdbg_printf(DEBUG, "Region already enabled\r\n");
+		xdbg_printf(XDBG_DEBUG_ERROR, "Region already enabled\r\n");
 		ReturnVal = XST_FAILURE;
 		goto exit2;
 	}
