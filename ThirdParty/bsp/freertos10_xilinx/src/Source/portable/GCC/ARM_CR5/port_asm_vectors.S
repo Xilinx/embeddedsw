@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.5.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -76,12 +76,18 @@ Undefined:					/* Undefined handler */
 
 DataAbortHandler:				/* Data Abort handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =DataAbortAddr
+	sub     r1, lr, #8
+	str     r1, [r0]
 	bl	DataAbortInterrupt		/*DataAbortInterrupt :call C function here */
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 	subs	pc, lr, #8			/* adjust return */
 
 PrefetchAbortHandler:				/* Prefetch Abort handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =PrefetchAbortAddr
+	sub     r1, lr, #4
+	str     r1, [r0]            		/* Stores instruction causing prefetch abort */
 	bl	PrefetchAbortInterrupt		/* PrefetchAbortInterrupt: call C function here */
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 	subs	pc, lr, #4			/* adjust return */
