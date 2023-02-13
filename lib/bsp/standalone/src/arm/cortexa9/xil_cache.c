@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -85,6 +86,9 @@
 *                     not needed for Zynq architecture.
 *                     Replace dsb with Xil_L2CacheSync as applicable as the latter
 *                     is more efficient while handling L2 cache maintenance.
+* 8.1    asa 02/13/23 The existing Xil_DCacheInvalidateRange has a bug where
+*                     the last cache line will not get invalidated under certain
+*                     scenarios. Changes are made to fix the same.
 * </pre>
 *
 ******************************************************************************/
@@ -299,8 +303,9 @@ void Xil_DCacheInvalidateLine(u32 adr)
 void Xil_DCacheInvalidateRange(INTPTR opstartaddr, u32 len)
 {
 	const u32 cacheline = 32U;
-	u32 tempadr;
-	u32 opendaddr;
+	INTPTR tempadr;
+	INTPTR opendaddr;
+	INTPTR endaddr;
 	u32 currmask;
 	volatile u32 *L2CCOffset = (volatile u32 *)(XPS_L2CC_BASEADDR +
 				    XPS_L2CC_CACHE_INVLD_PA_OFFSET);
@@ -310,6 +315,7 @@ void Xil_DCacheInvalidateRange(INTPTR opstartaddr, u32 len)
 
 	if (len != 0U) {
 		opendaddr = opstartaddr + len;
+		endaddr = opendaddr;
 
 		if ((opstartaddr & (cacheline-1U)) != 0U) {
 			opstartaddr &= (~(cacheline - 1U));
@@ -328,20 +334,22 @@ void Xil_DCacheInvalidateRange(INTPTR opstartaddr, u32 len)
 		if ((opendaddr & (cacheline-1U)) != 0U) {
 			opendaddr &= (~(cacheline - 1U));
 
-			Xil_L1DCacheFlushLine(opendaddr);
+			if (opendaddr != opstartaddr) {
+				Xil_L1DCacheFlushLine(opendaddr);
 #ifndef USE_AMP
-			/* Disable Write-back and line fills */
-			Xil_L2WriteDebugCtrl(0x3U);
-			Xil_L2CacheFlushLine(opendaddr);
-			/* Enable Write-back and line fills */
-			Xil_L2WriteDebugCtrl(0x0U);
-			Xil_L2CacheSync();
+				/* Disable Write-back and line fills */
+				Xil_L2WriteDebugCtrl(0x3U);
+				Xil_L2CacheFlushLine(opendaddr);
+				/* Enable Write-back and line fills */
+				Xil_L2WriteDebugCtrl(0x0U);
+				Xil_L2CacheSync();
 #endif
+			}
 		}
 
 		tempadr = opstartaddr;
 
-		while (tempadr < opendaddr) {
+		while (tempadr < endaddr) {
 #ifndef USE_AMP
 			/* Invalidate L2 cache line */
 			*L2CCOffset = tempadr;
@@ -350,7 +358,7 @@ void Xil_DCacheInvalidateRange(INTPTR opstartaddr, u32 len)
 #endif
 		}
 
-		while ((u32)opstartaddr < opendaddr) {
+		while (opstartaddr < endaddr) {
 	/* Invalidate L1 Data cache line */
 #if defined (__GNUC__) || defined (__ICCARM__)
 			asm_cp15_inval_dc_line_mva_poc(opstartaddr);
