@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +11,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include "xil_printf.h"
 
 #if defined(DEBUG) && !defined(NDEBUG)
 
@@ -53,6 +56,8 @@ int printf(const char *format, ...);
 #else /* ANSI Syntax */
 #define xdbg_printf(type, ...) (((type) & xdbg_current_types) ? printf (__VA_ARGS__) : 0)
 #endif
+
+#define xdbg_exception_printf(type, ...) (((type) & xdbg_current_types) ? xil_printf (__VA_ARGS__) : 0)
 
 #else /* defined(DEBUG) && !defined(NDEBUG) */
 
