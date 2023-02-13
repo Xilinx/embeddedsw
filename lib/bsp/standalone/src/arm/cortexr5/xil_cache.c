@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,9 @@
 * 7.7	sk   01/10/22 Typecast to fix wider essential type misra_c_2012_rule_10_7
 * 		      violation.
 * 8.0   mus  02/21/22 Updated cache API's to support Cortex-R52
+* 8.1    asa 02/13/23 The existing Xil_DCacheInvalidateRange has a bug where
+*                     the last cache line will not get invalidated under certain
+*                     scenarios. Changes are made to fix the same.
 * </pre>
 *
 ******************************************************************************/
@@ -265,15 +269,17 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 		if ((tempend & (cacheline-1U)) != 0U) {
 			tempend &= (~(cacheline - 1U));
 
-			Xil_DCacheFlushLine(tempend);
+			if (tempend != tempadr) {
+				Xil_DCacheFlushLine(tempend);
+			}
 		}
 
-		while (tempadr < tempend) {
+		while (tempadr < end) {
 
-		/* Invalidate Data cache line */
-		asm_inval_dc_line_mva_poc(tempadr);
+			/* Invalidate Data cache line */
+			asm_inval_dc_line_mva_poc(tempadr);
 
-		tempadr += cacheline;
+			tempadr += cacheline;
 		}
 	}
 
