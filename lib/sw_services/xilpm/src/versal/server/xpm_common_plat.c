@@ -33,7 +33,7 @@ inline u32 IsNodeOnSecondarySLR(u32 DeviceId, u32 *SlrIndex)
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *****************************************************************************/
 XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
-				u32 CmdType, u32 *const Response)
+				const u32 CmdType, u32 *const Response)
 {
 	XStatus Status = XST_DEVICE_NOT_FOUND;
 

@@ -159,7 +159,7 @@ u32 IsNodeOnSecondarySLR(u32 DeviceId, u32 *SlrIndex);
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
-                                u32 CmdType, u32 *const Response);
+                                const u32 CmdType, u32 *const Response);
 
 
 #ifdef __cplusplus
