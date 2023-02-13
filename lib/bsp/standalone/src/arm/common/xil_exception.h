@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -54,6 +55,10 @@
 * 			  misra_c_2012_rule_5_6 violation.
 * 8.0  sk	 03/02/22 Add XExc_VectorTable as extern to fix misra_c_2012_
 * 			  rule_8_4 violation.
+* 8.1  asa       02/12/23 Updated data abort and prefetch abort fault
+*                         status reporting for ARMv7.
+*						  Updated Sync and SError fault status reporting
+*						  for ARMv8.
 * </pre>
 *
 ******************************************************************************/
@@ -71,6 +76,7 @@
 #include "xpseudo_asm.h"
 #include "bspconfig.h"
 #include "xparameters.h"
+#include "xdebug.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -82,23 +88,142 @@ extern "C" {
 #define XIL_EXCEPTION_IRQ	XREG_CPSR_IRQ_ENABLE
 #define XIL_EXCEPTION_ALL	(XREG_CPSR_FIQ_ENABLE | XREG_CPSR_IRQ_ENABLE)
 
-#define XIL_EXCEPTION_ID_FIRST			0U
+#define XIL_EXCEPTION_ID_FIRST					0U
 #if defined (__aarch64__)
-#define XIL_EXCEPTION_ID_SYNC_INT		1U
-#define XIL_EXCEPTION_ID_IRQ_INT		2U
-#define XIL_EXCEPTION_ID_FIQ_INT		3U
+#define XIL_EXCEPTION_ID_SYNC_INT				1U
+#define XIL_EXCEPTION_ID_IRQ_INT				2U
+#define XIL_EXCEPTION_ID_FIQ_INT				3U
 #define XIL_EXCEPTION_ID_SERROR_ABORT_INT		4U
-#define XIL_EXCEPTION_ID_LAST			5U
+#define XIL_EXCEPTION_ID_LAST					5U
 #else
-#define XIL_EXCEPTION_ID_RESET			0U
-#define XIL_EXCEPTION_ID_UNDEFINED_INT		1U
-#define XIL_EXCEPTION_ID_SWI_INT		2U
-#define XIL_EXCEPTION_ID_PREFETCH_ABORT_INT	3U
-#define XIL_EXCEPTION_ID_DATA_ABORT_INT		4U
-#define XIL_EXCEPTION_ID_IRQ_INT		5U
-#define XIL_EXCEPTION_ID_FIQ_INT		6U
-#define XIL_EXCEPTION_ID_LAST			6U
+#define XIL_EXCEPTION_ID_RESET					0U
+#define XIL_EXCEPTION_ID_UNDEFINED_INT			1U
+#define XIL_EXCEPTION_ID_SWI_INT				2U
+#define XIL_EXCEPTION_ID_PREFETCH_ABORT_INT		3U
+#define XIL_EXCEPTION_ID_DATA_ABORT_INT			4U
+#define XIL_EXCEPTION_ID_IRQ_INT				5U
+#define XIL_EXCEPTION_ID_FIQ_INT				6U
+#define XIL_EXCEPTION_ID_LAST					6U
 #endif
+
+#ifdef DEBUG
+
+#if defined (__aarch64__)
+#define ARMV8_SYNC_ERROR						0x01U
+#define ARMV8_SERROR							0x02U
+
+#define ARMV8_FAR_VALUE_VALID 					0x01U
+
+#define ARMV8_ESR_EC_SHIFT						26U
+#define ARMV8_ESR_EC_MASK				((0x3FU) << ARMV8_ESR_EC_SHIFT)
+#define ARMV8_EXTRACT_ESR_EC(Val) 	\
+					(((Val) & ARMV8_ESR_EC_MASK) >> ARMV8_ESR_EC_SHIFT)
+
+#define ARMV8_ESR_IL_SHIFT						(25U)
+#define ARMV8_ESR_IL_MASK				((1U) << ARMV8_ESR_IL_SHIFT)
+#define ARMV8_EXTRACT_ESR_IL(Val) 	\
+					(((Val) & ARMV8_ESR_IL_MASK) >> ARMV8_ESR_IL_SHIFT)
+
+#define ARMV8_ESR_ISS_MASK				(ARMV8_ESR_IL_MASK - 1U)
+#define ARMV8_EXTRACT_ESR_ISS(Val)		((Val) & ARMV8_ESR_ISS_MASK)
+
+
+#define ARMV8_ESR_EC_UNKNOWN_ERR				0x00U
+#define ARMV8_ESR_EC_FP_ASIMD					0x07U
+#define ARMV8_ESR_ILL_EXECUTION_STATE			0x0EU
+#define ARMV8_ESR_EC_DATA_ABORT_LOWER			0x24U
+#define ARMV8_ESR_EC_DATA_ABORT					0x25U
+#define ARMV8_ESR_EC_INS_ABORT_LOWER			0x20U
+#define ARMV8_ESR_EC_INS_ABORT					0x21U
+#define ARMV8_ESR_EC_PC_ALIGNMENT_FAULT			0x22U
+#define ARMV8_ESR_EC_SP_ALIGNMENT_FAULT			0x26U
+#define ARMV8_ESR_EC_SERROR						0x2FU
+
+
+/* ISS field definitions shared by different classes */
+#define ARMV8_ESR_ISS_WNR_SHIFT					(6U)
+#define ARMV8_ESR_ISS_WNR_MASK			((1U) << ARMV8_ESR_ISS_WNR_SHIFT)
+
+/* Asynchronous Error Type */
+
+#define ARMV8_ESR_ISS_AET_SHIFT					(10U)
+#define ARMV8_ESR_ISS_AET_MASK			((0x7U) << ARMV8_ESR_ISS_AET_SHIFT)
+#define ARMV8_ESR_ISS_AET_UC			((0U) << ARMV8_ESR_ISS_AET_SHIFT)
+#define ARMV8_ESR_ISS_AET_UEU			((1U) << ARMV8_ESR_ISS_AET_SHIFT)
+#define ARMV8_ESR_ISS_AET_UEO			((2U) << ARMV8_ESR_ISS_AET_SHIFT)
+#define ARMV8_ESR_ISS_AET_UER			((3U) << ARMV8_ESR_ISS_AET_SHIFT)
+#define ARMV8_ESR_ISS_AET_CE			((6U) << ARMV8_ESR_ISS_AET_SHIFT)
+
+
+/* Shared ISS fault status code(IFSC/DFSC) for Data/Instruction aborts */
+#define ARMV8_ESR_ISS_FSC						(0x3FU)
+#define ARMV8_ESR_ISS_CM_SHIFT					(8U)
+#define ARMV8_ESR_ISS_CM_MASK 			((1U) << ARMV8_ESR_ISS_CM_SHIFT)
+
+#define ARMV8_LEVEL_0_ADDR_FAULT				0x00U
+#define ARMV8_LEVEL_1_ADDR_FAULT				0x01U
+#define ARMV8_LEVEL_2_ADDR_FAULT				0x02U
+#define ARMV8_LEVEL_3_ADDR_FAULT				0x03U
+#define ARMV8_LEVEL_0_TRANS_FAULT				0x04U
+#define ARMV8_LEVEL_1_TRANS_FAULT				0x05U
+#define ARMV8_LEVEL_2_TRANS_FAULT				0x06U
+#define ARMV8_LEVEL_3_TRANS_FAULT				0x07U
+#define ARMV8_LEVEL_0_ACCS_FLAG_FAULT			0x08U
+#define ARMV8_LEVEL_1_ACCS_FLAG_FAULT			0x09U
+#define ARMV8_LEVEL_2_ACCS_FLAG_FAULT			0x0AU
+#define ARMV8_LEVEL_3_ACCS_FLAG_FAULT			0x0BU
+#define ARMV8_LEVEL_0_PERMISSION_FAULT			0x0CU
+#define ARMV8_LEVEL_1_PERMISSION_FAULT			0x0DU
+#define ARMV8_LEVEL_2_PERMISSION_FAULT			0x0EU
+#define ARMV8_LEVEL_3_PERMISSION_FAULT			0x0FU
+
+#define ARMV8_SYNC_EXT_ABORT_NOT_ON_TTW			0x10U
+#define ARMV8_LEVEL_0_SYNC_EXT_ABORT			0x14U
+#define ARMV8_LEVEL_1_SYNC_EXT_ABORT			0x15U
+#define ARMV8_LEVEL_2_SYNC_EXT_ABORT			0x16U
+#define ARMV8_LEVEL_3_SYNC_EXT_ABORT			0x17U
+
+#define ARMV8_SYNC_PAR_OR_ECC_ERROR_NOT_ON_TTW	0x18U
+#define ARMV8_LEVEL_0_SYNC_PAR_OR_ECC_ERROR		0x1CU
+#define ARMV8_LEVEL_1_SYNC_PAR_OR_ECC_ERROR		0x1DU
+#define ARMV8_LEVEL_2_SYNC_PAR_OR_ECC_ERROR		0x1EU
+#define ARMV8_LEVEL_3_SYNC_PAR_OR_ECC_ERROR		0x1FU
+
+#define ARMV8_ALIGNMENT_FAULT					0x21U
+#define ARMV8_TLB_CONFLICT_ABORT				0x30U
+
+#define ARMV8_ASYNC_SEEROR_INTERRUPT			0x11U
+
+#else /* #if defined (__aarch64__) */
+
+#define DATA_ABORT								0x00U
+#define INS_PREFETCH_ABORT						0x01U
+#define ARMV7_FAULT_STATUS_MASK_BIT3_0 			0x0FU
+#define ARMV7_DFAR_VALUE_VALID 					0x01U
+#define ARMV7_FAULT_STATUS_BIT10_MASK 			0x400U
+
+#define ARMV7_BACKGROUND_FAULT 					0x00U
+#define ARMV7_ALIGNMENT_FAULT 					0x01U
+#define ARMV7_DEBUG_EVENT						0x02U
+#define ARMV7_ACCESS_FLAG_FAULT 				0x03U
+#define ARMV7_ICACHE_MAINTENANCE_FAULT  		0x04U
+#define ARMV7_TRANSLATION_FAULT					0x05U
+#define ARMV7_SYNC_EXT_ABORT					0x08U
+#define ARMV7_DOMAIN_FAULT						0x09U
+#define ARMV7_SYNC_ABORT_TRANSTAB_WALK			0x0CU
+#define ARMV7_PERMISSION_FAULT 					0x0DU
+#define ARMV7_TLB_CONFLICT_ABORT 				0x10U
+#define ARMV7_ASYNC_EXT_ABORT					0x16U
+#define ARMV7_MEM_ACS_ASYNC_PAR_ERR				0x18U
+#define ARMV7_MEM_ACS_SYNC_PAR_ERR				0x19U
+#define ARMV7_SYNCPAR_ERR_TRANSTAB_WALK			0x1CU
+
+#define EXTRACT_BITS_10_AND_3_TO_0(Val) \
+		((Val & (ARMV7_FAULT_STATUS_BIT10_MASK)) >> 6) | \
+				(Val & ARMV7_FAULT_STATUS_MASK_BIT3_0)
+
+#endif /* #if defined (__aarch64__) */
+#endif /* #ifdef DEBUG */
 
 /*
  * XIL_EXCEPTION_ID_INT is defined for all Xilinx processors.
@@ -394,14 +519,6 @@ extern void Xil_GetExceptionRegisterHandler(u32 Exception_id,
 					Xil_ExceptionHandler *Handler, void **Data);
 
 extern void Xil_ExceptionInit(void);
-#if defined (__aarch64__)
-void Xil_SyncAbortHandler(void *CallBackRef);
-void Xil_SErrorAbortHandler(void *CallBackRef);
-#else
-extern void Xil_DataAbortHandler(void *CallBackRef);
-extern void Xil_PrefetchAbortHandler(void *CallBackRef);
-extern void Xil_UndefinedExceptionHandler(void *CallBackRef);
-#endif
 
 #ifdef __cplusplus
 }
