@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +19,7 @@
 * ----- ---  -------- ---------------------------------------------
 * 1.00  sd  06/10/22 First release
 * 1.1   sd  14/12/22 Fix warnings
+* 1.2   sd  1/2/23   Write to resume bit
 * </pre>
 *
 ******************************************************************************/
@@ -72,7 +73,7 @@ void XI3cPsx_SetupSlave(XI3cPsx *InstancePtr, u16 SlaveAddr)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DATA_BUFFER_THLD_CTRL, reg);
 
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_BUS_FREE_AVAIL_TIMING, 0x00a00020);
-	reg =  1 << XI3CPSX_DEVICE_CTRL_ENABLE_SHIFT | 1 << XI3CPSX_DEVICE_CTRL_RESUME_SHIFT;
+	reg =  1 << XI3CPSX_DEVICE_CTRL_ENABLE_SHIFT;
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL, reg);
 	/* Set the mode to slave */
 	reg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_QUEUE_THLD_CTRL);
@@ -263,8 +264,14 @@ s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
 	Reg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
 				XI3CPSX_RESPONSE_QUEUE_PORT);
 	Err = Reg & XI3CPSX_TRANSFER_ERROR;
-	if (Err != 0)
+	if (Err != 0) {
+		Reg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress,
+				XI3CPSX_DEVICE_CTRL);
+		Reg = Reg | XI3CPSX_DEVICE_CTRL_RESUME_MASK;
+		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_CTRL, Reg);
 		return (s32)XST_FAILURE;
+	}
+
 
 	Reg = Reg & XI3CPSX_DATA_LEN;
 

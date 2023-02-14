@@ -10,7 +10,7 @@ BEGIN driver i3cpsx
   OPTION supported_peripherals = (psx_i3c psxl_i3c psxl_pmc_i3c psx_pmc_i3c);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.1;
+  OPTION VERSION = 1.2;
   OPTION NAME = i3cpsx;
 
 END driver
