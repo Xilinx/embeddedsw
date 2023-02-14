@@ -1103,7 +1103,7 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 		" CDO is enabled with key whole write\n\r");
 END:
 	if (Status != XST_SUCCESS) {
-		Status |= XLOADER_ERR_HDR_MEASUREMENT;
+		XPlmi_UpdateStatus(XLOADER_ERR_HDR_MEASUREMENT, Status);
 	}
 #else
 	(void)PdiPtr;
@@ -1153,7 +1153,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		break;
 	}
 	if (Status != XST_SUCCESS) {
-		Status |= XLOADER_ERR_DATA_MEASUREMENT;
+		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 		goto END;
 	}
 
@@ -1176,7 +1176,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 
 END:
 	if (Status != XST_SUCCESS) {
-		Status |= XLOADER_ERR_DATA_MEASUREMENT;
+		XPlmi_UpdateStatus(XLOADER_ERR_DATA_MEASUREMENT, Status);
 	}
 #else
 	(void)ImageInfo;
@@ -1267,7 +1267,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 	Status = XST_SUCCESS;
 END:
 	if (Status != XST_SUCCESS) {
-		Status |= XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
+		XPlmi_UpdateStatus(XLOADER_ERR_SECURE_CONFIG_MEASUREMENT, Status);
 	}
 #else
 	(void)SecurePtr;
