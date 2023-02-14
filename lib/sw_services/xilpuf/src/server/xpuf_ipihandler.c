@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * 1.00  kpt  01/04/2022 Initial release
 *       kpt  01/31/2022 Removed redundant code in XNvm_EfuseMemCopy
 * 2.10  skg  10/29/2022 Added In Body comments
+*       am   02/13/2023 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -62,14 +64,14 @@ int XPuf_IpiHandler(XPlmi_Cmd *Cmd) {
 	volatile int Status = XST_INVALID_PARAM;
 	u32 *Pload = Cmd->Payload;
 
-    /**
+	/**
 	 *  Validate the input parameters. Return XST_FAILURE if input parameters are invalid
 	 */
 	if (Pload == NULL) {
 		goto END;
 	}
 
-    /**
+	/**
 	 *  Calls the respective handler based on the API Id
 	 */
 	switch (Cmd->CmdId & XPUF_API_ID_MASK) {
@@ -188,15 +190,24 @@ static int XPuf_PufRegeneration(u32 AddrLow, u32 AddrHigh) {
 	PufData.ReadOption = (XPuf_ReadOption)PufDataAddr.ReadOption;
 	PufData.Chash = XPlmi_In64(PufDataAddr.ChashAddr);
 	PufData.Aux = XPlmi_In64(PufDataAddr.AuxAddr);
-	PufData.SyndromeAddr = PufDataAddr.SyndromeAddr;
-	if ((PufData.ReadOption == XPUF_READ_FROM_RAM) &&
-		((u32)(PufDataAddr.SyndromeAddr >> 32) != 0U)) {
-		Status = XPuf_MemCopy((u64)PufDataAddr.SyndromeAddr,
-			(u64)XPUF_SYNDROME_ADDRESS, XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES);
-		if (Status != XST_SUCCESS) {
-			goto END;
+
+	/**
+	 * If higher address of syndrome data is non-zero then copy syndrome data at XPUF_SYNDROME_ADDRESS
+	 * and update it as syndrome data to be used for regeneration else,
+	 * use the same syndrome address provided by the user
+	 */
+	if (PufData.ReadOption == XPUF_READ_FROM_RAM) {
+		if ((PufDataAddr.SyndromeAddr >> 32) != 0U) {
+			Status = XPuf_MemCopy((u64)PufDataAddr.SyndromeAddr,
+				(u64)XPUF_SYNDROME_ADDRESS, XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			PufData.SyndromeAddr = XPUF_SYNDROME_ADDRESS;
 		}
-		PufData.SyndromeAddr = XPUF_SYNDROME_ADDRESS;
+		else{
+			PufData.SyndromeAddr = (u32)PufDataAddr.SyndromeAddr;
+		}
 	}
 
 	Status = XPuf_Regeneration(&PufData);
