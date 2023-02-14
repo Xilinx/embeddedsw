@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 2.0   har  07/04/2022 Initial release
 *       kpt  08/31/2022 Fixed logical error in XPuf_CheckGlobalVariationFilter
+* 2.1   am   02/13/2023 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -70,7 +72,7 @@ inline int XPuf_CheckGlobalVariationFilter(XPuf_Data *PufData)
 		Status = XST_SUCCESS;
 	}
 #else
-	PufData = PufData;
+	(void)PufData;
 	Status = XST_SUCCESS;
 #endif
 
@@ -96,7 +98,7 @@ inline void XPuf_SetRoSwap(XPuf_Data *PufData)
 	Xil_Out32(XPUF_PMC_GLOBAL_BASEADDR + XPUF_PMX_GLOBAL_PUF_RO_SWP_OFFSET,
 		PufData->RoSwapVal);
 #else
-	PufData = PufData;
+	(void)PufData;
 #endif
 }
 
@@ -121,7 +123,7 @@ int XPuf_IsRegistrationEnabled(u32 PufEccCtrlValue)
 		Status = XST_SUCCESS;
 	}
 #else
-	PufEccCtrlValue = PufEccCtrlValue;
+	(void)PufEccCtrlValue;
 	Status = XST_SUCCESS;
 #endif
 
