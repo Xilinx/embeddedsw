@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 2.0   har  07/04/2022 Initial release
+* 2.1   am   02/13/2023 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -59,8 +61,8 @@ typedef struct _XPuf_Data XPuf_Data;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes ******************************/
-int XPuf_CheckGlobalVariationFilter(XPuf_Data *PufData);
-void XPuf_SetRoSwap(XPuf_Data *PufData);
+int XPuf_CheckGlobalVariationFilter(const XPuf_Data *PufData);
+void XPuf_SetRoSwap(const XPuf_Data *PufData);
 int XPuf_IsRegistrationEnabled(u32 PufEccCtrlValue);
 
 /** @}

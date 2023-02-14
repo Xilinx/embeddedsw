@@ -20,6 +20,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 * 2.1   skg  10/04/2022 Added NULL to hidden handler in Xplmi_module structure
 *       skg  12/14/2022 Added invalid command handler in Xplmi_module structure
+*       am   02/13/2023 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -136,7 +137,7 @@ static int XPuf_FeaturesCmd(u32 ApiId)
 static int XPuf_ProcessCmd(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_INVALID_PARAM;
-	u32 *Pload = Cmd->Payload;
+	const u32 *Pload = Cmd->Payload;
 
 	if (Pload == NULL) {
 		goto END;

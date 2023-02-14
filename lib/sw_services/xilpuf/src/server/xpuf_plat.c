@@ -55,7 +55,7 @@
  * @return	Status
  *
  *****************************************************************************/
-int XPuf_CheckGlobalVariationFilter(XPuf_Data *PufData)
+int XPuf_CheckGlobalVariationFilter(const XPuf_Data *PufData)
 {
 	int Status = XST_FAILURE;
 
@@ -89,7 +89,7 @@ int XPuf_CheckGlobalVariationFilter(XPuf_Data *PufData)
  *		to configure PUF
  *
  *****************************************************************************/
-void XPuf_SetRoSwap(XPuf_Data *PufData)
+void XPuf_SetRoSwap(const XPuf_Data *PufData)
 {
 #if defined (VERSAL_NET)
 	/**
