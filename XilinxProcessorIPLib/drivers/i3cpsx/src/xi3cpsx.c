@@ -19,6 +19,8 @@
 * Ver   Who  Date     Changes
 * ----- ---  -------- ---------------------------------------------
 * 1.00 	sd   11/21/21 First release
+* 1.2   sd    2/12/23 Remove the hardcoding devices
+*       	      Copy the input clock
 * </pre>
 *
 ******************************************************************************/
@@ -45,7 +47,8 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 	/* Set the values read from the device config and the base address. */
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
-	InstancePtr->Config.DeviceCount = 2;
+	InstancePtr->Config.DeviceCount = ConfigPtr->DeviceCount;
+	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 
 	/* Indicate the instance is now ready to use, initialized without error */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
