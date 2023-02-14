@@ -575,7 +575,7 @@ static inline void XWdtTb_SetFeedbackVal(XWdtTb *InstancePtr, u32 Feedback)
 	Xil_AssertVoid(InstancePtr != NULL);
 	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_TFR_OFFSET,
 				(XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_TFR_OFFSET)
-				& ~(XWT_TFR_FDBK_MASK)) | Feedback);
+				& ((u32)~(XWT_TFR_FDBK_MASK))) | Feedback);
 }
 
 /*****************************************************************************/
@@ -639,7 +639,7 @@ static inline void XWdtTb_SetSeedValue(const XWdtTb *InstancePtr,
 
 	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_TFR_OFFSET,
 			(XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_TFR_OFFSET)
-			& ~(XWT_TFR_SEED_MASK)) | SeedValue);
+			& ((u32)~(XWT_TFR_SEED_MASK))) | SeedValue);
 }
 
 /*****************************************************************************/
@@ -740,7 +740,7 @@ static inline void XWdtTb_DisableQAMode(XWdtTb *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	XWdtTb_WriteReg(InstancePtr->Config.BaseAddr, XWT_FCR_OFFSET,
 		((XWdtTb_ReadReg(InstancePtr->Config.BaseAddr, XWT_FCR_OFFSET)
-					& ~(XWT_ENABLE_QA_MODE))));
+					& ((u32)~(XWT_ENABLE_QA_MODE)))));
 }
 
 /************************** Function Prototypes ******************************/
