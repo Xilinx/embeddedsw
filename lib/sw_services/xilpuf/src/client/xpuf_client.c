@@ -22,6 +22,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 2.1   skg  10/29/22 Added In Body comments
 *       skg  12/14/22 Added Slr index as part of payload
+*       am   02/13/23 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -85,7 +86,7 @@ int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const Mail
  * 		    - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XPuf_Registration(XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
+int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XPUF_PAYLOAD_LEN_3U];
@@ -128,7 +129,7 @@ END:
  * 		    - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XPuf_Regeneration(XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
+int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XPUF_PAYLOAD_LEN_3U];
@@ -169,7 +170,7 @@ END:
  * 		    - XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XPuf_ClearPufID(XPuf_ClientInstance *InstancePtr)
+int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XPUF_PAYLOAD_LEN_1U];
