@@ -53,6 +53,7 @@
 *            08/02/2022 Modified if check for XPuf_ChangeIroFreq to avoid returning XST_SUCCESS
 *                       incase of glitch attack
 * 2.1   skg  10/29/2022 Added In Body comments for APIs
+*       am   02/13/2023 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -172,7 +173,7 @@ static inline void XPuf_CfgGlobalVariationFilter(const u8 GlobalVarFilter)
  *****************************************************************************/
 static inline u8 XPuf_ReadIroFreq(void)
 {
-	return (XPuf_ReadReg(XPUF_EFUSE_CTRL_BASEADDR,
+	return (u8)(XPuf_ReadReg(XPUF_EFUSE_CTRL_BASEADDR,
 		XPUF_ANLG_OSC_SW_1LP_OFFSET) & XPUF_IRO_TRIM_FUSE_SEL_BIT);
 }
 
