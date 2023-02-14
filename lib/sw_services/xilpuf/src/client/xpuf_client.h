@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -21,6 +22,7 @@
 * 1.0   kpt  01/04/22 Initial release
 *       am   02/28/22 Fixed MISRA C violation rule 8.3
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 2.1   am   02/13/23 Fixed MISRA C violations
 *
 * </pre>
 *
@@ -57,9 +59,9 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
-int XPuf_Registration(XPuf_ClientInstance *InstancePtr, const u64 DataAddr);
-int XPuf_Regeneration(XPuf_ClientInstance *InstancePtr, const u64 DataAddr);
-int XPuf_ClearPufID(XPuf_ClientInstance *InstancePtr);
+int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr);
+int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr);
+int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
