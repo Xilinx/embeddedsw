@@ -2,6 +2,7 @@
  * FreeRTOS Kernel V10.4.6
  * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2019 - 2022 Xilinx, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -40,7 +41,7 @@
 #define DELAY_1_SECOND			1000UL
 #define TIMER_CHECK_THRESHOLD	9
 #define QUEUE_LENGTH			1
-#define STACK_SIZE      		100
+#define STACK_SIZE      		200
 #define QUEUE_BUFFER_SIZE		100
 #define NUM_TIMERS 				1
 /*-----------------------------------------------------------*/
