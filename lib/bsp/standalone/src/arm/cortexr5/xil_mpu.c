@@ -197,12 +197,12 @@ void Xil_SetTlbAttributes(INTPTR addr, u32 attrib)
 	} else {
 		Localaddr &= (INTPTR)(~(0xFFFFFU));
 		/* Setting the MPU region with given attribute with 1MB size */
-		Xil_SetMPURegion(Localaddr, 0x100000, attrib);
+		(void) Xil_SetMPURegion(Localaddr, 0x100000, attrib);
 	}
 #else
 	Localaddr &= (INTPTR)(~(0xFFFFFU));
 	/* Setting the MPU region with given attribute with 1MB size */
-	Xil_SetMPURegion(Localaddr, 0x100000, attrib);
+	(void) Xil_SetMPURegion(Localaddr, 0x100000, attrib);
 #endif
 }
 
@@ -224,6 +224,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 	INTPTR Localaddr = addr;
 	u32 NextAvailableMemRegion;
 	u32 i;
+	u32 Status;
 #if defined(ARMR52)
 	u32 limit_reg = 0;
 #endif
@@ -277,8 +278,9 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 #endif
 	dsb();
 	isb();
-	Xil_UpdateMPUConfig(NextAvailableMemRegion, Localaddr, Regionsize, attrib);
-	return XST_SUCCESS;
+	Status = Xil_UpdateMPUConfig(NextAvailableMemRegion, Localaddr, Regionsize, attrib);
+	xdbg_printf(XDBG_DEBUG_GENERAL," Xil_UpdateMPUConfig : %s", (Status == XST_SUCCESS)?"PASS":"FAIL");
+	return Status;
 }
 /*****************************************************************************/
 /**
@@ -518,6 +520,7 @@ u16 Xil_GetMPUFreeRegMask (void) {
 u32 Xil_DisableMPURegionByRegNum (u32 reg_num) {
 	u32 Temp = 0U;
 	u32 ReturnVal = XST_FAILURE;
+	u32 Status;
 
 	if (reg_num >= 16U) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid region number\r\n");
@@ -537,8 +540,9 @@ u32 Xil_DisableMPURegionByRegNum (u32 reg_num) {
 	mtcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
 	dsb();
 	isb();
-	Xil_UpdateMPUConfig(reg_num, 0, 0U, 0U);
-	ReturnVal = XST_SUCCESS;
+	Status = Xil_UpdateMPUConfig(reg_num, 0, 0U, 0U);
+	xdbg_printf(XDBG_DEBUG_GENERAL," Xil_UpdateMPUConfig : %s", (Status == XST_SUCCESS)?"PASS":"FAIL");
+	ReturnVal = Status;
 
 exit1:
 	return ReturnVal;
@@ -563,6 +567,7 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 	INTPTR Localaddr = addr;
 	u32 Regionsize = 0;
 	u32 Index;
+	u32 Status;
 #if defined(ARMR52)
 	u32 limit_reg;
 #endif
@@ -620,7 +625,9 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 #endif
 	dsb();
 	isb();
-	Xil_UpdateMPUConfig(reg_num, Localaddr, Regionsize, attrib);
+	Status = Xil_UpdateMPUConfig(reg_num, Localaddr, Regionsize, attrib);
+	xdbg_printf(XDBG_DEBUG_GENERAL," Xil_UpdateMPUConfig : %s", (Status == XST_SUCCESS)?"PASS":"FAIL");
+	ReturnVal = Status;
 exit2:
 	return ReturnVal;
 
