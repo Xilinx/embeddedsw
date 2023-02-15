@@ -23,6 +23,7 @@
  * 1.1   ssc  03/24/22 Updates based on Security best practices
  * 1.2   kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy check
  * 1.3   kpt  01/31/23 Fixed issue when DF length is greater than 5
+ *       kpt  01/20/23 Clear key schedule array after DF operation is done
  *
  * </pre>
  *
@@ -75,6 +76,9 @@
 s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *PersStrPtr)
 {
 	volatile s32 Status = XTRNGPSV_FAILURE;
+	volatile s32 SStatus = XTRNGPSV_FAILURE;
+	volatile s32 StatusTmp = XTRNGPSV_FAILURE;
+	volatile s32 SStatusTmp = XTRNGPSV_FAILURE;
 	UINTPTR SrcAddr;
 	UINTPTR DestAddr;
 	UINTPTR RemDataAddr;
@@ -113,9 +117,9 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 		ActualDFInputLen = ((u32)sizeof(XTrngpsv_DFInput) + InstancePtr->EntropySize
 				- (u32)sizeof(InstancePtr->DFInput.EntropyData)) / AES_BLK_SIZE;
 
-		Status = Xil_SecureMemCpy(InstancePtr->DFInput.PersString, XTRNGPSV_PERS_STR_LEN_BYTES,
-				PersStrPtr, XTRNGPSV_PERS_STR_LEN_BYTES);
-		if (Status != XTRNGPSV_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SecureMemCpy, InstancePtr->DFInput.PersString,
+				XTRNGPSV_PERS_STR_LEN_BYTES, PersStrPtr, XTRNGPSV_PERS_STR_LEN_BYTES);
+		if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
 			Status = (s32)XTRNGPSV_ERROR_DF_CPY;
 			goto SET_ERR;
 		}
@@ -151,38 +155,38 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 	DiffSize = (u32)(SrcAddr - DestAddr);
 	RemDataAddr = (UINTPTR)&InstancePtr->DFInput + (u32)sizeof(InstancePtr->DFInput) - DiffSize;
 
-	/* Status Reset */
-	Status = XTRNGPSV_FAILURE;
-
 	if (DiffSize > 0U) {
 		/* Move the block up */
-		Status = Xil_SMemMove((u8*)DestAddr, TransferSize, (u8*)SrcAddr, TransferSize, TransferSize);
-		if (Status != XTRNGPSV_SUCCESS) {
-			Status = (s32)XTRNGPSV_ERROR_DF_CPY;
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemMove, (u8*)DestAddr, TransferSize,
+				(u8*)SrcAddr, TransferSize, TransferSize);
+		if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
+			Status = (s32)XTRNGPSV_ERROR_DF_MEMMOVE;
 			goto SET_ERR;
 		}
 
-		/* Status Reset */
-		Status = XTRNGPSV_FAILURE;
-
 		/* Fill the remaining memory (after moving) with 0s */
-		Status = Xil_SMemSet((u8*)RemDataAddr, DiffSize, 0U, DiffSize);
-		if (Status != XTRNGPSV_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemSet, (u8*)RemDataAddr, DiffSize,
+				0U, DiffSize);
+		if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
+			Status = (s32)XTRNGPSV_ERROR_DF_MEMSET;
 			goto SET_ERR;
 		}
 	}
 
 	/* Perform first part of the DF algorithm */
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, aesSetupKey, DFKey, (s32)sizeof(DFKey));
+	if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
+		Status = (s32)XTRNGPSV_ERROR_DF_SETUP_KEY_FAILED;
+		goto SET_ERR;
+	}
 
-	(void)aesSetupKey(DFKey, (s32)sizeof(DFKey));
 	for (Index = 0U; Index < XTRNGPSV_SEED_LEN_BYTES; Index += AES_BLK_SIZE) {
-
-		Status = XTRNGPSV_FAILURE;
-		Status = Xil_SMemSet((u8*)InstancePtr->DFOutput + Index, AES_BLK_SIZE, 0, AES_BLK_SIZE);
-		if (Status != XTRNGPSV_SUCCESS) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemSet, (u8*)InstancePtr->DFOutput +
+				Index, AES_BLK_SIZE, 0U, AES_BLK_SIZE);
+		if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
+			Status = (s32)XTRNGPSV_ERROR_DF_MEMSET;
 			goto SET_ERR;
 		}
-
 		InstancePtr->DFInput.IvCounter[0] =
 		XTRNGPSV_SWAP_ENDIAN(Index / AES_BLK_SIZE);
 		aesCbcEncrypt((u8*)&InstancePtr->DFInput, NULL, InstancePtr->DFOutput + Index,
@@ -195,8 +199,11 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 	}
 
 	/* Perform second part of the DF algorithm (final update to DFOutput) */
-
-	(void)aesSetupKey((u8*)InstancePtr->DFOutput, (s32)sizeof(DFKey));
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, aesSetupKey, (u8*)InstancePtr->DFOutput, (s32)sizeof(DFKey));
+	if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
+		Status = (s32)XTRNGPSV_ERROR_DF_SETUP_KEY_FAILED;
+		goto SET_ERR1;
+	}
 
 	for (Index = 0U; Index < XTRNGPSV_SEED_LEN_BYTES; Index += AES_BLK_SIZE) {
 		if (Index == 0U) {
@@ -217,6 +224,14 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 		Status = XTRNGPSV_SUCCESS;
 	}
 
+SET_ERR1:
+	/* Clear the aes key schedule once DF operation is done */
+	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, aesSetupKey, DFKey, (s32)sizeof(DFKey));
+	if ((SStatus != XTRNGPSV_SUCCESS) || (SStatusTmp != XTRNGPSV_SUCCESS)) {
+		if ((Status == XTRNGPSV_SUCCESS) || (StatusTmp == XTRNGPSV_SUCCESS)) {
+			Status = SStatus | SStatusTmp;
+		}
+	}
 SET_ERR:
 	return Status;
 }
