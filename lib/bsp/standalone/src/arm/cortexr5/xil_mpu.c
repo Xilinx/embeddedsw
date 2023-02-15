@@ -751,7 +751,7 @@ void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
 				break;
 			}
 			if ((Basephysaddr + Regionsize) >= end) {
-				return ((Xil_SetMPURegion(Basephysaddr,
+				return ((Xil_SetMPURegion((INTPTR) Basephysaddr,
 					Regionsize, flags) == XST_SUCCESS) ?
 					(void *)Physaddr : NULL);
 			}

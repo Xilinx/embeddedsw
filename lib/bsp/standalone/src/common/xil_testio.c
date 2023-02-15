@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,9 +91,9 @@ s32 Xil_TestIO8(u8 *Addr, s32 Length, u8 Value)
 	s32 Status = 0;
 
 	for (Index = 0; Index < Length; Index++) {
-		Xil_Out8((INTPTR)Addr, Value);
+		Xil_Out8((UINTPTR)Addr, Value);
 
-		ValueIn = Xil_In8((INTPTR)Addr);
+		ValueIn = Xil_In8((UINTPTR)Addr);
 
 		if ((Value != ValueIn) && (Status == 0)) {
 			Status = -1;
@@ -140,17 +141,17 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 	for (Index = 0; Index < Length; Index++) {
 		switch (Kind) {
 		case XIL_TESTIO_LE:
-			Xil_Out16LE((INTPTR)TempAddr16, Value);
+			Xil_Out16LE((UINTPTR)TempAddr16, Value);
 			break;
 		case XIL_TESTIO_BE:
-			Xil_Out16BE((INTPTR)TempAddr16, Value);
+			Xil_Out16BE((UINTPTR)TempAddr16, Value);
 			break;
 		default:
-			Xil_Out16((INTPTR)TempAddr16, Value);
+			Xil_Out16((UINTPTR)TempAddr16, Value);
 			break;
 		}
 
-		ValueIn = Xil_In16((INTPTR)TempAddr16);
+		ValueIn = Xil_In16((UINTPTR)TempAddr16);
 
 		if ((Kind != 0) && (Swap != 0)) {
 			ValueIn = Swap16(ValueIn);
@@ -161,17 +162,17 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 		}
 
 		/* second round */
-		Xil_Out16((INTPTR)TempAddr16, Value);
+		Xil_Out16((UINTPTR)TempAddr16, Value);
 
 		switch (Kind) {
 		case XIL_TESTIO_LE:
-			ValueIn = Xil_In16LE((INTPTR)TempAddr16);
+			ValueIn = Xil_In16LE((UINTPTR)TempAddr16);
 			break;
 		case XIL_TESTIO_BE:
-			ValueIn = Xil_In16BE((INTPTR)TempAddr16);
+			ValueIn = Xil_In16BE((UINTPTR)TempAddr16);
 			break;
 		default:
-			ValueIn = Xil_In16((INTPTR)TempAddr16);
+			ValueIn = Xil_In16((UINTPTR)TempAddr16);
 			break;
 		}
 
@@ -224,17 +225,17 @@ s32 Xil_TestIO32(u32 *Addr, s32 Length, u32 Value, s32 Kind, s32 Swap)
 	for (Index = 0; Index < Length; Index++) {
 		switch (Kind) {
 		case XIL_TESTIO_LE:
-			Xil_Out32LE((INTPTR)TempAddr, Value);
+			Xil_Out32LE((UINTPTR)TempAddr, Value);
 			break;
 		case XIL_TESTIO_BE:
-			Xil_Out32BE((INTPTR)TempAddr, Value);
+			Xil_Out32BE((UINTPTR)TempAddr, Value);
 			break;
 		default:
-			Xil_Out32((INTPTR)TempAddr, Value);
+			Xil_Out32((UINTPTR)TempAddr, Value);
 			break;
 		}
 
-		ValueIn = Xil_In32((INTPTR)TempAddr);
+		ValueIn = Xil_In32((UINTPTR)TempAddr);
 
 		if ((Kind != 0) && (Swap != 0)) {
 			ValueIn = Swap32(ValueIn);
@@ -245,18 +246,18 @@ s32 Xil_TestIO32(u32 *Addr, s32 Length, u32 Value, s32 Kind, s32 Swap)
 		}
 
 		/* second round */
-		Xil_Out32((INTPTR)TempAddr, Value);
+		Xil_Out32((UINTPTR)TempAddr, Value);
 
 
 		switch (Kind) {
 		case XIL_TESTIO_LE:
-			ValueIn = Xil_In32LE((INTPTR)TempAddr);
+			ValueIn = Xil_In32LE((UINTPTR)TempAddr);
 			break;
 		case XIL_TESTIO_BE:
-			ValueIn = Xil_In32BE((INTPTR)TempAddr);
+			ValueIn = Xil_In32BE((UINTPTR)TempAddr);
 			break;
 		default:
-			ValueIn = Xil_In32((INTPTR)TempAddr);
+			ValueIn = Xil_In32((UINTPTR)TempAddr);
 			break;
 		}
 
