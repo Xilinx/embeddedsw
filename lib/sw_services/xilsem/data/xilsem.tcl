@@ -17,6 +17,7 @@
 # 1.07	hv   06/06/22 Added support for P80
 # 1.08  gm   11/22/22 Added support for A72
 # 1.09	hv   11/16/22 Added support for PL microblaze
+# 1.10	hv   02/14/23 Added support to get number of SLRs from the design
 ##############################################################################
 
 #---------------------------------------------
@@ -128,9 +129,17 @@ proc xgen_opts_file {libhandle} {
 	    puts $file_handle "\#define XSEM_NPISCAN_EN"
 	  }
 
+	  if { [info commands ::hsi::get_current_part] != ""} {
+	      #Get number of SLRs from the design
+	      set part [::hsi::get_current_part]
+	      set SlrCount [common::get_property NUM_OF_SLRS $part]
+	      puts $file_handle "\n/** Maximum number of SLRs on SSIT device */"
+	      puts $file_handle "#define XSEM_SSIT_MAX_SLR_CNT       $SlrCount"
+	  }
+
 	  puts $file_handle ""
 	  close $file_handle
-        }
+    }
 
 	# Copy the include files to the include directory
 	set srcdir src
