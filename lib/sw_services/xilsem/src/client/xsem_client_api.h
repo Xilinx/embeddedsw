@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -44,6 +45,8 @@
 * 2.1	hv   07/24/2022   Added client interface to read Cfr Status
 * 2.2   hb   07/28/2022   Added macro for GT arbitration fail event
 * 2.3	hv   08/08/2022   Fixed Misra C violations
+* 2.4	hv   02/14/2023   Removed XSEM_SSIT_MAX_SLR_CNT macro as this is
+*                         available in xparameters.h
 * </pre>
 *
 * @note
@@ -376,8 +379,6 @@ information: Contains descriptor attributes and golden SHA value */
 #define XSEM_EVENT_ENABLE	(0x1U)
 /** SEM Event Notification Disable */
 #define XSEM_EVENT_DISABLE	(0x0U)
-/** Maximum number of SLRs on SSIT device */
-#define XSEM_SSIT_MAX_SLR_CNT	(4U)
 
 /**
  * The below definitions are used for decoding response from
