@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,34 +67,34 @@ static const struct {
 	u64 size;
 	u32 encoding;
 }region_size[] = {
-	{ 0x20, REGION_32B },
-	{ 0x40, REGION_64B },
-	{ 0x80, REGION_128B },
-	{ 0x100, REGION_256B },
-	{ 0x200, REGION_512B },
-	{ 0x400, REGION_1K },
-	{ 0x800, REGION_2K },
-	{ 0x1000, REGION_4K },
-	{ 0x2000, REGION_8K },
-	{ 0x4000, REGION_16K },
-	{ 0x8000, REGION_32K },
-	{ 0x10000, REGION_64K },
-	{ 0x20000, REGION_128K },
-	{ 0x40000, REGION_256K },
-	{ 0x80000, REGION_512K },
-	{ 0x100000, REGION_1M },
-	{ 0x200000, REGION_2M },
-	{ 0x400000, REGION_4M },
-	{ 0x800000, REGION_8M },
-	{ 0x1000000, REGION_16M },
-	{ 0x2000000, REGION_32M },
-	{ 0x4000000, REGION_64M },
-	{ 0x8000000, REGION_128M },
-	{ 0x10000000, REGION_256M },
-	{ 0x20000000, REGION_512M },
-	{ 0x40000000, REGION_1G },
-	{ 0x80000000, REGION_2G },
-	{ 0x100000000, REGION_4G },
+	{ 0x20U, REGION_32B },
+	{ 0x40U, REGION_64B },
+	{ 0x80U, REGION_128B },
+	{ 0x100U, REGION_256B },
+	{ 0x200U, REGION_512B },
+	{ 0x400U, REGION_1K },
+	{ 0x800U, REGION_2K },
+	{ 0x1000U, REGION_4K },
+	{ 0x2000U, REGION_8K },
+	{ 0x4000U, REGION_16K },
+	{ 0x8000U, REGION_32K },
+	{ 0x10000U, REGION_64K },
+	{ 0x20000U, REGION_128K },
+	{ 0x40000U, REGION_256K },
+	{ 0x80000U, REGION_512K },
+	{ 0x100000U, REGION_1M },
+	{ 0x200000U, REGION_2M },
+	{ 0x400000U, REGION_4M },
+	{ 0x800000U, REGION_8M },
+	{ 0x1000000U, REGION_16M },
+	{ 0x2000000U, REGION_32M },
+	{ 0x4000000U, REGION_64M },
+	{ 0x8000000U, REGION_128M },
+	{ 0x10000000U, REGION_256M },
+	{ 0x20000000U, REGION_512M },
+	{ 0x40000000U, REGION_1G },
+	{ 0x80000000U, REGION_2G },
+	{ 0x100000000U, REGION_4G },
 };
 
 /************************** Function Prototypes ******************************/
