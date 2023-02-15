@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -79,8 +80,8 @@ void Xpm_DisableEventCounters(void)
 #endif
 #endif
 
-    RegVal &= 0x7FFFFFFF;
-    RegVal |= (XPM_EVENT_CNTRS_MASK & 0x7FFFFFFF);
+    RegVal &= 0x7FFFFFFFU;
+    RegVal |= (XPM_EVENT_CNTRS_MASK & 0x7FFFFFFFU);
 #if defined(__aarch64__)
     mtcp(PMCNTENCLR_EL0, RegVal);
 #else
