@@ -164,6 +164,9 @@ typedef enum {
 
 	/* Derivative Function related Error codes */
 	XTRNGPSV_ERROR_DF_CPY = 0x50, /**< 0x50 */
+	XTRNGPSV_ERROR_DF_SETUP_KEY_FAILED, /**< 0x51 */
+	XTRNGPSV_ERROR_DF_MEMSET,/**< 0x52 */
+	XTRNGPSV_ERROR_DF_MEMMOVE,/**< 0x53 */
 
 	/* Health Test and KAT related Error codes */
 	XTRNGPSV_ERROR_HEALTHTEST_INVALID_MODE = 0x60, /**< 0x60 */
