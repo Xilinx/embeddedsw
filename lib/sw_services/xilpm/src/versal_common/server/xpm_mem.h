@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,6 +13,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define IS_MEM_DEV_TYPE(Type)		(((u32)XPM_NODETYPE_DEV_OCM == (Type)) || \
+					 ((u32)XPM_NODETYPE_DEV_XRAM == (Type)) || \
+					 ((u32)XPM_NODETYPE_DEV_L2CACHE == (Type)) || \
+					 ((u32)XPM_NODETYPE_DEV_DDR == (Type)) || \
+					 ((u32)XPM_NODETYPE_DEV_TCM == (Type)) || \
+					 ((u32)XPM_NODETYPE_DEV_EFUSE == (Type)) || \
+					 ((u32)XPM_NODETYPE_DEV_HBM == (Type)))
 
 typedef struct XPm_MemCtrlrDevice XPm_MemCtrlrDevice;
 

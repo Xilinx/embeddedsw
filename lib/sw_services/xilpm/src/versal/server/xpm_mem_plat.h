@@ -13,14 +13,6 @@
 extern "C" {
 #endif
 
-#define IS_MEM_DEV_TYPE(Type)		(((u32)XPM_NODETYPE_DEV_OCM == (Type)) || \
-					 ((u32)XPM_NODETYPE_DEV_XRAM == (Type)) || \
-					 ((u32)XPM_NODETYPE_DEV_L2CACHE == (Type)) || \
-					 ((u32)XPM_NODETYPE_DEV_DDR == (Type)) || \
-					 ((u32)XPM_NODETYPE_DEV_TCM == (Type)) || \
-					 ((u32)XPM_NODETYPE_DEV_EFUSE == (Type)) || \
-					 ((u32)XPM_NODETYPE_DEV_HBM == (Type)))
-
 #define XPM_NODEIDX_DEV_DDRMC_MIN	XPM_NODEIDX_DEV_DDRMC_0
 #define XPM_NODEIDX_DEV_DDRMC_MAX	XPM_NODEIDX_DEV_DDRMC_3
 

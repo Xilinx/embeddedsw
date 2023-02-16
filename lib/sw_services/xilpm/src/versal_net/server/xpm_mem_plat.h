@@ -14,9 +14,6 @@ extern "C" {
 /* TODO: add correct definitions of these after topology cdo is updated */
 #define XPM_NODEIDX_DEV_DDRMC_MIN	0
 #define XPM_NODEIDX_DEV_DDRMC_MAX	0
-#define IS_MEM_DEV_TYPE(Type)		(((u32)XPM_NODETYPE_DEV_OCM == (Type)) || \
-					 ((u32)XPM_NODETYPE_DEV_DDR == (Type)) || \
-					 ((u32)XPM_NODETYPE_DEV_TCM == (Type)))
 
 typedef struct XPm_MemDevice XPm_MemDevice;
 
