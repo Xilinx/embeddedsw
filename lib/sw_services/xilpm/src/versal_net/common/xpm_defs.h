@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -601,11 +602,20 @@ enum XPmNotifyEvent {
 /**
  * PM API versions
  */
-#define XST_API_BASE_VERSION		(1U)
-#define XST_API_QUERY_DATA_VERSION	(2U)
-#define XST_API_REG_NOTIFIER_VERSION	(2U)
-#define XST_API_PM_IOCTL_VERSION	(2U)
+#define XST_API_BASE_VERSION			(1U)
+#define XST_API_QUERY_DATA_VERSION		(2U)
+#define XST_API_REG_NOTIFIER_VERSION		(2U)
+#define XST_API_PM_IOCTL_VERSION		(2U)
 #define XST_API_PM_FEATURE_CHECK_VERSION	(2U)
+/* Version 2 supports the CPU idling feature during force power down */
+#define XST_API_SELF_SUSPEND_VERSION		(2U)
+#define XST_API_FORCE_POWERDOWN_VERSION		(2U)
+/*
+ * Version 2 supports some extra security checks for REQ_ACCESS_SECURE
+ * and REQ_ACCESS_SECURE_NONSECURE policies.
+ */
+#define XST_API_REQUEST_NODE_VERSION		(2U)
+#define XST_API_RELEASE_NODE_VERSION		(2U)
 /** @} */
 
 /**
