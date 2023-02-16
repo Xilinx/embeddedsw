@@ -1839,7 +1839,8 @@ XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs)
  *  - i.e. version[1] and version[2]
  * @return XST_SUCCESS if successful else XST_NO_FEATURE.
  *
- * @note   None
+ * @note   Remove CDO-only commands from versioning as it is for internal
+ * use only, so no need to consider for versioing.
  *
  ****************************************************************************/
 XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version)
@@ -1853,9 +1854,6 @@ XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_PINCTRL_SET_FUNCTION):
 	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
 	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
-	case PM_API(PM_SET_NODE_ACCESS):
-	case PM_API(PM_NOC_CLOCK_ENABLE):
-	case PM_API(PM_IF_NOC_CLOCK_ENABLE):
 		*Version = XST_API_BASE_VERSION;
 		Status = XST_SUCCESS;
 		break;
