@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2016 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +47,7 @@
 *                     to reflect programmed bit when read from puf example.
 * 7.0	am  10/04/20  Resolved MISRA C violations
 * 7.2   am  07/13/21  Fixed doxygen warnings
+* 7.4   kal 02/16/23  Increased usleep value to 6ms in Puf regeneration function
 *
 * </pre>
 *
@@ -62,6 +64,7 @@
 	* Status of PUF word syndrome ready timeout
 	*/
 #define XILSKEY_PUF_STATUS_SYN_WRD_RDY_TIMEOUT	(500000U)
+#define XILSKEY_PUF_KEK_REGEN_RDY_TIMEOUT	(6000U)
 
 /**************************** Type Definitions ******************************/
 typedef enum {
@@ -768,7 +771,7 @@ u32 XilSKey_Puf_Regeneration(const XilSKey_Puf *InstancePtr)
 		XSK_ZYNQMP_PUF_REGENERATION);
 
 	/* Wait till the data word ready */
-	usleep(3000);
+	usleep(XILSKEY_PUF_KEK_REGEN_RDY_TIMEOUT);
 
 	PufStatus = XilSKey_ReadReg(XSK_ZYNQMP_CSU_BASEADDR,
 					XSK_ZYNQMP_CSU_ISR);
