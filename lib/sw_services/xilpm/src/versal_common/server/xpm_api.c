@@ -2878,14 +2878,10 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_GET_NODE_STATUS):
 	case PM_API(PM_GET_OP_CHARACTERISTIC):
 	case PM_API(PM_REQUEST_SUSPEND):
-	case PM_API(PM_SELF_SUSPEND):
-	case PM_API(PM_FORCE_POWERDOWN):
 	case PM_API(PM_ABORT_SUSPEND):
 	case PM_API(PM_REQUEST_WAKEUP):
 	case PM_API(PM_SET_WAKEUP_SOURCE):
 	case PM_API(PM_SYSTEM_SHUTDOWN):
-	case PM_API(PM_REQUEST_NODE):
-	case PM_API(PM_RELEASE_NODE):
 	case PM_API(PM_SET_REQUIREMENT):
 	case PM_API(PM_SET_MAX_LATENCY):
 	case PM_API(PM_RESET_ASSERT):
@@ -2914,6 +2910,22 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		break;
 	case PM_API(PM_REGISTER_NOTIFIER):
 		*Version = XST_API_REG_NOTIFIER_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_SELF_SUSPEND):
+		*Version = XST_API_SELF_SUSPEND_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_FORCE_POWERDOWN):
+		*Version = XST_API_FORCE_POWERDOWN_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_REQUEST_NODE):
+		*Version = XST_API_REQUEST_NODE_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_RELEASE_NODE):
+		*Version = XST_API_RELEASE_NODE_VERSION;
 		Status = XST_SUCCESS;
 		break;
 	default:
