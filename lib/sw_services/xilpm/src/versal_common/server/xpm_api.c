@@ -2860,7 +2860,8 @@ XStatus XPm_GetDeviceStatus(const u32 SubsystemId,
  *  - i.e. version[1] and version[2]
  * @return XST_SUCCESS if successful else XST_NO_FEATURE.
  *
- * @note   None
+ * @note   Remove CDO-only commands from versioning as it is for internal
+ * use only, so no need to consider for versioing.
  *
  ****************************************************************************/
 XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
@@ -2904,14 +2905,6 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	case PM_API(PM_PLL_GET_PARAMETER):
 	case PM_API(PM_PLL_SET_MODE):
 	case PM_API(PM_PLL_GET_MODE):
-	case PM_API(PM_ADD_SUBSYSTEM):
-	case PM_API(PM_DESTROY_SUBSYSTEM):
-	case PM_API(PM_DESCRIBE_NODES):
-	case PM_API(PM_ADD_NODE):
-	case PM_API(PM_ADD_NODE_PARENT):
-	case PM_API(PM_ADD_NODE_NAME):
-	case PM_API(PM_ADD_REQUIREMENT):
-	case PM_API(PM_INIT_NODE):
 		*Version = XST_API_BASE_VERSION;
 		Status = XST_SUCCESS;
 		break;
