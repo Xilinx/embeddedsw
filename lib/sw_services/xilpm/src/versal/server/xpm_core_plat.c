@@ -9,6 +9,11 @@
 #include "xpm_notifier.h"
 #include "xpm_psm.h"
 
+static void EnableWake(const struct XPm_Core *Core)
+{
+	ENABLE_WAKE(Core->SleepMask);
+}
+
 static XStatus SkipRpuReset(const XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
@@ -135,8 +140,4 @@ done:
 void DisableWake(const struct XPm_Core *Core)
 {
 	DISABLE_WAKE(Core->SleepMask);
-}
-void EnableWake(const struct XPm_Core *Core)
-{
-	ENABLE_WAKE(Core->SleepMask);
 }
