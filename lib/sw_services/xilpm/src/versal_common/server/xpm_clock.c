@@ -1005,7 +1005,7 @@ done:
 
 XStatus XPmClock_GetNumClocks(u32 *Resp)
 {
-	*Resp = MaxClkNodes + 1;
+	*Resp = MaxClkNodes + 1U;
 
 	return XST_SUCCESS;
 }
