@@ -11,7 +11,7 @@ BEGIN driver trngpsx
   OPTION supported_peripherals = (psx_pmc_trng psxl_pmc_trng);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION NAME = trngpsx;
 
 END driver

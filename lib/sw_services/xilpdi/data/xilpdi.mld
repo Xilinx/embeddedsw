@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -8,6 +9,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00  kc  11/16/17  Initial Release
 # 1.01  sk  10/20/22  Updated version
+# 1.8   har  02/15/23 Updated library version for 2023.2
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -19,6 +21,6 @@ BEGIN LIBRARY xilpdi
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psv_cortexr5 psu_cortexa72 psu_cortexr5 psu_pmc psv_pmc psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_pmc psx_cortexa78 psx_cortexr52);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpdi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Programmable Device Image (PDI) Library ";
-  OPTION VERSION = 1.7;
+  OPTION VERSION = 1.8;
   OPTION NAME = xilpdi;
 END LIBRARY
