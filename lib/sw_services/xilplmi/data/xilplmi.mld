@@ -14,6 +14,7 @@
 #                      communication feature
 #       ma   8/10/2022 Changed ssit_plm_to_plm_comm_en default value to true
 # 1.8   skg  12/07/2022 Added plm_add_ppks_en user configuration
+# 1.9   har  02/15/23 Updated library version for 2023.2
 #
 ##############################################################################
 
@@ -26,7 +27,7 @@ BEGIN LIBRARY xilplmi
   OPTION SUPPORTED_PERIPHERALS = (psv_pmc psxl_pmc psx_pmc);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilplmi,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Versal Platform Loader and Manager Interface Library";
-  OPTION VERSION = 1.8;
+  OPTION VERSION = 1.9;
   OPTION NAME = xilplmi;
   PARAM name = plm_uart_dbg_en, desc = "Enables (if enabled in hardware design too) or Disables Debug prints from UART (log to memory done irrespectively)", type = bool, default = true;
   PARAM name = plm_dbg_lvl, desc = "Selects the debug logs level", type = enum, values = (minimal = "level0", general = "level1", info = "level2", detailed = "level3"), default = "level1";

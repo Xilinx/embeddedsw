@@ -31,6 +31,7 @@
 #       har 07/14/21  Updated library version to 4.6
 #       am  11/26/21  Updated library version to 4.7
 # 5.1   vns 02/09/23  Changed secure_environment to xsecure_environment
+# 5.2   har  02/15/23 Updated library version for 2023.2
 #
 ##############################################################################
 
@@ -43,7 +44,7 @@ BEGIN LIBRARY xilsecure
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu psu_pmc psu_cortexa72 psv_pmc psv_cortexa72 psv_cortexr5 microblaze psxl_pmc psxl_cortexa78 psxl_cortexr52 psx_pmc psx_cortexa78 psx_cortexr52);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library provides interface to AES, RSA and SHA hardware engines on ZynqMP Soc and Versal";
-  OPTION VERSION = 5.1;
+  OPTION VERSION = 5.2;
   OPTION NAME = xilsecure;
   PARAM name = xsecure_environment, desc = "Enables trusted execution environment \nto allow device key usage(post boot) in ZynqMP \nfor IPI response/Linux/U-boot calls valid only \nfor PMUFW BSP", type = bool, default = false;
   PARAM name = tpm_support, desc = "Enables decryption of bitstream to memory and \nthen writes it to PCAP, allows calculation of \nsha on decrypted bitstream in chunks \nvalid only for ZynqMP FSBL BSP", type = bool, default = false;
