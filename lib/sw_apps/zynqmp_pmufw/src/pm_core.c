@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -2147,7 +2147,6 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_PINCTRL_GET_FUNCTION):
 	case PM_API(PM_PINCTRL_SET_FUNCTION):
 	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
-	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
 	case PM_API(PM_CLOCK_ENABLE):
 	case PM_API(PM_CLOCK_DISABLE):
 	case PM_API(PM_CLOCK_GETSTATE):
@@ -2182,6 +2181,10 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 #endif
 	case PM_API(PM_FEATURE_CHECK):
 		retPayload[0] = PM_API_VERSION_2;
+		status = XST_SUCCESS;
+		break;
+	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
+		retPayload[0] = PM_PINCTRL_PARAM_SET_VERSION;
 		status = XST_SUCCESS;
 		break;
 	default:
