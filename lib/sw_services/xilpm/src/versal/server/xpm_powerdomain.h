@@ -34,10 +34,16 @@ typedef struct XPm_PowerDomain XPm_PowerDomain;
 #define IS_SECLOCKDOWN(SecLockDownInfo) ((SecLockDownInfo) & 0x1U)
 
 maybe_unused static inline u32 GetSecLockDownInfoFromArgs(const u32* Args, u32 NumOfArgs){
+	u32 val;
+
 	if ((NULL == Args) || (0U == NumOfArgs)) {
-		return 0U;
+		val = 0U;
+		goto done;
 	}
-	return Args[0U];
+	val = Args[0U];
+
+done:
+	return val;
 }
 
 /**
