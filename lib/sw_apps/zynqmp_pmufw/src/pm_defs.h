@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -42,6 +42,8 @@ extern "C" {
  */
 #define PM_API_BASE_VERSION	(1U)
 #define PM_API_VERSION_2	(2U)
+/* Version 2 supports the MIO tri-state controlling functionality */
+#define PM_PINCTRL_PARAM_SET_VERSION PM_API_VERSION_2
 /** @} */
 
 /*
