@@ -19,7 +19,7 @@ typedef struct XPm_Core XPm_Core;
 /************************** Function Prototypes ******************************/
 XStatus ResetAPUGic(const u32 DeviceId);
 void DisableWake(const struct XPm_Core *Core);
-maybe_unused static inline  XStatus XPm_PlatSendDirectPowerDown(XPm_Core *Core)
+maybe_unused static inline  XStatus XPm_PlatSendDirectPowerDown(const XPm_Core *Core)
 {
 	(void)Core;
 	return XST_SUCCESS;

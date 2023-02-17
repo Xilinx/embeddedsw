@@ -1977,7 +1977,7 @@ XStatus XPm_ForceHouseClean(u32 NodeId)
 	XStatus Status_sc = XST_FAILURE;
 	XStatus Status_mc = XST_FAILURE;
 	XStatus Status_sr = XST_FAILURE;
-	u32 Args[1]={1};
+	const u32 Args[1]={1};
 	XPm_PowerDomain* PwrDomainNode = (XPm_PowerDomain *)XPmPower_GetById(NodeId);
 	if (NULL == PwrDomainNode) {
 		PmErr("Unable to find Power Domain for given Node Id\n\r");
