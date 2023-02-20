@@ -54,6 +54,7 @@
 *                       incase of glitch attack
 * 2.1   skg  10/29/2022 Added In Body comments for APIs
 *       am   02/13/2023 Fixed MISRA C violations
+*       am   02/17/2023 Fixed HIS_COMF violation
 *
 * </pre>
 *
@@ -232,16 +233,18 @@ int XPuf_Registration(XPuf_Data *PufData)
 	u32 Idx = 0U;
 	u8 IroFreqUpdated = FALSE;
 
-    /**
-	 *  perform input parameters validation. Return XPUF_ERROR_INVALID_PARAM if input parameters are invalid
+	/**
+	 * perform input parameters validation,
+	 * return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (PufData == NULL) {
 		Status = XPUF_ERROR_INVALID_PARAM;
 		goto END;
 	}
 
-    /**
-	 *  Check that MSB of PUF shutter value is in sync with Global variation filter option. In case of mismatch, return XPUF_SHUTTER_GVF_MISMATCH
+	/**
+	 * Check that MSB of PUF shutter value is in sync with Global variation filter option.
+	 * In case of mismatch, return XPUF_SHUTTER_GVF_MISMATCH.
 	 */
 	Status = XPuf_CheckGlobalVariationFilter(PufData);
 	if (Status != XST_SUCCESS) {
@@ -249,40 +252,52 @@ int XPuf_Registration(XPuf_Data *PufData)
 	}
 
 	/**
-	 * @{ When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set
-	 *    to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of
-	 *    320 MHz for -LP devices and 400 MHZ for -MP,-HP devices. If the IRO frequency at boot
-	 *    does not match the IRO frequency during registration, there is a potential of reduced
-	 *    stability which can impact the PUFs ability to regenerate properly.
+	 * When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set
+	 * to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of
+	 * 320 MHz for -LP devices and 400 MHZ for -MP,-HP devices. If the IRO frequency at boot
+	 * does not match the IRO frequency during registration, there is a potential of reduced
+	 * stability which can impact the PUFs ability to regenerate properly.
 	 */
 	Status = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ, &IroFreqUpdated);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 * Validate if secure control bits for each PUF operations are
+	 * set or not.
+	 */
 	Status =  XPuf_ValidateAccessRules(PufData);
 	if(Status != XST_SUCCESS) {
 		goto END;
 	}
 
-    /**
-	 *  Check GlobalVariationFilter user option. If TRUE then set GLBL_FILTER and HASH_SEL bits  else set only HASH_SEL bit in in PUF_CFG0 register
+	/**
+	 * Check GlobalVariationFilter user option. If TRUE then set GLBL_FILTER and HASH_SEL bits
+	 * else, set only HASH_SEL bit in in PUF_CFG0 register.
 	 */
 	XPuf_CfgGlobalVariationFilter(PufData->GlobalVarFilter);
 
+	/**
+	 * Update PUF Configuration1 register as 4k Registration mode.
+	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
 		XPUF_CFG1_INIT_VAL_4K);
 
 	/**
-	 * Update shutter value for PUF registration
+	 * Update shutter value for PUF registration.
 	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 		PufData->ShutterValue);
 
+	/**
+	 * Update PUF Ring Oscillator Swap setting for Versal Net device,
+	 * do nothing in case of Versal.
+	 */
 	XPuf_SetRoSwap(PufData);
 
 	/**
-	 * Trigger PUF registration
+	 * Trigger PUF registration.
 	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
 		XPUF_CMD_REGISTRATION);
@@ -290,8 +305,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 	Status = XST_FAILURE;
 
 	/**
-	 * @{ PUF helper data includes Syndrome data, CHash and Auxillary data.
-	 *    Capturing Syndrome data word by word
+	 * PUF helper data includes Syndrome data, CHash and Auxillary data.
+	 * Capturing Syndrome data word by word.
 	 */
 	for (Idx = 0; Idx < XPUF_4K_PUF_SYN_LEN_IN_WORDS; Idx++) {
 		Status = XPuf_WaitForPufSynWordRdy();
@@ -304,8 +319,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 	}
 
 	/**
-	 * @{ Once complete Syndrome data is captured and PUF operation is done,
-	 *    read CHash, Auxillary data and PUF ID
+	 * Once complete Syndrome data is captured and PUF operation is done,
+	 * read CHash, Auxillary data and PUF ID.
 	 */
 	if (Idx == XPUF_4K_PUF_SYN_LEN_IN_WORDS) {
 		Status = XST_FAILURE;
@@ -326,10 +341,10 @@ int XPuf_Registration(XPuf_Data *PufData)
 	}
 
 END:
-    /**
-	 *  @{ If IRO frequency is updated to 320MHZ then set frequency back to 400MHZ and if the frequency
-	 *     is not set then return XPUF_IRO_FREQ_WRITE_MISMATCH.
-     *     Return XST_SUCCESS
+	/**
+	 * If IRO frequency is updated to 320MHZ then set frequency back to 400MHZ and
+	 * if the frequency is not set then return XPUF_IRO_FREQ_WRITE_MISMATCH.
+	 * else, return Status.
 	 */
 	if (IroFreqUpdated == TRUE) {
 		StatusTmp = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
@@ -376,16 +391,18 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	u32 Reset = FALSE;
 	u8 IroFreqUpdated = FALSE;
 
-    /**
-	 *  Perform input parameters validation. Return XPUF_ERROR_INVALID_PARAM if input parameters are invalid
+	/**
+	 * Perform input parameters validation,
+	 * return XPUF_ERROR_INVALID_PARAM if input parameters are invalid.
 	 */
 	if (PufData == NULL) {
 		Status = XPUF_ERROR_INVALID_PARAM;
 		goto END;
 	}
 
-    /**
-	 *  Check if requested PUF operation is not PUF on demand regeneration or ID only regeneration. If yes, return XPUF_ERROR_INVALID_PARAM
+	/**
+	 * Check if requested PUF operation is not PUF on demand regeneration or ID only regeneration.
+	 * If yes, return XPUF_ERROR_INVALID_PARAM.
 	 */
 	if ((PufData->PufOperation != XPUF_REGEN_ON_DEMAND) &&
 		(PufData->PufOperation != XPUF_REGEN_ID_ONLY)) {
@@ -393,8 +410,9 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
-    /**
-	 *  Check that MSB of PUF shutter value is in sync with Global variation filter option. In case of mismatch, return XPUF_SHUTTER_GVF_MISMATCH
+	/**
+	 * Check that MSB of PUF shutter value is in sync with Global variation filter option.
+	 * In case of mismatch, return XPUF_SHUTTER_GVF_MISMATCH.
 	 */
 	Status = XPuf_CheckGlobalVariationFilter(PufData);
 	if (Status != XST_SUCCESS) {
@@ -402,21 +420,21 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	}
 
 	/**
-	 * @{ When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set
-	 *    to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of
-	 *    320 MHz for -LP devices and 400 MHZ for -MP,-HP devices. If the IRO frequency at boot
-	 *    does not match the IRO frequency during registration, there is a potential of reduced
-	 *    stability which can impact the PUFs ability to regenerate properly.
+	 * When registering the PUF, the PMC internal ring oscillator (IRO) frequency must be set
+	 * to 320 MHz. When the Versal ACAP boots, it always uses the default frequency of
+	 * 320 MHz for -LP devices and 400 MHZ for -MP,-HP devices. If the IRO frequency at boot
+	 * does not match the IRO frequency during registration, there is a potential of reduced
+	 * stability which can impact the PUFs ability to regenerate properly.
 	 */
 	Status = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ, &IroFreqUpdated);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-    /**
-	 *  @{ Validate the access rules for PUF regeneration. If PUF_DIS or PUF_REGEN_DIS eFuse bits are set, then return XPUF_ERROR_REGENERATION_INVALID.
-	 *     If read from eFuse cache is selected and PUF_HD_INVLD bit is set then return XPUF_ERROR_REGEN_PUF_HD_INVALID.
-     *     If read from eFuse cache and 12K syndrome mode is selected, then return XPUF_ERROR_INVALID_SYNDROME_MODE
+	/**
+	 * Validate the access rules for PUF regeneration. If PUF_DIS or PUF_REGEN_DIS eFuse bits are set, then return XPUF_ERROR_REGENERATION_INVALID.
+	 * If read from eFuse cache is selected and PUF_HD_INVLD bit is set then return XPUF_ERROR_REGEN_PUF_HD_INVALID.
+	 * If read from eFuse cache and 12K syndrome mode is selected, then return XPUF_ERROR_INVALID_SYNDROME_MODE.
 	 */
 	Status =  XPuf_ValidateAccessRules(PufData);
 	if (Status != XST_SUCCESS) {
@@ -425,22 +443,41 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 
 	Status = XST_FAILURE;
 
+	/**
+	 * Update the helper data for PUF regeneration according to the
+	 * location of helper data provided by the user.
+	 */
 	Status = XPuf_UpdateHelperData(PufData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 * Configures the Global Variation Filter option provided by user and
+	 * updates PUF Configuration0 register.
+	 */
 	XPuf_CfgGlobalVariationFilter(PufData->GlobalVarFilter);
 
+	/**
+	 * Update PUF Configuration1 register as 4k Registration mode.
+	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET,
 		XPUF_CFG1_INIT_VAL_4K);
 
+	/**
+	 * Update Shutter value in PUF_SHUT register.
+	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET,
 		PufData->ShutterValue);
 
 	GlobalCntrlVal = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
                 XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET);
 
+	/**
+	 * Checks if SLVERR is enabled for PMC_GLOBAL, then
+	 * disable the SLVERR for PMC_GLOBAL before regeneration starts and
+	 * enables it again once PUF regeneration is done.
+	 */
 	if ((GlobalCntrlVal & XPUF_SLVERR_ENABLE_MASK) == XPUF_SLVERR_ENABLE_MASK) {
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET,
@@ -448,17 +485,24 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 		Reset = TRUE;
 	}
 
+	/**
+	 * Update PUF Ring Oscillator Swap setting for Versal Net device,
+	 * do nothing in case of Versal.
+	 */
 	XPuf_SetRoSwap(PufData);
 
 	Status = XST_FAILURE;
 
-    /**
-	 * @{ If On demand regeneration is selected by user then trigger PUF_CMD for PUF On Demand regeneration.
-	 *    If ID only regeneration is selected then trigger PUF_CMD for PUF ID only regeneration.
-	 *    If invalid input, return XPUF_ERROR_INVALID_REGENERATION_TYPE
+	/**
+	 * If On demand regeneration is selected by user then trigger PUF_CMD for PUF On Demand regeneration.
+	 * If ID only regeneration is selected then trigger PUF_CMD for PUF ID only regeneration.
+	 * If invalid input, return XPUF_ERROR_INVALID_REGENERATION_TYPE.
 	 */
 	Status = XPuf_StartRegeneration(PufData);
 
+	/**
+	 * Enabling the SLVERR after regeneration, if SLVERR is enabled previously in PMC_GLOBAL.
+	 */
 	if (Reset == TRUE) {
 		GlobalCntrlVal = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET);
@@ -466,11 +510,12 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 			XPUF_PMC_GLOBAL_GLOBAL_CNTRL_OFFSET,
 			GlobalCntrlVal | XPUF_SLVERR_ENABLE_MASK);
 	}
+
 END:
-    /**
-	 *  @{ If IRO frequency is updated to 320MHZ then set frequency back to 400MHZ and if the frequency
-	 *     is not set then return XPUF_IRO_FREQ_WRITE_MISMATCH.
-     * 	   Return XST_SUCCESS
+	/**
+	 * If IRO frequency is updated to 320MHZ then set frequency back to 400MHZ and if the frequency
+	 * is not set then return XPUF_IRO_FREQ_WRITE_MISMATCH else,
+	 * Return status.
 	 */
 	if (IroFreqUpdated == TRUE) {
 		StatusTmp = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_400MHZ, &IroFreqUpdated);
@@ -498,15 +543,16 @@ int XPuf_ClearPufID(void)
 	int Status = XST_FAILURE;
 	int WaitStatus = XST_FAILURE;
 
-    /**
-	 *  Set least significant bit in the PUF_CLEAR register
+	/**
+	 * Set least significant bit in the PUF_CLEAR register.
 	 */
 	XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET,
 		XPUF_CLEAR_ID);
 
-    /**
-	 *  @{ The API waits for ID_ZERO bit to be set in PUF Status register.
-	 *     If id zero bit is not set within 1 second then returns XPUF_ERROR_PUF_ID_ZERO_TIMEOUT else returns XST_SUCCESS
+	/**
+	 * The API waits for ID_ZERO bit to be set in PUF Status register.
+	 * If id zero bit is not set within 1 second then returns XPUF_ERROR_PUF_ID_ZERO_TIMEOUT
+	 * else returns XST_SUCCESS.
 	 */
 	WaitStatus = (int)Xil_WaitForEvent((UINTPTR)(XPUF_PMC_GLOBAL_BASEADDR +
 		XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET), XPUF_STATUS_ID_ZERO,
@@ -534,7 +580,7 @@ static void XPuf_CapturePufID(XPuf_Data *PufData)
 	u32 Index;
 
 	/**
-	 * Reads PUF ID from PUF_ID_0 to PUF_ID_7 registers
+	 * Reads PUF ID from PUF_ID_0 to PUF_ID_7 registers.
 	 */
 	for (Index = 0U; Index < XPUF_ID_LEN_IN_WORDS; Index++) {
 		PufData->PufID[Index] = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
@@ -569,27 +615,49 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 					XPUF_EFUSE_CACHE_SECURITY_CONTROL);
 
 	switch (Operation) {
-
+		/**
+		 * If PUF operation is Registration.
+		 */
 		case XPUF_REGISTRATION:
 			if ((SecurityCtrlVal & XPUF_PUF_DIS) == XPUF_PUF_DIS) {
+				/**
+				 * Return XPUF_ERROR_REGISTRATION_INVALID as error code,
+				 * if PUF is disabled in security control register.
+				 */
 				Status = XPUF_ERROR_REGISTRATION_INVALID;
 			}
 			else if (XPuf_IsRegistrationEnabled(PufEccCtrlValue) != XST_SUCCESS) {
+				/**
+				 * Return XPUF_ERROR_REGISTRATION_INVALID as error code,
+				 * if PUF is disabled for Versal Net device.
+				 */
 				Status = XPUF_ERROR_REGISTRATION_INVALID;
 			}
 			else {
 				Status = XST_SUCCESS;
 			}
 			break;
-
+		/**
+		 * If PUF operation is Regeneration.
+		 */
 		case XPUF_REGEN_ON_DEMAND:
 		case XPUF_REGEN_ID_ONLY:
 			if (((SecurityCtrlVal & XPUF_PUF_DIS) == XPUF_PUF_DIS) ||
 				((PufEccCtrlValue & XPUF_PUF_REGEN_DIS) == XPUF_PUF_REGEN_DIS)) {
+				/**
+				 * Return XPUF_ERROR_REGENERATION_INVALID as error code,
+				 * if either PUF or regeneration is disabled in
+				 * security control and PUF ECC PUF CTRL register.
+				 */
 				Status = XPUF_ERROR_REGENERATION_INVALID;
 			}
 			else if((PufData->ReadOption == XPUF_READ_FROM_EFUSE_CACHE) &&
 				((PufEccCtrlValue & XPUF_PUF_HD_INVLD) == XPUF_PUF_HD_INVLD)) {
+				/**
+				 * Return XPUF_ERROR_REGEN_PUF_HD_INVALID as error code,
+				 * if user opts Readoption from eFuse cache and
+				 * PUF helper data is invalid(when fuse is blown).
+				 */
 				Status = XPUF_ERROR_REGEN_PUF_HD_INVALID;
 			}
 			else {
@@ -597,6 +665,10 @@ static int XPuf_ValidateAccessRules(const XPuf_Data *PufData)
 			}
 			break;
 		default:
+			/**
+			 * Return XPUF_ERROR_INVALID_PUF_OPERATION as
+			 * error code, if PUF operation is invalid.
+			 */
 			Status = XPUF_ERROR_INVALID_PUF_OPERATION;
 			break;
 
@@ -624,24 +696,44 @@ static int XPuf_UpdateHelperData(const XPuf_Data *PufData)
 	u32 PufChash;
 	u32 PufAux;
 
+	/**
+	 * If Readoption is from RAM.
+	 */
 	if (PufData->ReadOption == XPUF_READ_FROM_RAM) {
 		PufChash = PufData->Chash;
 		PufAux = PufData->Aux;
 		if ((PufChash == 0U) || (PufAux == 0U)) {
+			/**
+			 * Return XPUF_ERROR_CHASH_NOT_PROGRAMMED as error code,
+			 * if either PUF CHASH or PUF AUX are zero.
+			 */
 			Status = XPUF_ERROR_CHASH_NOT_PROGRAMMED;
 			XPuf_Printf(XPUF_DEBUG_GENERAL,
 				"PUF regeneration is not allowed,"
 				"as PUF helper data is not provided/stored\r\n");
 			goto END;
 		}
+		/**
+		 * Write auxiliary data(PUF Helper Data) in PUF_AUX register.
+		 */
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_AUX_OFFSET,
 			PufAux);
+		/**
+		 * Write CHASH data(PUF Helper Data) in PUF_CHASH register.
+		 */
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET, PufChash);
+		/**
+		 * Write PUF Syndrome Data Address in PUF_SYN_ADDR register.
+		 */
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET, PufData->SyndromeAddr);
 		Status = XST_SUCCESS;
 	}
+	/**
+	 * If Readoption is from eFUSE cache, write PUF Syndrome Data Address in PUF_SYN_ADDR register
+	 * else, return XPUF_ERROR_INVALID_READ_HD_INPUT.
+	 */
 	else if (PufData->ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET, XPUF_EFUSE_SYN_ADD_INIT);
@@ -680,6 +772,10 @@ static int XPuf_StartRegeneration(XPuf_Data *PufData)
 	volatile int Status = XST_FAILURE;
 	u32 PufStatus;
 
+	/**
+	 * Check the requested PUF operation (on-demand regeneration or ID only regeneration) and update the PUF_CMD register,
+         * If the requested PUF operation is invalid then return XPPUF_ERROR_REGENERATION_TYPE as error code.
+	 */
 	if(XPUF_REGEN_ID_ONLY == PufData->PufOperation) {
 		XPuf_WriteReg(XPUF_PMC_GLOBAL_BASEADDR, XPUF_PMC_GLOBAL_PUF_CMD_OFFSET,
 			XPUF_CMD_REGEN_ID_ONLY);
@@ -693,30 +789,55 @@ static int XPuf_StartRegeneration(XPuf_Data *PufData)
 		goto END;
 	}
 
+	/**
+	 * Wait for PUF done bit in the PUF_STATUS register to be set.
+	 */
 	Status  = XPuf_WaitForPufDoneStatus();
 	if (Status != XST_SUCCESS) {
+		/**
+		 * Return XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT as
+		 * error code, if the PUF done bit is not set within 1 second
+		 * in PUF_STATUS register.
+		 */
 		XPuf_Printf(XPUF_DEBUG_GENERAL,
 			"Error: Puf Regeneration failed!! \r\n");
 		Status = XPUF_ERROR_PUF_STATUS_DONE_TIMEOUT;
 		goto END;
 	}
 
+	/**
+	 * Read content of PUF_STATUS register to PufStatus variable.
+	 */
 	PufStatus = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET);
 
 	Status = XST_FAILURE;
 
+	/**
+	 * Check if PUF ID is ready.
+	 */
 	if ((PufStatus & XPUF_STATUS_ID_RDY) == XPUF_STATUS_ID_RDY) {
 		if ((XPUF_REGEN_ON_DEMAND == PufData->PufOperation) &&
 			((PufStatus & XPUF_STATUS_KEY_RDY) !=
 				XPUF_STATUS_KEY_RDY)) {
+				/**
+				 * Return XPUF_ERROR_PUF_DONE_KEY_NT_RDY as error
+				 * code, if key is not ready.
+				 */
 				Status = XPUF_ERROR_PUF_DONE_KEY_NT_RDY;
 				goto END;
 		}
+		/**
+		 * Capture PUF ID generated into XPuf_Data.
+		 */
 		XPuf_CapturePufID(PufData);
 		Status = XST_SUCCESS;
 	}
 	else {
+		/**
+		 * Return XPUF_ERROR_PUF_DONE_ID_NT_RDY as error code, if PUF ID
+		 * is not ready.
+		 */
 		Status = XPUF_ERROR_PUF_DONE_ID_NT_RDY;
 	}
 
@@ -749,16 +870,16 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 	u32 Index;
 	u32 SubIndex;
 
-    /**
-	 *  Check if PufData instance pointer is NULL. If NULL, return XPUF_ERROR_INVALID_PARAM
+	/**
+	 *  Check if PufData instance pointer is NULL. If NULL, return XPUF_ERROR_INVALID_PARAM.
 	 */
 	if (PufData == NULL) {
 		Status = XPUF_ERROR_INVALID_PARAM;
 		goto END;
 	}
 
-    /**
-	 *  Copy syndrome data from instance pointer to a local variable
+	/**
+	 *  Copy syndrome data from instance pointer to a local variable.
 	 */
 	Status = Xil_SMemCpy(SynData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
 		PufData->SyndromeData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
@@ -768,7 +889,7 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 	}
 
 	/**
-	 * @{ Trimming logic for PUF Syndrome Data:
+	 * Trimming logic for PUF Syndrome Data:
 	 *    ------------------------------------
 	 *    Space allocated in eFUSE for syndrome data = 4060bits
 	 *    eFUSE02 - 2032bits
@@ -947,8 +1068,8 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 		}
 	}
 	/**
-	 *  @{ Use the above mentioned logic to trim the data and copy the trimmed data in EfuseSynData array in the instance pointer.
-     *	   Return XST_SUCCESS
+	 * Use the above mentioned logic to trim the data and copy the trimmed data in EfuseSynData array in the instance pointer.
+	 * Return XST_SUCCESS.
 	 */
 	PufData->EfuseSynData[XPUF_LAST_WORD_OFFSET] &=
 						XPUF_LAST_WORD_MASK;
@@ -981,6 +1102,10 @@ static int XPuf_ChangeIroFreq(u32 IroFreq, u8 *IroFreqUpdated)
 	u8 ReadIroFreq;
 
 	*IroFreqUpdated = FALSE;
+	/**
+	 * Read IRO frequeny, If IRO frequency is different from required frequency,
+	 * then set the IRO frequency to required frequency(either 320 MHZ or 400 MHZ).
+	 */
 	ReadIroFreq = XPuf_ReadIroFreq();
 	if (ReadIroFreq != IroFreq) {
 		XPuf_WriteIroFreq(IroFreq);

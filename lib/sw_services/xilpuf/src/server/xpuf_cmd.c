@@ -21,6 +21,7 @@
 * 2.1   skg  10/04/2022 Added NULL to hidden handler in Xplmi_module structure
 *       skg  12/14/2022 Added invalid command handler in Xplmi_module structure
 *       am   02/13/2023 Fixed MISRA C violations
+*       am   02/17/2023 Fixed HIS_COMF violations
 *
 * </pre>
 *
@@ -107,6 +108,10 @@ static int XPuf_FeaturesCmd(u32 ApiId)
 {
 	int Status = XST_INVALID_PARAM;
 
+	/**
+	 * Check the requested ApiId (registration, regeneration or puf Id),
+	 * return XST_SUCCESS for valid ApiId else, reurn XST_INVALID_PARAM if the ApiId is invalid.
+	 */
 	switch (ApiId) {
 		case XPUF_PUF_REGISTRATION:
 		case XPUF_PUF_REGENERATION:
@@ -143,6 +148,10 @@ static int XPuf_ProcessCmd(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
+	/**
+	 * Check for requested puf Apid, process the valid ApiId
+	 * else, return XST_INVALID_PARAM as error code.
+	 */
 	switch (Cmd->CmdId & XPUF_API_ID_MASK) {
 		case XPUF_API(XPUF_API_FEATURES):
 			Status = XPuf_FeaturesCmd(Pload[0U]);
@@ -172,7 +181,7 @@ void XPuf_CmdsInit(void)
 	u32 Idx;
 
 	/**
-     *	Register command handlers of XilPUF with XilPlmi
+	 * Register command handlers of XilPUF with XilPlmi.
 	 */
 	for (Idx = 0U; Idx < XPlmi_Puf.CmdCnt; Idx++) {
 		XPuf_Cmds[Idx].Handler = XPuf_ProcessCmd;
