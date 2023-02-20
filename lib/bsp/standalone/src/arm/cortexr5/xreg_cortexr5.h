@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,7 @@
 * 7.7	sk   01/10/22 Update PRIV_RW_USER_RW macro from unsigned to unsigned
 * 		      long to fix misra_c_2012_rule_12_2 violation.
 * 8.0   mus  02/24/22 Updated #defines to support CortexR52 processor
+* 8.1   mus  02/20/23 Added #defines related to CPU affinity.
 * </pre>
 *
 ******************************************************************************/
@@ -236,6 +238,12 @@ extern "C" {
 #define XREG_CP15_TLB_TYPE			"p15, 0, %0,  c0,  c0, 3"
 #define XREG_CP15_MPU_TYPE			"p15, 0, %0,  c0,  c0, 4"
 #define XREG_CP15_MULTI_PROC_AFFINITY		"p15, 0, %0,  c0,  c0, 5"
+
+#define XREG_MPIDR_MASK				0xFFFFFF
+#define XREG_MPIDR_AFFINITY0_MASK		0xFF
+#define XREG_MPIDR_AFFINITY1_MASK		0xFF00U
+#define XREG_MPIDR_AFFINITY0_SHIFT		0x0U
+#define XREG_MPIDR_AFFINITY1_SHIFT		0x8U
 
 #define XREG_CP15_PROC_FEATURE_0		"p15, 0, %0,  c0,  c1, 0"
 #define XREG_CP15_PROC_FEATURE_1		"p15, 0, %0,  c0,  c1, 1"

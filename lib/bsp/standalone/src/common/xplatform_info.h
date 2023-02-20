@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +34,8 @@
 *                      reported with "-Wundef" flag.
 * 7.7	 sk   01/10/22 Update XPLAT_INFO_MASK from signed to unsigned to fix
 *		       misra_c_2012_rule_10_4 violation.
+* 8.1    mus  02/13/23 Added new API's XGetCoreId and XGetClusterId. As of now
+*                      they are supported only for VERSAL_NET APU and RPU.
 * </pre>
 *
 ******************************************************************************/
@@ -102,6 +105,12 @@ u32 XGetPSVersion_Info(void);
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 u32 XGet_Zynq_UltraMp_Platform_info(void);
 #endif
+
+#if (defined (__aarch64__) && defined (VERSAL_NET)) || defined (ARMR52)
+u8 XGetClusterId(void);
+u8 XGetCoreId(void);
+#endif
+
 /************************** Function Prototypes ******************************/
 
 
