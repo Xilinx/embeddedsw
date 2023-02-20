@@ -68,6 +68,7 @@
 * 5.1   mus  02/13/23 Added #defines required for logic to find redistributor
 *                     based address for specific CPU core. Also, added new macro
 *                     XScuGic_ReadReg64 to read 64 bit value from specific address.
+* 5.1   mus  02/15/23 Added support for VERSAL_NET APU and RPU GIC.
 *
 * </pre>
 *
