@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,6 +41,8 @@
 * 7.7    mus 11/02/21 Updated XGet_Zynq_UltraMp_Platform_info and
 *                     XGetPSVersion_Info to fix compilation warning
 *                     reported with "-Wundef" flag CR#1111453
+* 8.1    mus 02/13/23 Added new API's XGetCoreId and XGetClusterId. As of now
+*                     they are supported only for VERSAL_NET APU and RPU.
 * </pre>
 *
 ******************************************************************************/
@@ -144,4 +147,60 @@ u32 XGetPSVersion_Info(void)
 #endif
 }
 #endif
+
+#if (defined (__aarch64__) && defined (VERSAL_NET)) || defined (ARMR52)
+/*****************************************************************************/
+/**
+*
+* @brief    This API is used to provide infomation about cluster id of the
+*           CPU core from which it is executed.
+*
+* @return   Cluster id of the core on which API is executed.
+*
+******************************************************************************/
+u8 XGetClusterId(void)
+{
+	u64 ClusterId = 0;
+
+#if defined (ARMR52)
+	ClusterId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & XREG_MPIDR_MASK);
+	ClusterId = ((ClusterId & XREG_MPIDR_AFFINITY1_MASK) >> \
+			XREG_MPIDR_AFFINITY1_SHIFT);
+#else
+	ClusterId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
+	ClusterId = ((ClusterId & XREG_MPIDR_AFFINITY2_MASK) >> \
+                        XREG_MPIDR_AFFINITY2_SHIFT);
+#endif
+
+	return (u8)ClusterId;
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief    This API is used to provide infomation about core id of the
+*           CPU core from which it is executed.
+*
+* @return   Core id of the core on which API is executed.
+*
+******************************************************************************/
+u8 XGetCoreId(void)
+{
+	u64 CoreId;
+
+#if defined (ARMR52)
+	CoreId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & XREG_MPIDR_MASK);
+	CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
+                        XREG_MPIDR_AFFINITY0_SHIFT);
+#else
+	CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
+	CoreId = ((CoreId & XREG_MPIDR_AFFINITY1_MASK) >> \
+			XREG_MPIDR_AFFINITY1_SHIFT);
+#endif
+
+	return (u8)CoreId;
+}
+
+#endif
+
 /** @} */

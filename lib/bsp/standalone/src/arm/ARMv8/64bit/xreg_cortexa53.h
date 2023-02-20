@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 5.00 	pkp  05/29/14 First release
+* 8.1   mus  02/20/23 Added #defines related to CPU affinity.
 * </pre>
 *
 ******************************************************************************/
@@ -151,6 +153,15 @@ extern "C" {
 
 #define XREG_CONTROL_DCACHE_BIT	(0X00000001U<<2U)
 #define XREG_CONTROL_ICACHE_BIT	(0X00000001U<<12U)
+
+/* MPIDR Mask */
+#define XREG_MPIDR_MASK                         0xFFFFFF
+#define XREG_MPIDR_AFFINITY0_MASK               0xFF
+#define XREG_MPIDR_AFFINITY1_MASK               0xFF00U
+#define XREG_MPIDR_AFFINITY2_MASK               0xFF0000U
+#define XREG_MPIDR_AFFINITY0_SHIFT              0x0U
+#define XREG_MPIDR_AFFINITY1_SHIFT              0x8U
+#define XREG_MPIDR_AFFINITY2_SHIFT              16U
 
 /**
  *@endcond
