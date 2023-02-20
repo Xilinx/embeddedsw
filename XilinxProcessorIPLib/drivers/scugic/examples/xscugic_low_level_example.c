@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +33,7 @@
 * 		      Xil_WaitForEventSet() API.
 *       adk  20/07/22 Update the Xil_WaitForEventSet() API arguments as
 *      		      per latest API.
+* 5.1   mus  02/15/23 Added support for VERSAL_NET.
 * </pre>
 ******************************************************************************/
 
@@ -45,6 +47,9 @@
 #include "xstatus.h"
 #include "xscugic.h"
 #include "xil_util.h"
+#if defined (VERSAL_NET)
+#include "xplatform_info.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -56,9 +61,10 @@
 #define CPU_BASEADDR		XPAR_SCUGIC_0_CPU_BASEADDR
 #define DIST_BASEADDR		XPAR_SCUGIC_0_DIST_BASEADDR
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 #define GIC_DEVICE_INT_MASK        0x11000001 /* Bit [27:24] SGI Interrupt ID
                                                  Bit [15:0] Targeted CPUs */
+#define XSUGIC_SGI_INT_ID	   0x5U       /* Modify it to intended SGI interrupt ID */
 #else
 #define GIC_DEVICE_INT_MASK        0x02010003 /* Bit [25:24] Target list filter
                                                  Bit [23:16] 16 = Target CPU iface 0
@@ -147,11 +153,16 @@ int main(void)
 static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 {
 	int Status;
-
-
+#if defined (GICv3)
+	UINTPTR RedistBaseAddr;
+	u64 Mask;
+#endif
+#if defined (VERSAL_NET)
+        u32 CoreId, ClusterId;
+#endif
 	GicDistInit(DistBaseAddress);
 
-#if !defined (versal) || defined(ARMR5)
+#if !defined (GICv3)
 		GicCPUInit(CpuBaseAddress);
 #endif
 
@@ -164,8 +175,10 @@ static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 	/*
 	 * Enable the software interrupts only.
 	 */
-#if defined (versal) && !defined(ARMR5)
-	 XScuGic_WriteReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+#if defined (GICv3)
+	 RedistBaseAddr = XScuGic_GetRedistBaseAddr();
+
+	 XScuGic_WriteReg(RedistBaseAddr + XSCUGIC_RDIST_SGI_PPI_OFFSET,
 	 XSCUGIC_RDIST_ISENABLE_OFFSET, 0xFFFFFFFF);
 #else
 	XScuGic_WriteReg(DistBaseAddress, XSCUGIC_ENABLE_SET_OFFSET, 0x0000FFFF);
@@ -176,11 +189,31 @@ static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 	 * This is done by changing the interrupt source to be software driven,
 	 * then set a bit which simulates an interrupt.
 	 */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
+#if defined (VERSAL_NET)
+
+	CoreId = XGetCoreId();
+	ClusterId = XGetClusterId();
+
+	#if defined (ARMR52)
+	Mask = ( ClusterId << XSCUGIC_SGI1R_AFFINITY1_SHIFT);
+	Mask |= (0x1U << CoreId);
+	#else
+	Mask = ClusterId;
+	Mask = (Mask << XSCUGIC_SGI1R_AFFINITY2_SHIFT);
+	Mask |= (CoreId << XSCUGIC_SGI1R_AFFINITY1_SHIFT);
+	Mask |= 0x1U;
+	#endif
+	Mask |= (XSUGIC_SGI_INT_ID << XSCUGIC_SGIR_EL1_INITID_SHIFT);
+#else
+	Mask = GIC_DEVICE_INT_MASK;
+#endif
+
+
 	#if EL3
-	XScuGic_WriteICC_SGI0R_EL1(GIC_DEVICE_INT_MASK);
+	XScuGic_WriteICC_SGI0R_EL1(Mask);
     #else
-	XScuGic_WriteICC_SGI1R_EL1(GIC_DEVICE_INT_MASK);
+	XScuGic_WriteICC_SGI1R_EL1(Mask);
 	#endif
 #else
 	XScuGic_WriteReg(DistBaseAddress, XSCUGIC_SFI_TRIG_OFFSET, GIC_DEVICE_INT_MASK);
@@ -259,7 +292,7 @@ void LowInterruptHandler(u32 CallbackRef)
 
 	BaseAddress = CallbackRef;
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	    IntID = XScuGic_get_IntID();
 #else
 	/*
@@ -284,7 +317,7 @@ void LowInterruptHandler(u32 CallbackRef)
 	 */
 	InterruptProcessed = 1;
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	   XScuGic_ack_Int(IntID);
 
 #else
@@ -301,13 +334,21 @@ static void GicDistInit(u32 BaseAddress)
 {
 	u32 Int_Id;
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	u32 temp;
 	u32 Waker_State;
+	UINTPTR RedistBaseAddr;
 
-   /* CPU is active, reset GICR_WAKER.ProcessorSleep to enable interrupts */
-	Waker_State = XScuGic_ReadReg(BaseAddress + XSCUGIC_RDIST_OFFSET, XSCUGIC_RDIST_WAKER_OFFSET);
-	XScuGic_WriteReg(BaseAddress + XSCUGIC_RDIST_OFFSET, XSCUGIC_RDIST_WAKER_OFFSET,
+	RedistBaseAddr = XScuGic_GetRedistBaseAddr();
+
+#if defined (GIC600)
+	XScuGic_WriteReg(RedistBaseAddr,XSCUGIC_RDIST_PWRR_OFFSET,
+                        (XScuGic_ReadReg(RedistBaseAddr, XSCUGIC_RDIST_PWRR_OFFSET) &
+                        (~XSCUGIC_RDIST_PWRR_RDPD_MASK)));
+#endif
+        /* CPU is active, reset GICR_WAKER.ProcessorSleep to enable interrupts */
+	Waker_State = XScuGic_ReadReg(RedistBaseAddr, XSCUGIC_RDIST_WAKER_OFFSET);
+	XScuGic_WriteReg(RedistBaseAddr, XSCUGIC_RDIST_WAKER_OFFSET,
 							Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
 
 	/* Enable system reg interface through ICC_SRE_EL1/EL3  */
@@ -349,7 +390,7 @@ static void GicDistInit(u32 BaseAddress)
 
 
 #define DEFAULT_PRIORITY    0xa0a0a0a0UL
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 #define DEFAULT_TARGET    0x0UL
 #else
 #define DEFAULT_TARGET    0x01010101UL
@@ -366,7 +407,7 @@ static void GicDistInit(u32 BaseAddress)
 				XSCUGIC_PRIORITY_OFFSET +((Int_Id *4)/4),
 				DEFAULT_PRIORITY);
 	}
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
 	/*
 	 * 3. The CPU interface in the spi_target register
@@ -395,13 +436,16 @@ for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
 			XSCUGIC_DISABLE_OFFSET +((Int_Id *4)/32), 0xFFFFFFFFUL);
 
 	}
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	temp = XScuGic_ReadReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET);
 	temp |= XSCUGIC_EN_INT_MASK;
 	XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, temp);
 
 	XScuGic_Enable_Group1_Interrupts();
+	#if defined (ARMR52) || (defined (__aarch64__) && (EL1_NONSECURE == 0))
 	XScuGic_Enable_Group0_Interrupts();
+	#endif
+
 	XScuGic_set_priority_filter(0xff);
 #else
     XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, 0x01UL);
