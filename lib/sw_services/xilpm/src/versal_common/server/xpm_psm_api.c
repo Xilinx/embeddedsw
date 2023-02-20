@@ -212,6 +212,14 @@ XStatus XPm_PwrDwnEvent(const u32 DeviceId)
 	}
 
 	if ((u8)XPM_DEVSTATE_SUSPENDING != Core->Device.Node.State) {
+		/**
+		 * Call direct power down for Versal NET since it needs to be call from
+		 * only PSM power down event.
+		*/
+		Status = XPm_PlatSendDirectPowerDown(Core);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 		Status = XPmCore_ProcessPendingForcePwrDwn(DeviceId);
 		goto done;
 	}
