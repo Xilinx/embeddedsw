@@ -2180,7 +2180,7 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 		break;
 #ifdef ENABLE_IOCTL
 	case PM_API(PM_IOCTL):
-		retPayload[0] = PM_API_BASE_VERSION;
+		retPayload[0] = PM_IOCTL_VERSION;
 		retPayload[1] = (u32)(PM_IOCTL_FEATURE_BITMASK);
 		retPayload[2] = (u32)(PM_IOCTL_FEATURE_BITMASK >> 32);
 		status = XST_SUCCESS;
