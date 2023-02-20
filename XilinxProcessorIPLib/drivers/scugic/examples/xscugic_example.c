@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,8 @@
 *       adk  30/05/22 Fix typecast of the variable InterruptProcessed.
 *       adk  20/07/22 Update the Xil_WaitForEventSet() API arguments as
 *      		      per latest API.
+* 5.1   mus  02/13/23 Support example for each core of APU/RPU clusters in
+*                     VERSAL_NET SoC.
 * </pre>
 ******************************************************************************/
 
@@ -46,6 +49,9 @@
 #include "xil_types.h"
 #include "xscugic.h"
 #include "xil_util.h"
+#if defined (VERSAL_NET)
+#include "xplatform_info.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -148,6 +154,9 @@ int main(void)
 int ScuGicExample(u16 DeviceId)
 {
 	int Status;
+	#if defined (VERSAL_NET)
+	u32 CoreId, ClusterId;
+	#endif
 
 	/*
 	 * Initialize the interrupt controller driver so that it is ready to
@@ -205,9 +214,23 @@ int ScuGicExample(u16 DeviceId)
 	/*
 	 *  Simulate the Interrupt
 	 */
+#if defined (VERSAL_NET)
+
+	CoreId = XGetCoreId();
+	ClusterId = XGetClusterId();
+
+	#if defined (ARMR52)
+	CoreId = (1 << CoreId);
+	#endif
+
+	Status = XScuGic_SoftwareIntr(&InterruptController,
+                                        INTC_DEVICE_INT_ID,
+                                        ((ClusterId << XSCUGIC_CLUSTERID_SHIFT ) | CoreId));
+#else
 	Status = XScuGic_SoftwareIntr(&InterruptController,
 					INTC_DEVICE_INT_ID,
 					XSCUGIC_SPI_CPU_MASK);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
