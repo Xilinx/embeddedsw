@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -166,10 +167,14 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		}
 		XDp_TxEnableMainLink(InstancePtr);
 
-		/* Re-Enable MST mode in both the RX and TX. */
+		/* Re-Enable MST mode in RX */
 		Status = XDp_TxMstEnable(InstancePtr);
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
+
+		/* Enable MST in DisplayPort TX. */
+		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_MST_CONFIG,
+			     XDP_TX_MST_CONFIG_MST_EN_MASK);
 
 		Status = XDp_TxCheckLinkStatus(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
