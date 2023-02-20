@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -65,6 +65,9 @@
 *                     Updated #define for re-distributor address to have correct
 *                     value based on the cpu number. It fixes CR#1126156.
 * 5.0   mus  22/02/22 Added support for VERSAL NET
+* 5.1   mus  02/13/23 Added #defines required for logic to find redistributor
+*                     based address for specific CPU core. Also, added new macro
+*                     XScuGic_ReadReg64 to read 64 bit value from specific address.
 *
 * </pre>
 *
@@ -94,6 +97,13 @@ extern "C" {
 #define GIC600
 #endif
 
+#if defined (VERSAL_NET)
+#if defined (ARMR52)
+#define XSCUGIC_NUM_OF_CORES_PER_CLUSTER 2U
+#else
+#define XSCUGIC_NUM_OF_CORES_PER_CLUSTER 4U
+#endif
+#endif
 
 /*
  * The maximum number of interrupts supported by the hardware.
@@ -495,27 +505,26 @@ extern "C" {
  * @{
  */
 #if defined (VERSAL_NET) && ! defined (ARMR52)
-#define XSCUGIC_RDIST_OFFSET              0x60000U
+#define XSCUGIC_RDIST_START_ADDR	0xE2060000U
+#define XSCUGIC_RDIST_END_ADDR		0xE2260000U
 #elif defined (ARMR52)
-#define XSCUGIC_RDIST_OFFSET              0x100000U
+#define XSCUGIC_RDIST_START_ADDR        0xE2100000U
+#define XSCUGIC_RDIST_END_ADDR          0xE2130000U
 #else
-#define XSCUGIC_RDIST_OFFSET              (0x80000U + (XPAR_CPU_ID * 0x20000))
+#define XSCUGIC_RDIST_START_ADDR        0xF9080000U
+#define XSCUGIC_RDIST_END_ADDR          0xF90B0000U
 #endif
-#define XSCUGIC_RDIST_BASE_ADDRESS        (XPAR_SCUGIC_0_DIST_BASEADDR + XSCUGIC_RDIST_OFFSET)
+#define XSCUGIC_RDIST_OFFSET		0x20000U /* offset between consecutive redistributors */
+#define XSCUGIC_RDIST_SGI_PPI_OFFSET	0x10000U  /* offset between control redistributor and SGI/PPI redistributor */
+#define XSCUGIC_GICR_TYPER_AFFINITY_SHIFT 32U
+#define XSCUGIC_GICR_TYPER_AFFINITY_MASK 0xFFFFFFFF00000000UL
 
-#if defined (VERSAL_NET) && ! defined (ARMR52)
-#define XSCUGIC_RDIST_SGI_PPI_OFFSET              0x70000U
-#elif defined (ARMR52)
-#define XSCUGIC_RDIST_SGI_PPI_OFFSET              0x110000U
-#else
-#define XSCUGIC_RDIST_SGI_PPI_OFFSET      (0x90000U + (XPAR_CPU_ID * 0x20000))
-#endif
-#define XSCUGIC_RDIST_SGI_PPI_BASE_ADDRESS    (XPAR_SCUGIC_0_DIST_BASEADDR + XSCUGIC_RDIST_SGI_PPI_OFFSET)
 #define XSCUGIC_RDIST_ISENABLE_OFFSET     0x100U
 #define XSCUGIC_RDIST_IPRIORITYR_OFFSET   0x400U
 #define XSCUGIC_RDIST_IGROUPR_OFFSET      0x80U
 #define XSCUGIC_RDIST_GRPMODR_OFFSET      0xD00U
 #define XSCUGIC_RDIST_INT_CONFIG_OFFSET   0xC00U
+#define XSCUGIC_RDIST_TYPER_OFFSET        0x8U
 #define XSCUGIC_RDIST_WAKER_OFFSET        0x14U
 #define XSCUGIC_SGIR_EL1_INITID_SHIFT    24U
 
@@ -675,6 +684,23 @@ extern "C" {
 #define XScuGic_ReadReg(BaseAddress, RegOffset) \
 	(Xil_In32((BaseAddress) + (RegOffset)))
 
+/****************************************************************************/
+/**
+*
+* Read the given Intc register.
+*
+* @param        BaseAddress is the base address of the device.
+* @param        RegOffset is the register offset to be read
+*
+* @return       The 64-bit value of the register
+*
+* @note
+* C-style signature:
+*    u32 XScuGic_ReadReg64(UINTPTR BaseAddress, u32 RegOffset)
+*
+*****************************************************************************/
+#define XScuGic_ReadReg64(BaseAddress, RegOffset) \
+        (Xil_In64((BaseAddress) + (RegOffset)))
 
 /****************************************************************************/
 /**
@@ -714,6 +740,9 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 												u8 Cpu_Id);
 void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id);
 void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id);
+#if defined(GICv3)
+UINTPTR XScuGic_GetRedistBaseAddr(void);
+#endif
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -180,6 +180,16 @@
 *                     XScuGic_Get_Rdist_Int_Trigger_Index
 * 5.0   dp   11/07/22 Add macros for accessing the GIC Binary Point and
 *                     Running Priority registers of Cortex-R52.
+* 5.1   mus  02/13/23 Updated XScuGic_CfgInitialize, XScuGic_Enable and
+*                     XScuGic_Disable to support interrupts on each core
+*                     of all CortexA78/CortexR52 clusters in VERSAL NET SoC.
+*                     While at it, modified interrupt routing logic to make
+*                     use of CPU affinity register instead of XPAR_CPU_ID macro.
+*                     Also, XScuGic_CfgInitialize has been updated to find
+*                     redistributor base address of core on which API is
+*                     executed, redistributor address will be stored in newly
+*                     added member of XScuGic data structure "RedistBaseAddr".
+*                     It fixes CR#1150432.
 * </pre>
 *
 ******************************************************************************/
@@ -211,6 +221,22 @@ extern "C" {
 
 #define XSCUGIC500_DCTLR_ARE_NS_ENABLE  0x20
 #define XSCUGIC500_DCTLR_ARE_S_ENABLE  0x10
+
+#if defined (VERSAL_NET)
+#define XSCUGIC_CLUSTERID_MASK 0xF0U
+#define XSCUGIC_COREID_MASK 0xFU
+#define XSCUGIC_CLUSTERID_SHIFT 4U
+#define XSCUGIC_COREID_SHIFT 0U
+
+#define XSCUGIC_SGI1R_AFFINITY1_SHIFT 16U
+#define XSCUGIC_SGI1R_AFFINITY2_SHIFT 32U
+
+#define XSCUGIC_IROUTER_AFFINITY1_SHIFT 8U
+#define XSCUGIC_IROUTER_AFFINITY2_SHIFT 16U
+
+#define XSCUGIC_IROUTER_IRM_MASK 0x80000000U
+#endif
+
 /**************************** Type Definitions *******************************/
 
 /* The following data type defines each entry in an interrupt vector table.
@@ -243,6 +269,9 @@ typedef struct
 typedef struct
 {
 	XScuGic_Config *Config;  /**< Configuration table entry */
+#if defined (GICv3)
+	UINTPTR RedistBaseAddr;
+#endif
 	u32 IsReady;		 /**< Device is initialized and ready */
 	u32 UnhandledInterrupts; /**< Intc Statistics */
 } XScuGic;
@@ -347,8 +376,7 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 *
 *****************************************************************************/
 #define XScuGic_ReDistWriteReg(InstancePtr, RegOffset, Data) \
-(XScuGic_WriteReg(((InstancePtr)->Config->DistBaseAddress)+ \
-				   XSCUGIC_RDIST_OFFSET, (RegOffset), ((u32)(Data))))
+(XScuGic_WriteReg(InstancePtr->RedistBaseAddr, RegOffset, (u32)Data))
 
 /****************************************************************************/
 /**
@@ -366,8 +394,7 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 *
 *****************************************************************************/
 #define XScuGic_ReDistReadReg(InstancePtr, RegOffset) \
-(XScuGic_ReadReg((((InstancePtr)->Config->DistBaseAddress)+ \
-XSCUGIC_RDIST_OFFSET), (RegOffset)))
+(XScuGic_ReadReg(InstancePtr->RedistBaseAddr, RegOffset))
 
 /****************************************************************************/
 /**
@@ -386,7 +413,7 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 *
 *****************************************************************************/
 #define XScuGic_ReDistSGIPPIWriteReg(InstancePtr, RegOffset, Data) \
-(XScuGic_WriteReg(((InstancePtr)->Config->DistBaseAddress)+ \
+(XScuGic_WriteReg(InstancePtr->RedistBaseAddr + \
 				   XSCUGIC_RDIST_SGI_PPI_OFFSET, (RegOffset), ((u32)(Data))))
 
 /****************************************************************************/
@@ -405,8 +432,8 @@ XSCUGIC_RDIST_OFFSET), (RegOffset)))
 *
 *****************************************************************************/
 #define XScuGic_ReDistSGIPPIReadReg(InstancePtr, RegOffset) \
-(XScuGic_ReadReg((((InstancePtr)->Config->DistBaseAddress)+ \
-					XSCUGIC_RDIST_SGI_PPI_OFFSET), (RegOffset)))
+(XScuGic_ReadReg(InstancePtr->RedistBaseAddr + XSCUGIC_RDIST_SGI_PPI_OFFSET, \
+		 RegOffset))
 
 #if defined(ARMR52)
 #define XREG_ICC_SRE_EL1	"p15, 0, %0,  c12,  c12, 5"

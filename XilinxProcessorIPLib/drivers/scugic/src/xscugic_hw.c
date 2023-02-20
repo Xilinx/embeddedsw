@@ -967,4 +967,51 @@ void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 	XIL_SPINUNLOCK();
 }
 
+#if defined (GICv3)
+/*****************************************************************************/
+/**
+*
+* Find redistributor base address for CPU core on which API is executed
+*
+* @return       Redistributor base address or NULL if the device was
+*               not found.
+*
+* @note         None.
+*
+******************************************************************************/
+UINTPTR XScuGic_GetRedistBaseAddr(void) {
+        u32 Cpu_Affinity;
+        u64 Gicr_Typer;
+        UINTPTR BaseAddr = 0, Addr;
+
+	/*
+	 * Find redistributor for CPU core on which this API is executed.
+	 * Redistributor is found by comparing affinity bits of each
+	 * redistributor present in SoC against affinity of CPU core. Affinity
+	 * bits of redistributor are specified in GICR_TYPER register.
+	 * CortexR52 GIC redistributor always reads cluster number (affinity1)
+	 * as 0, that is why for CortexR52 case, affinity read from GICR_TYPER
+	 * is compared with affinity0 (core number) read from CPU register.
+	 */
+        #if defined (ARMR52)
+        Cpu_Affinity = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & XREG_MPIDR_AFFINITY0_MASK);
+        #else
+        Cpu_Affinity = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
+        #endif
+
+        for (Addr = XSCUGIC_RDIST_START_ADDR; Addr < XSCUGIC_RDIST_END_ADDR;
+                        Addr += XSCUGIC_RDIST_OFFSET) {
+
+                Gicr_Typer = XScuGic_ReadReg64(Addr, XSCUGIC_RDIST_TYPER_OFFSET);
+                Gicr_Typer &= XSCUGIC_GICR_TYPER_AFFINITY_MASK;
+                Gicr_Typer >>= XSCUGIC_GICR_TYPER_AFFINITY_SHIFT;
+                if (Cpu_Affinity == Gicr_Typer) {
+                        BaseAddr = Addr;
+                        break;
+                }
+        }
+
+        return BaseAddr;
+}
+#endif
 /** @} */
