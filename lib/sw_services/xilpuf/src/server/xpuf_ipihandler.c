@@ -20,6 +20,7 @@
 *       kpt  01/31/2022 Removed redundant code in XNvm_EfuseMemCopy
 * 2.10  skg  10/29/2022 Added In Body comments
 *       am   02/13/2023 Fixed MISRA C violations
+*       am   02/17/2023 Fixed HIS_COMF violations
 *
 * </pre>
 *
@@ -115,21 +116,33 @@ static int XPuf_PufRegistration(u32 AddrLow, u32 AddrHigh) {
 	XPuf_DataAddr PufDataAddr __attribute__((aligned(32U))) = {0U};
 	XPuf_Data PufData __attribute__((aligned(32U))) = {0U};
 
+	/**
+	 * Copy user configured puf structure to local PufDataAddr structure.
+	 */
 	Status = XPuf_MemCopy(Addr, (u64)(UINTPTR)&PufDataAddr,
 			sizeof(PufDataAddr));
 	if  (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 * Point user configured data from PufDataAddr to PufData structure.
+	 */
 	PufData.ShutterValue = PufDataAddr.ShutterValue;
 	PufData.PufOperation = PufDataAddr.PufOperation;
 	PufData.GlobalVarFilter = PufDataAddr.GlobalVarFilter;
 
+	/**
+	 * Call to server puf registration function.
+	 */
 	Status = XPuf_Registration(&PufData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 * Copy syndrome data from PufData structure to PufDataAddr structure.
+	 */
 	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.SyndromeData,
 		PufDataAddr.SyndromeDataAddr,
 		XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES);
@@ -137,13 +150,18 @@ static int XPuf_PufRegistration(u32 AddrLow, u32 AddrHigh) {
 		goto END;
 	}
 
+	/**
+	 * Copy Puf Id from PufData structure to PufDataAddr structure.
+	 */
 	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.PufID,
 		PufDataAddr.PufIDAddr, XPUF_ID_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Read Chash and Aux */
+	/**
+	 * Read Chash and Aux.
+	 */
 	XPlmi_Out64(PufDataAddr.AuxAddr, PufData.Aux);
 	XPlmi_Out64(PufDataAddr.ChashAddr, PufData.Chash);
 
@@ -152,6 +170,9 @@ static int XPuf_PufRegistration(u32 AddrLow, u32 AddrHigh) {
 		goto END;
 	}
 
+	/**
+	 * Copy eFuse syndrome data from PufData structure to PufDataAddr structure.
+	 */
 	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.EfuseSynData,
 		PufDataAddr.EfuseSynDataAddr,
 		XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES);
@@ -180,11 +201,17 @@ static int XPuf_PufRegeneration(u32 AddrLow, u32 AddrHigh) {
 	XPuf_DataAddr PufDataAddr __attribute__((aligned(32U))) = {0U};
 	XPuf_Data PufData __attribute__((aligned(32U))) = {0U};
 
+	/**
+	 * Copy user configured puf structure to local PufDataAddr structure.
+	 */
 	Status = XPuf_MemCopy(Addr, (u64)(UINTPTR)&PufDataAddr, sizeof(PufDataAddr));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 * Point user configured data from PufDataAddr to PufData structure.
+	 */
 	PufData.ShutterValue = PufDataAddr.ShutterValue;
 	PufData.PufOperation = PufDataAddr.PufOperation;
 	PufData.GlobalVarFilter = PufDataAddr.GlobalVarFilter;
@@ -211,11 +238,17 @@ static int XPuf_PufRegeneration(u32 AddrLow, u32 AddrHigh) {
 		}
 	}
 
+	/**
+	 * Call to server puf regeneration function.
+	 */
 	Status = XPuf_Regeneration(&PufData);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 * Copy Puf Id from PufData structure to PufDataAddr structure.
+	 */
 	Status = XPuf_MemCopy((u64)(UINTPTR)&PufData.PufID,
 		PufDataAddr.PufIDAddr, XPUF_ID_LEN_IN_BYTES);
 
