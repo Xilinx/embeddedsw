@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -358,7 +359,7 @@ u32 XDp_TxMstCapable(XDp *InstancePtr)
 /******************************************************************************/
 /**
  * This function will enable multi-stream transport (MST) mode in both the
- * DisplayPort TX and the immediate downstream RX device.
+ * immediate downstream RX device.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
  *
@@ -412,10 +413,6 @@ u32 XDp_TxMstEnable(XDp *InstancePtr)
 		/* The AUX write transaction failed. */
 		return Status;
 	}
-
-	/* Enable MST in the DisplayPort TX. */
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_MST_CONFIG,
-					XDP_TX_MST_CONFIG_MST_EN_MASK);
 
 	XDp_TxMstCfgModeEnable(InstancePtr);
 
