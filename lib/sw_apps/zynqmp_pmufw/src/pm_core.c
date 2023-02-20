@@ -2152,8 +2152,6 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_CLOCK_GETSTATE):
 	case PM_API(PM_CLOCK_SETDIVIDER):
 	case PM_API(PM_CLOCK_GETDIVIDER):
-	case PM_API(PM_CLOCK_SETRATE):
-	case PM_API(PM_CLOCK_GETRATE):
 	case PM_API(PM_CLOCK_SETPARENT):
 	case PM_API(PM_CLOCK_GETPARENT):
 	case PM_API(PM_SECURE_IMAGE):
@@ -2162,9 +2160,7 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_PLL_GET_PARAM):
 	case PM_API(PM_PLL_SET_MODE):
 	case PM_API(PM_PLL_GET_MODE):
-	case PM_API(PM_REGISTER_ACCESS):
 	case PM_API(PM_EFUSE_ACCESS):
-	case PM_API(PM_QUERY_DATA):
 	case PM_API(PM_FPGA_GET_VERSION):
 	case PM_API(PM_FPGA_GET_FEATURE_LIST):
 		retPayload[0] = PM_API_BASE_VERSION;
