@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -145,6 +145,12 @@
 *                     This is fixed with this change.
 * 5.0   dp   04/25/22 Update XScuGic_GetPriorityTriggerType() to read and
 *                     update priority and trigger properly for GICv3.
+* 5.1   mus  02/09/23 Updated DoDistributorInit function to skip enablement
+*                     of group0 interrupts when processor is running at
+*                     EL1 NS. This is required to avoid abort, since access
+*                     to ICC_IGRPEN0_EL1 is resulting into sync abort.
+*                     It fixes CR#1152445.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -271,7 +277,9 @@ static void DoDistributorInit(const XScuGic *InstancePtr)
 	Temp |= XSCUGIC_EN_INT_MASK;
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, Temp);
 	XScuGic_Enable_Group1_Interrupts();
+	#if defined (ARMR52) || (defined (__aarch64__) && (EL1_NONSECURE == 0))
 	XScuGic_Enable_Group0_Interrupts();
+	#endif
 #else
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET,
 					XSCUGIC_EN_INT_MASK);
