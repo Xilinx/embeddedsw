@@ -8,7 +8,7 @@
 /**
 *
 * @file xspi_options.c
-* @addtogroup spi_v4_9
+* @addtogroup spi Overview
 * @{
 *
 * Contains functions for the configuration of the XSpi driver component.
