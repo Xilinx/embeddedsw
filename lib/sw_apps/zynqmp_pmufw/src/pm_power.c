@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -305,15 +306,26 @@ static s32 PmPowerDownFpd(void)
 {
 	s32 status;
 	u32 dbg0, dbg1, dbg2, dbg3;
+	u32 readVal;
 
-	dbg0 = XPfw_Read32(A53_DBG_0_EDPRCR_REG);
-	dbg1 = XPfw_Read32(A53_DBG_1_EDPRCR_REG);
-	dbg2 = XPfw_Read32(A53_DBG_2_EDPRCR_REG);
-	dbg3 = XPfw_Read32(A53_DBG_3_EDPRCR_REG);
+	/**
+	 * Avoid reading the A53_DBG_0_EDPRCR_REG to A53_DBG_3_EDPRCR_REG
+	 * register when the CRL_APB_RST_LPD_DBG_DBG_FPD_RESET and
+	 * CRL_APB_RST_LPD_DBG_DBG_LPD_RESET bits are in the reset mode
+	 * to avoid the exception in the secure-boot mode.
+	 */
+	readVal = Xil_In32(CRL_APB_RST_LPD_DBG);
+	if (((readVal & CRL_APB_RST_LPD_DBG_DBG_FPD_RESET_MASK) == 0U) &&
+	    ((readVal & CRL_APB_RST_LPD_DBG_DBG_LPD_RESET_MASK) == 0U)) {
+		dbg0 = XPfw_Read32(A53_DBG_0_EDPRCR_REG);
+		dbg1 = XPfw_Read32(A53_DBG_1_EDPRCR_REG);
+		dbg2 = XPfw_Read32(A53_DBG_2_EDPRCR_REG);
+		dbg3 = XPfw_Read32(A53_DBG_3_EDPRCR_REG);
 
-	if (0U != (A53_DBG_EDPRCR_REG_MASK & (dbg0 | dbg1 | dbg2 | dbg3 ))) {
-		PmInfo("Skipped FPD pwrdn (debugger connected)\r\n");
-		return XST_SUCCESS;
+		if (0U != (A53_DBG_EDPRCR_REG_MASK & (dbg0 | dbg1 | dbg2 | dbg3 ))) {
+			PmInfo("Skipped FPD pwrdn (debugger connected)\r\n");
+			return XST_SUCCESS;
+		}
 	}
 
 /* Block FPD power down if any of the LPD peripherals uses CCI path which is in FPD */
