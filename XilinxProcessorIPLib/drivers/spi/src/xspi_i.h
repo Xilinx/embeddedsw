@@ -8,7 +8,7 @@
 /**
 *
 * @file xspi_i.h
-* @addtogroup spi_v4_9
+* @addtogroup spi Overview
 * @{
 *
 * This header file contains internal identifiers. It is intended for internal

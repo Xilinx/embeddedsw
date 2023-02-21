@@ -8,7 +8,7 @@
 /**
 *
 * @file xspi_g.c
-* @addtogroup spi_v4_9
+* @addtogroup spi Overview
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
