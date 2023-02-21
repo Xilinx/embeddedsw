@@ -285,6 +285,8 @@
 *                     disabled.
 * 4.9	adk  31/01/22 Fix interrupt controller name in SMP designs, Changes are
 * 		      made in the interrupt app tcl file.
+* 4.10  akm  02/21/23 Avoid data loss in interrupt mode with TX HALF EMPTY
+*                     Interrupt enabled.
 * </pre>
 *
 ******************************************************************************/
