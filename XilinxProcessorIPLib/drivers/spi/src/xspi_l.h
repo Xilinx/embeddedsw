@@ -8,7 +8,7 @@
 /**
 *
 * @file xspi_l.h
-* @addtogroup spi_v4_8
+* @addtogroup spi Overview
 * @{
 *
 * This header file contains identifiers, Register Definitions and  basic driver
