@@ -657,16 +657,6 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 				InstancePtr->SlaveSelectReg);
 				
 	/*
-	 * Start the transfer by no longer inhibiting the transmitter and
-	 * enabling the device. For a master, this will in fact start the
-	 * transfer, but for a slave it only prepares the device for a transfer
-	 * that must be initiated by a master.
-	 */
-	ControlReg = XSpi_GetControlReg(InstancePtr);
-	ControlReg &= ~XSP_CR_TRANS_INHIBIT_MASK;
-	XSpi_SetControlReg(InstancePtr, ControlReg);
-
-	/*
 	 * If the interrupts are enabled as indicated by Global Interrupt
 	 * Enable Register, then enable the transmit empty interrupt to operate
 	 * in Interrupt mode of operation.
@@ -683,8 +673,24 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 		 * End critical section.
 		 */
 		XSpi_IntrGlobalEnable(InstancePtr);
+	}
 
-	} else { /* Polled mode of operation */
+	/*
+	 * Start the transfer by no longer inhibiting the transmitter and
+	 * enabling the device. For a master, this will in fact start the
+	 * transfer, but for a slave it only prepares the device for a transfer
+	 * that must be initiated by a master.
+	 */
+	ControlReg = XSpi_GetControlReg(InstancePtr);
+	ControlReg &= ~XSP_CR_TRANS_INHIBIT_MASK;
+	XSpi_SetControlReg(InstancePtr, ControlReg);
+
+	/*
+	 * If the interrupts are enabled as indicated by Global Interrupt
+	 * Enable Register, then enable the transmit empty interrupt to operate
+	 * in Interrupt mode of operation.
+	 */
+	if (GlobalIntrReg != TRUE) { /* Poll Mode of operation */
 
 		/*
 		 * If interrupts are not enabled, poll the status register to
