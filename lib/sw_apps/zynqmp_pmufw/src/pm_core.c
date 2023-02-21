@@ -58,6 +58,7 @@
 #define MIO_TRI_PIN34	(34U)
 
 #define AES_PUF_KEY_SEL_MASK	0x2U
+#define EXPORT_EFUSE_BIT_MASK	0x8000U
 
 #define INVALID_ACK_ARG(a)	(((a) < REQUEST_ACK_MIN) || ((a) > REQUEST_ACK_MAX))
 
@@ -2110,6 +2111,7 @@ static void PmDevIoctl(const PmMaster* const master, const u32 deviceId,
 static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 {
 	s32 status = XST_FAILURE;
+	u32 efuse_ipdisable;
 	u32 retPayload[3] = {0U};
 
 	PmInfo("%s> PmFeatureCheck(%lu)\r\n", master->name, apiId);
@@ -2140,8 +2142,6 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_FPGA_GET_STATUS):
 	case PM_API(PM_GET_CHIPID):
 	case PM_API(PM_API_RESERVED_1):
-	case PM_API(PM_SECURE_SHA):
-	case PM_API(PM_SECURE_RSA):
 	case PM_API(PM_PINCTRL_REQUEST):
 	case PM_API(PM_PINCTRL_RELEASE):
 	case PM_API(PM_PINCTRL_GET_FUNCTION):
@@ -2158,7 +2158,6 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_CLOCK_GETPARENT):
 	case PM_API(PM_SECURE_IMAGE):
 	case PM_API(PM_FPGA_READ):
-	case PM_API(PM_SECURE_AES):
 	case PM_API(PM_PLL_SET_PARAM):
 	case PM_API(PM_PLL_GET_PARAM):
 	case PM_API(PM_PLL_SET_MODE):
@@ -2170,6 +2169,18 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_FPGA_GET_FEATURE_LIST):
 		retPayload[0] = PM_API_BASE_VERSION;
 		status = XST_SUCCESS;
+		break;
+	case PM_API(PM_SECURE_AES):
+	case PM_API(PM_SECURE_SHA):
+	case PM_API(PM_SECURE_RSA):
+		efuse_ipdisable = XPfw_Read32(EFUSE_IPDISABLE);
+		if ((efuse_ipdisable & EXPORT_EFUSE_BIT_MASK) != 0U) {
+			retPayload[0] = 0U;
+			status = XST_NO_FEATURE;
+		} else {
+			retPayload[0] = PM_API_BASE_VERSION;
+			status = XST_SUCCESS;
+		}
 		break;
 #ifdef ENABLE_IOCTL
 	case PM_API(PM_IOCTL):
