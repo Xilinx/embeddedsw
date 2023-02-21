@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,7 @@
 * 2.1   skg  10/29/2022 Added In Body comments for APIs
 *       am   02/13/2023 Fixed MISRA C violations
 *       am   02/17/2023 Fixed HIS_COMF violation
+*       vss  02/21/2023 Fixed PUF aux shift issue
 *
 * </pre>
 *
@@ -74,9 +75,12 @@
 /************************** Constant Definitions *****************************/
 #define XPUF_STATUS_WAIT_TIMEOUT		(1000000U)
 				/**< Recommended software timeout is 1 second */
+#define XPUF_AUX_MASK_VALUE                     (0x0FFFFFF0U)
+				/**< Mask value for AUX*/
+#define XPUF_AUX_SHIFT_VALUE 			(4U)
+				/**< No of bits aux has to shift*/
 
 /********************Macros (Inline function) Definitions*********************/
-
 /*****************************************************************************/
 /**
  * @brief	This function waits till Puf Syndrome ready bit is set.
@@ -331,8 +335,8 @@ int XPuf_Registration(XPuf_Data *PufData)
 		}
 		PufData->Chash = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
 			XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET);
-		PufData->Aux = XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
-			XPUF_PMC_GLOBAL_PUF_AUX_OFFSET);
+		PufData->Aux = (XPuf_ReadReg(XPUF_PMC_GLOBAL_BASEADDR,
+			XPUF_PMC_GLOBAL_PUF_AUX_OFFSET) & XPUF_AUX_MASK_VALUE) >> XPUF_AUX_SHIFT_VALUE;
 		XPuf_CapturePufID(PufData);
 	}
 	else {
