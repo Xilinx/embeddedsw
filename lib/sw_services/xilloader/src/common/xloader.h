@@ -105,6 +105,7 @@
 *       kal  01/05/2023 Added XLOADER_PCR_INVALID_VALUE macro
 * 1.06  sk   01/11/2023 Updated XLoader_ImageStore structure to support
 *                       image store feature
+*       bm   02/22/2023 Fix XLOADER_MAX_HANDOFF_CPUS value for versal Net
 * </pre>
 *
 * @note
@@ -144,7 +145,12 @@ extern "C" {
 /*
  * Subsystem related macros
  */
+#ifdef VERSAL_NET
+/* Limit to the maximum number of partitions possible */
+#define XLOADER_MAX_HANDOFF_CPUS	(XIH_MAX_PRTNS)
+#else
 #define XLOADER_MAX_HANDOFF_CPUS	(10U)
+#endif
 
 /*
  * PDI type macros
