@@ -98,6 +98,7 @@
 *       kal  01/05/23 Moved XLoader_GetAuthPubAlgo function to header file
 *       sk   02/08/23 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
 *       sk   02/09/23 Fixed Sec Review comments in XLoader_RsaSignVerify function
+* 1.9   kpt  02/21/23 Fixed bug in XLoader_AuthEncClear
 *
 * </pre>
 *
@@ -144,12 +145,6 @@ typedef struct {
 #endif
 #define XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT	(31U)
 		/**< Shift for Global Variation Filter in PUF shutter value */
-#define XLOADER_AES_KEY_CLR_REG			(0xF11E0014U)
-					/**< AES key clear register address */
-#define XLOADER_AES_ALL_KEYS_CLR_VAL		(0x3FFFF3U)
-					/**< AES all key clear value */
-#define XLOADER_AES_KEY_ZEROED_STATUS_REG	(0xF11E0064U)
-					/**< AES key zeroed register address */
 #define XLOADER_AES_RESET_VAL			(0x1U)
 					/**< AES Reset value */
 #define XLOADER_AES_RESET_REG			(0xF11E0010U)
@@ -3296,31 +3291,50 @@ int XLoader_AuthEncClear(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
+	XSecure_Aes *AesInstPtr = XSecure_GetAesInstance();
 #ifndef PLM_RSA_EXCLUDE
 	XSecure_Rsa *RsaInstPtr = XSecure_GetRsaInstance();
 #endif
-	/** Clear AES keys if AES is out of reset */
-	XPlmi_Out32(XLOADER_AES_KEY_CLR_REG, XLOADER_AES_ALL_KEYS_CLR_VAL);
-	(void)XPlmi_UtilPollForMask(XLOADER_AES_KEY_ZEROED_STATUS_REG,
-			MASK_ALL, XPLMI_TIME_OUT_DEFAULT);
 
-	/** Place AES in reset */
-	Status = Xil_SecureOut32(XLOADER_AES_RESET_REG,
+	/*
+	 * To ensure reliable initialization of AES state
+	 * during exception hardcoded the base address and
+	 * state instead of using XSecure_AesInitialize API
+	 * as it requires DMA instance as an argument and
+	 * there might be cases where DMA might
+	 * not be initialized at the time of exception.
+	 */
+	AesInstPtr->BaseAddress = XSECURE_AES_BASEADDR;
+	AesInstPtr->AesState = XSECURE_AES_INITIALIZED;
+
+	/** Clear keys */
+	Status = XSecure_AesKeyZero(AesInstPtr, XSECURE_AES_ALL_KEYS);
+
+	/** place AES in reset and clear AES instance */
+	Status |= Xil_SecureOut32(XLOADER_AES_RESET_REG,
 				XLOADER_AES_RESET_VAL);
-
+	Status |= Xil_SMemSet(AesInstPtr, sizeof(XSecure_Aes), 0U,
+				sizeof(XSecure_Aes));
 #ifndef PLM_RSA_EXCLUDE
-	/** Clear Rsa memory */
-	(void)XSecure_RsaCfgInitialize(RsaInstPtr);
+	/** Hardcoded RSA base address */
+	RsaInstPtr->BaseAddress = XSECURE_ECDSA_RSA_BASEADDR;
+
+	/** Release RSA from reset */
 	XSecure_ReleaseReset(RsaInstPtr->BaseAddress,
 			XSECURE_ECDSA_RSA_RESET_OFFSET);
+
+	/** Clear Rsa memory */
 	SStatus = XSecure_RsaZeroize(RsaInstPtr);
 
-	/** Place ECDSA RSA in reset */
+	/** Place RSA in reset and clear RSA instance */
 	SStatus |= Xil_SecureOut32(XLOADER_ECDSA_RSA_RESET_REG,
 				XLOADER_ECDSA_RSA_RESET_VAL);
+	SStatus |= Xil_SMemSet(RsaInstPtr, sizeof(XSecure_Rsa), 0U,
+				sizeof(XSecure_Rsa));
 #else
-	Status = XST_SUCCESS;
+	SStatus = XST_SUCCESS;
 #endif
+
 	return (Status | SStatus);
 }
 
