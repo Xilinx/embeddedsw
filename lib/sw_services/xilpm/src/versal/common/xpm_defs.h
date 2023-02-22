@@ -612,6 +612,12 @@ enum XPmNotifyEvent {
  */
 #define XST_API_REQUEST_NODE_VERSION		(2U)
 #define XST_API_RELEASE_NODE_VERSION		(2U)
+/*
+ * Version 2 supports the bitmask functionality of GET_OP_CHAR IDs
+ * where the user can check whether the ID is supported or not in
+ * the firmware
+ */
+#define XST_API_GET_OP_CHAR_VERSION		(2U)
 /** @} */
 
 /**
