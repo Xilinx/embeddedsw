@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 3.0   kal  07/12/2022 Initial release
+* 3.2   har  02/22/2023 Added macros related to ROM Rsvd bits
 *
 * </pre>
 *
@@ -97,6 +99,7 @@ extern "C" {
 #define XNVM_EFUSE_PPK0_HASH_START_ROW			(160U)
 #define XNVM_EFUSE_CRC_SALT_ROW				(179U)
 #define XNVM_EFUSE_DISABLE_PLM_UPDATE_ROW		(185U)
+#define XNVM_EFUSE_ROM_RSVD_START_ROW			(184U)
 #define XNVM_EFUSE_CRC_ROW				(188U)
 #define XNVM_EFUSE_PAGE_0_PUF_SYN_DATA_ROW		(192U)
 #define XNVM_EFUSE_PAGE_1_PUF_SYN_DATA_ROW		(192U)
@@ -208,6 +211,8 @@ extern "C" {
 #define XNVM_EFUSE_CRC_END_COL_NUM			(31U)
 #define XNVM_EFUSE_CRC_SALT_START_COL_NUM		(24U)
 #define XNVM_EFUSE_CRC_SALT_END_COL_NUM			(31U)
+#define XNVM_EFUSE_ROM_RSVD_START_COL			(24U)
+#define XNVM_EFUSE_ROM_RSVD_END_COL			(31U)
 
 /**< EFUSE number of rows */
 #define XNVM_EFUSE_AES_KEY_0_TO_127_NUM_OF_ROWS		(16U)
@@ -244,6 +249,7 @@ extern "C" {
 #define XNVM_EFUSE_DME_USER_KEY_NUM_OF_ROWS		(48U)
 #define XNVM_EFUSE_CRC_NUM_OF_ROWS			(4U)
 #define XNVM_EFUSE_CRC_SALT_NUM_OF_ROWS			(1U)
+#define XNVM_EFUSE_ROM_RSVD_NUM_OF_ROWS			(4U)
 
 /**< offset constants*/
 #define XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET	(0x00000180U)
@@ -267,6 +273,7 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_CRC_OFFSET			(0x0000023CU)
 #define XNVM_EFUSE_CACHE_TBITS0_SVD_OFFSET		(0x00000000U)
 #define XNVM_EFUSE_CACHE_ME_ID_CODE_OFFSET		(0x000000FCU)
+#define XNVM_EFUSE_CACHE_ROM_RSVD_OFFSET		(0x00000090U)
 
 /**< Security controls masks*/
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK	(0xc0000000U)
@@ -315,6 +322,14 @@ extern "C" {
 
 /**< Crc salt mask*/
 #define XNVM_EFUSE_CACHE_ME_ID_CODE_CRC_SALT_MASK		(0xFF000000U)
+
+/**< ROM Rsvd mask and shift*/
+#define XNVM_EFUSE_ROM_RSVD_ROW_1_MASK				(0x0000F800U)
+#define XNVM_EFUSE_ROM_RSVD_ROW_2_MASK				(0x00FF0000U)
+#define XNVM_EFUSE_ROM_RSVD_ROW_3_MASK				(0xFF000000U)
+#define XNVM_EFUSE_ROM_RSVD_ROW_1_SHIFT				(11)
+#define XNVM_EFUSE_ROM_RSVD_ROW_2_SHIFT				(16)
+#define XNVM_EFUSE_ROM_RSVD_ROW_3_SHIFT				(24)
 
 #ifdef __cplusplus
 }

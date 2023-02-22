@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +17,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 3.0   kal  07/12/2022 Initial release
+ * 3.2   har  02/22/2023 Added error code for ROM Rsvd bits
  *
  * </pre>
  *
@@ -87,6 +89,9 @@ typedef enum {
 						 * programming */
 	XNVM_EFUSE_ERR_WRITE_CRC = 0xA900, /**< 0xA900
 						* Error in CRC
+						* programming */
+	XNVM_EFUSE_ERR_WRITE_ROM_RSVD_BITS = 0xAA00, /**< 0xAA00
+						* Error in ROM Rsvd bits
 						* programming */
 	XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_0_PROT = 0xC300, /**< 0xC300
 								* Error in SEC_CTRL_0_PROT
