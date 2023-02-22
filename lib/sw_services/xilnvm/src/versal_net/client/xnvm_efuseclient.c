@@ -492,6 +492,8 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 		goto END;
 	}
 
+	Xil_DCacheFlushRange((UINTPTR)EfusePuf, sizeof(XNvm_EfusePufHdAddr));
+
 	XNvm_PufWriteCdo *PufWrCdo = (XNvm_PufWriteCdo *)(UINTPTR)Payload;
 	XNvm_EfuseCreateWritePufCmd(PufWrCdo, (u32)(UINTPTR)EfusePuf,
 			(u32)((UINTPTR)EfusePuf >> XNVM_ADDR_HIGH_SHIFT));
