@@ -17,7 +17,6 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
-* 1.1   dc     02/20/23 Update hw version
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -52,7 +51,7 @@
 * @endcond
 */
 #define XDFEOFDM_COMPATIBLE_STRING                                             \
-	"xlnx,xdfe-ofdm-1.1" /**< Device name property. */
+	"xlnx,xdfe-ofdm-1.0" /**< Device name property. */
 #define XDFEOFDM_PLATFORM_DEVICE_DIR                                           \
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
 #define XDFEOFDM_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
