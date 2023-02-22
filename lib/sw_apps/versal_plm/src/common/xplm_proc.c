@@ -29,6 +29,7 @@
 *       kpt  09/09/2021 Fixed SW-BP-BLIND-WRITE in XLoader_SecureClear
 * 1.05  ma   01/17/2022 Trigger SW Error when exception occurs
 * 1.06  ng   11/11/2022 Updated doxygen comments
+*       kpt  02/21/2023 Removed check for XLoader_SecureClear
 *
 * </pre>
 *
@@ -107,11 +108,7 @@ static void XPlm_ExceptionHandler(void *Data)
 		mfmsr(), mfear(), mfedr(), mfesr(),
 		mfgpr(r14), mfgpr(r15), mfgpr(r16), mfgpr(r17));
 
-	Status = XLoader_SecureClear();
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DEBUG_GENERAL, "Secure clear failed with"
-			"status:0x%08x \r\n", Status);
-	}
+	(void)XLoader_SecureClear();
 
 	/** Trigger SW error */
 	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
