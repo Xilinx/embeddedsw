@@ -28,14 +28,16 @@
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 
-#ifndef PLM_ECDSA_EXCLUDE
 #include "xil_util.h"
+#ifndef PLM_ECDSA_EXCLUDE
 #include "xsecure_elliptic.h"
 #include "xsecure_ellipticplat.h"
+#endif
 #include "xsecure_sha384.h"
 #include "xsecure_utils.h"
 #include "xcert_genX509cert.h"
 #include "xcert_createfield.h"
+#include "xplmi_status.h"
 
 /************************** Constant Definitions *****************************/
 #define XCERT_OID_SIGN_ALGO				"06082A8648CE3D040303"
@@ -53,11 +55,12 @@ static int XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen);
 static void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, u32 *IssuerLen);
 static void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, u32 *ValidityLen);
 static void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, u32 *SubjectLen);
+#ifndef PLM_ECDSA_EXCLUDE
 static int XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len);
 static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey,u32 *PubKeyInfoLen);
-static int XCert_GenTBSCertificate(u8* X509CertBuf, XCert_Config Cfg, u32 *DataLen);
 static void XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen);
-
+#endif
+static int XCert_GenTBSCertificate(u8* X509CertBuf, XCert_Config Cfg, u32 *DataLen);
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
@@ -149,8 +152,10 @@ int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, 
 	u8* SequenceValIdx;
 	u32 TBSCertLen;
 	u32 SignAlgoLen;
+#ifndef PLM_ECDSA_EXCLUDE
 	u32 SignLen;
 	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES + XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
+#endif
 	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	(void)MaxCertSize;
 
@@ -187,6 +192,7 @@ int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, 
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+#ifndef PLM_ECDSA_EXCLUDE
 	/**
 	 * Calculate signature of the TBS certificate using the private key
 	 */
@@ -201,6 +207,10 @@ int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, 
 	 */
 	XCert_GenSignField(Curr, Sign, &SignLen);
 	Curr = Curr + SignLen;
+#else
+	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
+	goto END;
+#endif
 
 	/**
 	 * Update the encoded length in the X.509 certificate SEQUENCE
@@ -381,6 +391,7 @@ static void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, u32 *SubjectLen)
 	XCert_CreateRawDataFromByteArray(TBSCertBuf, Subject, SubjectLen);
 }
 
+#ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function creates the Public Key Algorithm Identifier sub-field.
@@ -487,6 +498,7 @@ static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey, u32
 END:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -566,6 +578,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 	XCert_GenSubjectField(Curr, Cfg.UserCfg->Subject, &Len);
 	Curr = Curr + Len;
 
+#ifndef PLM_ECDSA_EXCLUDE
 	/**
 	 * Generate Public Key Info field
 	 */
@@ -576,7 +589,10 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 	else {
 		Curr = Curr + Len;
 	}
-
+#else
+	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
+	goto END;
+#endif
 	/**
 	 * Calculate SHA2 Hash for all fields in the TBS certificate except Version and Serial
 	 * Please note that currently SerialStartIdx points to the field after Serial.
@@ -618,7 +634,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 END:
 	return Status;
 }
-
+#ifndef PLM_ECDSA_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function creates the Signature field in the X.509 certificate
@@ -666,5 +682,4 @@ static void XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen)
 	*BitStrLenIdx = Curr - BitStrValIdx;
 	*SignLen = Curr - X509CertBuf;
 }
-
 #endif

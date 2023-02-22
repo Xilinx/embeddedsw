@@ -44,6 +44,7 @@
 #include "xsecure_init.h"
 #include "xsecure_plat_kat.h"
 #include "xcert_genX509cert.h"
+#include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -398,12 +399,14 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 	DevAkData = XOcp_GetDevAkData();
 	DevAkData = DevAkData + DevAkIndex;
 
+#ifndef PLM_ECDSA_EXCLUDE
 	/* Generate the signature using DEVAK */
 	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384,
 			(u8 *)(UINTPTR)AttestWithDevAkPtr->HashAddr,
 			AttestWithDevAkPtr->HashLen,
 			(u8 *)(UINTPTR)DevAkData->EccPrvtKey,
 			(u8 *)(UINTPTR)AttestWithDevAkPtr->SignatureAddr);
+#endif
 END:
 	return Status;
 }
