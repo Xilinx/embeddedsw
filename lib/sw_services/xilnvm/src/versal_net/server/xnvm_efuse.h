@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- ---------- -------------------------------------------------------
  * 3.0   kal  07/12/2022 Initial release
+ * 3.2   har  02/21/2023 Added support for writing ROM Rsvd bits
  *
  * </pre>
  *
@@ -61,6 +63,7 @@ int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask);
 int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode);
 int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData);
 int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc);
+int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits);
 
 #ifdef __cplusplus
 }

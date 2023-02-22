@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.0  har  07/19/22  Initial release
 * 3.1  skg  10/28/22  Added In body comments for APIs
+* 3.2  har  02/21/23  Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *
 * </pre>
 *
@@ -371,6 +373,88 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)SecCtrlBitsWrCdo, XNVM_PAYLOAD_LEN_3U);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Secure Control Bits write failed;"
+			"Error Code = %x\r\n", Status);
+		goto END;
+	}
+
+	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XNVM_PAYLOAD_LEN_1U);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to program Misc Control Bits
+ * 		requested by the user
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	MiscCtrlBits	Value of Misc Control Bits to be programmed
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBits)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	XNvm_MiscCtrlBitsWriteCdo *MiscCtrlBitsWrCdo = (XNvm_MiscCtrlBitsWriteCdo *)(UINTPTR)Payload;
+
+	MiscCtrlBitsWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_MISC_CTRL_BITS);
+	MiscCtrlBitsWrCdo->Pload.EnvMonitorDis = FALSE;
+	MiscCtrlBitsWrCdo->Pload.MiscCtrlBits = MiscCtrlBits;
+
+    /**
+	 *  @{ Send an IPI request to the PLM by using the XNvm_EfuseWrite CDO command.
+     *     Wait for IPI response from PLM  with a default timeout of 300 seconds
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)MiscCtrlBitsWrCdo,
+		XNVM_PAYLOAD_LEN_3U);
+	if (Status != XST_SUCCESS) {
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "Misc Control Bits write failed;"
+			"Error Code = %x\r\n", Status);
+		goto END;
+	}
+
+	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XNVM_PAYLOAD_LEN_1U);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to program ROM Rsvd Bits
+ * 		requested by the user
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	RomRsvdBits	Value of ROM Rsvd Bits to be programmed
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	XNvm_RomRsvdBitsWriteCdo *RomRsvdBitsWriteCdo = (XNvm_RomRsvdBitsWriteCdo *)(UINTPTR)Payload;
+
+	RomRsvdBitsWriteCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_ROM_RSVD);
+	RomRsvdBitsWriteCdo->Pload.EnvMonitorDis = FALSE;
+	RomRsvdBitsWriteCdo->Pload.RomRsvdBits = RomRsvdBits;
+
+    /**
+	 *  @{ Send an IPI request to the PLM by using the XNvm_EfuseWrite CDO command.
+     *     Wait for IPI response from PLM  with a default timeout of 300 seconds
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RomRsvdBitsWriteCdo,
+		XNVM_PAYLOAD_LEN_3U);
+	if (Status != XST_SUCCESS) {
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "Rom Reserved Bits write failed;"
 			"Error Code = %x\r\n", Status);
 		goto END;
 	}

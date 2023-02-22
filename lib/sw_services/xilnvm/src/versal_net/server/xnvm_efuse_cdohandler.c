@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.0  kal   07/12/2022 Initial release
 * 3.1  skg   10/25/2022 Added in body comments for APIs
+* 3.2   har  02/21/23 Added support for writing ROM Rsvd bits
 *
 * </pre>
 *
@@ -68,6 +70,7 @@ static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh);
 static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc);
 static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode);
+static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits);
 
 /*************************** Function Definitions *****************************/
 
@@ -131,6 +134,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_Crc *Crc = NULL;
 	XNvm_DmeMode *DmeMode = NULL;
 	XNvm_PufInfoDirectPload *PufData = NULL;
+	XNvm_RomRsvdBitsWritePload *RomRsvd = NULL;
 
     /**
 	 *  Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
@@ -256,6 +260,10 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_FROM_PLOAD):
 		PufData = (XNvm_PufInfoDirectPload *)Cmd->Payload;
 		Status = XNvm_EfuseWritePufDataFromPload(PufData);
+		break;
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
+		RomRsvd = (XNvm_RomRsvdBitsWritePload *)Cmd->Payload;
+		Status = XNvm_EfuseWriteRomRsvd(RomRsvd->EnvMonitorDis, RomRsvd->RomRsvdBits);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -902,4 +910,27 @@ static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief       This function programs ROM Rsvd eFuses
+ *
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param 	RomRsvdBits - ROM Rsvd bits to be programmed
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- ErrorCode - If there is a failure
+ *
+ ******************************************************************************/
+static int XNvm_EfuseWriteRomRsvd(u32 EnvDisFlag, u32 RomRsvdBits)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XNvm_EfuseWriteRomRsvdBits(EnvDisFlag, RomRsvdBits);
+
+	return Status;
+}
+
 #endif

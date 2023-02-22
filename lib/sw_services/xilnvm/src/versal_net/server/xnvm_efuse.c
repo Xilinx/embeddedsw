@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 3.1   kal  11/01/2022 Make Revocation id number 0 as valid to align with ROM
 *                       behaviour
 *       skg  11/08/2022 Added In Body comments for APIs
+* 3.2   har  02/22/2023 Added API to program ROM Rsvd eFUSEs.
 *
 * </pre>
 *
@@ -2960,6 +2961,81 @@ static int XNvm_EfusePrgmAesKey(XNvm_AesKeyType KeyType, XNvm_AesKey *EfuseKey)
 
 END:
 	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function programs ROM Rsvd Bits eFuses.
+ *
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ *				when set to true it will not check for voltage
+ *				and temperature limits.
+ * @param	RomRsvdBits - RomRsvdBits to be programmed to RomRsvd eFUSE bits
+ *
+ * @return	- XST_SUCCESS - On successful write.
+ *		- XNVM_EFUSE_ERR_WRITE_ROM_RSVD - Error while writing
+ *					ROM Rsvd eFuse bits.
+ *
+ ******************************************************************************/
+int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
+{
+	volatile int Status = XST_FAILURE;
+	int CloseStatus = XST_FAILURE;
+	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
+	u32 WrRomRsvdBits;
+
+	if (EnvDisFlag != TRUE) {
+		//TODO Temp and Voltage checks
+	}
+
+    /**
+	 *  Unlock eFuse Controller. Return appropriate error code if not success
+	 */
+	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
+					XNVM_EFUSE_MARGIN_RD);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+	/**
+	 *  compute programmable bits
+	 */
+	Status = XNvm_EfuseComputeProgrammableBits(&RomRsvdBits,
+				&WrRomRsvdBits,
+				XNVM_EFUSE_CACHE_ROM_RSVD_OFFSET,
+				XNVM_EFUSE_CACHE_ROM_RSVD_OFFSET);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	EfusePrgmInfo.StartRow = XNVM_EFUSE_ROM_RSVD_START_ROW;
+	EfusePrgmInfo.ColStart = XNVM_EFUSE_ROM_RSVD_START_COL;
+	EfusePrgmInfo.ColEnd = XNVM_EFUSE_ROM_RSVD_END_COL;
+	EfusePrgmInfo.NumOfRows = XNVM_EFUSE_ROM_RSVD_NUM_OF_ROWS;
+	EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
+
+	Status = XST_FAILURE;
+	/**
+	 *   Program and verify RomRsvdBits
+	 */
+	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &WrRomRsvdBits);
+
+	if (Status != XST_SUCCESS) {
+		Status = (Status | XNVM_EFUSE_ERR_WRITE_ROM_RSVD_BITS);
+	}
+
+END:
+	/**
+	 *  Lock eFuse controller
+	 */
+	CloseStatus = XNvm_EfuseCloseController();
+	if (XST_SUCCESS == Status) {
+		Status = CloseStatus;
+	}
+
+	return Status;
+
 }
 
 /******************************************************************************/

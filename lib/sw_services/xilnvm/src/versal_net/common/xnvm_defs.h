@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -19,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 3.0   kal  07/12/22 Initial release
+* 3.2   har  02/21/23 Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *
 * </pre>
 * @note
@@ -271,6 +273,26 @@ typedef struct {
 } XNvm_SecCtrlBitsWriteCdo;
 
 typedef struct {
+	u32 EnvMonitorDis;
+	u32 MiscCtrlBits;
+} XNvm_MiscCtrlBitsWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_MiscCtrlBitsWritePload Pload;
+} XNvm_MiscCtrlBitsWriteCdo;
+
+typedef struct {
+	u32 EnvMonitorDis;
+	u32 RomRsvdBits;
+} XNvm_RomRsvdBitsWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_RomRsvdBitsWritePload Pload;
+} XNvm_RomRsvdBitsWriteCdo;
+
+typedef struct {
 	u32 AddrLow;
 	u32 AddrHigh;
 } XNvm_PufWritePload;
@@ -323,6 +345,7 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_DME_MODE,
 	XNVM_API_ID_EFUSE_WRITE_PUF_FROM_PLOAD,
 	XNVM_API_ID_EFUSE_WRITE_PUF,
+	XNVM_API_ID_EFUSE_WRITE_ROM_RSVD,
 	XNVM_API_ID_EFUSE_READ_CACHE = 47,
 	XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS,
 	XNVM_API_MAX,

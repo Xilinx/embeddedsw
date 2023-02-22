@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,6 +20,7 @@
 *       har  07/19/2022 Added support for writing keys, PPK hash,
 *                       IV and reading eFUSE cache via IPI
 * 3.1   skg  10/17/2022 Added Null to invalid command handler of xilnvm command module
+* 3.2   har  02/21/2023 Added support for writing ROM Rsvd bits
 *
 * </pre>
 *
@@ -83,6 +85,7 @@ static int XNvm_FeaturesCmd(u32 ApiId)
 	case XNVM_API_ID_EFUSE_WRITE_AES_KEY:
 	case XNVM_API_ID_EFUSE_WRITE_PPK_HASH:
 	case XNVM_API_ID_EFUSE_WRITE_IV:
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
 		Status = XST_SUCCESS;
 		break;
 	default:
@@ -152,6 +155,7 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_CRC):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_MODE):
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
 		Status = XNvm_EfuseCdoHandler(Cmd);
 		break;
 	default:
