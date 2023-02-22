@@ -1,6 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ******************************************************************************/
 
 /*****************************************************************************/
@@ -333,7 +334,7 @@ extern "C" {
 /* AUX VTEM register masks and shifts*/
 #define XV_HDMITX1_AUX_VTEM_M_CONST_SHIFT            1
 #define XV_HDMITX1_AUX_VTEM_FVA_FACT_M1_SHIFT        2
-#define XV_HDMITX1_AUX_VTEM_QMS_EN_SHIFT             3
+#define XV_HDMITX1_AUX_VTEM_QMS_EN_SHIFT             6
 #define XV_HDMITX1_AUX_VTEM_RB_SHIFT                 26
 #define XV_HDMITX1_AUX_VTEM_BASE_VFRONT_SHIFT        8
 #define XV_HDMITX1_AUX_VTEM_BASE_REFRESH_RATE_SHIFT  16
