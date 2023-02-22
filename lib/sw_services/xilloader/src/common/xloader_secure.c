@@ -114,10 +114,11 @@
 *       bsv  02/14/22 Added comments for better readability
 *       kpt  02/18/22 Fixed copy to memory issue
 * 1.09  bm   07/06/22 Refactor versal and versal_net code
-* 1.10  sk   10/19/22 Fix security review comments
+*       sk   10/19/22 Fix security review comments
 *       har  11/17/22 Removed XLoader_CheckNonZeroPpk and moved code to set
 *                     Secure State(Auth) in xloader_plat_secure files
 *       ng   11/23/22 Updated doxygen comments
+*       kpt  02/21/23 Fixed bug in XLoader_SecureClear
 *
 * </pre>
 *
@@ -131,6 +132,7 @@
 #include "xilpdi.h"
 #include "xplmi_dma.h"
 #include "xsecure_error.h"
+#include "xsecure_cryptochk.h"
 #include "xsecure_utils.h"
 #include "xplmi.h"
 #include "xplmi_modules.h"
@@ -359,7 +361,7 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
  * exceptions. The function also places AES, ECDSA_RSA and SHA3 in reset.
  *
  * @return	XST_SUCCESS on success
- *              XST_FAILURE on failure
+ *          XST_FAILURE on failure
  *
  *****************************************************************************/
 int XLoader_SecureClear(void)
@@ -367,14 +369,24 @@ int XLoader_SecureClear(void)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 
+	/* Crypto check */
+	Status = XSecure_CryptoCheck();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 #ifndef PLM_SECURE_EXCLUDE
+	Status = XST_FAILURE;
 	Status = XLoader_AuthEncClear();
 #else
 	Status = XST_SUCCESS;
 #endif
 	/** Place SHA3 in reset */
 	SStatus = Xil_SecureOut32(XLOADER_SHA3_RESET_REG, XLOADER_SHA3_RESET_VAL);
+END:
 	if ((Status != XST_SUCCESS) || (SStatus != XST_SUCCESS)) {
+		XPlmi_Printf(DEBUG_INFO, "%s failed with"
+			" status:0x%08x \r\n", __func__, Status);
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_CLEAR_FAIL,
 					(Status | SStatus));
 	}
