@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
+*       dc     02/20/23 Update hw version
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -51,7 +52,7 @@
 * @endcond
 */
 #define XDFEOFDM_COMPATIBLE_STRING                                             \
-	"xlnx,xdfe-ofdm-1.0" /**< Device name property. */
+	"xlnx,xdfe-ofdm-1.1" /**< Device name property. */
 #define XDFEOFDM_PLATFORM_DEVICE_DIR                                           \
 	"/sys/bus/platform/devices/" /**< Device location in a file system. */
 #define XDFEOFDM_COMPATIBLE_PROPERTY "compatible" /**< Device tree property */
