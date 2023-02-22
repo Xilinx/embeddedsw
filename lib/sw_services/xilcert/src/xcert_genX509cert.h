@@ -34,8 +34,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 
-#ifndef PLM_ECDSA_EXCLUDE
-
 /**************************** Type Definitions *******************************/
 #define XCERT_USERCFG_MAX_SIZE						(32U)
 
@@ -73,6 +71,5 @@ int XCert_StoreCertUserInput(XCert_UserCfgFields FieldType, u8* Val, u32 Len);
 #endif
 #ifdef __cplusplus
 }
-#endif
 #endif  /* XCERT_GENX509CERT_H */
 /* @} */
