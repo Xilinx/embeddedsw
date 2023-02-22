@@ -711,6 +711,43 @@ END:
 
 /*****************************************************************************/
 /**
+* @brief	This function checks if PPK is programmed.
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+int XLoader_CheckNonZeroPpk(void)
+{
+	volatile int Status = XST_FAILURE;
+	volatile u32 Index;
+
+	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
+		Index <= XLOADER_EFUSE_PPK2_END_OFFSET;
+		Index = Index + XIH_PRTN_WORD_LEN) {
+		/* Any bit of PPK hash are non-zero break and return success */
+		if (XPlmi_In32(Index) != 0x0U) {
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+	if (Index > (XLOADER_EFUSE_PPK2_END_OFFSET + XIH_PRTN_WORD_LEN)) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+	}
+	else if (Index < XLOADER_EFUSE_PPK0_START_OFFSET) {
+		Status = (int)XLOADER_ERR_GLITCH_DETECTED;
+	}
+	else if (Index <= XLOADER_EFUSE_PPK2_END_OFFSET) {
+		Status = XST_SUCCESS;
+	}
+	else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
 * @brief	This function returns the state of authenticated boot
 *
 * @param	AHWRoTPtr - Always NULL except at time of initialization of

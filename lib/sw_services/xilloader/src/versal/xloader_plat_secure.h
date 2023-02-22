@@ -130,6 +130,16 @@ typedef enum {
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+#ifdef PLM_EN_ADD_PPKS
+#define XLOADER_EFUSE_PPK4_START_OFFSET                 (0xF12502E0U)
+                    /**< PPK4 start register address */
+#define XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD              (0x00000600U)
+                    /**< PPK3 invalid value */
+#define XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD              (0x00001800U)
+					/**< PPK4 invalid value */
+#endif /**< END OF PLM_EN_ADD_PPKS*/
+
 /*****************************************************************************/
 /**
  * @brief	This function is supported only for Versalnet, nothing to be done
@@ -149,7 +159,6 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
 #ifndef XSECURE_RSA_EXCLUDE
 int XLoader_RsaKat(XPmcDma *PmcDmaPtr);
 #endif
-int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 
 /************************** Variable Definitions *****************************/
 

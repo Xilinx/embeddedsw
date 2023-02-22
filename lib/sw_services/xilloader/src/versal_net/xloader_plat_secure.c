@@ -32,18 +32,17 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
-#ifndef PLM_SECURE_EXCLUDE
-#include "xloader_auth_enc.h"
 #include "xplmi_status.h"
 #include "xplmi_scheduler.h"
 #include "xloader_plat_secure.h"
 #include "xloader_secure.h"
 #include "xplmi.h"
 #include "xplmi_err.h"
+#include "xilpdi_plat.h"
 #include "xil_error_node.h"
+#ifndef PLM_SECURE_EXCLUDE
 #include "xsecure_init.h"
 #include "xsecure_error.h"
-#include "xilpdi_plat.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /* eFuse Obfuscated Key */
@@ -335,6 +334,47 @@ END:
 }
 #endif
 
+
+/*****************************************************************************/
+/**
+* @brief	This function verifies whether the additional PPK is valid.
+*
+* @param	PpkHash is pointer to the PPK hash.
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
+	(void)PpkHash;
+
+	/* Not applicable for Versal Net */
+	return XST_FAILURE;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function checks for the additional PPK select and returns the
+*           PPK invalid mask and PPK efuse cache start offset if PPK is valid.
+*
+* @param	PpkSelect	PPK selection of eFUSE.
+* @param    InvalidMask Pointer to the PPK invalid mask
+* @param    PpkOffset   Pointer to the efuse cache PPK start offset
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset)
+{
+	(void)PpkSelect;
+	(void)InvalidMask;
+	(void)PpkOffset;
+
+	/* Not applicable for Versal Net */
+	return XST_FAILURE;
+}
+
+#endif /* END OF PLM_SECURE_EXCLUDE */
+
 /*****************************************************************************/
 /**
 * @brief	This function checks Secure State for Authentication
@@ -387,43 +427,3 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 
 	return Status;
 }
-
-/*****************************************************************************/
-/**
-* @brief	This function verifies whether the additional PPK is valid.
-*
-* @param	PpkHash is pointer to the PPK hash.
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
-int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
-	(void)PpkHash;
-
-	/* Not applicable for Versal Net */
-	return XST_FAILURE;
-}
-
-/*****************************************************************************/
-/**
-* @brief	This function checks for the additional PPK select and returns the
-*           PPK invalid mask and PPK efuse cache start offset if PPK is valid.
-*
-* @param	PpkSelect	PPK selection of eFUSE.
-* @param    InvalidMask Pointer to the PPK invalid mask
-* @param    PpkOffset   Pointer to the efuse cache PPK start offset
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
-int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset)
-{
-	(void)PpkSelect;
-	(void)InvalidMask;
-	(void)PpkOffset;
-
-	/* Not applicable for Versal Net */
-	return XST_FAILURE;
-}
-
-#endif /* END OF PLM_SECURE_EXCLUDE */
