@@ -32,17 +32,25 @@
 
 /***************************** Include Files *********************************/
 #include "xplmi_config.h"
-#ifndef PLM_SECURE_EXCLUDE
-#include "xloader_auth_enc.h"
+#include "xloader_secure.h"
 #include "xilpdi.h"
 #include "xplmi.h"
 #include "xplmi_status.h"
+#include "xloader_plat_secure.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifdef PLM_EN_ADD_PPKS
+#define XLOADER_EFUSE_ADDITIONAL_PPK_ENABLE_BITS_MASK       (0X00030000U)
+                    /**< PPK 3&4 Enable bits mask*/
+#define XLOADER_EFUSE_PPK3_START_OFFSET                 (0xF12502C0U)
+                    /**< PPK3 start register address */
+#define XLOADER_EFUSE_PPK4_END_OFFSET                   (0xF12502FCU)
+                    /**< PPK4 start register address */
+#endif /**< END OF PLM_EN_ADD_PPKS*/
 
 /************************** Function Prototypes ******************************/
 
@@ -51,6 +59,7 @@ static int XLoader_IsAdditionalPpkFeatureEnabled(void);
 static int XLoader_CheckNonZeroAdditionalPpk(void);
 #endif
 
+#ifndef PLM_SECURE_EXCLUDE
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -128,67 +137,6 @@ int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
 	return Status;
 }
 #endif
-
-/*****************************************************************************/
-/**
-* @brief	This function checks Secure State for Authentication
-*
-* @param	AHWRoT - Buffer to store Secure state for authentication
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
-int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
-{
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-	volatile u8 IsBhdrAuth;
-	volatile u8 IsBhdrAuthTmp;
-
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
-#ifdef PLM_EN_ADD_PPKS
-	if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)){
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroAdditionalPpk);
-	}
-#endif
-	IsBhdrAuth = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
-			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
-			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
-	IsBhdrAuthTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
-		XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
-		XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
-	if ((Status == XST_SUCCESS) || (StatusTmp == XST_SUCCESS)) {
-		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
-		(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, 0);
-			goto END;
-		}
-		/**
-		 * If PPK hash is programmed in eFUSEs, then Secure State of boot is A-HWRoT
-		 */
-		*AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
-		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
-			" Asymmetric HWRoT\r\n");
-	}
-	else {
-		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
-			(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
-			/**
-			 * If BHDR authentication is enabled, then Secure State of boot is emulated A-HWRoT
-			 */
-			*AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
-			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
-			" Emulated Asymmetric HWRoT\r\n");
-		}
-		else {
-			*AHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
-		}
-		Status = XST_SUCCESS;
-	}
-
-END:
-	return Status;
-}
 
 /*****************************************************************************/
 /**
@@ -272,6 +220,69 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 	return Status;
 }
 
+#endif/* END OF PLM_SECURE_EXCLUDE */
+/*****************************************************************************/
+/**
+* @brief	This function checks Secure State for Authentication
+*
+* @param	AHWRoT - Buffer to store Secure state for authentication
+*
+* @return	XST_SUCCESS on success and error code on failure
+*
+******************************************************************************/
+int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
+{
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	volatile u8 IsBhdrAuth;
+	volatile u8 IsBhdrAuthTmp;
+
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroPpk);
+#ifdef PLM_EN_ADD_PPKS
+	if((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)){
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_CheckNonZeroAdditionalPpk);
+	}
+#endif
+	IsBhdrAuth = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+			XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
+			XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
+	IsBhdrAuthTmp = (u8)((XPlmi_In32(XIH_BH_PRAM_ADDR + XIH_BH_IMG_ATTRB_OFFSET) &
+		XIH_BH_IMG_ATTRB_BH_AUTH_MASK) >>
+		XIH_BH_IMG_ATTRB_BH_AUTH_SHIFT);
+	if ((Status == XST_SUCCESS) || (StatusTmp == XST_SUCCESS)) {
+		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
+		(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, 0);
+			goto END;
+		}
+		/**
+		 * If PPK hash is programmed in eFUSEs, then Secure State of boot is A-HWRoT
+		 */
+		*AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
+			" Asymmetric HWRoT\r\n");
+	}
+	else {
+		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
+			(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
+			/**
+			 * If BHDR authentication is enabled, then Secure State of boot is emulated A-HWRoT
+			 */
+			*AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
+			" Emulated Asymmetric HWRoT\r\n");
+		}
+		else {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "secure auth fail\r\n");
+			*AHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
+		}
+		Status = XST_SUCCESS;
+	}
+
+END:
+	return Status;
+}
+
 #ifdef PLM_EN_ADD_PPKS
 /*****************************************************************************/
 /**
@@ -346,4 +357,3 @@ END:
 }
 
 #endif /* END OF PLM_EN_ADD_PPKS */
-#endif /* END OF PLM_SECURE_EXCLUDE */

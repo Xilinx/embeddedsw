@@ -212,7 +212,6 @@ extern "C" {
 						/**< User Key 7 */
 
 /**< eFUSE related macro definitions */
-#define XLOADER_EFUSE_MISC_CTRL_OFFSET			(0xF12500A0U)
 					/**< Misc Ctrl register address */
 #define XLOADER_EFUSE_MISC_CTRL_PPK0_INVLD		(0x0000000CU)
 					/**< PPK0 invalid value */
@@ -223,30 +222,8 @@ extern "C" {
 #define XLOADER_EFUSE_MISC_CTRL_ALL_PPK_INVLD		(0x000000FCU)
 					/**< All PPKs invalid value */
 
-#define XLOADER_EFUSE_PPK0_START_OFFSET			(0xF1250100U)
-					/**< PPK0 start register address */
-#define XLOADER_EFUSE_PPK1_START_OFFSET			(0xF1250120U)
-					/**< PPK1 start register address */
-#define XLOADER_EFUSE_PPK2_START_OFFSET			(0xF1250140U)
-					/**< PPK2 start register address */
-#define XLOADER_EFUSE_PPK2_END_OFFSET			(0xF125015CU)
-					/**< PPK2 end register address */
 #define XLOADER_EFUSE_PPK_HASH_LEN			(32U)
 					/**< PPK hash length stored in eFUSE */
-#ifdef PLM_EN_ADD_PPKS
-#define XLOADER_EFUSE_ADDITIONAL_PPK_ENABLE_BITS_MASK       (0X00030000U)
-                    /**< PPK 3&4 Enable bits mask*/
-#define XLOADER_EFUSE_PPK3_START_OFFSET			(0xF12502C0U)
-                    /**< PPK3 start register address */
-#define XLOADER_EFUSE_PPK4_START_OFFSET			(0xF12502E0U)
-                    /**< PPK4 start register address */
-#define XLOADER_EFUSE_PPK4_END_OFFSET			(0xF12502FCU)
-                    /**< PPK4 start register address */
-#define XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD		(0x00000600U)
-					/**< PPK3 invalid value */
-#define XLOADER_EFUSE_MISC_CTRL_PPK4_INVLD		(0x00001800U)
-					/**< PPK4 invalid value */
-#endif /**< END OF PLM_EN_ADD_PPKS*/
 
 #define XLOADER_SECURE_IV_LEN				(4U)
 				/**< Secure IV length in words */
@@ -576,11 +553,11 @@ int XLoader_RsaPssSignVerify(XPmcDma *PmcDmaInstPtr,
 #endif
 void XLoader_ClearKatOnPPDI(XLoader_SecureParams *SecurePtr, u32 PlmKatMask);
 int XLoader_CheckAuthJtagIntStatus(void *Arg);
-int XLoader_CheckNonZeroPpk(void);
 int XLoader_IsPpkValid(XLoader_PpkSel PpkSelect, const u8 *PpkHash);
 int XLoader_IsAdditionalPpkValid(const u8 *PpkHash);
 int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset);
 #endif
+int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT);
 
 #ifdef __cplusplus
 }
