@@ -54,6 +54,10 @@
 #define XPM_EXPORT_CMD(CmdIdVal, MinArgCntVal, MaxArgCntVal) \
     XPLMI_EXPORT_CMD(CmdIdVal, XPLMI_MODULE_XILPM_ID, MinArgCntVal, MaxArgCntVal)
 
+#define PM_GET_OP_CHAR_FEATURE_BITMASK ( \
+		(1U << (u32)PM_OPCHAR_TYPE_TEMP) | \
+		(1U << (u32)PM_OPCHAR_TYPE_LATENCY))
+
 u32 ResetReason;
 
 void (*PmRequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload);
@@ -2876,7 +2880,6 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 	switch (ApiId) {
 	case PM_API(PM_GET_API_VERSION):
 	case PM_API(PM_GET_NODE_STATUS):
-	case PM_API(PM_GET_OP_CHARACTERISTIC):
 	case PM_API(PM_REQUEST_SUSPEND):
 	case PM_API(PM_ABORT_SUSPEND):
 	case PM_API(PM_REQUEST_WAKEUP):
@@ -2926,6 +2929,11 @@ XStatus XPm_FeatureCheck(const u32 ApiId, u32 *const Version)
 		break;
 	case PM_API(PM_RELEASE_NODE):
 		*Version = XST_API_RELEASE_NODE_VERSION;
+		Status = XST_SUCCESS;
+		break;
+	case PM_API(PM_GET_OP_CHARACTERISTIC):
+		Version[0] = XST_API_GET_OP_CHAR_VERSION;
+		Version[1] = (u32)(PM_GET_OP_CHAR_FEATURE_BITMASK);
 		Status = XST_SUCCESS;
 		break;
 	default:
