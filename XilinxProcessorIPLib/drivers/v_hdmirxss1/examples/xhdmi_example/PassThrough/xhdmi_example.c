@@ -4501,8 +4501,10 @@ void XV_Tx_HdmiTrigCb_SetupTxTmdsRefClk(void *InstancePtr)
 	u8 IsTx = xhdmi_exdes_ctrlr.IsTxPresent;
 	u8 IsRx = xhdmi_exdes_ctrlr.IsRxPresent;
 
+#if (!defined XPS_BOARD_VEK280_ES)
 	Status = Vfmc_Mezz_HdmiTxRefClock_Sel(&Vfmc[0],
 			VFMC_MEZZ_TxRefclk_From_IDT);
+#endif
 
 #if 0
 	/* Reset the AUX fifo so it is cleared of any previous TX Vsync upates,
@@ -5399,7 +5401,7 @@ void XV_Rx_HdmiTrigCb_VrrVfpEvent(void *InstancePtr)
 	} else {
 		Exdes_ReadVRRTimingChange();
 	}
-#elif
+#else
 	Exdes_ReadVRRTimingChange();
 #endif
 
@@ -5429,7 +5431,7 @@ void XV_Rx_HdmiTrigCb_VtemEvent(void *InstancePtr)
 	} else {
 		Exdes_ReadVTEMPacket();
 	}
-#elif
+#else
 	Exdes_ReadVTEMPacket();
 #endif
 }

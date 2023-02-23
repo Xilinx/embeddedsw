@@ -2424,6 +2424,7 @@ static void XHdmi_DisplayDebugMainMenu(void) {
     xil_printf("----------------------\r\n");
     xil_printf("---   DEBUG MENU   ---\r\n");
     xil_printf("----------------------\r\n");
+#if defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)
     xil_printf("Force TX to perform :\r\n");
     xil_printf("  1  - TX TMDS.\r\n");
     if(HdmiTxSs.Config.MaxFrlRate == 6)
@@ -2439,6 +2440,7 @@ static void XHdmi_DisplayDebugMainMenu(void) {
     if(HdmiTxSs.Config.MaxFrlRate >= 1)
        xil_printf("  7  - TX FRL 3 Lanes 3G.\r\n");
     xil_printf("\r\n");
+#endif
     xil_printf("  10 - RX Request Rate Drop.\r\n");
     xil_printf("  11 - RX sets FltNoTimeout.\r\n");
     xil_printf("  12 - RX clears FltNoTimeout.\r\n");
