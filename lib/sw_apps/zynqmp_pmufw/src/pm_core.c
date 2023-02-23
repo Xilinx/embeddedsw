@@ -81,6 +81,10 @@
 
 #define PM_IOCTL_FEATURE_BITMASK (			\
 	(FEATURE_CONFIG_BITMASK) | (DYNAMIC_MIO_CONFIG_BITMASK))
+
+#define PM_GET_OP_CHAR_FEATURE_BITMASK ( \
+		(1U << (u32)PM_OPCHAR_TYPE_POWER) | \
+		(1U << (u32)PM_OPCHAR_TYPE_LATENCY))
 /*
  * PM error numbers, mostly used to identify erroneous usage of EEMI. Note:
  * these errors are errors from the perspective of using EEMI API. PMU-FW
@@ -2120,7 +2124,6 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_GET_API_VERSION):
 	case PM_API(PM_SET_CONFIGURATION):
 	case PM_API(PM_GET_NODE_STATUS):
-	case PM_API(PM_GET_OP_CHARACTERISTIC):
 	case PM_API(PM_REGISTER_NOTIFIER):
 	case PM_API(PM_REQUEST_SUSPEND):
 	case PM_API(PM_SELF_SUSPEND):
@@ -2192,6 +2195,11 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 		break;
 	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
 		retPayload[0] = PM_PINCTRL_PARAM_SET_VERSION;
+		status = XST_SUCCESS;
+		break;
+	case PM_API(PM_GET_OP_CHARACTERISTIC):
+		retPayload[0] = PM_GET_OP_CHAR_VERSION;
+		retPayload[1] = (u32)(PM_GET_OP_CHAR_FEATURE_BITMASK);
 		status = XST_SUCCESS;
 		break;
 	default:

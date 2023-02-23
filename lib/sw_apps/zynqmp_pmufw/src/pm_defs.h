@@ -44,9 +44,11 @@ extern "C" {
 #define PM_API_VERSION_2	(2U)
 /* Version 2 supports the MIO tri-state controlling functionality */
 #define PM_PINCTRL_PARAM_SET_VERSION PM_API_VERSION_2
-/* Version 2 supports the bitmask functionality of IOCTL IDs where the
- * user can check whether the ID is supported or not in the firmware */
+/* Version 2 supports the bitmask functionality of IOCTL/GET_OP_CHAR
+ * IDs where the user can check whether the ID is supported or not in
+ * the firmware */
 #define PM_IOCTL_VERSION	PM_API_VERSION_2
+#define PM_GET_OP_CHAR_VERSION	PM_API_VERSION_2
 /** @} */
 
 /*
