@@ -201,7 +201,8 @@ void Hdmiphy1HdmiRxReadyCallback(void *CallbackRef)
 
 	xdbg_xv_rx_print("%s,%d : XHdmiphy1_ClkDetGetRefClkFreqHz: %d\r\n",
 			__func__, __LINE__, Hdmiphy1Ptr->HdmiRxRefClkHz);
-#if defined (XPS_BOARD_VCK190)
+#if defined (XPS_BOARD_VCK190) || \
+    defined (XPS_BOARD_VEK280_ES)
 	if ((RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
 		XV_HdmiRxSs1_SetStream(HdmiRxSs1Ptr,
 				       Hdmiphy1Ptr->HdmiRxRefClkHz,
@@ -417,7 +418,8 @@ u64 XV_Rx_GetLineRate(XV_Rx *InstancePtr)
 				     0,
 				     XHDMIPHY1_DIR_RX,
 				     XHDMIPHY1_CHANNEL_ID_CH1);
-#if defined (XPS_BOARD_VCK190)
+#if defined (XPS_BOARD_VCK190) || \
+    defined (XPS_BOARD_VEK280_ES)
 
 	if ((RxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
 		LineRate = InstancePtr->VidPhy->Quads[0].Plls[
