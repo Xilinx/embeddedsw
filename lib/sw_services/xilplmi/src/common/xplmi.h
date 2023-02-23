@@ -222,7 +222,6 @@ void XPlmi_SetLpdInitialized(u32 Flag);
 void XPlmi_UnSetLpdInitialized(u32 Flag);
 void XPlmi_UpdateKatStatus(u32 PlmKatStatus);
 u32 XPlmi_GetKatStatus(void);
-u8 XPlmi_IsKatRan(u32 PlmKatMask);
 void XPlmi_SetKatMask(u32 PlmKatMask);
 void XPlmi_ClearKatMask(u32 PlmKatMask);
 u8 XPlmi_IsCryptoKatEn(void);

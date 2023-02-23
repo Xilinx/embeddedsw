@@ -193,7 +193,6 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_AesInitOps AesParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	volatile u32 KatMask = 0U;
 
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
@@ -205,26 +204,24 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
-		KatMask = XPLMI_SECURE_AES_ENC_KAT_MASK;
-	}
-	else {
-		KatMask = XPLMI_SECURE_AES_DEC_KAT_MASK;
-	}
-
-	if (XPlmi_IsKatRan(KatMask) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
-
 	Status = XST_FAILURE;
 	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_ENC_KAT_MASK) != TRUE) {
+			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+			goto END;
+		}
+
 		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)AesParams.KeySrc,
 				(XSecure_AesKeySize)AesParams.KeySize,
 				AesParams.IvAddr);
 	}
 	else {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_DEC_KAT_MASK) != TRUE) {
+			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+			goto END;
+		}
+
 		Status = XSecure_AesDecryptInit(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)AesParams.KeySrc,
 				(XSecure_AesKeySize)AesParams.KeySize,
@@ -557,7 +554,6 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 	u64 Addr = ((u64)SrcAddrHigh << 32U) | (u64)SrcAddrLow;
 	XSecure_AesDataBlockParams AesParams;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
-	volatile u32 KatMask = 0U;
 
 	Status =  XPlmi_MemCpy64((u64)(UINTPTR)&AesParams, Addr, sizeof(AesParams));
 	if (Status != XST_SUCCESS) {
@@ -569,21 +565,12 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 		goto END;
 	}
 
-	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
-		KatMask = XPLMI_SECURE_AES_ENC_KAT_MASK;
-	}
-	else {
-		KatMask = XPLMI_SECURE_AES_DEC_KAT_MASK;
-	}
-
-	if (XPlmi_IsKatRan(KatMask) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
-		goto END;
-	}
-
-
 	Status = XST_FAILURE;
 	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_ENC_KAT_MASK) != TRUE) {
+			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+			goto END;
+		}
 		/**<AES Encrypt Init*/
 		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)AesParams.KeySrc,
@@ -593,11 +580,15 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 			goto END;
 		}
 
-		/**<AES Decrypt Data*/
+		/**<AES Encrypt Data*/
 		Status = XSecure_AesEncryptData(XSecureAesInstPtr, AesParams.InDataAddr,
 					AesParams.OutDataAddr, AesParams.Size, AesParams.GcmTagAddr);
 	}
     else {
+		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_DEC_KAT_MASK) != TRUE) {
+			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+			goto END;
+		}
 		/**<AES Decrypt Init*/
 		Status = XSecure_AesDecryptInit(XSecureAesInstPtr,
 			(XSecure_AesKeySrc)AesParams.KeySrc,

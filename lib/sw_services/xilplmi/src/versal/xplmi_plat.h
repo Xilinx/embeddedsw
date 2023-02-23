@@ -344,6 +344,20 @@ static inline int XPlmi_CheckAndUpdateFipsState(void)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function is not applicable for versal
+ *
+ * @return 	None
+ *
+ *****************************************************************************/
+static inline u8 XPlmi_IsKatRan(u32 PlmKatMask)
+{
+	/*Not Applicable for Versal*/
+	(void)PlmKatMask;
+	return TRUE;
+}
+
 /************************** Function Prototypes ******************************/
 u32 *XPlmi_GetLpdInitialized(void);
 void XPlmi_RtcaPlatInit(void);
