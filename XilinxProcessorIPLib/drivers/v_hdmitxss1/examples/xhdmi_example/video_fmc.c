@@ -918,22 +918,6 @@ u32 Vfmc_Mezz_HdmiTxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_TxRefClkSel Sel)
 	void *IicPtr = VfmcPtr->IicPtr;
 	Vfmc_I2cMuxSelect(VfmcPtr);
 
-#if defined (XPS_BOARD_VEK280_ES)
-	if (Sel == VFMC_MEZZ_TxRefclk_From_IDT) {
-		Status = Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IDT8N49_ADDR1,
-						0x1A, 0x08);
-		Status |= Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IDT8N49_ADDR1,
-						0x41, 0x60);
-	} else {
-		xil_printf("Invalid TX Ref clock selected.\r\n");
-		return XST_FAILURE;
-	}
-
-	if (Status == XST_FAILURE) {
-		xil_printf("Failed to select TX Ref clock.\r\n");
-	}
-	return Status;
-#else
 	if (Sel == VFMC_MEZZ_TxRefclk_From_IDT) {
 		Status = Vfmc_ModifyRegister(IicPtr, VFMC_I2C_IOEXP_1_ADDR,
 						0x1A, 0x08);
@@ -954,5 +938,4 @@ u32 Vfmc_Mezz_HdmiTxRefClock_Sel(XVfmc *VfmcPtr, XVfmc_Mezz_TxRefClkSel Sel)
 		xil_printf("Failed to select TX Ref clock.\r\n");
 	}
 	return Status;
-#endif
 }
