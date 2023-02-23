@@ -68,7 +68,7 @@ extern "C" {
 #define MASK32_ALL_HIGH	(0xFFFFFFFFU)
 #define XPLMI_TIME_OUT_DEFAULT	(0x10000000U)
 #define XPLMI_WORD_LEN			(4U)
-#define XPLMI_BIT(pos)			((u32)(0x1U << pos))
+#define XPLMI_BIT(pos)			((u32)(0x1U << (pos)))
 /************************** Function Prototypes ******************************/
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value);
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs);

@@ -18,6 +18,7 @@
 * 1.00  bm   07/06/2022 Initial release
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       sk   02/22/2023 Added EoPDI SYNC function declaration
 *
 * </pre>
 *
@@ -242,6 +243,7 @@ int XLoader_StartImage(XilPdi *PdiPtr);
 XilPdi *XLoader_GetPdiInstance(void);
 void XLoader_PerformInternalPOR(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
+int Xloader_SsitEoPdiSync(XilPdi *PdiPtr);
 
 /************************** Variable Definitions *****************************/
 

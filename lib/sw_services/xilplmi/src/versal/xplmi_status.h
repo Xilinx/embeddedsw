@@ -106,6 +106,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Updated error code for image store
 *       bm   02/04/2023 Added support to return warnings
+*       sk   02/23/2023 Added error code for SSIT slave EoPDI SYNC status
 *
 * </pre>
 *
@@ -343,6 +344,8 @@ typedef enum {
 		                the request comes to write to the response buffer */
 	XPLMI_SSIT_INTR_NOT_ENABLED, /**< 0x1AB - SSIT interrupts are not enabled.
 	                    Hence, cannot trigger the event */
+	XPLMI_ERR_SSIT_EOPDI_SYNC, /** < 0x1AC - SSIT error in Slave PDI Load status SYNC
+				     to master */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */

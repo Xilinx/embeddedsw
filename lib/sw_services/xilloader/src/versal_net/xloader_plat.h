@@ -22,6 +22,7 @@
 *       har  08/29/2022 Updated secure chunk size from 16K to 32K
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       kal  01/05/2023 Added XLoader_SecureConfigMeasurement function
+*       sk   02/22/2023 Added EoPDI SYNC dummy stub
 *
 * </pre>
 *
@@ -216,6 +217,23 @@ static inline void XLoader_SetJtagTapToReset(void)
 	return;
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function will sync the PDI load status with master
+ *
+ * @param	PdiPtr is pointer to PDI instance
+ *
+ * @return
+ * 		-XST_SUCCESS return success
+ *
+ *****************************************************************************/
+static inline int Xloader_SsitEoPdiSync(XilPdi *PdiPtr)
+{
+	/* Not Applicable for VersalNet */
+	(void)PdiPtr;
+
+	return XST_SUCCESS;
+}
 /************************** Function Prototypes ******************************/
 XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void);
 int XLoader_StartImage(XilPdi *PdiPtr);
