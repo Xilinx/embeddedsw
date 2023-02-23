@@ -472,6 +472,7 @@ XPlmi_FipsKatMask* XPlmi_GetFipsKatMaskInstance(void);
 int XPlmi_CheckAndUpdateFipsState(void);
 void XPlmi_UpdateCryptoStatus(u32 Mask, u32 Val);
 u32 XPlmi_GetCryptoStatus(u32 Mask);
+u8 XPlmi_IsKatRan(u32 PlmKatMask);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);
