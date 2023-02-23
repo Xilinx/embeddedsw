@@ -357,31 +357,6 @@ u32 XPlmi_GetKatStatus(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function will return KAT status of given mask.
- *
- * @param	PlmKatStatus contains the KAT status of PLM
- *
- * @return
- *			TRUE  If KAT ran
- *			FALSE If KAT didn't ran
- *
- *****************************************************************************/
-u8 XPlmi_IsKatRan(u32 PlmKatMask)
-{
-	volatile u8 CryptoKatEn = XPlmi_IsCryptoKatEn();
-	volatile u8 CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
-	u8 IsKatRan = TRUE;
-
-	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
-		IsKatRan = (((XPlmi_In32(XPLMI_RTCFG_PLM_KAT_ADDR) & PlmKatMask) != 0U)?
-					(u8)TRUE: (u8)FALSE);
-	}
-
-	return IsKatRan;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function sets XPLMI_RTCFG_PLM_KAT_ADDR  with
  *          PlmKatMask.
  *
