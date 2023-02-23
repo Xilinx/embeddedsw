@@ -22,6 +22,7 @@
 *       is   09/12/2022 Remove PM_CAP_SECURE capability when requesting PSM_PROC,
 *                       TCM memory banks
 * 1.01  ng   11/11/2022 Updated doxygen comments
+*       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
 *
 * </pre>
 *
@@ -1107,4 +1108,45 @@ void XLoader_PerformInternalPOR(void)
 
 END:
 	return;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function will sync the PDI load status with master
+ *              if End of PDI SYNC bit is enabled in IHT
+ *
+ * @param	PdiPtr is pointer to PDI instance
+
+ * @return
+ * 		-XST_SUCCESS if no issue in EoPDI sync
+ * 		-XPLMI_ERR_SSIT_EOPDI_SYNC if error in EoPDI Sync
+ *
+ *****************************************************************************/
+int Xloader_SsitEoPdiSync(XilPdi *PdiPtr)
+{
+	int Status = XST_FAILURE;
+
+	XPlmi_Printf(DEBUG_INFO,"%s \n\r",__func__);
+
+	/* Check if End of PDI SYNC enabled in Slave PDI*/
+	if ((PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR) &&
+		(PdiPtr->SlrType != XLOADER_SSIT_MONOLITIC) &&
+		(PdiPtr->SlrType != XLOADER_SSIT_INVALID_SLR)) {
+		/* Check if EoPDI Sync bit set in IHT Attribute */
+		if ((PdiPtr->MetaHdr.ImgHdrTbl.Attr & XIH_IHT_ATTR_EOPDI_SYNC_MASK)
+					== XIH_IHT_ATTR_EOPDI_SYNC_MASK) {
+			/* Sync with master to update slave status */
+			Status = XPlmi_SsitSyncMaster(NULL);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_EOPDI_SYNC, Status);
+			}
+		}
+		else {
+			Status = XST_SUCCESS;
+		}
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+	return Status;
 }

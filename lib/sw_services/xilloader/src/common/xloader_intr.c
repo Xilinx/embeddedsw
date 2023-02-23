@@ -43,6 +43,7 @@
 * 1.08  ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Switch to SSIT Events as soon as basic Noc path is
 *                       configured
+*       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
 *
 * </pre>
 *
@@ -182,6 +183,7 @@ END:
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}
 	XLoader_ClearIntrSbiDataRdy();
+	Xloader_SsitEoPdiSync(PdiPtr);
 END1:
 	return XST_SUCCESS;
 }
