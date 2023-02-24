@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2020 - 2021 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1421,7 +1422,7 @@ void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 	if (only_tx == 0) {
 		XAxisScr_MiPortDisableAll(&axis_switch);
 		frameBuffer_stop_wr();
-		usleep(10000);
+		usleep(1000000);
 		//Detect resolution on each stream
 		for (num_stream=0;num_stream<4;num_stream++) {
 			Dppt_DetectResolution(DpRxSsInst.DpPtr, num_stream+1, Msa, num_stream+1);
