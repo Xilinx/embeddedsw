@@ -37,12 +37,12 @@
 #include "xil_util.h"
 #include "xsecure_init.h"
 
-#ifndef PLM_SECURE_EXCLUDE
 /************************** Constant Definitions *****************************/
 #define XSECURE_PMCDMA_DEVICEID		PMCDMA_0_DEVICE_ID
 			/**< PMCDMA device id */
 
 /************************** Function Prototypes *****************************/
+#ifndef PLM_SECURE_EXCLUDE
 static int XSecure_AesDecKat(void);
 static int XSecure_AesDecCmKat(void);
 static int XSecure_AesEncKat(void);
