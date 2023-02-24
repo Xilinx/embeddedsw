@@ -173,6 +173,7 @@ typedef struct XPm_DeviceStatus {
 #define PROC_STATE_SUSPENDING		(8U)
 /** @} */
 
+/** @cond INTERNAL */
 /**
  * Query IDs
  */
@@ -193,6 +194,7 @@ enum pm_query_id {
 	XPM_QID_CLOCK_GET_MAX_DIVISOR,			/**< Get max clock divisor */
 	XPM_QID_PLD_GET_PARENT,				/**< Get PLD parent */
 };
+/** @endcond */
 
 /**
  * Pin Function IDs
@@ -321,6 +323,7 @@ enum pm_pinctrl_tri_state {
 	PINCTRL_TRI_STATE_ENABLE,			/**< Tri state enable */
 };
 
+/** @cond INTERNAL */
 /**
  * IOCTL IDs
  */
@@ -375,6 +378,7 @@ typedef enum {
 	IOCTL_GET_APU_OPER_MODE,			/**< Get APU operation mode */
 	IOCTL_SET_APU_OPER_MODE,			/**< Set APU operation mode */
 } pm_ioctl_id;
+/** @endcond */
 
 /**
  * PLL parameters
@@ -422,6 +426,7 @@ enum XPmInitFunctions {
 	FUNC_MAX_COUNT_PMINIT,				/**< Function ID MAX */
 };
 
+/** @cond INTERNAL */
 /**
  * PM operating characteristic types
  */
@@ -430,6 +435,7 @@ enum XPmOpCharType {
 	PM_OPCHAR_TYPE_TEMP,				/**< Operating characteristic ID temperature */
 	PM_OPCHAR_TYPE_LATENCY,				/**< Operating characteristic ID latency */
 };
+/** @endcond */
 
 /**
  * PM notify events
@@ -629,6 +635,7 @@ enum XPmNotifyEvent {
 #define XST_API_GET_OP_CHAR_VERSION		(2U)
 /** @} */
 
+/** @cond INTERNAL */
 /**
  * PM API IDs
  */
@@ -705,6 +712,7 @@ typedef enum {
 	PM_FORCE_HOUSECLEAN,				/**< 0x47 */
 	PM_API_MAX					/**< 0x48 */
 } XPm_ApiId;
+/** @endcond */
 
 /**
  * @name Run time AIE Operations
