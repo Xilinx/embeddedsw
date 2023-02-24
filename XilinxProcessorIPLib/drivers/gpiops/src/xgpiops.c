@@ -191,7 +191,6 @@ s32 XGpioPs_CfgInitialize(XGpioPs *InstancePtr, const XGpioPs_Config *ConfigPtr,
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 *
 * @return	Current value of the Data register.
 *
@@ -224,8 +223,6 @@ u32 XGpioPs_Read(const XGpioPs *InstancePtr, u8 Bank)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the data has to be read.
-*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
-*		See xgpiops.h for the mapping of the pin numbers in the banks.
 *
 * @return	Current value of the Pin (0 or 1).
 *
@@ -261,7 +258,6 @@ u32 XGpioPs_ReadPin(const XGpioPs *InstancePtr, u32 Pin)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	Data is the value to be written to the Data register.
 *
 * @return	None.
@@ -295,7 +291,6 @@ void XGpioPs_Write(const XGpioPs *InstancePtr, u8 Bank, u32 Data)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number to which the Data is to be written.
-*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 * @param	Data is the data to be written to the specified pin (0 or 1).
 *
 * @return	None.
@@ -353,7 +348,6 @@ void XGpioPs_WritePin(const XGpioPs *InstancePtr, u32 Pin, u32 Data)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	Direction is the 32 bit mask of the Pin direction to be set for
 *		all the pins in the Bank. Bits with 0 are set to Input mode,
 *		bits with 1 are	set to Output Mode.
@@ -390,7 +384,6 @@ void XGpioPs_SetDirection(const XGpioPs *InstancePtr, u8 Bank, u32 Direction)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number to which the Data is to be written.
-*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 * @param	Direction is the direction to be set for the specified pin.
 *		Valid values are 0 for Input Direction, 1 for Output Direction.
 *
@@ -436,7 +429,6 @@ void XGpioPs_SetDirectionPin(const XGpioPs *InstancePtr, u32 Pin, u32 Direction)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 *
 * @return	Returns a 32 bit mask of the Direction register. Bits with 0 are
 * 		in Input mode, bits with 1 are in Output Mode.
@@ -470,7 +462,6 @@ u32 XGpioPs_GetDirection(const XGpioPs *InstancePtr, u8 Bank)
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the Direction is to be
 *		retrieved.
-*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @return	Direction of the specified pin.
 *		- 0 for Input Direction
@@ -507,7 +498,6 @@ u32 XGpioPs_GetDirectionPin(const XGpioPs *InstancePtr, u32 Pin)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 * @param	OpEnable is the 32 bit mask of the Output Enables to be set for
 *		all the pins in the Bank. The Output Enable of bits with 0 are
 *		disabled, the Output Enable of bits with 1 are enabled.
@@ -544,7 +534,6 @@ void XGpioPs_SetOutputEnable(const XGpioPs *InstancePtr, u8 Bank, u32 OpEnable)
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number to which the Data is to be written.
-*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 * @param	OpEnable specifies whether the Output Enable for the specified
 *		pin should be enabled.
 *		Valid values are 0 for Disabling Output Enable,
@@ -594,7 +583,6 @@ void XGpioPs_SetOutputEnablePin(const XGpioPs *InstancePtr, u32 Pin, u32 OpEnabl
 *
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Bank is the bank number of the GPIO to operate on.
-*		Valid values are 0-3 in Zynq and 0-5 in Zynq Ultrascale+ MP.
 *
 * @return	Returns a a 32 bit mask of the Output Enable register.
 *		Bits with 0 are in Disabled state, bits with 1 are in
@@ -629,7 +617,6 @@ u32 XGpioPs_GetOutputEnable(const XGpioPs *InstancePtr, u8 Bank)
 * @param	InstancePtr is a pointer to the XGpioPs instance.
 * @param	Pin is the pin number for which the Output Enable status is to
 *		be retrieved.
-*		Valid values are 0-117 in Zynq and 0-173 in Zynq Ultrascale+ MP.
 *
 * @return	Output Enable of the specified pin.
 *		- 0 if Output Enable is disabled for this pin

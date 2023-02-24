@@ -16,7 +16,7 @@
 * Controller.
 *
 * The GPIO Controller supports the following features:
-*	- 4 banks
+*	- 6 banks
 *	- Masked writes (There are no masked reads)
 *	- Bypass mode
 *	- Configurable Interrupts (Level/Edge)
@@ -24,7 +24,34 @@
 * This driver is intended to be RTOS and processor independent. Any needs for
 * dynamic memory management, threads or thread mutual exclusion, virtual
 * memory, or cache control must be satisfied by the layer above this driver.
+*
+* Here is GPIO Bank and Pin mapping information for different platforms.
+* Zynq:
+*   	PS GPIO contain 4 banks and 118 pins
+* 	Bank 0 MIO pins 0 - 31
+* 	Bank 1 MIO pins 32 - 53
+* 	Bank 2 MIO pins 54 - 85
+* 	Bank 3 EMIO signals 86 - 117
+*
+* Zynq Ultrascale+ MP:
+*   PS GPIO contain 6 banks and 174 pins
+*   	Bank 0 MIO pins 0 - 25
+*   	Bank 1 MIO pins 26 - 51
+*   	Bank 2 MIO pins 52 - 77
+*   	Bank 3 EMIO signals 78 - 109
+*   	Bank 4 EMIO signals 110 - 141
+*   	Bank 5 EMIO signals 142 - 173
 
+* Versal: Two GPIOPS instances PMC GPIO and PS GPIO
+*   PMC GPIO contain 4 banks and 116 pins
+*       Bank 0 MIO pins 0 - 25
+*       Bank 1 MIO pins 26 - 51
+*       Bank 3 EMIO signals 52 - 83
+*       Bank 4 EMIO signals 84 - 115
+*   PS GPIO contains 2 banks and 58 pins
+* 	Bank 0 MIO pins 0 - 25
+*   	Bank 3 EMIO signals 26-57
+*
 * This driver supports all the features listed above, if applicable.
 *
 * <b>Driver Description</b>
@@ -96,6 +123,7 @@
 * 3.8   sne  08/28/20 Modify Makefile to support parallel make execution.
 * 3.8	sne  09/17/20 Added description for Versal PS and PMC GPIO pins.
 * 3.9	sne  03/15/21 Fixed MISRA-C violations.
+* 3.11  sg   02/23/23 Update bank and pin mapping information.
 *
 * </pre>
 *
@@ -132,11 +160,8 @@ extern "C" {
 #define XGPIOPS_BANK1			0x01U  /**< GPIO Bank 1 */
 #define XGPIOPS_BANK2			0x02U  /**< GPIO Bank 2 */
 #define XGPIOPS_BANK3			0x03U  /**< GPIO Bank 3 */
-
-#ifdef XPAR_PSU_GPIO_0_BASEADDR
 #define XGPIOPS_BANK4			0x04U  /**< GPIO Bank 4 */
 #define XGPIOPS_BANK5			0x05U  /**< GPIO Bank 5 */
-#endif
 
 #define XGPIOPS_MAX_BANKS_ZYNQMP		0x06U  /**< Max banks in a
 										*	Zynq Ultrascale+ MP GPIO device
