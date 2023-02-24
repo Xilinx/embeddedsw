@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xgpiops.c
-* @addtogroup gpiops_v3_9
+* @addtogroup gpiops Overview
 * @{
 *
 * The XGpioPs driver. Functions in this file are the minimum required functions

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xgpiops_hw.c
-* @addtogroup gpiops_v3_9
+* @addtogroup gpiops Overview
 * @{
 *
 * This file contains low level GPIO functions.
