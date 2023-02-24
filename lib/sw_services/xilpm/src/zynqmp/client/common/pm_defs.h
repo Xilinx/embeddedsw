@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -109,7 +110,6 @@ extern "C" {
 /** @cond INTERNAL */
 #define PM_CLOCK_DIV0_ID	0U
 #define PM_CLOCK_DIV1_ID	1U
-/** @endcond */
 
 /**
  * APIs for Miscellaneous functions, suspending of PUs, managing PM slaves and Direct control.
@@ -181,7 +181,6 @@ enum XPmApiId {
 	PM_API_MAX					/**< 0x40 */
 };
 
-/** @cond INTERNAL */
 #define PM_API_MIN	PM_GET_API_VERSION
 /** @endcond */
 
@@ -310,6 +309,7 @@ enum XPmRamState {
 	PM_RAM_STATE_ON,				/**< On */
 };
 
+/** @cond INTERNAL */
 /**
  * PM Operating Characteristic
  */
@@ -318,6 +318,7 @@ enum XPmOpCharType {
 	PM_OPCHAR_TYPE_TEMP,				/**< Operating characteristic ID temperature */
 	PM_OPCHAR_TYPE_LATENCY,				/**< Operating characteristic ID latency */
 };
+/** @endcond */
 
 /**
  * @name Power management specific return error status
@@ -813,6 +814,7 @@ enum XPmPinParam {
 	PINCTRL_CONFIG_MIO_TRI_STATE,			/**< Pin config tri state for MIO pins */
 };
 
+/** @cond INTERNAL */
 /**
  * IOCTL IDs
  */
@@ -862,6 +864,7 @@ typedef enum {
 	IOCTL_SET_GEM_CONFIG,				/**< Set GEM config register value */
 	IOCTL_SET_USB_CONFIG,				/**< Set USB config register value */
 } pm_ioctl_id;
+/** @endcond */
 
 /**
  * IOCTL IDs
