@@ -19,17 +19,8 @@
 * For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on
 * zc702 board) and Output Pin is 10(DS23 on zc702 board).
 * This example supports the VCK190 and VMK180 for Versal, but requires a PL
-* shim. See Answer Record AR# 75677 for details.
-* On the Versal Platform we have two GPIOPS instances :PMC GPIO and PS GPIO
-* PMC GPIO contain 4 banks and 116 pins, organized as follows:
-*   Bank 0  I/Os:  25:0   (MIO)
-*   Bank 1: I/Os:  51:26  (MIO)
-*   Bank 3: I/Os:  83:52  (EMIO)
-*   Bank 4: I/Os: 115:84  (EMIO)
-* PS GPIO contains 2 banks and 58 pins
-*   Bank 0  I/Os:  25:0   (MIO)
-*   Bank 3: I/Os:  57:26  (EMIO)
-* See Figure 61 in AM011 Versal TRM for details.
+* shim. See Answer Record AR# 75677 and Figure 61 in AM011 Versal TRM
+* for more details.
 * Driver supports both PS GPIO and PMC GPIO.
 * For accessing PMC GPIOs application you need to set "GPIO.PmcGpio = 1"
 * otherwise it accesses PS GPIO.
