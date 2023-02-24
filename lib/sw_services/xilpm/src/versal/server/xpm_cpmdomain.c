@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -531,6 +532,8 @@ static XStatus Cpm5GtypMbist(u32 BaseAddress)
 
 done:
 	/* Lock PCSR */
+	XPm_LockPcsr(BaseAddress);
+	/* Lock PCSR Redundancy */
 	XPm_LockPcsr(BaseAddress);
 
 	XPm_PrintDbgErr(Status, DbgErr);
