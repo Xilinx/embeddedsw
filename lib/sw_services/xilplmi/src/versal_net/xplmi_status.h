@@ -34,6 +34,7 @@
 *       bm   01/05/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Updated error code for Image Store
 *       bm   02/04/2023 Added support to return warnings
+*       har  02/24 2023 Added error codes for X.509 certificate generation
 *
 * </pre>
 *
@@ -736,6 +737,12 @@ typedef enum {
 
 
 	XOCP_ERR_KAT_FAILED = 0x6C0, /**< 0x6C0 Error when KAT fails */
+	XOCP_ERR_X509_GEN_TBSCERT_SIGN_ALGO_FIELD,
+	XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD,
+	XOCP_ERR_X509_GEN_SIGN_ALGO_FIELD,
+	XOCP_ERR_X509_GEN_TBSCERT_DIGEST,
+	XOCP_ERR_X509_CALC_SIGN,
+	XOCP_ERR_X509_UPDATE_ENCODED_LEN,
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

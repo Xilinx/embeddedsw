@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xcert_genX509cert.c
+* @file xcert_genx509cert.c
 *
 * This file contains the implementation of the interface functions for creating
 * X.509 certificate for DevIK and DevAK public key.
@@ -35,7 +35,7 @@
 #endif
 #include "xsecure_sha384.h"
 #include "xsecure_utils.h"
-#include "xcert_genX509cert.h"
+#include "xcert_genx509cert.h"
 #include "xcert_createfield.h"
 #include "xplmi_status.h"
 
@@ -47,6 +47,8 @@
 #define XCERT_HASH_SIZE_IN_BYTES			(48U)
 #define XCERT_SERIAL_FIELD_LEN				(22U)
 #define XCERT_BIT7_MASK 				(0x80)
+#define XCERT_MAX_CERT_SUPPORT				(4U)
+	/**< Number of supported certificates is 4 -> 1 DevIK certificate and 3 DevAK certificates */
 
 /************************** Function Prototypes ******************************/
 static void XCert_GenVersionField(u8* TBSCertBuf, u32 *VersionLen);
@@ -61,11 +63,13 @@ static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey,u32 
 static void XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen);
 #endif
 static int XCert_GenTBSCertificate(u8* X509CertBuf, XCert_Config Cfg, u32 *DataLen);
+static void XCert_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
+
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
  * @brief	This function provides the pointer to the common XCert_UserCfg
- *		instance which has to be used across the project to store
+ *		instance which has to be used across the project to access
  *		user configuration for X.509 certificate
  *
  * @return
@@ -74,9 +78,26 @@ static int XCert_GenTBSCertificate(u8* X509CertBuf, XCert_Config Cfg, u32 *DataL
  ******************************************************************************/
 XCert_UserCfg *XCert_GetCertUserInput(void)
 {
-	static XCert_UserCfg CertUsrCfg = {0U};
+	static XCert_UserCfg CertUsrCfg[XCERT_MAX_CERT_SUPPORT] = {0U};
 
-	return &CertUsrCfg;
+	return &CertUsrCfg[0];
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides the pointer to the index of the UserConfig
+*		value which indicates the total entries of different subsystems
+*		for which user configuration is stored.
+ *
+ * @return
+ *      -   Pointer to the UsrCfgStoreIdx
+ *
+ ******************************************************************************/
+u32* XCert_GetCertUsrCfgStoreIdx(void)
+{
+	static u32 UsrCfgStoreIdx = 0U;
+
+	return &UsrCfgStoreIdx;
 }
 
 /*****************************************************************************/
@@ -84,6 +105,7 @@ XCert_UserCfg *XCert_GetCertUserInput(void)
  * @brief	This function stores the user provided value for the user configurable
  *		fields in the certificate as per the provided FieldType.
  *
+ * @param	SubSystemId is the id of subsystem for which field data is provided
  * @param	FieldType is to identify the field for which input is provided
  * @param	Val is the value of the field provided by the user
  * @param	Len is the length of the value in bytes
@@ -93,34 +115,59 @@ XCert_UserCfg *XCert_GetCertUserInput(void)
  *		- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XCert_StoreCertUserInput(XCert_UserCfgFields FieldType, u8* Val, u32 Len)
+int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len)
 {
 	int Status = XST_FAILURE;
+	int IdxToBeUpdated;
+	u8 IsSubsystemIdPresent = FALSE;
 	XCert_UserCfg *CertUserCfg = XCert_GetCertUserInput();
-
-	if (Len > XCERT_USERCFG_MAX_SIZE) {
-		Status = XST_INVALID_PARAM;
-	}
+	u32 *UsrCfgStoreIdx = XCert_GetCertUsrCfgStoreIdx();
+	u32 Idx;
 
 	if (FieldType > XCERT_VALIDITY) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
+	if (((FieldType == XCERT_VALIDITY) && (Len > XCERT_VALIDITY_MAX_SIZE)) ||
+		((FieldType == XCERT_ISSUER) && (Len > XCERT_ISSUER_MAX_SIZE)) ||
+		((FieldType == XCERT_SUBJECT) && (Len > XCERT_SUBJECT_MAX_SIZE))) {
+		Status = XST_INVALID_PARAM;
+	}
+
+	/**
+	 * Look for the Subsystem Id. If it is there get the index and update the
+	 * field of existing subsystem else increment index and add entry for
+	 * new subsystem.
+	*/
+	for (Idx = 0; Idx < *UsrCfgStoreIdx; Idx++) {
+		if (CertUserCfg[Idx].SubsystemId == SubSystemId) {
+			IdxToBeUpdated = Idx;
+			IsSubsystemIdPresent = TRUE;
+			break;
+		}
+	}
+
+	if (IsSubsystemIdPresent == FALSE) {
+		IdxToBeUpdated = *UsrCfgStoreIdx;
+		CertUserCfg[IdxToBeUpdated].SubsystemId = SubSystemId;
+		*UsrCfgStoreIdx = *(UsrCfgStoreIdx) + 1;
+	}
+
 	if (FieldType == XCERT_ISSUER) {
-		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg->Issuer,
+		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg[IdxToBeUpdated].Issuer,
 			(u64)(UINTPTR)Val, Len);
-		CertUserCfg->IssuerLen = Len;
+		CertUserCfg[IdxToBeUpdated].IssuerLen = Len;
 	}
 	else if (FieldType == XCERT_SUBJECT) {
-		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg->Subject,
+		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg[IdxToBeUpdated].Subject,
 			(u64)(UINTPTR)Val, Len);
-		CertUserCfg->SubjectLen = Len;
+		CertUserCfg[IdxToBeUpdated].SubjectLen = Len;
 	}
 	else {
-		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg->Validity,
+		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg[IdxToBeUpdated].Validity,
 			(u64)(UINTPTR)Val, Len);
-		CertUserCfg->ValidityLen = Len;
+		CertUserCfg[IdxToBeUpdated].ValidityLen = Len;
 	}
 
 	Status = XST_SUCCESS;
@@ -143,9 +190,10 @@ END:
  *			signatureValue       BIT STRING  }
  *
  ******************************************************************************/
-int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, XCert_Config Cfg)
+int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config Cfg)
 {
 	int Status = XST_FAILURE;
+	u8 X509CertBuf[1024];
 	u8* Start = X509CertBuf;
 	u8* Curr = Start;
 	u8* SequenceLenIdx;
@@ -179,6 +227,7 @@ int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, 
 	 */
 	Status = XCert_GenSignAlgoField(Curr, &SignAlgoLen);
 	if (Status != XST_SUCCESS) {
+		Status = XOCP_ERR_X509_GEN_SIGN_ALGO_FIELD;
 		goto END;
 	}
 	else {
@@ -190,6 +239,7 @@ int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, 
 	 */
 	Status = XSecure_Sha384Digest(Start, TBSCertLen, Hash);
 	if (Status != XST_SUCCESS) {
+		Status = XOCP_ERR_X509_GEN_TBSCERT_DIGEST;
 		goto END;
 	}
 #ifndef PLM_ECDSA_EXCLUDE
@@ -199,6 +249,7 @@ int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, 
 	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
 				Cfg.AppCfg.PrvtKey, Sign);
 	if (Status != XST_SUCCESS) {
+		Status = XOCP_ERR_X509_CALC_SIGN;
 		goto END;
 	}
 
@@ -217,10 +268,13 @@ int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, 
 	 */
 	Status = XCert_UpdateEncodedLength(SequenceLenIdx, Curr - SequenceValIdx, SequenceValIdx);
 	if (Status != XST_SUCCESS) {
+		Status = XOCP_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
 
 	*X509CertSize = Curr - Start;
+
+	XCert_GetData(*X509CertSize, (u8 *)X509CertBuf, X509CertAddr);
 
 END:
 	return Status;
@@ -269,17 +323,26 @@ static void XCert_GenVersionField(u8* TBSCertBuf, u32 *VersionLen)
 static void XCert_GenSerialField(u8* TBSCertBuf, u8* DataHash, u32 *SerialLen)
 {
 	u8 Serial[XCERT_LEN_OF_VALUE_OF_SERIAL] = {0U};
+	u32 LenToBeCopied;
 
+	/**
+	 * The value of serial field must be 20 bytes. If the most significant
+	 * bit in the first byte of Serial is set, then the value shall be
+	 * prepended with 0x00 after DER encoding.
+	 * So if MSB is set then 00 followed by 19 bytes of hash wil be the serial
+	 * value. If not set then 20 bytes of hash will be used as serial value.
+	 */
 	if ((*DataHash & XCERT_BIT7_MASK) == XCERT_BIT7_MASK) {
-		XSecure_MemCpy64((u64)(UINTPTR)Serial, (u64)(UINTPTR)DataHash,
-			XCERT_LEN_OF_VALUE_OF_SERIAL - 1);
+		LenToBeCopied = XCERT_LEN_OF_VALUE_OF_SERIAL - 1U;
 	}
 	else {
-		XSecure_MemCpy64((u64)(UINTPTR)Serial, (u64)(UINTPTR)DataHash,
-			XCERT_LEN_OF_VALUE_OF_SERIAL);
+		LenToBeCopied = XCERT_LEN_OF_VALUE_OF_SERIAL;
 	}
 
-	XCert_CreateInteger(TBSCertBuf, Serial, XCERT_LEN_OF_VALUE_OF_SERIAL, SerialLen);
+	XSecure_MemCpy64((u64)(UINTPTR)Serial, (u64)(UINTPTR)DataHash,
+			LenToBeCopied);
+
+	XCert_CreateInteger(TBSCertBuf, Serial, LenToBeCopied, SerialLen);
 }
 
 /*****************************************************************************/
@@ -554,6 +617,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 	 */
 	Status = XCert_GenSignAlgoField(Curr, &Len);
 	if (Status != XST_SUCCESS) {
+		Status = XOCP_ERR_X509_GEN_TBSCERT_SIGN_ALGO_FIELD;
 		goto END;
 	}
 	else {
@@ -584,6 +648,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 	 */
 	Status = XCert_GenPublicKeyInfoField(Curr, Cfg.AppCfg.SubjectPublicKey, &Len);
 	if (Status != XST_SUCCESS) {
+		Status = XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD;
 		goto END;
 	}
 	else {
@@ -626,6 +691,7 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 	 */
 	Status =  XCert_UpdateEncodedLength(SequenceLenIdx, Curr - SequenceValIdx, SequenceValIdx);
 	if (Status != XST_SUCCESS) {
+		Status = XOCP_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
 
@@ -683,3 +749,22 @@ static void XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen)
 	*SignLen = Curr - X509CertBuf;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief	This function copies data to 32/64 bit address from
+ *		local buffer.
+ *
+ * @param	Size 	- Length of data in bytes
+ * @param	Src     - Pointer to the source buffer
+ * @param	DstAddr - Destination address
+ *
+ *****************************************************************************/
+static void XCert_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
+{
+	u32 Index = 0U;
+
+	for (Index = 0U; Index < Size; Index++) {
+		XSecure_OutByte64((DstAddr + Index), Src[Index]);
+	}
+}

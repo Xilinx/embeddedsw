@@ -19,6 +19,7 @@
 * 1.0   vns  07/08/22 Initial release
 * 1.1   vns  12/27/22 Skips the device key generation if CDI is not valid
 *       vns  01/10/23 Adds logic to generate the DEVAK on subsystem based.
+* 1.2   har  02/24/23 Added logic to get index of usr cfg for requested subsystem ID
 *
 * </pre>
 * @note
@@ -43,7 +44,7 @@
 #include "xil_util.h"
 #include "xsecure_init.h"
 #include "xsecure_plat_kat.h"
-#include "xcert_genX509cert.h"
+#include "xcert_genx509cert.h"
 #include "xsecure_defs.h"
 
 /************************** Constant Definitions *****************************/
@@ -321,6 +322,42 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function returns the UserCfg index of the corresponding subsystem,
+ *		if it doesn't match with data base, this function returns invalid index.
+ *
+ * @param	SubSystemId holds the sub system ID of whose corresponding UsrCfg
+ *		index is requested.
+ *
+ * @return
+ *	-	Index of XCert_UsrCfg array
+ *	-	XOCP_INVALID_USR_CFG_INDEX
+ *
+ ******************************************************************************/
+u32 XOcp_GetSubSysReqUsrCfgIndex(u32 SubSystemId)
+{
+	u32 UsrCfgIdx = XOCP_INVALID_USR_CFG_INDEX;
+	XCert_UserCfg *UserCfg = XCert_GetCertUserInput();
+	u32* UsrCfgStoreIdx = XCert_GetCertUsrCfgStoreIdx();
+	u32 Index = 0U;
+
+	/**
+	 * Look for the Subsystem Id. If it is there get the index and update the
+	 * field of existing subsystem else increment index and add entry for
+	 * new subsystem.
+	*/
+	while (Index < *UsrCfgStoreIdx) {
+		if (SubSystemId == UserCfg[Index].SubsystemId) {
+			UsrCfgIdx = Index;
+			break;
+		}
+		Index++;
+	}
+
+	return UsrCfgIdx;
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function generates the X.509 Certificate for device keys
  *
  * @param	SubSystemId is the ID of the subsystem from which certificate is
@@ -339,13 +376,15 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 	XOcp_DevAkData *DevAkData = NULL;
 	XCert_Config CertConfig;
 	XCert_UserCfg *UserCfg = XCert_GetCertUserInput();
+	u32 UsrCfgIdx = XOcp_GetSubSysReqUsrCfgIndex(SubSystemId);
 
 	if ((XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVIK) &&
 			(XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVAK)) {
 		goto END;
 	}
 
-	CertConfig.UserCfg = UserCfg;
+	CertConfig.UserCfg = UserCfg + (UsrCfgIdx * sizeof(XCert_UserCfg));
+	CertConfig.SubSystemId = SubSystemId;
 	if (XOcp_GetX509CertPtr->DevKeySel == XOCP_DEVIK) {
 		CertConfig.AppCfg.IsSelfSigned = TRUE;
 		CertConfig.AppCfg.SubjectPublicKey =
@@ -362,7 +401,7 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		CertConfig.AppCfg.PrvtKey = (u8 *)DevAkData->EccPrvtKey;
 	}
 
-	Status = XCert_GenerateX509Cert((u8 *)(UINTPTR)XOcp_GetX509CertPtr->CertAddr,
+	Status = XCert_GenerateX509Cert(XOcp_GetX509CertPtr->CertAddr,
 			(u32)(UINTPTR)XOcp_GetX509CertPtr->CertSize,
 			(u32 *)(UINTPTR)XOcp_GetX509CertPtr->ActualLenAddr, CertConfig);
 END:

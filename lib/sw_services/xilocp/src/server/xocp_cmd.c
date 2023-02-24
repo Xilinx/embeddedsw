@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.1   am   12/21/22 Initial release
 *       am   01/10/23 Added client side condition for dme ApiId
+* 1.2   har  02/24/23 Updated the code to support modified command for GetUsrCfg
 *
 * </pre>
 *
@@ -37,7 +38,7 @@
 #include "xocp_def.h"
 #include "xocp_cmd.h"
 #include "xocp_keymgmt.h"
-#include "xcert_genX509cert.h"
+#include "xcert_genx509cert.h"
 
 /************************** Constant Definitions *****************************/
 static XPlmi_ModuleCmd XOcp_Cmds[XOCP_API_MAX];
@@ -52,9 +53,9 @@ static XPlmi_Module XPlmi_Ocp =
 	NULL
 };
 
-#define XOCP_CERT_USERIN_FIELD_MASK			(0x0000FF00U)
-#define XOCP_CERT_USERIN_FIELD_SHIFT			(8U)
-#define XOCP_CERT_USERIN_LEN_MASK			(0x000000FFU)
+#define XOCP_CERT_USERIN_FIELD_MASK			(0x00FF0000U)
+#define XOCP_CERT_USERIN_FIELD_SHIFT			(16U)
+#define XOCP_CERT_USERIN_LEN_MASK			(0x0000FFFFU)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -205,11 +206,12 @@ static int XOcp_GetCertUserCfg(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 *Pload = Cmd->Payload;
-	u8 FieldType = (Pload[0] & XOCP_CERT_USERIN_FIELD_MASK) >>
+	u32 SubsystemId = Pload[0];
+	u8 FieldType = (Pload[1] & XOCP_CERT_USERIN_FIELD_MASK) >>
 				XOCP_CERT_USERIN_FIELD_SHIFT;
-	u8 LenInBytes = Pload[0] & XOCP_CERT_USERIN_LEN_MASK;
+	u8 LenInBytes = Pload[1] & XOCP_CERT_USERIN_LEN_MASK;
 
-	Status = XCert_StoreCertUserInput(FieldType, (u8 *)(UINTPTR)&Pload[1], LenInBytes);
+	Status = XCert_StoreCertUserInput(SubsystemId, FieldType, (u8 *)(UINTPTR)&Pload[2], LenInBytes);
 
 	return Status;
 }
