@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xcert_genX509cert.h
+* @file xcert_genx509cert.h
 *
 * This file contains the functions to create different fields of the X.509
 * certificate.
@@ -33,10 +33,18 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
+#include "xplmi_debug.h"
 
 /**************************** Type Definitions *******************************/
 #define XCERT_USERCFG_MAX_SIZE						(32U)
 
+/**************************** Constant Definitions *******************************/
+#define XCERT_ISSUER_MAX_SIZE					(600U)
+#define XCERT_SUBJECT_MAX_SIZE					(600U)
+#define XCERT_VALIDITY_MAX_SIZE					(40U)
+#define XCert_Printf						XPlmi_Printf
+
+/**************************** Type Definitions *******************************/
 typedef enum {
 	XCERT_ISSUER = 0U,	/**< 0U */
 	XCERT_SUBJECT,		/**< 1U */
@@ -44,11 +52,12 @@ typedef enum {
 } XCert_UserCfgFields;
 
 typedef struct {
-	u8 Issuer[XCERT_USERCFG_MAX_SIZE];
+	u32 SubsystemId;
+	u8 Issuer[XCERT_ISSUER_MAX_SIZE];
 	u32 IssuerLen;
-	u8 Subject[XCERT_USERCFG_MAX_SIZE];
+	u8 Subject[XCERT_SUBJECT_MAX_SIZE];
 	u32 SubjectLen;
-	u8 Validity[XCERT_USERCFG_MAX_SIZE];
+	u8 Validity[XCERT_VALIDITY_MAX_SIZE];
 	u32 ValidityLen;
 } XCert_UserCfg;
 
@@ -59,14 +68,16 @@ typedef struct {
 }XCert_AppCfg;
 
 typedef struct {
+	u32 SubSystemId;
 	XCert_UserCfg *UserCfg;
 	XCert_AppCfg AppCfg;
 }XCert_Config;
 
 /************************** Function Prototypes ******************************/
-int XCert_GenerateX509Cert(u8* X509CertBuf, u32 MaxCertSize, u32* X509CertSize, XCert_Config Cfg);
+int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config Cfg);
 XCert_UserCfg *XCert_GetCertUserInput(void);
-int XCert_StoreCertUserInput(XCert_UserCfgFields FieldType, u8* Val, u32 Len);
+int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len);
+u32* XCert_GetCertUsrCfgStoreIdx(void);
 
 #endif
 #ifdef __cplusplus

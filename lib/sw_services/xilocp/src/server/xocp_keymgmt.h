@@ -20,6 +20,7 @@
 * ----- ---- ----------   -------------------------------------------------------
 * 1.0   vns  07/08/2022   Initial release
 *       vns  01/10/2023   Adds logic to generate the DEVA on subsystem based.
+* 1.2   har  02/24/2023   Added macro XOCP_INVALID_USR_CFG_INDEX
 *
 * </pre>
 *
@@ -55,6 +56,7 @@ extern "C" {
 
 #define XOCP_MAX_DEVAK_SUPPORT				(3U)
 #define XOCP_INVALID_DEVAK_INDEX			(0xFFFFFFFFU)
+#define XOCP_INVALID_USR_CFG_INDEX			(0xFFFFFFFFU)
 
 /**************************** Type Definitions *******************************/
 /**
