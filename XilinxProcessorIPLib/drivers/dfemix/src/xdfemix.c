@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,7 @@
 *       dc     11/11/22 Update get overflow status API
 *       dc     11/11/22 Update NCOIdx and CCID check
 *       dc     11/25/22 Update macro of SW version Minor number
+*       dc     02/21/23 Correct switch trigger register name
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -1574,11 +1575,11 @@ static void XDfeMix_DisableSwitchTrigger(const XDfeMix *InstancePtr)
 {
 	u32 Data;
 
-	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET);
+	Data = XDfeMix_ReadReg(InstancePtr, XDFEMIX_TRIGGERS_SWITCH_OFFSET);
 	Data = XDfeMix_WrBitField(XDFEMIX_TRIGGERS_TRIGGER_ENABLE_WIDTH,
 				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_OFFSET, Data,
 				  XDFEMIX_TRIGGERS_TRIGGER_ENABLE_DISABLED);
-	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_LOW_POWER_OFFSET, Data);
+	XDfeMix_WriteReg(InstancePtr, XDFEMIX_TRIGGERS_SWITCH_OFFSET, Data);
 }
 
 /****************************************************************************/
