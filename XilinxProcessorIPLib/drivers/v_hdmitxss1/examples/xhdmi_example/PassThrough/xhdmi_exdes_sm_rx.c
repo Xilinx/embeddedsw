@@ -2242,11 +2242,32 @@ static void XV_Rx_HdmiRx_EnterStatePhyReset(XV_Rx *InstancePtr)
 
 	xdbg_xv_rx_print("%s: Hdmi Rx : PhyReset ...\r\n", __func__);
 
+#if (defined (XPS_BOARD_VCK190) || defined (XPS_BOARD_VEK280_ES))
+	XHdmiphy1_PllType RxPllType;
+	XHdmiphy1_ChannelId ChId;
+
+	RxPllType = XHdmiphy1_GetPllType(InstancePtr->VidPhy, 0,
+					XHDMIPHY1_DIR_RX,
+					XHDMIPHY1_CHANNEL_ID_CH1);
+
+	ChId = XHdmiphy1_GetRcfgChId(InstancePtr->VidPhy, 0,
+					XHDMIPHY1_DIR_NONE, RxPllType);
+
+	if (XHdmiphy1_IsPllLocked(InstancePtr->VidPhy, 0, ChId) == XST_SUCCESS) {
+
+		XHdmiphy1_ResetGtTxRx (InstancePtr->VidPhy,
+						0,
+						XHDMIPHY1_CHANNEL_ID_CHA,
+						XHDMIPHY1_DIR_RX,
+						FALSE);
+	}
+#else
 	XHdmiphy1_ResetGtTxRx (InstancePtr->VidPhy,
-			0,
-			XHDMIPHY1_CHANNEL_ID_CHA,
-			XHDMIPHY1_DIR_RX,
-			FALSE);
+					0,
+					XHDMIPHY1_CHANNEL_ID_CHA,
+					XHDMIPHY1_DIR_RX,
+					FALSE);
+#endif
 
 }
 
