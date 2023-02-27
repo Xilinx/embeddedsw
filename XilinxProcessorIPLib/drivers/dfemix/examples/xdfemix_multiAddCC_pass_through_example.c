@@ -22,6 +22,7 @@
 * 1.4   dc     08/19/22 Update register map
 * 1.5   dc     10/24/22 Switching Uplink/Downlink support
 *       dc     11/08/22 NCO assignment in arch5 mode
+*       dc     02/21/23 Correct switch trigger register name
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -173,6 +174,7 @@ int XDfeMix_MultiAddCCExample()
 	NcoFreqMhz = 491.52;
 	FrequencyControlWord = floor((FreqMhz / NcoFreqMhz) * 0x100000000);
 	NCO.FrequencyCfg.FrequencyControlWord = FrequencyControlWord;
+	NCO.FrequencyCfg.TriggerUpdateFlag = XDFEMIX_IMMEDIATE_UPDATE;
 
 	XDfeMix_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
 	Return = XDfeMix_AddCCtoCCCfg(InstancePtr, &CurrentCCCfg, CCID,
