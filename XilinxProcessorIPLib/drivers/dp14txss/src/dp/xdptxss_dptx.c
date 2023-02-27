@@ -113,6 +113,11 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	if (TransportMode) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"\n\rSS INFO:Starting "
 			"MST config.\n\r");
+
+		/* Disable MST mode in the DisplayPort TX. */
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			     XDP_TX_MST_CONFIG, 0x0);
+
 		/* Enable MST mode in both the RX and TX. */
 		Status = XDp_TxMstEnable(InstancePtr);
 		if (Status != XST_SUCCESS) {
