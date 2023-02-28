@@ -108,7 +108,7 @@ proc swapp_generate {} {
         error "Invalid OS: $os"
     }
 
-    if { $proc_type == "psu_cortexr5" ||  $proc_type == "psv_cortexr5"} {
+    if { $proc_type == "psu_cortexr5" || $proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexr52" || $proc_type == "psx_cortexr52" } {
         set procdir "zynqmp_r5"
     } elseif { $proc_type == "ps7_cortexa9" } {
         set procdir "zynq7"
