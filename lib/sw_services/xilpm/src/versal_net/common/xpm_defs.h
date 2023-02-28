@@ -696,6 +696,7 @@ typedef enum {
 	PM_FEATURE_CHECK,				/**< 0x3F */
 	PM_ISO_CONTROL,					/**< 0x40 */
 	PM_ACTIVATE_SUBSYSTEM,				/**< 0x41 */
+	PM_SET_NODE_ACCESS,				/**< 0x42 */
 	PM_BISR = 0x43,					/**< 0x43 */
 	PM_APPLY_TRIM,					/**< 0x44 */
 	PM_API_MAX					/**< 0x45 */
