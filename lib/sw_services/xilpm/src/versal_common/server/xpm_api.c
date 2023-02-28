@@ -12,6 +12,7 @@
 #include "xplmi_sysmon.h"
 #include "xplmi_util.h"
 #include "xpm_api.h"
+#include "xpm_access.h"
 #include "xpm_apucore.h"
 #include "xpm_common.h"
 #include "xpm_clock.h"
@@ -305,6 +306,54 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This function adds node entry to the access table
+ *
+ * @param Args		node specific arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ ****************************************************************************/
+static XStatus XPm_SetNodeAccess(const u32 *Args, u32 NumArgs)
+{
+	XPM_EXPORT_CMD(PM_SET_NODE_ACCESS, XPLMI_CMD_ARG_CNT_THREE, XPLMI_UNLIMITED_ARG_CNT);
+	XStatus Status = XST_FAILURE;
+	u32 NodeId;
+	XPm_NodeAccess *NodeEntry;
+
+	/* SET_NODE_ACCESS <NodeId: Arg0> <Arg 1,2> <Arg 3,4> ... */
+	if ((NumArgs < 3U) || ((NumArgs % 2U) == 0U)) {
+		Status = XST_FAILURE;
+		goto done;
+	}
+
+	NodeId = Args[0];
+
+	/* TODO: Check if NodeId is present in database */
+
+	NodeEntry = (XPm_NodeAccess *)XPm_AllocBytes(sizeof(XPm_NodeAccess));
+	if (NULL == NodeEntry) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+	NodeEntry->Id = NodeId;
+	NodeEntry->Aperture = NULL;
+	NodeEntry->NextNode = NULL;
+
+	Status = XPmAccess_UpdateTable(NodeEntry, Args, NumArgs);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
@@ -473,6 +522,9 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 		break;
 	case PM_API(PM_ADD_REQUIREMENT):
 		Status = XPm_AddRequirement(&Pload[0], Len);
+		break;
+	case PM_API(PM_SET_NODE_ACCESS):
+		Status = XPm_SetNodeAccess(&Pload[0], Len);
 		break;
 	case PM_API(PM_INIT_FINALIZE):
 		Status = XPm_InitFinalize(SubsystemId);
@@ -2175,6 +2227,67 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  This function add register node to the topology database
+ *
+ * @param Args		arguments
+ * @param NumArgs	number of arguments
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ *
+ * @note   RegNodes (short for "Register Nodes") are non-firmware managed nodes,
+ * meaning PM_REQUEST_NODE/PM_RELEASE_NODE calls are not supported for such nodes.
+ * These nodes are mainly used to provide controlled access to the protected/secure
+ * address space.
+ *
+ ****************************************************************************/
+static XStatus XPm_AddNodeRegnode(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeId, PowerId;
+	u32 BaseAddress;
+	XPm_Power *Power = NULL;
+	XPm_RegNode *Regnode = NULL;
+
+	if (NumArgs < 3U) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	NodeId = Args[0];
+	BaseAddress = Args[1];
+	PowerId = Args[2];
+
+	if ((((u32)XPM_NODESUBCL_REGNODE_PREDEF != NODESUBCLASS(NodeId)) &&
+	    ((u32)XPM_NODESUBCL_REGNODE_USERDEF != NODESUBCLASS(NodeId))) ||
+	    ((u32)XPM_NODETYPE_REGNODE_GENERIC != NODETYPE(NodeId))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Power = XPmPower_GetById(PowerId);
+	if (NULL == Power) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	Regnode = (XPm_RegNode *)XPm_AllocBytes(sizeof(XPm_RegNode));
+	if (NULL == Regnode) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+
+	XPmAccess_RegnodeInit(Regnode, NodeId, BaseAddress, Power);
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+
+/****************************************************************************/
+/**
  * @brief  This function allows adding node to clock, power, reset, mio
  *			or device topology
  *
@@ -2207,6 +2320,9 @@ XStatus XPm_AddNode(const u32 *Args, u32 NumArgs)
 		break;
 	case (u32)XPM_NODECLASS_MONITOR:
 		Status = XPm_AddNodeMonitor(Args, NumArgs);
+		break;
+	case (u32)XPM_NODECLASS_REGNODE:
+		Status = XPm_AddNodeRegnode(Args, NumArgs);
 		break;
 	default:
 		Status = XPm_PlatAddNode(Args, NumArgs);

@@ -10,6 +10,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xpm_defs.h"
+#include "xpm_access.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -119,36 +120,6 @@ maybe_unused static u32 XPm_GetUsbCurrPwrOffset(const u32 DeviceId)
 	}
 
 	return CurrPwrOffset;
-}
-maybe_unused static inline XStatus XPmAccess_ReadReg(u32 SubsystemId, u32 DeviceId,
-			  pm_ioctl_id IoctlId,
-			  u32 Offset, u32 Count,
-			  u32 *const Response, u32 CmdType)
-{
-	(void)SubsystemId;
-	(void)DeviceId;
-	(void)IoctlId;
-	(void)Offset;
-	(void)Count;
-	(void)Response;
-	(void)CmdType;
-
-	return XPM_ERR_IOCTL;
-}
-maybe_unused static inline XStatus XPmAccess_MaskWriteReg(u32 SubsystemId, u32 DeviceId,
-			       pm_ioctl_id IoctlId,
-			       u32 Offset, u32 Mask, u32 Value,
-			       u32 CmdType)
-{
-	(void)SubsystemId;
-	(void)DeviceId;
-	(void)IoctlId;
-	(void)Offset;
-	(void)Mask;
-	(void)Value;
-	(void)CmdType;
-
-	return XPM_ERR_IOCTL;
 }
 maybe_unused static inline XStatus XPmIoctl_IsOperationAllowed(u32 RegNum, u32 SubsystemId,
 		const u32 *Perms, u32 Type, u32 CmdType)
