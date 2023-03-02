@@ -1,6 +1,183 @@
 Changes for 2023.1
 ===============================
 
+axicdma_v4_11:
+Fix infinite loops in driver examples
+
+axidma_v9_16:
+Fix infinite loops in driver examples
+
+axivdma_v6_13:
+Fix infinite loops in driver example
+
+csudma_v1_13:
+Add byte-wise transfer functionality for support devices
+Handle timeout using BSP APIs
+Fix documentation warnings
+
+dfeccf_v1_5:
+support switching Uplink/Downlink
+
+dfemix_v1_5:
+Auxiliary NCO support
+Switching Uplink/Downlink support
+NCO assignment in arch5 mode
+Align AddCC to switchable UL/DL algorithm
+Update get overflow status API
+Update NCOIdx and CCID check
+Correct switch trigger register name
+
+dfeprach_v1_5:
+Multiband registers update
+Update multiband register arithmetic
+
+emacps_v3_18:
+Add PCS control and status registers information
+
+i3cpsx_v1_1:
+Fix the warnings
+Remove hardcoding of timing values
+
+ipipsu_v2_13:
+Added support for cores
+
+mcdma_v1_8:
+Fix infinite loops in driver example
+
+ospipsv_v1_8:
+Enable Master DLL mode by default for Versal Net
+Add support for Indirect Non-Dma Write
+Update register bit polling logic to use Xil_WaitForEvent API
+
+qspipsu_v1_17:
+Add support for W25Q02NW Winbond flash part
+Add timeout in qspipsu driver and examples
+Update register bit polling logic to use Xil_WaitForEvent API
+Fixed hang issue while reading large data chunks
+
+scugic_v5_1:
+Update driver to skip enablement of group0 interrupts while executing at EL1 NS to avoid abort.
+Updated driver to support interrupts on each of CortexA78/CortexR52
+
+sdps_v4_1:
+Add Tap delay support for Versal Net platform.
+Return error on overflow of DMA Descriptor table.
+Update register bit polling logic to use Xil_WaitForEvent/Xil_WaitForEvents API.
+Enable eMMC HS400 mode for Versal Net platform.
+Use instance structure to store DMA descriptor tables.
+
+tmr_inject_v1_5:
+Updated doxygen documentation
+
+tmr_manager_v1_4:
+Updated doxygen documentation
+
+tmrctr_v4_10:
+Updated doxygen documentation
+
+uartlite_v3_8:
+Use XUartLite_GetSR instead of accessing status register directly.
+
+uartps_v3_12:
+Corrected SetRecvTimeout description details
+Update comment messages information of uartps examples
+Add timeout support to uartps driver
+
+uartpsv_v1_8:
+Reset the receive in XUartPsv_Cleanup api.
+Add timeout support to uartpsv driver.
+Add api for resetting the rx and tx buffers.
+Add user API for UART send without any infinite busy wait loop.
+Update comment messages information of uartpsv examples.
+
+usbpsu_v1_13:
+Update register bit polling logic to use Xil_WaitForEvent API
+
+wdttb_v5_6:
+Add APIs for users to use Window Watchdog Q&A Mode.
+Add example to demonstrate Q&A mode feature of WWDT.
+Fix incorrect macros.
+Fix compilation warnings.
+
+zdma_v1_16:
+Fix infinite loops in driver examples
+
+xilffs_v5_0:
+Update FATFS version to R0.15
+
+xilfpga_v6_4:
+Updated the first argument type of Xil_WaitForEvent and Xil_WaitForEvents to support 64-bit addressing
+Added the VersalNet support
+
+xilmailbox_v1_7:
+Added the VersalNet support
+Updated doxygen documentation
+
+xilocp_v1_1:
+Added attestation support with device keys
+Added client side interface.
+Added derivation of DEVAK for requested sub-system.
+Support for sharing the public key.
+
+xilsem_v1_7:
+Added XilSEM client support for PL MB and A72 bare metal application users.
+Added API ID feature check
+Added Run-time check for number of SLRs present in a device instead of using a fixed macro
+Support for tandem designs
+Support for new SSIT (H20, H40, H20_H4, H30_H8) devices
+Support for new mono (VM1502.& VM1402) devices
+Added Sysfs interface for XIlSEM scan operations (Scan init, start, stop, error injection, read frame ECC, config, status) for Linux Users
+
+xiltimer_v1_2:
+Fixed  Doxygen style issues
+
+standalone_v8_1:
+Added new mld parameter enable_minimal_xlat_tbl to reduce translation table size by configuring it to address only initial 4 TB. Translation
+table size when enable_minimal_xlat_tbl parameter enabled is ~30 KB, leaving 994 KB OCM available for application.
+By default this parameter will be enabled.
+First argument type of Xil_WaitForEvent and Xil_WaitForEvents has been updated to support 64 bit addressing
+Removed workaround added to Xil_DCacheInvalidateRange  for CortexA78.
+Added Xil_RegisterPlmHandler() & Xil_PlmStubHandler() APIs to accomodate PLM live call in boot drivers.
+Fixed bugs in Xil_DCacheInvalidateRange APIs for ARMv7 (CortexR5 and
+CortexA9) platforms. Because of this bug, the last cache line may not
+get invalidated under various scenarios.
+Update the ARMv8 exception handling logic to decode the ESR register EC and ISS fields. Upon decoding, print details about the exception. Similarly, update ARMv7 exception handling logic to decode the FSR register and print relevant details.
+
+libmetal_v2_5:
+update to 2022.10 upstream release
+
+openamp_v1_8:
+update to 2022.10 upstream release
+
+iicps_v3_17:
+update comment messages information for iicps examples.
+
+freertos10_xilinx_v1_13:
+Fixed warning reported with -Wundef flag
+Updated FreeRTOS kernel to 10.5.1.
+Added implementation for portMEMORY_BARRIER, to avoid reordering of instructions by compiler.
+Update DataAbortHandler and PrefetchAbortHandler to store the addresses of the instructions that caused the abort into relevant global variables.
+The exception handling down the line can read these variables and report out the exception causing instruction addresses.
+
+lwip213_v1_0:
+Updated lwip version from 211 to 213.
+Updated code to support multi-MAC interfaces.
+Added support for multi-PHY scenarios.
+Added support for SGMII fixed link configuration.
+Added support for ADIN1300 PHY
+Reduced PHY auto-negotiation timeout from 30 to 5 sec.
+
+Xilpki_v1_0:
+Added PKI library initial version
+
+gpiops_v3_11:
+Updated bank and pin information for different platforms
+
+dfeofdm_v1_0:
+Update hw version
+Add DFE OFDM driver
+
+
 New Files Added for 2023.1:
 SPDX-License-Identifier:MIT
 lib/bsp/standalone/src/arm/common/gcc/getentropy.c
