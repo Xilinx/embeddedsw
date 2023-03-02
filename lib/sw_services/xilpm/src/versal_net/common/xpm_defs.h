@@ -43,8 +43,17 @@ enum XPmAbortReason {
 	ABORT_REASON_NO_PWRDN,				/**< No Powerdown */
 	ABORT_REASON_UNKNOWN,				/**< Unknown Reason */
 };
+
+/**
+ * @name PM Abort Reasons
+ * @{
+ */
+/**
+ * PM Abort Reasons
+ */
 #define ABORT_REASON_MIN	ABORT_REASON_WKUP_EVENT
 #define ABORT_REASON_MAX	ABORT_REASON_UNKNOWN
+/** @} */
 
 /**
  * Boot status enumeration.
