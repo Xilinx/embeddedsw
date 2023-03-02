@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -205,6 +206,8 @@ extern "C" {
 #define XPS_SDIO1_WAKE_INT_ID		(187U + 32U)
 #define XPS_PMCDMA0_INT_ID		(190U + 32U)
 #define XPS_PMCDMA1_INT_ID		(191U + 32U)
+#define XPS_RTC_ALARM_INT_ID		(200U + 32U)
+#define XPS_RTC_SEC_INT_ID		(201U + 32U)
 
 /* REDEFINES for TEST APP */
 #define XPAR_PSXL_SBSAUART_0_INTR        XPS_UART0_INT_ID
@@ -290,6 +293,8 @@ extern "C" {
 #define XPAR_PSX_TTC_9_INTR		XPS_TTC3_0_INT_ID
 #define XPAR_PSX_TTC_10_INTR		XPS_TTC3_1_INT_ID
 #define XPAR_PSX_TTC_11_INTR		XPS_TTC3_2_INT_ID
+#define XPAR_XRTCPSU_ALARM_INTR		XPS_RTC_ALARM_INT_ID
+#define XPAR_XRTCPSU_SECONDS_INTR	XPS_RTC_SEC_INT_ID
 
 /*
 #define XPAR_XADCPS_NUM_INSTANCES 1U
