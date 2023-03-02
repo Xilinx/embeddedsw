@@ -99,6 +99,7 @@
 *       sk   02/08/23 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
 *       sk   02/09/23 Fixed Sec Review comments in XLoader_RsaSignVerify function
 * 1.9   kpt  02/21/23 Fixed bug in XLoader_AuthEncClear
+*       sk   02/28/23 Removed using of pointer to string literal in XLoader_AuthKat
 *
 * </pre>
 *
@@ -3715,7 +3716,6 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 	u32 AuthKatMask;
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	const char* ErrorString = "";
 #ifndef PLM_ECDSA_EXCLUDE
 	XSecure_EllipticCrvClass CrvClass = XSECURE_ECC_PRIME;
 #endif
@@ -3756,7 +3756,6 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 #ifndef PLM_RSA_EXCLUDE
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 					XLoader_RsaKat, SecurePtr->PmcDmaInstPtr);
-			ErrorString = "RSA KAT";
 #else
 			XPlmi_Printf(DEBUG_GENERAL, "RSA code is excluded\n\r");
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, 0U);
@@ -3769,13 +3768,11 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 #ifndef PLM_ECDSA_EXCLUDE
 			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
 					XSecure_EllipticVerifySignKat, CrvClass);
-			ErrorString = "ECC KAT";
 #else
                         XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
                         Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
                         goto END;
 #endif
-
 		}
 		else {
 			/* Not supported */
@@ -3784,7 +3781,12 @@ static int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 			goto END;
 		}
 		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_GENERAL, "%s failed\n\r", ErrorString);
+			if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+				XPlmi_Printf(DEBUG_GENERAL, "RSA KAT Failed\n\r");
+			}
+			else {
+				XPlmi_Printf(DEBUG_GENERAL, "ECDSA KAT Failed\n\r");
+			}
 			goto END;
 		}
 		SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
