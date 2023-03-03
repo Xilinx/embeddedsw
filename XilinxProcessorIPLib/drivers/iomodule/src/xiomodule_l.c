@@ -187,7 +187,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 			 * Read the ISR again to handle architectures with
 			 * posted write bus access issues.
 			 */
-			XIOModule_GetIntrStatus(CfgPtr->BaseAddress);
+			(void) XIOModule_GetIntrStatus(CfgPtr->BaseAddress);
 
 			/*
 			 * If only the highest priority interrupt is to be
