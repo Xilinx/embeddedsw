@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +48,8 @@
 *                      CR#1088640.
 * 2.12	sk   06/08/21 Fix coverity warnings.
 * 2.14  dp   08/08/22 Fix doxygen warnings.
+* 2.15  ml   02/27/23 Converted signed macros into unsigned macros to
+*                     Fix misra-c violations.
 * </pre>
 *
 ******************************************************************************/
@@ -79,52 +82,52 @@ extern "C" {
 /**
  *@cond nocomments
  */
-#define XTC_DEVICE_TIMER_COUNT		4
+#define XTC_DEVICE_TIMER_COUNT		4U
 
 /**
  * Each timer counter consumes 16 bytes of address space.
  */
-#define XTC_TIMER_COUNTER_OFFSET	16
-#define XTC_TIMER_COUNTER_SHIFT		4
+#define XTC_TIMER_COUNTER_OFFSET	16U
+#define XTC_TIMER_COUNTER_SHIFT		4U
 
 /**
  * Define the offsets from the base address for all the registers of the
  * IO module, some registers may be optional in the hardware device.
  */
-#define XUL_RX_OFFSET	      0x00000000  /**< UART Receive Register     - R */
-#define XUL_TX_OFFSET	      0x00000004  /**< UART Transmit Register    - W */
-#define XUL_STATUS_REG_OFFSET 0x00000008  /**< UART Status Register      - R */
-#define XUL_BAUDRATE_OFFSET   0x0000004C  /**< UART Baud Rate Register   - W */
+#define XUL_RX_OFFSET	      0x00000000U  /**< UART Receive Register     - R */
+#define XUL_TX_OFFSET	      0x00000004U  /**< UART Transmit Register    - W */
+#define XUL_STATUS_REG_OFFSET 0x00000008U  /**< UART Status Register      - R */
+#define XUL_BAUDRATE_OFFSET   0x0000004CU  /**< UART Baud Rate Register   - W */
 
-#define XIN_IMR_OFFSET	      0x0000000C  /**< Intr Mode Register        - W */
+#define XIN_IMR_OFFSET	      0x0000000CU  /**< Intr Mode Register        - W */
 
-#define XGO_OUT_OFFSET	      0x00000010  /**< General Purpose Output    - W */
+#define XGO_OUT_OFFSET	      0x00000010U  /**< General Purpose Output    - W */
 
-#define XGI_IN_OFFSET	      0x00000020  /**< General Purpose Input     - R */
+#define XGI_IN_OFFSET	      0x00000020U  /**< General Purpose Input     - R */
 
-#define XIN_ISR_OFFSET	      0x00000030  /**< Intr Status Register      - R */
-#define XIN_IPR_OFFSET	      0x00000034  /**< Intr Pending Register     - R */
-#define XIN_IER_OFFSET	      0x00000038  /**< Intr Enable Register      - W */
-#define XIN_IAR_OFFSET	      0x0000003C  /**< Intr Acknowledge Register - W */
+#define XIN_ISR_OFFSET	      0x00000030U  /**< Intr Status Register      - R */
+#define XIN_IPR_OFFSET	      0x00000034U  /**< Intr Pending Register     - R */
+#define XIN_IER_OFFSET	      0x00000038U  /**< Intr Enable Register      - W */
+#define XIN_IAR_OFFSET	      0x0000003CU  /**< Intr Acknowledge Register - W */
 
-#define XTC_TLR_OFFSET	      0x00000040  /**< Timer Load register       - W */
-#define XTC_TCR_OFFSET	      0x00000044  /**< Timer counter register    - R */
-#define XTC_TCSR_OFFSET	      0x00000048  /**< Timer Control register    - W */
-#define XIN_IVAR_OFFSET	      0x00000080  /**< Intr Vector Address Register,
+#define XTC_TLR_OFFSET	      0x00000040U  /**< Timer Load register       - W */
+#define XTC_TCR_OFFSET	      0x00000044U  /**< Timer counter register    - R */
+#define XTC_TCSR_OFFSET	      0x00000048U  /**< Timer Control register    - W */
+#define XIN_IVAR_OFFSET	      0x00000080U  /**< Intr Vector Address Register,
 					       Interrupt 0 offset, present
 					       only for Fast Interrupt   - W */
-#define XIN_IVEAR_OFFSET      0x00000100  /**< Intr Extended Vector Address
+#define XIN_IVEAR_OFFSET      0x00000100U  /**< Intr Extended Vector Address
 					       Register  - W*/
 
 /**
  * UART status register bit position masks
  */
-#define XUL_SR_PARITY_ERROR		0x80
-#define XUL_SR_FRAMING_ERROR		0x40
-#define XUL_SR_OVERRUN_ERROR		0x20
-#define XUL_SR_INTR_ENABLED		0x10 /**< UART Interrupt enabled     */
-#define XUL_SR_TX_FIFO_FULL		0x08 /**< UART Transmit FIFO full    */
-#define XUL_SR_RX_FIFO_VALID_DATA	0x01 /**< UART Data Register valid   */
+#define XUL_SR_PARITY_ERROR		0x80U
+#define XUL_SR_FRAMING_ERROR		0x40U
+#define XUL_SR_OVERRUN_ERROR		0x20U
+#define XUL_SR_INTR_ENABLED		0x10U /**< UART Interrupt enabled     */
+#define XUL_SR_TX_FIFO_FULL		0x08U /**< UART Transmit FIFO full    */
+#define XUL_SR_RX_FIFO_VALID_DATA	0x01U /**< UART Data Register valid   */
 
 /**
  * UART stop bits are fixed at 1. Baud, parity, and data bits are fixed on a
@@ -152,32 +155,32 @@ extern "C" {
  * The following constants describe the offset of each GPI and GPO channel's
  * data from the base address.
  */
-#define XGPI_CHAN_OFFSET  0x00004
-#define XGPI_DATA_OFFSET  0x00020
+#define XGPI_CHAN_OFFSET  0x00004U
+#define XGPI_DATA_OFFSET  0x00020U
 
-#define XGPO_CHAN_OFFSET  0x00004
-#define XGPO_DATA_OFFSET  0x00010
+#define XGPO_CHAN_OFFSET  0x00004U
+#define XGPO_DATA_OFFSET  0x00010U
 
 /**
  * Interrupt register bit position masks.
  */
-#define XIN_IOMODULE_GPI_4_INTERRUPT_INTR	14
-#define XIN_IOMODULE_GPI_3_INTERRUPT_INTR	13
-#define XIN_IOMODULE_GPI_2_INTERRUPT_INTR	12
-#define XIN_IOMODULE_GPI_1_INTERRUPT_INTR	11
-#define XIN_IOMODULE_FIT_4_INTERRUPT_INTR	10
-#define XIN_IOMODULE_FIT_3_INTERRUPT_INTR	9
-#define XIN_IOMODULE_FIT_2_INTERRUPT_INTR	8
-#define XIN_IOMODULE_FIT_1_INTERRUPT_INTR	7
-#define XIN_IOMODULE_PIT_4_INTERRUPT_INTR	6
-#define XIN_IOMODULE_PIT_3_INTERRUPT_INTR	5
-#define XIN_IOMODULE_PIT_2_INTERRUPT_INTR	4
-#define XIN_IOMODULE_PIT_1_INTERRUPT_INTR	3
-#define XIN_IOMODULE_UART_RX_INTERRUPT_INTR	2
-#define XIN_IOMODULE_UART_TX_INTERRUPT_INTR	1
-#define XIN_IOMODULE_UART_ERROR_INTERRUPT_INTR	0
+#define XIN_IOMODULE_GPI_4_INTERRUPT_INTR	14U
+#define XIN_IOMODULE_GPI_3_INTERRUPT_INTR	13U
+#define XIN_IOMODULE_GPI_2_INTERRUPT_INTR	12U
+#define XIN_IOMODULE_GPI_1_INTERRUPT_INTR	11U
+#define XIN_IOMODULE_FIT_4_INTERRUPT_INTR	10U
+#define XIN_IOMODULE_FIT_3_INTERRUPT_INTR	9U
+#define XIN_IOMODULE_FIT_2_INTERRUPT_INTR	8U
+#define XIN_IOMODULE_FIT_1_INTERRUPT_INTR	7U
+#define XIN_IOMODULE_PIT_4_INTERRUPT_INTR	6U
+#define XIN_IOMODULE_PIT_3_INTERRUPT_INTR	5U
+#define XIN_IOMODULE_PIT_2_INTERRUPT_INTR	4U
+#define XIN_IOMODULE_PIT_1_INTERRUPT_INTR	3U
+#define XIN_IOMODULE_UART_RX_INTERRUPT_INTR	2U
+#define XIN_IOMODULE_UART_TX_INTERRUPT_INTR	1U
+#define XIN_IOMODULE_UART_ERROR_INTERRUPT_INTR	0U
 
-#define XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR	16
+#define XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR	16U
 /* @} */
 
 /**
@@ -186,8 +189,8 @@ extern "C" {
  * Used to configure the timer counter device.
  * @{
  */
-#define XTC_CSR_ENABLE_TMR_MASK		0x00000001 /**< Enables the timer */
-#define XTC_CSR_AUTO_RELOAD_MASK	0x00000002 /**< In compare mode,
+#define XTC_CSR_ENABLE_TMR_MASK		0x00000001U /**< Enables the timer */
+#define XTC_CSR_AUTO_RELOAD_MASK	0x00000002U /**< In compare mode,
 							configures the timer
 							reload  from the Load
 							Register. The default

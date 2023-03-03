@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,6 +29,8 @@
 * 2.12	sk   06/08/21 Update XIOModule_Send and XIOModule_Recv API's argument
 		      (NumBytes) datatype to fix the coverity warnings.
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
+* 2.15  ml   02/27/23 Update functions return type and typecast the return
+*                     value to fix misra-c violations.
 *
 * </pre>
 *
@@ -128,7 +131,7 @@ u32 XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
 	 * be filling up while interrupts are blocked.
 	 */
 	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET,
-	    (InstancePtr->CurrentIER & 0xFFFFFFF8) | (StatusRegister & 0x7));
+	    (InstancePtr->CurrentIER & 0xFFFFFFF8) | (StatusRegister & 0x7U));
 
 	/*
 	 * Send the buffer using the UART and return the number of bytes sent
@@ -205,7 +208,7 @@ u32 XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
 	 * that the critical region is exited
 	 */
 	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET,
-	    (InstancePtr->CurrentIER & 0xFFFFFFF8) | (StatusRegister & 0x7));
+	    (InstancePtr->CurrentIER & 0xFFFFFFF8) | (StatusRegister & 0x7U));
 
 	/*
 	 * Receive the data from the UART and return the number of bytes
@@ -358,7 +361,7 @@ unsigned int XIOModule_SendBuffer(XIOModule *InstancePtr)
 	 * that the critical region is exited
 	 */
 	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET,
-	    (InstancePtr->CurrentIER & 0xFFFFFFF8) | (IntrEnableStatus & 0x7));
+	    (InstancePtr->CurrentIER & 0xFFFFFFF8) | (IntrEnableStatus & 0x7U));
 
 	/*
 	 * Return the number of bytes that were sent, although they really were
@@ -464,7 +467,7 @@ unsigned int XIOModule_ReceiveBuffer(XIOModule *InstancePtr)
 	 * that the critical region is exited
 	 */
 	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET,
-	    (InstancePtr->CurrentIER & 0xFFFFFFF8) | (StatusRegister & 0x7));
+	    (InstancePtr->CurrentIER & 0xFFFFFFF8) | (StatusRegister & 0x7U));
 
 	return ReceivedCount;
 }
@@ -566,12 +569,12 @@ void XIOModule_Uart_InterruptHandler(XIOModule *InstancePtr)
 	 */
 	IsrStatus = XIOModule_GetStatusReg(InstancePtr->BaseAddress);
 
-	if ((IsrStatus & XUL_SR_RX_FIFO_VALID_DATA) != 0) {
+	if ((IsrStatus & XUL_SR_RX_FIFO_VALID_DATA) != 0U) {
 		ReceiveDataHandler(InstancePtr);
 	}
 
 	if (((IsrStatus & XUL_SR_TX_FIFO_FULL) == XUL_SR_TX_FIFO_FULL) &&
-		(InstancePtr->SendBuffer.RequestedBytes > 0)) {
+		(InstancePtr->SendBuffer.RequestedBytes > 0U)) {
 		SendDataHandler(InstancePtr);
 	}
 }
@@ -595,7 +598,7 @@ static void ReceiveDataHandler(XIOModule *InstancePtr)
 	 * If there are bytes still to be received in the specified buffer
 	 * go ahead and receive them
 	 */
-	if (InstancePtr->ReceiveBuffer.RemainingBytes != 0) {
+	if (InstancePtr->ReceiveBuffer.RemainingBytes != 0U) {
 		XIOModule_ReceiveBuffer(InstancePtr);
 	}
 
@@ -605,7 +608,7 @@ static void ReceiveDataHandler(XIOModule *InstancePtr)
 	 * the number of bytes to receive because the call to receive the buffer
 	 * updates the bytes to receive
 	 */
-	if (InstancePtr->ReceiveBuffer.RemainingBytes == 0) {
+	if (InstancePtr->ReceiveBuffer.RemainingBytes == 0U) {
 		InstancePtr->RecvHandler(InstancePtr->RecvCallBackRef,
 		InstancePtr->ReceiveBuffer.RequestedBytes -
 		InstancePtr->ReceiveBuffer.RemainingBytes);
@@ -636,7 +639,7 @@ static void SendDataHandler(XIOModule *InstancePtr)
 	 * If there are not bytes to be sent from the specified buffer,
 	 * call the callback function
 	 */
-	if (InstancePtr->SendBuffer.RemainingBytes == 0) {
+	if (InstancePtr->SendBuffer.RemainingBytes == 0U) {
 		int SaveReq;
 
 		/*
@@ -720,7 +723,7 @@ void XIOModule_Uart_EnableInterrupt(XIOModule *InstancePtr)
 	/*
 	 * Write to the interrupt enable register to enable the interrupts.
 	 */
-	NewIER = InstancePtr->CurrentIER | 0x7;
+	NewIER = InstancePtr->CurrentIER | 0x7U;
 	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET, NewIER);
 	InstancePtr->CurrentIER = NewIER;
 }

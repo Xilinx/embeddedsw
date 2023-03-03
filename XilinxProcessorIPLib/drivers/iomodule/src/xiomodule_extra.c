@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +25,8 @@
 * 1.00a sa   07/15/11 First release
 * 2.12	sk   06/08/21 Update XIOModule_DiscreteClear and XIOModule_DiscreteClear
 *                     API's argument(Channel) datatype to fix the coverity warning.
+* 2.15  ml   02/27/23 Added suffix U to numerical to make it as unsigned to fix
+*                     misra-c violation.
 * </pre>
 *
 *****************************************************************************/
@@ -121,7 +124,7 @@ void XIOModule_DiscreteClear(XIOModule * InstancePtr,
 	 * Read the contents from the instance, merge in Mask and write
 	 * back results
 	 */
-	Current = InstancePtr->GpoValue[Channel - 1];
+	Current = InstancePtr->GpoValue[Channel - 1U];
 	Current &= ~Mask;
 	XIOModule_WriteReg(InstancePtr->BaseAddress, DataOffset, Current);
 	InstancePtr->GpoValue[Channel - 1] = Current;

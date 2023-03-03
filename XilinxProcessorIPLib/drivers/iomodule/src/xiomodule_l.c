@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,7 @@
 * 2.13	sk   10/30/21  Move (IntrStatus == 0) check to the start of for loop
 * 		       in XIOModule_DeviceInterruptHandler function to skip
 * 		       processing when IntrStatus is 0.
+* 2.15  ml   02/27/23  update functions return type to fix misra-c violation.
 * </pre>
 *
 ******************************************************************************/
@@ -154,13 +156,13 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 		/* If there are no other bits set indicating that all interrupts
 		 * have been serviced, then exit the loop
 		 */
-		if (IntrStatus == 0) {
+		if (IntrStatus == 0U) {
 			break;
 		}
 
 		TablePtr = &(CfgPtr->HandlerTable[IntrNumber]);
 
-		if ((IntrStatus & 1) && (TablePtr->Handler != NULL)) {
+		if ((IntrStatus & 1U) && (TablePtr->Handler != NULL)) {
 			/* If the interrupt has been setup to acknowledge it
 			 * before servicing the interrupt, then ack it
 			 */
@@ -177,7 +179,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 			/* If the interrupt has been setup to acknowledge it
 			 * after it has been serviced then ack it
 			 */
-			if ((CfgPtr->AckBeforeService & IntrMask) == 0) {
+			if ((CfgPtr->AckBeforeService & IntrMask) == 0U) {
 			    XIOModule_AckIntr(CfgPtr->BaseAddress, IntrMask);
 			}
 
