@@ -332,8 +332,8 @@ static XIOModule_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 ******************************************************************************/
 void XIOModule_SendByte(UINTPTR BaseAddress, u8 Data)
 {
-	while (XIOModule_IsTransmitFull(BaseAddress));
-
+	while (XIOModule_IsTransmitFull(BaseAddress)){
+	}
 	XIomodule_Out32(BaseAddress + XUL_TX_OFFSET, Data);
 }
 
@@ -354,8 +354,8 @@ void XIOModule_SendByte(UINTPTR BaseAddress, u8 Data)
 ******************************************************************************/
 u8 XIOModule_RecvByte(UINTPTR BaseAddress)
 {
-	while (XIOModule_IsReceiveEmpty(BaseAddress));
-
+	while (XIOModule_IsReceiveEmpty(BaseAddress)){
+	}
 	return (u8)XIomodule_In32(BaseAddress + XUL_RX_OFFSET);
 }
 
