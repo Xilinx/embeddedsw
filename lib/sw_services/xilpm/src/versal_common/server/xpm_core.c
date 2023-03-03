@@ -297,7 +297,7 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 	XStatus Status = XST_FAILURE;
 	u32 SubsystemId;
 	const XPm_Requirement *Reqm;
-	const XPm_Subsystem *Subsystem;
+	XPm_Subsystem *Subsystem;
 	const XPm_Core *Core = (XPm_Core *)XPmDevice_GetById(DeviceId);
 	u32 Ack = 0U;
 	u32 IpiMask = 0U;
@@ -337,6 +337,13 @@ XStatus XPmCore_ProcessPendingForcePwrDwn(u32 DeviceId)
 		}
 	} else if ((u8)PENDING_RESTART == Subsystem->State) {
 		if (NULL == Reqm) {
+			/*
+			 * Control reached here means the idle notification is already sent
+			 * to the core.So, clear the subsystem flags which was set to
+			 * SUBSYSTEM_IDLE_SUPPORTED during the XPm_RegisterNotifier.
+			 * This will avoid idling the cores again during subsystem restart.
+			 */
+			Subsystem->Flags = 0U;
 			Status = XPm_SystemShutdown(SubsystemId,
 					PM_SHUTDOWN_TYPE_RESET,
 					PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM,

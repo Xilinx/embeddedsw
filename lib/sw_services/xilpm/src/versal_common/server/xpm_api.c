@@ -3930,15 +3930,29 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, const u32 Type, const u32 SubType,
 
 	switch (SubType) {
 	case PM_SHUTDOWN_SUBTYPE_RST_SUBSYSTEM:
-		Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
-		if (XST_SUCCESS != Status) {
-			goto done;
+		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
+			Status = XPmSubsystem_SetState(SubsystemId, (u8)PENDING_RESTART);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			Status = XPm_SubsystemIdleCores(Subsystem);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
+			/* TODO: Need to add recovery handling if subsystem not responding */
+		} else {
+			Status = XPmSubsystem_ForcePwrDwn(SubsystemId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			Status = XPm_SubsystemPwrUp(SubsystemId);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+
 		}
 
-		Status = XPm_SubsystemPwrUp(SubsystemId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
 		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
 		/*
