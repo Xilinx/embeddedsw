@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,7 @@
 * 2.4   mi   09/20/16 Fixed compilation warnings
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
 * 2.14  dp   08/08/22 Fix doxygen warnings.
+* 2.15  ml   02/27/23 Typecast the variables to fix misra-c violations.
 * </pre>
 *
 ******************************************************************************/
@@ -165,7 +167,7 @@ void XIOModule_Timer_SetOptions(XIOModule * InstancePtr, u8 TimerNumber,
                                 u32 Options)
 {
 	u32 CounterControlReg = 0;
-	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
+	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 	u32 Index;
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -199,7 +201,7 @@ void XIOModule_Timer_SetOptions(XIOModule * InstancePtr, u8 TimerNumber,
 	XIOModule_WriteReg(InstancePtr->BaseAddress,
 			   TimerOffset + XTC_TCSR_OFFSET,
 			   CounterControlReg);
-	InstancePtr->CurrentTCSR[TimerNumber] = CounterControlReg;
+	InstancePtr->CurrentTCSR[TimerNumber] = (u8) CounterControlReg;
 }
 
 /*****************************************************************************/

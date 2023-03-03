@@ -271,7 +271,7 @@ s32 XIOModule_IsSending(XIOModule *InstancePtr)
 	 * If the transmitter is not empty then indicate that the UART is still
 	 * sending some data
 	 */
-	return ((StatusRegister & XUL_SR_TX_FIFO_FULL) == XUL_SR_TX_FIFO_FULL);
+	return ((s32)((StatusRegister & XUL_SR_TX_FIFO_FULL) == XUL_SR_TX_FIFO_FULL));
 }
 
 /****************************************************************************/
@@ -306,8 +306,8 @@ s32 XIOModule_IsSending(XIOModule *InstancePtr)
 unsigned int XIOModule_SendBuffer(XIOModule *InstancePtr)
 {
 	unsigned int SentCount = 0;
-	u8 StatusRegister;
-	u8 IntrEnableStatus;
+	u32 StatusRegister;
+	u32 IntrEnableStatus;
 
 	/*
 	 * Read the status register to determine if the transmitter is full
@@ -404,7 +404,7 @@ unsigned int XIOModule_SendBuffer(XIOModule *InstancePtr)
 *****************************************************************************/
 unsigned int XIOModule_ReceiveBuffer(XIOModule *InstancePtr)
 {
-	u8 StatusRegister;
+	u32 StatusRegister;
 	unsigned int ReceivedCount = 0;
 
 	/*
@@ -640,7 +640,7 @@ static void SendDataHandler(XIOModule *InstancePtr)
 	 * call the callback function
 	 */
 	if (InstancePtr->SendBuffer.RemainingBytes == 0U) {
-		int SaveReq;
+		u32 SaveReq;
 
 		/*
 		 * Save and zero the requested bytes since transmission

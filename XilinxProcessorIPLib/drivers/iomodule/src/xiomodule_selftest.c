@@ -152,7 +152,7 @@ s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
 	 * Set the Load register most significant bit to 1.
 	 */
 	XIOModule_SetResetValue(InstancePtr, TimerNumber,
-		   1 << (InstancePtr->CfgPtr->PitSize[TimerNumber] - 1U));
+		   1U << (InstancePtr->CfgPtr->PitSize[TimerNumber] - 1U));
 
 	/*
 	 * Reset the timer and the interrupt

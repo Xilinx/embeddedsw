@@ -236,7 +236,7 @@ void XIOModule_SetIntrSvcOption(UINTPTR BaseAddress, s32 Option)
 
 	CfgPtr = LookupConfigByBaseAddress(BaseAddress);
 	if (CfgPtr != NULL) {
-		CfgPtr->Options = Option;
+		CfgPtr->Options = (u32) Option;
 	}
 }
 
