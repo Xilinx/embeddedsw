@@ -139,9 +139,9 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	/*
 	 * Initialize GPO value from INIT parameter
 	 */
-        for (i = 0; i < XGPO_DEVICE_COUNT; i++)
+        for (i = 0; i < XGPO_DEVICE_COUNT; i++){
 		InstancePtr->GpoValue[i] = CfgPtr->GpoInit[i];
-
+	}
 	/*
 	 * Save the base address pointer such that the registers of the
 	 * IO Module can be accessed

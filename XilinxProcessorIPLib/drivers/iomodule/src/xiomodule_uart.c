@@ -193,10 +193,12 @@ s32 XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate)
 	 * is positive due to rounding above
 	 */
 	TargetRate = Divisor * Baud16;
-	if (InputClockHz < TargetRate)
+	if (InputClockHz < TargetRate){
 		Error = TargetRate - InputClockHz;
-	else
+	}
+	else{
 		Error = InputClockHz - TargetRate;
+	}
 
 	/*
 	 * Error has total error now compute the percentage multiplied by 100 to
