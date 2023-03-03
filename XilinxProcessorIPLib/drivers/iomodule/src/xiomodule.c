@@ -828,7 +828,7 @@ void XIOModule_DiscreteWrite(XIOModule * InstancePtr,
 s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 {
 	XIOModule_Config *IOModuleConfigPtr;
-	int TimerNumber;
+	u32 TimerNumber;
 	u32 TimerOffset;
 	u32 StatusReg;
 
@@ -929,7 +929,7 @@ s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 void XIOModule_Timer_Start(XIOModule * InstancePtr, u8 TimerNumber)
 {
 	u32 NewControlStatus;
-	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
+	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(TimerNumber < XTC_DEVICE_TIMER_COUNT);
@@ -948,7 +948,7 @@ void XIOModule_Timer_Start(XIOModule * InstancePtr, u8 TimerNumber)
 	 */
 	XIOModule_WriteReg(InstancePtr->BaseAddress,
 			   TimerOffset + XTC_TCSR_OFFSET, NewControlStatus);
-	InstancePtr->CurrentTCSR[TimerNumber] = NewControlStatus;
+	InstancePtr->CurrentTCSR[TimerNumber] = (u8) NewControlStatus;
 }
 
 /*****************************************************************************/
@@ -974,7 +974,7 @@ void XIOModule_Timer_Start(XIOModule * InstancePtr, u8 TimerNumber)
 void XIOModule_Timer_Stop(XIOModule * InstancePtr, u8 TimerNumber)
 {
 	u32 NewControlStatus;
-	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
+	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(TimerNumber < XTC_DEVICE_TIMER_COUNT);
@@ -995,7 +995,7 @@ void XIOModule_Timer_Stop(XIOModule * InstancePtr, u8 TimerNumber)
 	 */
 	XIOModule_WriteReg(InstancePtr->BaseAddress,
 			   TimerOffset + XTC_TCSR_OFFSET, NewControlStatus);
-	InstancePtr->CurrentTCSR[TimerNumber] = NewControlStatus;
+	InstancePtr->CurrentTCSR[TimerNumber] = (u8) NewControlStatus;
 }
 
 /*****************************************************************************/
@@ -1018,7 +1018,7 @@ void XIOModule_Timer_Stop(XIOModule * InstancePtr, u8 TimerNumber)
 ******************************************************************************/
 u32 XIOModule_GetValue(XIOModule * InstancePtr, u8 TimerNumber)
 {
-	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
+	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(TimerNumber < XTC_DEVICE_TIMER_COUNT);
@@ -1051,7 +1051,7 @@ u32 XIOModule_GetValue(XIOModule * InstancePtr, u8 TimerNumber)
 void XIOModule_SetResetValue(XIOModule * InstancePtr, u8 TimerNumber,
 			     u32 ResetValue)
 {
-	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
+	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(TimerNumber < XTC_DEVICE_TIMER_COUNT);
@@ -1111,7 +1111,7 @@ void XIOModule_Reset(XIOModule * InstancePtr, u8 TimerNumber)
 {
 	u32 CounterControlReg;
 	u32 NewCounterControl;
-	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
+	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(TimerNumber < XTC_DEVICE_TIMER_COUNT);
@@ -1160,7 +1160,7 @@ void XIOModule_Reset(XIOModule * InstancePtr, u8 TimerNumber)
 s32 XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber)
 {
 	u32 CounterReg;
-	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
+	u32 TimerOffset = (u32) TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(TimerNumber < XTC_DEVICE_TIMER_COUNT);
