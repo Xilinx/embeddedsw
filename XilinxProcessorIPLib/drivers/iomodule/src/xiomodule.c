@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,8 @@
 * 2.12	sk   06/08/21 Update XIOModule_DiscreteRead and XIOModule_DiscreteWrite
 *		      API's argument(Channel) datatype to fix the coverity warning.
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
+* 2.15  ml   27/02/23 Update typecast,add U to Numerical and functions return
+*                     type to fix misra-c violations.
 * </pre>
 *
 ******************************************************************************/
@@ -171,7 +174,7 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 		 * (XIOModule_BitPosMask[] = { 1, 2, 4, 8, ... })
 		 */
 		XIOModule_BitPosMask[Id] = NextBitMask;
-		NextBitMask *= 2;
+		NextBitMask *= 2U;
 	}
 
 	/*
@@ -198,14 +201,14 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 				XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
 			{
 					XIomodule_Out64(InstancePtr->BaseAddress +
-						XIN_IVEAR_OFFSET + Id * 8,
+						XIN_IVEAR_OFFSET + Id * 8U,
 						(InstancePtr->CfgPtr->BaseVector &
-					0xFFFFFFFFFFFFFF80ULL) | 0x10);
+					0xFFFFFFFFFFFFFF80ULL) | 0x10U);
 			} else {
 					XIomodule_Out32(InstancePtr->BaseAddress +
-						XIN_IVAR_OFFSET + Id * 4,
+						XIN_IVAR_OFFSET + Id * 4U,
 						(InstancePtr->CfgPtr->BaseVector &
-						0xFFFFFF80) | 0x10);
+						0xFFFFFF80) | 0x10U);
 			}
 		}
 	}
@@ -644,10 +647,10 @@ s32 XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
 
 	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
 	{
-		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8),
+		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8U),
 			(UINTPTR) Handler);
 	} else {
-		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
+		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4U),
 			(UINTPTR) Handler);
 	}
 
@@ -726,11 +729,11 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 
 	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
 	{
-		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8),
-			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80) | 0x10);
+		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8U),
+			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80) | 0x10U);
 	} else {
-		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4),
-		    	(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80) | 0x10);
+		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4U),
+			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80) | 0x10U);
 	}
 
 	/*

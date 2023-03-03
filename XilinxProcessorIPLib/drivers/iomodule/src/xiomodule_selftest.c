@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 * 2.11  mus  05/07/21  Fixed warnings reported by doxygen tool. It fixes
 *                      CR#1088640.
 * 2.13	sk   10/04/21 Update functions return type to fix misra-c violation.
+* 2.15  ml   02/27/23 Add U to Numericals to fix misra-c violations.
 * </pre>
 *
 ******************************************************************************/
@@ -101,7 +103,7 @@ int XIOModule_Intc_SelfTest(XIOModule * InstancePtr)
 	 * are acknowledged. Skip checking external interrupts, since they may
 	 * occur at any time.
 	 */
-	if ((CurrentISR & 0xffff) != 0) {
+	if ((CurrentISR & 0xffff) != 0U) {
 		return XST_INTC_FAIL_SELFTEST;
 	}
 
@@ -150,7 +152,7 @@ s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
 	 * Set the Load register most significant bit to 1.
 	 */
 	XIOModule_SetResetValue(InstancePtr, TimerNumber,
-		   1 << (InstancePtr->CfgPtr->PitSize[TimerNumber] - 1));
+		   1 << (InstancePtr->CfgPtr->PitSize[TimerNumber] - 1U));
 
 	/*
 	 * Reset the timer and the interrupt
@@ -175,7 +177,7 @@ s32 XIOModule_Timer_SelfTest(XIOModule * InstancePtr, u8 TimerNumber)
 		TimerCount2 = XIOModule_GetValue(InstancePtr, TimerNumber);
 		Count++;
 	}
-	while ((TimerCount1 == TimerCount2) && (Count != 0));
+	while ((TimerCount1 == TimerCount2) && (Count != 0U));
 
 	/*
 	 * Set the control/status register to 0 to complete initialization
@@ -243,7 +245,7 @@ s32 XIOModule_SelfTest(XIOModule * InstancePtr)
 		if (CfgPtr->PitUsed[Timer] &&
 		    CfgPtr->PitPrescaler[Timer] == XTC_PRESCALER_NONE &&
 		    CfgPtr->PitReadable[Timer] &&
-		    CfgPtr->PitSize[Timer] > 8) {
+		    CfgPtr->PitSize[Timer] > 8U) {
 			Status = XIOModule_Timer_SelfTest(InstancePtr, Timer);
 			if (Status != XST_SUCCESS)
 			{
