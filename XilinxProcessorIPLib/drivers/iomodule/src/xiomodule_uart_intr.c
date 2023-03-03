@@ -599,7 +599,7 @@ static void ReceiveDataHandler(XIOModule *InstancePtr)
 	 * go ahead and receive them
 	 */
 	if (InstancePtr->ReceiveBuffer.RemainingBytes != 0U) {
-		XIOModule_ReceiveBuffer(InstancePtr);
+		(void) XIOModule_ReceiveBuffer(InstancePtr);
 	}
 
 	/*
@@ -660,7 +660,7 @@ static void SendDataHandler(XIOModule *InstancePtr)
 	 * so go ahead and send it
 	 */
 	else {
-		XIOModule_SendBuffer(InstancePtr);
+		(void) XIOModule_SendBuffer(InstancePtr);
 	}
 
 	/*

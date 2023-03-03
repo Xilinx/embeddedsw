@@ -46,6 +46,7 @@
 #include "xiomodule_io.h"
 #include "xil_types.h"
 #include "xil_assert.h"
+#include "xdebug.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -104,6 +105,7 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	XIOModule_Config *CfgPtr;
 	u32 NextBitMask = 1;
         int i;
+	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -216,12 +218,14 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	/*
 	 * Initialize all Programmable Interrupt Timers
 	 */
-        XIOModule_Timer_Initialize(InstancePtr, DeviceId);
+	Status = XIOModule_Timer_Initialize(InstancePtr, DeviceId);
+	xdbg_printf(XDBG_DEBUG_GENERAL," XIOModule_Timer_Initialize : %s", (Status == XST_SUCCESS)?"PASS":"DEVICE NOT FOUND");
 
 	/*
 	 * Initialize all UART related status
 	 */
-        XIOModule_CfgInitialize(InstancePtr, CfgPtr, 0);
+	Status = XIOModule_CfgInitialize(InstancePtr, CfgPtr, 0);
+	xdbg_printf(XDBG_DEBUG_GENERAL," XIOModule_CfgInitialize : %s", (Status == XST_SUCCESS)?"PASS":"FAIL");
 
 	/*
 	 * Save the IO Bus base address pointer such that the memory mapped
@@ -234,7 +238,7 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	 */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
