@@ -326,28 +326,28 @@ enum XPsmFWPwrUpDwnType {
 
 void XPsmFw_FpdMbisr(void)
 {
-	/* Release FPD reset */
-	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
-			     ~CRL_RST_FPD_SRST_MASK);
-
 	/* Disable Remaining LP-FP isolation */
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
+
+	/* Release FPD reset */
+	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
+			     ~CRL_RST_FPD_SRST_MASK);
 
 	/* Bisr will now be triggered by XilPM when this call returns */
 }
 
 void XPsmFw_FpdMbistClear(void)
 {
-	/* Release FPD reset */
-	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
-			     ~CRL_RST_FPD_SRST_MASK);
-
 	/* Disable Remaining LP-FP isolation */
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
 			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
+
+	/* Release FPD reset */
+	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
+			     ~CRL_RST_FPD_SRST_MASK);
 }
 
 void XPsmFw_SecLockDown(void)
@@ -397,6 +397,17 @@ XStatus XPsmFw_FpdPreHouseClean(void)
 
 void XPsmFw_FpdPostHouseClean(void)
 {
+	/*
+	 * Disable isolation and release reset in case BISR and MBIST are
+	 * skipped
+	 */
+	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
+			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
+			~PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK);
+
+	XPsmFw_RMW32(CRL_RST_FPD, CRL_RST_FPD_SRST_MASK,
+			     ~CRL_RST_FPD_SRST_MASK);
+
 	/* Disable Remaining LP-FP isolation - in case bisr and mbist was skipped */
 	XPsmFw_RMW32(PSM_LOCAL_DOMAIN_ISO_CNTRL,
 			PSM_LOCAL_DOMAIN_ISO_CNTRL_LPD_FPD_MASK,
