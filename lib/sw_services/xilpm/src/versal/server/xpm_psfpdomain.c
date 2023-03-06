@@ -108,13 +108,6 @@ static XStatus FpdHcComplete(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	(void)Args;
 	(void)NumOfArgs;
 
-	/* Release SRST for PS-FPD - in case Bisr and Mbist are skipped */
-	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto done;
-	}
-
 	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_INIT_FINISH, &DbgErr);
 	if (XST_SUCCESS != Status) {
 		goto done;
@@ -205,13 +198,6 @@ static XStatus FpdBisr(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 
 	(void)Args;
 	(void)NumOfArgs;
-
-	/* Release SRST for PS-FPD */
-	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_RST_RELEASE;
-		goto done;
-	}
 
 	/* Call PSM to execute pre bisr requirements */
 	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_BISR, &DbgErr);
@@ -312,13 +298,6 @@ static XStatus FpdMbistClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
                 DbgErr = XPM_INT_ERR_INVALID_DEVICE;
                 goto done;
         }
-
-	/* Release SRST for PS-FPD */
-	Status = XPmReset_AssertbyId(PM_RST_FPD, (u32)PM_RESET_ACTION_RELEASE);
-	if (XST_SUCCESS != Status) {
-		DbgErr = XPM_INT_ERR_SRST_FPD;
-		XPM_GOTO_LABEL_ON_CONDITION(!IS_SECLOCKDOWN(SecLockDownInfo), done)
-	}
 
 	Status = SendFpdHouseCleanReqToPsm((u32)FUNC_MBIST_CLEAR, &DbgErr);
 	if (XST_SUCCESS != Status) {
