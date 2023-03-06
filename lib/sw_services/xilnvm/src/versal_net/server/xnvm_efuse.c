@@ -62,7 +62,6 @@ static int XNvm_EfuseCloseController(void);
 static int XNvm_EfusePrgmFipsInfo(u32 FipsMode, u32 FipsVersion);
 static int XNvm_EfusePrgmDmeUserKey(XNvm_DmeKeyType KeyType, const XNvm_DmeKey *EfuseKey);
 static int XNvm_EfuseIsPufHelperDataEmpty(void);
-static int XNvm_EfuseWritePufSecCtrl(u32 PufSecCtrlBits);
 static int XNvm_EfuseWritePufSynData(const u32 *SynData);
 static int XNvm_EfuseWritePufChash(u32 Chash);
 static int XNvm_EfuseWritePufAux(u32 Aux);
@@ -84,6 +83,7 @@ static int XNvm_EfuseProtectionChecks(void);
 #define XNVM_EFUSE_PROGRAM_VERIFY		(0U)
 #define XNVM_EFUSE_CRC_SALT			(0x000000FFU)
 #define XNVM_EFUSE_REVOKE_ID_127	(127U)
+#define XNVM_PUF_SEC_CTRL_MAX_VALID_VAL       (7U)
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -1722,16 +1722,9 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 		Status = XNvm_EfuseWriteRoSwapEn(PufHelperData->RoSwap);
 		if (Status != XST_SUCCESS) {
 			Status = (Status | XNVM_EFUSE_ERR_WRITE_RO_SWAP);
-			goto END;
 		}
 	}
 
-	/* Programming Puf SecCtrl bits */
-	Status = XST_FAILURE;
-	/**
-	 *  Write puf security control bits into eFuse
-	 */
-	Status = XNvm_EfuseWritePufSecCtrl(PufHelperData->PufSecCtrlBits);
 
 END :
     /**
@@ -1865,9 +1858,10 @@ END:
 /**
  * @brief	This function programs Puf control bits specified by user.
  *
- * @param	PufSecCtrlBits - Pointer to the XNvm_EfusePufSecCtrlBits
- * 				structure, which holds the PufSecCtrlBits data
- * 				to be written to the eFuse.
+ * @param	EnvDisFlag - Environmental monitoring flag set by the user,
+ * 				when set to true it will not check for voltage
+ * 				and temperature limits.
+ * @param 	PufCtrlBits - PufCtrlBits input to be programmed
  *
  * @return	- XST_SUCCESS - On success.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM       -  Invalid parameter.
@@ -1879,12 +1873,34 @@ END:
  * 							PUF_SYN_LK.
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePufSecCtrl(u32 PufSecCtrlBits)
+ int XNvm_EfuseWritePufSecCtrl(u32 EnvDisFlag, u32 PufCtrlBits)
 {
 	volatile int Status = XST_FAILURE;
-	u32 PufEccCtrlBits = PufSecCtrlBits;
+	int CloseStatus = XST_FAILURE;
 
-	if ((PufEccCtrlBits & 0x01U) == 0x01U) {
+	/**
+	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
+	 */
+	if ((PufCtrlBits == NULL)||(PufCtrlBits > XNVM_PUF_SEC_CTRL_MAX_VALID_VAL)) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 *  Unlock eFuse Controller. Return appropriate error code if not success
+	 */
+	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM,
+					XNVM_EFUSE_MARGIN_RD);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+
+	if (EnvDisFlag != TRUE) {
+		//TODO Temp and Voltage checks
+	}
+
+	if ((PufCtrlBits & 0x01U) == 0x01U) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_PUF_AUX_ROW,
@@ -1895,8 +1911,8 @@ static int XNvm_EfuseWritePufSecCtrl(u32 PufSecCtrlBits)
 		}
 	}
 
-	PufEccCtrlBits = PufEccCtrlBits >> 1U;
-	if ((PufEccCtrlBits & 0x01U) == 0x01U) {
+	PufCtrlBits = PufCtrlBits >> 1U;
+	if ((PufCtrlBits & 0x01U) == 0x01U) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_PUF_AUX_ROW,
@@ -1907,8 +1923,8 @@ static int XNvm_EfuseWritePufSecCtrl(u32 PufSecCtrlBits)
 		}
 	}
 
-	PufEccCtrlBits = PufEccCtrlBits >> 1U;
-	if ((PufEccCtrlBits & 0x01U) == 0x01U) {
+	PufCtrlBits = PufCtrlBits >> 1U;
+	if ((PufCtrlBits & 0x01U) == 0x01U) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_PUF_AUX_ROW,
@@ -1918,7 +1934,15 @@ static int XNvm_EfuseWritePufSecCtrl(u32 PufSecCtrlBits)
 	}
 
 	Status = XST_SUCCESS;
+
 END:
+	/**
+	 *  Lock eFuse controller
+	 */
+	CloseStatus = XNvm_EfuseCloseController();
+	if (XST_SUCCESS == Status) {
+		Status = CloseStatus;
+	}
 	return Status;
 }
 

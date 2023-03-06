@@ -236,12 +236,17 @@ typedef struct {
 typedef struct {
 	u16 EnvDisFlag;
 	u16 Reserved;
-	u32 PufCtrlBits;
 	u32 Chash;
 	u32 Aux;
 	u32 RoSwap;
 	u32 SynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
-} XNvm_PufInfoDirectPload;
+} XNvm_PufHDInfoDirectPload;
+
+typedef struct {
+	u16 EnvDisFlag;
+	u16 Reserved;
+	u32 PufCtrlBits;
+} XNvm_PufCtrlDirectPload ;
 
 typedef struct {
 	u16 EnvDisFlag;
@@ -343,9 +348,10 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE,
 	XNVM_API_ID_EFUSE_WRITE_CRC,
 	XNVM_API_ID_EFUSE_WRITE_DME_MODE,
-	XNVM_API_ID_EFUSE_WRITE_PUF_FROM_PLOAD,
+	XNVM_API_ID_EFUSE_WRITE_PUF_HD_FROM_PLOAD,
 	XNVM_API_ID_EFUSE_WRITE_PUF,
 	XNVM_API_ID_EFUSE_WRITE_ROM_RSVD,
+	XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS_FROM_PLOAD,
 	XNVM_API_ID_EFUSE_READ_CACHE = 47,
 	XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS,
 	XNVM_API_MAX,
