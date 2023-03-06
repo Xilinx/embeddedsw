@@ -65,7 +65,8 @@ static int XNvm_EfuseWriteDmeKeyFromPload(u32 EnvDisFlag, XNvm_DmeKeyType KeyTyp
 static int XNvm_EfuseWriteDmeRevokeBits(u32 EnvDisFlag, u32 DmeRevokeNum);
 static int XNvm_EfuseWritePlmUpdate(u32 EnvDisFlag);
 static int XNvm_EfuseWriteBootModeDis(u32 EnvDisFlag, u32 BootModeDisMask);
-static int XNvm_EfuseWritePufDataFromPload(XNvm_PufInfoDirectPload *PufData);
+static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData);
+static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCtrlBits);
 static int XNvm_EfuseWritePufData(u32 AddrLow, u32 AddrHigh);
 static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
 static int XNvm_EfuseWriteCrcVal(u32 EnvDisFlag, u32 Crc);
@@ -133,8 +134,9 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_BootModeDis *BootModeDisMask = NULL;
 	XNvm_Crc *Crc = NULL;
 	XNvm_DmeMode *DmeMode = NULL;
-	XNvm_PufInfoDirectPload *PufData = NULL;
 	XNvm_RomRsvdBitsWritePload *RomRsvd = NULL;
+	XNvm_PufHDInfoDirectPload *PufData = NULL;
+	XNvm_PufCtrlDirectPload *PufSecData = NULL;
 
     /**
 	 *  Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
@@ -257,13 +259,16 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		DmeMode = (XNvm_DmeMode *)Cmd->Payload;
 		Status = XNvm_EfuseWriteDmeModeVal((u32)DmeMode->EnvDisFlag, DmeMode->EfuseDmeMode);
 		break;
-	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_FROM_PLOAD):
-		PufData = (XNvm_PufInfoDirectPload *)Cmd->Payload;
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_HD_FROM_PLOAD):
+		PufData = (XNvm_PufHDInfoDirectPload *)Cmd->Payload;
 		Status = XNvm_EfuseWritePufDataFromPload(PufData);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
 		RomRsvd = (XNvm_RomRsvdBitsWritePload *)Cmd->Payload;
 		Status = XNvm_EfuseWriteRomRsvd(RomRsvd->EnvMonitorDis, RomRsvd->RomRsvdBits);
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS_FROM_PLOAD):
+		PufSecData = (XNvm_PufCtrlDirectPload *)Cmd->Payload;
+		Status = XNvm_EfuseWritePufCtrlBitsFromPload(PufSecData);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
@@ -861,14 +866,13 @@ static int XNvm_EfuseWriteDmeModeVal(u32 EnvDisFlag, u32 EfuseDmeMode)
  * 		- ErrorCode - If there is a failure
  *
  ******************************************************************************/
-static int XNvm_EfuseWritePufDataFromPload(XNvm_PufInfoDirectPload *PufData)
+static int XNvm_EfuseWritePufDataFromPload(XNvm_PufHDInfoDirectPload *PufData)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_EfusePufHdAddr EfusePufData = {0U};
 	u32 Index = 0U;
 	EfusePufData.PrgmPufHelperData = 1U;
 	EfusePufData.EnvMonitorDis = (u32)PufData->EnvDisFlag;
-	EfusePufData.PufSecCtrlBits = PufData->PufCtrlBits;
 	EfusePufData.Chash = PufData->Chash;
 	EfusePufData.Aux = PufData->Aux;
 	EfusePufData.RoSwap = PufData->RoSwap;
@@ -881,6 +885,17 @@ static int XNvm_EfuseWritePufDataFromPload(XNvm_PufInfoDirectPload *PufData)
 
 	return Status;
 }
+
+static int XNvm_EfuseWritePufCtrlBitsFromPload(XNvm_PufCtrlDirectPload *PufSecCtrlBits)
+{
+	volatile int Status = XST_FAILURE;
+
+	/* Programming Puf SecCtrl bits */
+    Status = XNvm_EfuseWritePufSecCtrl(PufSecCtrlBits->EnvDisFlag,PufSecCtrlBits->PufCtrlBits);
+
+	return Status;
+}
+
 
 /*****************************************************************************/
 /**

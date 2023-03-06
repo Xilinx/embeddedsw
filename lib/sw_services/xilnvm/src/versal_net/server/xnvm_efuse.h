@@ -64,6 +64,7 @@ int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode);
 int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData);
 int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc);
 int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits);
+int XNvm_EfuseWritePufSecCtrl(u32 EnvDisFlag,u32 PufCtrlBits);
 
 #ifdef __cplusplus
 }
