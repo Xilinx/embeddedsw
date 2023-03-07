@@ -86,6 +86,8 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Update XPlmi_MoveProc to handle 64 bit Address
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
+*       ng   03/07/2023 Fixed circular dependency between xilpm and xilplmi
+*                       libraries
 *
 * </pre>
 *
@@ -114,7 +116,7 @@
 #endif
 #include "xplmi_plat.h"
 #include "xplmi_tamper.h"
-#include "xpm_nodeid.h"
+
 /**@cond xplmi_internal
  * @{
  */
@@ -148,6 +150,9 @@
 
 /* CFU keyhole size in words */
 #define XPLMI_CFU_KEYHOLE_SIZE		(0x10000U)
+
+/**< Versal Subsystem node ID for PMC. */
+#define XPLMI_PMC_SUBSYS_NODE_ID	(0x1c000001U)
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
@@ -1672,7 +1677,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 		ProcCdo.BufLen = (u32)((ProcList->ProcData[ProcIndex + 1U].Addr -
 			ProcList->ProcData[ProcIndex].Addr) / XPLMI_WORD_LEN);
 		ProcCdo.CdoLen = ProcCdo.BufLen;
-		ProcCdo.SubsystemId = PM_SUBSYS_PMC;
+		ProcCdo.SubsystemId = XPLMI_PMC_SUBSYS_NODE_ID;
 		/* Execute Proc */
 		Status = XPlmi_ProcessCdo(&ProcCdo);
 	} else {
