@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.1   kpt  07/18/22 Initial release
+* 5.2   am   04/01/23 Added XST_INVALID_PARAM error code for invalid parameters
 *
 * </pre>
 * @note
@@ -60,10 +61,12 @@ int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecure_Cryp
 	u32 Payload[XSECURE_PAYLOAD_LEN_4U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((CryptoStatusOp != XSECURE_CRYPTO_STATUS_SET) && (CryptoStatusOp != XSECURE_CRYPTO_STATUS_CLEAR)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 

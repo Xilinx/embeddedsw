@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   kpt  07/18/22 Initial release
+* 5.2   am   04/01/23 Added XST_INVALID_PARAM error code for invalid parameters
 *
 * </pre>
 * @note
@@ -57,6 +58,7 @@ int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr)
 	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -94,14 +96,17 @@ int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp K
 	u32 Payload[XSECURE_PAYLOAD_LEN_7U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((KatOp != XSECURE_API_KAT_SET) && (KatOp != XSECURE_API_KAT_CLEAR)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 	if ((KatMaskLen < XSECURE_MIN_KAT_MASK_LEN) || (KatMaskLen > XSECURE_MAX_KAT_MASK_LEN)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
