@@ -1,30 +1,31 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2022  Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
-* @file xpm_counter_r5_example.c
+* @file xpm_counter_arm_example.c
 *
 * Implements example that demonstrates usage of PMU counters and the
-* available APIs provided through xpm_counter.c. This example is to be used
-* on ARM based platforms.
+* available APIs provided through xpm_counter.c. This example can be used all
+* AMD Xilinx supported ARM platforms except CortexA53/A72/A78 32 bit.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 7.2   asa  3/18/10  First release of R5 based performance counter example
-* 8.0   mus  01/19/22 Added support for CortexR52 processor.
-* 8.0   mus  07/07/22 Added support for Cortex-A9 and ARMv8 based processors.
+* 8.2   asa  2/23/23  First version of ARM PMU example based out of the
+*                     older PMU example. The older PMU example is replaced
+*                     with this new one.
 * </pre>
 ******************************************************************************/
-#if !defined (__MICROBLAZE__)
+#if !defined (__MICROBLAZE__) && !defined(ARMA53_32)
 #include "xil_printf.h"
 #include "xpm_counter.h"
 #include "xstatus.h"
+#include "xparameters.h"
 
 /* Variables defined that are used to create PM events */
 volatile u32 DummyWrite;
@@ -40,8 +41,10 @@ int main()
     u32 CntVal;
     u32 CntVal1;
     u32 CntVal2;
-    u32 Count;
+	u32 Count;
+#if defined(VERSAL_NET) && !defined (ARMR52)
     u32 RegVal;
+#endif
 
     xil_printf("Start of PMU Example\n\r");
 
@@ -49,7 +52,7 @@ int main()
 	Xpm_DisableEventCounters();
     Xpm_ResetEventCounters();
 
-#if defined (__aarch64__) && defined(VERSAL_NET)
+#if defined(VERSAL_NET) && !defined (ARMR52)
         RegVal = mfcp(MDCR_EL3);
         mtcp(MDCR_EL3, RegVal | XPM_MDCR_EL3_SPME_MASK);
 #endif
@@ -73,7 +76,7 @@ int main()
 	/* Setup the instructions executed event. */
 #if defined (__aarch64__)
     CntrId1 = Xpm_SetUpAnEvent(XPM_EVENT_INSTR_RETIRED);
-#elif defined (ARMR5)
+#elif defined (ARMR5) || defined (ARMR52)
     CntrId1 = Xpm_SetUpAnEvent(XPM_EVENT_INSTR);
 #else
     CntrId1 = Xpm_SetUpAnEvent(XPM_EVENT_SW_CHANGEPC);
@@ -85,7 +88,7 @@ int main()
     }
 #if defined (__aarch64__)
 	CntrId2 = Xpm_SetUpAnEvent(XPM_EVENT_CPU_CYCLES);
-#elif defined (ARMR5)
+#elif defined (ARMR5) || defined (ARMR52)
     /* Setup data read event counter */
     CntrId2 = Xpm_SetUpAnEvent(XPM_EVENT_DATAREAD);
 #else
@@ -106,17 +109,12 @@ int main()
     mtcp(XREG_CP15_SW_INC, (0x1U << CntrId));
     mtcp(XREG_CP15_SW_INC, (0x1U << CntrId));
 #endif
+    isb();
 
 	/* Create some instruction read and instruction executed events */
 	DummyWrite = 1;
     DummyWrite1 = 2;
 	DummyWrite2 = DummyWrite + DummyWrite1;
-
-#if defined (__aarch64__) && defined(VERSAL_NET)
-	RegVal = mfcp(PMCR_EL0);
-	RegVal &= 0xFFFFFFFC;
-	mtcp(PMCR_EL0, RegVal);
-#endif
 
     /* Read the sw increment event counter */
 	if (XST_FAILURE == Xpm_GetEventCounter(CntrId, &CntVal)) {
@@ -136,23 +134,21 @@ int main()
         goto END;
 	}
 
-#if !defined(ARMR5)
-        for (Count = 3; Count < XPM_CTRCOUNT; Count++)
-        {
-                /*
-                * CortA53/CortexA72/CortexA78/CortexA53/CortexA9 processors
-                * have 6 event counters, so use 3 more event counters
-                * to use all event counters.
-                */
-                CntrId = Xpm_SetUpAnEvent(XPM_EVENT_SOFTINCR);
-                if(XPM_NO_COUNTERS_AVAILABLE == CntrId) {
-                        xil_printf("No free counter available1\r\n");
-                        xil_printf("PMU example has FAILED\r\n");
-                        goto END;
-                }
-        }
 
-#endif
+	for (Count = 3; Count < XPM_CTRCOUNT; Count++) {
+			/*
+			* CortA53/CortexA72/CortexA78/CortexA53/CortexA9 processors
+			* have 6 event counters, so use 3 more event counters
+			* to use all event counters.
+			*/
+			CntrId = Xpm_SetUpAnEvent(XPM_EVENT_SOFTINCR);
+			if(XPM_NO_COUNTERS_AVAILABLE == CntrId) {
+					xil_printf("No free counter available1\r\n");
+					xil_printf("PMU example has FAILED\r\n");
+					goto END;
+			}
+	}
+
 
 	/*
 	 * Read the instructions executed event one more time.
@@ -161,7 +157,7 @@ int main()
 	 */
 #if defined (__aarch64__)
 	CntrId3 = Xpm_SetUpAnEvent(XPM_EVENT_INSTR_RETIRED);
-#elif defined (ARMR5)
+#elif defined (ARMR5) || defined (ARMR52)
     CntrId3 = Xpm_SetUpAnEvent(XPM_EVENT_INSTR);
 #else
     CntrId3 = Xpm_SetUpAnEvent(XPM_EVENT_SW_CHANGEPC);
@@ -193,4 +189,4 @@ END:
 
     return 0;
 }
-#endif
+#endif /* #if !defined (__MICROBLAZE__) && !defined(ARMA53_32) */
