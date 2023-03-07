@@ -30,6 +30,12 @@
 * 8.00  mus  07/14/22 Existing PMU APIs dont have support for CortexA53 32
 *                     bit processor, added check to skip PMU APIs
 *                     compilation in case of CortexA53 32 bit BSP.
+* 8.2   asa  02/23/23 Add instruction sync barrier as mandated by ARM specs.
+*                     Do other clean ups.
+*                     Remove xil_printfs for failure cases where we return
+*                     appropriate error return value. It is expected that
+*                     callers of the APIs would check for return value to
+*                     know the cause of the error.
 * </pre>
 *
 ******************************************************************************/
@@ -80,8 +86,8 @@ void Xpm_DisableEventCounters(void)
 #endif
 #endif
 
-    RegVal &= 0x7FFFFFFFU;
-    RegVal |= (XPM_EVENT_CNTRS_MASK & 0x7FFFFFFFU);
+    RegVal &= 0x7FFFFFFF;
+    RegVal |= XPM_EVENT_CNTRS_MASK;
 #if defined(__aarch64__)
     mtcp(PMCNTENCLR_EL0, RegVal);
 #else
@@ -158,6 +164,7 @@ void Xpm_ResetEventCounters(void)
 #else
     mtcp(XREG_CP15_PERF_MONITOR_CTRL, Reg);
 #endif
+    isb();
 }
 
 /*****************************************************************************/
@@ -180,7 +187,6 @@ u32 Xpm_DisableEvent(u32 EventCntrId)
     u32 CntrMask = 0x1U;
 
     if (EventCntrId > XPM_MAX_EVENTHANDLER_ID) {
-        xil_printf("Invalid EventHandlerID\r\n");
         return XST_FAILURE;
     } else {
         CntrMask = CntrMask << EventCntrId;
@@ -245,7 +251,6 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
     OriginalCounters &= XPM_EVENT_CNTRS_BIT_MASK;
     Counters = OriginalCounters;
     if (Counters == XPM_ALL_EVENT_CNTRS_IN_USE) {
-        xil_printf("No counters available\r\n");
         return XPM_NO_COUNTERS_AVAILABLE;
 	} else {
         for(Index = 0U; Index < XPM_CTRCOUNT; Index++) {
@@ -260,6 +265,7 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
 #if defined(__aarch64__)
    /* Select event counter */
     mtcp(PMSELR_EL0, Index);
+    isb();
     /* Set the event */
     mtcp( PMXEVTYPER_EL0, EventID);
     /* Enable event counter */
@@ -267,6 +273,7 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
 #else
     /* Select event counter */
     mtcp(XREG_CP15_EVENT_CNTR_SEL, Index);
+    isb();
     /* Set the event */
     mtcp(XREG_CP15_EVENT_TYPE_SEL, EventID);
     /* Enable event counter */
@@ -298,16 +305,17 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
 u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal)
 {
     if (EventCntrId > XPM_MAX_EVENTHANDLER_ID) {
-        xil_printf("Invalid Event Handler ID\r\n");
         return XST_FAILURE;
     } else {
 #if defined(__aarch64__)
 	mtcp(PMSELR_EL0, EventCntrId);
-        *CntVal = mfcp(PMXEVCNTR_EL0);
+	isb();
+    *CntVal = mfcp(PMXEVCNTR_EL0);
 #else
-        mtcp(XREG_CP15_EVENT_CNTR_SEL, EventCntrId);
+     mtcp(XREG_CP15_EVENT_CNTR_SEL, EventCntrId);
+     isb();
 #ifdef __GNUC__
-        *CntVal = mfcp(XREG_CP15_PERF_MONITOR_COUNT);
+     *CntVal = mfcp(XREG_CP15_PERF_MONITOR_COUNT);
 #elif defined (__ICCARM__)
         mfcp(XREG_CP15_PERF_MONITOR_COUNT, (*CntVal));
 #else
