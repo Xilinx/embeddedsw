@@ -87,6 +87,8 @@
 *       dc   08/29/2022 Changed u8 to u32 type
 * 3.1   skg  10/25/2022 Added in body comments for APIs
 *       skg  12/07/2022 Added Additional PPKs hash and invalid support
+*       kal  03/07/2023 Added volatile keyword to avoid compiler optimization in
+*                       XNvm_EfuseWriteSecMisc1Fuses
 *
 * </pre>
 *
@@ -2545,7 +2547,7 @@ END:
  ******************************************************************************/
 static int XNvm_EfuseWriteSecMisc1Fuses(const XNvm_EfuseSecMisc1Bits *Misc1Bits)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 Row = XNVM_EFUSE_SECURITY_MISC_1_ROW;
 	u32 RowDataVal = 0U;
 	u32 WriteMask = 0U;
@@ -2603,10 +2605,7 @@ static int XNvm_EfuseWriteSecMisc1Fuses(const XNvm_EfuseSecMisc1Bits *Misc1Bits)
 			&WriteMask);
 	if (Status != XST_SUCCESS) {
 		Status = (Status | XNVM_EFUSE_ERR_WRITE_SECURITY_MISC_1);
-		goto END;
 	}
-
-	Status = XST_SUCCESS;
 
 END :
 	return Status;
