@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -28,6 +29,7 @@
 *                     It fixes CR#974078.
 * 8.0   mus  07/06/21 Added support for VERSAL NET
 * 8.0   mus  06/27/22 Enabled PMU counter.
+* 8.2   asa  02/23/23 Add instruction barrier after updating PMCR_EL0.
 * </pre>
 *
 * @note
@@ -135,6 +137,7 @@ _startup:
 	orr x1, x1, #(0x1 << 2)
 	orr x1, x1, #(0x1 << 3)
 	msr PMCR_EL0, x1
+	isb
 
 	/* make sure argc and argv are valid */
 	mov	x0, #0
