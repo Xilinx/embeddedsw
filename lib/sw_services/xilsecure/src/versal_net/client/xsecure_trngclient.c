@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   am   06/13/22 Initial release
 *       kpt  07/24/22 moved XSecure_TrngKat into xsecure_katclient_plat.c
+* 5.2   am   04/01/23 Added XST_INVALID_PARAM error code for invalid parameters
 *
 * </pre>
 *
@@ -47,10 +49,12 @@ int XSecure_TrngGenerareRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBuf
 	u32 Payload[XSECURE_PAYLOAD_LEN_4U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 	if (Size > XSECURE_TRNG_SEC_STRENGTH_IN_BYTES) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
