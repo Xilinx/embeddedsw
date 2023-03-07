@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +36,7 @@
 * 		      violation.
 * 8.0	sk   03/02/22 Add endif at the end of the file to fix misra_c_2012
 * 		      _directive_4_10 violation.
+* 8.2   asa  02/24/23 Add macros for R52.
 * </pre>
 *
 ******************************************************************************/
@@ -57,9 +59,16 @@ extern "C" {
 #endif /* __cplusplus */
 
 /************************** Constant Definitions ****************************/
+#if defined (ARMR5) && !defined (ARMR52)
+#define VERSAL_ZYNQMP_R5
+#endif
 
 /* Number of performance counters */
+#if defined (ARMR52)
+#define XPM_CTRCOUNT 4U
+#else
 #define XPM_CTRCOUNT 3U
+#endif
 
 /* The following constants define the Cortex-R5 Performance Monitor Events */
 
@@ -118,11 +127,6 @@ extern "C" {
  */
 
 #define XPM_EVENT_INSTR 0x08
-/*
- * Dual-issued pair of instructions architecturally executed
- */
-
-#define XPM_EVENT_DUALINSTR 0x5E
 
 /*
  * Exception taken
@@ -139,6 +143,15 @@ extern "C" {
  */
 
 #define XPM_EVENT_EXCEPTIONRET 0x0A
+
+/*
+ * Dual-issued pair of instructions architecturally executed
+ */
+
+#define XPM_EVENT_DUALINSTR 0x5E
+
+
+
 
 /*
  * Change to Context ID Executed
@@ -206,6 +219,22 @@ extern "C" {
  * the conditions is present.
  */
 
+
+#if defined (ARMR52)
+#define XPM_EVENT_DATAMEM_ACCESS				0x13U
+#define XPM_EVENT_L1INSRCACHE_ACCESS			0x14U
+#define XPM_EVENT_BUS_ACCESS					0x19U
+#define XPM_EVENT_MEM_ERROR						0x1AU
+#define XPM_EVENT_INSTR_SPECULATED				0x1BU
+#define XPM_EVENT_BUS_CYCLES					0x1DU
+#define XPM_EVENT_CHAINED_EVENTS				0x1EU
+#define XPM_EVENT_BR_RETIRED					0x21U
+#define XPM_EVENT_BR_MISPRED_RETIRED			0x22U
+#define XPM_EVENT_STALL_FRONTEND				0x23U
+#define XPM_EVENT_STALL_BACKEND					0x24U
+#endif
+
+#if defined (VERSAL_ZYNQMP_R5)
 #define XPM_EVENT_INSTRSTALL 0x40
 
 /*
@@ -315,7 +344,15 @@ extern "C" {
  */
 
 #define XPM_EVENT_FPA 0x5D
+#endif
 
+#if defined (ARMR52)
+#define XPM_EVENT_BUS_ACCESS_LD 				0x60U
+#define XPM_EVENT_BUS_ACCESS_ST 				0x61U
+#endif
+
+
+#if defined (VERSAL_ZYNQMP_R5)
 /*
  * Data cache data RAM fatal ECC error
  */
@@ -406,7 +443,75 @@ extern "C" {
  */
 
 #define XPM_EVENT_DCACHEINVALIDATE 0x73
+#endif
 
+#if defined (ARMR52)
+#define XPM_EVENT_EXC_SVC 						0x82U
+#define XPM_EVENT_EXC_IRQ 						0x86U
+#define XPM_EVENT_EXC_FIQ 						0x87U
+#define XPM_EVENT_EXC_HVC 						0x8AU
+#define XPM_EVENT_EXC_TRAP_IRQ 					0x8EU
+#define XPM_EVENT_EXC_TRAP_FIQ 					0x8FU
+#define XPM_EVENT_KITE_AXI_READ					0xC0U
+#define XPM_EVENT_KITE_AXI_WRITE				0xC1U
+#define XPM_EVENT_KITE_FLASH_READ				0xC2U
+#define XPM_EVENT_KITE_LLPP_READ				0xC3U
+#define XPM_EVENT_KITE_LLPP_WRITE				0xC4U
+#define XPM_EVENT_KITE_NC_AXI_READ				0xC5U
+#define XPM_EVENT_KITE_NC_AXI_WRITE				0xC6U
+#define XPM_EVENT_KITE_NC_FLASH_READ			0xC7U
+#define XPM_EVENT_KITE_REFILL_PF_AXI			0xC8U
+#define XPM_EVENT_KITE_REFILL_LS_AXI			0xC9U
+#define XPM_EVENT_KITE_REFILL_LS_FLASH			0xCAU
+#define XPM_EVENT_KITE_DC_ACCESS_AXI			0xCBU
+#define XPM_EVENT_KITE_DC_ACCESS_FLASH			0xCCU
+#define XPM_EVENT_KITE_IC_ACCESS_AXI			0xCDU
+#define XPM_EVENT_KITE_IC_ACCESS_FLASH			0xCEU
+#define XPM_EVENT_KITE_NC_LS_HINTED_AXI			0xCFU
+#define XPM_EVENT_KITE_NC_LS_HINTED_FLASH_READ	0xD0U
+#define XPM_EVENT_KITE_REFILL_IC_AXI			0xD1U
+#define XPM_EVENT_KITE_REFILL_IC_FLASH			0xD2U
+#define XPM_EVENT_KITE_NC_LS_AXI_READ			0xD3U
+#define XPM_EVENT_KITE_NC_LS_FLASH_READ			0xD4U
+#define XPM_EVENT_KITE_COND_BR_RETIRED			0xD5U
+#define XPM_EVENT_KITE_MIS_PRED_COND_BR			0xD6U
+#define XPM_EVENT_KITE_BTAC_BR_RETIRED			0xD7U
+#define XPM_EVENT_KITE_MIS_PRED_BTAC_BR			0xD8U
+#define XPM_EVENT_KITE_VSCTLR_CHANGED			0xD9U
+#define XPM_EVENT_KITE_DSB_ALL_RETIRED			0xDAU
+#define XPM_EVENT_KITE_SIMULT_ACCESS_AXI		0xDBU
+#define XPM_EVENT_KITE_SIMULT_ACCESS_FLASH		0xDCU
+#define XPM_EVENT_KITE_EL2_ENTERED				0xDDU
+#define XPM_EVENT_KITE_CRS_BR_RETIRED			0xDEU
+#define XPM_EVENT_KITE_MIS_PRED_CRS_BR			0xDFU
+#define XPM_EVENT_KITE_COR_ERR_MEM				0xF0U
+#define XPM_EVENT_KITE_FAT_ERR_MEM				0xF1U
+#define XPM_EVENT_KITE_BUS_COR_DATA				0xF2U
+#define XPM_EVENT_KITE_BUS_FAT_OTHER			0xF3U
+#define XPM_EVENT_KITE_BUS_PROTOCOL_ANY			0xF4U
+#define XPM_EVENT_KITE_IQ_EMPTY_NO_MISS			0x100U
+#define XPM_EVENT_KITE_IQ_EMPTY_AXI_MISS		0x101U
+#define XPM_EVENT_KITE_IQ_EMPTY_FLASH_MISS		0x102U
+#define XPM_EVENT_KITE_INTERLOCK_OTHER			0x103U
+#define XPM_EVENT_KITE_INTERLOCK_AGU			0x104U
+#define XPM_EVENT_KITE_INTERLOCK_FPASIMD		0x105U
+#define XPM_EVENT_KITE_LOAD_STALL_AXI			0x106U
+#define XPM_EVENT_KITE_LOAD_STALL_FLASH			0x107U
+#define XPM_EVENT_KITE_WR_STALL_STORE			0x108U
+#define XPM_EVENT_KITE_WR_STALL_AXI_STB_FULL	0x109U
+#define XPM_EVENT_KITE_WR_STALL_TCM_STB_FULL	0x10AU
+#define XPM_EVENT_KITE_WR_STALL_LLPP_STB_FULL	0x10BU
+#define XPM_EVENT_KITE_BARRIER_STALL_BARRIER	0x10CU
+#define XPM_EVENT_KITE_BARRIER_STORE_AXIWRITE	0x10DU
+#define XPM_EVENT_KITE_IC_WT_HIT				0x200U
+#define XPM_EVENT_KITE_DC_WT_HIT				0x201U
+#define XPM_EVENT_KITE_I_UMPU_HIT				0x202U
+#define XPM_EVENT_KITE_D_UMPU_HIT				0x203U
+#define XPM_EVENT_KITE_IC_CACHE_HIT				0x204U
+#define XPM_EVENT_KITE_IC_LFB_HIT				0x205U
+#define XPM_EVENT_KITE_IC_BIU_HIT				0x206U
+#define XPM_EVENT_KITE_IC_HINT_REQ				0x207U
+#endif
 
 /*
  * The following constants define the configurations for Cortex-R5 Performance
