@@ -26,7 +26,7 @@
 *       ana  10/15/2020 Updated doxygen comments
 * 2.3   am   11/23/2020 Resolved MISRA C violation
 * 3.1   skg  10/23/2022 Added In body comments for APIs
-*
+*       kal  03/08/2023 Added new error code XNVM_BBRAM_ERROR_IN_DMA_XFER
 * </pre>
 *
 * @note
@@ -63,6 +63,7 @@ extern "C" {
 #define XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE      (XNVM_EFUSE_BBRAM_TAG | 0x04U)
 #define XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED    (XNVM_EFUSE_BBRAM_TAG | 0x05U)
 #define XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT          (XNVM_EFUSE_BBRAM_TAG | 0x10U)
+#define XNVM_BBRAM_ERROR_IN_DMA_XFER              (XNVM_EFUSE_BBRAM_TAG | 0x20U)
 
 /***************************** Type Definitions *******************************/
 
