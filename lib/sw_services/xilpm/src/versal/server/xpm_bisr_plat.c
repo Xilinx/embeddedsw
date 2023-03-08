@@ -515,7 +515,7 @@ static XStatus XPmBisr_RepairME(u32 EfuseTagAddr, u32 TagId,u32 TagSize,u32 TagO
 	 * finished before AXI-MM requests are sent. Ensure NPI writes from CDO
 	 * have finished by dummy NPI register read.
 	 */
-	PmIn32((u32)BaseAddr + NPI_PCSR_STATUS_OFFSET, RegValue);
+	PmIn32(AieDev->Node.BaseAddress + NPI_PCSR_STATUS_OFFSET, RegValue);
 
 	/* Copy repair data */
 	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
