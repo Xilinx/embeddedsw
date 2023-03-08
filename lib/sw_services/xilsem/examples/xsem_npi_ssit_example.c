@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -17,6 +18,8 @@
  * 0.3   hv    08/15/2022  Updated broadcast APIs to check status of all SLRs
  *                         separately
  * 0.4   hb    08/22/2022  Updated to use XSem_Ssit_CmdGetStatus API
+ * 0.5   gm    03/06/2023  Updated total test count with SLR count macro
+ *                         to support different SSIT devices.
  * </pre>
  *
  *****************************************************************************/
@@ -501,7 +504,7 @@ int main(void)
 {
 	XStatus Status = XST_FAILURE;
 	XSemIpiResp IpiResp = {0};
-	u32 XSem_TotalTestCnt = 9U;
+	u32 XSem_TotalTestCnt = (5U + XSEM_SSIT_MAX_SLR_CNT);
 	u32 XSem_PassCnt = 0U;
 	u32 SlrCnt;
 
