@@ -24,6 +24,7 @@
 *       am    02/28/2022 Fixed MISRA C violation rule 4.5
 * 3.0   dc    08/29/2022 Removed initialization
 * 3.1   skg   10/23/2022 Added In body comments for APIs
+*       kal   03/08/2023 Make status as volatile in XNvm_BbramKeyWrite
 *
 * </pre>
 *
@@ -122,7 +123,7 @@ END:
  ******************************************************************************/
 static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	volatile int ClearStatus = XST_FAILURE;
 	volatile int ClearStatusTmp = XST_FAILURE;
 	u64 Addr = ((u64)KeyAddrHigh << 32U) | (u64)KeyAddrLow;
@@ -131,9 +132,11 @@ static int XNvm_BbramKeyWrite(u32 Size, u32 KeyAddrLow, u32 KeyAddrHigh)
 	Status = XPlmi_DmaXfr(Addr, (UINTPTR)Key, Size / XNVM_WORD_LEN,
 			XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
+		Status |= XNVM_BBRAM_ERROR_IN_DMA_XFER;
 		goto END;
 	}
 
+	Status = XST_FAILURE;
 	Status = XNvm_BbramWriteAesKey(Key, Size);
 
 END:
