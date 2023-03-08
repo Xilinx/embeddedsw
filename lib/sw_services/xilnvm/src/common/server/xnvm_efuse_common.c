@@ -23,6 +23,7 @@
 *       kal  09/29/2022 Removed unlock and lock of eFuse controller
 *                       from the XNvm_EfuseCacheReload function
 * 3.1   skg  10/25/2022 Added in body comments for APIs
+*       kal  03/07/2023 Added volatile keyword for Status variables
 *
 * </pre>
 *
@@ -89,7 +90,7 @@
  ******************************************************************************/
 int XNvm_EfuseCacheReload(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 CacheStatus;
 
     /**
@@ -264,7 +265,7 @@ void XNvm_EfuseEnableProgramming(void)
  ******************************************************************************/
 int XNvm_EfuseDisableProgramming(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	/**
 	 *  Read EFUSE_CFG_REG
 	 */
@@ -291,7 +292,7 @@ int XNvm_EfuseDisableProgramming(void)
  ******************************************************************************/
 int XNvm_EfuseResetReadMode(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	/**
 	 *  Read EFUSE_CFG_REG
@@ -380,7 +381,7 @@ void XNvm_EfuseInitTimers(void)
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op,
 			XNvm_EfuseRdMode RdMode)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
     /**
 	 *  Unlock eFuse controller to write into eFuse registers
@@ -438,7 +439,7 @@ END:
  ******************************************************************************/
 int XNvm_EfuseCheckForTBits(void)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	volatile u32 ReadReg = ~(XNVM_EFUSE_STATUS_TBIT_0 |
 			XNVM_EFUSE_STATUS_TBIT_1 |
 			XNVM_EFUSE_STATUS_TBIT_2 );
