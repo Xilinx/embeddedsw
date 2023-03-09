@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -2984,12 +2985,6 @@ void XV_HdmiTx1_GenerateVideoTimingExtMetaIF(XV_HdmiTx1 *InstancePtr,
 	/* Only for info/debugging, no functional usage */
 	memcpy(Tx1ExtMeta, ExtMeta, sizeof(XV_HdmiC_VideoTimingExtMeta));
 
-	if (ExtMeta->VRREnabled)
-	{
-		Data |= ExtMeta->VRREnabled;
-		Data |= ExtMeta->FVAFactorMinus1 <<
-			XV_HDMITX1_AUX_VTEM_FVA_FACT_M1_SHIFT;
-	}
 	if (ExtMeta->QMSEnabled)
 	{
 		Data |= ExtMeta->QMSEnabled << XV_HDMITX1_AUX_VTEM_QMS_EN_SHIFT;
@@ -2997,6 +2992,10 @@ void XV_HdmiTx1_GenerateVideoTimingExtMetaIF(XV_HdmiTx1 *InstancePtr,
 			XV_HDMITX1_AUX_VTEM_M_CONST_SHIFT;
 		Data |= ExtMeta->NextTransferRate <<
 			XV_HDMITX1_AUX_VTEM_NEXT_TFR_SHIFT;
+	} else {
+		Data |= ExtMeta->VRREnabled;
+		Data |= ExtMeta->FVAFactorMinus1 <<
+			XV_HDMITX1_AUX_VTEM_FVA_FACT_M1_SHIFT;
 	}
 	Data |= ExtMeta->BaseVFront << XV_HDMITX1_AUX_VTEM_BASE_VFRONT_SHIFT;
 	Data |= ExtMeta->BaseRefreshRate <<
