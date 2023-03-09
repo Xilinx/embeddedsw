@@ -107,6 +107,7 @@
 *       sk   01/11/2023 Updated error code for image store
 *       bm   02/04/2023 Added support to return warnings
 *       sk   02/23/2023 Added error code for SSIT slave EoPDI SYNC status
+*       bm   03/09/2023 Add NULL check for module before using it
 *
 * </pre>
 *
@@ -317,6 +318,8 @@ typedef enum {
 		                TamperTrigger IPI call */
 	XPLMI_INVALID_BREAK_LENGTH, /**< 0x140 - Error when the break length required to jump
 				      is less than the processed CDO length */
+	XPLMI_ERR_MODULE_NOT_REGISTERED, /**< 0x141 - Error when the module of the CDO/IPI command
+					   used is not registered */
 
 	/** Platform specific Status codes used in PLMI from 0x1A0 to 0x1FF */
 	XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL = 0x1A0, /**< 0x1A0 - Error when the SSIT event
