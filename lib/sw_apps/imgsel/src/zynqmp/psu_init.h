@@ -30,6 +30,8 @@
 #define CRL_APB_UART1_REF_CTRL_OFFSET                                              (0XFF5E0078U)
 #undef CRL_APB_QSPI_REF_CTRL_OFFSET
 #define CRL_APB_QSPI_REF_CTRL_OFFSET                                               (0XFF5E0068U)
+#undef CRL_APB_TIMESTAMP_REF_CTRL_OFFSET
+#define CRL_APB_TIMESTAMP_REF_CTRL_OFFSET                                          (0XFF5E0128U)
 
 #undef IOU_SLCR_MIO_PIN_0_OFFSET
 #define IOU_SLCR_MIO_PIN_0_OFFSET                                                  (0XFF180000U)
