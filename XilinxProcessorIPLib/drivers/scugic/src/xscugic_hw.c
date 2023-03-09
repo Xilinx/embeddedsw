@@ -90,7 +90,9 @@
 *                     to ICC_IGRPEN0_EL1 is resulting into sync abort.
 *                     It fixes CR#1152445.
 * 5.1   mus  02/15/23 Added support for VERSAL_NET APU and RPU GIC.
-
+* 5.1   mus  03/07/23 Fix XScuGic_InterruptMapFromCpuByDistAddr and
+*                     XScuGic_InterruptUnmapFromCpuByDistAddr for GICv3.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -724,7 +726,7 @@ void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
 if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
 #if defined (GICv3)
 	u32 Temp;
-	Temp = Int_Id - 32;
+	Temp = Int_Id;
 
 	#if defined (VERSAL_NET)
         #if defined (ARMR52)
@@ -793,16 +795,12 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 	u32 Cpu_CoreId;
 #endif
 
-#if defined (VERSAL_NET)
-	u32 Temp;
-#endif
-
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 
 if (Int_Id >= XSCUGIC_SPI_INT_ID_START) {
 #if defined (GICv3)
 	u32 Temp;
-	Temp = Int_Id - 32;
+	Temp = Int_Id;
 
 	RegValue = XScuGic_ReadReg(DistBaseAddress,
                         XSCUGIC_IROUTER_OFFSET_CALC(Temp));
