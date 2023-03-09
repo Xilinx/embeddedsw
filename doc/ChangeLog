@@ -8,7 +8,14 @@ axidma_v9_16:
 Fix infinite loops in driver examples
 
 axivdma_v6_13:
-Fix infinite loops in driver example
+Fix infinite loops in driver examples
+
+cpu_v2_17:
+Update tcl to copy proper libraries when fpu is enabled
+
+cpu_cortexa78_v1_1:
+Updated tcl to correct the flag ARMA78_EL3
+Updated tcl to have compiler flag -DENABLE_MINIMAL_XLAT_TBL based on user config.
 
 csudma_v1_13:
 Add byte-wise transfer functionality for support devices
@@ -37,6 +44,10 @@ Add PCS control and status registers information
 i3cpsx_v1_1:
 Fix the warnings
 Remove hardcoding of timing values
+
+intc_v3_16:
+Fix compilation warnings reported with -Wundef flag
+Updated tcl to fix a race condition in the interrupt mask and id generation incase multiple interrupt source port names having the same name
 
 ipipsu_v2_13:
 Added support for cores
@@ -74,6 +85,9 @@ Updated doxygen documentation
 
 tmrctr_v4_10:
 Updated doxygen documentation
+
+ttcps_v3_17:
+Updated tcl fix interrupt parent address value for versal net
 
 uartlite_v3_8:
 Use XUartLite_GetSR instead of accessing status register directly.
@@ -176,6 +190,156 @@ Updated bank and pin information for different platforms
 dfeofdm_v1_0:
 Update hw version
 Add DFE OFDM driver
+
+zynqmp_fsbl:
+Remove DDR IO retention during boot
+Updated FSBL banner
+Add support for GD25B512ME GiGadevice for zynqmp devices
+
+imgsel:
+Update directory structure for Image selector to accommodate Versal Image selector
+Added support for Versal Image selector
+Provide support to build Image selector using Vitis
+Added Image selector support for other Versal boards
+
+img_rcvry:
+Adds support for vhk158, vek280 system controllers
+Update SW apps to use the new lwip213 Version
+Prevent access to sd card on som starter kits
+Added debug print levels
+
+versal_plm:
+Fix LIBS variable in Versionless makefile
+Fix APU IPIs warning logic for Versal Net
+Doxygen comments update
+Increased stack size by 1KB
+Switch to SSIT events right after initial NoC path is configured
+Add macro VERSALNET_PLM
+Adding OCP and CERT libraries to BSP for Versal Net
+Update MCPU version to v11 for Versal Net
+Enabling OCP by default for Versal Net
+Remove Xilsem dependency for version less PLM
+
+xilplmi_v1_8:
+Renamed KAT macros
+Make XPlmi_SoftResetHandler non-static
+Add invalid Commands handler Logic
+Update invalid node id logic
+Fix Security Review Comments
+Clear SSS CFG Error after configuring SSS for SBI to DMA for Versal Net
+Add Null to invalid command handler of Xplmi error module
+Timeout Settings info for JTAG_SBI
+Doxygen comments updated
+Add support for SSIT Single EAM Event forwarding from Secondary SLRs
+Add enable additional PPKs support
+Added command to set FIPS mode
+Initialized subsystem id of CDO command for proc
+Only reset UART_INITIALIZED while processing tamper response
+Added PCR Log update event for PCR log notification
+Remove Triggering of SSIT ERR2 from Secondary SLR to Primary SLR
+Create Secure Lockdown as a Critical Priority Task
+Clear End Stack before processing any CDO partition
+Handle SSIT Events from PPU1 IRQ directly
+Notify Other SLRs about Secure Lockdown
+Remove usage of double data type
+Versal Net EAM Updates for PPU/MPU/CPM errors
+Remove bypassing of PLM Set Alive during boot
+Add support to update crypto status in RTCA
+Add PLM_RSA_EXCLUDE and PLM_ECDSA_EXCLUDE
+Fix CFI readback logic for Versal Net
+Add XilSem SW triggered error events
+Check to skip SRST and multiboot register update for Secondary Boot Modes
+Add support to return warnings in status variable
+Remove runtime check to validate KAT status
+
+xilloader_v1_8:
+Used macro for redundancy checks for Xil_SMemCpy
+Add NULL to invalid Command handler in Xplmi module structure
+Removed TRNG initializations
+Fix Security Review Comments
+Fix Subsystem PdiInstance Valid Header
+Doxygen comments updated
+Add 5 PPKs support
+Added support to Bypass ID Code check based on bif attribute
+Added check to update FIPS state
+Added PCR Extend support for Secure images
+Added Support for new Image Store Feature
+Add OSPI support for gigadevice 512M, 1G, 2G Parts
+Generate DEVAK for requested image
+Send Load PDI response in Payload[1]
+Fixed compilation warning when PLM_SECURE_EXCLUDE is enabled
+Added End Of PDI SYNC Logic
+Fix bug in XLoader_SecureClear
+
+xilpdi_v1_7:
+Doxygen comments updated
+Added PcrInfo attribute in XilPdi_ImgHdr
+
+xilsecure_v5_1:
+Pass AesDmCfg structure as reference instead of value.
+Add NULL to Invalid Command handler logic for Xilsecure
+TRNG enhancements
+Fixed print issues in ECDSA examples
+Add Null to invalid command handler of Xilsecure module
+Made curve enumerations P384 and P521 visible to customers.
+Fix compilation error in Xilsecure in server mode
+Add Error code for unaligned data
+Added TRNG initialization in XSecure_ECCSignGenKat
+Added an instance for SHA1 engine
+Add invalid command handler logic
+Add support for SHA2-384 digest
+Add support for generation of Ephemeral Key
+Added API to set or clear KAT mask for external modules
+AES key clear should be done before AES is set under reset
+Add support to provide crypto indicator when crypto is in use
+Initialize Payload to zero and make it volatile
+Address Security review comments
+Fixed code alignment in ECDSA GenerateSign/VerifySign APIs
+Corrected the mask for PS_SRST
+Modified secure environment configuration
+Add missing cast
+Rename XPLMI_SECURE_ENC_KAT_MASK
+Add missing Param description for Resource
+Remove runtime check to validate KAT status
+Fix compilation failure when PLM_SECURE_EXCLUDE is enabled
+
+xilpuf_v2_1:
+Added support for provisioning of SSIT devices
+Removed xilpuf_regeneration_example and xilpuf_regeneration_client_example
+Added support for ID only regeneration in xilpuf_example and xilpuf_client_example
+Store PUF Aux after shifting
+Fixed warnings related to static analysis(MISRA-C, Code complexity) and Doxygen warnings
+
+xilnvm_v3_1:
+Add provisioning support for Xilnvm
+Make Revocation ID 0 as valid
+Fix the unaligned data exception while programming PUF
+Add modification histroy and fix code spell warnings
+Add In Body comments for Xilnvm APIs
+Add 5 PPKs support for provisioning
+
+xilskey_v7_4:
+Increase usleep value to 6000 in PUF regeneration
+
+trngpsv_1_4:
+Fix RGRG sequence and bug in pattern check comparison
+Clear schedule array after DF operation is done
+
+xilocp_v1_1:
+Reset TRNG state in PLM after ROM usage and minor enhancements
+Run KAT before crypto usage when OCP is enabled
+Skip Devkey generation if CDI is not valid
+Add Client Support for OCP
+OCP changes for Partition Measure and HW PCR extend
+Add client support for DME
+DEVAK generation of subsystem based
+Added attestation support
+Added Client side support for attestation
+Example for X.509 request and attestation
+
+xilcert_v1_0:
+Added new library called XilCert for creating X509 certificate to share the public keys
+
 
 
 New Files Added for 2023.1:
