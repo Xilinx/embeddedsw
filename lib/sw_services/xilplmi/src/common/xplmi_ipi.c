@@ -71,6 +71,7 @@
  * 1.07  skg  10/04/2022 Added support to handle valid and invalid commands
  *       ng   11/11/2022 Updated doxygen comments
  *       bm   02/04/2023 Added support to return warnings
+ *       bm   03/09/2023 Add NULL check for module before using it
  *
  * </pre>
  *
@@ -506,24 +507,32 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u32 CmdHndlr = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
+	u32 ModuleId = (Cmd->CmdId & XPLMI_CMD_MODULE_ID_MASK) >>
 			XPLMI_CMD_MODULE_ID_SHIFT;
 	u32 ApiId = Cmd->CmdId & XPLMI_PLM_GENERIC_CMD_ID_MASK;
+	const XPlmi_Module *Module = NULL;
 
 	/**
-	 * Validate module number and source IPI inde
+	 * Validate module number and source IPI index
 	 */
-	if ((CmdHndlr >= XPLMI_MAX_MODULES) ||
+	if ((ModuleId >= XPLMI_MAX_MODULES) ||
 		(SrcIndex == IPI_NO_BUF_CHANNEL_INDEX)) {
 		/* Return error code if IPI validation failed */
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
 		goto END;
 	}
 
+	/** Check if the module is registered */
+	Module = Modules[ModuleId];
+	if (Module == NULL) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_NOT_REGISTERED, 0);
+		goto END;
+	}
+
 	/**
 	 * Validate IPI Command
 	 */
-	Status = XPlmi_ValidateCmd(CmdHndlr, ApiId);
+	Status = XPlmi_ValidateCmd(ModuleId, ApiId);
 	if (XST_SUCCESS != Status) {
 		/* Return error code if IPI validation failed */
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
@@ -549,9 +558,9 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 	 * Check command IPI access if module has registered the handler
 	 * If handler is not registered, do nothing
 	 */
-	if (Modules[CmdHndlr]->CheckIpiAccess != NULL) {
+	if (Module->CheckIpiAccess != NULL) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
-			Modules[CmdHndlr]->CheckIpiAccess, Cmd->CmdId,
+			Module->CheckIpiAccess, Cmd->CmdId,
 			Cmd->IpiReqType);
 		/* Return error code if IPI access failed */
 		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
@@ -621,7 +630,7 @@ END:
  *
  * @param	CmdPtr is pointer to command structure
  *
- * @param   Payload message buf from client
+ * @param	Payload message buf from client
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -640,6 +649,12 @@ static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)
 	}
 	else {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_MAX, 0);
+		goto END;
+	}
+
+	/** Check if the module is registered */
+	if (Module == NULL) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_NOT_REGISTERED, 0);
 		goto END;
 	}
 
