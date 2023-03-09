@@ -370,6 +370,9 @@ static int Psu_Clock_Init_Data(void)
     */
 	PSU_Mask_Write(CRL_APB_QSPI_REF_CTRL_OFFSET,
 		0x013F3F07U, 0x01010800U);
+
+	PSU_Mask_Write(CRL_APB_TIMESTAMP_REF_CTRL_OFFSET,
+		0x01003F07U, 0x01000A00U);
 #endif
 
 	Status = XST_SUCCESS;
@@ -1017,6 +1020,9 @@ static int Psu_Peripherals_Init_Data(void)
     */
 	PSU_Mask_Write(IOU_SECURE_SLCR_IOU_AXI_WPRTCN_OFFSET,
 		0x0E000000U, 0x04000000U);
+
+	PSU_Mask_Write(CRL_APB_RST_LPD_IOU2_OFFSET,
+		0x001E0005U, 0x00000000U);
 #endif
 
 	Status = XST_SUCCESS;
