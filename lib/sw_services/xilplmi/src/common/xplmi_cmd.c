@@ -24,6 +24,7 @@
 *       td   10/19/2020 MISRA C Fixes
 * 1.03  td   07/08/2021 Fix doxygen warnings
 * 1.04  ng   11/11/2022 Updated doxygen comments
+*       bm   03/09/2023 Add NULL check for module before using it
 * </pre>
 *
 * @note
@@ -68,11 +69,15 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 
 	XPlmi_Printf(DEBUG_DETAILED, "CMD Execute \n\r");
 	/** Assign Module */
-	if (ModuleId < XPLMI_MAX_MODULES) {
-		Module = Modules[ModuleId];
-	}
-	else {
+	if (ModuleId >= XPLMI_MAX_MODULES) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_MAX, 0);
+		goto END;
+	}
+
+	/** Check if the module is registered */
+	Module = Modules[ModuleId];
+	if (Module == NULL) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_NOT_REGISTERED, 0);
 		goto END;
 	}
 
