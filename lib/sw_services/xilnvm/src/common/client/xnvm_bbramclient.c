@@ -8,6 +8,9 @@
 /**
 *
 * @file xnvm_bbramclient.c
+* @addtogroup xnvm_bbram_client_api XilNvm BBRAM Client API
+* @{
+* @details
 *
 * This file contains the implementation of the client interface functions for
 * BBRAM programming.
@@ -52,8 +55,9 @@
  *
  * @param	KeyLen		Size of the Aes key
  *
- * @return	- XST_SUCCESS - If the BBRAM programming is successful
- * 		- XST_FAILURE - If there is a failure
+ * @return
+ *		 	- XST_SUCCESS - If the BBRAM programming is successful
+ *			- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 int XNvm_BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, const u64 KeyAddr,
@@ -92,7 +96,8 @@ END:
  *
  * @param	InstancePtr Pointer to the client instance
  *
- * @return	- XST_SUCCESS - If the BBRAM zeroize is successful
+ * @return
+ *		- XST_SUCCESS - If the BBRAM zeroize is successful
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
@@ -126,7 +131,8 @@ END:
  * @param	InstancePtr Pointer to the client instance
  * @param	UsrData		User data to be written to BBRAM
  *
- * @return	- XST_SUCCESS - If the BBRAM user data write successful
+ * @return
+ *		- XST_SUCCESS - If the BBRAM user data write successful
  *		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
@@ -161,7 +167,8 @@ END:
  * @param	OutDataAddr	Address of the output buffer to store the
  * 				BBRAM user data
  *
- * @return	- XST_SUCCESS - If the read is successful
+ * @return
+ *		- XST_SUCCESS - If the read is successful
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
@@ -197,7 +204,8 @@ END:
  *
  * @param	InstancePtr Pointer to the client instance
  *
- * @return	- XST_SUCCESS - If the Locking is successful
+ * @return
+ *		- XST_SUCCESS - If the Locking is successful
  *		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
@@ -222,3 +230,4 @@ int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr)
 END:
 	return Status;
 }
+/*@}*/

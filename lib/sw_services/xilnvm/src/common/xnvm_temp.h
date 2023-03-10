@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -452,95 +453,101 @@ typedef enum {
 
 
 /**< EFUSE row count numbers */
-#define XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS		(8U)
-#define XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS			(3U)
+#define XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS		(8U) /**<Number of cache rows for efuse ppk hash*/
+#define XNVM_EFUSE_IV_NUM_OF_CACHE_ROWS			(3U) /**<Number of cache rows for efuse IV*/
 /** @} */
 
 /**< EFUSE Row numbers */
-#define XNVM_EFUSE_META_HEADER_IV_START_ROW		(90U)
-#define XNVM_EFUSE_BLACK_IV_START_ROW			(4U)
-#define XNVM_EFUSE_PLM_IV_START_ROW			(4U)
-#define XNVM_EFUSE_DATA_PARTITION_IV_START_ROW		(4U)
-#define XNVM_EFUSE_PPK0_HASH_START_ROW			(160U)
-#define XNVM_EFUSE_PPK1_HASH_START_ROW			(96U)
-#define XNVM_EFUSE_PPK2_HASH_START_ROW			(128U)
-#define XNVM_EFUSE_AES_KEY_0_TO_127_START_ROW		(16U)
-#define XNVM_EFUSE_AES_KEY_128_TO_255_START_ROW		(16U)
-#define XNVM_EFUSE_USER_KEY0_0_TO_63_START_ROW		(56U)
-#define XNVM_EFUSE_USER_KEY0_64_TO_191_START_ROW	(66U)
-#define XNVM_EFUSE_USER_KEY0_192_TO_255_START_ROW	(74U)
-#define XNVM_EFUSE_USER_KEY1_0_TO_63_START_ROW		(48U)
-#define XNVM_EFUSE_USER_KEY1_64_TO_127_START_ROW	(66U)
-#define XNVM_EFUSE_USER_KEY1_128_TO_255_START_ROW	(74U)
-#define XNVM_EFUSE_AES_KEY_0_TO_255_END_ROW		(31U)
-#define XNVM_EFUSE_USER_KEY0_0_TO_63_END_ROW		(63U)
-#define XNVM_EFUSE_USER_KEY0_64_TO_191_END_ROW		(73U)
-#define XNVM_EFUSE_USER_KEY0_192_TO_255_END_ROW		(81U)
-#define XNVM_EFUSE_USER_KEY1_0_TO_63_END_ROW		(55U)
-#define XNVM_EFUSE_USER_KEY1_64_TO_127_END_ROW		(73U)
-#define XNVM_EFUSE_USER_KEY1_128_TO_255_END_ROW		(81U)
+#define XNVM_EFUSE_META_HEADER_IV_START_ROW		(90U) /**< Starting row of Meta Header IV eFuses*/
+#define XNVM_EFUSE_BLACK_IV_START_ROW			(4U) /**< Starting Row of black IV eFuse*/
+#define XNVM_EFUSE_PLM_IV_START_ROW			(4U) /**< Starting Row of PLM IV eFuse*/
+#define XNVM_EFUSE_DATA_PARTITION_IV_START_ROW		(4U) /**< Starting Row of data partition IV eFuses*/
+#define XNVM_EFUSE_PPK0_HASH_START_ROW			(160U) /**< Starting Row of ppk0 hash eFuse*/
+#define XNVM_EFUSE_PPK1_HASH_START_ROW			(96U)  /**< Starting Row of ppk1 hash eFuse*/
+#define XNVM_EFUSE_PPK2_HASH_START_ROW			(128U)  /**< Starting Row of ppk2 hash eFuse*/
+#define XNVM_EFUSE_AES_KEY_0_TO_127_START_ROW		(16U)  /**< Starting Row of 0 to 127 eFuses of aes key*/
+#define XNVM_EFUSE_AES_KEY_128_TO_255_START_ROW		(16U) /**< Starting Row of 128 to 255 eFuses of aes key*/
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_START_ROW		(56U) /**< Starting Row of 0 to 63 eFuses of user key0*/
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_START_ROW	(66U) /**< Starting Row of 64 to 191 eFuses of user key0*/
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_START_ROW	(74U) /**< Starting Row of 192 to 255 eFuses of user key0*/
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_START_ROW		(48U) /**< Starting Row of 0 to 63 eFuses of user key1*/
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_START_ROW	(66U) /**< Starting Row of 64 to 27 eFuses of user key1*/
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_START_ROW	(74U) /**< Starting Row of 128 to 255 eFuses of user key1*/
+#define XNVM_EFUSE_AES_KEY_0_TO_255_END_ROW		(31U) /**< Ending row of 256 eFuse aes key*/
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_END_ROW		(63U) /**< Ending Row of 0 to 63 eFuses of user key0*/
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_END_ROW		(73U) /**< Ending Row of 64 to 191 eFuses of user key0*/
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_END_ROW		(81U) /**< Ending Row of 192 to 255 eFuses of user key0*/
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_END_ROW		(55U) /**< Ending Row of 0 to 63 eFuses of user key1*/
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_END_ROW		(73U) /**< Ending Row of 64 to 27 eFuses of user key1*/
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_END_ROW		(81U)/**< Ending Row of 128 to 255 eFuses of user key1*/
 
-#define XNVM_EFUSE_AES_KEY_0_TO_127_COL_START_NUM	(8U)
-#define XNVM_EFUSE_AES_KEY_0_TO_127_COL_END_NUM		(15U)
-#define XNVM_EFUSE_AES_KEY_128_TO_255_COL_START_NUM	(16U)
-#define XNVM_EFUSE_AES_KEY_128_TO_255_COL_END_NUM	(23U)
-#define XNVM_EFUSE_USER_KEY0_0_TO_63_COL_START_NUM	(8U)
-#define XNVM_EFUSE_USER_KEY0_0_TO_63_COL_END_NUM	(15U)
-#define XNVM_EFUSE_USER_KEY0_64_TO_191_COL_START_NUM	(8U)
-#define XNVM_EFUSE_USER_KEY0_64_TO_191_COL_END_NUM	(23U)
-#define XNVM_EFUSE_USER_KEY0_192_TO_255_COL_START_NUM	(8U)
-#define XNVM_EFUSE_USER_KEY0_192_TO_255_COL_END_NUM	(15U)
-#define XNVM_EFUSE_USER_KEY1_0_TO_63_START_COL_NUM	(16U)
-#define XNVM_EFUSE_USER_KEY1_0_TO_63_END_COL_NUM	(23U)
-#define XNVM_EFUSE_USER_KEY1_64_TO_127_START_COL_NUM	(24U)
-#define XNVM_EFUSE_USER_KEY1_64_TO_127_END_COL_NUM	(31U)
-#define XNVM_EFUSE_USER_KEY1_128_TO_255_START_COL_NUM	(16U)
-#define XNVM_EFUSE_USER_KEY1_128_TO_255_END_COL_NUM	(31U)
+#define XNVM_EFUSE_AES_KEY_0_TO_127_COL_START_NUM	(8U) /**< Column starting number of 0 to 127 eFuses aes key*/
+#define XNVM_EFUSE_AES_KEY_0_TO_127_COL_END_NUM		(15U) /**< Column ending number of 0 to 127 eFuses aes key*/
+#define XNVM_EFUSE_AES_KEY_128_TO_255_COL_START_NUM	(16U) /**< Column starting number of 128 to 255 eFuses aes key*/
+#define XNVM_EFUSE_AES_KEY_128_TO_255_COL_END_NUM	(23U) /**< Column ending number of 128 to 255 eFuses aes key*/
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_COL_START_NUM	(8U) /**< Column starting number of 0 to 63 eFuses user key0*/
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_COL_END_NUM	(15U) /**< Column ending number of 0 to 63 eFuses user key0*/
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_COL_START_NUM	(8U)  /**< Column starting number of 64 to 191 eFuses user key0*/
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_COL_END_NUM	(23U) /**< Column ending number of 64 to 191 eFuses user key0*/
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_COL_START_NUM	(8U) /**< Column starting number of 192 to 255 eFuses user key0*/
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_COL_END_NUM	(15U) /**< Column ending number of 192 to 255 eFuses user key0*/
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_START_COL_NUM	(16U) /**< Column starting number of 0 to 63 eFuses user key1*/
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_END_COL_NUM	(23U) /**< Column ending number of 0 to 63 eFuses user key1*/
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_START_COL_NUM	(24U) /**< Column starting number of 64 to 127 eFuses user key1*/
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_END_COL_NUM	(31U)  /**< Column ending number of 64 to 127 eFuses user key1*/
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_START_COL_NUM	(16U)  /**< Column starting number of 128 to 255 eFuses user key1*/
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_END_COL_NUM	(31U) /**< Column ending number of 128 to 255 eFuses user key1*/
 
-#define XNVM_EFUSE_AES_KEY_0_TO_127_NUM_OF_ROWS		(16U)
-#define XNVM_EFUSE_AES_KEY_128_TO_255_NUM_OF_ROWS	(16U)
-#define XNVM_EFUSE_USER_KEY0_0_TO_63_NUM_OF_ROWS	(8U)
-#define XNVM_EFUSE_USER_KEY0_64_TO_191_NUM_OF_ROWS	(8U)
-#define XNVM_EFUSE_USER_KEY0_192_TO_255_NUM_OF_ROWS	(8U)
-#define XNVM_EFUSE_USER_KEY1_0_TO_63_NUM_OF_ROWS	(8U)
-#define XNVM_EFUSE_USER_KEY1_64_TO_127_NUM_OF_ROWS	(8U)
-#define XNVM_EFUSE_USER_KEY1_128_TO_255_NUM_OF_ROWS	(8U)
+#define XNVM_EFUSE_AES_KEY_0_TO_127_NUM_OF_ROWS		(16U) /**< Number of rows of 0 to 127 eFuses aes key*/
+#define XNVM_EFUSE_AES_KEY_128_TO_255_NUM_OF_ROWS	(16U) /**< Number of rows of 128 to 255 eFuses aes key*/
+#define XNVM_EFUSE_USER_KEY0_0_TO_63_NUM_OF_ROWS	(8U) /**< Number of rows 0 to 63 eFuses user key0*/
+#define XNVM_EFUSE_USER_KEY0_64_TO_191_NUM_OF_ROWS	(8U) /**< Number of rows 64 to 191 eFuses user key0*/
+#define XNVM_EFUSE_USER_KEY0_192_TO_255_NUM_OF_ROWS	(8U) /**< Number of rows 192 to 255 eFuses user key0*/
+#define XNVM_EFUSE_USER_KEY1_0_TO_63_NUM_OF_ROWS	(8U)  /**< Number of rows 0 to 63 eFuses user key1*/
+#define XNVM_EFUSE_USER_KEY1_64_TO_127_NUM_OF_ROWS	(8U) /**< Number of rows 64 to 127 eFuses user key1*/
+#define XNVM_EFUSE_USER_KEY1_128_TO_255_NUM_OF_ROWS	(8U)  /**< Number of rows 128 to 255 eFusesuser key1*/
 
-#define XNVM_EFUSE_PPK0_HASH_START_COL_NUM		(16U)
-#define XNVM_EFUSE_PPK0_HASH_END_COL_NUM		(23U)
-#define XNVM_EFUSE_PPK1_HASH_START_COL_NUM		(24U)
-#define XNVM_EFUSE_PPK1_HASH_END_COL_NUM		(31U)
-#define XNVM_EFUSE_PPK2_HASH_START_COL_NUM              (24U)
-#define XNVM_EFUSE_PPK2_HASH_END_COL_NUM                (31U)
+#define XNVM_EFUSE_PPK0_HASH_START_COL_NUM		(16U) /**<Starting column number of efuse ppk0 hash*/
+#define XNVM_EFUSE_PPK0_HASH_END_COL_NUM		(23U) /**<Ending column number of efuse ppk0 hash*/
+#define XNVM_EFUSE_PPK1_HASH_START_COL_NUM		(24U) /**<Starting column number of efuse ppk1 hash*/
+#define XNVM_EFUSE_PPK1_HASH_END_COL_NUM		(31U) /**<Ending column number of efuse ppk1 hash*/
+#define XNVM_EFUSE_PPK2_HASH_START_COL_NUM              (24U) /**<Starting column number of efuse ppk2 hash*/
+#define XNVM_EFUSE_PPK2_HASH_END_COL_NUM                (31U) /**<Ending column number of efuse ppk2 hash*/
 
-#define XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS			(32U)
+#define XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS			(32U) /**< Number of rows of efuse ppk hash*/
 
-#define XNVM_EFUSE_METAHEADER_IV_RANGE_START_COL_NUM	(0U)
-#define XNVM_EFUSE_METAHEADER_IV_RANGE_END_COL_NUM	(31U)
-#define XNVM_EFUSE_BLACK_IV_START_COL_NUM		(8U)
-#define XNVM_EFUSE_BLACK_IV_END_COL_NUM			(15U)
-#define XNVM_EFUSE_PLM_IV_RANGE_START_COL_NUM		(16U)
-#define XNVM_EFUSE_PLM_IV_RANGE_END_COL_NUM		(23U)
-#define XNVM_EFUSE_DATA_PARTITION_IV_START_COL_NUM	(24U)
-#define XNVM_EFUSE_DATA_PARTITION_IV_END_COL_NUM	(31U)
+#define XNVM_EFUSE_METAHEADER_IV_RANGE_START_COL_NUM	(0U) /**<Starting column number of efuse metaheader IV range*/
+#define XNVM_EFUSE_METAHEADER_IV_RANGE_END_COL_NUM	(31U) /**<Ending column number of efuse metaheader IV range*/
+#define XNVM_EFUSE_BLACK_IV_START_COL_NUM		(8U) /**<Starting column number of black IV */
+#define XNVM_EFUSE_BLACK_IV_END_COL_NUM			(15U)  /**<Ending column number of black IV */
+#define XNVM_EFUSE_PLM_IV_RANGE_START_COL_NUM		(16U) /**<Starting column number of efuse plm IV range*/
+#define XNVM_EFUSE_PLM_IV_RANGE_END_COL_NUM		(23U) /**<Ending column number of efuse plm IV range*/
+#define XNVM_EFUSE_DATA_PARTITION_IV_START_COL_NUM	(24U) /**<Starting column number of efuse Data partition IV */
+#define XNVM_EFUSE_DATA_PARTITION_IV_END_COL_NUM	(31U) /**<Ending column number of efuse Data partition IV */
 
-#define XNVM_EFUSE_METAHEADER_IV_NUM_OF_ROWS		(3U)
-#define XNVM_EFUSE_BLACK_IV_NUM_OF_ROWS			(12U)
-#define XNVM_EFUSE_PLM_IV_NUM_OF_ROWS			(12U)
-#define XNVM_EFUSE_DATA_PARTITION_IV_NUM_OF_ROWS	(12U)
-
-#define XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET	(0x00000180U)
-#define XNVM_EFUSE_CACHE_BLACK_IV_OFFSET		(0x000001D0U)
-#define XNVM_EFUSE_CACHE_PLM_IV_RANGE_OFFSET		(0x000001DCU)
-#define XNVM_EFUSE_CACHE_DATA_PARTITION_IV_OFFSET	(0x000001E8U)
-#define XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET		(0x000000ACU)
-#define XNVM_EFUSE_CACHE_PPK0_HASH_OFFSET		(0x00000100U)
-#define XNVM_EFUSE_CACHE_PPK1_HASH_OFFSET		(0x00000120U)
-#define XNVM_EFUSE_CACHE_PPK2_HASH_OFFSET		(0x00000140U)
-#define XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET		(0x000000E4U)
-#define XNVM_EFUSE_CACHE_IP_DISABLE_OFFSET		(0x00000018U)
-#define XNVM_EFUSE_CACHE_DME_FIPS_OFFSET                (0x00000234U)
-
+#define XNVM_EFUSE_METAHEADER_IV_NUM_OF_ROWS		(3U) /**< No of rows of efuse metaheader IV*/
+#define XNVM_EFUSE_BLACK_IV_NUM_OF_ROWS			(12U) /**< No of rows of efuse black IV*/
+#define XNVM_EFUSE_PLM_IV_NUM_OF_ROWS			(12U) /**< No of rows of efuse plm IV*/
+#define XNVM_EFUSE_DATA_PARTITION_IV_NUM_OF_ROWS	(12U) /**< No of rows of Data partition IV*/
+/**
+ *  @name eFUSE Cache Register Offsets
+ */
+/**< eFUSE Cache Register Offsets */
+#define XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_OFFSET	(0x00000180U) /**< MetaHeader IV cache offset */
+#define XNVM_EFUSE_CACHE_BLACK_IV_OFFSET		(0x000001D0U) /**< Black IV cache offset */
+#define XNVM_EFUSE_CACHE_PLM_IV_RANGE_OFFSET		(0x000001DCU) /**< PLM IV cache offset */
+#define XNVM_EFUSE_CACHE_DATA_PARTITION_IV_OFFSET	(0x000001E8U) /**< Data partition IV cache offset */
+#define XNVM_EFUSE_CACHE_SECURITY_CTRL_OFFSET		(0x000000ACU) /**< Security control cache offset */
+#define XNVM_EFUSE_CACHE_PPK0_HASH_OFFSET		(0x00000100U) /**< Ppk0 hash cache offset*/
+#define XNVM_EFUSE_CACHE_PPK1_HASH_OFFSET		(0x00000120U) /**< Ppk1 hash cache offset */
+#define XNVM_EFUSE_CACHE_PPK2_HASH_OFFSET		(0x00000140U) /**< Ppk2 hash cache offset*/
+#define XNVM_EFUSE_CACHE_SECURITY_MISC_0_OFFSET		(0x000000E4U) /**< Security cache offset*/
+#define XNVM_EFUSE_CACHE_IP_DISABLE_OFFSET		(0x00000018U) /**< IP disable cache offset */
+#define XNVM_EFUSE_CACHE_DME_FIPS_OFFSET                (0x00000234U) /**< Dme fips cache offset */
+/**
+ * @name Register: EFUSE_CACHE_SECURITY_CONTROL_REG
+ */
+/**< eFUSE Cache Security Control Register Masks And Shifts */
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK	(0xc0000000U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK	(0x10000000U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_SEC_LOCK_DBG_DIS_MASK	(0x00600000U)
@@ -561,13 +568,13 @@ typedef enum {
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK	(0x00000002U)
 #define XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK		(0x00000001U)
 
-#define XNVM_EFUSE_FIPS_VERSION_0_MASK				(0x00000004U)
-#define XNVM_EFUSE_FIPS_VERSION_2_1_MASK			(0xC0000000U)
-#define XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK                (0xFF000000U)
-#define XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_SHIFT               (24U)
+#define XNVM_EFUSE_FIPS_VERSION_0_MASK				(0x00000004U) /**< Mask for fips version 0*/
+#define XNVM_EFUSE_FIPS_VERSION_2_1_MASK			(0xC0000000U) /**< Mask for FIPS_VERSION bits 1 and 2*/
+#define XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK                (0xFF000000U) /**< Mask for dme fips fips mode*/
+#define XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_SHIFT               (24U) /**<Shift value of efuse cache dme fips fips mode */
 
-#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_SHIFT    (30U)
-#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_SHIFT      (2U)
+#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_SHIFT    (30U) /**<Shift value of efuse cache IP disable for FIPS_VERSION bits 1 and 2 */
+#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_SHIFT      (2U) /**<Shift value of efuse cache IP disable fips version 0 */
 
 /**
  * @name CRP base address definition
@@ -732,11 +739,13 @@ typedef enum {
 #define XNVM_POLL_TIMEOUT				(0x400U)
 /** @} */
 
-#define XNVM_WORD_LEN					(4U)
-
-#define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U)
-#define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U)
-
+#define XNVM_WORD_LEN					(4U) /**< No of bits in xnvm word*/
+/**
+ * @name XNVM_EFUSE_CTRL_WR
+ */
+#define XNVM_EFUSE_CTRL_WR_LOCKED	(0x01U) /**<efuse control is write locked*/
+#define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U) /**<efuse control is write unlocked*/
+/** @} */
 
 
 
