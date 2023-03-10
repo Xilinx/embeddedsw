@@ -90,6 +90,7 @@ extern "C" {
 
 /**
  * @name Register: EFUSE_CTRL_CFG
+ *  @{
  */
 /**< eFuse CTRL STATUS Register Masks */
 #define XNVM_EFUSE_CTRL_CFG_MARGIN_RD_MASK    		(0x00000004U)
@@ -105,6 +106,7 @@ extern "C" {
 
 /**
  * @name  EFUSE_CACHE Base Address
+ * @{
  */
 /**< eFuse Cache Base Address */
 #define XNVM_EFUSE_CACHE_BASEADDR				(0xF1250000U)
@@ -112,6 +114,7 @@ extern "C" {
 
 /**
  * @name Register: EFUSE_CACHE_PUF_ECC_CTRL
+ *  @{
  */
 /**< eFuse CACHE PUF ECC CTRL Register Masks And Shifts */
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_REGEN_DIS_MASK	(0x80000000U)
@@ -169,11 +172,11 @@ extern "C" {
 #define XNVM_EFUSE_ADDR_PAGE_SHIFT			(13U)
 /** @} */
 
-/**< eFuse Cache load mask */
-#define XNVM_EFUSE_CACHE_LOAD_MASK			(0x01U)
 
-/**< eFuse Protection Row Mask */
-#define XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK		(0x1FFFU)
+#define XNVM_EFUSE_CACHE_LOAD_MASK			(0x01U) /**< eFuse Cache load mask */
+
+
+#define XNVM_EFUSE_SECURITY_MISC_1_PROT_MASK		(0x1FFFU) /**< eFuse Security_Misc_1 Protection Mask */
 
 
 /**
@@ -186,14 +189,14 @@ extern "C" {
 #define XNVM_EFUSE_ISR_CACHE_ERROR			(0x01U << 4U)
 /** @} */
 
-/**< eFuse Controller PD register definition */
-#define XNVM_EFUSE_PD_ENABLE				(0x01U << 0U)
 
-/**< PS Ref clock definition in Hz */
-#define XNVM_PS_REF_CLK_FREQ			(XPAR_PSU_PSS_REF_CLK_FREQ_HZ)
+#define XNVM_EFUSE_PD_ENABLE				(0x01U << 0U) /**< eFuse controller Power Down bit mask */
 
-/**< Number of Rows per Page */
-#define XNVM_NUM_OF_ROWS_PER_PAGE			(256U)
+
+#define XNVM_PS_REF_CLK_FREQ			(XPAR_PSU_PSS_REF_CLK_FREQ_HZ) /**< PS Ref clock definition in Hz */
+
+
+#define XNVM_NUM_OF_ROWS_PER_PAGE			(256U) /**< Number of Rows per Page */
 
 
 /**

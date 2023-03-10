@@ -48,10 +48,10 @@ extern "C" {
 #define XNVM_SLR_INDEX_SHIFT (6U)
 
 /**< SlrIndexs constants*/
-#define XNVM_SLR_INDEX_0 (0U)
-#define XNVM_SLR_INDEX_1 (1U)
-#define XNVM_SLR_INDEX_2 (2U)
-#define XNVM_SLR_INDEX_3 (3U)
+#define XNVM_SLR_INDEX_0 (0U) /**< SLR Index 0*/
+#define XNVM_SLR_INDEX_1 (1U) /**< SLR Index 1*/
+#define XNVM_SLR_INDEX_2 (2U) /**< SLR Index 2*/
+#define XNVM_SLR_INDEX_3 (3U) /**< SLR Index 3*/
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

@@ -88,9 +88,9 @@ typedef enum {
  * @name  eFuse Page
  */
 typedef enum {
-	XNVM_EFUSE_PAGE_0 = 0,
-	XNVM_EFUSE_PAGE_1,
-	XNVM_EFUSE_PAGE_2
+	XNVM_EFUSE_PAGE_0 = 0, /**< Efuse page 0*/
+	XNVM_EFUSE_PAGE_1, /**< Efuse page 1*/
+	XNVM_EFUSE_PAGE_2 /**< Efuse page 2*/
 } XNvm_EfuseType;
 /** @} */
 
