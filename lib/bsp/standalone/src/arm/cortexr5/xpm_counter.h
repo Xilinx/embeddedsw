@@ -622,12 +622,14 @@ extern "C" {
 /************************** Function Prototypes *****************************/
 
 /* Interface functions to access performance counters from abstraction layer */
+#if !defined(VERSAL_NET)
 #if defined(__GNUC__)
 void Xpm_SetEvents(s32 PmcrCfg) __attribute__ ((deprecated));
 void Xpm_GetEventCounters(u32 *PmCtrValue) __attribute__ ((deprecated));
 #else
 void Xpm_SetEvents(s32 PmcrCfg);
 void Xpm_GetEventCounters(u32 *PmCtrValue);
+#endif
 #endif
 u32 Xpm_DisableEvent(u32 EventCntrId);
 u32 Xpm_SetUpAnEvent(u32 EventID);

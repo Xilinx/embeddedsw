@@ -36,6 +36,8 @@
 *                     appropriate error return value. It is expected that
 *                     callers of the APIs would check for return value to
 *                     know the cause of the error.
+* 8.2   asa  03/09/23 Xpm_SetEvents and Xpm_GetEventCounters are deprecated
+*                     APIs. They need not be supported for Versal Net.
 * </pre>
 *
 ******************************************************************************/
@@ -369,7 +371,7 @@ void Xpm_SleepPerfCounter(u32 delay, u64 frequency)
         }while (tCur < tEnd);
 }
 #endif
-#if !defined(__aarch64__)
+#if !defined(__aarch64__) && !defined(VERSAL_NET)
 /****************************************************************************/
 /**
 *
