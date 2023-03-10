@@ -28,6 +28,7 @@
 
 /***************************** Include Files *********************************/
 #include "xis_main.h"
+#include "xis_common.h"
 
 #ifdef XIS_UPDATE_A_B_MECHANISM
 /************************** Constant Definitions *****************************/

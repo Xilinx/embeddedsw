@@ -75,21 +75,12 @@ extern "C" {
 #endif
 
 #define XIS_MAX_SIZE								(64U)
-#define XIS_CRL_APB_RESET_CTRL 						(0xFF5E0218U)
-#define XIS_CSU_APB_RESET_VAL  						(0x10U)
-#define XIS_CSU_MULTI_BOOT							(0xFFCA0010U)
 #define COUNTS_PER_USECOND  					(COUNTS_PER_SECOND / 1000000)
-#define XIS_ERROR_STATUS_REGISTER_OFFSET			(0xFFD80060U)
 
-#define XIs_In32(Addr)                	Xil_In32(Addr)
-#define XIs_Out32(Addr, Data)			Xil_Out32(Addr, Data)
 
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-void XIs_Softreset(void);
-void XIs_UpdateError(int Error);
-void XIs_UpdateMultiBootValue(u32 Offset);
 int XIs_UartConfiguration(void);
 #ifndef XIS_UPDATE_A_B_MECHANISM
 int XIs_ImageSelBoardParam(void);
