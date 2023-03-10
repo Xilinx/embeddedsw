@@ -78,13 +78,13 @@ extern "C" {
 #define XNVM_PUF_ROW_UPPER_NIBBLE_MASK              (0xF0000000U)
 
 /**< User efuses start, end and number of efuses definations*/
-#define XNVM_USER_FUSE_START_NUM			(1U)
-#define XNVM_USER_FUSE_END_NUM				(63U)
-#define XNVM_NUM_OF_USER_FUSES				(63U)
+#define XNVM_USER_FUSE_START_NUM			(1U) /**< User eFuse start number*/
+#define XNVM_USER_FUSE_END_NUM				(63U) /**< User eFuse end number*/
+#define XNVM_NUM_OF_USER_FUSES				(63U) /**< Number of user eFuses*/
 
-/**< Maximum revoke id defination for versal*/
+
 #define XNVM_MAX_REVOKE_ID_FUSES			(XNVM_NUM_OF_REVOKE_ID_FUSES	\
-											* XNVM_EFUSE_MAX_BITS_IN_ROW)
+											* XNVM_EFUSE_MAX_BITS_IN_ROW) /**< Maximum eFuses in a row*/
 /**
  *  @{ Temaperature limits defination for versal Efuses
  */
@@ -132,70 +132,72 @@ extern "C" {
  */
  /**< This structer defines Security control bits*/
 typedef enum {
-	XNVM_EFUSE_SEC_AES_DIS = 0,
-	XNVM_EFUSE_SEC_JTAG_ERROUT_DIS,
-	XNVM_EFUSE_SEC_JTAG_DIS,
-	XNVM_EFUSE_SEC_HWTSTBITS_DIS,
-	XNVM_EFUSE_SEC_IP_DIS_WRLK = 5,
-	XNVM_EFUSE_SEC_PPK0_WRLK,
-	XNVM_EFUSE_SEC_PPK1_WRLK,
-	XNVM_EFUSE_SEC_PPK2_WRLK,
-	XNVM_EFUSE_SEC_AES_CRC_LK_BIT_0,
-	XNVM_EFUSE_SEC_AES_CRC_LK_BIT_1,
-	XNVM_EFUSE_SEC_AES_WRLK,
-	XNVM_EFUSE_SEC_USER_KEY0_CRC_LK,
-	XNVM_EFUSE_SEC_USER_KEY0_WRLK,
-	XNVM_EFUSE_SEC_USER_KEY1_CRC_LK,
-	XNVM_EFUSE_SEC_USER_KEY1_WRLK,
-	XNVM_EFUSE_SEC_PUF_SYN_LK,
-	XNVM_EFUSE_SEC_PUF_TEST2_DIS,
-	XNVM_EFUSE_SEC_PUF_DIS,
-	XNVM_EFUSE_SEC_SECDBG_DIS_BIT_0,
-	XNVM_EFUSE_SEC_SECDBG_DIS_BIT_1,
-	XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_0,
-	XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_1,
-	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_0,
-	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_1,
-	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_2,
-	XNVM_EFUSE_SEC_SVD_WRLK,
-	XNVM_EFUSE_SEC_DNA_WRLK,
-	XNVM_EFUSE_SEC_BOOTENV_WRLK,
-	XNVM_EFUSE_SEC_CACHE_WRLK,
-	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_0,
-	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_1
+	XNVM_EFUSE_SEC_AES_DIS = 0, /**< Aes disable*/
+	XNVM_EFUSE_SEC_JTAG_ERROUT_DIS, /**< Jtag error out disable*/
+	XNVM_EFUSE_SEC_JTAG_DIS, /**< Jtag disable*/
+	XNVM_EFUSE_SEC_HWTSTBITS_DIS, /**< Tbits disable*/
+	XNVM_EFUSE_SEC_IP_DIS_WRLK = 5, /**< IP disable*/
+	XNVM_EFUSE_SEC_PPK0_WRLK, /**< PPK0_WRLK*/
+	XNVM_EFUSE_SEC_PPK1_WRLK, /**< PPK1_WRLK*/
+	XNVM_EFUSE_SEC_PPK2_WRLK, /**< PPK2_WRLK*/
+	XNVM_EFUSE_SEC_AES_CRC_LK_BIT_0, /**< Aes crc lock bit 0*/
+	XNVM_EFUSE_SEC_AES_CRC_LK_BIT_1, /**< Aes crc lock bit 1*/
+	XNVM_EFUSE_SEC_AES_WRLK, /**< Aes boot key write lock */
+	XNVM_EFUSE_SEC_USER_KEY0_CRC_LK, /**< User key0 crc lock*/
+	XNVM_EFUSE_SEC_USER_KEY0_WRLK, /**< User key0 write lock*/
+	XNVM_EFUSE_SEC_USER_KEY1_CRC_LK, /**< User key1 crc lock*/
+	XNVM_EFUSE_SEC_USER_KEY1_WRLK, /**< User key1 write lock*/
+	XNVM_EFUSE_SEC_PUF_SYN_LK, /**< Puf syndrome lock*/
+	XNVM_EFUSE_SEC_PUF_TEST2_DIS, /**< Puf test2 disable*/
+	XNVM_EFUSE_SEC_PUF_DIS, /**<Puf disable*/
+	XNVM_EFUSE_SEC_SECDBG_DIS_BIT_0, /**< Secure debug disable bit 0*/
+	XNVM_EFUSE_SEC_SECDBG_DIS_BIT_1, /**< Secure debug disable bit 1*/
+	XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_0, /**< Secure lock debug disable bit 0*/
+	XNVM_EFUSE_SEC_SECLOCKDBG_DIS_BIT_1, /**< Secure lock debug disable bit 1*/
+	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_0, /**< PMC_SC Enable bit 0*/
+	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_1, /**< PMC_SC Enable bit 1*/
+	XNVM_EFUSE_SEC_PMC_SC_EN_BIT_2, /**< PMC_SC Enable bit 2*/
+	XNVM_EFUSE_SEC_SVD_WRLK, /**< SVD write lock*/
+	XNVM_EFUSE_SEC_DNA_WRLK, /**< DNA write lock*/
+	XNVM_EFUSE_SEC_BOOTENV_WRLK, /**< Boot env write lock*/
+	XNVM_EFUSE_SEC_CACHE_WRLK, /**< Cache write lock*/
+	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_0, /**< Reg init disable bit 0*/
+	XNVM_EFUSE_SEC_REG_INIT_DIS_BIT_1 /**< Reg init disable bit 1*/
 }XNvm_SecCtrlBitColumns;
 
 /**< This enum defines Miscellaneous control bits*/
 typedef enum {
-	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_0 = 2,
-	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_1,
-	XNVM_EFUSE_MISC_PPK1_INVALID_BIT_0,
-	XNVM_EFUSE_MISC_PPK1_INVALID_BIT_1,
-	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0,
-	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1,
-	XNVM_EFUSE_MISC_SAFETY_MISSION_EN,
+	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_0 = 2, /**< Ppk0 invalid bit 0*/
+	XNVM_EFUSE_MISC_PPK0_INVALID_BIT_1, /**< Ppk0 invalid bit 1*/
+	XNVM_EFUSE_MISC_PPK1_INVALID_BIT_0, /**< Ppk1 invalid bit 0*/
+	XNVM_EFUSE_MISC_PPK1_INVALID_BIT_1, /**< Ppk1 invalid bit 1*/
+	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0, /**< Ppk2 invalid bit 0*/
+	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1, /**< Ppk2 invalid bit 1*/
+	XNVM_EFUSE_MISC_SAFETY_MISSION_EN, /**< Saftey mission enable*/
 #ifdef XNVM_EN_ADD_PPKS
 	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_0 = 9,
 	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_1,
 	XNVM_EFUSE_MISC_PPK4_INVALID_BIT_0,
 	XNVM_EFUSE_MISC_PPK4_INVALID_BIT_1,
 #endif /* END OF XNVM_EN_ADD_PPKS */
-	XNVM_EFUSE_MISC_LBIST_EN = 14,
-	XNVM_EFUSE_MISC_CRYPTO_KAT_EN,
-	XNVM_EFUSE_MISC_HALT_BOOT_ENV_BIT_0 = 19,
-	XNVM_EFUSE_MISC_HALT_BOOT_ENV_BIT_1,
-	XNVM_EFUSE_MISC_HALT_BOOT_ERROR_BIT_0,
-	XNVM_EFUSE_MISC_HALT_BOOT_ERROR_BIT_1,
-	XNVM_EFUSE_MISC_GD_ROM_MONITOR_EN = 29,
-	XNVm_EFUSE_MISC_GD_HALT_BOOT_EN_BIT_0,
-	XNVm_EFUSE_MISC_GD_HALT_BOOT_EN_BIT_1
+	XNVM_EFUSE_MISC_LBIST_EN = 14, /**< Lbist enable*/
+	XNVM_EFUSE_MISC_CRYPTO_KAT_EN, /**< Crypto kat enable*/
+	XNVM_EFUSE_MISC_HALT_BOOT_ENV_BIT_0 = 19, /**< Halt boot env bit 0*/
+	XNVM_EFUSE_MISC_HALT_BOOT_ENV_BIT_1, /**< Halt boot env bit 1*/
+	XNVM_EFUSE_MISC_HALT_BOOT_ERROR_BIT_0, /**< Halt boot error bit 0*/
+	XNVM_EFUSE_MISC_HALT_BOOT_ERROR_BIT_1, /**< Halt boot error bit 1*/
+	XNVM_EFUSE_MISC_GD_ROM_MONITOR_EN = 29, /**< Rom monitor enable*/
+	XNVm_EFUSE_MISC_GD_HALT_BOOT_EN_BIT_0, /**< Halt boot enable bit 0*/
+	XNVm_EFUSE_MISC_GD_HALT_BOOT_EN_BIT_1 /**< Halt boot enable bit 1*/
 }XNvm_MiscCtrlBitColumns;
 
-/**< user efuses details*/
+/**
+ *  user efuses details
+ */
 typedef struct {
-	u32 StartUserFuseNum;
-	u32 NumOfUserFuses;
-	u32 *UserFuseData;
+	u32 StartUserFuseNum; /**<User efuse start number*/
+	u32 NumOfUserFuses; /**< Number of user efuses*/
+	u32 *UserFuseData; /**< Pointer to the user efuse data*/
 }XNvm_EfuseUserData;
 
 #ifdef XNVM_ACCESS_PUF_USER_DATA
@@ -209,35 +211,43 @@ typedef struct {
 }XNvm_EfusePufFuse;
 #endif
 
-/**< Defines Puf helper data*/
+/**
+ *  Defines Puf helper data
+ */
 typedef struct {
-	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
-	u8 PrgmPufHelperData;
-	u8 EnvMonitorDis;
-	XSysMonPsv *SysMonInstPtr;
-	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
-	u32 Chash;
-	u32 Aux;
+	XNvm_EfusePufSecCtrlBits PufSecCtrlBits; /**< Puf security control bits*/
+	u8 PrgmPufHelperData; /**< Program puf helper data*/
+	u8 EnvMonitorDis; /**< Environment monitor disable*/
+	XSysMonPsv *SysMonInstPtr; /**< Pointer to SysMon instance*/
+	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS]; /**< Array of efuse syndrome data*/
+	u32 Chash; /**< Chash value*/
+	u32 Aux; /**< Aux value*/
 }XNvm_EfusePufHd;
+/**
+ * @}
+ * @endcond
+ */
 
-/**< This structure defines sub structures of versal to be blown*/
+/**
+ *  This structure defines sub structures of Versal eFuses to be blown
+ */
 typedef struct {
-	u8 EnvMonitorDis;
-	XSysMonPsv *SysMonInstPtr;
-	XNvm_EfuseAesKeys *AesKeys;
-	XNvm_EfusePpkHash *PpkHash;
-	XNvm_EfuseDecOnly *DecOnly;
-	XNvm_EfuseSecCtrlBits *SecCtrlBits;
-	XNvm_EfuseMiscCtrlBits *MiscCtrlBits;
-	XNvm_EfuseRevokeIds *RevokeIds;
-	XNvm_EfuseIvs *Ivs;
-	XNvm_EfuseUserData *UserFuses;
-	XNvm_EfuseGlitchCfgBits *GlitchCfgBits;
-	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl;
-	XNvm_EfuseSecMisc1Bits *Misc1Bits;
-	XNvm_EfuseOffChipIds *OffChipIds;
+	u8 EnvMonitorDis; /**< Environmental Monitor Disable */
+	XSysMonPsv *SysMonInstPtr; /**< Pointer to SysMon instance*/
+	XNvm_EfuseAesKeys *AesKeys; /**< Pointer to Aes keys*/
+	XNvm_EfusePpkHash *PpkHash; /**< Pointer to ppk hash*/
+	XNvm_EfuseDecOnly *DecOnly; /**< Pointer to the DecOnly structure*/
+	XNvm_EfuseSecCtrlBits *SecCtrlBits; /**< Pointer to security control bits*/
+	XNvm_EfuseMiscCtrlBits *MiscCtrlBits; /**< Pointer to miscellenous control bits*/
+	XNvm_EfuseRevokeIds *RevokeIds; /**< Pointer to the Revoke Id structure*/
+	XNvm_EfuseIvs *Ivs; /**< Pointer to the IVs structure*/
+	XNvm_EfuseUserData *UserFuses; /**< Pointer to user efuses structure*/
+	XNvm_EfuseGlitchCfgBits *GlitchCfgBits; /**< Pointer to glitch configuration bit structure*/
+	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl; /**< Pointer to boot environment control structure*/
+	XNvm_EfuseSecMisc1Bits *Misc1Bits; /**< Pointer to Miscellneous bits structure*/
+	XNvm_EfuseOffChipIds *OffChipIds; /**< Pointer to offchip IDs structure*/
 #ifdef XNVM_EN_ADD_PPKS
-	XNvm_EfuseAdditionalPpkHash *AdditionalPpkHash;
+        XNvm_EfuseAdditionalPpkHash *AdditionalPpkHash;
 #endif /* END OF XNVM_EN_ADD_PPKS*/
 }XNvm_EfuseData;
 

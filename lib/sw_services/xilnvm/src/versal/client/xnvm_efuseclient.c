@@ -7,7 +7,10 @@
 /*****************************************************************************/
 /**
 *
-* @file versal/client/xnvm_efuseclient.c
+* @file xnvm_efuseclient.c
+* @addtogroup xnvm_client_api XilNvm eFUSE Client API
+* @{
+* @details
 *
 * This file contains the implementation of the client interface functions for
 * eFUSE programming.
@@ -43,8 +46,8 @@
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
-#define XNVM_REVOKE_ID_COL_MASK		(0x1FU)
-#define XNVM_REVOKE_ID_ROW_SHIFT	(5U)
+#define XNVM_REVOKE_ID_COL_MASK		(0x1FU) /**< Column Mask*/
+#define XNVM_REVOKE_ID_ROW_SHIFT	(5U) /**< Row shift value*/
 
 /**************************** Type Definitions *******************************/
 
@@ -701,7 +704,7 @@ END:
  * 		requested by the user
  *
  * @param	InstancePtr Pointer to the client instance
- * @param	OffChipIdAddr	Address of the output buffer to store the
+ * @param	OffChidIdAddr	Address of the output buffer to store the
  * 				OffChip ID eFuse data
  * @param	OffChipIdNum	OffChip ID number to be read out
  *

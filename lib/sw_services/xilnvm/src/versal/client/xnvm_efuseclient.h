@@ -50,23 +50,23 @@ extern "C" {
 #define XNVM_SLR_INDEX_SHIFT (6U)
 
 /**< SlrIndexs constants*/
-#define XNVM_SLR_INDEX_0 (0U)
-#define XNVM_SLR_INDEX_1 (1U)
-#define XNVM_SLR_INDEX_2 (2U)
-#define XNVM_SLR_INDEX_3 (3U)
+#define XNVM_SLR_INDEX_0 (0U) /**< SLR Index 0*/
+#define XNVM_SLR_INDEX_1 (1U) /**< SLR Index 1*/
+#define XNVM_SLR_INDEX_2 (2U) /**< SLR Index 2*/
+#define XNVM_SLR_INDEX_3 (3U) /**< SLR Index 3*/
 
 /**< PPK Read Offsets constants*/
-#define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0
+#define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0 /**<Start value of ppk0*/
 #ifdef XNVM_EN_ADD_PPKS
 #define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK4
 #else
-#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK2
+#define XNVM_EFUSE_PPK_READ_END XNVM_EFUSE_PPK2 /**<Start value of ppk2*/
 #endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XNVM_WORD_LEN		(4U)
+#define XNVM_WORD_LEN		(4U) /**< Word length*/
 
 /************************** Function Prototypes ******************************/
 int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr);
