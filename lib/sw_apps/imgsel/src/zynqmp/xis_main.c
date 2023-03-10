@@ -30,6 +30,7 @@
 /***************************** Include Files *********************************/
 #include "xis_main.h"
 #include "psu_init.h"
+#include "xis_common.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -96,7 +97,7 @@ int main(void)
 		goto END;
 	}
 #endif
-
+	XIs_ClockConfigs();
 	Status = XIs_UpdateABMultiBootValue();
 	if (Status != XST_SUCCESS) {
 		XIs_Printf(DEBUG_GENERAL, "A/B Image Multiboot"
