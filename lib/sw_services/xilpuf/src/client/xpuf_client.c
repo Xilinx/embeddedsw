@@ -37,7 +37,7 @@
 /************************** Constant Definitions *****************************/
 /**< Slr index shift constant*/
 #define XPUF_SLR_INDEX_SHIFT (6U)
-
+#define XPUF_ADDR_HIGH_SHIFT (32U)
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -101,7 +101,7 @@ int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 
 	Payload[0U] = PufHeader(0, (InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT) | XPUF_PUF_REGISTRATION);
 	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> 32U);
+	Payload[2U] = (u32)(DataAddr >> XPUF_ADDR_HIGH_SHIFT);
 
 	/**
 	 * Send an IPI request to the PLM by using the XPuf_Registration CDO command.
@@ -144,7 +144,7 @@ int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 
 	Payload[0U] = PufHeader(0, (InstancePtr->SlrIndex<< XPUF_SLR_INDEX_SHIFT) | XPUF_PUF_REGENERATION);
 	Payload[1U] = (u32)DataAddr;
-	Payload[2U] = (u32)(DataAddr >> 32U);
+	Payload[2U] = (u32)(DataAddr >> XPUF_ADDR_HIGH_SHIFT);
 
 	/**
 	 * Send an IPI request to the PLM by using the XPuf_Regeneration CDO command.
