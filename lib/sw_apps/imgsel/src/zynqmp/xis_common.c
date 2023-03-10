@@ -28,7 +28,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xis_main.h"
+#include "xis_common.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -76,4 +76,32 @@ void XIs_Softreset(void)
 void XIs_UpdateError(int Error)
 {
 	XIs_Out32(XIS_ERROR_STATUS_REGISTER_OFFSET, ((u32)Error << 16U));
+}
+
+
+/**********************************************************************
+*******/
+/**
+ * This function will do Clock Configurations.
+ *
+ * @param	None.
+ *
+ * @return	None.
+ *
+***********************************************************************
+*******/
+void XIs_ClockConfigs(void)
+{
+	/**
+	*SRCSEL = IOPLL, DIVISOR0 = 0xA, CLKACT = 0x1
+	*/
+	Xil_UtilRMW32(XIS_CRL_APB_TIMESTAMP_REF_CTRL_OFFSET,
+			XIS_CRL_APB_TIMESTAMP_MASK, XIS_CRL_APB_TIMESTAMP_VALUE);
+
+	/**
+	*TimeStamp controller bit is cleared, to bring it out of reset.
+	*/
+	Xil_UtilRMW32(XIS_CRL_APB_RST_LPD_IOU2_OFFSET,
+			XIS_CRL_APB_RST_LPD_IOU2_MASK, XIS_CRL_APB_RST_LPD_IOU2_VALUE);
+
 }
