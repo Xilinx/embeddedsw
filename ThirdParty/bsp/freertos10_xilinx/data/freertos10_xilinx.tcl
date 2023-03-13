@@ -1,5 +1,6 @@
 
 # Copyright (C) 2015 - 2022 Xilinx, Inc.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -383,7 +384,7 @@ proc generate {os_handle} {
 		}
 	}
 
-	set sleep_file_list "sleep.h sleep.c usleep.c xtime_l.c xtime_l.h microblaze_sleep.c microblaze_sleep.h xil_sleepcommon.c xil_sleeptimer.h xil_sleeptimer.c xpm_counter.c"
+	set sleep_file_list "sleep.h sleep.c usleep.c xtime_l.c xtime_l.h microblaze_sleep.c microblaze_sleep.h xil_sleepcommon.c xil_sleeptimer.h xil_sleeptimer.c"
 	if {$is_xiltimer_enabled != 0} {
 		foreach entry $sleep_file_list {
 			file delete -force "../${standalone_version}/src/$entry"
