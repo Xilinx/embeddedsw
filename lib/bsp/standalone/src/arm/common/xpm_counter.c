@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,6 +30,7 @@
 * 8.00  mus  07/14/22 Existing PMU APIs dont have support for CortexA53 32
 *                     bit processor, added check to skip PMU APIs
 *                     compilation in case of CortexA53 32 bit BSP.
+* 8.1   adk  03/13/23 Include xstatus.h when xiltimer is enabled.
 * </pre>
 *
 ******************************************************************************/
@@ -39,6 +41,8 @@
 #ifndef XPAR_XILTIMER_ENABLED
 #include "xil_sleeptimer.h"
 #include "xtime_l.h"
+#else
+#include "xstatus.h"
 #endif
 
 /************************** Constant Definitions ****************************/
