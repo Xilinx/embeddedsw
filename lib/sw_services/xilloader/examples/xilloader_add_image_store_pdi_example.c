@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +9,7 @@
  *
  * @file xilloader_add_image_store_pdi_example.c
  *
- * This file illustrates updating multiboot register via IPI command.
+ * This file illustrates adding PDI to ImageStore via IPI command.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -17,6 +18,7 @@
  * ----- ---  ----------   ----------------------------------------------------
  * 1.0   bsv  04/20/2022   Initial release
  *       bsv  08/18/2022   Fix typo in CmdId
+ * 1.1   sk   03/10/2023   Updated changes to command format
  */
 #include <stdio.h>
 #include "platform.h"
@@ -27,6 +29,12 @@
 
 #define TARGET_IPI_INT_MASK	XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
 #define IPI_TIMEOUT		(0xFFFFFFFFU)
+
+/* Example defines below, update with required values*/
+#define PDI_ID 0x03  /*ID to identify PDI */
+#define PDI_SIZE_IN_WORDS 0x4000U  /* PDI Size in words i.e (size/4) */
+#define PDI_ADDRESS_LOW 0x00100000U /* PDI Low Address in Memory */
+#define PDI_ADDRESS_HIGH 0x00000000U /* PDI High Address in Memory */
 
 static int DoIpiTest(void);
 
@@ -54,15 +62,17 @@ static int DoIpiTest(void)
 	Add ImageStore PDI
 *
 *	Command: Add ImageStore PDI
-*	Reserved[31:25]=0	Security Flag[24]	Length[23:16]=2	XilLoader=7	CMD_ADD_IMG_STORE_PDI=9
+*	Reserved[31:25]=0	Security Flag[24]	Length[23:16]=4	XilLoader=7	CMD_ADD_IMG_STORE_PDI=9
+*	PDI ID
 *	High PDI Address
 *	Low PDI Address
+*	PDI Size( In Words )
 *
-*	This command adds PDI address to the list of Image Store PDIs that are maintained by PLM. During restore or reload of a image,
+*	This command adds PDI to the list of Image Store PDIs that are maintained by PLM. During restore or reload of a image,
 *	PLM checks this dynamically added list of PDIs first to get the required image and in case of any failure, it falls back to next possible.
 *	If no valid entry is present, it uses boot pdi, which is the first entry in the list.
 */
-	u32 Payload[] = {0x020709, 0, 0x10000000};
+	u32 Payload[] = {0x040709, PDI_ID, PDI_ADDRESS_HIGH, PDI_ADDRESS_LOW, PDI_SIZE_IN_WORDS};
 
 	Xil_DCacheDisable();
 
