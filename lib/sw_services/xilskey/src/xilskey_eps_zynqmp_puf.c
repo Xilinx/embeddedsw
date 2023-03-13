@@ -48,6 +48,7 @@
 * 7.0	am  10/04/20  Resolved MISRA C violations
 * 7.2   am  07/13/21  Fixed doxygen warnings
 * 7.4   kal 02/16/23  Increased usleep value to 6ms in Puf regeneration function
+*       nf  03/13/23  Fixed shifting of Puf auxiliary data in puf status register
 *
 * </pre>
 *
@@ -703,7 +704,7 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 			InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 2U] =
 			        InstancePtr->Chash;
 			InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 1U] =
-			        ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) << 4U);
+			        ((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) >> 4U);
 
 			Status = (u32)XST_SUCCESS;
 			xPuf_printf(Debug,"API: PUF Helper Data Generated!!!\r\n");
