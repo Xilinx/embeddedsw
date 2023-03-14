@@ -36,6 +36,7 @@
 * 1.08  ma    07/27/2022 Added support for CFrame data clear check which is
 *                        required during PL secure lockdown
 * 1.09  ng    11/11/2022 Updated doxygen comments
+*       ng    03/12/2023 Fixed Coverity warnings
 *
 * </pre>
 *
@@ -282,8 +283,8 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 	}
 
 	for (RowRange = 0; RowRange < MaxRowRange; RowRange++) {
+		XCframe_ReadReg(&XLoader_CframeIns, XCFRAME_CRC_OFFSET, (XCframe_FrameNo)RowRange, (u32 *)&CframeData);
 		/** Check CRC */
-		XCframe_ReadReg(&XLoader_CframeIns, XCFRAME_CRC_OFFSET, RowRange, (u32 *)&CframeData);
 		if (CframeData.Word0 != XPLMI_ZERO) {
 			Status = (int)XLOADER_CFRAME_CRC_CHECK_FAILED;
 			goto END;
