@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +48,7 @@
 *                       XPlmi_InitDebugLogBuffer function
 * 1.06  bsv  06/03/2022 Add CommandInfo to a separate section in elf
 *       bm   07/06/2022 Refactor versal and versal_net code
+* 1.07  ng   03/12/2023 Fixed Coverity warnings
 *
 * </pre>
 *
@@ -268,7 +270,7 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
 
 	switch (LoggingCmd) {
 		case XPLMI_LOGGING_CMD_CONFIG_LOG_LEVEL:
-			Arg1 = (u64)((1U << (u32)Arg1) - 1U);
+			Arg1 = ((u64)1U << (u32)Arg1) - 1U;
 			if (Arg1 <= XPlmiDbgCurrentTypes) {
 				DebugLog->LogLevel = (u8)((Arg1 << XPLMI_LOG_LEVEL_SHIFT) | Arg1);
 				Status = XST_SUCCESS;

@@ -43,6 +43,7 @@
 *       bm   07/24/2022 Set PlmLiveStatus during boot time
 * 1.07  ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+*       ng   03/12/2023 Fixed Coverity warnings
 *
 * </pre>
 *
@@ -140,7 +141,7 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
 		/** Clear the Latched Status if any */
-		if (ClearHandler) {
+		if (ClearHandler != NULL) {
 			ClearHandler();
 		}
 		/**
@@ -399,7 +400,7 @@ int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
 
 	/* Loop while the value does not match with expected value or we timeout */
 	while ((RegValue & Mask) != ExpectedValue) {
-		if (ClearHandler) {
+		if (ClearHandler != NULL) {
 			ClearHandler();
 		}
 		RegValue = XPlmi_In32(RegAddr);
