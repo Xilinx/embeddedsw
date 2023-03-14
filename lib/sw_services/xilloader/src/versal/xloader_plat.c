@@ -23,6 +23,7 @@
 *                       TCM memory banks
 * 1.01  ng   11/11/2022 Updated doxygen comments
 *       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
+*       ng   03/12/2023 Fixed Coverity warnings
 *
 * </pre>
 *
@@ -258,7 +259,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	u32 PrtnAttrbs;
 	u32 PrtnFlags;
-	u8 LoopCount = 0U;
+	u32 LoopCount = 0U;
 	XilPdi_ATFHandoffParams *ATFHandoffParams = XLoader_GetATFHandoffParamsAddr();
 
 	PrtnAttrbs = PrtnHdr->PrtnAttrb;
@@ -304,7 +305,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 		ATFHandoffParams->MagicValue[3U] = 'X';
 	}
 	else {
-		for (; LoopCount < (u8)ATFHandoffParams->NumEntries;
+		for (; LoopCount < ATFHandoffParams->NumEntries;
 			LoopCount++) {
 			if (ATFHandoffParams->Entry[LoopCount].PrtnFlags ==
 					PrtnFlags) {
