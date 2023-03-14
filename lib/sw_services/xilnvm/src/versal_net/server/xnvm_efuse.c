@@ -21,6 +21,7 @@
 *                       behaviour
 *       skg  11/08/2022 Added In Body comments for APIs
 * 3.2   har  02/22/2023 Added API to program ROM Rsvd eFUSEs.
+*       vss  03/14/2023 Fixed compilation warining
 *
 * </pre>
 *
@@ -1881,7 +1882,7 @@ END:
 	/**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
 	 */
-	if ((PufCtrlBits == NULL)||(PufCtrlBits > XNVM_PUF_SEC_CTRL_MAX_VALID_VAL)) {
+	if ((PufCtrlBits == 0U)||(PufCtrlBits > XNVM_PUF_SEC_CTRL_MAX_VALID_VAL)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
