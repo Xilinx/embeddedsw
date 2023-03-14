@@ -117,6 +117,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       ng   02/07/2023 Check to skip the multiboot reg update and SRST
 *       bm   02/09/2023 Added support to return warnings
+*       ng   03/12/2023 Fixed Coverity warnings
 * </pre>
 *
 * @note
@@ -572,7 +573,7 @@ static void XPlmi_DetectAndHandleTamper(void)
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 
 	/** Handle Tamper condition triggered by ROM */
-	if (ErrorTable[XPLMI_ERROR_PMCAPB].Handler) {
+	if (ErrorTable[XPLMI_ERROR_PMCAPB].Handler != NULL) {
 		PmcErr2Status = XPlmi_In32(PMC_GLOBAL_PMC_ERR2_STATUS);
 		PmcErr2Status &= XIL_EVENT_ERROR_MASK_PMCAPB;
 		/** Check if PMC APB error is set */
