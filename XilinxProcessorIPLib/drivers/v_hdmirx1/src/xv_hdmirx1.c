@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1917,7 +1918,7 @@ int XV_HdmiRx1_GetVideoTiming(XV_HdmiRx1 *InstancePtr)
 	u32 DscEnabledStream = XV_HdmiRx1_DSC_IsEnableStream(InstancePtr);
 
 	if ((InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) &&
-			(InstancePtr->VrrIF.VidTimingExtMeta.VRREnabled)) {
+			(InstancePtr->VrrIF.VidTimingExtMeta.VRREnabled || InstancePtr->VrrIF.VidTimingExtMeta.QMSEnabled)) {
 		VrrActive = TRUE;
 	} else if ((InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_SPDIF) &&
 			(InstancePtr->VrrIF.SrcProdDescIF.FreeSync.FreeSyncActive)) {

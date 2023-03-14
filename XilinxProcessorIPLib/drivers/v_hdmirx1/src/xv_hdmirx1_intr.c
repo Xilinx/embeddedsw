@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2020 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -512,7 +513,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 	u8 Error = FALSE;
 
 	if ((InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) &&
-			(InstancePtr->VrrIF.VidTimingExtMeta.VRREnabled)) {
+			(InstancePtr->VrrIF.VidTimingExtMeta.VRREnabled || InstancePtr->VrrIF.VidTimingExtMeta.QMSEnabled)) {
 		VrrActive = TRUE;
 	} else if ((InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_SPDIF) &&
 			(InstancePtr->VrrIF.SrcProdDescIF.FreeSync.FreeSyncActive)) {
@@ -520,7 +521,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 	} else
 		VrrActive = FALSE;
 
-	if (InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM)
+	if (InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM || InstancePtr->VrrIF.VidTimingExtMeta.QMSEnabled )
 		FvaFactor = InstancePtr->VrrIF.VidTimingExtMeta.FVAFactorMinus1 + 1;
 
 	/* Read Video timing detector Status register */
@@ -779,7 +780,7 @@ static void HdmiRx1_VtdIntrHandler(XV_HdmiRx1 *InstancePtr)
 										VidEntry->FrameRate;
 
 						} else if ((InstancePtr->VrrIF.VrrIfType == XV_HDMIC_VRRINFO_TYPE_VTEM) &&
-									(InstancePtr->VrrIF.VidTimingExtMeta.VRREnabled) ){
+									(InstancePtr->VrrIF.VidTimingExtMeta.VRREnabled || InstancePtr->VrrIF.VidTimingExtMeta.QMSEnabled) ){
 							BaseTiming->F0PVFrontPorch =
 								InstancePtr->VrrIF.VidTimingExtMeta.BaseVFront;
 							InstancePtr->Stream.Video.BaseFrameRate =
