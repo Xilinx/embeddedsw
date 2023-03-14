@@ -375,10 +375,14 @@ extern u8 AuxFifoStartFlag;
     defined (XPS_BOARD_VCK190)
 XIicPs Ps_Iic0, Iic;
 #define PS_IIC_CLK 100000
-#else
+#elif defined (XPS_BOARD_VEK280_ES)
 //XIicPs Ps_Iic0, Iic1;
 XIicPs Ps_Iic0;
 #define PS_IIC_CLK 100000
+XIic Iic;
+#define I2C_REPEATED_START 0x01
+#define I2C_STOP 0x00
+#else
 XIic Iic;
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
