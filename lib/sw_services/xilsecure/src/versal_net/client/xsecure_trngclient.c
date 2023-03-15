@@ -20,6 +20,7 @@
 * 5.0   am   06/13/22 Initial release
 *       kpt  07/24/22 moved XSecure_TrngKat into xsecure_katclient_plat.c
 * 5.2   am   04/01/23 Added XST_INVALID_PARAM error code for invalid parameters
+*       am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *
 * </pre>
 *
@@ -46,7 +47,7 @@
 int XSecure_TrngGenerareRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBufAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;

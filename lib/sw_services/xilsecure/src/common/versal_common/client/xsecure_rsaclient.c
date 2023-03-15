@@ -26,6 +26,7 @@
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_RsaKat into xsecure_katclient.c
+* 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *
 * </pre>
 * @note
@@ -63,7 +64,7 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 	XSecure_RsaInParam *RsaParams = NULL;
 	u64 BufferAddr;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -125,7 +126,7 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 	XSecure_RsaInParam *RsaParams = NULL;
 	u64 BufferAddr;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -180,7 +181,7 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	XSecure_RsaSignParams *SignParams = NULL;
 	u64 BufferAddr;
 	u32 MemSize;
-	volatile u32 Payload[XSECURE_PAYLOAD_LEN_3U] = {0U};
+	volatile u32 Payload[XMAILBOX_PAYLOAD_LEN_3U] = {0U};
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;

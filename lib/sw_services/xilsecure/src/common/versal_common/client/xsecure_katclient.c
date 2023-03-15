@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  07/18/22 Initial release
+* 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *
 * </pre>
 * @note
@@ -61,7 +62,7 @@
 int XSecure_AesDecryptKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -101,7 +102,7 @@ END:
 int XSecure_AesDecryptCmKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -134,7 +135,7 @@ END:
 int XSecure_RsaPublicEncKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -171,7 +172,7 @@ END:
 int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -206,7 +207,7 @@ END:
 int XSecure_EllipticSignVerifyKat(XSecure_ClientInstance *InstancePtr, XSecure_EccCrvClass CurveClass)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -244,7 +245,7 @@ END:
 int XSecure_AesEncryptKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -277,7 +278,7 @@ END:
 int XSecure_RsaPrivateDecKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -312,7 +313,7 @@ END:
 int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccCrvClass CurveClass)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
