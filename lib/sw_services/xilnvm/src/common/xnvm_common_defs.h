@@ -169,6 +169,7 @@ typedef struct {
 #ifdef XNVM_EN_ADD_PPKS
 	u8 Ppk3Invalid;
 	u8 Ppk4Invalid;
+	u8 AdditionalPpkEn;
 #endif
 } XNvm_EfuseMiscCtrlBits;
 
@@ -219,15 +220,6 @@ typedef struct {
 	u32 Ppk1Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
 	u32 Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
 } XNvm_EfusePpkHash;
-
-#ifdef XNVM_EN_ADD_PPKS
-typedef struct {
-	u8 PrgmPpk3Hash;
-	u8 PrgmPpk4Hash;
-	u32 Ppk3Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
-	u32 Ppk4Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
-} XNvm_EfuseAdditionalPpkHash;
-#endif
 
 typedef struct {
 	u8 PrgmMetaHeaderIv;
