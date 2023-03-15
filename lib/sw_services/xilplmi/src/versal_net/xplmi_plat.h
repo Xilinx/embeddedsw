@@ -32,6 +32,7 @@
 *       bm   01/04/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Added Config Space for Image Store in RTCA
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
+*       bm   03/11/2023 Modify XPlmi_PreInit prototype
 *
 * </pre>
 *
@@ -442,7 +443,7 @@ static inline void XPlmi_InterSlrSldHandshake(void)
 
 /************************** Function Prototypes ******************************/
 u32 *XPlmi_GetLpdInitialized(void);
-void XPlmi_PreInit(void);
+int XPlmi_PreInit(void);
 void XPlmi_RtcaPlatInit(void);
 u8 XPlmi_IsPlmUpdateDone(void);
 u8 XPlmi_IsPlmUpdateInProgress(void);
