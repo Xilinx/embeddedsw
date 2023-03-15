@@ -44,6 +44,7 @@
 *       is   12/19/2022 Added support for XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+*       bm   03/11/2023 Use XPLMI_BIT macro for getting bit position mask
 *
 * </pre>
 *
@@ -484,7 +485,7 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 {
 	int Status = XST_FAILURE;
 	u8 Index = XPLMI_GET_EVENT_ARRAY_INDEX(EventIndex);
-	u8 BitMask;
+	u32 BitMask;
 	u8 SlrEvIndex;
 
 	/*
@@ -506,7 +507,7 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 	}
 
 	/* Check if the event is allowed to be triggered from the current SLR */
-	if (((0x1U << SsitEvents->SlrIndex) &
+	if ((XPLMI_BIT(SsitEvents->SlrIndex) &
 			SsitEvents->Events[EventIndex].EventOrigin) == 0x0U) {
 		Status = (int)XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
 		goto END;
@@ -533,7 +534,7 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 	} else if ((SsitEvents->SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) &&
 			(SlrIndex > XPLMI_SSIT_MASTER_SLR_INDEX) &&
 			(SlrIndex <= XPLMI_SSIT_SLAVE2_SLR_INDEX)) {
-		BitMask = 1U << (SlrIndex - 1U);
+		BitMask = XPLMI_BIT(SlrIndex - 1U);
 		SlrEvIndex = (SlrIndex - (u8)1U);
 	} else {
 		/* If SLR Type is neither Master nor Slave SLR, return an error */
@@ -561,7 +562,7 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 
 	/* Trigger an event */
 	EventVectorTable[SlrEvIndex].Events32[Index] ^=
-			(0x1U << (EventIndex % XPLMI_SSIT_MAX_BITS));
+			XPLMI_BIT(EventIndex % XPLMI_SSIT_MAX_BITS);
 
 	if (EventIndex != XPLMI_SLRS_SYNC_EVENT_INDEX) {
 		/* Trigger an SSIT interrupt for SLR */
@@ -658,7 +659,8 @@ static u8 XPlmi_SsitIsEventPending(u8 SlrIndex, u32 EventIndex)
 	u64 SlrAddr;
 	u32 SlrEventLut;
 	u8 Index = XPLMI_GET_EVENT_ARRAY_INDEX(EventIndex);
-	u32 EventMask = 0x1U << (EventIndex % XPLMI_SSIT_MAX_BITS);
+	u32 EventMask = XPLMI_BIT(EventIndex % XPLMI_SSIT_MAX_BITS);
+
 	u8 LocalEvTableIndex;
 	u8 RemoteEvTableIndex;
 
@@ -852,7 +854,7 @@ int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex)
 
 	/* Acknowledge the event once it is processed */
 	EventVectorTable[SlrEvIndex].Events32[Index] ^=
-			(0x1U << (EventIndex % XPLMI_SSIT_MAX_BITS));
+			XPLMI_BIT(EventIndex % XPLMI_SSIT_MAX_BITS);
 	Status = XST_SUCCESS;
 
 END:
@@ -945,7 +947,7 @@ static int XPlmi_SsitEventHandler(void *Data)
 				EventVectorTable[LocalEvTableIndex].Events32[Index]) != 0x0U) {
 			for ( ; Idx < XPLMI_SSIT_MAX_EVENTS; ++Idx) {
 				/* Event Mask of the corresponding event */
-				EventMask = 0x1U << (Idx % XPLMI_SSIT_MAX_BITS);
+				EventMask = XPLMI_BIT(Idx % XPLMI_SSIT_MAX_BITS);
 				/* Check if the event is pending */
 				if ((((RemoteEventTable.Events32[Index] ^
 						EventVectorTable[LocalEvTableIndex].Events32[Index]) &
