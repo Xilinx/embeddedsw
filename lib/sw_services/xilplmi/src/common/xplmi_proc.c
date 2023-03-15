@@ -47,6 +47,7 @@
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
 * 1.09  ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Remove usage of double data type
+*       bm   03/11/2023 Set PmcIroFreq as 320MHz by default
 *
 * </pre>
 *
@@ -84,7 +85,7 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
 		XPlmi_PerfTime *PerfTime);
 
 /************************** Variable Definitions *****************************/
-static u32 PmcIroFreq; /* Frequency of the PMC IRO */
+static u32 PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ; /* Frequency of the PMC IRO */
 static XIOModule IOModule; /* Instance of the IO Module */
 
 /*****************************************************************************/
