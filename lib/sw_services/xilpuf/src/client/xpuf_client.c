@@ -23,7 +23,8 @@
 * 2.1   skg  10/29/22 Added In Body comments
 *       skg  12/14/22 Added Slr index as part of payload
 *       am   02/13/23 Fixed MISRA C violations
-*       am   02/17/2023 Fixed HIS_COMF violations
+*       am   02/17/23 Fixed HIS_COMF violations
+* 2.2   am   03/09/23 Replaced xpuf payload lengths with xmailbox payload lengths
 *
 * </pre>
 *
@@ -90,7 +91,7 @@ int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const Mail
 int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XPUF_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	/**
 	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
@@ -133,7 +134,7 @@ END:
 int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XPUF_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	/**
 	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
@@ -174,7 +175,7 @@ END:
 int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XPUF_PAYLOAD_LEN_1U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
 
 	/**
 	 *  Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
