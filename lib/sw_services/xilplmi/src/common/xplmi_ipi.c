@@ -72,6 +72,8 @@
  *       ng   11/11/2022 Updated doxygen comments
  *       bm   02/04/2023 Added support to return warnings
  *       bm   03/09/2023 Add NULL check for module before using it
+ *       bm   03/09/2023 Added redundant calls for XPlmi_ValidateCmd and
+ *                       CheckIpiAccess
  *
  * </pre>
  *
@@ -532,8 +534,8 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 	/**
 	 * Validate IPI Command
 	 */
-	Status = XPlmi_ValidateCmd(ModuleId, ApiId);
-	if (XST_SUCCESS != Status) {
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPlmi_ValidateCmd, ModuleId, ApiId);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 		/* Return error code if IPI validation failed */
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_IPI_CMD, 0);
 		goto END;
@@ -559,7 +561,7 @@ static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 	 * If handler is not registered, do nothing
 	 */
 	if (Module->CheckIpiAccess != NULL) {
-		XSECURE_TEMPORAL_IMPL(Status, StatusTmp,
+		XSECURE_REDUNDANT_CALL(Status, StatusTmp,
 			Module->CheckIpiAccess, Cmd->CmdId,
 			Cmd->IpiReqType);
 		/* Return error code if IPI access failed */
