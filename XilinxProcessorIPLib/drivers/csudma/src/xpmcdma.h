@@ -208,7 +208,7 @@ static INLINE void XPmcDma_Reset(u32 DmaType)
 * @return	None.
 *
 * @note		This function should be called after XPmcDma_Transfer in polled
-*		mode to wait until the data gets transfered completely.
+*		mode to wait until the data gets transferred completely.
 *
 ******************************************************************************/
 static INLINE int XPmcDma_WaitForDone(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
@@ -357,7 +357,7 @@ static INLINE s32 XPmcDma_CfgInitialize(XPmcDma *InstancePtr, XPmcDma_Config *Cf
 /**
 *
 * This function sets the starting address and amount(size) of the data to be
-* transfered from/to the memory through the AXI interface.
+* transferred from/to the memory through the AXI interface.
 *
 * @param	InstancePtr is a pointer to XPmcDma instance to be worked on.
 * @param	Channel represents the type of channel either it is Source or
@@ -368,7 +368,7 @@ static INLINE s32 XPmcDma_CfgInitialize(XPmcDma *InstancePtr, XPmcDma_Config *Cf
 * 		data which needs to write into the memory(DST) (or read	from
 * 		the memory(SRC)).
 * @param	Size is a 32 bit variable which represents the number of 4 byte
-* 		words needs to be transfered from starting address.
+* 		words needs to be transferred from starting address.
 * @param	EnDataLast is to trigger an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
@@ -393,7 +393,7 @@ static INLINE void XPmcDma_Transfer(XPmcDma *InstancePtr, XPmcDma_Channel Channe
 /**
 *
 * This function sets the starting address and amount(size) of the data to be
-* transfered from/to the memory through the AXI interface.
+* transferred from/to the memory through the AXI interface.
 * This function is useful for pmu processor when it wishes to do
 * a 64-bit DMA transfer.
 *
@@ -407,9 +407,9 @@ static INLINE void XPmcDma_Transfer(XPmcDma *InstancePtr, XPmcDma_Channel Channe
 * 		(or read from the memory(SRC)).
 * @param	AddrHigh is a 32 bit variable which holds the higher address of data
 * 		which needs to write into the memory(DST) (or read from
-* 		the memroy(SRC)).
+* 		the memory(SRC)).
 * @param	Size is a 32 bit variable which represents the number of 4 byte
-* 		words needs to be transfered from starting address.
+* 		words needs to be transferred from starting address.
 * @param	EnDataLast is to trigger an end of message. It will enable or
 * 		disable data_inp_last signal to stream interface when current
 * 		command is completed. It is applicable only to source channel
@@ -423,7 +423,7 @@ static INLINE void XPmcDma_Transfer(XPmcDma *InstancePtr, XPmcDma_Channel Channe
 * 		data_inp_valid signal associated with the final 32-bit word
 *		transfer
 *		This API won't do flush/invalidation for the DMA buffer.
-*		It is recommened to call this API only through PMU processor.
+*		It is recommended to call this API only through PMU processor.
 *
 ******************************************************************************/
 static INLINE void XPmcDma_64BitTransfer(XPmcDma *InstancePtr, XPmcDma_Channel Channel,
@@ -459,7 +459,7 @@ static INLINE u64 XPmcDma_GetAddr(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 /*****************************************************************************/
 /**
 *
-* This function returns the size of the data yet to be transfered from memory
+* This function returns the size of the data yet to be transferred from memory
 * to PMC_DMA or PMC_DMA to memory based on the channel selection.
 *
 * @param	InstancePtr is a pointer to XPmcDma instance to be worked on.
@@ -468,7 +468,7 @@ static INLINE u64 XPmcDma_GetAddr(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 *		Source channel      - XPMCDMA_SRC_CHANNEL
 *		Destination Channel - XPMCDMA_DST_CHANNEL
 *
-* @return	Size is amount of data yet to be transfered.
+* @return	Size is amount of data yet to be transferred.
 *
 ******************************************************************************/
 static INLINE u32 XPmcDma_GetSize(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
@@ -479,7 +479,7 @@ static INLINE u32 XPmcDma_GetSize(XPmcDma *InstancePtr, XPmcDma_Channel Channel)
 /*****************************************************************************/
 /**
 *
-* This function pause the Channel data tranfer to/from memory or to/from stream
+* This function pause the Channel data transfer to/from memory or to/from stream
 * based on pause type.
 *
 * @param	InstancePtr is a pointer to XPmcDma instance to be worked on.
@@ -607,7 +607,7 @@ static INLINE void XPmcDma_ClearCheckSum(XPmcDma *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function cofigures all the values of PMC_DMA's Channels with the values
+* This function configures all the values of PMC_DMA's Channels with the values
 * of updated XPmcDma_Configure structure.
 *
 * @param	InstancePtr is a pointer to XPmcDma instance to be worked on.
@@ -689,7 +689,7 @@ static INLINE void XPmcDma_SetConfig(XPmcDma *InstancePtr, XPmcDma_Channel Chann
 /*****************************************************************************/
 /**
 *
-* This function updates XPmcDma_Configure structure members with the cofigured
+* This function updates XPmcDma_Configure structure members with the configured
 * values of PMC_DMA's Channel.
 *
 * @param	InstancePtr is a pointer to XPmcDma instance to be worked on.
