@@ -104,6 +104,15 @@ typedef struct {
 }XNvm_EfusePufHdAddr;
 #endif
 
+#ifdef XNVM_EN_ADD_PPKS
+typedef struct {
+	u8 PrgmPpk3Hash;
+	u8 PrgmPpk4Hash;
+	u32 Ppk3Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+	u32 Ppk4Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
+} XNvm_EfuseAdditionalPpkHash;
+#endif
+
 /**< XilNVM API ids */
 typedef enum {
 	XNVM_API_FEATURES = 0,

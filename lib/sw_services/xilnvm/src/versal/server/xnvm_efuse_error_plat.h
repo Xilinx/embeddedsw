@@ -217,6 +217,14 @@ typedef enum {
 							  * already programmed */
 	XNVM_EFUSE_ERR_PPK4_HASH_ALREADY_PRGMD = 0xCB00,/**<0xCB00 - Error PPK4 Hash
 							  * already programmed */
+	XNVM_EFUSE_ERR_WRITE_ADD_PPK_EN = 0xCC00,/**<0xCC00 - Error in ADD_PPK_EN
+	                          * efuse programming */
+	XNVM_EFUSE_ERR_USER_FUSE_PGM_NOT_ALLOWED = 0xCD00,/**<0xCD00 - Error while trying
+	                          * to program user efuses 48 to 63 when ADD_PPK_EN bits are
+							  * programmed */
+	XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED = 0xCE00,/**<0xCE00 - Error while programming
+	                          * additional PPK bits when PPK0 to PPK3 hashes are not
+							  * programmed */
 	XNVM_ERR_WRITE_PUF_USER_DATA = 0x10000, /**< 0x10000
 						* When user chooses PUF efuses as user efuses
 						* data provided for last row
