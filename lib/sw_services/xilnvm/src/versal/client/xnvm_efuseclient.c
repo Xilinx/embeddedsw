@@ -33,6 +33,7 @@
 *                     XNvm_EfuseWriteRevocationId function
 * 3.1   skg  10/04/22 Added SlrIndex as part of payload based on user input
 *       skg  10/25/22 Added in body comments for APIs
+* 3.2   am   03/09/23 Replaced xnvm payload lengths with xmailbox payload lengths
 *
 * </pre>
 *
@@ -73,7 +74,7 @@
 int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -120,7 +121,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 	u64 DataAddr;
 	u32 Size;
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr);
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -186,7 +187,7 @@ int XNvm_EfuseRevokePpk(XNvm_ClientInstance *InstancePtr, const XNvm_PpkType Ppk
 	XNvm_EfuseMiscCtrlBits *MiscCtrlBits = NULL;
 	u64 DataAddr;
 	u32 Size;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseMiscCtrlBits);
 
     /**
@@ -277,7 +278,7 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 	u32 RevokeIdBit;
 	u64 DataAddr;
 	u32 Size;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr) + sizeof(XNvm_EfuseRevokeIds);
 
     /**
@@ -355,7 +356,7 @@ int XNvm_EfuseWriteUserFuses(XNvm_ClientInstance *InstancePtr, const u64 UserFus
 	XNvm_EfuseDataAddr *EfuseData = NULL;
 	u64 DataAddr;
 	u32 Size;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 	u32 TotalSize = sizeof(XNvm_EfuseDataAddr);
 
     /**
@@ -412,7 +413,7 @@ END:
 int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, u64 IvAddr, const XNvm_IvType IvType)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -453,7 +454,7 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 			const XNvm_RevocationId RevokeIdNum)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -492,7 +493,7 @@ END:
 int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -530,7 +531,7 @@ END:
 int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscCtrlBits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -568,7 +569,7 @@ END:
 int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtrlBits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -606,7 +607,7 @@ END:
 int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -644,7 +645,7 @@ END:
 int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -683,7 +684,7 @@ END:
 int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -724,7 +725,7 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 	const XNvm_OffchipId OffChipIdNum)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -765,7 +766,7 @@ END:
 int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -805,7 +806,7 @@ END:
 int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -843,7 +844,7 @@ END:
 int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -883,7 +884,7 @@ END:
 int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -921,7 +922,7 @@ END:
 int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
 {
 	int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -960,7 +961,7 @@ END:
 int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr) {
 	volatile int Status = XST_FAILURE;
 	u64 DataAddr;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
@@ -1002,7 +1003,7 @@ END:
  ******************************************************************************/
 int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr) {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Validate input parameters. Return XST_FAILURE if input parameters are invalid
