@@ -31,6 +31,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Added Config Space for Image Store in RTCA
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
+*       bm   03/11/2023 Modified prototype for XPlmi_PreInit API
 *
 * </pre>
 *
@@ -362,7 +363,7 @@ static inline u8 XPlmi_IsKatRan(u32 PlmKatMask)
 u32 *XPlmi_GetLpdInitialized(void);
 void XPlmi_RtcaPlatInit(void);
 void XPlmi_PrintRomVersion(void);
-void XPlmi_PreInit(void);
+int XPlmi_PreInit(void);
 XPlmi_WaitForDmaDone_t XPlmi_GetPlmiWaitForDone(u64 DestAddr);
 XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void);
 void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead);
