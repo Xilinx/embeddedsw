@@ -28,6 +28,7 @@
 * 4.7   kpt  01/13/22 Added macro XSECURE_SHARED_MEM_SIZE
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 5.1   am   03/09/23 Moved payload length macros to xilmailbox.h file
 *
 * </pre>
 * @note
@@ -71,14 +72,6 @@ extern "C" {
 /* Maximum size of shared memory used to store the CDO command */
 #define XSECURE_SHARED_MEM_SIZE		(128U)
 					/**< Shared memory size */
-
-#define XSECURE_PAYLOAD_LEN_1U		(1U)
-#define XSECURE_PAYLOAD_LEN_2U		(2U)
-#define XSECURE_PAYLOAD_LEN_3U		(3U)
-#define XSECURE_PAYLOAD_LEN_4U		(4U)
-#define XSECURE_PAYLOAD_LEN_5U		(5U)
-#define XSECURE_PAYLOAD_LEN_6U		(6U)
-#define XSECURE_PAYLOAD_LEN_7U		(7U)
 
 /**************************** Type Definitions *******************************/
 typedef struct {
