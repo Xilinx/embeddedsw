@@ -223,6 +223,14 @@ int XNvm_EfuseRevokePpk(XNvm_ClientInstance *InstancePtr, const XNvm_PpkType Ppk
 	else if (PpkRevoke == XNVM_EFUSE_PPK2) {
 		MiscCtrlBits->Ppk2Invalid = TRUE;
 	}
+#ifdef XNVM_EN_ADD_PPKS
+	else if (PpkRevoke == XNVM_EFUSE_PPK3) {
+		MiscCtrlBits->Ppk3Invalid = TRUE;
+	}
+	else if (PpkRevoke == XNVM_EFUSE_PPK4) {
+		MiscCtrlBits->Ppk4Invalid = TRUE;
+	}
+#endif
 	else {
 		goto END;
 	}

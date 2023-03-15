@@ -934,6 +934,7 @@ static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 #ifdef XNVM_EN_ADD_PPKS
 	MiscCtrlBits->Ppk3Invalid = XNVM_EFUSE_PPK3_INVLD;
 	MiscCtrlBits->Ppk4Invalid = XNVM_EFUSE_PPK4_INVLD;
+	MiscCtrlBits->AdditionalPpkEn = XNVM_EFUSE_ADD_PPK_EN;
 #endif
 	if ((MiscCtrlBits->Ppk0Invalid == TRUE) ||
 		(MiscCtrlBits->Ppk1Invalid == TRUE) ||
@@ -945,6 +946,7 @@ static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseData *WriteEfuse,
 #ifdef XNVM_EN_ADD_PPKS
 		(MiscCtrlBits->Ppk3Invalid == TRUE )||
 		(MiscCtrlBits->Ppk4Invalid == TRUE) ||
+		(MiscCtrlBits->AdditionalPpkEn == TRUE) ||
 #endif
 		(MiscCtrlBits->SafetyMissionEn == TRUE)) {
 		WriteEfuse->MiscCtrlBits = MiscCtrlBits;
@@ -1761,6 +1763,12 @@ static int XilNvm_EfuseShowCtrlBits(void)
 		xil_printf("Ppk2 hash stored in efuse is valid\n\r");
 	}
 #ifdef XNVM_EN_ADD_PPKS
+	if (MiscCtrlBits.AdditionalPpkEn != FALSE) {
+		xil_printf("Additional PPK enable efuses are programmed\n\r");
+	}
+	else {
+		xil_printf("Additional PPK enable efuses are not programmed\n\r");
+	}
 	if(MiscCtrlBits.Ppk3Invalid != FALSE) {
 		xil_printf("Ppk3 hash stored in efuse is not valid\n\r");
 	}
