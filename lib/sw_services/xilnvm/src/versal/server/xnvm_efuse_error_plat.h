@@ -194,25 +194,29 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN = 0xAF00,/**<0xAF00 - Error in
 						     * CRYPTO_KAT_EN
 						     * efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK3_HASH = 0xB000,/**<0xB000 - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK3_HASH = 0xC300,/**<0xC300 - Error in
 						 * PPK3hash programming */
-	XNVM_EFUSE_ERR_WRITE_PPK4_HASH = 0xB100,/**<0xB100 - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK4_HASH = 0xC400,/**<0xC400 - Error in
 						 * PPK4hash programming */
-	XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED = 0xB200,/**<0xB200 - Error
+	XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED = 0xC500,/**<0xC500 - Error
 							  * PPK3 and PPK4 are not
 							  * enable */
-	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0 = 0xB300,/**<0xB300 - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0 = 0xC600,/**<0xC600 - Error in
 							  * PPK3_INVALID_BIT_0
 							  * efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1 = 0xB400,/**<0xB400 - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1 = 0xC700,/**<0xC700 - Error in
 							  * PPK3_INVALID_BIT_1
 							  * efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0 = 0xB500,/**<0xB500 - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0 = 0xC800,/**<0xC800 - Error in
 							  * PPK4_INVALID_BIT_0
 							  * efuse programming */
-	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1 = 0xB600,/**<0xB600 - Error in
+	XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1 = 0xC900,/**<0xC900 - Error in
 							  * PPK4_INVALID_BIT_1
 							  * efuse programming */
+	XNVM_EFUSE_ERR_PPK3_HASH_ALREADY_PRGMD = 0xCA00,/**<0xCA00 - Error PPK3 Hash
+							  * already programmed */
+	XNVM_EFUSE_ERR_PPK4_HASH_ALREADY_PRGMD = 0xCB00,/**<0xCB00 - Error PPK4 Hash
+							  * already programmed */
 	XNVM_ERR_WRITE_PUF_USER_DATA = 0x10000, /**< 0x10000
 						* When user chooses PUF efuses as user efuses
 						* data provided for last row
