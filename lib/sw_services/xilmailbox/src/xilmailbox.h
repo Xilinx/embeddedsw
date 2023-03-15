@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,8 @@
  * 1.6   sd   28/02/21    Add support for microblaze
  *       kpt  03/16/22    Added shared memory API's for IPI utilization
  * 1.7   sd   10/11/22    Fix a typo
+ * 1.8   am   09/03/23    Added payload length macros
+ *
  *</pre>
  *
  *@note
@@ -69,6 +71,17 @@ extern "C" {
 #define XILMBOX_MSG_TYPE_REQ	(0x00000001U) /**< Message type buffer */
 #define XILMBOX_MSG_TYPE_RESP	(0x00000002U) /**< Response type buffer */
 #define XMAILBOX_MAX_MSG_LEN	8U     /**< Maximum message length */
+
+/**
+ * Payload lengths
+ */
+#define XMAILBOX_PAYLOAD_LEN_1U                (1U) /**< Payload length of size 1byte */
+#define XMAILBOX_PAYLOAD_LEN_2U                (2U)	/**< Payload length of size 2byte */
+#define XMAILBOX_PAYLOAD_LEN_3U                (3U)	/**< Payload length of size 3byte */
+#define XMAILBOX_PAYLOAD_LEN_4U                (4U)	/**< Payload length of size 4byte */
+#define XMAILBOX_PAYLOAD_LEN_5U                (5U)	/**< Payload length of size 5byte */
+#define XMAILBOX_PAYLOAD_LEN_6U                (6U)	/**< Payload length of size 6byte */
+#define XMAILBOX_PAYLOAD_LEN_7U                (7U)	/**< Payload length of size 7byte */
 
 /**************************** Type Definitions *******************************/
 typedef void (*XMailbox_RecvHandler) (void *CallBackRefPtr); /**< Receive handler */
