@@ -206,6 +206,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses);
 static int XNvm_EfusePrgmAdditionalPpkHash(const XNvm_EfuseAdditionalPpkHash *Hash);
 static int XNvm_EfusePrgmAdditionalPpksInvalidBits(const XNvm_EfuseMiscCtrlBits *PpkSelect);
 static int XNvm_IsAdditionalPpkFeatureEnabled(void);
+static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseAdditionalPpkHash *WriteReq);
 #endif
 /*************************** Variable Definitions *****************************/
 
@@ -4050,6 +4051,15 @@ static int XNvm_EfuseValidateWriteReq(const XNvm_EfuseData *WriteChecks)
 			goto END;
 		}
 	}
+#ifdef XNVM_EN_ADD_PPKS
+	if (WriteChecks->AdditionalPpkHash != NULL) {
+		Status = XNvm_EfuseValidateAdditionalPpkWriteReq(
+				WriteChecks->AdditionalPpkHash);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+#endif
 
 	Status = XST_SUCCESS;
 END:
@@ -6035,4 +6045,53 @@ int XNvm_EfuseReadAdditionalPpkHash(XNvm_PpkHash *EfusePpk, XNvm_PpkType PpkType
 END:
 	return Status;
 }
+/******************************************************************************/
+/**
+ * @brief	This function Validates additional PPK Hash requested for programming.
+ *
+ * @param	WriteReq - Pointer to XNvm_EfuseAdditionalPpkHash structure which holds
+ * 			additonal ppk Hash data to be programmed to eFuse.
+ *
+ * @return	- XST_SUCCESS - if reads successfully.
+ *      - XNVM_EFUSE_ERR_INVALID_PARAM - Error when invalid param is passed.
+ *		- XNVM_EFUSE_ERR_PPK3_HASH_ALREADY_PRGMD - Ppk3 hash already
+ *							   programmed.
+ *		- XNVM_EFUSE_ERR_PPK4_HASH_ALREADY_PRGMD - Ppk4 hash already
+ *							   programmed.
+ *
+ ******************************************************************************/
+static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseAdditionalPpkHash *WriteReq)
+{
+	int Status = XST_FAILURE;
+
+	if (WriteReq == NULL) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (WriteReq->PrgmPpk3Hash == TRUE) {
+		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_3_HASH_START_ROW,
+					(XNVM_EFUSE_PPK_3_HASH_START_ROW +
+					XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS));
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_PPK3_HASH_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+
+	if (WriteReq->PrgmPpk4Hash == TRUE) {
+		Status = XNvm_EfuseCheckZeros(XNVM_EFUSE_PPK_4_HASH_START_ROW,
+					(XNVM_EFUSE_PPK_4_HASH_START_ROW +
+					XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS));
+		if (Status != XST_SUCCESS) {
+			Status = (int)XNVM_EFUSE_ERR_PPK4_HASH_ALREADY_PRGMD;
+			goto END;
+		}
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
 #endif /* END OF XNVM_EN_ADD_PPKS */
