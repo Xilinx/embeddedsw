@@ -21,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/22 Initial release
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 2.1   am   03/09/23 Moved payload length macros to xilmailbox.h file
 *
 * </pre>
 * @note
@@ -54,14 +55,6 @@ extern "C" {
 #define XPUF_MODULE_ID_SHIFT		(8U)
 #define XPUF_PAYLOAD_LEN_SHIFT		(16U)
 #define XILPUF_MODULE_ID_MASK		(XILPUF_MODULE_ID << XPUF_MODULE_ID_SHIFT)
-
-#define XPUF_PAYLOAD_LEN_1U		(1U)
-#define XPUF_PAYLOAD_LEN_2U		(2U)
-#define XPUF_PAYLOAD_LEN_3U		(3U)
-#define XPUF_PAYLOAD_LEN_4U		(4U)
-#define XPUF_PAYLOAD_LEN_5U		(5U)
-#define XPUF_PAYLOAD_LEN_6U		(6U)
-#define XPUF_PAYLOAD_LEN_7U		(7U)
 
 /**************************** Type Definitions *******************************/
 typedef struct {
