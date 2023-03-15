@@ -1165,6 +1165,7 @@ static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseDataAddr *WriteEfuse,
 #ifdef XNVM_EN_ADD_PPKS
 	MiscCtrlBits->Ppk3Invalid = XNVM_EFUSE_PPK3_INVLD;
 	MiscCtrlBits->Ppk4Invalid = XNVM_EFUSE_PPK4_INVLD;
+	MiscCtrlBits->AdditionalPpkEn = XNVM_EFUSE_ADD_PPK_EN;
 #endif
 
 	if ((MiscCtrlBits->Ppk0Invalid == TRUE) ||
@@ -1177,6 +1178,7 @@ static int XilNvm_EfuseInitMiscCtrl(XNvm_EfuseDataAddr *WriteEfuse,
 #ifdef XNVM_EN_ADD_PPKS
 		(MiscCtrlBits->Ppk3Invalid == TRUE )||
 		(MiscCtrlBits->Ppk4Invalid == TRUE) ||
+		(MiscCtrlBits->AdditionalPpkEn == TRUE) ||
 #endif
 		(MiscCtrlBits->SafetyMissionEn == TRUE)) {
 		Xil_DCacheFlushRange((UINTPTR)MiscCtrlBits,

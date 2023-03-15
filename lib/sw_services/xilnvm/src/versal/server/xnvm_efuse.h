@@ -79,9 +79,14 @@ extern "C" {
 
 /**< User efuses start, end and number of efuses definations*/
 #define XNVM_USER_FUSE_START_NUM			(1U) /**< User eFuse start number*/
-#define XNVM_USER_FUSE_END_NUM				(63U) /**< User eFuse end number*/
-#define XNVM_NUM_OF_USER_FUSES				(63U) /**< Number of user eFuses*/
 
+#ifdef XNVM_EN_ADD_PPKS
+	#define XNVM_USER_FUSE_END_NUM			(47U) /**< User eFuse end number*/
+#else
+	#define XNVM_USER_FUSE_END_NUM			(63U) /**< User eFuse end number*/
+#endif
+
+#define XNVM_NUM_OF_USER_FUSES				(XNVM_USER_FUSE_END_NUM) /**< Number of user eFuses*/
 
 #define XNVM_MAX_REVOKE_ID_FUSES			(XNVM_NUM_OF_REVOKE_ID_FUSES	\
 											* XNVM_EFUSE_MAX_BITS_IN_ROW) /**< Maximum eFuses in a row*/
@@ -174,14 +179,14 @@ typedef enum {
 	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_0, /**< Ppk2 invalid bit 0*/
 	XNVM_EFUSE_MISC_PPK2_INVALID_BIT_1, /**< Ppk2 invalid bit 1*/
 	XNVM_EFUSE_MISC_SAFETY_MISSION_EN, /**< Saftey mission enable*/
-#ifdef XNVM_EN_ADD_PPKS
-	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_0 = 9,
-	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_1,
-	XNVM_EFUSE_MISC_PPK4_INVALID_BIT_0,
-	XNVM_EFUSE_MISC_PPK4_INVALID_BIT_1,
-#endif /* END OF XNVM_EN_ADD_PPKS */
+	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_0 = 9, /**< Ppk3 invalid bit 0*/
+	XNVM_EFUSE_MISC_PPK3_INVALID_BIT_1, /**< Ppk3 invalid bit 1*/
+	XNVM_EFUSE_MISC_PPK4_INVALID_BIT_0, /**< Ppk4 invalid bit 0*/
+	XNVM_EFUSE_MISC_PPK4_INVALID_BIT_1, /**< Ppk4 invalid bit 1*/
 	XNVM_EFUSE_MISC_LBIST_EN = 14, /**< Lbist enable*/
 	XNVM_EFUSE_MISC_CRYPTO_KAT_EN, /**< Crypto kat enable*/
+	XNVM_EFUSE_MISC_ADD_PPK_EN_BIT_0 = 16, /**< Additional PPK enable bit 0*/
+	XNVM_EFUSE_MISC_ADD_PPK_EN_BIT_1, /**< Additional PPK enable bit 1*/
 	XNVM_EFUSE_MISC_HALT_BOOT_ENV_BIT_0 = 19, /**< Halt boot env bit 0*/
 	XNVM_EFUSE_MISC_HALT_BOOT_ENV_BIT_1, /**< Halt boot env bit 1*/
 	XNVM_EFUSE_MISC_HALT_BOOT_ERROR_BIT_0, /**< Halt boot error bit 0*/
