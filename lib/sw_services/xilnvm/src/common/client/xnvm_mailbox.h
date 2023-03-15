@@ -23,6 +23,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 3.1   skg  10/04/22 Added SlrIndex as member to XNvm_ClientInstance
 *       skg  10/28/22 Added comments for macros
+* 3.2   am   03/09/23 Moved payload length macros to xilmailbox.h file
 *
 * </pre>
 * @note
@@ -67,14 +68,6 @@ extern "C" {
 
 /**< Max size of shared memory used to store the CDO command */
 #define XNVM_SHARED_MEM_SIZE		(256U)
-
-#define XNVM_PAYLOAD_LEN_1U		(1U)
-#define XNVM_PAYLOAD_LEN_2U		(2U)
-#define XNVM_PAYLOAD_LEN_3U		(3U)
-#define XNVM_PAYLOAD_LEN_4U		(4U)
-#define XNVM_PAYLOAD_LEN_5U		(5U)
-#define XNVM_PAYLOAD_LEN_6U		(6U)
-#define XNVM_PAYLOAD_LEN_7U		(7U)
 
 /**************************** Type Definitions *******************************/
 /**< xilnvm client instance*/

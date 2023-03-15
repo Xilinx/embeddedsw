@@ -24,6 +24,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 3.1   skg  10/04/22 Added SlrIndex as part of payload based on user input
 *       skg  10/23/22 Added In body comments for APIs
+* 3.2   am   03/09/23 Replaced xnvm payload lengths with xmailbox payload lengths
 *
 * </pre>
 *
@@ -63,7 +64,7 @@ int XNvm_BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, const u64 KeyAddr,
 						const u32 KeyLen)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
 
     /**
 	 *  Performs input parameters validation. Return error code if input parameters are invalid
@@ -103,7 +104,7 @@ END:
 int XNvm_BbramZeroize(XNvm_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_1U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
 
     /**
 	 *  Performs input parameters validation. Return error code if input parameters are invalid
@@ -138,7 +139,7 @@ END:
 int XNvm_BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, const u32 UsrData)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
     /**
 	 *  Performs input parameters validation. Return error code if input parameters are invalid
@@ -174,7 +175,7 @@ END:
 int XNvm_BbramReadUsrData(XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
     /**
 	 *  Performs input parameters validation. Return error code if input parameters are invalid
@@ -211,7 +212,7 @@ END:
 int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XNVM_PAYLOAD_LEN_1U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
 
     /**
 	 *  Performs input parameters validation. Return error code if input parameters are invalid
