@@ -83,6 +83,7 @@ proc xgen_opts_file {libhandle} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set IsAddPpkEn false
 
 	# Create dstdir if it does not exist
 	if { ! [file exists $dstdir] } {
@@ -208,28 +209,36 @@ proc xgen_opts_file {libhandle} {
 		}
 	}
 
-    # Get plm_add_ppks_en value set by user, by default it is FALSE
-	set value [common::get_property CONFIG.plm_add_ppks_en $libhandle]
-	if {$value == true} {
-		puts $file_handle "\n/* Additional ppks code enable */"
-		puts $file_handle "#define PLM_EN_ADD_PPKS"
-	}
-
-	# Get ssit_plm_to_plm_comm_en value set by user, by default it is TRUE(Valid only for Versal)
-	set value [common::get_property CONFIG.ssit_plm_to_plm_comm_en $libhandle]
-	# Check if hsi::get_current_part is available before reading NUM_OF_SLRS property
+	# Check if hsi::get_current_part is available
 	if { [info commands ::hsi::get_current_part] != ""} {
-		# Get number of SLRs from the design
+		#Get part name from the design
 		set part [::hsi::get_current_part]
+
+		# Get number of SLRs from the design
 		set SlrCount [common::get_property NUM_OF_SLRS $part]
 		puts $file_handle "\n/* Number of SLRs */"
 		puts $file_handle "#define NUMBER_OF_SLRS       $SlrCount"
+		# Get ssit_plm_to_plm_comm_en value set by user, by default it is TRUE(Valid only for Versal)
+		set value [common::get_property CONFIG.ssit_plm_to_plm_comm_en $libhandle]
 		# Based on ssit_plm_to_plm_comm_en value set by user and the Number Of SLRs present
 		# in the design, enable SSIT PLM-PLM communication
 		if {($value == true) && ($SlrCount > 1)} {
 			puts $file_handle "\n/* SSIT PLM to PLM Communication enable */"
 			puts $file_handle "#define PLM_ENABLE_PLM_TO_PLM_COMM"
 		}
+
+		#Enable Additional PPKs for M50 design
+		set PartName [string range $part 0 [expr {[string first "-" $part] - 1}]]
+		if { [string match -nocase "xcvp1052" $PartName] } {
+			set IsAddPpkEn true
+		}
+	}
+
+    # Get plm_add_ppks_en value set by user, by default it is FALSE
+	set value [common::get_property CONFIG.plm_add_ppks_en $libhandle]
+	if {$value == true || $IsAddPpkEn == true} {
+		puts $file_handle "\n/* Enable boot support for additional PPKs */"
+		puts $file_handle "#define PLM_EN_ADD_PPKS"
 	}
 
 	# Get plm_ecdsa_en value set by user, by default it is FALSE

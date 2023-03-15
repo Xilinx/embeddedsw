@@ -56,10 +56,10 @@ proc nvm_drc {libhandle} {
 		return;
 	}
 
-	if {$mode == "client" &&  $proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
+	if {$mode == "client" &&  ($proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
                 $proc_type == "psv_cortexr5" || $proc_type == "microblaze" ||
                 $proc_type == "psxl_cortexa78" || $proc_type == "psxl_cortexr52" ||
-                $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
+                $proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52")} {
                 set librarylist [hsi::get_libs -filter "NAME==xilmailbox"];
                 if { [llength $librarylist] == 0 } {
                         error "This library requires xilmailbox library in the Board Support Package.";
@@ -178,6 +178,7 @@ proc xgen_opts_file {libhandle} {
 	set proc_instance [hsi::get_sw_processor];
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set IsAddPpkEn false
 
 	# Create dstdir if it does not exist
 	if { ! [file exists $dstdir] } {
@@ -196,9 +197,22 @@ proc xgen_opts_file {libhandle} {
 		puts $file_handle "\n#define XNVM_ACCESS_PUF_USER_DATA \n"
 	}
 
-	if {$add_en_ppks == true} {
+	if { [info commands ::hsi::get_current_part] != ""} {
+		#Get part name from the design
+		set part [::hsi::get_current_part]
+
+		#Enable Additional PPKs for M50 design
+		set PartName [string range $part 0 [expr {[string first "-" $part] - 1}]]
+		if { [string match -nocase "xcvp1052" $PartName] } {
+			set IsAddPpkEn true
+		}
+	}
+
+	if {$add_en_ppks == true || $IsAddPpkEn ==  true} {
+		puts $file_handle "\n/* Enable provisioning support for additional PPKs */"
 		puts $file_handle "\n#define XNVM_EN_ADD_PPKS \n"
 	}
+
 	# Get cache_disable value set by user, by default it is FALSE
 	set value [common::get_property CONFIG.xnvm_cache_disable $libhandle]
 	if {$value == true} {
