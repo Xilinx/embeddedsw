@@ -26,6 +26,7 @@
 * 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *       ng   11/11/2022 Fixed doxygen file name error
 *       kpt  01/04/2023 Added XPlmi_CheckandUpdateFipsState to update FIPS state
+*       bm   03/11/2023 Modify XPlmi_PreInit to return Status
 *
 * </pre>
 *
@@ -189,11 +190,13 @@ u32 *XPlmi_GetUartBaseAddr(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_PreInit(void)
+int XPlmi_PreInit(void)
 {
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
 		XPlmi_RestoreWdt();
 	}
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/

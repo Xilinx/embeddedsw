@@ -52,6 +52,7 @@
 * 1.07  ng   11/11/2022 Updated doxygen comments
 *       kpt  01/04/2023 Added XPlmi_SetFipsKatMask command
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
+*       bm   03/11/2023 Added status check for XPlmi_PreInit
 *
 * </pre>
 *
@@ -90,7 +91,11 @@ int XPlmi_Init(void)
 {
 	int Status = XST_FAILURE;
 
-	XPlmi_PreInit();
+	Status = XPlmi_PreInit();
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XPLMI_ERR_PRE_INIT, Status);
+		goto END;
+	}
 
 	Status = XPlmi_SetUpInterruptSystem();
 	if (Status != XST_SUCCESS) {

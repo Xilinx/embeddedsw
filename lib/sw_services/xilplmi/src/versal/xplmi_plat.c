@@ -27,6 +27,7 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *       bm   03/11/2023 Refactored XPlmi_VerifyAddrRange logic
+*       bm   03/11/2023 Added check for blind write in UpdateResetReason
 *
 * </pre>
 *
@@ -100,7 +101,7 @@ static inline u32 XPlmi_GetRawVoltage(float Voltage)
 }
 
 /************************** Function Prototypes ******************************/
-static void XPlmi_UpdateResetReason(void);
+static int XPlmi_UpdateResetReason(void);
 static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel);
 
 /************************** Variable Definitions *****************************/
@@ -236,9 +237,9 @@ void XPlmi_PrintRomVersion(void)
  * @return	None
  *
  *****************************************************************************/
-void XPlmi_PreInit(void)
+int XPlmi_PreInit(void)
 {
-	XPlmi_UpdateResetReason();
+	return XPlmi_UpdateResetReason();
 }
 
 /*****************************************************************************/
@@ -248,8 +249,9 @@ void XPlmi_PreInit(void)
  * @return	None
  *
  *****************************************************************************/
-static void XPlmi_UpdateResetReason(void)
+static int XPlmi_UpdateResetReason(void)
 {
+	int Status = XST_FAILURE;
 	u32 AccResetReason = XPlmi_In32(PMC_GLOBAL_PERS_GEN_STORAGE2) &
 				PERS_GEN_STORAGE2_ACC_RR_MASK;
 	u32 ResetReason = XPlmi_In32(CRP_RESET_REASON) &
@@ -259,10 +261,16 @@ static void XPlmi_UpdateResetReason(void)
 	AccResetReason |= (ResetReason << CRP_RESET_REASON_SHIFT) | ResetReason;
 
 	/* Store Reset Reason to Persistent2 address */
-	XPlmi_Out32(PMC_GLOBAL_PERS_GEN_STORAGE2, AccResetReason);
+	Status = Xil_SecureOut32(PMC_GLOBAL_PERS_GEN_STORAGE2, AccResetReason);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/* Clear Reset Reason register, by writing the same value */
 	XPlmi_Out32(CRP_RESET_REASON, ResetReason);
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
