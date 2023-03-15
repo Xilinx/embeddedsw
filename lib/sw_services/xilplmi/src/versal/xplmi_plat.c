@@ -26,6 +26,7 @@
 *                       XPLMI_IPI_DEVICE_ID
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
+*       bm   03/11/2023 Refactored XPlmi_VerifyAddrRange logic
 *
 * </pre>
 *
@@ -513,36 +514,11 @@ int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue)
 *****************************************************************************/
 int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 
 	if (EndAddr < StartAddr) {
+		Status = XST_INVALID_PARAM;
 		goto END;
-	}
-
-	if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
-		if ((StartAddr >= (u64)XPLMI_PSM_RAM_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_PSM_RAM_HIGH_ADDR)) {
-			/* PSM RAM is valid */
-			Status = XST_SUCCESS;
-		}
-		else if ((StartAddr >= (u64)XPLMI_TCM0_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_TCM0_HIGH_ADDR)) {
-			/* TCM0 is valid */
-			Status = XST_SUCCESS;
-		}
-		else if ((StartAddr >= (u64)XPLMI_TCM1_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_TCM1_HIGH_ADDR)) {
-			/* TCM1 is valid */
-			Status = XST_SUCCESS;
-		}
-		else if ((StartAddr >= (u64)XPLMI_OCM_BASE_ADDR) &&
-			(EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR)) {
-			/* OCM is valid */
-			Status = XST_SUCCESS;
-		}
-		else {
-			/* Rest of the Addr range is treated as invalid */
-		}
 	}
 
 	if ((EndAddr <= (u64)XPLMI_M_AXI_FPD_MEM_HIGH_ADDR) ||
@@ -555,6 +531,37 @@ int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
 			/* Addr range less than AXI FPD high addr or greater
 				than 2GB is considered valid */
 			Status = XST_SUCCESS;
+		}
+	}
+	else {
+		if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
+			if ((StartAddr >= (u64)XPLMI_PSM_RAM_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_PSM_RAM_HIGH_ADDR)) {
+				/* PSM RAM is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_TCM0_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCM0_HIGH_ADDR)) {
+				/* TCM0 is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_TCM1_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_TCM1_HIGH_ADDR)) {
+				/* TCM1 is valid */
+				Status = XST_SUCCESS;
+			}
+			else if ((StartAddr >= (u64)XPLMI_OCM_BASE_ADDR) &&
+				(EndAddr <= (u64)XPLMI_OCM_HIGH_ADDR)) {
+				/* OCM is valid */
+				Status = XST_SUCCESS;
+			}
+			else {
+				/* Rest of the Addr range is treated as invalid */
+				Status = XST_FAILURE;
+			}
+		}
+		else {
+			Status = XST_FAILURE;
 		}
 	}
 
