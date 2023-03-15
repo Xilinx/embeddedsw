@@ -88,6 +88,7 @@
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *       ng   03/07/2023 Fixed circular dependency between xilpm and xilplmi
 *                       libraries
+*       bm   03/11/2023 Added Temporal redundancy to tamper response condition
 *
 * </pre>
 *
@@ -2000,10 +2001,12 @@ static int XPlmi_Break(XPlmi_Cmd *Cmd)
 static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 TamperResp = Cmd->Payload[0U];
+	volatile u32 TamperResp = Cmd->Payload[0U];
+	volatile u32 TamperRespTmp = Cmd->Payload[0U];
 
 	/* Check if the Tamper Response input is valid */
-	if ((TamperResp & XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK) == 0x0U) {
+	if (((TamperResp & XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK) == 0x0U) &&
+		((TamperRespTmp & XPLMI_SLD_AND_SRST_TAMPER_RESP_MASK) == 0x0U)) {
 		/* Return error code if the Tamper Response received is invalid */
 		Status = (int)XPLMI_INVALID_TAMPER_RESPONSE;
 		goto END;
