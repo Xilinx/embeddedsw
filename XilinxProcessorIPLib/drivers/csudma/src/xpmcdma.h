@@ -80,6 +80,7 @@
 * 1.7	am 		09/24/20 Changed return type of XPmcDma_WaitForDoneTimeout
 *						 function from u32 to int
 * 1.9   bm      01/13/21 Update PmcDmaTransfer argument to u64
+* 1.14	ab	03/13/22 Add byte-wise transfer API for Versal-Net
 *
 * </pre>
 *
@@ -930,6 +931,44 @@ static INLINE s32 XPmcDma_SelfTest(XPmcDma *InstancePtr)
 {
 	return XCsuDma_SelfTest(InstancePtr);
 }
+
+#ifdef VERSAL_NET
+/*****************************************************************************/
+/**
+*
+* This function sets the starting address and amount(size) of the data to be
+* transferred from/to the memory through the AXI interface in VERSAL NET.
+*
+* @param	InstancePtr is a pointer to XCsuDma instance to be worked on.
+* @param	Channel represents the type of channel either it is Source or
+* 		Destination.
+*		Source channel      - XCSUDMA_SRC_CHANNEL
+*		Destination Channel - XCSUDMA_DST_CHANNEL
+* @param	Addr is a 64 bit variable which holds the starting address of
+* 		data which needs to write into the memory(DST) (or read	from
+* 		the memory(SRC)).
+* @param	Size is a 32 bit variable which represents the number of bytes
+* 		needs to be transferred from starting address.
+* @param	EnDataLast is to trigger an end of message. It will enable or
+* 		disable data_inp_last signal to stream interface when current
+* 		command is completed. It is applicable only to source channel
+* 		and neglected for destination channel.
+* 		-	1 - Asserts data_inp_last signal.
+* 		-	0 - data_inp_last will not be asserted.
+*
+* @return	None.
+*
+* @note		Data_inp_last signal is asserted simultaneously with the
+* 		data_inp_valid signal associated with the final 32-bit word
+*		transfer.
+*
+******************************************************************************/
+static INLINE void XPmcDma_ByteAlignedTransfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
+					u64 Addr, u32 Size, u8 EnDataLast)
+{
+	XCsuDma_ByteAlignedTransfer(InstancePtr, Channel, Addr, Size, EnDataLast);
+}
+#endif
 
 /******************************************************************************/
 
