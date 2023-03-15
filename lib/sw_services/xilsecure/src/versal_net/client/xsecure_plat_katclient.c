@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.0   kpt  07/18/22 Initial release
 * 5.2   am   04/01/23 Added XST_INVALID_PARAM error code for invalid parameters
+*       am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *
 * </pre>
 * @note
@@ -55,7 +56,7 @@
 int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
@@ -93,7 +94,7 @@ int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr, XSecure_KatOp K
 	u32 KatMaskLen, u32 *KatMask)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_7U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;

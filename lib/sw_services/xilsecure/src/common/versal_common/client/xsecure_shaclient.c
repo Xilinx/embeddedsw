@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +27,7 @@
 *                     XSecure_Sha3Initialize API
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_katclient.c
+* 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *
 * </pre>
 *
@@ -89,7 +91,7 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 {
 	volatile int Status = XST_FAILURE;
 	u32 Sha3InitializeMask = 0U;
-	u32 Payload[XSECURE_PAYLOAD_LEN_6U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -144,7 +146,7 @@ END:
 int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_6U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;

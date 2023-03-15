@@ -32,6 +32,7 @@
 *                     into XSecure_Katclient.c
 *       kpt  08/19/22 Added GMAC support
 * 5.1   skg  12/14/22 Added SSIT Provisioning support
+* 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *
 * </pre>
 * @note
@@ -65,7 +66,7 @@
 int XSecure_AesInitialize(XSecure_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_1U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -100,7 +101,7 @@ int XSecure_AesEncryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	XSecure_AesInitOps *AesParams = NULL;
 	u64 Buffer;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -150,7 +151,7 @@ int XSecure_AesDecryptInit(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	XSecure_AesInitOps *AesParams = NULL;
 	u64 Buffer;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -224,7 +225,7 @@ int XSecure_AesUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 A
 int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 AadSize, u32 IsLastChunkSrc)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -272,7 +273,7 @@ int XSecure_AesEncryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 	XSecure_AesInParams *EncInAddr = NULL;
 	u64 SrcAddr;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -323,7 +324,7 @@ END:
 int XSecure_AesEncryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -368,7 +369,7 @@ int XSecure_AesDecryptUpdate(XSecure_ClientInstance *InstancePtr, u64 InDataAddr
 	XSecure_AesInParams *DecInParams = NULL;
 	u64 SrcAddr;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -420,7 +421,7 @@ END:
 int XSecure_AesDecryptFinal(XSecure_ClientInstance *InstancePtr, u64 GcmTagAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -454,7 +455,7 @@ END:
 int XSecure_AesKeyZero(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySource KeySrc)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -492,7 +493,7 @@ int XSecure_AesWriteKey(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySourc
 								u32 Size, u64 KeyAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -536,7 +537,7 @@ int XSecure_AesKekDecrypt(XSecure_ClientInstance *InstancePtr, u64 IvAddr,
 				XSecure_AesKeySize Size)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -579,7 +580,7 @@ END:
 int XSecure_AesSetDpaCm(XSecure_ClientInstance *InstancePtr, u8 DpaCmCfg)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_2U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -625,7 +626,7 @@ int XSecure_AesEncryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	XSecure_AesDataBlockParams *AesParams = NULL;
 	u64 Buffer;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -696,7 +697,7 @@ int XSecure_AesDecryptData(XSecure_ClientInstance *InstancePtr, XSecure_AesKeySo
 	XSecure_AesDataBlockParams *AesParams = NULL;
 	u64 Buffer;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_3U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;

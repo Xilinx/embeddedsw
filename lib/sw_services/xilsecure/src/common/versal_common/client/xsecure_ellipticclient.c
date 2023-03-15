@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -26,6 +27,7 @@
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_EllipticKat in to xsecure_katclient.c
+* 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
 *
 * </pre>
 * @note
@@ -66,7 +68,7 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 	XSecure_EllipticSignGenParams *EcdsaParams = NULL;
 	u64 Buffer;
 	u32 MemSize;
-	u32 Payload[XSECURE_PAYLOAD_LEN_5U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -123,7 +125,7 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 						u64 PubKeyAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_6U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -165,7 +167,7 @@ END:
 int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 KeyAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XSECURE_PAYLOAD_LEN_4U];
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -219,7 +221,7 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	XSecure_EllipticSignVerifyParams *EcdsaParams = NULL;
 	u64 Buffer;
 	u32 MemSize;
-	volatile u32 Payload[XSECURE_PAYLOAD_LEN_3U] = {0U};
+	volatile u32 Payload[XMAILBOX_PAYLOAD_LEN_3U] = {0U};
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
