@@ -45,6 +45,7 @@
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       bm   03/11/2023 Use XPLMI_BIT macro for getting bit position mask
+*       bm   03/11/2023 Added redundancy on SSIT Event Trigger register write
 *
 * </pre>
 *
@@ -566,8 +567,8 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 
 	if (EventIndex != XPLMI_SLRS_SYNC_EVENT_INDEX) {
 		/* Trigger an SSIT interrupt for SLR */
-		XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, BitMask);
-		XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, 0x0U);
+		XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_SSIT_ERR, BitMask);
+		XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_SSIT_ERR, 0x0U);
 	}
 	Status = XST_SUCCESS;
 
