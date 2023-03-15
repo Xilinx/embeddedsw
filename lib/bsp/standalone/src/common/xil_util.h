@@ -59,6 +59,7 @@
 * 8.1  sa        10/20/22 Change the type of first argument passed to Xil_WaitForEvents
 *                         API from u32 to UINTPTR for supporting 64 bit addressing.
 * 8.1  akm       01/02/23 Added Xil_RegisterPlmHandler() & Xil_PlmStubHandler() APIs.
+*      bm        03/14/23 Added XSECURE_REDUNDANT_CALL and XSECURE_REDUNDANT_IMPL macros
 * </pre>
 *
 *****************************************************************************/
@@ -139,6 +140,49 @@ extern "C" {
 			goto Label; \
 		} \
 	 }
+
+/******************************************************************************/
+/**
+ *
+ * Adds redundancy to the function call. This is to avoid glitches which can skip
+ * a function call and cause altering of the code flow in security critical
+ * functions.
+ *
+ * @param	Status is the variable which holds the return value of
+ *		function executed
+ * @param	StatusTmp is the variable which holds the return value of
+ *		redundant function call executed
+ * @param	Function is the function to be executed
+ * @param	Other params are arguments to the called function
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+#define XSECURE_REDUNDANT_CALL(Status, StatusTmp, Function, ...)   \
+	{ \
+		Status = Function(__VA_ARGS__); \
+		StatusTmp = Function(__VA_ARGS__); \
+	 }
+
+/******************************************************************************/
+/**
+ *
+ * Adds redundancy to the function call. This is to avoid glitches which can skip
+ * a function call and cause altering of the code flow in security critical
+ * functions.
+ *
+ * @param	Function is the function to be executed
+ * @param	Other params are arguments to the called function
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+#define XSECURE_REDUNDANT_IMPL(Function, ...)   \
+	{ \
+		Function(__VA_ARGS__); \
+		Function(__VA_ARGS__); \
+	 }
+
 #endif
 
 /*************************** Function Prototypes ******************************/
