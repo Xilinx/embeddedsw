@@ -86,7 +86,7 @@ static XPlmi_Module XPlmi_Secure =
  * @brief	This function calls the handler for invalid commands
  *
  *
- * @param	Cmd	   is pointer to XPlmi_Cmd instance
+ * @param	Payload	   is pointer to IPI payload data
  *
  * @param   RespBuf buffer to store response of slaves
  *

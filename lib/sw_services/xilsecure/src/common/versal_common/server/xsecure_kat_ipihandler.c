@@ -261,7 +261,7 @@ END:
  * @brief       This function handler calls XSecure_EllipticVerifySignKat
  * 		server API
  *
- * @param	CurveType	- Is a type of elliptic curve
+ * @param	CurveClass	- Is a class of elliptic curve
  *
  * @return
  *	-	XST_SUCCESS - If the elliptic KAT is successful
@@ -292,7 +292,7 @@ static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
  * @brief       This function handler calls XSecure_EllipticSignGenerateKat
  * 		server API
  *
- * @param	CurveType	- Is a type of elliptic curve
+ * @param	CurveClass	- Is a class of elliptic curve
  *
  * @return
  *	-	XST_SUCCESS - If the elliptic KAT is successful
