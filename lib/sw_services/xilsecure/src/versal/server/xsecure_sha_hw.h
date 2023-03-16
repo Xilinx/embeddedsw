@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -37,11 +38,11 @@ extern "C" {
 #include "xsecure_utils.h"
 
 /************************** Constant Definitions ****************************/
-#define XSECURE_SHA3_NUM_OF_INSTANCES		(1U)
-/**< SHA3 base address */
-#define XSECURE_SHA3_0_BASE_ADDRESS		(0xF1210000U)
-/**< SHA3 0 device id */
-#define XSECURE_SHA3_0_DEVICE_ID		(0U)
+#define XSECURE_SHA3_NUM_OF_INSTANCES		(1U) /**< SHA3 Number of instances*/
+
+#define XSECURE_SHA3_0_BASE_ADDRESS		(0xF1210000U) /**< SHA3 base address */
+
+#define XSECURE_SHA3_0_DEVICE_ID		(0U) /**< SHA3 0 device id */
 
 /** @name Register Map
  *
