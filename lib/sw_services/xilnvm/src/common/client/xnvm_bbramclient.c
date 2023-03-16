@@ -74,7 +74,7 @@ int XNvm_BbramWriteAesKey(const XNvm_ClientInstance *InstancePtr, const u64 KeyA
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_WRITE_AES_KEY));
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|(u32)XNVM_API_ID_BBRAM_WRITE_AES_KEY));
 	Payload[1U] = KeyLen;
 	Payload[2U] = (u32)KeyAddr;
 	Payload[3U] = (u32)(KeyAddr >> 32U);
@@ -114,7 +114,7 @@ int XNvm_BbramZeroize(const XNvm_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_ZEROIZE));
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|(u32)XNVM_API_ID_BBRAM_ZEROIZE));
 
     /**
 	 *  Sends BBRAM Zeroize CDO command to PLM through IPI. Returns the response of the Zeroize operation in PLM
@@ -149,7 +149,7 @@ int XNvm_BbramWriteUsrData(const XNvm_ClientInstance *InstancePtr, const u32 Usr
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_WRITE_USER_DATA));
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|(u32)XNVM_API_ID_BBRAM_WRITE_USER_DATA));
 	Payload[1U] = UsrData;
 
     /**
@@ -185,7 +185,7 @@ int XNvm_BbramReadUsrData(const XNvm_ClientInstance *InstancePtr, const u64 OutD
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_READ_USER_DATA));
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|(u32)XNVM_API_ID_BBRAM_READ_USER_DATA));
 	Payload[1U] = (u32)OutDataAddr;
 	Payload[2U] = (u32)(OutDataAddr >> 32U);
 
@@ -222,7 +222,7 @@ int XNvm_BbramLockUsrDataWrite(const XNvm_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA));
+	Payload[0U] = Header(0, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)|(u32)XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA));
 
     /**
 	 *  Sends BBRAM LOCK USER DATA WRITE CDO command to PLM through IPI. Returns the response of BBram lock user data write status in PLM.

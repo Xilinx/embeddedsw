@@ -83,7 +83,7 @@ int XNvm_EfuseWrite(const XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_WRITE));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
 	Payload[1U] = (u32)DataAddr;
 	Payload[2U] = (u32)(DataAddr >> 32U);
 
@@ -153,7 +153,7 @@ int XNvm_EfuseWriteIVs(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_WRITE));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
 	Payload[1U] = (u32)DataAddr;
 	Payload[2U] = (u32)(DataAddr >> 32U);
 
@@ -242,7 +242,7 @@ int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkTy
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_WRITE));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
 	Payload[1U] = (u32)DataAddr;
 	Payload[2U] = (u32)(DataAddr >> 32U);
 
@@ -322,7 +322,7 @@ int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u3
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_WRITE));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
 	Payload[1U] = (u32)DataAddr;
 	Payload[2U] = (u32)(DataAddr >> 32U);
 
@@ -383,7 +383,7 @@ int XNvm_EfuseWriteUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 U
 
 	XNvm_DCacheFlushRange(EfuseData, TotalSize);
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_WRITE));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE));
 	Payload[1U] = (u32)DataAddr;
 	Payload[2U] = (u32)(DataAddr >> 32U);
 
@@ -422,7 +422,7 @@ int XNvm_EfuseReadIv(const XNvm_ClientInstance *InstancePtr, u64 IvAddr, const X
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_IV));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_IV));
 	Payload[1U] = (u32)IvType;
 	Payload[2U] = (u32)IvAddr;
 	Payload[3U] = (u32)(IvAddr >> 32U);
@@ -463,7 +463,7 @@ int XNvm_EfuseReadRevocationId(const XNvm_ClientInstance *InstancePtr, const u64
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_REVOCATION_ID));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_REVOCATION_ID));
 	Payload[1U] = (u32)RevokeIdNum;
 	Payload[2U] = (u32)RevokeIdAddr;
 	Payload[3U] = (u32)(RevokeIdAddr >> 32U);
@@ -502,7 +502,7 @@ int XNvm_EfuseReadUserFuses(const XNvm_ClientInstance *InstancePtr, u64 UserFuse
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_USER_FUSES));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_USER_FUSES));
 	Payload[1U] = (u32)UserFuseAddr;
 	Payload[2U] = (u32)(UserFuseAddr >> 32U);
 
@@ -540,7 +540,7 @@ int XNvm_EfuseReadMiscCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS));
 	Payload[1U] = (u32)MiscCtrlBits;
 	Payload[2U] = (u32)(MiscCtrlBits >> 32U);
 
@@ -578,7 +578,7 @@ int XNvm_EfuseReadSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS));
 	Payload[1U] = (u32)SecCtrlBits;
 	Payload[2U] = (u32)(SecCtrlBits >> 32U);
 
@@ -616,7 +616,7 @@ int XNvm_EfuseReadSecMisc1Bits(const XNvm_ClientInstance *InstancePtr, const u64
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS));
 	Payload[1U] = (u32)SecMisc1Bits;
 	Payload[2U] = (u32)(SecMisc1Bits >> 32U);
 
@@ -654,7 +654,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(const XNvm_ClientInstance *InstancePtr, const 
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS));
 	Payload[1U] = (u32)BootEnvCtrlBits;
 	Payload[2U] = (u32)(BootEnvCtrlBits >> 32U);
 
@@ -693,7 +693,7 @@ int XNvm_EfuseReadPufSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS));
 	Payload[1U] = (u32)PufSecCtrlBits;
 	Payload[2U] = (u32)(PufSecCtrlBits >> 32U);
 
@@ -734,7 +734,7 @@ int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const 
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID));
 	Payload[1U] = (u32)OffChipIdNum;
 	Payload[2U] = (u32)OffChidIdAddr;
 	Payload[3U] = (u32)(OffChidIdAddr >> 32U);
@@ -775,7 +775,7 @@ int XNvm_EfuseReadPpkHash(const XNvm_ClientInstance *InstancePtr, const u64 PpkH
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_PPK_HASH));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_PPK_HASH));
 	Payload[1U] = (u32)PpkHashType;
 	Payload[2U] = (u32)PpkHashAddr;
 	Payload[3U] = (u32)(PpkHashAddr >> 32U);
@@ -815,7 +815,7 @@ int XNvm_EfuseReadDecOnly(const XNvm_ClientInstance *InstancePtr, const u64 DecO
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY));
 	Payload[1U] = (u32)DecOnlyAddr;
 	Payload[2U] = (u32)(DecOnlyAddr >> 32U);
 
@@ -853,7 +853,7 @@ int XNvm_EfuseReadDna(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_DNA));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_DNA));
 	Payload[1U] = (u32)DnaAddr;
 	Payload[2U] = (u32)(DnaAddr >> 32U);
 
@@ -974,7 +974,7 @@ int XNvm_EfuseWritePuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAd
 
 	XNvm_DCacheFlushRange((UINTPTR)DataAddr, sizeof(XNvm_EfusePufHdAddr));
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_WRITE_PUF));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_WRITE_PUF));
 	Payload[1U] = (u32)DataAddr;
 	Payload[2U] = (u32)(DataAddr >> 32U);
 
@@ -1012,7 +1012,7 @@ int XNvm_EfuseReadPuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAdd
 		goto END;
 	}
 
-	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | XNVM_API_ID_EFUSE_READ_PUF));
+	Payload[0U] = Header(0U, (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT) | (u32)XNVM_API_ID_EFUSE_READ_PUF));
 	Payload[1U] = (u32)PufHdAddr;
 	Payload[2U] = (u32)(PufHdAddr >> 32U);
 
