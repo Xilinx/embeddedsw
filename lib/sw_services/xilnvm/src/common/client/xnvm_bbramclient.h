@@ -57,11 +57,11 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XNvm_BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, const u64 KeyAddr, const u32 KeyLen);
-int XNvm_BbramZeroize(XNvm_ClientInstance *InstancePtr);
-int XNvm_BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, const u32 UsrData);
-int XNvm_BbramReadUsrData(XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr);
-int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr);
+int XNvm_BbramWriteAesKey(const XNvm_ClientInstance *InstancePtr, const u64 KeyAddr, const u32 KeyLen);
+int XNvm_BbramZeroize(const XNvm_ClientInstance *InstancePtr);
+int XNvm_BbramWriteUsrData(const XNvm_ClientInstance *InstancePtr, const u32 UsrData);
+int XNvm_BbramReadUsrData(const XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr);
+int XNvm_BbramLockUsrDataWrite(const XNvm_ClientInstance *InstancePtr);
 
 
 /************************** Variable Definitions *****************************/
