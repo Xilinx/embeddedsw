@@ -37,9 +37,9 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XSECURE_TRNG_KAT_DEFAULT_DF_lENGTH	7U
-#define XSECURE_TRNG_KAT_DEFAULT_SEED_LIFE	2U
-#define XSECURE_TRNG_KAT_SEED_LEN_IN_BYTES	128U
+#define XSECURE_TRNG_KAT_DEFAULT_DF_lENGTH	7U /**<Default Derivative function length of TRNG KAT*/
+#define XSECURE_TRNG_KAT_DEFAULT_SEED_LIFE	2U /**<Default seed life of TRNG KAT*/
+#define XSECURE_TRNG_KAT_SEED_LEN_IN_BYTES	128U /**<Seed length in bytes of TRNG KAT*/
 
 /************************** Function Prototypes ******************************/
 
@@ -51,7 +51,7 @@ static int XSecure_TrngHealthTest(XSecure_TrngInstance *InstancePtr);
 /**
  * This function performs KAT on HMAC (SHA3-384).
  *
- * @param 	none
+ * @param SecureSha3 Pointer to SHA3 instance
  *
  * @return	returns the error codes
  *		returns XST_SUCCESS on success

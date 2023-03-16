@@ -41,13 +41,13 @@ static void XSecure_HmacXor(const u32 *Data, const u8 Value, u32 *Result);
 /************************** Variable Definitions *****************************/
 
 /************************** Macros Definitions *****************************/
-#define XSECURE_HMAC_8BIT_SHIFT		(8U)
-#define XSECURE_HMAC_16BIT_SHIFT	(16U)
-#define XSECURE_HMAC_24BIT_SHIFT	(24U)
-#define XSECURE_HMAC_WORD_LEN		(4U)
+#define XSECURE_HMAC_8BIT_SHIFT		(8U) /**<8 Bit shift for HMAC*/
+#define XSECURE_HMAC_16BIT_SHIFT	(16U) /**<16 Bit shift for HMAC*/
+#define XSECURE_HMAC_24BIT_SHIFT	(24U) /**<24 Bit shift for HMAC*/
+#define XSECURE_HMAC_WORD_LEN		(4U) /**<HMAC word length*/
 
-#define XSECURE_HMAC_IPAD_VALUE	(0x36U)
-#define XSECURE_HMAC_OPAD_VALUE	(0x5CU)
+#define XSECURE_HMAC_IPAD_VALUE	(0x36U) /**<HMAC IPAD value*/
+#define XSECURE_HMAC_OPAD_VALUE	(0x5CU) /**<HMAC OPAD value*/
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -229,7 +229,7 @@ RET:
  * been stored into the K0 array.
  *
  * @param	InstancePtr	is the pointer to the XSecure_Hmac instance
- * @param	Key is the variable which holds the key for HMAC
+ * @param	KeyAddr is the variable which holds the address of key for HMAC
  * @param	KeyLen variable holds the length of the key
  * @param	KeyOut is the variable which holds the output key buffer's address
  *

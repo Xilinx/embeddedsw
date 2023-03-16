@@ -44,8 +44,8 @@
 #include "xil_util.h"
 
 /************************** Constant Definitions *****************************/
-#define XSECURE_ECC_TRNG_DF_LENGTH			(2U)
-#define XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN		(60U)
+#define XSECURE_ECC_TRNG_DF_LENGTH			(2U) /**< Default length of xilsecure ecc true random number generator*/
+#define XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN		(60U) /**< Length of xilsecure ecc true random number generator*/
 
 /**************************** Type Definitions *******************************/
 
@@ -59,7 +59,7 @@ extern EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
  * This function generates 48-byte key for P-384 curve using TRNG.
  *
  * @param	CrvType specifies the type of the ECC curve.
- * @param	PrivateKeyis the pointer to XSecure_ElliptcPrivateKeyGen
+ * @param	PrivateKey is the pointer to XSecure_ElliptcPrivateKeyGen
  *
  * @return	XST_SUCCESS on success
  *		Error code otherwise

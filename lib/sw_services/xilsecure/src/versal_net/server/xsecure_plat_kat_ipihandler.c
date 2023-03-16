@@ -41,7 +41,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_KAT_MAX_CMD_LEN     6U
+#define XSECURE_KAT_MAX_CMD_LEN     6U /**< Maximum command length*/
 
 /************************** Function Prototypes *****************************/
 #ifndef PLM_SECURE_EXCLUDE
@@ -119,7 +119,7 @@ static int XSecure_TrngKat(void)
  *
  * @param   KatOp		- Operation to set or clear KAT mask
  * @param   NodeId		- Nodeid of the module
- * @param   KatMaskLen  - Length of the KAT mask
+ * @param   CmdLen  -    Length of the KAT mask
  * @param   KatMask     - Pointer to the KAT mask
  *
  * @return
