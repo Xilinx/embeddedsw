@@ -888,6 +888,12 @@ proc generate {os_handle} {
         puts $file_handle "#define versal"
         puts $file_handle "#endif"
         puts $file_handle ""
+	# C convention expects macros to be all caps
+	puts $file_handle "#ifndef VERSAL"
+        puts $file_handle "#define VERSAL"
+        puts $file_handle "#endif"
+        puts $file_handle ""
+
 	foreach entry [glob -nocomplain [file join $versalsrcdir *]] {
 		file copy -force $entry "./src/"
 	}
