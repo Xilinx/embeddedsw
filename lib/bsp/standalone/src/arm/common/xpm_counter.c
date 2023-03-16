@@ -38,6 +38,7 @@
 *                     know the cause of the error.
 * 8.2   asa  03/09/23 Xpm_SetEvents and Xpm_GetEventCounters are deprecated
 *                     APIs. They need not be supported for Versal Net.
+* 8.2   adk  03/13/23 Include xstatus.h when xiltimer is enabled.
 * </pre>
 *
 ******************************************************************************/
@@ -48,6 +49,8 @@
 #ifndef XPAR_XILTIMER_ENABLED
 #include "xil_sleeptimer.h"
 #include "xtime_l.h"
+#else
+#include "xstatus.h"
 #endif
 
 /************************** Constant Definitions ****************************/
