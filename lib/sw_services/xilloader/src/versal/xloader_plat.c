@@ -24,6 +24,7 @@
 * 1.01  ng   11/11/2022 Updated doxygen comments
 *       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
 *       ng   03/12/2023 Fixed Coverity warnings
+*       bm   03/16/2023 Added print when DDRMC dump is skipped
 *
 * </pre>
 *
@@ -942,6 +943,8 @@ static int XLoader_DumpDdrmcRegisters(void)
 			goto END;
 		}
 		if (DevStatus.Status != XPM_DEVSTATE_RUNNING) {
+			XPlmi_Printf(DEBUG_GENERAL, "DDRMC_%u is not enabled,"
+					" Skipping its dump...\n\r", Ub);
 			continue;
 		}
 		Status = XPm_GetDeviceBaseAddr(DevId, &BaseAddr);
