@@ -429,7 +429,7 @@ u32* XSecure_GetKatRsaData(void) {
 /**
  * @brief	This function returns ECC public key to perform KAT
  *
- * @param	CrvType ECC curve class
+ * @param	CrvClass ECC curve class
  *
  * @return
  *			ECC public key
@@ -1247,8 +1247,8 @@ END:
  * @brief	This function performs ECC pairwise consistency test on ECC core
  *
  * @param	Curvetype - Type of ECC curve used for authentication
- * @param	D - ECC private key
- * @param	PubKey - ECC public key
+ * @param	DAddr - Address of ECC private key
+ * @param	PubKeyAddr - Address of ECC public key
  *
  * @return
  *	-	XST_SUCCESS - when KAT passes

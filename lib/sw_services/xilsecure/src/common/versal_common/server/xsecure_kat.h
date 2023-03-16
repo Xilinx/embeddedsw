@@ -45,13 +45,13 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XSECURE_KAT_MSG_LEN_IN_BYTES				 (32U)
-#define XSECURE_KAT_AAD_SIZE_IN_BYTES				 (16U)
-#define XSECURE_KAT_IV_SIZE_IN_BYTES				 (16U)
-#define XSECURE_KAT_KEY_SIZE_IN_BYTES				 (32U)
-#define XSECURE_KAT_MSG_LEN_IN_WORDS				 (8U)
-#define XSECURE_KAT_RSA_PUB_EXP						 (0x1000100U)
-#define XSECURE_KAT_ECC_P521_SHA3_HASH_SIZE_IN_BYTES (66U)
+#define XSECURE_KAT_MSG_LEN_IN_BYTES				 (32U) /**<Message length of known answer test in bytes*/
+#define XSECURE_KAT_AAD_SIZE_IN_BYTES				 (16U) /**<AAD size of known answer test in bytes*/
+#define XSECURE_KAT_IV_SIZE_IN_BYTES				 (16U) /**<IV size of known answer test in bytes*/
+#define XSECURE_KAT_KEY_SIZE_IN_BYTES				 (32U) /**<Key size of known answer test in bytes*/
+#define XSECURE_KAT_MSG_LEN_IN_WORDS				 (8U) /**<Message length of known answer test in words*/
+#define XSECURE_KAT_RSA_PUB_EXP						 (0x1000100U) /**<RSA public exponent of known answer test*/
+#define XSECURE_KAT_ECC_P521_SHA3_HASH_SIZE_IN_BYTES (66U) /**<Hash size of ECC P521 and SHA3 in bytes*/
 
 /**************************** Type Definitions *******************************/
 

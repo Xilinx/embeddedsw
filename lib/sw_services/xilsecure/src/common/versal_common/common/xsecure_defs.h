@@ -131,9 +131,9 @@ typedef struct {
 
 typedef struct {
 	u64 IvAddr;	/**< IV address */
-	u64 InDataAddr;	/**< Address of input data*/
-	u64 OutDataAddr;
-	u64 GcmTagAddr;
+	u64 InDataAddr;	 /**< Input data address*/
+	u64 OutDataAddr; /**< Output data address*/
+	u64 GcmTagAddr; /**< Gcm Tag address*/
 	u32 OperationId;/**< Operation type - Encrypt or decrypt */
 	u32 KeySrc;	/**< AES Key source */
 	u32 KeySize;	/**< Size of AES key*/

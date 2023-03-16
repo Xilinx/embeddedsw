@@ -38,12 +38,12 @@ extern "C" {
 #include "xsecure_sha_hw.h"
 
 /************************** Constant Definitions ****************************/
-#define XSECURE_SSS_MAX_SRCS		(8U)	/**< Maximum resources */
+#define XSECURE_SSS_MAX_SRCS		(8U)	/**< SSS Maximum resources */
 
-#define XSECURE_SSS_SHA3_0_MASK		(0xF0000U)
+#define XSECURE_SSS_SHA3_0_MASK		(0xF0000U) /**< SSS SHA3 instance 0 mask value*/
 
-#define XSECURE_SSS_SHA3_0_DMA0_VAL	(0xC0000U)
-#define XSECURE_SSS_SHA3_0_DMA1_VAL	(0x70000U)
+#define XSECURE_SSS_SHA3_0_DMA0_VAL	(0xC0000U) /**< SSS SHA3 instance 0 DMA0 value*/
+#define XSECURE_SSS_SHA3_0_DMA1_VAL	(0x70000U) /**< SSS SHA3 instance 0 DMA1 value*/
 
 /***************************** Type Definitions******************************/
 /*
@@ -52,15 +52,15 @@ extern "C" {
  * irrespective of compiler used.
  */
 typedef enum {
-	XSECURE_SSS_IGNORE = -1,
-	XSECURE_SSS_DMA0 = 0,
-	XSECURE_SSS_DMA1,
-	XSECURE_SSS_PTPI,
-	XSECURE_SSS_AES,
-	XSECURE_SSS_SHA3_0,
-	XSECURE_SSS_SBI,
-	XSECURE_SSS_PZI,
-	XSECURE_SSS_INVALID
+	XSECURE_SSS_IGNORE = -1, /**< Ignore */
+	XSECURE_SSS_DMA0 = 0, /**< DMA0 */
+	XSECURE_SSS_DMA1, /**< DMA1 */
+	XSECURE_SSS_PTPI, /**< PTPI */
+	XSECURE_SSS_AES, /**< AES */
+	XSECURE_SSS_SHA3_0, /**< SHA3_0 */
+	XSECURE_SSS_SBI, /**< SBI */
+	XSECURE_SSS_PZI, /**< PZI */
+	XSECURE_SSS_INVALID /**< Invalid */
 }XSecure_SssSrc;
 
 /***************************** Function Prototypes ***************************/

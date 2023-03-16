@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -39,13 +40,13 @@ extern "C" {
 /************************** Type Definitions ********************************/
 
 typedef struct {
-	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
+	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash value*/
 } XSecure_HmacRes;
 
 typedef struct {
-	XSecure_Sha3 *Sha3InstPtr;
-	u8 IPadRes[XSECURE_SHA3_BLOCK_LEN];
-	u8 OPadRes[XSECURE_SHA3_BLOCK_LEN];
+	XSecure_Sha3 *Sha3InstPtr; /**< Sha3 instance pointer*/
+	u8 IPadRes[XSECURE_SHA3_BLOCK_LEN]; /**< Ipad resultant value*/
+	u8 OPadRes[XSECURE_SHA3_BLOCK_LEN]; /**< Opad resultant value*/
 } XSecure_Hmac;
 
 /************************** Function Prototypes ******************************/
