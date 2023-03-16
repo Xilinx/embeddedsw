@@ -61,7 +61,7 @@
  *			- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_BbramWriteAesKey(XNvm_ClientInstance *InstancePtr, const u64 KeyAddr,
+int XNvm_BbramWriteAesKey(const XNvm_ClientInstance *InstancePtr, const u64 KeyAddr,
 						const u32 KeyLen)
 {
 	volatile int Status = XST_FAILURE;
@@ -102,7 +102,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_BbramZeroize(XNvm_ClientInstance *InstancePtr)
+int XNvm_BbramZeroize(const XNvm_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];
@@ -137,7 +137,7 @@ END:
  *		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
-int XNvm_BbramWriteUsrData(XNvm_ClientInstance *InstancePtr, const u32 UsrData)
+int XNvm_BbramWriteUsrData(const XNvm_ClientInstance *InstancePtr, const u32 UsrData)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U];
@@ -173,7 +173,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_BbramReadUsrData(XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr)
+int XNvm_BbramReadUsrData(const XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -210,7 +210,7 @@ END:
  *		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_BbramLockUsrDataWrite(XNvm_ClientInstance *InstancePtr)
+int XNvm_BbramLockUsrDataWrite(const XNvm_ClientInstance *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_1U];

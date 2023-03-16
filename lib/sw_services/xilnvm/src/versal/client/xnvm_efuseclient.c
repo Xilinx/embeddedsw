@@ -71,7 +71,7 @@
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
+int XNvm_EfuseWrite(const XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -113,7 +113,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
+int XNvm_EfuseWriteIVs(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr,
 								const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
@@ -179,7 +179,7 @@ END:
  *		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
-int XNvm_EfuseRevokePpk(XNvm_ClientInstance *InstancePtr, const XNvm_PpkType PpkRevoke,
+int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkType PpkRevoke,
 								const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
@@ -268,7 +268,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 RevokeId,
+int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u32 RevokeId,
 											const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
@@ -350,7 +350,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseWriteUserFuses(XNvm_ClientInstance *InstancePtr, const u64 UserFuseAddr, const u32 EnvDisFlag)
+int XNvm_EfuseWriteUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 UserFuseAddr, const u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
 	XNvm_EfuseDataAddr *EfuseData = NULL;
@@ -410,7 +410,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadIv(XNvm_ClientInstance *InstancePtr, u64 IvAddr, const XNvm_IvType IvType)
+int XNvm_EfuseReadIv(const XNvm_ClientInstance *InstancePtr, u64 IvAddr, const XNvm_IvType IvType)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
@@ -450,7 +450,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 RevokeIdAddr,
+int XNvm_EfuseReadRevocationId(const XNvm_ClientInstance *InstancePtr, const u64 RevokeIdAddr,
 			const XNvm_RevocationId RevokeIdNum)
 {
 	int Status = XST_FAILURE;
@@ -490,7 +490,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
+int XNvm_EfuseReadUserFuses(const XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -528,7 +528,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscCtrlBits)
+int XNvm_EfuseReadMiscCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 MiscCtrlBits)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -566,7 +566,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtrlBits)
+int XNvm_EfuseReadSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 SecCtrlBits)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -604,7 +604,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits)
+int XNvm_EfuseReadSecMisc1Bits(const XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -642,7 +642,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits)
+int XNvm_EfuseReadBootEnvCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -681,7 +681,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits)
+int XNvm_EfuseReadPufSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -721,7 +721,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 OffChidIdAddr,
+int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const u64 OffChidIdAddr,
 	const XNvm_OffchipId OffChipIdNum)
 {
 	int Status = XST_FAILURE;
@@ -763,7 +763,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType)
+int XNvm_EfuseReadPpkHash(const XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
@@ -803,7 +803,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr)
+int XNvm_EfuseReadDecOnly(const XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -841,7 +841,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
+int XNvm_EfuseReadDna(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -958,7 +958,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr) {
+int XNvm_EfuseWritePuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr) {
 	volatile int Status = XST_FAILURE;
 	u64 DataAddr;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
@@ -1001,7 +1001,7 @@ END:
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr) {
+int XNvm_EfuseReadPuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr) {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
 
