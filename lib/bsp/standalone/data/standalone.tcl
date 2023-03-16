@@ -79,6 +79,9 @@
 #       adk  09/08/22 When xiltimer is enabled don't pull xpm_counter.c file.
 # 8.1   sd   21/11/22 Export XPAR_PSU_PSS_REF_CLK_FREQ_HZ macro in
 #                     xparameters.h file for microblaze processors.
+# 8.2   adk  13/03/23 Don't delete the xpm_counter.c file when xiltimer library
+#       	      is enabled, as xpm_counter.c file contains PM event API's
+#       	      which are generic.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -672,7 +675,7 @@ proc generate {os_handle} {
         "default" {puts "unknown processor type $proctype\n"}
     }
 
-    set sleep_file_list "sleep.h sleep.c usleep.c xtime_l.c xtime_l.h microblaze_sleep.c microblaze_sleep.h xil_sleepcommon.c xil_sleeptimer.h xil_sleeptimer.c xpm_counter.c"
+    set sleep_file_list "sleep.h sleep.c usleep.c xtime_l.c xtime_l.h microblaze_sleep.c microblaze_sleep.h xil_sleepcommon.c xil_sleeptimer.h xil_sleeptimer.c"
     if {$is_xiltimer_enabled != 0} {
         foreach entry $sleep_file_list {
             file delete -force "./src/$entry"
