@@ -46,7 +46,7 @@
 *       bsv  07/08/2022 Code changes related to Optional data in IHT
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 * 1.09  ng   11/11/2022 Updated doxygen comments
-*
+*		dd   03/16/2023 Misra-C violation Rule 17.8 fixed
 * </pre>
 *
 * @note
@@ -84,11 +84,12 @@
 			XST_FAILURE if checksum validation fails
 *
 *****************************************************************************/
-int XilPdi_ValidateChecksum(const void *Buffer, u32 Len)
+int XilPdi_ValidateChecksum(const void *Buffer, u32 Length)
 {
 	int Status = XST_FAILURE;
 	u32 Checksum = 0U;
 	u32 Count;
+	u32 Len = Length;
 	const u32 *BufferPtr = (const u32 *)Buffer;
 
 	Len >>= XIH_PRTN_WORD_LEN_SHIFT;
