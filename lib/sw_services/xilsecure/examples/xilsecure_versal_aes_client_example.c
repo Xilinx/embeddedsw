@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,9 +13,11 @@
 * @{
 *
 * @note
-* This example illustrates the usage of Versal AES APIs, by encrypting the data
-* with provided key and IV and decrypt's the output of encrypted data and
-* compares with original data and checks for GCM tag match.
+* This example illustrates the usage of Versal AES APIs using below tests
+* 	1. Encrypt the data with provided key and IV. The output result is then decrypted
+*      back to get original data and checks GCM tag. The test fails, if decryption not
+*      produce the original data.
+* 	2. Generating the GMAC tag using key and IV on updated AAD data and checks for GMAC tag match.
 *
 * To build this application, xilmailbox library must be included in BSP and xilsecure
 * must be in client mode
@@ -59,7 +62,7 @@
 * 4.1   vns    08/06/19 First Release
 * 4.3   har    10/12/20 Addressed security review comments
 * 4.5   har    03/02/21 Added support for AAD
-* 	kal    03/23/21 Updated example for client support
+* 	    kal    03/23/21 Updated example for client support
 *       har    06/02/21 Fixed GCC warnings for R5 compiler
 * 4.7   kpt    01/13/22 Added support for PL microblaze
 *       kpt    03/16/22 Removed IPI related code and added mailbox support
@@ -108,7 +111,11 @@
 
 /************************** Function Prototypes ******************************/
 
-static s32 SecureAesExample(XSecure_ClientInstance *InstancePtr, u8* Key, u8* Iv);
+static s32 SecureAesExample(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv);
+static s32 SecureAesGcmTest(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv);
+#ifdef versal
+static s32 SecureAesGmacTest(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -152,7 +159,8 @@ static u8 Aad[XSECURE_AAD_SIZE];
 * @param	None
 *
 * @return
-*		- XST_FAILURE if the Aes failed.
+*       - XST_SUCCESS if example runs successfully
+*		- ErrorCode if the example fails.
 *
 ******************************************************************************/
 int main(void)
@@ -234,7 +242,6 @@ int main(void)
 	else {
 		xil_printf("\r\nVersal AES example failed\r\n");
 	}
-
 END:
 	Status |= XMailbox_ReleaseSharedMem(&MailboxInstance);
 	return Status;
@@ -243,17 +250,15 @@ END:
 /****************************************************************************/
 /**
 *
-* This function encrypts the data with provided AES key and IV and decrypts
-* the encrypted data also checks whether GCM tag is matched or not and finally
-* compares the decrypted data with the original data provided.
+* This function runs both GCM and GMAC tests.
 *
-* @param	InstancePtr Pointter to the client instance
+* @param	InstancePtr Pointer to the client instance
 * @param	Key Pointer to AES key
 * @param	Iv  Pointer to initialization vector
 *
 * @return
-*		- XST_FAILURE if the Aes example was failed.
-*		- XST_SUCCESS if the Aes example was successful
+*		- XST_FAILURE if test was failed.
+*		- XST_SUCCESS if test was successful
 *
 * @note		None.
 *
@@ -262,15 +267,49 @@ END:
 static s32 SecureAesExample(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv)
 {
 	s32 Status = XST_FAILURE;
-	u32 Index;
 
-	/* Initialize the Aes driver so that it's ready to use */
+	/* Initialize the AES driver so that it's ready to use */
 	Status = XSecure_AesInitialize(InstancePtr);
-
 	if (Status != XST_SUCCESS) {
-		xil_printf(" Aes encrypt init is failed\n\r");
+		xil_printf(" AES encrypt init is failed\n\r");
 		goto END;
 	}
+
+	Status = SecureAesGcmTest(InstancePtr, Key, Iv);
+#ifdef versal
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = SecureAesGmacTest(InstancePtr, Key, Iv);
+#endif
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+*
+* This function encrypts the data with provided key and IV. The output result
+* is then decrypted back to get original data and checks GCM tag.
+* The test fails, if decryption not produce the original data.
+*
+* @param	InstancePtr Pointer to the client instance
+* @param	Key Pointer to AES key
+* @param	Iv  Pointer to initialization vector
+*
+* @return
+*		- XST_SUCCESS if the AES GCM test was successful.
+*		- ErrorCode   if the AES GCM test was failed.
+*
+* @note		None.
+*
+****************************************************************************/
+/** //! [Generic AES GCM example] */
+static s32 SecureAesGcmTest(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv)
+{
+	s32 Status = XST_FAILURE;
+	u32 Index;
 
 	/* Write AES key */
 	Status = XSecure_AesWriteKey(InstancePtr, XSECURE_AES_USER_KEY_0,
@@ -293,20 +332,20 @@ static s32 SecureAesExample(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 
 	if (Status != XST_SUCCESS) {
-		xil_printf(" Aes encrypt init is failed\n\r");
+		xil_printf(" AES encrypt init is failed\n\r");
 		goto END;
 	}
 
 	Status = XSecure_AesUpdateAad(InstancePtr, (UINTPTR)Aad, XSECURE_AAD_SIZE);
 	if (Status != XST_SUCCESS) {
-		xil_printf(" Aes update aad failed %x\n\r", Status);
+		xil_printf(" AES update aad failed %x\n\r", Status);
 		goto END;
 	}
 
 	Status = XSecure_AesEncryptUpdate(InstancePtr, (UINTPTR)&Data,(UINTPTR)EncData,
 						XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
-		xil_printf(" Aes encrypt update is failed\n\r");
+		xil_printf(" AES encrypt update is failed\n\r");
 		goto END;
 	}
 
@@ -343,14 +382,14 @@ static s32 SecureAesExample(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv
 
 	Status = XSecure_AesUpdateAad(InstancePtr, (UINTPTR)Aad, XSECURE_AAD_SIZE);
 	if (Status != XST_SUCCESS) {
-		xil_printf(" Aes update aad failed %x\n\r", Status);
+		xil_printf(" AES update aad failed %x\n\r", Status);
 		goto END;
 	}
 
 	Status = XSecure_AesDecryptUpdate(InstancePtr, (UINTPTR)&EncData, (UINTPTR)&DecData,
 						 XSECURE_DATA_SIZE, TRUE);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Aes decrypt update failed %x\n\r", Status);
+		xil_printf("AES decrypt update failed %x\n\r", Status);
 		goto END;
 	}
 
@@ -377,8 +416,103 @@ static s32 SecureAesExample(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv
 		}
 	}
 
+	xil_printf("Successfully ran GCM Test\n\r");
 END:
 	return Status;
 }
+
+#ifdef versal
+/****************************************************************************/
+/**
+*
+* This function generates and validates the GMAC tag based on updated AAD data
+*
+* @param	InstancePtr Pointer to the client instance
+* @param	Key Pointer to AES key
+* @param	Iv  Pointer to initialization vector
+*
+* @return
+*		- XST_SUCCESS if the AES GMAC test was successful.
+*		- ErrorCode   if the AES GMAC test was failed.
+*
+* @note		None.
+*
+****************************************************************************/
+/** //! [Generic AES GMAC example] */
+static s32 SecureAesGmacTest(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv)
+{
+	s32 Status = XST_FAILURE;
+	u32 Index;
+
+	/* Write AES key */
+	Status = XSecure_AesWriteKey(InstancePtr, XSECURE_AES_USER_KEY_0,
+				XSECURE_AES_KEY_SIZE_256, (UINTPTR)Key);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failure at key write\n\r");
+		goto END;
+	}
+
+	xil_printf("\n\r Data to be updated to generate GMAC: \n\r");
+	for (Index = 0; Index < XSECURE_AAD_SIZE; Index++) {
+		xil_printf("%02x", Aad[Index]);
+	}
+	xil_printf( "\r\n\n");
+
+	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+
+	Status = XSecure_AesEncryptInit(InstancePtr, XSECURE_AES_USER_KEY_0,
+			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
+
+	if (Status != XST_SUCCESS) {
+		xil_printf(" AES encrypt init is failed\n\r");
+		goto END;
+	}
+
+	Status = XSecure_AesGmacUpdateAad(InstancePtr, (UINTPTR)Aad, XSECURE_AAD_SIZE, TRUE);
+	if (Status != XST_SUCCESS) {
+		xil_printf(" AES update aad failed %x\n\r", Status);
+		goto END;
+	}
+
+	Status = XSecure_AesEncryptFinal(InstancePtr, (UINTPTR)&GcmTag);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed at GMAC tag generation\n\r");
+		goto END;
+	}
+
+	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+
+	xil_printf("GMAC tag: \n\r");
+	for (Index = 0; Index < XSECURE_SECURE_GCM_TAG_SIZE; Index++) {
+		xil_printf("%02x", GcmTag[Index]);
+	}
+	xil_printf( "\r\n\n");
+
+	/* Decrypt's the encrypted data */
+	Status = XSecure_AesDecryptInit(InstancePtr, XSECURE_AES_USER_KEY_0,
+					XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Error in decrypt init ");
+		goto END;
+	}
+
+	Status = XSecure_AesGmacUpdateAad(InstancePtr, (UINTPTR)Aad, XSECURE_AAD_SIZE, TRUE);
+	if (Status != XST_SUCCESS) {
+		xil_printf(" AES update aad failed %x\n\r", Status);
+		goto END;
+	}
+
+	Status = XSecure_AesDecryptFinal(InstancePtr, (UINTPTR)&GcmTag);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Decryption failure- GMAC tag was not matched\n\r");
+		goto END;
+	}
+
+	xil_printf("Successfully ran GMAC Test\n\r");
+END:
+	return Status;
+}
+#endif
+
 /** //! [Generic AES example] */
 /** @} */
