@@ -60,6 +60,7 @@
 *                         API from u32 to UINTPTR for supporting 64 bit addressing.
 * 8.1  akm       01/02/23 Added Xil_RegisterPlmHandler() & Xil_PlmStubHandler() APIs.
 *      bm        03/14/23 Added XSECURE_REDUNDANT_CALL and XSECURE_REDUNDANT_IMPL macros
+*      sk        03/14/23 Added Status Check Glitch detect Macro
 * </pre>
 *
 *****************************************************************************/
@@ -183,8 +184,25 @@ extern "C" {
 		Function(__VA_ARGS__); \
 	 }
 
-#endif
+/******************************************************************************/
+/**
+ *
+ * This Macro helps to detect glitches skipping the Status check
+ * in case of error.
+ *
+ * @param 	None
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+#define XSECURE_STATUS_CHK_GLITCH_DETECT(Status)   \
+	{ \
+		if (Status == XST_SUCCESS) { \
+			Status = XST_GLITCH_ERROR; \
+		} \
+	}
 
+#endif
 /*************************** Function Prototypes ******************************/
 /* Ceils the provided float value */
 s32 Xil_Ceil(float Value);
