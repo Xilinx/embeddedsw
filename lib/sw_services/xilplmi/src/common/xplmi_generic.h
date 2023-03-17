@@ -48,6 +48,7 @@
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 *       bm   01/03/2023 Clear End Stack before processing a CDO partition
 * 1.09  sk   01/11/2023 Added Declaration for XPlmi_MoveProc
+*       ng   03/16/2023 Added control to disable minimal timeout in maskpoll
 *
 * </pre>
 *
@@ -145,6 +146,8 @@ typedef struct {
 #define XPLMI_MASKPOLL_FLAGS_BREAK		(0x3U)
 #define XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_MASK	(0xFF000000U)
 #define XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT	(24U)
+#define	XPLMI_MASKPOLL_FLAGS_DISABLE_MINIMAL_TIMEOUT	(XPLMI_BIT(31)) /**< if
+		bit 31 in flags is set, then disable minimal timeout. */
 
 /* Defines related to module commands */
 #define XPLMI_PLM_GENERIC_CMD_ID_MASK		(0xFFU)
