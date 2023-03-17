@@ -37,6 +37,8 @@
 *                        required during PL secure lockdown
 * 1.09  ng    11/11/2022 Updated doxygen comments
 *       ng    03/12/2023 Fixed Coverity warnings
+*       sk    03/14/2023 Added Glitch detect for status check in
+*                        XLoader_CframeDataClearCheck
 *
 * </pre>
 *
@@ -255,6 +257,7 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 	/** Initialize Cframe driver */
 	Status = XLoader_CframeInit();
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
