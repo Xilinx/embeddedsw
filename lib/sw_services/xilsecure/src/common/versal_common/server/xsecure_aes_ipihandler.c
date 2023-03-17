@@ -568,7 +568,7 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 	Status = XST_FAILURE;
 	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_ENC_KAT_MASK) != TRUE) {
-			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 			goto END;
 		}
 		/**<AES Encrypt Init*/
