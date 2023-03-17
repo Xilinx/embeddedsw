@@ -132,6 +132,7 @@ typedef enum {
 	XSECURE_AES_USER_KEY_7,			/**< User Key 7 */
 	XSECURE_AES_EXPANDED_KEYS,		/**< Expanded keys */
 	XSECURE_AES_ALL_KEYS,			/**< AES All keys */
+	XSECURE_AES_INVALID_KEY,		/**< AES Invalid Key */
 } XSecure_AesKeySrc;
 
 
