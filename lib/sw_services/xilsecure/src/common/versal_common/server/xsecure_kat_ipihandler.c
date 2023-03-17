@@ -446,7 +446,7 @@ END:
 void XSecure_PerformKatOperation(XSecure_KatOp KatOp, u32 KatMask)
 {
 	volatile u8 CryptoKatEn = XPlmi_IsCryptoKatEn();
-	volatile u8 CryptoKatEnTmp = CryptoKatEn;
+	volatile u8 CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
 
 	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
 		if (KatOp == XSECURE_API_KAT_CLEAR) {
