@@ -21,6 +21,7 @@
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*			 03/16/2023 Misra-C violation Rule 8.4 fixed
 *
 * </pre>
 *
@@ -31,6 +32,7 @@
 /***************************** Include Files *********************************/
 #include "xplm_pm.h"
 #include "xplmi.h"
+#include "xplm_plat.h"
 
 /************************** Constant Definitions *****************************/
 /**
