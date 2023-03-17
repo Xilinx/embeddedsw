@@ -100,6 +100,7 @@
 *       sk   02/09/23 Fixed Sec Review comments in XLoader_RsaSignVerify function
 * 1.9   kpt  02/21/23 Fixed bug in XLoader_AuthEncClear
 *       sk   02/28/23 Removed using of pointer to string literal in XLoader_AuthKat
+*       sk   03/10/23 Added redundancy for AES Key selection
 *
 * </pre>
 *
@@ -2090,55 +2091,60 @@ END:
 static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		XLoader_AesKekInfo *KeyDetails, XSecure_AesKeySrc *KeySrc)
 {
-	int Status = XLoader_UpdateMinorErr(XLOADER_SEC_DEC_INVALID_KEYSRC_SEL,
+	volatile int Status = XLoader_UpdateMinorErr(XLOADER_SEC_DEC_INVALID_KEYSRC_SEL,
 		0x0);
 	u32 *KekStatus = &SecurePtr->PdiPtr->KekStatus;
 	const XilPdi_BootHdr *BootHdr = SecurePtr->PdiPtr->MetaHdr.BootHdrPtr;
 	u32 KekStat = 0U;
-	XSecure_AesKeySrc KeySource = XSECURE_AES_BBRAM_KEY;
+	volatile u32 PdiKeySrcTmp;
 	u8 DecryptBlkKey = (u8)FALSE;
 
+	*KeySrc = XSECURE_AES_INVALID_KEY;
+
 	XPlmi_Printf(DEBUG_INFO, "Key source is %0x\n\r", KeyDetails->PdiKeySrc);
+
 	switch (KeyDetails->PdiKeySrc) {
 	case XLOADER_EFUSE_KEY:
 		*KeySrc = XSECURE_AES_EFUSE_KEY;
+		PdiKeySrcTmp = XLOADER_EFUSE_KEY;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_EFUSE_BLK_KEY:
+		PdiKeySrcTmp = XLOADER_EFUSE_BLK_KEY;
 		if (((*KekStatus) & XLOADER_EFUSE_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_RED_KEY;
-			KeySource = XSECURE_AES_EFUSE_RED_KEY;
 			KekStat = XLOADER_EFUSE_RED_KEY;
 			DecryptBlkKey = (u8)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
-			*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
 		}
+		*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
 		break;
 	case XLOADER_BBRAM_KEY:
+		PdiKeySrcTmp = XLOADER_BBRAM_KEY;
 		*KeySrc = XSECURE_AES_BBRAM_KEY;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_BBRAM_BLK_KEY:
+		PdiKeySrcTmp = XLOADER_BBRAM_BLK_KEY;
 		if (((*KekStatus) & XLOADER_BBRAM_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_BBRAM_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_BBRAM_RED_KEY;
-			KeySource = XSECURE_AES_BBRAM_RED_KEY;
 			KekStat = XLOADER_BBRAM_RED_KEY;
 			DecryptBlkKey = (u8)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
-			*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
 		}
+		*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
 		break;
 	case XLOADER_BH_BLK_KEY:
+		PdiKeySrcTmp = XLOADER_BH_BLK_KEY;
 		if (((*KekStatus) & XLOADER_BHDR_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_BH_KEY;
 			KeyDetails->KeyDst = XSECURE_AES_BH_RED_KEY;
-			KeySource = XSECURE_AES_BH_RED_KEY;
 			KekStat = XLOADER_BHDR_RED_KEY;
 
 			/* Write BH key into BH registers */
@@ -2152,92 +2158,114 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 		}
 		else {
 			Status = XST_SUCCESS;
-			*KeySrc = XSECURE_AES_BH_RED_KEY;
 		}
+		*KeySrc = XSECURE_AES_BH_RED_KEY;
 		break;
 	case XLOADER_EFUSE_USR_KEY0:
+		PdiKeySrcTmp = XLOADER_EFUSE_USR_KEY0;
 		*KeySrc = XSECURE_AES_EFUSE_USER_KEY_0;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_EFUSE_USR_BLK_KEY0:
+		PdiKeySrcTmp = XLOADER_EFUSE_USR_BLK_KEY0;
 		if (((*KekStatus) & XLOADER_EFUSE_USR0_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_0;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_0;
-			KeySource = XSECURE_AES_EFUSE_USER_RED_KEY_0;
 			KekStat = XLOADER_EFUSE_USR0_RED_KEY;
 			DecryptBlkKey = (u8)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
-			*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_0;
 		}
+		*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_0;
 		break;
 	case XLOADER_EFUSE_USR_KEY1:
+		PdiKeySrcTmp = XLOADER_EFUSE_USR_KEY1;
 		*KeySrc = XSECURE_AES_EFUSE_USER_KEY_1;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_EFUSE_USR_BLK_KEY1:
+		PdiKeySrcTmp = XLOADER_EFUSE_USR_BLK_KEY1;
 		if (((*KekStatus) & XLOADER_EFUSE_USR1_RED_KEY) == 0x0U) {
 			KeyDetails->KeySrc = XSECURE_AES_EFUSE_USER_KEY_1;
 			KeyDetails->KeyDst = XSECURE_AES_EFUSE_USER_RED_KEY_1;
-			KeySource = XSECURE_AES_EFUSE_USER_RED_KEY_1;
 			KekStat = XLOADER_EFUSE_USR1_RED_KEY;
 			DecryptBlkKey = (u8)TRUE;
 		}
 		else {
 			Status = XST_SUCCESS;
-			*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
 		}
+		*KeySrc = XSECURE_AES_EFUSE_USER_RED_KEY_1;
 		break;
 	case XLOADER_USR_KEY0:
+		PdiKeySrcTmp = XLOADER_USR_KEY0;
 		*KeySrc = XSECURE_AES_USER_KEY_0;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_USR_KEY1:
+		PdiKeySrcTmp = XLOADER_USR_KEY1;
 		*KeySrc = XSECURE_AES_USER_KEY_1;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_USR_KEY2:
+		PdiKeySrcTmp = XLOADER_USR_KEY2;
 		*KeySrc = XSECURE_AES_USER_KEY_2;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_USR_KEY3:
+		PdiKeySrcTmp = XLOADER_USR_KEY3;
 		*KeySrc = XSECURE_AES_USER_KEY_3;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_USR_KEY4:
+		PdiKeySrcTmp = XLOADER_USR_KEY4;
 		*KeySrc = XSECURE_AES_USER_KEY_4;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_USR_KEY5:
+		PdiKeySrcTmp = XLOADER_USR_KEY5;
 		*KeySrc = XSECURE_AES_USER_KEY_5;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_USR_KEY6:
+		PdiKeySrcTmp = XLOADER_USR_KEY6;
 		*KeySrc = XSECURE_AES_USER_KEY_6;
 		Status = XST_SUCCESS;
 		break;
 	case XLOADER_USR_KEY7:
+		PdiKeySrcTmp = XLOADER_USR_KEY7;
 		*KeySrc = XSECURE_AES_USER_KEY_7;
 		Status = XST_SUCCESS;
 		break;
 	default:
+		PdiKeySrcTmp = KeyDetails->PdiKeySrc;
 		/* Aes Obfuscated Key is applicable only for versal_net */
 		Status = XLoader_AesObfusKeySelect(KeyDetails->PdiKeySrc,
 				*KekStatus, KeySrc);
 		break;
 	}
+
+	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+		goto END;
+	}
+
+	if ((KeyDetails->PdiKeySrc != PdiKeySrcTmp) || (*KeySrc == XSECURE_AES_INVALID_KEY)) {
+		Status  = XLoader_UpdateMinorErr(XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0U);
+		goto END;
+	}
+
 	if (DecryptBlkKey == (u8)TRUE) {
 		Status = XLoader_DecryptBlkKey(SecurePtr->AesInstPtr, KeyDetails);
 		if (Status == XST_SUCCESS) {
 			*KekStatus = (*KekStatus) | KekStat;
-			*KeySrc = KeySource;
 		}
 		else {
 			Status  = XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, Status);
 		}
 	}
 
+END:
 	return Status;
 }
 
