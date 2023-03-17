@@ -205,19 +205,19 @@ int UartLiteIntrExample(u16 DeviceId)
 	 * verified.
 	 */
 	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
-		SendBuffer[Index] = Index;
+		SendBuffer[Index] = Index+'A';
 		ReceiveBuffer[Index] = 0;
 	}
 
 	/*
-	 * Start receiving data before sending it since there is a loopback.
+	 * Start sending data before receiving it since there is a loopback.
 	 */
-	XUartLite_Recv(&UartLite, ReceiveBuffer, TEST_BUFFER_SIZE);
+	XUartLite_Send(&UartLite, ReceiveBuffer, TEST_BUFFER_SIZE);
 
 	/*
-	 * Send the buffer using the UartLite.
+	 * Receive the buffer using the UartLite.
 	 */
-	XUartLite_Send(&UartLite, SendBuffer, TEST_BUFFER_SIZE);
+	XUartLite_Recv(&UartLite, SendBuffer, TEST_BUFFER_SIZE);
 
 	/*
 	 * Wait for the entire buffer to be received, letting the interrupt
