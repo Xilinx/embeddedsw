@@ -373,6 +373,7 @@ void XPm_ClientSuspend(const struct XPm_Proc *const Proc)
 	Val |= CORE_PWRDN_EN_BIT_MASK;
 	mtcp(S3_0_C15_C2_7, Val);
 	ISB;
+	XPm_RMW32(Proc->PwrCtrl, Proc->PwrDwnMask, Proc->PwrDwnMask);
 	XPm_RMW32(Proc->PwrCtrl + CORE_ISR_POWER_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 	XPm_RMW32(Proc->PwrCtrl + CORE_IEN_POWER_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 	XPm_RMW32(Proc->PwrCtrl + CORE_ISR_WAKE_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
@@ -396,6 +397,7 @@ void XPm_ClientWakeUp(const struct XPm_Proc *const Proc)
 	Val &= ~CORE_PWRDN_EN_BIT_MASK;
 	mtcp(S3_0_C15_C2_7, Val);
 	ISB;
+	XPm_RMW32(Proc->PwrCtrl, Proc->PwrDwnMask, ~Proc->PwrDwnMask);
 	XPm_RMW32(Proc->PwrCtrl + CORE_IDS_POWER_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 	XPm_RMW32(Proc->PwrCtrl + CORE_IDS_WAKE_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 #endif
@@ -440,6 +442,7 @@ void XPm_ClientAbortSuspend(void)
 	Val &= ~CORE_PWRDN_EN_BIT_MASK;
 	mtcp(S3_0_C15_C2_7, Val);
 	ISB;
+	XPm_RMW32(PrimaryProc->PwrCtrl, PrimaryProc->PwrDwnMask, ~PrimaryProc->PwrDwnMask);
 	XPm_RMW32(PrimaryProc->PwrCtrl + CORE_IDS_POWER_OFFSET, PrimaryProc->PwrDwnMask,
 		  PrimaryProc->PwrDwnMask);
 	XPm_RMW32(PrimaryProc->PwrCtrl + CORE_IDS_WAKE_OFFSET, PrimaryProc->PwrDwnMask,
