@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -552,13 +553,15 @@ int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
 	int Status = XST_FAILURE;
 	u32 Index;
 	u32 RegVal;
-	u32 *HashPtr = (u32 *)Sha3Hash->Hash;
+	u32 *HashPtr;
 
 	/* Validate the input arguments */
 	if ((InstancePtr == NULL) || (Sha3Hash == NULL)) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
 	}
+
+	HashPtr = (u32 *)Sha3Hash->Hash;
 
 	if (InstancePtr->Sha3State != XSECURE_SHA3_ENGINE_STARTED) {
 		Status = (int)XSECURE_SHA3_STATE_MISMATCH_ERROR;
