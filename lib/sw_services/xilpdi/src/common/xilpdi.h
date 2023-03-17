@@ -62,7 +62,7 @@
 *                       XilPdi_ValidateChecksum
 *       kal  01/05/2023 Added PcrInfo attribute in XilPdi_ImgHdr
 *       sk   02/22/2023 Added Bit MASK for EoPDI SYNC logic
-*e
+*		dd   03/16/2023 Misra-C violation Rule 17.8 fixed
 * </pre>
 *
 * @note
@@ -597,7 +597,7 @@ int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr);
 int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr);
-int XilPdi_ValidateChecksum(const void *Buffer, u32 Len);
+int XilPdi_ValidateChecksum(const void *Buffer, u32 Length);
 
 /** @} */
 #ifdef __cplusplus
