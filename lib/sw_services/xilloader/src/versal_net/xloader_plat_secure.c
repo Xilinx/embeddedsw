@@ -23,6 +23,7 @@
 *       kpt  07/05/2022 Added XLoader_RsaPssSignVeirfyKati
 * 1.01  har  11/17/2022 Added XLoader_CheckSecureStateAuth
 *       ng   11/23/2022 Fixed doxygen file name error
+*       sk   03/10/2023 Added redundancy for AES Key selection
 *
 * </pre>
 *
@@ -110,23 +111,29 @@ void XLoader_UpdateKekSrc(XilPdi *PdiPtr)
  ******************************************************************************/
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	XSecure_AesKeySrc *KeySrc = (XSecure_AesKeySrc *)KeySrcPtr;
+	volatile u32 PdiKeySrcTmp;
+
+	*KeySrc = XSECURE_AES_INVALID_KEY;
 
 	switch (PdiKeySrc) {
 		case XLOADER_EFUSE_OBFUS_KEY:
+			PdiKeySrcTmp = XLOADER_EFUSE_OBFUS_KEY;
 			if (((KekStatus) & XLOADER_EFUSE_RED_KEY) == XLOADER_EFUSE_RED_KEY) {
 				Status = XST_SUCCESS;
 				*KeySrc = XSECURE_AES_EFUSE_RED_KEY;
 			}
 			break;
 		case XLOADER_BBRAM_OBFUS_KEY:
+			PdiKeySrcTmp = XLOADER_BBRAM_OBFUS_KEY;
 			if (((KekStatus) & XLOADER_BBRAM_RED_KEY) == XLOADER_BBRAM_RED_KEY) {
 				*KeySrc = XSECURE_AES_BBRAM_RED_KEY;
 				Status = XST_SUCCESS;
 			}
 			break;
 		case XLOADER_BH_OBFUS_KEY:
+			PdiKeySrcTmp = XLOADER_BH_OBFUS_KEY;
 			if (((KekStatus) & XLOADER_BHDR_RED_KEY) == XLOADER_BHDR_RED_KEY) {
 				*KeySrc = XSECURE_AES_BH_RED_KEY;
 				Status = XST_SUCCESS;
@@ -137,6 +144,11 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr)
 			break;
 	}
 
+	if (Status == XST_SUCCESS) {
+		if ((PdiKeySrc != PdiKeySrcTmp) || (*KeySrc == XSECURE_AES_INVALID_KEY)) {
+			Status  = XLoader_UpdateMinorErr(XLOADER_SEC_GLITCH_DETECTED_ERROR, 0x0U);
+		}
+	}
 	return Status;
 }
 
