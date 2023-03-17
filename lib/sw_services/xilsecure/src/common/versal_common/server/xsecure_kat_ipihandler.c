@@ -94,10 +94,10 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 #endif
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT):
-		Status = XSecure_EllipticSignVerifyKat(Pload[1U]);
+		Status = XSecure_EllipticSignVerifyKat((XSecure_EccCrvClass)Pload[1U]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_GEN_KAT):
-		Status = XSecure_EllipticSignGenKat(Pload[1U]);
+		Status = XSecure_EllipticSignGenKat((XSecure_EccCrvClass)Pload[1U]);
 		break;
 #endif
 #endif
