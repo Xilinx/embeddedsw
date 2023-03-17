@@ -669,7 +669,7 @@ void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)
 
 	*PlmKatStatus = 0U;
 	CryptoKatEn = XPlmi_IsCryptoKatEn();
-	CryptoKatEnTmp = CryptoKatEn;
+	CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
 	if((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
 		*PlmKatStatus = XPlmi_GetKatStatus();
 	} else {
