@@ -89,6 +89,7 @@
 *       ng   03/07/2023 Fixed circular dependency between xilpm and xilplmi
 *                       libraries
 *       bm   03/11/2023 Added Temporal redundancy to tamper response condition
+*       ng   03/16/2023 Added control to disable minimal timeout in maskpoll
 *
 * </pre>
 *
@@ -303,7 +304,7 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 	u32 Flags = 0U;
 	u32 Level;
 	u16 DebugLevel = DEBUG_INFO;
-	u8 BreakFlagEn;
+	u32 SetMinTimeout = TRUE;
 #ifdef PLM_PRINT_PERF_POLL
 	u64 PollTime = XPlmi_GetTimerValue();
 	XPlmi_PerfTime PerfTime = {0U};
@@ -311,14 +312,23 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 	XPLMI_EXPORT_CMD(XPLMI_MASK_POLL_CMD_ID, XPLMI_MODULE_GENERIC_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FIVE);
 
-	BreakFlagEn = (u8)((XPLMI_MASKPOLL_LEN_EXT == Cmd->Len) &&
-			(XPLMI_MASKPOLL_FLAGS_BREAK == (Cmd->Payload[4U] &
-			XPLMI_MASKPOLL_FLAGS_MASK)));
-	if (BreakFlagEn == (u8)FALSE) {
+	if (Cmd->Len == XPLMI_MASKPOLL_LEN_EXT) {
+		Flags = Cmd->Payload[4U] & XPLMI_MASKPOLL_FLAGS_MASK;
+		if ((Flags == XPLMI_MASKPOLL_FLAGS_BREAK) ||
+			(Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS) ||
+			(Cmd->Payload[4U] & XPLMI_MASKPOLL_FLAGS_DISABLE_MINIMAL_TIMEOUT)) {
+				SetMinTimeout = FALSE;
+		}
+	}
+
+	if (Flags != XPLMI_MASKPOLL_FLAGS_BREAK) {
+		DebugLevel = DEBUG_GENERAL;
+	}
+
+	if (SetMinTimeout == TRUE) {
 		if (TimeOutInUs < XPLMI_MASK_POLL_MIN_TIMEOUT) {
 			TimeOutInUs = XPLMI_MASK_POLL_MIN_TIMEOUT;
 		}
-		DebugLevel = DEBUG_GENERAL;
 	}
 
 	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs, NULL);
@@ -344,7 +354,6 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 
 	/* If command length is 5, flags are included */
 	if ((Cmd->Len == XPLMI_MASKPOLL_LEN_EXT) && (Status != XST_SUCCESS)) {
-		Flags = Cmd->Payload[4U] & XPLMI_MASKPOLL_FLAGS_MASK;
 		if (Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS) {
 			/* Ignore the error */
 			Status = XST_SUCCESS;
