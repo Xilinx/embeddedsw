@@ -83,6 +83,7 @@ extern "C" {
 #define XSECURE_KAT_MAJOR_ERROR 	(((u32)XPLMI_ERR_CDO_CMD + (XSECURE_KAT_API_ERR_ID & \
 										XPLMI_ERR_CDO_CMD_MASK)))
 				/**< Xilsecure KAT major error for client APIs */
+#define XSECURE_ADDR_HIGH_SHIFT			(32U)
 
 /************************** Variable Definitions *****************************/
 
