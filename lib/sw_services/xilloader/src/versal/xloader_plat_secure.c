@@ -23,6 +23,7 @@
 * 1.01  har  11/17/2022 Added XLoader_CheckSecureStateAuth
 *       ng   11/23/2022 Fixed doxygen file name error
 * 1.8   skg  12/07/22 Added Additional PPKs non zero check
+*       sk   03/17/2023 Renamed Kekstatus to DecKeySrc in xilpdi structure
 *
 * </pre>
 *
@@ -74,26 +75,26 @@ static int XLoader_CheckNonZeroAdditionalPpk(void);
  ******************************************************************************/
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr)
 {
-	PdiPtr->KekStatus = 0x0U;
+	PdiPtr->DecKeySrc = 0x0U;
 
 	XPlmi_Printf(DEBUG_INFO, "Identifying KEK's corresponding RED "
 			"key availability status\n\r");
 	switch(PdiPtr->MetaHdr.BootHdrPtr->EncStatus) {
 	case XLOADER_BH_BLK_KEY:
-		PdiPtr->KekStatus = XLOADER_BHDR_RED_KEY;
+		PdiPtr->DecKeySrc = XLOADER_BHDR_RED_KEY;
 		break;
 	case XLOADER_BBRAM_BLK_KEY:
-		PdiPtr->KekStatus = XLOADER_BBRAM_RED_KEY;
+		PdiPtr->DecKeySrc = XLOADER_BBRAM_RED_KEY;
 		break;
 	case XLOADER_EFUSE_BLK_KEY:
-		PdiPtr->KekStatus = XLOADER_EFUSE_RED_KEY;
+		PdiPtr->DecKeySrc = XLOADER_EFUSE_RED_KEY;
 		break;
 	default:
 		/* No KEK is available for PLM */
 		break;
 	}
 	XPlmi_Printf(DEBUG_DETAILED, "KEK red key available after "
-			"for PLM %x\n\r", PdiPtr->KekStatus);
+			"for PLM %x\n\r", PdiPtr->DecKeySrc);
 }
 
 /*****************************************************************************/
@@ -101,17 +102,17 @@ void XLoader_UpdateKekSrc(XilPdi *PdiPtr)
  * @brief	This function provides Obfuscated Aes Key source
  *
  * @param	PdiKeySrc is the Key source given in Pdi
- * @param	KekStatus is the current KekStatus
+ * @param	DecKeyMask is the current DecKeyMask
  * @param	KeySrcPtr is the pointer to the calculated KeySrc
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr)
+int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 {
 	(void)PdiKeySrc;
 	(void)KeySrcPtr;
-	(void)KekStatus;
+	(void)DecKeyMask;
 
 	/* Obfuscated Key is not supported in Versal */
 	return XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, 0U);

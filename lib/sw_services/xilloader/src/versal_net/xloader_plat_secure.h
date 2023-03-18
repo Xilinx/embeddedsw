@@ -21,6 +21,7 @@
 *       kpt  07/24/2022 Added XLoader_RsaKati
 * 1.01  har  11/17/2022 Added XLoader_CheckSecureStateAuth
 *       ng   11/23/2022 Fixed doxygen file name error
+*       sk   03/17/2023 Renamed Kekstatus to DecKeyMask
 *
 * </pre>
 *
@@ -141,7 +142,7 @@ typedef enum {
 
 /************************** Function Prototypes ******************************/
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr);
-int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 KekStatus, void *KeySrcPtr);
+int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
 int XLoader_AddDeviceStateChangeToScheduler(void);
 int XLoader_CheckDeviceStateChange(void *Arg);
 int XLoader_RsaKat(XPmcDma *PmcDmaPtr);

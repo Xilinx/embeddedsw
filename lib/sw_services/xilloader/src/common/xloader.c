@@ -151,6 +151,7 @@
 *                       configured
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *       sk   02/08/2023 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
+*       sk   03/17/2023 Renamed Kekstatus to DecKeySrc in xilpdi structure
 * </pre>
 *
 * @note
@@ -581,7 +582,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	}
 	else {
 		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
-		PdiPtr->KekStatus |= BootPdiPtr->KekStatus;
+		PdiPtr->DecKeySrc |= BootPdiPtr->DecKeySrc;
 		/* Update KAT status */
 		XLoader_ClearKatOnPPDI(&SecureParams, 0U);
 	}
