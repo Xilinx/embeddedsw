@@ -106,6 +106,7 @@
 * 1.06  sk   01/11/2023 Updated XLoader_ImageStore structure to support
 *                       image store feature
 *       bm   02/22/2023 Fix XLOADER_MAX_HANDOFF_CPUS value for versal Net
+*       sk   03/17/2023 Renamed member Kekstatus to DecKeySrc in xilpdi structure
 * </pre>
 *
 * @note
@@ -333,7 +334,7 @@ typedef struct {
 	u64 CopyToMemAddr; /**< Address to which image is copied */
 #ifndef PLM_SECURE_EXCLUDE
 	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
-	u32 KekStatus; /**< KEK status flag */
+	u32 DecKeySrc; /**< Decryption Key Source */
 	u32 PpdiKatStatus; /**< PPDI Known Answer Test Status */
 #endif
 } XilPdi;
