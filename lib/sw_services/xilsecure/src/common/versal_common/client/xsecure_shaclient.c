@@ -199,6 +199,8 @@ END:
 int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr, const u64 OutDataAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Sha3InitializeMask = 0U;
+	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
@@ -209,15 +211,25 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 		goto END;
 	}
 
-	Status = XSecure_Sha3Update(InstancePtr, InDataAddr, Size);
+	Sha3InitializeMask = ((u32)1U) << XSECURE_SHA_FIRST_PACKET_SHIFT;
+
+	/* Fill IPI Payload */
+	Payload[0U] = HEADER(0U, XSECURE_API_SHA3_UPDATE);
+	Payload[1U] = (u32)InDataAddr;
+	Payload[2U] = (u32)(InDataAddr >> XSECURE_ADDR_HIGH_SHIFT);
+	Payload[3U] = (Sha3InitializeMask) | Size;
+	Payload[4U] = (u32)OutDataAddr;
+	Payload[5U] = (u32)(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT);
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+				sizeof(Payload)/sizeof(u32));
+
 	if (Status != XST_SUCCESS) {
+		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Digest Failed \r\n");
 		goto END;
 	}
 
-	Status = XSecure_Sha3Finish(InstancePtr, OutDataAddr);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Sha3State = XSECURE_SHA_UNINITIALIZED;
 
 END:
 	return Status;

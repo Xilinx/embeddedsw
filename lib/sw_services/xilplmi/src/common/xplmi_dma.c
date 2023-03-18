@@ -647,7 +647,7 @@ END:
 		"%u Bytes, Flags: 0x%0x\n\r",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
 		(u32)(SrcAddr >> 32U), (u32)SrcAddr, (u32)(DestAddr >> 32U),
-		(u32)DestAddr, (Len * XPLMI_WORD_LEN), Flags);
+		(u32)DestAddr, Len, Flags);
 #endif
 	return Status;
 }
