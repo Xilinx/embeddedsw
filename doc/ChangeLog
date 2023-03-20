@@ -1,6 +1,10 @@
 Changes for 2023.1
 ===============================
 
+trngpsv_v1_3:
+Fix RGRG sequence and bug in pattern check comparison
+Clear schedule array after DF operation is done
+
 axicdma_v4_11:
 Fix infinite loops in driver examples
 
@@ -128,10 +132,16 @@ Added the VersalNet support
 Updated doxygen documentation
 
 xilocp_v1_1:
-Added attestation support with device keys
-Added client side interface.
-Added derivation of DEVAK for requested sub-system.
-Support for sharing the public key.
+Reset TRNG state in PLM after ROM usage and minor enhancements
+Run KAT before crypto usage when OCP is enabled
+Skip Devkey generation if CDI is not valid
+Add Client Support for OCP
+OCP changes for Partition Measure and HW PCR extend
+Add client support for DME
+DEVAK generation of subsystem based
+Added attestation support Added attestation support with device keys
+Added Client side support for attestation
+Example for X.509 request and attestation
 
 xilsem_v1_7:
 Added XilSEM client support for PL MB and A72 bare metal application users.
