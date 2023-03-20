@@ -420,6 +420,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	 */
 	Status = XPuf_CheckGlobalVariationFilter(PufData);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -432,6 +433,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	 */
 	Status = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ, &IroFreqUpdated);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -442,6 +444,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	 */
 	Status =  XPuf_ValidateAccessRules(PufData);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
@@ -453,6 +456,7 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	 */
 	Status = XPuf_UpdateHelperData(PufData);
 	if (Status != XST_SUCCESS) {
+		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
