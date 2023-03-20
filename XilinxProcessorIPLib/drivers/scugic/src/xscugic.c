@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -164,7 +164,7 @@
 *                     detecting targeted cores for specific interrupt id.
 *                     Also, DoDistributorInit has been modified to move CPU
 *                     interface specific register writes to XScuGic_CfgInitialize.
-*
+* 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -178,6 +178,8 @@
 #endif
 /************************** Constant Definitions *****************************/
 
+#define DEFAULT_PRIORITY    0xa0a0a0a0U /**< Default value for priority_level
+                                             register */
 
 /**************************** Type Definitions *******************************/
 
@@ -249,8 +251,6 @@ static void DoDistributorInit(const XScuGic *InstancePtr)
 					0U);
 	}
 
-
-#define DEFAULT_PRIORITY    0xa0a0a0a0U
 	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 			Int_Id = Int_Id+4U) {
 		/*

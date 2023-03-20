@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
 *                     reported by checkpatch. It fixes CR#1006344.
 * 4.6	sk   08/05/21 Remove XScuGic_Config variable definition to fix
 * 		      misrac violation.
+* 5.2   ml   03/03/23 Add description to fix Doxygen warnings.
 *
 * </pre>
 *
@@ -78,7 +79,22 @@ XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId)
 
 	return (XScuGic_Config *)CfgPtr;
 }
+/*****************************************************************************/
 
+/**
+*
+* Looks up the device configuration based on the BaseAddress. The return value
+* will refer to an entry in the device configuration table defined in the
+* xscugic_g.c file.
+*
+* @param        BaseAddress is the base address of the device.
+*
+* @return       A pointer to the XScuGic configuration structure for the
+*               specified device, or NULL if the device was not found.
+*
+* @note         None.
+*
+******************************************************************************/
 XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress)
 {
         XScuGic_Config *CfgPtr = NULL;

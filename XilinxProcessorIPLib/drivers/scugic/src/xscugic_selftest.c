@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.10  mus  07/17/18 Updated file to fix the various coding style issues
 *                     reported by checkpatch. It fixes CR#1006344.
+* 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
 *
 * </pre>
 *
@@ -34,7 +35,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define	XSCUGIC_PCELL_ID	0xB105F00DU
+#define        XSCUGIC_PCELL_ID        0xB105F00DU /**< PCELL ID value */
 
 /**************************** Type Definitions *******************************/
 
