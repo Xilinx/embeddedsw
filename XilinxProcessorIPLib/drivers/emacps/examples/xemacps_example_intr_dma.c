@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -382,7 +383,7 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	if (Config->BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
 		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_0, 1, 0, 100, 1, 0, 0);
 	}
-	if (Config->BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
+	if (Config->BaseAddress == VERSAL_EMACPS_1_BASEADDR) {
 		Xil_Smc(PM_REQUEST_DEVICE_SMC_FID, DEV_GEM_1, 1, 0, 100, 1, 0, 0);
 	}
 #endif
