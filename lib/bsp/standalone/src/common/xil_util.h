@@ -198,7 +198,7 @@ extern "C" {
 #define XSECURE_STATUS_CHK_GLITCH_DETECT(Status)   \
 	{ \
 		if (Status == XST_SUCCESS) { \
-			Status = XST_GLITCH_ERROR; \
+			Status = (int)XST_GLITCH_ERROR; \
 		} \
 	}
 
