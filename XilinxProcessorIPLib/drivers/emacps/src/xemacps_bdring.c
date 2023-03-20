@@ -7,7 +7,7 @@
 /**
 *
 * @file xemacps_bdring.c
-* @addtogroup emacps_v3_16
+* @addtogroup emacps Overview
 * @{
 *
 * This file implements buffer descriptor ring related functions.
