@@ -7,7 +7,7 @@
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_16
+* @addtogroup emacps Overview
 * @{
 * @details
  *

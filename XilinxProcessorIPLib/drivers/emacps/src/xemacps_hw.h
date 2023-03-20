@@ -8,7 +8,7 @@
 /**
 *
 * @file xemacps_hw.h
-* @addtogroup emacps_v3_16
+* @addtogroup emacps Overview
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or
