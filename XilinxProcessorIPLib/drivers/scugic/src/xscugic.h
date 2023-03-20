@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -190,12 +190,13 @@
 *                     executed, redistributor address will be stored in newly
 *                     added member of XScuGic data structure "RedistBaseAddr".
 *                     It fixes CR#1150432.
+* 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XSCUGIC_H /* prevent circular inclusions */
-#define XSCUGIC_H /* by using protection macros */
+#ifndef XSCUGIC_H /**< prevent circular inclusions */
+#define XSCUGIC_H /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -212,13 +213,23 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/**
+ * @name EFUSE status Register information
+ * EFUSE Status Register
+ * @{
+ */
 #define EFUSE_STATUS_OFFSET   0x10
 #define EFUSE_STATUS_CPU_MASK 0x80
 
 #if !defined (ARMR5) && !defined (__aarch64__) && !defined (ARMA53_32)
-#define ARMA9
+#define ARMA9 /**< ARMA9 macro to identify cortexA9 */
 #endif
 
+/**
+ * @name GICD_CTLR Register information
+ * GICD_CTLR Status Register
+ * @{
+ */
 #define XSCUGIC500_DCTLR_ARE_NS_ENABLE  0x20
 #define XSCUGIC500_DCTLR_ARE_S_ENABLE  0x10
 
@@ -245,8 +256,12 @@ extern "C" {
  */
 typedef struct
 {
-	Xil_InterruptHandler Handler;
-	void *CallBackRef;
+       Xil_InterruptHandler Handler; /**< Interrupt Handler */
+       void *CallBackRef; /**< CallBackRef is the callback reference passed in
+                               by the upper layer when setting the Interrupt
+                               handler for specific interrupt ID, and it will
+                               passed back to Interrupt handler when it is
+                               invoked. */
 } XScuGic_VectorTableEntry;
 
 /**
@@ -662,9 +677,12 @@ void XScuGic_SetCpuID(u32 CpuCoreId);
 u32 XScuGic_GetCpuID(void);
 u8 XScuGic_IsInitialized(u32 DeviceId);
 /*
- * Initialization functions in xscugic_sinit.c
+ * Lookup configuration by using DeviceId
  */
 XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId);
+/*
+ * Lookup configuration by using BaseAddress
+ */
 XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress);
 
 /*

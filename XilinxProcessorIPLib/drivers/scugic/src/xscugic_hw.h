@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,13 +69,13 @@
 *                     based address for specific CPU core. Also, added new macro
 *                     XScuGic_ReadReg64 to read 64 bit value from specific address.
 * 5.1   mus  02/15/23 Added support for VERSAL_NET APU and RPU GIC.
-*
+* 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XSCUGIC_HW_H /* prevent circular inclusions */
-#define XSCUGIC_HW_H /* by using protection macros */
+#ifndef XSCUGIC_HW_H /**< prevent circular inclusions */
+#define XSCUGIC_HW_H /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -110,24 +110,31 @@ extern "C" {
  * The maximum number of interrupts supported by the hardware.
  */
 #ifdef PLATFORM_ZYNQ
-#define XSCUGIC_MAX_NUM_INTR_INPUTS    	95U /* Maximum number of interrupt defined by Zynq */
+#define XSCUGIC_MAX_NUM_INTR_INPUTS    95U /**< Maximum number of
+                                                interrupt defined by
+                                                Zynq */
 #elif defined (VERSAL_NET)
-#define XSCUGIC_MAX_NUM_INTR_INPUTS    	256U /* Maximum number of interrupt sources in VERSAL NET */
+#define XSCUGIC_MAX_NUM_INTR_INPUTS     256U /**< Maximum number of
+                                                  interrupt sources in
+                                                  VERSAL NET */
 #elif defined (versal)
-#define XSCUGIC_MAX_NUM_INTR_INPUTS    	192U
+#define XSCUGIC_MAX_NUM_INTR_INPUTS     192U /**< Maximum number of
+                                                  interrupt sources in
+                                                  VERSAL */
 #else
-#define XSCUGIC_MAX_NUM_INTR_INPUTS    	195U /* Maximum number of interrupt defined by Zynq Ultrascale Mp */
+#define XSCUGIC_MAX_NUM_INTR_INPUTS     195U /**< Maximum number of
+                                                  interrupt defined by
+                                                  Zynq Ultrascale Mp */
 #endif
 
-/*
- * First Interrupt Id for SPI interrupts.
- */
-#define XSCUGIC_SPI_INT_ID_START	0x20U
-/*
- * The maximum priority value that can be used in the GIC.
- */
-#define XSCUGIC_MAX_INTR_PRIO_VAL    	248U
-#define XSCUGIC_INTR_PRIO_MASK			0x000000F8U
+#define XSCUGIC_SPI_INT_ID_START       0x20U /**< First Interrupt Id for
+                                                   SPI interrupts. */
+
+#define XSCUGIC_MAX_INTR_PRIO_VAL      248U /**< The maximum priority value
+                                                  that can be used in
+                                                  the GIC. */
+#define XSCUGIC_INTR_PRIO_MASK         0x000000F8U /**< The Interrupt
+                                                       priority mask value */
 
 /** @name Distributor Interface Register Map
  *
@@ -338,7 +345,7 @@ extern "C" {
  * There are up to 255 of these registers staring at location 0xC08.
  * @{
  */
-#define XSCUGIC_INT_CFG_MASK    0x00000003U    /**< */
+#define XSCUGIC_INT_CFG_MASK    0x00000003U /**< Interrupt configuration Mask */
 /* @} */
 
 /** @name  PPI Status Register

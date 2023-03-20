@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,9 +90,13 @@
 *                     to ICC_IGRPEN0_EL1 is resulting into sync abort.
 *                     It fixes CR#1152445.
 * 5.1   mus  02/15/23 Added support for VERSAL_NET APU and RPU GIC.
+<<<<<<< ours
 * 5.1   mus  03/07/23 Fix XScuGic_InterruptMapFromCpuByDistAddr and
 *                     XScuGic_InterruptUnmapFromCpuByDistAddr for GICv3.
 *
+=======
+* 5.2   ml   03/02/23 Remove few comments to fix doxygen warnings.
+>>>>>>> theirs
 * </pre>
 *
 ******************************************************************************/
@@ -109,6 +113,8 @@
 #endif
 /************************** Constant Definitions *****************************/
 
+#define DEFAULT_PRIORITY    0xa0a0a0a0U /**< Default value for priority_level
+                                            register */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -134,8 +140,6 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 * - All interrupt sources are disabled
 * - Enable the distributor
 *
-* @param	InstancePtr is a pointer to the XScuGic instance.
-* @param	CpuID is the Cpu ID to be initialized.
 *
 * @return	None
 *
@@ -211,8 +215,6 @@ static void DistInit(const XScuGic_Config *Config)
 			XSCUGIC_INT_CFG_OFFSET_CALC(Int_Id), 0U);
 	}
 
-
-#define DEFAULT_PRIORITY	0xa0a0a0a0U
 	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 			Int_Id = Int_Id+4U) {
 		/*
@@ -279,8 +281,6 @@ static void DistInit(const XScuGic_Config *Config)
 * - Set the priority of the CPU.
 * - Enable the CPU interface
 *
-* @param	ConfigPtr is a pointer to a config table for the particular
-*		device this driver is associated with.
 *
 * @return	None
 *
@@ -903,7 +903,6 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 * interrupt condition for the specified Int_Id will occur after this function is
 * called.
 *
-* @param	InstancePtr is a pointer to the XScuGic instance.
 * @param	Int_Id contains the ID of the interrupt source and should be
 *		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
 *
@@ -970,7 +969,6 @@ void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 * interrupt controller will continue to hold an interrupt condition for the
 * Int_Id, but will not cause an interrupt.
 *
-* @param	InstancePtr is a pointer to the XScuGic instance.
 * @param	Int_Id contains the ID of the interrupt source and should be
 *		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
 *
