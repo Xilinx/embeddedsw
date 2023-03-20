@@ -154,6 +154,9 @@
 #define VERSAL_EMACPS_0_BASEADDR 0xFF0C0000
 #define VERSAL_EMACPS_1_BASEADDR 0xFF0D0000
 
+#define VERSAL_NET_EMACPS_0_BASEADDR	0xF19E0000
+#define VERSAL_NET_EMACPS_1_BASEADDR	0xF19F0000
+
 #define RXBD_CNT       32	/* Number of RxBDs to use */
 #define TXBD_CNT       32	/* Number of TxBDs to use */
 
@@ -185,6 +188,11 @@
 #ifdef XPAR_PSV_CRL_0_S_AXI_BASEADDR
 #define CRL_GEM0_REF_CTRL	(XPAR_PSV_CRL_0_S_AXI_BASEADDR + 0x118)
 #define CRL_GEM1_REF_CTRL	(XPAR_PSV_CRL_0_S_AXI_BASEADDR + 0x11C)
+#endif
+
+#ifdef XPAR_PSX_CRL_0_S_AXI_BASEADDR
+#define CRL_GEM0_REF_CTRL  ( XPAR_PSX_CRL_0_S_AXI_BASEADDR + 0x118)
+#define CRL_GEM1_REF_CTRL  ( XPAR_PSX_CRL_0_S_AXI_BASEADDR + 0x11C)
 #endif
 
 #define CRL_GEM_DIV_VERSAL_MASK		0x0003FF00
@@ -401,11 +409,13 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 #else
 	if ((EmacPsInstancePtr->Config.BaseAddress == ZYNQ_EMACPS_0_BASEADDR) ||
 		(EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_0_BASEADDR) ||
-		(EmacPsInstancePtr->Config.BaseAddress == VERSAL_EMACPS_0_BASEADDR)) {
+		(EmacPsInstancePtr->Config.BaseAddress == VERSAL_EMACPS_0_BASEADDR) ||
+		(EmacPsInstancePtr->Config.BaseAddress == VERSAL_NET_EMACPS_0_BASEADDR)) {
 		EmacPsIntrId = XPS_GEM0_INT_ID;
 	} else if ((EmacPsInstancePtr->Config.BaseAddress == ZYNQ_EMACPS_1_BASEADDR) ||
 			(EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_1_BASEADDR) ||
-			(EmacPsInstancePtr->Config.BaseAddress == VERSAL_EMACPS_1_BASEADDR)) {
+			(EmacPsInstancePtr->Config.BaseAddress == VERSAL_EMACPS_1_BASEADDR) ||
+			(EmacPsInstancePtr->Config.BaseAddress == VERSAL_NET_EMACPS_1_BASEADDR)) {
 		EmacPsIntrId = XPS_GEM1_INT_ID;
 	} else if (EmacPsInstancePtr->Config.BaseAddress == ZYNQMP_EMACPS_2_BASEADDR) {
 #ifdef XPS_GEM2_INT_ID
