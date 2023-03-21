@@ -97,7 +97,7 @@ extern "C" {
 #define XLOADER_PDI_LIST_DS_ID			(0x03U)
 #define XLOADER_ATF_HANDOFF_PARAMS_DS_ID	(0x04U)
 
-#define XLOADER_SHA1_DEVICE_ID		(1U)
+#define XLOADER_SHA3_1_DEVICE_ID	(1U)
 /* Data measurement flags */
 #define XLOADER_MEASURE_START		(0U)
 #define XLOADER_MEASURE_UPDATE		(1U)
