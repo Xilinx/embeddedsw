@@ -29,6 +29,7 @@
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.2   am   03/09/23 Moved payload length macros to xilmailbox.h file
+*       am   03/21/23 Match the shared memory size in secure library to reuse for customer
 *
 * </pre>
 * @note
@@ -70,7 +71,7 @@ extern "C" {
 					/**< Unused param */
 
 /* Maximum size of shared memory used to store the CDO command */
-#define XSECURE_SHARED_MEM_SIZE		(128U)
+#define XSECURE_SHARED_MEM_SIZE		(160U)
 					/**< Shared memory size */
 
 /**************************** Type Definitions *******************************/

@@ -25,6 +25,7 @@
 * 3.1   skg  10/04/22 Added SlrIndex as member to XNvm_ClientInstance
 *       skg  10/28/22 Added comments for macros
 * 3.2   am   03/09/23 Moved payload length macros to xilmailbox.h file
+*       am   03/21/23 Match the shared memory size in secure library to reuse for customer
 *
 * </pre>
 * @note
@@ -68,7 +69,7 @@ extern "C" {
 #define XILNVM_MODULE_ID_MASK		(XILNVM_MODULE_ID << XNVM_MODULE_ID_SHIFT)
 
 /**< Max size of shared memory used to store the CDO command */
-#define XNVM_SHARED_MEM_SIZE		(256U)
+#define XNVM_SHARED_MEM_SIZE		(160U)
 
 /**************************** Type Definitions *******************************/
 /**< xilnvm client instance*/
