@@ -593,7 +593,7 @@ typedef enum {
 					   selected */
 	XLOADER_ERR_HDR_MEASUREMENT,	/**< 0x3A7 - Error in meta header measurement */
 	XLOADER_ERR_DATA_MEASUREMENT,   /**< 0x3A8 - Error in data measurement */
-	XLOADER_ERR_SHA1_INIT,		/**< 0x3A9 - Error when SHA1 initialization fails */
+	XLOADER_ERR_SHA3_1_INIT,	/**< 0x3A9 - Error when SHA3 Instance 1 initialization fails */
 	XLOADER_ERR_SECURE_CONFIG_MEASUREMENT,    /**< 0x3AA - Error in Secure config measurement */
 
 
