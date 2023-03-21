@@ -98,16 +98,16 @@ XSecure_Sha3 *XSecure_GetSha3Instance(void)
  * @note	This is applicable only for Versal Net
  *
  ******************************************************************************/
-XSecure_Sha3 *XSecure_GetSha1Instance(void)
+XSecure_Sha3 *XSecure_GetSha3Instance1(void)
 {
-	XSecure_Sha3 *Sha1Ptr = NULL;
+	XSecure_Sha3 *Sha3Ptr = NULL;
 #if defined (VERSAL_NET)
-	static XSecure_Sha3 Sha1Instance = {0U};
+	static XSecure_Sha3 Sha3Instance = {0U};
 
-	Sha1Ptr = &Sha1Instance;
+	Sha3Ptr = &Sha3Instance;
 #endif
 
-        return Sha1Ptr;
+        return Sha3Ptr;
 }
 
 /*****************************************************************************/
