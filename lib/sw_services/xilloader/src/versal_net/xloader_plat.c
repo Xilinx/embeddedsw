@@ -79,7 +79,7 @@ static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 	const u32 DstnCluster);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u32 DstnCluster, u64 *LoadAddrPtr,
 	u32 Len);
-static int XLoader_InitSha1Instance(void);
+static int XLoader_InitSha3Instance1(void);
 #ifdef PLM_OCP
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
 	XSecure_Sha3Hash* Sha3Hash);
@@ -1044,7 +1044,7 @@ int XLoader_PlatInit(void)
 {
 	int Status = XST_FAILURE;
 
-	Status = XLoader_InitSha1Instance();
+	Status = XLoader_InitSha3Instance1();
 
 	return Status;
 }
@@ -1126,7 +1126,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 {
 	int Status = XLOADER_ERR_DATA_MEASUREMENT;
 #ifdef PLM_OCP
-	XSecure_Sha3 *Sha1Instance = XSecure_GetSha1Instance();
+	XSecure_Sha3 *Sha3Instance = XSecure_GetSha3Instance1();
 	XSecure_Sha3Hash Sha3Hash;
 	u32 PcrNo;
 	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(ImageInfo->SubsystemID);
@@ -1140,14 +1140,14 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 
 	switch(ImageInfo->Flags) {
 	case XLOADER_MEASURE_START:
-		Status = XSecure_Sha3Start(Sha1Instance);
+		Status = XSecure_Sha3Start(Sha3Instance);
 		break;
 	case XLOADER_MEASURE_UPDATE:
-		Status = XSecure_Sha3Update64Bit(Sha1Instance,
+		Status = XSecure_Sha3Update64Bit(Sha3Instance,
 				ImageInfo->DataAddr, ImageInfo->DataSize);
 		break;
 	case XLOADER_MEASURE_FINISH:
-		Status = XSecure_Sha3Finish(Sha1Instance, &Sha3Hash);
+		Status = XSecure_Sha3Finish(Sha3Instance, &Sha3Hash);
 		break;
 	default:
 		break;
@@ -1193,21 +1193,21 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_InitSha1Instance(void)
+static int XLoader_InitSha3Instance1(void)
 {
-	int Status = XLOADER_ERR_SHA1_INIT;
+	int Status = XLOADER_ERR_SHA3_1_INIT;
 #ifdef PLM_OCP
 	XPmcDma *PmcDmaPtr = XPlmi_GetDmaInstance(0U);
-	XSecure_Sha3 *Sha1Instance = XSecure_GetSha1Instance();
+	XSecure_Sha3 *Sha3Instance = XSecure_GetSha3Instance1();
 
-	Status = XSecure_Sha3LookupConfig(Sha1Instance, XLOADER_SHA1_DEVICE_ID);
+	Status = XSecure_Sha3LookupConfig(Sha3Instance, XLOADER_SHA3_1_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XSecure_Sha3Initialize(Sha1Instance, PmcDmaPtr);
+	Status = XSecure_Sha3Initialize(Sha3Instance, PmcDmaPtr);
 END:
 	if (Status != XST_SUCCESS) {
-		Status = XLOADER_ERR_SHA1_INIT;
+		Status = XLOADER_ERR_SHA3_1_INIT;
 	}
 #else
 	Status = XST_SUCCESS;
