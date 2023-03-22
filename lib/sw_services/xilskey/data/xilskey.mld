@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -41,6 +41,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilskey
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos10_xilinx);
+  OPTION SUPPORTED_PERIPHERALS = (ps7_cortexa9 psu_pmu psu_cortexa53 psu_cortexr5 microblaze);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilskey,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Key Library supports programming efuse and bbram ";
   OPTION VERSION = 7.4;
