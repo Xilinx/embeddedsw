@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -72,8 +73,7 @@ proc xgen_opts_file {libhandle} {
 	puts $file_handle "\n/* Xilinx processor macro for Secure Library (Xilskey) */ "
 	if {$proc_type == "ps7_cortexa9" || $proc_type == "psu_cortexa53" || $proc_type == "psu_cortexr5" || $proc_type == "psu_pmu"} {
 		puts $file_handle "\n#define XPAR_XSK_ARM_PLATFORM 1"
-	}
-	if {$proc_type == "microblaze"} {
+	} elseif {$proc_type == "microblaze"} {
 		puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_PLATFORM 1"
 		set mb_type [common::get_property CONFIG.C_FAMILY $hw_proc_handle]
 		if {$mb_type == "kintexuplus" || $mb_type == "virtexuplus" || $mb_type == "zynquplus"} {
@@ -82,8 +82,10 @@ proc xgen_opts_file {libhandle} {
 		if {$mb_type == "kintexu" || $mb_type == "virtexu"} {
 			puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_ULTRA 1"
 		}
+	} else {
+		error "ERROR: Xilskey library is not supported for this device";
+		return;
 	}
-
 	if {$override_sysmon_cfg == true} {
 		puts $file_handle "\n#define XSK_OVERRIDE_SYSMON_CFG \n"
 	}
