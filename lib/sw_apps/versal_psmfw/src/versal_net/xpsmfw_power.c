@@ -1224,9 +1224,6 @@ static XStatus XPsmFwACPUxPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		goto done;
 	}
 
-	/* unmask the wakeup interrupt */
-	XPsmFw_Write32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_EN,Args->PwrStateMask);
-
 done:
 	return Status;
 }
@@ -1259,9 +1256,6 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
-
-	/* Unmask the Power Up Interrupt */
-	XPsmFw_Write32(PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_EN,Args->PwrStateMask);
 
 	/* Clear the Interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS,Args->PwrStateMask);
