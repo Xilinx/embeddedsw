@@ -82,6 +82,7 @@
 # 8.2   adk  13/03/23 Don't delete the xpm_counter.c file when xiltimer library
 #       	      is enabled, as xpm_counter.c file contains PM event API's
 #       	      which are generic.
+# 9.0   sa   05/01/23 Added support for Microblaze RISC-V.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -305,7 +306,7 @@ proc generate {os_handle} {
     set enable_sw_profile [common::get_property CONFIG.enable_sw_intrusive_profiling $os_handle]
     set mb_exceptions false
 
-    # proctype should be "microblaze" or psu_cortexa53 or psu_cortexr5 or ps7_cortexa9
+    # proctype should be "microblaze" or psu_cortexa53 or psu_cortexr5 or ps7_cortexa9 or "microblaze_riscv"
     set mbsrcdir "./src/microblaze"
     set cortexa53srcdir "./src/arm/cortexa53"
     set cortexr5srcdir "./src/arm/cortexr5"
@@ -318,6 +319,7 @@ proc generate {os_handle} {
     set intrsrcdir "./src/common/intr"
     set versalsrcdir "./src/common/versal"
     set versalnetsrcdir "./src/common/versal_net"
+    set riscvsrcdir "./src/riscv"
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
@@ -672,6 +674,12 @@ proc generate {os_handle} {
                    puts $file_handle ""
                    close $file_handle
         }
+	"microblaze_riscv" {
+            foreach entry [glob -nocomplain [file join $riscvsrcdir *]] {
+                file copy -force $entry "./src/"
+            }
+
+        }
         "default" {puts "unknown processor type $proctype\n"}
     }
 
@@ -700,6 +708,9 @@ proc generate {os_handle} {
             puts $makeconfig "LIBSOURCES = *.c *.S"
             puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_arm.o"
         }
+    } elseif { $proctype == "microblaze_riscv" } {
+        puts $makeconfig "LIBSOURCES = *.c *.S"
+        puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_riscv.o"
     } else {
         error "ERROR: processor $proctype is not supported"
     }
@@ -761,6 +772,11 @@ proc generate {os_handle} {
     # Create config files for Microblaze exception handling
     if { $proctype == "microblaze" && [mb_has_exceptions $hw_proc_handle] } {
         xcreate_mb_exc_config_file $os_handle
+    }
+
+    # Create config files for Microblaze RISC-V exception handling
+    if { $proctype == "microblaze_riscv" } {
+        xcreate_riscv_exc_config_file $os_handle
     }
 
     # Create bspconfig file
@@ -865,6 +881,9 @@ proc generate {os_handle} {
     }
     if { $proctype == "microblaze"} {
 	puts $file_handle "#define PLATFORM_MB"
+    }
+    if { $proctype == "microblaze_riscv"} {
+	puts $file_handle "#define PLATFORM_RISCV"
     }
 
     if { $proctype == "psv_pmc"} {
@@ -1125,7 +1144,7 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 
 		puts $file_handle "#define XSLEEP_TIMER_IS_DEFAULT_TIMER"
     } elseif {[string match "axi_timer_*" $sleep_timer]} {
-		if { $proctype == "microblaze" } {
+		if { $proctype == "microblaze" || $proctype == "microblaze_riscv" } {
 			set instance [string index $sleep_timer end]
 			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_AXI_TIMER_%d_BASEADDR" $instance ] "
 			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_AXI_TIMER_%d_CLOCK_FREQ_HZ" $instance ] "
@@ -1324,6 +1343,49 @@ proc xcreate_mb_exc_config_file {os_handle} {
         if {$predecode_fpu_exceptions != false } {
             puts $hconfig_file "\#define MICROBLAZE_FP_EXCEPTION_DECODE 1"
         }
+    }
+
+    puts $hconfig_file "\n"
+    puts $hconfig_file "\#ifdef __cplusplus"
+    puts $hconfig_file "}"
+    puts $hconfig_file "\#endif \n"
+    puts $hconfig_file "\#endif"
+    puts $hconfig_file "\n"
+    close $hconfig_file
+}
+
+
+# -------------------------------------------
+# Tcl procedure xcreate_riscv_exc_config file
+# -------------------------------------------
+proc xcreate_riscv_exc_config_file {os_handle} {
+
+    set hfilename [file join "src" "riscv_exceptions_g.h"]
+    file delete $hfilename
+    set hconfig_file [open $hfilename w]
+    ::hsi::utils::write_c_header $hconfig_file "Exception Handling Header for MicroBlaze RISC-V Processor"
+    set sw_proc_handle [hsi::get_sw_processor]
+    set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle] ]
+    set procvlnv [common::get_property VLNV $hw_proc_handle]
+    set procvlnv [split $procvlnv :]
+    set procver [lindex $procvlnv 3]
+
+    set fsl_ee [common::get_property CONFIG.C_FSL_EXCEPTION $hw_proc_handle]
+    if { $fsl_ee == "" } {
+        set fsl_ee 0
+    }
+
+    puts $hconfig_file "\#ifndef RISCV_EXCEPTIONS_G_H"
+    puts $hconfig_file "\#define RISCV_EXCEPTIONS_G_H"
+    puts $hconfig_file "\n"
+    puts $hconfig_file "\#ifdef __cplusplus"
+    puts $hconfig_file "extern \"C\" {"
+    puts $hconfig_file "\#endif"
+    puts $hconfig_file "\n"
+    puts $hconfig_file "\#define RISCV_EXCEPTIONS_ENABLED 1"
+
+    if { $fsl_ee != 0 } {
+        puts $hconfig_file "\#define RISCV_FSL_EXCEPTION 1"
     }
 
     puts $hconfig_file "\n"
