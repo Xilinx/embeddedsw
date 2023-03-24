@@ -8,6 +8,9 @@
 /**
 *
 * @file xpuf_client.c
+* @addtogroup xpuf_client_api XilPuf Client API
+* @{
+* @details
 *
 * This file contains the implementation of the client interface functions for
 * PUF hardware interface API's.

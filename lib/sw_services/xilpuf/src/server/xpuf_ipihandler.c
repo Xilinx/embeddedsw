@@ -8,7 +8,9 @@
 /**
 *
 * @file xpuf_ipihandler.c
-*
+* @addtogroup xpuf_server_api XilPuf Server API
+* @{
+* @details
 * This file contains the XilPuf IPI Handler definition.
 *
 * <pre>
@@ -40,8 +42,8 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XPUF_SYNDROME_ADDRESS		(0xF2008000U)
-	/**< Address to copy PUF syndrome data for 64-bit Syndrome data address */
+#define XPUF_SYNDROME_ADDRESS		(0xF2008000U) /**< Address to copy PUF syndrome data
+                                                       * when the provided SyndromeAddr is 64-bit */
 
 /************************** Function Prototypes *****************************/
 static int XPuf_PufRegistration(u32 AddrLow, u32 AddrHigh);
@@ -57,8 +59,8 @@ static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len);
  * @param 	    Cmd is pointer to the command structure
  *
  * @return
- *	-	XST_SUCCESS - If the handler execution is successful
- *	-	ErrorCode - If there is a failure
+ *			 - XST_SUCCESS - If the programming is successful
+ * 			 - ErrorCode - If there is a failure
  *
  ******************************************************************************/
 int XPuf_IpiHandler(const XPlmi_Cmd *Cmd)
@@ -106,8 +108,8 @@ END:
  *				XPuf_DataAddr structure
  *
  * @return
- *	-	XST_SUCCESS - If the programming is successful
- *	-	ErrorCode - If there is a failure
+ *			 - XST_SUCCESS - If the programming is successful
+ * 			 - ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XPuf_PufRegistration(u32 AddrLow, u32 AddrHigh) {
@@ -191,8 +193,8 @@ END:
  *				XPuf_DataAddr structure
  *
  * @return
- *	-	XST_SUCCESS - If the programming is successful
- *	-	ErrorCode - If there is a failure
+ *			 - XST_SUCCESS - If the programming is successful
+ * 			 - ErrorCode - If there is a failure
  *
  ******************************************************************************/
 static int XPuf_PufRegeneration(u32 AddrLow, u32 AddrHigh) {
@@ -268,8 +270,8 @@ END:
  * @param 	Len 		Length of data to be copied in bytes
  *
  * @return
- *	-	XST_SUCCESS - If the copy is successful
- *	-	XST_FAILURE - If there is a failure
+ *			 - XST_SUCCESS - If the copy is successful
+ *			 - XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
 static INLINE int XPuf_MemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
