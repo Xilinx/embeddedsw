@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 2.15  sa   01/05/23 Removed inclusion of mb_interface.h, as it is not
+*                     required.
 * </pre>
 ******************************************************************************/
 
@@ -39,7 +42,6 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xiomodule.h"
-#include "mb_interface.h"
 #include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
