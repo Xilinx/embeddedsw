@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +14,11 @@
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 int TMR_ManagerIntrExample(XIntc* IntcInstancePtr, \
+                            XTMR_Manager* TMRManagerInstancePtr, \
+                            u16 TMRManagerDeviceId, \
+                            u16 TMRManagerIntrId);
+#elif defined(XPAR_IOMODULE_0_DEVICE_ID)
+int TMR_ManagerIntrExample(XIOModule* IntcInstancePtr, \
                             XTMR_Manager* TMRManagerInstancePtr, \
                             u16 TMRManagerDeviceId, \
                             u16 TMRManagerIntrId);

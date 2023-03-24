@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,10 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+* 2.15  sa   01/05/23 Updated example to use generic API Xil_ExceptionEnable
+*                     instead of Microblaze specific API
+*                     microblaze_enable_interrupts. It is needed to support
+*                     RISC-V.
 * </pre>
 ******************************************************************************/
 
@@ -34,7 +39,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xiomodule_l.h"
-#include "mb_interface.h"
+#include "xil_exception.h"
 #include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
@@ -185,9 +190,9 @@ XStatus IOModuleLowLevelExample(u32 IOModuleBaseAddress)
 void SetupInterruptSystem()
 {
     /*
-     * Enable the Interrupts on the Microblaze.
+     * Enable the Interrupts on the processor.
      */
-    microblaze_enable_interrupts();
+    Xil_ExceptionEnable();
 }
 
 

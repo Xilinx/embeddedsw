@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,6 +36,9 @@
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #include <stdio.h>
+#elif defined(XPAR_IOMODULE_0_DEVICE_ID)
+#include "xiomodule.h"
+#include <stdio.h>
 #else
 #include "xscugic.h"
 #include "xil_printf.h"
@@ -49,11 +53,16 @@
  */
 #ifndef TESTAPP_GEN
 #define TMR_MANAGER_DEVICE_ID	  XPAR_TMR_MANAGER_0_DEVICE_ID
-#define TMR_MANAGER_IRPT_INTR	  XPAR_INTC_0_TMR_MANAGER_0_VEC_ID
+
 
 #ifdef XPAR_INTC_0_DEVICE_ID
+#define TMR_MANAGER_IRPT_INTR   XPAR_INTC_0_TMR_MANAGER_0_VEC_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#elif defined(XPAR_IOMODULE_0_DEVICE_ID)
+#define TMR_MANAGER_IRPT_INTR   XPAR_IOMODULE_0_TMR_MANAGER_0_VEC_ID
+#define INTC_DEVICE_ID		XPAR_IOMODULE_0_DEVICE_ID
 #else
+#define TMR_MANAGER_IRPT_INTR   XPAR_SCUGIC_SINGLE_TMR_MANAGER_0_VEC_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif /* TESTAPP_GEN */
@@ -64,6 +73,9 @@
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define INTC_HANDLER	XIntc_InterruptHandler
+#elif defined(XPAR_IOMODULE_0_DEVICE_ID)
+#define INTC		XIOModule
+#define INTC_HANDLER	XIOModule_InterruptHandler
 #else
 #define INTC		XScuGic
 #define INTC_HANDLER	XScuGic_InterruptHandler
@@ -324,6 +336,47 @@ int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
 	 * Enable the interrupt for the TMR_Manager.
 	 */
 	XIntc_Enable(IntcInstancePtr, TMR_ManagerIntrId);
+#elif defined(XPAR_IOMODULE_0_DEVICE_ID)
+
+#ifndef TESTAPP_GEN
+	/*
+	 * Initialize the interrupt controller driver so that it is ready
+	 * to use.
+	 */
+	Status = XIOModule_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
+
+	/*
+	 * Connect a device driver handler that will be called when an interrupt
+	 * for the device occurs, the device driver handler performs the specific
+	 * interrupt processing for the device.
+	 */
+	Status = XIOModule_Connect(IntcInstancePtr, TMR_ManagerIntrId,
+			(Xil_ExceptionHandler)TMR_ManagerHandler,
+			(void *)TMR_ManagerInstPtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+#ifndef TESTAPP_GEN
+	/*
+	 * Start the interrupt controller such that interrupts are enabled for
+	 * all devices that cause interrupts, specific real mode so that
+	 * the core can cause interrupts thru the interrupt controller.
+	 */
+	Status = XIOModule_Start(IntcInstancePtr, XIN_REAL_MODE);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
+
+	/*
+	 * Enable the interrupt for the TMR_Manager.
+	 */
+	XIOModule_Enable(IntcInstancePtr, TMR_ManagerIntrId);
 #else
 
 #ifndef TESTAPP_GEN
@@ -415,6 +468,8 @@ static void TMR_ManagerDisableIntrSystem(INTC *IntcInstancePtr,
 	 */
 #ifdef XPAR_INTC_0_DEVICE_ID
 	XIntc_Disconnect(IntcInstancePtr, TMR_ManagerIntrId);
+#elif defined(XPAR_IOMODULE_0_DEVICE_ID)
+	XIOModule_Disconnect(IntcInstancePtr, TMR_ManagerIntrId);
 #else
 	XScuGic_Disable(IntcInstancePtr, TMR_ManagerIntrId);
 	XScuGic_Disconnect(IntcInstancePtr, TMR_ManagerIntrId);

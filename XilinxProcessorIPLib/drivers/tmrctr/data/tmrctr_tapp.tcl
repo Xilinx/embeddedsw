@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -11,6 +12,7 @@
 # 4.6      mus    03/13/19 Updated to support scenario where AXI TIMER is
 #                          interrupting ARM processor through more than
 #                          one interrupt pin. Fix for CR#1024699
+# 4.11     mus    01/05/23 Updated to support Microblaze RISC-V
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_I
 ##
@@ -135,7 +137,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
   if {$iftmrintr == 1} {
 	if {
-           $proc == "microblaze"
+           $proc == "microblaze" || $proc == "microblaze_riscv"
 	} then {
 		set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {
@@ -177,7 +179,7 @@ proc gen_testfunc_call {swproj mhsinst} {
 
   if {$iftmrintr == 1} {
 	if {
-           $proc == "microblaze"
+           $proc == "microblaze" || $proc == "microblaze_riscv"
 	} then {
 		set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	} else {

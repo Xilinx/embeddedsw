@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -12,6 +12,7 @@
 # 1.2      mus    08/31/20 Updated makefile to support parallel make and
 #                          incremental builds. It would help to reduce
 #                          compilation time.
+# 1.5      sa     01/05/23 Added support for Microblaze RISC-V processor.
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -21,7 +22,7 @@ BEGIN driver tmr_manager
   OPTION supported_peripherals = (tmr_manager);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.4;
+  OPTION VERSION = 1.5;
   OPTION NAME = tmr_manager;
 
 END driver
