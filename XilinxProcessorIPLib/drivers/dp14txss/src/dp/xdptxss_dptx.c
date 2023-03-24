@@ -177,10 +177,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		if (Status != XST_SUCCESS)
 			return XST_FAILURE;
 
-		/* Enable MST in DisplayPort TX. */
-		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_MST_CONFIG,
-			     XDP_TX_MST_CONFIG_MST_EN_MASK);
-
 		Status = XDp_TxCheckLinkStatus(InstancePtr,
 				InstancePtr->TxInstance.LinkConfig.LaneCount);
 		if (Status != XST_SUCCESS)
