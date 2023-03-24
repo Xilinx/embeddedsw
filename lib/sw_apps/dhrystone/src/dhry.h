@@ -425,7 +425,7 @@
 #include "xil_io.h"
 #include "xparameters.h"
 #include "platform_config.h"
-#if !defined (__MICROBLAZE__)
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 #include "xtime_l.h"
 #include "xpseudo_asm.h"
 #endif
@@ -434,7 +434,7 @@ typedef enum  {Ident_1, Ident_2, Ident_3, Ident_4, Ident_5}
 				Enumeration;
 
 /* General definitions: */
-#if !defined (__MICROBLAZE__)
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 #define ITERATIONS				16000000
 #else
 #define ITERATIONS				160000
@@ -445,13 +445,13 @@ typedef enum  {Ident_1, Ident_2, Ident_3, Ident_4, Ident_5}
 #define true					1
 #define false					0
 
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 typedef u64 XTime;
 #endif
 
 #define structassign(d, s)			d = s
 
-#if !defined (__MICROBLAZE__)
+#if !defined (__MICROBLAZE__) && !defined (__riscv)
 #if defined (__aarch64__) && !defined (ARMR5)
 #if !defined (versal)
 #define CLOCKS_PER_SEC XPAR_CPU_CORTEXA53_0_CPU_CLK_FREQ_HZ
@@ -472,7 +472,7 @@ typedef u64 XTime;
 #define CLOCKS_PER_SEC	XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ
 #endif
 #else
-#define CLOCKS_PER_SEC XPAR_MICROBLAZE_CORE_CLOCK_FREQ_HZ
+#define CLOCKS_PER_SEC XPAR_CPU_CORE_CLOCK_FREQ_HZ
 #define COUNTS_PER_SECOND XPAR_TMRCTR_0_CLOCK_FREQ_HZ
 #endif
 
@@ -480,7 +480,7 @@ typedef u64 XTime;
 #define GETTIME(_t)		(*_t=barebones_clock())
 
 /* Axi Timer specific macros used for Microblaze CPU */
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 #define MB_AXITIMER_BASEADDR 			XPAR_TMRCTR_0_BASEADDR
 #define MB_AXITIMER_TCSR0_OFFSET		0U
 #define MB_AXITIMER_TLR_OFFSET			4U

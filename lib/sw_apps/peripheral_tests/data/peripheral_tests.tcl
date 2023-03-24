@@ -1,5 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+#* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -399,7 +400,7 @@ proc copy_files {src_files_base src_files od} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "ps7_cortexa9 psu_cortexa53 psu_cortexr5 microblaze psv_cortexa72 psv_cortexr5 psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52";
+    return "ps7_cortexa9 psu_cortexa53 psu_cortexr5 microblaze psv_cortexa72 psv_cortexr5 psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52 microblaze_riscv";
 }
 
 proc swapp_get_supported_os {} {

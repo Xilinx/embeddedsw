@@ -28,7 +28,7 @@
 
 #include "dhry.h"
 
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 static void MB_StartAxiTimer(void)
 {
 	u32 ControlStatusReg;
@@ -273,7 +273,7 @@ int main ()
 	/***************/
 	/* Start timer */
 	/***************/
-#if defined (__MICROBLAZE__)
+#if defined (__MICROBLAZE__) || defined (__riscv)
 	MB_StartAxiTimer();
 #endif
 	start_time();

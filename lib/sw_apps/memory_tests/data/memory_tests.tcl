@@ -1,6 +1,6 @@
 #/******************************************************************************
 #* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-#* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+#* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 #* SPDX-License-Identifier: MIT
 #******************************************************************************/
 
@@ -177,7 +177,7 @@ proc get_program_code_memory { proctype mem_ranges } {
 	}
     }
 
-    if { $proctype == "microblaze" } {
+    if { $proctype == "microblaze" || $proctype == "microblaze_riscv"} {
 	if { $bram_mem != "" } {
 	    return $bram_mem
 	} elseif { $ocm_mem != "" } {
@@ -236,7 +236,7 @@ proc get_program_data_memory { proctype mem_ranges } {
 	}
     }
 
-    if { $proctype == "microblaze" } {
+    if { $proctype == "microblaze" || $proctype == "microblaze_riscv"} {
 	if { $bram_mem != "" } {
 	    return $bram_mem
 	} elseif { $ocm_mem != "" } {
@@ -262,11 +262,12 @@ proc get_program_data_memory { proctype mem_ranges } {
 }
 
 # for microblaze, we need 8k of memory.
+# for microblaze_riscv, we need 8k of memory.
 # for cortexa9, we need 64k of memory
 proc get_required_mem_size {} {
     set proc_instance [hsi::get_sw_processor];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc_instance]];
-    if { $proc_type == "microblaze" } {
+    if { $proc_type == "microblaze" || $proc_type == "microblaze_riscv" } {
 	return "8192"
     } else {
 	return "65536"
@@ -421,7 +422,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-    return "microblaze ps7_cortexa9 psu_cortexa53 psu_cortexr5 psv_cortexa72 psv_cortexr5 psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52";
+    return "microblaze ps7_cortexa9 psu_cortexa53 psu_cortexr5 psv_cortexa72 psv_cortexr5 psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52 microblaze_riscv";
 }
 
 proc swapp_get_supported_os {} {
