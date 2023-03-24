@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -2572,6 +2573,10 @@ static PmClockHandle pmClockHandles[] = {
 	CONNECT(pmClockGem1Tx,		pmSlaveEth1_g.node),
 	CONNECT(pmClockGem1Rx,		pmSlaveEth1_g.node),
 	CONNECT(pmClockGemTsu,		pmSlaveEth1_g.node),
+	CONNECT(pmClockGemTsuRef,       pmSlaveEth0_g.node),
+	CONNECT(pmClockGemTsuRef,       pmSlaveEth1_g.node),
+	CONNECT(pmClockGemTsuRef,       pmSlaveEth2_g.node),
+	CONNECT(pmClockGemTsuRef,       pmSlaveEth3_g.node),
 	CONNECT(pmClockLpdLsBus,	pmSlaveEth1_g.node),
 	CONNECT(pmClockGem2RefUngated,	pmSlaveEth2_g.node),
 	CONNECT(pmClockGem2Ref,		pmSlaveEth2_g.node),
