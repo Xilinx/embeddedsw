@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-# Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -13,6 +13,7 @@
 # 7.7   adk  24/11/21 First release
 # 8.0   adk  09/08/22 Added support for versal net
 # 8.1	adk  09/11/22 Fix interrupt parent address for versal net
+# 9.0   sa   01/05/23 Added support for Microblaze RISC-V.
 ##############################################################################
 
 #generate interrupt id and interrupt parent info
@@ -72,7 +73,7 @@ proc gen_intr {drv_handle file_name args} {
 		}
             }
 
-            if {${processor_type} == "microblaze"} {
+            if {${processor_type} == "microblaze" | ${processor_type} == "microblaze_riscv"} {
 		set intcname [string toupper $intcname]
 		set ip_name [string toupper $ip]
 		set intr_pin_name [string toupper $intr_pin_name]

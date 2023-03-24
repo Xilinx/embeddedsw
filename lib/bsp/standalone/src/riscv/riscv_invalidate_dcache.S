@@ -1,0 +1,42 @@
+/******************************************************************************
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+/******************************************************************************
+*
+* riscv_invalidate_dcache()
+*
+*    Invalidate entire data cache and corresponding part of instruction cache:
+*    - Start from dcache line index 0
+*    - Stop at the dcache byte size
+*    - Increment by dcache line length in bytes
+*
+*******************************************************************************/
+
+#include "xpseudo_asm.h"
+#include "xparameters.h"
+
+.global	riscv_invalidate_dcache
+.section .text
+.align 2
+.type riscv_invalidate_dcache, @function
+
+#ifndef XPAR_MICROBLAZE_RISCV_DCACHE_LINE_LEN
+#define XPAR_MICROBLAZE_RISCV_DCACHE_LINE_LEN     4
+#endif
+
+#define INCREMENT 4 * XPAR_MICROBLAZE_RISCV_DCACHE_LINE_LEN
+#define BYTE_SIZE XPAR_MICROBLAZE_RISCV_DCACHE_BYTE_SIZE & (-(INCREMENT))
+
+riscv_invalidate_dcache:
+#if XPAR_MICROBLAZE_RISCV_USE_DCACHE==1
+	li 	t0, 0               /* Start at dcache index 0 */
+	li 	t1, BYTE_SIZE       /* Stop at dcache byte size */
+L_start:
+	.long	0x8002A00F          /* "cbo.inval (t0)" with bit 31 set to invalidate without matching address check */
+	addi	t0, t0, INCREMENT   /* Increment the address by line length in bytes */
+	bltu	t0, t1, L_start     /* Are we at the end? */
+#endif
+L_done:
+	ret                         /* Return */
+.end riscv_invalidate_dcache

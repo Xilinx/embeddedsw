@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -162,6 +162,10 @@ typedef void (*XInterruptHandler) (void *InstancePtr);
  * The argument points to the instance of the component
  */
 typedef void (*XExceptionHandler) (void *InstancePtr);
+
+#if defined (__riscv_xlen) && __riscv_xlen == 64
+#define __arch64__
+#endif
 
 /**
  * @brief  Returns 32-63 bits of a number.
