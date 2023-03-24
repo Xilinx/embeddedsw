@@ -7,6 +7,9 @@
 /**
 *
 * @file xpuf_init.c
+* @addtogroup xpuf_server_api_ XilPuf Server API
+* @{
+* @details
 *
 * This file contains the initialization functions to be called by PLM. This
 * file will only be part of XilPuf when it is compiled with PLM.
@@ -46,6 +49,7 @@
 /*****************************************************************************/
 /**
  * @brief	This function registers the handlers for Xilpuf IPI commands
+ *
  *
  *****************************************************************************/
 void XPuf_Init(void)

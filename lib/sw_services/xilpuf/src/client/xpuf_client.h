@@ -47,12 +47,11 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS];
-	u32 Chash;
-	u32 Aux;
-	u32 PufID[XPUF_ID_LEN_IN_WORDS];
-	u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS];
-				 /* Trimmed data to be written in efuse */
+	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS]; /**<PUF syndrome data */
+	u32 Chash; /**< PUF Chash */
+	u32 Aux; /**< PUF AUX data */
+	u32 PufID[XPUF_ID_LEN_IN_WORDS]; /**< PUF ID */
+	u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS]; /**< Trimmed data to be written in efuse */
 } XPuf_PufData;
 
 /***************** Macros (Inline Functions) Definitions *********************/

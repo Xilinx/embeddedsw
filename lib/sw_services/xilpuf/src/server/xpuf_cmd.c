@@ -74,8 +74,9 @@ static XPlmi_Module XPlmi_Puf =
  * @param	Payload  payload data
  * @param   RespBuf buffer to store response of slaves
  *
- * @return 	XST_SUCCESS		    on successful communication
- * 		    error code      	On failure
+ * @return
+ *			 - XST_SUCCESS  On successful communication
+ *			 - error code  On failure
  *
  *****************************************************************************/
 static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
@@ -100,8 +101,8 @@ static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
  * @param	ApiId	ApiId to check the supported features
  *
  * @return
- *	-	XST_SUCCESS - if the requested API ID is supported
- * 	-	XST_INVALID_PARAM - On invalid command
+ *			 - XST_SUCCESS  if the requested API ID is supported
+ *			 - XST_INVALID_PARAM  On invalid command
  *
  *****************************************************************************/
 static int XPuf_FeaturesCmd(u32 ApiId)
@@ -134,10 +135,9 @@ static int XPuf_FeaturesCmd(u32 ApiId)
  * @param	Cmd 	Pointer to the XPlmi_Cmd structure
  *
  * @return
- *	-	XST_SUCCESS - On successful IPI processing
- * 	-	XST_INVALID_PARAM - On invalid command
- * 	-	Error Code - On Failure
- *
+ *			 - XST_SUCCESS  On successful IPI processing
+ *			 - XST_INVALID_PARAM  On invalid command
+ *			 - Error Code  On Failure
  *****************************************************************************/
 static int XPuf_ProcessCmd(XPlmi_Cmd *Cmd)
 {
