@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -500,6 +501,10 @@ u32 XDp_TxEstablishLink(XDp *InstancePtr)
 
 	/* Train main link. */
 	Status = XDp_TxRunTraining(InstancePtr);
+
+	/* Enable MST in DisplayPort TX. */
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_MST_CONFIG,
+		     XDP_TX_MST_CONFIG_MST_EN_MASK);
 
 	/* Turn off the training pattern and enable scrambler. */
 	Status2 = XDp_TxSetTrainingPattern(InstancePtr,
