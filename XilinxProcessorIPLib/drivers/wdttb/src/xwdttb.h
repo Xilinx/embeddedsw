@@ -562,7 +562,7 @@ static inline void XWdtTb_StartQASequence(XWdtTb *InstancePtr, u32 Value)
 * This function sets the first feedback value for the TFR .
 *
 * @param     InstancePtr pointer to the XWdtTb instance to be worked on.
-* @param     First feedback to be programmed.
+* @param     Feedback to be programmed.
 * @return    None.
 *
 * @note
@@ -674,7 +674,7 @@ static inline u32 XWdtTb_InSecondWindow(XWdtTb *InstancePtr)
 *
 * @param     InstancePtr is a pointer to the XWdtTb instance to be
 *            worked on.
-* @param     Answer Value to be programmed.
+* @param     Ans Value to be programmed.
 *
 * @return    None
 *

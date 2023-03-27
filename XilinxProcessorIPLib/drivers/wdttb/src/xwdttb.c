@@ -1296,7 +1296,7 @@ u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width)
 *
 * @param	TokenVal : Token value read from TVAL
 * @param	AnsByteCnt : Byte on which response is generated
-* @param	TokenFdbkVal: Token feedback value read from TFR
+* @param	TokenFdbk: Token feedback value read from TFR
 *
 * @return	Response byte (calculated based on logic given WWDT architecture)
 *
