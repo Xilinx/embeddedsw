@@ -35,7 +35,7 @@ BEGIN driver wdttb
   OPTION supported_peripherals = (axi_timebase_wdt psv_wwdt psxl_wwdt psxl_pmc_wwdt psx_wwdt psx_pmc_wwdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 5.6;
+  OPTION VERSION = 5.7;
   OPTION NAME = wdttb;
 
 END driver
