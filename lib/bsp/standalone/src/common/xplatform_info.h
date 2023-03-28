@@ -36,6 +36,8 @@
 *		       misra_c_2012_rule_10_4 violation.
 * 8.1    mus  02/13/23 Added new API's XGetCoreId and XGetClusterId. As of now
 *                      they are supported only for VERSAL_NET APU and RPU.
+* 9.0    mus 03/28/23 Added new API XGetBootStatus for VERSAL_NET. It can be
+*                     used to identify type of boot (cold/warm).
 * </pre>
 *
 ******************************************************************************/
@@ -89,6 +91,32 @@ extern "C" {
 #define XPLAT_INFO_SHIFT 0xCU
 #endif
 
+#if defined (VERSAL_NET)
+#if defined (ARMR52)
+#define XPS_NUM_OF_CORES_PER_CLUSTER	2U
+#define XPS_RPU_PCIL_A0_PWRDWN		0xEB4200C0U
+/*
+ * Offset between RPU_PCIL_X_PWRDWN registers of consecutive
+ * CPU cores in given cluster
+ */
+#define XPS_RPU_PCIL_CORE_OFFSET	0x100U
+
+/*
+ * Offset between RPU_PCIL_A0_PWRDWN registers of 2 clusters
+ */
+#define XPS_RPU_PCIL_CLUSTER_OFFSET	0x1000U
+#define XPS_RPU_PCIL_X_PWRDWN_EN_MASK	1U
+#else
+#define XPS_NUM_OF_CORES_PER_CLUSTER	4U
+#define XPS_CORE_X_PWRDWN_BASEADDR	0xECB10000U
+/*
+ * Offset between CORE_X_PWRDWN registers of consecutive
+ * CPU cores
+ */
+#define XPS_CORE_X_PWRDWN_OFFSET	48U
+#define XPS_CORE_X_PWRDWN_EN_MASK	1U
+#endif
+#endif
 /**************************** Type Definitions *******************************/
 /**
  *@endcond
@@ -109,6 +137,7 @@ u32 XGet_Zynq_UltraMp_Platform_info(void);
 #if (defined (__aarch64__) && defined (VERSAL_NET)) || defined (ARMR52)
 u8 XGetClusterId(void);
 u8 XGetCoreId(void);
+u8 XGetBootStatus(void);
 #endif
 
 /************************** Function Prototypes ******************************/

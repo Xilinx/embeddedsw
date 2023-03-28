@@ -30,6 +30,8 @@
 * 8.0   mus  07/06/21 Added support for VERSAL NET
 * 8.0   mus  06/27/22 Enabled PMU counter.
 * 8.2   asa  02/23/23 Add instruction barrier after updating PMCR_EL0.
+* 9.0   mus  02/23/23 Skip BSS clearing logic in case of warm boot. It
+*                     fixes CR#1157817.
 * </pre>
 *
 * @note
@@ -74,6 +76,10 @@ _startup:
 	ands	w11, w11, w2		/* Get PWRCTRL bit for this core */
 	bne	.Lenclbss		/* Skip BSS and SBSS clearing */
 .endif
+#else
+	bl	XGetBootStatus		/* Identify type of boot, it returns 0- cold boot, 1- warm boot */
+	ands	x0, x0, #1
+	bne     .Lenclbss               /* Warm boot, Skip BSS and SBSS clearing */
 #endif
 	/* clear sbss */
 	ldr 	x1,.Lsbss_start		/* calculate beginning of the SBSS */

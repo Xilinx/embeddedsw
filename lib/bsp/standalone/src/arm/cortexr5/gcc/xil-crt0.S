@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -30,6 +31,8 @@
 *                     to fix it.
 * 	adk  09/08/22 When xiltimer is enabled don't call XTime_StartTimer()
 *		      API.
+* 9.0   mus  02/23/23 Skip BSS clearing logic in case of warm boot. It
+*                     fixes CR#1157817
 * </pre>
 *
 ******************************************************************************/
@@ -69,10 +72,13 @@
 _startup:
 	bl      __cpu_init		/* Initialize the CPU first (BSP provides this) */
 
-/* TODO: This logic needs to be updated for Cortex-R52 */
 #ifndef XPAR_XILTIMER_ENABLED
 #if  defined (ARMR52)
 	bl XTime_StartTimer
+	bl XGetBootStatus
+	ands	r0, r0, #1
+	 /* if warm reset, skip the clearing of BSS and SBSS */
+	bne .Lenclbss
 #else
 #if (PROCESSOR_ACCESS_VALUE & RPU_TZ_MASK)
 	mrc	p15, 0, r0,  c0,  c0, 5	/* Read MPIDR register */
