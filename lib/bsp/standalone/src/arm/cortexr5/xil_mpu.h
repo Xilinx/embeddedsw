@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,9 +53,8 @@
 * 7.7	sk   01/10/22 Modify Xil_SetTlbAttributes function argument name to fix
 * 		      misra_c_2012_rule_8_3 violation.
 * 8.0   mus  05/09/22  Updated MPU related APIs to support CortexR52 processor.
+* 9.0   ml   03/03/23  Add description to fix doxygen warnings.
 * </pre>
-*
-
 *
 *
 ******************************************************************************/
@@ -102,7 +102,7 @@ extern XMpu_Config Mpu_Config;
  *@endcond
  */
 
-void Xil_SetTlbAttributes(INTPTR addr, u32 attrib);
+void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib);
 void Xil_EnableMPU(void);
 void Xil_DisableMPU(void);
 u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib);
@@ -113,7 +113,7 @@ u32 Xil_GetNextMPURegion(void);
 u32 Xil_DisableMPURegionByRegNum (u32 reg_num);
 u16 Xil_GetMPUFreeRegMask (void);
 u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib);
-void* Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags);
+void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags);
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +54,7 @@
 *		       ULONG to fix misra_c_2012_rule_4_6 violation.
 * 8.0	sk   03/17/22  Update RHS operands to unsigned to match with LHS
 *		       operands and fix misra_c_2012_rule_10_4 violation.
-*
+* 9.0   ml   03/03/23  Add description to fix doxygen warnings.
 * </pre>
 *
 * @note
@@ -145,7 +146,7 @@ static void sleep_common(u32 n, u32 iters)
 /*****************************************************************************/
 /**
 * @brief    Provides delay for requested duration.
-* @param	useconds- time in useconds.
+* @param	useconds - time in useconds.
 * @return	0
 *
 * @note		Instruction cache should be enabled for this to work.
@@ -166,7 +167,7 @@ void usleep_MB(ULONG useconds)
 /*****************************************************************************/
 /**
 * @brief    Provides delay for requested duration.
-* @param	seconds- time in useconds.
+* @param	seconds - time in useconds.
 * @return	0
 *
 * @note		Instruction cache should be enabled for this to work.
@@ -189,7 +190,7 @@ void sleep_MB(u32 seconds)
 *
 * @brief    Provides delay for requested duration..
 *
-* @param	MilliSeconds- Delay time in milliseconds.
+* @param	MilliSeconds - Delay time in milliseconds.
 *
 * @return	None.
 *

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,7 @@
 * 6.6	srm	 10/18/17 Updated sleep routines to support user configurable
 *			  implementation. Now sleep routines will use Timer
 *                         specified by the user (i.e. Global timer/TTC timer)
+* 9.0   ml       03/03/23 Added description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -45,7 +47,7 @@
 #if defined (SLEEP_TIMER_BASEADDR)
 #define COUNTS_PER_USECOND (SLEEP_TIMER_FREQUENCY / 1000000)
 #else
-/* Global Timer is always clocked at half of the CPU frequency */
+/**< Global Timer is always clocked at half of the CPU frequency */
 #define COUNTS_PER_USECOND  (XPAR_CPU_CORTEXA9_CORE_CLOCK_FREQ_HZ / (2U*1000000U))
 #endif
 

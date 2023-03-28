@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +26,7 @@
  * 6.8  asa  11/10/18 Fix issues in cache Xil_DCacheInvalidate and
  * 			Xil_DCacheFlush that got introduced in the optimization
  * 			changes done in the previous patch for this file.
+ * 9.0  ml   03/03/23 Add description to fix doxygen warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -42,11 +44,11 @@
 
 /************************** Variable Definitions *****************************/
 
-#define IRQ_FIQ_MASK 0xC0U	/* Mask IRQ and FIQ interrupts in cpsr */
+#define IRQ_FIQ_MASK 0xC0U	/**< Mask IRQ and FIQ interrupts in cpsr */
 
 extern s32  _stack_end;
 extern s32  __undef_stack;
-#define SELECT_D_CACHE 0
+#define SELECT_D_CACHE 0	/**< Select data cache */
 
 /****************************************************************************/
 /**

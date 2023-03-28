@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,12 +22,13 @@
 * 7.2 sd  03/20/20 Added checking for isolation case
 * 7.7 sk  01/10/22 Add function prototype for Xil_ClockGetRate to fix
 * 		   misra_c_2012_rule_8_4 violation.
+* 9.0 ml  03/03/23 Added description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XIL_CLOCKING_H	/* prevent circular inclusions */
-#define XIL_CLOCKING_H	/* by using protection macros */
+#ifndef XIL_CLOCKING_H	/**< prevent circular inclusions */
+#define XIL_CLOCKING_H	/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

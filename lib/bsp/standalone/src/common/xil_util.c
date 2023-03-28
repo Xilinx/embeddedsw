@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -85,6 +85,7 @@
 * 8.1   sa       10/20/22 Change the type of first argument passed to Xil_WaitForEvents
 *                         API from u32 to UINTPTR for supporting 64 bit addressing.
 * 8.1   akm      01/02/23 Added Xil_RegisterPlmHandler() & Xil_PlmStubHandler() APIs.
+* 9.0   ml       03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -94,7 +95,7 @@
 #include "sleep.h"
 
 /************************** Constant Definitions ****************************/
-#define MAX_NIBBLES			8U
+#define MAX_NIBBLES	8U /**< maximum nibbles */
 
 /************************** Function Prototypes *****************************/
 void (*fptr)(void) = NULL;

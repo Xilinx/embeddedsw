@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -61,13 +61,13 @@ int printf(const char *format, ...);
 
 #else /* defined(DEBUG) && !defined(NDEBUG) */
 
-#define xdbg_stmnt(x)
+#define xdbg_stmnt(x) /**< Debug statement */
 
 /* See VxWorks comments above */
 #if defined(XENV_VXWORKS) && defined(_WRS_GNU_VAR_MACROS)
 #define xdbg_printf(type, args...)
 #else /* ANSI Syntax */
-#define xdbg_printf(...)
+#define xdbg_printf(...) /**< Debug printf */
 #endif
 #endif /* defined(DEBUG) && !defined(NDEBUG) */
 

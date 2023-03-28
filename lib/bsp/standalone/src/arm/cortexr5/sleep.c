@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,7 +40,7 @@
 * 7.7	sk	 01/10/22 Modify sleep_R5 functions return type from unsigned
 * 			  to void to fix misra_c_2012_rule_17_7 violation.
 * 8.0   mus  02/24/22    Updated sleep_R5 to support CortexR52 processor.
-*
+* 9.0   ml   03/03/23    add description and remove comments to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -52,7 +53,7 @@
 #include "xpm_counter.h"
 
 /*****************************************************************************/
-/*
+/**
 *
 * This API is used to provide delays in seconds.
 *
@@ -72,7 +73,6 @@
 *		of TTC3 where counter keeps running while interrupt is being served.
 *
 ****************************************************************************/
-
 void sleep_R5(u32 seconds)
 {
 #if defined (ARMR52)

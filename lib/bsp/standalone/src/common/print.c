@@ -12,13 +12,16 @@
  * the new terms are clearly indicated on the first page of each file where
  * they apply.
  *
- */
+ *****************************************************************************/
+/***************************** Include Files *********************************/
 
-/*
- * print -- do a raw print of a string
- */
 #include "xil_printf.h"
 
+/*****************************************************************************/
+/**
+* print -- do a raw print of a string
+*
+******************************************************************************/
 void print(const char8 *ptr)
 {
 #if defined (__aarch64__) && (HYP_GUEST == 1) && (EL1_NONSECURE == 1) && defined (XEN_USE_PV_CONSOLE)

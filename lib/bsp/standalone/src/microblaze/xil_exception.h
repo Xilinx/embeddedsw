@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +26,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  hbm  07/28/09 Initial release
-*
+* 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -33,8 +34,8 @@
 /**
  *@cond nocomments
  */
-#ifndef XIL_EXCEPTION_H /* prevent circular inclusions */
-#define XIL_EXCEPTION_H /* by using protection macros */
+#ifndef XIL_EXCEPTION_H /**< prevent circular inclusions */
+#define XIL_EXCEPTION_H /**< by using protection macros */
 
 #include "xil_types.h"
 
@@ -87,11 +88,11 @@ typedef void (*XInterruptHandler) (void *InstancePtr);
 
 /************************** Function Prototypes ******************************/
 
-extern void Xil_ExceptionRegisterHandler(u32 Id,
+extern void Xil_ExceptionRegisterHandler(u32 Exception_id,
 					 Xil_ExceptionHandler Handler,
 					 void *Data);
 
-extern void Xil_ExceptionRemoveHandler(u32 Id);
+extern void Xil_ExceptionRemoveHandler(u32 Exception_id);
 
 extern void Xil_ExceptionInit(void);
 extern void Xil_ExceptionEnable(void);

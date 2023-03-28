@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,7 @@
 *			 redundant TLB invalidation in the same API at the beginning.
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
 *                     It fixes CR#1008309.
+* 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 * @note
@@ -52,8 +54,12 @@
 /**************************** Type Definitions *******************************/
 
 /************************** Constant Definitions *****************************/
-#define     ARM_AR_MEM_TTB_SECT_SIZE               1024*1024
-#define     ARM_AR_MEM_TTB_SECT_SIZE_MASK          (~(ARM_AR_MEM_TTB_SECT_SIZE-1UL))
+
+#define	ARM_AR_MEM_TTB_SECT_SIZE	1024*1024 /**< Each TTB descriptor
+                                                   *   covers a 1MB region */
+#define	ARM_AR_MEM_TTB_SECT_SIZE_MASK	(~(ARM_AR_MEM_TTB_SECT_SIZE-1UL))
+/**< Mask off lower bits of addr */
+
 /************************** Variable Definitions *****************************/
 
 extern u32 MMUTable;
@@ -65,8 +71,8 @@ extern u32 MMUTable;
 * @brief	This function sets the memory attributes for a section covering 1MB
 *			of memory in the translation table.
 *
-* @param	Addr: 32-bit address for which memory attributes need to be set.
-* @param	attrib: Attribute for the given memory region. xil_mmu.h contains
+* @param	Addr  32-bit address for which memory attributes need to be set.
+* @param	attrib  Attribute for the given memory region. xil_mmu.h contains
 *			definitions of commonly used memory attributes which can be
 *			utilized for this function.
 *
@@ -167,11 +173,11 @@ void Xil_DisableMMU(void)
 /**
 * @brief   Memory mapping for Cortex A9 processor.
 *
-* @param   PhysAddr is physical address.
-* @param   size is size of region.
-* @param   flags is flags used to set translation table.
+* @param	PhysAddr  is physical address.
+* @param	size is size of region.
+* @param	flags is flags used to set translation table.
 *
-* @return  Pointer to virtual address.
+* @return	Pointer to virtual address.
 *
 * @note: Previously this was implemented in libmetal. Move to embeddedsw as this
 *       functionality is specific to A9 processor.

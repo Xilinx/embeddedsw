@@ -27,6 +27,7 @@
 * 8.1    asa 02/13/23 The existing Xil_DCacheInvalidateRange has a bug where
 *                     the last cache line will not get invalidated under certain
 *                     scenarios. Changes are made to fix the same.
+* 9.0    ml  03/03/23 Added description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -43,7 +44,7 @@
 
 /************************** Variable Definitions *****************************/
 
-#define IRQ_FIQ_MASK 0xC0U	/* Mask IRQ and FIQ interrupts in cpsr */
+#define IRQ_FIQ_MASK 0xC0U	/**< Mask IRQ and FIQ interrupts in cpsr */
 
 #if defined (__clang__)
 extern s32  Image$$ARM_LIB_STACK$$Limit;

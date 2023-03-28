@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -30,7 +31,7 @@
 * 8.0	sk   03/17/22 Modify sleep_MB parameter type from unsigned int to
 *		      u32 and usleep_MB parameter type from unsigned long to
 *		      ULONG to fix misra_c_2012_rule_4_6 violation.
-*
+* 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -87,6 +88,7 @@ extern "C" {
 	(timeout>0) ? 0 : -1;  \
  }  )
 
+/************************** Function Prototypes ******************************/
 void usleep(ULONG useconds);
 void sleep(u32 seconds);
 void usleep_R5(ULONG useconds);
@@ -97,6 +99,8 @@ int usleep_A53(unsigned long useconds);
 unsigned sleep_A53(unsigned int seconds);
 int usleep_A9(unsigned long useconds);
 unsigned sleep_A9(unsigned int seconds);
+
+/*****************************************************************************/
 
 #ifdef __cplusplus
 }

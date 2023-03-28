@@ -11,11 +11,7 @@
  * and need not follow the licensing terms described here, provided that
  * the new terms are clearly indicated on the first page of each file where
  * they apply.
- */
-
-/*
- * putnum -- print a 32 bit number in hex
- */
+ *****************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
@@ -24,6 +20,11 @@
 /************************** Function Prototypes ******************************/
 void putnum(u32 num);
 
+/*****************************************************************************/
+/**
+* putnum -- print a 32 bit number in hex
+*
+******************************************************************************/
 void putnum(u32 num)
 {
   char8  buf[9];

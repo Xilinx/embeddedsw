@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2006 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2006 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,7 +24,7 @@
 * @brief   Populate the PVR data structure to which pvr points, with the
 *          values of the hardware PVR registers.
 *
-* @param	pvr- address of PVR data structure to be populated
+* @param	pvr - address of PVR data structure to be populated
 *
 * @return	0 - SUCCESS
 *          -1 - FAILURE

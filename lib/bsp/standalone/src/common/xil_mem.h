@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -23,12 +23,12 @@
 * ----- -------- -------- -----------------------------------------------
 * 6.1   nsk      11/07/16 First release.
 * 7.0   mus      01/07/19 Add cpp extern macro
-*
+* 9.0   ml       03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 *****************************************************************************/
-#ifndef XIL_MEM_H		/* prevent circular inclusions */
-#define XIL_MEM_H		/* by using protection macros */
+#ifndef XIL_MEM_H	/**< prevent circular inclusions */
+#define XIL_MEM_H	/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

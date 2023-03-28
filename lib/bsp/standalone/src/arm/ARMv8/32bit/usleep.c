@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,7 @@
 * 7.5   dp      01/05/21 Updated COUNTS_PER_USECOND macros to round it off to
 *                        nearest possible value so that delta error in time
 *                        calculations can be minimized.
+* 9.0   ml      03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -48,7 +50,7 @@
 
 /****************************  Constant Definitions  ************************/
 
-/* Global Timer is always clocked at half of the CPU frequency */
+/**< Global Timer is always clocked at half of the CPU frequency */
 #define COUNTS_PER_USECOND  ((COUNTS_PER_SECOND + 500000)/1000000)
 
 /*****************************************************************************/

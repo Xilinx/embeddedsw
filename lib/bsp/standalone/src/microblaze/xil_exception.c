@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,7 +26,7 @@
 * 		      TableEntry decalrations to header files and delete
 * 		      interrupts and excpetion disable and enable declarations
 * 		      to fix misra_c_2012_rule_8_5 violations.
-*
+* 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -124,7 +125,7 @@ void Xil_ExceptionDisable(void)
 *           The argument provided in this call as the DataPtr is used as the
 *           argument for the handler when it is called.
 *
-* @param    Id: contains the 32 bit ID of the exception source and should
+* @param    Exception_id contains the 32 bit ID of the exception source and should
 *           be XIL_EXCEPTION_INT or be in the range of 0 to XIL_EXCEPTION_LAST.
 *	        See xil_mach_exception.h for further information.
 * @param    Handler: handler function to be registered for exception
@@ -132,17 +133,17 @@ void Xil_ExceptionDisable(void)
 *           when it gets called.
 *
 ****************************************************************************/
-void Xil_ExceptionRegisterHandler(u32 Id, Xil_ExceptionHandler Handler,
+void Xil_ExceptionRegisterHandler(u32 Exception_id, Xil_ExceptionHandler Handler,
 				  void *Data)
 {
-	if (Id == XIL_EXCEPTION_ID_INT) {
+	if (Exception_id == XIL_EXCEPTION_ID_INT) {
 		MB_InterruptVectorTable[0].Handler = Handler;
 		MB_InterruptVectorTable[0].CallBackRef = Data;
 	}
 	else {
 #ifdef MICROBLAZE_EXCEPTIONS_ENABLED
-		MB_ExceptionVectorTable[Id].Handler = Handler;
-		MB_ExceptionVectorTable[Id].CallBackRef = Data;
+		MB_ExceptionVectorTable[Exception_id].Handler = Handler;
+		MB_ExceptionVectorTable[Exception_id].CallBackRef = Data;
 #endif
 	}
 }
@@ -153,23 +154,23 @@ void Xil_ExceptionRegisterHandler(u32 Id, Xil_ExceptionHandler Handler,
 * @brief    Removes the handler for a specific exception Id. The stub handler
 *           is then registered for this exception Id.
 *
-* @param    Id: contains the 32 bit ID of the exception source and should
+* @param    Exception_id contains the 32 bit ID of the exception source and should
 *           be XIL_EXCEPTION_INT or in the range of 0 to XIL_EXCEPTION_LAST.
 *	        See xexception_l.h for further information.
 *
 ****************************************************************************/
-void Xil_ExceptionRemoveHandler(u32 Id)
+void Xil_ExceptionRemoveHandler(u32 Exception_id)
 {
-	if (Id == XIL_EXCEPTION_ID_INT) {
+	if (Exception_id == XIL_EXCEPTION_ID_INT) {
 		MB_InterruptVectorTable[0].Handler = Xil_ExceptionNullHandler;
 		MB_InterruptVectorTable[0].CallBackRef = NULL;
 	}
 	else {
 
 #ifdef MICROBLAZE_EXCEPTIONS_ENABLED
-		MB_ExceptionVectorTable[Id].Handler =
+		MB_ExceptionVectorTable[Exception_id].Handler =
 			Xil_ExceptionNullHandler;
-		MB_ExceptionVectorTable[Id].CallBackRef = NULL;
+		MB_ExceptionVectorTable[Exception_id].CallBackRef = NULL;
 #endif
 	}
 }

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * ----- ------- -------- ---------------------------------------------------
 * 5.2	pkp  	28/05/15 First release
 * 6.0   mus     18/08/16 Defined ARMA53_32 flag
+* 9.0   ml      03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 * @note
@@ -29,7 +31,7 @@
 #define _XPARAMETERS_PS_H_
 
 #ifndef ARMA53_32
-#define ARMA53_32 ARMA53_32
+#define ARMA53_32 ARMA53_32 /**< flag for A53 32bit BSP */
 #endif
 
 /**

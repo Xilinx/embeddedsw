@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +48,7 @@
 *                     highest DDR address. It fixes CR#1118988
 * 8.0   dp   03/31/22 Fix compilation warning in Print_DDRSize_Warning().
 *                     Fixes CR#1124773.
+* 9.0   ml   03/03/23 Add description and remove comments to fix doxygen warnings.
 * </pre>
 *
 * @note
@@ -130,20 +132,19 @@ static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
 #endif
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * Initialize MPU for a given address map and Enabled the background Region in
 * MPU with default memory attributes for rest of address range for Cortex R5
 * processor.
-*
-* @param	None.
 *
 * @return	None.
 *
 *
 ******************************************************************************/
 static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
-																u32 Attrib)
+u32 Attrib)
 {
 	Mpu_Config[RegNum].RegionStatus = MPU_REG_ENABLED;
 	Mpu_Config[RegNum].BaseAddress = Addr;
@@ -151,11 +152,10 @@ static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
 	Mpu_Config[RegNum].Attribute = Attrib;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * Initialize MPU for during bootup with predefined region attributes.
-*
-* @param	None.
 *
 * @return	None.
 *
@@ -322,12 +322,11 @@ void Init_MPU(void)
 	/* A total of 10 MPU regions are allocated with another 6 being free for users */
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * Print warning on console if DDR size mapped to given CortexR5 core is not in
 * power of 2.
-*
-* @param        None.
 *
 * @return       None.
 *
@@ -345,7 +344,9 @@ void Print_DDRSize_Warning(void) {
 #endif
 
 }
-/*****************************************************************************
+
+/*****************************************************************************/
+/**
 *
 * Set the memory attributes for a section of memory with starting address addr
 * of the region size defined by reg_size having attributes attrib of region number
@@ -375,12 +376,10 @@ static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib)
 	isb();						/* synchronize context on this processor */
 }
 
-
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * Disable all the MPU regions if any of them is enabled
-*
-* @param	None.
 *
 * @return	None.
 *
