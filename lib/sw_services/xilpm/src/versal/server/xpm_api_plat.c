@@ -1579,24 +1579,11 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 	XPm_DomainCtrl *DomainCtrl;
 #endif
 
-	if (1U > NumArgs) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	PowerId = Args[0];
 	PowerType = NODETYPE(PowerId);
 	Width = (u8)(Args[1] >> 8) & 0xFFU;
 	Shift = (u8)(Args[1] & 0xFFU);
 	ParentId = Args[2];
-
-	if ((NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX) &&
-	    ((u32)XPM_NODETYPE_POWER_REGULATOR != PowerType)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	} else {
-		/* Required by MISRA */
-	}
 
 	BitMask = BITNMASK(Shift, Width);
 
@@ -1606,16 +1593,6 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 		((u32)XPM_NODETYPE_POWER_DOMAIN_CTRL != PowerType) &&
 #endif
 	    ((u32)XPM_NODETYPE_POWER_REGULATOR != PowerType)) {
-		if (NODECLASS(ParentId) != (u32)XPM_NODECLASS_POWER) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		} else if (NODEINDEX(ParentId) >= (u32)XPM_NODEIDX_POWER_MAX) {
-			Status = XST_DEVICE_NOT_FOUND;
-			goto done;
-		} else {
-			/* Required by MISRA */
-		}
-
 		PowerParent = XPmPower_GetById(ParentId);
 		if (NULL == PowerParent) {
 			Status = XST_DEVICE_NOT_FOUND;
