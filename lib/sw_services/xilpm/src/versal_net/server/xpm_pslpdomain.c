@@ -11,16 +11,31 @@
 #include "xpm_regs.h"
 #include "xpm_device.h"
 #include "xpm_debug.h"
+#include "xpm_rail.h"
 #include "xplmi.h"
 
 static XStatus LpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
-	Status = XST_SUCCESS;
+
+	const XPm_Rail *VccintPslpRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_PSLP);
+
+	/* Check vccint_pslp first to make sure power is on */
+	Status = XPmPower_CheckPower(VccintPslpRail,
+						PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_LPD_MASK);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 static XStatus LpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
