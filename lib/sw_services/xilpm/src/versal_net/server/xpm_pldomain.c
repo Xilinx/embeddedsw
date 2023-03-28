@@ -11,6 +11,7 @@
 #include "xpm_debug.h"
 #include "xpm_debug.h"
 #include "xcframe.h"
+#include "xpm_rail.h"
 #include "xpm_regs.h"
 
 /* CFRAME Driver Instance */
@@ -114,18 +115,33 @@ static XStatus PldInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
 	XStatus Status = XST_FAILURE;
+	XStatus RamRailPwrSts = XST_FAILURE;
+	XStatus AuxRailPwrSts = XST_FAILURE;
+	XStatus SocRailPwrSts = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 
+	const XPm_Rail *VccRamRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_RAM);
+	const XPm_Rail *VccauxRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCAUX);
+	const XPm_Rail *VccSocRail = (XPm_Rail *)XPmPower_GetById(PM_POWER_VCCINT_SOC);
 	(void)PwrDomain;
 	(void)Args;
 	(void)NumOfArgs;
 
-	Status = ReduceCfuClkFreq();
-	if (XST_SUCCESS != Status){
+	RamRailPwrSts = XPmPower_CheckPower(VccRamRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_RAM_MASK);
+	AuxRailPwrSts = XPmPower_CheckPower(VccauxRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCAUX_MASK);
+	SocRailPwrSts =  XPmPower_CheckPower(VccSocRail,
+				PMC_GLOBAL_PWR_SUPPLY_STATUS_VCCINT_SOC_MASK);
+	if ((XST_SUCCESS != RamRailPwrSts) || (XST_SUCCESS != AuxRailPwrSts) ||(XST_SUCCESS != SocRailPwrSts)) {
+		DbgErr = XPM_INT_ERR_POWER_SUPPLY;
 		goto done;
 	}
-	Status = XST_SUCCESS;
+
+	Status = ReduceCfuClkFreq();
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
