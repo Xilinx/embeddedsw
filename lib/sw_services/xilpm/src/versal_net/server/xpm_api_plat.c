@@ -757,7 +757,6 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 	u32 ParentId;
 	XPm_Power *PowerParent = NULL;
 	XPm_HnicxDomain *HnicxDomain;
-
 	if (1U > NumArgs) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -768,13 +767,6 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 	Width = (u8)(Args[1] >> 8) & 0xFFU;
 	Shift = (u8)(Args[1] & 0xFFU);
 	ParentId = Args[2];
-
-	if (((u32)XPM_NODETYPE_POWER_RAIL == PowerType) ||
-	    ((u32)XPM_NODETYPE_POWER_REGULATOR == PowerType)) {
-		/* FIXME: Add correct handling for rail/regulator nodes */
-		Status = XST_SUCCESS;
-		goto done;
-	}
 
 	if ((NODEINDEX(PowerId) >= (u32)XPM_NODEIDX_POWER_MAX)) {
 		Status = XST_INVALID_PARAM;
