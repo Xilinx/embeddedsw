@@ -3210,7 +3210,7 @@ XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 		goto done;
 	}
 
-	if ((Reason < ABORT_REASON_MIN) || (Reason > ABORT_REASON_MAX)) {
+	if ((Reason < (u32)ABORT_REASON_MIN) || (Reason > (u32)ABORT_REASON_MAX)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
