@@ -321,10 +321,6 @@ Add 5 PPKs support for provisioning
 xilskey_v7_4:
 Increase usleep value to 6000 in PUF regeneration
 
-trngpsv_1_4:
-Fix RGRG sequence and bug in pattern check comparison
-Clear schedule array after DF operation is done
-
 xilocp_v1_1:
 Reset TRNG state in PLM after ROM usage and minor enhancements
 Run KAT before crypto usage when OCP is enabled
@@ -340,6 +336,59 @@ Example for X.509 request and attestation
 xilcert_v1_0:
 Added new library called XilCert for creating X509 certificate to share the public keys
 
+dp21txss_v2_0:
+Driver version is incremented as IP version is incremented.mipicsiss
+
+hwicap_v11_5:
+Added new IDCODE's of UltraScale and UltraScale+ family to support those devices
+
+v_hdmiphy1_v2_6:
+Updated Line Rate Configs selection
+
+v_warp_filter_v1_3:
+Fixing TCL issue in exporting a value.
+
+v_warp_init_v1_4:
+updated AMD copyright for v_warp_init
+
+axiethernet_v5_15:
+Update tcl script to support multiple peripheral connections between MAC and DMA.
+
+spi_v4_10:
+Enable Interrupt before initiating data transfer
+Fixed loss of data in interrupt mode with TX HALF EMPTY interrupt
+
+v_hdmirx1_v1_6:
+Update correct register value as per IP Specification
+
+v_hdmirxss_v6_4:
+Enable SCDC Register Support
+
+v_hdmitx1_v2_2:
+Update correct register value as per IP Specification
+
+v_hdmirxss1_v3_3:
+Updated the reset sequence for HDMI GT CONTROLLER
+
+v_hdmitxss1_v3_3:
+Updated reset sequence
+Added VEK280 support
+
+dp14txss_v6_9:
+Clear Tx MST enable bit before training
+zcu_pt_dp14_mst: Increased the delay to 1 sec to read the MST
+
+dp21_v2_0:
+Fix compilation error with Rx only design
+
+mipicsiss_v1_9:
+Updated dependencies file to support VCK190
+
+vphy_v1_13:
+Clock Detector Accuracy Range API addition
+
+v_hdmirx_v2_7:
+HDMI 2.0 IP Enhancements:Enable SCDC Register Support
 
 
 New Files Added for 2023.1:
