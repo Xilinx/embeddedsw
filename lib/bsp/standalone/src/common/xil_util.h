@@ -1,6 +1,6 @@
 /******************************************************************************/
 /**
-* Copyright (c) 2019 - 2022  Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2022  Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -61,6 +61,7 @@
 * 8.1  akm       01/02/23 Added Xil_RegisterPlmHandler() & Xil_PlmStubHandler() APIs.
 *      bm        03/14/23 Added XSECURE_REDUNDANT_CALL and XSECURE_REDUNDANT_IMPL macros
 *      sk        03/14/23 Added Status Check Glitch detect Macro
+* 9.0  ml        03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -77,11 +78,11 @@ extern "C" {
 #include "xstatus.h"
 
 /*************************** Constant Definitions *****************************/
-#define XIL_SIZE_OF_NIBBLE_IN_BITS	4U
-#define XIL_SIZE_OF_BYTE_IN_BITS	8U
+#define XIL_SIZE_OF_NIBBLE_IN_BITS	4U /**< size of nibble in bits */
+#define XIL_SIZE_OF_BYTE_IN_BITS	8U /**< size of byte in bits */
 
-/* Maximum string length handled by Xil_ValidateHexStr function */
-#define XIL_MAX_HEX_STR_LEN	512U
+#define XIL_MAX_HEX_STR_LEN	512U /**< Maximum string length handled by
+                                          Xil_ValidateHexStr function */
 
 
 /****************** Macros (Inline Functions) Definitions *********************/
@@ -204,108 +205,108 @@ extern "C" {
 
 #endif
 /*************************** Function Prototypes ******************************/
-/* Ceils the provided float value */
+/**< Ceils the provided float value */
 s32 Xil_Ceil(float Value);
 
-/* Converts input character to nibble */
+/**< Converts input character to nibble */
 u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num);
 
-/* Convert input hex string to array of 32-bits integers */
+/**< Convert input hex string to array of 32-bits integers */
 u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u8 Len);
 
 #ifdef VERSAL_PLM
-/* Register PLM handler */
+/**< Register PLM handler */
 void Xil_RegisterPlmHandler(void (*PlmAlive) (void));
 
-/* Call PLM handler */
+/**< Call PLM handler */
 void Xil_PlmStubHandler(void);
 #endif
 
-/* Waits for specified event */
+/**< Waits for specified event */
 u32 Xil_WaitForEvent(UINTPTR RegAddr, u32 EventMask, u32 Event, u32 Timeout);
 
-/* Waits for specified events */
+/**< Waits for specified events */
 u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 			 u32 Timeout, u32* Events);
 
-/* Validate input hex character */
+/**< Validate input hex character */
 u32 Xil_IsValidHexChar(const char *Ch);
 
-/* Validate the input string contains only hexadecimal characters */
+/**< Validate the input string contains only hexadecimal characters */
 u32 Xil_ValidateHexStr(const char *HexStr);
 
-/* Convert string to hex numbers in little enidian format */
+/**< Convert string to hex numbers in little enidian format */
 u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len);
 
-/* Returns length of the input string */
+/**< Returns length of the input string */
 u32 Xil_Strnlen(const char *Str, u32 MaxLen);
 
-/* Convert string to hex numbers in big endian format */
+/**< Convert string to hex numbers in big endian format */
 u32 Xil_ConvertStringToHexBE(const char * Str, u8 * Buf, u32 Len);
 
-/*Read, Modify and Write to an address*/
+/**< Read, Modify and Write to an address*/
 void Xil_UtilRMW32(u32 Addr, u32 Mask, u32 Value);
 
-/* Copies source string to destination string */
+/**< Copies source string to destination string */
 int Xil_Strcpy(char *DestPtr, const char *SrcPtr, const u32 Size);
 
-/* Copies specified range from source string to destination string */
+/**< Copies specified range from source string to destination string */
 int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 	u32 MaxDstLen);
 
-/* Appends string2 to string1 */
+/**< Appends string2 to string1 */
 int Xil_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size);
 
-/* Copies Len bytes from source memory to destination memory */
+/**< Copies Len bytes from source memory to destination memory */
 int Xil_SecureMemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len);
 
-/* Compares Len bytes from memory1 and memory2 */
+/**< Compares Len bytes from memory1 and memory2 */
 int Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len);
 
-/* Zeroizes the memory of given length */
+/**< Zeroizes the memory of given length */
 int Xil_SecureZeroize(u8 *DataPtr, const u32 Length);
 
-/* Copies Len bytes from source memory to destination memory */
+/**< Copies Len bytes from source memory to destination memory */
 int Xil_SMemCpy (void *Dest, const u32 DestSize,
 	const void *Src, const u32 SrcSize, const u32 CopyLen);
 
-/* Copies Len bytes from source memory to destination memory, allows
+/**< Copies Len bytes from source memory to destination memory, allows
    overlapped memory between source and destination */
 int Xil_SMemMove(void *Dest, const u32 DestSize,
 	const void *Src, const u32 SrcSize, const u32 CopyLen);
 
-/* Compares Len bytes between source and destination memory */
+/**< Compares Len bytes between source and destination memory */
 int Xil_SMemCmp (const void *Src1, const u32 Src1Size,
 	const void *Src2, const u32 Src2Size, const u32 CmpLen);
 
-/* Compares Len bytes between source and destination memory with constant time */
+/**< Compares Len bytes between source and destination memory with constant time */
 int Xil_SMemCmp_CT (const void *Src1, const u32 Src1Size,
 	const void *Src2, const u32 Src2Size, const u32 CmpLen);
 
-/* Sets the destination memory of given length with given data */
+/**< Sets the destination memory of given length with given data */
 int Xil_SMemSet (void *Dest, const u32 DestSize,
 	const u8 Data, const u32 Len);
 
-/* Copies source string to destination string */
+/**< Copies source string to destination string */
 int Xil_SStrCpy (u8 *DestStr, const u32 DestSize,
 	const u8 *SrcStr, const u32 SrcSize);
 
-/* Compares source string with destination string */
+/**< Compares source string with destination string */
 int Xil_SStrCmp (const u8 *Str1, const u32 Str1Size,
 	const u8 *Str2, const u32 Str2Size);
 
-/* Compares source string with destination string with constant time */
+/**< Compares source string with destination string with constant time */
 int Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
 	const u8 *Str2, const u32 Str2Size);
 
-/* Concatenates source string to destination string */
+/**< Concatenates source string to destination string */
 int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 	const u8 *SrcStr, const u32 SrcSize);
 
-/* Waits for event timeout */
+/**< Waits for event timeout */
 u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, ...);
 
-/* Implements Read Modify Writes securely */
+/**< Implements Read Modify Writes securely */
 s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value);
 
 #ifdef __cplusplus

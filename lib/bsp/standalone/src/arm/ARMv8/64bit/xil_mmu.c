@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,7 +19,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  05/29/14 First release
-* 6.02  pkp	 01/22/17 Added support for EL1 non-secure
+* 6.02  pkp  01/22/17 Added support for EL1 non-secure
+* 9.00  ml   03/03 23 Add description to fix doxygen warnings.
 * </pre>
 *
 * @note
@@ -40,9 +42,9 @@
 
 /************************** Constant Definitions *****************************/
 
-#define BLOCK_SIZE_2MB 0x200000U
-#define BLOCK_SIZE_1GB 0x40000000U
-#define ADDRESS_LIMIT_4GB 0x100000000UL
+#define BLOCK_SIZE_2MB 0x200000U /**< block size is 2MB */
+#define BLOCK_SIZE_1GB 0x40000000U /**< block size is 1GB */
+#define ADDRESS_LIMIT_4GB 0x100000000UL /**< Address limit is 4GB */
 
 /************************** Variable Definitions *****************************/
 

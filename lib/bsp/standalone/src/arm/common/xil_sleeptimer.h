@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +25,7 @@
 * 		      misra_c_2012_rule_12_1 violation.
 * 7.7	sk   01/10/22 Add void to XTime_StartTTCTimer function declaration
 * 		      to fix misra_c_2012_rule_8_2 violation.
-*
+* 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *****************************************************************************/
 
@@ -103,8 +104,12 @@ extern "C" {
  */
 /************************** Function Prototypes ******************************/
 
+/**< This is a helper function used by sleep/usleep APIs to
+*    have delay in sec/usec */
 void Xil_SleepTTCCommon(u32 delay, u64 frequency);
-void XTime_StartTTCTimer(void);
+
+void XTime_StartTTCTimer(void); /**< This API starts the Triple
+                                 *   Timer Counter */
 
 #endif
 

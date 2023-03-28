@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2012 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -19,12 +20,13 @@
 * 1.00a 06/24/04 First release
 * 8.0	03/17/22 Add MB_ExceptionVectorTableEntry decalration to
 * 		 fix misra_c_2012_rule_8_5 violation.
+* 9.0   03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef MICROBLAZE_EXCEPTIONS_I_H /* prevent circular inclusions */
-#define MICROBLAZE_EXCEPTIONS_I_H /* by using protection macros */
+#ifndef MICROBLAZE_EXCEPTIONS_I_H /**< prevent circular inclusions */
+#define MICROBLAZE_EXCEPTIONS_I_H /**< by using protection macros */
 
 /***************************** Include Files *********************************/
 

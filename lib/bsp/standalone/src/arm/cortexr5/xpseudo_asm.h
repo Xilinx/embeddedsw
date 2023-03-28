@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,11 +32,12 @@
 * 5.00  pkp  02/10/14 Initial version
 * 6.2   mus  01/27/17 Updated to support IAR compiler
 * 7.3   dp   06/25/20 Initial version for armclang
+* 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
-#ifndef XPSEUDO_ASM_H /* prevent circular inclusions */
-#define XPSEUDO_ASM_H /* by using protection macros */
+#ifndef XPSEUDO_ASM_H /**< prevent circular inclusions */
+#define XPSEUDO_ASM_H /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

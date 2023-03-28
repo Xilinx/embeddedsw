@@ -40,6 +40,7 @@
 * 8.0   mus  07/06/21 Added support for VERSAL NET
 * 8.0   mus  22/12/22 Updated default VERSAL NET MPU table to configure DDR and OCM
 *                     as cacheable memory.
+* 9.0   ml   03/03/23 added description and removed comments to fix doxygen warnings.
 * </pre>
 *
 * @note
@@ -109,20 +110,21 @@ void Init_MPU(void);
 static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib);
 static void Xil_DisableMPURegions(void);
 #endif
-/*****************************************************************************
+
+/*****************************************************************************/
+/**
 *
 * Initialize MPU for a given address map and Enabled the background Region in
 * MPU with default memory attributes for rest of address range for Cortex R5
 * processor.
 *
-* @param	None.
 *
 * @return	None.
 *
 *
 ******************************************************************************/
 static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
-																u32 Attrib)
+u32 Attrib)
 {
 	Mpu_Config[RegNum].RegionStatus = MPU_REG_ENABLED;
 	Mpu_Config[RegNum].BaseAddress = Addr;
@@ -130,11 +132,11 @@ static inline void Update_MpuConfig_Array(u32 Addr,u32 RegSize,u32 RegNum,
 	Mpu_Config[RegNum].Attribute = Attrib;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * Initialize MPU for during bootup with predefined region attributes.
 *
-* @param	None.
 *
 * @return	None.
 *
@@ -377,7 +379,8 @@ void Init_MPU(void)
 
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * Set the memory attributes for a section of memory with starting address addr
 * of the region size defined by reg_size having attributes attrib of region number
@@ -416,12 +419,11 @@ static void Xil_SetAttribute(u32 addr, u32 reg_size,u32 reg_num, u32 attrib)
 	isb();						/* synchronize context on this processor */
 }
 
-
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * Disable all the MPU regions if any of them is enabled
 *
-* @param	None.
 *
 * @return	None.
 *

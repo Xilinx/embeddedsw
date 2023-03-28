@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 8.0   mus  06/13/22 Initial version
 * 8.2   asa  02/23/23 Add PMU macros for A53, A72 and A78.
+* 9.0   ml   03/03/23 Added description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -35,8 +36,8 @@
  *@cond nocomments
  */
 
-#ifndef XPMCOUNTER_H /* prevent circular inclusions */
-#define XPMCOUNTER_H /* by using protection macros */
+#ifndef XPMCOUNTER_H /**< prevent circular inclusions */
+#define XPMCOUNTER_H /**< by using protection macros */
 
 /***************************** Include Files ********************************/
 
@@ -255,7 +256,9 @@ extern "C" {
  *@endcond
  */
 /***************** Macros (Inline Functions) Definitions ********************/
-#define Xpm_ReadCycleCounterVal()	mfcp(PMCCNTR_EL0)
+
+#define Xpm_ReadCycleCounterVal()	mfcp(PMCCNTR_EL0) /**< read PMU cycle
+                                                            * counter value */
 /************************** Variable Definitions ****************************/
 
 /************************** Function Prototypes *****************************/

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 5.00 	pkp  05/29/14 First release
+* 9.00  ml   03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -48,8 +50,7 @@ extern "C" {
  */
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define Xil_DCacheFlushRange Xil_DCacheInvalidateRange
-
+#define Xil_DCacheFlushRange Xil_DCacheInvalidateRange /**< DCache range */
 /************************** Function Prototypes ******************************/
 void Xil_DCacheEnable(void);
 void Xil_DCacheDisable(void);

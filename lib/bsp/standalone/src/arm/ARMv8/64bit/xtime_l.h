@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,13 +24,14 @@
 * 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
 *                        displaying same warnings multiple times. It fixes CR#1090562.
 * 8.0   mus    07/06/21  Added support for VERSAL NET
+* 9.0   ml     03/03/23  Added description to fix doxygen warnings.
 * </pre>
 *
 *
 ******************************************************************************/
 
-#ifndef XTIME_H /* prevent circular inclusions */
-#define XTIME_H /* by using protection macros */
+#ifndef XTIME_H /**< prevent circular inclusions */
+#define XTIME_H /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

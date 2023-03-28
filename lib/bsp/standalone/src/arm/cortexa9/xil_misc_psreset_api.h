@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,12 +16,13 @@
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00b kpc   03/07/13 First release.
+* 9.0   ml    03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XIL_MISC_RESET_H		/* prevent circular inclusions */
-#define XIL_MISC_RESET_H		/* by using protection macros */
+#ifndef XIL_MISC_RESET_H	/**< prevent circular inclusions */
+#define XIL_MISC_RESET_H	/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

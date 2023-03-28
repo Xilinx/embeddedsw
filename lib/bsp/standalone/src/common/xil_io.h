@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,12 +33,12 @@
 * 7.50  dp       02/12/21 Fix compilation error in Xil_EndianSwap32() that occur
 *                         when -Werror=conversion compiler flag is enabled
 * 7.5   mus      05/17/21 Update the functions with comments. It fixes CR#1067739.
-*
+* 9.0   ml       03/03/23 Add description and remove comments to fix doxygen warnings.
 * </pre>
 ******************************************************************************/
 
-#ifndef XIL_IO_H           /* prevent circular inclusions */
-#define XIL_IO_H           /* by using protection macros */
+#ifndef XIL_IO_H           /**< prevent circular inclusions */
+#define XIL_IO_H           /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -63,25 +64,25 @@ extern u32 XStl_RegUpdate(u32 RegAddr, u32 RegVal);
 /***************** Macros (Inline Functions) Definitions *********************/
 #if defined __GNUC__
 #if defined (__MICROBLAZE__)
-#  define INST_SYNC		mbar(0)
-#  define DATA_SYNC		mbar(1)
+#  define INST_SYNC		mbar(0) /**< Instruction Synchronization Barrier */
+#  define DATA_SYNC		mbar(1) /**<  Data Synchronization Barrier  */
 # else
-#  define SYNCHRONIZE_IO	dmb()
-#  define INST_SYNC		isb()
-#  define DATA_SYNC		dsb()
+#  define SYNCHRONIZE_IO	dmb() /**< Data Memory Barrier */
+#  define INST_SYNC		isb() /**< Instruction Synchronization Barrier */
+#  define DATA_SYNC		dsb() /**<  Data Synchronization Barrier  */
 # endif
 #else
-# define SYNCHRONIZE_IO
-# define INST_SYNC
-# define DATA_SYNC
-# define INST_SYNC
-# define DATA_SYNC
+# define SYNCHRONIZE_IO /**< Data Memory Barrier */
+# define INST_SYNC /**< Instruction Synchronization Barrier */
+# define DATA_SYNC /**<  Data Synchronization Barrier  */
+# define INST_SYNC /**< Instruction Synchronization Barrier */
+# define DATA_SYNC /**<  Data Synchronization Barrier  */
 #endif
 
 #if defined (__GNUC__) || defined (__ICCARM__) || defined (__MICROBLAZE__)
-#define INLINE inline
+#define INLINE inline /**< static inline keyword */
 #else
-#define INLINE __inline
+#define INLINE __inline /**<static inline keyword */
 #endif
 
 /*****************************************************************************/
@@ -91,7 +92,7 @@ extern u32 XStl_RegUpdate(u32 RegAddr, u32 RegVal);
 *           from the specified address and returning the 8 bit Value read from
 *            that address.
 *
-* @param	Addr: contains the address to perform the input operation
+* @param	Addr contains the address to perform the input operation
 *
 * @return	The 8 bit Value read from the specified input address.
 
@@ -109,7 +110,7 @@ static INLINE u8 Xil_In8(UINTPTR Addr)
 *           the specified address and returning the 16 bit Value read from that
 *           address.
 *
-* @param	Addr: contains the address to perform the input operation
+* @param	Addr contains the address to perform the input operation
 *
 * @return	The 16 bit Value read from the specified input address.
 *
@@ -126,7 +127,7 @@ static INLINE u16 Xil_In16(UINTPTR Addr)
 *           reading from the specified address and returning the 32 bit Value
 *           read  from that address.
 *
-* @param	Addr: contains the address to perform the input operation
+* @param	Addr contains the address to perform the input operation
 *
 * @return	The 32 bit Value read from the specified input address.
 *
@@ -143,7 +144,7 @@ static INLINE u32 Xil_In32(UINTPTR Addr)
 *            64 bit Value read  from that address.
 *
 *
-* @param	Addr: contains the address to perform the input operation
+* @param	Addr contains the address to perform the input operation
 *
 * @return	The 64 bit Value read from the specified input address.
 *
@@ -159,8 +160,8 @@ static INLINE u64 Xil_In64(UINTPTR Addr)
 * @brief    Performs an output operation for an memory location by
 *           writing the 8 bit Value to the the specified address.
 *
-* @param	Addr: contains the address to perform the output operation
-* @param	Value: contains the 8 bit Value to be written at the specified
+* @param	Addr contains the address to perform the output operation
+* @param	Value contains the 8 bit Value to be written at the specified
 *           address.
 *
 * @return	None.
@@ -275,7 +276,7 @@ static INLINE int Xil_SecureOut32(UINTPTR Addr, u32 Value)
 *
 * @brief    Perform a 16-bit endian conversion.
 *
-* @param	Data: 16 bit value to be converted
+* @param	Data 16 bit value to be converted
 *
 * @return	16 bit Data with converted endianness
 *
@@ -290,7 +291,7 @@ static INLINE __attribute__((always_inline)) u16 Xil_EndianSwap16(u16 Data)
 *
 * @brief    Perform a 32-bit endian conversion.
 *
-* @param	Data: 32 bit value to be converted
+* @param	Data : 32 bit value to be converted
 *
 * @return	32 bit data with converted endianness
 *
@@ -317,42 +318,47 @@ static INLINE __attribute__((always_inline)) u32 Xil_EndianSwap32(u32 Data)
 
 #if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
-# define Xil_In16LE	Xil_In16
-# define Xil_In32LE	Xil_In32
-# define Xil_Out16LE	Xil_Out16
-# define Xil_Out32LE	Xil_Out32
-# define Xil_Htons	Xil_EndianSwap16
-# define Xil_Htonl	Xil_EndianSwap32
-# define Xil_Ntohs	Xil_EndianSwap16
-# define Xil_Ntohl	Xil_EndianSwap32
+# define Xil_In16LE	Xil_In16 /**< Register Read of 16 Bits in Little Endian */
+# define Xil_In32LE	Xil_In32 /**< Register Read of 32 Bits in Little Endian */
+# define Xil_Out16LE	Xil_Out16 /**< Register Write of 16 Bits in Little Endian */
+# define Xil_Out32LE	Xil_Out32 /**< Register Write of 32 Bits in Little Endian */
+# define Xil_Htons	Xil_EndianSwap16 /**< Endian swap of 16 bits */
+# define Xil_Htonl	Xil_EndianSwap32 /**< Endian swap of 32 bits */
+# define Xil_Ntohs	Xil_EndianSwap16 /**< Endian swap of 16 bits */
+# define Xil_Ntohl	Xil_EndianSwap32 /**< Endian swap of 32 bits */
 # else
-# define Xil_In16BE	Xil_In16
-# define Xil_In32BE	Xil_In32
-# define Xil_Out16BE	Xil_Out16
-# define Xil_Out32BE	Xil_Out32
-# define Xil_Htons(Data) (Data)
-# define Xil_Htonl(Data) (Data)
-# define Xil_Ntohs(Data) (Data)
-# define Xil_Ntohl(Data) (Data)
+# define Xil_In16BE	Xil_In16 /**< Register Read of 16 Bits in Big Endian */
+# define Xil_In32BE	Xil_In32 /**< Register Read of 32 Bits in Big Endian */
+# define Xil_Out16BE	Xil_Out16 /**< Register Write of 16 Bits in Big Endian */
+# define Xil_Out32BE	Xil_Out32 /**< Register Write of 32 Bits in Big Endian */
+# define Xil_Htons(Data) (Data) /**< Endian swap of 16 bits */
+# define Xil_Htonl(Data) (Data) /**< Endian swap of 32 bits */
+# define Xil_Ntohs(Data) (Data) /**< Endian swap of 16 bits */
+# define Xil_Ntohl(Data) (Data) /**< Endian swap of 32 bits */
 #endif
 #else
-# define Xil_In16LE	Xil_In16
-# define Xil_In32LE	Xil_In32
-# define Xil_Out16LE	Xil_Out16
-# define Xil_Out32LE	Xil_Out32
-# define Xil_Htons	Xil_EndianSwap16
-# define Xil_Htonl	Xil_EndianSwap32
-# define Xil_Ntohs	Xil_EndianSwap16
-# define Xil_Ntohl	Xil_EndianSwap32
+# define Xil_In16LE	Xil_In16 /**< Register Read of 16 Bits in Little Endian */
+# define Xil_In32LE	Xil_In32 /**< Register Read of 32 Bits in Little Endian */
+# define Xil_Out16LE	Xil_Out16 /**< Register Write of 16 Bits in Little Endian */
+# define Xil_Out32LE	Xil_Out32 /**< Register Write of 32 Bits in Little Endian */
+# define Xil_Htons	Xil_EndianSwap16 /**< Endian swap of 16 bits */
+# define Xil_Htonl	Xil_EndianSwap32 /**< Endian swap of 32 bits */
+# define Xil_Ntohs	Xil_EndianSwap16 /**< Endian swap of 16 bits */
+# define Xil_Ntohl	Xil_EndianSwap32 /**< Endian swap of 32 bits */
 #endif
 
 #if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
-static INLINE u16 Xil_In16BE(UINTPTR Addr)
+static INLINE u16 Xil_In16BE(UINTPTR Addr) /**< Static inline function to Read
+                                                Register of 16 Bits in Big Endian */
 #else
-static INLINE u16 Xil_In16LE(UINTPTR Addr)
+static INLINE u16 Xil_In16LE(UINTPTR Addr) /**< Static inline function to Read
+                                                Register of 16 Bits in Little Endian */
 #endif
 #else
+/**
+* Static inline function to Read Register of 16 Bits in Big Endian.
+**********************************************************************************/
 static INLINE u16 Xil_In16BE(UINTPTR Addr)
 #endif
 {
@@ -362,11 +368,16 @@ static INLINE u16 Xil_In16BE(UINTPTR Addr)
 
 #if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
-static INLINE u32 Xil_In32BE(UINTPTR Addr)
+static INLINE u32 Xil_In32BE(UINTPTR Addr) /**< Static inline function to Read
+                                                Register of 32 Bits in Big Endian */
 #else
-static INLINE u32 Xil_In32LE(UINTPTR Addr)
+static INLINE u32 Xil_In32LE(UINTPTR Addr) /**< Static inline function to Read
+                                                Register of 32 Bits in Little Endian */
 #endif
 #else
+/**
+* Static inline function to Read Register of 32 Bits in Big Endian.
+**********************************************************************************/
 static INLINE u32 Xil_In32BE(UINTPTR Addr)
 #endif
 {
@@ -376,11 +387,16 @@ static INLINE u32 Xil_In32BE(UINTPTR Addr)
 
 #if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
-static INLINE void Xil_Out16BE(UINTPTR Addr, u16 Value)
+static INLINE void Xil_Out16BE(UINTPTR Addr, u16 Value) /**< Static inline function to write
+                                                Register of 16 Bits in Big Endian */
 #else
-static INLINE void Xil_Out16LE(UINTPTR Addr, u16 Value)
+static INLINE void Xil_Out16LE(UINTPTR Addr, u16 Value) /**< Static inline function to write
+                                                Register of 16 Bits in Little Endian */
 #endif
 #else
+/**
+* Static inline function to write Register of 16 Bits in Big Endian.
+**********************************************************************************/
 static INLINE void Xil_Out16BE(UINTPTR Addr, u16 Value)
 #endif
 {
@@ -390,11 +406,16 @@ static INLINE void Xil_Out16BE(UINTPTR Addr, u16 Value)
 
 #if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
-static INLINE void Xil_Out32BE(UINTPTR Addr, u32 Value)
+static INLINE void Xil_Out32BE(UINTPTR Addr, u32 Value) /**< Static inline function to write
+                                                Register of 32 Bits in Big Endian */
 #else
-static INLINE void Xil_Out32LE(UINTPTR Addr, u32 Value)
+static INLINE void Xil_Out32LE(UINTPTR Addr, u32 Value) /**< Static inline function to write
+                                                Register of 32 Bits in Little Endian */
 #endif
 #else
+/**
+* Static inline function to Read Register of 16 Bits in Big Endian.
+**********************************************************************************/
 static INLINE void Xil_Out32BE(UINTPTR Addr, u32 Value)
 #endif
 {

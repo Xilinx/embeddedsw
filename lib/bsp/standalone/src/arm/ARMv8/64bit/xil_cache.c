@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,7 +64,7 @@
 * 8.0 mus  02/24/22  Added support for CortexA78 processor in VERSAL NET SoC
 * 8.1 mus  12/22/22  Removed workaround added to Xil_DCacheInvalidateRange for
 *                    VERSAL NET.
-*
+* 9.0 ml   03/03/23  Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -82,7 +82,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-#define IRQ_FIQ_MASK 0xC0U	/* Mask IRQ and FIQ interrupts in cpsr */
+#define IRQ_FIQ_MASK 0xC0U	/**< Mask IRQ and FIQ interrupts in cpsr */
 
 /****************************************************************************/
 /**

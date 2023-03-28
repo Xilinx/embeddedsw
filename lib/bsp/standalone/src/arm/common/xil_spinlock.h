@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,12 +24,13 @@
 * 			  if condition to fix misrac violations.
 * 7.7	sk	 01/10/22 Update XIL_SPINLOCK_ENABLED from signed to unsigned to
 * 			  fix misra_c_2012_rule_10_4 violation.
+* 9.0   ml       03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XIL_SPINLOCK_H  /* prevent circular inclusions */
-#define XIL_SPINLOCK_H  /* by using protection macros */
+#ifndef XIL_SPINLOCK_H  /**< prevent circular inclusions */
+#define XIL_SPINLOCK_H  /**< by using protection macros */
 
 /***************************** Include Files ********************************/
 #include "xil_types.h"
@@ -61,7 +63,8 @@ u32 Xil_IsSpinLockEnabled(void);
     if(Xil_IsSpinLockEnabled()!=(u32)0) {    \
         Xil_SpinLock();  }
 #else
-#define XIL_SPINLOCK()
+#define XIL_SPINLOCK() /**< protect multiple applications running at separate
+	                *   CPUs to write to the same register */
 #endif /* !(__aarch64__) &&  (__GNUC__) && !(__clang__)*/
 
 #if !defined (__aarch64__) && defined(__GNUC__) && !defined(__clang__)
@@ -69,7 +72,7 @@ u32 Xil_IsSpinLockEnabled(void);
     if(Xil_IsSpinLockEnabled()!=(u32)0) {      \
         Xil_SpinUnlock();  }
 #else
-#define XIL_SPINUNLOCK()
+#define XIL_SPINUNLOCK() /**< Release the lock previously taken */
 #endif /* !(__aarch64__) &&  (__GNUC__) && !(__clang__)*/
 
 

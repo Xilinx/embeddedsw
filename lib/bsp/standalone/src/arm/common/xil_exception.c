@@ -1,7 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
-*
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,8 +45,7 @@
 *                         status reporting for ARMv7.
 *						  Updated Sync and SError fault status reporting
 *						  for ARMv8.
-*
-*
+* 9.0  ml        03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -159,14 +157,14 @@ void Xil_ExceptionInit(void)
 /*****************************************************************************/
 /**
 * @brief	Register a handler for a specific exception. This handler is being
-*			called when the processor encounters the specified exception.
+*		called when the processor encounters the specified exception.
 *
 * @param	Exception_id contains the ID of the exception source and should
-*			be in the range of 0 to XIL_EXCEPTION_ID_LAST.
-*			See xil_exception.h for further information.
+*		be in the range of 0 to XIL_EXCEPTION_ID_LAST.
+*		See xil_exception.h for further information.
 * @param	Handler to the Handler for that exception.
 * @param	Data is a reference to Data that will be passed to the
-*			Handler when it gets called.
+*		Handler when it gets called.
 *
 * @return	None.
 *
@@ -229,12 +227,12 @@ void Xil_GetExceptionRegisterHandler(u32 Exception_id,
 /*****************************************************************************/
 /**
 *
-* @brief	Removes the Handler for a specific exception Id. The stub Handler
-*			is then registered for this exception Id.
+* @brief	Removes the Handler for a specific exception id. The stub Handler
+*		is then registered for this exception id.
 *
 * @param	Exception_id contains the ID of the exception source and should
-*			be in the range of 0 to XIL_EXCEPTION_ID_LAST.
-*			See xil_exception.h for further information.
+*		be in the range of 0 to XIL_EXCEPTION_ID_LAST.
+*		See xil_exception.h for further information.
 *
 * @return	None.
 *

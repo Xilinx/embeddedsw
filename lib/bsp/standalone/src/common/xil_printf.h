@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 1995 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 1995 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
  #ifndef XIL_PRINTF_H
@@ -38,13 +39,14 @@ struct params_s;
 typedef char8* charptr;
 typedef s32 (*func_ptr)(int c);
 
-/*                                                   */
-
+/************************** Function Prototypes ******************************/
+/**< prints the statement */
 void xil_printf( const char8 *ctrl1, ...);
+/**< This routine is equivalent to vprintf routine */
 void xil_vprintf(const char8 *ctrl1, va_list argp);
 void print( const char8 *ptr);
-extern void outbyte (char c);
-extern char inbyte(void);
+extern void outbyte (char c); /**< To send byte */
+extern char inbyte(void); /**< To receive byte */
 
 #ifdef __cplusplus
 }

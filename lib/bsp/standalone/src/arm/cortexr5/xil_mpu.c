@@ -51,6 +51,7 @@
 * 8.0  mus  05/09/22  Updated MPU related APIs to support CortexR52 processor.
 * 8.1  asa  02/13/23  Updated xdbg_printf arguments to have the correct debug
 *                     type.
+* 9.0  ml   03/03/23  Add description to fix doxygen warnings.
 * </pre>
 *
 *
@@ -69,7 +70,7 @@
 /**************************** Type Definitions *******************************/
 
 /************************** Constant Definitions *****************************/
-#define MPU_REGION_SIZE_MIN 0x20
+#define MPU_REGION_SIZE_MIN 0x20 /**< MPU Region size minimum */
 /************************** Variable Definitions *****************************/
 
 static const struct {
@@ -120,15 +121,15 @@ void Xil_InitializeExistingMPURegConfig(void);
 * @brief    This function sets the memory attributes for a section covering
 *           1MB, of memory in the translation table.
 *
-* @param	addr: 32-bit address for which memory attributes need to be set.
-* @param	attrib: Attribute for the given memory region.
+* @param	Addr : 32-bit address for which memory attributes need to be set.
+* @param	attrib : Attribute for the given memory region.
 * @return	None.
 *
 *
 ******************************************************************************/
-void Xil_SetTlbAttributes(INTPTR addr, u32 attrib)
+void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
 {
-	INTPTR Localaddr = addr;
+	INTPTR Localaddr = Addr;
 
 #if defined(ARMR52)
 	INTPTR Endaddr;
@@ -714,7 +715,8 @@ u32 Xil_GetNextMPURegion(void)
 #ifdef __GNUC__
 #define u32overflow(a, b) ({typeof(a) s; __builtin_uadd_overflow(a, b, &s); })
 #else
-#define u32overflow(a, b) ((a) > ((a) + (b)))
+#define u32overflow(a, b) ((a) > ((a) + (b))) /**< u32 overflow is defined for
+                                               *   readability and __GNUC__ */
 #endif /* __GNUC__ */
 
 /*****************************************************************************/
@@ -724,7 +726,7 @@ u32 Xil_GetNextMPURegion(void)
 *           include more. Specifically, it will be a power of 2 in
 *           size, aligned on a boundary of that size.
 *
-* @param       Physaddr is base physical address at which to start mapping.
+* @param       PhysAddr is base physical address at which to start mapping.
 *                   NULL in Physaddr masks possible mapping errors.
 * @param       size of region to be mapped.
 * @param       flags used to set translation table.
@@ -740,27 +742,27 @@ u32 Xil_GetNextMPURegion(void)
 *           Use an alternative (less optimal?) for compilers w/o the builtin.
 * @endcond
 ******************************************************************************/
-void *Xil_MemMap(UINTPTR Physaddr, size_t size, u32 flags)
+void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 {
 	size_t Regionsize = MPU_REGION_SIZE_MIN;
-	UINTPTR Basephysaddr = 0, end = Physaddr + size;
+	UINTPTR Basephysaddr = 0, end = PhysAddr + size;
 
 	if (flags == 0U) {
-		return (void *)Physaddr;
+		return (void *)PhysAddr;
 	}
-	if (u32overflow(Physaddr, size)) {
+	if (u32overflow(PhysAddr, size)) {
 		return NULL;
 	}
 	for ( ; Regionsize != 0U; Regionsize <<= 1) {
 		if (Regionsize >= size) {
-			Basephysaddr = Physaddr & ~(Regionsize - 1U);
+			Basephysaddr = PhysAddr & ~(Regionsize - 1U);
 			if (u32overflow(Basephysaddr, Regionsize)) {
 				break;
 			}
 			if ((Basephysaddr + Regionsize) >= end) {
 				return ((Xil_SetMPURegion((INTPTR) Basephysaddr,
 					Regionsize, flags) == XST_SUCCESS) ?
-					(void *)Physaddr : NULL);
+					(void *)PhysAddr : NULL);
 			}
 		}
 	}

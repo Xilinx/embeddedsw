@@ -89,6 +89,7 @@
 * 8.1    asa 02/13/23 The existing Xil_DCacheInvalidateRange has a bug where
 *                     the last cache line will not get invalidated under certain
 *                     scenarios. Changes are made to fix the same.
+* 9.0    ml  03/03/23 Added description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -109,7 +110,7 @@
 
 /************************** Variable Definitions *****************************/
 
-#define IRQ_FIQ_MASK 0xC0U	/* Mask IRQ and FIQ interrupts in cpsr */
+#define IRQ_FIQ_MASK 0xC0U	/**< Mask IRQ and FIQ interrupts in cpsr */
 
 #ifdef __GNUC__
 	extern s32  _stack_end;
@@ -117,7 +118,8 @@
 #endif
 
 #ifndef USE_AMP
-/****************************************************************************
+/***************************************************************************/
+/**
 *
 * Access L2 Debug Control Register.
 *
@@ -139,7 +141,8 @@ static void Xil_L2WriteDebugCtrl(u32 Value)
 #endif
 }
 
-/****************************************************************************
+/***************************************************************************/
+/**
 *
 * Perform L2 Cache Sync Operation.
 *
@@ -294,7 +297,7 @@ void Xil_DCacheInvalidateLine(u32 adr)
 *			invalidate the cache after DMA is complete.
 *
 *
-* @param	adr: 32bit start address of the range to be invalidated.
+* @param	opstartaddr: 32bit start address of the range to be invalidated.
 * @param	len: Length of the range to be invalidated in bytes.
 *
 * @return	None.
@@ -438,7 +441,7 @@ void Xil_DCacheFlushLine(u32 adr)
 * 			If the cachelines are modified (dirty), they are written to the
 * 			system memory before the lines are invalidated.
 *
-* @param	adr: 32bit start address of the range to be flushed.
+* @param	opstartadr: 32bit start address of the range to be flushed.
 * @param	len: Length of the range to be flushed in bytes.
 *
 * @return	None.

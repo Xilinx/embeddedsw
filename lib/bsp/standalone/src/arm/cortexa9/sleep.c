@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +22,7 @@
 * 6.6	srm      10/18/17 Updated sleep routines to support user configurable
 *			  implementation. Now sleep routines will use Timer
 *                         specified by the user (i.e. Global timer/TTC timer)
-*
+* 9.0   ml       03/03/23 Add description to fix doxygen warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -36,7 +37,7 @@
 #endif
 
 /*****************************************************************************/
-/*
+/**
 *
 * This API is used to provide delays in seconds
 *
@@ -46,7 +47,7 @@
 *
 * @note		None.
 *
-****************************************************************************/
+******************************************************************************/
 unsigned sleep_A9(unsigned int seconds)
 {
 #if defined (SLEEP_TIMER_BASEADDR)

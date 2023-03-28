@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,14 +25,14 @@
 *                         intended to read the version/idcode of the
 *                         platform
 * 7.1  mus       07/31/19 Added support for Versal
-*
+* 9.0  ml        03/03/23 Added description to fix doxygen warnings.
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XIL_SMC_H /* prevent circular inclusions */
-#define XIL_SMC_H /* by using protection macros */
+#ifndef XIL_SMC_H /**< prevent circular inclusions */
+#define XIL_SMC_H /**< by using protection macros */
 
 /***************************** Include Files ********************************/
 

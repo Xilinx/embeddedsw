@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 1995 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 1995 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /*---------------------------------------------------*/
@@ -16,18 +17,22 @@
 #include <string.h>
 #include <stdarg.h>
 
+/************************** Function Prototypes ******************************/
+
 static void padding( const s32 l_flag,const struct params_s *par);
 static void outs(const charptr lp, struct params_s *par);
 static s32 getnum( charptr* linep);
 
+/**************************** Type Definitions *******************************/
+
 typedef struct params_s {
-    s32 len;
-    s32 num1;
-    s32 num2;
-    char8 pad_character;
-    s32 do_padding;
-    s32 left_flag;
-    s32 unsigned_flag;
+    s32 len;  /**< length */
+    s32 num1; /**< number 1 */
+    s32 num2; /**< number 2 */
+    char8 pad_character;  /**< pad character */
+    s32 do_padding; /**< do padding */
+    s32 left_flag;  /**< left flag */
+    s32 unsigned_flag; /**< unsigned flag */
 } params_t;
 
 
@@ -40,11 +45,12 @@ typedef struct params_s {
 /*---------------------------------------------------*/
 
 
-/*---------------------------------------------------*/
-/*                                                   */
-/* This routine puts pad characters into the output  */
-/* buffer.                                           */
-/*                                                   */
+
+/*****************************************************************************/
+/**
+* This routine puts pad characters into the output buffer.
+*
+******************************************************************************/
 static void padding( const s32 l_flag, const struct params_s *par)
 {
     s32 i;
@@ -59,11 +65,12 @@ static void padding( const s32 l_flag, const struct params_s *par)
     }
 }
 
-/*---------------------------------------------------*/
-/*                                                   */
-/* This routine moves a string to the output buffer  */
-/* as directed by the padding and positioning flags. */
-/*                                                   */
+/******************************************************************************/
+/**
+* This routine moves a string to the output buffer
+* as directed by the padding and positioning flags.
+*
+*******************************************************************************/
 static void outs(const charptr lp, struct params_s *par)
 {
     charptr LocalPtr;
@@ -87,12 +94,13 @@ static void outs(const charptr lp, struct params_s *par)
     padding( par->left_flag, par);
 }
 
-/*---------------------------------------------------*/
-/*                                                   */
-/* This routine moves a number to the output buffer  */
-/* as directed by the padding and positioning flags. */
-/*                                                   */
-
+/*****************************************************************************/
+/**
+*
+* This routine moves a number to the output buffer
+* as directed by the padding and positioning flags.
+*
+******************************************************************************/
 static void outnum( const s32 n, const s32 base, struct params_s *par)
 {
     s32 negative;
@@ -197,11 +205,13 @@ static void outnum1( const s64 n, const s32 base, params_t *par)
     padding( par->left_flag, par);
 }
 #endif
-/*---------------------------------------------------*/
-/*                                                   */
-/* This routine gets a number from the format        */
-/* string.                                           */
-/*                                                   */
+
+/*****************************************************************************/
+/**
+*
+* This routine gets a number from the format string.
+*
+******************************************************************************/
 static s32 getnum(charptr* linep)
 {
 	s32 n = 0;
@@ -221,21 +231,21 @@ static s32 getnum(charptr* linep)
 	return(n);
 }
 
-/*---------------------------------------------------*/
-/*                                                   */
-/* This routine operates just like a printf/sprintf  */
-/* routine. It outputs a set of data under the       */
-/* control of a formatting string. Not all of the    */
-/* standard C format control are supported. The ones */
-/* provided are primarily those needed for embedded  */
-/* systems work. Primarily the floating point        */
-/* routines are omitted. Other formats could be      */
-/* added easily by following the examples shown for  */
-/* the supported formats.                            */
-/*                                                   */
-
-/* void esp_printf( const func_ptr f_ptr,
-   const charptr ctrl1, ...) */
+/*****************************************************************************/
+/**
+* This routine operates just like a printf/sprintf
+* routine. It outputs a set of data under the
+* control of a formatting string. Not all of the
+* standard C format control are supported. The ones
+* provided are primarily those needed for embedded
+* systems work. Primarily the floating point
+* routines are omitted. Other formats could be
+* added easily by following the examples shown for
+* the supported formats.
+* void esp_printf( const func_ptr f_ptr,
+* const charptr ctrl1, ...)
+*
+*******************************************************************************/
 #if  defined (__aarch64__) && HYP_GUEST && EL1_NONSECURE && XEN_USE_PV_CONSOLE
 void xil_printf( const char8 *ctrl1, ...){
 	XPVXenConsole_Printf(ctrl1);
@@ -253,7 +263,10 @@ void xil_printf( const char8 *ctrl1, ...)
 }
 #endif
 
-/* This routine is equivalent to vprintf routine */
+/*****************************************************************************/
+/**
+* This routine is equivalent to vprintf routine
+******************************************************************************/
 void xil_vprintf(const char8 *ctrl1, va_list argp)
 {
 	s32 Check;

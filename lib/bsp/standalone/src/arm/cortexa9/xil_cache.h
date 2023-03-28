@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 * 3.04a sdm  01/02/12 Remove redundant dsb/dmb instructions in cache maintenance
 *		      APIs.
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
+* 9.0   ml   03/03/23 Updated function prototypes.
 * </pre>
 *
 ******************************************************************************/
@@ -86,9 +88,9 @@ extern "C" {
 void Xil_DCacheEnable(void);
 void Xil_DCacheDisable(void);
 void Xil_DCacheInvalidate(void);
-void Xil_DCacheInvalidateRange(INTPTR adr, u32 len);
+void Xil_DCacheInvalidateRange(INTPTR opstartaddr, u32 len);
 void Xil_DCacheFlush(void);
-void Xil_DCacheFlushRange(INTPTR adr, u32 len);
+void Xil_DCacheFlushRange(INTPTR opstartadr, u32 len);
 
 void Xil_ICacheEnable(void);
 void Xil_ICacheDisable(void);
