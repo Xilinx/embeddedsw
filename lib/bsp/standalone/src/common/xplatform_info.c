@@ -43,6 +43,8 @@
 *                     reported with "-Wundef" flag CR#1111453
 * 8.1    mus 02/13/23 Added new API's XGetCoreId and XGetClusterId. As of now
 *                     they are supported only for VERSAL_NET APU and RPU.
+* 9.0    mus 03/28/23 Added new API XGetBootStatus for VERSAL_NET. It can be
+*                     used to identify type of boot (cold/warm).
 * </pre>
 *
 ******************************************************************************/
@@ -199,6 +201,43 @@ u8 XGetCoreId(void)
 #endif
 
 	return (u8)CoreId;
+}
+
+/*****************************************************************************/
+/**
+*
+* @brief    This API returns boot status of core from which it is executed.
+*           0th bit of CORE_X_PWRDWN/RPU_PCIL_X_PWRDWN register indicates boot type.
+*
+* @return   - 0 for cold boot
+* 	    - 1 for warm boot
+*
+******************************************************************************/
+u8 XGetBootStatus(void)
+{
+	u32 Status;
+	UINTPTR Addr;
+
+#if (__aarch64__)
+        u8 CpuNum;
+
+	CpuNum = XGetClusterId();
+	CpuNum *= XPS_NUM_OF_CORES_PER_CLUSTER;
+	CpuNum += XGetCoreId();
+
+	Addr = XPS_CORE_X_PWRDWN_BASEADDR + (CpuNum * XPS_CORE_X_PWRDWN_OFFSET);
+	Status = Xil_In32(Addr);
+
+        return (Status & XPS_CORE_X_PWRDWN_EN_MASK);
+#else
+	Addr = (XPS_RPU_PCIL_CLUSTER_OFFSET * XGetClusterId()) + XPS_RPU_PCIL_A0_PWRDWN;
+	Addr += (XGetCoreId() * XPS_RPU_PCIL_CORE_OFFSET);
+
+	Status = Xil_In32(Addr);
+
+	return (Status & XPS_RPU_PCIL_X_PWRDWN_EN_MASK);
+#endif
+
 }
 
 #endif
