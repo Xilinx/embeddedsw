@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,7 +60,11 @@ XStatus XPmPmcDomain_Init(XPm_PmcDomain *PmcDomain, u32 Id, XPm_Power *Parent)
 
 	/* For all domain, rail stats are updated with init node finish. For
 	pmc domain, init node commands are not received so update here */
-	/*TBD: Update Rail Stats*/
+	Status = XPmPower_UpdateRailStats(&PmcDomain->Domain,
+					  (u8)XPM_POWER_STATE_ON);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PMC_RAIL_CONTROL;
+	}
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
