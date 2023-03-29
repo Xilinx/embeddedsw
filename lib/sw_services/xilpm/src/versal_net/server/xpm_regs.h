@@ -316,7 +316,7 @@ extern "C" {
 
 #define CRP_RST_PS_PL_POR_MASK			(0x00000020U)
 #define CRP_RST_PS_PS_POR_MASK			(0x00000040U)
-
+#define CRP_RST_PS_PL_SRST_MASK			(0x00000002U)
 /*
  * Definitions required for NPI
  */
