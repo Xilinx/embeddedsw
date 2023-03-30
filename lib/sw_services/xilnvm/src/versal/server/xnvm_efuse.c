@@ -394,13 +394,6 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		}
 	}
 
-	if (WriteNvm->MiscCtrlBits != NULL) {
-		Status = XST_FAILURE;
-		Status = XNvm_EfusePrgmPpkRevokeFuses(WriteNvm->MiscCtrlBits);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
 #ifdef XNVM_EN_ADD_PPKS
     if (WriteNvm->MiscCtrlBits != NULL) {
 		Status = XST_FAILURE;
@@ -418,6 +411,13 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 		}
 	}
 #endif
+
+	if (WriteNvm->MiscCtrlBits != NULL) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePrgmPpkRevokeFuses(WriteNvm->MiscCtrlBits);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		if(WriteNvm->MiscCtrlBits->HaltBootError == TRUE) {
 			Status = XST_FAILURE;
 			Status = XNvm_EfusePrgmHaltBootonError(WriteNvm->MiscCtrlBits);
@@ -457,7 +457,7 @@ int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm)
 				goto END;
 			}
 		}
-
+	}
 
 	if (WriteNvm->UserFuses != NULL) {
 		Status = XST_FAILURE;
