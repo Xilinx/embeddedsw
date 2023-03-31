@@ -200,6 +200,10 @@ struct XPm_Proc *PrimaryProc = &Proc_APU0_0;
 #define MPIDR_AFF0_SHIFT		(0U)
 #define MPIDR_AFF1_SHIFT		(8U)
 #define RPU_GLBL_CNTL_SLSPLIT_MASK	(0x1U)
+/*This is negative offset from PwrCtrl properties which is
+LPX_SLCR_RPU_PCIL_*_PWRDWN*/
+#define LPX_SLCR_RPU_PCIL_CORE_IEN_OFFSET		(-0xB8U)
+#define LPX_SLCR_RPU_PCIL_CORE_IDS_OFFSET		(-0xB4U)
 
 static struct XPm_Proc Proc_RPU_A_0 = {
 	.DevId = PM_DEV_RPU_A_0,
@@ -367,6 +371,7 @@ void XPm_ClientSuspend(const struct XPm_Proc *const Proc)
 	PwrDwnReg = XPm_Read(Proc->PwrCtrl);
 	PwrDwnReg |= Proc->PwrDwnMask;
 	XPm_Write(Proc->PwrCtrl, PwrDwnReg);
+	XPm_RMW32(Proc->PwrCtrl + LPX_SLCR_RPU_PCIL_CORE_IEN_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 #else
 	u64 Val;
 	Val = mfcp(S3_0_C15_C2_7);
@@ -390,6 +395,7 @@ void XPm_ClientWakeUp(const struct XPm_Proc *const Proc)
 		Val = XPm_Read(Proc->PwrCtrl);
 		Val &= ~Proc->PwrDwnMask;
 		XPm_Write(Proc->PwrCtrl, Val);
+		XPm_RMW32(Proc->PwrCtrl + LPX_SLCR_RPU_PCIL_CORE_IDS_OFFSET, Proc->PwrDwnMask, Proc->PwrDwnMask);
 	}
 #else
 	u64 Val;
@@ -436,6 +442,7 @@ void XPm_ClientAbortSuspend(void)
 	PwrDwnReg = XPm_Read(PrimaryProc->PwrCtrl);
 	PwrDwnReg &= ~PrimaryProc->PwrDwnMask;
 	XPm_Write(PrimaryProc->PwrCtrl, PwrDwnReg);
+	XPm_RMW32(PrimaryProc->PwrCtrl + LPX_SLCR_RPU_PCIL_CORE_IDS_OFFSET, PrimaryProc->PwrDwnMask, PrimaryProc->PwrDwnMask);
 #else
 	u64 Val;
 	Val = mfcp(S3_0_C15_C2_7);
