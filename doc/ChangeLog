@@ -1,6 +1,45 @@
 Changes for 2023.1
 ===============================
 
+rfdc_v12_0:
+Added New API to get coupling mode that supports both DAC & ADC
+Added support for VOP when using DC coupling
+
+sysmonpsv_v4_0:
+Secure(through PLM) and Non-Secure access mode intergration.
+Updated, unified return values
+Coverity warnings fixed.
+
+xilpm_v5_0:
+Add support for FPD housecleaning
+Add support for power domain control using GPIO
+Add API forwarding for AIE support
+Add support for secure lockdown
+Increase buffer size to 35K
+Add support for AFI port control
+Add support for adding DDRMC
+Add support for XRAM main clk handling
+Sync VDU BISR repair with GOQ firmware
+Refactor features to versal_common
+Reduce cfu clock during house cleaning
+Fix MISRA violations
+Added/Updated AMD copyright banner
+Fix Doxygen warnings
+Update the feature check API
+
+zynqmp_pmufw:
+Use custom memset instead of library function
+Add bitmask functionality for get_op_char API in the feature check API
+Bump up the version of PM_IOCTL API as it supports the bitmask functionality
+in the feature check API
+Remove the EEMI API Ids version from the feature check API
+Add EXPORT eFuse check for AES, SHA and RSA IPI calls
+Add check to avoid exception while reading A53_DBG_0_EDPRCR_REG register
+Bump up the version of PmPinCtrlSetParam API
+Update the Conflicting EEMI API IDs
+Clear DDR_SR indication flag while exiting DDR_SR
+Fix issues in LPDDR4 SR with drift detection
+
 trngpsv_v1_3:
 Fix RGRG sequence and bug in pattern check comparison
 Clear schedule array after DF operation is done
