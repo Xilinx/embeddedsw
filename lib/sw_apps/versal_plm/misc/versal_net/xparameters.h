@@ -1687,4 +1687,7 @@
 #define PLM_PUF_EXCLUDE
 
 #define XPAR_XILPM_ENABLED
+
+/* Xilinx Secure library ecdsa endianness Settings */
+#define XSECURE_ELLIPTIC_ENDIANNESS	0U	/* 0: Little Endian and 1: Big endian */
 #endif  /* end of protection macro */
