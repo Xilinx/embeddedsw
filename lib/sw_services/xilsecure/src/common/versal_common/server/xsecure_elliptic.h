@@ -56,6 +56,9 @@ extern "C" {
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
 									/**< Size of NIST P-521 curve in bytes */
 
+#define XSECURE_ELLIPTIC_LITTLE_ENDIAN	(0U)
+									/**< Operates APIs on little endian format */
+
 /***************************** Type Definitions ******************************/
 typedef struct {
 	u8 *Qx;		/**< Public key curve point x */
