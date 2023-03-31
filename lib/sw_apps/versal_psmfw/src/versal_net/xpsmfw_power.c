@@ -1135,9 +1135,6 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	/* Clear PREQ bit */
 	XPsmFw_RMW32(Args->CorePreq, Args->CorePreqMask, 0U);
 
-	/* Mark ACPUx powered up in LOCAL_PWR_STATUS register */
-	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, Args->PwrStateMask);
-
 	/* Disable and clear ACPUx direct wake-up interrupt request */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_WAKEUP0_IRQ_STATUS, Args->PwrStateMask);
 
@@ -1147,6 +1144,9 @@ static XStatus XPsmFwACPUxDirectPwrUp(struct XPsmFwPwrCtrl_t *Args)
 	 */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_EN, XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS));
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_SWRST_INT_EN, XPsmFw_Read32(PSMX_GLOBAL_REG_REQ_SWRST_STATUS));
+
+	/* Mark ACPUx powered up in LOCAL_PWR_STATUS register */
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, Args->PwrStateMask);
 
 done:
 	return Status;
@@ -1260,13 +1260,11 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Clear the Interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_PWR_CTRL1_IRQ_STATUS,Args->PwrStateMask);
 
-	/*Mark ACPUx powered down in LOCAL_PWR_STATUS register */
-	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0,Args->PwrStateMask,~Args->PwrStateMask);
-
 	u32 PwrState = XPsmFw_Read32(PSMX_LOCAL_REG_LOC_PWR_STATE0) & (0xFU <<
 				     (Args->ClusterId * 4U));
+
 	/* Power down cluster if all cores in cluster are powered off */
-	if (0U == PwrState) {
+	if (1U == __builtin_popcount(PwrState)) {
 		XPsmFw_RMW32(Args->ClusterPstate, Args->ClusterPstateMask, 0U);
 		XPsmFw_RMW32(Args->ClusterPreq, Args->ClusterPreqMask, Args->ClusterPreqMask);
 
@@ -1279,6 +1277,9 @@ static XStatus XPsmFwACPUxDirectPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_RMW32(Args->ClusterPreq, Args->ClusterPreqMask, 0U);
 		ApuClusterState[Args->ClusterId] = 0U;
 	}
+
+	/*Mark ACPUx powered down in LOCAL_PWR_STATUS register */
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, ~Args->PwrStateMask);
 
 	Status = XST_SUCCESS;
 
@@ -1326,16 +1327,13 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 	/* Unmask the Power Up Interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRUP0_INT_EN,Args->PwrStateMask);
 
-	/*Mark ACPUx powered down in LOCAL_PWR_STATUS register */
-	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0,Args->PwrStateMask,~Args->PwrStateMask);
-
 	/* clear the Power dwn Interrupt */
 	XPsmFw_Write32(PSMX_GLOBAL_REG_REQ_PWRDWN0_STATUS,Args->PwrStateMask);
 
 	u32 PwrState = XPsmFw_Read32(PSMX_LOCAL_REG_LOC_PWR_STATE0) & (0xFU <<
 				     (Args->ClusterId * 4U));
 	/* Power down cluster if all cores in cluster are powered off */
-	if (0U == PwrState) {
+	if (1U == __builtin_popcount(PwrState)) {
 		/* ACPU clock config */
 		XPsmFw_RMW32(Args->ClkCtrlAddr,Args->ClkCtrlMask,~Args->ClkCtrlMask);
 
@@ -1359,6 +1357,9 @@ static XStatus XPsmFwACPUxReqPwrDwn(struct XPsmFwPwrCtrl_t *Args)
 		XPsmFw_RMW32(Args->ClusterPreq, Args->ClusterPreqMask, 0U);
 		ApuClusterState[Args->ClusterId] = 0U;
 	}
+
+	/*Mark ACPUx powered down in LOCAL_PWR_STATUS register */
+	XPsmFw_RMW32(PSMX_LOCAL_REG_LOC_PWR_STATE0, Args->PwrStateMask, ~Args->PwrStateMask);
 
 done:
 	return Status;
