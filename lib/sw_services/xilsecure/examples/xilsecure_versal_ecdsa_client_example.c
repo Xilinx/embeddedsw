@@ -10,6 +10,13 @@
 * @file xilsecure_versal_ecdsa_client_example.c
 *
 * This example tests the Xilsecure client elliptic APIs
+*
+* NOTE: By default this example is created with data in LITTLE endian format,
+* If user changes the XilSecure BSP xsecure_elliptic_endianness configuration
+* to BIG endian, data buffers shall be created in BIG endian format.
+* Also, this configuration is valid only over Server BSP, client side has
+* no impact.
+*
 * To build this application, xilmailbox library must be included in BSP and xilsecure
 * must be in client mode
 *

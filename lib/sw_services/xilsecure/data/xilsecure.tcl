@@ -293,6 +293,22 @@ proc xgen_opts_file {libhandle} {
 		}
 	}
 
+	if {$proc_type == "psv_pmc" || $proc_type == "psv_cortexa72" ||
+		$proc_type == "psv_cortexr5" ||
+		$proc_type == "psxl_pmc" || $proc_type == "psxl_cortexa78" ||
+		$proc_type == "psxl_cortexr52" || $proc_type == "psx_pmc" ||
+		$proc_type == "psx_cortexa78" || $proc_type == "psx_cortexr52"} {
+		set file_handle [hsi::utils::open_include_file "xparameters.h"]
+		puts $file_handle "\n/* Xilinx Secure library ecdsa endianness Settings */"
+		set value [common::get_property CONFIG.xsecure_elliptic_endianness $libhandle]
+		if {$value == "littleendian"} {
+			puts $file_handle "#define XSECURE_ELLIPTIC_ENDIANNESS	0U\n"
+		} else {
+			puts $file_handle "#define XSECURE_ELLIPTIC_ENDIANNESS	1U\n"
+		}
+		close $file_handle
+	}
+
 	if {$proc_type == "psxl_pmc"} {
 		set file_handle [hsi::utils::open_include_file "xparameters.h"]
 		puts $file_handle "\n/* Xilinx Secure library TRNG User Settings */"

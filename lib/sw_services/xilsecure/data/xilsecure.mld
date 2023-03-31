@@ -55,4 +55,5 @@ BEGIN LIBRARY xilsecure
   PARAM name = dlen, desc = "Seed length in multiples of TRNG block size i.e 16 bytes and the value ranging from 7 - 31", type = int, default = 7;
   PARAM name = adaptproptestcutoff, desc = "Cutoff value to run adaptive health tests", type = int, default = 612;
   PARAM name = repcounttestcutoff, desc = " Cutoff value to run repetitive health tests", type = int, default = 33;
+  PARAM name = xsecure_elliptic_endianness, desc = "Data endianness selection for elliptic curve APIs \n of Versal and Versal Net\n this selection is applicable only for server mode", type = enum, values = (xsecure_ecc_endianess = "littleendian", xsecure_ecc_endianess = "bigendian"), default = "littleendian";
 END LIBRARY
