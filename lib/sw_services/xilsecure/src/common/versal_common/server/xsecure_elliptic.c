@@ -46,7 +46,7 @@
 *                     to non static
 * 5.0   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
 *       dc   08/26/22 Removed initializations of arrays
-*
+* 5.1   dc   03/30/23 Added support to accept the data in either big/little endian.
 *
 * </pre>
 *
@@ -718,9 +718,15 @@ EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp)
 static void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr)
 {
 	u32 Index = 0U;
+	s32 RIndex = (s32)Size - 1;
 
-	for (Index = 0U; Index < Size; Index++) {
-		Dst[Index] = XSecure_InByte64((SrcAddr + Index));
+	for (Index = 0U; (Index < Size) && (RIndex >= 0); Index++, RIndex--) {
+		if (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN) {
+			Dst[Index] = XSecure_InByte64((SrcAddr + Index));
+		}
+		else {
+			Dst[Index] = XSecure_InByte64((SrcAddr + (u64)RIndex));
+		}
 	}
 }
 
@@ -737,9 +743,15 @@ static void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr)
 static void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
 {
 	u32 Index = 0U;
+	s32 RIndex = (s32)Size - 1;
 
-	for (Index = 0U; Index < Size; Index++) {
-		XSecure_OutByte64((DstAddr + Index), Src[Index]);
+	for (Index = 0U; (Index < Size) && (RIndex >= 0); Index++, RIndex--) {
+		if (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN) {
+			XSecure_OutByte64((DstAddr + Index), Src[Index]);
+		}
+		else {
+			XSecure_OutByte64((DstAddr + Index), Src[RIndex]);
+		}
 	}
 }
 
