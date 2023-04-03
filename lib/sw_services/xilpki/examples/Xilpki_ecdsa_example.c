@@ -25,7 +25,7 @@
 /* Below definition are user configurable to reserve the memory space for
  * Request queue and completion queue pages for PKI internal Operations.
  *
- * @note: This example supports only keystone-B platform.
+ * @note: This example supports only VersalNet platform.
  */
 #define RQ_CFG_INPUT_PAGE_ADDR		0x540000U
 #define RQ_CFG_OUTPUT_PAGE_ADDR		0x560000U
