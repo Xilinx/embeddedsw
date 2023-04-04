@@ -458,9 +458,12 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 #define XREG_ICC_SGI1R_EL1	"p15, 0, %0,  %1,  c12"
 #define XREG_ICC_PMR_EL1	"p15, 0, %0,  c4,  c6, 0"
 #define XREG_ICC_IAR0_EL1	"p15, 0, %0,  c12,  c8, 0"
+#define XREG_ICC_IAR1_EL1	"p15, 0, %0,  c12,  c12, 0"
 #define XREG_ICC_EOIR0_EL1	"p15, 0, %0,  c12,  c8, 1"
+#define XREG_ICC_EOIR1_EL1	"p15, 0, %0,  c12,  c12, 1"
 #define XREG_IMP_CBAR		"p15, 1, %0, c15, c3, 0"
 #define XREG_ICC_BPR0_EL1	"p15, 0, %0, c12, c8, 3"
+#define XREG_ICC_BPR1_EL1	"p15, 0, %0, c12, c12, 3"
 #define XREG_ICC_RPR_EL1	"p15, 0, %0, c12, c11, 3"
 #else
 #define XREG_ICC_SRE_EL1	"S3_0_C12_C12_5"
@@ -609,7 +612,7 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 *
 *****************************************************************************/
 #if defined(ARMR52)
-#define XScuGic_get_IntID()  mfcp(XREG_ICC_IAR0_EL1)
+#define XScuGic_get_IntID()  mfcp(XREG_ICC_IAR1_EL1)
 #elif EL3
 #define XScuGic_get_IntID()  mfcpnotoken(XREG_ICC_IAR0_EL1)
 #else
@@ -627,7 +630,7 @@ extern XScuGic_Config XScuGic_ConfigTable[];	/**< Config table */
 *
 *****************************************************************************/
 #if defined(ARMR52)
-#define XScuGic_ack_Int(val)   mtcp(XREG_ICC_EOIR0_EL1,val)
+#define XScuGic_ack_Int(val)   mtcp(XREG_ICC_EOIR1_EL1,val)
 #elif EL3
 #define XScuGic_ack_Int(val)   mtcpnotoken(XREG_ICC_EOIR0_EL1,val)
 #else
