@@ -35,6 +35,7 @@
 *       ma   01/17/2022 Enable SLVERR for SLAVE_BOOT registers
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 * 1.07  ng   11/11/2022 Updated doxygen comments
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -70,18 +71,21 @@
 /*****************************************************************************/
 /**
  * @brief	This function is used to initialize the SBI for SMAP and
- * JTAG boot modes.
+ * 			JTAG boot modes.
  *
  * @param	DeviceFlags used to differentiate between SMAP and JTAG
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_SbiInit(u32 DeviceFlags)
 {
 	int Status = XST_FAILURE;
 
-	/** Release reset of SBI */
+	/**
+     * - Release reset of SBI.
+    */
 	XPlmi_UtilRMW(CRP_RST_SBI,
 	       CRP_RST_SBI_RESET_MASK, ~CRP_RST_SBI_RESET_MASK);
 
@@ -112,7 +116,9 @@ int XLoader_SbiInit(u32 DeviceFlags)
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL, SLAVE_BOOT_SBI_CTRL_ENABLE_MASK,
 		SLAVE_BOOT_SBI_CTRL_ENABLE_MASK);
 
-	/** Enable SLVERR */
+	/**
+     * - Enable SLVERR.
+    */
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_CTRL,
 			SLAVE_BOOT_SBI_CTRL_APB_ERR_RES_MASK,
 			SLAVE_BOOT_SBI_CTRL_APB_ERR_RES_MASK);
@@ -124,16 +130,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to copy the data from SMAP/JTAG to
- * destination address through SBI interface.
+ * 			destination address through SBI interface.
  *
  * @param	SrcAddr is unused and is only passed for compatibility
- *		with the copy functions of other boot modes
+ *			with the copy functions of other boot modes
  * @param	DestAddr is the address of the destination to which the data
- *		should be copied to
+ *			should be copied to
  * @param	Length is number of bytes to be copied
  * @param	Flags indicate parameters for DMA transfer
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
@@ -143,17 +150,24 @@ int XLoader_SbiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	(void) (SrcAddr);
 
 	ReadFlags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
-	/* Just wait for the Data to be copied */
+	/**
+     * - Just wait for the Data to be copied.
+    */
 	if (ReadFlags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
 		Status = XPlmi_WaitForNonBlkDestDma(XPLMI_PMCDMA_1);
 		goto END;
 	}
 
-	/* Update the flags for NON blocking DMA call */
+	/**
+     * - Update the flags for NON blocking DMA call.
+    */
 	if (ReadFlags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		ReadFlags = XPLMI_DMA_DST_NONBLK;
 	}
 	ReadFlags |= XPLMI_PMCDMA_1;
+    /**
+     * - Start the DMA transfer.
+     */
 	Status = XPlmi_SbiDmaXfer(DestAddr, (Length >> XPLMI_WORD_LEN_SHIFT),
 		ReadFlags);
 
@@ -165,7 +179,8 @@ END:
 /**
  * @brief	This function will reset the SBI interface.
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS on success.
  *
  *****************************************************************************/
 int XLoader_SbiRecovery(void)
@@ -177,7 +192,9 @@ int XLoader_SbiRecovery(void)
 		goto END;
 	}
 	SbiCtrl = XPlmi_In32(SLAVE_BOOT_SBI_CTRL);
-	/** Reset DMA1, SBI */
+	/**
+     * - Reset DMA1, SBI.
+    */
 	XPlmi_Out32(CRP_RST_SBI, CRP_RST_SBI_RESET_MASK);
 	XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK,
 		      CRP_RST_PDMA_RESET1_MASK);
@@ -185,7 +202,9 @@ int XLoader_SbiRecovery(void)
 	XPlmi_Out32(CRP_RST_SBI, 0x0U);
 	XPlmi_UtilRMW(CRP_RST_PDMA, CRP_RST_PDMA_RESET1_MASK, 0x0U);
 
-	/** Restore the interface setting */
+	/**
+     * - Restore the interface setting.
+    */
 	XPlmi_Out32(SLAVE_BOOT_SBI_CTRL, SbiCtrl);
 
 END:

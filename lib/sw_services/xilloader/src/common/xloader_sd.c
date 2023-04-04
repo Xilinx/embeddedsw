@@ -43,6 +43,7 @@
 *       skg  06/20/2022 Fixed MISRA C Rule 7.4 violation
 *       bm   07/06/2022 Refactor versal and versal_net code
 * 1.08  ng   11/11/2022 Updated doxygen comments
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -86,12 +87,15 @@ static u32 SdDeviceNode;
 /*****************************************************************************/
 /**
  * @brief	This function creates the Boot image name for file system devices
- * based on the multiboot register.
+ * 			based on the multiboot register.
  *
  * @param	MultiBootOffset is the value of the multiboot register that
  *			would be suffixed to the filename
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT if search for BOOT.BIN
+ * 			crosses max limit.
  *
  ******************************************************************************/
 static int XLoader_MakeSdFileName(u32 MultiBootOffset)
@@ -100,6 +104,9 @@ static int XLoader_MakeSdFileName(u32 MultiBootOffset)
 	u8 Index = 10U;
 	u8 Value;
 
+    /**
+     * - Verify that multiboot offset is within the files limits.
+     */
 	if (MultiBootOffset >= XLOADER_SD_MAX_BOOT_FILES_LIMIT) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT, 0);
 		goto END;
@@ -146,8 +153,8 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 {
 	u8 DrvNum;
 	/**
-	 * If design has both SD0 and SD1, select drive number based on bootmode
-	 * If design has ONLY SD0 or ONLY SD1, drive number should be "0"
+	 * - If design has both SD0 and SD1, select drive number based on bootmode
+	 * - If design has only SD0 or ONLY SD1, drive number should be "0".
 	 */
 #ifdef XPAR_XSDPS_1_DEVICE_ID
 	if ((XLoader_IsPdiSrcSD0(DeviceFlags) == (u8)TRUE) ||
@@ -156,8 +163,8 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
 	}
 	else {
 		/**
-		 * For XLOADER_SD1_BOOT_MODE or XLOADER_SD1_LS_BOOT_MODE
-		 * or XLOADER_EMMC_BOOT_MODE
+		 * - For XLOADER_SD1_BOOT_MODE or XLOADER_SD1_LS_BOOT_MODE
+		 * or XLOADER_EMMC_BOOT_MODE, drive should be "5".
 		 */
 		DrvNum = XLOADER_SD_DRV_NUM_5;
 	}
@@ -175,7 +182,13 @@ static u8 XLoader_GetDrvNumSD(u8 DeviceFlags)
  *
  * @param	DeviceFlags have the bootmode information.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_MEMSET_SD_BOOT_FILE if SD bootfile instance creation
+ * 			fails.
+ * 			- XLOADER_ERR_PM_DEV_SDIO_0 if device request for SDIO_0 fails.
+ * 			- XLOADER_ERR_PM_DEV_SDIO_1 if device request for SDIO_1 fails.
+ * 			- XLOADER_ERR_SD_F_OPEN if file is not present or read fails.
  *
  *****************************************************************************/
 int XLoader_SdInit(u32 DeviceFlags)
@@ -218,7 +231,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 	XPlmi_Out32(SdCdnReg, PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
 
 	/**
-	 * Filesystem boot modes require the filename extension as well as
+	 * - Filesystem boot modes require the filename extension as well as
 	 * the logical drive in which the secondary pdi file is present.
 	 * To meet these requirements and to reuse the same code for primary
 	 * and secondary boot modes, bits 0 to 3 in DeviceFlags denote the
@@ -235,8 +248,8 @@ int XLoader_SdInit(u32 DeviceFlags)
 	DeviceFlags >>= XLOADER_LOGICAL_DRV_SHIFT;
 	DrvNum += (u8)(DeviceFlags & XLOADER_LOGICAL_DRV_MASK);
 
-	/** Set logical drive number */
-	/** Register volume work area, initialize device */
+	/** - Set logical drive number. */
+	/** - Register volume work area, initialize device. */
 	BootFile[0U] = (char)DrvNum + 48;
 	BootFile[1U] = ':';
 	BootFile[2U] = '/';
@@ -251,9 +264,7 @@ int XLoader_SdInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/**
-	 * Create boot image name
-	 */
+	/** - Create boot image name. */
 	Status = XLoader_MakeSdFileName(MultiBootOffset);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -281,14 +292,18 @@ END:
  * destination address.
  *
  * @param	SrcAddr is the address of the SD flash where copy should
- * 		start from
+ *			start from
  * @param 	DestAddr is the address of the destination where it
- * 		should copy to
+ * 			should copy to
  * @param	Length of the bytes to be copied
  * @param	Flags are unused and only passed to maintain compatibility without
- *		the copy functions of other boot modes
+ *			the copy functions of other boot modes
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_SC_F_LSEEK on f_seek fail.
+ * 			- XLOADER_ERR_SD_F_READ if reading from SD card fails.
+ * 			- XLOADER_ERR_DMA_XFER if DMA transfer fails.
  *
  *****************************************************************************/
 int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
@@ -304,6 +319,7 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		goto END;
 	}
 
+	/** - Verify whether you can access the source address. */
 	Rc = f_lseek(&FFil, (FSIZE_t)SrcAddr);
 	if (Rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to seek to 0x%0x%08x\n",
@@ -313,6 +329,13 @@ int XLoader_SdCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		goto END;
 	}
 
+	/**
+	 * - Verify if destination address is 32bit or 64bit.
+	 *   - if destination address is 32bit, copy data directly to destination
+	 *     address.
+	 *   - if destination address is 64bit, copy data indirectly using PMCRAM
+	 *     address to destination address.
+	 */
 	if ((DestAddr >> 32U) == 0U) {
 		Rc = f_read(&FFil, (void*)(UINTPTR)DestAddr, Length, &Br);
 		if (Rc != FR_OK) {
@@ -360,11 +383,14 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to close the boot file and unmount the
- * file system.
+ * 			file system.
  *
  * @param	None
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_SD_F_CLOSE if failed to close file in SD filesystem.
+ * 			- XLOADER_ERR_SD_UNMOUNT if unmounting filesystem fails.
  *
  *****************************************************************************/
  int XLoader_SdRelease(void)
@@ -372,6 +398,7 @@ END:
 	int Status = XST_FAILURE;
 	FRESULT Rc;
 
+	/** - Close PDI file. */
 	Rc = f_close(&FFil);
 	if (Rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to close file\n\r");
@@ -380,6 +407,7 @@ END:
 		goto END;
 	}
 
+	/** - Unmount file system. */
 	Rc = f_unmount(BootFile);
 	if (Rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO, "SD: Unable to unmount filesystem\n\r");
@@ -389,6 +417,7 @@ END:
 	}
 
 END:
+	/** - Release the device and restore the value of IOU_SLCR_CDN register. */
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		XPLMI_CMD_SECURE);
 	XPlmi_Out32(SdCdnReg, SdCdnVal);
@@ -398,11 +427,19 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to initialize the sd controller and driver.
- * It is only called in raw boot mode.
+ * 			It is only called in raw boot mode.
  *
  * @param	DeviceFlags contains the boot mode information
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_MEMSET_SD_INSTANCE if SD instance creation fails.
+ * 			- XLOADER_ERR_PM_DEV_SDIO_0 if device request for SDIO_0 fails.
+ * 			- XLOADER_ERR_PM_DEV_SDIO_1 if device request for SDIO_1 fails.
+ * 			- XLOADER_ERR_SD_LOOKUP if SD lookup fails.
+ * 			- XLOADER_ERR_SD_CFG if SD config fails.
+ * 			- XLOADER_ERR_SD_CARD_INIT if SD card initialization fails.
+ * 			- XLOADER_ERR_MMC_PART_CONFIG if MMC part configuration fails.
  *
  *****************************************************************************/
 int XLoader_RawInit(u32 DeviceFlags)
@@ -416,6 +453,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	u32 SdRawBootVal = DeviceFlags & XLOADER_SD_RAWBOOT_MASK;
 	u32 MmcConfig;
 
+	/** - Initialise SD instance. */
 	Status = XPlmi_MemSetBytes(&SdInstance, sizeof(SdInstance),
 				0U, sizeof(SdInstance));
 	if (Status != XST_SUCCESS) {
@@ -423,6 +461,8 @@ int XLoader_RawInit(u32 DeviceFlags)
 			(int)XLOADER_ERR_MEMSET_SD_INSTANCE);
 		goto END;
 	}
+
+	/** - Set the device node and CDn register address based on the bootmode. */
 	if ((XLoader_IsPdiSrcSD0(PdiSrc) == (u8)TRUE) ||
 		(PdiSrc == XLOADER_PDI_SRC_EMMC0)) {
 		SdDeviceNode = PM_DEV_SDIO_0;
@@ -435,6 +475,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 		ErrorCode = XLOADER_ERR_PM_DEV_SDIO_1;
 	}
 
+	/** - Request the usage of SD device. */
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 	if (Status != XST_SUCCESS) {
@@ -448,9 +489,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 		DrvNum = XLOADER_SD_DRV_NUM_1;
 	}
 
-	/*
-	 * Initialize the host controller
-	 */
+	/** - Get the device configuration. */
 	SdConfig = XSdPs_LookupConfig(DrvNum);
 	if (NULL == SdConfig) {
 		XLoader_Printf(DEBUG_GENERAL,"RAW Lookup config failed\r\n");
@@ -459,6 +498,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 		goto END;
 	}
 
+	/** - Configure the device. */
 	Status = XSdPs_CfgInitialize(&SdInstance, SdConfig,
 				SdConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
@@ -468,6 +508,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 		goto END;
 	}
 
+	/** - Initialise the device. */
 	Status = XSdPs_CardInitialize(&SdInstance);
 	if (Status != XST_SUCCESS) {
 		XLoader_Printf(DEBUG_GENERAL, "RAW SD Card init failed\r\n");
@@ -494,6 +535,7 @@ int XLoader_RawInit(u32 DeviceFlags)
 	else {
 		goto END1;
 	}
+	/** - Configure MMC settings in case of EMMC or EMMC0 boot modes. */
 	Status = XSdPs_Set_Mmc_ExtCsd(&SdInstance, MmcConfig);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
@@ -511,17 +553,18 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to copy the data from SD/eMMC to
- * destination address in raw boot mode only.
+ * 			destination address in raw boot mode only.
  *
  * @param	SrcAddr is the address of the SD flash where copy should
- * 		start from
+ * 			start from
  * @param	DestAddr is the address of the destination where it
- * 		should copy to
+ * 			should copy to
  * @param	Length of the bytes to be copied
  * @param	Flags param is unused and is only included for compliance with
- * 		other device boot modes
+ * 			other device boot modes
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
@@ -544,15 +587,19 @@ int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		(u32)(SrcAddr >> 32U), (u32)(SrcAddr), (u32)(DestAddr >> 32U),
 		(u32)DestAddr, Length, Flags);
 	SdInstance.Dma64BitAddr = 0U;
+	/** - Copy the first chunk (512 bytes) to local buffer. */
 	Status = XSdPs_ReadPolled(&SdInstance, (u32)StartBlock, 1U, ReadBuffer);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/** - Calculate the remaining length. */
 	TrfLen = (u32)(XLOADER_SD_RAW_BLK_SIZE - DestOffset);
 	if (Length < TrfLen) {
 		TrfLen = Length;
 	}
+
+	/** - Transfer the local buffer to destination address. */
 	Status = XPlmi_DmaXfr((u64)(UINTPTR)&ReadBuffer[DestOffset], DestAddr,
 		(TrfLen >> XPLMI_WORD_LEN_SHIFT), XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
@@ -562,6 +609,10 @@ int XLoader_RawCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	Length -= TrfLen;
 	++StartBlock;
 
+	/**
+	 * - Transfer the remaining data by copying the subsequent segment and
+	 *   transmitting it to the destination address.
+	 */
 	while (Length > XLOADER_SD_CHUNK_SIZE) {
 		if((DestAddr >> 32U) == 0U) {
 			ReadBuffPtr = (u8 *)(UINTPTR)(DestAddr);
@@ -621,17 +672,19 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to restore the card detect value to
- * PMC_IOU_SLCR registers.
+ * 			PMC_IOU_SLCR registers.
  *
  * @param	None
  *
- * @return	XST_SUCCESS on success always
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure.
  *
  ****************************************************************************/
 int XLoader_RawRelease(void)
 {
 	int Status = XST_FAILURE;
 
+	/** - Release the device. */
 	XPlmi_Out32(SdCdnReg, SdCdnVal);
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, SdDeviceNode,
 		XPLMI_CMD_SECURE);

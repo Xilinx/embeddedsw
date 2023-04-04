@@ -68,6 +68,7 @@
 *       sk   01/11/2023 Added new image store feature
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *       bm   01/23/2023 Send Load PDI response in Payload[1]
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -181,12 +182,13 @@ static XPlmi_Module XPlmi_Loader;
 /*****************************************************************************/
 /*****************************************************************************/
 /**
- * @brief This function checks if a particular Loader Command ID is supported
- * or not. Command ID is the only payload parameter.
+ * @brief	This function checks if a particular Loader Command ID is supported
+ * 			or not. Command ID is the only payload parameter.
  *
- * @param Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure
  *
- * @return Returns XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS on success.
  *
  *****************************************************************************/
 static int XLoader_Features(XPlmi_Cmd *Cmd)
@@ -213,13 +215,14 @@ static int XLoader_Features(XPlmi_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides load DDR copy image execution.
- * Command payload parameters are
- *	* Img ID - of ddr copied image
- *	* Func ID - to verify with the FuncID of the image copied to DDR
+ * 			Command payload parameters are
+ *				* Img ID - of ddr copied image
+ *				* Func ID - to verify with the FuncID of the image copied to DDR
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_LoadDdrCpyImg(XPlmi_Cmd *Cmd)
@@ -247,13 +250,16 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function provides PDI execution from DDR.
- *  Command payload parameters are
- *	- PdiSrc - Boot Mode values, DDR, PCIe
- *	- PdiAddr - 64bit PDI address located in the Source
+ * 			Command payload parameters are
+ *				* PdiSrc - Boot Mode values, DDR, PCIe.
+ *				* PdiAddr - 64bit PDI address located in the Source.
+ *				* Response - stores the partial PDI load status.
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success
+ * 			- XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC on unsupported PDI source.
  *
  *****************************************************************************/
 static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
@@ -304,17 +310,21 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function provides ImageInfo stored in ImageInfoTbl for a
- *  given NodeID.
- *  Command payload parameters are
- *	- Node ID
- *  Command Response parameters are
- * 	- Unique ID
- * 	- Parent Unique ID
- * 	- Function ID
+ * 			given NodeID.
+ *			Command payload parameters are
+ *			- Node ID
+ * 			Command Response parameters are
+ * 			- Unique ID
+ * 			- Parent Unique ID
+ * 			- Function ID
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INVALID_IMGID on invalid image ID.
+ * 			- XLOADER_ERR_NO_VALID_IMG_FOUND on valid image not found in image
+ * 			info table.
  *
  *****************************************************************************/
 static int XLoader_GetImageInfo(XPlmi_Cmd *Cmd)
@@ -360,16 +370,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function does nothing but provides a command which is
- * used by bootgen to set the Image Header IDs
+ * 			used by bootgen to set the Image Header IDs
  *
- *  Command payload parameters are
- *	- Node ID
- *	- Unique ID
- *	- Parent Unique ID
- *	- Function ID
+ * 			Command payload parameters are
+ *			- Node ID
+ *			- Unique ID
+ *			- Parent Unique ID
+ *			- Function ID
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS on success.
  *
  *****************************************************************************/
 static int XLoader_SetImageInfo(XPlmi_Cmd *Cmd)
@@ -482,14 +493,22 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function updates multiboot register value during run-time
- *  Command payload parameters are
- *	- BootMode[15:8] - Boot Mode value
- *	- FlashType[3:0] - Type of Flash
- *	- Image Location - Location of Image in the boot device
+ * 			Command payload parameters are
+ *			- BootMode[15:8] - Boot Mode value
+ *			- FlashType[3:0] - Type of Flash
+ *			- Image Location - Location of Image in the boot device
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_UNSUPPORTED_MULTIBOOT_FLASH_TYPE on unsupported
+ * 			flash type.
+ * 			- XLOADER_ERR_UNSUPPORTED_MULTIBOOT_PDISRC on unsupported PDI
+ * 			source.
+ * 			- XLOADER_ERR_UNSUPPORTED_FILE_NUM on unsupported file number.
+ * 			- XLOADER_ERR_UNSUPPORTED_MULTIBOOT_OFFSET on unsupported
+ * 			multiboot offset.
  *
  *****************************************************************************/
 static int XLoader_UpdateMultiboot(XPlmi_Cmd *Cmd)
@@ -592,15 +611,19 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function adds Pdi to ImageStore PdiList
- *  Command payload parameters are
- *  	- PDI ID
- *	- High PdiAddr - Upper 32 bit value of PdiAddr
- *	- Low PdiAddr - Lower 32 bit value of PdiAddr
- *	- PDI Size (in words)
+ * 			Command payload parameters are
+ *			- PDI ID
+ *			- High PdiAddr - Upper 32 bit value of PdiAddr
+ *			- Low PdiAddr - Lower 32 bit value of PdiAddr
+ *			- PDI Size (in words)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET if image store configuration
+ * 			is not enabled or error.
+ * 			- XLOADER_ERR_PDI_IMG_STORE_FULL on PDI image list is full.
  *
  *****************************************************************************/
 static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
@@ -694,13 +717,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function adds Pdi to ImageStore PdiList
- *  Command payload parameters are
- *  	- PDI ID
- *	- PDI Data
+ * 			Command payload parameters are
+ * 				- PDI ID
+ *				- PDI Data
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET if image store configuration
+ * 			is not enabled or error.
+ * 			- XLOADER_ERR_PDI_IMG_STORE_FULL on PDI image list is full.
  *
  *****************************************************************************/
 static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
@@ -805,12 +832,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function removes Pdi from ImageStore PdiList
- *  Command payload parameters are
- *	- PdiId - Id of the PDI to be removed from Image Store
+ * 			Command payload parameters are
+ *				- PdiId - Id of the PDI to be removed from Image Store
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_PDI_LIST_EMPTY if there are no PDI's in the list.
+ * 			- XLOADER_ERR_PDI_ADDR_NOT_FOUND if PDI address is invalid.
  *
 *****************************************************************************/
 static int XLoader_RemoveImageStorePdi(XPlmi_Cmd *Cmd)
@@ -866,10 +896,11 @@ END:
  *
  * @param	Buffer is the pointer to the metaheader buffer
  * @param	Mask is the exportable mask which is used to zeroise the
- * non-exportable fields of the buffer
+ * 			non-exportable fields of the buffer
  * @param	Size is the size of the buffer in bytes
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XLoader_GetExportableBuffer(u32 *Buffer, u32 Mask, u32 Size)
@@ -900,7 +931,16 @@ static void XLoader_GetExportableBuffer(u32 *Buffer, u32 Mask, u32 Size)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INVALID_PDI_INPUT PDI given is not a full PDI
+ * 			or partial PDI.
+ * 			- XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR if source address is invalid.
+ * 			- XLOADER_ERR_INVALID_METAHEADER_OFFSET if offset is invalid.
+ * 			- XLOADER_ERR_INVALID_METAHEADER_DEST_ADDR if destination address is
+ * 			invalid.
+ * 			- XLOADER_ERR_INVALID_METAHDR_BUFF_SIZE if buffer size is less than
+ * 			meta header length.
  *
  *****************************************************************************/
 static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
@@ -1035,7 +1075,12 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_ADDR on Invalid destination
+ * 			address.
+ * 			- XLOADER_ERR_INVALID_HANDOFF_PARAM_DEST_SIZE on Invalid destination
+ * 			size.
  *
  *****************************************************************************/
 static int XLoader_GetATFHandOffParams(XPlmi_Cmd *Cmd)
@@ -1094,7 +1139,9 @@ END:
  * @param	CmdId is the Command ID
  * @param	IpiReqType is the IPI command request type
  *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_GLITCH_DETECTED if glitch is detected.
  *
  *****************************************************************************/
 static int XLoader_CheckIpiAccess(u32 CmdId, u32 IpiReqType)

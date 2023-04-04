@@ -26,6 +26,7 @@
 * 1.01  ng   11/11/2022 Updated doxygen comments
 *       dc   12/27/2022 Added SHA1 instance
 *       kal  01/05/2023 Added PCR Extend functions for secure images
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -178,7 +179,21 @@ XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
  *
  * @param	PdiPtr Pdi instance pointer
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_WAKEUP_R52_0 if waking up the R52_0 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_R52_0 if waking up the R52_1 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_A78_0 if waking up the A78_0 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_A78_1 if waking up the A78_1 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_A78_2 if waking up the A78_2 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_A78_3 if waking up the A78_3 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_PSM if waking up the PSM failed during handoff.
  *
  *****************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
@@ -192,7 +207,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
 
-	/** Start Handoff to the cpus */
+	/** - Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
 		CpuId = PdiPtr->HandoffParam[Index].CpuSettings &
 			XIH_PH_ATTRB_DSTN_CPU_MASK;
@@ -201,7 +216,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		ClusterId >>= XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT;
 		HandoffAddr = PdiPtr->HandoffParam[Index].HandoffAddr;
 		Status = XST_FAILURE;
-		/** Wake up each processor */
+		/** - Wake up each processor */
 		switch (CpuId)
 		{
 			case XIH_PH_ATTRB_DSTN_CPU_R52_0:
@@ -298,7 +313,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 
 END:
 	/**
-	 * Make Number of handoff CPUs to zero
+	 * - Make Number of handoff CPUs to zero.
 	 */
 	PdiPtr->NoOfHandoffCpus = 0x0U;
 	return Status;
@@ -307,13 +322,15 @@ END:
 /****************************************************************************/
 /**
 * @brief	This function sets the handoff parameters to the ARM Trusted
-* Firmware(ATF). Some of the inputs for this are taken from image partition
-* header. A pointer to the structure containing these parameters is stored in
-* the PMC_GLOBAL.GLOBAL_GEN_STORAGE4 register, which ATF reads.
+* 			Firmware(ATF). Some of the inputs for this are taken from image
+* 			partition header. A pointer to the structure containing these
+* 			parameters is stored in the PMC_GLOBAL.GLOBAL_GEN_STORAGE4
+* 			register, which ATF reads.
 *
 * @param	PrtnHdr is pointer to Partition header details
 *
-* @return	None
+* @return
+* 			- None
 *
 *****************************************************************************/
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
@@ -326,7 +343,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 	PrtnAttrbs = PrtnHdr->PrtnAttrb;
 
 	/**
-	 * Read partition header and deduce entry point and partition flags.
+	 * - Read partition header and deduce entry point and partition flags.
 	 */
 	PrtnFlags =
 		(((PrtnAttrbs & XIH_PH_ATTRB_A78_EXEC_ST_MASK)
@@ -339,7 +356,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF));
 
 	PrtnAttrbs &= XIH_PH_ATTRB_DSTN_CPU_MASK;
-	/** Update CPU number based on destination CPU */
+	/** - Update CPU number based on destination CPU */
 	if (PrtnAttrbs == XIH_PH_ATTRB_DSTN_CPU_A78_0) {
 		PrtnFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A78_0;
 	}
@@ -397,13 +414,16 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 /*****************************************************************************/
 /**
  * @brief	This function is used to get PdiSrc and PdiAddr for Secondary
- * 		SD boot modes
-
+ *			SD boot modes
+ *
  * @param	SecBootMode is the secondary boot mode value
  * @param	PdiSrc is pointer to the source of PDI
  * @param	PdiAddr is the pointer to the address of the Pdi
-
- * @return	XST_SUCCESS on success and error code on failure
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE on unsupported secondary
+ * 			bootmode.
  *
  *****************************************************************************/
 int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
@@ -412,7 +432,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 	int Status = XST_FAILURE;
 
 	/**
-	 * Get the PDI source address for the secondary boot device.
+	 * - Get the PDI source address for the secondary boot device.
 	 */
 	switch(SecBootMode)
 	{
@@ -472,12 +492,21 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 
 /*****************************************************************************/
 /**
- * @brief	This function requests TCM
- * depending upon input param and R52-0 and R52-1 cores as required for TCMs.
+ * @brief	This function requests TCM depending upon input param and R52-0
+ * 			and R52-1 cores as required for TCMs.
  *
  * @param	TcmId denotes TCM_A or TCM_B or TCM_C
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_PM_DEV_TCM_0_A if device request for TCM_A_0A or
+ * 			TCM_A_0B or TCM_A_0C is failed.
+ * 			- XLOADER_ERR_PM_DEV_TCM_0_B if device request for TCM_B_0A or
+ * 			TCM_B_0B or TCM_B_0C is failed.
+ * 			- XLOADER_ERR_PM_DEV_TCM_1_A if device request for TCM_A_1A or
+ * 			TCM_A_1B or TCM_A_1C is failed.
+ * 			- XLOADER_ERR_PM_DEV_TCM_1_B if device request for TCM_B_1A or
+ * 			TCM_B_1B or TCM_B_1C is failed.
  *
  *****************************************************************************/
 static int XLoader_RequestTCM(u8 TcmId)
@@ -596,7 +625,13 @@ END:
  * @param	SecureParams is pointer to the instance containing security related
  *			params
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INVALID_ELF_LOAD_ADDR if load address of the elf is
+ * 			invalid.
+ * 			- XLOADER_ERR_PM_DEV_PSM_PROC if device request for PSM is failed.
+ * 			- XLOADER_ERR_INVALID_R52_CLUSTER if invalid R52 cluster is
+ * 			selected.
  *
  *****************************************************************************/
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
@@ -612,6 +647,9 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u32 DeviceId;
 	u32 Mode = 0U;
 
+	/**
+	 * - Verify the load address.
+	 */
 	Status = XPlmi_VerifyAddrRange(PrtnParams->DeviceCopy.DestAddr, EndAddr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_ELF_LOAD_ADDR,
@@ -624,18 +662,14 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT;
 	ClusterLockstep = XilPdi_GetClusterLockstep(PrtnHdr);
 
-	/*
-	 * Requirements:
+	/**
 	 *
-	 * PSM:
-	 * For PSM, PSM should be taken out of reset before loading
+	 * - For PSM, PSM should be taken out of reset before loading.
 	 * PSM RAM should be ECC initialized
 	 *
-	 * OCM:
-	 * OCM RAM should be ECC initialized
+	 * - For OCM, RAM should be ECC initialized
 	 *
-	 * R5:
-	 * R5 should be taken out of reset before loading
+	 * - R5 should be taken out of reset before loading.
 	 * R5 TCM should be ECC initialized
 	 */
 	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
@@ -750,6 +784,10 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	if (XST_SUCCESS != Status) {
 		goto END;
 	}
+
+	/**
+	 * - Copy the partition to the load address.
+	 */
 	Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams->DeviceCopy, SecureParams);
 	if (XST_SUCCESS != Status) {
 			goto END;
@@ -757,10 +795,10 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_0) ||
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_1)) {
-		/*
-		 *  Populate handoff parameters to ATF
+		/**
+		 *  - Populate handoff parameters to ATF.
 		 *  These correspond to the partitions of application
-		 *  which ATF will be loading
+		 *  which ATF will be loading.
 		 */
 		XLoader_SetATFHandoffParameters(PrtnHdr);
 	}
@@ -780,14 +818,15 @@ END:
 /****************************************************************************/
 /**
  * @brief	This function is used to check whether cpu has handoff address
- * stored in the handoff structure.
+ * 			stored in the handoff structure.
  *
  * @param	PdiPtr is pointer to XilPdi instance
  * @param	DstnCpu is the cpu which needs to be checked
  * @param	DstnCluster is the cluster which needs to be checked
  *
- * @return	XST_SUCCESS if the DstnCpu is successfully added to Handoff list
- *          XST_FAILURE if the DstnCpu is already added to Handoff list
+ * @return
+ * 			- XST_SUCCESS if the DstnCpu is successfully added to Handoff list.
+ * 			- XST_FAILURE if the DstnCpu is already added to Handoff list
  *
  *****************************************************************************/
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
@@ -819,7 +858,9 @@ END:
  *
  * @param	PdiPtr is pointer to XilPdi instance
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_NUM_HANDOFF_CPUS if number of CPUs exceeds max count.
  *
  *****************************************************************************/
 int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
@@ -829,7 +870,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 	u32 DstnCluster = XIH_PH_ATTRB_DSTN_CLUSTER_0;
 	u32 CpuNo = XLOADER_MAX_HANDOFF_CPUS;
 	u32 PrtnNum = PdiPtr->PrtnNum;
-	/* Assign the partition header to local variable */
+	/** - Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr =
 			&(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 
@@ -847,7 +888,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 					XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
 				goto END;
 			}
-			/* Update the CPU settings */
+			/** - Update the CPU settings */
 			PdiPtr->HandoffParam[CpuNo].CpuSettings =
 				XilPdi_GetDstnCpu(PrtnHdr) |
 				XilPdi_GetA78ExecState(PrtnHdr) |
@@ -868,14 +909,16 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function updates the load address based on the
- * destination CPU.
+ * 			destination CPU.
  *
  * @param	DstnCpu is destination CPU
  * @param	DstnCluster is destination Cluste
  * @param	LoadAddrPtr is the destination load address pointer
  * @param	Len is the length of the partition
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_TCM_ADDR_OUTOF_RANGE if provided TCM address is invalid.
  *
  *****************************************************************************/
 static int XLoader_GetLoadAddr(u32 DstnCpu, u32 DstnCluster, u64 *LoadAddrPtr, u32 Len)
@@ -959,7 +1002,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 		if (LoaderHandlerState == XPLMI_MODULE_NORMAL_STATE) {
 			LoaderHandlerState = XPLMI_MODULE_SHUTDOWN_INITIATED_STATE;
 
-			/* Remove Scheduler tasks if they are existing */
+			/** - Remove Scheduler tasks if they already exist. */
 #ifndef PLM_SECURE_EXCLUDE
 			Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_LOADER_ID,
 				XLoader_CheckAuthJtagIntStatus,
@@ -977,7 +1020,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 			/* Ignore if the tasks to be removed are not present */
 			Status = XST_SUCCESS;
 
-			/* Disable SBI Interrupt */
+			/** - Disable SBI Interrupt */
 			XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 		}
 	}
@@ -997,7 +1040,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 		if (LoaderHandlerState == XPLMI_MODULE_SHUTDOWN_INITIATED_STATE) {
 			LoaderHandlerState = XPLMI_MODULE_NORMAL_STATE;
 
-			/* Add Scheduler tasks if they are removed during shutdown init */
+			/** - Add Scheduler tasks if they are removed during shutdown init */
 #ifndef PLM_SECURE_EXCLUDE
 			if (AuthJtagTaskRemoved == (u8)TRUE) {
 				Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
@@ -1021,7 +1064,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 			}
 #endif
 
-			/* Enable SBI Interrupt */
+			/** Enable SBI Interrupt */
 			XPlmi_GicIntrEnable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 			Status = XST_SUCCESS;
 		}
@@ -1052,11 +1095,13 @@ int XLoader_PlatInit(void)
 /*****************************************************************************/
 /**
  * @brief	This function measures the PDI's meta header data by calculating
- *		the hash using SHA3.
+ *			the hash using SHA3.
  *
  * @param	PdiPtr is the pointer to PDI instance
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_HDR_MEASUREMENT if error in meta header measurement.
  *
  *****************************************************************************/
 int XLoader_HdrMeasurement(XilPdi* PdiPtr)
@@ -1066,6 +1111,9 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 	XLoader_ImageMeasureInfo ImageInfo = {0U};
 	XilPdi_MetaHdr * MetaHdrPtr = &PdiPtr->MetaHdr;
 
+	/**
+	 * - Start the hash calculation for the meta header.
+	 */
 	ImageInfo.SubsystemID = 0U;
 	ImageInfo.PcrInfo = XOCP_PCR_INVALID_VALUE;
 	ImageInfo.Flags = XLOADER_MEASURE_START;
@@ -1074,6 +1122,9 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 		goto END;
 	}
 
+	/**
+	 * - Calculate the hash for Image header table.
+	 */
 	ImageInfo.DataAddr = (u64)(UINTPTR)&(MetaHdrPtr->ImgHdrTbl);
 	ImageInfo.DataSize = sizeof(XilPdi_ImgHdrTbl);
 	ImageInfo.Flags = XLOADER_MEASURE_UPDATE;
@@ -1082,6 +1133,9 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 		goto END;
 	}
 
+	/**
+	 * - Calculate the hash for Image header.
+	 */
 	ImageInfo.DataAddr = (u64)(UINTPTR)(MetaHdrPtr->ImgHdr);
 	ImageInfo.DataSize = (MetaHdrPtr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN);
 	Status = XLoader_DataMeasurement(&ImageInfo);
@@ -1089,6 +1143,9 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 		goto END;
 	}
 
+	/**
+	 * - Calculate the hash for Partition header.
+	 */
 	ImageInfo.DataAddr = (u64)(UINTPTR)(MetaHdrPtr->PrtnHdr);
 	ImageInfo.DataSize = (MetaHdrPtr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN);
 	Status = XLoader_DataMeasurement(&ImageInfo);
@@ -1096,6 +1153,9 @@ int XLoader_HdrMeasurement(XilPdi* PdiPtr)
 		goto END;
 	}
 
+	/**
+	 * - Stop/finish the hash calculation.
+	 */
 	ImageInfo.Flags = XLOADER_MEASURE_FINISH;
 	Status = XLoader_DataMeasurement(&ImageInfo);
 
@@ -1119,7 +1179,9 @@ END:
  *
  * @param	ImageInfo Pointer to the XLoader_ImageMeasureInfo structure.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_DATA_MEASUREMENT if error in data measurement.
  *
  *****************************************************************************/
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
@@ -1190,7 +1252,9 @@ END:
 /**
  * @brief	This function initializes the SHA1 instance.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_SHA1_INIT if SHA1 initialization fails.
  *
  *****************************************************************************/
 static int XLoader_InitSha3Instance1(void)
@@ -1218,14 +1282,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function measures the Secure Configuration that is
- * 		SPK, SPK ID and Encryption Revoke ID and extends to the
- * 		specified PCR
+ * 			SPK, SPK ID and Encryption Revoke ID and extends to the
+ * 			specified PCR
  *
  * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
  * @param	PcrInfo provides the PCR number and Measurement Index
- * 		to be extended.
+ * 			to be extended.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_SECURE_CONFIG_MEASUREMENT if error in Secure config
+ * 			measurement.
  *
  *****************************************************************************/
 int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo)
