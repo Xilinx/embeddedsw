@@ -45,6 +45,7 @@
 *       skd  03/03/2022 Minor bug fix in XPlmi_MemCpy64
 * 1.07  bm   07/06/2022 Refactor versal and versal_net code
 * 1.08  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
+*       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -64,7 +65,7 @@
 #include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_XCSUDMA_DEST_CTRL_OFFSET		(0x80CU)
+#define XPLMI_XCSUDMA_DEST_CTRL_OFFSET		(0x80CU) /**< CSUDMA destination control offset */
 
 /**************************** Type Definitions *******************************/
 

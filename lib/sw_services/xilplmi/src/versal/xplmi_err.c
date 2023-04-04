@@ -23,6 +23,7 @@
 *                       Master SLR
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+*       dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -38,12 +39,12 @@
 #include "xplmi_tamper.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_SYSMON_CLK_SRC_IRO_VAL	(0U)
-#define XPLMI_PMC_ERR_SSIT_MASK	(0xE0000000U)
+#define XPLMI_SYSMON_CLK_SRC_IRO_VAL	(0U) /**< Sysmon clock source IRO value */
+#define XPLMI_PMC_ERR_SSIT_MASK	(0xE0000000U) /**< PMC error SSIT mask */
 
 /* Proc IDs for CPM Proc CDOs */
-#define CPM_NCR_PCIE0_LINK_DOWN_PROC_ID					(0x1U)
-#define CPM_NCR_PCIE1_LINK_DOWN_PROC_ID					(0x2U)
+#define CPM_NCR_PCIE0_LINK_DOWN_PROC_ID					(0x1U) /**< PCIE0 link down proc Id*/
+#define CPM_NCR_PCIE1_LINK_DOWN_PROC_ID					(0x2U) /**< PCIE1 link down proc Id*/
 
 /**************************** Type Definitions *******************************/
 

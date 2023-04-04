@@ -26,6 +26,7 @@
 *       sk   01/13/2023 Updated Error Handler and Action table
 *                       CPM5N,XMPU,XPPU error/event handling
 *       rama 01/19/2023 Updated ErrorTable to support XilSem errors
+*       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -44,19 +45,19 @@
 #include "xplmi_generic.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_ERROR_TABLE_DS_VER	(1U)
-#define XPLMI_ERROR_TABLE_DS_LCVER	(1U)
+#define XPLMI_ERROR_TABLE_DS_VER	(1U) /**< Error table data structure version */
+#define XPLMI_ERROR_TABLE_DS_LCVER	(1U) /**< Error table data structure LC version */
 
-#define XPLMI_IS_PSMCR_CHANGED_VERSION		(1U)
-#define XPLMI_IS_PSMCR_CHANGED_LCVERSION	(1U)
+#define XPLMI_IS_PSMCR_CHANGED_VERSION		(1U) /**< PSMCR changed version status */
+#define XPLMI_IS_PSMCR_CHANGED_LCVERSION	(1U) /**< PSMCR changed LC version status */
 
-#define XPLMI_NUM_ERROUTS_VERSION	(1U)
-#define XPLMI_NUM_ERROUTS_LCVERSION	(1U)
+#define XPLMI_NUM_ERROUTS_VERSION	(1U) /**< ERROUTS version */
+#define XPLMI_NUM_ERROUTS_LCVERSION	(1U) /**< ERROUTS LC version */
 
-#define CPM5N_NCR_PCIE0_LINK_UP_EVENT_PROC_ID					(0x1U)
-#define CPM5N_NCR_PCIE1_LINK_UP_EVENT_PROC_ID					(0x2U)
-#define CPM5N_NCR_PCIE2_LINK_UP_EVENT_PROC_ID					(0x3U)
-#define CPM5N_NCR_PCIE3_LINK_UP_EVENT_PROC_ID					(0x4U)
+#define CPM5N_NCR_PCIE0_LINK_UP_EVENT_PROC_ID					(0x1U) /**< CPM5N_NCR_PCIE0 linkup event procedure Id */
+#define CPM5N_NCR_PCIE1_LINK_UP_EVENT_PROC_ID					(0x2U) /**< CPM5N_NCR_PCIE1 linkup event procedure Id */
+#define CPM5N_NCR_PCIE2_LINK_UP_EVENT_PROC_ID					(0x3U) /**< CPM5N_NCR_PCIE2 linkup event procedure Id */
+#define CPM5N_NCR_PCIE3_LINK_UP_EVENT_PROC_ID					(0x4U) /**< CPM5N_NCR_PCIE3 linkup event procedure Id */
 
 /**************************** Type Definitions *******************************/
 

@@ -109,6 +109,7 @@
 *       sk   02/23/2023 Added error code for SSIT slave EoPDI SYNC status
 *       bm   03/09/2023 Add NULL check for module before using it
 *       bm   03/11/2023 Added error code for XPlmi_PreInit failure
+*		dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -151,8 +152,8 @@ extern "C" {
  * printing or writing to the FW_ERR register.
  */
 typedef enum {
-	XPLMI_WARNING_MAJOR_MASK = 0x4000, /* To Set Warning in Major Error Code */
-	XPLMI_WARNING_MINOR_MASK = 0x40000000 /* To Set Warning in Minor Error Code */
+	XPLMI_WARNING_MAJOR_MASK = 0x4000, /**< To set warning in major error code */
+	XPLMI_WARNING_MINOR_MASK = 0x40000000 /**< To set warning in minor error code */
 } XPlmiWarningMasks_t ;
 
 /*
@@ -349,7 +350,7 @@ typedef enum {
 		                the request comes to write to the response buffer */
 	XPLMI_SSIT_INTR_NOT_ENABLED, /**< 0x1AB - SSIT interrupts are not enabled.
 	                    Hence, cannot trigger the event */
-	XPLMI_ERR_SSIT_EOPDI_SYNC, /** < 0x1AC - SSIT error in Slave PDI Load status SYNC
+	XPLMI_ERR_SSIT_EOPDI_SYNC, /**< 0x1AC - SSIT error in slave PDI load status SYNC
 				     to master */
 
 	/** Status codes used in PLM */

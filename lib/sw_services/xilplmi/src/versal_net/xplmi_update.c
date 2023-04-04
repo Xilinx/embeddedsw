@@ -22,6 +22,7 @@
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/18/2022 Shutdown modules gracefully during update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -43,29 +44,29 @@
 #include "xplmi_scheduler.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_RESET_VECTOR		(0xF0200000U)
-#define XPLMI_PLM_UPDATE_PMCRAM_LEN	(0x4000U)
-#define XPLMI_PLM_UPDATE_DS_START_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x10000U)
+#define XPLMI_RESET_VECTOR		(0xF0200000U) /**< Reset vector */
+#define XPLMI_PLM_UPDATE_PMCRAM_LEN	(0x4000U) /**< PLM update PMC RAM length */
+#define XPLMI_PLM_UPDATE_DS_START_ADDR	(XPLMI_PMCRAM_BASEADDR + 0x10000U) /**< PLM update data structure start address */
 #define XPLMI_PLM_UPDATE_DS_ENDADDR	(XPLMI_PLM_UPDATE_DS_START_ADDR + \
-						XPLMI_PLM_UPDATE_PMCRAM_LEN - 1U)
-#define XPLMI_ROM_PLM_UPDATE_REQ	(0x08U)
-#define PMX_PLM_UPDATE_REASON_MASK	(0x00000008U)
-#define XPLMI_ROM_INT_REASON_CLEAR	(0x0000000FU)
-#define PLM_UPDATE_DONE_POLL_TIMEOUT	(1000U)
-#define XPLMI_UPDATE_DB_VERSION		(1U)
-#define XPLMI_DS_HDR_SIZE		(sizeof(XPlmi_DsHdr))
-#define XPLMI_DS_CNT			(u32)(__data_struct_end - __data_struct_start)
-#define XPLMI_UPDATE_IPIMASK_VER 	(1U)
-#define XPLMI_UPDATE_IPIMASK_LCVER 	(1U)
-#define XPLMI_UPDATE_TASK_ID		(0x120U)
+						XPLMI_PLM_UPDATE_PMCRAM_LEN - 1U) /**< PLM update data structure end address */
+#define XPLMI_ROM_PLM_UPDATE_REQ	(0x08U) /**< ROM PLM update request */
+#define PMX_PLM_UPDATE_REASON_MASK	(0x00000008U) /**< PMX PLM update reason mask */
+#define XPLMI_ROM_INT_REASON_CLEAR	(0x0000000FU) /**< ROM initialize reason clear */
+#define PLM_UPDATE_DONE_POLL_TIMEOUT	(1000U) /**< PLM update done POLL timeout */
+#define XPLMI_UPDATE_DB_VERSION		(1U) /**< DB version update */
+#define XPLMI_DS_HDR_SIZE		(sizeof(XPlmi_DsHdr)) /**< Data structure header size */
+#define XPLMI_DS_CNT			(u32)(__data_struct_end - __data_struct_start) /**< Data structure count */
+#define XPLMI_UPDATE_IPIMASK_VER 	(1U) /**< IPI mask version update */
+#define XPLMI_UPDATE_IPIMASK_LCVER 	(1U) /**< IPI mask LC version update */
+#define XPLMI_UPDATE_TASK_ID		(0x120U) /**< Task Id update */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XPLMI_UPDATE_IN_PROGRESS	(0x1U)
-#define XPLMI_UPDATE_DONE		(0x2U)
-#define XPLMI_INVALID_UPDATE_ADDR	(0xFFFFFFFFU)
-#define XPLMI_UPDATE_TASK_DELAY		(10U)
+#define XPLMI_UPDATE_IN_PROGRESS	(0x1U) /**< Update in progress */
+#define XPLMI_UPDATE_DONE		(0x2U) /**< Update done */
+#define XPLMI_INVALID_UPDATE_ADDR	(0xFFFFFFFFU) /**< Invalid update address */
+#define XPLMI_UPDATE_TASK_DELAY		(10U) /**< Update task delay */
 
 /************************** Function Prototypes ******************************/
 static int XPlmi_PlmUpdateMgr(void) __attribute__((section(".update_mgr_a")));
@@ -90,6 +91,8 @@ EXPORT_GENERIC_DS(PlmUpdateIpiMask, XPLMI_UPDATE_IPIMASK_DS_ID,
 /****************************************************************************/
 /**
 * @brief	This function will initialize In-Place Update related logic
+*
+* @param	CompatibilityHandler is the handler used for compatibility check.
 *
 * @return
 * 			- XST_SUCCESS if success.
@@ -350,7 +353,7 @@ END:
  *
  * @param	DsList is the Data Structure List in which the DS is searched
  * @param	DsCnt is the number of Data Structures present in the List
- * @param	DsHdr is the Data Structure Header to search for
+ * @param	DsVer is the version information of the data structure
  *
  * @return	XST_SUCCESS on success and error code on failure
  *

@@ -46,6 +46,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       bm   03/11/2023 Use XPLMI_BIT macro for getting bit position mask
 *       bm   03/11/2023 Added redundancy on SSIT Event Trigger register write
+*		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -1852,8 +1853,7 @@ END:
 /**
  * @brief	This function handles invalid commands
  *
- *
- * @param	Cmd      is pointer to Xplmi_Cmd Instance
+ * @param	Payload  holds the inputs of the slaves
  * @param	RespBuf  Stores the response of the slaves
  *
  * @return

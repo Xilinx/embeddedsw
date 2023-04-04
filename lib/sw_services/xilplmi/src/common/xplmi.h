@@ -107,6 +107,15 @@ extern "C" {
 					/**< Flag indicates UART is initialized
 						and prints are enabled */
 /***************** Macros (Inline Functions) Definitions *********************/
+/*****************************************************************************/
+/**
+ * @brief	This function checks if LPD is initialized or not
+ *
+ * @return
+ *			- TRUE if Lpd initialized or
+ *			- FALSE if Lpd not initialized
+ *
+ *****************************************************************************/
 static inline u8 XPlmi_IsLpdInitialized(void)
 {
 	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
@@ -114,7 +123,15 @@ static inline u8 XPlmi_IsLpdInitialized(void)
 	return (((*LpdInitializedPtr & LPD_INITIALIZED) == LPD_INITIALIZED) ?
 			(u8)TRUE : (u8)FALSE);
 }
-
+/*****************************************************************************/
+/**
+ * @brief	This function checks if UART is initialized or not
+ *
+ * @return
+ *			- TRUE if UART initialized or
+ *			- FALSE if UART not initialized
+ *
+ *****************************************************************************/
 static inline u8 XPlmi_IsUartInitialized(void)
 {
 	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
@@ -122,7 +139,15 @@ static inline u8 XPlmi_IsUartInitialized(void)
 	return (((*LpdInitializedPtr & UART_INITIALIZED) == UART_INITIALIZED) ?
 			(u8)TRUE : (u8)FALSE);
 }
-
+/*****************************************************************************/
+/**
+ * @brief	This function checks if UART print is initialized or not
+ *
+ * @return
+ *			- TRUE if UART Print initialized or
+ *			- FALSE if UART Print not initialized
+ *
+ *****************************************************************************/
 static inline u8 XPlmi_IsUartPrintInitialized(void)
 {
 	u32 *LpdInitializedPtr = XPlmi_GetLpdInitialized();
