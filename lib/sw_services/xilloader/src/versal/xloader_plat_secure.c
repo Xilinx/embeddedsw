@@ -22,8 +22,9 @@
 *       kpt  07/05/2022 Added XLoader_RsaKat
 * 1.01  har  11/17/2022 Added XLoader_CheckSecureStateAuth
 *       ng   11/23/2022 Fixed doxygen file name error
-* 1.8   skg  12/07/22 Added Additional PPKs non zero check
+*       skg  12/07/2022 Added Additional PPKs non zero check
 *       sk   03/17/2023 Renamed Kekstatus to DecKeySrc in xilpdi structure
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -66,11 +67,12 @@ static int XLoader_CheckNonZeroAdditionalPpk(void);
 /*****************************************************************************/
 /**
  * @brief	This function updates KEK red key availability status from
- * boot header.
+ * 			boot header.
  *
  * @param	PdiPtr is pointer to the XilPdi instance.
  *
- * @return	None.
+ * @return
+ * 			- None.
  *
  ******************************************************************************/
 void XLoader_UpdateKekSrc(XilPdi *PdiPtr)
@@ -105,7 +107,8 @@ void XLoader_UpdateKekSrc(XilPdi *PdiPtr)
  * @param	DecKeyMask is the current DecKeyMask
  * @param	KeySrcPtr is the pointer to the calculated KeySrc
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
@@ -125,7 +128,8 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 *
 * @param    PmcDmaPtr - Pointer to DMA instance
 *
-* @return   XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
@@ -145,7 +149,8 @@ int XLoader_RsaKat(XPmcDma *PmcDmaPtr) {
 *
 * @param	PpkHash is pointer to the PPK hash.
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
@@ -153,7 +158,7 @@ int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
 #ifdef PLM_EN_ADD_PPKS
 	int StatusTmp = XST_FAILURE;
 
-	/**< Read Additional PPks enable bits*/
+	/** - Read Additional PPks enable bits*/
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsAdditionalPpkFeatureEnabled);
 	if((Status == XST_SUCCESS) && (StatusTmp == XST_SUCCESS)){
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_IsPpkValid,
@@ -189,7 +194,8 @@ int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
 * @param    InvalidMask Pointer to the PPK invalid mask
 * @param    PpkOffset   Pointer to the efuse cache PPK start offset
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset)
@@ -224,13 +230,16 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 #endif/* END OF PLM_SECURE_EXCLUDE */
 /*****************************************************************************/
 /**
-* @brief	This function checks Secure State for Authentication
-*
-* @param	AHWRoT - Buffer to store Secure state for authentication
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
+ * @brief	This function checks Secure State for Authentication
+ *
+ * @param	AHWRoT - Buffer to store Secure state for authentication
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED if PPK is programmed and
+ * 			boot header authentication is enabled.
+ *
+ ******************************************************************************/
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 {
 	volatile int Status = XST_FAILURE;
@@ -257,7 +266,8 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 			goto END;
 		}
 		/**
-		 * If PPK hash is programmed in eFUSEs, then Secure State of boot is A-HWRoT
+		 * - If PPK hash is programmed in eFUSEs, then Secure State of
+		 * boot is A-HWRoT.
 		 */
 		*AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
@@ -267,7 +277,8 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
 			(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
 			/**
-			 * If BHDR authentication is enabled, then Secure State of boot is emulated A-HWRoT
+			 * - If BHDR authentication is enabled, then Secure State of boot
+			 * is emulated A-HWRoT.
 			 */
 			*AHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT;
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Authentication):"
@@ -286,17 +297,19 @@ END:
 #ifdef PLM_EN_ADD_PPKS
 /*****************************************************************************/
 /**
-* @brief	This function checks if Additional PPK is programmed.
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
+ * @brief	This function checks if Additional PPK is programmed.
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_GLITCH_DETECTED if glitch is detected.
+ *
+ ******************************************************************************/
 static int XLoader_CheckNonZeroAdditionalPpk(void)
 {
 	volatile int Status = XST_FAILURE;
 	volatile u32 Index;
 
-	/**< Read Additional PPks enable bits*/
+	/** - Read Additional PPks enable bits*/
 	Status = XLoader_IsAdditionalPpkFeatureEnabled();
 	if(Status != XST_SUCCESS){
 		goto END;
@@ -329,11 +342,14 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function Reads Additional PPKs Enable bits.
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
+ * @brief	This function Reads Additional PPKs Enable bits.
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_EFUSE_5_PPK_FEATURE_NOT_SUPPORTED if additional PPKs are
+ * 			not enabled.
+ *
+ ******************************************************************************/
 static int XLoader_IsAdditionalPpkFeatureEnabled(void)
 {
 	int Status = XST_FAILURE;

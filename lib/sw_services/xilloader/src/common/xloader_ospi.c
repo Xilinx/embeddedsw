@@ -36,6 +36,7 @@
 * 1.05  ma   01/17/2022 Enable SLVERR for OSPI registers
 * 1.06  ng   11/11/2022 Updated doxygen comments
 *       bm   01/11/2023 Added support for Gigadevice 512M, 1G, 2G parts
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -76,14 +77,17 @@ static u32 OspiFlashSize = 0U;
 /*****************************************************************************/
 /**
  * @brief	This function reads serial FLASH ID connected to the SPI interface.
- * It then deduces the make and size of the flash and obtains the
- * connection mode to point to corresponding parameters in the flash
- * configuration table. The flash driver will function based on this and
- * it presently supports Micron 512Mb.
+ * 			It then deduces the make and size of the flash and obtains the
+ * 			connection mode to point to corresponding parameters in the flash
+ * 			configuration table. The flash driver will function based on this
+ * 			and	it presently supports Micron 512Mb.
  *
  * @param	Ospi Instance Pointer
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_UNSUPPORTED_OSPI on unsupported OSPI flash.
+ * 			- XLOADER_ERR_UNSUPPORTED_OSPI_SIZE on unsupported OSPI flash size.
  *
  *****************************************************************************/
 static int FlashReadID(XOspiPsv *OspiPsvPtr)
@@ -95,7 +99,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	u32 TempVal;
 
 	/**
-	 * Read ID
+	 * - Read ID.
 	 */
 	FlashMsg.Opcode = READ_ID;
 	FlashMsg.Addrsize = 0U;
@@ -113,7 +117,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 		ReadBuffer[0U], ReadBuffer[1U], ReadBuffer[2U]);
 
 	/**
-	 * Deduce flash make
+	 * - Deduce flash make.
 	 */
 	if (ReadBuffer[0U] == MICRON_OCTAL_ID_BYTE0) {
 		OspiFlashMake = MICRON_OCTAL_ID_BYTE0;
@@ -138,7 +142,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	}
 
 	/**
-	 * Deduce flash Size
+	 * - Deduce flash Size.
 	 */
 	OspiFlashSize = 0U;
 	if (OspiFlashMake == MICRON_OCTAL_ID_BYTE0) {
@@ -199,7 +203,9 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 			"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
 		goto END;
 	}
-	/** Populate Device Id Data */
+	/**
+	 * - Populate Device Id Data.
+	 */
 	OspiPsvPtr->DeviceIdData = 0U;
 	if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
 		for (Index = 0U, TempVal = 0U; Index < 4U;
@@ -225,9 +231,21 @@ END:
  * @brief	This function is used to initialize the ospi controller and driver.
  *
  * @param	DeviceFlags are unused and passed for compatibility with other
- *		boot device APIs.
+ * 			boot device APIs.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_PM_DEV_OSPI on OSPI device request fail.
+ * 			- XLOADER_ERR_OSPI_INIT on OSPI drive initialization fail.
+ * 			- XLOADER_ERR_OSPI_CFG on OSPI configuration fail.
+ * 			- XLOADER_ERR_OSPI_SEL_FLASH_CS0 on failure to select flash CS0
+ * 			- XLOADER_ERR_OSPI_SEL_FLASH_CS1 on failure to select flash CS1
+ * 			- XLOADER_ERR_OSPI_READID on OSPI ReadID fail.
+ * 			- XLOADER_ERR_OSPI_CONN_MODE on unsupported OSPI mode.
+ * 			- XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE on failure to disable
+ * 			dual byte operation.
+ * 			- XLOADER_ERR_OSPI_SDR_NON_PHY if unable to set the controller to
+ * 			SDR NON PHY mode.
  *
  *****************************************************************************/
 int XLoader_OspiInit(u32 DeviceFlags)
@@ -238,6 +256,9 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	(void)DeviceFlags;
 	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
 
+	/**
+	 * - Request driver for OSPI device.
+	*/
 	Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
 		CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 	if (Status != XST_SUCCESS) {
@@ -245,18 +266,26 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
+	/**
+	 * - Request driver to reset the OSPI flash device.
+	*/
 	Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 * - Initialize the OSPI instance.
+	*/
 	Status = XPlmi_MemSetBytes(&OspiPsvInstance, sizeof(OspiPsvInstance), 0U,
 		sizeof(OspiPsvInstance));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Initialize the OSPI driver so that it's ready to use */
+	/**
+	 * - Initialize the OSPI driver so that it's ready to use.
+	*/
 	OspiConfig = XOspiPsv_LookupConfig(XLOADER_OSPI_DEVICE_ID);
 	if (NULL == OspiConfig) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_INIT, 0);
@@ -264,6 +293,9 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
+	/**
+	 * - Configure the OSPI driver.
+	*/
 	Status = (int)XOspiPsv_CfgInitialize(&OspiPsvInstance, OspiConfig);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_CFG, Status);
@@ -271,7 +303,9 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/** Enable SLVERR */
+	/**
+	 * - Enable SLVERR.
+	*/
 	XPlmi_UtilRMW((OspiConfig->BaseAddress + XOSPIPSV_OSPIDMA_SRC_CTRL),
 			XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK,
 			XOSPIPSV_OSPIDMA_SRC_CTRL_APB_ERR_RESP_MASK);
@@ -279,10 +313,14 @@ int XLoader_OspiInit(u32 DeviceFlags)
 			XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK,
 			XOSPIPSV_OSPIDMA_DST_CTRL_APB_ERR_RESP_MASK);
 
-	/** Enable IDAC controller in OSPI */
+	/**
+	 * - Enable IDAC controller in OSPI.
+	*/
 	XOspiPsv_SetOptions(&OspiPsvInstance, XOSPIPSV_IDAC_EN_OPTION);
 
-	/** Set the prescaler for OSPIPSV clock */
+	/**
+	 * - Set the prescaler for OSPIPSV clock.
+	*/
 	XOspiPsv_SetClkPrescaler(&OspiPsvInstance, XOSPIPSV_CLK_PRESCALE_6);
 	Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
 	if (Status != XST_SUCCESS) {
@@ -292,7 +330,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	}
 
 	/**
-	 * Read flash ID and obtain all flash related information
+	 * - Read flash ID and obtain all flash related information
 	 * It is important to call the read id function before
 	 * performing proceeding to any operation, including
 	 * preparing the WriteBuffer
@@ -317,9 +355,13 @@ int XLoader_OspiInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/* OSPI DDR mode is not supported on SPP, EMU and FCV platforms */
+	/**
+	 * - Validate OSPI DDR mode is supported on SPP, EMU and FCV platforms.
+	*/
 	if(XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) {
-		/** Set Flash device and Controller modes */
+		/**
+		 * - Set Flash device and Controller modes.
+		*/
 		Status = XLoader_FlashSetDDRMode(&OspiPsvInstance);
 		if (Status != XST_SUCCESS) {
 			goto END1;
@@ -404,7 +446,7 @@ END1:
 	}
 
 	/**
-	 * Enter 4B address mode
+	 * - Enter 4B address mode.
 	 */
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
 		XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, TRUE);
@@ -424,7 +466,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to copy the data from OSPI flash to
- * destination address.
+ * 			destination address.
  *
  * @param	SrcAddr is the address of the OSPI flash where copy should start
  *
@@ -432,7 +474,15 @@ END:
  *
  * @param	Length Length of the bytes to be copied
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_OSPI_COPY_OVERFLOW if source address outside the flash
+ * 			range.
+ * 			- XLOADER_ERR_OSPI_SEL_FLASH_CS0 if OSPI driver is unable to select
+ * 			flash CS0.
+ * 			- XLOADER_ERR_OSPI_SEL_FLASH_CS1 if OSPI driver is unable to select
+ * 			flash CS1.
+ * 			- XLOADER_ERR_OSPI_READ on OSPI driver read fail.
  *
  *****************************************************************************/
 int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
@@ -457,7 +507,9 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		(u32)(DestAddr), Length, Flags);
 
 	Flags = Flags & XPLMI_DEVICE_COPY_STATE_MASK;
-	/* Just wait for the Data to be copied */
+	/**
+	 * - Verify that previous DMA copy is finished.
+	*/
 	if (Flags == XPLMI_DEVICE_COPY_STATE_WAIT_DONE) {
 		do {
 			Status = (int)XOspiPsv_CheckDmaDone(&OspiPsvInstance);
@@ -465,7 +517,9 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		goto END1;
 	}
 	FlagsTmp = Flags;
-	/** Check OSPI connection mode */
+	/**
+	 * - Check OSPI connection mode.
+	*/
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
 		if ((SrcAddrLow + Length) > (2U * OspiFlashSize)) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_COPY_OVERFLOW, Status);
@@ -473,7 +527,7 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		}
 		else {
 			/**
-			 * For stacked mode connection select upper flash or lower flash
+			 * - For stacked mode connection select upper flash or lower flash
 			 * depending on source address.
 			 */
 			if (SrcAddrLow < OspiFlashSize) {
@@ -525,7 +579,9 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		TrfLen = Length;
 	}
 
-	/** Generate the Read cmd */
+	/**
+	 * - Generate the Read cmd.
+	*/
 	FlashMsg.Addrsize = XLOADER_OSPI_READ_ADDR_SIZE;
 	FlashMsg.Addrvalid = TRUE;
 	FlashMsg.TxBfrPtr = NULL;
@@ -574,7 +630,9 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		FlashMsg.ExtendedOpcode = (u8)(~FlashMsg.Opcode);
 	}
 
-	/** Start the Transfer operation */
+	/**
+	 * - Start the DMA Transfer operation if flag is set to non blocking copy.
+	*/
 	if (Flags == XPLMI_DEVICE_COPY_STATE_INITIATE) {
 		Status = (int)XOspiPsv_StartDmaTransfer(&OspiPsvInstance, &FlashMsg);
 		if (Status != XST_SUCCESS) {
@@ -583,12 +641,21 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		goto END1;
 	}
 
+	/**
+	 * - Otherwise start the transfer on the bus in polled mode.
+	*/
 	Status = (int)XOspiPsv_PollTransfer(&OspiPsvInstance, &FlashMsg);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_READ, Status);
 		goto END1;
 	}
 
+	/**
+	 * - If the OSPI connection is stacked mode, then select the appropriate
+	 * flash, read the command and Start the DMA Transfer operation if flag is
+	 * set to non blocking copy. Otherwise start the transfer on the bus in
+	 * polled mode.
+	*/
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
 		if (TrfLen < Length) {
 			/*
@@ -666,15 +733,18 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This API enters the flash device into 4 bytes addressing mode.
-* As per the Micron spec, before issuing the command to enter into 4 byte addr
-* mode, a write enable command is issued.
-*
-* @param	OspiPtr is a pointer to the OSPIPSV driver component to use.
-* @param	Enable is a either 1 or 0 if 1 then enters 4 byte if 0 exits.
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
+ * @brief	This API enters the flash device into 4 bytes addressing mode.
+ * 			As per the Micron spec, before issuing the command to enter into
+ * 			4 byte addr mode, a write enable command is issued.
+ *
+ * @param	OspiPtr is a pointer to the OSPIPSV driver component to use.
+ * @param	Enable is a either 1 or 0 if 1 then enters 4 byte if 0 exits.
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_OSPI_4BMODE on OSPI driver unable to
+ * 			enter/exit 4B mode.
+ *
 ******************************************************************************/
 static int XLoader_FlashEnterExit4BAddMode(XOspiPsv *OspiPsvPtr, u32 Enable)
 {
@@ -794,7 +864,8 @@ END:
 *
 * @param	OspiPsvPtr is a pointer to the OSPIPSV instance.
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 static int XLoader_FlashSetDDRMode(XOspiPsv *OspiPsvPtr)
@@ -907,13 +978,17 @@ END:
 /**
  * @brief	This function releases control of OSPI.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_OspiRelease(void)
 {
 	int Status = XST_FAILURE;
 
+	/**
+	 * - Request the OSPI driver to release the device.
+	*/
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_OSPI,
 		XPLMI_CMD_SECURE);
 

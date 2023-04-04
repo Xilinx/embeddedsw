@@ -44,6 +44,7 @@
 *       bm   01/03/2023 Switch to SSIT Events as soon as basic Noc path is
 *                       configured
 *       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -87,9 +88,10 @@ static int XLoader_SbiLoadPdi(void *Data);
 /*****************************************************************************/
 /**
  * @brief	This function initializes the loader instance and registers loader
- * commands with PLM.
+ * 			commands with PLM.
  *
- * @return	Returns XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure.
  *
  *****************************************************************************/
 int XLoader_IntrInit(void)
@@ -97,7 +99,7 @@ int XLoader_IntrInit(void)
 	int Status = XST_FAILURE;
 
 	/**
-	 * Register the SBI RDY interrupt to enable the PDI loading from
+	 * - Register the SBI RDY interrupt to enable the PDI loading from
 	 * SBI interface.
 	 */
 	Status = XPlmi_GicRegisterHandler(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX,
@@ -117,14 +119,15 @@ int XLoader_IntrInit(void)
 /*****************************************************************************/
 /**
  * @brief	This function is the interrupt handler for SBI data ready.
- * In this handler, PDI is loadeed through SBI interface.
- * SBI interface setting for JTAG/SMAP/AXI/HSDP should be set before
- * this handler.
+ * 			In this handler, PDI is loadeed through SBI interface.
+ * 			SBI interface setting for JTAG/SMAP/AXI/HSDP should be set before
+ * 			this handler.
  *
  * @param	Data Not used as of now, present as a part of general interrupt
- *             handler definition.
+ *			handler definition.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure.
  *
  *****************************************************************************/
 static int XLoader_SbiLoadPdi(void *Data)
@@ -139,8 +142,8 @@ static int XLoader_SbiLoadPdi(void *Data)
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
 	/**
-	 * Disable the SBI RDY interrupt so that PDI load does not
-	 * interrupt itself
+	 * - Disable the SBI RDY interrupt so that PDI load does not
+	 * interrupt itself.
 	 */
 	XPlmi_GicIntrDisable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 
@@ -166,6 +169,9 @@ static int XLoader_SbiLoadPdi(void *Data)
 		DebugLog->LogLevel &= XLOADER_LOG_LEVEL_MASK;
 	}
 	XPlmi_Printf(DEBUG_GENERAL, "SBI PDI Load: Started\n\r");
+	/**
+	 * - Load partial PDI.
+	*/
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -182,6 +188,9 @@ END:
 		XPlmi_SetPlmLiveStatus();
 		usleep(XLOADER_SBI_DELAY_IN_MICROSEC);
 	}
+	/**
+	 * - Clear SBI RDY interrupt.
+	*/
 	XLoader_ClearIntrSbiDataRdy();
 	Xloader_SsitEoPdiSync(PdiPtr);
 END1:
@@ -195,14 +204,17 @@ END1:
 /*****************************************************************************/
 /**
  * @brief	This function clears the previous SBI data ready
- * and enables IRQ for next interrupt.
+ * 			and enables IRQ for next interrupt.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XLoader_ClearIntrSbiDataRdy(void)
 {
-	/** Clear the SBI interrupt */
+	/**
+	 * - Clear the SBI interrupt.
+	*/
 	XPlmi_UtilRMW(SLAVE_BOOT_SBI_IRQ_STATUS,
 		SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK,
 		SLAVE_BOOT_SBI_IRQ_STATUS_DATA_RDY_MASK);
@@ -210,7 +222,9 @@ void XLoader_ClearIntrSbiDataRdy(void)
 		SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK,
 		SLAVE_BOOT_SBI_IRQ_ENABLE_DATA_RDY_MASK);
 
-	/** Clear and Enable GIC interrupt */
+	/**
+	 * - Clear and Enable GIC interrupt.
+	*/
 	XPlmi_GicIntrClearStatus(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 	XPlmi_GicIntrEnable(XPLMI_SBI_GICP_INDEX, XPLMI_SBI_GICPX_INDEX);
 }

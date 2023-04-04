@@ -26,6 +26,7 @@
 *       bsv  01/21/2022 Reduce stack usage
 * 1.04  bm   07/06/2022 Refactor versal and versal_net code
 * 1.05  ng   11/11/2022 Updated doxygen comments
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -60,9 +61,17 @@ u8 DownloadDone = 0U;
  * @brief	This function initializes the USB interface.
  *
  * @param	Device Flags are unused and only passed to maintain
- *		compatibility with init functions of other boot modes
+ *			compatibility with init functions of other boot modes
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_MEMSET_USB_INSTANCE if USB instance creation fails.
+ * 			- XLOADER_ERR_MEMSET_USB_PRIVATE_DATA if USB private instance
+ * 			creation fails.
+ * 			- XLOADER_ERR_MEMSET_DFU_OBJ if DFU object instance creation fails.
+ * 			- XLOADER_ERR_USB_LOOKUP if failed to lookup USB config.
+ * 			- XLOADER_ERR_USB_CFG if USB fails to configure.
+ * 			- XLOADER_ERR_USB_START if USB fails to start.
  *
 *****************************************************************************/
 int XLoader_UsbInit(u32 DeviceFlags)
@@ -117,7 +126,9 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/** Enable SLVERR */
+	/**
+     * - Enable SLVERR.
+    */
 	XPlmi_UtilRMW((VENDOR_BASE_ADDRESS + XLOADER_USB2_REG_CTRL_OFFSET),
 			XPLMI_SLAVE_ERROR_ENABLE_MASK, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 
@@ -126,24 +137,32 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
-	/** Hook up chapter9 handler */
+	/**
+     * - Hook up chapter9 handler.
+    */
 	XUsbPsu_set_ch9handler((struct XUsbPsu*)UsbInstancePtr->PrivateData,
 		XLoader_Ch9Handler);
 
-	/** Set the reset event handler */
+	/**
+     * - Set the reset event handler.
+    */
 	XUsbPsu_set_rsthandler((struct XUsbPsu*)UsbInstancePtr->PrivateData,
 		XLoader_DfuReset);
 
 	DfuObj.InstancePtr = UsbInstancePtr;
 
-	/** Set DFU state to APP_IDLE */
+	/**
+     * - Set DFU state to APP_IDLE.
+    */
 	XLoader_DfuSetState(UsbInstancePtr, XLOADER_STATE_APP_IDLE);
 
-	/** Assign the data to usb driver */
+	/**
+     * - Assign the data to usb driver.
+    */
 	XUsbPsu_set_drvdata((struct XUsbPsu*)UsbInstancePtr->PrivateData, &Dfu_data);
 
 	/**
-	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
+	 * - Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
 	 * Wakeup and Overflow events.
 	 */
 	XUsbPsu_EnableIntr((struct XUsbPsu*)UsbInstancePtr->PrivateData,
@@ -151,7 +170,9 @@ int XLoader_UsbInit(u32 DeviceFlags)
 		| XUSBPSU_DEVTEN_ULSTCNGEN | XUSBPSU_DEVTEN_CONNECTDONEEN
 		| XUSBPSU_DEVTEN_USBRSTEN | XUSBPSU_DEVTEN_DISCONNEVTEN);
 
-	/** Start the controller so that Host can see our device */
+	/**
+     * - Start the controller so that Host can see our device.
+    */
 	Status = XUsbPsu_Start((struct XUsbPsu*)UsbInstancePtr->PrivateData);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_USB_START, Status);
@@ -171,24 +192,28 @@ END:
 /*****************************************************************************/
 /**
 * @brief	This function copies from DFU temporary address in DDR to
-* destination.
+* 			destination.
 *
 * @param	Source Address is the offset of the memory chunk to be copied.
-*		This value is added to fixed DDR address to calculate the actual
-*		DDR address where the image resides.
+*			This value is added to fixed DDR address to calculate the actual
+*			DDR address where the image resides.
 * @param	Destination Address is the address to which the memory chunk
-		is to be copied.
+* 			is to be copied.
 * @param	Number of Bytes to be copied
 * @param	Flags is unused and is only passed to maintain compatibility
-*		with copy functions of other boot modes
+*			with copy functions of other boot modes
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
 int XLoader_UsbCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 {
 	int Status = XST_FAILURE;
 
+	/**
+	 * - Start the transfer using DDR copy.
+	*/
 	Status = XLoader_DdrCopy((SrcAddress + XLOADER_DDR_TEMP_BUFFER_ADDRESS),
 			DestAddress, Length, Flags);
 
@@ -199,13 +224,17 @@ int XLoader_UsbCopy(u64 SrcAddress, u64 DestAddress, u32 Length, u32 Flags)
 /**
  * @brief	This function releases control of USB.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_UsbRelease(void)
 {
 	int Status = XST_FAILURE;
 
+	/**
+	 * - Release the USB device.
+	*/
 	Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_USB_0,
 		XPLMI_CMD_SECURE);
 

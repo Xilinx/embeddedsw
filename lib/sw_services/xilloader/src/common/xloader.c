@@ -146,12 +146,12 @@
 *       ng   01/02/2023 Check to bypass entire ID Code Check
 *       kpt  01/04/2023 Added check to update FIPS state
 *       sk   01/11/2023 Added Image Store support as secondary boot media
-*
 *       bm   01/04/2023 Switch to SSIT Events as soon as basic Noc path is
 *                       configured
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *       sk   02/08/2023 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
 *       sk   03/17/2023 Renamed Kekstatus to DecKeySrc in xilpdi structure
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * </pre>
 *
 * @note
@@ -253,22 +253,23 @@ static const XLoader_DeviceOps DeviceOps[] =
 /*****************************************************************************/
 /**
  * @brief	This function initializes the loader instance and registers loader
- * commands with PLM.
+ * 			commands with PLM.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_Init(void)
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Initialize the loader commands */
+	/** - Initialize the loader commands */
 	XLoader_CmdsInit();
 
 	/* Initialize SubsystemPdiIns ValidHeader variable */
 	SubsystemPdiIns.ValidHeader = (u8)TRUE;
 
-	/** Initialize the loader interrupts */
+	/** - Initialize the loader interrupts */
 	Status = XLoader_IntrInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -281,19 +282,19 @@ int XLoader_Init(void)
 	}
 #endif
 
-	/** Set the secure state of boot in registers and global variables */
+	/** - Set the secure state of boot in registers and global variables */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SetSecureState);
 
 #ifndef PLM_SECURE_EXCLUDE
-	/** Add task to the scheduler to handle Authenticated JTAG message */
+	/** - Add task to the scheduler to handle Authenticated JTAG message */
 	Status = XLoader_AddAuthJtagToScheduler();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	/**
-	 * Add DAP status check task to the scheduler
-	 * Applicable only for VersalNet
+	 * - Add DAP status check task to the scheduler, this is
+	 * applicable only for VersalNet.
 	 */
 	Status = XLoader_AddDeviceStateChangeToScheduler();
 	if (Status != XST_SUCCESS) {
@@ -309,14 +310,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function initializes the PDI instance with required details
- * and read the meta header.
+ * 			and read the meta header.
  *
  * @param	PdiPtr is instance pointer pointing to PDI details
  * @param	PdiSrc is source of PDI. It can be any boot Device or DDR
  * @param	PdiAddr is the address at which PDI is located in the PDI source
  *
- * @return	XST_SUCCESS on success and error code on failure
- *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_UNSUPPORTED_BOOT_MODE on unsupported boot mode.
  *****************************************************************************/
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 {
@@ -330,12 +332,12 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	const PdiSrcMap PdiSourceMap[] = XLOADER_GET_PDISRC_INFO();
 
 	/**
-	 * Mark PDI loading is started.
+	 * - Mark PDI loading is started.
 	 */
 	XPlmi_Out32(PMC_GLOBAL_DONE, XLOADER_PDI_LOAD_STARTED);
 
 	/**
-	 * Store address of the structure in PMC_GLOBAL.GLOBAL_GEN_STORAGE4.
+	 * - Store address of the structure in PMC_GLOBAL.GLOBAL_GEN_STORAGE4.
 	 */
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE4,
 		(u32)((UINTPTR)XLoader_GetATFHandoffParamsAddr()));
@@ -345,10 +347,13 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 	}
 
 	/**
-	 * Read the PDI source.
+	 * - Read the PDI source.
 	*/
 	PdiPtr->PdiIndex = PdiSourceMap[DeviceFlags].Index;
 	if (PdiPtr->PdiIndex == XLOADER_SD_INDEX) {
+		/**
+		 * - Get the PDI source type.
+		*/
 		if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
 			SdRawBootVal = PdiSrc & XLOADER_SD_RAWBOOT_MASK;
 		}
@@ -380,6 +385,9 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		(DeviceOps[PdiPtr->PdiIndex].Init == NULL)) {
 		goto END1;
 	}
+	/**
+	 * - Print the PDI source type.
+	*/
 	XPlmi_Printf(DEBUG_GENERAL, "Loading PDI from %s%s\n\r",
 		PdiSourceMap[DeviceFlags].Name, RawString);
 
@@ -403,9 +411,14 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		}
 	}
 
-	/** Get the device copy function for the given boot mode. */
+	/**
+	 * - Get the device copy function for the given boot mode.
+	 */
 	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[PdiPtr->PdiIndex].Copy;
 
+	/**
+	 * - Read and validate all the headers in the PDI.
+	*/
 	Status = XST_FAILURE;
 	Status = XLoader_ReadAndValidateHdrs(PdiPtr, RegVal, PdiAddr);
 	if (Status != XST_SUCCESS) {
@@ -436,7 +449,21 @@ END:
  * @param	PdiPtr is instance pointer pointing to PDI details
  * @param	RegVal is the value of the Multiboot register
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD if failed to create instance
+ * 			for boot header reserved fields.
+ * 			- XLOADER_ERR_IMGHDR_TBL if PLM is unable to read image header table.
+ * 			- XLOADER_ERR_MEMSET_SECURE_PTR if failed to create instance for
+ * 			secure pointer.
+ * 			- XLOADER_ERR_UNSUPPORTED_PDI_VER on PDI version used in secure
+ * 			operations is unsupported.
+ * 			- XLOADER_ERR_SECURE_NOT_ENABLED on attempt to secure boot in an
+ * 			excluded secure critical code.
+ * 			- XLOADER_ERR_GEN_IDCODE on ID code mismatch.
+ * 			- XLOADER_ERR_IMGHDR if image header checksum fails.
+ * 			- XLOADER_ERR_PRTNHDR if partition header checksum fails.
+ * 			- XLOADER_ERR_SECURE_METAHDR if secure metaheader validation fails.
  *
  *****************************************************************************/
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
@@ -730,12 +757,16 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to load and start images. It reads
- * meta header, loads the images as present in the PDI and starts images based
- * on hand-off information present in PDI.
+ * 			meta header, loads the images as present in the PDI and starts images based
+ * 			on hand-off information present in PDI.
  *
  * @param	PdiPtr is Pdi instance pointer
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_DELAY_ATTRB if both delay handoff and delay load are
+ * 			set for the same image.
+ * 			- XLOADER_ERR_NUM_HANDOFF_CPUS if number of CPUs exceed max count.
  *
  *****************************************************************************/
 static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
@@ -890,7 +921,8 @@ END:
  *
  * @param	PdiPtr is Pdi instance pointer
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_LoadAndStartSubSystemPdi(XilPdi *PdiPtr)
@@ -922,7 +954,8 @@ END:
  * @param	PdiSrc is source of PDI. It can be in Boot Device or DDR.
  * @param	PdiAddr is the address at PDI is located in the PDI source
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_LoadPdi(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
@@ -948,11 +981,14 @@ END:
  *
  * @param	ChildImgID is the current ImgID whose relation is to be checked
  * @param	ParentImgID is the ImgID with which the hierarchical ImgIDs are
- * compared in order to get the correct parent-child relationship
+ * 			compared in order to get the correct parent-child relationship
  * @param	IsChild is the pointer to the Relation that has to be
- *		returned, TRUE if it is a Child, else FALSE
+ *			returned, TRUE if it is a Child, else FALSE
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_PARENT_QUERY_RELATION_CHECK if parent query fails while
+ * 			checking child relation.
  *
  *****************************************************************************/
 static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild)
@@ -984,13 +1020,14 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function invalidates the child image info entries
- * corresponding to the parent image id in the ImageInfo Table
+ * 			corresponding to the parent image id in the ImageInfo Table
  *
  * @param	ParentImgID whose corresponding child image info entries are
- * invalidated
+ * 			invalidated
  * @param	ChangeCount points to ChangeCount that has to be modified
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount)
@@ -1042,7 +1079,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function returns the ImageInfoEntry by checking if an entry
- * exists for that particular ImgId in the ImgInfoTbl
+ * 			exists for that particular ImgId in the ImgInfoTbl
  *
  * @param	ImgID of the the entry that has to be stored
  *
@@ -1081,7 +1118,11 @@ END:
  *
  * @param	ImageInfo is a Pointer to ImageInfo that has to be written.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INVALIDATE_CHILD_IMG when invalidating child image entry.
+ * 			- XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW when image info table overflows.
+ * 			- XPLMI_ERR_MEMCPY_IMAGE_INFO if failed to copy image info to memory.
  *
  *****************************************************************************/
 static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
@@ -1157,7 +1198,11 @@ END:
  * @param	MaxSize is the max size of Buffer present at Destination Address
  * @param	NumEntries that are loaded from the Image Info Table
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INVALID_DEST_IMGINFOTBL_SIZE if destination buffer size
+ * 			is less than the current length of the image info table.
+ * 			- XLOADER_ERR_IMAGE_INFO_TBL_FULL if image info table is full.
  *
  *****************************************************************************/
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries)
@@ -1199,13 +1244,24 @@ END:
 
 /****************************************************************************/
 /**
-* @brief	This function validates the UIDs in Image Header
-*
-* @param	ImageInfo is pointer to the image info in image
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-*****************************************************************************/
+ * @brief	This function validates the UIDs in Image Header
+ *
+ * @param	ImageInfo is pointer to the image info in image
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_DEV_NOT_DEFINED if Device ID of the image to be loaded
+ * 			is not defined.
+ * 			- XLOADER_ERR_PARENT_QUERY_VERIFY if Failed to Query Parent ID of
+ * 			an image while verifying its Image UIDs.
+ * 			- XLOADER_ERR_INVALID_PARENT_IMG_ID when Invalid ParentImgID is
+ * 			obtained when queried for parent ImgID.
+ * 			- XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY if No Valid Parent Image
+ * 			Entry is found in the ImageInfo Table.
+ * 			- XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE if child image is not
+ * 			compatible with parent image.
+ *
+ *****************************************************************************/
 static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 {
 	int Status = XST_FAILURE;
@@ -1280,12 +1336,17 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used load a image in PDI. PDI can have multiple
- * images present in it. This can be used to load a single image like PL, APU, RPU.
- * This will load all the partitions that are present in that image.
+ * 			images present in it. This can be used to load a single image
+ * 			like PL, APU, RPU. This will load all the partitions that are
+ * 			present in that image.
  *
  * @param	PdiPtr is Pdi instance pointer
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_SEM_STOP_SCAN if unable to stop SEM scan.
+ * 			- XLOADER_ERR_CONFIG_SUBSYSTEM if subsystem configuration fails.
+ * 			- XLOADER_ERR_SEM_INIT if unable to start the SEM scan.
  *
  *****************************************************************************/
 static int XLoader_LoadImage(XilPdi *PdiPtr)
@@ -1394,14 +1455,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to restart the image in PDI. This function
- * will take ImageId as an input and based on the subsystem info available, it
- * will read the image partitions, loads them and hand-off to the required CPUs
- * as part of the image load.
+ * 			will take ImageId as an input and based on the subsystem info
+ * 			available, it will read the image partitions, loads them and
+ * 			hand-off to the required CPUs as part of the image load.
  *
  * @param	ImageId Id of the image present in PDI
  * @param	FuncID is verified with the FuncID present in PDI
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
@@ -1413,7 +1475,7 @@ int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 	u64 PdiAddr;
 
 	/**
-	 * Scan through PdiList for the given ImageId and restart image from
+	 * - Scan through PdiList for the given ImageId and restart image from
 	 * that respective PDI if ImageId is found
 	 */
 	 PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
@@ -1452,7 +1514,7 @@ END1:
 	}
 
 	/**
-	 * Load image from BootPdi if the image is not found or loading is
+	 * - Load image from BootPdi if the image is not found or loading is
 	 * unsuccessful from the PdiList
 	 */
 	PdiPtr = BootPdiPtr;
@@ -1474,14 +1536,19 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to reload the image only in PDI. This
- * function will take ImageId as an input and based on the subsystem info
- * available, it will read the image partitions and loads them.
+ * 			function will take ImageId as an input and based on the subsystem info
+ * 			available, it will read the image partitions and loads them.
  *
- * @param   PdiPtr is Pdi instance pointer
- * @param   ImageId Id of the image present in PDI
- * @param   FuncID is verified with the FuncID present in PDI
+ * @param	PdiPtr is Pdi instance pointer
+ * @param	ImageId Id of the image present in PDI
+ * @param	FuncID is verified with the FuncID present in PDI
  *
- * @return  XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_IMG_ID_NOT_FOUND if image id is not found in subsystem
+ * 			when reloading image.
+ * 			- XLOADER_ERR_FUNCTION_ID_MISMATCH when Function ID given while
+ * 			loading Image from DDR is not matching with the ID stored in Image Header.
  *
  *****************************************************************************/
 static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
@@ -1568,11 +1635,15 @@ END:
 /****************************************************************************/
 /**
 *  @brief	This function performs the checks of IDCODE and EXTENDED IDCODE.
-*  It also supports bypass of subset of these checks.
+*  			It also supports bypass of subset of these checks.
 *
 * @param	ImgHdrTbl pointer to the image header table.
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success.
+* 			- XLOADER_ERR_EXT_ID_SI if extended ID code is mismatched with device.
+* 			- XLOADER_ERR_IDCODE on ID code mismatch.
+* 			- XLOADER_ERR_EXT_IDCODE on extended ID code mismatch.
 *
 *****************************************************************************/
 int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
@@ -1586,7 +1657,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	u8 IsVC1902Es1; /**< Flag to indicate IsVC1902-ES1 device */
 	u8 IsExtIdCodeZero; /**< Flag to indicate Extended IdCode is valid */
 
-	/** check to bypass entire ID Code Check */
+	/** - check to bypass entire ID Code Check */
 	if ((ImgHdrTbl->Attr & XIH_IHT_ATTR_BYPS_ID_CODE_MASK)
 					== XIH_IHT_ATTR_BYPS_ID_CODE_MASK) {
 		Status = XST_SUCCESS;
@@ -1594,7 +1665,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	}
 
 	/**
-	 * Read IdCode and extended Id Code from the image header table and
+	 * - Read IdCode and extended Id Code from the image header table and
 	 * from PMC_TAP register
 	*/
 	IdCodeIHT = ImgHdrTbl->Idcode;
@@ -1604,7 +1675,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	ExtIdCodeRd = Xil_In32(EFUSE_CACHE_IP_DISABLE_0)
 			& EFUSE_CACHE_IP_DISABLE_0_EID_MASK;
 
-	/** Determine and fetch the Extended IDCODE (out of two) for checks */
+	/** - Determine and fetch the Extended IDCODE (out of two) for checks */
 	if (0U == ExtIdCodeRd) {
 		IsExtIdCodeZero = (u8)TRUE;
 	}
@@ -1624,7 +1695,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 		}
 	}
 
-	/** Check if the IdCode read is VC1902 ES1 */
+	/** - Check if the IdCode read is VC1902 ES1 */
 	if ((IdCodeRd & PMC_TAP_IDCODE_SIREV_DVCD_MASK) ==
 			PMC_TAP_IDCODE_ES1_VC1902) {
 		IsVC1902Es1 = (u8)TRUE;
@@ -1633,7 +1704,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 		IsVC1902Es1 = (u8)FALSE;
 	}
 
-	/** Check if a subset of checks to be bypassed */
+	/** - Check if a subset of checks to be bypassed */
 	if (0x1U == (ImgHdrTbl->Attr & XIH_IHT_ATTR_BYPS_MASK)) {
 		BypassChkIHT = (u8)TRUE;
 	}
@@ -1655,7 +1726,7 @@ int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 	 */
 
 	/**
-	 * Error out for the invalid combination of Extended IDCODE - Device.
+	 * - Error out for the invalid combination of Extended IDCODE - Device.
 	 * Assumption is that only VC1902-ES1 device can have Extended IDCODE value 0
 	 */
 	if ((IsExtIdCodeZero == (u8)TRUE) &&
@@ -1697,7 +1768,11 @@ END:
  *
  * @param	PdiPtr is Pdi instance pointer
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE on unsupported secondary boot
+ * 			mode.
+ * 			- XLOADER_ERR_MEMSET_PDIPTR if failed to create instance for PdiPtr.
  *
  *****************************************************************************/
 static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
@@ -1823,7 +1898,8 @@ END:
 /**
  * @brief	This function is used to read the Image Store DDR Memory Addr
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_ReadImageStoreCfg(void)
@@ -1832,12 +1908,16 @@ int XLoader_ReadImageStoreCfg(void)
 	XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 	u32 Unaligned;
 
-	/* Read & Populate Image Store base address,size from RTCA Area*/
+	/**
+	 * - Read & Populate Image Store base address,size from RTCA area.
+	 */
 	PdiList->PdiImgStrAddr = XPlmi_In32(XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH);
 	PdiList->PdiImgStrAddr = XPlmi_In32(XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW) | (PdiList->PdiImgStrAddr << 32U);
 	PdiList->PdiImgStrSize = XPlmi_In32(XPLMI_RTCFG_IMG_STORE_SIZE);
 
-	/* Check if address is unaligned */
+	/**
+	 * - Validate if address is unaligned.
+	 */
 	Unaligned = PdiList->PdiImgStrAddr % XPLMI_WORD_LEN;
 
 	if((PdiList->PdiImgStrAddr == XLOADER_IMG_STORE_INVALID_ADDR) ||
@@ -1849,7 +1929,9 @@ int XLoader_ReadImageStoreCfg(void)
 		Status = XST_SUCCESS;
 	}
 
-	/* Init the first element */
+	/**
+	 * - Update the PDI image store address in the image list.
+	 */
 	PdiList->ImgList[0U].PdiAddr = PdiList->PdiImgStrAddr;
 
 END:
