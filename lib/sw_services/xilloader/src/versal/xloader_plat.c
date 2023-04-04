@@ -25,6 +25,7 @@
 *       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
 *       ng   03/12/2023 Fixed Coverity warnings
 *       bm   03/16/2023 Added print when DDRMC dump is skipped
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -152,7 +153,20 @@ XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
  *
  * @param	PdiPtr Pdi instance pointer
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_WAKEUP_A72_0 if waking up the A72-0 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_A72_1 if waking up the A72-1 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_R5_0 if waking up the R5-0 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_R5_1 if waking up the R5-1 failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_R5_L if waking up the R5-L failed during
+ * 			handoff.
+ * 			- XLOADER_ERR_WAKEUP_PSM if waking up the PSM failed during
+ * 			handoff.
  *
  *****************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
@@ -167,7 +181,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
 
-	/** Start Handoff to the cpus */
+	/** - Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
 		CpuId = PdiPtr->HandoffParam[Index].CpuSettings &
 			XIH_PH_ATTRB_DSTN_CPU_MASK;
@@ -178,7 +192,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 		VInitHi = PdiPtr->HandoffParam[Index].CpuSettings &
 				XIH_PH_ATTRB_HIVEC_MASK;
 		Status = XST_FAILURE;
-		/** Wake up each processor */
+		/** - Wake up each processor */
 		switch (CpuId)
 		{
 			case XIH_PH_ATTRB_DSTN_CPU_A72_0:
@@ -247,13 +261,15 @@ END:
 /****************************************************************************/
 /**
 * @brief	This function sets the handoff parameters to the ARM Trusted
-* Firmware(ATF). Some of the inputs for this are taken from image partition
-* header. A pointer to the structure containing these parameters is stored in
-* the PMC_GLOBAL.GLOBAL_GEN_STORAGE4 register, which ATF reads.
+* 			Firmware(ATF). Some of the inputs for this are taken from image
+* 			partition header. A pointer to the structure containing these
+* 			parameters is stored in the PMC_GLOBAL.GLOBAL_GEN_STORAGE4
+* 			register, which ATF reads.
 *
 * @param	PrtnHdr is pointer to Partition header details
 *
-* @return	None
+* @return
+* 			- None
 *
 *****************************************************************************/
 void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
@@ -266,7 +282,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 	PrtnAttrbs = PrtnHdr->PrtnAttrb;
 
 	/**
-	 * Read partition header and deduce entry point and partition flags.
+	 * - Read partition header and deduce entry point and partition flags.
 	 */
 	PrtnFlags =
 		(((PrtnAttrbs & XIH_PH_ATTRB_A72_EXEC_ST_MASK)
@@ -279,7 +295,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF));
 
 	PrtnAttrbs &= XIH_PH_ATTRB_DSTN_CPU_MASK;
-	/** Update CPU number based on destination CPU */
+	/** - Update CPU number based on destination CPU */
 	if (PrtnAttrbs == XIH_PH_ATTRB_DSTN_CPU_A72_0) {
 		PrtnFlags |= XIH_PRTN_FLAGS_DSTN_CPU_A72_0;
 	}
@@ -336,7 +352,8 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
  * @param	ExecState CPU execution state
  * @param	VInitHi resembles highvec configuration for CPU
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
@@ -378,10 +395,11 @@ static void XLoader_A72Config(u32 CpuId, u32 ExecState, u32 VInitHi)
 /*****************************************************************************/
 /**
  * @brief	This function is used to run MJTAG solution workaround in which
- * JTAG Tap state will be set to reset.
+ * 			JTAG Tap state will be set to reset.
  *
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XLoader_SetJtagTapToReset(void)
@@ -391,7 +409,7 @@ void XLoader_SetJtagTapToReset(void)
 	u32 Val = 0U;
 
 	/**
-	 * Based on Vivado property, check whether to apply MJTAG workaround
+	 * - Based on Vivado property, check whether to apply MJTAG workaround
 	 * or not. By default vivado property disables MJTAG workaround.
 	 */
 	Val = XPlmi_In32(XPLMI_RTCFG_PLM_MJTAG_WA);
@@ -400,23 +418,23 @@ void XLoader_SetJtagTapToReset(void)
 		goto END;
 	}
 
-	/** Skip applying MJTAG workaround if already applied */
+	/** - Skip applying MJTAG workaround if already applied */
 	Flag = ((Val & XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_MASK) >>
 			XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_SHIFT);
 	if (Flag != 0U) {
 		goto END;
 	}
 
-	/** Check if End of PL Startup is asserted or not */
+	/** - Check if End of PL Startup is asserted or not */
 	Flag = ((XPlmi_In32(CFU_APB_CFU_FGCR) & CFU_APB_CFU_FGCR_EOS_MASK));
 	if (Flag != CFU_APB_CFU_FGCR_EOS_MASK) {
 		goto END;
 	}
 
-	/** Enable MJTAG */
+	/** - Enable MJTAG */
 	XPlmi_Out32(PMC_TAP_JTAG_TEST, 1U);
 
-	/** Toggle MJTAG ISO to generate clock pulses, default 10 clock pulses */
+	/** - Toggle MJTAG ISO to generate clock pulses, default 10 clock pulses */
 	for (Index = 0U; Index < XPLMI_MJTAG_WA_GASKET_TOGGLE_CNT; Index++) {
 		XPlmi_UtilRMW(PMC_GLOBAL_DOMAIN_ISO_CNTRL,
 				PMC_GLOBAL_DOMAIN_ISO_CNTRL_PMC_PL_TEST_MASK,
@@ -439,7 +457,7 @@ void XLoader_SetJtagTapToReset(void)
 		usleep(XPLMI_MJTAG_WA_DELAY_USED_IN_GASKET_TOGGLE);
 	}
 
-	/** Disable MJTAG */
+	/** - Disable MJTAG */
 	XPlmi_Out32(PMC_TAP_JTAG_TEST, 0U);
 
 	XPlmi_UtilRMW(XPLMI_RTCFG_PLM_MJTAG_WA,
@@ -452,13 +470,16 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to get PdiSrc and PdiAddr for Secondary
- * 		SD boot modes
+ * 			SD boot modes
 
  * @param	SecBootMode is the secondary boot mode value
  * @param	PdiSrc is pointer to the source of PDI
  * @param	PdiAddr is the pointer to the address of the Pdi
 
- * @return	XST_SUCCESS on success and error code on failure
+ @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE on unsupported secondary
+ * 			bootmode.
  *
  *****************************************************************************/
 int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
@@ -467,7 +488,7 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
 	int Status = XST_FAILURE;
 	(void)PdiPtr;
 
-	/** Get the PDI source address for the secondary boot device. */
+	/** - Get the PDI source address for the secondary boot device. */
 	switch(SecBootMode)
 	{
 		case XIH_IHT_ATTR_SBD_SD_0:
@@ -535,7 +556,20 @@ int XLoader_GetSDPdiSrcNAddr(u32 SecBootMode, XilPdi *PdiPtr, u32 *PdiSrc,
  * @param	SecureParams is pointer to the instance containing security related
  *			params
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INVALID_ELF_LOAD_ADDR if the load address of the
+ * 			elf is invalid.
+ * 			- XLOADER_ERR_PM_DEV_PSM_PROC if device requet for PSM is failed.
+ * 			- XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT if IOCTL call to set RPU0 in
+ * 			split mode fails.
+ * 			- XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT if IOCTL call to set RPU1 in
+ * 			split mode fails.
+ * 			- XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP if IOCTL call to set RPU0
+ * 			in lockstep mode fails.
+ * 			- XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP if IOCTL call to set RPU1
+ * 			in lockstep mode fails.
+ * 			- XLOADER_ERR_INVALID_TCM_ADDR on Invalid TCM address for A72 elfs.
  *
  *****************************************************************************/
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
@@ -550,6 +584,9 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	u32 Mode = 0U;
 	u8 TcmComb;
 
+	/**
+	 * - Verify the load address.
+	 */
 	Status = XPlmi_VerifyAddrRange(PrtnParams->DeviceCopy.DestAddr, EndAddr);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_ELF_LOAD_ADDR,
@@ -558,18 +595,14 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	}
 	PrtnParams->DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
-	/*
-	 * Requirements:
+	/**
 	 *
-	 * PSM:
-	 * For PSM, PSM should be taken out of reset before loading
+	 * - For PSM, PSM should be taken out of reset before loading.
 	 * PSM RAM should be ECC initialized
 	 *
-	 * OCM:
-	 * OCM RAM should be ECC initialized
+	 * - For OCM, RAM should be ECC initialized
 	 *
-	 * R5:
-	 * R5 should be taken out of reset before loading
+	 * - R5 should be taken out of reset before loading.
 	 * R5 TCM should be ECC initialized
 	 */
 	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
@@ -687,6 +720,9 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	}
 
 END1:
+	/**
+	 * - Copy the partition to the load address.
+	 */
 	Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams->DeviceCopy, SecureParams);
 	if (XST_SUCCESS != Status) {
 		goto END;
@@ -694,10 +730,10 @@ END1:
 
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A72_0) ||
 		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A72_1)) {
-		/*
-		 *  Populate handoff parameters to ATF
+		/**
+		 *  - Populate handoff parameters to ATF.
 		 *  These correspond to the partitions of application
-		 *  which ATF will be loading
+		 *  which ATF will be loading.
 		 */
 		XLoader_SetATFHandoffParameters(PrtnHdr);
 	}
@@ -714,11 +750,21 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function requests TCM_0_A, TCM_0_B, TCM_1_A and TCM_1_B
- * depending upon input param and R5-0 and R5-1 cores as required for TCMs.
+ * 			depending upon input param and R5-0 and R5-1 cores as required
+ * 			for TCMs.
  *
  * @param	TcmId denotes TCM_0 or TCM_1
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_PM_DEV_TCM_0_A if device request for TCM_0_A is
+ * 			failed.
+ * 			- XLOADER_ERR_PM_DEV_TCM_0_B if device request for TCM_0_B is
+ * 			failed.
+ * 			- XLOADER_ERR_PM_DEV_TCM_1_A if device request for TCM_1_A is
+ * 			failed.
+ * 			- XLOADER_ERR_PM_DEV_TCM_1_B if device request for TCM_1_B is
+ * 			failed.
  *
  *****************************************************************************/
 static int XLoader_RequestTCM(u8 TcmId)
@@ -766,13 +812,14 @@ END:
 /****************************************************************************/
 /**
  * @brief	This function is used to check whether cpu has handoff address
- * stored in the handoff structure.
+ * 			stored in the handoff structure.
  *
  * @param	PdiPtr is pointer to XilPdi instance
  * @param	DstnCpu is the cpu which needs to be checked
  *
- * @return	XST_SUCCESS if the DstnCpu is successfully added to Handoff list
- *          XST_FAILURE if the DstnCpu is already added to Handoff list
+ * @return
+ * 			- XST_SUCCESS if the DstnCpu is successfully added to Handoff list
+ * 			- XST_FAILURE if the DstnCpu is already added to Handoff list
  *
  *****************************************************************************/
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu)
@@ -800,7 +847,9 @@ END:
  *
  * @param	PdiPtr is pointer to XilPdi instance
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_NUM_HANDOFF_CPUS when number of CPUs exceed max count.
  *
  *****************************************************************************/
 int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
@@ -813,18 +862,26 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 	const XilPdi_PrtnHdr * PrtnHdr =
 			&(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 
+	/**
+	 * - Get the destination CPU from the partition header.
+	*/
 	DstnCpu = XilPdi_GetDstnCpu(PrtnHdr);
 
 	if ((DstnCpu > XIH_PH_ATTRB_DSTN_CPU_NONE) &&
 	    (DstnCpu <= XIH_PH_ATTRB_DSTN_CPU_PSM)) {
 		CpuNo = PdiPtr->NoOfHandoffCpus;
+		/**
+		 * - Validate the destination CPU.
+		*/
 		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS) {
 			if (CpuNo >= XLOADER_MAX_HANDOFF_CPUS) {
 				Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
 				goto END;
 			}
-			/* Update the CPU settings */
+			/**
+			 * - Update the CPU settings.
+			 */
 			PdiPtr->HandoffParam[CpuNo].CpuSettings =
 				XilPdi_GetDstnCpu(PrtnHdr) |
 				XilPdi_GetA72ExecState(PrtnHdr) |
@@ -843,13 +900,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function updates the load address based on the
- * destination CPU.
+ * 			destination CPU.
  *
  * @param	DstnCpu is destination CPU
  * @param	LoadAddrPtr is the destination load address pointer
  * @param	Len is the length of the partition
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_TCM_ADDR_OUTOF_RANGE if load address is out of range.
  *
  *****************************************************************************/
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
@@ -858,6 +917,9 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 	u64 Address = *LoadAddrPtr;
 	u32 Offset = 0U;
 
+	/**
+	 * - Validate the address is within the range of R5 TCMA or R5 TCMB.
+	*/
 	if (((Address < (XLOADER_R5_TCMA_LOAD_ADDRESS +
 			XLOADER_R5_TCM_BANK_LENGTH)) ||
 			((Address >= XLOADER_R5_TCMB_LOAD_ADDRESS) &&
@@ -883,6 +945,10 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 		}
 	}
 
+	/**
+	 * - Otherwise validate the address if the destination CPU is lockstep R5
+	 * and is within the range of it TCM.
+	*/
 	if ((DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_L) &&
 		(Address < XLOADER_R5_TCM_TOTAL_LENGTH)) {
 		if (((Address % XLOADER_R5_TCM_TOTAL_LENGTH) + Len) >
@@ -893,8 +959,8 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 		Offset = XLOADER_R5_0_TCMA_BASE_ADDR;
 	}
 
-	/*
-	 * Update the load address
+	/**
+	 * - Update the load address.
 	 */
 	Address += Offset;
 	*LoadAddrPtr = Address;
@@ -908,7 +974,8 @@ END:
 /**
  * @brief	This function prints DDRMC register details.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_DumpDdrmcRegisters(void)
@@ -1015,7 +1082,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function checks if MJTAG workaround partition needs to be
- *		skipped
+ *			skipped
  *
  * @param	PdiPtr is pointer to PDI instance
 
@@ -1049,7 +1116,9 @@ u8 XLoader_SkipMJtagWorkAround(XilPdi *PdiPtr)
 /**
  * @brief	This function checks if MJTAG workaround is required
  *
- * @return	Error Code of Deferred Erorr
+ * @return
+ * 			- XLOADER_ERR_DEFERRED_CDO_PROCESS on error while processing CDO but
+ * error is deferred till whole CDO processing is completed.
  *
  *****************************************************************************/
 int XLoader_ProcessDeferredError(void)
@@ -1066,9 +1135,10 @@ int XLoader_ProcessDeferredError(void)
 /*****************************************************************************/
 /**
  * @brief	This function check conditions and perform internal POR
- * 		for VP1802 and VP1502 device if required.
+ *			for VP1802 and VP1502 device if required.
  *
- * @return	None.
+ * @return
+ * 			- None.
  *
  *****************************************************************************/
 void XLoader_PerformInternalPOR(void)
@@ -1084,27 +1154,41 @@ void XLoader_PerformInternalPOR(void)
 
 	if ((IdCode != PMC_TAP_IDCODE_ES1_VP1802) &&
 		(IdCode != PMC_TAP_IDCODE_ES1_VP1502)) {
-		/* Not a VP1802 Or VP1502 device */
+		/**
+		 * - If the device is not an VP1802 Or VP1502, then return without
+		 * performing IPOR.
+		 */
 		goto END;
 	}
 
 	if (SlrType != XLOADER_SSIT_MASTER_SLR) {
-		/* Not a Master SLR */
+		/**
+		 * - If the device is not an master SLR, then return without
+		 * performing IPOR.
+		 */
 		goto END;
 	}
 
 	if ((BootMode == XLOADER_PDI_SRC_JTAG) ||
 		(BootMode == XLOADER_PDI_SRC_SMAP)) {
-		/* Bootmode check failed for IPOR of VP1502/VP1802 device */
+		/**
+		 * - If the bootmode is JTAG or SMAP, then return without
+		 * performing IPOR.
+		 */
 		goto END;
 	}
 
 	if (DnaBit == 0x00U) {
-		/* Efuse DNA_57 bit should be non-zero for IPOR */
+		/**
+		 * - Efuse DNA_57 bit should be non-zero for IPOR.
+		 */
 		goto END;
 	}
 
-	/* All the pre-conditions are met to do IPOR of VP1502/VP1802 device */
+	/**
+	 * - Perform IPOR, if all the pre-conditions are met for
+	 * VP1502/VP1802 device.
+	 */
 	if (CrpResetReason == CRP_RESET_REASON_EXT_POR_MASK) {
 		usleep(PLM_VP1802_POR_SETTLE_TIME);
 		XPlmi_PORHandler();
@@ -1132,14 +1216,22 @@ int Xloader_SsitEoPdiSync(XilPdi *PdiPtr)
 
 	XPlmi_Printf(DEBUG_INFO,"%s \n\r",__func__);
 
-	/* Check if End of PDI SYNC enabled in Slave PDI*/
+	/**
+	 * - Validate if End of PDI SYNC enabled in Slave PDI.
+	 * Otherwise return XST_SUCCESS.
+	 */
 	if ((PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR) &&
 		(PdiPtr->SlrType != XLOADER_SSIT_MONOLITIC) &&
 		(PdiPtr->SlrType != XLOADER_SSIT_INVALID_SLR)) {
-		/* Check if EoPDI Sync bit set in IHT Attribute */
+		/**
+		 * - Validate if end of PDI Sync bit set in IHT Attribute.
+		 * Otherwise return XST_SUCCESS.
+		 */
 		if ((PdiPtr->MetaHdr.ImgHdrTbl.Attr & XIH_IHT_ATTR_EOPDI_SYNC_MASK)
 					== XIH_IHT_ATTR_EOPDI_SYNC_MASK) {
-			/* Sync with master to update slave status */
+			/**
+			 * - Sync with master to update slave status.
+			 */
 			Status = XPlmi_SsitSyncMaster(NULL);
 			if (Status != XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(XPLMI_ERR_SSIT_EOPDI_SYNC, Status);

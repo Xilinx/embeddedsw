@@ -119,6 +119,7 @@
 *                     Secure State(Auth) in xloader_plat_secure files
 *       ng   11/23/22 Updated doxygen comments
 *       kpt  02/21/23 Fixed bug in XLoader_SecureClear
+*       ng   03/30/23 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -167,15 +168,20 @@ static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 /*****************************************************************************/
 /**
-* @brief	This function initializes  XLoader_SecureParams's instance.
-*
-* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
-* @param	PdiPtr is pointer to the XilPdi instance
-* @param	PrtnNum is the partition number to be processed
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
+ * @brief	This function initializes  XLoader_SecureParams's instance.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	PdiPtr is pointer to the XilPdi instance
+ * @param	PrtnNum is the partition number to be processed
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_MEMSET_SECURE_PTR if failed to set memory for secure
+ * 			pointer.
+ * 			- XLOADER_ERR_INIT_GET_DMA if failed to get DMA instance during
+ * 			initialization.
+ *
+ ******************************************************************************/
 int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	u32 PrtnNum)
 {
@@ -186,6 +192,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	volatile int StatusTmp = XST_FAILURE;
 #endif
 
+	/** - Initialize XLoader_SecureParms instance with zeros. */
 	Status = XPlmi_MemSetBytes(SecurePtr, sizeof(XLoader_SecureParams), 0U,
 				sizeof(XLoader_SecureParams));
 	if (Status != XST_SUCCESS) {
@@ -194,6 +201,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 		goto END;
 	}
 
+	/** - Initialize XLoader_SecureTempParams instance with zeros. */
 	Status = XPlmi_MemSetBytes(SecureTempParams, sizeof(XLoader_SecureTempParams),
 				0U, sizeof(XLoader_SecureTempParams));
 	if (Status != XST_SUCCESS) {
@@ -202,50 +210,54 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 		goto END;
 	}
 
-	/* Assign the partition header to local variable */
+	/** - Read partition header from meta header. */
 	PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 	SecurePtr->PdiPtr = PdiPtr;
 	SecurePtr->ChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
-	/* The below initialization is important, it has been added since
-	 * authentication certificate and Puf data are now stored in PMC RAM
-	 * instead of PPU1 RAM. What this means is that while processing
-	 * first chunk of any partition, the second 32K chunk of PMC RAM
-	 * starting from 0xf2008120 contains authentication certificate and
-	 * PufData as applicable. This means second chunk of partition
-	 * must get loaded at 0xf2000020 and not at 0xf2008120. This means
-	 * double buffering would be disabled when first chunk is processed
-	 * and only enabled from second chunk onwards. Third chunk gets loaded
-	 * at 0xf2008120 and from then on chunks get loaded alternatively to
-	 * the two 32KB chunks of PMC RAM. */
+	/**
+	 * - The following initialization is crucial as the authentication
+	 *   certificate and PUF data are now stored in the PMC RAM instead of the
+	 *   PPU1 RAM. During the processing of the first chunk of any partition,
+	 *   the second 32K chunk of the PMC RAM, starting from 0xf2008120,
+	 *   contains the authentication certificate and PUF data as applicable.
+	 *   As a result, the second chunk of the partition must be loaded at
+	 *   0xf2000020, not at 0xf2008120. Therefore, double buffering is disabled
+	 *   when processing the first chunk, and only enabled from the second chunk
+	 *   onwards. The third chunk is loaded at 0xf2008120, and from then on, the
+	 *   chunks are loaded alternatively to the two 32KB chunks of the PMC RAM.
+	 */
 	SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	SecurePtr->BlockNum = 0x00U;
 	SecurePtr->ProcessedLen = 0x00U;
 	SecurePtr->PrtnHdr = PrtnHdr;
 
-	/* PMCDMA0 will be used in blocking mode when PDI type is restore */
+	/** - PMCDMA0 will be used in blocking mode when PDI type is restore */
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
 		SecurePtr->DmaFlags = XPLMI_PMCDMA_0;
 	}
 
-	/* Get DMA instance */
+	/** - Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_GET_DMA, 0);
 		goto END;
 	}
 
+	/** - Initialize the checksum. */
 	Status = XLoader_ChecksumInit(SecurePtr, PrtnHdr);
 #ifndef PLM_SECURE_EXCLUDE
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/** - Initialize the authentication. */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureAuthInit,
 			SecurePtr, PrtnHdr);
 	if ((Status != XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
 		goto END;
 	}
 
+	/** - Initialize the encryption. */
 	Status = XST_FAILURE;
 	StatusTmp = XST_FAILURE;
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureEncInit,
@@ -261,10 +273,11 @@ END:
 * @brief	This function loads secure non-cdo partitions.
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
-* @param	DestAddr is load address of the partition
-* @param	Size is unencrypted size of the partition.
+* @param	DestAddr is load address of the partition.
+* @param	Size is unencrypted size of the partition in bytes.
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 ******************************************************************************/
 int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
@@ -277,7 +290,7 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 	u8 LastChunk = (u8)FALSE;
 
 	while (Len > 0U) {
-		/** Update the length for last chunk */
+		/** - Update the length for last chunk */
 		if (Len <= ChunkLen) {
 			LastChunk = (u8)TRUE;
 			ChunkLen = Len;
@@ -285,14 +298,14 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 
 		SecurePtr->RemainingDataLen = Len;
 
-		/** Call security function */
+		/** - Process the partition. */
 		Status = SecurePtr->ProcessPrtn(SecurePtr, LoadAddr,
 					ChunkLen, LastChunk);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/** Update variables for next chunk */
+		/** - Update variables for next chunk */
 		LoadAddr = LoadAddr + SecurePtr->SecureDataLen;
 		Len = Len - SecurePtr->ProcessedLen;
 		SecurePtr->ChunkAddr = SecurePtr->NextChunkAddr;
@@ -300,7 +313,7 @@ int XLoader_SecureCopy(XLoader_SecureParams *SecurePtr, u64 DestAddr, u32 Size)
 
 END:
 	if (Status != XST_SUCCESS) {
-		/** On failure clear data at destination address */
+		/** - On failure clear data at destination address */
 		ClrStatus = XPlmi_InitNVerifyMem(DestAddr, Size);
 		if (ClrStatus != XST_SUCCESS) {
 			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
@@ -314,22 +327,27 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function starts next chunk copy when security is enabled.
-*
-* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
-* @param	TotalLen is total length of the partition.
-* @param	NextBlkAddr is the address of the next chunk data to be copied.
-* @param 	ChunkLen is size of the data block to be copied.
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
+ * @brief	This function starts next chunk copy when security is enabled.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	TotalLen is total length of the partition in bytes.
+ * @param	NextBlkAddr is the address of the next chunk data to be copied.
+ * @param 	ChunkLen is size of the data block to be copied.
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_DATA_COPY_FAIL if failed to copy data to PMC RAM.
+ *
+ ******************************************************************************/
 static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
 		u32 TotalLen, u64 NextBlkAddr, u32 ChunkLen)
 {
 	int Status = XST_FAILURE;
 	u32 CopyLen = ChunkLen;
 
+	/**
+	 * - Calculate the next chunk address.
+	*/
 	if (SecurePtr->ChunkAddr == XPLMI_PMCRAM_CHUNK_MEMORY) {
 		SecurePtr->NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY_1;
 	}
@@ -343,7 +361,9 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
 
 	SecurePtr->IsNextChunkCopyStarted = (u8)TRUE;
 
-	/* Initiate the data copy */
+	/**
+	 * - Initiate the data copy.
+	*/
 	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(NextBlkAddr,
 			SecurePtr->NextChunkAddr, CopyLen,
 			XPLMI_DEVICE_COPY_STATE_INITIATE | SecurePtr->DmaFlags);
@@ -358,10 +378,12 @@ static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
 /*****************************************************************************/
 /**
  * @brief	This function is called to clear secure critical data in case of
- * exceptions. The function also places AES, ECDSA_RSA and SHA3 in reset.
+ * 			exceptions. The function also places AES, ECDSA_RSA and SHA3 in reset.
  *
- * @return	XST_SUCCESS on success
- *          XST_FAILURE on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_SECURE_CLEAR_FAIL if failed to clear AES, RSA, SHA3
+ * 			engines.
  *
  *****************************************************************************/
 int XLoader_SecureClear(void)
@@ -396,17 +418,21 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief	This function calculates hash and compares with expected hash.
-* For every block, hash of next block is updated into expected hash.
-*
-* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
-* @param	DataAddr is the address of the data present in the block
-* @param	Size is size of the data block to be processed
-* @param	Last notifies if the block to be processed is last or not.
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
+ * @brief	This function calculates hash and compares with expected hash.
+ * 			For every block, hash of next block is updated into expected hash.
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	DataAddr is the address of the data present in the block
+ * @param	Size is size of the data block to be processed
+ * @param	Last notifies if the block to be processed is last or not.
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_PRTN_HASH_CALC_FAIL if failed to calculate hash
+ * 			for partition authentication.
+ * 			- XLOADER_ERR_PRTN_HASH_COMPARE_FAIL on partition comparison fail.
+ *
+ ******************************************************************************/
 static int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	u64 DataAddr, u32 Size, u8 Last)
 {
@@ -495,15 +521,19 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief       This function initializes checksum parameters of
-* XLoader_SecureParams's instance
-*
-* @param	SecurePtr is pointer to the XLoader_SecureParams instance.
-* @param	PrtnHdr is pointer to XilPdi_PrtnHdr instance
-*
-* @return	XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
+ * @brief	This function initializes checksum parameters of
+ * 			XLoader_SecureParams's instance
+ *
+ * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
+ * @param	PrtnHdr is pointer to XilPdi_PrtnHdr instance
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE on unsupported checksum type.
+ * 			- XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL if failed to copy checksum from
+ * 			flash device.
+ *
+ ******************************************************************************/
 static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 			const XilPdi_PrtnHdr *PrtnHdr)
 {
@@ -512,12 +542,12 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 	u64 ChecksumOffset;
 
 	ChecksumType = XilPdi_GetChecksumType(PrtnHdr);
-	/** Verify if checksum is enabled */
+	/** - Verify if checksum is enabled */
 	if (ChecksumType != 0x00U) {
 		 XPlmi_Printf(DEBUG_INFO,
 			 "Checksum verification is enabled\n\r");
 
-		/** Validate checksum type is SHA3 else return checksum error */
+		/** - Validate checksum type is SHA3 else return checksum error */
 		if(ChecksumType == XIH_PH_ATTRB_HASH_SHA3) {
 			SecurePtr->IsCheckSumEnabled = (u8)TRUE;
 		}
@@ -528,7 +558,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 			goto END;
 		}
 
-		/** Copy checksum hash */
+		/** - Copy checksum hash */
 		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
 			Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(
 					SecurePtr->PdiPtr->CopyToMemAddr,
@@ -571,10 +601,12 @@ END:
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 * @param	DestAddr is the address to which data is copied
 * @param	BlockSize is size of the data block to be processed
-*		which doesn't include padding lengths and hash.
+*			which doesn't include padding lengths and hash.
 * @param	Last notifies if the block to be processed is last or not
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success.
+* 			- XLOADER_ERR_DMA_TRANSFER if DMA transfer fails to copy.
 *
 ******************************************************************************/
 static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
@@ -665,18 +697,20 @@ END:
 
 /*****************************************************************************/
 /**
-* @brief        This function copies the data from SrcAddr to chunk memory during
-*		processing of secure partitions
+* @brief	This function copies the data from SrcAddr to chunk memory during
+*			processing of secure partitions
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 * @param	SrcAddr is the source address from which the data is to be
-* 		processed or copied
+*			processed or copied
 * @param	Last notifies if the block to be processed is last or not
 * @param	BlockSize is size of the data block to be processed
-*		which doesn't include padding lengths and hash.
+*			which doesn't include padding lengths and hash.
 * @param	TotalSize is pointer to TotalSize which has to be processed
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success.
+* 			- XLOADER_ERR_DATA_COPY_FAIL if failed to copy data to PMC RAM.
 *
 ******************************************************************************/
 int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
@@ -690,7 +724,10 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 		Flags = XPLMI_DEVICE_COPY_STATE_WAIT_DONE;
 	}
 
-	/* Wait for copy to get completed */
+	/**
+	 * - Copy the next chunk securely, and then wait for the process to
+	 *   be completed.
+	 */
 	Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(SrcAddr,
 		SecurePtr->ChunkAddr, TotalSize, (u32)(Flags | SecurePtr->DmaFlags));
 	if (Status != XST_SUCCESS) {
@@ -698,19 +735,19 @@ int XLoader_SecureChunkCopy(XLoader_SecureParams *SecurePtr, u64 SrcAddr,
 				XLOADER_ERR_DATA_COPY_FAIL, Status);
 		goto END;
 	}
-	/* The below if condition is important, it has been added since
-	 * authentication certificate and Puf data are now stored in PMC RAM
-	 * instead of PPU1 RAM. What this means is that while processing
-	 * first chunk of any partition, the second 32K chunk of PMC RAM
-	 * starting from 0xf2008120 contains authentication certificate and
-	 * PufData as applicable. This means second chunk of partition
-	 * must get loaded at 0xf2000020 and not at 0xf2008120. This means
-	 * double buffering should be disabled when first chunk is processed
-	 * and only enabled from second chunk onwards. Third chunk gets loaded
-	 * at 0xf2008120 and from then on chunks alternatively get loaded to
-	 * the two 32KB chunks of PMC RAM.
-	 */
 
+	/**
+	 * - The following initialization is crucial as the authentication
+	 *   certificate and PUF data are now stored in the PMC RAM instead of the
+	 *   PPU1 RAM. During the processing of the first chunk of any partition,
+	 *   the second 32K chunk of the PMC RAM, starting from 0xf2008120,
+	 *   contains the authentication certificate and PUF data as applicable.
+	 *   As a result, the second chunk of the partition must be loaded at
+	 *   0xf2000020, not at 0xf2008120. Therefore, double buffering is disabled
+	 *   when processing the first chunk, and only enabled from the second chunk
+	 *   onwards. The third chunk is loaded at 0xf2008120, and from then on, the
+	 *   chunks are loaded alternatively to the two 32KB chunks of the PMC RAM.
+	 */
 	if ((Last != (u8)TRUE) && (SecurePtr->BlockNum != 0U) &&
 	((SecurePtr->DmaFlags & XPLMI_PMCDMA_0) != XPLMI_PMCDMA_0)) {
 		Status = XLoader_StartNextChunkCopy(SecurePtr,
@@ -725,7 +762,10 @@ END:
 /**
 * @brief	This function checks if PPK is programmed.
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success.
+* 			- XLOADER_ERR_GLITCH_DETECTED if glitch is detected.
+* 			- XST_FAILURE on failure.
 *
 ******************************************************************************/
 int XLoader_CheckNonZeroPpk(void)
@@ -733,6 +773,7 @@ int XLoader_CheckNonZeroPpk(void)
 	volatile int Status = XST_FAILURE;
 	volatile u32 Index;
 
+	/** - Check if any of the PPK efuses are not programmed. */
 	for (Index = XLOADER_EFUSE_PPK0_START_OFFSET;
 		Index <= XLOADER_EFUSE_PPK2_END_OFFSET;
 		Index = Index + XIH_PRTN_WORD_LEN) {
@@ -763,18 +804,23 @@ int XLoader_CheckNonZeroPpk(void)
 * @brief	This function returns the state of authenticated boot
 *
 * @param	AHWRoTPtr - Always NULL except at time of initialization of
-*		SecureStateAHWRoT variable
+*			SecureStateAHWRoT variable
 *
-* @return	XPLMI_RTCFG_SECURESTATE_AHWROT - PPK fuses are programmed
-*		XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT - BHDR auth is enabled
-*		XPLMI_RTCFG_SECURESTATE_NONSECURE - Neither PPK fuses are
-*		programmed nor BH auth is enabled
+* @return
+* 			- XPLMI_RTCFG_SECURESTATE_AHWROT - PPK fuses are programmed
+* 			- XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT - BHDR auth is enabled
+* 			- XPLMI_RTCFG_SECURESTATE_NONSECURE - Neither PPK fuses are
+*			programmed nor BH auth is enabled
 *
 ******************************************************************************/
 u32 XLoader_GetAHWRoT(const u32* AHWRoTPtr)
 {
 	static u32 SecureStateAHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
 
+	/**
+	 * - If AHWRoTPtr is not NULL, then set the SecureStateSHWRoT.
+	 *   Otherwise return the previous stored Secure state.
+	*/
 	if (AHWRoTPtr != NULL) {
 		SecureStateAHWRoT = *AHWRoTPtr;
 	}
@@ -787,18 +833,23 @@ u32 XLoader_GetAHWRoT(const u32* AHWRoTPtr)
 * @brief	This function returns the state of encrypted boot
 *
 * @param	SHWRoTPtr - Always NULL except at time of initialization of
-*		SecureStateSHWRoT variable
+*			SecureStateSHWRoT variable
 *
-* @return	XPLMI_RTCFG_SECURESTATE_SHWROT - Any DEC only fuse is programmed
-*		XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT - PLM is encrypted
-*		XPLMI_RTCFG_SECURESTATE_NONSECURE - Neither DEC only fuses are
-*		programmed nor PLM is encrypted
+* @return
+* 			- XPLMI_RTCFG_SECURESTATE_SHWROT - Any DEC only fuse is programmed
+* 			- XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT - PLM is encrypted
+* 			- XPLMI_RTCFG_SECURESTATE_NONSECURE - Neither DEC only fuses are
+*			programmed nor PLM is encrypted
 *
 ******************************************************************************/
 u32 XLoader_GetSHWRoT(const u32* SHWRoTPtr)
 {
 	static u32 SecureStateSHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT;
 
+	/**
+	 * - If SHWRoTPtr is not NULL, then set the SecureStateSHWRoT.
+	 *   Otherwise return the previous stored Secure state.
+	*/
 	if (SHWRoTPtr != NULL) {
 		SecureStateSHWRoT = *SHWRoTPtr;
 	}
@@ -810,10 +861,11 @@ u32 XLoader_GetSHWRoT(const u32* SHWRoTPtr)
 /*****************************************************************************/
 /**
 * @brief	This function reads the value of PPK efuse bits, DEC only efuse
-*		bits and fields in bootheader and accordingly sets the Secure
-*		State of boot.
+*			bits and fields in bootheader and accordingly sets the Secure
+*			State of boot.
 *
-* @return	XST_SUCCESS in case of SUCCESS and error code in case of failure
+* @return
+* 			- XST_SUCCESS on SUCCESS and error code in case of failure.
 *
 * @note		The Secure State of the device will be stored in two 32-bit
 *		registers in RTC area of PMCRAM and two global variables
@@ -831,14 +883,14 @@ int XLoader_SetSecureState(void)
 	volatile u32 AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;
 	volatile u32 SHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT;
 
-	/* Checks for secure state for authentication */
+	/** - Check secure state for authentication */
 	Status = XLoader_CheckSecureStateAuth(&AHWRoT);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/*
-	 * Set the secure state for authentication in register and global variable
+	/**
+	 * - Set the secure state for authentication in register and global variable.
 	 */
 	(void)XLoader_GetAHWRoT((u32 *)&AHWRoT);
 	Status = XST_FAILURE;
@@ -847,13 +899,17 @@ int XLoader_SetSecureState(void)
 		goto END;
 	}
 
-	/** Check secure state for encryption. */
+	/** - Check secure state for encryption. */
 	ReadReg = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
 		XLOADER_EFUSE_SEC_DEC_MASK;
 	ReadRegTmp = XPlmi_In32(XLOADER_EFUSE_SEC_MISC0_OFFSET) &
 		XLOADER_EFUSE_SEC_DEC_MASK;
+	/** - Read DEC_ONLY efuse bits. */
 	if ((ReadReg != 0x0U) || (ReadRegTmp != 0x0U)) {
-		/* Program one or more DEC_ONLY efuse bits */
+		/**
+		 * - If more than one DEC_ONLY efuse bits are programmed, then set the
+		 *   SHWRoT register.
+		 */
 		SHWRoT = XPLMI_RTCFG_SECURESTATE_SHWROT;
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Encryption):"
 			" Symmetric HWRoT\r\n");
@@ -862,15 +918,18 @@ int XLoader_SetSecureState(void)
 		XSECURE_TEMPORAL_IMPL(PlmEncStatus, PlmEncStatusTmp,
 		XilPdi_GetPlmKeySrc);
 		if ((PlmEncStatus != 0x0U) || (PlmEncStatusTmp != 0x0U)) {
-			/* PLM is encrypted */
+			/**
+			 * - If none of the DEC_ONLY efuse bits are programmed and
+			 *   PLM is encrypted, then set the SHWRoT register.
+			 */
 			SHWRoT = XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT;
 			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "State of Boot(Encryption):"
 			" Emulated Symmetric HWRoT\r\n");
 		}
 		else {
-			/*
-			 * None of the DEC_ONLY efuse bits are programmed and
-			 * PLM is not encrypted
+			/**
+			 * - If none of the DEC_ONLY efuse bits are programmed and PLM is
+			 *   not encrypted, then set the SHWRoT register.
 			 */
 			SHWRoT = XPLMI_RTCFG_SECURESTATE_NONSECURE;
 		}
