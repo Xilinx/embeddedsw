@@ -47,6 +47,7 @@
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 * 1.09  ng   11/11/2022 Updated doxygen comments
 *       dd   03/16/2023 Misra-C violation Rule 17.8 fixed
+*       dd   03/28/2023 Updated doxygen comments
         ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * </pre>
 *
@@ -78,7 +79,7 @@
  * 			Checksum = ~(X1 + X2 + X3 + .... + Xn)
  *
  * @param	Buffer pointer for the data words
- * @param	Lenth of the buffer for which checksum should be calculated.
+ * @param	Length of the buffer for which checksum should be calculated.
  * 			Last word is taken as expected checksum.
  *
  * @return
