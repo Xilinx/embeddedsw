@@ -26,6 +26,7 @@
 * 1.01  ng   11/11/2022 Updated doxygen comments
 *       dc   12/27/2022 Added SHA1 instance
 *       kal  01/05/2023 Added PCR Extend functions for secure images
+*		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -56,20 +57,20 @@
 #include "xplmi_plat.h"
 
 /************************** Constant Definitions *****************************/
-#define XLOADER_IMAGE_INFO_VERSION	(1U)
-#define XLOADER_IMAGE_INFO_LCVERSION	(1U)
-#define XLOADER_PDI_INST_VERSION 	(1U)
-#define XLOADER_PDI_INST_LCVERSION 	(1U)
-#define XLOADER_PDI_LIST_VERSION 	(1U)
-#define XLOADER_PDI_LIST_LCVERSION 	(1U)
-#define XLOADER_ATF_HANDOFF_PARAMS_VERSION 	(1U)
-#define XLOADER_ATF_HANDOFF_PARAMS_LCVERSION 	(1U)
-#define XLOADER_TCM_A_0 (0U)
-#define XLOADER_TCM_A_1 (1U)
-#define XLOADER_TCM_B_0 (2U)
-#define XLOADER_TCM_B_1 (3U)
-#define XLOADER_RPU_CLUSTER_A (0U)
-#define XLOADER_RPU_CLUSTER_B (1U)
+#define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
+#define XLOADER_IMAGE_INFO_LCVERSION	(1U) /**< Image lowest compatible version information */
+#define XLOADER_PDI_INST_VERSION 	(1U) /**< PDI instance version */
+#define XLOADER_PDI_INST_LCVERSION 	(1U) /**< PDI instance lowest compatible version */
+#define XLOADER_PDI_LIST_VERSION 	(1U) /**< PDI version list */
+#define XLOADER_PDI_LIST_LCVERSION 	(1U) /**< PDI lowest compatible version list */
+#define XLOADER_ATF_HANDOFF_PARAMS_VERSION 	(1U) /**< ATF handoff parameters version */
+#define XLOADER_ATF_HANDOFF_PARAMS_LCVERSION 	(1U) /**< ATF handoff parameters lowest compatible version */
+#define XLOADER_TCM_A_0 (0U) /**< TCM_A 0 */
+#define XLOADER_TCM_A_1 (1U) /**< TCM_A 1 */
+#define XLOADER_TCM_B_0 (2U) /**< TCM_B 0 */
+#define XLOADER_TCM_B_1 (3U) /**< TCM_B 1 */
+#define XLOADER_RPU_CLUSTER_A (0U) /**< RPU cluster A */
+#define XLOADER_RPU_CLUSTER_B (1U) /**< RPU cluster B */
 
 /**************************** Type Definitions *******************************/
 

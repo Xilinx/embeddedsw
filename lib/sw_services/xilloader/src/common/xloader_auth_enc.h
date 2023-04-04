@@ -54,6 +54,7 @@
 * 1.8   skg  12/07/22 Added Additional PPKs related macros and enums
 *       kal  01/05/23 Added XLoader_GetAuthPubAlgo definition
 *       sk   02/08/23 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
+*		dd	 03/28/23 Updated doxygen comments
 *
 * </pre>
 *
@@ -107,7 +108,7 @@ extern "C" {
 /**< Masks are used to determine if KAT for the respective crypto hardware
  * has already been run or not.
  */
-#define XLOADER_PPDI_KAT_MASK		(0x03U)
+#define XLOADER_PPDI_KAT_MASK		(0x03U) /**< PPDI KAT mask */
 
 /** @} */
 #define XLOADER_RSA_4096_KEY_SIZE	(4096U/8U) /**< RSA 4096 key size */
@@ -364,8 +365,8 @@ extern "C" {
 
 #define XLOADER_WORD_IN_BITS					(32U)
 						/**< Word length in bits */
-#define XLOADER_WORD_IN_BITS_SHIFT		(5U)
-#define XLOADER_WORD_IN_BITS_MASK		(0x1FU)
+#define XLOADER_WORD_IN_BITS_SHIFT		(5U) /**< Value to shift word */
+#define XLOADER_WORD_IN_BITS_MASK		(0x1FU) /**< Value to mask word */
 
 /**************************** Type Definitions *******************************/
 /**< RSA Key */
@@ -482,10 +483,10 @@ typedef struct XLoader_SecureParams {
  */
 #ifndef PLM_SECURE_EXCLUDE
 typedef struct {
-	XLoader_AuthCertificate AuthCert;
-	u8 RsaSha3Array[XLOADER_RSA_4096_KEY_SIZE];
-	u8 Buffer[XLOADER_RSA_PSS_BUFFER_LEN] __attribute__ ((aligned(32U)));
-	XPuf_Data PufData;
+	XLoader_AuthCertificate AuthCert; /**< Authentication certificate */
+	u8 RsaSha3Array[XLOADER_RSA_4096_KEY_SIZE]; /**< RSA Sha3 array */
+	u8 Buffer[XLOADER_RSA_PSS_BUFFER_LEN] __attribute__ ((aligned(32U))); /**< Buffer */
+	XPuf_Data PufData; /**< Puf data */
 } XLoader_StoreSecureData;
 
 /*****************************************************************************/

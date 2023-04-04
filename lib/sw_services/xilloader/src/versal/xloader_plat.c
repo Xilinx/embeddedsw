@@ -25,6 +25,7 @@
 *       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
 *       ng   03/12/2023 Fixed Coverity warnings
 *       bm   03/16/2023 Added print when DDRMC dump is skipped
+*		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -50,11 +51,11 @@
 #include "xilpdi.h"
 
 /************************** Constant Definitions *****************************/
-#define XLOADER_TCM_0		(0U)
-#define XLOADER_TCM_1		(1U)
-#define XLOADER_RPU_GLBL_CNTL	(0xFF9A0000U)
-#define XLOADER_TCMCOMB_MASK	(0x40U)
-#define XLOADER_TCMCOMB_SHIFT	(6U)
+#define XLOADER_TCM_0		(0U) /**< TCM 0 */
+#define XLOADER_TCM_1		(1U) /**< TCM 1 */
+#define XLOADER_RPU_GLBL_CNTL	(0xFF9A0000U) /**< RPU global control */
+#define XLOADER_TCMCOMB_MASK	(0x40U) /**< TCM combine mask */
+#define XLOADER_TCMCOMB_SHIFT	(6U) /**< TCM combine shift */
 
 #define PLM_VP1802_POR_SETTLE_TIME	(25000U) /**< Flag indicates POR
                                                   * settle time for VP1802 */
