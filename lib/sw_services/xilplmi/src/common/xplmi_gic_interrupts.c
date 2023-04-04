@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,7 @@
 * 1.06  bsv  03/05/2022 Fix exception while deleting two consecutive tasks of
 *                       same priority
 * 1.07  bm   07/06/2022 Refactor versal and versal_net code
+* 1.08  ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -60,7 +62,9 @@
  * @param	Handler is the interrupt handler
  * @param	Data is the pointer to arguments to interrupt handler
  *
- * @return	None
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLM_ERR_TASK_CREATE if failed to create task.
  *
  *****************************************************************************/
 int XPlmi_GicRegisterHandler(u32 GicPVal, u32 GicPxVal, GicIntHandler_t Handler,
@@ -69,6 +73,7 @@ int XPlmi_GicRegisterHandler(u32 GicPVal, u32 GicPxVal, GicIntHandler_t Handler,
 	int Status = XST_FAILURE;
 	XPlmi_TaskNode *Task = NULL;
 
+	/** - Create a Task for the handler. */
 	Task = XPlmi_TaskCreate(XPLM_TASK_PRIORITY_0, Handler, Data);
 	if (Task == NULL) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_TASK_CREATE, 0);
@@ -76,6 +81,7 @@ int XPlmi_GicRegisterHandler(u32 GicPVal, u32 GicPxVal, GicIntHandler_t Handler,
 			"error\n\r");
 		goto END;
 	}
+	/** - Set the interrupt ID for the task. */
 	Task->IntrId = XPlmi_GetGicIntrId(GicPVal, GicPxVal);
 	Status = XST_SUCCESS;
 
@@ -90,7 +96,8 @@ END:
  * @param	GicPVal indicates GICP source
  * @param	GicPxVal indicates GICPx source
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_GicIntrClearStatus(u32 GicPVal, u32 GicPxVal)
@@ -98,10 +105,10 @@ void XPlmi_GicIntrClearStatus(u32 GicPVal, u32 GicPxVal)
 	u32 GicPMask;
 	u32 GicPxMask;
 
-	/* Get the GicP mask */
+	/** - Get the GicP mask. */
 	GicPMask = (u32)1U << GicPVal;
 	GicPxMask = (u32)1U << GicPxVal;
-	/* Clear interrupt */
+	/** - Clear interrupt by writing 1 to the interrupt bit. */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, GicPMask, GicPMask);
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_STATUS + (GicPVal * XPLMI_GICPX_LEN),
 		GicPxMask, GicPxMask);
@@ -114,7 +121,8 @@ void XPlmi_GicIntrClearStatus(u32 GicPVal, u32 GicPxVal)
  * @param	GicPVal indicates GICP source
  * @param	GicPxVal indicates GICPx source
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_GicIntrEnable(u32 GicPVal, u32 GicPxVal)
@@ -122,11 +130,11 @@ void XPlmi_GicIntrEnable(u32 GicPVal, u32 GicPxVal)
 	u32 GicPMask;
 	u32 GicPxMask;
 
-	/* Get the GicP mask */
+	/** - Get the GicP mask. */
 	GicPMask = (u32)1U << GicPVal;
 	GicPxMask = (u32)1U << GicPxVal;
 
-	/* Enable interrupt */
+	/** - Enable interrupt by writing 1 to the interrupt bit. */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP_PMC_IRQ_ENABLE, GicPMask, GicPMask);
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_ENABLE + (GicPVal * XPLMI_GICPX_LEN),
 		GicPxMask, GicPxMask);
@@ -139,16 +147,17 @@ void XPlmi_GicIntrEnable(u32 GicPVal, u32 GicPxVal)
  * @param	GicPVal indicates GICP source
  * @param	GicPxVal indicates GICPx source
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_GicIntrDisable(u32 GicPVal, u32 GicPxVal)
 {
 	u32 GicPxMask;
 
-	/* Get the GicP mask */
+	/** - Get the GicP mask. */
 	GicPxMask = (u32)1U << GicPxVal;
-	/* Disable interrupt */
+	/** - Disable interrupt by writing 1 to the interrupt bit. */
 	XPlmi_UtilRMW(PMC_GLOBAL_GICP0_IRQ_DISABLE + (GicPVal * XPLMI_GICPX_LEN),
 		GicPxMask, GicPxMask);
 }
@@ -157,9 +166,10 @@ void XPlmi_GicIntrDisable(u32 GicPVal, u32 GicPxVal)
 /**
  * @brief	This is handler for GIC interrupts.
  *
- * @param	CallbackRef is presently the interrupt number that is received
+ * @param	CallbackRef Not used in the function currently
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_GicIntrHandler(void *CallbackRef)
@@ -180,6 +190,10 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 	XPlmi_Printf(DEBUG_DETAILED,
 			"GicPIntrStatus: 0x%x\r\n", GicPIntrStatus);
 
+	/**
+	 * - Loop across all the GICPx status registers and check for every set bit
+	 * in them.
+	 */
 	for (GicIndex = 0U; GicIndex < XPLMI_GICP_SOURCE_COUNT; GicIndex++) {
 		GicMask = (u32)1U << GicIndex;
 		if ((GicPIntrStatus & GicMask) == 0U) {
@@ -196,18 +210,24 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
 		for (GicPIndex = 0U; GicPIndex < XPLMI_NO_OF_BITS_IN_REG;
 			GicPIndex++) {
 			GicPMask = (u32)1U << GicPIndex;
+			/** - Disable the interrputs if the mask bit is set. */
 			if ((GicPNIntrStatus & GicPMask) == 0U) {
 				continue;
 			}
 			if ((GicPNIntrMask & GicPMask) != 0U) {
 				continue;
 			}
+			/**
+			 * - Call the corresponding the handler after disabling the
+			 * interrupt.
+			 */
 			PlmIntrId = ((GicIndex << XPLMI_GICP_INDEX_SHIFT) |
 					(GicPIndex << XPLMI_GICPX_INDEX_SHIFT));
 			XPlmi_GicAddTask(PlmIntrId);
 			XPlmi_Out32((PMC_GLOBAL_GICP0_IRQ_DISABLE + GicOffset), GicPMask);
 			XPlmi_Out32(PMC_GLOBAL_GICP0_IRQ_STATUS + GicOffset, GicPMask);
 		}
+		/** - After handler returns, clear the interrupt the status bit.*/
 		XPlmi_Out32(PMC_GLOBAL_GICP_PMC_IRQ_STATUS, GicMask);
 	}
 
@@ -219,8 +239,10 @@ void XPlmi_GicIntrHandler(void *CallbackRef)
  * @brief	This function adds the GiC task handler to the TaskQueue.
  *
  * @param	Index is the interrupt index with GicPx and its corresponding
- *              bit details.
- * @return	None
+ * 			bit details.
+ *
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_GicIntrAddTask(u32 Index)

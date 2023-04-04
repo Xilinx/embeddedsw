@@ -45,6 +45,7 @@
 *       sk   06/27/2022 Updated logic in XPlmi_SchedulerAddTask to fix task
 *                       creation error
 * 1.07  ng   11/11/2022 Updated doxygen comments
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -86,10 +87,10 @@ static XPlmi_Scheduler_t Sched;
 /******************************************************************************/
 /**
 * @brief	The function checks the specified task is active or not, returns
-* corresponding status of the task
+* 			corresponding status of the task
 *
-* @param    	SchedPtr is Scheduler pointer
-* @param    	TaskListIndex is Task index
+* @param   	SchedPtr is Scheduler pointer
+* @param   	TaskListIndex is Task index
 *
 * @return	TRUE or FALSE based on the task active status
 *
@@ -123,7 +124,7 @@ END:
 /******************************************************************************/
 /**
 * @brief	The function checks the specified task is periodic or not, returns
-* corresponding periodicity status.
+* 			corresponding periodicity status.
 *
 * @param    SchedPtr is the Scheduler pointer
 * @param    TaskListIndex is the Task index
@@ -146,9 +147,10 @@ static u8 XPlmi_IsTaskNonPeriodic(const XPlmi_Scheduler_t *SchedPtr,
 /******************************************************************************/
 /**
 * @brief	The function initializes scheduler and returns the
-* initialization status.
+* 			initialization status.
 *
-* @return	None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_SchedulerInit(void)
@@ -168,13 +170,14 @@ void XPlmi_SchedulerInit(void)
 /******************************************************************************/
 /**
 * @brief	The function is scheduler handler and it is called at regular
-* intervals based on configured interval. Scheduler handler checks and adds the
-* user periodic task to PLM task queue.
+* 			intervals based on configured interval. Scheduler handler checks
+* 			and adds the user periodic task to PLM task queue.
 *
 * @param	Data - Not used currently. Added as a part of generic interrupt
-*               handler
+* 			handler
 *
-* @return	None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_SchedulerHandler(void *Data)
@@ -188,19 +191,19 @@ void XPlmi_SchedulerHandler(void *Data)
 	XPlmi_UtilRMW(PMC_PMC_MB_IO_IRQ_ACK, PMC_PMC_MB_IO_IRQ_ACK, 0x20U);
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
 		/**
-		 * Check if the task is active and has a valid Callback
+		 * - Check if the task is active and has a valid Callback
 		 */
 		if (XPlmi_IsTaskActive(&Sched, Idx) == (u8)TRUE) {
 			Task = Sched.TaskList[Idx].Task;
 			/**
-			 * Skip the task, if its already present in the queue
+			 * - Skip the task, if its already present in the queue
 			 */
 			if (metal_list_is_empty(&Task->TaskNode) == (int)TRUE) {
 				Task->State &= (u8)(~XPLMI_SCHED_TASK_MISSED);
 				XPlmi_TaskTriggerNow(Task);
 			} else {
 				/**
-				 * Check if a module has registered ErrorFunc for the task and
+				 * - Check if a module has registered ErrorFunc for the task and
 				 * the previously scheduled task is executed or not
 				 */
 				if ((Sched.TaskList[Idx].ErrorFunc != NULL) &&
@@ -218,7 +221,7 @@ void XPlmi_SchedulerHandler(void *Data)
 				}
 			}
 			/**
-			 * Remove the task from scheduler if it is non-periodic
+			 * - Remove the task from scheduler if it is non-periodic
 			 */
 			if (Sched.TaskList[Idx].Type == XPLMI_NON_PERIODIC_TASK) {
 				Sched.TaskList[Idx].OwnerId = 0U;
@@ -235,20 +238,25 @@ void XPlmi_SchedulerHandler(void *Data)
 /******************************************************************************/
 /**
 * @brief	The function adds user periodic task to scheduler queue. The user
-* shall call this function to register their scheduler task.
+* 			shall call this function to register their scheduler task.
 *
 * @param	OwnerId Id of the owner, used while removing the task.
 * @param	CallbackFn callback function that should be called
 * @param	ErrorFunc error function to be called when task does not execute
-* 		on scheduled interval
+* 			on scheduled interval
 * @param	MilliSeconds For Periodic tasks, it's the Periodicity of the task.
-* 		For Non-Periodic tasks, it's the delay after which task has to
-* 		be scheduled. Value should be in multiples of 10ms
+*			For Non-Periodic tasks, it's the delay after which task has to
+*			be scheduled. Value should be in multiples of 10ms
 * @param	Priority is the priority of the task
 * @param	Data is the pointer to the private data of the task
 * @param	TaskType is the type of Task (periodic or non-periodic)
 *
-* @return	XST_SUCCESS if scheduler task is registered properly
+* @return
+* 			- XST_SUCCESS if scheduler task is registered properly.
+* 			- XPLMI_ERR_INVALID_TASK_TYPE on invalid task type.
+* 			- XPLMI_ERR_INVALID_TASK_PERIOD on invalid task period.
+* 			- XPLMI_ERR_TASK_EXISTS if task is already present.
+* 			- XPLM_ERR_TASK_CREATE if failed to create the task.
 *
 ****************************************************************************/
 int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
@@ -285,7 +293,7 @@ int XPlmi_SchedulerAddTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,
 	}
 
 	/**
-	 * Get the Next Free Task Index
+	 * - Get the Next Free Task Index
 	 */
 	for (Idx = 0U; Idx < XPLMI_SCHED_MAX_TASK; Idx++) {
 		if (NULL == Sched.TaskList[Idx].CustomerFunc) {
@@ -337,15 +345,17 @@ END:
 /******************************************************************************/
 /**
 * @brief	The function removes scheduler task from scheduler queue.
-* The function called by the user for deregistering the scheduler task.
+* 			The function called by the user for deregistering the scheduler
+* 			task.
 *
 * @param	OwnerId Id of the owner, removed only if matches the ownerid
-*               while adding the task.
+*			while adding the task.
 * @param	CallbackFn callback function that is given while adding.
 * @param	MilliSeconds Periodicity of the task given while adding.
 * @param	Data is the pointer to the private data of the task
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
 int XPlmi_SchedulerRemoveTask(u32 OwnerId, XPlmi_Callback_t CallbackFn,

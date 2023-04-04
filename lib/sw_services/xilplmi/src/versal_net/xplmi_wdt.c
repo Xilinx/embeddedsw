@@ -19,6 +19,7 @@
 * 1.00  bm   07/06/2022 Initial release
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -151,12 +152,19 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function enables the WDT and sets NodeId and periodicity.
- *		It also verifies the parameters.
+ *			It also verifies the parameters.
  *
  * @param	NodeId NodeId is the MIO node to be used by PLM for toggling.
  * @param	Periodicity at which MIO value should be toggled.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_WDT_PERIODICITY on invalid Periodicity.
+ * 			- XPLMI_ERR_PMC_WDT_NOT_ENABLED if PMC WDT is tried use and it is
+ * 			not	enabled in design.
+ * 			- XPLMI_ERR_PMC_WDT_DRV_INIT if PMC WDT driver initialization fails.
+ * 			- XPLMI_ERR_WDT_LPD_NOT_INITIALIZED if LPD is not initialized.
+ * 			- XPLMI_ERR_WDT_NODE_ID on invalid node ID.
  *
  *****************************************************************************/
 int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
@@ -241,9 +249,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function configures the default WDT configuration if
- * 		the wdt is not enabled and ROM SWDT usage bit is enabled in
- * 		EFUSE
+ * @brief	This function configures the default WDT configuration if the wdt
+ * 			is not enabled and ROM SWDT usage bit is enabled in EFUSE.
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -278,9 +285,8 @@ int XPlmi_DefaultSWdtConfig(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function disables the WDT. This is required when LPD
- *		is powered down and if LPD MIO is used. Also required
- *		when debugging.
+ * @brief	This function disables the WDT. This is required when LPD is
+ * 			powered down and if LPD MIO is used. Also required	when debugging.
  *
  * @param	NodeId is the Node ID of external WDT or internal PMC WDT
  *
@@ -477,9 +483,8 @@ void XPlmi_RestoreWdt(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function is handler for WDT. Scheduler calls this
- *		function periodically to check the PLM Live status and to
- *		toggle the MIO.
+ * @brief	This function is handler for WDT. Scheduler calls this function
+ * 			periodically to check the PLM Live status and to toggle the MIO.
  *
  * @param	None
  *
