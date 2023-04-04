@@ -26,6 +26,7 @@
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       kpt  01/04/2023 Added XPlmi_SetFipsKatMask command
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -77,7 +78,9 @@
  * @param	CmdId is the Command ID
  * @param	IpiReqType is the IPI command request type
  *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ * @return
+ * 			- XST_SUCCESS on success
+ * 			- XST_FAILURE on failure
  *
  *****************************************************************************/
 int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
@@ -114,7 +117,9 @@ int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType)
  * @param	ModuleId is the module ID
  * @param	ApiId is the API ID
  *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ * @return
+ * 			- XST_SUCCESS on success
+ * 			- XST_FAILURE on failure
  *
  *****************************************************************************/
 int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
@@ -177,7 +182,8 @@ int XPlmi_ValidateCmd(u32 ModuleId, u32 ApiId)
  *		- High Addr
  *		- Low Addr
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd)
@@ -193,12 +199,13 @@ int XPlmi_InPlacePlmUpdate(XPlmi_Cmd *Cmd)
 /*****************************************************************************/
 /**
  * @brief	This function is used to send psm_sequence commands data address
- *         and length to be processed by PSM.
+ *			and length to be processed by PSM.
  *
  * @param	BuffAddr is the address of the buffer
  * @param	BuffLen is the length of the buffer in 32-bit word
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_SendToPsm(u32 BuffAddr, u32 BuffLen)
@@ -258,11 +265,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used to transfer all psm_sequence commands to
- *		PSM RAM regions which are then processed by PSM immediately.
+ *			PSM RAM regions which are then processed by PSM immediately.
  *
  * @param	Cmd is a pointer to command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_PROC_LPD_NOT_INITIALIZED if failed to initialize LPD.
+ * 			- XPLMI_UNSUPPORTED_PROC_LENGTH if received proc does not fit in the
+ * 			proc memory.
  *
  *****************************************************************************/
 int XPlmi_PsmSequence(XPlmi_Cmd *Cmd)
@@ -326,14 +337,16 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function will write single 32 bit value to multiple addresses
- * 		which are specified in the payload.
+ *			which are specified in the payload.
  *  		Command payload parameters are
  *			- Value
  *			- Address[N]: array of N addresses
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_INVALID_PAYLOAD_LEN on invalid payload length.
  *
  *****************************************************************************/
 int XPlmi_ScatterWrite(XPlmi_Cmd *Cmd)
@@ -379,7 +392,7 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function will write 2 32-bit values to multiple addresses
- * 		which are specified by the payload.
+ *			which are specified by the payload.
  *  		Command payload parameters are
  *			- Value1
  * 			- Value2
@@ -387,7 +400,9 @@ END:
  *			where Address[i] = Value1 and Address[i] + 4 = Value2
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_INVALID_PAYLOAD_LEN on invalid payload length.
  *
  *****************************************************************************/
 int XPlmi_ScatterWrite2(XPlmi_Cmd *Cmd)
@@ -440,7 +455,9 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_INVALID_PAYLOAD_LEN on invalid payload length.
  *
  *****************************************************************************/
 int XPlmi_SetFipsKatMask(XPlmi_Cmd *Cmd)

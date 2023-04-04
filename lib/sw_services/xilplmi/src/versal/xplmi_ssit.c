@@ -46,6 +46,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       bm   03/11/2023 Use XPLMI_BIT macro for getting bit position mask
 *       bm   03/11/2023 Added redundancy on SSIT Event Trigger register write
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -160,7 +161,8 @@ u32 XPlmi_GetSlavesSlrMask(void)
 /**
 * @brief    This function is used to accumulate the mask of all slave SLRs
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 static void XPlmi_UpdateSlavesSlrMask(u32 SlavesMask)
@@ -174,7 +176,8 @@ static void XPlmi_UpdateSlavesSlrMask(u32 SlavesMask)
 *
 * @param    Value is interrupts enabled status
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_SsitSetIsIntrEnabled(u8 Value)
@@ -210,10 +213,13 @@ static XPlmi_TaskNode *XPlmi_SsitCreateTask(u8 SlrIndex)
 
 /****************************************************************************/
 /**
-* @brief    This function is used to initialize the event structure and create
-*           tasks for the events between Master and Slave SLRs
+* @brief	This function is used to initialize the event structure and create
+* 			tasks for the events between Master and Slave SLRs
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success.
+* 			- XPLMI_INVALID_SLR_TYPE on invalid SLR type.
+* 			- XPLM_ERR_TASK_CREATE if failed to create a task.
 *
 ****************************************************************************/
 int XPlmi_SsitEventsInit(void)
@@ -222,29 +228,29 @@ int XPlmi_SsitEventsInit(void)
 	u32 Idx;
 	u32 SlrType;
 
-	/* Initialize all the SsitEvents structure members */
+	/** - Initialize all the SsitEvents structure members */
 	for (Idx = 0U; Idx < XPLMI_SSIT_MAX_EVENTS; Idx++) {
 		SsitEvents->Events[Idx].EventOrigin = 0x0U;
 		SsitEvents->Events[Idx].EventHandler = NULL;
 	}
 
-	/*
-	 * Accumulated mask of all Slave SLRs
-	 *  - will be non-zero on Master SLR
-	 *  - 0x0 on Slave SLRs
+	/**
+	 * - Accumulated mask of all Slave SLRs
+	 *    - will be non-zero on Master SLR
+	 *    - 0x0 on Slave SLRs
 	 */
 	SsitEvents->SlavesMask = 0U;
 	SsitEvents->IsIntrEnabled = (u8)FALSE;
-	/* Read SLR Type */
+	/** - Read SLR Type */
 	SlrType = (u8)(XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK);
 
-	/* SSIT events are not supported on Monolithic devices */
+	/** - SSIT events are not supported on Monolithic devices */
 	if (SlrType == XPLMI_SSIT_MONOLITIC) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
-	/* Set the SLR index based on the SLR Type */
+	/** - Set the SLR index based on the SLR Type */
 	switch (SlrType) {
 		case XPLMI_SSIT_SLAVE0_SLR_TOP:
 		case XPLMI_SSIT_SLAVE0_SLR_NTOP:
@@ -265,15 +271,15 @@ int XPlmi_SsitEventsInit(void)
 			break;
 	}
 
-	/* Return error if SLR type is invalid */
+	/** - Return error if SLR type is invalid */
 	if (SsitEvents->SlrIndex == XPLMI_SSIT_INVALID_SLR_INDEX) {
 		Status = (int)XPLMI_INVALID_SLR_TYPE;
 		goto END;
 	}
 
 	if (SsitEvents->SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
-		/*
-		 * If SLR Type is Master, then create 3 tasks for handling events
+		/**
+		 * - If SLR Type is Master, then create 3 tasks for handling events
 		 * from each Slave SLR
 		 */
 		SsitEvents->Task1 = XPlmi_SsitCreateTask(XPLMI_SSIT_SLAVE0_SLR_INDEX);
@@ -288,8 +294,8 @@ int XPlmi_SsitEventsInit(void)
 			goto END;
 		}
 	} else {
-		/*
-		 * If SLR Type is Slave, then create a task for handling events
+		/**
+		 * - If SLR Type is Slave, then create a task for handling events
 		 * from Master SLR
 		 */
 		SsitEvents->Task1 = XPlmi_SsitCreateTask(XPLMI_SSIT_MASTER_SLR_INDEX);
@@ -303,21 +309,21 @@ int XPlmi_SsitEventsInit(void)
 		}
 	}
 
-	/* Register Sync Event */
+	/** - Register Sync Event */
 	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_SYNC_EVENT_INDEX,
 			NULL, XPLMI_SSIT_ALL_SLAVE_SLRS_MASK);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Register Message Event */
+	/** - Register Message Event */
 	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_MESSAGE_EVENT_INDEX,
 			XPlmi_SsitMsgEventHandler, XPLMI_SSIT_MASTER_SLR_MASK);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Register Single EAM Event (SEE) */
+	/** - Register Single EAM Event (SEE) */
 	Status = XPlmi_SsitRegisterEvent(XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX,
 			XPlmi_SsitSingleEamEventHandler, XPLMI_SSIT_ALL_SLAVE_SLRS_MASK);
 
@@ -334,7 +340,11 @@ END:
 * @param    Handler is the handler to be executed when this Event occurs
 * @param    EventOrigin is the SLR origin which can trigger the event
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success.
+* 			- XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL if vector table is full and
+* 			PLM is trying to register a new event.
+* 			- XPLMI_SSIT_WRONG_EVENT_ORIGIN_MASK on invalid event origin.
 *
 ****************************************************************************/
 int XPlmi_SsitRegisterEvent(u32 EventIndex, XPlmi_EventHandler_t Handler,
@@ -342,19 +352,19 @@ int XPlmi_SsitRegisterEvent(u32 EventIndex, XPlmi_EventHandler_t Handler,
 {
 	int Status = XST_FAILURE;
 
-	/* Check if the EventIndex is beyond maximum supported events */
+	/** - Check if the EventIndex is beyond maximum supported events */
 	if (EventIndex >= XPLMI_SSIT_MAX_EVENTS) {
 		Status = (int)XPLMI_SSIT_EVENT_VECTOR_TABLE_IS_FULL;
 		goto END;
 	}
 
-	/* Check if the event origin is within supported SLRs mask */
+	/** - Check if the event origin is within supported SLRs mask */
 	if (EventOrigin > XPLMI_SSIT_ALL_SLRS_MASK) {
 		Status = (int)XPLMI_SSIT_WRONG_EVENT_ORIGIN_MASK;
 		goto END;
 	}
 
-	/* Register the event */
+	/** - Register the event */
 	SsitEvents->Events[EventIndex].EventOrigin = EventOrigin;
 	SsitEvents->Events[EventIndex].EventHandler = Handler;
 	Status = XST_SUCCESS;
@@ -369,12 +379,17 @@ END:
 *           the Message Event
 *
 * @param    SlrIndex is the index of the SLR to which the event buffer need to
-*            be written
+*			be written
 * @param    ReqBuf is the buffer from where the event buffer data to be
-*            written to Slave SLRs event buffer
+*			written to Slave SLRs event buffer
 * @param    ReqBufSize is the size of the ReqBuf
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success.
+* 			- XPLMI_INVALID_SLR_TYPE on invalid SLR type.
+* 			- XPLMI_SSIT_EVENT_IS_PENDING if the same event triggers again.
+* 			- XPLMI_SSIT_BUF_SIZE_EXCEEDS if SSIT request or response buffer
+* 			size exceeds.
 *
 ****************************************************************************/
 int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
@@ -383,10 +398,10 @@ int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
 	int Status = XST_FAILURE;
 	u32 SlrAddr = 0x0U;
 
-	/*
-	 * Writing to an event buffer can be done only if
-	 *  - The SLR Type is Master SLR and,
-	 *  - The SLR Index is any one of the Slave SLRs
+	/**
+	 * - Writing to an event buffer can be done only if
+	 *    - The SLR Type is Master SLR and,
+	 *    - The SLR Index is any one of the Slave SLRs
 	 */
 	if ((SsitEvents->SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) ||
 		((SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) ||
@@ -395,23 +410,23 @@ int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
 		goto END;
 	}
 
-	/* Return error if the Message Event is already pending */
+	/** - Return error if the Message Event is already pending */
 	if (XPlmi_SsitIsEventPending(SlrIndex,
 			XPLMI_SLRS_MESSAGE_EVENT_INDEX) == (u8)TRUE) {
 		Status = (int)XPLMI_SSIT_EVENT_IS_PENDING;
 		goto END;
 	}
 
-	/* Maximum Req buffer data allowed is 8 words */
+	/** - Maximum Req buffer data allowed is 8 words */
 	if (ReqBufSize > XPLMI_SSIT_MAX_MSG_LEN) {
 		Status = (int)XPLMI_SSIT_BUF_SIZE_EXCEEDS;
 		goto END;
 	}
 
-	/* Get the Message Buffer address of the corresponding Slave SLR */
+	/** - Get the Message Buffer address of the corresponding Slave SLR */
 	SlrAddr = XPLMI_GET_MSGBUFF_ADDR(SlrIndex);
 
-	/* Write the given data to event buffer */
+	/** - Write the given data to event buffer */
 	Status = XPlmi_MemCpy64((u64)SlrAddr, (u64)(u32)ReqBuf,
 			(ReqBufSize * XPLMI_WORD_LEN));
 
@@ -419,7 +434,7 @@ int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
 		goto END;
 	}
 
-	/* Trigger the Message Event */
+	/** - Trigger the Message Event */
 	Status = XPlmi_SsitTriggerEvent(SlrIndex, XPLMI_SLRS_MESSAGE_EVENT_INDEX);
 
 END:
@@ -434,7 +449,11 @@ END:
 * @param    ReqBuf is the buffer to which the event buffer data to be written
 * @param    ReqBufSize is the size of the ReqBuf
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success.
+* 			- XPLMI_INVALID_SLR_TYPE on invalid SLR type.
+* 			- XPLMI_SSIT_BUF_SIZE_EXCEEDS if SSIT request or response buffer
+* 			size exceeds.
 *
 ****************************************************************************/
 int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
@@ -443,8 +462,8 @@ int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
 	u64 SlrAddr;
 	u32 BufAddr;
 
-	/*
-	 * This API is applicable to be called only in Slave SLRs.
+	/**
+	 * - This API is applicable to be called only in Slave SLRs.
 	 * Read Event Buffer in Slave SLRs when the message event is received
 	 */
 
@@ -454,17 +473,17 @@ int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
 		goto END;
 	}
 
-	/* Get the message buffer address of the corresponding Slave SLR */
+	/** - Get the message buffer address of the corresponding Slave SLR */
 	BufAddr = XPLMI_GET_MSGBUFF_ADDR(SsitEvents->SlrIndex);
 	SlrAddr = XPlmi_SsitGetSlrAddr(BufAddr, XPLMI_SSIT_MASTER_SLR_INDEX);
 
-	/* Maximum allowed message buffer data is 8 words */
+	/** - Maximum allowed message buffer data is 8 words */
 	if (ReqBufSize > XPLMI_SSIT_MAX_MSG_LEN) {
 		Status = (int)XPLMI_SSIT_BUF_SIZE_EXCEEDS;
 		goto END;
 	}
 
-	/* Read the Event Buffer written by Master in Slave SLRs */
+	/** - Read the Event Buffer written by Master in Slave SLRs */
 	Status = XPlmi_MemCpy64((u64)(u32)ReqBuf, SlrAddr,
 			(ReqBufSize * XPLMI_WORD_LEN));
 
@@ -479,7 +498,16 @@ END:
 * @param    SlrIndex is the index of the SLR to which the event to be triggered
 * @param    EventIndex is the Index of the event to be triggered
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success.
+* 			- XPLMI_INVALID_SLR_TYPE on invalid SLR type.
+* 			- XPLMI_SSIT_INVALID_EVENT on unregistered event.
+* 			- XPLMI_SSIT_EVENT_IS_PENDING if the same event triggers again.
+* 			- XPLMI_SSIT_INTR_NOT_ENABLED if SSIT interrupts are not enabled.
+* 			- XPLMI_EVENT_NOT_SUPPORTED_BETWEEN_SLAVE_SLRS if a request fails to
+* 			trigger an event between SLRs.
+* 			- XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR if the event is not supported
+* 			to be triggered from the running SLR.
 *
 ****************************************************************************/
 int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
@@ -489,16 +517,16 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 	u32 BitMask;
 	u8 SlrEvIndex;
 
-	/*
-	 * Check if SSIT interrupts are enabled or not before triggering the event
+	/**
+	 * - Check if SSIT interrupts are enabled or not before triggering the event
 	 */
 	if (SsitEvents->IsIntrEnabled != (u8)TRUE) {
 		Status = (int)XPLMI_SSIT_INTR_NOT_ENABLED;
 		goto END;
 	}
 
-	/*
-	 * Check if the event trigger request is between Slave SLRs and
+	/**
+	 * - Check if the event trigger request is between Slave SLRs and
 	 * return and error code as events between Slave SLRs are not supported
 	 */
 	if ((SsitEvents->SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) &&
@@ -507,27 +535,27 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 		goto END;
 	}
 
-	/* Check if the event is allowed to be triggered from the current SLR */
+	/** - Check if the event is allowed to be triggered from the current SLR */
 	if ((XPLMI_BIT(SsitEvents->SlrIndex) &
 			SsitEvents->Events[EventIndex].EventOrigin) == 0x0U) {
 		Status = (int)XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
 		goto END;
 	}
 
-	/*
-	 * Event trigger logic varies for Master and Slave SLRs.
-	 * To trigger an event from Master SLR,
-	 *  - to Slave SLR0: Trigger SSIT_ERR[0]
-	 *  - to Slave SLR1: Trigger SSIT_ERR[1]
-	 *  - to Slave SLR2: Trigger SSIT_ERR[2]
-	 * To trigger an event from Slave SLRs to Master SLR,
-	 *  - Trigger SSIT_ERR[0]. This will be propagated to Master SLR as below
-	 *    - From Slave SLR0 triggering SSIT_ERR[0] will trigger
-	 *      SSIT_ERR0 in Master SLR in PMC_GLOBAL PMC_ERR2_STATUS
-	 *    - From Slave SLR1 triggering SSIT_ERR[0] will trigger
-	 *      SSIT_ERR1 in Master SLR in PMC_GLOBAL PMC_ERR2_STATUS
-	 *    - From Slave SLR2 triggering SSIT_ERR[0] will trigger
-	 *      SSIT_ERR2 in Master SLR in PMC_GLOBAL PMC_ERR2_STATUS
+	/**
+	 * - Event trigger logic varies for Master and Slave SLRs.
+	 *    - To trigger an event from Master SLR,
+	 *      - to Slave SLR0: Trigger SSIT_ERR[0]
+	 *      - to Slave SLR1: Trigger SSIT_ERR[1]
+	 *      - to Slave SLR2: Trigger SSIT_ERR[2]
+	 *      - To trigger an event from Slave SLRs to Master SLR,
+	 *    - Trigger SSIT_ERR[0]. This will be propagated to Master SLR as below
+	 *        - From Slave SLR0 triggering SSIT_ERR[0] will trigger
+	 *          SSIT_ERR0 in Master SLR in PMC_GLOBAL PMC_ERR2_STATUS
+	 *        - From Slave SLR1 triggering SSIT_ERR[0] will trigger
+	 *          SSIT_ERR1 in Master SLR in PMC_GLOBAL PMC_ERR2_STATUS
+	 *        - From Slave SLR2 triggering SSIT_ERR[0] will trigger
+	 *          SSIT_ERR2 in Master SLR in PMC_GLOBAL PMC_ERR2_STATUS
 	 */
 	if (SsitEvents->SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) {
 		BitMask = 0x1U;
@@ -538,13 +566,13 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 		BitMask = XPLMI_BIT(SlrIndex - 1U);
 		SlrEvIndex = (SlrIndex - (u8)1U);
 	} else {
-		/* If SLR Type is neither Master nor Slave SLR, return an error */
+		/** - If SLR Type is neither Master nor Slave SLR, return an error */
 		Status = (int)XPLMI_INVALID_SLR_TYPE;
 		goto END;
 	}
 
-	/*
-	 * If the trigger request is for event which is not registered,
+	/**
+	 * - If the trigger request is for event which is not registered,
 	 * return error
 	 */
 	if (EventIndex >= XPLMI_SSIT_MAX_EVENTS) {
@@ -552,8 +580,8 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 		goto END;
 	}
 
-	/*
-	 * If the event is already pending between Master and Slave SLRs,
+	/**
+	 * - If the event is already pending between Master and Slave SLRs,
 	 * do not trigger it again
 	 */
 	if (XPlmi_SsitIsEventPending(SlrIndex, EventIndex) == (u8)TRUE) {
@@ -566,7 +594,7 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 			XPLMI_BIT(EventIndex % XPLMI_SSIT_MAX_BITS);
 
 	if (EventIndex != XPLMI_SLRS_SYNC_EVENT_INDEX) {
-		/* Trigger an SSIT interrupt for SLR */
+		/** - Trigger an SSIT interrupt for SLR */
 		XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_SSIT_ERR, BitMask);
 		XSECURE_REDUNDANT_IMPL(XPlmi_Out32, PMC_GLOBAL_SSIT_ERR, 0x0U);
 	}
@@ -582,9 +610,9 @@ END:
 *           local address
 *
 * @param    Address is the local address for which the global SLR address need
-*            to be calculated
+*			to be calculated
 * @param    SlrIndex is the index of the SLR for which the address need to be
-*            calculated
+*			calculated
 *
 * @return   Returns SSIT SLR global address for the given address
 *
@@ -593,9 +621,9 @@ u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex)
 {
 	u64 SlrAddr = XPLMI_SSIT_MASTER_SLR_BASEADDR;
 
-	/*
-	 * Formula to calculate any address in SLRs from other SLRs is:
-	 * -Dest SLR Base Address + (Local Address to Calculate - PMC Base Address)
+	/**
+	 * - Formula to calculate any address in SLRs from other SLRs is:
+	 *   - Dest SLR Base Address + (Local Address to Calculate - PMC Base Address)
 	 */
 	if (SlrIndex > XPLMI_SSIT_SLAVE2_SLR_INDEX) {
 		SlrAddr = 0x0U;
@@ -618,7 +646,8 @@ END:
 * @param    LocalEvTableIndex is the local event table index
 * @param    RemoteEvTableIndex is the remote event table index
 *
-* @return   none
+* @return
+* 			- none
 *
 ****************************************************************************/
 static void XPlmi_GetEventTableIndex(u8 SlrIndex, u8 *LocalEvTableIndex,
@@ -651,7 +680,8 @@ static void XPlmi_GetEventTableIndex(u8 SlrIndex, u8 *LocalEvTableIndex,
 * @param    SlrIndex is the SLR index to check if event is pending
 * @param    EventIndex is the Index of the event to be checked
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success. Otherwise, returns an error code
 *
 ****************************************************************************/
 static u8 XPlmi_SsitIsEventPending(u8 SlrIndex, u32 EventIndex)
@@ -695,7 +725,9 @@ static u8 XPlmi_SsitIsEventPending(u8 SlrIndex, u32 EventIndex)
 * @param    EventIndex is the Index of the event triggered
 * @param    TimeOut is the timeout in us to wait for the acknowledgment
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success.
+* 			- XPLMI_INVALID_SLR_TYPE on invalid SLR type.
 *
 ****************************************************************************/
 int XPlmi_SsitWaitForEvent(u8 SlrIndex, u32 EventIndex, u32 TimeOut)
@@ -708,12 +740,12 @@ int XPlmi_SsitWaitForEvent(u8 SlrIndex, u32 EventIndex, u32 TimeOut)
 		((SsitEvents->SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) &&
 			(SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX)) ||
 		(SlrIndex > XPLMI_SSIT_SLAVE2_SLR_INDEX)) {
-		/* If SLR Type is neither Master nor Slave SLR, return an error */
+		/** - If SLR Type is neither Master nor Slave SLR, return an error */
 		Status = (int)XPLMI_INVALID_SLR_TYPE;
 		goto END;
 	}
 
-	/* Wait for the event processing to finish or until TimeOut occurs */
+	/** - Wait for the event processing to finish or until TimeOut occurs */
 	while (TimeOutValue != 0x0U) {
 		if (XPlmi_SsitIsEventPending(SlrIndex, EventIndex) == (u8)FALSE) {
 			Status = XST_SUCCESS;
@@ -737,7 +769,12 @@ END:
 * @param    RespBuf is the Response Buffer to where the response to be written
 * @param    RespBufSize is the size of the response buffer
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success.
+* 			- XPLMI_INVALID_SLR_TYPE on invalid SLR type.
+* 			- XPLMI_INVALID_SLR_INDEX on invalid SLR index.
+* 			- XPLMI_SSIT_BUF_SIZE_EXCEEDS if SSIT request or response buffer
+* 			size exceeds.
 *
 ****************************************************************************/
 int XPlmi_SsitReadResponse(u8 SlrIndex, u32* RespBuf, u32 RespBufSize)
@@ -745,19 +782,19 @@ int XPlmi_SsitReadResponse(u8 SlrIndex, u32* RespBuf, u32 RespBufSize)
 	int Status = XST_FAILURE;
 	u64 SlrAddr = XPlmi_SsitGetSlrAddr(XPLMI_SLR_EVENT_RESP_BUFFER_ADDR, SlrIndex);
 
-	/* This API can be called only in Master SLR */
+	/** - Verify this API is called only in Master SLR, else return error code. */
 	if (SsitEvents->SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) {
 		Status = (int)XPLMI_INVALID_SLR_TYPE;
 		goto END;
 	}
 
-	/* Check if the SlrAddr is valid or not */
+	/** - Check if the SlrAddr is valid or not, else return error code. */
 	if (SlrAddr == 0x0U) {
 		Status = (int)XPLMI_INVALID_SLR_INDEX;
 		goto END;
 	}
 
-	/* Maximum allowed response buffer data is 8 words */
+	/** - Verify response buffer data is 8 words or less, else return error code. */
 	if (RespBufSize > XPLMI_SSIT_MAX_MSG_LEN) {
 		Status = (int)XPLMI_SSIT_BUF_SIZE_EXCEEDS;
 		goto END;
@@ -780,27 +817,33 @@ END:
 * @param    RespBuf is the Response Buffer data to be written
 * @param    RespBufSize is the size of the response buffer
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success.
+* 			- XPLMI_INVALID_SLR_TYPE on invalid SLR type.
+* 			- XPLMI_SSIT_BUF_SIZE_EXCEEDS if SSIT request or response buffer
+* 			size exceeds.
+* 			- XPLMI_SSIT_EVENT_IS_NOT_PENDING if an event is not pending and
+* 			the request comes to write to the response buffer.
 *
 ****************************************************************************/
 int XPlmi_SsitWriteResponseAndAckMsgEvent(u32 *RespBuf, u32 RespBufSize)
 {
 	int Status = XST_FAILURE;
 
-	/* This API can be called only in Slave SLRs */
+	/** - This API can be called only in Slave SLRs */
 	if (SsitEvents->SlrIndex == XPLMI_SSIT_MASTER_SLR_INDEX) {
 		Status = (int)XPLMI_INVALID_SLR_TYPE;
 		goto END;
 	}
 
-	/* Maximum allowed response buffer data is 8 words */
+	/** - Maximum allowed response buffer data is 8 words */
 	if (RespBufSize > XPLMI_SSIT_MAX_MSG_LEN) {
 		Status = (int)XPLMI_SSIT_BUF_SIZE_EXCEEDS;
 		goto END;
 	}
 
-	/*
-	 * Response buffer need to be written only for the Message event and if
+	/**
+	 * - Response buffer need to be written only for the Message event and if
 	 * the same event is pending
 	 */
 	if (XPlmi_SsitIsEventPending(XPLMI_SSIT_MASTER_SLR_INDEX,
@@ -809,7 +852,7 @@ int XPlmi_SsitWriteResponseAndAckMsgEvent(u32 *RespBuf, u32 RespBufSize)
 		goto END;
 	}
 
-	/* Write the response to the response buffer in the Slave SLRs memory */
+	/** - Write the response to the response buffer in the Slave SLRs memory */
 	Status = XPlmi_MemCpy64((u64)XPLMI_SLR_EVENT_RESP_BUFFER_ADDR,
 			(u64)(u32)RespBuf, (RespBufSize * XPLMI_WORD_LEN));
 
@@ -831,7 +874,9 @@ END:
 * @param    SlrIndex is index of the SLR for which the event was triggered
 * @param    EventIndex is the event to acknowledge
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success.
+* 			- XPLMI_INVALID_SLR_TYPE on invalid SLR type.
 *
 ****************************************************************************/
 int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex)
@@ -848,12 +893,12 @@ int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex)
 			(SlrIndex <= XPLMI_SSIT_SLAVE2_SLR_INDEX)) {
 		SlrEvIndex = (SlrIndex - (u8)1U);
 	} else {
-		/* If SLR Type is neither Master nor Slave SLR, return an error */
+		/** - If SLR Type is neither Master nor Slave SLR, return an error */
 		Status = (int)XPLMI_INVALID_SLR_TYPE;
 		goto END;
 	}
 
-	/* Acknowledge the event once it is processed */
+	/** - Acknowledge the event once it is processed */
 	EventVectorTable[SlrEvIndex].Events32[Index] ^=
 			XPLMI_BIT(EventIndex % XPLMI_SSIT_MAX_BITS);
 	Status = XST_SUCCESS;
@@ -876,7 +921,8 @@ END:
 * @param    WaitForEventCompletion is the maximum time to wait before the
 *           requested message event is handled by a slave SLR [in microseconds]
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success. Otherwise, returns an error code
 *
 ****************************************************************************/
 int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
@@ -884,20 +930,20 @@ int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
 {
 	int Status = XST_FAILURE;
 
-	/* Write message event buffer and trigger the event from master SLR */
+	/** - Write message event buffer and trigger the event from master SLR */
 	Status = XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(SlrIndex, ReqBuf, ReqBufSize);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Wait until message event is handled by a slave SLR */
+	/** - Wait until message event is handled by a slave SLR */
 	Status = XPlmi_SsitWaitForEvent(SlrIndex,
 			XPLMI_SLRS_MESSAGE_EVENT_INDEX, WaitForEventCompletion);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Read response in master SLR - which is provided by a slave SLR */
+	/** - Read response in master SLR - which is provided by a slave SLR */
 	Status = XPlmi_SsitReadResponse(SlrIndex, RespBuf, RespBufSize);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -914,7 +960,8 @@ END:
 *
 * @param    Data is the SLR Mask which was assigned to the task while creating
 *
-* @return   Returns XST_SUCCESS if success. Otherwise, returns an error code
+* @return
+* 			- Returns XST_SUCCESS if success. Otherwise, returns an error code
 *
 ****************************************************************************/
 static int XPlmi_SsitEventHandler(void *Data)
@@ -1038,7 +1085,7 @@ int XPlmi_SsitSingleEamEventHandler(void *Data)
 	int Status = XST_FAILURE;
 	u8 SlrIndex = (u8)(UINTPTR)Data;
 
-	/* This API can be called only in Master SLR */
+	/** - This API can be called only in Master SLR */
 	if (SsitEvents->SlrIndex != XPLMI_SSIT_MASTER_SLR_INDEX) {
 		Status = (int)XPLMI_EVENT_NOT_SUPPORTED_FROM_SLR;
 		goto END;
@@ -1046,8 +1093,8 @@ int XPlmi_SsitSingleEamEventHandler(void *Data)
 
 	XPlmi_Printf(DEBUG_INFO, "Acknowledging SSIT EAM event from master for Slr %d\r\n",
 			SlrIndex);
-	/*
-	 * Acknowledge the sync event once it is received
+	/**
+	 * - Acknowledge the sync event once it is received
 	 * from a Slave SLR
 	 */
 	Status = XPlmi_SsitAcknowledgeEvent(SlrIndex, XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX);
@@ -1055,8 +1102,8 @@ int XPlmi_SsitSingleEamEventHandler(void *Data)
 		goto END;
 	}
 
-	/*
-	 * Trigger EAM event locally in Master SLR
+	/**
+	 * - Trigger EAM event locally in Master SLR
 	 */
 	XPlmi_Out32(XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_TRIG,
 			XPLMI_SSIT_SINGLE_EAM_EVENT_ERR_MASK);
@@ -1071,7 +1118,8 @@ END:
 *
 * @param    Data is the IoModule interrupt ID which is passed to the handler
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_SsitErrHandler(void *Data)
@@ -1084,15 +1132,15 @@ void XPlmi_SsitErrHandler(void *Data)
 		goto END;
 	}
 
-	/*
-	 * If the SLR Type is Master,
+	/**
+	 * - If the SLR Type is Master,
 	 *   - Trigger Task1 which is created to handle events from
 	 *     Slave SLR0 to Master SLR
 	 *   - Trigger Task2 which is created to handle events from
 	 *     Slave SLR1 to Master SLR
 	 *   - Trigger Task3 which is created to handle events from
 	 *     Slave SLR2 to Master SLR
-	 * If the SLR Type is Slave SLRs,
+	 * - If the SLR Type is Slave SLRs,
 	 *   - Trigger Task1 which is created to handle events from
 	 *     Master SLR to Slave SLR
 	 */
@@ -1107,7 +1155,7 @@ void XPlmi_SsitErrHandler(void *Data)
 			/* Do nothing */
 		}
 	} else if (SsitEvents->SlrIndex != XPLMI_SSIT_INVALID_SLR_INDEX) {
-		/* For Slave SLRs, detect SLD notification if it's a long pulse */
+		/** - For Slave SLRs, detect SLD notification if it's a long pulse */
 		if (XPlmi_IsSldNotification() == TRUE) {
 			XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK,
 				XPLMI_TRIGGER_TAMPER_TASK);
@@ -1134,8 +1182,9 @@ END:
  * @param   TimeOut is the Timeout in us to wait for sync
  * @param   IsWait tells if the command is ssync_sync or wait for slaves SLRs
  *
- * @return	Returns the Status of SSIT Sync event
- *
+ * @return
+ * 			- Returns the Status of SSIT Sync event
+ * 			- XPLMI_ERR_SSIT_SLAVE_SYNC if master timedout on slave sync.
  *****************************************************************************/
 static int XPlmi_SsitSyncEventHandler(u32 SlavesMask, u32 TimeOut, u8 IsWait)
 {
@@ -1234,7 +1283,8 @@ END:
 /**
  * @brief	This function acknowledges all SSIT ERR IRQ bits in iomodule
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_AckrSsitIrq(void)
@@ -1245,9 +1295,10 @@ static void XPlmi_AckrSsitIrq(void)
 /*****************************************************************************/
 /**
  * @brief	This function clears latched SSIT errors in PMC_ERROR2_STATUS
- *		register
+ *			register
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_ClearSsitErrs(void)
@@ -1319,7 +1370,8 @@ u32 XPlmi_GetSlavesSlrMask(void)
 * @param    Handler is the handler to be executed when this Event occurs
 * @param    EventOrigin is the SLR origin which can trigger the event
 *
-* @return   Returns XST_SUCCESS for non-SSIT designs
+* @return
+* 			- Returns XST_SUCCESS for non-SSIT designs
 *
 ****************************************************************************/
 int XPlmi_SsitRegisterEvent(u32 EventIndex, XPlmi_EventHandler_t Handler,
@@ -1338,12 +1390,13 @@ int XPlmi_SsitRegisterEvent(u32 EventIndex, XPlmi_EventHandler_t Handler,
 *           the Message Event
 *
 * @param    SlrIndex is the index of the SLR to which the event buffer need to
-*            be written
+*			be written
 * @param    ReqBuf is the buffer from where the event buffer data to be
-*            written to Slave SLRs event buffer
+*			written to Slave SLRs event buffer
 * @param    ReqBufSize is the size of the ReqBuf
 *
-* @return   Returns XST_SUCCESS for non-SSIT designs
+* @return
+* 			- Returns XST_SUCCESS for non-SSIT designs
 *
 ****************************************************************************/
 int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
@@ -1364,7 +1417,8 @@ int XPlmi_SsitWriteEventBufferAndTriggerMsgEvent(u8 SlrIndex, u32* ReqBuf,
 * @param    ReqBuf is the buffer to which the event buffer data to be written
 * @param    ReqBufSize is the size of the ReqBuf
 *
-* @return   Returns XST_SUCCESS for non-SSIT designs
+* @return
+* 			- Returns XST_SUCCESS for non-SSIT designs
 *
 ****************************************************************************/
 int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
@@ -1382,7 +1436,8 @@ int XPlmi_SsitReadEventBuffer(u32* ReqBuf, u32 ReqBufSize)
 * @param    SlrIndex is the index of the SLR to which the event to be triggered
 * @param    EventIndex is the Index of the event to be triggered
 *
-* @return   Returns XST_SUCCESS for non-SSIT designs
+* @return
+* 			- Returns XST_SUCCESS for non-SSIT designs
 *
 ****************************************************************************/
 int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
@@ -1402,7 +1457,8 @@ int XPlmi_SsitTriggerEvent(u8 SlrIndex, u32 EventIndex)
 * @param    EventIndex is the Index of the event triggered
 * @param    TimeOut is the timeout in us to wait for the acknowledgment
 *
-* @return   Returns XST_SUCCESS for non-SSIT designs
+* @return
+* 			- Returns XST_SUCCESS for non-SSIT designs
 *
 ****************************************************************************/
 int XPlmi_SsitWaitForEvent(u8 SlrIndex, u32 EventIndex, u32 TimeOut)
@@ -1423,7 +1479,8 @@ int XPlmi_SsitWaitForEvent(u8 SlrIndex, u32 EventIndex, u32 TimeOut)
 * @param    RespBuf is the Response Buffer to where the response to be written
 * @param    RespBufSize is the size of the response buffer
 *
-* @return   Returns XST_SUCCESS for non-SSIT designs
+* @return
+* 			- Returns XST_SUCCESS for non-SSIT designs
 *
 ****************************************************************************/
 int XPlmi_SsitReadResponse(u8 SlrIndex, u32* RespBuf, u32 RespBufSize)
@@ -1444,7 +1501,8 @@ int XPlmi_SsitReadResponse(u8 SlrIndex, u32* RespBuf, u32 RespBufSize)
 * @param    RespBuf is the Response Buffer data to be written
 * @param    RespBufSize is the size of the response buffer
 *
-* @return   Returns XST_SUCCESS for non-SSIT designs
+* @return
+* 			- Returns XST_SUCCESS for non-SSIT designs
 *
 ****************************************************************************/
 int XPlmi_SsitWriteResponseAndAckMsgEvent(u32 *RespBuf, u32 RespBufSize)
@@ -1462,7 +1520,8 @@ int XPlmi_SsitWriteResponseAndAckMsgEvent(u32 *RespBuf, u32 RespBufSize)
 * @param    SlrIndex is index of the SLR for which the event was triggered
 * @param    EventIndex is the event to acknowledge
 *
-* @return   Returns XST_SUCCESS for non-SSIT designs
+* @return
+* 			- Returns XST_SUCCESS for non-SSIT designs
 *
 ****************************************************************************/
 int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex)
@@ -1479,11 +1538,12 @@ int XPlmi_SsitAcknowledgeEvent(u8 SlrIndex, u32 EventIndex)
 *           local address
 *
 * @param    Address is the local address for which the global SLR address need
-*            to be calculated
+*			to be calculated
 * @param    SlrIndex is the index of the SLR for which the address need to be
-*            calculated
+*			calculated
 *
-* @return   Returns 0x0 for non-SSIT designs
+* @return
+* 			- Returns 0x0 for non-SSIT designs
 *
 ****************************************************************************/
 u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex)
@@ -1508,7 +1568,8 @@ u64 XPlmi_SsitGetSlrAddr(u32 Address, u8 SlrIndex)
 * @param    WaitForEventCompletion is the maximum time to wait before the
 *           requested message event is handled by a slave SLR [in microseconds]
 *
-* @return   Returns XST_SUCCESS for non-SSIT designs
+* @return
+* 			- Returns XST_SUCCESS for non-SSIT designs
 *
 ****************************************************************************/
 int XPlmi_SsitSendMsgEventAndGetResp(u8 SlrIndex, u32 *ReqBuf, u32 ReqBufSize,
@@ -1577,7 +1638,7 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-	/* If SSIT interrupts are enabled, treat SSIT sync command as event */
+	/** - Treat SSIT sync command as event, if SSIT interrupts are enabled. */
 	if (SsitEvents->IsIntrEnabled == (u8)TRUE) {
 		Status = XPlmi_SsitSyncEventHandler(0x0U, 0x0U, 0x0U);
 		goto END;
@@ -1585,22 +1646,22 @@ int XPlmi_SsitSyncMaster(XPlmi_Cmd *Cmd)
 #endif
 
 	if (0U != SlrErrMask){
-		/* Initiate synchronization to master */
+		/** - Initiate synchronization to PLM running on master SLR */
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK);
 
-		/* Wait for Master SLR to reach synchronization point */
+		/** - Wait for Master SLR to reach synchronization point */
 		ErrStatus = Xil_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
 		while ((ErrStatus & SlrErrMask) != SlrErrMask) {
 			ErrStatus = XPlmi_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
 		}
 
-		/* Complete synchronization from slave */
+		/** - Complete synchronization from slave */
 		XPlmi_UtilRMW(PMC_GLOBAL_SSIT_ERR, PMC_GLOBAL_SSIT_ERR_IRQ_OUT_0_MASK, 0U);
 		ErrStatus = XPlmi_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
 		while ((ErrStatus & SlrErrMask) == SlrErrMask) {
 			ErrStatus = XPlmi_In32((UINTPTR)PMC_GLOBAL_PMC_ERR2_STATUS);
-			/* Clear existing status to know the actual status from Master SLR */
+			/** - Clear existing status to know the actual status from Master SLR */
 			XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS, SlrErrMask);
 		}
 
@@ -1628,7 +1689,9 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	Returns the Status of SSIT Sync Slaves command
+ * @return
+ * 			- Returns the Status of SSIT Sync Slaves command
+ * 			- XPLMI_ERR_SSIT_SLAVE_SYNC if master timedout on slave sync.
  *
  *****************************************************************************/
 int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
@@ -1644,17 +1707,17 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-	/* Accumulate slaves mask to track the number of slave SLRs */
+	/** - Accumulate slaves mask to track the number of slave SLRs. */
 	XPlmi_UpdateSlavesSlrMask(SlavesMask);
 
-	/* If SSIT interrupts are enabled, treat SSIT sync command as event */
+	/** - Treat SSIT sync command as event, if SSIT interrupts are enabled. */
 	if (SsitEvents->IsIntrEnabled == (u8)TRUE) {
 		Status = XPlmi_SsitSyncEventHandler(SlavesMask, TimeOut, (u8)FALSE);
 		goto END;
 	}
 #endif
 
-	/* Wait until all Slaves initiate synchronization point */
+	/** - Wait until all Slaves initiate synchronization point. */
 	while (((SlavesReady & SlavesMask) != SlavesMask) && (TimeOut != 0x0U)) {
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
@@ -1673,10 +1736,10 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 
 	if (0x0U != TimeOut) {
 		XPlmi_Printf(DEBUG_INFO, "Acknowledging from master\r\n");
-		/* Acknowledge synchronization */
+		/** - Acknowledge synchronization. */
 		XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, SlavesMask);
 
-		/* Use 100us for Acknowledge synchronization */
+		/* Use 100us for Acknowledge synchronization. */
 		TimeOut = 100U;
 		while (((SlavesReady & SlavesMask) != 0x0U) && (TimeOut != 0x0U)) {
 			usleep(1U);
@@ -1692,14 +1755,14 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 				SlavesReady &= (~SSIT_SLAVE_2_MASK);
 			}
 
-			/* Clear existing status to know the actual status from Slave SLRs */
+			/** - Clear existing status to know the actual status from Slave SLRs. */
 			XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
 				(SlavesReady << PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERR0_SHIFT));
 			--TimeOut;
 		}
 	}
 
-	/* If timeout, set status */
+	/** - If the timeout is exceeded, return an error code. */
 	if (0x0U == TimeOut) {
 		XPlmi_Printf(DEBUG_GENERAL, "Slaves did not initiate sync. "
 				"SSIT Sync Slaves command timed out in Master\r\n");
@@ -1707,7 +1770,7 @@ int XPlmi_SsitSyncSlaves(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/* De-assert synchronization acknowledgement from master */
+	/** - De-assert synchronization acknowledgement from master. */
 	XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, 0);
 	XPlmi_Printf(DEBUG_INFO, "SSIT Sync Slaves successful\n\r");
 	Status = XST_SUCCESS;
@@ -1725,7 +1788,9 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	Returns the Status of SSIT Wait Slaves command
+ * @return
+ * 			- Returns the Status of SSIT Wait Slaves command
+ * 			- XPLMI_ERR_SSIT_SLAVE_SYNC if master timedout on slave sync.
  *
  *****************************************************************************/
 int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
@@ -1741,17 +1806,17 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 	XPlmi_Printf(DEBUG_INFO, "%s %p\n\r", __func__, Cmd);
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-	/* If SSIT interrupts are enabled, treat SSIT sync command as event */
+	/** - Treat SSIT sync command as event, if SSIT interrupts are enabled. */
 	if (SsitEvents->IsIntrEnabled == (u8)TRUE) {
 		Status = XPlmi_SsitSyncEventHandler(SlavesMask, TimeOut, (u8)TRUE);
 		goto END;
 	}
 #endif
 
-	/* Clear any existing SSIT errors in PMC_ERR1_STATUS register */
+	/** - Clear any existing SSIT errors in PMC_ERR1_STATUS register. */
 	XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS, PMC_GLOBAL_SSIT_ERR_MASK);
 
-	/* Wait until all Slaves initiate synchronization point */
+	/** - Wait until all Slaves initiate synchronization point. */
 	while (((SlavesReady & SlavesMask) != SlavesMask) && (TimeOut != 0x0U)) {
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
@@ -1769,7 +1834,7 @@ int XPlmi_SsitWaitSlaves(XPlmi_Cmd *Cmd)
 		--TimeOut;
 	}
 
-	/* If timeout occurred, set status */
+	/** - If the timeout is exceeded, return an error code. */
 	if (TimeOut == 0x0U) {
 		XPlmi_Printf(DEBUG_GENERAL,
 			"Received error from Slave SLR or Timed out\r\n");
@@ -1791,7 +1856,10 @@ END:
  * @param	Cmd      is pointer to Xplmi_Cmd Instance
  * @param	RespBuf  Stores the response of the slaves
  *
- * @return	Status   XST_SUCCESS on success failure code upon failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_CMD_APIID on unregistered command ID.
+ * 			- XPLMI_SSIT_INTR_NOT_ENABLED if interrupts are not enabled.
  *
  *****************************************************************************/
 int XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf)
@@ -1833,22 +1901,23 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function notifies other SLRs about Secure Lockdown or tamper
- *		condition in SSIT devices.
+ *			condition in SSIT devices.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_NotifySldSlaveSlrs(void)
 {
 	u32 SlrType= XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK;
 
-	/* Do nothing for monolithic devices */
+	/** - Do nothing for monolithic devices. */
 	if (SlrType == XPLMI_SSIT_MONOLITIC) {
 		goto END;
 	}
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-	/* From Master SLR, Notify Other SLRs about Tamper */
+	/** - From Master SLR, Notify Other SLRs about Tamper. */
 	if ((SlrType == XPLMI_SSIT_MASTER_SLR) &&
 		(XPlmi_SsitIsIntrEnabled() == (u8)TRUE)) {
 		XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, SSIT_SLAVE_0_MASK |
@@ -1863,9 +1932,10 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function performs handshake between SLRs on SSIT ERR lines.
- *		This has to be done on SSIT devices before doing secure lockdown
+ *			This has to be done on SSIT devices before doing secure lockdown
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_InterSlrSldHandshake(void)
@@ -1873,46 +1943,49 @@ void XPlmi_InterSlrSldHandshake(void)
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	u32 SlrType= XPlmi_In32(PMC_TAP_SLR_TYPE) & PMC_TAP_SLR_TYPE_VAL_MASK;
 
+	/** - Do nothing for monolithic devices. */
 	if ((SlrType == XPLMI_SSIT_MONOLITIC) ||
 		(XPlmi_SsitIsIntrEnabled() != (u8)TRUE)) {
 		goto END;
 	}
 
 	if (SlrType == XPLMI_SSIT_MASTER_SLR) {
-		/* Clear latched SSIT Errors */
+		/** - If Master SLR, Clear latched SSIT Errors. */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS,
 			PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERRX_MASK);
-		/* Wait for all SLRs to be ready */
+		/**
+		 * - Wait for all SLRs to be ready.
+		 */
 		XPlmi_UtilPollForMask(PMC_GLOBAL_PMC_ERR1_STATUS,
 				PMC_GLOBAL_PMC_ERR1_STATUS_SSIT_ERRX_MASK,
 				XPLMI_WAIT_FOR_SLAVE_SLRS_ACK_TIMEOUT);
-		/*
-		 * Wait for twice the minimal long pulse time used to
+		/**
+		 * - Wait for twice the minimal long pulse time used to
 		 * identify SLD notification.
 		 */
 		usleep(2 * XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_US);
-		/*
-		 * De-Assert all SSIT ERR lines to indicate Slave SLRs
-		 * can start the SLD
+		/**
+		 * - De-Assert all SSIT ERR lines to indicate Slave SLRs
+		 * can start the SLD.
 		 */
 		XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, 0x0);
 	}
 	else {
-		/* Indicate ready to start secure lockdown */
+		/** - Otherwise, Indicate ready to start secure lockdown. */
 		XPlmi_Out32(PMC_GLOBAL_SSIT_ERR,
 			PMC_GLOBAL_SSIT_ERR_IRQ_OUT_2_MASK);
-		/* Clear latched SSIT Errors */
+		/** - Clear latched SSIT Errors */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK);
-		/* Wait for primary SLR to be ready */
+		/** - Wait for primary SLR to be ready. */
 		XPlmi_UtilPollNs(PMC_GLOBAL_PMC_ERR2_STATUS,
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK,
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK,
 			XPLMI_SLD_NOTIFY_MINIMAL_LONG_PULSE_NS, NULL);
-		/* Clear latched SSIT Errors */
+		/** - Clear latched SSIT Errors. */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR2_STATUS,
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK);
-		/* Wait for all SLRs to be ready */
+		/** - Wait for all SLRs to be ready. */
 		XPlmi_UtilPoll(PMC_GLOBAL_PMC_ERR2_STATUS,
 			PMC_GLOBAL_PMC_ERR2_STATUS_SSIT_ERRX_MASK, 0U,
 			XPLMI_WAIT_FOR_ALL_SLRS_READY_TIMEOUT,

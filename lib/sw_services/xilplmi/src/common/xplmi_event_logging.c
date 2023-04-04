@@ -49,6 +49,7 @@
 * 1.06  bsv  06/03/2022 Add CommandInfo to a separate section in elf
 *       bm   07/06/2022 Refactor versal and versal_net code
 * 1.07  ng   03/12/2023 Fixed Coverity warnings
+* 1.07  ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -108,7 +109,8 @@ XPlmi_LogInfo *DebugLog = (XPlmi_LogInfo *)(UINTPTR)XPLMI_RTCFG_DBG_LOG_BUF_ADDR
  * @param 	Buffer Circular buffer structure to which the data should be written
  * @param 	DestAddr to which the buffer data is to be copied
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static int XPlmi_RetrieveBufferData(const XPlmi_CircularBuffer * Buffer,
@@ -147,14 +149,19 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function configures Log Buffer with the given memory address
- * and size. It also validates the given address range
+ * 			and size. It also validates the given address range
  *
  * @param 	LogBuffer is the circular buffer structure to be configured
  * @param 	StartAddr is the starting address of the given buffer
  * @param 	NumBytes is number of bytes the circular buffer can hold
  * @param 	BufType is the type of log buffer
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_INVALID_LOG_BUF_LEN if invalid log buffer
+ * 			length is passed.
+ * 			- XPLMI_ERR_INVALID_LOG_BUF_ADDR if invalid log buffer
+ * 			address is passed.
  *
  *****************************************************************************/
 static int XPlmi_ConfigureLogMem(XPlmi_CircularBuffer *LogBuffer, u64 StartAddr,
@@ -252,8 +259,11 @@ static void XPlmi_RetrieveBufferInfo(XPlmi_Cmd *Cmd,
  *			Arg2 - Uart Enable
  *
  * @param	Cmd is pointer to the command structure
-
- * @return	Returns the Status of Event Logging API
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_INVALID_LOG_LEVEL on invalid log level.
+ * 			- XST_INVALID_PARAM on invalid logging command.
  *
  *****************************************************************************/
 int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
@@ -328,7 +338,8 @@ int XPlmi_EventLogging(XPlmi_Cmd * Cmd)
  * @param	TraceData to be stored to buffer
  * @param	Len is number of words in TraceData
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_StoreTraceLog(u32 *TraceData, u32 Len)

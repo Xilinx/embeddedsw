@@ -25,6 +25,7 @@
 * 1.03  td   07/08/2021 Fix doxygen warnings
 * 1.04  ng   11/11/2022 Updated doxygen comments
 *       bm   03/09/2023 Add NULL check for module before using it
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * </pre>
 *
 * @note
@@ -50,12 +51,18 @@
 /*****************************************************************************/
 /*****************************************************************************/
 /**
- * @brief	This function will call the command handler registered with the command.
- * Command handler shall execute the command till the payload length.
+ * @brief	This function will call the command handler registered with the
+ * 			command. Command handler shall execute the command till the
+ * 			payload length.
  *
  * @param	CmdPtr is pointer to command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_MODULE_MAX if the module is not registered.
+ * 			- XPLMI_ERR_CMD_APIID on invalid module and unregistered CMD ID.
+ * 			- XPLMI_ERR_CMD_HANDLER_NULL if command handler is not registered.
+ * 			- XPLMI_ERR_CDO_CMD on invalid CDO command handler.
  *
  *****************************************************************************/
 int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
@@ -68,26 +75,26 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 	const XPlmi_ModuleCmd *ModuleCmd = NULL;
 
 	XPlmi_Printf(DEBUG_DETAILED, "CMD Execute \n\r");
-	/** Assign Module */
+	/** - Assign Module */
 	if (ModuleId >= XPLMI_MAX_MODULES) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_MAX, 0);
 		goto END;
 	}
 
-	/** Check if the module is registered */
+	/** - Check if the module is registered */
 	Module = Modules[ModuleId];
 	if (Module == NULL) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_MODULE_NOT_REGISTERED, 0);
 		goto END;
 	}
 
-	/** Check if it is within the commands registered */
+	/** - Check if it is within the commands registered */
 	if (ApiId >= Module->CmdCnt) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
 		goto END;
 	}
 
-	/** Check if proper handler is registered */
+	/** - Check if proper handler is registered */
 	ModuleCmd = &Module->CmdAry[ApiId];
 	if (ModuleCmd->Handler == NULL) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_HANDLER_NULL, 0);
@@ -96,7 +103,7 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 	XPlmi_Printf(DEBUG_DETAILED, "CMD 0x%0x, Len 0x%0x, PayloadLen 0x%0x \n\r",
 			CmdPtr->CmdId, CmdPtr->Len, CmdPtr->PayloadLen);
 
-	/** Run the command handler */
+	/** - Run the command handler */
 	Status = ModuleCmd->Handler(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		CdoErr = (u32)XPLMI_ERR_CDO_CMD + (CmdPtr->CmdId & XPLMI_ERR_CDO_CMD_MASK);
@@ -104,9 +111,9 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 		goto END;
 	}
 
-	/** Increment the processed length and it can be used during resume */
+	/** - Increment the processed length and it can be used during resume */
 	CmdPtr->ProcessedLen += CmdPtr->PayloadLen;
-	/** Assign the same handler for Resume */
+	/** - Assign the same handler for Resume */
 	CmdPtr->ResumeHandler = ModuleCmd->Handler;
 
 END:
@@ -116,11 +123,13 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function resumes the command after being partially executed.
- * Resume handler shall execute the command till the payload length.
+ * 			Resume handler shall execute the command till the payload length.
  *
  * @param	CmdPtr is pointer to command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_RESUME_HANDLER if CDO CMD resume handler fails.
  *
  *****************************************************************************/
 int XPlmi_CmdResume(XPlmi_Cmd * CmdPtr)

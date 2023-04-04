@@ -45,6 +45,7 @@
 *       skd  03/03/2022 Minor bug fix in XPlmi_MemCpy64
 * 1.07  bm   07/06/2022 Refactor versal and versal_net code
 * 1.08  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -92,7 +93,11 @@ static XPmcDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U,
  * @param	DmaPtr is pointer to the DMA instance
  * @param	DeviceId of the DMA as defined in xparameters.h
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_DMA_LOOKUP if DMA driver lookup fails.
+ * 			- XPLMI_ERR_DMA_CFG if DMA driver configuration fails.
+ * 			- XPLMI_ERR_DMA_SELFTEST if DMA driver self test fails.
  *
 *****************************************************************************/
 static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
@@ -139,13 +144,14 @@ END:
 /**
  * @brief	This function will initialize the DMA driver instances.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_DmaInit(void)
 {
 	int Status = XST_FAILURE;
-
+	/** - Initialise PMC_DMA0 & PMC_DMA1. */
 	Status = XPlmi_DmaDrvInit(&PmcDma0, PMCDMA_0_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -163,13 +169,17 @@ END:
  *
  * @param	DeviceId is PMC DMA's device ID
  *
- * @return	PMC DMA instance pointer.
+ * @return
+ * 			- PMC DMA instance pointer.
  *
  *****************************************************************************/
 XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
 {
 	XPmcDma *PmcDmaPtr = NULL;
-
+	/**
+	 * - Return the PMC_DMA0 or PMC_DMA1 instance pointer based on the device
+	 *   ID only if they are ready. Otherwise, return NULL.
+	 */
 	if (DeviceId == (u32)PMCDMA_0_DEVICE_ID) {
 		if (PmcDma0.IsReady != (u32)FALSE) {
 			PmcDmaPtr = &PmcDma0;
@@ -191,7 +201,8 @@ XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
  *
  * @param	Flags to select PMC DMA
  *
- * @return  None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_SSSCfgDmaDma(u32 Flags)
@@ -220,7 +231,8 @@ static void XPlmi_SSSCfgDmaDma(u32 Flags)
  *
  * @param	Flags to select PMC DMA
  *
- * @return  None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_SSSCfgSbiDma(u32 Flags)
@@ -258,7 +270,8 @@ static void XPlmi_SSSCfgSbiDma(u32 Flags)
  *
  * @param	Flags to select PMC DMA
  *
- * @return  None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_SSSCfgDmaPzm(u32 Flags)
@@ -285,7 +298,8 @@ static void XPlmi_SSSCfgDmaPzm(u32 Flags)
  *
  * @param	Flags to select PMC DMA
  *
- * @return  None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_SSSCfgDmaSbi(u32 Flags)
@@ -320,7 +334,9 @@ static void XPlmi_SSSCfgDmaSbi(u32 Flags)
  * @param	Channel is SRC/DST channel selection
  * @param	Flags to select PMC DMA and DMA Burst type
  *
- * @return	XST_SUCCESS on success and error codes on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_DMA_XFER_WAIT if DMA transfer failed to wait.
  *
  *****************************************************************************/
 static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags)
@@ -389,7 +405,12 @@ END:
  *
  * @param	DmaFlags to differentiate between PMCDMA_0 and PMCDMA_1
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_NON_BLOCK_DMA_WAIT_DEST if Non Block Dma transfer wait
+ * 			failed in destination channel WaitForDone.
+ * 			- XPLMI_ERR_NON_BLOCK_DMA_WAIT_SRC if Non Block Dma transfer wait
+ * 			failed in source channel WaitForDone.
  *
  *****************************************************************************/
 int XPlmi_WaitForNonBlkDma(u32 DmaFlags)
@@ -404,13 +425,22 @@ int XPlmi_WaitForNonBlkDma(u32 DmaFlags)
 		PmcDmaPtr = &PmcDma1;
 	}
 
+	/**
+	 * - Configure the DMA source channel.
+	 */
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
+	/**
+	 * - Wait until the DMA destination channel transfer completes.
+	 */
 	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_DMA_WAIT_DEST,
 				Status);
 		goto END;
 	}
+	/**
+	 * - Wait until the DMA source channel transfer completes.
+	 */
 	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_DMA_WAIT_SRC,
@@ -419,11 +449,17 @@ int XPlmi_WaitForNonBlkDma(u32 DmaFlags)
 	}
 
 	/* To acknowledge the transfer has completed */
+	/**
+	 * - Clear the source and destination channel done interrupt bits.
+	 */
 	XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 					XPMCDMA_IXR_DONE_MASK);
 	XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 					XPMCDMA_IXR_DONE_MASK);
 
+	/**
+	 * - Reconfigure the DMA source and destination channel.
+	 */
 	DmaCtrl.AxiBurstType = 0U;
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
@@ -435,11 +471,14 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used set wait on non blocking DMA. It is called
- * when Src DMA is non blocking.
+ * 			when Src DMA is non blocking.
  *
  * @param	DmaFlags to differentiate between PMCDMA_0 and PMCDMA_1
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_NON_BLOCK_SRC_DMA_WAIT if Non Block source Dma
+ * 			transfer wait failed.
  *
  *****************************************************************************/
 int XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags)
@@ -454,7 +493,13 @@ int XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags)
 		PmcDmaPtr = &PmcDma1;
 	}
 
+	/**
+	 * - Configure the DMA source channel.
+	 */
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
+	/**
+	 * - Wait until the DMA source channel transfer completes.
+	 */
 	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_SRC_DMA_WAIT,
@@ -463,9 +508,15 @@ int XPlmi_WaitForNonBlkSrcDma(u32 DmaFlags)
 	}
 
 	/* To acknowledge the transfer has completed */
+	/**
+	 * - Clear the source channel done interrupt bits.
+	 */
 	XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 				XPMCDMA_IXR_DONE_MASK);
 	DmaCtrl.AxiBurstType = 0U;
+	/**
+	 * - Reconfigure the DMA source channel.
+	 */
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_SRC_CHANNEL, &DmaCtrl);
 
 END:
@@ -475,11 +526,14 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function is used set wait on non blocking DMA. It is called
- * when Dest DMA is non blocking.
+ * 			when Dest DMA is non blocking.
  *
  * @param	DmaFlags to differentiate between PMCDMA_0 and PMCDMA_1
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_NON_BLOCK_DEST_DMA_WAIT if Non Block destination Dma
+ * 			transfer wait failed.
  *
  *****************************************************************************/
 int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags)
@@ -494,6 +548,9 @@ int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags)
 		PmcDmaPtr = &PmcDma1;
 	}
 
+	/**
+	 * - Wait until the DMA destination channel transfer completes.
+	 */
 	Status = XPmcDma_WaitForDone(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NON_BLOCK_DEST_DMA_WAIT,
@@ -502,8 +559,14 @@ int XPlmi_WaitForNonBlkDestDma(u32 DmaFlags)
 	}
 
 	/* To acknowledge the transfer has completed */
+	/**
+	 * - Clear the source channel done interrupt bits.
+	 */
 	XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 	DmaCtrl.AxiBurstType = 0U;
+	/**
+	 * - Reconfigure the DMA destination channel.
+	 */
 	XPmcDma_SetConfig(PmcDmaPtr, XPMCDMA_DST_CHANNEL, &DmaCtrl);
 
 END:
@@ -518,7 +581,8 @@ END:
  * @param	Len of the data in words
  * @param	Flags to select PMC DMA and DMA Burst type
  *
- * @return	XST_SUCCESS on success and error codes on failure
+ * @return
+ * 			- XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
 int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
@@ -528,10 +592,10 @@ int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
 	XPlmi_Printf(DEBUG_INFO, "SBI to Dma Xfer Dest 0x%0x%08x, Len 0x%0x: ",
 		(u32)(DestAddr >> 32U), (u32)DestAddr, Len);
 
-	/* Configure the secure stream switch */
+	/** - Configure the secure stream switch */
 	XPlmi_SSSCfgSbiDma(Flags);
 
-	/* Receive the data from destination channel */
+	/** - Transfer the data from SBI to DMA. */
 	Status = XPlmi_DmaChXfer(DestAddr, Len, XPMCDMA_DST_CHANNEL, Flags);
 
 	return Status;
@@ -545,7 +609,8 @@ int XPlmi_SbiDmaXfer(u64 DestAddr, u32 Len, u32 Flags)
  * @param	Len of the data in words
  * @param	Flags to select PMC DMA and DMA Burst type
  *
- * @return	XST_SUCCESS on success and error codes on failure
+ * @return
+ * 			- XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
 int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
@@ -555,10 +620,10 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
 	XPlmi_Printf(DEBUG_INFO, "Dma to SBI Xfer Src 0x%0x%08x, Len 0x%0x: ",
 		(u32)(SrcAddr >> 32U), (u32)SrcAddr, Len);
 
-	/* Configure the secure stream switch */
+	/** - Configure the secure stream switch */
 	XPlmi_SSSCfgDmaSbi(Flags);
 
-	/* Receive the data from destination channel */
+	/** - Transfer the data from DMA to SBI. */
 	Status = XPlmi_DmaChXfer(SrcAddr, Len, XPMCDMA_SRC_CHANNEL, Flags);
 
 	return Status;
@@ -573,7 +638,12 @@ int XPlmi_DmaSbiXfer(u64 SrcAddr, u32 Len, u32 Flags)
  * @param	Len of the data in bytes
  * @param	Flags to select PMC DMA and DMA Burst type
  *
- * @return	XST_SUCCESS on success and error codes on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_DMA_XFER_WAIT_SRC if Dma Xfer failed in Src Channel
+ * 			wait for done.
+ * 			- XPLMI_ERR_DMA_XFER_WAIT_DEST if Dma Xfer failed in Dest Channel
+ * 			wait for done.
  *
  *****************************************************************************/
 int XPlmi_DmaXfr(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)
@@ -663,7 +733,8 @@ END:
  * @param	Flags to select PMC DMA and DMA Burst type
  * @param	DmaPtrAddr is to store address to PmcDmaInstance
  *
- * @return	XST_SUCCESS on success and error codes on failure
+ * @return
+ * 			- XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
 static int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
@@ -715,12 +786,13 @@ static int XPlmi_StartDma(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags,
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to ECC initialize the memory.
+ * @brief	This function is used to initialize the ECC memory.
  *
  * @param	Addr is  memory address to be initialized
  * @param	Len is size of memory to be initialized in bytes
  *
- * @return	Status of the DMA transfer
+ * @return
+ * 			- Status of the DMA transfer
  *
  *****************************************************************************/
 int XPlmi_EccInit(u64 Addr, u32 Len)
@@ -728,13 +800,13 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
 	XPlmi_Printf(DEBUG_INFO, "PZM to Dma Xfer Dest 0x%0x%08x, Len 0x%0x: ",
 		(u32)(Addr >> 32U), (u32)Addr, Len / XPLMI_WORD_LEN);
 
-	/* Configure the secure stream switch */
+	/** - Configure the secure stream switch */
 	XPlmi_SSSCfgDmaPzm(XPLMI_PMCDMA_0);
 
-	/* Configure PZM length in 128bit */
+	/** - Configure PZM length in 128bit */
 	XPlmi_Out32(PMC_GLOBAL_PRAM_ZEROIZE_SIZE, Len / XPLMI_PZM_WORD_LEN);
 
-	/* Receive the data from destination channel */
+	/** - Receive the data from destination channel */
 	return XPlmi_DmaChXfer(Addr, Len / XPLMI_WORD_LEN, XPMCDMA_DST_CHANNEL,
 		XPLMI_PMCDMA_0);
 }
@@ -748,7 +820,8 @@ int XPlmi_EccInit(u64 Addr, u32 Len)
  * @param	Val is the value that has to be set
  * @param	Len is size of memory to be set in words
  *
- * @return	Status of the DMA transfer
+ * @return
+ * 			- Status of the DMA transfer
  *
  *****************************************************************************/
 int XPlmi_MemSet(u64 DestAddr, u32 Val, u32 Len)
@@ -802,13 +875,14 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function initializes the memory using PZM and verifies by reading back
- * initialized memory.
+ * @brief	This function initializes the memory using PZM and verifies by
+ * 			reading back initialized memory.
  *
  * @param	Addr Memory address to be initialized
  * @param	Len Length of the area to be initialized in bytes
  *
- * @return	XST_SUCCESS on success and error codes on failure
+ * @return
+ * 			- XST_SUCCESS on success and error codes on failure
  *
  *****************************************************************************/
 int XPlmi_InitNVerifyMem(u64 Addr, u32 Len)
@@ -820,13 +894,13 @@ int XPlmi_InitNVerifyMem(u64 Addr, u32 Len)
 	u32 Index;
 	u32 Data;
 
-	/* Initialize the data */
+	/** - Initialize the data */
 	Status = XPlmi_EccInit(Addr, Len);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Read and verify the initialized data */
+	/** - Read and verify the initialized data */
 	for (Index = 0U; Index < NoWords; Index++) {
 		Data = XPlmi_In64(SrcAddr);
 		if (Data != XPLMI_DATA_INIT_PZM) {
@@ -847,12 +921,13 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to set the MaxOutCmds variable. This is required to
- * support non blocking DMA.
+ * @brief	This function is used to set the MaxOutCmds variable. This is
+ * 			required to support non blocking DMA.
  *
  * @param	Val to be set
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_SetMaxOutCmds(u8 Val)
@@ -871,7 +946,8 @@ void XPlmi_SetMaxOutCmds(u8 Val)
  * @param	Val is the value that has to be set
  * @param	Len is size of memory to be set in bytes
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_MemSetBytes(void *const DestPtr, u32 DestLen, u8 Val, u32 Len)
@@ -927,17 +1003,18 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function can copy the content of memory for both 32 and
- *              64-bit address space
+ * 			64-bit address space
  *
  * @param	DestAddr is the address of the destination where content of
- *              SrcAddr memory should be copied.
+ * 			SrcAddr memory should be copied.
  *
  * @param	SrcAddr is the address of the source where copy should
- *              start from.
+ * 			start from.
  *
  * @param	Len is size of memory to be copied in bytes.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_MemCpy64(u64 DestAddr, u64 SrcAddr, u32 Len)
