@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.5.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -200,7 +200,7 @@ FreeRTOS_IRQ_Handler:
 	LDR		r2, [r2]
 	LDR		r0, [r2]
 #else
-	mrc   p15, 0, r0,  c12,  c8, 0
+	mrc   p15, 0, r0,  c12,  c12, 0
 
 #endif
 	/* Ensure bit 2 of the stack pointer is clear.  r2 holds the bit 2 value for
@@ -227,7 +227,7 @@ FreeRTOS_IRQ_Handler:
 	LDR		r4, [r4]
 	STR		r0, [r4]
 #else
-	mcr p15, 0, r0,  c12,  c8, 1
+	mcr p15, 0, r0,  c12,  c12, 1
 #endif
 	/* Restore the old nesting count. */
 	STR		r1, [r3]

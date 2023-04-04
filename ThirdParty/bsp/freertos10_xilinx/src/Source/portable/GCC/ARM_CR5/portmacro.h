@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.5.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -213,6 +213,20 @@ void vPortTaskUsesFPU( void );
 
 /* The number of bits to shift for an interrupt priority is dependent on the
 number of bits implemented by the interrupt controller. */
+#if defined (ARMR52)
+#if configUNIQUE_INTERRUPT_PRIORITIES == 8
+        #define portPRIORITY_SHIFT 5
+        #define portMAX_BINARY_POINT_VALUE      5
+#elif configUNIQUE_INTERRUPT_PRIORITIES == 16
+        #define portPRIORITY_SHIFT 4
+        #define portMAX_BINARY_POINT_VALUE      4
+#elif configUNIQUE_INTERRUPT_PRIORITIES == 32
+        #define portPRIORITY_SHIFT 3
+        #define portMAX_BINARY_POINT_VALUE      3
+#else
+        #error Invalid configUNIQUE_INTERRUPT_PRIORITIES setting.  configUNIQUE_INTERRUPT_PRIORITIES must be set to the number of unique priorities implemented by the target hardware
+#endif
+#else /* #if defined (ARMR52) */
 #if configUNIQUE_INTERRUPT_PRIORITIES == 16
 	#define portPRIORITY_SHIFT 4
 	#define portMAX_BINARY_POINT_VALUE	3
@@ -230,6 +244,7 @@ number of bits implemented by the interrupt controller. */
 	#define portMAX_BINARY_POINT_VALUE	0
 #else
 	#error Invalid configUNIQUE_INTERRUPT_PRIORITIES setting.  configUNIQUE_INTERRUPT_PRIORITIES must be set to the number of unique priorities implemented by the target hardware
+#endif
 #endif
 
 #if !defined(ARMR52)
