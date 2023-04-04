@@ -39,6 +39,7 @@
 *       ng    03/12/2023 Fixed Coverity warnings
 *       sk    03/14/2023 Added Glitch detect for status check in
 *                        XLoader_CframeDataClearCheck
+*		dd    03/28/2023 Updated doxygen comments
 *       ng    03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -56,17 +57,17 @@
 
 /************************** Constant Definitions *****************************/
 /* CFRAM related register defines */
-#define CFRAME_BCAST_REG_TESTMODE_OFFSET		(0x120U)
-#define CFRAME_BCAST_REG_TESTMODE_CRAM_SELF_CHECK_MASK	(0x100U)
+#define CFRAME_BCAST_REG_TESTMODE_OFFSET		(0x120U) /**< Test mode offset */
+#define CFRAME_BCAST_REG_TESTMODE_CRAM_SELF_CHECK_MASK	(0x100U) /**< CRAM self check mask */
 
-#define CFRAME_BCAST_REG_FAR_OFFSET			(0x10U)
-#define CFRAME_BCAST_REG_FAR_BLOCKTYPE_SHIFT		(20U)
-#define CFRAME_MAX_BLOCK_TYPE_COUNT			(0x3U)
+#define CFRAME_BCAST_REG_FAR_OFFSET			(0x10U) /**< CFrame address register offset */
+#define CFRAME_BCAST_REG_FAR_BLOCKTYPE_SHIFT		(20U) /**< CFrame  address register block type shift */
+#define CFRAME_MAX_BLOCK_TYPE_COUNT			(0x3U) /**< CFrame maximum block type count */
 
-#define XPLMI_ZERO	(0x0U)
-#define CFRAME_CRC_POLL_TIMEOUT				(0xFFFFU)
+#define XPLMI_ZERO	(0x0U) /**< Zero */
+#define CFRAME_CRC_POLL_TIMEOUT				(0xFFFFU) /**< CRC poll time out*/
 
-#define XLOADER_CFRAME_DATACLEAR_CHECK_CMD_ID	(0xCU)
+#define XLOADER_CFRAME_DATACLEAR_CHECK_CMD_ID	(0xCU) /**< Data clear check command Id */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

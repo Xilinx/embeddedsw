@@ -22,6 +22,7 @@
 * 1.01  har  11/17/2022 Added XLoader_CheckSecureStateAuth
 *       ng   11/23/2022 Fixed doxygen file name error
 *       sk   03/17/2023 Renamed Kekstatus to DecKeyMask
+*		dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -46,13 +47,13 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XLOADER_EFUSE_CACHE_JTAG_DIS_MASK		(0x00000004U)
-#define XLOADER_PMC_TAP_JTAG_STATUS_0			(0xF11A004CU)
-#define XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK	(0x00000001U << 23U)
-#define XLOADER_JTAG_SEC_GATE_CLOSE			(0x00U)
-#define XLOADER_JTAG_SEC_GATE_OPEN			(0x01U)
+#define XLOADER_EFUSE_CACHE_JTAG_DIS_MASK		(0x00000004U) /**< eFUSE cache JTAG disable mask */
+#define XLOADER_PMC_TAP_JTAG_STATUS_0			(0xF11A004CU) /**< PMC TAP JTAG status 0 */
+#define XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK	(0x00000001U << 23U) /**< DAP status mask */
+#define XLOADER_JTAG_SEC_GATE_CLOSE			(0x00U) /**< JTAG secure gate close */
+#define XLOADER_JTAG_SEC_GATE_OPEN			(0x01U) /**< JTAG secure gate open */
 
-#define XLOADER_DEVICE_STATE_POLL_INTERVAL	(1000U)
+#define XLOADER_DEVICE_STATE_POLL_INTERVAL	(1000U) /**< Device state poll interval */
 /**************************** Type Definitions *******************************/
 typedef enum {
 	/* Add platform specific error codes from 0xA0 */
