@@ -46,7 +46,8 @@
 *       bsv  07/08/2022 Code changes related to Optional data in IHT
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 * 1.09  ng   11/11/2022 Updated doxygen comments
-*		dd   03/16/2023 Misra-C violation Rule 17.8 fixed
+*       dd   03/16/2023 Misra-C violation Rule 17.8 fixed
+        ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * </pre>
 *
 * @note
@@ -71,19 +72,20 @@
 
 /****************************************************************************/
 /**
-* @brief	This function is used to validate the word checksum for the Image Header
-* table and Partition Headers.
-* Checksum is based on the below formula
-* Checksum = ~(X1 + X2 + X3 + .... + Xn)
-*
-* @param	Buffer pointer for the data words
-* @param	Len of the buffer for which checksum should be calculated.
-* 			Last word is taken as expected checksum.
-*
-* @return	XST_SUCCESS for successful checksum validation
-			XST_FAILURE if checksum validation fails
-*
-*****************************************************************************/
+ * @brief	This function is used to validate the word checksum for the
+ * 			Image Header table and Partition Headers.
+ * 			Checksum is based on the below formula
+ * 			Checksum = ~(X1 + X2 + X3 + .... + Xn)
+ *
+ * @param	Buffer pointer for the data words
+ * @param	Lenth of the buffer for which checksum should be calculated.
+ * 			Last word is taken as expected checksum.
+ *
+ * @return
+ * 			- XST_SUCCESS for successful checksum validation.
+ * 			- XST_FAILURE if checksum validation fails.
+ *
+ *****************************************************************************/
 int XilPdi_ValidateChecksum(const void *Buffer, u32 Length)
 {
 	int Status = XST_FAILURE;
@@ -94,7 +96,7 @@ int XilPdi_ValidateChecksum(const void *Buffer, u32 Length)
 
 	Len >>= XIH_PRTN_WORD_LEN_SHIFT;
     /**
-     * Verify the buffer is not empty and has atleast 2 values
+     * - Verify the buffer is not empty and has atleast 2 values
      */
 	if (Len < XILPDI_CHECKSUM_MIN_BUF_LEN)
 	{
@@ -102,7 +104,7 @@ int XilPdi_ValidateChecksum(const void *Buffer, u32 Length)
 	}
 	--Len;
 	/**
-	 * Calculate the checksum with the below formula
+	 * - Calculate the checksum with the below formula
 	 * Checksum = ~(X1 + X2 + X3 + .... + Xn)
 	 */
 	for (Count = 0U; Count < Len; Count++) {
@@ -116,7 +118,7 @@ int XilPdi_ValidateChecksum(const void *Buffer, u32 Length)
 	Checksum ^= XILPDI_INVERT_CHECKSUM;
 
 	/**
-	 * Verify the calculated checksum with the checksum in buffer
+	 * - Verify the calculated checksum with the checksum in buffer
 	 */
 	if (BufferPtr[Len] != Checksum) {
 		XilPdi_Printf("Error: Checksum 0x%0lx != %0lx\r\n", Checksum,
@@ -131,22 +133,27 @@ END:
 
 /****************************************************************************/
 /**
-* @brief	This function checks the fields of the Image Header Table and validates
-* them. Image Header Table contains the fields that are common across all the
-* partitions and images.
-*
-* @param	ImgHdrTbl pointer to the Image Header Table
-*
-* @return	XST_SUCCESS on successful Image Header Table validation
-*			Errors as mentioned in xilpdi.h on failure
-*
-*****************************************************************************/
+ * @brief	This function checks the fields of the Image Header Table and
+ * 			validates them. Image Header Table contains the fields that are
+ * 			common across all the partitions and images.
+ *
+ * @param	ImgHdrTbl pointer to the Image Header Table
+ *
+ * @return
+ * 			- XST_SUCCESS on successful Image Header Table validation.
+ * 			- XILPDI_ERR_IHT_CHECKSUM if checksum validation fails.
+ * 			- XILPDI_ERR_NO_OF_IMGS if number of images is less than 0 or more
+ * 			than 32.
+ * 			- XILPDI_ERR_NO_OF_PRTNS if number of partitions is less than 0 or
+ * 			more than 32.
+ *
+ *****************************************************************************/
 int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 {
 	int Status = XST_FAILURE;
 
 	/**
-     * Calculate the checksum of Image Header Table and compare it with the
+     * - Calculate the checksum of Image Header Table and compare it with the
 	 * value in Image Header Table
      */
 	Status = XilPdi_ValidateChecksum(ImgHdrTbl, XIH_IHT_LEN);
@@ -156,7 +163,7 @@ int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 		goto END;
 	}
 	/**
-     * Verify the number of images are greater than zero and less than or
+     * - Verify the number of images are greater than zero and less than or
 	 * equal to 32
      */
 	if ((ImgHdrTbl->NoOfImgs < XIH_MIN_IMGS) ||
@@ -166,7 +173,7 @@ int XilPdi_ValidateImgHdrTbl(const XilPdi_ImgHdrTbl * ImgHdrTbl)
 		goto END;
 	}
 	/**
-     * Verify the number of partitions are greater than zero and less than or
+     * - Verify the number of partitions are greater than zero and less than or
 	 * equal to 32
      */
 	if ((ImgHdrTbl->NoOfPrtns < XIH_MIN_PRTNS) ||
@@ -183,10 +190,15 @@ END:
 /**
 * @brief	This function validates the Partition Header.
 *
-* @param	PrtnHdr is pointer to Partition Header
+* @param	PrtnHdr	is pointer to Partition Header
 *
-* @return	XST_SUCCESS on successful Partition Header validation
-*			Errors as mentioned in xilpdi.h on failure
+* @return
+* 			- XST_SUCCESS	on successful Partition Header validation.
+* 			- XILPDI_ERR_ZERO_LENGTH if partition length is 0.
+* 			- XILPDI_ERR_TOTAL_LENGTH if total length is not matching encoded and
+* 			unencoded word length.
+* 			- XILPDI_ERR_PRTN_TYPE if partition type is other than elf, cdo, raw,
+* 			raw_elf, cfi_gsc and cfi_gsc_unmask.
 *
 *****************************************************************************/
 int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr)
@@ -195,7 +207,8 @@ int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr)
 	u32 PrtnType;
 
 	/**
-	 * Verify the partition length
+	 * - Verify the partition length is not zero. Otherwise, return
+	 *   XILPDI_ERR_ZERO_LENGTH error.
 	 */
 	if ((PrtnHdr->UnEncDataWordLen == 0U) || (PrtnHdr->EncDataWordLen == 0U)
 	   || (PrtnHdr->TotalDataWordLen == 0U)) {
@@ -204,6 +217,11 @@ int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr)
 		goto END;
 	}
 
+	/**
+	 * - Verify the total partition length is not less than the encrypted data
+	 * word and unencrypted data word length. Otherwise, return
+	 * XILPDI_ERR_TOTAL_LENGTH error.
+	 */
 	if ((PrtnHdr->TotalDataWordLen < PrtnHdr->UnEncDataWordLen) ||
 	   (PrtnHdr->TotalDataWordLen < PrtnHdr->EncDataWordLen)) {
 		XilPdi_Printf("Error: Incorrect total length \n\r");
@@ -212,7 +230,9 @@ int XilPdi_ValidatePrtnHdr(const XilPdi_PrtnHdr * PrtnHdr)
 	}
 
 	/**
-	 * Verify the partition type
+	 * - Verify that the partition type is one of elf, cdo, raw raw_elf,
+	 * cfi_gsc or cfi_gsc_unmask. Otherwise, return XILPDI_ERR_PRTN_TYPE
+	 * error.
 	 */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
 	if ((PrtnType == XIH_PH_ATTRB_PRTN_TYPE_RSVD) ||
@@ -238,7 +258,7 @@ END:
 void XilPdi_ReadBootHdr(const XilPdi_BootHdr **BootHdrPtr)
 {
 	/**
-	 * Copy boot header to local variable from PRAM address
+	 * - Copy boot header to local variable from PRAM address
 	 */
 	*BootHdrPtr = (XilPdi_BootHdr *)(UINTPTR)XIH_BH_PRAM_ADDR;
 }
@@ -249,8 +269,9 @@ void XilPdi_ReadBootHdr(const XilPdi_BootHdr **BootHdrPtr)
 *
 * @param	MetaHdrPtr is pointer to MetaHeader table
 *
-* @return	XST_SUCCESS on successful read
-*			Errors as mentioned in xilpdi.h on failure
+* @return
+* 			- XST_SUCCESS on successful read.
+* 			- XST_FAILURE on unsuccessful copy of image header table.
 *
 *****************************************************************************/
 int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
@@ -260,7 +281,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	u32 Offset;
 
 	/**
-	 * Read the Img header table of 64 bytes
+	 * - Read the Img header table of 64 bytes
 	 * and update the Image Header Table structure
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
@@ -273,7 +294,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	}
 
 	/**
-	 * Discard or ignore SMAP header when detected in partial PDIs
+	 * - Discard or ignore SMAP header when detected in partial PDIs
 	 */
 	if ((SMAP_BUS_WIDTH_8_WORD1 == SmapBusWidthCheck[0U]) ||
 		(SMAP_BUS_WIDTH_16_WORD1 == SmapBusWidthCheck[0U]) ||
@@ -307,10 +328,11 @@ END:
 /**
 * @brief	This function reads IHT and optional data in Image Header Table.
 *
-* @param	MetaHdrPtr is pointer to MetaHeader table
+* @param	MetaHdrPtr is pointer to MetaHeader table.
 *
-* @return	XST_SUCCESS on successful read
-*			Errors as mentioned in xilpdi.h on failure
+* @return
+* 			- XST_SUCCESS on successful read.
+* 			- XST_FAILURE on unsuccessful copy.
 *
 *****************************************************************************/
 int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
@@ -318,7 +340,7 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
 	int Status = XST_FAILURE;
 
 	/**
-	 * Read the IHT from Metaheader
+	 * - Read the IHT from Metaheader
 	 */
 	Status = Xil_SecureMemCpy((void *)(UINTPTR)XILPDI_PMCRAM_IHT_COPY_ADDR,
 		XIH_IHT_LEN, (const void*)&MetaHdrPtr->ImgHdrTbl, XIH_IHT_LEN);
@@ -327,7 +349,7 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
 		goto END;
 	}
 	/**
-	 * Read the IHT Optinal data from Metaheader
+	 * - Read the IHT Optinal data from Metaheader
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
 		MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst + XIH_IHT_LEN,
@@ -347,8 +369,8 @@ END:
 *
 * @param	MetaHdrPtr is pointer to Meta Header
 *
-* @return	XST_SUCCESS on successful validation of Image Header
-*			Errors as mentioned in xilpdi.h on failure
+* @return	XST_SUCCESS on successful read.
+* @return	XST_FAILURE on unsuccessful read.
 *
 *****************************************************************************/
 int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
@@ -357,7 +379,7 @@ int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	u32 TotalLen = MetaHdrPtr->ImgHdrTbl.NoOfImgs * XIH_IH_LEN;
 
 	/**
-	 * Read the Img headers of 64 bytes
+	 * - Read the Img headers of 64 bytes
 	 * and update the Image Header structure for all images
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
@@ -373,8 +395,9 @@ int XilPdi_ReadImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 *
 * @param	MetaHdrPtr is pointer to Meta Header
 *
-* @return	XST_SUCCESS on successful validation of Image Header
-*			Errors as mentioned in xilpdi.h on failure
+* @return
+* 			- XST_SUCCESS on successful read.
+* 			- XST_FAILURE on unsuccessful read.
 *
 *****************************************************************************/
 int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
@@ -383,7 +406,7 @@ int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	u32 TotalLen = MetaHdrPtr->ImgHdrTbl.NoOfPrtns * XIH_PH_LEN;
 
 	/**
-	 * Read the Partition headers of 64 bytes
+	 * - Read the Partition headers of 64 bytes
 	 * and update the Image Header structure for all images
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
@@ -399,8 +422,9 @@ int XilPdi_ReadPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 *
 * @param	MetaHdrPtr is pointer to MetaHeader table
 *
-* @return	XST_SUCCESS on successful read
-*			Errors as mentioned in xilpdi.h on failure
+* @return
+* 			- XST_SUCCESS on success.
+* 			- XILPDI_ERR_PH_CHECKSUM on checksum fail.
 *
 *****************************************************************************/
 int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
@@ -409,7 +433,7 @@ int XilPdi_VerifyPrtnHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	u32 PrtnIndex;
 
 	/**
-	 * Verify checksum of all Partition Headers
+	 * - Verify checksum of all Partition Headers
 	 */
 	for (PrtnIndex = 0U; PrtnIndex < MetaHdrPtr->ImgHdrTbl.NoOfPrtns;
 		PrtnIndex++) {
@@ -431,10 +455,11 @@ END:
 /**
 * @brief	This function verifies Image headers.
 *
-* @param	MetaHdrPtr is pointer to MetaHeader table
+* @param	MetaHdrPtr is pointer to MetaHeader table.
 *
-* @return	XST_SUCCESS on successful read
-*			Errors as mentioned in xilpdi.h on failure
+* @return
+* 			- XST_SUCCESS on successful image validation.
+* 			- XILPDI_ERR_IH_CHECKSUM on checksum fail.
 *
 *****************************************************************************/
 int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
@@ -443,7 +468,7 @@ int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 	u32 ImgIndex;
 
 	/**
-	 * Verify checksum of all image Headers
+	 * - Verify checksum of all image Headers
 	 */
 	for (ImgIndex = 0U; ImgIndex < MetaHdrPtr->ImgHdrTbl.NoOfImgs;
 		ImgIndex++) {
