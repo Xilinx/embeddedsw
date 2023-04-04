@@ -22,6 +22,7 @@
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+		dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -39,17 +40,17 @@
 #include "xloader.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_PSM_COUNTER_VER 		(1U)
-#define XPLMI_PSM_COUNTER_LCVER		(1U)
-#define XPLMI_PSM_KEEP_ALIVE_STS_VER 	(1U)
-#define XPLMI_PSM_KEEP_ALIVE_STS_LCVER	(1U)
+#define XPLMI_PSM_COUNTER_VER 		(1U) /**< PSM counter version */
+#define XPLMI_PSM_COUNTER_LCVER		(1U) /**< PSM counter lowest compatible version */
+#define XPLMI_PSM_KEEP_ALIVE_STS_VER 	(1U) /**< PSM keep alive status version */
+#define XPLMI_PSM_KEEP_ALIVE_STS_LCVER	(1U) /**< PSM keep alive status lowest compatible version */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-#define XPLMI_DS_CNT			(u32)(__data_struct_end - __data_struct_start)
+#define XPLMI_DS_CNT			(u32)(__data_struct_end - __data_struct_start) /**< Data structure count */
 
 /************************** Variable Definitions *****************************/
 extern XPlmi_DsEntry __data_struct_start[];
