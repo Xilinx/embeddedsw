@@ -74,6 +74,7 @@
  *       bm   03/09/2023 Add NULL check for module before using it
  *       bm   03/09/2023 Added redundant calls for XPlmi_ValidateCmd and
  *                       CheckIpiAccess
+ *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
  *
  * </pre>
  *
@@ -142,24 +143,21 @@ static XPlmi_SubsystemHandler XPlmi_GetPmSubsystemHandler(
 /**
  * @brief	This function initializes the IPI Driver Instance
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_IpiDrvInit(void)
 {
 	int Status = XST_FAILURE;
 
-	/**
-	 * Load Config for Processor IPI Channel
-	 */
+	/** - Get the Config for Processor IPI Channel. */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPLMI_IPI_DEVICE_ID);
 	if (IpiCfgPtr == NULL) {
 		goto END;
 	}
 
-	/**
-	 * Initialize the Instance pointer
-	 */
+	/** - Initialize the Instance pointer with the configuration. */
 	Status = XIpiPsu_CfgInitialize(&IpiInst, IpiCfgPtr,
 			IpiCfgPtr->BaseAddress);
 	if (XST_SUCCESS != Status) {
@@ -177,7 +175,9 @@ END:
  * @param	SubsystemHandler is handler to XilPm API called to retrieve
  *		Subsystem Id using Ipi mask
  *
- * @return	Status	IPI initialization status
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLM_ERR_TASK_CREATE if failed to create task.
  *
  *****************************************************************************/
 int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
@@ -188,14 +188,13 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 	u32 IpiIntrId;
 	XPlmi_TaskNode *Task = NULL;
 
+	/** - Load processor IPI config channel. */
 	Status = XPlmi_IpiDrvInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/**
-	 * Enable IPI from all Masters
-	 */
+	/** - Enable IPI from all Masters. */
 	for (Index = 0U; Index < XPLMI_IPI_MASK_COUNT; Index++) {
 		XIpiPsu_InterruptEnable(&IpiInst,
 			IpiCfgPtr->TargetList[Index].Mask);
@@ -216,7 +215,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 		}
 	}
 
-	/* Enable SLVERR */
+	/** - Enable SLVERR for IPI interface. */
 	XPlmi_Out32(XIPIPSU_BASE_ADDR, XPLMI_SLAVE_ERROR_ENABLE_MASK);
 
 	(void) XPlmi_GetPmSubsystemHandler(SubsystemHandler);
@@ -226,9 +225,7 @@ int XPlmi_IpiInit(XPlmi_SubsystemHandler SubsystemHandler)
 		XPlmi_IpiIntrHandler(NULL);
 	}
 
-	/**
-	 *  Register and Enable the IPI IRQ
-	 */
+	/** - Register and Enable the IPI IRQ. */
 	Status = XPlmi_RegisterNEnableIpi();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -267,9 +264,10 @@ END:
  * @brief	This is the handler for IPI interrupts.
  *
  * @param	Data is the buffer index of the IPI channel interrupt that is
- *               received
+ * 			received
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_IpiDispatchHandler(void *Data)
@@ -389,21 +387,25 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function writes an IPI message or a response to
- * destination CPU.
+ * @brief	This function writes an IPI message or a response to destination
+ * 			CPU.
  *
  * @param	DestCpuMask Destination CPU IPI mask
- * 		MsgPtr		Pointer to message to be written
- * 		MsgLen		IPI message length
- * 		Type		IPI buffer type
+ * @param	MsgPtr Pointer to message to be written
+ * @param	MsgLen IPI message length
+ * @param	Type IPI buffer type
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type)
 {
 	int Status = XST_FAILURE;
 
+	/**
+	 * - If LPD is initialised, send the message. Otherwise return an error.
+	*/
 	if (XPlmi_IsLpdInitialized() == (u8)TRUE) {
 		if ((NULL != MsgPtr) &&
 			((MsgLen != 0U) && (MsgLen <= XPLMI_IPI_MAX_MSG_LEN)) &&
@@ -427,7 +429,10 @@ int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type)
  * 		MsgLen		IPI message length
  * 		Type		IPI buffer type
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_IPI_CRC_MISMATCH_ERR on IPI CRC mismatch error.
+ * 			- XPLMI_IPI_READ_ERR if failed to process IPI request.
  *
  *****************************************************************************/
 int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
@@ -436,7 +441,7 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
 
 	if ((NULL != MsgPtr) && ((MsgLen != 0U) && (MsgLen <= XPLMI_IPI_MAX_MSG_LEN)) &&
 		((XIPIPSU_BUF_TYPE_MSG == Type) || (XIPIPSU_BUF_TYPE_RESP == Type))) {
-		/* Read Entire Message to Buffer */
+		/** - Read Entire Message to Buffer. */
 		Status = XIpiPsu_ReadMessage(&IpiInst, SrcCpuMask, MsgPtr, MsgLen,
 				Type);
 		if (Status != XST_SUCCESS) {
@@ -463,13 +468,15 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
  *
  * @param	DestCpuMask Destination CPU IPI mask
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_IpiTrigger(u32 DestCpuMask)
 {
 	int Status = XST_FAILURE;
 
+	/** - Trigger IPI interrupt to destination CPU. */
 	Status = XIpiPsu_TriggerIpi(&IpiInst, DestCpuMask);
 
 	return Status;
@@ -482,13 +489,15 @@ int XPlmi_IpiTrigger(u32 DestCpuMask)
  * @param	DestCpuMask Destination CPU IPI mask
  * 		TimeOutCount Timeout value
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 {
 	int Status = XST_FAILURE;
 
+	/** - Poll the destination CPU until you receive an acknowledgement. */
 	Status = XIpiPsu_PollForAck(&IpiInst, DestCpuMask, TimeOutCount);
 
 	return Status;
@@ -502,7 +511,11 @@ int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
  * @param	Cmd is the pointer to Cmd structure
  * @param	SrcIndex is the source index of IPI command
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_IPI_CMD if command cannot be executed through IPI.
+ * 			- XPLMI_IPI_ACCESS_ERR if access permissions for PLMI IPI command
+ * 			received are invalid.
  *
  *****************************************************************************/
 static int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
@@ -628,13 +641,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function resumes the command after being partially executed.
- * Resume handler shall execute the command till the payload length.
+ * 			Resume handler shall execute the command till the payload length.
  *
  * @param	CmdPtr is pointer to command structure
- *
  * @param	Payload message buf from client
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_MODULE_MAX if module is not registered.
+ * 			- XPLMI_ERR_CMD_APIID on processing unregistered command ID.
  *
  *****************************************************************************/
 static int XPlmi_IpiCmdExecute(XPlmi_Cmd * CmdPtr, u32 * Payload)

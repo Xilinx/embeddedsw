@@ -54,6 +54,7 @@
 * 1.07  sk   10/19/2022 Fix security review comments
 *       ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -88,13 +89,14 @@
 /*****************************************************************************/
 /**
  * @brief	This function will calculate the size of the command. Bits 16 to 23
- * denote the size of the command. If the value is 255, then the word following
- * CmdId would denote the size of the command.
+ * 			denote the size of the command. If the value is 255, then the
+ * 			word following CmdId would denote the size of the command.
  *
  * @param	Buf is pointer to buffer
  * @param	Len is length of the command that is available in memory to parse
  *
- * @return	Size of the command
+ * @return
+ * 			- Size of the command
  *
  *****************************************************************************/
 static u32 XPlmi_CmdSize(const u32 *Buf, u32 Len)
@@ -126,7 +128,8 @@ static u32 XPlmi_CmdSize(const u32 *Buf, u32 Len)
  * @param	BufLen is length of the buffer. It may not have total Command
  * length if buffer is not available.
  *
- * @return None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
@@ -157,7 +160,10 @@ static void XPlmi_SetupCmd(XPlmi_Cmd * Cmd, u32 *Buf, u32 BufLen)
  *
  * @param	CdoPtr is pointer to the CDO structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_CDO_HDR_ID on invalid CDO header.
+ * 			- XPLMI_ERR_CDO_CHECKSUM if CDO checksum fails.
  *
  *****************************************************************************/
 static int XPlmi_CdoVerifyHeader(const XPlmiCdo *CdoPtr)
@@ -226,14 +232,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function will update the command pointer and resume the
- * command from previous state.
+ * 			command from previous state.
  *
  * @param	CdoPtr Pointer to the CDO structure
  * @param	BufPtr Pointer to the buffer
  * @param	BufLen Len of the buffer
  * @param	Size Pointer to the Size consumed by the command execution
  *
- * @return	XST_SUCCESS in case of success
+ * @return
+ * 			- XST_SUCCESS in case of success
  *
  *****************************************************************************/
 static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
@@ -277,14 +284,16 @@ static int XPlmi_CdoCmdResume(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Si
 /*****************************************************************************/
 /**
  * @brief	This function copies gets the prepares the CMD pointer and
- * executes it.
+ * 			executes it.
  *
  * @param	CdoPtr is pointer to the CDO structure
  * @param	BufPtr is pointer to the buffer
  * @param	BufLen is length of the buffer
  * @param	Size is pointer to the Size consumed by the command execution
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_MEMCPY_CMD_EXEC if mem copy command execution fails.
  *
  *****************************************************************************/
 static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *Size)
@@ -378,7 +387,10 @@ END:
  *
  * @param	CdoPtr is pointer to the CDO structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_INVALID_BREAK_LENGTH on invalid break length provided in
+ * 			CDO.
  *
  *****************************************************************************/
 int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
@@ -389,7 +401,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	u32 BufLen = CdoPtr->BufLen;
 	u32 RemainingLen;
 
-	/** Verify the header for the first chunk of CDO */
+	/** - Verify the header for the first chunk of CDO */
 	if (CdoPtr->Cdo1stChunk == (u8)TRUE) {
 		Status = XPlmi_CdoVerifyHeader(CdoPtr);
 		if (Status != XST_SUCCESS) {
@@ -404,7 +416,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	}
 
 	/**
-	 * Check if BufLen is greater than CdoLen
+	 * - Check if BufLen is greater than CdoLen
 	 * This is required if more buffer is copied than CDO len.
 	 * Mainly for PLM CDO where BufLen is not present and is
 	 * given as Max PRAM len.
@@ -415,7 +427,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	}
 
 	/**
-	 * In case CmdEnd is detected in previous iteration,
+	 * - In case CmdEnd is detected in previous iteration,
 	 * it just returns
 	 */
 	if (CdoPtr->CmdEndDetected == (u8)TRUE) {
@@ -426,7 +438,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 	XPlmi_Printf(DEBUG_INFO,
 			"Processing CDO, Chunk Len 0x%08x\n\r", BufLen);
 	/**
-	 * Check if cmd data is copied
+	 * - Check if cmd data is copied
 	 * partially during the last iteration
 	 */
 	if (CdoPtr->CopiedCmdLen > 0U) {
@@ -435,17 +447,17 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		CdoPtr->CopiedCmdLen = 0x0U;
 	}
 
-	/** Handle the break command occured in previous chunk */
+	/** - Handle the break command occured in previous chunk */
 	if (CdoPtr->Cmd.BreakLength > 0U) {
 		RemainingLen = CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 		if (RemainingLen >= BufLen) {
-			/** If the end is not present in current chunk, skip this chunk */
+			/** - If the end is not present in current chunk, skip this chunk */
 			CdoPtr->ProcessedCdoLen += BufLen;
 			Status = XST_SUCCESS;
 			goto END;
 		}
 		else {
-			/** If the end is present in current chunk, jump to end command */
+			/** - If the end is present in current chunk, jump to end command */
 			CdoPtr->ProcessedCdoLen += RemainingLen;
 			BufLen -= RemainingLen;
 			BufPtr = &BufPtr[RemainingLen];
@@ -453,9 +465,9 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		}
 	}
 
-	/** Execute the commands in the Cdo Buffer */
+	/** - Execute the commands in the Cdo Buffer */
 	while (BufLen > 0U) {
-		/** Check if cmd has to be resumed */
+		/** - Check if cmd has to be resumed */
 		if (CdoPtr->CmdState == XPLMI_CMD_STATE_RESUME) {
 			Status =
 				XPlmi_CdoCmdResume(CdoPtr, BufPtr, BufLen, &Size);
@@ -466,7 +478,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 		CdoPtr->DeferredError |= CdoPtr->Cmd.DeferredError;
 		if (Status != XST_SUCCESS) {
 			/**
-			 * In case of any error, check if secure lockdown proc is running
+			 * - In case of any error, check if secure lockdown proc is running
 			 * and continue executing the proc further without exiting the loop.
 			 * Otherwise, exit the loop.
 			 */
@@ -476,26 +488,26 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 				goto END;
 			}
 		}
-		/** If command end is detected, exit the loop */
+		/** - If command end is detected, exit the loop */
 		if (CdoPtr->CmdEndDetected == (u8)TRUE) {
 			goto END;
 		}
 
-		/** Handle the break command processed in current chunk */
+		/** - Handle the break command processed in current chunk */
 		if (CdoPtr->Cmd.BreakLength > 0U) {
 			if (CdoPtr->Cmd.BreakLength < CdoPtr->ProcessedCdoLen) {
 				Status = XPLMI_INVALID_BREAK_LENGTH;
 				goto END;
 			}
 			if (BufLen > (Size + CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen)) {
-				/** If the end is present in current chunk, jump to it */
+				/** - If the end is present in current chunk, jump to it */
 				Size += CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 				CdoPtr->ProcessedCdoLen += CdoPtr->Cmd.BreakLength - CdoPtr->ProcessedCdoLen;
 				CdoPtr->Cmd.BreakLength = 0U;
 			}
 			else {
 				/**
-				 * If the end is not present in current chunk, skip processing
+				 * - If the end is not present in current chunk, skip processing
 				 * rest of the chunk
 				 */
 				CdoPtr->ProcessedCdoLen += BufLen - Size;
@@ -503,7 +515,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 			}
 		}
 
-		/** Update the parameters for next iteration */
+		/** - Update the parameters for next iteration */
 		BufPtr = &BufPtr[Size];
 		BufLen -= Size;
 	}

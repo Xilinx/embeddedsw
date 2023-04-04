@@ -26,6 +26,7 @@
 *       sk   01/13/2023 Updated Error Handler and Action table
 *                       CPM5N,XMPU,XPPU error/event handling
 *       rama 01/19/2023 Updated ErrorTable to support XilSem errors
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -935,7 +936,9 @@ void XPlmi_DumpErrNGicStatus(void)
 * @param	RegMask of Error
 * @param	ErrorAction of the the Error
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS if success.
+* 			- XPLMI_INVALID_ERROR_ACTION on invalid error action.
 *
 ****************************************************************************/
 int XPlmi_RestrictErrActions(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAction)

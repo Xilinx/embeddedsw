@@ -90,6 +90,7 @@
 *                       libraries
 *       bm   03/11/2023 Added Temporal redundancy to tamper response condition
 *       ng   03/16/2023 Added control to disable minimal timeout in maskpoll
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -187,11 +188,12 @@ static XPlmi_Module XPlmi_Generic;
 /*****************************************************************************/
 /**
  * @brief	This function checks if a particular PLM Command ID is supported
- * or not. Command ID is the only payload parameter.
+ * 			or not. Command ID is the only payload parameter.
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_Features(XPlmi_Cmd *Cmd)
@@ -218,7 +220,8 @@ static int XPlmi_Features(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_Nop(XPlmi_Cmd *Cmd)
@@ -245,7 +248,8 @@ static int XPlmi_Nop(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
@@ -291,7 +295,8 @@ static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
@@ -384,7 +389,8 @@ static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_MaskWrite(XPlmi_Cmd *Cmd)
@@ -415,7 +421,8 @@ static int XPlmi_MaskWrite(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_Write(XPlmi_Cmd *Cmd)
@@ -443,7 +450,8 @@ static int XPlmi_Write(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_Delay(XPlmi_Cmd *Cmd)
@@ -469,11 +477,13 @@ static int XPlmi_Delay(XPlmi_Cmd *Cmd)
  * @brief	This function provides functionality for DMA write.
  *
  * @param	Dest is the destination address
- *          Src is the source address
- *          Len is the number of words to be transferred
- *          Flags is the DMA transfer related flags
+ * @param	Src is the source address
+ * @param	Len is the number of words to be transferred
+ * @param	Flags is the DMA transfer related flags
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_UNALIGNED_DMA_XFER if unaligned DMA transfer fails.
  *
  *****************************************************************************/
 int XPlmi_DmaTransfer(u64 Dest, u64 Src, u32 Len, u32 Flags)
@@ -525,7 +535,8 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
@@ -578,7 +589,9 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_MASKPOLL64 if failed to poll a 64-bit register value.
  *
  *****************************************************************************/
 static int XPlmi_MaskPoll64(XPlmi_Cmd *Cmd)
@@ -636,7 +649,8 @@ static int XPlmi_MaskPoll64(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_MaskWrite64(XPlmi_Cmd *Cmd)
@@ -674,7 +688,8 @@ static int XPlmi_MaskWrite64(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_Write64(XPlmi_Cmd *Cmd)
@@ -707,7 +722,8 @@ static int XPlmi_Write64(XPlmi_Cmd *Cmd)
  * @param   	Destination Address
  * @param	Len is number of words to be read
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
 static int XPlmi_NpiRead(u64 SrcAddr, u64 DestAddr, u32 Len)
@@ -796,7 +812,8 @@ END:
  * @param	Flag is the parameter that indicates whether SrcAddr, DestAddr
  *		or Len should be made aligned with 16 bytes
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_DmaUnalignedXfer(u64* SrcAddr, u64* DestAddr, u32* Len,
@@ -857,7 +874,8 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_DmaXfer(XPlmi_Cmd *Cmd)
@@ -947,7 +965,8 @@ END:
  *
  * @param	Cmd is pointer to the command structure and unused
  *
- * @return	XPLMI_ERR_CMD_NOT_SUPPORTED
+ * @return
+ * 			- XPLMI_ERR_CMD_NOT_SUPPORTED always.
  *
  *****************************************************************************/
 static int XPlmi_InitSeq(XPlmi_Cmd *Cmd)
@@ -995,7 +1014,9 @@ static u32 XPlmi_GetReadbackLen(u32 Len)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_READBACK_BUFFER_OVERFLOW if readback buffer overflows.
  *
  *****************************************************************************/
 static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
@@ -1021,6 +1042,7 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	*/
 	XPlmi_GetReadbackSrcDest(SlrType, &SrcAddr, &DestAddrRead);
 	ReadLen = XPlmi_GetReadbackLen(Len);
+	/** Set MaxOutCommands of PMC_DMA1 to 1 */
 	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_MIN_VAL);
 
 	/**
@@ -1068,7 +1090,7 @@ static int XPlmi_CfiRead(XPlmi_Cmd *Cmd)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	/** Set MaxOutCommands of PMC_DMA1 to 1 */
+	/** Set MaxOutCommands of PMC_DMA1 to 8 */
 	XPlmi_SetMaxOutCmds(XPLMI_MAXOUT_CMD_DEF_VAL);
 
 	Status = XPlmi_DmaXfr((u64)CfiPayloadSrcAddr, DestAddrRead,
@@ -1146,7 +1168,8 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_Set(XPlmi_Cmd *Cmd)
@@ -1176,7 +1199,8 @@ static int XPlmi_Set(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_DmaWriteKeyHole(XPlmi_Cmd *Cmd)
@@ -1306,7 +1330,8 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_SetBoard(XPlmi_Cmd *Cmd)
@@ -1333,7 +1358,8 @@ static int XPlmi_SetBoard(XPlmi_Cmd *Cmd)
  *		- Low Addr
  *		- Max size in words
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_GetBoard(XPlmi_Cmd *Cmd)
@@ -1369,7 +1395,8 @@ END:
  *		- Node Id for PMC, PS MIO
  *		- Periodicity
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
@@ -1395,7 +1422,9 @@ static int XPlmi_SetWdtParam(XPlmi_Cmd *Cmd)
  *		Command payload parameters are
  *		- Debug String
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_LOG_STRING if the string provided exceeds max length.
  *
  *****************************************************************************/
 static int XPlmi_LogString(XPlmi_Cmd *Cmd)
@@ -1441,14 +1470,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function reads the value at an address and displays and adds
- * the value to PLM logs.
+ * 			the value to PLM logs.
  *
  * @param	Cmd is pointer to the command structure
  *		Command payload parameters are
  *		- Low Address
  *		- High Address (Optional)
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_LogAddress(XPlmi_Cmd *Cmd)
@@ -1484,7 +1514,8 @@ static int XPlmi_LogAddress(XPlmi_Cmd *Cmd)
  *              - Type
  *              - String
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_Marker(XPlmi_Cmd *Cmd)
@@ -1507,7 +1538,8 @@ static int XPlmi_Marker(XPlmi_Cmd *Cmd)
  *
  * @param	ProcIndex is the index of ProcId to be moved
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
@@ -1519,8 +1551,8 @@ int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
 	u8 Index = ProcIndex;
 	u32 DeletedProcLen;
 
-	/*
-	 * If only one proc is available and new proc command is received with
+	/**
+	 * - If only one proc is available and if a new proc command is received with
 	 * same ID, it can directly be overwritten.
 	 */
 	if ((ProcList->ProcCount == 1U) ||
@@ -1529,8 +1561,8 @@ int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
 		goto END;
 	}
 
-	/*
-	 * If proc command is received for existing ProcId,
+	/**
+	 * - If proc command is received for existing ProcId,
 	 * move all procs behind this to front
 	 */
 	DestAddr = ProcList->ProcData[Index].Addr;
@@ -1541,13 +1573,13 @@ int XPlmi_MoveProc(u8 ProcIndex, XPlmi_ProcList *ProcList)
 	DeletedProcLen = (u32)(ProcList->ProcData[Index + 1U].Addr -
 			ProcList->ProcData[Index].Addr);
 
-	/* Call XPlmi_DmaTransfer with flags DMA0 and INCR */
+	/** - Call XPlmi_DmaTransfer with flags DMA0 and INCR */
 	Status = XPlmi_DmaTransfer(DestAddr, SrcAddr, Len, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Update ProcList with moved data */
+	/** - Update ProcList with moved data */
 	while(Index <= ProcList->ProcCount) {
 		ProcList->ProcData[Index].Id = ProcList->ProcData[Index + 1U].Id;
 		ProcList->ProcData[Index].Addr =
@@ -1570,6 +1602,10 @@ END:
  *****************************************************************************/
 XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType)
 {
+	/**
+	 * - Create static ProcList structure and initialize with zero during
+	 * initial call.
+	 */
 	static XPlmi_ProcList PsmProcList = {0U};
 	static XPlmi_ProcData PsmProcs[XPLMI_MAX_PSM_PROCS + 1U] = {0U};
 	static XPlmi_ProcList PmcProcList = {0U};
@@ -1582,8 +1618,8 @@ XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType)
 	if (ProcListType == XPLMI_PMC_PROC_LIST) {
 		ProcList = &PmcProcList;
 
-		/*
-		 * Initialize first ProcData address of the PmcProcList to the PMC RAM
+		/**
+		 * - Initialize first ProcData address of the PmcProcList to the PMC RAM
 		 * reserved address and ProcMemSize with the Max Size allocated
 		 */
 		PmcProcList.ProcData[0U].Addr = XPLMI_PMCRAM_PROC_MEMORY;
@@ -1601,7 +1637,10 @@ XPlmi_ProcList* XPlmi_GetProcList(u8 ProcListType)
  * @param	Address is the address of Proc reserved memory for PSM ProcList
  * @param	Size is the size of Proc reserved memory for PSM ProcList in bytes
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
+ * 			- XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE if provided proc address is
+ * 			invalid.
  *
  *****************************************************************************/
 int XPlmi_SetProcList(u32 Address, u16 Size)
@@ -1609,6 +1648,10 @@ int XPlmi_SetProcList(u32 Address, u16 Size)
 	int Status = XST_FAILURE;
 	XPlmi_ProcList *ProcList = XPlmi_GetProcList(XPLMI_PSM_PROC_LIST);
 
+	/**
+	 * - Validate the allocated memory address range.
+	 *   Otherwise return an error.
+	 */
 	Status = XPlmi_VerifyAddrRange((u64)Address,
 			(u64)(Address + (u32)Size - 1U));
 	if (Status != XST_SUCCESS) {
@@ -1616,8 +1659,8 @@ int XPlmi_SetProcList(u32 Address, u16 Size)
 		goto END;
 	}
 
-	/*
-	 * Initialize first ProcData address of PSM ProcList to the given Address
+	/**
+	 * - Initialize first ProcData address of PSM ProcList to the given Address
 	 * and ProcMemSize with the given Size
 	 */
 	ProcList->ProcData[0U].Addr = Address;
@@ -1635,7 +1678,10 @@ END:
  *
  * @param	ProcId is ProcId to be executed
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_PROC_LPD_NOT_INITIALIZED if LPD failed to initialize.
+ * 			- XPLMI_PROCID_NOT_VALID on invalid Proc ID.
  *
  *****************************************************************************/
 int XPlmi_ExecuteProc(u32 ProcId)
@@ -1647,9 +1693,7 @@ int XPlmi_ExecuteProc(u32 ProcId)
 	u8 ProcListType = XPLMI_PSM_PROC_LIST;
 	XPlmi_Printf(DEBUG_GENERAL, "Proc ID received: 0x%x\r\n", ProcId);
 
-	/*
-	 * If the ProcId has MSB set, its in PMC RAM memory
-	 */
+	/** - If the ProcId has MSB set, then its in PMC RAM memory. */
 	if ((ProcId & XPLMI_PMC_RAM_PROC_ID_MASK) == XPLMI_PMC_RAM_PROC_ID_MASK) {
 		ProcListType = XPLMI_PMC_PROC_LIST;
 	}
@@ -1657,9 +1701,9 @@ int XPlmi_ExecuteProc(u32 ProcId)
 	ProcList = XPlmi_GetProcList(ProcListType);
 
 	if (ProcListType == XPLMI_PSM_PROC_LIST) {
-		/*
-		 * If LPD is not initialized or Proc memory is not available,
-		 * do not execute the proc
+		/**
+		 * - If LPD is not initialized or Proc memory is not available,
+		 * do not execute the proc and return an error.
 		 */
 		if ((XPlmi_IsLpdInitialized() != (u8)TRUE) ||
 				(ProcList->IsProcMemAvailable != (u8)TRUE)) {
@@ -1674,21 +1718,21 @@ int XPlmi_ExecuteProc(u32 ProcId)
 	while (ProcList->ProcData[ProcIndex].Id != ProcId) {
 		ProcIndex++;
 	}
-	/* Execute proc if the received ProcId is valid */
+	/** - Execute proc if the received ProcId is valid. */
 	if (ProcIndex < ProcList->ProcCount) {
-		/* Pass the Proc CDO to CDO parser */
+		/** - Pass the Proc CDO to CDO parser. */
 		Status = XPlmi_MemSetBytes((void *const)&ProcCdo,
 			sizeof(ProcCdo), 0U, sizeof(ProcCdo));
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		/* Fill ProcCdo structure with Proc related parameters */
+		/** - Fill ProcCdo structure with Proc related parameters. */
 		ProcCdo.BufPtr = (u32 *)(UINTPTR)ProcList->ProcData[ProcIndex].Addr;
 		ProcCdo.BufLen = (u32)((ProcList->ProcData[ProcIndex + 1U].Addr -
 			ProcList->ProcData[ProcIndex].Addr) / XPLMI_WORD_LEN);
 		ProcCdo.CdoLen = ProcCdo.BufLen;
 		ProcCdo.SubsystemId = XPLMI_PMC_SUBSYS_NODE_ID;
-		/* Execute Proc */
+		/** - Execute Proc. */
 		Status = XPlmi_ProcessCdo(&ProcCdo);
 	} else {
 		/* Return an error if the received ProcId is not valid */
@@ -1710,7 +1754,13 @@ END:
  *              - ProcId
  *              - Data
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_PROC_LPD_NOT_INITIALIZED if LPD failed to initialize.
+ * 			- XPLMI_UNSUPPORTED_PROC_LENGTH if received proc does not fit in
+ * 			proc memory.
+ * 			- XPLMI_MAX_PROC_COMMANDS_RECEIVED on maximum supported proc commands
+ * 			received.
  *
  *****************************************************************************/
 static int XPlmi_Proc(XPlmi_Cmd *Cmd)
@@ -1838,7 +1888,8 @@ END:
  *              Command payload parameters are
  *              - Delay in milliseconds
  *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ * @return
+ * 			- XST_SUCCESS on success and XST_FAILURE on failure
  *
  *****************************************************************************/
 static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
@@ -1871,7 +1922,8 @@ static int XPlmi_OTCheck(XPlmi_Cmd *Cmd)
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_Begin(XPlmi_Cmd *Cmd)
@@ -1935,7 +1987,8 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_End(XPlmi_Cmd *Cmd)
@@ -1971,7 +2024,8 @@ END:
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_Break(XPlmi_Cmd *Cmd)
@@ -2004,7 +2058,10 @@ static int XPlmi_Break(XPlmi_Cmd *Cmd)
  *              Command payload parameters are
  *              - Tamper Response
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_INVALID_TAMPER_RESPONSE on invalid tamper response received
+ * 			for TamperTrigger IPI call.
  *
  *****************************************************************************/
 static int XPlmi_TamperTrigger(XPlmi_Cmd *Cmd)
@@ -2043,7 +2100,8 @@ END:
  *
  * @param	None
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_GenericInit(void)
@@ -2129,7 +2187,8 @@ static XPlmi_ReadBackProps* XPlmi_GetReadBackPropsInstance(void)
  * @param	ReadBackVal is the pointer to which the readback properties
  *		instance is copied
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
@@ -2151,7 +2210,8 @@ int XPlmi_GetReadBackPropsValue(XPlmi_ReadBackProps *ReadBackVal)
  * @param	ReadBack is the pointer to the Readback Instance that has to be
  * 		set.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack)
@@ -2176,7 +2236,8 @@ int XPlmi_SetReadBackProps(const XPlmi_ReadBackProps *ReadBack)
  * @param	Len is number of words already transferred
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_CfiWrite(u64 SrcAddr, u64 DestAddr, u32 Keyholesize, u32 Len,
@@ -2270,7 +2331,8 @@ END:
  *
  * @param	KeyHoleXfrParams is a pointer to instance of CfiParams structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_KeyHoleXfr(XPlmi_KeyHoleXfrParams* KeyHoleXfrParams)
@@ -2345,7 +2407,8 @@ END:
  *
  * @param	Data is pointer to the data to be stored on stack
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_StackPush(u32 *Data)
@@ -2378,7 +2441,8 @@ END:
  * @param	PopLevel is the number of elements to remove from stack.
  * @param	Data is pointer to store removed data from stack.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XPlmi_StackPop(u32 PopLevel, u32 *Data)
@@ -2413,12 +2477,13 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function gets the jump offset for break command and break
- * supported commands.
+ * 			supported commands.
  *
  * @param	Cmd is pointer to the command structure
  * @param	Level is the break level
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_GetJumpOffSet(XPlmi_Cmd *Cmd, u32 Level)
@@ -2459,7 +2524,8 @@ END:
 /**
  * @brief	This function clears the end stack
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_ClearEndStack(void)

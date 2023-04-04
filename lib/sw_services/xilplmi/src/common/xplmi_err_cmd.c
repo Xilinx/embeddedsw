@@ -36,7 +36,8 @@
 *       ma   08/19/2021 Renamed error related macros
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/13/2022 Update EAM logic for In-Place PLM Update
-* 1.08  skg  10/17/2022 Added Null to invalid cmd handler of xplmi_ErrModule
+* 1.07  skg  10/17/2022 Added Null to invalid cmd handler of xplmi_ErrModule
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -79,11 +80,12 @@ static XPlmi_Module XPlmi_ErrModule;
 /*****************************************************************************/
 /**
  * @brief	This function is reserved to get the supported features for this
- * module.
+ * 			module.
  *
  * @param	Cmd is pointer to the command structure
  *
- * @return	Returns XST_SUCCESS always for now
+ * @return
+ * 			- XST_SUCCESS always.
  *
  *****************************************************************************/
 static int XPlmi_CmdEmFeatures(XPlmi_Cmd * Cmd)
@@ -119,7 +121,12 @@ static int XPlmi_CmdEmFeatures(XPlmi_Cmd * Cmd)
  *			* Error ID Mask
  * @param	Cmd is pointer to the command structure
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_INVALID_NODE_ID on invalid node ID.
+ * 			- XPLMI_INVALID_ERROR_ACTION on invalid error action.
+ * 			- XPLMI_CANNOT_CHANGE_ACTION if failed to change error action.
+ * 			- XPLMI_LPD_UNINITIALIZED if LPD failed to initialize.
  *
  *****************************************************************************/
 static int XPlmi_CmdEmSetAction(XPlmi_Cmd * Cmd)

@@ -40,6 +40,7 @@
 * 1.07  skd  04/21/2022 Misra-C violation Rule 8.3 fixed
 * 1.08  bm   07/06/2022 Refactor versal and versal_net code
 * 1.09  sk   11/09/2022 Added Timeout settings info for JTAG_SBI Bootmode
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -92,7 +93,12 @@
 /**
  * @brief	This function initializes the PS UART
  *
- * @return	Returns XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_UART_MEMSET on UART instance failure.
+ * 			- XPLMI_ERR_UART_LOOKUP if UART driver lookup fails.
+ * 			- XPLMI_ERR_UART_CFG if UART driver configuration fails.
+ * 			- XPLMI_ERR_UART_PSV_SET_BAUD_RATE if failed to set the baud rate.
  *
  *****************************************************************************/
 int XPlmi_InitUart(void)
@@ -100,8 +106,9 @@ int XPlmi_InitUart(void)
 	int Status = XST_FAILURE;
 	u32 *UartBaseAddr = XPlmi_GetUartBaseAddr();
 
-	/* Initialize UART */
-	/* If UART is already initialized, just return success */
+	/**
+	 * - Initialize UART, If UART is already initialized, just return success.
+	 */
 	if (XPlmi_IsUartInitialized() == (u8)TRUE) {
 		Status = XST_SUCCESS;
 		goto END;
@@ -121,12 +128,14 @@ int XPlmi_InitUart(void)
 			goto END;
 		}
 
+		/** - Read the UART config. */
 		Config = XUartPsv_LookupConfig(Index);
 		if (NULL == Config) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_LOOKUP, (int)Index);
 			goto END;
 		}
 
+		/* - Set the input clock frequency to 25MHz for SPP platforms. */
 		if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) {
 			Config->InputClockHz = XPLMI_SPP_INPUT_CLK_FREQ;
 		}
@@ -137,6 +146,8 @@ int XPlmi_InitUart(void)
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_CFG, Status);
 			goto END;
 		}
+
+		/** - Set the baud rate. */
 		Status = XUartPsv_SetBaudRate(&UartPsvIns, Config->BaudRate);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XPLMI_ERR_UART_PSV_SET_BAUD_RATE,
@@ -144,6 +155,7 @@ int XPlmi_InitUart(void)
 			goto END;
 		}
 	}
+	/** - Set UART_INITIALIZED flag. */
 	XPlmi_SetLpdInitialized(UART_INITIALIZED);
 #endif
 
@@ -152,6 +164,10 @@ int XPlmi_InitUart(void)
 #endif
 
 #if !defined(PLM_PRINT_NO_UART) && defined(STDOUT_BASEADDRESS)
+	/**
+	 * - If Uart is enabled and the prints are enabled, set
+	 * UART_PRINT_ENABLED flag.
+	 */
 	XPlmi_SetLpdInitialized(UART_PRINT_ENABLED);
 #endif
 #ifdef STDOUT_BASEADDRESS
@@ -171,13 +187,22 @@ END:
  * @param 	UartSelect is the uart number to be selected
  * @param 	UartEnable is the flag used to enable or disable uart
  *
- * @return	Returns XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_NO_UART_PRESENT if UART is not available to configure.
+ * 			- XPLMI_ERR_CURRENT_UART_INVALID if selected UART base address is
+ * 			invalid.
+ * 			- XPLMI_ERR_INVALID_UART_SELECT if invalid UART SELECT argument is
+ * 			passed.
+ * 			- XPLMI_ERR_INVALID_UART_ENABLE if invalid UART ENABLE argument is
+ * 			passed.
  *
  *****************************************************************************/
 int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable)
 {
 	int Status = XPLMI_ERR_NO_UART_PRESENT;
 #if (XPLMI_UART_NUM_INSTANCES > 0U)
+	/** - Set the UART base address based on the selected UART. */
 	u32 *UartBaseAddr = XPlmi_GetUartBaseAddr();
 
 	if (UartSelect == XPLMI_UART_SELECT_0) {
@@ -199,6 +224,7 @@ int XPlmi_ConfigUart(u8 UartSelect, u8 UartEnable)
 		goto END;
 	}
 
+	/** - Enable or Disable the UART based on the input. */
 	if (UartEnable == XPLMI_UART_ENABLE) {
 		XPlmi_SetLpdInitialized(UART_PRINT_ENABLED);
 	}
@@ -223,19 +249,21 @@ END:
  *
  * @param	c is the character to be printed and logged
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void outbyte(char c)
 {
 	u64 CurrentAddr;
+	/** - If UART is enabled, send the byte to UART. */
 #if (XPLMI_UART_NUM_INSTANCES > 0U)
 	u32 *UartBaseAddr = XPlmi_GetUartBaseAddr();
 	if (XPlmi_IsUartPrintInitialized() == (u8)TRUE) {
 		XUartPsv_SendByte(*UartBaseAddr, (u8)c);
 	}
 #endif
-
+	/** - Store the byte onto log buffer. */
 	if (DebugLog->PrintToBuf == (u8)TRUE) {
 		CurrentAddr = DebugLog->LogBuffer.StartAddr +
 			DebugLog->LogBuffer.Offset;

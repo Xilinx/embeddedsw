@@ -27,6 +27,7 @@
 *       ng   11/11/2022 Fixed doxygen file name error
 *       kpt  01/04/2023 Added XPlmi_CheckandUpdateFipsState to update FIPS state
 *       bm   03/11/2023 Modify XPlmi_PreInit to return Status
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -630,7 +631,9 @@ static void XPlmi_SetIoIntrMask(u32 Value)
 /**
 * @brief	This functions provides the PIT1 and PIT2 reset values
 *
-* @return	XST_SUCCESS
+* @return
+* 			- XST_SUCCESS if success.
+* 			- XPLMI_ERR_IOMOD_INIT if IOModule driver look up fails.
 *
 *****************************************************************************/
 int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue)
@@ -777,14 +780,14 @@ u32 XPlmi_GetIpiIntrId(u32 BufferIndex)
 /*****************************************************************************/
 /**
  * @brief	This function raises an interrupt request to ROM and waits for
- * completion. Before calling this API all pre-requsites for ROM service shall
- * be completed.
+ * 			completion. Before calling this API all pre-requsites for ROM service shall
+ * 			be completed.
  *
  * @param	RomServiceReq variable of enum type XPlmi_RomIntr
  *
  * @return
- *	-	XST_SUCCESS - If the ROM interrupt service completes
- *	-	XST_FAILURE - Upon any failure
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_INVALID_ROM_INT_REQ on invalid interrupt request for ROM.
  *
  ******************************************************************************/
 int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq)
@@ -930,8 +933,9 @@ XPlmi_FipsKatMask* XPlmi_GetFipsKatMaskInstance(void)
  * @brief	This function monitors the KAT status and updates the FIPS state in
  *          RTCA.
  *
- * @return	XST_SUCCESS on Success
- *          XST_FAILURE on Failure
+ * @return
+ * 			- XST_SUCCESS on success
+ * 			- XST_FAILURE on failure
  *
  *****************************************************************************/
 static int XPlmi_UpdateFipsState(void)
@@ -966,8 +970,9 @@ static int XPlmi_UpdateFipsState(void)
 /**
  * @brief	This function checks and updates the FIPS state in RTCA
  *
- * @return	XST_SUCCESS on Success
- *          XST_FAILURE on Failure
+ * @return
+ * 			- XST_SUCCESS on success
+ * 			- XST_FAILURE on failure
  *
  *****************************************************************************/
 int XPlmi_CheckAndUpdateFipsState(void)

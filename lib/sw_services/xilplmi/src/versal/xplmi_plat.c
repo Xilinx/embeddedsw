@@ -28,6 +28,7 @@
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *       bm   03/11/2023 Refactored XPlmi_VerifyAddrRange logic
 *       bm   03/11/2023 Added check for blind write in UpdateResetReason
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -86,11 +87,11 @@
 
 /*****************************************************************************/
 /**
- * @brief        This function converts voltage to raw voltage value
+ * @brief	This function converts voltage to raw voltage value
  *
- * @param        Voltage is the floating point voltage value
+ * @param	Voltage is the floating point voltage value
  *
- * @return       32-bit voltage value
+ * @return	32-bit voltage value
  *
  ******************************************************************************/
 static inline u32 XPlmi_GetRawVoltage(float Voltage)
@@ -184,9 +185,10 @@ u32 *XPlmi_GetLpdInitialized(void)
 /*****************************************************************************/
 /**
  * @brief	This function performs initialization of platform specific RCTA
- *		registers
+ *			registers
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_RtcaPlatInit(void)
@@ -203,7 +205,8 @@ void XPlmi_RtcaPlatInit(void)
 /**
  * @brief	This function prints ROM version using ROM digest value.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_PrintRomVersion(void)
@@ -234,7 +237,8 @@ void XPlmi_PrintRomVersion(void)
 /**
  * @brief	This function performs plmi pre-initializaton.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 int XPlmi_PreInit(void)
@@ -246,7 +250,8 @@ int XPlmi_PreInit(void)
 /**
  * @brief	This function updates reset reason.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static int XPlmi_UpdateResetReason(void)
@@ -281,7 +286,9 @@ END:
  * @param	DmaPtr is pointer to DMA structure
  * @param	Channel is DMA source or destination channel
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_FROM_SSIT_SLAVE if error received from slave SLR.
  *
  *****************************************************************************/
 static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel)
@@ -305,7 +312,8 @@ static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel)
  * @param	DmaPtr is pointer to DMA structure
  * @param	Channel is DMA source or destination channel
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 XPlmi_WaitForDmaDone_t XPlmi_GetPlmiWaitForDone(u64 DestAddr)
@@ -349,13 +357,14 @@ XPlmi_CircularBuffer *XPlmi_GetTraceLogInst(void)
 /*****************************************************************************/
 /**
  * @brief	This function processes and provides SrcAddr and DestAddr for
- * 		cfi readback
+ *			cfi readback
  *
  * @param	SlrType is the type of Slr passed in readback cmd
  * @param	SrcAddr is the pointer to the SrcAddr variable
  * @param	DestAddrRead is the pointer to the DestAddrRead variable
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead)
@@ -383,7 +392,8 @@ void XPlmi_GetReadbackSrcDest(u32 SlrType, u64 *SrcAddr, u64 *DestAddrRead)
  *
  * @param	PlmIntrId is the GIC interrupt ID of the task
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_GicAddTask(u32 PlmIntrId)
@@ -422,7 +432,8 @@ void XPlmi_GicAddTask(u32 PlmIntrId)
 /**
  * @brief	This function registers and enables IPI interrupt
  *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ * @return
+ * 			- XST_SUCCESS on success and XST_FAILURE on failure
  *
  *****************************************************************************/
 int XPlmi_RegisterNEnableIpi(void)
@@ -440,7 +451,8 @@ int XPlmi_RegisterNEnableIpi(void)
 /**
  * @brief	This function registers and enables IPI interrupt
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_EnableIomoduleIntr(void)
@@ -456,7 +468,8 @@ void XPlmi_EnableIomoduleIntr(void)
 /**
 * @brief	It sets the PMC IRO frequency.
 *
-* @return	XST_SUCCESS on success and error code failure
+* @return
+* 			- XST_SUCCESS on success and error code failure
 *
 *****************************************************************************/
 int XPlmi_SetPmcIroFreq(void)
@@ -497,7 +510,8 @@ int XPlmi_SetPmcIroFreq(void)
 /**
 * @brief	This functions provides the PIT1 and PIT2 reset values
 *
-* @return	XST_SUCCESS
+* @return
+* 			- XST_SUCCESS always.
 *
 *****************************************************************************/
 int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue)
@@ -511,13 +525,14 @@ int XPlmi_GetPitResetValues(u32 *Pit1ResetValue, u32 *Pit2ResetValue)
 /****************************************************************************/
 /**
 * @brief	This function is used to check if the given address range is
-* valid. This function can be called before loading any elf or assigning any
-* buffer in that address range
+* 			valid. This function can be called before loading any elf or
+* 			assigning any buffer in that address range
 *
 * @param	StartAddr is the starting address
 * @param	EndAddr is the ending address
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 *****************************************************************************/
 int XPlmi_VerifyAddrRange(u64 StartAddr, u64 EndAddr)
@@ -615,7 +630,8 @@ u32 XPlmi_GetIpiIntrId(u32 BufferIndex)
 /**
  * @brief	This function enables IPI interrupt
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_EnableIpiIntr(void)
@@ -627,7 +643,8 @@ void XPlmi_EnableIpiIntr(void)
 /**
  * @brief	This function clears IPI interrupt
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_ClearIpiIntr(void)
@@ -639,7 +656,8 @@ void XPlmi_ClearIpiIntr(void)
 /**
  * @brief	This function Disables CFRAME Isolation
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_DisableCFrameIso(void)
@@ -659,7 +677,8 @@ void XPlmi_DisableCFrameIso(void)
  *
  * @param	PlmKatStatus is the pointer to the variable which holds kat status
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_GetBootKatStatus(volatile u32 *PlmKatStatus)

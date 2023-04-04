@@ -48,6 +48,7 @@
 * 1.09  ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Remove usage of double data type
 *       bm   03/11/2023 Set PmcIroFreq as 320MHz by default
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -119,7 +120,8 @@ XIOModule *XPlmi_GetIOModuleInst(void)
 * @param	Timer is PIT timer number to be initialized
 * @param	ResetValue is the reset value of timer when started.
 *
-* @return	None
+* @return
+* 			- None
 *
 *****************************************************************************/
 static void XPlmi_InitPitTimer(u8 Timer, u32 ResetValue)
@@ -182,14 +184,15 @@ u64 XPlmi_GetTimerValue(void)
 /*****************************************************************************/
 /**
  * @brief	This function prints the total time taken between two points for
- * performance measurement.
+ * 			performance measurement.
  *
  * @param	TCur is the current time
  * @param	TStart is the start time
  * @param	IroFreq is the frequency at which PMC IRO is running
  * @param	PerfTime is the pointer to variable holding the performance time
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
@@ -213,7 +216,8 @@ static void XPlmi_GetPerfTime(u64 TCur, u64 TStart, u32 IroFreq,
  * @param	TCur is current time
  * @param	PerfTime is the variable to hold the time elapsed
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime)
@@ -226,7 +230,8 @@ void XPlmi_MeasurePerfTime(u64 TCur, XPlmi_PerfTime *PerfTime)
 /**
  * @brief	This function prints the ROM time.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_PrintRomTime(void)
@@ -250,7 +255,8 @@ void XPlmi_PrintRomTime(void)
 /**
  * @brief	This function prints the PLM time stamp.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_PrintPlmTimeStamp(void)
@@ -267,7 +273,11 @@ void XPlmi_PrintPlmTimeStamp(void)
 /**
 * @brief	It initializes the IO module structures and PIT timers.
 *
-* @return	XST_SUCCESS on success and error code failure
+* @return
+* 			- XST_SUCCESS on success.
+* 			- XPLMI_ERR_IOMOD_INIT if IOModdule drive lookup fails.
+* 			- XPLMI_ERR_IOMOD_START if IOModdule drive startup fails.
+* 			- XPLMI_ERR_SET_PMC_IRO_FREQ if failed to set PMC IRO frequency.
 *
 *****************************************************************************/
 int XPlmi_StartTimer(void)
@@ -278,7 +288,7 @@ int XPlmi_StartTimer(void)
 	u32 Pit3ResetValue;
 
 	/**
-	 * Get Pit1 and Pit2 reset values
+	 * - Get Pit1 and Pit2 reset values
 	 */
 	Status = XPlmi_GetPitResetValues(&Pit1ResetValue, &Pit2ResetValue);
 	if (Status != XST_SUCCESS) {
@@ -286,7 +296,7 @@ int XPlmi_StartTimer(void)
 	}
 
 	/**
-	 * Initialize the IO Module so that it's ready to use,
+	 * - Initialize the IO Module so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h
 	 */
 	Status = XIOModule_Initialize(&IOModule, IOMODULE_DEVICE_ID);
@@ -320,9 +330,9 @@ int XPlmi_StartTimer(void)
 	XPlmi_SchedulerInit();
 
 	/**
-	 * Initialize and start the timer
-	 * - Use PIT1 and PIT2 in prescaler mode
-	 * - Set the Prescaler mode
+	 * - Initialize and start the timer
+	 *   - Use PIT1 and PIT2 in prescaler mode
+	 *   - Set the Prescaler mode
 	 */
 	XPlmi_Out32(IOModule.BaseAddress + (u32)XGO_OUT_OFFSET,
 		MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);
@@ -338,9 +348,12 @@ END:
 /**
 *
 * @brief	This function connects the interrupt handler of the IO Module to the
-* processor.
+* 			processor.
 *
-* @return	XST_SUCCESS if handlers are registered properly
+* @return
+* 			- XST_SUCCESS if handlers are registered properly.
+* 			- XPLMI_ERR_IOMOD_CONNECT if IOModule driver fails to establish
+* 			connection.
 *
 ****************************************************************************/
 int XPlmi_SetUpInterruptSystem(void)
@@ -353,7 +366,7 @@ int XPlmi_SetUpInterruptSystem(void)
 
 	microblaze_disable_interrupts();
 	/**
-	 * Connect a device driver handler that will be called when an interrupt
+	 * - Connect a device driver handler that will be called when an interrupt
 	 * for the device occurs, the device driver handler performs the specific
 	 * interrupt processing for the device
 	 */
@@ -387,20 +400,20 @@ int XPlmi_SetUpInterruptSystem(void)
 	}
 
 	/**
-	 * Register the IO module interrupt handler with the exception table.
+	 * - Register the IO module interrupt handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 		(Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,
 		(void*) IOMODULE_DEVICE_ID);
 
 	/**
-	 * Enable interrupts
+	 * - Enable interrupts
 	 */
 	XPlmi_EnableIomoduleIntr();
 	microblaze_enable_interrupts();
 
 	/**
-	 * Clear Break In Progress to get interrupts
+	 * - Clear Break In Progress to get interrupts
 	 */
 	mtmsr(mfmsr() & (~XPLMI_MB_MSR_BIP_MASK));
 END:
@@ -413,7 +426,8 @@ END:
 *
 * @param    CallbackRef is presently the interrupt number that is received.
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_IntrHandler(void *CallbackRef)
@@ -431,7 +445,8 @@ void XPlmi_IntrHandler(void *CallbackRef)
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_PlmIntrEnable(u32 IntrId)
@@ -452,7 +467,8 @@ void XPlmi_PlmIntrEnable(u32 IntrId)
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
 *
-* @return   XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
 int XPlmi_PlmIntrDisable(u32 IntrId)
@@ -475,7 +491,8 @@ int XPlmi_PlmIntrDisable(u32 IntrId)
 *
 * @param    IntrId Interrupt ID as specified in the xplmi_proc.h
 *
-* @return   XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success and error code on failure
 *
 ****************************************************************************/
 int XPlmi_PlmIntrClear(u32 IntrId)
@@ -501,7 +518,9 @@ int XPlmi_PlmIntrClear(u32 IntrId)
 * @param    Handler to be registered for the interrupt
 * @param    Data to be passed to handler
 *
-* @return   XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS on success.
+* 			- XPLMI_ERR_REGISTER_IOMOD_HANDLER if failed to register the handler.
 *
 ****************************************************************************/
 int XPlmi_RegisterHandler(u32 IntrId, GicIntHandler_t Handler, void *Data)

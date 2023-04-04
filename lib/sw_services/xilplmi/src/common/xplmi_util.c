@@ -44,6 +44,7 @@
 * 1.07  ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       ng   03/12/2023 Fixed Coverity warnings
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -88,22 +89,29 @@
  * @param	Mask denotes the bits to be modified
  * @param	Value is the value to be written to the register
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
 {
 	u32 Val;
 
+	/** - Read the value from the register. */
 	Val = XPlmi_In32(RegAddr);
+	/**
+	 * - Reset designated bits in a register value to zero, and replace them
+	 *   with the specified value.
+	 */
 	Val = (Val & (~Mask)) | (Mask & Value);
+	/** - Update the value to the register. */
 	XPlmi_Out32(RegAddr, Val);
 }
 
 /*****************************************************************************/
 /**
  * @brief	This function polls a register till the masked bits are set to
- * expected value or till timeout occurs.
+ * 			expected value or till timeout occurs.
  *
  * @param	RegAddr is the address of the register
  * @param	Mask denotes the bits to be modified
@@ -111,9 +119,10 @@ void XPlmi_UtilRMW(u32 RegAddr, u32 Mask, u32 Value)
  * @param	TimeOutInUs is the max time in microseconds for which the register
  *			would be polled for the expected value
  * @param	ClearHandler is the handler to clear the latched values if required
- *		before reading them
+ *			before reading them
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
@@ -125,32 +134,26 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
 	u32 TimeOut = TimeOutInUs;
 
 	/**
-	 * If timeout value is zero, max time out value is taken
+	 * - If timeout value is zero, then set it to default maximum timeout
+	 *   value of 268 seconds.
 	 */
 	if (TimeOut == 0U) {
 		TimeOut = XPLMI_TIME_OUT_DEFAULT;
 	}
-	/**
-	 * Read the Register value
-	 */
+	/** - Read the Register value. */
 	RegValue = XPlmi_In32(RegAddr);
-	/**
-	 * Loop while the Mask is not set or we timeout
-	 */
+	/** - Loop until the expedted value is read or a timeout occurs. */
 	while (((RegValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
+		/** - wait for 1 microsecond. */
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
-		/** Clear the Latched Status if any */
+		/**  - Clear the Latched Status if any. */
 		if (ClearHandler != NULL) {
 			ClearHandler();
 		}
-		/**
-		 * - Latch up the Register value again
-		 */
+		/** - Read the register value again. */
 		RegValue = XPlmi_In32(RegAddr);
-		/**
-		 * - Decrement the TimeOut Count
-		 */
+		/** - Decrement the TimeOut Count. */
 		TimeLapsed++;
 		if ((TimeLapsed % XPLMI_MASK_PRINT_PERIOD) == 0U) {
 			XPlmi_Printf(DEBUG_GENERAL, "Polling 0x%0x Mask: 0x%0x "
@@ -167,14 +170,15 @@ int XPlmi_UtilPoll(u32 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs,
 /*****************************************************************************/
 /**
  * @brief	This function polls a 64 bit address till the masked bits are set to
- * expected value or till timeout occurs.
+ * 			expected value or till timeout occurs.
  *
  * @param	RegAddr 64 bit address
  * @param	Mask is the bit field to be polled
  * @param	ExpectedValue is value to be polled
  * @param   TimeOutInUs is delay time in micro sec
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
 int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
@@ -185,28 +189,22 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 	u32 TimeOut = TimeOutInUs;
 
 	/**
-	 * If timeout value is zero, max time out value is taken
+	 * - If timeout value is zero, then set it to default maximum timeout
+	 *   value of 268 seconds.
 	 */
 	if (TimeOut == 0U) {
 		TimeOut = XPLMI_TIME_OUT_DEFAULT;
 	}
-	/**
-	 * Read the Register value
-	 */
+	/** - Read the Register value. */
 	ReadValue = XPlmi_In64(RegAddr);
-	/**
-	 * Loop while the Mask is not set or we timeout
-	 */
+	/** - Loop until the expedted value is read or a timeout occurs. */
 	while (((ReadValue & Mask) != ExpectedValue) && (TimeLapsed < TimeOut)) {
+		/** - wait for 1 microsecond. */
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
-		/**
-		 * - Latch up the value again
-		 */
+		/** - Read the register value again. */
 		ReadValue = XPlmi_In64(RegAddr);
-		/**
-		 * - Decrement the TimeOut Count
-		 */
+		/** - Decrement the TimeOut Count. */
 		TimeLapsed++;
 		if ((TimeLapsed % XPLMI_MASK_PRINT_PERIOD) == 0U) {
 		XPlmi_Printf(DEBUG_GENERAL, "Polling 0x%0x%08x Mask: 0x%0x "
@@ -224,13 +222,14 @@ int XPlmi_UtilPoll64(u64 RegAddr, u32 Mask, u32 ExpectedValue, u32 TimeOutInUs)
 /*****************************************************************************/
 /**
  * @brief	This function polls a 64 bit register till the masked bits are set to
- * expected value or till timeout occurs.
+ * 			expected value or till timeout occurs.
  *
  * @param	RegAddr is the register address
  * @param	Mask is the bit field to be updated
  * @param	TimeOutInUs is delay time in micro sec
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
 int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
@@ -239,24 +238,16 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
 	u32 RegValue;
 	u32 TimeOut = TimeOutInUs;
 
-	/**
-	 * Read the Register value
-	 */
+	/** - Read the Register value. */
 	RegValue = XPlmi_In32(RegAddr);
 
-	/**
-	 * Loop while the MAsk is not set or we timeout
-	 */
+	/** - Loop until the expedted value is read or a timeout occurs. */
 	while (((RegValue & Mask) != Mask) && (TimeOut > 0U)) {
-		/**
-		 * - Latch up the Register value again
-		 */
+		/** - Read the register value again. */
 		RegValue = XPlmi_In32(RegAddr);
 		XPlmi_SetPlmLiveStatus();
 
-		/**
-		 * - Decrement the TimeOut Count
-		 */
+		/** - Decrement the TimeOut Count. */
 		TimeOut--;
 	}
 
@@ -270,14 +261,15 @@ int XPlmi_UtilPollForMask(u32 RegAddr, u32 Mask, u32 TimeOutInUs)
 /*****************************************************************************/
 /**
  * @brief	This function polls a 64 bit register till the masked bits are set to
- * expected value or till timeout occurs.
+ * 			expected value or till timeout occurs.
  *
  * @param	HighAddr is higher 32-bits of 64-bit address
  * @param	LowAddr is lower 32-bits of 64-bit address
  * @param	Mask is the bit field to be updated
  * @param	TimeOutInUs is delay time in micro sec
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
 int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 TimeOutInUs)
@@ -287,23 +279,16 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 TimeOutInUs
 	u32 ReadValue;
 	u32 TimeOut = TimeOutInUs;
 
-	/**
-	 * Read the Register value
-	 */
+	/** - Read the Register value. */
 	ReadValue = lwea(Addr);
-	 /**
-	 * Loop while the Mask is not set or we timeout
-	 */
+	/** - Loop until the expedted value is read or a timeout occurs. */
 	while (((ReadValue & Mask) != Mask) && (TimeOut > 0U)) {
+		/** - wait for 1 microsecond. */
 		usleep(1U);
 		XPlmi_SetPlmLiveStatus();
-		/**
-		 * - Latch up the value again
-		 */
+		/** - Read the register value again. */
 		ReadValue = lwea(Addr);
-		/**
-		 * - Decrement the TimeOut Count
-		 */
+		/** - Decrement the TimeOut Count. */
 		TimeOut--;
 	}
 	if (TimeOut > 0U) {
@@ -321,7 +306,8 @@ int XPlmi_UtilPollForMask64(u32 HighAddr, u32 LowAddr, u32 Mask, u32 TimeOutInUs
  * @param	LowAddr is lower 32-bits of 64-bit address
  * @param	Value is value to be updated
  *
- * @return	None
+ * @return
+ * 			- None
  *
  ******************************************************************************/
 void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
@@ -332,15 +318,17 @@ void XPlmi_UtilWrite64(u32 HighAddr, u32 LowAddr, u32 Value)
 
 /****************************************************************************/
 /**
-* @brief	This function is used to print the entire array in bytes as specified by the
-* debug type.
+* @brief	This function is used to print the entire array in bytes as
+* 			specified by the debug type.
 *
-* @param	DebugType printing of the array will happen as defined by the debug type
+* @param	DebugType printing of the array will happen as defined by the
+* 			debug type
 * @param	BufAddr pointer to the  buffer to be printed
 * @param	Len length of the bytes to be printed
 * @param	Str pointer to the data that is printed along the data
 *
-* @return	None
+* @return
+* 			- None
 *
 *****************************************************************************/
 void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len,
@@ -369,19 +357,20 @@ void XPlmi_PrintArray (u16 DebugType, const u64 BufAddr, u32 Len,
 /*****************************************************************************/
 /**
  * @brief	This function polls a register till the masked bits are set to
- *		expected value or till timeout occurs. The timeout is specified
- *		in nanoseconds. Also provides a clearhandler to clear the latched
- *		values before reading them.
+ *			expected value or till timeout occurs. The timeout is specified
+ *			in nanoseconds. Also provides a clearhandler to clear the latched
+ *			values before reading them.
  *
  * @param	RegAddr is the address of the register
  * @param	Mask denotes the bits to be modified
  * @param	ExpectedValue is the value for which the register is polled
  * @param	TimeOutInNs is the max time in nanoseconds for which the register
- *		would be polled for the expected value
+ *			would be polled for the expected value
  * @param	ClearHandler is the handler to clear the latched values if required
- *		before reading them
+ *			before reading them
  *
- * @return	XST_SUCCESS on success and XST_FAILURE on failure
+ * @return
+ * 			- XST_SUCCESS on success and XST_FAILURE on failure
  *
  *****************************************************************************/
 int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
@@ -395,10 +384,10 @@ int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
 	u32 PmcIroFreqMHz = *PmcIroFreq / XPLMI_MEGA;
 	u64 TimeOutTicks = ((TimeOutInNs * PmcIroFreqMHz) + XPLMI_KILO - 1U) / XPLMI_KILO;
 
-	/* Read the Register value */
+	/** - Read the Register value */
 	RegValue = XPlmi_In32(RegAddr);
 
-	/* Loop while the value does not match with expected value or we timeout */
+	/** - Loop until the expedted value is read or a timeout occurs. */
 	while ((RegValue & Mask) != ExpectedValue) {
 		if (ClearHandler != NULL) {
 			ClearHandler();
@@ -409,7 +398,7 @@ int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
 			break;
 		}
 	}
-	/* Return XST_SUCCESS if TimeDiff is less than timeout */
+	/** - Return XST_SUCCESS if TimeDiff is less than timeout */
 	if (TimeDiff < TimeOutTicks) {
 		Status = XST_SUCCESS;
 	}

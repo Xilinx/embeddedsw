@@ -118,6 +118,7 @@
 *       ng   02/07/2023 Check to skip the multiboot reg update and SRST
 *       bm   02/09/2023 Added support to return warnings
 *       ng   03/12/2023 Fixed Coverity warnings
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * </pre>
 *
 * @note
@@ -183,7 +184,8 @@ static u32 EmSubsystemId = 0U;
  *
  * @param	ErrStatus is the error code written to the FW_ERR register
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_ErrMgr(int ErrStatus)
@@ -194,14 +196,14 @@ void XPlmi_ErrMgr(int ErrStatus)
 	u8 SlrType = XPlmi_GetSlrType();
 	u32 BootMode;
 
-	/* Print the PLM Warning */
+	/** - Print the PLM Warning */
 	if ((ErrStatus & XPLMI_WARNING_STATUS_MASK) == XPLMI_WARNING_STATUS_MASK) {
 		ErrStatus &= ~XPLMI_WARNING_STATUS_MASK;
 		XPlmi_Printf(DEBUG_GENERAL, "PLM Warning Status: 0x%08lx\n\r", ErrStatus);
 		goto END;
 	}
 
-	/* Print the PLM Error */
+	/** - Print the PLM Error */
 	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
 	XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
 			(u32)ErrStatus);
@@ -211,13 +213,13 @@ void XPlmi_ErrMgr(int ErrStatus)
 	}
 
 	/**
-	 * Check if SLR Type is Master or Monolithic
+	 * - Check if SLR Type is Master or Monolithic
 	 * and take error action accordingly.
 	 */
 	if ((SlrType == XPLMI_SSIT_MASTER_SLR) ||
 		(SlrType == XPLMI_SSIT_MONOLITIC)) {
 		/**
-		 * Fallback if boot PDI is not done
+		 * - Fallback if boot PDI is not done
 		 * else just return, so that we receive next requests
 		 */
 		if (XPlmi_IsLoadBootPdiDone() == FALSE) {
@@ -226,7 +228,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 
 			XPlmi_DumpRegisters();
 			/**
-			 * If boot mode is jtag, donot reset. This is to keep
+			 * - If boot mode is jtag, donot reset. This is to keep
 			 * the system state intact for further debug.
 			 */
 #ifndef PLM_DEBUG_MODE
@@ -240,7 +242,7 @@ void XPlmi_ErrMgr(int ErrStatus)
 
 #ifndef PLM_DEBUG_MODE
 		   /**
-		    * If Halt Boot eFuses are blown, then trigger secure lockdown.
+		    * - If Halt Boot eFuses are blown, then trigger secure lockdown.
 		    * XPlmi_TriggerSLDOnHaltBoot function will run secure lockdown on domains other than PMC
 			* and triggers TAMPER_RESP_0 to ROM for running secure lockdown on PMC domain.
 			* The function will not return if eFuses are blown.
@@ -249,12 +251,13 @@ void XPlmi_ErrMgr(int ErrStatus)
 			XPlmi_TriggerSLDOnHaltBoot(XPLMI_TRIGGER_TAMPER_IMMEDIATE);
 
 			/**
-			 * Update Multiboot register and perform SRST.
+			 * - Update Multiboot register and perform SRST.
 			 * Skip for slave boot modes.
 			 */
 			if((BootMode == XPLMI_PDI_SRC_USB) || (BootMode == XPLMI_PDI_SRC_SMAP)) {
 				/**
-				 * - PLM should not process remaining tasks in slave boot modes.
+				 * - If boot mode is USB or SMAP, PLM should not process
+				 *   remaining tasks in slave boot modes.
 				*/
 				while(TRUE) {
 					;
@@ -280,7 +283,8 @@ END:
 * @param    ErrorMasks is the Register mask of the Errors
 * @param    SubsystemId is the Subsystem ID for the error node.
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId,
@@ -303,7 +307,8 @@ void XPlmi_UpdateErrorSubsystemId(u32 ErrorNodeId,
 /**
  * @brief	This function triggers Power on Reset
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_PORHandler(void) {
@@ -318,7 +323,7 @@ void XPlmi_PORHandler(void) {
 /*****************************************************************************/
 /**
  * @brief	This function returns Error Id for the given error node type and
- * error mask.
+ * 			error mask.
  *
  * @param	ErrorNodeId is the error node Id.
  * @param	RegMask  is register mask of the error.
@@ -351,7 +356,8 @@ u32 XPlmi_GetErrorId(u32 ErrorNodeId, u32 RegMask)
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
@@ -405,7 +411,8 @@ static void XPlmi_HandlePsmError(u32 ErrorNodeId, u32 RegMask)
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
@@ -464,7 +471,8 @@ void XPlmi_HandleSwError(u32 ErrorNodeId, u32 RegMask)
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
@@ -520,12 +528,13 @@ static void XPlmi_ErrPSMIntrHandler(u32 ErrorNodeId, u32 RegMask)
 /****************************************************************************/
 /**
 * @brief    This function is the interrupt handler for Error subtype subsystem
-* shutdown and subsystem restart.
+* 			shutdown and subsystem restart.
 *
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
@@ -562,9 +571,10 @@ static void XPlmi_ErrIntrSubTypeHandler(u32 ErrorNodeId, u32 RegMask)
 /*****************************************************************************/
 /**
  * @brief	This function detects and handles tamper condition in EAM IRQ
- *		interrupt handler
+ * 			interrupt handler
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_DetectAndHandleTamper(void)
@@ -603,7 +613,8 @@ static void XPlmi_DetectAndHandleTamper(void)
 *
 * @param    CallbackRef is presently the interrupt number that is received
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_ErrIntrHandler(void *CallbackRef)
@@ -613,12 +624,12 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	(void)CallbackRef;
 
 	/**
-	 * Detect Tamper in interrupt context and trigger the task which
+	 * - Detect Tamper in interrupt context and trigger the task which
 	 * processes the tamper response
 	 */
 	XPlmi_DetectAndHandleTamper();
 
-	/** Check if the task is already created */
+	/** - Check if the task is already created */
 	Task = XPlmi_GetTaskInstance(XPlmi_ErrorTaskHandler, NULL,
 				XPLMI_INVALID_INTR_ID);
 	if (Task == NULL) {
@@ -627,7 +638,7 @@ void XPlmi_ErrIntrHandler(void *CallbackRef)
 	}
 
 	/**
-	 * Add the EAM task to the queue and disable interrupts
+	 * - Add the EAM task to the queue and disable interrupts
 	 * at IOMODULE level
 	 */
 	XPlmi_TaskTriggerNow(Task);
@@ -643,7 +654,8 @@ END:
 *
 * @param    Data is presently passed as NULL
 *
-* @return   Always returns XST_SUCCESS
+* @return
+* 			- XST_SUCCESS always.
 *
 ****************************************************************************/
 int XPlmi_ErrorTaskHandler(void *Data)
@@ -668,7 +680,7 @@ int XPlmi_ErrorTaskHandler(void *Data)
 	}
 
 	/**
-	 * Interrupt is selected as response for Custom, subsystem shutdown
+	 * - Interrupt is selected as response for Custom, subsystem shutdown
 	 * and subsystem restart actions. For these actions, error will be
 	 * disabled. Agent should clear the source and enable the error again
 	 * using SetAction. In SetAction, error will be cleared and enabled.
@@ -709,7 +721,7 @@ int XPlmi_ErrorTaskHandler(void *Data)
 	}
 
 	/**
-	 * Clear and enable EAM errors at IOMODULE level
+	 * - Clear and enable EAM errors at IOMODULE level
 	 */
 	XPlmi_PlmIntrClear(XPLMI_IOMODULE_ERR_IRQ);
 	XPlmi_PlmIntrEnable(XPLMI_IOMODULE_ERR_IRQ);
@@ -725,14 +737,15 @@ int XPlmi_ErrorTaskHandler(void *Data)
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return   None
+* @return
+* 			- None
 *
 ****************************************************************************/
 void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 
-	/* Print NodeId, Mask and Error ID information of the error received */
+	/** - Print NodeId, Mask and Error ID information of the error received. */
 	XPlmi_Printf(DEBUG_GENERAL, "Received EAM error. ErrorNodeId: 0x%x,"
 			" Register Mask: 0x%x. The corresponding Error ID: 0x%x\r\n",
 			ErrorNodeId, RegMask, ErrorId);
@@ -745,7 +758,8 @@ void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
  * @param	ErrorNodeType is the node type for the error event
  * @param	ErrorId is the index of the error to be cleared
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
@@ -790,16 +804,22 @@ static void XPlmi_EmClearError(u32 ErrorNodeType, u32 ErrorId)
  * @param	ErrMaskRegAddr is the error action mask register address
  * @param	RegMask is the register mask of the error to be disabled
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERROR_ACTION_NOT_DISABLED if error action is not disabled.
  *
  *****************************************************************************/
 u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
 {
 	int Status = XPLMI_ERROR_ACTION_NOT_DISABLED;
 
-	/* Disable error action */
+	/**
+	 * - Disable error action.
+	 */
 	XPlmi_Out32((ErrMaskRegAddr + PMC_PSM_DIS_REG_OFFSET), RegMask);
-	/* Check if the error action is disabled */
+	/**
+	 * - Check if the error action is disabled.
+	 */
 	if ((XPlmi_In32(ErrMaskRegAddr) & RegMask) == RegMask) {
 		Status = XST_SUCCESS;
 	}
@@ -814,7 +834,9 @@ u32 EmDisableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
  * @param	ErrMaskRegAddr is the error action mask register address
  * @param	RegMask is the register mask of the error to be disabled
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERROR_ACTION_NOT_ENABLED if error action is not enabled.
  *
  *****************************************************************************/
 static int EmEnableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
@@ -838,14 +860,16 @@ static int EmEnableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
  * @param	PmcErrRegOffset is the offset for the PMC ERR1 and ERR2 errors
  * @param	RegMask is the register mask of the error to be disabled
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERROR_ACTION_NOT_DISABLED if error action is not disabled.
  *
  *****************************************************************************/
 int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
 {
 	u32 Status = (u32)XPLMI_ERROR_ACTION_NOT_DISABLED;
 
-	/* Disable all PMC error actions */
+	/** - Disable all PMC error actions. */
 	Status = EmDisableErrAction(GET_PMC_ERR_OUT_MASK(RegOffset), RegMask);
 	Status |= EmDisableErrAction(GET_PMC_POR_MASK(RegOffset), RegMask);
 	Status |= EmDisableErrAction(GET_PMC_IRQ_MASK(RegOffset), RegMask);
@@ -861,14 +885,16 @@ int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
  * @param	PsmErrRegOffset is the offset for the PSM ERR1 and ERR2 errors
  * @param	RegMask is the register mask of the error to be disabled
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERROR_ACTION_NOT_DISABLED if error action is not disabled.
  *
  *****************************************************************************/
 int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask)
 {
 	u32 Status = (u32)XPLMI_ERROR_ACTION_NOT_DISABLED;
 
-	/* Disable all PSM error actions */
+	/** - Disable all PSM error actions. */
 	Status = EmDisableErrAction((PSM_GLOBAL_REG_PSM_CR_ERR1_MASK + RegOffset),
 			RegMask);
 	Status |= EmDisableErrAction((PSM_GLOBAL_REG_PSM_NCR_ERR1_MASK + RegOffset),
@@ -884,7 +910,10 @@ int XPlmi_EmDisablePsmErrors(u32 RegOffset, u32 RegMask)
  * @param	ErrorNodeId is the node Id for the error event
  * @param	RegMask is the register mask of the error to be disabled
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERROR_ACTION_NOT_DISABLED if error action is not disabled.
+ * 			- XPLMI_INVALID_ERROR_TYPE on invalid error type.
  *
  *****************************************************************************/
 int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
@@ -896,22 +925,30 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
 	switch (XPlmi_GetEventIndex(ErrorNodeType)) {
 	case XPLMI_NODETYPE_EVENT_PMC_INDEX:
 		Index = ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PMC_ERR1;
-		/* Disable POR, SRST, Interrupt and PS Error Out */
+		/**
+		 * - For XPLMI_NODETYPE_EVENT_PMC_INDEX - Disable POR, SRST,
+		 *   Interrupt and PS Error Out.
+		 */
 		Status = XPlmi_EmDisablePmcErrors(
 				GET_PMC_ERR_ACTION_OFFSET(Index), RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_PSM_INDEX:
 		Index = ErrorNodeType - (u32)XPLMI_NODETYPE_EVENT_PSM_ERR1;
-		/* Disable CR / NCR to PMC, Interrupt */
+		/**
+		 * - For XPLMI_NODETYPE_EVENT_PSM_INDEX - Disable CR / NCR to PMC,
+		 *   Interrupt.
+		 */
 		Status = XPlmi_EmDisablePsmErrors(
 				GET_PSM_ERR_ACTION_OFFSET(Index), RegMask);
 		break;
 	case XPLMI_NODETYPE_EVENT_SW_INDEX:
-		/* Do nothing */
+		/**
+		 * - For XPLMI_NODETYPE_EVENT_SW_INDEX - Do nothing.
+		 */
 		Status = XST_SUCCESS;
 		break;
 	default:
-		/* Invalid Error Type */
+		/** - For invalid error return XPLMI_INVALID_ERROR_TYPE error code. */
 		Status = XPLMI_INVALID_ERROR_TYPE;
 		XPlmi_Printf(DEBUG_GENERAL,
 			"Invalid ErrType 0x%x for Error Mask: 0x%0x\n\r",
@@ -931,7 +968,11 @@ int XPlmi_EmDisable(u32 ErrorNodeId, u32 RegMask)
  * @param	RegMask is the register mask of the error to be enabled
  * @param	Action is the HW Error action of the error to be enabled
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERROR_ACTION_NOT_ENABLED if error action is not enabled.
+ * 			- XPLMI_INVALID_ERROR_ACTION on invalid error action.
+ * 			- XPLMI_INVALID_ERROR_TYPE on invalid error type.
  *
  *****************************************************************************/
 static int XPlmi_EmEnableAction(u32 ErrorNodeType, u32 RegMask, u8 Action)
@@ -1021,7 +1062,8 @@ END:
  * @param	ErrorHandler If INT is defined as response, handler should be
  * 		  	defined.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
@@ -1031,7 +1073,9 @@ int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
 	u32 RegMask = XPlmi_ErrRegMask(ErrorId);
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 
-	/* Set error action for given error Id */
+	/**
+	 * - Set error action for given error Id.
+	 */
 	ErrorTable[ErrorId].Action = ActionId;
 	if (ActionId == XPLMI_EM_ACTION_CUSTOM) {
 		ErrorTable[ErrorId].Handler = ErrorHandler;
@@ -1045,6 +1089,9 @@ int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
 		ErrorTable[ErrorId].Handler = XPlmi_ErrIntrSubTypeHandler;
 	}
 
+	/**
+	 * - Enable the error action.
+	 */
 	if (ActionId != XPLMI_EM_ACTION_NONE) {
 		Status = XPlmi_EmEnableAction(NodeType, RegMask, ActionId);
 	}
@@ -1066,7 +1113,11 @@ int XPlmi_EmConfig(u32 NodeType, u32 ErrorId, u8 ActionId,
  * @param	ErrorHandler If INT is defined as response, handler should be
  * 		  	defined.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_INVALID_NODE_ID on invalid node ID.
+ * 			- XPLMI_INVALID_ERROR_ID on invalid error ID.
+ * 			- XPLMI_INVALID_ERROR_HANDLER on invalid error handler.
  *
  *****************************************************************************/
 int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
@@ -1092,7 +1143,9 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 		}
 		RegMask = XPlmi_ErrRegMask(ErrorId);
 
-		/* Check for Valid Error ID */
+		/**
+		 * - Check for Valid Error ID.
+		 */
 		if ((ErrorId >= XPLMI_ERROR_SW_ERR_MAX) ||
 				(ErrorTable[ErrorId].Action == XPLMI_EM_ACTION_INVALID)) {
 			/* Invalid Error Id */
@@ -1102,6 +1155,9 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 			goto END;
 		}
 
+		/**
+		 * - Check for Valid handler.
+		 */
 		if((XPLMI_EM_ACTION_CUSTOM == ActionId) && (NULL == ErrorHandler) &&
 				(XPLMI_ERROR_PMC_PSM_NCR != ErrorId)) {
 			/* Null handler */
@@ -1112,19 +1168,24 @@ int XPlmi_EmSetAction(u32 ErrorNodeId, u32 ErrorMasks, u8 ActionId,
 
 		if((ActionId > XPLMI_EM_ACTION_INVALID) &&
 				(ActionId < XPLMI_EM_ACTION_MAX)) {
-			/* Disable the error actions for Error ID for configuring
-			 * the requested error action
+			/**
+			 * - Disable the error actions for Error ID for configuring
+			 * the requested error action.
 			 */
 			Status = XPlmi_EmDisable(ErrorNodeId, RegMask);
 			if (XST_SUCCESS != Status) {
 				/* Error action disabling failure */
 				goto END;
 			}
-			/* Clear any previous errors */
+			/**
+			 * - Clear any previous errors.
+			 */
 			XPlmi_EmClearError(NodeType, ErrorId);
 		}
 
-		/* Configure the Error Action to given Error Id */
+		/**
+		 * - Configure the Error Action to given Error Id.
+		 */
 		Status = XPlmi_EmConfig(NodeType, ErrorId, ActionId, ErrorHandler);
 
 END:
@@ -1137,14 +1198,15 @@ END1:
 /*****************************************************************************/
 /**
  * @brief	This function initializes the error module. Disables all the error
- * actions and registers default action.
+ * 			actions and registers default action.
  *
  * @param	SystemShutdown is the pointer to the PM system shutdown
  *		callback handler for action subtype system shutdown
  * @param	SubsystemRestart is pointer to the PM subsystem restart
  *		with CPU idle support handler for action subtype restart
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
@@ -1168,7 +1230,7 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		Task->IntrId = XPLMI_INVALID_INTR_ID;
 	}
 
-	/** Register Error module commands */
+	/** - Register Error module commands */
 	XPlmi_ErrModuleInit();
 
 	PmSystemShutdown = SystemShutdown;
@@ -1183,31 +1245,31 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		goto END;
 	}
 
-	/** Detect if we are in over-temperature condition */
+	/** - Detect if we are in over-temperature condition */
 	XPlmi_SysMonOTDetect(XPLMI_SYSMON_NO_WAIT_TIME);
 
-	/** Clear SSIT_ERR register to stop error propagation to other SLRs */
+	/** - Clear SSIT_ERR register to stop error propagation to other SLRs */
 	XPlmi_Out32(PMC_GLOBAL_SSIT_ERR, 0x0U);
 
-	/** Save FW_ERR register value to RTCA and clear it */
+	/** - Save FW_ERR register value to RTCA and clear it */
 	FwErr = XPlmi_In32(PMC_GLOBAL_PMC_FW_ERR);
 	XPlmi_Out32(XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR, FwErr);
 	XPlmi_Out32(PMC_GLOBAL_PMC_FW_ERR, 0x0U);
 
 	for (ErrIndex = 0U; ErrIndex < XPLMI_PMC_MAX_ERR_CNT; ErrIndex++) {
-		/** Disable all the Error Actions */
+		/** - Disable all the Error Actions */
 		(void)XPlmi_EmDisablePmcErrors(GET_PMC_ERR_ACTION_OFFSET(ErrIndex),
 				MASK32_ALL_HIGH);
 		PmcErrStatus[ErrIndex] = XPlmi_In32(PMC_GLOBAL_PMC_ERR1_STATUS +
 					(ErrIndex * PMC_GLOBAL_REG_PMC_ERR_OFFSET));
-		/** Ignore SSIT Errors for Versal ES1 silicon */
+		/** - Ignore SSIT Errors for Versal ES1 silicon */
 		XPlmi_ClearSsitErrors(PmcErrStatus, ErrIndex);
 		XPlmi_Out32(GET_RTCFG_PMC_ERR_ADDR(ErrIndex), PmcErrStatus[ErrIndex]);
 		if (PmcErrStatus[ErrIndex] != 0U) {
 			XPlmi_Printf(DEBUG_INFO, "PMC_GLOBAL_PMC_ERR%d_STATUS: "
 				"0x%08x\n\r", ErrIndex + 1U, PmcErrStatus[ErrIndex]);
 		}
-		/** Clear the error status registers */
+		/** - Clear the error status registers */
 		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_STATUS +
 			(ErrIndex * PMC_GLOBAL_REG_PMC_ERR_OFFSET), MASK32_ALL_HIGH);
 
@@ -1234,7 +1296,7 @@ int XPlmi_EmInit(XPlmi_ShutdownHandler_t SystemShutdown,
 		}
 	}
 
-	/** Register Tamper Interrupt Handler */
+	/** - Register Tamper Interrupt Handler */
 	Status = XPlmi_RegisterTamperIntrHandler();
 
 END:
@@ -1244,9 +1306,10 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function initializes the PSM error actions. Disables all the
- * PSM error actions and registers default action.
+ * 			PSM error actions and registers default action.
  *
- * @return	XST_SUCCESS
+ * @return
+ * 			- XST_SUCCESS always.
  *
 *****************************************************************************/
 int XPlmi_PsEmInit(void)
@@ -1259,7 +1322,9 @@ int XPlmi_PsEmInit(void)
 	XPlmi_Error_t *ErrorTable = XPlmi_GetErrorTable();
 
 	for (ErrIndex = 0U; ErrIndex < XPLMI_PSM_MAX_ERR_CNT; ErrIndex++) {
-		/* Disable all the Error Actions */
+		/**
+		 * - Disable all the Error Actions.
+		 */
 		(void)XPlmi_EmDisablePsmErrors(GET_PSM_ERR_ACTION_OFFSET(ErrIndex),
 				MASK32_ALL_HIGH);
 		PsmErrStatus[ErrIndex] = XPlmi_In32(PSM_GLOBAL_REG_PSM_ERR1_STATUS +
@@ -1269,11 +1334,15 @@ int XPlmi_PsEmInit(void)
 			XPlmi_Printf(DEBUG_GENERAL, "PSM_GLOBAL_REG_PSM_ERR%d_STATUS: "
 				"0x%08x\n\r", ErrIndex + 1U, PsmErrStatus[ErrIndex]);
 		}
-		/* Clear the error status registers */
+		/**
+		 * - Clear the error status registers.
+		 */
 		XPlmi_Out32(PSM_GLOBAL_REG_PSM_ERR1_STATUS +
 			(ErrIndex * PSM_GLOBAL_REG_PSM_ERR_OFFSET), MASK32_ALL_HIGH);
 
-		/* Set the default actions as defined in the Error table */
+		/**
+		 * - Set the default actions as defined in the Error table.
+		 */
 		for (Index = GET_PSM_ERR_START(ErrIndex); Index <
 				GET_PSM_ERR_END(ErrIndex); Index++) {
 			if (Index >= XPLMI_ERROR_PSMERR_MAX) {
@@ -1303,7 +1372,8 @@ int XPlmi_PsEmInit(void)
 /**
  * @brief	This function dumps the registers which can help debugging.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_DumpRegisters(void)
@@ -1340,7 +1410,8 @@ static void XPlmi_DumpRegisters(void)
  * @brief	This function sets clock source to IRO for ES1 silicon and resets
  * the device.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_SoftResetHandler(void)
@@ -1360,7 +1431,8 @@ void XPlmi_SoftResetHandler(void)
  * @brief	This function sets clock source to IRO for ES1 silicon and triggers
  * FW NCR error.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_TriggerFwNcrError(void)
@@ -1382,7 +1454,8 @@ void XPlmi_TriggerFwNcrError(void)
  *
  * @param	Id pointer to set the EmSubsystemId
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XPlmi_SetEmSubsystemId(const u32 *Id)
@@ -1421,7 +1494,8 @@ static u32 XPlmi_UpdateNumErrOutsCount(u8 UpdateType)
 /**
  * @brief	This function clears NPI errors.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
 int XPlmi_CheckNpiErrors(void)
@@ -1453,24 +1527,25 @@ int XPlmi_CheckNpiErrors(void)
 /**
  * @brief	This function clears NPI errors.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
 ******************************************************************************/
 int XPlmi_ClearNpiErrors(void)
 {
 	int Status = XST_FAILURE;
 
-	/** Unlock NPI address space */
+	/** - Unlock NPI address space */
 	XPlmi_Out32(NPI_NIR_REG_PCSR_LOCK, NPI_NIR_REG_PCSR_UNLOCK_VAL);
-	/** Clear ISR */
+	/** - Clear ISR */
 	XPlmi_UtilRMW(NPI_NIR_REG_ISR, NPI_NIR_REG_ISR_ERR_MASK,
 		NPI_NIR_REG_ISR_ERR_MASK);
-	/** Clear error type registers */
+	/** - Clear error type registers */
 	XPlmi_UtilRMW(NPI_NIR_ERR_TYPE, NPI_NIR_ERR_TYPE_ERR_MASK,
 		~(NPI_NIR_ERR_TYPE_ERR_MASK));
 	XPlmi_Out32(NPI_NIR_ERR_LOG_P0_INFO_0, 0U);
 	XPlmi_Out32(NPI_NIR_ERR_LOG_P0_INFO_1, 0U);
-	/** Lock NPI address space */
+	/** - Lock NPI address space */
 	Status = Xil_SecureOut32(NPI_NIR_REG_PCSR_LOCK, 1U);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_NPI_LOCK, Status);
@@ -1483,7 +1558,8 @@ int XPlmi_ClearNpiErrors(void)
 /**
  * @brief	This function updates error out count and clears PMC FW_CR error
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XPlmi_ErrOutNClearFwCR(u32 ErrorId)
