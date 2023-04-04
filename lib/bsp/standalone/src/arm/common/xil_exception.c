@@ -173,7 +173,7 @@ void Xil_ExceptionRegisterHandler(u32 Exception_id,
 				    Xil_ExceptionHandler Handler,
 				    void *Data)
 {
-#if (defined (versal) && !defined(ARMR5) && EL3) || defined(ARMR52)
+#if (defined (versal) && !defined(ARMR5) && EL3)
 	if ( XIL_EXCEPTION_ID_IRQ_INT == Exception_id )
 	{
 	/*
@@ -207,7 +207,7 @@ void Xil_GetExceptionRegisterHandler(u32 Exception_id,
 					Xil_ExceptionHandler *Handler,
 					void **Data)
 {
-#if (defined (versal) && !defined(ARMR5) && EL3) || defined(ARMR52)
+#if (defined (versal) && !defined(ARMR5) && EL3)
 	if ( XIL_EXCEPTION_ID_IRQ_INT == Exception_id )
 	{
 	/*
