@@ -23,6 +23,7 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       kal  01/05/2023 Added XLoader_SecureConfigMeasurement function
 *       sk   02/22/2023 Added EoPDI SYNC dummy stub
+*		dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -44,64 +45,64 @@ extern "C" {
 #include "xloader_auth_enc.h"
 
 /************************** Constant Definitions *****************************/
-#define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /* 32K */
+#define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /**< Secure chunk size 32K */
 
 /* Boot Modes */
-#define XLOADER_PDI_SRC_JTAG		(0x0U)
-#define XLOADER_PDI_SRC_QSPI24		(0x1U)
-#define XLOADER_PDI_SRC_QSPI32		(0x2U)
-#define XLOADER_PDI_SRC_SDLS_B0		(0x3U)
-#define XLOADER_PDI_SRC_EMMC0		(0x4U)
-#define XLOADER_PDI_SRC_SD_B1		(0x5U)
-#define XLOADER_PDI_SRC_EMMC1		(0x6U)
-#define XLOADER_PDI_SRC_USB		(0x7U)
-#define XLOADER_PDI_SRC_OSPI		(0x8U)
-#define XLOADER_PDI_SRC_SBI		(0x9U)
-#define XLOADER_PDI_SRC_SMAP		(0xAU)
-#define XLOADER_PDI_SRC_PCIE		(0xBU)
-#define XLOADER_PDI_SRC_SDLS_B1		(0xEU)
-#define XLOADER_PDI_SRC_DDR		(0xFU)
-#define XLOADER_PDI_SRC_INVALID		(0xFFU)
+#define XLOADER_PDI_SRC_JTAG		(0x0U) /**< PDI source JTAG */
+#define XLOADER_PDI_SRC_QSPI24		(0x1U) /**< PDI source QSPI24 */
+#define XLOADER_PDI_SRC_QSPI32		(0x2U) /**< PDI source QSPI32 */
+#define XLOADER_PDI_SRC_SDLS_B0		(0x3U) /**< PDI source SDLS_B0 */
+#define XLOADER_PDI_SRC_EMMC0		(0x4U) /**< PDI source EMMC0 */
+#define XLOADER_PDI_SRC_SD_B1		(0x5U) /**< PDI source SD_B1 */
+#define XLOADER_PDI_SRC_EMMC1		(0x6U) /**< PDI source EMMC1 */
+#define XLOADER_PDI_SRC_USB		(0x7U) /**< PDI source USB */
+#define XLOADER_PDI_SRC_OSPI		(0x8U) /**< PDI source OSPI */
+#define XLOADER_PDI_SRC_SBI		(0x9U) /**< PDI source SBI */
+#define XLOADER_PDI_SRC_SMAP		(0xAU) /**< PDI source SMAP */
+#define XLOADER_PDI_SRC_PCIE		(0xBU) /**< PDI source PCIE */
+#define XLOADER_PDI_SRC_SDLS_B1		(0xEU) /**< PDI source SDLS_B1 */
+#define XLOADER_PDI_SRC_DDR		(0xFU) /**< PDI source DDR */
+#define XLOADER_PDI_SRC_INVALID		(0xFFU)  /**< PDI source invalid */
 
-#define XLOADER_R52_0A_TCMA_BASE_ADDR 	(0xEBA00000U)
-#define XLOADER_R52_1A_TCMA_BASE_ADDR 	(0xEBA40000U)
-#define XLOADER_R52_0B_TCMA_BASE_ADDR 	(0xEBA80000U)
-#define XLOADER_R52_1B_TCMA_BASE_ADDR 	(0xEBAC0000U)
-#define XLOADER_R52_TCM_CLUSTER_OFFSET	(0x00080000U)
+#define XLOADER_R52_0A_TCMA_BASE_ADDR 	(0xEBA00000U) /**< R52_0A TCMA base address */
+#define XLOADER_R52_1A_TCMA_BASE_ADDR 	(0xEBA40000U) /**< R52_1A TCMA base address */
+#define XLOADER_R52_0B_TCMA_BASE_ADDR 	(0xEBA80000U) /**< R52_0B TCMA base address */
+#define XLOADER_R52_1B_TCMA_BASE_ADDR 	(0xEBAC0000U) /**< R52_1B TCMA base address */
+#define XLOADER_R52_TCM_CLUSTER_OFFSET	(0x00080000U) /**< R52_TCM TCM cluster offset */
 
 /*
  * TCM address for R52
  */
-#define XLOADER_R52_TCMA_LOAD_ADDRESS	(0x0U)
-#define XLOADER_R52_TCM_TOTAL_LENGTH	(0x30000U)
+#define XLOADER_R52_TCMA_LOAD_ADDRESS	(0x0U) /**< R52 TCMA load address */
+#define XLOADER_R52_TCM_TOTAL_LENGTH	(0x30000U) /**< R52 TCMA total length */
 
-#define XLOADER_APU_CLUSTER0	(0U)
-#define XLOADER_APU_CLUSTER1	(1U)
-#define XLOADER_APU_CLUSTER2	(2U)
-#define XLOADER_APU_CLUSTER3	(3U)
+#define XLOADER_APU_CLUSTER0	(0U) /**< APU cluster 0 */
+#define XLOADER_APU_CLUSTER1	(1U) /**< APU cluster 1 */
+#define XLOADER_APU_CLUSTER2	(2U) /**< APU cluster 2 */
+#define XLOADER_APU_CLUSTER3	(3U) /**< APU cluster 3 */
 
-#define XLOADER_APU_CORE0	(0U)
-#define XLOADER_APU_CORE1	(1U)
-#define XLOADER_APU_CORE2	(2U)
-#define XLOADER_APU_CORE3	(3U)
+#define XLOADER_APU_CORE0	(0U) /**< APU core 0 */
+#define XLOADER_APU_CORE1	(1U) /**< APU core 1 */
+#define XLOADER_APU_CORE2	(2U) /**< APU core 2 */
+#define XLOADER_APU_CORE3	(3U) /**< APU core 3 */
 
-#define XLOADER_RPU_CLUSTERA	(0U)
-#define XLOADER_RPU_CLUSTERB	(1U)
+#define XLOADER_RPU_CLUSTERA	(0U) /**< RPU cluster A */
+#define XLOADER_RPU_CLUSTERB	(1U) /**< RPU cluster B */
 
-#define XLOADER_RPU_CORE0	(0U)
-#define XLOADER_RPU_CORE1	(1U)
+#define XLOADER_RPU_CORE0	(0U) /**< RPU core 0 */
+#define XLOADER_RPU_CORE1	(1U) /**< RPU core 1 */
 
 /* Xilloader Module Data Structure Ids*/
-#define XLOADER_IMAGE_INFO_DS_ID		(0x01U)
-#define XLOADER_PDI_INST_DS_ID			(0x02U)
-#define XLOADER_PDI_LIST_DS_ID			(0x03U)
-#define XLOADER_ATF_HANDOFF_PARAMS_DS_ID	(0x04U)
+#define XLOADER_IMAGE_INFO_DS_ID		(0x01U) /**< Image information data structure Id */
+#define XLOADER_PDI_INST_DS_ID			(0x02U) /**< PDI instance data structure Id */
+#define XLOADER_PDI_LIST_DS_ID			(0x03U) /**< PDI list data structure Id */
+#define XLOADER_ATF_HANDOFF_PARAMS_DS_ID	(0x04U) /**< ATF handoff parameters data structure Id */
 
-#define XLOADER_SHA3_1_DEVICE_ID	(1U)
+#define XLOADER_SHA3_1_DEVICE_ID	(1U) /**< SHA3_1 device Id */
 /* Data measurement flags */
-#define XLOADER_MEASURE_START		(0U)
-#define XLOADER_MEASURE_UPDATE		(1U)
-#define XLOADER_MEASURE_FINISH		(2U)
+#define XLOADER_MEASURE_START		(0U) /**< Data measure start */
+#define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
+#define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
 
 /**************************** Type Definitions *******************************/
 
@@ -123,7 +124,7 @@ extern "C" {
 		{"", XLOADER_INVALID_INDEX}, /* Unused - 0xD */\
 		{"SDLS_B1", XLOADER_SD_INDEX}, /* SDLS_B1 - 0xE */\
 		{"DDR", XLOADER_DDR_INDEX}, /* DDR - 0xF */\
-	}
+	}/**< Get PDI source info */
 
 /*****************************************************************************/
 /**
@@ -249,7 +250,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op);
 int XLoader_PlatInit(void);
 int XLoader_HdrMeasurement(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
-int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecureParams, u32 PcrInfo);
+int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo);
 
 /************************** Variable Definitions *****************************/
 

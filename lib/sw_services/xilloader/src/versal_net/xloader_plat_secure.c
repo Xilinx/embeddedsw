@@ -25,6 +25,7 @@
 *       ng   11/23/2022 Fixed doxygen file name error
 *       sk   03/10/2023 Added redundancy for AES Key selection
 *       sk   03/17/2023 Renamed Kekstatus to DecKeySrc in xilpdi structure
+*		dd	 03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -48,9 +49,9 @@
 #include "xsecure_error.h"
 
 /************************** Constant Definitions *****************************/
-#define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /* eFuse Obfuscated Key */
-#define XLOADER_BBRAM_OBFUS_KEY		(0x3A5C3C57U) /* BBRAM Obfuscated Key */
-#define XLOADER_BH_OBFUS_KEY		(0xA35C7CA5U) /*Boot Header Obfuscated Key */
+#define XLOADER_EFUSE_OBFUS_KEY		(0xA5C3C5A7U) /**< eFuse obfuscated key */
+#define XLOADER_BBRAM_OBFUS_KEY		(0x3A5C3C57U) /**< BBRAM obfuscated key */
+#define XLOADER_BH_OBFUS_KEY		(0xA35C7CA5U) /**< Boot header obfuscated key */
 
 /**************************** Type Definitions *******************************/
 
@@ -277,7 +278,7 @@ int XLoader_CheckDeviceStateChange(void *Arg)
 /**
 * @brief    This function runs the KAT for RSA PSS verification
 *
-* @param    SecurePtr - Pointer to XLoader_SecureParams instance
+* @param    PmcDmaPtr - Pointer to DMA instance
 *
 * @return   XST_SUCCESS on success and error code on failure
 *
