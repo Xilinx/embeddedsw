@@ -39,6 +39,7 @@
 *       ng    03/12/2023 Fixed Coverity warnings
 *       sk    03/14/2023 Added Glitch detect for status check in
 *                        XLoader_CframeDataClearCheck
+*       ng    03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -87,7 +88,10 @@ static XCframe XLoader_CframeIns = {0U}; /**< CFRAME Driver Instance */
 /**
  * @brief	This function initializes the Cframe driver.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_CFRAME_LOOKUP if CFrame lookup fails.
+ * 			- XLOADER_ERR_CFRAME_CFG if CFrame configuration fails.
  *
  ******************************************************************************/
 int XLoader_CframeInit(void)
@@ -101,8 +105,8 @@ int XLoader_CframeInit(void)
 	}
 
 	/**
-	 * Initialize the Cframe driver so that it's ready to use
-	 * look up the configuration in the config table,
+	 * - Initialize the Cframe driver so that it's ready to use
+	 * look up the configuration in the config table, and
 	 * then initialize it.
 	 */
 	Config = XCframe_LookupConfig((u16)XPAR_XCFRAME_0_DEVICE_ID);
@@ -117,7 +121,7 @@ int XLoader_CframeInit(void)
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_CFRAME_CFG, Status);
 	}
 
-	/* Enable SLVERR */
+	/** - Enable SLVERR for CFU. */
 	XPlmi_UtilRMW(CFU_APB_CFU_CTL, CFU_APB_CFU_CTL_SLVERR_EN_MASK,
 			CFU_APB_CFU_CTL_SLVERR_EN_MASK);
 
@@ -130,9 +134,10 @@ END:
 /**
  * @brief	This function is used for Cframe error handling
  *
- * @param       InstancePtr is a pointer to the XCfupmc instance.
+ * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
- * @return      None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr)
@@ -157,9 +162,10 @@ static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr)
 /**
  * @brief	This function is used for CFU error handling
  *
- * @param     	InstancePtr is a pointer to the XCfupmc instance.
+ * @param	InstancePtr is a pointer to the XCfupmc instance.
  *
- * @return	None
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr)
@@ -176,13 +182,14 @@ static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr)
 
 /*****************************************************************************/
 /**
- * @brief This function is used to check the CFU ISR and PMC_ERR1 and PMC_ERR2
- * status registers to check for any errors in PL and call corresponding error
- * recovery functions if needed.
+ * @brief	This function is used to check the CFU ISR and PMC_ERR1 and PMC_ERR2
+ * 			status registers to check for any errors in PL and call
+ * 			corresponding error	recovery functions if needed.
  *
- * @param       ImageId is Id of the image present in PDI
+ * @param	ImageId is Id of the image present in PDI
  *
- * @return      void
+ * @return
+ * 			- None
  *
  *****************************************************************************/
 void XLoader_CframeErrorHandler(u32 ImageId)
@@ -213,12 +220,21 @@ void XLoader_CframeErrorHandler(u32 ImageId)
 			>> PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT);
 	}
 
+	/**
+	 * - Execute CfiErrorHandler.
+	 */
 	if ((CfiErrStatus != 0U) || (PlHouseClean == (u8)TRUE)) {
 		XLoader_CfiErrHandler(&XLoader_CfuIns);
 	}
 
+	/**
+	 * - Execute CFU Error Handler.
+	 */
 	XLoader_CfuErrHandler(&XLoader_CfuIns);
 
+	/**
+	 * - Retrigger PL house clean if it's a PLD0 image.
+	 */
 	if (PlHouseClean == (u8)TRUE) {
 		(void)XPmPlDomain_RetriggerPlHouseClean();
 	}
@@ -227,14 +243,20 @@ void XLoader_CframeErrorHandler(u32 ImageId)
 
 /*****************************************************************************/
 /**
- * @brief       This function is used to check if the Cframe data is cleared
- *              or not using CRC method. This function need to be called after
- *              CFI house cleaning is done.
+ * @brief	This function is used to check if the Cframe data is cleared
+ * 			or not using CRC method. This function need to be called after
+ * 			CFI house cleaning is done.
  *
- * @param       Cmd is pointer to the command. Command payload parameters are:
- *                - Block Type
+ * @param	Cmd is pointer to the command. Command payload parameters are:
+ * 			Block Type
  *
- * @return      XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_INVALID_BLOCKTYPE if block type passed is invalid. Only
+ * 			Type 0, Type 1, and Type 2 are supported.
+ * 			- XLOADER_CFI_CFRAME_IS_BUSY if CRAM self check fails as CFI
+ * 			CFrame is busy.
+ * 			- XLOADER_CFRAME_CRC_CHECK_FAILED if CFRAME CRC check fails.
  *
  *****************************************************************************/
 int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
@@ -248,36 +270,36 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 	XPLMI_EXPORT_CMD(XLOADER_CFRAME_DATACLEAR_CHECK_CMD_ID, XPLMI_MODULE_LOADER_ID,
 			XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
 
-	/** Check if the block type is valid */
+	/** - Check if the block type is valid */
 	if (BlockType >= CFRAME_MAX_BLOCK_TYPE_COUNT) {
 		Status = (int)XLOADER_INVALID_BLOCKTYPE;
 		goto END;
 	}
 
-	/** Initialize Cframe driver */
+	/** - Initialize Cframe driver */
 	Status = XLoader_CframeInit();
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
-	/** Enable CRAM Self Check */
+	/** - Enable CRAM Self Check */
 	CframeData.Word0 = CFRAME_BCAST_REG_TESTMODE_CRAM_SELF_CHECK_MASK;
 	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_TESTMODE_OFFSET,
 			XCFRAME_FRAME_BCAST, &CframeData);
 
-	/** Reset CRC */
+	/** - Reset CRC */
 	XCframe_WriteCmd(&XLoader_CframeIns, XCFRAME_FRAME_BCAST, XCFRAME_CMD_REG_RCRC);
 
-	/** Set Frame Address Register with the Block type */
+	/** - Set Frame Address Register with the Block type */
 	CframeData.Word0 = BlockType << CFRAME_BCAST_REG_FAR_BLOCKTYPE_SHIFT;
 	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_FAR_OFFSET,
 			XCFRAME_FRAME_BCAST, &CframeData);
 
-	/** Send RDALL command */
+	/** - Send RDALL command */
 	XCframe_WriteCmd(&XLoader_CframeIns, XCFRAME_FRAME_BCAST, XCFRAME_CMD_REG_RDALL);
 
-	/** Check if Cframe is busy */
+	/** - Check if Cframe is busy */
 	Status = XPlmi_UtilPoll(CFU_APB_CFU_STATUS, CFU_APB_CFU_STATUS_CFI_CFRAME_BUSY_MASK,
 			XPLMI_ZERO, CFRAME_CRC_POLL_TIMEOUT, NULL);
 	if (Status != XST_SUCCESS) {
@@ -287,14 +309,14 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 
 	for (RowRange = 0; RowRange < MaxRowRange; RowRange++) {
 		XCframe_ReadReg(&XLoader_CframeIns, XCFRAME_CRC_OFFSET, (XCframe_FrameNo)RowRange, (u32 *)&CframeData);
-		/** Check CRC */
+		/** - Check CRC */
 		if (CframeData.Word0 != XPLMI_ZERO) {
 			Status = (int)XLOADER_CFRAME_CRC_CHECK_FAILED;
 			goto END;
 		}
 	}
 
-	/** Clear CRAM Self Check */
+	/** - Clear CRAM Self Check */
 	CframeData.Word0 = XPLMI_ZERO;
 	XCframe_WriteReg(&XLoader_CframeIns, CFRAME_BCAST_REG_TESTMODE_OFFSET,
 			XCFRAME_FRAME_BCAST, &CframeData);

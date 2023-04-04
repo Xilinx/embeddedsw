@@ -96,6 +96,7 @@
 *                       secure images measurement
 *       bm   01/05/2023 Clear End Stack before processing a CDO partition
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -144,7 +145,10 @@ static int XLoader_ProcessCdo (const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceC
  *
  * @param	PdiPtr is pointer to XilPdi instance
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS on secure lockdown.
+ * 			- XPLMI_NPI_ERR on NPI errors.
  *
  *****************************************************************************/
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
@@ -180,13 +184,13 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 
 	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
 	/**
-	 * Validate and load the image partitions
+	 * - Validate and load the image partitions.
 	 */
 	for (PrtnIndex = 0U;
 		PrtnIndex < PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 		++PrtnIndex) {
 		/**
-		 * Clear NPI errors before loading each partition
+		 * - Clear NPI errors before loading each partition.
 		 */
 		if (XPlmi_NpiOutOfReset() == (u8)TRUE) {
 			Status = XPlmi_ClearNpiErrors();
@@ -215,12 +219,12 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 
 		PrtnLoadTime = XPlmi_GetTimerValue();
 		/**
-		 * Prtn Hdr Validation
+		 * - Validate the partition header.
 		 */
 		Status = XLoader_PrtnHdrValidation(
 				&(PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum]), PdiPtr->PrtnNum);
 		/**
-		 * PLM is not partition owner and skip this partition
+		 * - If PLM is not partition owner then skip this partition.
 		 */
 		if (Status == (int)XLOADER_SUCCESS_NOT_PRTN_OWNER) {
 			Status = XST_SUCCESS;
@@ -233,7 +237,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		XPlmi_SetPlmLiveStatus();
 
 		/**
-		 * Process Partition
+		 * - Otherwise process the partition.
 		 */
 		Status = XLoader_ProcessPrtn(PdiPtr, PrtnIndex);
 		if (XST_SUCCESS != Status) {
@@ -248,7 +252,10 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 
 		++PdiPtr->PrtnNum;
 
-		/* Skip processing rest of the partitions if SLD is triggered */
+		/**
+		 * - Skip processing rest of the partitions if secure lockdown
+		 * is triggered.
+		 */
 		if (XPlmi_SldState() != XPLMI_SLD_NOT_TRIGGERED) {
 			Status = XPlmi_UpdateStatus(XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, 0U);
 			goto END1;
@@ -281,8 +288,9 @@ END1:
  * @param	PrtnHdr is pointer to partition header
  * @param	PrtnNum is the partition number in the image to be loaded
  *
- * @return	XLOADER_SUCCESS_NOT_PRTN_OWNER if partition is not owned by PLM,
- *			else XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_SUCCESS_NOT_PRTN_OWNER if partition is not owned by PLM.
  *
  *****************************************************************************/
 static int XLoader_PrtnHdrValidation(const XilPdi_PrtnHdr * PrtnHdr, u32 PrtnNum)
@@ -337,7 +345,8 @@ END:
  * @param	SecureParamsPtr is pointer to the instance containing security related
  *			params
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
@@ -352,6 +361,10 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
 
+	/**
+	 * - Check if security is enabled and start the partition copy securely.
+	 * Otherwise copy the partition in non-secure mode.
+	 */
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
 			(SecureTempParams->SecureEn == (u8)FALSE) &&
 			(SecureParams->IsCheckSumEnabled == (u8)FALSE)) {
@@ -384,7 +397,7 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
 /****************************************************************************/
 /**
  * @brief	This function is used to process the CDO partition. It copies and
- * validates if security is enabled.
+ * 			validates if security is enabled.
  *
  * @param	PdiPtr is pointer to XilPdi instance
  * @param	DeviceCopy is pointer to the structure variable with parameters
@@ -392,7 +405,9 @@ int XLoader_PrtnCopy(const XilPdi* PdiPtr, const XLoader_DeviceCopy* DeviceCopy,
  * @param	SecureParams is pointer to the instance containing security related
  *			params
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_INIT_CDO on CDO initialization fail.
  *
  *****************************************************************************/
 static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCopy,
@@ -604,7 +619,11 @@ END:
  *
  * @param	PdiPtr is pointer to XilPdi instance
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XLOADER_ERR_COPY_TO_MEM if failed to copy image to DDR.
+ * 			- XLOADER_ERR_DELAY_LOAD on errors during copies from SMAP, SBI,
+ * 			PCIE, or JTAG to PMC RAM.
  *
  *****************************************************************************/
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)

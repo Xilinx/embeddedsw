@@ -25,6 +25,7 @@
 *       ng   11/23/2022 Fixed doxygen file name error
 *       sk   03/10/2023 Added redundancy for AES Key selection
 *       sk   03/17/2023 Renamed Kekstatus to DecKeySrc in xilpdi structure
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -155,12 +156,13 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 
 /******************************************************************************/
 /**
-* @brief        This function adds periodic checks of the device status
-*               change during secure boot.
-*
-* @return       XST_SUCCESS otherwise error code is returned
-*
-******************************************************************************/
+ * @brief	This function adds periodic checks of the device status
+ * change during secure boot.
+ *
+ * @return	XST_SUCCESS on success.
+ * @return	XLOADER_ERR_ADD_TASK_SCHEDULER if failed to add task to scheduler.
+ *
+ ******************************************************************************/
 int XLoader_AddDeviceStateChangeToScheduler(void)
 {
 	volatile int Status = XST_FAILURE;
@@ -354,7 +356,8 @@ END:
 *
 * @param	PpkHash is pointer to the PPK hash.
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return	XST_FAILURE always return failue, as this api is not applicable for
+* versal_net
 *
 ******************************************************************************/
 int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
@@ -367,13 +370,14 @@ int XLoader_IsAdditionalPpkValid(const u8 *PpkHash) {
 /*****************************************************************************/
 /**
 * @brief	This function checks for the additional PPK select and returns the
-*           PPK invalid mask and PPK efuse cache start offset if PPK is valid.
+* PPK invalid mask and PPK efuse cache start offset if PPK is valid.
 *
 * @param	PpkSelect	PPK selection of eFUSE.
-* @param    InvalidMask Pointer to the PPK invalid mask
-* @param    PpkOffset   Pointer to the efuse cache PPK start offset
+* @param	InvalidMask Pointer to the PPK invalid mask
+* @param	PpkOffset   Pointer to the efuse cache PPK start offset
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return	XST_FAILURE always return failue, as this api is not applicable for
+* versal_net
 *
 ******************************************************************************/
 int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 *PpkOffset)
@@ -394,7 +398,8 @@ int XLoader_AdditionalPpkSelect(XLoader_PpkSel PpkSelect, u32 *InvalidMask, u32 
 *
 * @param	AHWRoT - Buffer to store Secure state for authentication
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return	XST_SUCCESS on success.
+* @return	XLOADER_ERR_GLITCH_DETECTED if glitch is detected.
 *
 ******************************************************************************/
 int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
