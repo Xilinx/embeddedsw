@@ -22,6 +22,7 @@
  *						 if haltboot efuses are programmed
  *       ma   07/25/2022 Enhancements to secure lockdown code
  * 1.1   bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
+ *       dd   03/28/2023 Updated doxygen comments
  *
  * </pre>
  *
@@ -39,13 +40,13 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* Flags for Triggering Tamper */
-#define XPLMI_TRIGGER_TAMPER_TASK	(0U) /* Trigger Tamper as a Task */
-#define XPLMI_TRIGGER_TAMPER_IMMEDIATE	(1U) /* Trigger Tamper immediately */
+#define XPLMI_TRIGGER_TAMPER_TASK	(0U) /**< Trigger tamper as a Task */
+#define XPLMI_TRIGGER_TAMPER_IMMEDIATE	(1U) /**< Trigger tamper immediately */
 
 /* Secure Lockdown State */
-#define XPLMI_SLD_NOT_TRIGGERED		(0U) /* Secure Lockdown Not Triggered */
-#define XPLMI_SLD_TRIGGERED		(1U) /* Secure Lockdown Triggered */
-#define XPLMI_SLD_IN_PROGRESS		(2U) /* Secure Lockdown is In Progress */
+#define XPLMI_SLD_NOT_TRIGGERED		(0U) /**< Secure lockdown not triggered */
+#define XPLMI_SLD_TRIGGERED		(1U) /**< Secure lockdown triggered */
+#define XPLMI_SLD_IN_PROGRESS		(2U) /**< Secure lockdown is in progress */
 
 /**************************** Type Definitions *******************************/
 

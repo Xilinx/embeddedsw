@@ -25,6 +25,7 @@
 *                       Master SLR
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/13/2023 CPM5N Link UP Event handler declaration
+*       dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -51,25 +52,25 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 #define GET_PMC_ERR_ACTION_OFFSET(Index)	((Index == 2) ? \
 			((0xFU) * XPLMI_PMC_PSM_ERR2_REG_OFFSET) : \
-			(Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET))
+			(Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET))  /**< PMC error action offset */
 
 #define GET_PMC_ERR_ACTION_ADDR(PmcMask, Index)	((Index == 2) ? \
 			(PmcMask + ((0xFU) * XPLMI_PMC_PSM_ERR2_REG_OFFSET - \
 			 ((PmcMask - PMC_GLOBAL_PMC_ERR_OUT1_MASK) / 2U))) :\
-			(PmcMask + (Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET)))
+			(PmcMask + (Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET))) /**< PMC error action address */
 
 
 #define GET_PMC_ERR_OUT_MASK(RegOffset)	(RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_ERR_OUT3_MASK) :\
-					(PMC_GLOBAL_PMC_ERR_OUT1_MASK + RegOffset)
+					(PMC_GLOBAL_PMC_ERR_OUT1_MASK + RegOffset) /**< PMC error out mask */
 
 #define GET_PMC_POR_MASK(RegOffset) (RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_POR3_MASK) :\
-					(PMC_GLOBAL_PMC_POR1_MASK + RegOffset)
+					(PMC_GLOBAL_PMC_POR1_MASK + RegOffset) /**< PMC POR mask */
 
 #define GET_PMC_IRQ_MASK(RegOffset) (RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_IRQ3_MASK) :\
-					(PMC_GLOBAL_PMC_IRQ1_MASK + RegOffset)
+					(PMC_GLOBAL_PMC_IRQ1_MASK + RegOffset) /**< PMC IRQ mask */
 
 #define GET_PMC_SRST_MASK(RegOffset) (RegOffset == 0xF0U) ? (PMC_GLOBAL_PMC_SRST3_MASK) :\
-					(PMC_GLOBAL_PMC_SRST1_MASK + RegOffset)
+					(PMC_GLOBAL_PMC_SRST1_MASK + RegOffset) /**< PMC SRST mask */
 
 /*****************************************************************************/
 /**

@@ -19,6 +19,7 @@
 * 1.00  bm   07/06/2022 Initial release
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
+*       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -40,20 +41,20 @@
 #endif
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_WDT_PERIODICITY		(100U)
-#define XPLMI_SCHEDULER_PERIOD		(10U)
+#define XPLMI_WDT_PERIODICITY		(100U) /**< WDT periodicity */
+#define XPLMI_SCHEDULER_PERIOD		(10U) /**< Scheduler period */
 
-#define XPLMI_WDT_PERIODICITY_MIN	(15U)
-#define XPLMI_WDT_PERIODICITY_MAX	(1000U)
-#define XPLMI_SPP_WDT_PERIODICITY_MIN	(45U)
+#define XPLMI_WDT_PERIODICITY_MIN	(15U) /**< Minimum WDT periodicity */
+#define XPLMI_WDT_PERIODICITY_MAX	(1000U) /**< Maximum WDT periodicity */
+#define XPLMI_SPP_WDT_PERIODICITY_MIN	(45U) /**< SPP minimum WDT periodicity */
 
-#define XPLMI_MIO_NUM_PER_BANK		(26U)
+#define XPLMI_MIO_NUM_PER_BANK		(26U) /**< Number of MIO per bank*/
 
-#define XPLMI_PM_STMIC_LMIO_0		(0x14104001U)
-#define XPLMI_PM_STMIC_LMIO_25		(0x1410401aU)
-#define XPLMI_PM_STMIC_PMIO_0		(0x1410801bU)
-#define XPLMI_PM_STMIC_PMIO_51		(0x1410804eU)
-#define XPLMI_PM_DEV_PMC_WDT		(0x1821C035U)
+#define XPLMI_PM_STMIC_LMIO_0		(0x14104001U) /**< PM STMIC LMIO_0 */
+#define XPLMI_PM_STMIC_LMIO_25		(0x1410401aU) /**< PM STMIC LMIO_25 */
+#define XPLMI_PM_STMIC_PMIO_0		(0x1410801bU) /**< PM STMIC PMIO_0 */
+#define XPLMI_PM_STMIC_PMIO_51		(0x1410804eU) /**< PM STMIC PMIO_51 */
+#define XPLMI_PM_DEV_PMC_WDT		(0x1821C035U) /**< PM DEV PMC WDT */
 
 #ifdef XPLMI_PMC_WDT
 #define XPLMI_WDT_VERSION	(1U)
@@ -329,10 +330,6 @@ void XPlmi_StopWdt(u32 NodeId)
 /**
  * @brief	This function Sets the PLM Status.
  *
- * @param	None
- *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_SetPlmLiveStatus(void)
 {
@@ -345,10 +342,6 @@ void XPlmi_SetPlmLiveStatus(void)
 /*****************************************************************************/
 /**
  * @brief	This function clears the PLM status.
- *
- * @param	None
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_ClearPlmLiveStatus(void)
@@ -466,10 +459,6 @@ END:
 /**
  * @brief	This function is used to restore wdt after the In-Place PLM Update
  *
- * @param	None
- *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_RestoreWdt(void)
 {
@@ -485,10 +474,6 @@ void XPlmi_RestoreWdt(void)
 /**
  * @brief	This function is handler for WDT. Scheduler calls this function
  * 			periodically to check the PLM Live status and to toggle the MIO.
- *
- * @param	None
- *
- * @return	None
  *
  *****************************************************************************/
 void XPlmi_WdtHandler(void)

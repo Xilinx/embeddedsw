@@ -118,6 +118,7 @@
 *       ng   02/07/2023 Check to skip the multiboot reg update and SRST
 *       bm   02/09/2023 Added support to return warnings
 *       ng   03/12/2023 Fixed Coverity warnings
+*		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * </pre>
 *
@@ -857,7 +858,7 @@ static int EmEnableErrAction(u32 ErrMaskRegAddr, u32 RegMask)
 /**
  * @brief	This function disables the PMC error actions for the given mask.
  *
- * @param	PmcErrRegOffset is the offset for the PMC ERR1 and ERR2 errors
+ * @param	RegOffset is the offset for the PMC ERR, POR ,IRQ mask,SRST mask
  * @param	RegMask is the register mask of the error to be disabled
  *
  * @return
@@ -882,7 +883,7 @@ int XPlmi_EmDisablePmcErrors(u32 RegOffset, u32 RegMask)
 /**
  * @brief	This function disables the PSM error actions for the given mask.
  *
- * @param	PsmErrRegOffset is the offset for the PSM ERR1 and ERR2 errors
+ * @param	RegOffset is the offset for the PSM ERR1 errors
  * @param	RegMask is the register mask of the error to be disabled
  *
  * @return

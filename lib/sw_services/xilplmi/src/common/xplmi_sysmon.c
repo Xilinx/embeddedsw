@@ -36,6 +36,7 @@
  *       bsv  07/20/2022 Removed magic number usage
  *       bm   07/24/2022 Set PlmLiveStatus during boot time
  * 1.07  ng   11/11/2022 Updated doxygen comments
+ *       dd   03/28/2023 Updated doxygen comments
  *
  * </pre>
  *
@@ -50,9 +51,9 @@
 #include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET		(0x10000U)
-#define XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET		(0x20000U)
-#define XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK	(0x80000U)
+#define XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET		(0x10000U) /**< SAT0 PCSR mask offset */
+#define XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET		(0x20000U) /**< SAT1 PCSR mask offset */
+#define XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK	(0x80000U) /**< PCSR control slave error enable mask */
 
 /**************************** Type Definitions *******************************/
 
