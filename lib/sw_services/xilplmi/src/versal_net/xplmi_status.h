@@ -77,8 +77,8 @@ extern "C" {
  * printing or writing to the FW_ERR register.
  */
 typedef enum {
-	XPLMI_WARNING_MAJOR_MASK = 0x4000, /* To Set Warning in Major Error Code */
-	XPLMI_WARNING_MINOR_MASK = 0x40000000 /* To Set Warning in Minor Error Code */
+	XPLMI_WARNING_MAJOR_MASK = 0x4000, /**< To set warning in major error code */
+	XPLMI_WARNING_MINOR_MASK = 0x40000000 /**< To set warning in minor error Code */
 } XPlmiWarningMasks_t ;
 
 /*
@@ -740,12 +740,12 @@ typedef enum {
 
 
 	XOCP_ERR_KAT_FAILED = 0x6C0, /**< 0x6C0 Error when KAT fails */
-	XOCP_ERR_X509_GEN_TBSCERT_SIGN_ALGO_FIELD,
-	XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD,
-	XOCP_ERR_X509_GEN_SIGN_ALGO_FIELD,
-	XOCP_ERR_X509_GEN_TBSCERT_DIGEST,
-	XOCP_ERR_X509_CALC_SIGN,
-	XOCP_ERR_X509_UPDATE_ENCODED_LEN,
+	XOCP_ERR_X509_GEN_TBSCERT_SIGN_ALGO_FIELD, /**< TBS certificate signed algorithm field */
+	XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD, /**< TBS certificate public key info field */
+	XOCP_ERR_X509_GEN_SIGN_ALGO_FIELD, /**< Signed algorithm field */
+	XOCP_ERR_X509_GEN_TBSCERT_DIGEST, /**< TBS certificate Digest */
+	XOCP_ERR_X509_CALC_SIGN, /**< Calculate sign */
+	XOCP_ERR_X509_UPDATE_ENCODED_LEN, /**< Update encoded length */
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

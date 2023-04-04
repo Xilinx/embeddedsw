@@ -32,6 +32,7 @@
 *       sk   01/11/2023 Added Config Space for Image Store in RTCA
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *       bm   03/11/2023 Modified prototype for XPlmi_PreInit API
+*		dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -53,54 +54,53 @@ extern "C" {
 #include "xplmi_cmd.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_PLM_BANNER	"Xilinx Versal Platform Loader and Manager \n\r"
+#define XPLMI_PLM_BANNER	"Xilinx Versal Platform Loader and Manager \n\r" /**< PLM banner */
 
-/* PLM RunTime Configuration Area Base Address */
-#define XPLMI_RTCFG_BASEADDR			(0xF2014000U)
+#define XPLMI_RTCFG_BASEADDR			(0xF2014000U) /**< Runtime configuration base address */
 
 /* Offsets of PLM Runtime Configuration Registers */
-#define XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x154U)
-#define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x15CU)
-#define XPLMI_RTCFG_SECURE_STATE_PLM_ADDR	(XPLMI_RTCFG_BASEADDR + 0x16CU)
+#define XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x154U) /**< PMC error 1 status address */
+#define XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR	(XPLMI_RTCFG_BASEADDR + 0x15CU) /**< PSM error 1 status address */
+#define XPLMI_RTCFG_SECURE_STATE_PLM_ADDR	(XPLMI_RTCFG_BASEADDR + 0x16CU) /**< Secure state PLM address */
 
-#define XPLMI_RTCFG_PLM_MJTAG_WA		(XPLMI_RTCFG_BASEADDR + 0x188U)
-#define XPLMI_RTCFG_MIO_WA_BANK_500_ADDR	(XPLMI_RTCFG_BASEADDR + 0x270U)
-#define XPLMI_RTCFG_MIO_WA_BANK_501_ADDR	(XPLMI_RTCFG_BASEADDR + 0x274U)
-#define XPLMI_RTCFG_MIO_WA_BANK_502_ADDR	(XPLMI_RTCFG_BASEADDR + 0x278U)
-#define XPLMI_MIO_FLUSH_ALL_PINS		0x3FFFFFFU
-#define XPLMI_RTCFG_RST_PL_POR_WA		(XPLMI_RTCFG_BASEADDR + 0x27CU)
-#define XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX	(XPLMI_RTCFG_BASEADDR + 0x280U)
-#define XPLMI_RTCFG_HBM_TEMP_VAL		(XPLMI_RTCFG_BASEADDR + 0x284U)
-#define XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH	(XPLMI_RTCFG_BASEADDR + 0x288U)
-#define XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW	(XPLMI_RTCFG_BASEADDR + 0x28CU)
-#define XPLMI_RTCFG_IMG_STORE_SIZE		(XPLMI_RTCFG_BASEADDR + 0x290U)
+#define XPLMI_RTCFG_PLM_MJTAG_WA		(XPLMI_RTCFG_BASEADDR + 0x188U) /**< PLM MJTAG word aligner */
+#define XPLMI_RTCFG_MIO_WA_BANK_500_ADDR	(XPLMI_RTCFG_BASEADDR + 0x270U)  /**< Bank 500 address */
+#define XPLMI_RTCFG_MIO_WA_BANK_501_ADDR	(XPLMI_RTCFG_BASEADDR + 0x274U) /**< Bank 501 address */
+#define XPLMI_RTCFG_MIO_WA_BANK_502_ADDR	(XPLMI_RTCFG_BASEADDR + 0x278U) /**< Bank 502 address */
+#define XPLMI_MIO_FLUSH_ALL_PINS		0x3FFFFFFU /**< Flush all pins */
+#define XPLMI_RTCFG_RST_PL_POR_WA		(XPLMI_RTCFG_BASEADDR + 0x27CU) /**< Reset PL_POR word aligner */
+#define XPLMI_RTCFG_HBM_TEMP_CONFIG_AND_MAX	(XPLMI_RTCFG_BASEADDR + 0x280U) /**< HBM temporary configuration */
+#define XPLMI_RTCFG_HBM_TEMP_VAL		(XPLMI_RTCFG_BASEADDR + 0x284U) /**< HBM temporary value */
+#define XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH	(XPLMI_RTCFG_BASEADDR + 0x288U) /**< Image store address high */
+#define XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW	(XPLMI_RTCFG_BASEADDR + 0x28CU) /**< Image store address low */
+#define XPLMI_RTCFG_IMG_STORE_SIZE		(XPLMI_RTCFG_BASEADDR + 0x290U) /**< Image store size */
 
 /* Masks of PLM RunTime Configuration Registers */
-#define XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK	(0x00000001U)
-#define XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_MASK	(0x00000002U)
+#define XPLMI_RTCFG_PLM_MJTAG_WA_IS_ENABLED_MASK	(0x00000001U) /**< MJTAG word aligner enable status check mask */
+#define XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_MASK	(0x00000002U) /**< MJTAG word aligner status mask */
 
 /* Shifts of PLM RunTime Configuration Registers */
-#define XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_SHIFT	(0x00000001U)
+#define XPLMI_RTCFG_PLM_MJTAG_WA_STATUS_SHIFT	(0x00000001U) /**< MJTAG word aligner status shift */
 
 /* Macros for command ids */
-#define XPLMI_SSIT_SYNC_SLAVES_CMD_ID	(14U)
-#define XPLMI_SSIT_SYNC_MASTER_CMD_ID	(15U)
-#define XPLMI_SSIT_WAIT_SLAVES_CMD_ID	(16U)
+#define XPLMI_SSIT_SYNC_SLAVES_CMD_ID	(14U) /**< SSIT Sync slaves command Id */
+#define XPLMI_SSIT_SYNC_MASTER_CMD_ID	(15U) /**< SSIT Sync master command Id */
+#define XPLMI_SSIT_WAIT_SLAVES_CMD_ID	(16U) /**< SSIT wait slaves command Id */
 
 /* GIC related Macros */
-#define XPLMI_GICP_SOURCE_COUNT		(0x5U)
-#define XPLMI_GICP_INDEX_SHIFT		(8U)
-#define XPLMI_GICPX_INDEX_SHIFT		(16U)
-#define XPLMI_GICPX_LEN			(0x14U)
+#define XPLMI_GICP_SOURCE_COUNT		(0x5U) /**< GICP source count */
+#define XPLMI_GICP_INDEX_SHIFT		(8U) /**< GICP index shift */
+#define XPLMI_GICPX_INDEX_SHIFT		(16U) /**< GICPX index shift */
+#define XPLMI_GICPX_LEN			(0x14U) /**< GICPX length */
 
 /*
  * PMC GIC interrupts
  */
-#define XPLMI_PMC_GIC_IRQ_GICP0		(0U)
-#define XPLMI_PMC_GIC_IRQ_GICP1		(1U)
-#define XPLMI_PMC_GIC_IRQ_GICP2		(2U)
-#define XPLMI_PMC_GIC_IRQ_GICP3		(3U)
-#define XPLMI_PMC_GIC_IRQ_GICP4		(4U)
+#define XPLMI_PMC_GIC_IRQ_GICP0		(0U) /**< GICP0 Interrupt */
+#define XPLMI_PMC_GIC_IRQ_GICP1		(1U) /**< GICP1 Interrupt */
+#define XPLMI_PMC_GIC_IRQ_GICP2		(2U) /**< GICP2 Interrupt */
+#define XPLMI_PMC_GIC_IRQ_GICP3		(3U) /**< GICP3 Interrupt */
+#define XPLMI_PMC_GIC_IRQ_GICP4		(4U) /**< GICP4 Interrupt */
 
 /*
  * PMC GICP0 interrupts
@@ -168,31 +168,32 @@ extern "C" {
 #define XPLMI_GICP4_SRC8	(8U) /**< SBI interrupt */
 #define XPLMI_GICP4_SRC14	(14U) /**< RTC interrupt */
 
-#define XPLMI_IPI_INTR_ID		(0x1B0000U)
-#define XPLMI_IPI_INDEX_SHIFT	(24U)
-#define XPLMI_GIC_IPI_INTR_ID		(0x1B0010U)
+#define XPLMI_IPI_INTR_ID		(0x1B0000U) /**< IPI Interrupt Id */
+#define XPLMI_IPI_INDEX_SHIFT	(24U) /**< IPI shift index */
+#define XPLMI_GIC_IPI_INTR_ID		(0x1B0010U) /**< GIC IPI Interrupt Id */
 
-#define XPLMI_SBI_GICP_INDEX	(XPLMI_PMC_GIC_IRQ_GICP4)
-#define XPLMI_SBI_GICPX_INDEX	(XPLMI_GICP4_SRC8)
+#define XPLMI_SBI_GICP_INDEX	(XPLMI_PMC_GIC_IRQ_GICP4) /**< SBI GICP index */
+#define XPLMI_SBI_GICPX_INDEX	(XPLMI_GICP4_SRC8) /**< SBI GICPX index */
 
 /*
  * RTCA area KAT masks
  */
-#define XPLMI_SECURE_SHA3_KAT_MASK 						(0x00000010U)
-#define XPLMI_SECURE_RSA_KAT_MASK 						(0x00000020U)
-#define XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK 	(0x00000040U)
-#define XPLMI_SECURE_AES_DEC_KAT_MASK 					(0x00000080U)
-#define XPLMI_SECURE_AES_CMKAT_MASK 					(0x00000100U)
-#define XPLMI_SECURE_AES_ENC_KAT_MASK					(0x00000400U)
-#define XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK	 		(0x00000800U)
-#define XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK 	(0x00001000U)
-#define XPLMI_SECURE_ECC_PWCT_KAT_MASK					(0x00002000U)
+
+#define XPLMI_SECURE_SHA3_KAT_MASK 						(0x00000010U) /**< SHA3 KAT mask */
+#define XPLMI_SECURE_RSA_KAT_MASK 						(0x00000020U) /**< RSA KAT mask */
+#define XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK 	(0x00000040U) /**< ECC sign verify SHA3_384 KAT mask */
+#define XPLMI_SECURE_AES_DEC_KAT_MASK 					(0x00000080U) /**< AES decrypt KAT mask */
+#define XPLMI_SECURE_AES_CMKAT_MASK 					(0x00000100U) /**< AES decrypt CMKAT mask */
+#define XPLMI_SECURE_AES_ENC_KAT_MASK					(0x00000400U) /**< AES encrypt KAT mask */
+#define XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK	 		(0x00000800U) /**< RSA private decrypt KAT mask */
+#define XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK 	(0x00001000U) /**< ECC sign generation SHA3_384 KAT mask */
+#define XPLMI_SECURE_ECC_PWCT_KAT_MASK					(0x00002000U) /**< ECC PWCT KAT mask */
 
 #define XPLMI_ROM_KAT_MASK		(XPLMI_SECURE_SHA3_KAT_MASK | XPLMI_SECURE_RSA_KAT_MASK | \
 								XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK | XPLMI_SECURE_AES_DEC_KAT_MASK | \
-								XPLMI_SECURE_AES_CMKAT_MASK)
+								XPLMI_SECURE_AES_CMKAT_MASK) /**< ROM KAT mask */
 #define XPLMI_KAT_MASK			(XPLMI_ROM_KAT_MASK | XPLMI_SECURE_AES_ENC_KAT_MASK | XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK | \
-								XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK | XPLMI_SECURE_ECC_PWCT_KAT_MASK)
+									XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK | XPLMI_SECURE_ECC_PWCT_KAT_MASK) /**< KAT mask */
 
 /**************************** Type Definitions *******************************/
 /* Minor Error Codes */
@@ -212,23 +213,23 @@ enum {
 /*
  * SLR Types
  */
-#define XPLMI_SSIT_MONOLITIC		(0x7U)
-#define XPLMI_SSIT_MASTER_SLR		(0x6U)
-#define XPLMI_SSIT_SLAVE0_SLR_TOP	(0x5U)
-#define XPLMI_SSIT_SLAVE0_SLR_NTOP	(0x4U)
-#define XPLMI_SSIT_SLAVE1_SLR_TOP	(0x3U)
-#define XPLMI_SSIT_SLAVE1_SLR_NTOP	(0x2U)
-#define XPLMI_SSIT_SLAVE2_SLR_TOP	(0x1U)
-#define XPLMI_SSIT_INVALID_SLR		(0x0U)
+#define XPLMI_SSIT_MONOLITIC		(0x7U) /**< SSIT monolitic */
+#define XPLMI_SSIT_MASTER_SLR		(0x6U) /**< SSIT master SLR */
+#define XPLMI_SSIT_SLAVE0_SLR_TOP	(0x5U) /**< Slave0 SLR Top */
+#define XPLMI_SSIT_SLAVE0_SLR_NTOP	(0x4U) /**< Slave0 SLR NTop */
+#define XPLMI_SSIT_SLAVE1_SLR_TOP	(0x3U) /**< Slave1 SLR Top */
+#define XPLMI_SSIT_SLAVE1_SLR_NTOP	(0x2U) /**< Slave1 SLR NTop */
+#define XPLMI_SSIT_SLAVE2_SLR_TOP	(0x1U) /**< Slave2 SLR Top */
+#define XPLMI_SSIT_INVALID_SLR		(0x0U) /**< Invalid SLR */
 
-#define XPlmi_InPlacePlmUpdate		NULL
-#define XPlmi_PsmSequence		NULL
-#define XPlmi_ScatterWrite		NULL
-#define XPlmi_ScatterWrite2		NULL
-#define XPlmi_SetFipsKatMask	NULL
+#define XPlmi_InPlacePlmUpdate		NULL /**< InPlace PLM update */
+#define XPlmi_PsmSequence		NULL /**< PSM sequence */
+#define XPlmi_ScatterWrite		NULL /**< Scatter write */
+#define XPlmi_ScatterWrite2		NULL /**< Scatter write2 */
+#define XPlmi_SetFipsKatMask	NULL /**< Set Fip Kat mask */
 
-#define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U))
-#define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U))
+#define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PMC error address */
+#define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PSM error address */
 
 /*****************************************************************************/
 /**

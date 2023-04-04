@@ -27,6 +27,7 @@
 *       ng   11/11/2022 Fixed doxygen file name error
 *       kpt  01/04/2023 Added XPlmi_CheckandUpdateFipsState to update FIPS state
 *       bm   03/11/2023 Modify XPlmi_PreInit to return Status
+*		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -56,31 +57,31 @@
 /************************** Constant Definitions *****************************/
 #define XPLMI_ROM_VERSION_1_0		(0x10U) /**< ROM version 1 */
 
-#define XPLMI_SSSCFG_SHA0_MASK		(0x000F0000U)
-#define XPLMI_SSSCFG_SHA1_MASK		(0x0F000000U)
-#define XPLMI_SSSCFG_AES_MASK		(0x0000F000U)
+#define XPLMI_SSSCFG_SHA0_MASK		(0x000F0000U) /**< SHA0 mask */
+#define XPLMI_SSSCFG_SHA1_MASK		(0x0F000000U) /**< SHA1 mask */
+#define XPLMI_SSSCFG_AES_MASK		(0x0000F000U) /**< AES mask */
 
-#define XPLMI_SSS_SHA0_DMA0		(0x000C0000U)
-#define XPLMI_SSS_SHA0_DMA1		(0x00070000U)
-#define XPLMI_SSS_SHA1_DMA0		(0x0A000000U)
-#define XPLMI_SSS_SHA1_DMA1		(0x0F000000U)
+#define XPLMI_SSS_SHA0_DMA0		(0x000C0000U) /**< SHA0 DMA0 */
+#define XPLMI_SSS_SHA0_DMA1		(0x00070000U) /**< SHA0 DMA1 */
+#define XPLMI_SSS_SHA1_DMA0		(0x0A000000U) /**< SHA1 DMA0 */
+#define XPLMI_SSS_SHA1_DMA1		(0x0F000000U) /**< SHA1 DMA1 */
 
-#define XPLMI_SSS_AES_DMA0		(0x0000E000U)
-#define XPLMI_SSS_AES_DMA1		(0x00005000U)
+#define XPLMI_SSS_AES_DMA0		(0x0000E000U) /**< AES DMA0 */
+#define XPLMI_SSS_AES_DMA1		(0x00005000U) /**< AES DMA1 */
 
-#define XPLMI_LPDINITIALIZED_VER	(1U)
-#define XPLMI_LPDINITIALIZED_LCVER	(1U)
+#define XPLMI_LPDINITIALIZED_VER	(1U) /**< LPD intialized version */
+#define XPLMI_LPDINITIALIZED_LCVER	(1U) /**< LPD intialized LC version */
 
-#define XPLMI_UART_BASEADDR_VER		(1U)
-#define XPLMI_UART_BASEADDR_LCVER	(1U)
+#define XPLMI_UART_BASEADDR_VER		(1U) /**< UART base address version */
+#define XPLMI_UART_BASEADDR_LCVER	(1U) /**< UART base address LC version */
 
-#define XPLMI_TRACE_LOG_VERSION		(1U)
-#define XPLMI_TRACE_LOG_LCVERSION	(1U)
+#define XPLMI_TRACE_LOG_VERSION		(1U) /**< Trace log version */
+#define XPLMI_TRACE_LOG_LCVERSION	(1U) /**< Trace log LC version */
 
-#define XPLMI_BOARD_PARAMS_VERSION	(1U)
-#define XPLMI_BOARD_PARAMS_LCVERSION	(1U)
+#define XPLMI_BOARD_PARAMS_VERSION	(1U) /**< Board parameters version */
+#define XPLMI_BOARD_PARAMS_LCVERSION	(1U) /**< Board parameters LC version */
 
-#define XPLMI_PMC_IRO_FREQ_1_MHZ	(1000000U)
+#define XPLMI_PMC_IRO_FREQ_1_MHZ	(1000000U) /**< PMC IRO frequency 1MHz */
 
 /**************************** Type Definitions *******************************/
 
@@ -91,7 +92,7 @@ static void XPlmi_DisableClearIOmodule(void);
 static void XPlmi_StopTimer(u8 Timer);
 static void XPlmi_HwIntrHandler(void *CallbackRef);
 static u32 XPlmi_GetIoIntrMask(void);
-static void XPlmi_SetIoIntrMask(u32 Mask);
+static void XPlmi_SetIoIntrMask(u32 Value);
 static int XPlmi_UpdateFipsState(void);
 
 /************************** Variable Definitions *****************************/
@@ -188,7 +189,8 @@ u32 *XPlmi_GetUartBaseAddr(void)
 /**
  * @brief	This function performs plmi pre-initializaton.
  *
- * @return	None
+ * @return
+ *			- XST_SUCCESS always.
  *
  *****************************************************************************/
 int XPlmi_PreInit(void)
@@ -729,8 +731,7 @@ END:
 /**
  * @brief	This function is used to check and wait for DMA done
  *
- * @param	DmaPtr is pointer to DMA structure
- * @param	Channel is DMA source or destination channel
+ * @param	DestAddr is the address of destination
  *
  * @return	XST_SUCCESS on success and error code on failure
  *

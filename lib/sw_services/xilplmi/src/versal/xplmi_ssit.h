@@ -34,6 +34,7 @@
 *       ng   11/11/2022 Fixed doxygen file name error
 *       is   12/19/2022 Added support for XPLMI_SLRS_SINGLE_EAM_EVENT_INDEX
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
+*       dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -158,25 +159,25 @@ enum SsitEventIndex {
  * SSIT events related structure definitions
  */
 typedef struct {
-	u32 EventOrigin;
-	XPlmi_EventHandler_t EventHandler;
+	u32 EventOrigin; /**< Event orgin */
+	XPlmi_EventHandler_t EventHandler; /**< Event handler */
 }XPlmi_SsitEvents_t;
 
 typedef struct {
-	u8 SlrIndex;
-	u8 IsIntrEnabled;
-	u32 SlavesMask;
-	XPlmi_SsitEvents_t Events[XPLMI_SSIT_MAX_EVENTS];
-	XPlmi_TaskNode *Task1;
-	XPlmi_TaskNode *Task2;
-	XPlmi_TaskNode *Task3;
+	u8 SlrIndex; /**< Slr index */
+	u8 IsIntrEnabled; /**< Interruput enable status check */
+	u32 SlavesMask; /**< Slaves mask */
+	XPlmi_SsitEvents_t Events[XPLMI_SSIT_MAX_EVENTS]; /**< Array of SSIT maximum events */
+	XPlmi_TaskNode *Task1; /**< Task1 pointer to the TaskNode structure */
+	XPlmi_TaskNode *Task2; /**< Task2 pointer to the TaskNode structure */
+	XPlmi_TaskNode *Task3; /**< Task3 pointer to the TaskNode structure */
 }XPlmi_SsitEventStruct_t;
 
 /*
  * SSIT event vector table structure definition
  */
 typedef struct {
-	u32 Events32[XPLMI_SSIT_MAX_EVENT32_INDEX];
+	u32 Events32[XPLMI_SSIT_MAX_EVENT32_INDEX]; /**< Array of SSIT maximum events 32 */
 }XPlmi_SsitEventVectorTable_t;
 
 /***************** Macros (Inline Functions) Definitions *********************/
