@@ -22,6 +22,7 @@
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 *       bm   07/18/2022 Shutdown modules gracefully during update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -90,7 +91,13 @@ EXPORT_GENERIC_DS(PlmUpdateIpiMask, XPLMI_UPDATE_IPIMASK_DS_ID,
 /**
 * @brief	This function will initialize In-Place Update related logic
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 			- XST_SUCCESS if success.
+* 			- XPLM_ERR_TASK_CREATE if failed to create a task.
+* 			- XPLMI_ERR_IPI_DRV_INIT if there is a failure in Ipi Driver Init
+* 			which is done after In-Place update.
+* 			- XPLMI_ERR_MEMSET_UPDATE_RESP if there is a failure in memset of
+* 			IPI response buffer used to ack the ipi after update.
 *
 ****************************************************************************/
 int XPlmi_UpdateInit(XPlmi_CompatibilityCheck_t CompatibilityHandler)
@@ -246,14 +253,27 @@ u8 XPlmi_IsPlmUpdateInProgress(void)
 /*****************************************************************************/
 /**
  * @brief	This function does operations like storing, restoring the Data
- * 		Structure to Memory during PLM update
+ *			Structure to Memory during PLM update
  *
  * @param	Op is the type of operation to be performed on the data structure
  * @param	Addr is the memory address to which data structure should be stored
- * 		or restored from
+ *			or restored from
  * @param 	Data is the Data Structure Entry
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_INVALID_DS_ENTRY if invalid Data Structure entry is
+ * 			passed to the PLM Db Update Handler.
+ * 			- XPLMI_ERR_DS_ALIGNMENT_INCORRECT if the alignment of Data
+ * 			Structure used during store or restore operations is not word
+ * 			aligned Header.
+ * 			- XPLMI_ERR_PLM_UPDATE_DB_OVERFLOW if the given Data Structure
+ * 			length is exceed the Update DB buffer available.
+ * 			- XPLMI_ERR_MEMCPY_STORE_DB if memcpy failed to store database.
+ * 			- XPLMI_ERR_MEMSET_RESTORE_DB if memset failed to restore database.
+ * 			- XPLMI_ERR_MEMCPY_RESTORE_DB if memcpy failed to restore database.
+ * 			- XPLMI_ERR_PLM_UPDATE_INVALID_OP if invalid operation is passed to
+ * 			PLM Update DB Handler.
  *
  *****************************************************************************/
 int XPlmi_DsOps(u32 Op, u64 Addr, void *Data)
@@ -360,9 +380,22 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function restore all the data structures after InPlace
- *		PLM udpate.
+ *			PLM udpate.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_DB_HDR_VERSION_MISMATCH if the DB Hdr version of old
+ * 			PLM is not matching with that of updated PLM.
+ * 			- XPLMI_ERR_DB_HDR_SIZE_MISMATCH if the DB Hdr size of old PLM is
+ * 			not matching with the size of updated PLM.
+ * 			- XPLMI_ERR_DB_ENDADDR_INVALID if the DB end address calculated
+ * 			is not in a valid range that is accepted by updated PLM.
+ * 			- XPLMI_ERR_PLM_UPDATE_NO_DS_FOUND if no Data Structure is found
+ * 			whose structure ID and module ID are matching while restoring of
+ * 			Data Structures during InPlace PLM Update.
+ * 			- XPLMI_ERR_INVALID_RESTORE_DS_HANDLER if invalid Data Structure
+ * 			Handler used in restoring of Data Structures during InPlace PLM
+ * 			Update.
  *
  *****************************************************************************/
 int XPlmi_RestoreDataBackup(void)
@@ -417,9 +450,15 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function store all the data structures before InPlace
- *		PLM udpate.
+ *			PLM udpate.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_MEMSET_DBHDR if memset of DbHdr during store database
+ * 			is failed.
+ * 			- XPLMI_ERR_INVALID_STORE_DS_HANDLER if invalid Data Structure
+ * 			Handler	used in storing of Data Structures during InPlace PLM
+ * 			Update.
  *
  *****************************************************************************/
 static int XPlmi_StoreDataBackup(void)
@@ -500,7 +539,15 @@ static int XPlmi_ShutdownModules(XPlmi_ModuleOp Op)
  *
  * @param	Cmd is the command pointer of in place update command
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_UPDATE_IN_PROGRESS if a task cannot be executed as the
+ * 			update is in progress.
+ * 			- XPLMI_ERR_PLM_UPDATE_DISABLED if PLM Update is disabled in
+ * 			ROM_RSV efuse.
+ * 			- XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT if failed to shutdown
+ * 			initiate of	modules during InPlace PLM Update.
+ * 			- XPLMI_ERR_UPDATE_TASK_NOT_FOUND if PLM Update task is not found.
  *
  *****************************************************************************/
 int XPlmi_PlmUpdate(XPlmi_Cmd *Cmd)
@@ -579,9 +626,17 @@ END:
 /**
  * @brief	This function does In-Place PLM Update
  *
- * @param	Cmd is the command pointer of in place update command
+ * @param	Arg is the PDI address.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_PLM_UPDATE_SHUTDOWN_COMPLETE if failed to shutdown
+ * 			complete of modules during in place PLM update.
+ * 			- XPLMI_ERR_STORE_DATA_BACKUP if failed to store the data structure.
+ * 			- XPLMI_ERR_MEMCPY_RELOCATE if failed to relocate update manager
+ * 			code.
+ * 			- XPLMI_ERR_PLM_UPDATE_RELOCATED_FN if the relocated PLM update
+ * 			function fails.
  *
  *****************************************************************************/
 static int XPlmi_PlmUpdateTask(void *Arg)

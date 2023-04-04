@@ -24,6 +24,7 @@
 * 1.02  bm   07/06/2022 Refactor versal and versal_net code
 * 1.03  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
+*       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
 *
@@ -86,12 +87,16 @@ static XPlmi_Wdt WdtInstance = {
 /*****************************************************************************/
 /**
  * @brief	This function enables the WDT and sets NodeId and periodicity.
- *		It also verifies the parameters.
+ *			It also verifies the parameters.
  *
  * @param	NodeId NodeId is the MIO node to be used by PLM for toggling.
  * @param	Periodicity at which MIO value should be toggled.
  *
- * @return	XST_SUCCESS on success and error code on failure
+ * @return
+ * 			- XST_SUCCESS if success.
+ * 			- XPLMI_ERR_WDT_PERIODICITY on invalid Periodicity.
+ * 			- XPLMI_ERR_WDT_LPD_NOT_INITIALIZED if LPD is not initialized.
+ * 			- XPLMI_ERR_WDT_NODE_ID on invalid node ID.
  *
  *****************************************************************************/
 int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
@@ -105,7 +110,7 @@ int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity)
 		goto END;
 	}
 
-	/** Check for Valid Node ID */
+	/** - Check for Valid Node ID */
 	if ((NodeId >= XPLMI_PM_STMIC_LMIO_0) &&
 	    (NodeId <= XPLMI_PM_STMIC_LMIO_25)) {
 		/* LPD MIO is used */
@@ -146,9 +151,8 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function disables the WDT. This is required when LPD
- *		is powered down and if LPD MIO is used. Also required
- *		when debugging.
+ * @brief	This function disables the WDT. This is required when LPD is
+ * 			powered down and if LPD MIO is used. Also required when	debugging.
  *
  * @return	None
  *
@@ -185,9 +189,8 @@ void XPlmi_ClearPlmLiveStatus(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function is handler for WDT. Scheduler calls this
- *		function periodically to check the PLM Live status and to
- *		toggle the MIO.
+ * @brief	This function is handler for WDT. Scheduler calls this function
+ * 			periodically to check the PLM Live status and to toggle the MIO.
  *
  * @return	None
  *
@@ -196,14 +199,14 @@ void XPlmi_WdtHandler(void)
 {
 	static u32 WdtLastResetPeriod = 0U;
 
-	/** if WDT is not enabled, just return */
+	/** - if WDT is not enabled, just return */
 	if (WdtInstance.IsEnabled == (u8)FALSE) {
 		goto END;
 	}
 
 	WdtLastResetPeriod += XPLMI_SCHEDULER_PERIOD;
 
-	/** Toggle MIO only when last reset period exceeds periodicity */
+	/** - Toggle MIO only when last reset period exceeds periodicity */
 	if (WdtLastResetPeriod >
 	    (u32)(WdtInstance.Periodicity - XPLMI_WDT_PERIODICITY_MIN)) {
 		if (WdtInstance.PlmLiveStatus == (u8)TRUE) {
