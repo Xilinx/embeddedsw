@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.5.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2018 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 -2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -546,7 +546,7 @@ uint32_t ulBpr;
 		configASSERT( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 		if( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE)
 #else
-		ulBpr = mfcp(XREG_ICC_BPR0_EL1);
+		ulBpr = mfcp(XREG_ICC_BPR1_EL1);
 		configASSERT( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 		if( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE )
 #endif
@@ -771,7 +771,7 @@ uint32_t ulPmr;
 #if !defined(ARMR52)
 		configASSERT( ( Xil_In32(portICCBPR_BINARY_POINT_REGISTER_ADDRESS) & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 #else
-		ulBpr = mfcp(XREG_ICC_BPR0_EL1);
+		ulBpr = mfcp(XREG_ICC_BPR1_EL1);
 		configASSERT( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 #endif
 	}
