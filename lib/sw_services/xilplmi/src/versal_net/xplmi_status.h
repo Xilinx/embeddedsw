@@ -34,6 +34,7 @@
 *       bm   01/05/2023 Notify Other SLRs about Secure Lockdown
 *       sk   01/11/2023 Updated error code for Image Store
 *       bm   02/04/2023 Added support to return warnings
+* 		dd	 03/28/2023 Updated Doxygen comments
 *
 * </pre>
 *
@@ -76,8 +77,8 @@ extern "C" {
  * printing or writing to the FW_ERR register.
  */
 typedef enum {
-	XPLMI_WARNING_MAJOR_MASK = 0x4000, /* To Set Warning in Major Error Code */
-	XPLMI_WARNING_MINOR_MASK = 0x40000000 /* To Set Warning in Minor Error Code */
+	XPLMI_WARNING_MAJOR_MASK = 0x4000, /**< To set warning in major error code */
+	XPLMI_WARNING_MINOR_MASK = 0x40000000 /**< To set warning in minor error Code */
 } XPlmiWarningMasks_t ;
 
 /*

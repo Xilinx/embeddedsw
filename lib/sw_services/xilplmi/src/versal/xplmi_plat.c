@@ -28,6 +28,7 @@
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *       bm   03/11/2023 Refactored XPlmi_VerifyAddrRange logic
 *       bm   03/11/2023 Added check for blind write in UpdateResetReason
+*		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -60,26 +61,26 @@
 
 /* SSIT SLR related macros */
 #define XPLMI_CFU_STREAM_2_SLR_OFFSET	\
-	(CFU_STREAM_2_ADDR - XPLMI_PMC_LOCAL_BASEADDR)
+	(CFU_STREAM_2_ADDR - XPLMI_PMC_LOCAL_BASEADDR) /**< SLR offset for CFU stream 2 register */
 #define XPLMI_CFU_FDRO_2_SLR_OFFSET		\
-	(CFU_FDRO_2_ADDR - XPLMI_PMC_LOCAL_BASEADDR)
+	(CFU_FDRO_2_ADDR - XPLMI_PMC_LOCAL_BASEADDR) /**< SLR offset for CFU FDRO 2 register */
 
 #define XPLMI_SLR1_CFU_FDRO_2_ADDR	\
-	(XPLMI_PMC_ALIAS1_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET)
+	(XPLMI_PMC_ALIAS1_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET) /**< SLR1 CFU FDRO 2 address */
 #define XPLMI_SLR2_CFU_FDRO_2_ADDR	\
-	(XPLMI_PMC_ALIAS2_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET)
+	(XPLMI_PMC_ALIAS2_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET) /**< SLR2 CFU FDRO 2 address */
 #define XPLMI_SLR3_CFU_FDRO_2_ADDR	\
-	(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET)
+	(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_CFU_FDRO_2_SLR_OFFSET) /**< SLR3 CFU FDRO 2 address */
 
 #define XPLMI_SLR1_CFU_STREAM_2_ADDR	\
-	(XPLMI_PMC_ALIAS1_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
+	(XPLMI_PMC_ALIAS1_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET) /**< SLR1 CFU Stream 2 address */
 #define XPLMI_SLR2_CFU_STREAM_2_ADDR	\
-	(XPLMI_PMC_ALIAS2_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
+	(XPLMI_PMC_ALIAS2_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET) /**< SLR2 CFU Stream 2 address */
 #define XPLMI_SLR3_CFU_STREAM_2_ADDR	\
-	(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET)
+	(XPLMI_PMC_ALIAS3_BASEADDR + XPLMI_CFU_STREAM_2_SLR_OFFSET) /**< SLR3 CFU Stream 2 address */
 
-#define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f)
-#define XPLMI_PMC_VERSION_1_0		(0x10U)
+#define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f) /**< PMC voltage multiplier */
+#define XPLMI_PMC_VERSION_1_0		(0x10U) /**< PMC version 1.0 */
 
 /**************************** Type Definitions *******************************/
 
@@ -238,7 +239,7 @@ void XPlmi_PrintRomVersion(void)
  * @brief	This function performs plmi pre-initializaton.
  *
  * @return
- * 			- None
+ * 			- Reset reason status.
  *
  *****************************************************************************/
 int XPlmi_PreInit(void)
@@ -251,7 +252,7 @@ int XPlmi_PreInit(void)
  * @brief	This function updates reset reason.
  *
  * @return
- * 			- None
+ * 			- XST_SUCCESS on success and error code on failure.
  *
  *****************************************************************************/
 static int XPlmi_UpdateResetReason(void)
@@ -309,8 +310,7 @@ static int XPlmi_SsitWaitForDmaDone(XPmcDma *DmaPtr, XPmcDma_Channel Channel)
  * @brief	This function is used to check and wait for DMA done when sending
  *          data to SSIT Slave SLRs.
  *
- * @param	DmaPtr is pointer to DMA structure
- * @param	Channel is DMA source or destination channel
+ * @param	DestAddr holds the address of the destination buffer
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure

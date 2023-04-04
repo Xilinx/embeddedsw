@@ -23,6 +23,7 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/03/2023 Remove Triggering of SSIT ERR2 from Slave SLR to
 *                       Master SLR
+*       dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -48,14 +49,14 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define GET_PMC_ERR_ACTION_OFFSET(Index)	\
-				(Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET)
+				(Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET) /**< PMC error action offset */
 #define GET_PMC_ERR_ACTION_ADDR(PmcMask, Index) \
-				(PmcMask + (Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET))
+				(PmcMask + (Index * XPLMI_PMC_PSM_ERR2_REG_OFFSET)) /**< PMC error action address */
 
-#define GET_PMC_ERR_OUT_MASK(RegOffset)	(PMC_GLOBAL_PMC_ERR_OUT1_MASK + RegOffset)
-#define GET_PMC_POR_MASK(RegOffset)	(PMC_GLOBAL_PMC_POR1_MASK + RegOffset)
-#define GET_PMC_IRQ_MASK(RegOffset)	(PMC_GLOBAL_PMC_IRQ1_MASK + RegOffset)
-#define GET_PMC_SRST_MASK(RegOffset)	(PMC_GLOBAL_PMC_SRST1_MASK + RegOffset)
+#define GET_PMC_ERR_OUT_MASK(RegOffset)	(PMC_GLOBAL_PMC_ERR_OUT1_MASK + RegOffset) /**< PMC error out mask */
+#define GET_PMC_POR_MASK(RegOffset)	(PMC_GLOBAL_PMC_POR1_MASK + RegOffset) /**< PMC POR mask */
+#define GET_PMC_IRQ_MASK(RegOffset)	(PMC_GLOBAL_PMC_IRQ1_MASK + RegOffset) /**< PMC IRQ mask */
+#define GET_PMC_SRST_MASK(RegOffset)	(PMC_GLOBAL_PMC_SRST1_MASK + RegOffset) /**< PMC SRST mask */
 
 /****************************************************************************/
 /**

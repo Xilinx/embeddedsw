@@ -18,6 +18,7 @@
 *       bm   07/06/2022 Refactor versal and versal_net code
 *       bm   07/13/2022 Added compatibility check for In-Place PLM Update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
+*       dd   03/28/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -92,23 +93,21 @@ typedef int (*XPlmi_CompatibilityCheck_t)(u32 PdiAddr);
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* Data structure handler operations */
-#define XPLMI_STORE_DATABASE	(0x1U)
-#define XPLMI_RESTORE_DATABASE	(0x2U)
+#define XPLMI_STORE_DATABASE	(0x1U) /**< Store database */
+#define XPLMI_RESTORE_DATABASE	(0x2U)  /**< Restore database */
 
-/* Data structure versions section attribute */
 #define DSVER_ATTR __attribute__ ((section(".struct_versions")))\
-				__attribute__((used))
-/* Data structure entries section attribute */
-#define DSENTRY_ATTR __attribute__ ((section(".struct_entries")))\
-				__attribute__((used))
+				__attribute__((used)) /**< Data structure versions section attribute */
 
-/* Data structure version header initialization macro */
+#define DSENTRY_ATTR __attribute__ ((section(".struct_entries")))\
+				__attribute__((used)) /**< Data structure entries section attribute */
+
 #define XPLMI_INIT_DS_VER_HDR(MId, DId, Ver, LCVer) {\
 			.ModuleId = ((MId) & 0xFFU),\
 			.DsId = ((DId) & 0xFFU),\
 			.Version = ((Ver) & 0xFFU),\
 			.LowestCompVer = ((LCVer) & 0xFFU),\
-			}
+			} /**< Data structure version header initialization */
 
 /* Macro to export Data structure with custom handler */
 /* The below macro has following arguments:
@@ -128,7 +127,7 @@ typedef int (*XPlmi_CompatibilityCheck_t)(u32 PdiAddr);
 		.DsHdr.Ver = XPLMI_INIT_DS_VER_HDR(Mid, Did, ver, LCVer),\
 		.DsHdr.Len = Size,\
 		.Addr = Address,\
-		.Handler = handler}
+		.Handler = handler} /**< Data structure with custom write handler */
 
 /* Macro to export Data structure with default handler */
 /* The below macro has following arguments:
@@ -140,7 +139,7 @@ typedef int (*XPlmi_CompatibilityCheck_t)(u32 PdiAddr);
  * Size - Size of the Data Structure
  * Address - Address of the Data Structure
  */
-#define EXPORT_DS(...) 	EXPORT_DS_W_HANDLER(__VA_ARGS__, XPlmi_DsOps)
+#define EXPORT_DS(...) 	EXPORT_DS_W_HANDLER(__VA_ARGS__, XPlmi_DsOps) /**< Data structure with default write handler */
 
 /* Macros to export Data structure of different modules with default handler */
 /* Each of the macro has following arguments:
@@ -151,13 +150,13 @@ typedef int (*XPlmi_CompatibilityCheck_t)(u32 PdiAddr);
  * Size - Size of the Data Structure
  * Address - Address of the Data Structure
  */
-#define EXPORT_GENERIC_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_GENERIC_ID, __VA_ARGS__)
-#define EXPORT_LOADER_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_LOADER_ID, __VA_ARGS__)
-#define EXPORT_SEM_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_SEM_ID, __VA_ARGS__)
-#define EXPORT_XILSECURE_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_XILSECURE_ID, __VA_ARGS__)
-#define EXPORT_XILPSM_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_XILPSM_ID, __VA_ARGS__)
-#define EXPORT_ERROR_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_ERROR_ID, __VA_ARGS__)
-#define EXPORT_STL_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_STL_ID, __VA_ARGS__)
+#define EXPORT_GENERIC_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_GENERIC_ID, __VA_ARGS__) /**< Generic data structure */
+#define EXPORT_LOADER_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_LOADER_ID, __VA_ARGS__) /**< Loader data structure */
+#define EXPORT_SEM_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_SEM_ID, __VA_ARGS__) /**< Semaphore data structure */
+#define EXPORT_XILSECURE_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_XILSECURE_ID, __VA_ARGS__) /**< XilSecure data structure */
+#define EXPORT_XILPSM_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_XILPSM_ID, __VA_ARGS__) /**< XilPSM data structure */
+#define EXPORT_ERROR_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_ERROR_ID, __VA_ARGS__) /**< Error data structure */
+#define EXPORT_STL_DS(Name, ...) 	EXPORT_DS(Name, XPLMI_MODULE_STL_ID, __VA_ARGS__) /**< STL data structure */
 
 
 /************************** Function Prototypes ******************************/

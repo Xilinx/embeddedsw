@@ -26,6 +26,7 @@
 *       bm   09/14/2022 Move ScatterWrite commands from common to versal_net
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       kpt  01/04/2023 Added XPlmi_SetFipsKatMask command
+*       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *
 * </pre>
@@ -48,20 +49,20 @@
 
 /************************** Constant Definitions *****************************/
 /* PSM sequence related constants definitions */
-#define XPLMI_PROC_PSM_SEND_API_ID		(0x8U)
-#define XPLMI_PROC_PSM_SEND_API_ID_IDX		(0U)
-#define XPLMI_PROC_PSM_SEND_START_ADDR_IDX	(1U)
-#define XPLMI_PROC_PSM_SEND_END_ADDR_IDX	(2U)
-#define XPLMI_PROC_PAYLOAD_ARG_CNT		(8U)
-#define XPLMI_PLM_GENERIC_PLMUPDATE		(0x20U)
+#define XPLMI_PROC_PSM_SEND_API_ID		(0x8U) /**< API Id */
+#define XPLMI_PROC_PSM_SEND_API_ID_IDX		(0U) /**< API Id index */
+#define XPLMI_PROC_PSM_SEND_START_ADDR_IDX	(1U) /**< Start address index */
+#define XPLMI_PROC_PSM_SEND_END_ADDR_IDX	(2U) /**< End address index */
+#define XPLMI_PROC_PAYLOAD_ARG_CNT		(8U) /**< Payload argument count */
+#define XPLMI_PLM_GENERIC_PLMUPDATE		(0x20U) /**< Generic PLM update */
 
 /* IPI Max Timeout */
-#define IPI_MAX_TIMEOUT			(~0U)
+#define IPI_MAX_TIMEOUT			(~0U) /**< IPI Max timeout */
 
 /* Command related macros */
-#define XPLMI_SCATTER_WRITE_PAYLOAD_LEN			(2U)
-#define XPLMI_SCATTER_WRITE2_PAYLOAD_LEN		(3U)
-#define XPLMI_FIPS_WRITE_KATMASK_PAYLOAD_LEN	(7U)
+#define XPLMI_SCATTER_WRITE_PAYLOAD_LEN			(2U) /**< Scatter write payload length */
+#define XPLMI_SCATTER_WRITE2_PAYLOAD_LEN		(3U) /**< Scatter write2 payload length */
+#define XPLMI_FIPS_WRITE_KATMASK_PAYLOAD_LEN	(7U) /**< FIPS write KAT mask payload length */
 
 /**************************** Type Definitions *******************************/
 
