@@ -14,7 +14,7 @@
 * @cond nocomments
 * The RFSoC DFE Orthogonal Frequency Division Multiplexing IP performs
 * translation between frequency domain to the time domain and vice versa using
-* the hardened FFT IP in Maxwell. Each instance of the IP supports up to eight
+* the hardened FFT IP. Each instance of the IP supports up to eight
 * antennas in 1, 2, 4 and 8 combinations and up to 4 ANTENNA INTERLEAVE in
 * combinations of 1, 2 and 4. Each instance can also support up to 8 component
 * carriers (CC) to be aggregated on a particular antenna. The block performs
@@ -45,6 +45,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
+* 1.1   dc     04/05/23 Update documentation
 *
 * </pre>
 * @endcond
