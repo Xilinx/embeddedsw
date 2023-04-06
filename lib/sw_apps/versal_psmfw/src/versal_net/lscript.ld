@@ -1,5 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -10,8 +11,7 @@ _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x800;
 
 MEMORY
 {
-   instruction_Mem : ORIGIN = 0xEBC00050, LENGTH = 0x1FFB0
-   data_Mem : ORIGIN = 0xEBC20000, LENGTH = 0x6000
+   psmfw_Mem : ORIGIN = 0xEBC00000, LENGTH = 0x26000
    proc_reserved_Mem : ORIGIN = 0xEBC26000, LENGTH = 0x2000
 }
 
@@ -25,37 +25,37 @@ SECTIONS
 {
 .vectors.reset 0xEBC00000 : {
    KEEP (*(.vectors.reset))
-}
+} > psmfw_Mem
 
 .vectors.sw_exception 0xEBC00008 : {
    KEEP (*(.vectors.sw_exception))
-}
+} > psmfw_Mem
 
 .vectors.interrupt 0xEBC00010 : {
    KEEP (*(.vectors.interrupt))
-}
+} > psmfw_Mem
 
 .vectors.hw_exception 0xEBC00020 : {
    KEEP (*(.vectors.hw_exception))
-}
+} > psmfw_Mem
 
 .text : {
    *(.text)
    *(.text.*)
    *(.gnu.linkonce.t.*)
-} > instruction_Mem
+} > psmfw_Mem
 
 .note.gnu.build-id : {
    KEEP (*(.note.gnu.build-id))
-} > instruction_Mem
+} > psmfw_Mem
 
 .init : {
    KEEP (*(.init))
-} > instruction_Mem
+} > psmfw_Mem
 
 .fini : {
    KEEP (*(.fini))
-} > instruction_Mem
+} > psmfw_Mem
 
 .ctors : {
    __CTOR_LIST__ = .;
@@ -66,7 +66,7 @@ SECTIONS
    KEEP (*(.ctors))
    __CTOR_END__ = .;
    ___CTORS_END___ = .;
-} > instruction_Mem
+} > psmfw_Mem
 
 .dtors : {
    __DTOR_LIST__ = .;
@@ -77,7 +77,7 @@ SECTIONS
    KEEP (*(.dtors))
    PROVIDE(__DTOR_END__ = .);
    PROVIDE(___DTORS_END___ = .);
-} > instruction_Mem
+} > psmfw_Mem
 
 .rodata : {
    __rodata_start = .;
@@ -85,7 +85,50 @@ SECTIONS
    *(.rodata.*)
    *(.gnu.linkonce.r.*)
    __rodata_end = .;
-} > data_Mem
+} > psmfw_Mem
+
+
+.data : {
+   . = ALIGN(4);
+   __data_start = .;
+   *(.data)
+   *(.data.*)
+   *(.gnu.linkonce.d.*)
+   __data_end = .;
+} > psmfw_Mem
+
+.got : {
+   *(.got)
+} > psmfw_Mem
+
+.got1 : {
+   *(.got1)
+} > psmfw_Mem
+
+.got2 : {
+   *(.got2)
+} > psmfw_Mem
+
+.eh_frame : {
+   *(.eh_frame)
+} > psmfw_Mem
+
+.jcr : {
+   *(.jcr)
+} > psmfw_Mem
+
+.gcc_except_table : {
+   *(.gcc_except_table)
+} > psmfw_Mem
+
+.sdata : {
+   . = ALIGN(8);
+   __sdata_start = .;
+   *(.sdata)
+   *(.sdata.*)
+   *(.gnu.linkonce.s.*)
+   __sdata_end = .;
+} > psmfw_Mem
 
 .sdata2 : {
    . = ALIGN(8);
@@ -95,7 +138,7 @@ SECTIONS
    *(.gnu.linkonce.s2.*)
    . = ALIGN(8);
    __sdata2_end = .;
-} > data_Mem
+} > psmfw_Mem
 
 .sbss2 : {
    __sbss2_start = .;
@@ -103,49 +146,23 @@ SECTIONS
    *(.sbss2.*)
    *(.gnu.linkonce.sb2.*)
    __sbss2_end = .;
-} > data_Mem
+} > psmfw_Mem
 
-.data : {
-   . = ALIGN(4);
-   __data_start = .;
-   *(.data)
-   *(.data.*)
-   *(.gnu.linkonce.d.*)
-   __data_end = .;
-} > data_Mem
+.tdata : {
+   __tdata_start = .;
+   *(.tdata)
+   *(.tdata.*)
+   *(.gnu.linkonce.td.*)
+   __tdata_end = .;
+} > psmfw_Mem
 
-.got : {
-   *(.got)
-} > data_Mem
-
-.got1 : {
-   *(.got1)
-} > data_Mem
-
-.got2 : {
-   *(.got2)
-} > data_Mem
-
-.eh_frame : {
-   *(.eh_frame)
-} > data_Mem
-
-.jcr : {
-   *(.jcr)
-} > data_Mem
-
-.gcc_except_table : {
-   *(.gcc_except_table)
-} > data_Mem
-
-.sdata : {
-   . = ALIGN(8);
-   __sdata_start = .;
-   *(.sdata)
-   *(.sdata.*)
-   *(.gnu.linkonce.s.*)
-   __sdata_end = .;
-} > data_Mem
+.tbss : {
+   __tbss_start = .;
+   *(.tbss)
+   *(.tbss.*)
+   *(.gnu.linkonce.tb.*)
+   __tbss_end = .;
+} > psmfw_Mem
 
 .sbss (NOLOAD) : {
    . = ALIGN(4);
@@ -155,23 +172,7 @@ SECTIONS
    *(.gnu.linkonce.sb.*)
    . = ALIGN(8);
    __sbss_end = .;
-} > data_Mem
-
-.tdata : {
-   __tdata_start = .;
-   *(.tdata)
-   *(.tdata.*)
-   *(.gnu.linkonce.td.*)
-   __tdata_end = .;
-} > data_Mem
-
-.tbss : {
-   __tbss_start = .;
-   *(.tbss)
-   *(.tbss.*)
-   *(.gnu.linkonce.tb.*)
-   __tbss_end = .;
-} > data_Mem
+} > psmfw_Mem
 
 .bss (NOLOAD) : {
    . = ALIGN(4);
@@ -182,7 +183,7 @@ SECTIONS
    *(COMMON)
    . = ALIGN(4);
    __bss_end = .;
-} > data_Mem
+} > psmfw_Mem
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -196,7 +197,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    _heap_start = .;
    . += _HEAP_SIZE;
    _heap_end = .;
-} > data_Mem
+} > psmfw_Mem
 
 .stack (NOLOAD) : {
    _stack_end = .;
@@ -204,9 +205,9 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . = ALIGN(8);
    _stack = .;
    __stack = _stack;
-} > data_Mem
+} > psmfw_Mem
 
-.proc_reserved_memory : {
+.proc_reserved_memory (NOLOAD) : {
 	KEEP (*(.proc_reserved_memory))
 } > proc_reserved_Mem
 _end = .;
