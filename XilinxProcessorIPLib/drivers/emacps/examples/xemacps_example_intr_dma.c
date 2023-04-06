@@ -1490,7 +1490,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			Xil_Out32((UINTPTR)CRL_GEM0_REF_CTRL, ClkCntrl);
 #endif
 		}
-		if (BaseAddress == VERSAL_EMACPS_0_BASEADDR) {
+		if (BaseAddress == VERSAL_EMACPS_1_BASEADDR) {
 
 			/* GEM1 1G clock configuration*/
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
