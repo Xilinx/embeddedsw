@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,6 +37,8 @@
 * 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
 *                        displaying same warnings multiple times. It fixes CR#1090562.
 * 8.0   mus    07/06/21  Added support for VERSAL NET
+* 9.0   dp     03/29/23  Added support to use ttc as sleep timer for VersalNet
+*                        Cortex-R52.
 *
 * </pre>
 *
@@ -59,7 +62,7 @@
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-#if defined (ARMR52)
+#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined(ARMR52)
 
 #define LPD_RST_TIMESTAMP  0xEB5E035CU
 /**
@@ -85,10 +88,12 @@ void XTime_StartTimer(void)
 }
 #endif
 
-#if defined (SLEEP_TIMER_BASEADDR)
+#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined(ARMR52)
+#pragma message ("For the sleep routines, global timer is used")
+#elif defined (SLEEP_TIMER_BASEADDR)
 #pragma message ("For the sleep routines, TTC3/TTC2 is used")
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
-#pragma message ("For the sleep routines, CortexR5 PMU cycle counter is used")
+#pragma message ("For the sleep routines, PMU cycle counter is used")
 #else
 #pragma message ("For the sleep routines, machine cycles are used")
 #endif
@@ -128,7 +133,7 @@ void XTime_SetTime(XTime Xtime_Global)
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
-#if defined (ARMR52)
+#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined(ARMR52)
 	*Xtime_Global = arch_counter_get_cntvct();
 #elif defined (SLEEP_TIMER_BASEADDR)
 	*Xtime_Global = Xil_In32(SLEEP_TIMER_BASEADDR +

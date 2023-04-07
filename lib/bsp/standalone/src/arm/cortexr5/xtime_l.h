@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +34,8 @@
 * 8.0   mus    07/06/21 Added support for VERSAL NET.
 * 8.0	sk	03/02/22 Update COUNTS_PER_USECOND macro to fix misra_c_2012_rule_
 * 			 10_4 violation.
+* 9.0   dp     03/29/23  Added support to use ttc as sleep timer for VersalNet
+*                        Cortex-R52.
 * </pre>
 *
 ******************************************************************************/
@@ -86,12 +89,12 @@ static inline u64 arch_counter_get_cntvct(void)
 
 #define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
 
-#if defined (ARMR52)
+#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined(ARMR52)
 #pragma message ("For the sleep routines, global timer is used")
 #elif defined (SLEEP_TIMER_BASEADDR)
 #pragma message ("For the sleep routines, TTC3/TTC2 is used")
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
-#pragma message ("For the sleep routines, CortexR5 PMU cycle counter is used")
+#pragma message ("For the sleep routines, PMU cycle counter is used")
 #else
 #pragma message ("For the sleep routines, machine cycles are used")
 #endif

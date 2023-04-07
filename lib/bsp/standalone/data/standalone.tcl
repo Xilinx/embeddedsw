@@ -84,6 +84,8 @@
 #       	      is enabled, as xpm_counter.c file contains PM event API's
 #       	      which are generic.
 # 9.0   sa   05/01/23 Added support for Microblaze RISC-V.
+# 9.0   dp   29/03/23 Added support to use ttc as sleeptimer for VersalNet
+#                     Cortex-R52
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -1083,7 +1085,7 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
     set sleep_timer [common::get_property CONFIG.sleep_timer $os_handle ]
 	set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psv_cortexa72" || IP_NAME=="psxl_cortexa78" || IP_NAME=="psx_cortexa78"}]
 	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" || $sleep_timer == "psv_iou_scntr" || $sleep_timer == "psv_iou_scntrs"} {
-		if { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5" || $proctype == "psxl_cortexr52" || $proctype == "psx_cortexr52"} {
+		if { $proctype == "psu_cortexr5" ||  $proctype == "psv_cortexr5"} {
 			error "ERROR: $proctype does not support $sleep_timer "
 		}
     } elseif { $sleep_timer == "none" } {
@@ -1167,13 +1169,13 @@ proc xsleep_timer_config {proctype os_handle file_handle} {
 			}
 			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSU_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
 			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSU_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
-		} elseif {$proctype == "psv_cortexr5" || $proctype == "psv_cortexa72" || $proctype == "psxl_cortexa78" || $proctype == "psxl_cortexr52" || $proctype == "psx_cortexa78" || $proctype == "psx_cortexr52"} {
-			if { $proctype == "psv_cortexr5" && [is_ttc_accessible_from_processor $sleep_timer] == 0 } {
+		} elseif {$proctype == "psv_cortexr5" || $proctype == "psv_cortexa72" || $proctype == "psx_cortexa78" || $proctype == "psx_cortexr52"} {
+			if { ($proctype == "psv_cortexr5" || $proctype == "psx_cortexr52") && [is_ttc_accessible_from_processor $sleep_timer] == 0 } {
 				error "ERROR: $sleep_timer is secure and it is not accessible to the processor. Please select non secure ttc \
 					instance as sleep_timer from BSP settings"
 			}
-			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSV_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
-			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSV_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_BASEADDR [format "XPAR_XTTCPS_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
+			puts $file_handle "#define SLEEP_TIMER_FREQUENCY [format "XPAR_XTTCPS_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
 		}
 	}
 	return

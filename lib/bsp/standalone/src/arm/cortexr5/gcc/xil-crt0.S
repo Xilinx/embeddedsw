@@ -33,6 +33,8 @@
 *		      API.
 * 9.0   mus  02/23/23 Skip BSS clearing logic in case of warm boot. It
 *                     fixes CR#1157817
+* 9.0   dp   03/29/23  Invoke XTime_StartTimer() only if sleep timer is default
+*                      timer for Cortex-R52.
 * </pre>
 *
 ******************************************************************************/
@@ -73,7 +75,7 @@ _startup:
 	bl      __cpu_init		/* Initialize the CPU first (BSP provides this) */
 
 #ifndef XPAR_XILTIMER_ENABLED
-#if  defined (ARMR52)
+#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined (ARMR52)
 	bl XTime_StartTimer
 	bl XGetBootStatus
 	ands	r0, r0, #1
