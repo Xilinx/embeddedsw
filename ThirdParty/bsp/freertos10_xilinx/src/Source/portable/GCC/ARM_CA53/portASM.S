@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.5.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -382,7 +382,11 @@ FreeRTOS_IRQ_Handler:
 	LDR		W0, [X3]	/* ICCIAR in W0 as parameter. */
 #else
 
-	MRS	X0, S3_0_C12_C8_0
+#if EL1_NONSECURE
+	MRS	X0, S3_0_C12_C12_0	/* ICC_IAR1_EL1 */
+#else
+	MRS	X0, S3_0_C12_C8_0	/* ICC_IAR0_EL1 */
+#endif
 #endif
 	/* ICCIAR in W0 as parameter. */
 	/* Maintain the ICCIAR value across the function call. */
@@ -405,7 +409,11 @@ FreeRTOS_IRQ_Handler:
 	LDR		X4, [X4]
 	STR		W0, [X4]
 #else
-	MSR	 S3_0_C12_C8_1, X0
+#if EL1_NONSECURE
+	MSR	 S3_0_C12_C12_1, X0	/* ICC_EOIR1_EL1 */
+#else
+	MSR	 S3_0_C12_C8_1, X0	/* ICC_EOIR0_EL1 */
+#endif
 #endif
 
 	/* Restore the critical nesting count. */
