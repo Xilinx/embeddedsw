@@ -24,6 +24,7 @@
 * 1.01  ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+* 1.02  skd  04/10/2023 Fix third party review comments
 *
 * </pre>
 *
@@ -287,7 +288,7 @@ static void XPlmi_PmcApbErrorHandler(const u32 ErrorNodeId,
 		TamperRespTmp = Xil_In32(XPLMI_RTCFG_TAMPER_RESP);
 		if (((TamperResp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U) ||
 			((TamperRespTmp & XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK) != 0x0U)) {
-			XPlmi_TriggerTamperResponse(TamperResp, XPLMI_TRIGGER_TAMPER_TASK);
+			XSECURE_REDUNDANT_IMPL(XPlmi_TriggerTamperResponse, TamperResp, XPLMI_TRIGGER_TAMPER_TASK);
 		} else {
 			XPlmi_Printf(DEBUG_GENERAL, "Warning: Invalid Tamper Response. "
 					"Configured Tamper Response at RTCA: 0x%x\r\n"
@@ -332,6 +333,6 @@ void XPlmi_TriggerSLDOnHaltBoot(u32 Flag)
 			EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK;
 
 	if ((HaltBoot != 0U) || (HaltBootTmp != 0U)) {
-		XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK, Flag);
+		XSECURE_REDUNDANT_IMPL(XPlmi_TriggerTamperResponse, XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK, Flag);
 	}
 }
