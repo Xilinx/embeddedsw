@@ -2,7 +2,7 @@
 *
 * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
 * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 *
 * SPDX-License-Identifier: MIT
 *
@@ -94,10 +94,6 @@ _vector_table:
         /* HW reset vector.  */
         ldr     x16, =_boot
         br      x16
-#if defined (versal)
-	dsb nsh
-	isb
-#endif
         /* text offset.  */
         .dword  0
         /* image size.  */
