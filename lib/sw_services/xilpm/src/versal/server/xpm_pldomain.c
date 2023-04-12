@@ -889,6 +889,52 @@ done:
     return Status;
 }
 
+static XStatus BfrbInitFinish(const u32 *BfrbAddresses, const u32 ArrLen)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	u32 i = 0;
+
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Unlock PCSR */
+		XPm_UnlockPcsr(BfrbAddresses[i]);
+
+		/* Assert PWRDN */
+		Status = XPm_PcsrWrite(BfrbAddresses[i], BFR_NPI_PCSR_MASK_PWRDN_MASK, BFR_NPI_PCSR_MASK_PWRDN_MASK);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_RST_ASSERT;
+			goto done;
+		}
+
+		/* Assert INITSTATE */
+		Status = XPm_PcsrWrite(BfrbAddresses[i], BFR_NPI_PCSR_MASK_INITSTATE, BFR_NPI_PCSR_MASK_INITSTATE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_BFRB_INITSTATE_ASSERT;
+			goto done;
+		}
+	}
+
+	/* Set Status to SUCCESS in case BFR-B is not present */
+	Status = XST_SUCCESS;
+
+done:
+	for (i = 0U; i < ArrLen; i++) {
+		if (0U == BfrbAddresses[i]) {
+			continue;
+		}
+
+		/* Lock PCSR */
+		XPm_LockPcsr(BfrbAddresses[i]);
+	}
+
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
 static XStatus InitBfrbAddrArr(u32 *BfrbArrPtr, const u32 ArrLen)
 {
 	XStatus Status = XST_FAILURE;
@@ -970,6 +1016,12 @@ static XStatus BfrbHouseClean(void)
 	if (XST_SUCCESS != Status) {
 		DbgErr = XPM_INT_ERR_BFRB_SCAN_CLEAR;
 		goto done;
+	}
+
+	/* Power down each BFRB to ensure no power leakage from unused instances */
+	Status = BfrbInitFinish(BfrbAddresses, ARRAY_SIZE(BfrbAddresses));
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_FUNC_INIT_FINISH;
 	}
 
 done:
