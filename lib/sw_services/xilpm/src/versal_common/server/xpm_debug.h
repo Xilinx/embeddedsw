@@ -717,7 +717,9 @@ extern "C" {
 /* Error running BFRB Scan Clear */
 #define XPM_INT_ERR_BFRB_SCAN_CLEAR		0x5304U
 /* Error running BFRB houseclean */
-#define XPM_INT_ERR_BFRB_HC			0x5206U
+#define XPM_INT_ERR_BFRB_HC			0x5205U
+/* Error when asserting BFRB INITSTATE */
+#define XPM_INT_ERR_BFRB_INITSTATE_ASSERT	0x5206U
 
 /*************************** Undefined error *********************************/
 #define XPM_INT_ERR_UNDEFINED			0xFFFFU
