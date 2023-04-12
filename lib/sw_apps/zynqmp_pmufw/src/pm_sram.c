@@ -169,7 +169,14 @@ done:
  */
 static void PmTcm0EccInit(const PmSlaveTcm* const tcm)
 {
-	(void)memset((u32 *)tcm->base, (s32)0U, tcm->size);
+	u32 addr, endAddr;
+
+	addr    = tcm->base;
+	endAddr = addr + tcm->size;
+	while (addr < endAddr) {
+		*((u32 *)addr) = 0x0;
+		addr += 4;
+	}
 }
 
 /**
@@ -178,13 +185,18 @@ static void PmTcm0EccInit(const PmSlaveTcm* const tcm)
  */
 static void PmTcm1EccInit(const PmSlaveTcm* const tcm)
 {
-	u32 base = tcm->base;
-	u32 ctrl = XPfw_Read32(RPU_RPU_GLBL_CNTL);
+	u32 ctrl, addr, endAddr;
 
+	ctrl = XPfw_Read32(RPU_RPU_GLBL_CNTL);
+	addr = tcm->base;
 	if (0U != (ctrl & RPU_RPU_GLBL_CNTL_TCM_COMB_MASK)) {
-		base -= 0x80000U;
+		addr -= 0x80000U;
 	}
-	(void)memset((u32 *)base, (s32)0U, tcm->size);
+	endAddr = addr + tcm->size;
+	while (addr < endAddr) {
+		*((u32 *)addr) = 0x0;
+		addr += 4;
+	}
 }
 
 /**
