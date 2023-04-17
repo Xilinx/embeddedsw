@@ -99,7 +99,11 @@ static void StubHandler(void *CallBackRef);
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
+#else
+s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
+#endif
 {
 	u8 Id;
 	XIOModule_Config *CfgPtr;
@@ -122,7 +126,11 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	 * Lookup the device configuration in the CROM table. Use this
 	 * configuration info down below when initializing this component.
 	 */
+#ifndef SDT
 	CfgPtr = XIOModule_LookupConfig(DeviceId);
+#else
+	CfgPtr = XIOModule_LookupConfig(BaseAddress);
+#endif
 	if (CfgPtr == NULL) {
 		return XST_DEVICE_NOT_FOUND;
 	}
@@ -218,8 +226,11 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	/*
 	 * Initialize all Programmable Interrupt Timers
 	 */
-	Status = XIOModule_Timer_Initialize(InstancePtr, DeviceId);
-	xdbg_printf(XDBG_DEBUG_GENERAL," XIOModule_Timer_Initialize : %s", (Status == XST_SUCCESS)?"PASS":"DEVICE NOT FOUND");
+#ifndef SDT
+        XIOModule_Timer_Initialize(InstancePtr, DeviceId);
+#else
+        XIOModule_Timer_Initialize(InstancePtr, BaseAddress);
+#endif
 
 	/*
 	 * Initialize all UART related status
@@ -574,6 +585,7 @@ static void StubHandler(void *CallBackRef)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XIOModule_Config *XIOModule_LookupConfig(u16 DeviceId)
 {
 	XIOModule_Config *CfgPtr = NULL;
@@ -588,9 +600,23 @@ XIOModule_Config *XIOModule_LookupConfig(u16 DeviceId)
 
 	return CfgPtr;
 }
+#else
+XIOModule_Config *XIOModule_LookupConfig(u32 BaseAddress)
+{
+	XIOModule_Config *CfgPtr = NULL;
+	u32 Index;
 
+	for (Index = 0U; XIOModule_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XIOModule_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XIOModule_ConfigTable[Index];
+			break;
+		}
+	}
 
-
+	return CfgPtr;
+}
+#endif
 /*****************************************************************************/
 /**
 *
@@ -829,7 +855,11 @@ void XIOModule_DiscreteWrite(XIOModule * InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId)
+#else
+s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
+#endif
 {
 	XIOModule_Config *IOModuleConfigPtr;
 	u32 TimerNumber;
@@ -842,7 +872,11 @@ s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId)
 	 * Lookup the device configuration in the temporary CROM table. Use this
 	 * configuration info down below when initializing this component.
 	 */
+#ifndef SDT
 	IOModuleConfigPtr = XIOModule_LookupConfig(DeviceId);
+#else
+	IOModuleConfigPtr = XIOModule_LookupConfig(BaseAddress);
+#endif
 
 	if (IOModuleConfigPtr == (XIOModule_Config *) NULL) {
 		return XST_DEVICE_NOT_FOUND;

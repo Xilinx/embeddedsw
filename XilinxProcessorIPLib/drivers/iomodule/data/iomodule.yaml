@@ -1,0 +1,42 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for IPI controller available in the zynqMP and Versal platform
+
+maintainers:
+  - Shubhrajyoti Datta <shubhrajyoti.datta@xilinx.com>
+  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,iomodule-3.1
+  reg:
+    description: Standard reg property
+
+config:
+    - XIOModule_Config
+
+required:
+    - compatible
+    - reg: 2
+    - xlnx,intc-has-fast
+    - xlnx,intc-base-vectors
+    - xlnx,intc-addr-width
+    - xlnx,intc-level-edge
+    - xlnx,options
+    - xlnx,clock-freq
+    - xlnx,uart-baudrate
+    - xlnx,pit-used
+    - xlnx,pit-size
+    - xlnx,pit-mask
+    - xlnx,pit-prescaler
+    - xlnx,pit-readable
+    - xlnx,gpo-init
+    - Handler-table
+...

@@ -40,8 +40,10 @@
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xiomodule.h"
+#ifndef SDT
+#include "xparameters.h"
+#endif
 #include "xiomodule_i.h"
 
 /************************** Constant Definitions *****************************/
@@ -304,7 +306,11 @@ static XIOModule_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 	XIOModule_Config *CfgPtr = NULL;
 	u32 i;
 
+#ifndef SDT
 	for (i = 0U; i < XPAR_XIOMODULE_NUM_INSTANCES; i++) {
+#else
+	for (i = 0U; XIOModule_ConfigTable[i].Name != NULL; i++) {
+#endif
 		if (XIOModule_ConfigTable[i].BaseAddress == BaseAddress) {
 			CfgPtr = &XIOModule_ConfigTable[i];
 			break;
