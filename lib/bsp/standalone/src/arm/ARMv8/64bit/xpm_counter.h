@@ -44,7 +44,9 @@
 #include <stdint.h>
 #include "xpseudo_asm.h"
 #include "xil_types.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {

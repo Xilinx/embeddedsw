@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -60,8 +61,12 @@
 *
 *
 ******************************************************************************/
-#include "xparameters.h"
 #include "bspconfig.h"
+#ifndef SDT
+#include "xparameters.h"
+#else
+#include "xmem_config.h"
+#endif
 
 	.globl  MMUTableL0
 	.globl  MMUTableL1
@@ -117,6 +122,16 @@ MMUTableL1:
 .else
 .set DDR_1_REG, DDR_1_SIZE/0x40000000
 .endif
+#elif defined(XPAR_PSU_DDR_1_BASEADDRESS)
+.set DDR_1_START, XPAR_PSU_DDR_1_BASEADDRESS
+.set DDR_1_END, XPAR_PSU_DDR_1_HIGHADDRESS
+.set DDR_1_SIZE, (DDR_1_END - DDR_1_START)+1
+.if DDR_1_SIZE > 0x800000000
+/* If DDR size is larger than 32GB, truncate to 32GB */
+.set DDR_1_REG, 0x20
+.else
+.set DDR_1_REG, DDR_1_SIZE/0x40000000
+.endif
 #else
 .set DDR_1_REG, 0
 #warning "There's no DDR_1 in the HW design. MMU translation table marks 32 GB DDR address space as undefined"
@@ -161,6 +176,16 @@ MMUTableL2:
 #ifdef XPAR_PSU_DDR_0_S_AXI_BASEADDR
 .set DDR_0_START, XPAR_PSU_DDR_0_S_AXI_BASEADDR
 .set DDR_0_END, XPAR_PSU_DDR_0_S_AXI_HIGHADDR
+.set DDR_0_SIZE, (DDR_0_END - DDR_0_START)+1
+.if DDR_0_SIZE > 0x80000000
+/* If DDR size is larger than 2GB, truncate to 2GB */
+.set DDR_0_REG, 0x400
+.else
+.set DDR_0_REG, DDR_0_SIZE/0x200000
+.endif
+#elif defined(XPAR_PSU_DDR_0_BASEADDRESS)
+.set DDR_0_START, XPAR_PSU_DDR_0_BASEADDRESS
+.set DDR_0_END, XPAR_PSU_DDR_0_HIGHADDRESS
 .set DDR_0_SIZE, (DDR_0_END - DDR_0_START)+1
 .if DDR_0_SIZE > 0x80000000
 /* If DDR size is larger than 2GB, truncate to 2GB */
