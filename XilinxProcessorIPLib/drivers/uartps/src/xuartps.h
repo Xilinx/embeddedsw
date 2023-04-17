@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -149,6 +149,7 @@
 * 3.9   rna    12/03/19 Modified the XUARTPS_MAX_RATE macro.
 * 3.9   sd     02/06/20 Added clock support
 * 3.12	gm     11/04/22 Added timeout support using Xil_WaitForEvent
+* 3.13	adk    14/04/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -272,13 +273,23 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;	 /**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddress; /**< Base address of device (IPIF) */
 	u32 InputClockHz;/**< Input clock frequency */
 	s32 ModemPinsConnected; /** Specifies whether modem pins are connected
 				 *  to MIO or FMIO */
-#if defined  (XCLOCKING)
-	u32 RefClk;		/**< Input clock frequency */
+#if defined  (XCLOCKING) || defined(SDT)
+	u32 RefClk;             /**< Input clock frequency */
+#endif
+#if defined(SDT)
+	u32 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
 #endif
 } XUartPs_Config;
 
@@ -444,7 +455,11 @@ typedef struct {
 /************************** Function Prototypes *****************************/
 
 /* Static lookup function implemented in xuartps_sinit.c */
+#ifndef SDT
 XUartPs_Config *XUartPs_LookupConfig(u16 DeviceId);
+#else
+XUartPs_Config *XUartPs_LookupConfig(u32 BaseAddress);
+#endif
 
 /* Interface functions implemented in xuartps.c */
 s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,

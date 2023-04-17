@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -123,6 +123,11 @@ s32 XUartPs_CfgInitialize(XUartPs *InstancePtr,
 	InstancePtr->Config.RefClk = Config->RefClk;
 #endif
 	InstancePtr->Config.ModemPinsConnected = Config->ModemPinsConnected;
+
+#if defined(SDT)
+	InstancePtr->Config.IntrId = Config->IntrId;
+	InstancePtr->Config.IntrParent = Config->IntrParent;
+#endif
 
 	/* Initialize other instance data to default values */
 	InstancePtr->Handler = (XUartPs_Handler)XUartPs_StubHandler;
