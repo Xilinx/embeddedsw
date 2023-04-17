@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -94,6 +95,7 @@
  *	sdd 03/10/21 Fixed misrac warnings.
  *		     Fixed doxygen warnings.
  * 2.11 sdd 11/17/21 Updated tcl to check for microblaze processors
+ * 2.14 adk 04/14/23 Added support for system device-tree flow.
  * </pre>
  *
  *****************************************************************************/
@@ -139,11 +141,19 @@ typedef struct {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u32 DeviceId; /**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress; /**< Base address of the device */
 	u32 BitMask; /**< BitMask to be used to identify this CPU */
 	u32 BufferIndex; /**< Index of the IPI Message Buffer */
 	u32 IntId; /**< Interrupt ID on GIC **/
+#ifdef SDT
+	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 	u32 TargetCount; /**< Number of available IPI Targets */
 	XIpiPsu_Target TargetList[XIPIPSU_MAX_TARGETS] ; /**< List of IPI Targets */
 } XIpiPsu_Config;
@@ -293,13 +303,20 @@ typedef struct {
  * The IPIPSU configuration table, sized by the number of instances
  * defined in xparameters.h.
  */
+#ifndef SDT
 extern XIpiPsu_Config XIpiPsu_ConfigTable[XPAR_XIPIPSU_NUM_INSTANCES];
+#else
+extern XIpiPsu_Config XIpiPsu_ConfigTable[];
+#endif
 
 /************************** Function Prototypes *****************************/
 
 /* Static lookup function implemented in xipipsu_sinit.c */
-
+#ifndef SDT
 XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId);
+#else
+XIpiPsu_Config *XIpiPsu_LookupConfig(u32 BaseAddress);
+#endif
 
 /* Interface Functions implemented in xipipsu.c */
 

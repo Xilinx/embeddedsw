@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,10 +75,15 @@ XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config * CfgPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 	/* Set device base address and ID */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
 	InstancePtr->Config.BitMask = CfgPtr->BitMask;
 	InstancePtr->Config.IntId = CfgPtr->IntId;
+#ifdef SDT
+	InstancePtr->Config.IntrParent = CfgPtr->IntrParent;
+#endif
 	InstancePtr->Config.BufferIndex = CfgPtr->BufferIndex;
 
 	InstancePtr->Config.TargetCount = CfgPtr->TargetCount;
@@ -340,6 +346,7 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask,const u32 *Ms
 * 			use cases, this is not needed.
 *
 ******************************************************************************/
+#ifndef SDT
 void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr)
 {
 	u32 Index;
@@ -355,4 +362,5 @@ void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr)
 		}
 	}
 }
+#endif
 /** @} */
