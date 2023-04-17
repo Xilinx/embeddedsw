@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,7 +51,9 @@
 /***************************** Include Files *********************************/
 
 #include "xstatus.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xtmrctr.h"
 #include "xtmrctr_i.h"
 
@@ -181,7 +183,11 @@ int XTmrCtr_InitHw(XTmrCtr *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int XTmrCtr_Initialize(XTmrCtr *InstancePtr, u16 DeviceId)
+#else
+int XTmrCtr_Initialize(XTmrCtr *InstancePtr, UINTPTR BaseAddr)
+#endif
 {
 	XTmrCtr_Config *ConfigPtr;
 
@@ -195,7 +201,11 @@ int XTmrCtr_Initialize(XTmrCtr *InstancePtr, u16 DeviceId)
 	}
 
 	/* Retrieve configuration of timer counter core with matching ID. */
+	#ifndef SDT
 	ConfigPtr = XTmrCtr_LookupConfig(DeviceId);
+	#else
+	ConfigPtr = XTmrCtr_LookupConfig(BaseAddr);
+	#endif
 	if (!ConfigPtr) {
 		return XST_DEVICE_NOT_FOUND;
 	}
