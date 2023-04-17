@@ -41,7 +41,9 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xil_io.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 

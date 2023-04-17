@@ -108,6 +108,7 @@
 * 			 is configured as none.
 * 1.14	ab	01/16/23 Added Xil_PlmStubHandler() to XCsuDma_WaitForDone.
 * 1.14	ab	01/18/23 Added byte-aligned transfer API for VERSAL_NET devices.
+* 1.14  adk     04/14/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -369,14 +370,24 @@ typedef enum {
 * Each CSU_DMA core should have a configuration structure associated.
 */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
 				  *  device */
+#else
+	char *Name;		/**< Unique name of the device */
+#endif
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the device's registers */
 	u8 DmaType;		/**< DMA type
 				 * 0 -- CSUDMA
 				 * 1 -- PMC DMA 0
 				 * 2 -- PMC DMA 1 */
+#ifdef SDT
+	u32 IntrId;		/** Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent; 	/** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XCsuDma_Config;
 
 
@@ -419,12 +430,20 @@ typedef struct {
 
 /************************** Variable Definitions *****************************/
 
+#ifndef SDT
 extern XCsuDma_Config XCsuDma_ConfigTable[XPAR_XCSUDMA_NUM_INSTANCES];
+#else
+extern XCsuDma_Config XCsuDma_ConfigTable[];
+#endif
 
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId);
+#else
+XCsuDma_Config *XCsuDma_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 			UINTPTR EffectiveAddr);

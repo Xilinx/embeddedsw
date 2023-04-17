@@ -1,0 +1,34 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for CSUDMA controller
+
+maintainers:
+  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,zynqmp-csudma-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,dma-type:
+    description: |
+      Differentiates the dma controller that driver supports
+      0 - CSUDMA   controller
+      1 - PMCDMA-0 controller
+      2 - PMCDMA-1 controller
+
+config:
+    - XCsuDma_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,dma-type
+    - interrupts
+    - interrupt-parent
+...

@@ -30,7 +30,9 @@
 /***************************** Include Files *********************************/
 
 #include "xcsudma.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -65,6 +67,7 @@
 *
 * @note		None.
 ******************************************************************************/
+#ifndef SDT
 XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId)
 {
 	XCsuDma_Config *CfgPtr = NULL;
@@ -81,4 +84,22 @@ XCsuDma_Config *XCsuDma_LookupConfig(u16 DeviceId)
 
 	return (XCsuDma_Config *)CfgPtr;
 }
+#else
+XCsuDma_Config *XCsuDma_LookupConfig(UINTPTR BaseAddress)
+{
+	XCsuDma_Config *CfgPtr = NULL;
+	u32 Index;
+
+	/* Checks all the instances */
+	for (Index = (u32)0x0; XCsuDma_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XCsuDma_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		     !BaseAddress) {
+			CfgPtr = &XCsuDma_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XCsuDma_Config *)CfgPtr;
+}
+#endif
 /** @} */
