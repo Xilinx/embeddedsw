@@ -59,6 +59,7 @@
   *       kpt  03/16/22 Removed IPI related code and added mailbox support
   *       kpt  04/08/22 Added comment on usage of shared memory
   * 2.1   skg  12/14/22 Added SSIT Provisioning support
+  *       am   04/13/23 Fix PUF auxiliary convergence error
   *
   *@note
   *
@@ -104,7 +105,6 @@
 #define XPUF_PUF_HD_INVLD_SHIFT			(30U)
 #define XPUF_PUF_REGIS_DIS_SHIFT		(29U)
 #endif
-
 
 /***************************** Type Definitions *******************************/
 
@@ -448,8 +448,18 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 		goto END;
 	}
 
-	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-2] = PufArr.Chash;
-	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-1] = PufArr.Aux;
+	PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 2U] = PufArr.Chash;
+	/** PLM left shifts the the AUX value by 4-bits for NVM provisioning. During regeneration
+	 *  from BootHeader, the ROM expects PUF AUX value in below format:
+	 *
+	 *	-------------------------------------------------------------------------
+	 *	|    0x00    |              AUX (23:4)                   | AUX_EN (3:0) |
+	 *	-------------------------------------------------------------------------
+	 *
+	 *  Any non-zero value in AUX_EN is causing PUF convergence error. Hence left shifting the
+	 *  AUX value by 4-bits.
+	 */
+	PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 1U] = (PufArr.Aux << XIL_SIZE_OF_NIBBLE_IN_BITS);
 	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
 	xil_printf("Chash: %02x \r\n", PufArr.Chash);
 	xil_printf("Aux: %02x \r\n", PufArr.Aux);
