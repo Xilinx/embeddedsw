@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +9,10 @@
  */
 #ifndef UNDEFINE_FILE_OPS
 #include "xil_printf.h"
+#include "bspconfig.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,7 +34,7 @@ __attribute__((weak)) sint32
 write (sint32 fd, char8* buf, sint32 nbytes)
 
 {
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(SDT)
   s32 i;
   char8* LocalBuf = buf;
 
@@ -69,7 +73,7 @@ _write (sint32 fd, char8* buf, sint32 nbytes)
 	length = XPVXenConsole_Write(buf);
 	return length;
 #else
-#ifdef STDOUT_BASEADDRESS
+#if defined(STDOUT_BASEADDRESS) || defined(SDT)
   s32 i;
   char8* LocalBuf = buf;
 

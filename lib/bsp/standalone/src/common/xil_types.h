@@ -45,7 +45,10 @@ extern "C" {
 
 #include <stdint.h>
 #include <stddef.h>
+#include "bspconfig.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
