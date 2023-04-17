@@ -1,0 +1,106 @@
+# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for microblaze cpu
+
+maintainers:
+  - Mubin Sayyed <mubin.usman.sayyed@xilinx.com>
+
+config:
+    - XMicroblaze_Config
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - pmu-microblaze
+          - xlnx,microblaze-11.0
+          - xlnx,microblaze
+          - pmc-microblaze
+          - psm-microblaze
+
+required:
+    - xlnx,unaligned-exceptions
+    - xlnx,iopb-bus-exception
+    - xlnx,fpu-exception
+    - xlnx,fsl-exception
+    - xlnx,div-zero-exception
+    - xlnx,dopb-bus-exception
+    - xlnx,ill-opcode-exception
+    - xlnx,use-stack-protection
+    - xlnx,exceptions-in-delay-slots
+    - xlnx,predecode-fpu-exception
+    - xlnx,freq
+    - xlnx,use-msr-instr
+    - d-cache-line-size
+    - xlnx,dcache-always-used
+    - d-cache-size
+    - i-cache-line-size
+    - i-cache-size
+    - xlnx,addr-tag-bits
+    - xlnx,allow-dcache-wr
+    - xlnx,allow-icache-wr
+    - xlnx,area-optimized
+    - xlnx,cache-byte-size
+    - xlnx,d-lmb
+    - xlnx,d-opb
+    - xlnx,d-plb
+    - xlnx,i-lmb
+    - xlnx,i-opb
+    - xlnx,i-plb
+    - xlnx,dcache-addr-tag
+    - xlnx,dcache-byte-size
+    - xlnx,dcache-line-len
+    - xlnx,dcache-use-fsl
+    - xlnx,dcache-use-writeback
+    - xlnx,debug-enabled
+    - xlnx,dynamic-bus-sizing
+    - xlnx,edge-is-positive
+    - timebase-frequency
+    - xlnx,endianness
+    - xlnx,fsl-data-size
+    - xlnx,fsl-links
+    - xlnx,icache-always-used
+    - xlnx,icache-line-len
+    - xlnx,icache-use-fsl
+    - xlnx,interconnect
+    - xlnx,interrupt-is-edge
+    - xlnx,mmu-dtlb-size
+    - xlnx,mmu-itlb-size
+    - xlnx,mmu-tlb-access
+    - xlnx,mmu-zones
+    - xlnx,number-of-pc-brk
+    - xlnx,number-of-rd-addr-brk
+    - xlnx,number-of-wr-addr-brk
+    - xlnx,opcode-0x0-illegal
+    - xlnx,pvr
+    - xlnx,pvr-user1
+    - xlnx,pvr-user2
+    - xlnx,reset-msr
+    - xlnx,sco
+    - xlnx,use-barrel
+    - xlnx,use-dcache
+    - xlnx,use-div
+    - xlnx,use-ext-brk
+    - xlnx,use-ext-nm-brk
+    - xlnx,use-extended-fsl-instr
+    - xlnx,use-fpu
+    - xlnx,use-hw-mul
+    - xlnx,use-icache
+    - xlnx,use-interrupt
+    - xlnx,use-mmu
+    - xlnx,use-pcmp-instr
+    - d-cache-baseaddr
+    - d-cache-highaddr
+    - i-cache-baseaddr
+    - i-cache-highaddr
+    - microblaze_ddr_reserve_sa
+    - microblaze_ddr_reserve_ea
+    - reg
+    - xlnx,base-vectors
+
+optional:
+    - interrupts
+...
