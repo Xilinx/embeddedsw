@@ -1,0 +1,32 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+---
+title: Bindings for TTCPS controller
+
+maintainers:
+  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+        - enum:
+          - cdns,ttc
+          - xlnx,psv-ttc
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,clock-freq:
+    description: Input clock frequency
+
+config:
+    - XTtcPs_Config
+
+required:
+    - compatible
+    - reg
+    - xlnx,clock-freq
+    - interrupts: 3
+    - interrupt-parent
+
+...
