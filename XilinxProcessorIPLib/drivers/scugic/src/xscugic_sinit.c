@@ -35,8 +35,10 @@
 
 #include "xil_types.h"
 #include "xil_assert.h"
-#include "xparameters.h"
 #include "xscugic.h"
+#ifndef SDT
+#include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -65,6 +67,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId)
 {
 	XScuGic_Config *CfgPtr = NULL;
@@ -108,4 +111,20 @@ XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress)
         }
         return (XScuGic_Config *)CfgPtr;
 }
+#else
+XScuGic_Config *XScuGic_LookupConfig(UINTPTR BaseAddress)
+{
+	XScuGic_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XScuGic_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XScuGic_ConfigTable[Index].DistBaseAddress == BaseAddress) || !BaseAddress) {
+			CfgPtr = &XScuGic_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XScuGic_Config *)CfgPtr;
+}
+#endif
 /** @} */
