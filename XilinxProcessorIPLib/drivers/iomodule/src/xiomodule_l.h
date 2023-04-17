@@ -67,10 +67,13 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
+#include "xstatus.h"
+#ifndef SDT
 #include "xparameters.h"
+#include "xio.h"
+#endif
 #include "xiomodule_io.h"
 
-#include "xio.h"
 
 /************************** Constant Definitions *****************************/
 

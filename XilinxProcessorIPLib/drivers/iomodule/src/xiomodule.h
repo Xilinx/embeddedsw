@@ -238,6 +238,7 @@
 * 2.14  dp   08/30/22  Add missing declaration for Get and Clear Stats.
 * 2.15  ml   02/27/23  converted signed macros into unsigned macros to fix
 *                      misra-c violations.
+* 2.15  adk  04/14/23  Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -256,8 +257,10 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
-#include "xparameters.h"
 #include "xstatus.h"
+#ifndef SDT
+#include "xparameters.h"
+#endif
 #include "xiomodule_l.h"
 #include "xil_types.h"
 
@@ -324,6 +327,10 @@ extern "C" {
 /*@}*/
 
 #define XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH	32U
+
+#ifdef SDT
+#define XPAR_IOMODULE_INTC_MAX_INTR_SIZE  32U
+#endif
 /**
  *@endcond
  */
@@ -343,7 +350,11 @@ typedef void (*XIOModule_Handler)(void *CallBackRef,
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;			     /**< Unique ID  of device       */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;		     /**< Unique identifier          */
 	UINTPTR IoBaseAddress;		     /**< IO Bus Base Address        */
 	u32 FastIntr;			     /**< Fast Interrupt enabled     */
@@ -455,8 +466,13 @@ typedef struct {
 /*
  * Required functions in xiomodule.c
  */
+#ifndef SDT
 s32 XIOModule_Initialize(XIOModule * InstancePtr, u16 DeviceId);
 s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u16 DeviceId);
+#else
+s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress);
+s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u32 BaseAddress);
+#endif
 
 s32 XIOModule_Start(XIOModule * InstancePtr);
 void XIOModule_Stop(XIOModule * InstancePtr);
@@ -470,7 +486,11 @@ void XIOModule_Disable(XIOModule * InstancePtr, u8 Id);
 
 void XIOModule_Acknowledge(XIOModule * InstancePtr, u8 Id);
 
+#ifndef SDT
 XIOModule_Config *XIOModule_LookupConfig(u16 DeviceId);
+#else
+XIOModule_Config *XIOModule_LookupConfig(u32 BaseAddress);
+#endif
 
 s32 XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
 				 XFastInterruptHandler Handler);
