@@ -1,0 +1,19 @@
+# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for standalone
+
+maintainers:
+  - Mubin Sayyed <mubin.usman.sayyed@xilinx.com>
+
+type: os
+
+version: 9.0
+
+depends:
+    uartps:
+        - reg
+    uartpsv:
+        - reg
+...
