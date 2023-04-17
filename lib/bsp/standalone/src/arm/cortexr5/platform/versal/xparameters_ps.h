@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -138,7 +139,7 @@ extern "C" {
 #define XPAR_SCUGIC_NUM_INSTANCES	1U
 #define XPAR_SCUGIC_SINGLE_DEVICE_ID	0U
 #define XPAR_SCUGIC_CPU_BASEADDR	(XPS_SCU_PERIPH_BASE + 0x00001000U)
-#define XPAR_SCUGIC_DIST_BASEADDR	(XPS_SCU_PERIPH_BASE + 0x00002000U)
+#define XPAR_SCUGIC_DIST_BASEADDR	(XPS_SCU_PERIPH_BASE)
 #define XPAR_SCUGIC_ACK_BEFORE		0U
 
 #define XPAR_CPU_CORTEXR5_CORE_CLOCK_FREQ_HZ	XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ

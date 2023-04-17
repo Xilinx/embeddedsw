@@ -37,7 +37,9 @@
 #include "xil_cache.h"
 #include "xil_io.h"
 #include "xpseudo_asm.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xreg_cortexr5.h"
 #include "xil_exception.h"
 
