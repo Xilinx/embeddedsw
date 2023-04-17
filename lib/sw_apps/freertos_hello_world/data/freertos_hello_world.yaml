@@ -1,0 +1,25 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: FreeRTOS Hello World
+
+maintainers:
+  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+
+type: apps
+
+description: FreeRTOS Hello World application.
+
+supported_processors:
+  - psu_cortexa53
+  - psu_cortexr5
+  - psv_cortexa72
+  - psv_cortexr5
+
+depends_libs:
+    xiltimer: {}
+
+supported_os:
+    - freertos10_xilinx
+...
