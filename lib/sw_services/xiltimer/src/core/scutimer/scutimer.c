@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -153,7 +154,7 @@ static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
 {
 	XScuTimer *ScuTimerInstPtr = &InstancePtr->ScuTimer_TickInst;
 	u32 Freq;
-	static u8 IsTickTimerStarted = FALSE;
+	static u32 IsTickTimerStarted = FALSE;
 	u32 ScuTimerFreq = XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ  / 2U;
 
 	if (FALSE == IsTickTimerStarted) {
@@ -244,7 +245,7 @@ static void XTimer_ScutimerModifyInterval(XTimer *InstancePtr, u32 delay,
 	u32 TimeHighVal = 0U;
 	u32 TimeLowVal1 = 0U;
 	u32 TimeLowVal2 = 0U;
-	static u8 IsSleepTimerStarted = FALSE;
+	static u32 IsSleepTimerStarted = FALSE;
 	u32 ScuTimerFreq = XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2U;
 
 	if (FALSE == IsSleepTimerStarted) {
@@ -298,6 +299,13 @@ void XTime_GetTime(XTime *Xtime_Global)
 {
 	XTimer *InstancePtr = &TimerInst;
 	XScuTimer *ScuTimerInstPtr = &InstancePtr->ScuTimer_SleepInst;
+	static u32 IsSleepTimerStarted = FALSE;
+
+	if (FALSE == IsSleepTimerStarted) {
+		XTimer_ScutimerInit(InstancePtr, XSLEEPTIMER_DEVICEID,
+				    &InstancePtr->ScuTimer_SleepInst);
+		IsSleepTimerStarted = TRUE;
+	}
 
 	*Xtime_Global = XScuTimer_GetCounterValue(ScuTimerInstPtr);
 }

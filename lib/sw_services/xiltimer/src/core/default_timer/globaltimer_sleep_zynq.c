@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -28,6 +29,9 @@
 #include "xiltimer.h"
 
 #ifdef XTIMER_IS_DEFAULT_TIMER
+#ifdef SDT
+#include "xcortexa9_config.h"
+#endif
 
 /**************************** Type Definitions *******************************/
 /************************** Constant Definitions *****************************/
@@ -99,7 +103,11 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 {
 	(void) InstancePtr;
 	XTime tEnd, tCur;
+#ifndef SDT
         u32 CpuFreq = XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ;
+#else
+        u32 CpuFreq = XGet_CpuFreq();
+#endif
 
         /* Global Timer is always clocked at half of the CPU frequency */
         u32 TimerCountsPersec = CpuFreq/2;
