@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -29,6 +30,9 @@
 /***************************** Include Files *********************************/
 #include "xiltimer.h"
 #include "xpm_counter.h"
+#ifdef SDT
+#include "xcortexr5_config.h"
+#endif
 
 #if defined (ARMR52)
 #define LPD_RST_TIMESTAMP  0xEB5E035CU
@@ -124,7 +128,11 @@ static void XCortexr5_ModifyInterval(XTimer *InstancePtr, u32 delay,
 	 * bit in PMCR, cycle counter increments on every 64th bit of processor cycle
 	 */
 #if !defined (ARMR52)
+#ifndef SDT
 	u32 frequency = XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ/64;
+#else
+	u32 frequency = XGet_CpuFreq()/64;
+#endif
 #endif
 #if defined (ARMR52)
 	static u8 IsSleepTimerStarted = FALSE;

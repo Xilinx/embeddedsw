@@ -1,0 +1,23 @@
+/******************************************************************************
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef _XTIMER_CONFIG_H
+#define _XTIMER_CONFIG_H
+
+@XPAR_INCLUDE@
+
+#cmakedefine XSLEEPTIMER_BASEADDRESS @XSLEEPTIMER_BASEADDRESS@
+#cmakedefine XSLEEPTIMER_IS_AXITIMER @XSLEEPTIMER_IS_AXITIMER@
+#cmakedefine XSLEEPTIMER_IS_TTCPS    @XSLEEPTIMER_IS_TTCPS@
+#cmakedefine XSLEEPTIMER_IS_SCUTIMER @XSLEEPTIMER_IS_SCUTIMER@
+#cmakedefine XSLEEPTIMER_FREQ	     @XSLEEPTIMER_FREQ@
+#cmakedefine XTIMER_IS_DEFAULT_TIMER @XTIMER_IS_DEFAULT_TIMER@
+
+#cmakedefine XTICKTIMER_BASEADDRESS @XTICKTIMER_BASEADDRESS@
+#cmakedefine XTICKTIMER_IS_AXITIMER @XTICKTIMER_IS_AXITIMER@
+#cmakedefine XTICKTIMER_IS_TTCPS    @XTICKTIMER_IS_TTCPS@
+#cmakedefine XTICKTIMER_IS_SCUTIMER @XTICKTIMER_IS_SCUTIMER@
+#cmakedefine XTIMER_NO_TICK_TIMER   @XTIMER_NO_TICK_TIMER@
+
+#endif /* XTIMER_CONFIG_H */

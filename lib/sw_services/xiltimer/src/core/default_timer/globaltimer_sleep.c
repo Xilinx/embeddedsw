@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -30,6 +31,9 @@
 #include "xiltimer.h"
 
 #ifdef XTIMER_IS_DEFAULT_TIMER
+#ifdef SDT
+#include "xarmv8_config.h"
+#endif
 
 /**************************** Type Definitions *******************************/
 /************************** Constant Definitions *****************************/
@@ -64,6 +68,11 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 	InstancePtr->XTimer_ModifyInterval = XGlobalTimer_ModifyInterval;
 	InstancePtr->XSleepTimer_Stop = NULL;
 
+#ifdef SDT
+	u32 TimerStampFreq = XGet_TimeStampFreq();
+	mtcp(CNTFRQ_EL0, TimerStampFreq);
+#endif
+
 	return XST_SUCCESS;
 }
 
@@ -79,6 +88,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 static void XGlobalTimer_Start(XTimer *InstancePtr)
 {
 	(void) InstancePtr;
+#ifndef SDT
 #if defined(VERSAL_NET)
 	u32 TimerStampFreq = XPAR_CPU_CORTEXA78_0_TIMESTAMP_CLK_FREQ;
 #elif defined (versal)
@@ -86,7 +96,9 @@ static void XGlobalTimer_Start(XTimer *InstancePtr)
 #else
         u32 TimerStampFreq = XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ;
 #endif
-
+#else
+        u32 TimerStampFreq = XGet_TimeStampFreq();
+#endif
 
 	if (EL3 == 1){
                 /* Enable the global timer counter only if it is disabled */
@@ -119,12 +131,16 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 {
 	(void) InstancePtr;
 	XTime tEnd, tCur;
+#ifndef SDT
 #if defined(VERSAL_NET)
 	u32 TimerStampFreq = XPAR_CPU_CORTEXA78_0_TIMESTAMP_CLK_FREQ;
 #elif defined (versal)
         u32 TimerStampFreq = XPAR_CPU_CORTEXA72_0_TIMESTAMP_CLK_FREQ;
 #else
         u32 TimerStampFreq = XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ;
+#endif
+#else
+        u32 TimerStampFreq = XGet_TimeStampFreq();
 #endif
         u32 iterpersec = TimerStampFreq;
 	static u8 IsSleepTimerStarted = FALSE;

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -154,10 +155,14 @@ static void XAxiTimer_TickInterval(XTimer *InstancePtr, u32 Delay)
 {
 	XTmrCtr *AxiTimerInstPtr = &InstancePtr->AxiTimer_TickInst;
 	u32 Tlr;
-	static u8 IsTickTimerStarted = FALSE;
+	static u32 IsTickTimerStarted = FALSE;
 
 	if (FALSE == IsTickTimerStarted) {
+#ifdef SDT
+		XAxiTimer_Init(InstancePtr, XTICKTIMER_BASEADDRESS,
+#else
 		XAxiTimer_Init(InstancePtr, XTICKTIMER_DEVICEID,
+#endif
 				&InstancePtr->AxiTimer_TickInst);
 		IsTickTimerStarted = TRUE;
 	}
@@ -263,10 +268,14 @@ static void XAxiTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 	u32 TimeHighVal = 0U;
 	u32 TimeLowVal1 = 0U;
 	u32 TimeLowVal2 = 0U;
-	static u8 IsSleepTimerStarted = FALSE;
+	static u32 IsSleepTimerStarted = FALSE;
 
 	if (FALSE == IsSleepTimerStarted) {
+#ifdef SDT
+		XAxiTimer_Init(InstancePtr, XSLEEPTIMER_BASEADDRESS,
+#else
 		XAxiTimer_Init(InstancePtr, XSLEEPTIMER_DEVICEID,
+#endif
 				&InstancePtr->AxiTimer_SleepInst);
 		IsSleepTimerStarted = TRUE;
 	}
@@ -316,6 +325,17 @@ void XTime_GetTime(XTime *Xtime_Global)
 {
 	XTimer *InstancePtr = &TimerInst;
 	XTmrCtr *AxiTimerInstPtr = &InstancePtr->AxiTimer_SleepInst;
+	static u32 IsSleepTimerStarted = FALSE;
+
+	if (FALSE == IsSleepTimerStarted) {
+#ifdef SDT
+		XAxiTimer_Init(InstancePtr, XSLEEPTIMER_BASEADDRESS,
+#else
+		XAxiTimer_Init(InstancePtr, XSLEEPTIMER_DEVICEID,
+#endif
+				&InstancePtr->AxiTimer_SleepInst);
+		IsSleepTimerStarted = TRUE;
+	}
 
 	*Xtime_Global = XTmrCtr_GetValue(AxiTimerInstPtr, 0);
 }
