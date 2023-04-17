@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,8 +27,10 @@
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
-#include "xparameters.h"
 #include "xipipsu.h"
+#ifndef SDT
+#include "xparameters.h"
+#endif
 
 /*****************************************************************************/
 
@@ -46,6 +49,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId)
 {
 	XIpiPsu_Config *CfgPtr = NULL;
@@ -60,4 +64,21 @@ XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId)
 
 	return (XIpiPsu_Config *) CfgPtr;
 }
+#else
+XIpiPsu_Config *XIpiPsu_LookupConfig(u32 BaseAddress)
+{
+	XIpiPsu_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0U; XIpiPsu_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XIpiPsu_ConfigTable[Index].BaseAddress == BaseAddress) ||
+                    !BaseAddress) {
+			CfgPtr = &XIpiPsu_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XIpiPsu_Config *) CfgPtr;
+}
+#endif
 /** @} */
