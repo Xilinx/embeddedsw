@@ -115,6 +115,7 @@
 * 1.5  rna  03/31/21  Fixed doxygen warnings
 * 1.6  adk  03/15/22  Updated uartpsv_tapp.tcl interrupt id variable for
 * 		      CIPS3 designs when stdout is configured as none.
+* 1.9  adk  04/14/23  Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -238,12 +239,22 @@ extern "C" {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;				/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;			/**< Base address of device (IPIF) */
 	u32 InputClockHz;			/**< Input clock frequency */
 	s32 ModemPinsConnected; 	/**< Specifies whether modem pins are
 								  *  connected to MIO or FMIO */
 	u32 BaudRate;				/**< Current baud rate */
+#ifdef SDT
+	u32 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+				 * trigger type and level flags */
+	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address */
+#endif
 } XUartPsv_Config;
 
 /**
@@ -417,7 +428,11 @@ extern XUartPsv_Config XUartPsv_ConfigTable[];	/**< Config structure */
 /************************** Function Prototypes ******************************/
 
 /* Static lookup function implemented in xuartpsv_sinit.c */
+#ifndef SDT
 XUartPsv_Config *XUartPsv_LookupConfig(u16 DeviceId);
+#else
+XUartPsv_Config *XUartPsv_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /* Interface functions implemented in xuartpsv.c */
 s32 XUartPsv_CfgInitialize(XUartPsv *InstancePtr,
