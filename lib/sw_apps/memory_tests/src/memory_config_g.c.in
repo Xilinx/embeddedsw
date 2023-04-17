@@ -1,0 +1,11 @@
+/******************************************************************************
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#include "memory_config.h"
+
+struct memory_range_s memory_ranges[] = {
+	@MEMNODES@
+};
+
+int n_memory_ranges = @NUM_MEM_RANGES@;
