@@ -22,6 +22,7 @@
 *       skg  11/08/2022 Added In Body comments for APIs
 * 3.2   har  02/22/2023 Added API to program ROM Rsvd eFUSEs.
 *       vss  03/14/2023 Fixed compilation warining
+*       kum  04/11/2023 Added Env monitor before efuse programming
 *
 * </pre>
 *
@@ -36,7 +37,9 @@
 #include "xnvm_efuse_hw.h"
 #include "xnvm_utils.h"
 #include "xnvm_validate.h"
-
+#include "xnvm_efuse_common.h"
+#include "xsysmonpsv.h"
+#include "xplmi_sysmon.h"
 /**************************** Type Definitions *******************************/
 typedef struct {
 	u32 StartRow;
@@ -86,6 +89,7 @@ static int XNvm_EfuseProtectionChecks(void);
 #define XNVM_EFUSE_REVOKE_ID_127	(127U)
 #define XNVM_PUF_SEC_CTRL_MAX_VALID_VAL       (7U)
 
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes ******************************/
@@ -121,7 +125,7 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
     /**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
 	 */
@@ -137,7 +141,14 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 	}
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -202,10 +213,11 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
     /**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
 	 */
+
 	if ((PpkType != XNVM_EFUSE_PPK0) &&
 		(PpkType != XNVM_EFUSE_PPK1) &&
 		(PpkType != XNVM_EFUSE_PPK2)) {
@@ -218,7 +230,14 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 	}
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -291,7 +310,7 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
     /**
 	 *  validate Input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
 	 */
@@ -309,7 +328,14 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	}
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -373,9 +399,17 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 	u32 GlitchDetVal = 0U;
 	u32 GlitchDetWrLk = 0U;
 	u32 PrgmGlitchConfig = 0U;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -463,9 +497,17 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 Data = XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -538,6 +580,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 	int CloseStatus = XST_FAILURE;
 	u32 RevokeIdRow;
 	u32 RevokeIdCol;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 *  Validate Input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
@@ -548,7 +591,14 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 	}
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
 	/**
@@ -615,6 +665,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 	int CloseStatus = XST_FAILURE;
 	u32 OffchipIdRow;
 	u32 OffchipIdCol;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
     /**
 	 *  validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
@@ -626,7 +677,14 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 	}
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -683,9 +741,17 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 RdMiscCtrlBits = 0U;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -754,9 +820,17 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 RdSecCtrlBits = 0U;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -825,9 +899,17 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 RdMisc1Bits = 0U;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -896,9 +978,17 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 RdBootEnvCtrlBits = 0U;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -968,6 +1058,7 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
     /**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
@@ -983,7 +1074,14 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 	}
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -1042,6 +1140,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 SecCtrlBits = 0U;
 	u32 Crc;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
     /**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
@@ -1052,7 +1151,14 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	}
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -1183,6 +1289,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
 	u32 DmeModeCacheVal = 0U;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
     /**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
@@ -1200,7 +1307,14 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 	}
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -1269,6 +1383,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 	u32 Row = 0U;
 	u32 Col_0_Num = 0U;
 	u32 Col_1_Num = 0U;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
     /**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
@@ -1282,7 +1397,14 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 	}
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -1369,9 +1491,17 @@ int XNvm_EfuseWriteDisableInplacePlmUpdate(u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -1427,9 +1557,17 @@ int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask)
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -1488,9 +1626,17 @@ int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -1549,9 +1695,17 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 CrcSalt = XNVM_EFUSE_CRC_SALT;
 	u32 ReadReg = 0U;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**
@@ -1639,6 +1793,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
 	u32 PufSecurityCtrlReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
     /**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
@@ -1673,7 +1828,14 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 	}
 
 	if (PufHelperData->EnvMonitorDis != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 	if (PufHelperData->PrgmPufHelperData == TRUE) {
 		Status = XST_FAILURE;
@@ -1878,6 +2040,7 @@ END:
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
@@ -1898,7 +2061,14 @@ END:
 
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
 	if ((PufCtrlBits & 0x01U) == 0x01U) {
@@ -3008,9 +3178,17 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 WrRomRsvdBits;
+	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
-		//TODO Temp and Voltage checks
+		/**
+		 *  Perform Environmental monitoring checks
+		 */
+		Status = XNvm_EfuseTempAndVoltChecks(SysMonInstPtr);
+		if (Status != XST_SUCCESS) {
+			Status = (Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING);
+			goto END;
+		}
 	}
 
     /**

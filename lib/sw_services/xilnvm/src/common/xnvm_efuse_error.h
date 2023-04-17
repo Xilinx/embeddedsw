@@ -22,6 +22,7 @@
 * 3.1   skg  10/25/22 Added comments for macros and enums
 *       skg  12/07/22 Added error codes for Additional PPKs
 *       kpt  01/21/23 Removed error codes for Additional PPKs
+* 3.2   kum  04/11/2023 Moved Env error codes to common to make use for both versal and versalnet
 *
 * </pre>
 * @note
@@ -203,6 +204,18 @@ typedef enum {
 						* Programming, no data is
 						* provided for Programming.
 						* All Data pointers are NULL */
+	XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE = 0xF100,/**<0xF100 - Error
+						* before programming eFuse,
+						* Temparature is out of range */
+	XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE = 0xF200,/**<0xF200 - Error
+						* before programming eFuse,
+						* Voltage is out of range */
+	XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED = 0xF300,/**<0xF200 - Error
+						* before programming eFuse,
+						* no supplies are enabled */
+	XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA = 0xF400,/**<0xF400 - Error
+						* before programming eFuse,
+						* new data is not available */
 	XNVM_EFUSE_ERR_GLITCH_DETECTED = 0x20000,/**<0x20000
 						 * Glitch detected, due to which
 						 * requested eFuses may be
