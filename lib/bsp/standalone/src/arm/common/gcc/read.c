@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +9,10 @@
  */
 #ifndef UNDEFINE_FILE_OPS
 #include "xil_printf.h"
+#include "bspconfig.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,7 +32,7 @@ __attribute__((weak)) s32 read (s32 fd, char8* buf, s32 nbytes);
 __attribute__((weak)) s32
 read (s32 fd, char8* buf, s32 nbytes)
 {
-#ifdef STDIN_BASEADDRESS
+#if defined (STDIN_BASEADDRESS) || defined(SDT)
   s32 i;
   s32 numbytes = 0;
   char8* LocalBuf = buf;
@@ -56,7 +60,7 @@ read (s32 fd, char8* buf, s32 nbytes)
 __attribute__((weak)) s32
 _read (s32 fd, char8* buf, s32 nbytes)
 {
-#ifdef STDIN_BASEADDRESS
+#if defined(STDIN_BASEADDRESS) || defined(SDT)
   s32 i;
   s32 numbytes = 0;
   char8* LocalBuf = buf;

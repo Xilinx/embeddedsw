@@ -29,7 +29,13 @@
 
 #include "xil_types.h"
 #include "xstatus.h"
+
+#ifdef XIL_INTERRUPT
+#ifdef SDT
+#include "xcommon_drv_config.h"
+#else
 #include "xparameters.h"
+#endif
 #include "xil_exception.h"
 
 #ifdef XIL_INTERRUPT
