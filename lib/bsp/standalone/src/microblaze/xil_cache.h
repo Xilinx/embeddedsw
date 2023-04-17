@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -52,7 +53,9 @@
 
 #include "mb_interface.h"
 #include "xil_types.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -132,6 +135,7 @@ extern "C" {
 * @return   None.
 *
 ****************************************************************************/
+#ifndef SDT
 #if (XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK == 1)
 #   define Xil_L1DCacheFlushRange(Addr, Len) \
 		microblaze_flush_dcache_range((Addr), (Len))
@@ -139,7 +143,7 @@ extern "C" {
 #   define Xil_L1DCacheFlushRange(Addr, Len) \
 		microblaze_invalidate_dcache_range((Addr), (Len))
 #endif /* XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK */
-
+#endif
 /****************************************************************************/
 /**
 * @brief    Flush the L2 data cache for the given address range.
@@ -165,11 +169,13 @@ extern "C" {
 * @return   None.
 *
 ****************************************************************************/
+#ifndef SDT
 #if (XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK == 1)
 #   define Xil_L1DCacheFlush() microblaze_flush_dcache()
 #else
 #   define Xil_L1DCacheFlush() microblaze_invalidate_dcache()
 #endif /* XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK */
+#endif
 
 /****************************************************************************/
 /**

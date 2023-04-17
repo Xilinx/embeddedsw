@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -21,7 +22,10 @@
 *
 *******************************************************************************/
 
+#include "bspconfig.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /* Define if fault tolerance is used */
 #ifdef XPAR_MICROBLAZE_FAULT_TOLERANT
@@ -113,6 +117,7 @@
 	.align	2
 
 microblaze_scrub:
+#if defined (XPAR_MICROBLAZE_USE_DCACHE) || defined (XPAR_MICROBLAZE_USE_ICACHE)
 #ifdef FAULT_TOLERANT
 	la	r6, r0, L_persistent_data		/* Get pointer to data */
 
@@ -171,6 +176,7 @@ L_skip_btc_scrub:
 L_done:
 	rtsd	r15, 8					/* Return */
 	nop
+#endif
 	.end	microblaze_scrub
 
 	/* Persistent data used by this routine */

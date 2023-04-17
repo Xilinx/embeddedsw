@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2006 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -37,9 +38,11 @@
 
 #include "xil_types.h"
 #include "xil_assert.h"
-#include "xparameters.h"
 #include "mb_interface.h"
 #include "bspconfig.h"
+#ifndef SDT
+#include "xparameters.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {

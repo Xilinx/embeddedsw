@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,9 +30,11 @@
 
 /***************************** Include Files *********************************/
 #include "microblaze_exceptions_i.h"
+#include "bspconfig.h"
+#ifndef SDT
 #include "microblaze_exceptions_g.h"
+#endif
 
-#ifdef MICROBLAZE_EXCEPTIONS_ENABLED                    /* If exceptions are enabled in the processor */
 /************************** Constant Definitions *****************************/
 
 
@@ -63,10 +66,10 @@
 * @return   None.
 *
 ****************************************************************************/
+#if defined(MICROBLAZE_EXCEPTIONS_ENABLED) || defined(SDT)
 void microblaze_register_exception_handler(u32 ExceptionId, Xil_ExceptionHandler Handler, void *DataPtr)
 {
    MB_ExceptionVectorTable[ExceptionId].Handler = Handler;
    MB_ExceptionVectorTable[ExceptionId].CallBackRef = DataPtr;
 }
-
-#endif  /* MICROBLAZE_EXCEPTIONS_ENABLED */
+#endif

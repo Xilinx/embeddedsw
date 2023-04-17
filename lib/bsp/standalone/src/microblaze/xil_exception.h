@@ -62,7 +62,8 @@ extern "C" {
 #define XIL_EXCEPTION_ID_STACK_VIOLATION      7U
 #define XIL_EXCEPTION_ID_MMU                  7U
 #define XIL_EXCEPTION_ID_LAST		      XIL_EXCEPTION_ID_MMU
-
+#define XIL_EXCEPTION_MASK		      0x100U
+#define XIL_INTERRUPTS_MASK		      0x2U
 /*
  * XIL_EXCEPTION_ID_INT is defined for all processors, but with different value.
  */
