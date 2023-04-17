@@ -1,0 +1,32 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for AXI timer driver
+
+maintainers:
+  - Mubin Usman Sayyed <mubin.usman.sayyed@xilinx.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,axi-timer-2.0
+          - xlnx,xps-timer-1.00.a
+  reg:
+    description: Physical base address and size of the timer register map
+  clock-frequency:
+    description: Axi Timer clock frequency
+
+config:
+    - XTmrCtr_Config
+
+required:
+    - compatible
+    - reg
+    - clock-frequency
+    - interrupts
+    - interrupt-parent
