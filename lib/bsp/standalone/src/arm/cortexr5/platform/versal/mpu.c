@@ -54,7 +54,13 @@
 #include "xreg_cortexr5.h"
 #include "xil_mpu.h"
 #include "xpseudo_asm.h"
+#include "bspconfig.h"
+
+#ifndef SDT
 #include "xparameters.h"
+#else
+#include "xmem_config.h"
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -237,10 +243,13 @@ void Init_MPU(void)
 	/* A total of 9 MPU regions are allocated with another 7 being free for users */
 #else
 	Addr = 0x00000000U;
-#ifdef	XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
+#ifdef XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
 	size = (XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) + 1;
-	if (size < 0x80000000U) {
+#elif defined(XPAR_AXI_NOC_0_BASEADDRESS)
+	size = (XPAR_AXI_NOC_0_HIGHADDRESS - XPAR_AXI_NOC_0_BASEADDRESS) + 1;
+
+	if (size < 0x80000000) {
 		/* Lookup the size.  */
 		for (i = 0; i < (sizeof (region_size) / sizeof (region_size[0])); i++) {
 			if (size <= region_size[i].size) {

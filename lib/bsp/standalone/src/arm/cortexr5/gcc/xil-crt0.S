@@ -38,8 +38,9 @@
 * </pre>
 *
 ******************************************************************************/
+#ifndef SDT
 #include "xparameters.h"
-#include "bspconfig.h"
+#endif
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
@@ -47,7 +48,12 @@
  * 0th bit of PROCESSOR_ACCESS_VALUE macro signifies trustzone
  * setting for RPU address space
  */
+#ifdef SDT
+.extern XCortexr5_ConfigTable
+.set RPU_TZ_MASK,	0x1
+#else
 #define RPU_TZ_MASK	0x1
+#endif
 	.text
 .Lsbss_start:
 	.long	__sbss_start
@@ -100,6 +106,29 @@ test_boot_status:
 	bne	.Lenclbss
 #endif
 #endif
+#endif
+
+#ifdef SDT
+	ldr     r0,=XCortexr5_ConfigTable
+	ands	r0, r0, #RPU_TZ_MASK
+	TST 	r0, #1
+	bne	noaccess
+	mrc	p15, 0, r0,  c0,  c0, 5	/* Read MPIDR register */
+	ands	r0, r0, #MPIDR_AFF0	/* Get affinity level 0 */
+	bne	core1
+	ldr	r10, =RPU_0_PWRCTL	/* Load PWRCTRL address for core 0 */
+	b	test_boot_status
+
+core1:
+	ldr	r10, =RPU_1_PWRCTL	/* Load PWRCTRL address for core 1 */
+
+test_boot_status:
+	ldr	r11, [r10]		/* Read PWRCTRL register */
+	ands	r11, r11, #PWRCTL_MASK	/* Extract and test core's PWRCTRL */
+
+	/* if warm reset, skip the clearing of BSS and SBSS */
+	bne	.Lenclbss
+noaccess:
 #endif
 	mov	r0, #0
 

@@ -63,14 +63,23 @@
 #include "xreg_cortexr5.h"
 #include "xil_mpu.h"
 #include "xpseudo_asm.h"
-#include "xparameters.h"
+#include "bspconfig.h"
 #include "xdebug.h"
+#ifdef SDT
+#include "xmem_config.h"
+#else
+#include "xparameters.h"
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
 
 /************************** Constant Definitions *****************************/
+#if defined(SDT) && defined(XPAR_PSU_DDR_0_BASEADDRESS)
+#define XPAR_PSU_R5_DDR_0_LOW_ADDR XPAR_PSU_DDR_0_BASEADDRESS
+#define XPAR_PSU_R5_DDR_0_HIGH_ADDR XPAR_PSU_DDR_0_HIGHADDRESS
+#endif
 
 /************************** Variable Definitions *****************************/
 
