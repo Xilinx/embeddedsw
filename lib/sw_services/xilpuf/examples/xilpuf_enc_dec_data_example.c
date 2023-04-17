@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -37,6 +38,7 @@
  *                     Added shared memory allocation for client APIs
  *       kpt  03/18/22 Removed IPI related code and added mailbox support
  *       har  03/31/22 Updated default data and data size
+ * 2.1   am   04/13/23 Fix PUF auxiliary convergence error
  *
  * @note
  *
@@ -265,8 +267,18 @@ static int XPuf_GenerateKey(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-2] = PufData.Chash;
-	PUF_HelperData[XPUF_HD_LEN_IN_WORDS-1] = PufData.Aux;
+	PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 2U] = PufData.Chash;
+	/** PLM left shifts the the AUX value by 4-bits for NVM provisioning. During regeneration
+	 *  from BootHeader, the ROM expects PUF AUX value in below format:
+	 *
+	 *	-------------------------------------------------------------------------
+	 *	|    0x00    |              AUX (23:4)                   | AUX_EN (3:0) |
+	 *	-------------------------------------------------------------------------
+	 *
+	 *  Any non-zero value in AUX_EN is causing PUF convergence error. Hence left shifting the
+	 *  AUX value by 4-bits.
+	 */
+	PUF_HelperData[XPUF_HD_LEN_IN_WORDS - 1U] = (PufData.Aux << XIL_SIZE_OF_NIBBLE_IN_BITS);
 	XPuf_ShowData((u8*)PUF_HelperData, XPUF_HD_LEN_IN_WORDS * XPUF_WORD_LENGTH);
 	xil_printf("Chash: %02x \r\n", PufData.Chash);
 	xil_printf("Aux: %02x \r\n", PufData.Aux);
