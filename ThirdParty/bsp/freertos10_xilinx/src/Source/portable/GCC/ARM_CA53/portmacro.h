@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.5.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2020 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -40,6 +40,7 @@
 #include "xil_types.h"
 #include "xpseudo_asm.h"
 #include "FreeRTOSConfig.h"
+#include "bspconfig.h"
 
 #if defined (versal) && !defined(ARMR5)
 #define GICv3
@@ -193,7 +194,7 @@ void FreeRTOS_Tick_Handler( void );
  * pdPASS is returned if the function executes successfully.  Any other value
  * being returned indicates that the function did not execute correctly.
  */
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
 #else
 BaseType_t xPortInstallInterruptHandler( uint16_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef );
@@ -209,7 +210,7 @@ BaseType_t xPortInstallInterruptHandler( uint16_t ucInterruptID, XInterruptHandl
  * interrupt controller.  Peripheral IDs are defined in the xparameters.h header
  * file, which is itself part of the BSP project.
  */
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void vPortEnableInterrupt( uint8_t ucInterruptID );
 #else
 void vPortEnableInterrupt( uint16_t ucInterruptID );
@@ -225,7 +226,7 @@ void vPortEnableInterrupt( uint16_t ucInterruptID );
  * interrupt controller.  Peripheral IDs are defined in the xparameters.h header
  * file, which is itself part of the BSP project.
  */
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void vPortDisableInterrupt( uint8_t ucInterruptID );
 #else
 void vPortDisableInterrupt( uint16_t ucInterruptID );
