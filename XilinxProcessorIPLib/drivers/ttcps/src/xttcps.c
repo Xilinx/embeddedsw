@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,6 +101,10 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 {
 	s32 Status;
 	u32 IsStartResult;
+#ifdef SDT
+	u16 Count;
+#endif
+
 	/*
 	 * Assert to validate input arguments.
 	 */
@@ -110,12 +114,21 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	/*
 	 * Set some default values
 	 */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 	InstancePtr->StatusHandler = StubStatusHandler;
-#ifdef XIL_INTERRUPT
+#if defined(XIL_INTERRUPT) && !defined(SDT)
 	InstancePtr->Config.IntrId = ConfigPtr->IntrId;
+	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
+#endif
+
+#ifdef SDT
+	for (Count=0; Count<XTTCPS_NUM_COUNTERS; Count++) {
+		InstancePtr->Config.IntrId[Count] = ConfigPtr->IntrId[Count];
+	}
 	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
 #endif
 

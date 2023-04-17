@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -149,6 +149,7 @@
 *                     It fixes CR#1084697.
 * 3.16  adk  04/19/22 Fix infinite loop in the examples by adding polled
 * 		      timeout loop.
+* 3.18  adk  04/14/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -181,6 +182,7 @@ typedef void (*XTtcPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent);
  #define XTTCPS_MAX_INTERVAL_COUNT 0xFFFFFFFFU
  #endif
 
+#define XTTCPS_NUM_COUNTERS	3U
 /** @name Configuration options
  *
  * Options for the device. Each of the options is bit field, so more than one
@@ -203,11 +205,18 @@ typedef void (*XTtcPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent);
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;	  /**< Unique ID for device */
+#else
+	char *Name;
+#endif
 	u32 BaseAddress;  /**< Base address for device */
 	u32 InputClockHz; /**< Input clock frequency */
-#ifdef XIL_INTERRUPT
-	u16 IntrId;
+#if !defined(SDT) && defined(XIL_INTERRUPT)
+	u32 IntrId;
+	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+#elif defined(SDT)
+	u32 IntrId[XTTCPS_NUM_COUNTERS];		/** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
 	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
 } XTtcPs_Config;
@@ -487,7 +496,11 @@ typedef u32 XMatchRegValue;
 /*
  * Initialization functions in xttcps_sinit.c
  */
+#ifndef SDT
 XTtcPs_Config *XTtcPs_LookupConfig(u16 DeviceId);
+#else
+XTtcPs_Config *XTtcPs_LookupConfig(u32 BaseAddress);
+#endif
 
 /*
  * Required functions, in xttcps.c
