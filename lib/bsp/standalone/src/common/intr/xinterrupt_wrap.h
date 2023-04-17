@@ -38,7 +38,6 @@
 #endif
 #include "xil_exception.h"
 
-#ifdef XIL_INTERRUPT
 #if defined(XPAR_AXI_INTC)
 #include "xintc.h"
 #endif
