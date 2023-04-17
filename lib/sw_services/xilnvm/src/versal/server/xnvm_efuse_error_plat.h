@@ -22,6 +22,7 @@
 * ----- ---- ---------- --------------------------------------------------------
 * 1.0   kal  08/16/2019 Initial release
 * 3.1   kpt  01/21/2023 Added error codes for Additional PPKs
+* 3.2   kum  04/11/2023 Moved env error codes to common xnvm_efuse_error.h
 *
 * </pre>
 *
@@ -301,18 +302,6 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS = 0xEF00,/**<0xEF00 - Error in
 						* programming of ROM flow control halt boot
 						* bits for generic and environment errors*/
-	XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE = 0xF100,/**<0xF100 - Error
-						* before programming eFuse,
-						* Temparature is out of range */
-	XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE = 0xF200,/**<0xF200 - Error
-						* before programming eFuse,
-						* Voltage is out of range */
-	XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED = 0xF300,/**<0xF200 - Error
-						* before programming eFuse,
-						* no supplies are enabled */
-	XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA = 0xF400,/**<0xF400 - Error
-						* before programming eFuse,
-						* new data is not available */
 } XNvm_EfuseVersalErrorCodes;
 
 /*************************** Function Prototypes ******************************/

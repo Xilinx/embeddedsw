@@ -21,6 +21,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- --------------------------------------------------------
 * 3.0   kal  07/16/2022 Initial release
+* 3.2   kum 04/11/2023 moved BOOTENV, SYSMON related macros to common to make use for both veral and versalnet
 *
 * </pre>
 *
@@ -39,6 +40,28 @@ extern "C" {
 #include "xparameters.h"
 
 /*************************** Constant Definitions *****************************/
+
+/**
+ * @name  PMC sysmon sat0 base address
+ */
+/**< SYSMONPSV_SAT0 Base Address */
+#define XNVM_EFUSE_SYSMONPSV_SAT0_BASEADDR		(0xF1280000U)
+/** @} */
+
+/**
+ * @name  PMC sysmon sat1 base address
+ */
+/**< SYSMONPSV_SAT1 Base Address */
+#define XNVM_EFUSE_SYSMONPSV_SAT1_BASEADDR		(0xF1290000U)
+/** @} */
+
+/**
+ * @name  PMC sysmon measure0 offset
+ */
+/**< SYSMONPSV_SAT_MEASURE0 Offset */
+#define XNVM_EFUSE_SYSMONPSV_SAT_MEASURE0_OFFSET	(0x00000524U)
+/** @} */
+
 /**
  * @name CRP base address definition
  */
@@ -113,6 +136,7 @@ extern "C" {
 #define XNVM_EFUSE_CACHE_BASEADDR				(0xF1250000U)
 /** @} */
 
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET			(0x00000094U)
 /**
  * @name Register: EFUSE_CACHE_PUF_ECC_CTRL
  *  @{
@@ -222,6 +246,44 @@ extern "C" {
  * Crc check id done.
  */
 #define XNVM_POLL_TIMEOUT				(0x400U)
+/** @} */
+
+/**
+ * @name  Register: EFUSE_CACHE_BOOT_ENV_CTRL
+ */
+/**< eFUSE Cache BOOT_ENV_CTRL Masks And Shifts */
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_MASK	(0x00200000U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_MASK	(0x00100000U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_MASK	(0x00060000U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK	(0x00003000U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_MASK	(0x00000c00U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_MASK	(0x00000200U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_MASK	(0x00000003U)
+
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_SHIFT		(21U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_SHIFT		(20U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_SHIFT		(17U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_SHIFT		(12U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_SHIFT		(10U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_SHIFT		(9U)
+#define XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_SHIFT		(0U)
+/** @} */
+
+/**
+ * @name Register: SYSMON_SAT_REG
+ */
+/**< SYSMON SAT0/1 Register Masks */
+#define XNVM_EFUSE_SYSMON_SAT_ADDR_ID_MASK              (0x3fc00000U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_MASK          (0x00300000U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_MASK     (0x000f0000U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_MASK      (0x0000ff00U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_MASK      (0x000000ffU)
+
+#define XNVM_EFUSE_SYSMON_SAT_ADDR_ID_SHIFT   		(22U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_MODE_SHIFT   	(20U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_AMUX_CTRL_SHIFT   	(16U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW1_SHIFT   	(8U)
+#define XNVM_EFUSE_SYSMON_SAT_CONFIG_ABUS_SW0_SHIFT   	(0U)
 /** @} */
 
 #ifdef __cplusplus

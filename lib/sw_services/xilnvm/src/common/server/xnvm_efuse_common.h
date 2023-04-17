@@ -22,6 +22,7 @@
 * ----- ---- ---------- --------------------------------------------------------
 * 3.0   kal  07/16/2022 Initial release
 * 3.1   skg  10/25/2022 Added comments for macros and enums
+* 3.2   kum  04/11/2023 Moved Voltage and Temp macros for LP,MP,HP ranges from versal xnvm_efuse.h
 *
 * </pre>
 *
@@ -66,6 +67,35 @@ extern "C" {
 #define XNVM_EFUSE_CTRL_WR_UNLOCKED	(0x00U)
 /** @} */
 
+/**
+ *  @{ Temaperature limits defination for versal Efuses
+ */
+#define XNVM_EFUSE_FULL_RANGE_TEMP_MIN	(-55.0f)
+#define XNVM_EFUSE_FULL_RANGE_TEMP_MAX	(125.0f)
+
+#define XNVM_EFUSE_TEMP_LP_MIN		(0.0f)
+#define XNVM_EFUSE_TEMP_LP_MAX		(100.0f)
+#define XNVM_EFUSE_TEMP_MP_MIN		(-40.0f)
+#define XNVM_EFUSE_TEMP_MP_MAX		(110.0f)
+#define XNVM_EFUSE_TEMP_HP_MIN		(-55.0f)
+#define XNVM_EFUSE_TEMP_HP_MAX		(125.0f)
+
+/**< eFuse Range check  definations*/
+#define XNVM_EFUSE_FULL_RANGE_CHECK		(0U)
+#define XNVM_EFUSE_LP_RANGE_CHECK		(1U)
+#define XNVM_EFUSE_MP_RANGE_CHECK		(2U)
+#define XNVM_EFUSE_HP_RANGE_CHECK		(3U)
+
+/**< eFuse volatage limits definations*/
+#define XNVM_EFUSE_VCC_PMC_LP_MIN		(0.676f)
+#define XNVM_EFUSE_VCC_PMC_LP_MAX		(0.724f)
+#define XNVM_EFUSE_VCC_PMC_MP_MIN		(0.775f)
+#define XNVM_EFUSE_VCC_PMC_MP_MAX		(0.825f)
+#define XNVM_EFUSE_VCC_PMC_HP_MIN		(0.854f)
+#define XNVM_EFUSE_VCC_PMC_HP_MAX		(0.906f)
+
+#define XNVM_EFUSE_SYSMON_LOCK_CODE	(0xF9E8D7C6U)
+
 /***************************** Type Definitions *******************************/
 /**
  * @name  Operation mode
@@ -108,6 +138,11 @@ int XNvm_EfuseResetReadMode(void);
 void XNvm_EfuseInitTimers(void);
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op, XNvm_EfuseRdMode RdMode);
 int XNvm_EfuseCheckForTBits(void);
+int XNvm_EfuseTemparatureCheck(float Temparature);
+int XNvm_EfusePmcVoltageCheck(float Voltage);
+u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr);
+int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr);
+
 
 #ifdef __cplusplus
 }

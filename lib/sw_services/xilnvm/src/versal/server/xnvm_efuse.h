@@ -49,6 +49,7 @@
 * 3.0	kal  07/12/2022	Moved common code to xnvm_efuse_common.h
 * 3.1   skg  10/25/2022 Added comments for macros
 *       skg  12/07/2022 Added Additional PPKs related enums and macros
+* 3.2   kum  04/11/2023 Moved env common code to xnvm_efuse_common.h
 *
 * </pre>
 *
@@ -90,34 +91,6 @@ extern "C" {
 
 #define XNVM_MAX_REVOKE_ID_FUSES			(XNVM_NUM_OF_REVOKE_ID_FUSES	\
 											* XNVM_EFUSE_MAX_BITS_IN_ROW) /**< Maximum eFuses in a row*/
-/**
- *  @{ Temaperature limits defination for versal Efuses
- */
-#define XNVM_EFUSE_FULL_RANGE_TEMP_MIN	(-55.0f)
-#define XNVM_EFUSE_FULL_RANGE_TEMP_MAX	(125.0f)
-
-#define XNVM_EFUSE_TEMP_LP_MIN		(0.0f)
-#define XNVM_EFUSE_TEMP_LP_MAX		(100.0f)
-#define XNVM_EFUSE_TEMP_MP_MIN		(-40.0f)
-#define XNVM_EFUSE_TEMP_MP_MAX		(110.0f)
-#define XNVM_EFUSE_TEMP_HP_MIN		(-55.0f)
-#define XNVM_EFUSE_TEMP_HP_MAX		(125.0f)
-
-/**< eFuse Range check  definations*/
-#define XNVM_EFUSE_FULL_RANGE_CHECK		(0U)
-#define XNVM_EFUSE_LP_RANGE_CHECK		(1U)
-#define XNVM_EFUSE_MP_RANGE_CHECK		(2U)
-#define XNVM_EFUSE_HP_RANGE_CHECK		(3U)
-
-/**< eFuse volatage limits definations*/
-#define XNVM_EFUSE_VCC_PMC_LP_MIN		(0.676f)
-#define XNVM_EFUSE_VCC_PMC_LP_MAX		(0.724f)
-#define XNVM_EFUSE_VCC_PMC_MP_MIN		(0.775f)
-#define XNVM_EFUSE_VCC_PMC_MP_MAX		(0.825f)
-#define XNVM_EFUSE_VCC_PMC_HP_MIN		(0.854f)
-#define XNVM_EFUSE_VCC_PMC_HP_MAX		(0.906f)
-
-#define XNVM_EFUSE_SYSMON_LOCK_CODE	(0xF9E8D7C6U)
 
 #define XNVM_EFUSE_PPK_READ_START XNVM_EFUSE_PPK0
 #ifdef XNVM_EN_ADD_PPKS
