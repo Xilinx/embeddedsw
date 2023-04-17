@@ -191,6 +191,7 @@
 *                     added member of XScuGic data structure "RedistBaseAddr".
 *                     It fixes CR#1150432.
 * 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
+* 5.2   adk  04/14/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -269,9 +270,15 @@ typedef struct
  */
 typedef struct
 {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 	u32 CpuBaseAddress;	/**< CPU Interface Register base address */
 	u32 DistBaseAddress;	/**< Distributor Register base address */
+#else
+	char *Name;		/**< Compatible string */
+	u32 DistBaseAddress;	/**< Distributor Register base address */
+	u32 CpuBaseAddress;	/**< CPU Interface Register base address */
+#endif
 	XScuGic_VectorTableEntry HandlerTable[XSCUGIC_MAX_NUM_INTR_INPUTS];/**<
 				 Vector table of interrupt handlers */
 } XScuGic_Config;
@@ -678,7 +685,12 @@ void XScuGic_UnmapAllInterruptsFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier);
 void XScuGic_Stop(XScuGic *InstancePtr);
 void XScuGic_SetCpuID(u32 CpuCoreId);
 u32 XScuGic_GetCpuID(void);
+#ifndef SDT
 u8 XScuGic_IsInitialized(u32 DeviceId);
+#else
+u8 XScuGic_IsInitialized(u32 BaseAddress);
+#endif
+#ifndef SDT
 /*
  * Lookup configuration by using DeviceId
  */
@@ -687,6 +699,9 @@ XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId);
  * Lookup configuration by using BaseAddress
  */
 XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress);
+#else
+XScuGic_Config *XScuGic_LookupConfig(UINTPTR BaseAddr);
+#endif
 
 /*
  * Interrupt functions in xscugic_intr.c

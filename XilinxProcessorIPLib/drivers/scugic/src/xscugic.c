@@ -187,7 +187,11 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
+#ifndef SDT
 static u32 CpuId = XPAR_CPU_ID; /**< CPU Core identifier */
+#else
+static u32 CpuId; /**< CPU Core identifier */
+#endif
 
 /************************** Function Prototypes ******************************/
 
@@ -1441,13 +1445,20 @@ u32 XScuGic_GetCpuID(void)
 * @note		None
 *
 *****************************************************************************/
+#ifndef SDT
 u8 XScuGic_IsInitialized(u32 DeviceId)
+#else
+u8 XScuGic_IsInitialized(u32 BaseAddress)
+#endif
 {
 	u8 Device_Initilaized = 0U;
 	XScuGic_Config *CfgPtr;
 	u32 RegVal;
-
+#ifndef SDT
 	CfgPtr = XScuGic_LookupConfig(DeviceId);
+#else
+	CfgPtr = XScuGic_LookupConfig(BaseAddress);
+#endif
 	if (CfgPtr != NULL) {
 		RegVal = XScuGic_ReadReg(CfgPtr->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET);
 		if (RegVal & XSCUGIC_EN_INT_MASK) {
