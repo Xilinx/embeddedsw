@@ -74,10 +74,12 @@
 #include "xil_cache.h"
 #include "xil_io.h"
 #include "xpseudo_asm.h"
+#include "bspconfig.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xreg_cortexa53.h"
 #include "xil_exception.h"
-#include "bspconfig.h"
 
 /************************** Function Prototypes ******************************/
 
