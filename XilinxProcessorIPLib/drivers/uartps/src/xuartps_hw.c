@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -152,4 +152,16 @@ void XUartPs_ResetHw(u32 BaseAddress)
 						(u32)XUARTPS_CR_STOPBRK));
 
 }
+
+#ifdef SDT
+#ifdef XPAR_STDIN_IS_UARTPS
+void outbyte(char c) {
+         XUartPs_SendByte(STDOUT_BASEADDRESS, c);
+}
+
+char inbyte(void) {
+         return XUartPs_RecvByte(STDIN_BASEADDRESS);
+}
+#endif
+#endif
 /** @} */
