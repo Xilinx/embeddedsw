@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.4.6
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -32,7 +32,7 @@
 
 /* Xilinx includes. */
 #include "xscugic.h"
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 #include "xttcps.h"
 #else
 #include "xiltimer.h"
@@ -58,7 +58,7 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer,
 								__attribute__((weak));
 #endif
 
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 /* Timer used to generate the tick interrupt. */
 XTtcPs xTimerInstance;
 XScuGic xInterruptController;
@@ -67,7 +67,7 @@ extern uintptr_t IntrControllerAddr;
 #endif
 /*-----------------------------------------------------------*/
 
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 void FreeRTOS_SetupTickInterrupt( void )
 {
 BaseType_t xStatus;
@@ -158,7 +158,7 @@ void FreeRTOS_SetupTickInterrupt( void )
 
 void FreeRTOS_ClearTickInterrupt( void )
 {
-#ifndef XPAR_XILTIMER_ENABLED
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 	XTtcPs_ClearInterruptStatus( &xTimerInstance, XTtcPs_GetInterruptStatus( &xTimerInstance ) );
 	__asm volatile( "DSB SY" );
 	__asm volatile( "ISB SY" );

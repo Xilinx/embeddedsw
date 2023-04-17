@@ -1,0 +1,90 @@
+/******************************************************************************
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef _FREERTOSCONFIG_H
+#define _FREERTOSCONFIG_H
+
+
+#cmakedefine01	configUSE_PREEMPTION			@configUSE_PREEMPTION@
+#cmakedefine01	configIDLE_SHOULD_YIELD			@configIDLE_SHOULD_YIELD@
+#cmakedefine01	configUSE_TIME_SLICING			@configUSE_TIME_SLICING@
+#cmakedefine01	configUSE_PORT_OPTIMIZED_TASK_SELECTION	@configUSE_PORT_OPTIMIZED_TASK_SELECTION@
+#cmakedefine01	configSTREAM_BUFFER			@configSTREAM_BUFFER@
+#cmakedefine01	configMESSAGE_BUFFER			@configMESSAGE_BUFFER@
+#cmakedefine01	configSUPPORT_STATIC_ALLOCATION		@configSUPPORT_STATIC_ALLOCATION@
+#cmakedefine01	configUSE_FREERTOS_ASSERTS		@configUSE_FREERTOS_ASSERTS@
+#cmakedefine01	configUSE_MUTEXES			@configUSE_MUTEXES@
+#cmakedefine01	INCLUDE_xSemaphoreGetMutexHolder	@INCLUDE_xSemaphoreGetMutexHolder@
+#cmakedefine01	configUSE_RECURSIVE_MUTEXES		@configUSE_RECURSIVE_MUTEXES@
+#cmakedefine01	configUSE_COUNTING_SEMAPHORES		@configUSE_COUNTING_SEMAPHORES@
+#cmakedefine01	configUSE_TRACE_FACILITY		@configUSE_TRACE_FACILITY@
+#cmakedefine01	configUSE_NEWLIB_REENTRANT		@configUSE_NEWLIB_REENTRANT@
+#cmakedefine01	configUSE_QUEUE_SETS			@configUSE_QUEUE_SETS@
+#cmakedefine01	configUSE_TASK_NOTIFICATIONS		@configUSE_TASK_NOTIFICATIONS@
+#cmakedefine01	configUSE_STATS_FORMATTING_FUNCTION	@configUSE_STATS_FORMATTING_FUNCTION@
+#cmakedefine01	configUSE_IDLE_HOOK			@configUSE_IDLE_HOOK@
+#cmakedefine01	configUSE_TICK_HOOK			@configUSE_TICK_HOOK@
+#cmakedefine01	configUSE_MALLOC_FAILED_HOOK		@configUSE_MALLOC_FAILED_HOOK@
+#cmakedefine01	configUSE_DAEMON_TASK_STARTUP_HOOK	@configUSE_DAEMON_TASK_STARTUP_HOOK@
+#cmakedefine01	configUSE_TIMERS			@configUSE_TIMERS@
+#cmakedefine01	FREERTOS_TIMER_TICK_TRACE		@FREERTOS_TIMER_TICK_TRACE@
+
+#cmakedefine	configTICK_RATE_HZ			(@configTICK_RATE_HZ@)
+#cmakedefine	configMAX_API_CALL_INTERRUPT_PRIORITY	@configMAX_API_CALL_INTERRUPT_PRIORITY@
+#cmakedefine	configMAX_PRIORITIES			(@configMAX_PRIORITIES@)
+#cmakedefine	configMINIMAL_STACK_SIZE		((unsigned short) @configMINIMAL_STACK_SIZE@)
+#cmakedefine	configTOTAL_HEAP_SIZE			((size_t)@configTOTAL_HEAP_SIZE@)
+#cmakedefine	configMAX_TASK_NAME_LEN			@configMAX_TASK_NAME_LEN@
+#cmakedefine	configQUEUE_REGISTRY_SIZE		@configQUEUE_REGISTRY_SIZE@
+#cmakedefine	configCHECK_FOR_STACK_OVERFLOW		@configCHECK_FOR_STACK_OVERFLOW@
+#cmakedefine	configNUM_THREAD_LOCAL_STORAGE_POINTERS	@configNUM_THREAD_LOCAL_STORAGE_POINTERS@
+#cmakedefine	configUSE_TASK_FPU_SUPPORT		@configUSE_TASK_FPU_SUPPORT@
+#cmakedefine	configTIMER_TASK_PRIORITY		(@configTIMER_TASK_PRIORITY@)
+#cmakedefine	configTIMER_QUEUE_LENGTH		@configTIMER_QUEUE_LENGTH@
+#cmakedefine	configTIMER_TASK_STACK_DEPTH		((@configTIMER_TASK_STACK_DEPTH@ * 2))
+#cmakedefine	configGENERATE_RUN_TIME_STATS		@configGENERATE_RUN_TIME_STATS@
+#cmakedefine	configMAX_CO_ROUTINE_PRIORITIES		@configMAX_CO_ROUTINE_PRIORITIES@
+#cmakedefine	configTIMER_BASEADDR			@configTIMER_BASEADDR@
+#cmakedefine	configTIMER_SELECT_CNTR			@configTIMER_SELECT_CNTR@
+#cmakedefine	configUNIQUE_INTERRUPT_PRIORITIES	@configUNIQUE_INTERRUPT_PRIORITIES@
+#cmakedefine	portPOINTER_SIZE_TYPE			@portPOINTER_SIZE_TYPE@
+#cmakedefine	configUSE_16_BIT_TICKS			@configUSE_16_BIT_TICKS@
+#cmakedefine	configUSE_APPLICATION_TASK_TAG		@configUSE_APPLICATION_TASK_TAG@
+#cmakedefine	configUSE_CO_ROUTINES			@configUSE_CO_ROUTINES@
+#cmakedefine	configUSE_TICKLESS_IDLE			@configUSE_TICKLESS_IDLE@
+#cmakedefine	INCLUDE_vTaskPrioritySet		@INCLUDE_vTaskPrioritySet@
+#cmakedefine	INCLUDE_uxTaskPriorityGet		@INCLUDE_uxTaskPriorityGet@
+#cmakedefine	INCLUDE_vTaskDelete			@INCLUDE_vTaskDelete@
+#cmakedefine	INCLUDE_vTaskCleanUpResources		@INCLUDE_vTaskCleanUpResources@
+#cmakedefine	INCLUDE_vTaskSuspend			@INCLUDE_vTaskSuspend@
+#cmakedefine	INCLUDE_vTaskDelayUntil			@INCLUDE_vTaskDelayUntil@
+#cmakedefine	INCLUDE_vTaskDelay			@INCLUDE_vTaskDelay@
+#cmakedefine	INCLUDE_eTaskGetState			@INCLUDE_eTaskGetState@
+#cmakedefine	INCLUDE_xTimerPendFunctionCall		@INCLUDE_xTimerPendFunctionCall@
+#cmakedefine	INCLUDE_pcTaskGetTaskName		@INCLUDE_pcTaskGetTaskName@
+#cmakedefine	portTICK_TYPE_IS_ATOMIC			@portTICK_TYPE_IS_ATOMIC@
+#cmakedefine	configTASK_RETURN_ADDRESS		@configTASK_RETURN_ADDRESS@
+#cmakedefine	configMESSAGE_BUFFER_LENGTH_TYPE	@configMESSAGE_BUFFER_LENGTH_TYPE@
+#cmakedefine	configSTACK_DEPTH_TYPE			@configSTACK_DEPTH_TYPE@
+#cmakedefine	configINTERRUPT_CONTROLLER_BASE_ADDRESS	@configINTERRUPT_CONTROLLER_BASE_ADDRESS@
+#cmakedefine	configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET (@configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET@)
+
+@FREERTOS_ASSERTS@
+@PRINT_GEN_STATS_LINES@
+@portCONFIGURE_TIMER_FOR_RUN_TIME_STATS@
+@PRINT_GET_CNTR_LINES@
+@portGET_RUN_TIME_COUNTER_VALUE@
+
+@APPLICATION_ASSERT_FUN@
+@SETUP_TICK_FUN@
+@CONFIG_SETUP_TICK@
+@CLEAR_TICK_INTR_FUN@
+@CLEAR_TICK_INTR_DEF@
+@CMD_INT_MAX_OUTPUT_SIZE@
+@RECMU_CNTRL_TASK_PRIORITY@
+@SET_INT_MASK_FROM_ISR@
+@CLR_INTR_MASK_FROM_ISR@
+@INSTALL_EXCEPTION_HANDLERS@
+
+#endif /* _FREERTOSCONFIG_H */
