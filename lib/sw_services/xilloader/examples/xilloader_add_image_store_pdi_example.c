@@ -19,15 +19,20 @@
  * 1.0   bsv  04/20/2022   Initial release
  *       bsv  08/18/2022   Fix typo in CmdId
  * 1.1   sk   03/10/2023   Updated changes to command format
+ *       sk   04/18/2023   Added support for versalnet
  */
 #include <stdio.h>
-#include "platform.h"
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xipipsu.h"
 #include "xil_cache.h"
 
+#if defined(VERSAL_NET)
+#define TARGET_IPI_INT_MASK	XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK
+#else
 #define TARGET_IPI_INT_MASK	XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
+#endif
+
 #define IPI_TIMEOUT		(0xFFFFFFFFU)
 
 /* Example defines below, update with required values*/

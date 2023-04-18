@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
  * ----- ---  ----------   ----------------------------------------------------
  * 1.0   bsv  06/23/2022   Initial release
  *       bsv  06/28/2022   Rename and reorganize functions
+ * 1.1   sk   04/18/2023   Added support for versalnet
  * </pre>
  *
  * @note
@@ -25,14 +27,19 @@
 
 /***************************** Include Files *********************************/
 #include <stdio.h>
-#include "platform.h"
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xipipsu.h"
 #include "xil_cache.h"
 
 /************************** Constant Definitions *****************************/
+#if defined(VERSAL_NET)
+#define TARGET_IPI_INT_MASK	XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK
+#else
 #define TARGET_IPI_INT_MASK	XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
+#endif
+
+
 #define IPI_TIMEOUT		(0xFFFFFFFFU)
 #define PDI_SRC_ADDR_LOW	(0x1000000U)
 #define PDI_SRC_ADDR_HIGH	(0U)
