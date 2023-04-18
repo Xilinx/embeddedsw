@@ -17,15 +17,20 @@
  * Ver   Who   Date        Changes
  * ----- ---  ----------   ----------------------------------------------------
  * 1.0   bsv  04/17/2022   Initial release
+ * 1.1   sk   04/18/2023   Added support for versalnet
  */
 #include <stdio.h>
-#include "platform.h"
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "xipipsu.h"
 #include "xil_cache.h"
 
+#if defined(VERSAL_NET)
+#define TARGET_IPI_INT_MASK	XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK
+#else
 #define TARGET_IPI_INT_MASK	XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK
+#endif
+
 #define IPI_TIMEOUT		(0xFFFFFFFFU)
 
 static 	XIpiPsu IpiInst;
