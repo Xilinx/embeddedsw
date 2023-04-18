@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2012 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 ##############################################################################
@@ -642,6 +643,22 @@ proc generate_libmetal {} {
 
 	if { [string match -nocase "windows*" "${os_platform_type}"] == 0 } {
 		# Linux
+		if { [info exists ::env(LD_LIBRARY_PATH) ] } {
+			set ld_lib_path $::env(LD_LIBRARY_PATH)
+		} else {
+			set ld_lib_path ""
+		}
+
+		if { [info exists ::env(HDI_APPROOT) ] } {
+			set shared_lib_dir $::env(HDI_APPROOT)
+		} elseif { [info exists ::env(XILINX_VITIS) ] } {
+			set shared_lib_dir $::env(XILINX_VITIS)
+		} elseif { [info exists ::env(XILINX_SDK) ] } {
+			set shared_lib_dir $::env(XILINX_sdk)
+		}
+
+		set ::env(LD_LIBRARY_PATH) "${shared_lib_dir}/tps/lnx64/cmake-3.3.2/libs/Ubuntu/x86_64-linux-gnu/:${ld_lib_path}"
+
 		file attributes ${cmake_cmd} -permissions ugo+rx
 		if { [catch {exec ${cmake_cmd} "../src/libmetal" ${cmake_opt}} msg] } {
 			puts "${msg}"
