@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -992,6 +993,11 @@ extern "C" {
 	#define XPMU_USB_1 XPAR_XUSBPSU_1_DEVICE_ID
 	#define XPMU_USB_1_BASEADDR XPAR_XUSBPSU_1_BASEADDR
 #endif /*XPAR_XUSBPSU_1_DEVICE_ID*/
+
+#ifdef ENABLE_SMMU
+#define XPAR_PSU_SMMU_GPV_S_NSCR0	((XPAR_PSU_SMMU_GPV_S_AXI_BASEADDR) + (0x400U))
+#define XPAR_PSU_SMMU_GPV_S_NSCR0_MASK	0x00000001U
+#endif /*ENABLE SMMU*/
 
 /* Register Access Macros */
 
