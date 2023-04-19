@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -279,6 +280,10 @@ extern "C" {
 
 #ifndef ENABLE_DDR_XMPU_VAL
 #define ENABLE_DDR_XMPU_VAL			(0U)
+#endif
+
+#ifndef ENABLE_SMMU_VAL
+#define ENABLE_SMMU_VAL					(0U)
 #endif
 
 /*
@@ -561,6 +566,10 @@ extern "C" {
 
 #if ENABLE_DDR_XMPU_VAL
 #define ENABLE_DDR_XMPU
+#endif
+
+#if (ENABLE_SMMU_VAL) && (!defined(ENABLE_SMMU))
+#define ENABLE_SMMU
 #endif
 
 #ifdef __cplusplus

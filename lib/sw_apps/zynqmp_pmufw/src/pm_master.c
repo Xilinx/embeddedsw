@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -820,6 +821,11 @@ s32 PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		break;
 	case PM_MASTER_EVENT_SLEEP:
 		if (PM_MASTER_STATE_SUSPENDING == master->state) {
+#ifdef ENABLE_SMMU
+			/* bypassing the SMMU by setting CLIENTPD bit */
+			XPfw_RMW32(XPAR_PSU_SMMU_GPV_S_NSCR0, XPAR_PSU_SMMU_GPV_S_NSCR0_MASK,
+				   XPAR_PSU_SMMU_GPV_S_NSCR0_MASK);
+#endif
 #ifdef ENABLE_POS
 			bool isPoS = PmSystemDetectPowerOffSuspend(master);
 			if (true == isPoS) {
@@ -853,6 +859,11 @@ s32 PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 			if (XST_SUCCESS == status) {
 				PmWakeUpCancelScheduled(master);
 			}
+#ifdef ENABLE_SMMU
+			/* restoring the SMMU by clearing CLIENTPD bit */
+			XPfw_RMW32(XPAR_PSU_SMMU_GPV_S_NSCR0, XPAR_PSU_SMMU_GPV_S_NSCR0_MASK,
+				   ~XPAR_PSU_SMMU_GPV_S_NSCR0_MASK);
+#endif
 		} else if (PM_MASTER_STATE_KILLED == master->state) {
 			PmRequirementPreRequest(master);
 			status = PmRequirementUpdateScheduled(master, false);
