@@ -54,6 +54,8 @@
 *                      CR#1088640.
 * 2.13	sk   10/30/21 Modify XIOModule_DeviceInterruptHandler argument typecast
 * 		      from u32 to UINTPTR to support on all platforms.
+* 2.15  ml   04/07/23 Typecast conditional expressions with bool to avoid
+*                     MISRA C violations.
 * </pre>
 *
 * @internal
@@ -73,7 +75,7 @@
 #include "xiomodule.h"
 #include "xil_types.h"
 #include "xil_assert.h"
-
+#include <stdbool.h>
 /************************** Constant Definitions *****************************/
 
 /*
@@ -260,13 +262,13 @@ void XIOModule_Timer_InterruptHandler(void *InstancePtr)
 	/*
 	 * Check if timer is enabled
 	 */
-	if (IOModulePtr->CfgPtr->PitUsed[Index]) {
+	if ((bool)IOModulePtr->CfgPtr->PitUsed[Index]) {
 
 	    /*
 	     * Check if timer expired and interrupt occurred,
 	     * but only if it is not a fast interrupt
 	     */
-	    if (IntPendingReg & ModeMask & XIOModule_TimerBitPosMask[Index]) {
+	    if ((bool)(IntPendingReg & ModeMask & XIOModule_TimerBitPosMask[Index])) {
 
 		/*
 		 * Increment statistics for the number of interrupts and call

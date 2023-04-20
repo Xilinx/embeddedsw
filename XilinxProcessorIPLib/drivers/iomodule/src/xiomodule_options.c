@@ -33,7 +33,7 @@
 
 #include "xiomodule.h"
 #include "xil_assert.h"
-
+#include <stdbool.h>
 /************************** Constant Definitions *****************************/
 
 
@@ -179,7 +179,7 @@ void XIOModule_Timer_SetOptions(XIOModule * InstancePtr, u8 TimerNumber,
 	 * depending on whether the bit is set in the incoming Options flag.
 	 */
 	for (Index = 0; Index < XTC_NUM_OPTIONS; Index++) {
-		if (Options & OptionsTable[Index].Option) {
+		if ((bool)(Options & OptionsTable[Index].Option)) {
 			/*
 			 * Turn the option on
 			 */
@@ -245,7 +245,7 @@ u32 XIOModel_Timer_GetOptions(XIOModule * InstancePtr, u8 TimerNumber)
 	 * depending on whether the bit is set in current register settings.
 	 */
 	for (Index = 0; Index < XTC_NUM_OPTIONS; Index++) {
-		if (CounterControlReg & OptionsTable[Index].Mask) {
+		if ((bool)(CounterControlReg & OptionsTable[Index].Mask)) {
 			Options |= OptionsTable[Index].Option;	/* turn on */
 		}
 		else {
