@@ -108,7 +108,7 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 	u8 Id;
 	XIOModule_Config *CfgPtr;
 	u32 NextBitMask = 1;
-        int i;
+        u32 i;
 	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);

@@ -96,7 +96,7 @@ typedef void (*Handler)(XIOModule *InstancePtr);
 u32 XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
 				u32 NumBytes)
 {
-	unsigned int BytesSent;
+	u32 BytesSent;
 	u32 StatusRegister;
 
 	/*
@@ -105,7 +105,7 @@ u32 XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DataBufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(((signed)NumBytes) >= 0U);
+	Xil_AssertNonvoid(((s32)NumBytes) >= 0);
 
 	/*
 	 * Enter a critical region by disabling the UART interrupts to allow
@@ -176,7 +176,7 @@ u32 XIOModule_Send(XIOModule *InstancePtr, u8 *DataBufferPtr,
 u32 XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
 				u32 NumBytes)
 {
-	unsigned int ReceivedCount;
+	u32 ReceivedCount;
 	u32 StatusRegister;
 
 	/*
@@ -185,7 +185,7 @@ u32 XIOModule_Recv(XIOModule *InstancePtr, u8 *DataBufferPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DataBufferPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(((signed)NumBytes) >= 0U);
+	Xil_AssertNonvoid(((s32)NumBytes) >= 0);
 
 	/*
 	 * Enter a critical region by disabling all the UART interrupts to allow
@@ -305,7 +305,7 @@ s32 XIOModule_IsSending(XIOModule *InstancePtr)
 *****************************************************************************/
 unsigned int XIOModule_SendBuffer(XIOModule *InstancePtr)
 {
-	unsigned int SentCount = 0U;
+	u32 SentCount = 0U;
 	u32 StatusRegister;
 	u32 IntrEnableStatus;
 
@@ -405,7 +405,7 @@ unsigned int XIOModule_SendBuffer(XIOModule *InstancePtr)
 unsigned int XIOModule_ReceiveBuffer(XIOModule *InstancePtr)
 {
 	u32 StatusRegister;
-	unsigned int ReceivedCount = 0U;
+	u32 ReceivedCount = 0U;
 
 	/*
 	 * Loop until there is not more data buffered by the UART or the

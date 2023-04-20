@@ -67,7 +67,7 @@
 void XIOModule_DiscreteSet(XIOModule * InstancePtr, u32 Channel, u32 Mask)
 {
 	u32 Current;
-	unsigned DataOffset;
+	u32 DataOffset;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -109,7 +109,7 @@ void XIOModule_DiscreteClear(XIOModule * InstancePtr,
 			     u32 Mask)
 {
 	u32 Current;
-	unsigned DataOffset;
+	u32 DataOffset;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
