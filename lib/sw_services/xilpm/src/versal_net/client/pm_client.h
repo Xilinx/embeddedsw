@@ -96,6 +96,7 @@ void XPm_ClientSuspend(const struct XPm_Proc *const Proc);
 void XPm_ClientWakeUp(const struct XPm_Proc *const Proc);
 void XPm_ClientSuspendFinalize(void);
 void XPm_ClientAbortSuspend(void);
+XStatus XPm_AddIdleCallBack(void);
 
 /** @endcond */
 

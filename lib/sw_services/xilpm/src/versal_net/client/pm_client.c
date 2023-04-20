@@ -6,6 +6,7 @@
 
 
 #include "pm_client.h"
+#include "pm_api_sys.h"
 #include <xil_cache.h>
 #include "xil_util.h"
 #include "xpm_nodeid.h"
@@ -460,4 +461,35 @@ void XPm_ClientAbortSuspend(void)
 	XpmEnableInterrupts();
 }
 
+static void CpuIdleCallback(XPm_Notifier* const notifier)
+{
+    XPm_ClientSuspend(PrimaryProc);
+    XPm_ClientSuspendFinalize();
+}
+
+XPm_Notifier IdleNotifier = {
+    .callback = CpuIdleCallback,
+    .event = EVENT_CPU_IDLE_FORCE_PWRDWN,
+    .flags = 0,
+};
+
+/****************************************************************************/
+/**
+ * @brief  This function registers for Idle notification
+ *
+ * @return returns XST_SUCCESS on successfull registration of notification
+ * else returns XST_FAILURE
+ *
+ ****************************************************************************/
+XStatus XPm_AddIdleCallBack(void){
+    XStatus	Status = XST_FAILURE;
+    IdleNotifier.node = PrimaryProc->DevId;
+
+    Status = XPm_RegisterNotifier(&IdleNotifier);
+    if (XST_SUCCESS != Status) {
+        XPm_Err("%s: Error in Registering Notifier: %d\r\n", __func__, Status);
+    }
+
+    return Status;
+}
 /** @endcond */

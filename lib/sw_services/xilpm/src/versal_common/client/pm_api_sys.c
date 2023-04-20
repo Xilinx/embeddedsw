@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -189,6 +190,11 @@ XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 	}
 
 	PrimaryProc->Ipi = IpiInst;
+
+	Status = XPm_AddIdleCallBack();
+	if ((s32)XST_SUCCESS != Status) {
+		XPm_Err("%s: Error in adding idle callback: %x\r\n", __func__, Status);
+	}
 
 done:
 	return Status;
