@@ -52,6 +52,8 @@
 * 8.1  asa  02/13/23  Updated xdbg_printf arguments to have the correct debug
 *                     type.
 * 9.0  ml   03/03/23  Add description to fix doxygen warnings.
+* 9.0  ml   14/04/23  Add U to numericals and correct the typecast to fix
+*                     misra-c violations.
 * </pre>
 *
 *
@@ -196,12 +198,12 @@ void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
 		             Xil_SetTlbAttributes API is failed \n");
 		}
 	} else {
-		Localaddr &= (INTPTR)(~(0xFFFFFU));
+		Localaddr &= (UINTPTR)(~(0xFFFFFU));
 		/* Setting the MPU region with given attribute with 1MB size */
 		(void) Xil_SetMPURegion(Localaddr, 0x100000, attrib);
 	}
 #else
-	Localaddr &= (INTPTR)(~(0xFFFFFU));
+	Localaddr &= (UINTPTR)(~(0xFFFFFU));
 	/* Setting the MPU region with given attribute with 1MB size */
 	(void) Xil_SetMPURegion(Localaddr, 0x100000, attrib);
 #endif
@@ -252,7 +254,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 			break;
 		}
 	}
-	Localaddr &= (INTPTR)(~(region_size[i].size - 1U));
+	Localaddr &= (UINTPTR)(~(region_size[i].size - 1U));
 #endif
 
 
@@ -410,7 +412,7 @@ u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
 		goto exit;
 	}
 
-	if ((size & REGION_EN) != 0) {
+	if ((size & REGION_EN) != 0U) {
 		Mpu_Config[reg_num].RegionStatus = MPU_REG_ENABLED;
 		Mpu_Config[reg_num].BaseAddress = address;
 #if defined (ARMR52)
@@ -602,7 +604,7 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 		}
 	}
 
-	Localaddr &= (INTPTR)(~(region_size[Index].size - 1U));
+	Localaddr &= (UINTPTR)(~(region_size[Index].size - 1U));
 #endif
 #if defined(ARMR52)
 	limit_reg = (Regionsize + Localaddr);
@@ -648,7 +650,7 @@ void Xil_InitializeExistingMPURegConfig(void)
 	u32 Index = 0U;
 	u32 Index1 = 0U;
 	u32 MPURegSize;
-	INTPTR MPURegBA;
+	UINTPTR MPURegBA;
 	u32 MPURegAttrib;
 	u32 Tempsize;
 
@@ -672,7 +674,7 @@ void Xil_InitializeExistingMPURegConfig(void)
 		mfcp(XREG_CP15_MPU_REG_ACCESS_CTRL, MPURegAttrib);
 #endif
 #endif
-		if ((MPURegSize & REGION_EN) != 0) {
+		if ((MPURegSize & REGION_EN) != 0U) {
 			Mpu_Config[Index].RegionStatus = MPU_REG_ENABLED;
 			Mpu_Config[Index].BaseAddress = MPURegBA;
 			Mpu_Config[Index].Attribute = MPURegAttrib;
