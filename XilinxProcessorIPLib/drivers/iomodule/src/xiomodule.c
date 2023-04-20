@@ -211,12 +211,12 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 				XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
 			{
 					XIomodule_Out64(InstancePtr->BaseAddress +
-						XIN_IVEAR_OFFSET + Id * 8U,
+						XIN_IVEAR_OFFSET + (Id * 8U),
 						(InstancePtr->CfgPtr->BaseVector &
 					0xFFFFFFFFFFFFFF80ULL) | 0x10U);
 			} else {
 					XIomodule_Out32(InstancePtr->BaseAddress +
-						XIN_IVAR_OFFSET + Id * 4U,
+						XIN_IVAR_OFFSET + (Id * 4U),
 						(InstancePtr->CfgPtr->BaseVector &
 						0xFFFFFF80U) | 0x10U);
 			}
