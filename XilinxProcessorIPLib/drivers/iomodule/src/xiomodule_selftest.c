@@ -103,7 +103,7 @@ int XIOModule_Intc_SelfTest(XIOModule * InstancePtr)
 	 * are acknowledged. Skip checking external interrupts, since they may
 	 * occur at any time.
 	 */
-	if ((CurrentISR & 0xffff) != 0U) {
+	if ((CurrentISR & 0xffffU) != 0U) {
 		return XST_INTC_FAIL_SELFTEST;
 	}
 

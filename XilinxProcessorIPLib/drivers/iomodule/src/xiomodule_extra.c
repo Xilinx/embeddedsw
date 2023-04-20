@@ -71,21 +71,21 @@ void XIOModule_DiscreteSet(XIOModule * InstancePtr, u32 Channel, u32 Mask)
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((Channel >= 1) && (Channel <= XGPO_DEVICE_COUNT));
+	Xil_AssertVoid((Channel >= 1U) && (Channel <= XGPO_DEVICE_COUNT));
 
 	/*
 	 * Calculate the offset to the data register of the GPO
 	 */
-	DataOffset = ((Channel - 1) * XGPO_CHAN_OFFSET) + XGPO_DATA_OFFSET;
+	DataOffset = ((Channel - 1U) * XGPO_CHAN_OFFSET) + XGPO_DATA_OFFSET;
 
 	/*
 	 * Read the contents from the instance, merge in Mask and write
 	 * back results
 	 */
-	Current = InstancePtr->GpoValue[Channel - 1];
+	Current = InstancePtr->GpoValue[Channel - 1U];
 	Current |= Mask;
 	XIOModule_WriteReg(InstancePtr->BaseAddress, DataOffset, Current);
-	InstancePtr->GpoValue[Channel - 1] = Current;
+	InstancePtr->GpoValue[Channel - 1U] = Current;
 }
 
 
@@ -113,12 +113,12 @@ void XIOModule_DiscreteClear(XIOModule * InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((Channel >= 1) && (Channel <= XGPO_DEVICE_COUNT));
+	Xil_AssertVoid((Channel >= 1U) && (Channel <= XGPO_DEVICE_COUNT));
 
 	/*
 	 * Calculate the offset to the data register of the GPO
 	 */
-	DataOffset = ((Channel - 1) * XGPO_CHAN_OFFSET) + XGPO_DATA_OFFSET;
+	DataOffset = ((Channel - 1U) * XGPO_CHAN_OFFSET) + XGPO_DATA_OFFSET;
 
 	/*
 	 * Read the contents from the instance, merge in Mask and write
@@ -127,6 +127,6 @@ void XIOModule_DiscreteClear(XIOModule * InstancePtr,
 	Current = InstancePtr->GpoValue[Channel - 1U];
 	Current &= ~Mask;
 	XIOModule_WriteReg(InstancePtr->BaseAddress, DataOffset, Current);
-	InstancePtr->GpoValue[Channel - 1] = Current;
+	InstancePtr->GpoValue[Channel - 1U] = Current;
 }
 /** @} */
