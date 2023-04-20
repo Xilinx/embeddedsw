@@ -47,7 +47,7 @@
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xdebug.h"
-
+#include <stdbool.h>
 /************************** Constant Definitions *****************************/
 
 
@@ -694,7 +694,7 @@ s32 XIOModule_ConnectFastHandler(XIOModule *InstancePtr, u8 Id,
 	/*
 	 * Enable Interrupt if it was enabled before calling this function
 	 */
-	if (CurrentIER & Mask) {
+	if ((bool)(CurrentIER & Mask)) {
 		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET,
 				CurrentIER);
 	}
@@ -745,7 +745,7 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 	 * enabled before calling this function
 	 */
 	CurrentIER = InstancePtr->CurrentIER;
-	if (CurrentIER & Mask) {
+	if ((bool)(CurrentIER & Mask)) {
 		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET,
 				CurrentIER & ~Mask);
 	}
@@ -898,7 +898,7 @@ s32 XIOModule_Timer_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 		 * destructive if the timer counter is already started
 		 */
 		StatusReg = InstancePtr->CurrentTCSR[TimerNumber];
-		if (StatusReg & XTC_CSR_ENABLE_TMR_MASK) {
+		if ((bool)(StatusReg & XTC_CSR_ENABLE_TMR_MASK)) {
 			continue;
 		}
 
@@ -1203,12 +1203,12 @@ s32 XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(TimerNumber < XTC_DEVICE_TIMER_COUNT);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(InstancePtr->CfgPtr->PitReadable[TimerNumber]);
+	Xil_AssertNonvoid((bool)InstancePtr->CfgPtr->PitReadable[TimerNumber]);
 
 	/*
 	 * Check if timer is expired
 	 */
-	if (InstancePtr->CurrentTCSR[TimerNumber] & XTC_CSR_AUTO_RELOAD_MASK) {
+	if ((bool)(InstancePtr->CurrentTCSR[TimerNumber] & XTC_CSR_AUTO_RELOAD_MASK)) {
 		return 1; /* Always expired for reload */
 	} else {
 		CounterReg = XIOModule_ReadReg(InstancePtr->BaseAddress,

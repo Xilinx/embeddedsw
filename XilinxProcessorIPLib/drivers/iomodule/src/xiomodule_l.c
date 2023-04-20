@@ -45,7 +45,7 @@
 #include "xparameters.h"
 #endif
 #include "xiomodule_i.h"
-
+#include <stdbool.h>
 /************************** Constant Definitions *****************************/
 
 
@@ -164,11 +164,11 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 
 		TablePtr = &(CfgPtr->HandlerTable[IntrNumber]);
 
-		if ((IntrStatus & 1U) && (TablePtr->Handler != NULL)) {
+		if ((bool)(IntrStatus & 1U) && (TablePtr->Handler != NULL)) {
 			/* If the interrupt has been setup to acknowledge it
 			 * before servicing the interrupt, then ack it
 			 */
-			if (CfgPtr->AckBeforeService & IntrMask) {
+			if ((bool)(CfgPtr->AckBeforeService & IntrMask)) {
 			    XIOModule_AckIntr(CfgPtr->BaseAddress, IntrMask);
 			}
 
