@@ -243,9 +243,9 @@ s32 XIOModule_SelfTest(XIOModule * InstancePtr)
 	CfgPtr = InstancePtr->CfgPtr;
 	for (Timer = 0; Timer < XTC_DEVICE_TIMER_COUNT; Timer++) {
 		if (CfgPtr->PitUsed[Timer] &&
-		    CfgPtr->PitPrescaler[Timer] == XTC_PRESCALER_NONE &&
+		    (CfgPtr->PitPrescaler[Timer] == XTC_PRESCALER_NONE) &&
 		    CfgPtr->PitReadable[Timer] &&
-		    CfgPtr->PitSize[Timer] > 8U) {
+		    (CfgPtr->PitSize[Timer] > 8U)) {
 			Status = XIOModule_Timer_SelfTest(InstancePtr, Timer);
 			if (Status != XST_SUCCESS)
 			{
