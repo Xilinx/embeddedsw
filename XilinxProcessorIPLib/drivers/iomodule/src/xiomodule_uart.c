@@ -126,7 +126,7 @@ s32 XIOModule_CfgInitialize(XIOModule *InstancePtr, XIOModule_Config *Config,
 	/*
 	 * Modify the IER to disable the UART interrupts
 	 */
-	NewIER = InstancePtr->CurrentIER & 0xFFFFFFF8;
+	NewIER = InstancePtr->CurrentIER & 0xFFFFFFF8U;
 	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET, NewIER);
 	InstancePtr->CurrentIER = NewIER;
 
@@ -215,7 +215,7 @@ s32 XIOModule_SetBaudRate(XIOModule *InstancePtr, u32 BaudRate)
 	 */
 	XIOModule_WriteReg(InstancePtr->BaseAddress,
 			   XUL_BAUDRATE_OFFSET,
-			   Divisor - 1);
+			   Divisor - 1U);
 	InstancePtr->CurrentUBRR = Divisor - 1U;
 
 	/*

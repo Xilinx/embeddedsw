@@ -169,7 +169,7 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 		 * Set the callback reference to this instance so that
 		 * unhandled interrupts can be tracked.
 		 */
-		if ((InstancePtr->CfgPtr->HandlerTable[Id].Handler == 0) ||
+		if ((InstancePtr->CfgPtr->HandlerTable[Id].Handler == 0U) ||
 		    (InstancePtr->CfgPtr->HandlerTable[Id].Handler ==
 		     XNullHandler)) {
 			InstancePtr->CfgPtr->HandlerTable[Id].Handler =
@@ -191,20 +191,20 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 	 * Disable all interrupt sources
 	 * Acknowledge all sources
 	 */
-	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET, 0);
-	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET, 0);
-	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IAR_OFFSET, 0xFFFFFFFF);
+	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IER_OFFSET, 0U);
+	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET, 0U);
+	XIomodule_Out32(InstancePtr->BaseAddress + XIN_IAR_OFFSET, 0xFFFFFFFFU);
 
-	InstancePtr->CurrentIER = 0;
-	InstancePtr->CurrentIMR = 0;
+	InstancePtr->CurrentIER = 0U;
+	InstancePtr->CurrentIMR = 0U;
 
 	/*
 	 * If the fast Interrupt mode is enabled then set all the
 	 * interrupts as normal mode and initialize the interrupt hardware
 	 * vector table to default ((BaseVector & 0xFFFFFFFFFFFFFF80) | 0x10).
 	 */
-	if (InstancePtr->CfgPtr->FastIntr == TRUE) {
-		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET, 0);
+	if (InstancePtr->CfgPtr->FastIntr == 1U) {
+		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IMR_OFFSET, 0U);
 
 		for (Id = 0; Id < XPAR_IOMODULE_INTC_MAX_INTR_SIZE; Id++) {
 			if (InstancePtr->CfgPtr->VectorAddrWidth >
@@ -218,7 +218,7 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 					XIomodule_Out32(InstancePtr->BaseAddress +
 						XIN_IVAR_OFFSET + Id * 4U,
 						(InstancePtr->CfgPtr->BaseVector &
-						0xFFFFFF80) | 0x10U);
+						0xFFFFFF80U) | 0x10U);
 			}
 		}
 	}
@@ -235,7 +235,7 @@ s32 XIOModule_Initialize(XIOModule * InstancePtr, u32 BaseAddress)
 	/*
 	 * Initialize all UART related status
 	 */
-	Status = XIOModule_CfgInitialize(InstancePtr, CfgPtr, 0);
+	Status = XIOModule_CfgInitialize(InstancePtr, CfgPtr, 0U);
 	xdbg_printf(XDBG_DEBUG_GENERAL," XIOModule_CfgInitialize : %s", (Status == XST_SUCCESS)?"PASS":"FAIL");
 
 	/*
@@ -311,7 +311,7 @@ void XIOModule_Stop(XIOModule * InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	InstancePtr->IsStarted = 0;
+	InstancePtr->IsStarted = 0U;
 }
 
 /*****************************************************************************/
@@ -760,10 +760,10 @@ void XIOModule_SetNormalIntrMode(XIOModule *InstancePtr, u8 Id)
 	if (InstancePtr->CfgPtr->VectorAddrWidth > XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH)
 	{
 		XIomodule_Out64(InstancePtr->BaseAddress + XIN_IVEAR_OFFSET + (Id * 8U),
-			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80) | 0x10U);
+			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80U) | 0x10U);
 	} else {
 		XIomodule_Out32(InstancePtr->BaseAddress + XIN_IVAR_OFFSET + (Id * 4U),
-			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80) | 0x10U);
+			(InstancePtr->CfgPtr->BaseVector & 0xFFFFFF80U) | 0x10U);
 	}
 
 	/*
@@ -800,10 +800,10 @@ u32 XIOModule_DiscreteRead(XIOModule * InstancePtr, u32 Channel)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((Channel >= 1) && (Channel <= XGPI_DEVICE_COUNT));
+	Xil_AssertNonvoid((Channel >= 1U) && (Channel <= XGPI_DEVICE_COUNT));
 
 	return XIOModule_ReadReg(InstancePtr->BaseAddress,
-			((Channel - 1) * XGPI_CHAN_OFFSET) + XGPI_DATA_OFFSET);
+			((Channel - 1U) * XGPI_CHAN_OFFSET) + XGPI_DATA_OFFSET);
 }
 
 /****************************************************************************/
@@ -825,12 +825,12 @@ void XIOModule_DiscreteWrite(XIOModule * InstancePtr,
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((Channel >= 1) && (Channel <= XGPO_DEVICE_COUNT));
+	Xil_AssertVoid((Channel >= 1U) && (Channel <= XGPO_DEVICE_COUNT));
 
 	XIOModule_WriteReg(InstancePtr->BaseAddress,
-			((Channel - 1) * XGPO_CHAN_OFFSET) + XGPO_DATA_OFFSET,
+			((Channel - 1U) * XGPO_CHAN_OFFSET) + XGPO_DATA_OFFSET,
 			Data);
-	InstancePtr->GpoValue[Channel - 1] = Data;
+	InstancePtr->GpoValue[Channel - 1U] = Data;
 }
 
 
@@ -1164,7 +1164,7 @@ void XIOModule_Reset(XIOModule * InstancePtr, u8 TimerNumber)
 	/*
 	 * Reset the timer by toggling the enable bit in the register
 	 */
-	if ((CounterControlReg & XTC_CSR_ENABLE_TMR_MASK) == 0) {
+	if ((CounterControlReg & XTC_CSR_ENABLE_TMR_MASK) == 0U) {
 		XIOModule_WriteReg(InstancePtr->BaseAddress,
 				   TimerOffset + XTC_TCSR_OFFSET,
 				   NewCounterControl);
