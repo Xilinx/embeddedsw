@@ -43,9 +43,11 @@
 * 			  file to fix misra_c_2012_rule_5_6 violation.
 * 8.1  asa       02/12/23 Updated data abort and prefetch abort fault
 *                         status reporting for ARMv7.
-*						  Updated Sync and SError fault status reporting
-*						  for ARMv8.
+*			  Updated Sync and SError fault status reporting
+*			  for ARMv8.
 * 9.0  ml        03/03/23 Add description to fix doxygen warnings.
+* 9.0  ml	 14/04/23 Add comment to default case in switch statement to fix
+*                         misra-c violation.
 * </pre>
 *
 *****************************************************************************/
@@ -850,6 +852,8 @@ static u32 NotifyFaultStatusDetails(u32 Fault_Type, u32 FaultStatus)
 		break;
 #endif
 	default:
+		/* if above cases doesn't match, then
+                  default case will execute and terminate a statement sequence */
 		break;
 	}
 

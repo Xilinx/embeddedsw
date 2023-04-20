@@ -39,6 +39,7 @@
 * 8.2   asa  03/09/23 Xpm_SetEvents and Xpm_GetEventCounters are deprecated
 *                     APIs. They need not be supported for Versal Net.
 * 8.2   adk  03/13/23 Include xstatus.h when xiltimer is enabled.
+* 9.0   ml   14/04/23 Add U to numericals to fix misra-c violation
 * </pre>
 *
 ******************************************************************************/
@@ -91,7 +92,7 @@ void Xpm_DisableEventCounters(void)
 #endif
 #endif
 
-    RegVal &= 0x7FFFFFFF;
+    RegVal &= 0x7FFFFFFFU;
     RegVal |= XPM_EVENT_CNTRS_MASK;
 #if defined(__aarch64__)
     mtcp(PMCNTENCLR_EL0, RegVal);
