@@ -18,6 +18,7 @@
 # 1.08  gm   11/22/22 Added support for A72
 # 1.09	hv   11/16/22 Added support for PL microblaze
 # 1.10	hv   02/14/23 Added support to get number of SLRs from the design
+# 1.11	rv   04/20/23 Added support for psxl IP name
 ##############################################################################
 
 #---------------------------------------------
@@ -83,6 +84,9 @@ proc getCIPSProperty { cips_prop } {
   set pspmcCell [::hsi::get_cells -hier -filter "IP_NAME==pspmc"]
   if {$pspmcCell eq ""} {
 	set pspmcCell [::hsi::get_cells -hier -filter "IP_NAME==pmcps"]
+  }
+  if {$pspmcCell eq ""} {
+	set pspmcCell [::hsi::get_cells -hier -filter "IP_NAME==psxl"]
   }
   if {$pspmcCell ne ""} {
     return [common::get_property $cips_prop $pspmcCell]
