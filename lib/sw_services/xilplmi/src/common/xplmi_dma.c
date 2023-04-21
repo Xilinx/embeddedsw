@@ -344,7 +344,7 @@ static int XPlmi_DmaChXfer(u64 Addr, u32 Len, XPmcDma_Channel Channel, u32 Flags
 {
 	int Status = XST_FAILURE;
 	XPmcDma *DmaPtr;
-	XPlmi_WaitForDmaDone_t XPlmi_WaitForDmaDone;
+	volatile XPlmi_WaitForDmaDone_t XPlmi_WaitForDmaDone = NULL;
 
 	/* Select DMA pointer */
 	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
