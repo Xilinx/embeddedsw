@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xdfxasm_hw.h
-* @addtogroup dfxasm_v1_1
+* @addtogroup dfxasm Overview
 * @{
 *
 * This header file contains the identifiers and basic driver functions (or
