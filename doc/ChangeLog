@@ -509,6 +509,8 @@ lib/sw_apps/imgsel/src/zynqmp/xis_singleimage.c
 lib/sw_apps/imgsel/src/zynqmp/xis_translation_table_a53_64.S
 lib/sw_apps/imgsel/src/zynqmp/xis_uart.c
 lib/sw_apps/imgsel/src/zynqmp/xis_update_a_b.c
+lib/sw_apps/imgsel/src/zynqmp/xis_common.h
+lib/sw_services/xilpm/src/common/xpm_api_version.h
 lib/sw_services/xilcert/data/xilcert.mld
 lib/sw_services/xilcert/data/xilcert.tcl
 lib/sw_services/xilcert/src/Makefile
