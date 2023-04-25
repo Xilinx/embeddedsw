@@ -70,6 +70,8 @@
 ******************************************************************************/
 #ifndef SDT
 #include "xparameters.h"
+#else
+#include "bspconfig.h"
 #endif
 
 
