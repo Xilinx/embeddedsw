@@ -1,6 +1,5 @@
 ###############################################################################
 # Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -12,7 +11,7 @@ BEGIN driver aiengine
   OPTION supported_peripherals = (aie aiengine ai_engine);
   OPTION driver_state = "DEPRECATED";
   OPTION copyfiles = all;
-  OPTION VERSION = 1.2;
+  OPTION VERSION = 1.1;
   OPTION NAME = aiengine;
 
 END driver
