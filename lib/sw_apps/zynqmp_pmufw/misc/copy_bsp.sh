@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 # this script will copy the required bsp directories
@@ -29,8 +30,6 @@ STANDALONE_DIR=$EMBEDDED_SW_DIR/lib/bsp/standalone/src
 # libraries dir
 SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
 
-BSP_SEQUENTIAL_MAKEFILES=
-
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then
 	echo "BSP directory already exists"
@@ -55,14 +54,12 @@ cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/xilfpga_pcap.c $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilfpga/src/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/*.h $BSP_DIR/include/
 rm -r $BSP_DIR/libsrc/xilfpga/src/interface/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilfpga/src/Makefile"
 mkdir -p $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/all/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/all/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilsecure/src/Makefile"
 cp -r $SERVICES_DIR/xilskey/ $BSP_DIR/libsrc/
 
 # remove the xilskey library files which are not required for PMU
@@ -84,7 +81,6 @@ rm -r $BSP_DIR/libsrc/xilskey/src/include/xilskey_bbram.h
 # copy the xilskey library header files to include directory
 cp -r $BSP_DIR/libsrc/xilskey/src/*.h $BSP_DIR/include/
 cp -r $BSP_DIR/libsrc/xilskey/src/include/*.h $BSP_DIR/include/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilskey/src/Makefile"
 
 # copy bsp standalone code
 cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
@@ -113,7 +109,6 @@ do
 	if [ $line != "avbuf" ] && [ $line != "video_common" ]; then
 		cp $WORKING_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
 	fi
-	BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/$line/src/Makefile"
 
 done < $DRIVERS_LIST
 
@@ -136,4 +131,3 @@ cp $STANDALONE_DIR/profile/*.h  $BSP_DIR/include/
 
 # no inbyte and outbyte present in standalone
 cp $WORKING_DIR/inbyte.c $WORKING_DIR/outbyte.c  $BSP_DIR/libsrc/standalone/src/
-export BSP_SEQUENTIAL_MAKEFILES
