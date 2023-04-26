@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xclockps_g.c
-* @addtogroup xclockps_v1_4
+* @addtogroup clockps Overview
 * @{
 *
 * This file contains a table that specifies the configuration of the clocking

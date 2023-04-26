@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xcanps.c
-* @addtogroup canps_v3_6
+* @addtogroup canps Overview
 * @{
 *
 * Functions in this file are the minimum required functions for the XCanPs

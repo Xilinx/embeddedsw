@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xbram_selftest.c
-* @addtogroup bram_v4_8
+* @addtogroup bram Overview
 * @{
 *
 * The implementation of the XBram driver's self test function. This SelfTest

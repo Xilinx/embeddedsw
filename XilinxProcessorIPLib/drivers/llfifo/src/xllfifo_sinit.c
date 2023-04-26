@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xllfifo_sinit.c
-* @addtogroup llfifo_v5_5
+* @addtogroup llfifo Overview
 * @{
 *
 * This file contains static initialization functionality for Axi Streaming FIFO

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xcan_config.c
-* @addtogroup can_v3_6
+* @addtogroup can Overview
 * @{
 *
 * Functions in this file are CAN Configuration Register access related.

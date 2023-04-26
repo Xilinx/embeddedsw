@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xpmonpsv_sint.c
-* @addtogroup pmonpsv_v2_1
+* @addtogroup pmonpsv Overview
 * @{
 *
 * This file contains the implementation of the XPmonPsv driver's static

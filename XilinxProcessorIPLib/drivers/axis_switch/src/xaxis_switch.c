@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xaxis_switch.c
-* @addtogroup axis_switch_v1_5
+* @addtogroup axis_switch Overview
 * @{
 *
 * This is the main file for Xilinx AXI4-Stream Switch Control Router core.

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xstreamer.h
-* @addtogroup llfifo_v5_5
+* @addtogroup llfifo Overview
 * @{
  *
  * The Xilinx byte streamer for packet FIFOs.

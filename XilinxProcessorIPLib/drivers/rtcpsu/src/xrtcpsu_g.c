@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xrtcpsu_g.c
-* @addtogroup rtcpsu_v1_11
+* @addtogroup rtcpsu Overview
 * @{
 *
 * This file contains a configuration table that specifies the configuration

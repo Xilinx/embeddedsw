@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xddrps.h
- * @addtogroup ddrps_v1_2
+ * @addtogroup ddrps Overview
  * @{
  * @details
  *

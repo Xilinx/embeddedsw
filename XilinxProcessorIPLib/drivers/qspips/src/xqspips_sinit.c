@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xqspips_sinit.c
-* @addtogroup qspips_v3_10
+* @addtogroup qspips Overview
 * @{
 *
 * The implementation of the XQspiPs component's static initialization
