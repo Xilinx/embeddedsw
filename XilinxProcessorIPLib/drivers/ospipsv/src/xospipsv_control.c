@@ -26,6 +26,7 @@
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.8   sk   11/29/22 Added support for Indirect Non-Dma write.
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
+* 1.9   sb   26/04/23 Updated address calculation logic in DAC read and write API's
 *
 * </pre>
 *
@@ -246,14 +247,14 @@ ERROR_PATH:
 u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 {
 	u32 Status;
-	const u32 *Addr = (u32 *)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
+	const UINTPTR Addr= (UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr);
 
-	if (Addr >= (u32 *)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
+	if (Addr >= (UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
 		Status = XST_FAILURE;
 		goto ERROR_PATH;
 	}
 
-	Xil_MemCpy(Msg->RxBfrPtr, Addr, InstancePtr->RxBytes);
+	Xil_MemCpy(Msg->RxBfrPtr,(u32 *)Addr, InstancePtr->RxBytes);
 	InstancePtr->RxBytes = 0U;
 
 	Status = (u32)XST_SUCCESS;
@@ -277,14 +278,14 @@ ERROR_PATH:
 u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 {
 	u32 Status;
-	u32 *Addr = (u32 *)XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr;
+	UINTPTR Addr = (UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr);
 
-	if (Addr >= (u32 *)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
+	if (Addr >= (UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
 		Status = XST_FAILURE;
 		goto ERROR_PATH;
 	}
 
-	Xil_MemCpy(Addr, Msg->TxBfrPtr, InstancePtr->TxBytes);
+	Xil_MemCpy((u32 *)Addr, Msg->TxBfrPtr, InstancePtr->TxBytes);
 	InstancePtr->TxBytes = 0U;
 
 	Status = (u32)XST_SUCCESS;

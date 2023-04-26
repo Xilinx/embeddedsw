@@ -23,6 +23,7 @@
 * 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.8   sk   11/29/22 Added support for Indirect Non-Dma write.
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
+* 1.9   sb   26/04/23 Updated address calculation logic in DAC read and write API's
 *
 * </pre>
 *
