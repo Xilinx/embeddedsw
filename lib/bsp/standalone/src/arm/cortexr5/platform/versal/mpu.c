@@ -41,6 +41,9 @@
 * 8.0   mus  22/12/22 Updated default VERSAL NET MPU table to configure DDR and OCM
 *                     as cacheable memory.
 * 9.0   ml   03/03/23 added description and removed comments to fix doxygen warnings.
+* 9.0   adk  17/04/23 Added support for system device-tree flow.
+* 9.0   adk  26/04/23 Updated the ifdef checks for XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
+* 		      properly.
 * </pre>
 *
 * @note
@@ -243,11 +246,13 @@ void Init_MPU(void)
 	/* A total of 9 MPU regions are allocated with another 7 being free for users */
 #else
 	Addr = 0x00000000U;
+#if defined(XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) || defined(XPAR_AXI_NOC_0_BASEADDRESS)
 #ifdef XPAR_AXI_NOC_DDR_LOW_0_BASEADDR
 	/* If the DDR is present, configure region as per DDR size */
 	size = (XPAR_AXI_NOC_DDR_LOW_0_HIGHADDR - XPAR_AXI_NOC_DDR_LOW_0_BASEADDR) + 1;
 #elif defined(XPAR_AXI_NOC_0_BASEADDRESS)
 	size = (XPAR_AXI_NOC_0_HIGHADDRESS - XPAR_AXI_NOC_0_BASEADDRESS) + 1;
+#endif
 
 	if (size < 0x80000000) {
 		/* Lookup the size.  */
