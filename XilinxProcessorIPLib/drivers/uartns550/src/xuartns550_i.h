@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xuartns550_i.h
-* @addtogroup uartns550_v3_8
+* @addtogroup uartns550 Overview
 * @{
 *
 * This header file contains internal identifiers, which are those shared

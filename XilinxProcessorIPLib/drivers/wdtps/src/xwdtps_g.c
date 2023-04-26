@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xwdtps_g.c
-* @addtogroup wdtps_v3_5
+* @addtogroup wdtps Overview
 * @{
 *
 * This file contains a table that specifies the configuration of the watchdog

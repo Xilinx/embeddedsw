@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xaxipmon_selftest.c
-* @addtogroup axipmon_v6_9
+* @addtogroup axipmon Overview
 * @{
 *
 * This file contains a diagnostic self test function for the XAxiPmon driver.

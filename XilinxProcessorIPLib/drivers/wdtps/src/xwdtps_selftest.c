@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xwdtps_selftest.c
-* @addtogroup wdtps_v3_5
+* @addtogroup wdtps Overview
 * @{
 *
 * Contains diagnostic self-test functions for the XWdtPs driver.

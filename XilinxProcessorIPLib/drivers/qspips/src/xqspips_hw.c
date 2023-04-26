@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xqspips_hw.c
-* @addtogroup qspips_v3_10
+* @addtogroup qspips Overview
 * @{
 *
 * Contains low level functions, primarily reset related.

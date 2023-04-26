@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xllfifo_hw.h
-* @addtogroup llfifo_v5_5
+* @addtogroup llfifo Overview
 * @{
 *
 * This header file contains identifiers and low-level driver functions (or

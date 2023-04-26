@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xddrpsv.h
- * @addtogroup ddrpsv_v1_4
+ * @addtogroup ddrpsv Overview
  * @{
  * @details
  *

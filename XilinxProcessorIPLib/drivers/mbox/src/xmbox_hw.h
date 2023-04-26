@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xmbox_hw.h
-* @addtogroup mbox_v4_5
+* @addtogroup mbox Overview
 * @{
 *
 * This header file contains identifiers and driver macros that can be used to
