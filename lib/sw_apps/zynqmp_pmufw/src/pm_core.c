@@ -2144,7 +2144,6 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_FPGA_LOAD):
 	case PM_API(PM_FPGA_GET_STATUS):
 	case PM_API(PM_GET_CHIPID):
-	case PM_API(PM_API_RESERVED_1):
 	case PM_API(PM_PINCTRL_REQUEST):
 	case PM_API(PM_PINCTRL_RELEASE):
 	case PM_API(PM_PINCTRL_GET_FUNCTION):
@@ -2159,8 +2158,8 @@ static void PmFeatureCheck(const PmMaster* const master, const u32 apiId)
 	case PM_API(PM_CLOCK_GETPARENT):
 	case PM_API(PM_SECURE_IMAGE):
 	case PM_API(PM_FPGA_READ):
-	case PM_API(PM_PLL_SET_PARAM):
-	case PM_API(PM_PLL_GET_PARAM):
+	case PM_API(PM_PLL_SET_PARAMETER):
+	case PM_API(PM_PLL_GET_PARAMETER):
 	case PM_API(PM_PLL_SET_MODE):
 	case PM_API(PM_PLL_GET_MODE):
 	case PM_API(PM_EFUSE_ACCESS):
@@ -2393,10 +2392,10 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 	case PM_API(PM_CLOCK_GETDIVIDER):
 		PmClockGetDivider(master, pload[1], pload[2]);
 		break;
-	case PM_API(PM_PLL_SET_PARAM):
+	case PM_API(PM_PLL_SET_PARAMETER):
 		PmPllSetParam(master, pload[1], pload[2], pload[3]);
 		break;
-	case PM_API(PM_PLL_GET_PARAM):
+	case PM_API(PM_PLL_GET_PARAMETER):
 		PmPllGetParam(master, pload[1], pload[2]);
 		break;
 	case PM_API(PM_PLL_SET_MODE):
