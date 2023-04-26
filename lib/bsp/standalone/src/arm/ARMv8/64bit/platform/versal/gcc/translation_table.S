@@ -93,6 +93,9 @@
 *                     Updated VERSAL NET translation table to configure OCM
 *                     as non cacheable, till that support is added in firmware.
 *                     It fixes CR#1150456.
+* 9.0   adk  04/17/23 Updated translation table to support system device-tree
+*		      flow.
+*	adk  04/26/23 Fixed overriding of the DDR_*_REG variable.
 *
 ******************************************************************************/
 #include "bspconfig.h"
@@ -493,12 +496,7 @@ MMUTableL1:
 .else
 .set DDR_1_REG, DDR_1_SIZE/0x40000000
 .endif
-#else
-.set DDR_1_REG, 0
-#warning "There's no DDR_1 in the HW design. MMU translation table marks 32 GB DDR address space as undefined"
-#endif
-
-#ifdef XPAR_AXI_NOC_1_BASEADDRESS
+#elif defined(XPAR_AXI_NOC_1_BASEADDRESS)
 .set DDR_1_START, XPAR_AXI_NOC_1_BASEADDRESS
 .set DDR_1_END, XPAR_AXI_NOC_1_HIGHADDRESS
 
@@ -660,12 +658,7 @@ MMUTableL1:
 .else
 .set DDR_CH_1_REG, DDR_CH_1_SIZE/0x40000000
 .endif
-#else
-.set DDR_CH_1_REG, 0
-#warning "There's no DDR_CH_1 in the HW design. MMU translation table marks 1 TB DDR address space as undefined"
-#endif
-
-#ifdef XPAR_AXI_NOC_DDR_CH_1_BASEADDRESS
+#elif defined(XPAR_AXI_NOC_DDR_CH_1_BASEADDRESS)
 .set DDR_CH_1_START, XPAR_AXI_NOC_DDR_CH_1_BASEADDRESS
 .set DDR_CH_1_END, XPAR_AXI_NOC_DDR_CH_1_HIGHADDRESS
 
@@ -720,12 +713,7 @@ MMUTableL1:
 .else
 .set DDR_CH_2_REG, DDR_CH_2_SIZE/0x40000000
 .endif
-#else
-.set DDR_CH_2_REG, 0
-#warning "There's no DDR_CH_2 in the HW design. MMU translation table marks 1 TB DDR address space as undefined"
-#endif
-
-#ifdef XPAR_AXI_NOC_DDR_CH_2_BASEADDRESS
+#elif defined(XPAR_AXI_NOC_DDR_CH_2_BASEADDRESS)
 .set DDR_CH_2_START, XPAR_AXI_NOC_DDR_CH_2_BASEADDRESS
 .set DDR_CH_2_END, XPAR_AXI_NOC_DDR_CH_2_HIGHADDRESS
 
@@ -780,12 +768,7 @@ MMUTableL1:
 .else
 .set DDR_CH_3_REG, DDR_CH_3_SIZE/0x40000000
 .endif
-#else
-.set DDR_CH_3_REG, 0
-#warning "There's no DDR_CH_3 in the HW design. MMU translation table marks 1 TB DDR address space as undefined"
-#endif
-
-#ifdef XPAR_AXI_NOC_DDR_CH_3_BASEADDRESS
+#elif defined(XPAR_AXI_NOC_DDR_CH_3_BASEADDRESS)
 .set DDR_CH_3_START, XPAR_AXI_NOC_DDR_CH_3_BASEADDRESS
 .set DDR_CH_3_END, XPAR_AXI_NOC_DDR_CH_3_HIGHADDRESS
 
@@ -852,12 +835,7 @@ MMUTableL2:
 .else
 .set DDR_0_REG, DDR_0_SIZE/0x200000
 .endif
-#else
-.set DDR_0_REG, 0
-#warning "There's no DDR_0 in the HW design. MMU translation table marks 2 GB DDR address space as undefined"
-#endif
-
-#ifdef XPAR_AXI_NOC_0_BASEADDRESS
+#elif defined(XPAR_AXI_NOC_0_BASEADDRESS)
 .set DDR_0_START, XPAR_AXI_NOC_0_BASEADDRESS
 .set DDR_0_END, XPAR_AXI_NOC_0_HIGHADDRESS
 
