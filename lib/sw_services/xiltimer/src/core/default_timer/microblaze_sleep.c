@@ -21,6 +21,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0  adk	 24/11/21 Initial release.
  * 1.1 	adk      08/08/22 Added doxygen tags.
+ * 1.3  adk      26/04/23 XGet_CpuFreq() API is defined in the system
+ * 			  device-tree flow, update ifdef check for the same.
  *</pre>
  *
  *@note
@@ -54,7 +56,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 {
 	InstancePtr->XTimer_ModifyInterval = XMicroblaze_ModifyInterval;
 	InstancePtr->XSleepTimer_Stop = NULL;
-#ifndef SDT
+#ifdef SDT
 	MBFreq = XGet_CpuFreq();
 #else
 	MBFreq = XPAR_CPU_CORE_CLOCK_FREQ_HZ;
