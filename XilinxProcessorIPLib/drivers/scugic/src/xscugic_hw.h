@@ -70,6 +70,7 @@
 *                     XScuGic_ReadReg64 to read 64 bit value from specific address.
 * 5.1   mus  02/15/23 Added support for VERSAL_NET APU and RPU GIC.
 * 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
+* 5.2   mus  03/26/23 Fixed calculation for XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC.
 * </pre>
 *
 ******************************************************************************/
@@ -658,7 +659,7 @@ extern "C" {
 *
 *****************************************************************************/
 #define XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(InterruptID) \
-	((u32)XSCUGIC_RDIST_IPRIORITYR_OFFSET + (InterruptID * 4))
+	((u32)XSCUGIC_RDIST_IPRIORITYR_OFFSET + ((InterruptID/4) * 4))
 /****************************************************************************/
 /**
 *

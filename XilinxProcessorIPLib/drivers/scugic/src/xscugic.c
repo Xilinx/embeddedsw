@@ -165,6 +165,8 @@
 *                     Also, DoDistributorInit has been modified to move CPU
 *                     interface specific register writes to XScuGic_CfgInitialize.
 * 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
+* 5.2   mus  04/26/23 Update DoDistributorInit to initialize priority of SGI and
+*                     PPI interrupts. It was missing for GICv3 based controllers.
 * </pre>
 *
 ******************************************************************************/
@@ -216,7 +218,7 @@ static void StubHandler(void *CallBackRef);
 ******************************************************************************/
 static void DoDistributorInit(const XScuGic *InstancePtr)
 {
-	u32 Int_Id;
+	u32 Int_Id, Offset = 0;
 
 #if defined (GICv3)
 	u32 Temp;
@@ -255,7 +257,11 @@ static void DoDistributorInit(const XScuGic *InstancePtr)
 					0U);
 	}
 
-	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+	#if defined (GICv3)
+		Offset = 32U;
+	#endif
+
+	for (Int_Id = Offset; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 			Int_Id = Int_Id+4U) {
 		/*
 		 * 2. The priority using int the priority_level register
@@ -269,6 +275,19 @@ static void DoDistributorInit(const XScuGic *InstancePtr)
 	}
 
 #if defined (GICv3)
+
+	for (Int_Id = 0U; Int_Id < 32;
+                        Int_Id = Int_Id+4U) {
+                /*
+                 * Write a default priority value to SGI PPI priority
+		 * register GICR_IPRIORITY
+                 */
+
+		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,
+					     XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id),
+					     DEFAULT_PRIORITY);
+        }
+
 	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
 
 		XScuGic_DistWriteReg(InstancePtr,
@@ -282,7 +301,7 @@ static void DoDistributorInit(const XScuGic *InstancePtr)
 	XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_IGROUPR_OFFSET,
 									XSCUGIC_DEFAULT_SECURITY);
 #endif
-	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
+	for (Int_Id = Offset; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
 		/*
 		 * 4. Enable the SPI using the enable_set register. Leave all
 		 * disabled for now.
