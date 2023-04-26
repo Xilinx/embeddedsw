@@ -179,7 +179,7 @@ proc swapp_get_linker_constraints {} {
 
 
 proc swapp_get_supported_processors {} {
-    return "microblaze ps7_cortexa9 psu_cortexa53 psu_cortexr5 psu_cortexa72 psv_cortexr5 psv_cortexa72 psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52";
+    return "microblaze ps7_cortexa9 psu_cortexa53 psu_cortexr5 psu_cortexa72 psv_cortexr5 psv_cortexa72 psxl_cortexa78 psxl_cortexr52 psx_cortexa78 psx_cortexr52 microblaze_riscv";
 }
 
 proc swapp_get_supported_os {} {
