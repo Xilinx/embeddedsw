@@ -1,3 +1,9 @@
+###############################################################################
+# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+#
+##############################################################################
+
 proc swapp_get_name {} {
     return "Hello World";
 }
