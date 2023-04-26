@@ -14,6 +14,7 @@
 #define XPM_DEFS_H_
 
 #include "xil_types.h"
+#include "pm_api_version.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -634,85 +635,6 @@ enum XPmNotifyEvent {
  */
 #define XST_API_GET_OP_CHAR_VERSION		(2U)
 /** @} */
-
-/** @cond INTERNAL */
-/**
- * PM API IDs
- */
-typedef enum {
-	PM_API_MIN,					/**< 0x0 */
-	PM_GET_API_VERSION,				/**< 0x1 */
-	PM_SET_CONFIGURATION,				/**< 0x2 */
-	PM_GET_NODE_STATUS,				/**< 0x3 */
-	PM_GET_OP_CHARACTERISTIC,			/**< 0x4 */
-	PM_REGISTER_NOTIFIER,				/**< 0x5 */
-	PM_REQUEST_SUSPEND,				/**< 0x6 */
-	PM_SELF_SUSPEND,				/**< 0x7 */
-	PM_FORCE_POWERDOWN,				/**< 0x8 */
-	PM_ABORT_SUSPEND,				/**< 0x9 */
-	PM_REQUEST_WAKEUP,				/**< 0xA */
-	PM_SET_WAKEUP_SOURCE,				/**< 0xB */
-	PM_SYSTEM_SHUTDOWN,				/**< 0xC */
-	PM_REQUEST_NODE,				/**< 0xD */
-	PM_RELEASE_NODE,				/**< 0xE */
-	PM_SET_REQUIREMENT,				/**< 0xF */
-	PM_SET_MAX_LATENCY,				/**< 0x10 */
-	PM_RESET_ASSERT,				/**< 0x11 */
-	PM_RESET_GET_STATUS,				/**< 0x12 */
-	PM_MMIO_WRITE,					/**< 0x13 */
-	PM_MMIO_READ,					/**< 0x14 */
-	PM_INIT_FINALIZE,				/**< 0x15 */
-	PM_FPGA_LOAD,					/**< 0x16 */
-	PM_FPGA_GET_STATUS,				/**< 0x17 */
-	PM_GET_CHIPID,					/**< 0x18 */
-	PM_SECURE_RSA_AES,				/**< 0x19 */
-	PM_SECURE_SHA,					/**< 0x1A */
-	PM_SECURE_RSA,					/**< 0x1B */
-	PM_PINCTRL_REQUEST,				/**< 0x1C */
-	PM_PINCTRL_RELEASE,				/**< 0x1D */
-	PM_PINCTRL_GET_FUNCTION,			/**< 0x1E */
-	PM_PINCTRL_SET_FUNCTION,			/**< 0x1F */
-	PM_PINCTRL_CONFIG_PARAM_GET,			/**< 0x20 */
-	PM_PINCTRL_CONFIG_PARAM_SET,			/**< 0x21 */
-	PM_IOCTL,					/**< 0x22 */
-	PM_QUERY_DATA,					/**< 0x23 */
-	PM_CLOCK_ENABLE,				/**< 0x24 */
-	PM_CLOCK_DISABLE,				/**< 0x25 */
-	PM_CLOCK_GETSTATE,				/**< 0x26 */
-	PM_CLOCK_SETDIVIDER,				/**< 0x27 */
-	PM_CLOCK_GETDIVIDER,				/**< 0x28 */
-	PM_CLOCK_SETRATE,				/**< 0x29 */
-	PM_CLOCK_GETRATE,				/**< 0x2A */
-	PM_CLOCK_SETPARENT,				/**< 0x2B */
-	PM_CLOCK_GETPARENT,				/**< 0x2C */
-	PM_SECURE_IMAGE,				/**< 0x2D */
-	PM_FPGA_READ,					/**< 0x2E */
-	PM_API_RESERVED_1,				/**< 0x2F */
-	PM_PLL_SET_PARAMETER,				/**< 0x30 */
-	PM_PLL_GET_PARAMETER,				/**< 0x31 */
-	PM_PLL_SET_MODE,				/**< 0x32 */
-	PM_PLL_GET_MODE,				/**< 0x33 */
-	PM_REGISTER_ACCESS,				/**< 0x34 */
-	PM_EFUSE_ACCESS,				/**< 0x35 */
-	PM_ADD_SUBSYSTEM,				/**< 0x36 */
-	PM_DESTROY_SUBSYSTEM,				/**< 0x37 */
-	PM_DESCRIBE_NODES,				/**< 0x38 */
-	PM_ADD_NODE,					/**< 0x39 */
-	PM_ADD_NODE_PARENT,				/**< 0x3A */
-	PM_ADD_NODE_NAME,				/**< 0x3B */
-	PM_ADD_REQUIREMENT,				/**< 0x3C */
-	PM_SET_CURRENT_SUBSYSTEM,			/**< 0x3D */
-	PM_INIT_NODE,					/**< 0x3E */
-	PM_FEATURE_CHECK,				/**< 0x3F */
-	PM_ISO_CONTROL,					/**< 0x40 */
-	PM_ACTIVATE_SUBSYSTEM,				/**< 0x41 */
-	PM_SET_NODE_ACCESS,				/**< 0x42 */
-	PM_NOC_CLOCK_ENABLE = 0x45,			/**< 0x45 */
-	PM_IF_NOC_CLOCK_ENABLE,				/**< 0x46 */
-	PM_FORCE_HOUSECLEAN,				/**< 0x47 */
-	PM_API_MAX					/**< 0x48 */
-} XPm_ApiId;
-/** @endcond */
 
 /**
  * @name Run time AIE Operations
