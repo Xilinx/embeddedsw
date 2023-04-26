@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -337,7 +338,7 @@ done:
  * @return Status of performing the operation as returned by the PMU-FW
  *
  ****************************************************************************/
-static XStatus XPm_PinCtrlAction(const u32 pin, const enum XPmApiId api)
+static XStatus XPm_PinCtrlAction(const u32 pin, const XPm_ApiId api)
 {
 	XStatus status = (XStatus)XST_FAILURE;
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -359,7 +360,7 @@ done:
 	return status;
 }
 
-static XStatus XPm_SendFeatureCheckRequest(const enum XPmApiId featureId,
+static XStatus XPm_SendFeatureCheckRequest(const XPm_ApiId featureId,
 					   u32 *version, u32 *bitMask, u32 len)
 {
 	XStatus status = (XStatus)XST_FAILURE;
@@ -970,7 +971,7 @@ done:
  *		returns 0U in version if API is not supported.
  *
  ****************************************************************************/
-XStatus XPm_FeatureCheck(const enum XPmApiId featureId, u32 *version)
+XStatus XPm_FeatureCheck(const XPm_ApiId featureId, u32 *version)
 {
 	XStatus status = (XStatus)XST_FAILURE;
 
@@ -997,7 +998,7 @@ done:
  * error code or a reason code
  *
  ****************************************************************************/
-XStatus XPm_IsFunctionSupported(const enum XPmApiId apiId, const u32 functionId)
+XStatus XPm_IsFunctionSupported(const XPm_ApiId apiId, const u32 functionId)
 {
 
 	XStatus status = (XStatus)XST_FAILURE;

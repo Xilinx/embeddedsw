@@ -17,6 +17,8 @@
 #ifndef PM_DEFS_H_
 #define PM_DEFS_H_
 
+#include "pm_api_version.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -110,78 +112,6 @@ extern "C" {
 /** @cond INTERNAL */
 #define PM_CLOCK_DIV0_ID	0U
 #define PM_CLOCK_DIV1_ID	1U
-
-/**
- * APIs for Miscellaneous functions, suspending of PUs, managing PM slaves and Direct control.
- */
-enum XPmApiId {
-	/* Miscellaneous API functions: */
-	PM_GET_API_VERSION = 1,				/**< 0x1 */
-	PM_SET_CONFIGURATION,				/**< 0x2 */
-	PM_GET_NODE_STATUS,				/**< 0x3 */
-	PM_GET_OP_CHARACTERISTIC,			/**< 0x4 */
-	PM_REGISTER_NOTIFIER,				/**< 0x5 */
-	/*  API for suspending of PUs: */
-	PM_REQUEST_SUSPEND,				/**< 0x6 */
-	PM_SELF_SUSPEND,				/**< 0x7 */
-	PM_FORCE_POWERDOWN,				/**< 0x8 */
-	PM_ABORT_SUSPEND,				/**< 0x9 */
-	PM_REQUEST_WAKEUP,				/**< 0xA */
-	PM_SET_WAKEUP_SOURCE,				/**< 0xB */
-	PM_SYSTEM_SHUTDOWN,				/**< 0xC */
-	/*API for managing PM slaves: */
-	PM_REQUEST_NODE,				/**< 0xD */
-	PM_RELEASE_NODE,				/**< 0xE */
-	PM_SET_REQUIREMENT,				/**< 0xF */
-	PM_SET_MAX_LATENCY,				/**< 0x10 */
-	/* Direct control API functions: */
-	PM_RESET_ASSERT,				/**< 0x11 */
-	PM_RESET_GET_STATUS,				/**< 0x12 */
-	PM_MMIO_WRITE,					/**< 0x13 */
-	PM_MMIO_READ,					/**< 0x14 */
-	PM_INIT_FINALIZE,				/**< 0x15 */
-	PM_FPGA_LOAD,					/**< 0x16 */
-	PM_FPGA_GET_STATUS,				/**< 0x17 */
-	PM_GET_CHIPID,					/**< 0x18 */
-	/* Secure library generic API functions */
-	PM_SECURE_SHA = 26U,				/**< 0x1A */
-	PM_SECURE_RSA,					/**< 0x1B */
-	PM_PINCTRL_REQUEST,				/**< 0x1C */
-	PM_PINCTRL_RELEASE,				/**< 0x1D */
-	PM_PINCTRL_GET_FUNCTION,			/**< 0x1E */
-	PM_PINCTRL_SET_FUNCTION,			/**< 0x1F */
-	PM_PINCTRL_CONFIG_PARAM_GET,			/**< 0x20 */
-	PM_PINCTRL_CONFIG_PARAM_SET,			/**< 0x21 */
-	/* PM IOCTL API */
-	PM_IOCTL,					/**< 0x22 */
-	/* API to query information from firmware */
-	PM_QUERY_DATA,					/**< 0x23 */
-	/* Clock control API functions */
-	PM_CLOCK_ENABLE,				/**< 0x24 */
-	PM_CLOCK_DISABLE,				/**< 0x25 */
-	PM_CLOCK_GETSTATE,				/**< 0x26 */
-	PM_CLOCK_SETDIVIDER,				/**< 0x27 */
-	PM_CLOCK_GETDIVIDER,				/**< 0x28 */
-	PM_CLOCK_SETRATE,				/**< 0x29 */
-	PM_CLOCK_GETRATE,				/**< 0x2A */
-	PM_CLOCK_SETPARENT,				/**< 0x2B */
-	PM_CLOCK_GETPARENT,				/**< 0x2C */
-	/* Secure image */
-	PM_SECURE_IMAGE,				/**< 0x2D */
-	PM_FPGA_READ,					/**< 0x2E */
-	PM_SECURE_AES,					/**< 0x2F */
-	/* PLL direct control API functions */
-	PM_PLL_SET_PARAMETER,				/**< 0x30 */
-	PM_PLL_GET_PARAMETER,				/**< 0x31 */
-	PM_PLL_SET_MODE,				/**< 0x32 */
-	PM_PLL_GET_MODE,				/**< 0x33 */
-	PM_REGISTER_ACCESS,				/**< 0x34 */
-	PM_EFUSE_ACCESS,				/**< 0x35 */
-	PM_FEATURE_CHECK = 0x3F,			/**< 0x3F */
-	PM_API_MAX					/**< 0x40 */
-};
-
-#define PM_API_MIN	PM_GET_API_VERSION
 /** @endcond */
 
 /**
