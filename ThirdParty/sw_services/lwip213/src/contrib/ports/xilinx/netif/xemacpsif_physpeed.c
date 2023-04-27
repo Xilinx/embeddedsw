@@ -1105,6 +1105,20 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 			ClkId = CLK_GEM1_REF;
 #endif
+		} else if (mac_baseaddr == VERSAL_NET_EMACPS_0_BASEADDR) {
+#ifdef VERSAL_NET_CRL_GEM0_REF_CTRL
+			CrlApbBaseAddr = VERSAL_NET_CRL_GEM0_REF_CTRL;
+#endif
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+			ClkId = CLK_GEM0_REF;
+#endif
+		} else if (mac_baseaddr == VERSAL_NET_EMACPS_1_BASEADDR) {
+#ifdef VERSAL_NET_CRL_GEM1_REF_CTRL
+			CrlApbBaseAddr = VERSAL_NET_CRL_GEM1_REF_CTRL;
+#endif
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+			ClkId = CLK_GEM1_REF;
+#endif
 		}
 
 		if (speed == 1000) {
@@ -1116,6 +1130,14 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 #ifdef XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0
 				CrlApbDiv0 = XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0;
 #endif
+			} else if (mac_baseaddr == VERSAL_NET_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 =  XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_NET_EMACPS_1_BASEADDR) {
+#ifdef  XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 =  XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0
+#endif
 			}
 		} else if (speed == 100) {
 			if (mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) {
@@ -1125,6 +1147,14 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 			} else if (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR) {
 #ifdef XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_ETHERNET_1_ENET_SLCR_100MBPS_DIV0
 				CrlApbDiv0 = XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_ETHERNET_1_ENET_SLCR_100MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_NET_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_0_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_0_ENET_SLCR_100MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_NET_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_1_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_1_ENET_SLCR_100MBPS_DIV0;
 #endif
 			}
 		} else {
@@ -1136,10 +1166,20 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 #ifdef XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_ETHERNET_1_ENET_SLCR_10MBPS_DIV0
 				CrlApbDiv0 = XPAR_VERSAL_CIPS_0_PSPMC_0_PSV_ETHERNET_1_ENET_SLCR_10MBPS_DIV0;
 #endif
+			} else if (mac_baseaddr == VERSAL_NET_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_0_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_0_ENET_SLCR_10MBPS_DIV0;
+#endif
+			} else if (mac_baseaddr == VERSAL_NET_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_1_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSX_WIZARD_0_PSXL_0_PSX_ETHERNET_1_ENET_SLCR_10MBPS_DIV0;
+#endif
 			}
 		}
 
 		if (CrlApbDiv0 != 0) {
+			if ((mac_baseaddr == VERSAL_EMACPS_0_BASEADDR) ||
+			    (mac_baseaddr == VERSAL_EMACPS_1_BASEADDR)) {
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)CrlApbDiv0 << 32) | ClkId), 0, 0, 0, 0, 0, 0);
 #else
@@ -1149,6 +1189,18 @@ static void SetUpSLCRDivisors(UINTPTR mac_baseaddr, s32_t speed)
 
 			Xil_Out32(CrlApbBaseAddr, CrlApbGemCtrl);
 #endif
+			} else if((mac_baseaddr == VERSAL_NET_EMACPS_0_BASEADDR) ||
+				  (mac_baseaddr == VERSAL_NET_EMACPS_1_BASEADDR)) {
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)CrlApbDiv0 << 32) | ClkId), 0, 0, 0, 0, 0, 0);
+#else
+			CrlApbGemCtrl = Xil_In32(CrlApbBaseAddr);
+			CrlApbGemCtrl &= ~VERSAL_NET_CRL_GEM_DIV_MASK;
+			CrlApbGemCtrl |= CrlApbDiv0 << VERSAL_NET_CRL_APB_GEM_DIV_SHIFT;
+
+			Xil_Out32(CrlApbBaseAddr, CrlApbGemCtrl);
+#endif
+			}
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
 		}
