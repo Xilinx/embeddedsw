@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2015 - 2019 Xilinx, Inc.
+ * Copyright (C) 2015 - 2022 Xilinx, Inc.
+ * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -45,7 +46,7 @@
 #include "platform.h"
 #include "platform_config.h"
 #include "netif/xadapter.h"
-#if defined(PLATFORM_ZYNQMP) || defined(PLATFORM_VERSAL)
+#if defined(PLATFORM_ZYNQMP) || defined(PLATFORM_VERSAL) || defined(PLATFORM_VERSAL_NET)
 #include "xttcps.h"
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
