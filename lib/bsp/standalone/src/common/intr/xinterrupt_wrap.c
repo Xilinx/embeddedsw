@@ -19,6 +19,8 @@
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 7.2   mus  22/11/21 First release of xil interrupt support
+* 9.0   adk  17/04/23 Added support for system device-tree flow
+* 9.0   adk  27/04/23 Use XScuGic_LookupConfigBaseAddr() API for xsct flow
 * </pre>
 *
 ******************************************************************************/
@@ -57,11 +59,12 @@ int XConfigInterruptCntrl(UINTPTR IntcParent) {
 	#if defined (XPAR_SCUGIC)
 		XScuGic_Config *CfgPtr = NULL;
 		if (XScuGicInstance.IsReady != XIL_COMPONENT_IS_READY) {
-			CfgPtr = XScuGic_LookupConfig(BaseAddr);
+			#if defined(SDT)
+				CfgPtr = XScuGic_LookupConfig(BaseAddr);
+			#else
+				CfgPtr = XScuGic_LookupConfigBaseAddr(BaseAddr);
+			#endif
 			if (!ScuGicInitialized) {
-				Status = XScuGic_CfgInitialize(&XScuGicInstance, CfgPtr, 0);
-			}
-			else if (XScuGic_IsInitialized(BaseAddr) != 1U) {
 				Status = XScuGic_CfgInitialize(&XScuGicInstance, CfgPtr, 0);
 			} else {
 				Status = XST_SUCCESS;
@@ -106,14 +109,11 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 {
 	int Status;
 	int Doconnect = FALSE;
-        UINTPTR BaseAddr = XGet_BaseAddr(IntcParent);
 
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC)
 	{
 	#if defined (XPAR_SCUGIC)
 		if (ScuGicInitialized) {
-			Doconnect = 1;
-		} else if (XScuGic_IsInitialized(BaseAddr) == 1U) {
 			Doconnect = 1;
 		}
                 if (Doconnect) {
@@ -430,6 +430,9 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 	Status = XConfigInterruptCntrl(IntcParent);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
+#if defined (XPAR_SCUGIC)
+	ScuGicInitialized = TRUE;
+#endif
 	XSetPriorityTriggerType( IntrId, Priority, IntcParent);
 	Status = XConnectToInterruptCntrl( IntrId, (Xil_ExceptionHandler) IntrHandler, \
 				DriverInstance, IntcParent);
@@ -442,9 +445,6 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 	XEnableIntrId(IntrId, IntcParent);
 	Xil_ExceptionInit();
 	Xil_ExceptionEnable();
-#if defined (XPAR_SCUGIC)
-	ScuGicInitialized = TRUE;
-#endif
 	return XST_SUCCESS;
 }
 #endif
