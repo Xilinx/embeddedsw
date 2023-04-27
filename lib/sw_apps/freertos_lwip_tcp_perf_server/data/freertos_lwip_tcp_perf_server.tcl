@@ -19,9 +19,8 @@ proc check_stdout_hw {} {
         set slave_type [common::get_property IP_NAME [hsi::get_cells -hier $slave]];
         # Check for MDM-Uart peripheral. The MDM would be listed as a peripheral
         # # only if it has a UART interface. So no further check is required
-        if { $slave_type == "ps7_uart" || $slave_type == "psu_uart" || $slave_type == "axi_uartlite" ||
-            $slave_type == "axi_uart16550" || $slave_type == "iomodule" ||
-            $slave_type == "mdm" || $slave_type == "psv_sbsauart"} {
+	if { $slave_type in { "ps7_uart" "psu_uart" "axi_uartlite" "axi_uart16550"
+			"iomodule" "mdm" "psv_sbsauart" "psx_sbsauart"} } {
             return;
         }
     }
@@ -54,6 +53,11 @@ proc check_emac_hw {} {
 
     set temacs [hsi::get_cells -hier -filter { ip_name == "psv_ethernet" }];
         if { [llength $temacs] != 0 } {
+                return;
+    }
+
+    set temacs [hsi::get_cells -hier -filter { ip_name == "psx_ethernet" }];
+    if { [llength $temacs] != 0 } {
                 return;
     }
 
@@ -151,11 +155,11 @@ proc swapp_is_supported_sw {} {
         }
     }
 
-	if {$processor_type == "psv_cortexa72"} {
+	if {$processor_type in {"psv_cortexa72" "psv_cortexa72"}} {
 		set procdrv [hsi::get_sw_processor]
 		set compiler [::common::get_property CONFIG.compiler $procdrv]
 		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-			error "ERROR: lwip library does not support 32 bit A72 compiler";
+			error "ERROR: lwip library does not support 32 bit A72/A78 compiler";
 		return;
             }
 	}
@@ -243,6 +247,12 @@ proc generate_emac_config {fp} {
         puts $fp "#define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR";
         return;
     }
+
+    set temacs [hsi::get_cells -hier -filter { ip_name == "psx_ethernet" }];
+    if { [llength $temacs] > 0 } {
+        puts $fp "#define PLATFORM_EMAC_BASEADDR XPAR_XEMACPS_0_BASEADDR";
+        return;
+    }
 }
 
 proc generate_timer_config { fp } {
@@ -309,6 +319,8 @@ proc swapp_generate {} {
         puts $fid "#define PLATFORM_ZYNQMP \n";
     } elseif { $proc_arm == "psv_cortexr5" || $proc_arm == "psv_cortexa72" } {
 	puts $fid "#define PLATFORM_VERSAL \n";
+    } elseif { $proc_arm == "psx_cortexr52" || $proc_arm == "psx_cortexa78" } {
+	puts $fid "#define PLATFORM_VERSAL_NET \n";
     }
     puts $fid "";
 
@@ -322,7 +334,7 @@ proc swapp_get_linker_constraints {} {
 
 proc swapp_get_supported_processors {} {
 
-    return "psv_cortexa72 psv_cortexr5 psu_cortexa53 psu_cortexr5 ps7_cortexa9 microblaze";
+    return "psx_cortexa78 psx_cortexr52 psv_cortexa72 psv_cortexr5 psu_cortexa53 psu_cortexr5 ps7_cortexa9 microblaze";
 }
 
 proc swapp_get_supported_os {} {
