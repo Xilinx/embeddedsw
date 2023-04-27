@@ -253,6 +253,7 @@ Update directory structure for Image selector to accommodate Versal Image select
 Added support for Versal Image selector
 Provide support to build Image selector using Vitis
 Added Image selector support for other Versal boards
+Fix Imgsel Application hang issue
 
 img_rcvry:
 Adds support for vhk158, vek280 system controllers
@@ -303,6 +304,18 @@ Add XilSem SW triggered error events
 Check to skip SRST and multiboot register update for Secondary Boot Modes
 Add support to return warnings in status variable
 Remove runtime check to validate KAT status
+Fixed circular dependency
+Check Module for NULL before using it
+Fixed coverity warnings
+Use XPLMI_BIT macro for bit position
+Set PmcIroFreq as 320MHz by default
+Added Temporal redundancy to tamper response condition
+Added redundant calls for XPlmi_ValidateCmd and CheckIpiAccess
+Added redundancy on SSIT Event Trigger register write
+Refactored XPlmi_VerifyAddrRange logic
+Check for Blind Write of ResetReason
+Updated return values & algorithm
+Doxygen warnings fixes
 
 xilloader_v1_8:
 Used macro for redundancy checks for Xil_SMemCpy
@@ -322,10 +335,22 @@ Send Load PDI response in Payload[1]
 Fixed compilation warning when PLM_SECURE_EXCLUDE is enabled
 Added End Of PDI SYNC Logic
 Fix bug in XLoader_SecureClear
+Remove pointer to string literal usage
+Update Image Store Example
+Fixed coverity warnings
+Added print when DDRMC dump is skipped
+Added redundancy for Key Selection
+Fix security review comments
+XLoader_InitSha1Instance API representing SHA1 algorithm
+Updated return values & algorithm
+Doxygen fixes
 
 xilpdi_v1_7:
 Doxygen comments updated
 Added PcrInfo attribute in XilPdi_ImgHdr
+Fix MISRA C violations
+Updated return values & algorithm
+Doxygen warnings fixes
 
 xilsecure_v5_1:
 Pass AesDmCfg structure as reference instead of value.
@@ -354,6 +379,9 @@ Rename XPLMI_SECURE_ENC_KAT_MASK
 Add missing Param description for Resource
 Remove runtime check to validate KAT status
 Fix compilation failure when PLM_SECURE_EXCLUDE is enabled
+Added GMAC support in XilSecure example
+Added support for opting big/little endian for ECDSA operation by using BSP configuration.
+Fixed Coverity and doxygen warnings.
 
 xilpuf_v2_1:
 Added support for provisioning of SSIT devices
@@ -361,6 +389,7 @@ Removed xilpuf_regeneration_example and xilpuf_regeneration_client_example
 Added support for ID only regeneration in xilpuf_example and xilpuf_client_example
 Store PUF Aux after shifting
 Fixed warnings related to static analysis(MISRA-C, Code complexity) and Doxygen warnings
+Fix PUF auxiliary convergence error
 
 xilnvm_v3_1:
 Add provisioning support for Xilnvm
@@ -369,9 +398,23 @@ Fix the unaligned data exception while programming PUF
 Add modification histroy and fix code spell warnings
 Add In Body comments for Xilnvm APIs
 Add 5 PPKs support for provisioning
+Move error codes related to Additional PPKs
+Add volatile to Status in XNvm_EfuseWriteSecMisc1Fuses
+Make status volatile and reset before use in xnvm_bbram_common_handler
+Doxygen warning fixes
+Add volatile keyword for Status variables in xnvm_efuse_common.c
+Enable additional PPKs support by default for M50
+Add check for zeroes before programming additional PPKs
+Add support to program additional PPK efuse MISC bits
+Move payload size macros to common place
+Fixed MISRA-C violations for Rule 8.13, 12.2
+Match the shared memory size in secure library to reuse for customer
+Fix accessing NULL pointer when MISC CTRL bits are not enabled
 
 xilskey_v7_4:
 Increase usleep value to 6000 in PUF regeneration
+Fix puf aux in array
+Added support for erroring out the non-supported processors
 
 xilocp_v1_1:
 Reset TRNG state in PLM after ROM usage and minor enhancements
@@ -384,6 +427,9 @@ DEVAK generation of subsystem based
 Added attestation support
 Added Client side support for attestation
 Example for X.509 request and attestation
+Modified nomenclature of API Ids
+Adding OCP and CERT libraries to BSP
+Improve xilocp examples by removing endianness conversions
 
 xilcert_v1_0:
 Added new library called XilCert for creating X509 certificate to share the public keys
@@ -1432,6 +1478,8 @@ Disable parity retry during DDR self-refresh
 Add check for pinId and paramId before accessing
 Read proper GIC wake event data type from ETH slave
 Fixed Misra C violations
+Doxygen fixes
+Remove xplm_modules from PPU1 RAM
 
 zynqmp_fsbl:
 Updated versionless files for SOM with k26-som bsp
