@@ -107,6 +107,8 @@
 *                       image store feature
 *       bm   02/22/2023 Fix XLOADER_MAX_HANDOFF_CPUS value for versal Net
 *       sk   03/17/2023 Renamed member Kekstatus to DecKeySrc in xilpdi structure
+*       sk   04/28/2023 Added function to retrieve PDI Address from Image Store
+*                       based on PDI ID
 * </pre>
 *
 * @note
@@ -425,6 +427,7 @@ XLoader_ImageInfo* XLoader_GetImageInfoEntry(u32 ImgID);
 int XLoader_LoadImageInfoTbl(u64 DestAddr, u32 MaxSize, u32 *NumEntries);
 int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr);
 int XLoader_ReadImageStoreCfg(void);
+int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr);
 
 /* Functions defined in xloader_prtn_load.c */
 int XLoader_LoadImagePrtns(XilPdi* PdiPtr);

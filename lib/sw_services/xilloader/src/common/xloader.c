@@ -152,6 +152,8 @@
 *       sk   02/08/2023 Renamed XLoader_UpdateKatStatus to XLoader_ClearKatOnPPDI
 *       sk   03/17/2023 Renamed Kekstatus to DecKeySrc in xilpdi structure
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       sk   04/28/2023 Added function to retrieve PDI Address from Image Store
+*                       based on PDI ID
 * </pre>
 *
 * @note
@@ -1782,9 +1784,7 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 	u64 PdiAddr = PdiPtr->MetaHdr.ImgHdrTbl.SBDAddr;
 	u32 SecBootMode = XilPdi_GetSBD(&(PdiPtr->MetaHdr.ImgHdrTbl)) >>
 		XIH_IHT_ATTR_SBD_SHIFT;
-	const XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 	u32 PdiId;
-	int Index;
 
 	if ((SecBootMode == XIH_IHT_ATTR_SBD_SAME) ||
 		((PdiPtr->SlrType != XLOADER_SSIT_MASTER_SLR) &&
@@ -1845,23 +1845,10 @@ static int XLoader_LoadAndStartSecPdi(XilPdi* PdiPtr)
 					break;
 				case XIH_IHT_ATTR_IMAGE_STORE:
 					PdiId = (u32)PdiAddr;
-					if (PdiList->Count == 0U) {
-						Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_EMPTY, 0);
+					Status = XLoader_IsPdiAddrLookup(PdiId, (u64*)&PdiAddr);
+					if (Status != XST_SUCCESS) {
 						goto END;
 					}
-					for (Index = (int)PdiList->Count - 1; Index >= 0; Index--) {
-						if (PdiList->ImgList[Index].PdiId  == PdiId) {
-							PdiAddr = PdiList->ImgList[Index].PdiAddr;
-							break;
-						}
-					}
-					if (Index < 0) {
-						Status = XPlmi_UpdateStatus(
-							XLOADER_ERR_PDI_ADDR_NOT_FOUND, 0);
-						XPlmi_Printf(DEBUG_GENERAL, "Image Store PdiId:0x%x Not Found\n\r",PdiId);
-						goto END;
-					}
-
 					PdiSrc = XLOADER_PDI_SRC_DDR;
 					break;
 				default:
@@ -1937,4 +1924,48 @@ int XLoader_ReadImageStoreCfg(void)
 END:
 	return Status;
 
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to read the Address based-on PDI Id from
+ *              Image Store
+ *
+ * @return
+ *		- XST_SUCCESS on success
+ *		- XLOADER_ERR_PDI_LIST_EMPTY if PDI list is empty
+ *		- XLOADER_ERR_PDI_ADDR_NOT_FOUND if PDI ID not found in list
+ *
+ *****************************************************************************/
+int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr)
+{
+	int Status = XST_FAILURE;
+	int Index;
+	const XLoader_ImageStore *PdiList = XLoader_GetPdiList();
+
+	if (PdiAddr ==  NULL){
+		goto END;
+	}
+
+	if (PdiList->Count == 0U) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_LIST_EMPTY, 0U);
+		goto END;
+	}
+
+	for (Index = (int)PdiList->Count - 1; Index >= 0; Index--) {
+		if (PdiList->ImgList[Index].PdiId  == PdiId) {
+			*PdiAddr = PdiList->ImgList[Index].PdiAddr;
+			break;
+		}
+	}
+
+	if (Index < 0) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_PDI_ADDR_NOT_FOUND, 0U);
+		XPlmi_Printf(DEBUG_GENERAL, "Image Store PdiId:0x%x Not Found\n\r",PdiId);
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
 }
