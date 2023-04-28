@@ -65,6 +65,8 @@
 *                     to print warning related to DDR size if it is not in
 *                     power of 2. It fixes CR#1116431.
 * 8.0  mus  07/06/21  Added support for VERSAL NET
+* 9.0  mus  04/28/23  Updated for CortexR52 to support strongly ordered device
+*                     attribute at index 3 of MAIR register.
 * </pre>
 *
 ******************************************************************************/
@@ -291,10 +293,12 @@ InitEL1:
         MRC p15, 0, r0, c10, c2, 0	/* Read MAIR0 */
         LDR r1, =0xBB                   /* Attribute index0: Normal inner/outer RW cacheable, write-through */
         BFI r0, r1, #0, #8              /* Update attribute index0 */
-        LDR r1, =0x04                   /* Attribute index1: Device nGnRnE */
+        LDR r1, =0x04                   /* Attribute index1: Device nGnRE */
         BFI r0, r1, #8, #8              /* Update Attribute index1 */
-	LDR r1, =0x44                   /* Attribute index1: Normal non cacheable */
+	LDR r1, =0x44                   /* Attribute index2: Normal non cacheable */
         BFI r0, r1, #16, #8              /* Update Attribute index2 */
+	LDR r1, =0x00                   /* Attribute index3: Strongly ordered nGnRnE */
+        BFI r0, r1, #24, #8              /* Update Attribute index3 */
         MCR p15,0,r0,c10,c2,0           /* Write MAIR0 */
 
 #else

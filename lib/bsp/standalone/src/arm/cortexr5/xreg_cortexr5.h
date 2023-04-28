@@ -147,45 +147,52 @@ extern "C" {
 
 
 #if defined (ARMR52)
+/*
+ * 0th bit: XN
+ * bits [2:1]: Access permission bits
+ * bits [4:3]: Shareability field
+ * bits [7:5]: reserved
+ * bits [10:8]: AttrIndx[2:0]: Indexes a set of attributes in one
+ *              of the MAIRx registers
+ *              Boot code is setting,
+ *              Index 0: WT cacheable Memory
+ *              Index 1: Device
+ *              Index 2: Non-cacheable memory
+ *              Index 3: Strongly ordered
+ *
+ */
 
-#define SHAREABLE               0x00000018U     /*shareable */
-#define STRONG_ORDERD_SHARED    0x00000000U     /*strongly ordered, always shareable*/
+/* Shareability */
+#define SHAREABLE               0x00000018U     /*kept for compatibility, inner shareable */
+#define OUTER_SHAREABLE         0x00000010U     /*outer shareable */
+#define INNER_SHAREABLE         0x00000018U     /*inner shareable */
 
-#define DEVICE_SHARED           0x00000200U     /*device, shareable*/
-#define DEVICE_NONSHARED        0x00000200U     /*device, non shareable*/
-
-#define NORM_NSHARED_WT_NWA     0x00000000U     /*Outer and Inner write-through, no write-allocate non-shareable*/
-#define NORM_SHARED_WT_NWA      0x00000006U     /*Outer and Inner write-through, no write-allocate shareable*/
-
-#define NORM_NSHARED_WB_NWA     0x00000003U     /*Outer and Inner write-back, no write-allocate non shareable*/
-#define NORM_SHARED_WB_NWA              0x00000007U     /*Outer and Inner write-back, no write-allocate shareable*/
-
-#define NORM_NSHARED_NCACHE     0x00000400U     /*Outer and Inner Non cacheable  non shareable*/
-#define NORM_SHARED_NCACHE              0x0000000CU     /*Outer and Inner Non cacheable shareable*/
-
-#define NORM_NSHARED_WB_WA              0x0000000BU     /*Outer and Inner write-back non shared*/
-#define NORM_SHARED_WB_WA               0x0000000FU     /*Outer and Inner write-back shared*/
-
-/* inner and outer cache policies can be combined for different combinations */
-
-#define NORM_IN_POLICY_NCACHE   0x00000020U     /*inner non cacheable*/
-#define NORM_IN_POLICY_WB_WA    0x00000021U     /*inner write back write allocate*/
-#define NORM_IN_POLICY_WT_NWA   0x00000022U     /*inner write through no write allocate*/
-#define NORM_IN_POLICY_WB_NWA   0x00000023U     /*inner write back no write allocate*/
-
-#define NORM_OUT_POLICY_NCACHE  0x00000020U     /*outer non cacheable*/
-#define NORM_OUT_POLICY_WB_WA   0x00000028U     /*outer write back write allocate*/
-#define NORM_OUT_POLICY_WT_NWA  0x00000030U     /*outer write through no write allocate*/
-#define NORM_OUT_POLICY_WB_NWA  0x00000038U     /*outer write back no write allocate*/
-
-#define NO_ACCESS                               (0x00000000U<<8U)       /*No access*/
-#define PRIV_RW_USER_NA                 (0x00000001U<<8U) /*Privileged access only*/
-#define PRIV_RW_USER_RO                 (0x00000002U<<8U) /*Writes in User mode generate permission faults*/
+/* Access permission (for EL1) bits */
+#define PRIV_RW_USER_NA                 (0x00000000U) /*Privileged access only*/
 #define PRIV_RW_USER_RW                 (0x00000002U)       /*Full Access*/
-#define PRIV_RO_USER_NA                 (0x00000005U<<8U) /*Privileged eead only*/
-#define PRIV_RO_USER_RO                 (0x00000006U<<8U) /*Privileged/User read-only*/
+#define PRIV_RO_USER_NA                 (0x00000004U) /*Privileged eead only*/
+#define PRIV_RO_USER_RO                 (0x00000006U) /*Privileged/User read-only*/
 
-#define EXECUTE_NEVER                   (0x00000001U<<12U)  /* Bit 12*/
+#define DEVICE_SHARED           0x00000118U     /*device, shareable*/
+#define DEVICE_NONSHARED        0x00000100U     /*device, non shareable*/
+
+#define STRONG_ORDERD_SHARED    0x00000318U     /*strongly ordered*/
+
+#define NORM_NSHARED_WT_NWA     0x00000000U     /*write-through, non-shareable*/
+#define NORM_SHARED_WT_NWA      0x00000018U     /*write-through, inner shareable*/
+#define NORM_OUT_SHARED_WT_NWA  0x00000010U     /*write-through, outer shareable*/
+#define NORM_IN_SHARED_WT_NWA      0x00000018U     /*write-through, inner shareable*/
+
+
+#define NORM_NSHARED_NCACHE     0x00000200U     /*Outer and Inner Non cacheable  non shareable*/
+#define NORM_SHARED_NCACHE              0x00000218U     /*Non cacheable inner shareable*/
+
+#define PRIV_RW_USER_NA                 (0x00000000U) /*Privileged access only*/
+#define PRIV_RW_USER_RW                 (0x00000002U)       /*Full Access*/
+#define PRIV_RO_USER_NA                 (0x00000004U) /*Privileged eead only*/
+#define PRIV_RO_USER_RO                 (0x00000006U) /*Privileged/User read-only*/
+
+#define EXECUTE_NEVER                   (0x00000001U)
 #else
 
 #define SHAREABLE				0x00000004U 	/*shareable */

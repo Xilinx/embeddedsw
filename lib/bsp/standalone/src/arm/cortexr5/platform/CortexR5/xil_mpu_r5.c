@@ -54,6 +54,9 @@
 * 9.0  ml   03/03/23  Add description to fix doxygen warnings.
 * 9.0  ml   14/04/23  Add U to numericals and correct the typecast to fix
 *                     misra-c violations.
+* 9.0  mus  04/20/23  Remove CortexR52 specific changes and move to file to
+*                     arm/cortexr5/platform/versal/ directory. There will be
+*                     separate file for CortexR52.
 * </pre>
 *
 *
@@ -133,80 +136,9 @@ void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
 {
 	INTPTR Localaddr = Addr;
 
-#if defined(ARMR52)
-	INTPTR Endaddr;
-	XMpu_Config MpuConfig;
-	struct XMpuConfig dummy;
-	u8 Cnt=0;
-	u8 IsOverlapped = 0;
-	u8 NextFreeRegion;
-	u32 size = 0, CurrAddr, CurrSize, RegionSize=0;
-	u32 Reg=0;
-
-
-	Xil_GetMPUConfig(MpuConfig);
-
-	for (Cnt=0; Cnt<MAX_POSSIBLE_MPU_REGS; Cnt++)
-	{
-		size = MpuConfig[Cnt].Size - MpuConfig[Cnt].BaseAddress;
-		Endaddr =  MpuConfig[Cnt].Size;;
-
-		if ( (MpuConfig[Cnt].BaseAddress <= Localaddr) && (Endaddr > Localaddr))
-		{
-			IsOverlapped = 1;
-			break;
-		}
-	}
-
-	if ( IsOverlapped == 1)
-	{
-		/*
-		 * Due to overlapping of regions, existing region needs
-		 * to be divided into 3 regions, that needs 2 extra MPU
-		 * regions. If 2 MPU regions are free then only proceed
-		 * with dividing 1 MPU regions into 3.
-		 */
-
-		if (Xil_GetNumOfFreeRegions() >= 2)
-		{
-
-			/* Enable background MPU region before disabling MPU */
-			Reg = mfcp(XREG_CP15_SYS_CONTROL);
-			mtcp(XREG_CP15_SYS_CONTROL, Reg | 0x20000);
-
-			Xil_DisableMPU();
-			Xil_DisableMPURegionByRegNum(Cnt);
-
-			RegionSize = (Localaddr -1  - MpuConfig[Cnt].BaseAddress) &  XMPU_64BYTE_ALIGNMENT_MASK;
-			Xil_SetMPURegionByRegNum(0, MpuConfig[Cnt].BaseAddress,
-									RegionSize,
-									MpuConfig[Cnt].Attribute);
-
-			Xil_SetMPURegion(Localaddr, 0x100000, attrib);
-
-			NextFreeRegion = Xil_GetNextMPURegion();
-
-			Xil_SetMPURegionByRegNum(NextFreeRegion, (Localaddr+0x100000),
-									(MpuConfig[Cnt].Size -  MpuConfig[Cnt].BaseAddress - RegionSize - 0x100000),
-									MpuConfig[Cnt].Attribute);
-
-			/* Disable background MPU regions before enabline MPU */
-			mtcp(XREG_CP15_SYS_CONTROL, Reg);
-			Xil_EnableMPU();
-		} else {
-			xdbg_printf(XDBG_DEBUG_GENERAL, "WARNING: Number of free MPU regions needed for Xil_SetTlbAttributes API are not available, hence \
-		             Xil_SetTlbAttributes API is failed \n");
-		}
-	} else {
-		Localaddr &= (UINTPTR)(~(0xFFFFFU));
-		/* Setting the MPU region with given attribute with 1MB size */
-		(void) Xil_SetMPURegion(Localaddr, 0x100000, attrib);
-	}
-#else
 	Localaddr &= (UINTPTR)(~(0xFFFFFU));
 	/* Setting the MPU region with given attribute with 1MB size */
 	(void) Xil_SetMPURegion(Localaddr, 0x100000, attrib);
-#endif
 }
 
 /*****************************************************************************/
@@ -228,9 +160,6 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 	u32 NextAvailableMemRegion;
 	u32 i;
 	u32 Status;
-#if defined(ARMR52)
-	u32 limit_reg = 0;
-#endif
 
 	NextAvailableMemRegion = Xil_GetNextMPURegion();
 	if (NextAvailableMemRegion == 0xFFU) {
@@ -243,10 +172,6 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 
 	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,NextAvailableMemRegion);
 	isb();
-
-#if defined (ARMR52)
-	Regionsize = size -1;
-#else
 	/* Lookup the size.  */
 	for (i = 0; i < (sizeof (region_size) / sizeof (region_size[0])); i++) {
 		if (size <= region_size[i].size) {
@@ -255,30 +180,14 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 		}
 	}
 	Localaddr &= (UINTPTR)(~(region_size[i].size - 1U));
-#endif
 
-
-#if defined(ARMR52)
-	limit_reg = (Regionsize + addr );
-    limit_reg &= (XMPU_64BYTE_ALIGNMENT_MASK);
-    limit_reg |= ((attrib >> XMPU_LIMIT_REG_ATTRIBUTE_SHIFT) & XMPU_LIMIT_REG_ATTRIBUTE_MASK);
-	limit_reg |= REGION_EN;
-	Regionsize = limit_reg;
-#else
 	Regionsize <<= 1;
 	Regionsize |= REGION_EN;
-#endif
+
 	dsb();
-#if defined (ARMR52)
-	Localaddr &= XMPU_64BYTE_ALIGNMENT_MASK;
-	mtcp(XREG_CP15_MPU_REG_BASEADDR,(Localaddr | (attrib & XMPU_BASE_REG_ATTRIBUTE_MASK))); /* Set base address of a region to 64 bit aligned and
-									set attributes */
-	mtcp(XREG_CP15_MPU_REG_SIZE_EN, limit_reg);	/* set the region size and enable it*/
-#else
 	mtcp(XREG_CP15_MPU_REG_BASEADDR, Localaddr);	/* Set base address of a region */
 	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL, attrib);	/* Set the control attribute */
 	mtcp(XREG_CP15_MPU_REG_SIZE_EN, Regionsize);	/* set the region size and enable it*/
-#endif
 	dsb();
 	isb();
 	Status = Xil_UpdateMPUConfig(NextAvailableMemRegion, Localaddr, Regionsize, attrib);
@@ -415,10 +324,6 @@ u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
 	if ((size & REGION_EN) != 0U) {
 		Mpu_Config[reg_num].RegionStatus = MPU_REG_ENABLED;
 		Mpu_Config[reg_num].BaseAddress = address;
-#if defined (ARMR52)
-		Tempsize &= XMPU_64BYTE_ALIGNMENT_MASK;
-		 Mpu_Config[reg_num].Size = Tempsize;
-#else
 		Tempsize &= (~REGION_EN);
 		Tempsize >>= 1;
 		/* Lookup the size.  */
@@ -429,7 +334,6 @@ u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
 				break;
 			}
 		}
-#endif
 		Mpu_Config[reg_num].Attribute = attrib;
 	} else {
 		Mpu_Config[reg_num].RegionStatus = 0U;
@@ -571,9 +475,6 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 	u32 Regionsize = 0;
 	u32 Index;
 	u32 Status;
-#if defined(ARMR52)
-	u32 limit_reg;
-#endif
 
 	if (reg_num >= 16U) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid region number\r\n");
@@ -593,9 +494,6 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 	isb();
 
 	/* Lookup the size.  */
-#if defined (ARMR52)
-	Regionsize = size - 1;
-#else
 	for (Index = 0; Index <
 			(sizeof (region_size) / sizeof (region_size[0])); Index++) {
 		if (size <= region_size[Index].size) {
@@ -605,27 +503,13 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 	}
 
 	Localaddr &= (UINTPTR)(~(region_size[Index].size - 1U));
-#endif
-#if defined(ARMR52)
-	limit_reg = (Regionsize + Localaddr);
-	limit_reg &= XMPU_64BYTE_ALIGNMENT_MASK;
-	limit_reg |= ((attrib >> XMPU_LIMIT_REG_ATTRIBUTE_SHIFT) & XMPU_LIMIT_REG_ATTRIBUTE_MASK);
-	limit_reg |= REGION_EN;
-	Regionsize = limit_reg;
-#else
 	Regionsize <<= 1;
 	Regionsize |= REGION_EN;
-#endif
+
 	dsb();
-#if defined(ARMR52)
-	Localaddr &= XMPU_64BYTE_ALIGNMENT_MASK;
-	mtcp(XREG_CP15_MPU_REG_BASEADDR, (Localaddr | (attrib & XMPU_BASE_REG_ATTRIBUTE_MASK)));
-	mtcp(XREG_CP15_MPU_REG_SIZE_EN, limit_reg);
-#else
 	mtcp(XREG_CP15_MPU_REG_BASEADDR, Localaddr);
 	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL, attrib);
 	mtcp(XREG_CP15_MPU_REG_SIZE_EN, Regionsize);
-#endif
 	dsb();
 	isb();
 	Status = Xil_UpdateMPUConfig(reg_num, Localaddr, Regionsize, attrib);
@@ -656,14 +540,6 @@ void Xil_InitializeExistingMPURegConfig(void)
 
 	while (Index < MAX_POSSIBLE_MPU_REGS) {
 		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,Index);
-#if defined (ARMR52)
-		MPURegBA = mfcp(XREG_CP15_MPU_REG_BASEADDR);
-		MPURegAttrib = MPURegBA & XMPU_BASE_REG_ATTRIBUTE_MASK;
-		MPURegBA &= XMPU_64BYTE_ALIGNMENT_MASK;
-		MPURegSize = mfcp(XREG_CP15_MPU_REG_SIZE_EN);
-		MPURegAttrib |= ((MPURegSize & XMPU_LIMIT_REG_ATTRIBUTE_MASK) << XMPU_LIMIT_REG_ATTRIBUTE_SHIFT);
-		MPURegSize = (mfcp(XREG_CP15_MPU_REG_SIZE_EN) & XMPU_64BYTE_ALIGNMENT_MASK) - MPURegBA ;
-#else
 #if defined (__GNUC__)
 		MPURegSize = mfcp(XREG_CP15_MPU_REG_SIZE_EN);
 		MPURegBA = mfcp(XREG_CP15_MPU_REG_BASEADDR);
@@ -672,7 +548,6 @@ void Xil_InitializeExistingMPURegConfig(void)
 		mfcp(XREG_CP15_MPU_REG_SIZE_EN,MPURegSize);
 		mfcp(XREG_CP15_MPU_REG_BASEADDR, MPURegBA);
 		mfcp(XREG_CP15_MPU_REG_ACCESS_CTRL, MPURegAttrib);
-#endif
 #endif
 		if ((MPURegSize & REGION_EN) != 0U) {
 			Mpu_Config[Index].RegionStatus = MPU_REG_ENABLED;

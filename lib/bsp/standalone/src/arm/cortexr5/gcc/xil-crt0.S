@@ -35,6 +35,9 @@
 *                     fixes CR#1157817
 * 9.0   dp   03/29/23  Invoke XTime_StartTimer() only if sleep timer is default
 *                      timer for Cortex-R52.
+* 9.0   mus  04/20/23 Removed call to Xil_InitializeExistingMPURegConfig, as
+*                     MPU configuration data structure is already being updated
+*                     by Init_Mpu function.
 * </pre>
 *
 ******************************************************************************/
@@ -164,8 +167,6 @@ noaccess:
     bl XTime_StartTTCTimer
 #endif
 #endif
-
-	bl 	Xil_InitializeExistingMPURegConfig	/* Initialize MPU config */
 
 	/* run global constructors */
 	bl __libc_init_array
