@@ -69,6 +69,8 @@
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *       bm   01/23/2023 Send Load PDI response in Payload[1]
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       sk   04/28/2023 Updated load partial pdi command to support PDI loading
+*                       from mage Store based on PDI ID
 *
 * </pre>
 *
@@ -268,6 +270,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
 	XilPdi* PdiPtr = &SubsystemPdiIns;
+	u32 PdiId;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
 
@@ -281,6 +284,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 	if (!((PdiSrc == XLOADER_PDI_SRC_QSPI24) ||
 		(PdiSrc == XLOADER_PDI_SRC_QSPI32) ||
 		(PdiSrc == XLOADER_PDI_SRC_OSPI) ||
+		(PdiSrc == XLOADER_PDI_SRC_IS) ||
 		(PdiSrc == XLOADER_PDI_SRC_DDR))) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC, (int)PdiSrc);
@@ -291,6 +295,15 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL;
 	PdiPtr->IpiMask = Cmd->IpiMask;
+
+	if (PdiSrc == XLOADER_PDI_SRC_IS) {
+		PdiId = Cmd->Payload[XLOADER_CMD_LOAD_PDI_PDIADDR_LOW_INDEX];
+		Status = XLoader_IsPdiAddrLookup(PdiId, (u64*)&PdiAddr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		PdiSrc = XLOADER_PDI_SRC_DDR;
+	}
 
 	/** Load Partial PDI */
 	Status = XLoader_LoadPdi(PdiPtr, PdiSrc, PdiAddr);

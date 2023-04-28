@@ -23,7 +23,8 @@
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       kal  01/05/2023 Added XLoader_SecureConfigMeasurement function
 *       sk   02/22/2023 Added EoPDI SYNC dummy stub
-*		dd   03/28/2023 Updated doxygen comments
+*       dd   03/28/2023 Updated doxygen comments
+*       sk   04/28/2023 Added define for Image Store as PDI source
 *
 * </pre>
 *
@@ -62,6 +63,7 @@ extern "C" {
 #define XLOADER_PDI_SRC_PCIE		(0xBU) /**< PDI source PCIE */
 #define XLOADER_PDI_SRC_SDLS_B1		(0xEU) /**< PDI source SDLS_B1 */
 #define XLOADER_PDI_SRC_DDR		(0xFU) /**< PDI source DDR */
+#define XLOADER_PDI_SRC_IS		(0x10U) /**< PDI source Image Store */
 #define XLOADER_PDI_SRC_INVALID		(0xFFU)  /**< PDI source invalid */
 
 #define XLOADER_R52_0A_TCMA_BASE_ADDR 	(0xEBA00000U) /**< R52_0A TCMA base address */

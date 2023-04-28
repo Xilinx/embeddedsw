@@ -19,7 +19,8 @@
 *       bm   07/13/2022 Retain critical data structures after In-Place PLM Update
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
 *       sk   02/22/2023 Added EoPDI SYNC function declaration
-*		dd   03/28/2023 Updated doxygen comments
+*       dd   03/28/2023 Updated doxygen comments
+*       sk   04/28/2023 Added define for Image Store as PDI source
 *
 * </pre>
 *
@@ -57,6 +58,7 @@ extern "C" {
 #define XLOADER_PDI_SRC_SMAP		(0xAU) /**< PDI source SMAP */
 #define XLOADER_PDI_SRC_PCIE		(0xBU) /**< PDI source PCIE */
 #define XLOADER_PDI_SRC_SD1_LS		(0xEU) /**< PDI source SD1-LS */
+#define XLOADER_PDI_SRC_IS		(0x10U) /**< PDI source Image Store */
 #define XLOADER_PDI_SRC_DDR		(0xFU) /**< PDI source DDR */
 #define XLOADER_PDI_SRC_INVALID		(0xFFU) /**< PDI source invalid */
 
