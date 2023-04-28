@@ -86,6 +86,9 @@
 # 9.0   sa   05/01/23 Added support for Microblaze RISC-V.
 # 9.0   dp   29/03/23 Added support to use ttc as sleeptimer for VersalNet
 #                     Cortex-R52
+#       mus  20/04/23 MPU related files for CortexR5 and CortexR52 have been
+#                     separated out to make code readable. Update tcl file
+#                     copy appropriate files based on processor and SoC.
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -323,6 +326,9 @@ proc generate {os_handle} {
     set versalsrcdir "./src/common/versal"
     set versalnetsrcdir "./src/common/versal_net"
     set riscvsrcdir "./src/riscv"
+
+    set is_versal [hsi::get_cells -hier -filter {IP_NAME=="psu_cortexa72" || IP_NAME=="psv_cortexa72"}]
+    set is_versal_net [hsi::get_cells -hier -filter {IP_NAME=="psx_cortexr52" || IP_NAME=="psxl_cortexr52" || IP_NAME=="psx_cortexa78" || IP_NAME=="psxl_cortexa78"}]
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
@@ -615,16 +621,27 @@ proc generate {os_handle} {
 	    puts $file_handle ""
 	    puts $file_handle "#include \"xparameters_ps.h\""
 	    puts $file_handle ""
-	    if {[llength $cortexa72proc] > 0 || [llength $cortexa78proc] > 0} {
+	    if {[llength $is_versal_net] > 0} {
+		set platformsrcdir "./src/arm/cortexr5/platform/versal-net"
+		set procsrcdir "./src/arm/cortexr5/platform/CortexR52"
+		file copy -force $platformsrcdir/mpu_r52.c "./src/mpu.c"
+		file copy -force $procsrcdir/xil_mpu_r52.c "./src/xil_mpu.c"
+		file copy -force $procsrcdir/xil_mpu_r52.h "./src/xil_mpu.h"
+	    }  elseif {[llength $is_versal] > 0 } {
 		set platformsrcdir "./src/arm/cortexr5/platform/versal"
+		set procsrcdir "./src/arm/cortexr5/platform/CortexR5"
+		file copy -force $platformsrcdir/mpu_r5.c "./src/mpu.c"
+		file copy -force $platformsrcdir/xparameters_ps.h "./src/"
+		file copy -force $procsrcdir/xil_mpu_r5.c "./src/xil_mpu.c"
+		file copy -force $procsrcdir/xil_mpu_r5.h "./src/xil_mpu.h"
 	    } else {
 	        set platformsrcdir "./src/arm/cortexr5/platform/ZynqMP"
+		set procsrcdir "./src/arm/cortexr5/platform/CortexR5"
+		file copy -force $platformsrcdir/mpu_r5.c "./src/mpu.c"
+		file copy -force $platformsrcdir/xparameters_ps.h "./src/"
+		file copy -force $procsrcdir/xil_mpu_r5.c "./src/xil_mpu.c"
+		file copy -force $procsrcdir/xil_mpu_r5.h "./src/xil_mpu.h"
 	    }
-
-	    foreach entry [glob -nocomplain [file join $platformsrcdir *]] {
-		file copy -force $entry "./src/"
-	    }
-
             # If board name is valid, define corresponding symbol in xparameters
             if { [string length $boardname] != 0 } {
                 set fields [split $boardname ":"]

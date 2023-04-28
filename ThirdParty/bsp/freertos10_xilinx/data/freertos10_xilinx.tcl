@@ -259,10 +259,26 @@ proc generate {os_handle} {
 				puts $file_handle ""
 
 				#Tweak DDR addresses for versal, to be removed once proper addresses added by PCW
-				if {[llength $is_versal] > 0 || [llength $is_versal_net] > 0} {
+				if { [llength $is_versal_net] > 0} {
+					set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/versal-net"
+					set procsrcdir "../${standalone_version}/src/arm/cortexr5/platform/CortexR52"
+					file copy -force $platformsrcdir/mpu_r52.c "../${standalone_version}/src/mpu.c"
+					file copy -force $procsrcdir/xil_mpu_r52.c "../${standalone_version}/src/xil_mpu.c"
+					file copy -force $procsrcdir/xil_mpu_r52.h "./src/xil_mpu.h"
+				}  elseif {[llength $is_versal] > 0} {
 					set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/versal"
+					set procsrcdir "../${standalone_version}/src/arm/cortexr5/platform/CortexR5"
+					file copy -force $platformsrcdir/mpu_r5.c "../${standalone_version}/src/mpu.c"
+					file copy -force $platformsrcdir/xparameters_ps.h "../${standalone_version}/src/"
+					file copy -force $procsrcdir/xil_mpu_r5.c "../${standalone_version}/src/xil_mpu.c"
+					file copy -force $procsrcdir/xil_mpu_r5.h "../${standalone_version}/src/xil_mpu.h"
 				} else {
 				        set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/ZynqMP"
+					set procsrcdir "../${standalone_version}/src/arm/cortexr5/platform/CortexR5"
+					file copy -force $platformsrcdir/mpu_r5.c "../${standalone_version}/src/mpu.c"
+					file copy -force $platformsrcdir/xparameters_ps.h "../${standalone_version}/src/"
+					file copy -force $procsrcdir/xil_mpu_r5.c "../${standalone_version}/src/xil_mpu.c"
+					file copy -force $procsrcdir/xil_mpu_r5.h "../${standalone_version}/src/xil_mpu.h"
 				}
 				
                                 foreach entry [glob -nocomplain -types f [file join $platformsrcdir *]] {

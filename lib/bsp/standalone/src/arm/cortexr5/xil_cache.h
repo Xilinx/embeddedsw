@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,19 +70,30 @@ extern "C" {
  *@endcond
  */
 
+#if defined (ARMR52)
+void Xil_DCacheEnable(void) __attribute__((__section__(".boot")));
+void Xil_DCacheDisable(void) __attribute__((__section__(".boot")));
+void Xil_DCacheInvalidate(void) __attribute__((__section__(".boot")));
+void Xil_DCacheFlush(void) __attribute__((__section__(".boot")));
+void Xil_ICacheEnable(void) __attribute__((__section__(".boot")));
+void Xil_ICacheDisable(void) __attribute__((__section__(".boot")));
+void Xil_ICacheInvalidate(void) __attribute__((__section__(".boot")));
+#else
 void Xil_DCacheEnable(void);
 void Xil_DCacheDisable(void);
 void Xil_DCacheInvalidate(void);
-void Xil_DCacheInvalidateRange(INTPTR adr, u32 len);
 void Xil_DCacheFlush(void);
+void Xil_ICacheEnable(void);
+void Xil_ICacheDisable(void);
+void Xil_ICacheInvalidate(void);
+#endif
+
+void Xil_DCacheInvalidateRange(INTPTR adr, u32 len);
 void Xil_DCacheFlushRange(INTPTR adr, u32 len);
 void Xil_DCacheInvalidateLine(INTPTR adr);
 void Xil_DCacheFlushLine(INTPTR adr);
 void Xil_DCacheStoreLine(INTPTR adr);
 
-void Xil_ICacheEnable(void);
-void Xil_ICacheDisable(void);
-void Xil_ICacheInvalidate(void);
 void Xil_ICacheInvalidateRange(INTPTR adr, u32 len);
 void Xil_ICacheInvalidateLine(INTPTR adr);
 
