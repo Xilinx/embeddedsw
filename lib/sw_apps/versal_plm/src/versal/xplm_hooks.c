@@ -25,6 +25,7 @@
 *       bsv  08/13/2021 Removed unnecessary header file
 * 1.04  skd  04/20/2022 Misra-C violation Rule 2.7 fixed
 * 1.05  ng   11/11/2022 Fixed doxygen file name error
+* 1.06  rama 04/28/2023 Added start-up STL invocation after PMC CDO is done
 *
 * </pre>
 *
@@ -35,6 +36,9 @@
 /***************************** Include Files *********************************/
 #include "xplm_hooks.h"
 #include "xpm_api.h"
+#ifdef PLM_ENABLE_STL
+#include "xstl_plminterface.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -66,6 +70,8 @@ int XPlm_HookBeforePmcCdo(void *Arg)
 /**
 * @brief This function will be called after processing the PMC CDO. All the
 * PMC configuration will be completed by this time.
+* If safety is enabled then start-up STLs which are dependent on PMC CDO will
+* be triggered.
 *
 * @param	Arg is not used
 * @return	XST_SUCCESS on success, any other value for error
@@ -79,7 +85,16 @@ int XPlm_HookAfterPmcCdo(void *Arg)
 
 	/* Call XilPM hook */
 	Status = XPm_HookAfterPlmCdo();
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
+#ifdef PLM_ENABLE_STL
+	/* Execute start-up STLs after PMC CDO */
+	Status = XStl_PlmStartupPreCdoTask(XSTL_PMC_CDO_DONE);
+#endif
+
+END:
 	return Status;
 }
 
