@@ -43,6 +43,7 @@
 * 1.11	sk	03/03/22 Update XCsuDma_GetSize return type description.
 * 1.14	ab	01/16/23 Added Xil_WaitForEvent() to XcsuDma_WaitForDoneTimeout.
 * 1.14	ab	01/18/23 Added byte-aligned transfer API for VERSAL_NET devices.
+* 1.14	bm	05/01/23 Fixed Assert condition in XCsuDma_Transfer for VERSAL_NET.
 * </pre>
 *
 ******************************************************************************/
@@ -145,9 +146,7 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	u32 DataSize = 0U;
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-#ifdef VERSAL_NET
-	Xil_AssertVoid(Addr != 0x0UL);
-#else
+#ifndef VERSAL_NET
 	Xil_AssertVoid(((Addr) & (u64)(XCSUDMA_ADDR_LSB_MASK)) == (u64)0x00);
 #endif
 	Xil_AssertVoid((Channel == (XCSUDMA_SRC_CHANNEL)) ||
