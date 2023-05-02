@@ -25,9 +25,10 @@
 * 2.00  bsv   03/13/22   Added error prints for unrecognized Eeprom
 * 3.00  skd   07/28/22   Added support to work with kv260 and kr260
 *                        starter kit xsa
-* 4.0   skd   09/11/22   Added Image recovery support for vhk158, vek280
+* 4.00  skd   09/11/22   Added Image recovery support for vhk158, vek280
 *                        system controllers
 *       skd   01/31/23   Added debug print levels
+* 5.00  skd   05/02/23   Added Image recovery support for KD240 board
 *
 * </pre>
 *
@@ -149,6 +150,7 @@ static void Xbir_SysShowBootImgInfo (Xbir_SysBootImgInfo *BootImgInfo);
 static int Xbir_EthInit (void);
 static int Xbir_SysReadSysInfoFromEeprom (void);
 static int Xbir_KVEthInit (void);
+static int Xbir_KDEthInit (void);
 static int Xbir_SysCalculateCrc32 (u32 Offset, u32 Size,
 	Xbir_ReadDevice ReadDevice);
 static int Xbir_KREthInit (void);
@@ -283,6 +285,10 @@ static int Xbir_EthInit (void)
 	else if (strncmp((char *)&CCInfo.BoardPrdName[XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET],
                 "KR", XBIR_SYS_PRODUCT_TYPE_LEN) == 0U) {
 		Status = Xbir_KREthInit();
+	}
+	else if (strncmp((char *)&CCInfo.BoardPrdName[XBIR_SYS_PRODUCT_TYPE_NAME_OFFSET],
+                "KD", XBIR_SYS_PRODUCT_TYPE_LEN) == 0U) {
+		Status = Xbir_KDEthInit();
 	}
 	else {
 		Status = Xbir_SCEthInit();
@@ -424,6 +430,83 @@ static int Xbir_KREthInit (void)
 END:
 	return Status;
 }
+
+/*****************************************************************************/
+/**
+ * @brief
+ * This function brings the ethernet phy of KD260 out of reset.
+ *
+ * @return	XST_SUCCESS on successfully bringing phy out of reset
+ * 		Error code on failure
+ *
+ *****************************************************************************/
+static int Xbir_KDEthInit (void)
+{
+	int Status = XST_FAILURE;
+	XGpioPs Gpio = {0U};
+	XGpioPs_Config *ConfigPtr;
+
+
+#ifdef XPAR_PSU_ETHERNET_1_BASEADDR
+	EmacBaseAddr = XPAR_PSU_ETHERNET_1_BASEADDR;
+#endif
+
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_38_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_39_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_40_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_41_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_42_OFFSET, 0x000000FEU, 0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_43_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_44_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_45_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_46_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_47_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_48_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_49_OFFSET, 0x000000FEU ,0x00000002U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_50_OFFSET, 0x000000FEU, 0x00000080U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_PIN_51_OFFSET, 0x000000FEU, 0x00000080U);
+
+	/* GEM clock settings */
+	Xbir_MaskWrite(CRL_APB_GEM1_REF_CTRL_OFFSET, 0x063F3F07U, 0x06010800U);
+	Xbir_MaskWrite(CRL_APB_GEM_TSU_REF_CTRL_OFFSET, 0x013F3F07U, 0x01010400U);
+
+	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI0_OFFSET, 0xFFFFFFFFU, 0xD4000000U);
+	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI1_OFFSET, 0xFFFFFFFFU, 0x00015000);
+	Xbir_MaskWrite(IOU_SLCR_MIO_MST_TRI2_OFFSET, 0x00003FFFU, 0x0000000BU);
+	Xbir_MaskWrite(XBIR_MIO_BANK1_CTRL5, 0x03FFFFFFU, 0x03FFF000);
+	Xbir_MaskWrite(CRL_APB_RST_LPD_IOU0_OFFSET, 0x00000003U, 0x00000000U);
+
+	ConfigPtr = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_DEVICE_ID);
+	if (ConfigPtr == NULL) {
+		Xbir_Printf(DEBUG_INFO, "ERROR: GPIO look up config failed\n\r");
+		goto END;
+	}
+
+	Status = XGpioPs_CfgInitialize(&Gpio, ConfigPtr, ConfigPtr->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		Xbir_Printf(DEBUG_INFO, "ERROR: GPIO config initialize failed\n\r");
+		goto END;
+	}
+
+	/*
+	 * Set the direction for the pin to be output.
+	 */
+	XGpioPs_SetDirectionPin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_DIR_OUTPUT);
+	XGpioPs_SetOutputEnablePin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_OUTPUT_EN);
+
+	/*
+	 * Asserting the active low GPIO, which pushes the PHY into reset,
+	 * wait for 200us and then deasserting the GPIO to bring PHY out of reset
+	 */
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_LOW);
+	usleep(XBIR_LATCH_TIME_FOR_PHY_RESET_IN_US);
+	XGpioPs_WritePin(&Gpio, XBIR_ETH_PHY_MIO_77, XBIR_GPIO_HIGH);
+	usleep(XBIR_POST_RESET_STABILIZATION_TIME_FOR_PHY_IN_US);
+
+END:
+	return Status;
+}
+
 
 /*****************************************************************************/
 /**
@@ -1078,7 +1161,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 	for(BoardIndex = 0U; BoardIndex < BoardNum; BoardIndex++) {
 		if((strncmp((char *)&SysInfo.BoardPrdName, BoardList[BoardIndex],
 			XBIR_SYS_PRODUCT_NAME_LEN) == 0U)){
-				Xbir_Printf(DEBUG_PRINT_ALWAYS, " Board Detected: %s\n\r", (char *)&SysInfo.BoardPrdName);
+				Xbir_Printf(DEBUG_PRINT_ALWAYS, "Board Detected: %s\n\r", (char *)&SysInfo.BoardPrdName);
 				break;
 			}
 	}
@@ -1132,7 +1215,7 @@ static int Xbir_SysReadSysInfoFromEeprom (void)
 		goto END;
 	}
 
-	Xbir_Printf(DEBUG_PRINT_ALWAYS, " Carrier Card Detected: %s\n\r", (char *)&CCInfo.BoardPrdName);
+	Xbir_Printf(DEBUG_PRINT_ALWAYS, "Carrier Card Detected: %s\n\r", (char *)&CCInfo.BoardPrdName);
 	memcpy(CCInfo.RevNum, CCEepromData.SysBoardInfo.RevNum,
 		sizeof(CCEepromData.SysBoardInfo.RevNum));
 	memcpy(CCInfo.BoardSerialNumber,
