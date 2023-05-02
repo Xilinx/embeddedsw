@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   mh  06/24/17 Initial release.
  * 2.1   tu  12/29/17 LPD and FPD offsets adjusted
+ * 2.6   rv  05/02/23 Added PLL macros
  * </pre>
  *
 *******************************************************************************/
@@ -52,6 +54,10 @@
 #define XAVBUF_FPD_CTRL_OFFSET          12
 #define XAVBUF_LPD_CTRL_OFFSET          16
 #define MOD_3(a)			((a) % (3))
+
+/* PLL configurations based on Zynq UltraScale+ MPSoC TRM */
+#define XAVBUF_FBDIV_OFFSET		25
+#define XAVBUF_PLL_LOCK_DLY		63
 
 /*************************** Constant Variable Definitions ********************/
 /**
@@ -248,10 +254,11 @@ static int XAVBuf_PllCalcParameterValues(XAVBuf_Pll *PllInstancePtr,
 	/* Estimate the total divider. */
 	ExtDivider =  (XAVBUF_PLL_OUT_FREQ / FreqHz) /
 			      PllInstancePtr->DomainSwitchDiv;
-	if (ExtDivider > 63 && PllInstancePtr->ExtDividerCnt == 2) {
-		PllInstancePtr->ExtDivider0 = 63;
-		PllInstancePtr->ExtDivider1 = ExtDivider / 63;
-	} else if (ExtDivider < 63) {
+	if (ExtDivider > XAVBUF_PLL_LOCK_DLY &&
+		PllInstancePtr->ExtDividerCnt == 2) {
+		PllInstancePtr->ExtDivider0 = XAVBUF_PLL_LOCK_DLY;
+		PllInstancePtr->ExtDivider1 = ExtDivider / XAVBUF_PLL_LOCK_DLY;
+	} else if (ExtDivider < XAVBUF_PLL_LOCK_DLY) {
 		PllInstancePtr->ExtDivider0 = ExtDivider;
 		PllInstancePtr->ExtDivider1 = 1;
 	} else
@@ -325,20 +332,20 @@ static int  XAVBuf_ConfigurePll(XAVBuf_Pll *PllInstancePtr)
 	RegPll = 0;
 	/* Set the values for lock dly, lock counter, capacitor and resistor. */
 	RegPll |=
-		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV - 25].cp
-		<< XAVBUF_PLL_CFG_CP_SHIFT;
-	RegPll |=
-		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV - 25].res
-		<< XAVBUF_PLL_CFG_RES_SHIFT;
-	RegPll |=
-		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV - 25].lfhf
-		<< XAVBUF_PLL_CFG_LFHF_SHIFT;
+		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -
+		XAVBUF_FBDIV_OFFSET].cp << XAVBUF_PLL_CFG_CP_SHIFT;
 	RegPll |=
 		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -
-		25].lock_dly << XAVBUF_PLL_CFG_LOCK_DLY_SHIFT;
+		XAVBUF_FBDIV_OFFSET].res << XAVBUF_PLL_CFG_RES_SHIFT;
 	RegPll |=
 		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -
-		25].lock_cnt << XAVBUF_PLL_CFG_LOCK_CNT_SHIFT;
+		XAVBUF_FBDIV_OFFSET].lfhf << XAVBUF_PLL_CFG_LFHF_SHIFT;
+	RegPll |=
+		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -
+		XAVBUF_FBDIV_OFFSET].lock_dly << XAVBUF_PLL_CFG_LOCK_DLY_SHIFT;
+	RegPll |=
+		PllFracDivideTable[PllInstancePtr->FracIntegerFBDIV -
+		XAVBUF_FBDIV_OFFSET].lock_cnt << XAVBUF_PLL_CFG_LOCK_CNT_SHIFT;
 	XAVBuf_WriteReg(BaseAddress, XAVBUF_PLL_CFG + (MOD_3(Pll) *
 		PllInstancePtr->Offset), RegPll);
 	/* Enable and set Fractional Data. */
