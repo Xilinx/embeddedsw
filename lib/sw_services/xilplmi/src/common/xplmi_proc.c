@@ -49,6 +49,8 @@
 *       bm   01/03/2023 Remove usage of double data type
 *       bm   03/11/2023 Set PmcIroFreq as 320MHz by default
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.10  bm   04/28/2023 Use XPlmi_GetRomIroFreq API to get IRO frequency used
+*                       during ROM
 *
 * </pre>
 *
@@ -246,7 +248,7 @@ void XPlmi_PrintRomTime(void)
 	/* Print time stamp of PLM */
 	XPlmi_GetPerfTime((XPLMI_PIT1_CYCLE_VALUE << 32U) |
 		XPLMI_PIT2_CYCLE_VALUE, PmcRomTime,
-		XPLMI_PMC_IRO_FREQ_320_MHZ, &PerfTime);
+		XPlmi_GetRomIroFreq(), &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%u.%03u ms: ROM Time\r\n",
 		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac);
 }

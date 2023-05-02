@@ -29,6 +29,7 @@
 *       bm   03/11/2023 Modify XPlmi_PreInit to return Status
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.02  bm   04/28/2023 Update Pmc IRO frequency by detecting the part
 *
 * </pre>
 *
@@ -81,11 +82,29 @@
 #define XPLMI_BOARD_PARAMS_VERSION	(1U) /**< Board parameters version */
 #define XPLMI_BOARD_PARAMS_LCVERSION	(1U) /**< Board parameters LC version */
 
-#define XPLMI_PMC_IRO_FREQ_1_MHZ	(1000000U) /**< PMC IRO frequency 1MHz */
+#define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f) /* Voltage multiplier for Sysmon */
+
+/* PMC IRO Frequency related macros */
+#define XPLMI_PMC_IRO_FREQ_233_MHZ	(233000000U) /* PMC IRO frequency 233Mhz */
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/*****************************************************************************/
+/**
+ * @brief        This function converts voltage to raw voltage value
+ *
+ * @param        Voltage is the floating point voltage value
+ *
+ * @return       32-bit voltage value
+ *
+ ******************************************************************************/
+static inline u32 XPlmi_GetRawVoltage(float Voltage)
+{
+	float RawVoltage = Voltage * XPLMI_PMC_VOLTAGE_MULTIPLIER;
+
+	return (u32)RawVoltage;
+}
 
 /************************** Function Prototypes ******************************/
 static void XPlmi_DisableClearIOmodule(void);
@@ -102,6 +121,9 @@ static XInterruptHandler g_TopLevelInterruptTable[] = {
 	XPlmi_IntrHandler,
 	XPlmi_ErrIntrHandler,
 };
+
+ /* Default IRO frequency during ROM phase is 233MHz */
+static u32 RomIroFreq = XPLMI_PMC_IRO_FREQ_233_MHZ;
 
 /*****************************************************************************/
 /**
@@ -541,32 +563,53 @@ void XPlmi_EnableIomoduleIntr(void)
 
 /*****************************************************************************/
 /**
-* @brief	It sets the PMC IRO frequency.
+* @brief	This function provides the Iro Frequency used in ROM
 *
-* @return	XST_SUCCESS on success and error code failure
+* @return	RomIroFreq value
+*
+*****************************************************************************/
+u32 XPlmi_GetRomIroFreq(void)
+{
+	return RomIroFreq;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This functions sets the PMC IRO frequency.
+*
+* @return	- XST_SUCCESS on success
+*		- XST_FAILURE on failure
 *
 *****************************************************************************/
 int XPlmi_SetPmcIroFreq(void)
 {
 	int Status = XST_FAILURE;
-	u32 IroTrimSelect;
+	u32 RawVoltage;
 	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
 
-	IroTrimSelect = XPlmi_In32(EFUSE_CTRL_ANLG_OSC_SW_1LP);
-
-	/* Set the Frequency */
-	if (XPLMI_PLATFORM == PMC_TAP_VERSION_SPP) {
-		*PmcIroFreq = XPLMI_PMC_IRO_FREQ_1_MHZ;
-		Status = XST_SUCCESS;
+	/** Set PMC IRO Frequency to the value used during ROM phase */
+	*PmcIroFreq = XPLMI_PMC_IRO_FREQ_233_MHZ;
+	if ((XPlmi_In32(EFUSE_CTRL_ANLG_OSC_SW_1LP) == XPLMI_EFUSE_IRO_TRIM_FAST)) {
+		RomIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
+		*PmcIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
+		goto END;
 	}
-	else {
-		*PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
-		if (IroTrimSelect == XPLMI_EFUSE_IRO_TRIM_400MHZ) {
-			*PmcIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
-		}
-		Status = (int)Xil_SetMBFrequency(*PmcIroFreq);
-	}
+	/** Set PMC IRO frequency to be used during PLM phase */
+	RawVoltage = Xil_In32(XPLMI_SYSMON_SUPPLY0_ADDR);
+	RawVoltage &= XPLMI_SYSMON_SUPPLYX_MASK;
 
+	/** Update IR0 frequency to 400MHz for HP parts */
+	XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_UNLOCK_VAL);
+	if (RawVoltage >= XPlmi_GetRawVoltage(XPLMI_VCC_PMC_HP_MIN)) {
+		*PmcIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
+		XPlmi_Out32(EFUSE_CTRL_ANLG_OSC_SW_1LP,
+			XPLMI_EFUSE_IRO_TRIM_FAST);
+	}
+	XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_LOCK_VAL);
+
+END:
+	/** Update PPU1 MB frequency used in BSP for timing calculations */
+	Status = (int)Xil_SetMBFrequency(*PmcIroFreq);
 	return Status;
 }
 

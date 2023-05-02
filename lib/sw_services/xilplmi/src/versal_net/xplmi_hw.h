@@ -30,6 +30,7 @@
 * 1.01  bm   11/07/2022 Clear SSS Cfg Error in SSSCfgSbiDma for Versal Net
 *       ng   11/11/2022 Fixed doxygen file name error
 *       sk   01/13/2023 Added Register/Mask defines for PMX LPD FPD CPM domain
+* 1.02  bm   04/28/2023 Added IRO_SWAP and sysmon related macros
 *
 * </pre>
 *
@@ -738,9 +739,10 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define EFUSE_CACHE_DME_FIPS_MODE_MASK (0X04000000U)
 #define XPLMI_EFUSE_FIPS_MODE_SHIFT   	(26U)
 
-#define EFUSE_ROM_SWDT_USAGE_MASK	(0xC0U)
-#define EFUSE_PLM_UPDATE_MASK		(0x400U)
-#define EFUSE_TRIM_LP_MASK		(0xFFFFU)
+#define EFUSE_ROM_SWDT_USAGE_MASK		(0xC0U)
+#define EFUSE_PLM_UPDATE_MASK			(0x400U)
+#define EFUSE_TRIM_LP_MASK			(0xFFFFU)
+#define EFUSE_CACHE_ROM_RSVD_IRO_SWAP_MASK	(0x00000100U)
 
 #define XPLMI_IPI_BASEADDR		(0xEB320000U)
 
@@ -1197,6 +1199,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
  */
 #define PSMX_GLOBAL_REG_GLOBAL_CNTRL	(0xEBC90000U)
 #define PSMX_GLOBAL_REG_GLOBAL_CNTRL_FW_IS_PRESENT_MASK	(0x00000010U)
+
+/* Sysmon supply 0 address */
+#define XPLMI_SYSMON_SUPPLY0_ADDR		(0xF1271040U)
+#define XPLMI_SYSMON_SUPPLYX_MASK		(0x0000FFFFU)
+#define XPLMI_VCC_PMC_HP_MIN			(0.854f)
 
 /* Slave error enable mask */
 #define XPLMI_SLAVE_ERROR_ENABLE_MASK	(0x1U)

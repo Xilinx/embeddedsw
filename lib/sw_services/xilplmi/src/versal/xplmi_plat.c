@@ -30,6 +30,7 @@
 *       bm   03/11/2023 Added check for blind write in UpdateResetReason
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.02  bm   04/28/2023 Update Trim related macros
 *
 * </pre>
 *
@@ -492,12 +493,12 @@ int XPlmi_SetPmcIroFreq(void)
 		if (RawVoltage >= XPlmi_GetRawVoltage(XPLMI_VCC_PMC_MP_MIN)) {
 			*PmcIroFreq = XPLMI_PMC_IRO_FREQ_400_MHZ;
 			XPlmi_Out32(EFUSE_CTRL_ANLG_OSC_SW_1LP,
-				XPLMI_EFUSE_IRO_TRIM_400MHZ);
+				XPLMI_EFUSE_IRO_TRIM_FAST);
 		}
 		else {
 			*PmcIroFreq = XPLMI_PMC_IRO_FREQ_320_MHZ;
 			XPlmi_Out32(EFUSE_CTRL_ANLG_OSC_SW_1LP,
-				XPLMI_EFUSE_IRO_TRIM_320MHZ);
+				XPLMI_EFUSE_IRO_TRIM_SLOW);
 		}
 		XPlmi_Out32(EFUSE_CTRL_WR_LOCK, XPLMI_EFUSE_CTRL_LOCK_VAL);
 	}
