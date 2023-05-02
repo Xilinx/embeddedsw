@@ -21,6 +21,7 @@
 *       bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
 *       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.02  bm   05/01/2023 Fix Default PMC WDT timeout when Efuse is enabled
 *
 * </pre>
 *
@@ -59,7 +60,7 @@
 #ifdef XPLMI_PMC_WDT
 #define XPLMI_WDT_VERSION	(1U)
 #define XPLMI_WDT_LCVERSION	(1U)
-#define XPLMI_PMC_WDT_GWOR_ADDR		(0xF03F2008U)
+#define XPLMI_DEFAULT_PMC_WDT_TIMEOUT	(1000U)
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -260,19 +261,9 @@ int XPlmi_DefaultSWdtConfig(void)
 {
 	int Status = XST_FAILURE;
 #ifdef XPLMI_PMC_WDT
-	u32 CntVal;
-	u32 *WdtClkFreq;
-	u32 Period;
-
 	if ((XPlmi_RomSwdtUsage() == (u8)TRUE) &&
 		(PmcWdtInstance.WdtInst.IsEnabled == (u8)FALSE)) {
-		CntVal = XPlmi_In32(XPLMI_PMC_WDT_GWOR_ADDR);
-		WdtClkFreq = XPlmi_GetPmcIroFreq();
-		if (XPLMI_PLATFORM != PMC_TAP_VERSION_SPP) {
-			*WdtClkFreq /= 4U;
-		}
-		Period = (u32)((u64)CntVal * 2U * 1000U / *WdtClkFreq);
-		Status = XPlmi_EnableWdt(XPLMI_PM_DEV_PMC_WDT, Period);
+		Status = XPlmi_EnableWdt(XPLMI_PM_DEV_PMC_WDT, XPLMI_DEFAULT_PMC_WDT_TIMEOUT);
 	}
 	else {
 		Status = XST_SUCCESS;
