@@ -33,7 +33,8 @@
 *       sk   01/11/2023 Added Config Space for Image Store in RTCA
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *       bm   03/11/2023 Modify XPlmi_PreInit prototype
-*		dd   03/28/2023 Updated doxygen comments
+*       dd   03/28/2023 Updated doxygen comments
+* 1.04  bm   04/28/2023 Add XPlmi_GetRomIroFreq prototype
 *
 * </pre>
 *
@@ -78,6 +79,8 @@ extern "C" {
 #define XPLMI_RTCFG_SECURE_PKI_KAT_ADDR_2			(XPLMI_RTCFG_BASEADDR + 0x2A4U) /**< Secure PKI KAT address 2 */
 
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U) /**< ROM service timeout */
+
+#define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U)
 
 /**************************** Type Definitions *******************************/
 /* Minor Error Codes */
@@ -477,6 +480,7 @@ int XPlmi_CheckAndUpdateFipsState(void);
 void XPlmi_UpdateCryptoStatus(u32 Mask, u32 Val);
 u32 XPlmi_GetCryptoStatus(u32 Mask);
 u8 XPlmi_IsKatRan(u32 PlmKatMask);
+u32 XPlmi_GetRomIroFreq(void);
 
 /* Functions defined in xplmi_plat_cmd.c */
 int XPlmi_CheckIpiAccess(u32 CmdId, u32 IpiReqType);

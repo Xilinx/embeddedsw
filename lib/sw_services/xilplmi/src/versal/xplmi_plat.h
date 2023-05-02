@@ -32,7 +32,8 @@
 *       sk   01/11/2023 Added Config Space for Image Store in RTCA
 *       bm   01/18/2023 Fix CFI readback logic with correct keyhole size
 *       bm   03/11/2023 Modified prototype for XPlmi_PreInit API
-*		dd   03/28/2023 Updated doxygen comments
+*       dd   03/28/2023 Updated doxygen comments
+* 1.02  bm   04/28/2023 Add XPlmi_GetRomIroFreq API
 *
 * </pre>
 *
@@ -231,6 +232,8 @@ enum {
 #define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PMC error address */
 #define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PSM error address */
 
+#define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U)
+
 /*****************************************************************************/
 /**
  * @brief	This function provides the Slr Type
@@ -358,6 +361,18 @@ static inline u8 XPlmi_IsKatRan(u32 PlmKatMask)
 	/*Not Applicable for Versal*/
 	(void)PlmKatMask;
 	return TRUE;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function provides the Iro Frequency used in ROM
+*
+* @return	XPLMI_PMC_IRO_FREQ_320_MHZ
+*
+*****************************************************************************/
+static inline u32 XPlmi_GetRomIroFreq(void)
+{
+	return XPLMI_PMC_IRO_FREQ_320_MHZ;
 }
 
 /************************** Function Prototypes ******************************/

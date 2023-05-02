@@ -37,6 +37,7 @@
 *       bsv  08/02/2021 Removed unnecessary structure
 * 1.06  bm   07/06/2022 Refactor versal and versal_net code
 * 1.07  bm   01/03/2023 Remove usage of double data type
+* 1.08  bm   04/28/2023 Update Trim related macros
 *
 * </pre>
 *
@@ -67,7 +68,6 @@ extern "C" {
 
 /* PMC IRO Frequency related macros */
 #define XPLMI_PMC_IRO_FREQ_400_MHZ	(400000000U)
-#define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U)
 #define XPLMI_PMC_IRO_FREQ_130_MHZ	(130000000U)
 
 /** PIT related macros */
@@ -84,8 +84,8 @@ extern "C" {
 #define XPLMI_MEGA			(1000000U)
 #define XPLMI_KILO			(1000U)
 
-#define XPLMI_EFUSE_IRO_TRIM_320MHZ	(0U)
-#define XPLMI_EFUSE_IRO_TRIM_400MHZ	(1U)
+#define XPLMI_EFUSE_IRO_TRIM_SLOW	(0U)
+#define XPLMI_EFUSE_IRO_TRIM_FAST	(1U)
 
 /**************************** Type Definitions *******************************/
 /**
