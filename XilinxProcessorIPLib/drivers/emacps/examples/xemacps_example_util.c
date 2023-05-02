@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,7 +65,7 @@ u32 Platform;
 * @note     None.
 *
 *****************************************************************************/
-void EmacPsUtilFrameHdrFormatMAC(EthernetFrame * FramePtr, char *DestAddr)
+void EmacPsUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr)
 {
 	char *Frame = (char *) FramePtr;
 	char *SourceAddress = EmacPsMAC;
@@ -94,7 +95,7 @@ void EmacPsUtilFrameHdrFormatMAC(EthernetFrame * FramePtr, char *DestAddr)
 * @note     None.
 *
 *****************************************************************************/
-void EmacPsUtilFrameHdrFormatType(EthernetFrame * FramePtr, u16 FrameType)
+void EmacPsUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 {
 	char *Frame = (char *) FramePtr;
 
@@ -130,7 +131,7 @@ void EmacPsUtilFrameHdrFormatType(EthernetFrame * FramePtr, u16 FrameType)
 * @note     None.
 *
 *****************************************************************************/
-void EmacPsUtilFrameSetPayloadData(EthernetFrame * FramePtr, u32 PayloadSize)
+void EmacPsUtilFrameSetPayloadData(EthernetFrame *FramePtr, u32 PayloadSize)
 {
 	u32 BytesLeft = PayloadSize;
 	u8 *Frame;
@@ -156,8 +157,9 @@ void EmacPsUtilFrameSetPayloadData(EthernetFrame * FramePtr, u32 PayloadSize)
 		*Frame++ = (u8) (Counter >> 8);	/* high */
 		BytesLeft--;
 
-		if (!BytesLeft)
+		if (!BytesLeft) {
 			break;
+		}
 
 		*Frame++ = (u8) Counter++;	/* low */
 		BytesLeft--;
@@ -180,8 +182,8 @@ void EmacPsUtilFrameSetPayloadData(EthernetFrame * FramePtr, u32 PayloadSize)
 *
 * @note     None.
 *****************************************************************************/
-LONG EmacPsUtilFrameVerify(EthernetFrame * CheckFrame,
-			   EthernetFrame * ActualFrame)
+LONG EmacPsUtilFrameVerify(EthernetFrame *CheckFrame,
+			   EthernetFrame *ActualFrame)
 {
 	char *CheckPtr = (char *) CheckFrame;
 	char *ActualPtr = (char *) ActualFrame;
@@ -232,8 +234,9 @@ LONG EmacPsUtilFrameVerify(EthernetFrame * CheckFrame,
 
 		BytesLeft--;
 
-		if (!BytesLeft)
+		if (!BytesLeft) {
 			break;
+		}
 
 		if (*ActualPtr++ != (char) Counter++) {	/* low */
 			return XST_FAILURE;
@@ -256,7 +259,7 @@ LONG EmacPsUtilFrameVerify(EthernetFrame * CheckFrame,
 * @note     None.
 *
 *****************************************************************************/
-void EmacPsUtilFrameMemClear(EthernetFrame * FramePtr)
+void EmacPsUtilFrameMemClear(EthernetFrame *FramePtr)
 {
 	u32 *Data32Ptr = (u32 *) FramePtr;
 	u32 WordsLeft = sizeof(EthernetFrame) / sizeof(u32);
@@ -286,7 +289,8 @@ void EmacPsUtilstrncpy(char *Destination, const char *Source, u32 n)
 {
 	do {
 		*Destination++ = *Source++;
-	} while (--n != 0);
+	}
+	while (--n != 0);
 }
 
 
@@ -300,15 +304,15 @@ void EmacPsUtilstrncpy(char *Destination, const char *Source, u32 n)
 * @note     None.
 *
 *****************************************************************************/
-void EmacPsUtilEnterLocalLoopback(XEmacPs * EmacPsInstancePtr)
+void EmacPsUtilEnterLocalLoopback(XEmacPs *EmacPsInstancePtr)
 {
 	u32 reg;
 
 	reg = XEmacPs_ReadReg(EmacPsInstancePtr->Config.BaseAddress,
-				XEMACPS_NWCTRL_OFFSET);
+			      XEMACPS_NWCTRL_OFFSET);
 	XEmacPs_WriteReg(EmacPsInstancePtr->Config.BaseAddress,
-			   XEMACPS_NWCTRL_OFFSET,
-			   reg | XEMACPS_NWCTRL_LOOPEN_MASK);
+			 XEMACPS_NWCTRL_OFFSET,
+			 reg | XEMACPS_NWCTRL_LOOPEN_MASK);
 }
 
 
@@ -331,7 +335,7 @@ void EmacPsUtilEnterLocalLoopback(XEmacPs * EmacPsInstancePtr)
 #define PHY_ID_MARVELL	0x141
 #define PHY_ID_TI		0x2000
 
-u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
+u32 XEmacPsDetectPHY(XEmacPs *EmacPsInstancePtr)
 {
 	u32 PhyAddr;
 	u32 Status;
@@ -340,10 +344,10 @@ u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
 
 	for (PhyAddr = 0; PhyAddr <= 31; PhyAddr++) {
 		Status = XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr,
-					  PHY_DETECT_REG1, &PhyReg1);
+					 PHY_DETECT_REG1, &PhyReg1);
 
 		Status |= XEmacPs_PhyRead(EmacPsInstancePtr, PhyAddr,
-					   PHY_DETECT_REG2, &PhyReg2);
+					  PHY_DETECT_REG2, &PhyReg2);
 
 		if ((Status == XST_SUCCESS) &&
 		    (PhyReg1 > 0x0000) && (PhyReg1 < 0xffff) &&
@@ -391,8 +395,8 @@ u32 XEmacPsDetectPHY(XEmacPs * EmacPsInstancePtr)
 #define PHY_TI_RGMII_ZCU102	0xA8
 #define PHY_TI_RGMII_VERSALEMU	0xAB
 
-LONG EmacPsUtilMarvellPhyLoopback(XEmacPs * EmacPsInstancePtr,
-									u32 Speed, u32 PhyAddr)
+LONG EmacPsUtilMarvellPhyLoopback(XEmacPs *EmacPsInstancePtr,
+				  u32 Speed, u32 PhyAddr)
 {
 	LONG Status;
 	u16 PhyReg0  = 0;
@@ -403,21 +407,21 @@ LONG EmacPsUtilMarvellPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	 * Setup speed and duplex
 	 */
 	switch (Speed) {
-	case 10:
-		PhyReg0 |= PHY_REG0_10;
-		PhyReg21 |= PHY_REG21_10;
-		break;
-	case 100:
-		PhyReg0 |= PHY_REG0_100;
-		PhyReg21 |= PHY_REG21_100;
-		break;
-	case 1000:
-		PhyReg0 |= PHY_REG0_1000;
-		PhyReg21 |= PHY_REG21_1000;
-		break;
-	default:
-		EmacPsUtilErrorTrap("Error: speed not recognized ");
-		return XST_FAILURE;
+		case 10:
+			PhyReg0 |= PHY_REG0_10;
+			PhyReg21 |= PHY_REG21_10;
+			break;
+		case 100:
+			PhyReg0 |= PHY_REG0_100;
+			PhyReg21 |= PHY_REG21_100;
+			break;
+		case 1000:
+			PhyReg0 |= PHY_REG0_1000;
+			PhyReg21 |= PHY_REG21_1000;
+			break;
+		default:
+			EmacPsUtilErrorTrap("Error: speed not recognized ");
+			return XST_FAILURE;
 	}
 
 	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, 0, PhyReg0);
@@ -484,8 +488,8 @@ LONG EmacPsUtilMarvellPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	return XST_SUCCESS;
 }
 
-LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
-								u32 Speed, u32 PhyAddr)
+LONG EmacPsUtilTiPhyLoopback(XEmacPs *EmacPsInstancePtr,
+			     u32 Speed, u32 PhyAddr)
 {
 	LONG Status;
 	u16 PhyReg0  = 0, LoopbackSpeed = 0;
@@ -495,18 +499,18 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	 * Setup speed and duplex
 	 */
 	switch (Speed) {
-	case 10:
-		PhyReg0 |= PHY_REG0_10;
-		break;
-	case 100:
-		PhyReg0 |= PHY_REG0_100;
-		break;
-	case 1000:
-		PhyReg0 |= PHY_REG0_1000;
-		break;
-	default:
-		EmacPsUtilErrorTrap("Error: speed not recognized ");
-		return XST_FAILURE;
+		case 10:
+			PhyReg0 |= PHY_REG0_10;
+			break;
+		case 100:
+			PhyReg0 |= PHY_REG0_100;
+			break;
+		case 1000:
+			PhyReg0 |= PHY_REG0_1000;
+			break;
+		default:
+			EmacPsUtilErrorTrap("Error: speed not recognized ");
+			return XST_FAILURE;
 	}
 	LoopbackSpeed = PhyReg0;
 
@@ -591,7 +595,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 		RgmiiTuning = PHY_TI_RGMII_VERSALEMU;
 	}
 	Status = XEmacPs_PhyWrite(EmacPsInstancePtr, PhyAddr, PHY_ADDAR, RgmiiTuning);
-		if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Error in tuning");
 		return XST_FAILURE;
 	}
@@ -653,9 +657,8 @@ void EmacpsDelay(u32 delay)
 #ifndef __MICROBLAZE__
 	sleep(delay);
 #else
-	unsigned long count=0;
-	while(count < (delay * 0xffff))
-	{
+	unsigned long count = 0;
+	while (count < (delay * 0xffff)) {
 		count++;
 	}
 #endif
@@ -663,7 +666,7 @@ void EmacpsDelay(u32 delay)
 }
 
 
-LONG EmacPsUtilEnterLoopback(XEmacPs * EmacPsInstancePtr, u32 Speed)
+LONG EmacPsUtilEnterLoopback(XEmacPs *EmacPsInstancePtr, u32 Speed)
 {
 	LONG Status;
 	u16 PhyIdentity;
