@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 4.7  kpt   03/18/21 Replaced XPlmi_DmaXfr with XPlmi_MemCpy64
 * 5.0  kpt   07/24/22 Moved XSecure_RsaKat into xsecure_kat_plat_ipihanlder.c
 *      dc    08/22/22 Fixed RSA key accesses address based on RSA key size
+* 5.1  yog   05/03/23 Fixed MISRA C violation of Rule 10.3
 *
 * </pre>
 *
@@ -119,7 +120,7 @@ static int XSecure_RsaDecrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 		goto END;
 	}
 
@@ -174,7 +175,7 @@ static int XSecure_RsaEncrypt(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_Rsa *XSecureRsaInstPtr = XSecure_GetRsaInstance();
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_RSA_KAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 		goto END;
 	}
 
