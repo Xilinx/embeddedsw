@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  07/19/22 Initial release
+* 5.1   yog  05/03/2023 Fixed MISRA C violation of Rule 8.3
 *
 * </pre>
 * @note
@@ -50,7 +52,7 @@ int XSecure_Sha3Kat(XSecure_ClientInstance *InstancePtr);
 int XSecure_EllipticSignVerifyKat(XSecure_ClientInstance *InstancePtr, XSecure_EccCrvClass CurveClass);
 int XSecure_AesEncryptKat(XSecure_ClientInstance *InstancePtr);
 int XSecure_RsaPrivateDecKat(XSecure_ClientInstance *InstancePtr);
-int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccCrvClass CurveType);
+int XSecure_EllipticSignGenKat(XSecure_ClientInstance *InstancePtr, XSecure_EccCrvClass CurveClass);
 
 #ifdef __cplusplus
 }
