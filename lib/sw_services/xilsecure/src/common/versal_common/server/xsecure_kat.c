@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 *       kpt  08/03/2022 Added volatile keyword to avoid compiler optimization
 *                       of loop redundancy checks
 *       dc   08/26/2022 Removed initializations of arrays
+* 5.1   yog  05/03/2023 Fixed MISRA C violation of Rule 12.1
 *
 * </pre>
 *
@@ -1248,8 +1249,8 @@ int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass) {
 	XSecure_EllipticKey *PubKey = XSecure_GetKatEccPublicKey(CrvClass);
 	XSecure_EllipticSign *ExpSign = XSecure_GetKatEccExpSign(CrvClass);
 
-	if (PubKey->Qx == NULL || PubKey->Qy == NULL || ExpSign->SignR == NULL
-		|| ExpSign->SignS == NULL) {
+	if ((PubKey->Qx == NULL) || (PubKey->Qy == NULL) || (ExpSign->SignR == NULL)
+		|| (ExpSign->SignS == NULL)) {
 		Status = (int)XSECURE_ELLIPTIC_NON_SUPPORTED_CRV;
 		goto END;
 	}
