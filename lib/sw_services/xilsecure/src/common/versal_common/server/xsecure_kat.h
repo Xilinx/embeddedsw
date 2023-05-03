@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ---------- -------------------------------------------------------
 * 5.0   kpt  07/15/2022 Initial release
+* 5.1   yog  05/03/2023 Fixed MISRA C violation of Rule 8.3
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ int XSecure_RsaPrivateDecryptKat(void);
 XSecure_EllipticKey* XSecure_GetKatEccPublicKey(XSecure_EllipticCrvClass CrvClass);
 XSecure_EllipticSign* XSecure_GetKatEccExpSign(XSecure_EllipticCrvClass CrvClass);
 u8* XSecure_GetKatEccPrivateKey(XSecure_EllipticCrvClass CrvClass);
-u8* XSecure_GetKatEccEphimeralKey(XSecure_EllipticCrvTyp Curvetype);
+u8* XSecure_GetKatEccEphimeralKey(XSecure_EllipticCrvTyp CrvType);
 int XSecure_EllipticVerifySignKat(XSecure_EllipticCrvClass CrvClass);
 int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass);
 int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_EllipticKeyAddr *PubKeyAddr);
