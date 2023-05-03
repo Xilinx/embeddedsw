@@ -292,6 +292,8 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 		{PM_DEV_TTC_1, (u32)PM_CAP_ACCESS},
 		{PM_DEV_TTC_2, (u32)PM_CAP_ACCESS},
 		{PM_DEV_TTC_3, (u32)PM_CAP_ACCESS},
+		{PM_DEV_GPIO_PMC, (u32)PM_CAP_ACCESS},
+		{PM_DEV_GPIO, (u32)PM_CAP_ACCESS},
 	};
 
 	/*
