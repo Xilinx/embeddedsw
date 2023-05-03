@@ -28,6 +28,7 @@
 *       kal  01/05/2023 Added PCR Extend functions for secure images
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.02  ng   04/27/2023 Added support for cluster flags in ATF handoff params
 *
 * </pre>
 *
@@ -338,7 +339,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	u32 PrtnAttrbs;
 	u32 PrtnFlags;
-	u8 LoopCount = 0U;
+	u32 LoopCount = 0U;
 	XilPdi_ATFHandoffParams *ATFHandoffParams = XLoader_GetATFHandoffParamsAddr();
 
 	PrtnAttrbs = PrtnHdr->PrtnAttrb;
@@ -355,6 +356,10 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 				<< XIH_ATTRB_TR_SECURE_SHIFT_DIFF) |
 		((PrtnAttrbs & XIH_PH_ATTRB_TARGET_EL_MASK)
 				<< XIH_ATTRB_TARGET_EL_SHIFT_DIFF));
+
+	/** - Update cluster number based on destination cluster number. */
+	PrtnFlags |= (PrtnAttrbs & XIH_PH_ATTRB_DSTN_CLUSTER_MASK)
+							<< XIH_PRTN_FLAGS_DSTN_CLUSTER_SHIFT_DIFF;
 
 	PrtnAttrbs &= XIH_PH_ATTRB_DSTN_CPU_MASK;
 	/** - Update CPU number based on destination CPU */
@@ -390,7 +395,7 @@ void XLoader_SetATFHandoffParameters(const XilPdi_PrtnHdr *PrtnHdr)
 		ATFHandoffParams->MagicValue[3U] = 'X';
 	}
 	else {
-		for (; LoopCount < (u8)ATFHandoffParams->NumEntries;
+		for (; LoopCount < ATFHandoffParams->NumEntries;
 			LoopCount++) {
 			if (ATFHandoffParams->Entry[LoopCount].PrtnFlags ==
 					PrtnFlags) {
@@ -795,7 +800,10 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	}
 
 	if ((PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_0) ||
-		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_1)) {
+		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_1) ||
+		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_2) ||
+		(PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_A78_3)
+		) {
 		/**
 		 *  - Populate handoff parameters to ATF.
 		 *  These correspond to the partitions of application
