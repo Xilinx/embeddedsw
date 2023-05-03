@@ -24,6 +24,8 @@
 * 1.01  har  11/17/2022 Added macros for Signed Image attribute in Bootheader
 *       ng   11/23/2022 Fixed doxygen file name error
 *       sk   01/11/2023 Added macro for Image Store as SBD
+* 1.02  ng   04/27/2023 Added support for cluster flags in ATF handoff params
+*
 * </pre>
 *
 * @note
@@ -123,19 +125,21 @@ extern "C" {
  * with that of Prtn header. The number of bits shifted is
  * is based on the difference between these two offsets
  *
- *                   ATFHandoffParams	PrtnHdr         Shift
- *     Parameter     PrtnFlags     PrtnAttrb   difference
+ *                   ATFHandoffParams     PrtnHdr              Shift
+ *  Parameter        PrtnFlags            PrtnAttrb            difference
  * ----------------------------------------------------------------------
- *	Exec State            0			         3                  3 right
- *	ENDIAN	              1	                 18                 17 right
- *	SECURE                2                  0                  2 left
- *	EL                    3:4                1:2                2 left
- *	CPU_A78               5:6                8:10
+ *  Exec State            0                  3                  3 right
+ *  ENDIAN                1                  18                 17 right
+ *  SECURE                2                  0                  2 left
+ *  EL                    3:4                1:2                2 left
+ *  CPU_A78               5:6                8:11
+ *  Cluster#              11:12              6:7                5 left
  */
 #define XIH_ATTRB_A78_EXEC_ST_SHIFT_DIFF    (3U)
 #define XIH_ATTRB_ENDIAN_SHIFT_DIFF         (17U)
 #define XIH_ATTRB_TR_SECURE_SHIFT_DIFF      (2U)
 #define XIH_ATTRB_TARGET_EL_SHIFT_DIFF      (2U)
+#define XIH_PRTN_FLAGS_DSTN_CLUSTER_SHIFT_DIFF   (0x5U)
 
 #define XIH_ATTRB_EL_MASK			(0x18U)
 #define XIH_PRTN_FLAGS_EL_2			(0x10U)
