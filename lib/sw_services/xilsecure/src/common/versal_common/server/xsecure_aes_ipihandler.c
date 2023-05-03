@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,7 @@
 *                        into xsecure_kat_plat_ipihandler.c
 *       kpt   08/19/2022 Added GMAC support
 * 5.1   skg   12/16/2022 Added XSecure_AesEncrypt/DecryptInitUpdateFinal
+*	yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
 *
 * </pre>
 *
@@ -207,7 +208,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	Status = XST_FAILURE;
 	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_ENC_KAT_MASK) != TRUE) {
-			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 			goto END;
 		}
 
@@ -218,7 +219,7 @@ static int XSecure_AesOperationInit(u32 SrcAddrLow, u32 SrcAddrHigh)
 	}
 	else {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_DEC_KAT_MASK) != TRUE) {
-			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 			goto END;
 		}
 
@@ -525,7 +526,7 @@ static int XSecure_AesSetDpaCmConfig(u8 DpaCmCfg)
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_AES_CMKAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 		goto END;
 	}
 
@@ -586,7 +587,7 @@ static int XSecure_AesPerformOperation(u32 SrcAddrLow, u32 SrcAddrHigh)
 	}
     else {
 		if (XPlmi_IsKatRan(XPLMI_SECURE_AES_DEC_KAT_MASK) != TRUE) {
-			Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+			Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 			goto END;
 		}
 		/**<AES Decrypt Init*/

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -26,6 +26,7 @@
 * 4.6   har   07/14/2021 Fixed doxygen warnings
 *       gm    07/16/2021 Added support for 64-bit address
 * 5.0   kpt   07/24/2022 Moved XSecure_ShaKat into xsecure_kat_plat_ipihandler.c
+* 5.1   yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
 *
 * </pre>
 *
@@ -106,7 +107,7 @@ static int XSecure_ShaInitialize(void)
 	}
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA3_KAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 		goto END;
 	}
 

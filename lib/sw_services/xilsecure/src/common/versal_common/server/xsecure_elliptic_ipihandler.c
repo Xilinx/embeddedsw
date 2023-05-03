@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 *      rb    08/11/2021 Fix compilation warnings
 * 4.7  kpt   03/18/2022 Replaced XPlmi_Dmaxfr with XPlmi_MemCpy64
 * 5.0  kpt   07/24/2022 Moved XSecure_EllipticExecuteKat in to xsecure_kat_plat_ipihandler.c
+* 5.1  yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
 *
 * </pre>
 *
@@ -158,7 +159,8 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 
 	if (XPlmi_IsCryptoKatEn() == TRUE) {
 		XPlmi_ClearKatMask(XPLMI_SECURE_ECC_PWCT_KAT_MASK);
-		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp, XSecure_EllipticPwct, CurveType,
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,
+			XSecure_EllipticPwct, (XSecure_EllipticCrvTyp)CurveType,
 			SrcAddr, (XSecure_EllipticKeyAddr *)&KeyAddr);
 		if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 			XPlmi_SetKatMask(XPLMI_SECURE_ECC_PWCT_KAT_MASK);
@@ -198,7 +200,7 @@ static int XSecure_EllipticGenSign(u32 SrcAddrLow, u32 SrcAddrHigh,
 	XSecure_EllipticSignGenParams EcdsaParams;
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 		goto END;
 	}
 
@@ -287,7 +289,7 @@ static int XSecure_EllipticVerifySignature(u32 SrcAddrLow, u32 SrcAddrHigh)
 	XSecure_EllipticSignVerifyParams EcdsaParams;
 
 	if (XPlmi_IsKatRan(XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK) != TRUE) {
-		Status = XSECURE_ERR_KAT_NOT_EXECUTED;
+		Status = (int)XSECURE_ERR_KAT_NOT_EXECUTED;
 		goto END;
 	}
 
