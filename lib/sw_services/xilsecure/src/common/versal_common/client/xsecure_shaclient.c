@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_katclient.c
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
+* 	yog  05/03/23 Fixed MISRA C violation of Rule 12.2
 *
 * </pre>
 *
@@ -104,14 +105,14 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	}
 
 	if (Sha3State == XSECURE_SHA_INITIALIZED) {
-		Sha3InitializeMask = 1U << XSECURE_SHA_FIRST_PACKET_SHIFT;
+		Sha3InitializeMask = ((u32)1U) << XSECURE_SHA_FIRST_PACKET_SHIFT;
 	}
 
 	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0U, XSECURE_API_SHA3_UPDATE);
 	Payload[1U] = (u32)InDataAddr;
 	Payload[2U] = (u32)(InDataAddr >> 32);
-	Payload[3U] = (u32)((1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT)|
+	Payload[3U] = (u32)(((u32)1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT)|
 						(Sha3InitializeMask) | Size);
 	Payload[4U] = XSECURE_IPI_UNUSED_PARAM;
 	Payload[5U] = XSECURE_IPI_UNUSED_PARAM;

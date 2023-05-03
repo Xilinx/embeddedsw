@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -30,6 +30,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.2   am   03/09/23 Moved payload length macros to xilmailbox.h file
 *       am   03/21/23 Match the shared memory size in secure library to reuse for customer
+* 	yog  05/03/23 Fixed MISRA C violation of Rule 12.2
 *
 * </pre>
 * @note
@@ -55,7 +56,7 @@ extern "C" {
 #define XILSECURE_MODULE_ID			(0x05U)
 				/**< Module ID for xilsecure */
 
-#define HEADER(len, ApiId) ((len << 16U) | (XILSECURE_MODULE_ID << 8U) | ((u32)ApiId))
+#define HEADER(len, ApiId) (((u32)len << 16U) | ((u32)XILSECURE_MODULE_ID << 8U) | ((u32)ApiId))
 				/**< Header for XilSecure Commands */
 
 #define PAYLOAD_ARG_CNT			(8U)

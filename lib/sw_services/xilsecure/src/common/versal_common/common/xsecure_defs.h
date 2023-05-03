@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 5.0   bm   07/06/22 Refactor versal and versal_net code
 *       kpt  07/24/22 Added XSecure_EccCrvClass
 * 5.1   skg  12/16/22 Added XSecure_AesAllParams
+*       yog  05/03/23 Fixed MISRA C violation of Rule 12.2
 *
 * </pre>
 * @note
@@ -78,7 +79,7 @@ extern "C" {
 
 #define XILSECURE_MODULE_ID			(0x05U)
 				/**< XilSecure Module Id */
-#define XSECURE_KAT_API_ERR_ID		((XILSECURE_MODULE_ID << 8U) | ((u32)XSECURE_API_KAT))
+#define XSECURE_KAT_API_ERR_ID		(((u32)XILSECURE_MODULE_ID << 8U) | ((u32)XSECURE_API_KAT))
 				/**< XilSecure KAT API error id */
 #define XSECURE_KAT_MAJOR_ERROR 	(((u32)XPLMI_ERR_CDO_CMD + (XSECURE_KAT_API_ERR_ID & \
 										XPLMI_ERR_CDO_CMD_MASK)))
