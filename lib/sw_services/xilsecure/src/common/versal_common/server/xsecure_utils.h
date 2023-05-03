@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.1   kpt     01/13/23 Initial Release
+* 5.1   yog     05/03/23 Fixed MISRA C violation of Rule 2.5
 *
 * </pre>
 *
@@ -58,9 +59,7 @@ extern "C" {
 /**< All asserts are under XSECDEBUG macro now */
 #ifdef XSECDEBUG
 #define XSecure_AssertVoid		(Xil_AssertVoid)
-#define XSecure_AssertVoidAlways	(Xil_AssertVoidAlways)
 #define XSecure_AssertNonvoid		(Xil_AssertNonvoid)
-#define XSecure_AssertNonvoidAlways	(Xil_AssertNonvoidAlways)
 /** @} */
 /**
  * @name  Definition of asserts if macro is undefined
@@ -69,9 +68,7 @@ extern "C" {
 /**< Asserts if XSECDEBUG macro is undefined */
 #else
 #define XSecure_AssertVoid(Expression)
-#define XSecure_AssertVoidAlways()
 #define XSecure_AssertNonvoid(Expression)
-#define XSecure_AssertNonvoidAlways()
 #endif
 /** @} */
 
