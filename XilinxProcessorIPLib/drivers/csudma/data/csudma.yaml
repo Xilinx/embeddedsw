@@ -31,4 +31,12 @@ required:
     - xlnx,dma-type
     - interrupts
     - interrupt-parent
+
+examples:
+    xcsudma_intr_example.c:
+        - interrupts
+    xcsudma_polled_example.c:
+        - reg
+    xcsudma_selftest_example.c:
+        - reg
 ...

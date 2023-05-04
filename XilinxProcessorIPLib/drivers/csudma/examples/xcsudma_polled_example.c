@@ -22,6 +22,7 @@
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vnsld   22/10/14 First release
 * 1.4   adk     04/12/17 Added support for PMC DMA.
+* 1.14  adk     04/05/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -38,7 +39,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define CSUDMA_DEVICE_ID 	XPAR_XCSUDMA_0_DEVICE_ID /* CSU DMA device Id */
+#else
+#define CSUDMA_BASEADDR		XPAR_XCSUDMA_0_BASEADDR /* CSU DMA Baseaddress */
+#endif
 #define CSU_SSS_CONFIG_OFFSET	0x008		/**< CSU SSS_CFG Offset */
 #define CSUDMA_LOOPBACK_CFG	0x00000050	/**< LOOP BACK configuration
 						  *  macro */
@@ -61,7 +66,11 @@
 /************************** Function Prototypes ******************************/
 
 
+#ifndef SDT
 int XCsuDma_PolledExample(u16 DeviceId);
+#else
+int XCsuDma_PolledExample(UINTPTR BaseAddress);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -84,7 +93,11 @@ int main(void)
 	int Status;
 
 	/* Run the selftest example */
+#ifndef SDT
 	Status = XCsuDma_PolledExample((u16)CSUDMA_DEVICE_ID);
+#else
+	Status = XCsuDma_PolledExample(CSUDMA_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("CSU_DMA Polled Example Failed\r\n");
 		return XST_FAILURE;
@@ -110,7 +123,11 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 int XCsuDma_PolledExample(u16 DeviceId)
+#else
+int XCsuDma_PolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XCsuDma_Config *Config;
@@ -125,7 +142,11 @@ int XCsuDma_PolledExample(u16 DeviceId)
 	 * look up the configuration in the config table,
 	 * then initialize it.
 	 */
+#ifndef SDT
 	Config = XCsuDma_LookupConfig(DeviceId);
+#else
+	Config = XCsuDma_LookupConfig(BaseAddress);
+#endif
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
