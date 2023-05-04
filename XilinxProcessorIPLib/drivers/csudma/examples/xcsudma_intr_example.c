@@ -93,10 +93,10 @@
 #define SIZE		0x100		/**< Size of the data to be
 					  *  transfered */
 #if defined(__ICCARM__)
-	#pragma data_alignment = 64
-	u32 DstBuf[SIZE]; /**< Destination buffer */
-	#pragma data_alignment = 64
-	u32 SrcBuf[SIZE]; /**< Source buffer */
+#pragma data_alignment = 64
+u32 DstBuf[SIZE]; /**< Destination buffer */
+#pragma data_alignment = 64
+u32 SrcBuf[SIZE]; /**< Source buffer */
 #else
 u32 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
 u32 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
@@ -205,8 +205,9 @@ int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 	}
 
 #if defined (versal)
-	if (Config->DmaType != XCSUDMA_DMATYPEIS_CSUDMA)
+	if (Config->DmaType != XCSUDMA_DMATYPEIS_CSUDMA) {
 		XCsuDma_PmcReset(Config->DmaType);
+	}
 #endif
 
 	/*
@@ -227,31 +228,32 @@ int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 	}
 	/* Enable interrupts */
 	XCsuDma_EnableIntr(CsuDmaInstance, XCSUDMA_DST_CHANNEL,
-				XCSUDMA_IXR_DONE_MASK);
+			   XCSUDMA_IXR_DONE_MASK);
 	/*
 	 * Setting CSU_DMA in loop back mode.
 	 */
 
 	if (Config->DmaType == XCSUDMA_DMATYPEIS_CSUDMA) {
 		Xil_Out32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET,
-			((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
-						CSUDMA_LOOPBACK_CFG));
+			  ((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
+			   CSUDMA_LOOPBACK_CFG));
 #if defined (versal)
-	} else if(Config->DmaType == XCSUDMA_DMATYPEIS_PMCDMA0) {
+	}
+	else if (Config->DmaType == XCSUDMA_DMATYPEIS_PMCDMA0) {
 		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
-			((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
-						PMCDMA0_LOOPBACK_CFG));
-	} else {
+			  ((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
+			   PMCDMA0_LOOPBACK_CFG));
+	}
+	else {
 		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
-			((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
-						PMCDMA1_LOOPBACK_CFG));
+			  ((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
+			   PMCDMA1_LOOPBACK_CFG));
 #endif
 	}
 
 	/* Data writing at source address location */
 
-	for(Index = 0; Index < SIZE; Index++)
-	{
+	for (Index = 0; Index < SIZE; Index++) {
 		*Ptr = Test_Data;
 		Test_Data += 0x1;
 		Ptr++;
@@ -262,10 +264,10 @@ int XCsuDma_IntrExample(INTC *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 	XCsuDma_Transfer(CsuDmaInstance, XCSUDMA_SRC_CHANNEL, (UINTPTR)SrcBuf, SIZE, EnLast);
 
 	/* Wait for generation of destination work is done */
-	while(DstDone == 0);
+	while (DstDone == 0);
 	/* Disable interrupts */
 	XCsuDma_DisableIntr(CsuDmaInstance, XCSUDMA_DST_CHANNEL,
-				XCSUDMA_IXR_DONE_MASK);
+			    XCSUDMA_IXR_DONE_MASK);
 	/* To acknowledge the transfer has completed */
 	XCsuDma_IntrClear(CsuDmaInstance, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 	XCsuDma_IntrClear(CsuDmaInstance, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
@@ -319,8 +321,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 #ifndef TESTAPP_GEN
 	/* Initialize the interrupt controller and connect the ISRs */
 	Status = XIntc_Initialize(IntcInstancePtr, INTG_INTC_DEVICE_ID);
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 
 		xil_printf("Failed init intc\r\n");
 		return XST_FAILURE;
@@ -330,9 +331,8 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * Connect the driver interrupt handler
 	 */
 	Status = XIntc_Connect(IntcInstancePtr, IntrId,
-				(XInterruptHandler)IntrHandler, InstancePtr);
-	if (Status != XST_SUCCESS)
-	{
+			       (XInterruptHandler)IntrHandler, InstancePtr);
+	if (Status != XST_SUCCESS) {
 
 		xil_printf("Failed connect intc\r\n");
 		return XST_FAILURE;
@@ -343,8 +343,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * all devices that cause interrupts.
 	 */
 	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
-	if (Status != XST_SUCCESS)
-	{
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 #endif
@@ -356,8 +355,8 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 #ifndef TESTAPP_GEN
 	Xil_ExceptionInit();
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
-				(void *)IntcInstancePtr);
+				     (Xil_ExceptionHandler)XIntc_InterruptHandler,
+				     (void *)IntcInstancePtr);
 #endif
 #else
 #ifndef TESTAPP_GEN
@@ -372,7 +371,7 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -382,8 +381,8 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler) XScuGic_InterruptHandler,
-				IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 #endif
 
 	/*
@@ -392,8 +391,8 @@ static int SetupInterruptSystem(INTC *IntcInstancePtr,
 	 * performs the specific interrupt processing for the device
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
-			(Xil_ExceptionHandler) IntrHandler,
-				  (void *) InstancePtr);
+				 (Xil_ExceptionHandler) IntrHandler,
+				 (void *) InstancePtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -494,7 +493,7 @@ static void SrcHandler(void *CallBackRef, u32 Event)
 	}
 
 	if (Event & (XCSUDMA_IXR_TIMEOUT_MEM_MASK |
-				XCSUDMA_IXR_TIMEOUT_STRM_MASK)) {
+		     XCSUDMA_IXR_TIMEOUT_STRM_MASK)) {
 		/*
 		 * Code to handle Timeout
 		 * Interrupt should be put here.
@@ -556,7 +555,7 @@ static void DstHandler(void *CallBackRef, u32 Event)
 	}
 
 	if (Event & (XCSUDMA_IXR_TIMEOUT_MEM_MASK |
-				XCSUDMA_IXR_TIMEOUT_STRM_MASK)) {
+		     XCSUDMA_IXR_TIMEOUT_STRM_MASK)) {
 		/*
 		 * Code to handle Time out memory or stream
 		 * Interrupt should be put here.

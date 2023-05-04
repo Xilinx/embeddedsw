@@ -136,8 +136,9 @@ int XCsuDma_PolledExample(u16 DeviceId)
 	}
 
 #if defined (versal)
-	if (Config->DmaType != XCSUDMA_DMATYPEIS_CSUDMA)
+	if (Config->DmaType != XCSUDMA_DMATYPEIS_CSUDMA) {
 		XCsuDma_PmcReset(Config->DmaType);
+	}
 #endif
 
 	/*
@@ -153,24 +154,25 @@ int XCsuDma_PolledExample(u16 DeviceId)
 	 */
 	if (Config->DmaType == XCSUDMA_DMATYPEIS_CSUDMA) {
 		Xil_Out32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET,
-			((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
-						CSUDMA_LOOPBACK_CFG));
+			  ((Xil_In32(XCSU_BASEADDRESS + CSU_SSS_CONFIG_OFFSET) & 0xF0000) |
+			   CSUDMA_LOOPBACK_CFG));
 #if defined (versal)
-	} else if(Config->DmaType == XCSUDMA_DMATYPEIS_PMCDMA0) {
+	}
+	else if (Config->DmaType == XCSUDMA_DMATYPEIS_PMCDMA0) {
 		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
-			((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
-						PMCDMA0_LOOPBACK_CFG));
-	} else {
+			  ((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
+			   PMCDMA0_LOOPBACK_CFG));
+	}
+	else {
 		Xil_Out32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET,
-			((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
-						PMCDMA1_LOOPBACK_CFG));
+			  ((Xil_In32(XPS_PMC_GLOBAL_BASEADDRESS + PMC_SSS_CONFIG_OFFSET) & 0xFF000000) |
+			   PMCDMA1_LOOPBACK_CFG));
 #endif
 	}
 
 	/* Data writing at source address location */
 
-	for(Index = 0; Index < SIZE; Index++)
-	{
+	for (Index = 0; Index < SIZE; Index++) {
 		*Ptr = Test_Data;
 		Test_Data += 0x1;
 		Ptr++;
