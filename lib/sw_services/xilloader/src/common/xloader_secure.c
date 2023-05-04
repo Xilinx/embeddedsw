@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -251,17 +251,10 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	}
 
 	/** - Initialize the authentication. */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureAuthInit,
-			SecurePtr, PrtnHdr);
-	if ((Status != XST_SUCCESS) && (StatusTmp != XST_SUCCESS)) {
-		goto END;
-	}
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SecureAuthInit, SecurePtr, PrtnHdr);
 
 	/** - Initialize the encryption. */
-	Status = XST_FAILURE;
-	StatusTmp = XST_FAILURE;
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureEncInit,
-			SecurePtr, PrtnHdr);
+	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SecureEncInit, SecurePtr, PrtnHdr);
 #endif
 
 END:
