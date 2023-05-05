@@ -17,7 +17,7 @@ ifneq (,$(findstring win,$(RDI_PLATFORM)))
 endif
 
 all:
-	$(MAKE) --no-print-directory seq_libs
+	$(MAKE) -j1 --no-print-directory seq_libs
 	$(MAKE) -j --no-print-directory par_libs
 	$(MAKE) --no-print-directory archive
 	@echo 'Finished building libraries'
