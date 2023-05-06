@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,8 @@
 * 1.03  rb   01/28/2021 Added Sem PreInit API to have CDO command handler
 *                       initialization, removed unused header file
 *       rb   03/09/2021 Updated Sem Init API call
+* 1.03  ga   05/03/2023 Removed XPlm_SemInit function and updated
+*                       copyright information
 *
 * </pre>
 *
@@ -51,22 +54,6 @@
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
-
-/*****************************************************************************/
-/**
- * @brief	It calls the XilSEM Init API to register CDO loader commands
- *
- * @return	Status as defined in XilSEM library
- *
- *****************************************************************************/
-int XPlm_SemInit(void)
-{
-	int Status = XST_FAILURE;
-
-	Status = XSem_Init();
-
-	return Status;
-}
 
 /*****************************************************************************/
 /**

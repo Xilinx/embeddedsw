@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,8 @@
 *       kc   03/23/2020 Minor code cleanup
 * 1.02  rb   01/28/2021 Added Sem PreInit prototype, updated header file
 *       rb   03/09/2021 Updated Sem Init API call
+* 1.03  ga   05/03/2023 Removed XPlm_SemInit prototype and updated
+*                       copyright information
 *
 * </pre>
 *
@@ -48,7 +51,6 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-int XPlm_SemInit(void);
 int XPlm_SemScanInit(void *Arg);
 
 /************************** Variable Definitions *****************************/
