@@ -156,6 +156,7 @@ static XStatus XPmBisr_TagSupportCheck2(u32 TagId)
 	case VDU_TAG_ID:
 	case BFRB_TAG_ID:
 	case LPX_TAG_ID:
+	case FPX_TAG_ID:
 		Status = XST_SUCCESS;
 		break;
 	default:
