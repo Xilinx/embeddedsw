@@ -52,11 +52,12 @@
 * 8.1  asa  02/13/23  Updated xdbg_printf arguments to have the correct debug
 *                     type.
 * 9.0  ml   03/03/23  Add description to fix doxygen warnings.
-* 9.0  ml   14/04/23  Add U to numericals and correct the typecast to fix
+* 9.0  ml   04/14/23  Add U to numericals and correct the typecast to fix
 *                     misra-c violations.
 * 9.0  mus  04/20/23  Remove CortexR52 specific changes and move to file to
 *                     arm/cortexr5/platform/versal/ directory. There will be
 *                     separate file for CortexR52.
+* 9.0  ml   04/26/23  Updated code to fix overrun coverity warnings.
 * </pre>
 *
 *
@@ -179,6 +180,9 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 			break;
 		}
 	}
+	if (i == (sizeof (region_size) / sizeof (region_size[0]))){
+			i -= 1U;
+		}
 	Localaddr &= (UINTPTR)(~(region_size[i].size - 1U));
 
 	Regionsize <<= 1;
@@ -502,6 +506,9 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 		}
 	}
 
+        if (Index == (sizeof (region_size) / sizeof (region_size[0]))){
+                        Index -= 1U;
+                }
 	Localaddr &= (UINTPTR)(~(region_size[Index].size - 1U));
 	Regionsize <<= 1;
 	Regionsize |= REGION_EN;

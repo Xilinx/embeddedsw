@@ -86,6 +86,7 @@
 *                         API from u32 to UINTPTR for supporting 64 bit addressing.
 * 8.1   akm      01/02/23 Added Xil_RegisterPlmHandler() & Xil_PlmStubHandler() APIs.
 * 9.0   ml       03/03/23 Add description to fix doxygen warnings.
+* 9.0   ml       04/26/23 Updated code to fix DC.STRING BUFFER and VARARGS coverity warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -1084,6 +1085,7 @@ int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 	int Status = XST_FAILURE;
 	u32 SrcLen;
 	u32 DstLen;
+	u32 Length;
 
 	if ((DestStr == NULL) || (SrcStr == NULL)) {
 		Status =  XST_INVALID_PARAM;
@@ -1092,15 +1094,16 @@ int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 
 	SrcLen = strnlen((const char*)SrcStr, SrcSize);
 	DstLen = strnlen((const char*)DestStr, DestSize);
+	Length = SrcLen + DstLen;
 
 	if ((DestSize <= DstLen) || (SrcSize <= SrcLen)) {
 		Status =  XST_INVALID_PARAM;
 	}
-	else if (DestSize <= (SrcLen + DstLen)) {
+	else if (DestSize <= Length) {
 		Status =  XST_INVALID_PARAM;
 	}
 	else {
-		(void)strcat((char*)DestStr, (const char*)SrcStr);
+		(void)strncat((char*)DestStr, (const char*)SrcStr,Length);
 		Status = XST_SUCCESS;
 	}
 
@@ -1331,13 +1334,13 @@ u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, .
 		EventAddr = va_arg(Event, volatile u32 *);
 		PollCount = Timeout;
 	}
-	va_end(Event);
 
 END:
 	if (LoopCnt == NumOfEvents) {
 		Status = XST_SUCCESS;
 	}
 
+	va_end(Event);
 	return Status;
 }
 
