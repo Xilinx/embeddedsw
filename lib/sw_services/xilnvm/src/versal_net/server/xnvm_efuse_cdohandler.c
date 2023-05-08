@@ -19,6 +19,7 @@
 * 3.0  kal   07/12/2022 Initial release
 * 3.1  skg   10/25/2022 Added in body comments for APIs
 * 3.2   har  02/21/23 Added support for writing ROM Rsvd bits
+*      kum   05/03/2023 Added support to handle cdo chunk boundary before efuse writing
 *
 * </pre>
 *
@@ -110,6 +111,7 @@ static INLINE int XNvm_EfuseMemCopy(u64 SourceAddr, u64 DestAddr, u32 Len)
 int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
+	int ClrStatus = XST_FAILURE;
 	XNvm_AesKeyWriteDirectPload *KeyWrDirectPload = NULL;
 	XNvm_PpkWriteDirectPload *HashWrDirectPload = NULL;
 	XNvm_IvWriteDirectPload *IvWrDirectPload = NULL;
@@ -137,7 +139,8 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	XNvm_RomRsvdBitsWritePload *RomRsvd = NULL;
 	XNvm_PufHDInfoDirectPload *PufData = NULL;
 	XNvm_PufCtrlDirectPload *PufSecData = NULL;
-
+	static XNvm_CdoChunk CdoChunkData;
+	u32 PloadLen = 0;
     /**
 	 *  Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid
 	 */
@@ -151,14 +154,50 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	 */
 	switch (Cmd->CmdId & XNVM_API_ID_MASK) {
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_AES_KEY_FROM_PLOAD):
-		KeyWrDirectPload = (XNvm_AesKeyWriteDirectPload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteAesKeyFromCdoPload((u32)KeyWrDirectPload->EnvDisFlag,
-			(XNvm_AesKeyType)KeyWrDirectPload->KeyType, &KeyWrDirectPload->EfuseKey);
+		PloadLen = Cmd->PayloadLen * XNVM_WORD_LEN;
+		if (Cmd->ProcessedLen == 0U){
+			Status = Xil_SMemSet(&CdoChunkData.Keys.AesKey[0U], XNVM_AES_KEY_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN, 0U, XNVM_AES_KEY_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			CdoChunkData.MemClear = FALSE;
+		}
+		Status = Xil_SMemCpy((u32 *)&CdoChunkData.Keys.AesKey[Cmd->ProcessedLen],
+				(XNVM_AES_KEY_CDO_PAYLOAD_LEN_IN_WORDS - Cmd->ProcessedLen) * XNVM_WORD_LEN, (u32 *)&Cmd->Payload[0U],
+				PloadLen, PloadLen);
+		if (Status != XST_SUCCESS) {
+			CdoChunkData.MemClear = TRUE;
+			goto END;
+		}
+		if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
+			KeyWrDirectPload = (XNvm_AesKeyWriteDirectPload *)&CdoChunkData.Keys.AesKey;
+			Status = XNvm_EfuseWriteAesKeyFromCdoPload((u32)KeyWrDirectPload->EnvDisFlag,
+					(XNvm_AesKeyType)KeyWrDirectPload->KeyType, &KeyWrDirectPload->EfuseKey);
+			CdoChunkData.MemClear = TRUE;
+		}
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PPK_HASH_FROM_PLOAD):
-		HashWrDirectPload = (XNvm_PpkWriteDirectPload *)Cmd->Payload;
-		Status = XNvm_EfuseWritePpkHashFromCdoPload((u32)HashWrDirectPload->EnvDisFlag,
-			(XNvm_PpkType)HashWrDirectPload->PpkType, &HashWrDirectPload->EfuseHash);
+		PloadLen = Cmd->PayloadLen * XNVM_WORD_LEN;
+		if (Cmd->ProcessedLen == 0U){
+			Status = Xil_SMemSet(&CdoChunkData.Keys.PpkHash[0U], XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN, 0U, XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			CdoChunkData.MemClear = FALSE;
+		}
+		Status = Xil_SMemCpy((u32 *)&CdoChunkData.Keys.PpkHash[Cmd->ProcessedLen],
+				(XNVM_PPK_HASH_CDO_PAYLOAD_LEN_IN_WORDS - Cmd->ProcessedLen) * XNVM_WORD_LEN, (u32 *)&Cmd->Payload[0U],
+				PloadLen, PloadLen);
+		if (Status != XST_SUCCESS) {
+			CdoChunkData.MemClear = TRUE;
+			goto END;
+		}
+		if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
+			HashWrDirectPload = (XNvm_PpkWriteDirectPload *)&CdoChunkData.Keys.PpkHash;
+			Status = XNvm_EfuseWritePpkHashFromCdoPload((u32)HashWrDirectPload->EnvDisFlag,
+							(XNvm_PpkType)HashWrDirectPload->PpkType, &HashWrDirectPload->EfuseHash);
+			CdoChunkData.MemClear = TRUE;
+		}
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_IV_FROM_PLOAD):
 		IvWrDirectPload = (XNvm_IvWriteDirectPload *)Cmd->Payload;
@@ -232,12 +271,48 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		Status = XNvm_EfuseWriteFipsInfoFuses((u32)FipsInfo->EnvDisFlag, FipsInfo->FipsMode, FipsInfo->FipsVersion);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_UDS_FROM_PLOAD):
-		DiceUds = (XNvm_UdsDirectPload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteDiceUds((u32)DiceUds->EnvDisFlag, &DiceUds->EfuseUds);
+		PloadLen = Cmd->PayloadLen * XNVM_WORD_LEN;
+		if (Cmd->ProcessedLen == 0U){
+			Status = Xil_SMemSet(&CdoChunkData.Keys.UdsKey[0U], XNVM_UDS_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN, 0U, XNVM_UDS_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			CdoChunkData.MemClear = FALSE;
+		}
+		Status = Xil_SMemCpy((u32 *)&CdoChunkData.Keys.UdsKey[Cmd->ProcessedLen],
+				(XNVM_UDS_CDO_PAYLOAD_LEN_IN_WORDS - Cmd->ProcessedLen) * XNVM_WORD_LEN, (u32 *)&Cmd->Payload[0U],
+				PloadLen, PloadLen);
+		if (Status != XST_SUCCESS) {
+			CdoChunkData.MemClear = TRUE;
+			goto END;
+		}
+		if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
+			DiceUds = (XNvm_UdsDirectPload *)&CdoChunkData.Keys.UdsKey;
+			Status = XNvm_EfuseWriteDiceUds((u32)DiceUds->EnvDisFlag, &DiceUds->EfuseUds);
+			CdoChunkData.MemClear = TRUE;
+		}
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_KEY_FROM_PLOAD):
-		DmeKey = (XNvm_DmeKeyDirectPload *)Cmd->Payload;
-		Status = XNvm_EfuseWriteDmeKeyFromPload((u32)DmeKey->EnvDisFlag, (XNvm_DmeKeyType)DmeKey->KeyType, &DmeKey->EfuseDmeKey);
+		PloadLen = Cmd->PayloadLen * XNVM_WORD_LEN;
+		if (Cmd->ProcessedLen == 0U){
+			Status = Xil_SMemSet(&CdoChunkData.Keys.DmeKey[0U], XNVM_DME_KEY_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN, 0U, XNVM_DME_KEY_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			CdoChunkData.MemClear = FALSE;
+		}
+		Status = Xil_SMemCpy((u32 *)&CdoChunkData.Keys.DmeKey[Cmd->ProcessedLen],
+				(XNVM_DME_KEY_CDO_PAYLOAD_LEN_IN_WORDS - Cmd->ProcessedLen) * XNVM_WORD_LEN, (u32 *)&Cmd->Payload[0U],
+				PloadLen, PloadLen);
+		if (Status != XST_SUCCESS) {
+			CdoChunkData.MemClear = TRUE;
+			goto END;
+		}
+		if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
+			DmeKey = (XNvm_DmeKeyDirectPload *)&CdoChunkData.Keys.DmeKey;
+			Status = XNvm_EfuseWriteDmeKeyFromPload((u32)DmeKey->EnvDisFlag, (XNvm_DmeKeyType)DmeKey->KeyType, &DmeKey->EfuseDmeKey);
+			CdoChunkData.MemClear = TRUE;
+		}
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_REVOKE):
 		DmeRevoke = (XNvm_DmeRevokeDirectPload *)Cmd->Payload;
@@ -260,8 +335,26 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		Status = XNvm_EfuseWriteDmeModeVal((u32)DmeMode->EnvDisFlag, DmeMode->EfuseDmeMode);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_HD_FROM_PLOAD):
-		PufData = (XNvm_PufHDInfoDirectPload *)Cmd->Payload;
-		Status = XNvm_EfuseWritePufDataFromPload(PufData);
+		PloadLen = Cmd->PayloadLen * XNVM_WORD_LEN;
+		if (Cmd->ProcessedLen == 0U){
+			Status = Xil_SMemSet(&CdoChunkData.Keys.PufCfg[0U], XNVM_PUF_CFG_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN, 0U, XNVM_PUF_CFG_CDO_PAYLOAD_LEN_IN_WORDS * XNVM_WORD_LEN);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			CdoChunkData.MemClear = FALSE;
+		}
+		Status = Xil_SMemCpy((u32 *)&CdoChunkData.Keys.PufCfg[Cmd->ProcessedLen],
+				(XNVM_PUF_CFG_CDO_PAYLOAD_LEN_IN_WORDS - Cmd->ProcessedLen) * XNVM_WORD_LEN, (u32 *)&Cmd->Payload[0U],
+				PloadLen, PloadLen);
+		if (Status != XST_SUCCESS) {
+			CdoChunkData.MemClear = TRUE;
+			goto END;
+		}
+		if ((Cmd->ProcessedLen + Cmd->PayloadLen) == Cmd->Len) {
+			PufData = (XNvm_PufHDInfoDirectPload *)&CdoChunkData.Keys.PufCfg;
+			Status = XNvm_EfuseWritePufDataFromPload(PufData);
+			CdoChunkData.MemClear = TRUE;
+		}
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
 		RomRsvd = (XNvm_RomRsvdBitsWritePload *)Cmd->Payload;
@@ -277,6 +370,13 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	}
 
 END:
+	if(CdoChunkData.MemClear == TRUE){
+		/* Zeroize the keys */
+		ClrStatus = Xil_SMemSet(&CdoChunkData, sizeof(XNvm_CdoChunk), 0U, sizeof(XNvm_CdoChunk));
+		if ((Status != XST_SUCCESS) || (ClrStatus != XST_SUCCESS)) {
+			Status |= ClrStatus;
+		}
+	}
 	return Status;
 }
 
