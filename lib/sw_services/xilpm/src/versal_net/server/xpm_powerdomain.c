@@ -31,8 +31,6 @@
  */
 #define SYSMON_THRESH_NOT_PROGRAMMED	0x20000U
 
-static u8 SystemResetFlag;
-static u8 DomainPORFlag;
 /*
  * Power rail index map
  */

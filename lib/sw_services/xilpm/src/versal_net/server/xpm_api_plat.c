@@ -760,6 +760,9 @@ XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 	XPm_Power *PowerParent = NULL;
 	XPm_HnicxDomain *HnicxDomain;
 
+	/* Warning Fix */
+	(void)NumArgs;
+
 	PowerId = Args[0];
 	PowerType = NODETYPE(PowerId);
 	Width = (u8)(Args[1] >> 8) & 0xFFU;
