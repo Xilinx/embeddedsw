@@ -463,6 +463,9 @@ XStatus XPmBisr_Repair2(u32 TagId)
 				 */
 				EfuseNextAddr += 4U;
 				break;
+			case LPX_TAG_ID:
+				Status = XPmRepair_Lpx(EfuseCurrAddr, EfuseBisrSize, EfuseBisrOptional, &EfuseNextAddr);
+				break;
 			default:
 				XPmBisr_SwError(PMC_EFUSE_BISR_BAD_TAG_TYPE);
 				DbgErr = XPM_INT_ERR_BAD_TAG_TYPE;

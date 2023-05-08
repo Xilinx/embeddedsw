@@ -10,6 +10,7 @@
 #include "xpm_bisr.h"
 #include "xpm_regs.h"
 #include "xpm_powerdomain.h"
+#include "xpm_repair_regs.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,6 +18,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
+XStatus XPmRepair_Lpx(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 
 #ifdef __cplusplus
 }
