@@ -171,3 +171,37 @@ XStatus XPmRepair_Fpx(u32 EfuseTagAddr, u32 TagSize,
 done:
 	return Status;
 }
+
+XStatus XPmRepair_Hnicx_Nthub(u32 EfuseTagAddr, u32 TagSize,
+				u32 TagOptional, u32 *TagDataAddr)
+{
+	XStatus Status = XST_FAILURE;
+	u32 RegValue;
+	u64 BisrDataDestAddr;
+
+	/* Unused argument */
+	(void)TagOptional;
+
+	BisrDataDestAddr = HNICX_NPI_0_BISR_CACHE_DATA0;
+
+	/* Copy repair data */
+	*TagDataAddr = XPmBisr_CopyStandard(EfuseTagAddr, TagSize, BisrDataDestAddr);
+
+	/* Trigger BISR */
+	XPm_Out32(HNICX_NPI_0_BISR_CACHE_CNTRL, HNICX_NPI_0_BISR_CACHE_CNTRL_BISR_TRIGGER_NTHUB_MASK);
+
+	/* Wait for BISR to finish */
+	Status = XPm_PollForMask(HNICX_NPI_0_BISR_CACHE_STATUS, HNICX_NPI_0_BISR_CACHE_STATUS_BISR_DONE_NTHUB_MASK, XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Check for BISR pass */
+	RegValue = XPm_In32(HNICX_NPI_0_BISR_CACHE_STATUS);
+	if ((RegValue & (u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_NTHUB_MASK) != (u32)HNICX_NPI_0_BISR_CACHE_STATUS_BISR_PASS_NTHUB_MASK) {
+		Status = XST_FAILURE;
+	}
+
+done:
+	return Status;
+}
