@@ -82,7 +82,7 @@
 static const struct {
 	u64 size;
 	u32 encoding;
-}region_size[] = {
+} region_size[] = {
 	{ 0x20U, REGION_32B },
 	{ 0x40U, REGION_64B },
 	{ 0x80U, REGION_128B },
@@ -171,7 +171,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 	Xil_DCacheFlush();
 	Xil_ICacheInvalidate();
 
-	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,NextAvailableMemRegion);
+	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER, NextAvailableMemRegion);
 	isb();
 	/* Lookup the size.  */
 	for (i = 0; i < (sizeof (region_size) / sizeof (region_size[0])); i++) {
@@ -180,9 +180,9 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 			break;
 		}
 	}
-	if (i == (sizeof (region_size) / sizeof (region_size[0]))){
-			i -= 1U;
-		}
+	if (i == (sizeof (region_size) / sizeof (region_size[0]))) {
+		i -= 1U;
+	}
 	Localaddr &= (UINTPTR)(~(region_size[i].size - 1U));
 
 	Regionsize <<= 1;
@@ -195,7 +195,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 	dsb();
 	isb();
 	Status = Xil_UpdateMPUConfig(NextAvailableMemRegion, Localaddr, Regionsize, attrib);
-	xdbg_printf(XDBG_DEBUG_GENERAL," Xil_UpdateMPUConfig : %s", (Status == XST_SUCCESS)?"PASS":"FAIL");
+	xdbg_printf(XDBG_DEBUG_GENERAL, " Xil_UpdateMPUConfig : %s", (Status == XST_SUCCESS) ? "PASS" : "FAIL");
 	return Status;
 }
 /*****************************************************************************/
@@ -209,40 +209,40 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 void Xil_EnableMPU(void)
 {
 	u32 CtrlReg, Reg;
-	s32 DCacheStatus=0, ICacheStatus=0;
+	s32 DCacheStatus = 0, ICacheStatus = 0;
 	/* enable caches only if they are disabled */
 #if defined (__GNUC__)
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 #elif defined (__ICCARM__)
-	mfcp(XREG_CP15_SYS_CONTROL,CtrlReg);
+	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #endif
 	if ((CtrlReg & XREG_CP15_CONTROL_C_BIT) != 0x00000000U) {
-		DCacheStatus=1;
+		DCacheStatus = 1;
 	}
 	if ((CtrlReg & XREG_CP15_CONTROL_I_BIT) != 0x00000000U) {
-		ICacheStatus=1;
+		ICacheStatus = 1;
 	}
 
-	if(DCacheStatus != 0) {
+	if (DCacheStatus != 0) {
 		Xil_DCacheDisable();
 	}
-	if(ICacheStatus != 0){
+	if (ICacheStatus != 0) {
 		Xil_ICacheDisable();
 	}
 #if defined (__GNUC__)
 	Reg = mfcp(XREG_CP15_SYS_CONTROL);
 #elif defined (__ICCARM__)
-	 mfcp(XREG_CP15_SYS_CONTROL,Reg);
+	mfcp(XREG_CP15_SYS_CONTROL, Reg);
 #endif
 	Reg |= 0x00000001U;
 	dsb();
 	mtcp(XREG_CP15_SYS_CONTROL, Reg);
 	isb();
 	/* enable caches only if they are disabled in routine*/
-	if(DCacheStatus != 0) {
+	if (DCacheStatus != 0) {
 		Xil_DCacheEnable();
 	}
-	if(ICacheStatus != 0) {
+	if (ICacheStatus != 0) {
 		Xil_ICacheEnable();
 	}
 }
@@ -258,25 +258,25 @@ void Xil_EnableMPU(void)
 void Xil_DisableMPU(void)
 {
 	u32 CtrlReg, Reg;
-	s32 DCacheStatus=0, ICacheStatus=0;
+	s32 DCacheStatus = 0, ICacheStatus = 0;
 	/* enable caches only if they are disabled */
 
 #if defined (__GNUC__)
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 #elif defined (__ICCARM__)
-	mfcp(XREG_CP15_SYS_CONTROL,CtrlReg);
+	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 #endif
 	if ((CtrlReg & XREG_CP15_CONTROL_C_BIT) != 0x00000000U) {
-		DCacheStatus=1;
+		DCacheStatus = 1;
 	}
 	if ((CtrlReg & XREG_CP15_CONTROL_I_BIT) != 0x00000000U) {
-		ICacheStatus=1;
+		ICacheStatus = 1;
 	}
 
-	if(DCacheStatus != 0) {
+	if (DCacheStatus != 0) {
 		Xil_DCacheDisable();
 	}
-	if(ICacheStatus != 0){
+	if (ICacheStatus != 0) {
 		Xil_ICacheDisable();
 	}
 
@@ -284,17 +284,17 @@ void Xil_DisableMPU(void)
 #if defined (__GNUC__)
 	Reg = mfcp(XREG_CP15_SYS_CONTROL);
 #elif defined (__ICCARM__)
-	mfcp(XREG_CP15_SYS_CONTROL,Reg);
+	mfcp(XREG_CP15_SYS_CONTROL, Reg);
 #endif
 	Reg &= ~(0x00000001U);
 	dsb();
 	mtcp(XREG_CP15_SYS_CONTROL, Reg);
 	isb();
 	/* enable caches only if they are disabled in routine*/
-	if(DCacheStatus != 0) {
+	if (DCacheStatus != 0) {
 		Xil_DCacheEnable();
 	}
-	if(ICacheStatus != 0) {
+	if (ICacheStatus != 0) {
 		Xil_ICacheEnable();
 	}
 }
@@ -332,14 +332,15 @@ u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
 		Tempsize >>= 1;
 		/* Lookup the size.  */
 		for (Index = 0; Index <
-				(sizeof (region_size) / sizeof (region_size[0])); Index++) {
+		     (sizeof (region_size) / sizeof (region_size[0])); Index++) {
 			if (Tempsize <= region_size[Index].encoding) {
 				Mpu_Config[reg_num].Size = region_size[Index].size;
 				break;
 			}
 		}
 		Mpu_Config[reg_num].Attribute = attrib;
-	} else {
+	}
+	else {
 		Mpu_Config[reg_num].RegionStatus = 0U;
 		Mpu_Config[reg_num].BaseAddress = 0;
 		Mpu_Config[reg_num].Size = 0U;
@@ -360,7 +361,8 @@ exit:
 *
 *
 ******************************************************************************/
-void Xil_GetMPUConfig (XMpu_Config mpuconfig) {
+void Xil_GetMPUConfig (XMpu_Config mpuconfig)
+{
 	u32 Index = 0U;
 
 	while (Index < MAX_POSSIBLE_MPU_REGS) {
@@ -380,7 +382,8 @@ void Xil_GetMPUConfig (XMpu_Config mpuconfig) {
 *
 *
 ******************************************************************************/
-u32 Xil_GetNumOfFreeRegions (void) {
+u32 Xil_GetNumOfFreeRegions (void)
+{
 	u32 Index = 0U;
 	u32 NumofFreeRegs = 0U;
 
@@ -405,7 +408,8 @@ u32 Xil_GetNumOfFreeRegions (void) {
 *
 *
 ******************************************************************************/
-u16 Xil_GetMPUFreeRegMask (void) {
+u16 Xil_GetMPUFreeRegMask (void)
+{
 	u32 Index = 0U;
 	u16 FreeRegMask = 0U;
 
@@ -428,7 +432,8 @@ u16 Xil_GetMPUFreeRegMask (void) {
 *
 *
 ******************************************************************************/
-u32 Xil_DisableMPURegionByRegNum (u32 reg_num) {
+u32 Xil_DisableMPURegionByRegNum (u32 reg_num)
+{
 	u32 Temp = 0U;
 	u32 ReturnVal = XST_FAILURE;
 	u32 Status;
@@ -440,19 +445,19 @@ u32 Xil_DisableMPURegionByRegNum (u32 reg_num) {
 	Xil_DCacheFlush();
 	Xil_ICacheInvalidate();
 
-	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,reg_num);
+	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER, reg_num);
 #if defined (__GNUC__)
 	Temp = mfcp(XREG_CP15_MPU_REG_SIZE_EN);
 #elif defined (__ICCARM__)
-	mfcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
+	mfcp(XREG_CP15_MPU_REG_SIZE_EN, Temp);
 #endif
 	Temp &= (~REGION_EN);
 	dsb();
-	mtcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
+	mtcp(XREG_CP15_MPU_REG_SIZE_EN, Temp);
 	dsb();
 	isb();
 	Status = Xil_UpdateMPUConfig(reg_num, 0, 0U, 0U);
-	xdbg_printf(XDBG_DEBUG_GENERAL," Xil_UpdateMPUConfig : %s", (Status == XST_SUCCESS)?"PASS":"FAIL");
+	xdbg_printf(XDBG_DEBUG_GENERAL, " Xil_UpdateMPUConfig : %s", (Status == XST_SUCCESS) ? "PASS" : "FAIL");
 	ReturnVal = Status;
 
 exit1:
@@ -494,21 +499,21 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 
 	Xil_DCacheFlush();
 	Xil_ICacheInvalidate();
-	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,reg_num);
+	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER, reg_num);
 	isb();
 
 	/* Lookup the size.  */
 	for (Index = 0; Index <
-			(sizeof (region_size) / sizeof (region_size[0])); Index++) {
+	     (sizeof (region_size) / sizeof (region_size[0])); Index++) {
 		if (size <= region_size[Index].size) {
 			Regionsize = region_size[Index].encoding;
 			break;
 		}
 	}
 
-        if (Index == (sizeof (region_size) / sizeof (region_size[0]))){
-                        Index -= 1U;
-                }
+	if (Index == (sizeof (region_size) / sizeof (region_size[0]))) {
+		Index -= 1U;
+	}
 	Localaddr &= (UINTPTR)(~(region_size[Index].size - 1U));
 	Regionsize <<= 1;
 	Regionsize |= REGION_EN;
@@ -520,7 +525,7 @@ u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
 	dsb();
 	isb();
 	Status = Xil_UpdateMPUConfig(reg_num, Localaddr, Regionsize, attrib);
-	xdbg_printf(XDBG_DEBUG_GENERAL," Xil_UpdateMPUConfig : %s", (Status == XST_SUCCESS)?"PASS":"FAIL");
+	xdbg_printf(XDBG_DEBUG_GENERAL, " Xil_UpdateMPUConfig : %s", (Status == XST_SUCCESS) ? "PASS" : "FAIL");
 	ReturnVal = Status;
 exit2:
 	return ReturnVal;
@@ -546,13 +551,13 @@ void Xil_InitializeExistingMPURegConfig(void)
 	u32 Tempsize;
 
 	while (Index < MAX_POSSIBLE_MPU_REGS) {
-		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,Index);
+		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER, Index);
 #if defined (__GNUC__)
 		MPURegSize = mfcp(XREG_CP15_MPU_REG_SIZE_EN);
 		MPURegBA = mfcp(XREG_CP15_MPU_REG_BASEADDR);
 		MPURegAttrib = mfcp(XREG_CP15_MPU_REG_ACCESS_CTRL);
 #elif defined (__ICCARM__)
-		mfcp(XREG_CP15_MPU_REG_SIZE_EN,MPURegSize);
+		mfcp(XREG_CP15_MPU_REG_SIZE_EN, MPURegSize);
 		mfcp(XREG_CP15_MPU_REG_BASEADDR, MPURegBA);
 		mfcp(XREG_CP15_MPU_REG_ACCESS_CTRL, MPURegAttrib);
 #endif
@@ -563,7 +568,7 @@ void Xil_InitializeExistingMPURegConfig(void)
 			Tempsize = MPURegSize & (~REGION_EN);
 			Tempsize >>= 1;
 			for (Index1 = 0; Index1 <
-				(sizeof (region_size) / sizeof (region_size[0])); Index1++) {
+			     (sizeof (region_size) / sizeof (region_size[0])); Index1++) {
 				if (Tempsize <= region_size[Index1].encoding) {
 					Mpu_Config[Index].Size = region_size[Index1].size;
 					break;
@@ -645,7 +650,7 @@ void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 			}
 			if ((Basephysaddr + Regionsize) >= end) {
 				return ((Xil_SetMPURegion((INTPTR) Basephysaddr,
-					Regionsize, flags) == XST_SUCCESS) ?
+							  Regionsize, flags) == XST_SUCCESS) ?
 					(void *)PhysAddr : NULL);
 			}
 		}

@@ -142,13 +142,13 @@ static size_t strnlen (const char *StartPtr, size_t StrSize)
 *******************************************************************************/
 s32 Xil_Ceil(float Value)
 {
-    s32 Result = Value;
+	s32 Result = Value;
 
 	if (Value > Result) {
-        Result = Result + 1;
-    }
+		Result = Result + 1;
+	}
 
-    return Result;
+	return Result;
 }
 
 /****************************************************************************/
@@ -220,8 +220,8 @@ u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
 	while (ConvertedLen < Len) {
 		for (i = 0U; i < MAX_NIBBLES; i++) {
 			Status = Xil_ConvertCharToNibble((u8)Str[ConvertedLen],
-			                                &Nibble[i]);
-			ConvertedLen = ConvertedLen +1U;
+							 &Nibble[i]);
+			ConvertedLen = ConvertedLen + 1U;
 			if (Status != XST_SUCCESS) {
 				/* Error converting char to nibble */
 				goto END;
@@ -229,9 +229,9 @@ u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u8 Len)
 		}
 
 		buf[index] = (((u32)Nibble[0] << (u8)28U) | ((u32)Nibble[1] << (u8)24U) |
-		              ((u32)Nibble[2] << (u8)20U) | ((u32)Nibble[3] << (u8)16U) |
-		              ((u32)Nibble[4] << (u8)12U) | ((u32)Nibble[5] << (u8)8U)  |
-		              ((u32)Nibble[6] << (u8)4U)  | (u32)Nibble[7]);
+			      ((u32)Nibble[2] << (u8)20U) | ((u32)Nibble[3] << (u8)16U) |
+			      ((u32)Nibble[4] << (u8)12U) | ((u32)Nibble[5] << (u8)8U)  |
+			      ((u32)Nibble[6] << (u8)4U)  | (u32)Nibble[7]);
 		index++;
 	}
 END:
@@ -248,7 +248,8 @@ END:
  * @return    None.
  *
  *****************************************************************************/
-void Xil_RegisterPlmHandler(void (*PlmAlive) (void)) {
+void Xil_RegisterPlmHandler(void (*PlmAlive) (void))
+{
 	fptr = PlmAlive;
 }
 
@@ -261,7 +262,8 @@ void Xil_RegisterPlmHandler(void (*PlmAlive) (void)) {
  * @return    None.
  *
  *****************************************************************************/
-void Xil_PlmStubHandler(void) {
+void Xil_PlmStubHandler(void)
+{
 	if (fptr != NULL) {
 		fptr();
 	}
@@ -290,7 +292,7 @@ u32 Xil_WaitForEvent(UINTPTR RegAddr, u32 EventMask, u32 Event, u32 Timeout)
 	u32 PollCount = Timeout;
 	u32 Status = XST_FAILURE;
 
-	while(PollCount > 0U) {
+	while (PollCount > 0U) {
 		EventStatus = Xil_In32(RegAddr) & EventMask;
 		if (EventStatus == Event) {
 			Status = XST_SUCCESS;
@@ -325,7 +327,7 @@ u32 Xil_WaitForEvent(UINTPTR RegAddr, u32 EventMask, u32 Event, u32 Timeout)
  *
  ******************************************************************************/
 u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
-			 u32 Timeout, u32* Events)
+		      u32 Timeout, u32 *Events)
 {
 	u32 EventStatus;
 	u32 PollCount = Timeout;
@@ -335,7 +337,7 @@ u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 	do {
 		EventStatus = Xil_In32(EventsRegAddr);
 		EventStatus &= EventsMask;
-		if((EventStatus & WaitEvents) != 0U) {
+		if ((EventStatus & WaitEvents) != 0U) {
 			Status = XST_SUCCESS;
 			*Events = EventStatus;
 			break;
@@ -346,7 +348,7 @@ u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 #endif
 		usleep(1U);
 	}
-	while(PollCount > 0U);
+	while (PollCount > 0U);
 
 	return Status;
 }
@@ -368,12 +370,12 @@ u32 Xil_IsValidHexChar(const char *Ch)
 {
 	u32 Status = XST_FAILURE;
 
-	if(NULL == Ch) {
+	if (NULL == Ch) {
 		goto END;
 	}
-	if (((*Ch >= '0') && (*Ch <='9'))||
-		((*Ch >= 'a') && (*Ch <='f'))||
-		((*Ch >= 'A') && (*Ch <='F'))) {
+	if (((*Ch >= '0') && (*Ch <= '9')) ||
+	    ((*Ch >= 'a') && (*Ch <= 'f')) ||
+	    ((*Ch >= 'A') && (*Ch <= 'F'))) {
 
 		Status = XST_SUCCESS;
 	}
@@ -401,7 +403,7 @@ u32 Xil_ValidateHexStr(const char *HexStr)
 	u32 Len;
 	u32 Status = XST_INVALID_PARAM;
 
-	if(NULL == HexStr) {
+	if (NULL == HexStr) {
 		goto END;
 	}
 
@@ -468,19 +470,19 @@ u32 Xil_ConvertStringToHexBE(const char *Str, u8 *Buf, u32 Len)
 		goto END;
 	}
 
-	if(Len != (strlen(Str) * XIL_SIZE_OF_NIBBLE_IN_BITS)) {
+	if (Len != (strlen(Str) * XIL_SIZE_OF_NIBBLE_IN_BITS)) {
 		Status = (u32)XST_INVALID_PARAM;
 		goto END;
 	}
 
 	ConvertedLen = 0U;
 	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
-		if ((Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]),&UpperNibble)
-			== (u32)XST_SUCCESS) && (Xil_ConvertCharToNibble(((u8)Str[ConvertedLen+1U]),
-				&LowerNibble) == (u32)XST_SUCCESS)) {
-				Buf[ConvertedLen/2U] =
+		if ((Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]), &UpperNibble)
+		     == (u32)XST_SUCCESS) && (Xil_ConvertCharToNibble(((u8)Str[ConvertedLen + 1U]),
+					      &LowerNibble) == (u32)XST_SUCCESS)) {
+			Buf[ConvertedLen / 2U] =
 				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
-								LowerNibble;
+				LowerNibble;
 		}
 		else {
 			Status = (u32)XST_INVALID_PARAM;
@@ -530,7 +532,7 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len)
 		goto END;
 	}
 
-	if(Len != (strlen(Str) * XIL_SIZE_OF_NIBBLE_IN_BITS)) {
+	if (Len != (strlen(Str) * XIL_SIZE_OF_NIBBLE_IN_BITS)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -539,13 +541,13 @@ u32 Xil_ConvertStringToHexLE(const char *Str, u8 *Buf, u32 Len)
 	ConvertedLen = 0U;
 	while (ConvertedLen < (Len / XIL_SIZE_OF_NIBBLE_IN_BITS)) {
 		if ((Xil_ConvertCharToNibble(((u8)Str[ConvertedLen]),
-						&UpperNibble) == XST_SUCCESS) &&
-			(Xil_ConvertCharToNibble(((u8)Str[ConvertedLen + 1U]),
-						&LowerNibble) == XST_SUCCESS)) {
-				Buf[StrIndex] =
-				   (UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
-				   LowerNibble;
-				StrIndex = StrIndex - 1U;
+					     &UpperNibble) == XST_SUCCESS) &&
+		    (Xil_ConvertCharToNibble(((u8)Str[ConvertedLen + 1U]),
+					     &LowerNibble) == XST_SUCCESS)) {
+			Buf[StrIndex] =
+				(UpperNibble << XIL_SIZE_OF_NIBBLE_IN_BITS) |
+				LowerNibble;
+			StrIndex = StrIndex - 1U;
 		}
 		else {
 			Status = XST_INVALID_PARAM;
@@ -582,7 +584,7 @@ u32 Xil_Strnlen(const char *Str, u32 MaxLen)
 		goto END;
 	}
 
-	while(StrLen < MaxLen) {
+	while (StrLen < MaxLen) {
 		if ('\0' == *InStr) {
 			break;
 		}
@@ -668,7 +670,7 @@ END:
  *
  ****************************************************************************/
 int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
-	u32 MaxDstLen)
+		    u32 MaxDstLen)
 {
 	int Status = XST_FAILURE;
 	u32 SrcLength;
@@ -695,7 +697,7 @@ int Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 		goto END;
 	}
 
-	for (Index = From; (Index <= To) && (Src[Index]!= (u8)'\0'); Index++) {
+	for (Index = From; (Index <= To) && (Src[Index] != (u8)'\0'); Index++) {
 		Dest[Index - From] = Src[Index];
 	}
 
@@ -718,7 +720,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int Xil_Strcat(char* Str1Ptr, const char* Str2Ptr, const u32 Size)
+int Xil_Strcat(char *Str1Ptr, const char *Str2Ptr, const u32 Size)
 {
 	int Status = XST_FAILURE;
 	u32 Count = 0U;
@@ -763,7 +765,7 @@ END:
  * @return	XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-int Xil_SecureMemCpy(void * DestPtr, u32 DestPtrLen, const void * SrcPtr, u32 Len)
+int Xil_SecureMemCpy(void *DestPtr, u32 DestPtrLen, const void *SrcPtr, u32 Len)
 {
 	int Status = XST_FAILURE;
 	u8 *Dest = (u8 *)DestPtr;
@@ -809,7 +811,7 @@ END:
  * 			1 if first non-matching character is greater value in Buf1Ptr
  *
  ******************************************************************************/
-int Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
+int Xil_MemCmp(const void *Buf1Ptr, const void *Buf2Ptr, u32 Len)
 {
 	volatile int RetVal = 1;
 	const u8 *Buf1 = Buf1Ptr;
@@ -826,10 +828,12 @@ int Xil_MemCmp(const void * Buf1Ptr, const void * Buf2Ptr, u32 Len)
 		if (*Buf1 > *Buf2) {
 			RetVal = 1;
 			goto END;
-		} else if (*Buf1 < *Buf2) {
+		}
+		else if (*Buf1 < *Buf2) {
 			RetVal = -1;
 			goto END;
-		} else {
+		}
+		else {
 			Buf1++;
 			Buf2++;
 			Size--;
@@ -865,7 +869,7 @@ int Xil_SecureZeroize(u8 *DataPtr, const u32 Length)
 	(void)memset(DataPtr, 0, Length);
 
 	/* Read it back to verify */
-	 for (Index = 0U; Index < Length; Index++) {
+	for (Index = 0U; Index < Length; Index++) {
 		if (DataPtr[Index] != 0x00U) {
 			goto END;
 		}
@@ -898,7 +902,7 @@ END:
  *
  *****************************************************************************/
 int Xil_SMemCmp(const void *Src1, const u32 Src1Size,
-	const void *Src2, const u32 Src2Size, const u32 CmpLen)
+		const void *Src2, const u32 Src2Size, const u32 CmpLen)
 {
 	int Status = XST_FAILURE;
 
@@ -940,7 +944,7 @@ int Xil_SMemCmp(const void *Src1, const u32 Src1Size,
  *
  *****************************************************************************/
 int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
-	const void *Src2, const u32 Src2Size, const u32 CmpLen)
+		   const void *Src2, const u32 Src2Size, const u32 CmpLen)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusRedundant = XST_FAILURE;
@@ -959,7 +963,7 @@ int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
 	}
 	else {
 		while (Cnt >= sizeof(u32)) {
-			Data |= (*(const u32 *)Src_1 ^ *(const u32 *)Src_2);
+			Data |= (*(const u32 *)Src_1 ^ * (const u32 *)Src_2);
 			DataRedundant &= ~Data;
 			Src_1 += sizeof(u32);
 			Src_2 += sizeof(u32);
@@ -1001,13 +1005,13 @@ int Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
  *
  *****************************************************************************/
 int Xil_SMemCpy(void *Dest, const u32 DestSize,
-	const void *Src, const u32 SrcSize, const u32 CopyLen)
+		const void *Src, const u32 SrcSize, const u32 CopyLen)
 {
 	int Status = XST_FAILURE;
 	const u8 *Src8 = (const u8 *) Src;
 	const u8 *Dst8 = (u8 *) Dest;
-	void * volatile DestTemp = Dest;
-	const void * volatile SrcTemp = Src;
+	void *volatile DestTemp = Dest;
+	const void *volatile SrcTemp = Src;
 
 	if ((Dest == NULL) || (Src == NULL)) {
 		Status =  XST_INVALID_PARAM;
@@ -1048,7 +1052,7 @@ int Xil_SMemCpy(void *Dest, const u32 DestSize,
  *
  *****************************************************************************/
 int Xil_SMemSet(void *Dest, const u32 DestSize,
-	const u8 Data, const u32 Len)
+		const u8 Data, const u32 Len)
 {
 	int Status = XST_FAILURE;
 
@@ -1080,7 +1084,7 @@ int Xil_SMemSet(void *Dest, const u32 DestSize,
  *
  *****************************************************************************/
 int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
-	const u8 *SrcStr, const u32 SrcSize)
+		 const u8 *SrcStr, const u32 SrcSize)
 {
 	int Status = XST_FAILURE;
 	u32 SrcLen;
@@ -1092,8 +1096,8 @@ int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 		goto END;
 	}
 
-	SrcLen = strnlen((const char*)SrcStr, SrcSize);
-	DstLen = strnlen((const char*)DestStr, DestSize);
+	SrcLen = strnlen((const char *)SrcStr, SrcSize);
+	DstLen = strnlen((const char *)DestStr, DestSize);
 	Length = SrcLen + DstLen;
 
 	if ((DestSize <= DstLen) || (SrcSize <= SrcLen)) {
@@ -1103,7 +1107,7 @@ int Xil_SStrCat (u8 *DestStr, const u32 DestSize,
 		Status =  XST_INVALID_PARAM;
 	}
 	else {
-		(void)strncat((char*)DestStr, (const char*)SrcStr,Length);
+		(void)strncat((char *)DestStr, (const char *)SrcStr, Length);
 		Status = XST_SUCCESS;
 	}
 
@@ -1129,7 +1133,7 @@ END:
  *
  *****************************************************************************/
 int Xil_SStrCmp(const u8 *Str1, const u32 Str1Size,
-	const u8 *Str2, const u32 Str2Size)
+		const u8 *Str2, const u32 Str2Size)
 {
 	int Status = XST_FAILURE;
 	u32 Str1Len = 0U;
@@ -1140,8 +1144,8 @@ int Xil_SStrCmp(const u8 *Str1, const u32 Str1Size,
 		goto END;
 	}
 
-	Str1Len = strnlen((const char*)Str1, Str1Size);
-	Str2Len = strnlen((const char*)Str2, Str2Size);
+	Str1Len = strnlen((const char *)Str1, Str1Size);
+	Str2Len = strnlen((const char *)Str2, Str2Size);
 
 	if ((Str1Size <= Str1Len) || (Str2Size <= Str2Len)) {
 		Status =  XST_INVALID_PARAM;
@@ -1182,7 +1186,7 @@ END:
  *
  *****************************************************************************/
 int Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
-	const u8 *Str2, const u32 Str2Size)
+		    const u8 *Str2, const u32 Str2Size)
 {
 	int Status = XST_FAILURE;
 	u32 Str1Len = 0U;
@@ -1193,8 +1197,8 @@ int Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
 		goto END;
 	}
 
-	Str1Len = strnlen((const char*)Str1, Str1Size);
-	Str2Len = strnlen((const char*)Str2, Str2Size);
+	Str1Len = strnlen((const char *)Str1, Str1Size);
+	Str2Len = strnlen((const char *)Str2, Str2Size);
 
 	if ((Str1Size <= Str1Len) || (Str2Size <= Str2Len)) {
 		Status =  XST_INVALID_PARAM;
@@ -1227,7 +1231,7 @@ END:
  *
  *****************************************************************************/
 int Xil_SStrCpy(u8 *DestStr, const u32 DestSize,
-	const u8 *SrcStr, const u32 SrcSize)
+		const u8 *SrcStr, const u32 SrcSize)
 {
 	int Status = XST_FAILURE;
 	u32 SrcLen = 0U;
@@ -1237,7 +1241,7 @@ int Xil_SStrCpy(u8 *DestStr, const u32 DestSize,
 		goto END;
 	}
 
-	SrcLen = strnlen((const char*)SrcStr, SrcSize);
+	SrcLen = strnlen((const char *)SrcStr, SrcSize);
 
 	if ((DestSize <= SrcLen) || (SrcSize <= SrcLen)) {
 		Status =  XST_INVALID_PARAM;
@@ -1268,7 +1272,7 @@ END:
  *
  *****************************************************************************/
 int Xil_SMemMove(void *Dest, const u32 DestSize,
-	const void *Src, const u32 SrcSize, const u32 CopyLen)
+		 const void *Src, const u32 SrcSize, const u32 CopyLen)
 {
 	volatile int Status = XST_FAILURE;
 	const void *Output = NULL;
@@ -1317,7 +1321,7 @@ u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, .
 	va_start(Event, EventAddr);
 	/* wait for all events to complete */
 	for (i = 0; i < NumOfEvents; i++) {
-		while(PollCount > 0U) {
+		while (PollCount > 0U) {
 			if (Xil_In32((UINTPTR)EventAddr)) {
 				LoopCnt++;
 				break;
@@ -1373,7 +1377,7 @@ s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value)
 	/* verify value written to specified address */
 	ReadReg = Xil_In32(Addr) & Mask;
 
-	if(ReadReg == (Mask & Value)) {
+	if (ReadReg == (Mask & Value)) {
 		Status = XST_SUCCESS;
 	}
 
