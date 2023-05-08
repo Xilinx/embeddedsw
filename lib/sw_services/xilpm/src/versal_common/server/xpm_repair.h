@@ -19,6 +19,7 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 XStatus XPmRepair_Vdu(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 XStatus XPmRepair_Lpx(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
+XStatus XPmRepair_Fpx(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr);
 
 #ifdef __cplusplus
 }

@@ -39,6 +39,7 @@ extern "C" {
 #define GTM_TAG_ID	0x19
 #define BFRB_TAG_ID 	0x1B
 #define LPX_TAG_ID	0x20
+#define FPX_TAG_ID	0x21
 
 
 #define PMC_EFUSE_BISR_EXIT_CODE                        (0U)
