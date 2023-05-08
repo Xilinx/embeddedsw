@@ -142,15 +142,15 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 
 	for (Index = 0; Index < Length; Index++) {
 		switch (Kind) {
-		case XIL_TESTIO_LE:
-			Xil_Out16LE((UINTPTR)TempAddr16, Value);
-			break;
-		case XIL_TESTIO_BE:
-			Xil_Out16BE((UINTPTR)TempAddr16, Value);
-			break;
-		default:
-			Xil_Out16((UINTPTR)TempAddr16, Value);
-			break;
+			case XIL_TESTIO_LE:
+				Xil_Out16LE((UINTPTR)TempAddr16, Value);
+				break;
+			case XIL_TESTIO_BE:
+				Xil_Out16BE((UINTPTR)TempAddr16, Value);
+				break;
+			default:
+				Xil_Out16((UINTPTR)TempAddr16, Value);
+				break;
 		}
 
 		ValueIn = Xil_In16((UINTPTR)TempAddr16);
@@ -167,15 +167,15 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 		Xil_Out16((UINTPTR)TempAddr16, Value);
 
 		switch (Kind) {
-		case XIL_TESTIO_LE:
-			ValueIn = Xil_In16LE((UINTPTR)TempAddr16);
-			break;
-		case XIL_TESTIO_BE:
-			ValueIn = Xil_In16BE((UINTPTR)TempAddr16);
-			break;
-		default:
-			ValueIn = Xil_In16((UINTPTR)TempAddr16);
-			break;
+			case XIL_TESTIO_LE:
+				ValueIn = Xil_In16LE((UINTPTR)TempAddr16);
+				break;
+			case XIL_TESTIO_BE:
+				ValueIn = Xil_In16BE((UINTPTR)TempAddr16);
+				break;
+			default:
+				ValueIn = Xil_In16((UINTPTR)TempAddr16);
+				break;
 		}
 
 
@@ -228,15 +228,15 @@ s32 Xil_TestIO32(u32 *Addr, s32 Length, u32 Value, s32 Kind, s32 Swap)
 
 	for (Index = 0; Index < Length; Index++) {
 		switch (Kind) {
-		case XIL_TESTIO_LE:
-			Xil_Out32LE((UINTPTR)TempAddr, Value);
-			break;
-		case XIL_TESTIO_BE:
-			Xil_Out32BE((UINTPTR)TempAddr, Value);
-			break;
-		default:
-			Xil_Out32((UINTPTR)TempAddr, Value);
-			break;
+			case XIL_TESTIO_LE:
+				Xil_Out32LE((UINTPTR)TempAddr, Value);
+				break;
+			case XIL_TESTIO_BE:
+				Xil_Out32BE((UINTPTR)TempAddr, Value);
+				break;
+			default:
+				Xil_Out32((UINTPTR)TempAddr, Value);
+				break;
 		}
 
 		ValueIn = Xil_In32((UINTPTR)TempAddr);
@@ -254,15 +254,15 @@ s32 Xil_TestIO32(u32 *Addr, s32 Length, u32 Value, s32 Kind, s32 Swap)
 
 
 		switch (Kind) {
-		case XIL_TESTIO_LE:
-			ValueIn = Xil_In32LE((UINTPTR)TempAddr);
-			break;
-		case XIL_TESTIO_BE:
-			ValueIn = Xil_In32BE((UINTPTR)TempAddr);
-			break;
-		default:
-			ValueIn = Xil_In32((UINTPTR)TempAddr);
-			break;
+			case XIL_TESTIO_LE:
+				ValueIn = Xil_In32LE((UINTPTR)TempAddr);
+				break;
+			case XIL_TESTIO_BE:
+				ValueIn = Xil_In32BE((UINTPTR)TempAddr);
+				break;
+			default:
+				ValueIn = Xil_In32((UINTPTR)TempAddr);
+				break;
 		}
 
 		if ((Kind != 0) && (Swap != 0)) {
