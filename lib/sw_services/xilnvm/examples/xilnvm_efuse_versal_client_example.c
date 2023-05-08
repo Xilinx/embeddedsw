@@ -1872,7 +1872,7 @@ static int XilNvm_EfuseShowPufSecCtrlBits(void)
 	Xil_DCacheInvalidateRange((UINTPTR)&SharedMem[0U],
 			XNVM_CACHE_ALIGNED_LEN);
 
-	Status = XNvm_EfuseReadSecCtrlBits(&NvmClientInstance, (UINTPTR)PufSecCtrlBits);
+	Status = XNvm_EfuseReadPufSecCtrlBits(&NvmClientInstance, (UINTPTR)PufSecCtrlBits);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
