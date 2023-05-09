@@ -29,6 +29,8 @@
  * 1.6   sd   28/02/21    Add support for microblaze
  *       kpt  03/16/21    Fixed compilation warning on microblaze
  * 1.7   sd   01/04/22    Replace memset with Xil_SMemSet
+ * 1.8   ana  05/02/23	  Updated XIpiPs_PollforDone logic to improve
+ *						  AES client performance
  *</pre>
  *
  *@note
@@ -226,7 +228,7 @@ static u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 		if (Flag == 0U) {
 			break;
 		}
-		usleep(100);
+		usleep(XIPI_IPI_DONE_BIT_SLEEP_IN_US);
 		Timeout--;
 	} while (Timeout != 0U);
 
