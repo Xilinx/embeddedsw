@@ -97,6 +97,7 @@ typedef struct {
 typedef struct {
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 	u8 PrgmPufHelperData;
+	u8 PrgmPufSecCtrlBits;
 	u8 EnvMonitorDis;
 	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS];
 	u32 Chash;

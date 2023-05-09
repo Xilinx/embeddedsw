@@ -522,6 +522,7 @@ int XNvm_EfusePufWrite(u32 AddrLow, u32 AddrHigh) {
 	PufHd.Chash = PufHdAddr.Chash;
 	PufHd.EnvMonitorDis = (u8)PufHdAddr.EnvMonitorDis;
 	PufHd.PrgmPufHelperData = PufHdAddr.PrgmPufHelperData;
+	PufHd.PrgmPufSecCtrlBits = PufHdAddr.PrgmPufSecCtrlBits;
 	if (PufHd.EnvMonitorDis == TRUE) {
 		PufHd.SysMonInstPtr = NULL;
 	}
@@ -560,7 +561,7 @@ END:
 static int XNvm_EfusePufRead(u32 AddrLow, u32 AddrHigh) {
 	int Status = XST_FAILURE;
 	u64 Addr = ((u64)AddrHigh << 32) | (u64)AddrLow;
-	XNvm_EfusePufHdAddr PufHdAddr;
+	XNvm_EfusePufHdAddr PufHdAddr = {0U};
 	XNvm_EfusePufHd PufHd;
 
 	Status = XNvm_EfuseReadPuf(&PufHd);

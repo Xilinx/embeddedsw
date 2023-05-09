@@ -878,11 +878,13 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHd *PufHelperData)
 	/**
 	 *   Programming Puf Security control bits
 	 */
-	Status = XST_FAILURE;
-	Status = XNvm_EfuseWritePufSecCtrl(
+	if (PufHelperData->PrgmPufSecCtrlBits == TRUE) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfuseWritePufSecCtrl(
 			&(PufHelperData->PufSecCtrlBits));
-	if (Status != XST_SUCCESS) {
-		goto END;
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	Status = XST_FAILURE;
