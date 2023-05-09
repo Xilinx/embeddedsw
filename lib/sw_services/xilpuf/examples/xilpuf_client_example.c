@@ -468,6 +468,11 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 	XPuf_ShowData((u8*)PufArr.PufID, XPUF_ID_LEN_IN_BYTES);
 
 #if XPUF_WRITE_HD_IN_EFUSE
+	Status = Xil_SMemSet(&PrgmPufHelperData, sizeof(PrgmPufHelperData), 0U, sizeof(PrgmPufHelperData));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	xil_printf("Formatted syndrome data written in eFuse");
 	XPuf_ShowData((u8*)PufArr.EfuseSynData,
 		XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * XPUF_WORD_LENGTH);
@@ -486,6 +491,8 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 
 #if defined (VERSAL_NET)
 	PrgmPufHelperData.RoSwap = PUF_RO_SWAP;
+#else
+	PrgmPufHelperData.PrgmPufSecCtrlBits = FALSE;
 #endif
 
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
@@ -849,10 +856,12 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 	PrgmPufHelperData.PufSecCtrlBits.PufHdInvalid = PUF_HD_INVLD;
 	PrgmPufHelperData.PufSecCtrlBits.PufSynLk = PUF_SYN_LK;
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
+	PrgmPufHelperData.PrgmPufSecCtrlBits = TRUE;
 
 	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
+		goto END;
 	}
 #endif
 
