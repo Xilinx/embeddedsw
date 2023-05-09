@@ -407,6 +407,11 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr)
 	XPuf_ShowData((u8*)PufData.PufID, XPUF_ID_LEN_IN_BYTES);
 
 #if XPUF_WRITE_HD_IN_EFUSE
+	Status = Xil_SMemSet(&PrgmPufHelperData, sizeof(PrgmPufHelperData), 0U, sizeof(PrgmPufHelperData));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
 	Status = XPuf_GenerateFuseFormat(&PufData);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -423,9 +428,10 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr)
 
 	PrgmPufHelperData.Chash = PufData.Chash;
 	PrgmPufHelperData.Aux = PufData.Aux;
-
 	PrgmPufHelperData.PrgmPufHelperData = TRUE;
-
+#if !defined (VERSAL_NET)
+	PrgmPufHelperData.PrgmPufSecCtrlBits = FALSE;
+#endif
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
 
 	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
@@ -606,6 +612,21 @@ static int XPuf_ProgramBlackKeynIV(XNvm_ClientInstance *InstancePtr)
 	XPuf_WriteBlackKeyOption BlackKeyWriteOption =
 			(XPuf_WriteBlackKeyOption)XPUF_WRITE_BLACK_KEY_OPTION;
 
+	Status = Xil_SMemSet(WriteAesKeys, sizeof(XNvm_EfuseAesKeys), 0U, sizeof(XNvm_EfuseAesKeys));
+	if(Status != XST_SUCCESS){
+		goto END;
+	}
+
+	Status = Xil_SMemSet(WriteIvs, sizeof(XNvm_EfuseIvs), 0U, sizeof(XNvm_EfuseIvs));
+	if(Status != XST_SUCCESS){
+			goto END;
+	}
+
+	Status = Xil_SMemSet(WriteData, sizeof(XNvm_EfuseDataAddr), 0U, sizeof(XNvm_EfuseDataAddr));
+	if(Status != XST_SUCCESS){
+			goto END;
+	}
+
 	XPuf_ReverseData(FormattedBlackKey, FlashBlackKey, XPUF_RED_KEY_LEN_IN_BYTES);
 
 	WriteData->EnvMonDisFlag = XPUF_ENV_MONITOR_DISABLE;
@@ -742,6 +763,9 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 	PrgmPufHelperData.PufSecCtrlBits.PufRegenDis = PUF_REGEN_DIS;
 	PrgmPufHelperData.PufSecCtrlBits.PufHdInvalid = PUF_HD_INVLD;
 	PrgmPufHelperData.PufSecCtrlBits.PufSynLk = PUF_SYN_LK;
+#if !defined (VERSAL_NET)
+	PrgmPufHelperData.PrgmPufSecCtrlBits = TRUE;
+#endif
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
 
 	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
