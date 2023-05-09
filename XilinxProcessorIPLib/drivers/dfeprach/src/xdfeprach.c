@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,6 +45,7 @@
 *       dc     04/06/22 Update documentation
 * 1.5   dc     12/14/22 Update multiband register arithmetic
 *       dc     01/02/23 Multiband registers update
+* 1.6   dc     05/08/23 Set NCO config for RCId=0 fix
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -76,7 +77,7 @@
 */
 
 #define XDFEPRACH_DRIVER_VERSION_MINOR                                         \
-	(5U) /**< Driver's minor version number */
+	(6U) /**< Driver's minor version number */
 #define XDFEPRACH_DRIVER_VERSION_MAJOR                                         \
 	(1U) /**< Driver's major version number */
 
@@ -1033,6 +1034,11 @@ static void XDfePrach_SetNCO(const XDfePrach *InstancePtr,
 			     XDfePrach_RCCfg *RCCfg, u32 RCId)
 {
 	u32 Offset;
+
+	if (RCCfg->InternalRCCfg[RCId].Enable ==
+	    XDFEPRACH_RCID_MAPPING_CHANNEL_NOT_ENABLED) {
+		return;
+	}
 
 	/* Set NCO_CTRL PHASE */
 	Offset = XDFEPRACH_PHASE_PHASE_ACC +
