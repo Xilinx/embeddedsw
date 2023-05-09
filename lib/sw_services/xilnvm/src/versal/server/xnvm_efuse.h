@@ -195,6 +195,7 @@ typedef struct {
 typedef struct {
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits; /**< Puf security control bits*/
 	u8 PrgmPufHelperData; /**< Program puf helper data*/
+	u8 PrgmPufSecCtrlBits; /**< Program puf security control bits*/
 	u8 EnvMonitorDis; /**< Environment monitor disable*/
 	XSysMonPsv *SysMonInstPtr; /**< Pointer to SysMon instance*/
 	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS]; /**< Array of efuse syndrome data*/
