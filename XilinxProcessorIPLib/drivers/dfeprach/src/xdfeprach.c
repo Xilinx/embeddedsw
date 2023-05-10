@@ -46,6 +46,7 @@
 * 1.5   dc     12/14/22 Update multiband register arithmetic
 *       dc     01/02/23 Multiband registers update
 * 1.6   dc     05/08/23 Set NCO config for RCId=0 fix
+*       dc     05/09/23 Dual and single mode calculation fix
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -687,13 +688,16 @@ static void XDfePrach_FreqCalculation(const XDfePrach *InstancePtr, u32 RCId,
 		PhaseIncFp = PhaseIncFp / 8;
 	}
 
-	/* Preventing floating point error in representing integer values */
+	/* Preventing floating point error when converting to integer value
+	   in the following "floor" operation */
 	PhaseIncFp += XDFEPRACH_ERROR_MARGIN;
 
 	/* Write FREQUENCE_CONTROL_WORD */
 	TmpFreq = floor(PhaseIncFp);
 	NcoCfg->Frequency = TmpFreq;
 
+	/* Bring PhaseIncFp back to correct value */
+	PhaseIncFp -= XDFEPRACH_ERROR_MARGIN;
 	/* Write SINGLE & DUAL_MOD_COUNT */
 	FractionFp = PhaseIncFp - NcoCfg->Frequency;
 	if (fabs(FractionFp - (1.0 / 3)) < XDFEPRACH_ERROR_MARGIN) {
