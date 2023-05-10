@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -74,7 +74,9 @@ typedef enum {
 
 	XSECURE_SHA3_STATE_MISMATCH_ERROR,	/**< 0x0A - State mismatch */
 
-	XSECURE_SHA384_INVALID_PARAM,		/**< 0x0B - Invalid Param for SHA2 digest calculation*/
+	XSECURE_SHA384_INVALID_PARAM,		/**< 0x0B - Invalid Param for SHA384 digest calculation*/
+
+	XSECURE_SHA384_KAT_ERROR,		/**< 0x0C - Error when SHA384 KAT fails */
 
 	XSECURE_AES_GCM_TAG_MISMATCH = 0x40,	/**< 0x40 - user provided GCM tag does
 						   not match calculated tag */

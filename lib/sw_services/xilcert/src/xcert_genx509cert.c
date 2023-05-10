@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -37,7 +37,11 @@
 #include "xsecure_utils.h"
 #include "xcert_genx509cert.h"
 #include "xcert_createfield.h"
+#include "xplmi.h"
+#include "xplmi_plat.h"
 #include "xplmi_status.h"
+#include "xplmi_tamper.h"
+#include "xsecure_plat_kat.h"
 
 /************************** Constant Definitions *****************************/
 #define XCERT_OID_SIGN_ALGO				"06082A8648CE3D040303"
@@ -198,7 +202,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	u8* Curr = Start;
 	u8* SequenceLenIdx;
 	u8* SequenceValIdx;
-	u32 TBSCertLen;
+	u32 TBSCertLen = 0U;
 	u32 SignAlgoLen;
 #ifndef PLM_ECDSA_EXCLUDE
 	u32 SignLen;
@@ -584,7 +588,8 @@ END:
  ******************************************************************************/
 static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCertLen)
 {
-	int Status;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u8* Start = TBSCertBuf;
 	u8* Curr  = Start;
 	u8* SequenceLenIdx;
@@ -658,6 +663,15 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 	Status = XOCP_ECDSA_NOT_ENABLED_ERR;
 	goto END;
 #endif
+
+	if (XPlmi_IsKatRan(XPLMI_SECURE_SHA384_KAT_MASK) != TRUE) {
+		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XOCP_ERR_KAT_FAILED, Status, StatusTmp, XSecure_Sha384Kat);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			goto END;
+		}
+		XPlmi_SetKatMask(XPLMI_SECURE_SHA384_KAT_MASK);
+	}
+
 	/**
 	 * Calculate SHA2 Hash for all fields in the TBS certificate except Version and Serial
 	 * Please note that currently SerialStartIdx points to the field after Serial.
