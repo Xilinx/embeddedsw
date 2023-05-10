@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -359,6 +359,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):
 		RomRsvd = (XNvm_RomRsvdBitsWritePload *)Cmd->Payload;
 		Status = XNvm_EfuseWriteRomRsvd(RomRsvd->EnvMonitorDis, RomRsvd->RomRsvdBits);
+		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS_FROM_PLOAD):
 		PufSecData = (XNvm_PufCtrlDirectPload *)Cmd->Payload;
 		Status = XNvm_EfuseWritePufCtrlBitsFromPload(PufSecData);
