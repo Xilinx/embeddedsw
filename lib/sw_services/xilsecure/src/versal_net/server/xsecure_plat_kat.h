@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,7 +36,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xsecure_kat.h"
 #include "xsecure_trng.h"
@@ -48,6 +48,7 @@ extern "C" {
 int XSecure_HmacKat(XSecure_Sha3 *SecureSha3);
 int XSecure_TrngDRBGKat(XSecure_TrngInstance *InstancePtr);
 int XSecure_TrngPreOperationalSelfTests(XSecure_TrngInstance *InstancePtr);
+int XSecure_Sha384Kat(void);
 
 #ifdef __cplusplus
 }

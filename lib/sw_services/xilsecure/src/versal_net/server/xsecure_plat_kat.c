@@ -31,6 +31,7 @@
 #include "xsecure_hmac.h"
 #include "xsecure_error.h"
 #include "xil_util.h"
+#include "xsecure_sha384.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -293,6 +294,46 @@ int XSecure_TrngPreOperationalSelfTests(XSecure_TrngInstance *InstancePtr) {
 
 	InstancePtr->ErrorState = XSECURE_TRNG_HEALTHY;
 	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function performs KAT on SHA-384.
+ *
+ * @return	returns the error codes
+ *		returns XST_SUCCESS on success
+ *
+ *****************************************************************************/
+int XSecure_Sha384Kat(void)
+{
+	volatile int Status = (int)XSECURE_SHA384_KAT_ERROR;
+	volatile u32 Index;
+	u8 *Data = XSecure_GetKatMessage();
+	u8 CalculatedHash[XSECURE_HASH_SIZE_IN_BYTES];
+	const u8 ExpectedHash[XSECURE_HASH_SIZE_IN_BYTES] = {
+		0x5AU, 0x2CU, 0xFCU, 0x1CU, 0xC1U, 0x1EU, 0x61U, 0x1BU,
+		0xD1U, 0xEAU, 0x4EU, 0x51U, 0xC8U, 0x72U, 0x73U, 0x40U,
+		0x01U, 0xCDU, 0x53U, 0x95U, 0x5DU, 0xC6U, 0xF9U, 0xFFU,
+		0x42U, 0xD1U, 0x66U, 0xA1U, 0x6BU, 0x76U, 0x2EU, 0x42U,
+		0x42U, 0x24U, 0xC2U, 0xBEU, 0xC4U, 0xEAU, 0x40U, 0xD4U,
+		0xF9U, 0x9CU, 0x90U, 0x10U, 0xF6U, 0x18U, 0xFFU, 0x95U
+	};
+
+	XSecure_Sha384Digest(Data, XSECURE_KAT_MSG_LEN_IN_BYTES, CalculatedHash);
+
+	for (Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
+		if (CalculatedHash[Index] != ExpectedHash[Index]) {
+			Status = (int)XSECURE_SHA384_KAT_ERROR;
+			goto END;
+		}
+	}
+
+	if (Index == XSECURE_HASH_SIZE_IN_BYTES) {
+		Status = XST_SUCCESS;
+	}
 
 END:
 	return Status;

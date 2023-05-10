@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -275,19 +275,20 @@ typedef enum {
  */
 
 
-#define XPLMI_SECURE_SHA3_KAT_MASK 				        (0x00000010U) /**< SHA3 KAT mask */
-#define XPLMI_SECURE_RSA_KAT_MASK 				        (0x00000020U) /**< RSA KAT mask */
-#define XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK  (0x00000040U) /**< ECC sign verify SHA3_384 KAT mask */
-#define XPLMI_SECURE_AES_DEC_KAT_MASK 			        (0x00000080U) /**< AES decrypt KAT mask */
-#define XPLMI_SECURE_AES_CMKAT_MASK                     (0x00000100U) /**< AES CMKAT mask */
-#define XPLMI_SECURE_TRNG_KAT_MASK	                    (0x00001000U) /**< TRNG KAT mask */
+#define XPLMI_SECURE_SHA3_KAT_MASK 					(0x00000010U) /**< SHA3 KAT mask */
+#define XPLMI_SECURE_RSA_KAT_MASK 					(0x00000020U) /**< RSA KAT mask */
+#define XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK			(0x00000040U) /**< ECC sign verify SHA3_384 KAT mask */
+#define XPLMI_SECURE_AES_DEC_KAT_MASK 					(0x00000080U) /**< AES decrypt KAT mask */
+#define XPLMI_SECURE_AES_CMKAT_MASK					(0x00000100U) /**< AES CMKAT mask */
+#define XPLMI_SECURE_TRNG_KAT_MASK					(0x00001000U) /**< TRNG KAT mask */
+#define XPLMI_SECURE_SHA384_KAT_MASK					(0x00002000U) /**< SHA384 KAT mask */
 #define XPLMI_SECURE_AES_ENC_KAT_MASK					(0x00004000U) /**< AES encrypt KAT mask */
-#define XPLMI_SECURE_HMAC_KAT_MASK 						(0x00010000U) /**< HMAC KAT mask */
-#define XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK	 		(0x00020000U) /**< RSA private decrypt KAT mask */
-#define XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK 	(0x00040000U) /**< ECC sign generation SHA3_384 KAT mask */
+#define XPLMI_SECURE_HMAC_KAT_MASK 					(0x00010000U) /**< HMAC KAT mask */
+#define XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK	 			(0x00020000U) /**< RSA private decrypt KAT mask */
+#define XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK			(0x00040000U) /**< ECC sign generation SHA3_384 KAT mask */
 #define XPLMI_SECURE_ECC_PWCT_KAT_MASK					(0x00080000U) /**< PWCT KAT mask */
-#define XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK            (0x00100000U) /**< DEVIK PWCT KAT mask */
-#define XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK            (0x00200000U) /**< DEVAK PWCT KAT mask */
+#define XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK				(0x00100000U) /**< DEVIK PWCT KAT mask */
+#define XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK				(0x00200000U) /**< DEVAK PWCT KAT mask */
 #define XPLMI_SECURE_FIPS_STATE_MASK					(0xC0000000U) /**< FIPS state mask */
 
 #define XPLMI_ROM_KAT_MASK		(XPLMI_SECURE_SHA3_KAT_MASK | XPLMI_SECURE_RSA_KAT_MASK |\
@@ -298,7 +299,7 @@ typedef enum {
 #define XPLMI_KAT_MASK			(XPLMI_ROM_KAT_MASK | XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK |\
 					XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK | \
 					XPLMI_SECURE_ECC_PWCT_KAT_MASK | XPLMI_SECURE_ECC_DEVIK_PWCT_KAT_MASK | \
-					XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK) /**< KAT mask */
+					XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK | XPLMI_SECURE_SHA384_KAT_MASK) /**< KAT mask */
 
 
 #define XPLMI_DDR_0_KAT_MASK			(0x0FU) /**< DDR 0 KAT mask */
