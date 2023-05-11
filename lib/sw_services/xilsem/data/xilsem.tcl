@@ -19,6 +19,7 @@
 # 1.09	hv   11/16/22 Added support for PL microblaze
 # 1.10	hv   02/14/23 Added support to get number of SLRs from the design
 # 1.11	rv   04/20/23 Added support for psxl IP name
+# 1.12	rv   05/11/23 Added support for Versal-net device
 ##############################################################################
 
 #---------------------------------------------
@@ -40,10 +41,16 @@ proc generate {libhandle} {
 
 	switch $proctype {
 		"psu_pmc" -
-		"psv_pmc" -
+		"psv_pmc" {
+			copy_files_to_src $server_dir
+			file delete -force ./src/libxilsem_versal_net.a
+			file rename -force ./src/libxilsem_versal.a ./src/libxilsem.a
+		}
 		"psxl_pmc" -
 		"psx_pmc" {
 			copy_files_to_src $server_dir
+			file delete -force ./src/libxilsem_versal.a
+			file rename -force ./src/libxilsem_versal_net.a ./src/libxilsem.a
 		}
 
 		"psv_cortexr5" -
