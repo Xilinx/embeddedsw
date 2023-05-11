@@ -2,8 +2,8 @@
 * Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-#ifndef _XMICROBLAZE_CONFIG_H_  /* prevent circular inclusions */
-#define _XMICROBLAZE_CONFIG_H_  /* by using protection macros */
+#ifndef _XMICROBLAZE_CONFIG_H_  /**< prevent circular inclusions */
+#define _XMICROBLAZE_CONFIG_H_  /**< by using protection macros */
 
 /***************************** Include Files ********************************/
 #ifdef SDT

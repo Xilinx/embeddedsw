@@ -33,7 +33,7 @@
 #include "mb_interface.h"
 #include "bspconfig.h"
 
-#define XIL_MICROBLAZE_EXT_CACHE_LINE_LEN	16
+#define XIL_MICROBLAZE_EXT_CACHE_LINE_LEN	16 /**< Size of Cache line */
 
 /************************** Variable Definitions *****************************/
 #ifdef SDT
