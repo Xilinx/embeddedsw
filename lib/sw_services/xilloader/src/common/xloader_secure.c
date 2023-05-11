@@ -188,9 +188,6 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	volatile int Status = XST_FAILURE;
 	XilPdi_PrtnHdr *PrtnHdr;
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
-#ifndef PLM_SECURE_EXCLUDE
-	volatile int StatusTmp = XST_FAILURE;
-#endif
 
 	/** - Initialize XLoader_SecureParms instance with zeros. */
 	Status = XPlmi_MemSetBytes(SecurePtr, sizeof(XLoader_SecureParams), 0U,
