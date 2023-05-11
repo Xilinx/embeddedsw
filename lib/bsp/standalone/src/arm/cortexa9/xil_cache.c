@@ -297,13 +297,13 @@ void Xil_DCacheInvalidateLine(u32 adr)
 *			invalidate the cache after DMA is complete.
 *
 *
-* @param	opstartaddr: 32bit start address of the range to be invalidated.
+* @param	adr: 32bit start address of the range to be invalidated.
 * @param	len: Length of the range to be invalidated in bytes.
 *
 * @return	None.
 *
 ****************************************************************************/
-void Xil_DCacheInvalidateRange(INTPTR opstartaddr, u32 len)
+void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 {
 	const u32 cacheline = 32U;
 	INTPTR tempadr;
@@ -317,27 +317,27 @@ void Xil_DCacheInvalidateRange(INTPTR opstartaddr, u32 len)
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
 	if (len != 0U) {
-		opendaddr = opstartaddr + len;
+		opendaddr = adr + len;
 		endaddr = opendaddr;
 
-		if ((opstartaddr & (cacheline-1U)) != 0U) {
-			opstartaddr &= (~(cacheline - 1U));
+		if ((adr & (cacheline-1U)) != 0U) {
+			adr &= (~(cacheline - 1U));
 
-			Xil_L1DCacheFlushLine(opstartaddr);
+			Xil_L1DCacheFlushLine(adr);
 #ifndef USE_AMP
 			/* Disable Write-back and line fills */
 			Xil_L2WriteDebugCtrl(0x3U);
-			Xil_L2CacheFlushLine(opstartaddr);
+			Xil_L2CacheFlushLine(adr);
 			/* Enable Write-back and line fills */
 			Xil_L2WriteDebugCtrl(0x0U);
 			Xil_L2CacheSync();
 #endif
-			opstartaddr += cacheline;
+			adr += cacheline;
 		}
 		if ((opendaddr & (cacheline-1U)) != 0U) {
 			opendaddr &= (~(cacheline - 1U));
 
-			if (opendaddr != opstartaddr) {
+			if (opendaddr != adr) {
 				Xil_L1DCacheFlushLine(opendaddr);
 #ifndef USE_AMP
 				/* Disable Write-back and line fills */
@@ -350,7 +350,7 @@ void Xil_DCacheInvalidateRange(INTPTR opstartaddr, u32 len)
 			}
 		}
 
-		tempadr = opstartaddr;
+		tempadr = adr;
 
 		while (tempadr < endaddr) {
 #ifndef USE_AMP
@@ -361,16 +361,16 @@ void Xil_DCacheInvalidateRange(INTPTR opstartaddr, u32 len)
 #endif
 		}
 
-		while (opstartaddr < endaddr) {
+		while (adr < endaddr) {
 	/* Invalidate L1 Data cache line */
 #if defined (__GNUC__) || defined (__ICCARM__)
-			asm_cp15_inval_dc_line_mva_poc(opstartaddr);
+			asm_cp15_inval_dc_line_mva_poc(adr);
 #else
 			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_MVA_POC);
-			  Reg = opstartaddr; }
+			  Reg = adr; }
 #endif
-			opstartaddr += cacheline;
+			adr += cacheline;
 		}
 		/* Wait for L1 cache invalidation to complete */
 		dsb();
@@ -441,13 +441,13 @@ void Xil_DCacheFlushLine(u32 adr)
 * 			If the cachelines are modified (dirty), they are written to the
 * 			system memory before the lines are invalidated.
 *
-* @param	opstartadr: 32bit start address of the range to be flushed.
+* @param	adr: 32bit start address of the range to be flushed.
 * @param	len: Length of the range to be flushed in bytes.
 *
 * @return	None.
 *
 ****************************************************************************/
-void Xil_DCacheFlushRange(INTPTR opstartadr, u32 len)
+void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 {
 	const u32 cacheline = 32U;
 	u32 opendadr;
@@ -461,10 +461,10 @@ void Xil_DCacheFlushRange(INTPTR opstartadr, u32 len)
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
 	if (len != 0U) {
-		opendadr = opstartadr + len;
-		opstartadr &= ~(cacheline - 1U);
+		opendadr = adr + len;
+		adr &= ~(cacheline - 1U);
 
-		tempadr = opstartadr;
+		tempadr = adr;
 
 		while (tempadr < opendadr) {
 			/* Flush L1 Data cache line */
@@ -483,11 +483,11 @@ void Xil_DCacheFlushRange(INTPTR opstartadr, u32 len)
 #ifndef USE_AMP
 		/* Disable Write-back and line fills */
 		Xil_L2WriteDebugCtrl(0x3U);
-		while ((u32)opstartadr < opendadr) {
+		while ((u32)adr < opendadr) {
 			/* Flush L2 cache line */
-			*L2CCOffset = opstartadr;
+			*L2CCOffset = adr;
 			Xil_L2CacheSync();
-			opstartadr += cacheline;
+			adr += cacheline;
 		}
 		Xil_L2WriteDebugCtrl(0x0U);
 #endif
