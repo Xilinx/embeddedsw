@@ -53,7 +53,7 @@ typedef struct {
 /************************** Constant Definitions *****************************/
 #define BIT(x)                 	(1 << (x)) /**< Bit position */
 #define XIPI_DONE_TIMEOUT_VAL	2000000    /**< Timeout for IPI */
-#define XIPI_IPI_DONE_BIT_SLEEP_IN_US	(1U)
+#define XIPI_IPI_DONE_BIT_SLEEP_IN_US	(1U)	/**< Sleep for 1Us */
 
 #ifdef versal
 #define XMAILBOX_IPIPSM		BIT(0)  /**< PSM channel */
