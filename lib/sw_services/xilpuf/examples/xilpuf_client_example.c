@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,6 +13,8 @@
   * programming the black key and helper data in a user specified location
   * To build this application, xilmailbox library must be included in BSP and
   * xilsecure, xilnvm and xilpuf must be in client mode.
+  *
+  * This example is supported for Versal and Versal Net devices.
   *
   * Procedure to link and compile the example for the default ddr less designs
   * ------------------------------------------------------------------------------------------------------------

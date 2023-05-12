@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,6 +12,7 @@
  * @{
  *
  * This file illustrates Basic eFuse read/write using rows.
+ * This example is supported for Versal devices.
  *
  * <pre>
  * MODIFICATION HISTORY:

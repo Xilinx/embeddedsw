@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,6 +12,7 @@
 * @{
 * This file illustrates how to program AES key of Versal BBRAM. The key provided
 * by XNVM_BBRAM_AES_KEY macro is written to the BBRAM
+* This example is supported for Versal devices.
 *
 * <pre>
 * MODIFICATION HISTORY:

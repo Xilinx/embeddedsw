@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +16,7 @@
 * signature also verifies with expected signature.
 * - Then signature will be encrypted with public key and generates the actual
 * data also verifies with actual data.
+* This example is supported for Versal and Versal Net devices.
 *
 * MODIFICATION HISTORY:
 * <pre>

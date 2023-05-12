@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -11,6 +11,8 @@
  * This file contains macros which needs to configured by user for
  * xilpuf_example.cand based on the options selected by user operations will be
  * performed.
+ *
+ * This example is supported for Versal and Versal Net devices.
  *
  * <pre>
  * MODIFICATION HISTORY:

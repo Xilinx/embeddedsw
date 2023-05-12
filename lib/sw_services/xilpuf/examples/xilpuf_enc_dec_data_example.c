@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -14,6 +14,8 @@
  * regeneration.
  * To build this application, xilmailbox library must be included in BSP and
  * xilsecure must be in client mode and xilpuf in server mode
+ *
+ * This example is supported for Versal and Versal Net devices.
  *
  * <pre>
  * MODIFICATION HISTORY:
