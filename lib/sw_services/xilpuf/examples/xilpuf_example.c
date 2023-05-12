@@ -14,6 +14,8 @@
   * To build this application, xilmailbox library must be included in BSP and
   * xilsecure,xilnvm must be in client mode and xilpuf in server mode
   *
+  * This example is supported for Versal and Versal Net devices.
+  *
   * <pre>
   * MODIFICATION HISTORY:
   *

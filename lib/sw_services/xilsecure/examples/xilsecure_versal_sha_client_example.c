@@ -13,6 +13,7 @@
 * This example illustrates the SHA3 hash calculation.
 * To build this application, xilmailbox library must be included in BSP and xilsecure
 * must be in client mode
+* This example is supported for Versal and Versal Net devices.
 *
 * @note
 * Procedure to link and compile the example for the default ddr less designs

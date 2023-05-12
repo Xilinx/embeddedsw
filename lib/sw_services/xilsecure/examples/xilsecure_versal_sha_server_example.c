@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +11,7 @@
 * @addtogroup xsecure_sha3_example_apis XilSecure SHA3 Versal API Example Usage
 * @{
 * This example illustrates the SHA3 hash calculation.
+* This example is supported for Versal and Versal Net devices.
 *
 * MODIFICATION HISTORY:
 * <pre>

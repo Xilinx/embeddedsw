@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2021 - 2022 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 *      back to get original data and checks GCM tag. The test fails, if decryption not
 *      produce the original data.
 * 	2. Generating the GMAC tag using key and IV on updated AAD data and checks for GMAC tag match.
+* This example is supported for Versal and Versal Net devices.
 *
 * MODIFICATION HISTORY:
 * <pre>

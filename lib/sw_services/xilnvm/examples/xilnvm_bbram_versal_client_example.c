@@ -44,6 +44,8 @@
 * User should replace this value based on length of the AES Key defined
 * by macro XNVM_BBRAM_AES_KEY. Supported values - 256
 *
+* This example is supported for Versal and Versal Net devices.
+*
 * Procedure to link and compile the example for the default ddr less designs
 * ------------------------------------------------------------------------------------------------------------
 * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,

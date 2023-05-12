@@ -15,6 +15,7 @@
 * to BIG endian, data buffers shall be created in BIG endian format.
 * Also, this configuration is valid only over Server BSP, client side has
 * no impact.
+* This example is supported for Versal and Versal Net devices.
 *
 * <pre>
 * MODIFICATION HISTORY:
