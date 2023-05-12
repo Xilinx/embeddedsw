@@ -126,7 +126,7 @@ extern "C" {
 #define ENABLE_IPI_CRC_VAL	(0x0U) /**< Enable CRC */
 
 #if ENABLE_IPI_CRC_VAL
-#define ENABLE_IPI_CRC
+#define ENABLE_IPI_CRC  /**< Enable CalculateCRC API*/
 #endif
 /**************************** Type Definitions *******************************/
 /**
