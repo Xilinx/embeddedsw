@@ -2557,6 +2557,7 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 	/* Validate SubsystemId */
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -2564,6 +2565,7 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 	if (((u32)XPM_NODECLASS_EVENT != NODECLASS(NodeId)) &&
 	    ((u32)XPM_NODECLASS_DEVICE != NODECLASS(NodeId)) &&
 	    ((u32)XPM_NODECLASS_POWER != NODECLASS(NodeId))) {
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2018 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -1205,13 +1206,13 @@ XStatus XPmPinFunc_GetFuncName(u32 FuncId, char *FuncName)
 	const XPm_PinFunc *PinFunc = NULL;
 	const u32 CopySize = FUNC_QUERY_NAME_LEN;
 
-	Status = Xil_SMemSet(FuncName, FUNC_QUERY_NAME_LEN, 0, FUNC_QUERY_NAME_LEN);
-	if (XST_SUCCESS != Status) {
+	PinFunc = XPmPinFunc_GetById(FuncId);
+	if (NULL == PinFunc) {
 		goto done;
 	}
 
-	PinFunc = XPmPinFunc_GetById(FuncId);
-	if (NULL == PinFunc) {
+	Status = Xil_SMemSet(FuncName, FUNC_QUERY_NAME_LEN, 0, FUNC_QUERY_NAME_LEN);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
