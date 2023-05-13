@@ -799,13 +799,13 @@ XStatus XPmClock_QueryName(u32 ClockId, u32 *Resp)
 	const XPm_ClockNode *Clk;
 	const u32 CopySize = CLK_QUERY_NAME_LEN;
 
-	Status = Xil_SMemSet(Resp, CLK_QUERY_NAME_LEN, 0, CLK_QUERY_NAME_LEN);
-	if (XST_SUCCESS != Status) {
+	Clk = XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
 		goto done;
 	}
 
-	Clk = XPmClock_GetById(ClockId);
-	if (NULL == Clk) {
+	Status = Xil_SMemSet(Resp, CLK_QUERY_NAME_LEN, 0, CLK_QUERY_NAME_LEN);
+	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
@@ -826,6 +826,9 @@ XStatus XPmClock_QueryTopology(u32 ClockId, u32 Index, u32 *Resp)
 	u16 Clkflags;
 
 	Clk = (XPm_OutClockNode *)XPmClock_GetById(ClockId);
+	if (NULL == Clk) {
+		goto done;
+	}
 
 	Status = Xil_SMemSet(Resp, CLK_TOPOLOGY_PAYLOAD_LEN, 0, CLK_TOPOLOGY_PAYLOAD_LEN);
 	if (XST_SUCCESS != Status) {
