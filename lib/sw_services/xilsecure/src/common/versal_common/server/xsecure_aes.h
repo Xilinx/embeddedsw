@@ -38,6 +38,7 @@
 * 4.6   har  07/14/2021 Fixed doxygen warnings
 * 5.0   kpt  07/24/2022 Moved XSecure_AesDecryptKat into XSecure_Kat.c
 *       kpt  08/19/2022 Added GMAC support
+*       vss  05/16/2023 Fixed coverity warning NO_EFFECT
 *
 * </pre>
 *
@@ -110,6 +111,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 typedef enum {
+	XSECURE_AES_IGNORE = -1,		/**< AES Ignore */
 	XSECURE_AES_BBRAM_KEY = 0,		/**< BBRAM Key */
 	XSECURE_AES_BBRAM_RED_KEY,		/**< BBRAM Red Key */
 	XSECURE_AES_BH_KEY,			/**< BH Key */
