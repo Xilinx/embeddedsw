@@ -27,13 +27,14 @@
 
 /***************************** Include Files *********************************/
 #include "xocp.h"
+#include "xocp_keymgmt.h"
 #include "xocp_hw.h"
 #include "xplmi_hw.h"
 #include "xplmi.h"
 #include "xplmi_plat.h"
 #include "xplmi_dma.h"
 #include "xil_util.h"
-#include "xsecure_sha.h"
+#include "xsecure_sha384.h"
 #include "xplmi_status.h"
 #include "xsecure_init.h"
 #include "xsecure_trng.h"
@@ -242,34 +243,38 @@ END:
  ******************************************************************************/
 int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 {
-	int Status = XST_FAILURE;
-	int SStatus = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
 	int ClearStatus = XST_FAILURE;
 	u32 *DevIkPubKey = (u32 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
-	XSecure_Sha3Hash Sha3Hash;
-	XSecure_Sha3 Sha3Instance = {0U};
-	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(0U);
+	u8 Sha3Hash[XOCP_SHA3_LEN_IN_BYTES];
 	XOcp_DmeResponse *DmeResPtr = (XOcp_DmeResponse *)(UINTPTR)DmeStructResAddr;
-	XOcp_Dme *DmePtr = &DmeResPtr->Dme;
+	XOcp_Dme Dme;
+	XOcp_Dme *DmePtr = &Dme;
 	XSecure_TrngInstance *TrngInstance = NULL;
 
-	/* Fill the DME structure with DEVICE ID */
-	Status = XSecure_Sha3Initialize(&Sha3Instance, PmcDmaInstPtr);
+	/* Zeorizing the DME structure */
+	Status = Xil_SMemSet((void *)DmePtr,
+				sizeof(XOcp_Dme), 0U, sizeof(XOcp_Dme));
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto RET;
 	}
-	Status = XSecure_Sha3Digest(&Sha3Instance, (UINTPTR)DevIkPubKey,
-			XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES, &Sha3Hash);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-	Status = Xil_SMemCpy((void *)DmePtr->DeviceID,
-			 XSECURE_HASH_SIZE_IN_BYTES,
-			(const void *)Sha3Hash.Hash,
-			 XSECURE_HASH_SIZE_IN_BYTES,
-			 XSECURE_HASH_SIZE_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		goto END;
+
+	/* Fill the DME structure's DEVICE ID field with hash of DEV IK Public key */
+	if (XOcp_IsDevIkReady() != FALSE) {
+		Status = XSecure_Sha384Digest((u8 *)(UINTPTR)DevIkPubKey,
+				XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES, Sha3Hash);
+		if (Status != XST_SUCCESS) {
+			goto RET;
+		}
+		Status = Xil_SMemCpy((void *)DmePtr->DeviceID,
+			 XOCP_SHA3_LEN_IN_BYTES,
+			(const void *)Sha3Hash,
+			 XOCP_SHA3_LEN_IN_BYTES,
+			 XOCP_SHA3_LEN_IN_BYTES);
+		if (Status != XST_SUCCESS) {
+			goto RET;
+		}
 	}
 
 	/* Fill the DME structure with Nonce */
@@ -278,6 +283,10 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 			(const void *)(UINTPTR)NonceAddr,
 			XOCP_DME_NONCE_SIZE_BYTES,
 			XOCP_DME_NONCE_SIZE_BYTES);
+	if (Status != XST_SUCCESS) {
+		goto RET;
+	}
+
 
 	/* Mention the Address and Size of DME structure for ROM service */
 	XPlmi_Out32(PMC_GLOBAL_GLOBAL_GEN_STORAGE5, (u32)DmePtr);
@@ -286,10 +295,27 @@ int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr)
 
 	Status = XPlmi_RomISR(XPLMI_DME_CHL_SIGN_GEN);
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto RET;
 	}
 	/* Disabling XPPU */
 	Xil_Out32(PMC_XPPU_CTRL, PMC_XPPU_CTRL_DEFVAL);
+
+	/* Check if any ROM error occurred during DME request */
+	Status = Xil_In32(PMC_GLOBAL_PMC_BOOT_ERR);
+	if (Status != 0x0U) {
+		Status = XOCP_DME_ROM_ERROR;
+		goto RET;
+	}
+
+	/* Copy the contents to user DME response structure */
+	Status = Xil_SMemCpy(&DmeResPtr->Dme,
+				sizeof(XOcp_Dme),
+				&Dme,
+				sizeof(XOcp_Dme),
+				sizeof(XOcp_Dme));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	Status = Xil_SMemCpy(DmeResPtr->DmeSignatureR,
 			XOCP_ECC_P384_SIZE_BYTES,
@@ -319,6 +345,7 @@ END:
 		}
 		Status = Status | XOCP_DME_ERR;
 	}
+RET:
 	/*
 	 * ROM uses TRNG for DME service and resets the core after the usage
 	 * in this case TRNG state should be set to uninitialized state
