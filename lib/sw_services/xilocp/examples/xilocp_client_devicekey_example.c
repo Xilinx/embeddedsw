@@ -273,7 +273,6 @@ static int XOcp_AttestationExample(XOcp_ClientInstance *OcpClientInsPtr)
 	AttestData.SignatureAddr = (UINTPTR)Signature;
 	AttestData.HashLen = XOCP_SHA3_HASH_LEN_IN_BYTES;
 
-	xil_printf("Address of struct = %x\n\r", &AttestData);
 	Status = XOcp_ClientAttestWithDevAk(OcpClientInsPtr, (UINTPTR)&AttestData);
 	if (Status != XST_SUCCESS) {
 			xil_printf("\r\n OCP Attestation Example is failed\n\r");

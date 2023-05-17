@@ -67,7 +67,7 @@ static XOcp_KeyMgmt *XOcp_GetKeyMgmtInstance(void);
 /*****************************************************************************/
 /**
  * @brief       This function provides the pointer to the common XOcp_DevAkData
-*	instance which has to be used across the project to store the data.
+ * instance which has to be used across the project to store the data.
  *
  * @return
  *      -   Pointer to the XOcp_DevAkData instance
@@ -78,6 +78,23 @@ XOcp_DevAkData *XOcp_GetDevAkData(void)
 	static XOcp_DevAkData DevAkData[XOCP_MAX_DEVAK_SUPPORT] = {0U};
 
 	return &DevAkData[0];
+}
+
+/*****************************************************************************/
+/**
+ * @brief       This function returns whether Device identity key is ready or
+ * not.
+ *
+ * @return
+ *		- FALSE if DEV IK is not ready
+ *		- TRUE if DEV IK is ready
+ *
+ ******************************************************************************/
+int XOcp_IsDevIkReady(void)
+{
+	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
+
+	return KeyInstPtr->IsDevKeyReady;
 }
 
 /*****************************************************************************/
@@ -98,6 +115,8 @@ int XOcp_KeyInit(void)
 	u32 CdiParity = 0U;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
+
+	KeyInstPtr->IsDevKeyReady = FALSE;
 
 	/* If CDI is not valid device key generation is skipped */
 	if (XPlmi_In32(XOCP_PMC_GLOBAL_DICE_CDI_SEED_VALID) == 0x0U) {
@@ -138,7 +157,7 @@ int XOcp_KeyInit(void)
 END:
 	if (Status != XST_SUCCESS) {
 		/* Zeroize private keys */
-		(void)XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
+		Status = XOcp_KeyZeroize(XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_CTRL,
 				(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_ZEROIZE_STATUS);
 	}
 RET:
@@ -169,7 +188,7 @@ int XOcp_DevAkInputStore(u32 SubSystemId, u8 *PerString)
 		Status = XST_SUCCESS;
 		goto END;
 	}
-	if (KeyMgmtInstance->DevAkInputIndex == XOCP_MAX_DEVAK_SUPPORT) {
+	if (KeyMgmtInstance->DevAkInputIndex >= XOCP_MAX_DEVAK_SUPPORT) {
 		XOcp_Printf(DEBUG_GENERAL,
 			"Maximum count of DEVAK supported is %d\r\n",
 			XOCP_MAX_DEVAK_SUPPORT);
@@ -210,18 +229,24 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	volatile int StatusTmp = XST_FAILURE;
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+	XOcp_KeyMgmt *KeyMgmtInstance = XOcp_GetKeyMgmtInstance();
 	u8 Seed[XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES];
 #ifndef PLM_ECDSA_EXCLUDE
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
 #endif
 	int ClrStatus = XST_FAILURE;
-	u8 CryptoKatEn = TRUE;
-	u8 CryptoKatEnTmp = TRUE;
+	volatile u8 CryptoKatEn = TRUE;
+	volatile u8 CryptoKatEnTmp = TRUE;
 
+	if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
+		Status = XOCP_ERR_INVALID_DEVAK_REQ;
+		goto END;
+	}
 	XOcp_Printf(DEBUG_INFO, "Generating DEV AK of subsystem ID %x\n\r", SubSystemId);
 
 	DevAkData = DevAkData + DevAkIndex;
+	DevAkData->IsDevAkKeyReady = FALSE;
 	Status = XOcp_KeyGenDevAkSeed(XOCP_PMC_GLOBAL_DICE_CDI_SEED_0,
 				XOCP_CDI_SIZE_IN_BYTES, (u32)DevAkData->SubSysHash,
 				XSECURE_HASH_SIZE_IN_BYTES,
@@ -260,11 +285,12 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 		XPlmi_SetKatMask(XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK);
 	}
 
-	XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)DevAkData->EccPrvtKey,
+	DevAkData->IsDevAkKeyReady = TRUE;
+	XPlmi_PrintArray(DEBUG_DETAILED, (u64)(UINTPTR)DevAkData->EccPrvtKey,
 		XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PRVT KEY");
-	XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)DevAkData->EccX,
+	XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccX,
 		XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY X");
-	XPlmi_PrintArray(DEBUG_GENERAL, (u64)(UINTPTR)DevAkData->EccY,
+	XPlmi_PrintArray(DEBUG_INFO, (u64)(UINTPTR)DevAkData->EccY,
 		XSECURE_HASH_SIZE_IN_BYTES/XPLMI_WORD_LEN, "ECC PUB KEY Y");
 
 #else
@@ -371,15 +397,23 @@ u32 XOcp_GetSubSysReqUsrCfgIndex(u32 SubSystemId)
  ******************************************************************************/
 int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	u32 DevAkIndex;
 	XOcp_DevAkData *DevAkData = NULL;
 	XCert_Config CertConfig;
 	XCert_UserCfg *UserCfg = XCert_GetCertUserInput();
+	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
 	u32 UsrCfgIdx = XOcp_GetSubSysReqUsrCfgIndex(SubSystemId);
 
 	if ((XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVIK) &&
 			(XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVAK)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (KeyInstPtr->IsDevKeyReady != TRUE) {
+		XOcp_Printf(DEBUG_DETAILED, "No Device keys are supported\n\r");
+		Status = XOCP_ERR_DEVIK_NOT_READY;
 		goto END;
 	}
 
@@ -390,15 +424,24 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		CertConfig.AppCfg.SubjectPublicKey =
 				(u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
 		CertConfig.AppCfg.PrvtKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
-		(void)SubSystemId;
 	}
 	else {
 		DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+		if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
+			Status = XOCP_ERR_INVALID_DEVAK_REQ;
+			goto END;
+		}
+
 		DevAkData = XOcp_GetDevAkData();
 		DevAkData = DevAkData + DevAkIndex;
+		if (DevAkData->IsDevAkKeyReady != TRUE) {
+			XOcp_Printf(DEBUG_DETAILED, "Device Attestation key is not generated\n\r");
+			Status = XOCP_ERR_DEVAK_NOT_READY;
+			goto END;
+		}
 		CertConfig.AppCfg.IsSelfSigned = FALSE;
 		CertConfig.AppCfg.SubjectPublicKey = (u8 *)DevAkData->EccX;
-		CertConfig.AppCfg.PrvtKey = (u8 *)DevAkData->EccPrvtKey;
+		CertConfig.AppCfg.PrvtKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
 	}
 
 	Status = XCert_GenerateX509Cert(XOcp_GetX509CertPtr->CertAddr,
@@ -435,8 +478,18 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 	}
 
 	DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
+	if (DevAkIndex == XOCP_INVALID_DEVAK_INDEX) {
+		Status = XOCP_ERR_INVALID_DEVAK_REQ;
+		goto END;
+	}
+
 	DevAkData = XOcp_GetDevAkData();
 	DevAkData = DevAkData + DevAkIndex;
+	if (DevAkData->IsDevAkKeyReady != TRUE) {
+		XOcp_Printf(DEBUG_DETAILED, "Device Attestation key is not generated\n\r");
+		Status = XOCP_ERR_DEVAK_NOT_READY;
+		goto END;
+	}
 
 #ifndef PLM_ECDSA_EXCLUDE
 	/* Generate the signature using DEVAK */
@@ -505,8 +558,8 @@ static int XOcp_KeyGenerateDevIk(void)
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES];
 #endif
 	u32 ClrStatus = XST_FAILURE;
-	u8 CryptoKatEn = TRUE;
-	u8 CryptoKatEnTmp = TRUE;
+	volatile u8 CryptoKatEn = TRUE;
+	volatile u8 CryptoKatEnTmp = TRUE;
 
 	/* Copy CDI from PMC global registers to Seed buffer */
 	Status = Xil_SMemCpy((void *)Seed, XOCP_CDI_SIZE_IN_BYTES,

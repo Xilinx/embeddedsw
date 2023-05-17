@@ -44,7 +44,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XOCP_EFUSE_DEVICE_DNA_CACHE			(0xF1250020U)
 #define XOCP_EFUSE_DEVICE_DNA_SIZE_WORDS		(4U)
-#define XOCP_EFUSE_DEVICE_DNA_SIZE_BYTES		(12U)
+#define XOCP_EFUSE_DEVICE_DNA_SIZE_BYTES		(16U)
 #define XOCP_CDI_SIZE_IN_BYTES				(48U)
 #define XOCP_CDI_SIZE_IN_WORDS				(12U)
 #define XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES		(48U)
@@ -79,6 +79,7 @@ typedef struct {
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES]; /**< ECC DEV AK private key */
 	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DEVAK publick key X */
 	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];	/**< ECC DEVAK publick key Y */
+	u8 IsDevAkKeyReady; /**< Indicates Dev AK availability */
 } XOcp_DevAkData;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -93,6 +94,7 @@ XOcp_DevAkData *XOcp_GetDevAkData(void);
 int XOcp_GenerateDevAk(u32 SubSystemId);
 int XOcp_GetX509Certificate(XOcp_X509Cert *GetX509CertAddr, u32 SubSystemId);
 int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId);
+int XOcp_IsDevIkReady(void);
 #ifdef __cplusplus
 }
 #endif

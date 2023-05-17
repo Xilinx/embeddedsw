@@ -737,7 +737,10 @@ typedef enum {
 	XOCP_ECDSA_NOT_ENABLED_ERR,	/**< 0x6A9 ECDSA code is diabled */
 
 	XOCP_DME_ERR = 0x6B0,		/**< 0x6B0 DME signing error */
-
+	XOCP_DME_ROM_ERROR,		/**< 0x6B1 DME error in ROM */
+	XOCP_ERR_DEVIK_NOT_READY,	/**< 0x6B2 DEVIK key not ready */
+	XOCP_ERR_DEVAK_NOT_READY,	/**< 0x6B3 DEVAK key not ready */
+	XOCP_ERR_INVALID_DEVAK_REQ,	/**< 0x6B4 Error when there is a invalid DEVAK request */
 
 	XOCP_ERR_KAT_FAILED = 0x6C0, /**< 0x6C0 Error when KAT fails */
 	XOCP_ERR_X509_GEN_TBSCERT_SIGN_ALGO_FIELD, /**< TBS certificate signed algorithm field */
