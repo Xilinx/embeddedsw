@@ -229,7 +229,6 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 	volatile int StatusTmp = XST_FAILURE;
 	XOcp_DevAkData *DevAkData = XOcp_GetDevAkData();
 	u32 DevAkIndex = XOcp_GetSubSysReqDevAkIndex(SubSystemId);
-	XOcp_KeyMgmt *KeyMgmtInstance = XOcp_GetKeyMgmtInstance();
 	u8 Seed[XOCP_DEVAK_GEN_TRNG_SEED_SIZE_IN_BYTES];
 #ifndef PLM_ECDSA_EXCLUDE
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
