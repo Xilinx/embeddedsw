@@ -11,7 +11,7 @@ BEGIN driver qspipsu
   OPTION supported_peripherals = (psu_qspi psv_pmc_qspi psxl_pmc_qspi psx_pmc_qspi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.17;
+  OPTION VERSION = 1.18;
   OPTION NAME = qspipsu;
 
 END driver
