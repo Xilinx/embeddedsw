@@ -1505,5 +1505,31 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 #endif
 		}
 #endif
+
+#ifdef XPAR_PSX_CRL_0_S_AXI_BASEADDR
+		if (BaseAddress == VERSAL_NET_EMACPS_0_BASEADDR) {
+			/* GEM0 1G clock configuration*/
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM0_REF), 0, 0, 0, 0, 0, 0);
+#else
+			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM0_REF_CTRL);
+			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv0 << CRL_GEM_DIV_VERSAL_SHIFT;
+			Xil_Out32((UINTPTR)CRL_GEM0_REF_CTRL, ClkCntrl);
+#endif
+		}
+		if (BaseAddress == VERSAL_NET_EMACPS_1_BASEADDR) {
+
+			/* GEM1 1G clock configuration*/
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+			Xil_Smc(PM_SET_DIVIDER_SMC_FID, (((u64)EmacPsInstancePtr->Config.S1GDiv0 << 32) | CLK_GEM1_REF), 0, 0, 0, 0, 0, 0);
+#else
+			ClkCntrl = Xil_In32((UINTPTR)CRL_GEM1_REF_CTRL);
+			ClkCntrl &= ~CRL_GEM_DIV_VERSAL_MASK;
+			ClkCntrl |= EmacPsInstancePtr->Config.S1GDiv0 << CRL_GEM_DIV_VERSAL_SHIFT;
+			Xil_Out32((UINTPTR)CRL_GEM1_REF_CTRL, ClkCntrl);
+#endif
+		}
+#endif
 	}
 }
