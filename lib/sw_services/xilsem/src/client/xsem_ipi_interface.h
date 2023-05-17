@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -26,6 +27,8 @@
 * 0.8   hb   01/04/2022   Added macro for IPI payload 2
 * 0.9	hv   01/11/2022   Added interface for reading Frame ECC
 * 1.0	hv   07/24/2022   Removed unused macro XSem_DataMaskShift
+* 1.1   ga   05/16/2023   Updated copyright information and
+*                         fixed IPI instance for versal net
 * </pre>
 * @note
 * @endcond
@@ -56,7 +59,11 @@ extern "C" {
 #define XSem_Dbg(MSG, ...)	{}
 #endif
 
+#ifdef VERSAL_NET
+#define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK)
+#else
 #define TARGET_IPI_INT_MASK	(XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK)
+#endif
 
 /* 1 for API ID + 4 for API arguments + 3 for Reserved */
 #define PAYLOAD_ARG_CNT		(8U)
