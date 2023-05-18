@@ -19,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/03/23 Initial release
+*       kpt  05/18/23 Fix passing invalid DF length in HRNG mode
 *
 * </pre>
 *
@@ -661,7 +662,7 @@ int XTrngpsx_Generate(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSi
 			if ((InstancePtr->Stats.ElapsedSeedLife >= InstancePtr->UserCfg.SeedLife) ||
 				(PredResistance == TRUE)) {
 				XTRNGPSX_TEMPORAL_CHECK(END, Status, XTrngpsx_Reseed, InstancePtr,
-						NULL, 0U);
+						NULL, InstancePtr->UserCfg.DFLength);
 			}
 		}
 		else {

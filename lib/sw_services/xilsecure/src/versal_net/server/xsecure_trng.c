@@ -22,6 +22,7 @@
 *       dc   07/13/22 Modified XSECURE_TRNG_DF_MIN_LENGTH to 2
 *       kpt  08/03/22 Added volatile keyword to avoid compiler optimization of loop redundancy checks
 *       dc   09/04/22 Add an API to set HRNG mode
+* 5.2   kpt  05/18/23 Fix passing invalid DF length in HRNG mode
 *
 * </pre>
 *
@@ -503,7 +504,7 @@ int XSecure_TrngGenerate(XSecure_TrngInstance *InstancePtr, u8 *RandBuf, u32 Ran
 			/* Auto reseed in HRNG mode */
 			if (InstancePtr->UserCfg.Mode == XSECURE_TRNG_HRNG_MODE) {
 				XSECURE_TEMPORAL_CHECK(END, Status, XSecure_TrngReseed, InstancePtr,
-						NULL, 0U);
+						NULL, InstancePtr->UserCfg.DFLength);
 			}
 			else {
 				Status = XSECURE_TRNG_RESEED_REQUIRED_ERROR;
