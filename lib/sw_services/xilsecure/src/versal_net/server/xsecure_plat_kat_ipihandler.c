@@ -16,11 +16,12 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date        Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00  kpt   07/15/2022 Initial release
-* 5.1   kpt   01/04/2023 Added API to set or clear KAT status for external modules
-*
+* Ver   Who  Date       Changes
+* ----- ---- ---------- -------------------------------------------------------
+* 1.00  kpt  07/15/2022 Initial release
+* 1.01  kpt  01/04/2023 Added API to set or clear KAT status for external modules
+* 1.02  ng   05/10/2023 Removed XSecure_PerformKatOperation and implemented
+*                       redundant call for XPlmi_ClearKatMask
 * </pre>
 *
 * @note
@@ -96,18 +97,15 @@ static int XSecure_TrngKat(void)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-	XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	Status = XSecure_TrngPreOperationalSelfTests(TrngInstance);
+	/* Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
-		KatOp = XSECURE_API_KAT_CLEAR;
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_TRNG_KAT_MASK);
 	}
 	else {
-		KatOp = XSECURE_API_KAT_SET;
+		XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
 	}
-
-	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_TRNG_KAT_MASK);
 
 	return Status;
 }
