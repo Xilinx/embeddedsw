@@ -1,0 +1,28 @@
+var struct_x_y_cr_cb2_rgb___config =
+[
+    [ "ACoef", "struct_x_y_cr_cb2_rgb___config.html#a5961e8ba1e237456939848c91b8290b1", null ],
+    [ "ActiveCols", "struct_x_y_cr_cb2_rgb___config.html#a06f55a4e3f5b877ecfe49e6e03255845", null ],
+    [ "ActiveRows", "struct_x_y_cr_cb2_rgb___config.html#a81fa247725649a8aab11f278360f8fc6", null ],
+    [ "BaseAddress", "struct_x_y_cr_cb2_rgb___config.html#a4626978bb8097026ec4731258e74f105", null ],
+    [ "BCoef", "struct_x_y_cr_cb2_rgb___config.html#abf9a4333b876fe36a62eaad150029081", null ],
+    [ "BOffset", "struct_x_y_cr_cb2_rgb___config.html#a11c6b70617845965d192494b268258e7", null ],
+    [ "CCoef", "struct_x_y_cr_cb2_rgb___config.html#a3ed25fedcbb02e02f37aacf01af6689c", null ],
+    [ "CoefRange", "struct_x_y_cr_cb2_rgb___config.html#aef780f2ee06fce1a1da47422299743b7", null ],
+    [ "DCoef", "struct_x_y_cr_cb2_rgb___config.html#a427e1749055de8e5f777177628959d6f", null ],
+    [ "DeviceId", "struct_x_y_cr_cb2_rgb___config.html#ac7a26ca65a59995dc07b107bb6e6fa2c", null ],
+    [ "GOffset", "struct_x_y_cr_cb2_rgb___config.html#a8fe03ba94f64872e7194df9d08cc80e9", null ],
+    [ "HasClamp", "struct_x_y_cr_cb2_rgb___config.html#a1fa62d6e68244842e269bd4dbc4fd629", null ],
+    [ "HasClip", "struct_x_y_cr_cb2_rgb___config.html#a118a2c2e415ab2d6b106b54792e12495", null ],
+    [ "HasDebug", "struct_x_y_cr_cb2_rgb___config.html#af0b77080805fdfec0c59bf4e49a0432e", null ],
+    [ "HasIntcIf", "struct_x_y_cr_cb2_rgb___config.html#ac7cbd27f20f774442bda910729980e8b", null ],
+    [ "MasterAxisVideoFormat", "struct_x_y_cr_cb2_rgb___config.html#abb2118fee23efc363d983f8ce8f65c3f", null ],
+    [ "MaxCols", "struct_x_y_cr_cb2_rgb___config.html#acdee72e3559d58c5d6223fc6419944b9", null ],
+    [ "MWidth", "struct_x_y_cr_cb2_rgb___config.html#a13c853e221a8b275ac7f688bce02f6ad", null ],
+    [ "OutputRange", "struct_x_y_cr_cb2_rgb___config.html#a3894b152388dc8ee49d9e39aeb184657", null ],
+    [ "RgbMax", "struct_x_y_cr_cb2_rgb___config.html#aad9637bb19f0c6eadf567add29ba9ed1", null ],
+    [ "RgbMin", "struct_x_y_cr_cb2_rgb___config.html#aa7376a40e234f43331d37873a2f4f2fe", null ],
+    [ "ROffset", "struct_x_y_cr_cb2_rgb___config.html#a470e87df5204e560dedc7f47577e49ab", null ],
+    [ "SlaveAxiClkFreqHz", "struct_x_y_cr_cb2_rgb___config.html#a4fc6c81fffa7deac56b5ab6d860f7dc4", null ],
+    [ "SlaveAxisVideoFormat", "struct_x_y_cr_cb2_rgb___config.html#ad66da0fe8e86ed3e3a3b915a47f9715b", null ],
+    [ "StandardSelection", "struct_x_y_cr_cb2_rgb___config.html#ade9dee086bbc7e395edcd090ff375ff4", null ]
+];
