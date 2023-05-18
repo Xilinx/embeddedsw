@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,6 +27,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_RsaKat into xsecure_katclient.c
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
+*	yog  05/04/23 Fixed HIS COMF violations
 *
 * </pre>
 * @note
@@ -66,10 +67,16 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 	u32 MemSize;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
+	/**
+	 * Link Shared memory to RsaParams for IPI usage. If shared memory is not assigned return Size as 0
+	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&RsaParams);
 
 	if ((RsaParams == NULL) || (MemSize < sizeof(XSecure_RsaInParam))) {
@@ -90,6 +97,11 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 	Payload[3U] = (u32)(OutDataAddr);
 	Payload[4U] = (u32)(OutDataAddr >> 32);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDecrypt api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
@@ -128,10 +140,16 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 	u32 MemSize;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
+	/**
+	 * Link Shared memory to RsaParams for IPI usage. If shared memory is not assigned return Size as 0
+	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&RsaParams);
 
 	if ((RsaParams == NULL) || (MemSize < sizeof(XSecure_RsaInParam))) {
@@ -152,6 +170,11 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 	Payload[3U] = (u32)(OutDataAddr);
 	Payload[4U] = (u32)(OutDataAddr >> 32);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaEncrypt api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
@@ -183,10 +206,16 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	u32 MemSize;
 	volatile u32 Payload[XMAILBOX_PAYLOAD_LEN_3U] = {0U};
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
+	/**
+	 * Link Shared memory to SignParams for IPI usage. If shared memory is not assigned return Size as 0
+	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&SignParams);
 
 	if ((SignParams == NULL) || (MemSize < sizeof(XSecure_RsaSignParams))) {
@@ -205,6 +234,11 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	Payload[1U] = (u32)BufferAddr;
 	Payload[2U] = (u32)(BufferAddr >> 32);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaSignVerify api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, sizeof(Payload)/sizeof(u32));
 
 END:
