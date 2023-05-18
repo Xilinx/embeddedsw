@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -28,6 +28,7 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_EllipticKat in to xsecure_katclient.c
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
+*	yog  05/04/23 Fixed HIS COMF violations
 *
 * </pre>
 * @note
@@ -70,10 +71,16 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 	u32 MemSize;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
+	/**
+	 * Link Shared memory to EcdsaParams for IPI usage. If shared memory is not assigned return Size as 0
+	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EcdsaParams);
 
 	if ((EcdsaParams == NULL) || (MemSize < sizeof(XSecure_EllipticSignGenParams))) {
@@ -89,13 +96,18 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 
 	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignGenParams));
 
-		/* Fill IPI Payload */
+	/* Fill IPI Payload */
 	Payload[0U] = HEADER(0U, XSECURE_API_ELLIPTIC_GENERATE_SIGN);
 	Payload[1U] = (u32)Buffer;
 	Payload[2U] = (u32)(Buffer >> 32);
 	Payload[3U] = (u32)(SignAddr);
 	Payload[4U] = (u32)(SignAddr >> 32);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticGenSign api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
@@ -127,6 +139,9 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
@@ -139,6 +154,11 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	Payload[4U] = (u32)PubKeyAddr;
 	Payload[5U] = (u32)(PubKeyAddr >> 32);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticGenKey api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
@@ -169,6 +189,9 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U];
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
@@ -179,6 +202,11 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	Payload[2U] = (u32)KeyAddr;
 	Payload[3U] = (u32)(KeyAddr >> 32);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticValidatePubKey api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 
 END:
@@ -223,11 +251,16 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	u32 MemSize;
 	volatile u32 Payload[XMAILBOX_PAYLOAD_LEN_3U] = {0U};
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
-
+	/**
+	 * Link Shared memory to EcdsaParams for IPI usage. If shared memory is not assigned return Size as 0
+	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EcdsaParams);
 
 	if ((EcdsaParams == NULL) || (MemSize < sizeof(XSecure_EllipticSignVerifyParams))) {
@@ -248,6 +281,11 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	Payload[1U] = (u32)Buffer;
 	Payload[2U] = (u32)(Buffer >> 32);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_EllipticVerifySignature api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, sizeof(Payload)/sizeof(u32));
 
 END:

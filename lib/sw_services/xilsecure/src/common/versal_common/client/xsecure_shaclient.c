@@ -28,7 +28,8 @@
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 * 5.0   kpt  07/24/22 Moved XSecure_Sha3Kat into xsecure_katclient.c
 * 5.2   am   03/09/23 Replaced xsecure payload lengths with xmailbox payload lengths
-* 	yog  05/03/23 Fixed MISRA C violation of Rule 12.2
+*	yog  05/03/23 Fixed MISRA C violation of Rule 12.2
+*	yog  05/04/23 Fixed HIS COMF violations
 *
 * </pre>
 *
@@ -94,10 +95,16 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	u32 Sha3InitializeMask = 0U;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
+	/**
+	 * Validate Sha3state. Return XST_FAILURE if the state is not XSECURE_SHA_UNINITIALIZED
+	 */
 	if ((Sha3State != XSECURE_SHA_INITIALIZED) &&
 		(Sha3State != XSECURE_SHA_UPDATE)) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Invalid SHA3 State \r\n");
@@ -117,6 +124,11 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	Payload[4U] = XSECURE_IPI_UNUSED_PARAM;
 	Payload[5U] = XSECURE_IPI_UNUSED_PARAM;
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Update Failed \r\n");
@@ -149,10 +161,16 @@ int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAdd
 	volatile int Status = XST_FAILURE;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
+	/**
+	 * Validate Sha3state. Return XST_FAILURE if the state is XSECURE_SHA_UNINITIALIZED
+	 */
 	if ((Sha3State != XSECURE_SHA_INITIALIZED) &&
 		(Sha3State != XSECURE_SHA_UPDATE)) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Invalid SHA3 State \r\n");
@@ -167,6 +185,11 @@ int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAdd
 	Payload[4U] = (u32)OutDataAddr;
 	Payload[5U] = (u32)(OutDataAddr >> 32);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, sizeof(Payload)/sizeof(u32));
 	if (Status != XST_SUCCESS) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Sha3 Finish Failed \r\n");
@@ -203,10 +226,16 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	u32 Sha3InitializeMask = 0U;
 	u32 Payload[XMAILBOX_PAYLOAD_LEN_6U];
 
+	/**
+	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
+	/**
+	 * Update Sha3State to initialised
+	 */
 	Status = XSecure_Sha3Initialize();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -222,6 +251,11 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	Payload[4U] = (u32)OutDataAddr;
 	Payload[5U] = (u32)(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT);
 
+	/**
+	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
 				sizeof(Payload)/sizeof(u32));
 

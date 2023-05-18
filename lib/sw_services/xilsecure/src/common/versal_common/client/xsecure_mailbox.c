@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 4.7   kpt  01/13/21 Added API's to set and get the shared memory
 *       am   03/08/22 Fixed MISRA C violations
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
+* 5.2   yog  05/04/23 Fixed HIS COMF violations
 *
 * </pre>
 *
@@ -69,12 +70,19 @@ int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)
 	int Status = XST_FAILURE;
 	u32 Response[RESPONSE_ARG_CNT];
 
+	/**
+	 * Send CDO to PLM through IPI. Return XST_FAILURE if sending data failed
+	 */
 	Status = (int)XMailbox_SendData(MailboxPtr, XSECURE_TARGET_IPI_INT_MASK, MsgPtr, MsgLen,
 				XILMBOX_MSG_TYPE_REQ, TRUE);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/**
+	 * Wait for IPI response from PLM with a timeout.
+	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
 	Status = (int)XMailbox_Recv(MailboxPtr, XSECURE_TARGET_IPI_INT_MASK, Response, RESPONSE_ARG_CNT,
 				XILMBOX_MSG_TYPE_RESP);
 	if (Status != XST_SUCCESS) {
@@ -104,6 +112,10 @@ int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* cons
 {
 	int Status = XST_FAILURE;
 
+	/**
+	 * Set XMailbox instance provided by the user to client library instance by
+	 * validating whether provided client instance is not NULL.
+	 */
 	if (InstancePtr != NULL){
 			InstancePtr->MailboxPtr = MailboxPtr;
 			InstancePtr->SlrIndex = 0U;
