@@ -264,7 +264,7 @@ proc generate {os_handle} {
 					set procsrcdir "../${standalone_version}/src/arm/cortexr5/platform/CortexR52"
 					file copy -force $platformsrcdir/mpu_r52.c "../${standalone_version}/src/mpu.c"
 					file copy -force $procsrcdir/xil_mpu_r52.c "../${standalone_version}/src/xil_mpu.c"
-					file copy -force $procsrcdir/xil_mpu_r52.h "./src/xil_mpu.h"
+					file copy -force $procsrcdir/xil_mpu_r52.h "../${standalone_version}/src/xil_mpu.h"
 				}  elseif {[llength $is_versal] > 0} {
 					set platformsrcdir "../${standalone_version}/src/arm/cortexr5/platform/versal"
 					set procsrcdir "../${standalone_version}/src/arm/cortexr5/platform/CortexR5"
