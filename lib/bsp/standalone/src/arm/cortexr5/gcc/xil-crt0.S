@@ -83,9 +83,7 @@
 _startup:
 	bl      __cpu_init		/* Initialize the CPU first (BSP provides this) */
 
-#ifndef XPAR_XILTIMER_ENABLED
-#if defined(XSLEEP_TIMER_IS_DEFAULT_TIMER) && defined (ARMR52)
-	bl XTime_StartTimer
+#if defined (ARMR52)
 	bl XGetBootStatus
 	ands	r0, r0, #1
 	 /* if warm reset, skip the clearing of BSS and SBSS */
@@ -107,7 +105,6 @@ test_boot_status:
 
 	/* if warm reset, skip the clearing of BSS and SBSS */
 	bne	.Lenclbss
-#endif
 #endif
 #endif
 
@@ -163,7 +160,9 @@ noaccess:
 
 	/* configure the timer if TTC is present */
 #ifndef XPAR_XILTIMER_ENABLED
-#ifdef SLEEP_TIMER_BASEADDR
+#if defined (ARMR52) && defined(XSLEEP_TIMER_IS_DEFAULT_TIMER)
+	bl XTime_StartTimer
+#elif defined (SLEEP_TIMER_BASEADDR)
     bl XTime_StartTTCTimer
 #endif
 #endif
