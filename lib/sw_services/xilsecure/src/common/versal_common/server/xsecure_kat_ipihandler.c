@@ -16,10 +16,12 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date        Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00  kpt   07/15/2022 Initial release
-* 1.01  kpt   12/13/2022 Added Trng initialization in XSecure_EllipticSignGenKat
+* Ver   Who  Date       Changes
+* ----- ---- ---------- -------------------------------------------------------
+* 1.00  kpt  07/15/2022 Initial release
+* 1.01  kpt  12/13/2022 Added Trng initialization in XSecure_EllipticSignGenKat
+* 1.02  ng   05/10/2023 Removed XSecure_PerformKatOperation and implemented
+*                       redundant call for XPlmi_ClearKatMask
 *
 * </pre>
 *
@@ -129,7 +131,6 @@ static int XSecure_AesDecKat(void)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
-	volatile XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	if (NULL == PmcDmaInstPtr) {
 		goto END;
@@ -149,15 +150,15 @@ static int XSecure_AesDecKat(void)
 
 	Status = XST_FAILURE;
 	Status = XSecure_AesDecryptKat(XSecureAesInstPtr);
-	if (Status != XST_SUCCESS) {
-		KatOp = XSECURE_API_KAT_CLEAR;
-	}
-	else {
-		KatOp = XSECURE_API_KAT_SET;
-	}
+
 END:
 	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_AES_DEC_KAT_MASK);
+	if (Status != XST_SUCCESS) {
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_DEC_KAT_MASK);
+	}
+	else {
+		XPlmi_SetKatMask(XPLMI_SECURE_AES_DEC_KAT_MASK);
+	}
 	return Status;
 }
 
@@ -176,7 +177,6 @@ static int XSecure_AesDecCmKat(void)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
-	volatile XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	if (NULL == PmcDmaInstPtr) {
 		goto END;
@@ -196,15 +196,15 @@ static int XSecure_AesDecCmKat(void)
 
 	Status = XST_FAILURE;
 	Status = XSecure_AesDecryptCmKat(XSecureAesInstPtr);
-	if (Status != XST_SUCCESS) {
-		KatOp = XSECURE_API_KAT_CLEAR;
-	}
-	else {
-		KatOp = XSECURE_API_KAT_SET;
-	}
+
 END:
 	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_AES_CMKAT_MASK);
+	if (Status != XST_SUCCESS) {
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_CMKAT_MASK);
+	}
+	else {
+		XPlmi_SetKatMask(XPLMI_SECURE_AES_CMKAT_MASK);
+	}
 	return Status;
 }
 
@@ -223,7 +223,6 @@ static int XSecure_AesEncKat(void)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
-	volatile XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	if (NULL == PmcDmaInstPtr) {
 		goto END;
@@ -243,15 +242,15 @@ static int XSecure_AesEncKat(void)
 
 	Status = XST_FAILURE;
 	Status = XSecure_AesEncryptKat(XSecureAesInstPtr);
-	if (Status != XST_SUCCESS) {
-		KatOp = XSECURE_API_KAT_CLEAR;
-	}
-	else {
-		KatOp = XSECURE_API_KAT_SET;
-	}
+
 END:
 	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_AES_ENC_KAT_MASK);
+	if (Status != XST_SUCCESS) {
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_ENC_KAT_MASK);
+	}
+	else {
+		XPlmi_SetKatMask(XPLMI_SECURE_AES_ENC_KAT_MASK);
+	}
 	return Status;
 }
 
@@ -271,19 +270,14 @@ END:
 static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
 {
 	volatile int Status = XST_FAILURE;
-	volatile XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	Status = XSecure_EllipticVerifySignKat((XSecure_EllipticCrvClass)CurveClass);
 	if (Status != XST_SUCCESS) {
-		KatOp = XSECURE_API_KAT_CLEAR;
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK);
 	}
 	else {
-		KatOp = XSECURE_API_KAT_SET;
+		XPlmi_SetKatMask(XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK);
 	}
-
-	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK);
-
 	return Status;
 }
 
@@ -302,7 +296,6 @@ static int XSecure_EllipticSignVerifyKat(XSecure_EccCrvClass CurveClass)
 static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
 {
 	volatile int Status = XST_FAILURE;
-	volatile XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
    /*
 	* Initialize TRNG if it is not initialized as VersalNet ECC library internally
@@ -314,17 +307,16 @@ static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
 	}
 
 	Status = XSecure_EllipticSignGenerateKat((XSecure_EllipticCrvClass)CurveClass);
-	if (Status != XST_SUCCESS) {
-		KatOp = XSECURE_API_KAT_CLEAR;
-	}
-	else {
-		KatOp = XSECURE_API_KAT_SET;
-	}
-
-	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
 
 END:
+	/* Update KAT status in to RTC area */
+	if (Status != XST_SUCCESS) {
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
+	}
+	else {
+		XPlmi_SetKatMask(XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
+	}
+
 	return Status;
 }
 #endif
@@ -343,19 +335,14 @@ END:
 static int XSecure_RsaPubEncKat(void)
 {
 	volatile int Status = XST_FAILURE;
-	volatile XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	Status = XSecure_RsaPublicEncryptKat();
 	if (Status != XST_SUCCESS) {
-		KatOp = XSECURE_API_KAT_CLEAR;
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_RSA_KAT_MASK);
 	}
 	else {
-		KatOp = XSECURE_API_KAT_SET;
+		XPlmi_SetKatMask(XPLMI_SECURE_RSA_KAT_MASK);
 	}
-
-	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_RSA_KAT_MASK);
-
 	return Status;
 }
 
@@ -372,19 +359,14 @@ static int XSecure_RsaPubEncKat(void)
 static int XSecure_RsaPrivateDecKat(void)
 {
 	volatile int Status = XST_FAILURE;
-	volatile XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	Status = XSecure_RsaPrivateDecryptKat();
 	if (Status != XST_SUCCESS) {
-		KatOp = XSECURE_API_KAT_CLEAR;
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK);
 	}
 	else {
-		KatOp = XSECURE_API_KAT_SET;
+		XPlmi_SetKatMask(XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK);
 	}
-
-	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_RSA_PRIVATE_DEC_KAT_MASK);
-
 	return Status;
 }
 #endif
@@ -405,7 +387,6 @@ static int XSecure_ShaKat(void)
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha3 *XSecureSha3InstPtr = XSecure_GetSha3Instance();
 	XPmcDma *PmcDmaInstPtr = XPlmi_GetDmaInstance(XSECURE_PMCDMA_DEVICEID);
-	volatile XSecure_KatOp KatOp = XSECURE_API_KAT_CLEAR;
 
 	if (NULL == PmcDmaInstPtr) {
 		goto END;
@@ -423,40 +404,14 @@ static int XSecure_ShaKat(void)
 
 	Status = XST_FAILURE;
 	Status = XSecure_Sha3Kat(XSecureSha3InstPtr);
-	if (Status != XST_SUCCESS) {
-		KatOp = XSECURE_API_KAT_CLEAR;
-	}
-	else {
-		KatOp = XSECURE_API_KAT_SET;
-	}
+
 END:
 	/* Update KAT status in to RTC area */
-	XSecure_PerformKatOperation(KatOp, XPLMI_SECURE_SHA3_KAT_MASK);
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- * @brief   This function sets or clears KAT mask based on crypto kat
- *
- * @param	KatOp	- Operation to either set or clear the KAT mask
- * @param   KatMask - KAT mask to set or clear the RTC area
- *
- ******************************************************************************/
-void XSecure_PerformKatOperation(XSecure_KatOp KatOp, u32 KatMask)
-{
-	volatile u8 CryptoKatEn = XPlmi_IsCryptoKatEn();
-	volatile u8 CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
-
-	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
-		if (KatOp == XSECURE_API_KAT_CLEAR) {
-			XPlmi_ClearKatMask(KatMask);
-		}
-		else if (KatOp == XSECURE_API_KAT_SET) {
-			XPlmi_SetKatMask(KatMask);
-		}
-		else {
-			/* For MISRA-C compliance */
-		}
+	if (Status != XST_SUCCESS) {
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_SHA3_KAT_MASK);
 	}
+	else {
+		XPlmi_SetKatMask(XPLMI_SECURE_SHA3_KAT_MASK);
+	}
+	return Status;
 }

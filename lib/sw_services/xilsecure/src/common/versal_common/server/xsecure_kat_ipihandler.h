@@ -16,9 +16,10 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date        Changes
+* Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0  kpt   07/15/22 Initial release
+* 1.0   kpt  07/15/22 Initial release
+* 1.01  ng   05/10/23 Removed XSecure_PerformKatOperation
 *
 * </pre>
 *
@@ -44,7 +45,6 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd);
-void XSecure_PerformKatOperation(XSecure_KatOp KatOp, u32 KatMask);
 
 #ifdef __cplusplus
 }
