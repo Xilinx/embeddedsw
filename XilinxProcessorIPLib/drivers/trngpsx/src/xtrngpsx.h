@@ -22,6 +22,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/23 Initial release
+*       kpt  05/18/23 Updated adapttestcutoff and reptestcutoff default values
 *
 * </pre>
 *
@@ -52,11 +53,11 @@ extern "C" {
 #endif
 
 #if !defined(XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF)
-#define XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF 612U
+#define XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF 645U
 #endif
 
 #if !defined(XTRNGPSX_USER_CFG_REP_TEST_CUTOFF)
-#define XTRNGPSX_USER_CFG_REP_TEST_CUTOFF 33U
+#define XTRNGPSX_USER_CFG_REP_TEST_CUTOFF 66U
 #endif
 
 /**************************** Type Definitions *******************************/
