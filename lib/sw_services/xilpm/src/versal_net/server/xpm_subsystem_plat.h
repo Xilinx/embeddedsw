@@ -34,14 +34,6 @@ maybe_unused static XStatus IsDevExcluded(const u32 DevId)
 }
 
 /************************** Function Prototypes ******************************/
-maybe_unused static inline XStatus XPm_PinCheckPermission(const XPm_Subsystem *Subsystem, u32 NodeId)
-{
-        (void)Subsystem;
-        (void)NodeId;
-
-        return XST_FAILURE;
-}
-
 /*
  * Handle the healthy boot notification from the subsystem
  */

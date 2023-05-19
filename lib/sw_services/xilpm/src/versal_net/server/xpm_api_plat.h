@@ -37,8 +37,6 @@ XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version);
 
 int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd, u32 *ApiResponse);
 
-XStatus XPm_PlatQuery(const u32 Qid, const u32 Arg1, const u32 Arg2,
-		  const u32 Arg3, u32 *const Output);
 XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 				     u32 ReqFlags, const u32 *Args, u32 NumArgs);
 

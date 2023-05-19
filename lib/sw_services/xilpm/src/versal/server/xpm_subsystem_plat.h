@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -40,7 +41,6 @@ maybe_unused static XStatus IsDevExcluded(const u32 DevId)
 /************************** Function Prototypes ******************************/
 
 XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId);
-XStatus XPm_PinCheckPermission(const XPm_Subsystem *Subsystem, u32 NodeId);
 XStatus XPmSubsystem_IsOperationAllowed(const u32 HostId, const u32 TargetId,
 					const u32 Operation, const u32 CmdType);
 
