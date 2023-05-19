@@ -174,6 +174,22 @@ XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
 int XPm_RestartCbWrapper(const u32 SubsystemId);
 
 XStatus XPm_GetDeviceBaseAddr(u32 DeviceId, u32 *BaseAddr);
+
+XStatus XPm_SetPinFunction(const u32 SubsystemId, const u32 PinId, const u32 FunctionId);
+
+XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId);
+
+XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
+			const u32 ParamId,
+			const u32 ParamVal);
+
+XStatus XPm_GetPinParameter(const u32 PinId,
+			const u32 ParamId,
+			u32 *const ParamVal);
+
+XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId);
+
+XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId);
 #ifdef __cplusplus
 }
 #endif

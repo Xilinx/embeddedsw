@@ -83,16 +83,6 @@
 	(1ULL << (u64)IOCTL_READ_REG) | \
 	(1ULL << (u64)IOCTL_MASK_WRITE_REG))
 
-#define PM_QUERY_FEATURE_BITMASK ( \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_NAME) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_TOPOLOGY) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_MUXSOURCES) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_ATTRIBUTES) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_NUM_CLOCKS) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_MAX_DIVISOR) | \
-	(1ULL << (u64)XPM_QID_PLD_GET_PARENT))
-
 XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 				     u32 ReqFlags, const u32 *Args, u32 NumArgs)
 {
@@ -567,51 +557,6 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 
 /****************************************************************************/
 /**
- * @brief  This function queries information about the platform resources.
- *
- * @param Qid		The type of data to query
- * @param Arg1		Query argument 1
- * @param Arg2		Query argument 2
- * @param Arg3		Query argument 3
- * @param Output	Pointer to the output data
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- ****************************************************************************/
-XStatus XPm_PlatQuery(const u32 Qid, const u32 Arg1, const u32 Arg2,
-		  const u32 Arg3, u32 *const Output)
-{
-	XStatus Status = XST_FAILURE;
-
-	/* Warning Fix */
-	(void) (Arg1);
-	(void) (Arg2);
-	(void) (Arg3);
-	(void) (Output);
-
-	switch (Qid) {
-	case (u32)XPM_QID_PINCTRL_GET_NUM_PINS:
-	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS:
-	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
-	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_NAME:
-	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
-	case (u32)XPM_QID_PINCTRL_GET_PIN_GROUPS:
-		Status = XST_NO_FEATURE;
-		break;
-	case (u32)XPM_QID_PLD_GET_PARENT:
-		Status = XPmPlDevice_GetParent(Arg1, Output);
-		break;
-	default:
-		Status = XST_INVALID_PARAM;
-		break;
-	}
-
-	return Status;
-}
-
-/****************************************************************************/
-/**
  * @brief  This function add isolation node to isolation topology database
  *
  * @param Args		pointer to isolation node arguments or payload
@@ -841,14 +786,7 @@ XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version)
 	switch (ApiId) {
 	case PM_API(PM_BISR):
 	case PM_API(PM_APPLY_TRIM):
-	case PM_API(PM_FEATURE_CHECK):
 		*Version = XST_API_BASE_VERSION;
-		Status = XST_SUCCESS;
-		break;
-	case PM_API(PM_QUERY_DATA):
-		Version[0] = XST_API_QUERY_DATA_VERSION;
-		Version[1] = (u32)(PM_QUERY_FEATURE_BITMASK);
-		Version[2] = (u32)(PM_QUERY_FEATURE_BITMASK >> 32);
 		Status = XST_SUCCESS;
 		break;
 	case PM_API(PM_IOCTL):
