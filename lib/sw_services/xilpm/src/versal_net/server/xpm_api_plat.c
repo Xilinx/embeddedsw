@@ -133,7 +133,11 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd, u32 *ApiResponse)
 
 	switch (CmdId) {
 	case PM_API(PM_BISR):
-		Status =  XPmBisr_Repair(Pload[0]);
+		if (XST_SUCCESS == XPmBisr_TagSupportCheck2(Pload[0])){
+			Status =  XPmBisr_Repair2(Pload[0]);
+		}else{
+			Status =  XPmBisr_Repair(Pload[0]);
+		}
 		break;
 	case PM_API(PM_INIT_NODE):
 		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);

@@ -306,7 +306,11 @@ XStatus XPmBisr_Repair(u32 TagId)
 						EfuseNextAddr += 4U;
 					}
 				}
-			} else { 	//Not supported
+			} else {	//check bisr2 supported TAG_ID else return error
+				Status = XPmBisr_TagSupportCheck2(EfuseBisrTagId);
+				if (XST_SUCCESS == Status) {
+					goto done;
+				}
 				XPmBisr_SwError(PMC_EFUSE_BISR_UNSUPPORTED_ID);
 				DbgErr = XPM_INT_ERR_BISR_UNSUPPORTED_ID;
 				Status = XST_FAILURE;
