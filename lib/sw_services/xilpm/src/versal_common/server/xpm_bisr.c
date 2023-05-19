@@ -496,3 +496,22 @@ done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
+
+XStatus XPmBisr_TagSupportCheck2(u32 TagId)
+{
+	XStatus Status = XST_FAILURE;
+	switch(TagId) {
+	case VDU_TAG_ID:
+	case BFRB_TAG_ID:
+	case LPX_TAG_ID:
+	case FPX_TAG_ID:
+	case HNICX_NTHUB_TAG_ID:
+		Status = XST_SUCCESS;
+		break;
+	default:
+		Status = XST_FAILURE;
+		break;
+	}
+
+	return Status;
+}

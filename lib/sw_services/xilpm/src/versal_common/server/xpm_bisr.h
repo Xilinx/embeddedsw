@@ -69,7 +69,7 @@ void XPmBisr_SwError(u32 ErrorCode);
 XStatus XPmBisr_RepairGty(u32 EfuseTagAddr, u32 TagSize, u32 TagOptional, u32 *TagDataAddr, u32 TagId);
 u32 XPmBisr_RepairBram(u32 EfuseTagAddr, u32 TagSize);
 u32 XPmBisr_RepairUram(u32 EfuseTagAddr, u32 TagSize);
-
+XStatus XPmBisr_TagSupportCheck2(u32 TagId);
 #ifdef __cplusplus
 }
 #endif
