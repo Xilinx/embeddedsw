@@ -20,6 +20,7 @@
 * 8.0   dp      07/11/22 Add TTC interrupt Id macros thats needed for
 *                        interrupt wrapper.
 * 8.0	sb	05/10/23 Add Interrupt Id's for WWDT.
+* 9.0   dp      05/19/23 Update Interrupt IDs for USB
 *
 * </pre>
 *
@@ -129,6 +130,8 @@ extern "C" {
 #define XPAR_XADMAPS_5_INTR 		XPS_ADMA_CH5_INT_ID
 #define XPAR_XADMAPS_6_INTR 		XPS_ADMA_CH6_INT_ID
 #define XPAR_XADMAPS_7_INTR 		XPS_ADMA_CH7_INT_ID
+#define XPAR_XUSBPS_0_INTR       XPS_USB3_0_ENDPT_INT_ID
+#define XPAR_XUSBPS_0_WAKE_INTR  XPS_USB3_0_WAKE_INT_ID
 #define XPAR_PSXL_ADMA_0_INTR 		XPS_ADMA_CH0_INT_ID
 #define XPAR_PSXL_ADMA_1_INTR 		XPS_ADMA_CH1_INT_ID
 #define XPAR_PSXL_ADMA_2_INTR		XPS_ADMA_CH2_INT_ID
@@ -188,7 +191,7 @@ extern "C" {
 #define XPS_UART1_INT_ID		(26U + 32U)
 #define XPS_CAN0_INT_ID			(27U + 32U)
 #define XPS_CAN1_INT_ID			(28U + 32U)
-//#define XPS_USB3_0_ENDPT_INT_ID		(22U + 32U)
+#define XPS_USB3_0_ENDPT_INT_ID		(29U + 32U)
 #define XPS_GEM0_INT_ID			(39U + 32U)
 #define XPS_GEM0_WAKE_INT_ID		(40U + 32U)
 #define XPS_GEM1_INT_ID			(41U + 32U)
@@ -214,7 +217,7 @@ extern "C" {
 #define XPS_ADMA_CH6_INT_ID		(78U + 32U)
 #define XPS_ADMA_CH7_INT_ID		(79U + 32U)
 //#define XPS_XMPU_LPD_INT_ID		(68U + 32U)
-//#define XPS_USB3_0_WAKE_INT_ID		(74U + 32U)
+#define XPS_USB3_0_WAKE_INT_ID		(98U + 32U)
 //#define XPS_XMPU_FPD_INT_ID		(102U + 32U)
 //#define XPS_FPD_CCI_INT_ID		(106U + 32U)
 //#define XPS_FPD_SMMU_INT_ID		(107U + 32U)
@@ -373,6 +376,8 @@ extern "C" {
  * Here Bits[11:0] represents interrupt id
  * Bits[15:12] represents interrupt trigger type and level flags
  */
+#define XPAR_PSXL_USB_0_INTERRUPT_ID        0x401DU
+#define XPAR_PSXL_USB_1_INTERRUPT_ID        0x4022U
 #define XPAR_PSXL_TTC_0_INTERRUPT_ID        0x402BU
 #define XPAR_PSXL_TTC_1_INTERRUPT_ID        0x402CU
 #define XPAR_PSXL_TTC_2_INTERRUPT_ID        0x402DU
