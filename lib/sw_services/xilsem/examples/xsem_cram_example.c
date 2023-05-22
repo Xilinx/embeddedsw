@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -23,6 +24,8 @@
  * 0.6	 hv    01/17/2022  Added example for reading CRAM and NPI
  *                         configuration over IPI
  * 0.7   hb    02/10/2022  Modified print information
+ * 0.8   gayu  05/19/2023  Added Test print summary and updated copyright
+ *                         information
  * </pre>
  *
  *****************************************************************************/
@@ -46,6 +49,9 @@ XSem_Notifier Notifier = {
 		 XSEM_EVENT_CRAM_INT_ERR | XSEM_EVENT_CRAM_COR_ECC_ERR,
 	.Flag = 1U,
 };
+
+/*Global variables to hold the Fail count */
+u32 FailCnt= 0;
 
 /*Global variables to hold the event count when notified*/
 u8 EventCnt_UnCorEcc = 0U;
@@ -439,6 +445,7 @@ void PrintErrReport(u32 IntialCorErrCnt)
 		} else {
 			xil_printf("[FAILURE] Unexpected increase in" \
 				" Error Count\n\r");
+			FailCnt++;
 		}
 
 		/*Check Event notification*/
@@ -450,6 +457,7 @@ void PrintErrReport(u32 IntialCorErrCnt)
 		} else {
 			xil_printf("[FAILURE] No Uncorrectable error event" \
 				" notification received\n\r");
+			FailCnt++;
 		}
 
 	} else if (Status == CRAM_STATUS_CRC_ERR_MASK) {
@@ -463,6 +471,7 @@ void PrintErrReport(u32 IntialCorErrCnt)
 		} else {
 			xil_printf("[FAILURE] Unexpected increase in" \
 				" Error Count\n\r");
+			FailCnt++;
 		}
 
 		/*Check Event notification*/
@@ -474,6 +483,7 @@ void PrintErrReport(u32 IntialCorErrCnt)
 		} else {
 			xil_printf("[FAILURE] No CRC error event" \
 				" notification received\n\r");
+			FailCnt++;
 		}
 
 	} else if(Status == CRAM_STATUS_COR_ERR_MASK) {
@@ -498,6 +508,7 @@ void PrintErrReport(u32 IntialCorErrCnt)
 			} else {
 				xil_printf("[FAILURE] XilSEM failed to" \
 					" increase error count\n\r");
+				FailCnt++;
 			}
 		}
 
@@ -510,6 +521,7 @@ void PrintErrReport(u32 IntialCorErrCnt)
 		} else {
 			xil_printf("[FAILURE] No Correctable error event" \
 				" notification received\n\r");
+			FailCnt++;
 		}
 
 		/*To print error location details*/
@@ -539,6 +551,7 @@ void PrintErrReport(u32 IntialCorErrCnt)
 	} else {
 		xil_printf("[FAILURE] XilSEM failed to detect error," \
 			" Status = 0x%08x\n\r", CfrStatusInfo.Status);
+		FailCnt++;
 	}
 
 }
@@ -562,6 +575,7 @@ int main(void)
 	u32 GoldenCrc = 0U;
 	u32 TotalFrames[7];
 	u32 Id;
+	u32 TotalCnt = 18U;
 
 	/* Initialize IPI Driver
 	 * This initialization is required to get XilSEM event notifications
@@ -571,6 +585,7 @@ int main(void)
 	if (XST_SUCCESS != Status) {
 		xil_printf("Ipi init failure with status 0x%x\n\r", \
 				__func__, Status);
+		FailCnt++;
 		goto END;
 	}
 
@@ -583,6 +598,7 @@ int main(void)
 		Status = XSem_CfrApiInitCram();
 		if (XST_SUCCESS != Status) {
 			xil_printf("CRAM Initialization failed\n\r");
+			FailCnt++;
 			goto END;
 		} else {
 			xil_printf("CRAM Initialization Done\n\r");
@@ -609,6 +625,7 @@ int main(void)
 	Status = XSem_CfrApiStopScan();
 	if (XST_SUCCESS != Status) {
 		xil_printf("Stop Scan Failed\n\r");
+		FailCnt++;
 		goto END;
 	}
 
@@ -622,7 +639,9 @@ int main(void)
 	Status = Xsem_CfrApiInjctCorErr();
 	if (Status == XST_SUCCESS){
 		IsErrorInjected = 1U;
-	}
+		}else{
+			FailCnt++;
+		}
 
 	/* Start Scan to enable CRAM to detect the injected error.
 	 * In case of CRC or uncorrectable error, XilSEM stops the scan
@@ -635,11 +654,13 @@ int main(void)
 	Status = XSem_CfrApiStartScan();
 	if (XST_SUCCESS != Status) {
 		xil_printf("Start Scan Failed\n\r");
+		FailCnt++;
 		goto END;
 	}
 
 	if (IsErrorInjected != 1U)
 	{
+		FailCnt++;
 		goto END;
 	}
 
@@ -667,12 +688,14 @@ int main(void)
 				"Status 0x%x Ack 0x%x Ret 0x%x\n", \
 				__func__, Status, IpiResp.RespMsg1, \
 						IpiResp.RespMsg4);
+		FailCnt++;
 	}
 
 	/* Stop Scan */
 	Status = XSem_CfrApiStopScan();
 	if (XST_SUCCESS != Status) {
 		xil_printf("Stop Scan Failed\n\r");
+		FailCnt++;
 		goto END;
 	}
 
@@ -690,6 +713,7 @@ int main(void)
 	Status = XSem_CfrApiStartScan();
 	if (XST_SUCCESS != Status) {
 		xil_printf("start Scan Failed\n\r");
+		FailCnt++;
 		goto END;
 	}
 
@@ -709,8 +733,20 @@ int main(void)
 				"Status 0x%x Ack 0x%x Ret 0x%x\n", \
 				__func__, Status, IpiResp.RespMsg1, \
 						IpiResp.RespMsg4);
+		FailCnt++;
 	}
 
 END:
+	xil_printf("\n\r-------------- Test Report --------------\n\r");
+
+	xil_printf("Total  : %d\n\r", TotalCnt);
+	xil_printf("Passed : %d\n\r", TotalCnt - FailCnt);
+	xil_printf("Failed : %d\n\r", FailCnt);
+	if(FailCnt) {
+		xil_printf("CRAM examples Failed \n");
+	}else{
+		xil_printf("CRAM examples ran successfully \n");
+	}
+	xil_printf("-----------------------------------------\n\r");
 	return 0;
 }
