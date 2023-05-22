@@ -185,7 +185,7 @@ typedef struct {
 *****************************************************************************/
 
 #define XIpiPsu_ReadReg(BaseAddress, RegOffset) \
-		Xil_In32((BaseAddress) + (RegOffset))
+	Xil_In32((BaseAddress) + (RegOffset))
 
 /****************************************************************************/
 /**
@@ -203,7 +203,7 @@ typedef struct {
 *****************************************************************************/
 
 #define XIpiPsu_WriteReg(BaseAddress, RegOffset, Data) \
-		Xil_Out32(((BaseAddress) + (RegOffset)), (Data))
+	Xil_Out32(((BaseAddress) + (RegOffset)), (Data))
 
 /****************************************************************************/
 /**
@@ -222,8 +222,8 @@ typedef struct {
 *****************************************************************************/
 #define XIpiPsu_InterruptEnable(InstancePtr, Mask) \
 	XIpiPsu_WriteReg((InstancePtr)->Config.BaseAddress, \
-		XIPIPSU_IER_OFFSET, \
-		((Mask) & XIPIPSU_ALL_MASK));
+			 XIPIPSU_IER_OFFSET, \
+			 ((Mask) & XIPIPSU_ALL_MASK));
 
 /****************************************************************************/
 /**
@@ -242,8 +242,8 @@ typedef struct {
 *****************************************************************************/
 #define XIpiPsu_InterruptDisable(InstancePtr, Mask)  \
 	XIpiPsu_WriteReg((InstancePtr)->Config.BaseAddress, \
-		XIPIPSU_IDR_OFFSET, \
-		((Mask) & XIPIPSU_ALL_MASK));
+			 XIPIPSU_IDR_OFFSET, \
+			 ((Mask) & XIPIPSU_ALL_MASK));
 /****************************************************************************/
 /**
 *
@@ -258,7 +258,7 @@ typedef struct {
 *****************************************************************************/
 #define XIpiPsu_GetInterruptStatus(InstancePtr)  \
 	XIpiPsu_ReadReg((InstancePtr)->Config.BaseAddress, \
-		XIPIPSU_ISR_OFFSET)
+			XIPIPSU_ISR_OFFSET)
 /****************************************************************************/
 /**
 *
@@ -279,8 +279,8 @@ typedef struct {
 
 #define XIpiPsu_ClearInterruptStatus(InstancePtr, Mask)  \
 	XIpiPsu_WriteReg((InstancePtr)->Config.BaseAddress, \
-		XIPIPSU_ISR_OFFSET, \
-		((Mask) & XIPIPSU_ALL_MASK));
+			 XIPIPSU_ISR_OFFSET, \
+			 ((Mask) & XIPIPSU_ALL_MASK));
 /****************************************************************************/
 /**
 *
@@ -296,7 +296,7 @@ typedef struct {
 *****************************************************************************/
 #define XIpiPsu_GetObsStatus(InstancePtr)  \
 	XIpiPsu_ReadReg((InstancePtr)->Config.BaseAddress, \
-		XIPIPSU_OBS_OFFSET)
+			XIPIPSU_OBS_OFFSET)
 /****************************************************************************/
 /************************** Variable Definitions *****************************/
 /**
@@ -320,21 +320,21 @@ XIpiPsu_Config *XIpiPsu_LookupConfig(u32 BaseAddress);
 
 /* Interface Functions implemented in xipipsu.c */
 
-XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config * CfgPtr,
-		UINTPTR EffectiveAddress);
+XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config *CfgPtr,
+			      UINTPTR EffectiveAddress);
 
 void XIpiPsu_Reset(XIpiPsu *InstancePtr);
 
 XStatus XIpiPsu_TriggerIpi(XIpiPsu *InstancePtr, u32 DestCpuMask);
 
 XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
-		u32 TimeOutCount);
+			   u32 TimeOutCount);
 
 XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
-		u32 MsgLength, u8 BufferType);
+			    u32 MsgLength, u8 BufferType);
 
-XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask,const u32 *MsgPtr,
-		u32 MsgLength, u8 BufferType);
+XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, const u32 *MsgPtr,
+			     u32 MsgLength, u8 BufferType);
 
 void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr);
 
