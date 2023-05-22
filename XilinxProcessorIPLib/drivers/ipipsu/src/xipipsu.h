@@ -96,6 +96,8 @@
  *		     Fixed doxygen warnings.
  * 2.11 sdd 11/17/21 Updated tcl to check for microblaze processors
  * 2.14 adk 04/14/23 Added support for system device-tree flow.
+ * 2.14 adk 05/22/23 Added IPI Mask's for referring to processor IPI Targets
+ * 		     in system device-tree flow.
  * </pre>
  *
  *****************************************************************************/
@@ -128,6 +130,31 @@ extern "C" {
 #if ENABLE_IPI_CRC_VAL
 #define ENABLE_IPI_CRC  /**< Enable CalculateCRC API*/
 #endif
+
+/*
+ * Target List for referring to processor IPI Targets
+ * FIXME: This is a workaround for system device-tree flow, the proper solution
+ * would be generating the defines using lopper.
+ */
+#ifdef	SDT
+#ifdef	versal
+#define XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK		0x00000002U
+#define XPAR_XIPIPS_TARGET_PSV_PMC_0_CH1_MASK		0x00000100U
+#define XPAR_XIPIPS_TARGET_PSV_PSM_0_CH0_MASK		0x00000001U
+#else
+#define XPAR_XIPIPS_TARGET_PSU_CORTEXA53_0_CH0_MASK	0x00000001U
+#define XPAR_XIPIPS_TARGET_PSU_CORTEXA53_1_CH0_MASK	0x00000001U
+#define XPAR_XIPIPS_TARGET_PSU_CORTEXA53_2_CH0_MASK	0x00000001U
+#define XPAR_XIPIPS_TARGET_PSU_CORTEXA53_3_CH0_MASK	0x00000001U
+#define XPAR_XIPIPS_TARGET_PSU_CORTEXR5_0_CH0_MASK	0x00000100U
+#define XPAR_XIPIPS_TARGET_PSU_CORTEXR5_1_CH0_MASK	0x00000200U
+#define XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK		0x00010000U
+#define XPAR_XIPIPS_TARGET_PSU_PMU_2_CH0_MASK		0x00020000U
+#define XPAR_XIPIPS_TARGET_PSU_PMU_2_CH0_MASK		0x00040000U
+#define XPAR_XIPIPS_TARGET_PSU_PMU_3_CH0_MASK		0x00080000U
+#endif
+#endif
+
 /**************************** Type Definitions *******************************/
 /**
  * Data structure used to refer IPI Targets
