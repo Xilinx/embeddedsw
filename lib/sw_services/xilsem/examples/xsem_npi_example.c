@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -20,6 +21,8 @@
  * 0.5   hb    01/27/2022  Added event for NPI scan self diagnosis
  * 0.6   hb    07/28/2022  Updated example with descriptor attribute
  *                         interpretation
+ * 0.7   gayu  05/19/2023  Added Test print summary and updated copyright
+ *                         information
  * </pre>
  *
  *****************************************************************************/
@@ -79,6 +82,9 @@ struct XSem_Npi_Events_t{
 XSem_DescriptorData DescData_PreInj = {0};
 XSem_DescriptorData DescData_PostInj = {0};
 u32 TotalDescCnt = 0U;
+
+/*Global variables to hold the Fail count */
+u32 FailCnt = 0U;
 
 /*****************************************************************************
  * @brief	Initialize XilSEM IPI instance to process XilSEM
@@ -327,6 +333,7 @@ void PrintErrReport(void)
 	if (XST_SUCCESS != Status) {
 		xil_printf("[%s] ERROR: NPI Status read failure.\n\r", \
 				__func__, Status);
+		FailCnt++;
 	}
 
 	Status = DataMaskShift(NpiStatus.Status,
@@ -335,6 +342,8 @@ void PrintErrReport(void)
 
 	if (Status == 1U) {
 		xil_printf("[SUCCESS] SHA comparison error detected\n\r");
+	}else{
+		FailCnt++;
 	}
 
 	/* Check Scan counter */
@@ -343,6 +352,7 @@ void PrintErrReport(void)
 		xil_printf("[SUCCESS] Scan counter not incrementing\n\r");
 	} else {
 		xil_printf("[ERROR] Scan counter incrementing\n\r");
+		FailCnt++;
 	}
 	/* Check Heartbeat counter */
 	Status = XSem_ApiCheckHbtCount(&NpiStatus);
@@ -350,6 +360,7 @@ void PrintErrReport(void)
 		xil_printf("[SUCCESS] Heartbeat counter not incrementing\n\r");
 	} else {
 		xil_printf("[ERROR] Heartbeat counter incrementing\n\r");
+		FailCnt++;
 	}
 
 	/* Check event notification */
@@ -358,6 +369,7 @@ void PrintErrReport(void)
 		NpiEvents.CrcEventCnt = 0U;
 	} else {
 		xil_printf("[FAILURE] No CRC error event notification received\n\r");
+		FailCnt++;
 	}
 
 	/* Print total descriptor count */
@@ -455,6 +467,7 @@ int main(void)
 	u32 TempA_32 = 0U;
 	u32 TempB_32 = 0U;
 	u32 TimeoutCount = 0U;
+	u32 TotalCnt = 16U;
 	XSemNpiStatus NpiStatus = {0};
 	XSemIpiResp IpiResp = {0};
 
@@ -465,6 +478,7 @@ int main(void)
 	if (XST_SUCCESS != Status) {
 		xil_printf("Ipi init failure with status 0x%x\n\r", \
 				__func__, Status);
+		FailCnt++;
 		goto END;
 	}
 
@@ -486,6 +500,7 @@ int main(void)
 	if (XST_SUCCESS != Status) {
 		xil_printf("[%s] ERROR: NPI Status read failure.\n\r", \
 				__func__, Status);
+		FailCnt++;
 		goto END;
 	}
 
@@ -508,6 +523,7 @@ int main(void)
 					"\n\r",	__func__, Status, IpiResp.RespMsg1, \
 					IpiResp.RespMsg2);
 			Status = XST_FAILURE;
+			FailCnt++;
 		}
 	}
 
@@ -516,6 +532,7 @@ int main(void)
 	if (XST_FAILURE == Status) {
 		xil_printf("[%s] ERROR: NPI Scan count not incrementing.\n\r", \
 				__func__, Status);
+		FailCnt++;
 	}
 
 	/* Get golden SHA and descriptor information before injecting error */
@@ -529,6 +546,7 @@ int main(void)
 				"0x%x\n\r", __func__, Status, IpiResp.RespMsg1, \
 				IpiResp.RespMsg2);
 		Status = XST_FAILURE;
+		FailCnt++;
 	}
 
 	/* Store total descriptor count */
@@ -544,6 +562,7 @@ int main(void)
 		xil_printf("[%s] Error: Stop Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
 				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
 		Status = XST_FAILURE;
+		FailCnt++;
 	}
 
 	/* Inject error in Golden SHA of first descriptor */
@@ -556,6 +575,7 @@ int main(void)
 		xil_printf("[%s] Error: Inject Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
 				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
 		Status = XST_FAILURE;
+		FailCnt++;
 	}
 
 	/* Restart NPI scan after injecting error */
@@ -568,6 +588,7 @@ int main(void)
 		xil_printf("[%s] Error: Start Status 0x%x Ack 0x%x, Ret 0x%x\n\r", \
 				__func__, Status, IpiResp.RespMsg1, IpiResp.RespMsg2);
 		Status = XST_FAILURE;
+		FailCnt++;
 	}
 
 	/* Wait for XilSEM to detect error */
@@ -577,6 +598,7 @@ int main(void)
 		if (XST_SUCCESS != Status) {
 			xil_printf("[%s] ERROR: NPI Status read failure.\n\r", \
 					__func__, Status);
+			FailCnt++;
 			goto END;
 		}
 		/* Read NPI_SCAN_ERROR status bit */
@@ -599,6 +621,7 @@ int main(void)
 						" Ret 0x%x\n\r", __func__, Status, IpiResp.RespMsg1, \
 						IpiResp.RespMsg2);
 				Status = XST_FAILURE;
+				FailCnt++;
 			}
 
 			goto END;
@@ -610,10 +633,22 @@ int main(void)
 	xil_printf("[%s] ERROR: Timeout occurred waiting for error.\n\r",
 			__func__);
 	Status = XST_FAILURE;
+	FailCnt++;
 	goto END;
 
 END:
 	PrintErrReport();
+	xil_printf("\n\r-------------- Test Report --------------\n\r");
+	xil_printf("Total  : %d\n\r", TotalCnt);
+	xil_printf("Passed : %d\n\r", (TotalCnt - FailCnt));
+	xil_printf("Failed : %d\n\r", FailCnt);
+
+	if(FailCnt) {
+			xil_printf("NPI examples Failed \n");
+	}else{
+			xil_printf("NPI examples ran successfully \n");
+		}
+		xil_printf("-----------------------------------------\n\r");
 
 	/* Enable cache to disable PLM access to OCM registers */
 	Xil_DCacheEnable();

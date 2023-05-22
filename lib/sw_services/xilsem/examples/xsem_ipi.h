@@ -13,6 +13,7 @@
 * Ver   Who  Date         Changes
 * ====  ==== ==========   ====================================================
 * 0.1   gm   03/19/2021   Initial creation
+* 0.2   ga   05/19/2023   Fixed IPI instance for versal net
 *
 * </pre>
 *
@@ -31,7 +32,11 @@ extern "C" {
 #include <xipipsu.h>
 #include "xsem_gic_setup.h"
 
+#ifdef VERSAL_NET
+#define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PSX_PMC_0_CH0_MASK)
+#else
 #define SRC_IPI_MASK	(XPAR_XIPIPS_TARGET_PSV_PMC_0_CH0_MASK)
+#endif
 
 typedef void (*IpiCallback)(XIpiPsu *const InstancePtr);
 XStatus IpiRegisterCallback(XIpiPsu *const IpiInst, const u32 SrcMask,
