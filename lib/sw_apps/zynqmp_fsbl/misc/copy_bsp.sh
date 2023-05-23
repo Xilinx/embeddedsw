@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 
 # this script will copy the required bsp directories
@@ -137,7 +138,10 @@ elif [ $PROC == "r5" ]; then
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.c $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/gcc/* $BSP_DIR/libsrc/standalone/src/
-	cp -f $STANDALONE_DIR/arm/cortexr5/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/
+	cp -f $STANDALONE_DIR/arm/cortexr5/platform/ZynqMP/xparameters_ps.h $BSP_DIR/libsrc/standalone/src/
+	cp -f $STANDALONE_DIR/arm/cortexr5/platform/ZynqMP/mpu_r5.c $BSP_DIR/libsrc/standalone/src/mpu.c
+	cp -f $STANDALONE_DIR/arm/cortexr5/platform/CortexR5/xil_mpu_r5.c $BSP_DIR/libsrc/standalone/src/xil_mpu.c
+	cp -f $STANDALONE_DIR/arm/cortexr5/platform/CortexR5/xil_mpu_r5.h $BSP_DIR/libsrc/standalone/src/xil_mpu.h
 
 	#include files
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/include
