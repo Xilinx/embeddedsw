@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 - 2023, Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,7 +22,7 @@
 *                     declared in Ecdsa.h file
 *       dc   09/04/22 set TRNG to HRNG mode after Private key ECC mod order
 * 5.1   har  01/06/23 Add support to generate ephemeral key
-*
+* 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *
 * </pre>
 *
@@ -89,6 +89,10 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	 * MSB bits are set to 0x00.
 	 */
 	u8 RandBuf[XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN] = {0x00};
+	u8 RandBufEndianChange[XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN] = {0x00};
+	u32 Index = 0U;
+	s32 RIndex = 0U;
+	u32 PrvtKey[XSECURE_ECC_P384_SIZE_IN_BYTES];
 	EcdsaCrvInfo *Crv = NULL;
 
 	if ((CrvType == XSECURE_ECC_NIST_P521) || (PrivateKey == NULL)) {
@@ -141,9 +145,13 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
+	RIndex = (XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN - 1);
+	for (Index = 0U; (Index < XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN) && (RIndex >= 0); Index++, RIndex--) {
+		XSecure_OutByte64((u64)(UINTPTR)(RandBufEndianChange + Index), (RandBuf[RIndex]));
+	}
 	/* IPCores library expects MSB bit to be 0 always */
-	Status = Ecdsa_ModEccOrder(Crv, RandBuf,
-			(u8 *)(UINTPTR)PrivateKey->KeyOutPutAddr);
+	XSECURE_TEMPORAL_CHECK(END, Status, Ecdsa_ModEccOrder, Crv, RandBufEndianChange, (u8 *)(UINTPTR)PrvtKey);
+	XSecure_GetData(XSECURE_ECC_P384_SIZE_IN_BYTES, (u8*)PrvtKey, PrivateKey->KeyOutPutAddr);
 
 END:
 	ClearStatus = XSecure_TrngUninstantiate(TrngInstance);
@@ -188,6 +196,7 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 	XSecure_TrngUserConfig TrngUserCfg;
 
 	u8 RandBuf[XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN] = {0x00};
+	u32 EphimeralKey[XSECURE_ECC_P384_SIZE_IN_BYTES];
 	EcdsaCrvInfo *Crv = NULL;
 
 	if (CrvType == XSECURE_ECC_NIST_P521) {
@@ -226,7 +235,8 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 	}
 
 	/* IPCores library expects MSB bit to be 0 always */
-	XSECURE_TEMPORAL_CHECK(END, Status, Ecdsa_ModEccOrder, Crv, RandBuf, (u8 *)(UINTPTR)EphemeralKeyAddr);
+	XSECURE_TEMPORAL_CHECK(END, Status, Ecdsa_ModEccOrder, Crv, RandBuf, (u8 *)(UINTPTR)EphimeralKey);
+	XSecure_GetData(XSECURE_ECC_P384_SIZE_IN_BYTES, (u8*)EphimeralKey, EphemeralKeyAddr);
 
 END:
 	XSecure_SetReset(XSECURE_ECDSA_RSA_BASEADDR,
