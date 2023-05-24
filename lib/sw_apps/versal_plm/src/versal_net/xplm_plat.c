@@ -22,7 +22,8 @@
 *       ma   07/29/2022 Replaced XPAR_XIPIPSU_0_DEVICE_ID macro with
 *                       XPLMI_IPI_DEVICE_ID
 * 1.01  ng   11/11/2022 Fixed doxygen file name error
-*		dd   03/28/2023 Updated doxygen comments
+*       dd   03/28/2023 Updated doxygen comments
+* 1.02  sk   05/22/2023 Added redundancy for validate checksum
 *
 * </pre>
 *
@@ -136,7 +137,8 @@ u32 XPlm_UpdatePsmCounterVal(u32 Val)
  *****************************************************************************/
 int XPlm_CompatibilityCheck(u32 PdiAddr)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 IdString;
 	u32 Offset;
 	u32 OptionalDataLen;
@@ -229,9 +231,9 @@ int XPlm_CompatibilityCheck(u32 PdiAddr)
 
 	if (OptionalDataLen > 1U) {
 		/* Verify checksum of data structure info */
-		Status = XilPdi_ValidateChecksum((void *)Offset, OptionalDataLen <<
-				XPLMI_WORD_LEN_SHIFT);
-		if (Status != XST_SUCCESS) {
+		XSECURE_REDUNDANT_CALL(Status, StatusTmp, XilPdi_ValidateChecksum, (void *)Offset,
+			(OptionalDataLen <<XPLMI_WORD_LEN_SHIFT));
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 			Status = XPLM_ERR_DS_INFO_CHECKSUM_FAILED;
 			goto END;
 		}

@@ -26,9 +26,10 @@
 * 1.01  ng   11/11/2022 Updated doxygen comments
 *       dc   12/27/2022 Added SHA1 instance
 *       kal  01/05/2023 Added PCR Extend functions for secure images
-*		dd   03/28/2023 Updated doxygen comments
+*       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  ng   04/27/2023 Added support for cluster flags in ATF handoff params
+*       sk   05/23/2023 Made Status variable volatile to avoid optimization
 *
 * </pre>
 *
@@ -1000,7 +1001,7 @@ int XLoader_ProcessDeferredError(void)
  *****************************************************************************/
 int XLoader_UpdateHandler(XPlmi_ModuleOp Op)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
 	static u8 LoaderHandlerState = XPLMI_MODULE_NORMAL_STATE;
 #ifndef PLM_SECURE_EXCLUDE
 	static u8 AuthJtagTaskRemoved = (u8)FALSE;
