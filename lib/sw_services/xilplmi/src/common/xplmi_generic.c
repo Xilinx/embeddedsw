@@ -91,6 +91,7 @@
 *       bm   03/11/2023 Added Temporal redundancy to tamper response condition
 *       ng   03/16/2023 Added control to disable minimal timeout in maskpoll
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.10  ng   05/19/2023 Added null termination for log string buffer
 *
 * </pre>
 *
@@ -139,6 +140,7 @@
 #define XPLMI_LEN_ALIGN_REQ	(2U)
 
 #define XPLMI_BEGIN_MAX_LOG_STR_LEN			(24U)
+#define XPLMI_BEGIN_LOG_STR_BUF_END_INDEX	(XPLMI_BEGIN_MAX_LOG_STR_LEN - 1U)
 #define XPLMI_BEGIN_OFFSET_STACK_SIZE			(10U)
 #define XPLMI_BEGIN_OFFEST_STACK_DEFAULT_POPLEVEL	(1U)
 #define XPLMI_BEGIN_CMD_EXTRA_OFFSET			(2U)
@@ -1973,6 +1975,8 @@ static int XPlmi_Begin(XPlmi_Cmd *Cmd)
 			goto END;
 		}
 
+		/* add null character at the end of log string buffer before reading it.*/
+		LogString[XPLMI_BEGIN_LOG_STR_BUF_END_INDEX] = '\0';
 		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "%s\n\r", LogString);
 	}
 	Status = XST_SUCCESS;
