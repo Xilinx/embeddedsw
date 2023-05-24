@@ -53,10 +53,17 @@
 #define PMCDMA1_LOOPBACK_CFG	0x00000090	/**< LOOP BACK configuration
 						  *  macro for PMCDMA1*/
 
-#define SRC_ADDR	0x04200000		/**< Source Address */
-#define DST_ADDR	0x04300000		/**< Destination Address */
 #define SIZE		0x100			/**< Size of the data to be
 						  *  transfered */
+#if defined(__ICCARM__)
+#pragma data_alignment = 64
+u32 SrcBuf[SIZE]; /**< Destination buffer */
+#pragma data_alignment = 64
+u32 DstBuf[SIZE]; /**< Source buffer */
+#else
+u32 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
+u32 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -132,10 +139,10 @@ int XCsuDma_PolledExample(UINTPTR BaseAddress)
 	int Status;
 	XCsuDma_Config *Config;
 	u32 Index = 0;
-	u32 *SrcPtr = (u32 *)SRC_ADDR;
-	u32 *DstPtr = (u32 *)DST_ADDR;
+	u32 *SrcPtr = SrcBuf;
+	u32 *DstPtr = DstBuf;
 	u32 Test_Data = 0xABCD1234;
-	u32 *Ptr = (u32 *)SRC_ADDR;
+	u32 *Ptr = SrcBuf;
 	u32 EnLast = 0;
 	/*
 	 * Initialize the CsuDma driver so that it's ready to use
@@ -201,8 +208,8 @@ int XCsuDma_PolledExample(UINTPTR BaseAddress)
 
 
 	/* Data transfer in loop back mode */
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, DST_ADDR, SIZE, EnLast);
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, SRC_ADDR, SIZE, EnLast);
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, (UINTPTR)DstPtr, SIZE, EnLast);
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, (UINTPTR)SrcPtr, SIZE, EnLast);
 
 
 	/* Polling for transfer to be done */
