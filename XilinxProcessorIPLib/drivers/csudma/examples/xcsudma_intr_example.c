@@ -311,6 +311,17 @@ int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress)
 	 * source and address locations.
 	 */
 
+	/* Cache Operations after transfer completion
+	 * No action required for PSU_PMU.
+	 * Perform cache operations on ARM64 and R5
+	 */
+#if defined(ARMR5)
+	Xil_DCacheFlushRange((INTPTR)DstPtr, SIZE * 4);
+#endif
+#if defined(__aarch64__)
+	Xil_DCacheInvalidateRange((INTPTR)DstPtr, SIZE * 4);
+#endif
+
 	for (Index = 0; Index < SIZE; Index++) {
 		if (*SrcPtr != *DstPtr) {
 			return XST_FAILURE;
