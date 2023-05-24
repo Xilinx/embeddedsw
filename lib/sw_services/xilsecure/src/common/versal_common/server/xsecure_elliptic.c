@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -47,6 +47,7 @@
 * 5.0   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
 *       dc   08/26/22 Removed initializations of arrays
 * 5.1   dc   03/30/23 Added support to accept the data in either big/little endian.
+* 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *
 * </pre>
 *
@@ -77,8 +78,6 @@
 
 /************************** Function Prototypes ******************************/
 EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp);
-static void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr);
-static void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
 
 /************************** Variable Definitions *****************************/
 
@@ -715,7 +714,7 @@ EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp)
  * @param	SrcAddr - Source address
  *
  *****************************************************************************/
-static void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr)
+void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr)
 {
 	u32 Index = 0U;
 	s32 RIndex = (s32)Size - 1;
@@ -740,7 +739,7 @@ static void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr)
  * @param	DstAddr - Destination address
  *
  *****************************************************************************/
-static void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
+void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
 {
 	u32 Index = 0U;
 	s32 RIndex = (s32)Size - 1;
