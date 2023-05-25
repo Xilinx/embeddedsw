@@ -84,12 +84,14 @@ static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 static int XLoader_GetLoadAddr(u32 DstnCpu, u32 DstnCluster, u64 *LoadAddrPtr,
 	u32 Len);
 static int XLoader_InitSha3Instance1(void);
-#ifdef PLM_OCP
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
 	XSecure_Sha3Hash* Sha3Hash);
 static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrInfo);
 static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrInfo);
 static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo);
+#endif
+#ifdef PLM_OCP
 static int XLoader_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
 #endif
 
@@ -1308,7 +1310,7 @@ END:
 int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo)
 {
 	int Status = XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
-#ifdef PLM_OCP
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 	u32 IsAuthenticated = SecurePtr->IsAuthenticated;
 	u32 IsEncrypted = SecurePtr->IsEncrypted;
 	XSecure_Sha3Hash Sha3Hash;
@@ -1354,7 +1356,7 @@ END:
 	return Status;
 }
 
-#ifdef PLM_OCP
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 /*****************************************************************************/
 /**
  * @brief	This function measures the SPK by calculating SHA3 hash.
@@ -1462,7 +1464,9 @@ static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo)
 
 	return Status;
 }
+#endif
 
+#ifdef PLM_OCP
 /*****************************************************************************/
 /**
  * @brief	This function generates the DEVAK for requested subsystem by user.
