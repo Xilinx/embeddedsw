@@ -27,7 +27,6 @@
 #include "xpm_apucore.h"
 #include "xpm_rpucore.h"
 #include "xpm_power.h"
-#include "xpm_pin.h"
 #include "xplmi.h"
 #include "xplmi_modules.h"
 #include "xpm_aie.h"
@@ -95,24 +94,6 @@
 	(1ULL << (u64)IOCTL_MASK_WRITE_REG) | \
 	(1ULL << (u64)IOCTL_AIE_OPS) | \
 	(1ULL << (u64)IOCTL_GET_QOS))
-
-#define PM_QUERY_FEATURE_BITMASK ( \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_NAME) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_TOPOLOGY) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_FIXEDFACTOR_PARAMS) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_MUXSOURCES) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_ATTRIBUTES) | \
-	(1ULL << (u64)XPM_QID_PINCTRL_GET_NUM_PINS) | \
-	(1ULL << (u64)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS) | \
-	(1ULL << (u64)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS) | \
-	(1ULL << (u64)XPM_QID_PINCTRL_GET_FUNCTION_NAME) | \
-	(1ULL << (u64)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS) | \
-	(1ULL << (u64)XPM_QID_PINCTRL_GET_PIN_GROUPS) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_NUM_CLOCKS) | \
-	(1ULL << (u64)XPM_QID_CLOCK_GET_MAX_DIVISOR) | \
-	(1ULL << (u64)XPM_QID_PLD_GET_PARENT))
-
-
 
 /****************************************************************************/
 /**
@@ -299,24 +280,6 @@ int XPm_PlatProcessCmd(XPlmi_Cmd * Cmd, u32 *ApiResponse)
 	u32 Len = Cmd->Len;
 
 	switch (CmdId) {
-	case PM_API(PM_PINCTRL_REQUEST):
-		Status = XPm_PinCtrlRequest(SubsystemId, Pload[0]);
-		break;
-	case PM_API(PM_PINCTRL_RELEASE):
-		Status = XPm_PinCtrlRelease(SubsystemId, Pload[0]);
-		break;
-	case PM_API(PM_PINCTRL_GET_FUNCTION):
-		Status = XPm_GetPinFunction(Pload[0], ApiResponse);
-		break;
-	case PM_API(PM_PINCTRL_SET_FUNCTION):
-		Status = XPm_SetPinFunction(SubsystemId, Pload[0], Pload[1]);
-		break;
-	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
-		Status = XPm_GetPinParameter(Pload[0], Pload[1], ApiResponse);
-		break;
-	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
-		Status = XPm_SetPinParameter(SubsystemId, Pload[0], Pload[1], Pload[2]);
-		break;
 	case PM_API(PM_INIT_NODE):
 		Status = XPm_InitNode(Pload[0], Pload[1], &Pload[2], Len-2U);
 		break;
@@ -1069,236 +1032,6 @@ XStatus XPm_InitNode(u32 NodeId, u32 Function, const u32 *Args, u32 NumArgs)
 	return Status;
 }
 
-/****************************************************************************/
-/**
- * @brief  This function queries information about the platform resources.
- *
- * @param Qid		The type of data to query
- * @param Arg1		Query argument 1
- * @param Arg2		Query argument 2
- * @param Arg3		Query argument 3
- * @param Output	Pointer to the output data
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- ****************************************************************************/
-XStatus XPm_PlatQuery(const u32 Qid, const u32 Arg1, const u32 Arg2,
-		  const u32 Arg3, u32 *const Output)
-{
-	XStatus Status = XST_FAILURE;
-
-	/* Warning Fix */
-	(void) (Arg3);
-
-	switch (Qid) {
-	case (u32)XPM_QID_PINCTRL_GET_NUM_PINS:
-		Status = XPmPin_GetNumPins(Output);
-		break;
-	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTIONS:
-		Status = XPmPinFunc_GetNumFuncs(Output);
-		break;
-	case (u32)XPM_QID_PINCTRL_GET_NUM_FUNCTION_GROUPS:
-		Status = XPmPinFunc_GetNumFuncGroups(Arg1, Output);
-		break;
-	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_NAME:
-		Status = XPmPinFunc_GetFuncName(Arg1, (char *)Output);
-		break;
-	case (u32)XPM_QID_PINCTRL_GET_FUNCTION_GROUPS:
-		Status = XPmPinFunc_GetFuncGroups(Arg1, Arg2, (u16 *)Output);
-		break;
-	case (u32)XPM_QID_PINCTRL_GET_PIN_GROUPS:
-		Status = XPmPin_GetPinGroups(Arg1, Arg2, (u16 *)Output);
-		break;
-	case (u32)XPM_QID_PLD_GET_PARENT:
-		Status = XPmPlDevice_GetParent(Arg1, Output);
-		break;
-	default:
-		Status = XST_INVALID_PARAM;
-		break;
-	}
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function requests the pin.
- *
- * @param SubsystemId	Subsystem ID
- * @param PinId		ID of the pin node
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_PinCtrlRequest(const u32 SubsystemId, const u32 PinId)
-{
-	XPM_EXPORT_CMD(PM_PINCTRL_REQUEST, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
-	XStatus Status = XST_FAILURE;
-
-	Status = XPmPin_Request(SubsystemId, PinId);
-
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function releases the pin.
- *
- * @param SubsystemId	Subsystem ID
- * @param PinId		ID of the pin node
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_PinCtrlRelease(const u32 SubsystemId, const u32 PinId)
-{
-	XPM_EXPORT_CMD(PM_PINCTRL_RELEASE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
-	XStatus Status = XST_FAILURE;
-
-	Status = XPmPin_Release(SubsystemId, PinId);
-
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function sets the pin function.
- *
- * @param SubsystemId	Subsystem ID
- * @param PinId			Pin node ID
- * @param FunctionId	Function for the pin
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   If no change to the pin function setting is required (the pin is
- * already set up for this function), this call will be successful.
- * Otherwise, the request is denied unless the subsystem has already
- * requested this pin.
- *
- ****************************************************************************/
-XStatus XPm_SetPinFunction(const u32 SubsystemId,
-	const u32 PinId, const u32 FunctionId)
-{
-	XPM_EXPORT_CMD(PM_PINCTRL_SET_FUNCTION, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
-	XStatus Status = XST_FAILURE;
-
-	/* Check if subsystem is allowed to access or not */
-	Status = XPm_IsAccessAllowed(SubsystemId, PinId);
-	if(Status != XST_SUCCESS) {
-		Status = XPM_PM_NO_ACCESS;
-		goto done;
-	}
-
-	Status = XPmPin_CheckPerms(SubsystemId, PinId);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPmPin_SetPinFunction(PinId, FunctionId);
-
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function reads the pin function.
- *
- * @param PinId			ID of the pin node
- * @param FunctionId	Address to store the function
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_GetPinFunction(const u32 PinId, u32 *const FunctionId)
-{
-	XPM_EXPORT_CMD(PM_PINCTRL_GET_FUNCTION, XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
-	XStatus Status = XST_FAILURE;
-
-	Status = XPmPin_GetPinFunction(PinId, FunctionId);
-
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function sets the pin parameter value.
- *
- * @param  SubsystemId	Subsystem ID
- * @param PinId			Pin node ID
- * @param ParamId		Pin parameter ID
- * @param ParamVal		Pin parameter value
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   If no change to the pin parameter setting is required (the pin
- * parameter is already set up for this value), this call will be successful.
- * Otherwise, the request is denied unless the subsystem has already
- * requested this pin.
- *
- ****************************************************************************/
-XStatus XPm_SetPinParameter(const u32 SubsystemId, const u32 PinId,
-			const u32 ParamId,
-			const u32 ParamVal)
-{
-	XPM_EXPORT_CMD(PM_PINCTRL_CONFIG_PARAM_SET, XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
-	XStatus Status = XST_FAILURE;
-
-	/* Check if subsystem is allowed to access or not */
-	Status = XPm_IsAccessAllowed(SubsystemId, PinId);
-	if(Status != XST_SUCCESS) {
-		Status = XPM_PM_NO_ACCESS;
-		goto done;
-	}
-
-	Status = XPmPin_CheckPerms(SubsystemId, PinId);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
-
-	Status = XPmPin_SetPinConfig(PinId, ParamId, ParamVal);
-
-done:
-	return Status;
-}
-
-/****************************************************************************/
-/**
- * @brief  This function reads the pin parameter value.
- *
- * @param PinId		ID of the pin node
- * @param ParamId	Pin parameter ID
- * @param ParamVal	Address to store the pin parameter value
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-XStatus XPm_GetPinParameter(const u32 PinId,
-			const u32 ParamId,
-			u32 * const ParamVal)
-{
-	XPM_EXPORT_CMD(PM_PINCTRL_CONFIG_PARAM_GET, XPLMI_CMD_ARG_CNT_TWO, XPLMI_CMD_ARG_CNT_TWO);
-	XStatus Status = XST_FAILURE;
-
-	Status = XPmPin_GetPinConfig(PinId, ParamId, ParamVal);
-
-	return Status;
-}
-
 static XStatus AddPhyDevice(const u32 *Args, u32 PowerId)
 {
 	XStatus Status = XST_FAILURE;
@@ -1510,59 +1243,6 @@ static XStatus XPm_AddNodeProt(const u32 *Args, u32 NumArgs)
 	return XST_SUCCESS;
 }
 
-/****************************************************************************/
-/**
- * @brief  This function add mio pin node to the topology database
- *
- * @param  Args		mio arguments
- * @param NumArgs	number of arguments
- *
- * @return XST_SUCCESS if successful else XST_FAILURE or an error code
- * or a reason code
- *
- * @note   None
- *
- ****************************************************************************/
-static XStatus XPm_AddNodeMio(const u32 *Args, u32 NumArgs)
-{
-	XStatus Status = XST_FAILURE;
-	u32 MioId;
-	u32 BaseAddress;
-	XPm_PinNode *MioPin;
-
-	if (NumArgs < 3U) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	MioId = Args[0];
-	BaseAddress = Args[1];
-
-
-	if ((u32)XPM_NODESUBCL_PIN != NODESUBCLASS(MioId)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	if (((u32)XPM_NODETYPE_LPD_MIO != NODETYPE(MioId)) &&
-	    ((u32)XPM_NODETYPE_PMC_MIO != NODETYPE(MioId))) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	MioPin = (XPm_PinNode *)XPm_AllocBytes(sizeof(XPm_PinNode));
-	if (NULL == MioPin) {
-		Status = XST_BUFFER_TOO_SMALL;
-		goto done;
-	}
-	Status = XPmPin_Init(MioPin, MioId, BaseAddress);
-
-done:
-	return Status;
-}
-
-
-
 XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs)
 {
 	XPM_EXPORT_CMD(PM_ADD_NODE, XPLMI_CMD_ARG_CNT_ONE, XPLMI_UNLIMITED_ARG_CNT);
@@ -1655,9 +1335,6 @@ XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs)
 	case (u32)XPM_NODECLASS_MEMIC:
 		Status = XPm_AddNodeMemIc(Args, NumArgs);
 		break;
-	case (u32)XPM_NODECLASS_STMIC:
-		Status = XPm_AddNodeMio(Args, NumArgs);
-		break;
 	case (u32)XPM_NODECLASS_PROTECTION:
 		Status = XPm_AddNodeProt(Args, NumArgs);
 		break;
@@ -1691,21 +1368,6 @@ XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version)
 	XStatus Status = XST_FAILURE;
 
 	switch (ApiId) {
-	case PM_API(PM_PINCTRL_REQUEST):
-	case PM_API(PM_PINCTRL_RELEASE):
-	case PM_API(PM_PINCTRL_GET_FUNCTION):
-	case PM_API(PM_PINCTRL_SET_FUNCTION):
-	case PM_API(PM_PINCTRL_CONFIG_PARAM_GET):
-	case PM_API(PM_PINCTRL_CONFIG_PARAM_SET):
-		*Version = XST_API_BASE_VERSION;
-		Status = XST_SUCCESS;
-		break;
-	case PM_API(PM_QUERY_DATA):
-		Version[0] = XST_API_QUERY_DATA_VERSION;
-		Version[1] = (u32)(PM_QUERY_FEATURE_BITMASK);
-		Version[2] = (u32)(PM_QUERY_FEATURE_BITMASK >> 32);
-		Status = XST_SUCCESS;
-		break;
 	case PM_API(PM_IOCTL):
 		Version[0] = XST_API_PM_IOCTL_VERSION;
 		Version[1] = (u32)(PM_IOCTL_FEATURE_BITMASK);

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,6 +15,7 @@
 #include "xpm_device.h"
 #include "xpm_device_idle.h"
 #include "xpm_notifier.h"
+#include "xpm_pin.h"
 #include "xpm_regs.h"
 #include "xpm_requirement.h"
 
@@ -403,6 +405,54 @@ XStatus XPm_IsWakeAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType)
 
 done:
         return Status;
+}
+
+static XStatus XPm_PinCheckPermission(const XPm_Subsystem *Subsystem, u32 NodeId)
+{
+	XStatus Status = XST_FAILURE;
+	const XPm_PinNode *Pin;
+        const XPm_Device *Device = NULL;
+        u32 DevId;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+
+	Pin = XPmPin_GetById(NodeId);
+	if (NULL == Pin) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((u8)XPM_PINSTATE_UNUSED == Pin->Node.State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * Note: XPmDevice_GetByIndex() assumes that the caller
+	 * is responsible for validating the Node ID attributes
+	 * other than node index.
+	 */
+	Device = XPmDevice_GetByIndex(Pin->PinFunc->DevIdx);
+	if (NULL == Device) {
+		DbgErr = XPM_INT_ERR_INVALID_DEVICE;
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	DevId = Device->Node.Id;
+	if (((u8)XPM_PINSTATE_UNUSED == Pin->Node.State) || (0U == DevId)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	Status = XPmDevice_CheckPermissions(Subsystem, DevId);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_PIN_PERMISSION;
+		goto done;
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
 }
 
 XStatus XPm_IsAccessAllowed(u32 SubsystemId, u32 NodeId)
