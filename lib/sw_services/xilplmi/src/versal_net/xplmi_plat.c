@@ -30,6 +30,7 @@
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  bm   04/28/2023 Update Pmc IRO frequency by detecting the part
+*       dd   05/24/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -82,10 +83,10 @@
 #define XPLMI_BOARD_PARAMS_VERSION	(1U) /**< Board parameters version */
 #define XPLMI_BOARD_PARAMS_LCVERSION	(1U) /**< Board parameters LC version */
 
-#define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f) /* Voltage multiplier for Sysmon */
+#define XPLMI_PMC_VOLTAGE_MULTIPLIER	(32768.0f) /**< Voltage multiplier for Sysmon */
 
 /* PMC IRO Frequency related macros */
-#define XPLMI_PMC_IRO_FREQ_233_MHZ	(233000000U) /* PMC IRO frequency 233Mhz */
+#define XPLMI_PMC_IRO_FREQ_233_MHZ	(233000000U) /**< PMC IRO frequency 233Mhz */
 
 /**************************** Type Definitions *******************************/
 
