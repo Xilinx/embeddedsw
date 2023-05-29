@@ -34,6 +34,7 @@
 *       bm   03/11/2023 Modified prototype for XPlmi_PreInit API
 *       dd   03/28/2023 Updated doxygen comments
 * 1.02  bm   04/28/2023 Add XPlmi_GetRomIroFreq API
+*       dd   05/24/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -232,7 +233,7 @@ enum {
 #define GET_RTCFG_PMC_ERR_ADDR(Index)		(XPLMI_RTCFG_PMC_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PMC error address */
 #define GET_RTCFG_PSM_ERR_ADDR(Index)		(XPLMI_RTCFG_PSM_ERR1_STATUS_ADDR + (Index * 4U)) /**< Runtime configuration PSM error address */
 
-#define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U)
+#define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U) /**< PMC IRO frequency 320Mhz */
 
 /*****************************************************************************/
 /**

@@ -35,6 +35,7 @@
 *       bm   03/11/2023 Modify XPlmi_PreInit prototype
 *       dd   03/28/2023 Updated doxygen comments
 * 1.04  bm   04/28/2023 Add XPlmi_GetRomIroFreq prototype
+*       dd   05/24/2023 Updated doxygen comments
 *
 * </pre>
 *
@@ -80,7 +81,7 @@ extern "C" {
 
 #define XPLMI_ROM_SERVICE_TIMEOUT			(1000000U) /**< ROM service timeout */
 
-#define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U)
+#define XPLMI_PMC_IRO_FREQ_320_MHZ	(320000000U) /**< PMC IRO frequency 320Mhz */
 
 /**************************** Type Definitions *******************************/
 /* Minor Error Codes */
