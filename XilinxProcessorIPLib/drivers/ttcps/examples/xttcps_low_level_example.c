@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -214,7 +215,7 @@ int TmrCtrLowLevelExample(u8 SettingsTableOffset)
 			RegValue = 0;
 		}
 		XTtcPs_WriteReg(TmrCtrBaseAddress, XTTCPS_CLK_CNTRL_OFFSET,
-				  RegValue);
+				RegValue);
 
 
 		/*
@@ -223,8 +224,8 @@ int TmrCtrLowLevelExample(u8 SettingsTableOffset)
 		 * value is reached.
 		 */
 		IntervalValue = PCLK_FREQ_HZ /
-			(u32) (PrescalerSettings[CurrSetup->PrescalerValue] *
-			       CurrSetup->OutputHz);
+				(u32) (PrescalerSettings[CurrSetup->PrescalerValue] *
+				       CurrSetup->OutputHz);
 
 		/*
 		 * Make sure the value is not to large or too small
@@ -234,7 +235,7 @@ int TmrCtrLowLevelExample(u8 SettingsTableOffset)
 		}
 
 		XTtcPs_WriteReg(TmrCtrBaseAddress,
-				  XTTCPS_INTERVAL_VAL_OFFSET, IntervalValue);
+				XTTCPS_INTERVAL_VAL_OFFSET, IntervalValue);
 
 		/*
 		 * Set the Match register. This determines the duty cycle of the
@@ -250,7 +251,7 @@ int TmrCtrLowLevelExample(u8 SettingsTableOffset)
 			return XST_FAILURE;
 		}
 		XTtcPs_WriteReg(TmrCtrBaseAddress, XTTCPS_MATCH_0_OFFSET,
-				  MatchValue);
+				MatchValue);
 
 		/*
 		 * Set the Counter Control Register
@@ -262,14 +263,14 @@ int TmrCtrLowLevelExample(u8 SettingsTableOffset)
 			 XTTCPS_CNT_CNTRL_MATCH_MASK |
 			 XTTCPS_CNT_CNTRL_RST_MASK);
 		XTtcPs_WriteReg(TmrCtrBaseAddress, XTTCPS_CNT_CNTRL_OFFSET,
-				  RegValue);
+				RegValue);
 
 		/*
 		 * Write to the Interrupt enable register. The status flags are
 		 * not active if this is not done.
 		 */
 		XTtcPs_WriteReg(TmrCtrBaseAddress, XTTCPS_IER_OFFSET,
-				  XTTCPS_IXR_INTERVAL_MASK);
+				XTTCPS_IXR_INTERVAL_MASK);
 	}
 
 	LoopCount = 0;
@@ -285,7 +286,7 @@ int TmrCtrLowLevelExample(u8 SettingsTableOffset)
 		 * Write the status register to clear the flags
 		 */
 		XTtcPs_WriteReg(TmrCtrBaseAddress, XTTCPS_ISR_OFFSET,
-				  RegValue);
+				RegValue);
 
 		if (0 != (XTTCPS_IXR_INTERVAL_MASK & RegValue)) {
 			LoopCount++;
