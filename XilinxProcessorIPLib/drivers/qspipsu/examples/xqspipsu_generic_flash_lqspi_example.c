@@ -68,6 +68,8 @@
 * 1.15  akm 12/22/21 Initialize variables before use.
 * 1.16  akm 08/16/22 Fix logical error in NumSect calculation.
 * 1.17  akm 12/16/22 Add timeout in QSPIPSU driver examples.
+* 1.18  sb  05/19/23 Update number of sector calculation logic
+*           in flash erase API.
 *
 *</pre>
 *
@@ -805,23 +807,21 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	u32 NumSect;
 	int Status;
 	u32 SectSize;
-	u32 SectMask;
+	u32 StartSect;
+	u32 EndSect;
 	u32 DelayCount;
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
 
 	if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-		SectMask = (Flash_Config_Table[FCTIndex]).SectMask - (Flash_Config_Table[FCTIndex]).SectSize;
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize * 2;
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
 	} else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect * 2;
-		SectMask = (Flash_Config_Table[FCTIndex]).SectMask;
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
 	} else {
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
-		SectMask = (Flash_Config_Table[FCTIndex]).SectMask;
 	}
 
 	/*
@@ -884,23 +884,12 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	 */
 
 	/*
-	 * Calculate no. of sectors to erase based on byte count
+	 * Calculate no. of sectors to erase based on byte count and address
+	 * spans in sectors
 	 */
-	if (ByteCount % SectSize)
-		NumSect = ByteCount / SectSize + 1;
-	else
-		NumSect = ByteCount / SectSize;
-
-	/*
-	 * If ByteCount to k sectors,
-	 * but the address range spans from N to N+k+1 sectors, then
-	 * increment no. of sectors to be erased
-	 */
-
-	if (((Address + ByteCount) & SectMask) ==
-		((Address + (NumSect * SectSize)) & SectMask)) {
-		NumSect++;
-	}
+	StartSect = Address / SectSize;
+	EndSect = ((Address + ByteCount) - 1) / SectSize - StartSect;
+	NumSect = 1  + EndSect;
 
 	for (Sector = 0; Sector < NumSect; Sector++) {
 
