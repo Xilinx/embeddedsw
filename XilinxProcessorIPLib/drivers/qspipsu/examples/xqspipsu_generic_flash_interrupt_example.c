@@ -124,23 +124,23 @@ u8 FSRFlag;
 
 /************************** Function Prototypes ******************************/
 int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInstancePtr,
-				u16 QspiPsuDeviceId, u16 QspiPsuIntrId);
+				 u16 QspiPsuDeviceId, u16 QspiPsuIntrId);
 int FlashReadID(XQspiPsu *QspiPsuPtr);
 int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr);
 int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
-				u8 *WriteBfrPtr);
+	       u8 *WriteBfrPtr);
 int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
-				u8 *WriteBfrPtr, u8 *ReadBfrPtr);
+	      u8 *WriteBfrPtr, u8 *ReadBfrPtr);
 int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		 u8 *WriteBfrPtr, u8 *ReadBfrPtr);
 u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address);
 int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr);
 int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr);
 static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
-			       XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuIntrId);
+				  XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuIntrId);
 static void QspiPsuDisableIntrSystem(XScuGic *IntcInstancePtr, u16 QspiPsuIntrId);
 void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
-int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable);
+int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable);
 int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
@@ -187,9 +187,9 @@ int Test = 1;
  */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8];
+u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE) * 8];
 #else
-u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8] __attribute__ ((aligned(64)));
+u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE) * 8] __attribute__ ((aligned(64)));
 #endif
 u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + DATA_OFFSET];
 u8 CmdBfr[8];
@@ -199,7 +199,7 @@ u8 CmdBfr[8];
  * the buffer required to hold the data and overhead to transfer the data to
  * and from the Flash. Initialized to single flash page size.
  */
-u32 MaxData = PAGE_COUNT*256;
+u32 MaxData = PAGE_COUNT * 256;
 
 /*****************************************************************************/
 /**
@@ -222,7 +222,7 @@ int main(void)
 	 * Run the QspiPsu Interrupt example.
 	 */
 	Status = QspiPsuInterruptFlashExample(&IntcInstance, &QspiPsuInstance,
-					QSPIPSU_DEVICE_ID, QSPIPSU_INTR_ID);
+					      QSPIPSU_DEVICE_ID, QSPIPSU_INTR_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("QSPIPSU Generic Flash Interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -252,8 +252,8 @@ int main(void)
  *
  *****************************************************************************/
 int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
-		XQspiPsu *QspiPsuInstancePtr,
-		u16 QspiPsuDeviceId, u16 QspiPsuIntrId)
+				 XQspiPsu *QspiPsuInstancePtr,
+				 u16 QspiPsuDeviceId, u16 QspiPsuIntrId)
 {
 	int Status;
 	u8 UniqueValue;
@@ -264,7 +264,7 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	u32 PageSize = 0;
 
 	ReadBfrSize = (PAGE_COUNT * MAX_PAGE_SIZE) +
-			(DATA_OFFSET + DUMMY_SIZE)*8;
+		      (DATA_OFFSET + DUMMY_SIZE) * 8;
 
 	/*
 	 * Initialize the QSPIPSU driver so that it's ready to use
@@ -284,14 +284,14 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	}
 
 	xil_printf("Cfg Init done, Baseaddress: 0x%x\n\r",
-			QspiPsuInstancePtr->Config.BaseAddress);
+		   QspiPsuInstancePtr->Config.BaseAddress);
 
 	/*
 	 * Connect the QspiPsu device to the interrupt subsystem such that
 	 * interrupts can occur. This function is application specific
 	 */
 	Status = QspiPsuSetupIntrSystem(IntcInstancePtr, QspiPsuInstancePtr,
-				     QspiPsuIntrId);
+					QspiPsuIntrId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -303,7 +303,7 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	 * so the handler is able to access the instance data
 	 */
 	XQspiPsu_SetStatusHandler(QspiPsuInstancePtr, QspiPsuInstancePtr,
-				 (XQspiPsu_StatusHandler) QspiPsuHandler);
+				  (XQspiPsu_StatusHandler) QspiPsuHandler);
 
 	/*
 	 * Set Manual Start
@@ -316,8 +316,8 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, XQSPIPSU_CLK_PRESCALE_8);
 
 	XQspiPsu_SelectFlash(QspiPsuInstancePtr,
-		XQSPIPSU_SELECT_FLASH_CS_LOWER,
-		XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+			     XQSPIPSU_SELECT_FLASH_CS_LOWER,
+			     XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 
 	/*
 	 * Read flash ID and obtain all flash related information
@@ -332,16 +332,18 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	}
 
 	xil_printf("Flash connection mode : %d\n\r",
-			QspiPsuConfig->ConnectionMode);
+		   QspiPsuConfig->ConnectionMode);
 	xil_printf("where 0 - Single; 1 - Stacked; 2 - Parallel\n\r");
 	xil_printf("FCTIndex: %d\n\r", FCTIndex);
 	/*
 	 * Initialize MaxData according to page size.
 	 */
-	if(QspiPsuInstancePtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL)
+	if (QspiPsuInstancePtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		PageSize = Flash_Config_Table[FCTIndex].PageSize * 2;
-	else
+	}
+	else {
 		PageSize = Flash_Config_Table[FCTIndex].PageSize;
+	}
 
 	MaxData = PAGE_COUNT * PageSize;
 
@@ -350,28 +352,33 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	 * quad commands.
 	 */
 	Status = FlashEnableQuadMode(QspiPsuInstancePtr);
-	if (Status != XST_SUCCESS)
+	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	/*
 	 * Address size and read command selection
 	 * Micron flash on REMUS doesn't support these 4B write/erase commands
 	 */
-	if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_SINGLE)
+	if (QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_SINGLE) {
 		ReadCmd = FAST_READ_CMD;
-	else if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_DOUBLE)
+	}
+	else if (QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_DOUBLE) {
 		ReadCmd = DUAL_READ_CMD;
-	else
+	}
+	else {
 		ReadCmd = QUAD_READ_CMD;
+	}
 
 	WriteCmd = WRITE_CMD;
 	SectorEraseCmd = SEC_ERASE_CMD;
 
 	if ((Flash_Config_Table[FCTIndex].NumDie > 1) &&
-			(FlashMake == MICRON_ID_BYTE0)) {
+	    (FlashMake == MICRON_ID_BYTE0)) {
 		StatusCmd = READ_FLAG_STATUS_CMD;
 		FSRFlag = 1;
-	} else {
+	}
+	else {
 		StatusCmd = READ_STATUS_CMD;
 		FSRFlag = 0;
 	}
@@ -386,12 +393,15 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 			return XST_FAILURE;
 		}
 		if (FlashMake == SPANSION_ID_BYTE0) {
-			if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_SINGLE)
+			if (QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_SINGLE) {
 				ReadCmd = FAST_READ_CMD_4B;
-			else if(QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_DOUBLE)
+			}
+			else if (QspiPsuInstancePtr->Config.BusWidth == BUSWIDTH_DOUBLE) {
 				ReadCmd = DUAL_READ_CMD_4B;
-			else
+			}
+			else {
 				ReadCmd = QUAD_READ_CMD_4B;
+			}
 
 			WriteCmd = WRITE_CMD_4B;
 			SectorEraseCmd = SEC_ERASE_CMD_4B;
@@ -399,8 +409,8 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	}
 
 	for (UniqueValue = UNIQUE_VALUE, Count = 0;
-			Count < PageSize;
-			Count++, UniqueValue++) {
+	     Count < PageSize;
+	     Count++, UniqueValue++) {
 		WriteBuffer[Count] = (u8)(UniqueValue + Test);
 	}
 
@@ -415,15 +425,15 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 
 	for (Page = 0; Page < PAGE_COUNT; Page++) {
 		Status = FlashWrite(QspiPsuInstancePtr,
-				(Page * PageSize) + TEST_ADDRESS,
-				PageSize, WriteCmd, WriteBuffer);
+				    (Page * PageSize) + TEST_ADDRESS,
+				    PageSize, WriteCmd, WriteBuffer);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 	}
 
 	Status = FlashRead(QspiPsuInstancePtr, TEST_ADDRESS, MaxData, ReadCmd,
-				CmdBfr, ReadBuffer);
+			   CmdBfr, ReadBuffer);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -520,8 +530,9 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	xil_printf("FlashID=0x%x 0x%x 0x%x\n\r", ReadBfrPtr[0], ReadBfrPtr[1],
 		   ReadBfrPtr[2]);
@@ -566,7 +577,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
  *
  ******************************************************************************/
 int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
-				u8 *WriteBfrPtr)
+	       u8 *WriteBfrPtr)
 {
 	u8 WriteEnableCmd;
 	u8 ReadStatusCmd;
@@ -602,29 +613,31 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		return XST_FAILURE;
 	}
 
-	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	WriteCmd[COMMAND_OFFSET]   = Command;
 
 	/* To be used only if 4B address program cmd is supported by flash */
 	if (Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
 		WriteCmd[ADDRESS_1_OFFSET] =
-				(u8)((RealAddr & 0xFF000000) >> 24);
+			(u8)((RealAddr & 0xFF000000) >> 24);
 		WriteCmd[ADDRESS_2_OFFSET] =
-				(u8)((RealAddr & 0xFF0000) >> 16);
+			(u8)((RealAddr & 0xFF0000) >> 16);
 		WriteCmd[ADDRESS_3_OFFSET] =
-				(u8)((RealAddr & 0xFF00) >> 8);
+			(u8)((RealAddr & 0xFF00) >> 8);
 		WriteCmd[ADDRESS_4_OFFSET] =
-				(u8)(RealAddr & 0xFF);
+			(u8)(RealAddr & 0xFF);
 		CmdByteCount = 5;
-	} else {
+	}
+	else {
 		WriteCmd[ADDRESS_1_OFFSET] =
-				(u8)((RealAddr & 0xFF0000) >> 16);
+			(u8)((RealAddr & 0xFF0000) >> 16);
 		WriteCmd[ADDRESS_2_OFFSET] =
-				(u8)((RealAddr & 0xFF00) >> 8);
+			(u8)((RealAddr & 0xFF00) >> 8);
 		WriteCmd[ADDRESS_3_OFFSET] =
-				(u8)(RealAddr & 0xFF);
+			(u8)(RealAddr & 0xFF);
 		CmdByteCount = 4;
 	}
 
@@ -640,7 +653,7 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
 	if (QspiPsuPtr->Config.ConnectionMode ==
-			XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+	    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 	}
 
@@ -651,8 +664,9 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		return XST_FAILURE;
 	}
 
-	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	/*
 	 * Wait for the write command to the Flash to be completed, it takes
@@ -663,7 +677,8 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		if (DelayCount == MAX_DELAY_CNT) {
 			Status = XST_FAILURE;
 			goto ERROR_PATH;
-		} else {
+		}
+		else {
 			ReadStatusCmd = StatusCmd;
 			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
 			FlashMsg[0].RxBfrPtr = NULL;
@@ -677,7 +692,7 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 			}
 
@@ -686,14 +701,16 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
-			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 				return XST_FAILURE;
+			}
 
 			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 				if (FSRFlag) {
 					FlashStatus[1] &= FlashStatus[0];
-				} else {
+				}
+				else {
 					FlashStatus[1] |= FlashStatus[0];
 				}
 			}
@@ -702,7 +719,8 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 				if ((FlashStatus[1] & 0x80) != 0) {
 					break;
 				}
-			} else {
+			}
+			else {
 				if ((FlashStatus[1] & 0x01) == 0) {
 					break;
 				}
@@ -735,7 +753,7 @@ ERROR_PATH:
  *
  ******************************************************************************/
 int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
-		u8 *WriteBfrPtr)
+	       u8 *WriteBfrPtr)
 {
 	u8 WriteEnableCmd;
 	u8 ReadStatusCmd;
@@ -751,13 +769,15 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 
 	WriteEnableCmd = WRITE_ENABLE_CMD;
 
-	if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+	if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize * 2;
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
-	} else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
+	}
+	else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect * 2;
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
-	} else {
+	}
+	else {
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
 	}
@@ -769,10 +789,10 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 	if (ByteCount == NumSect * SectSize) {
 
 		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_STACKED) {
+		    XQSPIPSU_CONNECTION_MODE_STACKED) {
 			XQspiPsu_SelectFlash(QspiPsuPtr,
-				XQSPIPSU_SELECT_FLASH_CS_LOWER,
-				XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+					     XQSPIPSU_SELECT_FLASH_CS_LOWER,
+					     XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 		}
 
 		if (Flash_Config_Table[FCTIndex].NumDie == 1) {
@@ -792,11 +812,11 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		 * If stacked mode, bulk erase second flash
 		 */
 		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_STACKED) {
+		    XQSPIPSU_CONNECTION_MODE_STACKED) {
 
 			XQspiPsu_SelectFlash(QspiPsuPtr,
-				XQSPIPSU_SELECT_FLASH_CS_UPPER,
-				XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+					     XQSPIPSU_SELECT_FLASH_CS_UPPER,
+					     XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 
 			if (Flash_Config_Table[FCTIndex].NumDie == 1) {
 				/*
@@ -853,8 +873,9 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 
 		WriteBfrPtr[COMMAND_OFFSET]   = SectorEraseCmd;
 
@@ -864,21 +885,22 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		 */
 		if (Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
 			WriteBfrPtr[ADDRESS_1_OFFSET] =
-					(u8)((RealAddr & 0xFF000000) >> 24);
+				(u8)((RealAddr & 0xFF000000) >> 24);
 			WriteBfrPtr[ADDRESS_2_OFFSET] =
-					(u8)((RealAddr & 0xFF0000) >> 16);
+				(u8)((RealAddr & 0xFF0000) >> 16);
 			WriteBfrPtr[ADDRESS_3_OFFSET] =
-					(u8)((RealAddr & 0xFF00) >> 8);
+				(u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_4_OFFSET] =
-					(u8)(RealAddr & 0xFF);
+				(u8)(RealAddr & 0xFF);
 			FlashMsg[0].ByteCount = 5;
-		} else {
+		}
+		else {
 			WriteBfrPtr[ADDRESS_1_OFFSET] =
-					(u8)((RealAddr & 0xFF0000) >> 16);
+				(u8)((RealAddr & 0xFF0000) >> 16);
 			WriteBfrPtr[ADDRESS_2_OFFSET] =
-					(u8)((RealAddr & 0xFF00) >> 8);
+				(u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_3_OFFSET] =
-					(u8)(RealAddr & 0xFF);
+				(u8)(RealAddr & 0xFF);
 			FlashMsg[0].ByteCount = 4;
 		}
 
@@ -892,8 +914,9 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 
 		/*
 		 * Wait for the erase command to be completed
@@ -903,7 +926,8 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 			if (DelayCount == MAX_DELAY_CNT) {
 				Status = XST_FAILURE;
 				goto ERROR_PATH;
-			} else {
+			}
+			else {
 				ReadStatusCmd = StatusCmd;
 				FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
 				FlashMsg[0].RxBfrPtr = NULL;
@@ -917,24 +941,26 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 				if (QspiPsuPtr->Config.ConnectionMode ==
-						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 					FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 				}
 
 				TransferDone = FALSE;
 				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
-						FlashMsg, 2);
+								    FlashMsg, 2);
 				if (Status != XST_SUCCESS) {
 					return XST_FAILURE;
 				}
-				if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+				if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 					return XST_FAILURE;
+				}
 
 				if (QspiPsuPtr->Config.ConnectionMode ==
-						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 					if (FSRFlag) {
 						FlashStatus[1] &= FlashStatus[0];
-					} else {
+					}
+					else {
 						FlashStatus[1] |= FlashStatus[0];
 					}
 				}
@@ -943,7 +969,8 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 					if ((FlashStatus[1] & 0x80) != 0) {
 						break;
 					}
-				} else {
+				}
+				else {
 					if ((FlashStatus[1] & 0x01) == 0) {
 						break;
 					}
@@ -983,7 +1010,7 @@ ERROR_PATH:
  *
  ******************************************************************************/
 int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
-				u8 *WriteBfrPtr, u8 *ReadBfrPtr)
+	      u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 {
 	u32 RealAddr;
 	u32 DiscardByteCnt;
@@ -995,9 +1022,11 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 
 		Status = MultiDieRead(QspiPsuPtr, Address, ByteCount, Command,
 				      WriteBfrPtr, ReadBfrPtr);
-		if (Status != XST_SUCCESS)
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
-	} else {
+		}
+	}
+	else {
 		/* For Dual Stacked, split and read for boundary crossing */
 		/*
 		 * Translate address based on type of connection
@@ -1008,21 +1037,22 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		WriteBfrPtr[COMMAND_OFFSET]   = Command;
 		if (Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
 			WriteBfrPtr[ADDRESS_1_OFFSET] =
-					(u8)((RealAddr & 0xFF000000) >> 24);
+				(u8)((RealAddr & 0xFF000000) >> 24);
 			WriteBfrPtr[ADDRESS_2_OFFSET] =
-					(u8)((RealAddr & 0xFF0000) >> 16);
+				(u8)((RealAddr & 0xFF0000) >> 16);
 			WriteBfrPtr[ADDRESS_3_OFFSET] =
-					(u8)((RealAddr & 0xFF00) >> 8);
+				(u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_4_OFFSET] =
-					(u8)(RealAddr & 0xFF);
+				(u8)(RealAddr & 0xFF);
 			DiscardByteCnt = 5;
-		} else {
+		}
+		else {
 			WriteBfrPtr[ADDRESS_1_OFFSET] =
-					(u8)((RealAddr & 0xFF0000) >> 16);
+				(u8)((RealAddr & 0xFF0000) >> 16);
 			WriteBfrPtr[ADDRESS_2_OFFSET] =
-					(u8)((RealAddr & 0xFF00) >> 8);
+				(u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_3_OFFSET] =
-					(u8)(RealAddr & 0xFF);
+				(u8)(RealAddr & 0xFF);
 			DiscardByteCnt = 4;
 		}
 
@@ -1091,18 +1121,20 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		FlashMsg[FlashMsgCnt].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+		    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 			FlashMsg[FlashMsgCnt].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 		}
 
 		TransferDone = FALSE;
 		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg,
 						    FlashMsgCnt + 1);
-		if (Status != XST_SUCCESS)
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 
 	}
 	return 0;
@@ -1160,12 +1192,14 @@ int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	 * parallel mode.
 	 */
 	if (QspiPsuPtr->Config.ConnectionMode ==
-			XQSPIPSU_CONNECTION_MODE_PARALLEL)
+	    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		bank_size = SIXTEENMB << 1;
+	}
 
 	else if (QspiPsuPtr->Config.ConnectionMode ==
-			XQSPIPSU_CONNECTION_MODE_SINGLE)
+		 XQSPIPSU_CONNECTION_MODE_SINGLE) {
 		bank_size = SIXTEENMB;
+	}
 
 	while (remain_len) {
 		cur_bank = Address / bank_size;
@@ -1173,11 +1207,14 @@ int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 
 		if (cur_bank != nxt_bank) {
 			transfer_len = (bank_size * (cur_bank  + 1)) - Address;
-			if (remain_len < transfer_len)
+			if (remain_len < transfer_len) {
 				data_len = remain_len;
-			else
+			}
+			else {
 				data_len = transfer_len;
-		} else {
+			}
+		}
+		else {
 			data_len = remain_len;
 		}
 		/*
@@ -1189,21 +1226,22 @@ int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		WriteBfrPtr[COMMAND_OFFSET]   = Command;
 		if (Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
 			WriteBfrPtr[ADDRESS_1_OFFSET] =
-					(u8)((RealAddr & 0xFF000000) >> 24);
+				(u8)((RealAddr & 0xFF000000) >> 24);
 			WriteBfrPtr[ADDRESS_2_OFFSET] =
-					(u8)((RealAddr & 0xFF0000) >> 16);
+				(u8)((RealAddr & 0xFF0000) >> 16);
 			WriteBfrPtr[ADDRESS_3_OFFSET] =
-					(u8)((RealAddr & 0xFF00) >> 8);
+				(u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_4_OFFSET] =
-					(u8)(RealAddr & 0xFF);
+				(u8)(RealAddr & 0xFF);
 			DiscardByteCnt = 5;
-		} else {
+		}
+		else {
 			WriteBfrPtr[ADDRESS_1_OFFSET] =
-					(u8)((RealAddr & 0xFF0000) >> 16);
+				(u8)((RealAddr & 0xFF0000) >> 16);
 			WriteBfrPtr[ADDRESS_2_OFFSET] =
-					(u8)((RealAddr & 0xFF00) >> 8);
+				(u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_3_OFFSET] =
-					(u8)(RealAddr & 0xFF);
+				(u8)(RealAddr & 0xFF);
 			DiscardByteCnt = 4;
 		}
 
@@ -1272,18 +1310,20 @@ int MultiDieRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		FlashMsg[FlashMsgCnt].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL)
+		    XQSPIPSU_CONNECTION_MODE_PARALLEL)
 			FlashMsg[FlashMsgCnt].Flags |=
 				XQSPIPSU_MSG_FLAG_STRIPE;
 
 		TransferDone = FALSE;
 		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg,
 						    FlashMsgCnt + 1);
-		if (Status != XST_SUCCESS)
+		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 
 		ReadBuffer += data_len;
 		Address += data_len;
@@ -1331,8 +1371,9 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	WriteBfrPtr[COMMAND_OFFSET]   = BULK_ERASE_CMD;
 	FlashMsg[0].TxBfrPtr = WriteBfrPtr;
@@ -1346,8 +1387,9 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	/*
 	 * Wait for the write command to the Flash to be completed, it takes
@@ -1358,7 +1400,8 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 		if (DelayCount == MAX_DELAY_CNT) {
 			Status = XST_FAILURE;
 			goto ERROR_PATH;
-		} else {
+		}
+		else {
 			ReadStatusCmd = StatusCmd;
 			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
 			FlashMsg[0].RxBfrPtr = NULL;
@@ -1372,7 +1415,7 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 			}
 
@@ -1381,14 +1424,16 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
-			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 				return XST_FAILURE;
+			}
 
 			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 				if (FSRFlag) {
 					FlashStatus[1] &= FlashStatus[0];
-				} else {
+				}
+				else {
 					FlashStatus[1] |= FlashStatus[0];
 				}
 			}
@@ -1397,7 +1442,8 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 				if ((FlashStatus[1] & 0x80) != 0) {
 					break;
 				}
-			} else {
+			}
+			else {
 				if ((FlashStatus[1] & 0x01) == 0) {
 					break;
 				}
@@ -1445,17 +1491,19 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 
 	if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize * 2;
-	} else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
+	}
+	else if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_STACKED) {
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect * 2;
-	} else {
+	}
+	else {
 		SectSize = (Flash_Config_Table[FCTIndex]).SectSize;
 		NumSect = (Flash_Config_Table[FCTIndex]).NumSect;
 	}
 	DieSize = (NumSect * SectSize) / Flash_Config_Table[FCTIndex].NumDie;
 
 	for (DieCnt = 0;
-		DieCnt < Flash_Config_Table[FCTIndex].NumDie;
-		DieCnt++) {
+	     DieCnt < Flash_Config_Table[FCTIndex].NumDie;
+	     DieCnt++) {
 		/*
 		 * Send the write enable command to the Flash so that it can be
 		 * written to, this needs to be sent as a separate transfer
@@ -1472,8 +1520,9 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 
 		WriteBfrPtr[COMMAND_OFFSET]   = DIE_ERASE_CMD;
 
@@ -1485,21 +1534,22 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 		 */
 		if (Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
 			WriteBfrPtr[ADDRESS_1_OFFSET] =
-					(u8)((RealAddr & 0xFF000000) >> 24);
+				(u8)((RealAddr & 0xFF000000) >> 24);
 			WriteBfrPtr[ADDRESS_2_OFFSET] =
-					(u8)((RealAddr & 0xFF0000) >> 16);
+				(u8)((RealAddr & 0xFF0000) >> 16);
 			WriteBfrPtr[ADDRESS_3_OFFSET] =
-					(u8)((RealAddr & 0xFF00) >> 8);
+				(u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_4_OFFSET] =
-					(u8)(RealAddr & 0xFF);
+				(u8)(RealAddr & 0xFF);
 			FlashMsg[0].ByteCount = 5;
-		} else {
+		}
+		else {
 			WriteBfrPtr[ADDRESS_1_OFFSET] =
-					(u8)((RealAddr & 0xFF0000) >> 16);
+				(u8)((RealAddr & 0xFF0000) >> 16);
 			WriteBfrPtr[ADDRESS_2_OFFSET] =
-					(u8)((RealAddr & 0xFF00) >> 8);
+				(u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_3_OFFSET] =
-					(u8)(RealAddr & 0xFF);
+				(u8)(RealAddr & 0xFF);
 			FlashMsg[0].ByteCount = 4;
 		}
 		FlashMsg[0].TxBfrPtr = WriteBfrPtr;
@@ -1512,8 +1562,9 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
 
 		/*
 		 * Wait for the write command to the Flash to be completed,
@@ -1524,7 +1575,8 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 			if (DelayCount == MAX_DELAY_CNT) {
 				Status = XST_FAILURE;
 				goto ERROR_PATH;
-			} else {
+			}
+			else {
 				ReadStatusCmd = StatusCmd;
 				FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
 				FlashMsg[0].RxBfrPtr = NULL;
@@ -1538,24 +1590,26 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 				if (QspiPsuPtr->Config.ConnectionMode ==
-						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 					FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 				}
 
 				TransferDone = FALSE;
 				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
-						FlashMsg, 2);
+								    FlashMsg, 2);
 				if (Status != XST_SUCCESS) {
 					return XST_FAILURE;
 				}
-				if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+				if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 					return XST_FAILURE;
+				}
 
 				if (QspiPsuPtr->Config.ConnectionMode ==
-						XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 					if (FSRFlag) {
 						FlashStatus[1] &= FlashStatus[0];
-					} else {
+					}
+					else {
 						FlashStatus[1] |= FlashStatus[0];
 					}
 				}
@@ -1564,7 +1618,8 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 					if ((FlashStatus[1] & 0x80) != 0) {
 						break;
 					}
-				} else {
+				}
+				else {
 					if ((FlashStatus[1] & 0x01) == 0) {
 						break;
 					}
@@ -1603,53 +1658,54 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
 	u32 RealAddr;
 
 	switch (QspiPsuPtr->Config.ConnectionMode) {
-	case XQSPIPSU_CONNECTION_MODE_SINGLE:
-		XQspiPsu_SelectFlash(QspiPsuPtr,
-			XQSPIPSU_SELECT_FLASH_CS_LOWER,
-			XQSPIPSU_SELECT_FLASH_BUS_LOWER);
-		RealAddr = Address;
-		break;
-	case XQSPIPSU_CONNECTION_MODE_STACKED:
-		/* Select lower or upper Flash based on sector address */
-		if (Address & Flash_Config_Table[FCTIndex].FlashDeviceSize) {
-
+		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 			XQspiPsu_SelectFlash(QspiPsuPtr,
-				XQSPIPSU_SELECT_FLASH_CS_UPPER,
-				XQSPIPSU_SELECT_FLASH_BUS_LOWER);
-			/*
-			 * Subtract first flash size when accessing second flash
-			 */
-			RealAddr = Address &
-				(~Flash_Config_Table[FCTIndex].FlashDeviceSize);
-		}else{
-			/*
-			 * Set selection to L_PAGE
-			 */
-			XQspiPsu_SelectFlash(QspiPsuPtr,
-				XQSPIPSU_SELECT_FLASH_CS_LOWER,
-				XQSPIPSU_SELECT_FLASH_BUS_LOWER);
-
+					     XQSPIPSU_SELECT_FLASH_CS_LOWER,
+					     XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 			RealAddr = Address;
+			break;
+		case XQSPIPSU_CONNECTION_MODE_STACKED:
+			/* Select lower or upper Flash based on sector address */
+			if (Address & Flash_Config_Table[FCTIndex].FlashDeviceSize) {
 
-		}
-		break;
-	case XQSPIPSU_CONNECTION_MODE_PARALLEL:
-		/*
-		 * The effective address in each flash is the actual
-		 * address / 2
-		 */
-		XQspiPsu_SelectFlash(QspiPsuPtr,
-				XQSPIPSU_SELECT_FLASH_CS_BOTH,
-				XQSPIPSU_SELECT_FLASH_BUS_BOTH);
-		RealAddr = Address / 2;
-		break;
-	default:
-		/* RealAddr wont be assigned in this case; */
-	break;
+				XQspiPsu_SelectFlash(QspiPsuPtr,
+						     XQSPIPSU_SELECT_FLASH_CS_UPPER,
+						     XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+				/*
+				 * Subtract first flash size when accessing second flash
+				 */
+				RealAddr = Address &
+					   (~Flash_Config_Table[FCTIndex].FlashDeviceSize);
+			}
+			else {
+				/*
+				 * Set selection to L_PAGE
+				 */
+				XQspiPsu_SelectFlash(QspiPsuPtr,
+						     XQSPIPSU_SELECT_FLASH_CS_LOWER,
+						     XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+
+				RealAddr = Address;
+
+			}
+			break;
+		case XQSPIPSU_CONNECTION_MODE_PARALLEL:
+			/*
+			 * The effective address in each flash is the actual
+			 * address / 2
+			 */
+			XQspiPsu_SelectFlash(QspiPsuPtr,
+					     XQSPIPSU_SELECT_FLASH_CS_BOTH,
+					     XQSPIPSU_SELECT_FLASH_BUS_BOTH);
+			RealAddr = Address / 2;
+			break;
+		default:
+			/* RealAddr wont be assigned in this case; */
+			break;
 
 	}
 
-	return(RealAddr);
+	return (RealAddr);
 }
 
 /*****************************************************************************/
@@ -1669,7 +1725,7 @@ u32 GetRealAddr(XQspiPsu *QspiPsuPtr, u32 Address)
  *
  ******************************************************************************/
 static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
-			       XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuIntrId)
+				  XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuIntrId)
 {
 	int Status;
 
@@ -1687,7 +1743,7 @@ static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
-			IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -1697,8 +1753,8 @@ static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-			IntcInstancePtr);
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     IntcInstancePtr);
 
 	/*
 	 * Connect the device driver handler that will be called when an
@@ -1706,8 +1762,8 @@ static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * the specific interrupt processing for the device.
 	 */
 	Status = XScuGic_Connect(IntcInstancePtr, QspiPsuIntrId,
-			(Xil_ExceptionHandler)XQspiPsu_InterruptHandler,
-			(void *)QspiPsuInstancePtr);
+				 (Xil_ExceptionHandler)XQspiPsu_InterruptHandler,
+				 (void *)QspiPsuInstancePtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -1739,7 +1795,7 @@ static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
  *
  ******************************************************************************/
 static void QspiPsuDisableIntrSystem(XScuGic *IntcInstancePtr,
-		u16 QspiPsuIntrId)
+				     u16 QspiPsuIntrId)
 {
 	/*
 	 * Disable the interrupt for the QSPIPSU device.
@@ -1783,116 +1839,124 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 
 	if (Enable) {
 		Cmd = ENTER_4B_ADDR_MODE;
-	} else {
-		if (FlashMake == ISSI_ID_BYTE0)
+	}
+	else {
+		if (FlashMake == ISSI_ID_BYTE0) {
 			Cmd = EXIT_4B_ADDR_MODE_ISSI;
-		else
+		}
+		else {
 			Cmd = EXIT_4B_ADDR_MODE;
+		}
 	}
 
 	switch (FlashMake) {
-	case ISSI_ID_BYTE0:
-	case MICRON_ID_BYTE0:
-		WriteEnableCmd = WRITE_ENABLE_CMD;
-		GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
-		/*
-		 * Send the write enable command to the Flash so that it can be
-		 * written to, this needs to be sent as a separate transfer
-		 * before the write
-		 */
-		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		case ISSI_ID_BYTE0:
+		case MICRON_ID_BYTE0:
+			WriteEnableCmd = WRITE_ENABLE_CMD;
+			GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
+			/*
+			 * Send the write enable command to the Flash so that it can be
+			 * written to, this needs to be sent as a separate transfer
+			 * before the write
+			 */
+			FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
 
-		break;
+			break;
 
-	case SPANSION_ID_BYTE0:
+		case SPANSION_ID_BYTE0:
 
-		/* Read Extended Addres Register */
-		WriteBuffer[0] = BANK_REG_RD;
-		FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			/* Read Extended Addres Register */
+			WriteBuffer[0] = BANK_REG_RD;
+			FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = &WriteBuffer[1];
-		FlashMsg[1].ByteCount = 1;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-		if (Enable) {
-			WriteBuffer[0] = BANK_REG_WR;
-			WriteBuffer[1] |= 1 << 7;
-		} else {
-			WriteBuffer[0] = BANK_REG_WR;
-			WriteBuffer[1] &= ~(0x01 << 7);
-		}
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = &WriteBuffer[1];
+			FlashMsg[1].ByteCount = 1;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Enable) {
+				WriteBuffer[0] = BANK_REG_WR;
+				WriteBuffer[1] |= 1 << 7;
+			}
+			else {
+				WriteBuffer[0] = BANK_REG_WR;
+				WriteBuffer[1] &= ~(0x01 << 7);
+			}
 
-		FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[1].TxBfrPtr = &WriteBuffer[1];
-		FlashMsg[2].RxBfrPtr = NULL;
-		FlashMsg[2].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_TX;
-		FlashMsg[2].ByteCount = 1;
+			FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[1].TxBfrPtr = &WriteBuffer[1];
+			FlashMsg[2].RxBfrPtr = NULL;
+			FlashMsg[2].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[2].ByteCount = 1;
 
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-		WriteBuffer[0] = BANK_REG_RD;
-		FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			WriteBuffer[0] = BANK_REG_RD;
+			FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = &FlashStatus[0];
-		FlashMsg[1].ByteCount = 1;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = &FlashStatus[0];
+			FlashMsg[1].ByteCount = 1;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
 
-		return Status;
+			return Status;
 
-	default:
-		/*
-		 * For Macronix and Winbond flash parts
-		 * Write enable command is not required.
-		 */
-		break;
+		default:
+			/*
+			 * For Macronix and Winbond flash parts
+			 * Write enable command is not required.
+			 */
+			break;
 	}
 
 	GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
@@ -1908,15 +1972,17 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+	if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 		return XST_FAILURE;
+	}
 
 	DelayCount = 0;
 	while (1) {
 		if (DelayCount == MAX_DELAY_CNT) {
 			Status = XST_FAILURE;
 			goto ERROR_PATH;
-		} else {
+		}
+		else {
 			ReadStatusCmd = StatusCmd;
 			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
 			FlashMsg[0].RxBfrPtr = NULL;
@@ -1931,7 +1997,7 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
 			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 			}
 
@@ -1940,14 +2006,16 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 			if (Status != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
-			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
 				return XST_FAILURE;
+			}
 
 			if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
 				if (FSRFlag) {
 					FlashStatus[1] &= FlashStatus[0];
-				} else {
+				}
+				else {
 					FlashStatus[1] |= FlashStatus[0];
 				}
 			}
@@ -1956,7 +2024,8 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 				if ((FlashStatus[1] & 0x80) != 0) {
 					break;
 				}
-			} else {
+			}
+			else {
 				if ((FlashStatus[1] & 0x01) == 0) {
 					break;
 				}
@@ -1968,37 +2037,38 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr, unsigned int Enable)
 	}
 
 	switch (FlashMake) {
-	case ISSI_ID_BYTE0:
-	case MICRON_ID_BYTE0:
-		WriteDisableCmd = WRITE_DISABLE_CMD;
-		GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
-		/*
-		 * Send the write enable command to the Flash so that it can be
-		 * written to, this needs to be sent as a separate transfer
-		 * before the write
-		 */
-		FlashMsg[0].TxBfrPtr = &WriteDisableCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		case ISSI_ID_BYTE0:
+		case MICRON_ID_BYTE0:
+			WriteDisableCmd = WRITE_DISABLE_CMD;
+			GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
+			/*
+			 * Send the write enable command to the Flash so that it can be
+			 * written to, this needs to be sent as a separate transfer
+			 * before the write
+			 */
+			FlashMsg[0].TxBfrPtr = &WriteDisableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
 
-		break;
+			break;
 
-	default:
-		/*
-		 * For Macronix and Winbond flash parts
-		 * Write disable command is not required.
-		 */
-		break;
+		default:
+			/*
+			 * For Macronix and Winbond flash parts
+			 * Write disable command is not required.
+			 */
+			break;
 	}
 ERROR_PATH:
 	return Status;
@@ -2031,388 +2101,409 @@ int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
 	u32 DelayCount;
 
 	switch (FlashMake) {
-	case SPANSION_ID_BYTE0:
-		TxBfrPtr = READ_CONFIG_CMD;
-		FlashMsg[0].TxBfrPtr = &TxBfrPtr;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+		case SPANSION_ID_BYTE0:
+			TxBfrPtr = READ_CONFIG_CMD;
+			FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = &WriteBuffer[2];
-		FlashMsg[1].ByteCount = 1;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = &WriteBuffer[2];
+			FlashMsg[1].ByteCount = 1;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
-				FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
+							    FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
 
-		WriteEnableCmd = WRITE_ENABLE_CMD;
-		/*
-		 * Send the write enable command to the Flash
-		 * so that it can be written to, this needs
-		 * to be sent as a separate transfer before
-		 * the write
-		 */
-		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			WriteEnableCmd = WRITE_ENABLE_CMD;
+			/*
+			 * Send the write enable command to the Flash
+			 * so that it can be written to, this needs
+			 * to be sent as a separate transfer before
+			 * the write
+			 */
+			FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
-				FlashMsg, 1);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
+							    FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
 
-		GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
+			GetRealAddr(QspiPsuPtr, TEST_ADDRESS);
 
-		WriteBuffer[0] = WRITE_CONFIG_CMD;
-		WriteBuffer[1] |= 0x02;
-		WriteBuffer[2] |= 0x01 << 1;
+			WriteBuffer[0] = WRITE_CONFIG_CMD;
+			WriteBuffer[1] |= 0x02;
+			WriteBuffer[2] |= 0x01 << 1;
 
-		FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[1].TxBfrPtr = &WriteBuffer[1];
-		FlashMsg[1].RxBfrPtr = NULL;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[0].TxBfrPtr = &WriteBuffer[0];
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[1].TxBfrPtr = &WriteBuffer[1];
+			FlashMsg[1].RxBfrPtr = NULL;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
-				FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
+							    FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
 
-		DelayCount = 0;
-		while (1) {
-			if (DelayCount == MAX_DELAY_CNT) {
-				Status = XST_FAILURE;
-				goto ERROR_PATH;
-			} else {
-				TxBfrPtr = READ_STATUS_CMD;
-				FlashMsg[0].TxBfrPtr = &TxBfrPtr;
-				FlashMsg[0].RxBfrPtr = NULL;
-				FlashMsg[0].ByteCount = 1;
-				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-				FlashMsg[1].TxBfrPtr = NULL;
-				FlashMsg[1].RxBfrPtr = FlashStatus;
-				FlashMsg[1].ByteCount = 2;
-				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-
-				TransferDone = FALSE;
-				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
-						FlashMsg, 2);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+			DelayCount = 0;
+			while (1) {
+				if (DelayCount == MAX_DELAY_CNT) {
+					Status = XST_FAILURE;
+					goto ERROR_PATH;
 				}
-				if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-					return XST_FAILURE;
-				if (QspiPsuPtr->Config.ConnectionMode ==
-							XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-					if (FSRFlag) {
-						FlashStatus[1] &= FlashStatus[0];
-					}else {
-						FlashStatus[1] |= FlashStatus[0];
+				else {
+					TxBfrPtr = READ_STATUS_CMD;
+					FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+					FlashMsg[0].RxBfrPtr = NULL;
+					FlashMsg[0].ByteCount = 1;
+					FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+					FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+					FlashMsg[1].TxBfrPtr = NULL;
+					FlashMsg[1].RxBfrPtr = FlashStatus;
+					FlashMsg[1].ByteCount = 2;
+					FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+					FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+					TransferDone = FALSE;
+					Status = XQspiPsu_InterruptTransfer(QspiPsuPtr,
+									    FlashMsg, 2);
+					if (Status != XST_SUCCESS) {
+						return XST_FAILURE;
 					}
-				}
-
-				if ((FlashStatus[1] & 0x01) == 0x00)
-					break;
-
-				/* Wait for 1 usec */
-				usleep(1);
-				DelayCount++;
-			}
-		}
-		TxBfrPtr = READ_CONFIG_CMD;
-		FlashMsg[0].TxBfrPtr = &TxBfrPtr;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = ReadBfrPtr;
-		FlashMsg[1].ByteCount = 1;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-		break;
-	case ISSI_ID_BYTE0:
-		/*
-		 * Read Status Register to a buffer
-		 */
-		ReadStatusCmd = READ_STATUS_CMD;
-		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		}
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			if (FSRFlag) {
-				FlashStatus[1] &= FlashStatus[0];
-			} else {
-				FlashStatus[1] |= FlashStatus[0];
-			}
-		}
-		/*
-		 * Set Quad Enable Bit in the buffer
-		 */
-		StatusRegVal = FlashStatus[1];
-		StatusRegVal |= 0x1 << QUAD_MODE_ENABLE_BIT;
-
-		/*
-		 * Write enable
-		 */
-		WriteEnableCmd = WRITE_ENABLE_CMD;
-		/*
-		* Send the write enable command to the Flash so that it can be
-		* written to, this needs to be sent as a separate transfer
-		* before the write
-		*/
-		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-
-		/*
-		 * Write Status register
-		 */
-		WriteBuffer[COMMAND_OFFSET] = WRITE_STATUS_CMD;
-		FlashMsg[0].TxBfrPtr = WriteBuffer;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = &StatusRegVal;
-		FlashMsg[1].RxBfrPtr = NULL;
-		FlashMsg[1].ByteCount = 1;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
-		if (QspiPsuPtr->Config.ConnectionMode ==
-				XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		}
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-
-		/*
-		 * Write Disable
-		 */
-		WriteEnableCmd = WRITE_DISABLE_CMD;
-		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-		break;
-
-	case WINBOND_ID_BYTE0:
-		ReadStatusCmd = READ_STATUS_REG_2_CMD;
-		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-
-		if (QspiPsuPtr->Config.ConnectionMode ==
-			XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-			if (FSRFlag) {
-				FlashStatus[1] &= FlashStatus[0];
-			} else {
-				FlashStatus[1] |= FlashStatus[0];
-			}
-		}
-		/*
-		 * Set Quad Enable Bit in the buffer
-		 */
-		StatusRegVal = FlashStatus[1];
-		StatusRegVal |= 0x1 << WB_QUAD_MODE_ENABLE_BIT;
-		/*
-		 * Write Enable
-		 */
-		WriteEnableCmd = WRITE_ENABLE_CMD;
-		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-		/*
-		 * Write Status register
-		 */
-		WriteBuffer[COMMAND_OFFSET] = WRITE_STATUS_REG_2_CMD;
-		FlashMsg[0].TxBfrPtr = WriteBuffer;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = &StatusRegVal;
-		FlashMsg[1].RxBfrPtr = NULL;
-		FlashMsg[1].ByteCount = 1;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-		DelayCount = 0;
-		while (1) {
-			if (DelayCount == MAX_DELAY_CNT) {
-				Status = XST_FAILURE;
-				goto ERROR_PATH;
-			} else {
-				ReadStatusCmd = READ_STATUS_CMD;
-				FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-				FlashMsg[0].RxBfrPtr = NULL;
-				FlashMsg[0].ByteCount = 1;
-				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-				FlashMsg[1].TxBfrPtr = NULL;
-				FlashMsg[1].RxBfrPtr = FlashStatus;
-				FlashMsg[1].ByteCount = 2;
-				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-				TransferDone = FALSE;
-				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
-				}
-				if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-					return XST_FAILURE;
-
-				if (QspiPsuPtr->Config.ConnectionMode ==
-					XQSPIPSU_CONNECTION_MODE_PARALLEL) {
-					if (FSRFlag) {
-						FlashStatus[1] &= FlashStatus[0];
-					} else {
-						FlashStatus[1] |= FlashStatus[0];
+					if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+						return XST_FAILURE;
 					}
-				}
-				if ((FlashStatus[1] & 0x01) == 0x00) {
-					break;
-				}
+					if (QspiPsuPtr->Config.ConnectionMode ==
+					    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+						if (FSRFlag) {
+							FlashStatus[1] &= FlashStatus[0];
+						}
+						else {
+							FlashStatus[1] |= FlashStatus[0];
+						}
+					}
 
-				/* Wait for 1 usec */
-				usleep(1);
-				DelayCount++;
+					if ((FlashStatus[1] & 0x01) == 0x00) {
+						break;
+					}
+
+					/* Wait for 1 usec */
+					usleep(1);
+					DelayCount++;
+				}
 			}
-		}
-		/*
-		 * Write Disable
-		 */
-		WriteEnableCmd = WRITE_DISABLE_CMD;
-		FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-		TransferDone = FALSE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-		if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS)
-			return XST_FAILURE;
-		break;
+			TxBfrPtr = READ_CONFIG_CMD;
+			FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-	default:
-		/*
-		 * Currently only S25FL-L series requires the
-		 * Quad enable bit to be set to 1.
-		 */
-		Status = XST_SUCCESS;
-		break;
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = ReadBfrPtr;
+			FlashMsg[1].ByteCount = 1;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			break;
+		case ISSI_ID_BYTE0:
+			/*
+			 * Read Status Register to a buffer
+			 */
+			ReadStatusCmd = READ_STATUS_CMD;
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashStatus;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			if (QspiPsuPtr->Config.ConnectionMode ==
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+			}
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (QspiPsuPtr->Config.ConnectionMode ==
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				if (FSRFlag) {
+					FlashStatus[1] &= FlashStatus[0];
+				}
+				else {
+					FlashStatus[1] |= FlashStatus[0];
+				}
+			}
+			/*
+			 * Set Quad Enable Bit in the buffer
+			 */
+			StatusRegVal = FlashStatus[1];
+			StatusRegVal |= 0x1 << QUAD_MODE_ENABLE_BIT;
+
+			/*
+			 * Write enable
+			 */
+			WriteEnableCmd = WRITE_ENABLE_CMD;
+			/*
+			* Send the write enable command to the Flash so that it can be
+			* written to, this needs to be sent as a separate transfer
+			* before the write
+			*/
+			FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			/*
+			 * Write Status register
+			 */
+			WriteBuffer[COMMAND_OFFSET] = WRITE_STATUS_CMD;
+			FlashMsg[0].TxBfrPtr = WriteBuffer;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			FlashMsg[1].TxBfrPtr = &StatusRegVal;
+			FlashMsg[1].RxBfrPtr = NULL;
+			FlashMsg[1].ByteCount = 1;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
+			if (QspiPsuPtr->Config.ConnectionMode ==
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+			}
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			/*
+			 * Write Disable
+			 */
+			WriteEnableCmd = WRITE_DISABLE_CMD;
+			FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			break;
+
+		case WINBOND_ID_BYTE0:
+			ReadStatusCmd = READ_STATUS_REG_2_CMD;
+			FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			FlashMsg[1].TxBfrPtr = NULL;
+			FlashMsg[1].RxBfrPtr = FlashStatus;
+			FlashMsg[1].ByteCount = 2;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			if (QspiPsuPtr->Config.ConnectionMode ==
+			    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+				if (FSRFlag) {
+					FlashStatus[1] &= FlashStatus[0];
+				}
+				else {
+					FlashStatus[1] |= FlashStatus[0];
+				}
+			}
+			/*
+			 * Set Quad Enable Bit in the buffer
+			 */
+			StatusRegVal = FlashStatus[1];
+			StatusRegVal |= 0x1 << WB_QUAD_MODE_ENABLE_BIT;
+			/*
+			 * Write Enable
+			 */
+			WriteEnableCmd = WRITE_ENABLE_CMD;
+			FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			/*
+			 * Write Status register
+			 */
+			WriteBuffer[COMMAND_OFFSET] = WRITE_STATUS_REG_2_CMD;
+			FlashMsg[0].TxBfrPtr = WriteBuffer;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+			FlashMsg[1].TxBfrPtr = &StatusRegVal;
+			FlashMsg[1].RxBfrPtr = NULL;
+			FlashMsg[1].ByteCount = 1;
+			FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_TX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			DelayCount = 0;
+			while (1) {
+				if (DelayCount == MAX_DELAY_CNT) {
+					Status = XST_FAILURE;
+					goto ERROR_PATH;
+				}
+				else {
+					ReadStatusCmd = READ_STATUS_CMD;
+					FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
+					FlashMsg[0].RxBfrPtr = NULL;
+					FlashMsg[0].ByteCount = 1;
+					FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+					FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+					FlashMsg[1].TxBfrPtr = NULL;
+					FlashMsg[1].RxBfrPtr = FlashStatus;
+					FlashMsg[1].ByteCount = 2;
+					FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+					FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+					TransferDone = FALSE;
+					Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+					if (Status != XST_SUCCESS) {
+						return XST_FAILURE;
+					}
+					if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+						return XST_FAILURE;
+					}
+
+					if (QspiPsuPtr->Config.ConnectionMode ==
+					    XQSPIPSU_CONNECTION_MODE_PARALLEL) {
+						if (FSRFlag) {
+							FlashStatus[1] &= FlashStatus[0];
+						}
+						else {
+							FlashStatus[1] |= FlashStatus[0];
+						}
+					}
+					if ((FlashStatus[1] & 0x01) == 0x00) {
+						break;
+					}
+
+					/* Wait for 1 usec */
+					usleep(1);
+					DelayCount++;
+				}
+			}
+			/*
+			 * Write Disable
+			 */
+			WriteEnableCmd = WRITE_DISABLE_CMD;
+			FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+			FlashMsg[0].RxBfrPtr = NULL;
+			FlashMsg[0].ByteCount = 1;
+			FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+			FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+			TransferDone = FALSE;
+			Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (Xil_WaitForEventSet(MAX_DELAY_CNT, 1, (u32 *)&TransferDone) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			break;
+
+		default:
+			/*
+			 * Currently only S25FL-L series requires the
+			 * Quad enable bit to be set to 1.
+			 */
+			Status = XST_SUCCESS;
+			break;
 	}
 
 ERROR_PATH:
