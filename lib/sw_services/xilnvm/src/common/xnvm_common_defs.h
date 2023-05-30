@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -132,6 +132,7 @@ typedef struct {
 	u8 AesDis;
 	u8 JtagErrOutDis;
 	u8 JtagDis;
+	u8 HwTstBitsDis;
 	u8 Ppk0WrLk;
 	u8 Ppk1WrLk;
 	u8 Ppk2WrLk;
@@ -143,6 +144,7 @@ typedef struct {
 	u8 UserKey1WrLk;
 	u8 SecDbgDis;
 	u8 SecLockDbgDis;
+	u8 PmcScEn;
 	u8 BootEnvWrLk;
 	u8 RegInitDis;
 } XNvm_EfuseSecCtrlBits;
