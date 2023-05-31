@@ -616,7 +616,8 @@ enum XPmNotifyEvent {
 #define XST_API_BASE_VERSION			(1U)
 #define XST_API_QUERY_DATA_VERSION		(2U)
 #define XST_API_REG_NOTIFIER_VERSION		(2U)
-#define XST_API_PM_IOCTL_VERSION		(2U)
+/* Version 3 supports zeroization of AIE data and program memory separately */
+#define XST_API_PM_IOCTL_VERSION		(3U)
 #define XST_API_PM_FEATURE_CHECK_VERSION	(2U)
 
 /* Version 2 supports the CPU idling feature during force power down */
@@ -646,17 +647,23 @@ enum XPmNotifyEvent {
 #define AIE_OPS_COL_RST			BIT(0U)
 #define AIE_OPS_SHIM_RST		BIT(1U)
 #define AIE_OPS_ENB_COL_CLK_BUFF	BIT(2U)
-#define AIE_OPS_ZEROIZATION		BIT(3U)
+#define AIE_OPS_ALL_MEM_ZEROIZATION	BIT(3U)
 #define AIE_OPS_DIS_COL_CLK_BUFF	BIT(4U)
 #define AIE_OPS_ENB_AXI_MM_ERR_EVENT	BIT(5U)
 #define AIE_OPS_SET_L2_CTRL_NPI_INTR	BIT(6U)
+#define AIE_OPS_PROG_MEM_ZEROIZATION	BIT(7U)
+#define AIE_OPS_DATA_MEM_ZEROIZATION	BIT(8U)
+#define AIE_OPS_MEM_TILE_ZEROIZATION	BIT(9U)
 #define AIE_OPS_MAX			(AIE_OPS_COL_RST |		\
 					 AIE_OPS_SHIM_RST |		\
 					 AIE_OPS_ENB_COL_CLK_BUFF |	\
-					 AIE_OPS_ZEROIZATION |		\
+					 AIE_OPS_ALL_MEM_ZEROIZATION |	\
 					 AIE_OPS_DIS_COL_CLK_BUFF |	\
 					 AIE_OPS_ENB_AXI_MM_ERR_EVENT |	\
-					 AIE_OPS_SET_L2_CTRL_NPI_INTR)
+					 AIE_OPS_SET_L2_CTRL_NPI_INTR | \
+					 AIE_OPS_PROG_MEM_ZEROIZATION | \
+					 AIE_OPS_DATA_MEM_ZEROIZATION | \
+					 AIE_OPS_MEM_TILE_ZEROIZATION)
 /** @} */
 
 #ifdef __cplusplus
