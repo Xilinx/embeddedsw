@@ -52,56 +52,164 @@
 #define XCERT_SERIAL_FIELD_LEN				(22U)
 #define XCERT_BIT7_MASK 				(0x80)
 #define XCERT_MAX_CERT_SUPPORT				(4U)
+#define XCERT_LOWER_NIBBLE_MASK				(0xFU)
 	/**< Number of supported certificates is 4 -> 1 DevIK certificate and 3 DevAK certificates */
 
 /************************** Function Prototypes ******************************/
+static XCert_UserCfg *XCert_GetUserCfgDB(void);
+static u32* XCert_GetNumOfEntriesInUserCfgDB(void);
+static int XCert_IsBufferNonZero(u8* Buffer, int BufferLen);
+static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg);
 static void XCert_GenVersionField(u8* TBSCertBuf, u32 *VersionLen);
 static void XCert_GenSerialField(u8* TBSCertBuf, u8* Serial, u32 *SerialLen);
 static int XCert_GenSignAlgoField(u8* CertBuf, u32 *SignAlgoLen);
-static void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, u32 *IssuerLen);
-static void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, u32 *ValidityLen);
-static void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, u32 *SubjectLen);
+static void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 IssuerValLen, u32 *IssuerLen);
+static void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, const u32 ValidityValLen, u32 *ValidityLen);
+static void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 SubjectValLen, u32 *SubjectLen);
 #ifndef PLM_ECDSA_EXCLUDE
 static int XCert_GenPubKeyAlgIdentifierField(u8* TBSCertBuf, u32 *Len);
 static int XCert_GenPublicKeyInfoField(u8* TBSCertBuf, u8* SubjectPublicKey,u32 *PubKeyInfoLen);
 static void XCert_GenSignField(u8* X509CertBuf, u8* Signature, u32 *SignLen);
 #endif
-static int XCert_GenTBSCertificate(u8* X509CertBuf, XCert_Config Cfg, u32 *DataLen);
+static int XCert_GenTBSCertificate(u8* X509CertBuf, XCert_Config* Cfg, u32 *DataLen);
 static void XCert_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
 /**
- * @brief	This function provides the pointer to the common XCert_UserCfg
- *		instance which has to be used across the project to access
- *		user configuration for X.509 certificate
+ * @brief	This function provides the pointer to the UserCfg database.
  *
  * @return
- *	-	Pointer to the XCert_UserCfg instance
+ *	-	Pointer to the first entry in UserCfg database
+ *
+ * @note	UserCfgDB is used to store the user configurable fields of
+ * 		X.509 certificate for different subsystems.
+ *		Each entry in the DB wil have following fields:
+ *		------------------------------------------------------
+ *		| Subsystem Id  |  Issuer   |  Subject  |  Validity  |
+ *		------------------------------------------------------
  *
  ******************************************************************************/
-XCert_UserCfg *XCert_GetCertUserInput(void)
+static XCert_UserCfg *XCert_GetUserCfgDB(void)
 {
-	static XCert_UserCfg CertUsrCfg[XCERT_MAX_CERT_SUPPORT] = {0U};
+	static XCert_UserCfg UsrCfgDB[XCERT_MAX_CERT_SUPPORT] = {0U};
 
-	return &CertUsrCfg[0];
+	return &UsrCfgDB[0];
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function provides the pointer to the index of the UserConfig
-*		value which indicates the total entries of different subsystems
-*		for which user configuration is stored.
+ * @brief	This function provides the pointer to the NumOfEntriesInUserCfgDB
+*		which indicates the total number of subsystems for which
+*		user configuration is stored in UsrCfgDB.
  *
  * @return
- *      -   Pointer to the UsrCfgStoreIdx
+ *	-	Pointer to the NumOfEntriesInUserCfgDB
  *
  ******************************************************************************/
-u32* XCert_GetCertUsrCfgStoreIdx(void)
+static u32* XCert_GetNumOfEntriesInUserCfgDB(void)
 {
-	static u32 UsrCfgStoreIdx = 0U;
+	static u32 NumOfEntriesInUserCfgDB = 0U;
 
-	return &UsrCfgStoreIdx;
+	return &NumOfEntriesInUserCfgDB;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function checks if all the bytes in the provided buffer are
+ *		zero.
+ *
+ * @param	Buffer - Pointer to the buffer
+ * @param	BufferLen - Length of the buffer
+ *
+ * @return
+ *		XST_SUCCESS - If buffer is non-empty
+ *		XST_FAILURE - If buffer is empty
+ *
+ ******************************************************************************/
+static int XCert_IsBufferNonZero(u8* Buffer, int BufferLen)
+{
+	int Status = XST_FAILURE;
+	int Sum = 0;
+
+	for (int i = 0; i < BufferLen; i++) {
+		Sum |= Buffer[i];
+	}
+
+	if (Sum == 0) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function finds the provided Subsystem ID in UserCfg DB and
+ *		returns the pointer to the corresponding entry in DB
+ *		if all the other fields are valid.
+ *
+ * @param	SubsystemID - Subsystem ID for which user configuration is requested
+ * @param	UserCfg - Pointer to the entry in DB for the provided Subsystem ID
+ *
+ * @return
+ *		XST_SUCCESS - If subsystem ID is found and other fields are valid
+ *		Error Code - Upon any failure
+ *
+ ******************************************************************************/
+static int XCert_GetUserCfg(u32 SubsystemId, XCert_UserCfg **UserCfg)
+{
+	int Status = XST_FAILURE;
+	XCert_UserCfg *CertUsrCfgDB = XCert_GetUserCfgDB();
+	u32 *NumOfEntriesInUserCfgDB = XCert_GetNumOfEntriesInUserCfgDB();
+	u32 Idx;
+
+	/**
+	 * Search for given Subsystem ID in the UserCfg DB
+	 */
+	for (Idx = 0; Idx < *NumOfEntriesInUserCfgDB; Idx++) {
+		if (CertUsrCfgDB[Idx].SubsystemId == SubsystemId) {
+			/**
+			 * If Subsystem ID is found then check that Subject,
+			 * Issuer and Validity for that Subsystem ID is non-zero.
+			 */
+			Status = XCert_IsBufferNonZero(CertUsrCfgDB[Idx].Issuer,
+				CertUsrCfgDB[Idx].IssuerLen);
+			if (Status != XST_SUCCESS) {
+				Status = XOCP_ERR_X509_INVALID_USER_CFG;
+				goto END;
+			}
+
+			Status = XCert_IsBufferNonZero(CertUsrCfgDB[Idx].Subject,
+				CertUsrCfgDB[Idx].SubjectLen);
+			if (Status != XST_SUCCESS) {
+				Status = XOCP_ERR_X509_INVALID_USER_CFG;
+				goto END;
+			}
+
+			Status = XCert_IsBufferNonZero(CertUsrCfgDB[Idx].Validity,
+				CertUsrCfgDB[Idx].ValidityLen);
+			if (Status != XST_SUCCESS) {
+				Status = XOCP_ERR_X509_INVALID_USER_CFG;
+				goto END;
+			}
+			*UserCfg = &CertUsrCfgDB[Idx];
+			Status = XST_SUCCESS;
+			goto END;
+		}
+	}
+
+	if (Idx == *NumOfEntriesInUserCfgDB) {
+		Status = XOCP_ERR_X509_USR_CFG_NOT_FOUND;
+		goto END;
+	}
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
@@ -122,10 +230,10 @@ u32* XCert_GetCertUsrCfgStoreIdx(void)
 int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8* Val, u32 Len)
 {
 	int Status = XST_FAILURE;
-	int IdxToBeUpdated;
+	u32 IdxToBeUpdated;
 	u8 IsSubsystemIdPresent = FALSE;
-	XCert_UserCfg *CertUserCfg = XCert_GetCertUserInput();
-	u32 *UsrCfgStoreIdx = XCert_GetCertUsrCfgStoreIdx();
+	XCert_UserCfg *CertUsrCfgDB = XCert_GetUserCfgDB();
+	u32 *NumOfEntriesInUserCfgDB = XCert_GetNumOfEntriesInUserCfgDB();
 	u32 Idx;
 
 	if (FieldType > XCERT_VALIDITY) {
@@ -137,6 +245,7 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 		((FieldType == XCERT_ISSUER) && (Len > XCERT_ISSUER_MAX_SIZE)) ||
 		((FieldType == XCERT_SUBJECT) && (Len > XCERT_SUBJECT_MAX_SIZE))) {
 		Status = XST_INVALID_PARAM;
+		goto END;
 	}
 
 	/**
@@ -144,8 +253,8 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 	 * field of existing subsystem else increment index and add entry for
 	 * new subsystem.
 	*/
-	for (Idx = 0; Idx < *UsrCfgStoreIdx; Idx++) {
-		if (CertUserCfg[Idx].SubsystemId == SubSystemId) {
+	for (Idx = 0; Idx < *NumOfEntriesInUserCfgDB; Idx++) {
+		if (CertUsrCfgDB[Idx].SubsystemId == SubSystemId) {
 			IdxToBeUpdated = Idx;
 			IsSubsystemIdPresent = TRUE;
 			break;
@@ -153,25 +262,26 @@ int XCert_StoreCertUserInput(u32 SubSystemId, XCert_UserCfgFields FieldType, u8*
 	}
 
 	if (IsSubsystemIdPresent == FALSE) {
-		IdxToBeUpdated = *UsrCfgStoreIdx;
-		CertUserCfg[IdxToBeUpdated].SubsystemId = SubSystemId;
-		*UsrCfgStoreIdx = *(UsrCfgStoreIdx) + 1;
+		IdxToBeUpdated = *NumOfEntriesInUserCfgDB;
+		if (IdxToBeUpdated >= XCERT_MAX_CERT_SUPPORT) {
+			Status = XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED;
+			goto END;
+		}
+		CertUsrCfgDB[IdxToBeUpdated].SubsystemId = SubSystemId;
+		*NumOfEntriesInUserCfgDB = (*NumOfEntriesInUserCfgDB) + 1;
 	}
 
 	if (FieldType == XCERT_ISSUER) {
-		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg[IdxToBeUpdated].Issuer,
-			(u64)(UINTPTR)Val, Len);
-		CertUserCfg[IdxToBeUpdated].IssuerLen = Len;
+		XSecure_MemCpy(CertUsrCfgDB[IdxToBeUpdated].Issuer, Val, Len);
+		CertUsrCfgDB[IdxToBeUpdated].IssuerLen = Len;
 	}
 	else if (FieldType == XCERT_SUBJECT) {
-		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg[IdxToBeUpdated].Subject,
-			(u64)(UINTPTR)Val, Len);
-		CertUserCfg[IdxToBeUpdated].SubjectLen = Len;
+		XSecure_MemCpy(CertUsrCfgDB[IdxToBeUpdated].Subject, Val, Len);
+		CertUsrCfgDB[IdxToBeUpdated].SubjectLen = Len;
 	}
 	else {
-		XSecure_MemCpy64((u64)(UINTPTR)CertUserCfg[IdxToBeUpdated].Validity,
-			(u64)(UINTPTR)Val, Len);
-		CertUserCfg[IdxToBeUpdated].ValidityLen = Len;
+		XSecure_MemCpy(CertUsrCfgDB[IdxToBeUpdated].Validity, Val, Len);
+		CertUsrCfgDB[IdxToBeUpdated].ValidityLen = Len;
 	}
 
 	Status = XST_SUCCESS;
@@ -194,7 +304,7 @@ END:
  *			signatureValue       BIT STRING  }
  *
  ******************************************************************************/
-int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config Cfg)
+int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize, XCert_Config *Cfg)
 {
 	int Status = XST_FAILURE;
 	u8 X509CertBuf[1024];
@@ -214,6 +324,11 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
 	SequenceLenIdx = Curr++;
 	SequenceValIdx = Curr;
+
+	Status = XCert_GetUserCfg(Cfg->SubSystemId, &(Cfg->UserCfg));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
 	/**
 	 * Generate TBS certificate field
@@ -251,7 +366,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	 * Calculate signature of the TBS certificate using the private key
 	 */
 	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
-				Cfg.AppCfg.PrvtKey, Sign);
+				Cfg->AppCfg.PrvtKey, Sign);
 	if (Status != XST_SUCCESS) {
 		Status = XOCP_ERR_X509_CALC_SIGN;
 		goto END;
@@ -275,7 +390,7 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 		Status = XOCP_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
-
+	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
 	*X509CertSize = Curr - Start;
 
 	XCert_GetData(*X509CertSize, (u8 *)X509CertBuf, X509CertAddr);
@@ -411,15 +526,16 @@ END:
  * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
  *		the Issuer field shall be added.
  * @param	Issuer is the DER encoded value of the Issuer field
+ * @param	IssuerValLen is the length of the DER encoded value
  * @param	IssuerLen is the length of the Issuer field
  *
  * @note	This function expects the user to provide the Issuer field in DER
  *		encoded format and it will be updated in the TBS Certificate buffer.
  *
  ******************************************************************************/
-static void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, u32 *IssuerLen)
+static void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, const u32 IssuerValLen, u32 *IssuerLen)
 {
-	XCert_CreateRawDataFromByteArray(TBSCertBuf, Issuer, IssuerLen);
+	XCert_CreateRawDataFromByteArray(TBSCertBuf, Issuer, IssuerValLen, IssuerLen);
 }
 
 /*****************************************************************************/
@@ -429,15 +545,16 @@ static void XCert_GenIssuerField(u8* TBSCertBuf, u8* Issuer, u32 *IssuerLen)
  * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
  *		the Validity field shall be added.
  * @param	Validity is the DER encoded value of the Validity field
+ * @param	ValidityValLen is the length of the DER encoded value
  * @param	ValidityLen is the length of the Validity field
  *
  * @note	This function expects the user to provide the Validity field in DER
  *		encoded format and it will be updated in the TBS Certificate buffer.
  *
  ******************************************************************************/
-static void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, u32 *ValidityLen)
+static void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, const u32 ValidityValLen, u32 *ValidityLen)
 {
-	XCert_CreateRawDataFromByteArray(TBSCertBuf, Validity, ValidityLen);
+	XCert_CreateRawDataFromByteArray(TBSCertBuf, Validity, ValidityValLen, ValidityLen);
 }
 
 /*****************************************************************************/
@@ -447,15 +564,16 @@ static void XCert_GenValidityField(u8* TBSCertBuf, u8* Validity, u32 *ValidityLe
  * @param	TBSCertBuf is the pointer in the TBS Certificate buffer where
  *		the Subject field shall be added.
  * @param	Subject is the DER encoded value of the Subject field
+ * @param	IssuerValLen is the length of the DER encoded value
  * @param	SubjectLen is the length of the Subject field
  *
  * @note	This function expects the user to provide the Subject field in DER
  *		encoded format and it will be updated in the TBS Certificate buffer.
  *
  ******************************************************************************/
-static void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, u32 *SubjectLen)
+static void XCert_GenSubjectField(u8* TBSCertBuf, u8* Subject, const u32 SubjectValLen, u32 *SubjectLen)
 {
-	XCert_CreateRawDataFromByteArray(TBSCertBuf, Subject, SubjectLen);
+	XCert_CreateRawDataFromByteArray(TBSCertBuf, Subject, SubjectValLen, SubjectLen);
 }
 
 #ifndef PLM_ECDSA_EXCLUDE
@@ -586,7 +704,7 @@ END:
  *		}
  *
  ******************************************************************************/
-static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCertLen)
+static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config* Cfg, u32 *TBSCertLen)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
@@ -632,26 +750,26 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 	/**
 	 * Generate Issuer field
 	 */
-	XCert_GenIssuerField(Curr, Cfg.UserCfg->Issuer, &Len);
+	XCert_GenIssuerField(Curr, Cfg->UserCfg->Issuer, Cfg->UserCfg->IssuerLen, &Len);
 	Curr = Curr + Len;
 
 	/**
 	 * Generate Validity field
 	 */
-	XCert_GenValidityField(Curr, Cfg.UserCfg->Validity, &Len);
+	XCert_GenValidityField(Curr, Cfg->UserCfg->Validity, Cfg->UserCfg->ValidityLen, &Len);
 	Curr = Curr + Len;
 
 	/**
 	 * Generate Subject field
 	 */
-	XCert_GenSubjectField(Curr, Cfg.UserCfg->Subject, &Len);
+	XCert_GenSubjectField(Curr, Cfg->UserCfg->Subject, Cfg->UserCfg->SubjectLen, &Len);
 	Curr = Curr + Len;
 
 #ifndef PLM_ECDSA_EXCLUDE
 	/**
 	 * Generate Public Key Info field
 	 */
-	Status = XCert_GenPublicKeyInfoField(Curr, Cfg.AppCfg.SubjectPublicKey, &Len);
+	Status = XCert_GenPublicKeyInfoField(Curr, Cfg->AppCfg.SubjectPublicKey, &Len);
 	if (Status != XST_SUCCESS) {
 		Status = XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD;
 		goto END;
@@ -708,8 +826,9 @@ static int XCert_GenTBSCertificate(u8* TBSCertBuf, XCert_Config Cfg, u32 *TBSCer
 		Status = XOCP_ERR_X509_UPDATE_ENCODED_LEN;
 		goto END;
 	}
+	Curr = Curr + ((*SequenceLenIdx) & XCERT_LOWER_NIBBLE_MASK);
 
-	*TBSCertLen = Curr - Start + 1;
+	*TBSCertLen = Curr - Start;
 
 END:
 	return Status;

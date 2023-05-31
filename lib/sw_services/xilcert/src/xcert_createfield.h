@@ -53,7 +53,7 @@ void XCert_CreateBitString(u8* DataBuf, const u8* BitStringVal, u32 BitStringLen
 void XCert_CreateOctetString(u8* DataBuf, const u8* OctetStringVal, u32 OctetStringLen,
 	u32* FieldLen);
 int XCert_CreateRawDataFromStr(u8* DataBuf, const char* RawData, u32* RawDataLen);
-void XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, u32* RawDataLen);
+void XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen);
 int XCert_UpdateEncodedLength(u8* LenIdx, u32 Len, u8* ValIndex);
 
 #ifdef __cplusplus

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -743,12 +743,24 @@ typedef enum {
 	XOCP_ERR_INVALID_DEVAK_REQ,	/**< 0x6B4 Error when there is a invalid DEVAK request */
 
 	XOCP_ERR_KAT_FAILED = 0x6C0, /**< 0x6C0 Error when KAT fails */
-	XOCP_ERR_X509_GEN_TBSCERT_SIGN_ALGO_FIELD, /**< TBS certificate signed algorithm field */
-	XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD, /**< TBS certificate public key info field */
-	XOCP_ERR_X509_GEN_SIGN_ALGO_FIELD, /**< Signed algorithm field */
-	XOCP_ERR_X509_GEN_TBSCERT_DIGEST, /**< TBS certificate Digest */
-	XOCP_ERR_X509_CALC_SIGN, /**< Calculate sign */
-	XOCP_ERR_X509_UPDATE_ENCODED_LEN, /**< Update encoded length */
+	XOCP_ERR_X509_GEN_TBSCERT_SIGN_ALGO_FIELD,
+		/**< 0x6C1 TBS certificate signed algorithm field */
+	XOCP_ERR_X509_GEN_TBSCERT_PUB_KEY_INFO_FIELD,
+		/**< 0x6C2 TBS certificate public key info field */
+	XOCP_ERR_X509_GEN_SIGN_ALGO_FIELD,
+		/**< 0x6C3 Signed algorithm field */
+	XOCP_ERR_X509_GEN_TBSCERT_DIGEST,
+		/**< 0x6C4 TBS certificate Digest */
+	XOCP_ERR_X509_CALC_SIGN,
+		/**< 0x6C5 Calculate sign */
+	XOCP_ERR_X509_UPDATE_ENCODED_LEN,
+		/**< 0x6C6 Update encoded length */
+	XOCP_ERR_X509_USER_CFG_STORE_LIMIT_CROSSED,
+		/**< 0x6C7 Storing user configuration for more than 4 subsystems is not allowed */
+	XOCP_ERR_X509_INVALID_USER_CFG,
+		/**< 0x6C8 Stored user configuration is all zeroes */
+	XOCP_ERR_X509_USR_CFG_NOT_FOUND,
+		/**< 0x6C9 User configuration not found for provided Subsystem Id*/
 
 	XPLMI_ERR_CDO_CMD = 0x2000,
 		/**< 0x2XXX, CDO command handler has failed.

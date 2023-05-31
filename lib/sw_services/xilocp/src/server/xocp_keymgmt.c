@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -52,6 +52,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XOCP_PMC_SUBSYSTEM_ID					(0x1C000001U)
 
 /************************** Function Prototypes ******************************/
 static int XOcp_KeyGenDevAkSeed(u32 KeyAddr, u32 KeyLen, u32 DataAddr,
@@ -347,42 +348,6 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function returns the UserCfg index of the corresponding subsystem,
- *		if it doesn't match with data base, this function returns invalid index.
- *
- * @param	SubSystemId holds the sub system ID of whose corresponding UsrCfg
- *		index is requested.
- *
- * @return
- *	-	Index of XCert_UsrCfg array
- *	-	XOCP_INVALID_USR_CFG_INDEX
- *
- ******************************************************************************/
-u32 XOcp_GetSubSysReqUsrCfgIndex(u32 SubSystemId)
-{
-	u32 UsrCfgIdx = XOCP_INVALID_USR_CFG_INDEX;
-	XCert_UserCfg *UserCfg = XCert_GetCertUserInput();
-	u32* UsrCfgStoreIdx = XCert_GetCertUsrCfgStoreIdx();
-	u32 Index = 0U;
-
-	/**
-	 * Look for the Subsystem Id. If it is there get the index and update the
-	 * field of existing subsystem else increment index and add entry for
-	 * new subsystem.
-	*/
-	while (Index < *UsrCfgStoreIdx) {
-		if (SubSystemId == UserCfg[Index].SubsystemId) {
-			UsrCfgIdx = Index;
-			break;
-		}
-		Index++;
-	}
-
-	return UsrCfgIdx;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function generates the X.509 Certificate for device keys
  *
  * @param	SubSystemId is the ID of the subsystem from which certificate is
@@ -400,9 +365,7 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 	u32 DevAkIndex;
 	XOcp_DevAkData *DevAkData = NULL;
 	XCert_Config CertConfig;
-	XCert_UserCfg *UserCfg = XCert_GetCertUserInput();
 	XOcp_KeyMgmt *KeyInstPtr = XOcp_GetKeyMgmtInstance();
-	u32 UsrCfgIdx = XOcp_GetSubSysReqUsrCfgIndex(SubSystemId);
 
 	if ((XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVIK) &&
 			(XOcp_GetX509CertPtr->DevKeySel != XOCP_DEVAK)) {
@@ -416,9 +379,8 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 		goto END;
 	}
 
-	CertConfig.UserCfg = UserCfg + (UsrCfgIdx * sizeof(XCert_UserCfg));
-	CertConfig.SubSystemId = SubSystemId;
 	if (XOcp_GetX509CertPtr->DevKeySel == XOCP_DEVIK) {
+		CertConfig.SubSystemId = XOCP_PMC_SUBSYSTEM_ID;
 		CertConfig.AppCfg.IsSelfSigned = TRUE;
 		CertConfig.AppCfg.SubjectPublicKey =
 				(u8 *)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
@@ -438,6 +400,7 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 			Status = XOCP_ERR_DEVAK_NOT_READY;
 			goto END;
 		}
+		CertConfig.SubSystemId = SubSystemId;
 		CertConfig.AppCfg.IsSelfSigned = FALSE;
 		CertConfig.AppCfg.SubjectPublicKey = (u8 *)DevAkData->EccX;
 		CertConfig.AppCfg.PrvtKey = (u8 *)XOCP_PMC_GLOBAL_DEV_IK_PRIVATE_0;
@@ -445,7 +408,7 @@ int XOcp_GetX509Certificate(XOcp_X509Cert *XOcp_GetX509CertPtr, u32 SubSystemId)
 
 	Status = XCert_GenerateX509Cert(XOcp_GetX509CertPtr->CertAddr,
 			(u32)(UINTPTR)XOcp_GetX509CertPtr->CertSize,
-			(u32 *)(UINTPTR)XOcp_GetX509CertPtr->ActualLenAddr, CertConfig);
+			(u32 *)(UINTPTR)XOcp_GetX509CertPtr->ActualLenAddr, &CertConfig);
 END:
 	return Status;
 }
