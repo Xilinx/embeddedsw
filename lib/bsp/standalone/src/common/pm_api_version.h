@@ -64,8 +64,10 @@
  * | PM_PINCTRL_SET_FUNCTION	| 0x1F	| Both		| 1	 | The API is used to sets the pin function				     |
  * | PM_PINCTRL_CONFIG_PARAM_GET| 0x20	| Both		| 1	 | The API is used to reads the pin parameter value			     |
  * | PM_PINCTRL_CONFIG_PARAM_SET| 0x21	| Both		| 1	 | The API is used to sets the pin parameter value			     |
- * | PM_IOCTL			| 0x22	| Both		| 2	 | V1 - The API is used to performs driver-like IOCTL functions on shared\n									system devices								    |
+ * | PM_IOCTL			| 0x22	| Both		| 3	 | V1 - The API is used to performs driver-like IOCTL functions on shared\n									system devices								    |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of bitmask functionality, user can check the supported\n									ID first before performing the actual functionality			    |
+ * | ^				| ^	| ^		| ^	 | V3 - Add support of zeroization of AIE data and program memory separately |
+ * | ^				| ^	| ^		| ^	 | Note: V3 is supported in Versal but ZynqMP supports only V2	    |
  * | PM_QUERY_DATA		| 0x23	| Both		| 2	 | V1 - The API is used to queries information about the platform resources  |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of bitmask functionality, user can check the supported\n									ID first before performing the actual functionality			    |
  * | PM_CLOCK_ENABLE		| 0x24	| Both		| 1	 | The API is used to enables the clock					     |
