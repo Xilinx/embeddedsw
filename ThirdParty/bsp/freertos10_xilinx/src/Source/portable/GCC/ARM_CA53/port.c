@@ -44,49 +44,49 @@
 #endif
 
 #ifndef configINTERRUPT_CONTROLLER_BASE_ADDRESS
-	#error configINTERRUPT_CONTROLLER_BASE_ADDRESS must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
+#error configINTERRUPT_CONTROLLER_BASE_ADDRESS must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
 #endif
 
 #ifndef configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET
-	#error configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
+#error configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
 #endif
 
 #ifndef configUNIQUE_INTERRUPT_PRIORITIES
-	#error configUNIQUE_INTERRUPT_PRIORITIES must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
+#error configUNIQUE_INTERRUPT_PRIORITIES must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
 #endif
 
 #ifndef configSETUP_TICK_INTERRUPT
-	#error configSETUP_TICK_INTERRUPT() must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
+#error configSETUP_TICK_INTERRUPT() must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
 #endif /* configSETUP_TICK_INTERRUPT */
 
 #ifndef configMAX_API_CALL_INTERRUPT_PRIORITY
-	#error configMAX_API_CALL_INTERRUPT_PRIORITY must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
+#error configMAX_API_CALL_INTERRUPT_PRIORITY must be defined.  See https://www.FreeRTOS.org/Using-FreeRTOS-on-Cortex-A-Embedded-Processors.html
 #endif
 
 #if configMAX_API_CALL_INTERRUPT_PRIORITY == 0
-	#error configMAX_API_CALL_INTERRUPT_PRIORITY must not be set to 0
+#error configMAX_API_CALL_INTERRUPT_PRIORITY must not be set to 0
 #endif
 
 #if configMAX_API_CALL_INTERRUPT_PRIORITY > configUNIQUE_INTERRUPT_PRIORITIES
-	#error configMAX_API_CALL_INTERRUPT_PRIORITY must be less than or equal to configUNIQUE_INTERRUPT_PRIORITIES as the lower the numeric priority value the higher the logical interrupt priority
+#error configMAX_API_CALL_INTERRUPT_PRIORITY must be less than or equal to configUNIQUE_INTERRUPT_PRIORITIES as the lower the numeric priority value the higher the logical interrupt priority
 #endif
 
 #if configUSE_PORT_OPTIMISED_TASK_SELECTION == 1
-	/* Check the configuration. */
-	#if( configMAX_PRIORITIES > 32 )
-		#error configUSE_PORT_OPTIMISED_TASK_SELECTION can only be set to 1 when configMAX_PRIORITIES is less than or equal to 32.  It is very rare that a system requires more than 10 to 15 difference priorities as tasks that share a priority will time slice.
-	#endif
+/* Check the configuration. */
+#if( configMAX_PRIORITIES > 32 )
+#error configUSE_PORT_OPTIMISED_TASK_SELECTION can only be set to 1 when configMAX_PRIORITIES is less than or equal to 32.  It is very rare that a system requires more than 10 to 15 difference priorities as tasks that share a priority will time slice.
+#endif
 #endif /* configUSE_PORT_OPTIMISED_TASK_SELECTION */
 
 /* In case security extensions are implemented. */
 #if configMAX_API_CALL_INTERRUPT_PRIORITY <= ( configUNIQUE_INTERRUPT_PRIORITIES / 2 )
-	#error configMAX_API_CALL_INTERRUPT_PRIORITY must be greater than ( configUNIQUE_INTERRUPT_PRIORITIES / 2 )
+#error configMAX_API_CALL_INTERRUPT_PRIORITY must be greater than ( configUNIQUE_INTERRUPT_PRIORITIES / 2 )
 #endif
 
 /* Some vendor specific files default configCLEAR_TICK_INTERRUPT() in
 portmacro.h. */
 #ifndef configCLEAR_TICK_INTERRUPT
-	#define configCLEAR_TICK_INTERRUPT()
+#define configCLEAR_TICK_INTERRUPT()
 #endif
 
 /* A critical section is exited when the critical section nesting count reaches
@@ -109,12 +109,12 @@ context. */
 #define portSP_EL0						( ( StackType_t ) 0x00 )
 
 #if EL1_NONSECURE
-	#define portEL1						( ( StackType_t ) 0x04 )
-	#define portINITIAL_PSTATE				( portEL1 | portSP_EL0 )
+#define portEL1						( ( StackType_t ) 0x04 )
+#define portINITIAL_PSTATE				( portEL1 | portSP_EL0 )
 #else
-	#define portEL3						( ( StackType_t ) 0x0c )
-	/* At the time of writing, the BSP only supports EL3. */
-	#define portINITIAL_PSTATE			( portEL3 | portSP_EL0 )
+#define portEL3						( ( StackType_t ) 0x0c )
+/* At the time of writing, the BSP only supports EL3. */
+#define portINITIAL_PSTATE			( portEL3 | portSP_EL0 )
 #endif
 
 
@@ -131,22 +131,22 @@ point is zero. */
 #if defined (GICv2)
 /* Macro to unmask all interrupt priorities. */
 #define portCLEAR_INTERRUPT_MASK()									\
-{																	\
-	portDISABLE_INTERRUPTS();										\
-	portICCPMR_PRIORITY_MASK_REGISTER = portUNMASK_VALUE;			\
-	__asm volatile (	"DSB SY		\n"								\
-						"ISB SY		\n" );							\
-	portENABLE_INTERRUPTS();										\
-}
+	{																\
+		portDISABLE_INTERRUPTS();									\
+		portICCPMR_PRIORITY_MASK_REGISTER = portUNMASK_VALUE;		\
+		__asm volatile (	"DSB SY		\n"							\
+					"ISB SY		\n" );								\
+		portENABLE_INTERRUPTS();									\
+	}
 #else
 #define portCLEAR_INTERRUPT_MASK()									\
-{																	\
-	portDISABLE_INTERRUPTS();										\
-	mtcp(S3_0_C4_C6_0, portUNMASK_VALUE);							\
-	__asm volatile (	"DSB SY		\n"								\
-						"ISB SY		\n" );							\
-	portENABLE_INTERRUPTS();										\
-}
+	{																\
+		portDISABLE_INTERRUPTS();									\
+		mtcp(S3_0_C4_C6_0, portUNMASK_VALUE);						\
+		__asm volatile (	"DSB SY		\n"							\
+					"ISB SY		\n" );								\
+		portENABLE_INTERRUPTS();									\
+	}
 #endif
 
 /* Hardware specifics used when sanity checking the configuration. */
@@ -218,7 +218,8 @@ __attribute__(( used )) const uint64_t ullICCEOIR = portICCEOIR_END_OF_INTERRUPT
 __attribute__(( used )) const uint64_t ullICCIAR = portICCIAR_INTERRUPT_ACKNOWLEDGE_REGISTER_ADDRESS;
 __attribute__(( used )) const uint64_t ullICCPMR = portICCPMR_PRIORITY_MASK_REGISTER_ADDRESS;
 #endif
-__attribute__(( used )) const uint64_t ullMaxAPIPriorityMask = ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT );
+__attribute__(( used )) const uint64_t ullMaxAPIPriorityMask = ( configMAX_API_CALL_INTERRUPT_PRIORITY <<
+		portPRIORITY_SHIFT );
 
 /*-----------------------------------------------------------*/
 /*
@@ -313,22 +314,22 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 
 	*pxTopOfStack = ( StackType_t ) pxCode; /* Exception return address. */
 	pxTopOfStack--;
-	#if( configUSE_TASK_FPU_SUPPORT == 1 )
+#if( configUSE_TASK_FPU_SUPPORT == 1 )
 	{
-	/* The task will start with a critical nesting count of 0 as interrupts are
-		enabled. */
-	*pxTopOfStack = portNO_CRITICAL_NESTING;
-	/* The task will start without a floating point context.  A task that uses
-	the floating point hardware must call vPortTaskUsesFPU() before executing
-	any floating point instructions. */
-	 pxTopOfStack--;
-	*pxTopOfStack = portNO_FLOATING_POINT_CONTEXT;
+		/* The task will start with a critical nesting count of 0 as interrupts are
+			enabled. */
+		*pxTopOfStack = portNO_CRITICAL_NESTING;
+		/* The task will start without a floating point context.  A task that uses
+		the floating point hardware must call vPortTaskUsesFPU() before executing
+		any floating point instructions. */
+		pxTopOfStack--;
+		*pxTopOfStack = portNO_FLOATING_POINT_CONTEXT;
 	}
-	#elif( configUSE_TASK_FPU_SUPPORT == 2 )
+#elif( configUSE_TASK_FPU_SUPPORT == 2 )
 	{
 		/* The task will start with a floating point context.  Leave enough
 		 * space for the registers - and ensure they are initialised to 0. */
-		pxTopOfStack -= (portFPU_REGISTER_DOUBLE_WORDS-1);
+		pxTopOfStack -= (portFPU_REGISTER_DOUBLE_WORDS - 1);
 		memset( pxTopOfStack, 0x00, portFPU_REGISTER_DOUBLE_WORDS * sizeof( StackType_t ) );
 
 		/* The task will start with a critical nesting count of 0 as interrupts are
@@ -339,11 +340,11 @@ StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t px
 		*pxTopOfStack = pdTRUE;
 		ullPortTaskHasFPUContext = pdTRUE;
 	}
-	#else
+#else
 	{
-		#error Invalid configUSE_TASK_FPU_SUPPORT setting - configUSE_TASK_FPU_SUPPORT must be set to 1, 2, or left undefined.
+#error Invalid configUSE_TASK_FPU_SUPPORT setting - configUSE_TASK_FPU_SUPPORT must be set to 1, 2, or left undefined.
 	}
-	#endif
+#endif
 
 	return pxTopOfStack;
 }
@@ -355,20 +356,18 @@ BaseType_t xPortInstallInterruptHandler( uint8_t ucInterruptID, XInterruptHandle
 BaseType_t xPortInstallInterruptHandler( uint16_t ucInterruptID, XInterruptHandler pxHandler, void *pvCallBackRef )
 #endif
 {
-int32_t lReturn;
+	int32_t lReturn;
 
 	/* An API function is provided to install an interrupt handler */
 	lReturn = prvEnsureInterruptControllerIsInitialised();
-	if( lReturn == pdPASS )
-	{
+	if ( lReturn == pdPASS ) {
 #if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 		lReturn = XScuGic_Connect( &xInterruptController, ucInterruptID, pxHandler, pvCallBackRef );
 #else
 		lReturn = XConnectToInterruptCntrl(ucInterruptID, pxHandler, pvCallBackRef, IntrControllerAddr);
 #endif
 	}
-	if( lReturn == XST_SUCCESS )
-	{
+	if ( lReturn == XST_SUCCESS ) {
 		lReturn = pdPASS;
 	}
 	configASSERT( lReturn == pdPASS );
@@ -379,21 +378,18 @@ int32_t lReturn;
 
 static int32_t prvEnsureInterruptControllerIsInitialised( void )
 {
-int32_t lReturn;
+	int32_t lReturn;
 
 	/* Ensure the interrupt controller instance variable is initialised before
 	it is used, and that the initialisation only happens once. */
-	if( lInterruptControllerInitialised != pdTRUE )
-	{
+	if ( lInterruptControllerInitialised != pdTRUE ) {
 		lReturn = prvInitialiseInterruptController();
 
-		if( lReturn == pdPASS )
-		{
+		if ( lReturn == pdPASS ) {
 			lInterruptControllerInitialised = pdTRUE;
 		}
 	}
-	else
-	{
+	else {
 		lReturn = pdPASS;
 	}
 
@@ -404,8 +400,8 @@ int32_t lReturn;
 static int32_t prvInitialiseInterruptController( void )
 {
 #if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
-BaseType_t xStatus;
-XScuGic_Config *pxGICConfig;
+	BaseType_t xStatus;
+	XScuGic_Config *pxGICConfig;
 
 	/* Initialize the interrupt controller driver. */
 	pxGICConfig = XScuGic_LookupConfig( configINTERRUPT_CONTROLLER_DEVICE_ID );
@@ -413,16 +409,15 @@ XScuGic_Config *pxGICConfig;
 	/* Connect the interrupt controller interrupt handler to the hardware
 	interrupt handling logic in the ARM processor. */
 	Xil_ExceptionRegisterHandler( XIL_EXCEPTION_ID_IRQ_INT,
-								( Xil_ExceptionHandler ) XScuGic_InterruptHandler,
-								&xInterruptController);
+				      ( Xil_ExceptionHandler ) XScuGic_InterruptHandler,
+				      &xInterruptController);
 	/* Enable interrupts in the ARM. */
 	Xil_ExceptionEnable();
 #else
-int xStatus;
-xStatus = XConfigInterruptCntrl(IntrControllerAddr);
+	int xStatus;
+	xStatus = XConfigInterruptCntrl(IntrControllerAddr);
 #endif
-	if( xStatus == XST_SUCCESS )
-	{
+	if ( xStatus == XST_SUCCESS ) {
 		xStatus = pdPASS;
 #if defined(XPAR_XILTIMER_ENABLED) || defined(SDT)
 		XRegisterInterruptHandler(NULL, IntrControllerAddr);
@@ -430,8 +425,7 @@ xStatus = XConfigInterruptCntrl(IntrControllerAddr);
 		Xil_ExceptionEnable();
 #endif
 	}
-	else
-	{
+	else {
 		xStatus = pdFAIL;
 	}
 #if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
@@ -448,13 +442,12 @@ void vPortEnableInterrupt( uint8_t ucInterruptID )
 void vPortEnableInterrupt( uint16_t ucInterruptID )
 #endif
 {
-int32_t lReturn;
+	int32_t lReturn;
 
 	/* An API function is provided to enable an interrupt in the interrupt
 	controller. */
 	lReturn = prvEnsureInterruptControllerIsInitialised();
-	if( lReturn == pdPASS )
-	{
+	if ( lReturn == pdPASS ) {
 #if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 		XScuGic_Enable( &xInterruptController, ucInterruptID );
 #else
@@ -471,13 +464,12 @@ void vPortDisableInterrupt( uint8_t ucInterruptID )
 void vPortDisableInterrupt( uint16_t ucInterruptID )
 #endif
 {
-int32_t lReturn;
+	int32_t lReturn;
 
 	/* An API function is provided to disable an interrupt in the interrupt
 	controller. */
 	lReturn = prvEnsureInterruptControllerIsInitialised();
-	if( lReturn == pdPASS )
-	{
+	if ( lReturn == pdPASS ) {
 #if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
 		XScuGic_Disable( &xInterruptController, ucInterruptID );
 #else
@@ -490,20 +482,22 @@ int32_t lReturn;
 
 BaseType_t xPortStartScheduler( void )
 {
-uint32_t ulAPSR;
+	uint32_t ulAPSR;
 #if defined(GICv3)
-uint32_t ulBpr;
+	uint32_t ulBpr;
 #endif
 
 	prvEnsureInterruptControllerIsInitialised();
 
-	#if( configASSERT_DEFINED == 1 )
+#if( configASSERT_DEFINED == 1 )
 	{
 		volatile uint32_t ulOriginalPriority;
 #if defined(GICv2)
-		volatile uint8_t * const pucFirstUserPriorityRegister = ( volatile uint8_t * const ) ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
+		volatile uint8_t *const pucFirstUserPriorityRegister = ( volatile uint8_t *const ) (
+					configINTERRUPT_CONTROLLER_BASE_ADDRESS + portINTERRUPT_PRIORITY_REGISTER_OFFSET );
 #else
-		volatile uint8_t * const pucFirstUserPriorityRegister = ( volatile uint8_t * const ) ( configINTERRUPT_CONTROLLER_BASE_ADDRESS + 0x420 );
+		volatile uint8_t *const pucFirstUserPriorityRegister = ( volatile uint8_t *const ) (
+					configINTERRUPT_CONTROLLER_BASE_ADDRESS + 0x420 );
 #endif
 		volatile uint8_t ucMaxPriorityValue;
 
@@ -520,8 +514,7 @@ uint32_t ulBpr;
 		ucMaxPriorityValue = *pucFirstUserPriorityRegister;
 
 		/* Shift to the least significant bits. */
-		while( ( ucMaxPriorityValue & portBIT_0_SET ) != portBIT_0_SET )
-		{
+		while ( ( ucMaxPriorityValue & portBIT_0_SET ) != portBIT_0_SET ) {
 			ucMaxPriorityValue >>= ( uint8_t ) 0x01;
 		}
 
@@ -535,19 +528,19 @@ uint32_t ulBpr;
 		value. */
 		*pucFirstUserPriorityRegister = ulOriginalPriority;
 	}
-	#endif /* conifgASSERT_DEFINED */
+#endif /* conifgASSERT_DEFINED */
 
 	/* At the time of writing, the BSP only supports EL3. */
 	__asm volatile ( "MRS %0, CurrentEL" : "=r" ( ulAPSR ) );
 	ulAPSR &= portAPSR_MODE_BITS_MASK;
 
 #if EL1_NONSECURE
-	#warning Building for execution as a guest under XEN. THIS IS NOT A FULLY TESTED PATH.
+#warning Building for execution as a guest under XEN. THIS IS NOT A FULLY TESTED PATH.
 	configASSERT( ulAPSR == portEL1 );
-	if( ulAPSR == portEL1 )
+	if ( ulAPSR == portEL1 )
 #else
 	configASSERT( ulAPSR == portEL3 );
-	if( ulAPSR == portEL3 )
+	if ( ulAPSR == portEL3 )
 #endif
 	{
 		/* Only continue if the binary point value is set to its lowest possible
@@ -556,12 +549,12 @@ uint32_t ulBpr;
 #if defined(GICv2)
 		configASSERT( ( portICCBPR_BINARY_POINT_REGISTER & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 
-		if( ( portICCBPR_BINARY_POINT_REGISTER & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE )
+		if ( ( portICCBPR_BINARY_POINT_REGISTER & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE )
 #else
 		ulBpr = mfcp(S3_0_C12_C8_3);
 		configASSERT( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 
-		if( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE )
+		if ( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE )
 #endif
 		{
 			/* Interrupts are turned off in the CPU itself to ensure a tick does
@@ -605,8 +598,7 @@ void vPortEnterCritical( void )
 	functions that end in "FromISR" can be used in an interrupt.  Only assert if
 	the critical nesting count is 1 to protect against recursive calls if the
 	assert function also uses a critical section. */
-	if( ullCriticalNesting == 1ULL )
-	{
+	if ( ullCriticalNesting == 1ULL ) {
 		configASSERT( ullPortInterruptNesting == 0 );
 	}
 }
@@ -614,16 +606,14 @@ void vPortEnterCritical( void )
 
 void vPortExitCritical( void )
 {
-	if( ullCriticalNesting > portNO_CRITICAL_NESTING )
-	{
+	if ( ullCriticalNesting > portNO_CRITICAL_NESTING ) {
 		/* Decrement the nesting count as the critical section is being
 		exited. */
 		ullCriticalNesting--;
 
 		/* If the nesting level has reached zero then all interrupt
 		priorities must be re-enabled. */
-		if( ullCriticalNesting == portNO_CRITICAL_NESTING )
-		{
+		if ( ullCriticalNesting == portNO_CRITICAL_NESTING ) {
 			/* Critical nesting has reached zero so all interrupt priorities
 			should be unmasked. */
 			portCLEAR_INTERRUPT_MASK();
@@ -656,7 +646,8 @@ void FreeRTOS_Tick_Handler( void )
 #if !defined( QEMU )
 		{
 #if defined(GICv2)
-			configASSERT( portICCRPR_RUNNING_PRIORITY_REGISTER == ( uint32_t ) ( portLOWEST_USABLE_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) );
+			configASSERT( portICCRPR_RUNNING_PRIORITY_REGISTER == ( uint32_t ) ( portLOWEST_USABLE_INTERRUPT_PRIORITY <<
+					portPRIORITY_SHIFT ) );
 #else
 			ulRpr = mfcp(S3_0_C12_C11_3);
 			configASSERT( ulRpr == ( uint32_t ) ( portLOWEST_USABLE_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) );
@@ -664,7 +655,7 @@ void FreeRTOS_Tick_Handler( void )
 		}
 #endif
 
-	/* Interrupts should not be enabled before this point. */
+		/* Interrupts should not be enabled before this point. */
 #if( configASSERT_DEFINED == 1 )
 		{
 			uint32_t ulMaskBits;
@@ -673,26 +664,25 @@ void FreeRTOS_Tick_Handler( void )
 			configASSERT( ( ulMaskBits & portDAIF_I ) != 0 );
 		}
 #endif /* configASSERT_DEFINED */
-	/* Set interrupt mask before altering scheduler structures.   The tick
-	handler runs at the lowest priority, so interrupts cannot already be masked,
-	so there is no need to save and restore the current mask value.  It is
-	necessary to turn off interrupts in the CPU itself while the ICCPMR is being
-	updated. */
+		/* Set interrupt mask before altering scheduler structures.   The tick
+		handler runs at the lowest priority, so interrupts cannot already be masked,
+		so there is no need to save and restore the current mask value.  It is
+		necessary to turn off interrupts in the CPU itself while the ICCPMR is being
+		updated. */
 #if defined(GICv2)
 		portICCPMR_PRIORITY_MASK_REGISTER = ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT );
 #else
 		mtcp(S3_0_C4_C6_0, ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ));
 #endif
 		__asm volatile (	"dsb sy		\n"
-							"isb sy		\n" ::: "memory" );
+					"isb sy		\n" ::: "memory" );
 
 		/* Ok to enable interrupts after the interrupt source has been cleared. */
 		configCLEAR_TICK_INTERRUPT();
 		portENABLE_INTERRUPTS();
 
 		/* Increment the RTOS tick. */
-		if( xTaskIncrementTick() != pdFALSE )
-		{
+		if ( xTaskIncrementTick() != pdFALSE ) {
 			ullPortYieldRequired = pdTRUE;
 		}
 	}
@@ -716,8 +706,7 @@ void vPortTaskUsesFPU( void )
 
 void vPortClearInterruptMask( UBaseType_t uxNewMaskValue )
 {
-	if( uxNewMaskValue == pdFALSE )
-	{
+	if ( uxNewMaskValue == pdFALSE ) {
 		portCLEAR_INTERRUPT_MASK();
 	}
 }
@@ -725,8 +714,8 @@ void vPortClearInterruptMask( UBaseType_t uxNewMaskValue )
 
 UBaseType_t uxPortSetInterruptMask( void )
 {
-uint32_t ulReturn;
-uint32_t mask;
+	uint32_t ulReturn;
+	uint32_t mask;
 
 	if (lInterruptControllerInitialised == pdTRUE) {
 		/* Interrupt in the CPU must be turned off while the ICCPMR is being
@@ -737,13 +726,11 @@ uint32_t mask;
 #else
 		mask = mfcp(S3_0_C4_C6_0);
 #endif
-		if( mask == ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) )
-		{
+		if ( mask == ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) ) {
 			/* Interrupts were already masked. */
 			ulReturn = pdTRUE;
 		}
-		else
-		{
+		else {
 			ulReturn = pdFALSE;
 #if defined(GICv2)
 			portICCPMR_PRIORITY_MASK_REGISTER = ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT );
@@ -751,10 +738,11 @@ uint32_t mask;
 			mtcp(S3_0_C4_C6_0, ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ));
 #endif
 			__asm volatile (	"dsb sy		\n"
-								"isb sy		\n" ::: "memory" );
+						"isb sy		\n" ::: "memory" );
 		}
 		portENABLE_INTERRUPTS();
-	} else {
+	}
+	else {
 		ulReturn = pdTRUE;
 	}
 	return ulReturn;
@@ -766,9 +754,8 @@ static void prvTaskExitError( void )
 	/* A function that implements a task must not exit or attempt to return to
 	its caller as there is nothing to return to.  If a task wants to exit it
 	should instead call vTaskDelete( NULL ) */
-	xil_printf("Warning: return statement has been called from task %s, deleting it\n",pcTaskGetName(NULL));
-	if (uxTaskGetNumberOfTasks() == 2)
-	{
+	xil_printf("Warning: return statement has been called from task %s, deleting it\n", pcTaskGetName(NULL));
+	if (uxTaskGetNumberOfTasks() == 2) {
 		xil_printf("Warning: Kernel does not have any task to manage other than idle task\n");
 	}
 	vTaskDelete( NULL );
@@ -776,49 +763,50 @@ static void prvTaskExitError( void )
 /*-----------------------------------------------------------*/
 #if( configASSERT_DEFINED == 1 )
 
-	void vPortValidateInterruptPriority( void )
-	{
+void vPortValidateInterruptPriority( void )
+{
 #if defined(GICv3)
-		unsigned int ulRpr;
-		unsigned int ulBpr;
+	unsigned int ulRpr;
+	unsigned int ulBpr;
 #endif
-		/* The following assertion will fail if a service routine (ISR) for
-		an interrupt that has been assigned a priority above
-		configMAX_SYSCALL_INTERRUPT_PRIORITY calls an ISR safe FreeRTOS API
-		function.  ISR safe FreeRTOS API functions must *only* be called
-		from interrupts that have been assigned a priority at or below
-		configMAX_SYSCALL_INTERRUPT_PRIORITY.
+	/* The following assertion will fail if a service routine (ISR) for
+	an interrupt that has been assigned a priority above
+	configMAX_SYSCALL_INTERRUPT_PRIORITY calls an ISR safe FreeRTOS API
+	function.  ISR safe FreeRTOS API functions must *only* be called
+	from interrupts that have been assigned a priority at or below
+	configMAX_SYSCALL_INTERRUPT_PRIORITY.
 
-		Numerically low interrupt priority numbers represent logically high
-		interrupt priorities, therefore the priority of the interrupt must
-		be set to a value equal to or numerically *higher* than
-		configMAX_SYSCALL_INTERRUPT_PRIORITY.
+	Numerically low interrupt priority numbers represent logically high
+	interrupt priorities, therefore the priority of the interrupt must
+	be set to a value equal to or numerically *higher* than
+	configMAX_SYSCALL_INTERRUPT_PRIORITY.
 
-		FreeRTOS maintains separate thread and ISR API functions to ensure
-		interrupt entry is as fast and simple as possible. */
+	FreeRTOS maintains separate thread and ISR API functions to ensure
+	interrupt entry is as fast and simple as possible. */
 #if defined(GICv2)
-		configASSERT( portICCRPR_RUNNING_PRIORITY_REGISTER >= ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) );
+	configASSERT( portICCRPR_RUNNING_PRIORITY_REGISTER >= ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY <<
+			portPRIORITY_SHIFT ) );
 #else
-		ulRpr = mfcp(S3_0_C12_C11_3);
-		configASSERT( ulRpr >= ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) );
+	ulRpr = mfcp(S3_0_C12_C11_3);
+	configASSERT( ulRpr >= ( uint32_t ) ( configMAX_API_CALL_INTERRUPT_PRIORITY << portPRIORITY_SHIFT ) );
 #endif
-		/* Priority grouping:  The interrupt controller (GIC) allows the bits
-		that define each interrupt's priority to be split between bits that
-		define the interrupt's pre-emption priority bits and bits that define
-		the interrupt's sub-priority.  For simplicity all bits must be defined
-		to be pre-emption priority bits.  The following assertion will fail if
-		this is not the case (if some bits represent a sub-priority).
+	/* Priority grouping:  The interrupt controller (GIC) allows the bits
+	that define each interrupt's priority to be split between bits that
+	define the interrupt's pre-emption priority bits and bits that define
+	the interrupt's sub-priority.  For simplicity all bits must be defined
+	to be pre-emption priority bits.  The following assertion will fail if
+	this is not the case (if some bits represent a sub-priority).
 
-		The priority grouping is configured by the GIC's binary point register
-		(ICCBPR).  Writing 0 to ICCBPR will ensure it is set to its lowest
-		possible value (which may be above 0). */
+	The priority grouping is configured by the GIC's binary point register
+	(ICCBPR).  Writing 0 to ICCBPR will ensure it is set to its lowest
+	possible value (which may be above 0). */
 #if defined(GICv2)
-		configASSERT( ( portICCBPR_BINARY_POINT_REGISTER & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
+	configASSERT( ( portICCBPR_BINARY_POINT_REGISTER & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 #else
-		ulBpr = mfcp(S3_0_C12_C8_3);
-		configASSERT( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
+	ulBpr = mfcp(S3_0_C12_C8_3);
+	configASSERT( ( ulBpr & portBINARY_POINT_BITS ) <= portMAX_BINARY_POINT_VALUE );
 #endif
-	}
+}
 
 #endif /* configASSERT_DEFINED */
 /*-----------------------------------------------------------*/
