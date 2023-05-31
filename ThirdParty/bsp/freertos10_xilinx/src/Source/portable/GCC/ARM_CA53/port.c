@@ -677,8 +677,9 @@ void FreeRTOS_Tick_Handler( void )
 		__asm volatile (	"dsb sy		\n"
 					"isb sy		\n" ::: "memory" );
 
-		/* Ok to enable interrupts after the interrupt source has been cleared. */
+#if (configGENERATE_RUN_TIME_STATS == 0)
 		configCLEAR_TICK_INTERRUPT();
+#endif
 		portENABLE_INTERRUPTS();
 
 		/* Increment the RTOS tick. */
@@ -686,6 +687,10 @@ void FreeRTOS_Tick_Handler( void )
 			ullPortYieldRequired = pdTRUE;
 		}
 	}
+
+#if (configGENERATE_RUN_TIME_STATS == 1)
+		configCLEAR_TICK_INTERRUPT();
+#endif
 
 	/* Ensure all interrupt priorities are active again. */
 	portCLEAR_INTERRUPT_MASK();

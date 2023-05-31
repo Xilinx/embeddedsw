@@ -491,7 +491,10 @@ void vPortTickISR( void *pvUnused, u32 TmrCtrNumber)
 		defined or available.  An example definition of
 		vApplicationClearTimerInterrupt() is provided in the official demo
 		application that accompanies this port. */
+
+#if (configGENERATE_RUN_TIME_STATS == 0)
 		vApplicationClearTimerInterrupt();
+#endif
 
 		/* Increment the RTOS tick - this might cause a task to unblock. */
 		if ( xTaskIncrementTick() != pdFALSE ) {
@@ -499,6 +502,9 @@ void vPortTickISR( void *pvUnused, u32 TmrCtrNumber)
 			ulTaskSwitchRequested = 1;
 		}
 	}
+#if (configGENERATE_RUN_TIME_STATS == 1)
+	vApplicationClearTimerInterrupt();
+#endif
 }
 /*-----------------------------------------------------------*/
 
