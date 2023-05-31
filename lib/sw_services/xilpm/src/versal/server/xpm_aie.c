@@ -1714,7 +1714,21 @@ static XStatus Aie1_SetL2CtrlNpiIntr(const XPm_Device *AieDev, u32 ColStart, u32
 	return XST_SUCCESS;
 }
 
-static XStatus Aie1_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd)
+/*****************************************************************************/
+/**
+ * @brief This function zeroizes AIE1 data and/or program memory.
+ *
+ * @param AieDev 	AIE Device
+ * @param ColStart 	Column start index for zeroization
+ * @param ColEnd 	Column end index for zeroization
+ * @param Ops		Zeroization operation to be performed. Valid values are
+ * 			AIE_OPS_ALL_MEM_ZEROIZATION
+ * 			AIE_OPS_DATA_MEM_ZEROIZATION
+ * 			AIE_OPS_PROG_MEM_ZEROIZATION
+ *
+ * @return XST_SUCCESS if zeroization successful, error code otherwise.
+ *****************************************************************************/
+static XStatus Aie1_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd, const u32 Ops)
 {
 	(void)AieDev;
 	XStatus Status = XST_FAILURE;
@@ -1727,33 +1741,37 @@ static XStatus Aie1_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColE
 
 	/* write 0 to program memory 16KB from 0x20000 for every core module
 	 * of every column of the partition */
-	for (Col = ColStart; Col <= ColEnd; Col++) {
-		/* BaseAddress for AIE1 column */
-		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
-		/* Address of Program memory for AIE1 column */
-		Addr = BaseAddress + AIE_PROGRAM_MEM_OFFSET;
+	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_PROG_MEM_ZEROIZATION) & Ops)) {
+		for (Col = ColStart; Col <= ColEnd; Col++) {
+			/* BaseAddress for AIE1 column */
+			BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
+			/* Address of Program memory for AIE1 column */
+			Addr = BaseAddress + AIE_PROGRAM_MEM_OFFSET;
 
-		/* Initialize program memory with 0 */
-		Status = XPlmi_EccInit(Addr, AIE1_PROG_MEM_SIZE);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_AIE_PROG_MEM_ZEROISATION;
-			goto done;
+			/* Initialize program memory with 0 */
+			Status = XPlmi_EccInit(Addr, AIE1_PROG_MEM_SIZE);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_AIE_PROG_MEM_ZEROISATION;
+				goto done;
+			}
 		}
 	}
 
 	/* write 0 to data memory 32KB from 0x0 for every memory module of
 	 * every column of the partition */
-	for (Col = ColStart; Col <= ColEnd; Col++) {
-		/* BaseAddress for AIE1 column */
-		BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
-		/* Address of Data memory for AIE1 column */
-		Addr = BaseAddress + AIE_DATA_MEM_OFFSET;
+	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_DATA_MEM_ZEROIZATION)	& Ops)) {
+		for (Col = ColStart; Col <= ColEnd; Col++) {
+			/* BaseAddress for AIE1 column */
+			BaseAddress = AIE1_TILE_BADDR(NocAddress, Col, 0U);
+			/* Address of Data memory for AIE1 column */
+			Addr = BaseAddress + AIE_DATA_MEM_OFFSET;
 
-		/* Initialize data memory with 0 */
-		Status = XPlmi_EccInit(Addr, AIE1_DATA_MEM_SIZE);
-		if (XST_SUCCESS != Status) {
-			DbgErr = XPM_INT_ERR_AIE_DATA_MEM_ZEROISATION;
-			goto done;
+			/* Initialize data memory with 0 */
+			Status = XPlmi_EccInit(Addr, AIE1_DATA_MEM_SIZE);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_AIE_DATA_MEM_ZEROISATION;
+				goto done;
+			}
 		}
 	}
 
@@ -2125,8 +2143,9 @@ static XStatus Aie1_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 	}
 
 	/* Zeroization of Program and data memories */
-	if (0U != (AIE_OPS_ZEROIZATION & Ops)) {
-		Status = Aie1_Zeroization(AieDev, ColStart, ColEnd);
+	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_DATA_MEM_ZEROIZATION |
+					AIE_OPS_PROG_MEM_ZEROIZATION) & Ops)) {
+		Status = Aie1_Zeroization(AieDev, ColStart, ColEnd, Ops);
 		if (XST_SUCCESS != Status) {
 			Status = XPM_ERR_AIE_OPS_ZEROIZATION;
 			goto done;
