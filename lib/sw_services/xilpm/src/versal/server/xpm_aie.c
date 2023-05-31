@@ -42,7 +42,7 @@
 #define AIE1_DATA_MEM_SIZE		(0x8000U)
 
 static XPm_AieDomain *PmAieDomain;
-static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd);
+static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd, const u32 Ops);
 
 static inline void AieRMW64(u64 addr, u32 Mask, u32 Value)
 {
@@ -1361,7 +1361,7 @@ static XStatus Aie2MemInit(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	BaseAddress = AieDev->Node.BaseAddress;
-	Status = Aie2_Zeroization(AieDev, (u32)StartCol, (u32)EndCol);
+	Status = Aie2_Zeroization(AieDev, (u32)StartCol, (u32)EndCol, AIE_OPS_ALL_MEM_ZEROIZATION);
 	if (XST_SUCCESS != Status) {
 		/* Lock ME PCSR */
 		XPm_LockPcsr(BaseAddress);
@@ -1927,7 +1927,22 @@ static XStatus Aie2_DisColClkBuff(const XPm_Device *AieDev, u32 ColStart, u32 Co
 	return XST_SUCCESS;
 }
 
-static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd)
+/*****************************************************************************/
+/**
+ * @brief This function zeroizes AIE2 data and/or program memory.
+ *
+ * @param AieDev 	AIE Device
+ * @param ColStart 	Column start index for zeroization
+ * @param ColEnd 	Column end index for zeroization
+ * @param Ops		Zeroization operation to be performed. Valid values are
+ * 			AIE_OPS_ALL_MEM_ZEROIZATION
+ * 			AIE_OPS_DATA_MEM_ZEROIZATION
+ * 			AIE_OPS_PROG_MEM_ZEROIZATION
+ * 			AIE_OPS_MEM_TILE_ZEROIZATION
+ *
+ * @return XST_SUCCESS if zeroization successful, error code otherwise.
+ *****************************************************************************/
+static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColEnd, const u32 Ops)
 {
 	XStatus Status = XST_FAILURE;
 	XStatus CoreZeroStatus = XST_FAILURE;
@@ -1953,28 +1968,50 @@ static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColE
 		    ME_PROT_REG_CTRL_WE_COL_ID_LAST_SHIFT));
 	XPm_Out32(NodeAddress + AIE2_NPI_ME_PROT_REG_CTRL_OFFSET, RegVal);
 
-	/* Enable memory zeroization for AIE2 tiles.
-	 * Enable for core and memory modules. */
-	for (Col = ColStart; Col <= ColEnd; Col++) {
-		for (Row = StartTileRow; Row <= RowEnd; Row++) {
-			BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, Row);
+	/* Enable zeroization for program memory of core module. */
+	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_PROG_MEM_ZEROIZATION)	& Ops)) {
+		for (Col = ColStart; Col <= ColEnd; Col++) {
+			for (Row = StartTileRow; Row <= RowEnd; Row++) {
+				BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, Row);
 
-			AieWrite64(BaseAddress + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
-				   AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
-			AieWrite64(BaseAddress + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
-				   AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+				AieWrite64(BaseAddress + AIE2_CORE_MODULE_MEM_CTRL_OFFSET,
+					   AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+			}
 		}
+	} else {
+		/* Wait for zeroization status only if corresponding memory is selected */
+		CoreZeroStatus = XST_SUCCESS;
+	}
+
+	/* Enable zeroization for data memory of core module. */
+	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_DATA_MEM_ZEROIZATION)	& Ops)) {
+		for (Col = ColStart; Col <= ColEnd; Col++) {
+			for (Row = StartTileRow; Row <= RowEnd; Row++) {
+				BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, Row);
+
+				AieWrite64(BaseAddress + AIE2_MEM_MODULE_MEM_CTRL_OFFSET,
+					   AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+			}
+		}
+	} else {
+		/* Wait for zeroization status only if corresponding memory is selected */
+		MemZeroStatus = XST_SUCCESS;
 	}
 
 	/* Enable memory zeroization for mem tiles; stop before tile row begins */
-	for (Col = ColStart; Col <= ColEnd; Col++) {
-		for (Row = RowStart; Row < StartTileRow; Row++) {
-			BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, Row);
+	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_MEM_TILE_ZEROIZATION)	& Ops)) {
+		for (Col = ColStart; Col <= ColEnd; Col++) {
+			for (Row = RowStart; Row < StartTileRow; Row++) {
+				BaseAddress = AIE2_TILE_BADDR(NocAddress, Col, Row);
 
-			AieRMW64(BaseAddress + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
-				 AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
-				 AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+				AieRMW64(BaseAddress + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET,
+					 AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK,
+					 AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK);
+			}
 		}
+	} else {
+		/* Wait for zeroization status only if corresponding memory is selected */
+		MemTileZeroStatus = XST_SUCCESS;
 	}
 
 	Col = ColEnd;
@@ -1986,16 +2023,22 @@ static XStatus Aie2_Zeroization(const XPm_Device *AieDev, u32 ColStart, u32 ColE
 	       (XST_SUCCESS != CoreZeroStatus) ||
 	       (XST_SUCCESS != MemZeroStatus)) {
 
-		if (0U == (AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
-			   (AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Mrow) + AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET)))) {
+		if ((XST_SUCCESS != MemTileZeroStatus) &&
+				(0U == (AIE2_MEM_TILE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+				(AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Mrow) +
+				AIE2_MEM_TILE_MODULE_MEM_CTRL_OFFSET))))) {
 			MemTileZeroStatus = XST_SUCCESS;
 		}
-		if (0U == (AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
-			   (AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) + AIE2_CORE_MODULE_MEM_CTRL_OFFSET)))) {
+		if ((XST_SUCCESS != CoreZeroStatus) &&
+				(0U == (AIE2_CORE_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+				(AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) +
+				AIE2_CORE_MODULE_MEM_CTRL_OFFSET))))) {
 			CoreZeroStatus = XST_SUCCESS;
 		}
-		if (0U == (AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
-			   (AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) + AIE2_MEM_MODULE_MEM_CTRL_OFFSET)))) {
+		if ((XST_SUCCESS != MemZeroStatus) &&
+				(0U == (AIE2_MEM_MODULE_MEM_CTRL_MEM_ZEROISATION_MASK &
+				(AieRead64(AIE2_TILE_BADDR(NocAddress, Col, Row) +
+				AIE2_MEM_MODULE_MEM_CTRL_OFFSET))))) {
 			MemZeroStatus = XST_SUCCESS;
 		}
 
@@ -2234,8 +2277,9 @@ static XStatus Aie2_Operation(const XPm_Device *AieDev, u32 Part, u32 Ops)
 	}
 
 	/* Zeroization of Program and data memories */
-	if (0U != (AIE_OPS_ZEROIZATION & Ops)) {
-		Status = Aie2_Zeroization(AieDev, ColStart, ColEnd);
+	if (0U != ((AIE_OPS_ALL_MEM_ZEROIZATION | AIE_OPS_DATA_MEM_ZEROIZATION |
+			AIE_OPS_MEM_TILE_ZEROIZATION | AIE_OPS_PROG_MEM_ZEROIZATION) & Ops)) {
+		Status = Aie2_Zeroization(AieDev, ColStart, ColEnd, Ops);
 		if (XST_SUCCESS != Status) {
 			goto done;
 		}
