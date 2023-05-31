@@ -182,21 +182,21 @@ END:
  * @param	DataBuf is the pointer to the buffer where the encoded data
 			needs to be updated
  * @param	RawData is the DER encoded value as byte array to be updated in buffer
- * @param	RawDataLen is the length of the DER encoded value
+ * @param	LenOfRawDataVal is the length of DER encoded value
+ * @param	RawDataFieldLen is the total length of the field
  *
  * @return
  *		- XST_SUCCESS - If update is successful
  *		- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-void XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, u32* RawDataLen)
+void XCert_CreateRawDataFromByteArray(u8* DataBuf, const u8* RawData, const u32 LenOfRawDataVal, u32* RawDataFieldLen)
 {
 	u8* Curr = DataBuf;
-	u32 Len = Xil_Strnlen((char* )RawData, XCERT_MAX_FIELD_VAL_LENGTH);
 
-	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)RawData, Len);
-	Curr = Curr + Len;
-	*RawDataLen = Curr - DataBuf;
+	XSecure_MemCpy64((u64)(UINTPTR)Curr, (u64)(UINTPTR)RawData, LenOfRawDataVal);
+	Curr = Curr + LenOfRawDataVal;
+	*RawDataFieldLen = Curr - DataBuf;
 }
 
 /*****************************************************************************/
