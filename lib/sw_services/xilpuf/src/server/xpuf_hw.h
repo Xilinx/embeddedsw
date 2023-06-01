@@ -129,6 +129,7 @@ extern "C" {
 /**< EFUSE_CACHE register offsets. */
 #define XPUF_PUF_ECC_PUF_CTRL_OFFSET		(0x000000A4U)
 #define XPUF_EFUSE_CACHE_SECURITY_CONTROL	(0x000000ACU)
+#define XPUF_EFUSE_CACHE_ROM_RSVD_OFFSET	(0x00000090U)
 
 /* EFUSE_CACHE PUF_ECC_PUF_CTRL register definition */
 #define XPUF_PUF_REGEN_DIS			((u32)1U << 31U)
@@ -136,6 +137,9 @@ extern "C" {
 
 /* EFUSE_CACHE SECURITY_CONTROL register definition */
 #define XPUF_PUF_DIS				((u32)1U << 18U)
+
+/* EFUSE_CACHE ROM_RSVD register definition */
+#define XPUF_IRO_SWAP				((u32)1U << 8U)
 /** @} */
 
 #define XPUF_EFUSE_CTRL_BASEADDR		(0xF1240000U)
@@ -144,8 +148,46 @@ extern "C" {
 					/**< IRO Trim Fuse Select */
 #define XPUF_IRO_TRIM_FUSE_SEL_BIT		((u32)0x01U << 0U)
 					/**< IRO Trim Fuse Select bit */
+#define XPUF_EFUSE_CTRL_IRO_TRIM_FAST		(0x1U)
+					/**< Trim IRO to fast frequency */
+#define XPUF_EFUSE_CTRL_WR_LOCK_OFFSET		(0x0U)
+#define XPUF_EFUSE_CTRL_WR_UNLOCK_VAL		(0x0000DF0DU)
+#define XPUF_EFUSE_CTRL_WR_LOCK_VAL		(0x1U)
 
+/** @} */
 /***************** Macros (Inline Functions) Definitions ********************/
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function reads the value from the given register.
+ *
+ * @param	BaseAddress is the base address of the module which consists
+ *			the register
+ * @param	RegOffset is the register offset of the register.
+ *
+ * @return	The 32-bit value of the register.
+ *
+ * ***************************************************************************/
+static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
+{
+	return Xil_In32((UINTPTR)(BaseAddress + RegOffset));
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function writes the value into the given register.
+ *
+ * @param	BaseAddress is the base address of the module which consists
+ *			the register
+ * @param	RegOffset is the register offset of the register.
+ * @param	Data is the 32-bit value to write to the register.
+ *
+ *****************************************************************************/
+static inline void XPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+{
+	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), Data);
+}
 
 #ifdef __cplusplus
 }
