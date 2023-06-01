@@ -116,39 +116,6 @@ static inline int XPuf_WaitForPufDoneStatus(void)
 
 /*****************************************************************************/
 /**
- *
- * @brief	This function reads the value from the given register.
- *
- * @param	BaseAddress is the base address of the module which consists
- *			the register
- * @param	RegOffset is the register offset of the register.
- *
- * @return	The 32-bit value of the register.
- *
- * ***************************************************************************/
-static inline u32 XPuf_ReadReg(u32 BaseAddress, u32 RegOffset)
-{
-	return Xil_In32((UINTPTR)(BaseAddress + RegOffset));
-}
-
-/*****************************************************************************/
-/**
- *
- * @brief	This function writes the value into the given register.
- *
- * @param	BaseAddress is the base address of the module which consists
- *			the register
- * @param	RegOffset is the register offset of the register.
- * @param	Data is the 32-bit value to write to the register.
- *
- *****************************************************************************/
-static inline void XPuf_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
-{
-	Xil_Out32((UINTPTR)(BaseAddress + RegOffset), Data);
-}
-
-/*****************************************************************************/
-/**
  * @brief       This function configures the Global Variation Filter option provided
  *              by user and updates Puf Cfg0 register
  *
@@ -192,8 +159,14 @@ static inline u8 XPuf_ReadIroFreq(void)
  *****************************************************************************/
 static inline void XPuf_WriteIroFreq(u32 IroFreq)
 {
+	XPuf_WriteReg(XPUF_EFUSE_CTRL_BASEADDR, XPUF_EFUSE_CTRL_WR_LOCK_OFFSET,
+		XPUF_EFUSE_CTRL_WR_UNLOCK_VAL);
+
 	Xil_UtilRMW32((XPUF_EFUSE_CTRL_BASEADDR + XPUF_ANLG_OSC_SW_1LP_OFFSET),
 			XPUF_IRO_TRIM_FUSE_SEL_BIT, IroFreq);
+
+	XPuf_WriteReg(XPUF_EFUSE_CTRL_BASEADDR, XPUF_EFUSE_CTRL_WR_LOCK_OFFSET,
+		XPUF_EFUSE_CTRL_WR_LOCK_VAL);
 }
 
 /************************** Function Prototypes ******************************/
@@ -263,9 +236,11 @@ int XPuf_Registration(XPuf_Data *PufData)
 	 * does not match the IRO frequency during registration, there is a potential of reduced
 	 * stability which can impact the PUFs ability to regenerate properly.
 	 */
-	Status = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ, &IroFreqUpdated);
-	if (Status != XST_SUCCESS) {
-		goto END;
+	if (XPuf_IsIroFreqChangeReqd() == XPUF_IROFREQ_CHANGE_REQD) {
+		Status = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ, &IroFreqUpdated);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/**
@@ -433,10 +408,12 @@ int XPuf_Regeneration(XPuf_Data *PufData)
 	 * does not match the IRO frequency during registration, there is a potential of reduced
 	 * stability which can impact the PUFs ability to regenerate properly.
 	 */
-	Status = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ, &IroFreqUpdated);
-	if (Status != XST_SUCCESS) {
-		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
-		goto END;
+	if (XPuf_IsIroFreqChangeReqd() == XPUF_IROFREQ_CHANGE_REQD) {
+		Status = XPuf_ChangeIroFreq(XPUF_IRO_FREQ_320MHZ, &IroFreqUpdated);
+		if (Status != XST_SUCCESS) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+			goto END;
+		}
 	}
 
 	/**

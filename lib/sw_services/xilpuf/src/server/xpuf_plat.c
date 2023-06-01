@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -128,6 +128,52 @@ int XPuf_IsRegistrationEnabled(u32 PufEccCtrlValue)
 #endif
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function checks if changing IRO frequency before
+ * 		PUF operation is required or not.
+ *
+ * @return	TRUE - Changing IRO frequency is required
+ * 		FALSE - Changing IRO frequency is not required
+ *
+ * @note	In Versal, ROM always operates at PMC IRO frequency of 320 MHz.
+ * 		For MP/HP devices, PLM updated the PMC IRO frequency to 400 MHz.
+ * 		Since the IRO frequency at which PUF operates needs to be in
+ * 		sync with ROM, so it is mandatory to update IRO frequency to 320 MHz
+ * 		for Versal MP/HP devices before any PUF operation.
+ * 		In case of Versal Net, ROM can also operate at 400 MHz IRO frequency.
+ * 		So it might not always be required to change the frequency before
+ * 		PUF operation.
+ *****************************************************************************/
+u32 XPuf_IsIroFreqChangeReqd(void)
+{
+	u32 Result = XPUF_IROFREQ_CHANGE_NOTREQD;
+	u32 AnlgOscSw1Lp = XPuf_ReadReg(XPUF_EFUSE_CTRL_BASEADDR, XPUF_ANLG_OSC_SW_1LP_OFFSET);
+	u32 IroTrimFuseSelect = AnlgOscSw1Lp & XPUF_IRO_TRIM_FUSE_SEL_BIT;
+
+#if defined (VERSAL_NET)
+	u32 RomRsvdRegVal = XPuf_ReadReg(XPUF_EFUSE_CACHE_BASEADDR,
+			XPUF_EFUSE_CACHE_ROM_RSVD_OFFSET);
+	u32 IroSwapVal = RomRsvdRegVal & XPUF_IRO_SWAP;
+
+	if ((IroSwapVal != XPUF_IRO_SWAP) &&
+		(IroTrimFuseSelect == XPUF_EFUSE_CTRL_IRO_TRIM_FAST)) {
+		Result = XPUF_IROFREQ_CHANGE_REQD;
+	}
+	else {
+		Result = XPUF_IROFREQ_CHANGE_NOTREQD;
+	}
+#else
+	if (IroTrimFuseSelect == XPUF_EFUSE_CTRL_IRO_TRIM_FAST) {
+		Result = XPUF_IROFREQ_CHANGE_REQD;
+	}
+#endif
+
+	return Result;
+
 }
 
 /** @}
