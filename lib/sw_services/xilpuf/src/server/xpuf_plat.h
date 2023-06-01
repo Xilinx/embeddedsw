@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -55,6 +55,9 @@ extern "C" {
 		/**< Reset value of PUF_SYN_ADDR register - Versal*/
 #endif
 
+#define XPUF_IROFREQ_CHANGE_REQD			(0xA2572962U)
+#define XPUF_IROFREQ_CHANGE_NOTREQD			(0x5DA8D69DU)
+
 /***************************** Type Definitions *******************************/
 typedef struct _XPuf_Data XPuf_Data;
 
@@ -64,6 +67,7 @@ typedef struct _XPuf_Data XPuf_Data;
 int XPuf_CheckGlobalVariationFilter(const XPuf_Data *PufData);
 void XPuf_SetRoSwap(const XPuf_Data *PufData);
 int XPuf_IsRegistrationEnabled(u32 PufEccCtrlValue);
+u32 XPuf_IsIroFreqChangeReqd(void);
 
 /** @}
 @endcond */
