@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 4.6   har  07/14/21 Fixed doxygen warnings
 *       gm   07/16/21 Added support for 64-bit address
 * 5.0   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
+* 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
 *
 * </pre>
 *
@@ -106,6 +107,8 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_EllipticHashData *HashInfo, XSecure_EllipticKeyAddr *KeyAddr,
 	XSecure_EllipticSignAddr *SignAddr);
+void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr);
+void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
 
 #endif
 
