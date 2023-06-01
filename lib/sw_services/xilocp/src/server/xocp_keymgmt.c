@@ -234,6 +234,8 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 #ifndef PLM_ECDSA_EXCLUDE
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
+	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];
+	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];
 #endif
 	int ClrStatus = XST_FAILURE;
 	volatile u8 CryptoKatEn = TRUE;
@@ -266,8 +268,8 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 		goto END;
 	}
 
-	PubKeyAddr.Qx = (UINTPTR)(u8*)DevAkData->EccX;
-	PubKeyAddr.Qy = (UINTPTR)(u8*)DevAkData->EccY;
+	PubKeyAddr.Qx = (UINTPTR)(u8*)EccX;
+	PubKeyAddr.Qy = (UINTPTR)(u8*)EccY;
 	Status = XSecure_EllipticGenerateKey_64Bit(XSECURE_ECC_NIST_P384,
 			(u64)(UINTPTR)DevAkData->EccPrvtKey, &PubKeyAddr);
 	if (Status != XST_SUCCESS) {
@@ -284,6 +286,10 @@ int XOcp_GenerateDevAk(u32 SubSystemId)
 		}
 		XPlmi_SetKatMask(XPLMI_SECURE_ECC_DEVAK_PWCT_KAT_MASK);
 	}
+	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)DevAkData->EccX,
+						(u64)(UINTPTR)EccX);
+	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)DevAkData->EccY,
+						(u64)(UINTPTR)EccY);
 
 	DevAkData->IsDevAkKeyReady = TRUE;
 	XPlmi_PrintArray(DEBUG_DETAILED, (u64)(UINTPTR)DevAkData->EccPrvtKey,
@@ -433,6 +439,10 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 	int Status = XST_FAILURE;
 	u32 DevAkIndex;
 	XOcp_DevAkData *DevAkData = NULL;
+#ifndef PLM_ECDSA_EXCLUDE
+	u8 Hash[XSECURE_ECC_P384_SIZE_IN_BYTES];
+	u8 Signature[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U];
+#endif
 
 	if ((SubSystemId == 0x0U) || (AttestWithDevAkPtr->HashAddr == 0x0U) ||
 				(AttestWithDevAkPtr->SignatureAddr == 0x0U)) {
@@ -454,12 +464,20 @@ int XOcp_AttestWithDevAk(XOcp_Attest *AttestWithDevAkPtr, u32 SubSystemId)
 	}
 
 #ifndef PLM_ECDSA_EXCLUDE
+	/* Covert hash to little endian */
+	XSecure_FixEndiannessNCopy(AttestWithDevAkPtr->HashLen,
+		(u64)(UINTPTR)Hash, AttestWithDevAkPtr->HashAddr);
 	/* Generate the signature using DEVAK */
-	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384,
-			(u8 *)(UINTPTR)AttestWithDevAkPtr->HashAddr,
+	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, Hash,
 			AttestWithDevAkPtr->HashLen,
 			(u8 *)(UINTPTR)DevAkData->EccPrvtKey,
-			(u8 *)(UINTPTR)AttestWithDevAkPtr->SignatureAddr);
+			(u8 *)Signature);
+	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+			AttestWithDevAkPtr->SignatureAddr,
+				(u64)(UINTPTR)Signature);
+	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+		AttestWithDevAkPtr->SignatureAddr + XSECURE_ECC_P384_SIZE_IN_BYTES,
+		(u64)(UINTPTR)(Signature + XSECURE_ECC_P384_SIZE_IN_BYTES));
 #endif
 END:
 	return Status;
@@ -518,6 +536,8 @@ static int XOcp_KeyGenerateDevIk(void)
 	XSecure_ElliptcPrivateKeyGen KeyGenParams;
 	XSecure_EllipticKeyAddr PubKeyAddr;
 	u8 EccPrvtKey[XOCP_ECC_P384_SIZE_BYTES];
+	u8 EccX[XOCP_ECC_P384_SIZE_BYTES];
+	u8 EccY[XOCP_ECC_P384_SIZE_BYTES];
 #endif
 	u32 ClrStatus = XST_FAILURE;
 	volatile u8 CryptoKatEn = TRUE;
@@ -564,8 +584,8 @@ static int XOcp_KeyGenerateDevIk(void)
 		goto END;
 	}
 
-	PubKeyAddr.Qx = (UINTPTR)(u8*)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0;
-	PubKeyAddr.Qy = (UINTPTR)(u8*)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_Y_0;
+	PubKeyAddr.Qx = (UINTPTR)(u8*)EccX;
+	PubKeyAddr.Qy = (UINTPTR)(u8*)EccY;
 	Status = XSecure_EllipticGenerateKey_64Bit(XSECURE_ECC_NIST_P384,
 			(u64)(UINTPTR)EccPrvtKey, &PubKeyAddr);
 	if (Status != XST_SUCCESS) {
@@ -591,6 +611,12 @@ static int XOcp_KeyGenerateDevIk(void)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+				(u64)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_X_0,
+						(u64)(UINTPTR)EccX);
+	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+				 (u64)(UINTPTR)XOCP_PMC_GLOBAL_DEV_IK_PUBLIC_Y_0,
+						(u64)(UINTPTR)EccY);
 
 #else
 	(void)CryptoKatEn;
