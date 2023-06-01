@@ -754,4 +754,34 @@ void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
 	}
 }
 
+/*****************************************************************************/
+/**
+ * @brief	This function copies data to destination based on library
+ *		endianness selection.
+ *		- Changes the endianness when library is operating in little endian
+ *		- Copies data without changing any endianness when library is
+ *		operating in big endain.
+ *
+ * @param	Size 	- Length of data in bytes
+ * @param	SrcAddr - Address of the source buffer
+ * @param	DstAddr - Destination address
+ *
+ * @note	This is the helper function to convert the endianess as required.
+ *
+ *****************************************************************************/
+void XSecure_FixEndiannessNCopy(const u32 Size, u64 Dst, const u64 SrcAddr)
+{
+	u32 Index = 0U;
+	u32 RIndex = Size;
+
+	for (Index = 0U; Index < Size; Index++, RIndex--) {
+		if (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN) {
+			XSecure_OutByte64((Dst + Index), XSecure_InByte64((SrcAddr + (RIndex - 1U))));
+		}
+		else {
+			XSecure_OutByte64((Dst + Index), XSecure_InByte64((SrcAddr + Index)));
+		}
+	}
+}
+
 #endif

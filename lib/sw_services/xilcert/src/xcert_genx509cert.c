@@ -316,9 +316,11 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	u32 SignAlgoLen;
 #ifndef PLM_ECDSA_EXCLUDE
 	u32 SignLen;
-	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES + XSECURE_ECC_P384_SIZE_IN_BYTES] = {0U};
-#endif
+	u8 Sign[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
+	u8 SignTmp[XSECURE_ECC_P384_SIZE_IN_BYTES * 2U] = {0U};
 	u8 Hash[XCERT_HASH_SIZE_IN_BYTES] = {0U};
+#endif
+	u8 HashTmp[XCERT_HASH_SIZE_IN_BYTES] = {0U};
 	(void)MaxCertSize;
 
 	*(Curr++) = XCERT_ASN1_TAG_SEQUENCE;
@@ -356,22 +358,30 @@ int XCert_GenerateX509Cert(u64 X509CertAddr, u32 MaxCertSize, u32* X509CertSize,
 	/**
 	 * Calcualte SHA2 Digest of the TBS certificate
 	 */
-	Status = XSecure_Sha384Digest(Start, TBSCertLen, Hash);
+	Status = XSecure_Sha384Digest(Start, TBSCertLen, HashTmp);
 	if (Status != XST_SUCCESS) {
 		Status = XOCP_ERR_X509_GEN_TBSCERT_DIGEST;
 		goto END;
 	}
 #ifndef PLM_ECDSA_EXCLUDE
+
+	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES, (u64)(UINTPTR)Hash,
+					(u64)(UINTPTR)HashTmp);
 	/**
 	 * Calculate signature of the TBS certificate using the private key
 	 */
 	Status = XSecure_EllipticGenEphemeralNSign(XSECURE_ECC_NIST_P384, (const u8 *)Hash, sizeof(Hash),
-				Cfg->AppCfg.PrvtKey, Sign);
+				Cfg->AppCfg.PrvtKey, SignTmp);
 	if (Status != XST_SUCCESS) {
 		Status = XOCP_ERR_X509_CALC_SIGN;
 		goto END;
 	}
 
+	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+				(u64)(UINTPTR)Sign, (u64)(UINTPTR)SignTmp);
+	XSecure_FixEndiannessNCopy(XSECURE_ECC_P384_SIZE_IN_BYTES,
+			(u64)(UINTPTR)(Sign + XSECURE_ECC_P384_SIZE_IN_BYTES),
+			(u64)(UINTPTR)(SignTmp + XSECURE_ECC_P384_SIZE_IN_BYTES));
 	/**
 	 * Generate Signature field
 	 */
