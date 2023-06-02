@@ -61,9 +61,9 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-int XOcp_ExtendHwPcr(XOcp_RomHwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
+int XOcp_ExtendHwPcr(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
 int XOcp_GetHwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
-int XOcp_GetHwPcrLog(u64 LogAddr, u32 NumOfLogEntries);
+int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntries);
 int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr);
 
 #ifdef __cplusplus

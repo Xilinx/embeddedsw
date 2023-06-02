@@ -19,6 +19,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.1   am   12/21/22 Initial release
 *       am   01/10/23 Added client side API for dme
+* 1.2   kpt  06/02/23 Updated XOcp_GetHwPcrLog
 *
 * </pre>
 *
@@ -76,7 +77,7 @@ int XOcp_ClientInit(XOcp_ClientInstance* const InstancePtr,
  *          provided hash by requesting ROM service
  *
  * @param   InstancePtr - Pointer to the client instance
- * @param   PcrNum - Variable of XOcp_RomHwPcr enum to select the PCR to
+ * @param   PcrNum - Variable of XOcp_HwPcr enum to select the PCR to
  *          be extended
  * @param   ExtHashAddr - Address of the buffer which holds the hash to be
  *          extended
@@ -86,7 +87,7 @@ int XOcp_ClientInit(XOcp_ClientInstance* const InstancePtr,
  *          - XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_ExtendPcr(XOcp_ClientInstance *InstancePtr, XOcp_RomHwPcr PcrNum,
+int XOcp_ExtendPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum,
 	u64 ExtHashAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
@@ -120,7 +121,7 @@ END:
  *          requested PCR.
  *
  * @param   InstancePtr - Pointer to the client instance
- * @param   PcrNum - Variable of XOcp_RomHwPcr enum to select the PCR to
+ * @param   PcrNum - Variable of XOcp_HwPcr enum to select the PCR to
  *          be extended
  * @param   PcrBufAddr - Address of the 48 bytes buffer to store the
  *          requested PCR contents
@@ -156,21 +157,23 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief   This function sends IPI request to get the PCR log.
+ * @brief   This function sends IPI request to get the log and status of HWPCR
  *
- * @param   InstancePtr - Pointer to the client instance
- * @param   LogAddr - Log buffer address to store the log
- * @param   NumOfLogEntries - Number of log entries to read
+ * @param   InstancePtr      - Pointer to the client instance
+ * @param   HwPcrEventAddr   - Pointer to the XOcp_HwPcrEvent structure
+ * @param   HwPcrLogInfoAddr - Pointer to the XOcp_HwPcrLogInfo structure
+ * @param   NumOfLogEntries  - Number of log entries to read
  *
  * @return
  *          - XST_SUCCESS - If PCR contents are copied
  *          - XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 LogAddr, u32 NumOfLogEntries)
+int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 HwPcrLogInfoAddr,
+		u32 NumOfLogEntries)
 {
 	volatile int Status = XST_FAILURE;
-        u32 Payload[XOCP_PAYLOAD_LEN_4U];
+        u32 Payload[XOCP_PAYLOAD_LEN_6U];
 
         if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
                 goto END;
@@ -178,9 +181,11 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 LogAddr, u32 NumOfLog
 
         /** Fill IPI Payload */
         Payload[0U] = OcpHeader(0U, XOCP_API_GETPCRLOG);
-        Payload[1U] = (u32)LogAddr;
-        Payload[2U] = (u32)(LogAddr >> 32);
-        Payload[3U] = NumOfLogEntries;
+        Payload[1U] = (u32)HwPcrEventAddr;
+        Payload[2U] = (u32)(HwPcrEventAddr >> 32);
+		Payload[3U] = (u32)HwPcrLogInfoAddr;
+        Payload[4U] = (u32)(HwPcrLogInfoAddr >> 32);
+        Payload[5U] = NumOfLogEntries;
 
         Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
                 sizeof(Payload)/sizeof(u32));
