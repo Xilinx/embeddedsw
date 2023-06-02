@@ -19,6 +19,7 @@
 * 1.1   kal  01/05/23 Added PCR Extend and Pcr Logging functions
 *       am   01/10/23 Modified function argument type to u64 in
 *                     XOcp_GenerateDmeResponse().
+* 1.2   kpt  06/02/23 Fixed circular buffer issues during HWPCR logging
 *
 * </pre>
 * @note
@@ -61,10 +62,26 @@ static XOcp_HwPcrLog HwPcrLog = {0U};
 
 /*****************************************************************************/
 /**
+ * @brief	This function updates the index of HWPCR log
+ *
+ * @param	HwPcrIndex pointer to the index to be incremented
+ * @param   Val        Increment value
+ *
+ ******************************************************************************/
+static INLINE void XOcp_UpdateHwPcrIndex(u32 *HwPcrIndex, u32 Val)
+{
+	*HwPcrIndex += Val;
+	if (*HwPcrIndex >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
+		*HwPcrIndex = 0U;
+	}
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function extends the PCR with provided hash by requesting
  * 		ROM service
  *
- * @param	PcrNum is the variable of enum XOcp_RomHwPcr to select the PCR
+ * @param	PcrNum is the variable of enum XOcp_HwPcr to select the PCR
  * 		to be extended.
  * @param	ExtHashAddr is the address of the buffer which holds the hash
  *		to extended.
@@ -75,13 +92,18 @@ static XOcp_HwPcrLog HwPcrLog = {0U};
  *		- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_ExtendHwPcr(XOcp_RomHwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
+int XOcp_ExtendHwPcr(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize)
 {
 	int Status = XST_FAILURE;
 	u32 RegValue;
 
 	if ((PcrNum < XOCP_PCR_2) || (PcrNum > XOCP_PCR_7)) {
 		Status = XOCP_PCR_ERR_PCR_SELECT;
+		goto END;
+	}
+
+	if (DataSize != XOCP_PCR_SIZE_BYTES) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -120,53 +142,77 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function reads the HWPCR log into the user provided
- * 		buffer.
+ * @brief	This function reads the HWPCR log and info into the user provided
+ * 		     buffer.
  *
- * @param	Log 		Pointer to the XOcp_HwPcrEvent
- * @param	NumOfLogEntries	Maximum number of log entries to be read
+ * @param	HwPcrEventsAddr  Pointer to the XOcp_HwPcrEvent
+ * @param   HwPcrLogInfoAddr Pointer to the XOcp_HwPcrLogInfo
+ * @param	NumOfLogEntries	 Maximum number of log entries to be read
  *
  * @return
  *		- XST_SUCCESS - If log read is successful
  *		- XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_GetHwPcrLog(u64 LogAddr, u32 NumOfLogEntries)
+int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntries)
 {
 	int Status = XST_FAILURE;
-	XOcp_HwPcrLog *Log = (XOcp_HwPcrLog *)(UINTPTR)LogAddr;
+	u32 ReqHwPcrLogEntries = NumOfLogEntries;
+	u32 RemHwPcrLogEvents = 0U;
+	u32 TotalRdHwPcrLogEvents = 0U;
 
-	if (HwPcrLog.TailIndex == HwPcrLog.HeadIndex) {
+	if (ReqHwPcrLogEntries > XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
+		Status = (int)XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST;
+		goto END;
+	}
+
+	if ((HwPcrLog.LogInfo.RemainingHwPcrEvents == 0U) || (ReqHwPcrLogEntries == 0U)) {
 		Status = XST_SUCCESS;
-		goto END;
+		goto END1;
 	}
-	if (NumOfLogEntries > XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
-		Status = XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST;
-		goto END;
-	}
-	if ((HwPcrLog.TailIndex + NumOfLogEntries) > HwPcrLog.HeadIndex) {
-		Status = XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST;
-		goto END;
-       }
 
-	Status = XPlmi_MemCpy64(LogAddr, (u64)(UINTPTR)&HwPcrLog,
-		(NumOfLogEntries * sizeof(XOcp_HwPcrEvent)));
+	if (ReqHwPcrLogEntries > HwPcrLog.LogInfo.RemainingHwPcrEvents) {
+		ReqHwPcrLogEntries = HwPcrLog.LogInfo.RemainingHwPcrEvents;
+	}
+
+	TotalRdHwPcrLogEvents = ReqHwPcrLogEntries;
+	/*
+	 * From current TailIndex if number of entries are more than XOCP_MAX_NUM_OF_HWPCR_EVENTS
+	 * then copy log entries from TailIndex to XOCP_MAX_NUM_OF_HWPCR_EVENTS and update
+	 * log entries and TailIndex.
+	 */
+	if ((HwPcrLog.TailIndex + ReqHwPcrLogEntries) >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
+		RemHwPcrLogEvents = XOCP_MAX_NUM_OF_HWPCR_EVENTS - HwPcrLog.TailIndex;
+		Status = XPlmi_MemCpy64(HwPcrEventsAddr, (u64)(UINTPTR)&HwPcrLog.Buffer[HwPcrLog.TailIndex],
+				(RemHwPcrLogEvents * sizeof(XOcp_HwPcrEvent)));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		/* Update HWPCR events and log entries to handle remaining entries */
+		HwPcrLog.LogInfo.RemainingHwPcrEvents -= RemHwPcrLogEvents;
+		ReqHwPcrLogEntries -= RemHwPcrLogEvents;
+		HwPcrEventsAddr += (u64)RemHwPcrLogEvents * sizeof(XOcp_HwPcrEvent);
+		HwPcrLog.TailIndex = 0U;
+    }
+
+	if (ReqHwPcrLogEntries != 0U) {
+		Status = XPlmi_MemCpy64(HwPcrEventsAddr, (u64)(UINTPTR)&HwPcrLog.Buffer[HwPcrLog.TailIndex],
+			(ReqHwPcrLogEntries * sizeof(XOcp_HwPcrEvent)));
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		HwPcrLog.LogInfo.RemainingHwPcrEvents -= ReqHwPcrLogEntries;
+		XOcp_UpdateHwPcrIndex(&HwPcrLog.TailIndex, ReqHwPcrLogEntries);
+	}
+END1:
+	/* Update current HWPCR log status */
+	HwPcrLog.LogInfo.HwPcrEventsRead = TotalRdHwPcrLogEvents;
+	Status = XPlmi_MemCpy64(HwPcrLogInfoAddr, (u64)(UINTPTR)&HwPcrLog.LogInfo,
+				sizeof(XOcp_HwPcrLogInfo));
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	if (HwPcrLog.TailIndex ==
-		((sizeof(HwPcrLog.Buffer)/ sizeof(XOcp_HwPcrEvent))) - 1U) {
-		HwPcrLog.TailIndex = 0;
-	} else {
-		HwPcrLog.TailIndex = HwPcrLog.TailIndex + NumOfLogEntries;
-	}
-
-	Log->HeadIndex = HwPcrLog.HeadIndex;
-	Log->TailIndex = HwPcrLog.TailIndex;
-	Log->OverFlowFlag = HwPcrLog.OverFlowFlag;
-
-	Status = XST_SUCCESS;
-
+	HwPcrLog.LogInfo.OverflowCntSinceLastRd = 0U;
 END:
 	return Status;
 }
@@ -175,7 +221,7 @@ END:
 /**
  * @brief	This function gets the PCR value from requested PCRs.
  *
- * @param	PcrNum is the variable of enum XOcp_RomHwPcr to select the
+ * @param	PcrNum is the variable of enum XOcp_HwPcr to select the
  * 		PCR number
  * @param	PcrBuf is the address of the 48 bytes buffer to store the
  * 		requested PCR contents
@@ -419,6 +465,18 @@ static int XOcp_UpdateHwPcrLog(u8 PcrNum, u64 ExtHashAddr, u32 DataSize)
 {
 	int Status = XST_FAILURE;
 
+	/* If number of PCR events is greater than XOCP_MAX_NUM_OF_HWPCR_EVENTS
+	 * update overflow count as true and  decrement number of PCR events for
+	 * new update and update the tail index.
+	 */
+	if (HwPcrLog.LogInfo.RemainingHwPcrEvents >= XOCP_MAX_NUM_OF_HWPCR_EVENTS) {
+		HwPcrLog.LogInfo.OverflowCntSinceLastRd++;
+		if (HwPcrLog.HeadIndex == HwPcrLog.TailIndex) {
+			XOcp_UpdateHwPcrIndex(&HwPcrLog.TailIndex, 1U);
+		}
+		HwPcrLog.LogInfo.RemainingHwPcrEvents--;
+	}
+
 	HwPcrLog.Buffer[HwPcrLog.HeadIndex].PcrNo = PcrNum;
 	Status = XOcp_MemCopy(ExtHashAddr,
 		(u64)(UINTPTR)HwPcrLog.Buffer[HwPcrLog.HeadIndex].Hash,
@@ -426,20 +484,18 @@ static int XOcp_UpdateHwPcrLog(u8 PcrNum, u64 ExtHashAddr, u32 DataSize)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XOcp_MemCopy((XOCP_PMC_GLOBAL_PCR_0_0 +
-		(PcrNum * XOCP_PCR_SIZE_BYTES)),
+
+	Status = XOcp_MemCopy(((u64)XOCP_PMC_GLOBAL_PCR_0_0 +
+		((u64)PcrNum * XOCP_PCR_SIZE_BYTES)),
 		(u64)(UINTPTR)HwPcrLog.Buffer[HwPcrLog.HeadIndex].PcrValue,
 		XOCP_PCR_SIZE_WORDS, XPLMI_PMCDMA_0);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	if (HwPcrLog.HeadIndex ==
-		((sizeof(HwPcrLog.Buffer)/ sizeof(XOcp_HwPcrEvent))) - 1U) {
-		HwPcrLog.HeadIndex = 0U;
-		HwPcrLog.OverFlowFlag = TRUE;
-	} else {
-		HwPcrLog.HeadIndex++;
-	}
+
+	HwPcrLog.LogInfo.RemainingHwPcrEvents++;
+	HwPcrLog.LogInfo.TotalHwPcrLogEvents++;
+	XOcp_UpdateHwPcrIndex(&HwPcrLog.HeadIndex, 1U);
 
 	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 			XIL_EVENT_ERROR_PCR_LOG_UPDATE);

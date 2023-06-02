@@ -20,6 +20,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 1.0   vns  06/27/2022 Initial release
 * 1.1   am   01/10/2023 Added XOCP_DME_DEVICE_ID_SIZE_BYTES macro for dme
+* 1.2   kpt  06/02/2023 Added XOcp_HwPcrLogInfo structure
 *
 * </pre>
 *
@@ -76,7 +77,7 @@ typedef enum {
 	XOCP_PCR_5,	/**< PCR 5 */
 	XOCP_PCR_6,	/**< PCR 6 */
 	XOCP_PCR_7	/**< PCR 7 */
-} XOcp_RomHwPcr;
+} XOcp_HwPcr;
 
 /*
  * DME
@@ -103,10 +104,17 @@ typedef struct {
 } XOcp_HwPcrEvent;
 
 typedef struct {
+	u32 RemainingHwPcrEvents;         /**< Number of HWPCR log events */
+	u32 TotalHwPcrLogEvents;          /**< Total number of HWPCR log events */
+	u32 OverflowCntSinceLastRd;       /**< Overflow count since last read */
+	u32 HwPcrEventsRead;              /**< Number of events read in current request */
+} XOcp_HwPcrLogInfo;
+
+typedef struct {
 	XOcp_HwPcrEvent Buffer[XOCP_MAX_NUM_OF_HWPCR_EVENTS];
+	XOcp_HwPcrLogInfo LogInfo;
 	u32 HeadIndex;
 	u32 TailIndex;
-	u32 OverFlowFlag;
 } XOcp_HwPcrLog;
 
 typedef struct {
