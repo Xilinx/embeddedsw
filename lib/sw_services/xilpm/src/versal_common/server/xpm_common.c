@@ -93,34 +93,28 @@ void XPm_Out32(u32 RegAddress, u32 l_Val)
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
 	const XPm_PsLpDomain *PsLpd = (XPm_PsLpDomain *)XPmPower_GetById(PM_POWER_LPD);
 	const XPm_PsFpDomain *PsFpd = (XPm_PsFpDomain *)XPmPower_GetById(PM_POWER_FPD);
+	u32 SavedWPROT = 0;
 
 	if ((NULL != Pmc) && ((RegAddress & 0xFFFF0000U) == Pmc->PmcIouSlcrBaseAddr)) {
-		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET,
-			  0x0U);
+		SavedWPROT = Xil_In32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET);
+		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET, 0x0U);
 		Xil_Out32(RegAddress, l_Val);
-		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET,
-			  0x1U);
-	} else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000U) ==
-			     PsLpd->LpdIouSlcrBaseAddr)) {
-                Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET,
-			  0x0U);
-                Xil_Out32(RegAddress, l_Val);
-                Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET,
-			  0x1U);
-        }  else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000U) ==
-			      PsLpd->LpdSlcrBaseAddr)) {
-                Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET,
-			  0x0U);
-                Xil_Out32(RegAddress, l_Val);
-                Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET,
-			  0x1U);
-        }  else if ((NULL != PsFpd) && ((RegAddress & 0xFFFF0000U) ==
-			      PsFpd->FpdSlcrBaseAddr)) {
-                Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET,
-			  0x0U);
-                Xil_Out32(RegAddress, l_Val);
-                Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET,
-			  0x1U);
+		Xil_Out32(Pmc->PmcIouSlcrBaseAddr + PMC_IOU_SLCR_WPROT0_OFFSET, SavedWPROT);
+	} else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000U) == PsLpd->LpdIouSlcrBaseAddr)) {
+		SavedWPROT = Xil_In32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET);
+		Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET, 0x0U);
+		Xil_Out32(RegAddress, l_Val);
+		Xil_Out32(PsLpd->LpdIouSlcrBaseAddr + LPD_IOU_SLCR_WPROT0_OFFSET, SavedWPROT);
+	} else if ((NULL != PsLpd) && ((RegAddress & 0xFFFF0000U) == PsLpd->LpdSlcrBaseAddr)) {
+		SavedWPROT = Xil_In32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET);
+		Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET, 0x0U);
+		Xil_Out32(RegAddress, l_Val);
+		Xil_Out32(PsLpd->LpdSlcrBaseAddr + LPD_SLCR_WPROT0_OFFSET, SavedWPROT);
+	 } else if ((NULL != PsFpd) && ((RegAddress & 0xFFFF0000U) == PsFpd->FpdSlcrBaseAddr)) {
+		SavedWPROT = Xil_In32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET);
+		Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET, 0x0U);
+		Xil_Out32(RegAddress, l_Val);
+		Xil_Out32(PsFpd->FpdSlcrBaseAddr + FPD_SLCR_WPROT0_OFFSET, SavedWPROT);
         } else {
 		Xil_Out32(RegAddress, l_Val);
 	}
