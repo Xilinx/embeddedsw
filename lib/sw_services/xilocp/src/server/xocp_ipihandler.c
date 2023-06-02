@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.1   am   12/21/22 Initial release
 *       am   01/10/23 Added handler API for dme
+* 1.2   kpt  06/02/23 Updated XOcp_GetPcrLogIpi to XOcp_GetHwPcrLogIpi
 *
 * </pre>
 *
@@ -41,7 +42,8 @@
 /************************** Function Prototypes *****************************/
 static int XOcp_ExtendPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size);
 static int XOcp_GetPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PurBufSize);
-static int XOcp_GetPcrLogIpi(u32 AddrLow, u32 AddrHigh, u32 NumOfLogEntries);
+static int XOcp_GetHwPcrLogIpi(u32 HwPcrEvntAddrLow, u32 HwPcrEvntAddrHigh,
+			u32 HwPcrLogInfoAddrLow, u32 HwPcrLogInfoAddrHigh,u32 NumOfLogEntries);
 static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStructResAddrLow, u32 DmeStructResAddrHigh);
 static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow,
 				u32 GetX509CertAddrHigh, u32 SubSystemID);
@@ -77,7 +79,7 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 			Status = XOcp_GetPcrIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
 		case XOCP_API(XOCP_API_GETPCRLOG):
-			Status = XOcp_GetPcrLogIpi(Pload[0], Pload[1], Pload[2]);
+			Status = XOcp_GetHwPcrLogIpi(Pload[0], Pload[1], Pload[2], Pload[3], Pload[4]);
 			break;
 		case XOCP_API(XOCP_API_GENDMERESP):
 			Status = XOcp_GenDmeRespIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
@@ -167,40 +169,26 @@ static int XOcp_GetPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, 
 /**
  * @brief   This function handler calls XOcp_GetHwPcrLog server API to get log
  *
- * @param   AddrLow - Lower 32 bit address of the Log buffer address
- *
- * @param   AddrHigh - Higher 32 bit address of the Log buffer address
- *
- * @param   NumOfLogEntries - Number of log entries to read
+ * @param   HwPcrEvntAddrLow     - Lower 32 bit address of the XOcp_HwPcrEvent buffer address
+ * @param   HwPcrEvntAddrHigh    - Higher 32 bit address of the XOcp_HwPcrEvent buffer address
+ * @param   HwPcrLogInfoAddrLow  - Lower 32 bit address of the XOcp_HwPcrLogInfo buffer address
+ * @param   HwPcrLogInfoAddrHigh - Higher 32 bit address of the XOcp_HwPcrLogInfo buffer address
+ * @param   NumOfLogEntries      - Number of log entries to read
  *
  * @return
  *          - XST_SUCCESS - If log contents are copied
  *          - ErrorCode - Upon any failure
  *
  ******************************************************************************/
-static int XOcp_GetPcrLogIpi(u32 AddrLow, u32 AddrHigh, u32 NumOfLogEntries)
+static int XOcp_GetHwPcrLogIpi(u32 HwPcrEvntAddrLow, u32 HwPcrEvntAddrHigh,
+			u32 HwPcrLogInfoAddrLow, u32 HwPcrLogInfoAddrHigh,u32 NumOfLogEntries)
 {
 	volatile int Status = XST_FAILURE;
-	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-	XOcp_HwPcrLog *Log = (XOcp_HwPcrLog *)(UINTPTR)Addr;
-	XOcp_HwPcrLog PcrLog;
+	u64 HwPcrEventAddr = ((u64)HwPcrEvntAddrHigh << 32U) | (u64)HwPcrEvntAddrLow;
+	u64 HwPcrLogInfoAddr = ((u64)HwPcrLogInfoAddrHigh << 32U) | (u64)HwPcrLogInfoAddrLow;
 
-	Status = XOcp_GetHwPcrLog((u64)(UINTPTR)&PcrLog, NumOfLogEntries);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
+	Status = XOcp_GetHwPcrLog(HwPcrEventAddr, HwPcrLogInfoAddr, NumOfLogEntries);
 
-	Status = XOcp_MemCopy((u64)(UINTPTR)&PcrLog, Addr,
-		(NumOfLogEntries * sizeof(XOcp_HwPcrEvent)), XPLMI_PMCDMA_0);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	Log->HeadIndex = PcrLog.HeadIndex;
-	Log->TailIndex = PcrLog.TailIndex;
-	Log->OverFlowFlag = PcrLog.OverFlowFlag;
-
-END:
 	return Status;
 }
 

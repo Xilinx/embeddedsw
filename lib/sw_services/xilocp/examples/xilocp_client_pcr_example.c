@@ -55,7 +55,7 @@
 * ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] can be configured with a 48 byte hash
 * XOCP_SELECT_PCR_NUM	(XOCP_PCR_2)
 * XOCP_SELECT_PCR_NUM can be configured as one of the seven provided PCR
-* number from XOcp_RomHwPcr enum in xocp_common.h file.
+* number from XOcp_HwPcr enum in xocp_common.h file.
 *
 * XOCP_READ_PCR_MASK	(0x00000004)
 * The lower 8 bits of XOCP_READ_PCR_MASK indicates 8 PCRs, user can set
@@ -67,7 +67,7 @@
 * Default value is (0x00000004)
 *
 * XOCP_READ_NUM_OF_LOG_ENTRIES Number of PcrLog entries to read into buffer.
-* Default value is (0x00000001)
+* Default value is 1 and maximum value is upto 32.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -97,16 +97,17 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XOCP_SELECT_PCR_NUM	(XOCP_PCR_2)
 
-#define XOCP_READ_PCR_MASK	(0x00000004)
+#define XOCP_READ_PCR_MASK	(0x00000004U)
 
-#define XOCP_READ_NUM_OF_LOG_ENTRIES	(0x00000001)
+#define XOCP_READ_NUM_OF_LOG_ENTRIES	(1U)
 
 /************************** Function Prototypes ******************************/
 static void XOcp_PrintData(const u8 *Data, u32 size);
 
 /************************** Variable Definitions *****************************/
 static u8 PCRBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PCRBuf")));
-static XOcp_HwPcrLog PcrLog __attribute__ ((section (".data.PcrLog")));
+static XOcp_HwPcrEvent   HwPcrEvents[XOCP_READ_NUM_OF_LOG_ENTRIES] __attribute__ ((section (".data.HwPcrEvents")));
+static XOcp_HwPcrLogInfo HwPcrLogInfo __attribute__ ((section (".data.HwPcrLogInfo")));
 static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] =
 						{0x70,0x69,0x77,0x35,0x0b,0x93,
 						0x92,0xa0,0x48,0x2c,0xd8,0x23,
@@ -132,7 +133,7 @@ int main(void)
 	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XOcp_ClientInstance OcpClientInstance;
-	XOcp_RomHwPcr PcrNum = (XOcp_RomHwPcr)XOCP_SELECT_PCR_NUM;
+	XOcp_HwPcr PcrNum = (XOcp_HwPcr)XOCP_SELECT_PCR_NUM;
 	u32 PcrMask = (u32)XOCP_READ_PCR_MASK;
 	u8 Index;
 #ifdef XOCP_CACHE_DISABLE
@@ -157,8 +158,10 @@ int main(void)
 #ifndef XOCP_CACHE_DISABLE
 	Xil_DCacheInvalidateRange((UINTPTR)ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
 	Xil_DCacheInvalidateRange((UINTPTR)PCRBuf, XOCP_PCR_SIZE_BYTES);
-	Xil_DCacheInvalidateRange((UINTPTR)PcrLog, sizeof(PcrLog));
+	Xil_DCacheInvalidateRange((UINTPTR)HwPcrEvents, sizeof(HwPcrEvents));
+	Xil_DCacheInvalidateRange((UINTPTR)HwPcrLogInfo, sizeof(HwPcrLogInfo));
 #endif
+
 	Status = XOcp_ExtendPcr(&OcpClientInstance, PcrNum,
 		(u64)(UINTPTR)ExtendHash, sizeof(ExtendHash));
 	if (Status != XST_SUCCESS) {
@@ -176,23 +179,31 @@ int main(void)
 	xil_printf("Requested PCR contents:\n\r");
 	XOcp_PrintData((const u8*)PCRBuf, XOCP_PCR_SIZE_BYTES);
 
-	Status = XOcp_GetHwPcrLog(&OcpClientInstance, (u64)(UINTPTR)&PcrLog,
-		XOCP_READ_NUM_OF_LOG_ENTRIES);
+	Status = XOcp_GetHwPcrLog(&OcpClientInstance, (u64)(UINTPTR)HwPcrEvents,
+				(u64)(UINTPTR)&HwPcrLogInfo, XOCP_READ_NUM_OF_LOG_ENTRIES);
 	if (Status != XST_SUCCESS) {
-                xil_printf("Get PCR Log failed Status: 0x%02x OverFlowStatus: %x\n\r",
-			Status, PcrLog.OverFlowFlag);
-                goto END;
-        }
-	xil_printf("\n\rPCR Log contents:\n\r");
-	for (Index = 0U; Index < XOCP_READ_NUM_OF_LOG_ENTRIES; Index++) {
-		xil_printf("Pcr Number: %x\r\n", PcrLog.Buffer[Index].PcrNo);
-		xil_printf("Hash to be extended:\n\r");
-		XOcp_PrintData((const u8*)PcrLog.Buffer[Index].Hash, XOCP_PCR_SIZE_BYTES);
-		xil_printf("Pcr Extended Value:\n\r");
-		XOcp_PrintData((const u8*)PcrLog.Buffer[Index].PcrValue, XOCP_PCR_SIZE_BYTES);
-		xil_printf("\n\r");
+		xil_printf("Get PCR Log failed Status: 0x%02x\n\r", Status);
+		goto END;
+    }
+
+	if (HwPcrLogInfo.HwPcrEventsRead != 0U) {
+		xil_printf("\n\rPCR Log contents:\n\r");
+		for (Index = 0U; Index < HwPcrLogInfo.HwPcrEventsRead; Index++) {
+			xil_printf("Pcr Number: %x\r\n", HwPcrEvents[Index].PcrNo);
+			xil_printf("Hash to be extended:\n\r");
+			XOcp_PrintData((const u8*)HwPcrEvents[Index].Hash, XOCP_PCR_SIZE_BYTES);
+			xil_printf("Pcr Extended Value:\n\r");
+			XOcp_PrintData((const u8*)HwPcrEvents[Index].PcrValue, XOCP_PCR_SIZE_BYTES);
+			xil_printf("\n\r");
+		}
 	}
-	xil_printf("\r\n Successfully ran OCP Client Example");
+	xil_printf("\n\rHWPCR Log status:\n\r");
+	xil_printf("No of requested HWPCR log events:%d \n\r",XOCP_READ_NUM_OF_LOG_ENTRIES);
+	xil_printf("No of read HWPCR log events occured:%d \n\r",HwPcrLogInfo.HwPcrEventsRead);
+	xil_printf("No of pending HWPCR read log events:%d \n\r",HwPcrLogInfo.RemainingHwPcrEvents);
+	xil_printf("Total No of update HWPCR log events:%d \n\r",HwPcrLogInfo.TotalHwPcrLogEvents);
+	xil_printf("HWPCR log overflow count since last read:%d \n\r",HwPcrLogInfo.OverflowCntSinceLastRd);
+	xil_printf("Successfully ran OCP Client Example");
 	Status = XST_SUCCESS;
 
 END:
