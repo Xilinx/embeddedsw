@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2019 - 2023 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -63,10 +63,11 @@
 * 4.1   vns    08/06/19 First Release
 * 4.3   har    10/12/20 Addressed security review comments
 * 4.5   har    03/02/21 Added support for AAD
-* 	    kal    03/23/21 Updated example for client support
+*       kal    03/23/21 Updated example for client support
 *       har    06/02/21 Fixed GCC warnings for R5 compiler
 * 4.7   kpt    01/13/22 Added support for PL microblaze
 *       kpt    03/16/22 Removed IPI related code and added mailbox support
+* 5.2   am     05/03/23 Added KAT before crypto usage
 *
 * </pre>
 ******************************************************************************/
@@ -75,6 +76,7 @@
 #include "xil_cache.h"
 #include "xil_util.h"
 #include "xsecure_aesclient.h"
+#include "xsecure_katclient.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -329,6 +331,12 @@ static s32 SecureAesGcmTest(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv
 	Xil_DCacheInvalidateRange((UINTPTR)EncData, XSECURE_DATA_SIZE);
 	Xil_DCacheInvalidateRange((UINTPTR)GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 
+	Status = XSecure_AesEncryptKat(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Aes encrypt KAT failed %x\n\r", Status);
+		goto END;
+	}
+
 	Status = XSecure_AesEncryptInit(InstancePtr, XSECURE_AES_USER_KEY_0,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)Iv);
 
@@ -372,6 +380,12 @@ static s32 SecureAesGcmTest(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv
 	xil_printf( "\r\n\n");
 
 	Xil_DCacheInvalidateRange((UINTPTR)DecData, XSECURE_DATA_SIZE);
+
+	Status = XSecure_AesDecryptKat(InstancePtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Aes decrypt KAT failed %x\n\r", Status);
+		goto END;
+	}
 
 	/* Decrypt's the encrypted data */
 	Status = XSecure_AesDecryptInit(InstancePtr, XSECURE_AES_USER_KEY_0,

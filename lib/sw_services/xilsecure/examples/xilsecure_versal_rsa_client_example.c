@@ -1,13 +1,13 @@
 /******************************************************************************
-* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2021 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file		xilsecure_rsa_client_example.c
+* @file	xilsecure_rsa_client_example.c
 * @addtogroup xsecure_rsa_client_apis XilSecure RSA CLIENT APIs
 * @{
 * This example illustrates RSA APIs usage, by taking some hash with PKCS
@@ -66,6 +66,7 @@
 *       kpt    01/13/22 Added support for PL microblaze
 *       kpt    03/16/22 Removed IPI related code and added mailbox support
 *       kpt    04/11/22 Added comment on usage of shared memory
+* 5.2   am     05/03/23 Added KAT before crypto usage
 *
 * </pre>
 ******************************************************************************/
@@ -75,6 +76,7 @@
 #include "xparameters.h"
 #include "xil_util.h"
 #include "xsecure_rsaclient.h"
+#include "xsecure_katclient.h"
 
 /************************** Constant Definitions *****************************/
 #define XSECURE_RSA_SIZE	512	/**< 512 bytes for 4096 bit data */
@@ -392,6 +394,11 @@ static u32 SecureRsaExample(void)
 
 	Xil_DCacheInvalidateRange((UINTPTR)Signature, XSECURE_RSA_SIZE);
 
+	Status = XSecure_RsaPrivateDecKat(&SecureClientInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("RSA private decrypt KAT failed\n\r");
+	}
+
 	/* RSA signature decrypt with private key */
 	Status = XSecure_RsaPrivateDecrypt(&SecureClientInstance, (UINTPTR)Key, (UINTPTR)&Data,
 			Size, (UINTPTR)Signature);
@@ -428,6 +435,11 @@ static u32 SecureRsaExample(void)
 
 	Xil_DCacheFlushRange((UINTPTR)Key, XSECURE_RSA_SIZE + XSECURE_RSA_SIZE);
 	Xil_DCacheInvalidateRange((UINTPTR)EncryptSignatureOut, XSECURE_RSA_SIZE);
+
+	Status = XSecure_RsaPublicEncKat(&SecureClientInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("RSA public encrypt KAT failed\n\r");
+	}
 
 	Status = XSecure_RsaPublicEncrypt(&SecureClientInstance, (UINTPTR)Key, (UINTPTR)Signature,
 			Size, (UINTPTR)EncryptSignatureOut);
