@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -40,6 +40,7 @@
   *                     Added shared memory allocation for client APIs
   *       kpt  03/18/22 Removed IPI related code and added mailbox support
   * 2.1   am   04/13/23 Fix PUF auxiliary convergence error
+  * 2.2   am   05/03/23 Added KAT before crypto usage
   *
   *@note
   *
@@ -47,6 +48,7 @@
 /***************************** Include Files *********************************/
 #include "xpuf.h"
 #include "xsecure_aesclient.h"
+#include "xsecure_katclient.h"
 #include "xnvm_efuseclient.h"
 #include "xnvm_bbramclient.h"
 #include "xil_util.h"
@@ -550,10 +552,10 @@ static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr)
 	Xil_DCacheFlushRange((UINTPTR)Iv, XPUF_IV_LEN_IN_BYTES);
 	Xil_DCacheFlushRange((UINTPTR)RedKey, XPUF_RED_KEY_LEN_IN_BYTES);
 
-	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(&SecureClientInstance);
+	/* Run KAT for the Aes driver so that it's ready to use */
+	Status = XSecure_AesEncryptKat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Aes init failed %x\n\r", Status);
+		xil_printf("Aes Encrypt KAT failed %x\n\r", Status);
 		goto END;
 	}
 

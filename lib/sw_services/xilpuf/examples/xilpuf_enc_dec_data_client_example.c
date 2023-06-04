@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
@@ -30,6 +30,7 @@
  *       har  03/31/22 Updated default data and data length
  *       kpt  04/08/22 Added comment on usage of shared memory
  * 2.1   am   04/13/23 Fix PUF auxiliary convergence error
+ * 2.2   am   05/03/23 Added KAT before crypto usage
  *
  * @note
  *
@@ -122,6 +123,7 @@
 /***************************** Include Files *********************************/
 #include "xpuf_client.h"
 #include "xsecure_aesclient.h"
+#include "xsecure_katclient.h"
 #include "xil_util.h"
 #include "xil_cache.h"
 
@@ -467,10 +469,10 @@ static int XPuf_VerifyDataEncDec(XMailbox *MailboxPtr)
 	Xil_DCacheFlushRange((UINTPTR)Iv, XPUF_IV_LEN_IN_BYTES);
 	Xil_DCacheFlushRange((UINTPTR)Data, XPUF_DATA_LEN_IN_BYTES);
 
-	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(&SecureClientInstance);
+	/* Run KAT for the Aes driver so that it's ready to use */
+	Status = XSecure_AesEncryptKat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Aes init failed %x\n\r", Status);
+		xil_printf("Aes Encrypt KAT failed %x\n\r", Status);
 		goto END;
 	}
 
@@ -495,10 +497,10 @@ static int XPuf_VerifyDataEncDec(XMailbox *MailboxPtr)
 	xil_printf("GCM tag: \n\r");
 	XPuf_ShowData((u8*)GcmTag, XPUF_GCM_TAG_SIZE);
 
-	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(&SecureClientInstance);
+	/* Run KAT for the Aes driver so that it's ready to use */
+	Status = XSecure_AesDecryptKat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Aes init failed %x\n\r", Status);
+		xil_printf("Aes Decrypt KAT failed %x\n\r", Status);
 		goto END;
 	}
 
