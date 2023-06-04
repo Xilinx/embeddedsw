@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -20,7 +20,7 @@
   * ------------------------------------------------------------------------------------------------------------
   * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
   * any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area
-  * which is acccessible to both client and server.
+  * which is accessible to both client and server.
   *
   * Following is the procedure to compile the example on OCM or any memory region which can be accessed by server
   *
@@ -62,6 +62,7 @@
   *       kpt  04/08/22 Added comment on usage of shared memory
   * 2.1   skg  12/14/22 Added SSIT Provisioning support
   *       am   04/13/23 Fix PUF auxiliary convergence error
+  * 2.2   am   05/03/23 Added KAT before crypto usage
   *
   *@note
   *
@@ -69,6 +70,7 @@
 /***************************** Include Files *********************************/
 #include "xpuf_client.h"
 #include "xsecure_aesclient.h"
+#include "xsecure_katclient.h"
 #include "xnvm_efuseclient.h"
 #include "xnvm_bbramclient.h"
 #include "xil_util.h"
@@ -627,10 +629,10 @@ static int XPuf_GenerateBlackKey(XMailbox *MailboxPtr)
 	Xil_DCacheFlushRange((UINTPTR)Iv, XPUF_IV_LEN_IN_BYTES);
 	Xil_DCacheFlushRange((UINTPTR)RedKey, XPUF_RED_KEY_LEN_IN_BYTES);
 
-	/* Initialize the Aes driver so that it's ready to use */
-	Status = XSecure_AesInitialize(&SecureClientInstance);
+	/* Run KAT for the Aes driver so that it's ready to use */
+	Status = XSecure_AesEncryptKat(&SecureClientInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Aes init failed %x\n\r", Status);
+		xil_printf("Aes Encrypt KAT failed %x\n\r", Status);
 		goto END;
 	}
 

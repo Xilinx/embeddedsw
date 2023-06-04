@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
   * ----- ---  -------- -------------------------------------------------------
   * 1.0   har  06/24/22 Initial release
   * 2.1   am   04/13/23 Fix PUF auxiliary convergence error
+  * 2.2   am   05/03/23 Added KAT before crypto usage
   *
   *@note
   *
@@ -28,6 +29,7 @@
 /***************************** Include Files *********************************/
 #include "xpuf.h"
 #include "xsecure_aesclient.h"
+#include "xsecure_katclient.h"
 #include "xil_util.h"
 #include "xil_cache.h"
 #include "xilpuf_versal_net_example.h"
@@ -286,6 +288,13 @@ static int XPuf_GenerateEncryptedData(XMailbox *MailboxPtr)
 			XSECURE_SHARED_MEM_SIZE);
 	if (Status != XST_SUCCESS) {
 		xil_printf("\r\n shared memory initialization failed");
+		goto END;
+	}
+
+    /* Run KAT for the Aes driver so that it's ready to use */
+	Status = XSecure_AesEncryptKat(&SecureClientInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Aes Encrypt KAT failed %x\n\r", Status);
 		goto END;
 	}
 
