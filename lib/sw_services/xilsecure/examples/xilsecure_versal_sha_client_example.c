@@ -1,6 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2021 - 2023 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,6 +59,7 @@
 * 4.7   kpt  01/13/22 Added support for PL microblaze
 *       kpt  03/16/22 Removed IPI related code and added mailbox support
 *       kpt  04/11/22 Added comment on usage of shared memory
+* 5.2   am   05/03/23 Added KAT before crypto usage
 *
 * </pre>
 ******************************************************************************/
@@ -67,6 +68,7 @@
 #include "xil_cache.h"
 #include "xil_util.h"
 #include "xsecure_shaclient.h"
+#include "xsecure_katclient.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -188,6 +190,10 @@ static u32 SecureSha3Example(void)
 	}
 
 	Xil_DCacheInvalidateRange((UINTPTR)DstAddr, SHA3_HASH_LEN_IN_BYTES);
+	Status = XSecure_Sha3Kat(&SecureClientInstance);
+	if (Status != XST_SUCCESS) {
+		xil_printf("SHA3-384 KAT failed, Status = %x \r\n ", Status);
+	}
 	Status = XSecure_Sha3Digest(&SecureClientInstance, (UINTPTR)&Data, DstAddr, Size);
 	if(Status != XST_SUCCESS) {
 		xil_printf("Calculation of SHA digest failed, Status = %x \n\r", Status);

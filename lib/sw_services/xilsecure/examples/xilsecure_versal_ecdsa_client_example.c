@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2021 - 2023 Xilinx, Inc.  All rights reserved.
 * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -67,6 +67,7 @@
 * 4.7   kpt  01/13/2022 Added support for PL microblaze
 *       kpt  03/16/2022 Removed IPI related code and added mailbox support
 *       kpt  04/11/2022 Added comment on usage of shared memory
+* 5.2   am   05/03/2023 Added KAT before crypto usage
 *
 * </pre>
 *
@@ -77,6 +78,7 @@
 #include "xil_cache.h"
 #include "xil_printf.h"
 #include "xsecure_ellipticclient.h"
+#include "xsecure_katclient.h"
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
@@ -220,6 +222,16 @@ int main()
 		goto END;
 	}
 
+	Status = XSecure_EllipticSignGenKat(&SecureClientInstance, XSECURE_ECDSA_PRIME);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign generate KAT failed %x \r\n", Status);
+		goto END;
+	}
+	Status = XSecure_EllipticSignVerifyKat(&SecureClientInstance, XSECURE_ECDSA_PRIME);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Sign verify KAT failed %x \r\n", Status);
+		goto END;
+	}
 
 #ifdef TEST_NIST_P384
 	xil_printf("Test P384 curve started \r\n");
