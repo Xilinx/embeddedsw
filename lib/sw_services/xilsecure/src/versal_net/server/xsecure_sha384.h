@@ -36,9 +36,20 @@ extern "C" {
 /** @cond xsecure_internal
  * @{
  */
+/************************** Constant Definitions ****************************/
+
+#define XSECURE_HASH_SIZE_IN_BYTES		(48U)
+
+/**************************** Type Definitions *******************************/
+typedef struct {
+	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
+} XSecure_Sha2Hash;
 
 /************************** Function Prototypes ******************************/
 int XSecure_Sha384Digest(u8* Data, u32 Size, u8* Sha384Hash);
+void XSecure_Sha384Start(void);
+int XSecure_Sha384Update(u8* Data, u32 Size);
+int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash);
 
 #ifdef __cplusplus
 }
