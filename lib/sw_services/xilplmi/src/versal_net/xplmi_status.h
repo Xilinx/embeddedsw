@@ -727,14 +727,21 @@ typedef enum {
 	XOCP_PCR_ERR_PCR_SELECT	= 0x6A0, /**< 0x6A0 Error in PCR selection */
 	XOCP_PCR_ERR_NOT_COMPLETED,	/**< 0x6A1 PCR operation not completed */
 	XOCP_PCR_ERR_OPERATION,		/**< 0x6A2 PCR operation error */
-	XOCP_PCR_ERR_GLITCH,		/**< 0x6A3 PCR operation error */
-	XOCP_PCR_ERR_IN_UPDATE_LOG,	/**< 0x6A4 PCR log update error */
-	XOCP_PCR_ERR_IN_GET_PCR,	/**< 0x6A5 Error in GetPcr */
+	XOCP_PCR_ERR_IN_UPDATE_LOG,	/**< 0x6A3 PCR log update error */
+	XOCP_PCR_ERR_IN_GET_PCR,	/**< 0x6A4 Error in GetPcr */
+	XOCP_PCR_ERR_IN_GET_PCR_LOG,	/**< 0x6A5 Error in GetPcrLog*/
 	XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST,
 					/**< 0x6A6 PCR log read request is invalid */
-	XOCP_DICE_CDI_PARITY_ERROR,	/**< 0x6A7 CDI parity error */
-	XOCP_DEVAK_MAX_COUNT_EXCEED,	/**< 0x6A8 DEVAK MAX count exceeded */
-	XOCP_ECDSA_NOT_ENABLED_ERR,	/**< 0x6A9 ECDSA code is diabled */
+	XOCP_PCR_ERR_MEASURE_IDX_SELECT,/**< 0x6A7 SwPcr measurement index is invalid */
+	XOCP_PCR_ERR_IN_SWPCR_CONFIG, /**< 0x6A8 Error in SwPcr configuration */
+	XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED, /**< 0x6A9 SwPcr configuration is not done */
+	XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM, /**< 0x6AA Pcr insufficient buffer size provided */
+	XOCP_PCR_ERR_SWPCR_DUP_CONFIG, /**< 0x6AB Duplicate Pcr configuration provided */
+	XOCP_PCR_ERR_SWPCR_DUP_EXTEND, /**< 0x6AC Duplicate Pcr extend request received */
+
+	XOCP_DICE_CDI_PARITY_ERROR,	/**< 0x6AD CDI parity error */
+	XOCP_DEVAK_MAX_COUNT_EXCEED,	/**< 0x6AE DEVAK MAX count exceeded */
+	XOCP_ECDSA_NOT_ENABLED_ERR,	/**< 0x6AF ECDSA code is diabled */
 
 	XOCP_DME_ERR = 0x6B0,		/**< 0x6B0 DME signing error */
 	XOCP_DME_ROM_ERROR,		/**< 0x6B1 DME error in ROM */
