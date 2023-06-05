@@ -21,6 +21,7 @@
 * 1.0   vns  06/27/2022 Initial release
 * 1.1   am   01/10/2023 Added XOCP_DME_DEVICE_ID_SIZE_BYTES macro for dme
 * 1.2   kpt  06/02/2023 Added XOcp_HwPcrLogInfo structure
+*       kal  06/02/2023 Added SW PCR related structures and macros
 *
 * </pre>
 *
@@ -57,6 +58,13 @@ extern "C" {
 
 #define XOCP_MAX_NUM_OF_HWPCR_EVENTS		(32U)
 #define XOCP_SHA3_LEN_IN_BYTES          	(48U)
+#define XOCP_MAX_NUM_OF_SWPCRS			(0x40U)
+#define XOCP_NUM_OF_SWPCRS			(0x8U)
+#define XOCP_PDI_TYPE_FULL			(1U)
+#define XOCP_PDI_TYPE_PARTIAL			(2U)
+#define XOCP_PDI_TYPE_RESTORE			(3U)
+#define XOCP_EVENT_ID_NUM_OF_BYTES		(4U)
+#define XOCP_VERSION_NUM_OF_BYTES		(1U)
 
 /**************************** Type Definitions *******************************/
 
@@ -97,12 +105,18 @@ typedef struct {
 	u32 DmeSignatureS[XOCP_ECC_P384_SIZE_WORDS];	/**< Signature comp S */
 } XOcp_DmeResponse;
 
+/*
+ * HW PCR Event
+ */
 typedef struct {
-	u8 PcrNo;
-	u8 Hash[XOCP_SHA3_LEN_IN_BYTES];
-	u8 PcrValue[XOCP_SHA3_LEN_IN_BYTES];
+	u8 PcrNo;					/**< HW PCR number */
+	u8 Hash[XOCP_SHA3_LEN_IN_BYTES];		/**< Hash to be extended */
+	u8 PcrValue[XOCP_SHA3_LEN_IN_BYTES];		/**< PCR value after extension */
 } XOcp_HwPcrEvent;
 
+/*
+ * HW PCR Log
+ */
 typedef struct {
 	u32 RemainingHwPcrEvents;         /**< Number of HWPCR log events */
 	u32 TotalHwPcrLogEvents;          /**< Total number of HWPCR log events */
@@ -116,6 +130,48 @@ typedef struct {
 	u32 HeadIndex;
 	u32 TailIndex;
 } XOcp_HwPcrLog;
+/*
+ * SW PCR extend params
+ */
+typedef struct {
+	u32 PcrNum;		/**< SW PCR number */
+	u32 MeasurementIdx;	/**< Measurement index */
+	u32 DataSize;		/**< Data size */
+	u32 PdiType;		/**< Pdi type full/partial/restore */
+	u64 DataAddr;		/**< Address of the data to be extended */
+} XOcp_SwPcrExtendParams;
+
+/*
+ * SW PCR Data read params
+ */
+typedef struct {
+	u32 PcrNum;					/**< SW PCR number */
+	u32 MeasurementIdx;				/**< Measurement Index */
+	u32 DataStartIdx;				/**< Data Start Index to read */
+	u32 BufSize;					/**< Buffer Size */
+	u64 BufAddr;                                    /**< User provided Buffer Address */
+	u32 ReturnedBytes;				/**< Returned bytes */
+} XOcp_SwPcrReadData;
+
+/*
+ * SW PCR Measurement
+ */
+typedef struct {
+	u32 EventId;					/**< Event Id */
+	u32 Version;					/**< Version */
+	u8 HashOfData[XOCP_PCR_SIZE_BYTES];		/**< Hash of the data */
+	u8 MeasuredData[XOCP_PCR_SIZE_BYTES];		/**< PCR measurement with N-1 digest */
+} XOcp_PcrMeasurement;
+
+/*
+ * SW PCR Log InParams
+ */
+typedef struct {
+	u32 PcrNum;					/**< SW PCR number */
+	u32 LogSize;					/**< User provided buffer size */
+	u64 PcrLogAddr;                                 /**< User provided buffer address */
+	u32 DigestCount;				/**< Extended digest count*/
+} XOcp_SwPcrLogReadData;
 
 typedef struct {
 	u64 CertAddr;
