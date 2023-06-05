@@ -30,6 +30,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  ng   04/27/2023 Added support for cluster flags in ATF handoff params
 *       sk   05/23/2023 Made Status variable volatile to avoid optimization
+*       kal  06/04/2023 Added SW PCR extend support
 *
 * </pre>
 *
@@ -87,9 +88,9 @@ static int XLoader_InitSha3Instance1(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
 	XSecure_Sha3Hash* Sha3Hash);
-static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrInfo);
-static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrInfo);
-static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo);
+static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 DigestIndex, u32 PdiType);
+static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
+static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo, u32 DigestIndex, u32 PdiType);
 #endif
 #ifdef PLM_OCP
 static int XLoader_GenSubSysDevAk(u32 SubsystemID, u64 InHash);
@@ -1245,6 +1246,13 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 			/* Extend HW PCR */
 			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
 				XLOADER_SHA3_LEN);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			/* Extend SW PCR */
+			Status = XOcp_ExtendSwPcr(PcrNo, *(u32 *)(ImageInfo->DigestIndex),
+				(u64)(UINTPTR)Sha3Hash.Hash, XLOADER_SHA3_LEN,
+				ImageInfo->PdiType);
 		}
 	}
 
@@ -1294,54 +1302,66 @@ END:
 /*****************************************************************************/
 /**
  * @brief	This function measures the Secure Configuration that is
- * 			SPK, SPK ID and Encryption Revoke ID and extends to the
- * 			specified PCR
+ * 		SPK, SPK ID and Encryption Revoke ID and extends to the
+ * 		specified PCR
  *
  * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
  * @param	PcrInfo provides the PCR number and Measurement Index
  * 			to be extended.
+ * @param	DigestIndex is pointer to the DigestIndex across the PCR
+ * @param	PdiType	Full or Partial or Restore PDI
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_ERR_SECURE_CONFIG_MEASUREMENT if error in Secure config
- * 			measurement.
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_ERR_SECURE_CONFIG_MEASUREMENT if error in Secure config
+ * 		measurement.
  *
  *****************************************************************************/
-int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo)
+int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 PdiType)
 {
 	int Status = XLOADER_ERR_SECURE_CONFIG_MEASUREMENT;
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 	u32 IsAuthenticated = SecurePtr->IsAuthenticated;
 	u32 IsEncrypted = SecurePtr->IsEncrypted;
-	XSecure_Sha3Hash Sha3Hash;
+	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
+	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
+	XSecure_Sha3Hash Sha3Hash = {0U};
 
 	if (PcrInfo == XOCP_PCR_INVALID_VALUE) {
                 Status = XST_SUCCESS;
                 goto END;
         }
+
 	if(IsAuthenticated == (u8)TRUE) {
 		Status = XLoader_SpkMeasurement(SecurePtr, &Sha3Hash);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XLoader_ExtendSpkHash(&Sha3Hash, PcrInfo);
+		Status = XLoader_ExtendSpkHash(&Sha3Hash, PcrNo, MeasureIdx, PdiType);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		Status = XLoader_ExtendSpkId(SecurePtr->AcPtr->SpkId, PcrInfo);
+		MeasureIdx = MeasureIdx + 1U;
+
+		Status = XLoader_ExtendSpkId(SecurePtr->AcPtr->SpkId, PcrNo, MeasureIdx, PdiType);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
+		MeasureIdx = MeasureIdx + 1;
 	}
 	if (IsEncrypted == (u8)TRUE) {
 		if (IsAuthenticated != (u8)TRUE) {
 			Status = XLoader_ExtendEncRevokeId(
-				SecurePtr->PrtnHdr->EncRevokeID, PcrInfo);
+				SecurePtr->PrtnHdr->EncRevokeID, PcrNo, MeasureIdx, PdiType);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
+			MeasureIdx = MeasureIdx + 1;
 		}
 	}
+
+	*DigestIndex = MeasureIdx;
 
 	Status = XST_SUCCESS;
 END:
@@ -1351,6 +1371,7 @@ END:
 #else
 	(void)SecurePtr;
 	(void)PcrInfo;
+	(void)DigestIndex
 	Status = XST_SUCCESS;
 #endif
 	return Status;
@@ -1406,18 +1427,25 @@ END:
  * @param	SpkHash SPK key hash measured
  * @param	PcrInfo provides the PCR number and Measurement Index
  * 		to be extended.
+ * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only
+ * @param       PdiType Full or Partial or Restore PDI
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrInfo)
+static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 DigestIndex, u32 PdiType)
 {
 	int Status = XST_FAILURE;
-	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
 
 	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkHash->Hash,
 			XLOADER_SHA3_LEN);
+	if (Status != XST_SUCCESS) {
+                goto END;
+        }
 
+	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
+			(u64)(UINTPTR)&SpkHash->Hash, XLOADER_SHA3_LEN, PdiType);
+END:
 	return Status;
 }
 
@@ -1429,17 +1457,24 @@ static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrInfo)
  * @param	SpkId Partition AC SPK ID
  * @param	PcrInfo provides the PCR number and Measurement Index
  * 		to be extended.
+ * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only
+ * @param       PdiType Full or Partial or Restore PDI
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrInfo)
+static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrNo, u32 DigestIndex, u32 PdiType)
 {
 	int Status = XST_FAILURE;
-	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
 
 	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkId, sizeof(SpkId));
+	if (Status != XST_SUCCESS) {
+                goto END;
+        }
 
+        Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
+				(u64)(UINTPTR)&SpkId, sizeof(SpkId), PdiType);
+END:
 	return Status;
 }
 
@@ -1451,17 +1486,25 @@ static int XLoader_ExtendSpkId(u32 SpkId, u32 PcrInfo)
  * @param	SpkId Partition Header Revocation ID
  * @param	PcrInfo provides the PCR number and Measurement Index
  * 		to be extended.
+ * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only
+ * @param       PdiType Full or Partial or Restore PDI
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrInfo)
+static int XLoader_ExtendEncRevokeId(u32 EncRevokeId, u32 PcrNo, u32 DigestIndex, u32 PdiType)
 {
 	int Status = XST_FAILURE;
-	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
 
 	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&EncRevokeId, sizeof(EncRevokeId));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 
+	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
+			(u64)(UINTPTR)&EncRevokeId, sizeof(EncRevokeId), PdiType);
+
+END:
 	return Status;
 }
 #endif

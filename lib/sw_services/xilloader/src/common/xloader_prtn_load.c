@@ -628,7 +628,8 @@ END:
  *****************************************************************************/
 static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 {
-	int Status = XST_FAILURE;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	u32 PdiSrc = PdiPtr->PdiSrc;
 	int (*DevCopy) (u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags) = NULL;
 	XLoader_SecureParams SecureParams;
@@ -769,9 +770,17 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 		/* Partition Copy */
 		Status = XLoader_PrtnCopy(PdiPtr, &PrtnParams.DeviceCopy, &SecureParams);
 	}
-
+	/* In case of Authentication enabled, it is mandatory to use
+	 * same SPK for all partitions of an image. Hence secure config extend is
+	 * called only for the first partition of an image.
+	 */
 	if ((Status == XST_SUCCESS) && (PrtnIndex == 0x00U)) {
-		Status = XLoader_SecureConfigMeasurement(&SecureParams, PcrInfo);
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_SecureConfigMeasurement,
+					&SecureParams, PcrInfo, &PdiPtr->DigestIndex,
+					PdiPtr->PdiType);
+		if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+			Status |= StatusTmp;
+		}
 	}
 
 END:

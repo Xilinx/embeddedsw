@@ -252,7 +252,7 @@ int XLoader_UpdateHandler(XPlmi_ModuleOp Op);
 int XLoader_PlatInit(void);
 int XLoader_HdrMeasurement(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
-int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo);
+int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 PdiType);
 
 /************************** Variable Definitions *****************************/
 
