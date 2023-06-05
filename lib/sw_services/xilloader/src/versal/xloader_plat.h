@@ -214,14 +214,19 @@ static inline int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
  * @param	SecurePtr is pointer to the XLoader_SecureParams instance.
  * @param	PcrInfo provides the PCR number and Measurement Index
  * 		to be extended.
+ * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only
+ * @param       PdiType Full or Partial or Restore PDI
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
-static inline int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo)
+static inline int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr,
+	u32 PcrInfo, u32 *DigestIndex, u32 PdiType)
 {
 	(void)SecurePtr;
 	(void)PcrInfo;
+	(void)DigestIndex;
+	(void)PdiType;
 	return XST_SUCCESS;
 }
 
