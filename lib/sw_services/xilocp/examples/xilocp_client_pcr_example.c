@@ -42,9 +42,9 @@
 * 		2. In this example ".data" section elements that are passed by reference to the server-side should
 * 		   be stored in the above shared memory section. To make it happen in below example,
 *		   replace ".data" in attribute section with ".sharedmemory". For example,
-* 		   static u8 PCRBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PCRBuf")));
+* 		   static u8 PcrBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PcrBuf")));
 * 					should be changed to
-* 		   static u8 PCRBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".sharedmemory.PCRBuf")));
+* 		   static u8 PcrBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".sharedmemory.PcrBuf")));
 * 		   static u8 ExtendHash[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.ExtendHash")));
 * 					should be changed to
 * 		   static u8 ExtendHash[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".sharedmemory.ExtendHash")));
@@ -78,6 +78,7 @@
 *       am     01/10/23 Added configurable cache disable support
 *       kal    02/01/23 Moved configurable parameters from input.h file to
 *                       this file.
+* 1.2   kal    05/28/23 Adder SW PCR extend and logging functions
 *
 * </pre>
 * @note
@@ -91,6 +92,7 @@
 #include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
+#define XOCP_WORD_LEN		(4U)
 
 /**************************** Type Definitions *******************************/
 
@@ -101,13 +103,18 @@
 
 #define XOCP_READ_NUM_OF_LOG_ENTRIES	(1U)
 
+#define XOCP_NUM_SW_PCR_LOG_EVENTS	(4U)
+
 /************************** Function Prototypes ******************************/
 static void XOcp_PrintData(const u8 *Data, u32 size);
+static int XOcp_HwPcrExample(XOcp_ClientInstance *ClientInstancePtr);
+static int XOcp_SwPcrExample(XOcp_ClientInstance *ClientInstancePtr);
 
 /************************** Variable Definitions *****************************/
-static u8 PCRBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PCRBuf")));
+static u8 PcrBuf[XOCP_PCR_SIZE_BYTES] __attribute__ ((section (".data.PcrBuf")));
 static XOcp_HwPcrEvent   HwPcrEvents[XOCP_READ_NUM_OF_LOG_ENTRIES] __attribute__ ((section (".data.HwPcrEvents")));
 static XOcp_HwPcrLogInfo HwPcrLogInfo __attribute__ ((section (".data.HwPcrLogInfo")));
+static XOcp_PcrMeasurement SwPcrMeasurement[XOCP_NUM_SW_PCR_LOG_EVENTS] __attribute__ ((section (".data.SwPcrMeasurement")));
 static u8 ExtendHash[XOCP_EXTENDED_HASH_SIZE_IN_BYTES] =
 						{0x70,0x69,0x77,0x35,0x0b,0x93,
 						0x92,0xa0,0x48,0x2c,0xd8,0x23,
@@ -133,9 +140,7 @@ int main(void)
 	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XOcp_ClientInstance OcpClientInstance;
-	XOcp_HwPcr PcrNum = (XOcp_HwPcr)XOCP_SELECT_PCR_NUM;
-	u32 PcrMask = (u32)XOCP_READ_PCR_MASK;
-	u8 Index;
+
 #ifdef XOCP_CACHE_DISABLE
 	Xil_DCacheDisable();
 #endif
@@ -152,64 +157,181 @@ int main(void)
 		goto END;
 	}
 
-	xil_printf("Hash to be extended:\n");
-	XOcp_PrintData((const u8*)ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
-
 #ifndef XOCP_CACHE_DISABLE
 	Xil_DCacheInvalidateRange((UINTPTR)ExtendHash, XOCP_EXTENDED_HASH_SIZE_IN_BYTES);
-	Xil_DCacheInvalidateRange((UINTPTR)PCRBuf, XOCP_PCR_SIZE_BYTES);
+	Xil_DCacheInvalidateRange((UINTPTR)PcrBuf, XOCP_PCR_SIZE_BYTES);
 	Xil_DCacheInvalidateRange((UINTPTR)HwPcrEvents, sizeof(HwPcrEvents));
 	Xil_DCacheInvalidateRange((UINTPTR)HwPcrLogInfo, sizeof(HwPcrLogInfo));
+	Xil_DCacheInvalidateRange((UINTPTR)SwPcrMeasurement, sizeof(SwPcrMeasurement));
 #endif
 
-	Status = XOcp_ExtendPcr(&OcpClientInstance, PcrNum,
-		(u64)(UINTPTR)ExtendHash, sizeof(ExtendHash));
+	Status = XOcp_HwPcrExample(&OcpClientInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Extend PCR failed Status: 0x%02x\n\r", Status);
+		xil_printf("HW PCR example failed with Status:%08x \r\n", Status);
 		goto END;
 	}
 
-	Status = XOcp_GetPcr(&OcpClientInstance, PcrMask,
-		(u64)(UINTPTR)PCRBuf, sizeof(PCRBuf));
+	Status = XOcp_SwPcrExample(&OcpClientInstance);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Get PCR failed Status: 0x%02x\n\r", Status);
+		xil_printf("SW PCR example failed with Status:%08x \r\n", Status);
 		goto END;
 	}
-
-	xil_printf("Requested PCR contents:\n\r");
-	XOcp_PrintData((const u8*)PCRBuf, XOCP_PCR_SIZE_BYTES);
-
-	Status = XOcp_GetHwPcrLog(&OcpClientInstance, (u64)(UINTPTR)HwPcrEvents,
-				(u64)(UINTPTR)&HwPcrLogInfo, XOCP_READ_NUM_OF_LOG_ENTRIES);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Get PCR Log failed Status: 0x%02x\n\r", Status);
-		goto END;
-    }
-
-	if (HwPcrLogInfo.HwPcrEventsRead != 0U) {
-		xil_printf("\n\rPCR Log contents:\n\r");
-		for (Index = 0U; Index < HwPcrLogInfo.HwPcrEventsRead; Index++) {
-			xil_printf("Pcr Number: %x\r\n", HwPcrEvents[Index].PcrNo);
-			xil_printf("Hash to be extended:\n\r");
-			XOcp_PrintData((const u8*)HwPcrEvents[Index].Hash, XOCP_PCR_SIZE_BYTES);
-			xil_printf("Pcr Extended Value:\n\r");
-			XOcp_PrintData((const u8*)HwPcrEvents[Index].PcrValue, XOCP_PCR_SIZE_BYTES);
-			xil_printf("\n\r");
-		}
-	}
-	xil_printf("\n\rHWPCR Log status:\n\r");
-	xil_printf("No of requested HWPCR log events:%d \n\r",XOCP_READ_NUM_OF_LOG_ENTRIES);
-	xil_printf("No of read HWPCR log events occured:%d \n\r",HwPcrLogInfo.HwPcrEventsRead);
-	xil_printf("No of pending HWPCR read log events:%d \n\r",HwPcrLogInfo.RemainingHwPcrEvents);
-	xil_printf("Total No of update HWPCR log events:%d \n\r",HwPcrLogInfo.TotalHwPcrLogEvents);
-	xil_printf("HWPCR log overflow count since last read:%d \n\r",HwPcrLogInfo.OverflowCntSinceLastRd);
-	xil_printf("Successfully ran OCP Client Example");
+	xil_printf("\r\n Successfully ran OCP Client Example");
 	Status = XST_SUCCESS;
 
 END:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+* @brief   This function explains how to use HW PCR client APIs
+*
+* @param   ClientInstancePtr	Pointer to the OCP client instance
+*
+* @return  XST_SUCCESS	Upon Success
+* 	   ErrorCode 	Upon Failure
+*
+****************************************************************************/
+static int XOcp_HwPcrExample(XOcp_ClientInstance *ClientInstancePtr)
+{
+	int Status = XST_FAILURE;
+	u32 PcrNum = (u32)XOCP_SELECT_PCR_NUM;
+	u32 PcrMask = (u32)XOCP_READ_PCR_MASK;
+	u8 Index;
+
+	Status = XOcp_ExtendHwPcr(ClientInstancePtr, PcrNum,
+		(u64)(UINTPTR)ExtendHash, sizeof(ExtendHash));
+	if (Status != XST_SUCCESS) {
+		xil_printf("Extend HW PCR failed Status: 0x%02x\n\r", Status);
+		goto END;
+	}
+
+	Status = XOcp_GetHwPcr(ClientInstancePtr, PcrMask,
+		(u64)(UINTPTR)PcrBuf, sizeof(PcrBuf));
+	if (Status != XST_SUCCESS) {
+		xil_printf("Get HW PCR failed Status: 0x%02x\n\r", Status);
+		goto END;
+	}
+
+	xil_printf("Requested HW PCR contents:\n\r");
+	XOcp_PrintData((const u8*)PcrBuf, XOCP_PCR_SIZE_BYTES);
+
+	Status = XOcp_GetHwPcrLog(ClientInstancePtr, (u64)(UINTPTR)HwPcrEvents,
+				(u64)(UINTPTR)&HwPcrLogInfo, XOCP_READ_NUM_OF_LOG_ENTRIES);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Get HW PCR Log failed Status: 0x%02x\n\r", Status);
+		goto END;
+    }
+
+	if (HwPcrLogInfo.HwPcrEventsRead != 0U) {
+		xil_printf("\n\rHW PCR Log contents:\n\r");
+		for (Index = 0U; Index < HwPcrLogInfo.HwPcrEventsRead; Index++) {
+			xil_printf("PCR Number: %x\r\n", HwPcrEvents[Index].PcrNo);
+			xil_printf("Hash to be extended:\n\r");
+			XOcp_PrintData((const u8*)HwPcrEvents[Index].Hash, XOCP_PCR_SIZE_BYTES);
+			xil_printf("PCR Extended Value:\n\r");
+			XOcp_PrintData((const u8*)HwPcrEvents[Index].PcrValue, XOCP_PCR_SIZE_BYTES);
+			xil_printf("\n\r");
+		}
+	}
+	xil_printf("\n\rHW PCR Log status:\n\r");
+	xil_printf("No of requested HWPCR log events:%d \n\r",XOCP_READ_NUM_OF_LOG_ENTRIES);
+	xil_printf("No of read HWPCR log events occured:%d \n\r",HwPcrLogInfo.HwPcrEventsRead);
+	xil_printf("No of pending HWPCR read log events:%d \n\r",HwPcrLogInfo.RemainingHwPcrEvents);
+	xil_printf("Total No of update HWPCR log events:%d \n\r",HwPcrLogInfo.TotalHwPcrLogEvents);
+	xil_printf("HWPCR log overflow count since last read:%d \n\r",HwPcrLogInfo.OverflowCntSinceLastRd);
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/****************************************************************************/
+/**
+* @brief   This function explains how to use SW PCR client APIs
+*
+* @param   ClientInstancePtr	Pointer to the OCP client instance
+*
+* @return  XST_SUCCESS	Upon Success
+* 	   ErrorCode 	Upon Failure
+*
+****************************************************************************/
+static int XOcp_SwPcrExample(XOcp_ClientInstance *ClientInstancePtr)
+{
+	int Status = XST_FAILURE;
+	u32 PcrNum = (u32)XOCP_SELECT_PCR_NUM;
+	u32 PcrMask = (u32)XOCP_READ_PCR_MASK;
+	u32 MeasurementIdx = 0U;
+	XOcp_SwPcrExtendParams ExtendParams = {0U};
+	XOcp_SwPcrLogReadData LogParams = {0U};
+	XOcp_SwPcrReadData DataParams = {0U};
+	u8 Index;
+
+	ExtendParams.PcrNum = PcrNum;
+	ExtendParams.MeasurementIdx = MeasurementIdx;
+	ExtendParams.DataSize = sizeof(ExtendHash);
+	ExtendParams.PdiType = XOCP_PDI_TYPE_FULL;
+	ExtendParams.DataAddr = (u64)(UINTPTR)ExtendHash;
+	Status = XOcp_ExtendSwPcr(ClientInstancePtr, &ExtendParams);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Extend SW PCR failed Status: 0x%02x\n\r", Status);
+		goto END;
+	}
+
+	Status = XOcp_GetSwPcr(ClientInstancePtr, PcrMask,
+		&PcrBuf[0U], sizeof(PcrBuf));
+	if (Status != XST_SUCCESS) {
+		xil_printf("Get SW PCR failed Status: 0x%02x\n\r", Status);
+		goto END;
+	}
+
+	xil_printf("\r\nRequested SW PCR contents for PCR %x:\n\r", PcrNum);
+	XOcp_PrintData((const u8*)PcrBuf, XOCP_PCR_SIZE_BYTES);
+
+	DataParams.PcrNum = PcrNum;
+	DataParams.MeasurementIdx = MeasurementIdx;
+	DataParams.BufSize = sizeof(PcrBuf);
+	DataParams.DataStartIdx = 0U;
+	DataParams.BufAddr = (u64)(UINTPTR)PcrBuf;
+	Status = XOcp_GetSwPcrData(ClientInstancePtr, &DataParams);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Get SwPcrData failed Status: 0x%02x\n\r", Status);
+		goto END;
+	}
+
+	xil_printf("Requested SW PCR Data:\n\r");
+        XOcp_PrintData((const u8*)(u64)(UINTPTR)DataParams.BufAddr, DataParams.ReturnedBytes);
+
+	LogParams.PcrNum = PcrNum;
+	LogParams.LogSize = sizeof(SwPcrMeasurement);
+	LogParams.PcrLogAddr = (u64)(UINTPTR)&SwPcrMeasurement;
+	Status = XOcp_GetSwPcrLog(ClientInstancePtr, &LogParams);
+	if (Status != XST_SUCCESS) {
+                xil_printf("Get SW PCR Log failed Status: 0x%02x\n\r", Status);
+                goto END;
+        }
+
+	xil_printf("\n\rSW PCR Log contents for PCR: %x\n\r", PcrNum);
+	for (Index = 0U; Index < LogParams.DigestCount; Index++) {
+		xil_printf("EventId: ");
+		XOcp_PrintData((const u8*)&SwPcrMeasurement[Index].EventId, XOCP_EVENT_ID_NUM_OF_BYTES);
+		xil_printf("Version: ");
+		XOcp_PrintData((const u8*)&SwPcrMeasurement[Index].Version, XOCP_VERSION_NUM_OF_BYTES);
+		xil_printf("Hash Of Data:\n\r");
+		XOcp_PrintData((const u8*)SwPcrMeasurement[Index].HashOfData,
+				XOCP_PCR_SIZE_BYTES);
+		xil_printf("Measurement:\n\r");
+		XOcp_PrintData((const u8*)SwPcrMeasurement[Index].MeasuredData,
+				 XOCP_PCR_SIZE_BYTES);
+
+		xil_printf("\n\r");
+	}
+
+	Status = XST_SUCCESS;
+END:
+	return Status;
+}
 /****************************************************************************/
 /**
 * @brief   This function prints the given data on the console

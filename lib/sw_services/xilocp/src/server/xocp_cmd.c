@@ -19,6 +19,7 @@
 * 1.1   am   12/21/22 Initial release
 *       am   01/10/23 Added client side condition for dme ApiId
 * 1.2   har  02/24/23 Updated the code to support modified command for GetUsrCfg
+*       kal  05/28/23 Added SW PCR extend and logging functions
 *
 * </pre>
 *
@@ -83,14 +84,19 @@ static int XOcp_FeaturesCmd(u32 ApiId)
 	int Status = XST_INVALID_PARAM;
 
 	switch (ApiId) {
-		case XOCP_API(XOCP_API_EXTENDPCR):
-		case XOCP_API(XOCP_API_GETPCR):
-		case XOCP_API(XOCP_API_GETPCRLOG):
+		case XOCP_API(XOCP_API_EXTEND_HWPCR):
+		case XOCP_API(XOCP_API_GET_HWPCR):
+		case XOCP_API(XOCP_API_GET_HWPCRLOG):
 		case XOCP_API(XOCP_API_GENDMERESP):
 		case XOCP_API(XOCP_API_DEVAKINPUT):
 		case XOCP_API(XOCP_API_GETCERTUSERCFG):
 		case XOCP_API(XOCP_API_GETX509CERT):
 		case XOCP_API(XOCP_API_ATTESTWITHDEVAK):
+		case XOCP_API(XOCP_API_SET_SWPCRCONFIG):
+		case XOCP_API(XOCP_API_EXTEND_SWPCR):
+		case XOCP_API(XOCP_API_GET_SWPCR):
+		case XOCP_API(XOCP_API_GET_SWPCRLOG):
+		case XOCP_API(XOCP_API_GET_SWPCRDATA):
 			Status = XST_SUCCESS;
 			break;
 		default:
@@ -127,12 +133,17 @@ static int XOcp_ProcessCmd(XPlmi_Cmd *Cmd)
 		case XOCP_API(XOCP_API_FEATURES):
 			Status = XOcp_FeaturesCmd(Pload[0]);
 			break;
-		case XOCP_API(XOCP_API_EXTENDPCR):
-		case XOCP_API(XOCP_API_GETPCR):
-		case XOCP_API(XOCP_API_GETPCRLOG):
+		case XOCP_API(XOCP_API_EXTEND_HWPCR):
+		case XOCP_API(XOCP_API_GET_HWPCR):
+		case XOCP_API(XOCP_API_GET_HWPCRLOG):
 		case XOCP_API(XOCP_API_GENDMERESP):
 		case XOCP_API(XOCP_API_GETX509CERT):
 		case XOCP_API(XOCP_API_ATTESTWITHDEVAK):
+		case XOCP_API(XOCP_API_SET_SWPCRCONFIG):
+		case XOCP_API(XOCP_API_EXTEND_SWPCR):
+		case XOCP_API(XOCP_API_GET_SWPCR):
+		case XOCP_API(XOCP_API_GET_SWPCRLOG):
+		case XOCP_API(XOCP_API_GET_SWPCRDATA):
 			Status = XOcp_IpiHandler(Cmd);
 			break;
 		case XOCP_API(XOCP_API_DEVAKINPUT):

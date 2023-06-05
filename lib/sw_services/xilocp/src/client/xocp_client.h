@@ -22,6 +22,7 @@
 * 1.1   am   12/21/22 Initial release
 *       am   01/10/23 Added client side API for dme
 * 1.2   kpt  06/02/23 Updated XOcp_GetHwPcrLog prototype
+*       kal  06/02/23 Added client side API for SW PCR
 *
 * </pre>
 *
@@ -53,13 +54,17 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 int XOcp_ClientInit(XOcp_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
-int XOcp_ExtendPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 Size);
-int XOcp_GetPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr, u32 PcrBufSize);
+int XOcp_ExtendHwPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 Size);
+int XOcp_GetHwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr, u32 PcrBufSize);
 int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 HwPcrLogInfoAddr,
 		u32 NumOfLogEntries);
 int XOcp_GenDmeResp(XOcp_ClientInstance *InstancePtr, u64 NonceAddr, u64 DmeStructResAddr);
 int XOcp_GetX509Cert(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr);
 int XOcp_ClientAttestWithDevAk(XOcp_ClientInstance *InstancePtr, u64 AttestWithDevAk);
+int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *ExtendParams);
+int XOcp_GetSwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf, u32 PcrBufSize);
+int XOcp_GetSwPcrLog(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *LogParams);
+int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *DataParams);
 
 #ifdef __cplusplus
 }

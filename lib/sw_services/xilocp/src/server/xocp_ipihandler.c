@@ -19,6 +19,7 @@
 * 1.1   am   12/21/22 Initial release
 *       am   01/10/23 Added handler API for dme
 * 1.2   kpt  06/02/23 Updated XOcp_GetPcrLogIpi to XOcp_GetHwPcrLogIpi
+*       kal  06/02/23 Added handler API for SW PCR
 *
 * </pre>
 *
@@ -40,8 +41,8 @@
 #include "xplmi_hw.h"
 
 /************************** Function Prototypes *****************************/
-static int XOcp_ExtendPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size);
-static int XOcp_GetPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PurBufSize);
+static int XOcp_ExtendHwPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size);
+static int XOcp_GetHwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PurBufSize);
 static int XOcp_GetHwPcrLogIpi(u32 HwPcrEvntAddrLow, u32 HwPcrEvntAddrHigh,
 			u32 HwPcrLogInfoAddrLow, u32 HwPcrLogInfoAddrHigh,u32 NumOfLogEntries);
 static int XOcp_GenDmeRespIpi(u32 NonceAddrLow, u32 NonceAddrHigh, u32 DmeStructResAddrLow, u32 DmeStructResAddrHigh);
@@ -49,6 +50,12 @@ static int XOcp_GetX509CertificateIpi(u32 GetX509CertAddrLow,
 				u32 GetX509CertAddrHigh, u32 SubSystemID);
 static int XOcp_AttestWithDevAkIpi(u32 AttestWithDevAkLow,
 			u32 AttestWithDevAkHigh, u32 SubSystemID);
+static int XOcp_SetSwPcrConfig(u32 *Pload, u32 Len);
+static int XOcp_ExtendSwPcrIpi(u32 ExtParamsAddrLow, u32 ExtParamsAddrHigh);
+static int XOcp_GetSwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PcrBufSize);
+static int XOcp_GetSwPcrLogIpi(u32 AddrLow, u32 AddrHigh);
+static int XOcp_GetSwPcrDataIpi(u32 AddrLow, u32 AddrHigh);
+
 /*************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -72,13 +79,13 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 	switch (Cmd->CmdId & XOCP_API_ID_MASK) {
-		case XOCP_API(XOCP_API_EXTENDPCR):
-			Status = XOcp_ExtendPcrIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
+		case XOCP_API(XOCP_API_EXTEND_HWPCR):
+			Status = XOcp_ExtendHwPcrIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
-		case XOCP_API(XOCP_API_GETPCR):
-			Status = XOcp_GetPcrIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
+		case XOCP_API(XOCP_API_GET_HWPCR):
+			Status = XOcp_GetHwPcrIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
 			break;
-		case XOCP_API(XOCP_API_GETPCRLOG):
+		case XOCP_API(XOCP_API_GET_HWPCRLOG):
 			Status = XOcp_GetHwPcrLogIpi(Pload[0], Pload[1], Pload[2], Pload[3], Pload[4]);
 			break;
 		case XOCP_API(XOCP_API_GENDMERESP):
@@ -92,6 +99,21 @@ int XOcp_IpiHandler(XPlmi_Cmd *Cmd)
 			Status = XOcp_AttestWithDevAkIpi(Pload[0], Pload[1],
 					Cmd->SubsystemId);
 			break;
+		case XOCP_API(XOCP_API_SET_SWPCRCONFIG):
+			Status = XOcp_SetSwPcrConfig(Cmd->Payload, Cmd->Len);
+			break;
+		case XOCP_API(XOCP_API_EXTEND_SWPCR):
+			Status = XOcp_ExtendSwPcrIpi(Pload[0], Pload[1]);
+			break;
+		case XOCP_API(XOCP_API_GET_SWPCR):
+			Status = XOcp_GetSwPcrIpi(Pload[0], Pload[1], Pload[2], Pload[3]);
+			break;
+		case XOCP_API(XOCP_API_GET_SWPCRLOG):
+			Status = XOcp_GetSwPcrLogIpi(Pload[0], Pload[1]);
+			break;
+		case XOCP_API(XOCP_API_GET_SWPCRDATA):
+			Status = XOcp_GetSwPcrDataIpi(Pload[0], Pload[1]);
+			break;
 		default:
 			XOcp_Printf(DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 			Status = XST_INVALID_PARAM;
@@ -104,15 +126,13 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief   This function handler calls XOcp_ExtendPcr server API to extend
+ * @brief   This function handler calls XOcp_ExtendHwPcr server API to extend
  *          PCR with provided hash by requesting ROM service.
  *
  * @param   ExtHashAddrLow - Lower 32 bit address of the ExtendedHash
  *          buffer address
- *
  * @param   ExtHashAddrHigh - Higher 32 bit address of the ExtendedHash
  *          buffer address
- *
  * @param   PcrNum - Variable of enum XOcp_RomPcr to select the PCR to be
  *          extended
  *
@@ -121,19 +141,13 @@ END:
  *          - ErrorCode - Upon any failure
  *
  ******************************************************************************/
-static int XOcp_ExtendPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size)
+static int XOcp_ExtendHwPcrIpi(u32 PcrNum, u32 ExtHashAddrLow, u32 ExtHashAddrHigh, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
 	u64 ExtendedHashAddr = ((u64)ExtHashAddrHigh << 32U) | (u64)ExtHashAddrLow;
 
-	if ((PcrNum < XOCP_PCR_2) || (PcrNum > XOCP_PCR_7)) {
-		Status = XOCP_PCR_ERR_PCR_SELECT;
-		goto END;
-	}
-
 	Status = XOcp_ExtendHwPcr(PcrNum, (u64)(UINTPTR)ExtendedHashAddr, Size);
 
-END:
 	return Status;
 }
 
@@ -143,11 +157,8 @@ END:
  *          the PCR value from requested PCR.
  *
  * @param   PcrMask - Mask to tell what PCRs to read
- *
  * @param   PcrBuffAddrLow - Lower 32 bit address of the PCR buffer address
- *
  * @param   PcrBuffAddrHigh - Higher 32 bit address of the PCR buffer address
- *
  * @param   PcrBufSize - Size of the Pcr Buffer
  *
  * @return
@@ -155,7 +166,7 @@ END:
  *          - ErrorCode - Upon any failure
  *
  ******************************************************************************/
-static int XOcp_GetPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PcrBufSize)
+static int XOcp_GetHwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow, u32 PcrBuffAddrHigh, u32 PcrBufSize)
 {
 	volatile int Status = XST_FAILURE;
 	u64 PcrBuffAddr = ((u64)PcrBuffAddrHigh << 32U) | (u64)PcrBuffAddrLow;
@@ -198,12 +209,9 @@ static int XOcp_GetHwPcrLogIpi(u32 HwPcrEvntAddrLow, u32 HwPcrEvntAddrHigh,
  *          generate response with the DME signature
  *
  * @param   NonceAddrLow - Lower 32 bit address of the nonce buffer address
- *
  * @param   NonceAddrHigh - Higher 32 bit address of the nonce buffer address
- *
  * @param   DmeStructResAddrLow - Lower 32 bit address of the
  *          XOcp_DmeResponseAddr structure
- *
  * @param   DmeStructResAddrHigh - Higher 32 bit address of the
  *          XOcp_DmeResponseAddr structure
  *
@@ -234,7 +242,6 @@ END:
  *          generate the 509 certificate.
  *
  * @param   GetX509CertAddrLow - Lower 32 bit address of XOcp_GetX509Cert
- *
  * @param   GetX509CertAddrHigh - Higher 32 bit address of XOcp_GetX509Cert
  *
  * @return
@@ -268,7 +275,6 @@ END:
  *
  * @param   AttestWithDevAkLow - Lower 32 bit address of
  *			XOcp_AttestWithDevAk strucure
- *
  * @param   AttestWithDevAkHigh - Higher 32 bit address of
  *			XOcp_AttestWithDevAk strucure
  *
@@ -296,4 +302,122 @@ END:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+ * @brief   This function handler calls the XOcp_StoreSwPcrConfig server
+ * 	    API to store SwPcr configuration sent over IPI.
+ *
+ * @param   Pload - Pointer to command payload
+ * @param   Len   - Length of the payload
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - ErrorCode - Upon any failure
+ ******************************************************************************/
+static int XOcp_SetSwPcrConfig(u32 *Pload, u32 Len)
+{
+	volatile int Status = XST_FAILURE;
+
+	Status = XOcp_StoreSwPcrConfig(Pload, Len);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function handler calls XOcp_ExtendSwPcr to extend data to
+ * 	    specified SWPCR
+ *
+ * @param   ExtParamsAddrLow - Lower 32 bit address of the XOcp_SwPcrExtendParams
+ * @param   ExtParamsAddrHigh - Higher 32 bit address of the XOcp_SwPcrExtendParams
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - ErrorCode - Upon any failure
+ ******************************************************************************/
+static int XOcp_ExtendSwPcrIpi(u32 ExtParamsAddrLow, u32 ExtParamsAddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	u64 Addr = ((u64)ExtParamsAddrHigh << 32U) | (u64)ExtParamsAddrLow;
+	XOcp_SwPcrExtendParams ExtendParams;
+
+	Status = XPlmi_MemCpy64((u64)(UINTPTR)&ExtendParams, Addr, sizeof(ExtendParams));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XOcp_ExtendSwPcr(ExtendParams.PcrNum, ExtendParams.MeasurementIdx,
+		ExtendParams.DataAddr, ExtendParams.DataSize, ExtendParams.PdiType);
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function handler calls XOcp_GetSwPcr server API to get
+ * 	    specified SW PCR value
+ *
+ * @param   PcrMask - Mask to tell what PCRs to read
+ * @param   PcrBuffAddrLow - Lower 32 bit address of the PCR buffer address
+ * @param   PcrBuffAddrHigh - Higher 32 bit address of the PCR buffer address
+ * @param   PcrBufSize - Size of the PCR Buffer
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - ErrorCode - Upon any failure
+ ******************************************************************************/
+static int XOcp_GetSwPcrIpi(u32 PcrMask, u32 PcrBuffAddrLow,
+	u32 PcrBuffAddrHigh, u32 PcrBufSize)
+{
+	volatile int Status = XST_FAILURE;
+	u64 Addr = ((u64)PcrBuffAddrHigh << 32U) | (u64)PcrBuffAddrLow;
+
+	Status = XOcp_GetSwPcr(PcrMask, Addr, PcrBufSize);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function handler calls XOcp_GetSwPcrLog server API for
+ * 		SWPCR extend.
+ *
+ * @param   AddrLow - Lower 32 bit address of the XOcp_SwPcrLogReadData
+ * @param   AddrHigh - Higher 32 bit address of the XOcp_SwPcrLogReadData
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - ErrorCode - Upon any failure
+ ******************************************************************************/
+static int XOcp_GetSwPcrLogIpi(u32 AddrLow, u32 AddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
+
+	Status = XOcp_GetSwPcrLog(Addr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function handler calls XOcp_GetSwPcrData server API to
+ * 		read the specified SWPCR data.
+ *
+ * @param   AddrLow - Lower 32 bit address of the XOcp_SwPcrReadData
+ * @param   AddrHigh - Higher 32 bit address of the XOcp_SwPcrReadData
+ *
+ * @return
+ *          - XST_SUCCESS - Upon success
+ *          - ErrorCode - Upon any failure
+ ******************************************************************************/
+static int XOcp_GetSwPcrDataIpi(u32 AddrLow, u32 AddrHigh)
+{
+	volatile int Status = XST_FAILURE;
+	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
+
+	Status = XOcp_GetSwPcrData(Addr);
+
+	return Status;
+}
 #endif /* PLM_OCP */

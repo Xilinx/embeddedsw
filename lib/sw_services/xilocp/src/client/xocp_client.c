@@ -20,6 +20,7 @@
 * 1.1   am   12/21/22 Initial release
 *       am   01/10/23 Added client side API for dme
 * 1.2   kpt  06/02/23 Updated XOcp_GetHwPcrLog
+*       kal  06/02/23 Added client side API for SW PCR
 *
 * </pre>
 *
@@ -87,7 +88,7 @@ int XOcp_ClientInit(XOcp_ClientInstance* const InstancePtr,
  *          - XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_ExtendPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum,
+int XOcp_ExtendHwPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum,
 	u64 ExtHashAddr, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
@@ -97,12 +98,8 @@ int XOcp_ExtendPcr(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum,
 		goto END;
 	}
 
-	if ((PcrNum < XOCP_PCR_2) || (PcrNum > XOCP_PCR_7)) {
-		goto END;
-	}
-
 	/** Fill IPI Payload */
-	Payload[0U] = OcpHeader(0U, XOCP_API_EXTENDPCR);
+	Payload[0U] = OcpHeader(0U, XOCP_API_EXTEND_HWPCR);
 	Payload[1U] = PcrNum;
 	Payload[2U] = (u32)ExtHashAddr;
 	Payload[3U] = (u32)(ExtHashAddr >> 32);
@@ -121,17 +118,19 @@ END:
  *          requested PCR.
  *
  * @param   InstancePtr - Pointer to the client instance
- * @param   PcrNum - Variable of XOcp_HwPcr enum to select the PCR to
- *          be extended
- * @param   PcrBufAddr - Address of the 48 bytes buffer to store the
- *          requested PCR contents
+ * @param   PcrMask - Mask that tells which PCR to be read based on the
+ * 		bits set (bit 0 corresponds to PCR 0)and how many PCRs
+ * 		to be read using the number of bits set.
+ * @param   PcrBufAddr - Address of the buffer to store the
+ *          	requested PCR contents
+ * @param   PcrBufSize - Buffer size to read the PCR values
  *
  * @return
  *          - XST_SUCCESS - If PCR contents are copied
  *          - XST_FAILURE - Upon any failure
  *
  ******************************************************************************/
-int XOcp_GetPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr,
+int XOcp_GetHwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr,
 	u32 PcrBufSize)
 {
 	volatile int Status = XST_FAILURE;
@@ -142,7 +141,7 @@ int XOcp_GetPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr,
 	}
 
 	/** Fill IPI Payload */
-	Payload[0U] = OcpHeader(0U, XOCP_API_GETPCR);
+	Payload[0U] = OcpHeader(0U, XOCP_API_GET_HWPCR);
 	Payload[1U] = PcrMask;
 	Payload[2U] = (u32)PcrBufAddr;
 	Payload[3U] = (u32)(PcrBufAddr >> 32);
@@ -180,10 +179,10 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 H
         }
 
         /** Fill IPI Payload */
-        Payload[0U] = OcpHeader(0U, XOCP_API_GETPCRLOG);
+        Payload[0U] = OcpHeader(0U, XOCP_API_GET_HWPCRLOG);
         Payload[1U] = (u32)HwPcrEventAddr;
         Payload[2U] = (u32)(HwPcrEventAddr >> 32);
-		Payload[3U] = (u32)HwPcrLogInfoAddr;
+	Payload[3U] = (u32)HwPcrLogInfoAddr;
         Payload[4U] = (u32)(HwPcrLogInfoAddr >> 32);
         Payload[5U] = NumOfLogEntries;
 
@@ -192,6 +191,153 @@ int XOcp_GetHwPcrLog(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 H
 
 END:
         return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function sends IPI request to extend the SW PCR with
+ *          provided hash/data.
+ *
+ * @param   InstancePtr - Pointer to the client instance
+ * @param   ExtendParams - Pointer to the XOcp_SwPcrExtendParams structure
+ *
+ * @return
+ *          - XST_SUCCESS - If PCR extend is success
+ *          - XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_ExtendSwPcr(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *ExtendParams)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+	u64 ExtendParamsAddr = (u64)(UINTPTR)ExtendParams;
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/** Fill IPI Payload */
+	Payload[0U] = OcpHeader(0U, XOCP_API_EXTEND_SWPCR);
+	Payload[1U] = (u32)ExtendParamsAddr;
+	Payload[2U] = (u32)(ExtendParamsAddr >> 32);
+
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+		sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function sends IPI request to get the SW PCR value from
+ *          requested PCR.
+ *
+ * @param   InstancePtr - Pointer to the client instance
+ * @param   PcrMask - Mask that tells which PCR to be read based on the
+ * 		bits set (bit 0 corresponds to PCR 0)and how many PCRs
+ * 		to be read using the number of bits set.
+ * @param   PcrBuf - Pointer to the PCR buffer to store the
+ *          	requested PCR contents
+ * @param   PcrBufSize - Buffer size to read the PCR values
+ *
+ * @return
+ *          - XST_SUCCESS - If PCR contents are copied
+ *          - XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_GetSwPcr(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf,
+	u32 PcrBufSize)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XOCP_PAYLOAD_LEN_5U];
+	u64 PcrBufAddr = (u64)(UINTPTR)PcrBuf;
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/** Fill IPI Payload */
+	Payload[0U] = OcpHeader(0U, XOCP_API_GET_SWPCR);
+	Payload[1U] = PcrMask;
+	Payload[2U] = (u32)PcrBufAddr;
+	Payload[3U] = (u32)(PcrBufAddr >> 32);
+	Payload[4U] = PcrBufSize;
+
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+		sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function sends IPI request to get the SW PCR log.
+ *
+ * @param   InstancePtr - Pointer to the client instance
+ * @param   LogParams - Pointer to the XOcp_SwPcrLogReadData structure.
+ *
+ * @return
+ *          - XST_SUCCESS - If PCR contents are copied
+ *          - XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_GetSwPcrLog(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *LogParams)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+	u64 LogBufAddr = (u64)(UINTPTR)LogParams;
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/** Fill IPI Payload */
+	Payload[0U] = OcpHeader(0U, XOCP_API_GET_SWPCRLOG);
+	Payload[1U] = (u32)LogBufAddr;
+	Payload[2U] = (u32)(LogBufAddr >> 32);
+
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+				sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief   This function sends IPI request to get the SW PCR data for the
+ * 		specified PCR.
+ *
+ * @param   InstancePtr - Pointer to the client instance
+ * @param   DataParams - Pointer of the XOcp_SwPcrReadData structure.
+ *
+ * @return
+ *          - XST_SUCCESS - If PCR contents are copied
+ *          - XST_FAILURE - Upon any failure
+ *
+ ******************************************************************************/
+int XOcp_GetSwPcrData(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *DataParams)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[XOCP_PAYLOAD_LEN_3U];
+	u64 DataBufAddr = (u64)(UINTPTR)DataParams;
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		goto END;
+	}
+
+	/** Fill IPI Payload */
+	Payload[0U] = OcpHeader(0U, XOCP_API_GET_SWPCRDATA);
+	Payload[1U] = (u32)DataBufAddr;
+	Payload[2U] = (u32)(DataBufAddr >> 32);
+
+	Status = XOcp_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+				sizeof(Payload)/sizeof(u32));
+
+END:
+	return Status;
 }
 
 /*****************************************************************************/
