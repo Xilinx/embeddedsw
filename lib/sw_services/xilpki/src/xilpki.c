@@ -20,6 +20,8 @@
  * Ver   Who   Date      Changes
  * ----- ----  --------  ------------------------------------------------------
  * 1.0   Nava  12/05/22  Initial Release
+ * 1.1   Nava  06/06/23  Fix the issues relevant to the pki mux selection/deselection
+ *                       logic.
  *</pre>
  *
  *@note
@@ -101,12 +103,15 @@ int XPki_Initialize(XPki_Instance *InstancePtr)
 	/* Clear fpd slcr write protection reg */
 	Xil_Out32(FPD_SLCR_WPROT0, FPD_CLEAR_WRITE_PROTECT);
 
-	/* Release pki reset */
-	XPki_Reset();
-
 	/* Pki mux selection */
 	Xil_UtilRMW32(FPD_SLCR_PKI_MUX_SEL, FPD_SLCR_PKI_MUX_SEL_FULLRWMASK,
 		      XPKI_MUX_SELECT);
+
+	/* Enable fpd slcr write protection reg */
+	Xil_Out32(FPD_SLCR_WPROT0, FPD_SLCR_WPROT0_DEFVAL);
+
+	/* Release pki reset */
+	XPki_Reset();
 
 	/* Enable/Disable CM */
 	RegVal = Xil_In64(FPD_PKI_ENGINE_CTRL);
@@ -132,6 +137,13 @@ END:
 ******************************************************************************/
 void XPki_Close(void)
 {
+	/* Clear fpd slcr write protection reg */
+	Xil_Out32(FPD_SLCR_WPROT0, FPD_CLEAR_WRITE_PROTECT);
+
+	/* Pki mux Deselection */
+	Xil_UtilRMW32(FPD_SLCR_PKI_MUX_SEL, FPD_SLCR_PKI_MUX_SEL_FULLRWMASK,
+		      FPD_SLCR_PKI_MUX_SEL_DEFVAL);
+
 	/* Enable fpd slcr write protection reg */
 	Xil_Out32(FPD_SLCR_WPROT0, FPD_SLCR_WPROT0_DEFVAL);
 }
