@@ -1,0 +1,39 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for xilmailbox library application
+
+maintainers:
+  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+
+type: library
+
+version: 1.7
+
+description: Xilinx IPI Mailbox Library.
+
+properties:
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,ipi-bitmask:
+    description: IPI Bit mask
+
+supported_processors:
+  - psu_cortexa53
+  - psu_cortexr5
+  - psv_cortexa72
+  - psv_cortexr5
+  - psu_pmu
+  - psv_pmc
+  - psv_psm
+
+supported_os:
+  - standalone
+  - freertos10_xilinx
+
+depends:
+    ipipsu:
+        - reg
+        - xlnx,ipi-bitmask
+...

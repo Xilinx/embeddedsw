@@ -47,6 +47,7 @@
  *       kpt  03/16/22    Added shared memory API's for IPI utilization
  * 1.7   sd   10/11/22    Fix a typo
  * 1.8   am   09/03/23    Added payload length macros
+ *	 ht   05/30/23	  Added support for system device-tree flow.
  *
  *</pre>
  *
@@ -132,7 +133,11 @@ typedef enum {
  * Functions for xilmailbox.c
  * @{
  */
+#ifndef SDT
 u32 XMailbox_Initialize(XMailbox *InstancePtr, u8 DeviceId);
+#else
+u32 XMailbox_Initialize(XMailbox *InstancePtr, UINTPTR BaseAddress);
+#endif
 u32 XMailbox_Send(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking);
 u32 XMailbox_SendData(XMailbox *InstancePtr, u32 RemoteId,
 		      void *BufferPtr, u32 MsgLen, u8 BufferType, u8 Is_Blocking);
