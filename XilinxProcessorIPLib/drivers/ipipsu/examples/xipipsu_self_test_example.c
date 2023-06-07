@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,8 @@
 *                   ensure that "Successfully ran" and "Failed" strings
 *                   are available in all examples. This is a fix for
 *                   CR-965028.
+*
+* 2.14  ht  05/30/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -46,14 +49,21 @@
 #include "xscugic.h"
 #include "xipipsu.h"
 #include "xipipsu_hw.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************* Test Configuration ********************************/
 /* IPI device ID to use for this test */
+#ifndef SDT
 #define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
+#endif
 /* Test message length in words. Max is 8 words (32 bytes) */
 #define TEST_MSG_LEN	8
 /* Interrupt Controller device ID */
+#ifndef SDT
 #define INTC_DEVICE_ID	XPAR_SCUGIC_0_DEVICE_ID
+#endif
 /* Time out parameter while polling for response */
 #define TIMEOUT_COUNT 10000
 
@@ -140,7 +150,7 @@ void IpiIntrHandler(void *XIpiPsuPtr)
 
 }
 
-
+#ifndef SDT
 static XStatus SetupInterruptSystem(XScuGic *IntcInstancePtr,
 		XIpiPsu *IpiInstancePtr, u32 IpiIntrId) {
 	u32 Status = 0;
@@ -186,7 +196,7 @@ static XStatus SetupInterruptSystem(XScuGic *IntcInstancePtr,
 
 	return XST_SUCCESS;
 }
-
+#endif
 
 /**
  * @brief	Tests the IPI by sending a message and checking the response
@@ -201,7 +211,11 @@ static XStatus DoIpiTest(XIpiPsu *InstancePtr)
 	u32 TmpBuffer[TEST_MSG_LEN] = { 0 };
 
 	XIpiPsu_Config *DestCfgPtr;
+#ifndef SDT
 	DestCfgPtr = XIpiPsu_LookupConfig(TEST_CHANNEL_ID);
+#else
+	DestCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_BASEADDR);
+#endif
 
 	xil_printf("Message Content:\r\n");
 	for (Index = 0; Index < TEST_MSG_LEN; Index++) {
@@ -264,13 +278,27 @@ int main() {
 	Xil_DCacheDisable();
 
 	/* Look Up the config data */
+#ifndef SDT
 	CfgPtr = XIpiPsu_LookupConfig(TEST_CHANNEL_ID);
+#else
+        CfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_BASEADDR);
+#endif
 
 	/* Init with the Cfg Data */
 	XIpiPsu_CfgInitialize(&IpiInst, CfgPtr, CfgPtr->BaseAddress);
 
 	/* Setup the GIC */
-	SetupInterruptSystem(&GicInst, &IpiInst, (IpiInst.Config.IntId));
+#ifndef SDT
+	Status = SetupInterruptSystem(&GicInst, &IpiInst, (IpiInst.Config.IntId));
+#else
+	Status = XSetupInterruptSystem(&IpiInst, &IpiIntrHandler,
+                                       IpiInst.Config.IntId,
+                                       IpiInst.Config.IntrParent,
+                                       XINTERRUPT_DEFAULT_PRIORITY);
+#endif
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+        }
 
 	/* Enable reception of IPIs from all CPUs */
 	XIpiPsu_InterruptEnable(&IpiInst, XIPIPSU_ALL_MASK);
