@@ -103,7 +103,7 @@ u32 XMailbox_Initialize(XMailbox *InstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	Status = XIpiPs_Init(InstancePtr, DeviceId);
 #else
-        Status = XIpiPs_Init(InstancePtr, BaseAddress);
+	Status = XIpiPs_Init(InstancePtr, BaseAddress);
 #endif
 	return Status;
 }
@@ -133,7 +133,7 @@ static u32 XIpiPs_Init(XMailbox *InstancePtr, UINTPTR BaseAddress)
 #ifndef SDT
 	CfgPtr = XIpiPsu_LookupConfig(DeviceId);
 #else
-        CfgPtr = XIpiPsu_LookupConfig(BaseAddress);
+	CfgPtr = XIpiPsu_LookupConfig(BaseAddress);
 #endif
 
 	if (NULL == CfgPtr) {
@@ -212,7 +212,7 @@ static u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	u32 Status = XST_SUCCESS;
 
 	Status = (u32)XIpiPsu_WriteMessage(IpiInstancePtr, DataPtr->RemoteId,
-			     (u32 *)MsgBufferPtr, MsgLen, BufferType);
+					   (u32 *)MsgBufferPtr, MsgLen, BufferType);
 	if (Status != (u32)XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -249,13 +249,14 @@ static u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 
 	do {
 		Flag = (XIpiPsu_ReadReg(IpiInstancePtr->Config.BaseAddress,
-				XIPIPSU_OBS_OFFSET)) & (DataPtr->RemoteId);
+					XIPIPSU_OBS_OFFSET)) & (DataPtr->RemoteId);
 		if (Flag == 0U) {
 			break;
 		}
 		usleep(XIPI_IPI_DONE_BIT_SLEEP_IN_US);
 		Timeout--;
-	} while (Timeout != 0U);
+	}
+	while (Timeout != 0U);
 
 	if (Timeout == 0U) {
 		Status = XST_FAILURE;
@@ -287,7 +288,7 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 
 	Status = (u32)XIpiPsu_ReadMessage(IpiInstancePtr, DataPtr->SourceId,
-				     (u32 *)MsgBufferPtr, MsgLen, BufferType);
+					  (u32 *)MsgBufferPtr, MsgLen, BufferType);
 	return Status;
 }
 
@@ -307,7 +308,8 @@ static u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr,
 #ifndef __MICROBLAZE__
 static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 				  XMailbox *InstancePtr,
-				  u32 IpiIntrId) {
+				  u32 IpiIntrId)
+{
 #ifndef SDT
 	s32 Status = (s32)XST_FAILURE;
 	XScuGic_Config *IntcConfigPtr;
@@ -351,7 +353,7 @@ static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+				     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
 				     IntcInstancePtr);
 
 	Status = XScuGic_Connect(IntcInstancePtr, IpiIntrId,
@@ -381,16 +383,16 @@ static XStatus XIpiPs_RegisterIrq(XScuGic *IntcInstancePtr,
 
 #else
 	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
-        XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
+	XIpiPsu *IpiInstancePtr = &DataPtr->IpiInst;
 
-        XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
-                XIpiPs_IntrHandler, IpiIntrId, IpiInstancePtr->Config.IntrParent,
-                XINTERRUPT_DEFAULT_PRIORITY);
+	XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
+			      XIpiPs_IntrHandler, IpiIntrId, IpiInstancePtr->Config.IntrParent,
+			      XINTERRUPT_DEFAULT_PRIORITY);
 
-        XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
-                XIpiPs_IntrHandler, XMAILBOX_INTR_ID, IpiInstancePtr->Config.IntrParent,
-                XINTERRUPT_DEFAULT_PRIORITY);
-        return XST_SUCCESS;
+	XSetupInterruptSystem(InstancePtr, (Xil_InterruptHandler)
+			      XIpiPs_IntrHandler, XMAILBOX_INTR_ID, IpiInstancePtr->Config.IntrParent,
+			      XINTERRUPT_DEFAULT_PRIORITY);
+	return XST_SUCCESS;
 #endif
 }
 

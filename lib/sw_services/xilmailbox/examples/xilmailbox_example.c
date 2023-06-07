@@ -117,7 +117,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u32 DeviceId)
 		goto Done;
 	}
 
-	while(!ErrorStatus && !RecvDone);
+	while (!ErrorStatus && !RecvDone);
 
 	if (ErrorStatus) {
 		xil_printf("Error occurred during IPI transfer\n\r");
@@ -155,7 +155,7 @@ int XMailbox_Example(XMailbox *InstancePtr, u32 DeviceId)
 		goto Done;
 	}
 
-	while(!ErrorStatus && !RecvDone);
+	while (!ErrorStatus && !RecvDone);
 	if (ErrorStatus) {
 		Status = XST_FAILURE;
 		xil_printf("Error occurred during IPI transfer\n\r");

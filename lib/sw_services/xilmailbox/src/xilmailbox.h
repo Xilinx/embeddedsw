@@ -12,7 +12,7 @@
  * @{
  * @details
  *
- * The XilMailbox library provides the top-level hooks for sending or receiving 
+ * The XilMailbox library provides the top-level hooks for sending or receiving
  * an inter-processor interrupt (IPI) message using the Zynq® UltraScale+ MPSoC
  * IPI hardware.
  *
@@ -94,14 +94,14 @@ typedef void (*XMailbox_ErrorHandler) (void *CallBackRefPtr, u32 ErrorMask); /**
 typedef enum {
 	XMAILBOX_SHARED_MEM_UNINITIALIZED = 0, /**< Shared memory uninitialized */
 	XMAILBOX_SHARED_MEM_INITIALIZED, /**< Shared memory initialized */
-}XMailbox_IpiSharedMemState;
+} XMailbox_IpiSharedMemState;
 
 
 typedef struct {
 	u64 Address; /**< Address of the shared memory location */
 	u32 Size; /**< Size of the shared memory location */
 	XMailbox_IpiSharedMemState SharedMemState; /**< State of shared memory */
-}XMailbox_IpiSharedMem;
+} XMailbox_IpiSharedMem;
 
 /**
  * Data structure used to refer XilMailbox
@@ -124,8 +124,8 @@ typedef struct XMboxTag {
  * This typedef contains XMAILBOX Handler Types.
  */
 typedef enum {
-        XMAILBOX_RECV_HANDLER,     /**< For Recv Handler */
-        XMAILBOX_ERROR_HANDLER,    /**< For Error Handler */
+	XMAILBOX_RECV_HANDLER,     /**< For Recv Handler */
+	XMAILBOX_ERROR_HANDLER,    /**< For Error Handler */
 } XMailbox_Handler;
 
 /************************** Function Prototypes ******************************/
