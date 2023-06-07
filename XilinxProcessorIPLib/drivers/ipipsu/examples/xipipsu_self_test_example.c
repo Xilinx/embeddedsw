@@ -76,12 +76,12 @@ XIpiPsu IpiInst;
 /* Buffers to store Test Data */
 u32 MsgBuffer[TEST_MSG_LEN];
 
-static void InvertBuffer(u32 *BufPtr,u32 MsgLen)
+static void InvertBuffer(u32 *BufPtr, u32 MsgLen)
 {
 	u32 l_Index;
 
-	for(l_Index=0;l_Index<MsgLen; l_Index++){
-		BufPtr[l_Index]= ~BufPtr[l_Index];
+	for (l_Index = 0; l_Index < MsgLen; l_Index++) {
+		BufPtr[l_Index] = ~BufPtr[l_Index];
 	}
 }
 
@@ -108,21 +108,21 @@ void IpiIntrHandler(void *XIpiPsuPtr)
 
 	xil_printf("---->Enter Interrupt Handler\r\n");
 
-	Xil_AssertVoid(InstancePtr!=NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	IpiSrcMask = XIpiPsu_GetInterruptStatus(InstancePtr);
 
 	/* Poll for each source and send Response (Response = ~Msg) */
 
 	for (SrcIndex = 0U; SrcIndex < InstancePtr->Config.TargetCount;
-			SrcIndex++) {
+	     SrcIndex++) {
 
 		if (IpiSrcMask & InstancePtr->Config.TargetList[SrcIndex].Mask) {
 
 			/*  Read Incoming Message Buffer Corresponding to Source CPU */
 			XIpiPsu_ReadMessage(InstancePtr,
-					InstancePtr->Config.TargetList[SrcIndex].Mask, TmpBufPtr,
-					TEST_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
+					    InstancePtr->Config.TargetList[SrcIndex].Mask, TmpBufPtr,
+					    TEST_MSG_LEN, XIPIPSU_BUF_TYPE_MSG);
 
 			xil_printf("Message Received:\r\n");
 
@@ -135,13 +135,13 @@ void IpiIntrHandler(void *XIpiPsuPtr)
 
 			/* Send Response */
 			XIpiPsu_WriteMessage(InstancePtr,
-					InstancePtr->Config.TargetList[SrcIndex].Mask, TmpBufPtr,
-					TEST_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
+					     InstancePtr->Config.TargetList[SrcIndex].Mask, TmpBufPtr,
+					     TEST_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
 			xil_printf("Sent back Inverted Message.\r\n");
 
 			/* Clear the Interrupt Status - This clears the OBS bit on the SRC CPU registers */
 			XIpiPsu_ClearInterruptStatus(InstancePtr,
-					InstancePtr->Config.TargetList[SrcIndex].Mask);
+						     InstancePtr->Config.TargetList[SrcIndex].Mask);
 
 		}
 	}
@@ -152,7 +152,8 @@ void IpiIntrHandler(void *XIpiPsuPtr)
 
 #ifndef SDT
 static XStatus SetupInterruptSystem(XScuGic *IntcInstancePtr,
-		XIpiPsu *IpiInstancePtr, u32 IpiIntrId) {
+				    XIpiPsu *IpiInstancePtr, u32 IpiIntrId)
+{
 	u32 Status = 0;
 	XScuGic_Config *IntcConfig; /* Config for interrupt controller */
 
@@ -163,7 +164,7 @@ static XStatus SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	}
 
 	Status = XScuGic_CfgInitialize(&GicInst, IntcConfig,
-			IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -173,16 +174,16 @@ static XStatus SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * hardware interrupt handling logic in the processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-			(Xil_ExceptionHandler) XScuGic_InterruptHandler, IntcInstancePtr);
+				     (Xil_ExceptionHandler) XScuGic_InterruptHandler, IntcInstancePtr);
 
 	/*
 	 * Connect a device driver handler that will be called when an
 	 * interrupt for the device occurs, the device driver handler
 	 * performs the specific interrupt processing for the device
 	 */
-	 xil_printf("Interrupt ID: %d\r\n",IpiIntrId);
+	xil_printf("Interrupt ID: %d\r\n", IpiIntrId);
 	Status = XScuGic_Connect(IntcInstancePtr, IpiIntrId,
-			(Xil_InterruptHandler) IpiIntrHandler, (void *) IpiInstancePtr);
+				 (Xil_InterruptHandler) IpiIntrHandler, (void *) IpiInstancePtr);
 
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
@@ -227,12 +228,12 @@ static XStatus DoIpiTest(XIpiPsu *InstancePtr)
 	 * Send a Message to TEST_TARGET and WAIT for ACK
 	 */
 	XIpiPsu_WriteMessage(InstancePtr, DestCfgPtr->BitMask, MsgBuffer,
-			TEST_MSG_LEN,
-			XIPIPSU_BUF_TYPE_MSG);
+			     TEST_MSG_LEN,
+			     XIPIPSU_BUF_TYPE_MSG);
 	xil_printf("Triggering IPI and Waiting for Response...\r\n");
 	XIpiPsu_TriggerIpi(InstancePtr, DestCfgPtr->BitMask);
 	Status = XIpiPsu_PollForAck(InstancePtr, DestCfgPtr->BitMask,
-			TIMEOUT_COUNT);
+				    TIMEOUT_COUNT);
 
 	if (XST_SUCCESS == Status) {
 
@@ -241,7 +242,7 @@ static XStatus DoIpiTest(XIpiPsu *InstancePtr)
 		 * Read the Response buffer
 		 */
 		XIpiPsu_ReadMessage(InstancePtr, DestCfgPtr->BitMask, TmpBuffer,
-		TEST_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
+				    TEST_MSG_LEN, XIPIPSU_BUF_TYPE_RESP);
 		/**
 		 * Set the Status to SUCCESS; Status will be set to FAILURE in case the check fails
 		 * in the consequent code
@@ -254,21 +255,23 @@ static XStatus DoIpiTest(XIpiPsu *InstancePtr)
 
 		for (Index = 0; Index < TEST_MSG_LEN; Index++) {
 			xil_printf("W%d -> 0x%08x : 0x%08x\r\n", Index, MsgBuffer[Index],
-					TmpBuffer[Index]);
+				   TmpBuffer[Index]);
 			if (MsgBuffer[Index] != (~TmpBuffer[Index])) {
 				Status = XST_FAILURE;
 				break;
 			}
 		}
 
-	} else {
+	}
+	else {
 		xil_printf("Error: Timed Out polling for response\r\n");
 	}
 
 	return Status;
 }
 
-int main() {
+int main()
+{
 
 	XIpiPsu_Config *CfgPtr;
 
@@ -281,7 +284,7 @@ int main() {
 #ifndef SDT
 	CfgPtr = XIpiPsu_LookupConfig(TEST_CHANNEL_ID);
 #else
-        CfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_BASEADDR);
+	CfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_BASEADDR);
 #endif
 
 	/* Init with the Cfg Data */
@@ -292,13 +295,13 @@ int main() {
 	Status = SetupInterruptSystem(&GicInst, &IpiInst, (IpiInst.Config.IntId));
 #else
 	Status = XSetupInterruptSystem(&IpiInst, &IpiIntrHandler,
-                                       IpiInst.Config.IntId,
-                                       IpiInst.Config.IntrParent,
-                                       XINTERRUPT_DEFAULT_PRIORITY);
+				       IpiInst.Config.IntId,
+				       IpiInst.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
 #endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
-        }
+	}
 
 	/* Enable reception of IPIs from all CPUs */
 	XIpiPsu_InterruptEnable(&IpiInst, XIPIPSU_ALL_MASK);
@@ -312,7 +315,8 @@ int main() {
 	/* Print the test result */
 	if (XST_SUCCESS == Status) {
 		xil_printf("Successfully ran Ipipsu selftest Example\r\n");
-	} else {
+	}
+	else {
 		xil_printf("Ipipsu selftest Example Failed\r\n");
 	}
 
@@ -322,7 +326,8 @@ int main() {
 		 * We need to loop on to receive IPIs and respond to them
 		 */
 		__asm("wfi");
-	} while (1);
+	}
+	while (1);
 
 	/* Control never reaches here */
 	return Status;
