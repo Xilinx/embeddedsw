@@ -1371,7 +1371,8 @@ END:
 #else
 	(void)SecurePtr;
 	(void)PcrInfo;
-	(void)DigestIndex
+	(void)DigestIndex;
+	(void)PdiType;
 	Status = XST_SUCCESS;
 #endif
 	return Status;
