@@ -1,0 +1,11 @@
+/******************************************************************************
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef __XILMAILBOX_HWCONFIG_H_
+#define __XILMAILBOX_HWCONFIG_H_
+
+#cmakedefine XMAILBOX_IPI_BASEADDRESS @XMAILBOX_IPI_BASEADDRESS@
+#cmakedefine XMAILBOX_IPI_CHANNEL_ID @XMAILBOX_IPI_CHANNEL_ID@
+
+#endif
