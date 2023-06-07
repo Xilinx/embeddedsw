@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +28,7 @@
 * 1.2   adk     26/03/20  Updated the Remote Channel ID to use IPIPSU driver
 *			  Canonical define inorder make this example work for
 *			  all supported processors.
+* 1.8	ht	05/30/23  Added support for system device-tree flow.
 * </pre>
 *
 *
@@ -39,11 +41,20 @@
 #include "xscugic.h"
 #include "xilmailbox.h"
 #include "xdebug.h"
+#ifdef SDT
+#include "xilmailbox_hwconfig.h"
+#endif
+
 
 /************************* Test Configuration ********************************/
 /* IPI device ID to use for this test */
+#ifdef SDT
+#define TEST_CHANNEL_ID         XMAILBOX_IPI_BASEADDRESS
+#define REMOTE_CHANNEL_ID       XMAILBOX_IPI_CHANNEL_ID
+#else
 #define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
 #define REMOTE_CHANNEL_ID	XPAR_XIPIPSU_0_BIT_MASK
+#endif
 
 /* Test message length in words. Max is 8 words (32 bytes) */
 #define TEST_MSG_LEN	8
@@ -55,7 +66,7 @@ volatile static int ErrorStatus = 0;	/**< Error Status flag*/
 static u32 ReqBuffer[TEST_MSG_LEN];
 static u32 RespBuffer[TEST_MSG_LEN];
 
-int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId);
+int XMailbox_Example(XMailbox *InstancePtr, u32 DeviceId);
 static void DoneHandler(void *CallBackRefPtr);
 static void ErrorHandler(void *CallBackRefPtr, u32 Mask);
 
@@ -74,7 +85,7 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-int XMailbox_Example(XMailbox *InstancePtr, u8 DeviceId)
+int XMailbox_Example(XMailbox *InstancePtr, u32 DeviceId)
 {
 	u32 Index;
 	u32 Status;
