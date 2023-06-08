@@ -418,15 +418,15 @@ extern "C" {
 #define XEMACPS_SGMII_ENABLE_OPTION	0x00008000U
 
 #define XEMACPS_DEFAULT_OPTIONS                     \
-    ((u32)XEMACPS_FLOW_CONTROL_OPTION |                  \
-     (u32)XEMACPS_FCS_INSERT_OPTION |                    \
-     (u32)XEMACPS_FCS_STRIP_OPTION |                     \
-     (u32)XEMACPS_BROADCAST_OPTION |                     \
-     (u32)XEMACPS_LENTYPE_ERR_OPTION |                   \
-     (u32)XEMACPS_TRANSMITTER_ENABLE_OPTION |            \
-     (u32)XEMACPS_RECEIVER_ENABLE_OPTION |               \
-     (u32)XEMACPS_RX_CHKSUM_ENABLE_OPTION |              \
-     (u32)XEMACPS_TX_CHKSUM_ENABLE_OPTION)
+	((u32)XEMACPS_FLOW_CONTROL_OPTION |                  \
+	 (u32)XEMACPS_FCS_INSERT_OPTION |                    \
+	 (u32)XEMACPS_FCS_STRIP_OPTION |                     \
+	 (u32)XEMACPS_BROADCAST_OPTION |                     \
+	 (u32)XEMACPS_LENTYPE_ERR_OPTION |                   \
+	 (u32)XEMACPS_TRANSMITTER_ENABLE_OPTION |            \
+	 (u32)XEMACPS_RECEIVER_ENABLE_OPTION |               \
+	 (u32)XEMACPS_RX_CHKSUM_ENABLE_OPTION |              \
+	 (u32)XEMACPS_TX_CHKSUM_ENABLE_OPTION)
 
 /**< Default options set when device is initialized or reset */
 /*@}*/
@@ -457,11 +457,11 @@ extern "C" {
 #define XEMACPS_HDR_VLAN_SIZE   18U	/* size of Ethernet header with VLAN */
 #define XEMACPS_TRL_SIZE        4U	/* size of Ethernet trailer (FCS) */
 #define XEMACPS_MAX_FRAME_SIZE       (XEMACPS_MTU + XEMACPS_HDR_SIZE + \
-        XEMACPS_TRL_SIZE)
+				      XEMACPS_TRL_SIZE)
 #define XEMACPS_MAX_VLAN_FRAME_SIZE  (XEMACPS_MTU + XEMACPS_HDR_SIZE + \
-        XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE)
+				      XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE)
 #define XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO  (XEMACPS_MTU_JUMBO + XEMACPS_HDR_SIZE + \
-        XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE)
+		XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE)
 
 /* DMACR Bust length hash defines */
 
@@ -501,7 +501,7 @@ typedef void (*XEmacPs_Handler) (void *CallBackRef);
  *
  */
 typedef void (*XEmacPs_ErrHandler) (void *CallBackRef, u8 Direction,
-				     u32 ErrorWord);
+				    u32 ErrorWord);
 
 /*@}*/
 
@@ -607,8 +607,8 @@ typedef struct XEmacPs_Instance {
 *****************************************************************************/
 #define XEmacPs_IntEnable(InstancePtr, Mask)                            \
 	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,             \
-		XEMACPS_IER_OFFSET,                                     \
-		((Mask) & XEMACPS_IXR_ALL_MASK));
+			 XEMACPS_IER_OFFSET,                                     \
+			 ((Mask) & XEMACPS_IXR_ALL_MASK));
 
 /****************************************************************************/
 /**
@@ -628,8 +628,8 @@ typedef struct XEmacPs_Instance {
 *****************************************************************************/
 #define XEmacPs_IntDisable(InstancePtr, Mask)                           \
 	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,             \
-		XEMACPS_IDR_OFFSET,                                     \
-		((Mask) & XEMACPS_IXR_ALL_MASK));
+			 XEMACPS_IDR_OFFSET,                                     \
+			 ((Mask) & XEMACPS_IXR_ALL_MASK));
 
 /****************************************************************************/
 /**
@@ -649,8 +649,8 @@ typedef struct XEmacPs_Instance {
 *****************************************************************************/
 #define XEmacPs_IntQ1Enable(InstancePtr, Mask)                            \
 	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,             \
-		XEMACPS_INTQ1_IER_OFFSET,                                \
-		((Mask) & XEMACPS_INTQ1_IXR_ALL_MASK));
+			 XEMACPS_INTQ1_IER_OFFSET,                                \
+			 ((Mask) & XEMACPS_INTQ1_IXR_ALL_MASK));
 
 /****************************************************************************/
 /**
@@ -670,8 +670,8 @@ typedef struct XEmacPs_Instance {
 *****************************************************************************/
 #define XEmacPs_IntQ1Disable(InstancePtr, Mask)                           \
 	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,             \
-		XEMACPS_INTQ1_IDR_OFFSET,                               \
-		((Mask) & XEMACPS_INTQ1_IXR_ALL_MASK));
+			 XEMACPS_INTQ1_IDR_OFFSET,                               \
+			 ((Mask) & XEMACPS_INTQ1_IXR_ALL_MASK));
 
 /****************************************************************************/
 /**
@@ -688,10 +688,10 @@ typedef struct XEmacPs_Instance {
 *
 *****************************************************************************/
 #define XEmacPs_Transmit(InstancePtr)                              \
-        XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,          \
-        XEMACPS_NWCTRL_OFFSET,                                     \
-        (XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,          \
-        XEMACPS_NWCTRL_OFFSET) | XEMACPS_NWCTRL_STARTTX_MASK))
+	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,          \
+			 XEMACPS_NWCTRL_OFFSET,                                     \
+			 (XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,          \
+					  XEMACPS_NWCTRL_OFFSET) | XEMACPS_NWCTRL_STARTTX_MASK))
 
 /****************************************************************************/
 /**
@@ -712,9 +712,9 @@ typedef struct XEmacPs_Instance {
 *
 *****************************************************************************/
 #define XEmacPs_IsRxCsum(InstancePtr)                                     \
-        ((XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,             \
-          XEMACPS_NWCFG_OFFSET) & XEMACPS_NWCFG_RXCHKSUMEN_MASK) != 0U     \
-          ? TRUE : FALSE)
+	((XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,             \
+			  XEMACPS_NWCFG_OFFSET) & XEMACPS_NWCFG_RXCHKSUMEN_MASK) != 0U     \
+	 ? TRUE : FALSE)
 
 /****************************************************************************/
 /**
@@ -735,9 +735,9 @@ typedef struct XEmacPs_Instance {
 *
 *****************************************************************************/
 #define XEmacPs_IsTxCsum(InstancePtr)                                     \
-        ((XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,              \
-          XEMACPS_DMACR_OFFSET) & XEMACPS_DMACR_TCPCKSUM_MASK) != 0U       \
-          ? TRUE : FALSE)
+	((XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,              \
+			  XEMACPS_DMACR_OFFSET) & XEMACPS_DMACR_TCPCKSUM_MASK) != 0U       \
+	 ? TRUE : FALSE)
 
 /************************** Function Prototypes *****************************/
 
@@ -762,10 +762,10 @@ typedef struct XEmacPs_Instance {
 *
 *****************************************************************************/
 #define XEmacPs_SetRXWatermark(InstancePtr, High, Low)                     \
-        XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,                \
-        XEMACPS_RXWATERMARK_OFFSET,                                        \
-        (High & XEMACPS_RXWM_HIGH_MASK) |  \
-        ((Low << XEMACPS_RXWM_LOW_SHFT_MSK) & XEMACPS_RXWM_LOW_MASK) |)
+	XEmacPs_WriteReg((InstancePtr)->Config.BaseAddress,                \
+			 XEMACPS_RXWATERMARK_OFFSET,                                        \
+			 (High & XEMACPS_RXWM_HIGH_MASK) |  \
+			 ((Low << XEMACPS_RXWM_LOW_SHFT_MSK) & XEMACPS_RXWM_LOW_MASK) |)
 
 /****************************************************************************/
 /**
@@ -782,8 +782,8 @@ typedef struct XEmacPs_Instance {
 *
 *****************************************************************************/
 #define XEmacPs_GetRXWatermark(InstancePtr)                     \
-        XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,                \
-        XEMACPS_RXWATERMARK_OFFSET)
+	XEmacPs_ReadReg((InstancePtr)->Config.BaseAddress,                \
+			XEMACPS_RXWATERMARK_OFFSET)
 /*
  * Initialization functions in xemacps.c
  */
@@ -824,7 +824,7 @@ void XEmacPs_ClearHash(XEmacPs *InstancePtr);
 void XEmacPs_GetHash(XEmacPs *InstancePtr, void *AddressPtr);
 
 void XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr,
-				XEmacPs_MdcDiv Divisor);
+			    XEmacPs_MdcDiv Divisor);
 void XEmacPs_SetOperatingSpeed(XEmacPs *InstancePtr, u16 Speed);
 u16 XEmacPs_GetOperatingSpeed(XEmacPs *InstancePtr);
 LONG XEmacPs_PhyRead(XEmacPs *InstancePtr, u32 PhyAddress,
