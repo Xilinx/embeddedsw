@@ -339,6 +339,7 @@ typedef struct {
 	u32 DecKeySrc; /**< Decryption Key Source */
 	u32 PpdiKatStatus; /**< PPDI Known Answer Test Status */
 #endif
+	u32 DigestIndex;
 } XilPdi;
 
 /* Structure to store various parameters for Device Copy */
@@ -383,8 +384,10 @@ typedef struct {
 	u64 DataAddr;
 	u32 DataSize;
 	u32 PcrInfo;
+	u32 *DigestIndex;
 	u32 Flags;
 	u32 SubsystemID;
+	u32 PdiType;
 } XLoader_ImageMeasureInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
