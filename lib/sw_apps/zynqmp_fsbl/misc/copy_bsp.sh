@@ -46,8 +46,6 @@ STANDALONE_DIR=$EMBEDDED_SW_DIR/lib/bsp/standalone/src
 # libraries dir
 SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
 
-BSP_SEQUENTIAL_MAKEFILES=
-
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then
 	echo "BSP directory already exists"
@@ -69,7 +67,6 @@ fi
 mkdir -p $BSP_DIR/libsrc/xilffs
 cp -r $SERVICES_DIR/xilffs/src $BSP_DIR/libsrc/xilffs/
 cp -r $SERVICES_DIR/xilffs/src/include/* $BSP_DIR/include/
-BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilffs/src/Makefile"
 
 mkdir -p $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/Makefile $BSP_DIR/libsrc/xilsecure/src/
@@ -77,7 +74,6 @@ cp -r $SERVICES_DIR/xilsecure/src/common/all/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/* $BSP_DIR/libsrc/xilsecure/src/
 cp -r $SERVICES_DIR/xilsecure/src/common/all/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
-BSP_SEQUENTIAL_MAKEFILES="BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilsecure/src/Makefile"
 
 cp -r $SERVICES_DIR/xilpm/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/* $BSP_DIR/libsrc/xilpm/src/
@@ -87,7 +83,6 @@ if [ -e $BOARD_DIR/pm_cfg_obj.c ]; then
 else
 	cp $WORKING_DIR/pm_cfg_obj.c  $BSP_DIR/libsrc/xilpm/src/
 fi
-BSP_SEQUENTIAL_MAKEFILES="BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/xilpm/src/zynqmp/client/common/Makefile"
 
 rm -rf $BSP_DIR/libsrc/xilpm/src/zynqmp/
 rm -rf $BSP_DIR/libsrc/xilpm/src/versal/
@@ -172,7 +167,6 @@ do
 
 	# copy all the HSM generated driver files DRIVER_g.c
 	#   cp $BOARD_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
-	BSP_SEQUENTIAL_MAKEFILES="$BSP_SEQUENTIAL_MAKEFILES $BSP_DIR/libsrc/$line/src/Makefile"
 
 done < $DRIVERS_LIST
 
@@ -203,4 +197,3 @@ if [ $PROC == "a53" ]; then
 elif [ $PROC == "r5" ]; then
 	cp ../misc/zcu102/r5/xipipsu_g.c $BSP_DIR/libsrc/ipipsu/src/
 fi
-export BSP_SEQUENTIAL_MAKEFILES
