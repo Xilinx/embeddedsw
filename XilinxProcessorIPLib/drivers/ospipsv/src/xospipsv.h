@@ -229,7 +229,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  */
 #define XOspiPsv_ReadReg(BaseAddress, RegOffset) Xil_In32((BaseAddress) + (u32)(RegOffset))
 #define XOspiPsv_WriteReg(BaseAddress, RegOffset, RegisterValue) \
-		Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(RegisterValue))
+	Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(RegisterValue))
 /** @} */
 
 /**
@@ -325,12 +325,12 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 #define XOSPIPSV_DISABLE_DAC_VALUE		0x0U
 #define XOSPIPSV_SPI_DISABLE_VALUE		0x0U
 #define XOSPIPSV_CONFIG_INIT_VALUE		(((u32)XOSPIPSV_CLK_PRESCALE_2 << \
-				(u32)XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_SHIFT) | \
-			((u32)XOSPIPSV_NO_SLAVE_SELCT_VALUE << \
-					(u32)XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_SHIFT) | \
-			((u32)XOSPIPSV_DISABLE_DAC_VALUE << \
-					(u32)XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_SHIFT) | \
-					(u32)XOSPIPSV_SPI_DISABLE_VALUE)
+		(u32)XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_SHIFT) | \
+		((u32)XOSPIPSV_NO_SLAVE_SELCT_VALUE << \
+		 (u32)XOSPIPSV_CONFIG_REG_PERIPH_CS_LINES_FLD_SHIFT) | \
+		((u32)XOSPIPSV_DISABLE_DAC_VALUE << \
+		 (u32)XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_SHIFT) | \
+		(u32)XOSPIPSV_SPI_DISABLE_VALUE)
 #define XOSPIPSV_POLL_CNT_FLD_PHY	0x3U
 #define XOSPIPSV_POLL_CNT_FLD_NON_PHY	0x1U
 #define XOSPIPSV_MIN_PHY_FREQ	50000000
@@ -430,7 +430,7 @@ u32 XOspiPsv_PollTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
 u32 XOspiPsv_IntrTransfer(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg);
 u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr);
 void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
-				XOspiPsv_StatusHandler FuncPointer);
+			       XOspiPsv_StatusHandler FuncPointer);
 u32 XOspiPsv_SetSdrDdrMode(XOspiPsv *InstancePtr, u32 Mode);
 void XOspiPsv_ConfigureAutoPolling(const XOspiPsv *InstancePtr, u32 FlashMode);
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr);
