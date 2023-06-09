@@ -89,6 +89,7 @@ endif
 all: $(EXEC)
 
 $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
+
 ifeq '$(CROSS_COMP)' 'armclang'
 	$(CC)  -E -o xfsbl_exit.s xfsbl_exit.S $(INCLUDEPATH)
 	$(CC)  -E -o xfsbl_translation_table_a53_64.s xfsbl_translation_table_a53_64.S $(INCLUDEPATH)
@@ -101,6 +102,8 @@ ifneq "$(CROSS_COMP)" "armclang"
 endif
 	cp $(EXEC) fsbl.elf
 	rm -rf $(OBJS)
+
+$(OBJS): $(LIBS)
 
 $(LIBS):
 	echo "Copying BSP files"
