@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   har  01/02/23 Initial release
+*       kal  19/05/23 Added Sha2 Start, Update and Finish APIs support
 *
 * </pre>
 * @note
@@ -27,14 +28,15 @@
 #include "xstatus.h"
 #include "xsecure_error.h"
 #include "xsecure_sha384.h"
+#include "SoftSHA.h"
 
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 typedef unsigned int SHA32;
+sha384_context ShaCtx;
 
 /************************** Function Prototypes ******************************/
-void sha_384(const unsigned char* in, const SHA32 size, unsigned char* out);
 
 /*****************************************************************************/
 /**
@@ -60,6 +62,75 @@ int XSecure_Sha384Digest(u8* Data, u32 Size, u8* Hash)
 	}
 
 	sha_384(Data, Size, Hash);
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function starts the SHA384 engine
+ *
+ ******************************************************************************/
+void XSecure_Sha384Start(void)
+{
+	sha384_starts(&ShaCtx);
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function updates the data to SHA2-384 update API in driver
+ *
+ * @param	Data		Pointer to buffer which stores input data
+ * @param	Size		Size of the input data
+ *
+ * @return
+ *	-	XST_SUCCESS - If update done successfully
+ *	-	XSECURE_SHA384_INVALID_PARAM - On invalid parameter
+ *	-	XST_FAILURE - Error condition
+ ******************************************************************************/
+int XSecure_Sha384Update(u8* Data, u32 Size)
+{
+	volatile int Status = XST_FAILURE;
+
+	/* Validate the input arguments */
+	if (Data == NULL) {
+		Status = (int)XSECURE_SHA384_INVALID_PARAM;
+		goto END;
+	}
+
+	sha384_update(&ShaCtx, Data, Size);
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function calculates the SHA2-384 hash on the given input data
+ *
+ * @param	ResHash		Pointer to XSecure_Sha2Hash structure
+ *
+ * @return
+ *	-	XST_SUCCESS - If digest calculation done successfully
+ *	-	XSECURE_SHA384_INVALID_PARAM - On invalid parameter
+ *	-	XST_FAILURE - Error condition
+ ******************************************************************************/
+int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash)
+{
+	volatile int Status = XST_FAILURE;
+
+	/* Validate the input arguments */
+	if (ResHash == NULL) {
+		Status = (int)XSECURE_SHA384_INVALID_PARAM;
+		goto END;
+	}
+
+	sha384_finish(&ShaCtx, ResHash->Hash);
 
 	Status = XST_SUCCESS;
 
