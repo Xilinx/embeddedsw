@@ -19,6 +19,7 @@
 * 1.0   vns  06/26/2022 Initial release
 * 1.1   am   01/10/2023 Modified function argument type to u64 in
 *                       XOcp_GenerateDmeResponse().
+* 1.2   kal  05/28/2023 Added SW PCR extend and logging functions
 *
 * </pre>
 *
@@ -48,13 +49,41 @@ extern "C" {
 #define XOCP_XPPU_DYNAMIC_RECONFIG_APER_SET_VALUE	(0x31U)
 #define XOcp_MemCopy								XPlmi_DmaXfr
 #define XOcp_Printf								XPlmi_Printf
-#define XOCP_MAX_NUM_OF_SWPCR_DIGESTS			(0x20U)
 #define XOCP_WORD_LEN					(0x4U)
 #define XOCP_PCR_NUMBER_MASK 				(0x0000FFFFU)
 #define XOCP_PCR_MEASUREMENT_INDEX_MASK 		(0xFFFF0000U)
 #define XOCP_PCR_INVALID_VALUE 				(0xFFFFFFFFU)
+#define XOCP_PCR_HASH_SIZE_IN_BYTES			(48U)
 
 /**************************** Type Definitions *******************************/
+/*
+ * SW PCR Config
+ */
+typedef struct {
+	u8 DigestsForPcr[XOCP_NUM_OF_SWPCRS];		/**< Max digests for each SW PCR */
+	u8 PcrDigestsConfigured[XOCP_NUM_OF_SWPCRS];	/**< Configured no of digests */
+	u8 PcrIdxInLog[XOCP_NUM_OF_SWPCRS];		/**< Each SW PCR index in log */
+	u8 IsPcrConfigReceived;				/**< SW PCR config received */
+} XOcp_SwPcrConfig;
+
+/*
+ * SW PCR Data per event
+ */
+typedef struct {
+	XOcp_PcrMeasurement Measurement;		/**< XOcp_PcrMeasurement structure */
+	u32 IsReqExtended;				/**< Is request extended */
+	u32 DataLength;					/**< Data length */
+	u64 DataAddr;					/**< Address of the data buffer */
+	u8 DataToExtend[XOCP_PCR_SIZE_BYTES];		/**< Data to extend */
+} XOcp_SwPcrData;
+
+/*
+ * SW PCR log
+ */
+typedef struct {
+	XOcp_SwPcrData Data[XOCP_MAX_NUM_OF_SWPCRS];	/**< SW PCR log store with max no of events */
+	u8 CountPerPcr[XOCP_NUM_OF_SWPCRS];		/**< Number of digests extended for each SW PCR */
+} XOcp_SwPcrStore;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -65,6 +94,11 @@ int XOcp_ExtendHwPcr(XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 DataSize);
 int XOcp_GetHwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
 int XOcp_GetHwPcrLog(u64 HwPcrEventsAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntries);
 int XOcp_GenerateDmeResponse(u64 NonceAddr, u64 DmeStructResAddr);
+int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize, u32 PdiType);
+int XOcp_StoreSwPcrConfig(u32 *Pload, u32 Len);
+int XOcp_GetSwPcrLog(u64 Addr);
+int XOcp_GetSwPcrData(u64 Addr);
+int XOcp_GetSwPcr(u32 PcrMask, u64 PcrBuf, u32 PcrBufSize);
 
 #ifdef __cplusplus
 }

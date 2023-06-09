@@ -21,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.1   am   12/21/22 Initial release
 *       am   01/10/23 Added XOCP_DME_NONCE_SIZE_IN_BITS macro for dme
+* 1.2   kal  05/28/23 Added SW PCR API IDs
 *
 * </pre>
 * @note
@@ -82,15 +83,20 @@ extern "C" {
  */
 typedef enum {
 	XOCP_API_FEATURES = 0U,	/**< 0U */
-	XOCP_API_EXTENDPCR,	/**< 1U */
-	XOCP_API_GETPCR,	/**< 2U */
-	XOCP_API_GETPCRLOG,	/**< 3U */
+	XOCP_API_EXTEND_HWPCR,	/**< 1U */
+	XOCP_API_GET_HWPCR,	/**< 2U */
+	XOCP_API_GET_HWPCRLOG,	/**< 3U */
 	XOCP_API_GENDMERESP,	/**< 4U */
 	XOCP_API_DEVAKINPUT,	/**< 5U */
 	XOCP_API_GETCERTUSERCFG,/**< 6U */
 	XOCP_API_GETX509CERT,	/**< 7U */
 	XOCP_API_ATTESTWITHDEVAK,/**< 8U */
-	XOCP_API_MAX		/**< 9U */
+	XOCP_API_SET_SWPCRCONFIG,/**< 9U */
+	XOCP_API_EXTEND_SWPCR,	/**< 10U */
+	XOCP_API_GET_SWPCR,	/**< 11U */
+	XOCP_API_GET_SWPCRLOG,	/**< 12U */
+	XOCP_API_GET_SWPCRDATA,	/**< 13U */
+	XOCP_API_MAX		/**< 14U */
 } XOcp_ApiId;
 /** @} */
 
