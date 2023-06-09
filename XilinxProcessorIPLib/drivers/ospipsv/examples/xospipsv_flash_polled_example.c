@@ -38,6 +38,7 @@
 * 1.3   sk  05/27/20 Added Stacked mode support.
 * 1.4   sk  02/18/21 Added support for Macronix flash and DualByte commands.
 * 1.7   sk  06/28/22 Added Block Protection test for Micron flash.
+* 1.9   sb  06/06/23 Added support for system device-tree flow.
 *
 *</pre>
 *
@@ -54,7 +55,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define OSPIPSV_DEVICE_ID		XPAR_XOSPIPSV_0_DEVICE_ID
+#endif
 
 /*
  * Number of flash pages to be written.
@@ -80,7 +83,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId);
+#else
+int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress);
+#endif
 
 int FlashReadID(XOspiPsv *OspiPsvPtr);
 int FlashErase(XOspiPsv *OspiPsvPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr);
@@ -175,7 +182,11 @@ int main(void)
 	/*
 	 * Run the OspiPsv Polled example.
 	 */
+#ifndef SDT
 	Status = OspiPsvPolledFlashExample(&OspiPsvInstance, OSPIPSV_DEVICE_ID);
+#else
+       Status = OspiPsvPolledFlashExample(&OspiPsvInstance, XPAR_XOSPIPSV_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("OSPIPSV Flash Polled Ex Failed\r\n");
 		return XST_FAILURE;
@@ -201,7 +212,11 @@ int main(void)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
+#else
+int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 UniqueValue;
@@ -218,7 +233,11 @@ int OspiPsvPolledFlashExample(XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
 	/*
 	 * Initialize the OSPIPSV driver so that it's ready to use
 	 */
+#ifndef SDT
 	OspiPsvConfig = XOspiPsv_LookupConfig(OspiPsvDeviceId);
+#else
+       OspiPsvConfig = XOspiPsv_LookupConfig(BaseAddress);
+#endif
 	if (NULL == OspiPsvConfig) {
 		return XST_FAILURE;
 	}

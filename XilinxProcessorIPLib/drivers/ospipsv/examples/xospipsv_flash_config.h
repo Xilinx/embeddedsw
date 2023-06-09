@@ -29,6 +29,7 @@
 *       sk  06/22/20 Fixed Sector Mask value for Micron and ISSI.
 *       sk  02/18/21 Added support for Macronix flash.
 * 1.7   sk  06/28/22 Added Block Protection test for Micron flash.
+* 1.9   sb  06/06/23 Added support for system device-tree flow.
 *
 *</pre>
 *
@@ -37,7 +38,9 @@
 #define XOSPIPSV_FLASH_CONFIG_H
 /***************************** Include Files *********************************/
 
+#ifndef SDT
 #include "xparameters.h"	/* SDK generated parameters */
+#endif
 #include "xospipsv.h"		/* OSPIPSV device driver */
 #include "xil_printf.h"
 #include "xil_cache.h"
