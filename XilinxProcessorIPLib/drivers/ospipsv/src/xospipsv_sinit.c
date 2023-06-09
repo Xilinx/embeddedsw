@@ -75,16 +75,16 @@ XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId)
 #else
 XOspiPsv_Config *XOspiPsv_LookupConfig(UINTPTR BaseAddress)
 {
-       XOspiPsv_Config *CfgPtr = NULL;
-       s32 Index;
+	XOspiPsv_Config *CfgPtr = NULL;
+	s32 Index;
 
-       for (Index = 0; XOspiPsv_ConfigTable[Index].Name != NULL; Index++) {
-               if (XOspiPsv_ConfigTable[Index].BaseAddress == BaseAddress) {
-                       CfgPtr = &XOspiPsv_ConfigTable[Index];
-                       break;
-               }
-       }
-       return (XOspiPsv_Config *)CfgPtr;
+	for (Index = 0; XOspiPsv_ConfigTable[Index].Name != NULL; Index++) {
+		if (XOspiPsv_ConfigTable[Index].BaseAddress == BaseAddress) {
+			CfgPtr = &XOspiPsv_ConfigTable[Index];
+			break;
+		}
+	}
+	return (XOspiPsv_Config *)CfgPtr;
 }
 #endif
 
