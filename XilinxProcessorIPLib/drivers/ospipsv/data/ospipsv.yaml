@@ -1,0 +1,41 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for OSPIPSV controller
+
+maintainers:
+  - Sai Krishna Potthuri <lakshmi.sai.krishna.potthuri@xilinx.com>
+
+type: driver
+
+properties:
+  compatible:
+    items:
+      - const: xlnx,versal-ospi-1.0
+  reg:
+    description: Physical base address and size of the controller register map
+  xlnx,ospi-clk-freq-hz:
+    description: Input clock frequency
+  xlnx,is-cache-coherent:
+    description: Present if dma operations are coherent
+    type: boolean
+  xlnx,ospi-mode:
+    description: OSPI connection mode.
+
+config:
+    - XOspiPsv_Config
+
+required:
+    - compatible
+    - reg: 1
+    - xlnx,ospi-clk-freq-hz
+    - xlnx,is-cache-coherent
+    - xlnx,ospi-mode
+    - interrupts
+    - interrupt-parent
+
+examples:
+   xospipsv_flash_intr_example.c:
+    - interrupts
+...

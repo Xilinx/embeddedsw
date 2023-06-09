@@ -84,6 +84,7 @@
 *                     safety guidelines for CCM metric.
 * 1.8   sk   11/11/22 Enable Master DLL mode by default for Versal Net.
 *       sk   11/29/22 Added support for Indirect Non-Dma write.
+* 1.9   sb   06/06/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -147,11 +148,19 @@ typedef struct {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8 IsCacheCoherent;		/**< If OSPI is Cache Coherent or not */
 	u8 ConnectionMode;	/**< OSPI connection mode */
+	u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+	                        * trigger type and level flags */
+	UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+	                        * Parent base address */
 } XOspiPsv_Config;
 
 /**
@@ -405,7 +414,11 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 #define XOSPIPSV_RXADDR_OVER_32BIT	0x100000000U
 
 /* Initialization and reset */
+#ifndef SDT
 XOspiPsv_Config *XOspiPsv_LookupConfig(u16 DeviceId);
+#else
+XOspiPsv_Config *XOspiPsv_LookupConfig(UINTPTR BaseAddress);
+#endif
 u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr, const XOspiPsv_Config *ConfigPtr);
 void XOspiPsv_Reset(XOspiPsv *InstancePtr);
 /* Configuration functions */
