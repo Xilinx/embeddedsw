@@ -34,6 +34,7 @@
 *       sk  08/08/19 Issue device reset to bring back to default state.
 * 1.3   sk  05/27/20 Added Stacked mode support.
 * 1.4   sk  02/18/21 Added support for Macronix flash and DualByte commands.
+* 1.9   sb  06/06/23 Added support for system device-tree flow.
 *
 *</pre>
 *
@@ -43,6 +44,9 @@
 
 #include "xospipsv_flash_config.h"
 #include "xscugic.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -51,7 +55,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define OSPIPSV_DEVICE_ID		XPAR_XOSPIPSV_0_DEVICE_ID
+#endif
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define OSPIPSV_INTR_ID		XPS_OSPI_INT_ID
 
@@ -79,8 +85,12 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr, XOspiPsv *OspiPsvInstancePtr,
 		u16 OspiPsvDeviceId);
+#else
+int OspiPsvInterruptFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress);
+#endif
 static int OspiPsvSetupIntrSystem(XScuGic *IntcInstancePtr,
 		XOspiPsv *OspiPsvInstancePtr);
 static void OspiPsvDisableIntrSystem(XScuGic *IntcInstancePtr, u16 OspiPsvIntrId);
@@ -189,8 +199,12 @@ int main(void)
 	/*
 	 * Run the OspiPsv interrupt example.
 	 */
+#ifndef SDT
 	Status = OspiPsvInterruptFlashExample(&IntcInstance, &OspiPsvInstance,
 					OSPIPSV_DEVICE_ID);
+#else
+	Status = OspiPsvInterruptFlashExample(&OspiPsvInstance, XPAR_XOSPIPSV_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("OSPIPSV Flash Interrupt Example Failed\r\n");
 		return XST_FAILURE;
@@ -217,8 +231,12 @@ int main(void)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr,
 				XOspiPsv *OspiPsvInstancePtr, u16 OspiPsvDeviceId)
+#else
+int OspiPsvInterruptFlashExample(XOspiPsv *OspiPsvInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 UniqueValue;
@@ -235,10 +253,15 @@ int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr,
 	/*
 	 * Initialize the OSPIPSV driver so that it's ready to use
 	 */
+#ifndef SDT
 	OspiPsvConfig = XOspiPsv_LookupConfig(OspiPsvDeviceId);
+#else
+	OspiPsvConfig = XOspiPsv_LookupConfig(BaseAddress);
+#endif
 	if (NULL == OspiPsvConfig) {
 		return XST_FAILURE;
 	}
+
 	/* To test, change connection mode here if not obtained from HDF */
 
 	Status = XOspiPsv_CfgInitialize(OspiPsvInstancePtr, OspiPsvConfig);
@@ -246,7 +269,14 @@ int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr,
 		return XST_FAILURE;
 	}
 
+#ifndef SDT
 	Status = OspiPsvSetupIntrSystem(IntcInstancePtr, OspiPsvInstancePtr);
+#else
+	Status = XSetupInterruptSystem(OspiPsvInstancePtr, &XOspiPsv_IntrHandler,
+                                      OspiPsvConfig->IntrId,
+                                      OspiPsvConfig->IntrParent,
+                                      XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -366,7 +396,11 @@ int OspiPsvInterruptFlashExample(XScuGic *IntcInstancePtr,
 		}
 	}
 
+#ifndef SDT
 	OspiPsvDisableIntrSystem(IntcInstancePtr, OSPIPSV_INTR_ID);
+#else
+	XDisconnectInterruptCntrl(OspiPsvConfig->IntrId, OspiPsvConfig->IntrParent);
+#endif
 
 	return XST_SUCCESS;
 }
@@ -1651,13 +1685,23 @@ int FlashSetSDRDDRMode(XOspiPsv *OspiPsvPtr, int Mode)
 	}
 
 	/* Disable the interrupt as tuning is always done in polled mode */
+#ifndef SDT
 	OspiPsvDisableIntrSystem(&IntcInstance, OSPIPSV_INTR_ID);
+#else
+	XDisconnectInterruptCntrl(OspiPsvInstance.Config.IntrId, OspiPsvInstance.Config.IntrParent);
+#endif
 
 	Status = XOspiPsv_SetSdrDdrMode(OspiPsvPtr, Mode);
 	if (Status != XST_SUCCESS)
 		return XST_FAILURE;
 
+#ifndef SDT
 	Status = OspiPsvSetupIntrSystem(&IntcInstance, OspiPsvPtr);
+#else
+	Status = XSetupInterruptSystem(OspiPsvPtr, &XOspiPsv_IntrHandler,
+                                      OspiPsvInstance.Config.IntrId, OspiPsvInstance.Config.IntrParent,
+                                      XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
