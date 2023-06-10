@@ -24,6 +24,7 @@
 *       kpt  07/24/22 Added XSecure_EccCrvClass
 * 5.1   skg  12/16/22 Added XSecure_AesAllParams
 *       yog  05/03/23 Fixed MISRA C violation of Rule 12.2
+* 5.2   yog  06/07/23 Added support for P-256 Curve
 *
 * </pre>
 * @note
@@ -148,6 +149,7 @@ typedef enum {
 } XSecure_AesOp;
 
 typedef enum {
+      XSECURE_ECC_NIST_P256 = 3,	      /**< NIST P-256 curve value in Ecdsa.h */
       XSECURE_ECC_NIST_P384 = 4,              /**< NIST P-384 curve value in Ecdsa.h */
       XSECURE_ECC_NIST_P521 = 5               /**< NIST P-521 curve value in Ecdsa.h */
 } XSecure_EllipticCrvTyp;

@@ -32,6 +32,7 @@
 *       gm   07/16/21 Added support for 64-bit address
 * 5.0   kpt  07/24/22 Moved XSecure_EllipticKat into xsecure_kat.c
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
+*       yog  06/07/23 Added support for P-256 Curve
 *
 * </pre>
 *
@@ -56,6 +57,8 @@ extern "C" {
 									/**< Size of NIST P-384 curve in bytes */
 #define XSECURE_ECC_P521_SIZE_IN_BYTES	(66U)
 									/**< Size of NIST P-521 curve in bytes */
+#define XSECURE_ECC_P256_SIZE_IN_BYTES	(32U)
+									/**< Size of NIST P-256 curve in bytes */
 
 #define XSECURE_ELLIPTIC_LITTLE_ENDIAN	(0U)
 									/**< Operates APIs on little endian format */

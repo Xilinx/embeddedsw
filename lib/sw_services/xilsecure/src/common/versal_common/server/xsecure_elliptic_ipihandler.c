@@ -22,6 +22,7 @@
 * 4.7  kpt   03/18/2022 Replaced XPlmi_Dmaxfr with XPlmi_MemCpy64
 * 5.0  kpt   07/24/2022 Moved XSecure_EllipticExecuteKat in to xsecure_kat_plat_ipihandler.c
 * 5.1  yog   05/03/2023 Fixed MISRA C violation of Rule 10.3
+* 5.2  yog   06/07/2023 Added support for P-256 Curve
 *
 * </pre>
 *
@@ -144,6 +145,9 @@ static int XSecure_EllipticGenKey(u32 CurveType, u32 SrcAddrLow,
 	else if (CurveType == (u32)XSECURE_ECC_NIST_P521) {
 		OffSet = XSECURE_ECC_P521_SIZE_IN_BYTES;
 	}
+	else if (CurveType == (u32)XSECURE_ECC_NIST_P256) {
+		OffSet = XSECURE_ECC_P256_SIZE_IN_BYTES;
+	}
 	else {
 		Status = XST_INVALID_PARAM;
 		goto END;
@@ -252,6 +256,9 @@ static int XSecure_EllipticValidatePubKey(u32 CurveType, u32 SrcAddrLow,
 	}
 	else if (CurveType == (u32)XSECURE_ECC_NIST_P521) {
 		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
+	}
+	else if (CurveType == (u32)XSECURE_ECC_NIST_P256) {
+		Size = XSECURE_ECC_P256_SIZE_IN_BYTES;
 	}
 	else {
 		Status = XST_INVALID_PARAM;
