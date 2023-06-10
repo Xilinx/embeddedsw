@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -23,6 +23,7 @@
 *       har  10/14/20 Replaced ecdsa with elliptic in names of function and
 *                     macros
 * 4.6   har  07/14/21 Fixed doxygen warnings
+* 5.2   yog  06/07/23 Added support for P-256 Curve
 *
 * </pre>
 *
@@ -50,6 +51,7 @@ extern "C" {
  * @{
  */
 /**< Macros to enable /disable support of NIST P-384 and NIST P-521 curve */
+#define XSECURE_ECC_SUPPORT_NIST_P256
 #define XSECURE_ECC_SUPPORT_NIST_P384
 #define XSECURE_ECC_SUPPORT_NIST_P521
 /** @} */

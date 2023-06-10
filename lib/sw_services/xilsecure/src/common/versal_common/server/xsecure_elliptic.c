@@ -48,6 +48,7 @@
 *       dc   08/26/22 Removed initializations of arrays
 * 5.1   dc   03/30/23 Added support to accept the data in either big/little endian.
 * 5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
+*       yog  06/07/23 Added support for P-256 Curve
 *
 * </pre>
 *
@@ -120,7 +121,8 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 
 	Status = XST_FAILURE;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
-			(CrvType != XSECURE_ECC_NIST_P521)) {
+			(CrvType != XSECURE_ECC_NIST_P521) &&
+			(CrvType != XSECURE_ECC_NIST_P256)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -129,9 +131,13 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 		OffSet = Size;
 	}
-	else {
+	else if(CrvType == XSECURE_ECC_NIST_P521){
 		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
 		OffSet = Size + XSECURE_ECDSA_P521_ALIGN_BYTES;
+	}
+	else{
+		Size = XSECURE_ECC_P256_SIZE_IN_BYTES;
+		OffSet = Size;
 	}
 
 	/* Store Priv key to local buffer */
@@ -249,7 +255,8 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 
 	Status = XST_FAILURE;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
-			(CrvType != XSECURE_ECC_NIST_P521)) {
+			(CrvType != XSECURE_ECC_NIST_P521) &&
+			(CrvType != XSECURE_ECC_NIST_P256)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -268,10 +275,12 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	if (CrvType == XSECURE_ECC_NIST_P384) {
 		OffSet = HashInfo->Len;
 	}
-	else {
+	else if(CrvType == XSECURE_ECC_NIST_P521){
 		OffSet = HashInfo->Len + XSECURE_ECDSA_P521_ALIGN_BYTES;
 	}
-
+	else{
+		OffSet = HashInfo->Len;
+	}
 	Sign.r = (u8 *)Signature;
 	Sign.s = (u8 *)(Signature + OffSet);
 
@@ -415,7 +424,8 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 
 	Status = XST_FAILURE;
 	if ((CrvType != XSECURE_ECC_NIST_P384) &&
-		(CrvType != XSECURE_ECC_NIST_P521)) {
+		(CrvType != XSECURE_ECC_NIST_P521) &&
+		(CrvType != XSECURE_ECC_NIST_P256)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -424,9 +434,13 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 		OffSet = Size;
 	}
-	else {
+	else if(CrvType == XSECURE_ECC_NIST_P521){
 		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
 		OffSet = Size + XSECURE_ECDSA_P521_ALIGN_BYTES;
+	}
+	else{
+		Size = XSECURE_ECC_P256_SIZE_IN_BYTES;
+		OffSet = Size;
 	}
 
 	/* Store Pub key(Qx,Qy) to local buffer */
@@ -547,7 +561,9 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	}
 
 	Status = XST_FAILURE;
-	if ((CrvType != XSECURE_ECC_NIST_P384) && (CrvType != XSECURE_ECC_NIST_P521)) {
+	if ((CrvType != XSECURE_ECC_NIST_P384) &&
+		(CrvType != XSECURE_ECC_NIST_P521) &&
+		(CrvType != XSECURE_ECC_NIST_P256)) {
 		Status = (int)XSECURE_ELLIPTIC_INVALID_PARAM;
 		goto END;
 	}
@@ -569,10 +585,16 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	if (CrvType == XSECURE_ECC_NIST_P521) {
 		Size = XSECURE_ECC_P521_SIZE_IN_BYTES;
 		OffSet = Size + XSECURE_ECDSA_P521_ALIGN_BYTES;
-	} else {
+	}
+	else if(CrvType == XSECURE_ECC_NIST_P384){
 		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 		OffSet = Size;
 	}
+	else{
+		Size = XSECURE_ECC_P256_SIZE_IN_BYTES;
+		OffSet = Size;
+	}
+
 	XSecure_PutData(Size, (u8 *)PubKey, KeyAddr->Qx);
 	XSecure_PutData(Size, (u8 *)(PubKey + OffSet), KeyAddr->Qy);
 
