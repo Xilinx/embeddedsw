@@ -21,6 +21,7 @@
 *                       IV and reading eFUSE cache via IPI
 * 3.1   skg  10/17/2022 Added Null to invalid command handler of xilnvm command module
 * 3.2   har  02/21/2023 Added support for writing ROM Rsvd bits
+* 	    vek  05/31/2023 Added support for Programming PUF secure control bits
 *
 * </pre>
 *
@@ -153,7 +154,7 @@ static int XNvm_ProcessCmd(XPlmi_Cmd *Cmd)
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_IV):
 	case XNVM_API(XNVM_API_ID_EFUSE_READ_CACHE):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF):
-	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS_FROM_PLOAD):
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_CRC):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_DME_MODE):
 	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_ROM_RSVD):

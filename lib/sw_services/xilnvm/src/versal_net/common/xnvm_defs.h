@@ -21,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.0   kal  07/12/22 Initial release
 * 3.2   har  02/21/23 Added support for writing Misc Ctrl bits and ROM Rsvd bits
+*    	vek  05/31/23 Added support for Programming PUF secure control bits
 *
 * </pre>
 * @note
@@ -279,6 +280,16 @@ typedef struct {
 
 typedef struct {
 	u32 EnvMonitorDis;
+	u32 PufCtrlBits;
+} XNvm_PufCtrlBitsWritePload;
+
+typedef struct {
+	u32 CdoHdr;
+	XNvm_PufCtrlBitsWritePload Pload;
+} XNvm_PufCtrlBitsWriteCdo;
+
+typedef struct {
+	u32 EnvMonitorDis;
 	u32 MiscCtrlBits;
 } XNvm_MiscCtrlBitsWritePload;
 
@@ -351,7 +362,7 @@ typedef enum {
 	XNVM_API_ID_EFUSE_WRITE_PUF_HD_FROM_PLOAD,
 	XNVM_API_ID_EFUSE_WRITE_PUF,
 	XNVM_API_ID_EFUSE_WRITE_ROM_RSVD,
-	XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS_FROM_PLOAD,
+	XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS,
 	XNVM_API_ID_EFUSE_READ_CACHE = 47,
 	XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS,
 	XNVM_API_MAX,

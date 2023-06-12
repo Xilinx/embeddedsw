@@ -20,6 +20,7 @@
 * 3.1  skg   10/25/2022 Added in body comments for APIs
 * 3.2   har  02/21/23 Added support for writing ROM Rsvd bits
 *      kum   05/03/2023 Added support to handle cdo chunk boundary before efuse writing
+* 	   vek   05/31/2023  Added support for Programming PUF secure control bits
 *
 * </pre>
 *
@@ -360,7 +361,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 		RomRsvd = (XNvm_RomRsvdBitsWritePload *)Cmd->Payload;
 		Status = XNvm_EfuseWriteRomRsvd(RomRsvd->EnvMonitorDis, RomRsvd->RomRsvdBits);
 		break;
-	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS_FROM_PLOAD):
+	case XNVM_API(XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS):
 		PufSecData = (XNvm_PufCtrlDirectPload *)Cmd->Payload;
 		Status = XNvm_EfuseWritePufCtrlBitsFromPload(PufSecData);
 		break;
