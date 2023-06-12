@@ -71,6 +71,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   04/28/2023 Updated load partial pdi command to support PDI loading
 *                       from mage Store based on PDI ID
+*       sk   05/18/2023 Deprecate copy to memory feature,removed SubsystemPdiIns
 *
 * </pre>
 *
@@ -233,7 +234,7 @@ static int XLoader_LoadDdrCpyImg(XPlmi_Cmd *Cmd)
 	u32 ImgId = Cmd->Payload[XLOADER_CMD_DDR_CPY_IMGID_INDEX];
 	u32 *FuncID = (Cmd->Len > XLOADER_CMD_DDR_CPY_FUNCID_INDEX) ?
 		(&Cmd->Payload[XLOADER_CMD_DDR_CPY_FUNCID_INDEX]) : NULL;
-	XilPdi* PdiPtr = BootPdiPtr;
+	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 
 	PdiPtr->IpiMask = Cmd->IpiMask;
 	XPlmi_Printf(DEBUG_INFO, "%s \n\r", __func__);
@@ -269,7 +270,7 @@ static int XLoader_LoadSubsystemPdi(XPlmi_Cmd *Cmd)
 	int Status = XST_FAILURE;
 	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
-	XilPdi* PdiPtr = &SubsystemPdiIns;
+	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 	u32 PdiId;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);
@@ -959,7 +960,7 @@ static void XLoader_GetExportableBuffer(u32 *Buffer, u32 Mask, u32 Size)
 static int XLoader_ExtractMetaheader(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
-	XilPdi* PdiPtr = &SubsystemPdiIns;
+	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 	u64 SrcAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_PDIADDR_HIGH_INDEX];
 	u64 DestAddr = (u64)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DESTADDR_HIGH_INDEX];
 	u32 DestSize = (u32)Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DEST_SIZE_INDEX];

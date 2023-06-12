@@ -97,6 +97,7 @@
 *       bm   01/05/2023 Clear End Stack before processing a CDO partition
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       sk   05/18/2023 Deprecate copy to memory feature
 *
 * </pre>
 *
@@ -158,7 +159,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 	u64 PrtnLoadTime;
 	XPlmi_PerfTime PerfTime;
 
-	if ((PdiPtr->CopyToMem == (u8)FALSE) && (PdiPtr->DelayLoad == (u8)FALSE)) {
+	if (PdiPtr->DelayLoad == (u8)FALSE) {
 		XPlmi_Printf(DEBUG_GENERAL,
 			"+++Loading Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
 			PdiPtr->ImageNum,
@@ -166,20 +167,11 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 	}
 	else {
-		if (PdiPtr->DelayLoad == (u8)TRUE) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"+++Skipping Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
-				PdiPtr->ImageNum,
-				(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
-				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
-		}
-		if (PdiPtr->CopyToMem == (u8)TRUE) {
-			XPlmi_Printf(DEBUG_GENERAL,
-				"+++Copying Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
-				PdiPtr->ImageNum,
-				(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
-				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
-		}
+		XPlmi_Printf(DEBUG_GENERAL,
+			"+++Skipping Image#: 0x%0x, Name: %s, Id: 0x%08x\n\r",
+			PdiPtr->ImageNum,
+			(char *)PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgName,
+			PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "------------------------------------\r\n");
@@ -199,22 +191,15 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 			}
 		}
 
-		if ((PdiPtr->CopyToMem == (u8)FALSE) && (PdiPtr->DelayLoad == (u8)FALSE)) {
+		if (PdiPtr->DelayLoad == (u8)FALSE) {
 			XPlmi_Printf(DEBUG_GENERAL, "---Loading Partition#: 0x%0x, "
 					"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
 					PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
 		}
 		else {
-			if (PdiPtr->DelayLoad == (u8)TRUE) {
-				XPlmi_Printf(DEBUG_GENERAL, "---Skipping Partition#: 0x%0x, "
-						"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
-						PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
-			}
-			if (PdiPtr->CopyToMem == (u8)TRUE) {
-				XPlmi_Printf(DEBUG_GENERAL, "---Copying Partition#: 0x%0x, "
-						"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
-						PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
-			}
+			XPlmi_Printf(DEBUG_GENERAL, "---Skipping Partition#: 0x%0x, "
+					"Id: 0x%0x\r\n", PdiPtr->PrtnNum,
+					PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].PrtnId);
 		}
 
 		PrtnLoadTime = XPlmi_GetTimerValue();
@@ -630,18 +615,12 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
-	u32 PdiSrc = PdiPtr->PdiSrc;
-	int (*DevCopy) (u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags) = NULL;
 	XLoader_SecureParams SecureParams;
 	XLoader_PrtnParams PrtnParams;
 	u32 PrtnType;
-	u64 OfstAddr = 0U;
 	u32 TrfLen;
 	u8 TempVal;
 	u32 PrtnNum = PdiPtr->PrtnNum;
-	u8 ToStoreInDdr = (u8)FALSE;
-	u8 PdiType;
-	u64 CopyToMemAddr = PdiPtr->CopyToMemAddr;
 	/* Assign the partition header to local variable */
 	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr.PrtnHdr[PrtnNum]);
 	u32 PcrInfo = PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].PcrInfo;
@@ -659,42 +638,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 			((u64)PrtnHdr->DataWordOfst << XPLMI_WORD_LEN_SHIFT);
 	}
 
-	if (PdiPtr->CopyToMem == (u8)TRUE) {
-		Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-		/**
-		 * Load/Copy the partition from device.
-		 */
-		Status = PdiPtr->MetaHdr.DeviceCopy(PrtnParams.DeviceCopy.SrcAddr,
-			PdiPtr->CopyToMemAddr, PrtnParams.DeviceCopy.Len -
-			SecureParams.SecureHdrLen, PrtnParams.DeviceCopy.Flags);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_COPY_TO_MEM, 0);
-			goto END;
-		}
-
-		if (PdiPtr->DelayLoad == (u8)TRUE) {
-			PdiPtr->CopyToMemAddr +=
-					((u64)(PrtnParams.DeviceCopy.Len) - SecureParams.SecureHdrLen);
-			goto END;
-		}
-
-		PdiSrc = PdiPtr->PdiSrc;
-		PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
-		DevCopy = PdiPtr->MetaHdr.DeviceCopy;
-		PdiPtr->MetaHdr.DeviceCopy = XLoader_DdrCopy;
-		OfstAddr = PdiPtr->MetaHdr.FlashOfstAddr;
-		PrtnParams.DeviceCopy.Flags = XPLMI_PMCDMA_0;
-		ToStoreInDdr = (u8)TRUE;
-		PdiPtr->CopyToMemAddr = CopyToMemAddr;
-		PdiPtr->CopyToMem = (u8)FALSE;
-		PdiType = PdiPtr->PdiType;
-		PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
-	}
-	else if (PdiPtr->DelayLoad == (u8)TRUE) {
+	if (PdiPtr->DelayLoad == (u8)TRUE) {
 		if (PdiPtr->PdiIndex == XLOADER_SBI_INDEX) {
 			while (PrtnParams.DeviceCopy.Len > 0U) {
 				if (PrtnParams.DeviceCopy.Len > XLOADER_CHUNK_SIZE) {
@@ -725,14 +669,6 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 	Status = XLoader_SecureInit(&SecureParams, PdiPtr, PrtnNum);
 	if (Status != XST_SUCCESS) {
 		goto END;
-	}
-
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
-		PrtnParams.DeviceCopy.SrcAddr = PdiPtr->CopyToMemAddr;
-		OfstAddr = PdiPtr->MetaHdr.FlashOfstAddr;
-		PdiPtr->MetaHdr.FlashOfstAddr = PdiPtr->CopyToMemAddr -
-				((u64)PrtnHdr->DataWordOfst * XIH_PRTN_WORD_LEN);
-		PdiPtr->CopyToMemAddr += ((u64)PrtnParams.DeviceCopy.Len - SecureParams.SecureHdrLen);
 	}
 
 	/**
@@ -784,15 +720,5 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr, u32 PrtnIndex)
 	}
 
 END:
-	if (ToStoreInDdr == (u8)TRUE) {
-		PdiPtr->PdiSrc = PdiSrc;
-		PdiPtr->MetaHdr.DeviceCopy = DevCopy;
-		PdiPtr->MetaHdr.FlashOfstAddr = OfstAddr;
-		PdiPtr->CopyToMem = (u8)TRUE;
-		PdiPtr->PdiType = PdiType;
-	}
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
-		PdiPtr->MetaHdr.FlashOfstAddr = OfstAddr;
-	}
 	return Status;
 }

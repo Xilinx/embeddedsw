@@ -63,6 +63,7 @@
 *       kal  01/05/2023 Added PcrInfo attribute in XilPdi_ImgHdr
 *       sk   02/22/2023 Added Bit MASK for EoPDI SYNC logic
 *		dd   03/16/2023 Misra-C violation Rule 17.8 fixed
+*       sk   05/18/2023 Deprecate copy to memory feature
 * </pre>
 *
 * @note
@@ -206,8 +207,6 @@ extern "C" {
 /**
  * Image Header Attributes
  */
-#define XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT		(0x6U)
-#define XILPDI_IH_ATTRIB_COPY_MEMORY_MASK		(0X00000040U)
 #define XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT		(0x7U)
 #define XILPDI_IH_ATTRIB_DELAY_LOAD_MASK		(0X00000080U)
 #define XILPDI_IH_ATTRIB_DELAY_HANDOFF_SHIFT	(0x8U)
@@ -301,7 +300,7 @@ typedef struct {
 	u32 UID; /**< Unique ID */
 	u32 PUID; /**< Parent UID */
 	u32 FuncID; /**< Function ID */
-	u64 CopyToMemoryAddr; /**< Address at which image is backed up in DDR */
+	u64 Reserved; /**< Reserved */
 	u32 PcrInfo;/**< PCR information only applicable for Versal Net */
 	u32 Checksum; /**< Checksum of the image header */
 } XilPdi_ImgHdr __attribute__ ((aligned(16U)));
@@ -317,6 +316,7 @@ typedef struct {
 	XilPdi_ImgHdr ImgHdr[XIH_MAX_IMGS]; /**< Image header */
 	XilPdi_PrtnHdr PrtnHdr[XIH_MAX_PRTNS]; /**< Prtn header */
 	u64 FlashOfstAddr; /**< Start of DPI start address in Flash */
+	u32 MetaHdrOfst; /**< Offset to the start of meta header */
 	int (*DeviceCopy) (u64 SrcAddr, u64 DestAddress, u32 Length,
 			u32 Flags); /**< Function pointer for device copy */
 } XilPdi_MetaHdr __attribute__ ((aligned(16U)));
@@ -479,21 +479,6 @@ static inline u32 XilPdi_GetPufHdMetaHdr(const XilPdi_ImgHdrTbl *IHdrTbl)
 {
 	return (IHdrTbl->Attr & XIH_IHT_ATTR_PUFHD_MASK);
 }
-
-/****************************************************************************/
-/**
-* @brief	This function gets Copy to Memory value from Image Header Table.
-*
-* @param	ImgHdr is pointer to the Image Header Table
-*
-* @return	Copy to Memory Value
-*
-*****************************************************************************/
-static inline u32 XilPdi_GetCopyToMemory(const XilPdi_ImgHdr *ImgHdr)
-{
-	return (ImgHdr->ImgAttr & XILPDI_IH_ATTRIB_COPY_MEMORY_MASK);
-}
-
 /****************************************************************************/
 /**
 * @brief	This function gets Delay Load value from Image Header Table.

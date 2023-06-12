@@ -154,6 +154,8 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   04/28/2023 Added function to retrieve PDI Address from Image Store
 *                       based on PDI ID
+*       sk   05/18/2023 Deprecate copy to memory feature,Added function to save
+*                       BootPDI info, Definition for XLoader_GetPdiInstance
 * </pre>
 *
 * @note
@@ -207,9 +209,6 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID);
 static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
 
 /************************** Variable Definitions *****************************/
-XilPdi SubsystemPdiIns = {0U}; /**< Instance of subsystem pdi */
-XilPdi* BootPdiPtr = NULL; /**< Pointer to instance of boot pdi */
-
 /*****************************************************************************/
 /**
  * @{
@@ -264,12 +263,13 @@ static const XLoader_DeviceOps DeviceOps[] =
 int XLoader_Init(void)
 {
 	volatile int Status = XST_FAILURE;
+	XilPdi *PdiPtr = XLoader_GetPdiInstance();
+
+	/** - Initialize the Valid Header */
+	PdiPtr->ValidHeader = (u8)TRUE;
 
 	/** - Initialize the loader commands */
 	XLoader_CmdsInit();
-
-	/* Initialize SubsystemPdiIns ValidHeader variable */
-	SubsystemPdiIns.ValidHeader = (u8)TRUE;
 
 	/** - Initialize the loader interrupts */
 	Status = XLoader_IntrInit();
@@ -427,9 +427,6 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSrc, u64 PdiAddr)
 		goto END;
 	}
 
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		BootPdiPtr = PdiPtr;
-	}
 	goto END;
 
 END1:
@@ -479,6 +476,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 #else
 	XLoader_SecureTempParams *SecureTempParams = XLoader_GetTempParams();
 #endif
+	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
 
 	SecureParams.PdiPtr = PdiPtr;
 	/** Read Boot header */
@@ -486,20 +484,23 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 	XPlmi_Printf(DEBUG_INFO, "Boot Header Attributes: 0x%x\n\r",
 		PdiPtr->MetaHdr.BootHdrPtr->ImgAttrb);
 
+	if (XPlmi_IsLoadBootPdiDone() == TRUE) {
+		PdiPtr->MetaHdr.MetaHdrOfst = BootPdiInfo->MetaHdrOfst;
+	} else {
+		PdiPtr->MetaHdr.MetaHdrOfst = PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst;
+	}
 	/**
 	 * Read meta header from PDI source
 	 */
 	if ((PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) ||
 			(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER)) {
-		/* Print FW Rsvd fields Details */
-		XPlmi_Printf(DEBUG_INFO, "Meta Header Offset: 0x%x\n\r",
-			PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst);
+
 		PdiPtr->ImageNum = 1U;
 		PdiPtr->PrtnNum = 1U;
 		/**
 		 * Update the flash offset address in PDI instance if the boot mode is
 		 * QSPI, OSPI or SD_RAW.
-		*/
+		 */
 		if ((PdiPtr->PdiIndex == XLOADER_QSPI_INDEX) ||
 			(PdiPtr->PdiIndex == XLOADER_OSPI_INDEX) ||
 			(PdiPtr->PdiIndex == XLOADER_SD_RAW_INDEX)) {
@@ -524,21 +525,19 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		}
 
 		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
-			XPlmi_Out32((UINTPTR)&PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst,
-				XPlmi_In64(PdiAddr + XIH_BH_META_HDR_OFFSET));
+			PdiPtr->MetaHdr.MetaHdrOfst = XPlmi_In64(PdiAddr + XIH_BH_META_HDR_OFFSET);
 		}
+
+		/* Print FW Rsvd/Requested fields Details */
+		XPlmi_Printf(DEBUG_INFO, "Meta Header Offset: 0x%x\n\r",
+			PdiPtr->MetaHdr.MetaHdrOfst);
 	}
 	else {
 		PdiPtr->ImageNum = 0U;
 		PdiPtr->PrtnNum = 0U;
 		PdiPtr->MetaHdr.FlashOfstAddr = PdiAddr;
-		Status = XPlmi_MemSetBytes((void *const)&(PdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst),
-			sizeof(XilPdi_BootHdrFwRsvd), 0U, sizeof(XilPdi_BootHdrFwRsvd));
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_MEMSET,
-				(int)XLOADER_ERR_MEMSET_BOOT_HDR_FW_RSVD);
-			goto END;
-		}
+		/* Partial PDI/Header set offset to 0 */
+		PdiPtr->MetaHdr.MetaHdrOfst = 0U;
 	}
 
 	/** Read image header table from Meta Header */
@@ -607,11 +606,11 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegVal, u64 PdiAddr)
 		 * Update KEK red key availability status if PLM is encrypted with
 		 * Black key
 		 */
-		XLoader_UpdateKekSrc(PdiPtr);
+		PdiPtr->DecKeySrc = XLoader_GetKekSrc();
 	}
 	else {
-		PdiPtr->PlmKatStatus |= BootPdiPtr->PlmKatStatus;
-		PdiPtr->DecKeySrc |= BootPdiPtr->DecKeySrc;
+		PdiPtr->PlmKatStatus |= BootPdiInfo->PlmKatStatus;
+		PdiPtr->DecKeySrc |= BootPdiInfo->DecKeySrc;
 		/* Update KAT status */
 		XLoader_ClearKatOnPPDI(&SecureParams, 0U);
 	}
@@ -795,23 +794,6 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	 */
 	for ( ; PdiPtr->ImageNum < (u8)PdiPtr->MetaHdr.ImgHdrTbl.NoOfImgs;
 			++PdiPtr->ImageNum) {
-		if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-			PdiPtr->CopyToMem = (u8)XilPdi_GetCopyToMemory(
-				&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
-				XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT;
-
-			if (PdiPtr->CopyToMem == (u8)TRUE) {
-				Status = XLoader_DdrInit(XLOADER_HOLD_DDR);
-				if (Status != XST_SUCCESS) {
-					goto END;
-				}
-				PdiPtr->CopyToMemAddr =
-						PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
-			}
-		}
-		else {
-			PdiPtr->CopyToMem = (u8)FALSE;
-		}
 
 		PdiPtr->DelayHandoff = (u8)(XilPdi_GetDelayHandoff(
 			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
@@ -1473,10 +1455,12 @@ END:
 int XLoader_RestartImage(u32 ImageId, u32 *FuncID)
 {
 	int Status = XST_FAILURE;
-	XilPdi *PdiPtr = &SubsystemPdiIns;
+	XilPdi *PdiPtr = XLoader_GetPdiInstance();
 	const XLoader_ImageStore *PdiList = XLoader_GetPdiList();
 	int Index;
 	u64 PdiAddr;
+	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
+
 
 	/**
 	 * - Scan through PdiList for the given ImageId and restart image from
@@ -1521,8 +1505,19 @@ END1:
 	 * - Load image from BootPdi if the image is not found or loading is
 	 * unsuccessful from the PdiList
 	 */
-	PdiPtr = BootPdiPtr;
+	Status = XST_FAILURE;
+	if ((BootPdiInfo->PdiSrc == XLOADER_PDI_SRC_JTAG) ||
+			(BootPdiInfo->PdiSrc == XLOADER_PDI_SRC_SMAP)) {
+		XPlmi_Printf(DEBUG_GENERAL, "Fallback failed invalid BootSrc JTAG/SMAP\n\r");
+		goto END;
+	}
+	PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL;
+	PdiPtr->ValidHeader = (u8)TRUE;
 	XPlmi_Printf(DEBUG_GENERAL, "Loading from BootPdi\n\r");
+	Status = XLoader_PdiInit(PdiPtr, BootPdiInfo->PdiSrc , 0U);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	Status = XLoader_ReloadImage(PdiPtr, ImageId, FuncID);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1586,31 +1581,8 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 		}
 	}
 
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL) {
-		PdiPtr->CopyToMem = (u8)(XilPdi_GetCopyToMemory(
-			&PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum]) >>
-			XILPDI_IH_ATTRIB_COPY_MEMORY_SHIFT);
-		if (PdiPtr->CopyToMem == (u8)TRUE) {
-			PdiPtr->PdiSrc = XLOADER_PDI_SRC_DDR;
-			PdiPtr->PdiIndex = XLOADER_DDR_INDEX;
-			PdiPtr->PdiType = XLOADER_PDI_TYPE_RESTORE;
-			PdiPtr->CopyToMem = (u8)FALSE;
-			PdiPtr->CopyToMemAddr =
-				PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].CopyToMemoryAddr;
-		}
-		else {
-			if (DeviceOps[PdiPtr->PdiIndex].Init != NULL) {
-				Status = DeviceOps[PdiPtr->PdiIndex].Init(PdiPtr->PdiSrc);
-				if (Status != XST_SUCCESS) {
-					goto END;
-				}
-			}
-		}
-	}
 	PdiPtr->DelayHandoff = (u8)FALSE;
 	PdiPtr->DelayLoad = (u8)FALSE;
-
-	PdiPtr->MetaHdr.DeviceCopy = DeviceOps[PdiPtr->PdiIndex].Copy;
 
 	Status = XLoader_LoadImage(PdiPtr);
 
@@ -1970,4 +1942,41 @@ int XLoader_IsPdiAddrLookup(u32 PdiId, u64 *PdiAddr)
 	Status = XST_SUCCESS;
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function is used to save the BootPDI info
+ *
+ *****************************************************************************/
+void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr)
+{
+	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
+
+	if ((NULL == BootPdiPtr) || (NULL == BootPdiInfo)) {
+		goto END;
+	}
+
+#ifndef PLM_SECURE_EXCLUDE
+	BootPdiInfo->DecKeySrc = BootPdiPtr->DecKeySrc;
+	BootPdiInfo->PlmKatStatus = BootPdiPtr->PlmKatStatus;
+#endif
+	BootPdiInfo->MetaHdrOfst = BootPdiPtr->MetaHdr.BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst;
+	BootPdiInfo->PdiSrc = BootPdiPtr->PdiSrc;
+
+END:
+	return;
+}
+/*****************************************************************************/
+/**
+ * @brief	This function provides PdiInstance pointer
+ *
+ * @return	Pointer to PdiInstance
+ *
+ *****************************************************************************/
+XilPdi *XLoader_GetPdiInstance(void)
+{
+	static XilPdi PdiInstance __attribute__ ((aligned(4U))) = {0U};
+
+	return &PdiInstance;
 }

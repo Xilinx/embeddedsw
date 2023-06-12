@@ -45,6 +45,8 @@
 *       ng   11/23/2022 Updated doxygen comments
 *       bm   01/03/2023 Switch to SSIT Events as soon as basic Noc path is
 *                       configured
+*       sk   19/05/2023 Added call to save Boot PDI info
+*       sk   06/12/2023 Read Kek src & Plmkat status after In-Place PLM update
 *
 * </pre>
 *
@@ -84,6 +86,7 @@ int XPlm_LoadBootPdi(void *Arg)
 	int Status = XST_FAILURE;
 	PdiSrc_t BootMode = XLOADER_PDI_SRC_INVALID;
 	XilPdi *PdiInstPtr = XLoader_GetPdiInstance();
+	XilBootPdiInfo *BootPdiInfo = XLoader_GetBootPdiInfo();
 
 	(void )Arg;
 
@@ -94,6 +97,14 @@ int XPlm_LoadBootPdi(void *Arg)
 	/* In-Place PLM Update is applicable only for versalnet */
 	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
 		XPlmi_Printf(DEBUG_GENERAL, "In-Place PLM Update Done\n\r");
+		/**
+		 * Update KEK red key availability status if PLM is encrypted with
+		 * Black key
+		 */
+	#ifndef PLM_SECURE_EXCLUDE
+		BootPdiInfo->DecKeySrc = XLoader_GetKekSrc();
+		XPlmi_GetBootKatStatus((volatile u32*)&BootPdiInfo->PlmKatStatus);
+	#endif
 		Status = XST_SUCCESS;
 		goto ERR_END;
 	}
@@ -135,7 +146,8 @@ int XPlm_LoadBootPdi(void *Arg)
 	if (Status != XST_SUCCESS) {
 		goto ERR_END;
 	}
-
+	/* Save Boot PDI info */
+	Xloader_SaveBootPdiInfo(PdiInstPtr);
 	XPlmi_Printf(DEBUG_GENERAL, "***********Boot PDI Load: Done***********\n\r");
 
 	/* Print ROM time and PLM time stamp */

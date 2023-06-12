@@ -49,6 +49,8 @@
 *       dd   03/16/2023 Misra-C violation Rule 17.8 fixed
 *       dd   03/28/2023 Updated doxygen comments
         ng   03/30/2023 Updated algorithm and return values in doxygen comments
+	sk   05/31/2023 Updated Xilpdi_ReadImgHdrTbl to use MetaHdrOfst from
+                        MetaHdr structure
 * </pre>
 *
 * @note
@@ -286,7 +288,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	 * and update the Image Header Table structure
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-			MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst,
+			MetaHdrPtr->MetaHdrOfst,
 			(u64)(UINTPTR)SmapBusWidthCheck,
 			SMAP_BUS_WIDTH_LENGTH, 0x0U);
 	if (XST_SUCCESS != Status) {
@@ -313,7 +315,7 @@ int XilPdi_ReadImgHdrTbl(XilPdi_MetaHdr * MetaHdrPtr)
 	}
 
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-			MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst +
+			MetaHdrPtr->MetaHdrOfst +
 			SMAP_BUS_WIDTH_LENGTH,
 			(u64)(UINTPTR)&MetaHdrPtr->ImgHdrTbl + Offset,
 			XIH_IHT_LEN - Offset, 0x0U);
@@ -353,7 +355,7 @@ int XilPdi_ReadIhtAndOptionalData(XilPdi_MetaHdr * MetaHdrPtr)
 	 * - Read the IHT Optinal data from Metaheader
 	 */
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr +
-		MetaHdrPtr->BootHdrPtr->BootHdrFwRsvd.MetaHdrOfst + XIH_IHT_LEN,
+		MetaHdrPtr->MetaHdrOfst + XIH_IHT_LEN,
 		XILPDI_PMCRAM_IHT_DATA_ADDR,
 		(MetaHdrPtr->ImgHdrTbl.OptionalDataLen << XILPDI_WORD_LEN_SHIFT), 0U);
 	if (XST_SUCCESS != Status) {
