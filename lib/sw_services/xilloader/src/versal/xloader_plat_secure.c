@@ -25,6 +25,7 @@
 *       skg  12/07/2022 Added Additional PPKs non zero check
 *       sk   03/17/2023 Renamed Kekstatus to DecKeySrc in xilpdi structure
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       sk   06/12/2023 Renamed XLoader_UpdateKekSrc to XLoader_GetKekSrc
 *
 * </pre>
 *
@@ -75,28 +76,31 @@ static int XLoader_CheckNonZeroAdditionalPpk(void);
  * 			- None.
  *
  ******************************************************************************/
-void XLoader_UpdateKekSrc(XilPdi *PdiPtr)
+u32 XLoader_GetKekSrc(void)
 {
-	PdiPtr->DecKeySrc = 0x0U;
+	volatile u32 DecKeySrc = 0x0U;
+	const XilPdi_BootHdr *BootHdrPtr = (XilPdi_BootHdr *)(UINTPTR)XIH_BH_PRAM_ADDR;
 
 	XPlmi_Printf(DEBUG_INFO, "Identifying KEK's corresponding RED "
 			"key availability status\n\r");
-	switch(PdiPtr->MetaHdr.BootHdrPtr->EncStatus) {
+	switch(BootHdrPtr->EncStatus) {
 	case XLOADER_BH_BLK_KEY:
-		PdiPtr->DecKeySrc = XLOADER_BHDR_RED_KEY;
+		DecKeySrc = XLOADER_BHDR_RED_KEY;
 		break;
 	case XLOADER_BBRAM_BLK_KEY:
-		PdiPtr->DecKeySrc = XLOADER_BBRAM_RED_KEY;
+		DecKeySrc = XLOADER_BBRAM_RED_KEY;
 		break;
 	case XLOADER_EFUSE_BLK_KEY:
-		PdiPtr->DecKeySrc = XLOADER_EFUSE_RED_KEY;
+		DecKeySrc = XLOADER_EFUSE_RED_KEY;
 		break;
 	default:
 		/* No KEK is available for PLM */
 		break;
 	}
 	XPlmi_Printf(DEBUG_DETAILED, "KEK red key available after "
-			"for PLM %x\n\r", PdiPtr->DecKeySrc);
+			"for PLM %x\n\r", DecKeySrc);
+
+	return DecKeySrc;
 }
 
 /*****************************************************************************/

@@ -25,6 +25,8 @@
 *       sk   02/22/2023 Added EoPDI SYNC dummy stub
 *       dd   03/28/2023 Updated doxygen comments
 *       sk   04/28/2023 Added define for Image Store as PDI source
+*       sk   05/31/2023 Reassign PDI inst DS id for BootPDI info DS
+*       sk   06/12/2023 Removed XLoader_GetPdiInstance function declaration
 *
 * </pre>
 *
@@ -96,7 +98,7 @@ extern "C" {
 
 /* Xilloader Module Data Structure Ids*/
 #define XLOADER_IMAGE_INFO_DS_ID		(0x01U) /**< Image information data structure Id */
-#define XLOADER_PDI_INST_DS_ID			(0x02U) /**< PDI instance data structure Id */
+#define XLOADER_BOOTPDI_INFO_DS_ID       	(0x02U) /**< Boot PDI Info data structure Id */
 #define XLOADER_PDI_LIST_DS_ID			(0x03U) /**< PDI list data structure Id */
 #define XLOADER_ATF_HANDOFF_PARAMS_DS_ID	(0x04U) /**< ATF handoff parameters data structure Id */
 
@@ -246,13 +248,13 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr);
 int XLoader_ProcessDeferredError(void);
 int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	XLoader_PrtnParams* PrtnParams, XLoader_SecureParams* SecureParams);
-XilPdi *XLoader_GetPdiInstance(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
 int XLoader_UpdateHandler(XPlmi_ModuleOp Op);
 int XLoader_PlatInit(void);
 int XLoader_HdrMeasurement(XilPdi* PdiPtr);
 int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo);
 int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo, u32 *DigestIndex, u32 PdiType);
+XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 
 /************************** Variable Definitions *****************************/
 

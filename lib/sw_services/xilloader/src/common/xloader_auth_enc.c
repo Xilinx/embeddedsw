@@ -104,6 +104,7 @@
 *       sk   03/17/23 Renamed Kekstatus to DecKeySrc in xilpdi structure
 *       dc   03/30/23 Updated ECDSA authentication logic to support both BE/LE
 *       ng   03/30/23 Updated algorithm and return values in doxygen comments
+*       sk   05/18/2023 Deprecate copy to memory feature
 *
 * </pre>
 *
@@ -256,26 +257,9 @@ int XLoader_SecureAuthInit(XLoader_SecureParams *SecurePtr,
 		SecurePtr->AcPtr = AuthCert;
 
 		/* Copy Authentication certificate */
-		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
-			Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(
-					SecurePtr->PdiPtr->CopyToMemAddr,
-					(UINTPTR)SecurePtr->AcPtr,
-					XLOADER_AUTH_CERT_MIN_SIZE, SecurePtr->DmaFlags);
-			SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_AUTH_CERT_MIN_SIZE;
-		}
-		else {
-			if (SecurePtr->PdiPtr->CopyToMem == (u8)TRUE) {
-				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
-						SecurePtr->PdiPtr->CopyToMemAddr,
-						XLOADER_AUTH_CERT_MIN_SIZE, SecurePtr->DmaFlags);
-				SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_AUTH_CERT_MIN_SIZE;
-			}
-			else {
-				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
-							(UINTPTR)SecurePtr->AcPtr,
-							XLOADER_AUTH_CERT_MIN_SIZE, SecurePtr->DmaFlags);
-			}
-		}
+		Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(AcOffset,
+			(UINTPTR)SecurePtr->AcPtr,
+				XLOADER_AUTH_CERT_MIN_SIZE, SecurePtr->DmaFlags);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
 					XLOADER_ERR_INIT_AC_COPY_FAIL, Status);

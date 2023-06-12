@@ -21,6 +21,8 @@
 *       sk   02/22/2023 Added EoPDI SYNC function declaration
 *       dd   03/28/2023 Updated doxygen comments
 *       sk   04/28/2023 Added define for Image Store as PDI source
+*       sk   05/31/2023 Added Declaration for Get BootPDI info function
+*       sk   06/12/2023 Removed XLoader_GetPdiInstance function declaration
 *
 * </pre>
 *
@@ -241,10 +243,10 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr);
 u8 XLoader_SkipMJtagWorkAround(XilPdi *PdiPtr);
 int XLoader_ProcessDeferredError(void);
 int XLoader_StartImage(XilPdi *PdiPtr);
-XilPdi *XLoader_GetPdiInstance(void);
 void XLoader_PerformInternalPOR(void);
 XLoader_ImageStore* XLoader_GetPdiList(void);
 int Xloader_SsitEoPdiSync(XilPdi *PdiPtr);
+XilBootPdiInfo* XLoader_GetBootPdiInfo(void);
 
 /************************** Variable Definitions *****************************/
 

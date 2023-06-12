@@ -31,6 +31,9 @@
 * 1.02  ng   04/27/2023 Added support for cluster flags in ATF handoff params
 *       sk   05/23/2023 Made Status variable volatile to avoid optimization
 *       kal  06/04/2023 Added SW PCR extend support
+*       sk   06/12/2023 Removed PDI Inst DS export,Added Bootpdiinfo storage &
+*                       DS export to handle in-place update flow,
+*                       Removed XLoader_GetPdiInstance function definition
 *
 * </pre>
 *
@@ -62,12 +65,12 @@
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */
 #define XLOADER_IMAGE_INFO_LCVERSION	(1U) /**< Image lowest compatible version information */
-#define XLOADER_PDI_INST_VERSION 	(1U) /**< PDI instance version */
-#define XLOADER_PDI_INST_LCVERSION 	(1U) /**< PDI instance lowest compatible version */
 #define XLOADER_PDI_LIST_VERSION 	(1U) /**< PDI version list */
 #define XLOADER_PDI_LIST_LCVERSION 	(1U) /**< PDI lowest compatible version list */
 #define XLOADER_ATF_HANDOFF_PARAMS_VERSION 	(1U) /**< ATF handoff parameters version */
 #define XLOADER_ATF_HANDOFF_PARAMS_LCVERSION 	(1U) /**< ATF handoff parameters lowest compatible version */
+#define XLOADER_BOOTPDI_INFO_PARAMS_VERSION 	(2U) /**< BootPDI info version */
+#define XLOADER_BOOTPDI_INFO_PARAMS_LCVERSION 	(2U) /**< BootPDI info lowest compatible version */
 #define XLOADER_TCM_A_0 (0U) /**< TCM_A 0 */
 #define XLOADER_TCM_A_1 (1U) /**< TCM_A 1 */
 #define XLOADER_TCM_B_0 (2U) /**< TCM_B 0 */
@@ -122,24 +125,6 @@ XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function provides PdiInstance pointer
- *
- * @return	Pointer to PdiInstance
- *
- *****************************************************************************/
-XilPdi *XLoader_GetPdiInstance(void)
-{
-	static XilPdi PdiInstance __attribute__ ((aligned(4U))) = {0U};
-
-	EXPORT_LOADER_DS(ImageInfoTbl, XLOADER_PDI_INST_DS_ID,
-		XLOADER_PDI_INST_VERSION, XLOADER_PDI_INST_LCVERSION,
-		sizeof(PdiInstance), (u32)(UINTPTR)&PdiInstance);
-
-	return &PdiInstance;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function provides pointer to PdiList
  *
  * @return	pointer to PdiList
@@ -177,6 +162,25 @@ XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
 
 	/* Return ATF Handoff parameters structure address */
 	return &ATFHandoffParams;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to BootPDI Info
+ *
+ * @return	pointer to BootPDI Info
+ *
+ *****************************************************************************/
+XilBootPdiInfo* XLoader_GetBootPdiInfo(void)
+{
+	static XilBootPdiInfo BootPdiInfo
+		__attribute__ ((aligned(4U))) = {0}; /** < BootPDI info Storage */
+
+	EXPORT_LOADER_DS(BootPdiInfo, XLOADER_BOOTPDI_INFO_DS_ID,
+		XLOADER_BOOTPDI_INFO_PARAMS_VERSION, XLOADER_BOOTPDI_INFO_PARAMS_LCVERSION,
+		sizeof(BootPdiInfo), (u32)(UINTPTR)&BootPdiInfo);
+
+	return &BootPdiInfo;
 }
 
 /*****************************************************************************/

@@ -120,6 +120,7 @@
 *       ng   11/23/22 Updated doxygen comments
 *       kpt  02/21/23 Fixed bug in XLoader_SecureClear
 *       ng   03/30/23 Updated algorithm and return values in doxygen comments
+*       sk   05/18/2023 Deprecate copy to memory feature
 *
 * </pre>
 *
@@ -227,11 +228,6 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	SecurePtr->BlockNum = 0x00U;
 	SecurePtr->ProcessedLen = 0x00U;
 	SecurePtr->PrtnHdr = PrtnHdr;
-
-	/** - PMCDMA0 will be used in blocking mode when PDI type is restore */
-	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
-		SecurePtr->DmaFlags = XPLMI_PMCDMA_0;
-	}
 
 	/** - Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance((u32)PMCDMA_0_DEVICE_ID);
@@ -549,27 +545,12 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 		}
 
 		/** - Copy checksum hash */
-		if (SecurePtr->PdiPtr->PdiType == XLOADER_PDI_TYPE_RESTORE) {
-			Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(
-					SecurePtr->PdiPtr->CopyToMemAddr,
-					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
-			SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_SHA3_LEN;
-		}
-		else {
-			ChecksumOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
-					((u64)SecurePtr->PrtnHdr->ChecksumWordOfst *
-						XIH_PRTN_WORD_LEN);
-			if (SecurePtr->PdiPtr->CopyToMem == (u8)TRUE) {
-				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
-						SecurePtr->PdiPtr->CopyToMemAddr,
-						XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
-				SecurePtr->PdiPtr->CopyToMemAddr += XLOADER_SHA3_LEN;
-			}
-			else {
-				Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
-					(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
-			}
-		}
+		ChecksumOffset = SecurePtr->PdiPtr->MetaHdr.FlashOfstAddr +
+				((u64)SecurePtr->PrtnHdr->ChecksumWordOfst *
+					XIH_PRTN_WORD_LEN);
+		Status = SecurePtr->PdiPtr->MetaHdr.DeviceCopy(ChecksumOffset,
+			(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
+
 		if (Status != XST_SUCCESS){
 			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_INIT_CHECKSUM_COPY_FAIL, Status);

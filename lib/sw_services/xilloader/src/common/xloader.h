@@ -109,6 +109,9 @@
 *       sk   03/17/2023 Renamed member Kekstatus to DecKeySrc in xilpdi structure
 *       sk   04/28/2023 Added function to retrieve PDI Address from Image Store
 *                       based on PDI ID
+*       sk   05/18/2023 Deprecate copy to memory feature,removed SubsystemPdiIns,
+*                       Added BootPdiInfo Structure,Added XLoader_GetPdiInstance
+*                       function declaration
 * </pre>
 *
 * @note
@@ -330,10 +333,8 @@ typedef struct {
 	u8 NoOfHandoffCpus; /**< Number of CPU's loader will handoff to */
 	u8 ImageNum; /**< Image number in the PDI */
 	u8 PrtnNum; /**< Partition number in the PDI */
-	u8 CopyToMem; /**< Copy to Memory is enabled if set */
 	u8 DelayHandoff; /**< Delay handoff is enabled if set */
 	u8 DelayLoad; /**< Delay Load is enabled if set */
-	u64 CopyToMemAddr; /**< Address to which image is copied */
 #ifndef PLM_SECURE_EXCLUDE
 	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
 	u32 DecKeySrc; /**< Decryption Key Source */
@@ -341,6 +342,19 @@ typedef struct {
 #endif
 	u32 DigestIndex;
 } XilPdi;
+
+/*
+* This BootPDI info struct is to store required config
+* for later use.
+*/
+typedef struct {
+	u32 PdiSrc; /** <Pdi Source */
+	u32 MetaHdrOfst; /**< Offset to the start of meta header */
+#ifndef PLM_SECURE_EXCLUDE
+	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
+	u32 DecKeySrc; /**< Decryption Key Source */
+#endif
+}XilBootPdiInfo;
 
 /* Structure to store various parameters for Device Copy */
 typedef struct {
@@ -412,6 +426,7 @@ static inline PdiSrc_t XLoader_GetBootMode(void)
 
 /************************** Function Prototypes ******************************/
 int XLoader_Init(void);
+XilPdi *XLoader_GetPdiInstance(void);
 /**
  * @}
  * @endcond
@@ -445,11 +460,8 @@ int XLoader_IntrInit(void);
 void XLoader_ClearIntrSbiDataRdy(void);
 XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void);
 int XLoader_IdCodeCheck(const XilPdi_ImgHdrTbl * ImgHdrTbl);
-
+void Xloader_SaveBootPdiInfo(XilPdi *BootPdiPtr);
 /************************** Variable Definitions *****************************/
-extern XilPdi* BootPdiPtr;
-extern XilPdi SubsystemPdiIns;
-
 #ifdef __cplusplus
 }
 #endif

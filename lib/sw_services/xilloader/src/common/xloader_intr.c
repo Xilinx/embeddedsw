@@ -45,6 +45,7 @@
 *                       configured
 *       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       sk   05/18/2023 Deprecate copy to memory feature,removed SubsystemPdiIns
 *
 * </pre>
 *
@@ -136,7 +137,7 @@ static int XLoader_SbiLoadPdi(void *Data)
 	PdiSrc_t PdiSrc;
 	u64 PdiAddr;
 	u32 RegVal;
-	XilPdi* PdiPtr = &SubsystemPdiIns;
+	XilPdi* PdiPtr = XLoader_GetPdiInstance();
 	(void)Data;
 
 	XPlmi_Printf(DEBUG_DETAILED, "%s \n\r", __func__);

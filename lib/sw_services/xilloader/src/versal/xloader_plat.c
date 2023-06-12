@@ -25,8 +25,10 @@
 *       sk   02/22/2023 Added EoPDI SYNC logic to handle Slave PDI load errors
 *       ng   03/12/2023 Fixed Coverity warnings
 *       bm   03/16/2023 Added print when DDRMC dump is skipped
-*		dd   03/28/2023 Updated doxygen comments
+*       dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+*       sk   05/31/2023 Addded function to get Bootpdiinfo storage
+*       sk   06/12/2023 Removed XLoader_GetPdiInstance function definition
 *
 * </pre>
 *
@@ -106,20 +108,6 @@ XLoader_ImageInfoTbl *XLoader_GetImageInfoTbl(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function provides PdiInstance pointer
- *
- * @return	Pointer to PdiInstance
- *
- *****************************************************************************/
-XilPdi *XLoader_GetPdiInstance(void)
-{
-	static XilPdi PdiInstance = {0U};
-
-	return &PdiInstance;
-}
-
-/*****************************************************************************/
-/**
  * @brief	This function provides pointer to PdiList
  *
  * @return	Pointer to PdiList
@@ -146,6 +134,21 @@ XilPdi_ATFHandoffParams *XLoader_GetATFHandoffParamsAddr(void)
 								 ATF handoff params */
 	/* Return ATF Handoff parameters structure address */
 	return &ATFHandoffParams;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function provides pointer to BootPDI Info
+ *
+ * @return	pointer to BootPDI Info
+ *
+ *****************************************************************************/
+XilBootPdiInfo* XLoader_GetBootPdiInfo(void)
+{
+	static XilBootPdiInfo BootPdiInfo
+		__attribute__ ((aligned(4U))) = {0}; /** < BootPDI info Storage */
+
+	return &BootPdiInfo;
 }
 
 /*****************************************************************************/
