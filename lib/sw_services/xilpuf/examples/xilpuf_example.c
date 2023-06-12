@@ -41,6 +41,7 @@
   *       kpt  03/18/22 Removed IPI related code and added mailbox support
   * 2.1   am   04/13/23 Fix PUF auxiliary convergence error
   * 2.2   am   05/03/23 Added KAT before crypto usage
+		 vek  05/31/23  Added support for Programming PUF secure control bits
   *
   *@note
   *
@@ -79,6 +80,13 @@
 						Align(sizeof(XNvm_EfuseDataAddr)) + \
 						XPUF_RED_KEY_LEN_IN_BYTES)
 #define XNVM_TOTAL_SHARED_MEM			(XNVM_SHARED_MEM_SIZE + XNVM_SHARED_BUF_SIZE)
+#if defined (VERSAL_NET)
+#define XPUF_PUF_DIS_SHIFT			(18U)
+#define XPUF_PUF_SYN_LK_SHIFT			(16U)
+#define XPUF_PUF_REGEN_DIS_SHIFT		(31U)
+#define XPUF_PUF_HD_INVLD_SHIFT			(30U)
+#define XPUF_PUF_REGIS_DIS_SHIFT		(29U)
+#endif
 
 /***************************** Type Definitions *******************************/
 
@@ -758,6 +766,20 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
+#if defined (VERSAL_NET)
+	u32 SecCtrlBits = (PUF_DIS << XPUF_PUF_DIS_SHIFT) | (PUF_SYN_LK << XPUF_PUF_SYN_LK_SHIFT);
+	Status = XNvm_EfuseWriteSecCtrlBits(InstancePtr, SecCtrlBits);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
+		goto END;
+	}
+
+	u32 PufCtrlBits = (PUF_REGEN_DIS << XPUF_PUF_REGEN_DIS_SHIFT) | (PUF_HD_INVLD << XPUF_PUF_HD_INVLD_SHIFT) | (PUF_REGIS_DIS << XPUF_PUF_REGIS_DIS_SHIFT);
+	Status = XNvm_EfuseWritePufCtrlBits(InstancePtr, PufCtrlBits);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Error in programming PUF Control bits %x\r\n", Status);
+	}
+#else
 	Status = Xil_SMemSet(&PrgmPufHelperData, sizeof(PrgmPufHelperData), 0U, sizeof(PrgmPufHelperData));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -767,15 +789,13 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 	PrgmPufHelperData.PufSecCtrlBits.PufRegenDis = PUF_REGEN_DIS;
 	PrgmPufHelperData.PufSecCtrlBits.PufHdInvalid = PUF_HD_INVLD;
 	PrgmPufHelperData.PufSecCtrlBits.PufSynLk = PUF_SYN_LK;
-#if !defined (VERSAL_NET)
-	PrgmPufHelperData.PrgmPufSecCtrlBits = TRUE;
-#endif
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
 
 	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
 	}
+#endif
 
 END:
 	return Status;
