@@ -21,6 +21,7 @@
 * 3.1  skg  10/28/22  Added In body comments for APIs
 * 3.2  har  02/21/23  Added support for writing Misc Ctrl bits and ROM Rsvd bits
 *      am   03/09/23  Replaced xnvm payload lengths with xmailbox payload lengths
+* 	   vek  05/31/23  Added support for Programming PUF secure control bits
 *
 * </pre>
 *
@@ -374,6 +375,46 @@ int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)SecCtrlBitsWrCdo, XMAILBOX_PAYLOAD_LEN_3U);
 	if (Status != XST_SUCCESS) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Secure Control Bits write failed;"
+			"Error Code = %x\r\n", Status);
+		goto END;
+	}
+
+	Payload[0U] =  Header(0U, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, XMAILBOX_PAYLOAD_LEN_1U);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to program Puf Control Bits
+ * 		requested by the user
+ *
+ * @param	InstancePtr	Pointer to the client instance
+ * @param	PufCtrlBits	Value of Puf Control  Bits to be programmed
+ *
+ * @return	- XST_SUCCESS - If the programming is successful
+ * 		- XST_FAILURE - If there is a failure
+ *
+ ******************************************************************************/
+int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits)
+{
+	int Status = XST_FAILURE;
+	u32 Payload[XNVM_MAX_PAYLOAD_LEN];
+	XNvm_PufCtrlBitsWriteCdo *PufCtrlBitsWrCdo = (XNvm_PufCtrlBitsWriteCdo *)(UINTPTR)Payload;
+
+	PufCtrlBitsWrCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS);
+	PufCtrlBitsWrCdo->Pload.EnvMonitorDis = TRUE;
+	PufCtrlBitsWrCdo->Pload.PufCtrlBits = PufCtrlBits;
+
+    /**
+	 *  @{ Send an IPI request to the PLM by using the XNvm_EfuseWrite CDO command.
+     *     Wait for IPI response from PLM  with a default timeout of 300 seconds
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)PufCtrlBitsWrCdo, XMAILBOX_PAYLOAD_LEN_3U);
+	if (Status != XST_SUCCESS) {
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "Puf Control Bits write failed;"
 			"Error Code = %x\r\n", Status);
 		goto END;
 	}

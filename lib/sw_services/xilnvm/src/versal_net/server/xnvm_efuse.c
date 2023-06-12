@@ -87,9 +87,10 @@ static int XNvm_EfuseProtectionChecks(void);
 #define XNVM_EFUSE_PROGRAM_VERIFY		(0U)
 #define XNVM_EFUSE_CRC_SALT			(0x000000FFU)
 #define XNVM_EFUSE_REVOKE_ID_127	(127U)
-#define XNVM_PUF_SEC_CTRL_MAX_VALID_VAL       (7U)
-
-
+#define XNVM_EFUSE_PUF_SEC_CTRL_INVLD_MASK       0xE0000000U
+#define XNVM_EFUSE_PUF_CTRL_PUF_REGEN_DIS_MASK   0x80000000U
+#define XNVM_EFUSE_PUF_CTRL_PUF_HD_INVLD_MASK    0x40000000U
+#define XNVM_EFUSE_PUF_CTRL_PUF_REGIS_DIS_MASK   0x20000000U
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*************************** Function Prototypes ******************************/
@@ -2045,7 +2046,7 @@ END:
 	/**
 	 *  Validate input parameters. Return XNVM_EFUSE_ERR_INVALID_PARAM if input parameters are invalid
 	 */
-	if ((PufCtrlBits == 0U)||(PufCtrlBits > XNVM_PUF_SEC_CTRL_MAX_VALID_VAL)) {
+	if ((PufCtrlBits == 0U) || ((PufCtrlBits & (~XNVM_EFUSE_PUF_SEC_CTRL_INVLD_MASK)) != 0U)) {
 		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
@@ -2071,7 +2072,7 @@ END:
 		}
 	}
 
-	if ((PufCtrlBits & 0x01U) == 0x01U) {
+	if ((PufCtrlBits & XNVM_EFUSE_PUF_CTRL_PUF_REGIS_DIS_MASK) == XNVM_EFUSE_PUF_CTRL_PUF_REGIS_DIS_MASK) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_PUF_AUX_ROW,
@@ -2082,8 +2083,7 @@ END:
 		}
 	}
 
-	PufCtrlBits = PufCtrlBits >> 1U;
-	if ((PufCtrlBits & 0x01U) == 0x01U) {
+	if ((PufCtrlBits & XNVM_EFUSE_PUF_CTRL_PUF_HD_INVLD_MASK) == XNVM_EFUSE_PUF_CTRL_PUF_HD_INVLD_MASK) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_PUF_AUX_ROW,
@@ -2094,8 +2094,7 @@ END:
 		}
 	}
 
-	PufCtrlBits = PufCtrlBits >> 1U;
-	if ((PufCtrlBits & 0x01U) == 0x01U) {
+	if ((PufCtrlBits & XNVM_EFUSE_PUF_CTRL_PUF_REGEN_DIS_MASK) == XNVM_EFUSE_PUF_CTRL_PUF_REGEN_DIS_MASK) {
 		Status = XST_FAILURE;
 		Status = XNvm_EfusePgmAndVerifyBit(XNVM_EFUSE_PAGE_0,
 				XNVM_EFUSE_PUF_AUX_ROW,

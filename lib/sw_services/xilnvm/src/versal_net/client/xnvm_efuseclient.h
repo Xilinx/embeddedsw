@@ -21,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 3.0   har  07/06/22 Initial release
 * 3.2   har  02/21/23 Added support for writing Misc Ctrl bits and ROM Rsvd bits
+*   	vek  05/31/23 Added support for Programming PUF secure control bits
 *
 * </pre>
 *
@@ -50,6 +51,7 @@ extern "C" {
 int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr);
 int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const u32 EnvDisFlag);
 int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits);
+int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits);
 int XNvm_EfuseWriteMiscCtrlBits(XNvm_ClientInstance *InstancePtr, u32 MiscCtrlBits);
 int XNvm_EfuseWriteRomRsvdBits(XNvm_ClientInstance *InstancePtr, u32 RomRsvdBits);
 int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr);
