@@ -47,6 +47,7 @@
 *       dc     01/02/23 Multiband registers update
 * 1.6   dc     05/08/23 Set NCO config for RCId=0 fix
 *       dc     05/09/23 Dual and single mode calculation fix
+*       dc     08/06/23 Support dynamic and static modes of operation
 *
 * </pre>
 * @addtogroup dfeprach Overview
@@ -2822,7 +2823,7 @@ void XDfePrach_GetChannelCfg(const XDfePrach *InstancePtr,
 * @param    BandId Band id.
 *
 * @return
-*	- XST_SUCCESS on succes
+*	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
 * @note     This API must be executed only after all CC configuration are done
@@ -2880,6 +2881,81 @@ u32 XDfePrach_AddRCtoRCCfgMB(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
+* Adds a new RC entry to the RC_CONFIGURATION in dynamic mode. RCId must be
+* same as the physical channel RachChan on a selected band.
+*
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CurrentRCCfg Current RACH configuration container.
+* @param    CCID CC ID [0-15].
+* @param    RCId RC Id [0-15].
+* @param    RachChan RACH channel [0-15].
+* @param    NextCCCfg CC configuration container.
+* @param    BandId Band id.
+*
+* @return
+*	- XST_SUCCESS on success
+*	- XST_FAILURE on failure
+*
+* @note     This API must be executed only after all CC configuration are done
+*           with the API XDfePrach_AddCCtoCCCfg.
+*
+****************************************************************************/
+u32 XDfePrach_AddRCtoRCCfgMBDynamic(const XDfePrach *InstancePtr,
+				    XDfePrach_RCCfg *CurrentRCCfg, s32 CCID,
+				    u32 RCId, u32 RachChan,
+				    XDfePrach_CCCfg *NextCCCfg, u32 BandId)
+{
+	u32 Index;
+	u32 Tmp;
+	XDfePrach_DDCCfg Dummy_DdcCfg = { 0 };
+	XDfePrach_NCO Dummy_NcoCfg = { 0 };
+	XDfePrach_Schedule Dummy_StaticSchedule = { 0 };
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CurrentRCCfg != NULL);
+	Xil_AssertNonvoid(CurrentRCCfg->InternalRCCfg[RCId].CCID <
+			  XDFEPRACH_CC_NUM_MAX);
+	Xil_AssertNonvoid(CurrentRCCfg->InternalRCCfg[RCId].BandId <
+			  InstancePtr->Config.NumBands);
+	Xil_AssertNonvoid(BandId < InstancePtr->Config.NumBands);
+	Xil_AssertNonvoid(CurrentRCCfg->InternalRCCfg[RCId].RCId <
+			  XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(NextCCCfg != NULL);
+	/* Assert dynamic mode */
+	Xil_AssertNonvoid(InstancePtr->Config.HasAxisCtrl ==
+			  XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_ON);
+	Tmp = XDfePrach_ReadReg(InstancePtr,
+				    XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE);
+	Xil_AssertNonvoid(Tmp == XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE_OFF);
+
+	/* Check  RachChan" is not in use. */
+	for (Index = 0; Index < XDFEPRACH_RC_NUM_MAX; Index++) {
+		if ((CurrentRCCfg->InternalRCCfg[Index].Enable ==
+		     XDFEPRACH_RCID_MAPPING_CHANNEL_ENABLED) &&
+		    (CurrentRCCfg->InternalRCCfg[Index].RachChannel ==
+		     RachChan) &&
+		    (Index != RCId)) {
+			metal_log(METAL_LOG_ERROR, "RC failure, %s\n",
+				  __func__);
+			/* Error: a different RCID is using this RachChan. */
+			return XST_FAILURE;
+		}
+	}
+
+	/* Load the new channel's data into the RCID configuration, will be
+	   marked as needing a restart. */
+	XDfePrach_AddRC(InstancePtr, RCId, RachChan, CCID, CurrentRCCfg,
+			&Dummy_DdcCfg, &Dummy_NcoCfg, &Dummy_StaticSchedule,
+			NextCCCfg, BandId);
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
 * Adds a new RC entry to the RC_CONFIGURATION. RCId must be same as the
 * physical channel RachChan on a band id = 0.
 *
@@ -2894,7 +2970,7 @@ u32 XDfePrach_AddRCtoRCCfgMB(const XDfePrach *InstancePtr,
 * @param    NextCCCfg CC configuration container.
 *
 * @return
-*	- XST_SUCCESS on succes
+*	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
 * @note     This API must be executed only after all CC configuration are done
@@ -2931,6 +3007,57 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 /****************************************************************************/
 /**
 *
+* Adds a new RC entry to the RC_CONFIGURATION in dynamic mode. RCId must be
+* same as the physical channel RachChan on a band id = 0.
+*
+* @param    InstancePtr Pointer to the PRACH instance.
+* @param    CurrentRCCfg Current RACH configuration container.
+* @param    CCID CC ID [0-15].
+* @param    RCId RC Id [0-15].
+* @param    RachChan RACH channel [0-15].
+* @param    NextCCCfg CC configuration container.
+*
+* @return
+*	- XST_SUCCESS on success
+*	- XST_FAILURE on failure
+*
+* @note     This API must be executed only after all CC configuration are done
+*           with the API XDfePrach_AddCCtoCCCfg.
+*
+****************************************************************************/
+u32 XDfePrach_AddRCtoRCCfgDynamic(const XDfePrach *InstancePtr,
+				  XDfePrach_RCCfg *CurrentRCCfg, s32 CCID,
+				  u32 RCId, u32 RachChan,
+				  XDfePrach_CCCfg *NextCCCfg)
+{
+	u32 BandId = 0;
+	u32 Tmp;
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CurrentRCCfg != NULL);
+	Xil_AssertNonvoid(CurrentRCCfg->InternalRCCfg[RCId].CCID <
+			  XDFEPRACH_CC_NUM_MAX);
+	Xil_AssertNonvoid(CurrentRCCfg->InternalRCCfg[RCId].RCId <
+			  XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(RCId < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(RachChan < XDFEPRACH_RC_NUM_MAX);
+	Xil_AssertNonvoid(InstancePtr->StateId == XDFEPRACH_STATE_OPERATIONAL);
+	Xil_AssertNonvoid(NextCCCfg != NULL);
+
+	/* Assert dynamic mode */
+	Xil_AssertNonvoid(InstancePtr->Config.HasAxisCtrl ==
+			  XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_ON);
+	Tmp = XDfePrach_ReadReg(InstancePtr,
+				    XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE);
+	Xil_AssertNonvoid(Tmp == XDFEPRACH_RCID_SCHEDULE_STATIC_SCHEDULE_OFF);
+
+	return XDfePrach_AddRCtoRCCfgMBDynamic(InstancePtr, CurrentRCCfg, CCID,
+					       RCId, RachChan, NextCCCfg,
+					       BandId);
+}
+
+/****************************************************************************/
+/**
+*
 * Removes an RC configuration entry from the RC_CONFIGURATION. RCId must be
 * same as the physical channel RachChan.
 *
@@ -2939,7 +3066,7 @@ u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 * @param    RCId RC Id [0-15].
 *
 * @return
-*	- XST_SUCCESS on succes
+*	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
 ****************************************************************************/
@@ -3060,7 +3187,7 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 * @param    StaticSchedule Schedule data container.
 *
 * @return
-*	- XST_SUCCESS on succes
+*	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
 * @note     Clear event status with XDfePrach_ClearEventStatus() before
@@ -3134,7 +3261,7 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 * @param    RCId RC Id [0-15].
 *
 * @return
-*	- XST_SUCCESS on succes
+*	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
 * @note     Clear event status with XDfePrach_ClearEventStatus() before
@@ -3183,7 +3310,7 @@ u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 * @param    StaticSchedule Schedule data container.
 *
 * @return
-*	- XST_SUCCESS on succes
+*	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
 * @note     Clear event status with XDfePrach_ClearEventStatus() before
@@ -3244,7 +3371,7 @@ u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 * @param    ToChannel Destination channel Id [0-15].
 *
 * @return
-*	- XST_SUCCESS on succes
+*	- XST_SUCCESS on success
 *	- XST_FAILURE on failure
 *
 * @note     Clear event status with XDfePrach_ClearEventStatus() before

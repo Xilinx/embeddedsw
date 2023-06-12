@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -76,6 +76,7 @@
 *       dc     03/28/22 Update documentation
 * 1.5   dc     12/14/22 Update multiband register arithmetic
 *       dc     01/02/23 Multiband registers update
+* 1.6   dc     08/06/23 Support dynamic and static modes of operation
 *
 * </pre>
 * @endcond
@@ -700,12 +701,20 @@ u32 XDfePrach_AddRCtoRCCfgMB(const XDfePrach *InstancePtr,
 			     XDfePrach_NCO *NcoCfg,
 			     XDfePrach_Schedule *StaticSchedule,
 			     XDfePrach_CCCfg *NextCCCfg, u32 BandId);
+u32 XDfePrach_AddRCtoRCCfgMBDynamic(const XDfePrach *InstancePtr,
+				    XDfePrach_RCCfg *CurrentRCCfg, s32 CCID,
+				    u32 RCId, u32 RachChan,
+				    XDfePrach_CCCfg *NextCCCfg, u32 BandId);
 u32 XDfePrach_AddRCtoRCCfg(const XDfePrach *InstancePtr,
 			   XDfePrach_RCCfg *CurrentRCCfg, s32 CCID, u32 RCId,
 			   u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
 			   XDfePrach_NCO *NcoCfg,
 			   XDfePrach_Schedule *StaticSchedule,
 			   XDfePrach_CCCfg *NextCCCfg);
+u32 XDfePrach_AddRCtoRCCfgDynamic(const XDfePrach *InstancePtr,
+				  XDfePrach_RCCfg *CurrentRCCfg, s32 CCID,
+				  u32 RCId, u32 RachChan,
+				  XDfePrach_CCCfg *NextCCCfg);
 u32 XDfePrach_RemoveRCfromRCCfg(const XDfePrach *InstancePtr,
 				XDfePrach_RCCfg *CurrentRCCfg, u32 RCId);
 void XDfePrach_UpdateRCinRCCfgMB(const XDfePrach *InstancePtr,
