@@ -509,10 +509,18 @@ typedef void (*XEmacPs_ErrHandler) (void *CallBackRef, u8 Direction,
  * This typedef contains configuration information for a device.
  */
 typedef struct {
+#ifdef SDT
+	char *Name;     /**< Unique name of the device */
+#else
 	u16 DeviceId;	/**< Unique ID  of device */
+#endif
 	UINTPTR BaseAddress;/**< Physical base address of IPIF registers */
 	u8 IsCacheCoherent; /**< Applicable only to A53 in EL1 mode;
 				* describes whether Cache Coherent or not */
+#ifdef SDT
+	u16 IntrId;
+	UINTPTR IntrParent;
+#endif
 #if defined  (XCLOCKING)
 	u32 RefClk;	/**< Input clock */
 #endif
@@ -798,7 +806,12 @@ void XEmacPs_SetQueuePtr(XEmacPs *InstancePtr, UINTPTR QPtr, u8 QueueNum,
 /*
  * Lookup configuration in xemacps_sinit.c
  */
+
+#ifndef SDT
 XEmacPs_Config *XEmacPs_LookupConfig(u16 DeviceId);
+#else
+XEmacPs_Config *XEmacPs_LookupConfig(UINTPTR BaseAddress);
+#endif
 
 /*
  * Interrupt-related functions in xemacps_intr.c

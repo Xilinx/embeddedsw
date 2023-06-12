@@ -28,7 +28,9 @@
 /***************************** Include Files *********************************/
 
 #include "xemacps.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -36,7 +38,11 @@
 /**************************** Type Definitions *******************************/
 
 /*************************** Variable Definitions *****************************/
+#ifdef SDT
+extern XEmacPs_Config XEmacPs_ConfigTable[];
+#else
 extern XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES];
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -55,6 +61,21 @@ extern XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES];
 * device ID, or NULL if no match is found.
 *
 ******************************************************************************/
+#ifdef SDT
+XEmacPs_Config *XEmacPs_LookupConfig(UINTPTR BaseAddress)
+{
+	XEmacPs_Config *CfgPtr = NULL;
+	u32 Index;
+	/* Checks all the instances */
+	for (Index = (u32)0x0; XEmacPs_ConfigTable[Index].Name != NULL; Index++) {
+		if ((XEmacPs_ConfigTable[Index].BaseAddress == BaseAddress) ||
+		    !BaseAddress) {
+			CfgPtr = &XEmacPs_ConfigTable[Index];
+			break;
+		}
+	}
+}
+#else
 XEmacPs_Config *XEmacPs_LookupConfig(u16 DeviceId)
 {
 	XEmacPs_Config *CfgPtr = NULL;
@@ -69,4 +90,5 @@ XEmacPs_Config *XEmacPs_LookupConfig(u16 DeviceId)
 
 	return (XEmacPs_Config *)(CfgPtr);
 }
+#endif
 /** @} */
