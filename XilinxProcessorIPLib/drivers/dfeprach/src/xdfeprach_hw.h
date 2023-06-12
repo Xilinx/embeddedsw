@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +31,7 @@
 * 1.4   dc     08/18/22 Update register fields
 * 1.5   dc     12/14/22 Update multiband register arithmetic
 *       dc     01/02/23 Multiband registers update
+* 1.6   dc     08/06/23 Support dynamic and static modes of operation
 *
 * </pre>
 *
@@ -73,6 +74,8 @@ extern "C" {
 #define XDFEPRACH_MODEL_PARAM_NUM_RACH_LANES_OFFSET 24U
 #define XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_WIDTH 1U
 #define XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_OFFSET 28U
+#define XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_OFF 0U
+#define XDFEPRACH_MODEL_PARAM_HAS_AXIS_CTRL_ON 1U
 #define XDFEPRACH_MODEL_PARAM_HAS_IRQ_WIDTH 1U
 #define XDFEPRACH_MODEL_PARAM_HAS_IRQ_OFFSET 29U
 #define XDFEPRACH_MODEL_PARAM_NUM_BANDS_WIDTH 2U
