@@ -32,6 +32,7 @@
  * 1.8   ana  05/02/23	  Updated XIpiPs_PollforDone logic to improve
  *						  AES client performance
  *	 ht   05/30/23	  Added support for system device-tree flow.
+ *	 ht   06/12/23	  Fix MISRA-C warnings
  *</pre>
  *
  *@note
@@ -91,7 +92,7 @@ u32 XMailbox_Initialize(XMailbox *InstancePtr, UINTPTR BaseAddress)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	Status = (u32) Xil_SMemSet((void *)InstancePtr, sizeof(XMailbox), 0, sizeof(XMailbox));
+	Status = (u32) Xil_SMemSet((void *)InstancePtr, (u32)sizeof(XMailbox), 0, sizeof(XMailbox));
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
