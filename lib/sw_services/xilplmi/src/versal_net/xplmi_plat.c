@@ -31,6 +31,7 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.02  bm   04/28/2023 Update Pmc IRO frequency by detecting the part
 *       dd   05/24/2023 Updated doxygen comments
+*       ng   05/31/2023 Initialised IsKatRan state to False
 *
 * </pre>
 *
@@ -71,8 +72,8 @@
 #define XPLMI_SSS_AES_DMA0		(0x0000E000U) /**< AES DMA0 */
 #define XPLMI_SSS_AES_DMA1		(0x00005000U) /**< AES DMA1 */
 
-#define XPLMI_LPDINITIALIZED_VER	(1U) /**< LPD intialized version */
-#define XPLMI_LPDINITIALIZED_LCVER	(1U) /**< LPD intialized LC version */
+#define XPLMI_LPDINITIALIZED_VER	(1U) /**< LPD initialized version */
+#define XPLMI_LPDINITIALIZED_LCVER	(1U) /**< LPD initialized LC version */
 
 #define XPLMI_UART_BASEADDR_VER		(1U) /**< UART base address version */
 #define XPLMI_UART_BASEADDR_LCVER	(1U) /**< UART base address LC version */
@@ -473,7 +474,7 @@ void XPlmi_IpiIntrHandler(void *CallbackRef)
 			Task = XPlmi_GetTaskInstance(NULL, NULL,
 					XPlmi_GetIpiIntrId(IpiIndex));
 			if (Task == NULL) {
-				XPlmi_Printf(DEBUG_GENERAL, "IPI Interrrupt"
+				XPlmi_Printf(DEBUG_GENERAL, "IPI Interrupt"
 						" add task error\n\r");
 				break;
 			}
@@ -1078,11 +1079,14 @@ u8 XPlmi_IsKatRan(u32 PlmKatMask)
 {
 	volatile u8 CryptoKatEn = XPlmi_IsCryptoKatEn();
 	volatile u8 CryptoKatEnTmp = XPlmi_IsCryptoKatEn();
-	u8 IsKatRan = TRUE;
+	u8 IsKatRan = FALSE;
 
 	if ((CryptoKatEn == TRUE) || (CryptoKatEnTmp == TRUE)) {
 		IsKatRan = (((XPlmi_In32(XPLMI_RTCFG_PLM_KAT_ADDR) & PlmKatMask) != 0U)?
 					(u8)TRUE: (u8)FALSE);
+	}
+	else {
+		IsKatRan = TRUE;
 	}
 
 	return IsKatRan;
