@@ -63,6 +63,7 @@
   * 2.1   skg  12/14/22 Added SSIT Provisioning support
   *       am   04/13/23 Fix PUF auxiliary convergence error
   * 2.2   am   05/03/23 Added KAT before crypto usage
+	      vek  05/31/23  Added support for Programming PUF secure control bits
   *
   *@note
   *
@@ -834,11 +835,6 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	Status = Xil_SMemSet(&PrgmPufHelperData, sizeof(PrgmPufHelperData), 0U, sizeof(PrgmPufHelperData));
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 #if defined (VERSAL_NET)
 	u32 SecCtrlBits = (PUF_DIS << XPUF_PUF_DIS_SHIFT) | (PUF_SYN_LK << XPUF_PUF_SYN_LK_SHIFT);
 	Status = XNvm_EfuseWriteSecCtrlBits(InstancePtr, SecCtrlBits);
@@ -847,14 +843,16 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	PrgmPufHelperData.PufSecCtrlBits = (PUF_REGEN_DIS << XPUF_PUF_REGEN_DIS_SHIFT) | (PUF_HD_INVLD << XPUF_PUF_HD_INVLD_SHIFT);
-	PrgmPufHelperData.PufSecCtrlBits = PrgmPufHelperData.PufSecCtrlBits | (PUF_REGIS_DIS << XPUF_PUF_REGIS_DIS_SHIFT);
-	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
-	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
+	u32 PufCtrlBits = (PUF_REGEN_DIS << XPUF_PUF_REGEN_DIS_SHIFT) | (PUF_HD_INVLD << XPUF_PUF_HD_INVLD_SHIFT) | (PUF_REGIS_DIS << XPUF_PUF_REGIS_DIS_SHIFT);
+	Status = XNvm_EfuseWritePufCtrlBits(InstancePtr, PufCtrlBits);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);
+		xil_printf("Error in programming PUF Control bits %x\r\n", Status);
 	}
 #else
+	Status = Xil_SMemSet(&PrgmPufHelperData, sizeof(PrgmPufHelperData), 0U, sizeof(PrgmPufHelperData));
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 	PrgmPufHelperData.PufSecCtrlBits.PufDis = PUF_DIS;
 	PrgmPufHelperData.PufSecCtrlBits.PufRegenDis = PUF_REGEN_DIS;
 	PrgmPufHelperData.PufSecCtrlBits.PufHdInvalid = PUF_HD_INVLD;
