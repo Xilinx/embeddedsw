@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +11,9 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
-#ifdef XPAR_INTC_0_DEVICE_ID
+#ifdef SDT
+int EmacPsDmaIntrExample(XEmacPs *EmacPsInstancePtr, UINTPTR BaseAddress);
+#elif XPAR_INTC_0_DEVICE_ID
 int EmacPsDmaIntrExample(XIntc *IntcInstancePtr,
 			  XEmacPs *EmacPsInstancePtr,
 			  u16 EmacPsDeviceId);

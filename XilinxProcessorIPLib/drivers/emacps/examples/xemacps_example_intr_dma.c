@@ -133,7 +133,9 @@
 #define XPS_SYS_CTRL_BASEADDR	XPAR_PS7_SLCR_0_S_AXI_BASEADDR
 #endif
 
-#ifdef XPAR_INTC_0_DEVICE_ID
+#ifdef SDT
+#define EMACPS_BASEADDR         XPAR_XEMACPS_0_BASEADDR
+#elif XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define EMACPS_DEVICE_ID	XPAR_XEMACPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
@@ -262,8 +264,10 @@ volatile s32 DeviceErrors;	/* Number of errors detected in the device */
 
 u32 TxFrameLength;
 
+#ifndef SDT
 #ifndef TESTAPP_GEN
 static INTC IntcInstance;
+#endif
 #endif
 
 #ifdef __ICCARM__
@@ -284,23 +288,26 @@ u32 GemVersion;
 /*
  * Example
  */
+#ifdef SDT
+LONG EmacPsDmaIntrExample(XEmacPs *EmacPsInstancePtr, UINTPTR BaseAddress);
+#else
 LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 			  XEmacPs *EmacPsInstancePtr,
 			  u16 EmacPsDeviceId);
-
+#endif
 LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr);
 
 /*
  * Interrupt setup and Callbacks for examples
  */
-
+#ifndef SDT
 static LONG EmacPsSetupIntrSystem(INTC *IntcInstancePtr,
 				  XEmacPs *EmacPsInstancePtr,
 				  u16 EmacPsIntrId);
 
 static void EmacPsDisableIntrSystem(INTC *IntcInstancePtr,
 				    u16 EmacPsIntrId);
-
+#endif
 static void XEmacPsSendHandler(void *Callback);
 static void XEmacPsRecvHandler(void *Callback);
 static void XEmacPsErrorHandler(void *Callback, u8 direction, u32 word);
@@ -333,10 +340,14 @@ int main(void)
 	 * Call the EmacPs DMA interrupt example , specify the parameters
 	 * generated in xparameters.h
 	 */
+#ifdef SDT
+	Status = EmacPsDmaIntrExample(&EmacPsInstance,
+				      EMACPS_BASEADDR);
+#else
 	Status = EmacPsDmaIntrExample(&IntcInstance,
 				      &EmacPsInstance,
 				      EMACPS_DEVICE_ID);
-
+#endif
 	if (Status != XST_SUCCESS) {
 		EmacPsUtilErrorTrap("Emacps intr dma Example Failed\r\n");
 		return XST_FAILURE;
@@ -365,9 +376,13 @@ int main(void)
 * @note		None.
 *
 *****************************************************************************/
+#ifdef SDT
+LONG EmacPsDmaIntrExample( XEmacPs *EmacPsInstancePtr, UINTPTR BaseAddress)
+#else
 LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 			  XEmacPs *EmacPsInstancePtr,
 			  u16 EmacPsDeviceId)
+#endif
 {
 	LONG Status;
 	XEmacPs_Config *Config;
@@ -384,7 +399,11 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 	 *  retiring _Initialize. So in _CfgInitialize we use
 	 *  XPAR_(IP)_BASEADDRESS to make sure it is not virtual address.
 	 */
+#ifdef SDT
+	Config = XEmacPs_LookupConfig(BaseAddress);
+#else
 	Config = XEmacPs_LookupConfig(EmacPsDeviceId);
+#endif
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
 	/* Request device to indicate it is in use by this application */
@@ -632,9 +651,15 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 	/*
 	 * Setup the interrupt controller and enable interrupts
 	 */
+#ifdef SDT
+	Status = XSetupInterruptSystem(EmacPsInstancePtr, &XEmacPs_IntrHandler,
+				       EmacPsInstancePtr->Config.IntrId,
+				       EmacPsInstancePtr->Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+#else
 	Status = EmacPsSetupIntrSystem(IntcInstancePtr,
 				       EmacPsInstancePtr, EmacPsIntrId);
-
+#endif
 	/*
 	 * Run the EmacPs DMA Single Frame Interrupt example
 	 */
@@ -646,8 +671,12 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 	/*
 	 * Disable the interrupts for the EmacPs device
 	 */
+#ifdef SDT
+	XDisconnectInterruptCntrl(EmacPsInstancePtr->Config.IntrId,
+				  EmacPsInstancePtr->Config.IntrParent);
+#else
 	EmacPsDisableIntrSystem(IntcInstancePtr, EmacPsIntrId);
-
+#endif
 	/*
 	 * Stop the device
 	 */
@@ -1076,6 +1105,7 @@ static LONG EmacPsResetDevice(XEmacPs *EmacPsInstancePtr)
 * @note		None.
 *
 *****************************************************************************/
+#ifndef SDT
 static LONG EmacPsSetupIntrSystem(INTC *IntcInstancePtr,
 				  XEmacPs *EmacPsInstancePtr,
 				  u16 EmacPsIntrId)
@@ -1224,7 +1254,7 @@ static void EmacPsDisableIntrSystem(INTC *IntcInstancePtr,
 #endif
 
 }
-
+#endif
 /****************************************************************************/
 /**
 *

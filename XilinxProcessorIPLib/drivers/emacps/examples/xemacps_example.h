@@ -50,10 +50,14 @@
 #include "xil_cache.h"
 #include "xil_printf.h"
 #include "xemacps.h"		/* defines XEmacPs API */
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#else
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
 #else
 #include "xscugic.h"
+#endif
 #endif
 
 #ifndef __MICROBLAZE__
