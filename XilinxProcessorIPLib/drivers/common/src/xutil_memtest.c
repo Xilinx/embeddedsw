@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xutil_memtest.c
-* @addtogroup common_v1_2
+* @addtogroup common Overview
 * @{
 *
 * Contains the memory test utility functions.

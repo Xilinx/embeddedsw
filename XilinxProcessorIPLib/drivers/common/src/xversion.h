@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xversion.h
-* @addtogroup common_v1_2
+* @addtogroup common Overview
 * @{
 *
 * This file contains the interface for the XVersion component. This

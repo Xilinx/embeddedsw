@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xcpu_cortexr5.h
-* @addtogroup cpu_cortexr5_v2_0
+* @addtogroup cpu_cortexr5 Overview
 * @{
 * @details
 *
