@@ -28,6 +28,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.13   akm  02/11/21 First release
+* 1.18   sb   06/07/23 Added support for system device-tree flow.
 *
 *</pre>
 *
@@ -40,6 +41,9 @@
 #include "xil_cache.h"
 #include "xscugic.h"            /* Interrupt controller device driver */
 #include "xil_exception.h"
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 
 /************************** Constant Definitions *****************************/
@@ -49,7 +53,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define QSPIPSU_DEVICE_ID       XPAR_XQSPIPSU_0_DEVICE_ID
+#endif
 #define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define QSPIPSU_INTR_ID         XPAR_XQSPIPS_0_INTR
 
@@ -138,9 +144,14 @@ u8 FSRFlag;
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
                 XQspiPsu *QspiPsuInstancePtr,
                 u16 QspiPsuDeviceId, u16 QspiPsuIntrId);
+#else
+int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr,
+                                UINTPTR BaseAddress);
+#endif
 int FlashReadID(XQspiPsu *QspiPsuPtr);
 int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address);
 int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
@@ -237,8 +248,13 @@ int main(void)
     /*
      * Run the QspiPsu Interrupt example.
      */
+#ifndef SDT
     Status = QspiPsuInterruptFlashExample(&IntcInstance, &QspiPsuInstance,
                                     QSPIPSU_DEVICE_ID, QSPIPSU_INTR_ID);
+#else
+       Status = QspiPsuInterruptFlashExample(&QspiPsuInstance,
+                                             XPAR_XQSPIPSU_0_BASEADDR);
+#endif
     if (Status != XST_SUCCESS) {
             xil_printf("QSPIPSU Generic NAND Flash Interrupt Example Failed\r\n");
             return XST_FAILURE;
@@ -261,9 +277,13 @@ int main(void)
  * @note        None.
  *
  *****************************************************************************/
+#ifndef SDT
 int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
                 XQspiPsu *QspiPsuInstancePtr,
                 u16 QspiPsuDeviceId, u16 QspiPsuIntrId)
+#else
+int QspiPsuInterruptFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 UniqueValue;
@@ -277,7 +297,11 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	/*
 	 * Initialize the QSPIPSU driver so that it's ready to use
 	 */
+#ifndef SDT
 	QspiPsuConfig = XQspiPsu_LookupConfig(QspiPsuDeviceId);
+#else
+       QspiPsuConfig = XQspiPsu_LookupConfig(BaseAddress);
+#endif
 	if (QspiPsuConfig == NULL) {
 		return XST_FAILURE;
 	}
@@ -292,8 +316,15 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr,
 	 * Connect the QspiPsu device to the interrupt subsystem such that
 	 * interrupts can occur. This function is application specific
 	 */
+#ifndef SDT
 	Status = QspiPsuSetupIntrSystem(IntcInstancePtr, QspiPsuInstancePtr,
 				     QspiPsuIntrId);
+#else
+       Status = XSetupInterruptSystem(QspiPsuInstancePtr, &XQspiPsu_InterruptHandler,
+                                      QspiPsuConfig->IntrId,
+                                      QspiPsuConfig->IntrParent,
+                                      XINTERRUPT_DEFAULT_PRIORITY);
+#endif
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
