@@ -21,6 +21,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.0   hk  08/21/14 First release
 * 1.15  akm 10/26/21 Fix MISRA-C violations.
+* 1.18  sb  06/07/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -29,7 +30,9 @@
 
 #include "xstatus.h"
 #include "xqspipsu.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -57,6 +60,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId)
 {
 	XQspiPsu_Config *CfgPtr = NULL;
@@ -70,4 +74,20 @@ XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId)
 	}
 	return (XQspiPsu_Config *)CfgPtr;
 }
+#else
+XQspiPsu_Config *XQspiPsu_LookupConfig(u32 BaseAddress)
+{
+       XQspiPsu_Config *CfgPtr = NULL;
+       s32 Index;
+
+       for (Index = 0; XQspiPsu_ConfigTable[Index].Name != NULL; Index++) {
+               if ((XQspiPsu_ConfigTable[Index].BaseAddress == BaseAddress) ||
+                   !BaseAddress) {
+                       CfgPtr = &XQspiPsu_ConfigTable[Index];
+                       break;
+               }
+       }
+       return (XQspiPsu_Config *)CfgPtr;
+}
+#endif
 /** @} */

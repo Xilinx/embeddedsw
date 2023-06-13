@@ -171,6 +171,7 @@
  * 1.17 akm 10/31/22 Add support for Winbond flash w25q02nw.
  * 1.17 akm 12/16/22 Add timeout in QSPIPSU driver operation.
  * 1.17 akm 01/02/23 Use Xil_WaitForEvent() API for register bit polling.
+ * 1.18 sb  06/07/23 Added support for system device-tree flow.
  *
  * </pre>
  *
@@ -237,13 +238,21 @@ typedef struct {
  * This typedef contains configuration information for the device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+       char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Base address of the device */
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8  ConnectionMode;	/**< Single, Stacked and Parallel mode */
 	u8  BusWidth;		/**< Bus width available on board */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
-#if defined  (XCLOCKING)
+        u16 IntrId;             /** Bits[11:0] Interrupt-id Bits[15:12]
+                                * trigger type and level flags */
+        UINTPTR IntrParent;     /** Bit[0] Interrupt parent type Bit[64/32:1]
+                                * Parent base address */
+#if defined  (XCLOCKING) || defined (SDT)
 	u32 RefClk;		/**< Input clocks */
 #endif
 } XQspiPsu_Config;
@@ -521,7 +530,11 @@ static inline void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
 /************************** Function Prototypes ******************************/
 
 /* Initialization and reset */
+#ifndef SDT
 XQspiPsu_Config *XQspiPsu_LookupConfig(u16 DeviceId);
+#else
+XQspiPsu_Config *XQspiPsu_LookupConfig(u32 BaseAddress);
+#endif
 s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 			   const XQspiPsu_Config *ConfigPtr,
 			   UINTPTR EffectiveAddr);
@@ -559,7 +572,11 @@ void XQspiPsu_Idle(const XQspiPsu *InstancePtr);
  * This table contains configuration information for each QSPIPSU device
  * in the system.
  */
+#ifndef SDT
 extern XQspiPsu_Config XQspiPsu_ConfigTable[XPAR_XQSPIPSU_NUM_INSTANCES];
+#else
+extern XQspiPsu_Config XQspiPsu_ConfigTable[];
+#endif
 
 #ifdef __cplusplus
 }
