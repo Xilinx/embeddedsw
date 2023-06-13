@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xscutimer_selftest.c
-* @addtogroup scutimer_v2_4
+* @addtogroup scutimer Overview
 * @{
 *
 * Contains diagnostic self-test functions for the XScuTimer driver.

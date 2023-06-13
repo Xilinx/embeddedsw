@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xcpu_cortexa9.h
-* @addtogroup cpu_cortexa9_v2_11
+* @addtogroup cpu_cortexa9 Overview
 * @{
 * @details
 *

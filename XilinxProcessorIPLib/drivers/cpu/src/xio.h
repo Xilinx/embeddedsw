@@ -8,7 +8,7 @@
 /**
 *
 * @file xio.h
-* @addtogroup cpu_v2_17
+* @addtogroup cpu Overview
 * @{
 * @details
 *

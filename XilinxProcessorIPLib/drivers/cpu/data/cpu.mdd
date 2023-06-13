@@ -40,7 +40,7 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze psu_pmu psu_pmc psu_psm psv_pmc psv_psm psxl_pmc psxl_psm psx_pmc psx_psm);
 OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 2.17;
+OPTION VERSION = 2.18;
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;
