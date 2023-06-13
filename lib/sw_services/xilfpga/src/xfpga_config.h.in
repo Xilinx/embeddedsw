@@ -1,0 +1,20 @@
+/******************************************************************************
+* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
+******************************************************************************/
+#ifndef _XFPGA_CONFIG_H
+#define _XFPGA_CONFIG_H
+
+#include <xilfpga.h>
+@PCAP_INCLUDE@
+@PCAP_COMMON_INCLUDE@
+@VERSAL_INCLUDE@
+
+#cmakedefine XFPGA_OCM_ADDRESS	@XFPGA_OCM_ADDRESS@U
+#cmakedefine XFPGA_BASE_ADDRESS	@XFPGA_BASE_ADDRESS@U
+#cmakedefine XFPGA_SECURE_MODE	@XFPGA_SECURE_MODE@
+#cmakedefine01 XFPGA_DEBUG	@XFPGA_DEBUG@
+#cmakedefine XFPGA_SECURE_READBACK_MODE @XFPGA_SECURE_READBACK_MODE@
+#cmakedefine XFPGA_SECURE_IPI_MODE_EN @XFPGA_SECURE_IPI_MODE_EN@
+
+#endif /* XFPGA_CONFIG_H */

@@ -60,6 +60,7 @@
 # 6.3 Nava   06/22/22  Skip eFUSE checks to allow xilfpga to load non-secure
 #                      bitstream in secure boot platform.
 # 6.4 Nava   01/23/23  Added psx processors in supported peripherals
+# 6.5 Nava   05/04/23  Added support for system device-tree flow.
 #
 ##############################################################################
 
@@ -72,7 +73,7 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psx_cortexa78 psv_cortexr5 psu_cortexa53 psu_cortexr5 psx_cortexr52 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 6.4;
+  OPTION VERSION = 6.5;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;
