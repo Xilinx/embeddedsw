@@ -55,6 +55,7 @@
  * 1.17  akm 12/16/22 Add timeout in QSPIPSU driver examples.
  * 1.18  sb  05/19/23 Update number of sector calculation logic
  *           in flash erase API.
+ * 1.18  sb  06/07/23 Added support for system device-tree flow.
  *
  *</pre>
  *
@@ -77,7 +78,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define QSPIPSU_DEVICE_ID		XPAR_XQSPIPSU_0_DEVICE_ID
+#endif
 
 /*
  * Number of flash pages to be written.
@@ -112,8 +115,13 @@ u8 FSRFlag;
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr,
 			      u16 QspiPsuDeviceId);
+#else
+int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr,
+			      UINTPTR BaseAddress);
+#endif
 
 int FlashReadID(XQspiPsu *QspiPsuPtr);
 int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
@@ -198,7 +206,11 @@ int main(void)
 	/*
 	 * Run the QspiPsu Polled example.
 	 */
+#ifndef SDT
 	Status = QspiPsuPolledFlashExample(&QspiPsuInstance, QSPIPSU_DEVICE_ID);
+#else
+	Status = QspiPsuPolledFlashExample(&QspiPsuInstance, XPAR_XQSPIPSU_0_BASEADDR);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Generic Flash Polled 64 bit dma r5 Example Failed\r\n");
 		return XST_FAILURE;
@@ -226,7 +238,11 @@ int main(void)
  * @note	None.
  *
  *****************************************************************************/
+#ifndef SDT
 int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuDeviceId)
+#else
+int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	u8 UniqueValue;
@@ -242,7 +258,11 @@ int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuDeviceId)
 	/*
 	 * Initialize the QSPIPSU driver so that it's ready to use
 	 */
+#ifndef SDT
 	QspiPsuConfig = XQspiPsu_LookupConfig(QspiPsuDeviceId);
+#else
+	QspiPsuConfig = XQspiPsu_LookupConfig(BaseAddress);
+#endif
 	if (QspiPsuConfig == NULL) {
 		return XST_FAILURE;
 	}
