@@ -27,6 +27,7 @@
 *******************************************************************************/
 /******************************* Include Files ********************************/
 #include "xavbuf_clk.h"
+#include "xil_printf.h"
 
 /**************************** Constant Definitions ****************************/
 /*Input Frequency for the PLL with precision upto two decimals*/
@@ -199,6 +200,8 @@ static void XAVBuf_PllInitialize(XAVBuf_Pll *PllInstancePtr,
 	/* Instantiate input frequency. */
 	PllInstancePtr->InputRefClk = XAVBUF_Pss_Ref_Clk;
 	PllInstancePtr->RefClkFreqhz = XAVBUF_INPUT_REF_CLK;
+	xil_printf("AVBuf Input Ref Clk = %lu Hz",
+		   PllInstancePtr->RefClkFreqhz);
 	/* Turn on internal Divider*/
 	PllInstancePtr->Divider = 1;
 	PllInstancePtr->Pll = Pll;
@@ -247,6 +250,8 @@ static int XAVBuf_PllCalcParameterValues(XAVBuf_Pll *PllInstancePtr,
 	/* Instantiate input frequency. */
 	PllInstancePtr->InputRefClk =  XAVBUF_Pss_Ref_Clk;
 	PllInstancePtr->RefClkFreqhz =  XAVBUF_INPUT_REF_CLK;
+	xil_printf("AVBuf Input Ref Clk = %lu Hz",
+		   PllInstancePtr->RefClkFreqhz);
 	/* Turn on internal Divider*/
 	PllInstancePtr->Divider = 1;
 	PllInstancePtr->DomainSwitchDiv = 1;
