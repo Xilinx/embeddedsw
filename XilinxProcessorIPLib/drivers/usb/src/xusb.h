@@ -9,7 +9,7 @@
 /**
 *
 * @file xusb.h
-* @addtogroup usb_v5_5
+* @addtogroup usb Overview
 * @{
 * @details
 *

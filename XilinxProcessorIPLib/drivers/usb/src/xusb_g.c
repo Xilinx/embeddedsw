@@ -9,7 +9,7 @@
 /**
 *
 * @file xusb_g.c
-* @addtogroup usb_v5_5
+* @addtogroup usb Overview
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
