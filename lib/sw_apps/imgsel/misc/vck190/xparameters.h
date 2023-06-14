@@ -1839,6 +1839,8 @@
 /* PUF handlers disable */
 #define PLM_PUF_EXCLUDE
 
+/* Xilinx Secure library ecdsa endianness Settings */
+#define XSECURE_ELLIPTIC_ENDIANNESS    0U    /* 0: Little Endian and 1: Big endian */
 
 //#define XPAR_XILPM_ENABLED
 #endif  /* end of protection macro */
