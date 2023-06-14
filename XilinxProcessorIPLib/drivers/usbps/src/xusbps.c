@@ -7,7 +7,7 @@
 /******************************************************************************/
 /**
  * @file xusbps.c
-* @addtogroup usbps_v2_7
+* @addtogroup usbps Overview
 * @{
  *
  * The XUsbPs driver. Functions in this file are the minimum required

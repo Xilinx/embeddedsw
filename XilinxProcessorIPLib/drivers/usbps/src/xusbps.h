@@ -8,7 +8,7 @@
 /**
  *
  * @file xusbps.h
-* @addtogroup usbps_v2_7
+* @addtogroup usbps Overview
 * @{
 * @details
  *

@@ -8,7 +8,7 @@
 /**
  *
  * @file xusbps_endpoint.h
-* @addtogroup usbps_v2_7
+* @addtogroup usbps Overview
 * @{
  *
  * This is an internal file containung the definitions for endpoints. It is
