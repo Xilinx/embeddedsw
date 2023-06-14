@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
  * @file xusb.c
-* @addtogroup usb_v5_5
+* @addtogroup usb Overview
 * @{
  *
  * The XUsb driver. Functions in this file are the minimum required functions
