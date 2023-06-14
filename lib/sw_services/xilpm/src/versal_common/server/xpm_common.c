@@ -17,7 +17,7 @@
 
 #ifdef VERSAL_NET
 /* TODO: should be same ideally, need to optimize */
-#define MAX_BYTEBUFFER_SIZE	(35U * 1024U)
+#define MAX_BYTEBUFFER_SIZE	(36U * 1024U)
 #else
 #define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
 #endif
