@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -14,7 +15,7 @@ BEGIN driver usb
   OPTION supported_peripherals = (axi_usb2_device);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 5.5;
+  OPTION VERSION = 5.6;
   OPTION NAME = usb;  
     
 END driver
