@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_hibernation.c
-* @addtogroup usbpsu USBPSU v1.12
+* @addtogroup usbpsu Overview
 * @{
 *
 * This patch adds hibernation support to usbpsu driver when dwc3 is operating

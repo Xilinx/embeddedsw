@@ -8,7 +8,7 @@
 /**
 *
 * @file xusbpsu_intr.c
-* @addtogroup usbpsu USBPSU v1.12
+* @addtogroup usbpsu Overview
 * @{
 *
 *
