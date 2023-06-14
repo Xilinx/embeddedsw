@@ -677,9 +677,7 @@ void FreeRTOS_Tick_Handler( void )
 		__asm volatile (	"dsb sy		\n"
 					"isb sy		\n" ::: "memory" );
 
-#if (configGENERATE_RUN_TIME_STATS == 0)
 		configCLEAR_TICK_INTERRUPT();
-#endif
 		portENABLE_INTERRUPTS();
 
 		/* Increment the RTOS tick. */
