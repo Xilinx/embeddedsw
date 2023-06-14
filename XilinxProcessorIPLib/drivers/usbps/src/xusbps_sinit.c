@@ -8,7 +8,7 @@
 /**
  *
  * @file xusbps_sinit.c
-* @addtogroup usbps_v2_7
+* @addtogroup usbps Overview
 * @{
  *
  * The implementation of the XUsbPs driver's static initialization

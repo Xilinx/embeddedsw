@@ -8,7 +8,7 @@
 /**
  *
  * @file xusbps_g.c
-* @addtogroup usbps_v2_7
+* @addtogroup usbps Overview
 * @{
  * This file contains a configuration table where each entry is a configuration
  * structure for an XUsbPs device in the system.
