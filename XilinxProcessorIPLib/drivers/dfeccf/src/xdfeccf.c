@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -51,7 +51,7 @@
 * 1.5   dc     10/28/22 Switching Uplink/Downlink support
 *       dc     11/11/22 Align AddCC to switchable UL/DL algorithm
 *       dc     11/25/22 Update macro of SW version Minor number
-*
+* 1.6   dc     06/15/23 Function comment update
 * </pre>
 * @addtogroup dfeccf Overview
 * @{
@@ -84,7 +84,7 @@
 #define XDFECCF_ACTIVE_SET_NUM (8U) /**< Maximum number of active sets */
 #define XDFECCF_U32_NUM_BITS (32U) /**< Number of bits in register */
 #define XDFECCF_TAP_NUMBER_MAX (256U) /**< Maximum tap number */
-#define XDFECCF_DRIVER_VERSION_MINOR (5U) /**< Driver's minor version number */
+#define XDFECCF_DRIVER_VERSION_MINOR (6U) /**< Driver's minor version number */
 #define XDFECCF_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
@@ -1271,8 +1271,8 @@ static void XDfeCcf_GetCurrentCCCfgLocal(const XDfeCcf *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Returns the current CC and NCO configuration for Downlink and Uplink in
-* switchable mode.  Not used slot ID in a sequence (Sequence.CCID[Index]) are
+* Returns the current CC configuration for Downlink and Uplink in switchable
+* mode. Not used slot ID in a sequence (Sequence.CCID[Index]) are
 * represented as (-1), not the value in registers.
 *
 * @param    InstancePtr Pointer to the Mixer instance.
