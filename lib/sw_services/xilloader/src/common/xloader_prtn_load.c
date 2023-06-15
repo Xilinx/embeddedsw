@@ -98,6 +98,7 @@
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       sk   05/18/2023 Deprecate copy to memory feature
+*       bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *
 * </pre>
 *
@@ -428,6 +429,7 @@ static int XLoader_ProcessCdo(const XilPdi* PdiPtr, XLoader_DeviceCopy* DeviceCo
 	Cdo.NextChunkAddr = XPLMI_PMCRAM_CHUNK_MEMORY;
 	Cdo.SubsystemId = XPm_GetSubsystemId(
 		PdiPtr->MetaHdr.ImgHdr[PdiPtr->ImageNum].ImgID);
+	Cdo.PartitionOffset = PdiPtr->MetaHdr.PrtnHdr[PdiPtr->PrtnNum].DataWordOfst;
 	SecureParams->IsCdo = (u8)TRUE;
 	if ((SecureParams->SecureEn == (u8)FALSE) &&
 		(SecureTempParams->SecureEn == (u8)FALSE) &&

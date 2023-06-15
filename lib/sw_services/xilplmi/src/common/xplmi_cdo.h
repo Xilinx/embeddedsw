@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +35,7 @@
 *       bsv  08/02/2021 Code clean up to reduce size
 * 1.05  ma   01/31/2022 Fix DMA Keyhole command issue where the command
 *                       starts at the 32K boundary
+* 1.06  bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *
 * </pre>
 *
@@ -91,11 +93,13 @@ typedef struct {
 	u32 BufLen;		/**< Buffer length */
 	u32 CdoLen;		/**< CDO length */
 	u32 ProcessedCdoLen;	/**< Processed CDO length */
+	u32 PartitionOffset;	/**< Current parition offset */
 	u32 CopiedCmdLen;	/**< Copied Command length */
 	u32 *TempCmdBuf;	/**< Temporary buffer to store commands
 				 between iterations */
 	XPlmi_Cmd Cmd;		/**< Cmd instance */
 	u32 SubsystemId;	/**< SubsystemId as derived from XilPM */
+	u8 LogCdoOffset;	/**< Flag to determine whether to log CDO offset */
 	u8 CmdState;		/**< Cmd processing state */
 	u8 CmdEndDetected;	/**< Flag to detect end of commands */
 	u8 Cdo1stChunk;		/**< This is used for first time to validate

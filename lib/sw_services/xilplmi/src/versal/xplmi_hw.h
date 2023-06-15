@@ -81,6 +81,7 @@
 * 1.09  ng   11/11/2022 Fixed doxygen file name error
 *       bm   01/03/2023 Handle SSIT Events from PPU1 IRQ directly
 *       bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+* 1.10  bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *
 * </pre>
 *
@@ -100,6 +101,7 @@ extern "C" {
 #include "xparameters.h"
 #include "xil_io.h"
 #include "xil_hw.h"
+#include "xplmi_util.h"
 
 /**@cond xplmi_internal
  * @{
@@ -148,6 +150,15 @@ extern "C" {
  * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE4
  */
 #define PMC_GLOBAL_GLOBAL_GEN_STORAGE4    (PMC_GLOBAL_BASEADDR + 0X00000040U)
+
+/*
+ * Register: PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1
+ */
+#define PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1	(PMC_GLOBAL_BASEADDR + 0X00000054U)
+
+/* Defines for the bit in PGGS1 register which indicates whether to Log CDO offset */
+#define PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT		(0x3U)
+#define PMC_GLOBAL_LOG_CDO_OFFSET_MASK		XPLMI_BIT(PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT)
 
 /*
  * Register: PMC_GLOBAL_PERS_GEN_STORAGE2

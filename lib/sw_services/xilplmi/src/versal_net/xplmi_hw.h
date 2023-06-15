@@ -31,6 +31,7 @@
 *       ng   11/11/2022 Fixed doxygen file name error
 *       sk   01/13/2023 Added Register/Mask defines for PMX LPD FPD CPM domain
 * 1.02  bm   04/28/2023 Added IRO_SWAP and sysmon related macros
+*       bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *
 * </pre>
 *
@@ -50,6 +51,7 @@ extern "C" {
 #include "xparameters.h"
 #include "xil_io.h"
 #include "xil_hw.h"
+#include "xplmi_util.h"
 
 /**@cond xplmi_internal
  * @{
@@ -100,6 +102,15 @@ extern "C" {
 #define PMC_GLOBAL_GLOBAL_GEN_STORAGE4    (PMC_GLOBAL_BASEADDR + 0X00000040U)
 
 /*
+ * Register: PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1
+ */
+#define PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1	(PMC_GLOBAL_BASEADDR + 0X00000054U)
+
+/* Defines for the bit in PGGS1 register which indicates whether to Log CDO offset */
+#define PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT		(0x3U)
+#define PMC_GLOBAL_LOG_CDO_OFFSET_MASK		XPLMI_BIT(PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT)
+
+/*
  * Register: PMC_GLOBAL_PMC_GSW_ERR
  */
 #define PMC_GLOBAL_PMC_GSW_ERR    (PMC_GLOBAL_BASEADDR + 0X00000064U)
@@ -123,6 +134,7 @@ extern "C" {
  * Register: PMC_GLOBAL_GLOBAL_GEN_STORAGE8
  */
 #define PMC_GLOBAL_GLOBAL_GEN_STORAGE8	(PMC_GLOBAL_BASEADDR + 0X00000074U)
+
 
 /*
  * Register: PMC_GLOBAL_PWR_STATUS
