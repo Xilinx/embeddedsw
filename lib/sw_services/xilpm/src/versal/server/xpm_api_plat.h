@@ -32,7 +32,7 @@ XStatus XPm_HookAfterBootPdi(void);
 XStatus XPm_NocClockEnable(u32 NodeId, const u32 *Args, u32 NumArgs);
 XStatus XPm_IfNocClockEnable(XPlmi_Cmd *Cmd, const u32 *Args, u32 NumArgs);
 
-int XPm_PlatProcessCmd(XPlmi_Cmd * Cmd, u32 *ApiResponse);
+int XPm_PlatProcessCmd(XPlmi_Cmd * Cmd);
 XStatus XPm_PlatInit(void);
 XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs);
 XStatus XPm_PlatAddNodePower(const u32 *Args, u32 NumArgs);

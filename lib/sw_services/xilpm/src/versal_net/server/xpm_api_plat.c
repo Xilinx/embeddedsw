@@ -112,14 +112,12 @@ done:
 	return Status;
 }
 
-int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd, u32 *ApiResponse)
+int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 {
 	XStatus Status = XST_FAILURE;
 	u32 CmdId = Cmd->CmdId & 0xFFU;
 	const u32 *Pload = Cmd->Payload;
 	u32 Len = Cmd->Len;
-
-	(void)ApiResponse;
 
 	switch (CmdId) {
 	case PM_API(PM_BISR):

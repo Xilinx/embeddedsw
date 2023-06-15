@@ -271,10 +271,9 @@ XStatus IsOnSecondarySLR(u32 SubsystemId)
 	return Status;
 }
 
-int XPm_PlatProcessCmd(XPlmi_Cmd * Cmd, u32 *ApiResponse)
+int XPm_PlatProcessCmd(XPlmi_Cmd * Cmd)
 {
 	int Status = XST_FAILURE;
-	u32 SubsystemId = Cmd->SubsystemId;
 	const u32 *Pload = Cmd->Payload;
 	u32 CmdId = Cmd->CmdId & 0xFFU;
 	u32 Len = Cmd->Len;

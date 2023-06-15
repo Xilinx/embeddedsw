@@ -587,7 +587,7 @@ static int XPm_ProcessCmd(XPlmi_Cmd * Cmd)
 				      ApiResponse, Cmd->IpiReqType);
 		break;
 	default:
-		Status = XPm_PlatProcessCmd(Cmd, ApiResponse);
+		Status = XPm_PlatProcessCmd(Cmd);
 		break;
 	}
 
