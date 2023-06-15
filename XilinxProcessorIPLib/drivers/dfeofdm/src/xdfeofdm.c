@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
+* 1.1   dc     05/22/23 State and status upgrades
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -48,7 +49,7 @@
 * @endcond
 */
 #define XDFEOFDM_U32_NUM_BITS (32U) /**< Number of bits in register */
-#define XDFEOFDM_DRIVER_VERSION_MINOR (0U) /**< Driver's minor version number */
+#define XDFEOFDM_DRIVER_VERSION_MINOR (1U) /**< Driver's minor version number */
 #define XDFEOFDM_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
@@ -872,6 +873,10 @@ void XDfeOfdm_Initialize(XDfeOfdm *InstancePtr, XDfeOfdm_Init *Init)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->StateId == XDFEOFDM_STATE_CONFIGURED);
 	Xil_AssertVoid(Init != NULL);
+
+	/* Enable OFDM */
+	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_STATE_OFDM_ENABLE_OFFSET,
+			  XDFEOFDM_STATE_OFDM_ENABLE_BF_ENABLED);
 
 	/* Write "one-time" CC Sequence length. InstancePtr->CCSequenceLength holds
 	   the exact sequence length value as register sequence length value 0
@@ -1979,6 +1984,55 @@ void XDfeOfdm_SetTriggersCfg(const XDfeOfdm *InstancePtr,
 				  XDFEOFDM_TRIGGERS_STATE_OUTPUT_OFFSET, Val,
 				  TriggerCfg->CCUpdate.StateOutput);
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_TRIGGERS_CC_UPDATE_OFFSET, Val);
+}
+
+/****************************************************************************/
+/**
+*
+* Sets TUSER Framing bit Location register where bit location indicates which
+* bit to be used for sending framing information on DL_DOUT IF and
+* M_AXIS_TBASE IF.
+* TUSER bit width is fixed to its default value of 8. Therefore, legal values
+* of FRAME_BIT are 0 to 7.
+*
+* @param    InstancePtr Pointer to the OFDM instance.
+* @param    TuserOutFrameLocation Requested TUSER OutFrame Location.
+*
+****************************************************************************/
+void XDfeOfdm_SetTuserOutFrameLocation(const XDfeOfdm *InstancePtr,
+				       u32 TuserOutFrameLocation)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TuserOutFrameLocation <
+		       (1 << XDFEOFDM_TUSER_OUTFRAME_LOCATION_BF_WIDTH));
+	Xil_AssertVoid(InstancePtr->StateId == XDFEOFDM_STATE_OPERATIONAL);
+
+	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_TUSER_OUTFRAME_LOCATION_OFFSET,
+			  TuserOutFrameLocation);
+}
+
+/****************************************************************************/
+/**
+*
+* Gets TUSER Framing bit Location register where bit location indicates which
+* bit to be used for sending framing information on DL_DOUT IF and
+* M_AXIS_TBASE IF.
+* TUSER bit width is fixed to its default value of 8. Therefore, legal values
+* of FRAME_BIT are 0 to 7.
+*
+* @param    InstancePtr Pointer to the OFDM instance.
+*
+* @return   TUSER OutFrame Location
+*
+****************************************************************************/
+u32 XDfeOfdm_GetTuserOutFrameLocation(const XDfeOfdm *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return XDfeOfdm_RdRegBitField(
+		InstancePtr, XDFEOFDM_TUSER_OUTFRAME_LOCATION_OFFSET,
+		XDFEOFDM_TUSER_OUTFRAME_LOCATION_BF_WIDTH,
+		XDFEOFDM_TUSER_OUTFRAME_LOCATION_BF_OFFSET);
 }
 
 /****************************************************************************/
