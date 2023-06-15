@@ -4,7 +4,7 @@ LIBSOURCES = *.c
 OUTS = *.o
 NAME := dfeccf
 MAJOR = 1
-MINOR = 5
+MINOR = 6
 VERSION = $(MAJOR).$(MINOR)
 
 all: lib$(NAME).so
