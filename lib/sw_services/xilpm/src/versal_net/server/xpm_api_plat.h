@@ -35,7 +35,7 @@ XStatus XPm_PlatAddNode(const u32 *Args, u32 NumArgs);
 
 XStatus XPm_PlatFeatureCheck(const u32 ApiId, u32 *const Version);
 
-int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd, u32 *ApiResponse);
+int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd);
 
 XStatus XPm_PlatAddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,
 				     u32 ReqFlags, const u32 *Args, u32 NumArgs);
