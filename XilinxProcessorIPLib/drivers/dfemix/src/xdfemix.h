@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -83,6 +83,7 @@
 *       dc     11/10/22 Align AddCC to switchable UL/DL algorithm
 *       dc     11/11/22 Update get overflow status API
 *       dc     11/11/22 Update NCOIdx and CCID check
+* 1.6   dc     06/15/23 Correct comment about gain
 *
 * </pre>
 * @endcond
@@ -413,7 +414,7 @@ typedef struct {
  * Configuration to all antennas.
  */
 typedef struct {
-	u32 Gain[XDFEMIX_ANT_NUM_MAX]; /**< [0: 0dB,1:-6dB] Antenna gain adjustment */
+	u32 Gain[XDFEMIX_ANT_NUM_MAX]; /**< [0: -6dB,1:0dB] Antenna gain adjustment */
 } XDfeMix_AntennaCfg;
 
 /**
