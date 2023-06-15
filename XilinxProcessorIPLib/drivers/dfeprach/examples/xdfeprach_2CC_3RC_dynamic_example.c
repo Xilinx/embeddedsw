@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021-2022 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.4   dc     04/26/22 Add dynamic config example
 * 1.5   dc     12/14/22 Update multiband register arithmetic
 *       dc     01/02/23 Multiband registers update
+* 1.6   dc     06/15/23 Configure all trigger parameters in examples
 *
 * </pre>
 * @addtogroup Overview
@@ -199,11 +200,33 @@ int XDfePrach_2CC3RCDynamicTestExample()
 	   bit to mark the frame timing. Setting the trigger can occur later
 	   in the programme flow, as long as it is set before the tuser bit
 	   arrives */
-	TriggerCfg.FrameInit[0].TUSERBit = 1U;
+	TriggerCfg.Activate.TUSERBit = 1U;
+	TriggerCfg.Activate.TuserEdgeLevel = 3U;
+	TriggerCfg.Activate.StateOutput = 1U;
+	TriggerCfg.Activate.Mode = 0U; /* "Immediate trigger" is set for test
+		purposes, in practical mode would be 1 the "single shot"
+		trigger */
+
+	TriggerCfg.RachUpdate.TUSERBit = 2U;
+	TriggerCfg.RachUpdate.TuserEdgeLevel = 3U;
+	TriggerCfg.RachUpdate.StateOutput = 1U;
+	TriggerCfg.RachUpdate.Mode = 0U; /* "Immediate trigger" is set for test
+		purposes, in practical mode would be 1 the "single shot"
+		trigger */
+
+	TriggerCfg.FrameInit[0].TUSERBit = 3U;
 	TriggerCfg.FrameInit[0].TuserEdgeLevel = 3U;
 	TriggerCfg.FrameInit[0].StateOutput = 1U;
 	TriggerCfg.FrameInit[0].Mode = 2U;
+
+	TriggerCfg.FrameInit[1].TUSERBit = 3U;
+	TriggerCfg.FrameInit[1].TuserEdgeLevel = 3U;
+	TriggerCfg.FrameInit[1].StateOutput = 1U;
 	TriggerCfg.FrameInit[1].Mode = 2U;
+
+	TriggerCfg.FrameInit[2].TUSERBit = 3U;
+	TriggerCfg.FrameInit[2].TuserEdgeLevel = 3U;
+	TriggerCfg.FrameInit[2].StateOutput = 1U;
 	TriggerCfg.FrameInit[2].Mode = 2U;
 	XDfePrach_SetTriggersCfg(InstancePtr, &TriggerCfg);
 	printf("Frame Init Trigger Configured\n\r");
