@@ -55,6 +55,7 @@
 *       ng   11/11/2022 Updated doxygen comments
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.08  bm   05/22/2023 Update current CDO command offset in GSW Error Status
 *
 * </pre>
 *
@@ -224,6 +225,9 @@ int XPlmi_InitCdo(XPlmiCdo *CdoPtr)
 	}
 	/* Initialize the CDO buffer user params */
 	CdoPtr->Cdo1stChunk = (u8)TRUE;
+	/* Set LogCdoOffset Flag only when PGGS1 register indicates to log */
+	CdoPtr->LogCdoOffset = (u8)((XPlmi_In32(PMC_GLOBAL_PERS_GLOB_GEN_STORAGE1) &
+				PMC_GLOBAL_LOG_CDO_OFFSET_MASK) >> PMC_GLOBAL_LOG_CDO_OFFSET_SHIFT);
 
 END:
 	return Status;
@@ -355,6 +359,11 @@ static int XPlmi_CdoCmdExecute(XPlmiCdo *CdoPtr, u32 *BufPtr, u32 BufLen, u32 *S
 	XPlmi_SetupCmd(CmdPtr, BufPtr, *Size);
 	CmdPtr->DeferredError = (u8)FALSE;
 	CmdPtr->ProcessedCdoLen = CdoPtr->ProcessedCdoLen;
+	/* Log Cdo Offset in GSW Error only when PGGS1 register indicates to do so */
+	if (CdoPtr->LogCdoOffset == TRUE) {
+		XPlmi_Out32(PMC_GLOBAL_PMC_GSW_ERR, CdoPtr->PartitionOffset +
+			CdoPtr->ProcessedCdoLen + XPLMI_CDO_HDR_LEN);
+	}
 	Status = XPlmi_CmdExecute(CmdPtr);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL,
