@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -46,6 +46,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
 * 1.1   dc     04/05/23 Update documentation
+*       dc     05/22/23 State and status upgrades
 *
 * </pre>
 * @endcond
@@ -342,6 +343,8 @@ typedef struct {
 		triggered. */
 	u32 Saturation; /**< [0,1] A difference between CC_CONFIGURATION.
 		SEQUENCE and DIN TID has been detected. */
+	u32 Overflow; /**< [0,1] UL OFDM receives tready low during packet
+		transaction */
 } XDfeOfdm_Status;
 
 /**
@@ -351,6 +354,7 @@ typedef struct {
 	u32 CCUpdate; /**< [0,1] Mask CC update events */
 	u32 FTCCSequenceError; /**< [0,1] Mask sequence mismatch events */
 	u32 Saturation; /**< [0,1] Mask Saturation events */
+	u32 Overflow; /**< [0,1] Mask Overflow events */
 } XDfeOfdm_InterruptMask;
 
 /**
@@ -436,6 +440,10 @@ void XDfeOfdm_GetTriggersCfg(const XDfeOfdm *InstancePtr,
 			     XDfeOfdm_TriggerCfg *TriggerCfg);
 void XDfeOfdm_SetTriggersCfg(const XDfeOfdm *InstancePtr,
 			     XDfeOfdm_TriggerCfg *TriggerCfg);
+
+void XDfeOfdm_SetTuserOutFrameLocation(const XDfeOfdm *InstancePtr,
+				       u32 TuserOutFrameLocation);
+u32 XDfeOfdm_GetTuserOutFrameLocation(const XDfeOfdm *InstancePtr);
 
 void XDfeOfdm_GetEventStatus(const XDfeOfdm *InstancePtr,
 			     XDfeOfdm_Status *Status);

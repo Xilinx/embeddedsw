@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022-2023 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
+* 1.1   dc     05/22/23 State and status upgrades
 *
 * </pre>
 * @addtogroup dfeofdm Overview
@@ -68,6 +69,9 @@ void XDfeOfdm_GetEventStatus(const XDfeOfdm *InstancePtr,
 	Status->Saturation =
 		XDfeOfdm_RdBitField(XDFEOFDM_STATUS_BF_SATURATION_WIDTH,
 				    XDFEOFDM_STATUS_BF_SATURATION_OFFSET, Val);
+	Status->Overflow =
+		XDfeOfdm_RdBitField(XDFEOFDM_STATUS_BF_OVERFLOW_WIDTH,
+				    XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET, Val);
 
 	Val = XDfeOfdm_ReadReg(InstancePtr, XDFEOFDM_STATUS_SATURATION_OFFSET);
 	Status->SaturationCCID =
@@ -110,6 +114,9 @@ void XDfeOfdm_ClearEventStatus(const XDfeOfdm *InstancePtr,
 	Val = XDfeOfdm_WrBitField(XDFEOFDM_STATUS_BF_SATURATION_WIDTH,
 				  XDFEOFDM_STATUS_BF_SATURATION_OFFSET, Val,
 				  Status->Saturation);
+	Val = XDfeOfdm_WrBitField(XDFEOFDM_STATUS_BF_OVERFLOW_WIDTH,
+				  XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET, Val,
+				  Status->Overflow);
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_STATUS_ISR_OFFSET, Val);
 	Val = XDfeOfdm_ReadReg(InstancePtr, XDFEOFDM_STATUS_SATURATION_OFFSET);
 }
@@ -155,6 +162,12 @@ void XDfeOfdm_SetInterruptMask(const XDfeOfdm *InstancePtr,
 		ValIDR |= (1U << XDFEOFDM_STATUS_BF_SATURATION_OFFSET);
 	}
 
+	if (Mask->Overflow == XDFEOFDM_IMR_INTERRUPT) {
+		ValIER |= (1U << XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET);
+	} else {
+		ValIDR |= (1U << XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET);
+	}
+
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_STATUS_IER_OFFSET, ValIER);
 	XDfeOfdm_WriteReg(InstancePtr, XDFEOFDM_STATUS_IDR_OFFSET, ValIDR);
 }
@@ -189,6 +202,9 @@ void XDfeOfdm_GetInterruptMask(const XDfeOfdm *InstancePtr,
 	Mask->Saturation =
 		XDfeOfdm_RdBitField(XDFEOFDM_STATUS_BF_SATURATION_WIDTH,
 				    XDFEOFDM_STATUS_BF_SATURATION_OFFSET, Val);
+	Mask->Overflow =
+		XDfeOfdm_RdBitField(XDFEOFDM_STATUS_BF_OVERFLOW_WIDTH,
+				    XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET, Val);
 }
 
 /** @} */
