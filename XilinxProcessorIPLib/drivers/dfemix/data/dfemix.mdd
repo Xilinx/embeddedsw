@@ -23,7 +23,7 @@ BEGIN driver dfemix
   OPTION supported_peripherals = (xdfe_cc_mixer);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.5;
+  OPTION VERSION = 1.6;
   OPTION NAME = dfemix;
   OPTION depends = libmetal;
   OPTION APP_COMPILER_FLAGS = "-D __BAREMETAL__";

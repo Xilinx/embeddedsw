@@ -57,6 +57,7 @@
 *       dc     11/11/22 Update NCOIdx and CCID check
 *       dc     11/25/22 Update macro of SW version Minor number
 *       dc     02/21/23 Correct switch trigger register name
+* 1.6   dc     06/15/23 Correct comment about gain
 *
 * </pre>
 * @addtogroup dfemix Overview
@@ -102,7 +103,7 @@
 /**
 * @endcond
 */
-#define XDFEMIX_DRIVER_VERSION_MINOR (5U) /**< Driver's minor version number */
+#define XDFEMIX_DRIVER_VERSION_MINOR (6U) /**< Driver's minor version number */
 #define XDFEMIX_DRIVER_VERSION_MAJOR (1U) /**< Driver's major version number */
 
 /************************** Function Prototypes *****************************/
