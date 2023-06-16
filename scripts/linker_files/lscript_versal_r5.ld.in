@@ -13,8 +13,6 @@ _FIQ_STACK_SIZE = DEFINED(_FIQ_STACK_SIZE) ? _FIQ_STACK_SIZE : 1024;
 _UNDEF_STACK_SIZE = DEFINED(_UNDEF_STACK_SIZE) ? _UNDEF_STACK_SIZE : 1024;
 
 @MEMORY_SECTION@
-/* R5 view of TCM Memory sections are avialable in below linker file */
-INCLUDE cortexr5_versal.ld
 
 /* Specify the default entry point to the program */
 
