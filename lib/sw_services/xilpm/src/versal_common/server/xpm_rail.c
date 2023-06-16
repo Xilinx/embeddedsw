@@ -164,76 +164,30 @@ done:
 	return Status;
 }
 
-XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
+static XStatus XPmRail_PMBusControl(const XPm_Rail *Rail, u8 Mode)
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u8 WriteBuffer[3] = {0};
-	u32 NodeIdx = NODEINDEX(Rail->Power.Node.Id);
-	XPm_Regulator *Regulator;
+	const XPm_Regulator *Regulator;
 	u16 RegulatorSlaveAddress, MuxAddress;
 	u32 i = 0, j = 0, k = 0, BytesLen = 0;
 
-	if (Mode >= MAX_MODES) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/* Power state transition is either to ON or OFF */
-	if (((u8)XPM_POWER_STATE_ON != State) &&
-	    ((u8)XPM_POWER_STATE_OFF != State)) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/*
-	 * Mode 0 is reserved for turning the power rail OFF and mode 1
-	 * is reserved for turning the power rail ON.  For other modes,
-	 * the power state remains in XPM_POWER_STATE_ON.
-	 */
-	if (((0U == Mode) || (1U == Mode)) &&
-	    (State == Rail->Power.Node.State)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/*
-	 * For any mode greater than 1, only proceed if the current power state
-	 * is in XPM_POWER_STATE_ON.
-	 */
-	if ((Mode > 1U) && ((u8)XPM_POWER_STATE_ON != Rail->Power.Node.State)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	if ((0U != Rail->ParentId) &&
-	    ((u32)XPM_NODESUBCL_POWER_REGULATOR == NODESUBCLASS(Rail->ParentId))) {
-		Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
-		if (Regulator == NULL) {
-			Status = XST_INVALID_PARAM;
-			goto done;
-		}
-	} else {
-		PmDbg("Rail topology information unavailable so rail can not be controlled.\r\n");
-		Status = XST_SUCCESS;
+	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
+	if (NULL == Regulator) {
+		Status = XPM_PM_INVALID_NODE;
 		goto done;
 	}
 
 	if ((u32)XIL_COMPONENT_IS_READY != IicInstance.IsReady) {
-		if (Regulator->ParentId == PM_DEV_I2C_PMC) {
-			Status = I2CInitialize(&IicInstance);
-			if (XST_SUCCESS != Status) {
-				DbgErr = XPM_INT_ERR_I2C_INIT;
-				goto done;
-			}
-		} else {
-			PmDbg("Regulator not supported.\r\n");
-			Status = XST_SUCCESS;
+		Status = I2CInitialize(&IicInstance);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_I2C_INIT;
 			goto done;
 		}
 	}
 
-	RegulatorSlaveAddress = (u16)Regulator->Node.BaseAddress;
+	RegulatorSlaveAddress = (u16)Regulator->I2cAddress;
 	for (i = 0; i < Regulator->Config.CmdLen; i++) {
 		MuxAddress = (u16)Regulator->Config.CmdArr[j];
 		j++;
@@ -247,6 +201,7 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 			WriteBuffer[k] = Regulator->Config.CmdArr[j];
 			j++;
 		}
+
 		Status = I2CWrite(&IicInstance, MuxAddress, WriteBuffer,
 				  (s32)BytesLen);
 		if (XST_SUCCESS != Status) {
@@ -276,6 +231,171 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 		}
 	}
 
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+#else
+
+static XStatus XPmRail_PMBusControl(XPm_Rail *Rail, u8 Mode)
+{
+	(void)Rail;
+	(void)Mode;
+
+	return XST_SUCCESS;
+}
+
+#endif
+
+#if defined (XPAR_XGPIOPS_0_DEVICE_ID) || defined (XPAR_XGPIOPS_1_DEVICE_ID)
+
+static XStatus XPmRail_GPIOControl(const XPm_Rail *Rail, u8 Mode)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Regulator *Regulator;
+	XPm_CntrlrType Type;
+	XPm_Node Controller;
+	u16 Offset;
+	u32 Mask, Value;
+	u8 Found = 0;
+	static u8 GPIOCntlrInitialized;
+
+	/*
+	 * Look for GPIO meta-data required to transition the rail to the new
+	 * power mode.
+	 */
+	for (u8 i = 0; i < MAX_MODES; i++) {
+		if (Rail->GPIOModes[i].ModeNumber == Mode) {
+			Offset = Rail->GPIOModes[i].Offset;
+			Mask = Rail->GPIOModes[i].Mask;
+			Value = Rail->GPIOModes[i].Value;
+			Found = 1;
+			break;
+		}
+	}
+
+	if (1U != Found) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
+	if (NULL == Regulator) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	Type = XPM_GPIO_CNTRLR;
+	Controller = Regulator->Cntrlr[Type]->Node;
+
+	/*
+	 * On the first invocation of this routine, we need to request the
+	 * GPIO controller to be assigned to the PMC subsystem.
+	 */
+	if (0U == GPIOCntlrInitialized) {
+		Status = XPm_RequestDevice(PM_SUBSYS_PMC, Controller.Id,
+					   (u32)PM_CAP_ACCESS, XPM_MAX_QOS, 0,
+					   XPLMI_CMD_SECURE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_DEVICE_REQUEST;
+			goto done;
+		}
+
+		GPIOCntlrInitialized = 1;
+	}
+
+	/*
+	 * Set GPIO lines.  If GPIO lines of this controller is shared with
+	 * other applications, the Offset value should point to its 'Maskable
+	 * Output Data' register so the hardware could guarantee its atomicity.
+	 */
+	XPm_RMW32(Controller.BaseAddress + Offset, Mask, Value);
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+#else
+
+static XStatus XPmRail_GPIOControl(XPm_Rail *Rail, u8 Mode)
+{
+	(void)Rail;
+	(void)Mode;
+
+	return XST_SUCCESS;
+}
+
+#endif
+
+XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Regulator *Regulator;
+	u32 NodeIdx = NODEINDEX(Rail->Power.Node.Id);
+
+	if (Mode >= MAX_MODES) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Power state transition is either to ON or OFF */
+	if (((u8)XPM_POWER_STATE_ON != State) &&
+	    ((u8)XPM_POWER_STATE_OFF != State)) {
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/*
+	 * Mode 0 is reserved for turning the power rail OFF and mode 1
+	 * is reserved for turning the power rail ON.  For other modes,
+	 * the power state remains in XPM_POWER_STATE_ON.
+	 */
+	if (((0U == Mode) || (1U == Mode)) &&
+	    (State == Rail->Power.Node.State)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * For any mode greater than 1, only proceed if the current power state
+	 * is in XPM_POWER_STATE_ON.
+	 */
+	if ((1U < Mode) && ((u8)XPM_POWER_STATE_ON != Rail->Power.Node.State)) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if ((0U != Rail->ParentId) &&
+	    ((u32)XPM_NODESUBCL_POWER_REGULATOR == NODESUBCLASS(Rail->ParentId))) {
+		Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
+		if (NULL == Regulator) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	} else {
+		PmDbg("Rail topology information unavailable so rail can not be controlled.\r\n");
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	if (XPM_RAILTYPE_MODE_PMBUS == Rail->ControlType[Mode]) {
+		Status = XPmRail_PMBusControl(Rail, Mode);
+	} else if (XPM_RAILTYPE_MODE_GPIO == Rail->ControlType[Mode]) {
+		Status = XPmRail_GPIOControl(Rail, Mode);
+	} else {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
 	/* TBD: Mask can come through topology */
 	if ((u8)XPM_POWER_STATE_ON == State) {
 		if ((u32)XPM_NODEIDX_POWER_VCCINT_PSFP == NodeIdx) {
@@ -296,23 +416,11 @@ XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 	}
 
 	Rail->Power.Node.State = State;
+
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
-
-#else
-
-XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
-{
-	(void)Rail;
-	(void)State;
-	(void)Mode;
-
-	return XST_SUCCESS;
-}
-
-#endif
 
 /*
  * This routine is invoked periodically by the task scheduler and its
@@ -339,6 +447,7 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 
 	/* Validate that the argument passed in is a power rail */
 	if ((u32)XPM_NODETYPE_POWER_RAIL != NODETYPE(Rail->Power.Node.Id)) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -414,6 +523,111 @@ done:
 }
 
 /*
+ * This routine verifies whether the controllers (I2C and/or GPIO) that have
+ * been specified in the CDO command responsible for controlling the power
+ * rail have been enabled in the design.
+ */
+static XStatus XPmRail_VerifyController(const XPm_Rail *Rail)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	const XPm_Regulator *Regulator;
+	u8 CntrlrEnabled = 0;
+
+	if ((0U != Rail->ParentId) &&
+	    ((u32)XPM_NODESUBCL_POWER_REGULATOR == NODESUBCLASS(Rail->ParentId))) {
+		Regulator = (XPm_Regulator *)XPmRegulator_GetById(Rail->ParentId);
+		if (NULL == Regulator) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	} else {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	for (u8 i = 0; i < (u8)XPM_MAX_NUM_CNTRLR; i++) {
+		if (NULL == Regulator->Cntrlr[i]) {
+			continue;
+		}
+
+		CntrlrEnabled = 0;
+		if ((u8)XPM_I2C_CNTRLR == i) {
+#ifdef XPAR_XIICPS_0_DEVICE_ID
+			if ((u32)XPAR_XIICPS_0_BASEADDR ==
+			    Regulator->Cntrlr[i]->Node.BaseAddress) {
+				CntrlrEnabled = 1;
+			} else
+#endif
+#ifdef XPAR_XIICPS_1_DEVICE_ID
+			if ((u32)XPAR_XIICPS_1_BASEADDR ==
+			    Regulator->Cntrlr[i]->Node.BaseAddress) {
+				CntrlrEnabled = 1;
+			} else
+#endif
+#ifdef XPAR_XIICPS_2_DEVICE_ID
+			if ((u32)XPAR_XIICPS_2_BASEADDR ==
+			    Regulator->Cntrlr[i]->Node.BaseAddress) {
+				CntrlrEnabled = 1;
+			} else
+#endif
+			{
+				/* Required by MISRA */
+			}
+
+		} else if ((u8)XPM_GPIO_CNTRLR == i) {
+#ifdef XPAR_XGPIOPS_0_DEVICE_ID
+			if ((u32)XPAR_XGPIOPS_0_BASEADDR ==
+			    Regulator->Cntrlr[i]->Node.BaseAddress) {
+				CntrlrEnabled = 1;
+			} else
+#endif
+#ifdef XPAR_XGPIOPS_1_DEVICE_ID
+			if ((u32)XPAR_XGPIOPS_1_BASEADDR ==
+			    Regulator->Cntrlr[i]->Node.BaseAddress) {
+				CntrlrEnabled = 1;
+			} else
+#endif
+			{
+				/* Required by MISRA */
+			}
+
+		} else {
+			/* Required by MISRA */
+		}
+
+		/*
+		 * The device that has been defined in the CDO to
+		 * control the regulator has not been enabled in
+		 * the design.
+		 */
+		if (0U == CntrlrEnabled) {
+			DbgErr = XPM_INT_ERR_RAIL_CONTROLLER_DISABLED;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	}
+
+	/*
+	 * We will satisfy the following condition if no CDO command has
+	 * been parsed to define which device is controlling the regulator.
+	 */
+	if (0U == CntrlrEnabled) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+/*
  * This routine is invoked if the add node command for a power rail indicates
  * that voltage adjustment for the rail at different temperature is required.
  * This routine schedules a task to perform that periodic monitoring.
@@ -421,11 +635,13 @@ done:
 static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 NodeId;
 	XPm_Rail *Rail;
 	static XPmRail_TempVoltAdj VCCINT_PL_TempVoltAdj;
 
 	if (NumArgs < 6U) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -435,6 +651,7 @@ static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 	 */
 	NodeId = Args[0];
 	if (PM_POWER_VCCINT_PL != NodeId) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -445,6 +662,7 @@ static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 	 * threshold is less than value of upper threshold.
 	 */
 	if (XSysMonPsv_FixedToFloat(Args[2]) >= XSysMonPsv_FixedToFloat(Args[4])) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -460,6 +678,14 @@ static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 	 */
 	Rail = (XPm_Rail *)XPmPower_GetById(NodeId);
 	if (NULL == Rail) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Status = XPmRail_VerifyController(Rail);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -470,6 +696,204 @@ static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 					XPLMI_PERIODIC_TASK);
 
 done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus XPmRail_InitI2CMode(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_Rail *Rail;
+	const XPm_Regulator *Regulator;
+	u32 i, j, k;
+	u8 NumModes, Mode;
+	const u32 CopySize = 4U;
+
+	Rail = (XPm_Rail *)XPmPower_GetById(Args[0]);
+	if (NULL == Rail) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if ((u32)XPM_RAILTYPE_MODE_PMBUS != (Args[1] & 0xFFU)) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Args[2]);
+	if (NULL == Regulator) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Rail->ParentId = Args[2];
+	NumModes = (u8)Args[3];
+	if (MAX_MODES < NumModes) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	k = 4;
+
+	/* Format as below:
+	 * add node rail, parent regulator,
+	 * num_modes_supported, mode0 id+len of command bytes,
+	 * i2c commands,
+	 * mode1 id+len of command bytes, i2c commands.
+	 *
+	 * For example,
+	 * pm_add_node 0x432802b 0x1 0x442c002 0x2 0x300
+	 *             0x02000002 0x01021a02 0x00 0x301
+	 *             0x02000002 0x01021a02 0x80
+	 */
+	for (i = 0U; i < NumModes; i++) {
+		if (k >= NumArgs) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Mode = (u8)(Args[k] & 0xFFU);
+		if (MAX_MODES <= Mode) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Rail->I2cModes[Mode].CmdLen = (u8)(Args[k] >> 8) & 0xFFU;
+		Rail->ControlType[Mode] = XPM_RAILTYPE_MODE_PMBUS;
+		k++;
+		for (j = 0; j < Rail->I2cModes[Mode].CmdLen; j++) {
+			if (k >= NumArgs) {
+				DbgErr = XPM_INT_ERR_INVALID_ARGS;
+				Status = XST_INVALID_PARAM;
+				goto done;
+			}
+
+			Status = Xil_SMemCpy(&Rail->I2cModes[Mode].CmdArr[j * 4U],
+					     CopySize, &Args[k], CopySize, CopySize);
+			if (XST_SUCCESS != Status) {
+				DbgErr = XPM_INT_ERR_INVALID_PARAM;
+				goto done;
+			}
+
+			k++;
+		}
+	}
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
+	return Status;
+}
+
+static XStatus XPmRail_InitGPIOMode(const u32 *Args, u32 NumArgs)
+{
+	XStatus Status = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPm_Rail *Rail;
+	const XPm_Regulator *Regulator;
+	u8 NumModes, Mode;
+	u32 Index = 0U;
+
+	/* Format as below:
+	 * add node rail id, type, parent regulator id, num_modes,
+	 * first mode id | second mode id
+	 *
+	 * e.g.
+	 * pm_add_node 0x4328030 0x4 0x442c001 0x2 0x302 0x0044 0x800 0x0
+	 *                                         0x303 0x0044 0x800 0x800
+	 * arg0: VCCINT_PL rail id = 0x4328030
+	 * arg1: type = 0x4 (GPIO)
+	 * arg2: regulator id = 0x442c001 (VCCINT_PL regulator id)
+	 * arg3: num of modes = 0x2 (mode2: lower voltage; mode3: upper voltage)
+	 * arg4: len | mode2 = 0x302 0x0044 0x800 0x0
+	 * arg5: len | mode3 = 0x303 0x0044 0x800 0x800
+	 */
+
+	if (4U > NumArgs) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Rail = (XPm_Rail *)XPmPower_GetById(Args[Index]);
+	if (NULL == Rail) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Index++;
+	if ((u32)XPM_RAILTYPE_MODE_GPIO != (Args[Index] & 0xFFU)) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Index++;
+	Regulator = (XPm_Regulator *)XPmRegulator_GetById(Args[Index]);
+	if (NULL == Regulator) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Rail->ParentId = Args[Index];
+	Index++;
+	NumModes = (u8)Args[Index];
+	if (MAX_MODES < NumModes) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	Index++;
+
+	/*
+	 * In addition to 4 Args that have been processed, we expect to have 4 words of
+	 * data for each power mode.
+	 */
+	if ((((u32)NumModes * 4U) + Index) > NumArgs) {
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	for (u8 i = 0; i < NumModes; i++) {
+		/* 3 words of data is expected for setting a GPIO data register */
+		if (((Args[Index] >> 8U) & 0xFFU) != 3U) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Mode = (u8)(Args[Index] & 0xFFU);
+		if (MAX_MODES <= Mode) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		Rail->ControlType[Mode] = XPM_RAILTYPE_MODE_GPIO;
+		Rail->GPIOModes[Mode].ModeNumber = Mode;
+		Index++;
+		Rail->GPIOModes[Mode].Offset = (u16)Args[Index];
+		Index++;
+		Rail->GPIOModes[Mode].Mask = Args[Index];
+		Index++;
+		Rail->GPIOModes[Mode].Value = Args[Index];
+		Index++;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	XPm_PrintDbgErr(Status, DbgErr);
 	return Status;
 }
 
@@ -491,14 +915,13 @@ done:
 XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 {
 	XStatus Status = XST_FAILURE;
-	u32 BaseAddress = 0;
-	u32 Type, i, j, k;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	const u32 CopySize = 4U;
+	u32 BaseAddress = 0;
+	u32 Type;
 
 	u32 NodeIndex = NODEINDEX(RailId);
 	if ((u32)XPM_NODEIDX_POWER_MAX <= NodeIndex) {
-		DbgErr = XPM_INT_ERR_INVALID_NODE_IDX;
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
@@ -507,52 +930,7 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 		Type = Args[1];
 		switch (Type) {
 		case (u32)XPM_RAILTYPE_MODE_PMBUS:
-			Rail->ParentId = Args[2];
-			Rail->NumModes = (u8)Args[3];
-			if (Rail->NumModes > (u8)MAX_MODES) {
-				DbgErr = XPM_INT_ERR_INVALID_PARAM;
-				Status = XST_INVALID_PARAM;
-				goto done;
-			}
-
-			k = 4;
-			/* Format as below:
-			 * add node rail , parent regulator,
-			 * num_modes_supported, mode0 id+len of command bytes,
-			 * i2c commands,
-			 * mode1 id+len of command bytes, i2c commands.
-			 *
-			 * For example,
-			 * pm_add_node 0x432802b 0x1 0x442c002 0x2 0x300
-			 *             0x02000002 0x01021a02 0x00 0x301
-			 *             0x02000002 0x01021a02 0x80
-			 */
-			for (i = 0U; i < Rail->NumModes; i++) {
-				if (k >= NumArgs) {
-					Status = XST_INVALID_PARAM;
-					goto done;
-				}
-
-				Rail->I2cModes[i].CmdLen = (u8)(Args[k] >> 8) &
-							   0xFFU;
-				k++;
-				for (j = 0; j < Rail->I2cModes[i].CmdLen; j++) {
-					if (k >= NumArgs) {
-						Status = XST_INVALID_PARAM;
-						goto done;
-					}
-
-					Status = Xil_SMemCpy(&Rail->I2cModes[i].CmdArr[j * 4U],
-							     CopySize, &Args[k], CopySize, CopySize);
-					if (XST_SUCCESS != Status) {
-						goto done;
-					}
-
-					k++;
-				}
-			}
-
-			Status = XST_SUCCESS;
+			Status = XPmRail_InitI2CMode(Args, NumArgs);
 			break;
 		case (u32)XPM_RAILTYPE_PGOOD:
 			Rail->Source = (XPm_PgoodSource)Args[2];
@@ -563,13 +941,17 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 		case (u32)XPM_RAILTYPE_TEMPVOLTADJ:
 			Status = XPmRail_InitTempVoltAdj(Args, NumArgs);
 			break;
+		case (u32)XPM_RAILTYPE_MODE_GPIO:
+			Status = XPmRail_InitGPIOMode(Args, NumArgs);
+			break;
 		default:
-			DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
 			Status = XST_INVALID_PARAM;
 			break;
 		}
 
 		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_INVALID_ARGS;
 			goto done;
 		}
 	}

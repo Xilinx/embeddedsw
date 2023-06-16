@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
 * Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
@@ -37,9 +37,8 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
-	u32 SlaveAddress, i;
 	u32 NodeIndex = NODEINDEX(Id);
-	u8 Method;
+	u32 Method, ControllerId;
 	const u32 CopySize = 4U;
 
 	if ((u32)XPM_NODEIDX_POWER_REGULATOR_MAX <= NodeIndex) {
@@ -48,26 +47,43 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 		goto done;
 	}
 
-	if( 1U >= NumArgs) {
+	if (2U >= NumArgs) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	Method = (u8)Args[1] & 0xFFU;
-	Regulator->CtrlMethod = (XPm_ControlMethod)Method;
+	Method = (Args[1] & 0xFFU);
+	ControllerId = Args[2];
 
-	switch (Regulator->CtrlMethod) {
-	case XPM_METHODTYPE_I2C:
-		SlaveAddress = (Args[1] >> 16) & 0xFFU;
-		Regulator->ParentId = Args[2];
+	switch (Method) {
+	case (u32)XPM_METHODTYPE_I2C:
+		Regulator->I2cAddress = (u16)((Args[1] >> 16) & 0xFFU);
+		Regulator->Cntrlr[XPM_I2C_CNTRLR] = XPmDevice_GetById(ControllerId);
+		if ((NULL == Regulator->Cntrlr[XPM_I2C_CNTRLR]) ||
+		    (PM_DEV_I2C_PMC != ControllerId)) {
+			DbgErr = XPM_INT_ERR_INVALID_NODE;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
 		Regulator->Config.CmdLen = (u8)((Args[1] >> 8) & 0xFFU);
-		for (i = 3; i < NumArgs; i++) {
+		for (u32 i = 3; i < NumArgs; i++) {
 			Status = Xil_SMemCpy((void *)&Regulator->Config.CmdArr[(i - 3U) * 4U],
 					     CopySize, (void *)&Args[i], CopySize, CopySize);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
+		}
+
+		break;
+	case (u32)XPM_METHODTYPE_GPIO:
+		Regulator->Cntrlr[XPM_GPIO_CNTRLR] = XPmDevice_GetById(ControllerId);
+		if ((NULL == Regulator->Cntrlr[XPM_GPIO_CNTRLR]) ||
+		    ((PM_DEV_GPIO != ControllerId) && (PM_DEV_GPIO_PMC != ControllerId))) {
+			DbgErr = XPM_INT_ERR_INVALID_NODE;
+			Status = XST_INVALID_PARAM;
+			goto done;
 		}
 
 		Status = XST_SUCCESS;
@@ -83,7 +99,7 @@ XStatus XPmRegulator_Init(XPm_Regulator *Regulator, u32 Id, const u32 *Args, u32
 	}
 
 	PmRegulators[NodeIndex] = Regulator;
-	XPmNode_Init(&Regulator->Node, Id, (u8)XPM_POWER_STATE_ON, SlaveAddress);
+	XPmNode_Init(&Regulator->Node, Id, (u8)XPM_POWER_STATE_ON, 0U);
 
 done:
 	XPm_PrintDbgErr(Status, DbgErr);
