@@ -28,3 +28,16 @@ supported_os:
 depends_libs:
     xilsecure: {}
     xilmailbox: {}
+
+examples:
+    xfpga_partialbitstream_load_example.c: []
+    xfpga_readback_example.c:
+        - supported_platforms:
+            - ZynqMP
+    xfpga_reg_readback_example.c:
+        - supported_platforms:
+            - ZynqMP
+    xfpga_load_bitstream_example.c:
+        - supported_platforms:
+            - ZynqMP
+            - Versal
