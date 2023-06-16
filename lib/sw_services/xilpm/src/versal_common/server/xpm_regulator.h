@@ -9,20 +9,26 @@
 
 #include "xstatus.h"
 #include "xpm_power.h"
+#include "xpm_device.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef enum {
-	XPM_METHODTYPE_I2C=1,
-} XPm_ControlMethod;
+#define XPM_METHODTYPE_I2C	1
+#define XPM_METHODTYPE_GPIO	2
 
-typedef struct XPm_Regulator {
+typedef enum {
+	XPM_I2C_CNTRLR=0,
+	XPM_GPIO_CNTRLR,
+	XPM_MAX_NUM_CNTRLR,
+} XPm_CntrlrType;
+
+typedef struct {
 	XPm_Node Node; 			/** Node base class */
-	XPm_ControlMethod CtrlMethod; 	/** Control method. Pmbus/I2c:1, no other value supported */
-	u32 ParentId;			/** Parent Node ID */
-	XPm_I2cCmd Config;		/** i2c commands to configure this regulator */
+	XPm_Device *Cntrlr[XPM_MAX_NUM_CNTRLR]; /** Array of supported controllers */
+	XPm_I2cCmd Config;		/** i2c commands to configure the regulator */
+	u16 I2cAddress;			/** i2c address of the regulator */
 } XPm_Regulator;
 
 

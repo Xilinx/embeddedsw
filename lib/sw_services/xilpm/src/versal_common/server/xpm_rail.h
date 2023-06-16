@@ -20,6 +20,7 @@ typedef enum {
 	XPM_RAILTYPE_MODE_PMBUS = 1,
 	XPM_RAILTYPE_PGOOD,
 	XPM_RAILTYPE_TEMPVOLTADJ,
+	XPM_RAILTYPE_MODE_GPIO,
 } XPm_RailType;
 
 typedef enum {
@@ -35,11 +36,19 @@ typedef struct {
 } XPmRail_TempVoltAdj;
 
 typedef struct {
+	u8 ModeNumber;		/** Power mode number */
+	u16 Offset;		/** Register offset to change the state of GPIO */
+	u32 Mask;		/** Mask used in read-modify-write to change only the targeted GPIOs */
+	u32 Value;		/** Value to set the targeted GPIOs */
+} XPm_GPIOCmd;
+
+typedef struct {
 	XPm_Power Power;
 	XPm_PgoodSource Source;
 	u32 ParentId;
-	u8 NumModes; 			/** Num of modes supported */
-	XPm_I2cCmd I2cModes[MAX_MODES]; /** Modes information if parent regulator is controlled over i2c */
+	XPm_RailType ControlType[MAX_MODES];
+	XPm_I2cCmd I2cModes[MAX_MODES];	  /** Modes information if parent regulator is controlled by I2C */
+	XPm_GPIOCmd GPIOModes[MAX_MODES]; /** Modes information if parent regulator is controlled by GPIO */
 	XPmRail_TempVoltAdj *TempVoltAdj;
 } XPm_Rail;
 

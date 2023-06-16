@@ -547,10 +547,12 @@ extern "C" {
 #define XPM_INT_ERR_I2C_INIT			0x4802U
 /* I2c write error */
 #define XPM_INT_ERR_I2C_WRITE			0x4803U
-/* Failed to set voltage to upper limit*/
+/* Failed to set voltage to upper limit */
 #define XPM_INT_ERR_RAIL_UPPER_VOLT		0x4804U
-/* Failed to set voltage to lower limit*/
+/* Failed to set voltage to lower limit */
 #define XPM_INT_ERR_RAIL_LOWER_VOLT		0x4805U
+/* Controller regulating rail is disabled */
+#define XPM_INT_ERR_RAIL_CONTROLLER_DISABLED	0x4806U
 
 /*********************** PL Device specific Errors **************************/
 /************************** (0x4900) - (0x497F) ******************************/
