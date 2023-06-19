@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +21,7 @@
 * Ver	Who	Date	Changes
 * ----- ------ -------- ----------------------------------------------
 * 2.6	sd	04/02/20	Restructured the code for more readability and modularity
+* 2.14	ht	06/13/23	Restructured the code for more modularity
 * </pre>
 *
 *****************************************************************************/
@@ -31,36 +33,7 @@
 
 /************************** Variable Definitions *****************************/
 
-/****************************************************************************/
-/**
- * @brief	Get the Buffer Index for a CPU specified by Mask
- *
- * @param	InstancePtr is the pointer to current IPI instance
- * @param	CpuMask is the Mask of the CPU form which Index is required
- *
- * @return	Buffer Index value if CPU Mask is valid
- * 			XIPIPSU_MAX_BUFF_INDEX+1 if not valid
- *
- */
-static u32 XIpiPsu_GetBufferIndex(const XIpiPsu *InstancePtr, u32 CpuMask)
-{
-	u32 BufferIndex;
-	u32 Index;
-	/* Init Index with an invalid value */
-	BufferIndex = XIPIPSU_MAX_BUFF_INDEX + 1U;
 
-	/*Search for CPU in the List */
-	for (Index = 0U; Index < InstancePtr->Config.TargetCount; Index++) {
-		/*If we find the CPU , then set the Index and break the loop*/
-		if (InstancePtr->Config.TargetList[Index].Mask == CpuMask) {
-			BufferIndex = InstancePtr->Config.TargetList[Index].BufferIndex;
-			break;
-		}
-	}
-
-	/* Return the Index */
-	return BufferIndex;
-}
 /**
  * @brief	Get the Buffer Address for a given pair of CPUs
  *
