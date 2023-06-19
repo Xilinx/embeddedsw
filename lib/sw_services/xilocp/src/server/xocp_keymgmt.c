@@ -356,9 +356,9 @@ END:
 /**
  * @brief	This function generates the X.509 Certificate for device keys
  *
+ * @param   XOcp_GetX509CertPtr points to the address of XOcp_X509Cert structure.
  * @param	SubSystemId is the ID of the subsystem from which certificate is
  *		requested.
- * @param   GetX509CertAddr - Address of XOcp_X509Cert structure
  *
  * @return
  *		- XST_SUCCESS - If X.509 certificate generation is success
@@ -426,7 +426,7 @@ END:
  *	supplied by the user as input. The PLM uses ECC P-384 DevAK private key to
  * sign the input hash
  *
- * @param   AttestWithDevAk - Address of XOcp_AttestWithDevAk structure.
+ * @param   AttestWithDevAkPtr - Address of XOcp_AttestWithDevAk structure.
  * @param	SubSystemId holds the image ID.
  *
  * @return
