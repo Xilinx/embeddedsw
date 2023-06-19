@@ -180,6 +180,7 @@ u32 XPm_GetRegisterNotifierVersionServer(void)
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 {
 	XStatus Status = (s32)XST_FAILURE;
+	struct XPm_Proc *Proc;
 
 	if (NULL == IpiInst) {
 		XPm_Err("Passing NULL pointer to %s\r\n", __func__);
@@ -193,6 +194,10 @@ XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 	}
 
 	PrimaryProc->Ipi = IpiInst;
+
+	Proc = XPm_GetProcByDeviceId(PrimaryProc->DevId);
+
+	XPm_ClientWakeUp(Proc);
 
 	Status = XPm_AddIdleCallBack();
 	if ((s32)XST_SUCCESS != Status) {
@@ -1505,11 +1510,6 @@ XStatus XPm_RequestWakeUp(const u32 TargetDevId, const u8 SetAddress,
 	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 	u64 EncodedAddr;
-	struct XPm_Proc *Proc;
-
-	Proc = XPm_GetProcByDeviceId(TargetDevId);
-
-	XPm_ClientWakeUp(Proc);
 
 	/* encode set Address into 1st bit of address */
 	EncodedAddr = Address | ((1U == SetAddress) ? 1U : 0U);
