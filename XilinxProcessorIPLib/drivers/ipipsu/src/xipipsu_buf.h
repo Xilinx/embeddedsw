@@ -42,8 +42,8 @@ extern "C" {
 
 /************************** Function Prototypes *****************************/
 
-u32* XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
-		u32 DestCpuMask, u32 BufferType);
+u32 *XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
+			      u32 DestCpuMask, u32 BufferType);
 u32 XIpiPsu_CalculateCRC(u32 BufAddr, u32 BufSize);
 u32 XIpiPsu_GetBufferIndex(const XIpiPsu *InstancePtr, u32 CpuMask);
 

@@ -63,8 +63,8 @@
  *
  */
 
-XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config * CfgPtr,
-		UINTPTR EffectiveAddress)
+XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config *CfgPtr,
+			      UINTPTR EffectiveAddress)
 {
 	u32 Index;
 	/* Verify arguments */
@@ -86,9 +86,9 @@ XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config * CfgPtr,
 
 	for (Index = 0U; Index < CfgPtr->TargetCount; Index++) {
 		InstancePtr->Config.TargetList[Index].Mask =
-				CfgPtr->TargetList[Index].Mask;
+			CfgPtr->TargetList[Index].Mask;
 		InstancePtr->Config.TargetList[Index].BufferIndex =
-				CfgPtr->TargetList[Index].BufferIndex;
+			CfgPtr->TargetList[Index].BufferIndex;
 	}
 
 	/* Mark the component as Ready */
@@ -114,11 +114,11 @@ void XIpiPsu_Reset(XIpiPsu *InstancePtr)
 	/**************Disable***************/
 
 	XIpiPsu_WriteReg(InstancePtr->Config.BaseAddress, XIPIPSU_IDR_OFFSET,
-			XIPIPSU_ALL_MASK);
+			 XIPIPSU_ALL_MASK);
 
 	/**************Clear***************/
 	XIpiPsu_WriteReg(InstancePtr->Config.BaseAddress, XIPIPSU_ISR_OFFSET,
-			XIPIPSU_ALL_MASK);
+			 XIPIPSU_ALL_MASK);
 
 }
 
@@ -141,7 +141,7 @@ XStatus XIpiPsu_TriggerIpi(XIpiPsu *InstancePtr, u32 DestCpuMask)
 
 	/* Trigger an IPI to the Target */
 	XIpiPsu_WriteReg(InstancePtr->Config.BaseAddress, XIPIPSU_TRIG_OFFSET,
-			DestCpuMask);
+			 DestCpuMask);
 	return (XStatus) XST_SUCCESS;
 
 }
@@ -158,7 +158,7 @@ XStatus XIpiPsu_TriggerIpi(XIpiPsu *InstancePtr, u32 DestCpuMask)
  */
 
 XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
-		u32 TimeOutCount)
+			   u32 TimeOutCount)
 {
 	u32 Flag, PollCount;
 	XStatus Status;
@@ -170,7 +170,7 @@ XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
 	/* Poll the OBS register until the corresponding DestCpu bit is cleared */
 	do {
 		Flag = (XIpiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-				XIPIPSU_OBS_OFFSET)) & (DestCpuMask);
+					XIPIPSU_OBS_OFFSET)) & (DestCpuMask);
 		PollCount++;
 		/* Check if the IPI was Acknowledged by the Target or we Timed Out*/
 	} while ((0x00000000U != Flag) && (PollCount < TimeOutCount));
@@ -199,7 +199,7 @@ XStatus XIpiPsu_PollForAck(const XIpiPsu *InstancePtr, u32 DestCpuMask,
  */
 
 XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
-		u32 MsgLength, u8 BufferType)
+			    u32 MsgLength, u8 BufferType)
 {
 	XStatus Status = (XStatus) XST_FAILURE;
 	u32 *BufferPtr;
@@ -214,7 +214,7 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 	Xil_AssertNonvoid(MsgLength <= XIPIPSU_MAX_MSG_LEN);
 
 	BufferPtr = XIpiPsu_GetBufferAddress(InstancePtr, SrcCpuMask,
-			InstancePtr->Config.BitMask, BufferType);
+					     InstancePtr->Config.BitMask, BufferType);
 	if (BufferPtr != NULL) {
 #ifdef ENABLE_IPI_CRC
 		Crc = XIpiPsu_CalculateCRC((u32)BufferPtr, XIPIPSU_W0_TO_W6_SIZE);
@@ -252,8 +252,8 @@ END:
  * 			XST_FAILURE if an error occurred
  */
 
-XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask,const u32 *MsgPtr,
-		u32 MsgLength, u8 BufferType)
+XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, const u32 *MsgPtr,
+			     u32 MsgLength, u8 BufferType)
 {
 	XStatus Status = (XStatus)XST_FAILURE;
 	u32 *BufferPtr;
@@ -265,7 +265,7 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask,const u32 *Ms
 	Xil_AssertNonvoid(MsgLength <= XIPIPSU_MAX_MSG_LEN);
 
 	BufferPtr = XIpiPsu_GetBufferAddress(InstancePtr,
-			InstancePtr->Config.BitMask, DestCpuMask, BufferType);
+					     InstancePtr->Config.BitMask, DestCpuMask, BufferType);
 	if (BufferPtr != NULL) {
 		/* Copy the Message to IPI Buffer */
 		for (Index = 0U; Index < MsgLength; Index++) {
@@ -274,7 +274,7 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask,const u32 *Ms
 #ifdef ENABLE_IPI_CRC
 		/* Word 8 in IPI is reserved for storing CRC */
 		BufferPtr[XIPIPSU_CRC_INDEX] =
-				XIpiPsu_CalculateCRC((u32)BufferPtr, XIPIPSU_W0_TO_W6_SIZE);
+			XIpiPsu_CalculateCRC((u32)BufferPtr, XIPIPSU_W0_TO_W6_SIZE);
 #endif
 		Status = (XStatus)XST_SUCCESS;
 	}
