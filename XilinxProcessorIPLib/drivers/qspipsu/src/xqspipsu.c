@@ -78,6 +78,8 @@
  * 1.17 akm 12/16/22 Add timeout in QSPIPSU driver operation.
  * 1.17 akm 01/02/23 Use Xil_WaitForEvent() API for register bit polling.
  * 1.17 akm 01/07/23 Fixed hang issue while reading large data chuncks.
+ * 1.18 sb  06/19/23 Add memory barrier instruction and convert IsBusy varible
+ *                   to volatile.
  *
  * </pre>
  *
@@ -687,6 +689,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	s32 MsgCnt;
 	u8 DeltaMsgCnt = 0;
 	u32 TxRxFlag;
+	u32 BaseAddr = InstancePtr->Config.BaseAddress;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -699,12 +702,12 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	TxRxFlag = Msg[MsgCnt].Flags;
 
 	/* QSPIPSU Intr cleared on read */
-	QspiPsuStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_ISR_OFFSET);
+	QspiPsuStatusReg = XQspiPsu_ReadReg(BaseAddr, XQSPIPSU_ISR_OFFSET);
 	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
 		/* DMA Intr write to clear */
-		DmaIntrStatusReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+		DmaIntrStatusReg = XQspiPsu_ReadReg(BaseAddr,
 						    XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET);
-		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET,
+		XQspiPsu_WriteReg(BaseAddr, XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET,
 				  DmaIntrStatusReg);
 	}
 	if (((DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_INTR_ERR_MASK) != (u32)FALSE)) {
@@ -789,9 +792,9 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		if (MsgCnt < NumMsg) {
 			if (InstancePtr->IsUnaligned != 0) {
 				InstancePtr->IsUnaligned = 0;
-				XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XQspiPsu_WriteReg(BaseAddr,
 						  XQSPIPSU_CFG_OFFSET, (XQspiPsu_ReadReg(
-								  InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET) |
+								  BaseAddr, XQSPIPSU_CFG_OFFSET) |
 									XQSPIPSU_CFG_MODE_EN_DMA_MASK));
 				InstancePtr->ReadMode = XQSPIPSU_READMODE_DMA;
 			}
@@ -809,19 +812,22 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		}
 		else {
 			/* Disable interrupts */
-			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_IDR_OFFSET,
+			XQspiPsu_WriteReg(BaseAddr, XQSPIPSU_IDR_OFFSET,
 					  (u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
 					  (u32)XQSPIPSU_IER_TXEMPTY_MASK |
 					  (u32)XQSPIPSU_IER_RXNEMPTY_MASK |
 					  (u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
 					  (u32)XQSPIPSU_IER_RXEMPTY_MASK);
+			dmb();
 			if (InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) {
-				XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XQspiPsu_WriteReg(BaseAddr,
 						  XQSPIPSU_QSPIDMA_DST_I_DIS_OFFSET,
 						  XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK);
 			}
+
 			/* Clear the busy flag. */
 			InstancePtr->IsBusy = (u32)FALSE;
+
 #if defined  (XCLOCKING)
 			Xil_ClockDisable(InstancePtr->Config.RefClk);
 #endif

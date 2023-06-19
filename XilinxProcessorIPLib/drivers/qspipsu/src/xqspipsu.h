@@ -172,6 +172,8 @@
  * 1.17 akm 12/16/22 Add timeout in QSPIPSU driver operation.
  * 1.17 akm 01/02/23 Use Xil_WaitForEvent() API for register bit polling.
  * 1.18 sb  06/07/23 Added support for system device-tree flow.
+ * 1.18 sb  06/19/23 Add memory barrier instruction and convert IsBusy varible
+ *                   to volatile.
  *
  * </pre>
  *
@@ -273,7 +275,7 @@ typedef struct {
 	s32 TxBytes;	 /**< Number of bytes to transfer (state) */
 	s32 RxBytes;	 /**< Number of bytes left to transfer(state) */
 	s32 GenFifoEntries;	 /**< Number of Gen FIFO entries remaining */
-	u32 IsBusy;		 /**< A transfer is in progress (state) */
+	volatile u32 IsBusy;		 /**< A transfer is in progress (state) */
 	u32 ReadMode;		 /**< DMA or IO mode */
 	u32 GenFifoCS;		/**< Gen FIFO chip selection */
 	u32 GenFifoBus;		/**< Gen FIFO bus */
