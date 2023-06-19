@@ -1135,7 +1135,7 @@ END:
  * @brief	This function computes PCR extend value using SHA2-384
  * 		and stores in the SW PCR log.
  *
- * @param	PcrStartIdx	Pcr Digest start index in the SW PCR Log
+ * @param	PcrNum	SW PCR number.
  *
  * @return
  *		- XST_SUCCESS - Upon success
