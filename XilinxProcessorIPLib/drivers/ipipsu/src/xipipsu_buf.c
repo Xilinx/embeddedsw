@@ -47,8 +47,8 @@
  *
  */
 
-u32* XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
-		u32 DestCpuMask, u32 BufferType)
+u32 *XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
+			      u32 DestCpuMask, u32 BufferType)
 {
 #ifdef __aarch64__
 	u64 BufferAddr;
@@ -63,19 +63,19 @@ u32* XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
 
 	/* If we got an invalid buffer index, then return NULL pointer, else valid address */
 	if ((SrcIndex > XIPIPSU_MAX_BUFF_INDEX)
-			|| (DestIndex > XIPIPSU_MAX_BUFF_INDEX)) {
+	    || (DestIndex > XIPIPSU_MAX_BUFF_INDEX)) {
 		BufferAddr = 0U;
 	} else {
 
 		if (XIPIPSU_BUF_TYPE_MSG == BufferType) {
 			BufferAddr = XIPIPSU_MSG_RAM_BASE
-					+ (SrcIndex * XIPIPSU_BUFFER_OFFSET_GROUP)
-					+ (DestIndex * XIPIPSU_BUFFER_OFFSET_TARGET);
+				     + (SrcIndex * XIPIPSU_BUFFER_OFFSET_GROUP)
+				     + (DestIndex * XIPIPSU_BUFFER_OFFSET_TARGET);
 		} else if (XIPIPSU_BUF_TYPE_RESP == BufferType) {
 			BufferAddr = XIPIPSU_MSG_RAM_BASE
-					+ (DestIndex * XIPIPSU_BUFFER_OFFSET_GROUP)
-					+ (SrcIndex * XIPIPSU_BUFFER_OFFSET_TARGET)
-					+ (XIPIPSU_BUFFER_OFFSET_RESPONSE);
+				     + (DestIndex * XIPIPSU_BUFFER_OFFSET_GROUP)
+				     + (SrcIndex * XIPIPSU_BUFFER_OFFSET_TARGET)
+				     + (XIPIPSU_BUFFER_OFFSET_RESPONSE);
 		} else {
 			BufferAddr = 0U;
 		}

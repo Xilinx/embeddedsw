@@ -70,8 +70,7 @@ u32 XIpiPsu_CalculateCRC(u32 BufAddr, u32 BufSize)
 
 			if ((Crc16 & CRC16_HIGH_BIT_MASK) != 0) {
 				Crc16 = Temp1Crc;
-			}
-			else {
+			} else {
 				Crc16 = Temp2Crc;
 			}
 		}
