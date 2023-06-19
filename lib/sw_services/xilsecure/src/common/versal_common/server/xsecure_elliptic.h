@@ -112,7 +112,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_EllipticSignAddr *SignAddr);
 void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr);
 void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr);
-void XSecure_FixEndiannessNCopy(const u32 Size, u64 Dst, const u64 SrcAddr);
+void XSecure_FixEndiannessNCopy(const u32 Size, u64 DstAddr, const u64 SrcAddr);
 #endif
 
 #ifdef __cplusplus

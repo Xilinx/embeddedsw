@@ -791,17 +791,17 @@ void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
  * @note	This is the helper function to convert the endianess as required.
  *
  *****************************************************************************/
-void XSecure_FixEndiannessNCopy(const u32 Size, u64 Dst, const u64 SrcAddr)
+void XSecure_FixEndiannessNCopy(const u32 Size, u64 DstAddr, const u64 SrcAddr)
 {
 	u32 Index = 0U;
 	u32 RIndex = Size;
 
 	for (Index = 0U; Index < Size; Index++, RIndex--) {
 		if (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN) {
-			XSecure_OutByte64((Dst + Index), XSecure_InByte64((SrcAddr + (RIndex - 1U))));
+			XSecure_OutByte64((DstAddr + Index), XSecure_InByte64((SrcAddr + (RIndex - 1U))));
 		}
 		else {
-			XSecure_OutByte64((Dst + Index), XSecure_InByte64((SrcAddr + Index)));
+			XSecure_OutByte64((DstAddr + Index), XSecure_InByte64((SrcAddr + Index)));
 		}
 	}
 }
