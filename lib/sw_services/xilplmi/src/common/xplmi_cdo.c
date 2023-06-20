@@ -56,6 +56,7 @@
 *       bm   01/03/2023 Create Secure Lockdown as a Critical Priority Task
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.08  bm   05/22/2023 Update current CDO command offset in GSW Error Status
+*       bm   06/13/2023 Log PLM error before deferring
 *
 * </pre>
 *
@@ -492,7 +493,7 @@ int XPlmi_ProcessCdo(XPlmiCdo *CdoPtr)
 			 * Otherwise, exit the loop.
 			 */
 			if (XPlmi_SldState() == XPLMI_SLD_IN_PROGRESS) {
-				XPlmi_ErrMgr(Status);
+				XPlmi_LogPlmErr(Status);
 			} else {
 				goto END;
 			}

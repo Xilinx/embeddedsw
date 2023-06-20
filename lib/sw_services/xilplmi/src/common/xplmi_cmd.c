@@ -26,6 +26,7 @@
 * 1.04  ng   11/11/2022 Updated doxygen comments
 *       bm   03/09/2023 Add NULL check for module before using it
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.05  bm   06/13/2023 Add API to just log PLM error
 * </pre>
 *
 * @note
@@ -108,7 +109,15 @@ int XPlmi_CmdExecute(XPlmi_Cmd *CmdPtr)
 	if (Status != XST_SUCCESS) {
 		CdoErr = (u32)XPLMI_ERR_CDO_CMD + (CmdPtr->CmdId & XPLMI_ERR_CDO_CMD_MASK);
 		Status = XPlmi_UpdateStatus((XPlmiStatus_t)CdoErr, Status);
-		goto END;
+		if (CmdPtr->DeferredError != (u8)TRUE) {
+			goto END;
+		}
+		else {
+			/* If Deferred Error, log the error and continue */
+			XPlmi_Printf(DEBUG_GENERAL, "Deferring CDO Error\n\r");
+			XPlmi_LogPlmErr(Status);
+			Status = XST_SUCCESS;
+		}
 	}
 
 	/** - Increment the processed length and it can be used during resume */

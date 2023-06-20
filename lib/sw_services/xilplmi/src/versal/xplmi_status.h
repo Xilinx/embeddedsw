@@ -109,7 +109,8 @@
 *       sk   02/23/2023 Added error code for SSIT slave EoPDI SYNC status
 *       bm   03/09/2023 Add NULL check for module before using it
 *       bm   03/11/2023 Added error code for XPlmi_PreInit failure
-*		dd   03/28/2023 Updated doxygen comments
+*       dd   03/28/2023 Updated doxygen comments
+* 1.09  bm   06/13/2023 Add API to just log PLM error
 *
 * </pre>
 *
@@ -780,6 +781,7 @@ static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
 
 /************************** Function Prototypes ******************************/
 void XPlmi_ErrMgr(int ErrStatus);
+void XPlmi_LogPlmErr(int ErrStatus);
 
 /************************** Variable Definitions *****************************/
 
