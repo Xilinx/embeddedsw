@@ -18,7 +18,7 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   dc     11/21/22 Initial version
 * 1.1   dc     05/22/23 State and status upgrades
-*
+*       dc     06/20/23 Depricate obsolete APIs
 * </pre>
 * @addtogroup dfeofdm Overview
 * @{
@@ -1597,6 +1597,14 @@ u32 XDfeOfdm_SetNextCCCfgAndTrigger(const XDfeOfdm *InstancePtr,
 * @note     Clear event status with XDfeOfdm_ClearEventStatus() before
 *           running this API.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeOfdm_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeOfdm_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap,
+*                      CarrierCfg, FTseq);
+*                  XDfeOfdm_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
+*
 ****************************************************************************/
 u32 XDfeOfdm_AddCC(XDfeOfdm *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 		   const XDfeOfdm_CarrierCfg *CarrierCfg,
@@ -1695,6 +1703,13 @@ u32 XDfeOfdm_AddCC(XDfeOfdm *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 * @note     Clear event status with XDfeOfdm_ClearEventStatus() before
 *           running this API.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeOfdm_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeOfdm_RemoveCCfromCCCfg(InstancePtr, CCCfg, CCID, FTseq);
+*                  XDfeOfdm_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
+*
 ****************************************************************************/
 u32 XDfeOfdm_RemoveCC(XDfeOfdm *InstancePtr, s32 CCID,
 		      XDfeOfdm_FTSequence *FTSeq)
@@ -1747,6 +1762,14 @@ u32 XDfeOfdm_RemoveCC(XDfeOfdm *InstancePtr, s32 CCID,
 *
 * @note     Clear event status with XDfeOfdm_ClearEventStatus() before
 *           running this API.
+*
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeOfdm_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeOfdm_UpdateCCinCCCfg(InstancePtr, CCCfg, CCID,
+*                      CarrierCfg, FTseq);
+*                  XDfeOfdm_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
 *
 ****************************************************************************/
 u32 XDfeOfdm_UpdateCC(XDfeOfdm *InstancePtr, s32 CCID,
