@@ -1,0 +1,29 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Peripheral Tests
+
+maintainers:
+  - Appana Durga Kedareswara Rao <appana.durga.kedareswara.rao@amd.com>
+
+type: apps
+
+description: Simple test routines for all peripherals in the hardware.
+
+depends_libs:
+    xiltimer: {}
+
+supported_processors:
+  - psu_cortexa53
+  - psu_cortexr5
+  - psv_cortexa72
+  - psv_cortexr5
+  - psxl_cortexa78
+  - psxl_cortexr52
+  - ps7_cortexa9
+  - microblaze
+
+supported_os:
+  - standalone
+...
