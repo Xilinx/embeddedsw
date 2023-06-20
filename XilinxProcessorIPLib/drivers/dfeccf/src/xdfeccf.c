@@ -52,6 +52,7 @@
 *       dc     11/11/22 Align AddCC to switchable UL/DL algorithm
 *       dc     11/25/22 Update macro of SW version Minor number
 * 1.6   dc     06/15/23 Function comment update
+*       dc     06/20/23 Depricate obsolete APIs
 * </pre>
 * @addtogroup dfeccf Overview
 * @{
@@ -1655,6 +1656,14 @@ u32 XDfeCcf_SetNextCCCfgAndTriggerSwitchable(XDfeCcf *InstancePtr,
 * @note     Clear event status with XDfeCcf_ClearEventStatus() before
 *           running this API.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeCcf_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeCcf_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap,
+*                      CarrierCfg);
+*                  XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
+*
 ****************************************************************************/
 u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 		  const XDfeCcf_CarrierCfg *CarrierCfg)
@@ -1728,6 +1737,13 @@ u32 XDfeCcf_AddCC(XDfeCcf *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 * @note     Clear event status with XDfeCcf_ClearEventStatus() before
 *           running this API.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeCcf_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeCcf_RemoveCCfromCCCfg(InstancePtr, CCCfg, CCID);
+*                  XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
+*
 ****************************************************************************/
 u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 {
@@ -1767,6 +1783,14 @@ u32 XDfeCcf_RemoveCC(XDfeCcf *InstancePtr, s32 CCID)
 *
 * @note     Clear event status with XDfeCcf_ClearEventStatus() before
 *           running this API.
+*
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeCcf_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeCcf_UpdateCCinCCCfg(InstancePtr, CCCfg, CCID,
+*                      CarrierCfg);
+*                  XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
 *
 ****************************************************************************/
 u32 XDfeCcf_UpdateCC(XDfeCcf *InstancePtr, s32 CCID,
