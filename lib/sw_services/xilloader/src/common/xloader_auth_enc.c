@@ -105,6 +105,8 @@
 *       dc   03/30/23 Updated ECDSA authentication logic to support both BE/LE
 *       ng   03/30/23 Updated algorithm and return values in doxygen comments
 *       sk   05/18/2023 Deprecate copy to memory feature
+*       kal  06/18/23 Send device to SLD when 2nd AuthJTag message authentication
+*	              fails, when AUTH_JTAG_LOCK_DIS eFuse is programmed
 *
 * </pre>
 *
@@ -3153,8 +3155,14 @@ int XLoader_CheckAuthJtagIntStatus(void *Arg)
 			(LockDisStatusTmp == XLOADER_AUTH_JTAG_LOCK_DIS_MASK)) {
 			if ((AuthJtagStatus.AuthFailCounter >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS) ||
 				(AuthJtagStatus.AuthFailCounterTmp >= XLOADER_AUTH_JTAG_MAX_ATTEMPTS)) {
-				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_AUTH_JTAG_EXCEED_ATTEMPTS, 0);
+				/**
+				 * - When AUTH_JTAG_LOCK_DIS eFuse is programmed, allow only one
+				 * failed attempt for AuthJTag message. For the second failure
+				 * trigger secure lock down.
+				 *
+				 */
+				XPlmi_TriggerTamperResponse(XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK,
+				XPLMI_TRIGGER_TAMPER_TASK);
 				goto END;
 			}
 		}
