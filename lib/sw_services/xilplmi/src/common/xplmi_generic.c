@@ -92,6 +92,8 @@
 *       ng   03/16/2023 Added control to disable minimal timeout in maskpoll
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 * 1.10  ng   05/19/2023 Added null termination for log string buffer
+*       bm   06/13/2023 Added unique error code support for mask poll.
+*                       Also added generic logic for 32-bit and 64-bit mask poll.
 *
 * </pre>
 *
@@ -138,6 +140,17 @@
 #define XPLMI_SRC_ALIGN_REQ	(0U)
 #define XPLMI_DEST_ALIGN_REQ	(1U)
 #define XPLMI_LEN_ALIGN_REQ	(2U)
+
+/* Mask poll related macros */
+#define XPLMI_MASKPOLL_ADDR_INDEX		(0U)
+#define XPLMI_MASKPOLL_MASK_INDEX		(1U)
+#define XPLMI_MASKPOLL_EXP_VAL_INDEX		(2U)
+#define XPLMI_MASKPOLL_TIMEOUT_INDEX		(3U)
+#define XPLMI_MASKPOLL_FLAGS_INDEX		(4U)
+#define XPLMI_MASKPOLL_MINOR_ERROR_MASK		(0xFFFFU)
+#define XPLMI_MASK_POLL_32BIT_OFFSET	(0U)
+#define XPLMI_MASK_POLL_64BIT_OFFSET	(1U)
+
 
 #define XPLMI_BEGIN_MAX_LOG_STR_LEN			(24U)
 #define XPLMI_BEGIN_LOG_STR_BUF_END_INDEX	(XPLMI_BEGIN_MAX_LOG_STR_LEN - 1U)
@@ -284,6 +297,149 @@ static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
 
 /*****************************************************************************/
 /**
+ * @brief	This function provides generic implementation for both 32-bit and 64-bit
+ *		mask poll command execution.
+ *		Command payload parameters are
+ *		- Address
+ *		- Mask
+ *		- Expected Value
+ *		- Timeout in us
+ *		- Deferred Error flag - Optional
+ *			0 - Return error in case of failure,
+ *			1 - Ignore error, return success always
+ *			2 - Defer error till the end of partition load
+ *			3 - Break to end offset in case of failure
+ *		- Error Code
+ *
+ * @param	Cmd is pointer to the command structure
+ * @param	Is64Bit is flag indicating if the address is 64-bit
+ *
+ * @return
+ * 		- XST_SUCCESS on success and error code on failure
+ *
+ *****************************************************************************/
+static int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u32 Is64Bit)
+{
+	int Status = XST_FAILURE;
+	u32 Addr;
+	u64 Addr64Bit;
+	u32 Mask;
+	u32 ExpectedValue;
+	u32 TimeOutInUs;
+	u32 Flags = 0U;
+	u32 Level = 0U;
+	u16 DebugLevel = DEBUG_INFO;
+	u32 SetMinTimeout = TRUE;
+	u32 ExtLen;
+	u32 MinErrCode = 0U;
+	u32 Offset = XPLMI_MASK_POLL_32BIT_OFFSET;
+#ifdef PLM_PRINT_PERF_POLL
+	u64 PollTime = XPlmi_GetTimerValue();
+	XPlmi_PerfTime PerfTime = {0U};
+#endif
+
+	if (Is64Bit == TRUE) {
+		Offset = XPLMI_MASK_POLL_64BIT_OFFSET;
+	}
+
+	/* Initialize variables */
+	Addr = Cmd->Payload[XPLMI_MASKPOLL_ADDR_INDEX];
+	Addr64Bit = (u64)Cmd->Payload[Offset];
+	Mask = Cmd->Payload[XPLMI_MASKPOLL_MASK_INDEX + Offset];
+	ExpectedValue = Cmd->Payload[XPLMI_MASKPOLL_EXP_VAL_INDEX + Offset];
+	TimeOutInUs = Cmd->Payload[XPLMI_MASKPOLL_TIMEOUT_INDEX + Offset];
+	ExtLen = XPLMI_MASKPOLL_LEN_EXT + Offset;
+	if (Is64Bit == TRUE) {
+		Addr64Bit |= (u64)Cmd->Payload[XPLMI_MASKPOLL_ADDR_INDEX] << 32U;
+	}
+
+	/* Error out if Cmd length is greater than supported length */
+	if (Cmd->Len > ExtLen + 1U) {
+		goto END;
+	}
+
+	/* Disable MinTimeout for Success and break flags. Also disable if explicity requested using MSB */
+	if (Cmd->Len >= ExtLen) {
+		Flags = Cmd->Payload[XPLMI_MASKPOLL_FLAGS_INDEX + Offset] & XPLMI_MASKPOLL_FLAGS_MASK;
+		if ((Flags == XPLMI_MASKPOLL_FLAGS_BREAK) || (Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS) ||
+			(Cmd->Payload[XPLMI_MASKPOLL_FLAGS_INDEX + Offset] &
+			 XPLMI_MASKPOLL_FLAGS_DISABLE_MINIMAL_TIMEOUT)) {
+				SetMinTimeout = FALSE;
+		}
+	}
+
+	/* Set Minimum Timeout */
+	if (SetMinTimeout == TRUE) {
+		if (TimeOutInUs < XPLMI_MASK_POLL_MIN_TIMEOUT) {
+			TimeOutInUs = XPLMI_MASK_POLL_MIN_TIMEOUT;
+		}
+	}
+
+	/* Mask Poll for expected value */
+	if (Is64Bit == TRUE) {
+		Status = XPlmi_UtilPoll64(Addr64Bit, Mask, ExpectedValue, TimeOutInUs);
+	}
+	else {
+		Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs, NULL);
+	}
+
+	/* Print in case of failure or when DEBUG_INFO is enabled */
+	if ((Flags != XPLMI_MASKPOLL_FLAGS_BREAK) && (Status != XST_SUCCESS)) {
+		DebugLevel = DEBUG_GENERAL;
+	}
+
+	XPlmi_Printf(DebugLevel, "MaskPoll: Addr: 0x%0x%08x, Mask: 0x%0x, ExpVal: 0x%0x, Timeout: %u",
+		(u32)(Addr64Bit >> 32U), (u32)(Addr64Bit & MASK_ALL), Mask, ExpectedValue, TimeOutInUs);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf_WoTS(DebugLevel, ", RegVal: 0x%0x ...ERROR\r\n", XPlmi_In64(Addr64Bit));
+	}
+	else {
+		XPlmi_Printf_WoTS(DebugLevel, " ...DONE\r\n");
+	}
+
+#ifdef PLM_PRINT_PERF_POLL
+	/* Print poll time */
+	XPlmi_MeasurePerfTime(PollTime, &PerfTime);
+	XPlmi_Printf(DEBUG_PRINT_PERF,
+		" %u.%03u ms Poll Time: Addr: 0x%x%08x, Mask: 0x%0x,"
+		" ExpVal: 0x%0x, Timeout: %u \r\n",
+		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
+		(u32)(Addr64Bit >> 32U), (u32)(Addr64Bit & MASK_ALL), Mask, ExpectedValue, TimeOutInUs);
+#endif
+
+	/*
+	 * If command length is greater than Optional arguments length,
+	 * then flags and error code are processed
+	 */
+	if ((Cmd->Len >= ExtLen) && (Status != XST_SUCCESS)) {
+		MinErrCode = Cmd->Payload[ExtLen] & XPLMI_MASKPOLL_MINOR_ERROR_MASK;
+		if (Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS) {
+			/* Ignore the error */
+			Status = XST_SUCCESS;
+		} else if (Flags == XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR) {
+			/* Defer the error till the end of CDO processing */
+			Status = XST_SUCCESS;
+			Cmd->DeferredError = (u8)TRUE;
+		} else if (Flags == XPLMI_MASKPOLL_FLAGS_BREAK) {
+			Level = (Cmd->Payload[ExtLen - 1U] &
+					XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_MASK) >>
+					XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT;
+			/* Jump to "end" associated with break level */
+			Status = XPlmi_GetJumpOffSet(Cmd, Level);
+		}
+		if ((Cmd->Len == ExtLen + 1U) && (MinErrCode != 0U) && (Status != XST_SUCCESS)) {
+			/*
+			 * Overwrite the error code with the error code value present
+			 * in payload argument.
+			 */
+			Status = (int)MinErrCode;
+		}
+	}
+END:
+	return Status;
+}
+/*****************************************************************************/
+/**
  * @brief	This function provides 32 bit mask poll command execution.
  *  		Command payload parameters are
  *		- Address
@@ -291,9 +447,11 @@ static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
  *		- Expected Value
  *		- Timeout in us
  *		- Deferred Error flag - Optional
- *		-	0 - Return error in case of failure,
- *		-	1 - Ignore error, return success always
- *		-	2 - Defer error till the end of partition load
+ *			0 - Return error in case of failure,
+ *			1 - Ignore error, return success always
+ *			2 - Defer error till the end of partition load
+ *			3 - Break to end offset in case of failure
+ *		- Error Code
  *
  * @param	Cmd is pointer to the command structure
  *
@@ -303,82 +461,10 @@ static int XPlmi_GetDeviceID(XPlmi_Cmd *Cmd)
  *****************************************************************************/
 static int XPlmi_MaskPoll(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
-	u32 Addr = Cmd->Payload[0U];
-	u32 Mask = Cmd->Payload[1U];
-	u32 ExpectedValue = Cmd->Payload[2U];
-	u32 TimeOutInUs = Cmd->Payload[3U];
-	u32 Flags = 0U;
-	u32 Level;
-	u16 DebugLevel = DEBUG_INFO;
-	u32 SetMinTimeout = TRUE;
-#ifdef PLM_PRINT_PERF_POLL
-	u64 PollTime = XPlmi_GetTimerValue();
-	XPlmi_PerfTime PerfTime = {0U};
-#endif
 	XPLMI_EXPORT_CMD(XPLMI_MASK_POLL_CMD_ID, XPLMI_MODULE_GENERIC_ID,
-		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FIVE);
+		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_SIX);
 
-	if (Cmd->Len == XPLMI_MASKPOLL_LEN_EXT) {
-		Flags = Cmd->Payload[4U] & XPLMI_MASKPOLL_FLAGS_MASK;
-		if ((Flags == XPLMI_MASKPOLL_FLAGS_BREAK) ||
-			(Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS) ||
-			(Cmd->Payload[4U] & XPLMI_MASKPOLL_FLAGS_DISABLE_MINIMAL_TIMEOUT)) {
-				SetMinTimeout = FALSE;
-		}
-	}
-
-	if (Flags != XPLMI_MASKPOLL_FLAGS_BREAK) {
-		DebugLevel = DEBUG_GENERAL;
-	}
-
-	if (SetMinTimeout == TRUE) {
-		if (TimeOutInUs < XPLMI_MASK_POLL_MIN_TIMEOUT) {
-			TimeOutInUs = XPLMI_MASK_POLL_MIN_TIMEOUT;
-		}
-	}
-
-	Status = XPlmi_UtilPoll(Addr, Mask, ExpectedValue, TimeOutInUs, NULL);
-	if (Status != XST_SUCCESS) {
-		XPlmi_Printf(DebugLevel,
-			"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
-			"Timeout: %u ...ERROR\r\n",  __func__,
-			Addr, Mask, ExpectedValue, TimeOutInUs);
-	} else {
-		XPlmi_Printf(DEBUG_INFO,
-			"%s: Addr: 0x%0x,  Mask: 0x%0x, ExpVal: 0x%0x, "
-			"Timeout: %u ...Done\r\n",  __func__,
-			Addr, Mask, ExpectedValue, TimeOutInUs);
-	}
-#ifdef PLM_PRINT_PERF_POLL
-	XPlmi_MeasurePerfTime(PollTime, &PerfTime);
-	XPlmi_Printf(DEBUG_PRINT_PERF,
-		" %u.%03u ms Poll Time: Addr: 0x%0x,  Mask: 0x%0x,"
-		" ExpVal: 0x%0x, Timeout: %u \r\n",
-		(u32)PerfTime.TPerfMs, (u32)PerfTime.TPerfMsFrac,
-		Addr, Mask, ExpectedValue, TimeOutInUs);
-#endif
-
-	/* If command length is 5, flags are included */
-	if ((Cmd->Len == XPLMI_MASKPOLL_LEN_EXT) && (Status != XST_SUCCESS)) {
-		if (Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS) {
-			/* Ignore the error */
-			Status = XST_SUCCESS;
-		} else if (Flags == XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR) {
-			/* Defer the error till the end of CDO processing */
-			Status = XST_SUCCESS;
-			Cmd->DeferredError = (u8)TRUE;
-		} else if (Flags == XPLMI_MASKPOLL_FLAGS_BREAK) {
-			Level = (Cmd->Payload[4U] & XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_MASK) >>
-				XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT;
-			/* Jump to "end" associated with break level */
-			Status = XPlmi_GetJumpOffSet(Cmd, Level);
-		} else {
-			/* Return mask_poll status */
-		}
-	}
-
-	return Status;
+	return XPlmi_GenericMaskPoll(Cmd, FALSE);
 }
 
 /*****************************************************************************/
@@ -588,6 +674,8 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
  *			0 - Return error in case of failure,
  *			1 - Ignore error, return success always
  *			2 - Defer error till the end of partition load
+ *			3 - Break to end offset in case of failure
+ *		- Error Code
  *
  * @param	Cmd is pointer to the command structure
  *
@@ -598,46 +686,10 @@ static int XPlmi_DmaWrite(XPlmi_Cmd *Cmd)
  *****************************************************************************/
 static int XPlmi_MaskPoll64(XPlmi_Cmd *Cmd)
 {
-	int Status = XST_FAILURE;
-	u64 Addr = ((u64)Cmd->Payload[0U] << 32U) | Cmd->Payload[1U];
-	u32 Mask = Cmd->Payload[2U];
-	u32 ExpectedValue = Cmd->Payload[3U];
-	u32 TimeOutInUs = Cmd->Payload[4U];
-	u32 Flags = 0U;
-	u32 Level = 0U;
 	XPLMI_EXPORT_CMD(XPLMI_MASK_POLL64_CMD_ID, XPLMI_MODULE_GENERIC_ID,
-		XPLMI_CMD_ARG_CNT_FIVE, XPLMI_CMD_ARG_CNT_SIX);
+		XPLMI_CMD_ARG_CNT_FIVE, XPLMI_CMD_ARG_CNT_SEVEN);
 
-	XPlmi_Printf(DEBUG_DETAILED,
-		"%s, Addr: 0x%0x%08x,  Mask 0x%0x, ExpVal: 0x%0x, Timeout: %u\n\r",
-		__func__, (u32)(Addr >> 32U), (u32)Addr, Mask, ExpectedValue, TimeOutInUs);
-
-	Status = XPlmi_UtilPoll64(Addr, Mask, ExpectedValue, TimeOutInUs);
-	if (Status != XST_SUCCESS) {
-		Status = XPLMI_ERR_MASKPOLL64;
-	}
-
-	/* If command length is 6, flags are included */
-	if ((Cmd->Len == XPLMI_MASKPOLL64_LEN_EXT) && (Status != XST_SUCCESS)) {
-		Flags = Cmd->Payload[5U] & XPLMI_MASKPOLL_FLAGS_MASK;
-		if (Flags == XPLMI_MASKPOLL_FLAGS_SUCCESS) {
-			/* Ignore the error */
-			Status = XST_SUCCESS;
-		} else if (Flags == XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR) {
-			/* Defer the error till the end of CDO processing */
-			Status = XST_SUCCESS;
-			Cmd->DeferredError = (u8)TRUE;
-		} else if (Flags == XPLMI_MASKPOLL_FLAGS_BREAK) {
-			Level = (Cmd->Payload[5U] & XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_MASK) >>
-				XPLMI_MASKPOLL_FLAGS_BREAK_LEVEL_SHIFT;
-			/* Jump to "end" associated with break level */
-			Status = XPlmi_GetJumpOffSet(Cmd, Level);
-		} else {
-			/* Return mask_poll status */
-		}
-	}
-
-	return Status;
+	return XPlmi_GenericMaskPoll(Cmd, TRUE);
 }
 
 /*****************************************************************************/
