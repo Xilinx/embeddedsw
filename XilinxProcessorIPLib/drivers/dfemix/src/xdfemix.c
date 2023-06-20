@@ -58,7 +58,7 @@
 *       dc     11/25/22 Update macro of SW version Minor number
 *       dc     02/21/23 Correct switch trigger register name
 * 1.6   dc     06/15/23 Correct comment about gain
-*
+*       dc     06/20/23 Depricate obsolete APIs
 * </pre>
 * @addtogroup dfemix Overview
 * @{
@@ -2895,6 +2895,14 @@ u32 XDfeMix_SetNextCCCfgAndTriggerSwitchable(XDfeMix *InstancePtr,
 *           running this API.
 * @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeMix_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap,
+*                      CarrierCfg, NCO);
+*                  XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
+*
 ****************************************************************************/
 u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 		  const XDfeMix_CarrierCfg *CarrierCfg, const XDfeMix_NCO *NCO)
@@ -2978,6 +2986,13 @@ u32 XDfeMix_AddCC(XDfeMix *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeMix_RemoveCCfromCCCfg(InstancePtr, CCCfg, CCID);
+*                  XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
+*
 ****************************************************************************/
 u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 {
@@ -3029,6 +3044,15 @@ u32 XDfeMix_RemoveCC(XDfeMix *InstancePtr, s32 CCID)
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
 * @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
+*
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeMix_RemoveCCfromCCCfg(InstancePtr, CCCfg, CCID);
+*                  XDfeMix_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap,
+*                      CarrierCfg, NCO);
+*                  XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
 *
 ****************************************************************************/
 u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
@@ -3127,6 +3151,14 @@ u32 XDfeMix_MoveCC(XDfeMix *InstancePtr, s32 CCID, u32 Rate, u32 FromNCO,
 * @note     Clear event status with XDfeMix_ClearEventStatus() before
 *           running this API.
 * @note	    For ARCH4/5 mode see XDfeMix_AddCCtoCCCfg() comment.
+*
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfeMix_GetCurrentCCCfg(InstancePtr, CCCfg);
+*                  XDfeMix_UpdateCCinCCCfg(InstancePtr, CCCfg, CCID,
+*                      CarrierCfg);
+*                  XDfeMix_SetNextCCCfgAndTrigger(InstancePtr, CCCfg);
 *
 ****************************************************************************/
 u32 XDfeMix_UpdateCC(XDfeMix *InstancePtr, s32 CCID,
