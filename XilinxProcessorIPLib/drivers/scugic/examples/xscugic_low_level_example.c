@@ -437,6 +437,8 @@ for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
 
 	}
 #if defined (GICv3)
+   XScuGic_WriteReg(RedistBaseAddr + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+            XSCUGIC_RDIST_IGROUPR_OFFSET, XSCUGIC_DEFAULT_SECURITY);
 	temp = XScuGic_ReadReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET);
 	temp |= XSCUGIC_EN_INT_MASK;
 	XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, temp);
