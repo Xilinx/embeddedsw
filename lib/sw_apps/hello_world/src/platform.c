@@ -6,7 +6,9 @@
 #include "xparameters.h"
 #include "xil_cache.h"
 
+#ifndef SDT
 #include "platform_config.h"
+#endif
 
 /*
  * Uncomment one of the following two lines, depending on the target,
