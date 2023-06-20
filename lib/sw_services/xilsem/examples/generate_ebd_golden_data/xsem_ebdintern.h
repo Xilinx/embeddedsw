@@ -1,5 +1,6 @@
 /******************************************************************************
 * (c) Copyright 2022 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -13,6 +14,8 @@
 * Ver	Who  Date         Changes
 * ----  ---  ----------   --------------------------------------------------
 * 0.1   hv   05/17/2022   Initial creation
+* 0.2   anv  05/10/2023	  Replaced file name from xbasic_types.h to xilsem_types.h
+*                         and Updated copyright information
 * </pre>
 *
 */
@@ -20,7 +23,7 @@
 #ifndef XSEM_EBDINTERN_H		/* prevent circular inclusions */
 #define XSEM_EBDINTERN_H		/**< by using protection macros */
 /***************************** Include Files *********************************/
-#include "xbasic_types.h"
+#include "xilsem_types.h"
 
 /************************** Macro Definitions ********************************/
 #define XSEM_BT0ROW0_FRAMES	34111
