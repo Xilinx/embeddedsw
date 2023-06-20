@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
+* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /**
@@ -15,6 +16,7 @@
  * Ver   Who   Date        Changes
  * ----  ----  ----------  ---------------------------------------------------
  * 0.1   hv    06/27/2022  Initial Creation
+ * 0.2	 anv   05/10/2023  Modified to add copyright information in xsem_ebdgoldendata.c
  * </pre>
  *
  *****************************************************************************/
@@ -201,6 +203,7 @@ int main(int argc, char **argv) {
     u32 i;
 	FILE *fptr;
 	fptr = fopen("xsem_ebdgoldendata.c", "w");
+	fprintf(fptr, "%s", "/******************************************************************************\n* (c) Copyright 2022 Xilinx, Inc.  All rights reserved.\n* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.\n* SPDX-License-Identifier: MIT\n******************************************************************************/\n\n");
 	fprintf(fptr, "%s", "#if defined (__ICCARM__) \n#pragma language=save \n#pragma language=extended \n#endif\n\n");
     for (i = 0; i < sizeof input_tables/sizeof *input_tables; i++) {
         u32 bt = input_tables[i].bt;

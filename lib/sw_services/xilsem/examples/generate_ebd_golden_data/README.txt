@@ -7,6 +7,11 @@ Follow the steps given below to find out whether a particular bit is essential o
 	1.1 Generate uncompressed *.ebd_cfi file from vivado using commands below:
 			set_property bitstream.seu.essentialbits yes [current_design]
 			set_property bitstream.general.compress false [current_design]
+			write_device_image -raw -force -readback typeN
+
+			where N refers to Specific block type.
+		        by default choose block type 0.
+			e.g:write_device_image -raw -force -readback type0
 
 	1.2 Download "generate_ebd_golden_data" folder from XilSEM example folder
 		(Path" https://github.com/Xilinx/embeddedsw/tree/master/lib/sw_services/xilsem/examples)
