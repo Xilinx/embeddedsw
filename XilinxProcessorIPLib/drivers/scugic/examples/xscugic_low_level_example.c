@@ -34,6 +34,7 @@
 *       adk  20/07/22 Update the Xil_WaitForEventSet() API arguments as
 *      		      per latest API.
 * 5.1   mus  02/15/23 Added support for VERSAL_NET.
+* 5.2   dp   06/20/23 Make interrupt as Group1 interrupt for Cortex-R52.
 * </pre>
 ******************************************************************************/
 
@@ -158,12 +159,12 @@ static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 	u64 Mask;
 #endif
 #if defined (VERSAL_NET)
-        u32 CoreId, ClusterId;
+	u32 CoreId, ClusterId;
 #endif
 	GicDistInit(DistBaseAddress);
 
 #if !defined (GICv3)
-		GicCPUInit(CpuBaseAddress);
+	GicCPUInit(CpuBaseAddress);
 #endif
 
 	/*
@@ -176,10 +177,10 @@ static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 	 * Enable the software interrupts only.
 	 */
 #if defined (GICv3)
-	 RedistBaseAddr = XScuGic_GetRedistBaseAddr();
+	RedistBaseAddr = XScuGic_GetRedistBaseAddr();
 
-	 XScuGic_WriteReg(RedistBaseAddr + XSCUGIC_RDIST_SGI_PPI_OFFSET,
-	 XSCUGIC_RDIST_ISENABLE_OFFSET, 0xFFFFFFFF);
+	XScuGic_WriteReg(RedistBaseAddr + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			 XSCUGIC_RDIST_ISENABLE_OFFSET, 0xFFFFFFFF);
 #else
 	XScuGic_WriteReg(DistBaseAddress, XSCUGIC_ENABLE_SET_OFFSET, 0x0000FFFF);
 #endif
@@ -195,26 +196,26 @@ static int ScuGicLowLevelExample(u32 CpuBaseAddress, u32 DistBaseAddress)
 	CoreId = XGetCoreId();
 	ClusterId = XGetClusterId();
 
-	#if defined (ARMR52)
+#if defined (ARMR52)
 	Mask = ( ClusterId << XSCUGIC_SGI1R_AFFINITY1_SHIFT);
 	Mask |= (0x1U << CoreId);
-	#else
+#else
 	Mask = ClusterId;
 	Mask = (Mask << XSCUGIC_SGI1R_AFFINITY2_SHIFT);
 	Mask |= (CoreId << XSCUGIC_SGI1R_AFFINITY1_SHIFT);
 	Mask |= 0x1U;
-	#endif
+#endif
 	Mask |= (XSUGIC_SGI_INT_ID << XSCUGIC_SGIR_EL1_INITID_SHIFT);
 #else
 	Mask = GIC_DEVICE_INT_MASK;
 #endif
 
 
-	#if EL3
+#if EL3
 	XScuGic_WriteICC_SGI0R_EL1(Mask);
-    #else
+#else
 	XScuGic_WriteICC_SGI1R_EL1(Mask);
-	#endif
+#endif
 #else
 	XScuGic_WriteReg(DistBaseAddress, XSCUGIC_SFI_TRIG_OFFSET, GIC_DEVICE_INT_MASK);
 #endif
@@ -253,8 +254,8 @@ void SetupInterruptSystem(void)
 	 * interrupt handling logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-			(Xil_ExceptionHandler) LowInterruptHandler,
-			(void *)CPU_BASEADDR);
+				     (Xil_ExceptionHandler) LowInterruptHandler,
+				     (void *)CPU_BASEADDR);
 
 	/*
 	 * Enable interrupts in the ARM
@@ -293,16 +294,16 @@ void LowInterruptHandler(u32 CallbackRef)
 	BaseAddress = CallbackRef;
 
 #if defined (GICv3)
-	    IntID = XScuGic_get_IntID();
+	IntID = XScuGic_get_IntID();
 #else
 	/*
 	 * Read the int_ack register to identify the interrupt and
 	 * make sure it is valid.
 	 */
 	IntID = XScuGic_ReadReg(BaseAddress, XSCUGIC_INT_ACK_OFFSET) &
-			    XSCUGIC_ACK_INTID_MASK;
+		XSCUGIC_ACK_INTID_MASK;
 #endif
-	if(XSCUGIC_MAX_NUM_INTR_INPUTS < IntID){
+	if (XSCUGIC_MAX_NUM_INTR_INPUTS < IntID) {
 		return;
 	}
 
@@ -318,7 +319,7 @@ void LowInterruptHandler(u32 CallbackRef)
 	InterruptProcessed = 1;
 
 #if defined (GICv3)
-	   XScuGic_ack_Int(IntID);
+	XScuGic_ack_Int(IntID);
 
 #else
 	/*
@@ -342,22 +343,22 @@ static void GicDistInit(u32 BaseAddress)
 	RedistBaseAddr = XScuGic_GetRedistBaseAddr();
 
 #if defined (GIC600)
-	XScuGic_WriteReg(RedistBaseAddr,XSCUGIC_RDIST_PWRR_OFFSET,
-                        (XScuGic_ReadReg(RedistBaseAddr, XSCUGIC_RDIST_PWRR_OFFSET) &
-                        (~XSCUGIC_RDIST_PWRR_RDPD_MASK)));
+	XScuGic_WriteReg(RedistBaseAddr, XSCUGIC_RDIST_PWRR_OFFSET,
+			 (XScuGic_ReadReg(RedistBaseAddr, XSCUGIC_RDIST_PWRR_OFFSET) &
+			  (~XSCUGIC_RDIST_PWRR_RDPD_MASK)));
 #endif
-        /* CPU is active, reset GICR_WAKER.ProcessorSleep to enable interrupts */
+	/* CPU is active, reset GICR_WAKER.ProcessorSleep to enable interrupts */
 	Waker_State = XScuGic_ReadReg(RedistBaseAddr, XSCUGIC_RDIST_WAKER_OFFSET);
 	XScuGic_WriteReg(RedistBaseAddr, XSCUGIC_RDIST_WAKER_OFFSET,
-							Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
+			 Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
 
 	/* Enable system reg interface through ICC_SRE_EL1/EL3  */
-	#if EL3
-		XScuGic_Enable_SystemReg_CPU_Interface_EL3();
-	#endif
+#if EL3
+	XScuGic_Enable_SystemReg_CPU_Interface_EL3();
+#endif
 	XScuGic_Enable_SystemReg_CPU_Interface_EL1();
 
-    /* Disable distributor */
+	/* Disable distributor */
 	temp = XScuGic_ReadReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET);
 	temp |= (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
 	temp &= ~(XSCUGIC_EN_INT_MASK);
@@ -379,13 +380,13 @@ static void GicDistInit(u32 BaseAddress)
 	/*
 	 * 1. The trigger mode in the int_config register
 	 */
-	for(Int_Id = 32; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id+=16) {
+	for (Int_Id = 32; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id += 16) {
 		/*
 		 * Each INT_ID uses two bits, or 16 INT_ID per register
 		 * Set them all to be level sensitive, active HIGH.
 		 */
 		XScuGic_WriteReg(BaseAddress,
-				XSCUGIC_INT_CFG_OFFSET + (Int_Id * 4)/16, 0UL);
+				 XSCUGIC_INT_CFG_OFFSET + (Int_Id * 4) / 16, 0UL);
 	}
 
 
@@ -396,7 +397,7 @@ static void GicDistInit(u32 BaseAddress)
 #define DEFAULT_TARGET    0x01010101UL
 #endif
 
-	for(Int_Id = 0; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id+=4){
+	for (Int_Id = 0; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id += 4) {
 		/*
 		 * 2. The priority using int the priority_level register
 		 * The priority_level and spi_target registers use one byte
@@ -404,53 +405,53 @@ static void GicDistInit(u32 BaseAddress)
 		 * Write a default value that can be changed elsewhere.
 		 */
 		XScuGic_WriteReg(BaseAddress,
-				XSCUGIC_PRIORITY_OFFSET +((Int_Id *4)/4),
-				DEFAULT_PRIORITY);
+				 XSCUGIC_PRIORITY_OFFSET + ((Int_Id * 4) / 4),
+				 DEFAULT_PRIORITY);
 	}
 #if defined (GICv3)
-for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
-	/*
-	 * 3. The CPU interface in the spi_target register
-	 * Only write to the SPI interrupts, so start at 32
-	 */
-	temp = Int_Id -32;
-	XScuGic_WriteReg(BaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(temp),
-						  DEFAULT_TARGET);
-}
+	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id = Int_Id + 1) {
+		/*
+		 * 3. The CPU interface in the spi_target register
+		 * Only write to the SPI interrupts, so start at 32
+		 */
+		temp = Int_Id - 32;
+		XScuGic_WriteReg(BaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(temp),
+				 DEFAULT_TARGET);
+	}
 #else
-	for(Int_Id = 32; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id+=4){
+	for (Int_Id = 32; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id += 4) {
 		/*
 		 * 3. The CPU interface in the spi_target register
 		 */
 		XScuGic_WriteReg(BaseAddress,
-			XSCUGIC_SPI_TARGET_OFFSET +((Int_Id *4)/4),
-			DEFAULT_TARGET);
+				 XSCUGIC_SPI_TARGET_OFFSET + ((Int_Id * 4) / 4),
+				 DEFAULT_TARGET);
 	}
 #endif
-	for(Int_Id = 0; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id+=32){
+	for (Int_Id = 0; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id += 32) {
 		/*
 		 * 4. Enable the SPI using the enable_set register.
 		 * Leave all disabled for now.
 		 */
 		XScuGic_WriteReg(BaseAddress,
-			XSCUGIC_DISABLE_OFFSET +((Int_Id *4)/32), 0xFFFFFFFFUL);
+				 XSCUGIC_DISABLE_OFFSET + ((Int_Id * 4) / 32), 0xFFFFFFFFUL);
 
 	}
 #if defined (GICv3)
-   XScuGic_WriteReg(RedistBaseAddr + XSCUGIC_RDIST_SGI_PPI_OFFSET,
-            XSCUGIC_RDIST_IGROUPR_OFFSET, XSCUGIC_DEFAULT_SECURITY);
+	XScuGic_WriteReg(RedistBaseAddr + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			 XSCUGIC_RDIST_IGROUPR_OFFSET, XSCUGIC_DEFAULT_SECURITY);
 	temp = XScuGic_ReadReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET);
 	temp |= XSCUGIC_EN_INT_MASK;
 	XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, temp);
 
 	XScuGic_Enable_Group1_Interrupts();
-	#if defined (ARMR52) || (defined (__aarch64__) && (EL1_NONSECURE == 0))
+#if defined (ARMR52) || (defined (__aarch64__) && (EL1_NONSECURE == 0))
 	XScuGic_Enable_Group0_Interrupts();
-	#endif
+#endif
 
 	XScuGic_set_priority_filter(0xff);
 #else
-    XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, 0x01UL);
+	XScuGic_WriteReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET, 0x01UL);
 #endif
 }
 
