@@ -48,7 +48,7 @@
 * 1.6   dc     05/08/23 Set NCO config for RCId=0 fix
 *       dc     05/09/23 Dual and single mode calculation fix
 *       dc     08/06/23 Support dynamic and static modes of operation
-*
+*       dc     06/20/23 Depricate obsolete APIs
 * </pre>
 * @addtogroup dfeprach Overview
 * @{
@@ -2594,6 +2594,15 @@ u32 XDfePrach_SetNextCfg(const XDfePrach *InstancePtr,
 *
 * @note     Does not support multi-band option.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
+*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
+*                  XDfePrach_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap,
+*                      CarrierCfg);
+*                  XDfePrach_SetNextCfg(InstancePtr, &CCCfg, &RCCfg);
+*
 ****************************************************************************/
 u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 		    const XDfePrach_CarrierCfg *CarrierCfg)
@@ -2662,6 +2671,14 @@ u32 XDfePrach_AddCC(XDfePrach *InstancePtr, s32 CCID, u32 CCSeqBitmap,
 *
 * @note     Does not support multi-band option.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
+*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
+*                  XDfePrach_RemoveCCfromCCCfg(InstancePtr, CCCfg, CCID);
+*                  XDfePrach_SetNextCfg(InstancePtr, &CCCfg, &RCCfg);
+*
 ****************************************************************************/
 u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
 {
@@ -2710,6 +2727,14 @@ u32 XDfePrach_RemoveCC(XDfePrach *InstancePtr, s32 CCID)
 *           running this API.
 *
 * @note     Does not support multi-band option.
+*
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
+*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
+*                  CCCfg.CarrierCfg[BandId][CCID].SCS = CarrierCfg->SCS;
+*                  XDfePrach_SetNextCfg(InstancePtr, &CCCfg, &RCCfg);
 *
 ****************************************************************************/
 u32 XDfePrach_UpdateCC(const XDfePrach *InstancePtr, s32 CCID,
@@ -3198,6 +3223,16 @@ void XDfePrach_UpdateRCinRCCfg(const XDfePrach *InstancePtr,
 *
 * @note     The api does not support multi-band option.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
+*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
+*                  XDfePrach_AddRC(InstancePtr, RCId, RachChan, CCID,
+*                      &CurrentRCCfg, DdcCfg, NcoCfg, StaticSchedule,
+*                      &CurrentCCCfg, BandId);
+*                  XDfePrach_SetNextCfg(InstancePtr, CCCfg);
+*
 ****************************************************************************/
 u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 		       u32 RachChan, XDfePrach_DDCCfg *DdcCfg,
@@ -3267,6 +3302,14 @@ u32 XDfePrach_AddRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
 * @note     Clear event status with XDfePrach_ClearEventStatus() before
 *           running this API.
 *
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
+*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
+*                  XDfePrach_RemoveRC(InstancePtr, RCId);
+*                  XDfePrach_SetNextCfg(InstancePtr, CCCfg);
+*
 ****************************************************************************/
 u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 {
@@ -3320,6 +3363,16 @@ u32 XDfePrach_RemoveRC(const XDfePrach *InstancePtr, u32 RCId)
 *           with the API XDfePrach_AddCCCfg and XDfePrach_UpdateCCCfg.
 *
 * @note     The api does not support multi-band option.
+*
+* @attention:  This API is deprecated in the release 2023.2. Source code will
+*              be removed from in the release 2024.1 release. The functionality
+*              of this API can be reproduced with the following API sequence:
+*                  XDfePrach_GetCurrentCCCfg(InstancePtr, &CurrentCCCfg);
+*                  XDfePrach_GetCurrentRCCfg(InstancePtr, &CurrentRCCfg);
+*                  XDfePrach_UpdateRC(InstancePtr, RCId, RachChan, CCID,
+*                      &CurrentRCCfg, DdcCfg, NcoCfg, StaticSchedule,
+*                      &CurrentCCCfg, BandId);
+*                  XDfePrach_SetNextCfg(InstancePtr, CCCfg);
 *
 ****************************************************************************/
 u32 XDfePrach_UpdateRCCfg(const XDfePrach *InstancePtr, s32 CCID, u32 RCId,
