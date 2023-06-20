@@ -11,6 +11,10 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifdef SDT
+int XCsuDma_SelfTestExample(UINTPTR BaseAddress);
+int XCsuDma_IntrExample(XCsuDma *CsuDmaInstance, UINTPTR BaseAddress);
+#else
 int XCsuDma_SelfTestExample(u16 DeviceId);
 #ifdef XPAR_SCUGIC_0_DEVICE_ID
 int XCsuDma_IntrExample(XScuGic *IntcInstancePtr, XCsuDma *CsuDmaInstance,
@@ -19,6 +23,7 @@ int XCsuDma_IntrExample(XScuGic *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 #ifdef XPAR_INTC_0_DEVICE_ID
 int XCsuDma_IntrExample(XIntc *IntcInstancePtr, XCsuDma *CsuDmaInstance,
 			u16 DeviceId, u16 IntrId);
+#endif
 #endif
 #endif
 #endif
