@@ -35,6 +35,7 @@
 *       sk   01/11/2023 Updated error code for Image Store
 *       bm   02/04/2023 Added support to return warnings
 *       har  02/24 2023 Added error codes for X.509 certificate generation
+* 1.02  bm   06/13/2023 Add API to just log PLM error
 *
 * </pre>
 *
@@ -792,6 +793,7 @@ static inline int XPlmi_UpdateStatus(XPlmiStatus_t PlmiStatus, int ModuleStatus)
 
 /************************** Function Prototypes ******************************/
 void XPlmi_ErrMgr(int ErrStatus);
+void XPlmi_LogPlmErr(int ErrStatus);
 
 /************************** Variable Definitions *****************************/
 

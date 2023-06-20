@@ -94,6 +94,7 @@
 * 1.10  ng   05/19/2023 Added null termination for log string buffer
 *       bm   06/13/2023 Added unique error code support for mask poll.
 *                       Also added generic logic for 32-bit and 64-bit mask poll.
+*       bm   06/13/2023 Log PLM error before deferring
 *
 * </pre>
 *
@@ -418,7 +419,6 @@ static int XPlmi_GenericMaskPoll(XPlmi_Cmd *Cmd, u32 Is64Bit)
 			Status = XST_SUCCESS;
 		} else if (Flags == XPLMI_MASKPOLL_FLAGS_DEFERRED_ERR) {
 			/* Defer the error till the end of CDO processing */
-			Status = XST_SUCCESS;
 			Cmd->DeferredError = (u8)TRUE;
 		} else if (Flags == XPLMI_MASKPOLL_FLAGS_BREAK) {
 			Level = (Cmd->Payload[ExtLen - 1U] &

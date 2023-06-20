@@ -34,6 +34,7 @@
 *       sk   06/12/2023 Removed PDI Inst DS export,Added Bootpdiinfo storage &
 *                       DS export to handle in-place update flow,
 *                       Removed XLoader_GetPdiInstance function definition
+*       bm   06/13/2023 Log PLM error before deferring
 *
 * </pre>
 *
@@ -991,9 +992,6 @@ END:
 int XLoader_ProcessDeferredError(void)
 {
 	/* TODO Add DDR5 dump if it is available */
-	XPlmi_Printf(DEBUG_GENERAL, "Deferred Error Occurred during CDO"
-		"processing\n\r");
-
 	return XPlmi_UpdateStatus(XLOADER_ERR_DEFERRED_CDO_PROCESS, 0U);
 }
 

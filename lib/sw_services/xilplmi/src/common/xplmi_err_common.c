@@ -120,6 +120,7 @@
 *       ng   03/12/2023 Fixed Coverity warnings
 *		dd   03/28/2023 Updated doxygen comments
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
+* 1.10  bm   06/13/2023 Add API to just log PLM error
 * </pre>
 *
 * @note
@@ -181,6 +182,31 @@ static u32 EmSubsystemId = 0U;
 
 /*****************************************************************************/
 /**
+ * @brief	This function is called for logging PLM error into FW_ERR register
+ *
+ * @param	ErrStatus is the error code written to the FW_ERR register
+ *
+ * @return
+ * 			- None
+ *
+ *****************************************************************************/
+void XPlmi_LogPlmErr(int ErrStatus) {
+	/** - Print the PLM Warning */
+	if ((ErrStatus & XPLMI_WARNING_STATUS_MASK) != XPLMI_WARNING_STATUS_MASK) {
+		/* Log PLM Error in FW_ERR register */
+		XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
+				(u32)ErrStatus);
+		/** - Print the PLM Error */
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
+	}
+	else {
+		ErrStatus &= ~XPLMI_WARNING_STATUS_MASK;
+		XPlmi_Printf(DEBUG_PRINT_ALWAYS, "PLM Warning Status: 0x%08lx\n\r", ErrStatus);
+	}
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function is called in PLM error cases.
  *
  * @param	ErrStatus is the error code written to the FW_ERR register
@@ -197,21 +223,8 @@ void XPlmi_ErrMgr(int ErrStatus)
 	u8 SlrType = XPlmi_GetSlrType();
 	u32 BootMode;
 
-	/** - Print the PLM Warning */
-	if ((ErrStatus & XPLMI_WARNING_STATUS_MASK) == XPLMI_WARNING_STATUS_MASK) {
-		ErrStatus &= ~XPLMI_WARNING_STATUS_MASK;
-		XPlmi_Printf(DEBUG_GENERAL, "PLM Warning Status: 0x%08lx\n\r", ErrStatus);
-		goto END;
-	}
-
-	/** - Print the PLM Error */
-	XPlmi_Printf(DEBUG_GENERAL, "PLM Error Status: 0x%08lx\n\r", ErrStatus);
-	XPlmi_UtilRMW(PMC_GLOBAL_PMC_FW_ERR, PMC_GLOBAL_PMC_FW_ERR_DATA_MASK,
-			(u32)ErrStatus);
-
-	if (XPlmi_SldState() != XPLMI_SLD_NOT_TRIGGERED) {
-		goto END;
-	}
+	/* Log Plm Error status */
+	XPlmi_LogPlmErr(ErrStatus);
 
 	/**
 	 * - Check if SLR Type is Master or Monolithic
@@ -272,7 +285,6 @@ void XPlmi_ErrMgr(int ErrStatus)
 		}
 	}
 
-END:
 	return;
 }
 
