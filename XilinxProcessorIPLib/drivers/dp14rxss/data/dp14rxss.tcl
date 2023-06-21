@@ -1,5 +1,6 @@
 ##############################################################################
-# Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
+# Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -217,10 +218,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 					set final_child_cell_instance_name_present "XPAR_${periph}_${sub_core}_${count}_PRESENT"
 					puts $config_file "\t\t\{"
 					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
-					puts $config_file ","
-					puts $config_file "\t\t\t\{"
-					puts -nonewline $config_file "\t\t\t\t0"
-					puts $config_file "\n\t\t\t\}"
 					if { $brace < $total_subcores - 1 } {
 						puts $config_file "\t\t\},"
 						incr brace
