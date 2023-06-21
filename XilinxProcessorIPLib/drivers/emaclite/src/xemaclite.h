@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xemaclite.h
-* @addtogroup emaclite_v4_7
+* @addtogroup emaclite Overview
 * @{
 * @details
 *

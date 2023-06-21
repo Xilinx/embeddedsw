@@ -11,7 +11,7 @@ BEGIN driver zdma
   OPTION supported_peripherals = (psu_adma psu_gdma psv_adma psv_gdma psxl_adma psx_adma);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.16;
+  OPTION VERSION = 1.17;
   OPTION NAME = zdma;
 
 END driver

@@ -6,6 +6,10 @@
 
 /*****************************************************************************/
 /**
+*
+*@file xmcdma_hw.c
+*@addtogroup mcdma Overview
+*
 * MODIFICATION HISTORY:
 *
 * Ver   Who     Date     Changes

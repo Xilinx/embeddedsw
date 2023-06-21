@@ -8,7 +8,7 @@
 /**
 *
 * @file xmcdma.c
-* @addtogroup mcdma_v1_7
+* @addtogroup mcdma Overview
 * @{
 *
 * This file contains the implementation of the interface functions for MCDMA

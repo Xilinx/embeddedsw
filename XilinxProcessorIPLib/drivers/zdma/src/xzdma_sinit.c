@@ -8,7 +8,7 @@
 /**
 *
 * @file xzdma_sinit.c
-* @addtogroup zdma_v1_14
+* @addtogroup zdma Overview
 * @{
 *
 * This file contains static initialization methods for Xilinx ZDMA core.

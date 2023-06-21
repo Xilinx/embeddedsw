@@ -8,7 +8,7 @@
 /**
 *
 * @file xzdma_hw.h
-* @addtogroup zdma_v1_14
+* @addtogroup zdma Overview
 * @{
 *
 * This header file contains identifiers and register-level driver functions (or

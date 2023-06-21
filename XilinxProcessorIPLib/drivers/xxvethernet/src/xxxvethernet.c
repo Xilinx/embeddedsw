@@ -1,12 +1,13 @@
 /******************************************************************************
-* Copyright (C) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /**
 *
 * @file xxxvethernet.c
-* @addtogroup xxvethernet_v1_7
+* @addtogroup xxvethernet Overview
 * @{
 *
 * This file implements all the XXV ethernet functions to initialize, start,

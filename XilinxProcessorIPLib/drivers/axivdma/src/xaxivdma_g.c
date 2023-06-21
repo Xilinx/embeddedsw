@@ -8,7 +8,7 @@
 /**
 *
 * @file xaxivdma_g.c
-* @addtogroup axivdma_v6_12
+* @addtogroup axivdma Overview
 * @{
 *
 * Provide a template for user to define their own hardware settings.

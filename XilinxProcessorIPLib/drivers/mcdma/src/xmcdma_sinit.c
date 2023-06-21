@@ -8,7 +8,7 @@
 /**
 *
 * @file xmcdma_sinit.c
-* @addtogroup mcdma_v1_7
+* @addtogroup mcdma Overview
 * @{
 *
 * This file contains static initialization methods for Xilinx MCDMA core.

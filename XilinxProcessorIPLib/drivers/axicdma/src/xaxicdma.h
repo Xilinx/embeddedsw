@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma.h
-* @addtogroup axicdma_v4_10
+* @addtogroup axicdma Overview
 * @{
 * @details
  *
