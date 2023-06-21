@@ -257,6 +257,7 @@ exclusion
 * 2.4   sne  08/28/20 Modify Makefile to support parallel make execution.
 * 2.5	sne  11/23/20 Fixed MISRAC violations.
 * 2.7	sne  04/26/22 Corrected Return value of XCanFd_GetFreeBuffer().
+* 2.8	ht   06/19/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -335,12 +336,20 @@ extern "C" {
  * This typedef contains configuration information for a device.
  */
 typedef struct {
+#ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Register base address */
 	u32 Rx_Mode;			/**< 1-Mailbox 0-sequential */
 	u32 NumofRxMbBuf;	/**< Number of RxBuffers */
 	u32 NumofTxBuf;         /**< Number of TxBuffers */
+#ifndef SDT
 	u32 IsPl;		/**< IsPl, 1= AXI CANFD instance,0= CANFD instance */
+#endif
+	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 } XCanFd_Config;
 
 /************************** Variable Definitions *****************************/
@@ -1041,7 +1050,11 @@ int XCanFd_AcceptFilterSet(XCanFd *InstancePtr, u32 FilterIndex,
 						u32 MaskValue, u32 IdValue);
 void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 						u32 *MaskValue, u32 *IdValue);
+#ifndef SDT
 XCanFd_Config *XCanFd_LookupConfig(u16 DeviceId);
+#else
+XCanFd_Config *XCanFd_LookupConfig(u32 BaseAddress);
+#endif
 XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex);
 int XCanFd_GetDlc2len(u32 Dlc, u32 Edl);
 u8 XCanFd_GetLen2Dlc(int len);

@@ -1,0 +1,47 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for CANFD controller
+
+maintainers:
+  - Harini T <harini.t@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - xlnx,canfd-1.0
+          - xlnx,axi-canfd-2.0
+          - xlnx,versal-canfd-2.0
+          - xlnx,canfd-2.0
+  reg:
+    description: Physical base address and size of the controller register map
+  rx-mode:
+    description: CANFD IP rx mode configuration (sequential or mailbox)
+  rx-fifo-depth:
+    description: CANFD IP rx fifo depth
+  tx-mailbox-count:
+    description: CANFD IP tx mailbox buffer count
+
+config:
+    - XCanFd_Config
+
+required:
+    - compatible
+    - reg
+    - rx-mode
+    - rx-fifo-depth
+    - tx-mailbox-count
+    - interrupts
+    - interrupt-parent
+
+examples:
+   xcanfd_intr_example.c:
+           - interrupts
+   xcanfd_polled_example.c:
+           - reg
+...

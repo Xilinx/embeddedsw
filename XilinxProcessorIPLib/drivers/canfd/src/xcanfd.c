@@ -61,7 +61,7 @@
 * 2.3  sne  12/18/19 Added Protocol Exception Event and BusOff event support.
 * 2.3	sne  03/06/20 Fixed sending extra frames in XCanFd_Send_Queue API.
 * 2.3	se   03/09/20 Initialize IsPl of config structure.
-*
+* 2.8	ht   06/19/23 Added support for system device-tree flow.
 *
 * </pre>
 ******************************************************************************/
@@ -73,7 +73,9 @@
 #include "xil_io.h"
 #include "xenv.h"
 #include "xcanfd.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -132,11 +134,17 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 	 */
 	InstancePtr->IsReady = 0;
 	InstancePtr->CanFdConfig.BaseAddress = EffectiveAddr;
+#ifdef SDT
+	InstancePtr->CanFdConfig.Name = ConfigPtr->Name;
+#else
 	InstancePtr->CanFdConfig.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->CanFdConfig.Rx_Mode = ConfigPtr->Rx_Mode;
 	InstancePtr->CanFdConfig.NumofRxMbBuf = ConfigPtr->NumofRxMbBuf;
 	InstancePtr->CanFdConfig.NumofTxBuf = ConfigPtr->NumofTxBuf;
+#ifndef SDT
 	InstancePtr->CanFdConfig.IsPl = ConfigPtr->IsPl;
+#endif
 
 	/*
 	 * Set all handlers to stub values, let user configure this data later.
@@ -1306,6 +1314,7 @@ void XCanFd_AcceptFilterGet(XCanFd *InstancePtr, u32 FilterIndex,
 * @note		None.
 *
 ******************************************************************************/
+#ifndef SDT
 XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex)
 {
 	XCanFd_Config *CfgPtr;
@@ -1319,7 +1328,7 @@ XCanFd_Config *XCanFd_GetConfig(unsigned int InstanceIndex)
 
 	return CfgPtr;
 }
-
+#endif
 /******************************************************************************/
 /**
 *
@@ -1532,8 +1541,13 @@ int XCanFd_Send_Queue(XCanFd *InstancePtr)
 	 */
 	TrrVal = InstancePtr->MultiBuffTrr;
 #ifdef versal
+#ifndef SDT
 	if((XGetPSVersion_Info() == (u32)0x10) &&
 	   (InstancePtr->CanFdConfig.IsPl == (u32)0U)) {
+#else
+	if((XGetPSVersion_Info() == (u32)0x10) &&
+	   (!(strcmp(InstancePtr->CanFdConfig.Name, "xlnx,versal-canfd-2.0")))) {
+#endif
 		for (BufferNumber = 0;BufferNumber < MAX_BUFFER_VAL;
 		     BufferNumber++) {
 			XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
