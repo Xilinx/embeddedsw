@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma_bdring.c
-* @addtogroup axicdma_v4_10
+* @addtogroup axicdma Overview
 * @{
  *
  * Implementation for support on Scatter Gather (SG) transfers.

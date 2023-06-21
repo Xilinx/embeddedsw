@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xdmaps_hw.h
-* @addtogroup dmaps_v2_8
+* @addtogroup dmaps Overview
 * @{
 *
 * This header file contains the hardware interface of an XDmaPs device.

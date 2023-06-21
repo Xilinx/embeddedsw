@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
  *  @file xaxicdma_i.h
-* @addtogroup axicdma_v4_10
+* @addtogroup axicdma Overview
 * @{
  *
  * Header file for utility functions shared by driver files.

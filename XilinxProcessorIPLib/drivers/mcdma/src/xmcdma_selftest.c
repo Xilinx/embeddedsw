@@ -8,7 +8,7 @@
 /**
 *
 * @file xmcdma_selftest.c
-* @addtogroup mcdma_v1_7
+* @addtogroup mcdma Overview
 * @{
 *
 * This file contains the self-test function for the MCDMA core.

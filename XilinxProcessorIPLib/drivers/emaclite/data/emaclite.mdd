@@ -1,5 +1,6 @@
 ###############################################################################
-# Copyright (C) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
@@ -15,7 +16,7 @@ BEGIN driver emaclite
   OPTION supported_peripherals = (axi_ethernetlite);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.7;
+  OPTION VERSION = 4.8;
   OPTION NAME = emaclite;
 
 END driver

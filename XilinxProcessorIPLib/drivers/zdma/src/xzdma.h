@@ -8,7 +8,7 @@
 /**
 *
 * @file xzdma.h
-* @addtogroup zdma_v1_14
+* @addtogroup zdma Overview
 * @{
 * @details
 *

@@ -8,7 +8,7 @@
 /**
 *
 * @file xaxicdma_sinit.c
-* @addtogroup axicdma_v4_10
+* @addtogroup axicdma Overview
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside

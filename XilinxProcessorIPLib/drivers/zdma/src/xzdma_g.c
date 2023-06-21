@@ -9,6 +9,10 @@
 #include "xzdma.h"
 
 /*
+*@file xzdma.c
+*@addtogroup zdma Overview
+*
+*
 * The configuration table for devices
 */
 

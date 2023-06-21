@@ -8,7 +8,7 @@
 /**
 *
 * @file xaxicdma_g.c
-* @addtogroup axicdma_v4_10
+* @addtogroup axicdma Overview
 * @{
 *
 * Provide a template for user to define their own hardware settings.

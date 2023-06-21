@@ -11,6 +11,9 @@
 #include "xmcdma.h"
 
 /*
+ *@file xmcdma.c
+* @addtogroup mcdma_g Overview
+ *
 * The configuration table for devices
 */
 

@@ -8,7 +8,7 @@
 /**
 *
 * @file xaxivdma_sinit.c
-* @addtogroup axivdma_v6_12
+* @addtogroup axivdma Overview
 * @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
