@@ -1,5 +1,6 @@
 ###############################################################################
 # Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 ###############################################################################
@@ -8,6 +9,7 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ----------------------------------------------------
 # 1.0      nsk    06/04/15  First version of CANFD
+# 2.8      ht     06/19/23  Updated library version for 2023.2
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_M
 ##
@@ -22,7 +24,7 @@ BEGIN driver canfd
   OPTION supported_peripherals = (canfd psv_canfd psxl_canfd psx_canfd);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 2.7;
+  OPTION VERSION = 2.8;
   OPTION NAME = canfd;
 
 END driver
