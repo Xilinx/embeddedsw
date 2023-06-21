@@ -115,15 +115,14 @@ u32 XAxiVdma_IntrGetPending(XAxiVdma *InstancePtr, u16 Direction)
 
 	if (!Channel) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "IntrGetPending: invalid direction %d\n\r", Direction);
+			    "IntrGetPending: invalid direction %d\n\r", Direction);
 
 		return 0;
 	}
 
 	if (Channel->IsValid) {
 		return XAxiVdma_ChannelGetPendingIntr(Channel);
-	}
-	else {
+	} else {
 		/* An invalid channel has no intr
 		 */
 		return 0;
@@ -178,7 +177,7 @@ void XAxiVdma_IntrClear(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)
  *
  *****************************************************************************/
 int XAxiVdma_MaskS2MMErrIntr(XAxiVdma *InstancePtr, u32 ErrorMask,
-					u16 Direction)
+			     u16 Direction)
 {
 	XAxiVdma_Channel *Channel;
 
@@ -194,8 +193,8 @@ int XAxiVdma_MaskS2MMErrIntr(XAxiVdma *InstancePtr, u32 ErrorMask,
 
 	if (Channel->IsValid) {
 		XAxiVdma_WriteReg(Channel->ChanBase,
-			XAXIVDMA_S2MM_DMA_IRQ_MASK_OFFSET,
-			ErrorMask & XAXIVDMA_S2MM_IRQ_ERR_ALL_MASK);
+				  XAXIVDMA_S2MM_DMA_IRQ_MASK_OFFSET,
+				  ErrorMask & XAXIVDMA_S2MM_IRQ_ERR_ALL_MASK);
 
 		return XST_SUCCESS;
 	}
@@ -215,7 +214,7 @@ int XAxiVdma_MaskS2MMErrIntr(XAxiVdma *InstancePtr, u32 ErrorMask,
  * @note
  * If the channel is invalid, then no interrupt handling
  *****************************************************************************/
-void XAxiVdma_ReadIntrHandler(void * InstancePtr)
+void XAxiVdma_ReadIntrHandler(void *InstancePtr)
 {
 	XAxiVdma *DmaPtr;
 	XAxiVdma_Channel *Channel;
@@ -235,7 +234,7 @@ void XAxiVdma_ReadIntrHandler(void * InstancePtr)
 
 	if (!Channel->IsValid) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Read channel is invalid, no intr handling\n\r");
+			    "Read channel is invalid, no intr handling\n\r");
 
 		return;
 	}
@@ -248,7 +247,7 @@ void XAxiVdma_ReadIntrHandler(void * InstancePtr)
 	if (!PendingIntr || (PendingIntr & XAXIVDMA_IXR_ERROR_MASK)) {
 
 		CallBack->ErrCallBack(CallBack->ErrRef,
-		    PendingIntr & XAXIVDMA_IXR_ERROR_MASK);
+				      PendingIntr & XAXIVDMA_IXR_ERROR_MASK);
 
 		/* The channel's error callback should reset the channel
 		 * There is no need to handle other interrupts
@@ -259,7 +258,7 @@ void XAxiVdma_ReadIntrHandler(void * InstancePtr)
 	if (PendingIntr & XAXIVDMA_IXR_COMPLETION_MASK) {
 
 		CallBack->CompletionCallBack(CallBack->CompletionRef,
-		    PendingIntr);
+					     PendingIntr);
 	}
 
 	return;
@@ -277,7 +276,7 @@ void XAxiVdma_ReadIntrHandler(void * InstancePtr)
  * @note
  * If the channel is invalid, then no interrupt handling
  *****************************************************************************/
-void XAxiVdma_WriteIntrHandler(void * InstancePtr)
+void XAxiVdma_WriteIntrHandler(void *InstancePtr)
 {
 	XAxiVdma *DmaPtr;
 	XAxiVdma_Channel *Channel;
@@ -290,7 +289,7 @@ void XAxiVdma_WriteIntrHandler(void * InstancePtr)
 
 	if (!Channel->IsValid) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Write channel is invalid, no intr handling\n\r");
+			    "Write channel is invalid, no intr handling\n\r");
 
 		return;
 	}
@@ -310,7 +309,7 @@ void XAxiVdma_WriteIntrHandler(void * InstancePtr)
 	if (!PendingIntr || (PendingIntr & XAXIVDMA_IXR_ERROR_MASK)) {
 
 		CallBack->ErrCallBack(CallBack->ErrRef,
-		    PendingIntr & XAXIVDMA_IXR_ERROR_MASK);
+				      PendingIntr & XAXIVDMA_IXR_ERROR_MASK);
 
 		/* The channel's error callback should reset the channel
 		 * There is no need to handle other interrupts
@@ -321,7 +320,7 @@ void XAxiVdma_WriteIntrHandler(void * InstancePtr)
 	if (PendingIntr & XAXIVDMA_IXR_COMPLETION_MASK) {
 
 		CallBack->CompletionCallBack(CallBack->CompletionRef,
-		    PendingIntr);
+					     PendingIntr);
 	}
 
 	return;
@@ -345,8 +344,8 @@ void XAxiVdma_WriteIntrHandler(void * InstancePtr)
  * This function overwrites the existing interrupt handler and its reference
  * pointer. The function sets the handlers even if the channels are invalid.
  *****************************************************************************/
-int XAxiVdma_SetCallBack(XAxiVdma * InstancePtr, u32 HandlerType,
-        void *CallBackFunc, void *CallBackRef, u16 Direction)
+int XAxiVdma_SetCallBack(XAxiVdma *InstancePtr, u32 HandlerType,
+			 void *CallBackFunc, void *CallBackRef, u16 Direction)
 {
 	XAxiVdma_ChannelCallBack *CallBack;
 
@@ -361,24 +360,23 @@ int XAxiVdma_SetCallBack(XAxiVdma * InstancePtr, u32 HandlerType,
 
 	if (Direction == XAXIVDMA_READ) {
 		CallBack = &(InstancePtr->ReadCallBack);
-	}
-	else {
+	} else {
 		CallBack = &(InstancePtr->WriteCallBack);
 	}
 
 	switch (HandlerType) {
-	case XAXIVDMA_HANDLER_GENERAL:
-		CallBack->CompletionCallBack = (XAxiVdma_CallBack)CallBackFunc;
-		CallBack->CompletionRef = CallBackRef;
-		break;
+		case XAXIVDMA_HANDLER_GENERAL:
+			CallBack->CompletionCallBack = (XAxiVdma_CallBack)CallBackFunc;
+			CallBack->CompletionRef = CallBackRef;
+			break;
 
-	case XAXIVDMA_HANDLER_ERROR:
-		CallBack->ErrCallBack = (XAxiVdma_ErrorCallBack)CallBackFunc;
-		CallBack->ErrRef = CallBackRef;
-		break;
+		case XAXIVDMA_HANDLER_ERROR:
+			CallBack->ErrCallBack = (XAxiVdma_ErrorCallBack)CallBackFunc;
+			CallBack->ErrRef = CallBackRef;
+			break;
 
-	default:
-		return XST_INVALID_PARAM;
+		default:
+			return XST_INVALID_PARAM;
 	}
 
 	return XST_SUCCESS;

@@ -234,7 +234,7 @@ extern "C" {
 #define XDMAPS_INTCLR_ALL_MASK		0xFF
 
 #define XDmaPs_ReadReg(BaseAddress, RegOffset) \
-    Xil_In32((BaseAddress) + (RegOffset))
+	Xil_In32((BaseAddress) + (RegOffset))
 
 /***************************************************************************/
 /**
@@ -252,7 +252,7 @@ extern "C" {
 *                          u32 RegisterValue)
 ******************************************************************************/
 #define XDmaPs_WriteReg(BaseAddress, RegOffset, RegisterValue) \
-    Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue))
+	Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue))
 /************************** Variable Definitions *****************************/
 
 /************************** Function Prototypes *****************************/

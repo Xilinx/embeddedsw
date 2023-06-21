@@ -71,7 +71,7 @@ XMcdma_Config *XMcdma_LookupConfig(u16 DeviceId)
 
 	/* Checks all the instances */
 	for (Index = (u32)0x0; Index < (u32)(XPAR_XMCDMA_NUM_INSTANCES);
-								Index++) {
+	     Index++) {
 		if (XMcdma_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XMcdma_ConfigTable[Index];
 			break;
@@ -104,7 +104,7 @@ XMcdma_Config *XMcdma_LookupConfigBaseAddr(UINTPTR Baseaddr)
 
 	/* Checks all the instances */
 	for (Index = (u32)0x0; Index < (u32)(XPAR_XMCDMA_NUM_INSTANCES);
-								Index++) {
+	     Index++) {
 		if (XMcdma_ConfigTable[Index].BaseAddress == Baseaddr) {
 			CfgPtr = &XMcdma_ConfigTable[Index];
 			break;

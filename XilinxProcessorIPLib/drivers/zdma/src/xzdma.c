@@ -46,13 +46,13 @@ static void StubCallBack(void *CallBackRef, u32 Mask);
 static void StubDoneCallBack(void *CallBackRef);
 static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data);
 static void XZDma_LinearMode(XZDma *InstancePtr, XZDma_Transfer *Data,
-	XZDma_LiDscr *SrcDscrPtr,XZDma_LiDscr *DstDscrPtr, u8 IsLast);
+			     XZDma_LiDscr *SrcDscrPtr, XZDma_LiDscr *DstDscrPtr, u8 IsLast);
 static void XZDma_ConfigLinear(XZDma_LiDscr *DscrPtr, u64 Addr, u32 Size,
-								u32 CtrlValue);
+			       u32 CtrlValue);
 static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
-	XZDma_LlDscr *SrcDscrPtr,XZDma_LlDscr *DstDscrPtr, u8 IsLast);
+				 XZDma_LlDscr *SrcDscrPtr, XZDma_LlDscr *DstDscrPtr, u8 IsLast);
 static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
-					u32 CtrlValue, u64 NextDscrAddr);
+				   u32 CtrlValue, u64 NextDscrAddr);
 static void XZDma_GetConfigurations(XZDma *InstancePtr);
 
 /************************** Function Definitions *****************************/
@@ -110,9 +110,9 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 	 * data later
 	 */
 	InstancePtr->DoneHandler =
-				(XZDma_DoneHandler)((void *)StubDoneCallBack);
+		(XZDma_DoneHandler)((void *)StubDoneCallBack);
 	InstancePtr->ErrorHandler =
-				(XZDma_ErrorHandler)((void *)StubCallBack);
+		(XZDma_ErrorHandler)((void *)StubCallBack);
 
 	XZDma_Reset(InstancePtr);
 	XZDma_GetConfigurations(InstancePtr);
@@ -159,24 +159,21 @@ s32 XZDma_SetMode(XZDma *InstancePtr, u8 IsSgDma, XZDma_Mode Mode)
 	if (InstancePtr->ChannelState != XZDMA_IDLE) {
 		Status = XST_FAILURE;
 		goto End;
-	}
-	else {
+	} else {
 		Data = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-						XZDMA_CH_CTRL0_OFFSET);
+				     XZDMA_CH_CTRL0_OFFSET);
 		/* Simple mode */
 		if (IsSgDma != TRUE) {
 			Data = (Data & (~XZDMA_CTRL0_POINT_TYPE_MASK));
 			if (Mode == XZDMA_NORMAL_MODE) {
 				Data &= (~XZDMA_CTRL0_MODE_MASK);
-			}
-			else if (Mode == XZDMA_WRONLY_MODE) {
+			} else if (Mode == XZDMA_WRONLY_MODE) {
 				Data |= XZDMA_CTRL0_WRONLY_MASK;
-			}
-			else {
+			} else {
 				Data |= XZDMA_CTRL0_RDONLY_MASK;
 			}
 			XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-						XZDMA_CH_CTRL0_OFFSET, Data);
+				       XZDMA_CH_CTRL0_OFFSET, Data);
 			InstancePtr->IsSgDma = FALSE;
 			InstancePtr->Mode = Mode;
 		}
@@ -185,12 +182,11 @@ s32 XZDma_SetMode(XZDma *InstancePtr, u8 IsSgDma, XZDma_Mode Mode)
 			if (Mode != XZDMA_NORMAL_MODE) {
 				Status = XST_FAILURE;
 				goto End;
-			}
-			else {
+			} else {
 				Data |= (XZDMA_CTRL0_POINT_TYPE_MASK);
 				Data &= ~(XZDMA_CTRL0_MODE_MASK);
 				XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-						XZDMA_CH_CTRL0_OFFSET, Data);
+					       XZDMA_CH_CTRL0_OFFSET, Data);
 
 				InstancePtr->IsSgDma = TRUE;
 				InstancePtr->Mode = Mode;
@@ -234,14 +230,14 @@ End:
 *
 ******************************************************************************/
 u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
-					UINTPTR Dscr_MemPtr, u32 NoOfBytes)
+		       UINTPTR Dscr_MemPtr, u32 NoOfBytes)
 {
 	UINTPTR Size;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((TypeOfDscr == XZDMA_LINEAR) ||
-					(TypeOfDscr == XZDMA_LINKEDLIST));
+			  (TypeOfDscr == XZDMA_LINKEDLIST));
 	Xil_AssertNonvoid(Dscr_MemPtr != 0x00);
 	Xil_AssertNonvoid(NoOfBytes != 0x00U);
 
@@ -249,19 +245,19 @@ u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 
 	if (TypeOfDscr == XZDMA_LINEAR) {
 		Size = sizeof(XZDma_LiDscr);
-	}
-	else {
+	} else {
 		Size = sizeof(XZDma_LlDscr);
 	}
 	InstancePtr->Descriptor.DscrCount =
-						(NoOfBytes >> 1) / Size;
+		(NoOfBytes >> 1) / Size;
 	InstancePtr->Descriptor.SrcDscrPtr = (void *)Dscr_MemPtr;
 	InstancePtr->Descriptor.DstDscrPtr =
-			(void *)(Dscr_MemPtr +
-			(Size * InstancePtr->Descriptor.DscrCount));
+		(void *)(Dscr_MemPtr +
+			 (Size * InstancePtr->Descriptor.DscrCount));
 
-	if (!InstancePtr->Config.IsCacheCoherent)
-	Xil_DCacheInvalidateRange((INTPTR)Dscr_MemPtr, NoOfBytes);
+	if (!InstancePtr->Config.IsCacheCoherent) {
+		Xil_DCacheInvalidateRange((INTPTR)Dscr_MemPtr, NoOfBytes);
+	}
 
 	return (InstancePtr->Descriptor.DscrCount);
 }
@@ -319,8 +315,7 @@ s32 XZDma_SetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure)
 
 	if (InstancePtr->ChannelState != XZDMA_IDLE) {
 		Status = XST_FAILURE;
-	}
-	else {
+	} else {
 		InstancePtr->DataConfig.DstBurstType = Configure->DstBurstType;
 		InstancePtr->DataConfig.DstBurstLen = Configure->DstBurstLen;
 		InstancePtr->DataConfig.SrcBurstType = Configure->SrcBurstType;
@@ -334,61 +329,61 @@ s32 XZDma_SetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure)
 
 		/* Setting over fetch */
 		Data = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_CTRL0_OFFSET) & (~XZDMA_CTRL0_OVR_FETCH_MASK);
+				     XZDMA_CH_CTRL0_OFFSET) & (~XZDMA_CTRL0_OVR_FETCH_MASK);
 
 		Data |= (((u32)(Configure->OverFetch) <<
-				XZDMA_CTRL0_OVR_FETCH_SHIFT) &
-					XZDMA_CTRL0_OVR_FETCH_MASK);
+			  XZDMA_CTRL0_OVR_FETCH_SHIFT) &
+			 XZDMA_CTRL0_OVR_FETCH_MASK);
 
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-					XZDMA_CH_CTRL0_OFFSET, Data);
+			       XZDMA_CH_CTRL0_OFFSET, Data);
 
 		/* Setting source issue */
 		Data = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-						XZDMA_CH_CTRL1_OFFSET) & (~XZDMA_CTRL1_SRC_ISSUE_MASK);
+				     XZDMA_CH_CTRL1_OFFSET) & (~XZDMA_CTRL1_SRC_ISSUE_MASK);
 		Data |= (u32)(Configure->SrcIssue & XZDMA_CTRL1_SRC_ISSUE_MASK);
 
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-						XZDMA_CH_CTRL1_OFFSET, Data);
+			       XZDMA_CH_CTRL1_OFFSET, Data);
 
 		/* Setting Burst length and burst type */
 		Data = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-						XZDMA_CH_DATA_ATTR_OFFSET);
+				     XZDMA_CH_DATA_ATTR_OFFSET);
 		Data = (Data & (~(XZDMA_DATA_ATTR_ARBURST_MASK |
-				 XZDMA_DATA_ATTR_ARLEN_MASK |
-				 XZDMA_DATA_ATTR_AWBURST_MASK |
-				 XZDMA_DATA_ATTR_AWLEN_MASK |
-				 XZDMA_DATA_ATTR_ARCACHE_MASK |
-				 XZDMA_DATA_ATTR_AWCACHE_MASK |
-				 XZDMA_DATA_ATTR_AWQOS_MASK |
-				 XZDMA_DATA_ATTR_ARQOS_MASK)));
+				  XZDMA_DATA_ATTR_ARLEN_MASK |
+				  XZDMA_DATA_ATTR_AWBURST_MASK |
+				  XZDMA_DATA_ATTR_AWLEN_MASK |
+				  XZDMA_DATA_ATTR_ARCACHE_MASK |
+				  XZDMA_DATA_ATTR_AWCACHE_MASK |
+				  XZDMA_DATA_ATTR_AWQOS_MASK |
+				  XZDMA_DATA_ATTR_ARQOS_MASK)));
 
 		Data |= ((((u32)(Configure->SrcBurstType) <<
-				XZDMA_DATA_ATTR_ARBURST_SHIFT) &
-				XZDMA_DATA_ATTR_ARBURST_MASK) |
-				(((u32)(Configure->SrcCache) <<
-				XZDMA_DATA_ATTR_ARCACHE_SHIFT) &
-				XZDMA_DATA_ATTR_ARCACHE_MASK) |
-				(((u32)(Configure->SrcQos) <<
-				XZDMA_DATA_ATTR_ARQOS_SHIFT) &
-				XZDMA_DATA_ATTR_ARQOS_MASK) |
-			(((u32)(Configure->SrcBurstLen) <<
-				XZDMA_DATA_ATTR_ARLEN_SHIFT) &
-				XZDMA_DATA_ATTR_ARLEN_MASK) |
-			(((u32)(Configure->DstBurstType) <<
-				XZDMA_DATA_ATTR_AWBURST_SHIFT) &
-				XZDMA_DATA_ATTR_AWBURST_MASK) |
-			(((u32)(Configure->DstCache) <<
-				XZDMA_DATA_ATTR_AWCACHE_SHIFT) &
-				XZDMA_DATA_ATTR_AWCACHE_MASK) |
-			(((u32)(Configure->DstQos) <<
-				XZDMA_DATA_ATTR_AWQOS_SHIFT) &
-				XZDMA_DATA_ATTR_AWQOS_MASK) |
-			(((u32)(Configure->DstBurstLen)) &
-				XZDMA_DATA_ATTR_AWLEN_MASK));
+			   XZDMA_DATA_ATTR_ARBURST_SHIFT) &
+			  XZDMA_DATA_ATTR_ARBURST_MASK) |
+			 (((u32)(Configure->SrcCache) <<
+			   XZDMA_DATA_ATTR_ARCACHE_SHIFT) &
+			  XZDMA_DATA_ATTR_ARCACHE_MASK) |
+			 (((u32)(Configure->SrcQos) <<
+			   XZDMA_DATA_ATTR_ARQOS_SHIFT) &
+			  XZDMA_DATA_ATTR_ARQOS_MASK) |
+			 (((u32)(Configure->SrcBurstLen) <<
+			   XZDMA_DATA_ATTR_ARLEN_SHIFT) &
+			  XZDMA_DATA_ATTR_ARLEN_MASK) |
+			 (((u32)(Configure->DstBurstType) <<
+			   XZDMA_DATA_ATTR_AWBURST_SHIFT) &
+			  XZDMA_DATA_ATTR_AWBURST_MASK) |
+			 (((u32)(Configure->DstCache) <<
+			   XZDMA_DATA_ATTR_AWCACHE_SHIFT) &
+			  XZDMA_DATA_ATTR_AWCACHE_MASK) |
+			 (((u32)(Configure->DstQos) <<
+			   XZDMA_DATA_ATTR_AWQOS_SHIFT) &
+			  XZDMA_DATA_ATTR_AWQOS_MASK) |
+			 (((u32)(Configure->DstBurstLen)) &
+			  XZDMA_DATA_ATTR_AWLEN_MASK));
 
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-					XZDMA_CH_DATA_ATTR_OFFSET, Data);
+			       XZDMA_CH_DATA_ATTR_OFFSET, Data);
 		Status = XST_SUCCESS;
 	}
 
@@ -497,16 +492,16 @@ s32 XZDma_SetChDscrConfig(XZDma *InstancePtr, XZDma_DscrConfig *Configure)
 		InstancePtr->DscrConfig.AxCoherent = Configure->AxCoherent;
 
 		Data = ((((u32)(Configure->AxCoherent) <<
-				XZDMA_DSCR_ATTR_AXCOHRNT_SHIFT) &
-				XZDMA_DSCR_ATTR_AXCOHRNT_MASK) |
+			  XZDMA_DSCR_ATTR_AXCOHRNT_SHIFT) &
+			 XZDMA_DSCR_ATTR_AXCOHRNT_MASK) |
 			(((u32)(Configure->AXCache) <<
-				XZDMA_DSCR_ATTR_AXCACHE_SHIFT) &
-				XZDMA_DSCR_ATTR_AXCACHE_MASK) |
+			  XZDMA_DSCR_ATTR_AXCACHE_SHIFT) &
+			 XZDMA_DSCR_ATTR_AXCACHE_MASK) |
 			(((u32)Configure->AXQos) &
-				XZDMA_DSCR_ATTR_AXQOS_MASK));
+			 XZDMA_DSCR_ATTR_AXQOS_MASK));
 
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_DSCR_ATTR_OFFSET, Data);
+			       XZDMA_CH_DSCR_ATTR_OFFSET, Data);
 
 		Status = XST_SUCCESS;
 	}
@@ -584,24 +579,24 @@ void XZDma_WOData(XZDma *InstancePtr, u32 *Buffer)
 
 	if (InstancePtr->Config.DmaType == (u8)0) {
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_WR_ONLY_WORD0_OFFSET, *LocBuf);
+			       XZDMA_CH_WR_ONLY_WORD0_OFFSET, *LocBuf);
 		LocBuf++;
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_WR_ONLY_WORD1_OFFSET, *LocBuf);
+			       XZDMA_CH_WR_ONLY_WORD1_OFFSET, *LocBuf);
 		LocBuf++;
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_WR_ONLY_WORD2_OFFSET, *LocBuf);
+			       XZDMA_CH_WR_ONLY_WORD2_OFFSET, *LocBuf);
 		LocBuf++;
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_WR_ONLY_WORD3_OFFSET, *LocBuf);
+			       XZDMA_CH_WR_ONLY_WORD3_OFFSET, *LocBuf);
 	}
 
 	else {
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_WR_ONLY_WORD0_OFFSET, *LocBuf);
+			       XZDMA_CH_WR_ONLY_WORD0_OFFSET, *LocBuf);
 		LocBuf++;
 		XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_WR_ONLY_WORD1_OFFSET, *LocBuf);
+			       XZDMA_CH_WR_ONLY_WORD1_OFFSET, *LocBuf);
 	}
 
 }
@@ -629,11 +624,11 @@ void XZDma_Resume(XZDma *InstancePtr)
 	Xil_AssertVoid(InstancePtr->ChannelState == XZDMA_PAUSE);
 
 	Value = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-		XZDMA_CH_CTRL0_OFFSET) & (~XZDMA_CTRL0_CONT_ADDR_MASK);
+			      XZDMA_CH_CTRL0_OFFSET) & (~XZDMA_CTRL0_CONT_ADDR_MASK);
 	Value |= XZDMA_CTRL0_CONT_MASK;
 	InstancePtr->ChannelState = XZDMA_BUSY;
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_CTRL0_OFFSET, Value);
+		       XZDMA_CH_CTRL0_OFFSET, Value);
 }
 
 /*****************************************************************************/
@@ -666,13 +661,13 @@ void XZDma_Reset(XZDma *InstancePtr)
 
 	/* All configurations are being reset */
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress, XZDMA_CH_CTRL0_OFFSET,
-					XZDMA_CTRL0_RESET_VALUE);
+		       XZDMA_CTRL0_RESET_VALUE);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress, XZDMA_CH_CTRL1_OFFSET,
-					XZDMA_CTRL1_RESET_VALUE);
+		       XZDMA_CTRL1_RESET_VALUE);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-		XZDMA_CH_DATA_ATTR_OFFSET, XZDMA_DATA_ATTR_RESET_VALUE);
+		       XZDMA_CH_DATA_ATTR_OFFSET, XZDMA_DATA_ATTR_RESET_VALUE);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-		XZDMA_CH_DSCR_ATTR_OFFSET, XZDMA_DSCR_ATTR_RESET_VALUE);
+		       XZDMA_CH_DSCR_ATTR_OFFSET, XZDMA_DSCR_ATTR_RESET_VALUE);
 
 	/* Clears total byte */
 	XZDma_TotalByteClear(InstancePtr);
@@ -683,14 +678,14 @@ void XZDma_Reset(XZDma *InstancePtr)
 
 	if (InstancePtr->Config.IsCacheCoherent) {
 		XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-				XZDMA_CH_DSCR_ATTR_OFFSET,
-				InstancePtr->Config.IsCacheCoherent << XZDMA_DSCR_ATTR_AXCOHRNT_SHIFT);
+			       XZDMA_CH_DSCR_ATTR_OFFSET,
+			       InstancePtr->Config.IsCacheCoherent << XZDMA_DSCR_ATTR_AXCOHRNT_SHIFT);
 		XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-				XZDMA_CH_SRC_DSCR_WORD3_OFFSET,
-				InstancePtr->Config.IsCacheCoherent & XZDMA_WORD3_COHRNT_MASK);
+			       XZDMA_CH_SRC_DSCR_WORD3_OFFSET,
+			       InstancePtr->Config.IsCacheCoherent & XZDMA_WORD3_COHRNT_MASK);
 		XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-				XZDMA_CH_DST_DSCR_WORD3_OFFSET,
-				InstancePtr->Config.IsCacheCoherent & XZDMA_WORD3_COHRNT_MASK);
+			       XZDMA_CH_DST_DSCR_WORD3_OFFSET,
+			       InstancePtr->Config.IsCacheCoherent & XZDMA_WORD3_COHRNT_MASK);
 	}
 	InstancePtr->ChannelState = XZDMA_IDLE;
 
@@ -721,16 +716,14 @@ XZDmaState XZDma_ChannelState(XZDma *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	Value = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-			(XZDMA_CH_STS_OFFSET)) & (XZDMA_STS_ALL_MASK);
+			      (XZDMA_CH_STS_OFFSET)) & (XZDMA_STS_ALL_MASK);
 
 	if ((Value == XZDMA_STS_DONE_MASK) ||
-			(Value == XZDMA_STS_DONE_ERR_MASK)) {
+	    (Value == XZDMA_STS_DONE_ERR_MASK)) {
 		Status = XZDMA_IDLE;
-	}
-	else if (Value == XZDMA_STS_PAUSE_MASK) {
+	} else if (Value == XZDMA_STS_PAUSE_MASK) {
 		Status = XZDMA_PAUSE;
-	}
-	else {
+	} else {
 		Status = XZDMA_BUSY;
 	}
 
@@ -796,15 +789,13 @@ s32 XZDma_Start(XZDma *InstancePtr, XZDma_Transfer *Data, u32 Num)
 	Xil_AssertNonvoid(Num != 0x00U);
 
 	if ((InstancePtr->ChannelState == XZDMA_BUSY) &&
-			(Num >= InstancePtr->Descriptor.DscrCount)) {
+	    (Num >= InstancePtr->Descriptor.DscrCount)) {
 		Status = XST_FAILURE;
-	}
-	else {
+	} else {
 		if (InstancePtr->IsSgDma != TRUE) {
 			XZDma_SimpleMode(InstancePtr, Data);
 			Status = XST_SUCCESS;
-		}
-		else {
+		} else {
 
 			XZDma_ScatterGather(InstancePtr, Data, Num);
 			Status = XST_SUCCESS;
@@ -843,37 +834,37 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 	Xil_AssertVoid(Data != NULL);
 
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-		XZDMA_CH_SRC_DSCR_WORD0_OFFSET,
-			(Data->SrcAddr & XZDMA_WORD0_LSB_MASK));
+		       XZDMA_CH_SRC_DSCR_WORD0_OFFSET,
+		       (Data->SrcAddr & XZDMA_WORD0_LSB_MASK));
 	LocalAddr = (u64)Data->SrcAddr;
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-		XZDMA_CH_SRC_DSCR_WORD1_OFFSET,
-		((LocalAddr >> XZDMA_WORD1_MSB_SHIFT) &
-		XZDMA_WORD1_MSB_MASK));
+		       XZDMA_CH_SRC_DSCR_WORD1_OFFSET,
+		       ((LocalAddr >> XZDMA_WORD1_MSB_SHIFT) &
+			XZDMA_WORD1_MSB_MASK));
 
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-		XZDMA_CH_DST_DSCR_WORD0_OFFSET,
-		(Data->DstAddr & XZDMA_WORD0_LSB_MASK));
+		       XZDMA_CH_DST_DSCR_WORD0_OFFSET,
+		       (Data->DstAddr & XZDMA_WORD0_LSB_MASK));
 	LocalAddr = (u64)Data->DstAddr;
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-		XZDMA_CH_DST_DSCR_WORD1_OFFSET,
-		((LocalAddr >> XZDMA_WORD1_MSB_SHIFT) &
-		XZDMA_WORD1_MSB_MASK));
+		       XZDMA_CH_DST_DSCR_WORD1_OFFSET,
+		       ((LocalAddr >> XZDMA_WORD1_MSB_SHIFT) &
+			XZDMA_WORD1_MSB_MASK));
 
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-		XZDMA_CH_SRC_DSCR_WORD2_OFFSET,
-		(Data->Size & XZDMA_WORD2_SIZE_MASK));
+		       XZDMA_CH_SRC_DSCR_WORD2_OFFSET,
+		       (Data->Size & XZDMA_WORD2_SIZE_MASK));
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-		XZDMA_CH_DST_DSCR_WORD2_OFFSET,
-		(Data->Size & XZDMA_WORD2_SIZE_MASK));
+		       XZDMA_CH_DST_DSCR_WORD2_OFFSET,
+		       (Data->Size & XZDMA_WORD2_SIZE_MASK));
 
 	Value = (u32)(Data->SrcCoherent & XZDMA_WORD3_COHRNT_MASK);
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-		XZDMA_CH_SRC_DSCR_WORD3_OFFSET, Value);
+		       XZDMA_CH_SRC_DSCR_WORD3_OFFSET, Value);
 
 	Value = (u32)(Data->DstCoherent & XZDMA_WORD3_COHRNT_MASK);
 	XZDma_WriteReg((InstancePtr->Config.BaseAddress),
-			XZDMA_CH_DST_DSCR_WORD3_OFFSET, Value);
+		       XZDMA_CH_DST_DSCR_WORD3_OFFSET, Value);
 
 }
 
@@ -895,7 +886,7 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 *
 ******************************************************************************/
 void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
-								u32 Num)
+			 u32 Num)
 {
 	u32 Count = 0x00U;
 	u8 Last;
@@ -919,50 +910,49 @@ void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 	if (InstancePtr->Descriptor.DscrType == XZDMA_LINEAR) {
 		Last = FALSE;
 		do {
-			if (Count == (Num- 1)) {
+			if (Count == (Num - 1)) {
 				Last = TRUE;
 			}
 			XZDma_LinearMode(InstancePtr, LocalData, LiSrcDscr,
-							LiDstDscr, Last);
+					 LiDstDscr, Last);
 			Count++;
 			LiSrcDscr++;
 			LiDstDscr++;
 			LocalData++;
-		} while(Count < Num);
-	}
-	else {
+		} while (Count < Num);
+	} else {
 		Last = FALSE;
 		do {
 			if (Count == (Num - 1)) {
 				Last = TRUE;
 			}
 			XZDma_LinkedListMode(InstancePtr, LocalData, LlSrcDscr,
-							LlDstDscr, Last);
+					     LlDstDscr, Last);
 			Count++;
 			LlDstDscr++;
 			LlSrcDscr++;
 			LocalData++;
-		} while(Count < Num);
+		} while (Count < Num);
 	}
 
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-		XZDMA_CH_SRC_START_LSB_OFFSET,
-		((UINTPTR)(InstancePtr->Descriptor.SrcDscrPtr) &
-					XZDMA_WORD0_LSB_MASK));
+		       XZDMA_CH_SRC_START_LSB_OFFSET,
+		       ((UINTPTR)(InstancePtr->Descriptor.SrcDscrPtr) &
+			XZDMA_WORD0_LSB_MASK));
 	LocalAddr = (u64)(UINTPTR)(InstancePtr->Descriptor.SrcDscrPtr);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-		XZDMA_CH_SRC_START_MSB_OFFSET,
-		((LocalAddr >>
-			XZDMA_WORD1_MSB_SHIFT) & XZDMA_WORD1_MSB_MASK));
+		       XZDMA_CH_SRC_START_MSB_OFFSET,
+		       ((LocalAddr >>
+			 XZDMA_WORD1_MSB_SHIFT) & XZDMA_WORD1_MSB_MASK));
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-		XZDMA_CH_DST_START_LSB_OFFSET,
-		((UINTPTR)(InstancePtr->Descriptor.DstDscrPtr) &
-					XZDMA_WORD0_LSB_MASK));
+		       XZDMA_CH_DST_START_LSB_OFFSET,
+		       ((UINTPTR)(InstancePtr->Descriptor.DstDscrPtr) &
+			XZDMA_WORD0_LSB_MASK));
 	LocalAddr = (u64)(UINTPTR)(InstancePtr->Descriptor.DstDscrPtr);
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress,
-		XZDMA_CH_DST_START_MSB_OFFSET,
-		((LocalAddr >>
-			XZDMA_WORD1_MSB_SHIFT) & XZDMA_WORD1_MSB_MASK));
+		       XZDMA_CH_DST_START_MSB_OFFSET,
+		       ((LocalAddr >>
+			 XZDMA_WORD1_MSB_SHIFT) & XZDMA_WORD1_MSB_MASK));
 }
 
 /*****************************************************************************/
@@ -989,7 +979,7 @@ void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 *
 ******************************************************************************/
 static void XZDma_LinearMode(XZDma *InstancePtr, XZDma_Transfer *Data,
-	XZDma_LiDscr *SrcDscrPtr, XZDma_LiDscr *DstDscrPtr, u8 IsLast)
+			     XZDma_LiDscr *SrcDscrPtr, XZDma_LiDscr *DstDscrPtr, u8 IsLast)
 {
 	u32 Value;
 
@@ -1002,11 +992,9 @@ static void XZDma_LinearMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 
 	if (Data->Pause == TRUE) {
 		Value = XZDMA_WORD3_CMD_PAUSE_MASK;
-	}
-	else if (IsLast == TRUE) {
+	} else if (IsLast == TRUE) {
 		Value = XZDMA_WORD3_CMD_STOP_MASK;
-	}
-	else {
+	} else {
 		Value = XZDMA_WORD3_CMD_NXTVALID_MASK;
 	}
 	if (Data->SrcCoherent == TRUE) {
@@ -1042,7 +1030,7 @@ static void XZDma_LinearMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 *
 ******************************************************************************/
 static void XZDma_ConfigLinear(XZDma_LiDscr *DscrPtr, u64 Addr, u32 Size,
-								u32 CtrlValue)
+			       u32 CtrlValue)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(DscrPtr != NULL);
@@ -1080,7 +1068,7 @@ static void XZDma_ConfigLinear(XZDma_LiDscr *DscrPtr, u64 Addr, u32 Size,
 *
 ******************************************************************************/
 static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
-	XZDma_LlDscr *SrcDscrPtr,XZDma_LlDscr *DstDscrPtr, u8 IsLast)
+				 XZDma_LlDscr *SrcDscrPtr, XZDma_LlDscr *DstDscrPtr, u8 IsLast)
 {
 	u32 Value;
 	XZDma_LlDscr *NextSrc = SrcDscrPtr;
@@ -1104,11 +1092,9 @@ static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 			NextSrcAdrs = (u64)(UINTPTR)NextSrc;
 			NextDstAdrs = (u64)(UINTPTR)NextDst;
 		}
-	}
-	else if (IsLast == TRUE) {
+	} else if (IsLast == TRUE) {
 		Value = XZDMA_WORD3_CMD_STOP_MASK;
-	}
-	else {
+	} else {
 		Value = XZDMA_WORD3_CMD_NXTVALID_MASK;
 		NextSrcAdrs = (u64)(UINTPTR)NextSrc;
 		NextDstAdrs = (u64)(UINTPTR)NextDst;
@@ -1118,7 +1104,7 @@ static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 	}
 
 	XZDma_ConfigLinkedList(SrcDscrPtr, (u64)Data->SrcAddr,
-					Data->Size, Value, NextSrcAdrs);
+			       Data->Size, Value, NextSrcAdrs);
 
 	Value = 0U;
 
@@ -1127,7 +1113,7 @@ static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 	}
 
 	XZDma_ConfigLinkedList(DstDscrPtr, (u64)Data->DstAddr,
-					Data->Size, Value, NextDstAdrs);
+			       Data->Size, Value, NextDstAdrs);
 
 }
 
@@ -1149,7 +1135,7 @@ static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 *
 ******************************************************************************/
 static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
-			u32 CtrlValue, u64 NextDscrAddr)
+				   u32 CtrlValue, u64 NextDscrAddr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(DscrPtr != NULL);
@@ -1182,7 +1168,7 @@ void XZDma_Enable(XZDma *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress, XZDMA_CH_IEN_OFFSET,
-			(InstancePtr->IntrMask & XZDMA_IXR_ALL_INTR_MASK));
+		       (InstancePtr->IntrMask & XZDMA_IXR_ALL_INTR_MASK));
 	InstancePtr->ChannelState = XZDMA_BUSY;
 	XZDma_EnableCh(InstancePtr);
 

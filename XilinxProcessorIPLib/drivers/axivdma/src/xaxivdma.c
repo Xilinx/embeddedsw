@@ -77,30 +77,29 @@
  * Since this function is internally used, we assume Direction is valid
  *****************************************************************************/
 XAxiVdma_Channel *XAxiVdma_GetChannel(XAxiVdma *InstancePtr,
-        u16 Direction)
+				      u16 Direction)
 {
 
 	if (Direction == XAXIVDMA_READ) {
 		return &(InstancePtr->ReadChannel);
-	}
-	else if (Direction == XAXIVDMA_WRITE) {
+	} else if (Direction == XAXIVDMA_WRITE) {
 		return &(InstancePtr->WriteChannel);
-	}
-	else {
+	} else {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Invalid direction %x\r\n", Direction);
+			    "Invalid direction %x\r\n", Direction);
 
 		return NULL;
 	}
 }
 
-static int XAxiVdma_Major(XAxiVdma *InstancePtr) {
+static int XAxiVdma_Major(XAxiVdma *InstancePtr)
+{
 	u32 Reg;
 
 	Reg = XAxiVdma_ReadReg(InstancePtr->BaseAddr, XAXIVDMA_VERSION_OFFSET);
 
 	return (int)((Reg & XAXIVDMA_VERSION_MAJOR_MASK) >>
-	          XAXIVDMA_VERSION_MAJOR_SHIFT);
+		     XAXIVDMA_VERSION_MAJOR_SHIFT);
 }
 
 /*****************************************************************************/
@@ -119,7 +118,7 @@ static int XAxiVdma_Major(XAxiVdma *InstancePtr) {
  * If channel fails reset,  then it will be set as invalid
  *****************************************************************************/
 int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
-				UINTPTR EffectiveAddr)
+			   UINTPTR EffectiveAddr)
 {
 	XAxiVdma_Channel *RdChannel;
 	XAxiVdma_Channel *WrChannel;
@@ -146,8 +145,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 
 	if (XAxiVdma_Major(InstancePtr) < 3) {
 		InstancePtr->HasSG = 1;
-	}
-	else {
+	} else {
 		InstancePtr->HasSG = CfgPtr->HasSG;
 	}
 
@@ -166,7 +164,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 		RdChannel->HasSG = InstancePtr->HasSG;
 		RdChannel->IsRead = 1;
 		RdChannel->StartAddrBase = InstancePtr->BaseAddr +
-		                              XAXIVDMA_MM2S_ADDR_OFFSET;
+					   XAXIVDMA_MM2S_ADDR_OFFSET;
 
 		RdChannel->NumFrames = CfgPtr->MaxFrameStoreNum;
 
@@ -175,13 +173,13 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 
 		/* Dynamic Line Buffers Depth */
 		RdChannel->LineBufDepth = CfgPtr->Mm2SBufDepth;
-		if(RdChannel->LineBufDepth > 0) {
+		if (RdChannel->LineBufDepth > 0) {
 			RdChannel->LineBufThreshold =
 				XAxiVdma_ReadReg(RdChannel->ChanBase,
-					XAXIVDMA_BUFTHRES_OFFSET);
+						 XAXIVDMA_BUFTHRES_OFFSET);
 			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"Read Channel Buffer Threshold %d bytes\n\r",
-				RdChannel->LineBufThreshold);
+				    "Read Channel Buffer Threshold %d bytes\n\r",
+				    RdChannel->LineBufThreshold);
 		}
 		RdChannel->HasDRE = CfgPtr->HasMm2SDRE;
 		RdChannel->WordLength = CfgPtr->Mm2SWordLen >> 3;
@@ -233,8 +231,8 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 
 		if (!Polls) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Read channel reset failed %x\n\r",
-			    (unsigned int)XAxiVdma_ChannelGetStatus(RdChannel));
+				    "Read channel reset failed %x\n\r",
+				    (unsigned int)XAxiVdma_ChannelGetStatus(RdChannel));
 
 			return XST_FAILURE;
 		}
@@ -247,7 +245,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 		WrChannel->HasSG = InstancePtr->HasSG;
 		WrChannel->IsRead = 0;
 		WrChannel->StartAddrBase = InstancePtr->BaseAddr +
-		                                 XAXIVDMA_S2MM_ADDR_OFFSET;
+					   XAXIVDMA_S2MM_ADDR_OFFSET;
 		WrChannel->NumFrames = CfgPtr->MaxFrameStoreNum;
 		WrChannel->AddrWidth = InstancePtr->AddrWidth;
 		WrChannel->HasVFlip = CfgPtr->HasVFlip;
@@ -257,13 +255,13 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 
 		/* Dynamic Line Buffers Depth */
 		WrChannel->LineBufDepth = CfgPtr->S2MmBufDepth;
-		if(WrChannel->LineBufDepth > 0) {
+		if (WrChannel->LineBufDepth > 0) {
 			WrChannel->LineBufThreshold =
 				XAxiVdma_ReadReg(WrChannel->ChanBase,
-					XAXIVDMA_BUFTHRES_OFFSET);
+						 XAXIVDMA_BUFTHRES_OFFSET);
 			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"Write Channel Buffer Threshold %d bytes\n\r",
-				WrChannel->LineBufThreshold);
+				    "Write Channel Buffer Threshold %d bytes\n\r",
+				    WrChannel->LineBufThreshold);
 		}
 		WrChannel->HasDRE = CfgPtr->HasS2MmDRE;
 		WrChannel->WordLength = CfgPtr->S2MmWordLen >> 3;
@@ -279,7 +277,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 		if (!CfgPtr->EnableAllDbgFeatures) {
 			if (CfgPtr->S2MmThresRegEn) {
 				WrChannel->DbgFeatureFlags |=
-					 XAXIVDMA_ENABLE_DBG_THRESHOLD_REG;
+					XAXIVDMA_ENABLE_DBG_THRESHOLD_REG;
 			}
 
 			if (CfgPtr->S2MmFrmStoreRegEn) {
@@ -299,7 +297,7 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 
 		} else {
 			WrChannel->DbgFeatureFlags =
-					XAXIVDMA_ENABLE_DBG_ALL_FEATURES;
+				XAXIVDMA_ENABLE_DBG_ALL_FEATURES;
 		}
 
 		XAxiVdma_ChannelInit(WrChannel);
@@ -317,8 +315,8 @@ int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
 
 		if (!Polls) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Write channel reset failed %x\n\r",
-			    (unsigned int)XAxiVdma_ChannelGetStatus(WrChannel));
+				    "Write channel reset failed %x\n\r",
+				    (unsigned int)XAxiVdma_ChannelGetStatus(WrChannel));
 
 			return XST_FAILURE;
 		}
@@ -416,8 +414,7 @@ int XAxiVdma_IsBusy(XAxiVdma *InstancePtr, u16 Direction)
 
 	if (Channel->IsValid) {
 		return XAxiVdma_ChannelIsBusy(Channel);
-	}
-	else {
+	} else {
 		/* An invalid channel is never busy
 		 */
 		return 0;
@@ -446,12 +443,10 @@ u32 XAxiVdma_CurrFrameStore(XAxiVdma *InstancePtr, u16 Direction)
 	if (Direction == XAXIVDMA_READ) {
 		Rc &= XAXIVDMA_PARKPTR_READSTR_MASK;
 		return (Rc >> XAXIVDMA_READSTR_SHIFT);
-	}
-	else if (Direction == XAXIVDMA_WRITE) {
+	} else if (Direction == XAXIVDMA_WRITE) {
 		Rc &= XAXIVDMA_PARKPTR_WRTSTR_MASK;
 		return (Rc >> XAXIVDMA_WRTSTR_SHIFT);
-	}
-	else {
+	} else {
 		return 0xFFFFFFFF;
 	}
 }
@@ -496,8 +491,7 @@ u32 XAxiVdma_GetStatus(XAxiVdma *InstancePtr, u16 Direction)
 
 	if (Channel->IsValid) {
 		return XAxiVdma_ChannelGetStatus(Channel);
-	}
-	else {
+	} else {
 		return 0xFFFFFFFF;
 	}
 }
@@ -516,7 +510,7 @@ u32 XAxiVdma_GetStatus(XAxiVdma *InstancePtr, u16 Direction)
  * - XST_NO_FEATURE if access to Threshold register is disabled
  *****************************************************************************/
 int XAxiVdma_SetLineBufThreshold(XAxiVdma *InstancePtr, int LineBufThreshold,
-	u16 Direction)
+				 u16 Direction)
 {
 	XAxiVdma_Channel *Channel;
 
@@ -524,30 +518,28 @@ int XAxiVdma_SetLineBufThreshold(XAxiVdma *InstancePtr, int LineBufThreshold,
 
 	if (!(Channel->DbgFeatureFlags & XAXIVDMA_ENABLE_DBG_THRESHOLD_REG)) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-				"Threshold Register is disabled\n\r");
+			    "Threshold Register is disabled\n\r");
 		return XST_NO_FEATURE;
 	}
 
-	if(Channel->LineBufThreshold) {
-		if((LineBufThreshold < Channel->LineBufDepth) &&
-			(LineBufThreshold % Channel->StreamWidth == 0)) {
+	if (Channel->LineBufThreshold) {
+		if ((LineBufThreshold < Channel->LineBufDepth) &&
+		    (LineBufThreshold % Channel->StreamWidth == 0)) {
 			XAxiVdma_WriteReg(Channel->ChanBase,
-				XAXIVDMA_BUFTHRES_OFFSET, LineBufThreshold);
+					  XAXIVDMA_BUFTHRES_OFFSET, LineBufThreshold);
 
 			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"Line Buffer Threshold set to %x\n\r",
-				XAxiVdma_ReadReg(Channel->ChanBase,
-				XAXIVDMA_BUFTHRES_OFFSET));
-		}
-		else {
+				    "Line Buffer Threshold set to %x\n\r",
+				    XAxiVdma_ReadReg(Channel->ChanBase,
+						     XAXIVDMA_BUFTHRES_OFFSET));
+		} else {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-				"Invalid Line Buffer Threshold\n\r");
+				    "Invalid Line Buffer Threshold\n\r");
 			return XST_FAILURE;
 		}
-	}
-	else {
+	} else {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-			"Failed to set Threshold\n\r");
+			    "Failed to set Threshold\n\r");
 		return XST_FAILURE;
 	}
 	return XST_SUCCESS;
@@ -568,7 +560,7 @@ int XAxiVdma_SetLineBufThreshold(XAxiVdma *InstancePtr, int LineBufThreshold,
  *
  *****************************************************************************/
 int XAxiVdma_FsyncSrcSelect(XAxiVdma *InstancePtr, u32 Source,
-				u16 Direction)
+			    u16 Direction)
 {
 	XAxiVdma_Channel *Channel;
 	u32 CrBits;
@@ -578,46 +570,46 @@ int XAxiVdma_FsyncSrcSelect(XAxiVdma *InstancePtr, u32 Source,
 
 	if (Direction == XAXIVDMA_WRITE) {
 		UseFsync = ((InstancePtr->UseFsync == 1) ||
-				(InstancePtr->UseFsync == 3)) ? 1 : 0;
+			    (InstancePtr->UseFsync == 3)) ? 1 : 0;
 	} else {
 		UseFsync = ((InstancePtr->UseFsync == 1) ||
-				(InstancePtr->UseFsync == 2)) ? 1 : 0;
+			    (InstancePtr->UseFsync == 2)) ? 1 : 0;
 	}
 
 	if (UseFsync) {
 		CrBits = XAxiVdma_ReadReg(Channel->ChanBase,
-				XAXIVDMA_CR_OFFSET);
+					  XAXIVDMA_CR_OFFSET);
 
 		switch (Source) {
-		case XAXIVDMA_CHAN_FSYNC:
-			/* Same Channel Frame Sync */
-			CrBits &= ~(XAXIVDMA_CR_FSYNC_SRC_MASK);
-			break;
+			case XAXIVDMA_CHAN_FSYNC:
+				/* Same Channel Frame Sync */
+				CrBits &= ~(XAXIVDMA_CR_FSYNC_SRC_MASK);
+				break;
 
-		case XAXIVDMA_CHAN_OTHER_FSYNC:
-			/* The other Channel Frame Sync */
-			CrBits |= (XAXIVDMA_CR_FSYNC_SRC_MASK & ~(1 << 6));
-			break;
+			case XAXIVDMA_CHAN_OTHER_FSYNC:
+				/* The other Channel Frame Sync */
+				CrBits |= (XAXIVDMA_CR_FSYNC_SRC_MASK & ~(1 << 6));
+				break;
 
-		case XAXIVDMA_S2MM_TUSER_FSYNC:
-			/* S2MM TUser Sync */
-			if (Channel->S2MmSOF) {
-				CrBits |= (XAXIVDMA_CR_FSYNC_SRC_MASK
-						 & ~(1 << 5));
-			}
-			else
-				return XST_FAILURE;
-			break;
+			case XAXIVDMA_S2MM_TUSER_FSYNC:
+				/* S2MM TUser Sync */
+				if (Channel->S2MmSOF) {
+					CrBits |= (XAXIVDMA_CR_FSYNC_SRC_MASK
+						   & ~(1 << 5));
+				} else {
+					return XST_FAILURE;
+				}
+				break;
 		}
 
 		XAxiVdma_WriteReg(Channel->ChanBase,
-			XAXIVDMA_CR_OFFSET, CrBits);
+				  XAXIVDMA_CR_OFFSET, CrBits);
 
 		return XST_SUCCESS;
 	}
 
 	xdbg_printf(XDBG_DEBUG_ERROR,
-			"This bit is not valid for this configuration\n\r");
+		    "This bit is not valid for this configuration\n\r");
 	return XST_FAILURE;
 }
 
@@ -636,13 +628,13 @@ int XAxiVdma_FsyncSrcSelect(XAxiVdma *InstancePtr, u32 Source,
  *
  *****************************************************************************/
 int XAxiVdma_GenLockSourceSelect(XAxiVdma *InstancePtr, u32 Source,
-					u16 Direction)
+				 u16 Direction)
 {
 	XAxiVdma_Channel *Channel, *XChannel;
 	u32 CrBits;
 
 	if (InstancePtr->HasMm2S && InstancePtr->HasS2Mm &&
-			InstancePtr->InternalGenLock) {
+	    InstancePtr->InternalGenLock) {
 		if (Direction == XAXIVDMA_WRITE) {
 			Channel = XAxiVdma_GetChannel(InstancePtr, Direction);
 			XChannel = XAxiVdma_GetChannel(InstancePtr, XAXIVDMA_READ);
@@ -652,36 +644,36 @@ int XAxiVdma_GenLockSourceSelect(XAxiVdma *InstancePtr, u32 Source,
 		}
 
 		if ((Channel->GenLock == XAXIVDMA_GENLOCK_MASTER &&
-			XChannel->GenLock == XAXIVDMA_GENLOCK_SLAVE) ||
-			(Channel->GenLock == XAXIVDMA_GENLOCK_SLAVE &&
-				XChannel->GenLock == XAXIVDMA_GENLOCK_MASTER) ||
-			(Channel->GenLock == XAXIVDMA_DYN_GENLOCK_MASTER &&
-				XChannel->GenLock == XAXIVDMA_DYN_GENLOCK_SLAVE) ||
-			(Channel->GenLock == XAXIVDMA_DYN_GENLOCK_SLAVE &&
-				XChannel->GenLock == XAXIVDMA_DYN_GENLOCK_MASTER)) {
+		     XChannel->GenLock == XAXIVDMA_GENLOCK_SLAVE) ||
+		    (Channel->GenLock == XAXIVDMA_GENLOCK_SLAVE &&
+		     XChannel->GenLock == XAXIVDMA_GENLOCK_MASTER) ||
+		    (Channel->GenLock == XAXIVDMA_DYN_GENLOCK_MASTER &&
+		     XChannel->GenLock == XAXIVDMA_DYN_GENLOCK_SLAVE) ||
+		    (Channel->GenLock == XAXIVDMA_DYN_GENLOCK_SLAVE &&
+		     XChannel->GenLock == XAXIVDMA_DYN_GENLOCK_MASTER)) {
 
 			CrBits = XAxiVdma_ReadReg(Channel->ChanBase,
-				XAXIVDMA_CR_OFFSET);
+						  XAXIVDMA_CR_OFFSET);
 
-			if (Source == XAXIVDMA_INTERNAL_GENLOCK)
+			if (Source == XAXIVDMA_INTERNAL_GENLOCK) {
 				CrBits |= XAXIVDMA_CR_GENLCK_SRC_MASK;
-			else if (Source == XAXIVDMA_EXTERNAL_GENLOCK)
+			} else if (Source == XAXIVDMA_EXTERNAL_GENLOCK) {
 				CrBits &= ~XAXIVDMA_CR_GENLCK_SRC_MASK;
-			else {
+			} else {
 				xdbg_printf(XDBG_DEBUG_ERROR,
-					"Invalid argument\n\r");
+					    "Invalid argument\n\r");
 				return XST_FAILURE;
 			}
 
 			XAxiVdma_WriteReg(Channel->ChanBase,
-				XAXIVDMA_CR_OFFSET, CrBits);
+					  XAXIVDMA_CR_OFFSET, CrBits);
 
 			return XST_SUCCESS;
 		}
 	}
 
 	xdbg_printf(XDBG_DEBUG_ERROR,
-			"This bit is not valid for this configuration\n\r");
+		    "This bit is not valid for this configuration\n\r");
 	return XST_FAILURE;
 }
 
@@ -701,7 +693,7 @@ int XAxiVdma_GenLockSourceSelect(XAxiVdma *InstancePtr, u32 Source,
  *    . Direction is invalid
  *****************************************************************************/
 int XAxiVdma_StartParking(XAxiVdma *InstancePtr, int FrameIndex,
-         u16 Direction)
+			  u16 Direction)
 {
 	XAxiVdma_Channel *Channel;
 	u32 FrmBits;
@@ -710,41 +702,39 @@ int XAxiVdma_StartParking(XAxiVdma *InstancePtr, int FrameIndex,
 
 	if (FrameIndex > XAXIVDMA_FRM_MAX) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Invalid frame to park on %d\r\n", FrameIndex);
+			    "Invalid frame to park on %d\r\n", FrameIndex);
 
 		return XST_INVALID_PARAM;
 	}
 
 	if (Direction == XAXIVDMA_READ) {
 		FrmBits = FrameIndex &
-			XAXIVDMA_PARKPTR_READREF_MASK;
+			  XAXIVDMA_PARKPTR_READREF_MASK;
 
 		RegValue = XAxiVdma_ReadReg(InstancePtr->BaseAddr,
-		              XAXIVDMA_PARKPTR_OFFSET);
+					    XAXIVDMA_PARKPTR_OFFSET);
 
 		RegValue &= ~XAXIVDMA_PARKPTR_READREF_MASK;
 
 		RegValue |= FrmBits;
 
 		XAxiVdma_WriteReg(InstancePtr->BaseAddr,
-			    XAXIVDMA_PARKPTR_OFFSET, RegValue);
-		}
-	else if (Direction == XAXIVDMA_WRITE) {
+				  XAXIVDMA_PARKPTR_OFFSET, RegValue);
+	} else if (Direction == XAXIVDMA_WRITE) {
 		FrmBits = FrameIndex << XAXIVDMA_WRTREF_SHIFT;
 
 		FrmBits &= XAXIVDMA_PARKPTR_WRTREF_MASK;
 
 		RegValue = XAxiVdma_ReadReg(InstancePtr->BaseAddr,
-		              XAXIVDMA_PARKPTR_OFFSET);
+					    XAXIVDMA_PARKPTR_OFFSET);
 
 		RegValue &= ~XAXIVDMA_PARKPTR_WRTREF_MASK;
 
 		RegValue |= FrmBits;
 
 		XAxiVdma_WriteReg(InstancePtr->BaseAddr,
-		    XAXIVDMA_PARKPTR_OFFSET, RegValue);
-	}
-	else {
+				  XAXIVDMA_PARKPTR_OFFSET, RegValue);
+	} else {
 		/* Invalid direction, do nothing
 		 */
 		return XST_INVALID_PARAM;
@@ -756,8 +746,8 @@ int XAxiVdma_StartParking(XAxiVdma *InstancePtr, int FrameIndex,
 		Status = XAxiVdma_ChannelStartParking(Channel);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Failed to start channel %x\r\n",
-			    (unsigned int)Channel);
+				    "Failed to start channel %x\r\n",
+				    (unsigned int)Channel);
 
 			return XST_FAILURE;
 		}
@@ -847,7 +837,7 @@ void XAxiVdma_StartFrmCntEnable(XAxiVdma *InstancePtr, u16 Direction)
  * large enough to hold all the BDs.
  *****************************************************************************/
 int XAxiVdma_SetBdAddrs(XAxiVdma *InstancePtr, u32 BdAddrPhys, u32 BdAddrVirt,
-         int NumBds, u16 Direction)
+			int NumBds, u16 Direction)
 {
 	XAxiVdma_Channel *Channel;
 
@@ -867,8 +857,7 @@ int XAxiVdma_SetBdAddrs(XAxiVdma *InstancePtr, u32 BdAddrPhys, u32 BdAddrVirt,
 		}
 
 		return XAxiVdma_ChannelSetBdAddrs(Channel, BdAddrPhys, BdAddrVirt);
-	}
-	else {
+	} else {
 		return XST_DEVICE_NOT_FOUND;
 	}
 }
@@ -890,7 +879,7 @@ int XAxiVdma_SetBdAddrs(XAxiVdma *InstancePtr, u32 BdAddrPhys, u32 BdAddrVirt,
  *
  *****************************************************************************/
 int XAxiVdma_StartWriteFrame(XAxiVdma *InstancePtr,
-    XAxiVdma_DmaSetup *DmaConfigPtr)
+			     XAxiVdma_DmaSetup *DmaConfigPtr)
 {
 	XAxiVdma_Channel *Channel;
 
@@ -898,9 +887,8 @@ int XAxiVdma_StartWriteFrame(XAxiVdma *InstancePtr,
 
 	if (Channel->IsValid) {
 		return XAxiVdma_ChannelStartTransfer(Channel,
-		    (XAxiVdma_ChannelSetup *)DmaConfigPtr);
-	}
-	else {
+						     (XAxiVdma_ChannelSetup *)DmaConfigPtr);
+	} else {
 		return XST_DEVICE_NOT_FOUND;
 	}
 }
@@ -922,7 +910,7 @@ int XAxiVdma_StartWriteFrame(XAxiVdma *InstancePtr,
  *
  *****************************************************************************/
 int XAxiVdma_StartReadFrame(XAxiVdma *InstancePtr,
-        XAxiVdma_DmaSetup *DmaConfigPtr)
+			    XAxiVdma_DmaSetup *DmaConfigPtr)
 {
 	XAxiVdma_Channel *Channel;
 
@@ -930,9 +918,8 @@ int XAxiVdma_StartReadFrame(XAxiVdma *InstancePtr,
 
 	if (Channel->IsValid) {
 		return XAxiVdma_ChannelStartTransfer(Channel,
-		    (XAxiVdma_ChannelSetup *)DmaConfigPtr);
-	}
-	else {
+						     (XAxiVdma_ChannelSetup *)DmaConfigPtr);
+	} else {
 		return XST_DEVICE_NOT_FOUND;
 	}
 }
@@ -954,7 +941,7 @@ int XAxiVdma_StartReadFrame(XAxiVdma *InstancePtr,
  *
  *****************************************************************************/
 int XAxiVdma_DmaConfig(XAxiVdma *InstancePtr, u16 Direction,
-        XAxiVdma_DmaSetup *DmaConfigPtr)
+		       XAxiVdma_DmaSetup *DmaConfigPtr)
 {
 	XAxiVdma_Channel *Channel;
 
@@ -968,9 +955,8 @@ int XAxiVdma_DmaConfig(XAxiVdma *InstancePtr, u16 Direction,
 	if (Channel->IsValid) {
 
 		return XAxiVdma_ChannelConfig(Channel,
-		    (XAxiVdma_ChannelSetup *)DmaConfigPtr);
-	}
-	else {
+					      (XAxiVdma_ChannelSetup *)DmaConfigPtr);
+	} else {
 		return XST_DEVICE_NOT_FOUND;
 	}
 }
@@ -992,7 +978,7 @@ int XAxiVdma_DmaConfig(XAxiVdma *InstancePtr, u16 Direction,
  *
  *****************************************************************************/
 int XAxiVdma_DmaSetBufferAddr(XAxiVdma *InstancePtr, u16 Direction,
-        UINTPTR *BufferAddrSet)
+			      UINTPTR *BufferAddrSet)
 {
 	XAxiVdma_Channel *Channel;
 
@@ -1004,9 +990,8 @@ int XAxiVdma_DmaSetBufferAddr(XAxiVdma *InstancePtr, u16 Direction,
 
 	if (Channel->IsValid) {
 		return XAxiVdma_ChannelSetBufferAddr(Channel, BufferAddrSet,
-		    Channel->NumFrames);
-	}
-	else {
+						     Channel->NumFrames);
+	} else {
 		return XST_DEVICE_NOT_FOUND;
 	}
 }
@@ -1037,8 +1022,7 @@ int XAxiVdma_DmaStart(XAxiVdma *InstancePtr, u16 Direction)
 
 	if (Channel->IsValid) {
 		return XAxiVdma_ChannelStart(Channel);
-	}
-	else {
+	} else {
 		return XST_DEVICE_NOT_FOUND;
 	}
 }
@@ -1119,7 +1103,7 @@ void XAxiVdma_DmaRegisterDump(XAxiVdma *InstancePtr, u16 Direction)
  * If channel is invalid, then do nothing on that channel
  *****************************************************************************/
 int XAxiVdma_SetFrameCounter(XAxiVdma *InstancePtr,
-        XAxiVdma_FrameCounter *CfgPtr)
+			     XAxiVdma_FrameCounter *CfgPtr)
 {
 	int Status;
 	XAxiVdma_Channel *Channel;
@@ -1140,11 +1124,11 @@ int XAxiVdma_SetFrameCounter(XAxiVdma *InstancePtr,
 	if (Channel->IsValid) {
 
 		Status = XAxiVdma_ChannelSetFrmCnt(Channel, CfgPtr->ReadFrameCount,
-				    CfgPtr->ReadDelayTimerCount);
+						   CfgPtr->ReadDelayTimerCount);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Setting read channel frame counter "
-			    "failed with %d\r\n", Status);
+				    "Setting read channel frame counter "
+				    "failed with %d\r\n", Status);
 
 			return Status;
 		}
@@ -1155,12 +1139,12 @@ int XAxiVdma_SetFrameCounter(XAxiVdma *InstancePtr,
 	if (Channel->IsValid) {
 
 		Status = XAxiVdma_ChannelSetFrmCnt(Channel,
-		          CfgPtr->WriteFrameCount,
-			      CfgPtr->WriteDelayTimerCount);
+						   CfgPtr->WriteFrameCount,
+						   CfgPtr->WriteDelayTimerCount);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Setting write channel frame counter "
-			    "failed with %d\r\n", Status);
+				    "Setting write channel frame counter "
+				    "failed with %d\r\n", Status);
 
 			return Status;
 		}
@@ -1183,7 +1167,7 @@ int XAxiVdma_SetFrameCounter(XAxiVdma *InstancePtr,
  * If returned frame counter value is 0, then the channel is not valid
  *****************************************************************************/
 void XAxiVdma_GetFrameCounter(XAxiVdma *InstancePtr,
-        XAxiVdma_FrameCounter *CfgPtr)
+			      XAxiVdma_FrameCounter *CfgPtr)
 {
 	XAxiVdma_Channel *Channel;
 	u8 FrmCnt;
@@ -1241,7 +1225,7 @@ int XAxiVdma_SetFrmStore(XAxiVdma *InstancePtr, u8 FrmStoreNum, u16 Direction)
 {
 	XAxiVdma_Channel *Channel;
 
-	if(FrmStoreNum > InstancePtr->MaxNumFrames) {
+	if (FrmStoreNum > InstancePtr->MaxNumFrames) {
 		return XST_FAILURE;
 	}
 
@@ -1251,20 +1235,20 @@ int XAxiVdma_SetFrmStore(XAxiVdma *InstancePtr, u8 FrmStoreNum, u16 Direction)
 		return XST_FAILURE;
 	}
 
-	if(XAxiVdma_ChannelIsRunning(Channel)) {
+	if (XAxiVdma_ChannelIsRunning(Channel)) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Cannot set frame store..."
-						"channel is running\r\n");
+			    "channel is running\r\n");
 		return XST_FAILURE;
 	}
 
 	if (!(Channel->DbgFeatureFlags & XAXIVDMA_ENABLE_DBG_FRMSTORE_REG)) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-			"Frame Store Register is disabled\n\r");
+			    "Frame Store Register is disabled\n\r");
 		return XST_NO_FEATURE;
 	}
 
 	XAxiVdma_WriteReg(Channel->ChanBase, XAXIVDMA_FRMSTORE_OFFSET,
-	    FrmStoreNum & XAXIVDMA_FRMSTORE_MASK);
+			  FrmStoreNum & XAXIVDMA_FRMSTORE_MASK);
 
 	Channel->NumFrames = FrmStoreNum;
 
@@ -1288,7 +1272,7 @@ int XAxiVdma_SetFrmStore(XAxiVdma *InstancePtr, u8 FrmStoreNum, u16 Direction)
  *
  *****************************************************************************/
 void XAxiVdma_GetFrmStore(XAxiVdma *InstancePtr, u8 *FrmStoreNum,
-				u16 Direction)
+			  u16 Direction)
 {
 	XAxiVdma_Channel *Channel;
 
@@ -1300,10 +1284,10 @@ void XAxiVdma_GetFrmStore(XAxiVdma *InstancePtr, u8 *FrmStoreNum,
 
 	if (Channel->DbgFeatureFlags & XAXIVDMA_ENABLE_DBG_FRMSTORE_REG) {
 		*FrmStoreNum = (XAxiVdma_ReadReg(Channel->ChanBase,
-			XAXIVDMA_FRMSTORE_OFFSET)) & XAXIVDMA_FRMSTORE_MASK;
+						 XAXIVDMA_FRMSTORE_OFFSET)) & XAXIVDMA_FRMSTORE_MASK;
 	} else {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-			"Frame Store Register is disabled\n\r");
+			    "Frame Store Register is disabled\n\r");
 	}
 }
 
@@ -1333,8 +1317,7 @@ int XAxiVdma_GetDmaChannelErrors(XAxiVdma *InstancePtr, u16 Direction)
 
 	if (Channel->IsValid) {
 		return XAxiVdma_ChannelErrors(Channel);
-	}
-	else {
+	} else {
 		return XST_DEVICE_NOT_FOUND;
 	}
 }
@@ -1355,7 +1338,7 @@ int XAxiVdma_GetDmaChannelErrors(XAxiVdma *InstancePtr, u16 Direction)
  *
  *****************************************************************************/
 int XAxiVdma_ClearDmaChannelErrors(XAxiVdma *InstancePtr, u16 Direction,
-					u32 ErrorMask)
+				   u32 ErrorMask)
 {
 	XAxiVdma_Channel *Channel;
 
@@ -1368,8 +1351,7 @@ int XAxiVdma_ClearDmaChannelErrors(XAxiVdma *InstancePtr, u16 Direction,
 	if (Channel->IsValid) {
 		XAxiVdma_ClearChannelErrors(Channel, ErrorMask);
 		return XST_SUCCESS;
-	}
-	else {
+	} else {
 		return XST_DEVICE_NOT_FOUND;
 	}
 }

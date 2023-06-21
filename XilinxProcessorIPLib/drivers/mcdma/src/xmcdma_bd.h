@@ -37,10 +37,10 @@ typedef u32 XMcdma_Bd[16];
 #define XMCDMA_CACHE_INVALIDATE(BdPtr)
 #else
 #define XMCDMA_CACHE_FLUSH(BdPtr) \
-        Xil_DCacheFlushRange((UINTPTR)(BdPtr), XMCDMA_BD_HW_NUM_BYTES)
+	Xil_DCacheFlushRange((UINTPTR)(BdPtr), XMCDMA_BD_HW_NUM_BYTES)
 
 #define XMCDMA_CACHE_INVALIDATE(BdPtr) \
-        Xil_DCacheInvalidateRange((UINTPTR)(BdPtr), XMCDMA_BD_HW_NUM_BYTES)
+	Xil_DCacheInvalidateRange((UINTPTR)(BdPtr), XMCDMA_BD_HW_NUM_BYTES)
 #endif
 
 
@@ -157,7 +157,7 @@ typedef u32 XMcdma_Bd[16];
  *****************************************************************************/
 #define XMcdma_BdHwCompleted(BdPtr)                     \
 	(XMcdma_BdRead((BdPtr), XMCDMA_BD_STS_OFFSET) & \
-		XMCDMA_BD_STS_COMPLETE_MASK)
+	 XMCDMA_BD_STS_COMPLETE_MASK)
 
 /*****************************************************************************/
 /**
@@ -178,7 +178,7 @@ typedef u32 XMcdma_Bd[16];
  *****************************************************************************/
 #define XMcDma_BdGetActualLength(BdPtr, LengthMask)      \
 	(XMcdma_BdRead((BdPtr), XMCDMA_BD_STS_OFFSET) & \
-		LengthMask)
+	 LengthMask)
 
 /*****************************************************************************/
 /**
@@ -219,7 +219,7 @@ typedef u32 XMcdma_Bd[16];
  *****************************************************************************/
 #define XMcdma_TxBdHwCompleted(BdPtr)                     \
 	(XMcdma_BdRead((BdPtr), XMCDMA_BD_SIDEBAND_STS_OFFSET) & \
-		XMCDMA_BD_STS_COMPLETE_MASK)
+	 XMCDMA_BD_STS_COMPLETE_MASK)
 
 /*****************************************************************************/
 /**
@@ -240,7 +240,7 @@ typedef u32 XMcdma_Bd[16];
  *****************************************************************************/
 #define XMcDma_TxBdGetActualLength(BdPtr, LengthMask)      \
 	(XMcdma_BdRead((BdPtr), XMCDMA_BD_SIDEBAND_STS_OFFSET) & \
-		LengthMask)
+	 LengthMask)
 
 /*****************************************************************************/
 /**
@@ -256,8 +256,8 @@ typedef u32 XMcdma_Bd[16];
  *
  *****************************************************************************/
 #define XMcDma_BdGetCtrl(BdPtr)				\
-		(XMcdma_BdRead((BdPtr), XMCDMA_BD_CTRL_OFFSET)	\
-		& XMCDMA_BD_CTRL_ALL_MASK)
+	(XMcdma_BdRead((BdPtr), XMCDMA_BD_CTRL_OFFSET)	\
+	 & XMCDMA_BD_CTRL_ALL_MASK)
 
 /****************************************************************************/
 /**
@@ -275,8 +275,8 @@ typedef u32 XMcdma_Bd[16];
 *****************************************************************************/
 #define XMcdma_BdChainNextBd(Chan, BdPtr)			\
 	(((UINTPTR)(BdPtr) >= (Chan)->LastBdAddr) ?	\
-		(UINTPTR)(Chan)->FirstBdAddr :	\
-		(UINTPTR)((UINTPTR)(BdPtr) + (Chan)->Separation))
+	 (UINTPTR)(Chan)->FirstBdAddr :	\
+	 (UINTPTR)((UINTPTR)(BdPtr) + (Chan)->Separation))
 
 /****************************************************************************/
 /**
@@ -294,8 +294,8 @@ typedef u32 XMcdma_Bd[16];
 *****************************************************************************/
 #define XMcdma_BdChainPrevBd(Chan, BdPtr)				\
 	(((UINTPTR)(BdPtr) <= (Chan)->FirstBdAddr) ?			\
-		(XMcdma_Bd *)(Chan)->LastBdAddr :			\
-		(XMcdma_Bd *)((UINTPTR)(BdPtr) - (Chan)->Separation))
+	 (XMcdma_Bd *)(Chan)->LastBdAddr :			\
+	 (XMcdma_Bd *)((UINTPTR)(BdPtr) - (Chan)->Separation))
 
 /****************************************************************************/
 /**
@@ -313,8 +313,8 @@ typedef u32 XMcdma_Bd[16];
 *
 *****************************************************************************/
 #define XMcdma_HwIsStarted(Chan)                             	\
-        ((XMcdma_ReadReg((Chan)->ChanBase, XMCDMA_CSR_OFFSET) 	\
-          & XMCDMA_CSR_HALTED_MASK) ? FALSE : TRUE)
+	((XMcdma_ReadReg((Chan)->ChanBase, XMCDMA_CSR_OFFSET) 	\
+	  & XMCDMA_CSR_HALTED_MASK) ? FALSE : TRUE)
 
 /****************************************************************************/
 /**
@@ -334,8 +334,8 @@ typedef u32 XMcdma_Bd[16];
 *****************************************************************************/
 #define XMcdma_ChanHwIsStarted(Chan, Chan_id) \
 	((XMcdma_ReadReg((Chan)->ChanBase, (XMCDMA_CR_OFFSET + \
-	 (Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET)) \
-	    & XMCDMA_CCR_RUNSTOP_MASK) ? TRUE : FALSE)
+					    (Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET)) \
+	  & XMCDMA_CCR_RUNSTOP_MASK) ? TRUE : FALSE)
 
 /*****************************************************************************/
 /**
@@ -352,7 +352,7 @@ typedef u32 XMcdma_Bd[16];
  *****************************************************************************/
 #define XMcDma_BdSetCtrlSideBand(BdPtr, Tid, Tuser) \
 	XMcdma_BdWrite((BdPtr), XMCDMA_BD_CTRL_SBAND_OFFSET, \
-			Tid << XMCDMA_BD_CTRL_SBAND_SHIFT | Tuser)
+		       Tid << XMCDMA_BD_CTRL_SBAND_SHIFT | Tuser)
 
 /*****************************************************************************/
 /**
@@ -384,7 +384,7 @@ typedef u32 XMcdma_Bd[16];
  *****************************************************************************/
 #define XMcdma_BdClear(BdPtr)                    \
 	memset((void *)(((UINTPTR)(BdPtr)) + XMCDMA_BD_START_CLEAR), 0, \
-			XMCDMA_BD_BYTES_TO_CLEAR)
+	       XMCDMA_BD_BYTES_TO_CLEAR)
 
 /*****************************************************************************/
 /**

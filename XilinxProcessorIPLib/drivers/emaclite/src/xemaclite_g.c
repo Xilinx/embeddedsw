@@ -47,13 +47,13 @@
  */
 XEmacLite_Config XEmacLite_ConfigTable[XPAR_XEMACLITE_NUM_INSTANCES] = {
 	{
-	 XPAR_EMACLITE_0_DEVICE_ID,	/* Unique ID of device */
-	 XPAR_EMACLITE_0_BASEADDR,	/* Device base address */
-	 XPAR_EMACLITE_0_TX_PING_PONG,	/* Include TX Ping Pong buffers */
-	 XPAR_EMACLITE_0_RX_PING_PONG,	/* Include RX Ping Pong buffers */
-	 XPAR_EMACLITE_0_INCLUDE_MDIO	/* Include MDIO support */
-	 XPAR_EMACLITE_0_INCLUDE_INTERNAL_LOOPBACK /* Include Internal
+		XPAR_EMACLITE_0_DEVICE_ID,	/* Unique ID of device */
+		XPAR_EMACLITE_0_BASEADDR,	/* Device base address */
+		XPAR_EMACLITE_0_TX_PING_PONG,	/* Include TX Ping Pong buffers */
+		XPAR_EMACLITE_0_RX_PING_PONG,	/* Include RX Ping Pong buffers */
+		XPAR_EMACLITE_0_INCLUDE_MDIO	/* Include MDIO support */
+		XPAR_EMACLITE_0_INCLUDE_INTERNAL_LOOPBACK /* Include Internal
 						    * loop back support */
-	 }
+	}
 };
 /** @} */

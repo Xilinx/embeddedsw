@@ -217,7 +217,8 @@ typedef struct {
 }  XZDma_LlDscr ;
 #pragma pack(pop)
 #else
-} __attribute__ ((packed)) XZDma_LlDscr;
+}
+__attribute__ ((packed)) XZDma_LlDscr;
 #endif
 /******************************************************************************/
 /**
@@ -231,7 +232,7 @@ typedef struct {
 	u32 Size;	/**< Word3, Size of data */
 	u32 Cntl;	/**< Word4, control data */
 #if defined (__ICCARM__)
-}XZDma_LiDscr;
+} XZDma_LiDscr;
 #pragma pack(pop)
 #else
 }  __attribute__ ((packed)) XZDma_LiDscr;
@@ -245,10 +246,10 @@ typedef struct {
 	u8 OverFetch;		/**< Enable Over fetch */
 	u8 SrcIssue;		/**< Outstanding transactions for Source */
 	XZDma_BurstType SrcBurstType;
-				/**< Burst type for SRC */
+	/**< Burst type for SRC */
 	u8 SrcBurstLen;		/**< AXI length for data read */
 	XZDma_BurstType DstBurstType;
-				/**< Burst type for DST */
+	/**< Burst type for DST */
 	u8 DstBurstLen;		/**< AXI length for data write */
 	u8 SrcCache;		/**< AXI cache bits for data read */
 	u8 SrcQos;		/**< AXI QOS bits for data read */
@@ -261,7 +262,7 @@ typedef struct {
 *
 * This typedef contains the descriptor configurations of ZDMA core
 */
-typedef struct{
+typedef struct {
 	u8 AxCoherent;	/**< AXI transactions are coherent or non-coherent */
 	u8 AXCache;	/**< AXI cache for DSCR fetch */
 	u8 AXQos;	/**< Qos bit for DSCR fetch */
@@ -397,7 +398,7 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_IntrClear(InstancePtr, Mask) \
 	XZDma_WriteReg( (InstancePtr)->Config.BaseAddress, \
-	XZDMA_CH_ISR_OFFSET, ((u32)(Mask) & (u32)XZDMA_IXR_ALL_INTR_MASK))
+			XZDMA_CH_ISR_OFFSET, ((u32)(Mask) & (u32)XZDMA_IXR_ALL_INTR_MASK))
 
 /*****************************************************************************/
 /**
@@ -419,7 +420,7 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_GetIntrMask(InstancePtr) \
 	XZDma_ReadReg((InstancePtr)->Config.BaseAddress,  \
-			(u32)(XZDMA_CH_IMR_OFFSET))
+		      (u32)(XZDMA_CH_IMR_OFFSET))
 
 /*****************************************************************************/
 /**
@@ -463,8 +464,8 @@ typedef struct {
 #define XZDma_DisableIntr(InstancePtr, Mask) \
 	XZDma_WriteReg( (InstancePtr)->Config.BaseAddress, \
 			XZDMA_CH_IDS_OFFSET, \
-	((u32)XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-	XZDMA_CH_IDS_OFFSET) | ((u32)(Mask) & (u32)XZDMA_IXR_ALL_INTR_MASK)))
+			((u32)XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
+					    XZDMA_CH_IDS_OFFSET) | ((u32)(Mask) & (u32)XZDMA_IXR_ALL_INTR_MASK)))
 
 /*****************************************************************************/
 /**
@@ -483,9 +484,9 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_SrcCurPyld(InstancePtr) \
 	((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XZDMA_CH_SRC_CUR_PYLD_LSB_OFFSET)) | \
-	((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-	XZDMA_CH_SRC_CUR_PYLD_MSB_OFFSET)) << XZDMA_WORD1_MSB_SHIFT))
+			     XZDMA_CH_SRC_CUR_PYLD_LSB_OFFSET)) | \
+	 ((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
+			      XZDMA_CH_SRC_CUR_PYLD_MSB_OFFSET)) << XZDMA_WORD1_MSB_SHIFT))
 
 /*****************************************************************************/
 /**
@@ -504,9 +505,9 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_DstCurPyld(InstancePtr) \
 	((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XZDMA_CH_DST_CUR_PYLD_LSB_OFFSET)) | \
-	((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-	XZDMA_CH_DST_CUR_PYLD_MSB_OFFSET)) << XZDMA_WORD1_MSB_SHIFT))
+			     XZDMA_CH_DST_CUR_PYLD_LSB_OFFSET)) | \
+	 ((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
+			      XZDMA_CH_DST_CUR_PYLD_MSB_OFFSET)) << XZDMA_WORD1_MSB_SHIFT))
 
 /*****************************************************************************/
 /**
@@ -525,9 +526,9 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_SrcDscrCurPyld(InstancePtr) \
 	((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XZDMA_CH_SRC_CUR_DSCR_LSB_OFFSET)) | \
-	((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-	XZDMA_CH_SRC_CUR_DSCR_MSB_OFFSET)) << XZDMA_WORD1_MSB_SHIFT))
+			     XZDMA_CH_SRC_CUR_DSCR_LSB_OFFSET)) | \
+	 ((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
+			      XZDMA_CH_SRC_CUR_DSCR_MSB_OFFSET)) << XZDMA_WORD1_MSB_SHIFT))
 
 
 /*****************************************************************************/
@@ -547,9 +548,9 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_DstDscrCurPyld(InstancePtr) \
 	((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XZDMA_CH_DST_CUR_DSCR_LSB_OFFSET)) | \
-	((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-	XZDMA_CH_DST_CUR_DSCR_MSB_OFFSET)) << XZDMA_WORD1_MSB_SHIFT))
+			     XZDMA_CH_DST_CUR_DSCR_LSB_OFFSET)) | \
+	 ((u64)(XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
+			      XZDMA_CH_DST_CUR_DSCR_MSB_OFFSET)) << XZDMA_WORD1_MSB_SHIFT))
 
 /*****************************************************************************/
 /**
@@ -568,7 +569,7 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_GetTotalByte(InstancePtr) \
 	XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XZDMA_CH_TOTAL_BYTE_OFFSET)
+		      XZDMA_CH_TOTAL_BYTE_OFFSET)
 
 /*****************************************************************************/
 /**
@@ -586,9 +587,9 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_TotalByteClear(InstancePtr) \
 	XZDma_WriteReg((InstancePtr)->Config.BaseAddress, \
-		XZDMA_CH_TOTAL_BYTE_OFFSET, \
-	XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-		XZDMA_CH_TOTAL_BYTE_OFFSET))
+		       XZDMA_CH_TOTAL_BYTE_OFFSET, \
+		       XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
+				     XZDMA_CH_TOTAL_BYTE_OFFSET))
 
 /*****************************************************************************/
 /**
@@ -607,7 +608,7 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_GetSrcIntrCnt(InstancePtr) \
 	XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XZDMA_CH_IRQ_SRC_ACCT_OFFSET)
+		      XZDMA_CH_IRQ_SRC_ACCT_OFFSET)
 
 /*****************************************************************************/
 /**
@@ -626,7 +627,7 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_GetDstIntrCnt(InstancePtr) \
 	XZDma_ReadReg((InstancePtr)->Config.BaseAddress, \
-			XZDMA_CH_IRQ_DST_ACCT_OFFSET)
+		      XZDMA_CH_IRQ_DST_ACCT_OFFSET)
 
 /*****************************************************************************/
 /**
@@ -645,7 +646,7 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_EnableCh(InstancePtr) \
 	XZDma_WriteReg((InstancePtr)->Config.BaseAddress, \
-			(XZDMA_CH_CTRL2_OFFSET), (XZDMA_CH_CTRL2_EN_MASK))
+		       (XZDMA_CH_CTRL2_OFFSET), (XZDMA_CH_CTRL2_EN_MASK))
 
 /*****************************************************************************/
 /**
@@ -663,7 +664,7 @@ typedef struct {
 ******************************************************************************/
 #define XZDma_DisableCh(InstancePtr) \
 	XZDma_WriteReg((InstancePtr)->Config.BaseAddress,\
-		(XZDMA_CH_CTRL2_OFFSET), (XZDMA_CH_CTRL2_DIS_MASK))
+		       (XZDMA_CH_CTRL2_OFFSET), (XZDMA_CH_CTRL2_DIS_MASK))
 
 /************************ Prototypes of functions **************************/
 
@@ -673,7 +674,7 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 			u32 EffectiveAddr);
 s32 XZDma_SetMode(XZDma *InstancePtr, u8 IsSgDma, XZDma_Mode Mode);
 u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
-					UINTPTR Dscr_MemPtr, u32 NoOfBytes);
+		       UINTPTR Dscr_MemPtr, u32 NoOfBytes);
 s32 XZDma_SetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure);
 void XZDma_GetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure);
 s32 XZDma_SetChDscrConfig(XZDma *InstancePtr, XZDma_DscrConfig *Configure);
@@ -688,9 +689,9 @@ s32 XZDma_SelfTest(XZDma *InstancePtr);
 
 void XZDma_IntrHandler(void *Instance);
 s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
-	void *CallBackFunc, void *CallBackRef);
+		      void *CallBackFunc, void *CallBackRef);
 void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
-								u32 Num);
+			 u32 Num);
 void XZDma_Enable(XZDma *InstancePtr);
 
 /*@}*/

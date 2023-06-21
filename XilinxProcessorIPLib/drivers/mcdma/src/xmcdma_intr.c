@@ -69,7 +69,7 @@ void XMcdma_ChanIntrHandler(void *Instance)
 	XMcdma_ChanCtrl *Chan = NULL;
 	Chan = (XMcdma_ChanCtrl *)((void *)Instance);
 
-        /* Get pending interrupts */
+	/* Get pending interrupts */
 	IrqStatus = XMcdma_ChanGetIrq(Chan);
 
 	/* Acknowledge pending interrupts */
@@ -83,8 +83,8 @@ void XMcdma_ChanIntrHandler(void *Instance)
 	}
 
 	if ((IrqStatus & (XMCDMA_IRQ_DELAY_MASK | XMCDMA_IRQ_IOC_MASK))) {
-                Chan->ChanState = XMCDMA_CHAN_IDLE;
-                Chan->DoneHandler(Chan->DoneRef);
+		Chan->ChanState = XMCDMA_CHAN_IDLE;
+		Chan->DoneHandler(Chan->DoneRef);
 	}
 
 	if ((IrqStatus & XMCDMA_IRQ_ERROR_MASK)) {
@@ -127,33 +127,33 @@ s32 XMcdma_ChanSetCallBack(XMcdma_ChanCtrl *Chan, XMcdma_ChanHandler HandlerType
 	s32 Status;
 
 	/* Verify arguments. */
-        Xil_AssertNonvoid(CallBackFunc != NULL);
-        Xil_AssertNonvoid(CallBackRef != NULL);
-        Xil_AssertNonvoid((HandlerType == XMCDMA_CHAN_HANDLER_DONE) ||
+	Xil_AssertNonvoid(CallBackFunc != NULL);
+	Xil_AssertNonvoid(CallBackRef != NULL);
+	Xil_AssertNonvoid((HandlerType == XMCDMA_CHAN_HANDLER_DONE) ||
 			  (HandlerType == XMCDMA_CHAN_HANDLER_ERROR));
 
 	/*
-         * Calls the respective callback function corresponding to
-         * the handler type
-         */
-        switch (HandlerType) {
-	case XMCDMA_CHAN_HANDLER_DONE:
-		Chan->DoneHandler =
-			(XMcdma_ChanDoneHandler)((void *)CallBackFunc);
-                Chan->DoneRef = CallBackRef;
-		Status = (XST_SUCCESS);
-		break;
+	 * Calls the respective callback function corresponding to
+	 * the handler type
+	 */
+	switch (HandlerType) {
+		case XMCDMA_CHAN_HANDLER_DONE:
+			Chan->DoneHandler =
+				(XMcdma_ChanDoneHandler)((void *)CallBackFunc);
+			Chan->DoneRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	case XMCDMA_CHAN_HANDLER_ERROR:
-		Chan->ErrorHandler =
-			(XMcdma_ChanErrorHandler)((void *)CallBackFunc);
-		Chan->ErrorRef = CallBackRef;
-		Status = (XST_SUCCESS);
-		break;
+		case XMCDMA_CHAN_HANDLER_ERROR:
+			Chan->ErrorHandler =
+				(XMcdma_ChanErrorHandler)((void *)CallBackFunc);
+			Chan->ErrorRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	default:
-		Status = (XST_INVALID_PARAM);
-		break;
+		default:
+			Status = (XST_INVALID_PARAM);
+			break;
 	}
 
 	return Status;
@@ -195,11 +195,12 @@ void XMcdma_IntrHandler(void *Instance)
 		Chan_SerMask = XMcdma_ReadReg(InstancePtr->Config.BaseAddress,
 					      XMCDMA_RX_OFFSET + XMCDMA_RXINT_SER_OFFSET);
 
-		if (!Chan_SerMask)
+		if (!Chan_SerMask) {
 			goto out;
+		}
 
 		for (i = 1, Chan_id = 1; i != 0 && i <= Chan_SerMask;
-			i <<= 1, Chan_id++) {
+		     i <<= 1, Chan_id++) {
 			if (Chan_SerMask & i) {
 				Chan = XMcdma_GetMcdmaRxChan(InstancePtr,
 							     Chan_id);
@@ -209,27 +210,27 @@ void XMcdma_IntrHandler(void *Instance)
 				XMcdma_ChanAckIrq(Chan, IrqStatus);
 
 				/* If no interrupt is asserted, we do not do anything */
-				 if (!(IrqStatus & XMCDMA_IRQ_ALL_MASK)) {
-					 return;
-				 }
-
-				 if ((IrqStatus & (XMCDMA_IRQ_DELAY_MASK | XMCDMA_IRQ_IOC_MASK))) {
-					 Chan->ChanState = XMCDMA_CHAN_IDLE;
-					 InstancePtr->DoneHandler(InstancePtr->DoneRef, Chan_id);
-				 }
-
-				 if ((IrqStatus & XMCDMA_IRQ_PKTDROP_MASK)) {
-					 Chan->ChanState = XMCDMA_CHAN_IDLE;
-					 InstancePtr->PktDropHandler(InstancePtr->PktDropRef, Chan_id);
+				if (!(IrqStatus & XMCDMA_IRQ_ALL_MASK)) {
+					return;
 				}
 
-				 /* In Case of errors Channel Service Register
-				  * will provide the Channel ID that caused error
-				  */
-				 if ((IrqStatus & XMCDMA_IRQ_ERROR_MASK)) {
+				if ((IrqStatus & (XMCDMA_IRQ_DELAY_MASK | XMCDMA_IRQ_IOC_MASK))) {
+					Chan->ChanState = XMCDMA_CHAN_IDLE;
+					InstancePtr->DoneHandler(InstancePtr->DoneRef, Chan_id);
+				}
+
+				if ((IrqStatus & XMCDMA_IRQ_PKTDROP_MASK)) {
+					Chan->ChanState = XMCDMA_CHAN_IDLE;
+					InstancePtr->PktDropHandler(InstancePtr->PktDropRef, Chan_id);
+				}
+
+				/* In Case of errors Channel Service Register
+				 * will provide the Channel ID that caused error
+				 */
+				if ((IrqStatus & XMCDMA_IRQ_ERROR_MASK)) {
 					Chan->ChanState = XMCDMA_CHAN_PAUSE;
 					InstancePtr->ErrorHandler(InstancePtr->ErrorRef, Chan_id, IrqStatus);
-				 }
+				}
 			}
 		}
 	}
@@ -271,15 +272,16 @@ void XMcdma_TxIntrHandler(void *Instance)
 	u32 Chan_SerMask;
 
 	/* Serviced Channel Numbers */
-	while(1) {
+	while (1) {
 		Chan_SerMask = XMcdma_ReadReg(InstancePtr->Config.BaseAddress,
-						XMCDMA_TXINT_SER_OFFSET);
+					      XMCDMA_TXINT_SER_OFFSET);
 
-		if (!Chan_SerMask)
+		if (!Chan_SerMask) {
 			goto out;
+		}
 
 		for (i = 1, Chan_id = 1; i != 0 && i <= Chan_SerMask;
-			i <<= 1, Chan_id++) {
+		     i <<= 1, Chan_id++) {
 			if (Chan_SerMask & i) {
 				Chan = XMcdma_GetMcdmaTxChan(InstancePtr, Chan_id);
 
@@ -288,25 +290,25 @@ void XMcdma_TxIntrHandler(void *Instance)
 				/* Acknowledge pending interrupts */
 				XMcdma_ChanAckIrq(Chan, IrqStatus);
 
-				 /*
-				  * If no interrupt is asserted, we do not do anything
-				  */
-				 if (!(IrqStatus & XMCDMA_IRQ_ALL_MASK)) {
-					 return;
-				 }
+				/*
+				 * If no interrupt is asserted, we do not do anything
+				 */
+				if (!(IrqStatus & XMCDMA_IRQ_ALL_MASK)) {
+					return;
+				}
 
-				 if ((IrqStatus & (XMCDMA_IRQ_DELAY_MASK | XMCDMA_IRQ_IOC_MASK))) {
-					 Chan->ChanState = XMCDMA_CHAN_IDLE;
-					 InstancePtr->TxDoneHandler(InstancePtr->TxDoneRef, Chan_id);
-				 }
+				if ((IrqStatus & (XMCDMA_IRQ_DELAY_MASK | XMCDMA_IRQ_IOC_MASK))) {
+					Chan->ChanState = XMCDMA_CHAN_IDLE;
+					InstancePtr->TxDoneHandler(InstancePtr->TxDoneRef, Chan_id);
+				}
 
-				 /* In Case of errors Channel Service Register
-				  * will provide the Channel ID that caused error
-				  */
-				 if ((IrqStatus & XMCDMA_IRQ_ERROR_MASK)) {
+				/* In Case of errors Channel Service Register
+				 * will provide the Channel ID that caused error
+				 */
+				if ((IrqStatus & XMCDMA_IRQ_ERROR_MASK)) {
 					Chan->ChanState = XMCDMA_CHAN_PAUSE;
 					InstancePtr->TxErrorHandler(InstancePtr->TxErrorRef, Chan_id, IrqStatus);
-				 }
+				}
 			}
 		}
 	}
@@ -365,39 +367,39 @@ s32 XMcdma_SetCallBack(XMcdma *InstancePtr, XMcdma_Handler HandlerType,
 	 * the handler type
 	 */
 	switch (HandlerType) {
-	case XMCDMA_TX_HANDLER_DONE:
-		InstancePtr->TxDoneHandler = (XMcdma_TxDoneHandler)((void *)CallBackFunc);
-		InstancePtr->TxDoneRef = CallBackRef;
-		Status = (XST_SUCCESS);
-		break;
+		case XMCDMA_TX_HANDLER_DONE:
+			InstancePtr->TxDoneHandler = (XMcdma_TxDoneHandler)((void *)CallBackFunc);
+			InstancePtr->TxDoneRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	case XMCDMA_TX_HANDLER_ERROR:
-		InstancePtr->TxErrorHandler = (XMcdma_TxErrorHandler)((void *)CallBackFunc);
-		InstancePtr->TxErrorRef = CallBackRef;
-		Status = (XST_SUCCESS);
-		break;
+		case XMCDMA_TX_HANDLER_ERROR:
+			InstancePtr->TxErrorHandler = (XMcdma_TxErrorHandler)((void *)CallBackFunc);
+			InstancePtr->TxErrorRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	case XMCDMA_HANDLER_DONE:
-		InstancePtr->DoneHandler = (XMcdma_DoneHandler)((void *)CallBackFunc);
-		InstancePtr->DoneRef = CallBackRef;
-		Status = (XST_SUCCESS);
-		break;
+		case XMCDMA_HANDLER_DONE:
+			InstancePtr->DoneHandler = (XMcdma_DoneHandler)((void *)CallBackFunc);
+			InstancePtr->DoneRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	case XMCDMA_HANDLER_ERROR:
-		InstancePtr->ErrorHandler = (XMcdma_ErrorHandler)((void *)CallBackFunc);
-		InstancePtr->ErrorRef = CallBackRef;
-		Status = (XST_SUCCESS);
-		break;
+		case XMCDMA_HANDLER_ERROR:
+			InstancePtr->ErrorHandler = (XMcdma_ErrorHandler)((void *)CallBackFunc);
+			InstancePtr->ErrorRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	case XMCDMA_HANDLER_PKTDROP:
-		InstancePtr->PktDropHandler = (XMcdma_PktDropHandler)((void *)CallBackFunc);
-		InstancePtr->PktDropRef = CallBackRef;
-		Status = (XST_SUCCESS);
-		break;
+		case XMCDMA_HANDLER_PKTDROP:
+			InstancePtr->PktDropHandler = (XMcdma_PktDropHandler)((void *)CallBackFunc);
+			InstancePtr->PktDropRef = CallBackRef;
+			Status = (XST_SUCCESS);
+			break;
 
-	default:
-		Status = (XST_INVALID_PARAM);
-		break;
+		default:
+			Status = (XST_INVALID_PARAM);
+			break;
 	}
 
 	return Status;

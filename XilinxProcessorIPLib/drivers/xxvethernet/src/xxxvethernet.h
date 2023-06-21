@@ -173,10 +173,10 @@ extern "C" {
 #define XXE_RECEIVER_ENABLE_OPTION	0x00000100
 
 #define XXE_DEFAULT_OPTIONS				\
-		(XXE_FCS_INSERT_OPTION |		\
-		 XXE_FCS_STRIP_OPTION |			\
-		 XXE_TRANSMITTER_ENABLE_OPTION | 	\
-		 XXE_RECEIVER_ENABLE_OPTION)
+	(XXE_FCS_INSERT_OPTION |		\
+	 XXE_FCS_STRIP_OPTION |			\
+	 XXE_TRANSMITTER_ENABLE_OPTION | 	\
+	 XXE_RECEIVER_ENABLE_OPTION)
 /**< XXE_DEFAULT_OPTIONS specify the options set in XXxvEthernet_Reset() and
  *   XXxvEthernet_CfgInitialize()
  */
@@ -318,7 +318,7 @@ typedef struct XXxvEthernet {
 ******************************************************************************/
 #define XXxvEthernet_IsTxErr(InstancePtr)			 \
 	((XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,  \
-	XXE_TXSR_OFFSET) & XXE_STS_TX_ERROR_MASK) ? TRUE : FALSE)
+			       XXE_TXSR_OFFSET) & XXE_STS_TX_ERROR_MASK) ? TRUE : FALSE)
 
 /*****************************************************************************/
 /**
@@ -339,7 +339,7 @@ typedef struct XXxvEthernet {
 ******************************************************************************/
 #define XXxvEthernet_IsRxErr(InstancePtr)			 \
 	((XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,  \
-	XXE_RXSR_OFFSET) & XXE_STS_RX_ERROR_MASK) ? TRUE : FALSE
+			       XXE_RXSR_OFFSET) & XXE_STS_RX_ERROR_MASK) ? TRUE : FALSE
 
 /****************************************************************************/
 /**
@@ -356,7 +356,7 @@ typedef struct XXxvEthernet {
 *
 *****************************************************************************/
 #define XXxvEthernet_GetStatus(InstancePtr) \
-	 XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress, XXE_SR_OFFSET)
+	XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress, XXE_SR_OFFSET)
 
 /*****************************************************************************/
 /**
@@ -398,7 +398,7 @@ typedef struct XXxvEthernet {
 ******************************************************************************/
 #define XXxvEthernet_UsxgmiiLinkSts(InstancePtr)			 \
 	((XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,  \
-	XXE_USXGMII_AN_OFFSET) & XXE_USXGMII_LINK_STS_MASK) ? TRUE : FALSE)
+			       XXE_USXGMII_AN_OFFSET) & XXE_USXGMII_LINK_STS_MASK) ? TRUE : FALSE)
 
 /*****************************************************************************/
 /**
@@ -414,9 +414,9 @@ typedef struct XXxvEthernet {
 ******************************************************************************/
 #define XXxvEthernet_SetUsxgmiiAnEnable(InstancePtr)			\
 	(XXxvEthernet_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XXE_USXGMII_AN_OFFSET,					\
-		XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XXE_USXGMII_AN_OFFSET) | XXE_USXGMII_ANENABLE_MASK));
+			       XXE_USXGMII_AN_OFFSET,					\
+			       XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					       XXE_USXGMII_AN_OFFSET) | XXE_USXGMII_ANENABLE_MASK));
 
 /*****************************************************************************/
 /**
@@ -432,9 +432,9 @@ typedef struct XXxvEthernet {
 ******************************************************************************/
 #define XXxvEthernet_SetUsxgmiiAnBypass(InstancePtr)			\
 	(XXxvEthernet_WriteReg((InstancePtr)->Config.BaseAddress,	\
-		XXE_USXGMII_AN_OFFSET,					\
-		XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,	\
-		XXE_USXGMII_AN_OFFSET) | XXE_USXGMII_ANBYPASS_MASK));
+			       XXE_USXGMII_AN_OFFSET,					\
+			       XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,	\
+					       XXE_USXGMII_AN_OFFSET) | XXE_USXGMII_ANBYPASS_MASK));
 
 /*****************************************************************************/
 /**
@@ -451,7 +451,7 @@ typedef struct XXxvEthernet {
 ******************************************************************************/
 #define XXxvEthernet_GetUsxgmiiAnSts(InstancePtr)			\
 	XXxvEthernet_ReadReg((InstancePtr)->Config.BaseAddress,		\
-				XXE_ANSR_OFFSET);
+			     XXE_ANSR_OFFSET);
 
 /*****************************************************************************/
 /**
@@ -477,7 +477,7 @@ typedef struct XXxvEthernet {
  * Initialization functions in xxxvethernet.c
  */
 int XXxvEthernet_CfgInitialize(XXxvEthernet *InstancePtr,
-			XXxvEthernet_Config *CfgPtr,UINTPTR VirtualAddress);
+			       XXxvEthernet_Config *CfgPtr, UINTPTR VirtualAddress);
 int XXxvEthernet_Start(XXxvEthernet *InstancePtr);
 void XXxvEthernet_Stop(XXxvEthernet *InstancePtr);
 void XXxvEthernet_Reset(XXxvEthernet *InstancePtr);

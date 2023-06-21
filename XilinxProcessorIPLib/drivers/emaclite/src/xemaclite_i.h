@@ -70,7 +70,7 @@ extern "C" {
 *
 *****************************************************************************/
 #define XEmacLite_GetTxActive(BaseAddress)			\
-		 (XEmacLite_ReadReg((BaseAddress), XEL_TSR_OFFSET))
+	(XEmacLite_ReadReg((BaseAddress), XEL_TSR_OFFSET))
 
 /****************************************************************************/
 /**

@@ -69,7 +69,7 @@ XZDma_Config *XZDma_LookupConfig(u16 DeviceId)
 
 	/* Checks all the instances */
 	for (Index = (u32)0x0; Index < (u32)(XPAR_XZDMA_NUM_INSTANCES);
-								Index++) {
+	     Index++) {
 		if (XZDma_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XZDma_ConfigTable[Index];
 			break;

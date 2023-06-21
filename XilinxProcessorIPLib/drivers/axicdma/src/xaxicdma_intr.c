@@ -48,7 +48,7 @@ void XAxiCdma_IntrEnable(XAxiCdma *InstancePtr, u32 Mask)
 	RegValue = XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET);
 
 	XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET,
-		RegValue | (Mask & XAXICDMA_XR_IRQ_ALL_MASK));
+			  RegValue | (Mask & XAXICDMA_XR_IRQ_ALL_MASK));
 }
 
 /*****************************************************************************/
@@ -88,7 +88,7 @@ void XAxiCdma_IntrDisable(XAxiCdma *InstancePtr, u32 Mask)
 	RegValue = XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET);
 
 	XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET,
-		RegValue & ~(Mask & XAXICDMA_XR_IRQ_ALL_MASK));
+			  RegValue & ~(Mask & XAXICDMA_XR_IRQ_ALL_MASK));
 }
 
 /*****************************************************************************/
@@ -143,7 +143,7 @@ void XAxiCdma_IntrHandler(void *HandlerRef)
 	if (InstancePtr->SimpleNotDone) {
 		if (InstancePtr->SimpleCallBackFn) {
 			(InstancePtr->SimpleCallBackFn)(
-			    InstancePtr->SimpleCallBackRef, Irq, NULL);
+				InstancePtr->SimpleCallBackRef, Irq, NULL);
 
 			InstancePtr->SimpleCallBackFn = NULL;
 		}
@@ -153,13 +153,12 @@ void XAxiCdma_IntrHandler(void *HandlerRef)
 		if (InstancePtr->SGWaiting) {
 			XAxiCdma_BdRingStartTransfer(InstancePtr);
 		}
-	}
-	else {	/* SG transfer */
+	} else {	/* SG transfer */
 		if (InstancePtr->SgHandlerHead != InstancePtr->SgHandlerTail) {
 			int Tmp;
 
 			XAxiCdma_IntrHandlerList Handler =
-			    InstancePtr->Handlers[InstancePtr->SgHandlerHead];
+				InstancePtr->Handlers[InstancePtr->SgHandlerHead];
 
 			Tmp = Handler.NumBds;
 
@@ -184,10 +183,9 @@ void XAxiCdma_IntrHandler(void *HandlerRef)
 
 				InstancePtr->SgHandlerHead = Tmp;
 			}
-		}
-		else {
+		} else {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "ERROR: SG transfer intr without handler\r\n");
+				    "ERROR: SG transfer intr without handler\r\n");
 		}
 	}
 
@@ -227,7 +225,7 @@ void XAxiCdma_IntrHandler(void *HandlerRef)
 		 * as well as check the DMA engine registers
 		 */
 		return;
- 	}
+	}
 
 	return;
 }

@@ -60,62 +60,62 @@ typedef u32 XAxiVdma_Bd[XAXIVDMA_BD_MINIMUM_ALIGNMENT_WD];
 /* The DMA channel is only visible to driver files
  */
 typedef struct {
-    UINTPTR ChanBase;       /* Base address for this channel */
-    UINTPTR InstanceBase;   /* Base address for the whole device */
-    UINTPTR StartAddrBase;  /* Start address register array base */
+	UINTPTR ChanBase;       /* Base address for this channel */
+	UINTPTR InstanceBase;   /* Base address for the whole device */
+	UINTPTR StartAddrBase;  /* Start address register array base */
 
-    int IsValid;        /* Whether the channel has been initialized */
-    int FlushonFsync;	/* VDMA Transactions are flushed & channel states
+	int IsValid;        /* Whether the channel has been initialized */
+	int FlushonFsync;	/* VDMA Transactions are flushed & channel states
 			   reset on Frame Sync */
-    int HasSG;          /* Whether hardware has SG engine */
-    int IsRead;         /* Read or write channel */
-    int HasDRE;         /* Whether support unaligned transfer */
-    int LineBufDepth;	/* Depth of Channel Line Buffer FIFO */
-    int LineBufThreshold;	/* Threshold point at which Channel Line
+	int HasSG;          /* Whether hardware has SG engine */
+	int IsRead;         /* Read or write channel */
+	int HasDRE;         /* Whether support unaligned transfer */
+	int LineBufDepth;	/* Depth of Channel Line Buffer FIFO */
+	int LineBufThreshold;	/* Threshold point at which Channel Line
 				 *  almost empty flag asserts high */
-    int WordLength;     /* Word length */
-    int NumFrames;	/* Number of frames to work on */
+	int WordLength;     /* Word length */
+	int NumFrames;	/* Number of frames to work on */
 
-    UINTPTR HeadBdPhysAddr; /* Physical address of the first BD */
-    UINTPTR HeadBdAddr;     /* Virtual address of the first BD */
-    UINTPTR TailBdPhysAddr; /* Physical address of the last BD */
-    UINTPTR TailBdAddr;     /* Virtual address of the last BD */
-    int Hsize;          /* Horizontal size */
-    int Vsize;          /* Vertical size saved for no-sg mode hw start */
+	UINTPTR HeadBdPhysAddr; /* Physical address of the first BD */
+	UINTPTR HeadBdAddr;     /* Virtual address of the first BD */
+	UINTPTR TailBdPhysAddr; /* Physical address of the last BD */
+	UINTPTR TailBdAddr;     /* Virtual address of the last BD */
+	int Hsize;          /* Horizontal size */
+	int Vsize;          /* Vertical size saved for no-sg mode hw start */
 
-    int AllCnt;         /* Total number of BDs */
+	int AllCnt;         /* Total number of BDs */
 
-    int GenLock;	/* Mm2s Gen Lock Mode */
-    int S2MmSOF;	/* S2MM Start of Flag */
-    int StreamWidth;     /* Stream Width */
-    XAxiVdma_Bd BDs[XAXIVDMA_MAX_FRAMESTORE] __attribute__((__aligned__(32)));
-                        /*Statically allocated BDs */
-    u32 DbgFeatureFlags; /* Debug Parameter Flags */
+	int GenLock;	/* Mm2s Gen Lock Mode */
+	int S2MmSOF;	/* S2MM Start of Flag */
+	int StreamWidth;     /* Stream Width */
+	XAxiVdma_Bd BDs[XAXIVDMA_MAX_FRAMESTORE] __attribute__((__aligned__(32)));
+	/*Statically allocated BDs */
+	u32 DbgFeatureFlags; /* Debug Parameter Flags */
 	int AddrWidth;
 	int direction;	/* Determines whether Read or write channel */
 	u8 HasVFlip;  /* Whether hardware has Vertical Flip enabled */
-}XAxiVdma_Channel;
+} XAxiVdma_Channel;
 
 /* Duplicate layout of XAxiVdma_DmaSetup
  *
  * So to remove the dependency on xaxivdma.h
  */
 typedef struct {
-    int VertSizeInput;      /**< Vertical size input */
-    int HoriSizeInput;      /**< Horizontal size input */
-    int Stride;             /**< Stride */
-    int FrameDelay;         /**< Frame Delay */
+	int VertSizeInput;      /**< Vertical size input */
+	int HoriSizeInput;      /**< Horizontal size input */
+	int Stride;             /**< Stride */
+	int FrameDelay;         /**< Frame Delay */
 
-    int EnableCircularBuf;  /**< Circular Buffer Mode? */
-    int EnableSync;         /**< Gen-Lock Mode? */
-    int PointNum;           /**< Master we synchronize with */
-    int EnableFrameCounter; /**< Frame Counter Enable */
-    UINTPTR FrameStoreStartAddr[XAXIVDMA_MAX_FRAMESTORE];
-                            /**< Start Addresses of Frame Store Buffers. */
-    int FixedFrameStoreAddr;/**< Fixed Frame Store Address index */
-    int GenLockRepeat;      /**< Gen-Lock Repeat? */
-    u8 EnableVFlip;	    /**< Vertical Flip state */
-}XAxiVdma_ChannelSetup;
+	int EnableCircularBuf;  /**< Circular Buffer Mode? */
+	int EnableSync;         /**< Gen-Lock Mode? */
+	int PointNum;           /**< Master we synchronize with */
+	int EnableFrameCounter; /**< Frame Counter Enable */
+	UINTPTR FrameStoreStartAddr[XAXIVDMA_MAX_FRAMESTORE];
+	/**< Start Addresses of Frame Store Buffers. */
+	int FixedFrameStoreAddr;/**< Fixed Frame Store Address index */
+	int GenLockRepeat;      /**< Gen-Lock Repeat? */
+	u8 EnableVFlip;	    /**< Vertical Flip state */
+} XAxiVdma_ChannelSetup;
 
 /************************** Function Prototypes ******************************/
 /* Channel API
@@ -138,19 +138,19 @@ u32 XAxiVdma_ChannelGetPendingIntr(XAxiVdma_Channel *Channel);
 u32 XAxiVdma_ChannelGetEnabledIntr(XAxiVdma_Channel *Channel);
 void XAxiVdma_ChannelIntrClear(XAxiVdma_Channel *Channel, u32 IntrType);
 int XAxiVdma_ChannelStartTransfer(XAxiVdma_Channel *Channel,
-        XAxiVdma_ChannelSetup *ChannelCfgPtr);
+				  XAxiVdma_ChannelSetup *ChannelCfgPtr);
 int XAxiVdma_ChannelSetBdAddrs(XAxiVdma_Channel *Channel, UINTPTR BdAddrPhys,
-          UINTPTR BdAddrVirt);
+			       UINTPTR BdAddrVirt);
 int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
-        XAxiVdma_ChannelSetup *ChannelCfgPtr);
+			   XAxiVdma_ChannelSetup *ChannelCfgPtr);
 int XAxiVdma_ChannelSetBufferAddr(XAxiVdma_Channel *Channel, UINTPTR *AddrSet,
-        int NumFrames);
+				  int NumFrames);
 int XAxiVdma_ChannelStart(XAxiVdma_Channel *Channel);
 void XAxiVdma_ChannelStop(XAxiVdma_Channel *Channel);
 int XAxiVdma_ChannelSetFrmCnt(XAxiVdma_Channel *Channel, u8 FrmCnt,
-        u8 DlyCnt);
+			      u8 DlyCnt);
 void XAxiVdma_ChannelGetFrmCnt(XAxiVdma_Channel *Channel, u8 *FrmCnt,
-        u8 *DlyCnt);
+			       u8 *DlyCnt);
 u32 XAxiVdma_ChannelErrors(XAxiVdma_Channel *Channel);
 void XAxiVdma_ClearChannelErrors(XAxiVdma_Channel *Channel, u32 ErrorMask);
 #ifdef __cplusplus

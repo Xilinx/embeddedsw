@@ -166,8 +166,8 @@ typedef enum {
 } XMcdma_Handler;
 
 typedef enum {
-        XMCDMA_CHAN_HANDLER_DONE,     /**< For Done Handler */
-        XMCDMA_CHAN_HANDLER_ERROR,    /**< For Error Handler */
+	XMCDMA_CHAN_HANDLER_DONE,     /**< For Done Handler */
+	XMCDMA_CHAN_HANDLER_ERROR,    /**< For Error Handler */
 	XMCDMA_CHAN_HANDLER_PKTDROP,    /**< For Error Handler */
 } XMcdma_ChanHandler;
 
@@ -295,8 +295,8 @@ typedef struct {
 *****************************************************************************/
 #define XMcdma_DisableCh(Chan, ChanId) \
 	(XMcdma_WriteReg(Chan->ChanBase,(XMCDMA_CHEN_OFFSET), \
-		XMcdma_ReadReg((Chan)->ChanBase, XMCDMA_CHEN_OFFSET) & \
-			~(ChanId & XMCDMA_CHEN_MASK)))
+			 XMcdma_ReadReg((Chan)->ChanBase, XMCDMA_CHEN_OFFSET) & \
+			 ~(ChanId & XMCDMA_CHEN_MASK)))
 
 /*****************************************************************************/
 /**
@@ -327,7 +327,7 @@ typedef struct {
 *****************************************************************************/
 #define XMcdma_isidle(Chan) \
 	(XMcdma_ReadReg(Chan->ChanBase, XMCDMA_SR_OFFSET) & \
-			XMCDMA_SR_IDLE_MASK)
+	 XMCDMA_SR_IDLE_MASK)
 
 /*****************************************************************************/
 /**
@@ -343,11 +343,11 @@ typedef struct {
  *
  *****************************************************************************/
 #define XMcdma_IntrEnable(Chan, Mask) 	\
-     (XMcdma_WriteReg((Chan)->ChanBase, \
+	(XMcdma_WriteReg((Chan)->ChanBase, \
 			 (Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET, \
-		 XMcdma_ReadReg((Chan)->ChanBase, (Chan->Chan_id - 1) *    \
-				XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET) | \
-			        ((Mask) & XMCDMA_IRQ_ALL_MASK)))
+			 XMcdma_ReadReg((Chan)->ChanBase, (Chan->Chan_id - 1) *    \
+					XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET) | \
+			 ((Mask) & XMCDMA_IRQ_ALL_MASK)))
 
 /*****************************************************************************/
 /**
@@ -364,10 +364,10 @@ typedef struct {
  *****************************************************************************/
 #define XMcdma_IntrDisable(Chan, Mask) 	\
 	(XMcdma_WriteReg((Chan)->ChanBase,  \
-			(Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET, \
-			XMcdma_ReadReg((Chan)->ChanBase, (Chan->Chan_id - 1) * \
-				       XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET) & \
-				       ~((Mask) & XMCDMA_IRQ_ALL_MASK)))
+			 (Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET, \
+			 XMcdma_ReadReg((Chan)->ChanBase, (Chan->Chan_id - 1) * \
+					XMCDMA_NXTCHAN_OFFSET + XMCDMA_CR_OFFSET) & \
+			 ~((Mask) & XMCDMA_IRQ_ALL_MASK)))
 
 /*****************************************************************************/
 /**
@@ -399,7 +399,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XMcdma_GetMcdmaTxChan(InstancePtr, ChanId) \
-		 (&((InstancePtr)->Tx_Chan[ChanId]))
+	(&((InstancePtr)->Tx_Chan[ChanId]))
 
 /*****************************************************************************/
 /**
@@ -417,7 +417,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XMcdma_GetMcdmaRxChan(InstancePtr, ChanId) \
-		 (&((InstancePtr)->Rx_Chan[ChanId]))
+	(&((InstancePtr)->Rx_Chan[ChanId]))
 
 /*****************************************************************************/
 /**
@@ -458,7 +458,7 @@ typedef struct {
  *****************************************************************************/
 #define XMcdma_ChanGetIrq(Chan)				\
 	(XMcdma_ReadReg(Chan->ChanBase, ((Chan->Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET + \
-		       XMCDMA_SR_OFFSET)) & XMCDMA_IRQ_ALL_MASK)
+					 XMCDMA_SR_OFFSET)) & XMCDMA_IRQ_ALL_MASK)
 /*****************************************************************************/
 /**
  * This function acknowledges the interrupts that are specified in Mask
@@ -491,7 +491,7 @@ typedef struct {
 *****************************************************************************/
 #define XMcdma_GetChanPktDrp_Cnt(Chan, ChanId) \
 	XMcdma_ReadReg(Chan->ChanBase, ((ChanId - 1) * XMCDMA_NXTCHAN_OFFSET + \
-		       XMCDMA_PKTDROP_OFFSET))
+					XMCDMA_PKTDROP_OFFSET))
 
 /*****************************************************************************/
 /**
@@ -542,7 +542,7 @@ typedef struct {
 *****************************************************************************/
 #define XMcdma_GetEgressObserver(InstancePtr, ObsId)	\
 	XMcdma_ReadReg(InstancePtr->Config.BaseAddress, (((ObsId - 1) * XMCDMA_NXTOBS_OFFSET) + \
-			   XMCDMA_CHOBS1_OFFSET))
+			XMCDMA_CHOBS1_OFFSET))
 
 /*****************************************************************************/
 /**
@@ -559,7 +559,7 @@ typedef struct {
 *****************************************************************************/
 #define XMcdma_GetIngressObserver(InstancePtr, ObsId)	\
 	XMcdma_ReadReg(InstancePtr->Config.BaseAddress, (((ObsId - 1) * XMCDMA_NXTOBS_OFFSET) + \
-		       XMCDMA_RX_OFFSET + XMCDMA_CHOBS1_OFFSET))
+			XMCDMA_RX_OFFSET + XMCDMA_CHOBS1_OFFSET))
 
 #if defined (__aarch64__) || defined (__arch64__)
 #define MAX_TRANSFER_LEN(h) \
@@ -571,10 +571,10 @@ typedef struct {
 
 #if defined (__aarch64__) || defined (__arch64__)
 #define WRR_MASK(h, l) \
-         (((~0UL) << (l)) & (~0UL >> (64 - 1 - (h))))
+	(((~0UL) << (l)) & (~0UL >> (64 - 1 - (h))))
 #else
 #define WRR_MASK(h, l) \
-         (((~0UL) << (l)) & (~0UL >> (32 - 1 - (h))))
+	(((~0UL) << (l)) & (~0UL >> (32 - 1 - (h))))
 #endif
 
 
@@ -614,10 +614,10 @@ int XMcdma_BdChainFromHW(XMcdma_ChanCtrl *Chan, u32 BdLimit,
 int XMcdma_BdChainFree(XMcdma_ChanCtrl *Chan, int BdCount, XMcdma_Bd *BdSetPtr);
 u32 XMcdma_BdSetBufAddr(XMcdma_Bd *BdPtr, UINTPTR Addr);
 void XMcDma_BdSetCtrl(XMcdma_Bd *BdPtr, u32 Data);
-void XMcDma_DumpBd(XMcdma_Bd* BdPtr);
+void XMcDma_DumpBd(XMcdma_Bd *BdPtr);
 
-int XMcDma_BdSetAppWord(XMcdma_Bd* BdPtr, int Offset, u32 Word);
-u32 XMcDma_BdGetAppWord(XMcdma_Bd* BdPtr, int Offset, int *Valid);
+int XMcDma_BdSetAppWord(XMcdma_Bd *BdPtr, int Offset, u32 Word);
+u32 XMcDma_BdGetAppWord(XMcdma_Bd *BdPtr, int Offset, int *Valid);
 
 /* Global OR'ed Single interrupt */
 void XMcdma_IntrHandler(void *Instance);
@@ -627,7 +627,7 @@ s32 XMcdma_SetCallBack(XMcdma *InstancePtr, XMcdma_Handler HandlerType,
 /* Per Channel interrupt */
 void XMcdma_ChanIntrHandler(void *Instance);
 s32 XMcdma_ChanSetCallBack(XMcdma_ChanCtrl *Chan, XMcdma_ChanHandler HandlerType,
-			      void *CallBackFunc, void *CallBackRef);
+			   void *CallBackFunc, void *CallBackRef);
 #ifdef __cplusplus
 }
 

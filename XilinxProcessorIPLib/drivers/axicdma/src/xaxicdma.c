@@ -67,7 +67,7 @@ void XAxiCdma_Reset(XAxiCdma *InstancePtr)
 {
 
 	XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET,
-	      XAXICDMA_CR_RESET_MASK);
+			  XAXICDMA_CR_RESET_MASK);
 
 	/* Mark no outstanding transfers
 	 */
@@ -106,7 +106,7 @@ int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr)
 	/* If the reset bit is still high, then reset is not done
 	 */
 	return ((XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET) &
-	    XAXICDMA_CR_RESET_MASK) ? 0 : 1);
+		 XAXICDMA_CR_RESET_MASK) ? 0 : 1);
 }
 
 /*****************************************************************************/
@@ -132,7 +132,7 @@ int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr)
  *
  *****************************************************************************/
 u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
-		UINTPTR EffectiveAddr)
+			   UINTPTR EffectiveAddr)
 {
 	u32 RegValue;
 	int TimeOut;
@@ -151,7 +151,7 @@ u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
 	 */
 	if (InstancePtr->WordLength < 4) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "Word length too short %d\r\n", InstancePtr->WordLength);
+			    "Word length too short %d\r\n", InstancePtr->WordLength);
 
 		return XST_INVALID_PARAM;
 	}
@@ -166,9 +166,8 @@ u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
 	 */
 	if (InstancePtr->SimpleOnlyBuild && CfgPtr->IsLite) {
 		InstancePtr->MaxTransLen = InstancePtr->WordLength *
-		      CfgPtr->BurstLen;
-	}
-	else {
+					   CfgPtr->BurstLen;
+	} else {
 		InstancePtr->MaxTransLen = XAXICDMA_MAX_TRANSFER_LEN;
 	}
 
@@ -231,7 +230,7 @@ int XAxiCdma_IsBusy(XAxiCdma *InstancePtr)
 	/* If the idle bit is high, then hardware is not busy
 	 */
 	return ((XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_SR_OFFSET) &
-	    XAXICDMA_SR_IDLE_MASK) ? 0 : 1);
+		 XAXICDMA_SR_IDLE_MASK) ? 0 : 1);
 }
 
 /*****************************************************************************/
@@ -250,7 +249,7 @@ int XAxiCdma_IsBusy(XAxiCdma *InstancePtr)
 int XAxiCdma_IsSimpleMode(XAxiCdma *InstancePtr)
 {
 	return ((XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET) &
-		XAXICDMA_CR_SGMODE_MASK) ? 0 : 1);
+		 XAXICDMA_CR_SGMODE_MASK) ? 0 : 1);
 }
 
 /*****************************************************************************/
@@ -275,34 +274,35 @@ int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select)
 
 	if (XAxiCdma_IsBusy(InstancePtr)) {
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "KeyHole: Transfer is in Progress\n\r");
+			    "KeyHole: Transfer is in Progress\n\r");
 		return XST_DEVICE_BUSY;
 	}
 
-	Value = XAxiCdma_ReadReg(InstancePtr->BaseAddr, 
-				XAXICDMA_CR_OFFSET);
+	Value = XAxiCdma_ReadReg(InstancePtr->BaseAddr,
+				 XAXICDMA_CR_OFFSET);
 
 	if (Select) {
 		if (XPAR_AXICDMA_0_M_AXI_MAX_BURST_LEN == 16) {
-			if (Direction == XAXICDMA_KEYHOLE_WRITE)
+			if (Direction == XAXICDMA_KEYHOLE_WRITE) {
 				Value |= XAXICDMA_CR_KHOLE_WR_MASK;
-			else
+			} else {
 				Value |= XAXICDMA_CR_KHOLE_RD_MASK;
+			}
 		} else {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-				"KeyHole: Max Burst length should be 16\n\r");
+				    "KeyHole: Max Burst length should be 16\n\r");
 			return XST_NO_FEATURE;
 		}
-	}
-	else {
-		if (Direction == XAXICDMA_KEYHOLE_WRITE)
+	} else {
+		if (Direction == XAXICDMA_KEYHOLE_WRITE) {
 			Value &= ~XAXICDMA_CR_KHOLE_WR_MASK;
-		else
-			Value &= ~XAXICDMA_CR_KHOLE_RD_MASK; 
+		} else {
+			Value &= ~XAXICDMA_CR_KHOLE_RD_MASK;
+		}
 	}
 
 	XAxiCdma_WriteReg(InstancePtr->BaseAddr,
-			XAXICDMA_CR_OFFSET, Value);
+			  XAXICDMA_CR_OFFSET, Value);
 
 	return XST_SUCCESS;
 }
@@ -338,7 +338,7 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
 
 		if (XAxiCdma_IsBusy(InstancePtr)) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "SwitchMode: engine is busy\r\n");
+				    "SwitchMode: engine is busy\r\n");
 			return XST_DEVICE_BUSY;
 		}
 
@@ -349,25 +349,23 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
 		 * be in SG mode if a SG transfer has been submitted.
 		 */
 		InstancePtr->BdaRestart = XAxiCdma_BdRingNext(InstancePtr,
-		    XAxiCdma_BdRingGetCurrBd(InstancePtr));
+					  XAxiCdma_BdRingGetCurrBd(InstancePtr));
 
 		/* Update the CR register to switch to simple mode
 		 */
 		XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET,
-		  (XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET)
-		  & ~XAXICDMA_CR_SGMODE_MASK));
+				  (XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET)
+				   & ~XAXICDMA_CR_SGMODE_MASK));
 
 		/* Hardware mode switch is quick, should succeed right away
 		 */
 		if (XAxiCdma_IsSimpleMode(InstancePtr)) {
 
 			return XST_SUCCESS;
-		}
-		else {
+		} else {
 			return XST_FAILURE;
 		}
-	}
-	else if (Mode == XAXICDMA_SG_MODE) {
+	} else if (Mode == XAXICDMA_SG_MODE) {
 
 		if (!XAxiCdma_IsSimpleMode(InstancePtr)) {
 			return XST_SUCCESS;
@@ -375,21 +373,21 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
 
 		if (InstancePtr->SimpleOnlyBuild) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "SwitchMode: hardware simple mode only\r\n");
+				    "SwitchMode: hardware simple mode only\r\n");
 			return XST_FAILURE;
 		}
 
 		if (XAxiCdma_IsBusy(InstancePtr)) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "SwitchMode: engine is busy\r\n");
+				    "SwitchMode: engine is busy\r\n");
 			return XST_DEVICE_BUSY;
 		}
 
 		/* Update the CR register to switch to SG mode
 		 */
 		XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET,
-		  (XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET)
-		  | XAXICDMA_CR_SGMODE_MASK));
+				  (XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET)
+				   | XAXICDMA_CR_SGMODE_MASK));
 
 		/* Hardware mode switch is quick, should succeed right away
 		 */
@@ -399,15 +397,13 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
 			 * to start from the CDESC
 			 */
 			XAxiCdma_BdSetCurBdPtr(InstancePtr,
-				(UINTPTR)InstancePtr->BdaRestart);
+					       (UINTPTR)InstancePtr->BdaRestart);
 
 			return XST_SUCCESS;
-		}
-		else {
+		} else {
 			return XST_FAILURE;
 		}
-	}
-	else {	/* Invalid mode */
+	} else {	/* Invalid mode */
 		return XST_INVALID_PARAM;
 	}
 }
@@ -443,7 +439,7 @@ int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
  *
  *****************************************************************************/
 u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstAddr,
-	int Length, XAxiCdma_CallBackFn SimpleCallBack, void *CallBackRef)
+			    int Length, XAxiCdma_CallBackFn SimpleCallBack, void *CallBackRef)
 {
 	u32 WordBits;
 
@@ -457,8 +453,8 @@ u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstA
 
 		if (!InstancePtr->HasDRE) {
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Unaligned transfer without DRE %x/%x\r\n",
-			    (unsigned int)SrcAddr, (unsigned int)DstAddr);
+				    "Unaligned transfer without DRE %x/%x\r\n",
+				    (unsigned int)SrcAddr, (unsigned int)DstAddr);
 
 			return XST_INVALID_PARAM;
 		}
@@ -488,7 +484,7 @@ u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstA
 		    XST_SUCCESS) {
 
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "Cannot switch to simple mode\r\n");
+				    "Cannot switch to simple mode\r\n");
 
 			return XST_FAILURE;
 		}
@@ -501,8 +497,8 @@ u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstA
 	 * with the transfer, the driver is done with the transfer
 	 */
 	if ((SimpleCallBack != NULL) ||
-	       ((XAxiCdma_IntrGetEnabled(InstancePtr) &
-	        XAXICDMA_XR_IRQ_SIMPLE_ALL_MASK) != 0x0)) {
+	    ((XAxiCdma_IntrGetEnabled(InstancePtr) &
+	      XAXICDMA_XR_IRQ_SIMPLE_ALL_MASK) != 0x0)) {
 
 		InstancePtr->SimpleNotDone = 1;
 	}
@@ -527,7 +523,7 @@ u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstA
 	/* Writing to the BTT register starts the transfer
 	 */
 	XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_BTT_OFFSET,
-		Length);
+			  Length);
 
 	return XST_SUCCESS;
 }
@@ -576,7 +572,7 @@ int XAxiCdma_SetCoalesce(XAxiCdma *InstancePtr, u32 Counter, u32 Delay)
 		}
 
 		RegValue = (RegValue & ~XAXICDMA_XR_COALESCE_MASK) |
-		      (Counter << XAXICDMA_COALESCE_SHIFT);
+			   (Counter << XAXICDMA_COALESCE_SHIFT);
 	}
 
 	if (Delay != XAXICDMA_COALESCE_NO_CHANGE) {
@@ -587,12 +583,12 @@ int XAxiCdma_SetCoalesce(XAxiCdma *InstancePtr, u32 Counter, u32 Delay)
 		}
 
 		RegValue = (RegValue & ~XAXICDMA_XR_DELAY_MASK) |
-		      (Delay << XAXICDMA_DELAY_SHIFT);
+			   (Delay << XAXICDMA_DELAY_SHIFT);
 	}
 
 	if (!NoChange) {
 		XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET,
-			RegValue);
+				  RegValue);
 	}
 
 	return XST_SUCCESS;
@@ -614,7 +610,7 @@ int XAxiCdma_SetCoalesce(XAxiCdma *InstancePtr, u32 Counter, u32 Delay)
  *
  *****************************************************************************/
 void XAxiCdma_GetCoalesce(XAxiCdma *InstancePtr, u32 *CounterPtr,
-	u32 *DelayPtr)
+			  u32 *DelayPtr)
 {
 	u32 RegValue;
 
@@ -631,10 +627,10 @@ void XAxiCdma_GetCoalesce(XAxiCdma *InstancePtr, u32 *CounterPtr,
 	RegValue = XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_CR_OFFSET);
 
 	*CounterPtr = (RegValue & XAXICDMA_XR_COALESCE_MASK)
-		     >> XAXICDMA_COALESCE_SHIFT;
+		      >> XAXICDMA_COALESCE_SHIFT;
 
 	*DelayPtr = (RegValue & XAXICDMA_XR_DELAY_MASK)
-		     >> XAXICDMA_DELAY_SHIFT;
+		    >> XAXICDMA_DELAY_SHIFT;
 
 	return;
 }
@@ -658,27 +654,27 @@ void XAxiCdma_DumpRegisters(XAxiCdma *InstancePtr)
 
 	xil_printf("Dump registers:\r\n");
 	xil_printf("Control register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_CR_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_CR_OFFSET));
 	xil_printf("Status register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_SR_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_SR_OFFSET));
 	xil_printf("Current BD register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_CDESC_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_CDESC_OFFSET));
 	xil_printf("Current BD MSB register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_CDESC_MSB_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_CDESC_MSB_OFFSET));
 	xil_printf("Tail BD register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_TDESC_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_TDESC_OFFSET));
 	xil_printf("Tail BD MSB register: %x\r\n",
-			XAxiCdma_ReadReg(RegBase, XAXICDMA_TDESC_MSB_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_TDESC_MSB_OFFSET));
 	xil_printf("Source Addr register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_SRCADDR_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_SRCADDR_OFFSET));
 	xil_printf("Source Addr MSB register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_SRCADDR_MSB_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_SRCADDR_MSB_OFFSET));
 	xil_printf("Destination Addr register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_DSTADDR_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_DSTADDR_OFFSET));
 	xil_printf("Destination Addr MSB register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_DSTADDR_MSB_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_DSTADDR_MSB_OFFSET));
 	xil_printf("BTT register: %x\r\n",
-		XAxiCdma_ReadReg(RegBase, XAXICDMA_BTT_OFFSET));
+		   XAxiCdma_ReadReg(RegBase, XAXICDMA_BTT_OFFSET));
 
 	return;
 }

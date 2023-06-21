@@ -211,36 +211,36 @@ extern "C" {
 xdbg_stmnt(extern int indent_on);
 
 #define XXxvEthernet_indent(RegOffset) \
- ((indent_on && ((RegOffset) >= XXE_GRR_OFFSET) && ((RegOffset) <= 	\
- XXE_ANASR_OFFSET)) ? "\t" : "")
+	((indent_on && ((RegOffset) >= XXE_GRR_OFFSET) && ((RegOffset) <= 	\
+			XXE_ANASR_OFFSET)) ? "\t" : "")
 
 
 #define XXxvEthernet_reg_name(RegOffset) \
 	(((RegOffset) == XXE_GRR_OFFSET) ? "XXE_GRR_OFFSET": \
-	((RegOffset) == XXE_RST_OFFSET) ? "XXE_RST_OFFSET": \
-	((RegOffset) == XXE_MODE_OFFSET) ? "XXE_MODE_OFFSET": \
-	((RegOffset) == XXE_TXCFG_OFFSET) ? "XXE_TXCFG_OFFSET": \
-	((RegOffset) == XXE_RXCFG_OFFSET) ? "XXE_RXCFG_OFFSET": \
-	((RegOffset) == XXE_RXMTU_OFFSET) ? "XXE_RXMTU_OFFSET": \
-	((RegOffset) == XXE_TICK_OFFSET) ? "XXE_TICK_OFFSET": \
-	((RegOffset) == XXE_REV_OFFSET) ? "XXE_REV_OFFSET": \
-	((RegOffset) == XXE_TXSR_OFFSET) ? "XXE_TXSR_OFFSET": \
-	((RegOffset) == XXE_RXSR_OFFSET) ? "XXE_RXSR_OFFSET": \
-	((RegOffset) == XXE_SR_OFFSET) ? "XXE_SR_OFFSET": \
-	((RegOffset) == XXE_RXBLSR_OFFSET) ? "XXE_RXBLSR_OFFSET": \
-	((RegOffset) == XXE_ANSR_OFFSET) ? "XXE_ANSR_OFFSET": \
-	((RegOffset) == XXE_ANASR_OFFSET) ? "XXE_ANASR_OFFSET": \
-	"unknown")
+	 ((RegOffset) == XXE_RST_OFFSET) ? "XXE_RST_OFFSET": \
+	 ((RegOffset) == XXE_MODE_OFFSET) ? "XXE_MODE_OFFSET": \
+	 ((RegOffset) == XXE_TXCFG_OFFSET) ? "XXE_TXCFG_OFFSET": \
+	 ((RegOffset) == XXE_RXCFG_OFFSET) ? "XXE_RXCFG_OFFSET": \
+	 ((RegOffset) == XXE_RXMTU_OFFSET) ? "XXE_RXMTU_OFFSET": \
+	 ((RegOffset) == XXE_TICK_OFFSET) ? "XXE_TICK_OFFSET": \
+	 ((RegOffset) == XXE_REV_OFFSET) ? "XXE_REV_OFFSET": \
+	 ((RegOffset) == XXE_TXSR_OFFSET) ? "XXE_TXSR_OFFSET": \
+	 ((RegOffset) == XXE_RXSR_OFFSET) ? "XXE_RXSR_OFFSET": \
+	 ((RegOffset) == XXE_SR_OFFSET) ? "XXE_SR_OFFSET": \
+	 ((RegOffset) == XXE_RXBLSR_OFFSET) ? "XXE_RXBLSR_OFFSET": \
+	 ((RegOffset) == XXE_ANSR_OFFSET) ? "XXE_ANSR_OFFSET": \
+	 ((RegOffset) == XXE_ANASR_OFFSET) ? "XXE_ANASR_OFFSET": \
+	 "unknown")
 
 #define XXxvEthernet_print_reg_o(BaseAddress, RegOffset, Value) 	\
 	xdbg_printf(XDBG_DEBUG_TEMAC_REG, "%s0x%0x -> %s(0x%0x)\n", 	\
-			XXxvEthernet_indent(RegOffset), (Value), 	\
-			XXxvEthernet_reg_name(RegOffset), (RegOffset)) 	\
+		    XXxvEthernet_indent(RegOffset), (Value), 	\
+		    XXxvEthernet_reg_name(RegOffset), (RegOffset)) 	\
 
 #define XXxvEthernet_print_reg_i(BaseAddress, RegOffset, Value) \
 	xdbg_printf(XDBG_DEBUG_TEMAC_REG, "%s%s(0x%0x) -> 0x%0x\n", \
-		XXxvEthernet_indent(RegOffset),  \
-		XXxvEthernet_reg_name(RegOffset),(RegOffset), (Value)) \
+		    XXxvEthernet_indent(RegOffset),  \
+		    XXxvEthernet_reg_name(RegOffset),(RegOffset), (Value)) \
 
 /****************************************************************************/
 /**
@@ -259,11 +259,11 @@ xdbg_stmnt(extern int indent_on);
 *****************************************************************************/
 #ifdef DEBUG
 #define XXxvEthernet_ReadReg(BaseAddress, RegOffset) 			\
-({									\
-	u32 value; 							\
-	value = Xil_In32(((BaseAddress) + (RegOffset))); 		\
-	XXxvEthernet_print_reg_i((BaseAddress), (RegOffset), value);	\
-})
+	({									\
+		u32 value; 							\
+		value = Xil_In32(((BaseAddress) + (RegOffset))); 		\
+		XXxvEthernet_print_reg_i((BaseAddress), (RegOffset), value);	\
+	})
 #else
 #define XXxvEthernet_ReadReg(BaseAddress, RegOffset) 			\
 	(Xil_In32(((BaseAddress) + (RegOffset))))
@@ -288,10 +288,10 @@ xdbg_stmnt(extern int indent_on);
 *****************************************************************************/
 #ifdef DEBUG
 #define XXxvEthernet_WriteReg(BaseAddress, RegOffset, Data)		\
-({ 									\
-	XXxvEthernet_print_reg_o((BaseAddress), (RegOffset), (Data));	\
-	Xil_Out32(((BaseAddress) + (RegOffset)), (Data)); 		\
-})
+	({ 									\
+		XXxvEthernet_print_reg_o((BaseAddress), (RegOffset), (Data));	\
+		Xil_Out32(((BaseAddress) + (RegOffset)), (Data)); 		\
+	})
 #else
 #define XXxvEthernet_WriteReg(BaseAddress, RegOffset, Data) \
 	Xil_Out32(((BaseAddress) + (RegOffset)), (Data))
@@ -299,7 +299,7 @@ xdbg_stmnt(extern int indent_on);
 
 
 #ifdef __cplusplus
-  }
+}
 #endif
 
 #endif /* end of protection macro */

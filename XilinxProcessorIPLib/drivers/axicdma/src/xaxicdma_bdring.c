@@ -49,16 +49,16 @@
  *
  *****************************************************************************/
 #define XAXICDMA_RING_SEEKAHEAD(InstancePtr, BdPtr, NumBd)         \
-{                                                                  \
-    UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                       \
-                                                                   \
-    Addr += ((InstancePtr)->BdSeparation * (NumBd));               \
-    if (Addr > (InstancePtr)->LastBdAddr) {                        \
-        Addr -= (InstancePtr)->BdRingTotalLen;                     \
-    }                                                              \
-                                                                   \
-    (BdPtr) = (XAxiCdma_Bd *)(void *)Addr;                                  \
-}
+	{                                                                  \
+		UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                       \
+		\
+		Addr += ((InstancePtr)->BdSeparation * (NumBd));               \
+		if (Addr > (InstancePtr)->LastBdAddr) {                        \
+			Addr -= (InstancePtr)->BdRingTotalLen;                     \
+		}                                                              \
+		\
+		(BdPtr) = (XAxiCdma_Bd *)(void *)Addr;                                  \
+	}
 
 /******************************************************************************
  * Move the BdPtr argument backwards an arbitrary number of BDs. Wrapping
@@ -76,16 +76,16 @@
  *
  *****************************************************************************/
 #define XAXICDMA_RING_SEEKBACK(InstancePtr, BdPtr, NumBd)        \
-{                                                                \
-    UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                                     \
-                                                                 \
-    Addr -= ((InstancePtr)->BdSeparation * (NumBd));             \
-    if (Addr < (InstancePtr)->FirstBdAddr) {                     \
-        Addr += (InstancePtr)->BdRingTotalLen;                   \
-    }                                                            \
-                                                                 \
-    (BdPtr) = (XAxiCdma_Bd*)(void *)Addr;                                \
-}
+	{                                                                \
+		UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                                     \
+		\
+		Addr -= ((InstancePtr)->BdSeparation * (NumBd));             \
+		if (Addr < (InstancePtr)->FirstBdAddr) {                     \
+			Addr += (InstancePtr)->BdRingTotalLen;                   \
+		}                                                            \
+		\
+		(BdPtr) = (XAxiCdma_Bd*)(void *)Addr;                                \
+	}
 
 /*****************************************************************************/
 /**
@@ -114,12 +114,12 @@ u32 XAxiCdma_BdRingCntCalc(u32 Alignment, u32 Bytes, UINTPTR BdBuffAddr)
 	 */
 	if (BdBuffAddr & Alignment) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid buffer addr %x\r\n",
-			(unsigned int)BdBuffAddr);
+			    (unsigned int)BdBuffAddr);
 		return 0;
 	}
 
 	return ((uint32_t)(Bytes) / ((sizeof(XAxiCdma_Bd) + (Alignment - 1)) &
-               ~(Alignment - 1)));
+				     ~(Alignment - 1)));
 }
 
 /*****************************************************************************/
@@ -138,7 +138,7 @@ u32 XAxiCdma_BdRingCntCalc(u32 Alignment, u32 Bytes, UINTPTR BdBuffAddr)
 u32 XAxiCdma_BdRingMemCalc(u32 Alignment, int NumBd)
 {
 	return (uint32_t)(((sizeof(XAxiCdma_Bd) + (Alignment - 1)) &
-               ~(Alignment - 1)) * NumBd);
+			   ~(Alignment - 1)) * NumBd);
 }
 
 /*****************************************************************************/
@@ -156,11 +156,11 @@ u32 XAxiCdma_BdRingMemCalc(u32 Alignment, int NumBd)
 void XAxiCdma_BdSetCurBdPtr(XAxiCdma *InstancePtr, UINTPTR CurBdPtr)
 {
 	XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_CDESC_OFFSET,
-                          (CurBdPtr & XAXICDMA_DESC_LSB_MASK));
-    if (InstancePtr->AddrWidth > 32)
-         XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_CDESC_MSB_OFFSET,
-			   UPPER_32_BITS(CurBdPtr));
-        return;
+			  (CurBdPtr & XAXICDMA_DESC_LSB_MASK));
+	if (InstancePtr->AddrWidth > 32)
+		XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_CDESC_MSB_OFFSET,
+				  UPPER_32_BITS(CurBdPtr));
+	return;
 }
 
 /*****************************************************************************/
@@ -179,7 +179,7 @@ XAxiCdma_Bd *XAxiCdma_BdRingGetCurrBd(XAxiCdma *InstancePtr)
 
 	if (InstancePtr->AddrWidth > 32) {
 		return (XAxiCdma_Bd *)(UINTPTR)((XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_OFFSET)) |
-		((uint64_t)(XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_MSB_OFFSET)) << 32U));
+						((uint64_t)(XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_MSB_OFFSET)) << 32U));
 	} else {
 		return (XAxiCdma_Bd *)(UINTPTR)(XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_OFFSET));
 	}
@@ -255,12 +255,12 @@ void XAxiCdma_BdRingSnapShotCurrBd(XAxiCdma *InstancePtr)
  *****************************************************************************/
 void XAxiCdma_BdSetTailBdPtr(XAxiCdma *InstancePtr, UINTPTR TailBdPtr)
 {
-    XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_TDESC_OFFSET,
-                      TailBdPtr & XAXICDMA_DESC_LSB_MASK);
-    if (InstancePtr->AddrWidth > 32)
-            XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_TDESC_MSB_OFFSET,
-                              UPPER_32_BITS(TailBdPtr));
-        return;
+	XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_TDESC_OFFSET,
+			  TailBdPtr & XAXICDMA_DESC_LSB_MASK);
+	if (InstancePtr->AddrWidth > 32)
+		XAxiCdma_WriteReg(InstancePtr->BaseAddr, XAXICDMA_TDESC_MSB_OFFSET,
+				  UPPER_32_BITS(TailBdPtr));
+	return;
 }
 
 
@@ -288,12 +288,12 @@ XAxiCdma_Bd *XAxiCdma_BdRingNext(XAxiCdma *InstancePtr, XAxiCdma_Bd *BdPtr)
 	 */
 	if (((UINTPTR)BdPtr > InstancePtr->LastBdAddr)  ||
 	    ((UINTPTR)BdPtr < InstancePtr->FirstBdAddr) ||
-		((UINTPTR)BdPtr & (InstancePtr->BdSeparation - 1))) {
+	    ((UINTPTR)BdPtr & (InstancePtr->BdSeparation - 1))) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid BdPtr %x: %x/%x/%x\r\n",
-		(UINTPTR)BdPtr, (UINTPTR)InstancePtr->FirstBdAddr,
-			(UINTPTR)InstancePtr->LastBdAddr,
-			(unsigned int)XAXICDMA_BD_MINIMUM_ALIGNMENT);
+			    (UINTPTR)BdPtr, (UINTPTR)InstancePtr->FirstBdAddr,
+			    (UINTPTR)InstancePtr->LastBdAddr,
+			    (unsigned int)XAXICDMA_BD_MINIMUM_ALIGNMENT);
 		ReturnBd = 0x0;
 	}
 
@@ -301,12 +301,11 @@ XAxiCdma_Bd *XAxiCdma_BdRingNext(XAxiCdma *InstancePtr, XAxiCdma_Bd *BdPtr)
 	 */
 	else if ((UINTPTR)BdPtr == InstancePtr->LastBdAddr) {
 		ReturnBd = InstancePtr->FirstBdAddr;
-	}
-	else {
+	} else {
 		ReturnBd = (UINTPTR)BdPtr + InstancePtr->BdSeparation;
 	}
 
-	 return (XAxiCdma_Bd *)ReturnBd;
+	return (XAxiCdma_Bd *)ReturnBd;
 }
 
 /*****************************************************************************/
@@ -332,12 +331,12 @@ XAxiCdma_Bd *XAxiCdma_BdRingPrev(XAxiCdma *InstancePtr, XAxiCdma_Bd *BdPtr)
 	 */
 	if (((UINTPTR)BdPtr > InstancePtr->LastBdAddr)  ||
 	    ((UINTPTR)BdPtr < InstancePtr->FirstBdAddr) ||
-		((UINTPTR)BdPtr & (InstancePtr->BdSeparation - 1))) {
+	    ((UINTPTR)BdPtr & (InstancePtr->BdSeparation - 1))) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "Invalid BdPtr %x: %x/%x/%x\r\n",
-			(UINTPTR)BdPtr, (UINTPTR)InstancePtr->FirstBdAddr,
-			(UINTPTR)InstancePtr->LastBdAddr,
-		    (unsigned int)XAXICDMA_BD_MINIMUM_ALIGNMENT);
+			    (UINTPTR)BdPtr, (UINTPTR)InstancePtr->FirstBdAddr,
+			    (UINTPTR)InstancePtr->LastBdAddr,
+			    (unsigned int)XAXICDMA_BD_MINIMUM_ALIGNMENT);
 		ReturnBd = 0x0;
 	}
 
@@ -345,12 +344,11 @@ XAxiCdma_Bd *XAxiCdma_BdRingPrev(XAxiCdma *InstancePtr, XAxiCdma_Bd *BdPtr)
 	 */
 	else if ((UINTPTR)BdPtr == InstancePtr->FirstBdAddr) {
 		ReturnBd = InstancePtr->LastBdAddr;
-	}
-	else {
+	} else {
 		ReturnBd = (UINTPTR)BdPtr - InstancePtr->BdSeparation;
 	}
 
-	 return (XAxiCdma_Bd *)ReturnBd;
+	return (XAxiCdma_Bd *)ReturnBd;
 }
 
 /*****************************************************************************/
@@ -375,7 +373,7 @@ XAxiCdma_Bd *XAxiCdma_BdRingPrev(XAxiCdma *InstancePtr, XAxiCdma_Bd *BdPtr)
  *
  *****************************************************************************/
 LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
-			UINTPTR VirtAddr, u32 Alignment, int BdCount)
+			   UINTPTR VirtAddr, u32 Alignment, int BdCount)
 {
 	UINTPTR BdVirtAddr;
 	UINTPTR BdNxtPhysAddr;
@@ -384,13 +382,13 @@ LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
 
 	if (InstancePtr->SimpleOnlyBuild) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCreate: hardware simple "
-			"mode only\r\n");
+			    "mode only\r\n");
 		return XST_FAILURE;
 	}
 
 	if (BdCount <= 0) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCreate: non-positive "
-			"BD number %d\r\n", BdCount);
+			    "BD number %d\r\n", BdCount);
 
 		return XST_INVALID_PARAM;
 	}
@@ -408,8 +406,8 @@ LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
 	if (Alignment < XAXICDMA_BD_MINIMUM_ALIGNMENT) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCreate: alignment too small "
-			"%d, need to be at least %d\r\n", (int)Alignment,
-			(int)XAXICDMA_BD_MINIMUM_ALIGNMENT);
+			    "%d, need to be at least %d\r\n", (int)Alignment,
+			    (int)XAXICDMA_BD_MINIMUM_ALIGNMENT);
 
 		return XST_INVALID_PARAM;
 	}
@@ -418,7 +416,7 @@ LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
 	if ((Alignment - 1) & Alignment) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCreate: alignment not valid "
-			"%d\r\n", (int)Alignment);
+			    "%d\r\n", (int)Alignment);
 
 		return XST_INVALID_PARAM;
 	}
@@ -427,8 +425,8 @@ LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
 	if ((PhysAddr & (Alignment - 1)) || (VirtAddr & (Alignment - 1))) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCreate: Physical address %x "
-			"and/or virtual address %x have invalid alignment\r\n",
-			(unsigned int)PhysAddr, (unsigned int)VirtAddr);
+			    "and/or virtual address %x have invalid alignment\r\n",
+			    (unsigned int)PhysAddr, (unsigned int)VirtAddr);
 
 		return XST_INVALID_PARAM;
 	}
@@ -443,7 +441,7 @@ LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
 	if (VirtAddr > (VirtAddr + (InstancePtr->BdSeparation * BdCount) - 1)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingCreate: BD space cross "
-			"0x0\r\n");
+			    "0x0\r\n");
 
 		return XST_DMA_SG_LIST_ERROR;
 	}
@@ -464,17 +462,17 @@ LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
 
 	for (Index = 1; Index < BdCount; Index++) {
 		XAxiCdma_BdSetAddrLen((XAxiCdma_Bd *)BdVirtAddr,
-		    InstancePtr->AddrWidth);
+				      InstancePtr->AddrWidth);
 		XAxiCdma_BdSetNextPtr((XAxiCdma_Bd *)BdVirtAddr, BdNxtPhysAddr);
 		XAxiCdma_BdSetPhysAddr((XAxiCdma_Bd *)BdVirtAddr, BdPhysAddr);
 		XAxiCdma_BdSetIsLite((XAxiCdma_Bd *)BdVirtAddr,
-		    InstancePtr->IsLite);
+				     InstancePtr->IsLite);
 		XAxiCdma_BdSetHasDRE((XAxiCdma_Bd *)BdVirtAddr,
-		    InstancePtr->HasDRE);
+				     InstancePtr->HasDRE);
 		XAxiCdma_BdSetWordLen((XAxiCdma_Bd *)BdVirtAddr,
-		    InstancePtr->WordLength);
+				      InstancePtr->WordLength);
 		XAxiCdma_BdSetMaxLen((XAxiCdma_Bd *)BdVirtAddr,
-		    InstancePtr->MaxTransLen);
+				     InstancePtr->MaxTransLen);
 
 		XAXICDMA_CACHE_FLUSH(BdVirtAddr);
 		BdVirtAddr += InstancePtr->BdSeparation;
@@ -486,24 +484,24 @@ LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
 	 * and set its fields
 	 */
 	XAxiCdma_BdSetAddrLen((XAxiCdma_Bd *)BdVirtAddr,
-                    InstancePtr->AddrWidth);
+			      InstancePtr->AddrWidth);
 	XAxiCdma_BdSetNextPtr((XAxiCdma_Bd *)BdVirtAddr, PhysAddr);
 	XAxiCdma_BdSetPhysAddr((XAxiCdma_Bd *)BdVirtAddr, BdPhysAddr);
 	XAxiCdma_BdSetIsLite((XAxiCdma_Bd *)BdVirtAddr,
-	    InstancePtr->IsLite);
+			     InstancePtr->IsLite);
 	XAxiCdma_BdSetHasDRE((XAxiCdma_Bd *)BdVirtAddr,
-	    InstancePtr->HasDRE);
+			     InstancePtr->HasDRE);
 	XAxiCdma_BdSetWordLen((XAxiCdma_Bd *)BdVirtAddr,
-	    InstancePtr->WordLength);
+			      InstancePtr->WordLength);
 	XAxiCdma_BdSetMaxLen((XAxiCdma_Bd *)BdVirtAddr,
-	    InstancePtr->MaxTransLen);
+			     InstancePtr->MaxTransLen);
 
 	/* Setup and initialize pointers and counters */
 	InstancePtr->FirstBdAddr = VirtAddr;
 	InstancePtr->FirstBdPhysAddr = PhysAddr;
 	InstancePtr->LastBdAddr = BdVirtAddr;
 	InstancePtr->BdRingTotalLen = InstancePtr->LastBdAddr -
-		InstancePtr->FirstBdAddr + InstancePtr->BdSeparation;
+				      InstancePtr->FirstBdAddr + InstancePtr->BdSeparation;
 	InstancePtr->AllBdCnt = BdCount;
 	InstancePtr->FreeBdCnt = BdCount;
 	InstancePtr->FreeBdHead = (XAxiCdma_Bd *) (void *)VirtAddr;
@@ -533,7 +531,7 @@ LONG XAxiCdma_BdRingCreate(XAxiCdma *InstancePtr, UINTPTR PhysAddr,
  * @note	None.
  *
  *****************************************************************************/
-LONG XAxiCdma_BdRingClone(XAxiCdma *InstancePtr, XAxiCdma_Bd * TemplateBdPtr)
+LONG XAxiCdma_BdRingClone(XAxiCdma *InstancePtr, XAxiCdma_Bd *TemplateBdPtr)
 {
 	int Index;
 	UINTPTR CurBd;
@@ -551,7 +549,7 @@ LONG XAxiCdma_BdRingClone(XAxiCdma *InstancePtr, XAxiCdma_Bd * TemplateBdPtr)
 	if (XAxiCdma_IsBusy(InstancePtr)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingClone: engine is running, "
-			"cannot do\r\n");
+			    "cannot do\r\n");
 
 		return XST_DEVICE_IS_STARTED;
 	}
@@ -560,8 +558,8 @@ LONG XAxiCdma_BdRingClone(XAxiCdma *InstancePtr, XAxiCdma_Bd * TemplateBdPtr)
 	if (InstancePtr->FreeBdCnt != InstancePtr->AllBdCnt) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "BdRingClone: some bds already in use %d/%d\r\n",
-		    InstancePtr->FreeBdCnt, InstancePtr->AllBdCnt);
+			    "BdRingClone: some bds already in use %d/%d\r\n",
+			    InstancePtr->FreeBdCnt, InstancePtr->AllBdCnt);
 
 		return XST_DMA_SG_LIST_ERROR;
 	}
@@ -577,8 +575,8 @@ LONG XAxiCdma_BdRingClone(XAxiCdma *InstancePtr, XAxiCdma_Bd * TemplateBdPtr)
 	 * and BD.PhysAddr
 	 */
 	for (Index = 0, CurBd = InstancePtr->FirstBdAddr;
-		Index < InstancePtr->AllBdCnt;
-		Index++, CurBd += InstancePtr->BdSeparation) {
+	     Index < InstancePtr->AllBdCnt;
+	     Index++, CurBd += InstancePtr->BdSeparation) {
 
 		XAxiCdma_BdClone((XAxiCdma_Bd *)CurBd, &TmpBd);
 	}
@@ -603,12 +601,12 @@ LONG XAxiCdma_BdRingClone(XAxiCdma *InstancePtr, XAxiCdma_Bd * TemplateBdPtr)
  *
  *****************************************************************************/
 LONG XAxiCdma_BdRingAlloc(XAxiCdma *InstancePtr, int NumBd,
-   XAxiCdma_Bd ** BdSetPtr)
+			  XAxiCdma_Bd **BdSetPtr)
 {
 	if (NumBd <= 0) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR,
-		    "BdRingAlloc: negative BD number %d\r\n", NumBd);
+			    "BdRingAlloc: negative BD number %d\r\n", NumBd);
 
 		return XST_INVALID_PARAM;
 	}
@@ -644,14 +642,14 @@ LONG XAxiCdma_BdRingAlloc(XAxiCdma *InstancePtr, int NumBd,
  *
  *****************************************************************************/
 LONG XAxiCdma_BdRingUnAlloc(XAxiCdma *InstancePtr, int NumBd,
-			 XAxiCdma_Bd * BdSetPtr)
+			    XAxiCdma_Bd *BdSetPtr)
 {
 	XAxiCdma_Bd *TmpBd;
 
 	if (NumBd <= 0) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingUnAlloc: negative BD number "
-			"%d\r\n", NumBd);
+			    "%d\r\n", NumBd);
 
 		return XST_INVALID_PARAM;
 	}
@@ -715,7 +713,7 @@ static void StubCallBackFn(void *CallBackRef, u32 IrqMask, int *NumBdPtr)
 		Status = XAxiCdma_BdRingFree(InstancePtr, BdCount, BdPtr);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR, "CallBack: BdRingFree()"
-					"failed with %08x", Status);
+				    "failed with %08x", Status);
 		}
 	}
 
@@ -736,7 +734,7 @@ static void StubCallBackFn(void *CallBackRef, u32 IrqMask, int *NumBdPtr)
  *
  * @return
  *			- XST_SUCCESS for success
- *			- XST_INVALID_PARAM if enqueues negative number of BDs or zero 
+ *			- XST_INVALID_PARAM if enqueues negative number of BDs or zero
  *			transfer len
  *			- XST_DMA_SG_LIST_ERROR if BD ring management has a problem
  *			- XST_FIFO_NO_ROOM if the interrupt handler array is full
@@ -748,8 +746,8 @@ static void StubCallBackFn(void *CallBackRef, u32 IrqMask, int *NumBdPtr)
  *
  *****************************************************************************/
 LONG XAxiCdma_BdRingToHw(XAxiCdma *InstancePtr, int NumBd,
-        XAxiCdma_Bd *BdSetPtr, XAxiCdma_CallBackFn CallBackFn,
-        void *CallBackRef)
+			 XAxiCdma_Bd *BdSetPtr, XAxiCdma_CallBackFn CallBackFn,
+			 void *CallBackRef)
 {
 	XAxiCdma_Bd *CurBdPtr;
 	int Index;
@@ -757,13 +755,13 @@ LONG XAxiCdma_BdRingToHw(XAxiCdma *InstancePtr, int NumBd,
 	if ((!InstancePtr->Initialized) ||
 	    (InstancePtr->SimpleOnlyBuild)) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingToHw: driver instance not "
-			"in valid state or simple only build");
+			    "in valid state or simple only build");
 		return XST_FAILURE;
 	}
 
 	if (NumBd < 0) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingToHw: enqueue negative "
-			"number of BDs %d", NumBd);
+			    "number of BDs %d", NumBd);
 		return XST_INVALID_PARAM;
 	}
 
@@ -808,7 +806,7 @@ LONG XAxiCdma_BdRingToHw(XAxiCdma *InstancePtr, int NumBd,
 		if (XAxiCdma_BdGetLength(CurBdPtr) == 0) {
 
 			xdbg_printf(XDBG_DEBUG_ERROR,
-			    "0 length bd %x\r\n", (UINTPTR)CurBdPtr);
+				    "0 length bd %x\r\n", (UINTPTR)CurBdPtr);
 
 			return XST_INVALID_PARAM;
 		}
@@ -840,8 +838,7 @@ LONG XAxiCdma_BdRingToHw(XAxiCdma *InstancePtr, int NumBd,
 	if (CallBackFn != NULL) {
 		InstancePtr->Handlers[Index].CallBackFn = CallBackFn;
 		InstancePtr->Handlers[Index].CallBackRef = CallBackRef;
-	}
-	else {   /* Use the default handler */
+	} else { /* Use the default handler */
 		InstancePtr->Handlers[Index].CallBackFn = StubCallBackFn;
 		InstancePtr->Handlers[Index].CallBackRef = InstancePtr;
 	}
@@ -863,11 +860,11 @@ LONG XAxiCdma_BdRingToHw(XAxiCdma *InstancePtr, int NumBd,
 	if (XAxiCdma_IsSimpleMode(InstancePtr)) {
 
 		if ((InstancePtr->SimpleNotDone) ||
-			(XAxiCdma_SwitchMode(InstancePtr, XAXICDMA_SG_MODE)
-				 != XST_SUCCESS)) {
+		    (XAxiCdma_SwitchMode(InstancePtr, XAXICDMA_SG_MODE)
+		     != XST_SUCCESS)) {
 
 			xdbg_printf(XDBG_DEBUG_ERROR, "BdRingToHw: Cannot "
-			    "switch to SG or simple in progress\r\n");
+				    "switch to SG or simple in progress\r\n");
 
 			InstancePtr->SGWaiting = 1;
 			return XST_SUCCESS;
@@ -902,7 +899,7 @@ LONG XAxiCdma_BdRingToHw(XAxiCdma *InstancePtr, int NumBd,
  *
  *****************************************************************************/
 u32 XAxiCdma_BdRingFromHw(XAxiCdma *InstancePtr, int BdLimit,
-			     XAxiCdma_Bd ** BdSetPtr)
+			  XAxiCdma_Bd **BdSetPtr)
 {
 	XAxiCdma_Bd *CurBdPtr;
 	int BdCount;
@@ -961,11 +958,10 @@ u32 XAxiCdma_BdRingFromHw(XAxiCdma *InstancePtr, int BdLimit,
 		InstancePtr->HwBdCnt -= BdCount;
 		InstancePtr->PostBdCnt += BdCount;
 		XAXICDMA_RING_SEEKAHEAD(InstancePtr,
-		    InstancePtr->HwBdHead, BdCount);
+					InstancePtr->HwBdHead, BdCount);
 
 		return BdCount;
-	}
-	else {
+	} else {
 		*BdSetPtr = (XAxiCdma_Bd *)NULL;
 
 		return 0;
@@ -991,12 +987,12 @@ u32 XAxiCdma_BdRingFromHw(XAxiCdma *InstancePtr, int BdLimit,
  *
  *****************************************************************************/
 u32 XAxiCdma_BdRingFree(XAxiCdma *InstancePtr, int NumBd,
-		      XAxiCdma_Bd * BdSetPtr)
+			XAxiCdma_Bd *BdSetPtr)
 {
 	if (NumBd < 0) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingFree: negative BDs%d\r\n",
-			NumBd);
+			    NumBd);
 
 		return XST_INVALID_PARAM;
 	}
@@ -1012,10 +1008,10 @@ u32 XAxiCdma_BdRingFree(XAxiCdma *InstancePtr, int NumBd,
 	    (InstancePtr->PostBdHead != BdSetPtr)) {
 
 		xdbg_printf(XDBG_DEBUG_ERROR, "BdRingFree: Error free BDs: "
-		    "post count %d to free %d, PostBdHead %x to free ptr %x\r\n",
-		    InstancePtr->PostBdCnt, NumBd,
-		    (UINTPTR)InstancePtr->PostBdHead,
-		    (UINTPTR)BdSetPtr);
+			    "post count %d to free %d, PostBdHead %x to free ptr %x\r\n",
+			    InstancePtr->PostBdCnt, NumBd,
+			    (UINTPTR)InstancePtr->PostBdHead,
+			    (UINTPTR)BdSetPtr);
 
 		return XST_DMA_SG_LIST_ERROR;
 	}
@@ -1067,7 +1063,7 @@ int XAxiCdma_BdRingStartTransfer(XAxiCdma *InstancePtr)
 		 */
 		if ((InstancePtr->SimpleNotDone) ||
 		    (XAxiCdma_SwitchMode(InstancePtr, XAXICDMA_SG_MODE)
-			!= XST_SUCCESS)) {
+		     != XST_SUCCESS)) {
 			return XST_FAILURE;
 		}
 	}
@@ -1076,7 +1072,7 @@ int XAxiCdma_BdRingStartTransfer(XAxiCdma *InstancePtr)
 	 * SG transfer
 	 */
 	XAxiCdma_BdSetTailBdPtr(InstancePtr,
-                XAxiCdma_BdGetPhysAddr((XAxiCdma_Bd *)InstancePtr->HwBdTail));
+				XAxiCdma_BdGetPhysAddr((XAxiCdma_Bd *)InstancePtr->HwBdTail));
 
 
 	InstancePtr->SGWaiting = 0;

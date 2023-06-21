@@ -46,17 +46,17 @@
  * @returns	None
  *****************************************************************************/
 #define XMCDMA_CHAN_SEEKAHEAD(Chan, BdPtr, NumBd)                       \
-    {                                                                   \
-        UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                        \
-                                                                        \
-        Addr += (Chan->Separation * (NumBd));                           \
-        if ((Addr > (Chan)->LastBdAddr) || ((UINTPTR)(BdPtr) > Addr))   \
-        {                                                               \
-            Addr -= (Chan)->Length;                              \
-        }                                                               \
-                                                                        \
-        (BdPtr) = (XMcdma_Bd *)(void *)Addr;                            \
-    }
+	{                                                                   \
+		UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                        \
+		\
+		Addr += (Chan->Separation * (NumBd));                           \
+		if ((Addr > (Chan)->LastBdAddr) || ((UINTPTR)(BdPtr) > Addr))   \
+		{                                                               \
+			Addr -= (Chan)->Length;                              \
+		}                                                               \
+		\
+		(BdPtr) = (XMcdma_Bd *)(void *)Addr;                            \
+	}
 
 
 /*****************************************************************************/
@@ -85,12 +85,12 @@ int XMcdma_UpdateChanCDesc(XMcdma_ChanCtrl *Chan)
 	XMCDMA_CACHE_FLUSH((UINTPTR)(BdPtr));
 
 	XMcdma_WriteReg(Chan->ChanBase,
-				(XMCDMA_CDESC_OFFSET + Offset),
-				(u32)BdPtr);
+			(XMCDMA_CDESC_OFFSET + Offset),
+			(u32)BdPtr);
 	if (Chan->ext_addr) {
 		XMcdma_WriteReg(Chan->ChanBase,
 				(XMCDMA_CDESC_MSB_OFFSET + Offset),
-			UPPER_32_BITS(BdPtr));
+				UPPER_32_BITS(BdPtr));
 	}
 
 	return XST_SUCCESS;
@@ -131,7 +131,7 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 		XMcdma_WriteReg(RegBase, XMCDMA_CR_OFFSET + Offset,
 				XMcdma_ReadReg(RegBase,
 					       (XMCDMA_CR_OFFSET + Offset)) |
-					       XMCDMA_CCR_RUNSTOP_MASK);
+				XMCDMA_CCR_RUNSTOP_MASK);
 	}
 
 	/* Note as started */
@@ -140,15 +140,15 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 	if (Chan->BdPendingCnt > 0) {
 		XMCDMA_CACHE_INVALIDATE(Chan->BdTail);
 #if !defined (__MICROBLAZE__)
-			dmb();
+		dmb();
 #endif
 		XMcdma_WriteReg(Chan->ChanBase,
 				(XMCDMA_TDESC_OFFSET + Offset),
 				LOWER_32_BITS((UINTPTR)Chan->BdTail));
 		if (Chan->ext_addr) {
 			XMcdma_WriteReg(Chan->ChanBase,
-				  (XMCDMA_TDESC_MSB_OFFSET + Offset),
-				  UPPER_32_BITS((UINTPTR)Chan->BdTail));
+					(XMCDMA_TDESC_MSB_OFFSET + Offset),
+					UPPER_32_BITS((UINTPTR)Chan->BdTail));
 		}
 		Chan->BdSubmitCnt += Chan->BdPendingCnt;
 		Chan->BdPendingCnt = 0;
@@ -180,8 +180,9 @@ u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count)
 	UINTPTR NxtBdAddr;
 	u32 i;
 
-	if (Count <= 0)
+	if (Count <= 0) {
 		return XST_INVALID_PARAM;
+	}
 
 	Chan->BdPendingCnt = 0;
 	Chan->BdSubmitCnt = 0;
@@ -202,12 +203,12 @@ u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count)
 			XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_HAS_DRE_OFFSET,
 				       (((u32)(Chan->Has_Rxdre)) <<
 					XMCDMA_BD_HAS_DRE_SHIFT) |
-					    Chan->RxDataWidth);
+				       Chan->RxDataWidth);
 		} else {
 			XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_HAS_DRE_OFFSET,
 				       (((u32)(Chan->Has_Txdre)) <<
-				       XMCDMA_BD_HAS_DRE_SHIFT) |
-					   Chan->TxDataWidth);
+					XMCDMA_BD_HAS_DRE_SHIFT) |
+				       Chan->TxDataWidth);
 		}
 		XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_HAS_CTRLSTS_OFFSET,
 			       Chan->HasStsCntrlStrm);
@@ -226,12 +227,12 @@ u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count)
 		XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_HAS_DRE_OFFSET,
 			       (((u32)(Chan->Has_Rxdre)) <<
 				XMCDMA_BD_HAS_DRE_SHIFT) |
-				    Chan->RxDataWidth);
+			       Chan->RxDataWidth);
 	} else {
 		XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_HAS_DRE_OFFSET,
 			       (((u32)(Chan->Has_Txdre)) <<
-			       XMCDMA_BD_HAS_DRE_SHIFT) |
-				   Chan->TxDataWidth);
+				XMCDMA_BD_HAS_DRE_SHIFT) |
+			       Chan->TxDataWidth);
 	}
 	XMcdma_BdWrite(BdStartAddr, XMCDMA_BD_HAS_CTRLSTS_OFFSET,
 		       Chan->HasStsCntrlStrm);
@@ -242,7 +243,7 @@ u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count)
 	Chan->FirstBdAddr = Addr;
 	Chan->LastBdAddr = BdStartAddr;
 	Chan->Length = Chan->LastBdAddr - Chan->FirstBdAddr +
-			       Chan->Separation;
+		       Chan->Separation;
 	Chan->BdHead = (XMcdma_Bd *) Addr;
 	Chan->BdTail = (XMcdma_Bd *) Addr;
 	Chan->BdRestart = (XMcdma_Bd *) Addr;
@@ -294,8 +295,9 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
 
 		XMcdma_BdSetBufAddr(BdCurPtr, BufAddr);
 
-		if (len < Chan->MaxTransferLen)
+		if (len < Chan->MaxTransferLen) {
 			Bdlen = len;
+		}
 
 		XMcdma_BdWrite(BdCurPtr, XMCDMA_BD_CTRL_OFFSET, Bdlen);
 
@@ -349,7 +351,7 @@ u32 XMcDma_Chan_Sideband_Submit(XMcdma_ChanCtrl *ChanPtr, UINTPTR BufAddr,
 	 * requested Data */
 	if (Len > ChanPtr->MaxTransferLen) {
 		BdCount = (Len + (ChanPtr->MaxTransferLen - 1)) /
-			   ChanPtr->MaxTransferLen;
+			  ChanPtr->MaxTransferLen;
 		Bdlen = ChanPtr->MaxTransferLen;
 	}
 
@@ -429,7 +431,7 @@ u32 XMcDma_ChanToHw(XMcdma_ChanCtrl *Chan)
 	}
 
 	/* Enable the Channel */
-	 XMcdma_EnableCh(Chan);
+	XMcdma_EnableCh(Chan);
 
 	return Status;
 }
@@ -483,15 +485,16 @@ int XMcdma_BdChainFromHW(XMcdma_ChanCtrl *Chan, u32 BdLimit, XMcdma_Bd **BdSetPt
 	while (BdCount < BdLimit) {
 		XMCDMA_CACHE_INVALIDATE((UINTPTR)(CurBdPtr));
 
-		if(!(Chan->IsRxChan)) {
+		if (!(Chan->IsRxChan)) {
 			BdSts = XMcdma_BdRead(CurBdPtr, XMCDMA_BD_SIDEBAND_STS_OFFSET);
 			BdCr = XMcdma_BdRead(CurBdPtr, XMCDMA_BD_CTRL_OFFSET);
 		} else {
 			BdSts = XMcdma_BdRead(CurBdPtr, XMCDMA_BD_STS_OFFSET);
 		}
 
-		if (!(BdSts & XMCDMA_BD_STS_COMPLETE_MASK))
+		if (!(BdSts & XMCDMA_BD_STS_COMPLETE_MASK)) {
 			break;
+		}
 
 		BdCount++;
 
@@ -555,8 +558,9 @@ int XMcdma_BdChainFree(XMcdma_ChanCtrl *Chan, int BdCount, XMcdma_Bd *BdSetPtr)
 		return XST_INVALID_PARAM;
 	}
 
-	if (BdCount == 0)
+	if (BdCount == 0) {
 		return XST_SUCCESS;
+	}
 
 
 	for (i = 0; i < BdCount; i++) {
@@ -593,8 +597,8 @@ u32 XMcdma_BdSetBufAddr(XMcdma_Bd *BdPtr, UINTPTR Addr)
 	if (Addr & (WordLen - 1)) {
 		if ((HasDRE & XMCDMA_BD_HAS_DRE_MASK) == 0) {
 			xil_printf("Error set buf addr %x with %x and %x,"
-			" %x\r\n",Addr, HasDRE, (WordLen - 1),
-			Addr & (WordLen - 1));
+				   " %x\r\n", Addr, HasDRE, (WordLen - 1),
+				   Addr & (WordLen - 1));
 
 			return XST_INVALID_PARAM;
 		}
@@ -623,15 +627,15 @@ u32 XMcdma_BdSetBufAddr(XMcdma_Bd *BdPtr, UINTPTR Addr)
  *****************************************************************************/
 void XMcDma_BdSetCtrl(XMcdma_Bd *BdPtr, u32 Data)
 {
-        u32 RegValue = XMcdma_BdRead(BdPtr, XMCDMA_BD_CTRL_OFFSET);
+	u32 RegValue = XMcdma_BdRead(BdPtr, XMCDMA_BD_CTRL_OFFSET);
 
-        RegValue &= ~XMCDMA_BD_CTRL_ALL_MASK;
+	RegValue &= ~XMCDMA_BD_CTRL_ALL_MASK;
 
-        RegValue |= (Data & XMCDMA_BD_CTRL_ALL_MASK);
+	RegValue |= (Data & XMCDMA_BD_CTRL_ALL_MASK);
 
-        XMcdma_BdWrite((BdPtr), XMCDMA_BD_CTRL_OFFSET, RegValue);
+	XMcdma_BdWrite((BdPtr), XMCDMA_BD_CTRL_OFFSET, RegValue);
 
-        return;
+	return;
 }
 
 /*****************************************************************************/
@@ -650,7 +654,7 @@ void XMcDma_BdSetCtrl(XMcdma_Bd *BdPtr, u32 Data)
  *		2) Offset is not in valid range
  *
  *****************************************************************************/
-int XMcDma_BdSetAppWord(XMcdma_Bd* BdPtr, int Offset, u32 Word)
+int XMcDma_BdSetAppWord(XMcdma_Bd *BdPtr, int Offset, u32 Word)
 {
 	if (XMcdma_BdRead(BdPtr, XMCDMA_BD_HAS_CTRLSTS_OFFSET) == 0) {
 
@@ -686,19 +690,19 @@ int XMcDma_BdSetAppWord(XMcdma_Bd* BdPtr, int Offset, u32 Word)
  *		and 1 for success.
  *
  *****************************************************************************/
-u32 XMcDma_BdGetAppWord(XMcdma_Bd* BdPtr, int Offset, int *Valid)
+u32 XMcDma_BdGetAppWord(XMcdma_Bd *BdPtr, int Offset, int *Valid)
 {
 	*Valid = 0;
 
 	if (XMcdma_BdRead(BdPtr, XMCDMA_BD_HAS_CTRLSTS_OFFSET) == 0) {
 
 		xil_printf("BdRingGetAppWord: no sts cntrl"
-			"stream in hardware build, no app word available\r\n");
+			   "stream in hardware build, no app word available\r\n");
 
 		return (u32)0;
 	}
 
-	if((Offset < 0) || (Offset > XMCDMA_LAST_APPWORD)) {
+	if ((Offset < 0) || (Offset > XMCDMA_LAST_APPWORD)) {
 
 		xil_printf("BdRingGetAppWord: invalid offset");
 
@@ -738,7 +742,7 @@ u32 XMcdma_SetChanCoalesceDelay(XMcdma_ChanCtrl *Chan, u32 IrqCoalesce, u32 IrqD
 	}
 
 	Cr = (Cr & ~XMCDMA_COALESCE_MASK) |
-		(IrqCoalesce << XMCDMA_COALESCE_SHIFT);
+	     (IrqCoalesce << XMCDMA_COALESCE_SHIFT);
 
 	if (IrqDelay == 0 || IrqDelay > 0xFF) {
 		xil_printf("Invalid IrqDelay Value\n\r");
@@ -746,7 +750,7 @@ u32 XMcdma_SetChanCoalesceDelay(XMcdma_ChanCtrl *Chan, u32 IrqCoalesce, u32 IrqD
 	}
 
 	Cr = (Cr & ~XMCDMA_DELAY_MASK) |
-		(IrqDelay << XMCDMA_DELAY_SHIFT);
+	     (IrqDelay << XMCDMA_DELAY_SHIFT);
 
 	XMcdma_WriteReg(Chan->ChanBase, XMCDMA_CR_OFFSET + Offset, Cr);
 
@@ -764,31 +768,31 @@ u32 XMcdma_SetChanCoalesceDelay(XMcdma_ChanCtrl *Chan, u32 IrqCoalesce, u32 IrqD
 *
 *
 *****************************************************************************/
-void XMcDma_DumpBd(XMcdma_Bd* BdPtr)
+void XMcDma_DumpBd(XMcdma_Bd *BdPtr)
 {
 
 	xil_printf("Dump BD %x:\r\n", (UINTPTR)BdPtr);
 	xil_printf("\tNext Bd Ptr: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_NDESC_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_NDESC_OFFSET));
 	xil_printf("\tBuff addr: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_BUFA_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_BUFA_OFFSET));
 	xil_printf("\tContrl Contents: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_CTRL_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_CTRL_OFFSET));
 	xil_printf("\tStatus: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_STS_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_STS_OFFSET));
 	xil_printf("\tSideband Status: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_SIDEBAND_STS_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_SIDEBAND_STS_OFFSET));
 
 	xil_printf("\tAPP 0: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR0_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR0_OFFSET));
 	xil_printf("\tAPP 1: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR1_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR1_OFFSET));
 	xil_printf("\tAPP 2: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR2_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR2_OFFSET));
 	xil_printf("\tAPP 3: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR3_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR3_OFFSET));
 	xil_printf("\tAPP 4: %x\r\n",
-	    (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR4_OFFSET));
+		   (unsigned int)XMcdma_BdRead(BdPtr, XMCDMA_BD_USR4_OFFSET));
 
 	xil_printf("\r\n");
 }

@@ -392,56 +392,56 @@ typedef void (*XAxiVdma_ErrorCallBack) (void *CallBackRef, u32 ErrorMask);
  * with it.
  */
 typedef struct {
-    u16 DeviceId;         /**< DeviceId is the unique ID  of the device */
-    UINTPTR BaseAddress;      /**< BaseAddress is the physical base address of the
+	u16 DeviceId;         /**< DeviceId is the unique ID  of the device */
+	UINTPTR BaseAddress;      /**< BaseAddress is the physical base address of the
                             *  device's registers */
-    u16 MaxFrameStoreNum; /**< The maximum number of Frame Stores */
-    int HasMm2S;          /**< Whether hw build has read channel */
-    int HasMm2SDRE;       /**< Read channel supports unaligned transfer */
-    int Mm2SWordLen;      /**< Read channel word length */
-    int HasS2Mm;          /**< Whether hw build has write channel */
-    int HasS2MmDRE;       /**< Write channel supports unaligned transfer */
-    int S2MmWordLen;      /**< Write channel word length */
-    int HasSG;            /**< Whether hardware has SG engine */
-    int EnableVIDParamRead;
-			  /**< Read Enable for video parameters in direct
-			    *  register mode */
-    int UseFsync;	  /**< DMA operations synchronized to Frame Sync */
-    int FlushonFsync;	  /**< VDMA Transactions are flushed & channel states
+	u16 MaxFrameStoreNum; /**< The maximum number of Frame Stores */
+	int HasMm2S;          /**< Whether hw build has read channel */
+	int HasMm2SDRE;       /**< Read channel supports unaligned transfer */
+	int Mm2SWordLen;      /**< Read channel word length */
+	int HasS2Mm;          /**< Whether hw build has write channel */
+	int HasS2MmDRE;       /**< Write channel supports unaligned transfer */
+	int S2MmWordLen;      /**< Write channel word length */
+	int HasSG;            /**< Whether hardware has SG engine */
+	int EnableVIDParamRead;
+	/**< Read Enable for video parameters in direct
+	  *  register mode */
+	int UseFsync;	  /**< DMA operations synchronized to Frame Sync */
+	int FlushonFsync;	  /**< VDMA Transactions are flushed & channel states
 			    *	reset on Frame Sync */
-    int Mm2SBufDepth;	  /**< Depth of Read Channel Line Buffer FIFO */
-    int S2MmBufDepth;	  /**< Depth of Write Channel Line Buffer FIFO */
-    int Mm2SGenLock;	  /**< Mm2s Gen Lock Mode */
-    int S2MmGenLock;	  /**< S2Mm Gen Lock Mode */
-    int InternalGenLock;  /**< Internal Gen Lock */
-    int S2MmSOF;	  /**< S2MM Start of Flag Enable */
-    int Mm2SStreamWidth;  /**< MM2S TData Width */
-    int S2MmStreamWidth;  /**< S2MM TData Width */
-    int Mm2SThresRegEn;   /**< MM2S Threshold Register Enable Flag
+	int Mm2SBufDepth;	  /**< Depth of Read Channel Line Buffer FIFO */
+	int S2MmBufDepth;	  /**< Depth of Write Channel Line Buffer FIFO */
+	int Mm2SGenLock;	  /**< Mm2s Gen Lock Mode */
+	int S2MmGenLock;	  /**< S2Mm Gen Lock Mode */
+	int InternalGenLock;  /**< Internal Gen Lock */
+	int S2MmSOF;	  /**< S2MM Start of Flag Enable */
+	int Mm2SStreamWidth;  /**< MM2S TData Width */
+	int S2MmStreamWidth;  /**< S2MM TData Width */
+	int Mm2SThresRegEn;   /**< MM2S Threshold Register Enable Flag
 							   This corresponds to C_ENABLE_DEBUG_INFO_1
 							   configuration parameter */
-    int Mm2SFrmStoreRegEn;/**< MM2S Frame Store Register Enable Flag
+	int Mm2SFrmStoreRegEn;/**< MM2S Frame Store Register Enable Flag
 							   This corresponds to C_ENABLE_DEBUG_INFO_5
 							   configuration parameter */
-    int Mm2SDlyCntrEn;	  /**< MM2S Delay Counter (Control Reg) Enable Flag
+	int Mm2SDlyCntrEn;	  /**< MM2S Delay Counter (Control Reg) Enable Flag
 							   This corresponds to C_ENABLE_DEBUG_INFO_6
 							   configuration parameter */
-    int Mm2SFrmCntrEn;    /**< MM2S Frame Counter (Control Reg) Enable Flag
+	int Mm2SFrmCntrEn;    /**< MM2S Frame Counter (Control Reg) Enable Flag
 							   This corresponds to C_ENABLE_DEBUG_INFO_7
 							   configuration parameter */
-    int S2MmThresRegEn;   /**< S2MM Threshold Register Enable Flag
+	int S2MmThresRegEn;   /**< S2MM Threshold Register Enable Flag
 							   This corresponds to C_ENABLE_DEBUG_INFO_9
 							   configuration parameter */
-    int S2MmFrmStoreRegEn;/**< S2MM Frame Store Register Enable Flag
+	int S2MmFrmStoreRegEn;/**< S2MM Frame Store Register Enable Flag
 							   This corresponds to C_ENABLE_DEBUG_INFO_13
 							   configuration parameter */
-    int S2MmDlyCntrEn;	  /**< S2MM Delay Counter (Control Reg) Enable Flag
+	int S2MmDlyCntrEn;	  /**< S2MM Delay Counter (Control Reg) Enable Flag
 							   This corresponds to C_ENABLE_DEBUG_INFO_14
 							   configuration parameter */
-    int S2MmFrmCntrEn;	  /**< S2MM Frame Counter (Control Reg) Enable Flag
+	int S2MmFrmCntrEn;	  /**< S2MM Frame Counter (Control Reg) Enable Flag
 						       This corresponds to C_ENABLE_DEBUG_INFO_15
 							   configuration parameter */
-    int EnableAllDbgFeatures;/**< Enable all Debug features
+	int EnableAllDbgFeatures;/**< Enable all Debug features
 						       This corresponds to C_ENABLE_DEBUG_ALL
 							   configuration parameter */
 	int AddrWidth;		  /**< Address Width */
@@ -454,20 +454,20 @@ typedef struct {
  *
  */
 typedef struct {
-    int VertSizeInput;      /**< Vertical size input */
-    int HoriSizeInput;      /**< Horizontal size input */
-    int Stride;             /**< Stride */
-    int FrameDelay;         /**< Frame Delay */
+	int VertSizeInput;      /**< Vertical size input */
+	int HoriSizeInput;      /**< Horizontal size input */
+	int Stride;             /**< Stride */
+	int FrameDelay;         /**< Frame Delay */
 
-    int EnableCircularBuf;  /**< Circular Buffer Mode? */
-    int EnableSync;         /**< Gen-Lock Mode? */
-    int PointNum;           /**< Master we synchronize with */
-    int EnableFrameCounter; /**< Frame Counter Enable */
-    UINTPTR FrameStoreStartAddr[XAXIVDMA_MAX_FRAMESTORE];
-                            /**< Start Addresses of Frame Store Buffers. */
-    int FixedFrameStoreAddr;/**< Fixed Frame Store Address index */
-    int GenLockRepeat;      /**< Gen-Lock Repeat? */
-    u8 EnableVFlip;	    /**< Vertical Flip state */
+	int EnableCircularBuf;  /**< Circular Buffer Mode? */
+	int EnableSync;         /**< Gen-Lock Mode? */
+	int PointNum;           /**< Master we synchronize with */
+	int EnableFrameCounter; /**< Frame Counter Enable */
+	UINTPTR FrameStoreStartAddr[XAXIVDMA_MAX_FRAMESTORE];
+	/**< Start Addresses of Frame Store Buffers. */
+	int FixedFrameStoreAddr;/**< Fixed Frame Store Address index */
+	int GenLockRepeat;      /**< Gen-Lock Repeat? */
+	u8 EnableVFlip;	    /**< Vertical Flip state */
 } XAxiVdma_DmaSetup;
 
 /**
@@ -476,46 +476,46 @@ typedef struct {
  *
  */
 typedef struct {
-    u8 ReadFrameCount;      /**< Interrupt threshold for Receive */
-    u8 ReadDelayTimerCount; /**< Delay timer threshold for receive */
-    u8 WriteFrameCount;     /**< Interrupt threshold for transmit */
-    u8 WriteDelayTimerCount;/**< Delay timer threshold for transmit */
+	u8 ReadFrameCount;      /**< Interrupt threshold for Receive */
+	u8 ReadDelayTimerCount; /**< Delay timer threshold for receive */
+	u8 WriteFrameCount;     /**< Interrupt threshold for transmit */
+	u8 WriteDelayTimerCount;/**< Delay timer threshold for transmit */
 } XAxiVdma_FrameCounter;
 
 /**
  * Channel callback functions
  */
 typedef struct {
-    XAxiVdma_CallBack CompletionCallBack; /**< Call back for completion intr */
-    void *CompletionRef;                  /**< Call back ref */
+	XAxiVdma_CallBack CompletionCallBack; /**< Call back for completion intr */
+	void *CompletionRef;                  /**< Call back ref */
 
-    XAxiVdma_ErrorCallBack ErrCallBack;   /**< Call back for error intr */
-    void *ErrRef;                         /**< Call back ref */
+	XAxiVdma_ErrorCallBack ErrCallBack;   /**< Call back for error intr */
+	void *ErrRef;                         /**< Call back ref */
 } XAxiVdma_ChannelCallBack;
 
 /**
  * The XAxiVdma driver instance data.
  */
 typedef struct {
-    UINTPTR BaseAddr;                   /**< Memory address for this device */
-    int HasSG;                      /**< Whether hardware has SG engine */
-    int IsReady;                    /**< Whether driver is initialized */
+	UINTPTR BaseAddr;                   /**< Memory address for this device */
+	int HasSG;                      /**< Whether hardware has SG engine */
+	int IsReady;                    /**< Whether driver is initialized */
 
-    int MaxNumFrames;                /**< Number of frames to work on */
-    int HasMm2S;                    /**< Whether hw build has read channel */
-    int HasMm2SDRE;                 /**< Whether read channel has DRE */
-    int HasS2Mm;                    /**< Whether hw build has write channel */
-    int HasS2MmDRE;                 /**< Whether write channel has DRE */
-    int EnableVIDParamRead;	    /**< Read Enable for video parameters in
+	int MaxNumFrames;                /**< Number of frames to work on */
+	int HasMm2S;                    /**< Whether hw build has read channel */
+	int HasMm2SDRE;                 /**< Whether read channel has DRE */
+	int HasS2Mm;                    /**< Whether hw build has write channel */
+	int HasS2MmDRE;                 /**< Whether write channel has DRE */
+	int EnableVIDParamRead;	    /**< Read Enable for video parameters in
 				      *  direct register mode */
-    int UseFsync;       	    /**< DMA operations synchronized to
+	int UseFsync;       	    /**< DMA operations synchronized to
 				      * Frame Sync */
-    int InternalGenLock;  	    /**< Internal Gen Lock */
-    XAxiVdma_ChannelCallBack ReadCallBack;  /**< Call back for read channel */
-    XAxiVdma_ChannelCallBack WriteCallBack; /**< Call back for write channel */
+	int InternalGenLock;  	    /**< Internal Gen Lock */
+	XAxiVdma_ChannelCallBack ReadCallBack;  /**< Call back for read channel */
+	XAxiVdma_ChannelCallBack WriteCallBack; /**< Call back for write channel */
 
-    XAxiVdma_Channel ReadChannel;  /**< Channel to read from memory */
-    XAxiVdma_Channel WriteChannel; /**< Channel to write to memory */
+	XAxiVdma_Channel ReadChannel;  /**< Channel to read from memory */
+	XAxiVdma_Channel WriteChannel; /**< Channel to write to memory */
 	int AddrWidth;		  /**< Address Width */
 } XAxiVdma;
 
@@ -525,7 +525,7 @@ typedef struct {
 XAxiVdma_Config *XAxiVdma_LookupConfig(u16 DeviceId);
 
 int XAxiVdma_CfgInitialize(XAxiVdma *InstancePtr, XAxiVdma_Config *CfgPtr,
-					UINTPTR EffectiveAddr);
+			   UINTPTR EffectiveAddr);
 
 /* Engine and channel operations */
 void XAxiVdma_Reset(XAxiVdma *InstancePtr, u16 Direction);
@@ -535,61 +535,61 @@ u32 XAxiVdma_CurrFrameStore(XAxiVdma *InstancePtr, u16 Direction);
 u32 XAxiVdma_GetVersion(XAxiVdma *InstancePtr);
 u32 XAxiVdma_GetStatus(XAxiVdma *InstancePtr, u16 Direction);
 int XAxiVdma_SetLineBufThreshold(XAxiVdma *InstancePtr, int LineBufThreshold,
-	u16 Direction);
+				 u16 Direction);
 int XAxiVdma_StartParking(XAxiVdma *InstancePtr, int FrameIndex,
-         u16 Direction);
+			  u16 Direction);
 void XAxiVdma_StopParking(XAxiVdma *InstancePtr, u16 Direction);
 void XAxiVdma_StartFrmCntEnable(XAxiVdma *InstancePtr, u16 Direction);
 
 void XAxiVdma_IntrEnable(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction);
-void XAxiVdma_IntrDisable(XAxiVdma *InstancePtr, u32 IntrType ,u16 Direction);
+void XAxiVdma_IntrDisable(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction);
 u32 XAxiVdma_IntrGetPending(XAxiVdma *InstancePtr, u16 Direction);
-void XAxiVdma_IntrClear(XAxiVdma *InstancePtr, u32 IntrType ,u16 Direction);
+void XAxiVdma_IntrClear(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction);
 
 int XAxiVdma_SetBdAddrs(XAxiVdma *InstancePtr, u32 BdAddrPhys, u32 BdAddrVirt,
-         int NumBds, u16 Direction);
+			int NumBds, u16 Direction);
 
 XAxiVdma_Channel *XAxiVdma_GetChannel(XAxiVdma *InstancePtr, u16 Direction);
 int XAxiVdma_SetFrmStore(XAxiVdma *InstancePtr, u8 FrmStoreNum, u16 Direction);
 void XAxiVdma_GetFrmStore(XAxiVdma *InstancePtr, u8 *FrmStoreNum,
-								u16 Direction);
+			  u16 Direction);
 int XAxiVdma_FsyncSrcSelect(XAxiVdma *InstancePtr, u32 Source,
-                                u16 Direction);
+			    u16 Direction);
 int XAxiVdma_GenLockSourceSelect(XAxiVdma *InstancePtr, u32 Source,
-                                        u16 Direction);
+				 u16 Direction);
 int XAxiVdma_GetDmaChannelErrors(XAxiVdma *InstancePtr, u16 Direction);
 int XAxiVdma_ClearDmaChannelErrors(XAxiVdma *InstancePtr, u16 Direction,
-					u32 ErrorMask);
+				   u32 ErrorMask);
 int XAxiVdma_MaskS2MMErrIntr(XAxiVdma *InstancePtr, u32 ErrorMask,
-                                        u16 Direction);
+			     u16 Direction);
 
 /* Transfers */
 int XAxiVdma_StartWriteFrame(XAxiVdma *InstancePtr,
-        XAxiVdma_DmaSetup *DmaConfigPtr);
+			     XAxiVdma_DmaSetup *DmaConfigPtr);
 int XAxiVdma_StartReadFrame(XAxiVdma *InstancePtr,
-        XAxiVdma_DmaSetup *DmaConfigPtr);
+			    XAxiVdma_DmaSetup *DmaConfigPtr);
 
 int XAxiVdma_DmaConfig(XAxiVdma *InstancePtr, u16 Direction,
-        XAxiVdma_DmaSetup *DmaConfigPtr);
+		       XAxiVdma_DmaSetup *DmaConfigPtr);
 int XAxiVdma_DmaSetBufferAddr(XAxiVdma *InstancePtr, u16 Direction,
-        UINTPTR *BufferAddrSet);
+			      UINTPTR *BufferAddrSet);
 int XAxiVdma_DmaStart(XAxiVdma *InstancePtr, u16 Direction);
 void XAxiVdma_DmaStop(XAxiVdma *InstancePtr, u16 Direction);
 void XAxiVdma_DmaRegisterDump(XAxiVdma *InstancePtr, u16 Direction);
 
 int XAxiVdma_SetFrameCounter(XAxiVdma *InstancePtr,
-        XAxiVdma_FrameCounter *FrameCounterCfgPtr);
+			     XAxiVdma_FrameCounter *FrameCounterCfgPtr);
 void XAxiVdma_GetFrameCounter(XAxiVdma *InstancePtr,
-         XAxiVdma_FrameCounter *FrameCounterCfgPtr);
+			      XAxiVdma_FrameCounter *FrameCounterCfgPtr);
 
 /*
  * Interrupt related functions in xaxivdma_intr.c
  */
-void XAxiVdma_ReadIntrHandler(void * InstancePtr);
-void XAxiVdma_WriteIntrHandler(void * InstancePtr);
-int XAxiVdma_SetCallBack(XAxiVdma * InstancePtr, u32 HandlerType,
-        void *CallBackFunc, void *CallBackRef, u16 Direction);
-int XAxiVdma_Selftest(XAxiVdma * InstancePtr);
+void XAxiVdma_ReadIntrHandler(void *InstancePtr);
+void XAxiVdma_WriteIntrHandler(void *InstancePtr);
+int XAxiVdma_SetCallBack(XAxiVdma *InstancePtr, u32 HandlerType,
+			 void *CallBackFunc, void *CallBackRef, u16 Direction);
+int XAxiVdma_Selftest(XAxiVdma *InstancePtr);
 
 #ifdef __cplusplus
 }

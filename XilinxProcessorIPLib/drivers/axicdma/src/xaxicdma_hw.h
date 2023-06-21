@@ -222,7 +222,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XAxiCdma_ReadReg(BaseAddress, RegOffset)             \
-    XAxiCdma_In32((BaseAddress) + (u32)(RegOffset))
+	XAxiCdma_In32((BaseAddress) + (u32)(RegOffset))
 
 /*****************************************************************************/
 /**
@@ -241,7 +241,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XAxiCdma_WriteReg(BaseAddress, RegOffset, Data)          \
-    XAxiCdma_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))
+	XAxiCdma_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))
 
 #ifdef __cplusplus
 }

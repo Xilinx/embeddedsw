@@ -318,8 +318,8 @@ extern "C" {
 *
 *****************************************************************************/
 #define XEmacLite_IsTxDone(BaseAddress)			\
-		 ((XEmacLite_ReadReg((BaseAddress), XEL_TSR_OFFSET) & 	 \
-			 XEL_TSR_XMIT_BUSY_MASK) != XEL_TSR_XMIT_BUSY_MASK)
+	((XEmacLite_ReadReg((BaseAddress), XEL_TSR_OFFSET) & 	 \
+	  XEL_TSR_XMIT_BUSY_MASK) != XEL_TSR_XMIT_BUSY_MASK)
 
 
 /****************************************************************************/
@@ -336,8 +336,8 @@ extern "C" {
 *
 *****************************************************************************/
 #define XEmacLite_IsRxEmpty(BaseAddress) \
-		  ((XEmacLite_ReadReg((BaseAddress), XEL_RSR_OFFSET) & \
-			XEL_RSR_RECV_DONE_MASK) != XEL_RSR_RECV_DONE_MASK)
+	((XEmacLite_ReadReg((BaseAddress), XEL_RSR_OFFSET) & \
+	  XEL_RSR_RECV_DONE_MASK) != XEL_RSR_RECV_DONE_MASK)
 
 /************************** Function Prototypes ******************************/
 

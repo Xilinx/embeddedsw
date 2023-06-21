@@ -68,25 +68,24 @@ s32 XZDma_SelfTest(XZDma *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	Data = XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-				XZDMA_CH_CTRL0_OFFSET);
+			     XZDMA_CH_CTRL0_OFFSET);
 
 	/* Changing DMA channel to over fetch */
 
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress, XZDMA_CH_CTRL0_OFFSET,
-			(Data | XZDMA_CTRL0_OVR_FETCH_MASK));
+		       (Data | XZDMA_CTRL0_OVR_FETCH_MASK));
 
 	if (((u32)XZDma_ReadReg(InstancePtr->Config.BaseAddress,
-		XZDMA_CH_CTRL0_OFFSET) & XZDMA_CTRL0_OVR_FETCH_MASK) !=
-						XZDMA_CTRL0_OVR_FETCH_MASK) {
+				XZDMA_CH_CTRL0_OFFSET) & XZDMA_CTRL0_OVR_FETCH_MASK) !=
+	    XZDMA_CTRL0_OVR_FETCH_MASK) {
 		Status = (s32)XST_FAILURE;
-	}
-	else {
+	} else {
 		Status = (s32)XST_SUCCESS;
 	}
 
 	/* Retrieving the change settings */
 	XZDma_WriteReg(InstancePtr->Config.BaseAddress, XZDMA_CH_CTRL0_OFFSET,
-				Data);
+		       Data);
 
 	return Status;
 
