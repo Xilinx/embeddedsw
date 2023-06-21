@@ -43,7 +43,9 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.0   sa   05/16/22 Initial release
+* 9.0   sa   05/16/22 Initial release
+* 9.0   sa   06/21/23 Fix sleep related macros based on HW configuration.
+*                     It fixes CR#1162997.
 *
 * </pre>
 *
@@ -54,6 +56,7 @@
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xil_exception.h"
+#include "xparameters.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -152,9 +155,36 @@ extern void riscv_scrub(void);                                          /* Scrub
                                                           "andi\t%0,%0,0x2"                \
                                                           : "=r" (error))
 /* Pseudo assembler instructions */
+#ifndef XPAR_MICROBLAZE_RISCV_USE_SLEEP
+#define XPAR_MICROBLAZE_RISCV_USE_SLEEP 1
+#endif
+
+#if XPAR_MICROBLAZE_RISCV_USE_SLEEP==1
+#define mb_sleep()     	({ __asm__ __volatile__ ("wfi\t"); })
+
+#elif XPAR_MICROBLAZE_RISCV_USE_SLEEP==2
+#define mb_hibernate()	({ __asm__ __volatile__ ("wfi\t"); })
+
+#elif XPAR_MICROBLAZE_RISCV_USE_SLEEP==4
+#define mb_suspend()   	({ __asm__ __volatile__ ("wfi\t"); })
+
+#elif XPAR_MICROBLAZE_RISCV_USE_SLEEP==3
+#define mb_sleep()     	({ __asm__ __volatile__ ("csrwi 0x7c4, 1 ; wfi\t"); })
+#define mb_hibernate() 	({ __asm__ __volatile__ ("csrwi 0x7c4, 2 ; wfi\t"); })
+
+#elif XPAR_MICROBLAZE_RISCV_USE_SLEEP==5
+#define mb_sleep()     	({ __asm__ __volatile__ ("csrwi 0x7c4, 1 ; wfi\t"); })
+#define mb_suspend()   	({ __asm__ __volatile__ ("csrwi 0x7c4, 4 ; wfi\t"); })
+
+#elif XPAR_MICROBLAZE_RISCV_USE_SLEEP==6
+#define mb_hibernate() 	({ __asm__ __volatile__ ("csrwi 0x7c4, 2 ; wfi\t"); })
+#define mb_suspend()   	({ __asm__ __volatile__ ("csrwi 0x7c4, 4 ; wfi\t"); })
+
+#elif XPAR_MICROBLAZE_RISCV_USE_SLEEP==7
 #define mb_sleep()     	({ __asm__ __volatile__ ("csrwi 0x7c4, 1 ; wfi\t"); })
 #define mb_hibernate() 	({ __asm__ __volatile__ ("csrwi 0x7c4, 2 ; wfi\t"); })
 #define mb_suspend()   	({ __asm__ __volatile__ ("csrwi 0x7c4, 4 ; wfi\t"); })
+#endif
 
 #ifdef __cplusplus
 }
