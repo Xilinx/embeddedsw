@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +34,7 @@
 *                       for proper documentation while generating doxygen.
 * 1.3   ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
 *						is 11 bit.
+* 2.8   ht     06/19/23 Added support for system device-tree flow.
 * </pre>
 *
 ******************************************************************************/
@@ -48,7 +50,11 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define CANFD_DEVICE_ID	XPAR_CANFD_0_DEVICE_ID
+#else
+#define XCANFD_BASEADDRESS XPAR_XCANFD_0_BASEADDR
+#endif
 
 /* Maximum CAN frame length in Bytes */
 #define XCANFD_MAX_FRAME_SIZE_IN_BYTES 72
@@ -92,7 +98,11 @@
 
 /************************** Function Prototypes ******************************/
 
+#ifndef SDT
 int XCanFdPolledExample(u16 DeviceId);
+#else
+int XCanFdPolledExample(UINTPTR BaseAddress);
+#endif
 static int SendFrame(XCanFd  *InstancePtr);
 static int RecvFrame(XCanFd  *InstancePtr);
 
@@ -131,8 +141,11 @@ int main(void)
 	 * Run the Can Polled example, specify the Device ID that is generated
 	 * in xparameters.h .
 	 */
-
+#ifndef SDT
 	if (XCanFdPolledExample(CANFD_DEVICE_ID)) {
+#else
+	if (XCanFdPolledExample(XCANFD_BASEADDRESS)) {
+#endif
 		xil_printf("XCanFd Polled Mode example Failed\n\r");
 		return XST_FAILURE;
 	}
@@ -162,7 +175,11 @@ int main(void)
 * loop and will never return to the caller.
 *
 ******************************************************************************/
+#ifndef SDT
 int XCanFdPolledExample(u16 DeviceId)
+#else
+int XCanFdPolledExample(UINTPTR BaseAddress)
+#endif
 {
 	int Status;
 	XCanFd *CanFdInstPtr = &CanFd;
@@ -172,7 +189,11 @@ int XCanFdPolledExample(u16 DeviceId)
 	u8 RxBuffers;
 
 	/* Initialize the Can device */
+#ifndef SDT
 	ConfigPtr = XCanFd_LookupConfig(DeviceId);
+#else
+	ConfigPtr = XCanFd_LookupConfig(BaseAddress);
+#endif
 	if (CanFdInstPtr == NULL) {
 		return XST_FAILURE;
 	}
