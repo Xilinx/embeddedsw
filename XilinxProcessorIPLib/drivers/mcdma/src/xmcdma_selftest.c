@@ -72,7 +72,7 @@ s32 XMcdma_SelfTest(XMcdma *InstancePtr)
 
 	while (TimeOut) {
 
-		if(XMcdma_ResetIsDone(InstancePtr)) {
+		if (XMcdma_ResetIsDone(InstancePtr)) {
 			break;
 		}
 

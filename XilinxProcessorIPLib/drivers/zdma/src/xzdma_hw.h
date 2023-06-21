@@ -119,15 +119,15 @@ extern "C" {
 #define XZDMA_IXR_DONE_MASK		(0x00000400U) /**< IXR All done mask */
 
 #define XZDMA_IXR_ERR_MASK		(0x00000BF9U) /**< IXR all Error mask*/
-					/**< Or of XZDMA_IXR_AXI_WR_DATA_MASK,
-					  * XZDMA_IXR_AXI_RD_DATA_MASK,
-					  * XZDMA_IXR_AXI_RD_DST_DSCR_MASK,
-					  * XZDMA_IXR_AXI_RD_SRC_DSCR_MASK,
-					  * XZDMA_IXR_INV_APB_MASK,
-					  * XZDMA_IXR_DMA_PAUSE_MASK,
-					  * XZDMA_IXR_BYTE_CNT_OVRFL_MASK,
-					  * XZDMA_IXR_SRC_ACCT_ERR_MASK,
-					  *  XZDMA_IXR_DST_ACCT_ERR_MASK */
+/**< Or of XZDMA_IXR_AXI_WR_DATA_MASK,
+  * XZDMA_IXR_AXI_RD_DATA_MASK,
+  * XZDMA_IXR_AXI_RD_DST_DSCR_MASK,
+  * XZDMA_IXR_AXI_RD_SRC_DSCR_MASK,
+  * XZDMA_IXR_INV_APB_MASK,
+  * XZDMA_IXR_DMA_PAUSE_MASK,
+  * XZDMA_IXR_BYTE_CNT_OVRFL_MASK,
+  * XZDMA_IXR_SRC_ACCT_ERR_MASK,
+  *  XZDMA_IXR_DST_ACCT_ERR_MASK */
 /*@}*/
 
 /** @name Channel Control0 register bit masks and shifts
@@ -306,9 +306,9 @@ extern "C" {
 /** @name Channel control2 register bit mask
  * @{
  */
- #define XZDMA_WRITE_TO_CLEAR_MASK	(0x00000000U) /**< Write to clear
+#define XZDMA_WRITE_TO_CLEAR_MASK	(0x00000000U) /**< Write to clear
 							*  mask */
- /*@}*/
+/*@}*/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -330,7 +330,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XZDma_ReadReg(BaseAddress, RegOffset) \
-		XZDma_In32((BaseAddress) + (u32)(RegOffset))
+	XZDma_In32((BaseAddress) + (u32)(RegOffset))
 
 /*****************************************************************************/
 /**
@@ -348,7 +348,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XZDma_WriteReg(BaseAddress, RegOffset, Data) \
-		XZDma_Out32(((BaseAddress) + (u32)(RegOffset)), (u32)(Data))
+	XZDma_Out32(((BaseAddress) + (u32)(RegOffset)), (u32)(Data))
 
 #ifdef __cplusplus
 }

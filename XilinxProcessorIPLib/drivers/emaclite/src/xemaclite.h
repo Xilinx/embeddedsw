@@ -280,7 +280,7 @@ typedef struct {
 *****************************************************************************/
 #define XEmacLite_NextTransmitAddr(InstancePtr) 			\
 	((InstancePtr)->EmacLiteConfig.BaseAddress + 			\
-		(InstancePtr)->NextTxBufferToUse) + XEL_TXBUFF_OFFSET
+	 (InstancePtr)->NextTxBufferToUse) + XEL_TXBUFF_OFFSET
 
 /****************************************************************************/
 /**
@@ -299,7 +299,7 @@ typedef struct {
 *****************************************************************************/
 #define XEmacLite_NextReceiveAddr(InstancePtr)				\
 	((InstancePtr)->EmacLiteConfig.BaseAddress + 			\
-	(InstancePtr)->NextRxBufferToUse)
+	 (InstancePtr)->NextRxBufferToUse)
 
 /*****************************************************************************/
 /**
@@ -338,7 +338,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XEmacLite_IsLoopbackConfigured(InstancePtr) 			\
-            ((InstancePtr)->EmacLiteConfig.Loopback == 1)
+	((InstancePtr)->EmacLiteConfig.Loopback == 1)
 
 /************************** Variable Definitions *****************************/
 
@@ -348,8 +348,8 @@ typedef struct {
  * Functions in xemaclite.c
  */
 int XEmacLite_CfgInitialize(XEmacLite *InstancePtr,
-				XEmacLite_Config *EmacLiteConfigPtr,
-				UINTPTR EffectiveAddr);
+			    XEmacLite_Config *EmacLiteConfigPtr,
+			    UINTPTR EffectiveAddr);
 void XEmacLite_SetMacAddress(XEmacLite *InstancePtr, u8 *AddressPtr);
 int XEmacLite_TxBufferAvailable(XEmacLite *InstancePtr);
 void XEmacLite_FlushReceive(XEmacLite *InstancePtr);
@@ -358,9 +358,9 @@ int XEmacLite_Send(XEmacLite *InstancePtr, u8 *FramePtr, unsigned ByteCount);
 u16 XEmacLite_Recv(XEmacLite *InstancePtr, u8 *FramePtr);
 
 int XEmacLite_PhyRead(XEmacLite *InstancePtr, u32 PhyAddress, u32 RegNum,
-			u16 *PhyDataPtr);
+		      u16 *PhyDataPtr);
 int XEmacLite_PhyWrite(XEmacLite *InstancePtr, u32 PhyAddress, u32 RegNum,
-			u16 PhyData);
+		       u16 PhyData);
 
 void XEmacLite_EnableLoopBack(XEmacLite *InstancePtr);
 void XEmacLite_DisableLoopBack(XEmacLite *InstancePtr);

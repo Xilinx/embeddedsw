@@ -11,7 +11,7 @@
 * @addtogroup dmaps Overview
 * @{
 *
-* This file contains the implementation of the interface reset functionality 
+* This file contains the implementation of the interface reset functionality
 *	for XDmaPs driver.
 *
 * <pre>
@@ -41,10 +41,10 @@
 
 /*****************************************************************************/
 /**
-* This function perform the reset sequence to the given dmaps interface by 
+* This function perform the reset sequence to the given dmaps interface by
 * configuring the appropriate control bits in the dmaps specifc registers
 * the dmaps reset squence involves the following steps
-*	Disable all the interuupts 
+*	Disable all the interuupts
 *	Clear the pending interrupts
 *	Kill all the active channel threads
 *	Kill the manager thread
@@ -53,8 +53,8 @@
 *
 * @return N/A
 *
-* @note 
-* This function will not modify the slcr registers that are relavant for 
+* @note
+* This function will not modify the slcr registers that are relavant for
 * dmaps controller
 ******************************************************************************/
 void XDmaPs_ResetHw(u32 BaseAddress)
@@ -68,22 +68,23 @@ void XDmaPs_ResetHw(u32 BaseAddress)
 	/* Clear the interrupts */
 	XDmaPs_WriteReg(BaseAddress, XDMAPS_INTCLR_OFFSET, XDMAPS_INTCLR_ALL_MASK);
 	/* Kill the dma channel threads */
-	for (ChanIndex=0; ChanIndex < XDMAPS_CHANNELS_PER_DEV; ChanIndex++) {
+	for (ChanIndex = 0; ChanIndex < XDMAPS_CHANNELS_PER_DEV; ChanIndex++) {
 		while ((XDmaPs_ReadReg(BaseAddress, XDMAPS_DBGSTATUS_OFFSET)
-				& XDMAPS_DBGSTATUS_BUSY)
-				&& (WaitCount < XDMAPS_MAX_WAIT))
-				WaitCount++;
+			& XDMAPS_DBGSTATUS_BUSY)
+		       && (WaitCount < XDMAPS_MAX_WAIT)) {
+			WaitCount++;
+		}
 
-		DbgInst = XDmaPs_DBGINST0(0, 0x01, ChanIndex, 1);	
+		DbgInst = XDmaPs_DBGINST0(0, 0x01, ChanIndex, 1);
 		XDmaPs_WriteReg(BaseAddress, XDMAPS_DBGINST0_OFFSET, DbgInst);
-		XDmaPs_WriteReg(BaseAddress, XDMAPS_DBGINST1_OFFSET, 0x0);	
+		XDmaPs_WriteReg(BaseAddress, XDMAPS_DBGINST1_OFFSET, 0x0);
 		XDmaPs_WriteReg(BaseAddress, XDMAPS_DBGCMD_OFFSET, 0x0);
-	}	
+	}
 	/* Kill the manager thread	*/
-	DbgInst = XDmaPs_DBGINST0(0, 0x01, 0, 0);	
+	DbgInst = XDmaPs_DBGINST0(0, 0x01, 0, 0);
 	XDmaPs_WriteReg(BaseAddress, XDMAPS_DBGINST0_OFFSET, DbgInst);
-	XDmaPs_WriteReg(BaseAddress, XDMAPS_DBGINST1_OFFSET, 0x0);	
-	XDmaPs_WriteReg(BaseAddress, XDMAPS_DBGCMD_OFFSET, 0x0);	
+	XDmaPs_WriteReg(BaseAddress, XDMAPS_DBGINST1_OFFSET, 0x0);
+	XDmaPs_WriteReg(BaseAddress, XDMAPS_DBGCMD_OFFSET, 0x0);
 }
 
 

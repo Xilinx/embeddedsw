@@ -205,7 +205,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XMcdma_ReadReg(BaseAddress, RegOffset) \
-		XMcdma_In32((BaseAddress) + (u32)(RegOffset))
+	XMcdma_In32((BaseAddress) + (u32)(RegOffset))
 
 /*****************************************************************************/
 /**
@@ -223,7 +223,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XMcdma_WriteReg(BaseAddress, RegOffset, Data) \
-		XMcdma_Out32(((BaseAddress) + (RegOffset)), (Data))
+	XMcdma_Out32(((BaseAddress) + (RegOffset)), (Data))
 
 #ifdef __cplusplus
 }

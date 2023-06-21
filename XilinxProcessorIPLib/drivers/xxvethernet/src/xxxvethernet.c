@@ -68,8 +68,8 @@ static void XXxvEthernet_InitHw(XXxvEthernet *InstancePtr);	/* HW reset */
 *
 ******************************************************************************/
 int XXxvEthernet_CfgInitialize(XXxvEthernet *InstancePtr,
-				XXxvEthernet_Config *CfgPtr,
-				UINTPTR EffectiveAddress)
+			       XXxvEthernet_Config *CfgPtr,
+			       UINTPTR EffectiveAddress)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -89,7 +89,7 @@ int XXxvEthernet_CfgInitialize(XXxvEthernet *InstancePtr,
 	XXxvEthernet_Reset(InstancePtr);
 
 	xdbg_printf(XDBG_DEBUG_GENERAL,
-			"XxvEthernet_CfgInitialize: returning SUCCESS\n");
+		    "XxvEthernet_CfgInitialize: returning SUCCESS\n");
 	return XST_SUCCESS;
 }
 
@@ -172,13 +172,13 @@ int XXxvEthernet_Start(XXxvEthernet *InstancePtr)
 	if (InstancePtr->Options & XXE_TRANSMITTER_ENABLE_OPTION) {
 		xdbg_printf(XDBG_DEBUG_GENERAL, "enabling transmitter\n");
 		Reg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-							XXE_TXCFG_OFFSET);
+					   XXE_TXCFG_OFFSET);
 		if (!(Reg & XXE_TXCFG_TX_MASK)) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"transmitter not enabled, enabling now\n");
+				    "transmitter not enabled, enabling now\n");
 			XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-							XXE_TXCFG_OFFSET,
-							Reg | XXE_TXCFG_TX_MASK);
+					      XXE_TXCFG_OFFSET,
+					      Reg | XXE_TXCFG_TX_MASK);
 		}
 		xdbg_printf(XDBG_DEBUG_GENERAL, "transmitter enabled\n");
 	}
@@ -187,23 +187,23 @@ int XXxvEthernet_Start(XXxvEthernet *InstancePtr)
 	if (InstancePtr->Options & XXE_RECEIVER_ENABLE_OPTION) {
 		xdbg_printf(XDBG_DEBUG_GENERAL, "enabling receiver\n");
 		Reg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-				XXE_RXCFG_OFFSET);
+					   XXE_RXCFG_OFFSET);
 		if (!(Reg & XXE_RXCFG_RX_MASK)) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
-				"receiver not enabled, enabling now\n");
+				    "receiver not enabled, enabling now\n");
 
 			XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-					XXE_RXCFG_OFFSET,
-							Reg | XXE_RXCFG_RX_MASK);
+					      XXE_RXCFG_OFFSET,
+					      Reg | XXE_RXCFG_RX_MASK);
 		}
 		/* RX block lock */
 		/* Do a dummy read because this is a sticky bit */
 		XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-							XXE_RXBLSR_OFFSET);
-		while(!(XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-					XXE_RXBLSR_OFFSET) & XXE_RXBLKLCK_MASK)) {
+				     XXE_RXBLSR_OFFSET);
+		while (!(XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
+					      XXE_RXBLSR_OFFSET) & XXE_RXBLKLCK_MASK)) {
 			Timeout--;
-			if(Timeout <= 0) {
+			if (Timeout <= 0) {
 				xil_printf("ERROR: Block lock is not set \n\r");
 				return XST_FAILURE;
 			}
@@ -252,14 +252,14 @@ void XXxvEthernet_Stop(XXxvEthernet *InstancePtr)
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XXxvEthernet_Stop\n");
 
 	xdbg_printf(XDBG_DEBUG_GENERAL,
-		"XXxvEthernet_Stop: disabling receiver\n");
+		    "XXxvEthernet_Stop: disabling receiver\n");
 
 	/* Disable the receiver */
 	Reg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-			XXE_RXCFG_OFFSET);
+				   XXE_RXCFG_OFFSET);
 	Reg &= ~XXE_RXCFG_RX_MASK;
 	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-			XXE_RXCFG_OFFSET, Reg);
+			      XXE_RXCFG_OFFSET, Reg);
 
 	/* Mark as stopped */
 	InstancePtr->IsStarted = 0;
@@ -293,8 +293,8 @@ void XXxvEthernet_Reset(XXxvEthernet *InstancePtr)
 	 * XxvEthernet registers are accessible including the IS register.
 	 */
 	TimeoutLoops = XXE_LOOPS_TO_COME_OUT_OF_RST;
-		while (TimeoutLoops > 0) {
-			TimeoutLoops--;
+	while (TimeoutLoops > 0) {
+		TimeoutLoops--;
 	}
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XXxvEthernet_Reset\n");
@@ -329,10 +329,10 @@ static void XXxvEthernet_InitHw(XXxvEthernet *InstancePtr)
 
 	/* Disable the receiver */
 	Reg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-								XXE_RXCFG_OFFSET);
+				   XXE_RXCFG_OFFSET);
 	Reg &= ~XXE_RXCFG_RX_MASK;
 	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-							XXE_RXCFG_OFFSET, Reg);
+			      XXE_RXCFG_OFFSET, Reg);
 
 	/*
 	 * Sync default options with HW but leave receiver and transmitter
@@ -341,8 +341,8 @@ static void XXxvEthernet_InitHw(XXxvEthernet *InstancePtr)
 	 * are set
 	 */
 	XXxvEthernet_SetOptions(InstancePtr, InstancePtr->Options &
-					~(XXE_TRANSMITTER_ENABLE_OPTION |
-					XXE_RECEIVER_ENABLE_OPTION));
+				~(XXE_TRANSMITTER_ENABLE_OPTION |
+				  XXE_RECEIVER_ENABLE_OPTION));
 
 	XXxvEthernet_ClearOptions(InstancePtr, ~InstancePtr->Options);
 
@@ -399,29 +399,29 @@ int XXxvEthernet_SetOptions(XXxvEthernet *InstancePtr, u32 Options)
 	 */
 	/* Get current register contents */
 	RegRcfg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-			XXE_RXCFG_OFFSET);
+				       XXE_RXCFG_OFFSET);
 	RegTc = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-							XXE_TXCFG_OFFSET);
+				     XXE_TXCFG_OFFSET);
 	RegNewRcfg = RegRcfg;
 	RegNewTc = RegTc;
 
 	xdbg_printf(XDBG_DEBUG_GENERAL,
-			"current control regs: RCFG: 0x%0x; TC: 0x%0x\n",
-			RegRcfg, RegTc);
+		    "current control regs: RCFG: 0x%0x; TC: 0x%0x\n",
+		    RegRcfg, RegTc);
 	xdbg_printf(XDBG_DEBUG_GENERAL,
-			"Options: 0x%0x; default options: 0x%0x\n",Options,
-							XXE_DEFAULT_OPTIONS);
+		    "Options: 0x%0x; default options: 0x%0x\n", Options,
+		    XXE_DEFAULT_OPTIONS);
 	/* Turn on FCS stripping on receive packets */
 	if (Options & XXE_FCS_STRIP_OPTION) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-				"setOptions: enabling fcs stripping\n");
+			    "setOptions: enabling fcs stripping\n");
 		RegNewRcfg |= XXE_RXCFG_DEL_FCS_MASK;
 	}
 
 	/* Turn on FCS insertion on transmit packets */
 	if (Options & XXE_FCS_INSERT_OPTION) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-				"setOptions: enabling fcs insertion\n");
+			    "setOptions: enabling fcs insertion\n");
 		RegNewTc |= XXE_TXCFG_FCS_MASK;
 	}
 
@@ -438,16 +438,16 @@ int XXxvEthernet_SetOptions(XXxvEthernet *InstancePtr, u32 Options)
 	/* Change the TC or RCFG registers if they need to be modified */
 	if (RegTc != RegNewTc) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-				"setOptions: writing tc: 0x%0x\n", RegNewTc);
+			    "setOptions: writing tc: 0x%0x\n", RegNewTc);
 		XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-						XXE_TXCFG_OFFSET, RegNewTc);
+				      XXE_TXCFG_OFFSET, RegNewTc);
 	}
 
 	if (RegRcfg != RegNewRcfg) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-			"setOptions: writing rcfg: 0x%0x\n", RegNewRcfg);
+			    "setOptions: writing rcfg: 0x%0x\n", RegNewRcfg);
 		XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-				XXE_RXCFG_OFFSET, RegNewRcfg);
+				      XXE_RXCFG_OFFSET, RegNewRcfg);
 	}
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "setOptions: returning SUCCESS\n");
@@ -485,7 +485,7 @@ int XXxvEthernet_ClearOptions(XXxvEthernet *InstancePtr, u32 Options)
 
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XXxvEthernet_ClearOptions: 0x%08x\n",
-								Options);
+		    Options);
 	/* Be sure device has been stopped */
 	if (InstancePtr->IsStarted == XIL_COMPONENT_IS_STARTED) {
 		return (XST_DEVICE_IS_STARTED);
@@ -504,37 +504,37 @@ int XXxvEthernet_ClearOptions(XXxvEthernet *InstancePtr, u32 Options)
 
 	/* Get the current register contents */
 	RegRcfg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-							XXE_RXCFG_OFFSET);
+				       XXE_RXCFG_OFFSET);
 	RegTc = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-							XXE_TXCFG_OFFSET);
+				     XXE_TXCFG_OFFSET);
 	RegNewRcfg = RegRcfg;
 	RegNewTc = RegTc;
 
 	/* Turn off FCS stripping on receive packets */
 	if (Options & XXE_FCS_STRIP_OPTION) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-		"XXxvEthernet_ClearOptions: disabling fcs strip\n");
+			    "XXxvEthernet_ClearOptions: disabling fcs strip\n");
 		RegNewRcfg &= ~XXE_RXCFG_DEL_FCS_MASK;
 	}
 
 	/* Turn off FCS insertion on transmit packets */
 	if (Options & XXE_FCS_INSERT_OPTION) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-		"XXxvEthernet_ClearOptions: disabling fcs insert\n");
+			    "XXxvEthernet_ClearOptions: disabling fcs insert\n");
 		RegNewTc &= ~XXE_TXCFG_FCS_MASK;
 	}
 
 	/* Disable transmitter */
 	if (Options & XXE_TRANSMITTER_ENABLE_OPTION) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-		"XXxvEthernet_ClearOptions: disabling transmitter\n");
+			    "XXxvEthernet_ClearOptions: disabling transmitter\n");
 		RegNewTc &= ~XXE_TXCFG_TX_MASK;
 	}
 
 	/* Disable receiver */
 	if (Options & XXE_RECEIVER_ENABLE_OPTION) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-		"XXxvEthernet_ClearOptions: disabling receiver\n");
+			    "XXxvEthernet_ClearOptions: disabling receiver\n");
 		RegNewRcfg &= ~XXE_RXCFG_RX_MASK;
 	}
 
@@ -543,16 +543,16 @@ int XXxvEthernet_ClearOptions(XXxvEthernet *InstancePtr, u32 Options)
 	 */
 	if (RegTc != RegNewTc) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-		"XXxvEthernet_ClearOptions: setting TC: 0x%0x\n", RegNewTc);
+			    "XXxvEthernet_ClearOptions: setting TC: 0x%0x\n", RegNewTc);
 		XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-						XXE_TXCFG_OFFSET, RegNewTc);
+				      XXE_TXCFG_OFFSET, RegNewTc);
 	}
 
 	if (RegRcfg != RegNewRcfg) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-		"XXxvEthernet_ClearOptions: setting RCFG: 0x%0x\n",RegNewRcfg);
+			    "XXxvEthernet_ClearOptions: setting RCFG: 0x%0x\n", RegNewRcfg);
 		XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-						XXE_RXCFG_OFFSET, RegNewRcfg);
+				      XXE_RXCFG_OFFSET, RegNewRcfg);
 	}
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "ClearOptions: returning SUCCESS\n");
@@ -612,47 +612,47 @@ int XXxvEthernet_SetUsxgmiiRateAndDuplex(XXxvEthernet *InstancePtr, u32 Rate, u3
 	/* Set speed in axi lite register field and the signal field to
 	 * keep them in sync
 	 */
-	switch(Rate) {
+	switch (Rate) {
 		case RATE_1G:
 			RateMask = (XXE_USXGMII_RATE_1G_MASK << XXE_USXGMII_RATE_SHIFT) |
-						(XXE_USXGMII_RATE_1G_MASK << XXE_USXGMII_SPEED_SHIFT);
+				   (XXE_USXGMII_RATE_1G_MASK << XXE_USXGMII_SPEED_SHIFT);
 			break;
 		case RATE_2G5:
 			RateMask = (XXE_USXGMII_RATE_2G5_MASK << XXE_USXGMII_RATE_SHIFT) |
-						(XXE_USXGMII_RATE_2G5_MASK << XXE_USXGMII_SPEED_SHIFT);
+				   (XXE_USXGMII_RATE_2G5_MASK << XXE_USXGMII_SPEED_SHIFT);
 			break;
 		case RATE_10G:
 			RateMask = (XXE_USXGMII_RATE_10G_MASK << XXE_USXGMII_RATE_SHIFT) |
-						(XXE_USXGMII_RATE_10G_MASK << XXE_USXGMII_SPEED_SHIFT);
+				   (XXE_USXGMII_RATE_10G_MASK << XXE_USXGMII_SPEED_SHIFT);
 			break;
 		case RATE_10M:
 			RateMask = (XXE_USXGMII_RATE_10M_MASK << XXE_USXGMII_RATE_SHIFT) |
-						(XXE_USXGMII_RATE_10M_MASK << XXE_USXGMII_SPEED_SHIFT);
+				   (XXE_USXGMII_RATE_10M_MASK << XXE_USXGMII_SPEED_SHIFT);
 			break;
 		case RATE_100M:
 			RateMask = (XXE_USXGMII_RATE_100M_MASK << XXE_USXGMII_RATE_SHIFT) |
-						(XXE_USXGMII_RATE_100M_MASK << XXE_USXGMII_SPEED_SHIFT);
+				   (XXE_USXGMII_RATE_100M_MASK << XXE_USXGMII_SPEED_SHIFT);
 			break;
 		default:
 			return XST_FAILURE;
 	}
 	/* Set the speed and make sure to enable USXGMII */
 	UsxgmiiAnReg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-				XXE_USXGMII_AN_OFFSET);
+					    XXE_USXGMII_AN_OFFSET);
 	UsxgmiiAnReg &= ~(XXE_USXGMII_RATE_MASK | XXE_USXGMII_ANA_SPEED_MASK );
 	UsxgmiiAnReg |= (XXE_USXGMII_ANA_MASK | XXE_USXGMII_LINK_STS_MASK | RateMask);
 
 
 	/* Duplex setting */
-	if(!SetFD) {
+	if (!SetFD) {
 		UsxgmiiAnReg &= ~XXE_USXGMII_ANA_FD_MASK;
 	} else {
 		UsxgmiiAnReg |= XXE_USXGMII_ANA_FD_MASK;
 	}
 	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-			XXE_USXGMII_AN_OFFSET, UsxgmiiAnReg);
+			      XXE_USXGMII_AN_OFFSET, UsxgmiiAnReg);
 	xdbg_printf(XDBG_DEBUG_GENERAL,
-			"XXxvEthernet_SetUsxgmiiRateAndDuplex: done\n");
+		    "XXxvEthernet_SetUsxgmiiRateAndDuplex: done\n");
 
 	return (XST_SUCCESS);
 }
@@ -678,16 +678,16 @@ void XXxvEthernet_UsxgmiiAnMainReset(XXxvEthernet *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	UsxgmiiAnReg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-					XXE_USXGMII_AN_OFFSET);
+					    XXE_USXGMII_AN_OFFSET);
 	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-				XXE_USXGMII_AN_OFFSET,
-				UsxgmiiAnReg | XXE_USXGMII_ANMAINRESET_MASK);
+			      XXE_USXGMII_AN_OFFSET,
+			      UsxgmiiAnReg | XXE_USXGMII_ANMAINRESET_MASK);
 
 	usleep(100);
 
 	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-				XXE_USXGMII_AN_OFFSET,
-				UsxgmiiAnReg & ~XXE_USXGMII_ANMAINRESET_MASK);
+			      XXE_USXGMII_AN_OFFSET,
+			      UsxgmiiAnReg & ~XXE_USXGMII_ANMAINRESET_MASK);
 }
 
 /*****************************************************************************/
@@ -711,22 +711,22 @@ void XXxvEthernet_UsxgmiiAnMainRestart(XXxvEthernet *InstancePtr)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	UsxgmiiAnReg = XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-					XXE_USXGMII_AN_OFFSET);
+					    XXE_USXGMII_AN_OFFSET);
 	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-				XXE_USXGMII_AN_OFFSET,
-				UsxgmiiAnReg & ~XXE_USXGMII_ANRESTART_MASK);
+			      XXE_USXGMII_AN_OFFSET,
+			      UsxgmiiAnReg & ~XXE_USXGMII_ANRESTART_MASK);
 
 	usleep(100);
 
 	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-				XXE_USXGMII_AN_OFFSET,
-				UsxgmiiAnReg | XXE_USXGMII_ANRESTART_MASK);
+			      XXE_USXGMII_AN_OFFSET,
+			      UsxgmiiAnReg | XXE_USXGMII_ANRESTART_MASK);
 
 	usleep(100);
 
 	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-				XXE_USXGMII_AN_OFFSET,
-				UsxgmiiAnReg & ~XXE_USXGMII_ANRESTART_MASK);
+			      XXE_USXGMII_AN_OFFSET,
+			      UsxgmiiAnReg & ~XXE_USXGMII_ANRESTART_MASK);
 }
 /** @} */
 
@@ -751,10 +751,10 @@ u16 XXxvEthernet_GetAutoNegSpeed(XXxvEthernet *InstancePtr)
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XXxvEthernet_GetOperatingSpeed\n");
 	if (XXxvEthernet_ReadReg(InstancePtr->Config.BaseAddress,
-				XXE_ANASR_OFFSET) & XXE_ANA_10GKR_MASK) {
+				 XXE_ANASR_OFFSET) & XXE_ANA_10GKR_MASK) {
 
 		xdbg_printf(XDBG_DEBUG_GENERAL,
-			"XXxvEthernet_GetOperatingSpeed: returning 1000\n");
+			    "XXxvEthernet_GetOperatingSpeed: returning 1000\n");
 		return XXE_SPEED_10_GBPS;
 	} else {
 		return 0;
@@ -788,9 +788,9 @@ int XXxvEthernet_SetAutoNegSpeed(XXxvEthernet *InstancePtr)
 
 	/* Set register and return */
 	XXxvEthernet_WriteReg(InstancePtr->Config.BaseAddress,
-			XXE_ANACR_OFFSET, XXE_ANA_10GKR_MASK);
+			      XXE_ANACR_OFFSET, XXE_ANA_10GKR_MASK);
 	xdbg_printf(XDBG_DEBUG_GENERAL,
-			"XXxvEthernet_SetOperatingSpeed: done\n");
+		    "XXxvEthernet_SetOperatingSpeed: done\n");
 	return (XST_SUCCESS);
 }
 /** @} */

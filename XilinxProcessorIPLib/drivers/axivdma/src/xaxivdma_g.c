@@ -46,8 +46,7 @@
 
 /************************** Constant Definitions *****************************/
 
-XAxiVdma_Config XAxiVdma_ConfigTable[] =
-{
+XAxiVdma_Config XAxiVdma_ConfigTable[] = {
 	{
 #ifdef XPAR_XAXIVDMA_NUM_INSTANCES
 		XPAR_AXIVDMA_0_DEVICE_ID,

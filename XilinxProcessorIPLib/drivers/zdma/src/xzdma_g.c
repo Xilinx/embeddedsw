@@ -16,8 +16,7 @@
 * The configuration table for devices
 */
 
-XZDma_Config XZDma_ConfigTable[] =
-{
+XZDma_Config XZDma_ConfigTable[] = {
 	{
 		XPAR_PSU_ADMA_CH0_DEVICE_ID,
 		XPAR_PSU_ADMA_CH0_BASEADDR,

@@ -17,8 +17,7 @@
 * The configuration table for devices
 */
 
-XMcdma_Config XMcdma_ConfigTable[] =
-{
+XMcdma_Config XMcdma_ConfigTable[] = {
 	{
 		XPAR_AXI_MCDMA_0_DEVICE_ID,
 		XPAR_AXI_MCDMA_0_BASEADDR,

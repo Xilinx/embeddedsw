@@ -62,7 +62,7 @@
 * @note		None.
 *
 ******************************************************************************/
-int XEmacLite_SelfTest(XEmacLite * InstancePtr)
+int XEmacLite_SelfTest(XEmacLite *InstancePtr)
 {
 	UINTPTR BaseAddress;
 	u8 Index;
@@ -78,7 +78,7 @@ int XEmacLite_SelfTest(XEmacLite * InstancePtr)
 	 * Determine the TX buffer address
 	 */
 	BaseAddress = InstancePtr->EmacLiteConfig.BaseAddress +
-			XEL_TXBUFF_OFFSET;
+		      XEL_TXBUFF_OFFSET;
 
 	/*
 	 * Write the TestString to the TX buffer in EMAC Lite then
@@ -132,7 +132,7 @@ int XEmacLite_SelfTest(XEmacLite * InstancePtr)
 	 * Determine the RX buffer address
 	 */
 	BaseAddress = InstancePtr->EmacLiteConfig.BaseAddress +
-				XEL_RXBUFF_OFFSET;
+		      XEL_RXBUFF_OFFSET;
 
 	/*
 	 * Write the TestString to the RX buffer in EMAC Lite then

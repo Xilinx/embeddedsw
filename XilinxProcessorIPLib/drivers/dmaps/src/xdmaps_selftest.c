@@ -72,13 +72,15 @@ int XDmaPs_SelfTest(XDmaPs *InstPtr)
 	int i;
 
 	if (XDmaPs_ReadReg(BaseAddr, XDMAPS_DBGSTATUS_OFFSET)
-	    & XDMAPS_DBGSTATUS_BUSY)
+	    & XDMAPS_DBGSTATUS_BUSY) {
 		return XST_FAILURE;
+	}
 
 	for (i = 0; i < XDMAPS_CHANNELS_PER_DEV; i++) {
 		if (XDmaPs_ReadReg(BaseAddr,
-				    XDmaPs_CSn_OFFSET(i)))
+				   XDmaPs_CSn_OFFSET(i))) {
 			return XST_FAILURE;
+		}
 	}
 	return XST_SUCCESS;
 }

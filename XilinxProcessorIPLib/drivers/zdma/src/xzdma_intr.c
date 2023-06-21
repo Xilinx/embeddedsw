@@ -92,14 +92,13 @@ void XZDma_IntrHandler(void *Instance)
 	ErrorStatus = PendingIntr & (XZDMA_IXR_ERR_MASK);
 	if ((ErrorStatus) != 0U) {
 		if ((ErrorStatus & XZDMA_IXR_DMA_PAUSE_MASK) ==
-				XZDMA_IXR_DMA_PAUSE_MASK) {
+		    XZDMA_IXR_DMA_PAUSE_MASK) {
 			InstancePtr->ChannelState = XZDMA_PAUSE;
-		}
-		else {
+		} else {
 			if ((ErrorStatus & (XZDMA_IXR_AXI_WR_DATA_MASK |
-				XZDMA_IXR_AXI_RD_DATA_MASK |
-				XZDMA_IXR_AXI_RD_DST_DSCR_MASK |
-				XZDMA_IXR_AXI_RD_SRC_DSCR_MASK)) != 0x00U) {
+					    XZDMA_IXR_AXI_RD_DATA_MASK |
+					    XZDMA_IXR_AXI_RD_DST_DSCR_MASK |
+					    XZDMA_IXR_AXI_RD_SRC_DSCR_MASK)) != 0x00U) {
 				InstancePtr->ChannelState = XZDMA_IDLE;
 			}
 		}
@@ -139,7 +138,7 @@ void XZDma_IntrHandler(void *Instance)
 *
 ******************************************************************************/
 s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
-	void *CallBackFunc, void *CallBackRef)
+		      void *CallBackFunc, void *CallBackRef)
 {
 
 	/* Verify arguments. */
@@ -147,22 +146,22 @@ s32 XZDma_SetCallBack(XZDma *InstancePtr, XZDma_Handler HandlerType,
 	Xil_AssertNonvoid(CallBackFunc != NULL);
 	Xil_AssertNonvoid(CallBackRef != NULL);
 	Xil_AssertNonvoid((HandlerType == XZDMA_HANDLER_DONE) ||
-				(HandlerType == XZDMA_HANDLER_ERROR));
+			  (HandlerType == XZDMA_HANDLER_ERROR));
 	Xil_AssertNonvoid(InstancePtr->IsReady ==
-				(u32)(XIL_COMPONENT_IS_READY));
+			  (u32)(XIL_COMPONENT_IS_READY));
 
 	/*
 	 * Calls the respective callback function corresponding to
 	 * the handler type
 	 */
-	if(HandlerType == XZDMA_HANDLER_DONE) {
+	if (HandlerType == XZDMA_HANDLER_DONE) {
 		InstancePtr->DoneHandler =
-				(XZDma_DoneHandler)((void *)CallBackFunc);
-				InstancePtr->DoneRef = CallBackRef;
+			(XZDma_DoneHandler)((void *)CallBackFunc);
+		InstancePtr->DoneRef = CallBackRef;
 	} else {
 		InstancePtr->ErrorHandler =
-				(XZDma_ErrorHandler)((void *)CallBackFunc);
-				InstancePtr->ErrorRef = CallBackRef;
+			(XZDma_ErrorHandler)((void *)CallBackFunc);
+		InstancePtr->ErrorRef = CallBackRef;
 	}
 
 	return XST_SUCCESS;

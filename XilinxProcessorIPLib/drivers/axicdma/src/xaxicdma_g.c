@@ -32,8 +32,7 @@
 #include "xaxicdma.h"
 /************************** Constant Definitions *****************************/
 
-XAxiCdma_Config XAxiCdma_ConfigTable[] =
-{
+XAxiCdma_Config XAxiCdma_ConfigTable[] = {
 	{
 		XPAR_AXICDMA_0_DEVICE_ID,
 		XPAR_AXICDMA_0_BASEADDR,

@@ -94,7 +94,7 @@ typedef UINTPTR XAxiCdma_Bd[XAXICDMA_BD_NUM_WORDS];
  *	u32 XAxiCdma_BdSetAddrLen(XAxiCdma_Bd* BdPtr, int AddrLen)
  *****************************************************************************/
 #define XAxiCdma_BdSetAddrLen(BdPtr, AddrLen)   \
-       XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_ADDRLEN_OFFSET, AddrLen);
+	XAxiCdma_BdWrite(BdPtr, XAXICDMA_BD_ADDRLEN_OFFSET, AddrLen);
 
 /*****************************************************************************/
 /* Get the BD's Address length
@@ -109,7 +109,7 @@ typedef UINTPTR XAxiCdma_Bd[XAXICDMA_BD_NUM_WORDS];
  *
  *****************************************************************************/
 #define XAxiCdma_BdGetAddrLength(BdPtr)   \
-       XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_ADDRLEN_OFFSET);
+	XAxiCdma_BdRead(BdPtr, XAXICDMA_BD_ADDRLEN_OFFSET);
 
 
 /************************** Function Prototypes ******************************/
@@ -133,7 +133,7 @@ void XAxiCdma_BdSetWordLen(XAxiCdma_Bd *BdPtr, int WordLen);
 void XAxiCdma_BdSetMaxLen(XAxiCdma_Bd *BdPtr, int MaxLen);
 LONG XAxiCdma_BdGetPhysAddr(XAxiCdma_Bd *BdPtr);
 
-void XAxiCdma_DumpBd(XAxiCdma_Bd* BdPtr);
+void XAxiCdma_DumpBd(XAxiCdma_Bd *BdPtr);
 
 #ifdef __cplusplus
 }
