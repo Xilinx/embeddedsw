@@ -433,44 +433,44 @@ extern "C" {
                                    Watermark Full Intr Mask */
 #if defined(CANFD_v1_0)
 #define XCANFD_IXR_ALL		(XCANFD_IXR_PEE_MASK	 	| \
-				XCANFD_IXR_BSRD_MASK		| \
-				XCANFD_IXR_RXMNF_MASK 		| \
-				XCANFD_IXR_RXBOFLW_MASK 	| \
-				XCANFD_IXR_RXRBF_MASK 		| \
-				XCANFD_IXR_TXCRS_MASK 		| \
-				XCANFD_IXR_TXRRS_MASK 		| \
-				XCANFD_IXR_RXFWMFLL_MASK 	| \
-				XCANFD_IXR_WKUP_MASK	   	| \
-				XCANFD_IXR_SLP_MASK		| \
-				XCANFD_IXR_BSOFF_MASK  		| \
-				XCANFD_IXR_ERROR_MASK  		| \
-				XCANFD_IXR_RXFOFLW_MASK 	| \
-				XCANFD_IXR_RXOK_MASK   		| \
-				XCANFD_IXR_TXOK_MASK   		| \
-				XCANFD_IXR_ARBLST_MASK)
+				 XCANFD_IXR_BSRD_MASK		| \
+				 XCANFD_IXR_RXMNF_MASK 		| \
+				 XCANFD_IXR_RXBOFLW_MASK 	| \
+				 XCANFD_IXR_RXRBF_MASK 		| \
+				 XCANFD_IXR_TXCRS_MASK 		| \
+				 XCANFD_IXR_TXRRS_MASK 		| \
+				 XCANFD_IXR_RXFWMFLL_MASK 	| \
+				 XCANFD_IXR_WKUP_MASK	   	| \
+				 XCANFD_IXR_SLP_MASK		| \
+				 XCANFD_IXR_BSOFF_MASK  		| \
+				 XCANFD_IXR_ERROR_MASK  		| \
+				 XCANFD_IXR_RXFOFLW_MASK 	| \
+				 XCANFD_IXR_RXOK_MASK   		| \
+				 XCANFD_IXR_TXOK_MASK   		| \
+				 XCANFD_IXR_ARBLST_MASK)
 #else
 #define XCANFD_IXR_ALL		(XCANFD_IXR_PEE_MASK	 	| \
-				XCANFD_IXR_BSRD_MASK		| \
-				XCANFD_IXR_RXMNF_MASK 		| \
-				XCANFD_IXR_RXBOFLW_MASK 	| \
-				XCANFD_IXR_RXRBF_MASK 		| \
-				XCANFD_IXR_TXCRS_MASK 		| \
-				XCANFD_IXR_TXRRS_MASK 		| \
-				XCANFD_IXR_RXFWMFLL_MASK 	| \
-				XCANFD_IXR_WKUP_MASK	   	| \
-				XCANFD_IXR_SLP_MASK		| \
-				XCANFD_IXR_BSOFF_MASK  		| \
-				XCANFD_IXR_ERROR_MASK  		| \
-				XCANFD_IXR_RXFOFLW_MASK 	| \
-				XCANFD_IXR_RXOK_MASK   		| \
-				XCANFD_IXR_TXOK_MASK   		| \
-				XCANFD_IXR_ARBLST_MASK      | \
-				XCANFD_IXR_TSCNT_OFLW_MASK  | \
-				XCANFD_IXR_RXFOFLW_1_MASK   | \
-				XCANFD_IXR_RXFWMFLL_1_MASK  | \
-				XCANFD_IXR_TXEOFLW_MASK     | \
-				XCANFD_IXR_TXEWMFLL_MASK)
-				/**< Mask for Basic interrupts */
+				 XCANFD_IXR_BSRD_MASK		| \
+				 XCANFD_IXR_RXMNF_MASK 		| \
+				 XCANFD_IXR_RXBOFLW_MASK 	| \
+				 XCANFD_IXR_RXRBF_MASK 		| \
+				 XCANFD_IXR_TXCRS_MASK 		| \
+				 XCANFD_IXR_TXRRS_MASK 		| \
+				 XCANFD_IXR_RXFWMFLL_MASK 	| \
+				 XCANFD_IXR_WKUP_MASK	   	| \
+				 XCANFD_IXR_SLP_MASK		| \
+				 XCANFD_IXR_BSOFF_MASK  		| \
+				 XCANFD_IXR_ERROR_MASK  		| \
+				 XCANFD_IXR_RXFOFLW_MASK 	| \
+				 XCANFD_IXR_RXOK_MASK   		| \
+				 XCANFD_IXR_TXOK_MASK   		| \
+				 XCANFD_IXR_ARBLST_MASK      | \
+				 XCANFD_IXR_TSCNT_OFLW_MASK  | \
+				 XCANFD_IXR_RXFOFLW_1_MASK   | \
+				 XCANFD_IXR_RXFWMFLL_1_MASK  | \
+				 XCANFD_IXR_TXEOFLW_MASK     | \
+				 XCANFD_IXR_TXEWMFLL_MASK)
+/**< Mask for Basic interrupts */
 #endif
 /** @} */
 
@@ -550,35 +550,35 @@ Mask/Acceptance Filter ID)
 /** @name CAN RX FIFO Watermark Register
  *  @{
  */
- #if defined (CANFD_v1_0)
- #define XCANFD_WMR_RXFWM_MASK 0x0000001FU /**< RX FIFO Full Watermark
+#if defined (CANFD_v1_0)
+#define XCANFD_WMR_RXFWM_MASK 0x0000001FU /**< RX FIFO Full Watermark
                                                Mask */
- #else
- #define XCANFD_WMR_RXFWM_MASK 0x0000003FU /**< RX FIFO 0 Full Watermark
+#else
+#define XCANFD_WMR_RXFWM_MASK 0x0000003FU /**< RX FIFO 0 Full Watermark
                                                Mask */
- #endif
- #define XCANFD_WMR_RXFWM_1_MASK 0x00003F00U /**< RX FIFO 1 Full Watermark
+#endif
+#define XCANFD_WMR_RXFWM_1_MASK 0x00003F00U /**< RX FIFO 1 Full Watermark
                                                Mask */
 
 /** @} */
- /** @name TX Event FIFO Registers
- *  @{
- */
- #define XCANFD_TXE_FWM_OFFSET   0x000000A4U /**< TX Event FIFO watermark
+/** @name TX Event FIFO Registers
+*  @{
+*/
+#define XCANFD_TXE_FWM_OFFSET   0x000000A4U /**< TX Event FIFO watermark
                                                Offset */
- #define XCANFD_TXE_FWM_MASK     0x0000001FU /**< TX Event FIFO watermark
+#define XCANFD_TXE_FWM_MASK     0x0000001FU /**< TX Event FIFO watermark
                                                Mask */
- #define XCANFD_TXE_FSR_OFFSET   0x000000A0U /**< TX Event FIFO Status
+#define XCANFD_TXE_FSR_OFFSET   0x000000A0U /**< TX Event FIFO Status
                                                Register Offset */
- #define XCANFD_TXE_RI_MASK      0x0000001FU /**< TX Event FIFO Read
+#define XCANFD_TXE_RI_MASK      0x0000001FU /**< TX Event FIFO Read
                                                Index Mask */
- #define XCANFD_TXE_IRI_MASK     0x00000080U /**< TX Event FIFO
+#define XCANFD_TXE_IRI_MASK     0x00000080U /**< TX Event FIFO
                                               Increment Read Index Mask */
- #define XCANFD_TXE_FL_MASK      0x00001F00U /**< TX Event FIFO Fill
+#define XCANFD_TXE_FL_MASK      0x00001F00U /**< TX Event FIFO Fill
                                                Level Mask */
- #define XCANFD_TXE_FL_SHIFT    8U /**< TX Event FIFO Fill
+#define XCANFD_TXE_FL_SHIFT    8U /**< TX Event FIFO Fill
                                                Level Shift */
- #define XCANFD_TXE_IRI_SHIFT  7U /**< TX Event FIFO
+#define XCANFD_TXE_IRI_SHIFT  7U /**< TX Event FIFO
                                     Increment Read Index SHIFT */
 
 /** @} */
@@ -650,8 +650,8 @@ Mask/Acceptance Filter ID)
 #define XCANFD_TXBUFFER31_RDY_RQT_MASK	0x80000000U	/**< TxBuffer31 Ready
 							Request Mask */
 #define XCANFD_TXBUFFER_ALL_RDY_RQT_MASK	0xFFFFFFFFU
-							/**< TxBuffer Ready
-							Request Mask for ALL */
+/**< TxBuffer Ready
+Request Mask for ALL */
 /** @} */
 
 /** @name CAN TxBuffer Cancel Request Served Interrupt Enable Register Masks
@@ -913,7 +913,7 @@ Mask/Acceptance Filter ID)
 *
 *****************************************************************************/
 #define XCanFd_ReadReg(BaseAddress, RegOffset) \
-		Xil_In32((BaseAddress) + (RegOffset))
+	Xil_In32((BaseAddress) + (RegOffset))
 
 /****************************************************************************/
 /**
@@ -931,7 +931,7 @@ Mask/Acceptance Filter ID)
 *
 *****************************************************************************/
 #define XCanFd_WriteReg(BaseAddress, RegOffset, Data) \
-		Xil_Out32((BaseAddress) + (RegOffset), (Data))
+	Xil_Out32((BaseAddress) + (RegOffset), (Data))
 
 /************************** Function Prototypes ******************************/
 
