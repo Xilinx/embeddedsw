@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2023 Xilinx, Inc. All rights reserved.
+* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xdprxss_sinit.c
-* @addtogroup dprxss_v8_1
+* @addtogroup dprxss_v8_2
 * @{
 *
 * This file contains static initialization method for Xilinx DisplayPort
