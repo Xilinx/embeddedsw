@@ -198,8 +198,8 @@ int XCanFdPolledExample(UINTPTR BaseAddress)
 		return XST_FAILURE;
 	}
 	Status = XCanFd_CfgInitialize(CanFdInstPtr,
-					ConfigPtr,
-					ConfigPtr->BaseAddress);
+				      ConfigPtr,
+				      ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -229,14 +229,14 @@ int XCanFdPolledExample(UINTPTR BaseAddress)
 	 * Arbitration Phase.
 	 */
 	XCanFd_SetBitTiming(CanFdInstPtr, TEST_BTR_SYNCJUMPWIDTH,
-		TEST_BTR_SECOND_TIMESEGMENT,TEST_BTR_FIRST_TIMESEGMENT);
+			    TEST_BTR_SECOND_TIMESEGMENT, TEST_BTR_FIRST_TIMESEGMENT);
 
-	 /* Configure the Baud Rate Prescalar in Data Phase */
+	/* Configure the Baud Rate Prescalar in Data Phase */
 	XCanFd_SetFBaudRatePrescaler(CanFdInstPtr, TEST_FBRPR_BAUD_PRESCALAR);
 
 	/* Configure the Bit Timing Values in Data Phase */
-	XCanFd_SetFBitTiming(CanFdInstPtr,TEST_FBTR_SYNCJUMPWIDTH,
-		TEST_FBTR_SECOND_TIMESEGMENT,TEST_FBTR_FIRST_TIMESEGMENT);
+	XCanFd_SetFBitTiming(CanFdInstPtr, TEST_FBTR_SYNCJUMPWIDTH,
+			     TEST_FBTR_SECOND_TIMESEGMENT, TEST_FBTR_FIRST_TIMESEGMENT);
 
 	/*
 	 * Disable the Global BRS Disable so that
@@ -252,18 +252,17 @@ int XCanFdPolledExample(UINTPTR BaseAddress)
 	 */
 	if (XCANFD_GET_RX_MODE(CanFdInstPtr) == 0) {
 		XCanFd_AcceptFilterDisable(CanFdInstPtr,
-			XCANFD_AFR_UAF_ALL_MASK);
+					   XCANFD_AFR_UAF_ALL_MASK);
 		XCanFd_AcceptFilterEnable(CanFdInstPtr,
-			XCANFD_AFR_UAF_ALL_MASK);
-	}
-	else {
+					  XCANFD_AFR_UAF_ALL_MASK);
+	} else {
 		RxBuffers = XCanFd_Get_RxBuffers(CanFdInstPtr);
 		IdValue = XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0);
-		for (BuffNr = 0;BuffNr < RxBuffers;BuffNr++) {
-			XCanFd_RxBuff_MailBox_DeActive(CanFdInstPtr,BuffNr);
-			XCanFd_Set_MailBox_IdMask(CanFdInstPtr,BuffNr,
-				TEST_MAILBOX_MASK,IdValue);
-			XCanFd_RxBuff_MailBox_Active(CanFdInstPtr,BuffNr);
+		for (BuffNr = 0; BuffNr < RxBuffers; BuffNr++) {
+			XCanFd_RxBuff_MailBox_DeActive(CanFdInstPtr, BuffNr);
+			XCanFd_Set_MailBox_IdMask(CanFdInstPtr, BuffNr,
+						  TEST_MAILBOX_MASK, IdValue);
+			XCanFd_RxBuff_MailBox_Active(CanFdInstPtr, BuffNr);
 		}
 	}
 
@@ -316,7 +315,7 @@ static int SendFrame(XCanFd *InstancePtr)
 	* many bytes
 	*/
 	NofBytes = XCanFd_GetDlc2len(TxFrame[1] & XCANFD_DLCR_DLC_MASK,
-			EDL_CANFD);
+				     EDL_CANFD);
 
 	/*
 	 * Now fill in the data field with known values so we can verify them
@@ -329,13 +328,14 @@ static int SendFrame(XCanFd *InstancePtr)
 	}
 
 	/* Now send the frame */
-	Status = XCanFd_Send(InstancePtr, TxFrame,&TxBufferNumber);
-	if (Status == XST_FIFO_NO_ROOM)
+	Status = XCanFd_Send(InstancePtr, TxFrame, &TxBufferNumber);
+	if (Status == XST_FIFO_NO_ROOM) {
 		return Status;
+	}
 
 	/* Wait until Buffer is Transmitted */
-	 while (XCanFd_IsBufferTransmitted(InstancePtr,TxBufferNumber)
-		== FALSE);
+	while (XCanFd_IsBufferTransmitted(InstancePtr, TxBufferNumber)
+	       == FALSE);
 
 	return Status;
 }
@@ -364,8 +364,7 @@ static int RecvFrame(XCanFd *InstancePtr)
 	/* Receive a frame and verify its contents */
 	if (XCANFD_GET_RX_MODE(InstancePtr) == 1) {
 		Status = XCanFd_Recv_Mailbox(InstancePtr, RxFrame);
-	}
-	else {
+	} else {
 		Status = XCanFd_Recv_Sequential(InstancePtr, RxFrame);
 	}
 	if (Status != XST_SUCCESS) {
@@ -374,7 +373,7 @@ static int RecvFrame(XCanFd *InstancePtr)
 
 	/* Get Dlc value */
 	Dlc = XCanFd_GetDlc2len(RxFrame[1] & XCANFD_DLCR_DLC_MASK,
-		EDL_CANFD);
+				EDL_CANFD);
 
 	/* Verify Identifier and Data Length Code */
 	if (RxFrame[0] != XCanFd_CreateIdValue(TEST_MESSAGE_ID, 0, 0, 0, 0)) {
