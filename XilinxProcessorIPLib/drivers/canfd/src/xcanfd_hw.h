@@ -33,6 +33,7 @@
 *		      Fixed below  incorrect mask values
 *		      XCANFD_MAILBOX_RB_MASK_BASE_OFFSET,XCANFD_WMR_RXFP_MASK
 *		      and CONTROL_STATUS_3.
+* 2.8   ht   06/19/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -51,7 +52,10 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xil_io.h"
+#include "xstatus.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /** @name Register offsets for the CAN. Each register is 32 bits.
