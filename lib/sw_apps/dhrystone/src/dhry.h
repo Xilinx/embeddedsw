@@ -424,7 +424,9 @@
 #include <string.h>
 #include "xil_io.h"
 #include "xparameters.h"
+#if !defined (SDT)
 #include "platform_config.h"
+#endif
 #if !defined (__MICROBLAZE__) && !defined (__riscv)
 #include "xtime_l.h"
 #include "xpseudo_asm.h"
@@ -473,7 +475,11 @@ typedef u64 XTime;
 #endif
 #else
 #define CLOCKS_PER_SEC XPAR_CPU_CORE_CLOCK_FREQ_HZ
+#if defined (SDT)
+#define COUNTS_PER_SECOND XPAR_XTMRCTR_0_CLOCK_FREQUENCY_0
+#else
 #define COUNTS_PER_SECOND XPAR_TMRCTR_0_CLOCK_FREQ_HZ
+#endif
 #endif
 
 #define Too_Small_Time		COUNTS_PER_SECOND
@@ -481,7 +487,11 @@ typedef u64 XTime;
 
 /* Axi Timer specific macros used for Microblaze CPU */
 #if defined (__MICROBLAZE__) || defined (__riscv)
+#if defined (SDT)
+#define MB_AXITIMER_BASEADDR 			XPAR_XTMRCTR_0_BASEADDR
+#else
 #define MB_AXITIMER_BASEADDR 			XPAR_TMRCTR_0_BASEADDR
+#endif
 #define MB_AXITIMER_TCSR0_OFFSET		0U
 #define MB_AXITIMER_TLR_OFFSET			4U
 #define MB_AXITIMER_TCR_OFFSET			8U
