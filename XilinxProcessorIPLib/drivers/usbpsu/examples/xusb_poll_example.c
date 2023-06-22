@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -18,19 +19,25 @@
  * 1.5   vak  06/02/19 First release
  * 1.5   vak  03/25/19 Fixed incorrect data_alignment pragma directive for IAR
  * 1.8   pm  15/09/20 Fixed C++ Compilation error.
+ * 1.14  pm   21/06/23 Added support for system device-tree flow.
  *
  * </pre>
  *
  *****************************************************************************/
 
 /***************************** Include Files ********************************/
-#include "xparameters.h"
 #include "xil_printf.h"
 #include "sleep.h"
 #include <stdio.h>
 #include "xusb_ch9_storage.h"
 #include "xusb_class_storage.h"
 #include "xusb_wrapper.h"
+
+#include "xparameters.h"
+
+#ifndef SDT
+#include "xinterrupt_wrap.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 #define MEMORY_SIZE (64U * 1024U)
@@ -45,6 +52,9 @@ u8 Buffer[MEMORY_SIZE];
 u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 #endif
 
+#ifdef SDT
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -135,7 +145,11 @@ int main(void)
 	/* Initialize the USB driver so that it's ready to use,
 	 * specify the controller ID that is generated in xparameters.h
 	 */
+#ifndef SDT
 	UsbConfigPtr = LookupConfig(USB_DEVICE_ID);
+#else
+	UsbConfigPtr = LookupConfig(XUSBPSU_BASEADDRESS);
+#endif
 	if (NULL == UsbConfigPtr) {
 		return XST_FAILURE;
 	}

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -23,6 +24,7 @@
  *			 UsbEnableEvent API's
  *	 vak	02/07/19 Modified the code to issue XUsbPsu_Ep0StallRestart()
  *			 for Endpoint Zero
+ * 1.14  pm     21/06/23 Added support for system device-tree flow.
  *
  * </pre>
  *
@@ -36,10 +38,17 @@
 struct XUsbPsu PrivateData;
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 Usb_Config* LookupConfig(u16 DeviceId)
 {
 	return XUsbPsu_LookupConfig(DeviceId);
 }
+#else
+Usb_Config *LookupConfig(UINTPTR BaseAddress)
+{
+	return XUsbPsu_LookupConfig(BaseAddress);
+}
+#endif
 
 void CacheInit(void)
 {
