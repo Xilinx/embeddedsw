@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -73,7 +74,10 @@
 *
 ******************************************************************************/
 
+#include "bspconfig.h"
+#ifndef SDT
 #include "xparameters.h"
+#endif
 #include "xil_errata.h"
 
 .globl MMUTable
