@@ -55,9 +55,12 @@
 #include "timers.h"
 #endif
 
-
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#else
 #define INTC_BASE_ADDR		XPAR_SCUGIC_0_CPU_BASEADDR
 #define INTC_DIST_BASE_ADDR	XPAR_SCUGIC_0_DIST_BASEADDR
+#endif
 
 /* Byte alignment of BDs */
 #define BD_ALIGNMENT (XEMACPS_DMABD_MINIMUM_ALIGNMENT*2)
@@ -799,10 +802,18 @@ XStatus init_dma(struct xemac_s *xemac)
 				   (UINTPTR)bdtxterminate);
 	}
 #if !NO_SYS
-	xPortInstallInterruptHandler(xtopologyp->scugic_emac_intr,
-						( Xil_InterruptHandler ) XEmacPs_IntrHandler,
-						(void *)&xemacpsif->emacps);
+#ifdef SDT
+	xPortInstallInterruptHandler(xemacpsif->emacps.Config.IntrId,
+				     ( Xil_InterruptHandler ) XEmacPs_IntrHandler,
+				     (void *)&xemacpsif->emacps);
 #else
+	xPortInstallInterruptHandler(xtopologyp->scugic_emac_intr,
+				     ( Xil_InterruptHandler ) XEmacPs_IntrHandler,
+				     (void *)&xemacpsif->emacps);
+
+#endif
+#else
+#ifndef SDT
 	/*
 	 * Connect the device driver handler that will be called when an
 	 * interrupt for the device occurs, the handler defined above performs
@@ -810,13 +821,20 @@ XStatus init_dma(struct xemac_s *xemac)
 	 */
 	XScuGic_RegisterHandler(INTC_BASE_ADDR, xtopologyp->scugic_emac_intr,
 				(Xil_ExceptionHandler)XEmacPs_IntrHandler,
-						(void *)&xemacpsif->emacps);
+				(void *)&xemacpsif->emacps);
+#endif
 #endif
 	/*
 	 * Enable the interrupt for emacps.
 	 */
+#ifdef SDT
+	XSetupInterruptSystem(&xemacpsif->emacps, &XEmacPs_IntrHandler,
+			      xemacpsif->emacps.Config.IntrId,  xemacpsif->emacps.Config.IntrParent,
+			      XINTERRUPT_DEFAULT_PRIORITY);
+#else
 	XScuGic_EnableIntr(INTC_DIST_BASE_ADDR, (u32) xtopologyp->scugic_emac_intr);
 	emac_intr_num = (u32) xtopologyp->scugic_emac_intr;
+#endif
 	return 0;
 }
 
@@ -920,6 +938,7 @@ void reset_dma(struct xemac_s *xemac)
 	XEmacPs_SetQueuePtr(&(xemacpsif->emacps), xemacpsif->emacps.TxBdRing.BaseBdAddr, txqueuenum, XEMACPS_SEND);
 }
 
+#ifndef SDT
 void emac_disable_intr(void)
 {
 	XScuGic_DisableIntr(INTC_DIST_BASE_ADDR, emac_intr_num);
@@ -929,3 +948,4 @@ void emac_enable_intr(void)
 {
 	XScuGic_EnableIntr(INTC_DIST_BASE_ADDR, emac_intr_num);
 }
+#endif

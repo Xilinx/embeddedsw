@@ -43,10 +43,12 @@ enum xemac_types { xemac_type_unknown = -1, xemac_type_xps_emaclite, xemac_type_
 struct xtopology_t {
 	UINTPTR emac_baseaddr;
 	enum xemac_types emac_type;
+#ifndef SDT
 	UINTPTR intc_baseaddr;
 	unsigned intc_emac_intr;	/* valid only for xemac_type_xps_emaclite */
 	UINTPTR scugic_baseaddr; /* valid only for Zynq */
 	unsigned scugic_emac_intr; /* valid only for GEM */
+#endif
 };
 
 extern int xtopology_n_emacs;
