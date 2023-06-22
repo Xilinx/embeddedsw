@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -23,6 +24,7 @@
  *		       example.
  * 1.5	 vak  13/02/19 Added support for versal
  * 1.8   pm   15/09/20 Fixed C++ Compilation error.
+ * 1.14  pm   21/06/23 Added support for system device-tree flow.
  *
  * </pre>
  *
@@ -30,12 +32,18 @@
 
 /***************************** Include Files ********************************/
 
-#include "xparameters.h"
 #include "xusb_ch9_dfu.h"
 #include "xusb_class_dfu.h"
 #include "xusb_wrapper.h"
 #include "xil_exception.h"
 
+#include "xparameters.h"
+
+#ifdef SDT
+#include "xinterrupt_wrap.h"
+#endif
+
+#ifndef SDT
 #ifdef __MICROBLAZE__
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -43,18 +51,26 @@
 #elif defined (PLATFORM_ZYNQMP) || defined (versal)
 #include "xscugic.h"
 #endif
+#else
+#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
+#define INTRNAME_HIBER		2 /* Interrupt-name - Hiber */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#endif
 
 /************************** Constant Definitions ****************************/
 
 /************************** Function Prototypes ******************************/
+#ifndef SDT
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 		u16 USB_INTR_ID, void *IntcPtr);
+#endif
 
 /************************** Variable Definitions *****************************/
 struct Usb_DevData UsbInstance;
 
 Usb_Config *UsbConfigPtr;
 
+#ifndef SDT
 #ifdef __MICROBLAZE__
 #ifdef XPAR_INTC_0_DEVICE_ID
 XIntc	InterruptController;	/*XIntc interrupt controller instance */
@@ -62,7 +78,9 @@ XIntc	InterruptController;	/*XIntc interrupt controller instance */
 #else
 XScuGic	InterruptController;	/* Interrupt controller instance */
 #endif
+#endif
 
+#ifndef SDT
 #ifdef __MICROBLAZE__		/* MICROBLAZE */
 #ifdef	XPAR_INTC_0_DEVICE_ID
 #define	INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
@@ -75,6 +93,7 @@ XScuGic	InterruptController;	/* Interrupt controller instance */
 #else	/* OTHERS */
 #define	INTC_DEVICE_ID		0
 #define	USB_INT_ID		0
+#endif
 #endif
 
 u8 VirtFlash[0x10000000];
@@ -119,10 +138,17 @@ int main(void)
 
 	xil_printf("DFU Start...\r\n");
 
+#ifdef SDT
+	struct XUsbPsu *InstancePtr = UsbInstance.PrivateData;
+#endif
 	/* Initialize the USB driver so that it's ready to use,
 	 * specify the controller ID that is generated in xparameters.h
 	 */
+#ifndef SDT
 	UsbConfigPtr = LookupConfig(USB_DEVICE_ID);
+#else
+	UsbConfigPtr = LookupConfig(XUSBPSU_BASEADDRESS);
+#endif
 	if (NULL == UsbConfigPtr)
 		return XST_FAILURE;
 
@@ -158,6 +184,7 @@ int main(void)
 	DFU.total_bytes_uploaded = 0;
 
 	/* setup interrupts */
+#ifndef SDT
 	Status = SetupInterruptSystem((struct XUsbPsu *)UsbInstance.PrivateData,
 					INTC_DEVICE_ID,
 					USB_INT_ID,
@@ -167,12 +194,53 @@ int main(void)
 
 	/* Start the controller so that Host can see our device */
 	Usb_Start(UsbInstance.PrivateData);
+#else
+	Status = XSetupInterruptSystem(UsbInstance.PrivateData,
+					&XUsbPsu_IntrHandler,
+					UsbConfigPtr->IntrId[INTRNAME_DWC3USB3],
+					UsbConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	Status = XSetupInterruptSystem(UsbInstance.PrivateData,
+					&XUsbPsu_WakeUpIntrHandler,
+					UsbConfigPtr->IntrId[INTRNAME_HIBER],
+					UsbConfigPtr->IntrParent,
+					XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
+	/*
+	 * Enable interrupts for Reset, Disconnect, ConnectionDone, Link State
+	 * Wakeup and Overflow events.
+	 */
+	XUsbPsu_EnableIntr(UsbInstance.PrivateData,
+			XUSBPSU_DEVTEN_EVNTOVERFLOWEN |
+			XUSBPSU_DEVTEN_WKUPEVTEN |
+			XUSBPSU_DEVTEN_ULSTCNGEN |
+			XUSBPSU_DEVTEN_CONNECTDONEEN |
+			XUSBPSU_DEVTEN_USBRSTEN |
+			XUSBPSU_DEVTEN_DISCONNEVTEN);
+
+#ifdef XUSBPSU_HIBERNATION_ENABLE
+	if (InstancePtr->HasHibernation)
+		XUsbPsu_EnableIntr(UsbInstance.PrivateData,
+				XUSBPSU_DEVTEN_HIBERNATIONREQEVTEN);
+#endif
+	/* Start the controller so that Host can see our device */
+	Usb_Start(UsbInstance.PrivateData);
+
+#endif
 	while (1) {
 		/* Rest is taken care by interrupts */
 	}
 }
 
+#ifndef SDT
 /****************************************************************************/
 /**
 * This function setups the interrupt system such that interrupts can occur.
@@ -348,3 +416,4 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 
 	return XST_SUCCESS;
 }
+#endif

@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2017 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -22,6 +23,7 @@
  *			 example.
  *  1.5  vak	02/06/19 Add UsbPollHandler and UsbEnableEvent API's
  *  1.7  pm	02/03/20 Add closure bracket for "extern c" c++ compilation
+ *  1.14 pm     21/06/23 Added support for system device-tree flow.
  *
  * </pre>
  *
@@ -118,7 +120,11 @@ extern "C" {
 /************************** Variable Definitions *****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifndef SDT
 Usb_Config* LookupConfig(u16 DeviceId);
+#else
+Usb_Config *LookupConfig(UINTPTR BaseAddress);
+#endif
 void CacheInit(void);
 s32 CfgInitialize(struct Usb_DevData *InstancePtr,
 			Usb_Config *ConfigPtr, u32 BaseAddress);
