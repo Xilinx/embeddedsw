@@ -1,0 +1,49 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Bindings for USBPSU controller
+
+maintainers:
+  - Anurag Kumar Vulisha <anurag.kumar.vulisha@xilinx.com>
+  - Piyush Mehta <piyush.mehta@amd.com>
+
+type: driver
+
+properties:
+  compatible:
+    OneOf:
+      - items:
+        - enum:
+          - snps,dwc3
+  reg:
+    description: Physical base address and size of the controller register map
+  dma-coherent:
+    description: Present if dma operations are coherent
+    type: boolean
+
+config:
+    - XUsbPsu_Config
+
+required:
+    - compatible
+    - reg
+    - dma-coherent
+    - xlnx,enable-superspeed
+    - interrupts: 3
+    - interrupt-parent
+
+examples:
+        xusb_intr_example.c:
+        - interrupts
+
+        xusb_composite_example.c:
+        - interrupts
+
+        xusb_dfu_example.c:
+        - interrupts
+
+        xusb_audio_dfu_example.c:
+        - interrupts
+...
