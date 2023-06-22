@@ -139,6 +139,7 @@
  * | IOCTL_GET_QOS			| 34	| Versal	| Get Device QoS value			|
  * | IOCTL_GET_APU_OPER_MODE		| 35	| Versal	| Get APU operation mode		|
  * | IOCTL_SET_APU_OPER_MODE		| 36	| Versal	| Set APU operation mode		|
+ * | IOCTL_PREPARE_DDR_SHUTDOWN	| 37	| Versal	| Prepare DDR for shut down		|
  *
  *****************************************************************************/
 
