@@ -96,6 +96,7 @@ if (DEFINED tick_timer)
     set(XILTIMER_tick_timer ${tick_timer} CACHE STRING "This parameter is used to select specific timer for tick functionality" FORCE)
 endif()
 
+set(COUNTS_PER_SECOND XSLEEPTIMER_FREQ)
 if (("${XILTIMER_sleep_timer}" STREQUAL "Default") OR
     ("${XILTIMER_sleep_timer}" STREQUAL "Default;"))
     set(XPAR_INCLUDE "#include \"xparameters.h\"")
