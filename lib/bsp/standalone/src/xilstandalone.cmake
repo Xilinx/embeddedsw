@@ -29,6 +29,11 @@ if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexr5"))
     set(EL3 " ")
 endif()
 
+if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "cortexa9"))
+    set(XPAR_PS_INCLUDE "#include \"xparameters_ps.h\"")
+endif()
+
+
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "pmu_microblaze"))
     set(PSU_PMU 1)
 elseif(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze"))
