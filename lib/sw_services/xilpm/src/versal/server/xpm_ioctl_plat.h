@@ -49,6 +49,12 @@ maybe_unused static XStatus XPm_ValidateDeviceId(const pm_ioctl_id IoctlId, cons
 		}
 	}
 
+	if ((IOCTL_PREPARE_DDR_SHUTDOWN == IoctlId) &&
+		(PM_DEV_DDR_0 != DeviceId)) {
+		Status = XPM_INVALID_DEVICEID;
+		goto done;
+	}
+
 	Status = XST_SUCCESS;
 
 done:

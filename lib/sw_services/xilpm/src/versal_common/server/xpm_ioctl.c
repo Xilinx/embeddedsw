@@ -557,6 +557,7 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 	      u32 *const Response, const u32 CmdType)
 {
 	XStatus Status = XPM_ERR_IOCTL;
+	const XPm_Requirement *Reqm;
 
 	Status = XPm_ValidateDeviceId(IoctlId, DeviceId);
 	if (XST_SUCCESS != Status) {
@@ -652,6 +653,16 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		break;
 	case IOCTL_GET_PLL_FRAC_DATA:
 		Status = XPm_GetPllParameter(Arg1, (u32)PM_PLL_PARAM_ID_DATA, Response);
+		break;
+	case IOCTL_PREPARE_DDR_SHUTDOWN:
+		/* Put the DDR_0 device into self refresh */
+		Reqm = XPmDevice_FindRequirement(DeviceId, SubsystemId);
+		if ((NULL == Reqm) || (1U != Reqm->Allocated)) {
+			Status = XPM_ERR_DEVICE_STATUS;
+			goto done;
+		}
+		Status = XPmDevice_SetRequirement(SubsystemId, DeviceId,
+					(u32)PM_CAP_CONTEXT, 0U);
 		break;
 	case IOCTL_SET_SGMII_MODE:
 	case IOCTL_ULPI_RESET:
