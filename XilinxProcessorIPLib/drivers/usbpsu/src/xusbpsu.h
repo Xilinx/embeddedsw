@@ -93,6 +93,7 @@
 * 1.9	pm    03/21/21 Fixed doxygen warnings
 * 1.10	pm    08/30/21 Update MACRO to fix plm compilation warnings
 * 1.13	pm    01/05/23 Added "xil_util.h" header to use polling logic API
+* 1.14	pm    21/06/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -507,10 +508,17 @@ struct XUsbPsu_Ep {
  * @param RefClk: Input clocks
  */
 typedef struct {
+#ifndef SDT
         u16 DeviceId;		/**< Unique ID of controller */
+#else
+	char *Name;
+#endif
 	UINTPTR BaseAddress;	/**< Core register base address */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
 	u8 EnableSuperSpeed;	/**< Set to enable super speed support */
+	u16 IntrId[3];	/** Bits[11:0] Interrupt-id Bits[15:12] trigger type */
+			/** level flags */
+	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] */
 #if defined (XCLOCKING)
 	u32 RefClk;		/**< Input clocks */
 #endif
@@ -958,7 +966,11 @@ void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr);
 /*
  * Functions in xusbpsu_sinit.c
  */
+#ifndef SDT
 XUsbPsu_Config *XUsbPsu_LookupConfig(u16 DeviceId);
+#else
+XUsbPsu_Config *XUsbPsu_LookupConfig(u32 BaseAddress);
+#endif
 
 #ifdef __cplusplus
 }

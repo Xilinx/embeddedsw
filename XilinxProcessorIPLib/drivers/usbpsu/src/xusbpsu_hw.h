@@ -24,6 +24,7 @@
 * 1.8	pm    07/01/20 Add versal hibernation support
 *	pm    24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.9	pm    15/03/21 Fixed doxygen warnings
+* 1.14	pm    21/06/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -33,12 +34,16 @@
 #ifndef XUSBPSU_HW_H	/* Prevent circular inclusions */
 #define XUSBPSU_HW_H	/**< by using protection macros  */
 
+#include "xstatus.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files ********************************/
+#ifndef SDT
 #include "xparameters.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 

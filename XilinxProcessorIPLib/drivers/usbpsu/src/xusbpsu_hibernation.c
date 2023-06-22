@@ -29,6 +29,7 @@
 *	pm     24/07/20 Fixed MISRA-C and Coverity warnings
 * 1.12	pm     10/08/22 Update doxygen tag and addtogroup version
 * 1.13	pm     04/01/23 Use Xil_WaitForEvent() API for register bit polling
+* 1.14	pm     21/06/23 Added support for system device-tree flow.
 *
 * </pre>
 *
@@ -322,7 +323,11 @@ s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 #endif
 
 	RegVal = XUsbPsu_ReadLpdReg(RST_LPD_TOP);
+#ifndef SDT
 	if (InstancePtr->ConfigPtr->DeviceId == (u16)XPAR_XUSBPSU_0_DEVICE_ID) {
+#else
+	if (InstancePtr->ConfigPtr->Name == "snps,dwc3") {
+#endif
 		XUsbPsu_WriteLpdReg(RST_LPD_TOP, RegVal | (u32)USB0_CORE_RST);
 	}
 
