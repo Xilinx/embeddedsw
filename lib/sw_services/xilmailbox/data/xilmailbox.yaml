@@ -1,11 +1,12 @@
 # Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
 title: Bindings for xilmailbox library application
 
 maintainers:
-  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+  - Appana Durga Kedareswara Rao <appana.durga.kedareswara.rao@amd.com>
 
 type: library
 
@@ -27,6 +28,7 @@ supported_processors:
   - psu_pmu
   - psv_pmc
   - psv_psm
+  - microblaze
 
 supported_os:
   - standalone

@@ -5,13 +5,17 @@
 title: Bindings for standalone
 
 maintainers:
-  - Mubin Sayyed <mubin.usman.sayyed@xilinx.com>
+  - Mubin Sayyed <mubin.sayyed@amd.com>
 
 type: os
 
 version: 9.0
 
 depends:
+    uartlite:
+        - reg
+    uartns550:
+        - reg
     uartps:
         - reg
     uartpsv:
