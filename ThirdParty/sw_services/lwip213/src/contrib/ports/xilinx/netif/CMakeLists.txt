@@ -1,0 +1,32 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+collect (PROJECT_LIB_SOURCES xadapter.c)
+collect (PROJECT_LIB_SOURCES xpqueue.c)
+collect (PROJECT_LIB_HEADERS xemac_ieee_reg.h)
+
+if (${CONFIG_AXIETHERNET})
+    collect (PROJECT_LIB_HEADERS xaxiemacif_hw.h)
+    collect (PROJECT_LIB_SOURCES xaxiemacif_hw.c)
+    collect (PROJECT_LIB_SOURCES xaxiemacif.c)
+    collect (PROJECT_LIB_SOURCES xaxiemacif_physpeed.c)
+    if (${CONFIG_AXIDMA})
+        collect (PROJECT_LIB_SOURCES xaxiemacif_dma.c)
+    elseif (${CONFIG_AXIMCDMA})
+        collect (PROJECT_LIB_SOURCES xaxiemacif_mcdma.c)
+    elseif (${CONFIG_AXIFIFO})
+        collect (PROJECT_LIB_HEADERS xaxiemacif_fifo.h)
+        collect (PROJECT_LIB_SOURCES xaxiemacif_fifo.c)
+    endif()
+endif()
+
+if (${CONFIG_EMACPS})
+    collect (PROJECT_LIB_SOURCES xemacpsif_dma.c)
+    collect (PROJECT_LIB_SOURCES xemacpsif_physpeed.c)
+    collect (PROJECT_LIB_SOURCES xemacpsif_hw.c)
+    collect (PROJECT_LIB_SOURCES xemacpsif.c)
+    collect (PROJECT_LIB_HEADERS xemacpsif_hw.h)
+endif()
+
+if (${CONFIG_EMACLITE})
+    collect (PROJECT_LIB_SOURCES xemacliteif.c)
+endif()
