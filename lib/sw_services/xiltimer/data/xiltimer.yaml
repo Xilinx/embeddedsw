@@ -5,7 +5,7 @@
 title: Bindings for xiltimer library
 
 maintainers:
-  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+  - Appana Durga Kedareswara Rao <appana.durga.kedareswara.rao@amd.com>
 
 type: library
 
@@ -25,6 +25,7 @@ supported_processors:
   - psu_pmu
   - psv_pmc
   - psv_psm
+  - microblaze
 
 supported_os:
   - standalone

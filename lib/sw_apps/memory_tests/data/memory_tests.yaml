@@ -1,11 +1,12 @@
 # Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
 title: Memory Tests
 
 maintainers:
-  - Appana Durga Kedareswara Rao <appanad.durga.rao@xilinx.com>
+  - Appana Durga Kedareswara Rao <appana.durga.kedareswara.rao@amd.com>
 
 type: apps
 
@@ -19,6 +20,7 @@ supported_processors:
   - psu_cortexr5
   - psv_cortexa72
   - psv_cortexr5
+  - microblaze
 
 supported_os:
   - standalone
