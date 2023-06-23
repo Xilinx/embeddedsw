@@ -18,6 +18,8 @@
 #ifdef VERSAL_NET
 /* TODO: should be same ideally, need to optimize */
 #define MAX_BYTEBUFFER_SIZE	(36U * 1024U)
+#elif CPPUTEST
+#define MAX_BYTEBUFFER_SIZE	(52U * 1024U)
 #else
 #define MAX_BYTEBUFFER_SIZE	(32U * 1024U)
 #endif
@@ -25,7 +27,11 @@
 #define DBG_STR_IDX(DebugType) ((((DebugType) & XPM_DEBUG_MASK) >> \
 					XPM_DEBUG_SHIFT) - 1U)
 
+#ifdef CPPUTEST
+u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
+#else
 static u8 ByteBuffer[MAX_BYTEBUFFER_SIZE];
+#endif
 static u8 *FreeBytes = ByteBuffer;
 
 void *XPm_AllocBytes(u32 SizeInBytes)

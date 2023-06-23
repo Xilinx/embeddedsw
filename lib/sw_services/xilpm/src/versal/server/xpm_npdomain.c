@@ -251,10 +251,14 @@ static XStatus NpdScanClear(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
+	/* This block of code is removed during unit tests becuase there currently
+	   is no support for write-to-clear register simulation. */
+	#ifndef CPPUTEST
 	/* PMC_ERR1_STATUS is the write-to-clear register */
 	PmOut32((Pmc->PmcGlobalBaseAddr + PMC_GLOBAL_ERR1_STATUS_OFFSET),
 		(PMC_GLOBAL_ERR1_STATUS_NOC_TYPE_1_NCR_MASK |
 		PMC_GLOBAL_ERR1_STATUS_DDRMC_MC_NCR_MASK));
+	#endif
 
 	if (PM_HOUSECLEAN_CHECK(NPD, SCAN)) {
 		PmInfo("Triggering ScanClear for power node 0x%x\r\n", PwrDomain->Power.Node.Id);

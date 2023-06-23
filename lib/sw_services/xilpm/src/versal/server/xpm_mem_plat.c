@@ -80,7 +80,11 @@ done:
 /*
  * Handler for the HBM Temp monitoring task (called periodically)
  */
+#ifdef CPPUTEST
+int XPmMem_HBMTempMonitor(void *data)
+#else
 static int XPmMem_HBMTempMonitor(void *data)
+#endif
 {
 	int Status = XST_FAILURE;
 	u32 S0Temp = 0U, S1Temp = 0U;

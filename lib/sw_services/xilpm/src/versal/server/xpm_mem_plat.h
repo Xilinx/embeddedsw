@@ -25,6 +25,9 @@ typedef struct XPm_MemDevice XPm_MemDevice;
 XStatus XPmDDRDevice_IsInSelfRefresh(void);
 void XPm_AssignDdrFsm(XPm_MemDevice *MemDevice);
 XStatus XPmMem_HBMTempMonInitTask(void);
+#ifdef CPPUTEST
+int XPmMem_HBMTempMonitor(void *data);
+#endif
 
 #ifdef __cplusplus
 }
