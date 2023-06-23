@@ -24,39 +24,8 @@
 #include "xiicps.h"
 
 #define IIC_SCLK_RATE		400000
-#define I2C_SLEEP_US 		1000U
 
 static XIicPs IicInstance;
-
-static XStatus WaitForPowerRailUp(u32 VoltageRailMask)
-{
-	XStatus Status = XST_FAILURE;
-	XPm_Pmc *Pmc;
-
-	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
-	if (NULL == Pmc) {
-		goto done;
-	}
-
-	Status = XPlmi_UtilPollForMask((Pmc->PmcGlobalBaseAddr +
-					PWR_SUPPLY_STATUS_OFFSET),
-					VoltageRailMask,
-					XPM_POLL_TIMEOUT);
-	if (XST_SUCCESS != Status) {
-		PmErr("Poll for power rail up timeout\r\n");
-		goto done;
-	}
-
-	/*
-	 * TODO: A delay is needed for a power rail to stabilize.
-	 * The value of this delay is board-dependent and should
-	 * come from cdo.
-	 */
-	usleep(I2C_SLEEP_US);
-
-done:
-	return Status;
-}
 
 static XStatus I2CInitialize(XIicPs *Iic)
 {
@@ -331,6 +300,36 @@ static XStatus XPmRail_GPIOControl(XPm_Rail *Rail, u8 Mode)
 }
 
 #endif
+
+static XStatus WaitForPowerRailUp(u32 VoltageRailMask)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Pmc *Pmc;
+
+	Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	if (NULL == Pmc) {
+		goto done;
+	}
+
+	Status = XPlmi_UtilPollForMask((Pmc->PmcGlobalBaseAddr +
+					PWR_SUPPLY_STATUS_OFFSET),
+					VoltageRailMask,
+					XPM_POLL_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		PmErr("Poll for power rail up timeout\r\n");
+		goto done;
+	}
+
+	/*
+	 * TODO: A delay is needed for a power rail to stabilize.
+	 * The value of this delay is board-dependent and should
+	 * come from cdo.
+	 */
+	usleep(1000U);
+
+done:
+	return Status;
+}
 
 XStatus XPmRail_Control(XPm_Rail *Rail, u8 State, u8 Mode)
 {
