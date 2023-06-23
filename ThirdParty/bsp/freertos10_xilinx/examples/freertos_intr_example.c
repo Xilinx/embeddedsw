@@ -107,7 +107,7 @@ static XTmrCtr xTickTimerInstance;
 void TmrctrHandler(XTmrCtr *InstancePtr);
 #else
 #error "This example needs 2 AXI timer IP's in HW design for Microblaze case, and TTC0, TTC1 in case of other ARM processors, \
-        Please make sure that, you have enabled required IP's in HW design"
+Please make sure that, you have enabled required IP's in HW design"
 #endif
 
 #define TIMER_ID	1
@@ -131,11 +131,11 @@ int main( void )
 	interrupt handler, registered by this task would be triggered, once
 	interrupt condition for given timer peripheral occurs.*/
 	xTaskCreate( 	prvTimerTask, 					/* The function that implements the task. */
-					( const char * ) "Timer", 		/* Text name for the task, provided to assist debugging only. */
-					configMINIMAL_STACK_SIZE, 	/* The stack allocated to the task. */
-					NULL, 						/* The task parameter is not used, so set to NULL. */
-					tskIDLE_PRIORITY,			/* The task runs at the idle priority. */
-					&xTimerTask );
+			( const char * ) "Timer", 		/* Text name for the task, provided to assist debugging only. */
+			configMINIMAL_STACK_SIZE, 	/* The stack allocated to the task. */
+			NULL, 						/* The task parameter is not used, so set to NULL. */
+			tskIDLE_PRIORITY,			/* The task runs at the idle priority. */
+			&xTimerTask );
 
 
 	/* Start the tasks and timer running. */
@@ -146,20 +146,20 @@ int main( void )
 	insufficient FreeRTOS heap memory available for the idle and/or timer tasks
 	to be created.  See the memory management section on the FreeRTOS web site
 	for more details. */
-	for( ;; );
+	for ( ;; );
 }
 
 /*-----------------------------------------------------------*/
 static void prvTimerTask( void *pvParameters )
 {
-const TickType_t x1second = pdMS_TO_TICKS( DELAY_1_SECOND );
+	const TickType_t x1second = pdMS_TO_TICKS( DELAY_1_SECOND );
 
 
-const TickType_t x100mseconds = pdMS_TO_TICKS( DELAY_100_MILISEC );
-int xStatus;
+	const TickType_t x100mseconds = pdMS_TO_TICKS( DELAY_100_MILISEC );
+	int xStatus;
 
 	xSemaphore = xSemaphoreCreateBinary();
-	if( xSemaphore == NULL ){
+	if ( xSemaphore == NULL ) {
 		xil_printf("Failed to create semaphore\n");
 		return XST_FAILURE;
 	}
@@ -172,11 +172,10 @@ int xStatus;
 
 	xStatus = XTtcPs_CfgInitialize( &xTimerInstance, pxTimerConfig, pxTimerConfig->BaseAddress );
 
-	if( xStatus != XST_SUCCESS )
-	{
+	if ( xStatus != XST_SUCCESS ) {
 		XTtcPs_Stop(&xTimerInstance);
 		xStatus = XTtcPs_CfgInitialize( &xTimerInstance, pxTimerConfig, pxTimerConfig->BaseAddress );
-		if( xStatus != XST_SUCCESS ) {
+		if ( xStatus != XST_SUCCESS ) {
 			xil_printf( "In %s: Timer Cfg initialization failed...\r\n", __func__ );
 			return xStatus;
 		}
@@ -196,40 +195,39 @@ int xStatus;
 
 #elif defined (XPAR_TMRCTR_1_DEVICE_ID)
 
-		const unsigned char ucTickTimerCounterNumber = ( unsigned char ) 0U;
-		const unsigned char ucRunTimeStatsCounterNumber = ( unsigned char ) 1U;
-		const unsigned long ulCounterValue = ( ( XPAR_TMRCTR_1_CLOCK_FREQ_HZ / configTICK_RATE_HZ / 5) - 1UL );
-		extern void vPortTickISR( void *pvUnused );
+	const unsigned char ucTickTimerCounterNumber = ( unsigned char ) 0U;
+	const unsigned char ucRunTimeStatsCounterNumber = ( unsigned char ) 1U;
+	const unsigned long ulCounterValue = ( ( XPAR_TMRCTR_1_CLOCK_FREQ_HZ / configTICK_RATE_HZ / 5) - 1UL );
+	extern void vPortTickISR( void *pvUnused );
 
-			/* Initialise the timer/counter. */
-			xStatus = XTmrCtr_Initialize( &xTickTimerInstance, TIMER_DEVICE_ID );
+	/* Initialise the timer/counter. */
+	xStatus = XTmrCtr_Initialize( &xTickTimerInstance, TIMER_DEVICE_ID );
 
-			if( xStatus == XST_SUCCESS )
-			{
-				/* Register the AXI Timer interrupt handler with interrupt controller */
-				xStatus = xPortInstallInterruptHandler( TIMER_INTR_ID, (XInterruptHandler)XTmrCtr_InterruptHandler, &xTickTimerInstance );
-				XTmrCtr_SetHandler(&xTickTimerInstance, TmrctrHandler,
-					&xTickTimerInstance);
-			}
+	if ( xStatus == XST_SUCCESS ) {
+		/* Register the AXI Timer interrupt handler with interrupt controller */
+		xStatus = xPortInstallInterruptHandler( TIMER_INTR_ID, (XInterruptHandler)XTmrCtr_InterruptHandler,
+							&xTickTimerInstance );
+		XTmrCtr_SetHandler(&xTickTimerInstance, TmrctrHandler,
+				   &xTickTimerInstance);
+	}
 
-			if( xStatus == pdPASS )
-			{
-				/* Enable interrupt for timer peripheral */
-				vPortEnableInterrupt( TIMER_INTR_ID );
+	if ( xStatus == pdPASS ) {
+		/* Enable interrupt for timer peripheral */
+		vPortEnableInterrupt( TIMER_INTR_ID );
 
-				/* Set the correct period for the timer. */
-				XTmrCtr_SetResetValue( &xTickTimerInstance, ucTickTimerCounterNumber, ulCounterValue );
+		/* Set the correct period for the timer. */
+		XTmrCtr_SetResetValue( &xTickTimerInstance, ucTickTimerCounterNumber, ulCounterValue );
 
-				XTmrCtr_SetOptions( &xTickTimerInstance, ucTickTimerCounterNumber, ( XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION | XTC_DOWN_COUNT_OPTION ) );
+		XTmrCtr_SetOptions( &xTickTimerInstance, ucTickTimerCounterNumber,
+				    ( XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION | XTC_DOWN_COUNT_OPTION ) );
 
-				/* Start the timer. */
-				XTmrCtr_Start( &xTickTimerInstance, ucTickTimerCounterNumber );
-			}
+		/* Start the timer. */
+		XTmrCtr_Start( &xTickTimerInstance, ucTickTimerCounterNumber );
+	}
 #endif
 
 	xil_printf("Waiting for semaphore, FreeRTOS tick count is %x\n", xTaskGetTickCount());
-	if( xSemaphoreTake( xSemaphore, x100mseconds ) != pdTRUE )
-	{
+	if ( xSemaphoreTake( xSemaphore, x100mseconds ) != pdTRUE ) {
 		return XST_FAILURE;
 	}
 
@@ -249,8 +247,7 @@ void TtcHandler(XTtcPs *InstancePtr)
 	XTtcPs_ClearInterruptStatus(InstancePtr, XTtcPsStatusReg);
 	XTtcPs_Stop(InstancePtr);
 
-	if ( xSemaphoreGiveFromISR( xSemaphore, &xHigherPriorityTaskWoken ) != pdFALSE)
-	{
+	if ( xSemaphoreGiveFromISR( xSemaphore, &xHigherPriorityTaskWoken ) != pdFALSE) {
 		portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 	}
 }
@@ -261,8 +258,7 @@ void TmrctrHandler(XTmrCtr *InstancePtr)
 	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
 	XTmrCtr_Stop( InstancePtr, 0);
-	if ( xSemaphoreGiveFromISR( xSemaphore, &xHigherPriorityTaskWoken ) != pdFALSE)
-	{
+	if ( xSemaphoreGiveFromISR( xSemaphore, &xHigherPriorityTaskWoken ) != pdFALSE) {
 		portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 	}
 }
