@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +28,7 @@
 *       ms     01/23/17 Modified xil_printf statement in main function to
 *                       ensure that "Successfully ran" and "Failed" strings are
 *                       available in all examples. This is a fix for CR-965028.
-*
+* 6.10  ht     06/23/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/
@@ -36,6 +37,7 @@
 
 #include "xaxipmon.h"
 #include "xil_cache.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -44,7 +46,9 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef SDT
 #define AXIPMON_DEVICE_ID		XPAR_PSU_APM_1_DEVICE_ID
+#endif
 
 /* Sampling interval */
 #define SAMPLE_INTERVAL			0x100
@@ -90,7 +94,11 @@ int main(void)
 	XAxiPmon_Config *ConfigPtr = NULL;
 	u32 Status;
 
+#ifndef SDT
 	ConfigPtr = XAxiPmon_LookupConfig(AXIPMON_DEVICE_ID);
+#else
+	ConfigPtr = XAxiPmon_LookupConfig(XPAR_PERF_MONITOR_OCM_BASEADDR);
+#endif
 	if (ConfigPtr == NULL) {
 		return XST_FAILURE;
 	}
