@@ -96,6 +96,7 @@
 * 6.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XAxiPmon_CfgInitialize API.
 * 6.7   sd   17/11/18 Fix Doxygen reported warnings
+* 6.10  ht   06/23/23 Added support for system device-tree flow.
 * </pre>
 *
 *****************************************************************************/
@@ -148,7 +149,9 @@ s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr, XAxiPmon_Config *ConfigPtr,
 	/*
 	 * Set the values read from the device config and the base address.
 	 */
+#ifndef SDT
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
+#endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.GlobalClkCounterWidth =
 				ConfigPtr->GlobalClkCounterWidth;
@@ -173,6 +176,8 @@ s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr, XAxiPmon_Config *ConfigPtr,
 	InstancePtr->Config.Is32BitFiltering = ConfigPtr->Is32BitFiltering;
 
 	InstancePtr->Config.ScaleFactor = ConfigPtr->ScaleFactor;
+	InstancePtr->Config.IntId = ConfigPtr->IntId;
+	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
 
 	if ((ConfigPtr->ModeProfile == ConfigPtr->ModeTrace)
 			|| (ConfigPtr->ModeAdvanced == 1U))
