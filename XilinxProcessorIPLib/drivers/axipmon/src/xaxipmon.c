@@ -138,7 +138,7 @@
 *
 ******************************************************************************/
 s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr, XAxiPmon_Config *ConfigPtr,
-						UINTPTR EffectiveAddr)
+			   UINTPTR EffectiveAddr)
 {
 	/*
 	 * Assert the input arguments.
@@ -154,25 +154,25 @@ s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr, XAxiPmon_Config *ConfigPtr,
 #endif
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.GlobalClkCounterWidth =
-				ConfigPtr->GlobalClkCounterWidth;
+		ConfigPtr->GlobalClkCounterWidth;
 	InstancePtr->Config.MetricSampleCounterWidth =
-				ConfigPtr->MetricSampleCounterWidth;
+		ConfigPtr->MetricSampleCounterWidth;
 	InstancePtr->Config.IsEventCount =
-				ConfigPtr->IsEventCount;
+		ConfigPtr->IsEventCount;
 	InstancePtr->Config.NumberofSlots =
-				ConfigPtr->NumberofSlots;
+		ConfigPtr->NumberofSlots;
 	InstancePtr->Config.NumberofCounters =
-				ConfigPtr->NumberofCounters;
+		ConfigPtr->NumberofCounters;
 	InstancePtr->Config.HaveSampledCounters =
-				ConfigPtr->HaveSampledCounters;
+		ConfigPtr->HaveSampledCounters;
 	InstancePtr->Config.IsEventLog =
-				ConfigPtr->IsEventLog;
+		ConfigPtr->IsEventLog;
 	InstancePtr->Config.FifoDepth =
-				ConfigPtr->FifoDepth;
+		ConfigPtr->FifoDepth;
 	InstancePtr->Config.FifoWidth =
-				ConfigPtr->FifoWidth;
+		ConfigPtr->FifoWidth;
 	InstancePtr->Config.TidWidth =
-				ConfigPtr->TidWidth;
+		ConfigPtr->TidWidth;
 	InstancePtr->Config.Is32BitFiltering = ConfigPtr->Is32BitFiltering;
 
 	InstancePtr->Config.ScaleFactor = ConfigPtr->ScaleFactor;
@@ -180,8 +180,7 @@ s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr, XAxiPmon_Config *ConfigPtr,
 	InstancePtr->Config.IntrParent = ConfigPtr->IntrParent;
 
 	if ((ConfigPtr->ModeProfile == ConfigPtr->ModeTrace)
-			|| (ConfigPtr->ModeAdvanced == 1U))
-	{
+	    || (ConfigPtr->ModeAdvanced == 1U)) {
 		InstancePtr->Mode = XAPM_MODE_ADVANCED;
 	} else if (ConfigPtr->ModeTrace == 1U) {
 		InstancePtr->Mode = XAPM_MODE_TRACE;
@@ -199,20 +198,17 @@ s32 XAxiPmon_CfgInitialize(XAxiPmon *InstancePtr, XAxiPmon_Config *ConfigPtr,
 	 */
 
 	/* Advanced and Profile */
-	if((InstancePtr->Mode == XAPM_MODE_ADVANCED) ||
-			(InstancePtr->Mode == XAPM_MODE_PROFILE))
-	{
+	if ((InstancePtr->Mode == XAPM_MODE_ADVANCED) ||
+	    (InstancePtr->Mode == XAPM_MODE_PROFILE)) {
 		(void)XAxiPmon_ResetMetricCounter(InstancePtr);
 	}
 	/* Advanced */
-	if(InstancePtr->Mode == XAPM_MODE_ADVANCED)
-	{
+	if (InstancePtr->Mode == XAPM_MODE_ADVANCED) {
 		XAxiPmon_ResetGlobalClkCounter(InstancePtr);
 	}
 	/* Advanced and Trace */
-	if((InstancePtr->Mode == XAPM_MODE_ADVANCED) ||
-			(InstancePtr->Mode == XAPM_MODE_TRACE))
-	{
+	if ((InstancePtr->Mode == XAPM_MODE_ADVANCED) ||
+	    (InstancePtr->Mode == XAPM_MODE_TRACE)) {
 		(void)XAxiPmon_ResetFifo(InstancePtr);
 	}
 	return XST_SUCCESS;
@@ -249,14 +245,14 @@ s32 XAxiPmon_ResetMetricCounter(XAxiPmon *InstancePtr)
 	 * Metric counters
 	 */
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							 XAPM_CTL_OFFSET);
+				    XAPM_CTL_OFFSET);
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-					(RegValue | XAPM_CR_MCNTR_RESET_MASK));
+			  (RegValue | XAPM_CR_MCNTR_RESET_MASK));
 	/*
 	 * Release from Reset
 	 */
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-				(RegValue & ~(XAPM_CR_MCNTR_RESET_MASK)));
+			  (RegValue & ~(XAPM_CR_MCNTR_RESET_MASK)));
 	return XST_SUCCESS;
 
 }
@@ -290,15 +286,15 @@ void XAxiPmon_ResetGlobalClkCounter(XAxiPmon *InstancePtr)
 	 * Global Clock Counter
 	 */
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							 XAPM_CTL_OFFSET);
+				    XAPM_CTL_OFFSET);
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-					(RegValue | XAPM_CR_GCC_RESET_MASK));
+			  (RegValue | XAPM_CR_GCC_RESET_MASK));
 
 	/*
 	 * Release from Reset
 	 */
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-				(RegValue & ~(XAPM_CR_GCC_RESET_MASK)));
+			  (RegValue & ~(XAPM_CR_GCC_RESET_MASK)));
 
 }
 
@@ -327,9 +323,8 @@ s32 XAxiPmon_ResetFifo(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->Mode != XAPM_MODE_PROFILE);
 
 	/* Check Event Logging is enabled in Hardware */
-	if((InstancePtr->Config.IsEventLog == 0U) &&
-			(InstancePtr->Mode == XAPM_MODE_ADVANCED))
-	{
+	if ((InstancePtr->Config.IsEventLog == 0U) &&
+	    (InstancePtr->Mode == XAPM_MODE_ADVANCED)) {
 		/*Event logging not enabled in Hardware*/
 		return XST_SUCCESS;
 	}
@@ -338,14 +333,14 @@ s32 XAxiPmon_ResetFifo(XAxiPmon *InstancePtr)
 	 * FIFO
 	 */
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							 XAPM_CTL_OFFSET);
+				    XAPM_CTL_OFFSET);
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-					(RegValue | XAPM_CR_FIFO_RESET_MASK));
+			  (RegValue | XAPM_CR_FIFO_RESET_MASK));
 	/*
 	 * Release from Reset
 	 */
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-				(RegValue & ~(XAPM_CR_FIFO_RESET_MASK)));
+			  (RegValue & ~(XAPM_CR_FIFO_RESET_MASK)));
 
 	return XST_SUCCESS;
 
@@ -368,8 +363,8 @@ s32 XAxiPmon_ResetFifo(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 void XAxiPmon_SetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
-					u16 RangeUpper,	u16 RangeLower)
- {
+				  u16 RangeUpper,	u16 RangeLower)
+{
 
 	u32 RegValue;
 
@@ -387,9 +382,9 @@ void XAxiPmon_SetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
 	RegValue = (u32)RangeUpper << 16;
 	RegValue |= RangeLower;
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_RANGE0_OFFSET + ((u32)IncrementerNum * (u32)16)),
-			RegValue);
- }
+			  ((u32)XAPM_RANGE0_OFFSET + ((u32)IncrementerNum * (u32)16)),
+			  RegValue);
+}
 
 /****************************************************************************/
 /**
@@ -410,8 +405,8 @@ void XAxiPmon_SetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
 *
 *****************************************************************************/
 void XAxiPmon_GetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
-				u16 *RangeUpper, u16 *RangeLower)
- {
+				  u16 *RangeUpper, u16 *RangeLower)
+{
 
 	u32 RegValue;
 	/*
@@ -423,11 +418,11 @@ void XAxiPmon_GetIncrementerRange(XAxiPmon *InstancePtr, u8 IncrementerNum,
 	Xil_AssertVoid(IncrementerNum < XAPM_MAX_COUNTERS);
 
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-				((u32)XAPM_RANGE0_OFFSET + ((u32)IncrementerNum * (u32)16)));
+				    ((u32)XAPM_RANGE0_OFFSET + ((u32)IncrementerNum * (u32)16)));
 
 	*RangeLower = (u16)(RegValue & 0x0000FFFFU);
 	*RangeUpper = (u16)((RegValue >> 16) & 0x0000FFFFU);
- }
+}
 
 /****************************************************************************/
 /**
@@ -456,7 +451,7 @@ void XAxiPmon_SetSampleInterval(XAxiPmon *InstancePtr, u32 SampleInterval)
 	 * Set Sample Interval Lower
 	 */
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-		XAPM_SI_LOW_OFFSET, SampleInterval);
+			  XAPM_SI_LOW_OFFSET, SampleInterval);
 
 }
 
@@ -487,7 +482,7 @@ void XAxiPmon_GetSampleInterval(XAxiPmon *InstancePtr, u32 *SampleInterval)
 	 * Set Sample Interval Lower
 	 */
 	*SampleInterval = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-				XAPM_SI_LOW_OFFSET);
+					   XAPM_SI_LOW_OFFSET);
 
 }
 
@@ -512,7 +507,7 @@ void XAxiPmon_GetSampleInterval(XAxiPmon *InstancePtr, u32 *SampleInterval)
 *
 *****************************************************************************/
 s32 XAxiPmon_SetMetrics(XAxiPmon *InstancePtr, u8 Slot, u8 Metrics,
-						u8 CounterNum)
+			u8 CounterNum)
 {
 	u32 RegValue;
 	u32 Mask;
@@ -524,24 +519,21 @@ s32 XAxiPmon_SetMetrics(XAxiPmon *InstancePtr, u8 Slot, u8 Metrics,
 	Xil_AssertNonvoid(InstancePtr->Mode == XAPM_MODE_ADVANCED);
 	Xil_AssertNonvoid(Slot < XAPM_MAX_AGENTS);
 	Xil_AssertNonvoid((Metrics <= XAPM_METRIC_SET_22) ||
-			(Metrics == XAPM_METRIC_SET_30));
+			  (Metrics == XAPM_METRIC_SET_30));
 	Xil_AssertNonvoid(CounterNum < XAPM_MAX_COUNTERS);
 
 	/* Find Mask value to force zero in counternum byte range */
 	if ((CounterNum == 0U) || (CounterNum == 4U) || (CounterNum == 8U)) {
 		Mask = 0xFFFFFF00U;
-	}
-	else if ((CounterNum == 1U) || (CounterNum == 5U) || (CounterNum == 9U)) {
+	} else if ((CounterNum == 1U) || (CounterNum == 5U) || (CounterNum == 9U)) {
 		Mask = 0xFFFF00FFU;
-	}
-	else if ((CounterNum == 2U) || (CounterNum == 6U)) {
+	} else if ((CounterNum == 2U) || (CounterNum == 6U)) {
 		Mask = 0xFF00FFFFU;
-	}
-	else {
+	} else {
 		Mask = 0x00FFFFFFU;
 	}
 
-	if(CounterNum <= 3U) {
+	if (CounterNum <= 3U) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
 					    XAPM_MSR0_OFFSET);
 
@@ -549,9 +541,8 @@ s32 XAxiPmon_SetMetrics(XAxiPmon *InstancePtr, u8 Slot, u8 Metrics,
 		RegValue = RegValue | ((u32)Metrics << (CounterNum * (u8)8));
 		RegValue = RegValue | ((u32)Slot << ((CounterNum * (u8)8) + (u8)5));
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-					(u32)XAPM_MSR0_OFFSET,RegValue);
-	}
-	else if((CounterNum >= 4U) && (CounterNum <= 7U)) {
+				  (u32)XAPM_MSR0_OFFSET, RegValue);
+	} else if ((CounterNum >= 4U) && (CounterNum <= 7U)) {
 		CounterNum = CounterNum - 4U;
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
 					    (u32)XAPM_MSR1_OFFSET);
@@ -560,9 +551,8 @@ s32 XAxiPmon_SetMetrics(XAxiPmon *InstancePtr, u8 Slot, u8 Metrics,
 		RegValue = RegValue | ((u32)Metrics << (CounterNum * (u8)8));
 		RegValue = RegValue | ((u32)Slot << ((CounterNum * (u8)8) + (u8)5));
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-					XAPM_MSR1_OFFSET,RegValue);
-	}
-	else {
+				  XAPM_MSR1_OFFSET, RegValue);
+	} else {
 		CounterNum = CounterNum - 8U;
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
 					    XAPM_MSR2_OFFSET);
@@ -571,7 +561,7 @@ s32 XAxiPmon_SetMetrics(XAxiPmon *InstancePtr, u8 Slot, u8 Metrics,
 		RegValue = RegValue | ((u32)Metrics << (CounterNum * (u8)8));
 		RegValue = RegValue | ((u32)Slot << ((CounterNum * (u8)8) + (u8)5));
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-					XAPM_MSR2_OFFSET,RegValue);
+				  XAPM_MSR2_OFFSET, RegValue);
 	}
 	return XST_SUCCESS;
 }
@@ -596,7 +586,7 @@ s32 XAxiPmon_SetMetrics(XAxiPmon *InstancePtr, u8 Slot, u8 Metrics,
 *
 *****************************************************************************/
 s32 XAxiPmon_GetMetrics(XAxiPmon *InstancePtr, u8 CounterNum, u8 *Metrics,
-								u8 *Slot)
+			u8 *Slot)
 {
 	u32 RegValue;
 	/*
@@ -607,24 +597,22 @@ s32 XAxiPmon_GetMetrics(XAxiPmon *InstancePtr, u8 CounterNum, u8 *Metrics,
 	Xil_AssertNonvoid(InstancePtr->Mode == XAPM_MODE_ADVANCED);
 	Xil_AssertNonvoid(CounterNum <= XAPM_MAX_COUNTERS);
 
-	if(CounterNum <= 3U) {
+	if (CounterNum <= 3U) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-					XAPM_MSR0_OFFSET);
+					    XAPM_MSR0_OFFSET);
 		*Metrics = (u8)(RegValue >> (CounterNum * (u8)8)) & 0x1FU;
 		*Slot 	= (u8)(RegValue >> ((CounterNum * (u8)8) + (u8)5)) & 0x07U;
 
-	}
-	else if((CounterNum >= 4U) && (CounterNum <= 7U)) {
+	} else if ((CounterNum >= 4U) && (CounterNum <= 7U)) {
 		CounterNum = CounterNum - 4U;
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-					XAPM_MSR1_OFFSET);
+					    XAPM_MSR1_OFFSET);
 		*Metrics = (u8)(RegValue >> (CounterNum * (u8)8)) & 0x1FU;
 		*Slot 	= (u8)(RegValue >> ((CounterNum * (u8)8) + (u8)5)) & 0x07U;
-	}
-	else {
+	} else {
 		CounterNum = CounterNum - 8U;
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-					XAPM_MSR2_OFFSET);
+					    XAPM_MSR2_OFFSET);
 		*Metrics = (u8)(RegValue >> (CounterNum * (u8)8)) & 0x1FU;
 		*Slot 	= (u8)(RegValue >> ((CounterNum * (u8)8) + (u8)5)) & 0x07U;
 	}
@@ -647,8 +635,8 @@ s32 XAxiPmon_GetMetrics(XAxiPmon *InstancePtr, u8 CounterNum, u8 *Metrics,
 * @note		None.
 *
 *****************************************************************************/
-void XAxiPmon_GetGlobalClkCounter(XAxiPmon *InstancePtr,u32 *CntHighValue,
-							u32 *CntLowValue)
+void XAxiPmon_GetGlobalClkCounter(XAxiPmon *InstancePtr, u32 *CntHighValue,
+				  u32 *CntLowValue)
 {
 	/*
 	 * Assert the arguments.
@@ -664,15 +652,15 @@ void XAxiPmon_GetGlobalClkCounter(XAxiPmon *InstancePtr,u32 *CntHighValue,
 	 * If Counter width is 64 bit then Counter Value has to be
 	 * filled at CntHighValue address also.
 	 */
-	if(InstancePtr->Config.GlobalClkCounterWidth == 64) {
+	if (InstancePtr->Config.GlobalClkCounterWidth == 64) {
 
 		/* Bits[63:32] exists at XAPM_GCC_HIGH_OFFSET */
 		*CntHighValue = XAxiPmon_ReadReg(InstancePtr->
-				Config.BaseAddress, XAPM_GCC_HIGH_OFFSET);
+						 Config.BaseAddress, XAPM_GCC_HIGH_OFFSET);
 	}
 	/* Bits[31:0] exists at XAPM_GCC_LOW_OFFSET */
 	*CntLowValue = XAxiPmon_ReadReg(InstancePtr->
-				Config.BaseAddress, XAPM_GCC_LOW_OFFSET);
+					Config.BaseAddress, XAPM_GCC_LOW_OFFSET);
 }
 
 /****************************************************************************/
@@ -705,23 +693,19 @@ u32 XAxiPmon_GetMetricCounter(XAxiPmon *InstancePtr, u32 CounterNum)
 
 	if (CounterNum < 10U ) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_MC0_OFFSET + (CounterNum * (u32)16)));
-	}
-	else if ((CounterNum >= 10U) && (CounterNum < 12U)) {
+					    ((u32)XAPM_MC0_OFFSET + (CounterNum * (u32)16)));
+	} else if ((CounterNum >= 10U) && (CounterNum < 12U)) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_MC10_OFFSET + ((CounterNum - (u32)10) * (u32)16)));
-	}
-	else if ((CounterNum >= 12U) && (CounterNum < 24U)) {
+					    ((u32)XAPM_MC10_OFFSET + ((CounterNum - (u32)10) * (u32)16)));
+	} else if ((CounterNum >= 12U) && (CounterNum < 24U)) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_MC12_OFFSET + ((CounterNum - (u32)12) * (u32)16)));
-	}
-	else if ((CounterNum >= 24U) && (CounterNum < 36U)) {
+					    ((u32)XAPM_MC12_OFFSET + ((CounterNum - (u32)12) * (u32)16)));
+	} else if ((CounterNum >= 24U) && (CounterNum < 36U)) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_MC24_OFFSET + ((CounterNum - (u32)24) * (u32)16)));
-	}
-	else {
+					    ((u32)XAPM_MC24_OFFSET + ((CounterNum - (u32)24) * (u32)16)));
+	} else {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_MC36_OFFSET + ((CounterNum - (u32)36) * (u32)16)));
+					    ((u32)XAPM_MC36_OFFSET + ((CounterNum - (u32)36) * (u32)16)));
 	}
 
 	return RegValue;
@@ -755,28 +739,24 @@ u32 XAxiPmon_GetSampledMetricCounter(XAxiPmon *InstancePtr, u32 CounterNum)
 	Xil_AssertNonvoid(InstancePtr->Mode != XAPM_MODE_TRACE);
 	Xil_AssertNonvoid(CounterNum < XAPM_MAX_COUNTERS_PROFILE);
 	Xil_AssertNonvoid((InstancePtr->Mode == XAPM_MODE_PROFILE) ||
-		((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-			(InstancePtr->Config.HaveSampledCounters == 1U)));
+			  ((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
+			   (InstancePtr->Config.HaveSampledCounters == 1U)));
 
 	if (CounterNum < 10U ) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_SMC0_OFFSET + (CounterNum * (u32)16)));
-	}
-	else if ((CounterNum >= 10U) && (CounterNum < 12U)) {
+					    ((u32)XAPM_SMC0_OFFSET + (CounterNum * (u32)16)));
+	} else if ((CounterNum >= 10U) && (CounterNum < 12U)) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_SMC10_OFFSET + ((CounterNum - (u32)10) * (u32)16)));
-	}
-	else if ((CounterNum >= 12U) && (CounterNum < 24U)) {
+					    ((u32)XAPM_SMC10_OFFSET + ((CounterNum - (u32)10) * (u32)16)));
+	} else if ((CounterNum >= 12U) && (CounterNum < 24U)) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_SMC12_OFFSET + ((CounterNum - (u32)12) * (u32)16)));
-	}
-	else if ((CounterNum >= 24U) && (CounterNum < 36U)) {
+					    ((u32)XAPM_SMC12_OFFSET + ((CounterNum - (u32)12) * (u32)16)));
+	} else if ((CounterNum >= 24U) && (CounterNum < 36U)) {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_SMC24_OFFSET + ((CounterNum - (u32)24) * (u32)16)));
-	}
-	else {
+					    ((u32)XAPM_SMC24_OFFSET + ((CounterNum - (u32)24) * (u32)16)));
+	} else {
 		RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_SMC36_OFFSET + ((CounterNum - (u32)36) * (u32)16)));
+					    ((u32)XAPM_SMC36_OFFSET + ((CounterNum - (u32)36) * (u32)16)));
 	}
 
 	return RegValue;
@@ -809,11 +789,11 @@ u32 XAxiPmon_GetIncrementer(XAxiPmon *InstancePtr, u32 IncrementerNum)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-				(InstancePtr->Config.IsEventCount == 1U));
+			  (InstancePtr->Config.IsEventCount == 1U));
 	Xil_AssertNonvoid(IncrementerNum < XAPM_MAX_COUNTERS);
 
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-			((u32)XAPM_INC0_OFFSET + (IncrementerNum * (u32)16)));
+				    ((u32)XAPM_INC0_OFFSET + (IncrementerNum * (u32)16)));
 
 	return RegValue;
 }
@@ -845,12 +825,12 @@ u32 XAxiPmon_GetSampledIncrementer(XAxiPmon *InstancePtr, u32 IncrementerNum)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-				(InstancePtr->Config.IsEventCount == 1U) &&
-				(InstancePtr->Config.HaveSampledCounters == 1U));
+			  (InstancePtr->Config.IsEventCount == 1U) &&
+			  (InstancePtr->Config.HaveSampledCounters == 1U));
 	Xil_AssertNonvoid(IncrementerNum < XAPM_MAX_COUNTERS);
 
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-				((u32)XAPM_SINC0_OFFSET + (IncrementerNum * (u32)16)));
+				    ((u32)XAPM_SINC0_OFFSET + (IncrementerNum * (u32)16)));
 	return RegValue;
 }
 
@@ -879,7 +859,7 @@ void XAxiPmon_SetSwDataReg(XAxiPmon *InstancePtr, u32 SwData)
 	 * Set Software-written Data Register
 	 */
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, (u32)XAPM_SWD_OFFSET,
-								SwData);
+			  SwData);
 }
 
 /****************************************************************************/
@@ -896,7 +876,7 @@ void XAxiPmon_SetSwDataReg(XAxiPmon *InstancePtr, u32 SwData)
 *****************************************************************************/
 u32 XAxiPmon_GetSwDataReg(XAxiPmon *InstancePtr)
 {
-	 u32 SwData;
+	u32 SwData;
 
 	/*
 	 * Assert the arguments.
@@ -908,7 +888,7 @@ u32 XAxiPmon_GetSwDataReg(XAxiPmon *InstancePtr)
 	 * Set Metric Selector Register
 	 */
 	SwData = (u32)XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-						XAPM_SWD_OFFSET);
+				       XAPM_SWD_OFFSET);
 	return SwData;
 }
 
@@ -940,24 +920,23 @@ s32 XAxiPmon_StartEventLog(XAxiPmon *InstancePtr, u32 FlagEnables)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((InstancePtr->Mode == XAPM_MODE_TRACE) ||
-				((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-			(InstancePtr->Config.IsEventLog == 1U)));
+			  ((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
+			   (InstancePtr->Config.IsEventLog == 1U)));
 
 	/* Read current register value */
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							(u32)XAPM_CTL_OFFSET);
+				    (u32)XAPM_CTL_OFFSET);
 	/* Flag Enable register is present only in Advanced Mode */
-	if(InstancePtr->Mode == XAPM_MODE_ADVANCED)
-	{
+	if (InstancePtr->Mode == XAPM_MODE_ADVANCED) {
 		/* Now write to flag enables register */
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-				(u32)XAPM_FEC_OFFSET, FlagEnables);
+				  (u32)XAPM_FEC_OFFSET, FlagEnables);
 	}
 
 	/* Write the new value to the Control register to
 	 *	enable event logging */
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, (u32)XAPM_CTL_OFFSET,
-		                  RegValue | XAPM_CR_EVENTLOG_ENABLE_MASK);
+			  RegValue | XAPM_CR_EVENTLOG_ENABLE_MASK);
 
 	return XST_SUCCESS;
 }
@@ -985,17 +964,17 @@ s32 XAxiPmon_StopEventLog(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((InstancePtr->Mode == XAPM_MODE_TRACE) ||
-			((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-			(InstancePtr->Config.IsEventLog == 1U)));
+			  ((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
+			   (InstancePtr->Config.IsEventLog == 1U)));
 
 	/* Read current register value */
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-						(u32)XAPM_CTL_OFFSET);
+				    (u32)XAPM_CTL_OFFSET);
 
 	/* Write the new value to the Control register to disable
 	 * event logging */
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, (u32)XAPM_CTL_OFFSET,
-	                    RegValue & ~XAPM_CR_EVENTLOG_ENABLE_MASK);
+			  RegValue & ~XAPM_CR_EVENTLOG_ENABLE_MASK);
 
 	return XST_SUCCESS;
 }
@@ -1026,15 +1005,14 @@ s32 XAxiPmon_StartCounters(XAxiPmon *InstancePtr, u32 SampleInterval)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((InstancePtr->Mode == XAPM_MODE_PROFILE) ||
-				((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-				(InstancePtr->Config.IsEventCount == 1U)));
+			  ((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
+			   (InstancePtr->Config.IsEventCount == 1U)));
 
 	/* Read current register value */
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							(u32)XAPM_CTL_OFFSET);
+				    (u32)XAPM_CTL_OFFSET);
 	/* Globlal Clock Counter is present in Advanced mode only */
-	if(InstancePtr->Mode == XAPM_MODE_ADVANCED)
-	{
+	if (InstancePtr->Mode == XAPM_MODE_ADVANCED) {
 		RegValue = RegValue | XAPM_CR_GCC_ENABLE_MASK;
 	}
 
@@ -1043,7 +1021,7 @@ s32 XAxiPmon_StartCounters(XAxiPmon *InstancePtr, u32 SampleInterval)
 	 * global clock counter and metric counters
 	 */
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, (u32)XAPM_CTL_OFFSET,
-              RegValue | XAPM_CR_MCNTR_ENABLE_MASK);
+			  RegValue | XAPM_CR_MCNTR_ENABLE_MASK);
 
 	/* Set, enable, and load sampled counters */
 	XAxiPmon_SetSampleInterval(InstancePtr, SampleInterval);
@@ -1077,15 +1055,14 @@ s32 XAxiPmon_StopCounters(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((InstancePtr->Mode == XAPM_MODE_PROFILE) ||
-				((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-				(InstancePtr->Config.IsEventCount == 1U)));
+			  ((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
+			   (InstancePtr->Config.IsEventCount == 1U)));
 
 	/* Read current register value */
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							(u32)XAPM_CTL_OFFSET);
+				    (u32)XAPM_CTL_OFFSET);
 	/* Globlal Clock Counter is present in Advanced mode only */
-	if(InstancePtr->Mode == XAPM_MODE_ADVANCED)
-	{
+	if (InstancePtr->Mode == XAPM_MODE_ADVANCED) {
 		RegValue = RegValue & ~XAPM_CR_GCC_ENABLE_MASK;
 	}
 
@@ -1094,7 +1071,7 @@ s32 XAxiPmon_StopCounters(XAxiPmon *InstancePtr)
 	 * global clock counter and metric counters
 	 */
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, (u32)XAPM_CTL_OFFSET,
-			RegValue & ~XAPM_CR_MCNTR_ENABLE_MASK);
+			  RegValue & ~XAPM_CR_MCNTR_ENABLE_MASK);
 
 	return XST_SUCCESS;
 }
@@ -1121,13 +1098,13 @@ void XAxiPmon_EnableMetricsCounter(XAxiPmon *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((InstancePtr->Mode == XAPM_MODE_PROFILE) ||
-				((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-				(InstancePtr->Config.IsEventCount == 1U)));
+		       ((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
+			(InstancePtr->Config.IsEventCount == 1U)));
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-						XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-					RegVal | XAPM_CR_MCNTR_ENABLE_MASK);
+			  RegVal | XAPM_CR_MCNTR_ENABLE_MASK);
 }
 /****************************************************************************/
 /**
@@ -1151,14 +1128,14 @@ void XAxiPmon_DisableMetricsCounter(XAxiPmon *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((InstancePtr->Mode == XAPM_MODE_PROFILE) ||
-				((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-				(InstancePtr->Config.IsEventCount == 1U)));
+		       ((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
+			(InstancePtr->Config.IsEventCount == 1U)));
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							(u32)XAPM_CTL_OFFSET);
+				  (u32)XAPM_CTL_OFFSET);
 
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, (u32)XAPM_CTL_OFFSET,
-					RegVal & ~(XAPM_CR_MCNTR_ENABLE_MASK));
+			  RegVal & ~(XAPM_CR_MCNTR_ENABLE_MASK));
 }
 
 /****************************************************************************/
@@ -1182,7 +1159,7 @@ void XAxiPmon_DisableMetricsCounter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 void XAxiPmon_SetLogEnableRanges(XAxiPmon *InstancePtr, u32 CounterNum,
-					u16 RangeUpper, u16 RangeLower)
+				 u16 RangeUpper, u16 RangeLower)
 {
 	u32 RegValue;
 	/*
@@ -1192,7 +1169,7 @@ void XAxiPmon_SetLogEnableRanges(XAxiPmon *InstancePtr, u32 CounterNum,
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(CounterNum < XAPM_MAX_COUNTERS);
 	Xil_AssertVoid((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-				(InstancePtr->Config.IsEventCount == 1U));
+		       (InstancePtr->Config.IsEventCount == 1U));
 
 
 	/*
@@ -1202,7 +1179,7 @@ void XAxiPmon_SetLogEnableRanges(XAxiPmon *InstancePtr, u32 CounterNum,
 	RegValue = (u32)RangeUpper << 16;
 	RegValue |= RangeLower;
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-		((u32)XAPM_MC0LOGEN_OFFSET + (CounterNum * (u32)16)), RegValue);
+			  ((u32)XAPM_MC0LOGEN_OFFSET + (CounterNum * (u32)16)), RegValue);
 
 }
 
@@ -1230,7 +1207,7 @@ void XAxiPmon_SetLogEnableRanges(XAxiPmon *InstancePtr, u32 CounterNum,
 *
 *****************************************************************************/
 void XAxiPmon_GetLogEnableRanges(XAxiPmon *InstancePtr, u32 CounterNum,
-					u16 *RangeUpper, u16 *RangeLower)
+				 u16 *RangeUpper, u16 *RangeLower)
 {
 	u32 RegValue;
 	/*
@@ -1240,11 +1217,11 @@ void XAxiPmon_GetLogEnableRanges(XAxiPmon *InstancePtr, u32 CounterNum,
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(CounterNum < XAPM_MAX_COUNTERS);
 	Xil_AssertVoid((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-				(InstancePtr->Config.IsEventCount == 1U));
+		       (InstancePtr->Config.IsEventCount == 1U));
 
 
 	RegValue = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-				((u32)XAPM_MC0LOGEN_OFFSET + (CounterNum * (u32)16)));
+				    ((u32)XAPM_MC0LOGEN_OFFSET + (CounterNum * (u32)16)));
 
 	*RangeLower = (u16)RegValue & 0xFFFFU;
 	*RangeUpper = (u16)(RegValue >> 16) & 0xFFFFU;
@@ -1272,13 +1249,13 @@ void XAxiPmon_EnableEventLog(XAxiPmon *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid((InstancePtr->Mode == XAPM_MODE_TRACE) ||
-				((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
-				(InstancePtr->Config.IsEventLog == 1U)));
+		       ((InstancePtr->Mode == XAPM_MODE_ADVANCED) &&
+			(InstancePtr->Config.IsEventLog == 1U)));
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-				RegVal | XAPM_CR_EVENTLOG_ENABLE_MASK);
+			  RegVal | XAPM_CR_EVENTLOG_ENABLE_MASK);
 }
 
 /*****************************************************************************/
@@ -1306,9 +1283,9 @@ void XAxiPmon_EnableMetricCounterTrigger(XAxiPmon *InstancePtr)
 	Xil_AssertVoid(InstancePtr->Mode != XAPM_MODE_TRACE);
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-				RegVal | XAPM_CR_MCNTR_EXTTRIGGER_MASK);
+			  RegVal | XAPM_CR_MCNTR_EXTTRIGGER_MASK);
 }
 
 /****************************************************************************/
@@ -1336,10 +1313,10 @@ void XAxiPmon_DisableMetricCounterTrigger(XAxiPmon *InstancePtr)
 	Xil_AssertVoid(InstancePtr->Mode != XAPM_MODE_TRACE);
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-				RegVal & ~(XAPM_CR_MCNTR_EXTTRIGGER_MASK));
+			  RegVal & ~(XAPM_CR_MCNTR_EXTTRIGGER_MASK));
 }
 
 /*****************************************************************************/
@@ -1367,9 +1344,9 @@ void XAxiPmon_EnableEventLogTrigger(XAxiPmon *InstancePtr)
 	Xil_AssertVoid(InstancePtr->Mode != XAPM_MODE_PROFILE);
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-				RegVal | XAPM_CR_EVTLOG_EXTTRIGGER_MASK);
+			  RegVal | XAPM_CR_EVTLOG_EXTTRIGGER_MASK);
 }
 
 /****************************************************************************/
@@ -1397,10 +1374,10 @@ void XAxiPmon_DisableEventLogTrigger(XAxiPmon *InstancePtr)
 	Xil_AssertVoid(InstancePtr->Mode != XAPM_MODE_PROFILE);
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 
 	XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress, XAPM_CTL_OFFSET,
-				RegVal & ~(XAPM_CR_EVTLOG_EXTTRIGGER_MASK));
+			  RegVal & ~(XAPM_CR_EVTLOG_EXTTRIGGER_MASK));
 }
 
 /****************************************************************************/
@@ -1416,79 +1393,79 @@ void XAxiPmon_DisableEventLogTrigger(XAxiPmon *InstancePtr)
 * @note         None
 *
 *****************************************************************************/
-const char * XAxiPmon_GetMetricName(u8 Metrics)
+const char *XAxiPmon_GetMetricName(u8 Metrics)
 {
-	if (Metrics == XAPM_METRIC_SET_0 ){
+	if (Metrics == XAPM_METRIC_SET_0 ) {
 		return "Write Transaction Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_1 ){
-			return "Read Transaction Count";
+	if (Metrics == XAPM_METRIC_SET_1 ) {
+		return "Read Transaction Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_2 ){
-			return "Write Byte Count";
+	if (Metrics == XAPM_METRIC_SET_2 ) {
+		return "Write Byte Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_3 ){
-			return "Read Byte Count";
+	if (Metrics == XAPM_METRIC_SET_3 ) {
+		return "Read Byte Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_4 ){
-			return "Write Beat Count";
+	if (Metrics == XAPM_METRIC_SET_4 ) {
+		return "Write Beat Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_5 ){
-			return "Total Read Latency";
+	if (Metrics == XAPM_METRIC_SET_5 ) {
+		return "Total Read Latency";
 	}
-	if (Metrics == XAPM_METRIC_SET_6 ){
-			return "Total Write Latency";
+	if (Metrics == XAPM_METRIC_SET_6 ) {
+		return "Total Write Latency";
 	}
-	if (Metrics == XAPM_METRIC_SET_7 ){
+	if (Metrics == XAPM_METRIC_SET_7 ) {
 		return "Slv_Wr_Idle_Cnt";
 	}
-	if (Metrics == XAPM_METRIC_SET_8 ){
-			return "Mst_Rd_Idle_Cnt";
+	if (Metrics == XAPM_METRIC_SET_8 ) {
+		return "Mst_Rd_Idle_Cnt";
 	}
-	if (Metrics == XAPM_METRIC_SET_9 ){
-			return "Num_BValids";
+	if (Metrics == XAPM_METRIC_SET_9 ) {
+		return "Num_BValids";
 	}
-	if (Metrics == XAPM_METRIC_SET_10){
+	if (Metrics == XAPM_METRIC_SET_10) {
 		return "Num_WLasts";
 	}
-	if (Metrics == XAPM_METRIC_SET_11){
-			return "Num_RLasts";
+	if (Metrics == XAPM_METRIC_SET_11) {
+		return "Num_RLasts";
 	}
-	if (Metrics == XAPM_METRIC_SET_12){
-			return "Minimum Write Latency";
+	if (Metrics == XAPM_METRIC_SET_12) {
+		return "Minimum Write Latency";
 	}
-	if (Metrics == XAPM_METRIC_SET_13){
-			return "Maximum Write Latency";
+	if (Metrics == XAPM_METRIC_SET_13) {
+		return "Maximum Write Latency";
 	}
-	if (Metrics == XAPM_METRIC_SET_14){
-			return "Minimum Read Latency";
+	if (Metrics == XAPM_METRIC_SET_14) {
+		return "Minimum Read Latency";
 	}
-	if (Metrics == XAPM_METRIC_SET_15){
-			return "Maximum Read Latency";
+	if (Metrics == XAPM_METRIC_SET_15) {
+		return "Maximum Read Latency";
 	}
-	if (Metrics == XAPM_METRIC_SET_16){
-			return "Transfer Cycle Count";
+	if (Metrics == XAPM_METRIC_SET_16) {
+		return "Transfer Cycle Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_17){
-			return "Packet Count";
+	if (Metrics == XAPM_METRIC_SET_17) {
+		return "Packet Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_18){
-			return "Data Byte Count";
+	if (Metrics == XAPM_METRIC_SET_18) {
+		return "Data Byte Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_19){
-			return "Position Byte Count";
+	if (Metrics == XAPM_METRIC_SET_19) {
+		return "Position Byte Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_20){
-			return "Null Byte Count";
+	if (Metrics == XAPM_METRIC_SET_20) {
+		return "Null Byte Count";
 	}
-	if (Metrics == XAPM_METRIC_SET_21){
-			return "Slv_Idle_Cnt";
+	if (Metrics == XAPM_METRIC_SET_21) {
+		return "Slv_Idle_Cnt";
 	}
-	if (Metrics == XAPM_METRIC_SET_22){
-			return "Mst_Idle_Cnt";
+	if (Metrics == XAPM_METRIC_SET_22) {
+		return "Mst_Idle_Cnt";
 	}
-	if (Metrics == XAPM_METRIC_SET_30){
-			return "External event count";
+	if (Metrics == XAPM_METRIC_SET_30) {
+		return "External event count";
 	}
 	return "Unsupported";
 }
@@ -1518,17 +1495,16 @@ void XAxiPmon_SetWriteId(XAxiPmon *InstancePtr, u32 WriteId)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->Config.Is32BitFiltering == 0U)
-	{
+	if (InstancePtr->Config.Is32BitFiltering == 0U) {
 		RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_ID_OFFSET);
+					  XAPM_ID_OFFSET);
 		RegVal = RegVal & ~(XAPM_ID_WID_MASK);
 		RegVal = RegVal | WriteId;
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-					XAPM_ID_OFFSET, RegVal);
+				  XAPM_ID_OFFSET, RegVal);
 	} else {
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-					XAPM_ID_OFFSET, WriteId);
+				  XAPM_ID_OFFSET, WriteId);
 	}
 }
 
@@ -1557,17 +1533,16 @@ void XAxiPmon_SetReadId(XAxiPmon *InstancePtr, u32 ReadId)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->Config.Is32BitFiltering == 0U)
-	{
+	if (InstancePtr->Config.Is32BitFiltering == 0U) {
 		RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_ID_OFFSET);
+					  XAPM_ID_OFFSET);
 		RegVal = RegVal & ~(XAPM_ID_RID_MASK);
 		RegVal = RegVal | (ReadId << 16);
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-					XAPM_ID_OFFSET, RegVal);
+				  XAPM_ID_OFFSET, RegVal);
 	} else {
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-					XAPM_RID_OFFSET, ReadId);
+				  XAPM_RID_OFFSET, ReadId);
 	}
 }
 
@@ -1597,14 +1572,13 @@ u32 XAxiPmon_GetWriteId(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->Config.Is32BitFiltering == 0U)
-	{
+	if (InstancePtr->Config.Is32BitFiltering == 0U) {
 		RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_ID_OFFSET);
+					  XAPM_ID_OFFSET);
 		WriteId = RegVal & XAPM_ID_WID_MASK;
 	} else {
 		WriteId = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_ID_OFFSET);
+					   XAPM_ID_OFFSET);
 	}
 
 	return WriteId;
@@ -1636,15 +1610,14 @@ u32 XAxiPmon_GetReadId(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->Config.Is32BitFiltering == 0U)
-	{
+	if (InstancePtr->Config.Is32BitFiltering == 0U) {
 		RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_ID_OFFSET);
+					  XAPM_ID_OFFSET);
 		RegVal = RegVal & XAPM_ID_RID_MASK;
 		ReadId = RegVal >> 16;
 	} else {
 		ReadId = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_RID_OFFSET);
+					  XAPM_RID_OFFSET);
 	}
 
 	return ReadId;
@@ -1675,16 +1648,15 @@ void XAxiPmon_SetWrLatencyStart(XAxiPmon *InstancePtr, u8 Param)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 	if (Param == XAPM_LATENCY_ADDR_ACCEPT) {
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-		  XAPM_CTL_OFFSET, RegVal | XAPM_CR_WRLATENCY_START_MASK);
-	}
-	else {
+				  XAPM_CTL_OFFSET, RegVal | XAPM_CR_WRLATENCY_START_MASK);
+	} else {
 		XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress,
-			XAPM_CTL_OFFSET,
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress,
-			XAPM_CTL_OFFSET) & ~(XAPM_CR_WRLATENCY_START_MASK));
+				  XAPM_CTL_OFFSET,
+				  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress,
+						   XAPM_CTL_OFFSET) & ~(XAPM_CR_WRLATENCY_START_MASK));
 	}
 }
 
@@ -1714,16 +1686,15 @@ void XAxiPmon_SetWrLatencyEnd(XAxiPmon *InstancePtr, u8 Param)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 	if (Param == XAPM_LATENCY_FIRSTWR) {
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-		  XAPM_CTL_OFFSET, RegVal | XAPM_CR_WRLATENCY_END_MASK);
-	}
-	else {
+				  XAPM_CTL_OFFSET, RegVal | XAPM_CR_WRLATENCY_END_MASK);
+	} else {
 		XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress,
-			XAPM_CTL_OFFSET,
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress,
-			XAPM_CTL_OFFSET) & ~(XAPM_CR_WRLATENCY_END_MASK));
+				  XAPM_CTL_OFFSET,
+				  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress,
+						   XAPM_CTL_OFFSET) & ~(XAPM_CR_WRLATENCY_END_MASK));
 	}
 }
 
@@ -1753,16 +1724,15 @@ void XAxiPmon_SetRdLatencyStart(XAxiPmon *InstancePtr, u8 Param)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 	if (Param == XAPM_LATENCY_ADDR_ACCEPT) {
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-		  XAPM_CTL_OFFSET, RegVal | XAPM_CR_RDLATENCY_START_MASK);
-	}
-	else {
+				  XAPM_CTL_OFFSET, RegVal | XAPM_CR_RDLATENCY_START_MASK);
+	} else {
 		XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress,
-			XAPM_CTL_OFFSET,
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress,
-			XAPM_CTL_OFFSET) & ~(XAPM_CR_RDLATENCY_START_MASK));
+				  XAPM_CTL_OFFSET,
+				  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress,
+						   XAPM_CTL_OFFSET) & ~(XAPM_CR_RDLATENCY_START_MASK));
 	}
 }
 
@@ -1792,16 +1762,15 @@ void XAxiPmon_SetRdLatencyEnd(XAxiPmon *InstancePtr, u8 Param)
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_CTL_OFFSET);
+				  XAPM_CTL_OFFSET);
 	if (Param == XAPM_LATENCY_FIRSTRD) {
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-		  XAPM_CTL_OFFSET, RegVal | XAPM_CR_RDLATENCY_END_MASK);
-	}
-	else {
+				  XAPM_CTL_OFFSET, RegVal | XAPM_CR_RDLATENCY_END_MASK);
+	} else {
 		XAxiPmon_WriteReg((InstancePtr)->Config.BaseAddress,
-			XAPM_CTL_OFFSET,
-			XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress,
-			XAPM_CTL_OFFSET) & ~(XAPM_CR_RDLATENCY_END_MASK));
+				  XAPM_CTL_OFFSET,
+				  XAxiPmon_ReadReg((InstancePtr)->Config.BaseAddress,
+						   XAPM_CTL_OFFSET) & ~(XAPM_CR_RDLATENCY_END_MASK));
 	}
 }
 
@@ -1829,12 +1798,11 @@ u8 XAxiPmon_GetWrLatencyStart(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegVal = (u8)XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							(u32)XAPM_CTL_OFFSET);
+				      (u32)XAPM_CTL_OFFSET);
 	RegVal = RegVal & XAPM_CR_WRLATENCY_START_MASK;
 	if (RegVal != XAPM_LATENCY_ADDR_ISSUE) {
 		return (u8)XAPM_LATENCY_ADDR_ACCEPT;
-	}
-	else {
+	} else {
 		return (u8)XAPM_LATENCY_ADDR_ISSUE;
 	}
 }
@@ -1863,12 +1831,11 @@ u8 XAxiPmon_GetWrLatencyEnd(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegVal = (u8)XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							(u32)XAPM_CTL_OFFSET);
+				      (u32)XAPM_CTL_OFFSET);
 	RegVal = RegVal & XAPM_CR_WRLATENCY_END_MASK;
 	if (RegVal != XAPM_LATENCY_LASTWR) {
 		return (u8)XAPM_LATENCY_FIRSTWR;
-	}
-	else {
+	} else {
 		return (u8)XAPM_LATENCY_LASTWR;
 	}
 }
@@ -1897,13 +1864,12 @@ u8 XAxiPmon_GetRdLatencyStart(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegVal = (u8)XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							(u32)XAPM_CTL_OFFSET);
+				      (u32)XAPM_CTL_OFFSET);
 	RegVal = RegVal & XAPM_CR_RDLATENCY_START_MASK;
 
 	if (RegVal != XAPM_LATENCY_ADDR_ISSUE) {
 		return	(u8)XAPM_LATENCY_ADDR_ACCEPT;
-	}
-	else {
+	} else {
 		return (u8)XAPM_LATENCY_ADDR_ISSUE;
 	}
 }
@@ -1932,12 +1898,11 @@ u8 XAxiPmon_GetRdLatencyEnd(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	RegVal = (u8)XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							(u32)XAPM_CTL_OFFSET);
+				      (u32)XAPM_CTL_OFFSET);
 	RegVal = RegVal & XAPM_CR_RDLATENCY_END_MASK;
 	if (RegVal != XAPM_LATENCY_LASTRD) {
 		return (u8)XAPM_LATENCY_FIRSTRD;
-	}
-	else {
+	} else {
 		return (u8)XAPM_LATENCY_LASTRD;
 	}
 
@@ -1968,17 +1933,16 @@ void XAxiPmon_SetWriteIdMask(XAxiPmon *InstancePtr, u32 WrMask)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->Config.Is32BitFiltering == 0U)
-	{
+	if (InstancePtr->Config.Is32BitFiltering == 0U) {
 		RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_IDMASK_OFFSET);
+					  XAPM_IDMASK_OFFSET);
 		RegVal = RegVal & ~(XAPM_MASKID_WID_MASK);
 		RegVal = RegVal | WrMask;
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-							XAPM_IDMASK_OFFSET, RegVal);
+				  XAPM_IDMASK_OFFSET, RegVal);
 	} else {
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-							XAPM_IDMASK_OFFSET, WrMask);
+				  XAPM_IDMASK_OFFSET, WrMask);
 	}
 }
 
@@ -2007,17 +1971,16 @@ void XAxiPmon_SetReadIdMask(XAxiPmon *InstancePtr, u32 RdMask)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->Config.Is32BitFiltering == 0U)
-	{
+	if (InstancePtr->Config.Is32BitFiltering == 0U) {
 		RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_IDMASK_OFFSET);
+					  XAPM_IDMASK_OFFSET);
 		RegVal = RegVal & ~(XAPM_MASKID_RID_MASK);
 		RegVal = RegVal | (RdMask << 16);
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-					XAPM_IDMASK_OFFSET, RegVal);
+				  XAPM_IDMASK_OFFSET, RegVal);
 	} else {
 		XAxiPmon_WriteReg(InstancePtr->Config.BaseAddress,
-					XAPM_RIDMASK_OFFSET, RdMask);
+				  XAPM_RIDMASK_OFFSET, RdMask);
 	}
 }
 
@@ -2048,14 +2011,13 @@ u32 XAxiPmon_GetWriteIdMask(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->Config.Is32BitFiltering == 0U)
-	{
+	if (InstancePtr->Config.Is32BitFiltering == 0U) {
 		RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_IDMASK_OFFSET);
+					  XAPM_IDMASK_OFFSET);
 		WrMask = RegVal & XAPM_MASKID_WID_MASK;
 	} else {
 		WrMask = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_IDMASK_OFFSET);
+					  XAPM_IDMASK_OFFSET);
 	}
 
 	return WrMask;
@@ -2088,15 +2050,14 @@ u32 XAxiPmon_GetReadIdMask(XAxiPmon *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (InstancePtr->Config.Is32BitFiltering == 0U)
-	{
+	if (InstancePtr->Config.Is32BitFiltering == 0U) {
 		RegVal = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-							XAPM_IDMASK_OFFSET);
+					  XAPM_IDMASK_OFFSET);
 		RegVal = RegVal & XAPM_MASKID_RID_MASK;
 		RdMask = RegVal >> 16;
 	} else {
 		RdMask = XAxiPmon_ReadReg(InstancePtr->Config.BaseAddress,
-								XAPM_RIDMASK_OFFSET);
+					  XAPM_RIDMASK_OFFSET);
 	}
 
 	return RdMask;

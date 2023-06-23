@@ -68,10 +68,10 @@
 
 #ifndef SDT
 int AxiPmonPolledExample(u16 AxiPmonDeviceId, u32 *Metrics, u32 *ClkCntHigh,
-							     u32 *ClkCntLow);
+			 u32 *ClkCntLow);
 #else
 int AxiPmonPolledExample(UINTPTR BaseAddress, u32 *Metrics, u32 *ClkCntHigh,
-							     u32 *ClkCntLow);
+			 u32 *ClkCntLow);
 #endif
 
 /************************** Variable Definitions ****************************/
@@ -106,10 +106,10 @@ int main(void)
 	 */
 #ifndef SDT
 	Status = AxiPmonPolledExample(AXIPMON_DEVICE_ID, &Metrics, &ClkCntHigh,
-								   &ClkCntLow);
+				      &ClkCntLow);
 #else
 	Status = AxiPmonPolledExample(XPAR_XAXIPMON_0_BASEADDR, &Metrics, &ClkCntHigh,
-								   &ClkCntLow);
+				      &ClkCntLow);
 #endif
 
 	if (Status != XST_SUCCESS) {
@@ -156,10 +156,10 @@ int main(void)
 ****************************************************************************/
 #ifndef SDT
 int AxiPmonPolledExample(u16 AxiPmonDeviceId, u32 *Metrics, u32 *ClkCntHigh,
-							     u32 *ClkCntLow)
+			 u32 *ClkCntLow)
 #else
 int AxiPmonPolledExample(UINTPTR BaseAddress, u32 *Metrics, u32 *ClkCntHigh,
-							     u32 *ClkCntLow)
+			 u32 *ClkCntLow)
 #endif
 {
 	int Status;
@@ -182,7 +182,7 @@ int AxiPmonPolledExample(UINTPTR BaseAddress, u32 *Metrics, u32 *ClkCntHigh,
 	}
 
 	XAxiPmon_CfgInitialize(AxiPmonInstPtr, ConfigPtr,
-				ConfigPtr->BaseAddress);
+			       ConfigPtr->BaseAddress);
 
 	/*
 	 * Self Test the System Monitor/ADC device
@@ -199,13 +199,13 @@ int AxiPmonPolledExample(UINTPTR BaseAddress, u32 *Metrics, u32 *ClkCntHigh,
 	 */
 
 	XAxiPmon_SetMetrics(AxiPmonInstPtr, SlotId, XAPM_METRIC_SET_0,
-								XAPM_METRIC_COUNTER_0);
+			    XAPM_METRIC_COUNTER_0);
 
 	/*
 	 * Set Incrementer Ranges
 	 */
 	XAxiPmon_SetIncrementerRange(AxiPmonInstPtr, XAPM_INCREMENTER_0,
-							Range2, Range1);
+				     Range2, Range1);
 	/*
 	 * Enable Metric Counters.
 	 */
@@ -234,7 +234,7 @@ int AxiPmonPolledExample(UINTPTR BaseAddress, u32 *Metrics, u32 *ClkCntHigh,
 
 	/* Get Metric Counter 0  */
 	*Metrics = XAxiPmon_GetMetricCounter(AxiPmonInstPtr,
-						XAPM_METRIC_COUNTER_0);
+					     XAPM_METRIC_COUNTER_0);
 
 	/* Get Global Clock Cycles Count in ClkCntHigh,ClkCntLow */
 	XAxiPmon_GetGlobalClkCounter(AxiPmonInstPtr, ClkCntHigh, ClkCntLow);
