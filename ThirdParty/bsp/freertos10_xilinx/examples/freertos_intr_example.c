@@ -68,6 +68,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 7.3   mus  08/24/20  First release of example which demonstrates interrupt
 *                      handling in FreeRTOS based applications.
+* 1.14  asa  06/23/23  Update the timer interrupt id to support use
+*                      cases where xiltimer or SDT is enabled.
 * </pre>
 ******************************************************************************/
 
@@ -87,7 +89,12 @@
 #include "xttcps.h"
 
 #define	TIMER_DEVICE_ID		XPAR_XTTCPS_3_DEVICE_ID
-#define	TIMER_INTR_ID		XPAR_XTTCPS_3_INTR
+
+#if !defined(XPAR_XILTIMER_ENABLED) && !defined(SDT)
+#define TIMER_INTR_ID		XPAR_XTTCPS_3_INTR
+#else
+#define TIMER_INTR_ID		XPAR_PSU_TTC_3_INTERRUPT_ID
+#endif
 
 /* Instance for ttcps */
 static XTtcPs xTimerInstance;
