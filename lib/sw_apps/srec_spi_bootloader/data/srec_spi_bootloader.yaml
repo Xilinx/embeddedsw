@@ -1,0 +1,29 @@
+# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+%YAML 1.2
+---
+title: Srec_spi_bootloader
+
+maintainers:
+    - Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+
+type: apps
+
+description: Simple bootloader for loading SREC images from non volatile memory (SPI).
+
+depends_libs:
+    xiltimer: {}
+
+depends:
+    axi_quad_spi:
+        - reg
+    axi_spi:
+        - reg
+
+supported_processors:
+  - microblaze
+
+supported_os:
+  - standalone
+...

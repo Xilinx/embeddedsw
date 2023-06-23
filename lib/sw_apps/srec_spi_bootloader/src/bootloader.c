@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,7 +102,11 @@ extern void init_stdout();
 uint8  grab_hex_byte (uint8 *buf);
 int FlashReadID(void);
 
+#if defined (SDT)
+#define SPI_DEVICE_BASEADDR     XPAR_AXI_QUAD_SPI_0_BASEADDR
+#else
 #define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
+#endif
 
 /*
  * The instances to support the device drivers are global such that they
@@ -172,7 +177,11 @@ int main()
 	 * Initialize the SPI driver so that it's ready to use,
 	 * specify the device ID that is generated in xparameters.h.
 	 */
+#if defined (SDT)
+	Status = XSpi_Initialize(&Spi, SPI_DEVICE_BASEADDR);
+#else
 	Status = XSpi_Initialize(&Spi, SPI_DEVICE_ID);
+#endif
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
